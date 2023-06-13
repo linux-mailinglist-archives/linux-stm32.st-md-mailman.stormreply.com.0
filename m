@@ -2,116 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89F7872E114
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 13:15:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E77A372E27E
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jun 2023 14:08:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A053C6A617;
-	Tue, 13 Jun 2023 11:15:06 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92018C6A61A;
+	Tue, 13 Jun 2023 12:08:30 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4A6CC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9199BC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 11:15:04 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20230613111503euoutp02f10a652ac4a5982405f79d4dcbd1fac4~oM7Lj1JlE2101321013euoutp02G
+ Tue, 13 Jun 2023 12:08:27 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-56ce53c0040so37660777b3.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 11:15:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20230613111503euoutp02f10a652ac4a5982405f79d4dcbd1fac4~oM7Lj1JlE2101321013euoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1686654903;
- bh=8MNqKmFBmNPNbL2L39V5adtMllTU04IWiRfgO6kTSoY=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
- b=Sc1ihiwrLnmDOHfF61n1Plq81xkgGB1Tey91Z4N2taAyN0C4JNy22uM9gd9Q9abQb
- qOSnHHoexZC+XRwbzlgaPJY4kMe2fpkwx4wdrjZ7HDtjF76nTcSinVnANijNVxjp3w
- KqMyWLs2h62cjhSLISRZJLFX5i1qKEIXQZGvL83k=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20230613111503eucas1p1cbe1b66e83e237b58f3a087e842dda04~oM7LCGyw-0675806758eucas1p1K;
- Tue, 13 Jun 2023 11:15:03 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id E3.FA.42423.7BF48846; Tue, 13
- Jun 2023 12:15:03 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20230613111502eucas1p2644889c9de1abfe1a14a3b549772f247~oM7KfHuXo0268402684eucas1p2U;
- Tue, 13 Jun 2023 11:15:02 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20230613111502eusmtrp25e1c0fdc110dac9f9919c39e919b5ff5~oM7KeP5tX0735307353eusmtrp2L;
- Tue, 13 Jun 2023 11:15:02 +0000 (GMT)
-X-AuditID: cbfec7f2-a3bff7000002a5b7-a0-64884fb7fd54
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 1C.88.14344.6BF48846; Tue, 13
- Jun 2023 12:15:02 +0100 (BST)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20230613111501eusmtip1d12c9c1424af1c1780034808e376f4d9~oM7Jqb4px2387323873eusmtip1Y;
- Tue, 13 Jun 2023 11:15:01 +0000 (GMT)
-Message-ID: <b8d0272d-0193-fe40-3294-9e32a0235323@samsung.com>
-Date: Tue, 13 Jun 2023 13:15:01 +0200
+ Tue, 13 Jun 2023 05:08:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686658106; x=1689250106;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=ArJBZBiSCycQL9sHnvzcinYezPRGuB1JNtNlNcpo7ME=;
+ b=RpUixOH0iJeRceB0M89qFmTJXKjgHynLZhyf0F5CqKC9lkNqlWyb5YuRHF/Tp3LyxM
+ NqHa3ukNQbCaVH3BCiPpo1epxqUJsf3uyyTfQOXTlDZ+AYe8JGGku/BaQInuNIE5Ry/o
+ PTRuBMpEiOy2JU5jCeIM9bobweVJJ2eCbBH+rTnln3cddBwsLjODVIS7iTG92iP8wmUG
+ bH+me40jLYRBfVWwNFsWMS7L1vQWXw6z8cfF8GUyCJp4pB94nJkwNXqd29mxdISqbCEf
+ xsc8CyafR8Vm1EcOWOU9uj4ykcBmqRbyF8UUiJw4ds7/hjoD+U4HWuAmrWzZjRlLu0xa
+ LeTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686658106; x=1689250106;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ArJBZBiSCycQL9sHnvzcinYezPRGuB1JNtNlNcpo7ME=;
+ b=gZ5mr2CU7HjQZzDKeS1z/rHB9/rPAoydpeJPavc1UE7oSol38itDFWtsRJEh266TY3
+ YmvV01OydSuPztlu9PfcHr2AFQiIkPPQ4QpsvQkbUNsMHusc1I0Ad4lm72beSnPJxBnK
+ Yd5jFswSEeLDFggcvvLKA0ztCpqfHhNVsHlX2rCGehnUw/0ev+Sj8i9Z5gS06xtf/mIa
+ w9lHLCVGXdVk0zT5uRdB3IfEbvA1RAKz6RV6JYyalxFNXmUnPCKC3s4PpyQiW0YJcda1
+ ERuFbDLK3bHa93SUJaJ1jLEJXh/VKmhfqp9nKIY2+k2G5jvuwXD/1/PImIJZIoK2jgih
+ Xj/A==
+X-Gm-Message-State: AC+VfDzIQESgxjmUGjHKiN4Mwn6lNeE2kh8EMOrwSGHzaNl7D8iQPUlX
+ RY7KQ2VYCzNolkQ+TO6s443K9fklV92Wm76VP7PUoQ==
+X-Google-Smtp-Source: ACHHUZ67DWmIIo0zbOpvhIaW6gPil6QfFopK0/7D1kWR4Z3TSN/H/b7MWJmvhOr0752Bk9+2D/q0c9+61pXg0Tv/PTM=
+X-Received: by 2002:a25:b181:0:b0:bcb:7428:789 with SMTP id
+ h1-20020a25b181000000b00bcb74280789mr1278679ybj.64.1686658106113; Tue, 13 Jun
+ 2023 05:08:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0)
- Gecko/20100101 Thunderbird/102.11.2
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: Maxime Ripard <maxime@cerno.tech>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20221018-clk-range-checks-fixes-v4-3-971d5077e7d2@cerno.tech>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrPKsWRmVeSWpSXmKPExsWy7djP87rb/TtSDBbN47a48vU9m8WqqTtZ
- LKY9aWKx2PT4GqvFx557rBZdv1YyW3Ru2spoMWHVNxaLrS/fMVkcW32FzaLr2hNWiyn7drFZ
- dH6ZxWYx48c/RouLp1wt/l3byOIg4PH+Riu7x51z59k8Nq3qZPO4332cyWPzknqPF5tnMnps
- fLeDyaP/r4HHwX2GHp83yQVwRXHZpKTmZJalFunbJXBl/JnwjLmgy6hi55MpbA2M7zS7GDk4
- JARMJJbcUe1i5OQQEljBKLF7m1YXIxeQ/QXI/n2LFcL5zCjR/mMmM0zDqRVREPHljBJ77r1g
- gXA+MkqsmP2NDWQUr4CdxLunrYwgNouAqsT8r6eh4oISJ2c+YQGxRQVSJXZfO8AKYrMJGEp0
- ve0CqxEWCJa4dPIIWFxEoFTi37OpYAuYBY4yS5y8cpsZJMEsIC5x68l8JhCbU8BbYufzu4wQ
- cXmJ5q2zmUEaJAT2c0qsev4VrEhCwEXi3fG9ULawxKvjW9ghbBmJ/ztBBoE0tDNKLPh9H8qZ
- wCjR8PwWI0SVtcSdc7/YQAHALKApsX6XPkTYUeLEt2XQcOGTuPFWEOIIPolJ26ZDhXklOtqE
- IKrVJGYdXwe39uCFS8wTGJVmIYXLLCSvzULyziyEvQsYWVYxiqeWFuempxYb5qWW6xUn5haX
- 5qXrJefnbmIEpsHT/45/2sE499VHvUOMTByMhxglOJiVRHifarSnCPGmJFZWpRblxxeV5qQW
- H2KU5mBREufVtj2ZLCSQnliSmp2aWpBaBJNl4uCUamBSUvC5fNBm6THPE9Wfij5cux31vbCc
- 1+fTh6xfLkWGdfPyv84589HV/0uDnoZwmKk6484L7Efn+3q4ZPixLLr8Nt9Ca7a02NUvvR07
- rNe9k3qh/ffdQgOxhXd3vq47x8u23GaS04OVOf010ucLpqadeTzvXtgEjWnGM+78Lp6u/2R6
- 0XoHjmuXl1SYJE4t6Sq6+LCfqawwa80StaP8rDVfL5zbU/Powpc175P2X+mZ6POKdcPd2+9W
- vuqdbNn4zW3fLhFrtjJR5tpPxX8+dbS18Ql9Fvu2/bBjdcuN2f2fM8x8V+Y9jvkXwu4W9fGZ
- W26mmphmc1v31INprySV3RccOzL7+918Xe4HFXKq+yv6lViKMxINtZiLihMBwRVW/vIDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMIsWRmVeSWpSXmKPExsVy+t/xu7rb/DtSDHZvU7G48vU9m8WqqTtZ
- LKY9aWKx2PT4GqvFx557rBZdv1YyW3Ru2spoMWHVNxaLrS/fMVkcW32FzaLr2hNWiyn7drFZ
- dH6ZxWYx48c/RouLp1wt/l3byOIg4PH+Riu7x51z59k8Nq3qZPO4332cyWPzknqPF5tnMnps
- fLeDyaP/r4HHwX2GHp83yQVwRenZFOWXlqQqZOQXl9gqRRtaGOkZWlroGZlY6hkam8daGZkq
- 6dvZpKTmZJalFunbJehl/JnwjLmgy6hi55MpbA2M7zS7GDk4JARMJE6tiOpi5OIQEljKKNG8
- fhFTFyMnUFxG4uS0BlYIW1jiz7UuNoii94wSh5p2ghXxCthJvHvayghiswioSsz/epoNIi4o
- cXLmExYQW1QgVeLukn6wOJuAoUTX2y4wW1ggWOLSySNgC0QESiU+b93JArKAWeAos8TPkwsZ
- IbZ1M0rMPNwO1sEsIC5x68l8sM2cAt4SO5/fZYSIm0l0be2CsuUlmrfOZp7AKDQLySGzkLTP
- QtIyC0nLAkaWVYwiqaXFuem5xUZ6xYm5xaV56XrJ+bmbGIGxv+3Yzy07GFe++qh3iJGJg/EQ
- owQHs5II71ON9hQh3pTEyqrUovz4otKc1OJDjKbA0JjILCWanA9MPnkl8YZmBqaGJmaWBqaW
- ZsZK4ryeBR2JQgLpiSWp2ampBalFMH1MHJxSDUwmGsZp9memBT/W5njD0DTV9eDmqEsaB9JV
- e8TvLzzw0iqrf+XHjR7u977Gmncc3CR2j/W+V+tTn+TOplyjBf8654kf+nK29Z0Kq29Ez9wd
- JYwCgoy9lzZ3/rMuF3TVjXXb4nBcSHr6zwsvMwU3vnxgzWzzrfHiH74KbQZP+4Mzt5879Ofx
- mX0n7zZeLv4vxaLC6TjhXPo84ykHCjW8N77u/KEewbzrZFi23NkV798k9y1+MnVz98xNVfJ7
- PaafV16yw9u1TkDx0P9sTcV1PD4zjafs3sXQU5/o18E1ef4c75PmIqopU0rump1n0Ti2/dX/
- veJzrKuPrt2y6L6/ufKhmrTEL5Fz4vvusTR1PVijxFKckWioxVxUnAgAahRV9oYDAAA=
-X-CMS-MailID: 20230613111502eucas1p2644889c9de1abfe1a14a3b549772f247
-X-Msg-Generator: CA
-X-RootMTR: 20230613111502eucas1p2644889c9de1abfe1a14a3b549772f247
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20230613111502eucas1p2644889c9de1abfe1a14a3b549772f247
-References: <20221018-clk-range-checks-fixes-v4-0-971d5077e7d2@cerno.tech>
- <20221018-clk-range-checks-fixes-v4-3-971d5077e7d2@cerno.tech>
- <CGME20230613111502eucas1p2644889c9de1abfe1a14a3b549772f247@eucas1p2.samsung.com>
-Cc: linux-rtc@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-mips@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- linux-tegra@vger.kernel.org, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-phy@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 03/68] clk: Move no reparent case into
- a separate function
+References: <20230405-pl180-busydetect-fix-v3-0-cd3d5925ae64@linaro.org>
+ <20230405-pl180-busydetect-fix-v3-10-cd3d5925ae64@linaro.org>
+In-Reply-To: <20230405-pl180-busydetect-fix-v3-10-cd3d5925ae64@linaro.org>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Tue, 13 Jun 2023 14:07:50 +0200
+Message-ID: <CAPDyKFqxvNxFqLdpj15Gz+zDNT04YzxEAh-svKvRuaM52dCV3g@mail.gmail.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 10/10] mmc: mmci: Add busydetect timeout
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,121 +69,138 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMDUuMDUuMjAyMyAxMzoyNSwgTWF4aW1lIFJpcGFyZCB3cm90ZToKPiBGcm9tOiBTdGVwaGVu
-IEJveWQgPHNib3lkQGtlcm5lbC5vcmc+Cj4KPiBXZSdsbCBuZWVkIHRvIHR1cm4gdGhlIGNvZGUg
-aW4gY2xrX211eF9kZXRlcm1pbmVfcmF0ZV9mbGFncygpIHRvIGRlYWwKPiB3aXRoIENMS19TRVRf
-UkFURV9OT19SRVBBUkVOVCBpbnRvIGEgaGVscGVyIGNsb2NrIGRyaXZlcnMgd2lsbCBiZSBhYmxl
-Cj4gdG8gdXNlIGlmIHRoZXkgZG9uJ3Qgd2FudCB0byBhbGxvdyByZXBhcmVudGluZy4KPgo+IENj
-OiBBYmVsIFZlc2EgPGFiZWx2ZXNhQGtlcm5lbC5vcmc+Cj4gQ2M6IEFsZXNzYW5kcm8gWnVtbW8g
-PGEuenVtbW9AdG93ZXJ0ZWNoLml0Pgo+IENjOiBBbGV4YW5kcmUgQmVsbG9uaSA8YWxleGFuZHJl
-LmJlbGxvbmlAYm9vdGxpbi5jb20+Cj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50
-b3JndWVAZm9zcy5zdC5jb20+Cj4gQ2M6ICJBbmRyZWFzIEbDpHJiZXIiIDxhZmFlcmJlckBzdXNl
-LmRlPgo+IENjOiBBbmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubyA8YW5nZWxvZ2lvYWNjaGluby5k
-ZWxyZWdub0Bjb2xsYWJvcmEuY29tPgo+IENjOiBCYW9saW4gV2FuZyA8YmFvbGluLndhbmdAbGlu
-dXguYWxpYmFiYS5jb20+Cj4gQ2M6IENoYXJsZXMgS2VlcGF4IDxja2VlcGF4QG9wZW5zb3VyY2Uu
-Y2lycnVzLmNvbT4KPiBDYzogQ2hlbi1ZdSBUc2FpIDx3ZW5zQGNzaWUub3JnPgo+IENjOiBDaGVu
-LVl1IFRzYWkgPHdlbnN0QGNocm9taXVtLm9yZz4KPiBDYzogQ2h1bnlhbiBaaGFuZyA8emhhbmcu
-bHlyYUBnbWFpbC5jb20+Cj4gQ2M6IENsYXVkaXUgQmV6bmVhIDxjbGF1ZGl1LmJlem5lYUBtaWNy
-b2NoaXAuY29tPgo+IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IERh
-dmlkIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+Cj4gQ2M6IERhdmlkIExlY2huZXIgPGRhdmlk
-QGxlY2hub2xvZ3kuY29tPgo+IENjOiBEaW5oIE5ndXllbiA8ZGluZ3V5ZW5Aa2VybmVsLm9yZz4K
-PiBDYzogRmFiaW8gRXN0ZXZhbSA8ZmVzdGV2YW1AZ21haWwuY29tPgo+IENjOiBHZWVydCBVeXR0
-ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPgo+IENjOiBKYXJvc2xhdiBLeXNlbGEg
-PHBlcmV4QHBlcmV4LmN6Pgo+IENjOiBKZXJuZWogU2tyYWJlYyA8amVybmVqLnNrcmFiZWNAZ21h
-aWwuY29tPgo+IENjOiBKb25hdGhhbiBIdW50ZXIgPGpvbmF0aGFuaEBudmlkaWEuY29tPgo+IENj
-OiBLaXNob24gVmlqYXkgQWJyYWhhbSBJIDxraXNob25Aa2VybmVsLm9yZz4KPiBDYzogTGlhbSBH
-aXJkd29vZCA8bGdpcmR3b29kQGdtYWlsLmNvbT4KPiBDYzogTGludXMgV2FsbGVpaiA8bGludXMu
-d2FsbGVpakBsaW5hcm8ub3JnPgo+IENjOiBMdWNhIENlcmVzb2xpIDxsdWNhLmNlcmVzb2xpQGJv
-b3RsaW4uY29tPgo+IENjOiBNYW5pdmFubmFuIFNhZGhhc2l2YW0gPG1hbmlAa2VybmVsLm9yZz4K
-PiBDYzogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPgo+IENjOiBNYXJrdXMgU2NobmVp
-ZGVyLVBhcmdtYW5uIDxtc3BAYmF5bGlicmUuY29tPgo+IENjOiBNYXggRmlsaXBwb3YgPGpjbXZi
-a2JjQGdtYWlsLmNvbT4KPiBDYzogTWF4aW1lIENvcXVlbGluIDxtY29xdWVsaW4uc3RtMzJAZ21h
-aWwuY29tPgo+IENjOiBNaWtrbyBQZXJ0dHVuZW4gPG1wZXJ0dHVuZW5AbnZpZGlhLmNvbT4KPiBD
-YzogTWlsZXMgQ2hlbiA8bWlsZXMuY2hlbkBtZWRpYXRlay5jb20+Cj4gQ2M6IE5pY29sYXMgRmVy
-cmUgPG5pY29sYXMuZmVycmVAbWljcm9jaGlwLmNvbT4KPiBDYzogT3Jzb24gWmhhaSA8b3Jzb256
-aGFpQGdtYWlsLmNvbT4KPiBDYzogUGF1bCBDZXJjdWVpbCA8cGF1bEBjcmFwb3VpbGxvdS5uZXQ+
-Cj4gQ2M6IFBlbmcgRmFuIDxwZW5nLmZhbkBueHAuY29tPgo+IENjOiBQZXRlciBEZSBTY2hyaWp2
-ZXIgPHBkZXNjaHJpanZlckBudmlkaWEuY29tPgo+IENjOiBQcmFzaGFudCBHYWlrd2FkIDxwZ2Fp
-a3dhZEBudmlkaWEuY29tPgo+IENjOiBSaWNoYXJkIEZpdHpnZXJhbGQgPHJmQG9wZW5zb3VyY2Uu
-Y2lycnVzLmNvbT4KPiBDYzogU2FtdWVsIEhvbGxhbmQgPHNhbXVlbEBzaG9sbGFuZC5vcmc+Cj4g
-Q2M6IFNhc2NoYSBIYXVlciA8cy5oYXVlckBwZW5ndXRyb25peC5kZT4KPiBDYzogU2VraGFyIE5v
-cmkgPG5zZWtoYXJAdGkuY29tPgo+IENjOiBTaGF3biBHdW8gPHNoYXduZ3VvQGtlcm5lbC5vcmc+
-Cj4gQ2M6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5jb20+Cj4gQ2M6IFRoaWVycnkgUmVkaW5n
-IDx0aGllcnJ5LnJlZGluZ0BnbWFpbC5jb20+Cj4gQ2M6IFVsZiBIYW5zc29uIDx1bGYuaGFuc3Nv
-bkBsaW5hcm8ub3JnPgo+IENjOiBWaW5vZCBLb3VsIDx2a291bEBrZXJuZWwub3JnPgo+IENjOiBk
-cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGxpbnV4LWFjdGlvbnNAbGlzdHMu
-aW5mcmFkZWFkLm9yZwo+IENjOiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcK
-PiBDYzogbGludXgtbWlwc0B2Z2VyLmtlcm5lbC5vcmcKPiBDYzogbGludXgtcGh5QGxpc3RzLmlu
-ZnJhZGVhZC5vcmcKPiBDYzogbGludXgtcmVuZXNhcy1zb2NAdmdlci5rZXJuZWwub3JnCj4gQ2M6
-IGxpbnV4LXJ0Y0B2Z2VyLmtlcm5lbC5vcmcKPiBDYzogbGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQo+IENjOiBsaW51eC1zdW54aUBsaXN0cy5saW51eC5kZXYKPiBDYzog
-bGludXgtdGVncmFAdmdlci5rZXJuZWwub3JnCj4gQ2M6IE5YUCBMaW51eCBUZWFtIDxsaW51eC1p
-bXhAbnhwLmNvbT4KPiBDYzogcGF0Y2hlc0BvcGVuc291cmNlLmNpcnJ1cy5jb20KPiBDYzogUGVu
-Z3V0cm9uaXggS2VybmVsIFRlYW0gPGtlcm5lbEBwZW5ndXRyb25peC5kZT4KPiBTaWduZWQtb2Zm
-LWJ5OiBTdGVwaGVuIEJveWQgPHNib3lkQGtlcm5lbC5vcmc+Cj4gU2lnbmVkLW9mZi1ieTogTWF4
-aW1lIFJpcGFyZCA8bWF4aW1lQGNlcm5vLnRlY2g+Cj4gLS0tCgpUaGlzIHBhdGNoIGxhbmRlZCBp
-biB0b2RheSdzIGxpbnV4LW5leHQgYXMgY29tbWl0IDFiNGU5OWZkYTczZiAoImNsazogCk1vdmUg
-bm8gcmVwYXJlbnQgY2FzZSBpbnRvIGEgc2VwYXJhdGUgZnVuY3Rpb24iKS4gVW5mb3J0dW5hdGVs
-eSBpdCAKY2F1c2VzIHNlcmlvdXMgcmVncmVzc2lvbiBvZiBzb21lIG9mIG15IHRlc3QgYm9hcmRz
-LiBOYW1lbHkgRXh5bm9zMzI1MCAKYmFzZWQgYm9hcmRzIGFyZSBzbyBzbG93IGFmdGVyIGl0LCB0
-aGF0IG15IHRlc3Qgc2NyaXB0cyBmYWlsIHdpdGggYSAKdGltZW91dCB3YWl0aW5nIGZvciB0aGVt
-IHRvIGZpbmlzaCBib290aW5nLiBJIHdpbGwgdHJ5IHRvIGRlYnVnIHRoaXMgCmxhdGVyIGluIHRo
-ZSBldmVuaW5nIHRvIGNoZWNrIHdoYXQgaGFzIGhhcHBlbmVkIHRoYXQgc29tZSBjbG9ja3MgZ290
-IAp2ZXJ5IGxvdyByYXRlLgoKCj4gZHJpdmVycy9jbGsvY2xrLmMgfCA3NSAKPiArKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gMSBmaWxlIGNo
-YW5nZWQsIDQzIGluc2VydGlvbnMoKyksIDMyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvY2xrL2Nsay5jIGIvZHJpdmVycy9jbGsvY2xrLmMKPiBpbmRleCBlNDk1ZGQ3YTFl
-YWUuLmY1N2Y4MjFhNWU1YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2Nsay9jbGsuYwo+ICsrKyBi
-L2RyaXZlcnMvY2xrL2Nsay5jCj4gQEAgLTU5NCw2ICs1OTQsNDYgQEAgY2xrX2NvcmVfZm9yd2Fy
-ZF9yYXRlX3JlcShzdHJ1Y3QgY2xrX2NvcmUgKmNvcmUsCj4gcmVxLT5tYXhfcmF0ZSA9IG9sZF9y
-ZXEtPm1heF9yYXRlOwo+IH0KPiArc3RhdGljIGludAo+ICtjbGtfY29yZV9kZXRlcm1pbmVfcmF0
-ZV9ub19yZXBhcmVudChzdHJ1Y3QgY2xrX2h3ICpodywKPiArIHN0cnVjdCBjbGtfcmF0ZV9yZXF1
-ZXN0ICpyZXEpCj4gK3sKPiArIHN0cnVjdCBjbGtfY29yZSAqY29yZSA9IGh3LT5jb3JlOwo+ICsg
-c3RydWN0IGNsa19jb3JlICpwYXJlbnQgPSBjb3JlLT5wYXJlbnQ7Cj4gKyB1bnNpZ25lZCBsb25n
-IGJlc3Q7Cj4gKyBpbnQgcmV0Owo+ICsKPiArIGlmIChjb3JlLT5mbGFncyAmIENMS19TRVRfUkFU
-RV9QQVJFTlQpIHsKPiArIHN0cnVjdCBjbGtfcmF0ZV9yZXF1ZXN0IHBhcmVudF9yZXE7Cj4gKwo+
-ICsgaWYgKCFwYXJlbnQpIHsKPiArIHJlcS0+cmF0ZSA9IDA7Cj4gKyByZXR1cm4gMDsKPiArIH0K
-PiArCj4gKyBjbGtfY29yZV9mb3J3YXJkX3JhdGVfcmVxKGNvcmUsIHJlcSwgcGFyZW50LCAmcGFy
-ZW50X3JlcSwKPiArIHJlcS0+cmF0ZSk7Cj4gKwo+ICsgdHJhY2VfY2xrX3JhdGVfcmVxdWVzdF9z
-dGFydCgmcGFyZW50X3JlcSk7Cj4gKwo+ICsgcmV0ID0gY2xrX2NvcmVfcm91bmRfcmF0ZV9ub2xv
-Y2socGFyZW50LCAmcGFyZW50X3JlcSk7Cj4gKyBpZiAocmV0KQo+ICsgcmV0dXJuIHJldDsKPiAr
-Cj4gKyB0cmFjZV9jbGtfcmF0ZV9yZXF1ZXN0X2RvbmUoJnBhcmVudF9yZXEpOwo+ICsKPiArIGJl
-c3QgPSBwYXJlbnRfcmVxLnJhdGU7Cj4gKyB9IGVsc2UgaWYgKHBhcmVudCkgewo+ICsgYmVzdCA9
-IGNsa19jb3JlX2dldF9yYXRlX25vbG9jayhwYXJlbnQpOwo+ICsgfSBlbHNlIHsKPiArIGJlc3Qg
-PSBjbGtfY29yZV9nZXRfcmF0ZV9ub2xvY2soY29yZSk7Cj4gKyB9Cj4gKwo+ICsgcmVxLT5yYXRl
-ID0gYmVzdDsKPiArCj4gKyByZXR1cm4gMDsKPiArfQo+ICsKPiBpbnQgY2xrX211eF9kZXRlcm1p
-bmVfcmF0ZV9mbGFncyhzdHJ1Y3QgY2xrX2h3ICpodywKPiBzdHJ1Y3QgY2xrX3JhdGVfcmVxdWVz
-dCAqcmVxLAo+IHVuc2lnbmVkIGxvbmcgZmxhZ3MpCj4gQEAgLTYwMywzNSArNjQzLDggQEAgaW50
-IGNsa19tdXhfZGV0ZXJtaW5lX3JhdGVfZmxhZ3Moc3RydWN0IGNsa19odyAqaHcsCj4gdW5zaWdu
-ZWQgbG9uZyBiZXN0ID0gMDsKPiAvKiBpZiBOT19SRVBBUkVOVCBmbGFnIHNldCwgcGFzcyB0aHJv
-dWdoIHRvIGN1cnJlbnQgcGFyZW50ICovCj4gLSBpZiAoY29yZS0+ZmxhZ3MgJiBDTEtfU0VUX1JB
-VEVfTk9fUkVQQVJFTlQpIHsKPiAtIHBhcmVudCA9IGNvcmUtPnBhcmVudDsKPiAtIGlmIChjb3Jl
-LT5mbGFncyAmIENMS19TRVRfUkFURV9QQVJFTlQpIHsKPiAtIHN0cnVjdCBjbGtfcmF0ZV9yZXF1
-ZXN0IHBhcmVudF9yZXE7Cj4gLQo+IC0gaWYgKCFwYXJlbnQpIHsKPiAtIHJlcS0+cmF0ZSA9IDA7
-Cj4gLSByZXR1cm4gMDsKPiAtIH0KPiAtCj4gLSBjbGtfY29yZV9mb3J3YXJkX3JhdGVfcmVxKGNv
-cmUsIHJlcSwgcGFyZW50LCAmcGFyZW50X3JlcSwgcmVxLT5yYXRlKTsKPiAtCj4gLSB0cmFjZV9j
-bGtfcmF0ZV9yZXF1ZXN0X3N0YXJ0KCZwYXJlbnRfcmVxKTsKPiAtCj4gLSByZXQgPSBjbGtfY29y
-ZV9yb3VuZF9yYXRlX25vbG9jayhwYXJlbnQsICZwYXJlbnRfcmVxKTsKPiAtIGlmIChyZXQpCj4g
-LSByZXR1cm4gcmV0Owo+IC0KPiAtIHRyYWNlX2Nsa19yYXRlX3JlcXVlc3RfZG9uZSgmcGFyZW50
-X3JlcSk7Cj4gLQo+IC0gYmVzdCA9IHBhcmVudF9yZXEucmF0ZTsKPiAtIH0gZWxzZSBpZiAocGFy
-ZW50KSB7Cj4gLSBiZXN0ID0gY2xrX2NvcmVfZ2V0X3JhdGVfbm9sb2NrKHBhcmVudCk7Cj4gLSB9
-IGVsc2Ugewo+IC0gYmVzdCA9IGNsa19jb3JlX2dldF9yYXRlX25vbG9jayhjb3JlKTsKPiAtIH0K
-PiAtCj4gLSBnb3RvIG91dDsKPiAtIH0KPiArIGlmIChjb3JlLT5mbGFncyAmIENMS19TRVRfUkFU
-RV9OT19SRVBBUkVOVCkKPiArIHJldHVybiBjbGtfY29yZV9kZXRlcm1pbmVfcmF0ZV9ub19yZXBh
-cmVudChodywgcmVxKTsKPiAvKiBmaW5kIHRoZSBwYXJlbnQgdGhhdCBjYW4gcHJvdmlkZSB0aGUg
-ZmFzdGVzdCByYXRlIDw9IHJhdGUgKi8KPiBudW1fcGFyZW50cyA9IGNvcmUtPm51bV9wYXJlbnRz
-Owo+IEBAIC02NzAsOSArNjgzLDcgQEAgaW50IGNsa19tdXhfZGV0ZXJtaW5lX3JhdGVfZmxhZ3Mo
-c3RydWN0IGNsa19odyAqaHcsCj4gaWYgKCFiZXN0X3BhcmVudCkKPiByZXR1cm4gLUVJTlZBTDsK
-PiAtb3V0Ogo+IC0gaWYgKGJlc3RfcGFyZW50KQo+IC0gcmVxLT5iZXN0X3BhcmVudF9odyA9IGJl
-c3RfcGFyZW50LT5odzsKPiArIHJlcS0+YmVzdF9wYXJlbnRfaHcgPSBiZXN0X3BhcmVudC0+aHc7
-Cj4gcmVxLT5iZXN0X3BhcmVudF9yYXRlID0gYmVzdDsKPiByZXEtPnJhdGUgPSBiZXN0Owo+CkJl
-c3QgcmVnYXJkcwoKLS0gCk1hcmVrIFN6eXByb3dza2ksIFBoRApTYW1zdW5nIFImRCBJbnN0aXR1
-dGUgUG9sYW5kCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+On Sun, 11 Jun 2023 at 21:41, Linus Walleij <linus.walleij@linaro.org> wrote:
+>
+> Add a timeout for busydetect IRQs using a delayed work.
+> It might happen (and does happen) on Ux500 that the first
+> busy detect IRQ appears and not the second one. This will
+> make the host hang indefinitely waiting for the second
+> IRQ to appear.
+>
+> Fire a delayed work after 10ms and re-engage the command
+> IRQ so the transaction finishes: we are certainly done
+> at this point, or we will catch an error in the status
+> register.
+
+A fixed value of 10ms doesn't work. We have lots of commands that are
+associated with way longer timeouts than this.
+
+Typically, the cmd->busy_timeout contains the current value of the
+timeout that should be used for the commands that have the flags
+MMC_RSP_BUSY set for it.
+
+The stm variant already uses cmd->busy_timeout, but also assigns a
+default timeout, just to make sure if the core has failed to set
+cmd->busy_timeout (it shouldn't but who knows).
+
+A few more more comments to code, see below.
+
+>
+> This makes the eMMC work again on Skomer.
+>
+> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+> ---
+> ChangeLog v2->v3:
+> - Rebased.
+> ChangeLog v1->v2:
+> - No changes
+> ---
+>  drivers/mmc/host/mmci.c | 23 +++++++++++++++++++++++
+>  drivers/mmc/host/mmci.h |  1 +
+>  2 files changed, 24 insertions(+)
+>
+> diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+> index 05b8fad26c10..7e40b8f2dbf3 100644
+> --- a/drivers/mmc/host/mmci.c
+> +++ b/drivers/mmc/host/mmci.c
+> @@ -37,6 +37,7 @@
+>  #include <linux/pinctrl/consumer.h>
+>  #include <linux/reset.h>
+>  #include <linux/gpio/consumer.h>
+> +#include <linux/workqueue.h>
+>
+>  #include <asm/div64.h>
+>  #include <asm/io.h>
+> @@ -741,6 +742,8 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+>                         host->busy_status |= status & (MCI_CMDSENT | MCI_CMDRESPEND);
+>                         writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+>                         host->busy_state = MMCI_BUSY_WAITING_FOR_END_IRQ;
+> +                       schedule_delayed_work(&host->busy_timeout_work,
+> +                                             msecs_to_jiffies(10));
+>                 } else {
+>                         dev_dbg(mmc_dev(host->mmc),
+>                                 "lost busy status when waiting for busy start IRQ\n");
+> @@ -752,6 +755,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+>                 if (status & host->variant->busy_detect_flag) {
+>                         host->busy_status |= status & (MCI_CMDSENT | MCI_CMDRESPEND);
+>                         writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+> +                       cancel_delayed_work_sync(&host->busy_timeout_work);
+>                         ux500_busy_clear_mask_done(host);
+>                 } else {
+>                         dev_dbg(mmc_dev(host->mmc),
+> @@ -1487,6 +1491,22 @@ mmci_cmd_irq(struct mmci_host *host, struct mmc_command *cmd,
+>         }
+>  }
+>
+> +/*
+> + * This busy timeout worker is used to "kick" the command IRQ if a
+> + * busy detect IRQ fails to appear in reasonable time. Only used on
+> + * variants with busy detection IRQ delivery.
+> + */
+> +static void busy_timeout_work(struct work_struct *work)
+> +{
+> +       struct mmci_host *host =
+> +               container_of(work, struct mmci_host, busy_timeout_work.work);
+> +       u32 status;
+> +
+> +       dev_dbg(mmc_dev(host->mmc), "timeout waiting for busy IRQ\n");
+> +       status = readl(host->base + MMCISTATUS);
+> +       mmci_cmd_irq(host, host->cmd, status);
+
+There's no locking here. I assume that's because we call
+cancel_delayed_work_sync() from an atomic context and we don't want
+that to hang.
+
+However, can't the call to mmci_cmd_irq() race with a proper irq being
+managed in parallel?
+
+> +}
+> +
+>  static int mmci_get_rx_fifocnt(struct mmci_host *host, u32 status, int remain)
+>  {
+>         return remain - (readl(host->base + MMCIFIFOCNT) << 2);
+> @@ -2300,6 +2320,9 @@ static int mmci_probe(struct amba_device *dev,
+>                         goto clk_disable;
+>         }
+>
+> +       if (host->variant->busy_detect && host->ops->busy_complete)
+> +               INIT_DELAYED_WORK(&host->busy_timeout_work, busy_timeout_work);
+> +
+>         writel(MCI_IRQENABLE | variant->start_err, host->base + MMCIMASK0);
+>
+>         amba_set_drvdata(dev, mmc);
+> diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+> index 12a7bbd3ce26..95d3d0a6049b 100644
+> --- a/drivers/mmc/host/mmci.h
+> +++ b/drivers/mmc/host/mmci.h
+> @@ -451,6 +451,7 @@ struct mmci_host {
+>         void                    *dma_priv;
+>
+>         s32                     next_cookie;
+> +       struct delayed_work     busy_timeout_work;
+>  };
+>
+>  #define dma_inprogress(host)   ((host)->dma_in_progress)
+>
+
+Kind regards
+Uffe
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
