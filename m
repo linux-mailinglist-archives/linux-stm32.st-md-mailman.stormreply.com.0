@@ -2,66 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B06C72FC37
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 13:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53DE672FE2B
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 14:16:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4ADE0C6A61A;
-	Wed, 14 Jun 2023 11:17:52 +0000 (UTC)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06876C6A61A;
+	Wed, 14 Jun 2023 12:16:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F698C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44A85C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 11:17:50 +0000 (UTC)
-Received: by mail-yb1-f178.google.com with SMTP id
- 3f1490d57ef6-bc43a73ab22so812138276.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 04:17:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686741470; x=1689333470;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/t09tdI1hKeXFBl3mW1z4mXFtI09hFjwV3/4CRkA0BA=;
- b=NJa5Mo/SsCrehAturYHySGvDtywWDo7BOp7PMYt8cTf6Ycetl2VVbRWeWGxTO3HUfy
- jDjcZDGGO7HSfH1YWqcbVaOTTmKwhQWdcPHMfVYCUslnZLwFtW3M8gd3w1HUROmbkXxZ
- JStFLHi89rfDB7AB+6rEXkDmfu390Ax4K0UsOJa3OHd2PVWMxgv68IRXnVe5m8HOTm3H
- JE9bBT7MyIb3WCeO+1bizUuWk96M8Y/dbV1mrVRr12AXfz3BCWHbi5mAvevWxuCvliFt
- YDPDXCv3JzpN5nocHSKgHm0rh6a3s+BzkzONxqa8dSqV/r8KN03mnzJSG+cpT5cw0DXr
- A6aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686741470; x=1689333470;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/t09tdI1hKeXFBl3mW1z4mXFtI09hFjwV3/4CRkA0BA=;
- b=OHVSQQiNWq8AhTCFssYGfOIGwXQsqoR3M+3raChrXTTonKYUNTY+veIyCvk7yesSHa
- TIMTSGat3JboP+2/vO1rFP99pVgYRGL9CYYYdusY+KfwUGmIaui1R2ZliQ+jCqe0DgkN
- rTGnrkZTbp5e0rlfTinpk08fJ6VbLSW2r55bgNlp6koD2MTiPy9Pby5VwGB1pEEZKs2x
- muHpZXjFRAFaIa09Vtb0QCi0w5MkjwPKVphTz5JHvhkY6oEFQOXv0hk0/AgdPwHn3Tf/
- uVSfgcl9zDt7sU3eWOc0cW+JkXEe7whOwyd885buUPdfaYBN8qnVYw5ZmMExWVTSaqMI
- 597w==
-X-Gm-Message-State: AC+VfDwYyx4euQQaKSIXlYdLMPge0DO+gWdeVm+iipVnA8svkiN9n1/Q
- ZBohZY+xPoZ619fJ9ojOsLCdftw1w/xt0my4j74q4w==
-X-Google-Smtp-Source: ACHHUZ5iHcieZrZoFD02SZ14yhYuZcLT8k/k/P8O58Hyna840pyLj4sPqIEC/1tV9M4aM4UvaotFJX6caTmjf/dl2Zc=
-X-Received: by 2002:a25:258b:0:b0:bc8:42db:2c07 with SMTP id
- l133-20020a25258b000000b00bc842db2c07mr1503220ybl.25.1686741469919; Wed, 14
- Jun 2023 04:17:49 -0700 (PDT)
+ Wed, 14 Jun 2023 12:16:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0C0BE63437;
+ Wed, 14 Jun 2023 12:16:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16384C433C0;
+ Wed, 14 Jun 2023 12:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686744976;
+ bh=KONbjq4rJQQJic1hHon1ie/Ekdj395YZ8PBC63PLpeY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BRdbC8mQyi1BfZxbcfGcbdMbObXSdrsf9RwceswN5hVqwfT32GTV9pUVM4jWRBMzt
+ +wIWm2CG8RNulzEWnADIyPoNve4bgFTusHb1N1iJGc9QL58XcP7aHLEN6M/hfCzxyJ
+ baeQxARyeuLWhG1T9dQY57sbRezI+uVYUl/EqSnuU/KZh2dhnZ1ATrFRzWnYqjETom
+ XzFiXGIH5Pe/qPsV2zQcEJsqrMNYLYo80BI8ZbKeriWQcgOrzaBJEGdjltNl6+jO8O
+ wAAV4EXZT9sfwB9kP3pdoUgmW3+rFZ5D1TqMvLWq8oyl5fWpvrr1VdvnwKUKPnsJSO
+ /PLe6lNGN7dpg==
+Date: Wed, 14 Jun 2023 13:16:10 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Valentin Caron <valentin.caron@foss.st.com>
+Message-ID: <d0b62ef2-5355-4c00-9ff6-4ea9995ec0e1@sirena.org.uk>
+References: <20230614102628.202936-1-valentin.caron@foss.st.com>
 MIME-Version: 1.0
-References: <20230405-pl180-busydetect-fix-v3-0-cd3d5925ae64@linaro.org>
- <20230405-pl180-busydetect-fix-v3-10-cd3d5925ae64@linaro.org>
- <CAPDyKFqxvNxFqLdpj15Gz+zDNT04YzxEAh-svKvRuaM52dCV3g@mail.gmail.com>
- <CACRpkdbg5UXnU=WcQa2HoGH54UK-C8+vU8t+7iLChvd__iJiMg@mail.gmail.com>
- <CAPDyKFoMNPHs3td-UBnqDdEK4i7aHybWfsba796BEXPQC-bzUQ@mail.gmail.com>
-In-Reply-To: <CAPDyKFoMNPHs3td-UBnqDdEK4i7aHybWfsba796BEXPQC-bzUQ@mail.gmail.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 14 Jun 2023 13:17:38 +0200
-Message-ID: <CACRpkdbYNn0S7AXn_sbPb+o8L_DcffKat=tR0mLtNiBhgy7UEg@mail.gmail.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>
-Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 10/10] mmc: mmci: Add busydetect timeout
+In-Reply-To: <20230614102628.202936-1-valentin.caron@foss.st.com>
+X-Cookie: At participating locations only.
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] spi: stm32: add spi slave mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,21 +56,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4036574266625689953=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKdW4gMTQsIDIwMjMgYXQgMTI6MDXigK9QTSBVbGYgSGFuc3NvbiA8dWxmLmhhbnNz
-b25AbGluYXJvLm9yZz4gd3JvdGU6Cgo+IEhvd2V2ZXIsIHdlIHVzZSB0aGUgc3Bpbl9sb2NrIHRv
-IHByb3RlY3Qgc29tZSBtZW1iZXJzIGluIHRoZSBzdHJ1Y3QKPiBtbWNpX2hvc3QuIEluIHRoaXMg
-Y2FzZSwgdGhlIG1tY2lfY21kX2lycSgpIGlzIHVzaW5nICJob3N0LT5jbWQiIHRvCj4gdW5kZXJz
-dGFuZCB3aGV0aGVyIHRoZXJlIGlzIGFuIGFjdGl2ZSBjb21tYW5kIHRvIG1hbmFnZS4gV2hlbiB0
-aGUKPiBjb21tYW5kIGhhcyBiZWVuIGNvbXBsZXRlZCwgd2Ugc2V0IGhvc3QtPmNtZCB0byBOVUxM
-LgoKSG0gcmlnaHQuLi4KCkknbSBsZWFuaW5nIHRvd2FyZCBzb21lIGNhdGNoLWFsbCBsaWtlOgoK
-aWYgKCFob3N0LT5jbWQpCiAgc3RhdGUgPSBNTUNJX0JVU1lfRE9ORTsKCmFzIGlmIHRoZXJlIGlz
-IG5vIGNvbW1hbmQgZ29pbmcgb24gdGhlbiBzdXJlbHkgbm90aGluZyBpcyBidXN5IG9uIHRoZQpo
-b3N0IGNvbnRyb2xsZXIuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============4036574266625689953==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xsbh6SZE0ffTF5Fr"
+Content-Disposition: inline
+
+
+--xsbh6SZE0ffTF5Fr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Jun 14, 2023 at 12:26:23PM +0200, Valentin Caron wrote:
+> STM32 SPI can operate in slave mode.
+> This series add this functionnality in spi-stm32 driver.
+
+The more modern terminology here is device mode.
+
+--xsbh6SZE0ffTF5Fr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSJr4kACgkQJNaLcl1U
+h9Ag3gf+LLqdQq0z4sfFAJOLfVZqO0E38o7KHUE8gSP6VvTWuhZpt6VCzZ9tm5+D
+KCcckmQKCsedk6yQAqjyA/udx1gKX2+M6YJzjcdBw+0IlFaar5WfhNHJSFAR6nmW
+Ygr69XT2eVRJ+Zefc9vnUyhug6FZyrb4BcjB90kTpIPkGrtQr78v+GADRbU2tMHU
+bHjD7lQ6aDYxP3kYjLfz4MHilWV9VctyCT8ryvTZ6Gr1KROhiJ3LECX9DI0QDhCr
+GwRBoaCmvNfUD77+AjuRBIyqpR8zBMH4QPoc00jxXwqJky8dLAAknbqbzH9d3czf
+jMV62p05IqlFlK/utF7MjJx1DwF6cg==
+=YvVo
+-----END PGP SIGNATURE-----
+
+--xsbh6SZE0ffTF5Fr--
+
+--===============4036574266625689953==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4036574266625689953==--
