@@ -2,72 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7521D72F492
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 08:17:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4800F72F8F4
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 11:24:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28568C6B454;
-	Wed, 14 Jun 2023 06:17:38 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E54CCC6A61A;
+	Wed, 14 Jun 2023 09:24:24 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82E0EC6B454
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2375AC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 20:34:34 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-4f74cda5f1dso3038464e87.3
+ Wed, 14 Jun 2023 09:24:23 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-30e3caa6aa7so6434366f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jun 2023 13:34:34 -0700 (PDT)
+ Wed, 14 Jun 2023 02:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686688474; x=1689280474;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=SAfIo/HStS4ssmJ5VnFiRuxpA+ACqAiRQGlqQ7Ljwos=;
- b=J9jgl1fHcdpUNuOaw8NgNxbIqW9ldZJGhghSwketWliDS3ppFYG1x1QXcJ/Gyv6gWI
- CC3fFu8jUh1ymG75hNlIh/1KsbNjfgZN6d02JSA19Gmd3Ro6xPkL9xMBQAHuQ5HJ+ojV
- id3kYghTPHZVL5Ku8jMZQpiPzciWWePbIqX0cf1uY+dUesHp79NcQBmOpHCi/7hZncAp
- t6TiFGmRBYtSuuvjH2V79rxQHeKuDjyVv2QjyoDiJjRsC8FhIp0HPZ3MsKZ1DGjS4PGd
- /hkJSIhLEf1OHsAy41qNeyMjv5mHc79km2qGSJgiMFwy2JuWohXl5KW9eRdfUCcypiPx
- 5oWQ==
+ d=gmail.com; s=20221208; t=1686734662; x=1689326662;
+ h=in-reply-to:content-disposition:mime-version:references:subject:cc
+ :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=7vhykEG+gmq52oSNnSPExwEhKf++8eJ31Faf/uybBvo=;
+ b=MZ/7VuHlf5M9nJ6GXXGSP1shZRtsCCaJ2g1j1OJitRZdfzuJO4bcP/WrJK9xlZx0Oo
+ hpw/s/lLqJdUEWkv2tTQCMhlLKqD+wY5oNP7anb9MBqGoYJs964f2fdBDojrxtRFaTGp
+ pJwciX0i1lH9vnHrK/eRFArcpXq/aW9x5BJicwhqtCTndYKjjgwsXAgVAh+b3Wz46Y3i
+ rO3TqSCN9HsfV0/sHavO/kdnTDIFagXodFR5Qg+JWuF7odcqYGYdOgnqbfwXGe3nCVGj
+ jCndsch5YUCIWn23HGTU8YtfqebJ1Y0dCpAqcbRK9NW5x6D/XmN4K6h8XDnSPloszexE
+ fgeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686688474; x=1689280474;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=SAfIo/HStS4ssmJ5VnFiRuxpA+ACqAiRQGlqQ7Ljwos=;
- b=FkQ1FMjMMse9PeFw2+BNwoqM20bPlkPgK0TxNW7gujjxmu/kvFOSCtgj34MgzO5dIJ
- 1dp3dvhwCIqrABrQuaT5HBfZjpfpLuMzRaw9sAFWVVW6VlsNxjHIRC9hQOGQNO8gKVK9
- 91lwIalYGQzCPWFO9VDEgecpV8NPYpJftUfwk/Elq5AukXhfi+QB4ZM5fqv9zMQR6ozQ
- v9yZDUwQJsPiAckZBtfCqVZkIbZSEK6VtLhDQ7vq48caiSOmOLSQT/OW8lJy7w7yhaPw
- k2qHEedVlga3AThNH1PBannfkM7loQpOp5HYPSB4oh1TcaH5UqwOti8UEx0RWDVNBH6l
- JFqA==
-X-Gm-Message-State: AC+VfDxLJAqa6TpQMqGEMHHNf9jUEWwrSw3soQ/WPN0+KR47FwPxCVAp
- kTtHFzdobYGdYKvzEb9iAvLFoACOhaCi7XNLsoC/lQ==
-X-Google-Smtp-Source: ACHHUZ5xvUSgzRJCXb8G6VFIK8RZEFvMypqc6eZdYCcV/6Cf2jx9ee1Qy9lYaQlE/YexEGmCv5ixZw==
-X-Received: by 2002:a19:5e18:0:b0:4dc:807a:d144 with SMTP id
- s24-20020a195e18000000b004dc807ad144mr6502866lfb.39.1686688473988; 
- Tue, 13 Jun 2023 13:34:33 -0700 (PDT)
-Received: from [192.168.1.2] (c-05d8225c.014-348-6c756e10.bbcust.telenor.se.
- [92.34.216.5]) by smtp.gmail.com with ESMTPSA id
- l12-20020a19c20c000000b004f26f699e9dsm1897813lfc.184.2023.06.13.13.34.33
+ d=1e100.net; s=20221208; t=1686734662; x=1689326662;
+ h=in-reply-to:content-disposition:mime-version:references:subject:cc
+ :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7vhykEG+gmq52oSNnSPExwEhKf++8eJ31Faf/uybBvo=;
+ b=Oo+cc+zw4a0NNKQlK9wNBGRUArtrpnq0Sx/JSi6+tOqgpYsFog4d78Lr9Sle/JSCZ6
+ BZK9+1uTYJ8p20zZhhBKvcganOh3uPfyL+rQzV1ysvnmxq/exS8c6JZ5QRi3iWg0l+Vb
+ dfbvCPmIyTabqcAfLV1Gd/hxE1bSW7evuFvQ5Udc/NFiACKmoJNdGO7uxVboYuQTS2Sp
+ dKLJPmClE4y36quN+oIP0OMxGwsBf1R0O3VExbiXl2h6RDRmCVvl9nNR6DUuI13j5e9O
+ oR83sf8mCKHpzER2zZchg/MXxo9gBkdwTrmvkG40YpAstcCX6VBQaGf+VYIubKcr519e
+ gsyQ==
+X-Gm-Message-State: AC+VfDyUwKVWzlT4WzysWq61hA3V6u0sCHxBPNI5ht1/i4nMGIVCySlv
+ zmRSt4mXn25pyGsdJImroLQ=
+X-Google-Smtp-Source: ACHHUZ5EYjmX3Te3NRl5NRfUn4gvi77Sf9p4U7ex2tQl76NC2IloI4S7UAWui12wcDHsMggxAlCHCA==
+X-Received: by 2002:adf:fcc1:0:b0:30a:e369:5acb with SMTP id
+ f1-20020adffcc1000000b0030ae3695acbmr10329954wrs.68.1686734662140; 
+ Wed, 14 Jun 2023 02:24:22 -0700 (PDT)
+Received: from Ansuel-xps. (93-34-93-173.ip49.fastwebnet.it. [93.34.93.173])
+ by smtp.gmail.com with ESMTPSA id
+ d17-20020a5d6dd1000000b003095bd71159sm17777371wrz.7.2023.06.14.02.24.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jun 2023 13:34:33 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 13 Jun 2023 22:34:25 +0200
+ Wed, 14 Jun 2023 02:24:21 -0700 (PDT)
+Message-ID: <64898745.5d0a0220.546a.a6f1@mx.google.com>
+X-Google-Original-Message-ID: <ZIki6HMOBlgvBURh@Ansuel-xps.>
+Date: Wed, 14 Jun 2023 04:16:08 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Jose Abreu <Jose.Abreu@synopsys.com>
+References: <20220723142933.16030-1-ansuelsmth@gmail.com>
+ <20220723142933.16030-5-ansuelsmth@gmail.com>
+ <DM4PR12MB508882D5BE351BD756A7A9A4D35AA@DM4PR12MB5088.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Message-Id: <20230405-pl180-busydetect-fix-v4-9-df9c8c504353@linaro.org>
-References: <20230405-pl180-busydetect-fix-v4-0-df9c8c504353@linaro.org>
-In-Reply-To: <20230405-pl180-busydetect-fix-v4-0-df9c8c504353@linaro.org>
-To: Yann Gautier <yann.gautier@foss.st.com>, 
- Stefan Hansson <newbyte@disroot.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.12.2
-X-Mailman-Approved-At: Wed, 14 Jun 2023 06:17:37 +0000
-Cc: Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v4 09/10] mmc: mmci: Break out a helper
-	function
+Content-Disposition: inline
+In-Reply-To: <DM4PR12MB508882D5BE351BD756A7A9A4D35AA@DM4PR12MB5088.namprd12.prod.outlook.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [net-next PATCH v5 4/5] net: ethernet: stmicro:
+ stmmac: generate stmmac dma conf before open
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,105 +90,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-These four lines clearing, masking and resetting the state
-of the busy detect state machine is repeated five times in
-the code so break this out to a small helper so things are
-easier to read.
+On Wed, Jun 14, 2023 at 07:15:03AM +0000, Jose Abreu wrote:
+> Hi Christian,
+> 
+> From: Christian Marangi <ansuelsmth@gmail.com>
+> Date: Sat, Jul 23, 2022 at 15:29:32
+> 
+> > +static int __stmmac_open(struct net_device *dev,
+> > +			 struct stmmac_dma_conf *dma_conf)
+> >  {
+> >  	struct stmmac_priv *priv = netdev_priv(dev);
+> >  	int mode = priv->plat->phy_interface;
+> > -	int bfsize = 0;
+> >  	u32 chan;
+> >  	int ret;
+> >  
+> > @@ -3657,45 +3794,10 @@ static int stmmac_open(struct net_device *dev)
+> >  	memset(&priv->xstats, 0, sizeof(struct stmmac_extra_stats));
+> >  	priv->xstats.threshold = tc;
+> >  
+> > -	bfsize = stmmac_set_16kib_bfsize(priv, dev->mtu);
+> > -	if (bfsize < 0)
+> > -		bfsize = 0;
+> > -
+> > -	if (bfsize < BUF_SIZE_16KiB)
+> > -		bfsize = stmmac_set_bfsize(dev->mtu, priv->dma_conf.dma_buf_sz);
+> > -
+> > -	priv->dma_conf.dma_buf_sz = bfsize;
+> > -	buf_sz = bfsize;
+> > -
+> >  	priv->rx_copybreak = STMMAC_RX_COPYBREAK;
+> >  
+> > -	if (!priv->dma_conf.dma_tx_size)
+> > -		priv->dma_conf.dma_tx_size = DMA_DEFAULT_TX_SIZE;
+> > -	if (!priv->dma_conf.dma_rx_size)
+> > -		priv->dma_conf.dma_rx_size = DMA_DEFAULT_RX_SIZE;
+> > -
+> > -	/* Earlier check for TBS */
+> > -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
+> > -		struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
+> > -		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
+> > -
+> > -		/* Setup per-TXQ tbs flag before TX descriptor alloc */
+> > -		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+> > -	}
+> > -
+> > -	ret = alloc_dma_desc_resources(priv);
+> > -	if (ret < 0) {
+> > -		netdev_err(priv->dev, "%s: DMA descriptors allocation failed\n",
+> > -			   __func__);
+> > -		goto dma_desc_error;
+> > -	}
+> > -
+> > -	ret = init_dma_desc_rings(dev, GFP_KERNEL);
+> > -	if (ret < 0) {
+> > -		netdev_err(priv->dev, "%s: DMA descriptors initialization failed\n",
+> > -			   __func__);
+> > -		goto init_error;
+> > -	}
+> > +	buf_sz = dma_conf->dma_buf_sz;
+> > +	memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
+> 
+> This memcpy() needs to be the first thing to be done on __stmmac_open(), otherwise
+> you'll leak the dma_conf when stmmac_init_phy() fails.
+>
 
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
----
-ChangeLog v3->v4:
-- No changes.
-ChangeLog v2->v3:
-- Rebased.
-ChangeLog v1->v2:
-- No changes
----
- drivers/mmc/host/mmci.c | 36 ++++++++++++++++--------------------
- 1 file changed, 16 insertions(+), 20 deletions(-)
+I'm not following the meaning of leak here. If it's intended as a memory
+leak then dma_conf is correctly freed in the 2 user of __stmmac_open.
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index cb766b8d419d..478f71dc7f34 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -654,6 +654,17 @@ static u32 ux500v2_get_dctrl_cfg(struct mmci_host *host)
- 	return MCI_DPSM_ENABLE | (host->data->blksz << 16);
- }
- 
-+static void ux500_busy_clear_mask_done(struct mmci_host *host)
-+{
-+	void __iomem *base = host->base;
-+
-+	writel(host->variant->busy_detect_mask, base + MMCICLEAR);
-+	writel(readl(base + MMCIMASK0) &
-+	       ~host->variant->busy_detect_mask, base + MMCIMASK0);
-+	host->busy_state = MMCI_BUSY_DONE;
-+	host->busy_status = 0;
-+}
-+
- /*
-  * ux500_busy_complete() - this will wait until the busy status
-  * goes off, saving any status that occur in the meantime into
-@@ -668,11 +679,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
- 
- 	if (status & err_msk) {
- 		/* Stop any ongoing busy detection if an error occurs */
--		writel(host->variant->busy_detect_mask, base + MMCICLEAR);
--		writel(readl(base + MMCIMASK0) &
--		       ~host->variant->busy_detect_mask, base + MMCIMASK0);
--		host->busy_state = MMCI_BUSY_DONE;
--		host->busy_status = 0;
-+		ux500_busy_clear_mask_done(host);
- 		goto out_ret_state;
- 	}
- 
-@@ -714,10 +721,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
- 			retries--;
- 		}
- 		dev_dbg(mmc_dev(host->mmc), "no busy signalling in time\n");
--		writel(host->variant->busy_detect_mask, base + MMCICLEAR);
--		writel(readl(base + MMCIMASK0) &
--		       ~host->variant->busy_detect_mask, base + MMCIMASK0);
--		host->busy_state = MMCI_BUSY_DONE;
-+		ux500_busy_clear_mask_done(host);
- 		break;
- 
- 	/*
-@@ -739,11 +743,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
- 		} else {
- 			dev_dbg(mmc_dev(host->mmc),
- 				"lost busy status when waiting for busy start IRQ\n");
--			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
--			writel(readl(base + MMCIMASK0) &
--			       ~host->variant->busy_detect_mask, base + MMCIMASK0);
--			host->busy_state = MMCI_BUSY_DONE;
--			host->busy_status = 0;
-+			ux500_busy_clear_mask_done(host);
- 		}
- 		break;
- 
-@@ -751,15 +751,11 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
- 		if (status & host->variant->busy_detect_flag) {
- 			host->busy_status |= status & (MCI_CMDSENT | MCI_CMDRESPEND);
- 			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
--			host->busy_state = MMCI_BUSY_DONE;
-+			ux500_busy_clear_mask_done(host);
- 		} else {
- 			dev_dbg(mmc_dev(host->mmc),
- 				"lost busy status when waiting for busy end IRQ\n");
--			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
--			writel(readl(base + MMCIMASK0) &
--			       ~host->variant->busy_detect_mask, base + MMCIMASK0);
--			host->busy_state = MMCI_BUSY_DONE;
--			host->busy_status = 0;
-+			ux500_busy_clear_mask_done(host);
- 		}
- 		break;
- 
+stmmac_init_phy also doesn't seems to use dma_conf. Am I missing
+something here?
+
+> Can you please send follow-up patch?
+
+Happy to push a follow-up patch with these concern cleared!
+
+> 
+> Thanks,
+> Jose
 
 -- 
-2.40.1
-
+	Ansuel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
