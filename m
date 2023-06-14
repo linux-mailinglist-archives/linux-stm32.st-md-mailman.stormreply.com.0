@@ -2,74 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F3CB730438
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 17:53:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8FD73023B
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 16:47:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F475C6A61A;
-	Wed, 14 Jun 2023 15:53:18 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE1F6C6A617;
+	Wed, 14 Jun 2023 14:47:42 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CC2DC6904B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49F06C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 15:53:16 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-30fa23e106bso4062687f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 08:53:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686757996; x=1689349996;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Bhq/y0fc8NtbiDoPoE9MBpAtCqUXLlZMCwX6567Us4w=;
- b=rplArsRTqX0QzO+acxEngNYJNMVt6u5lBMTiEmCMCN9MqpTtL0AOdInFSf3QEQLis6
- K5KkbNP4lva6SBLQxaan7MYME6CwT+/F/2PjeGakSkgz/g6LjoMls6tNrT93DmmuqUYp
- eM7vKCdL9B9IniqP7BNSdJ2M3pJGOhnw1kLHPVw0U3w8EiIf3SjvjswZAapm1gZkRGfB
- T1wShgwmoRF8B3ByF/Asxs2lnS1aXAzaJAm2Vi7W6UzoeBlnrUf5KQH7+EivQN0p4lpA
- 6MF436FcsaG8uPOLPAmwDLyVZQlcRj4rpfJ61dbRO1SPl8NmSDSP3QDYR7JRmEdaASX4
- N3sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686757996; x=1689349996;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Bhq/y0fc8NtbiDoPoE9MBpAtCqUXLlZMCwX6567Us4w=;
- b=PLVJUN9kmhUgtl+sJrT5CtspALCfmcA8o1g0+tN3qeVTxHu//X8uxmJPPW4Rf2psAc
- h7LdMQ4xFjvaSzG6HDrIqvqzDqQLbqjspx/AkREwU2mEcPnwhX4DqiYaIUu3HD3QitEI
- n3Dy/isS83yrlGFMEw8jOCo0RQ+EQUWMaI0wJZQ99j8TCLlRjxkXXVjmmFW7m7IdYst4
- SvLUdAR5EZ/3bIKGfZ5l+NesP5bzq0pXVtdA5I0TEd9odaTwtvYOB8N6APgqU12lpnPp
- BB5fbmuL78gQNm6XuV55ZoY0Jm2uIcTch1ISOssDo/S4Kk0uCF2wIkAzE/rBwnlZddan
- EcKg==
-X-Gm-Message-State: AC+VfDyQbxvn3Yq+uX5P91LMp/3lxqY7+l2ntSTeCTcekrDRlaimWnKC
- Ds174nJ+0DnPokEfGySDtYs=
-X-Google-Smtp-Source: ACHHUZ4bgrLvAW+bLWRMhNWCLyEUy8rjxDhrz/ugqbtaLYWSlkDAiCpdxMZXxKqgVabsYT+IRO3eww==
-X-Received: by 2002:adf:f5d2:0:b0:30f:d0e7:ef31 with SMTP id
- k18-20020adff5d2000000b0030fd0e7ef31mr3459559wrp.44.1686757996142; 
- Wed, 14 Jun 2023 08:53:16 -0700 (PDT)
-Received: from localhost.localdomain (93-34-93-173.ip49.fastwebnet.it.
- [93.34.93.173]) by smtp.googlemail.com with ESMTPSA id
- m6-20020a5d6246000000b0030e52d4c1bcsm18752199wrv.71.2023.06.14.08.53.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jun 2023 08:53:15 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Christian Marangi <ansuelsmth@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 14 Jun 2023 11:17:14 +0200
-Message-Id: <20230614091714.15912-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.40.1
+ Wed, 14 Jun 2023 14:47:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 18C3D6431D;
+ Wed, 14 Jun 2023 14:47:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB20DC433C9;
+ Wed, 14 Jun 2023 14:47:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686754059;
+ bh=YBvoPI/IEVtbY5FNxrgQvaHMUweYY58AfZfxW/FUfzs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=e3LNvXuGGMNQtEoM1FFIbIMA86EOKQwXEt+3tALeKxbJwddDvByyh87z716lOdEGC
+ ay6V6UsAWKdIpfQeOHUTj6uRCRuxoBSQ/ETGAidKLmmAZaEKJNYu7cWBppubt22OZZ
+ qs7CsgD6eYxPn/6tp8A8zc/IMx9Wwqni4eq6r2HIflQzfEAn2bw6+gBVmE50N1J2VT
+ xdtONfXgAZr/MN4pOsv/pIk3cO5LxiMXaxi73cLALIFbTrJFx3D++N+lWZ75xNd4yO
+ zo3zVf4keiHIC1Lp+4V1UkRY9UGYRsboF0z0HH6nx3D0gBBtowUDJNQ1wU4JmuqIAX
+ iiI/VHltBNFtQ==
+Date: Wed, 14 Jun 2023 07:51:00 -0700
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <20230614145100.xgkme7or7k2i552d@ripper>
+References: <20230612092355.87937-1-brgl@bgdev.pl>
+ <20230612092355.87937-25-brgl@bgdev.pl>
+ <0a57a9ad-67ab-cf1a-9bb7-c645de833450@linaro.org>
 MIME-Version: 1.0
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, stable@vger.kernel.org
-Subject: [Linux-stm32] [net PATCH v2] net: ethernet: stmicro: stmmac: fix
-	possible memory leak in __stmmac_open
+Content-Disposition: inline
+In-Reply-To: <0a57a9ad-67ab-cf1a-9bb7-c645de833450@linaro.org>
+Cc: Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Jose Abreu <joabreu@synopsys.com>,
+ Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 24/26] arm64: dts: qcom: sa8775p-ride:
+ enable the SerDes PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,67 +73,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix a possible memory leak in __stmmac_open when stmmac_init_phy fails.
-It's also needed to free everything allocated by stmmac_setup_dma_desc
-and not just the dma_conf struct.
+On Tue, Jun 13, 2023 at 09:02:23PM +0200, Konrad Dybcio wrote:
+> 
+> 
+> On 12.06.2023 11:23, Bartosz Golaszewski wrote:
+> > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> > 
+> > Enable the internal PHY on sa8775p-ride.
+> > 
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> > ---
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+> 
+> ---
+> 
+> Bjorn, Krzysztof.. I was thinking whether we should even be disabling
+> such hardware by default..
+> 
 
-Drop free_dma_desc_resources from __stmmac_open and correctly call
-free_dma_desc_resources on each user of __stmmac_open on error.
+I'm in favor of keeping the configuration as generic/common/simple as
+possible. So I like your suggestion.
 
-Reported-by: Jose Abreu <Jose.Abreu@synopsys.com>
-Fixes: ba39b344e924 ("net: ethernet: stmicro: stmmac: generate stmmac dma conf before open")
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Cc: stable@vger.kernel.org
----
+Regards,
+Bjorn
 
-Changes v2:
-- Move free_dma_desc_resources to each user of __stmmac_open
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index fa07b0d50b46..5c645b6d5660 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3877,7 +3877,6 @@ static int __stmmac_open(struct net_device *dev,
- 
- 	stmmac_hw_teardown(dev);
- init_error:
--	free_dma_desc_resources(priv, &priv->dma_conf);
- 	phylink_disconnect_phy(priv->phylink);
- init_phy_error:
- 	pm_runtime_put(priv->device);
-@@ -3895,6 +3894,9 @@ static int stmmac_open(struct net_device *dev)
- 		return PTR_ERR(dma_conf);
- 
- 	ret = __stmmac_open(dev, dma_conf);
-+	if (ret)
-+		free_dma_desc_resources(priv, dma_conf);
-+
- 	kfree(dma_conf);
- 	return ret;
- }
-@@ -5637,12 +5639,15 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 		stmmac_release(dev);
- 
- 		ret = __stmmac_open(dev, dma_conf);
--		kfree(dma_conf);
- 		if (ret) {
-+			free_dma_desc_resources(priv, dma_conf);
-+			kfree(dma_conf);
- 			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
- 			return ret;
- 		}
- 
-+		kfree(dma_conf);
-+
- 		stmmac_set_rx_mode(dev);
- 	}
- 
--- 
-2.40.1
-
+> Things that reside on the SoC and have no external dependencies could
+> be left enabled:
+> 
+> pros:
+> - less fluff
+> - we'd probably very quickly fix the missing PM calls
+> - possibly less fw_devlink woes if we fail to get rid of references to
+>   the disabled component?
+> 
+> cons:
+> - boot times
+> - slightly more memory usage
+> 
+> Konrad
+> >  arch/arm64/boot/dts/qcom/sa8775p-ride.dts | 4 ++++
+> >  1 file changed, 4 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+> > index ab767cfa51ff..7754788ea775 100644
+> > --- a/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+> > +++ b/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+> > @@ -355,6 +355,10 @@ &qupv3_id_2 {
+> >  	status = "okay";
+> >  };
+> >  
+> > +&serdes_phy {
+> > +	status = "okay";
+> > +};
+> > +
+> >  &sleep_clk {
+> >  	clock-frequency = <32764>;
+> >  };
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
