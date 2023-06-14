@@ -2,77 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C23B72F64A
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE08B72F664
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:33:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1413EC6A61A;
-	Wed, 14 Jun 2023 07:29:02 +0000 (UTC)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 656D8C6A61A;
+	Wed, 14 Jun 2023 07:33:52 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55AF9C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 749F0C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 07:29:00 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-43dd7791396so793089137.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 00:29:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686727739; x=1689319739;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5CRRGmdvDVbIEVTAFye64zUK3XOXIsv8ssMpfcABwlc=;
- b=Nf0/wLoZ38LsOopYbyo0ezI8LUQxgJTAFLkmLtgB++4Cqtqg95I3NTpGl9TXnYDDkY
- wQhNpaGtN+5iKwyxA/Sc3yKL4QWEEoRYv1tUv0/rZ1jPqpc9h2liqXzIFsH7Mk0PzJ2D
- 8Dt9l/8xaaR/qGP/pxdKD42jgFfMPgpFD59+6wt7ykOg3xU4OOQOIVjAB7xnsarGe2xV
- S1QJ6zDt5NlO/4rFM4tBxEctZeiRwHUUbqReFG2sT+6YQbOdFDmCmmmOhAPgpwdAefLP
- SOVujR+y+Jx1AZxSFRB5PTZR3D5aXGCdsLrtMDajNAzKERlzusmNmNlP39Tdtw7fIp0C
- Jqdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686727739; x=1689319739;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5CRRGmdvDVbIEVTAFye64zUK3XOXIsv8ssMpfcABwlc=;
- b=gdsHknwVXqoPBqY7AvSE6rZTaGcyKf8Puggc+yMQKhwwuHIVL1jQTpyGo7ZOvwIPBc
- fq7Zg3zpNPfM2GA4JIeSGx4HCV4YkWAZQXnSJDkulsKlY2TvnYsdSypR1pzxyOPitsqM
- er0rIQQIs6bbpfwVQym2ULq4PLtXJbaEJAPG7j8ZUV/XUAvwDUm/NWtRH8X2rFQObvCY
- nCevQMCHnokDmPKQdKeAqKeHcm/4YAKLLmwJAN/DcCGpbhHOirHEwFCrHqWIzXSjyrpR
- MSyl+TvetDX8nt6wnYiZrTOR66yl28FsERGTNFMlMBP2cQeFOA/KW2Pxa6j2J0FTjgJG
- tacg==
-X-Gm-Message-State: AC+VfDzENlW27iHrOEVslQwhk2KeR2InTTJwVwDsD8Ahdr5iHwAKueKF
- F9qSR2Y3Ocbw9i5bTF+1lx0c+rcNl3PXc/EHoK+Zfg==
-X-Google-Smtp-Source: ACHHUZ5IOUv06tiZXv2OeC2IVs2JPsy0d5AliyorYz0hKnjFQVcPktvrX5L1vFgxFRciusLts8S8bofr4NgaMAhMxQo=
-X-Received: by 2002:a05:6102:ca:b0:43d:54e9:35fb with SMTP id
- u10-20020a05610200ca00b0043d54e935fbmr7796848vsp.14.1686727739229; Wed, 14
- Jun 2023 00:28:59 -0700 (PDT)
+ Wed, 14 Jun 2023 07:33:50 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1q9L0m-00057E-1l; Wed, 14 Jun 2023 09:33:48 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1q9L0k-007Ioz-E7; Wed, 14 Jun 2023 09:33:46 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1q9L0j-00E8Mv-Py; Wed, 14 Jun 2023 09:33:45 +0200
+Date: Wed, 14 Jun 2023 09:33:45 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Message-ID: <20230614073345.5ejzkbcdiel5v7zg@pengutronix.de>
+References: <20230608-pwm-stm32-get-state-v1-1-db7e58a7461b@pengutronix.de>
 MIME-Version: 1.0
-References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-21-brgl@bgdev.pl>
- <712b2650-f0c1-088a-612c-ef6d6bcc1eb0@linaro.org>
-In-Reply-To: <712b2650-f0c1-088a-612c-ef6d6bcc1eb0@linaro.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 14 Jun 2023 09:28:48 +0200
-Message-ID: <CAMRc=McvVwk_HGU_cRzJ_qsCriHKfq61qL7bbe10evr-Sp6YSA@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Kishon Vijay Abraham I <kishon@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 20/26] dt-bindings: net: qcom,
-	ethqos: add description for sa8775p
+In-Reply-To: <20230608-pwm-stm32-get-state-v1-1-db7e58a7461b@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Implement .get_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,52 +54,257 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8980930393191989639=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKdW4gMTQsIDIwMjMgYXQgOToyNeKAr0FNIEtyenlzenRvZiBLb3psb3dza2kKPGty
-enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBPbiAxMi8wNi8yMDIzIDEx
-OjIzLCBCYXJ0b3N6IEdvbGFzemV3c2tpIHdyb3RlOgo+ID4gRnJvbTogQmFydG9zeiBHb2xhc3pl
-d3NraSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgo+ID4KPiA+IEFkZCB0aGUgY29t
-cGF0aWJsZSBmb3IgdGhlIE1BQyBjb250cm9sbGVyIG9uIHNhODc3NXAgcGxhdGZvcm1zLiBUaGlz
-IE1BQwo+ID4gd29ya3Mgd2l0aCBhIHNpbmdsZSBpbnRlcnJ1cHQgc28gYWRkIG1pbkl0ZW1zIHRv
-IHRoZSBpbnRlcnJ1cHRzIHByb3BlcnR5Lgo+ID4gVGhlIGZvdXJ0aCBjbG9jaydzIG5hbWUgaXMg
-ZGlmZmVyZW50IGhlcmUgc28gY2hhbmdlIGl0LiBFbmFibGUgcmVsZXZhbnQKPiA+IFBIWSBwcm9w
-ZXJ0aWVzLgo+ID4KPgo+IEkgdGhpbmsgdGhlIHBhdGNoIHNob3VsZCBiZSBzcXVhc2hlZCB3aXRo
-IHByZXZpb3VzLiBBZGRpbmcgY29tcGF0aWJsZSB0bwo+IGNvbW1vbiBzbnBzLGR3bWFjIGJpbmRp
-bmcgZG9lcyBub3QgbWFrZSBzZW5zZSBvbiBpdHMgb3duLiBJdCBtYWtlcyBzZW5zZQo+IHdpdGgg
-YWRkaW5nIGNvbXBhdGlibGUgaGVyZS4KPgo+ID4gU2lnbmVkLW9mZi1ieTogQmFydG9zeiBHb2xh
-c3pld3NraSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgo+ID4gLS0tCj4gPiAgLi4u
-L2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3Fjb20sZXRocW9zLnlhbWwgICAgICAgfCAxNCArKysr
-KysrKysrKysrLQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvcWNvbSxldGhxb3MueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
-aW5ncy9uZXQvcWNvbSxldGhxb3MueWFtbAo+ID4gaW5kZXggNjBhMzgwNDRmYjE5Li5iMjA4NDdj
-Mjc1Y2UgMTAwNjQ0Cj4gPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-bmV0L3Fjb20sZXRocW9zLnlhbWwKPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9uZXQvcWNvbSxldGhxb3MueWFtbAo+ID4gQEAgLTIwLDYgKzIwLDcgQEAgcHJvcGVy
-dGllczoKPiA+ICAgIGNvbXBhdGlibGU6Cj4gPiAgICAgIGVudW06Cj4gPiAgICAgICAgLSBxY29t
-LHFjczQwNC1ldGhxb3MKPiA+ICsgICAgICAtIHFjb20sc2E4Nzc1cC1ldGhxb3MKPiA+ICAgICAg
-ICAtIHFjb20sc2M4MjgweHAtZXRocW9zCj4gPiAgICAgICAgLSBxY29tLHNtODE1MC1ldGhxb3MK
-PiA+Cj4gPiBAQCAtMzIsMTEgKzMzLDEzIEBAIHByb3BlcnRpZXM6Cj4gPiAgICAgICAgLSBjb25z
-dDogcmdtaWkKPiA+Cj4gPiAgICBpbnRlcnJ1cHRzOgo+ID4gKyAgICBtaW5JdGVtczogMQo+ID4g
-ICAgICBpdGVtczoKPiA+ICAgICAgICAtIGRlc2NyaXB0aW9uOiBDb21iaW5lZCBzaWduYWwgZm9y
-IHZhcmlvdXMgaW50ZXJydXB0IGV2ZW50cwo+ID4gICAgICAgIC0gZGVzY3JpcHRpb246IFRoZSBp
-bnRlcnJ1cHQgdGhhdCBvY2N1cnMgd2hlbiBSeCBleGl0cyB0aGUgTFBJIHN0YXRlCj4gPgo+ID4g
-ICAgaW50ZXJydXB0LW5hbWVzOgo+ID4gKyAgICBtaW5JdGVtczogMQo+ID4gICAgICBpdGVtczoK
-PiA+ICAgICAgICAtIGNvbnN0OiBtYWNpcnEKPiA+ICAgICAgICAtIGNvbnN0OiBldGhfbHBpCj4g
-PiBAQCAtNDksMTEgKzUyLDIwIEBAIHByb3BlcnRpZXM6Cj4gPiAgICAgICAgLSBjb25zdDogc3Rt
-bWFjZXRoCj4gPiAgICAgICAgLSBjb25zdDogcGNsawo+ID4gICAgICAgIC0gY29uc3Q6IHB0cF9y
-ZWYKPiA+IC0gICAgICAtIGNvbnN0OiByZ21paQo+ID4gKyAgICAgIC0gZW51bToKPiA+ICsgICAg
-ICAgICAgLSByZ21paQo+ID4gKyAgICAgICAgICAtIHBoeWF1eAo+ID4KPiA+ICAgIGlvbW11czoK
-PiA+ICAgICAgbWF4SXRlbXM6IDEKPiA+Cj4gPiArICBwaHlzOiB0cnVlCj4gPiArCj4gPiArICBw
-aHktc3VwcGx5OiB0cnVlCj4KPiBJc24ndCB0aGlzIHByb3BlcnR5IG9mIHRoZSBwaHk/Cj4KCkl0
-IGlzLCBhbmQgYXMgZGlzY3Vzc2VkIGVsc2V3aGVyZSB3aXRoIEFuZHJldywgSSB3aWxsIG1vdmUg
-aXQgdG8gdGhlClNlckRlcyBQSFkgZHJpdmVyLgoKQmFydAoKPiA+ICsKPiA+ICsgIHBoeS1uYW1l
-czoKPiA+ICsgICAgY29uc3Q6IHNlcmRlcwo+Cj4gS2VlcCB0aGUgcGh5LW5hbWVzIGFmdGVyIHBo
-eXMuCj4KPgo+IEJlc3QgcmVnYXJkcywKPiBLcnp5c3p0b2YKPgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============8980930393191989639==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ft7432huag6fmx34"
+Content-Disposition: inline
+
+
+--ft7432huag6fmx34
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jun 08, 2023 at 04:06:02PM +0200, Philipp Zabel wrote:
+> Stop stm32_pwm_detect_channels() from disabling all channels and count
+> the number of enabled PWMs to keep the clock running. Implement the
+> &pwm_ops->get_state callback so drivers can inherit PWM state set by
+> the bootloader.
+>=20
+> Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+> ---
+> Make the necessary changes to allow inheriting PWM state set by the
+> bootloader, for example to avoid flickering with a pre-enabled PWM
+> backlight.
+> ---
+>  drivers/pwm/pwm-stm32.c | 75 ++++++++++++++++++++++++++++++++++++++-----=
+------
+>  1 file changed, 59 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/pwm/pwm-stm32.c b/drivers/pwm/pwm-stm32.c
+> index 62e397aeb9aa..e0677c954bdf 100644
+> --- a/drivers/pwm/pwm-stm32.c
+> +++ b/drivers/pwm/pwm-stm32.c
+> @@ -52,6 +52,21 @@ static u32 active_channels(struct stm32_pwm *dev)
+>  	return ccer & TIM_CCER_CCXE;
+>  }
+> =20
+> +static int read_ccrx(struct stm32_pwm *dev, int ch, u32 *value)
+> +{
+> +	switch (ch) {
+> +	case 0:
+> +		return regmap_read(dev->regmap, TIM_CCR1, value);
+> +	case 1:
+> +		return regmap_read(dev->regmap, TIM_CCR2, value);
+> +	case 2:
+> +		return regmap_read(dev->regmap, TIM_CCR3, value);
+> +	case 3:
+> +		return regmap_read(dev->regmap, TIM_CCR4, value);
+> +	}
+> +	return -EINVAL;
+> +}
+
+I'd prefer having something like:
+
+	#define TIM_CCR(i)	(0x30 + 4 * (i))	/* Capt/Comp Register i, for i in 1 ..=
+ 4 */
+	#define TIM_CCR1	TIM_CCR(1)
+	#define TIM_CCR2	TIM_CCR(2)
+	#define TIM_CCR3	TIM_CCR(3)
+	#define TIM_CCR4	TIM_CCR(4)
+
+and then read_ccrx could be simplified to:
+
+	return regmap_read(dev->regmap, TIM_CCR(i + 1), value);
+
+=2E (Not sure if passing an invalid channel really needs handling.)
+
+But given that write_ccrx looks the same, I'm ok with that.
+
+> +
+>  static int write_ccrx(struct stm32_pwm *dev, int ch, u32 value)
+>  {
+>  	switch (ch) {
+> @@ -486,9 +501,40 @@ static int stm32_pwm_apply_locked(struct pwm_chip *c=
+hip, struct pwm_device *pwm,
+>  	return ret;
+>  }
+> =20
+> +static int stm32_pwm_get_state(struct pwm_chip *chip,
+> +			       struct pwm_device *pwm, struct pwm_state *state)
+> +{
+> +	struct stm32_pwm *priv =3D to_stm32_pwm_dev(chip);
+> +	int ch =3D pwm->hwpwm;
+> +	unsigned long rate;
+> +	u32 ccer, psc, arr, ccr;
+> +	u64 dty, prd;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(priv->regmap, TIM_CCER, &ccer);
+> +	if (ret)
+> +		return ret;
+> +
+> +	state->enabled =3D ccer & (TIM_CCER_CC1E << (ch * 4));
+
+Other parts of the driver use the macros from <linux/bitfield.h>. With a
+similar approach as suggested for TIM_CCR above, this could be made to
+read as:
+
+	state->enabled =3D FIELD_GET(TIM_CCER_CCxE(ch + 1), ccer);
+
+> +	state->polarity =3D (ccer & (TIM_CCER_CC1P << (ch * 4))) ?
+> +			  PWM_POLARITY_INVERSED : PWM_POLARITY_NORMAL;
+> +	regmap_read(priv->regmap, TIM_PSC, &psc);
+> +	regmap_read(priv->regmap, TIM_ARR, &arr);
+> +	read_ccrx(priv, ch, &ccr);
+
+You don't use the return value of read_ccrx(), so make it void (or check
+it)? If you check it, also do it for regmap_read().
+
+> +	rate =3D clk_get_rate(priv->clk);
+> +
+> +	prd =3D (u64)NSEC_PER_SEC * (psc + 1) * (arr + 1);
+
+This might overflow?!
+
+> +	state->period =3D DIV_ROUND_UP_ULL(prd, rate);
+> +	dty =3D (u64)NSEC_PER_SEC * (psc + 1) * ccr;
+> +	state->duty_cycle =3D DIV_ROUND_UP_ULL(dty, rate);
+> +
+> +	return ret;
+> +}
+
+While looking at stm32_pwm_config() to check if it matches your
+stm32_pwm_get_state() implementation, I noticed that for small values of
+period_ns, prd might become 0 which than yields surprising effects in
+combination with
+
+	regmap_write(priv->regmap, TIM_ARR, prd - 1);
+
+Also the driver needs locking because of the PSC and ARR registers are
+shared for all channels and there are rounding issues (prd is used for
+the calculation of dty).
+
+> +
+>  static const struct pwm_ops stm32pwm_ops =3D {
+>  	.owner =3D THIS_MODULE,
+>  	.apply =3D stm32_pwm_apply_locked,
+> +	.get_state =3D stm32_pwm_get_state,
+>  	.capture =3D IS_ENABLED(CONFIG_DMA_ENGINE) ? stm32_pwm_capture : NULL,
+>  };
+> =20
+> @@ -579,30 +625,22 @@ static void stm32_pwm_detect_complementary(struct s=
+tm32_pwm *priv)
+>  	priv->have_complementary_output =3D (ccer !=3D 0);
+>  }
+> =20
+> -static int stm32_pwm_detect_channels(struct stm32_pwm *priv)
+> +static int stm32_pwm_detect_channels(struct stm32_pwm *priv, int *n_enab=
+led)
+>  {
+> -	u32 ccer;
+> -	int npwm =3D 0;
+> +	u32 ccer, ccer_backup;
+> +	int npwm;
+> =20
+>  	/*
+>  	 * If channels enable bits don't exist writing 1 will have no
+>  	 * effect so we can detect and count them.
+>  	 */
+> +	regmap_read(priv->regmap, TIM_CCER, &ccer_backup);
+>  	regmap_set_bits(priv->regmap, TIM_CCER, TIM_CCER_CCXE);
+>  	regmap_read(priv->regmap, TIM_CCER, &ccer);
+> -	regmap_clear_bits(priv->regmap, TIM_CCER, TIM_CCER_CCXE);
+> +	regmap_write(priv->regmap, TIM_CCER, ccer_backup);
+> =20
+> -	if (ccer & TIM_CCER_CC1E)
+> -		npwm++;
+> -
+> -	if (ccer & TIM_CCER_CC2E)
+> -		npwm++;
+> -
+> -	if (ccer & TIM_CCER_CC3E)
+> -		npwm++;
+> -
+> -	if (ccer & TIM_CCER_CC4E)
+> -		npwm++;
+> +	npwm =3D hweight32(ccer & TIM_CCER_CCXE);
+> +	*n_enabled =3D hweight32(ccer_backup & TIM_CCER_CCXE);
+
+hweight32 returns an unsigned int. While there is probably no problem
+with values that don't fit, using unsigned for *n_enabled (and also
+npwm) looks better IMHO. Maybe split making npwm unsigned and using
+hweight32 to assign it to a separate preparing patch? The inconsistency
+between "npwm" (without underscore) and "n_enabled" (with underscore)
+strikes me a bit. given that struct pwm_chip has "npwm", too, maybe drop
+the _ from "n_enabled"?
+
+>  	return npwm;
+>  }
+> @@ -613,7 +651,9 @@ static int stm32_pwm_probe(struct platform_device *pd=
+ev)
+>  	struct device_node *np =3D dev->of_node;
+>  	struct stm32_timers *ddata =3D dev_get_drvdata(pdev->dev.parent);
+>  	struct stm32_pwm *priv;
+> +	int n_enabled;
+>  	int ret;
+> +	int i;
+> =20
+>  	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>  	if (!priv)
+> @@ -635,7 +675,10 @@ static int stm32_pwm_probe(struct platform_device *p=
+dev)
+> =20
+>  	priv->chip.dev =3D dev;
+>  	priv->chip.ops =3D &stm32pwm_ops;
+> -	priv->chip.npwm =3D stm32_pwm_detect_channels(priv);
+> +	priv->chip.npwm =3D stm32_pwm_detect_channels(priv, &n_enabled);
+> +
+> +	for (i =3D 0; i < n_enabled; i++)
+> +		clk_enable(priv->clk);
+> =20
+>  	ret =3D pwmchip_add(&priv->chip);
+>  	if (ret < 0)
+>=20
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--ft7432huag6fmx34
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSJbVgACgkQj4D7WH0S
+/k7CAQf+LOMb8SCyg4OFz//TqKGYuFtuPCURdUO+TYl4RxxjFmqH6QaKeFOF1/q8
+d09Z8JDg1Avk8ic5fhWW6+WzH6S5lfq0Cu0Z4B8n4ZQkiIChc8cD7D2t37mGhGDC
+pnP4/MwF+sFUFl7IO5op+BoGoDivLGZjZNMn1ZdpFD9bAe2eOzrzlFGNlWnlci6b
+/J/aesYtcsKgUh3es9lzklAuV6oEHvlH3o9JQT6Ow1J8Aa8iFA6csmMJR34uqwg5
+dycmCEoRw4BoyPmVZoGAm72ouJbxPXoeTVa/TTWlAH1ygKTzRmeQxa76NTAWnTj/
+XynF/in3Lv6NjXObPPpo8PMwv61ebQ==
+=RbBO
+-----END PGP SIGNATURE-----
+
+--ft7432huag6fmx34--
+
+--===============8980930393191989639==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8980930393191989639==--
