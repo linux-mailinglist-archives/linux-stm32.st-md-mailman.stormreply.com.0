@@ -2,62 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B16D472FAFB
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 12:32:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA79972FAFC
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 12:32:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7025EC6A61A;
-	Wed, 14 Jun 2023 10:32:03 +0000 (UTC)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EC0DC6B443;
+	Wed, 14 Jun 2023 10:32:05 +0000 (UTC)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B58D7C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F10C6B454
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 10:32:01 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-bc492cb6475so477753276.2
+ Wed, 14 Jun 2023 10:32:04 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-3f9b1f43bd0so18408751cf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 03:32:01 -0700 (PDT)
+ Wed, 14 Jun 2023 03:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686738720; x=1689330720;
+ d=linaro.org; s=google; t=1686738723; x=1689330723;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=I9/uJWt/ZuvpPe3D5swX3KpfwGEqFuE4FpM5RCSL7dg=;
- b=MCgedgP9Okz69NLPetN7JTzxnS1NBAn9qU/oH5pHi8LmO0PBDavduC+CJ/WmA3pY/W
- Q2jNlVMbpgZdRVCvHc/1qyZ1DuICb8uCnkCgGa3yE23FzCRbO8w9bO0kxsd07EyTz3Ny
- ii8qIVTop0XINd2XsVi8BJd07BcbyR34qlMqq7Z0RvIIbF8Y5IcYlyU0P1yu2A/3NvYE
- RVEhqCqZVSI+uv9jkl6/eWaALmdVdHK/lZPacobowCiXZs1unk8c+vDMZw/4obC3w9s1
- c7nC19ofZomtg3SQSzlPo9jvZk6yOVyvowNUfPQmASBU3wKBllpc05WUV7Bi2JvXBdpI
- ryOQ==
+ bh=Bk5KTXO8tGRkVKak2dEfcHSu4PyVlCkfKJkrfYPVHyA=;
+ b=XvUMgbgt3tZfZoM0Qg4P6ZznuGBCmG+3ewIJiR77hnwu+5apM6jGgR+2Cz35KEU0kh
+ EXUzkR14nC90XXe9JYrEE2Q6wtyzFsp6vijbZ78JxmfLIlngyw2XFex2U1Ynwfu5MxaO
+ g3RA2tPUyttReMvNN0gUQ54g070Iew+zflhUC4pCBeKpGZ+zhz2Iaheo5HhvB83fm8Mm
+ ja9dTROH8FEOp/6tcOepc1mf+A0r3bn8e3EXlE7ZQK5x7KknHnL50Om/qY5yof0hcf8F
+ g8E0mPB2bBujtDaSZOxDMzMRe/5Yszqpw7f4XUUuAH3shrLGRC3nRHygY0jXna5h5F8Y
+ tEIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686738720; x=1689330720;
+ d=1e100.net; s=20221208; t=1686738723; x=1689330723;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=I9/uJWt/ZuvpPe3D5swX3KpfwGEqFuE4FpM5RCSL7dg=;
- b=TNByPxOPe/2B5z10orJIlyeBwFvr8cJzWG3g4NxWZtRkIPQ6Q3PWaeUeg9ItvDJlpn
- G57ijqxIftxowIIbET6V73m6Du76Q6eTkI7SGJE9L60QdACVqFLjvrGU1io86b+hK9LC
- YweTc3NZeuZaQREykOaDfHUO2w/TNiXxNWk4Ge75puc0s52owRXhcewpuBRLdp4e7oNk
- gSrokTaPuwNN+VvmP7xG/AV716XNhGt8Ws7lRwIyUpROlaCXX/lhqqLntOJUEnClpnDt
- o8TICaGVXu+oND3QmbYB9jCGkbjEdpzN1oyxiLmVG0ZKQyPK682v1yftLOqR1/BJZArH
- l7/A==
-X-Gm-Message-State: AC+VfDz+jExvb85Dwyndrpc/cH9eNa4CWLoB99UOw9iuXGTJrSxAp24N
- DT37jyZQMTx33OK8B1BaCvkHpoYWLOhcsaeiPhyOrw==
-X-Google-Smtp-Source: ACHHUZ7gC+7dlFTTQUBB98VwtkJQOcb9XZ09VT14Ld/fIPuh52WdHcHgb9e4SwQzIlYb8VFK9kWWWaTBfzN7vPnHEJ8=
-X-Received: by 2002:a81:7204:0:b0:55a:574f:327c with SMTP id
- n4-20020a817204000000b0055a574f327cmr1355540ywc.13.1686738720466; Wed, 14 Jun
- 2023 03:32:00 -0700 (PDT)
+ bh=Bk5KTXO8tGRkVKak2dEfcHSu4PyVlCkfKJkrfYPVHyA=;
+ b=dGH4mml8lKr3sx3UhpZIhUkpzvgHBg2GmHIlm+k6Un9RHZjqSgTKrhq1TpFFBFDrn9
+ q1vRu8SqSGGp712FoLnTWfz6Qy6XpurfiPVNmMDXVsgVd3hCi568QY0cZ1v1Wpp9NKxG
+ ufaCSGDfsSLZW5DFewLxYHV6q/q7Ljcrxmln/Kt8mp/73KCV6xiuq98PUP6+XTbC3/Cm
+ wu0Hnh4qo/Q+xXCmwJosrZQQRblEo24pX58RCIqgT6Xm00ke9KW8XrvAKjAlKT/jxcVY
+ oya75aF0iHJw4imVCc1y2dX8IzFqJr0oXdUx/hXFSl1Ow+Wqrfc7GVYp82suFreET+mh
+ XFvA==
+X-Gm-Message-State: AC+VfDxFp6A7sDzb0gc1LLYknoRV+CnKjuiRYQxnr/XpcMgCx9hdoB4m
+ iShNvPso+PJEQWpflkb2+FMg+Oa7lkm7LYjOsLMdBA==
+X-Google-Smtp-Source: ACHHUZ6WGpvvy5YTbPx2DKWT/5s0zb051L42eJ/xFYh1BZ6zGKLEOUsGaJH18B0DhavSJ889KalaPEaW4whvvpH3dXQ=
+X-Received: by 2002:ac8:5ac1:0:b0:3f2:384:9292 with SMTP id
+ d1-20020ac85ac1000000b003f203849292mr2153503qtd.34.1686738723505; Wed, 14 Jun
+ 2023 03:32:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230405-pl180-busydetect-fix-v4-0-df9c8c504353@linaro.org>
-In-Reply-To: <20230405-pl180-busydetect-fix-v4-0-df9c8c504353@linaro.org>
+References: <20230613150148.429828-1-yann.gautier@foss.st.com>
+In-Reply-To: <20230613150148.429828-1-yann.gautier@foss.st.com>
 From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 14 Jun 2023 12:31:24 +0200
-Message-ID: <CAPDyKFpP=G6vs-VLoTF4BhVgxDyBLZ4DqWsXy1qvH1tV_SC53A@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v4 00/10] Fix busydetect on Ux500
-	PL180/MMCI
+Date: Wed, 14 Jun 2023 12:31:27 +0200
+Message-ID: <CAPDyKFpOOm-PR5NiggT6NqiXgbz6qGQ46-y26XZNi1S2-B=VYw@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: set feedback clock when
+	using delay block
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,94 +76,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 13 Jun 2023 at 22:34, Linus Walleij <linus.walleij@linaro.org> wrote:
+On Tue, 13 Jun 2023 at 17:02, Yann Gautier <yann.gautier@foss.st.com> wrote:
 >
-> This series fixes a pretty serious problem in the MMCI
-> busy detect handling, discovered only after going up and
-> down a ladder of refactorings.
+> The feedback clock is used only for SDR104 & HS200 modes, and when
+> delay block is used (frequency is higher than 50 MHz). The tuning
+> procedure is then only required for those modes. Skip the procedure
+> for other modes.
+> The setting of this feedback clock is done just after enabling delay
+> block, and before configuring it.
 >
-> The code is written expecting the Ux500 busy detect
-> to fire two interrupts: one at the start of the busy
-> signalling and one at the end of the busy signalling.
->
-> The root cause of the problem seen on some devices
-> is that only the first IRQ arrives, and then the device
-> hangs, waiting perpetually for the next IRQ to arrive.
->
-> This is eventually solved by adding a timeout using
-> a delayed work that fire after a timeout if the busy detect
-> has not stopped. This is the last patch in the series.
->
-> I included the rewrite of the entire busy detect logic
-> to use a state machine as this makes it way easier to
-> debug and will print messages about other error
-> conditions as well.
->
-> The problem affects especially the Skomer
-> (Samsung GT-I9070) and Kyle (Samsung SGH-I407).
->
-> It is fine to just apply this for the -next kernel,
-> despite it fixes the busy detect that has been broken
-> for these devices for a while, we can think about
-> backporting a simpler version of the timeout for
-> stable kernels if we want.
->
-> Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
-> ---
-> Changes in v4:
-> - Fix an unrelated change in patch 1
-> - Move MMCI_BUSY_DONE initialization outside the if()-clause
->   for busy detection.
-> - Use the per-command ->busy_timeout as calculated by the
->   core.
-> - Link to v3: https://lore.kernel.org/r/20230405-pl180-busydetect-fix-v3-0-cd3d5925ae64@linaro.org
->
-> Changes in v3:
-> - Unconditionally assign busy_status = 0
-> - Rewrite state machine states to just three
-> - Drop a patch that gets absorbed into another patch
-> - Drop patch to get busy state from the state machine, it was
->   fishy, based on a misunderstanding and not needed
-> - Link to v2: https://lore.kernel.org/r/20230405-pl180-busydetect-fix-v2-0-eeb10323b546@linaro.org
->
-> Changes in v2:
-> - Drop pointless patch nr 1
-> - Unconditionally intialize some state variables
-> - Use a less fragile method to look for busy status when
->   using busy detect, should fix Yann's problem
-> - Link to v1: https://lore.kernel.org/r/20230405-pl180-busydetect-fix-v1-0-28ac19a74e5e@linaro.org
->
-> ---
-> Linus Walleij (10):
->       mmc: mmci: Clear busy_status when starting command
->       mmc: mmci: Unwind big if() clause
->       mmc: mmci: Stash status while waiting for busy
->       mmc: mmci: Break out error check in busy detect
->       mmc: mmci: Make busy complete state machine explicit
->       mmc: mmci: Retry the busy start condition
->       mmc: mmci: Use state machine state as exit condition
->       mmc: mmci: Use a switch statement machine
->       mmc: mmci: Break out a helper function
->       mmc: mmci: Add busydetect timeout
->
->  drivers/mmc/host/mmci.c             | 143 ++++++++++++++++++++++++++++--------
->  drivers/mmc/host/mmci.h             |  15 ++++
->  drivers/mmc/host/mmci_stm32_sdmmc.c |   6 +-
->  3 files changed, 132 insertions(+), 32 deletions(-)
-> ---
-> base-commit: 3dff3b32d4752f4a0655fad3c8669978c291ae59
-> change-id: 20230405-pl180-busydetect-fix-66a0360d398a
->
-> Best regards,
-> --
-> Linus Walleij <linus.walleij@linaro.org>
+> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
 
-Applied patch1->patch9 for next, thanks!
-
-Let's continue to chat a bit more about patch10, to conclude.
+Applied for next, thanks!
 
 Kind regards
 Uffe
+
+
+> ---
+>  drivers/mmc/host/mmci_stm32_sdmmc.c | 29 ++++++++++++++++++-----------
+>  1 file changed, 18 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> index 60bca78a72b19..953d1be4e379c 100644
+> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
+> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+> @@ -293,18 +293,8 @@ static void mmci_sdmmc_set_clkreg(struct mmci_host *host, unsigned int desired)
+>         clk |= host->clk_reg_add;
+>         clk |= ddr;
+>
+> -       /*
+> -        * SDMMC_FBCK is selected when an external Delay Block is needed
+> -        * with SDR104 or HS200.
+> -        */
+> -       if (host->mmc->ios.timing >= MMC_TIMING_UHS_SDR50) {
+> +       if (host->mmc->ios.timing >= MMC_TIMING_UHS_SDR50)
+>                 clk |= MCI_STM32_CLK_BUSSPEED;
+> -               if (host->mmc->ios.timing == MMC_TIMING_UHS_SDR104 ||
+> -                   host->mmc->ios.timing == MMC_TIMING_MMC_HS200) {
+> -                       clk &= ~MCI_STM32_CLK_SEL_MSK;
+> -                       clk |= MCI_STM32_CLK_SELFBCK;
+> -               }
+> -       }
+>
+>         mmci_write_clkreg(host, clk);
+>  }
+> @@ -511,10 +501,27 @@ static int sdmmc_execute_tuning(struct mmc_host *mmc, u32 opcode)
+>  {
+>         struct mmci_host *host = mmc_priv(mmc);
+>         struct sdmmc_dlyb *dlyb = host->variant_priv;
+> +       u32 clk;
+> +
+> +       if ((host->mmc->ios.timing != MMC_TIMING_UHS_SDR104 &&
+> +            host->mmc->ios.timing != MMC_TIMING_MMC_HS200) ||
+> +           host->mmc->actual_clock <= 50000000)
+> +               return 0;
+>
+>         if (!dlyb || !dlyb->base)
+>                 return -EINVAL;
+>
+> +       writel_relaxed(DLYB_CR_DEN, dlyb->base + DLYB_CR);
+> +
+> +       /*
+> +        * SDMMC_FBCK is selected when an external Delay Block is needed
+> +        * with SDR104 or HS200.
+> +        */
+> +       clk = host->clk_reg;
+> +       clk &= ~MCI_STM32_CLK_SEL_MSK;
+> +       clk |= MCI_STM32_CLK_SELFBCK;
+> +       mmci_write_clkreg(host, clk);
+> +
+>         if (sdmmc_dlyb_lng_tuning(host))
+>                 return -EINVAL;
+>
+> --
+> 2.25.1
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
