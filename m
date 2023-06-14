@@ -2,76 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789C272F5E5
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:18:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB62A72F628
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:23:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 333DEC6A61A;
-	Wed, 14 Jun 2023 07:18:20 +0000 (UTC)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
- [209.85.222.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A207C6A61A;
+	Wed, 14 Jun 2023 07:23:58 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06C26C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F7E9C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 07:18:18 +0000 (UTC)
-Received: by mail-ua1-f53.google.com with SMTP id
- a1e0cc1a2514c-76d846a4b85so750100241.1
+ Wed, 14 Jun 2023 07:23:57 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-9741caaf9d4so59892866b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 00:18:18 -0700 (PDT)
+ Wed, 14 Jun 2023 00:23:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686727098; x=1689319098;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xWqp8+3MZcT/Qp4VzgeJFqfoJNX477ShUvbIsRioGOw=;
- b=MiCweefJaq2Rs0ySFI2YdvxxsjV+Tz+OX0tIhBr/LjFZitS74y2nNqvs6OlVYfv2jN
- 8TF3c2dxnGSXewEgziDxxbGNEAnZHZn17Mpg64TaHDAiU1cGkGg4iqGJxKPkx4PfEDz7
- KgL1Ar+uP+3WBeEroqFl9aFVrIg3ymtIz/BO8L5owGvjmGkDYaxmc/a4rm+TAAJ2rnMN
- QI8mHooJ381PRQHeI+j+kss74OjpD5qy4bTJOiYXPctm9TY6m94Sf9fKLUVN5zq4rxGW
- lLNG1Osegk5tDnCL6bDzlbg/Gw9QfrZ4AJGg2r5xjkl/OWBmXvF9U9VG53qDFVbRGx+Q
- SOLg==
+ d=linaro.org; s=google; t=1686727437; x=1689319437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=X48c7AoEOD3TxiGjzZ730W7QuuocGN40Ji4sYGrasgI=;
+ b=AtHampU+XnfOFRa3UiWqVTavPvWwSBDwj08vushK74etxW/+TzPgltr6/zw/btuhFE
+ HzLAnfpiZuJqMPGBNjXFL1l+linJmw/NYyucs8WLnrQr2cYmFkO1+3WzazC+i7blSpBk
+ jkYn3pmPeNGEhPaOntF/JU2Fe75Jw6cI1XmkL1gvZ6LZKhjlFRP7d2oQXwKyuPFVaiWD
+ uGdfIbDACla6yu6/RIttUUMDBNBLoF9L7naUE6zMDq1imfFT1kwowe7iCF5X+YV5neGV
+ MY0dSU0/H/nJLVNelsqd6dhVZKpxTbbmZZoevFNWK0EQbl4Loe+N8K5jUi975+y3mfLl
+ tIdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686727098; x=1689319098;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=xWqp8+3MZcT/Qp4VzgeJFqfoJNX477ShUvbIsRioGOw=;
- b=UxHgEkAhyzcurg5/9sgfwHqKPLaCkGbExOYLQ1x/ehL/s1HLmmsPcsPK//81RcKCMi
- /vbi2v2v2e1PamhA//4Eg8LSlQDqLvTkYTghwE7zHHaKTzKSxEt3rk4QqDCIIuwmJHf9
- bPFjkkn/A8BuEjIbWGGt8/RD2LIhqzobniAA0VV6+qg2u+9+r64GSDhFQXELOKg2k9Qw
- UaRpPmSrsg49W0n18lUPQpbVII33N2+13iU9ZuNDnMLFLJRyiJ9IZSV0UdcdXFLizteO
- KhhE3UIrDbjWdS5I6/PGHijH6Lv1YjNi1AH1mGqdN5yPtxZXpbB4InF9TymlK0rH3jiB
- e/Vg==
-X-Gm-Message-State: AC+VfDy2Z1PI9vp1mL3ZoWUzxBKnmI2MPOBjIrl9Ux6T10T7GDabHSFx
- 9y/iUx+gy0IPFahkn/ihJreaUlNgnjMvD9aB8ZipVw==
-X-Google-Smtp-Source: ACHHUZ5/lIGOUl/l3ycPBA6fbzQyMwAzSP8rc7XBTn1VRb2W3EotcDSLMNZEqinAXiE/Za/C+5sDlrb/IA4v9qkeWCA=
-X-Received: by 2002:a67:b401:0:b0:434:7856:bf9f with SMTP id
- x1-20020a67b401000000b004347856bf9fmr6830203vsl.12.1686727097789; Wed, 14 Jun
- 2023 00:18:17 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686727437; x=1689319437;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=X48c7AoEOD3TxiGjzZ730W7QuuocGN40Ji4sYGrasgI=;
+ b=dfenH6p8Bt/v7sRwdFW9qWSA5C29aKJEtJLO69wjeO9F00CHklQew+ny7Ty+8LT+9t
+ 4jxNdx1Sz8o9cJilKz66fIUitGuCMSyqrRdyUS7IL7iACsbkU0YYbotZtnveN7dhydF5
+ 6qUKPiOM4jQ9KOUdwWhO87hPKAk1rw9M4cTIKK+WDxpMM8gxrh/ZxIUTs3nMwg6+rdQY
+ yJOQdXuSQHqEl6MbbENR0pW5T7nuCVwgxGR4oyusXlZqb1TMJjpYpJzb+l+eiiCJ8sa+
+ NHxAWhLZjrLxRW+/Hix4BXBWVN2FrAQ0afZ7oXa7qqGEyOB0SFr2hB/6WI5vwXickSBL
+ lt2w==
+X-Gm-Message-State: AC+VfDyg9bRU26FVHtrBpL58lnfrsKJuFrvowIU31Xq2s1fpCl80uyhL
+ 4aLGTA43gJmd05+slbmwdUBLBQ==
+X-Google-Smtp-Source: ACHHUZ7HprcUbY4Np2NnM2SRFCO1cDvQEs1A8ynQEvGZx3Dh5Jm8HUXXavnivFzBkFvto59qd1FDyw==
+X-Received: by 2002:a17:907:2da4:b0:981:a949:2807 with SMTP id
+ gt36-20020a1709072da400b00981a9492807mr9406993ejc.1.1686727436730; 
+ Wed, 14 Jun 2023 00:23:56 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+ by smtp.gmail.com with ESMTPSA id
+ ce14-20020a170906b24e00b00977cc3d37a2sm7598052ejb.133.2023.06.14.00.23.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Jun 2023 00:23:56 -0700 (PDT)
+Message-ID: <30d50e3d-b501-273a-66b8-6d38d63842b4@linaro.org>
+Date: Wed, 14 Jun 2023 09:23:52 +0200
 MIME-Version: 1.0
-References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-4-brgl@bgdev.pl>
- <7fe7078e-404d-28e5-0dd1-53b7f9cd7626@linaro.org>
-In-Reply-To: <7fe7078e-404d-28e5-0dd1-53b7f9cd7626@linaro.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Wed, 14 Jun 2023 09:18:06 +0200
-Message-ID: <CAMRc=MdwqF9_LM2BeVOtx+DaKv8Cv8Bp-cP=sE-RBO=UoosSLg@mail.gmail.com>
-To: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: Eric Dumazet <edumazet@google.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Bartosz Golaszewski <brgl@bgdev.pl>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Conor Dooley <conor+dt@kernel.org>,
  Kishon Vijay Abraham I <kishon@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 03/26] phy: qcom: add the SGMII SerDes PHY
-	driver
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+References: <20230612092355.87937-1-brgl@bgdev.pl>
+ <20230612092355.87937-20-brgl@bgdev.pl>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230612092355.87937-20-brgl@bgdev.pl>
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 19/26] dt-bindings: net: snps,
+ dwmac: add compatible for sa8775p ethqos
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,64 +94,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCBKdW4gMTIsIDIwMjMgYXQgMTE6NDXigK9BTSBLb25yYWQgRHliY2lvIDxrb25yYWQu
-ZHliY2lvQGxpbmFyby5vcmc+IHdyb3RlOgo+Cj4KPgo+IE9uIDEyLjA2LjIwMjMgMTE6MjMsIEJh
-cnRvc3ogR29sYXN6ZXdza2kgd3JvdGU6Cj4gPiBGcm9tOiBCYXJ0b3N6IEdvbGFzemV3c2tpIDxi
-YXJ0b3N6LmdvbGFzemV3c2tpQGxpbmFyby5vcmc+Cj4gPgo+ID4gSW1wbGVtZW50IHN1cHBvcnQg
-Zm9yIHRoZSBTR01JSS9TZXJEZXMgUEhZIHByZXNlbnQgb24gdmFyaW91cyBRdWFsY29tbQo+ID4g
-cGxhdGZvcm1zLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEJhcnRvc3ogR29sYXN6ZXdza2kgPGJh
-cnRvc3ouZ29sYXN6ZXdza2lAbGluYXJvLm9yZz4KPiA+IC0tLQo+ID4gK3N0YXRpYyBjb25zdCBz
-dHJ1Y3QgcmVnbWFwX2NvbmZpZyBxY29tX2R3bWFjX3NnbWlpX3BoeV9yZWdtYXBfY2ZnID0gewo+
-ID4gKyAgICAgLnJlZ19iaXRzICAgICAgICAgICAgICAgPSAzMiwKPiA+ICsgICAgIC52YWxfYml0
-cyAgICAgICAgICAgICAgID0gMzIsCj4gPiArICAgICAucmVnX3N0cmlkZSAgICAgICAgICAgICA9
-IDQsCj4gPiArICAgICAudXNlX3JlbGF4ZWRfbW1pbyAgICAgICA9IHRydWUsCj4gPiArICAgICAu
-ZGlzYWJsZV9sb2NraW5nICAgICAgICA9IHRydWUsCj4gVGhlIGxhc3QgdHdvIGFyZSByYXRoZXIg
-YnJhdmUsIG5vPwo+CgpXZSBkb24ndCBuZWVkIGxvY2tpbmcgYmVjYXVzZSBhbGwgY2FsbGJhY2tz
-IGFyZSBhbHJlYWR5IHByb3RlY3RlZCBieQp0aGUgcGh5IHN1YnN5c3RlbSB3aXRoIGEgbXV0ZXgg
-YW5kIEkgZG9uJ3QgcmVhbGx5IHNlZSBhbnl0aGluZyB0aGF0CndvdWxkIG1ha2UgaXQgZGFuZ2Vy
-b3VzIHRvIHVzZSByZWxheGVkIHNlbWFudGljcyBpbiB0aGlzIGRyaXZlci4gSXQncwpqdXN0IGJh
-c2ljIGNvbmZpZ3VyYXRpb24uCgpCYXJ0Cgo+IEtvbnJhZAo+ID4gK307Cj4gPiArCj4gPiArc3Rh
-dGljIGludCBxY29tX2R3bWFjX3NnbWlpX3BoeV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNl
-ICpwZGV2KQo+ID4gK3sKPiA+ICsgICAgIHN0cnVjdCBxY29tX2R3bWFjX3NnbWlpX3BoeV9kYXRh
-ICpkYXRhOwo+ID4gKyAgICAgc3RydWN0IGRldmljZSAqZGV2ID0gJnBkZXYtPmRldjsKPiA+ICsg
-ICAgIHN0cnVjdCBwaHlfcHJvdmlkZXIgKnByb3ZpZGVyOwo+ID4gKyAgICAgc3RydWN0IGNsayAq
-cmVmY2xrOwo+ID4gKyAgICAgdm9pZCBfX2lvbWVtICpiYXNlOwo+ID4gKyAgICAgc3RydWN0IHBo
-eSAqcGh5Owo+ID4gKwo+ID4gKyAgICAgZGF0YSA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVvZigq
-ZGF0YSksIEdGUF9LRVJORUwpOwo+ID4gKyAgICAgaWYgKCFkYXRhKQo+ID4gKyAgICAgICAgICAg
-ICByZXR1cm4gLUVOT01FTTsKPiA+ICsKPiA+ICsgICAgIGJhc2UgPSBkZXZtX3BsYXRmb3JtX2lv
-cmVtYXBfcmVzb3VyY2UocGRldiwgMCk7Cj4gPiArICAgICBpZiAoSVNfRVJSKGJhc2UpKQo+ID4g
-KyAgICAgICAgICAgICByZXR1cm4gUFRSX0VSUihiYXNlKTsKPiA+ICsKPiA+ICsgICAgIGRhdGEt
-PnJlZ21hcCA9IGRldm1fcmVnbWFwX2luaXRfbW1pbyhkZXYsIGJhc2UsCj4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJnFjb21fZHdtYWNfc2dtaWlfcGh5X3Jl
-Z21hcF9jZmcpOwo+ID4gKyAgICAgaWYgKElTX0VSUihkYXRhLT5yZWdtYXApKQo+ID4gKyAgICAg
-ICAgICAgICByZXR1cm4gUFRSX0VSUihkYXRhLT5yZWdtYXApOwo+ID4gKwo+ID4gKyAgICAgcGh5
-ID0gZGV2bV9waHlfY3JlYXRlKGRldiwgTlVMTCwgJnFjb21fZHdtYWNfc2dtaWlfcGh5X29wcyk7
-Cj4gPiArICAgICBpZiAoSVNfRVJSKHBoeSkpCj4gPiArICAgICAgICAgICAgIHJldHVybiBQVFJf
-RVJSKHBoeSk7Cj4gPiArCj4gPiArICAgICByZWZjbGsgPSBkZXZtX2Nsa19nZXRfZW5hYmxlZChk
-ZXYsICJzZ21pX3JlZiIpOwo+ID4gKyAgICAgaWYgKElTX0VSUihyZWZjbGspKQo+ID4gKyAgICAg
-ICAgICAgICByZXR1cm4gUFRSX0VSUihyZWZjbGspOwo+ID4gKwo+ID4gKyAgICAgcHJvdmlkZXIg
-PSBkZXZtX29mX3BoeV9wcm92aWRlcl9yZWdpc3RlcihkZXYsIG9mX3BoeV9zaW1wbGVfeGxhdGUp
-Owo+ID4gKyAgICAgaWYgKElTX0VSUihwcm92aWRlcikpCj4gPiArICAgICAgICAgICAgIHJldHVy
-biBQVFJfRVJSKHByb3ZpZGVyKTsKPiA+ICsKPiA+ICsgICAgIHBoeV9zZXRfZHJ2ZGF0YShwaHks
-IGRhdGEpOwo+ID4gKyAgICAgcGxhdGZvcm1fc2V0X2RydmRhdGEocGRldiwgZGF0YSk7Cj4gPiAr
-Cj4gPiArICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIGNvbnN0IHN0cnVj
-dCBvZl9kZXZpY2VfaWQgcWNvbV9kd21hY19zZ21paV9waHlfb2ZfbWF0Y2hbXSA9IHsKPiA+ICsg
-ICAgIHsgLmNvbXBhdGlibGUgPSAicWNvbSxzYTg3NzVwLWR3bWFjLXNnbWlpLXBoeSIgfSwKPiA+
-ICsgICAgIHsgfSwKPiA+ICt9Owo+ID4gK01PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHFjb21fZHdt
-YWNfc2dtaWlfcGh5X29mX21hdGNoKTsKPiA+ICsKPiA+ICtzdGF0aWMgc3RydWN0IHBsYXRmb3Jt
-X2RyaXZlciBxY29tX2R3bWFjX3NnbWlpX3BoeV9kcml2ZXIgPSB7Cj4gPiArICAgICAucHJvYmUg
-ID0gcWNvbV9kd21hY19zZ21paV9waHlfcHJvYmUsCj4gPiArICAgICAuZHJpdmVyID0gewo+ID4g
-KyAgICAgICAgICAgICAubmFtZSAgID0gInFjb20tZHdtYWMtc2dtaWktcGh5IiwKPiA+ICsgICAg
-ICAgICAgICAgLm9mX21hdGNoX3RhYmxlID0gcWNvbV9kd21hY19zZ21paV9waHlfb2ZfbWF0Y2gs
-Cj4gPiArICAgICB9Cj4gPiArfTsKPiA+ICsKPiA+ICttb2R1bGVfcGxhdGZvcm1fZHJpdmVyKHFj
-b21fZHdtYWNfc2dtaWlfcGh5X2RyaXZlcik7Cj4gPiArCj4gPiArTU9EVUxFX0RFU0NSSVBUSU9O
-KCJRdWFsY29tbSBEV01BQyBTR01JSSBQSFkgZHJpdmVyIik7Cj4gPiArTU9EVUxFX0xJQ0VOU0Uo
-IkdQTCIpOwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
-aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
-aW5mby9saW51eC1zdG0zMgo=
+On 12/06/2023 11:23, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> 
+> Add the compatible string for the MAC controller on sa8775p platforms.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> ---
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
