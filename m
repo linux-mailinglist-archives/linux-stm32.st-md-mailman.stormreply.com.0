@@ -2,115 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76CCF7307ED
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 21:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6C4A7307FB
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 21:20:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28B13C6A61A;
-	Wed, 14 Jun 2023 19:17:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2100.outbound.protection.outlook.com [40.107.236.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 619CBC6A61A;
+	Wed, 14 Jun 2023 19:20:22 +0000 (UTC)
+Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com
+ [209.85.219.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF525C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 830C4C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 19:17:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l1zp3rQU/r5qw5x+Y1xFIgaws4RO6hC6fYFPKV4WFBaMz6z71ivmp3y8IfmMKeEwV1iXzJQ6qHz8XBH5O70cUDxnVqlN7x/tfRrzmwra9WR4qzujSq8a6DV34KGwYG7ubotfLybvviEWHzAAgjAbkAezWtuMhocrTRvJ4HMuMwowO0rPCQFfkxDkbiaddfrAI6KQIQnLXaUUozBiDUzOYyfJo/0eEK1Eh2bz4cGNMvjobG1qZD8In5erKJr7w8D2UcJfgw0TzMKz6AHc/HZzSizKsxIXLoGurVcSBRRseyumMY7vs7ma1s84iNq45uQhD/s72PG7xM1Zj1junQy+hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=puxTxows1gFF2uogeohUQQjfwtiEirRAeME6nBKCmNM=;
- b=kpzri6ULeoMIJpWwxhfOLqjTgqKOqrrW603Fn0ICeqd/65E8ghcmfMUMubIm5+mCu2LtcYBYKl/9suixgDUVysDjf0Y3AtXPuOvVKjgjEhcaO3E3x6+JjY6Nn4s0XPHxTw70ndiEhtikDi3EZu/eJBR33H45nDcROr2uwZ9yuVfSb6CGphBFBidFQufLrPirg1xJSjpkB7mcRPYnIJyfMuHeiuIWPFh6KQZAorrEiz7ttPyuMHwVrNm9Kbgo82fo+jN/H3tLt1E2wnmsmJVWlBNCZl7Ooumw1dJ+DwyMabb9hHIS85f2WtQw69vCkIG2WGJVkX1FIrpJg3YAjdUnsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
+ Wed, 14 Jun 2023 19:20:20 +0000 (UTC)
+Received: by mail-yb1-f175.google.com with SMTP id
+ 3f1490d57ef6-bd5f20508f2so960934276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 Jun 2023 12:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=puxTxows1gFF2uogeohUQQjfwtiEirRAeME6nBKCmNM=;
- b=FL2kje/uk2TYR41qKoXxG8iX4I2bEqdYHr5YdoDrWxoeD6wUZqupU8ukLbLYEq3xYM4ThT8nU2ctDUiam/tnfAzCL0Ixjy4Cqv9xKkHd2QD9VvvLEOI54KJ5Bqh0cDcSqHqxlKC39ocMXzo0NucHyGfKJanrXxWjk5adddXTtos=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by MW4PR13MB5627.namprd13.prod.outlook.com (2603:10b6:303:181::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Wed, 14 Jun
- 2023 19:17:37 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb8f:e482:76e0:fe6e]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb8f:e482:76e0:fe6e%4]) with mapi id 15.20.6477.028; Wed, 14 Jun 2023
- 19:17:37 +0000
-Date: Wed, 14 Jun 2023 21:17:30 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Message-ID: <ZIoSSgNr2qus5Ok9@corigine.com>
-References: <20230614091714.15912-1-ansuelsmth@gmail.com>
-Content-Disposition: inline
-In-Reply-To: <20230614091714.15912-1-ansuelsmth@gmail.com>
-X-ClientProxiedBy: AS4P195CA0034.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:65a::22) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ d=linaro.org; s=google; t=1686770419; x=1689362419;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=62GFc6AuISXXvkcrUuDGzwht+jOhfItCB1t9KaG7ZR8=;
+ b=E05X0deXcZmNEBaFD+iQrEPds6MnAFDwmL+RWQK6d6ohII72LuUWoByHkrC17dcMGR
+ WLa1QT41qPMBUxbbJs9/jAnZWBpw/byejQuH+HUDKpL3PA4SjnGLiFKY7HY/VIASnxbk
+ cZ91bIIY/6ctPO7G+JvGtzVadzRUjw48LIXofN2cbKanxkwPlFNU1pFxY8+ZhmIvx88y
+ ty3arKnYRDX/XSEUcKpGcw0nu/DCNK1NLJt9XwFu6MbcNQZsPG/71gtHAhGO1dYhmgrL
+ JO9VaILTaTNVoZAHhBsqyWb/GrCAsfsRtmDc0KAcobEarjQBBLJyENjD6GZkJvfpGaUe
+ zBFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686770419; x=1689362419;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=62GFc6AuISXXvkcrUuDGzwht+jOhfItCB1t9KaG7ZR8=;
+ b=fTKU1lmK23JO4dZDbsASSJT5hZeLElyxaMtzjJPByEpagI1fmEJa99VVuG9+72kP6K
+ ZDlm1WIIeqFSQnYD10bJnlJMvnfQfA6YIJZO//Orw3WBPMoQG/eOzQ98JZzCCLXHAJ4i
+ SNDdGJzpZqUtqep6cd87SQ8SxprCW+0FwUhPuPICD2oiPEI4I2YNa9l1LNT5iu5sovkC
+ LeSnuC6h1m2B9blyHz/ZQ7T4oQ7tk8Cdn3GZMdUYLeFrHYkawYzwq4Awqowqt/UDH0ej
+ N6J3O7pm+FkOry0w91Td8Fu+16OPg1aLJ6/1ZySHvtcyiQ7KrM3fvYzxP8mPz2pBA/fk
+ MZXQ==
+X-Gm-Message-State: AC+VfDxtWzEWWJ+ySDtSeE56+omMppSlYqoBwcObdXA9+zwRUrgR0xvO
+ wus6CcYPwEtKOSIrgfFDYpnbXwQIZ69IAdCmIbU9bQ==
+X-Google-Smtp-Source: ACHHUZ7XahJk1hXaPJNxEreyTt5vCy4LzZhRlq/ge2nEmlCnEb/xmxNddg1oJpQIgjnlhO14CHtDFUrt/ScznOeVRVg=
+X-Received: by 2002:a25:2515:0:b0:bac:1522:f870 with SMTP id
+ l21-20020a252515000000b00bac1522f870mr2609764ybl.52.1686770419378; Wed, 14
+ Jun 2023 12:20:19 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|MW4PR13MB5627:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc863c04-b0a2-4ebb-0bdc-08db6d0c0354
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: k8noXfJMPgFTVSSPwlUBNI5zoaoV61leQT9vJbIzK8sO1+Nt9olk8frUBM/PtwRyaAB5/ly9bQDAsoe8GpvmQbY/+Tl60EIbRSgBEX8LbdvREHGTKA01msWB4eHte8X0ZO8/tPkXSt0wLuGaugbrkcnZZLElcBGi8iULjm7H+uZdOA942kz2MKMyB4eSAJ17j3ch8NOlF/FXAeGFuCpnwmJubgaI9xF7zRID+0c33Z7MBb9clJKPEC9Gtd25Es9NKpxDtMMAwy099TwjFz0sawSJNYwfVDcp7NiTk+5TfuNZFyRcYXbJYsJkQWiWjWnt8Bzo5TGxGxvWCWU7IOO5p8dmyfnP/anXiUAMSVWObCNIArVX74WUrtbeERXKYED/6OOVcKBmUvxAHsOM7Mk+z+380Xy0Qh5DYpETYWeReVHgISNrGqeHDmdyX2z9y9oNL7NNIi3pCMw3RsYNJtNJzQnuZ6rmVN/fKlDUffgO4dK6qm5uLLNWdn3HUljCRf8VZGydGfRR6EllA379SzEL/27QQSAe8fMLEr+XEwN0+tv70SWjfGd86SZoASTXHYlK9ON3JIpACRqwLVnhgO5heQG1KMNCDDmXGUo9OuEeVZ4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(396003)(346002)(39840400004)(136003)(451199021)(478600001)(6916009)(6512007)(6666004)(6506007)(54906003)(2616005)(186003)(4744005)(7416002)(86362001)(44832011)(6486002)(2906002)(8676002)(8936002)(41300700001)(4326008)(38100700002)(36756003)(316002)(66476007)(66556008)(66946007)(5660300002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?J7+TYQZMcKYgp1+aiRUoDEWP/B0oUFJ9REUF9gKD9EqA1wcxQfo7fcjKleY/?=
- =?us-ascii?Q?uoT1NTfwmU2x0nyrUbZyujKMD6ZPkXIXdR4Zkq8S3i0bGqu2qYVObaEEdewL?=
- =?us-ascii?Q?H88ir2vO2uZtRhsc0LSyugtzuhjgoneAct3Nus6HVygY6wexrwclQmf9Nv+q?=
- =?us-ascii?Q?W0B0DtI8jD70ILHwxFl1Ec1zjtV8IZBS+u+HiRIUxV5AEMTJTcYaUx9Ve4bt?=
- =?us-ascii?Q?K+bPRHhXDD93l73bO1FLgk8PxgcV0NEs0MKhfAUrtbjdIm+1vd7zjIAPs6Jl?=
- =?us-ascii?Q?fl1/TFJiBcPLUemT5fSb5ITp0Hx5cMlEaYB5y4N0Pnln7/nhZO2W0z+Z1Lj2?=
- =?us-ascii?Q?lDo6gaXKMOFlv0oNA/kKbYhI5cWMy5wW2OcCdnxL7kN40LGYT5a2iIxAG1+f?=
- =?us-ascii?Q?iLXA4CH0+E0kfbk2LwLEx9INie9S5M32XYSpzrLWtTqJiJ4Rb70NBYGR4+M7?=
- =?us-ascii?Q?qZN6ijJ/OzokeUANww5WfhJ0XY1NeJ6mMfV588mqC3yX6fxHB+0Ynk+CIkeT?=
- =?us-ascii?Q?KFez1TamhKSE/cBF96ycR/EYm7ZvgWt1ptiO1CFvROUh0bauOSJRNoln/FH7?=
- =?us-ascii?Q?A62fs7JnMNGO9APseYLZozvPJ4J9t2M0rC8szJc/3hcPtwPCQ3g9400MeM48?=
- =?us-ascii?Q?FyNMdBm0QGz5LpXQfVDH9BkajxLOuUviwOoz2AbTyqkeuqp68LpQJr3cYV1S?=
- =?us-ascii?Q?9sSwoo8lGPxoudR69Je3UZ+gMSFFEPSAUIUi8u9qpZnilpSaI8OdW3BKcFBH?=
- =?us-ascii?Q?1Lp0uBJpP1hAV29WLQKKcl59BtfDnrQfXwD6feUNC4IyCrpv14pk/smqRIi9?=
- =?us-ascii?Q?7W6p6jwcNsMIAfnrFPeza5Ad10FqUOMpS9TdR5mgxhur84ZdWGVclsOwlnM0?=
- =?us-ascii?Q?+rgMrcQSlCOsho/HRDMHx/8S+94mVOknIMJlcLIw9j7Wef6F2nQiePkvwGVa?=
- =?us-ascii?Q?YLAD9xT5pbyP8kmYoIyTeshaFfGFGJ6/iBOvUPWovTNkNz4qsNVJsJqbm1YT?=
- =?us-ascii?Q?X38UIj3d5Cv8aUru7qJ0xpZL/NM6UOGyCdeILixJJsmw52uDyx/qXzi4RcGm?=
- =?us-ascii?Q?PgaUm+Z+jOLaKHLHgrvxOLQK5Vnlm4c7zwu+9bOgURW6nkp2412wNfta5Jjx?=
- =?us-ascii?Q?2Mn1U6rhrUOCi9P88GxAhlZ9CfvGqgjC1u1zXpnUZQsay/1isK3LiMp2hHKy?=
- =?us-ascii?Q?G2yiuCpaf0URCfmKAM8yLJ7HvXMTSiAiqpSzTuoHZiCO7HB++Ad1yjndBnno?=
- =?us-ascii?Q?zeibfXF4mLzqgFABEPrErdqMn6U0B5HP5p7L7lZaGsoZG/GYo1zYgI1uhd7l?=
- =?us-ascii?Q?YHWDD7PqBdmVbtPUqPeSKcs+HFr3KztMMVkfScZqILNq4Trv+g8tHyxwbi5a?=
- =?us-ascii?Q?3MWzNdqlqxkce6iMCEit4kSfBjuiDBu7oc5/n2oo03pfUE605NjI0DVRxh07?=
- =?us-ascii?Q?lxHY1xFb1fIw00fcERYklfh8oRRDDxl0mZP6TiECePYBfuBg9ypHHJm3gfrQ?=
- =?us-ascii?Q?9WYMAX5kfSvXuc3cU/p9FU2X0RF122dRoZs0USJaVtjerh4ohj+ohnuRUNfJ?=
- =?us-ascii?Q?3yHKMql2s69dJs8Npz5S0VgmiXT3kRM7C6NEoLfwF6U/DqHsy+9rYOQAdyho?=
- =?us-ascii?Q?eXouwh8CdA/TI0e8UlN8OyLWyXKLLR2KTt+nHFpsGKkE0oHNEk5swheFbwIN?=
- =?us-ascii?Q?6DOuGg=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc863c04-b0a2-4ebb-0bdc-08db6d0c0354
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2023 19:17:37.0562 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KBYcj5gXgc7nQ1IR+lbB7ztL/emgYFg959xA+UAtA59gCeJVonj72T1yNJRw0EQbuZHByUcx/EROg35STIBIcRIszSdFoEEaFuVNMb0PYGE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR13MB5627
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- stable@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net PATCH v2] net: ethernet: stmicro: stmmac:
- fix possible memory leak in __stmmac_open
+References: <20230405-pl180-busydetect-fix-v4-0-df9c8c504353@linaro.org>
+ <20230405-pl180-busydetect-fix-v4-10-df9c8c504353@linaro.org>
+ <CAPDyKFrq2doTP-7Pdi3cAUtGy9fhqi9mjDZDEhSAdaEd_y+YpA@mail.gmail.com>
+In-Reply-To: <CAPDyKFrq2doTP-7Pdi3cAUtGy9fhqi9mjDZDEhSAdaEd_y+YpA@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 14 Jun 2023 21:20:08 +0200
+Message-ID: <CACRpkdaXS+N+O0PPeFrZ-_h3wztiAe5QtEoDhJgT4kVYganu7Q@mail.gmail.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>
+Cc: linux-mmc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Stefan Hansson <newbyte@disroot.org>, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v4 10/10] mmc: mmci: Add busydetect timeout
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,27 +71,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jun 14, 2023 at 11:17:14AM +0200, Christian Marangi wrote:
-> Fix a possible memory leak in __stmmac_open when stmmac_init_phy fails.
-> It's also needed to free everything allocated by stmmac_setup_dma_desc
-> and not just the dma_conf struct.
-> 
-> Drop free_dma_desc_resources from __stmmac_open and correctly call
-> free_dma_desc_resources on each user of __stmmac_open on error.
-> 
-> Reported-by: Jose Abreu <Jose.Abreu@synopsys.com>
-> Fixes: ba39b344e924 ("net: ethernet: stmicro: stmmac: generate stmmac dma conf before open")
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> Cc: stable@vger.kernel.org
-
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdW4gMTQsIDIwMjMgYXQgMjoxN+KAr1BNIFVsZiBIYW5zc29uIDx1bGYuaGFuc3Nv
+bkBsaW5hcm8ub3JnPiB3cm90ZToKCj4gU2hvdWxkbid0IHdlIHNjaGVkdWxlIHRoZSB3b3JrIGF0
+IHRoZSBwb2ludCB3aGVuIHdlIG1vdmUgdG8KPiBNTUNJX0JVU1lfV0FJVElOR19GT1JfU1RBUlRf
+SVJRIGluc3RlYWQ/CgpZdXAKCj4gPiArLyoKPiA+ICsgKiBUaGlzIGJ1c3kgdGltZW91dCB3b3Jr
+ZXIgaXMgdXNlZCB0byAia2ljayIgdGhlIGNvbW1hbmQgSVJRIGlmIGEKPiA+ICsgKiBidXN5IGRl
+dGVjdCBJUlEgZmFpbHMgdG8gYXBwZWFyIGluIHJlYXNvbmFibGUgdGltZS4gT25seSB1c2VkIG9u
+Cj4gPiArICogdmFyaWFudHMgd2l0aCBidXN5IGRldGVjdGlvbiBJUlEgZGVsaXZlcnkuCj4gPiAr
+ICovCj4gPiArc3RhdGljIHZvaWQgYnVzeV90aW1lb3V0X3dvcmsoc3RydWN0IHdvcmtfc3RydWN0
+ICp3b3JrKQo+Cj4gSW4gYSB3YXkgdG8gdHJ5IHRvIGJlIGNvbnNpc3RlbnQgd2l0aCBuYW1pbmcg
+ZnVuY3Rpb25zLCBwZXJoYXBzIGFkZAo+IHRoZSBwcmVmaXggInV4NTAwXyo/CgpJIHRob3VnaHQg
+dG8gYWN0dWFsbHkgcHJvcG9zZSBhIHBhdGNoIGZvciBTVE0zMiB0byB1c2UgdGhpcyB0b28sIGFz
+IGFuCmV4dHJhIGZhbGxiYWNrIHRpbWVvdXQuIEJ1dCBJIGRvbid0IGtub3cgaWYgaXQncyB1c2Vm
+dWwgdG8gdGhlbSwgc28gSSdsbApyZW5hbWUgaXQuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
