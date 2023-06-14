@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB62A72F628
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:23:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1230272F634
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jun 2023 09:25:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A207C6A61A;
-	Wed, 14 Jun 2023 07:23:58 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3576C6A61A;
+	Wed, 14 Jun 2023 07:25:46 +0000 (UTC)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F7E9C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C55DBC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 07:23:57 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-9741caaf9d4so59892866b.0
+ Wed, 14 Jun 2023 07:25:44 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-5169f920a9dso12975019a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jun 2023 00:23:57 -0700 (PDT)
+ Wed, 14 Jun 2023 00:25:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686727437; x=1689319437;
+ d=linaro.org; s=google; t=1686727544; x=1689319544;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=X48c7AoEOD3TxiGjzZ730W7QuuocGN40Ji4sYGrasgI=;
- b=AtHampU+XnfOFRa3UiWqVTavPvWwSBDwj08vushK74etxW/+TzPgltr6/zw/btuhFE
- HzLAnfpiZuJqMPGBNjXFL1l+linJmw/NYyucs8WLnrQr2cYmFkO1+3WzazC+i7blSpBk
- jkYn3pmPeNGEhPaOntF/JU2Fe75Jw6cI1XmkL1gvZ6LZKhjlFRP7d2oQXwKyuPFVaiWD
- uGdfIbDACla6yu6/RIttUUMDBNBLoF9L7naUE6zMDq1imfFT1kwowe7iCF5X+YV5neGV
- MY0dSU0/H/nJLVNelsqd6dhVZKpxTbbmZZoevFNWK0EQbl4Loe+N8K5jUi975+y3mfLl
- tIdA==
+ bh=ZYUp6f+gg9nccS7jAmhavJJDmvTnWdlOMMShB2IfyLM=;
+ b=f+YcEOcsWR8xL+5nkBdWG/XfQuwyydCnwar9FyE0t3Il1q/TbBYviUimty8SCA+6JI
+ OVAHeuvn5JYITI7W9hGiUU7vMeA0ISeoGPV0GNyi9lbrYkZ/vU9OKmTFoGEG1EaL80EF
+ WoVjyhNosru4+9vZSX4c1N0vtx2IB2ySXYBz2+3wBy7u5yU53WuKY2tKmVQuJbfPkb6V
+ ex3iX/Qm0KBiyzrxddSfGNS3SqjqzEj+Dyw+rK8fdfBGTds/xOsFw2TDpwSP/IS5ZAg6
+ +eWVXA0FHOT9SHrACDTibQjZ80tQRKeJNAW01TYc+zt+xoOxBvHkKneW41gn8SX8Pj95
+ V+Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686727437; x=1689319437;
+ d=1e100.net; s=20221208; t=1686727544; x=1689319544;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=X48c7AoEOD3TxiGjzZ730W7QuuocGN40Ji4sYGrasgI=;
- b=dfenH6p8Bt/v7sRwdFW9qWSA5C29aKJEtJLO69wjeO9F00CHklQew+ny7Ty+8LT+9t
- 4jxNdx1Sz8o9cJilKz66fIUitGuCMSyqrRdyUS7IL7iACsbkU0YYbotZtnveN7dhydF5
- 6qUKPiOM4jQ9KOUdwWhO87hPKAk1rw9M4cTIKK+WDxpMM8gxrh/ZxIUTs3nMwg6+rdQY
- yJOQdXuSQHqEl6MbbENR0pW5T7nuCVwgxGR4oyusXlZqb1TMJjpYpJzb+l+eiiCJ8sa+
- NHxAWhLZjrLxRW+/Hix4BXBWVN2FrAQ0afZ7oXa7qqGEyOB0SFr2hB/6WI5vwXickSBL
- lt2w==
-X-Gm-Message-State: AC+VfDyg9bRU26FVHtrBpL58lnfrsKJuFrvowIU31Xq2s1fpCl80uyhL
- 4aLGTA43gJmd05+slbmwdUBLBQ==
-X-Google-Smtp-Source: ACHHUZ7HprcUbY4Np2NnM2SRFCO1cDvQEs1A8ynQEvGZx3Dh5Jm8HUXXavnivFzBkFvto59qd1FDyw==
-X-Received: by 2002:a17:907:2da4:b0:981:a949:2807 with SMTP id
- gt36-20020a1709072da400b00981a9492807mr9406993ejc.1.1686727436730; 
- Wed, 14 Jun 2023 00:23:56 -0700 (PDT)
+ bh=ZYUp6f+gg9nccS7jAmhavJJDmvTnWdlOMMShB2IfyLM=;
+ b=F0cbDDnLnCy0eRpz4QUdFp0FVp6WGUqYgY4DfjNrMKPmJy59Vr4IEcIQaUXrXnEcgZ
+ RY+HkKlU8Bg5Io42L8XZ4/qh6M5a7ywj184j4hEqC/qiZyUtR4yCr9TZ26iAPxqv64hk
+ wDNwf7AgF6E8AhWK8JWuC9P20ND42kZnAX7AYYN/b3Tux6wqZWLNaLFyv9R1VJiidd8y
+ 37hilgokxrWy1C+W0Ee84axREajq8QHzbZq2l5N8U+7O1pjJgjoKGX3SA11ywnoExXtk
+ LCcTk6iwqy3DB95VB7IAo8utHiv88x/XrJKE6Ghuq15glHh1ssxb7YVxjvbBStvB9vTK
+ cS/Q==
+X-Gm-Message-State: AC+VfDy2OcRN5opr6jfJd6Ep9jA7OZvx83V+JZCXUfNtkqxLEoiNsrVo
+ N9sp7FdqHn0MfY0SByyi4sI9MA==
+X-Google-Smtp-Source: ACHHUZ7mP70TiHTncN1MepuY33PcI4oQtT42XBiiH2VcreWZ2uAPSk4CyOcrDDgSGNYQSZjYSpcrNQ==
+X-Received: by 2002:a05:6402:180f:b0:513:fa61:397a with SMTP id
+ g15-20020a056402180f00b00513fa61397amr816136edy.12.1686727544263; 
+ Wed, 14 Jun 2023 00:25:44 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
  by smtp.gmail.com with ESMTPSA id
- ce14-20020a170906b24e00b00977cc3d37a2sm7598052ejb.133.2023.06.14.00.23.54
+ b24-20020a056402139800b0051827a12b47sm5256406edv.15.2023.06.14.00.25.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Jun 2023 00:23:56 -0700 (PDT)
-Message-ID: <30d50e3d-b501-273a-66b8-6d38d63842b4@linaro.org>
-Date: Wed, 14 Jun 2023 09:23:52 +0200
+ Wed, 14 Jun 2023 00:25:43 -0700 (PDT)
+Message-ID: <712b2650-f0c1-088a-612c-ef6d6bcc1eb0@linaro.org>
+Date: Wed, 14 Jun 2023 09:25:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -73,16 +73,16 @@ To: Bartosz Golaszewski <brgl@bgdev.pl>, Vinod Koul <vkoul@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
 References: <20230612092355.87937-1-brgl@bgdev.pl>
- <20230612092355.87937-20-brgl@bgdev.pl>
+ <20230612092355.87937-21-brgl@bgdev.pl>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230612092355.87937-20-brgl@bgdev.pl>
+In-Reply-To: <20230612092355.87937-21-brgl@bgdev.pl>
 Cc: devicetree@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 19/26] dt-bindings: net: snps,
- dwmac: add compatible for sa8775p ethqos
+Subject: Re: [Linux-stm32] [PATCH 20/26] dt-bindings: net: qcom,
+ ethqos: add description for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,13 +102,71 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 On 12/06/2023 11:23, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> Add the compatible string for the MAC controller on sa8775p platforms.
+> Add the compatible for the MAC controller on sa8775p platforms. This MAC
+> works with a single interrupt so add minItems to the interrupts property.
+> The fourth clock's name is different here so change it. Enable relevant
+> PHY properties.
 > 
+
+I think the patch should be squashed with previous. Adding compatible to
+common snps,dwmac binding does not make sense on its own. It makes sense
+with adding compatible here.
+
 > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > ---
+>  .../devicetree/bindings/net/qcom,ethqos.yaml       | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index 60a38044fb19..b20847c275ce 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> @@ -20,6 +20,7 @@ properties:
+>    compatible:
+>      enum:
+>        - qcom,qcs404-ethqos
+> +      - qcom,sa8775p-ethqos
+>        - qcom,sc8280xp-ethqos
+>        - qcom,sm8150-ethqos
+>  
+> @@ -32,11 +33,13 @@ properties:
+>        - const: rgmii
+>  
+>    interrupts:
+> +    minItems: 1
+>      items:
+>        - description: Combined signal for various interrupt events
+>        - description: The interrupt that occurs when Rx exits the LPI state
+>  
+>    interrupt-names:
+> +    minItems: 1
+>      items:
+>        - const: macirq
+>        - const: eth_lpi
+> @@ -49,11 +52,20 @@ properties:
+>        - const: stmmaceth
+>        - const: pclk
+>        - const: ptp_ref
+> -      - const: rgmii
+> +      - enum:
+> +          - rgmii
+> +          - phyaux
+>  
+>    iommus:
+>      maxItems: 1
+>  
+> +  phys: true
+> +
+> +  phy-supply: true
 
+Isn't this property of the phy?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> +
+> +  phy-names:
+> +    const: serdes
+
+Keep the phy-names after phys.
+
 
 Best regards,
 Krzysztof
