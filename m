@@ -2,52 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5AD87319B5
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 15:16:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227157319C4
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 15:20:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AB90C65E58;
-	Thu, 15 Jun 2023 13:16:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE675C65E58;
+	Thu, 15 Jun 2023 13:20:52 +0000 (UTC)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7574FC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4912BC5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 13:16:04 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3AF1D60FAA;
- Thu, 15 Jun 2023 13:16:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BB8C433C8;
- Thu, 15 Jun 2023 13:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686834962;
- bh=BZz7VgE7FZsHyhQC20/TP0fYQCt9kxxbS+7BpFxp0Qg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=ONIbZw9nFYdVAI8RzqPvNfyDIkAQ1WIVTIL3GcbFQ6BxtBYOxrwysYJuk22+zeGMN
- Sga/nSXVvexeb2lhSdEwomGBeq6VwBBGKlHopueeoFrWZ15yqzeSIHAi4cNtdTdUxt
- UwVS7TTNYCQhDUHMTmX8qwX21OdbY2sDggdiUcY+t2Rb8jPFCv/jptT5V+zWN9xWi5
- bV6ol0zgnOl0HKUOUBgw0n4mtsQ20IQ8jXwoyIHOuIhwuOhACpr/6UtOp5W/RtDWLo
- BgGT5FQbzSxJ5em79FWybn+N5Qfm+M2X0c464X6tyrQ1+BMTcyI/37IcCM9S6WbIes
- dDYoVTAKJmJyg==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Valentin Caron <valentin.caron@foss.st.com>
-In-Reply-To: <20230615075815.310261-1-valentin.caron@foss.st.com>
-References: <20230615075815.310261-1-valentin.caron@foss.st.com>
-Message-Id: <168683495795.547441.10667645380315680455.b4-ty@kernel.org>
-Date: Thu, 15 Jun 2023 14:15:57 +0100
+ Thu, 15 Jun 2023 13:20:51 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-5701810884aso15098807b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 Jun 2023 06:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686835250; x=1689427250;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=aX97xCToWV5//RvNXLNZC2c3J5Dbjde6RJhRL1H+eSE=;
+ b=Z7Vt+tJ6ZXAT2LMJTiuoQ4nJjIelvhefnByDBbvXpt8TZcUd8RDeuFg7udKdaqRbAV
+ coYNEisPjOGrp1ArWfKkeAS3dltxJqa+Tx6R5v5/Qvp28sHYnb8CRmoeUU9KzGP78y2k
+ n5lY8y00Gbrvp9tbOl++/Gzhg2y1yzHKXLW/2vYk9TuxbAzc2FKUoCcgukT2W32nvTGc
+ jP5iNG7m4UeqYq5dp4oLbAUfWWoTh/lnVvssrjTWwhP8hBHxlgJSktu+kllPHlxZRPNM
+ tczsTr+tYWs81+5oGtdledEpN+aCpaUeem933gLMQYq3B5vY7kICltVUUKcq22ZR9nB5
+ jF6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686835250; x=1689427250;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aX97xCToWV5//RvNXLNZC2c3J5Dbjde6RJhRL1H+eSE=;
+ b=jSVt94oenABpYPtgIIW1TaAGNwBnD0iE1On2BiRouyu5VQ5rlV4c6+kxYUpSFefggM
+ XAjTPJmIU1CqceeN8Zmttxpc8GV+ZL7Ztr3KGBglx3BbNHPwYEK7GVHyTfbHlWV9PB7A
+ 4FPP7VSQ89kHeyXMVvOjbPpX5bDmVden1pwsYNaZy4fehVBXuDZOQ4P/eJH2ojHH7xWs
+ YJSxRnN/v6MD/pr74Q8nQz/aA+YfUYtr4MOjk9DLy09QZx9WR1/pgXG48ZGKwX1sOLl4
+ do/BBXPitzt4qYjk5WI5HCktFngnYWxrqsAWVbe3r4LDYLiyvKulAI1DJfzVFISqFNyF
+ UNBw==
+X-Gm-Message-State: AC+VfDyBvNmUcjZd9TDuWN91hTk6kALgcEy0o3bkCae2SbIw52UYahkm
+ CgBw43SSiHNtbf73ZE+Kvey9jBm5Y4At40LAqurqeg==
+X-Google-Smtp-Source: ACHHUZ7cc7qLuWFlmewZHndMeTGJ1lCp7+tWMjE+IKpjzV597WRvXEOfvUA5tnyK2rMjzUksHUpC1md88NP3KWhBAFU=
+X-Received: by 2002:a81:a50d:0:b0:56d:278:fea0 with SMTP id
+ u13-20020a81a50d000000b0056d0278fea0mr4849499ywg.7.1686835250160; Thu, 15 Jun
+ 2023 06:20:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-c6835
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/4] spi: stm32: add spi device mode
+References: <20230615092001.1213132-1-yann.gautier@foss.st.com>
+ <20230615092001.1213132-2-yann.gautier@foss.st.com>
+In-Reply-To: <20230615092001.1213132-2-yann.gautier@foss.st.com>
+From: Ulf Hansson <ulf.hansson@linaro.org>
+Date: Thu, 15 Jun 2023 15:20:14 +0200
+Message-ID: <CAPDyKFqJsqmNzeRg8hj55yUEMSycOWsmKVKsMWk4Qu7Y8_dNzg@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Xiang wangx <wangxiang@cdjrlc.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: mmc: mmci: Add st,
+	stm32mp25-sdmmc2 compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,54 +83,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 15 Jun 2023 09:58:11 +0200, Valentin Caron wrote:
-> STM32 SPI can operate in device mode.
-> This series adds this functionnality in spi-stm32 driver.
-> 
-> Since v2:
->  - Rename this series: spi device mode
-> 
-> Since v1:
->  - Do not add #address-cells and #size-cells in st,stm32-spi.yaml
->  - Do not add cs-gpio description in st,stm32-spi.yaml
->  - Do not add st,spi-slave-underrun property to handle spi slave underrun
-> 
-> [...]
+On Thu, 15 Jun 2023 at 11:20, Yann Gautier <yann.gautier@foss.st.com> wrote:
+>
+> For STM32MP25, we'll need to distinguish how is managed the delay block.
+> This is done through a new comptible dedicated for this SoC, as the
+> delay block registers are located in SYSCFG peripheral.
+>
+> Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> index 1c96da04f0e53..e47b3418b6c77 100644
+> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> @@ -59,6 +59,12 @@ properties:
+>            - const: st,stm32-sdmmc2
+>            - const: arm,pl18x
+>            - const: arm,primecell
+> +      - description: Entry for STMicroelectronics variant of PL18x for
+> +          STM32MP25. This dedicated compatible is used by bootloaders.
 
-Applied to
+What does this last sentence mean? Can we drop it?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+> +        items:
+> +          - const: st,stm32mp25-sdmmc2
+> +          - const: arm,pl18x
+> +          - const: arm,primecell
+>
+>    clocks:
+>      description: One or two clocks, the "apb_pclk" and the "MCLK"
+> --
+> 2.25.1
+>
 
-Thanks!
-
-[1/4] spi: stm32: renaming of spi_master into spi_controller
-      commit: 6f486556abe35f2e6684f95241acbc463342d3eb
-[2/4] spi: stm32: use dmaengine_terminate_{a}sync instead of _all
-      commit: 4f2b39dc2d14d4fc55d7a3a140ac07eaa761b701
-[3/4] dt-bindings: spi: stm32: disable spi-slave property for stm32f4-f7
-      commit: e6afe03351ac81fbc4f2b93bf3b356f7b662939d
-[4/4] spi: stm32: introduction of stm32h7 SPI device mode support
-      commit: e40335fcb89acb274d05deffad9225e973278ec9
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Kind regards
+Uffe
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
