@@ -2,52 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D617322D3
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jun 2023 00:40:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E9A77327D5
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jun 2023 08:46:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F7D4C6A60E;
-	Thu, 15 Jun 2023 22:40:13 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9DA0C6A615;
+	Fri, 16 Jun 2023 06:46:48 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68F48C65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B36AC6B454
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 22:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:References:Cc:To:Subject:From:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=rTef7a63KNQH6q3WD5RtrkA98bSlXC3sIaMOsAmrFcM=; b=fXXB40CfrwyBYWYox5xSovHXoe
- LcKMGnUyhm1wkcZWzwApUEuC9vh02ZegJBPhftlYhJJTXS7SIoZ7jR5orti08KYMIcuY2bEH1RMha
- 7OzXOLhFAcq9S8499kMlpv7WXjZAgggpBrh+1zTpTRzurWgxjz/2xM+MRrYWi0Sz0PM+/VnXMqdW3
- /1usV3MYBG1eZ4jQmvABGF9ntB/uCXBzR+bKD3LW/ggL9yixwC6pdA6Nei6yRkosiZbW9b8EmNJdn
- gAlVOI8LcCcTRt2V4LnsNumb77nzyN+I9Z5CYaLrJ2vUppow2w2ZhYR3koSTj0+6U/XJ6wsRNkoov
- I0s3u84Q==;
-Received: from [2601:1c2:980:9ec0::2764]
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q9vdJ-00GGRx-2x; Thu, 15 Jun 2023 22:40:01 +0000
-Message-ID: <9ebb9a5a-7bc8-da67-529f-5193b9352b23@infradead.org>
-Date: Thu, 15 Jun 2023 15:40:01 -0700
+ Thu, 15 Jun 2023 12:14:44 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-3f8ca80e889so17347825e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 Jun 2023 05:14:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686831284; x=1689423284;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cX9gh1Qiyxf8dBz8QJPkiT5qyQqbjJsIR5XZjH6yJKE=;
+ b=4UidRm4NNnXMzbr03wDLiofz3gX/tDVsDRsFiIt2GCKZr9xu3kI3P/1iiyrEJ5Id0l
+ EzcZmwPFk4KIx5xPw9EDsNFkzGrWlKEz2/lL9Scukx1QVBxwkHGKqQO7qqWiYFEy9gAX
+ gMXHPGdLbhLTwfinx9c/Iihysp3xzIJADktLaJXZXyVMVMmCCzwFDqfT46YWevyF0Gw4
+ 3jcMVKq/yipZ4k9KzmgWDKWJZ2sls3WArB4uKiSLIMYUJcuEt3HFTdyPZPiPhRZhQzd2
+ mrk/2WuFpO2/FFs9d9Z1XS0rK4NA+ZYPTfWUp1ynrCJugfErdrCLs3OENDmtHRFMJ9vP
+ IuJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686831284; x=1689423284;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cX9gh1Qiyxf8dBz8QJPkiT5qyQqbjJsIR5XZjH6yJKE=;
+ b=T56ObEumVvgS/Glx9NhdqbqYZMyx/hDChXKzuOa4uwRWOzosEpWSbv+1FAkioOSelU
+ KYGrHMr43j1G6IhAS2SZ2aGbFkDEVZpT8P1TfY2U2fkvNFqCy2nOL73GXf/RVpbe5pxB
+ YPBC6hdH2i896xotR2zGHZMQ9tjxFacuL8s2ufdF/JPgMPDKNpVT0+2XruaExCd7jxVy
+ t8GeH1MVUgWOXCfJQQ9qW8tiSodJKuSKsmqSdvTJOVJyABBc362kCcvKGxeppghXDJ9k
+ 5qhBrePuAQfhGto+fBj5xPGcZr3YSQZcUcu4EkfUA7l7Ko5v+17cfPb9b7YWRppL6mwz
+ OWmg==
+X-Gm-Message-State: AC+VfDzdJoZb6fQ34PfwN5f1G0jGNmBLYZBnbqqc/PCxCaWAv5MQrmu6
+ WPVgABq/j69e88ml7kfp4jcV9g==
+X-Google-Smtp-Source: ACHHUZ4kkzeyF5iFPaPt1a1Bfq+qLf+3zfTeM2Z6V1K2TWdpT7Rg5m3uWYN1Eu2tqs3PLNAhAI/vmw==
+X-Received: by 2002:a5d:668c:0:b0:311:13e6:6504 with SMTP id
+ l12-20020a5d668c000000b0031113e66504mr1501402wru.47.1686831283884; 
+ Thu, 15 Jun 2023 05:14:43 -0700 (PDT)
+Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:2ad4:65a7:d9f3:a64e])
+ by smtp.gmail.com with ESMTPSA id
+ k17-20020a5d4291000000b003047ea78b42sm20918012wrq.43.2023.06.15.05.14.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jun 2023 05:14:43 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Thu, 15 Jun 2023 14:14:04 +0200
+Message-Id: <20230615121419.175862-9-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230615121419.175862-1-brgl@bgdev.pl>
+References: <20230615121419.175862-1-brgl@bgdev.pl>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-From: Randy Dunlap <rdunlap@infradead.org>
-To: Arnd Bergmann <arnd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230609120546.3937821-1-arnd@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20230609120546.3937821-1-arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Tanmay Shah <tanmay.shah@amd.com>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ben Levinsky <ben.levinsky@amd.com>, linux-arm-kernel@lists.infradead.org,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: use correct format
-	strings on 64-bit
+X-Mailman-Approved-At: Fri, 16 Jun 2023 06:46:48 +0000
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH v2 08/23] net: stmmac: dwmac-qcom-ethqos: use
+	a helper variable for &pdev->dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,96 +96,188 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
+Shrink code and avoid line breaks by using a helper variable for
+&pdev->dev.
 
-On 6/9/23 05:05, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> With CONFIG_ARCH_STM32 making it into arch/arm64, a couple of format
-> strings no longer work, since they rely on size_t being compatible
-> with %x, or they print an 'int' using %z:
-> 
-> drivers/remoteproc/stm32_rproc.c: In function 'stm32_rproc_mem_alloc':
-> drivers/remoteproc/stm32_rproc.c:122:22: error: format '%x' expects argument of type 'unsigned int', but argument 5 has type 'size_t' {aka 'long unsigned int'} [-Werror=format=]
-> drivers/remoteproc/stm32_rproc.c:122:40: note: format string is defined here
->   122 |         dev_dbg(dev, "map memory: %pa+%x\n", &mem->dma, mem->len);
->       |                                       ~^
->       |                                        |
->       |                                        unsigned int
->       |                                       %lx
-> drivers/remoteproc/stm32_rproc.c:125:30: error: format '%x' expects argument of type 'unsigned int', but argument 4 has type 'size_t' {aka 'long unsigned int'} [-Werror=format=]
-> drivers/remoteproc/stm32_rproc.c:125:65: note: format string is defined here
->   125 |                 dev_err(dev, "Unable to map memory region: %pa+%x\n",
->       |                                                                ~^
->       |                                                                 |
->       |                                                                 unsigned int
->       |                                                                %lx
-> drivers/remoteproc/stm32_rproc.c: In function 'stm32_rproc_get_loaded_rsc_table':
-> drivers/remoteproc/stm32_rproc.c:646:30: error: format '%zx' expects argument of type 'size_t', but argument 4 has type 'int' [-Werror=format=]
-> drivers/remoteproc/stm32_rproc.c:646:66: note: format string is defined here
->   646 |                 dev_err(dev, "Unable to map memory region: %pa+%zx\n",
->       |                                                                ~~^
->       |                                                                  |
->       |                                                                  long unsigned int
->       |                                                                %x
-> 
-> Fix up all three instances to work across architectures, and enable
-> compile testing for this driver to ensure it builds everywhere.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+---
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 49 ++++++++++---------
+ 1 file changed, 26 insertions(+), 23 deletions(-)
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
-
-Thanks.
-
-> ---
->  drivers/remoteproc/Kconfig       | 2 +-
->  drivers/remoteproc/stm32_rproc.c | 6 +++---
->  2 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-> index a850e9f486dd6..48845dc8fa852 100644
-> --- a/drivers/remoteproc/Kconfig
-> +++ b/drivers/remoteproc/Kconfig
-> @@ -313,7 +313,7 @@ config ST_SLIM_REMOTEPROC
->  
->  config STM32_RPROC
->  	tristate "STM32 remoteproc support"
-> -	depends on ARCH_STM32
-> +	depends on ARCH_STM32 || COMPILE_TEST
->  	depends on REMOTEPROC
->  	select MAILBOX
->  	help
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index a7457777aae43..cf073bac79f73 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -119,10 +119,10 @@ static int stm32_rproc_mem_alloc(struct rproc *rproc,
->  	struct device *dev = rproc->dev.parent;
->  	void *va;
->  
-> -	dev_dbg(dev, "map memory: %pa+%x\n", &mem->dma, mem->len);
-> +	dev_dbg(dev, "map memory: %pad+%zx\n", &mem->dma, mem->len);
->  	va = ioremap_wc(mem->dma, mem->len);
->  	if (IS_ERR_OR_NULL(va)) {
-> -		dev_err(dev, "Unable to map memory region: %pa+%x\n",
-> +		dev_err(dev, "Unable to map memory region: %pad+0x%zx\n",
->  			&mem->dma, mem->len);
->  		return -ENOMEM;
->  	}
-> @@ -643,7 +643,7 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
->  
->  	ddata->rsc_va = devm_ioremap_wc(dev, rsc_pa, RSC_TBL_SIZE);
->  	if (IS_ERR_OR_NULL(ddata->rsc_va)) {
-> -		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
-> +		dev_err(dev, "Unable to map memory region: %pa+%x\n",
->  			&rsc_pa, RSC_TBL_SIZE);
->  		ddata->rsc_va = NULL;
->  		return ERR_PTR(-ENOMEM);
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 28d2514a8795..f0776ddea3ab 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -123,25 +123,26 @@ static void rgmii_updatel(struct qcom_ethqos *ethqos,
+ static void rgmii_dump(void *priv)
+ {
+ 	struct qcom_ethqos *ethqos = priv;
++	struct device *dev = &ethqos->pdev->dev;
+ 
+-	dev_dbg(&ethqos->pdev->dev, "Rgmii register dump\n");
+-	dev_dbg(&ethqos->pdev->dev, "RGMII_IO_MACRO_CONFIG: %x\n",
++	dev_dbg(dev, "Rgmii register dump\n");
++	dev_dbg(dev, "RGMII_IO_MACRO_CONFIG: %x\n",
+ 		rgmii_readl(ethqos, RGMII_IO_MACRO_CONFIG));
+-	dev_dbg(&ethqos->pdev->dev, "SDCC_HC_REG_DLL_CONFIG: %x\n",
++	dev_dbg(dev, "SDCC_HC_REG_DLL_CONFIG: %x\n",
+ 		rgmii_readl(ethqos, SDCC_HC_REG_DLL_CONFIG));
+-	dev_dbg(&ethqos->pdev->dev, "SDCC_HC_REG_DDR_CONFIG: %x\n",
++	dev_dbg(dev, "SDCC_HC_REG_DDR_CONFIG: %x\n",
+ 		rgmii_readl(ethqos, SDCC_HC_REG_DDR_CONFIG));
+-	dev_dbg(&ethqos->pdev->dev, "SDCC_HC_REG_DLL_CONFIG2: %x\n",
++	dev_dbg(dev, "SDCC_HC_REG_DLL_CONFIG2: %x\n",
+ 		rgmii_readl(ethqos, SDCC_HC_REG_DLL_CONFIG2));
+-	dev_dbg(&ethqos->pdev->dev, "SDC4_STATUS: %x\n",
++	dev_dbg(dev, "SDC4_STATUS: %x\n",
+ 		rgmii_readl(ethqos, SDC4_STATUS));
+-	dev_dbg(&ethqos->pdev->dev, "SDCC_USR_CTL: %x\n",
++	dev_dbg(dev, "SDCC_USR_CTL: %x\n",
+ 		rgmii_readl(ethqos, SDCC_USR_CTL));
+-	dev_dbg(&ethqos->pdev->dev, "RGMII_IO_MACRO_CONFIG2: %x\n",
++	dev_dbg(dev, "RGMII_IO_MACRO_CONFIG2: %x\n",
+ 		rgmii_readl(ethqos, RGMII_IO_MACRO_CONFIG2));
+-	dev_dbg(&ethqos->pdev->dev, "RGMII_IO_MACRO_DEBUG1: %x\n",
++	dev_dbg(dev, "RGMII_IO_MACRO_DEBUG1: %x\n",
+ 		rgmii_readl(ethqos, RGMII_IO_MACRO_DEBUG1));
+-	dev_dbg(&ethqos->pdev->dev, "EMAC_SYSTEM_LOW_POWER_DEBUG: %x\n",
++	dev_dbg(dev, "EMAC_SYSTEM_LOW_POWER_DEBUG: %x\n",
+ 		rgmii_readl(ethqos, EMAC_SYSTEM_LOW_POWER_DEBUG));
+ }
+ 
+@@ -242,6 +243,7 @@ static const struct ethqos_emac_driver_data emac_v3_0_0_data = {
+ 
+ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ {
++	struct device *dev = &ethqos->pdev->dev;
+ 	unsigned int val;
+ 	int retry = 1000;
+ 
+@@ -279,7 +281,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ 		retry--;
+ 	} while (retry > 0);
+ 	if (!retry)
+-		dev_err(&ethqos->pdev->dev, "Clear CK_OUT_EN timedout\n");
++		dev_err(dev, "Clear CK_OUT_EN timedout\n");
+ 
+ 	/* Set CK_OUT_EN */
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_CK_OUT_EN,
+@@ -296,7 +298,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ 		retry--;
+ 	} while (retry > 0);
+ 	if (!retry)
+-		dev_err(&ethqos->pdev->dev, "Set CK_OUT_EN timedout\n");
++		dev_err(dev, "Set CK_OUT_EN timedout\n");
+ 
+ 	/* Set DDR_CAL_EN */
+ 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_CAL_EN,
+@@ -322,12 +324,13 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+ 
+ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ {
++	struct device *dev = &ethqos->pdev->dev;
+ 	int phase_shift;
+ 	int phy_mode;
+ 	int loopback;
+ 
+ 	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+-	phy_mode = device_get_phy_mode(&ethqos->pdev->dev);
++	phy_mode = device_get_phy_mode(dev);
+ 	if (phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
+ 	    phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+ 		phase_shift = 0;
+@@ -468,8 +471,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ 			      loopback, RGMII_IO_MACRO_CONFIG);
+ 		break;
+ 	default:
+-		dev_err(&ethqos->pdev->dev,
+-			"Invalid speed %d\n", ethqos->speed);
++		dev_err(dev, "Invalid speed %d\n", ethqos->speed);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -478,6 +480,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
+ 
+ static int ethqos_configure(struct qcom_ethqos *ethqos)
+ {
++	struct device *dev = &ethqos->pdev->dev;
+ 	volatile unsigned int dll_lock;
+ 	unsigned int i, retry = 1000;
+ 
+@@ -540,8 +543,7 @@ static int ethqos_configure(struct qcom_ethqos *ethqos)
+ 			retry--;
+ 		} while (retry > 0);
+ 		if (!retry)
+-			dev_err(&ethqos->pdev->dev,
+-				"Timeout while waiting for DLL lock\n");
++			dev_err(dev, "Timeout while waiting for DLL lock\n");
+ 	}
+ 
+ 	if (ethqos->speed == SPEED_1000)
+@@ -597,6 +599,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	const struct ethqos_emac_driver_data *data;
+ 	struct plat_stmmacenet_data *plat_dat;
+ 	struct stmmac_resources stmmac_res;
++	struct device *dev = &pdev->dev;
+ 	struct qcom_ethqos *ethqos;
+ 	int ret;
+ 
+@@ -606,13 +609,13 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+ 	if (IS_ERR(plat_dat)) {
+-		dev_err(&pdev->dev, "dt configuration failed\n");
++		dev_err(dev, "dt configuration failed\n");
+ 		return PTR_ERR(plat_dat);
+ 	}
+ 
+ 	plat_dat->clks_config = ethqos_clks_config;
+ 
+-	ethqos = devm_kzalloc(&pdev->dev, sizeof(*ethqos), GFP_KERNEL);
++	ethqos = devm_kzalloc(dev, sizeof(*ethqos), GFP_KERNEL);
+ 	if (!ethqos) {
+ 		ret = -ENOMEM;
+ 		goto out_config_dt;
+@@ -625,13 +628,13 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		goto out_config_dt;
+ 	}
+ 
+-	data = of_device_get_match_data(&pdev->dev);
++	data = of_device_get_match_data(dev);
+ 	ethqos->por = data->por;
+ 	ethqos->num_por = data->num_por;
+ 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
+ 	ethqos->has_emac3 = data->has_emac3;
+ 
+-	ethqos->rgmii_clk = devm_clk_get(&pdev->dev, "rgmii");
++	ethqos->rgmii_clk = devm_clk_get(dev, "rgmii");
+ 	if (IS_ERR(ethqos->rgmii_clk)) {
+ 		ret = PTR_ERR(ethqos->rgmii_clk);
+ 		goto out_config_dt;
+@@ -641,7 +644,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto out_config_dt;
+ 
+-	ret = devm_add_action_or_reset(&pdev->dev, ethqos_clks_disable, ethqos);
++	ret = devm_add_action_or_reset(dev, ethqos_clks_disable, ethqos);
+ 	if (ret)
+ 		goto out_config_dt;
+ 
+@@ -660,7 +663,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
+ 		plat_dat->rx_clk_runs_in_lpi = 1;
+ 
+-	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
++	ret = stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+ 	if (ret)
+ 		goto out_config_dt;
+ 
 -- 
-~Randy
+2.39.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
