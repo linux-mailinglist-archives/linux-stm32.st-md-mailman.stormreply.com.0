@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2E0731860
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 14:14:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B286731861
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 14:14:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C77FFC6B456;
-	Thu, 15 Jun 2023 12:14:47 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E75B6C6B443;
+	Thu, 15 Jun 2023 12:14:49 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17F91C6B454
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F692C6B454
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 12:14:46 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-30c4775d05bso5764867f8f.2
+ Thu, 15 Jun 2023 12:14:47 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-30fb7be435dso4016197f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 05:14:46 -0700 (PDT)
+ Thu, 15 Jun 2023 05:14:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686831285; x=1689423285;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686831286; x=1689423286;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2s2NJclKWNK/7cl/j+crrrKprFB1owa3fhzvvYgN/iA=;
- b=lGAO4cZ33L5Jbp2mlY4NQJspQLvhSXiQm08SD4SEX4OLoRpVmGWA61a79P1eOvagch
- inxFGMFi3C+JKEntWs2sfLwP591k2BS7aFfwjhimGYlEoOtJKA8InvVW1H3f0CY56q05
- q3HqoJWweDF05uYfrT1VW3K2S9shFYBKCpZgwES6T5GVZAtl8+DLIoRLcvfBGhbghnud
- xk626rmFw4jjIkz72ospjVlFAAcmvaC6zrHz2tIyC6nDl9A1LLJmQKhqxN3yO13Nfso0
- Eui02VQbKZtH6ko2/q9n5QAdIg7FqPdah3dcTdYIBUFWDXT+PBMUx01J7xEOIVqnnrsm
- jg/Q==
+ bh=r1Ok1IYka1vb/vM8tvKH2bExKZHEfvi4JId7lcZB7pk=;
+ b=H2PTh4hD9hzbycE5igomrrO0DCv84czKWu9BdxtjyDf6LSzC48IU4LSjyvYlAgB8nt
+ jNpjXeMumj8pFyWnMh0IldN/tcmk/RBW7X/oAbEjT5pHbowgacjdTyikRxoqYb/fN4C0
+ arIdhnzIjcn+mByXIb+/knuZZ5BRjT6+YbTRmovjHKlg1gmvOmEkzkBTGV7CsOjZbMoi
+ IkbAMBaShTFb6BN0Mgu9ccN6nDsZFfr4ZUeDKfws4BZZJbGyf/GrbDS41qv7hZIp9caW
+ GGj+yG4g8SfHbqd9po7aVCM6vChyNGXDXkNcvDjxKScxrOgS7Vpim+2KqOL1bfg5tDPJ
+ 1Edw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686831285; x=1689423285;
+ d=1e100.net; s=20221208; t=1686831286; x=1689423286;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2s2NJclKWNK/7cl/j+crrrKprFB1owa3fhzvvYgN/iA=;
- b=gdotiUdIdLUe2553NvRhU2gpTn1XdAURQCS8bo3UYrlkyARQ/WhFGEiljBy2FJxCaC
- Jygx71FJakX5zwMYr9477N3Y0rMwRg55sbbS5q0nk1f5pgBILt0e+XytfshFq1agNsXn
- 6yiXLFIbyAGd0JuWbniWcKaXqPX3PIGlZxIIZ6d1tLp1T2PUjrI3BtQCGBXo28VDmaEg
- jSGnekm5Cs8eS+V6prRFs42dfvOlOAgE81j5caSKl3cYcMykxDVTauBhONe8N9P37Yw+
- X/rf9hNE7x9b62shXqfp36ryfFsDGF+cSmAezPjhZs+EixpZok0qMB0kxMEQ+hEfV+2N
- wg8Q==
-X-Gm-Message-State: AC+VfDyS6Q657jgOXyAGGhgVcI1uoT73GvT6RRMNQypQauFH43wkWtFu
- jfF03+zrLphtQd5gB/+eTzKQqQ==
-X-Google-Smtp-Source: ACHHUZ4WICs2fqca+psah+Z2d7TrVZS4kdor2VF0fgiRWgR85G93s3CfhbpBS4eHOOL3RnM3K9lIAw==
-X-Received: by 2002:adf:dc42:0:b0:306:28f4:963c with SMTP id
- m2-20020adfdc42000000b0030628f4963cmr11134252wrj.23.1686831285209; 
- Thu, 15 Jun 2023 05:14:45 -0700 (PDT)
+ bh=r1Ok1IYka1vb/vM8tvKH2bExKZHEfvi4JId7lcZB7pk=;
+ b=lUmNQOg9E3WI2LCSEG8t7xfthtp7e7vTdUy/6VY4rmTYLUqTHwBh61bRtlsRJfDfET
+ PtpLnGiOB56OVZz6/tI077XYj7Scd+2z2gLWCPraEvbgz+f7cWkg7W6HvGdjRc+/VXSM
+ fDMl5mkHi/atpIeRI4zYIK0AW9uo6HZnPWOHoFp8qE+6u4Y1PxDhu+71Z3UKI9tiurfo
+ 5ewY7P/75tMjT9GNpzxi4XzNWKCJe5Xplq+u8E/dEeoRNS92zP2PbgYtCbzE35NqpNCh
+ qkwoLuKFY6uLXEYePLrxU303NdG8bV3IsePhnwLu9tQkdLkWSu0mOvLfHaCOIst7xQ+c
+ L+/A==
+X-Gm-Message-State: AC+VfDzccfAendSsvzPnET5eVwLQiFNysuvqQ6a5HgOc7egtZ/cA38fW
+ qMC4008Mz8iLCw/edQe3JJFOoA==
+X-Google-Smtp-Source: ACHHUZ4r1A3qaTK5WSf+N6NhTfrUIoixv+YgCS9FosZwGOvt8xYnavFbEe9tPLw5/qL92M2SWSYV4Q==
+X-Received: by 2002:adf:ec0f:0:b0:30f:cc8f:e48c with SMTP id
+ x15-20020adfec0f000000b0030fcc8fe48cmr4937374wrn.25.1686831286752; 
+ Thu, 15 Jun 2023 05:14:46 -0700 (PDT)
 Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:2ad4:65a7:d9f3:a64e])
  by smtp.gmail.com with ESMTPSA id
- k17-20020a5d4291000000b003047ea78b42sm20918012wrq.43.2023.06.15.05.14.44
+ k17-20020a5d4291000000b003047ea78b42sm20918012wrq.43.2023.06.15.05.14.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 05:14:44 -0700 (PDT)
+ Thu, 15 Jun 2023 05:14:46 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -66,8 +66,8 @@ To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Thu, 15 Jun 2023 14:14:05 +0200
-Message-Id: <20230615121419.175862-10-brgl@bgdev.pl>
+Date: Thu, 15 Jun 2023 14:14:06 +0200
+Message-Id: <20230615121419.175862-11-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230615121419.175862-1-brgl@bgdev.pl>
 References: <20230615121419.175862-1-brgl@bgdev.pl>
@@ -77,8 +77,8 @@ Cc: devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH v2 09/23] net: stmmac: dwmac-qcom-ethqos: add
-	missing include
+Subject: [Linux-stm32] [PATCH v2 10/23] net: stmmac: dwmac-qcom-ethqos: add
+	a newline between headers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,8 +97,8 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-device_get_phy_mode() is declared in linux/property.h but this header
-is not included.
+Typically we use a newline between global and local headers so add it
+here as well.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
@@ -107,14 +107,14 @@ Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index f0776ddea3ab..b66d64d138cb 100644
+index b66d64d138cb..e3a9b785334d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -6,6 +6,7 @@
- #include <linux/of_device.h>
+@@ -7,6 +7,7 @@
  #include <linux/platform_device.h>
  #include <linux/phy.h>
-+#include <linux/property.h>
+ #include <linux/property.h>
++
  #include "stmmac.h"
  #include "stmmac_platform.h"
  
