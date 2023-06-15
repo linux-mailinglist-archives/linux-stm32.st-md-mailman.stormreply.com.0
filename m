@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C6BB73184D
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 14:14:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70F5D73184F
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jun 2023 14:14:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2457EC65E58;
-	Thu, 15 Jun 2023 12:14:34 +0000 (UTC)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 340CBC6A610;
+	Thu, 15 Jun 2023 12:14:36 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0BC2C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8245C6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 12:14:32 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-3f8d258f203so15593555e9.1
+ Thu, 15 Jun 2023 12:14:34 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-4f64fb05a8aso10466134e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jun 2023 05:14:32 -0700 (PDT)
+ Thu, 15 Jun 2023 05:14:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686831272; x=1689423272;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7ggxw8AJ4x4mujGVS6874wxSJqrcpmQspYJe004iAEM=;
- b=lM1if9k9keg0vDzbKt1AKO0xkJkVeN+rZ6FMpLcVodcQ7Jp8vDPzt9qq2+wP7YFcc7
- bQVrDiBsAinWN9P34UwWTJg5iSBMMEjgJYGCA1XQtPe3+/pT/pdbQl5x3ASa98cL/k4e
- L14/0sxIsK22vdCpIO97wFnmnCsZ2H+xmdRQfQxCPz/zUr2EduyFrzoELJIEXRN4p7Hr
- ApJH2FGz1TJQL0wGEykuYItgdGHK0fnBXCcS1lurpuqaVIHIClIIbeAYA3xWON+kJNSx
- 6lY6wy4nz+cUSJmoBDwJbbGshHu4HchtugP3Tn3EhAr2KWSJMTyE3qWXYQaoAqtPV3g0
- mPMQ==
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1686831274; x=1689423274;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1C82NuiRAia/YhjujkCgLkELLEPYOAaW/5fpk8oBGP4=;
+ b=nbSrgGPYHGrb5NKSb9GhBpiLuoYPO81y9AWPuhIYDmhylQDSCIhhZVpYdlJpFrO7ZG
+ KNEpsDyztKGig5WxaeaoevmrrZktAQtH1FhP4gPPHfMBnJRIyRJOnKl7QsjJAwVwAPdq
+ 6TfRqOj8XSwylj8ghIN/npIEZG6VrCugss/69cHUCCuwoN3UDpTw84Svasp/8x1Czzby
+ OHF7oHwmouARvjVcTzERFZh60OL6MIlm8/ZcM6Qzabi7GWGyLSm6FslEj/usCpjxPPmO
+ gohhbaJvKsGtkGqpCb3HbwryUqSmh058EtuWN+/HXJpiLzF1C7x3DTfo7q3y2KjZqlg/
+ O8wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686831272; x=1689423272;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7ggxw8AJ4x4mujGVS6874wxSJqrcpmQspYJe004iAEM=;
- b=FH0u2Wzkjh/a8uREjL5wUij4Jxk8jGl2RP3zNZCluYQzUZht0ccMtxox64OurWObfj
- vp8HBHNAH0Gp7e0OnUbjlr0zKCuwi4mzoPWzOohbFnLPzuEyJOy5MSrJsMjXYqCpLK5G
- lb+UGOSPkoMBL/UzGj2jR9HC0djRMqcA+2kZut1iM0Yf/EfDArR2GD3NxGRpe5Ye2nQ7
- oYFJUjNt3lb36t+c449QqOi3nxip/sGI7bx93xiJOHA+zrAXFjblNlXDPPVF2bjGtLcL
- nwbLmFXdKQLylo39brECLZXlglA9vyjsvxcS/mKT/PPDJ8lcNbhqDTPAfLmUc+wD0nf7
- 5M+A==
-X-Gm-Message-State: AC+VfDxX7pa0wkKO7J+bJYf+Yt9Wishvb2aUCLzR85Nb6Y1pSJ/0eRWG
- jZO+t2TG6x9llyMYPtXeI+j9uQ==
-X-Google-Smtp-Source: ACHHUZ7+XHyQdkqyLOC/Dq+xUto1NKb5LQTqrupqa4BwTtzl1CCPc5GAJrjuw1I7+bALM5I6JonbMg==
-X-Received: by 2002:a1c:4b13:0:b0:3f7:f264:3edc with SMTP id
- y19-20020a1c4b13000000b003f7f2643edcmr12461441wma.14.1686831272107; 
- Thu, 15 Jun 2023 05:14:32 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686831274; x=1689423274;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1C82NuiRAia/YhjujkCgLkELLEPYOAaW/5fpk8oBGP4=;
+ b=YdsE4/GYqzcwbcBCs+Dl/nDkrfG8qUzB+bMwEKtlKnMhTPmQkV5JQ7XYXN3OWRJaiO
+ g65dE2y7C0grgR+VC52eHUtYEn67hKWH4C1hkprhej35UzaPv7+uRpg9bCWjauP3IZmA
+ iNfyaIHne/RG221yuj0bXQVqdykAXUSvlTEMK2qPmvOd3VlXKB8gSPfmiFUR43Wq9DiO
+ X+6ojr2551S5ulwZKT4YRbe959xDGg8Loe2TjNotdkzUUcUO+akWncgpgtj609JBtmyP
+ qqRta4bRP1e82CUbHRqTND9/+AWLlMp1KxBSIAU3pI4tviY/2vojIMm1HaiT03HTR/L/
+ eg3g==
+X-Gm-Message-State: AC+VfDy4h4P4nr3/0KznXw2ylT0mJ3n8u1Ki/QSgGCZdD3Nl4coRJKHw
+ M1OKG+ZX33InbmzjdV13bFXN4g==
+X-Google-Smtp-Source: ACHHUZ5t5bTBAwDNCCYhGugAix3n0kHObs1gW6QysxD7oyK5sYxgSrgds18lC0BPxZXC4yE+EbTEPg==
+X-Received: by 2002:ac2:5b5d:0:b0:4f4:c6ab:f119 with SMTP id
+ i29-20020ac25b5d000000b004f4c6abf119mr10024535lfp.64.1686831273902; 
+ Thu, 15 Jun 2023 05:14:33 -0700 (PDT)
 Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:2ad4:65a7:d9f3:a64e])
  by smtp.gmail.com with ESMTPSA id
- k17-20020a5d4291000000b003047ea78b42sm20918012wrq.43.2023.06.15.05.14.30
+ k17-20020a5d4291000000b003047ea78b42sm20918012wrq.43.2023.06.15.05.14.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jun 2023 05:14:31 -0700 (PDT)
+ Thu, 15 Jun 2023 05:14:33 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -65,17 +66,19 @@ To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Thu, 15 Jun 2023 14:13:56 +0200
-Message-Id: <20230615121419.175862-1-brgl@bgdev.pl>
+Date: Thu, 15 Jun 2023 14:13:57 +0200
+Message-Id: <20230615121419.175862-2-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230615121419.175862-1-brgl@bgdev.pl>
+References: <20230615121419.175862-1-brgl@bgdev.pl>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 00/23] arm64: qcom: sa8775p-ride: enable
-	the first ethernet port
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH v2 01/23] phy: qualcomm: fix indentation in
+	Makefile
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,71 +97,24 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-There are three ethernet ports on sa8775p-ride. This series contains changes
-required to enable one of the two 1Gb ports (the third one is 10Gb). We need
-to add a new driver for the internal SerDes PHY, introduce several extensions
-to the MAC driver (while at it: tweak coding style a bit etc.) and finally
-add the relevant DT nodes.
+Align all entries in Makefile.
 
-v1 -> v2:
-- move the phy-supply property from the MAC driver over to the SerDes PHY
-  driver
-- rework the SerDes PHY driver to work with the correct ordering of phy
-  operations (init -> power_on -> set_speed)
-- change the serdes_phy node label to serdes0 to be in line with other DT
-  sources and make it ready for the second PHY instance
-- dropped the status property from the example in SerDes PHY's DT bindings
-  and moved properties around
-- reworked the fourth clock in the ethqos driver: it's handled the same
-  whether it's called rgmii or phyaux
-- other minor tweaks
-- use 0x0 consistently in DT
-- squash dwmac and ethqos-specific bindings changes
-- collected tags
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+---
+ drivers/phy/qualcomm/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Bartosz Golaszewski (23):
-  phy: qualcomm: fix indentation in Makefile
-  dt-bindings: phy: describe the Qualcomm SGMII PHY
-  phy: qcom: add the SGMII SerDes PHY driver
-  arm64: defconfig: enable the SerDes PHY for Qualcomm DWMAC
-  net: stmmac: dwmac-qcom-ethqos: shrink clock code with devres
-  net: stmmac: dwmac-qcom-ethqos: rename a label in probe()
-  net: stmmac: dwmac-qcom-ethqos: tweak the order of local variables
-  net: stmmac: dwmac-qcom-ethqos: use a helper variable for &pdev->dev
-  net: stmmac: dwmac-qcom-ethqos: add missing include
-  net: stmmac: dwmac-qcom-ethqos: add a newline between headers
-  net: stmmac: dwmac-qcom-ethqos: remove stray space
-  net: stmmac: dwmac-qcom-ethqos: add support for the optional serdes
-    phy
-  net: stmmac: dwmac-qcom-ethqos: add support for the phyaux clock
-  net: stmmac: dwmac-qcom-ethqos: prepare the driver for more PHY modes
-  net: stmmac: dwmac-qcom-ethqos: add support for SGMII
-  net: stmmac: add new switch to struct plat_stmmacenet_data
-  dt-bindings: net: qcom,ethqos: add description for sa8775p
-  net: stmmac: dwmac-qcom-ethqos: add support for emac4 on sa8775p
-    platforms
-  arm64: dts: qcom: sa8775p: add the SGMII PHY node
-  arm64: dts: qcom: sa8775p: add the first 1Gb ethernet interface
-  arm64: dts: qcom: sa8775p-ride: enable the SerDes PHY
-  arm64: dts: qcom: sa8775p-ride: add pin functions for ethernet0
-  arm64: dts: qcom: sa8775p-ride: enable ethernet0
-
- .../devicetree/bindings/net/qcom,ethqos.yaml  |  12 +-
- .../devicetree/bindings/net/snps,dwmac.yaml   |   3 +
- .../phy/qcom,sa8775p-dwmac-sgmii-phy.yaml     |  55 +++
- arch/arm64/boot/dts/qcom/sa8775p-ride.dts     | 109 +++++
- arch/arm64/boot/dts/qcom/sa8775p.dtsi         |  42 ++
- arch/arm64/configs/defconfig                  |   1 +
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 284 ++++++++---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |   2 +-
- drivers/phy/qualcomm/Kconfig                  |   9 +
- drivers/phy/qualcomm/Makefile                 |   3 +-
- drivers/phy/qualcomm/phy-qcom-sgmii-eth.c     | 451 ++++++++++++++++++
- include/linux/stmmac.h                        |   1 +
- 12 files changed, 895 insertions(+), 77 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml
- create mode 100644 drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-
+diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+index de3dc9ccf067..5fb33628566b 100644
+--- a/drivers/phy/qualcomm/Makefile
++++ b/drivers/phy/qualcomm/Makefile
+@@ -20,4 +20,4 @@ obj-$(CONFIG_PHY_QCOM_USB_HSIC) 	+= phy-qcom-usb-hsic.o
+ obj-$(CONFIG_PHY_QCOM_USB_HS_28NM)	+= phy-qcom-usb-hs-28nm.o
+ obj-$(CONFIG_PHY_QCOM_USB_SS)		+= phy-qcom-usb-ss.o
+ obj-$(CONFIG_PHY_QCOM_USB_SNPS_FEMTO_V2)+= phy-qcom-snps-femto-v2.o
+-obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)		+= phy-qcom-ipq806x-usb.o
++obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)	+= phy-qcom-ipq806x-usb.o
 -- 
 2.39.2
 
