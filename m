@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C641D732E5B
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jun 2023 12:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC2E3732E5C
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jun 2023 12:31:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84BC4C6A610;
-	Fri, 16 Jun 2023 10:31:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8709C6A615;
+	Fri, 16 Jun 2023 10:31:39 +0000 (UTC)
 Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
  [209.85.218.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B16B3C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61747C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Jun 2023 10:31:35 +0000 (UTC)
+ Fri, 16 Jun 2023 10:31:38 +0000 (UTC)
 Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-982a99fda0dso72660266b.1
+ a640c23a62f3a-977d55ac17bso79053866b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Jun 2023 03:31:35 -0700 (PDT)
+ Fri, 16 Jun 2023 03:31:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1686911495; x=1689503495;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=l7UUUCEiDOQDFLQBmgYOU/VRB87rfpeTkrh78SXewlQ=;
- b=cYdvibiK6wuol8x9Bae5L8jbyUJor2BFpQ+IvmqbrkyV4XE169xtPQhWFeCJVy2mZC
- S1y8KJWNQoZ6Tt6f61tdQZ17mQ7/Khy4qJ4/OOfzg99RWHHtZG3revanHGAsMpz4agYc
- qmEGJ8aps2q7Vq/Hyyr8/f36b/dmAxKdaqAClpriOsphBx8XklyaUzYZWOfDx1tG+lGE
- Uog6nTn+xvetwk9YuYQwHqu8XtxyrP0JyAdaPWm+3GxY1hIbxEL8GU56nKx/B4FxfXVm
- FRRIYZKC5eguyHZXHgMEpGAqpfN8O4w7/L2gSsigMBEWNLeTPNevOvV3B+Y4AVR9XOFd
- rwDw==
+ d=linaro.org; s=google; t=1686911498; x=1689503498;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kaBTG2zxwhnxmGeWEEvsgJ1P9b9NURsoufZiPInkKEc=;
+ b=h9v9BsnMb8Bf3tOsibIfWu1YRF7sqKDKvcliKPiGOhQm9d+yURo0wcCeqd+DmQDhKt
+ HQxtH4w/UDkNR6lgDkzs6RpPodbxsGvG8XQItKw1Mgb2BcNW4BaV6fqdWsS6SGYURdCw
+ KCN8VsLvFKkiBuea1lWMUMpFFkdOyzYqJ0nWTvNBytpmZ6IFN9/WVZqW3V68LdJK4/zM
+ RguwkU1YaZdt+C9D5w0L27ABoizLpwuHYr8gk4JXNooSpONL5bmv5y86Q1x4G82NSJUm
+ ZqBCrP4sRfEIx/ELuTZtkaK3hZr2nWpTGQVO/4ooNGnI5KSbsK7aMWN0NedI3iV46wow
+ O08w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686911495; x=1689503495;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=l7UUUCEiDOQDFLQBmgYOU/VRB87rfpeTkrh78SXewlQ=;
- b=BY9J9DVqjfrdNLkg3nIwY+Cshi08HOqsuNhRm2s+E5sEO9w1dY4W0RWpeqGo8dGMyb
- MRsgMwe8rI1zZlIHAqumrr4qzjJIdxvXO34rBj1rzffC4URYuBm/PhHeqWnn/rdffVon
- /FIwCDKUtArg0wU+bxyB3b2Xf9svWf5T2QkXSPRyCGaTk5K6efRwjPqGGL1Bbo3vw5xN
- kggsMDtfTH9uQiOn59Iq93FjlYZmsul2iSwCC/LYrubLmYDTfTkZUzzmsAgWM0skVBNG
- +zMK1Zk+G13/WYVMrOV1vPUeREONgYwNli3tRvxvbO9FGB6+T8LKPV2IMhu4SJyh9CeZ
- yFzg==
-X-Gm-Message-State: AC+VfDyOMmBHEoGmcflY+zkkmXNM4uEk9TbjVlAfGtNcjZ1MpIWKkn+E
- dp0exas0yNR+5qn2Y94Q8wW9hw==
-X-Google-Smtp-Source: ACHHUZ79+WHZQfcfy/frvys94Lo80cA+tl2FV9KD8MCaSKzol/5ipwbVMZ3T04P7GsrXRUhcD5vRDw==
-X-Received: by 2002:a17:906:da8a:b0:96f:e45f:92e9 with SMTP id
- xh10-20020a170906da8a00b0096fe45f92e9mr1493906ejb.16.1686911495167; 
- Fri, 16 Jun 2023 03:31:35 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1686911498; x=1689503498;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kaBTG2zxwhnxmGeWEEvsgJ1P9b9NURsoufZiPInkKEc=;
+ b=EP3VKPZLK3G/tKQBnccWEDV9JNtpMLw8LVwLCQn3sRrmejZk1CnKDZHRGpXrEaEHDv
+ PSY5/FYGNMr+CtvFxBM/VYUNGeiQ87zZbCSZvZA/na7MTRycD8BZZ2VrGL7J3p+pDKtQ
+ NX9NWurl3exLAxtx7VtfGGnJP6jwmoC7zRvO85uyxWqAfNdiwYnulLjLutLBWX4L6ibi
+ 0L9OvRKzo+LAXr5utw1iqKCRNTRpJXfw4bgVAu6rrcLusZ6onx0++gE26k5STWsyzKAD
+ 0QPwH7/M2+5sRetna8i7BZEVEXKsr3BcO5x0WZOA3+TDriAz76cqvCSY4rPpcbnBSJ8g
+ MVlA==
+X-Gm-Message-State: AC+VfDw24IDcM0NFe8ATUAoeO9Ka7FlUZHRbb9tmo1sTCC/m6g6MNRnb
+ 20DAodruZM6qyaYwR14mqDyIxw==
+X-Google-Smtp-Source: ACHHUZ46d2PnNLTuBJzAtrPzWBhQyazG0ug3ioL29Qy1uIyi1v1EBT6OTUHZcgKN9qMGn18t6oaADg==
+X-Received: by 2002:a17:907:6ea4:b0:978:94b1:25ac with SMTP id
+ sh36-20020a1709076ea400b0097894b125acmr1625268ejc.40.1686911498060; 
+ Fri, 16 Jun 2023 03:31:38 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.219.26]) by smtp.gmail.com with ESMTPSA id
- s20-20020a170906961400b009829d2e892csm2251098ejx.15.2023.06.16.03.31.33
+ s20-20020a170906961400b009829d2e892csm2251098ejx.15.2023.06.16.03.31.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Jun 2023 03:31:34 -0700 (PDT)
+ Fri, 16 Jun 2023 03:31:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -65,13 +66,15 @@ To: Rob Herring <robh+dt@kernel.org>,
  linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 16 Jun 2023 12:31:26 +0200
-Message-Id: <20230616103127.285608-1-krzysztof.kozlowski@linaro.org>
+Date: Fri, 16 Jun 2023 12:31:27 +0200
+Message-Id: <20230616103127.285608-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230616103127.285608-1-krzysztof.kozlowski@linaro.org>
+References: <20230616103127.285608-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [RFT PATCH 1/2] stmmac: dwmac-loongson: drop useless
-	check for compatible fallback
+Subject: [Linux-stm32] [RFT PATCH 2/2] MIPS: dts: loongson: drop incorrect
+	dwmac fallback compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,26 +98,44 @@ bound to unsupported platform.
 Drop useless, incorrect (space in between) and undocumented compatible.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 5 -----
- 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index a25c187d3185..900972521b59 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -59,11 +59,6 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 		return -ENODEV;
- 	}
+---
+
+This patch depends on driver change, thus it should be accepted a
+release after the driver is merged.
+---
+ arch/mips/boot/dts/loongson/loongson64-2k1000.dtsi | 3 +--
+ arch/mips/boot/dts/loongson/ls7a-pch.dtsi          | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/arch/mips/boot/dts/loongson/loongson64-2k1000.dtsi b/arch/mips/boot/dts/loongson/loongson64-2k1000.dtsi
+index 8143a61111e3..c16b521308cb 100644
+--- a/arch/mips/boot/dts/loongson/loongson64-2k1000.dtsi
++++ b/arch/mips/boot/dts/loongson/loongson64-2k1000.dtsi
+@@ -123,8 +123,7 @@ gmac@3,0 {
+ 				compatible = "pci0014,7a03.0",
+ 						   "pci0014,7a03",
+ 						   "pciclass0c0320",
+-						   "pciclass0c03",
+-						   "loongson, pci-gmac";
++						   "pciclass0c03";
  
--	if (!of_device_is_compatible(np, "loongson, pci-gmac")) {
--		pr_info("dwmac_loongson_pci: Incompatible OF node\n");
--		return -ENODEV;
--	}
--
- 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
- 	if (!plat)
- 		return -ENOMEM;
+ 				reg = <0x1800 0x0 0x0 0x0 0x0>;
+ 				interrupts = <12 IRQ_TYPE_LEVEL_LOW>,
+diff --git a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+index 2f45fce2cdc4..ed99ee316feb 100644
+--- a/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
++++ b/arch/mips/boot/dts/loongson/ls7a-pch.dtsi
+@@ -186,8 +186,7 @@ gmac@3,0 {
+ 				compatible = "pci0014,7a03.0",
+ 						   "pci0014,7a03",
+ 						   "pciclass020000",
+-						   "pciclass0200",
+-						   "loongson, pci-gmac";
++						   "pciclass0200";
+ 
+ 				reg = <0x1800 0x0 0x0 0x0 0x0>;
+ 				interrupts = <12 IRQ_TYPE_LEVEL_HIGH>,
 -- 
 2.34.1
 
