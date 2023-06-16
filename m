@@ -2,78 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0020F734C61
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 09:30:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02AE7734E5A
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 10:46:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D469C6A60D;
-	Mon, 19 Jun 2023 07:30:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 877DDC6A60D;
+	Mon, 19 Jun 2023 08:46:48 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5037C6A602
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E64AAC6B454
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 07:30:01 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35J54gIU016274; Mon, 19 Jun 2023 09:29:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=WQGm1bnbcsMFKMHxBrg1wg70iXAEPal+ehfuwX2lwpw=;
- b=Nq2GjWQcY1art4ot8AmwMxDr+4p5P0fpvZtFS3RDbb/GO9bPhhBbHtRRolv09aw++2Yc
- FW9qyW2yngBDFfnKpJywcK7NjEQ3/fZ+qAAbQ1g9dFXLb4lHubXy8/+57cnJGr6bKIUP
- ZmDIVwIL3TrEQHpiyB5m4VXzKfZ3mqmM0F70xwBYb/69au+F48i9vjSVJ8spYu0a72MX
- YvemOYEFphDb6oiKiOG7m8lOR183KsXk5vR/S2jzRCjLszmzXCoF2l684DscwCzL3MT/
- uEFmW+cdAMHDxK7dJmjeNCXnwV94zN0365jx64W5d0/b7uX2tNQgkUXjh4na+gdcX1ao 8Q== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ragj9rqej-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Jun 2023 09:29:21 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 93F0610002A;
- Mon, 19 Jun 2023 09:29:19 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7F6462138E6;
- Mon, 19 Jun 2023 09:29:19 +0200 (CEST)
-Received: from [10.201.21.210] (10.201.21.210) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 19 Jun
- 2023 09:29:17 +0200
-Message-ID: <78f8bd3d-c4a7-7383-441d-69cd8f5c30fb@foss.st.com>
-Date: Mon, 19 Jun 2023 09:29:16 +0200
+ Fri, 16 Jun 2023 08:30:43 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-4f004cc54f4so516208e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 16 Jun 2023 01:30:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686904243; x=1689496243;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=TKSfFjErQqrA4N+AgDBWwU9EqGS/Y9GhjAuAbiYkf/A=;
+ b=lJp1deBjvOtAoLHVmyF8tziPljobz5sX4gqcf3XUrQaXYLZ+n+XtL1QeG7OAk7Ay9O
+ M9iB6WKFlxeDpwkiRU11vP2bjvU/nSrVziTEBCYVLO3itjrdN5K/aCRO4upNardE2xds
+ pm8BWc4LlGPs0O0SavCx9TURPStpvTStdqhrsf7GUFbKppPp/QcUtIryAzrFjdZAiHxv
+ FUmPjwwPgKgwL2AaDGNNMstB1QEF58Y/GY8mWd9h13D97hyny1sCKAQvwTVdp1PnOuiv
+ WubAXxfGfkdxb2Dd4U82vu+rviH35CUaG6r4kqUkpv6BpeYK5kOe88an/faQSwYy5Vg7
+ yCwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686904243; x=1689496243;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TKSfFjErQqrA4N+AgDBWwU9EqGS/Y9GhjAuAbiYkf/A=;
+ b=TUggnEe1RL8eP/8pk4C6U9qjUW1FFpojqPmXKYRijU7cy3jJN9cA6MelDzm6zL4TQ/
+ c/IEfqmjh79QWaUykUGG85PPnNyvmCtehdf1wqnMBlX24dL0yqdSPj+XSBedpFzFI1kk
+ E79cw9vTUN//8fZGH+lWK0m6pMNxaOlAmTSLCneUpDlfbtxk5L39x6ulC6RZ/ZoamphF
+ fPsNR+Xt3eWJfciJ1CEfmwSPWL2JoMPJrY2IGiC7kbExHGCwGCCLZuJ+24Qa/d9xkZWR
+ GivEfvfvGn7+ecB2LCna1TY1+ryd+XECw39eXIJoeRbshMfQPZdIXdEWk5XTLpfT5vh3
+ MXpw==
+X-Gm-Message-State: AC+VfDzzWb1BxVwBYecS1t95vcxDggUm0N4RCJgDePkXI3Ial3G9QwNu
+ zdPu7CVpvQlLyWLllxz6zLZyQw==
+X-Google-Smtp-Source: ACHHUZ78mZiFnu3XwZGmaHeF12C0NqYoXkJ5x9w6amIE0Fv0MQnjxaaBVgSQLpQTBJRfgqzbBd9qzw==
+X-Received: by 2002:a19:500d:0:b0:4f6:20b1:ef81 with SMTP id
+ e13-20020a19500d000000b004f620b1ef81mr811165lfb.36.1686904243379; 
+ Fri, 16 Jun 2023 01:30:43 -0700 (PDT)
+Received: from [192.168.1.2] (c-05d8225c.014-348-6c756e10.bbcust.telenor.se.
+ [92.34.216.5]) by smtp.gmail.com with ESMTPSA id
+ j8-20020ac25508000000b004eb44c2ab6bsm2918106lfk.294.2023.06.16.01.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Jun 2023 01:30:42 -0700 (PDT)
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Fri, 16 Jun 2023 10:30:41 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Linus Walleij <linus.walleij@linaro.org>, Ulf Hansson
- <ulf.hansson@linaro.org>
-References: <20230615092001.1213132-1-yann.gautier@foss.st.com>
- <20230615092001.1213132-2-yann.gautier@foss.st.com>
- <CAPDyKFqJsqmNzeRg8hj55yUEMSycOWsmKVKsMWk4Qu7Y8_dNzg@mail.gmail.com>
- <3b6781cb-8f59-e70a-bcf8-9fb48fa47cbf@foss.st.com>
- <266de9f5-826a-c1bf-be8d-11f5e27c87dc@foss.st.com>
- <CACRpkdZLtCwPQsPw_Lp3Ppw2ed6gOo+-82_y2WPVJ_oZUHbLoQ@mail.gmail.com>
-Content-Language: en-US
-From: Yann Gautier <yann.gautier@foss.st.com>
-In-Reply-To: <CACRpkdZLtCwPQsPw_Lp3Ppw2ed6gOo+-82_y2WPVJ_oZUHbLoQ@mail.gmail.com>
-X-Originating-IP: [10.201.21.210]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-19_04,2023-06-16_01,2023-05-22_02
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Xiang wangx <wangxiang@cdjrlc.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-mmc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Yang Yingliang <yangyingliang@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: mmc: mmci: Add st,
- stm32mp25-sdmmc2 compatible
+Message-Id: <20230405-pl180-busydetect-fix-v6-9-b850ec8019f3@linaro.org>
+References: <20230405-pl180-busydetect-fix-v6-0-b850ec8019f3@linaro.org>
+In-Reply-To: <20230405-pl180-busydetect-fix-v6-0-b850ec8019f3@linaro.org>
+To: Yann Gautier <yann.gautier@foss.st.com>, 
+ Stefan Hansson <newbyte@disroot.org>, Ulf Hansson <ulf.hansson@linaro.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.12.2
+X-Mailman-Approved-At: Mon, 19 Jun 2023 08:46:47 +0000
+Cc: Linus Walleij <linus.walleij@linaro.org>, linux-mmc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v6 9/9] mmc: mmci: Break out a helper function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +78,114 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8xNS8yMyAyMDo1MSwgTGludXMgV2FsbGVpaiB3cm90ZToKPiBPbiBUaHUsIEp1biAxNSwg
-MjAyMyBhdCA1OjE54oCvUE0gWWFubiBHYXV0aWVyIDx5YW5uLmdhdXRpZXJAZm9zcy5zdC5jb20+
-IHdyb3RlOgo+IAo+Pj4gICAgICAgICAtIGRlc2NyaXB0aW9uOiBFbnRyeSBmb3IgU1RNaWNyb2Vs
-ZWN0cm9uaWNzIHZhcmlhbnQgb2YgUEwxOHguCj4+PiAgICAgICAgICAgICBUaGlzIGRlZGljYXRl
-ZCBjb21wYXRpYmxlIGlzIHVzZWQgYnkgYm9vdGxvYWRlcnMuCj4gKC4uLikKPj4+ICAgICAgICAg
-LSBkZXNjcmlwdGlvbjogRW50cnkgZm9yIFNUTWljcm9lbGVjdHJvbmljcyB2YXJpYW50IG9mIFBM
-MTh4IGZvcgo+Pj4gICAgICAgICAgICAgU1RNMzJNUDI1LiBUaGlzIGRlZGljYXRlZCBjb21wYXRp
-YmxlIGlzIHVzZWQgYnkgYm9vdGxvYWRlcnMuCj4gKC4uLikKPj4+IFNob3VsZCBJIHJlbW92ZSAo
-b3IgYWRhcHQpIGJvdGggZGVzY3JpcHRpb25zPwo+Pj4KPj4+Cj4+Cj4+IEF0IHRoZSB0aW1lIHRo
-ZSBwYXRjaCB3YXMgZG9uZSBpdCB3YXMgcmVhbGx5IGp1c3QgdXNlZCBieSBib290bG9hZGVycy4K
-Pj4gQnV0IGFzIGl0IGlzIG5vdyB1c2VkIGluIHRoZSBkcml2ZXIgZm9yIGRlbGF5IGJsb2NrLCBJ
-IHNob3VsZCByZW1vdmUgdGhlCj4+IHNlY29uZCBzZW50ZW5jZS4KPiAKPiBSZW1vdmUgYm90aC4K
-PiAKPiBBZnRlciAiVGhpcyBkZWRpY2F0ZWQgY29tcGF0aWJsZSBpcyB1c2VkIGJ5IGJvb3Rsb2Fk
-ZXJzIiB0aGVyZSBpcwo+IGFuIGltcGxpY2l0ICJpbiB0aGUgU0RLIHByb3ZpZGVkIGJ5IFNUIE1p
-Y3JvZWxlY3Ryb25pY3MiLCBhbmQgdGhhdAo+IGlzIG9mIG5vIGNvbmNlcm4gZm9yIERUIGJpbmRp
-bmdzLCB3aGljaCBhcmUgKHdlbGwsIGluIHRoZW9yeSkgdXNlZCBieQo+IGUuZy4gQlNEIG9yIG90
-aGVyIG9wZXJhdGluZyBzeXN0ZW1zIGFuZCB3aG8ga25vd3Mgd2hhdCB0aGV5IHdpbGwKPiB1c2Ug
-YW5kIG5vdCwgd2UgZG9uJ3QgcHV0IExpbnV4IHNwZWNpZmljcyBpbiB0aGVyZSwgbmVpdGhlciBC
-b290Cj4gbG9hZGVyIHNwZWNpZmljcyBub3IgU1QgU0RLIHNwZWNpZmljcy4KPiAKPiBBdCBsZWFz
-dCB0aGF0IGlzIHRoZSBsaXR0bGUgYnVyZWF1Y3JhdGljIGFtYml0aW9uIHdlIGhhdmUuCj4gCj4g
-WW91cnMsCj4gTGludXMgV2FsbGVpagoKSGksCgpUaGFua3MgZm9yIGFsbCB0aGUgcmV2aWV3cy4K
-SSdsbCB1cGRhdGUgdGhpcyBwYXRjaCBpbiB0aGUgdjIsIHJlbW92aW5nIGJvb3Rsb2FkZXIgbGlu
-ZSBhbmQgdXNpbmcgZW51bS4KClVsZiwgc2hvdWxkIEkgc2VuZCB0aGUgbmV3IHNlcmllcyBub3cs
-IG9yIGRvIHlvdSBwcmVmZXIgdG8gcmV2aWV3IHRoZSAKd2hvbGUgc2VyaWVzIGJlZm9yZT8KCgpZ
-YW5uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
-LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2xpbnV4LXN0bTMyCg==
+These four lines clearing, masking and resetting the state
+of the busy detect state machine is repeated five times in
+the code so break this out to a small helper so things are
+easier to read.
+
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+---
+ChangeLog v4->v6:
+- No changes.
+ChangeLog v3->v4:
+- No changes.
+ChangeLog v2->v3:
+- Rebased.
+ChangeLog v1->v2:
+- No changes
+---
+ drivers/mmc/host/mmci.c | 37 +++++++++++++++++--------------------
+ 1 file changed, 17 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index f7522c3fe849..a08d96918cae 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -654,6 +654,17 @@ static u32 ux500v2_get_dctrl_cfg(struct mmci_host *host)
+ 	return MCI_DPSM_ENABLE | (host->data->blksz << 16);
+ }
+ 
++static void ux500_busy_clear_mask_done(struct mmci_host *host)
++{
++	void __iomem *base = host->base;
++
++	writel(host->variant->busy_detect_mask, base + MMCICLEAR);
++	writel(readl(base + MMCIMASK0) &
++	       ~host->variant->busy_detect_mask, base + MMCIMASK0);
++	host->busy_state = MMCI_BUSY_DONE;
++	host->busy_status = 0;
++}
++
+ /*
+  * ux500_busy_complete() - this will wait until the busy status
+  * goes off, saving any status that occur in the meantime into
+@@ -668,11 +679,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+ 
+ 	if (status & err_msk) {
+ 		/* Stop any ongoing busy detection if an error occurs */
+-		writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+-		writel(readl(base + MMCIMASK0) &
+-		       ~host->variant->busy_detect_mask, base + MMCIMASK0);
+-		host->busy_state = MMCI_BUSY_DONE;
+-		host->busy_status = 0;
++		ux500_busy_clear_mask_done(host);
+ 		goto out_ret_state;
+ 	}
+ 
+@@ -714,10 +721,7 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+ 			retries--;
+ 		}
+ 		dev_dbg(mmc_dev(host->mmc), "no busy signalling in time\n");
+-		writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+-		writel(readl(base + MMCIMASK0) &
+-		       ~host->variant->busy_detect_mask, base + MMCIMASK0);
+-		host->busy_state = MMCI_BUSY_DONE;
++		ux500_busy_clear_mask_done(host);
+ 		break;
+ 
+ 	/*
+@@ -739,27 +743,20 @@ static bool ux500_busy_complete(struct mmci_host *host, u32 status, u32 err_msk)
+ 		} else {
+ 			dev_dbg(mmc_dev(host->mmc),
+ 				"lost busy status when waiting for busy start IRQ\n");
+-			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+-			writel(readl(base + MMCIMASK0) &
+-			       ~host->variant->busy_detect_mask, base + MMCIMASK0);
+-			host->busy_state = MMCI_BUSY_DONE;
+-			host->busy_status = 0;
++			ux500_busy_clear_mask_done(host);
+ 		}
+ 		break;
+ 
+ 	case MMCI_BUSY_WAITING_FOR_END_IRQ:
+ 		if (!(status & host->variant->busy_detect_flag)) {
+ 			host->busy_status |= status & (MCI_CMDSENT | MCI_CMDRESPEND);
+-			host->busy_state = MMCI_BUSY_DONE;
++			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
++			ux500_busy_clear_mask_done(host);
+ 		} else {
+ 			dev_dbg(mmc_dev(host->mmc),
+ 				"busy status still asserted when handling busy end IRQ\n");
+ 			/* Force clear the spurious IRQ */
+-			writel(host->variant->busy_detect_mask, base + MMCICLEAR);
+-			writel(readl(base + MMCIMASK0) &
+-			       ~host->variant->busy_detect_mask, base + MMCIMASK0);
+-			host->busy_state = MMCI_BUSY_DONE;
+-			host->busy_status = 0;
++			ux500_busy_clear_mask_done(host);
+ 		}
+ 		break;
+ 
+
+-- 
+2.40.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
