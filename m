@@ -2,70 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F9E73445A
-	for <lists+linux-stm32@lfdr.de>; Sun, 18 Jun 2023 00:26:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55348734627
+	for <lists+linux-stm32@lfdr.de>; Sun, 18 Jun 2023 14:42:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84FA6C6A610;
-	Sat, 17 Jun 2023 22:26:05 +0000 (UTC)
-Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D85CDC6A606;
+	Sun, 18 Jun 2023 12:42:10 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D47F0C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B82FC6A5F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 Jun 2023 22:26:04 +0000 (UTC)
-Received: from [127.0.0.1] (p578adb1c.dip0.t-ipconnect.de [87.138.219.28])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: marex@denx.de)
- by phobos.denx.de (Postfix) with ESMTPSA id DD8BD8474B;
- Sun, 18 Jun 2023 00:26:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
- s=phobos-20191101; t=1687040763;
- bh=sdG9ayzJa/8nhspUIwUpTDa4ZjlD+rL44Ygoe/d95IE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jtTPMHYoC6af7TZHE9e4xxi2RmCaB+89ZJsxITeyHyBvPkV7ja5je74zAwSpvhsGC
- WcQJjrDgejVdEE5btUaz7oG3+CNmhCm8TZNcXZW1Uey3KrS5j4EUIkw82snFq8ItG4
- gq0QBRrGE1qzo7zgg05K8+H7C54sDvkmvulmHtXm9BMr2QYrOxlSxxVUNlGJ0PlkZh
- deUZMdXTFaW4mkCUHkxXH1HF6PwKAtSjBY6e9fmOuBIwfyLqfKUHYRUgq8PkPBUDAH
- SB3oD2AHCy72y83ZxMsFO5g68f/NM3zYoVoVUWoUW5GL2fZLEOYvPbLtQpItfaxipl
- /AXxdqLAQXZ7Q==
-Message-ID: <63a9cb7a-0fbf-233f-ec25-03f4415c349e@denx.de>
-Date: Sat, 17 Jun 2023 16:34:31 +0200
+ Sun, 18 Jun 2023 12:42:08 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArh7-0003eY-9M; Sun, 18 Jun 2023 14:39:49 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArgb-008HLz-J5; Sun, 18 Jun 2023 14:39:17 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qArga-00FHNT-AP; Sun, 18 Jun 2023 14:39:16 +0200
+Date: Sun, 18 Jun 2023 14:39:15 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Doug Anderson <dianders@chromium.org>
+Message-ID: <20230618123915.hmy66z7e532jhwgk@pengutronix.de>
+References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+ <20230601154002.uv2wfatpb7b45duz@pengutronix.de>
+ <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
+ <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
+ <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
- Arnaud POULIQUEN <arnaud.pouliquen@st.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230518011246.438097-1-marex@denx.de>
- <PAXPR10MB471850924065C987981634C1F14B9@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <133c8b4a-8680-f613-807a-2d7931d0a186@denx.de>
- <PAXPR10MB4718D37242FF00D47DF0CEF1F1499@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <81f4574d-38c2-21f2-b947-d13e5fc99c60@denx.de>
- <PAXPR10MB471825B145645894D626F070F152A@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <0d304968-74c8-47ce-f87a-127449f36f4b@denx.de>
- <PAXPR10MB4718E8CE58A881DAE3983A27F153A@PAXPR10MB4718.EURPRD10.PROD.OUTLOOK.COM>
- <b65288f6-1d3d-424f-5df5-98e86cc51dec@denx.de>
- <c944123c-bcd8-89cf-c2cd-8d5742931f68@foss.st.com>
- <26cfd848-a29d-2b38-3c15-fdcda532bcef@denx.de>
- <5c3bbeb8-f0c1-46e4-009e-1cc3de64c06e@foss.st.com>
-From: Marek Vasut <marex@denx.de>
-In-Reply-To: <5c3bbeb8-f0c1-46e4-009e-1cc3de64c06e@foss.st.com>
-X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
-X-Virus-Status: Clean
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+In-Reply-To: <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Raymond Tan <raymond.tan@intel.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Michal Simek <michal.simek@xilinx.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Danilo Krummrich <dakr@redhat.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
+ Rob Clark <robdclark@gmail.com>, Rahul T R <r-ravikumar@ti.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ etnaviv@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
+ Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
+ Johan Hovold <johan+linaro@kernel.org>, Hyun Kwon <hyun.kwon@xilinx.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Jingoo Han <jingoohan1@gmail.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Miaoqian Lin <linmq006@gmail.com>, linux-aspeed@lists.ozlabs.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, Liu Ying <victor.liu@nxp.com>,
+ linux-arm-msm@vger.kernel.org, Wang Jianzheng <wangjianzheng@vivo.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "kernel@dh-electronics.com" <kernel@dh-electronics.com>
-Subject: Re: [Linux-stm32] [PATCH 1/5] ARM: dts: stm32: Add missing detach
- mailbox for emtrion emSBC-Argon
+ linux-mediatek@lists.infradead.org, Brian Starkey <brian.starkey@arm.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Yuan Can <yuancan@huawei.com>, Stefan Agner <stefan@agner.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rob Herring <robh@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
+ nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Alison Wang <alison.wang@nxp.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime@cerno.tech>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Liu Shixin <liushixin2@huawei.com>, Tomi Valkeinen <tomba@kernel.org>,
+ Deepak R Varma <drv@mailo.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Shawn Guo <shawnguo@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, Laura Nao <laura.nao@collabora.com>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ linux-renesas-soc@vger.kernel.org, Yongqin Liu <yongqin.liu@linaro.org>,
+ Jayshri Pawar <jpawar@cadence.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Russell King <linux@armlinux.org.uk>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Melissa Wen <mwen@igalia.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Qiang Yu <yuq825@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] patches dropped from drm-misc-next [Was: Re:
+ [PATCH 00/53] drm: Convert to platform remove callback returning] void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,80 +144,216 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4073003304637029441=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gNi8xMi8yMyAxNDozNCwgQXJuYXVkIFBPVUxJUVVFTiB3cm90ZToKCkhpLAoKWy4uLl0KCj4+
-Pj4+IEkgd291bGQgcHJlZmVyIHRvIHJlbW92ZSBpdCBpbiBTVCBib2FyZCBEVCB0aGFuIGFkZCBp
-dCBpbiB0aGUgRFRTSS4KPj4+Pj4gVGhhdCBzYWlkIGFzIG1lbnRpb25lZCBmb3IgbGVnYWN5IHN1
-cHBvcnQsIGJldHRlciB0byBrZWVwIGZvciBTVCBib2FyZC4KPj4+Pgo+Pj4+IFdoeSBub3QgcmVt
-b3ZlIGl0IGZyb20gU1QgYm9hcmRzIGlmIHRoaXMgd2FzIGxlZ2FjeSB0ZXN0IGZlYXR1cmUgYW5k
-IGlzIG5vCj4+Pj4gbG9uZ2VyIG5lZWRlZCA/Cj4+Pgo+Pj4gSWYgeW91IGNhbiBndWFyYW50eSB0
-aGF0IHRoaXMgd2lsbCBub3QgaW50cm9kdWNlIHJlZ3Jlc3Npb24gb24gbGVnYWN5LCB5ZXMgd2UK
-Pj4+IGNhbi4KPj4KPj4gVGhlbiBjbGVhcmx5IHRoZSBvbmx5IHdheSB0byBhdm9pZCB0aGlzIGZy
-YWdtZW50YXRpb24gaXMgdG8gYWRkIGl0IG9uIGFsbCBib2FyZHMuCj4gCj4gWW91IGNhbiBub3Qg
-YXZvaWQgZnJhZ21lbnRhdGlvbiBoZXJlLCB0aGUgRFQgYW5kIHRoZSBDb3J0ZXgtTTQgZmlybXdh
-cmUgYXJlCj4gZGVwZW5kZW50LCB0aGUgTTQgZmlybXdhcmUgaXMgYm9hcmQgZGVwZW5kZW50Lgo+
-IEZvciBpbnN0YW5jZSwgaWYgd2UgaW50cm9kdWNlIHNvbWUgbmV3IG1haWxib3ggY2hhbm5lbHMg
-dG8gc3VwcG9ydCBzb21lIHZpcnRpbwo+IHNlcnZpY2VzIHNob3VsZCB3ZSBhbHNvIGFkZCBpdCBv
-biBhbGwgYm9hcmRzIHRoYXQgZW1iZWRkIHN0bTMybXAxNSBjaGlwLi4/CgpZZXMsIEkgYmVsaWV2
-ZSBzbywgYXMgbG9uZyBhcyBvbmUgY2FuIHVzZSBjdWJlbXggdG8gZ2VuZXJhdGUgYnNwIGZvciAK
-bm9uLVNUIGJvYXJkIHdoaWNoIHVzZXMgdGhhdCBmdW5jdGlvbmFsaXR5LgoKPiBGb3IgbWUgbm8s
-IGFzIHRoZSBNNCBGaXJtd2FyZSBpcyBib2FyZCBkZXBlbmRlbnQuCgpbLi4uXQoKPj4+Pj4+IEkg
-YmVsaWV2ZSBvbmNlIGNhbiBidWlsZCBkZW1vcyB1c2luZyB0aGUgZGV0YWNoIG1haWxib3ggZm9y
-IGJvYXJkcyB3aXRoCj4+Pj4+PiBzdG0zMm1wMTV4eCBub3QgbWFudWZhY3R1cmVkIGJ5IFNULCBj
-b3JyZWN0ID9bXQo+Pj4+Pgo+Pj4+PiBFdmVyeXRoaW5nIGNvdWxkIGJlIHBvc3NpYmxlLi4uCj4+
-Pj4+IE9uY2UgY2FuIHdhbnQgdG8gcmVwbGFjZSB0aGUgc2h1dGRvd24gbWFpbGJveCBieSB0aGUg
-ZGV0YWNoLgo+Pj4+PiBPbmNlIGNhbiBhbHNvIGJ1aWxkIGRlbW8gdXNpbmcgdGhlIGRldGFjaCBt
-YWlsYm94IGNoYW5uZWwgZm9yIGFub3RoZXIgcHVycG9zZS4KPj4+Pj4KPj4+Pj4gSSBxdWl0ZSBj
-b25mdXNlIHdoeSB5b3UgaW5zaXN0IHRvIGRlY2xhcmUgdGhpcyBkZXRhY2ggbWFpbGJveCBpbiB0
-aGUgRFRTST8KPj4+Pj4gSXMgdGhlcmUgYSBzdHJvbmcgY29uc3RyYWludCBvbiB5b3VyIHNpZGU/
-Cj4+Pj4KPj4+PiBJIGp1c3QgZG9uJ3Qgc2VlIGFueSBleHBsYW5hdGlvbiB3aHkgU1QgYm9hcmQo
-cykgc2hvdWxkIGJlIHNvbWVob3cgc3BlY2lhbCBhbmQKPj4+PiBoYXZlIHRoZSBkZXRhY2ggbWFp
-bGJveCBkZXNjcmliZWQgaW4gRFQgYnkgZGVmYXVsdCwgd2hpbGUgb3RoZXIgYm9hcmRzIHdvdWxk
-Cj4+Pj4gcmVxdWlyZSBzZXBhcmF0ZSBEVCBwYXRjaCB0byB1c2UgdGhlIGRldGFjaCBtYWlsYm94
-IGZpcnN0LiBUaGF0IGp1c3QgcmVkdWNlcwo+Pj4+IHVzYWJpbGl0eSBvZiBub24tU1QtbWFudWZh
-Y3R1cmVkIGJvYXJkcyBhbmQgaW5jcmVhc2VzIGZyYWdtZW50YXRpb24uIEkgZG8gbm90Cj4+Pj4g
-bGlrZSB0aGF0Lgo+Pj4KPj4+IFRoZSAic29tZWhvdyBzcGVjaWFsIiBzaG91bGQgb25seSBiZSBh
-biBpbnRlcm5hbCBNNCBmaXJtd2FyZcKgIGFsbG93aW5nIHRvIHRlc3QKPj4+IHRoZSBmZWF0dXJl
-IHRvIGhlbHAgcmVtb3RlcHJvYyBtYWludGFpbmVycyB0byB2ZXJpZnkgaXQgb24gZGVtYW5kLgo+
-Pj4gQnV0IEkgY2FuIG5vdCBrbm93IGlmIHNvbWVvbmUgaW4gdGhlIGNvbW11bml0eSBoYXZlIGFu
-b3RoZXIgZmlybXdhcmUgdXNpbmcKPj4+IGRldGFjaCBvbiB0aGUgU1QgYm9hcmRzLgo+Pj4gQW55
-d2F5IHdoYXQgeW91IHByb3Bvc2UgaGVyZSBpcyB0aGF0IHdlIGltcG9zZSBpdCBmb3IgYWxsIGJv
-YXJkcy4gU29tZSBib2FyZHMKPj4+IHdvdWxkIHJlcXVpcmUgc2VwYXJhdGUgRFQgcGF0Y2ggdG8g
-bm90IHVzZSBpdC4gV2UganVzdCBpbnZlcnNlIHRoZSB0aGluZ3MuLi4KPj4+IFRoZSBkaWZmZXJl
-bmNlIGlzIHRoYXQgSSB3b3VsZCBub3QgaW1wb3NlIHNvbWV0aGluZyBvcHRpb25hbC4KPj4KPj4g
-SSBiZWxpZXZlIGl0IGlzIGJldHRlciB0byBoYXZlIHNpbmdsZSBjYXBhYmxlIGNvbnNpc3RlbnQg
-ZGVmYXVsdCBhbmQgbGV0IHVzZXJzCj4+IHJlbW92ZSB0aGUgY2FwYWJpbGl0aWVzIGZvciBzcGVj
-aWZpYyBhcHBsaWNhdGlvbiBpZiBuZWVkZWQsIHRoYW4gdG8gaGF2ZQo+PiBmcmFnbWVudGVkIGlu
-Y29uc2lzdGVudCBib2FyZC1zcGVjaWZpYyBjb25maWd1cmF0aW9ucyB3aGVyZSB1c2VycyBoYXZl
-IHRvIGZpcnN0Cj4+IGRldGVybWluZSB3aGV0aGVyIHRoZXkgbmVlZCB0byBwYXRjaCB0aGVtIHRv
-IGFkZCBtaXNzaW5nIGNhcGFiaWxpdGllcywgYW5kIHRoZW4KPj4gcG9zc2libHkgcGF0Y2ggdGhl
-bSwgdGhhdCdzIGp1c3QgYSBtZXNzLgo+IAo+IAo+IEJlIGF3YXJlIHRoYXQgdG8gbWFuYWdlIGEg
-Y29wcm9jZXNzb3IgZmlybXdhcmUgdGhpcyBub3Qgc3VmZmljaWVudCBzbyBpbiBhbnkKPiBjYXNl
-IHVzZXIgd2lsbCBoYXZlIHRvIHBhdGNoIHRoZSBEVCB0byBhc3NpZ24gcGVyaXBoZXJhbHMgdG8g
-dGhlIENvcnRleC1NNCwKPiB1cGRhdGUgaGUgbWVtb3J5IHJlZ2lvbnMsLi4uCgpOb3QgbmVjZXNz
-YXJpbHksIGEgbG90IG9mIHRoZSBjdWJlbXggZXhhbXBsZXMgZG8gdXNlIHRoZSBzYW1lIG1lbW9y
-eSAKbGF5b3V0LiBTbyBtYWtpbmcgaXQgZWFzeSBmb3IgdXNlciB0byBldmFsdWF0ZSB0aGUgQ000
-IHVzYWdlIGlzIHRoZSBnb2FsIApoZXJlLiBBbmQgdGhhdCBpbmNsdWRlcyBub24tU1QgcHJvZHVj
-ZWQgYm9hcmRzLgoKPiBJdCBpcyBhIHN5c3RlbSB1c2VjYXNlLCBub3Qgb25seSB0aGUgZW5hYmxl
-IG9mIGEgcGVyaXBoZXJhbC5UaGF0J3Mgd2h5IHdlIGhhdmUKPiBzcGVjaWZpYyBEVCBpbiBkb3du
-c3RyZWFtIGZvciBNNCBleGFtcGxlcywgdG8gYmUgYWJsZSB0byBzdXBwb3J0IG1vcmUgZXhhbXBs
-ZXMKPiBhbmQgZGVtb3MuCj4gCj4+Cj4+IEl0IGFsc28gcHV0cyBub24tU1QtbWFudWZhY3R1cmVk
-IGJvYXJkcyBpbnRvIHdvcnNlIHBvc2l0aW9uLgo+IAo+IFdoYXQgd291bGQgeW91IG1lYW4gYnkg
-d29yc3QgcG9zaXRpb24/IEFzIHRoZXJlIGlzIG5vIGV4YW1wbGUgcHJvdmlkZWQgdGhhdAo+IHdv
-dWxkIHRha2UgYWR2YW50YWdlIG9mIHRoZSAiZGV0YWNoIiwgSSBkb24ndCB1bmRlcnN0YW5kIHlv
-dXIgcG9pbnQuCj4gCj4gVGhlIG9ubHkgYXJndW1lbnQgSSBjYW4gc2VlIGZvciBnZW5lcmljIGlz
-IHRoYXQgdGhlICBwcm9wb3NlZCBzZXR0aW5ncyBhbGxvdwo+IHRvIHJ1biBhIFplcGh5ciBJUEMg
-c2FtcGxlLCB0aGF0IGNvdWxkIGJlIGNyb3NzLXBsYXRmb3JtLgo+IFNvIEkgd291bGQgc2F5IHdl
-IHNob3VsZCBmaXJzdCBleHRlbmQgdGhlIE00IHplcGh5ciBzYW1wbGUgdG8gaW1wbGVtZW50IHRo
-ZQo+IGRldGFjaCBhbmQgdGhlbiB0aGF0IG1pZ2h0IG1ha2Ugc2Vuc2UuCj4gCj4gSGF2aW5nIHNh
-aWQgdGhhdCwgSSdkIHJhdGhlciBub3Qgc3BlbmQgYW55IG1vcmUgdGltZSBvbiB0aGlzIHN1Ympl
-Y3QuCj4gSSd2ZSBnaXZlbiBzb21lIGFyZ3VtZW50cywgeW91J3ZlIGdpdmVuIG90aGVycy4KPiBJ
-IG5vdyBwcm9wb3NlIHRvIGxldCBBbGV4LCBhcyBtYWludGFpbmVyIG9mIHN0bTMyIERULCBkZWNp
-ZGUuLi4KCkkgYWdyZWUsIGxldCdzIHdhaXQgZm9yIEFsZXguCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============4073003304637029441==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jxye2q65aavatxzk"
+Content-Disposition: inline
+
+
+--jxye2q65aavatxzk
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Doug,
+
+On Sat, Jun 17, 2023 at 10:57:23AM -0700, Doug Anderson wrote:
+> On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> <u.kleine-koenig@pengutronix.de> wrote:
+> >
+> > [expanding recipents by the other affected persons]
+> >
+> > On Thu, Jun 08, 2023 at 09:08:15AM -0700, Doug Anderson wrote:
+> > > On Thu, Jun 1, 2023 at 8:40=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > > <u.kleine-koenig@pengutronix.de> wrote:
+> > > >
+> > > > Hello,
+> > > >
+> > > > On Sun, May 07, 2023 at 06:25:23PM +0200, Uwe Kleine-K=C3=B6nig wro=
+te:
+> > > > > this patch series adapts the platform drivers below drivers/gpu/d=
+rm
+> > > > > to use the .remove_new() callback. Compared to the traditional .r=
+emove()
+> > > > > callback .remove_new() returns no value. This is a good thing bec=
+ause
+> > > > > the driver core doesn't (and cannot) cope for errors during remov=
+e. The
+> > > > > only effect of a non-zero return value in .remove() is that the d=
+river
+> > > > > core emits a warning. The device is removed anyhow and an early r=
+eturn
+> > > > > from .remove() usually yields a resource leak.
+> > > > >
+> > > > > By changing the remove callback to return void driver authors can=
+not
+> > > > > reasonably (but wrongly) assume any more that there happens some =
+kind of
+> > > > > cleanup later.
+> > > >
+> > > > I wonder if someone would volunteer to add the whole series to
+> > > > drm-misc-next?!
+> > >
+> > > It looks as if Neil applied quite a few of them already, so I looked
+> > > at what was left...
+> > >
+> > > I'm a little hesitant to just apply the whole kit-and-caboodle to
+> > > drm-misc-next since there are specific DRM trees for a bunch of them
+> > > and it would be better if they landed there. ...so I went through all
+> > > the patches that still applied to drm-misc-next, then used
+> > > 'scripts/get_maintainer.pl --scm' to check if they were maintained
+> > > through drm-misc. That still left quite a few patches. I've applied
+> > > those ones and pushed to drm-misc-next:
+> > >
+> > > 71722685cd17 drm/xlnx/zynqmp_dpsub: Convert to platform remove
+> > > callback returning void
+> > > 1ed54a19f3b3 drm/vc4: Convert to platform remove callback returning v=
+oid
+> > > b957812839f8 drm/v3d: Convert to platform remove callback returning v=
+oid
+> > > e2fd3192e267 drm/tve200: Convert to platform remove callback returnin=
+g void
+> > > 84e6da7ad553 drm/tiny: Convert to platform remove callback returning =
+void
+> > > 34cdd1f691ad drm/tidss: Convert to platform remove callback returning=
+ void
+> > > d665e3c9d37a drm/sun4i: Convert to platform remove callback returning=
+ void
+> > > 0c259ab19146 drm/stm: Convert to platform remove callback returning v=
+oid
+> > > 9a865e45884a drm/sti: Convert to platform remove callback returning v=
+oid
+> > > 3c855610840e drm/rockchip: Convert to platform remove callback return=
+ing void
+> > > e41977a83b71 drm/panfrost: Convert to platform remove callback return=
+ing void
+> > > cef3776d0b5a drm/panel: Convert to platform remove callback returning=
+ void
+> > > bd296a594e87 drm/mxsfb: Convert to platform remove callback returning=
+ void
+> > > 38ca2d93d323 drm/meson: Convert to platform remove callback returning=
+ void
+> > > fd1457d84bae drm/mcde: Convert to platform remove callback returning =
+void
+> > > 41a56a18615c drm/logicvc: Convert to platform remove callback returni=
+ng void
+> > > 980ec6444372 drm/lima: Convert to platform remove callback returning =
+void
+> > > 82a2c0cc1a22 drm/hisilicon: Convert to platform remove callback retur=
+ning void
+> > > c3b28b29ac0a drm/fsl-dcu: Convert to platform remove callback returni=
+ng void
+> > > a118fc6e71f9 drm/atmel-hlcdc: Convert to platform remove callback ret=
+urning void
+> > > 9a32dd324c46 drm/aspeed: Convert to platform remove callback returnin=
+g void
+> > > 2c7d291c498c drm/arm/malidp: Convert to platform remove callback retu=
+rning void
+> > > a920028df679 drm/arm/hdlcd: Convert to platform remove callback retur=
+ning void
+> > > 1bf3d76a7d15 drm/komeda: Convert to platform remove callback returnin=
+g void
+> >
+> > Together with the patches that were applied later the topmost commit
+> > from this series is c2807ecb5290 ("drm/omap: Convert to platform remove
+> > callback returning void"). This commit was part for the following next
+> > tags:
+> >
+> >         $ git tag -l --contains c2807ecb5290
+> >         next-20230609
+> >         next-20230613
+> >         next-20230614
+> >         next-20230615
+> >
+> > However in next-20230616 they are missing. In next-20230616
+> > drm-misc/for-linux-next was cf683e8870bd4be0fd6b98639286700a35088660.
+> > Compared to c2807ecb5290 this adds 1149 patches but drops 37 (that are
+> > also not included with a different commit id). The 37 patches dropped
+> > are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb5290:
+> >
+> >         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c28=
+07ecb5290
+> >              1  Christophe JAILLET
+> >              2  Jessica Zhang
+> >              5  Karol Wachowski
+> >              1  Laura Nao
+> >             27  Uwe Kleine-K=C3=B6nig
+> >              1  Wang Jianzheng
+> >
+> >
+> > I guess this was done by mistake because nobody told me about dropping
+> > my/these patches? Can c2807ecb5290 please be merged into drm-misc-next
+> > again?
+>=20
+> Actually, it was probably a mistake that these patches got merged to
+> linuxnext during the 4 days that you noticed. However, your patches
+> aren't dropped and are still present in drm-misc-next.
+>=20
+> drm-misc has a bit of a unique model and it's documented fairly well here:
+>=20
+> https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+
+Is there a flaw then in this unique model (or its implementation) when
+drm-misc/for-linux-next moves in a non-fast-forward manner? This isn't
+expected, is it?
+
+> The key is that committers can commit to drm-misc-next _at any time_
+> regardless of the merge window. The drm-misc merge strategy makes this
+> OK. Specifically, when it's late in the linux cycle then drm-misc-next
+> is supposed to stop merging to linuxnext. Then, shortly after the
+> merge window closes, patches will start flowing again.
+>=20
+> So basically your patches are landed and should even keep the same git
+> hashes when they eventually make it to Linux. They just won't land for
+> another release cycle of Linux.
+
+OK, c2807ecb5290 is still included in drm-misc-next. So while I don't
+understand the whole model, the patches at least seem to be scheduled to
+go in during the next merge window.
+
+> Hope that makes sense!
+
+I hope so, too :-)
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
+   |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--jxye2q65aavatxzk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSO+vMACgkQj4D7WH0S
+/k4tBAf/WJqmqU+5eekUGchlF9m1+XeCRlblrZKJD8OlTBL6PlxHAN/jbFku6GKt
+gjyjPP6HZ9iWXLnvngsdwG8hNFKJvu2Y1IEbPgA5j8Dd68NivIKMuj0eXTLZ29xn
+OUiLHWcA7+wwu14zyDNbB+IcT0uyxwkPhS8SuUhcsbhWhS6+7sjxQvv0CP34/En2
+LzTVFs7CpT/eTDELjFwUNzHDs9+Off9x1XvvYp7UqJBJvpt+6hbH2ovTKx3SLf8Z
+R3If2PYSjGHHQ7iEvQrY1CV4P3asfnmauhG0Fhow3Sn5isYcAjgrt+MTjDti7KjD
+AI9VKh7LunoDs1M1lzZLbZT3DXLMag==
+=zTX8
+-----END PGP SIGNATURE-----
+
+--jxye2q65aavatxzk--
+
+--===============4073003304637029441==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4073003304637029441==--
