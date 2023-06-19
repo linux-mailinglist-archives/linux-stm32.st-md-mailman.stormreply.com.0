@@ -2,39 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 519F0735911
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 16:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A16735960
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 16:20:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EC20C6A61E;
-	Mon, 19 Jun 2023 14:02:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42F65C6A61E;
+	Mon, 19 Jun 2023 14:20:54 +0000 (UTC)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4142C6A60D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFFF0C6A60E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 14:02:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7AB2B60C5B;
- Mon, 19 Jun 2023 14:02:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02FBC433C8;
- Mon, 19 Jun 2023 14:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687183366;
- bh=aoZIdKtakof1RrLG1uHfgHvEnjV5bAZA/iEPAGIdL1U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jV95SsXCscon9mjIrA85S4h2EdhGBkgNuFn8VZOUrDV+lIkF0pUNayXcf0CKyi8A6
- N48rXJ2wuubn0Bti2ZkKUiijVrVqJoWAxGylrGc2P/8z2dpERee9fF4Un0UHHbArW4
- auoHmiA8vzTlS8TEVa4jO3sKRu3sb8gHf+zbcrBovj5dR8bhFUe8fIUCFrs8zNtGMM
- a8tAV38SZ7gAwjXhA1JwM4LL2kusu0pUESpxODTU+LmevESt4iijRlQuZNuPIRrx6/
- xEJ/A1HJ21okj5noJ5wg00TGmdIesmam9MZrNHImWINT+iaS1huZnX+m6jmzDi4WVy
- eOUJrD/hLSISQ==
-Date: Mon, 19 Jun 2023 16:02:43 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Message-ID: <vegkiv4puxederjvonyyqsg4j5swpi2h7ttg7ng6gq2tibk4gy@afa5vexshp7q>
+ Mon, 19 Jun 2023 14:20:51 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-53fa455cd94so1585666a12.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Jun 2023 07:20:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687184450; x=1689776450;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jFntx4YXgadpDVJ2Ga1nOHhwiQ9Nxhf2XabKx8SJuMo=;
+ b=K6wxIxnanE0V/bcUoTqZbAYMf8lWTGTrd1hup3xJkgyu8DcDYQf1DvVrc7TngcBg93
+ v+wmrnd7605t+jJP84zS/PVqsh9G74gbdmpqK15H+RVvyWxDOQQWunQHhGYuMj4h+poe
+ lp7m/z4hnfB6QyH7hpVhddIUdrsLgvN+KznFpkruIrOfjqCS3wfQVXurCqIdpTSih26z
+ 3jeXvig6e7kLsBYzNLuMxGhjH2DbEo+VcptzxY9cMy19qDt7rKebCe2Spn2vRZvt+hRk
+ MLeFT8BbwM1crqeNmVwv+UNrH/In2So5hl9rs7HW4XUEp7ElxJYNBPCF5vielELwIKlD
+ Xsgg==
+X-Gm-Message-State: AC+VfDzFRoH5Kh4TGx+ZJsNYtMlWd0fzQjWSXB5gNuNbZj/2aL/j3CyZ
+ 1/wMuFX43ytCWAoZaXbGjUtFU0QrydlhjThJ
+X-Google-Smtp-Source: ACHHUZ57DkAXo/yiTvz1exKjhBhgoDe1LCB47F2g+L4fEl1Z6wDRtiG2Kk1Hy9jw07Fzu2EaNrPXtQ==
+X-Received: by 2002:a17:902:db05:b0:1b2:499f:672c with SMTP id
+ m5-20020a170902db0500b001b2499f672cmr1003840plx.33.1687184450077; 
+ Mon, 19 Jun 2023 07:20:50 -0700 (PDT)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com.
+ [209.85.210.178]) by smtp.gmail.com with ESMTPSA id
+ j11-20020a170902690b00b001b03842ab78sm20590131plk.89.2023.06.19.07.20.48
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Jun 2023 07:20:48 -0700 (PDT)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-668689ce13fso664345b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Jun 2023 07:20:48 -0700 (PDT)
+X-Received: by 2002:a5b:88e:0:b0:ba8:33d9:b583 with SMTP id
+ e14-20020a5b088e000000b00ba833d9b583mr987140ybq.13.1687184427316; Mon, 19 Jun
+ 2023 07:20:27 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
  <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
  <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
@@ -45,10 +60,15 @@ References: <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
  <20230619105342.ugf5gz26gcalcsi6@pengutronix.de>
  <a6ex232lwyovzzazfh6jfvlwszppr2624czgcc5sa4nthkgecf@asauiw3rf4vi>
  <CAMuHMdWERLXOa4bQvsb7=gx+Q=Hn8v=XJZxahV0j3Vw1xKUYiQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAMuHMdWERLXOa4bQvsb7=gx+Q=Hn8v=XJZxahV0j3Vw1xKUYiQ@mail.gmail.com>
+ <vegkiv4puxederjvonyyqsg4j5swpi2h7ttg7ng6gq2tibk4gy@afa5vexshp7q>
+In-Reply-To: <vegkiv4puxederjvonyyqsg4j5swpi2h7ttg7ng6gq2tibk4gy@afa5vexshp7q>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 19 Jun 2023 16:20:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXf5Pao+Fjf42iRV_iMFEcb+F=s09NG+mudB-L5wWF_OA@mail.gmail.com>
+Message-ID: <CAMuHMdXf5Pao+Fjf42iRV_iMFEcb+F=s09NG+mudB-L5wWF_OA@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
 Cc: Raymond Tan <raymond.tan@intel.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
  Akhil P Oommen <quic_akhilpo@quicinc.com>,
  Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
  Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
@@ -59,12 +79,12 @@ Cc: Raymond Tan <raymond.tan@intel.com>,
  Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
  Robert Foss <rfoss@kernel.org>, Karol Herbst <kherbst@redhat.com>,
  Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>,
  Javier Martinez Canillas <javierm@redhat.com>,
  Kuogee Hsieh <quic_khsieh@quicinc.com>, Xinliang Liu <xinliang.liu@linaro.org>,
  Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
  Miaoqian Lin <linmq006@gmail.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  linux-sunxi@lists.linux.dev, Rob Clark <robdclark@gmail.com>,
  Rahul T R <r-ravikumar@ti.com>, Jani Nikula <jani.nikula@intel.com>,
  Sascha Hauer <s.hauer@pengutronix.de>, etnaviv@lists.freedesktop.org,
@@ -72,7 +92,7 @@ Cc: Raymond Tan <raymond.tan@intel.com>,
  Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
  Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
  Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
  Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -80,7 +100,7 @@ Cc: Raymond Tan <raymond.tan@intel.com>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
  Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  Stephen Rothwell <sfr@canb.auug.org.au>, lima@lists.freedesktop.org,
  Chunyan Zhang <zhang.lyra@gmail.com>, Alexey Brodkin <abrodkin@synopsys.com>,
  Minghao Chi <chi.minghao@zte.com.cn>, Jonathan Hunter <jonathanh@nvidia.com>,
@@ -151,238 +171,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7577490945620322332=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============7577490945620322332==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="g5vgywptxejmww6t"
-Content-Disposition: inline
-
-
---g5vgywptxejmww6t
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 19, 2023 at 03:25:28PM +0200, Geert Uytterhoeven wrote:
-> Hi Maxime,
->=20
-> CC sfr
->=20
-> On Mon, Jun 19, 2023 at 2:51=E2=80=AFPM Maxime Ripard <mripard@kernel.org=
-> wrote:
-> > On Mon, Jun 19, 2023 at 12:53:42PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> > > On Mon, Jun 19, 2023 at 11:45:37AM +0200, Maxime Ripard wrote:
-> > > > On Sun, Jun 18, 2023 at 06:29:50PM +0200, Uwe Kleine-K=C3=B6nig wro=
-te:
-> > > > > On Sun, Jun 18, 2023 at 04:32:55PM +0200, Maxime Ripard wrote:
-> > > > > > On Sun, Jun 18, 2023 at 02:39:15PM +0200, Uwe Kleine-K=C3=B6nig=
- wrote:
-> > > > > > > On Sat, Jun 17, 2023 at 10:57:23AM -0700, Doug Anderson wrote:
-> > > > > > > > On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6n=
-ig
-> > > > > > > > <u.kleine-koenig@pengutronix.de> wrote:
-> > > > > > > > > Together with the patches that were applied later the top=
-most commit
-> > > > > > > > > from this series is c2807ecb5290 ("drm/omap: Convert to p=
-latform remove
-> > > > > > > > > callback returning void"). This commit was part for the f=
-ollowing next
-> > > > > > > > > tags:
-> > > > > > > > >
-> > > > > > > > >         $ git tag -l --contains c2807ecb5290
-> > > > > > > > >         next-20230609
-> > > > > > > > >         next-20230613
-> > > > > > > > >         next-20230614
-> > > > > > > > >         next-20230615
-> > > > > > > > >
-> > > > > > > > > However in next-20230616 they are missing. In next-202306=
-16
-> > > > > > > > > drm-misc/for-linux-next was cf683e8870bd4be0fd6b986392867=
-00a35088660.
-> > > > > > > > > Compared to c2807ecb5290 this adds 1149 patches but drops=
- 37 (that are
-> > > > > > > > > also not included with a different commit id). The 37 pat=
-ches dropped
-> > > > > > > > > are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb529=
-0:
-> > > > > > > > >
-> > > > > > > > >         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb=
-4384aa9dc..c2807ecb5290
-> > > > > > > > >              1  Christophe JAILLET
-> > > > > > > > >              2  Jessica Zhang
-> > > > > > > > >              5  Karol Wachowski
-> > > > > > > > >              1  Laura Nao
-> > > > > > > > >             27  Uwe Kleine-K=C3=B6nig
-> > > > > > > > >              1  Wang Jianzheng
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > I guess this was done by mistake because nobody told me a=
-bout dropping
-> > > > > > > > > my/these patches? Can c2807ecb5290 please be merged into =
-drm-misc-next
-> > > > > > > > > again?
-> > > > > > > >
-> > > > > > > > Actually, it was probably a mistake that these patches got =
-merged to
-> > > > > > > > linuxnext during the 4 days that you noticed. However, your=
- patches
-> > > > > > > > aren't dropped and are still present in drm-misc-next.
-> > > > > > > >
-> > > > > > > > drm-misc has a bit of a unique model and it's documented fa=
-irly well here:
-> > > > > > > >
-> > > > > > > > https://drm.pages.freedesktop.org/maintainer-tools/drm-misc=
-=2Ehtml
-> > > > > > >
-> > > > > > > Is there a flaw then in this unique model (or its implementat=
-ion) when
-> > > > > > > drm-misc/for-linux-next moves in a non-fast-forward manner? T=
-his isn't
-> > > > > > > expected, is it?
-> > > > > >
-> > > > > > There's no expectation afaik. Any tree merged in linux-next can=
- be
-> > > > > > rebased, drop a patch, amend one, etc. without any concern.
-> > > > >
-> > > > > I agree that there are no rules broken for a tree that is include=
-d in
-> > > > > next and a maintainer is free to rewrite their tree independant o=
-f the
-> > > > > tree being included in next.
-> > > > >
-> > > > > Still I think that shouldn't be used as an excuse.
-> > > >
-> > > > As an excuse for what?
-> > >
-> > > Just because the rules for trees in next allow the merged branch to be
-> > > rewritten, shouldn't be used to justify rewriting the branch.
-> > >
-> > > IMHO you still should ensure that only commits make it into any next
-> > > snapshot via your tree before X-rc1 for some X (e.g. v6.5) that you
-> > > intend to be included in X-rc1.
-> >
-> > That's never been a next rule either. Rust support has been in next for
-> > almost a year without being sent as a PR for example.
->=20
-> https://elixir.bootlin.com/linux/latest/source/Documentation/process/2.Pr=
-ocess.rst#L297
->=20
->    "The linux-next tree is, by design, a snapshot of what the mainline
->     is expected to look like after the next merge window closes."
->=20
-> The general rule for linux-next is that its contents are intended to end
-> up in the next kernel release, and that it should not contain commits
-> that are intended for the next-next release, cfr. what Stephen sends
-> out to new trees:
->=20
->    "You will need to ensure that the patches/commits in your tree/series =
-have
->     been:
->             [...]
->          * destined for the current or next Linux merge window."
->=20
-> and what he requests regularly in his announces, e.g.:
->=20
->    "Please do not add any v6.4 related commits to your linux-next included
->     branches until after v6.3-rc1 has been released."
-
-Which is why those patches aren't in next anymore.
-
-> AFAIU, the exception to the rule is new, self-contained, and sometimes
-> controversial development, which may have to cook for a few more cycles,
-> if it ends up in a PR at all.
->=20
-> > > > > For me, if a maintainer puts some patch into next that's a statem=
-ent
-> > > > > saying (approximately) "I think this patch is fine and I intend to
-> > > > > send it to Linus during the next merge window.".
-> > > >
-> > > > I mean, that's what we're saying and doing?
-> > >
-> > > No, on 2023-06-09 I assumed that my patches will go into v6.5-rc1 (as=
- it
-> > > was part of next-20230609). A few days later however the patches were
-> > > dropped.
-> > >
-> > > The two options that would have made the experience smoother for me a=
-re:
-> > >
-> > >  a) keep c2807ecb5290 in next and send it for v6.5-rc1; or
-> >
-> > That's not an option. You were simply too late for v6.5-rc1, unless you
-> > expect us to get rid of timezones and work on week-ends. But surely you
-> > don't.
->=20
-> I don't think anyone expects you to do that...
->=20
-> > >  b) keep c2807ecb5290 in a branch that doesn't result it entering next
-> > >     before v6.5-rc1.
-> >
-> > All the drm-misc committers use dim. If that's a concern for you, feel
-> > free to send a patch addressing this to dim.
->=20
-> So you say this is an issue with the tooling? ;-)
-> If the tooling breaks the rules, perhaps the tooling should be fixed?
-
-We've been using dim for more than 5 years. It doesn't seem to work too bad?
-
-And it does feel like the goalposts are moving there: the discussion
-started by "you shouldn't rebase a tree" and is now at "patches should
-never be in a next branch if they can't reach the next merge window,
-even though it's not apparent yet"
-
-But yeah, I now that complaining about how much drm-misc sucks is fun
-and all, but it's still not clear to me what a potential solution to
-this would be?
-
-Knowing that we can't rebase or close drm-misc-next, and that it should
-be automated in dim somehow, what would that fix be?
-
-> > So yeah, sorry if it was confusing. At the end of the day, it's a
-> > compromise, and I can't find a better one for everyone involved
-> > (maintainers, contributors and committers alike) off the top of my head.
->=20
-> As I understand, the main issue Uwe is objecting to, is that his
-> patches ended up in linux-next first, only to be dropped again from
-> linux-next later, and that there was no communication about the
-> latter.
->=20
-> If you're not constantly working on a subsystem, it can be very hard
-> to keep track of the status of your own drive-by patches. When patches
-> get applied, appear in linux-next, and disappear from linux-next again
-> later, it's worse...
-
-Sure, I've worked with enough of these series to understand how it can
-be annoying.
-
-Maxime
-
---g5vgywptxejmww6t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZJBgAwAKCRDj7w1vZxhR
-xbHrAQC2tbpr59FvWgo5UdT6HVaFbQ1eIt6cd77EE73rYdv7cQD7B85ixe8k46Oo
-fLEiK8/0rTPKuTVzkjY164VJRmNDYQ0=
-=LBiM
------END PGP SIGNATURE-----
-
---g5vgywptxejmww6t--
-
---===============7577490945620322332==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7577490945620322332==--
+SGkgTWF4aW1lLAoKT24gTW9uLCBKdW4gMTksIDIwMjMgYXQgNDowMuKAr1BNIE1heGltZSBSaXBh
+cmQgPG1yaXBhcmRAa2VybmVsLm9yZz4gd3JvdGU6Cj4gT24gTW9uLCBKdW4gMTksIDIwMjMgYXQg
+MDM6MjU6MjhQTSArMDIwMCwgR2VlcnQgVXl0dGVyaG9ldmVuIHdyb3RlOgo+ID4gT24gTW9uLCBK
+dW4gMTksIDIwMjMgYXQgMjo1MeKAr1BNIE1heGltZSBSaXBhcmQgPG1yaXBhcmRAa2VybmVsLm9y
+Zz4gd3JvdGU6Cj4gPiA+IE9uIE1vbiwgSnVuIDE5LCAyMDIzIGF0IDEyOjUzOjQyUE0gKzAyMDAs
+IFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+ID4gPiA+IE9uIE1vbiwgSnVuIDE5LCAyMDIzIGF0
+IDExOjQ1OjM3QU0gKzAyMDAsIE1heGltZSBSaXBhcmQgd3JvdGU6Cj4gPiA+ID4gPiBPbiBTdW4s
+IEp1biAxOCwgMjAyMyBhdCAwNjoyOTo1MFBNICswMjAwLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90
+ZToKPiA+ID4gPiA+ID4gT24gU3VuLCBKdW4gMTgsIDIwMjMgYXQgMDQ6MzI6NTVQTSArMDIwMCwg
+TWF4aW1lIFJpcGFyZCB3cm90ZToKPiA+ID4gPiA+ID4gPiBPbiBTdW4sIEp1biAxOCwgMjAyMyBh
+dCAwMjozOToxNVBNICswMjAwLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiA+ID4gPiA+ID4g
+PiA+IE9uIFNhdCwgSnVuIDE3LCAyMDIzIGF0IDEwOjU3OjIzQU0gLTA3MDAsIERvdWcgQW5kZXJz
+b24gd3JvdGU6Cj4gPiA+ID4gPiA+ID4gPiA+IE9uIFNhdCwgSnVuIDE3LCAyMDIzIGF0IDk6MTXi
+gK9BTSBVd2UgS2xlaW5lLUvDtm5pZwo+ID4gPiA+ID4gPiA+ID4gPiA8dS5rbGVpbmUta29lbmln
+QHBlbmd1dHJvbml4LmRlPiB3cm90ZToKPiA+ID4gPiA+ID4gPiA+ID4gPiBUb2dldGhlciB3aXRo
+IHRoZSBwYXRjaGVzIHRoYXQgd2VyZSBhcHBsaWVkIGxhdGVyIHRoZSB0b3Btb3N0IGNvbW1pdAo+
+ID4gPiA+ID4gPiA+ID4gPiA+IGZyb20gdGhpcyBzZXJpZXMgaXMgYzI4MDdlY2I1MjkwICgiZHJt
+L29tYXA6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlCj4gPiA+ID4gPiA+ID4gPiA+ID4gY2Fs
+bGJhY2sgcmV0dXJuaW5nIHZvaWQiKS4gVGhpcyBjb21taXQgd2FzIHBhcnQgZm9yIHRoZSBmb2xs
+b3dpbmcgbmV4dAo+ID4gPiA+ID4gPiA+ID4gPiA+IHRhZ3M6Cj4gPiA+ID4gPiA+ID4gPiA+ID4K
+PiA+ID4gPiA+ID4gPiA+ID4gPiAgICAgICAgICQgZ2l0IHRhZyAtbCAtLWNvbnRhaW5zIGMyODA3
+ZWNiNTI5MAo+ID4gPiA+ID4gPiA+ID4gPiA+ICAgICAgICAgbmV4dC0yMDIzMDYwOQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ICAgICAgICAgbmV4dC0yMDIzMDYxMwo+ID4gPiA+ID4gPiA+ID4gPiA+ICAg
+ICAgICAgbmV4dC0yMDIzMDYxNAo+ID4gPiA+ID4gPiA+ID4gPiA+ICAgICAgICAgbmV4dC0yMDIz
+MDYxNQo+ID4gPiA+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gSG93ZXZlciBpbiBu
+ZXh0LTIwMjMwNjE2IHRoZXkgYXJlIG1pc3NpbmcuIEluIG5leHQtMjAyMzA2MTYKPiA+ID4gPiA+
+ID4gPiA+ID4gPiBkcm0tbWlzYy9mb3ItbGludXgtbmV4dCB3YXMgY2Y2ODNlODg3MGJkNGJlMGZk
+NmI5ODYzOTI4NjcwMGEzNTA4ODY2MC4KPiA+ID4gPiA+ID4gPiA+ID4gPiBDb21wYXJlZCB0byBj
+MjgwN2VjYjUyOTAgdGhpcyBhZGRzIDExNDkgcGF0Y2hlcyBidXQgZHJvcHMgMzcgKHRoYXQgYXJl
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gYWxzbyBub3QgaW5jbHVkZWQgd2l0aCBhIGRpZmZlcmVudCBj
+b21taXQgaWQpLiBUaGUgMzcgcGF0Y2hlcyBkcm9wcGVkCj4gPiA+ID4gPiA+ID4gPiA+ID4gYXJl
+IDEzY2RkMTJhOWY5MzQxNThmNGVjODE3Y2YwNDhmY2I0Mzg0YWE5ZGMuLmMyODA3ZWNiNTI5MDoK
+PiA+ID4gPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+ID4gPiA+ICAgICAgICAgJCBnaXQgc2hv
+cnRsb2cgLXMgMTNjZGQxMmE5ZjkzNDE1OGY0ZWM4MTdjZjA0OGZjYjQzODRhYTlkYy4uYzI4MDdl
+Y2I1MjkwCj4gPiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgIDEgIENocmlzdG9waGUgSkFJ
+TExFVAo+ID4gPiA+ID4gPiA+ID4gPiA+ICAgICAgICAgICAgICAyICBKZXNzaWNhIFpoYW5nCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgIDUgIEthcm9sIFdhY2hvd3NraQo+ID4gPiA+
+ID4gPiA+ID4gPiA+ICAgICAgICAgICAgICAxICBMYXVyYSBOYW8KPiA+ID4gPiA+ID4gPiA+ID4g
+PiAgICAgICAgICAgICAyNyAgVXdlIEtsZWluZS1Lw7ZuaWcKPiA+ID4gPiA+ID4gPiA+ID4gPiAg
+ICAgICAgICAgICAgMSAgV2FuZyBKaWFuemhlbmcKPiA+ID4gPiA+ID4gPiA+ID4gPgo+ID4gPiA+
+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gSSBndWVzcyB0aGlzIHdhcyBkb25lIGJ5
+IG1pc3Rha2UgYmVjYXVzZSBub2JvZHkgdG9sZCBtZSBhYm91dCBkcm9wcGluZwo+ID4gPiA+ID4g
+PiA+ID4gPiA+IG15L3RoZXNlIHBhdGNoZXM/IENhbiBjMjgwN2VjYjUyOTAgcGxlYXNlIGJlIG1l
+cmdlZCBpbnRvIGRybS1taXNjLW5leHQKPiA+ID4gPiA+ID4gPiA+ID4gPiBhZ2Fpbj8KPiA+ID4g
+PiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+ID4gQWN0dWFsbHksIGl0IHdhcyBwcm9iYWJseSBh
+IG1pc3Rha2UgdGhhdCB0aGVzZSBwYXRjaGVzIGdvdCBtZXJnZWQgdG8KPiA+ID4gPiA+ID4gPiA+
+ID4gbGludXhuZXh0IGR1cmluZyB0aGUgNCBkYXlzIHRoYXQgeW91IG5vdGljZWQuIEhvd2V2ZXIs
+IHlvdXIgcGF0Y2hlcwo+ID4gPiA+ID4gPiA+ID4gPiBhcmVuJ3QgZHJvcHBlZCBhbmQgYXJlIHN0
+aWxsIHByZXNlbnQgaW4gZHJtLW1pc2MtbmV4dC4KPiA+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+
+ID4gPiA+ID4gZHJtLW1pc2MgaGFzIGEgYml0IG9mIGEgdW5pcXVlIG1vZGVsIGFuZCBpdCdzIGRv
+Y3VtZW50ZWQgZmFpcmx5IHdlbGwgaGVyZToKPiA+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4g
+PiA+ID4gaHR0cHM6Ly9kcm0ucGFnZXMuZnJlZWRlc2t0b3Aub3JnL21haW50YWluZXItdG9vbHMv
+ZHJtLW1pc2MuaHRtbAo+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+IElzIHRoZXJlIGEg
+ZmxhdyB0aGVuIGluIHRoaXMgdW5pcXVlIG1vZGVsIChvciBpdHMgaW1wbGVtZW50YXRpb24pIHdo
+ZW4KPiA+ID4gPiA+ID4gPiA+IGRybS1taXNjL2Zvci1saW51eC1uZXh0IG1vdmVzIGluIGEgbm9u
+LWZhc3QtZm9yd2FyZCBtYW5uZXI/IFRoaXMgaXNuJ3QKPiA+ID4gPiA+ID4gPiA+IGV4cGVjdGVk
+LCBpcyBpdD8KPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IFRoZXJlJ3Mgbm8gZXhwZWN0YXRp
+b24gYWZhaWsuIEFueSB0cmVlIG1lcmdlZCBpbiBsaW51eC1uZXh0IGNhbiBiZQo+ID4gPiA+ID4g
+PiA+IHJlYmFzZWQsIGRyb3AgYSBwYXRjaCwgYW1lbmQgb25lLCBldGMuIHdpdGhvdXQgYW55IGNv
+bmNlcm4uCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IEkgYWdyZWUgdGhhdCB0aGVyZSBhcmUgbm8g
+cnVsZXMgYnJva2VuIGZvciBhIHRyZWUgdGhhdCBpcyBpbmNsdWRlZCBpbgo+ID4gPiA+ID4gPiBu
+ZXh0IGFuZCBhIG1haW50YWluZXIgaXMgZnJlZSB0byByZXdyaXRlIHRoZWlyIHRyZWUgaW5kZXBl
+bmRhbnQgb2YgdGhlCj4gPiA+ID4gPiA+IHRyZWUgYmVpbmcgaW5jbHVkZWQgaW4gbmV4dC4KPiA+
+ID4gPiA+ID4KPiA+ID4gPiA+ID4gU3RpbGwgSSB0aGluayB0aGF0IHNob3VsZG4ndCBiZSB1c2Vk
+IGFzIGFuIGV4Y3VzZS4KPiA+ID4gPiA+Cj4gPiA+ID4gPiBBcyBhbiBleGN1c2UgZm9yIHdoYXQ/
+Cj4gPiA+ID4KPiA+ID4gPiBKdXN0IGJlY2F1c2UgdGhlIHJ1bGVzIGZvciB0cmVlcyBpbiBuZXh0
+IGFsbG93IHRoZSBtZXJnZWQgYnJhbmNoIHRvIGJlCj4gPiA+ID4gcmV3cml0dGVuLCBzaG91bGRu
+J3QgYmUgdXNlZCB0byBqdXN0aWZ5IHJld3JpdGluZyB0aGUgYnJhbmNoLgo+ID4gPiA+Cj4gPiA+
+ID4gSU1ITyB5b3Ugc3RpbGwgc2hvdWxkIGVuc3VyZSB0aGF0IG9ubHkgY29tbWl0cyBtYWtlIGl0
+IGludG8gYW55IG5leHQKPiA+ID4gPiBzbmFwc2hvdCB2aWEgeW91ciB0cmVlIGJlZm9yZSBYLXJj
+MSBmb3Igc29tZSBYIChlLmcuIHY2LjUpIHRoYXQgeW91Cj4gPiA+ID4gaW50ZW5kIHRvIGJlIGlu
+Y2x1ZGVkIGluIFgtcmMxLgo+ID4gPgo+ID4gPiBUaGF0J3MgbmV2ZXIgYmVlbiBhIG5leHQgcnVs
+ZSBlaXRoZXIuIFJ1c3Qgc3VwcG9ydCBoYXMgYmVlbiBpbiBuZXh0IGZvcgo+ID4gPiBhbG1vc3Qg
+YSB5ZWFyIHdpdGhvdXQgYmVpbmcgc2VudCBhcyBhIFBSIGZvciBleGFtcGxlLgo+ID4KPiA+IGh0
+dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L2xhdGVzdC9zb3VyY2UvRG9jdW1lbnRhdGlv
+bi9wcm9jZXNzLzIuUHJvY2Vzcy5yc3QjTDI5Nwo+ID4KPiA+ICAgICJUaGUgbGludXgtbmV4dCB0
+cmVlIGlzLCBieSBkZXNpZ24sIGEgc25hcHNob3Qgb2Ygd2hhdCB0aGUgbWFpbmxpbmUKPiA+ICAg
+ICBpcyBleHBlY3RlZCB0byBsb29rIGxpa2UgYWZ0ZXIgdGhlIG5leHQgbWVyZ2Ugd2luZG93IGNs
+b3Nlcy4iCj4gPgo+ID4gVGhlIGdlbmVyYWwgcnVsZSBmb3IgbGludXgtbmV4dCBpcyB0aGF0IGl0
+cyBjb250ZW50cyBhcmUgaW50ZW5kZWQgdG8gZW5kCj4gPiB1cCBpbiB0aGUgbmV4dCBrZXJuZWwg
+cmVsZWFzZSwgYW5kIHRoYXQgaXQgc2hvdWxkIG5vdCBjb250YWluIGNvbW1pdHMKPiA+IHRoYXQg
+YXJlIGludGVuZGVkIGZvciB0aGUgbmV4dC1uZXh0IHJlbGVhc2UsIGNmci4gd2hhdCBTdGVwaGVu
+IHNlbmRzCj4gPiBvdXQgdG8gbmV3IHRyZWVzOgo+ID4KPiA+ICAgICJZb3Ugd2lsbCBuZWVkIHRv
+IGVuc3VyZSB0aGF0IHRoZSBwYXRjaGVzL2NvbW1pdHMgaW4geW91ciB0cmVlL3NlcmllcyBoYXZl
+Cj4gPiAgICAgYmVlbjoKPiA+ICAgICAgICAgICAgIFsuLi5dCj4gPiAgICAgICAgICAqIGRlc3Rp
+bmVkIGZvciB0aGUgY3VycmVudCBvciBuZXh0IExpbnV4IG1lcmdlIHdpbmRvdy4iCj4gPgo+ID4g
+YW5kIHdoYXQgaGUgcmVxdWVzdHMgcmVndWxhcmx5IGluIGhpcyBhbm5vdW5jZXMsIGUuZy46Cj4g
+Pgo+ID4gICAgIlBsZWFzZSBkbyBub3QgYWRkIGFueSB2Ni40IHJlbGF0ZWQgY29tbWl0cyB0byB5
+b3VyIGxpbnV4LW5leHQgaW5jbHVkZWQKPiA+ICAgICBicmFuY2hlcyB1bnRpbCBhZnRlciB2Ni4z
+LXJjMSBoYXMgYmVlbiByZWxlYXNlZC4iCj4KPiBXaGljaCBpcyB3aHkgdGhvc2UgcGF0Y2hlcyBh
+cmVuJ3QgaW4gbmV4dCBhbnltb3JlLgoKU28gd2h5IHdlcmUgdGhleSBpbiBsaW51eC1uZXh0IGJl
+Zm9yZT8KV2FzIHRoaXMgYSBnZW51aW5lIG1pc3Rha2UgKHRoaW5ncyBoYXBwZW4pLCBvciBpcyB0
+aGVyZSBwcm9jZXNzCm9yIHRvb2xpbmcgdG8gaW1wcm92ZT8KCj4gPiBBRkFJVSwgdGhlIGV4Y2Vw
+dGlvbiB0byB0aGUgcnVsZSBpcyBuZXcsIHNlbGYtY29udGFpbmVkLCBhbmQgc29tZXRpbWVzCj4g
+PiBjb250cm92ZXJzaWFsIGRldmVsb3BtZW50LCB3aGljaCBtYXkgaGF2ZSB0byBjb29rIGZvciBh
+IGZldyBtb3JlIGN5Y2xlcywKPiA+IGlmIGl0IGVuZHMgdXAgaW4gYSBQUiBhdCBhbGwuCj4gPgo+
+ID4gPiA+ID4gPiBGb3IgbWUsIGlmIGEgbWFpbnRhaW5lciBwdXRzIHNvbWUgcGF0Y2ggaW50byBu
+ZXh0IHRoYXQncyBhIHN0YXRlbWVudAo+ID4gPiA+ID4gPiBzYXlpbmcgKGFwcHJveGltYXRlbHkp
+ICJJIHRoaW5rIHRoaXMgcGF0Y2ggaXMgZmluZSBhbmQgSSBpbnRlbmQgdG8KPiA+ID4gPiA+ID4g
+c2VuZCBpdCB0byBMaW51cyBkdXJpbmcgdGhlIG5leHQgbWVyZ2Ugd2luZG93LiIuCj4gPiA+ID4g
+Pgo+ID4gPiA+ID4gSSBtZWFuLCB0aGF0J3Mgd2hhdCB3ZSdyZSBzYXlpbmcgYW5kIGRvaW5nPwo+
+ID4gPiA+Cj4gPiA+ID4gTm8sIG9uIDIwMjMtMDYtMDkgSSBhc3N1bWVkIHRoYXQgbXkgcGF0Y2hl
+cyB3aWxsIGdvIGludG8gdjYuNS1yYzEgKGFzIGl0Cj4gPiA+ID4gd2FzIHBhcnQgb2YgbmV4dC0y
+MDIzMDYwOSkuIEEgZmV3IGRheXMgbGF0ZXIgaG93ZXZlciB0aGUgcGF0Y2hlcyB3ZXJlCj4gPiA+
+ID4gZHJvcHBlZC4KPiA+ID4gPgo+ID4gPiA+IFRoZSB0d28gb3B0aW9ucyB0aGF0IHdvdWxkIGhh
+dmUgbWFkZSB0aGUgZXhwZXJpZW5jZSBzbW9vdGhlciBmb3IgbWUgYXJlOgo+ID4gPiA+Cj4gPiA+
+ID4gIGEpIGtlZXAgYzI4MDdlY2I1MjkwIGluIG5leHQgYW5kIHNlbmQgaXQgZm9yIHY2LjUtcmMx
+OyBvcgo+ID4gPgo+ID4gPiBUaGF0J3Mgbm90IGFuIG9wdGlvbi4gWW91IHdlcmUgc2ltcGx5IHRv
+byBsYXRlIGZvciB2Ni41LXJjMSwgdW5sZXNzIHlvdQo+ID4gPiBleHBlY3QgdXMgdG8gZ2V0IHJp
+ZCBvZiB0aW1lem9uZXMgYW5kIHdvcmsgb24gd2Vlay1lbmRzLiBCdXQgc3VyZWx5IHlvdQo+ID4g
+PiBkb24ndC4KPiA+Cj4gPiBJIGRvbid0IHRoaW5rIGFueW9uZSBleHBlY3RzIHlvdSB0byBkbyB0
+aGF0Li4uCj4gPgo+ID4gPiA+ICBiKSBrZWVwIGMyODA3ZWNiNTI5MCBpbiBhIGJyYW5jaCB0aGF0
+IGRvZXNuJ3QgcmVzdWx0IGl0IGVudGVyaW5nIG5leHQKPiA+ID4gPiAgICAgYmVmb3JlIHY2LjUt
+cmMxLgo+ID4gPgo+ID4gPiBBbGwgdGhlIGRybS1taXNjIGNvbW1pdHRlcnMgdXNlIGRpbS4gSWYg
+dGhhdCdzIGEgY29uY2VybiBmb3IgeW91LCBmZWVsCj4gPiA+IGZyZWUgdG8gc2VuZCBhIHBhdGNo
+IGFkZHJlc3NpbmcgdGhpcyB0byBkaW0uCj4gPgo+ID4gU28geW91IHNheSB0aGlzIGlzIGFuIGlz
+c3VlIHdpdGggdGhlIHRvb2xpbmc/IDstKQo+ID4gSWYgdGhlIHRvb2xpbmcgYnJlYWtzIHRoZSBy
+dWxlcywgcGVyaGFwcyB0aGUgdG9vbGluZyBzaG91bGQgYmUgZml4ZWQ/Cj4KPiBXZSd2ZSBiZWVu
+IHVzaW5nIGRpbSBmb3IgbW9yZSB0aGFuIDUgeWVhcnMuIEl0IGRvZXNuJ3Qgc2VlbSB0byB3b3Jr
+IHRvbyBiYWQ/CgpJIGRvbid0IGtub3cgYW55dGhpbmcgYWJvdXQgZGltLCBzbyBJIGNhbm5vdCBj
+b21taXQgb24gdGhhdC4KCj4gQW5kIGl0IGRvZXMgZmVlbCBsaWtlIHRoZSBnb2FscG9zdHMgYXJl
+IG1vdmluZyB0aGVyZTogdGhlIGRpc2N1c3Npb24KPiBzdGFydGVkIGJ5ICJ5b3Ugc2hvdWxkbid0
+IHJlYmFzZSBhIHRyZWUiIGFuZCBpcyBub3cgYXQgInBhdGNoZXMgc2hvdWxkCj4gbmV2ZXIgYmUg
+aW4gYSBuZXh0IGJyYW5jaCBpZiB0aGV5IGNhbid0IHJlYWNoIHRoZSBuZXh0IG1lcmdlIHdpbmRv
+dywKPiBldmVuIHRob3VnaCBpdCdzIG5vdCBhcHBhcmVudCB5ZXQiCgpUaGVyZSBpcyBubyBzdWNo
+IGFudGktcmViYXNpbmcgcnVsZSBmb3IgbGludXgtbmV4dC4KU29tZSBicmFuY2hlcyBhbmQgc29t
+ZSBzdWJzeXN0ZW1zIGRvIGhhdmUgYSBub24tcmViYXNpbmcgcnVsZSwKYnV0IHRoYXQncyBub3Qg
+YXBwbGljYWJsZSBoZXJlLCBBRkFJVS4KCkJlc2lkZXMsIHdvbid0IHlvdSBoYXZlIHRvIHJlYmFz
+ZSB0aGUgcmVtYWluaW5nIGNvbW1pdHMgZnJvbQpkcm0tbWlzYy1uZXh0IG9uIHRvcCBvZiB2Ni41
+LXJjMSBhbnl3YXkgbGF0ZXI/Cgo+IEJ1dCB5ZWFoLCBJIG5vdyB0aGF0IGNvbXBsYWluaW5nIGFi
+b3V0IGhvdyBtdWNoIGRybS1taXNjIHN1Y2tzIGlzIGZ1bgo+IGFuZCBhbGwsIGJ1dCBpdCdzIHN0
+aWxsIG5vdCBjbGVhciB0byBtZSB3aGF0IGEgcG90ZW50aWFsIHNvbHV0aW9uIHRvCj4gdGhpcyB3
+b3VsZCBiZT8KCkknbSBzbyBnbGFkIEknbSBub3QgdGhlIG9uZSBtYWtpbmcgcGVyc29uYWwgYXR0
+YWNrcyBvbiBkcm0tbWlzYyA7LSkKCj4gS25vd2luZyB0aGF0IHdlIGNhbid0IHJlYmFzZSBvciBj
+bG9zZSBkcm0tbWlzYy1uZXh0LCBhbmQgdGhhdCBpdCBzaG91bGQKPiBiZSBhdXRvbWF0ZWQgaW4g
+ZGltIHNvbWVob3csIHdoYXQgd291bGQgdGhhdCBmaXggYmU/CgpBZ2FpbiwgSSBkb24ndCBrbm93
+IHdoYXQgZGltIGRvZXMuCkJ1dCBJIHRoaW5rIHRoZSBzb2x1dGlvbiBpbnZvbHZlcyBub3QgbWVy
+Z2luZyBhbnl0aGluZyBpbiBkcm0tbmV4dAppZiB0aGVyZSBpcyByZWFzb24gdG8gYmVsaWV2ZSBp
+dCB3b24ndCBtYWtlIHRoZSBuZXh0IG1lcmdlIHdpbmRvdwooaW4gdGhpcyBjYXNlOiB3aGVuIGl0
+IGlzIGFwcGxpZWQgdG8gZHJtLW1pc2MtbmV4dCBhZnRlciB0aGUgY3V0LW9mZiBwb2ludCkuCgpQ
+ZXJzb25hbGx5LCBJIHVzZSBmb28tZm9yLXZYLlkgYnJhbmNoZXMuICBEZXNwaXRlIHNvbWUgb2Yg
+bXkKZm9vLWZvci12Ni42IGJyYW5jaGVzIGFscmVhZHkgaGF2aW5nIG5ldyBjb21taXRzLCBJIGp1
+c3QgaG9sZCBvZmYKbWVyZ2luZyBhbnkgb2YgdGhlbSBpbiBhIGZvci1uZXh0IGJyYW5jaCB1bnRp
+bCBhZnRlciB2Ni41LXJjMS4KClRoYW5rcyEKCkdye29ldGplLGVldGluZ31zLAoKICAgICAgICAg
+ICAgICAgICAgICAgICAgR2VlcnQKCi0tIApHZWVydCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBs
+b3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4LW02OGsub3JnCgpJbiBwZXJz
+b25hbCBjb252ZXJzYXRpb25zIHdpdGggdGVjaG5pY2FsIHBlb3BsZSwgSSBjYWxsIG15c2VsZiBh
+IGhhY2tlci4gQnV0CndoZW4gSSdtIHRhbGtpbmcgdG8gam91cm5hbGlzdHMgSSBqdXN0IHNheSAi
+cHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxkcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
