@@ -2,63 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96F03735CE9
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 19:17:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A161735E52
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 22:18:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A823C6B442;
-	Mon, 19 Jun 2023 17:17:47 +0000 (UTC)
-Received: from mail-io1-f54.google.com (mail-io1-f54.google.com
- [209.85.166.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A76F6C6B442;
+	Mon, 19 Jun 2023 20:18:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 198C7C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BA52C6A60F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 17:17:46 +0000 (UTC)
-Received: by mail-io1-f54.google.com with SMTP id
- ca18e2360f4ac-77ac14ff51bso150597239f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 10:17:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687195065; x=1689787065;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=QWcThq/h02+s+wcg2Hr4AaoQzShvDZL/nv4qKzi7L/0=;
- b=I3vT2VvSyZjknwRfbHd5GIxvP+TlEeRuH0ruTXi3V8TZnf9TYZGWW7z5NMqkc17bn8
- FvCoDesC9h7jPXo4zEEPLjTuYNeqUOu8MPvrIPfbrZKcA33tWGLf+S/iw6OFadd298J8
- 429FI0XUWbkKRH759M04580eKlyzuizr2i7CFuotApXu3Pwn4cHAmcf1gVqVUuJara/V
- PPGBYrPQy1rk/hX2y20oUDoIAmRyp3mXYxqQLgitxJCxVN59FZkL/LA12T/mh74bhcla
- zfcqDbDPgTb5PsDDKTg/viK5mbhRvi3zCsg6dOH0qI9wkCCAnDkEDW2T4P2fKZCpcDev
- +kQQ==
-X-Gm-Message-State: AC+VfDznSj/IT4eHNvUDgKcNJ5luSlvcp21hkSyYXvV6tSRVWrkRQquF
- 2KVg1KNPPe5+K3wNfrF6Ng==
-X-Google-Smtp-Source: ACHHUZ6rYV4VuZykUXSkm0tKMSUKMNa10Ofovryp4YB+E712Rgarm82iPHFXZnH0jReYkDPABmnYmw==
-X-Received: by 2002:a5e:880b:0:b0:774:84f4:6ea with SMTP id
- l11-20020a5e880b000000b0077484f406eamr6600673ioj.11.1687195064770; 
- Mon, 19 Jun 2023 10:17:44 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id
- h4-20020a02b604000000b0040fadba66b0sm101906jam.58.2023.06.19.10.17.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 10:17:44 -0700 (PDT)
-Received: (nullmailer pid 1420938 invoked by uid 1000);
- Mon, 19 Jun 2023 17:17:42 -0000
-MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
+ Mon, 19 Jun 2023 20:18:32 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C7C8260E99;
+ Mon, 19 Jun 2023 20:18:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFB9C433C8;
+ Mon, 19 Jun 2023 20:18:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1687205911;
+ bh=HhghJ0yctP0ql16cZYZqxzheR0DW80MolXe2adxh4PI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JFJ28e8C/9xbrFv+nFHoy99cXRAzDYp/c1J1kHsrsr0fK0UZGoFs1GeQTFLH5GFBe
+ LGYTdHv/yg8aDWvwuBCREEXjxpv/EyT7i08ksdgAFpWcP+8l9Rjx++O88/5udK+kZJ
+ Hknr4Rkn9Go5AsgmBzjjfpsqtuoKiT57cVyAxVeR/jJESFWk5NwbXME3/XHfa4JmV+
+ TgcKts6kxfDCyi67QVuFaEJi8tD2hJ2EIiTYe6AyAyDLvpsB5BUcgVp3PX5VS4R0Ej
+ 6/oKCF9bnEFeuC2anUCBG7v60rG1tJuj+gGt39p8EDCWvnjMrQDoUW975N2KrNHxla
+ o3kP7IsfJdEPw==
+Date: Mon, 19 Jun 2023 21:18:25 +0100
+From: Conor Dooley <conor@kernel.org>
 To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-In-Reply-To: <20230619165525.1035243-5-dario.binacchi@amarulasolutions.com>
+Message-ID: <20230619-ion-decree-c63d2eb11e83@spud>
 References: <20230619165525.1035243-1-dario.binacchi@amarulasolutions.com>
  <20230619165525.1035243-5-dario.binacchi@amarulasolutions.com>
-Message-Id: <168719506209.1420922.17702142182740385412.robh@kernel.org>
-Date: Mon, 19 Jun 2023 11:17:42 -0600
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
+MIME-Version: 1.0
+In-Reply-To: <20230619165525.1035243-5-dario.binacchi@amarulasolutions.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com, David Airlie <airlied@gmail.com>,
+ David Airlie <airlied@gmail.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v4 4/6] dt-bindings: display: stm32-ltdc:
  add optional st, fb-bpp property
@@ -73,53 +61,101 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2717736962105014805=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Mon, 19 Jun 2023 18:55:23 +0200, Dario Binacchi wrote:
+--===============2717736962105014805==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="wB3prgNFdxLAzRiP"
+Content-Disposition: inline
+
+
+--wB3prgNFdxLAzRiP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hey,
+
+On Mon, Jun 19, 2023 at 06:55:23PM +0200, Dario Binacchi wrote:
 > Boards that use the STM32F{4,7} series have limited amounts of RAM. The
 > added property allows to size, within certain limits, the memory footprint
 > required by the framebuffer.
-> 
+
+Hmm, this sounds quite a lot like "software policy", since the actual
+display doesn't have these limitations. Rob, Krzysztof?
+
+>=20
 > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > ---
-> 
+>=20
 > (no changes since v1)
-> 
+
+Really?
+https://lore.kernel.org/all/?q=3Ddfn:st,stm32-ltdc.yaml%20
+
+You sure this shouldn't be "new in v4"?
+
 >  .../devicetree/bindings/display/st,stm32-ltdc.yaml          | 6 ++++++
 >  1 file changed, 6 insertions(+)
-> 
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml=
+ b/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> index d6ea4d62a2cf..1c3a3653579f 100644
+> --- a/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> +++ b/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+> @@ -42,6 +42,12 @@ properties:
+>        - for internal dpi input of the MIPI DSI host controller.
+>        Note: These 2 endpoints cannot be activated simultaneously.
+> =20
+> +  st,fb-bpp:
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Is there not a more understandable property name than this?
+Maybe I just had to think about it because fbdev stuff aint something
+I've worked with...
 
-yamllint warnings/errors:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: |
+> +      bit depth of framebuffer (8, 16 or 32)
+> +    maxItems: 1
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml: properties:st,fb-bpp:maxItems: False schema does not allow 1
-	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+Why not make it an enum, since there are only 4 values?
 
-doc reference errors (make refcheckdocs):
+Cheers,
+Conor.
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230619165525.1035243-5-dario.binacchi@amarulasolutions.com
+> +
+>  required:
+>    - compatible
+>    - reg
+> --=20
+> 2.32.0
+>=20
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+--wB3prgNFdxLAzRiP
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+-----BEGIN PGP SIGNATURE-----
 
-pip3 install dtschema --upgrade
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZJC4EQAKCRB4tDGHoIJi
+0oPpAP92h4xspKGtI1yHs7XjwoYCJXDpWoGzANgb0IX7QDSxWQEA+mwt+9KLghOY
+jMdSLkmbkdR8P3BWLJOmAnP6AsLtKQQ=
+=IYJt
+-----END PGP SIGNATURE-----
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+--wB3prgNFdxLAzRiP--
+
+--===============2717736962105014805==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============2717736962105014805==--
