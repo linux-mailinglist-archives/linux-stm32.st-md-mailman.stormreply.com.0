@@ -2,83 +2,140 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BBD6734FBE
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 11:24:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E227350B6
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jun 2023 11:45:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33AB7C6B454;
-	Mon, 19 Jun 2023 09:24:32 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F556C6A60D;
+	Mon, 19 Jun 2023 09:45:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AFC3C6B454
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27C58C6A602
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 09:24:29 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-3f90b8ace97so19033915e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 02:24:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687166669; x=1689758669;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=djSwdyLw8xp+3Hm8dkeIbLA/6vtbTk1lxohdgQnQb6c=;
- b=bO9aSgZagrEBEIkG1MmJMrxVAwa3ITE67+vzozCxbo5GX2JvX6IfKatyAJc5WJTIvm
- gxOMs82gAZNA9K/kxyH7hJ0VA6YfM2ZcesWir5TIPi/SZK0J0TVI9ojxjAVP37+mIOww
- esqOSUtqQ3974YYJGBFNxj2Oy+mGr8sfCcEgJOlHJkJe/w5ntjLWJBao0H95atJpHDN9
- XmtC25ManCI1DayUnp8V3MT+CiMzz3jAjofZoWchpuKpuZmtAWK370xvuOe8+AEc7pr3
- LgrDipRfrSjXz5I75C18iGOW7ToIphj14Bt5hYJCYlwepgEAPJEp3v/Q6y1r3YVHTBJa
- TZzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687166669; x=1689758669;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=djSwdyLw8xp+3Hm8dkeIbLA/6vtbTk1lxohdgQnQb6c=;
- b=L7ahZP5r0Ko3G7wrbFIYuzsLmspNlvh2bE/R0I2KIVumwyRZ8RHoDaVOvVA8gTBLuh
- 5rUIDR7tvZa+al2p6ODScZa0qorKlQaASL0A/PNn451/UYxdsixr+iN1KKSRf2dc7O6v
- GritBGl9shyuDrJ+LUPJGwurP99vZMRzb45uKJ1Ef91h9VRr1IFpqPHRBsrUlu/xAK/B
- ePhnT0iwBCjJ7vKs9wMy+RQqzPGA4maQ3NZSm76t0k0R/jB6n2oWiPs+7jfGEr8objIC
- 47voMzBozBj8jYFSR/q8Cq9TlcN7F8u0LcUUaR1hZKaGQEw2edcgv0nhmzR0whwJ8skK
- Rdaw==
-X-Gm-Message-State: AC+VfDxMgIgluj1S63eS2b0ELr6JguB6oJh4TTpTZ87BqOrAlw8Pnymt
- mUoVEQQ1GoVRxIs4FvvCoc4C9g==
-X-Google-Smtp-Source: ACHHUZ55yZarh34rxCXvP4nDHHz58CibAdCjSGMHZcCrATZRRuYKSxCHkofo7a1tu72C48EhXAMc9g==
-X-Received: by 2002:a05:600c:b4e:b0:3f7:fcca:5e32 with SMTP id
- k14-20020a05600c0b4e00b003f7fcca5e32mr8241646wmr.17.1687166668922; 
- Mon, 19 Jun 2023 02:24:28 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:d9e8:ddbf:7391:a0b0])
- by smtp.gmail.com with ESMTPSA id
- q9-20020a7bce89000000b003f7cb42fa20sm10045229wmj.42.2023.06.19.02.24.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 02:24:28 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrew Halaney <ahalaney@redhat.com>
-Date: Mon, 19 Jun 2023 11:24:02 +0200
-Message-Id: <20230619092402.195578-15-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230619092402.195578-1-brgl@bgdev.pl>
-References: <20230619092402.195578-1-brgl@bgdev.pl>
+ Mon, 19 Jun 2023 09:45:43 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 869A760AFB;
+ Mon, 19 Jun 2023 09:45:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082AAC433C9;
+ Mon, 19 Jun 2023 09:45:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1687167940;
+ bh=Lp4u3T+2xiedusJigDkWh4ix2i0wqp11sPPDYaU3Yo0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uTs+Es5MJdQAH06s+4uVkVptqIjhO5PlC4tbhRLzHbhg/jvVFuwTvNh59ROQwqwlI
+ FXKrTblcrG9mDZ/TJcMmYqLR2B7PXuxSi+QUizGiyfHcrUjYh69jXXHHFYdHc8FQ8Z
+ utFJ+k51BLx2/k90s2dW6WrKqtXXnhUdkuS3Z5CJ1y3d6aKJ4O9d8A122C2R6Ym6c+
+ cUPXt0Zryk1mw0GYYVLBKXFlKgEGOJiVvQ2x4DktJoUVQCzZow35a2hUPFH9SbumWV
+ hxree4wzoiY6yiZMtFeAigy/yZsqjLyvq4ILxIMoPA7sCEJ1yQVV3K+UaP/p9aEdnF
+ 3Ul7qcM/T/eqA==
+Date: Mon, 19 Jun 2023 11:45:37 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <vxjp5c4wojcvbnp3ghsspwkgrc4mjmskzl56jkuxlgfhcji7kx@m3hg525p7y6a>
+References: <20230507162616.1368908-1-u.kleine-koenig@pengutronix.de>
+ <20230601154002.uv2wfatpb7b45duz@pengutronix.de>
+ <CAD=FV=WvP--wJwBQtnSoW_xb57R1Wf9dH0XzWxe+NorczXfeAw@mail.gmail.com>
+ <20230617161222.wy55pbomnrrlfy5u@pengutronix.de>
+ <CAD=FV=U5gbMUNteyyFcTvHVBDWzfthM0aDirJC+yXGovDwMOBA@mail.gmail.com>
+ <20230618123915.hmy66z7e532jhwgk@pengutronix.de>
+ <jlq2xayh4dxfigfsh2fms2kt4hlrqcwxblffmqq7czbhqhhvz7@hsvol72f5i3y>
+ <20230618162950.6th2yo66baqay5mv@pengutronix.de>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RESEND PATCH v2 14/14] net: stmmac:
-	dwmac-qcom-ethqos: add support for emac4 on sa8775p platforms
+In-Reply-To: <20230618162950.6th2yo66baqay5mv@pengutronix.de>
+Cc: Raymond Tan <raymond.tan@intel.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Akhil P Oommen <quic_akhilpo@quicinc.com>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ linux-sunxi@lists.linux.dev, Rahul T R <r-ravikumar@ti.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ etnaviv@lists.freedesktop.org, Yuan Can <yuancan@huawei.com>,
+ Inki Dae <inki.dae@samsung.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Johan Hovold <johan+linaro@kernel.org>,
+ Hyun Kwon <hyun.kwon@xilinx.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>, John Stultz <jstultz@google.com>,
+ Mihail Atanassov <mihail.atanassov@arm.com>, Liang He <windhl@126.com>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ lima@lists.freedesktop.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Minghao Chi <chi.minghao@zte.com.cn>,
+ Steven Price <steven.price@arm.com>, linux-rockchip@lists.infradead.org,
+ Ben Skeggs <bskeggs@redhat.com>, Russell King <linux+etnaviv@armlinux.org.uk>,
+ Liu Ying <victor.liu@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Wang Jianzheng <wangjianzheng@vivo.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Boris Brezillon <bbrezillon@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Brian Starkey <brian.starkey@arm.com>, Karol Herbst <kherbst@redhat.com>,
+ Miaoqian Lin <linmq006@gmail.com>, Stefan Agner <stefan@agner.ch>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Rob Herring <robh@kernel.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Mali DP Maintainers <malidp@foss.arm.com>, Joel Stanley <joel@jms.id.au>,
+ nouveau@lists.freedesktop.org, Orson Zhai <orsonzhai@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Arnd Bergmann <arnd@arndb.de>, Guo Zhengkui <guozhengkui@vivo.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, Alison Wang <alison.wang@nxp.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Paul Cercueil <paul@crapouillou.net>, Tomi Valkeinen <tomba@kernel.org>,
+ Deepak R Varma <drv@mailo.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Konrad Dybcio <konrad.dybcio@somainline.org>,
+ Doug Anderson <dianders@chromium.org>, Liu Shixin <liushixin2@huawei.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Laura Nao <laura.nao@collabora.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
+ Yongqin Liu <yongqin.liu@linaro.org>, Jayshri Pawar <jpawar@cadence.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Russell King <linux@armlinux.org.uk>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Qiang Yu <yuq825@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Melissa Wen <mwen@igalia.com>, linux-mediatek@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ Stephen Boyd <swboyd@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] patches dropped from drm-misc-next [Was: Re:
+ [PATCH 00/53] drm: Convert to platform remove callback returning] void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,206 +147,180 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0882003858636516378=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-sa8775p uses EMAC version 4, add the relevant defines, rename the
-has_emac3 switch to has_emac_ge_3 (has emac greater-or-equal than 3)
-and add the new compatible.
+--===============0882003858636516378==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gnbs5xikge2uwekh"
+Content-Disposition: inline
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 65 +++++++++++++++----
- 1 file changed, 51 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index bdf59a179f87..fa0fc53c56a3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -88,8 +88,9 @@ struct ethqos_emac_driver_data {
- 	const struct ethqos_emac_por *por;
- 	unsigned int num_por;
- 	bool rgmii_config_loopback_en;
--	bool has_emac3;
-+	bool has_emac_ge_3;
- 	const char *link_clk_name;
-+	bool has_integrated_pcs;
- 	struct dwmac4_addrs dwmac4_addrs;
- };
- 
-@@ -108,7 +109,7 @@ struct qcom_ethqos {
- 	const struct ethqos_emac_por *por;
- 	unsigned int num_por;
- 	bool rgmii_config_loopback_en;
--	bool has_emac3;
-+	bool has_emac_ge_3;
- };
- 
- static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-@@ -202,7 +203,7 @@ static const struct ethqos_emac_driver_data emac_v2_3_0_data = {
- 	.por = emac_v2_3_0_por,
- 	.num_por = ARRAY_SIZE(emac_v2_3_0_por),
- 	.rgmii_config_loopback_en = true,
--	.has_emac3 = false,
-+	.has_emac_ge_3 = false,
- };
- 
- static const struct ethqos_emac_por emac_v2_1_0_por[] = {
-@@ -218,7 +219,7 @@ static const struct ethqos_emac_driver_data emac_v2_1_0_data = {
- 	.por = emac_v2_1_0_por,
- 	.num_por = ARRAY_SIZE(emac_v2_1_0_por),
- 	.rgmii_config_loopback_en = false,
--	.has_emac3 = false,
-+	.has_emac_ge_3 = false,
- };
- 
- static const struct ethqos_emac_por emac_v3_0_0_por[] = {
-@@ -234,7 +235,41 @@ static const struct ethqos_emac_driver_data emac_v3_0_0_data = {
- 	.por = emac_v3_0_0_por,
- 	.num_por = ARRAY_SIZE(emac_v3_0_0_por),
- 	.rgmii_config_loopback_en = false,
--	.has_emac3 = true,
-+	.has_emac_ge_3 = true,
-+	.dwmac4_addrs = {
-+		.dma_chan = 0x00008100,
-+		.dma_chan_offset = 0x1000,
-+		.mtl_chan = 0x00008000,
-+		.mtl_chan_offset = 0x1000,
-+		.mtl_ets_ctrl = 0x00008010,
-+		.mtl_ets_ctrl_offset = 0x1000,
-+		.mtl_txq_weight = 0x00008018,
-+		.mtl_txq_weight_offset = 0x1000,
-+		.mtl_send_slp_cred = 0x0000801c,
-+		.mtl_send_slp_cred_offset = 0x1000,
-+		.mtl_high_cred = 0x00008020,
-+		.mtl_high_cred_offset = 0x1000,
-+		.mtl_low_cred = 0x00008024,
-+		.mtl_low_cred_offset = 0x1000,
-+	},
-+};
-+
-+static const struct ethqos_emac_por emac_v4_0_0_por[] = {
-+	{ .offset = RGMII_IO_MACRO_CONFIG,	.value = 0x40c01343 },
-+	{ .offset = SDCC_HC_REG_DLL_CONFIG,	.value = 0x2004642c },
-+	{ .offset = SDCC_HC_REG_DDR_CONFIG,	.value = 0x80040800 },
-+	{ .offset = SDCC_HC_REG_DLL_CONFIG2,	.value = 0x00200000 },
-+	{ .offset = SDCC_USR_CTL,		.value = 0x00010800 },
-+	{ .offset = RGMII_IO_MACRO_CONFIG2,	.value = 0x00002060 },
-+};
-+
-+static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
-+	.por = emac_v4_0_0_por,
-+	.num_por = ARRAY_SIZE(emac_v3_0_0_por),
-+	.rgmii_config_loopback_en = false,
-+	.has_emac_ge_3 = true,
-+	.link_clk_name = "phyaux",
-+	.has_integrated_pcs = true,
- 	.dwmac4_addrs = {
- 		.dma_chan = 0x00008100,
- 		.dma_chan_offset = 0x1000,
-@@ -275,7 +310,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_DLL_EN,
- 		      SDCC_DLL_CONFIG_DLL_EN, SDCC_HC_REG_DLL_CONFIG);
- 
--	if (!ethqos->has_emac3) {
-+	if (!ethqos->has_emac_ge_3) {
- 		rgmii_updatel(ethqos, SDCC_DLL_MCLK_GATING_EN,
- 			      0, SDCC_HC_REG_DLL_CONFIG);
- 
-@@ -316,7 +351,7 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_CAL_EN,
- 		      SDCC_DLL_CONFIG2_DDR_CAL_EN, SDCC_HC_REG_DLL_CONFIG2);
- 
--	if (!ethqos->has_emac3) {
-+	if (!ethqos->has_emac_ge_3) {
- 		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DLL_CLOCK_DIS,
- 			      0, SDCC_HC_REG_DLL_CONFIG2);
- 
-@@ -386,7 +421,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
- 		/* PRG_RCLK_DLY = TCXO period * TCXO_CYCLES_CNT / 2 * RX delay ns,
- 		 * in practice this becomes PRG_RCLK_DLY = 52 * 4 / 2 * RX delay ns
- 		 */
--		if (ethqos->has_emac3) {
-+		if (ethqos->has_emac_ge_3) {
- 			/* 0.9 ns */
- 			rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
- 				      115, SDCC_HC_REG_DDR_CONFIG);
-@@ -421,7 +456,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
- 			      0, RGMII_IO_MACRO_CONFIG2);
- 
--		if (ethqos->has_emac3)
-+		if (ethqos->has_emac_ge_3)
- 			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
- 				      RGMII_CONFIG2_RX_PROG_SWAP,
- 				      RGMII_IO_MACRO_CONFIG2);
-@@ -461,7 +496,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos)
- 			      RGMII_IO_MACRO_CONFIG);
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
- 			      0, RGMII_IO_MACRO_CONFIG2);
--		if (ethqos->has_emac3)
-+		if (ethqos->has_emac_ge_3)
- 			rgmii_updatel(ethqos, RGMII_CONFIG2_RX_PROG_SWAP,
- 				      RGMII_CONFIG2_RX_PROG_SWAP,
- 				      RGMII_IO_MACRO_CONFIG2);
-@@ -510,7 +545,7 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
- 	rgmii_updatel(ethqos, SDCC_DLL_CONFIG_PDN,
- 		      SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
- 
--	if (ethqos->has_emac3) {
-+	if (ethqos->has_emac_ge_3) {
- 		if (ethqos->speed == SPEED_1000) {
- 			rgmii_writel(ethqos, 0x1800000, SDCC_TEST_CTL);
- 			rgmii_writel(ethqos, 0x2C010800, SDCC_USR_CTL);
-@@ -540,7 +575,7 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
- 			      SDCC_HC_REG_DLL_CONFIG);
- 
- 		/* Set USR_CTL bit 26 with mask of 3 bits */
--		if (!ethqos->has_emac3)
-+		if (!ethqos->has_emac_ge_3)
- 			rgmii_updatel(ethqos, GENMASK(26, 24), BIT(26),
- 				      SDCC_USR_CTL);
- 
-@@ -719,7 +754,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	ethqos->por = data->por;
- 	ethqos->num_por = data->num_por;
- 	ethqos->rgmii_config_loopback_en = data->rgmii_config_loopback_en;
--	ethqos->has_emac3 = data->has_emac3;
-+	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
- 
- 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
- 	if (IS_ERR(ethqos->link_clk)) {
-@@ -749,12 +784,13 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	plat_dat->fix_mac_speed = ethqos_fix_mac_speed;
- 	plat_dat->dump_debug_regs = rgmii_dump;
- 	plat_dat->has_gmac4 = 1;
--	if (ethqos->has_emac3)
-+	if (ethqos->has_emac_ge_3)
- 		plat_dat->dwmac4_addrs = &data->dwmac4_addrs;
- 	plat_dat->pmt = 1;
- 	plat_dat->tso_en = of_property_read_bool(np, "snps,tso");
- 	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
- 		plat_dat->rx_clk_runs_in_lpi = 1;
-+	plat_dat->has_integrated_pcs = data->has_integrated_pcs;
- 
- 	if (ethqos->serdes_phy) {
- 		plat_dat->serdes_powerup = qcom_ethqos_serdes_powerup;
-@@ -775,6 +811,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 
- static const struct of_device_id qcom_ethqos_match[] = {
- 	{ .compatible = "qcom,qcs404-ethqos", .data = &emac_v2_3_0_data},
-+	{ .compatible = "qcom,sa8775p-ethqos", .data = &emac_v4_0_0_data},
- 	{ .compatible = "qcom,sc8280xp-ethqos", .data = &emac_v3_0_0_data},
- 	{ .compatible = "qcom,sm8150-ethqos", .data = &emac_v2_1_0_data},
- 	{ }
--- 
-2.39.2
+--gnbs5xikge2uwekh
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, Jun 18, 2023 at 06:29:50PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> Hello Maxime,
+>=20
+> On Sun, Jun 18, 2023 at 04:32:55PM +0200, Maxime Ripard wrote:
+> > On Sun, Jun 18, 2023 at 02:39:15PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> > > On Sat, Jun 17, 2023 at 10:57:23AM -0700, Doug Anderson wrote:
+> > > > On Sat, Jun 17, 2023 at 9:15=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > > > <u.kleine-koenig@pengutronix.de> wrote:
+> > > > > Together with the patches that were applied later the topmost com=
+mit
+> > > > > from this series is c2807ecb5290 ("drm/omap: Convert to platform =
+remove
+> > > > > callback returning void"). This commit was part for the following=
+ next
+> > > > > tags:
+> > > > >
+> > > > >         $ git tag -l --contains c2807ecb5290
+> > > > >         next-20230609
+> > > > >         next-20230613
+> > > > >         next-20230614
+> > > > >         next-20230615
+> > > > >
+> > > > > However in next-20230616 they are missing. In next-20230616
+> > > > > drm-misc/for-linux-next was cf683e8870bd4be0fd6b98639286700a35088=
+660.
+> > > > > Compared to c2807ecb5290 this adds 1149 patches but drops 37 (tha=
+t are
+> > > > > also not included with a different commit id). The 37 patches dro=
+pped
+> > > > > are 13cdd12a9f934158f4ec817cf048fcb4384aa9dc..c2807ecb5290:
+> > > > >
+> > > > >         $ git shortlog -s 13cdd12a9f934158f4ec817cf048fcb4384aa9d=
+c..c2807ecb5290
+> > > > >              1  Christophe JAILLET
+> > > > >              2  Jessica Zhang
+> > > > >              5  Karol Wachowski
+> > > > >              1  Laura Nao
+> > > > >             27  Uwe Kleine-K=C3=B6nig
+> > > > >              1  Wang Jianzheng
+> > > > >
+> > > > >
+> > > > > I guess this was done by mistake because nobody told me about dro=
+pping
+> > > > > my/these patches? Can c2807ecb5290 please be merged into drm-misc=
+-next
+> > > > > again?
+> > > >=20
+> > > > Actually, it was probably a mistake that these patches got merged to
+> > > > linuxnext during the 4 days that you noticed. However, your patches
+> > > > aren't dropped and are still present in drm-misc-next.
+> > > >=20
+> > > > drm-misc has a bit of a unique model and it's documented fairly wel=
+l here:
+> > > >=20
+> > > > https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+> > >=20
+> > > Is there a flaw then in this unique model (or its implementation) when
+> > > drm-misc/for-linux-next moves in a non-fast-forward manner? This isn't
+> > > expected, is it?
+> >=20
+> > There's no expectation afaik. Any tree merged in linux-next can be
+> > rebased, drop a patch, amend one, etc. without any concern.
+>=20
+> I agree that there are no rules broken for a tree that is included in
+> next and a maintainer is free to rewrite their tree independant of the
+> tree being included in next.
+>=20
+> Still I think that shouldn't be used as an excuse.
+
+As an excuse for what?
+
+> For me, if a maintainer puts some patch into next that's a statement
+> saying (approximately) "I think this patch is fine and I intend to
+> send it to Linus during the next merge window.".
+
+I mean, that's what we're saying and doing?
+
+> So my expectation is that if a patch is dropped again from next, there
+> was a problem and it would be fair if the maintainer tells the
+> author/submitter about this problem and that the patch was dropped.
+
+But it wasn't dropped, it's still very much to be sent to Linus during
+the next merge window.
+
+> So my concern is not about rule breaking, but about the strange signal
+> that is sent to contributors by including their work in next for some
+> time and then dropping it again without comment.
+>=20
+> > It's also why linux-next is rebuilt entirely every day.
+> >=20
+> > > > The key is that committers can commit to drm-misc-next _at any time_
+> > > > regardless of the merge window. The drm-misc merge strategy makes t=
+his
+> > > > OK. Specifically, when it's late in the linux cycle then drm-misc-n=
+ext
+> > > > is supposed to stop merging to linuxnext. Then, shortly after the
+> > > > merge window closes, patches will start flowing again.
+> > > >=20
+> > > > So basically your patches are landed and should even keep the same =
+git
+> > > > hashes when they eventually make it to Linux. They just won't land =
+for
+> > > > another release cycle of Linux.
+> > >=20
+> > > OK, c2807ecb5290 is still included in drm-misc-next. So while I don't
+> > > understand the whole model, the patches at least seem to be scheduled=
+ to
+> > > go in during the next merge window.
+> >=20
+> > It's not that complicated.
+> >=20
+> > drm-misc-next is always open, and we start targeting release X + 2 when
+> > X-rc6 is released.
+> >=20
+> > This is due to Linus wanting all the commits sent as part of the PR in
+> > linux-next for two weeks.
+> >=20
+> > In order to converge towards (X + 1)-rc1 in linux-next, as soon as X-rc6
+> > is released, we remove drm-misc-next from the linux-next branch. All the
+> > patches in drm-misc-next that were targetting X + 1 are in drm/next by
+> > then, so it's not a concern.
+>=20
+> So if I were a maintainer of drm-misc, I'd want that no commit from
+> drm-misc-next migrates to next after -rc6.
+>=20
+> Also note that the branch head in question (i.e. c2807ecb5290) was
+> included in next-20230609, while v6.4-rc6 was tagged on Jun 11. So
+> according to the rules you described c2807ecb5290 could have been
+> qualified to go into v6.5-rc1?!
+
+Yes, could have, but barely missed the last drm-misc-next PR we sent to
+Dave that usually occurs on Thursday (8/6) so Dave can merge it on
+Friday (9/6), the last working day before -rc6 was released.
+
+Maxime
+
+--gnbs5xikge2uwekh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZJAjwQAKCRDj7w1vZxhR
+xYaiAQDfltJZK/mNcp80pbD5Rf8rxBnU/bjLH8PwdZ4323+NNAD6An01V/1Zatms
+3vBQYpLxFoCG3f+iuR0DoZgvGKSPVAw=
+=UgXg
+-----END PGP SIGNATURE-----
+
+--gnbs5xikge2uwekh--
+
+--===============0882003858636516378==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0882003858636516378==--
