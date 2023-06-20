@@ -2,61 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D137369A6
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jun 2023 12:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A7A736B31
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jun 2023 13:42:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E772C6B455;
-	Tue, 20 Jun 2023 10:44:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18D6BC6B455;
+	Tue, 20 Jun 2023 11:42:04 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71A52C6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A6C4C6907C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jun 2023 10:44:12 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35KA5E4a025191; Tue, 20 Jun 2023 12:43:58 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=selector1;
- bh=6ckVMdQBLD6uf0OTmHIXjelJ5Xb/M+DmDKyAJyiEvvg=;
- b=rUe8vw5eg/sL+NEruac1H8ZSt1Sd5fgSR70gQfBvw07ry3+uwonaJcOfcjhUsSYZaxTN
- GeIKRRpwCed9vSLL4XnFruISjAmmuUUQqk0C5BRMPtRkQdBJHNLADQA9E9X/09yVxsBb
- T69V/zqqyBbo+7HXhIgYeq+YShNnk+6SWg93J8cJ53utABXOZCZy9lHw7aSw1Rckjox8
- qEyrgHyDMBBlQ006iOXinpXcKBDGyupYOaT96Ln3pBHaOV+GrUKJbSrc+y3U7JkfII7B
- zgmutRl0ta+AhFmj0WD4atEscD2t6+oQIay6Pzm1T7ikRRfHzRE7fgbZuuTNewT1AxHN xw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rb8k8s9wr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Jun 2023 12:43:58 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3711310002A;
- Tue, 20 Jun 2023 12:43:57 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1985E226FDE;
- Tue, 20 Jun 2023 12:43:57 +0200 (CEST)
-Received: from localhost (10.201.20.168) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 20 Jun
- 2023 12:43:56 +0200
-From: Valentin Caron <valentin.caron@foss.st.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 20 Jun 2023 12:43:49 +0200
-Message-ID: <20230620104349.834687-1-valentin.caron@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 20 Jun 2023 11:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=T0dcoPCLaDYQMrHuXNE7wQ+1ki8yqQNoSM6auWBUDjc=; b=BkaeQa1E1ONMNWypH+DuEDeO2Z
+ KZvjsR8RJ1Wym7TT0dFNjnJtdQ/uEQbsR4OzvjQSiZVDziKYDeEq6hwdVyP4xe0+9KZczlV3uGiF2
+ wOctPygUW7qlr33uidWKQJ19yWWiCYnmGHnY2jue/wNYRUUjoJz+Y9TZ3UxO0d3k/wdMdxClB4wPV
+ fs3ZsGDnWywuY8nR8bd4DPfeAfkkoq239k3ZqJz8yBlEPZT+pZx0wmjeKhUCui+7/dyYFLCintVQJ
+ w46MGcn5zZ18PZtajYjfGpRKzgCEzkajSlytKtfx10IKQtFyWU9iRwQC9JNZyBker4hFlZ9iZHI/V
+ 8ThvNOUQ==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1qBZkB-000NAg-IT; Tue, 20 Jun 2023 13:41:55 +0200
+Received: from [185.17.218.86] (helo=zen..)
+ by sslproxy01.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <sean@geanix.com>)
+ id 1qBZkB-000ATD-15; Tue, 20 Jun 2023 13:41:55 +0200
+From: Sean Nyekjaer <sean@geanix.com>
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Tue, 20 Jun 2023 13:41:34 +0200
+Message-Id: <20230620114138.959812-1-sean@geanix.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.168]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-20_07,2023-06-16_01,2023-05-22_02
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26945/Tue Jun 20 09:30:24 2023)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: set default gpio line names
-	using pin names
+Subject: [Linux-stm32] [PATCH 1/5] ARM: dts: stm32: Add alternate pinmux for
+	i2s pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,80 +66,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add stm32_pctrl_get_desc_pin_from_gpio function to find a stm32 pin
-descriptor which is matching with a gpio.
-Most of the time pin number is equal to pin index in array. So the first
-part of the function is useful to speed up.
+Add another mux option for i2s pins, this is used on Octavo OSD32MP1-RED board.
 
-And during gpio bank register, we set default gpio names with pin names.
-
-Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
 ---
- drivers/pinctrl/stm32/pinctrl-stm32.c | 35 +++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index 4b97bd00191b..eedbb9b97a65 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -1275,6 +1275,28 @@ static const struct pinconf_ops stm32_pconf_ops = {
- 	.pin_config_dbg_show	= stm32_pconf_dbg_show,
- };
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index e86d989dd351..d79f89f37bc7 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -686,6 +686,25 @@ pins {
+ 		};
+ 	};
  
-+static struct stm32_desc_pin *stm32_pctrl_get_desc_pin_from_gpio(struct stm32_pinctrl *pctl,
-+								 struct stm32_gpio_bank *bank,
-+								 unsigned int offset)
-+{
-+	unsigned int stm32_pin_nb = bank->bank_nr * STM32_GPIO_PINS_PER_BANK + offset;
-+	struct stm32_desc_pin *pin_desc;
-+	int i;
++	i2s2_pins_b: i2s2-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C',  3, AF5)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, AF5)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, AF5)>; /* I2S2_CK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <1>;
++		};
++	};
 +
-+	/* With few exceptions (e.g. bank 'Z'), pin number matches with pin index in array */
-+	pin_desc = pctl->pins + stm32_pin_nb;
-+	if (pin_desc->pin.number == stm32_pin_nb)
-+		return pin_desc;
++	i2s2_sleep_pins_b: i2s2-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 3, ANALOG)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, ANALOG)>; /* I2S2_CK */
++		};
++	};
 +
-+	/* Otherwise, loop all array to find the pin with the right number */
-+	for (i = 0; i < pctl->npins; i++) {
-+		pin_desc = pctl->pins + i;
-+		if (pin_desc->pin.number == stm32_pin_nb)
-+			return pin_desc;
-+	}
-+	return NULL;
-+}
-+
- static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode_handle *fwnode)
- {
- 	struct stm32_gpio_bank *bank = &pctl->banks[pctl->nbanks];
-@@ -1285,6 +1307,8 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 	struct resource res;
- 	int npins = STM32_GPIO_PINS_PER_BANK;
- 	int bank_nr, err, i = 0;
-+	struct stm32_desc_pin *stm32_pin;
-+	char **names;
- 
- 	if (!IS_ERR(bank->rstc))
- 		reset_control_deassert(bank->rstc);
-@@ -1354,6 +1378,17 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
- 		}
- 	}
- 
-+	names = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
-+	for (i = 0; i < npins; i++) {
-+		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
-+		if (stm32_pin && stm32_pin->pin.name)
-+			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
-+		else
-+			names[i] = NULL;
-+	}
-+
-+	bank->gpio_chip.names = (const char * const *)names;
-+
- 	err = gpiochip_add_data(&bank->gpio_chip, bank);
- 	if (err) {
- 		dev_err(dev, "Failed to add gpiochip(%d)!\n", bank_nr);
+ 	ltdc_pins_a: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G',  7, AF14)>, /* LCD_CLK */
 -- 
-2.25.1
+2.40.0
 
 _______________________________________________
 Linux-stm32 mailing list
