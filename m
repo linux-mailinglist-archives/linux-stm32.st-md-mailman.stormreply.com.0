@@ -2,15 +2,15 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67817736FF8
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BD15736FFA
 	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jun 2023 17:13:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FC57C6B459;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 470D3C6B45F;
 	Tue, 20 Jun 2023 15:13:34 +0000 (UTC)
 Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C18FC04B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9CE3C04B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 20 Jun 2023 15:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
@@ -19,28 +19,28 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com;
  In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID;
- bh=ay+qmBA/PXjKC6poUaYsFfPqOZlKKsgO2YKtMPT1Imo=; b=LU1S0AHmkj4DXtu/nlSRZ2tfAG
- 9NSfjASxt/wpbr06/3EiII1keZ2ZTqJ+jxB6to0K2jifnRfveDJoIqlRE1uW0LsZJmf3jP/i9QUAY
- XSDvxxS/xHkX5XTdgu702ObzrZ+gXkYVBOWRgSKnHjk7AiPtz8rERbjZPaLVUgk5Kq5fI4Glrv5Lw
- ojh15NKv0jug3sJ0uQ1zXoxhTkDqFVGc73nZnjr12Qf/6PGv+An4x0o2uyTj8Z0fp6/uYgIzs6J57
- mbRTp9ynUxfpB+wikU1PTs7QMQzc7cHTK1YxyelgRvubNMPr+V7Tax2v04SAFbyx6aQdN3aRzV+Ai
- av76DPcQ==;
+ bh=89sBX6BFnrx7cYuFn2HT+ikMXvzTI/DIlvCjU6nTMwM=; b=MuIe08t1ZvQnkO2HPPf12maVgj
+ nqxq4UvT9npiUz6TqCZFTtq4IAus26xv4bJalqFs2AzKBuwbX2r28wfTz9eXf/6Yo2t425setrQK3
+ WV1fBKwRBV8tApgLU5owrgBQiy4HAOTjd55A/pJTD+eF23p1E+eJ+kFuBBSVDWJQEThZT9ChN5l9t
+ txbn8ZPbTMntzaEeMSzQm4tc+duX/8Lho4C+d54qgYu9DqD52G/8BZYk7RJNqnRdXnJui294HWpRL
+ wrNic9geWGENNX78Yj0alJJ+42KeFQQme29XMCvCDwtukcfXk5zw8OnW5M0LQ+tUBsRAgPr5qD356
+ Ybygghmg==;
 Received: from sslproxy02.your-server.de ([78.47.166.47])
  by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
  (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1qBd2u-0001Zg-47; Tue, 20 Jun 2023 17:13:28 +0200
+ id 1qBd2u-0001Zk-O5; Tue, 20 Jun 2023 17:13:28 +0200
 Received: from [185.17.218.86] (helo=zen..)
  by sslproxy02.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <sean@geanix.com>)
- id 1qBd2t-0003u6-KA; Tue, 20 Jun 2023 17:13:27 +0200
+ id 1qBd2u-0003u6-8Y; Tue, 20 Jun 2023 17:13:28 +0200
 From: Sean Nyekjaer <sean@geanix.com>
 To: Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 20 Jun 2023 17:13:10 +0200
-Message-Id: <20230620151312.1064629-5-sean@geanix.com>
+Date: Tue, 20 Jun 2023 17:13:11 +0200
+Message-Id: <20230620151312.1064629-6-sean@geanix.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230620151312.1064629-1-sean@geanix.com>
 References: <20230620151312.1064629-1-sean@geanix.com>
@@ -50,7 +50,7 @@ X-Virus-Scanned: Clear (ClamAV 0.103.8/26945/Tue Jun 20 09:30:24 2023)
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v1 5/7] ARM: dts: stm32: osd32: fix ldo2 not
+Subject: [Linux-stm32] [PATCH v1 6/7] ARM: dts: stm32: osd32: fix ldo6 not
 	required to be always-on
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,7 +69,7 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 According to the OSD32MP1 Power System overview[1] there is no hard
-requirement for the ldo2 to be always-on.
+requirement for the ldo6 to be always-on.
 
 [1]: https://octavosystems.com/app_notes/osd32mp1-power-system-overview/#connections
 
@@ -79,19 +79,19 @@ Signed-off-by: Sean Nyekjaer <sean@geanix.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
-index eb43a1e3a0c9..902ca6c23533 100644
+index 902ca6c23533..aeb71c41a734 100644
 --- a/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
 +++ b/arch/arm/boot/dts/stm32mp15xx-osd32.dtsi
-@@ -124,9 +124,7 @@ v3v3_hdmi: ldo2 {
- 				regulator-name = "v3v3_hdmi";
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
+@@ -152,9 +152,7 @@ v1v2_hdmi: ldo6 {
+ 				regulator-name = "v1v2_hdmi";
+ 				regulator-min-microvolt = <1200000>;
+ 				regulator-max-microvolt = <1200000>;
 -				regulator-always-on;
- 				interrupts = <IT_CURLIM_LDO2 0>;
+ 				interrupts = <IT_CURLIM_LDO6 0>;
 -
  			};
  
- 			vtt_ddr: ldo3 {
+ 			vref_ddr: vref_ddr {
 -- 
 2.40.0
 
