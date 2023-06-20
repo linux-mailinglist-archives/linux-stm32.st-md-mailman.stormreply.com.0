@@ -2,69 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C2F4735FC7
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jun 2023 00:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EB167366BE
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jun 2023 10:57:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 40EC0C6B442;
-	Mon, 19 Jun 2023 22:11:19 +0000 (UTC)
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 146ECC6B455;
+	Tue, 20 Jun 2023 08:57:21 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9D58C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BEF74C6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 22:11:17 +0000 (UTC)
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-340b8d6aabbso11546585ab.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jun 2023 15:11:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687212676; x=1689804676;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2GzJl3YIufx24rrPPBjiGHwcJLGJVUI+UoKbrhxXg1M=;
- b=jf34gVZqDdqBbW8ztFpjRSvriC3H7qxX74bXq9APG+kUm+vSozbuDqdk1qtL8Hw7qD
- 5AxGhooFs0CXIab9EvuaQMM6IX8Y3cYV+379VruFm+K8xgOI2YcHixKA2/O2kjy5ug34
- OpwVUsVrHilhZ9d9R6RAEvUOpD02N9xUEnQwoiyGFOluzog8fDWAs6fCw/e1HbdYIjuC
- jauohZiWo+ddu45k0duSJRXGtq/5Ht8sfNn+H9PgXDPa1cEhVZVc4lpO7uQ4H5hNZ8r2
- 9DRDK1hSx6J0t67pXIwV0GlKjgEY0IRveAnqq0OktypqGqZ4JKPh+3U75gc+bVbFp2DG
- w8CA==
-X-Gm-Message-State: AC+VfDxDLqnt33GOA8oNRr88K2FWCiqOOKka/OBL16vhI+tbUElKkxUF
- 9Bwn/1h5pihGnJ4OUj+tZg==
-X-Google-Smtp-Source: ACHHUZ6YHBtLREVH2RBkLmpN6iF2iPKgeZP7XF9P82sV7Y/BeGqT4CuDM3LoXhiiKoMP9nbsocyEXQ==
-X-Received: by 2002:a92:c60a:0:b0:33e:6d37:ce76 with SMTP id
- p10-20020a92c60a000000b0033e6d37ce76mr6318463ilm.12.1687212676512; 
- Mon, 19 Jun 2023 15:11:16 -0700 (PDT)
-Received: from robh_at_kernel.org ([64.188.179.250])
- by smtp.gmail.com with ESMTPSA id
- v2-20020a92c6c2000000b0033bc3a3ea39sm170537ilm.70.2023.06.19.15.11.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 15:11:15 -0700 (PDT)
-Received: (nullmailer pid 1611621 invoked by uid 1000);
- Mon, 19 Jun 2023 22:11:13 -0000
-Date: Mon, 19 Jun 2023 16:11:13 -0600
-From: Rob Herring <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Message-ID: <20230619221113.GA1608794-robh@kernel.org>
-References: <20230619165525.1035243-1-dario.binacchi@amarulasolutions.com>
- <20230619165525.1035243-5-dario.binacchi@amarulasolutions.com>
- <20230619-ion-decree-c63d2eb11e83@spud>
+ Tue, 20 Jun 2023 08:57:19 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35K8P91s025129; Tue, 20 Jun 2023 10:57:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=BuuKOnOm8Z2Mpwb61kJNl/g5ahSF1GNjc4okmHDiako=;
+ b=kbubHx1UunA+l0URDgzF0o9PpjLHDIFohkzMiEddTEKjbZD/bHDmdx8G0eLqhIVmuQVi
+ q88N7F8T/gtD/XRTXZIPnFfiIsq5J81pqbV4vgHKmWq0T/l5P54JLWNGBIuVtk/TzW64
+ 16jhxl8R5jZ5AfdMIX+cVBad1EHBqAc0uIRwnZBcSic35XHEmdBrsrw0WsHU5pT5nLPt
+ zCJUn1TvzSs+UNsciTOPZxVl0RO3bV+vEvSegN7XCxiHABihI8s6zj7l8QSdqMRWmvFE
+ BVfFOHMxWTepu24+7iHcVVhY23TVCCxSdw2Br3aOwEE1Y5e1+x8UIJ5MDG4FsRnwtdM3 CQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rb8k8r83r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Jun 2023 10:57:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 45D79100071;
+ Tue, 20 Jun 2023 10:57:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2EA6621A22B;
+ Tue, 20 Jun 2023 10:57:13 +0200 (CEST)
+Received: from localhost (10.48.1.102) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 20 Jun
+ 2023 10:57:12 +0200
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <conor+dt@kernel.org>
+Date: Tue, 20 Jun 2023 10:56:33 +0200
+Message-ID: <20230620085633.533187-1-fabrice.gasnier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230619-ion-decree-c63d2eb11e83@spud>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Airlie <airlied@gmail.com>, Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 4/6] dt-bindings: display: stm32-ltdc:
- add optional st, fb-bpp property
+X-Originating-IP: [10.48.1.102]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-20_05,2023-06-16_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dt-bindings: connector: usb: allow a single
+	HS port
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,20 +74,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jun 19, 2023 at 09:18:25PM +0100, Conor Dooley wrote:
-> Hey,
-> 
-> On Mon, Jun 19, 2023 at 06:55:23PM +0200, Dario Binacchi wrote:
-> > Boards that use the STM32F{4,7} series have limited amounts of RAM. The
-> > added property allows to size, within certain limits, the memory footprint
-> > required by the framebuffer.
-> 
-> Hmm, this sounds quite a lot like "software policy", since the actual
-> display doesn't have these limitations. Rob, Krzysztof?
+Allow a single HS port to be used e.g. without reg property and a unit
+address. OF graph allows a single port node, without 'reg' property.
 
-Indeed. This doesn't belong in DT.
+This removes a couple of Warnings or errors on STM32MP boards.
+When using single HS port currently, when doing building with W=1:
+arch/arm/boot/dts/stm32mp157c-dk2.dtb: stusb1600@28: connector:
+Unevaluated properties are not allowed ('port' was unexpected)
 
-Rob
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+Notes: Other attempts seem to lead to a dead end. Ex: by updating the
+relevant dts files, to use ports, and port@0, make W=1 shows
+...connector/ports: graph node has single child node
+'port@0', #address-cells/#size-cells are not necessary.
+But not adding them lead to another "Warning (avoid_default_addr_size)"
+---
+ .../bindings/connector/usb-connector.yaml     | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+index ae515651fc6b..1c4d3eb87763 100644
+--- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
++++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+@@ -168,6 +168,13 @@ properties:
+       offer the power, Capability Mismatch is set. Required for power sink and
+       power dual role.
+ 
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description: OF graph bindings modeling a data bus to the connector, e.g.
++      there is a single High Speed (HS) port present in this connector. If there
++      is more than one bus (several port, with 'reg' property), they can be grouped
++      under 'ports'.
++
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+     description: OF graph bindings modeling any data bus to the connector
+@@ -322,6 +329,19 @@ examples:
+         };
+     };
+ 
++  # USB-C connector attached to SoC with a single High-Speed controller
++  - |
++    connector {
++        compatible = "usb-c-connector";
++        label = "USB-C";
++
++        port {
++            high_speed_ep: endpoint {
++                remote-endpoint = <&usb_hs_ep>;
++            };
++        };
++    };
++
+   # USB-C connector attached to SoC and USB3 typec port controller(hd3ss3220)
+   # with SS 2:1 MUX. HS lines routed to SoC, SS lines routed to the MUX and
+   # the output of MUX is connected to the SoC.
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
