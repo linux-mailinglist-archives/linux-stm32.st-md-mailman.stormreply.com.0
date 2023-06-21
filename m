@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D777383A9
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 14:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22F897383AE
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 14:26:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 472C0C6907C;
-	Wed, 21 Jun 2023 12:24:02 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 778D7C6907C;
+	Wed, 21 Jun 2023 12:26:01 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2713EC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BA3AC5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 12:24:00 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-3f9b258f3d8so28222365e9.1
+ Wed, 21 Jun 2023 12:26:00 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-51bdc87feb1so718942a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 05:24:00 -0700 (PDT)
+ Wed, 21 Jun 2023 05:26:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687350239; x=1689942239;
+ d=linaro.org; s=google; t=1687350359; x=1689942359;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=HyrN9ABo7D1rMAlVWp90E4oDQOUS70PYpdgdCcfeHQs=;
- b=GJMQOelCjgjeElOgF/yRWW/zmO45PI4Z4cqDmYnmNbJkmD+s9SIl7CvuFMxKx1tp65
- XsSiqjvxOgs1pBN3DLPy7Voxvpwa+tfV70z9MQm3GBmUiZGmjBr38brOWf1KNvokVkr2
- co1v+fyyCXhUYsd5I0Z+aHXPCJFvScUZ3c2K4Nrma9KR9yNFbECsnahIXRs5iEnuWyyd
- nIAzoSHdP7oNSxm3cNol4d7nYfah0PqjY/qL9jqmWLfSheZ/Q6hx7mkPFuwnWZOiQY6y
- 2Ze9c0hZ4IN+GNLPgQZSDl5ZiL2eRmZTILgO9qIM7219PTbnEfLfN2Qktntl2C3esxWd
- mGxQ==
+ bh=EGk3oqjnNfHNIndAjqYr6Ubn4S+JmM/i7wpQCzmK7X0=;
+ b=TDon5/PIbqBy/Ab2NWNtGLR3goBGa2sjDUeYrPM6Y0qhvkUsZvHTyLzdA/WDGtECes
+ yCyjL6jjAvC/LjB/kFAJbwnMCoROQcEmZv/prrMeRcx/BZURkbsd9ZYDnDCXBSeYWbPJ
+ r8V/n3ZyWu1A3YIzyLV0o/J+vc6eCC5hsrSuAAa4zgz3MF9LSPoBeiVvvXF24X2f1FNU
+ 49mfSD2inLZwX78ar8Vj1WVxTJj2Q3PX/tSUU3KVHqKuyv6/JtF7+AfsVUoRYDaEhDO+
+ KH/J2H9HaRckvJSHXcNT/s7OCtkSrwZCeztjPTFrk1Ao6ebmI1/5gDGB2pY356aEyUSA
+ 4tFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687350239; x=1689942239;
+ d=1e100.net; s=20221208; t=1687350359; x=1689942359;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HyrN9ABo7D1rMAlVWp90E4oDQOUS70PYpdgdCcfeHQs=;
- b=WJdaG3kNVcoySruka/RON3whqFRdCcH8xqPND2fzG8f4dF0UfhNZCiNZjg2wJCK4s6
- esrlo3sSm4fBjnpO9jL1RzflevdIC/P2AMcboqMto6GmQLzwlHNHjDK9P4bA0Pi3M/+g
- 4wXdnQ8PbK0eEX4FjUSvRWvb+yfDUIg3dQ7WmXd7DsmzsVQZqut822Y0Q8u373f7rQtz
- bjNG4mfC+sM2BMRbtdNeA84Z2dTBz9LDj/y9m9csftmFrvtmbviT3lZBdjDpoJQ1cmrQ
- go/PTsZ9CzjN9GazT7K3dc65ShP+tue3mlsJlyp9ExWPQUAp8Au+C2XFiCLuD0EH6fQ5
- ZHGw==
-X-Gm-Message-State: AC+VfDxX9WKASZP6nXzLU1iQAPOLTKiChz0MjCXPxpblP8XqSmVH8Crt
- zhMbXNp8lYGmOFY/RQp3Vae07A==
-X-Google-Smtp-Source: ACHHUZ7255jwlQugIpETOZOq8b8AyBKGM97MqOJ58i/4Ig868aZxMEtz1PGHvaVgiHV435PiSRz48w==
-X-Received: by 2002:a05:600c:b59:b0:3f9:b3e3:bc9b with SMTP id
- k25-20020a05600c0b5900b003f9b3e3bc9bmr6461662wmr.4.1687350239519; 
- Wed, 21 Jun 2023 05:23:59 -0700 (PDT)
+ bh=EGk3oqjnNfHNIndAjqYr6Ubn4S+JmM/i7wpQCzmK7X0=;
+ b=A7JKlQT9ciLtGHKT7Yh7BOgU5s3CxWSmJod2ovbWy4FfCDZxst3peFWTlu0qEqf5Wa
+ UL0eLJXCg2CmgukWkwMxOXSdyX5kIGidRhDouxxf5qmjZg06KA7tkwTcxc56wrk6ix13
+ q7JFBq1DL5renEH84EY0k7GA2nWd62fWh8WPNmwfZpZjA1Zryx9h+k9VK/ZMoKTwp43m
+ RFSimcpIzjc2sUJ4CLI9IIBynuPo4dSFKXWCxKbAj2QZDmIWdqNxeoYc5DJg00N7Fe5D
+ iQLe2V+BLlDnvUVOUGwaAIKCugqBf6x8ooG1xNieJIrL1MxHb0aIgb1q/vm6xhI8iKXK
+ 4qrQ==
+X-Gm-Message-State: AC+VfDzSYI/Y+qIqRjFGZQ+1LpwV9nOqezTYvdf2+EMKYW8faeaDi3RD
+ qU1s+E19qV6k5+YqvCzGQhMxYQ==
+X-Google-Smtp-Source: ACHHUZ45ul/F6dXXQy/jtZVfcMApc1r5PDXrdq2EaA1pSCoE6yOWuKq1vxIO7aPtxItfkHTVcxfmOQ==
+X-Received: by 2002:a05:6402:2cd:b0:51a:2125:74d5 with SMTP id
+ b13-20020a05640202cd00b0051a212574d5mr10619396edx.20.1687350359644; 
+ Wed, 21 Jun 2023 05:25:59 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.219.26])
  by smtp.gmail.com with ESMTPSA id
- h25-20020a1ccc19000000b003f42158288dsm15939950wmb.20.2023.06.21.05.23.57
+ k22-20020a056402049600b0051bc58b8dbcsm2512156edv.59.2023.06.21.05.25.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jun 2023 05:23:58 -0700 (PDT)
-Message-ID: <819ae31d-7837-105d-6781-c5c48765c919@linaro.org>
-Date: Wed, 21 Jun 2023 14:23:57 +0200
+ Wed, 21 Jun 2023 05:25:59 -0700 (PDT)
+Message-ID: <29666c1f-c670-b38c-8555-e606771b480b@linaro.org>
+Date: Wed, 21 Jun 2023 14:25:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
@@ -64,14 +64,14 @@ To: Valentin Caron <valentin.caron@foss.st.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>
 References: <20230621115523.923176-1-valentin.caron@foss.st.com>
- <20230621115523.923176-3-valentin.caron@foss.st.com>
+ <20230621115523.923176-2-valentin.caron@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230621115523.923176-3-valentin.caron@foss.st.com>
+In-Reply-To: <20230621115523.923176-2-valentin.caron@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/2] spi: dt-bindings: stm32: do not
- disable spi-slave property for stm32f4-f7
+Subject: Re: [Linux-stm32] [PATCH 1/2] spi: stm32: disable device mode with
+ st, stm32f4-spi compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,12 +89,24 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 21/06/2023 13:55, Valentin Caron wrote:
-> STM32F4-F7 are, from hardware point of view, capable to handle device mode.
-> So this property should not be forced at false in dt-bindings.
+> STM32 SPI driver is not capable to handle device mode with stm32f4/f7 soc.
+> Stop probing if this case happens.
 > 
 > Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+...
+
+>  
+>  static const struct of_device_id stm32_spi_of_match[] = {
+> @@ -1798,8 +1802,15 @@ static int stm32_spi_probe(struct platform_device *pdev)
+>  	struct device_node *np = pdev->dev.of_node;
+>  	bool device_mode;
+>  	int ret;
+> +	const struct of_device_id *of_match =
+> +		of_match_device(pdev->dev.driver->of_match_table, &pdev->dev);
+> +	const struct stm32_spi_cfg *cfg = (const struct stm32_spi_cfg *)of_match->data;
+
+It seems you open-coded of_device_get_match_data().
 
 Best regards,
 Krzysztof
