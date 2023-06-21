@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4A2738997
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 17:37:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8186E738998
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 17:37:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C75AC6B45A;
-	Wed, 21 Jun 2023 15:37:10 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 494AFC6B454;
+	Wed, 21 Jun 2023 15:37:12 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B588FC6B454
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C886AC6B459
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 15:37:08 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-2b46773e427so68454971fa.3
+ Wed, 21 Jun 2023 15:37:09 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-4f87592ecaeso4665302e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 08:37:08 -0700 (PDT)
+ Wed, 21 Jun 2023 08:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687361828; x=1689953828;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687361829; x=1689953829;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yItovFwloe3duebYnq7A6B4V/jKgQ44zzRGa/G+pPW8=;
- b=CSv88/ZWPsCkujCLeQvR5zV6QJ197upQiupFOf7hhQJLU4holZQmyEM8afOeiopPJI
- rxkkXknIdFBsXaGs9e5eQl8cmqwLLSitBBUYN4EkfgWs1N3I08bYlFaMCcxWlpL00o5R
- m+Z0PytTuM0BQ2VA1FUXHz93HaoWpBMXD7Xg1oI0Iex7kwBXSFxukS+BVYvPEM1Z+x/J
- 1MMnplXM//mLc8MN0qTVv7Q3KJFsN8GnzobJyIhzjWXEbG/2zt6VldBu8G2I7bJGs2ei
- Te8uSE3lkY289Edv22F486sKBj0Hx/GJT7tkzQsTOMVS4qqtocy0eoZE2IXrcvMDnFyM
- oU0g==
+ bh=jabdaiTACMvGCMLJ1hwhPAwP261O3guFNIkOypEaFEs=;
+ b=iG7OfDCk3JDXJMpMe5FwY7oS1o3s1Nvx9x2APRVXDEve97G6AYWW8S/2RDRZtlP4b/
+ aDrsWqVsROpv7zXRW9DWRTmH1qqcyVjNN2Xhyjmz3PBMs0AlQHlyfhiACVgiVQQyKWDi
+ OObFeo1/781gyvg+8LOciR+e1zqcDmI+umqnmkJLnPHvRvqn2r2LfA92wrJDvxt37lW0
+ GX+uGFlJQhc0SLqQ70RUt7kJiR9PZYlesbkhkhLGmOJ5Zk0K7+hQ6IjBUcIT7seW8Jui
+ 0yqngOHSp0/CYOv0+ORCvbaYwqkzPV9ZuXxXlmAHOup61KLjOSUSY8CVF7APhwWZyq5D
+ jfhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687361828; x=1689953828;
+ d=1e100.net; s=20221208; t=1687361829; x=1689953829;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yItovFwloe3duebYnq7A6B4V/jKgQ44zzRGa/G+pPW8=;
- b=JlmiEu5+lqPyn0Lo3+MDE4PNDhHmNo1CbsTZyzW9NFNKnKd+71dMY0ZkGibhcksvgm
- rInn+/O0wlTy7+tlIXW8rSjzG/nLqom+px3KzyBK5JP0toYx3GbsmWcq0wUIA5SgdLe1
- b8v0AU5z6bZgv7vEp4QCxcBbFf139scxXKcn46cgwL1j2YaGC2uFaWDq8FlDyPereXTu
- hSkrql6xFtizCva+sotWWyESQUZKyQZPH24zyQtVDfoZUIG9/t/DtpofKnh/7VdVf7lb
- kbZnPkRE8g0cWvNZxBV9gjjBalgv78HEL25RKzCZ25Tjj39GI/Mc7wmEIaG7IJWwS4ou
- 4Ixg==
-X-Gm-Message-State: AC+VfDy7+mJGQXOORtTwghX2kTpWlPca4VFkh3NvA3PuQmSyPq6Hp66N
- Gph+1ECmIc9YNOB8Z6QDa8/8OQ==
-X-Google-Smtp-Source: ACHHUZ6zjgqtk9I7hnzpINsxw7Jk5ONzx9X2XtIX2vI7/3ICM1PCWSNZh/mAZPlvVnMabN82Dm8Q4g==
-X-Received: by 2002:a05:6512:3b0a:b0:4f8:6fe9:3c9c with SMTP id
- f10-20020a0565123b0a00b004f86fe93c9cmr992970lfv.49.1687361828170; 
- Wed, 21 Jun 2023 08:37:08 -0700 (PDT)
+ bh=jabdaiTACMvGCMLJ1hwhPAwP261O3guFNIkOypEaFEs=;
+ b=jIBx13E3ndCPrpOxcSt6COmLKykAoLLIRADg7caeGrtxVhMZrQflaw8W8tD47dX+9r
+ 9NkPPfImrL8pp7wPpMDt4TWrRv8cPwnl6nBVy6aA+y1kwtjGvv1t2gNziWqDnxUGHArw
+ wwlSDibGD62sjd8Q4OipP6SAkfxyXAClArHJi5lW3fwtsbOOIAQHJvBEFY/ssWIZcdS5
+ ambhkhx9Ns1nSuKTNdhTvKJ2ANHFG8ZupITgi9bCU83T+iRcHanheMx7bjVbRD9aiHQj
+ Hrs2x31ketxtszoXvvf1fBC4kw7YZ2qVAhnW6lJH8WmxYD/CG1KAZl5sj1ERNrl9FYM4
+ PKlw==
+X-Gm-Message-State: AC+VfDx6GE4GRREYQeFsBXzq4W0e1GyFfuYYY/rYamguk2osCjO5RsDT
+ dPSZ8lL9PImIfIgEaEDggTwOzA==
+X-Google-Smtp-Source: ACHHUZ7O6m3NitPkltuHDknRSK9sSvm6K9sSsjvlHBt+9Nc1zRq0igP7Yk0EiNzUJ+83oxpIYhIKTg==
+X-Received: by 2002:a19:ab12:0:b0:4f8:cd67:88e6 with SMTP id
+ u18-20020a19ab12000000b004f8cd6788e6mr3668244lfe.44.1687361829235; 
+ Wed, 21 Jun 2023 08:37:09 -0700 (PDT)
 Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:a69f:8ee3:6907:ccdf])
  by smtp.gmail.com with ESMTPSA id
- l13-20020a1c790d000000b003f7ed463954sm5322491wme.25.2023.06.21.08.37.07
+ l13-20020a1c790d000000b003f7ed463954sm5322491wme.25.2023.06.21.08.37.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 08:37:07 -0700 (PDT)
+ Wed, 21 Jun 2023 08:37:08 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -63,8 +63,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Junxiao Chang <junxiao.chang@intel.com>, Vinod Koul <vkoul@kernel.org>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>
-Date: Wed, 21 Jun 2023 17:36:45 +0200
-Message-Id: <20230621153650.440350-7-brgl@bgdev.pl>
+Date: Wed, 21 Jun 2023 17:36:46 +0200
+Message-Id: <20230621153650.440350-8-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230621153650.440350-1-brgl@bgdev.pl>
 References: <20230621153650.440350-1-brgl@bgdev.pl>
@@ -73,8 +73,8 @@ Cc: netdev@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 06/11] net: stmmac: dwmac-generic:
-	use stmmac_pltfr_probe()
+Subject: [Linux-stm32] [PATCH net-next 07/11] net: stmmac: platform: provide
+	stmmac_pltfr_remove_no_dt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,39 +93,66 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-Shrink the code and remove labels by using the new stmmac_pltfr_probe()
-function.
+Add a variant of stmmac_pltfr_remove() that only frees resources
+allocated by stmmac_pltfr_probe() and - unlike stmmac_pltfr_remove() -
+does not call stmmac_remove_config_dt().
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 20 +++++++++++++++++--
+ .../ethernet/stmicro/stmmac/stmmac_platform.h |  1 +
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
-index dabf05601221..20fc455b3337 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
-@@ -46,19 +46,12 @@ static int dwmac_generic_probe(struct platform_device *pdev)
- 		plat_dat->unicast_filter_entries = 1;
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index df417cdab8c1..58d5c5cc2269 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -762,6 +762,23 @@ int stmmac_pltfr_probe(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(stmmac_pltfr_probe);
  
--	/* Custom initialisation (if needed) */
--	ret = stmmac_pltfr_init(pdev, plat_dat);
-+	ret = stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
- 	if (ret)
- 		goto err_remove_config_dt;
++/**
++ * stmmac_pltfr_remove_no_dt
++ * @pdev: pointer to the platform device
++ * Description: This undoes the effects of stmmac_pltfr_probe() by removing the
++ * driver and calling the platform's exit() callback.
++ */
++void stmmac_pltfr_remove_no_dt(struct platform_device *pdev)
++{
++	struct net_device *ndev = platform_get_drvdata(pdev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++	struct plat_stmmacenet_data *plat = priv->plat;
++
++	stmmac_dvr_remove(&pdev->dev);
++	stmmac_pltfr_exit(pdev, plat);
++}
++EXPORT_SYMBOL_GPL(stmmac_pltfr_remove_no_dt);
++
+ /**
+  * stmmac_pltfr_remove
+  * @pdev: platform device pointer
+@@ -774,8 +791,7 @@ void stmmac_pltfr_remove(struct platform_device *pdev)
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
+ 	struct plat_stmmacenet_data *plat = priv->plat;
  
--	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
--	if (ret)
--		goto err_exit;
--
- 	return 0;
+-	stmmac_dvr_remove(&pdev->dev);
+-	stmmac_pltfr_exit(pdev, plat);
++	stmmac_pltfr_remove_no_dt(pdev);
+ 	stmmac_remove_config_dt(pdev, plat);
+ }
+ EXPORT_SYMBOL_GPL(stmmac_pltfr_remove);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+index f968e658c9d2..af52d5aa2b9a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+@@ -27,6 +27,7 @@ void stmmac_pltfr_exit(struct platform_device *pdev,
+ int stmmac_pltfr_probe(struct platform_device *pdev,
+ 		       struct plat_stmmacenet_data *plat,
+ 		       struct stmmac_resources *res);
++void stmmac_pltfr_remove_no_dt(struct platform_device *pdev);
+ void stmmac_pltfr_remove(struct platform_device *pdev);
+ extern const struct dev_pm_ops stmmac_pltfr_pm_ops;
  
--err_exit:
--	stmmac_pltfr_exit(pdev, plat_dat);
- err_remove_config_dt:
- 	if (pdev->dev.of_node)
- 		stmmac_remove_config_dt(pdev, plat_dat);
 -- 
 2.39.2
 
