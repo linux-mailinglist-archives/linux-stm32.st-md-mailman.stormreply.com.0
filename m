@@ -2,63 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321DC737BF1
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 09:18:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19A55737D32
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 10:18:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D260EC65E4F;
-	Wed, 21 Jun 2023 07:18:18 +0000 (UTC)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA39CC6907C;
+	Wed, 21 Jun 2023 08:18:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E1A0C5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0C20C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 07:18:17 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-be49e41a3d6so4238028276.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 00:18:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687331897; x=1689923897;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MAOzKmP5oeuqoPZ8mGCdEqZLbk+qvPzQr7Zb3mr9TxY=;
- b=YUNuT3Cuka98cObtbBUQDTjmWE/tBZlANmdRnPMI+WdEOUG063dg6xfMiXUdEHN3Nf
- KR4Po5I2lVgUepBl0GHneuu7qLdda2OQrptbxlbwCH1U/WTAroLqIat7tJwdjPTw3IwA
- VW+mazXpNwQa9q87geLhOesYquwiph38x45+ZL4ULD0zirFpSddBShdb7+Q7FyKJfJm2
- +GL000qgd7YXT9Q9PIa5xhlsbkg2EaPDdeaQWTKKMV/qZvUEy9q6Kayv6NOL8m6U2tVv
- HN0X88lYBJEQG6deggF9ZobqYZDQWDXp9vkaZmD4+gvbi6lWLcxESWHDlOEbIdn7pzhE
- MYVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687331897; x=1689923897;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MAOzKmP5oeuqoPZ8mGCdEqZLbk+qvPzQr7Zb3mr9TxY=;
- b=GF3d418MFOmWEvUeXNiB5N1Ks3jVj23toypx7/V/HJbRMRsdEBIfF9D0LZlBpnXuRI
- hYnS9MMB7rvTXdej0+hK5vSKKz5g9SNZe/cWkoBWu5aCZ7Qn30oLGFQ6b5PO/kedHUrQ
- 4fFcAcqU9cDmRHJTtyYnyAEQ4Rtj3mRXsfNrMig6WhODTQAjF0mA0eY21KTNWKkDBYiK
- SgvYqwR6DheHNYEn7Ij8I81QC20v9UMhitr3W1DaYBn9fJ1AeWpT9lkk2ChSiOWHEVgo
- DpoO5w7RXnS5jWHOC71PnJ8zI3MFvaPAb6evqaUzxFbN0SLKoPJplciHSgm4JyWemCc5
- tAIg==
-X-Gm-Message-State: AC+VfDyYYo6pJBBFN2bqzEVQ0mBndzYpejNfV8qB+9HjiBQB5hMlmWUM
- +/E3INN+nlrDMpPG3STSsnBwCIQx4hjrYaXhUZVMv8My0lB49pUd
-X-Google-Smtp-Source: ACHHUZ7x21xxT6KjFP9038FIfz1FmoHroQoN+E6LWDijzKd21UMlCjyfB1Q3cK+4JYbIYvLYb13iRyy+y0cKToHfFt8=
-X-Received: by 2002:a25:1686:0:b0:bac:f582:eefd with SMTP id
- 128-20020a251686000000b00bacf582eefdmr5430321ybw.35.1687331896900; Wed, 21
- Jun 2023 00:18:16 -0700 (PDT)
+ Wed, 21 Jun 2023 08:18:11 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35L6INqP006169; Wed, 21 Jun 2023 10:18:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=ktAiYtJ3jDq+n1lXapDqHkfJt+cyOFmuJ6D84451tAg=;
+ b=eaPf8EHez5T7vchZyx59VVwGadXKUyUzwybgCPJ18E0sXOyGFUtPeEIYpfLSiO83Uwgh
+ EukgR2uKOGFMmKta1uF17sJP3FatNBfdEZn3H66Pnz48W84rGljtf3l54/wbsJp7tL5Q
+ C/IE8O4h2LXVbD3lA8gwzOWyDeyteZX0fqXJa7nHen4Gc3pBf54H1341sbyXVXl/J27f
+ vJ00SytBJ830GpFfhQUrBwjms4rXfQFsFcizc2LOjP5I0rXBBHwrBkyb73oVWZlLl2/b
+ ABJymWGstx/Ny+1/mEExPFvRA8/QjSnQcxia3jVTC5xolbo4cBwIAVQw18xHLwLfZZoP PQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rbuts94xe-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 21 Jun 2023 10:18:04 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4F4D4100069;
+ Wed, 21 Jun 2023 10:18:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3560921BF70;
+ Wed, 21 Jun 2023 10:18:02 +0200 (CEST)
+Received: from [10.252.11.107] (10.252.11.107) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 21 Jun
+ 2023 10:18:01 +0200
+Message-ID: <40b91e5a-0b25-c5e3-66f1-70e1d12f661c@foss.st.com>
+Date: Wed, 21 Jun 2023 10:18:01 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Valentin Caron <valentin.caron@foss.st.com>, Linus Walleij
+ <linus.walleij@linaro.org>
 References: <20230620104349.834687-1-valentin.caron@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
 In-Reply-To: <20230620104349.834687-1-valentin.caron@foss.st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 21 Jun 2023 09:18:05 +0200
-Message-ID: <CACRpkdZO+_UsPUKVTG-7v=zMposGh_j-2Nf-C_BUPUUqxypxXQ@mail.gmail.com>
-To: Valentin Caron <valentin.caron@foss.st.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+X-Originating-IP: [10.252.11.107]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-21_05,2023-06-16_01,2023-05-22_02
+Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: set default gpio line
-	names using pin names
+ names using pin names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,24 +73,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKdW4gMjAsIDIwMjMgYXQgMTI6NDPigK9QTSBWYWxlbnRpbiBDYXJvbgo8dmFsZW50
-aW4uY2Fyb25AZm9zcy5zdC5jb20+IHdyb3RlOgoKPiBBZGQgc3RtMzJfcGN0cmxfZ2V0X2Rlc2Nf
-cGluX2Zyb21fZ3BpbyBmdW5jdGlvbiB0byBmaW5kIGEgc3RtMzIgcGluCj4gZGVzY3JpcHRvciB3
-aGljaCBpcyBtYXRjaGluZyB3aXRoIGEgZ3Bpby4KPiBNb3N0IG9mIHRoZSB0aW1lIHBpbiBudW1i
-ZXIgaXMgZXF1YWwgdG8gcGluIGluZGV4IGluIGFycmF5LiBTbyB0aGUgZmlyc3QKPiBwYXJ0IG9m
-IHRoZSBmdW5jdGlvbiBpcyB1c2VmdWwgdG8gc3BlZWQgdXAuCj4KPiBBbmQgZHVyaW5nIGdwaW8g
-YmFuayByZWdpc3Rlciwgd2Ugc2V0IGRlZmF1bHQgZ3BpbyBuYW1lcyB3aXRoIHBpbiBuYW1lcy4K
-Pgo+IFNpZ25lZC1vZmYtYnk6IFZhbGVudGluIENhcm9uIDx2YWxlbnRpbi5jYXJvbkBmb3NzLnN0
-LmNvbT4KCklmIEkgZ2V0IHNvbWUgQUNLIGZyb20gdGhlIFNUTTMyIHBpbmN0cmwgbWFpbnRhaW5l
-cnMgSSBjYW4gbWVyZ2UKdGhpcywgc2VlbXMgdXNlZnVsISBNYXliZSB5b3UgYWxyZWFkeSByZXZp
-ZXdlZCBpdCBpbnRlcm5hbGx5IGF0IFNUPwpJIHBlcnNvbmFsbHkgZG9uJ3QgbWluZCBpZiB5b3Ug
-YnJpbmcgb3ZlciBpbnRlcm5hbCByZXZpZXdlZC1ieSB0YWdzLgoKWW91cnMsCkxpbnVzIFdhbGxl
-aWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+Hi
+
+On 6/20/23 12:43, Valentin Caron wrote:
+> Add stm32_pctrl_get_desc_pin_from_gpio function to find a stm32 pin
+> descriptor which is matching with a gpio.
+> Most of the time pin number is equal to pin index in array. So the first
+> part of the function is useful to speed up.
+> 
+> And during gpio bank register, we set default gpio names with pin names.
+> 
+> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+> ---
+
+Acked-by: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+
+>   drivers/pinctrl/stm32/pinctrl-stm32.c | 35 +++++++++++++++++++++++++++
+>   1 file changed, 35 insertions(+)
+> 
+> diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> index 4b97bd00191b..eedbb9b97a65 100644
+> --- a/drivers/pinctrl/stm32/pinctrl-stm32.c
+> +++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
+> @@ -1275,6 +1275,28 @@ static const struct pinconf_ops stm32_pconf_ops = {
+>   	.pin_config_dbg_show	= stm32_pconf_dbg_show,
+>   };
+>   
+> +static struct stm32_desc_pin *stm32_pctrl_get_desc_pin_from_gpio(struct stm32_pinctrl *pctl,
+> +								 struct stm32_gpio_bank *bank,
+> +								 unsigned int offset)
+> +{
+> +	unsigned int stm32_pin_nb = bank->bank_nr * STM32_GPIO_PINS_PER_BANK + offset;
+> +	struct stm32_desc_pin *pin_desc;
+> +	int i;
+> +
+> +	/* With few exceptions (e.g. bank 'Z'), pin number matches with pin index in array */
+> +	pin_desc = pctl->pins + stm32_pin_nb;
+> +	if (pin_desc->pin.number == stm32_pin_nb)
+> +		return pin_desc;
+> +
+> +	/* Otherwise, loop all array to find the pin with the right number */
+> +	for (i = 0; i < pctl->npins; i++) {
+> +		pin_desc = pctl->pins + i;
+> +		if (pin_desc->pin.number == stm32_pin_nb)
+> +			return pin_desc;
+> +	}
+> +	return NULL;
+> +}
+> +
+>   static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode_handle *fwnode)
+>   {
+>   	struct stm32_gpio_bank *bank = &pctl->banks[pctl->nbanks];
+> @@ -1285,6 +1307,8 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+>   	struct resource res;
+>   	int npins = STM32_GPIO_PINS_PER_BANK;
+>   	int bank_nr, err, i = 0;
+> +	struct stm32_desc_pin *stm32_pin;
+> +	char **names;
+>   
+>   	if (!IS_ERR(bank->rstc))
+>   		reset_control_deassert(bank->rstc);
+> @@ -1354,6 +1378,17 @@ static int stm32_gpiolib_register_bank(struct stm32_pinctrl *pctl, struct fwnode
+>   		}
+>   	}
+>   
+> +	names = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
+> +	for (i = 0; i < npins; i++) {
+> +		stm32_pin = stm32_pctrl_get_desc_pin_from_gpio(pctl, bank, i);
+> +		if (stm32_pin && stm32_pin->pin.name)
+> +			names[i] = devm_kasprintf(dev, GFP_KERNEL, "%s", stm32_pin->pin.name);
+> +		else
+> +			names[i] = NULL;
+> +	}
+> +
+> +	bank->gpio_chip.names = (const char * const *)names;
+> +
+>   	err = gpiochip_add_data(&bank->gpio_chip, bank);
+>   	if (err) {
+>   		dev_err(dev, "Failed to add gpiochip(%d)!\n", bank_nr);
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
