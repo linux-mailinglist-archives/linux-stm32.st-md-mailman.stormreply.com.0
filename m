@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8186E738998
+	by mail.lfdr.de (Postfix) with ESMTPS id 91530738999
 	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 17:37:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 494AFC6B454;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 548ECC6B458;
 	Wed, 21 Jun 2023 15:37:12 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C886AC6B459
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB692C6B458
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 15:37:09 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-4f87592ecaeso4665302e87.0
+ Wed, 21 Jun 2023 15:37:10 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-4f86a7a5499so5951736e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 08:37:09 -0700 (PDT)
+ Wed, 21 Jun 2023 08:37:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687361829; x=1689953829;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687361830; x=1689953830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jabdaiTACMvGCMLJ1hwhPAwP261O3guFNIkOypEaFEs=;
- b=iG7OfDCk3JDXJMpMe5FwY7oS1o3s1Nvx9x2APRVXDEve97G6AYWW8S/2RDRZtlP4b/
- aDrsWqVsROpv7zXRW9DWRTmH1qqcyVjNN2Xhyjmz3PBMs0AlQHlyfhiACVgiVQQyKWDi
- OObFeo1/781gyvg+8LOciR+e1zqcDmI+umqnmkJLnPHvRvqn2r2LfA92wrJDvxt37lW0
- GX+uGFlJQhc0SLqQ70RUt7kJiR9PZYlesbkhkhLGmOJ5Zk0K7+hQ6IjBUcIT7seW8Jui
- 0yqngOHSp0/CYOv0+ORCvbaYwqkzPV9ZuXxXlmAHOup61KLjOSUSY8CVF7APhwWZyq5D
- jfhA==
+ bh=ZXhQ0UIxbIRXJu72M9URbDfOLtQ/Rc/6HlYK7uavKwg=;
+ b=ZKNhsBXVBWDsZT+gQdyHtPSF2CiUZVn4CH6FHKpTsKLUctQft/ssO2/+UcidIhXoYH
+ yaRcbER3BLmJX2YRyh2Qvhy3wzwg0LeX6QpjXO0PvLPe7V4TFPTDbX0ZVff9ownq7439
+ Q8Z7u3EF7o/MgMWDNR6O3IgHWvB5ArH6vvoJD4s16hZbMC2/zBfT7GJ6heD12O0/2E0s
+ dbIpgvmhH2I+OKUzQxtKEWgGaisUjfeMOP78NKVcoOKszCa2f2T/SzgjG+ig5aN7ZH+2
+ s6Z2FnCYcI4mE5O/rt3od3+4hevgnH0SYppx8dLK49t5XHV9TjyAF7SVqR7RLcEn3ynA
+ p80w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687361829; x=1689953829;
+ d=1e100.net; s=20221208; t=1687361830; x=1689953830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jabdaiTACMvGCMLJ1hwhPAwP261O3guFNIkOypEaFEs=;
- b=jIBx13E3ndCPrpOxcSt6COmLKykAoLLIRADg7caeGrtxVhMZrQflaw8W8tD47dX+9r
- 9NkPPfImrL8pp7wPpMDt4TWrRv8cPwnl6nBVy6aA+y1kwtjGvv1t2gNziWqDnxUGHArw
- wwlSDibGD62sjd8Q4OipP6SAkfxyXAClArHJi5lW3fwtsbOOIAQHJvBEFY/ssWIZcdS5
- ambhkhx9Ns1nSuKTNdhTvKJ2ANHFG8ZupITgi9bCU83T+iRcHanheMx7bjVbRD9aiHQj
- Hrs2x31ketxtszoXvvf1fBC4kw7YZ2qVAhnW6lJH8WmxYD/CG1KAZl5sj1ERNrl9FYM4
- PKlw==
-X-Gm-Message-State: AC+VfDx6GE4GRREYQeFsBXzq4W0e1GyFfuYYY/rYamguk2osCjO5RsDT
- dPSZ8lL9PImIfIgEaEDggTwOzA==
-X-Google-Smtp-Source: ACHHUZ7O6m3NitPkltuHDknRSK9sSvm6K9sSsjvlHBt+9Nc1zRq0igP7Yk0EiNzUJ+83oxpIYhIKTg==
-X-Received: by 2002:a19:ab12:0:b0:4f8:cd67:88e6 with SMTP id
- u18-20020a19ab12000000b004f8cd6788e6mr3668244lfe.44.1687361829235; 
- Wed, 21 Jun 2023 08:37:09 -0700 (PDT)
+ bh=ZXhQ0UIxbIRXJu72M9URbDfOLtQ/Rc/6HlYK7uavKwg=;
+ b=W1HFhX6lTQxmKY9WplCemMHZ2wFbPPdIBMsms5fpM6+Yhnyj1BfmKCmlR5fRDFPFYG
+ oqNt5/ZaT8T4J9NQvgOkn31rEnq3bRiRaZlnl4XPsHvQNdrTxTL7lCSkgM7yVrqVuJ0n
+ O6umCmPLJdCVB0te+b4VDTMKizjj5WtGgJ7Pofu33Dg7SbmvwP3KvCyehnUSwVRD29gG
+ vjsSRLjk2tQo14rpE0E0SisX9fsk+j5gEDi9NBZCNFt92fmsyA0VOJUJ/xpBkMTsDLOD
+ 0T+jKjMZoe+Bf4QSWGzgGWMMzqltIv/QNFmNxfJH7FW5+9577dbdeg6Gs82d8ORtXR9G
+ RMoQ==
+X-Gm-Message-State: AC+VfDxjSrYUvEGbgcRwzZc+9MyfcC89nfHa/xodzxq5AuDlNnCJMRTM
+ KUXQXpt1/AuI8sJuvnvtgSnEog==
+X-Google-Smtp-Source: ACHHUZ4uJSo2gHx8ZKi/3Nrj3/6juOImyrIJVAJT2kltHhI9yCnZTfyVARk3e8AbVi+9c52J2HXnIg==
+X-Received: by 2002:ac2:5f99:0:b0:4f8:6cad:aae7 with SMTP id
+ r25-20020ac25f99000000b004f86cadaae7mr6596886lfe.61.1687361830338; 
+ Wed, 21 Jun 2023 08:37:10 -0700 (PDT)
 Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:a69f:8ee3:6907:ccdf])
  by smtp.gmail.com with ESMTPSA id
- l13-20020a1c790d000000b003f7ed463954sm5322491wme.25.2023.06.21.08.37.08
+ l13-20020a1c790d000000b003f7ed463954sm5322491wme.25.2023.06.21.08.37.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 08:37:08 -0700 (PDT)
+ Wed, 21 Jun 2023 08:37:09 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -63,8 +63,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Junxiao Chang <junxiao.chang@intel.com>, Vinod Koul <vkoul@kernel.org>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>
-Date: Wed, 21 Jun 2023 17:36:46 +0200
-Message-Id: <20230621153650.440350-8-brgl@bgdev.pl>
+Date: Wed, 21 Jun 2023 17:36:47 +0200
+Message-Id: <20230621153650.440350-9-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230621153650.440350-1-brgl@bgdev.pl>
 References: <20230621153650.440350-1-brgl@bgdev.pl>
@@ -73,8 +73,8 @@ Cc: netdev@vger.kernel.org,
  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 07/11] net: stmmac: platform: provide
-	stmmac_pltfr_remove_no_dt()
+Subject: [Linux-stm32] [PATCH net-next 08/11] net: stmmac: platform: provide
+	devm_stmmac_probe_config_dt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,65 +93,87 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-Add a variant of stmmac_pltfr_remove() that only frees resources
-allocated by stmmac_pltfr_probe() and - unlike stmmac_pltfr_remove() -
-does not call stmmac_remove_config_dt().
+Provide a devres variant of stmmac_probe_config_dt() that allows users to
+skip calling stmmac_remove_config_dt() at driver detach.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 20 +++++++++++++++++--
- .../ethernet/stmicro/stmmac/stmmac_platform.h |  1 +
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 35 +++++++++++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.h |  2 ++
+ 2 files changed, 37 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index df417cdab8c1..58d5c5cc2269 100644
+index 58d5c5cc2269..043fdfdef6d4 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -762,6 +762,23 @@ int stmmac_pltfr_probe(struct platform_device *pdev,
- }
- EXPORT_SYMBOL_GPL(stmmac_pltfr_probe);
+@@ -8,6 +8,7 @@
+   Author: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+ *******************************************************************************/
  
-+/**
-+ * stmmac_pltfr_remove_no_dt
-+ * @pdev: pointer to the platform device
-+ * Description: This undoes the effects of stmmac_pltfr_probe() by removing the
-+ * driver and calling the platform's exit() callback.
-+ */
-+void stmmac_pltfr_remove_no_dt(struct platform_device *pdev)
++#include <linux/device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/module.h>
+@@ -629,6 +630,39 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	return ret;
+ }
+ 
++static void devm_stmmac_remove_config_dt(void *data)
 +{
-+	struct net_device *ndev = platform_get_drvdata(pdev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	struct plat_stmmacenet_data *plat = priv->plat;
++	struct plat_stmmacenet_data *plat = data;
 +
-+	stmmac_dvr_remove(&pdev->dev);
-+	stmmac_pltfr_exit(pdev, plat);
++	/* Platform data argument is unused */
++	stmmac_remove_config_dt(NULL, plat);
 +}
-+EXPORT_SYMBOL_GPL(stmmac_pltfr_remove_no_dt);
++
++/**
++ * devm_stmmac_probe_config_dt
++ * @pdev: platform_device structure
++ * @mac: MAC address to use
++ * Description: Devres variant of stmmac_probe_config_dt(). Does not require
++ * the user to call stmmac_remove_config_dt() at driver detach.
++ */
++struct plat_stmmacenet_data *
++devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
++{
++	struct plat_stmmacenet_data *plat;
++	int ret;
++
++	plat = stmmac_probe_config_dt(pdev, mac);
++	if (IS_ERR(plat))
++		return plat;
++
++	ret = devm_add_action_or_reset(&pdev->dev,
++				       devm_stmmac_remove_config_dt, plat);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return plat;
++}
 +
  /**
-  * stmmac_pltfr_remove
-  * @pdev: platform device pointer
-@@ -774,8 +791,7 @@ void stmmac_pltfr_remove(struct platform_device *pdev)
- 	struct stmmac_priv *priv = netdev_priv(ndev);
- 	struct plat_stmmacenet_data *plat = priv->plat;
- 
--	stmmac_dvr_remove(&pdev->dev);
--	stmmac_pltfr_exit(pdev, plat);
-+	stmmac_pltfr_remove_no_dt(pdev);
- 	stmmac_remove_config_dt(pdev, plat);
+  * stmmac_remove_config_dt - undo the effects of stmmac_probe_config_dt()
+  * @pdev: platform_device structure
+@@ -657,6 +691,7 @@ void stmmac_remove_config_dt(struct platform_device *pdev,
  }
- EXPORT_SYMBOL_GPL(stmmac_pltfr_remove);
+ #endif /* CONFIG_OF */
+ EXPORT_SYMBOL_GPL(stmmac_probe_config_dt);
++EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
+ EXPORT_SYMBOL_GPL(stmmac_remove_config_dt);
+ 
+ int stmmac_get_platform_resources(struct platform_device *pdev,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
-index f968e658c9d2..af52d5aa2b9a 100644
+index af52d5aa2b9a..8c1e5b2e9dae 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
-@@ -27,6 +27,7 @@ void stmmac_pltfr_exit(struct platform_device *pdev,
- int stmmac_pltfr_probe(struct platform_device *pdev,
- 		       struct plat_stmmacenet_data *plat,
- 		       struct stmmac_resources *res);
-+void stmmac_pltfr_remove_no_dt(struct platform_device *pdev);
- void stmmac_pltfr_remove(struct platform_device *pdev);
- extern const struct dev_pm_ops stmmac_pltfr_pm_ops;
+@@ -13,6 +13,8 @@
+ 
+ struct plat_stmmacenet_data *
+ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac);
++struct plat_stmmacenet_data *
++devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac);
+ void stmmac_remove_config_dt(struct platform_device *pdev,
+ 			     struct plat_stmmacenet_data *plat);
  
 -- 
 2.39.2
