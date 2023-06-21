@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29367738EA0
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 20:26:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 346A9738EA1
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 20:26:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBB2FC6B458;
-	Wed, 21 Jun 2023 18:26:24 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA1F2C6B454;
+	Wed, 21 Jun 2023 18:26:26 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F098EC6B455
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56CF1C6B458
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 18:26:22 +0000 (UTC)
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-3111547c8f9so7229486f8f.1
+ Wed, 21 Jun 2023 18:26:24 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-3f9ede60140so2501135e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 11:26:22 -0700 (PDT)
+ Wed, 21 Jun 2023 11:26:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687371982; x=1689963982;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687371984; x=1689963984;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pZwW4TXAaWjhQ6+iv6Z0bS3QoIIROteF83Ru7jzSEKU=;
- b=GbTgFCVd1tdUEHxmXzLzGsC7KBQ9AOE9OZH0cZVB6VBsnWHETNhKPwi878p8/m3N1G
- uQ6lv4OCnPWo1r6BRIztplO/hPM6ggKt7ECwgg/NiOz2SGJnAfvXcrjBQsc4x5KBFgKW
- 74WXH/7vYNCtEbZIJQ12CeGlOKNX4l6jGk3MDYfKJQdjUGu6F5PiYFAjc7O3Mba8OOXd
- a6AwIRqvOg32No9ckClr2SIr52+fFPX+hNrbcj4b35vlxVSFm7/FHSU90o1DjuVhcomd
- wmF+pd9OLYKIS45INcugUZoTbhJsxt0PURWG7p2MR7WKweDeQ0Yl5NKuvFXLjLd+Zmd8
- 11ZA==
+ bh=8NBfwHB1m61Ki4N8NOLCZ9xwyv+VdQ6tisfULtxIs/U=;
+ b=LY91tvjlXk3daG/tLcZWF2pMIfSIzSCKA0T+epijk0I7ZiwuP4ZGz08colioCb/vr2
+ D2tUvRqXuzXQkx5wxuJhQlOP9zYOfCfoCDY8vQcJPh1Pj4a/hha39stPhklXPBJD72L7
+ 3KYhPskTABWgRxKJcwUiSbzOn+tesu1H8esz8vNCmcGx8OInSgQrSn65nDRqV2G4zzal
+ aHHdpbo1Oz6kJzunPhv54dFV1VTv96G3zxljTC9OWzF7f+CSwhtxDSABeuaA8tBPqP9l
+ LHaOeuH/7rBjbTCeg4DubTv8dvMGDEwiayO/+xnJO7bh3XtwgqXRduI8dgqcYYUsfkF/
+ BLuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687371982; x=1689963982;
+ d=1e100.net; s=20221208; t=1687371984; x=1689963984;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pZwW4TXAaWjhQ6+iv6Z0bS3QoIIROteF83Ru7jzSEKU=;
- b=BUtZhkFah6LkKGs93MUrw9vIAqFagEX6+bBoLyRs3hj1gsjrvlHqVT1HT6hXpZ9cYM
- C19nWaVEYhGtz6kSqioXxSB/T8bg3fS9HOGG2+cPV1TylQF8l2S0dOFurOPcp3mDtL6R
- ccFlFguUjAlN2lTdKDY/PsXDeXdwXICrOmbOly4qxC7rh5e0vIDmeQC0CYtlnE+sc1YW
- fFlpUURKe+G53m/xsgss4EP4WmvALn3FFbJlXdsEMlh8VBwqaZtIJWPqhWJBoq0PjpqZ
- Cvf+Vs8eoQzOLO/peOP65Tnx1+qU7ze5uJkl2YcUispUVBlHK9LlvffFQdWMM6PK1v1e
- 9v4Q==
-X-Gm-Message-State: AC+VfDwYJdxGrPtoFpN0P8Uy9OJwmnj+C5mix7xuCo5D1ilgLCc38dG1
- L9LpEaYEq5bXmiqxfsQvLNhQIQ==
-X-Google-Smtp-Source: ACHHUZ5lhrxZGE0GMPB49d/8xed3TiXOYGYu4W0eGNKwP7981xUvEUCMdbw51l7mZU6pq0QAf4kcDg==
-X-Received: by 2002:adf:efd1:0:b0:30f:c65a:c00 with SMTP id
- i17-20020adfefd1000000b0030fc65a0c00mr13306185wrp.26.1687371982580; 
- Wed, 21 Jun 2023 11:26:22 -0700 (PDT)
+ bh=8NBfwHB1m61Ki4N8NOLCZ9xwyv+VdQ6tisfULtxIs/U=;
+ b=e37KarvrZT3kvSN4QKfetCRMn5TWexMaxaaZLUARLpkiULgtXMenQIvT00mChqyRV2
+ pUqBRFbp/hc/wzWN2dCmhhAUuXStmPGhPSyn1RSuPXhGhTE3czlk/2OQHH2t6ObcjEnJ
+ 7EzO1H5+d9WpqtueBLRDVNOE7hIO/6SeqNdXx2vg5ukT0fw4ps7UhdsXgVvKvuWlqW/+
+ nL4Qhpam+Q97oKy190TUplg+JeBByEx+68M8no68Ea3bpypN8BARjtlvCVs4vdV1h1vP
+ gngfBPCetBHot/cDdERT4WOFt7E7fjYzsiyArpv73nlCxTAJSYiSJdnLsOBWsfsEOU2C
+ knVg==
+X-Gm-Message-State: AC+VfDwi2U9E3K4Jf4dGnjYsRr+tZL3rvwKhLQKHsvlKJ43M1LFHcsUq
+ 43n5iW/FnvZCmtq+adHo36aKmg==
+X-Google-Smtp-Source: ACHHUZ7DgL1GaivyZZPW9f+esDGdjAfgT1i2Cblkr3bjb5WIOeh+R1SaUPjjGdazaJvf/hqXE9/+aA==
+X-Received: by 2002:a1c:4c0b:0:b0:3f9:b950:bb7b with SMTP id
+ z11-20020a1c4c0b000000b003f9b950bb7bmr4150674wmf.41.1687371983980; 
+ Wed, 21 Jun 2023 11:26:23 -0700 (PDT)
 Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:a69f:8ee3:6907:ccdf])
  by smtp.gmail.com with ESMTPSA id
- z13-20020adff74d000000b0030af15d7e41sm5176994wrp.4.2023.06.21.11.26.21
+ z13-20020adff74d000000b0030af15d7e41sm5176994wrp.4.2023.06.21.11.26.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 11:26:22 -0700 (PDT)
+ Wed, 21 Jun 2023 11:26:23 -0700 (PDT)
 From: Bartosz Golaszewski <brgl@bgdev.pl>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -69,8 +69,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Wed, 21 Jun 2023 20:25:54 +0200
-Message-Id: <20230621182558.544417-9-brgl@bgdev.pl>
+Date: Wed, 21 Jun 2023 20:25:55 +0200
+Message-Id: <20230621182558.544417-10-brgl@bgdev.pl>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230621182558.544417-1-brgl@bgdev.pl>
 References: <20230621182558.544417-1-brgl@bgdev.pl>
@@ -80,8 +80,8 @@ Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 08/12] net: stmmac: replace the
-	multi_msi_en field with a flag
+Subject: [Linux-stm32] [PATCH net-next 09/12] net: stmmac: replace the
+	ext_snapshot_en field with a flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,82 +105,71 @@ simple bitfield flag.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 ++--
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++---
- include/linux/stmmac.h                            | 2 +-
- 3 files changed, 7 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c     | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c      | 5 ++++-
+ include/linux/stmmac.h                                | 2 +-
+ 4 files changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 1f1bc99571a5..d8bcf9452197 100644
+index d8bcf9452197..a3d0da4e9e91 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -953,7 +953,7 @@ static int stmmac_config_single_msi(struct pci_dev *pdev,
+@@ -326,7 +326,7 @@ static int intel_crosststamp(ktime_t *device,
+ 	/* Both internal crosstimestamping and external triggered event
+ 	 * timestamping cannot be run concurrently.
+ 	 */
+-	if (priv->plat->ext_snapshot_en)
++	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
+ 		return -EBUSY;
  
- 	res->irq = pci_irq_vector(pdev, 0);
- 	res->wol_irq = res->irq;
--	plat->multi_msi_en = 0;
-+	plat->flags &= ~STMMAC_FLAG_MULTI_MSI_EN;
- 	dev_info(&pdev->dev, "%s: Single IRQ enablement successful\n",
- 		 __func__);
+ 	priv->plat->int_snapshot_en = 1;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+index 8b50f03056b7..afd81aac6644 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+@@ -195,7 +195,7 @@ static void timestamp_interrupt(struct stmmac_priv *priv)
+ 	 */
+ 	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
  
-@@ -1005,7 +1005,7 @@ static int stmmac_config_multi_msi(struct pci_dev *pdev,
- 	if (plat->msi_sfty_ue_vec < STMMAC_MSI_VEC_MAX)
- 		res->sfty_ue_irq = pci_irq_vector(pdev, plat->msi_sfty_ue_vec);
- 
--	plat->multi_msi_en = 1;
-+	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
- 	dev_info(&pdev->dev, "%s: multi MSI enablement successful\n", __func__);
- 
- 	return 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index c5763f60c6ef..ebe82e7b50fc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3711,7 +3711,7 @@ static int stmmac_request_irq(struct net_device *dev)
- 	int ret;
- 
- 	/* Request the IRQ lines */
--	if (priv->plat->multi_msi_en)
-+	if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
- 		ret = stmmac_request_irq_multi_msi(dev);
- 	else
- 		ret = stmmac_request_irq_single(dev);
-@@ -5954,7 +5954,7 @@ static void stmmac_poll_controller(struct net_device *dev)
- 	if (test_bit(STMMAC_DOWN, &priv->state))
+-	if (!priv->plat->ext_snapshot_en)
++	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
  		return;
  
--	if (priv->plat->multi_msi_en) {
-+	if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN) {
- 		for (i = 0; i < priv->plat->rx_queues_to_use; i++)
- 			stmmac_msi_intr_rx(0, &priv->dma_conf.rx_queue[i]);
- 
-@@ -7169,7 +7169,8 @@ int stmmac_dvr_probe(struct device *device,
- 	priv->plat = plat_dat;
- 	priv->ioaddr = res->addr;
- 	priv->dev->base_addr = (unsigned long)res->addr;
--	priv->plat->dma_cfg->multi_msi_en = priv->plat->multi_msi_en;
-+	priv->plat->dma_cfg->multi_msi_en =
-+		(priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN);
- 
- 	priv->dev->irq = res->irq;
- 	priv->wol_irq = res->wol_irq;
+ 	num_snapshot = (ts_status & GMAC_TIMESTAMP_ATSNS_MASK) >>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+index b4388ca8d211..3d7825cb30bb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+@@ -192,7 +192,10 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+ 		write_unlock_irqrestore(&priv->ptp_lock, flags);
+ 		break;
+ 	case PTP_CLK_REQ_EXTTS:
+-		priv->plat->ext_snapshot_en = on;
++		if (on)
++			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
++		else
++			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+ 		mutex_lock(&priv->aux_ts_lock);
+ 		acr_value = readl(ptpaddr + PTP_ACR);
+ 		acr_value &= ~PTP_ACR_MASK;
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 155cb11b1c8a..3365b8071686 100644
+index 3365b8071686..0a77e8b05d3a 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -211,6 +211,7 @@ struct dwmac4_addrs {
- #define STMMAC_FLAG_TSO_EN			BIT(4)
+@@ -212,6 +212,7 @@ struct dwmac4_addrs {
  #define STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP	BIT(5)
  #define STMMAC_FLAG_VLAN_FAIL_Q_EN		BIT(6)
-+#define STMMAC_FLAG_MULTI_MSI_EN		BIT(7)
+ #define STMMAC_FLAG_MULTI_MSI_EN		BIT(7)
++#define STMMAC_FLAG_EXT_SNAPSHOT_EN		BIT(8)
  
  struct plat_stmmacenet_data {
  	int bus_id;
 @@ -286,7 +287,6 @@ struct plat_stmmacenet_data {
+ 	int int_snapshot_num;
  	int ext_snapshot_num;
  	bool int_snapshot_en;
- 	bool ext_snapshot_en;
--	bool multi_msi_en;
+-	bool ext_snapshot_en;
  	int msi_mac_vec;
  	int msi_wol_vec;
  	int msi_lpi_vec;
