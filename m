@@ -2,76 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22F897383AE
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 14:26:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0623C7385C9
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 15:55:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 778D7C6907C;
-	Wed, 21 Jun 2023 12:26:01 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6455C6905A;
+	Wed, 21 Jun 2023 13:55:46 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BA3AC5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21181C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 12:26:00 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-51bdc87feb1so718942a12.3
+ Wed, 21 Jun 2023 13:55:45 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-3f8fcaa31c7so65093125e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 05:26:00 -0700 (PDT)
+ Wed, 21 Jun 2023 06:55:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1687350359; x=1689942359;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=EGk3oqjnNfHNIndAjqYr6Ubn4S+JmM/i7wpQCzmK7X0=;
- b=TDon5/PIbqBy/Ab2NWNtGLR3goBGa2sjDUeYrPM6Y0qhvkUsZvHTyLzdA/WDGtECes
- yCyjL6jjAvC/LjB/kFAJbwnMCoROQcEmZv/prrMeRcx/BZURkbsd9ZYDnDCXBSeYWbPJ
- r8V/n3ZyWu1A3YIzyLV0o/J+vc6eCC5hsrSuAAa4zgz3MF9LSPoBeiVvvXF24X2f1FNU
- 49mfSD2inLZwX78ar8Vj1WVxTJj2Q3PX/tSUU3KVHqKuyv6/JtF7+AfsVUoRYDaEhDO+
- KH/J2H9HaRckvJSHXcNT/s7OCtkSrwZCeztjPTFrk1Ao6ebmI1/5gDGB2pY356aEyUSA
- 4tFg==
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687355744; x=1689947744;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TGiINbu7foWgaD89gaNM9RV3a9vEUoSjU+97idyE2Co=;
+ b=G5MLNwrMO/ygECl2UrKnTU4hYZAPfCguFUUBoqVRG3tRN7Vb04To5n0wDzGBF6f9uu
+ SrAyU1MPLRIzDsEAZZzVc3u9m29IKIkNND81q1leCLtwqeXIqNaoqKGegINEEVVhbawA
+ lExWWKmCn1a/dyqWCjd/GKB31g6qHiPLXntc6CxZGa0j3MtIG9oO/SDZMLwTiUdNZw9w
+ mEuKhbpeXSqFRWSbmSWMxJ2wNF63e7yMjAtS8xw4UircxJRfc2yFhtDsx9nR76005mya
+ rFBm0l+tgvZwCeuNJklbDwxyzx8/AjGTKlDRwZY325eNt4a324SQDVm8GJNdTefEaaAw
+ eoUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687350359; x=1689942359;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EGk3oqjnNfHNIndAjqYr6Ubn4S+JmM/i7wpQCzmK7X0=;
- b=A7JKlQT9ciLtGHKT7Yh7BOgU5s3CxWSmJod2ovbWy4FfCDZxst3peFWTlu0qEqf5Wa
- UL0eLJXCg2CmgukWkwMxOXSdyX5kIGidRhDouxxf5qmjZg06KA7tkwTcxc56wrk6ix13
- q7JFBq1DL5renEH84EY0k7GA2nWd62fWh8WPNmwfZpZjA1Zryx9h+k9VK/ZMoKTwp43m
- RFSimcpIzjc2sUJ4CLI9IIBynuPo4dSFKXWCxKbAj2QZDmIWdqNxeoYc5DJg00N7Fe5D
- iQLe2V+BLlDnvUVOUGwaAIKCugqBf6x8ooG1xNieJIrL1MxHb0aIgb1q/vm6xhI8iKXK
- 4qrQ==
-X-Gm-Message-State: AC+VfDzSYI/Y+qIqRjFGZQ+1LpwV9nOqezTYvdf2+EMKYW8faeaDi3RD
- qU1s+E19qV6k5+YqvCzGQhMxYQ==
-X-Google-Smtp-Source: ACHHUZ45ul/F6dXXQy/jtZVfcMApc1r5PDXrdq2EaA1pSCoE6yOWuKq1vxIO7aPtxItfkHTVcxfmOQ==
-X-Received: by 2002:a05:6402:2cd:b0:51a:2125:74d5 with SMTP id
- b13-20020a05640202cd00b0051a212574d5mr10619396edx.20.1687350359644; 
- Wed, 21 Jun 2023 05:25:59 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.26])
+ d=1e100.net; s=20221208; t=1687355744; x=1689947744;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TGiINbu7foWgaD89gaNM9RV3a9vEUoSjU+97idyE2Co=;
+ b=OFIk+SfxISIjvfVbxxyYNVc5oCg6blI57vxkSChyjWEQcz/xCiWOj+WXpYy8j6ykXQ
+ q0Evhh1Nah5eMwsOWaZacUFtaoP+Yr3Yi+gs5DLlxD31XhuEfZgmYVVyTOFZk1DUF9sH
+ DRF3jzV10wiSNMFIkA4qp9F9OHL2Vrq95uZ5AA9pJzG3BKfBjAyrv4laUJlBJ521mt1J
+ GS/RyR1SSSmdHN4LU6kIrwSrI53L1av/MoE4sYbpAfkAWJctf7HUgmO/1af4EIG1J52H
+ zkS9IpGS/IrJuo+IrFrK6MzMTW1VUtVXAuopN6GCMA5UJycjdRRpU5/9tDn5kE900lwP
+ m+bw==
+X-Gm-Message-State: AC+VfDyVqULuMh1P+v2Or5hj5/3Q8tLnFcauYYiK2vFYX2WJIbElqLt7
+ ylsEFPuBXDYjQtKXvl76+MHV5A==
+X-Google-Smtp-Source: ACHHUZ6lpAkKw4lUE1mi/nl5WQy66Jmf4UjvJOEHqcX5UnW2U7zvUnOOSSgljBc/dyx9VV5dVySgcw==
+X-Received: by 2002:a05:600c:22c6:b0:3f9:b244:c294 with SMTP id
+ 6-20020a05600c22c600b003f9b244c294mr8259781wmg.35.1687355744011; 
+ Wed, 21 Jun 2023 06:55:44 -0700 (PDT)
+Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:a69f:8ee3:6907:ccdf])
  by smtp.gmail.com with ESMTPSA id
- k22-20020a056402049600b0051bc58b8dbcsm2512156edv.59.2023.06.21.05.25.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jun 2023 05:25:59 -0700 (PDT)
-Message-ID: <29666c1f-c670-b38c-8555-e606771b480b@linaro.org>
-Date: Wed, 21 Jun 2023 14:25:57 +0200
+ y7-20020a1c4b07000000b003f17848673fsm5069294wma.27.2023.06.21.06.55.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jun 2023 06:55:43 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Junxiao Chang <junxiao.chang@intel.com>
+Date: Wed, 21 Jun 2023 15:55:37 +0200
+Message-Id: <20230621135537.376649-1-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Valentin Caron <valentin.caron@foss.st.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20230621115523.923176-1-valentin.caron@foss.st.com>
- <20230621115523.923176-2-valentin.caron@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230621115523.923176-2-valentin.caron@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] spi: stm32: disable device mode with
- st, stm32f4-spi compatible
+Cc: netdev@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: fix double serdes powerdown
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,28 +86,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/06/2023 13:55, Valentin Caron wrote:
-> STM32 SPI driver is not capable to handle device mode with stm32f4/f7 soc.
-> Stop probing if this case happens.
-> 
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-...
+Commit 49725ffc15fc ("net: stmmac: power up/down serdes in
+stmmac_open/release") correctly added a call to the serdes_powerdown()
+callback to stmmac_release() but did not remove the one from
+stmmac_remove() which leads to a doubled call to serdes_powerdown().
 
->  
->  static const struct of_device_id stm32_spi_of_match[] = {
-> @@ -1798,8 +1802,15 @@ static int stm32_spi_probe(struct platform_device *pdev)
->  	struct device_node *np = pdev->dev.of_node;
->  	bool device_mode;
->  	int ret;
-> +	const struct of_device_id *of_match =
-> +		of_match_device(pdev->dev.driver->of_match_table, &pdev->dev);
-> +	const struct stm32_spi_cfg *cfg = (const struct stm32_spi_cfg *)of_match->data;
+This can lead to all kinds of problems: in the case of the qcom ethqos
+driver, it caused an unbalanced regulator disable splat.
 
-It seems you open-coded of_device_get_match_data().
+Fixes: 49725ffc15fc ("net: stmmac: power up/down serdes in stmmac_open/release")
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 10e8a5606ba6..4727f7be4f86 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7461,12 +7461,6 @@ void stmmac_dvr_remove(struct device *dev)
+ 	netif_carrier_off(ndev);
+ 	unregister_netdev(ndev);
+ 
+-	/* Serdes power down needs to happen after VLAN filter
+-	 * is deleted that is triggered by unregister_netdev().
+-	 */
+-	if (priv->plat->serdes_powerdown)
+-		priv->plat->serdes_powerdown(ndev, priv->plat->bsp_priv);
+-
+ #ifdef CONFIG_DEBUG_FS
+ 	stmmac_exit_fs(ndev);
+ #endif
+-- 
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
