@@ -2,57 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEF27379E4
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 05:50:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E6C737B4B
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jun 2023 08:33:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B8DFC65E4F;
-	Wed, 21 Jun 2023 03:50:29 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 804A5C6B443;
+	Wed, 21 Jun 2023 06:33:57 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D72C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4EA3C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jun 2023 03:50:27 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 64EA06146E;
- Wed, 21 Jun 2023 03:50:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B514DC433C0;
- Wed, 21 Jun 2023 03:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687319425;
- bh=D35HmKlZtJ5h1JeXspSb0lCLLuaJdO/xC8NRMTwz20s=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=r82mCGXv0GiHbdJSJF0qAiJiiz1KqxFHmFrncm65vQrSZwFmyyLV5bNQL0J5zs2Sr
- +Is7zkoBtJE18tCoMEnIVSIx8A2kQPrGFbcIOSLDqTCGSBv5ZxR1doJslEKc9TXYGa
- qhEBJ453ewI1hcGemB6a/gEqFk8L3ylZPC5Oz5V95FIkbSgG7yuPTHsUA32nvqin10
- ODyUSf9x/lADdDnqS4CX10IBkAztrdM5L/Ndd5PexQOw7utT33lpL+Tme4jUaJAoAk
- i6BKEqYQt5jwpvox8FWyUc/i/RojYk+DtYNr9bE5W9vBbUqFG+kd1HGGSGYs76IqA+
- JwZpznrNuR2Rw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 8F2C3C4166E; Wed, 21 Jun 2023 03:50:25 +0000 (UTC)
+ Wed, 21 Jun 2023 06:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=T0dcoPCLaDYQMrHuXNE7wQ+1ki8yqQNoSM6auWBUDjc=; b=E9h898lDjNjzK8lBzgMNtgVZW7
+ Q1u8bz6YxAzXDmDK5Uk9I4+mxh96D3YqWlRCe6T4SyoWk+IfVC0rVKcxgKOTWwbcDJCqNRGRYiSte
+ ObFhLtecXOwsv3n/nec6/6/xRSDkUkFiAdL9CihZjDeF3a/L4i9MWKO9Lm0jyOrAQUjXgU7Zo56kb
+ /X3XESgafWZPxDJoBuOi3Yl9iHPVLVhuYUfm3w95YjiqZij0zTbzl1FGj7jrB1tocC+gxlGpIIT72
+ M0lReCenj3AnXFFn01nTbHoSF+zgXuyMnbw4IQyaF3HIBqfhaVKijUULZ2CD2gp/fcGTYVGxCT9ON
+ yAYj21+g==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1qBrPa-000Mcq-6U; Wed, 21 Jun 2023 08:33:50 +0200
+Received: from [185.17.218.86] (helo=zen..)
+ by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <sean@geanix.com>)
+ id 1qBrPZ-0008i1-LM; Wed, 21 Jun 2023 08:33:49 +0200
+From: Sean Nyekjaer <sean@geanix.com>
+To: a.fatoum@pengutronix.de, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 21 Jun 2023 08:33:31 +0200
+Message-Id: <20230621063339.1361073-1-sean@geanix.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168731942557.12823.16246597315060099180.git-patchwork-notify@kernel.org>
-Date: Wed, 21 Jun 2023 03:50:25 +0000
-References: <20230619092402.195578-1-brgl@bgdev.pl>
-In-Reply-To: <20230619092402.195578-1-brgl@bgdev.pl>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Cc: edumazet@google.com, krzysztof.kozlowski+dt@linaro.org,
- linux-stm32@st-md-mailman.stormreply.com, bartosz.golaszewski@linaro.org,
- joabreu@synopsys.com, agross@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- ahalaney@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- bhupesh.sharma@linaro.org, linux-arm-msm@vger.kernel.org, robh+dt@kernel.org,
- peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, andersson@kernel.org, linux-kernel@vger.kernel.org,
- konrad.dybcio@linaro.org, vkoul@kernel.org, mcoquelin.stm32@gmail.com,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [RESEND PATCH net-next v2 00/14] net: stmmac:
- dwmac-qcom-ethqos: add support for EMAC4
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26945/Tue Jun 20 09:30:24 2023)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 1/8] ARM: dts: stm32: Add alternate pinmux
+	for i2s pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,57 +66,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Add another mux option for i2s pins, this is used on Octavo OSD32MP1-RED board.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-On Mon, 19 Jun 2023 11:23:48 +0200 you wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> Extend the dwmac-qcom-ethqos driver to support EMAC4. While at it: rework the
-> code somewhat. The bindings have been reviewed by DT maintainers.
-> 
-> This is a sub-series of [1] with only the patches targetting the net subsystem
-> as they can go in independently.
-> 
-> [...]
-
-Here is the summary with links:
-  - [RESEND,v2,01/14] net: stmmac: dwmac-qcom-ethqos: shrink clock code with devres
-    https://git.kernel.org/netdev/net-next/c/9fc68f23a6d3
-  - [RESEND,v2,02/14] net: stmmac: dwmac-qcom-ethqos: rename a label in probe()
-    https://git.kernel.org/netdev/net-next/c/9bc580609139
-  - [RESEND,v2,03/14] net: stmmac: dwmac-qcom-ethqos: tweak the order of local variables
-    https://git.kernel.org/netdev/net-next/c/7b5e64a93825
-  - [RESEND,v2,04/14] net: stmmac: dwmac-qcom-ethqos: use a helper variable for &pdev->dev
-    https://git.kernel.org/netdev/net-next/c/302555a0ae33
-  - [RESEND,v2,05/14] net: stmmac: dwmac-qcom-ethqos: add missing include
-    https://git.kernel.org/netdev/net-next/c/ee8dacca2fd3
-  - [RESEND,v2,06/14] net: stmmac: dwmac-qcom-ethqos: add a newline between headers
-    https://git.kernel.org/netdev/net-next/c/97f73bc59e16
-  - [RESEND,v2,07/14] net: stmmac: dwmac-qcom-ethqos: remove stray space
-    https://git.kernel.org/netdev/net-next/c/f2b1758554eb
-  - [RESEND,v2,08/14] net: stmmac: dwmac-qcom-ethqos: add support for the optional serdes phy
-    https://git.kernel.org/netdev/net-next/c/0dec3b48aa4e
-  - [RESEND,v2,09/14] net: stmmac: dwmac-qcom-ethqos: add support for the phyaux clock
-    https://git.kernel.org/netdev/net-next/c/feeb27165c46
-  - [RESEND,v2,10/14] net: stmmac: dwmac-qcom-ethqos: prepare the driver for more PHY modes
-    https://git.kernel.org/netdev/net-next/c/25c4a0769443
-  - [RESEND,v2,11/14] net: stmmac: dwmac-qcom-ethqos: add support for SGMII
-    https://git.kernel.org/netdev/net-next/c/463120c31c58
-  - [RESEND,v2,12/14] net: stmmac: add new switch to struct plat_stmmacenet_data
-    https://git.kernel.org/netdev/net-next/c/aa571b6275fb
-  - [RESEND,v2,13/14] dt-bindings: net: qcom,ethqos: add description for sa8775p
-    https://git.kernel.org/netdev/net-next/c/d0e3d29f8771
-  - [RESEND,v2,14/14] net: stmmac: dwmac-qcom-ethqos: add support for emac4 on sa8775p platforms
-    https://git.kernel.org/netdev/net-next/c/8c4d92e82d50
-
-You are awesome, thank you!
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index e86d989dd351..d79f89f37bc7 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -686,6 +686,25 @@ pins {
+ 		};
+ 	};
+ 
++	i2s2_pins_b: i2s2-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C',  3, AF5)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, AF5)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, AF5)>; /* I2S2_CK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <1>;
++		};
++	};
++
++	i2s2_sleep_pins_b: i2s2-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 3, ANALOG)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, ANALOG)>; /* I2S2_CK */
++		};
++	};
++
+ 	ltdc_pins_a: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G',  7, AF14)>, /* LCD_CLK */
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.40.0
 
 _______________________________________________
 Linux-stm32 mailing list
