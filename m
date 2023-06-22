@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF25739724
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4B1739725
 	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jun 2023 08:01:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4333BC65E4F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 589CCC6A5F7;
 	Thu, 22 Jun 2023 06:01:46 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92C84C5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BB17C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jun 2023 04:21:00 +0000 (UTC)
+ Thu, 22 Jun 2023 04:21:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687407660; x=1718943660;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rKgnFurbdIRdoh4CHd4XKUen+Eh+ergId4ed9rxs1x8=;
- b=F4UtLKO8DMKtQwe9O0cEL62NQP/ZZYC5ueyT5oJ92MOR0WJhTYFbXA3k
- 868dzdnUj9gRSJMBTXl/tk6hop/3jIFSr1xtGNCD8YH85W3I8Oesija7h
- mBxAoQg5RlCiupwM0GIuWngU9W9rN98tlA3IFaKA4RylzenNAghkIlhX6
- uBMjtjo2fXsjoy82lb78INsVYSNWvLWSFbszyYDks+IlwyPtPE5S8HVVg
- rP4UwbVSzPX/8EXKtzb/nZV2zk5Tsg11zOn4aA1dHl5oZH/cB5A1BYkmJ
- pVYy4Co9+46cCxDA5T3krDHWw1LSZe99DsSjevLJ02DLdR3pgmKFKF+SG Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="363811742"
-X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="363811742"
+ t=1687407661; x=1718943661;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=UtwbdSn3PxBMhABoZLMkSt6Wfnm48v4gql/S1jq6XPg=;
+ b=WqufvVCgEAgkHAli979I4cSfbKShlZXQ8PhrsDowdfw4V8qZqCgK+6cV
+ d/uNsHFDjcZKMKibKNTivkc+pwp0XuceG4qvCNYyy/hHhItD19vBm58e2
+ pBr/tEIH5NwQ+2kwJfcM5xrK4+zrSMUxZCgEl12FZEMEjDFst9ZPsXU6g
+ nfvLIIXV5o4iHP+jaRfaK0M2QhgIEfASoOZB6p1VG84DrARR73RJ57tyR
+ 0r0qSLer7/YQFdD4Tz+WW2y1kOXey9+YKgHCybJrmUtsHHyJ1pyehKyw0
+ E89O/FcVHlUfTpuEhOqOOHmgb8K9ZCSE1z2JlGahMjmZSktI5h2hyGUb2 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="363811786"
+X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="363811786"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 21:19:38 -0700
+ 21 Jun 2023 21:19:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="744453724"
-X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="744453724"
+X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="744453742"
+X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="744453742"
 Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.229.33])
- by orsmga008.jf.intel.com with ESMTP; 21 Jun 2023 21:19:27 -0700
+ by orsmga008.jf.intel.com with ESMTP; 21 Jun 2023 21:19:44 -0700
 From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
 To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
  David E Box <david.e.box@intel.com>, Hans de Goede <hdegoede@redhat.com>,
@@ -62,9 +62,11 @@ To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
  Shenwei Wang <shenwei.wang@nxp.com>,
  Andrey Konovalov <andrey.konovalov@linaro.org>,
  Jochen Henneberg <jh@henneberg-systemdesign.com>
-Date: Thu, 22 Jun 2023 12:18:59 +0800
-Message-Id: <20230622041905.629430-1-yong.liang.choong@linux.intel.com>
+Date: Thu, 22 Jun 2023 12:19:00 +0800
+Message-Id: <20230622041905.629430-2-yong.liang.choong@linux.intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230622041905.629430-1-yong.liang.choong@linux.intel.com>
+References: <20230622041905.629430-1-yong.liang.choong@linux.intel.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 22 Jun 2023 06:01:45 +0000
 Cc: linux-hwmon@vger.kernel.org,
@@ -76,8 +78,8 @@ Cc: linux-hwmon@vger.kernel.org,
 	Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
 	bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/6] TSN auto negotiation between 1G
-	and 2.5G
+Subject: [Linux-stm32] [PATCH net-next 1/6] platform/x86: intel_pmc_core:
+	Add IPC mailbox accessor function and add SoC register access
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,62 +91,269 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SW50ZWwgcGxhdGZvcm1z4oCZIGludGVncmF0ZWQgR2lnYWJpdCBFdGhlcm5ldCBjb250cm9sbGVy
-cyBzdXBwb3J0CjIuNUdicHMgbW9kZSBzdGF0aWNhbGx5IHVzaW5nIEJJT1MgcHJvZ3JhbW1pbmcu
-IEluIHRoZSBjdXJyZW50CmltcGxlbWVudGF0aW9uLCB0aGUgQklPUyBtZW51IHByb3ZpZGVzIGFu
-IG9wdGlvbiB0byBzZWxlY3QgYmV0d2VlbgoxMC8xMDAvMTAwME1icHMgYW5kIDIuNUdicHMgbW9k
-ZXMuIEJhc2VkIG9uIHRoZSBzZWxlY3Rpb24sIHRoZSBCSU9TCnByb2dyYW1zIHRoZSBQaGFzZSBM
-b2NrIExvb3AgKFBMTCkgcmVnaXN0ZXJzLiBUaGUgQklPUyBhbHNvIHJlYWQgdGhlClRTTiBsYW5l
-IHJlZ2lzdGVycyBmcm9tIEZsZXhpYmxlIEkvTyBBZGFwdGVyIChGSUEpIGJsb2NrIGFuZCBwcm92
-aWRlZAoxMC8xMDAvMTAwME1icHMvMi41R2JwcyBpbmZvcm1hdGlvbiB0byB0aGUgc3RtbWFjIGRy
-aXZlci4gQnV0CmF1dG8tbmVnb3RpYXRpb24gYmV0d2VlbiAxMC8xMDAvMTAwME1icHMgYW5kIDIu
-NUdicHMgaXMgbm90IGFsbG93ZWQuCgpUaGUgbmV3IHByb3Bvc2FsIGlzIHRvIHN1cHBvcnQgYXV0
-by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLzEwMC8xMDAwTWJwcwphbmQgMi41R2JwcyAuIEF1dG8t
-bmVnb3RpYXRpb24gYmV0d2VlbiAxMCwgMTAwLCAxMDAwTWJwcyB3aWxsIHVzZQppbi1iYW5kIGF1
-dG8gbmVnb3RpYXRpb24uIEF1dG8tbmVnb3RpYXRpb24gYmV0d2VlbiAxMC8xMDAvMTAwME1icHMg
-YW5kCjIuNUdicHMgd2lsbCB3b3JrIGFzIHRoZSBmb2xsb3dpbmcgcHJvcG9zZWQgZmxvdywgdGhl
-IHN0bW1hYyBkcml2ZXIgcmVhZHMKdGhlIFBIWSBsaW5rIHN0YXR1cyByZWdpc3RlcnMgdGhlbiBp
-ZGVudGlmaWVzIHRoZSBuZWdvdGlhdGVkIHNwZWVkLgpCYXNlZCBvbiB0aGUgc3BlZWQgc3RtbWFj
-IGRyaXZlciB3aWxsIGlkZW50aWZ5IFRTTiBsYW5lIHJlZ2lzdGVycyBmcm9tCkZJQSB0aGVuIHNl
-bmQgSVBDIGNvbW1hbmQgdG8gdGhlIFBvd2VyIE1hbmFnZW1lbnQgY29udHJvbGxlciAoUE1DKQp0
-aHJvdWdoIFBNQyBkcml2ZXIvQVBJLiBQTUMgd2lsbCBhY3QgYXMgYSBwcm94eSB0byBwcm9ncmFt
-cyB0aGUKUExMIHJlZ2lzdGVycy4KCkNob29uZyBZb25nIExpYW5nICgxKToKICBuZXQ6IHN0bW1h
-YzogQWRkIDFHLzIuNUcgYXV0by1uZWdvdGlhdGlvbiBzdXBwb3J0IGZvciBBREwtTgoKRGF2aWQg
-RS4gQm94ICgxKToKICBwbGF0Zm9ybS94ODY6IGludGVsX3BtY19jb3JlOiBBZGQgSVBDIG1haWxi
-b3ggYWNjZXNzb3IgZnVuY3Rpb24gYW5kCiAgICBhZGQgU29DIHJlZ2lzdGVyIGFjY2VzcwoKTWlj
-aGFlbCBTaXQgV2VpIEhvbmcgKDEpOgogIHN0bW1hYzogaW50ZWw6IFNlcGFyYXRlIGRyaXZlcl9k
-YXRhIG9mIEFETC1OIGZyb20gVEdMCgpUYW4sIFRlZSBNaW4gKDMpOgogIG5ldDogcGNzOiB4cGNz
-OiBjb21iaW5lIEMzNyBTR01JSSBBTiBhbmQgMjUwMEJBU0VYIGZvciBJbnRlbCBtR2JFCiAgICBj
-b250cm9sbGVyCiAgbmV0OiBwaHk6IHVwZGF0ZSBpbi1iYW5kIEFOIG1vZGUgd2hlbiBjaGFuZ2lu
-ZyBpbnRlcmZhY2UgYnkgUEhZIGRyaXZlcgogIG5ldDogc3RtbWFjOiBlbmFibGUgSW50ZWwgbUdi
-RSAxRy8yLjVHIGF1dG8tbmVnb3RpYXRpb24gc3VwcG9ydAoKIE1BSU5UQUlORVJTICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9z
-dG1pY3JvL3N0bW1hYy9LY29uZmlnICAgfCAgIDEgKwogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9kd21hYy1pbnRlbC5jIHwgMTgzICsrKysrKysrKysrKysrKysrLQogLi4uL25ldC9l
-dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1pbnRlbC5oIHwgIDgxICsrKysrKysrCiAuLi4v
-bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCAgMjAgKysKIGRyaXZl
-cnMvbmV0L3Bjcy9wY3MteHBjcy5jICAgICAgICAgICAgICAgICAgICB8ICA3MiArKysrKy0tCiBk
-cml2ZXJzL25ldC9waHkvbWFydmVsbDEwZy5jICAgICAgICAgICAgICAgICAgfCAgIDYgKwogZHJp
-dmVycy9uZXQvcGh5L3BoeWxpbmsuYyAgICAgICAgICAgICAgICAgICAgIHwgICAzICsKIGRyaXZl
-cnMvcGxhdGZvcm0veDg2L2ludGVsL3BtYy9hZGwuYyAgICAgICAgICB8ICAgMiArLQogZHJpdmVy
-cy9wbGF0Zm9ybS94ODYvaW50ZWwvcG1jL2NucC5jICAgICAgICAgIHwgICAyICstCiBkcml2ZXJz
-L3BsYXRmb3JtL3g4Ni9pbnRlbC9wbWMvY29yZS5jICAgICAgICAgfCAgNjMgKysrKystCiBkcml2
-ZXJzL3BsYXRmb3JtL3g4Ni9pbnRlbC9wbWMvaWNsLmMgICAgICAgICAgfCAgIDIgKy0KIGRyaXZl
-cnMvcGxhdGZvcm0veDg2L2ludGVsL3BtYy9tdGwuYyAgICAgICAgICB8ICAgMiArLQogZHJpdmVy
-cy9wbGF0Zm9ybS94ODYvaW50ZWwvcG1jL3NwdC5jICAgICAgICAgIHwgICAyICstCiBkcml2ZXJz
-L3BsYXRmb3JtL3g4Ni9pbnRlbC9wbWMvdGdsLmMgICAgICAgICAgfCAgIDIgKy0KIC4uLi9jb3Jl
-LmggPT4gaW5jbHVkZS9saW51eC9pbnRlbF9wbWNfY29yZS5oICB8ICAyNyArKy0KIGluY2x1ZGUv
-bGludXgvcGNzL3Bjcy14cGNzLmggICAgICAgICAgICAgICAgICB8ICAgMSArCiBpbmNsdWRlL2xp
-bnV4L3BoeS5oICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDIgKwogaW5jbHVkZS9saW51
-eC9zdG1tYWMuaCAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKIDE5IGZpbGVzIGNoYW5n
-ZWQsIDQ0OSBpbnNlcnRpb25zKCspLCAyNCBkZWxldGlvbnMoLSkKIHJlbmFtZSBkcml2ZXJzL3Bs
-YXRmb3JtL3g4Ni9pbnRlbC9wbWMvY29yZS5oID0+IGluY2x1ZGUvbGludXgvaW50ZWxfcG1jX2Nv
-cmUuaCAoOTUlKQoKLS0gCjIuMjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: "David E. Box" <david.e.box@linux.intel.com>
+
+- Exports intel_pmc_core_ipc() for host access to the PMC IPC mailbox
+- Add support to use IPC command allows host to access SoC registers
+through PMC firmware that are otherwise inaccessible to the host due to
+security policies.
+
+Signed-off-by: David E. Box <david.e.box@linux.intel.com>
+Signed-off-by: Chao Qin <chao.qin@intel.com>
+Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+---
+ MAINTAINERS                                   |  1 +
+ drivers/platform/x86/intel/pmc/adl.c          |  2 +-
+ drivers/platform/x86/intel/pmc/cnp.c          |  2 +-
+ drivers/platform/x86/intel/pmc/core.c         | 63 ++++++++++++++++++-
+ drivers/platform/x86/intel/pmc/icl.c          |  2 +-
+ drivers/platform/x86/intel/pmc/mtl.c          |  2 +-
+ drivers/platform/x86/intel/pmc/spt.c          |  2 +-
+ drivers/platform/x86/intel/pmc/tgl.c          |  2 +-
+ .../core.h => include/linux/intel_pmc_core.h  | 27 +++++++-
+ 9 files changed, 95 insertions(+), 8 deletions(-)
+ rename drivers/platform/x86/intel/pmc/core.h => include/linux/intel_pmc_core.h (95%)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cb14589d14ab..bdb08a79a5f8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10581,6 +10581,7 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-platform-intel-pmc
+ F:	drivers/platform/x86/intel/pmc/
++F:	include/linux/intel_pmc_core*
+ 
+ INTEL PMIC GPIO DRIVERS
+ M:	Andy Shevchenko <andy@kernel.org>
+diff --git a/drivers/platform/x86/intel/pmc/adl.c b/drivers/platform/x86/intel/pmc/adl.c
+index 5cbd40979f2a..b6a376c536c0 100644
+--- a/drivers/platform/x86/intel/pmc/adl.c
++++ b/drivers/platform/x86/intel/pmc/adl.c
+@@ -8,7 +8,7 @@
+  *
+  */
+ 
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ /* Alder Lake: PGD PFET Enable Ack Status Register(s) bitmap */
+ const struct pmc_bit_map adl_pfear_map[] = {
+diff --git a/drivers/platform/x86/intel/pmc/cnp.c b/drivers/platform/x86/intel/pmc/cnp.c
+index 7fb38815c4eb..504034cc5ec3 100644
+--- a/drivers/platform/x86/intel/pmc/cnp.c
++++ b/drivers/platform/x86/intel/pmc/cnp.c
+@@ -8,7 +8,7 @@
+  *
+  */
+ 
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ /* Cannon Lake: PGD PFET Enable Ack Status Register(s) bitmap */
+ const struct pmc_bit_map cnp_pfear_map[] = {
+diff --git a/drivers/platform/x86/intel/pmc/core.c b/drivers/platform/x86/intel/pmc/core.c
+index da6e7206d38b..0d60763c5144 100644
+--- a/drivers/platform/x86/intel/pmc/core.c
++++ b/drivers/platform/x86/intel/pmc/core.c
+@@ -16,6 +16,7 @@
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+ #include <linux/io.h>
++#include <linux/intel_pmc_core.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+ #include <linux/slab.h>
+@@ -26,7 +27,9 @@
+ #include <asm/msr.h>
+ #include <asm/tsc.h>
+ 
+-#include "core.h"
++#define PMC_IPCS_PARAM_COUNT           7
++
++static const struct x86_cpu_id *pmc_cpu_id;
+ 
+ /* Maximum number of modes supported by platfoms that has low power mode capability */
+ const char *pmc_lpm_modes[] = {
+@@ -53,6 +56,63 @@ const struct pmc_bit_map msr_map[] = {
+ 	{}
+ };
+ 
++int intel_pmc_core_ipc(struct pmc_ipc_cmd *ipc_cmd, u32 *rbuf)
++{
++	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
++	union acpi_object params[PMC_IPCS_PARAM_COUNT] = {
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++		{.type = ACPI_TYPE_INTEGER,},
++	};
++	struct acpi_object_list arg_list = { PMC_IPCS_PARAM_COUNT, params };
++	union acpi_object *obj;
++	int status;
++
++	if (!pmc_cpu_id || !ipc_cmd || !rbuf)
++		return -EINVAL;
++
++	/*
++	 * 0: IPC Command
++	 * 1: IPC Sub Command
++	 * 2: Size
++	 * 3-6: Write Buffer for offset
++	 */
++	params[0].integer.value = ipc_cmd->cmd;
++	params[1].integer.value = ipc_cmd->sub_cmd;
++	params[2].integer.value = ipc_cmd->size;
++	params[3].integer.value = ipc_cmd->wbuf[0];
++	params[4].integer.value = ipc_cmd->wbuf[1];
++	params[5].integer.value = ipc_cmd->wbuf[2];
++	params[6].integer.value = ipc_cmd->wbuf[3];
++
++	status = acpi_evaluate_object(NULL, "\\IPCS", &arg_list, &buffer);
++	if (ACPI_FAILURE(status))
++		return -ENODEV;
++
++	obj = buffer.pointer;
++	/* Check if the number of elements in package is 5 */
++	if (obj && obj->type == ACPI_TYPE_PACKAGE && obj->package.count == 5) {
++		const union acpi_object *objs = obj->package.elements;
++
++		if ((u8)objs[0].integer.value != 0)
++			return -EINVAL;
++
++		rbuf[0] = objs[1].integer.value;
++		rbuf[1] = objs[2].integer.value;
++		rbuf[2] = objs[3].integer.value;
++		rbuf[3] = objs[4].integer.value;
++	} else {
++		return -EINVAL;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(intel_pmc_core_ipc);
++
+ static inline u32 pmc_core_reg_read(struct pmc_dev *pmcdev, int reg_offset)
+ {
+ 	return readl(pmcdev->regbase + reg_offset);
+@@ -1130,6 +1190,7 @@ static int pmc_core_probe(struct platform_device *pdev)
+ 	mutex_init(&pmcdev->lock);
+ 	core_init(pmcdev);
+ 
++	pmc_cpu_id = cpu_id;
+ 
+ 	if (lpit_read_residency_count_address(&slp_s0_addr)) {
+ 		pmcdev->base_addr = PMC_BASE_ADDR_DEFAULT;
+diff --git a/drivers/platform/x86/intel/pmc/icl.c b/drivers/platform/x86/intel/pmc/icl.c
+index 2f11b1a6daeb..f18048ff9382 100644
+--- a/drivers/platform/x86/intel/pmc/icl.c
++++ b/drivers/platform/x86/intel/pmc/icl.c
+@@ -8,7 +8,7 @@
+  *
+  */
+ 
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ const struct pmc_bit_map icl_pfear_map[] = {
+ 	{"RES_65",		BIT(0)},
+diff --git a/drivers/platform/x86/intel/pmc/mtl.c b/drivers/platform/x86/intel/pmc/mtl.c
+index e8cc156412ce..7897f5fe9881 100644
+--- a/drivers/platform/x86/intel/pmc/mtl.c
++++ b/drivers/platform/x86/intel/pmc/mtl.c
+@@ -9,7 +9,7 @@
+  */
+ 
+ #include <linux/pci.h>
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ const struct pmc_reg_map mtl_reg_map = {
+ 	.pfear_sts = ext_tgl_pfear_map,
+diff --git a/drivers/platform/x86/intel/pmc/spt.c b/drivers/platform/x86/intel/pmc/spt.c
+index e16982236778..95ce490cf5d6 100644
+--- a/drivers/platform/x86/intel/pmc/spt.c
++++ b/drivers/platform/x86/intel/pmc/spt.c
+@@ -8,7 +8,7 @@
+  *
+  */
+ 
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ const struct pmc_bit_map spt_pll_map[] = {
+ 	{"MIPI PLL",			SPT_PMC_BIT_MPHY_CMN_LANE0},
+diff --git a/drivers/platform/x86/intel/pmc/tgl.c b/drivers/platform/x86/intel/pmc/tgl.c
+index c245ada849d0..a1719d809497 100644
+--- a/drivers/platform/x86/intel/pmc/tgl.c
++++ b/drivers/platform/x86/intel/pmc/tgl.c
+@@ -8,7 +8,7 @@
+  *
+  */
+ 
+-#include "core.h"
++#include <linux/intel_pmc_core.h>
+ 
+ #define ACPI_S0IX_DSM_UUID		"57a6512e-3979-4e9d-9708-ff13b2508972"
+ #define ACPI_GET_LOW_MODE_REGISTERS	1
+diff --git a/drivers/platform/x86/intel/pmc/core.h b/include/linux/intel_pmc_core.h
+similarity index 95%
+rename from drivers/platform/x86/intel/pmc/core.h
+rename to include/linux/intel_pmc_core.h
+index 9ca9b9746719..82810e8b92a2 100644
+--- a/drivers/platform/x86/intel/pmc/core.h
++++ b/include/linux/intel_pmc_core.h
+@@ -250,7 +250,16 @@ enum ppfear_regs {
+ #define MTL_LPM_STATUS_OFFSET			0x1700
+ #define MTL_LPM_LIVE_STATUS_OFFSET		0x175C
+ 
+-extern const char *pmc_lpm_modes[];
++#define IPC_SOC_REGISTER_ACCESS			0xAA
++#define IPC_SOC_SUB_CMD_READ			0x00
++#define IPC_SOC_SUB_CMD_WRITE			0x01
++
++struct pmc_ipc_cmd {
++	u32 cmd;
++	u32 sub_cmd;
++	u32 size;
++	u32 wbuf[4];
++};
+ 
+ struct pmc_bit_map {
+ 	const char *name;
+@@ -427,4 +436,20 @@ static const struct file_operations __name ## _fops = {			\
+ 	.release	= single_release,				\
+ }
+ 
++#if IS_ENABLED(CONFIG_INTEL_PMC_CORE)
++/**
++ * intel_pmc_core_ipc() - PMC IPC Mailbox accessor
++ * @ipc_cmd:  struct pmc_ipc_cmd prepared with input to send
++ * @rbuf:     Allocated u32[4] array for returned IPC data
++ *
++ * Return: 0 on success. Non-zero on mailbox error
++ */
++int intel_pmc_core_ipc(struct pmc_ipc_cmd *ipc_cmd, u32 *rbuf);
++#else
++static inline int intel_pmc_core_ipc(struct pmc_ipc_cmd *ipc_cmd, u32 *rbuf)
++{
++	return -ENODEV;
++}
++#endif /* CONFIG_INTEL_PMC_CORE */
++
+ #endif /* PMC_CORE_H */
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
