@@ -2,84 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3308A73972A
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jun 2023 08:01:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD3D7397CF
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jun 2023 09:07:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEF9CC6B461;
-	Thu, 22 Jun 2023 06:01:46 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB50CC65E4F;
+	Thu, 22 Jun 2023 07:07:28 +0000 (UTC)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
+ [209.85.217.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4A41C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC082C65048
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jun 2023 04:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687407664; x=1718943664;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LGc33bAqtZims+Z8ZWCPakULdlqRvmto6XOz1iabewY=;
- b=AC6RrDhuAp0ZdjZEexFr2QgYRh3hXZrJcSFskcmEM8gV/VCT3Baq9clp
- I7zz24JT5pr26xTzBI0e8EJXYgVpNCczKaxhp8dVuGxIEjnbrzg2KK+40
- Myr/puUDj4a+2aQfEW1cxnpmTx6VwvX8m0uzI5w07YBowkXHxbdStSYfM
- 0GimEB3F/kudTyF/NqhBk9429SnlHkwF53xiuimeR+p86D1sM44Y4zHfY
- JVBfJoA+UusQatm3MPsgRuCWsJsyXnYK8t3WXdWS4ziSzphw3Q2s9gLuR
- Wm36wLtREiq5kyhM13VVLUHyjL9JJPbe7Z+06PS5KmUYtqTDG/cFbfMv0 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="363812342"
-X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="363812342"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 21:20:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10748"; a="744453913"
-X-IronPort-AV: E=Sophos;i="6.00,262,1681196400"; d="scan'208";a="744453913"
-Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.229.33])
- by orsmga008.jf.intel.com with ESMTP; 21 Jun 2023 21:20:45 -0700
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Gross <markgross@kernel.org>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Wong Vee Khee <veekhee@apple.com>, Jon Hunter <jonathanh@nvidia.com>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>
-Date: Thu, 22 Jun 2023 12:19:05 +0800
-Message-Id: <20230622041905.629430-7-yong.liang.choong@linux.intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230622041905.629430-1-yong.liang.choong@linux.intel.com>
-References: <20230622041905.629430-1-yong.liang.choong@linux.intel.com>
+ Thu, 22 Jun 2023 07:07:27 +0000 (UTC)
+Received: by mail-vs1-f52.google.com with SMTP id
+ ada2fe7eead31-440b69847bfso1619705137.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 22 Jun 2023 00:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687417646; x=1690009646;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=17q09EU5IzKoL+3uRvcJRVxW9WzlvX1kABapaCMfUac=;
+ b=0+Y6V7m9AwJTXt46LgUkmYfim0kFMAgmEx1WMAnwXRm9h0dDSj503PWiVpc80KV24O
+ KTY8IXnHqev0sM8Wb5C+Cl0yjpi/6y19OHSQMukXaniD2YHOOOVUOTvKYtXhPZVMbcpM
+ ulOevy0MmWgkN2XDTVz7bDCuntnRsnSDLmlbJi3KPdwPaQYvuClYduSlqeaikjIct1gi
+ nGZZui1U3Hb8LmO4j9X0yqNFX1575QQuY9mOWj4iwYVZEbvHZNK5qc/og9iqmwvh5Dfo
+ ASu0KGaBHmPs30hpp3a/u77l10PYqSUOZbg60pLMKAsdHShEZ5PMbtIS1OZfJZpaQ2oW
+ HOxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687417646; x=1690009646;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=17q09EU5IzKoL+3uRvcJRVxW9WzlvX1kABapaCMfUac=;
+ b=HTLecgZJ1y5n3nK/8oAv25j9A+l9JhA1tos5E8tYTM28thdZXKmQHZL6m1etvamOZk
+ XjzPGiiGLuTPH3T1KDivl4eYlizTYXAOROP3dna2VM1oaKOeu91VsEHCoeFZMvrUNtB0
+ GTu9w68/vGtRb4ncxvcQlOeR6l1BFA8D3qD51ToADEqZz7Gg5bMhfGur+ap4169JbjbE
+ Mze3BjH8IU6CaRRiXE+TeSxQRpJULMpNmWx2EJU1D9co/tOmumZMH3DzlCA0VsuCNEsK
+ mO8WybuJVwBsHPANWifkFsWPo0k5zDNreYBhfMjBT2clpfXB0TBQT5OCVTGtnKikVfqD
+ XcWQ==
+X-Gm-Message-State: AC+VfDwK2oLwKuXTeFRI5GOVuLeoZiik9A0Xu7iuJgpdldOTPt+exEYo
+ R7IlhvamXpmUzitj9Az5EyY4YA9IsqkXrABFVTApJA==
+X-Google-Smtp-Source: ACHHUZ7kZNJcPPkpnbMNtbJXqOpZWeAzoHNc+qihd4tsRK7miMwwfvPuvxGMJdu+kyR+2dT9AG50FXasvP9ps+v0mWc=
+X-Received: by 2002:a67:f256:0:b0:43f:5036:677e with SMTP id
+ y22-20020a67f256000000b0043f5036677emr7745188vsm.6.1687417646581; Thu, 22 Jun
+ 2023 00:07:26 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 22 Jun 2023 06:01:45 +0000
-Cc: linux-hwmon@vger.kernel.org,
-	Tee Min <tee.min.tan@linux.intel.com>,
-	Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	Lai Peter Jun Ann <jun.ann.lai@intel.com>,
-	Tan@stm-ict-prod-mailman-01.stormreply.prv,
-	Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
-	bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: stmmac: Add 1G/2.5G
-	auto-negotiation support for ADL-N
+References: <20230621182558.544417-1-brgl@bgdev.pl>
+ <20230621131222.071b9fc3@kernel.org>
+In-Reply-To: <20230621131222.071b9fc3@kernel.org>
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Thu, 22 Jun 2023 09:07:15 +0200
+Message-ID: <CAMRc=MddPhRq9aR3ebeEqWs6O_G50TZqBMtCtpDxo8KcRMoiww@mail.gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: linux-tegra@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jose Abreu <joabreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Richard Cochran <richardcochran@gmail.com>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 00/12] net: stmmac: replace
+ boolean fields in plat_stmmacenet_data with flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,91 +85,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add modphy register lane to have 1G/2.5G auto-negotiation support for
-ADL-N.
-
-Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 34 ++++++++++++++++++-
- .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  2 ++
- 2 files changed, 35 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 1ffa03451d26..024f436b276e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -963,14 +963,46 @@ static struct stmmac_pci_info adls_sgmii1g_phy1_info = {
- 	.setup = adls_sgmii_phy1_data,
- };
- 
-+static int adln_common_data(struct pci_dev *pdev,
-+			    struct plat_stmmacenet_data *plat)
-+{
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
-+	plat->rx_queues_to_use = 6;
-+	plat->tx_queues_to_use = 4;
-+	plat->clk_ptp_rate = 204800000;
-+
-+	plat->safety_feat_cfg->tsoee = 1;
-+	plat->safety_feat_cfg->mrxpee = 0;
-+	plat->safety_feat_cfg->mestee = 1;
-+	plat->safety_feat_cfg->mrxee = 1;
-+	plat->safety_feat_cfg->mtxee = 1;
-+	plat->safety_feat_cfg->epsi = 0;
-+	plat->safety_feat_cfg->edpp = 0;
-+	plat->safety_feat_cfg->prtyen = 0;
-+	plat->safety_feat_cfg->tmouten = 0;
-+
-+	intel_priv->tsn_lane_registers = adln_tsn_lane_registers;
-+	intel_priv->max_tsn_lane_registers = ARRAY_SIZE(adln_tsn_lane_registers);
-+
-+	return intel_mgbe_common_data(pdev, plat);
-+}
-+
- static int adln_sgmii_phy0_data(struct pci_dev *pdev,
- 				struct plat_stmmacenet_data *plat)
- {
-+	struct intel_priv_data *intel_priv = plat->bsp_priv;
-+
- 	plat->bus_id = 1;
- 	plat->phy_interface = PHY_INTERFACE_MODE_SGMII;
-+	plat->max_speed = SPEED_2500;
- 	plat->serdes_powerup = intel_serdes_powerup;
- 	plat->serdes_powerdown = intel_serdes_powerdown;
--	return tgl_common_data(pdev, plat);
-+	plat->config_serdes = intel_config_serdes;
-+
-+	intel_priv->pid_modphy = PID_MODPHY1;
-+
-+	return adln_common_data(pdev, plat);
- }
- 
- static struct stmmac_pci_info adln_sgmii1g_phy0_info = {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-index 75a336cf8af1..349c160c17b3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.h
-@@ -124,8 +124,10 @@ static const struct pmc_serdes_regs pid_modphy1_2p5g_regs[] = {
- 	{}
- };
- 
-+static const int adln_tsn_lane_registers[] = {6};
- static const int ehl_tsn_lane_registers[] = {7, 8, 9, 10, 11};
- #else
-+static const int adln_tsn_lane_registers[] = {};
- static const int ehl_tsn_lane_registers[] = {};
- #endif /* CONFIG_INTEL_PMC_CORE */
- 
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBKdW4gMjEsIDIwMjMgYXQgMTA6MTLigK9QTSBKYWt1YiBLaWNpbnNraSA8a3ViYUBr
+ZXJuZWwub3JnPiB3cm90ZToKPgo+IE9uIFdlZCwgMjEgSnVuIDIwMjMgMjA6MjU6NDYgKzAyMDAg
+QmFydG9zeiBHb2xhc3pld3NraSB3cm90ZToKPiA+IEFzIHN1Z2dlc3RlZCBieSBKb3NlIEFicmV1
+OiBsZXQncyBkcm9wIGFsbCAxMiBib29sZWFuIGZpZWxkcyBpbgo+ID4gcGxhdF9zdG1tYWNlbmV0
+X2RhdGEgYW5kIHJlcGxhY2UgdGhlbSB3aXRoIGEgY29tbW9uIGJpdGZpZWxkLgo+Cj4gSXMgdGhh
+dCB3aGF0IEpvc2UgbWVhbnQsIG9yOgo+Cj4gLSAgICAgICBib29sIGhhc19pbnRlZ3JhdGVkX3Bj
+czsKPiArICAgICAgIHUzMiBoYXNfaW50ZWdyYXRlZF9wY3M6MTsKPgo+ID8KCkZvciB0aGF0IHRv
+IHdvcmsgYWxsIGZpZWxkcyB3b3VsZCBuZWVkIHRvIGJlIGdhdGhlcmVkIHRvZ2V0aGVyICh1bmxl
+c3MKdGhlIHN0cnVjdHVyZSBpcyBfX3BhY2tlZCAtIG5vdCBhIGdvb2QgaWRlYSkgYW5kIGFsbCBm
+dXR1cmUgZmllbGRzCndvdWxkIG5lZWQgdG8gYmUgYWRkZWQgaW4gYSBzcGVjaWZpYyBwbGFjZSBp
+biB0aGUgc3RydWN0dXJlIGRlZmluaXRpb24KYXMgd2VsbC4gSSB0aGluayBhIGJpdCBmaWVsZCBp
+cyBjbGVhcmVyIGFuZCBoYXJkZXIgdG8gZ2V0IHdyb25nIGhlcmUuCgpCYXJ0Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
