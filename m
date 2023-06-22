@@ -2,78 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD3D7397CF
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jun 2023 09:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC03739867
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jun 2023 09:50:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB50CC65E4F;
-	Thu, 22 Jun 2023 07:07:28 +0000 (UTC)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53608C65E4F;
+	Thu, 22 Jun 2023 07:50:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC082C65048
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E38C0C5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jun 2023 07:07:27 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-440b69847bfso1619705137.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jun 2023 00:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1687417646; x=1690009646;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=17q09EU5IzKoL+3uRvcJRVxW9WzlvX1kABapaCMfUac=;
- b=0+Y6V7m9AwJTXt46LgUkmYfim0kFMAgmEx1WMAnwXRm9h0dDSj503PWiVpc80KV24O
- KTY8IXnHqev0sM8Wb5C+Cl0yjpi/6y19OHSQMukXaniD2YHOOOVUOTvKYtXhPZVMbcpM
- ulOevy0MmWgkN2XDTVz7bDCuntnRsnSDLmlbJi3KPdwPaQYvuClYduSlqeaikjIct1gi
- nGZZui1U3Hb8LmO4j9X0yqNFX1575QQuY9mOWj4iwYVZEbvHZNK5qc/og9iqmwvh5Dfo
- ASu0KGaBHmPs30hpp3a/u77l10PYqSUOZbg60pLMKAsdHShEZ5PMbtIS1OZfJZpaQ2oW
- HOxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687417646; x=1690009646;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=17q09EU5IzKoL+3uRvcJRVxW9WzlvX1kABapaCMfUac=;
- b=HTLecgZJ1y5n3nK/8oAv25j9A+l9JhA1tos5E8tYTM28thdZXKmQHZL6m1etvamOZk
- XjzPGiiGLuTPH3T1KDivl4eYlizTYXAOROP3dna2VM1oaKOeu91VsEHCoeFZMvrUNtB0
- GTu9w68/vGtRb4ncxvcQlOeR6l1BFA8D3qD51ToADEqZz7Gg5bMhfGur+ap4169JbjbE
- Mze3BjH8IU6CaRRiXE+TeSxQRpJULMpNmWx2EJU1D9co/tOmumZMH3DzlCA0VsuCNEsK
- mO8WybuJVwBsHPANWifkFsWPo0k5zDNreYBhfMjBT2clpfXB0TBQT5OCVTGtnKikVfqD
- XcWQ==
-X-Gm-Message-State: AC+VfDwK2oLwKuXTeFRI5GOVuLeoZiik9A0Xu7iuJgpdldOTPt+exEYo
- R7IlhvamXpmUzitj9Az5EyY4YA9IsqkXrABFVTApJA==
-X-Google-Smtp-Source: ACHHUZ7kZNJcPPkpnbMNtbJXqOpZWeAzoHNc+qihd4tsRK7miMwwfvPuvxGMJdu+kyR+2dT9AG50FXasvP9ps+v0mWc=
-X-Received: by 2002:a67:f256:0:b0:43f:5036:677e with SMTP id
- y22-20020a67f256000000b0043f5036677emr7745188vsm.6.1687417646581; Thu, 22 Jun
- 2023 00:07:26 -0700 (PDT)
+ Thu, 22 Jun 2023 07:50:50 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35M7fj6L022380; Thu, 22 Jun 2023 09:50:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=iCQ9/Z5yKXxcex+mnARghE6TVsLc1zROYMwOn4/VDIE=;
+ b=r2IqUJAxD2W9H7aKUvpnLGw/QbV0hTqHvkDnNJ7ILjki7m0S038sA6gu1JbnKR1YP7qe
+ l9+hy0vkeAtA2Rh55HgpQXVvXFAypUCdGhYXvA9lmdwR7Hs8XjQfGW9dG9YW7NlgS3uk
+ vj1jwSfrm+9PPs7Fo8SYgVaK4+Ah5VprgJatgwkZz6WUWOXEaoiWTXIXpihBQN4ikYsU
+ F/oh1cYKksxeBE1JQYuO7ZNJlEX6p8YSqacyS4wPznaToEtj0qxifjV8908ASQi/Q0lm
+ nYbxtW/VpeTPgQd274FYJLc+39UDNXiUsP/o3N+44reYxYiuc1ePXhWKYQ5NOKSst8wt mA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rcj4tr2v6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 22 Jun 2023 09:50:19 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A10F210006F;
+ Thu, 22 Jun 2023 09:50:18 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 781B12138FB;
+ Thu, 22 Jun 2023 09:50:18 +0200 (CEST)
+Received: from [10.201.21.93] (10.201.21.93) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 22 Jun
+ 2023 09:50:17 +0200
+Message-ID: <6d3c01d0-c809-b420-335f-551c98956493@foss.st.com>
+Date: Thu, 22 Jun 2023 09:50:17 +0200
 MIME-Version: 1.0
-References: <20230621182558.544417-1-brgl@bgdev.pl>
- <20230621131222.071b9fc3@kernel.org>
-In-Reply-To: <20230621131222.071b9fc3@kernel.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Thu, 22 Jun 2023 09:07:15 +0200
-Message-ID: <CAMRc=MddPhRq9aR3ebeEqWs6O_G50TZqBMtCtpDxo8KcRMoiww@mail.gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: linux-tegra@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Samuel Holland <samuel@sholland.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Chen-Yu Tsai <wens@csie.org>,
- Jose Abreu <joabreu@synopsys.com>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Richard Cochran <richardcochran@gmail.com>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 00/12] net: stmmac: replace
- boolean fields in plat_stmmacenet_data with flags
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Guenter Roeck <linux@roeck-us.net>, arnd Bergmann <arnd@arndb.de>, Arnaud
+ Pouliquen <arnaud.pouliquen@foss.st.com>
+References: <20230602132859.16442-1-alexandre.torgue@foss.st.com>
+ <20230602132859.16442-5-alexandre.torgue@foss.st.com>
+ <24e9c526-4128-4e63-8d28-c4ef1647f886@roeck-us.net>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <24e9c526-4128-4e63-8d28-c4ef1647f886@roeck-us.net>
+X-Originating-IP: [10.201.21.93]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-22_04,2023-06-16_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, soc@kernel.org, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, Olof Johansson <olof@lixom.net>,
+ Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 04/10] arm64: introduce STM32 family on
+ Armv8 architecture
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,23 +80,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKdW4gMjEsIDIwMjMgYXQgMTA6MTLigK9QTSBKYWt1YiBLaWNpbnNraSA8a3ViYUBr
-ZXJuZWwub3JnPiB3cm90ZToKPgo+IE9uIFdlZCwgMjEgSnVuIDIwMjMgMjA6MjU6NDYgKzAyMDAg
-QmFydG9zeiBHb2xhc3pld3NraSB3cm90ZToKPiA+IEFzIHN1Z2dlc3RlZCBieSBKb3NlIEFicmV1
-OiBsZXQncyBkcm9wIGFsbCAxMiBib29sZWFuIGZpZWxkcyBpbgo+ID4gcGxhdF9zdG1tYWNlbmV0
-X2RhdGEgYW5kIHJlcGxhY2UgdGhlbSB3aXRoIGEgY29tbW9uIGJpdGZpZWxkLgo+Cj4gSXMgdGhh
-dCB3aGF0IEpvc2UgbWVhbnQsIG9yOgo+Cj4gLSAgICAgICBib29sIGhhc19pbnRlZ3JhdGVkX3Bj
-czsKPiArICAgICAgIHUzMiBoYXNfaW50ZWdyYXRlZF9wY3M6MTsKPgo+ID8KCkZvciB0aGF0IHRv
-IHdvcmsgYWxsIGZpZWxkcyB3b3VsZCBuZWVkIHRvIGJlIGdhdGhlcmVkIHRvZ2V0aGVyICh1bmxl
-c3MKdGhlIHN0cnVjdHVyZSBpcyBfX3BhY2tlZCAtIG5vdCBhIGdvb2QgaWRlYSkgYW5kIGFsbCBm
-dXR1cmUgZmllbGRzCndvdWxkIG5lZWQgdG8gYmUgYWRkZWQgaW4gYSBzcGVjaWZpYyBwbGFjZSBp
-biB0aGUgc3RydWN0dXJlIGRlZmluaXRpb24KYXMgd2VsbC4gSSB0aGluayBhIGJpdCBmaWVsZCBp
-cyBjbGVhcmVyIGFuZCBoYXJkZXIgdG8gZ2V0IHdyb25nIGhlcmUuCgpCYXJ0Cl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Guenter
+
+On 6/22/23 02:57, Guenter Roeck wrote:
+> Hi,
+> 
+> On Fri, Jun 02, 2023 at 03:28:53PM +0200, Alexandre Torgue wrote:
+>> Add a dedicated ARCH_STM32 for STM32 SoCs config. First STM32 Armv8 SoC
+>> family is the STM32MP25 which is composed of STM32MP251, STM32MP253,
+>> STM32MP255, STM32MP257 SoCs.
+>>
+>> Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+>>
+> 
+> This patch (or patch series) results in the following build error when
+> trying to build arm64:allmodconfig.
+> 
+> Building arm64:allmodconfig ... failed
+
+Should be fixed by this patch:
+
+https://lore.kernel.org/linux-arm-kernel/9ebb9a5a-7bc8-da67-529f-5193b9352b23@infradead.org/T/
+
+regards
+Alex
+
+
+> --------------
+> Error log:
+> In file included from include/linux/printk.h:564,
+>                   from include/asm-generic/bug.h:22,
+>                   from arch/arm64/include/asm/bug.h:26,
+>                   from include/linux/bug.h:5,
+>                   from include/linux/fortify-string.h:5,
+>                   from include/linux/string.h:254,
+>                   from include/linux/dma-mapping.h:7,
+>                   from drivers/remoteproc/stm32_rproc.c:9:
+> drivers/remoteproc/stm32_rproc.c: In function 'stm32_rproc_mem_alloc':
+> drivers/remoteproc/stm32_rproc.c:122:22: error: format '%x' expects argument of type 'unsigned int', but argument 5 has type 'size_t'
+> 
+> Bisect log attached.
+> 
+> Guenter
+> 
+> ---
+> # bad: [15e71592dbae49a674429c618a10401d7f992ac3] Add linux-next specific files for 20230621
+> # good: [45a3e24f65e90a047bef86f927ebdc4c710edaa1] Linux 6.4-rc7
+> git bisect start 'HEAD' 'v6.4-rc7'
+> # bad: [e867e67cd55ae460c860ffd896c7fc96add2821c] Merge branch 'master' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
+> git bisect bad e867e67cd55ae460c860ffd896c7fc96add2821c
+> # bad: [57b289d5b1005a9c39d6d6567e0ef6115bd59cea] Merge branch 'for-next' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux.git
+> git bisect bad 57b289d5b1005a9c39d6d6567e0ef6115bd59cea
+> # good: [dc6399fc9ae6d2530fc38fb3ae96bcc8393bd66f] Merge branch 'for-next/perf' of git://git.kernel.org/pub/scm/linux/kernel/git/will/linux.git
+> git bisect good dc6399fc9ae6d2530fc38fb3ae96bcc8393bd66f
+> # good: [5bfea833dd8f972ce3435359f12f61bdbf01b147] Merge tag 'v6.4-next-dts64' of https://git.kernel.org/pub/scm/linux/kernel/git/matthias.bgg/linux into soc/dt
+> git bisect good 5bfea833dd8f972ce3435359f12f61bdbf01b147
+> # bad: [6f8f9120fd588b28edb0a9c6b9ae9ca6c261d9f6] Merge branch 'for-linux-next' of git://git.kernel.org/pub/scm/linux/kernel/git/sudeep.holla/linux.git
+> git bisect bad 6f8f9120fd588b28edb0a9c6b9ae9ca6c261d9f6
+> # bad: [fe16e4b5e7fa1badc2fa69d85f7b13926cce8fe2] Merge branch 'at91-next' of git://git.kernel.org/pub/scm/linux/kernel/git/at91/linux.git
+> git bisect bad fe16e4b5e7fa1badc2fa69d85f7b13926cce8fe2
+> # good: [0e4ad579ef10d4e9eca86eb33fb4cd87de7c05c4] soc: document merges
+> git bisect good 0e4ad579ef10d4e9eca86eb33fb4cd87de7c05c4
+> # good: [d704f1fe9f4a4ae9c9f1f9fac1e4194c34dd035b] Merge tag 'arm-soc/for-6.5/devicetree-arm64' of https://github.com/Broadcom/stblinux into soc/dt
+> git bisect good d704f1fe9f4a4ae9c9f1f9fac1e4194c34dd035b
+> # bad: [26588df4e5a385e5b7751997d48bdeef042cf736] Merge branch 'soc/newsoc' into for-next
+> git bisect bad 26588df4e5a385e5b7751997d48bdeef042cf736
+> # good: [6bce45197c25c99612a3c5e0cf041d18aa28fbf3] Merge branch 'soc/dt' into for-next
+> git bisect good 6bce45197c25c99612a3c5e0cf041d18aa28fbf3
+> # bad: [3b170e1653c05b067ea6ef616ece961b07714f48] arm64: dts: st: introduce stm32mp25 pinctrl files
+> git bisect bad 3b170e1653c05b067ea6ef616ece961b07714f48
+> # good: [c3053382574a5a829c93fb5ab0bb52d20456e745] dt-bindings: stm32: add st,stm32mp25-syscfg compatible for syscon
+> git bisect good c3053382574a5a829c93fb5ab0bb52d20456e745
+> # bad: [5d30d03aaf78586c37100006ba271d045f730bb5] arm64: dts: st: introduce stm32mp25 SoCs family
+> git bisect bad 5d30d03aaf78586c37100006ba271d045f730bb5
+> # bad: [9e4e24414cc6b45bd887d746a59691e295431ddf] arm64: introduce STM32 family on Armv8 architecture
+> git bisect bad 9e4e24414cc6b45bd887d746a59691e295431ddf
+> # first bad commit: [9e4e24414cc6b45bd887d746a59691e295431ddf] arm64: introduce STM32 family on Armv8 architecture
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
