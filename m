@@ -2,87 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFB073B863
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jun 2023 15:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F8473B984
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jun 2023 16:11:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F4118C65E4F;
-	Fri, 23 Jun 2023 13:07:03 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16E7CC65048
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBEC7C65E4F;
+	Fri, 23 Jun 2023 14:11:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5780FC65068
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jun 2023 13:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1687525618;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=+nlw8o0x9EmBbnewRBB9FOcSf2qgr1xezY4CpDaC89M=;
- b=XCaFzr/qMKoKdtp30p9NQvr5AeV7Fz0JTV+cODfJwE7F3g2FCNjpEAF4tGfYd/qXws9Tf5
- VKE4qstc40uGe4dtyd/sM+QX03QHpfouyjIrTTY6/ch6e+/ovNS2KE4QYMA14bo+bwoQJv
- H+eaxLWTJHpE7iROp5r3GoIVCnV0lJ4=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-157-ZSwEHTZXM_6GlsHPx-A94Q-1; Fri, 23 Jun 2023 09:06:55 -0400
-X-MC-Unique: ZSwEHTZXM_6GlsHPx-A94Q-1
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-3a034580b21so539000b6e.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jun 2023 06:06:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687525615; x=1690117615;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+nlw8o0x9EmBbnewRBB9FOcSf2qgr1xezY4CpDaC89M=;
- b=lC+3DwLh8LJlScTqgG+9/0wTvL6QgwahhSC0hhSAbUHl9UglM89ie2gWJCQT5uxDTa
- FVzPpFk1IIwVPnjyargnV83fsHC7pV3HTTMTyDP9ix2OzAx1wjouhLgS4s2yjTQyjlMx
- 7UpLGE21euYf4WfsHjPwwPBThK2yOJlzlQIYFZ+EBlwzmgZhEn5OyrqRVdQZwjw5LPje
- s4bPzotNxHQ1Lle/cJ0Ej2fPRp09Qrq9VqaNvQ2e5jqPEiaH8Fx3GJWlB9iNmcv0Gp24
- DtxWVaacnyyRpg0vuCQjay5NBTzVuUqa5YA0GleACyxSKVfrrp6oxPVtPekbnSrl9U0P
- jmNA==
-X-Gm-Message-State: AC+VfDzJkB9CN1gbtOGxZ/vFdmZBEZWFfJiZQ1Iz8HxVEqBrxWQRCPtq
- vp5dkTvaQKZ6ib5hu3BXmr69ycN9IHTY7mIugC4vZ1/cBolsYMPkE/E68sSgtbHJCmiY42H+RK9
- dV1vGithwyO893s8Wtk86Oz2aLd9gZTcgz93ia8pr
-X-Received: by 2002:a05:6808:1386:b0:39e:b84b:4786 with SMTP id
- c6-20020a056808138600b0039eb84b4786mr20204377oiw.27.1687525615071; 
- Fri, 23 Jun 2023 06:06:55 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ73eFqk8vQn5O2qswhndAQq+yzi1FAVd85HKmLTe2wlqJ6VQg6y5tF3WlSHMlgK/pA6NSAzsQ==
-X-Received: by 2002:a05:6808:1386:b0:39e:b84b:4786 with SMTP id
- c6-20020a056808138600b0039eb84b4786mr20204357oiw.27.1687525614823; 
- Fri, 23 Jun 2023 06:06:54 -0700 (PDT)
-Received: from halaney-x13s ([2600:1700:1ff0:d0e0::f])
- by smtp.gmail.com with ESMTPSA id
- be18-20020a056808219200b003a05636f4a8sm2061949oib.29.2023.06.23.06.06.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Jun 2023 06:06:54 -0700 (PDT)
-Date: Fri, 23 Jun 2023 08:06:51 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <20230623130651.a36qensnjwx6j4ea@halaney-x13s>
-References: <20230623100845.114085-1-brgl@bgdev.pl>
+ Fri, 23 Jun 2023 14:11:51 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35NDEZCt004204; Fri, 23 Jun 2023 16:11:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=zLkUeXmL+Ow+eXO/4Kk5UPFmY47fOCK359xSbjwsIEE=;
+ b=Qdu1MOMXtdPoz1WyVmRnGhYiRajVMKK2eslEUyO/ReiXGux03z/2GGzN3/JDCRRexU1y
+ 83rTc+q/qijDOsaLFHWkH2LkSraGiCGIfRJw6TFPXPDByFxiT8YgaBLhBm4+6Dh2liT9
+ Xkzn4Szdf7jnfwMlwzLyolY2DZE0+0k+XHitFhcor2bMXcix3W8G7W890BeBoHbECXc2
+ 9g9iFqf7tOBmOCGE02uT/AKsquR1hvQHjX0blJ82xmnmLCNmnQABETIFm4hdBkqoVPaF
+ +a9F+53jfxfykTE/AR2PmtJjPOK/KAADLGp8r0aPK8s7lP4EMHl1kxngDO9faO559ivu 4Q== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rdc3w0ddf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 23 Jun 2023 16:11:27 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 51C9A10002A;
+ Fri, 23 Jun 2023 16:11:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 472DD22AFEC;
+ Fri, 23 Jun 2023 16:11:25 +0200 (CEST)
+Received: from localhost (10.252.5.198) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 23 Jun
+ 2023 16:11:25 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jonathan Cameron <jic23@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Frank Rowand <frowand.list@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Date: Fri, 23 Jun 2023 16:09:36 +0200
+Message-ID: <20230623140944.2613002-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20230623100845.114085-1-brgl@bgdev.pl>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/12] net: stmmac: replace
- boolean fields in plat_stmmacenet_data with flags
+X-Originating-IP: [10.252.5.198]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-23_08,2023-06-22_02,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RFC PATCH 0/7] iio: add iio backend device type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,50 +79,123 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jun 23, 2023 at 12:08:33PM +0200, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> As suggested by Jose Abreu: let's drop all 12 boolean fields in
-> plat_stmmacenet_data and replace them with a common bitfield.
-> 
-> v1 -> v2:
-> - fix build on intel platforms
-> 
-> Bartosz Golaszewski (12):
->   net: stmmac: replace the has_integrated_pcs field with a flag
->   net: stmmac: replace the sph_disable field with a flag
->   net: stmmac: replace the use_phy_wol field with a flag
->   net: stmmac: replace the has_sun8i field with a flag
->   net: stmmac: replace the tso_en field with a flag
->   net: stmmac: replace the serdes_up_after_phy_linkup field with a flag
->   net: stmmac: replace the vlan_fail_q_en field with a flag
->   net: stmmac: replace the multi_msi_en field with a flag
->   net: stmmac: replace the ext_snapshot_en field with a flag
->   net: stmmac: replace the int_snapshot_en field with a flag
->   net: stmmac: replace the rx_clk_runs_in_lpi field with a flag
->   net: stmmac: replace the en_tx_lpi_clockgating field with a flag
-> 
->  .../stmicro/stmmac/dwmac-dwc-qos-eth.c        |  4 +-
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 23 +++++------
->  .../ethernet/stmicro/stmmac/dwmac-mediatek.c  |  5 ++-
->  .../stmicro/stmmac/dwmac-qcom-ethqos.c        |  8 ++--
->  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  2 +-
->  .../net/ethernet/stmicro/stmmac/dwmac-tegra.c |  4 +-
->  .../ethernet/stmicro/stmmac/stmmac_hwtstamp.c |  4 +-
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 40 +++++++++++--------
->  .../net/ethernet/stmicro/stmmac/stmmac_pci.c  |  2 +-
->  .../ethernet/stmicro/stmmac/stmmac_platform.c | 10 +++--
->  .../net/ethernet/stmicro/stmmac/stmmac_ptp.c  |  5 ++-
->  include/linux/stmmac.h                        | 26 ++++++------
->  12 files changed, 76 insertions(+), 57 deletions(-)
-> 
-> -- 
-> 2.39.2
-> 
+This RFC re-opens an old discussion regarding channel scaling
+management in STM32 DFSDM driver [1]
 
-The series looks proper to me:
+The DFSDM is a peripheral provided by the STM32MP1x SoC family.
+One objective is also to prepare the introduction of its successor in
+the STM32MP12x SoC family: the MDF (Multi-function Digital Filter).
+The MDF driver will have the same requirements as the DFSDM regarding
+channel scaling management. So, the solution proposed here will apply
+also for the future MDF driver.
 
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+[1]
+https://patchwork.kernel.org/project/linux-iio/patch/20200204101008.11411-5-olivier.moysan@st.com/
+
+As a short reminder of our previous discussion, the two main options
+emerging were the following ones:
+
+- Option1: Use the DFSDM as an hardware accelerator and expose the
+scaled channels on SD modulator side.
+Drawbak: this solution is leading to an very complex datapath, especially
+for scan mode.
+
+- Option2: Introduce a new IIO device type (so-called backend)
+Retrieve scaling information from SD modulator scaling to expose a single
+IIO device on DFSDM side. This solution is derivated from rcar-gyroadc
+example, but with a more standard approach.
+This was discussed in 
+https://lore.kernel.org/lkml/20210919191414.09270f4e@jic23-huawei/
+
+The patchset proposed in this RFC implements option2 (backend) solution.
+These patches provide a minimal API implemented as a template.
+The intented use of this API is illustrated through the DFSDM channel
+scaling support basic implementation.
+
+For sake of simplicity I did not include the related DT binding
+in this serie. 
+
+Below are some use case examples.
+
+* DFSDM with SD modulator backend:
+  -------------------------------
+This use case corresponds to the example implemented in this RFC.
+The channel attributes are retrieved from backend by the dfsdm, and
+the resulting scaling is exposed through DFSDM IIO device sysfs
+
+- Single channel:
++-------------+  ch attr   +--------+  sysfs (compound scaling)
+| sd0 backend | ---------> | dfsdm0 | -------------------------->
++-------------+            +--------+
+
+- Scan mode:
++-------------+  ch attr   +-------------+  sysfs (compound scaling)
+| sd1 backend | ---------> |   dfsdm1    | -------------------------->
++-------------+            +-------------+
+                             ^
+                             |
++-------------+  ch attr     |
+| sd2 backend |--------------+
++-------------+
+
+
+* Voltage divider in front of an adc:
+  ----------------------------------
+By way of example, here is a comparison on scaling management with
+a iio-rescale device, and how it could be managed with a backend device.
+
+- iio-rescale implementation
+Scaling is exposed both on ADC and iio-rescale IIO devices.
+On iio-rescale device we get the compound scaling
+
++---------------------------+  ch attr   +------+  sysfs
+|     iio-rescale (div)     | <--------- | adc0 | ------->
++---------------------------+            +------+
+  |
+  | sysfs (compound scaling)
+  v
+
+- Backend implementation:
+Compound scaling is exposed on ADC IIO device.
+No scaling exposed on backend device
+
++---------------+  ch attr   +------+  sysfs (compound scaling)
+| backend (div) | ---------> | adc0 | -------------------------->
++---------------+            +------+
+
+
+* Cascaded backends:
+  -----------------
+Backends may be cascaded to allow computation of the whole chain scaling
+This is not part of this RFC, but it is identified as a potential
+future use case.
+
++---------------+  attr   +-------------+  attr   +--------+  sysfs
+| backend (div) | ------> | sd0 backend | ------> | dfsdm0 | ------->
++---------------+         +-------------+         +--------+
+
+Olivier Moysan (7):
+  iio: introduce iio backend device
+  of: property: add device link support for io-backends
+  iio: adc: stm32-dfsdm: manage dfsdm as a channel provider
+  iio: adc: stm32-dfsdm: adopt generic channel bindings
+  iio: adc: sd_adc_modulator: change to iio backend device
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+  ARM: dts: stm32: add dfsdm iio suppport
+
+ arch/arm/boot/dts/stm32mp157c-ev1.dts |  62 +++++++++
+ drivers/iio/Makefile                  |   2 +
+ drivers/iio/adc/sd_adc_modulator.c    |  92 +++++++++++---
+ drivers/iio/adc/stm32-dfsdm-adc.c     | 176 ++++++++++++++++----------
+ drivers/iio/industrialio-backend.c    |  59 +++++++++
+ drivers/of/property.c                 |   2 +
+ include/linux/iio/backend.h           |  29 +++++
+ 7 files changed, 336 insertions(+), 86 deletions(-)
+ create mode 100644 drivers/iio/industrialio-backend.c
+ create mode 100644 include/linux/iio/backend.h
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
