@@ -2,51 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EEA173ADC3
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jun 2023 02:32:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 166E973AEB3
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jun 2023 04:40:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E7F4C65E42;
-	Fri, 23 Jun 2023 00:32:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7889C65E42;
+	Fri, 23 Jun 2023 02:40:24 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45610C5E2C2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 774AEC5E2C2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jun 2023 00:32:23 +0000 (UTC)
+ Fri, 23 Jun 2023 02:40:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E7F856193B;
- Fri, 23 Jun 2023 00:32:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC72C433D9;
- Fri, 23 Jun 2023 00:32:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 280A461952;
+ Fri, 23 Jun 2023 02:40:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DCB4C433CB;
+ Fri, 23 Jun 2023 02:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687480341;
- bh=EjrF3HDt3RyfZDfXrX+WQ/ORgsApGiY+Cl6RD/uJWfg=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=LOHG41zn1XS4ny8ZCgGD1vPbFadZKjmexxkSYAsxKoiLS//ssEbPthdsd80wsR6ph
- Ka3CXEaJNh+DnWDjr1UVVbT3ItiBTCTMGsxsIPEsV7fk6MaLEkn3dnlme505VU37ai
- xse9AJsKKSf7sKCOjwRD2zHXD0xSIX+sWlR59mjQdILbFZ9MX9tjx5y9w3ZmMaYkCI
- l9tnjQg9+PVpWLFJ2brDQpRPFS65B9FhqVFPgSYuDMyD8GDsBhbSNYFPGr/CW2An5f
- thB1Z1h93S3HIbT5BCZ2rBNB4JAQCM8SaKJO/5TCY0l8ZmSlm8VIEPwEwbhoTDgjFp
- A7khtKt/0Bi1Q==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Valentin Caron <valentin.caron@foss.st.com>
-In-Reply-To: <20230621115523.923176-1-valentin.caron@foss.st.com>
-References: <20230621115523.923176-1-valentin.caron@foss.st.com>
-Message-Id: <168748033693.332493.10302724879165095478.b4-ty@kernel.org>
-Date: Fri, 23 Jun 2023 01:32:16 +0100
+ s=k20201202; t=1687488021;
+ bh=4hiiv6LScRba5gRm6+zidOGp6fL3y8sB78Jonq7Yi5o=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=Fx6mJKzWzurGakGjbLbiZNJRv8ANfgoWDY1jbcuzIFoyq9xPlZwGpF099Bu0ycueW
+ rRBkXpQ8LrNUO6zLMsswwxoCAoqxIn4dxPDQQekEun9+ObmSAMdOI0x+5mTNlEzidG
+ VpfsuoAs2/H5hF+mDOiJzWAynk4Kn5GpNFCLxqrVoW2KIWrFiGjXDhXMl8S/SjH1R4
+ z4lIKs4FJqTdh1gPvATsRHfJpz6gGYyIr9UvmwgnYe/v99dMgY3MvzALCOSU47CHVI
+ 6UuPqak4OYTYx68mpIxMfwsc3rSj5xsjIa8i8wz1XUg7Nf9ao6WhsJ/kbtiNFnYLUj
+ vYvM8wMA7BdlA==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ D7DEAC691EE; Fri, 23 Jun 2023 02:40:20 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-c6835
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/2] spi: stm32: disable spi
- device mode for stm32f4-f7
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <168748802087.26940.10386965323581685154.git-patchwork-notify@kernel.org>
+Date: Fri, 23 Jun 2023 02:40:20 +0000
+References: <20230621135537.376649-1-brgl@bgdev.pl>
+In-Reply-To: <20230621135537.376649-1-brgl@bgdev.pl>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: linux-kernel@vger.kernel.org, bartosz.golaszewski@linaro.org,
+ junxiao.chang@intel.com, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, netdev@vger.kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: fix double serdes
+	powerdown
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,43 +65,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 21 Jun 2023 13:55:21 +0200, Valentin Caron wrote:
-> This series follows this thread:
-> https://lore.kernel.org/all/20230615075815.310261-1-valentin.caron@foss.st.com/
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 21 Jun 2023 15:55:37 +0200 you wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> As STM32F4-F7 hardware can handle device mode and stm32 spi kernel
-> driver can't, a restriction should be put in the kernel driver and
-> not in the device-tree bindings. This series fixes that.
+> Commit 49725ffc15fc ("net: stmmac: power up/down serdes in
+> stmmac_open/release") correctly added a call to the serdes_powerdown()
+> callback to stmmac_release() but did not remove the one from
+> stmmac_remove() which leads to a doubled call to serdes_powerdown().
 > 
 > [...]
 
-Applied to
+Here is the summary with links:
+  - [net] net: stmmac: fix double serdes powerdown
+    https://git.kernel.org/netdev/net/c/c4fc88ad2a76
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Thanks!
-
-[2/2] spi: dt-bindings: stm32: do not disable spi-slave property for stm32f4-f7
-      commit: 01fa9edd8bcf1c4fe330ea000c3da9ecf76c76a0
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
 _______________________________________________
 Linux-stm32 mailing list
