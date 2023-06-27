@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89CC73FAA8
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jun 2023 13:01:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A030973FC14
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jun 2023 14:39:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58175C6B44D;
-	Tue, 27 Jun 2023 11:01:40 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C719C6B44D;
+	Tue, 27 Jun 2023 12:39:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEAD4C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E3E0C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jun 2023 11:01:39 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qE6R4-0007fq-JI; Tue, 27 Jun 2023 13:00:38 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qE6Qv-00AQAC-96; Tue, 27 Jun 2023 13:00:29 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qE6Qu-000ECV-GT; Tue, 27 Jun 2023 13:00:28 +0200
-Date: Tue, 27 Jun 2023 13:00:25 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Yangtao Li <frank.li@vivo.com>
-Message-ID: <20230627110025.vgtplc6nluiiuvoh@pengutronix.de>
-References: <20230627101215.58798-1-frank.li@vivo.com>
+ Tue, 27 Jun 2023 12:39:35 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 35R9hmpI017215; Tue, 27 Jun 2023 14:39:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=++8nkaCbYJRjEk4/xiM70BALnWisNUyizeXBtAiu6ZU=;
+ b=ZBs/gkJU3kseVP2hyxMcy9ho8eiK/BwsxzMidexTqX+SjniqYuP1R/j/JUpUGincMNJo
+ CX6rpoPkruwDq5cbEAzlZcnJssLFj+Xvk+ZhVL/l2gHPDXIWfo4NXZx4ewiTCylv2IfT
+ pz9XnwyqfHFQrG1lXnZ3k61z6HNgSU2tOF063vzPjw3Z9qI7kTiW5HUw7Zb9LlGTPK1F
+ g3DwRXjkA1hmrDaAK+Zdiwym83DaRdTZjHU2naj0eXamzacUPpD6lmajHicZgz2KHbJh
+ noS+wPnPDgM02AHy+kZRZY15jYPHe2jY6pjdkK9QVjvMxInrXAR+WIWyhBSSMejndhjM jg== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rfu65ach1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 27 Jun 2023 14:39:14 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D8CD4100057;
+ Tue, 27 Jun 2023 14:39:13 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 07013231514;
+ Tue, 27 Jun 2023 14:39:13 +0200 (CEST)
+Received: from localhost (10.201.20.168) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 27 Jun
+ 2023 14:39:12 +0200
+From: Valentin Caron <valentin.caron@foss.st.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Tue, 27 Jun 2023 14:39:06 +0200
+Message-ID: <20230627123906.147029-1-valentin.caron@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20230627101215.58798-1-frank.li@vivo.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, rafael@kernel.org,
- amitk@kernel.org, linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
- jernej.skrabec@gmail.com, miquel.raynal@bootlin.com,
- srinivas.pandruvada@linux.intel.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, bchihi@baylibre.com,
- florian.fainelli@broadcom.com, daniel.lezcano@linaro.org,
- chi.minghao@zte.com.cn, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, agross@kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com, wenst@chromium.org,
- rui.zhang@intel.com, thara.gopinath@gmail.com, kernel@pengutronix.de,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- s.hauer@pengutronix.de, linux-mediatek@lists.infradead.org,
- mmayer@broadcom.com, matthias.bgg@gmail.com, tglx@linutronix.de,
- DLG-Adam.Ward.opensource@dm.renesas.com, johan+linaro@kernel.org,
- angelogioacchino.delregno@collabora.com, linux-arm-kernel@lists.infradead.org,
- niklas.soderlund+renesas@ragnatech.se, andersson@kernel.org,
- linux-kernel@vger.kernel.org, shangxiaojing@huawei.com,
- konrad.dybcio@linaro.org, mcoquelin.stm32@gmail.com, shawnguo@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 01/15] genirq/devres: Add error
- information printing for devm_request_threaded_irq()
+X-Originating-IP: [10.201.20.168]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-06-27_08,2023-06-27_01,2023-05-22_02
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] spi: stm32: disable device mode with st,
+	stm32f4-spi compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,109 +69,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2291523463730995113=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+STM32 SPI driver is not capable to handle device mode with stm32f4 soc.
+Stop probing if this case happens, and print an error with involved
+compatible.
 
---===============2291523463730995113==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="t3yaxbxt6bm6emkg"
-Content-Disposition: inline
+Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+---
+Changes since v1:
+- Replace of_match_device()->data by of_device_get_match_data()
 
+ drivers/spi/spi-stm32.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
---t3yaxbxt6bm6emkg
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Tue, Jun 27, 2023 at 06:12:01PM +0800, Yangtao Li wrote:
-> Ensure that all error handling branches print error information. In this
-> way, when this function fails, the upper-layer functions can directly
-> return an error code without missing debugging information. Otherwise,
-> the error message will be printed redundantly or missing.
->=20
-> There are more than 700 calls to the devm_request_threaded_irq method.
-> Most drivers only request one interrupt resource, and these error
-> messages are basically the same. If error messages are printed
-> everywhere, more than 1000 lines of code can be saved by removing the
-> msg in the driver.
->=20
-> Signed-off-by: Yangtao Li <frank.li@vivo.com>
-> ---
->  kernel/irq/devres.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/kernel/irq/devres.c b/kernel/irq/devres.c
-> index f6e5515ee077..fcb946ffb7ec 100644
-> --- a/kernel/irq/devres.c
-> +++ b/kernel/irq/devres.c
-> @@ -58,8 +58,10 @@ int devm_request_threaded_irq(struct device *dev, unsi=
-gned int irq,
-> =20
->  	dr =3D devres_alloc(devm_irq_release, sizeof(struct irq_devres),
->  			  GFP_KERNEL);
-> -	if (!dr)
-> +	if (!dr) {
-> +		dev_err(dev, "Failed to allocate device resource data\n");
->  		return -ENOMEM;
-> +	}
-> =20
->  	if (!devname)
->  		devname =3D dev_name(dev);
-> @@ -67,6 +69,7 @@ int devm_request_threaded_irq(struct device *dev, unsig=
-ned int irq,
->  	rc =3D request_threaded_irq(irq, handler, thread_fn, irqflags, devname,
->  				  dev_id);
->  	if (rc) {
-> +		dev_err_probe(dev, rc, "Failed to request threaded irq%d: %d\n", irq, =
-rc);
-
-This changes semantics because dev_err_probe() is only supposed to be
-called in probe functions. Not sure about devm_request_threaded_irq, but
-its friend request_irq is called in the setup_irq (or open IIRC)
-callback of serial drivers.
-
-While I assume changing to dev_err_probe is a result of my concern that
-no error should be printed when rc=3D-EPROBEDEFER, my other concern that
-adding an error message to a generic allocation function is a bad idea
-still stands.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---t3yaxbxt6bm6emkg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSawUgACgkQj4D7WH0S
-/k7nEAf/Sl6IkhcKwJ4ubKgDKscqGnFI0cXLbwVB+ka4iZfjqT5YcryVy/7nzzc4
-i3/0+bkJ03exSpcwA2tD+lYPOiEOGjeP/zlVkVO4yUom1zTqv5nxhhV9RlGNaOh4
-078C0cl2BRqDJoTleXNliumh2XZAQwQRCBGjZvxF5nbgbz72DN9KCae20rqtrNGx
-B8kXn6gLq7G3/LyeuUxanxoyk0ok5qPOhbp7fCwRV5FFaq8p4C0AEQKp+IxGwBLm
-YaRpSdThVEGAPaK+FvneVS7geTX5lliN3me02TSHTRDgE4WrMcITeJ3kyImTjU+A
-wSYX7roBs61l4eBj3iITpZkOBqw6ww==
-=xLpK
------END PGP SIGNATURE-----
-
---t3yaxbxt6bm6emkg--
-
---===============2291523463730995113==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+index 6d10fa4ab783..0de56441f72e 100644
+--- a/drivers/spi/spi-stm32.c
++++ b/drivers/spi/spi-stm32.c
+@@ -238,6 +238,7 @@ struct stm32_spi;
+  * @baud_rate_div_min: minimum baud rate divisor
+  * @baud_rate_div_max: maximum baud rate divisor
+  * @has_fifo: boolean to know if fifo is used for driver
++ * @has_device_mode: is this compatible capable to switch on device mode
+  * @flags: compatible specific SPI controller flags used at registration time
+  */
+ struct stm32_spi_cfg {
+@@ -259,6 +260,7 @@ struct stm32_spi_cfg {
+ 	unsigned int baud_rate_div_min;
+ 	unsigned int baud_rate_div_max;
+ 	bool has_fifo;
++	bool has_device_mode;
+ 	u16 flags;
+ };
+ 
+@@ -1750,6 +1752,7 @@ static const struct stm32_spi_cfg stm32f4_spi_cfg = {
+ 	.baud_rate_div_min = STM32F4_SPI_BR_DIV_MIN,
+ 	.baud_rate_div_max = STM32F4_SPI_BR_DIV_MAX,
+ 	.has_fifo = false,
++	.has_device_mode = false,
+ 	.flags = SPI_MASTER_MUST_TX,
+ };
+ 
+@@ -1774,6 +1777,7 @@ static const struct stm32_spi_cfg stm32h7_spi_cfg = {
+ 	.baud_rate_div_min = STM32H7_SPI_MBR_DIV_MIN,
+ 	.baud_rate_div_max = STM32H7_SPI_MBR_DIV_MAX,
+ 	.has_fifo = true,
++	.has_device_mode = true,
+ };
+ 
+ static const struct of_device_id stm32_spi_of_match[] = {
+@@ -1798,8 +1802,16 @@ static int stm32_spi_probe(struct platform_device *pdev)
+ 	struct device_node *np = pdev->dev.of_node;
+ 	bool device_mode;
+ 	int ret;
++	const char *compatible =
++		of_match_device(pdev->dev.driver->of_match_table, &pdev->dev)->compatible;
++	const struct stm32_spi_cfg *cfg = (const struct stm32_spi_cfg *)
++		of_device_get_match_data(&pdev->dev);
+ 
+ 	device_mode = of_property_read_bool(np, "spi-slave");
++	if (!cfg->has_device_mode && device_mode) {
++		dev_err(&pdev->dev, "spi-slave not yet supported with %s\n", compatible);
++		return -EPERM;
++	}
+ 
+ 	if (device_mode)
+ 		ctrl = devm_spi_alloc_slave(&pdev->dev, sizeof(struct stm32_spi));
+@@ -1817,9 +1829,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
+ 	spi->device_mode = device_mode;
+ 	spin_lock_init(&spi->lock);
+ 
+-	spi->cfg = (const struct stm32_spi_cfg *)
+-		of_match_device(pdev->dev.driver->of_match_table,
+-				&pdev->dev)->data;
++	spi->cfg = cfg;
+ 
+ 	spi->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+ 	if (IS_ERR(spi->base))
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2291523463730995113==--
