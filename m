@@ -2,55 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7041473DACF
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jun 2023 11:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEA573F5D9
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jun 2023 09:40:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24F6FC6A60E;
-	Mon, 26 Jun 2023 09:07:41 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3245CC6B44D;
+	Tue, 27 Jun 2023 07:40:19 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D11B5C0356E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56D8DC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Jun 2023 22:40:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5085060ABD;
- Sat, 24 Jun 2023 22:40:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9878AC433C9;
- Sat, 24 Jun 2023 22:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687646424;
- bh=wFuYPKBZDVE/KNCfDf5udJ5FGoqcIIHcICXY9FCaBa0=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=GQnPbwWsakuOPo9NzsCGnu7VNIBsah5Ar0vvOSOu4YvOtGm9lpi/EL4HqoankMgSk
- u53Ss4+2kPxA2IeJYK5BqFk3RcrMSdSEErTSz7iC3XPxgs6D9wzBy0ciln9FfI0Ex7
- UjsjzMayscYiFKLujaUqU00GpN/41SCRrZVqm4Vvwv8DMe78lgJPO3upHOIschQx3t
- qJTdVgj2u5Evpw/u0rwZUNwhUn+fXGdRIE0xLreoBqUbCu1BaMjNdY3Ws2i9L2TR7z
- 89+Ho/l2s3/nanrku3QTTn/WZlQamw1sY2v//Cku+fxVTKTjds6CDQzl2EEeTzPk72
- mjmW5S/7uKrNw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 7C429C395C7; Sat, 24 Jun 2023 22:40:24 +0000 (UTC)
+ Tue, 27 Jun 2023 07:40:17 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2b69dcf45faso32819771fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Jun 2023 00:40:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1687851616; x=1690443616;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6NTcpMVbPtfKRTcDrSmD8MoUfkjuvD8dm7rw3ArPL9I=;
+ b=swdKSXqee4DsixhpEGqQyNNW3XBWrUevNKszorloHuIBaCA0PcMPOfsuOzl9+QiTte
+ 4wOsYWBVcN7F8Tj78icmZyMkGYOi7Dm+2krXIRn7atuzwAfMsfDBMaOZ9rnRRGBreFTM
+ T6w9ELsAX328Q75z7uohV2hndIY+XECbVG2a2EjOF+5CpugPTygos1zEsS/Efj66b8rp
+ FE/YMAM82KyOJcjbDpIYUnEKa3Caf5z4C/YQN9PxDLKCsMG3Si0/KaASqAsXFCONmnQL
+ 9zuEFehYEYN9wLs03oc5+iWVK1iVNsitw/5ptAAcaTVhDNfxMHzKllJ7PBJJ9IiaC2h3
+ ItEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687851616; x=1690443616;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=6NTcpMVbPtfKRTcDrSmD8MoUfkjuvD8dm7rw3ArPL9I=;
+ b=JgUh0gdI9nFse2H8gSFreiAvTqAW0Lz874sOSnRGrT2//Z7cFM4MrzFrzAWmbek8W3
+ FODi4s91QgDEIM6iznTvjncr2+MMA1BCaz9oHyxfFcbO7zXzsCJGTqZj/ITfiryhiADX
+ IgcMEZQgYQrabHL4EFdqkD4T1xtudMKr21CFUjyW2R7nxV8MkkTJUt3E1QCCICX0gu/x
+ pTFZ1KFZMEuXvFafGWSMbsmSTb6sW7NqPwpD5PeiiKvE250lV99Opa5mS/93lurGQ6m2
+ x3QTOUgseICvoHH6i7l9RoGxfJWGPDO4kgmQFO5jULwq5/UMT1rUs4ZT4WLcbs/PqW/I
+ 9bzg==
+X-Gm-Message-State: AC+VfDyguOpKy/Bz3IbLyO0NopvuI9LHdg5k41c7t6cHzDDtXJIO86lD
+ pKw0EgigL3xK3qUS2TaQm2A97g==
+X-Google-Smtp-Source: ACHHUZ5+P/WxO4oUioGdTlGmHsZgaxSX0SXG7cUKhxcYXN9myY+XUcQUBUCnCbqT23LWO6u4jDOXNg==
+X-Received: by 2002:a2e:7e11:0:b0:2b5:95a8:412b with SMTP id
+ z17-20020a2e7e11000000b002b595a8412bmr7300556ljc.52.1687851616523; 
+ Tue, 27 Jun 2023 00:40:16 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.219.26])
+ by smtp.gmail.com with ESMTPSA id
+ m14-20020a7bca4e000000b003fa786b5195sm9823842wml.42.2023.06.27.00.40.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Jun 2023 00:40:16 -0700 (PDT)
+Message-ID: <61f9a781-81fe-d553-6c85-eb069174e6f0@linaro.org>
+Date: Tue, 27 Jun 2023 09:40:11 +0200
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <168764642450.414.12816371572473277561.git-patchwork-notify@kernel.org>
-Date: Sat, 24 Jun 2023 22:40:24 +0000
-References: <20230623100417.93592-1-brgl@bgdev.pl>
-In-Reply-To: <20230623100417.93592-1-brgl@bgdev.pl>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-X-Mailman-Approved-At: Mon, 26 Jun 2023 09:07:40 +0000
-Cc: vkoul@kernel.org, linux-kernel@vger.kernel.org, bhupesh.sharma@linaro.org,
- bartosz.golaszewski@linaro.org, junxiao.chang@intel.com,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- peppe.cavallaro@st.com, netdev@vger.kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/11] net: stmmac: introduce
- devres helpers for stmmac platform drivers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US
+To: Yangtao Li <frank.li@vivo.com>, miquel.raynal@bootlin.com,
+ rafael@kernel.org, daniel.lezcano@linaro.org, amitk@kernel.org,
+ rui.zhang@intel.com, mmayer@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, florian.fainelli@broadcom.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com, agross@kernel.org,
+ andersson@kernel.org, konrad.dybcio@linaro.org, thara.gopinath@gmail.com,
+ heiko@sntech.de, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ thierry.reding@gmail.com, jonathanh@nvidia.com, tglx@linutronix.de,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ srinivas.pandruvada@linux.intel.com,
+ DLG-Adam.Ward.opensource@dm.renesas.com, shangxiaojing@huawei.com,
+ bchihi@baylibre.com, wenst@chromium.org, u.kleine-koenig@pengutronix.de,
+ hayashi.kunihiko@socionext.com, niklas.soderlund+renesas@ragnatech.se,
+ chi.minghao@zte.com.cn, johan+linaro@kernel.org, jernej.skrabec@gmail.com
+References: <20230627071707.77659-1-frank.li@vivo.com>
+ <20230627071707.77659-13-frank.li@vivo.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20230627071707.77659-13-frank.li@vivo.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 13/15] thermal/drivers/rockchip: remove
+	redundant msg
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,51 +100,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On 27/06/2023 09:17, Yangtao Li wrote:
+> The upper-layer devm_request_threaded_irq() function can directly
+> print error information.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+I don't understand. "Can print"? It does not matter if it can, if it
+does not. Currently it doesn't, therefore change is not correct.
+Otherwise explain a bit better why this is redundant.
 
-On Fri, 23 Jun 2023 12:04:06 +0200 you wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> The goal of this series is two-fold: to make the API for stmmac platforms more
-> logically correct (by providing functions that acquire resources with release
-> counterparts that undo only their actions and nothing more) and to provide
-> devres variants of commonly use registration functions that allows to
-> significantly simplify the platform drivers.
-> 
-> [...]
+> Signed-off-by: Yangtao Li <frank.li@vivo.com>
+> ---
 
-Here is the summary with links:
-  - [net-next,v2,01/11] net: stmmac: platform: provide stmmac_pltfr_init()
-    https://git.kernel.org/netdev/net-next/c/97117eb51ec8
-  - [net-next,v2,02/11] net: stmmac: dwmac-generic: use stmmac_pltfr_init()
-    https://git.kernel.org/netdev/net-next/c/4450e7d4231a
-  - [net-next,v2,03/11] net: stmmac: platform: provide stmmac_pltfr_exit()
-    https://git.kernel.org/netdev/net-next/c/5b0acf8dd2c1
-  - [net-next,v2,04/11] net: stmmac: dwmac-generic: use stmmac_pltfr_exit()
-    https://git.kernel.org/netdev/net-next/c/40db9f1ddfcc
-  - [net-next,v2,05/11] net: stmmac: platform: provide stmmac_pltfr_probe()
-    https://git.kernel.org/netdev/net-next/c/3d5bf75d76ea
-  - [net-next,v2,06/11] net: stmmac: dwmac-generic: use stmmac_pltfr_probe()
-    https://git.kernel.org/netdev/net-next/c/0a68a59493e0
-  - [net-next,v2,07/11] net: stmmac: platform: provide stmmac_pltfr_remove_no_dt()
-    https://git.kernel.org/netdev/net-next/c/1be0c9d65e17
-  - [net-next,v2,08/11] net: stmmac: platform: provide devm_stmmac_probe_config_dt()
-    https://git.kernel.org/netdev/net-next/c/d74065427374
-  - [net-next,v2,09/11] net: stmmac: dwmac-qco-ethqos: use devm_stmmac_probe_config_dt()
-    https://git.kernel.org/netdev/net-next/c/061425d933ef
-  - [net-next,v2,10/11] net: stmmac: platform: provide devm_stmmac_pltfr_probe()
-    https://git.kernel.org/netdev/net-next/c/fc9ee2ac4f9c
-  - [net-next,v2,11/11] net: stmmac: dwmac-qcom-ethqos: use devm_stmmac_pltfr_probe()
-    https://git.kernel.org/netdev/net-next/c/4194f32a4b2b
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
