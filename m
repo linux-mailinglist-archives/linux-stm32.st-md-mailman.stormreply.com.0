@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C535C742CFD
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 21:18:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0809742CFE
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 21:18:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8910AC6B455;
-	Thu, 29 Jun 2023 19:18:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 974DBC6B455;
+	Thu, 29 Jun 2023 19:18:10 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAF77C6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F8ECC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jun 2023 19:18:01 +0000 (UTC)
+ Thu, 29 Jun 2023 19:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1688066281;
+ s=mimecast20190719; t=1688066288;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IdunTKBXq26vcyYb/EdIVE7YvQRq/YPpQ2jK2C3l7sY=;
- b=VDKZKcCOjBHpSiu9M3ndPRoUf5k29rXGq/BfARQ3Kk4OKNMGKt6J37KoiLJmUPO8iLsNVm
- ckdnwwfPZG2rdpcxS48stHIBtDITT1qTPPXhThKknvBxu6UT/PsDBdNJ/FPx6V+VUJs/zj
- geler9EUkkpgieB6tBcjuLqXS+x2dA8=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=YCceMk07Z77c7iGv0vMNdhiFvW89N91YRXanb/xg6cQ=;
+ b=ZUCVAHHH4eyXYsVGvyEjZ1WncZ22wld/rMfLs04qHKeW+kbq7+gcufhaGjPsrnWKC3VnOf
+ EK32+1VlooMvcBNMqXDkH8Y+TozR39uo9yXnyKndQC59h8RHNkGNQLsGvpDzzHqp0CuLD6
+ BAECYswgmzJhScFM3D+fduGl8r0MiQk=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-222-1gyUhxBsN3G7n-IRZQZOZQ-1; Thu, 29 Jun 2023 15:17:58 -0400
-X-MC-Unique: 1gyUhxBsN3G7n-IRZQZOZQ-1
-Received: by mail-yw1-f199.google.com with SMTP id
- 00721157ae682-5704991ea05so8769547b3.1
+ us-mta-614-T4b0kykHOP-zE6T0rTWXEg-1; Thu, 29 Jun 2023 15:18:04 -0400
+X-MC-Unique: T4b0kykHOP-zE6T0rTWXEg-1
+Received: by mail-yw1-f200.google.com with SMTP id
+ 00721157ae682-5704995f964so8781497b3.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jun 2023 12:17:58 -0700 (PDT)
+ Thu, 29 Jun 2023 12:18:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688066278; x=1690658278;
+ d=1e100.net; s=20221208; t=1688066284; x=1690658284;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IdunTKBXq26vcyYb/EdIVE7YvQRq/YPpQ2jK2C3l7sY=;
- b=Quc8Rfb935MoD/AykyfoZ6y0xPyJabVikGYZcowvtWCt5QmxcacdQ4o5Z/4J3flQlL
- 7UlaOWDg1BwseVTvTdydTqBr+cmcn16Ta8xYlGqZuxdjt7AzdohoeznQBqY+FhlwyHJL
- B6vBkijO47jqNCuoUR29oz903KabjqKGONNAVu22SSFDQTG3PO92J2ftjx8W7lB/8Gke
- JhPDwmvMXr6N3e6M1tCQEQtI/cGWqcWLVKcwxHgwsfA9IbApHdIjhie1PNMaowFWdAYX
- r6W9Jm/QAAXKb+Wq4KMzC8sC4ZCQg9Jbt4qrzZEiXs05v0ZkrwYn5KH39DTOYQrjDSwt
- 7mTA==
-X-Gm-Message-State: ABy/qLbvED73uE8YY7n78F/xnkTeSOxp09niq+0SnRuq7q39hnCCEYz8
- mHxCC3o50KS+6K1sNCBFB9UP7zgpoS9OT8BDh1ofFZHAn9GHwNdBtqkIsdf9zp12YOXfBokRD/h
- YGIfFXgi5+cD8D0O69JxfV58WF2Y/wonyBr5KM6O5
-X-Received: by 2002:a0d:f2c4:0:b0:570:6fbd:2daf with SMTP id
- b187-20020a0df2c4000000b005706fbd2dafmr303072ywf.37.1688066278444; 
- Thu, 29 Jun 2023 12:17:58 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGWPYjej9cDTBj9PaobIHZOXCIJHkmLixBjf5KfzXTvWmIZX19PFv5oYzbDnjlXG204DfghIQ==
-X-Received: by 2002:a0d:f2c4:0:b0:570:6fbd:2daf with SMTP id
- b187-20020a0df2c4000000b005706fbd2dafmr303048ywf.37.1688066278207; 
- Thu, 29 Jun 2023 12:17:58 -0700 (PDT)
+ bh=YCceMk07Z77c7iGv0vMNdhiFvW89N91YRXanb/xg6cQ=;
+ b=h4HqK1aoDzBCj1Vm0Ss45+z8U+4izqvgDtCBt+SQ+Y3rUUB7bXbZumOW2QEW3OgUHZ
+ fMTWSEr6cjrDv1rm/PAZNd+n2bTUhJkdZNoYbdVCaJY8J2nJu939YBGc4KlDYJrdnrfi
+ kSOISBOzaQb/6uB7O53NK39F33gphlgTr/+5Kpn/iD0jtHcSjjszi7biF9LxkgNvJbpG
+ OjzZJMOvEgYDCS7bcAQnaL6ZlwqTDK+PhRSJO9tC6yLJOR0mYKpV4hdKHwWVSg+taHab
+ CHS/8+8Didy9Q3fLIhI371gIGfq29RIueGQgYLlp0l8K/c8SvwM4DdDmqNv+cCQNGRtz
+ Du0g==
+X-Gm-Message-State: ABy/qLbiFHjngYnjX6If541C4EHkulP4yi0+jpQl8AbOT1KsnXFKz7Py
+ kSYkUt64TkaG4WVAf1t3negJ2c9gYVyAK2QECuxpoI0zfwlWFMSfMSQ8M2HVM+1u4D6Mysfrp78
+ +mRrbEO/QUVI/0VcUPX3ymTnhWsk8YaeaqqAdBILP
+X-Received: by 2002:a81:88c7:0:b0:56d:43bd:5513 with SMTP id
+ y190-20020a8188c7000000b0056d43bd5513mr352214ywf.5.1688066284373; 
+ Thu, 29 Jun 2023 12:18:04 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlGdHXzFMRozd6nGxf58W0Xv/QopKQ9WchA/okhijXMBtBl5YPN9hN+ACX/VQ9/Q0R3vF2Wxng==
+X-Received: by 2002:a81:88c7:0:b0:56d:43bd:5513 with SMTP id
+ y190-20020a8188c7000000b0056d43bd5513mr352198ywf.5.1688066284148; 
+ Thu, 29 Jun 2023 12:18:04 -0700 (PDT)
 Received: from halaney-x13s.redhat.com ([2600:1700:1ff0:d0e0::22])
  by smtp.gmail.com with ESMTPSA id
- w127-20020a0ded85000000b0057085b18cddsm3052478ywe.54.2023.06.29.12.17.57
+ w127-20020a0ded85000000b0057085b18cddsm3052478ywe.54.2023.06.29.12.18.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jun 2023 12:17:57 -0700 (PDT)
+ Thu, 29 Jun 2023 12:18:03 -0700 (PDT)
 From: Andrew Halaney <ahalaney@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 29 Jun 2023 14:14:17 -0500
-Message-ID: <20230629191725.1434142-2-ahalaney@redhat.com>
+Date: Thu, 29 Jun 2023 14:14:18 -0500
+Message-ID: <20230629191725.1434142-3-ahalaney@redhat.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230629191725.1434142-1-ahalaney@redhat.com>
 References: <20230629191725.1434142-1-ahalaney@redhat.com>
@@ -73,8 +73,8 @@ Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, bartosz.golaszewski@linaro.org,
  joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
  kuba@kernel.org, pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH 2/3] net: stmmac: dwmac-qcom-ethqos: Use
-	dev_err_probe()
+Subject: [Linux-stm32] [PATCH 3/3] net: stmmac: dwmac-qcom-ethqos: Log more
+	errors in probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,29 +91,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Using dev_err_probe() logs to devices_deferred which is helpful
-when debugging.
+These are useful to see when debugging a probe failure.
 
 Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 3bf025e8e2bd..a40869b2dd64 100644
+index a40869b2dd64..d792b7dd9fc3 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -710,8 +710,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+@@ -706,7 +706,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+ 	if (ret)
+-		return ret;
++		return dev_err_probe(dev, ret,
++				     "Failed to get platform resources\n");
  
  	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
  	if (IS_ERR(plat_dat)) {
--		dev_err(dev, "dt configuration failed\n");
--		return PTR_ERR(plat_dat);
-+		return dev_err_probe(dev, PTR_ERR(plat_dat),
-+				     "dt configuration failed\n");
+@@ -735,13 +736,16 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		ethqos->configure_func = ethqos_configure_sgmii;
+ 		break;
+ 	default:
++		dev_err(dev, "Unsupported phy mode %s\n",
++			phy_modes(ethqos->phy_mode));
+ 		return -EINVAL;
  	}
  
- 	plat_dat->clks_config = ethqos_clks_config;
+ 	ethqos->pdev = pdev;
+ 	ethqos->rgmii_base = devm_platform_ioremap_resource_byname(pdev, "rgmii");
+ 	if (IS_ERR(ethqos->rgmii_base))
+-		return PTR_ERR(ethqos->rgmii_base);
++		return dev_err_probe(dev, PTR_ERR(ethqos->rgmii_base),
++				     "Failed to map rgmii resource\n");
+ 
+ 	ethqos->mac_base = stmmac_res.addr;
+ 
+@@ -753,7 +757,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
+ 	if (IS_ERR(ethqos->link_clk))
+-		return PTR_ERR(ethqos->link_clk);
++		return dev_err_probe(dev, PTR_ERR(ethqos->link_clk),
++				     "Failed to get link_clk\n");
+ 
+ 	ret = ethqos_clks_config(ethqos, true);
+ 	if (ret)
+@@ -765,7 +770,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ethqos->serdes_phy = devm_phy_optional_get(dev, "serdes");
+ 	if (IS_ERR(ethqos->serdes_phy))
+-		return PTR_ERR(ethqos->serdes_phy);
++		return dev_err_probe(dev, PTR_ERR(ethqos->serdes_phy),
++				     "Failed to get serdes phy\n");
+ 
+ 	ethqos->speed = SPEED_1000;
+ 	ethqos_update_link_clk(ethqos, SPEED_1000);
 -- 
 2.41.0
 
