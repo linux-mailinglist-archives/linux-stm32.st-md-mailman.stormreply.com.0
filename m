@@ -2,106 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7529A742DB7
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 21:40:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84FF7742E45
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 22:28:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16B50C6B455;
-	Thu, 29 Jun 2023 19:40:11 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2132.outbound.protection.outlook.com [40.107.93.132])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28725C6B455;
+	Thu, 29 Jun 2023 20:28:48 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2856EC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2971C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jun 2023 19:40:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Joa4ZjrucHKaj7cXIFEdSigtRSB5il5bAapsXsmWzBP313j2yQKw4SbT2QbCPqFBouwIZEepwsUtsLMaQETGviyS/vjSBx7yW3TJx9dtJc4GlEWtv2FYxrTR8pE6k63GtwVdD1EUiDL4FM2x4oq77RKV6JnTV3DdgwjJTetdNhUSwm5QtblUbwYfRGfmwACsEND2BUgYEgkWUF4zNy3yFlphVul4UIGBQaW0HhfUKkxboI9rimgSfvXTun0BGrZcP5ERncrPwlG0+dHnWzprEBmI99rKjfu5MA2iiGXN3XVKJcd7c1ghbWm6QcPiw2tBRuarX6Z5P5Vo9QNvbzEF/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tIWRn2+Da3yu9uiVYvGeI1cIa7PojfDx0sd9Zlbmb3I=;
- b=Cwt0iLrx5iprgigqu4yDZ9oVYChfqrihm2AeTYaDztnVeYk4jEORMK51PJYwr3ERoI1xjksPQ+tJJuTdXo1/VlzGgzmZDV0NLibQJHMYk9h2kTw3y9pjPwbCPaXxRbsgHDOoiV6qdZFyCGXtARd5c9qNEYzEhxp9OaXNfINrbUmrkyBXm+cuHs7gkRV334PklaKtDsDFWwOXzn01cWlVKBnnqx9DAe5S1CXsV2BIishRstm/BysxPtVkgkAwW0yBp8X6zYP3XdliViZgcSJ6TJ5GbGUXBbSrBHqd8RddkhNSFVWmxEb7vcoxFNmbH32IdhH7TLPVcQeidO3bygZf+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIWRn2+Da3yu9uiVYvGeI1cIa7PojfDx0sd9Zlbmb3I=;
- b=D/n/CcmlZu9E30Pl899jshGs0MIYXVsZ0XXkhAxUdA4IqX8RWHUkw5xZfP98ZNAu+9e6l3bLo+FMtct67LUpvZFTRsSJtCt3aHqoZb1jaz6DaTOemw+5lNVNVwKvZUDWCPF9u/di/MarvAa5XNlCuQuAGUBHF0Ju+hkwlzs+B0w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by SJ2PR13MB6428.namprd13.prod.outlook.com (2603:10b6:a03:55a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.44; Thu, 29 Jun
- 2023 19:40:06 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb8f:e482:76e0:fe6e]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::eb8f:e482:76e0:fe6e%5]) with mapi id 15.20.6521.023; Thu, 29 Jun 2023
- 19:40:05 +0000
-Date: Thu, 29 Jun 2023 21:39:57 +0200
-From: Simon Horman <simon.horman@corigine.com>
+ Thu, 29 Jun 2023 20:28:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=JJTXlY6wtDO/dgQsOAsZ3Cbbd06wnHj1OxnXQLvZ2zI=; b=haFASrG5nuBS3YS6DPaEq5i3eU
+ iG8shjOJk5clS1phTvX2/t7l5yi8/7S7fEGgWWP4cXtyjngzHPC58j6Wme6xu5g8PybcnmI0MinKg
+ WgLr1Q62+MO60OcPMn6wOWP37Yo6Lo5Q1HFuUHsERfvn68mc6VHjMW+yrccNUntQAKJw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qEyFu-000FjX-2B; Thu, 29 Jun 2023 22:28:42 +0200
+Date: Thu, 29 Jun 2023 22:28:42 +0200
+From: Andrew Lunn <andrew@lunn.ch>
 To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZJ3eDZcWUz2vBK6q@corigine.com>
+Message-ID: <5b46e92f-0f32-46f2-85ef-94f7c6a7ca9f@lunn.ch>
 References: <20230629191725.1434142-1-ahalaney@redhat.com>
+MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20230629191725.1434142-1-ahalaney@redhat.com>
-X-ClientProxiedBy: AM0PR10CA0080.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:15::33) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|SJ2PR13MB6428:EE_
-X-MS-Office365-Filtering-Correlation-Id: acf61677-15a3-4154-fe6c-08db78d8a3a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zJtRfInCWAIh/FSSG3XBbwBz86DkTwz59prvW2BT5KhGtHznHbA08pi02EcQ1jAeVlQD+7lGeH9QBYz1akTmzpmzqHFyovbdottlSuoZHHM5SCS6N883Sa/LJ7tj5jJidcLwOK8Xx8i7teoffOQ+86mp5sNoIcjdNLqGBxtdjDfF6hIXPL8qvAR4r3M2yxq6xw2jnpeAmEjzDqyN2akhLNeeJwErTzq1lE5prCRElZpeld0YgEzJs1FnqCtYAd+4EDXjSQENusvVisGPFonxRHeHUeFgGB/ysMHsUBA+JQUClzyflsPwcxDA54jnHz7nUm6WJLR16GpVw3+B0XbIo+dmEu1N8GroaLYAk4vTdwIyeu5RitSL5eq9ibWjhIQwukpzI5BQP856wB4Lveqv7QrNJzlMSIXAgftDYMuxff7RVGZKM6JF9RDjpHQjgte0b4p+gLumrjUSacIeVK+oJikBqHBWsR5pWpIEpnk3CIlLhR29K+VJduQl/uAUOddVWzwtyHXD2fEw3Myzjh2veYvuhJJsXMQAgWe77Lr+P9NLNi4qMlYDXg5WJSFZIXldIb0PdcYNiopDlN/GQWj7nCvs0HOTWVnFpaLvE3MKrlU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(39840400004)(376002)(136003)(346002)(396003)(451199021)(7416002)(44832011)(66476007)(66556008)(66946007)(36756003)(8936002)(478600001)(2906002)(316002)(4326008)(8676002)(6916009)(5660300002)(6512007)(6506007)(6666004)(966005)(4744005)(86362001)(41300700001)(38100700002)(6486002)(2616005)(186003)(83380400001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?jmJ7URcIPt2U13F+L2ufAFBBjL6LMulZUEDQzGsdgyrqsF/S4x1w9XHT6IsH?=
- =?us-ascii?Q?XmP49cFR2cfjeZtvqXwB4KZf2Q+5+si2jIGn9Cy2mLnU2IhfWuDlDw+5ZUvD?=
- =?us-ascii?Q?bXEfm1tdLkAs7oS4he7xmue0nwfvHRMiuVNv6Bi0p/MqXH2Z74ItFo8RoPA0?=
- =?us-ascii?Q?bbhhqOsS5DXNsoYgyIEoH3m5GfKe6MCer/6pB6NQg5OUmfV3A1QH2MvqhpOq?=
- =?us-ascii?Q?CeDab2xEvJLKKLQLNVlOElEb+gKWqhmCsnTOf3IbNrKbX3TKIXl0V5iuGG7U?=
- =?us-ascii?Q?5qbImJXZ0sn4OcIofJZwLOsIXAypTiYHPgpcESNHlphIT3UtM5nbvfMk1UM0?=
- =?us-ascii?Q?DZ9WkfrjlipiVWfIccl6aLyy5T7sH+fVVV9P1yKeicE1DVgXRAnsjOfPr4C5?=
- =?us-ascii?Q?xRqjBPmSpDN4s/beMqengp3oLEP+PjoZE4tZhytMOKojn92uLl2fBQ9DgZZK?=
- =?us-ascii?Q?voJX4aQfml047roxnEnY1V4y+bvi8lU5mx7b7AMFf+nAjbRn1fN2aMyZpARm?=
- =?us-ascii?Q?4LfQf5x12+oLNl2tF8cxf7y0ZDOGv6YgZf/3Ica7oOaSvEtEE9pwMAwORgs5?=
- =?us-ascii?Q?Xljz5NHSIeEuBWncpRTnNhzNWGfxUhIViuIF9UxiQObhKfUAwk9OfLXoo/Bc?=
- =?us-ascii?Q?2/TCB3UMm/AVqmuhGSxd2L9ebncjiRUXM2C/rolNwkrqz9bCLpukRFSWJ7AE?=
- =?us-ascii?Q?9Xwe2VKnbH1791gywOuoOkLj6L3lUB3f4ADiKR+mQPfDsYmP5KMFE02/5Q8C?=
- =?us-ascii?Q?fggO9Wv4auZRLSjB8SneF6FVMV5UB7dJr7GpJWJL+AR2hArnVxl3MpoJzRGc?=
- =?us-ascii?Q?EqH/UpTzy+57k4PsJxXPKELbmQ575tC8ouZ6AyXhqrRmKpXvzZCzrUkRV8C7?=
- =?us-ascii?Q?XouJYWXrfBMo34H8/UN1QDWyVrq1TJIgA0SBHoJhGz5kiwSrlyfu+/vwccI3?=
- =?us-ascii?Q?ncyCDoRDkf3alkEInueKvEEdV+6Kl49dpaQjLluwtzSSsFWZ0bED3h+AHPhp?=
- =?us-ascii?Q?z9FskmfWnGmeK+o6BJ7F9BQDFCjAz6iotAaPVW9gbERARoNrmKjdMZzUPqlU?=
- =?us-ascii?Q?naxAYnTE3NHI6ttfXcxHE6AV3KoYtsA4/Ol6t6uIyxoF4pOTujYBv35RlzxI?=
- =?us-ascii?Q?C3eWu41UJLzWZvrTSkoQhCkcoZc5PZecVV4OlBXvqZjY64Z4lGB51TdDO3VG?=
- =?us-ascii?Q?K0feiQpY/rfAw3xzRJ/y3zUUpDiwf7HZumYluixmVkHLFN18fU+sxRKyLhvr?=
- =?us-ascii?Q?bH35zH32Gt1YbDn1jjcrsuzUz8gNnYXfWqtsYz+yW3Ku5x6rzdCT9eXUgBxe?=
- =?us-ascii?Q?Jmllw3KKZZA2igDHNLrncMnciYIXuijhLLjzxgZWpfcIq5xf/Yv+MSxdeqdI?=
- =?us-ascii?Q?9JfeJLZd7Kudkg621TLLMGFVf7ABSjlmISR31HOZ2FGDXhkbloJmBL77QzuY?=
- =?us-ascii?Q?kGfmRSjeCjrgK3qz3c+2CE/a8kVCr2UuuijGrli+b84233uOpvFJ8c6vrPw2?=
- =?us-ascii?Q?/zK0VS4Ftiunw3VKzY+ZfjcesQZUQxqGk5Pnsf9SCT1qMMcjyEHgsWNQK9My?=
- =?us-ascii?Q?x54K142YhbweWUVQlLabAk8iaLPnHiS7ECAmS0RG2DA7p3oZUQS9m/F5JeXm?=
- =?us-ascii?Q?Ku12kDdMfSAQSvem5ouq6y6c+wbov+rsHESJwniuAOwIMzH5DIV3PsipmvO2?=
- =?us-ascii?Q?uBIQ0w=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: acf61677-15a3-4154-fe6c-08db78d8a3a1
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2023 19:40:05.8617 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dUqnLTaRRPzA+jJz68DbrSWo3OSU7OZECONr0KlMq/Kbp5O3jz1QJ/0AsdCqkOvRWYf4QKu/AZfC8JpgUH7imqlEo2W+QdGc6rjHO9oehEc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR13MB6428
 Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, bartosz.golaszewski@linaro.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
@@ -130,24 +60,30 @@ On Thu, Jun 29, 2023 at 02:14:16PM -0500, Andrew Halaney wrote:
 > instead of the actual error.
 > 
 > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index e62940414e54..3bf025e8e2bd 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -721,6 +721,9 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  
+>  	ethqos->phy_mode = device_get_phy_mode(dev);
+> +	if (ethqos->phy_mode < 0)
+> +		return dev_err_probe(dev, ethqos->phy_mode,
+> +				     "Failed to get phy mode\n");
 
-Hi Andrew,
+If this every used on anything other than device tree?
 
-I'm assuming this series is targeted at 'net-next', as opposed to 'net',
-which is for fixes. In any case, the target tree should be included in the
-subject.
+of_get_phy_mode() has a better API, there is a clear separation of the
+return value indicating success/fail, and the interface mode found in
+DT. You can then change phy_mode in struct qcom_ethqos to be
+phy_interface_t.
 
-        Subject: [PATCH net-next v2 1/3] ...
-
-If it is for net-next, then please repost when net-next reopens after July 10th.
-
-Link: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
-
-Also, it usually best to provide a cover-letter for patch-sets with more than
-once patch.
-
---
-pw-bot: deferred
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
