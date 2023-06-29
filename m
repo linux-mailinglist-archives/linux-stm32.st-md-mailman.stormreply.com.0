@@ -2,71 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 204DF7422A5
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 10:51:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28CF742CFB
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jun 2023 21:17:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAA28C6B455;
-	Thu, 29 Jun 2023 08:51:52 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE464C6905A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FD72C6B455;
+	Thu, 29 Jun 2023 19:17:51 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57C4DC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jun 2023 08:51:51 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 35T8dv15032715; Thu, 29 Jun 2023 10:51:43 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=Iz+hQhO6dEojH0eFv013M4o5vsc6rHv4k2nkimlmwAM=;
- b=PdwR5pfs2D/jQIdC/dGfJ1lcD9R8HIfYCiHPf1JIyDsnBSN4yZF7r4cXcaIcRBR/S/AP
- acx8ekRBjHeGDNQDUS/2jTHUcD1091cxUFSjIqDWdU0ovBH70ehEL+ysG+Y5Vwus+3tC
- MxJlk+WsDFd/YqDpiFIWkAuwlCZcaemUwItee0g4kkvbLMm0JmTUpFqAG6UJS//QVMiI
- q0yxidxZniVxB0mNKgSwPRmGmtxLcowIGBTkMRcSgreViKN4A8gmBIJLMsIGqWDXSnW/
- tPZQ95PRSxh46HPNMsnoVr6O26DIl21vFnJRxATkUMwogO34eZAD1cyKEPApFgeTOFHl fg== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rh299hp5h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 29 Jun 2023 10:51:42 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C0B3A100060;
- Thu, 29 Jun 2023 10:51:41 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B88692194CE;
- Thu, 29 Jun 2023 10:51:41 +0200 (CEST)
-Received: from [10.129.178.187] (10.129.178.187) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 29 Jun
- 2023 10:51:40 +0200
-Message-ID: <c20287a0-7daf-0867-31d0-fc4057798f68@foss.st.com>
-Date: Thu, 29 Jun 2023 10:51:40 +0200
+ Thu, 29 Jun 2023 19:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1688066268;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=CB4F2eDO1VL92Q0HqzTksbw7n9fujtKb1FZPPsN/d0c=;
+ b=BqpD4ZwMzYZmpIJ45DfkxUtfb6EFY/wUovblgtb4/RWR9jwNEyvj2jNzIpKyYnEZETM4sQ
+ 6Y1Zn0/78sSfVelNKxLcfN24j4Pbo1Bvo8oXo1fbYvpJy8nm0mxVf+YpQ6k54PNHJvwA7G
+ kMonJ0IdMCIJic14np/lWmUqJ+sIpQk=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-199-R0ZbwcJ-Puy7EOopemY07g-1; Thu, 29 Jun 2023 15:17:46 -0400
+X-MC-Unique: R0ZbwcJ-Puy7EOopemY07g-1
+Received: by mail-yw1-f199.google.com with SMTP id
+ 00721157ae682-577323ba3d5so9290527b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 29 Jun 2023 12:17:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688066266; x=1690658266;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CB4F2eDO1VL92Q0HqzTksbw7n9fujtKb1FZPPsN/d0c=;
+ b=i760ThhGiDZVhy5DKIs5MPDoXsmwEltQzSWBDVF2cEEIsKdggciobaboCsCI/zTPRS
+ kUDDPOnboYDlKhRcJl6iA+4ZgS6NRZkKKgcUZ5gkL5OxXjG60LEstj4FY7MIMJ5fRBTS
+ HZYUX/TEA1On5NN3qJJLyXcL0VdGfzEOv0RhksvTKwiYJBog+CzW3pp9cHXdyE6B9oQi
+ M6he+pf1B9Aoo/+ugWoLP9NbY0vqTFiA59yucvriJf2Smp7L7yQrBfwelzRoHE2q9f8x
+ KjS7mEGtKaHl+aV0cFJnsdKshgHIB3WarqLOou8FX3UtrBAU2kTmIHOaELFZ20WEYWrL
+ 6T/A==
+X-Gm-Message-State: ABy/qLa9kKwiMjkry1EGdAhneD1WxjLKUmG9iIkkU66opu9uBzLURXEt
+ mg0wTegfmZ/47mHnLqS+HqpgYfNbKwdQezUFYaVIeq49QoKm4jL117PHtnMkyy7DJpkYiXrPMrX
+ RkzVemfU2Yi+2Nbk6hwAFCs7s5W0Lab4odXEj9mGs
+X-Received: by 2002:a81:a04a:0:b0:56c:e260:e2d5 with SMTP id
+ x71-20020a81a04a000000b0056ce260e2d5mr6808613ywg.7.1688066266282; 
+ Thu, 29 Jun 2023 12:17:46 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHOfhrwZ9iRh4ReGxdsfikEqHuYNT4UdGjpezi+NU1/qUuJa+z/QJduR3WvMUh9O98fjlkVHg==
+X-Received: by 2002:a81:a04a:0:b0:56c:e260:e2d5 with SMTP id
+ x71-20020a81a04a000000b0056ce260e2d5mr6808604ywg.7.1688066266038; 
+ Thu, 29 Jun 2023 12:17:46 -0700 (PDT)
+Received: from halaney-x13s.redhat.com ([2600:1700:1ff0:d0e0::22])
+ by smtp.gmail.com with ESMTPSA id
+ w127-20020a0ded85000000b0057085b18cddsm3052478ywe.54.2023.06.29.12.17.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jun 2023 12:17:45 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Thu, 29 Jun 2023 14:14:16 -0500
+Message-ID: <20230629191725.1434142-1-ahalaney@redhat.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20230629083726.84910-1-dario.binacchi@amarulasolutions.com>
- <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
-X-Originating-IP: [10.129.178.187]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-06-28_14,2023-06-27_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] ARM: dts: stm32: support display
- on stm32f746-disco board
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, bartosz.golaszewski@linaro.org,
+ netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH 1/3] net: stmmac: dwmac-qcom-ethqos: Return
+	device_get_phy_mode() errors properly
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,38 +83,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpPbiA2LzI5LzIzIDEwOjM3LCBEYXJpbyBCaW5hY2NoaSB3cm90ZToKPiBBZGQgc3VwcG9y
-dCB0byBSb2NrdGVjaCBSSzA0M0ZONDhIIGRpc3BsYXkgb24gc3RtMzJmNzQ2LWRpc2NvIGJvYXJk
-Lgo+Cj4gU2lnbmVkLW9mZi1ieTogRGFyaW8gQmluYWNjaGkgPGRhcmlvLmJpbmFjY2hpQGFtYXJ1
-bGFzb2x1dGlvbnMuY29tPgo+Cj4gLS0tCj4KPiBDaGFuZ2VzIGluIHY1Ogo+IEkgYW0gY29uZmlk
-ZW50IHRoYXQgZnJhbWVidWZmZXIgc2l6aW5nIGlzIGEgcmVhbCByZXF1aXJlbWVudCBmb3IgU1RN
-MzIgYm9hcmRzLAo+IGJ1dCBJIG5lZWQgc29tZSB0aW1lIHRvIHVuZGVyc3RhbmQgaWYgYW5kIGhv
-dyB0byBpbnRyb2R1Y2UgdGhpcyBmdW5jdGlvbmFsaXR5Lgo+IFRoZXJlZm9yZSwgSSBkcm9wIHRo
-ZSBmb2xsb3dpbmcgcGF0Y2hlcyB0byBhbGxvdyB0aGUgc2VyaWVzIHRvIGJlIGZ1bGx5IG1lcmdl
-ZDoKPiAgLSBbNC82XSBkdC1iaW5kaW5nczogZGlzcGxheTogc3RtMzItbHRkYzogYWRkIG9wdGlv
-bmFsIHN0LGZiLWJwcCBwcm9wZXJ0eQo+ICAtIFs1LzZdIEFSTTogZHRzOiBzdG0zMjogc2V0IGZy
-YW1lYnVmZmVyIGJpdCBkZXB0aCBvbiBzdG0zMmY3NDYtZGlzY28KPiAgLSBbNi82XSBkcm0vc3Rt
-OiBzZXQgZnJhbWVidWZmZXIgYml0IGRlcHRoIHRocm91Z2ggRFRTIHByb3BlcnR5Cj4KPiBDaGFu
-Z2VzIGluIHY0Ogo+IC0gVXNlIERUUyBwcm9wZXJ0eSBpbnN0ZWFkIG9mIG1vZHVsZSBwYXJhbWV0
-ZXIgdG8gc2V0IHRoZSBmcmFtZWJ1ZmZlciBiaXQgZGVwdGguCj4KPiBDaGFuZ2VzIGluIHYzOgo+
-IC0gZHJvcCBbNC82XSBkdC1iaW5kaW5nczogZGlzcGxheTogc2ltcGxlOiBhZGQgUm9ja3RlY2gg
-UkswNDNGTjQ4SAo+ICAgQXBwbGllZCB0byBodHRwczovL2Fub25naXQuZnJlZWRlc2t0b3Aub3Jn
-L2dpdC9kcm0vZHJtLW1pc2MuZ2l0IChkcm0tbWlzYy1uZXh0KToKPiAgIGh0dHBzOi8vY2dpdC5m
-cmVlZGVza3RvcC5vcmcvZHJtL2RybS1taXNjL2NvbW1pdC8/aWQ9YzQyYTM3YTI3Yzc3N2Q2Mzk2
-MWRkNjM0YTMwZjdjODg3OTQ5NDkxYQo+IC0gZHJvcCBbNS82XSBkcm0vcGFuZWw6IHNpbXBsZTog
-YWRkIHN1cHBvcnQgZm9yIFJvY2t0ZWNoIFJLMDQzRk40OEggcGFuZWwKPiAgIEFwcGxpZWQgdG8g
-aHR0cHM6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9naXQvZHJtL2RybS1taXNjLmdpdCAoZHJt
-LW1pc2MtbmV4dCkKPiAgIGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS1taXNj
-L2NvbW1pdC8/aWQ9MTNjZGQxMmE5ZjkzNDE1OGY0ZWM4MTdjZjA0OGZjYjQzODRhYTlkYwo+Cj4g
-IGFyY2gvYXJtL2Jvb3QvZHRzL3N0bTMyZjc0Ni1kaXNjby5kdHMgfCA1MSArKysrKysrKysrKysr
-KysrKysrKysrKysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDUxIGluc2VydGlvbnMoKykKCgpSZXZp
-ZXdlZC1ieTogUmFwaGHDq2wgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5z
-dC5jb20+CgpUaGFua3MsClJhcGhhw6tsIEcuLVAuCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Other than -ENODEV, other errors resulted in -EINVAL being returned
+instead of the actual error.
+
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index e62940414e54..3bf025e8e2bd 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -721,6 +721,9 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	ethqos->phy_mode = device_get_phy_mode(dev);
++	if (ethqos->phy_mode < 0)
++		return dev_err_probe(dev, ethqos->phy_mode,
++				     "Failed to get phy mode\n");
+ 	switch (ethqos->phy_mode) {
+ 	case PHY_INTERFACE_MODE_RGMII:
+ 	case PHY_INTERFACE_MODE_RGMII_ID:
+@@ -731,8 +734,6 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	case PHY_INTERFACE_MODE_SGMII:
+ 		ethqos->configure_func = ethqos_configure_sgmii;
+ 		break;
+-	case -ENODEV:
+-		return -ENODEV;
+ 	default:
+ 		return -EINVAL;
+ 	}
+-- 
+2.41.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
