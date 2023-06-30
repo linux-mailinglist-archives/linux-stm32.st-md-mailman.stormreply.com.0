@@ -2,104 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E905744078
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jun 2023 18:59:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335C07441D0
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jun 2023 20:06:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5F69C6B458;
-	Fri, 30 Jun 2023 16:59:02 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4B77C6B453;
+	Fri, 30 Jun 2023 18:06:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5536C6B457
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAAEFC04B10
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jun 2023 16:59:01 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-313e23d0a28so2500017f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jun 2023 09:59:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688144341; x=1690736341;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8Eyaf/JArFBnOJmUxcF7DoGLYY7fHW+Lur/i45+1eYA=;
- b=cRsI+Jc0zlEoiUnzMwgGVMTkMYll1xolMO9sNUYMp0FooJsUY4ea3qKTvrBPV3W1xS
- PdZIteGitEx9EYSLfRJOYktkFaGNgrjM1fFkOgOEvg9QpZfmPTHRP0w9/N2IQbu4+vs0
- nb54cBQE/s37T2C5zG7nCIR1V1emFvCiO2dgZn0Pz5F2ONkZj2tZtARRUTJGEin0ve2S
- TMKzcm5hDnbkJdr2TIU0CbpiH29R/WxZLmENSPUSj9byP3++sCzxuhKXEZ1zIb6Wn2I2
- cYCa21dnclLHYM4KbKNbtJpA/o/MUiaWI16RbEycKNxYjhX7e3isSa7OfeVEqG9msFcB
- UCYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688144341; x=1690736341;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8Eyaf/JArFBnOJmUxcF7DoGLYY7fHW+Lur/i45+1eYA=;
- b=bIBWV5oc/CFbCoe4N5Nd+xMTC9ggvODUmVk4kVvUj2vhi063MltkDJUhwA+pL15j+1
- JYL26CiNJ1NtS1C+Jlr3qYMqF0Ab0AQqb2FP/F1BFZB6NII17imV0tT+RamjbiVGKgGj
- swGh0TVipFr1uS8k5RrKe3PdN5N1mT2JqcQiv8Ss3PTQ4+Zg218P1mp1fLbzNtCsXlFC
- gDyvYkD+v89yloW/02UX6sIYPiaAedh0e8hH9oYtl4sJrYb3EwFCNcaYRj1Gpqvxb2Jh
- cISDKnDvlnHNnnDFhwO76z3Cm2Kt8a/lMYTSjMd1yqyGw4ZaN80GFKqnHeWnXJOZMMeL
- mH5Q==
-X-Gm-Message-State: ABy/qLae7C6VoZL5sxt/zlri9Ye8ItTOmwZIYEnbcxZmN2L5PTlrliNc
- nU4he3tDebSs6jT/CwvS74WPCc4Zdea9/mmx39kx8w==
-X-Google-Smtp-Source: APBJJlHFfj2oZl0xVr1nB2zXh05figvBAqXp7tIH/wIQJvw0txyZj53M9A0+P0VhEGIP+1a6UuKwCw==
-X-Received: by 2002:a5d:49d1:0:b0:314:172b:a75a with SMTP id
- t17-20020a5d49d1000000b00314172ba75amr3025280wrs.26.1688144340838; 
- Fri, 30 Jun 2023 09:59:00 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- u14-20020adfdb8e000000b003112ab916cdsm18913772wri.73.2023.06.30.09.58.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jun 2023 09:59:00 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 30 Jun 2023 18:58:40 +0200
-MIME-Version: 1.0
-Message-Id: <20230630-topic-oxnas-upstream-remove-v2-15-fb6ab3dea87c@linaro.org>
+ Fri, 30 Jun 2023 18:06:57 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5A87D617D2;
+ Fri, 30 Jun 2023 18:06:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44654C433CC;
+ Fri, 30 Jun 2023 18:06:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688148415;
+ bh=yz5t1GiipNFNh1NtxgqisnUQ1CD8Mwvmr2prkm+aqsw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=h8BVS2sR9N6T9w9CrLbGEkLtZUN8hymR5Yfqq38a/aJIH/8+cN3LhWC1qe0ABBgYh
+ +WqBRGYdoQU6Nt3Hxgu274LZGxuj3dXTjUFC0gpadKnR24KWnwNss6TUOYs5HzPAgL
+ 69DWTSkPmvlyIGijGGtVsdNgq93wlUFCgrMlNUyUbtwMMbYkbBTmdNaNRMd8a9wsOh
+ HHDYDzKOmi2CTL7ac6HlH4x3ONaT6UQE/kzzOtQfsAzzW63ScznY5jFrNSUqpfzIhG
+ AoZkWNd9IQDpbsm4pGf/Gu3vudY9yeH3x7B7zrg0vngrABIfRCyWMgg5e+S/ARWYIe
+ MIrXoY3Cv3KjA==
+Date: Fri, 30 Jun 2023 19:06:46 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Message-ID: <20230630-oppressor-circulate-1a2e5631d0dc@spud>
 References: <20230630-topic-oxnas-upstream-remove-v2-0-fb6ab3dea87c@linaro.org>
-In-Reply-To: <20230630-topic-oxnas-upstream-remove-v2-0-fb6ab3dea87c@linaro.org>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@linaro.org>, 
- Thomas Gleixner <tglx@linutronix.de>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>, 
- Sebastian Reichel <sre@kernel.org>, Marc Zyngier <maz@kernel.org>
-X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1154;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=/Lhm4rki32xogr5e1680FrjcVLCt+j7sMVgTOqF2+4g=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBknwm6aoHZMmN8vUbEzTBcIOV7ONJvx2yeNn0kZRnx
- LgLt0iSJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCZJ8JugAKCRB33NvayMhJ0aMOD/
- 4o1u07bP99PyNkyrdoo5HuA/tEA4HRTOWRFwUBK2Fr4hLcuccLKZbqEoot/K06rPOpWlmBA0xJibYq
- 9sx1cEJc+h2Z6AM6bLv21ZYqK5qXiv45NFZpA+avGwHQ3eQR49KMC8+J9Fb92MOTESddkVzr1uu4WE
- e9aJ1LI/ccd/i2cJ1q6JYWT4B5L5cIQbiI/ZtSRz8pqJ4w6w0RKypV0T7VJm80k0Jv8SmEp0Dlp+vG
- 2WQAMcwB/wTd8fh2LKmHED0shMiW2MEQuAkLKiPoDPvybnsLhvaPHGkWmSMXRhTZl6DoGzOsvrTeGt
- aTFim1T/5SP8kSCH5IyYKe7HfsE8Yt9gBcyRyqu0NC2ehuN5DgDWJ25XQwf3CLLfN8xEj42a7f9Exr
- zWAe21b8vupE/IPlBZdtLAl4pizrS9O5UPCdYcEh7XVCBa8AMrQci3cdYVfnZjmMz9oQqhg9nYhA0V
- JGXiIp5zNtWsKoFqxPzpq30E48YAl7SC9jsUWLsXeqRm5FyrRsX8HmFPcHSNlOHUHID+XL5ltvxMy9
- 5gbGOWZlwiRjX+X7+KZrzjzudA7BX8jOe+INgytdS3AgKSHSOiXc8Sx/ja2xf/Z/Hwp1CQeFZO2eQN
- 2DfMAaMQrsOrzJs9Ps4BqxlAh6NcIKGU989Dmfjl521a7QN3/cdOvxA/sGbw==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
-Cc: devicetree@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-mtd@lists.infradead.org, Daniel Golle <daniel@makrotopia.org>,
- linux-oxnas@groups.io, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 15/15] MAINTAINERS: remove OXNAS entry
+ <20230630-topic-oxnas-upstream-remove-v2-8-fb6ab3dea87c@linaro.org>
+MIME-Version: 1.0
+In-Reply-To: <20230630-topic-oxnas-upstream-remove-v2-8-fb6ab3dea87c@linaro.org>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-mtd@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Daniel Golle <daniel@makrotopia.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Andy Shevchenko <andy@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Marc Zyngier <maz@kernel.org>,
+ linux-oxnas@groups.io, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 08/15] dt-bindings: net: oxnas-dwmac:
+ remove obsolete bindings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,49 +71,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7215182666188197505=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Due to lack of maintenance and stall of development for a few years now,
-and since no new features will ever be added upstream, remove MAINTAINERS
-entry for OXNAS files.
 
-Acked-by: Linus Walleij <linus.walleij@linaro.org>
-Acked-by: Arnd Bergmann <arnd@arndb.de>
-Acked-by: Daniel Golle <daniel@makrotopia.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- MAINTAINERS | 10 ----------
- 1 file changed, 10 deletions(-)
+--===============7215182666188197505==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="BvTA36mVIWDn/yrV"
+Content-Disposition: inline
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4545d4287305..cfe1bc884005 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2565,16 +2565,6 @@ S:	Maintained
- W:	http://www.digriz.org.uk/ts78xx/kernel
- F:	arch/arm/mach-orion5x/ts78xx-*
- 
--ARM/OXNAS platform support
--M:	Neil Armstrong <neil.armstrong@linaro.org>
--L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--L:	linux-oxnas@groups.io (moderated for non-subscribers)
--S:	Maintained
--F:	arch/arm/boot/dts/ox8*.dts*
--F:	arch/arm/mach-oxnas/
--F:	drivers/power/reset/oxnas-restart.c
--N:	oxnas
--
- ARM/QUALCOMM CHROMEBOOK SUPPORT
- R:	cros-qcom-dts-watchers@chromium.org
- F:	arch/arm64/boot/dts/qcom/sc7180*
 
--- 
-2.34.1
+--BvTA36mVIWDn/yrV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jun 30, 2023 at 06:58:33PM +0200, Neil Armstrong wrote:
+> Due to lack of maintenance and stall of development for a few years now,
+> and since no new features will ever be added upstream, remove the
+> OX810 and OX820 dwmac glue.
+>=20
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Daniel Golle <daniel@makrotopia.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+Cheers,
+Conor.
+
+--BvTA36mVIWDn/yrV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZJ8ZtgAKCRB4tDGHoIJi
+0n34AQCaqt+oiyrpU/1VK5nJptp1QM1CruwCYZ4Kyxm+cqFlRAEA/3ZXE+gSBEOw
++/4RXjuoc0d0lEczRHPZqKqBpZdabgU=
+=8KMl
+-----END PGP SIGNATURE-----
+
+--BvTA36mVIWDn/yrV--
+
+--===============7215182666188197505==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7215182666188197505==--
