@@ -2,75 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8CEA7447F0
-	for <lists+linux-stm32@lfdr.de>; Sat,  1 Jul 2023 10:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 514E4744D5C
+	for <lists+linux-stm32@lfdr.de>; Sun,  2 Jul 2023 12:56:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72E84C6B453;
-	Sat,  1 Jul 2023 08:09:09 +0000 (UTC)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA642C6A611;
+	Sun,  2 Jul 2023 10:56:29 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53AE5C04B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAF21C6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  1 Jul 2023 08:09:08 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-51d89664272so2838299a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 01 Jul 2023 01:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688198948; x=1690790948;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=KSlAwdCySIPpHmXGLs2pWw86cvP+2Eq0vNW9mrLLkJQ=;
- b=hwS6HIFRBhIjc+RulU2qKaHPWsKm8iIpLpWKEScv9k3KM0liFWO5gnpfPMiiPVzuKI
- A4H+8aeBMAz5J6NZt64SLbmVItWC3f7WhJJomHJa3Zl5M73pB2E1u1TD7dAJopIsqYqq
- Pgk53D6bCQG7sWKtMCmF2FU7DKKF/yR8tM/6rkP4nprQD2KWZInDVcYVbT3RPSXJ2CPn
- uhUtQBRylO4DksYiQ8fvbapSndRs7CKaHx43OfzWDkQiGldDuCN6gax1ErqRiIlSQHnA
- ytfIKZqzWRG+eF+C/6GaRiAzjupWuZP4x1ni9PZ4NL1j2m0r61UnFKLo1Asf9J9OCj77
- jxIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688198948; x=1690790948;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=KSlAwdCySIPpHmXGLs2pWw86cvP+2Eq0vNW9mrLLkJQ=;
- b=QQ/5Jvolf47XaoUN5N271zAgEN1R8yQGwkKR09Dc3jazyXqcBDtFRE9g8v7d2Q87XE
- Hba8dlL5nOdXJ3929v+ZoC6wpy6q467MmbmzKu0AaFSPAw2kr2rZ1sm1rYkIu0JsddG6
- JfKMf/z1f8XjdQINsLfzxGv2laUmSksDx6KebcixvDUFiP9jYFPikXmt3uyV/yxJ1olX
- qUjJXCjUrmklrWNyH/b5vsZxvQXCRuTJoalk6komResGbyJdkNGVdmini67+NmYWbSAQ
- 1moE6coDrBRKVyp8CIBExxai5vZ6RlpHjmZoYZdSQybXs569csQ//eI7S8HlpH6i3WoA
- p+Xw==
-X-Gm-Message-State: ABy/qLZ4WIKIxpvJu3vxPtAEwmsyzTmamK9Xckkdrfvg3mT1dBtdrq8B
- h2PP3wzN/Qc4U3kypQsP9BzSMA==
-X-Google-Smtp-Source: APBJJlHWma/hbAV/dZaNLVa+XpQhQptQYCvZa1XvPDcNYiQmDsijOwydkrgNp1l53POy1A76v4YzgA==
-X-Received: by 2002:a50:ec8c:0:b0:51d:9dd1:29d0 with SMTP id
- e12-20020a50ec8c000000b0051d9dd129d0mr3229450edr.23.1688198947677; 
- Sat, 01 Jul 2023 01:09:07 -0700 (PDT)
-Received: from [192.168.10.214] ([217.169.179.6])
- by smtp.gmail.com with ESMTPSA id
- q11-20020a056402032b00b0051de2455041sm2292444edw.24.2023.07.01.01.09.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 01 Jul 2023 01:09:07 -0700 (PDT)
-Message-ID: <79505e19-c5ee-36ee-c8ae-344c15f8b108@linaro.org>
-Date: Sat, 1 Jul 2023 10:09:05 +0200
+ Sun,  2 Jul 2023 10:56:28 +0000 (UTC)
+Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.200])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4Qv5Y41bTFz6J6lR;
+ Sun,  2 Jul 2023 18:54:48 +0800 (CST)
+Received: from localhost (10.48.51.211) by lhrpeml500005.china.huawei.com
+ (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 2 Jul
+ 2023 11:56:22 +0100
+Date: Sun, 2 Jul 2023 18:56:18 +0800
+From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Message-ID: <20230702185618.00002453@Huawei.com>
+In-Reply-To: <20230623140944.2613002-1-olivier.moysan@foss.st.com>
+References: <20230623140944.2613002-1-olivier.moysan@foss.st.com>
+Organization: Huawei Technologies Research and Development (UK) Ltd.
+X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US
-To: Valentin CARON <valentin.caron@foss.st.com>,
- Mark Brown <broonie@kernel.org>
-References: <20230627123906.147029-1-valentin.caron@foss.st.com>
- <0815474b-a8fa-f486-fc6e-a85df88ed9b9@linaro.org>
- <c232e3f1-b703-d8d2-7e2d-19ed3f5fc3ad@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <c232e3f1-b703-d8d2-7e2d-19ed3f5fc3ad@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+X-Originating-IP: [10.48.51.211]
+X-ClientProxiedBy: lhrpeml500004.china.huawei.com (7.191.163.9) To
+ lhrpeml500005.china.huawei.com (7.191.163.240)
+X-CFilter-Loop: Reflected
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] spi: stm32: disable device mode with
- st, stm32f4-spi compatible
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Frank Rowand <frowand.list@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/7] iio: add iio backend device type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,32 +60,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 28/06/2023 18:21, Valentin CARON wrote:
-> Hi,
+On Fri, 23 Jun 2023 16:09:36 +0200
+Olivier Moysan <olivier.moysan@foss.st.com> wrote:
+
+> This RFC re-opens an old discussion regarding channel scaling
+> management in STM32 DFSDM driver [1]
 > 
-> On 6/27/23 15:39, Krzysztof Kozlowski wrote:
->> On 27/06/2023 14:39, Valentin Caron wrote:
->>> STM32 SPI driver is not capable to handle device mode with stm32f4 soc.
->>> Stop probing if this case happens, and print an error with involved
->>> compatible.
->>>
->> ...
->>
->>>   
->>>   static const struct of_device_id stm32_spi_of_match[] = {
->>> @@ -1798,8 +1802,16 @@ static int stm32_spi_probe(struct platform_device *pdev)
->>>   	struct device_node *np = pdev->dev.of_node;
->>>   	bool device_mode;
->>>   	int ret;
->>> +	const char *compatible =
->>> +		of_match_device(pdev->dev.driver->of_match_table, &pdev->dev)->compatible;
->> The goal was to replace it, so drop it.
-> Is is still needed for dev_err, so I can't
+> The DFSDM is a peripheral provided by the STM32MP1x SoC family.
+> One objective is also to prepare the introduction of its successor in
+> the STM32MP12x SoC family: the MDF (Multi-function Digital Filter).
+> The MDF driver will have the same requirements as the DFSDM regarding
+> channel scaling management. So, the solution proposed here will apply
+> also for the future MDF driver.
+> 
+> [1]
+> https://patchwork.kernel.org/project/linux-iio/patch/20200204101008.11411-5-olivier.moysan@st.com/
+> 
+> As a short reminder of our previous discussion, the two main options
+> emerging were the following ones:
+> 
+> - Option1: Use the DFSDM as an hardware accelerator and expose the
+> scaled channels on SD modulator side.
+> Drawbak: this solution is leading to an very complex datapath, especially
+> for scan mode.
+> 
+> - Option2: Introduce a new IIO device type (so-called backend)
+> Retrieve scaling information from SD modulator scaling to expose a single
+> IIO device on DFSDM side. This solution is derivated from rcar-gyroadc
+> example, but with a more standard approach.
+> This was discussed in 
+> https://lore.kernel.org/lkml/20210919191414.09270f4e@jic23-huawei/
 
-Why do you need it for dev_err? Isn't it entirely redundant?
+Naming probably needs a rethink given the actual hardware we are talking about
+here is normally called a frontend and so people will be confused...
 
-Best regards,
-Krzysztof
+I'm traveling at the moment, so only going to take a fairly superficial first
+look at what you have here.
+
+Jonathan
+
+> 
+> The patchset proposed in this RFC implements option2 (backend) solution.
+> These patches provide a minimal API implemented as a template.
+> The intented use of this API is illustrated through the DFSDM channel
+> scaling support basic implementation.
+> 
+> For sake of simplicity I did not include the related DT binding
+> in this serie. 
+> 
+> Below are some use case examples.
+> 
+> * DFSDM with SD modulator backend:
+>   -------------------------------
+> This use case corresponds to the example implemented in this RFC.
+> The channel attributes are retrieved from backend by the dfsdm, and
+> the resulting scaling is exposed through DFSDM IIO device sysfs
+> 
+> - Single channel:
+> +-------------+  ch attr   +--------+  sysfs (compound scaling)
+> | sd0 backend | ---------> | dfsdm0 | -------------------------->
+> +-------------+            +--------+
+> 
+> - Scan mode:
+> +-------------+  ch attr   +-------------+  sysfs (compound scaling)
+> | sd1 backend | ---------> |   dfsdm1    | -------------------------->
+> +-------------+            +-------------+
+>                              ^
+>                              |
+> +-------------+  ch attr     |
+> | sd2 backend |--------------+
+> +-------------+
+> 
+> 
+> * Voltage divider in front of an adc:
+>   ----------------------------------
+> By way of example, here is a comparison on scaling management with
+> a iio-rescale device, and how it could be managed with a backend device.
+> 
+> - iio-rescale implementation
+> Scaling is exposed both on ADC and iio-rescale IIO devices.
+> On iio-rescale device we get the compound scaling
+> 
+> +---------------------------+  ch attr   +------+  sysfs
+> |     iio-rescale (div)     | <--------- | adc0 | ------->
+> +---------------------------+            +------+
+>   |
+>   | sysfs (compound scaling)
+>   v
+> 
+> - Backend implementation:
+> Compound scaling is exposed on ADC IIO device.
+> No scaling exposed on backend device
+> 
+> +---------------+  ch attr   +------+  sysfs (compound scaling)
+> | backend (div) | ---------> | adc0 | -------------------------->
+> +---------------+            +------+
+> 
+> 
+> * Cascaded backends:
+>   -----------------
+> Backends may be cascaded to allow computation of the whole chain scaling
+> This is not part of this RFC, but it is identified as a potential
+> future use case.
+> 
+> +---------------+  attr   +-------------+  attr   +--------+  sysfs
+> | backend (div) | ------> | sd0 backend | ------> | dfsdm0 | ------->
+> +---------------+         +-------------+         +--------+
+> 
+> Olivier Moysan (7):
+>   iio: introduce iio backend device
+>   of: property: add device link support for io-backends
+>   iio: adc: stm32-dfsdm: manage dfsdm as a channel provider
+>   iio: adc: stm32-dfsdm: adopt generic channel bindings
+>   iio: adc: sd_adc_modulator: change to iio backend device
+>   iio: adc: stm32-dfsdm: add scaling support to dfsdm
+>   ARM: dts: stm32: add dfsdm iio suppport
+> 
+>  arch/arm/boot/dts/stm32mp157c-ev1.dts |  62 +++++++++
+>  drivers/iio/Makefile                  |   2 +
+>  drivers/iio/adc/sd_adc_modulator.c    |  92 +++++++++++---
+>  drivers/iio/adc/stm32-dfsdm-adc.c     | 176 ++++++++++++++++----------
+>  drivers/iio/industrialio-backend.c    |  59 +++++++++
+>  drivers/of/property.c                 |   2 +
+>  include/linux/iio/backend.h           |  29 +++++
+>  7 files changed, 336 insertions(+), 86 deletions(-)
+>  create mode 100644 drivers/iio/industrialio-backend.c
+>  create mode 100644 include/linux/iio/backend.h
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
