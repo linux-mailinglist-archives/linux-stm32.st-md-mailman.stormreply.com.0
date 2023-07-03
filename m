@@ -2,67 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E767455C6
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 09:13:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78CE97456EA
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 10:05:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3D7EC6B45A;
-	Mon,  3 Jul 2023 07:13:20 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DEE2C6B45A;
+	Mon,  3 Jul 2023 08:05:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32ED7C6B453
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9F71C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jul 2023 07:13:20 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-1b882228638so6274475ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 03 Jul 2023 00:13:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688368399; x=1690960399;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3gdmjGHia+jKRSyCfrlTQ/eoeJlaZFLf9ynF3dOskcU=;
- b=NvLnU7Qf/4miEBTDIGynlVerZgG0j9kKifoHjbQVSC6ehgAanCaXlPKMu+PmHOhH/W
- hse8ugMIDG8mOC6T5lA3Avc6jFOEW5oUpK/wCWq/zbTxKP5NZUPtgS2URd0k5+6UJ49n
- LVX9JT8k+BFKqrW4xc6QH0OTb7ek9woEnDoWByxPRPaAv8TFcyf6cAq1UoF5il86lRvS
- xQNTG1stp8WLkMwMO3pG8hVHge8hJaqie7QFqgWN28/bOODImQ+0aO169hYoG+3NfPBr
- 6BJmBm0a6GvpaG6lD5Wg9meRp+eLIAcBTSLIrBoI7waD8UNZ5XEyl3eg5LekT2cOoaTq
- dH7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688368399; x=1690960399;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3gdmjGHia+jKRSyCfrlTQ/eoeJlaZFLf9ynF3dOskcU=;
- b=IpYWYB2MOXGqWMyQ6R0IqfeU2yzS8nuQO+itXNEv9WDl8yNkkIJYHoSMLtobkqJIgw
- VYV/doL9JYW3/PGO+Wb9yhZ/93QjsJYYmmbSDR/ApgNg1Q6a6ejIAb4CGeUAZ5FfNxSR
- Ch5b3BLmFkWundVwJ1FQCbIcYAJE+fQZP3955c7HW1mT+DCcnaWC6UMbfvmCO1/ezW2H
- E8cn9M7yULVz0n0LShOVk1vVyj9Qv+n8QqL+7oBrbzruLqY/mt3EOlVvIXuAuZZiIdb0
- rdTrTlUr8Fi7T2P1xVBuuwkrLWCZv3XyAmgf4Elnao3nRPJaw35NNlY5BzPjdFi8dEUy
- DscA==
-X-Gm-Message-State: ABy/qLY+raE+uGEK21+3ATgpaPQL0RG3KIU9wrsw4Uweo74onWIwW/o9
- GQD0qtPcnjCQwZUJDp62y7nTlREjL+w3J2QC6ay2Ig==
-X-Google-Smtp-Source: APBJJlH4H1LJEkNForC6tZD4lPdH33Iimwz3Zzeu94n+d3up/GqFuSavaNHzUS7dGulmfroxCq8D+yD98kWMqXzpoSw=
-X-Received: by 2002:a17:902:da92:b0:1b8:525a:f685 with SMTP id
- j18-20020a170902da9200b001b8525af685mr9718943plx.37.1688368398730; Mon, 03
- Jul 2023 00:13:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230702103516.139440-1-rgallaispou@gmail.com>
- <11ec64ad-8fb8-e94d-2019-d3deb399084b@linaro.org>
- <4aba0e4a-87f0-1810-bf4d-a2f278e51e8b@gmail.com>
-In-Reply-To: <4aba0e4a-87f0-1810-bf4d-a2f278e51e8b@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Mon, 3 Jul 2023 09:13:06 +0200
-Message-ID: <CAGE=qrpE9pP4m07VT+RRLhPysF+wO690mF7ChToJYcArKm_nGg@mail.gmail.com>
-To: =?UTF-8?Q?Rapha=C3=ABl_Gallais=2DPou?= <rgallaispou@gmail.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: st: add buswidth property to
-	stm32f429-disco
+ Mon,  3 Jul 2023 08:05:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 553FF60DDB;
+ Mon,  3 Jul 2023 08:05:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19BAC433C8;
+ Mon,  3 Jul 2023 08:05:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1688371554;
+ bh=H5Ol2bCcQqFdyg09aatCLPI6rS9AzzMNSSBC2BX7O1I=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=oIOJhIeWjUIxznyHbsEeDY5V8fSvW8F5I5Zbpq9mqcP+T9XMyqXGDJ6dnFtL+EpBE
+ np9qw2ScLgM6bAjcqjJXKWwDm0NcSYh6kAwd3tjWQzihkTEC8PCC/wlM34zRiZ76fR
+ IH1IfE8iJIfMYy63dWPg67elzEENbAfi73ipG9gU6GCYimHHRZ5bMbi3NScPVLVY5w
+ cE2xhZG5eHjXKDxqe0iqx9hbVE1hByEZZAycdUD0Qwj32j6GACr3Opb5Kq0i1SMaUR
+ nFuHse6zHojgdslFv3lrJ3tW767gbbXbcE1hXPdxFSbAuQg+xkjaqn/ISyMbad0I9F
+ zPicWmzxLkokg==
+Received: from sofa.misterjones.org ([185.219.108.64]
+ helo=wait-a-minute.misterjones.org)
+ by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <maz@kernel.org>) id 1qGEZD-00A68h-Sj;
+ Mon, 03 Jul 2023 09:05:52 +0100
+Date: Mon, 03 Jul 2023 09:05:52 +0100
+Message-ID: <875y71zafz.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+In-Reply-To: <20230630-topic-oxnas-upstream-remove-v2-13-fb6ab3dea87c@linaro.org>
+References: <20230630-topic-oxnas-upstream-remove-v2-0-fb6ab3dea87c@linaro.org>
+ <20230630-topic-oxnas-upstream-remove-v2-13-fb6ab3dea87c@linaro.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/28.2
+ (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: neil.armstrong@linaro.org, mturquette@baylibre.com,
+ sboyd@kernel.org, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ conor+dt@kernel.org, daniel.lezcano@linaro.org, tglx@linutronix.de,
+ miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+ peppe.cavallaro@st.com, alexandre.torgue@foss.st.com, joabreu@synopsys.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, linus.walleij@linaro.org, brgl@bgdev.pl,
+ andy@kernel.org, sre@kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-mtd@lists.infradead.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org, linux-oxnas@groups.io,
+ krzysztof.kozlowski@linaro.org, arnd@arndb.de, daniel@makrotopia.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org);
+ SAEximRunCond expanded to false
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, linux-mtd@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, linux-clk@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Daniel Golle <daniel@makrotopia.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Michael Turquette <mturquette@baylibre.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Andy Shevchenko <andy@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, Sebastian Reichel <sre@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-oxnas@groups.io,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 13/15] irqchip: irq-versatile-fpga:
+	remove obsolete oxnas compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,22 +98,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gTW9uLCAzIEp1bCAyMDIzIGF0IDA1OjIxLCBSYXBoYcOrbCBHYWxsYWlzLVBvdSA8cmdhbGxh
-aXNwb3VAZ21haWwuY29tPiB3cm90ZToKPiA+PiAgICAgICAgICAgICAgc3BpLTN3aXJlOwo+ID4+
-ICAgICAgICAgICAgICBzcGktbWF4LWZyZXF1ZW5jeSA9IDwxMDAwMDAwMD47Cj4gPj4gICAgICAg
-ICAgICAgIGRjLWdwaW9zID0gPCZncGlvZCAxMyAwPjsKPiA+PiArICAgICAgICAgICAgYnVzd2lk
-dGggPSA8OD47Cj4gPgo+ID4gVGhlcmUgaXMgbm8gc3VjaCBzcGkgcHJvcGVydHkuCj4KPiBXaGls
-ZSBJIGFncmVlIHdpdGggeW91LCBJIHNhdyBpbiBzdGFnaW5nIGRyaXZlcnMgdGhhdCB0aGlzIHBy
-b3BlcnR5IHdhcwo+IGZldGNoIGluIHRoZSBkZXZpY2UtdHJlZSBieSB0aGUgZmJ0ZnQgY29yZS4K
-Pgo+IFNob3VsZCBJIGRvY3VtZW50IHRob3NlIGluIG9yIHRyeSB0byBkbyBpdCBhbm90aGVyIHdh
-eSA/CgpZb3UgY2Fubm90IHVzZSB1bmRvY3VtZW50ZWQgcHJvcGVydGllcy4gV2hldGhlciB0aGlz
-IHNob3VsZCBiZSB1c2VkIGF0CmFsbCwgZGVwZW5kcyB3aGF0J3MgdGhpcywgd2h5IG90aGVyIHBy
-b3BlcnRpZXMgY2Fubm90IGJlIHVzZWQgZXRjLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Fri, 30 Jun 2023 17:58:38 +0100,
+Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> 
+> Due to lack of maintenance and stall of development for a few years now,
+> and since no new features will ever be added upstream, remove support
+> for OX810 and OX820 IRQ controller.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Acked-by: Linus Walleij <linus.walleij@linaro.org>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Daniel Golle <daniel@makrotopia.org>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>  drivers/irqchip/irq-versatile-fpga.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-versatile-fpga.c b/drivers/irqchip/irq-versatile-fpga.c
+> index ba543ed9c154..5018a06060e6 100644
+> --- a/drivers/irqchip/irq-versatile-fpga.c
+> +++ b/drivers/irqchip/irq-versatile-fpga.c
+> @@ -242,5 +242,4 @@ static int __init fpga_irq_of_init(struct device_node *node,
+>  }
+>  IRQCHIP_DECLARE(arm_fpga, "arm,versatile-fpga-irq", fpga_irq_of_init);
+>  IRQCHIP_DECLARE(arm_fpga_sic, "arm,versatile-sic", fpga_irq_of_init);
+> -IRQCHIP_DECLARE(ox810se_rps, "oxsemi,ox810se-rps-irq", fpga_irq_of_init);
+>  #endif
+
+Acked-by: Marc Zyngier <maz@kernel.org>
+
+Feel free to route this via the SoC tree as part of the removal
+series.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
