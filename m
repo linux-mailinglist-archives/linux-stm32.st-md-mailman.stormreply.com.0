@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90AE3745BB3
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 13:54:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D89C1745BD5
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 14:05:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B8CEC6B45A;
-	Mon,  3 Jul 2023 11:54:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D02FC6B45A;
+	Mon,  3 Jul 2023 12:05:27 +0000 (UTC)
 Received: from APC01-PSA-obe.outbound.protection.outlook.com
- (mail-psaapc01on2119.outbound.protection.outlook.com [40.107.255.119])
+ (mail-psaapc01on2125.outbound.protection.outlook.com [40.107.255.125])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 988F7C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE6AFC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jul 2023 11:54:49 +0000 (UTC)
+ Mon,  3 Jul 2023 12:05:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eoZ/VLjDvA9ZntXfzYZ3w5EhsRf4+xrfsje6krnt9Go6tD2+iIf7jaeGTmkuPRlYTuLLWmBP4ot0enIznUrP/FI/TmpEi5oi4DZOf81RdPv6SU0tXvpku+QKY+JMg7LXKZGnr8wDRxfRQTQVUZCZQ8nia0nM2gvuX1CCZY/xSathT3yxYAA10YXbTsX0bIO/MG81DD1RXtFAo4bHzYBJCjk3Oa1l/YgqUwS1CaYDK8jwSFTUqvE1OjtIOfhoZx6CDc2+WbY5IjWlfz9yjQQ8J1r/kRZO8tK/WkQoLKt7odJFOWFeRtiAXpMT4rI7k9RB5UVwqqtpVLtP8OdZu5ZU3w==
+ b=cyBBtFXUmWhnNBY1Ka7ahhA+NXNnSF3WIeVXqRMeo7JKChXkb4nGHodfhvWcZ1LG9B+/bEixhImOWRQGveizBiSfITx6aVwbi6DWgmgyib8ni59meVmd9Bmf62cKnN57UFOIS+xp1JjN9RgpX6ApuX78/6ilDFHLFsVfNpuLN8zq1+X1dDkfTsy3Xzy+ezf7okP4efkNSC1is7zTgfD67nSMv70SeMmpMgDKmx1GTvOKQbV+id+8m1VplEYiUaOPqVtajdLZA/BZo2mRukOj6RLgIYU3soBAu9+Ef/G6TznIXk+MByj1uRQsLHqjLMNnoCUITga2dc4k9ks7o4q0VA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/YQsNC9wJsXaW4Hb4GE0OvDvtwFVjPiblL50s+eU5mo=;
- b=Iijd9IzT0Ux92rJJiRq/j3/S0Xi98dxcIDSQI3Aw3CKEOutC+/jOnLPc25QPdm+TjmByPKNmB8nuYkdjOYEwF04ySCmyyEM/4MRPTiq38dheOPZC62FYDsMWE+6JWwZh+pvu2+mgV9jc3VmPPM7e4iGGh5VIeaV8aIkfE6A9pLm/cYk/fJ7Pk+vaN1LTkhk24aa1RCCDKj66ASt4Lv+3mey9uLDiW2hIqnqHERQkPFFrDymceuR3beOTAS8f+BqOiVwNsSeKM/xHF96mKmDIlGrljjHEM5NvtFqcC+VhQ4MG+Qf7MvKZ4A5PSK5hJ0OzAPKlLxfDhVbMutaaS+YSTw==
+ bh=lY8qoEgGetxRqvjxV7AidUakI7o0oUdFVdIR9y9eouY=;
+ b=VEjVV7aQawhzbIfu86Ay1/nhsxmPB2xOO4GHUYox3frKBS8uczTJxk3EWZtNt7r3wmV6YQ3Wt853BS/ei35FTf9eyki2u4Bv+bdQ084XDtnYC+5ieCTx8xOr/ciXaRxIfYe4J1I0cWFk5Zr3Gp0JvtAJSvMkXpoy2L0xSnC86oP3n02onEyLj0A+xx2hsxn9vtUskfUi9Q9x2VzKebazzX/yi/50TeAuqB0KQwSy5XO6oLAyhrJ2LOrFyHOSzoFZGkgPjifVVevPUI09ZdLGn9LXFVdQOy4AxhwcxdgZFEoQ56uQyjIeB1J5qBU6OmVMak2P+O/OS4PyP+cOuSvA+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
  dkim=pass header.d=vivo.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/YQsNC9wJsXaW4Hb4GE0OvDvtwFVjPiblL50s+eU5mo=;
- b=YWNXQznOECCKKv13fAyuNsju9YVTiYnE+eKxmzb6ypvYyhI9wZyDNB388z+w2XbKF/TaXxNL6g6Xc6Sucb7zwrbgdKDgwCF7q8OUlXz1mwtKRGmbo3bnnEvymVUM2Z9RT31+nRe/RB4pZ3N95WqieqYZQKftbM+E9xvKdCd28DeXi+WiAErKw20tvn+Lu6DabSF5h/d0mGWDVZNrDYFLbUVYgKpkwdYLXspe2fWSWQCks1Cwz8rCRZO4Tm53kOFxPkjiU/+M4r+IjaiRyxLG5dVneRxRq+a49y8+RTZ5YFvtt2FGBIiohq7nfA7B7TwkYriY/DbeZPVN03stHhAsAg==
+ bh=lY8qoEgGetxRqvjxV7AidUakI7o0oUdFVdIR9y9eouY=;
+ b=fzh7QzWl3fsdPYnytKp2paFEMuBF036E/WkhZYIP8NIwcX5yWfycCqFrrNWaNWvqLSHku0z2SUjxlA9rsQsxTYZTYOuGbaRG1wGza7OX0XYoRdC1OaKmfXbfz7s4sjPaF2Y14RxTOf3SIui8Hefqo9FGNDGWg8DLFznCSXFBmfJRhBvT532d8wx9ytsJkNyDmjFHp3/z/5Jggf6CvtHizavzeBbWK8TY+pGbIuEoDICNP2ZBPPvQSXseu+LXbf9ZE+qHSF1Q/m1v96rZeo2H+aljxbn4OgrWRpPPD9q9r4SQX7xdK6RTFnjq7NFsfIMJGvD1VZo4gOtQ0Fp3Q3VUVg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=vivo.com;
 Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
- by TYZPR06MB4461.apcprd06.prod.outlook.com (2603:1096:400:82::8) with
+ by TY0PR06MB5380.apcprd06.prod.outlook.com (2603:1096:400:217::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Mon, 3 Jul
- 2023 11:54:45 +0000
+ 2023 12:05:21 +0000
 Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
  ([fe80::fa0e:6c06:7474:285c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
  ([fe80::fa0e:6c06:7474:285c%5]) with mapi id 15.20.6544.024; Mon, 3 Jul 2023
- 11:54:45 +0000
-Message-ID: <247a8166-f131-2d07-ec2b-479a4c19297f@vivo.com>
-Date: Mon, 3 Jul 2023 19:54:37 +0800
+ 12:05:21 +0000
+Message-ID: <faa09723-37be-cc88-f003-b426e3da75fe@vivo.com>
+Date: Mon, 3 Jul 2023 20:05:12 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
 To: Thomas Gleixner <tglx@linutronix.de>,
@@ -50,68 +50,68 @@ References: <20230627101215.58798-1-frank.li@vivo.com>
  <20230627110025.vgtplc6nluiiuvoh@pengutronix.de> <87h6qpyzkd.ffs@tglx>
 From: Yangtao Li <frank.li@vivo.com>
 In-Reply-To: <87h6qpyzkd.ffs@tglx>
-X-ClientProxiedBy: SI2PR04CA0007.apcprd04.prod.outlook.com
- (2603:1096:4:197::19) To SEZPR06MB5269.apcprd06.prod.outlook.com
+X-ClientProxiedBy: SGXP274CA0002.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::14)
+ To SEZPR06MB5269.apcprd06.prod.outlook.com
  (2603:1096:101:78::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|TYZPR06MB4461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24f5aa0d-5dfc-4d8f-8ddf-08db7bbc4b33
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|TY0PR06MB5380:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5b034dd-39d5-4d51-d15d-08db7bbdc691
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MHMmJzKffffDqbCG9voqvqnm8vcM3M+QymFAlci6hTPv3xBaf72JmE59qpVzioCBH1e2QxAg9ck2U7RIO5iNGrgJhDmDSna1ZbjqJhbJ1Scdi1WDsjG4tzo8smN3wFK0OasQ8lAu05HivnR9tp7EvOnuRlQqgvWYeOebvtpAhug5+ynJz8H86B6rDxNT6bVXH+r8DBUS4LCgdS3EhQhnZWCbQJAPOgNpyK3rXFFXNRU+7juZYLCe5vXGYzS1I7kEBRcDYo7XoLpY5+FiRbXhQUxL8vdJ8RJixwAadVQYq085eFu+yDDCvQzz9ThtJwkqxAJxJ6BYevNXCzpcFz45v0Kyq0K6qAMQUbG16WuS9j+bW6DB6VIgVAWbOwCe60foMD5H0laPZhlHvG7o/7jyGK/a3VWhaBcdgc1TtnOupzqOyGP+vbx09w0RxGyMozzoWeA53hapG71ZmqR3sS0YDcaACeZtKa4/tGr5tOJNwv0FSP2eLWngrOQULwugpIyLZ1fhAp3AzL4n20EyHLCHLiXGAL+zYCP7ZVuTyondrYHdYMVRedQPMPLrhm4nGechFSoIbYVoqwSReXf1/feB+/vNKN+WJ1lxXOhZajqd06dI5n8Cfsa+rxYlDjmKX9CZud/T6i9p25WT5pzFKPmEtMJ0GubhW6EthWyawJeiayW7SisSrHqEwppjJmi6OZuA
+X-Microsoft-Antispam-Message-Info: WfdnIKgqne3OEkSsZtHWzj9ZZLVaVQghVdoN8wj0H5yzQRmikCMAcA/XjHgjF3px1wLA1xLVRNBsljfqyHMp00Xur6kvirIGdJSvkbhiGqOczTx9dnuoYcyCj5aJlpR0qjEY8v8OiDFoVCwxBF4SBxnF34Vs9feelpmZBMG7qcsDeHiBU/RL+7v4JiGQLhS5OcvUnbzECxItjAVimpYtlSzuBhjHq8593GPoyjyZ1yk94bZ60SW3x0VifdY3wAMCXV4uhFM7S71VmvVe+bK6FMK1khQQV0P67ROgEfr2eieu0/0cGniWLCL2gf6jqLMEJb1QUsYSG2sTLTafuIFukCCKTxDxSfDLLO+vUkIy2PI5LxVxj33AD+2/tMKc6Dq0ytIwd/wz6Q3mpX4FwhCZrs/p2YhqZ78L4u6/o6or1X23Ua3XBJff07aun+v6yGSu7iRwOOV4WNkobGTcm92SaEHbxw2jIxdXYxzK0uClgjOi9GXDaQ/eyJKfVnhvShfh7DPpYwJF5yzC60hsk/bK/W3tyEMRvunNcyfcqzLfmD+Ugd4xk7bX355I1gp1SH8rz1UkAz1gpFeobQCmuku2gcKFCPIydd3brEEmYAR8YGm0zLX128CTdazUbbfExEmOrSDrtHQcyxAX1roc4GjTSBUPLujlCjvmuLp1Z5MFT7fbm1Jq3BAFzU+IJPB4Ir7N
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(39850400004)(396003)(376002)(136003)(366004)(451199021)(26005)(31686004)(478600001)(6666004)(6512007)(6506007)(31696002)(86362001)(2616005)(186003)(38350700002)(38100700002)(4326008)(66556008)(66946007)(66476007)(83380400001)(66574015)(110136005)(52116002)(6486002)(53546011)(33964004)(316002)(5660300002)(8676002)(8936002)(7416002)(7406005)(41300700001)(2906002)(36756003)(45980500001)(43740500002);
+ SFS:(13230028)(4636009)(396003)(376002)(366004)(346002)(136003)(39860400002)(451199021)(6666004)(38100700002)(38350700002)(52116002)(2906002)(6486002)(33964004)(8936002)(110136005)(8676002)(36756003)(41300700001)(7416002)(5660300002)(478600001)(7406005)(31696002)(66946007)(66556008)(66476007)(53546011)(186003)(6506007)(26005)(86362001)(6512007)(4326008)(316002)(31686004)(66574015)(2616005)(83380400001)(43740500002)(45980500001);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnJnU29LZWFXOGtOdTFhVzhHa002OXpoRW5MWDNkUUR1MHlGejN5N21iaWpt?=
- =?utf-8?B?c3VMdHUxbHJJdHhGYzRYdE1iS1NPY3VBc1ZRbzExb0tyTUh3VW1rcUFndXJl?=
- =?utf-8?B?ekk0T1ZPb1BBdmV1cDkzWUJXUkFjZ0tqaVZQbFR6c21DeHdYTWtHbzFaSWJB?=
- =?utf-8?B?SHlia3krd3VwN25RS0xaano1NjZBY3VXSXZ1SlpTN0JKbnlVK1RpUSs3cGdO?=
- =?utf-8?B?blpiQnV5ektWMHpLRjF1U1NGSjhxaFJERWF4bDVQMEpDWlJkajBIT0Y0U0pR?=
- =?utf-8?B?bWRCc092b2NzV2JVc3Y1dDhGL011dkw3S3FqcFdrNUNWbStjUnZ5RGZoYjN6?=
- =?utf-8?B?Wmo0YzhZcDBTenB4TTNuTHgvc2Z5YkhpcWJyc1FXYUNodWJhUFhxZkNmZm0y?=
- =?utf-8?B?a0Rydmp4Q1BPSjg3TlArTFR6QlZUamZOL09WaDNKYi9ZaEdLcSt6OVVQR2Zp?=
- =?utf-8?B?cUFGeXYyNkRuekZ2UnNlK1BrMHZ5QkhuSWlWYWp6K2NMTjN4ZExPWnFML0Zq?=
- =?utf-8?B?WmdURkl4aEYzclZPYzVHOWxpdmJ4RDBnbmQ2U0twc3N1ZVYxR3lxdmRzRDJW?=
- =?utf-8?B?QURtMkU3ZDJ3czhCUy8zZ3hhUHhLWXNEeHJZZmtwOWtBOGZhbFgvOGRPTjI2?=
- =?utf-8?B?aHlMRUFka1JqNzNLQ3dEemZlV05TRzZnUW9iRDVidlB1M2E5L3RwV3JJdFZZ?=
- =?utf-8?B?azZ5T245NDZnejlkbjZZNUlKVjkzNlRiLzh1ZEN0U3pSWW05eUJJZi9haHo0?=
- =?utf-8?B?WlBHcUVvZWFwQmJnSTdWRWpnOVp0MTlOQUxCQTV2emNBaXRnSjVPR1VxdXYv?=
- =?utf-8?B?U1Z2T0JMRlJiVDJkMHJRczdvdWNxTTBpY3dlV1BHZmNSWlBVb1I2TXpGVUph?=
- =?utf-8?B?MnpGU0dxUXYydTFPZS9saEtVSXZOaFhsaEp4MkRwZnNrM3F5Z2E1Ynpud3FW?=
- =?utf-8?B?UHlEbDE3NldtMmQxYnIyeUFBMmRKNVRCb3p2MkJjSVkrblFqSURMTWQxTXVO?=
- =?utf-8?B?RUVJK0RRcDBHTHpUQ1gzczNLcHhIS3Z2MHlkMTIzbE9sOXRNVWtSVmdSejBI?=
- =?utf-8?B?U0pjRS9laEJadDMzWE1RSmtqNmVoVG5NenFTM1MzWGVYalBTMnhicEtYeC9x?=
- =?utf-8?B?TTFTUXlUQUE3YXZPNWFOMDV1aStHaE91aEFkdEZxOGM4ZFc3NkxBb0VtNlhm?=
- =?utf-8?B?UGdkaUs5L0ZrVDhTbHhzSWxwMVYwUjRGQmdENVViU3N6SExxU1VmYnk2Ylp5?=
- =?utf-8?B?bGhPOENOWVprY3FEbk5yQjViYXZrak9hdFdaSHRGZ0NZQjBySStXa0xUTmg2?=
- =?utf-8?B?RXRnaklTcmNLdlVXdEo4YnJQaEpOZDdjMmlHU2VOYzRxVUxYSGIzWUovNlNM?=
- =?utf-8?B?c2paQVYxN2JWYlBxYjNCZnhjZFNaSVBVSmJOd29lZGE4Wm81MmErMXV4OVYx?=
- =?utf-8?B?cTV2RTVRVFM1WE0wek9WcWI2MkppQWhoSFBObVluM0pyd3FZZHU5dm9DMHhw?=
- =?utf-8?B?eVV4STJDc1VLUExUYlJQc3l4azRydFlCUXlFcmd2MnRPeEh1cTdlNTJXNENF?=
- =?utf-8?B?MFJjYmRDTmt5eFAwWGFqYnhtMHQ1SFpnZEgrN2J0aENHc1Q1ZHU4VGJiTWpv?=
- =?utf-8?B?RUYyOTBxQ2QxTkVib2xLR1BVaFhVNzFxRWROcHorajdhU2xKK3BkeUpobkpl?=
- =?utf-8?B?SlB2YndlMWdLbnFieG5VNGJlTkFXTys4eEV0Z1pMOFI2Um56TVd3ZmFXNFJr?=
- =?utf-8?B?aWlJeUk0NnJVVXBMMnd1Y21VakRndTlJTEo5QVhMM3hKcnVnNWdmb21RNnhH?=
- =?utf-8?B?Sjdkcm9ENllRcUFNZG9PMml4aWsvVVFXMlRyZE1zaFJlQS9EQ1JwVjByV2xL?=
- =?utf-8?B?WGUrdTB2amxCUnZmby9QTEF0NVFnek5ocEEvVGpaNlErTWw5N2F6MHp4dWNr?=
- =?utf-8?B?ODgwVHFrYWtnQW9UN1lPRVhSUDlKSDgrVFA3L2htTWFkcUE2amhhNDM1QVJW?=
- =?utf-8?B?N2pwRG9WVFVjUjhVaVV2OG5WSWpubzhobzBncG54cmE2L3E4clVpemlSRjQz?=
- =?utf-8?B?U20vcTg2Ujl3ZmhjTWpKWXhrZERPajQ3UlUxUUE1bGluQTVzRUcybkh3cyt0?=
- =?utf-8?Q?lsNsZbrBmqFgNN5FtOi9mr6YA?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cSs0UEY3NFF6YSttbitMS0l0ZmFrVDI2VGFYUWlIQWFvaHlVakY4NW5OT2Y5?=
+ =?utf-8?B?L1hiVXQ0M3htWUFpNjlQaDVTTHdJNEE4dXJxOHo1K3BTOUEvVm9MUE01eEwz?=
+ =?utf-8?B?aVd3MlcweGI2VzkrclRmbkhGdTE0QXg3QUhZSTNxMXIxREQyUjJXRDF1WWdE?=
+ =?utf-8?B?a2xoRHNTNUg1UHRZODNReVh0bFZHRFRKckxLemVRbFJyaGJEN1U2RzkrZFN5?=
+ =?utf-8?B?MmxjaHg0T252TGY0SGRESHRxeFd1Ukh3VEhRRzVtd0hZaVlEb1JMOWpJOWhG?=
+ =?utf-8?B?QVQycW5BZXdHa2Vab01FcDg1UUd3UGxVZnpOa2czalZQS1FheEl5WURFTlpX?=
+ =?utf-8?B?S0tjMVBrKy91djltSzBSTlkvbW85N2ZJNWFZQmNXc2JpR3lISDM3b0sxQkNi?=
+ =?utf-8?B?blB0MUFEM2Z4S3hWYW5VQ3RsSG5Yc2tLS3B2emovWlMzRmV4Q0RzLzFyS1NY?=
+ =?utf-8?B?eTMxVUwyY3BoaXEydGs4VHRweXpLNDhva3E5bVE5K05wVDFBVDFNRVlXUlB5?=
+ =?utf-8?B?UU1GKys0eWpkMWl2V3c0eXRvOFdQYVU4ZmxMbXhZaWEvcmFpRE5MVEJGZGlI?=
+ =?utf-8?B?VTRuMlBrQ1JMQjd6NG9KZzF3alZlSVk0dGpCNVZta2tUelBuVzFKd3lDUjJz?=
+ =?utf-8?B?Z3lLd2t4elYyWEtGOUJmSFBLcjhsNFM1R25xamhJTGFHWkhCcUVobDdTSU5m?=
+ =?utf-8?B?Unc2NWFWWDZqSlltRkU1SCs1REliYy9SNDZ1ZlhCQXlPWFFUT1ppaERGYlYx?=
+ =?utf-8?B?M0NDNW13NzdLU3FpUmRkbDJHQldyRjRoZTZPa1YxRk5YS0ZmWi80am1DVDdO?=
+ =?utf-8?B?YS8wVGRnV1BXSEl2M09kOUM2bm5jUllnalRxRHJOclVjTUZ5WTdlUmNnUE95?=
+ =?utf-8?B?ZjN5YTU0ZmFWOTRLZW5OM1dHMmtkTUY4NW1GY3hVQUhzdURQN295d1RNTHFp?=
+ =?utf-8?B?Zm85aGt1Zm42YUpDUVZ3SVp2SjR3U3BSOHpwQmE0Sm8rZ1Z5bWUwZVJxelF4?=
+ =?utf-8?B?akVtK2JjMGkvTzlLOWNXellielZCVDhIQ1JZUzFWMDZjUS9BQml4RXE1SWRq?=
+ =?utf-8?B?TVZYTHZ5WTc2OFFsT2gzYlg5QUZNWkpzeVl5TnZtbFEvZElmUjlWR0tBb0gy?=
+ =?utf-8?B?MUF3REpnOHpBSllGcU5zQjl2eklPOE01U0xSMCtqWXRmTkJNa3gvc3lhRUNE?=
+ =?utf-8?B?MmVTR0hmdFpYaVN3ZFMxTTRxWThaOFhGUzIrbUxjSnJWZTdRN2FoZjFlRHRS?=
+ =?utf-8?B?cjBlQkpRazVXdFNaWTlpV0hFUEhoeHpwWS9xRFBybVpRc2FJcnhRaTh0Vy9T?=
+ =?utf-8?B?L2M4cG8yUGtzWktOUVZqVGtFQnhwbzFxNnp3R3UxenEwL2MzbzVHaWJ3a3VG?=
+ =?utf-8?B?ZnZ1QXliNHdsL0JENEJuNE1HZmMvQnU1WTdvVkZmMFZ6dVVxSlhvZHlSMklT?=
+ =?utf-8?B?ZllSLzVETzYycHBrSFYwcEFDN3NMd1p5a2dVTWI5Z3VjcER3S28zMHBlWktl?=
+ =?utf-8?B?aUYyL1F2d2hvL0pqY3NiMHpLUWNiNHdoa2cvVWxmSmdVMGdYM3ppa0ZLWXBF?=
+ =?utf-8?B?bXRuQ0QyR1lyY04wQmFmTi84TTdwaUM1N09qMEhOc2psZlFnUStLQldKdmZQ?=
+ =?utf-8?B?QXUvWmg4R2lsdlFIM2pmeWdRZFR1akVONjMzOEtWSzdDdWtXcWFlMzRzMjY2?=
+ =?utf-8?B?ZEowdUR6TjFvVFVWT2xHMjI5TTFpSG9leGtSdnVNdlZ2RjQ3K3dMVmQ4Y3pD?=
+ =?utf-8?B?Z2Y4azNWTmtzaTZwMVc5U1ZhNFYzRzF3ck9pT3A3aVN2Rk1Ma3JHaUNuaXIx?=
+ =?utf-8?B?UnpVa3QyUGpmY3B2T3paQXhibHFFc3lLVDNlYWNSbUpWZGMwd1FnVXBtOVY2?=
+ =?utf-8?B?aDNwSFNJbzFyTzVlK3pEdU14VjRVUDY1ZjJkUlQrUHFReERobUsxeFJqQlRR?=
+ =?utf-8?B?OEJmTG44eDhGTTc5dE80anVTQzBqNmczT2VsK0hwN0sxSXNuQkJwK0pGUi8z?=
+ =?utf-8?B?djJwSWJrb2ZhNUcrRUNhZTV4MTdKcmRIVmkvZnpiN1dJdFEyV0RqKzRVSDRJ?=
+ =?utf-8?B?RE5leEhnd2VkeFBjQWpqVEMwYkZaWE0xUjJLczBiNFNIeVFORk03NFhyNWpn?=
+ =?utf-8?Q?jqnXzOAne/ZwFmc6+GAhYt6vR?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24f5aa0d-5dfc-4d8f-8ddf-08db7bbc4b33
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5b034dd-39d5-4d51-d15d-08db7bbdc691
 X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2023 11:54:45.0795 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2023 12:05:21.5706 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lH5O4g+V3QGvGU5DyLeWrW3VVlgdk1jrXrw9vmBJUe/MFKvvD8CeLDa0+azQuskWI8QnrQf5kycZeQpdzWdi9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB4461
+X-MS-Exchange-CrossTenant-UserPrincipalName: FT5+eTrug1J2bXx2r6l/f+BCb6SaiJs8mg+sDyhQ5GKOfWir2aPBdGXgjMcLMhH/nVhGwFR+j4P7/Uc3bF5Hmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5380
 Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, rafael@kernel.org,
  amitk@kernel.org, linux-tegra@vger.kernel.org, thierry.reding@gmail.com,
  jernej.skrabec@gmail.com, miquel.raynal@bootlin.com,
@@ -143,15 +143,15 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7044354422025058278=="
+Content-Type: multipart/mixed; boundary="===============6146136797586688090=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============7044354422025058278==
+--===============6146136797586688090==
 Content-Type: multipart/alternative;
- boundary="------------5cKFZRjN9RDUAaGXaEAsVmXS"
+ boundary="------------OWqGTO0eE0MlhdQdhA8zGzKS"
 
---------------5cKFZRjN9RDUAaGXaEAsVmXS
+--------------OWqGTO0eE0MlhdQdhA8zGzKS
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
@@ -228,7 +228,6 @@ please point out.
 
 
 Thx,
-
 Yangtao
 
 
@@ -240,31 +239,47 @@ Yangtao
 > Thanks,
 >
 >          tglx
---------------5cKFZRjN9RDUAaGXaEAsVmXS
+--------------OWqGTO0eE0MlhdQdhA8zGzKS
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
 <html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
   </head>
   <body>
-    <p>Hi <span style="color: rgb(18, 23, 50); font-family: &quot;Microsoft YaHei&quot;, arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(247, 248, 250); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"> Krzysztof,</span></p>
-    <div class="moz-cite-prefix">On 2023/6/30 19:11, Thomas Gleixner
+    <p><span style=3D"color: rgb(18, 23, 50); font-family: &quot;Microsoft =
+YaHei&quot;, arial, sans-serif; font-size: 14px; font-style: normal; font-v=
+ariant-ligatures: normal; font-variant-caps: normal; font-weight: 400; lett=
+er-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-t=
+ransform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webki=
+t-text-stroke-width: 0px; background-color: rgb(247, 248, 250); text-decora=
+tion-style: initial; text-decoration-color: initial; display: inline !impor=
+tant; float: none;">Hi  Krzysztof,</span><span style=3D"color: rgb(18, 23, =
+50); font-family: &quot;Microsoft YaHei&quot;, arial, sans-serif; font-size=
+: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-ca=
+ps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-alig=
+n: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; wi=
+dows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-colo=
+r: rgb(247, 248, 250); text-decoration-style: initial; text-decoration-colo=
+r: initial; display: inline !important; float: none;"></span></p>
+    <div class=3D"moz-cite-prefix">On 2023/6/30 19:11, Thomas Gleixner
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:87h6qpyzkd.ffs@tglx">
-      <pre class="moz-quote-pre" wrap="">On Tue, Jun 27 2023 at 13:00, Uwe Kleine-König wrote:
+    <blockquote type=3D"cite" cite=3D"mid:87h6qpyzkd.ffs@tglx">
+      <pre class=3D"moz-quote-pre" wrap=3D"">On Tue, Jun 27 2023 at 13:00, =
+Uwe Kleine-K=C3=B6nig wrote:
 </pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On Tue, Jun 27, 2023 at 06:12:01PM +0800, Yangtao Li wrote:
+      <blockquote type=3D"cite">
+        <pre class=3D"moz-quote-pre" wrap=3D"">On Tue, Jun 27, 2023 at 06:1=
+2:01PM +0800, Yangtao Li wrote:
 
 While I assume changing to dev_err_probe is a result of my concern that
-no error should be printed when rc=-EPROBEDEFER, my other concern that
+no error should be printed when rc=3D-EPROBEDEFER, my other concern that
 adding an error message to a generic allocation function is a bad idea
 still stands.
 </pre>
       </blockquote>
-      <pre class="moz-quote-pre" wrap="">
+      <pre class=3D"moz-quote-pre" wrap=3D"">
 I agree in general, but if you actually look at the call sites of
 devm_request_threaded_irq() then the vast majority of them print more or
 less lousy error messages. A quick grep/sed/awk/sort/uniq revealed
@@ -275,13 +290,15 @@ less lousy error messages. A quick grep/sed/awk/sort/uniq revealed
 
      323 unique messages after lower casing
 
-         Those 323 are mostly just variants of the same patterns with slight
+         Those 323 are mostly just variants of the same patterns with sligh=
+t
          modifications in formatting and information provided.
 
      186 of these messages do not deliver any useful information,
          e.g. &quot;no irq&quot;, &quot;
 
-     The most useful one of all is: &quot;could request wakeup irq: %d&quot;
+     The most useful one of all is: &quot;could request wakeup irq: %d&quot=
+;
 
 So there is certainly an argument to be made that this particular
 function should print a well formatted and informative error message.
@@ -311,9 +328,10 @@ Yangtao: The way how this is attempted is not useful at all.
 
        wrapper(....., const char *info)
        {
-            ret = devm_request_threaded_irq(....);
+            ret =3D devm_request_threaded_irq(....);
             if (ret &lt; 0) {
-               dev_err(dev, &quot;Failed to request %sinterrupt %u %s %s: %d\n,
+               dev_err(dev, &quot;Failed to request %sinterrupt %u %s %s: %=
+d\n,
                        thread_fn ? &quot;threaded &quot; : &quot;&quot;,
                        irq, devname, info ? : &quot;&quot;, ret);
             }
@@ -323,19 +341,19 @@ Yangtao: The way how this is attempted is not useful at all.
     </blockquote>
     <p><br>
     </p>
-    <p>Here. <br>
-    </p>
-    <p>V3 was modified according to tglx's suggestion, if there is any
+    <p>Here.<br>
+      <br>
+      V3 was modified according to tglx's suggestion, if there is any
       problem, please point out.<br>
+      <br>
+      <br>
+      Thx,<br>
+      Yangtao<br>
     </p>
     <p><br>
     </p>
-    <p>Thx,</p>
-    <p>Yangtao</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:87h6qpyzkd.ffs@tglx">
-      <pre class="moz-quote-pre" wrap="">
+    <blockquote type=3D"cite" cite=3D"mid:87h6qpyzkd.ffs@tglx">
+      <pre class=3D"moz-quote-pre" wrap=3D"">
        Then convert the callsites over one by one with proper
        changelogs and justification.
 
@@ -349,9 +367,9 @@ Thanks,
   </body>
 </html>
 
---------------5cKFZRjN9RDUAaGXaEAsVmXS--
+--------------OWqGTO0eE0MlhdQdhA8zGzKS--
 
---===============7044354422025058278==
+--===============6146136797586688090==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -362,4 +380,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7044354422025058278==--
+--===============6146136797586688090==--
