@@ -2,57 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0D2745934
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 11:50:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2116D745966
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 11:54:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85554C6B45A;
-	Mon,  3 Jul 2023 09:50:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAB01C6B45A;
+	Mon,  3 Jul 2023 09:53:59 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F076C06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53A8DC06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jul 2023 09:50:33 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DE29B60E73;
- Mon,  3 Jul 2023 09:50:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4A4C433C7;
- Mon,  3 Jul 2023 09:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1688377831;
- bh=LyukCnfIshSTbAwDJYNp6dcmjM1EfDP7RZS9ZHZjba4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Phu15QnH/sD22ugNy9M24vhr8GopWe4IIkSHl900X+cefSZa7cs5exWNiZbmSshgj
- 98Pq8zd2VvKaRxfPXHzXW0VDh54u1tc8N1Qr6ZckDAAdaRUdDDkTPtbn2+8FR1V9jN
- CpTiTgw/8axiXSeouIvV52Okhehg+em9wZmgXfZA73QKKLVtU117fwK6w4OK/EZ6Pj
- Ghw7NBpI9Xf+EzR7Wf+If0mtfsFhKcwkAUsTaDylKV1cjrMwB4HSC3PFQ+g4YVKCeO
- mZPR9sdLkTEg3zHtBk4ie1NA00jbi1DjBnhFzOyaxwrgnrBlB6q/ztLQgkPrLs39df
- Ldmb+TDo8Bh6w==
-Date: Mon, 3 Jul 2023 11:50:26 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Sean Nyekjaer <sean@geanix.com>
-Message-ID: <ZKKZ4qUw5pKVt1T1@shikoro>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Sean Nyekjaer <sean@geanix.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20230509132159.4160984-1-sean@geanix.com>
- <ZJV0/cbjn1Qa62u+@shikoro>
- <9BEDFE6D-AE5E-46F1-A1BF-A19C6F5130F6@geanix.com>
+ Mon,  3 Jul 2023 09:53:58 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qGGFi-0000sj-6H; Mon, 03 Jul 2023 11:53:50 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qGGFW-00Blsj-7i; Mon, 03 Jul 2023 11:53:38 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qGGFV-001phL-C8; Mon, 03 Jul 2023 11:53:37 +0200
+Date: Mon, 3 Jul 2023 11:53:37 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Yangtao Li <frank.li@vivo.com>
+Message-ID: <20230703095337.27bhco7nkqtxr4me@pengutronix.de>
+References: <20230627101215.58798-1-frank.li@vivo.com>
+ <20230627110025.vgtplc6nluiiuvoh@pengutronix.de>
+ <87h6qpyzkd.ffs@tglx>
+ <690b12b7-5586-6ade-de83-99f463bc8397@vivo.com>
 MIME-Version: 1.0
-In-Reply-To: <9BEDFE6D-AE5E-46F1-A1BF-A19C6F5130F6@geanix.com>
-Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Add atomic_xfer method to
-	driver
+In-Reply-To: <690b12b7-5586-6ade-de83-99f463bc8397@vivo.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, rafael@kernel.org,
+ amitk@kernel.org, matthias.bgg@gmail.com, thierry.reding@gmail.com,
+ chi.minghao@zte.com.cn, srinivas.pandruvada@linux.intel.com,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ bchihi@baylibre.com, florian.fainelli@broadcom.com, daniel.lezcano@linaro.org,
+ jernej.skrabec@gmail.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, agross@kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com, wenst@chromium.org,
+ rui.zhang@intel.com, thara.gopinath@gmail.com, mcoquelin.stm32@gmail.com,
+ linux-pm@vger.kernel.org, miquel.raynal@bootlin.com,
+ linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ linux-mediatek@lists.infradead.org, mmayer@broadcom.com,
+ linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+ DLG-Adam.Ward.opensource@dm.renesas.com, johan+linaro@kernel.org,
+ angelogioacchino.delregno@collabora.com, linux-arm-kernel@lists.infradead.org,
+ niklas.soderlund+renesas@ragnatech.se, andersson@kernel.org,
+ linux-kernel@vger.kernel.org, shangxiaojing@huawei.com,
+ konrad.dybcio@linaro.org, kernel@pengutronix.de, shawnguo@kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 01/15] genirq/devres: Add error
+ information printing for devm_request_threaded_irq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,58 +72,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0134471001309328819=="
+Content-Type: multipart/mixed; boundary="===============1558048813313278562=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============0134471001309328819==
+--===============1558048813313278562==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WPJgYBpM8zD5lQRQ"
+	protocol="application/pgp-signature"; boundary="4ifm6dkdtwbp3ztq"
 Content-Disposition: inline
 
 
---WPJgYBpM8zD5lQRQ
-Content-Type: text/plain; charset=us-ascii
+--4ifm6dkdtwbp3ztq
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hello,
 
-> > Will DMA actually run in atomic mode?
+On Mon, Jul 03, 2023 at 05:13:29PM +0800, Yangtao Li wrote:
+> [...] v3 has been sent.
 
-> Atomic is mainly(only) used for writing a single register in the PMIC
-> for the stpmic.
+Please make sure that you send a v3 patch series (at least) to the
+people who gave you feedback for v2. If you skip people who had general
+concerns about the whole series, this might help you in the short run
+because they might miss to also criticise v3, but in the long run it
+might result in a loss of trust in you.
 
-And this most probably during shutdown...
+Best regards
+Uwe
 
-> Guess that will not trigger any DMA use.
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
-... so I'd be very surprised if DMA is operational that late. I think we
-can rule that out independent of I2C messages to be trasnferred.
-
-
---WPJgYBpM8zD5lQRQ
+--4ifm6dkdtwbp3ztq
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmSimeIACgkQFA3kzBSg
-KbaU9g//Y1yfLkUK08Go/WdUa65GRV80RBI3gwDyPqLJYNsFbsmajpNqt/4XihqZ
-RTLxT+tWXSUw4DnFtovhuaucFZcEdtirZLplsCrioc0cNDP5RgYibMuOxsuOig2T
-M/BJK3b4iqIZJjiT+Lcs7RyPmvRetYTpyu8w17YPt5pPVeXIbDlcC1AStvCK0ghj
-0ulGyX3VjRIgo++Dvcw2/08G5WL6MEB6sm9bvveaT1AX6eDBhfgPPB3l/d/+lBki
-Dd+8le1SnuEVfCN0TxLIZE9m9ZZLYTSH1BcBSCJT6SYPBoM7q26OVdAAAoP4uQ9S
-M6W3G6zEbHuZ0rTPRt70d2hBqAN40qmPmGZucvxIGoOxMS2rIJ6HRVvbgc3nrK4+
-CkQ5PqYb2iIRaEIHposc6ggSgyC15w1pt7lczXZTCakTlgOCRehPMBnipec1n85C
-IgzRW2Si1yHZMdt5Oe8zvsvfrLsa/vx3xBzHvPh5Ai7IoCEBIpb14B11lcRDSmVT
-pWdFwgYvCy1t6sltEo1k0WaVVKZpmP/AYWGzQzo5QLyg2q1XnTCQ09pJNlkguPsa
-lJWc89HAKgOrmnm/r+eHbZQUo3N9KKkRv4FbhMOvUOQK0Vij2R5UX3PLpM6NVPms
-zV9LzkqESaPfI7W3j311Gv5hhvyUkGKnh5UeVPgv2OMC6J0Sy/Q=
-=qlPi
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSimqAACgkQj4D7WH0S
+/k6WAQgApvFvslry9NwR8H0z4aDKfgwg20hFIuR9LFKWPzquLmB7y1nBdA9z1Mpp
+Ybkb+E4cxXIe/uFWnm7mr+SlHuHQdwR6b983iZQjHGYCLiqxcAcWzp0W+b/ZH8JZ
+AYUipaQ9T6hm8Kqh+HgQN5VhXv7PM0fQH/yoBNeEF+CDsMwGMAoViefMhwHeZLx2
++yHExhGOQNgoN2ge6GgpvdryJJ1NSl5PXpcyCG+1ED6a1pGmueDK5ipp+dMaxOQg
+l3/9ECPLYTDvPK4951UMlOuWdVG5qKqYw8q9Z8I5QGTav+lKoshXgpbAbQnHNpv+
+44KmixTXlQmRdC4XP2f1Em3/fP/8Dw==
+=4vu6
 -----END PGP SIGNATURE-----
 
---WPJgYBpM8zD5lQRQ--
+--4ifm6dkdtwbp3ztq--
 
---===============0134471001309328819==
+--===============1558048813313278562==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -126,4 +134,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============0134471001309328819==--
+--===============1558048813313278562==--
