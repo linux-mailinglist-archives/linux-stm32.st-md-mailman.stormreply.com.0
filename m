@@ -2,65 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2116D745966
-	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 11:54:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1016745A0F
+	for <lists+linux-stm32@lfdr.de>; Mon,  3 Jul 2023 12:21:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAB01C6B45A;
-	Mon,  3 Jul 2023 09:53:59 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 850F2C6B45A;
+	Mon,  3 Jul 2023 10:21:19 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53A8DC06F81
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FF14C06F81
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  3 Jul 2023 09:53:58 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qGGFi-0000sj-6H; Mon, 03 Jul 2023 11:53:50 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qGGFW-00Blsj-7i; Mon, 03 Jul 2023 11:53:38 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qGGFV-001phL-C8; Mon, 03 Jul 2023 11:53:37 +0200
-Date: Mon, 3 Jul 2023 11:53:37 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Yangtao Li <frank.li@vivo.com>
-Message-ID: <20230703095337.27bhco7nkqtxr4me@pengutronix.de>
-References: <20230627101215.58798-1-frank.li@vivo.com>
- <20230627110025.vgtplc6nluiiuvoh@pengutronix.de>
- <87h6qpyzkd.ffs@tglx>
- <690b12b7-5586-6ade-de83-99f463bc8397@vivo.com>
-MIME-Version: 1.0
-In-Reply-To: <690b12b7-5586-6ade-de83-99f463bc8397@vivo.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: heiko@sntech.de, hayashi.kunihiko@socionext.com, rafael@kernel.org,
- amitk@kernel.org, matthias.bgg@gmail.com, thierry.reding@gmail.com,
- chi.minghao@zte.com.cn, srinivas.pandruvada@linux.intel.com,
- festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- bchihi@baylibre.com, florian.fainelli@broadcom.com, daniel.lezcano@linaro.org,
- jernej.skrabec@gmail.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, agross@kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com, wenst@chromium.org,
- rui.zhang@intel.com, thara.gopinath@gmail.com, mcoquelin.stm32@gmail.com,
- linux-pm@vger.kernel.org, miquel.raynal@bootlin.com,
- linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-mediatek@lists.infradead.org, mmayer@broadcom.com,
- linux-tegra@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
- DLG-Adam.Ward.opensource@dm.renesas.com, johan+linaro@kernel.org,
- angelogioacchino.delregno@collabora.com, linux-arm-kernel@lists.infradead.org,
- niklas.soderlund+renesas@ragnatech.se, andersson@kernel.org,
- linux-kernel@vger.kernel.org, shangxiaojing@huawei.com,
- konrad.dybcio@linaro.org, kernel@pengutronix.de, shawnguo@kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 01/15] genirq/devres: Add error
- information printing for devm_request_threaded_irq()
+ Mon,  3 Jul 2023 10:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=To:References:Message-Id:Content-Transfer-Encoding:Cc:Date:
+ In-Reply-To:From:Subject:Mime-Version:Content-Type:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=evH9FssxAVDWuosG3wF0geBaPl42ihY9Va8nTcwYQk4=; 
+ b=XGb6qm4+6EvTbcwEm2H5OprpeV+r77KKVrY7nAOjvIOT6XAUTWG2rnI6S7aAss+aDKsVcta5Z1x
+ T4JPgD/zZMhCubNS6zfcPjUbhV9m+Y+zePvqVp27wxzSVkPCZ7z6PiFEMPYCPpa4Z8Yp5p6hAm5Lv
+ 7kZlteiF0dhw8fWH35EaflvEKAaV2dVQ44ID2GjJIrevdWhYjZEwqm7RwjOr9Wmpt0W9yZbhqgs3C
+ aPwatGYlzSkw/yXHA/VZ76jcBPpTPwJknlybrr15ZcJSd1DAUjHJt+rO4qMH98RIhOcujUIj+XtCl
+ U+wn/hSIJuwNhEpv7RouKmDQwc8p89Blcigg==;
+Received: from sslproxy02.your-server.de ([78.47.166.47])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1qGGgD-000N94-Mb; Mon, 03 Jul 2023 12:21:13 +0200
+Received: from [185.17.218.86] (helo=smtpclient.apple)
+ by sslproxy02.your-server.de with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.92)
+ (envelope-from <sean@geanix.com>)
+ id 1qGGgD-000Kxt-7r; Mon, 03 Jul 2023 12:21:13 +0200
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.600.7\))
+From: Sean Nyekjaer <sean@geanix.com>
+In-Reply-To: <ZKKZ4qUw5pKVt1T1@shikoro>
+Date: Mon, 3 Jul 2023 12:21:02 +0200
+Message-Id: <48234852-3206-4F73-A7AD-EE6EBE83D774@geanix.com>
+References: <20230509132159.4160984-1-sean@geanix.com>
+ <ZJV0/cbjn1Qa62u+@shikoro> <9BEDFE6D-AE5E-46F1-A1BF-A19C6F5130F6@geanix.com>
+ <ZKKZ4qUw5pKVt1T1@shikoro>
+To: Wolfram Sang <wsa@kernel.org>
+X-Mailer: Apple Mail (2.3731.600.7)
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26958/Mon Jul  3 09:29:03 2023)
+Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Add atomic_xfer method to
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,66 +61,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1558048813313278562=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1558048813313278562==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4ifm6dkdtwbp3ztq"
-Content-Disposition: inline
-
-
---4ifm6dkdtwbp3ztq
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Mon, Jul 03, 2023 at 05:13:29PM +0800, Yangtao Li wrote:
-> [...] v3 has been sent.
-
-Please make sure that you send a v3 patch series (at least) to the
-people who gave you feedback for v2. If you skip people who had general
-concerns about the whole series, this might help you in the short run
-because they might miss to also criticise v3, but in the long run it
-might result in a loss of trust in you.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---4ifm6dkdtwbp3ztq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSimqAACgkQj4D7WH0S
-/k6WAQgApvFvslry9NwR8H0z4aDKfgwg20hFIuR9LFKWPzquLmB7y1nBdA9z1Mpp
-Ybkb+E4cxXIe/uFWnm7mr+SlHuHQdwR6b983iZQjHGYCLiqxcAcWzp0W+b/ZH8JZ
-AYUipaQ9T6hm8Kqh+HgQN5VhXv7PM0fQH/yoBNeEF+CDsMwGMAoViefMhwHeZLx2
-+yHExhGOQNgoN2ge6GgpvdryJJ1NSl5PXpcyCG+1ED6a1pGmueDK5ipp+dMaxOQg
-l3/9ECPLYTDvPK4951UMlOuWdVG5qKqYw8q9Z8I5QGTav+lKoshXgpbAbQnHNpv+
-44KmixTXlQmRdC4XP2f1Em3/fP/8Dw==
-=4vu6
------END PGP SIGNATURE-----
-
---4ifm6dkdtwbp3ztq--
-
---===============1558048813313278562==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1558048813313278562==--
+Cgo+IE9uIDMgSnVsIDIwMjMsIGF0IDExLjUwLCBXb2xmcmFtIFNhbmcgPHdzYUBrZXJuZWwub3Jn
+PiB3cm90ZToKPiAKPiAKPj4+IFdpbGwgRE1BIGFjdHVhbGx5IHJ1biBpbiBhdG9taWMgbW9kZT8K
+PiAKPj4gQXRvbWljIGlzIG1haW5seShvbmx5KSB1c2VkIGZvciB3cml0aW5nIGEgc2luZ2xlIHJl
+Z2lzdGVyIGluIHRoZSBQTUlDCj4+IGZvciB0aGUgc3RwbWljLgo+IAo+IEFuZCB0aGlzIG1vc3Qg
+cHJvYmFibHkgZHVyaW5nIHNodXRkb3duLi4uCj4gCj4+IEd1ZXNzIHRoYXQgd2lsbCBub3QgdHJp
+Z2dlciBhbnkgRE1BIHVzZS4KPiAKPiAuLi4gc28gSSdkIGJlIHZlcnkgc3VycHJpc2VkIGlmIERN
+QSBpcyBvcGVyYXRpb25hbCB0aGF0IGxhdGUuIEkgdGhpbmsgd2UKPiBjYW4gcnVsZSB0aGF0IG91
+dCBpbmRlcGVuZGVudCBvZiBJMkMgbWVzc2FnZXMgdG8gYmUgdHJhc25mZXJyZWQuCj4gCgpZZXMs
+IEnigJlsbCBzdWJtaXQgYSBWMiB3aXRob3V0IHRoZSBETUEgZnVuY3Rpb25hbGl0eS4KCi9TZWFu
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
