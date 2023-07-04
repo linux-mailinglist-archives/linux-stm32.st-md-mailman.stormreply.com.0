@@ -2,67 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 110A97477E3
-	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jul 2023 19:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B9B87477E4
+	for <lists+linux-stm32@lfdr.de>; Tue,  4 Jul 2023 19:34:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBDA2C6B45B;
-	Tue,  4 Jul 2023 17:34:13 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8C69C6B45B;
+	Tue,  4 Jul 2023 17:34:16 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 611A7C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 417F3C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  4 Jul 2023 17:34:11 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-992e22c09edso397629566b.2
+ Tue,  4 Jul 2023 17:34:13 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-9924ac01f98so713469266b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 04 Jul 2023 10:34:11 -0700 (PDT)
+ Tue, 04 Jul 2023 10:34:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1688492051; x=1691084051;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+K05sBMM6p7NXDAV8Ux9b1t0k5cRXekoIV2P3Kh76Xw=;
- b=Ny43sP8+pJbMIBVttTOGYImqIAYLCMNJ2B/VwNih8hYxbkGpM+IGUdRmD/s4oLy608
- XgkaiY+R7INN+vBcqqUix+k+vLt+OMHkqVem/7N6yk1fVeuoXnkONc+6YwA62gPov+xa
- 8gbmZSuTuWxsFLiU51KL/CuL3wU3GuzCxE1lg=
+ d=amarulasolutions.com; s=google; t=1688492053; x=1691084053;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E82hjoqhMKWrCTgt/fXbmQjWVshoS0GVNipXIUdN9/k=;
+ b=MknyirkMO5L5olTeZIB+6FibKKcCcnwpxx/lCEzrasyo2VaFLkGQnFAE3XfyPXBBrd
+ 5JxMLWQ7UgqdselInS83IA00I+bXOSMIaqZdnLoXYlsLnBsPk9jsj1FkP2NEBYAB8Itd
+ 3avYV1f8udp3EgWdoV4qLZSWIHNNmDKUnRAkE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688492051; x=1691084051;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+K05sBMM6p7NXDAV8Ux9b1t0k5cRXekoIV2P3Kh76Xw=;
- b=QjOXuwAzlcCFwLcwDJHTfGUI6K8xBRpgePMLpuImT4UHXNQVDsPF6dVY9EPd94Jv6o
- uRFat46VXLFIgzHbOOHAOJ6bnyFNO+gHT2jOm5ilhOnzobFj23LMvLaHWWKdFtCooyzc
- toRk674TN1cfl+wY8CRzoBfkhX+NS2+iRc18CYreIMi5ACtD6NePLwCL8e6VYS6/rlHV
- j7vDbNcub2vTle1NyojI+wLx0j+MIKa/iC/6XvfjdU8UnZVmtTBTlWzp/crrp6zZm9iA
- 5+U4n6FuEC9QUbK7ytCmKC3jsrZnv8YxrYPnO6SSghP+GJwsJUPfi5evpSY+fs5ZVuhN
- C3kw==
-X-Gm-Message-State: ABy/qLZtuXYC+kuSS20J5hG2JqnjRz1fWUEjePtxqw73Sxev+YVcZW+9
- a9qwZtXnCHvUc7NDtzhQqn7apQ==
-X-Google-Smtp-Source: APBJJlFK3NsyL3nVNojHW421KP10BF589AScgGhWC+ZxmPL0fSDLBXw5Ct7ujEtvQomfAxBlUF/3lw==
-X-Received: by 2002:a17:906:35d5:b0:96f:7b4a:2904 with SMTP id
- p21-20020a17090635d500b0096f7b4a2904mr10921853ejb.3.1688492051452; 
- Tue, 04 Jul 2023 10:34:11 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688492053; x=1691084053;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=E82hjoqhMKWrCTgt/fXbmQjWVshoS0GVNipXIUdN9/k=;
+ b=ikJ0mZ3asmLB9QedKaFmXHOmQdpzOJTeGX2KHph41jruF1ubSNR3V8qVwOiwMYscH9
+ ZbE2UnTvqc+fvqzNwJEoYqW1o2NRPGbQrMl26pPjkHSo2r02dNQTPQfPpe8NgJmLNVwJ
+ GhAJ0T8O9392YtC4QCejn1cx0tF8rBOrxhb08iahEfbZ7Y/nVwkF1ErlxQ2r6T54X+Dz
+ 6rdGbulcmaBqO4yupVDqp49PupJBc4Xe2e5dxvDLPEpCnS2VW48c8mDoddhMTnf/9FI1
+ 1kgRSZ2UtBlKXvwyBann14ix2B+zE5uyisva5OhTEiRKNO9jgzHYRJPfK4Kn5vy64TTd
+ qWEA==
+X-Gm-Message-State: ABy/qLaOKO+SHnW7YvZzzxV79d42s3uRUliKDkbsn8vass2ToSyJCaPn
+ rjOqv13zmGZ8wHPgUDuqL0Edfg==
+X-Google-Smtp-Source: APBJJlEUTY/dtc0SSVLyoiRR0j7AGo68Z6RwBaNZuNo7uqPpDBL2Z2MiKGW2gWb95F8odAa5qV455Q==
+X-Received: by 2002:a17:906:a88b:b0:988:4a48:6ff3 with SMTP id
+ ha11-20020a170906a88b00b009884a486ff3mr10024044ejb.30.1688492052935; 
+ Tue, 04 Jul 2023 10:34:12 -0700 (PDT)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-82-58-49-236.retail.telecomitalia.it. [82.58.49.236])
  by smtp.gmail.com with ESMTPSA id
- v24-20020a1709064e9800b00992ca779f42sm6724645eju.97.2023.07.04.10.34.10
+ v24-20020a1709064e9800b00992ca779f42sm6724645eju.97.2023.07.04.10.34.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Jul 2023 10:34:11 -0700 (PDT)
+ Tue, 04 Jul 2023 10:34:12 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Tue,  4 Jul 2023 19:34:06 +0200
-Message-Id: <20230704173407.590544-1-dario.binacchi@amarulasolutions.com>
+Date: Tue,  4 Jul 2023 19:34:07 +0200
+Message-Id: <20230704173407.590544-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20230704173407.590544-1-dario.binacchi@amarulasolutions.com>
+References: <20230704173407.590544-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: stm32: add pin map for i2c3
-	controller on stm32f7
+Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: add touchscreen on
+	stm32f746-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +82,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add pin configurations for using i2c3 controller on stm32f7.
+The patch adds support for touchscreen on the stm32f746-disco board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
 
- arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/arm/boot/dts/st/stm32f746-disco.dts | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
-index 9f65403295ca..c8dfda7bd04f 100644
---- a/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
-@@ -171,6 +171,16 @@ pins {
- 				};
- 			};
+diff --git a/arch/arm/boot/dts/st/stm32f746-disco.dts b/arch/arm/boot/dts/st/stm32f746-disco.dts
+index c11616ed5fc6..4830ccd48cb3 100644
+--- a/arch/arm/boot/dts/st/stm32f746-disco.dts
++++ b/arch/arm/boot/dts/st/stm32f746-disco.dts
+@@ -45,6 +45,7 @@
+ #include "stm32f746-pinctrl.dtsi"
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
  
-+			i2c3_pins_a: i2c3-0 {
-+				pins {
-+					pinmux = <STM32_PINMUX('H', 8, AF4)>, /* I2C3_SDA */
-+						 <STM32_PINMUX('H', 7, AF4)>; /* I2C3_SCL */
-+					bias-disable;
-+					drive-open-drain;
-+					slew-rate = <0>;
-+				};
-+			};
+ / {
+ 	model = "STMicroelectronics STM32F746-DISCO board";
+@@ -99,6 +100,22 @@ &i2c1 {
+ 	status = "okay";
+ };
+ 
++&i2c3 {
++	pinctrl-0 = <&i2c3_pins_a>;
++	pinctrl-names = "default";
++	clock-frequency = <400000>;
++	status = "okay";
 +
- 			usbotg_hs_pins_a: usbotg-hs-0 {
- 				pins {
- 					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT */
++	touchscreen@38 {
++		compatible = "edt,edt-ft5306";
++		reg = <0x38>;
++		interrupt-parent = <&gpioi>;
++		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
++		touchscreen-size-x = <480>;
++		touchscreen-size-y = <272>;
++	};
++};
++
+ &sdio1 {
+ 	status = "okay";
+ 	vmmc-supply = <&mmc_vcard>;
 -- 
 2.32.0
 
