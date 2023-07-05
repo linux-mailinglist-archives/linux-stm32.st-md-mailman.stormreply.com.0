@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECBC7748ACE
-	for <lists+linux-stm32@lfdr.de>; Wed,  5 Jul 2023 19:44:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02083748ACF
+	for <lists+linux-stm32@lfdr.de>; Wed,  5 Jul 2023 19:44:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4988C6B461;
-	Wed,  5 Jul 2023 17:44:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE772C6B462;
+	Wed,  5 Jul 2023 17:44:09 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ECB9C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1943C6B45F
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed,  5 Jul 2023 17:44:08 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 365Fabec003081; Wed, 5 Jul 2023 19:44:03 +0200
+ 365F65mL010379; Wed, 5 Jul 2023 19:44:04 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=tu9jBOtEovYr093HJ36dUdSrKpaYVFSBiOffzxwZiQY=;
- b=3GOJyEli9IvgD3M88EkpF0MMjrEkw4HGaWwL4OUHbyi+OH2NqSuORREOgNbrdadE/4g+
- XZeVV5Z9psiKK3QVP3LsaNNll/aukga2b8KRLPnEgB9VneRS3eoIXvsznYPvW/R3zvI/
- J0tf0piMa3rjTk6dx6L9Kcg774vzTEkFw2znLbi7u8zd3nw1gBk2QYYp3Mq12/8ZtREQ
- JWI+dtHXAd8cgfcUX9RH+0oEtXwtz+FHDRppJbng6tVgQg2UVBQnrm8ecEGlB2S5ODRZ
- 0WFXYVP7k0pyamIIjF3WBNrayz4QuoIzq3uY9SPrrSR3BEbkXxSiuSEF1M2NQ5BQdlyh Gg== 
+ bh=3uBLJmxq5VVWC2o5xkCW/MuK8POUJa1lY65SLOrbAlI=;
+ b=edBzDynwoKrL06YBlXLhYm9JjqJ3LfQXKjC8Z+aCySbYs5mNOoPIM0a2Gp2wTdeerB8H
+ skHCanwEAc81hc6V1rEhBuhUn+cqopwkUSErmlOUcx8VBlWGzLLCBy12qMHSdESl9wpp
+ yPpqdWACKo5bpTDboaCQSdpmzI0tXNgzDYKOROZZlQlcsncceBV3Xrs7Xs2CMpmqrOZC
+ CxeLQ+ZERe20AvJy4yvPSULdS7casrW39ormhchu0GL5IGsSP/DJ7MaFxyyJxai6cgKq
+ XO8ryjCl9n12v5ZKkRBgn8c7JEBngZ+FMLfexD9ZSJVWTQrksT4mUrtFS4gyOlSVgRpU bg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rn8c9t4wk-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rn7wp2bsg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 05 Jul 2023 19:44:03 +0200
+ Wed, 05 Jul 2023 19:44:04 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 68E55100057;
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E6C9410005E;
  Wed,  5 Jul 2023 19:44:03 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5F856252250;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DF420252250;
  Wed,  5 Jul 2023 19:44:03 +0200 (CEST)
 Received: from localhost (10.201.20.168) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
@@ -44,8 +44,8 @@ Received: from localhost (10.201.20.168) by SHFDAG1NODE1.st.com (10.75.129.69)
 From: Valentin Caron <valentin.caron@foss.st.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Alessandro Zummo
  <a.zummo@towertech.it>
-Date: Wed, 5 Jul 2023 19:43:51 +0200
-Message-ID: <20230705174357.353616-2-valentin.caron@foss.st.com>
+Date: Wed, 5 Jul 2023 19:43:52 +0200
+Message-ID: <20230705174357.353616-3-valentin.caron@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230705174357.353616-1-valentin.caron@foss.st.com>
 References: <20230705174357.353616-1-valentin.caron@foss.st.com>
@@ -61,8 +61,8 @@ Cc: linux-rtc@vger.kernel.org,
  linux-kernel@vger.kernel.org,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 1/7] rtc: stm32: use the proper register
-	sequence to read date/time
+Subject: [Linux-stm32] [PATCH v2 2/7] rtc: stm32: don't stop time counter if
+	not needed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,38 +81,77 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 
-Date and time are read from two separate RTC registers.
-To ensure consistency between the two registers, reading the time
-register locks the values in the shadow date register until the
-date register is read.
-Thus, the whole date/time read requires reading the time register
-first, followed by reading the date register.
-If the reads are done in reversed order, the shadow date register
-will remain locked until a future read operation. The future read
-will read the former date value that could be already invalid.
+RTC counters are stopped when INIT bit in ISR register is set and
+start counting from the (eventual) new value when INIT is reset.
 
-Fix the read order of date/time registers in stm32_rtc_valid_alrm()
+In stm32_rtc_init(), called during probe, the INIT bit is set to
+program the prescaler and the 24h mode. This halts the RTC counter
+at each probe tentative causing the RTC time to loose from 0.3s to
+0.8s at each kernel boot.
+If the RTC is battery powered, both prescaler value and 24h mode
+are kept during power cycle and there is no need to program them
+again.
+
+Check if the desired prescaler value and the 24h mode are already
+programmed, then skip reprogramming them to avoid halting the time
+counter.
 
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
 ---
- drivers/rtc/rtc-stm32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/rtc/rtc-stm32.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index 3d36e11cff80..abb77ad774a1 100644
+index abb77ad774a1..bd7a59a07537 100644
 --- a/drivers/rtc/rtc-stm32.c
 +++ b/drivers/rtc/rtc-stm32.c
-@@ -429,8 +429,8 @@ static int stm32_rtc_valid_alrm(struct stm32_rtc *rtc, struct rtc_time *tm)
- {
+@@ -628,7 +628,7 @@ static int stm32_rtc_init(struct platform_device *pdev,
  	const struct stm32_rtc_registers *regs = &rtc->data->regs;
- 	int cur_day, cur_mon, cur_year, cur_hour, cur_min, cur_sec;
--	unsigned int dr = readl_relaxed(rtc->base + regs->dr);
- 	unsigned int tr = readl_relaxed(rtc->base + regs->tr);
-+	unsigned int dr = readl_relaxed(rtc->base + regs->dr);
+ 	unsigned int prer, pred_a, pred_s, pred_a_max, pred_s_max, cr;
+ 	unsigned int rate;
+-	int ret = 0;
++	int ret;
  
- 	cur_day = (dr & STM32_RTC_DR_DATE) >> STM32_RTC_DR_DATE_SHIFT;
- 	cur_mon = (dr & STM32_RTC_DR_MONTH) >> STM32_RTC_DR_MONTH_SHIFT;
+ 	rate = clk_get_rate(rtc->rtc_ck);
+ 
+@@ -656,6 +656,20 @@ static int stm32_rtc_init(struct platform_device *pdev,
+ 			 "fast" : "slow");
+ 	}
+ 
++	cr = readl_relaxed(rtc->base + regs->cr);
++
++	prer = readl_relaxed(rtc->base + regs->prer);
++	prer &= STM32_RTC_PRER_PRED_S | STM32_RTC_PRER_PRED_A;
++
++	pred_s = (pred_s << STM32_RTC_PRER_PRED_S_SHIFT) &
++		 STM32_RTC_PRER_PRED_S;
++	pred_a = (pred_a << STM32_RTC_PRER_PRED_A_SHIFT) &
++		 STM32_RTC_PRER_PRED_A;
++
++	/* quit if there is nothing to initialize */
++	if ((cr & STM32_RTC_CR_FMT) == 0 && prer == (pred_s | pred_a))
++		return 0;
++
+ 	stm32_rtc_wpr_unlock(rtc);
+ 
+ 	ret = stm32_rtc_enter_init_mode(rtc);
+@@ -665,13 +679,10 @@ static int stm32_rtc_init(struct platform_device *pdev,
+ 		goto end;
+ 	}
+ 
+-	prer = (pred_s << STM32_RTC_PRER_PRED_S_SHIFT) & STM32_RTC_PRER_PRED_S;
+-	writel_relaxed(prer, rtc->base + regs->prer);
+-	prer |= (pred_a << STM32_RTC_PRER_PRED_A_SHIFT) & STM32_RTC_PRER_PRED_A;
+-	writel_relaxed(prer, rtc->base + regs->prer);
++	writel_relaxed(pred_s, rtc->base + regs->prer);
++	writel_relaxed(pred_a | pred_s, rtc->base + regs->prer);
+ 
+ 	/* Force 24h time format */
+-	cr = readl_relaxed(rtc->base + regs->cr);
+ 	cr &= ~STM32_RTC_CR_FMT;
+ 	writel_relaxed(cr, rtc->base + regs->cr);
+ 
 -- 
 2.25.1
 
