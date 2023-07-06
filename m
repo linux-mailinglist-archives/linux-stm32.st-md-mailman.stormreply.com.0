@@ -2,109 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F65E749AE4
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jul 2023 13:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079A5749FC3
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jul 2023 16:51:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3F02C6B45C;
-	Thu,  6 Jul 2023 11:40:03 +0000 (UTC)
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01on2112.outbound.protection.outlook.com [40.107.117.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A726FC6B45B;
+	Thu,  6 Jul 2023 14:51:15 +0000 (UTC)
+Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
+ [209.85.166.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54944C6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2750CC6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jul 2023 11:40:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JaRZMWzSsDKTVv9EACZ75I94nR2zhwOD+LDOU4A9xG4+Hmj1nlCdl/NE+ed1haBODN1N+onogmVRdrg4oCQDg3ld5YJIasE9qp9Aw1U6UMTOUmlabdZhL071PPFPu4ahM1AwEAmCTR9OOgKmX7EB7SYl4iIvEtWmom+zQMQKpJmErpLFM4reweosN3nx1b0ZE5APCKbKM/Gv5c0BSUTwB0ak2NbtyOdBmXAypJKZ0B5UnNb0MJ1bwhMYbn/a5QXb19ndzOnZmFleI8P2/pkzOL6hDIWAsL/FnrLbv77t8OoD4zsFKuoKFTAxRIINRC749uG8qJmsATzSEajGAh7GQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lkkgF8YHddSyx8rnTy7lYfUam+fBm30/3EkM/GLn1GE=;
- b=PZokQ6oFmbg89zOVVolPORUA8Pyblpg0ip+5P6El9O1FX3emeGGE8/xAIfo0XXKcyR6HtmGTuyixQGUPN1AkKwRwAQUanvtXJIKXY0CGrnwCkFh5yKpiE6mcDC2KLNCzy5y8QgExTUAQnBLpBWrlb4lgvOjXkcuEoiqFsxAUOoSY/CXpvqH3R4uBVkzfDqI2VjNr7IU/+j2ByAdVxddsPNAQjqdxb1ZTxBcpgknk9AXOt7ryF9xILic+q2Pvhoc7Pfb0RdL2wrY+JJJdYYP4KJkuMkZ3xLImoHiz+lRXBgXqJsoVB4878UOaM2y0E3B2mczQZKdbYzbj5NIUu8FgeA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lkkgF8YHddSyx8rnTy7lYfUam+fBm30/3EkM/GLn1GE=;
- b=iwvJX0453caonVeRj+y7P4toQ6Ya6ZUyVuTk3HVkte5wzLZ3j5mYCtIAmPJpR/4VDXw+9BzyrJHcOdZ51+wlGGsWT5tfKGgbgP4rQtM87u+LHRyARATs600ofkY75pVkrQfNVTP7oXRn9femVLiyfKqTRRpIE+K7SMYGAlRmFw6XJ60K05hyMRMWRK+e251ovQbx/YnfAXMrAY3iMaacTF1qHmtsS5uqMSlQfhNQ7OnT5dxhPHkZQonKobNuAVv+OwERJ/M6WQMgq36MB6EdyoDmgzvoxSNKeQ7RGdFpoIitBxeJ/i8JU2MR8/WQBxurrv+yk6ZhvN//QFRXDhLehA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
- by SEYPR06MB5889.apcprd06.prod.outlook.com (2603:1096:101:d2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.17; Thu, 6 Jul
- 2023 11:39:58 +0000
-Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
- ([fe80::fa0e:6c06:7474:285c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
- ([fe80::fa0e:6c06:7474:285c%5]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
- 11:39:58 +0000
-From: Yangtao Li <frank.li@vivo.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu,  6 Jul 2023 19:39:38 +0800
-Message-Id: <20230706113939.1178-6-frank.li@vivo.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230706113939.1178-1-frank.li@vivo.com>
-References: <20230706113939.1178-1-frank.li@vivo.com>
-X-ClientProxiedBy: SG2PR02CA0013.apcprd02.prod.outlook.com
- (2603:1096:3:17::25) To SEZPR06MB5269.apcprd06.prod.outlook.com
- (2603:1096:101:78::6)
+ Thu,  6 Jul 2023 14:51:14 +0000 (UTC)
+Received: by mail-il1-f180.google.com with SMTP id
+ e9e14a558f8ab-3458a08310aso2656845ab.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 06 Jul 2023 07:51:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688655073; x=1691247073;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cgnDkKPeeJQpJAr8Igz1bUHZ3qFXqLqwtv/vw0h6laQ=;
+ b=IW2GHTeL/fmM6voKsWcOs8CpAXZATBnzF4BY9svYKHzOQgz7kjo3PdtEhUcfp3x5Gu
+ 2FH1us5qyCAS6LtNBYl66N3QwLJqfoEuK6OQ2iEvSfMcLJ9t/S9EvnvVVnupjXwmPeV0
+ pIhvIjmxX3/4fw7bz2Ik91SJ4sk/kFx9EA74Ts3efUR9aHLevqaWbKsiz43nCq5rTC+M
+ EILJh1WkUvFhXBXnFeraO5/zW1vabOKM6RL9P+4O7FVkwRleqIjb0JHtef8Sffg/RS/B
+ W0aRmsfXaTCP4z0nr7W/xVFhJFt3W7xh99OscVd4yv0goVxYmlpRHnN5yeEMbcdC9966
+ h+jw==
+X-Gm-Message-State: ABy/qLaY7d95koS+Xt/cFvtQ5foO0hAaULigvhm9yRCZAYqZggVubeN3
+ fOgZtJU54oYC+UeRgB0UYA==
+X-Google-Smtp-Source: APBJJlF67lR6D5NqnrBz/z/xaj4p5WF0VZl589v9nUuz7XC/TU588WYs6w03reMlD4UBeRhzLPXgQw==
+X-Received: by 2002:a92:c52c:0:b0:345:d458:d227 with SMTP id
+ m12-20020a92c52c000000b00345d458d227mr2368778ili.7.1688655072884; 
+ Thu, 06 Jul 2023 07:51:12 -0700 (PDT)
+Received: from robh_at_kernel.org ([64.188.179.250])
+ by smtp.gmail.com with ESMTPSA id
+ g17-20020a0566380bd100b0042b3e2e5ca1sm569170jad.122.2023.07.06.07.51.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Jul 2023 07:51:12 -0700 (PDT)
+Received: (nullmailer pid 3861827 invoked by uid 1000);
+ Thu, 06 Jul 2023 14:51:08 -0000
+Date: Thu, 6 Jul 2023 08:51:08 -0600
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20230706145108.GA3858320-robh@kernel.org>
+References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
+ <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|SEYPR06MB5889:EE_
-X-MS-Office365-Filtering-Correlation-Id: eba0402b-fc3e-4add-fc79-08db7e15b9f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IxQ0D3szxE3i/MbgvtIZlAxQj4YVaZaosJwPivy5h2vLo0bAMeZcRJJozNEjAF4O+nJzdnWp4sc/G0O2oINjvXle5oFBYVkfOn+xcgMi5gw0s7CgDvGymmVrSwUPBHnmcME8WMVoag32vAxJY/rlTpmG1PvEpCauq42PnMMPoBJjScoW7PHzPn1l6yXDajZ2FQsN6LJH6B4K/tJmznDvBTP8inng4eEKffTecouVOAmpgyXlpZf5QwK1IE843U6cqFN8CAlI4UECBXyTLwUqwwPpMTpiycbN2clprsoNzeXVev/b84DeR0medFgmUffgROSmBDGitZFiNwhO2CmoHis3sNkoGCXjzboXViIdEBmU1wanLoszIicT+PZc4f6e8YXLpW3O1PYBKxS47LEzcoOfu3Jr5xS5lNHBfWn3zlvB0ENeIBkrqIdna4JGnSixxzCTkE2k5u8RwlK/CGgmdJRvmUIpxxOOuWG/W5B1VmqLu0oXlTL02QPKgX5c6pLuefZxI0PzPQf2wlRFMl+45r1aBUSlBhbknv9oh8duz4jcOdppPFoEavSMyEx2kquPYDeDxL5JQAJ5uYlg9vi7k5HhNFknQVtRnaBi0nht41IqgXfBXfwWkXTVxz7AppWR
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(376002)(396003)(366004)(39860400002)(451199021)(36756003)(86362001)(2616005)(4744005)(6512007)(6666004)(52116002)(478600001)(110136005)(2906002)(38100700002)(38350700002)(26005)(186003)(1076003)(6506007)(41300700001)(8676002)(5660300002)(6486002)(66556008)(66476007)(66946007)(8936002)(4326008)(83380400001)(316002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?bymyHT71pbQFZgcGdORY/9a+utrNzRinLmP2BQDnqgI08E+3EcNwxcTBK4AI?=
- =?us-ascii?Q?+Nc+P6qxjo4TgIqLtO20vy9rrBPEDWVhDVuBISiTThY7t1NPsP2JfmH2K+LG?=
- =?us-ascii?Q?EiUQkYrAP2lng4eJVXImti9MSAGErl8ZMFwtWEJNwAKHtYVe6zc3iA0plBrN?=
- =?us-ascii?Q?50jT9Y/rNr2Q/okiLRf2M/qiVlYe6sBKIuc5UTOkqWgFanR8k5ooG8lWaRP5?=
- =?us-ascii?Q?/pKL/xmsTKpSurcouaQVeQ2ZigI8VcWLyD0sSYcjWN3tbM/82QEXSKeccR5c?=
- =?us-ascii?Q?Ne3lhu2Gx9j0lLsqbpngoruGrMvLg2jS1Qak0zqvW5j0LtPOTOY4X43dJNEn?=
- =?us-ascii?Q?R/Pkh+O1vGPnAR7btHX7x78C3LR9SZnBkPRv4bENfEB9LOaxA5hkdez6TwmX?=
- =?us-ascii?Q?uuQ3hnItXvOMU4YcZgscS4CVafMq+xzphCT3edWiAhMP4/w9bNS1aUIvQ0ns?=
- =?us-ascii?Q?CVLtTx3GPHKn15YBS3IUDN1gqLxJi6d6Lt8OE2c7kFLcauEulfflYSgghNNX?=
- =?us-ascii?Q?2ZNAZzZC8b9R9AYhX6CnBXHWXNqEySXd1jXunVQFhx2m3t4PQ+FEcRiXld0/?=
- =?us-ascii?Q?Mi224oQRAt/qHotDQ++UEHijh+5yoVv+88OpqGcPC8bOz0aOIGQ0F+b+LHub?=
- =?us-ascii?Q?2F1Qos7BNVF0L46B4mQbSbeXArqSPWY4lrKSoBFaPPklgmtbHRTCTvt+eUjd?=
- =?us-ascii?Q?kJnnalllUKdeMBhvU7s/MTNk5ecaVZ8NzuYOKLPnW4wxky9oufGPkmwgIF9t?=
- =?us-ascii?Q?a8jE6yfANHUmx/WsQMEGPPOuiGGcoTb+jG6FmxfKjD+tGZxj/EVY6ByWOHrX?=
- =?us-ascii?Q?cgtXeFZgnp8hIamRH4VL3d7TAf26fENsz9ByGQAInvt5SO4KXuSzw75v33H7?=
- =?us-ascii?Q?CWaHLEv64pv0Y2Nni/KpZ8fuPADxDm/isHfBd8z72//487y0UhZPXfLc9TRP?=
- =?us-ascii?Q?9zkb0gFCVY/5MLNAeYSWg6/p0d9dnVDL4ybauC9eIk8ejLnbx3krT3D8VAHQ?=
- =?us-ascii?Q?2PX/i2IHjoZzgNvD3ukZec1OC/6BSoDZ3mTIYmfsz9U3hNBcD743SnwMjbRc?=
- =?us-ascii?Q?0FLRCq42zzCNxxZjUt8XrWjSRybvZ8EtWK0r6ik8yW5xU4Gz+m9toa+vsNR/?=
- =?us-ascii?Q?9rlOV0MNnTpme5bcN8qiOrDpO3HkgoN+xJvTcQQpmYMT3RWgvxaEj9OHYtp4?=
- =?us-ascii?Q?2WG5pJM0FUpPd/I+kFMPnmbgFwcwuj0pOL+1ctJBLYipN2P25V5Cn5r3cYIl?=
- =?us-ascii?Q?FB5njW7Ky8bQ3wLP6/wRLuVA7SJGJT4uo1BL/WvzAqVKGsHE87nTjXm4rIum?=
- =?us-ascii?Q?aNsumViKO4NGw5NSdhgaGkWbhu4YD+KWY1sLdN5SLCvivfjNF6nvufjgSSDV?=
- =?us-ascii?Q?YvZp2FaAat4/DbwTdEl9LFm4CBPhmnnxaWogad306CU1odablHbFevYMAs+x?=
- =?us-ascii?Q?unzM6NeecKviHcPEnY1bizqOqrnEl83O5S8Bw2zyJnuQO6zndH2GVV5QcWk5?=
- =?us-ascii?Q?Fr5XirsLNGkrVqfI4SrHT0p5cROYxuwrUOnlLJx+nA8cJX4cq4j001bPgl+A?=
- =?us-ascii?Q?jlhrp4xAXNE7KRXLf/51i76Xc7ofJta6xmD4LkNL?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eba0402b-fc3e-4add-fc79-08db7e15b9f7
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 11:39:58.4577 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2NrwZNsm/AFscaOIqjm0kL8TBX1GNU2ryUqGlqH0hdyl4TLG2bg90uqGhiySdJ1eQBQqRwpiJe2h50pi1nBDyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5889
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Yangtao Li <frank.li@vivo.com>
-Subject: [Linux-stm32] [PATCH 6/7] mfd: stm32-timers: Use
-	devm_platform_get_and_ioremap_resource()
+Content-Disposition: inline
+In-Reply-To: <20230705172759.1610753-5-gatien.chevallier@foss.st.com>
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
+ will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ herbert@gondor.apana.org.au, hugues.fruchet@foss.st.com, lee@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, andi.shyti@kernel.org,
+ alsa-devel@alsa-project.org, richardcochran@gmail.com,
+ linux-serial@vger.kernel.org, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
+ jic23@kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 04/10] dt-bindings: treewide: add
+ feature-domains description in binding files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,32 +85,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert platform_get_resource(), devm_ioremap_resource() to a single
-call to devm_platform_get_and_ioremap_resource(), as this is exactly
-what this function does.
+On Wed, Jul 05, 2023 at 07:27:53PM +0200, Gatien Chevallier wrote:
+> feature-domains is an optional property that allows a peripheral to
+> refer to one or more feature domain controller(s).
+> 
+> Description of this property is added to all peripheral binding files of
+> the peripheral under the STM32 firewall controllers. It allows an accurate
+> representation of the hardware, where various peripherals are connected
+> to this firewall bus. The firewall can then check the peripheral accesses
+> before allowing it to probe.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> Disclaimer: Some error with dtbs_check will be observed as I've
+> considered the property to be generic, as Rob asked
+> 
+>  Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
+>  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
+>  .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
+>  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
+>  .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
+>  .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
+>  .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
+>  24 files changed, 97 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> index b767ec72a999..daf8dcaef627 100644
+> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> @@ -50,6 +50,10 @@ properties:
+>    power-domains:
+>      maxItems: 1
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 3
 
-Signed-off-by: Yangtao Li <frank.li@vivo.com>
----
- drivers/mfd/stm32-timers.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+What are the 3 entries?
 
-diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
-index 44ed2fce0319..dc0cd0808736 100644
---- a/drivers/mfd/stm32-timers.c
-+++ b/drivers/mfd/stm32-timers.c
-@@ -226,8 +226,7 @@ static int stm32_timers_probe(struct platform_device *pdev)
- 	if (!ddata)
- 		return -ENOMEM;
- 
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	mmio = devm_ioremap_resource(dev, res);
-+	mmio = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
- 	if (IS_ERR(mmio))
- 		return PTR_ERR(mmio);
- 
--- 
-2.39.0
-
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
