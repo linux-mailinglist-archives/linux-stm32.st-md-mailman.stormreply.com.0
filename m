@@ -2,68 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07CA74986D
-	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jul 2023 11:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 000E2749882
+	for <lists+linux-stm32@lfdr.de>; Thu,  6 Jul 2023 11:31:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F3AEC6B45C;
-	Thu,  6 Jul 2023 09:30:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE6C2C6B45C;
+	Thu,  6 Jul 2023 09:31:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49CD9C6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39DB8C6A603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  6 Jul 2023 09:30:20 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Thu,  6 Jul 2023 09:31:14 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36684HLC016989; Thu, 6 Jul 2023 11:29:47 +0200
+ 3667J8tL028476; Thu, 6 Jul 2023 11:30:49 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=message-id : date :
  mime-version : subject : to : cc : references : from : in-reply-to :
  content-type : content-transfer-encoding; s=selector1;
- bh=FJ0MomoThNUzsv1pX20GYZsRL0ZNxMl5ijEruyW+QsM=;
- b=Wfiz+s02qZ+/GlnKxXqYORZi2Cl675p0tcrGzK9P1iaimfEBZIEEn9BOP6BZj55AnFyQ
- SOksZ9EYhjIQjNmLpWRBblepAj6ayQlw+sNuBzx378/keLBSE3Ki4u9b9YDy1kQtsJGt
- TFbLM5w9wnv5VKMxPDsrTnNWGCzGRtlgI0FB8JDHQqHSh2R5FDNc2oElbvcrUBzQBYic
- dx3hf83LKCn4e+q5Yp8iyXO59+ppD3U075hFJrrggh9e3Hri8dvBjWowILkKbpX2AD0J
- Nrektl6lIyQAr2w9wKavixNCGpsDAlYOGTuqcjhYiUfg7js2J2iHgA0VeZkSbU5iXBDP Pg== 
+ bh=QjdN1V/hI6Mx6jHfQb/2NbbcyfO5P8v8g9k00xWpqD4=;
+ b=DYCthB7alQTQ3lrROhg7wOy4r1QjzIouOx6L/IhrmzziUxxOXE/SAY/s3xl5nbC6MKjP
+ yKTOupwej1UZTT1NzllCw19pAI/ozfW4DzFp93ABJK04vmnrhUVTRSeHfQBMiFRmMCS6
+ RE6I1Z7cJ131NjJJcG1uMwLxnvvWKLJSrY1Ldr2zQqHHRB5gF6YmNXEW5uDS8b7ASW9K
+ 9NavX8kCT/YO35Q8WUwtoqHl0/n1GZUt3sDcUAgcu4R4+QK48NXobdWd0egzTTMZmYXB
+ Fcl1NvDUv2WloUvJGVEtMGRv5s06I3e2+JLxzO7J8eoNhgBH/rQgPUF5qHlO3YrPxajT yQ== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rnssf8ppn-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rns47s4ud-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 06 Jul 2023 11:29:47 +0200
+ Thu, 06 Jul 2023 11:30:49 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 29DA4100052;
- Thu,  6 Jul 2023 11:29:47 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F3A43100052;
+ Thu,  6 Jul 2023 11:30:47 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B9CE216ECD;
- Thu,  6 Jul 2023 11:29:47 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E997C216ED4;
+ Thu,  6 Jul 2023 11:30:47 +0200 (CEST)
 Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 6 Jul
- 2023 11:29:45 +0200
-Message-ID: <1ac0f2e0-4ec1-3871-d0a3-3ccc2eb687e5@foss.st.com>
-Date: Thu, 6 Jul 2023 11:29:45 +0200
+ 2023 11:30:46 +0200
+Message-ID: <997780a9-1cbc-46a2-2743-7fd493682278@foss.st.com>
+Date: Thu, 6 Jul 2023 11:30:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
  <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
  <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
  <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
- <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
- <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
- <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
- <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
- <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
- <richardcochran@gmail.com>
+ <conor+dt@kernel.org>, <vkoul@kernel.org>, <jic23@kernel.org>,
+ <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+ <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+ <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+ <catalin.marinas@arm.com>, <arnd@kernel.org>, <richardcochran@gmail.com>
 References: <20230705172759.1610753-1-gatien.chevallier@foss.st.com>
- <20230705172759.1610753-3-gatien.chevallier@foss.st.com>
- <e871ad32-dfa4-067d-4f2c-207ffd42aafd@linaro.org>
+ <20230705172759.1610753-8-gatien.chevallier@foss.st.com>
+ <61d93738-4ffd-411d-d32c-912c14eea56d@foss.st.com>
 From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <e871ad32-dfa4-067d-4f2c-207ffd42aafd@linaro.org>
+In-Reply-To: <61d93738-4ffd-411d-d32c-912c14eea56d@foss.st.com>
 X-Originating-IP: [10.201.21.121]
 X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
  (10.75.129.69)
@@ -78,8 +77,8 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 02/10] dt-bindings: bus: add device tree
- bindings for RIFSC
+Subject: Re: [Linux-stm32] [PATCH 07/10] arm64: dts: st: add RIFSC as a
+ domain controller for STM32MP25x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,202 +90,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Krzysztof,
-
-Firstly, I will correct the bindings error pointed by Rob's robot.
-Obviously, I did not pass the bindings check the proper way or maybe I'm 
-running an old version.
-
-On 7/6/23 08:28, Krzysztof Kozlowski wrote:
-> On 05/07/2023 19:27, Gatien Chevallier wrote:
->> Document RIFSC (RIF security controller). RIFSC is a firewall controller
->> composed of different kinds of hardware resources.
->>
->> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> 
-> A nit, subject: drop second/last, redundant "device tree bindings for".
-> The "dt-bindings" prefix is already stating that these are bindings. 4
-> words of your 6 word subject is meaningless...
-
-Ack, I will rephrase, it is indeed redundant
-
-> 
->> ---
->>   .../bindings/bus/st,stm32-rifsc.yaml          | 101 ++++++++++++++++++
->>   1 file changed, 101 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
->> new file mode 100644
->> index 000000000000..68d585ed369c
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/bus/st,stm32-rifsc.yaml
-> 
-> Filename like compatible, unless you know list of compatibles will
-> grow... but then add them.
-> 
->> @@ -0,0 +1,101 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/bus/st,stm32-rifsc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: STM32 Resource isolation framework security controller bindings
-> 
-> Drop bindings
-
-Ack
-
-> 
->> +
->> +maintainers:
->> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
->> +
->> +description: |
->> +  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
->> +  designed to enforce and manage isolation of STM32 hardware resources like
->> +  memory and peripherals.
->> +
->> +  The RIFSC (RIF security controller) is composed of three sets of registers,
->> +  each managing a specific set of hardware resources:
->> +    - RISC registers associated with RISUP logic (resource isolation device unit
->> +      for peripherals), assign all non-RIF aware peripherals to zero, one or
->> +      any security domains (secure, privilege, compartment).
->> +    - RIMC registers: associated with RIMU logic (resource isolation master
->> +      unit), assign all non RIF-aware bus master to one security domain by
->> +      setting secure, privileged and compartment information on the system bus.
->> +      Alternatively, the RISUP logic controlling the device port access to a
->> +      peripheral can assign target bus attributes to this peripheral master port
->> +      (supported attribute: CID).
->> +    - RISC registers associated with RISAL logic (resource isolation device unit
->> +      for address space - Lite version), assign address space subregions to one
->> +      security domains (secure, privilege, compartment).
->> +
->> +properties:
->> +  compatible:
->> +    const: st,stm32mp25-rifsc
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  "#address-cells":
->> +    const: 1
->> +
->> +  "#size-cells":
->> +    const: 1
->> +
->> +  "#feature-domain-cells":
->> +    const: 1
->> +
->> +  ranges: true
->> +
->> +  feature-domain-controller: true
->> +
->> +patternProperties:
->> +  "^.*@[0-9a-f]+$":
->> +    description: Peripherals
->> +    type: object
->> +    properties:
->> +      feature-domains:
->> +        minItems: 1
->> +        maxItems: 2
->> +        description:
->> +          The first argument must always be a phandle that references to the
->> +          firewall controller of the peripheral. The second can contain the
->> +          platform specific firewall ID of the peripheral.
-> 
-> It does not make much sense to me to have hierarchy parent-child and via
-> phandle at the same time. You express the similar relationship twice
-Thank you for pointing this out.
-
-About the parent-child relation:
-
-The bus-like device tree architecture allows a bus-probe mechanism with 
-which we want to check accesses of peripherals before probing their 
-driver. This has several advantages:
--This bus architecture provides a clearer view of the hardware.
--No peripheral driver modifications as it is fully handled by the 
-firewall drivers.
--Drivers for devices that aren't accessible will not even be probed => 
-no probe fail.
-
-It would be possible to manage this mechanism another way by handling 
-probe deferrals in drivers. But it would mean modifying every driver 
-with a check on ST firewall that we probe and some of them aren't from 
-STMicroelectronics.
-
-About the phandle relation:
-
-I agree on the fact that this double expression of the relationship is 
-redundant.
-
-I've done it this way because there will be other nodes outside the 
-RIFSC node that will need to reference it as their feature-domain 
-controller. I kept the same information in the property to be coherent 
-between all.
-
-For nodes under the RIFSC, the phandle is indeed useless and could be 
-removed, just to leave the firewall ID. And I'm inclined to do so. I 
-just have one worry on the YAML binding files where I will have a 
-pattern property in the RIFSC that will state something and maybe 
-another description in the peripheral YAML files. What is your take on that?
-
-> 
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - "#address-cells"
->> +  - "#size-cells"
->> +  - feature-domain-controller
->> +  - "#feature-domain-cells"
->> +  - ranges
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    // In this example, the usart2 device refers to rifsc as its domain
->> +    // controller.
->> +    // Access rights are verified before creating devices.
->> +
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +
->> +    rifsc: rifsc-bus@42080000 {
->> +        compatible = "st,stm32mp25-rifsc";
->> +        reg = <0x42080000 0x1000>;
->> +        #address-cells = <1>;
->> +        #size-cells = <1>;
->> +        ranges;
->> +        feature-domain-controller;
->> +        #feature-domain-cells = <1>;
->> +
->> +        usart2: serial@400e0000 {
->> +            compatible = "st,stm32h7-uart";
->> +            reg = <0x400e0000 0x400>;
->> +            interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
->> +            clocks = <&ck_flexgen_08>;
->> +            feature-domains = <&rifsc 32>;
->> +            status = "disabled";
-> 
-> No status in the examples.
-> 
->> +        };
->> +    };
-> 
-> Best regards,
-> Krzysztof
-> 
-
-Best regards,
-Gatien
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQWxleCwKCk9uIDcvNi8yMyAxMToyNSwgQWxleGFuZHJlIFRPUkdVRSB3cm90ZToKPiBIaSBH
+YXRpZW4KPiAKPiBPbiA3LzUvMjMgMTk6MjcsIEdhdGllbiBDaGV2YWxsaWVyIHdyb3RlOgo+PiBS
+SUZTQyBpcyBhIGZpcmV3YWxsIGNvbnRyb2xsZXIuIENoYW5nZSBpdHMgY29tcGF0aWJsZSBzbyB0
+aGF0IGlzIG1hdGNoZXMKPj4gdGhlIGRvY3VtZW50YXRpb24gYW5kIHJlZmVyZW5jZSBSSUZTQyBh
+cyBhIGZlYXR1cmUtZG9tYWluLWNvbnRyb2xsZXIuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEdhdGll
+biBDaGV2YWxsaWVyIDxnYXRpZW4uY2hldmFsbGllckBmb3NzLnN0LmNvbT4KPj4gLS0tCj4+IMKg
+IGFyY2gvYXJtNjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpIHwgNSArKysrLQo+PiDCoCAx
+IGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Cj4+IGRpZmYg
+LS1naXQgYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTEuZHRzaSAKPj4gYi9hcmNo
+L2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTEuZHRzaQo+PiBpbmRleCA1MjY4YTQzMjE4NDEu
+LjYyMTAxMDg0Y2FiOCAxMDA2NDQKPj4gLS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0z
+Mm1wMjUxLmR0c2kKPj4gKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjUxLmR0
+c2kKPj4gQEAgLTEwNiwxNyArMTA2LDIwIEBAIHNvY0AwIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+IHJhbmdlcyA9IDwweDAgMHgwIDB4MCAweDgwMDAwMDAwPjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+IHJpZnNjOiByaWZzYy1idXNANDIwODAwMDAgewo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBj
+b21wYXRpYmxlID0gInNpbXBsZS1idXMiOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb21w
+YXRpYmxlID0gInN0LHN0bTMybXAyNS1yaWZzYyI7Cj4gCj4gWW91IGNvdWxkIGtlZXAgInNpbXBs
+ZS1idXMiIGNvbXBhdGlibGUgKGluIHNlY29uZCBwb3NpdGlvbikuIEluIGNhc2Ugb2YgCj4gdGhl
+IFJJRlNDIGlzIG5vdCBwcm9iZWQsIHRoZSBwbGF0Zm9ybSB3aWxsIGJlIGFibGUgdG8gYm9vdC4g
+SWYgeW91IGFncmVlIAo+IHlvdSBjYW4gdXNlIHRoZSBzYW1lIGZvciBFVFpQQy4KPiAKPiBDaGVl
+cnMKPiBBbGV4CgpTdXJlLCBnb29kIHBvaW50LgoKSSdsbCBjaGFuZ2UgdGhhdCBpbiBWMgoKQmVz
+dCByZWdhcmRzLApHYXRpZW4KPiAKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVnID0g
+PDB4NDIwODAwMDAgMHgxMDAwPjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgI2FkZHJl
+c3MtY2VsbHMgPSA8MT47Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICNzaXplLWNlbGxz
+ID0gPDE+Owo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByYW5nZXM7Cj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGZlYXR1cmUtZG9tYWluLWNvbnRyb2xsZXI7Cj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgICNmZWF0dXJlLWRvbWFpbi1jZWxscyA9IDwxPjsKPj4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgdXNhcnQyOiBzZXJpYWxANDAwZTAwMDAgewo+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzJoNy11YXJ0IjsKPj4g
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8MHg0MDBlMDAwMCAweDQw
+MD47Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaW50ZXJydXB0cyA9IDxH
+SUNfU1BJIDExNSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjbG9ja3MgPSA8JmNrX2ZsZXhnZW5fMDg+Owo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGZlYXR1cmUtZG9tYWlucyA9IDwmcmlmc2MgMzI+Owo+PiDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0YXR1cyA9ICJkaXNhYmxlZCI7Cj4+IMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB9Owo+IApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
