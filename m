@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39B5374DE9C
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 21:53:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C09B374DF04
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 22:17:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA13BC6B457;
-	Mon, 10 Jul 2023 19:53:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68A6BC6B457;
+	Mon, 10 Jul 2023 20:17:32 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7891EC6A61D
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61884C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 19:53:02 +0000 (UTC)
+ Mon, 10 Jul 2023 20:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1689018781;
+ s=mimecast20190719; t=1689020250;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding;
- bh=Gy/vSNQrD1I/JzE/a01WIAugyPEbnbITAis3wuB31bs=;
- b=HvX1sBf5kEJGxH1Sa/AQ+hp9u/uXZLYBvCqSoKu8jeYbXTwUGW1UQOSg5+2w8EN00pz40n
- YOF4BIRqvvf6Vpn3GIhfaCJx8WbevXf2nW2R70puL206UUtUZ68zeDHRZCzkeAaaGhNIJF
- icjHNqwDqY2pC81FYm1LkpgK0M89REE=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=MatPkdlfWwwrlUu3EVslUzYwQyXM940i5KEhzgEgAcU=;
+ b=RD+hDi9cpwOmhPSzV/tdg0/baATuWNefhMompjAqVSuZ4QytETaisOeHxZt0owdZC7ys+u
+ 7px/Q50prhgEOFo6e2Gi5o3D+hMswORxkyC09mG20TG6WHDu6wKOfoHj1Hgu9GSzm2jKX4
+ UtxYzTrE38izrpgcaKfY4tJu8FXOKsg=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-602-1m_DffbNOxqZODz14wzIrg-1; Mon, 10 Jul 2023 15:53:00 -0400
-X-MC-Unique: 1m_DffbNOxqZODz14wzIrg-1
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-395fd55e523so3679124b6e.2
+ us-mta-443-mLDqGQpVNkqkhD86fGzvwQ-1; Mon, 10 Jul 2023 16:17:29 -0400
+X-MC-Unique: mLDqGQpVNkqkhD86fGzvwQ-1
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-57704af0e64so56990297b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 12:53:00 -0700 (PDT)
+ Mon, 10 Jul 2023 13:17:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689018779; x=1691610779;
+ d=1e100.net; s=20221208; t=1689020249; x=1691612249;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Gy/vSNQrD1I/JzE/a01WIAugyPEbnbITAis3wuB31bs=;
- b=lBEeABmnvm567TwncEbLVo4OjS/Nw8fOcOYndeZSS8B0m/p/PspE1QQCGomDs8eHPw
- sevlJpzJt0MjeveW/2prQn48ABlIUtAh8Zo4GOdYPzCoQ5EvUoFCkAzgLu5rJJJj0KeH
- 3bCzW78CsUPi3EtvgCDBN0FHxZL/d5bSdcuO7VuHIGpkjLHpY13QW1yNb6LHaDdZ4lxD
- bNmnkoevoWbHmyE7udqR7iubIhXTYyfPlLpdQ7CuCQdyFrB9uQOMe/J/Sw64yowU0HRg
- Dsezv62miqsIwbB+G9nmm4xn7zwgvUWCSSkiPJOg3hYB8/5cWGp0AbxuxGWwgswytfbJ
- hAgw==
-X-Gm-Message-State: ABy/qLajXHZ6k2QL/s8YCSTP7LU0rrq7FZus6wdtZ0QpHKNUB9yxHRZY
- fIGcjBrl1T6HpZUrTuD0C7/cJ6zx+kj6O8IWI0X1dLdkIWCn5AIrR92cq7xDvrsCFeM3tTdGqtt
- 8ESJESyf7itjAKdxSKYhTwmeGJnqovbZo3tvP9Kp2
-X-Received: by 2002:a54:449a:0:b0:3a1:dd1e:a726 with SMTP id
- v26-20020a54449a000000b003a1dd1ea726mr9887203oiv.44.1689018779412; 
- Mon, 10 Jul 2023 12:52:59 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlGfk5sAu+Gz4ewFF0ZgHQ4JXru7kUigoww2rD7ehqaN1ZIbUUPXVTG7Kygn3sRVlp5C3Ukyjg==
-X-Received: by 2002:a54:449a:0:b0:3a1:dd1e:a726 with SMTP id
- v26-20020a54449a000000b003a1dd1ea726mr9887189oiv.44.1689018779163; 
- Mon, 10 Jul 2023 12:52:59 -0700 (PDT)
+ bh=MatPkdlfWwwrlUu3EVslUzYwQyXM940i5KEhzgEgAcU=;
+ b=F2X3sU+94gVccfdJ5fUN4Quq4DffqgQ23yeSqupC1iDMaRgVgP7aJ+Sc0HL0E7eK94
+ eG6Bp1uj7xj1Fwjg2jvePCHBGFyW9YjoIvkttTCRJkf8lz7CTvVtUB4rczegDyk0KuAQ
+ rq6hKrDk+AjlqHsKtBndhj5LfOTJkjlD8FK+zOz5+E/vHo/wT2TE2B3eF/c9b2IIm1ua
+ 5DlEKnYmE+EZ2bhpN2Jz7f/xJiA4kTpJmng58a9yIXk7/IlDIkA98IrNLFiBxIRwP7Ok
+ +qL+frDDiEWSiLPodlypShwQzDpjmBLQ3LIZOb3sB7riW2Mau3/+2vH3FtXRBg4HFbFi
+ lJ9w==
+X-Gm-Message-State: ABy/qLZ5LGaoRD9dahZg7mO5Zc5vqDi8U4l7fVyU8affMo5iVcKvdS+I
+ 6FcRjuP9gp0POZuSKK0/cDpUhL4Ca34CeexPFUHJtmY4ENqxAqqC8iW9YcYiv1Qkur+0LvzRmIR
+ B8lpknslUZC63aCDHpUsAGu9PeDv0YK0HFEXw+J7r
+X-Received: by 2002:a81:4995:0:b0:569:e7cb:cd4e with SMTP id
+ w143-20020a814995000000b00569e7cbcd4emr12772038ywa.48.1689020248800; 
+ Mon, 10 Jul 2023 13:17:28 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlHyRJxkGXCriSJqC1waS5qykotJRzMqF5zfNpiybzK4XMv35z9jl2wuOjlnU4LLJpYREhCLgA==
+X-Received: by 2002:a81:4995:0:b0:569:e7cb:cd4e with SMTP id
+ w143-20020a814995000000b00569e7cbcd4emr12772020ywa.48.1689020248527; 
+ Mon, 10 Jul 2023 13:17:28 -0700 (PDT)
 Received: from halaney-x13s.attlocal.net ([2600:1700:1ff0:d0e0::22])
  by smtp.gmail.com with ESMTPSA id
- r23-20020a544897000000b003a3d273aef8sm274972oic.6.2023.07.10.12.52.58
+ j12-20020a81920c000000b0056d2a19ad91sm155097ywg.103.2023.07.10.13.17.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jul 2023 12:52:58 -0700 (PDT)
+ Mon, 10 Jul 2023 13:17:28 -0700 (PDT)
 From: Andrew Halaney <ahalaney@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 10 Jul 2023 14:50:57 -0500
-Message-ID: <20230710195240.197047-1-ahalaney@redhat.com>
+Date: Mon, 10 Jul 2023 15:06:36 -0500
+Message-ID: <20230710201636.200412-1-ahalaney@redhat.com>
 X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, andersson@kernel.org, davem@davemloft.net,
+Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, andrew@lunn.ch,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org, davem@davemloft.net,
  edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, kuba@kernel.org, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next] MAINTAINERS: Add another mailing
-	list for QUALCOMM ETHQOS ETHERNET DRIVER
+ peppe.cavallaro@st.com, simon.horman@corigine.com, kuba@kernel.org,
+ pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v2 0/3] net: stmmac:
+	dwmac-qcom-ethqos: Improve error handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,27 +89,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-linux-arm-msm is the list most people subscribe to in order to receive
-updates about Qualcomm related drivers. Make sure changes for the
-Qualcomm ethernet driver make it there.
+This series includes some very minor quality of life patches in the
+error handling.
 
-Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+I recently ran into a few issues where these patches would have made my
+life easier (messing with the devicetree, dependent driver of this
+failing, and incorrect kernel configs resulting in this driver not
+probing).
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 4f115c355a41..e344af30e7e8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17541,6 +17541,7 @@ QUALCOMM ETHQOS ETHERNET DRIVER
- M:	Vinod Koul <vkoul@kernel.org>
- R:	Bhupesh Sharma <bhupesh.sharma@linaro.org>
- L:	netdev@vger.kernel.org
-+L:	linux-arm-msm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/qcom,ethqos.yaml
- F:	drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+v1: https://lore.kernel.org/netdev/20230629191725.1434142-1-ahalaney@redhat.com/
+Changes since v1:
+    * Collect tags (Andrew Lunn)
+    * Switch to of_get_phy_mode() (Andrew Lunn)
+    * Follow netdev patch submission process (net-next subject, wait
+      until merge window is open) (Simon)
+
+Andrew Halaney (3):
+  net: stmmac: dwmac-qcom-ethqos: Use of_get_phy_mode() over
+    device_get_phy_mode()
+  net: stmmac: dwmac-qcom-ethqos: Use dev_err_probe()
+  net: stmmac: dwmac-qcom-ethqos: Log more errors in probe
+
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 28 +++++++++++--------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
+
 -- 
 2.41.0
 
