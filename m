@@ -2,78 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2D074C872
-	for <lists+linux-stm32@lfdr.de>; Sun,  9 Jul 2023 23:48:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB2674CA72
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 05:24:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 216BFC6B44B;
-	Sun,  9 Jul 2023 21:48:26 +0000 (UTC)
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48CEBC6B44C;
+	Mon, 10 Jul 2023 03:24:48 +0000 (UTC)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2108.outbound.protection.outlook.com [40.107.117.108])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE32FC6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B246C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  9 Jul 2023 21:48:24 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2b6f97c7115so56324151fa.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 09 Jul 2023 14:48:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688939304; x=1691531304;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SBr3pmqtFJ0mBgHUUMTs1QAvH5gPXD+Zu0MIiua0TDc=;
- b=Ykfs96UVx4AdWvx6+BrUwdWVZYn6+reTEGJZ3oNUurA7amzeluWpisy57oj5knduxO
- vxABXSzx2F7nPyz2TBllcF28zaP+dHm8MZX84W+yKla+sXJu/Dvsh7xipikGaLEfrN9c
- gRbY33gzooKHvPLrhhmBE4pQFSUobt2sti0veOFn2dW/U2vFxj7e/4mJ1thspD45L/Jw
- Vn8EiNpRIo6VfaQofZkukbmdqE28zJkIbovycBdrqG7LtoeuAmD5MywvG8+BFaQISFxl
- cd2X8ocvKze6lGy4gQ2SFoDGtTmuwQqEqgo2p1ytju0fS7TKg1GcBS+c5Sb3gWXolZWj
- e0MA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688939304; x=1691531304;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SBr3pmqtFJ0mBgHUUMTs1QAvH5gPXD+Zu0MIiua0TDc=;
- b=cj+eYxVL33Y6yhfR5YaGNqe5qfyW8i0OuVRPmuXg64KjIKA7hD2qFkV8VrTjnfsbJf
- htsmlrFKmW/GxO1I4RFL+lXFkco/ODsn7FeqonHb4kZycKwIR66DBDRi39EgZPB859gw
- upr8+Me52j4qdVT8PiaCTOFy+CslyHQxVi4o7aT50wmLDfl+tEMmxIjNlcFpLuviZxul
- c2ttycrL+jwCu2fELFogmaiFhzXe6H17r0vPoHKv0uabMeiT2KwTWM1HaTL5MpzsG89z
- sU2/CAOX8jbOKoZXTl/Y3OA8PbuzTH1DYA4yFp4jlBt4zM4esc7IdhEb5L2Okgwqkmwi
- Q4WA==
-X-Gm-Message-State: ABy/qLbzcrDKuHISlM/HtmrNx1Vf2xPkwYe7z7SxvDsdtdCKzrEhcifX
- MDH3ik5F3BZW4G3ql8y9Tf+MyA==
-X-Google-Smtp-Source: APBJJlHrDVuZizdmq9QzcXLhbnLwg1wobW1fIyufqm+mVm/Wj/b5W0ljPEVY0LZWy49YNatg0Uu83g==
-X-Received: by 2002:a05:6512:3707:b0:4fb:8df5:8919 with SMTP id
- z7-20020a056512370700b004fb8df58919mr7378890lfr.23.1688939303958; 
- Sun, 09 Jul 2023 14:48:23 -0700 (PDT)
-Received: from [127.0.1.1] ([85.235.12.238]) by smtp.gmail.com with ESMTPSA id
- x23-20020ac25dd7000000b004faf6a87d63sm1454243lfq.38.2023.07.09.14.48.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Jul 2023 14:48:23 -0700 (PDT)
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Sun, 09 Jul 2023 23:48:19 +0200
+ Mon, 10 Jul 2023 03:24:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IZCMSCM9hPdVA7kXan12Uug2YkOvFe30WR5N+1k6OT8e5fl6B52B/ZA7pQRnPMGKWfc2Bnk7VKkJhFHBK//dlP7S+3FQh52wE/udL18oOQI8QI292hVZGWq57RL1cKRXtVdMyR/spx33+U5xJvw533ji24tEvpq6CfECcwPoLqeIODrk0S0jnkgVQnaFfcy1zq747NU3Iq//NkiNGWXkHW4MM+/EDT5jYeO13NbKUtm/Og976ugI7sSw8m3iJbPmdZ3aDB5ItbjGFSDbwDmbK+OQfhGx6O8T3o+SRU/IcJ4M2Wb1RAsMo6S7yS7oZnfpHkC0l1XdvcW0BTlhj/lj0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CFadkbB4ld6jq7/H4vKooei5J05bO+Y6n4oq8yBFxxs=;
+ b=EarKwtMvsZFu3VoU8fPEnrcDQyCyr+sY9+/n+T6GVjpTi2rPprNvFDs+PPFP0jABefwz0hA04bUWj2pTVzl0PiEjUaEwkvpm9/iGXtoyDwiqk6JLj/Aiftf2EBlApQJ4A7F7aMAC7Y/9chl49hNREejTFOXElivImlDOl7e69BWUvTSFI0VFhtrNdZpYjf0zFwwsYpMprloiXlwqjbXZpnjUJp0oXb6NzUuQRl1XRoHNw9G0mrCYj/c8yfXKIYbDaVCyIIQbGgr7VOd295T2xJBHJJs5iCVoRS75D2Q3Tx5GjmbEcuawzAiNIgiQvUzvqo7X8sBxp6hb5cKwnhYFjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CFadkbB4ld6jq7/H4vKooei5J05bO+Y6n4oq8yBFxxs=;
+ b=kmk2XvaTze56PrGDdR+t9SDmBNoygcTUwWPeojZuw6pAbjy06aacUXtnpmuo6fPmTZtSATRl/Z064TD4mGcgEjRT/sQ5ROnAFOM91/waie7JFDvAZ9uWO8FldxxuaeFDvioyHe50c1cqgZ0oHYMtdGWYFQURA4R/z8i+f9UD8JFW8Ao6VvBuvB88On5deT+X+LzRzuiFKztGFuV4Y9KZin3HpnDEiblsz5IT6nqJhQSG4+lhPYT0mOO4BlOfip49dgAkGeFPdVbz2v9P6TuLTeVj/Ck4SCmTvr+6sRZeWvK39eOIlfmvwW8rT6IrcRso874Mud+mzcKz2Ykqlua3Jg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
+ by SEYPR06MB5376.apcprd06.prod.outlook.com (2603:1096:101:8f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.29; Mon, 10 Jul
+ 2023 03:24:42 +0000
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::fa0e:6c06:7474:285c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::fa0e:6c06:7474:285c%5]) with mapi id 15.20.6565.028; Mon, 10 Jul 2023
+ 03:24:42 +0000
+From: Yangtao Li <frank.li@vivo.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 10 Jul 2023 11:23:50 +0800
+Message-Id: <20230710032355.72914-14-frank.li@vivo.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230710032355.72914-1-frank.li@vivo.com>
+References: <20230710032355.72914-1-frank.li@vivo.com>
+X-ClientProxiedBy: SGXP274CA0020.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b8::32)
+ To SEZPR06MB5269.apcprd06.prod.outlook.com
+ (2603:1096:101:78::6)
 MIME-Version: 1.0
-Message-Id: <20230709-stmpe-dt-bindings-v5-1-34a3d6ee1e57@linaro.org>
-X-B4-Tracking: v=1; b=H4sIACIrq2QC/4XOzwrCMAwG8FeRnq1sbffPk+8hHrIm3QLaSTuGM
- vbudjsIIujxS/h+ySwiBaYojrtZBJo48uBTKPY7YXvwHUnGlIXKlM6MKmUcb3eSOMqWPbLvorT
- aVA1ilYOqReq1EEm2Abzt1+a78ITbdd3fAzl+bDfPl5R7juMQntsLk1qnv65NSmZSubqA3DlnE
- U5X9hCGwxA6sXKT/kvoRBDYHCtdkqnrL8L8JUwidOkQC41NkzcfxLIsL8v5GSdZAQAA
-To: Bartosz Golaszewski <brgl@bgdev.pl>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>, 
- Philippe Schenker <philippe.schenker@toradex.com>, 
- Stefan Agner <stefan@agner.ch>, Marek Vasut <marex@denx.de>, 
- Steffen Trumtrar <s.trumtrar@pengutronix.de>
-X-Mailer: b4 0.12.3
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5] dt-bindings: MFD: Convert STMPE to YAML
-	schema
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|SEYPR06MB5376:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6e5b004-8093-4b2c-1d25-08db80f5336e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HoaeEKf9Tl5pFIgJJoZMbUxOUIdJ73rQzoOFaUWAORvKmaLqjSCuPfXhOI5W/FRHi2xIPJQBKSbUP0/oLIGAXRXoF3/uOcej2OcJbRIm9nLKyPP2FG9pe2sx/KrxzaQ9z6hGDJisxXSa7rfBXDjDfagkVaCgztZQMDaI+MWOP7NUZgsiD2NOT7IEy0/PiOFCjqD7Fh2PA9ITl67BoKAtTquujkBO7s9gRe8YwHyA6HQnKVVJ0Wv/aLZCvhonTaXekwTEZJcBjeHgQ54ziJoM4o/Y3xGSXmVF0nk06Ve6n+qd+2R99w2wNw/tDHMWLtVTWXRM78ukQ3u8uwepyx2hgulZYzxxS0gJRPbttgs++hJ8hZUGswIXWYXi3193H6zokAQuZbov6yB/W1eCSupSeNBrAnu6UJUrpc7L9smoA2yaBrWpb6+Sa7AP+m80EKtX/k+ypAvG34Y+5OTbZ5+Dlz4L0FVZYEQtCP+jrMUv+ywsqYNlkXFF0047Bi9Jo2oBvgtuzbjcwdGk2sk8x16BJ5yaXK/IrVzrSUAwLPCP7YcbsTx7g1DC8A82i3iHZDg/DdhsH+g2HoLLQmRi2+67F5LpJRXzeJyby5f39XxZjeXU7tiwGzJerpx06Pn+SqIE
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(396003)(346002)(39860400002)(376002)(366004)(136003)(451199021)(6506007)(1076003)(5660300002)(26005)(478600001)(6512007)(4744005)(2906002)(110136005)(186003)(83380400001)(2616005)(7416002)(41300700001)(86362001)(316002)(38100700002)(8676002)(38350700002)(8936002)(52116002)(6666004)(36756003)(66946007)(66476007)(4326008)(6486002)(66556008);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RmhMSGhxYmJqbE9wY3hMVGF4SG5NWVhqazlITjRzUUN2Ri9sSDJBSWNYZXRh?=
+ =?utf-8?B?a0JpYXg0RDJmVFFqTTlPVHFaRlRKaG1adThESXllYUQ0ZGNZTTVhY0ZtdVJB?=
+ =?utf-8?B?KzRmSjRNQkx3WGNORDgxTVRlNkdWS2JkaFd1VW1iNTgzbFRnNWRITlllU2dP?=
+ =?utf-8?B?bERmbk1oK1R6U0dMSWQxbUNRWmlhWWE0enFJMTV3NWRnSzhQQ3pyd2pCTWg2?=
+ =?utf-8?B?VE44TTNwMG1UL0V4eUdRbmlxZm9URnZkNUs5Vmc5a0dobTdpOVdqRWx0ZEp5?=
+ =?utf-8?B?UkxEVkJOb2dwV2E0bTE1azlzNGZScTY2dXhwNTYzcURrSWpjQXM0TkMxV2pL?=
+ =?utf-8?B?RWVuMjJ0ZXZodEhuV0JHejdUT2hwNUgyZGpVclpFRVkzWFNJajhNTW14SllU?=
+ =?utf-8?B?RFJkQk9BZmlGenpzVzZydzFRaXVlK2JlSDNvWklkM1UrOHpMSjlHeUtRVElH?=
+ =?utf-8?B?NTJQeFhPNlEybWpmM2djdEZFenFvazAwb09LV2N2YzJURWNNMjk0NER6K0VH?=
+ =?utf-8?B?TFFKNFdDNDJHZFZtWWRLQndFOWFEZHBMb2FtVytLaG1VWGowbWpWS2x5Umhr?=
+ =?utf-8?B?KzY1WG1qUHoreER2cjd3SDEvUXJwVm9GL2FHVlpMdkdrWUlGS3F1RnN4bGlx?=
+ =?utf-8?B?d0hqbG53Q29LcmlrYjlxbDM3SjUrVXBXSm1CSHQyNEZhWEZ4aExiOWloNFJO?=
+ =?utf-8?B?Q3hUaVBsaGt0VnBROVUyR0R5VkkrQ1BEclRtZlV0V0wySHV5dnZqMjQzM3B2?=
+ =?utf-8?B?Ti8rSVQwYmJ0TTR0NnFRVGRhQ0J0ckNPcE44R1Z4dkN6akpSNW5GTkpPUjA4?=
+ =?utf-8?B?WUlvQ1dwQlBDNEV4SDBlN00zdU5aWThMK1lGRzg4V1Y5aEdsV2kxaVk1V3Nh?=
+ =?utf-8?B?S3BMMUNETUFPUHhhME9lUWZZZmxGK1JvMkN6N3RJM2ZZaDFraC9vc0RZVGFm?=
+ =?utf-8?B?dkp2SjZQRjVuTll1NE0xdWhsc3dhNVNrd0hLYlNiQ05DVXFSeHd4akRLcGVu?=
+ =?utf-8?B?bHA4UjU5TjZCeVNOZWZMajZLaXk2M1hES05NY3dGeStuZk9aaHVtWXJNOHF6?=
+ =?utf-8?B?YWV6aG8vQld4RkYvUkZBRityQkcrMTBiOWl0R1NPb2JkWDZzV0NBa0p0b1Nj?=
+ =?utf-8?B?SkxhYXhzM0J2NFhtdjVyd2pESGpXWSthWjNMM1V2Z0ZsbHNvbWErL2daUDJj?=
+ =?utf-8?B?L25QVGE4WWNKQWNuUHFXb0J4d0pmZmJOK3FwMUNYNEFvdXdwNVRXckQ0Z3pn?=
+ =?utf-8?B?ZmJONkU1MW5OQk1FNVg3RSs3RlhKRU5WNjFyaEgzazRTVTB4TW91Q2NHVHVI?=
+ =?utf-8?B?eDJYNDExcXB1Q0RhRFE1UkZMbTVHV09FdE5qOXcxa25aaDFtREhkb2x2ckNp?=
+ =?utf-8?B?SnhVRU5ldWVPUGxDTDZFWWx5YlQ1dDNpSXc4K2dzVWdOS1BpbUJTVmcwMDRD?=
+ =?utf-8?B?MFZJL3BYS2N5QzAxdy9Bam56R1RQTFVZWmpmN0Q0bWYvek5ITDJjcjBkOXgw?=
+ =?utf-8?B?NWRkSEV5Y0VJb3lHZDJIUWRTcm40TEpkWDBEekd2YzRaa0RTajVrT3hNQWpL?=
+ =?utf-8?B?MS9CeGxSUWZQblZkTkZrQmpTV2NzZTNWRWNJWVljU1h3bjEyVTExTXRpcmln?=
+ =?utf-8?B?ak1XdDhpOE11cnJvdU9Tck1jdkdZQXZGL0JEWDZtZnV5RkdCcVFWVTB5RTB5?=
+ =?utf-8?B?Sjl2QnpwYzVFQnRURUNkN05xVU8vWkNpajJyZzEwYUZSNXhKcWtJWGNtRkNN?=
+ =?utf-8?B?cjIxZGlQUzZvRXBEUkMwUWxNQkpUdG1nK002c1ZSRUc2U2FvcnpoT1dWYmlZ?=
+ =?utf-8?B?eHl6VFIwd0hOaW1JY3dFNGd0L3lEUitQbkRHWndPYVBSdFlKaHpOMytZYVBv?=
+ =?utf-8?B?a3FlUWl6OUI2cHZ3d1poZi9DRGxaSzFqYThoY0cxNDIwcEFqK2haY25iUjha?=
+ =?utf-8?B?MFVBeGpMK01qV0xEZ1FrOVBFVEVoWFJmUEFHbWZDUmx5QllQL0E2Ky9qWHdL?=
+ =?utf-8?B?cDIvQkxDL1IvZDBNbEUzb3doeERVZEVFVi9ac1hhczd3THJLT2pDZmpkRFdo?=
+ =?utf-8?B?Q2puemhVR1BxSnhGYjJMZHJYNWxXWThDVzh1cGN2KzBnditKUHBUcElXdkVO?=
+ =?utf-8?Q?0kk9PJlUmUEjVLq29rCjj41O4?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6e5b004-8093-4b2c-1d25-08db80f5336e
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 03:24:42.3384 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XSybH6/Mm7VDh7yy9avKfTjb7KtGW8a3hZP+hYSULFK3ZcHBbaDlsCX9c9BaTMkINBBCwTRULJf0gpJEUpdswA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB5376
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ Yangtao Li <frank.li@vivo.com>
+Subject: [Linux-stm32] [PATCH v2 14/19] drm/stm: ltdc: Convert to
+	devm_platform_ioremap_resource()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,603 +129,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This converts the STMPE MFD device tree bindings to the YAML
-schema.
-
-Reference the existing schema for the ADC, just define the
-other subnode schemas directly in the MFD schema.
-
-Add two examples so we have examples covering both the simple
-GPIO expander and the more complex with ADC and touchscreen.
-
-Some in-tree users do not follow the naming conventions for nodes
-so these DTS files need to be augmented to use proper node names
-like "adc", "pwm", "gpio", "keyboard-controller" etc before the
-bindings take effect on them.
-
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
----
-This adds the missing GPIO bindings for the STMPE port expander
-and converts the existing MFD binding to YAML.
-
-I suppose Lee can merge this when he's happy with it.
----
-Changes in v5:
-- Rebase on v6.5-rc1 meaning GPIO binding is merged
-  upstream and can be dropped.
-- Link to v4: https://lore.kernel.org/r/20230426-stmpe-dt-bindings-v4-0-36fdd53d9919@linaro.org
-
-Changes in v4:
-- Make the GPIO bindings a conversion: there were some old
-  text bindings for the STMPE GPIO, we now delete them as
-  part of the patch.
-- I expect Lee or the DT binding tree to pick both patches.
-- Link to v3: https://lore.kernel.org/r/20230426-stmpe-dt-bindings-v3-0-eac1d736e488@linaro.org
-
-Changes in v3:
-- Update to review feedback
-- Collected some ack/review tags
-- Link to v2: https://lore.kernel.org/r/20230426-stmpe-dt-bindings-v2-0-2f85a1fffcda@linaro.org
-
-Changes in v2:
-- Split off a separate GPIO binding
-- Updated the MFD binding according to feedback
----
-ChangeLog v4->v5:
-- Rebase on v6.5-rc1
-ChangeLog v3->v4:
-- No changes.
-ChangeLog v2->v3:
-- Drop the required pwm properties already required by the
-  template pwm schema.
-- Add the number of PWM cells as const.
-ChangeLog v1->v2:
-- Split off the GPIO bindings to their own schema, as the old
-  bindings didn't even have any GPIO bindings. Put the GPIO
-  schema before this schema so we can use GPIO in the examples.
-- Drop nodename and pattern as STMPE is not a generic name.
-- Add maxItems to the resets.
-- Make wakeup-source just :true, as it is a generic property.
-- Move unevaluatedProperties for subnodes right before properties
-  as requested.
-- Name devices "port-expander" in the examples.
-- Use lowercase hex in line init.
----
- .../devicetree/bindings/input/stmpe-keypad.txt     |  41 ---
- .../bindings/input/touchscreen/stmpe.txt           | 108 --------
- .../devicetree/bindings/mfd/st,stmpe.yaml          | 297 +++++++++++++++++++++
- Documentation/devicetree/bindings/mfd/stmpe.txt    |  42 ---
- 4 files changed, 297 insertions(+), 191 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/input/stmpe-keypad.txt b/Documentation/devicetree/bindings/input/stmpe-keypad.txt
-deleted file mode 100644
-index 12bb771d66d4..000000000000
---- a/Documentation/devicetree/bindings/input/stmpe-keypad.txt
-+++ /dev/null
-@@ -1,41 +0,0 @@
--* STMPE Keypad
--
--Required properties:
-- - compatible               : "st,stmpe-keypad"
-- - linux,keymap             : See ./matrix-keymap.txt
--
--Optional properties:
-- - debounce-interval        : Debouncing interval time in milliseconds
-- - st,scan-count            : Scanning cycles elapsed before key data is updated
-- - st,no-autorepeat         : If specified device will not autorepeat
-- - keypad,num-rows          : See ./matrix-keymap.txt
-- - keypad,num-columns       : See ./matrix-keymap.txt
--
--Example:
--
--	stmpe_keypad {
--		compatible = "st,stmpe-keypad";
--
--		debounce-interval = <64>;
--		st,scan-count = <8>;
--		st,no-autorepeat;
--
--		linux,keymap = <0x205006b
--				0x4010074
--				0x3050072
--				0x1030004
--				0x502006a
--				0x500000a
--				0x5008b
--				0x706001c
--				0x405000b
--				0x6070003
--				0x3040067
--				0x303006c
--				0x60400e7
--				0x602009e
--				0x4020073
--				0x5050002
--				0x4030069
--				0x3020008>;
--	};
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/stmpe.txt b/Documentation/devicetree/bindings/input/touchscreen/stmpe.txt
-deleted file mode 100644
-index 238b51555c04..000000000000
---- a/Documentation/devicetree/bindings/input/touchscreen/stmpe.txt
-+++ /dev/null
-@@ -1,108 +0,0 @@
--STMPE Touchscreen
------------------
--
--Required properties:
-- - compatible: "st,stmpe-ts"
--
--Optional properties:
--- st,ave-ctrl		: Sample average control
--				0 -> 1 sample
--				1 -> 2 samples
--				2 -> 4 samples
--				3 -> 8 samples
--- st,touch-det-delay	: Touch detect interrupt delay (recommended is 3)
--				0 -> 10 us
--				1 -> 50 us
--				2 -> 100 us
--				3 -> 500 us
--				4 -> 1 ms
--				5 -> 5 ms
--				6 -> 10 ms
--				7 -> 50 ms
--- st,settling		: Panel driver settling time (recommended is 2)
--				0 -> 10 us
--				1 -> 100 us
--				2 -> 500 us
--				3 -> 1 ms
--				4 -> 5 ms
--				5 -> 10 ms
--				6 -> 50 ms
--				7 -> 100 ms
--- st,fraction-z		: Length of the fractional part in z (recommended is 7)
--			  (fraction-z ([0..7]) = Count of the fractional part)
--- st,i-drive		: current limit value of the touchscreen drivers
--				0 -> 20 mA (typical 35mA max)
--				1 -> 50 mA (typical 80 mA max)
--
--Optional properties common with MFD (deprecated):
-- - st,sample-time	: ADC conversion time in number of clock.
--				0 -> 36 clocks
--				1 -> 44 clocks
--				2 -> 56 clocks
--				3 -> 64 clocks
--				4 -> 80 clocks (recommended)
--				5 -> 96 clocks
--				6 -> 124 clocks
-- - st,mod-12b		: ADC Bit mode
--				0 -> 10bit ADC
--				1 -> 12bit ADC
-- - st,ref-sel		: ADC reference source
--				0 -> internal
--				1 -> external
-- - st,adc-freq		: ADC Clock speed
--				0 -> 1.625 MHz
--				1 -> 3.25 MHz
--				2 || 3 -> 6.5 MHz
--
--Node should be child node of stmpe node to which it belongs.
--
--Note that common ADC settings of stmpe_touchscreen (child) will take precedence
--over the settings done in MFD.
--
--Example:
--
--stmpe811@41 {
--	compatible = "st,stmpe811";
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_touch_int>;
--	#address-cells = <1>;
--	#size-cells = <0>;
--	reg = <0x41>;
--	interrupts = <10 IRQ_TYPE_LEVEL_LOW>;
--	interrupt-parent = <&gpio4>;
--	interrupt-controller;
--	id = <0>;
--	blocks = <0x5>;
--	irq-trigger = <0x1>;
--	/* Common ADC settings */
--	/* 3.25 MHz ADC clock speed */
--	st,adc-freq = <1>;
--	/* 12-bit ADC */
--	st,mod-12b = <1>;
--	/* internal ADC reference */
--	st,ref-sel = <0>;
--	/* ADC converstion time: 80 clocks */
--	st,sample-time = <4>;
--
--	stmpe_touchscreen {
--		compatible = "st,stmpe-ts";
--		reg = <0>;
--		/* 8 sample average control */
--		st,ave-ctrl = <3>;
--		/* 5 ms touch detect interrupt delay */
--		st,touch-det-delay = <5>;
--		/* 1 ms panel driver settling time */
--		st,settling = <3>;
--		/* 7 length fractional part in z */
--		st,fraction-z = <7>;
--		/*
--		 * 50 mA typical 80 mA max touchscreen drivers
--		 * current limit value
--		 */
--		st,i-drive = <1>;
--	};
--	stmpe_adc {
--		compatible = "st,stmpe-adc";
--		st,norequest-mask = <0x0F>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/mfd/st,stmpe.yaml b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-new file mode 100644
-index 000000000000..b77cc3f3075d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/st,stmpe.yaml
-@@ -0,0 +1,297 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/st,stmpe.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectonics Port Expander (STMPE)
-+
-+description: STMicroelectronics Port Expander (STMPE) is a series of slow
-+  bus controllers for various expanded peripherals such as GPIO, keypad,
-+  touchscreen, ADC, PWM or rotator. It can contain one or several different
-+  peripherals connected to SPI or I2C.
-+
-+maintainers:
-+  - Linus Walleij <linus.walleij@linaro.org>
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stmpe601
-+      - st,stmpe801
-+      - st,stmpe811
-+      - st,stmpe1600
-+      - st,stmpe1601
-+      - st,stmpe2401
-+      - st,stmpe2403
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vcc-supply: true
-+
-+  vio-supply: true
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  wakeup-source: true
-+
-+  st,autosleep-timeout:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 4, 16, 32, 64, 128, 256, 512, 1024 ]
-+    description: Time idle before going to automatic sleep to save power
-+
-+  st,sample-time:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1, 2, 3, 4, 5, 6 ]
-+    description: |
-+      Sample time per iteration
-+      0 = 36 clock ticks
-+      1 = 44 clock ticks
-+      2 = 56 clock ticks
-+      3 = 64 clock ticks
-+      4 = 80 clock ticks - recommended
-+      5 = 96 clock ticks
-+      6 = 124 clock ticks
-+
-+  st,mod-12b:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1 ]
-+    description: ADC bit mode 0 = 10bit ADC, 1 = 12bit ADC
-+
-+  st,ref-sel:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1 ]
-+    description: ADC reference source 0 = internal, 1 = external
-+
-+  st,adc-freq:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [ 0, 1, 2, 3 ]
-+    description: |
-+      ADC clock speed
-+      0 = 1.625 MHz
-+      1 = 3.25 MHz
-+      2, 3 = 6.5 MHz
-+
-+  adc:
-+    type: object
-+    $ref: /schemas/iio/adc/st,stmpe-adc.yaml#
-+
-+  gpio:
-+    type: object
-+    $ref: /schemas/gpio/st,stmpe-gpio.yaml#
-+
-+  keyboard-controller:
-+    type: object
-+    $ref: /schemas/input/matrix-keymap.yaml#
-+
-+    unevaluatedProperties: false
-+
-+    properties:
-+      compatible:
-+        const: st,stmpe-keypad
-+
-+      debounce-interval:
-+        description: Debouncing interval in milliseconds
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      st,no-autorepeat:
-+        description: If present, the keys will not autorepeat when pressed
-+        $ref: /schemas/types.yaml#/definitions/flag
-+
-+      st,scan-count:
-+        description: Scanning cycles elapsed before key data is updated
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+    required:
-+      - compatible
-+      - linux,keymap
-+
-+  pwm:
-+    type: object
-+    $ref: /schemas/pwm/pwm.yaml#
-+
-+    unevaluatedProperties: false
-+
-+    properties:
-+      compatible:
-+        const: st,stmpe-pwm
-+
-+      "#pwm-cells":
-+        const: 2
-+
-+  touchscreen:
-+    type: object
-+    $ref: /schemas/input/touchscreen/touchscreen.yaml#
-+
-+    unevaluatedProperties: false
-+
-+    properties:
-+      compatible:
-+        const: st,stmpe-ts
-+
-+      st,ave-ctrl:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [ 0, 1, 2, 3 ]
-+        description: |
-+          Sample average control
-+          0 = 1 sample
-+          1 = 2 samples
-+          2 = 4 samples
-+          3 = 8 samples
-+
-+      st,touch-det-delay:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-+        description: |
-+          Touch detection delay
-+          0 = 10 us
-+          1 = 50 us
-+          2 = 100 us
-+          3 = 500 us - recommended
-+          4 = 1 ms
-+          5 = 5 ms
-+          6 = 10 ms
-+          7 = 50 ms
-+
-+      st,settling:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-+        description: |
-+          Panel driver settling time
-+          0 = 10 us
-+          1 = 100 us
-+          2 = 500 us - recommended
-+          3 = 1 ms
-+          4 = 5 ms
-+          5 = 10 ms
-+          6 = 50 ms
-+          7 = 100 ms
-+
-+      st,fraction-z:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-+        description: Length of the fractional part in z, recommended is 7
-+          (fraction-z ([0..7]) = Count of the fractional part)
-+
-+      st,i-drive:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        enum: [ 0, 1 ]
-+        description: |
-+          current limit value of the touchscreen drivers
-+          0 = 20 mA (typical 35 mA max)
-+          1 = 50 mA (typical 80 mA max)
-+
-+    required:
-+      - compatible
-+
-+additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/input/input.h>
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      port-expander@43 {
-+        compatible = "st,stmpe2401";
-+        reg = <0x43>;
-+        reset-gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
-+        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
-+        interrupt-parent = <&gpio>;
-+        vcc-supply = <&db8500_vsmps2_reg>;
-+        vio-supply = <&db8500_vsmps2_reg>;
-+        wakeup-source;
-+        st,autosleep-timeout = <1024>;
-+
-+        gpio {
-+          compatible = "st,stmpe-gpio";
-+          gpio-controller;
-+          #gpio-cells = <2>;
-+          interrupt-controller;
-+          #interrupt-cells = <2>;
-+          st,norequest-mask = <0xf0f002>;
-+        };
-+
-+        keyboard-controller {
-+          compatible = "st,stmpe-keypad";
-+          debounce-interval = <64>;
-+          st,scan-count = <8>;
-+          st,no-autorepeat;
-+          keypad,num-rows = <8>;
-+          keypad,num-columns = <8>;
-+          linux,keymap = <
-+              MATRIX_KEY(0x00, 0x00, KEY_1)
-+              MATRIX_KEY(0x00, 0x01, KEY_2)
-+              MATRIX_KEY(0x00, 0x02, KEY_3)
-+              MATRIX_KEY(0x00, 0x03, KEY_4)
-+              MATRIX_KEY(0x00, 0x04, KEY_5)
-+              MATRIX_KEY(0x00, 0x05, KEY_6)
-+              MATRIX_KEY(0x00, 0x06, KEY_7)
-+              MATRIX_KEY(0x00, 0x07, KEY_8)
-+              MATRIX_KEY(0x00, 0x08, KEY_9)
-+              MATRIX_KEY(0x00, 0x09, KEY_0)
-+          >;
-+        };
-+
-+        pwm {
-+          compatible = "st,stmpe-pwm";
-+          #pwm-cells = <2>;
-+        };
-+      };
-+
-+      port-expander@41 {
-+        compatible = "st,stmpe811";
-+        reg = <0x41>;
-+        interrupts = <10 IRQ_TYPE_LEVEL_LOW>;
-+        interrupt-parent = <&gpio>;
-+        st,adc-freq = <1>;
-+        st,mod-12b = <1>;
-+        st,ref-sel = <0>;
-+        st,sample-time = <4>;
-+
-+        adc {
-+          compatible = "st,stmpe-adc";
-+          st,norequest-mask = <0x0f>;
-+          #io-channel-cells = <1>;
-+        };
-+
-+        gpio {
-+          compatible = "st,stmpe-gpio";
-+          gpio-controller;
-+          #gpio-cells = <2>;
-+          interrupt-controller;
-+          #interrupt-cells = <2>;
-+        };
-+
-+        pwm {
-+          compatible = "st,stmpe-pwm";
-+          #pwm-cells = <2>;
-+        };
-+
-+        touchscreen {
-+          compatible = "st,stmpe-ts";
-+          st,ave-ctrl = <3>;
-+          st,touch-det-delay = <5>;
-+          st,settling = <3>;
-+          st,fraction-z = <7>;
-+          st,i-drive = <1>;
-+        };
-+      };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/mfd/stmpe.txt b/Documentation/devicetree/bindings/mfd/stmpe.txt
-deleted file mode 100644
-index d4408a417193..000000000000
---- a/Documentation/devicetree/bindings/mfd/stmpe.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--* ST Microelectronics STMPE Multi-Functional Device
--
--STMPE is an MFD device which may expose the following inbuilt devices: gpio,
--keypad, touchscreen, adc, pwm, rotator.
--
--Required properties:
-- - compatible			: "st,stmpe[610|801|811|1600|1601|2401|2403]"
-- - reg				: I2C/SPI address of the device
--
--Optional properties:
-- - interrupts			: The interrupt outputs from the controller
-- - interrupt-controller		: Marks the device node as an interrupt controller
-- - wakeup-source		: Marks the input device as wakable
-- - st,autosleep-timeout		: Valid entries (ms); 4, 16, 32, 64, 128, 256, 512 and 1024
-- - irq-gpio			: If present, which GPIO to use for event IRQ
--
--Optional properties for devices with touch and ADC (STMPE811|STMPE610):
-- - st,sample-time		: ADC conversion time in number of clock.
--					0 -> 36 clocks		4 -> 80 clocks (recommended)
--					1 -> 44 clocks		5 -> 96 clocks
--					2 -> 56 clocks		6 -> 124 clocks
--					3 -> 64 clocks
-- - st,mod-12b			: ADC Bit mode
--					0 -> 10bit ADC		1 -> 12bit ADC
-- - st,ref-sel			: ADC reference source
--					0 -> internal		1 -> external
-- - st,adc-freq			: ADC Clock speed
--					0 -> 1.625 MHz		2 || 3 -> 6.5 MHz
--					1 -> 3.25 MHz
--
--Example:
--
--	stmpe1601: stmpe1601@40 {
--		compatible = "st,stmpe1601";
--		reg = <0x40>;
--		interrupts = <26 0x4>;
--		interrupt-parent = <&gpio6>;
--		interrupt-controller;
--
--		wakeup-source;
--		st,autosleep-timeout = <1024>;
--	};
-
----
-base-commit: 06c2afb862f9da8dc5efa4b6076a0e48c3fbaaa5
-change-id: 20230426-stmpe-dt-bindings-c3479dd71a28
-
-Best regards,
--- 
-Linus Walleij <linus.walleij@linaro.org>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VXNlIGRldm1fcGxhdGZvcm1faW9yZW1hcF9yZXNvdXJjZSgpIHRvIHNpbXBsaWZ5IGNvZGUuCgpT
+aWduZWQtb2ZmLWJ5OiBZYW5ndGFvIExpIDxmcmFuay5saUB2aXZvLmNvbT4KQWNrZWQtYnk6IFJh
+cGhhw6tsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIHwgNCArLS0tCiAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwppbmRleCBiOGJlNGMxZGI0
+MjMuLjczNGRjYTRkN2RkOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMKQEAgLTE5MjUsNyArMTkyNSw2IEBAIGlu
+dCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCiAJc3RydWN0IGRybV9wYW5lbCAq
+cGFuZWw7CiAJc3RydWN0IGRybV9jcnRjICpjcnRjOwogCXN0cnVjdCByZXNldF9jb250cm9sICpy
+c3RjOwotCXN0cnVjdCByZXNvdXJjZSAqcmVzOwogCWludCBpcnEsIGksIG5iX2VuZHBvaW50czsK
+IAlpbnQgcmV0ID0gLUVOT0RFVjsKIApAQCAtMTk5Miw4ICsxOTkxLDcgQEAgaW50IGx0ZGNfbG9h
+ZChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldikKIAkJcmVzZXRfY29udHJvbF9kZWFzc2VydChyc3Rj
+KTsKIAl9CiAKLQlyZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwgSU9SRVNPVVJDRV9N
+RU0sIDApOwotCWxkZXYtPnJlZ3MgPSBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoZGV2LCByZXMpOwor
+CWxkZXYtPnJlZ3MgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UocGRldiwgMCk7CiAJ
+aWYgKElTX0VSUihsZGV2LT5yZWdzKSkgewogCQlEUk1fRVJST1IoIlVuYWJsZSB0byBnZXQgbHRk
+YyByZWdpc3RlcnNcbiIpOwogCQlyZXQgPSBQVFJfRVJSKGxkZXYtPnJlZ3MpOwotLSAKMi4zOS4w
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
+dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
+aW51eC1zdG0zMgo=
