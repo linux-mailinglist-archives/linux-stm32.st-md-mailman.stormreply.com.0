@@ -2,72 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B43D768DA2
+	by mail.lfdr.de (Postfix) with ESMTPS id 84EE2768DA3
 	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AE55C6C842;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D133C6C84D;
 	Mon, 31 Jul 2023 07:16:23 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85C95C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6889C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 10:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688984883; x=1720520883;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8VTp2VvPftW0K82t/UQGFNBKatn1Y+wh44m0tYwuY/M=;
- b=Nf0I1IIMR1HFHKszExi5nQov1OzQXaSb4oakD2wxGnU02fx5cG0fJbrR
- xFlOynpUlFpci+vVXjYunebIXX4ratlccKe0QKBsvttCbQ5C9mjZk3H9O
- bPMjFQ61d/+sDeX6jot2leXnxyxEfhJ6b3wUnAbpnt21scmkodFhkCiUj
- kjr6QO7C5l4yO7s7YPTruxtQ34kqucx4UVb4xHDrGLFUpXnLXmjmPWv3Y
- VlTiKNp9mV49UWacHdFzovZEpUUT1Wc8LcCNcTWx4PSXGBe1V1Q/IzDUR
- IwsgmbRLV2A4r76caRtfRaEYQozRCTbhtZvBB1VNJG7hgn5PPSvm2MCU+ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="367803794"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="367803794"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 03:28:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="755956019"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="755956019"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga001.jf.intel.com with ESMTP; 10 Jul 2023 03:27:55 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 6D8A169F; Mon, 10 Jul 2023 13:27:53 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>, Yang Yingliang <yangyingliang@huawei.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- Kris Bahnsen <kris@embeddedTS.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org
-Date: Mon, 10 Jul 2023 13:27:51 +0300
-Message-Id: <20230710102751.83314-9-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
-In-Reply-To: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
-References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+ Mon, 10 Jul 2023 15:06:22 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36AEYah4014972; Mon, 10 Jul 2023 17:05:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=2cjSDo7sl+IkM/MEjjre6A5rcyDXhS8UL70yC06tCfg=;
+ b=PA+nBCN3uV/aEfrFFIw6+S3vdJq0aZ88Tp//L4eLyjhnyV/zZmo5zvaZdVoY0uCLITIR
+ aNLSeXdt3PTYuWVqCRURmSq6mSMI3ONve7eY2TJmaiQQggjIQk5wll9Lc/84cO8/EVcM
+ IRhPCS1X3UI1UqmgA03w4x4j0dZoA12WIiyhGGG2kSW8QpXj8ajQPc/Fvk/lu5msjc/g
+ OzBwqdaB1j3ESVzEt6fW9X4SJp9UDpkyWnvfoyO1TpXrvILG4zBh7jgFmjQ+c9Bv4yq3
+ i2b797C4dbUa9SKBNrlsMxYda61XR+CK0lwTNgW3WatiZmAS2XfETrYnl5r2eoTUasQn UA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rrkvb071m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Jul 2023 17:05:26 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7619010005A;
+ Mon, 10 Jul 2023 17:05:25 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6DBE126028E;
+ Mon, 10 Jul 2023 17:05:25 +0200 (CEST)
+Received: from localhost (10.201.20.20) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Mon, 10 Jul
+ 2023 17:05:25 +0200
+From: Etienne Carriere <etienne.carriere@foss.st.com>
+To: <linux-kernel@vger.kernel.org>
+Date: Mon, 10 Jul 2023 17:05:15 +0200
+Message-ID: <20230710150515.2127124-1-etienne.carriere@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-Originating-IP: [10.201.20.20]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-10_11,2023-07-06_02,2023-05-22_02
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Kevin Hilman <khilman@baylibre.com>, Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v1 8/8] spi: Use struct_size() helper
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: leverage OP-TEE ASync notif
+	on STM32MP13x Soc family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,66 +76,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Prefer struct_size() over open-coded versions.
+Enables use of GIC PPI#15 for OP-TEE asynchronous notifications
+on stm32mp13 platforms.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Etienne Carriere <etienne.carriere@foss.st.com>
 ---
- include/linux/spi/spi.h | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index e9fb96016dc1..d4d686af76bd 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -17,6 +17,7 @@
- #include <linux/minmax.h>
- #include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
-+#include <linux/overflow.h>
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
- #include <linux/smp.h>
-@@ -1100,6 +1101,8 @@ struct spi_transfer {
-  * @state: for use by whichever driver currently owns the message
-  * @resources: for resource management when the SPI message is processed
-  * @prepared: spi_prepare_message was called for the this message
-+ * @t: for use with spi_message_alloc() when memory has message and transfers
-+ *	together
-  *
-  * A @spi_message is used to execute an atomic sequence of data transfers,
-  * each represented by a struct spi_transfer.  The sequence is "atomic"
-@@ -1154,6 +1157,9 @@ struct spi_message {
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index d163c267e34c..02f872b99f1d 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -33,6 +33,8 @@ firmware {
+ 		optee {
+ 			method = "smc";
+ 			compatible = "linaro,optee-tz";
++			interrupt-parent = <&intc>;
++			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
+ 		};
  
- 	/* List of spi_res resources when the SPI message is processed */
- 	struct list_head        resources;
-+
-+	/* For embedding transfers into the memory of the message */
-+	struct spi_transfer	t[];
- };
- 
- static inline void spi_message_init_no_memset(struct spi_message *m)
-@@ -1214,16 +1220,13 @@ static inline struct spi_message *spi_message_alloc(unsigned ntrans, gfp_t flags
- {
- 	struct spi_message *m;
- 
--	m = kzalloc(sizeof(struct spi_message)
--			+ ntrans * sizeof(struct spi_transfer),
--			flags);
-+	m = kzalloc(struct_size(m, t, ntrans), flags);
- 	if (m) {
- 		unsigned i;
--		struct spi_transfer *t = (struct spi_transfer *)(m + 1);
- 
- 		spi_message_init_no_memset(m);
--		for (i = 0; i < ntrans; i++, t++)
--			spi_message_add_tail(t, m);
-+		for (i = 0; i < ntrans; i++)
-+			spi_message_add_tail(&m->t[i], m);
- 	}
- 	return m;
- }
+ 		scmi: scmi {
 -- 
-2.40.0.1.gaa8946217a0b
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
