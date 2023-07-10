@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CECD674DA44
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 17:49:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C6274DA4E
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 17:49:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 912E9C6B45D;
-	Mon, 10 Jul 2023 15:49:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3B54C6B466;
+	Mon, 10 Jul 2023 15:49:56 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51131C6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2A39C6B459
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 15:49:49 +0000 (UTC)
+ Mon, 10 Jul 2023 15:49:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689004189; x=1720540189;
+ t=1689004195; x=1720540195;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eCA4jmpHdK4tCQy+WYVaMHkZ61alyGNaPi2evxW0e9A=;
- b=AnLn0a3aGR0xmiL4YnwCjx245jz1nFYKQNmgVmL59HdENmzWZ02i/tt5
- 4ZZj8jbp5423vDL+2v7MyDwPGH3qd0O/j86/cX6W4nkGOzmcff9Ex6qsb
- xISCMX2JsbMHfGET08sk8ocl/zqVkQ4W9tn/JG4D8IL6amYVsG8g7rzV4
- rnTsLRV79bjtjYPaKLFOZR1DQF67/zBPbF1U6R4VVVzddLXvPFLyFHq7P
- KDNg8exTL7QYObzUktagJmUVbBTKxe+r2QWFoIXn8r7JXPvC+VgYnW+gO
- c2ovBVOvzxr9zNTck9/TzazVoPavEjX+KuQIQClVHC8REW2we8aZG2wXs Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="361842500"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="361842500"
+ bh=iFM79YydR4MNlFIdl2NOHjMiuF+oxhq3YQtKaR8hU0E=;
+ b=n8OVZNNGEW2oTrhvxzPqDkePVBj0Q4qjU2s7U+6z75p3771TlDUwTUvI
+ UOYNfzMEb7yXN9Taa3FTq7pXbgNiG24wVa1GMw0BEWqI4tQEQetVssGU8
+ bO1zYHzZc9DqgqCVIz8pfjMLN9Ga6Qh5Ef5tdlClndmIeA7JCGr6ErXfj
+ Em3Yg6irjELogHouEgwvQkkSS/2UwntEH1ASWncNWvM3F8NavT5hPzzF+
+ aCYS2+GoofH6dGUFD31C8fRo/UhhCTKfhdiXWlCywn+SzLrE46PqTlCcy
+ onYyMsuI95+BiMBc2MKxg14mGJzejbiD/Pi3peTNkjdeufFNlZ6MXOQwN g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="361842552"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="361842552"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 08:49:48 -0700
+ 10 Jul 2023 08:49:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720743959"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="720743959"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720743961"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="720743961"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 08:49:35 -0700
+ by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 08:49:37 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 9C17069F; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
+ id B9DAD718; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -53,8 +53,8 @@ To: Mark Brown <broonie@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Mon, 10 Jul 2023 18:49:25 +0300
-Message-Id: <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Jul 2023 18:49:27 +0300
+Message-Id: <20230710154932.68377-11-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
@@ -82,7 +82,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [Linux-stm32] [PATCH v2 08/15] spi: Clean up headers
+Subject: [Linux-stm32] [PATCH v2 10/15] spi: Use predefined constants from
+	bits.h and units.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,68 +100,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is a few things done:
-- include only the headers we are direct user of
-- when pointer is in use, provide a forward declaration
-- add missing headers
-- group generic headers and subsystem headers
-- sort each group alphabetically
+Instead of hard coded numbers, use predefined constancts,
+such as BITS_PER_BYTE.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- include/linux/spi/spi.h | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ include/linux/spi/spi.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index 2026eae97329..c9479badf38c 100644
+index 9fb8efb068c6..10265184ea02 100644
 --- a/include/linux/spi/spi.h
 +++ b/include/linux/spi/spi.h
-@@ -6,27 +6,41 @@
- #ifndef __LINUX_SPI_H
- #define __LINUX_SPI_H
- 
--#include <linux/acpi.h>
- #include <linux/bits.h>
- #include <linux/completion.h>
-+#include <linux/container_of.h>
- #include <linux/device.h>
--#include <linux/gpio/consumer.h>
-+#include <linux/export.h>
- #include <linux/kthread.h>
-+#include <linux/limits.h>
-+#include <linux/list.h>
-+#include <linux/minmax.h>
- #include <linux/mod_devicetable.h>
-+#include <linux/mutex.h>
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
-+#include <linux/smp.h>
-+#include <linux/spinlock_types.h>
-+#include <linux/string.h>
-+#include <linux/types.h>
+@@ -25,6 +25,7 @@
+ #include <linux/string.h>
+ #include <linux/types.h>
  #include <linux/u64_stats_sync.h>
++#include <linux/units.h>
  
-+#include <asm/byteorder.h>
-+
- #include <uapi/linux/spi/spi.h>
+ #include <asm/byteorder.h>
  
-+struct acpi_device;
- struct dma_chan;
--struct software_node;
-+struct gpio_desc;
- struct ptp_system_timestamp;
-+struct software_node;
-+
- struct spi_controller;
--struct spi_transfer;
- struct spi_controller_mem_ops;
- struct spi_controller_mem_caps;
-+struct spi_device_id;
- struct spi_message;
-+struct spi_transfer;
+@@ -1294,9 +1295,9 @@ static inline bool spi_is_bpw_supported(struct spi_device *spi, u32 bpw)
+ static inline unsigned int spi_controller_xfer_timeout(struct spi_controller *ctlr,
+ 						       struct spi_transfer *xfer)
+ {
+-	u32 speed_hz = xfer->speed_hz ?: 100000;
++	u32 speed_hz = xfer->speed_hz ?: 100 * HZ_PER_KHZ;
  
- /*
-  * INTERFACES between SPI master-side drivers and SPI slave protocol handlers,
+-	return max(xfer->len * 8 * 2 / (speed_hz / 1000), 500U);
++	return max(xfer->len * BITS_PER_BYTE * 2 / (speed_hz / MILLI), 500UL);
+ }
+ 
+ /*---------------------------------------------------------------------------*/
 -- 
 2.40.0.1.gaa8946217a0b
 
