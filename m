@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE3674DF07
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 22:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC17F74DF08
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 22:17:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 861E2C6B457;
-	Mon, 10 Jul 2023 20:17:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93B50C6B457;
+	Mon, 10 Jul 2023 20:17:46 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 189DBC6A61D
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2565EC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 20:17:41 +0000 (UTC)
+ Mon, 10 Jul 2023 20:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1689020260;
+ s=mimecast20190719; t=1689020264;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ZfBCs08BCyvb4rUBf/lFUidTAq5uH0UA99R+iDtQ+Ug=;
- b=Vte6DMJequp4VaHVSbynVId14j94TYH8zqSPUMuTVZ5MHtzjTgtVm1AJ4PkD1AhhAzfKKH
- STqMUNgKDuygO59j23fYJdvf0Uuf7iKOWEfh/8hZw3bJvc7nvAflwYAHg3T6+QYKsJgU7b
- YTHCqeqUzAwuWm2JAppvrpWv9RLQW4s=
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
- [209.85.160.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=6Lt3BtWczAjK1pGWk1bVfpBjHD7dTaFpkCieY8rxpSU=;
+ b=cNkbrjcJFsTKJ1KCk6HwIpM70gl9YYlTLxj7sGrSWh/ia3KXaMrv+MOM/rgKP4wNKfzRow
+ 6+4YlFD4d0gykE1c7/GwiTUQowrz09AA2pdQWtsFJv+3BOCNfGp00V9ZJdrkcZ1hcq736a
+ HXB2m+T8mwsE87RH8KZcTzqTFygIBZw=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-482-UuS3XuZgPFOO658H8Kaclg-1; Mon, 10 Jul 2023 16:17:39 -0400
-X-MC-Unique: UuS3XuZgPFOO658H8Kaclg-1
-Received: by mail-oa1-f72.google.com with SMTP id
- 586e51a60fabf-1b457db8244so2563618fac.2
+ us-mta-41-uyKMzWZNOB6STQafGbBl7Q-1; Mon, 10 Jul 2023 16:17:43 -0400
+X-MC-Unique: uyKMzWZNOB6STQafGbBl7Q-1
+Received: by mail-oa1-f69.google.com with SMTP id
+ 586e51a60fabf-1a6545aa0e0so4797822fac.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 13:17:39 -0700 (PDT)
+ Mon, 10 Jul 2023 13:17:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689020258; x=1691612258;
+ d=1e100.net; s=20221208; t=1689020262; x=1691612262;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ZfBCs08BCyvb4rUBf/lFUidTAq5uH0UA99R+iDtQ+Ug=;
- b=kV/fCJse1QcH6vshvEdlAVsjQ1erferOlCgm0xuB7k2PNz716t0UEsWg/baTni6Xk7
- Y8RbOl/2zu5Np90zH/DK9ihX/G3yQSXwuXfmCISCyo6Xs+SEhPwSi5Z3rQ6lInn8Trz4
- P//ODtgddhbqeOG2oFazib60Ppd8MSE+vnd683LING8qWI5NiYqrGaQIi/a0/bAEmgCx
- Hr02jkiAMd7DO0g29xY1Ic0cWTVmxbg3eCo3/K2FMauDRdBu7QVXTQ3OK3SPQrwXm1Ko
- XT/f02zDILWebHf1os6KmonmtrvQdA3Etkows33hRYKhHtyc15474U36m4p3qWB6f9wH
- caHw==
-X-Gm-Message-State: ABy/qLbH7bjIXZiyr5WvGJ7JCxyfTcX/ad/bA3/akNNaisTGPPWFa+XC
- rA02ZmUMUa1o8VWZktzV/4v/FnF5bwflohNXRwGcMxsEEb9xHUVyEuj9BuuPgXKVWZ6Jeqxn/f0
- m8NJq+/Yc0dVCrORkFdsJ6ZlXQ2C6BC2W/GD5kfZeunvo7Sr9
-X-Received: by 2002:a05:6870:440b:b0:19f:9353:d9b0 with SMTP id
- u11-20020a056870440b00b0019f9353d9b0mr13312416oah.24.1689020258009; 
- Mon, 10 Jul 2023 13:17:38 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlG/yzsbrle2mK4hDSP+ymIcBBFgugjNQj9A986L5d0AncrnW2gjIY3q9PjS07ExUBl/iRYYsw==
-X-Received: by 2002:a05:6870:440b:b0:19f:9353:d9b0 with SMTP id
- u11-20020a056870440b00b0019f9353d9b0mr13312403oah.24.1689020257748; 
- Mon, 10 Jul 2023 13:17:37 -0700 (PDT)
+ bh=6Lt3BtWczAjK1pGWk1bVfpBjHD7dTaFpkCieY8rxpSU=;
+ b=fd5dXS2kqbh8fRdcjIbaVk59WyrahF5ARZ+2jfRdFoGvIMjvBpitbj4O+3GUliV30c
+ CZ+bzMed8FWsBSNjnUyL7mPRRffZYxTyoC+Wa04Hj6ZShlr3TmclPbkKBFwxMJnVOJdi
+ bbxP3JXTdO6T6XqC4gQKqeRKyEiVBAeSnq1Xyp46BWZGrgmaGKcjgIuOAD7xa+ol2eNy
+ TZuczxoq0HtgaeZMOvENJ7OjrVOurnH+SbmuYX8ZEKt/QKx48CcC8UYuzQTfn8xr4zgx
+ +Y8xn/wYmO/XWYOET/jXe4/hpqayCe22g7rAJWANL1gKL6AkACD6ijWYwUjJ8T48gxpu
+ i8XQ==
+X-Gm-Message-State: ABy/qLb29ggTTJENevd1patub++bRhBXYS8ltsXD9V/G1V8XE8xpOeo7
+ vJJHAszRX8QESbNOz8zbdOFtHQCzNZAHELtSHcogtnTyOwaZrzwob09xPm1JqhDi/DKIOERwDLn
+ 1OgVjE+VBrok730LL11+FyxjvkoExX1cwhekYBgNU
+X-Received: by 2002:a05:6870:6112:b0:1b0:4899:10d with SMTP id
+ s18-20020a056870611200b001b04899010dmr13142248oae.35.1689020262506; 
+ Mon, 10 Jul 2023 13:17:42 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlH5cLj5bn3UpXHR1dUTlmhj+Qmb+K7OJTd7/WyAoeWXbjil07VpyzlZI5NQ0gyXvfavO3Rbyg==
+X-Received: by 2002:a05:6870:6112:b0:1b0:4899:10d with SMTP id
+ s18-20020a056870611200b001b04899010dmr13142235oae.35.1689020262255; 
+ Mon, 10 Jul 2023 13:17:42 -0700 (PDT)
 Received: from halaney-x13s.attlocal.net ([2600:1700:1ff0:d0e0::22])
  by smtp.gmail.com with ESMTPSA id
- j12-20020a81920c000000b0056d2a19ad91sm155097ywg.103.2023.07.10.13.17.36
+ j12-20020a81920c000000b0056d2a19ad91sm155097ywg.103.2023.07.10.13.17.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jul 2023 13:17:37 -0700 (PDT)
+ Mon, 10 Jul 2023 13:17:41 -0700 (PDT)
 From: Andrew Halaney <ahalaney@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Mon, 10 Jul 2023 15:06:38 -0500
-Message-ID: <20230710201636.200412-3-ahalaney@redhat.com>
+Date: Mon, 10 Jul 2023 15:06:39 -0500
+Message-ID: <20230710201636.200412-4-ahalaney@redhat.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230710201636.200412-1-ahalaney@redhat.com>
 References: <20230710201636.200412-1-ahalaney@redhat.com>
@@ -74,8 +74,8 @@ Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, andrew@lunn.ch,
  peppe.cavallaro@st.com, simon.horman@corigine.com, kuba@kernel.org,
  pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next v2 2/3] net: stmmac:
-	dwmac-qcom-ethqos: Use dev_err_probe()
+Subject: [Linux-stm32] [PATCH net-next v2 3/3] net: stmmac:
+	dwmac-qcom-ethqos: Log more errors in probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,34 +92,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Using dev_err_probe() logs to devices_deferred which is helpful
-when debugging.
+These are useful to see when debugging a probe failure.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
 ---
 
 Changes since v1:
-    * Collect tags (Andrew Lunn)
+    * No changes
 
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index ebafdadb28d5..1e103fd356b7 100644
+index 1e103fd356b7..757504ebb676 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -710,8 +710,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+@@ -706,7 +706,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+ 	if (ret)
+-		return ret;
++		return dev_err_probe(dev, ret,
++				     "Failed to get platform resources\n");
  
  	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
  	if (IS_ERR(plat_dat)) {
--		dev_err(dev, "dt configuration failed\n");
--		return PTR_ERR(plat_dat);
-+		return dev_err_probe(dev, PTR_ERR(plat_dat),
-+				     "dt configuration failed\n");
+@@ -734,13 +735,16 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		ethqos->configure_func = ethqos_configure_sgmii;
+ 		break;
+ 	default:
++		dev_err(dev, "Unsupported phy mode %s\n",
++			phy_modes(ethqos->phy_mode));
+ 		return -EINVAL;
  	}
  
- 	plat_dat->clks_config = ethqos_clks_config;
+ 	ethqos->pdev = pdev;
+ 	ethqos->rgmii_base = devm_platform_ioremap_resource_byname(pdev, "rgmii");
+ 	if (IS_ERR(ethqos->rgmii_base))
+-		return PTR_ERR(ethqos->rgmii_base);
++		return dev_err_probe(dev, PTR_ERR(ethqos->rgmii_base),
++				     "Failed to map rgmii resource\n");
+ 
+ 	ethqos->mac_base = stmmac_res.addr;
+ 
+@@ -752,7 +756,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
+ 	if (IS_ERR(ethqos->link_clk))
+-		return PTR_ERR(ethqos->link_clk);
++		return dev_err_probe(dev, PTR_ERR(ethqos->link_clk),
++				     "Failed to get link_clk\n");
+ 
+ 	ret = ethqos_clks_config(ethqos, true);
+ 	if (ret)
+@@ -764,7 +769,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 
+ 	ethqos->serdes_phy = devm_phy_optional_get(dev, "serdes");
+ 	if (IS_ERR(ethqos->serdes_phy))
+-		return PTR_ERR(ethqos->serdes_phy);
++		return dev_err_probe(dev, PTR_ERR(ethqos->serdes_phy),
++				     "Failed to get serdes phy\n");
+ 
+ 	ethqos->speed = SPEED_1000;
+ 	ethqos_update_link_clk(ethqos, SPEED_1000);
 -- 
 2.41.0
 
