@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DFE174D351
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 12:27:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B980C74D355
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 12:28:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EAECC6B45A;
-	Mon, 10 Jul 2023 10:27:59 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EE3BC6B464;
+	Mon, 10 Jul 2023 10:28:01 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C94AC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A26FC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 10:27:57 +0000 (UTC)
+ Mon, 10 Jul 2023 10:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688984877; x=1720520877;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=v/jR6yG2S/os1yevMEAtUPc5WvkJ6D/EUS+UHJf/Log=;
- b=EMcvRwnmtRinr4dlBgNqFmEQX+bSBACI+KXXR/1LvjU6GVmV3O4sloOH
- gxl12htrspn9iB9cKAoT84TQRXtcBToiqdJCQOSxJYCulpNo1ZKU3vsft
- MzOLJ/+Dwc3UZlRq8TdZN0VCo5YquF/FhV/HaRjO2I0MNNZoiJCUdC3sf
- 0+/gZv4wvwECSdUueIsN7V7zUQiXSXxwrYsSKHa3Zg3MOxkYOD22MB9tF
- 27KU6rzBAPkloHiNhAKJgyYTHiPjMRBxR+S0kqhWdt/eRnv+Ir4YB3hmq
- ncuLV7rSBBC9f6/6ASXyzmyDg567vdHo58Q025YEuDwcgAVFH3VWRBzPE w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="364345406"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="364345406"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 03:27:54 -0700
+ t=1688984879; x=1720520879;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=1YMEKoH26Jvs8dKIC6vdH9uSV/g2LDeyMP+ZqFMU56I=;
+ b=cwmhpXg8iT1jmpLU6Oqrut0AmQ6OQ8DrwLIBIJ4mULZkS+JHcnq7YwmA
+ 9fSYUtEpPvZDvGFKn4tboiFsx2TvyaDMYCHDMPMVv2qNamARtx9YlbZn0
+ G2ua7wWYJ3ows+r2vk8GaJ9sHvhQTCyOxf2J6StQpLoaxBoJqwp6Bf8MF
+ cxlS6Ws27giOrfHzgwJgD9syom/Ms0UXwBEW/6K4+6v8pjooSoZ4+rSkx
+ GEh8GjW6GuBUzgInsScbeebnNZrI1Zi2ms3CL1FAO8EvktDa1rBG8Lm+4
+ 2I2hzSSPxx5ZdqhH8KWq3s9nrzIi7UPXMSsDCxsTkc6B1TWc9oKVl4GQ8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="367803741"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="367803741"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 03:27:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="865297521"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="865297521"
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="755956011"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="755956011"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga001.fm.intel.com with ESMTP; 10 Jul 2023 03:27:48 -0700
+ by orsmga001.jf.intel.com with ESMTP; 10 Jul 2023 03:27:48 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id DD3A91FC; Mon, 10 Jul 2023 13:27:52 +0300 (EEST)
+ id EDFD31D9; Mon, 10 Jul 2023 13:27:52 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>, Yang Yingliang <yangyingliang@huawei.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -49,9 +49,11 @@ To: Mark Brown <broonie@kernel.org>, Yang Yingliang <yangyingliang@huawei.com>,
  linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org
-Date: Mon, 10 Jul 2023 13:27:43 +0300
-Message-Id: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Jul 2023 13:27:44 +0300
+Message-Id: <20230710102751.83314-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+In-Reply-To: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
+References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -64,8 +66,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Claudiu Beznea <claudiu.beznea@microchip.com>,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [Linux-stm32] [PATCH v1 0/8] spi: Header and core clean up and
-	refactoring
+Subject: [Linux-stm32] [PATCH v1 1/8] spi: Remove unneeded OF node NULL
+	checks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,43 +84,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Various cleanups and refactorings of the SPI header and core parts
-united in a single series.
+In the couple of places the NULL check of OF node is implied by the call
+that takes it as a parameter. Drop the respective duplicate checks.
 
-Patches 1 & 2, 5 & 6 & 8 are dependent inside each group.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/spi/spi.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-No functional change intended.
-
-Andy Shevchenko (8):
-  spi: Remove unneeded OF node NULL checks
-  spi: Drop duplicate IDR allocation code in spi_register_controller()
-  spi: Use sysfs_emit() to instead of s*printf()
-  spi: Get rid of old SPI_MASTER_NO_.X and SPI_MASTER_MUST_.X
-  spi: Sort headers alphabetically
-  spi: Clean up headers
-  spi: Fix spelling typos and acronyms capitalization
-  spi: Use struct_size() helper
-
- drivers/spi/spi-at91-usart.c    |   2 +-
- drivers/spi/spi-atmel.c         |   2 +-
- drivers/spi/spi-bitbang-txrx.h  |  16 +--
- drivers/spi/spi-bitbang.c       |   2 +-
- drivers/spi/spi-davinci.c       |   2 +-
- drivers/spi/spi-fsl-lpspi.c     |   2 +-
- drivers/spi/spi-gpio.c          |   8 +-
- drivers/spi/spi-lp8841-rtc.c    |   8 +-
- drivers/spi/spi-meson-spicc.c   |   2 +-
- drivers/spi/spi-mt65xx.c        |   2 +-
- drivers/spi/spi-pci1xxxx.c      |   2 +-
- drivers/spi/spi-pic32.c         |   2 +-
- drivers/spi/spi-rb4xx.c         |   2 +-
- drivers/spi/spi-slave-mt27xx.c  |   2 +-
- drivers/spi/spi-stm32.c         |   2 +-
- drivers/spi/spi-xtensa-xtfpga.c |   2 +-
- drivers/spi/spi.c               | 102 ++++++++---------
- include/linux/spi/spi.h         | 188 ++++++++++++++++++--------------
- 18 files changed, 183 insertions(+), 165 deletions(-)
-
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 9291b2a0e887..8f3282a71c63 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2399,9 +2399,6 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
+ 	struct spi_device *spi;
+ 	struct device_node *nc;
+ 
+-	if (!ctlr->dev.of_node)
+-		return;
+-
+ 	for_each_available_child_of_node(ctlr->dev.of_node, nc) {
+ 		if (of_node_test_and_set_flag(nc, OF_POPULATED))
+ 			continue;
+@@ -3134,7 +3131,7 @@ int spi_register_controller(struct spi_controller *ctlr)
+ 		if (WARN(id < 0, "couldn't get idr"))
+ 			return id == -ENOSPC ? -EBUSY : id;
+ 		ctlr->bus_num = id;
+-	} else if (ctlr->dev.of_node) {
++	} else {
+ 		/* Allocate dynamic bus number using Linux idr */
+ 		id = of_alias_get_id(ctlr->dev.of_node, "spi");
+ 		if (id >= 0) {
 -- 
 2.40.0.1.gaa8946217a0b
 
