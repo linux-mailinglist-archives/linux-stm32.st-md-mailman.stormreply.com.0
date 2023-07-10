@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41CD674DA37
+	by mail.lfdr.de (Postfix) with ESMTPS id 5939D74DA38
 	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 17:49:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCF8FC6B463;
-	Mon, 10 Jul 2023 15:49:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 052ECC6B457;
+	Mon, 10 Jul 2023 15:49:47 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B94C9C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B759DC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 15:49:44 +0000 (UTC)
+ Mon, 10 Jul 2023 15:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689004185; x=1720540185;
+ t=1689004186; x=1720540186;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wJa3Jmu6iVXPZMGevJvu2fkKY/Gm2mVbHm4RgDFco0c=;
- b=HXtXzOqjvIPZutZ+919dnHGZP5SdGxC66u5yP1/tTjz3+yP/nxU/o62d
- M/Xy+sM/ESq9Jquc3q18mgc7OLdagWZWgBwdnT/AVZskZV70Skx9wsSaB
- z48Eg8VDElRKpQSREdI7PzyH3C+DKgmDMygnjhJehjkMloHGNkoGRAS/5
- kYLrM/CkpPkboqC6qkOKZ89X9n/pri0WpuQjpM5zGN3/fvcGjRzmmXFdg
- Xxz7UVrFznEXF8UQd3tMS+Fdi7hG1f7dJeIb5fs49RcvG82Pbw0dw6MOI
- 0t3/Cy1VDVb3YiGnxcqS5SNjgaxldyti8c3IZUF7r3oZG0IK6l1OYCpc5 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="349185341"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="349185341"
+ bh=0v8XTkg22X4+SjZKJZYJseJJcu9T6jyLmPuYe7Mrmmg=;
+ b=QZam7m3PSZMzi8qOur8uz44+WuSV1Ye2Ok33FuV6B0NUgKABvOXLDSeb
+ deibbcVTr5wVEXsyZD4N4ftH4Ba52nW8f2MQtMlI/TucDm7s7IF9ZMFJm
+ oTb0wS6f4qjjh0g/YE8o9kCQ9vHm7/OXRFsO4i0Ct0lLMAU5v/nahU8FS
+ 2kyk4GqO8J2hMrusFVgTlMS9DIL2LGQnKfUFBzdTJFmaY+0t6rQ+MB93a
+ muUyKeFEXzmavWsSR9xEpzWLXmnuWaOXxbL268sLLmVXwftsnSRsWMVsu
+ FfY/ojY3Otv+covAncddYCHfsYyo0BQNgIJRInzb2YVzxLzlWIJTqGcW4 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="349185400"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="349185400"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 08:49:42 -0700
+ 10 Jul 2023 08:49:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="844921834"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="844921834"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="844921854"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="844921854"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 10 Jul 2023 08:49:31 -0700
+ by orsmga004.jf.intel.com with ESMTP; 10 Jul 2023 08:49:33 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 5A18C4BD; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
+ id 6932A5FC; Mon, 10 Jul 2023 18:49:34 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -53,8 +53,8 @@ To: Mark Brown <broonie@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Mon, 10 Jul 2023 18:49:21 +0300
-Message-Id: <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
+Date: Mon, 10 Jul 2023 18:49:22 +0300
+Message-Id: <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
@@ -82,8 +82,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [Linux-stm32] [PATCH v2 04/15] spi: Replace open coded
-	spi_controller_xfer_timeout()
+Subject: [Linux-stm32] [PATCH v2 05/15] spi: Remove code duplication in
+	spi_add_device_locked()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,82 +100,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Since the new spi_controller_xfer_timeout() helper appeared,
-we may replace open coded variant in spi_transfer_wait().
+Seems by unknown reason, probably some kind of mis-rebase,
+the commit 0c79378c0199 ("spi: add ancillary device support")
+adds a dozen of duplicating lines of code. Drop them.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi.c       | 25 ++-----------------------
- include/linux/spi/spi.h |  6 +++++-
- 2 files changed, 7 insertions(+), 24 deletions(-)
+ drivers/spi/spi.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
 diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 125dea8fae00..c99ee4164f11 100644
+index c99ee4164f11..46cbda383228 100644
 --- a/drivers/spi/spi.c
 +++ b/drivers/spi/spi.c
-@@ -1342,8 +1342,7 @@ static int spi_transfer_wait(struct spi_controller *ctlr,
+@@ -712,17 +712,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
+ static int spi_add_device_locked(struct spi_device *spi)
  {
- 	struct spi_statistics __percpu *statm = ctlr->pcpu_statistics;
- 	struct spi_statistics __percpu *stats = msg->spi->pcpu_statistics;
--	u32 speed_hz = xfer->speed_hz;
--	unsigned long long ms;
-+	unsigned long ms;
+ 	struct spi_controller *ctlr = spi->controller;
+-	struct device *dev = ctlr->dev.parent;
+-
+-	/* Chipselects are numbered 0..max; validate. */
+-	if (spi_get_chipselect(spi, 0) >= ctlr->num_chipselect) {
+-		dev_err(dev, "cs%d >= max %d\n", spi_get_chipselect(spi, 0),
+-			ctlr->num_chipselect);
+-		return -EINVAL;
+-	}
+-
+-	/* Set the bus ID string */
+-	spi_dev_set_name(spi);
  
- 	if (spi_controller_is_slave(ctlr)) {
- 		if (wait_for_completion_interruptible(&ctlr->xfer_completion)) {
-@@ -1351,29 +1350,9 @@ static int spi_transfer_wait(struct spi_controller *ctlr,
- 			return -EINTR;
- 		}
- 	} else {
--		if (!speed_hz)
--			speed_hz = 100000;
--
--		/*
--		 * For each byte we wait for 8 cycles of the SPI clock.
--		 * Since speed is defined in Hz and we want milliseconds,
--		 * use respective multiplier, but before the division,
--		 * otherwise we may get 0 for short transfers.
--		 */
--		ms = 8LL * MSEC_PER_SEC * xfer->len;
--		do_div(ms, speed_hz);
--
--		/*
--		 * Increase it twice and add 200 ms tolerance, use
--		 * predefined maximum in case of overflow.
--		 */
--		ms += ms + 200;
--		if (ms > UINT_MAX)
--			ms = UINT_MAX;
--
-+		ms = spi_controller_xfer_timeout(ctlr, xfer);
- 		ms = wait_for_completion_timeout(&ctlr->xfer_completion,
- 						 msecs_to_jiffies(ms));
--
- 		if (ms == 0) {
- 			SPI_STATISTICS_INCREMENT_FIELD(statm, timedout);
- 			SPI_STATISTICS_INCREMENT_FIELD(stats, timedout);
-diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-index 32c94eae8926..0ce1cb18a076 100644
---- a/include/linux/spi/spi.h
-+++ b/include/linux/spi/spi.h
-@@ -1270,12 +1270,16 @@ static inline bool spi_is_bpw_supported(struct spi_device *spi, u32 bpw)
-  * that it would take on a single data line and take twice this amount of time
-  * with a minimum of 500ms to avoid false positives on loaded systems.
-  *
-+ * Assume speed to be 100 kHz if it's not defined at the time of invocation.
-+ *
-  * Returns: Transfer timeout value in milliseconds.
-  */
- static inline unsigned int spi_controller_xfer_timeout(struct spi_controller *ctlr,
- 						       struct spi_transfer *xfer)
- {
--	return max(xfer->len * 8 * 2 / (xfer->speed_hz / 1000), 500U);
-+	u32 speed_hz = xfer->speed_hz ?: 100000;
-+
-+	return max(xfer->len * 8 * 2 / (speed_hz / 1000), 500U);
- }
- 
- /*---------------------------------------------------------------------------*/
+ 	WARN_ON(!mutex_is_locked(&ctlr->add_lock));
+ 	return __spi_add_device(spi);
 -- 
 2.40.0.1.gaa8946217a0b
 
