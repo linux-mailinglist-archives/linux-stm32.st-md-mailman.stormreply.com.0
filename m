@@ -2,43 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2D92768DA5
+	by mail.lfdr.de (Postfix) with ESMTPS id D1B01768DA6
 	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DA42C6C835;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D2F8C6C831;
 	Mon, 31 Jul 2023 07:16:23 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C353C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20DCEC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 16:01:20 +0000 (UTC)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
- helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1qItIz-0006h7-IH; Mon, 10 Jul 2023 18:00:05 +0200
-Received: from pengutronix.de (unknown [172.20.34.65])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id 0B1351ED16C;
- Mon, 10 Jul 2023 15:59:56 +0000 (UTC)
-Date: Mon, 10 Jul 2023 17:59:55 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <20230710-doze-scared-9f0a2e1a9125-mkl@pengutronix.de>
+ Mon, 10 Jul 2023 16:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689005556; x=1720541556;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0SlN/itezSp5S5zjCF2SMzf5gnBS89SJ4xDj94AkcQw=;
+ b=CZImDKmBl95NUbuNpb8aQr8xqtNVzGulDEpj/PRdbwDaubELeOj/YpKn
+ o8Mtf30XM1yaHnqmo8S7w4cb6595z9k3/A5W+j96//xtIMOURUELR2/V4
+ wJ/C4BZp6b3nAU79wbmMt8OzPHdry7+Kb+qDD+LrDNsaArU9JZUOvdkI6
+ yxCpJD4+MS/bkww0cPGLmI9pD2CjEUbqhwkpNF0SUZ9JirzUwziudXauQ
+ M7WBaNAEqz4Uk/X9++EY6Mu/0aHJBhF8kHqllasAvG5R4ZJHM5PSPGryz
+ VKtP7VhE31cWSXuSGmfHLRdChpxMHZvea9vZcbs5NLL5MD25gJEPNdlPQ A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="430464639"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="430464639"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 09:10:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="750388713"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="750388713"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga008.jf.intel.com with ESMTP; 10 Jul 2023 09:10:47 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1qItTH-001bF6-2N; Mon, 10 Jul 2023 19:10:43 +0300
+Date: Mon, 10 Jul 2023 19:10:43 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Message-ID: <ZKwtgwZtUUHGC+S3@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
  <20230710154932.68377-10-andriy.shevchenko@linux.intel.com>
+ <20230710-doze-scared-9f0a2e1a9125-mkl@pengutronix.de>
 MIME-Version: 1.0
-In-Reply-To: <20230710154932.68377-10-andriy.shevchenko@linux.intel.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Content-Disposition: inline
+In-Reply-To: <20230710-doze-scared-9f0a2e1a9125-mkl@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
 Cc: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
  Sascha Hauer <s.hauer@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>,
@@ -50,7 +60,7 @@ Cc: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
  Kevin Hilman <khilman@baylibre.com>, linux-rockchip@lists.infradead.org,
  Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
  NXP Linux Team <linux-imx@nxp.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
  Radu Pirea <radu_nicolae.pirea@upb.ro>, linux-trace-kernel@vger.kernel.org,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
@@ -85,96 +95,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7989985916327181418=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jul 10, 2023 at 05:59:55PM +0200, Marc Kleine-Budde wrote:
+> On 10.07.2023 18:49:26, Andy Shevchenko wrote:
 
---===============7989985916327181418==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fkfcsps3yw5kjzrk"
-Content-Disposition: inline
+...
 
+> > +	struct spi_transfer	t[];
+> 
+> You might want to use the DECLARE_FLEX_ARRAY helper here.
 
---fkfcsps3yw5kjzrk
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Technically, yes, semantically documentation [1] disagrees with
+you, so I leave it as is.
 
-On 10.07.2023 18:49:26, Andy Shevchenko wrote:
-> Prefer struct_size() over open-coded versions.
->=20
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  include/linux/spi/spi.h | 15 +++++++++------
->  1 file changed, 9 insertions(+), 6 deletions(-)
->=20
-> diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-> index c9479badf38c..9fb8efb068c6 100644
-> --- a/include/linux/spi/spi.h
-> +++ b/include/linux/spi/spi.h
-> @@ -17,6 +17,7 @@
->  #include <linux/minmax.h>
->  #include <linux/mod_devicetable.h>
->  #include <linux/mutex.h>
-> +#include <linux/overflow.h>
->  #include <linux/scatterlist.h>
->  #include <linux/slab.h>
->  #include <linux/smp.h>
-> @@ -1095,6 +1096,8 @@ struct spi_transfer {
->   * @state: for use by whichever driver currently owns the message
->   * @resources: for resource management when the spi message is processed
->   * @prepared: spi_prepare_message was called for the this message
-> + * @t: for use with spi_message_alloc() when message and transfers have
-> + *	been allocated together
->   *
->   * A @spi_message is used to execute an atomic sequence of data transfer=
-s,
->   * each represented by a struct spi_transfer.  The sequence is "atomic"
-> @@ -1147,6 +1150,9 @@ struct spi_message {
-> =20
->  	/* List of spi_res reources when the spi message is processed */
->  	struct list_head        resources;
-> +
-> +	/* For embedding transfers into the memory of the message */
-> +	struct spi_transfer	t[];
+[1]: Documentation/process/deprecated.rst:269
 
-You might want to use the DECLARE_FLEX_ARRAY helper here.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---fkfcsps3yw5kjzrk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmSsKvgACgkQvlAcSiqK
-BOgtxwf/Yz15ymm8GOJJtFmUerpE4jpOZcNfOw1mDTpDDgDH+8CXkQfj2uE13kRU
-xmZmpKSAMlsxxmOIGsv8VL18I9YKzWY9wk4vu5oovzx44NHON+6ivyODkaJdH2w9
-kOVb4XiHGF0bhFsC3TJ4HZSUlG3EbFNnc0nuj/IvF6VEoldwbjSR6R5ZR6+EX47u
-h77RsJnmXXbOKbOseq0nlPxZYkFSR03Hzey7BMzmHYQ93COdGDhQqI0kNbwrkD5F
-qpdpYHa26+CLsV+iBftiTk/C49nxRM0cvs4xqUDaZU1rzd2tlbhN28dsuGJ8zQL1
-T+7Bl7/j5IRqJUJiKB8YUQNVj2KrOg==
-=a9WN
------END PGP SIGNATURE-----
-
---fkfcsps3yw5kjzrk--
-
---===============7989985916327181418==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============7989985916327181418==--
