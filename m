@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2A1F74D44B
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 13:11:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D15574D467
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 13:19:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB6B4C6B457;
-	Mon, 10 Jul 2023 11:11:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41B73C6B457;
+	Mon, 10 Jul 2023 11:19:57 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33D5FC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DC51C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 11:11:06 +0000 (UTC)
+ Mon, 10 Jul 2023 11:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688987466; x=1720523466;
+ t=1688987995; x=1720523995;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=anBTsvynQ8qUvIELsfh79T1xhkkDcClo5RxqNLeYaSA=;
- b=WtDWQwUXgQQrd6UZHPvE/0qCk22kE5IRmIDLvb+F2pzna63q3oXWS8zn
- 0dcdCH8W5tHOt5ke4NadvnTITzvt4FwBXvhfyc+mkbF3x/AdV34+Abz6T
- xE8SAvTNytG6yXTcE7xUYrmQw/J65KsB1GrrNYr5tv6kt3FE/ttw1jOmh
- mSSDcabWF8kluP0YMTj2rWnn/aLhlGf298Lv4P0qZI4MVEjYVl1NfrhOy
- Rv28zNfVS8wDTzTqcYomBzG0iZJG4dAHxO+uWD/XNJQ7wO4HJngxWNWRP
- tGv8+s8r5s70BhAHChpT70uJ1EvVf2IoYSfxJXac5wDZy/OMtBaSqMpQ4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="343908960"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="343908960"
+ bh=h3akaffE4c4ikxI/bpe287xBwIcWxxQpigcUNq0Wefs=;
+ b=Fxe/LG2sA+n6eQrW/zkyPTAGtYbU1EebPcCtlQ75l3yXwj/WG5vyO6Pq
+ vNDbbE5qXr/2H8BFbdqiy1E4h+QYDxKuJlpUT4wjUjeO5rjhnoGnpMfv0
+ AtllPmJvUIXS0IluEGGigVRUPPcjrdI2HGzN9EYxaearmTPxCXArSHrxA
+ iSqzbpA3swFxyddzZZezlcm5XQf8HYclSjxbFRKOQ6JZ8hWhfbmP/04HN
+ VoDVp424sAPWS0buotG1YMalet2J4srwbUijWS3NJgodg+m2Z/35Vza+V
+ nWWwrP4lC4t/Ysd0jvT0lBizg32sdxHEUlxPsU6izJqDISdNxyMm2OXrV g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="343910844"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="343910844"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 04:11:03 -0700
+ 10 Jul 2023 04:19:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="720664309"
-X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="720664309"
+X-IronPort-AV: E=McAfee;i="6600,9927,10766"; a="720666509"
+X-IronPort-AV: E=Sophos;i="6.01,194,1684825200"; d="scan'208";a="720666509"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 04:10:56 -0700
+ by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 04:19:46 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1qIon7-001XKM-1M; Mon, 10 Jul 2023 14:10:53 +0300
-Date: Mon, 10 Jul 2023 14:10:53 +0300
+ id 1qIovf-001XRG-1b; Mon, 10 Jul 2023 14:19:43 +0300
+Date: Mon, 10 Jul 2023 14:19:43 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Message-ID: <ZKvnPXl9H+cQR8Ok@smile.fi.intel.com>
+Message-ID: <ZKvpT9M5B8QmyGo+@smile.fi.intel.com>
 References: <20230710102751.83314-1-andriy.shevchenko@linux.intel.com>
  <20230710102751.83314-5-andriy.shevchenko@linux.intel.com>
  <1ffd5603-4140-4bf6-bfed-af70a6759bda@sirena.org.uk>
  <ZKvmkAP5ZuT6lGLN@smile.fi.intel.com>
+ <bb3b9ef2-0a32-4f8a-8d92-06d47875b562@sirena.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZKvmkAP5ZuT6lGLN@smile.fi.intel.com>
+In-Reply-To: <bb3b9ef2-0a32-4f8a-8d92-06d47875b562@sirena.org.uk>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -86,22 +87,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jul 10, 2023 at 02:08:00PM +0300, Andy Shevchenko wrote:
-> On Mon, Jul 10, 2023 at 12:04:35PM +0100, Mark Brown wrote:
-> > On Mon, Jul 10, 2023 at 01:27:47PM +0300, Andy Shevchenko wrote:
-> > 
-> > > Convert the users to SPI_CONTROLLER_NO_?X and SPI_CONTROLLER_MUST_.X
-> > > and kill the not used anymore definitions.
-> > 
-> > The above is not what this change does:
+On Mon, Jul 10, 2023 at 12:10:03PM +0100, Mark Brown wrote:
+> On Mon, Jul 10, 2023 at 02:08:00PM +0300, Andy Shevchenko wrote:
+> > On Mon, Jul 10, 2023 at 12:04:35PM +0100, Mark Brown wrote:
+> > > On Mon, Jul 10, 2023 at 01:27:47PM +0300, Andy Shevchenko wrote:
+> > > 
+> > > > Convert the users to SPI_CONTROLLER_NO_?X and SPI_CONTROLLER_MUST_.X
+> > > > and kill the not used anymore definitions.
 > 
-> How to improve it? I was sure that the form of "converting to something and
-> something" is clear...
+> > > The above is not what this change does:
+> 
+> > How to improve it? I was sure that the form of "converting to something and
+> > something" is clear...
+> 
+> > > > -	controller->flags = SPI_MASTER_MUST_RX | SPI_MASTER_MUST_TX;
+> > > > +	controller->flags = SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX;
+> 
+> The change here is not the change that is described above.
 
-A wild guess, maybe you meant to split to two changes, one per each macro group?
-
-> > > -	controller->flags = SPI_MASTER_MUST_RX | SPI_MASTER_MUST_TX;
-> > > +	controller->flags = SPI_CONTROLLER_MUST_RX | SPI_CONTROLLER_MUST_TX;
+Okay, than you for elaboration and review. With the assumed split it should be
+addressed. Besides that, should I resend the entire series or only this one?
 
 -- 
 With Best Regards,
