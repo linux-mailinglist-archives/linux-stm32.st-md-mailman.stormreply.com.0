@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E43D74DBEE
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 19:09:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5F674DC11
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 19:16:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BBEAC6B457;
-	Mon, 10 Jul 2023 17:09:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C7D1C6B457;
+	Mon, 10 Jul 2023 17:16:38 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07F0EC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 312CFC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 17:09:17 +0000 (UTC)
+ Mon, 10 Jul 2023 17:16:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BC4FC61133;
- Mon, 10 Jul 2023 17:09:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822D8C433C9;
- Mon, 10 Jul 2023 17:09:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C4A4F61136;
+ Mon, 10 Jul 2023 17:16:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607EFC433C8;
+ Mon, 10 Jul 2023 17:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689008956;
- bh=nKZycr1bbDIhX+7r/umilV/wuLHcsLLg8WWLjNqfVGw=;
+ s=k20201202; t=1689009395;
+ bh=CgnlYd6F8QNT9n++b/k47msx5swkm6/AbNv02cH7FqM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ks7RL3h40J9Gsg6+T5tGMhXUPebOkMtv2HYbINZYkE0HBcDFe3InO0uHvSLO6Ywfd
- z9dbScYbXDyBfN0KKzvhwsevIOZI2Wa4nTPSPcqSdIk9dVy3t4CwrMIhESNVB8EcTq
- DHcqHiLwexT4fjkOSD7WRFfWxwr4oLox+CN38zoYAqwcwq7DLt0YYhvaSCGjOeZdC6
- /OMp7mPT/0W9iS9bRuPwjhjEgn3ZN4a3GPUVex+MO83a5hpzqpvTmLwha1tCaAJG7B
- IOQDzu3lMvKgzC08AKXIF8wSz30WvJ3WDseHtgBrUd0ZFYjZe2rdpVVbiRnkMjF1jV
- sbYhTW/HyF8mg==
-Date: Mon, 10 Jul 2023 18:09:00 +0100
+ b=nCNLRwD0ouHI8pJTPN00LKshCADBsrezjsyCWSHlUtPA86QMcTtmuANY2THapc+ya
+ rkH5tcQmXa5WkKmxP1SPoeLDBnKChb3smPLszGKE/fOJpIoKZHw2XHyVjIgwHTZ/1z
+ MufgsvMGmS7UeltSFfqOX5aakYX6Oi9D+fdx6r4xTwDjZDukvdOJHqT+HXAuPx0WPm
+ TWMpwYu5OvJq0RnyxMb5KHCGmQeKSlmlgHlItZHKy5JjIjq74cV332HHX8EX4US9YN
+ 7LvxZOQBp61R6AEZ7cokvT4lucM8T0YliBj7nuBwioqSX1VDucIF209VQysfZBVMCk
+ jUIpbFJ9ng45w==
+Date: Mon, 10 Jul 2023 18:16:22 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <97f3436a-78ca-4a94-a409-ef04bd3b593f@sirena.org.uk>
+Message-ID: <7557bada-3076-4d6e-a5c5-d368433706e2@sirena.org.uk>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-3-andriy.shevchenko@linux.intel.com>
+ <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20230710154932.68377-3-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
 X-Cookie: Do you have lysdexia?
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -76,8 +76,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 02/15] spi: Drop duplicate IDR
- allocation code in spi_register_controller()
+Subject: Re: [Linux-stm32] [PATCH v2 05/15] spi: Remove code duplication in
+ spi_add_device_locked()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,63 +89,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3286004104236042948=="
+Content-Type: multipart/mixed; boundary="===============4877962033753542938=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============3286004104236042948==
+--===============4877962033753542938==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ugTz/0iIbXaMesMQ"
+	protocol="application/pgp-signature"; boundary="smwEq19A8LfCcchg"
 Content-Disposition: inline
 
 
---ugTz/0iIbXaMesMQ
+--smwEq19A8LfCcchg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jul 10, 2023 at 06:49:19PM +0300, Andy Shevchenko wrote:
+On Mon, Jul 10, 2023 at 06:49:22PM +0300, Andy Shevchenko wrote:
+> Seems by unknown reason, probably some kind of mis-rebase,
+> the commit 0c79378c0199 ("spi: add ancillary device support")
+> adds a dozen of duplicating lines of code. Drop them.
+>=20
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> ---
+>  drivers/spi/spi.c | 11 -----------
+>  1 file changed, 11 deletions(-)
+>=20
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index c99ee4164f11..46cbda383228 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -712,17 +712,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
+>  static int spi_add_device_locked(struct spi_device *spi)
+>  {
+>  	struct spi_controller *ctlr =3D spi->controller;
+> -	struct device *dev =3D ctlr->dev.parent;
+> -
+> -	/* Chipselects are numbered 0..max; validate. */
+> -	if (spi_get_chipselect(spi, 0) >=3D ctlr->num_chipselect) {
+> -		dev_err(dev, "cs%d >=3D max %d\n", spi_get_chipselect(spi, 0),
+> -			ctlr->num_chipselect);
+> -		return -EINVAL;
+> -	}
+> -
+> -	/* Set the bus ID string */
+> -	spi_dev_set_name(spi);
 
-> Refactor spi_register_controller() to drop duplicate IDR allocation.
-> Instead of if-else-if branching use two sequential if:s, which allows
-> to re-use the logic of IDR allocation in all cases.
+I see that this is duplicating spi_add_device() (and we really could do
+better with code sharing there I think) but I can't immediately see
+where the duplication that's intended to be elimiated is here - where
+else in the one call path that spi_add_device_locked() has would we do
+the above?  Based on the changelog I was expecting to see some
+duplicated code in the function itself.
 
-For legibility this should have been split into a separate factoring out
-of the shared code and rewriting of the logic, that'd make it trivial to
-review.
-
-> -		mutex_lock(&board_lock);
-> -		id = idr_alloc(&spi_master_idr, ctlr, first_dynamic,
-> -			       0, GFP_KERNEL);
-> -		mutex_unlock(&board_lock);
-> -		if (WARN(id < 0, "couldn't get idr"))
-> -			return id;
-> -		ctlr->bus_num = id;
-> +		status = spi_controller_id_alloc(ctlr, first_dynamic, 0);
-> +		if (status)
-> +			return status;
-
-The original does not do the remapping of return codes that the previous
-two copies do...
-
---ugTz/0iIbXaMesMQ
+--smwEq19A8LfCcchg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsOysACgkQJNaLcl1U
-h9Bj2wf/eujSGQes7B4PBTQ3n1oBhkcL7Y24XQnkT5q6FXhb+PNy2gOUL7X4u8/s
-jewRdgc+ViUGaokkDON2TN26dLdi/+KEGq7rPGhgLMeyGSqKJx5uRaCQSSdKa2Y2
-w1zSdEXhWd9SZsgsLa18k9bVMBbmyuylLjQYrLlHktiuD4/baW1HQ5SqKICkb1Bg
-/ZdcRGqcKDfgJWnVfK4loF7rFNMRBY0rXsSdOVE3yOKeZE2uS46s2BPPN+xc7UaA
-KTSUu8JjCacwP+V70yrm4VGRb5/c0NJ++iO44yiykKNRvcJWCDemwAYhj9zV1ja/
-5l/fUqxd3+5Kv3hbc1rSnyAywM7/4g==
-=1GBL
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsPOUACgkQJNaLcl1U
+h9DBUwf9Euy3I6rYQCugpUDlBhWVoSMMz7t1ATFjPAfJAReJsl7tNz8zO3ZIBKvo
+DT0wuXofoowlS3XkS80I3NNL7wRjCktrPJnRHSBr/n15W3VCvz7cA+vkKlJdt60d
+vqLIOGnEqqPBftrOwUjsobHicO0YhL47AxOStev3fjlhFEbS0RrIpvCsVsRI1HDs
+5MalNotHe8wd+ujY4p9wUX9c2EZvSWQAE4XUBml+faspwunMGqKbjE+srfTbz+eB
+bkym8H1s/H5a/SQn5ya4y6dkDZ0jR9hz4H3HxMm4C/KgUJRnZXiIgNRtghmsQNys
+LGdv8LQz0S452H4iaGYZlWdB4IEu1w==
+=KWBr
 -----END PGP SIGNATURE-----
 
---ugTz/0iIbXaMesMQ--
+--smwEq19A8LfCcchg--
 
---===============3286004104236042948==
+--===============4877962033753542938==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -156,4 +170,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============3286004104236042948==--
+--===============4877962033753542938==--
