@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 437DF74DC39
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 19:22:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60D574DC7B
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 19:30:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC254C6B457;
-	Mon, 10 Jul 2023 17:21:59 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 849ACC6B457;
+	Mon, 10 Jul 2023 17:30:48 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF427C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEBA6C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 17:21:58 +0000 (UTC)
+ Mon, 10 Jul 2023 17:30:46 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE93460FE6;
- Mon, 10 Jul 2023 17:21:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7CBC433C7;
- Mon, 10 Jul 2023 17:21:47 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CD59A61166;
+ Mon, 10 Jul 2023 17:30:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B727C433C9;
+ Mon, 10 Jul 2023 17:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689009717;
- bh=CpTuLljbdaBkyoyitx9Zt2kT2mpNPwthrmEzA4FZh0k=;
+ s=k20201202; t=1689010245;
+ bh=8daJmCsRggn9xziEjmtzfB/+TEmSHGqfTrQOxt4tg1U=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jH9O9AHymoIzZncRhS0boDcQENihuPJ9tiOMacCBW9S1HyXoS4fmk05l3yiGNAo2K
- KI1hyt+ZX+7NEHBvWCqXjT4yNe/LtAsjRDwPWtbPDyinDXBlqwNxiz4igGDEvFujjT
- HvuvVf7zfJpIqBT2DHBv4rYYp+mzBEGWoHelZgtBRzC5a9ODbB3jbYPRYOu+MpK8DF
- 3DKPCT3xy2bGoPblEhEFYavUFRlVpmVElN1x+riHF3GGBKfZ16h5m4CDQWCrPt/Kv/
- vK54neWN9FR7qTjWY6hgaJiuvxPLSkqkKUC983rTnSx7XHJONotnyRARakAtXoacgn
- BzkLNw5lEztpw==
-Date: Mon, 10 Jul 2023 18:21:44 +0100
+ b=t2qoXUnSHuV+TbWU69K3xBxeG6UAs5r8JvEuI+8qIwEdTjDJX9HPZn++uZHMNIQaD
+ 86g42vDDjo+xgTS9/scrmuWADvN0R48PLgUPQA8lzB5uIE7gczU7YsGie2UjWiD40Y
+ soETF0P1p+D4lt8Jw6O9FNAf5+tzNnhQ6U1GTpxDacTetMTQd4tHQO7p92dxIvPKDo
+ vCacGl+XShxk3g8tnOVtoXP+PJNeX8VjY17MSNUMQyZxhOaFwy902auPvHxrZTYMla
+ iILw2xA2Gbqp0/Iihh6sd5pNaL6Cxsx8tHLlJ00pYbON+m3jOCfuniILkrN7AJJX38
+ Zx5bmFaJNvHKA==
+Date: Mon, 10 Jul 2023 18:30:32 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <54bb9fe7-fb62-4c2e-ae36-d2c10648ee27@sirena.org.uk>
+Message-ID: <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
+ <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20230710154932.68377-9-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
 X-Cookie: Do you have lysdexia?
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -76,7 +76,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 08/15] spi: Clean up headers
+Subject: Re: [Linux-stm32] [PATCH v2 04/15] spi: Replace open coded
+ spi_controller_xfer_timeout()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,55 +89,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4232898037351711265=="
+Content-Type: multipart/mixed; boundary="===============2510534218568141036=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============4232898037351711265==
+--===============2510534218568141036==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w5h1T0k99Bnkn5Gc"
+	protocol="application/pgp-signature"; boundary="IbZ/DrTRficzGRpW"
 Content-Disposition: inline
 
 
---w5h1T0k99Bnkn5Gc
+--IbZ/DrTRficzGRpW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Jul 10, 2023 at 06:49:25PM +0300, Andy Shevchenko wrote:
-> There is a few things done:
-> - include only the headers we are direct user of
-> - when pointer is in use, provide a forward declaration
-> - add missing headers
-> - group generic headers and subsystem headers
-> - sort each group alphabetically
+On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
 
-The previous commit was supposed to be sorting things and AFAICT did
-so...
+> Since the new spi_controller_xfer_timeout() helper appeared,
+> we may replace open coded variant in spi_transfer_wait().
 
-> +struct spi_device_id;
+> + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
+> + *
 
-Why are we adding this given that there's also an inclusion of
-mod_devicetable that you didn't remove?
+You didn't mention this bit in the changelog, and I'm not 100% convinced
+it was the best idea in the first place.  It's going to result in some
+very big timeouts if it goes off, and we really should be doing
+validation much earlier in the process.
 
---w5h1T0k99Bnkn5Gc
+> +	u32 speed_hz = xfer->speed_hz ?: 100000;
+
+Not only the ternery operator, but the version without the second
+argument for extra clarity!
+
+--IbZ/DrTRficzGRpW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsPicACgkQJNaLcl1U
-h9CPUAf/RRQIrb0PfZnRSA7kc94fTv5rQbNfPboY9/94tcd2SIZjbZezvGfMuSZp
-6KHTd2Kkiwzya3J0dExwrNiIzmVrIGl+uWJWbvppEpglEeE0BNrEl1a9mRgzaQUk
-Ys7HqCSSbbtJqGSlgQAODJPS7eaPIw1ChR5Wv5B+4AlUGavA+iCrwDK+TD0dFZpQ
-ovdLIOvU+8RA2XrWSPmDSi4ywOFt9I70VxOWbR9rbfQcvXLRaJA1FOJa2ZArMhHy
-CULubdIfA4BO7mOmyLX63DXgjZqu703oW4W5RFmjc+sa9xmoSdlCYflpgXX/xSqG
-VmDSPECCeUQc9NZwlOM4i7+iPwCymQ==
-=E/m2
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmSsQDcACgkQJNaLcl1U
+h9DEzgf/dy9EpgGVS5JKG+2sOnEEWzJ1/z92vL5sQoHWJT0M7rzfGdRlGddYvj2k
+yOJg6fvzzY2vbGoYuqkSlYi95WyUFmwqjd+BwayzJ5gH0xKRXo4MwCHKIET3z44z
+8pD55r1ow40GOeztLTsLwgiADUQSMRLm/Y33rrf2I1J+/AgrEV6V+oZnbWsmoI+I
+0QS2ZIQk8m1oDghyOmEOzW+jqJQbDR6HAP0L9dUbd/zcJK9LDXHE5hepkLjQbC6v
+oGrJJVbs+IYFbaNJrDNtxtF3JwlAtVWWSten66FG3fmreSDQwcKATVKiHWtLlhJb
+a/T8TlFW3ianwYVf2yMOEojOIbZvQw==
+=d1Us
 -----END PGP SIGNATURE-----
 
---w5h1T0k99Bnkn5Gc--
+--IbZ/DrTRficzGRpW--
 
---===============4232898037351711265==
+--===============2510534218568141036==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -147,4 +150,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============4232898037351711265==--
+--===============2510534218568141036==--
