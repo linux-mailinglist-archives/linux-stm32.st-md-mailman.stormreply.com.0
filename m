@@ -2,86 +2,135 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B0E74D0D4
-	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 11:00:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8607674D268
+	for <lists+linux-stm32@lfdr.de>; Mon, 10 Jul 2023 11:59:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEEAFC6B468;
-	Mon, 10 Jul 2023 09:00:29 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37E4BC6B457;
+	Mon, 10 Jul 2023 09:59:00 +0000 (UTC)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2114.outbound.protection.outlook.com [40.107.117.114])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17B6BC6B459
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FF01C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 09:00:28 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-3fbc244d384so43128445e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 10 Jul 2023 02:00:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1688979627; x=1691571627;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o0rWskzXieUZbB116gf4yd7qvzoiqPrQgJ7WLt8WOY8=;
- b=kIhb6iVdgmZpI7b/3LkKN5H64ZHm72dF2AwRuA6RGp0LXEGkOBGORKjJVJAXV7GOCk
- cwLbqzHRwnfceM08unaFdJqsXZ6lrLJUnDoHFMutQiU7LCItZgXEM72L3GZVhoytyusH
- 1NMpP+7IXokgxZjtgoi6vdUkIojJWsA6dN3kMB1lmMRaBjOTgeVgkTySpHN3rydyM117
- M6hWbp+IkDxKUeRimHNGazAijGXbtdZpUz72cPzNhbL5YNMgneYi+J5M6yulXJ7wpWuz
- yqSYn+SXiB+TfnV/Hi2B4qETNQ+bBzv4rbubW27wqmaFDY77Ncp7c/Cy2pp5eNucZ0hh
- Bqwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688979627; x=1691571627;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=o0rWskzXieUZbB116gf4yd7qvzoiqPrQgJ7WLt8WOY8=;
- b=A+IEcxO7pjjpGL7vjgM2XjndMRSYvzV0JmIdV+uG/ta46+9YN60vMGbuAbbYfgCeCm
- FX/pLuQHbsqI8SvrtYvdv52b7Uf1WYl9UAZC8BT6ZC4D5m2HwdtMltRXIEcE45GyQ0BZ
- dt+ZtDhRKAL7CQUzWbYX0ot1ifP0LkId9xl4uz4ZD0Uwc4jyDTdj2iHu9zYavbh/oGPU
- 6j/xc6SFFxDWGyu7GE39uPUpkXKjDJwgHhJyGPO/4KK1NqAqmYTtPcAd3LSdYVG7fCiA
- QQLWffxB9KJt3YqFwfm4xbjD7wAk9jsT0pGnK8StdnW5XrFMOdvrsSB6jKHpIQrVP1My
- 0FXw==
-X-Gm-Message-State: ABy/qLbHkhJe0N59iAykhIDE06A/TfY8mAQx31RbQp1zwlKoHxc4NYxR
- /kd8HTHv00Aj9MpvRlS2rg8BlQ==
-X-Google-Smtp-Source: APBJJlFVEFLv7NsAd9bHXGtmkXrMxRkAN54ouiP3rIZwa1lYBs3dSXHMX0+nk9m4mDprFRyW2m0WTw==
-X-Received: by 2002:a1c:7206:0:b0:3fb:8284:35b0 with SMTP id
- n6-20020a1c7206000000b003fb828435b0mr9602632wmc.30.1688979627723; 
- Mon, 10 Jul 2023 02:00:27 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:6002:540:6954:abdd])
- by smtp.gmail.com with ESMTPSA id
- k6-20020a05600c0b4600b003fc00702f65sm8581045wmr.46.2023.07.10.02.00.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Jul 2023 02:00:27 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Mon, 10 Jul 2023 11:00:01 +0200
-Message-Id: <20230710090001.303225-13-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230710090001.303225-1-brgl@bgdev.pl>
-References: <20230710090001.303225-1-brgl@bgdev.pl>
+ Mon, 10 Jul 2023 09:58:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PvrOY8vD9Kx6dZ09ZzlDX9FFB0IM+Ny//75S5cvFIGeTaLswKPFeZnEkj/sVbTmXWykpHx6mAXhDW8CaufXw+XGx8BzYqMB9CGiyZoZAo1cTlrlpkEjL6PS6ZC9brfFtF6T0V7bXIPK4gUPDbQL4af+3i9TvaaRX4NIbJGveCBvHP/v8UQEeH9YufEE6OcPZkg8twilhhRK+f55LmoU7Rtib0OuEPLy5ZbZt1c1lCbKHGPbr87EI9CIr9RyBjILhak1jAOwjy/UxWhRlheKBXMuxFbikpaLgFG2zOF9FLjYhQe1pqIUIQhMqbw/Xxr9P+Mun5zNpA46GRlSUj7rT1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b2Adq8onv3YkD9n463dstTY7T5e1xbQ1B4d+39jPHYM=;
+ b=b06c5gDGKo8u0xGOCj0mfGkJ6SBl4qAlRxZOb/kiLvChuKbRo/WYaK8eXhZsDvBXqMSuTjapFHxZgrwhnzTD0WFP6FPbUz4bvx5fcmQtLGtM74Bs66n4RlOIsTHehLFycqHszeSem3XCqWrYJ3pE/gMYxbeZz6t0vp8zx//+z744JKHRmcVtQXtt6cxc0qzeWxlGzQpxI+icRjakbCUJ4zP/j51/awFfhEtQFNqTM7Uh91TXW33oXrQUtibtaZ6FDVpjlUvXe8vBwFT9RZoMyNf/abDjiMtWhF7aDMnDXWH9gI7w459+83bw7sTAtABeJsoDRSbmY8+qYWp/P9J3vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b2Adq8onv3YkD9n463dstTY7T5e1xbQ1B4d+39jPHYM=;
+ b=RyPEKRdNKUa8ZFhJ+/cAPGoNV0CGtemBqThk18uwixxRsrs3+2ehwDi+TLyiDW5frNCHzgEGJrAVZ3n+cbBI88YBAkoQVvxHliBG6EtSW2TWHe1zRMRCFOack89K9Xyg6HhrGTzB3f/WB/FyamkY5AxAchOxi+klXGKEjBXCVqNLqSjvqKvXWISjuTlH6AVn7bxz1X7FGzLny/YXRhl87rreLeyhNGU+x7KajhVtMW1Zpnq8ovMqYqucU9/DFgMycYRZ4P//H/XseLI553YZJj86VJ7jBAVMtlXkqxWMBMB7RQ07yr8WrGigZyJOTpa0xLk3HBDgn6Sby0agDVVgYg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
+ by TY0PR06MB5079.apcprd06.prod.outlook.com (2603:1096:400:1b9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Mon, 10 Jul
+ 2023 09:58:54 +0000
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::fa0e:6c06:7474:285c]) by SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::fa0e:6c06:7474:285c%5]) with mapi id 15.20.6565.028; Mon, 10 Jul 2023
+ 09:58:54 +0000
+From: Yangtao Li <frank.li@vivo.com>
+To: miquel.raynal@bootlin.com, rafael@kernel.org, daniel.lezcano@linaro.org,
+ amitk@kernel.org, rui.zhang@intel.com, mmayer@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, florian.fainelli@broadcom.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ festevam@gmail.com, linux-imx@nxp.com, agross@kernel.org,
+ andersson@kernel.org, konrad.dybcio@linaro.org, thara.gopinath@gmail.com,
+ niklas.soderlund@ragnatech.se, heiko@sntech.de, bzolnier@gmail.com,
+ krzysztof.kozlowski@linaro.org, alim.akhtar@samsung.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ anarsoul@gmail.com, tiny.windzz@gmail.com, wens@csie.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org, thierry.reding@gmail.com,
+ jonathanh@nvidia.com, hayashi.kunihiko@socionext.com, mhiramat@kernel.org,
+ tglx@linutronix.de, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com,
+ srinivas.pandruvada@linux.intel.com,
+ DLG-Adam.Ward.opensource@dm.renesas.com, shangxiaojing@huawei.com,
+ bchihi@baylibre.com, u.kleine-koenig@pengutronix.de,
+ chi.minghao@zte.com.cn, broonie@kernel.org, johan+linaro@kernel.org
+Date: Mon, 10 Jul 2023 17:58:36 +0800
+Message-Id: <20230710095836.15372-1-frank.li@vivo.com>
+X-Mailer: git-send-email 2.39.0
+X-ClientProxiedBy: SI1PR02CA0020.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::9) To SEZPR06MB5269.apcprd06.prod.outlook.com
+ (2603:1096:101:78::6)
 MIME-Version: 1.0
-Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next v3 12/12] net: stmmac: replace the
-	en_tx_lpi_clockgating field with a flag
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|TY0PR06MB5079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cc615f3-d04c-4dc3-12ca-08db812c44cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U6IYlJuKjUF3LbVal/q2eqoF8vpIroPdJhrLZ30UUAZzwI/yKa/W1G8s3VCy3/gFqUyCdJT3yk//ZACFLKcgetnDEQDvcpmX62wr4YH12LF4eXCdc39PWMBgELDK2Tk46BAVpT+lbCO4n/oQoa7KUDeMTC3nwdmKy2Sz5bMMP0TfS+KzfnJdeS1o8xmUrhe/NOruvTheRYViCZLzQv0HcSh28YQe8dJXVzG+s8zSktR8p7JfjWD21xJcRPxYP7tcj2YsOzqLo83wkOU2Vk7LGXXeSdScp5y+uZR0pZ/STVygUsOoGE8PgRYsYcpmsVPGAy3kNemhkDWO6cDhTRBVb9Dc0fc5qC0CBnUlLopZmVhu76Nas94SaQH8huFEYQiKINt27Y3Hy7X4agLVPzqqHAs25GG6x9rKsRyney7ysOCqfwb+Nkx2QgDTyqNgUpx7gBpsnfDzUr6l/Mds2DqukAAagS6osvdYztWyNVRzfW9xHBY2H5L9MOxWquV3L2CrZEXwPYmqOg1iPS1AeHhf9sf3KdRpdlf12L49noYuNaoG4t2KxwcuKImMh9dDUSOnRY4UjyxwZ6kUWuc1eqwwO2ajt8IpUx9spoK3tk5r19DvMSR9OTCRCirIihOisbmJxkJBbsbnEFSUaz25WCle3w==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(366004)(39860400002)(136003)(346002)(396003)(451199021)(186003)(6506007)(1076003)(2616005)(6512007)(107886003)(26005)(83380400001)(41300700001)(4326008)(66476007)(2906002)(66556008)(316002)(7366002)(7416002)(5660300002)(7406005)(8936002)(8676002)(478600001)(66946007)(6486002)(52116002)(6666004)(36756003)(921005)(38350700002)(38100700002)(86362001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SjVCS1NIR1RveE03ekdxRmlvWURMcVE0Wk9oWWc1ZTcrT3ZkOFYzZ3FDdE45?=
+ =?utf-8?B?U0tzU24wV0Y4cTZjUFhJN3NaL2ZmSmJvTnFZSnVMQVpma2pWYVlxMVBLYmkx?=
+ =?utf-8?B?Vm9JVm9DaDlzNnBrdUFCSy93cWJLak9CYkovNGlCZzAzSDZYWkM0UmREeWhk?=
+ =?utf-8?B?Sm9maGMrLzdhQVpDR1JvVS9CU1lQSXNoNC9yMlJEOHVadUlDbGhNQ0VkVHF6?=
+ =?utf-8?B?WTUvK29iTGFQeDQveHhSb0J1VTBITHhWai8vSzRjUzI4elpWUUI0bkdXZEMv?=
+ =?utf-8?B?YWRCb1VrY0dIcFQvVlVLQlRqQmlKSFBxdVdyYmRPdlNuMkpCaUhGeWxjdWcx?=
+ =?utf-8?B?YkVmVUhMbU1jY3ZnamkwdlNGZ2J5LzJjclRvT0hOKzY4eSs0Y1kwYlFjMGNl?=
+ =?utf-8?B?cDU0RTFhSFlUOW9EbmloR2V4TTdwcFVMUk5WL3NsNG1xcEtZa0V4MVgxSmd0?=
+ =?utf-8?B?WkVIZEd1bCtHTW9LYUZYdGpGeEtoUHArdXRCY3h3QXlPMjIxMDM0SjN5V214?=
+ =?utf-8?B?RjVFeVlxK3oybFJIaGVkTXNlLzg0R3BobXpBbXdtTHZld0ljeUdGRFh1dG9Z?=
+ =?utf-8?B?bEFKVlVveDJqM3d6V0tPZE5yUEY5THlrOUZSRnIvendoM1UrSWdVSGJyWURV?=
+ =?utf-8?B?cm9BTlU4V2J6Mno2Qnk3UXhVZ25OVDZta2ZZanVqRXhCU0JlQklzNnFJZ1BH?=
+ =?utf-8?B?UzRCRU1vLzhKTHZhWFBEQ0tDVDJDVDN1MTZNRFFtWFplbG9VSlRUSHR5Z1oy?=
+ =?utf-8?B?MnhmZ3laclkvdG1YcUN3aG5rWXFUWmxXaG1Wci9mQmcrSElWMHFKUmVudGx3?=
+ =?utf-8?B?NWd0OWsrZXY2M3dsV2YyanM4R29vaGtrb2VocE84UDdVbHpTdExFamMrQ0Zh?=
+ =?utf-8?B?VnRZeTBRVXpjcXlQeXlDT1ZxV3hPQzV6MGxtQllEVW9NRll3MklDK3lTalRP?=
+ =?utf-8?B?QTROOUk5c1oxcHVUMWxsT3hleE5kTDB3ZDl4NnZiL2RYTW9Vek9aTFVBU0dj?=
+ =?utf-8?B?VFo2ZUh5bFRnVktUYXk2VkpiK2VkdEZnR0FMejV4UXdsRWpBS0pYL0tCZ0Qr?=
+ =?utf-8?B?cWZHL1lyeG9NVEc1RDFZRXRnaTgwbVVzSUZqNURHQ2JsZXJ4anF0N281L3pP?=
+ =?utf-8?B?dHN4OE96R3NUdWU3MW9SMGF1b2YvWEV1b0Y2VWxPY0FBMStmZE9yR2h6MU1B?=
+ =?utf-8?B?MWkrcURtUVlyRnBIc1pNTTFzbWtCclN6eUoxSktObVRKZ1FjNTU1MlpCeGZ6?=
+ =?utf-8?B?MHNmTFZnaXhXVFBJZmxGY0c4c3JPRDVLYXBVRUs1cDhjRmZOK2J0YTk2by9I?=
+ =?utf-8?B?VVJydTNnVXpSWjZ6WGMvNi9jTElRNG41S3pKck9qS3dvbjYvYlJYcHRnMEw5?=
+ =?utf-8?B?K2l4OU9qWGVUckFxcEQ1RU5oV2ptVzZqY2xMUUR0MzRKYWsrVGFRMVhBT0ZD?=
+ =?utf-8?B?anRadk41WnZ1UWhNb0pCdmNYaU50QTVXZ25rakdhaGpUeXJYSm5sNEVDZnhO?=
+ =?utf-8?B?clB5aXU1MFhGS2Fvc0xTNGZ2Z0Z0TllmbUZTT3FJbkdiWElRekI0dWVvVFVJ?=
+ =?utf-8?B?a1plMGJxbCtxZTdaNjRmd3BnZ3lFWitSNC9ZUjVTUUFvZWU0UTc0LzJkNXU1?=
+ =?utf-8?B?MkZrQWUyZk9IdHZvUEpRRE1uMFBQbjgxUndrOG1QYkx6bzhYM29CanVEbVJ5?=
+ =?utf-8?B?QWdzMEtjSTVHRzRGendIS0VmeU0rUXFUMkh2SXdiZlJNRFNHSGxnMzg2RmMx?=
+ =?utf-8?B?THJEYkhISlNxZWxNb3hZNlQrYURMbklPSUlCWXJtMHE5ZXZpenpmeWFNdUhC?=
+ =?utf-8?B?aXRJaWg4SDZnWEl2elg2N1RLRUpvelJoQWJleWRJZ0tZVVBXSWt5VjZDaUI2?=
+ =?utf-8?B?SDFjaVg5WW9CQ0RRWGlCUHFzL0lmQWkveGw5RUtrbVI1THNaa1RxWE42RTBQ?=
+ =?utf-8?B?ejhlK2JXZlJhK24zS0w3NjY3ZWhnK2pYa1FJZDV0djh0S2xVMzdqbTVDTGc1?=
+ =?utf-8?B?RkNZZ3V3ZE5Db00xdU9aVVBobnB3dkl0R2lWOUlRN2JKUjIwekZ1MzJZVWNF?=
+ =?utf-8?B?ZmQzYmZkQmhpYXVzU0g0eld4VEdTY3d3SG5Gby90VHU1a3hVZVZJQThtUkRm?=
+ =?utf-8?Q?tXFkoncGs9IxzM8CwBbn1U2wn?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cc615f3-d04c-4dc3-12ca-08db812c44cf
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2023 09:58:54.4496 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: upC6zVJq542dSDYvdUOwZ30IWHiG4p7TunK9bmFB86DFDD6Aywr3CAMy1JXT1WBkw5kGCOyzDjm4qfMr8NIX5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5079
+Cc: linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Yangtao Li <frank.li@vivo.com>,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 00/21] Add
+	devm_request_threaded_irq_probe() and devm_request_irq_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,69 +147,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+There are more than 700 calls to devm_request_threaded_irq method and
+more than 1000 calls to devm_request_irq method. Most drivers only
+request one interrupt resource, and these error messages are basically
+the same. If error messages are printed everywhere, more than 2000 lines
+of code can be saved by removing the msg in the driver.
 
-Drop the boolean field of the plat_stmmacenet_data structure in favor of a
-simple bitfield flag.
+And tglx point out that:
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 4 ++--
- include/linux/stmmac.h                                | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+  If we actually look at the call sites of
+  devm_request_threaded_irq() then the vast majority of them print more or
+  less lousy error messages. A quick grep/sed/awk/sort/uniq revealed
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 2d68a6e84b0e..efe85b086abe 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -421,7 +421,7 @@ static int stmmac_enable_eee_mode(struct stmmac_priv *priv)
- 	/* Check and enter in LPI mode */
- 	if (!priv->tx_path_in_lpi_mode)
- 		stmmac_set_eee_mode(priv, priv->hw,
--				priv->plat->en_tx_lpi_clockgating);
-+			priv->plat->flags & STMMAC_FLAG_EN_TX_LPI_CLOCKGATING);
- 	return 0;
- }
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index f51522cb0061..23d53ea04b24 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -466,8 +466,8 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 	plat->force_sf_dma_mode =
- 		of_property_read_bool(np, "snps,force_sf_dma_mode");
- 
--	plat->en_tx_lpi_clockgating =
--		of_property_read_bool(np, "snps,en-tx-lpi-clockgating");
-+	if (of_property_read_bool(np, "snps,en-tx-lpi-clockgating"))
-+		plat->flags |= STMMAC_FLAG_EN_TX_LPI_CLOCKGATING;
- 
- 	/* Set the maxmtu to a default of JUMBO_LEN in case the
- 	 * parameter is not present in the device tree.
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index c3769dad8238..ef67dba775d0 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -215,6 +215,7 @@ struct dwmac4_addrs {
- #define STMMAC_FLAG_EXT_SNAPSHOT_EN		BIT(8)
- #define STMMAC_FLAG_INT_SNAPSHOT_EN		BIT(9)
- #define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(10)
-+#define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(11)
- 
- struct plat_stmmacenet_data {
- 	int bus_id;
-@@ -280,7 +281,6 @@ struct plat_stmmacenet_data {
- 	int has_gmac4;
- 	int rss_en;
- 	int mac_port_sel_speed;
--	bool en_tx_lpi_clockgating;
- 	int has_xgmac;
- 	u8 vlan_fail_q;
- 	unsigned int eee_usecs_rate;
+     519 messages total (there are probably more)
+
+     352 unique messages
+
+     323 unique messages after lower casing
+
+         Those 323 are mostly just variants of the same patterns with
+         slight modifications in formatting and information provided.
+
+     186 of these messages do not deliver any useful information,
+         e.g. "no irq", "
+
+     The most useful one of all is: "could request wakeup irq: %d"
+
+  So there is certainly an argument to be made that this particular
+  function should print a well formatted and informative error message.
+
+  It's not a general allocator like kmalloc(). It's specialized and in the
+  vast majority of cases failing to request the interrupt causes the
+  device probe to fail. So having proper and consistent information why
+  the device cannot be used _is_ useful.
+
+So convert to use devm_request*_irq_probe() API, which ensure that all
+error handling branches print error information.
+
+In this way, when this function fails, the upper-layer functions can
+directly return an error code without missing debugging information.
+Otherwise, the error message will be printed redundantly or missing.
+
+Yangtao Li (21):
+  genirq/devres: Add devm_request_threaded_irq_probe() and
+    devm_request_irq_probe()
+  thermal/drivers/sun8i: convert to use devm_request*_irq_probe()
+  thermal/drivers/armada: convert to use devm_request*_irq_probe()
+  thermal/drivers/broadcom: convert to use devm_request*_irq_probe()
+  thermal/drivers/tegra: convert to use devm_request*_irq_probe()
+  thermal/drivers/db8500: convert to use devm_request*_irq_probe()
+  thermal/drivers/rcar: convert to use devm_request*_irq_probe()
+  thermal/drivers/qcom/temp-alarm: convert to use
+    devm_request*_irq_probe()
+  thermal: intel: int340x: processor_thermal: convert to use
+    devm_request*_irq_probe()
+  thermal/drivers/exynos: convert to use devm_request*_irq_probe()
+  thermal/drivers/hisi: convert to use devm_request*_irq_probe()
+  thermal/drivers/rockchip: convert to use devm_request*_irq_probe()
+  drivers/thermal/rcar_gen3_thermal: convert to use
+    devm_request*_irq_probe()
+  thermal/drivers/mediatek/lvts_thermal: convert to use
+    devm_request*_irq_probe()
+  thermal: max77620: convert to use devm_request*_irq_probe()
+  thermal/drivers/intel/bxt_pmic: convert to use
+    devm_request*_irq_probe()
+  thermal/drivers/stm: convert to use devm_request*_irq_probe()
+  thermal/drivers/qcom/tsens-v0_1: convert to use
+    devm_request*_irq_probe()
+  thermal: qcom-spmi-adc-tm5: convert to use devm_request*_irq_probe()
+  thermal/drivers/uniphier: convert to use devm_request*_irq_probe()
+  thermal/drivers/imx: convert to use devm_request*_irq_probe()
+
+ drivers/thermal/armada_thermal.c              | 13 +++---
+ drivers/thermal/broadcom/brcmstb_thermal.c    | 12 +++---
+ drivers/thermal/db8500_thermal.c              | 16 +++-----
+ drivers/thermal/hisi_thermal.c                | 12 +++---
+ drivers/thermal/imx_thermal.c                 | 11 +++--
+ .../processor_thermal_device_pci.c            |  9 ++---
+ .../thermal/intel/intel_bxt_pmic_thermal.c    | 11 ++---
+ drivers/thermal/max77620_thermal.c            | 24 +++++------
+ drivers/thermal/mediatek/lvts_thermal.c       |  6 +--
+ drivers/thermal/qcom/lmh.c                    |  7 ++--
+ drivers/thermal/qcom/qcom-spmi-adc-tm5.c      |  5 ++-
+ drivers/thermal/qcom/qcom-spmi-temp-alarm.c   |  4 +-
+ drivers/thermal/qcom/tsens.c                  | 23 +++++------
+ drivers/thermal/rcar_gen3_thermal.c           |  7 ++--
+ drivers/thermal/rcar_thermal.c                |  8 ++--
+ drivers/thermal/rockchip_thermal.c            | 11 +++--
+ drivers/thermal/samsung/exynos_tmu.c          |  9 ++---
+ drivers/thermal/st/st_thermal_memmap.c        | 12 +++---
+ drivers/thermal/st/stm_thermal.c              | 13 ++----
+ drivers/thermal/sun8i_thermal.c               |  6 +--
+ drivers/thermal/tegra/soctherm.c              | 38 +++++++++---------
+ drivers/thermal/tegra/tegra30-tsensor.c       |  9 ++---
+ drivers/thermal/uniphier_thermal.c            |  6 +--
+ include/linux/interrupt.h                     | 15 +++++++
+ kernel/irq/devres.c                           | 40 +++++++++++++++++++
+ 25 files changed, 172 insertions(+), 155 deletions(-)
+
 -- 
-2.39.2
+2.39.0
 
 _______________________________________________
 Linux-stm32 mailing list
