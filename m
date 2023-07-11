@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ABB974F6D4
+	by mail.lfdr.de (Postfix) with ESMTPS id 1681474F6D3
 	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 19:19:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD43FC6B45A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCE24C6B45C;
 	Tue, 11 Jul 2023 17:19:24 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A897C6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 959C0C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 17:19:23 +0000 (UTC)
+ Tue, 11 Jul 2023 17:19:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689095963; x=1720631963;
+ t=1689095962; x=1720631962;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=30sabh/p1/O/QZ5qTRNNcuYMznetHRhsRBrUeoewA/U=;
- b=RhA0r5UBntj5Kt/wUSTbrUaD4rn4fht2Sn9d3+s1Io8s4fMpbpXA6MO3
- IuBJZivnauYL8EcZ6K1xH8btEwutX2iJVLMFQNXt9J6umaFMei99dCrF0
- ICqInnDddeN74FCphsYdNYClmB/MgPAqNGXJ0SPezrme0e7fRS3WkR7UN
- SV5yVdXw2PoNj0PakSBzfEPYFDc7oMBYVbN9DdsJFusL3/ZvEuhULc1+3
- UQfqn2Fba6rjntIebFLkS/s2tgOuTP+aLLGp72pFbnqZNeKIaFSWCkmNx
- 8m/NwNULZAfKVesEWqbSaJWtl5XBhGpLGMW/6fwKIF17bWVpHoL/q7cfy Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="362148790"
-X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="362148790"
+ bh=OBpaMXqlKhCkVOJrLtrCAoKDX6xSv6wtt6ulz1eFwn0=;
+ b=GeSXXUnEiIiuwaIJw2YyCRKRDhw+xZUjsUhRYSCZFK7eBW3XJ33y2tEO
+ B4xxt4AP4ydhPyho4mJB/9CSvkKUnMltojs3Mk8SLZZ5uGOoAh5MgLI5v
+ o91oB2kg5uZ9vm9uYPMtHF3tbdJr2A0K5Sb/ceXQKgVGTXPQ8gFenZr0k
+ vkM16xVbkPITIhm8GZynJdyhvMWW7t6YNdL4dvqnIgVMYcJi52zJKerMc
+ wshLqYgvZjlExKCMmVCQWLukrz8aRVPyAXDuqdld9Kt0q1sVJ8RuBx22Y
+ 0EggkMWQ8p2ET5NvxG6dFV1Jg8FbzsLZwdSp6yH28M213ep638VFkGyBx Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="362148773"
+X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="362148773"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jul 2023 10:19:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715240816"
-X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="715240816"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715240817"
+X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="715240817"
 Received: from black.fi.intel.com ([10.237.72.28])
  by orsmga007.jf.intel.com with ESMTP; 11 Jul 2023 10:17:53 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 0ED90F7; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
+ id 22CCB385; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -54,8 +54,8 @@ To: Mark Brown <broonie@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Tue, 11 Jul 2023 20:17:43 +0300
-Message-Id: <20230711171756.86736-2-andriy.shevchenko@linux.intel.com>
+Date: Tue, 11 Jul 2023 20:17:44 +0300
+Message-Id: <20230711171756.86736-3-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
 References: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
@@ -84,8 +84,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [Linux-stm32] [PATCH v3 01/14] spi: Remove unneeded OF node NULL
-	checks
+Subject: [Linux-stm32] [PATCH v3 02/14] spi: Deduplicate IDR allocation code
+	in spi_register_controller()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,38 +102,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the couple of places the NULL check of OF node is implied by the call
-that takes it as a parameter. Drop the respective duplicate checks.
+Refactor spi_register_controller() to deduplicate IDR allocation
+by introducing a new spi_controller_id_alloc() helper and using it.
+
+For the dynamic ID allocation for the highest OF aliases, this will
+shadow the ENOSPC error code as it's done for the other two cases.
+It shouldn't be a problem as the result will be the same, we may
+not get device ID allocated and flow will fail.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com> # MediaTek
 ---
- drivers/spi/spi.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/spi/spi.c | 44 +++++++++++++++++++++++---------------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 9291b2a0e887..8f3282a71c63 100644
+index 8f3282a71c63..d8064998aa27 100644
 --- a/drivers/spi/spi.c
 +++ b/drivers/spi/spi.c
-@@ -2399,9 +2399,6 @@ static void of_register_spi_devices(struct spi_controller *ctlr)
- 	struct spi_device *spi;
- 	struct device_node *nc;
+@@ -3081,6 +3081,20 @@ static int spi_controller_check_ops(struct spi_controller *ctlr)
+ 	return 0;
+ }
  
--	if (!ctlr->dev.of_node)
--		return;
--
- 	for_each_available_child_of_node(ctlr->dev.of_node, nc) {
- 		if (of_node_test_and_set_flag(nc, OF_POPULATED))
- 			continue;
-@@ -3134,7 +3131,7 @@ int spi_register_controller(struct spi_controller *ctlr)
- 		if (WARN(id < 0, "couldn't get idr"))
- 			return id == -ENOSPC ? -EBUSY : id;
- 		ctlr->bus_num = id;
--	} else if (ctlr->dev.of_node) {
-+	} else {
++/* Allocate dynamic bus number using Linux idr */
++static int spi_controller_id_alloc(struct spi_controller *ctlr, int start, int end)
++{
++	int id;
++
++	mutex_lock(&board_lock);
++	id = idr_alloc(&spi_master_idr, ctlr, start, end, GFP_KERNEL);
++	mutex_unlock(&board_lock);
++	if (WARN(id < 0, "couldn't get idr"))
++		return id == -ENOSPC ? -EBUSY : id;
++	ctlr->bus_num = id;
++	return 0;
++}
++
+ /**
+  * spi_register_controller - register SPI master or slave controller
+  * @ctlr: initialized master, originally from spi_alloc_master() or
+@@ -3124,24 +3138,16 @@ int spi_register_controller(struct spi_controller *ctlr)
+ 
+ 	if (ctlr->bus_num >= 0) {
+ 		/* Devices with a fixed bus num must check-in with the num */
+-		mutex_lock(&board_lock);
+-		id = idr_alloc(&spi_master_idr, ctlr, ctlr->bus_num,
+-			ctlr->bus_num + 1, GFP_KERNEL);
+-		mutex_unlock(&board_lock);
+-		if (WARN(id < 0, "couldn't get idr"))
+-			return id == -ENOSPC ? -EBUSY : id;
+-		ctlr->bus_num = id;
++		status = spi_controller_id_alloc(ctlr, ctlr->bus_num, ctlr->bus_num + 1);
++		if (status)
++			return status;
+ 	} else {
  		/* Allocate dynamic bus number using Linux idr */
  		id = of_alias_get_id(ctlr->dev.of_node, "spi");
  		if (id >= 0) {
+-			ctlr->bus_num = id;
+-			mutex_lock(&board_lock);
+-			id = idr_alloc(&spi_master_idr, ctlr, ctlr->bus_num,
+-				       ctlr->bus_num + 1, GFP_KERNEL);
+-			mutex_unlock(&board_lock);
+-			if (WARN(id < 0, "couldn't get idr"))
+-				return id == -ENOSPC ? -EBUSY : id;
++			status = spi_controller_id_alloc(ctlr, id, id + 1);
++			if (status)
++				return status;
+ 		}
+ 	}
+ 	if (ctlr->bus_num < 0) {
+@@ -3151,13 +3157,9 @@ int spi_register_controller(struct spi_controller *ctlr)
+ 		else
+ 			first_dynamic++;
+ 
+-		mutex_lock(&board_lock);
+-		id = idr_alloc(&spi_master_idr, ctlr, first_dynamic,
+-			       0, GFP_KERNEL);
+-		mutex_unlock(&board_lock);
+-		if (WARN(id < 0, "couldn't get idr"))
+-			return id;
+-		ctlr->bus_num = id;
++		status = spi_controller_id_alloc(ctlr, first_dynamic, 0);
++		if (status)
++			return status;
+ 	}
+ 	ctlr->bus_lock_flag = 0;
+ 	init_completion(&ctlr->xfer_completion);
 -- 
 2.40.0.1.gaa8946217a0b
 
