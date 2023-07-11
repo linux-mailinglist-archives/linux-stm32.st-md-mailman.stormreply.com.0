@@ -2,71 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED5374EDD0
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:13:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC9D374EEDD
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:30:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C1AAC6B457;
-	Tue, 11 Jul 2023 12:13:30 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B0BAC6B457;
+	Tue, 11 Jul 2023 12:30:28 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29903C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED160C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 12:13:28 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36BC95Y2015254; Tue, 11 Jul 2023 14:13:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=sCuZ/9hR/lPRsTzfts991T5JQ1QG/1OJ5zsN85rXrt8=;
- b=34/UyTlDI65TARTZzRibNlZiylBgJKUUXOlXb01LX/4vCeFqRehsUbWUo7lgg1+DVZIj
- 4syoI/l4sijMQ5lUD9ZbbLya+ZIhHYuWhK5ror8LQ8G91mB7xDtW2vXBeK77bs4Zb8lZ
- 4GxAPX/Uzt8mj/Q4a+6UkexJjf2ageLZC/iSWC+0HSeU3E04eWGPeLZrrm7qX3WLcnRR
- lLZPXCnWQEIIDF/qtweWl8CJlBvRMB891ZmcTP55HUKKeeasV9qV+mWZdKfaesteX4nR
- g0gR6j+NiBWLjLLJpKdsYK2x4lGsY3pR6PPkzFEEid0nV2M8HbwSe1hHD4Ne6u61OM5V qA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rs6u680t9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Jul 2023 14:13:11 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D803C100067;
- Tue, 11 Jul 2023 14:13:09 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5DC94222CA3;
- Tue, 11 Jul 2023 14:13:09 +0200 (CEST)
-Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 11 Jul
- 2023 14:13:09 +0200
-Message-ID: <abff4a25-a178-7eb7-1576-a94b0a57a896@foss.st.com>
-Date: Tue, 11 Jul 2023 14:13:08 +0200
+ Tue, 11 Jul 2023 12:30:26 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2b69dcf45faso89486061fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 11 Jul 2023 05:30:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1689078626; x=1691670626;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=PF44NEqyxP0uEPvVdBdUhZoOyhnmXaRRtdBTolupizs=;
+ b=SBnTfmlUAjKWCRn3fyds5WJnq/rFhCyNY0inIr58sbmQdnr0ekqm/rRHOpDPaGy/KO
+ B5+bnED3EocI70B/1Liqfviz84UQamIYXCfhBLJdAwpngn8GsImdPLHw3RB6cx2k3qLl
+ nSGU6gtvVw3/VsXZCkMPykBjpKDuKmimIVto3O71KEXoVSR8sXs9wWBC1yWjR9VJRV7y
+ Wiz8QKW407Y9wEjIJVzHwlxfi2RJhdAg86N/DwGw/jxMsF0gA+NEhyREeEq19FirWzm/
+ TqVILtBOKMHlbGVQP5ypx9ZxmExDySMPGPYIR/gAUwwQJjSdRAbKTqb1KbxEGl8qDyoh
+ Eb8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689078626; x=1691670626;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PF44NEqyxP0uEPvVdBdUhZoOyhnmXaRRtdBTolupizs=;
+ b=baxwQq4CNct9Rlz4CyEhgHA5oJ2lwrpG4i5t4GNFd+ge9AKKzVhm+jrEysEyR8ZBOQ
+ 59MnuQuZcHgVjSDcIQcFygnTV1Gx8xNk1O2y14K8vrWM/8YTxA3QgfMjoMugj4dNxhPs
+ XpTf/o+6XIe+d6ehm2L29PSSaAuyAPpDa2mR479niCxlTPsluPSZkDMs5bb2D1/5vDMm
+ vnlS4pPYQA27m9TzsjgucWLvY5LW1nPwqgYJ3c7aYDTBXvTFQ67Qcn8b8gYWnTVaMOtU
+ z9EnpK4xDdJ24cr327ncTO+8LzxffUFm+eJdkzZrxuHvZ8PKsZue91TAPZY30EbaHark
+ Km2g==
+X-Gm-Message-State: ABy/qLbiHxoZndLMqHUxbiO2S8xiLigV08MxyEWyWNyTBMMAPWYg5MI9
+ G1QxOQxkxSA9e4l0w1x+8Uk=
+X-Google-Smtp-Source: APBJJlEGAsotaRV20l259BaTNO1He84gEShKxa1gOSyhZTOSrSYKw2njibp5AmXp10CkNfmdPINRWg==
+X-Received: by 2002:a2e:8eca:0:b0:2b6:dc50:19ac with SMTP id
+ e10-20020a2e8eca000000b002b6dc5019acmr13901724ljl.31.1689078625694; 
+ Tue, 11 Jul 2023 05:30:25 -0700 (PDT)
+Received: from mobilestation ([85.249.18.12]) by smtp.gmail.com with ESMTPSA id
+ j17-20020a2e6e11000000b002b6ee75648fsm441355ljc.12.2023.07.11.05.30.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Jul 2023 05:30:24 -0700 (PDT)
+Date: Tue, 11 Jul 2023 15:30:19 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <tvm772o6uqndgyjvycv27qouqq76crpre5tyqcnanaautqjjwn@pydiwhjzhbgd>
+References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
+ <20230710154932.68377-14-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20230629083726.84910-1-dario.binacchi@amarulasolutions.com>
- <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
-X-Originating-IP: [10.201.21.122]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-11_06,2023-07-11_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 3/3] ARM: dts: stm32: support display
- on stm32f746-disco board
+Content-Disposition: inline
+In-Reply-To: <20230710154932.68377-14-andriy.shevchenko@linux.intel.com>
+Cc: Richard Cochran <richardcochran@gmail.com>,
+ Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-kernel@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>, linux-rockchip@lists.infradead.org,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Orson Zhai <orsonzhai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-trace-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Radu Pirea <radu_nicolae.pirea@upb.ro>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-spi@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH v2 13/15] spi: Rename SPI_MASTER_GPIO_SS
+ to SPI_CONTROLLER_GPIO_SS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,117 +108,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Dario
+On Mon, Jul 10, 2023 at 06:49:30PM +0300, Andy Shevchenko wrote:
+> Rename SPI_MASTER_GPIO_SS to SPI_CONTROLLER_GPIO_SS and
+> convert the users to SPI_CONTROLLER_GPIO_SS to follow
 
-On 6/29/23 10:37, Dario Binacchi wrote:
-> Add support to Rocktech RK043FN48H display on stm32f746-disco board.
+* I'm not an expert in English, but imo the next would look a
+* bit more readable:
+* convert s/the users to SPI_CONTROLLER_GPIO_SS/the code to using SPI_CONTROLLER_GPIO_SS
+
+> the new naming shema.
+
+s/shema/schema
+
 > 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > ---
-> 
-> Changes in v5:
-> I am confident that framebuffer sizing is a real requirement for STM32 boards,
-> but I need some time to understand if and how to introduce this functionality.
-> Therefore, I drop the following patches to allow the series to be fully merged:
->   - [4/6] dt-bindings: display: stm32-ltdc: add optional st,fb-bpp property
->   - [5/6] ARM: dts: stm32: set framebuffer bit depth on stm32f746-disco
->   - [6/6] drm/stm: set framebuffer bit depth through DTS property
-> 
-> Changes in v4:
-> - Use DTS property instead of module parameter to set the framebuffer bit depth.
-> 
-> Changes in v3:
-> - drop [4/6] dt-bindings: display: simple: add Rocktech RK043FN48H
->    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next):
->    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c42a37a27c777d63961dd634a30f7c887949491a
-> - drop [5/6] drm/panel: simple: add support for Rocktech RK043FN48H panel
->    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
->    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=13cdd12a9f934158f4ec817cf048fcb4384aa9dc
-> 
->   arch/arm/boot/dts/stm32f746-disco.dts | 51 +++++++++++++++++++++++++++
->   1 file changed, 51 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/stm32f746-disco.dts b/arch/arm/boot/dts/stm32f746-disco.dts
-> index c11616ed5fc6..cda423b6a874 100644
-> --- a/arch/arm/boot/dts/stm32f746-disco.dts
-> +++ b/arch/arm/boot/dts/stm32f746-disco.dts
-> @@ -60,10 +60,41 @@ memory@c0000000 {
->   		reg = <0xC0000000 0x800000>;
->   	};
->   
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		linux,cma {
-> +			compatible = "shared-dma-pool";
-> +			no-map;
-> +			size = <0x80000>;
-> +			linux,dma-default;
-> +		};
-> +	};
-> +
->   	aliases {
->   		serial0 = &usart1;
->   	};
->   
-> +	backlight: backlight {
-> +		compatible = "gpio-backlight";
-> +		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
-> +		status = "okay";
-> +	};
-> +
-> +	panel_rgb: panel-rgb {
-> +		compatible = "rocktech,rk043fn48h";
-> +		backlight = <&backlight>;
-> +		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
-> +		status = "okay";
-> +		port {
-> +			panel_in_rgb: endpoint {
-> +				remote-endpoint = <&ltdc_out_rgb>;
-> +			};
-> +		};
-> +	};
-> +
->   	usbotg_hs_phy: usb-phy {
->   		#phy-cells = <0>;
->   		compatible = "usb-nop-xceiv";
-> @@ -99,6 +130,26 @@ &i2c1 {
->   	status = "okay";
->   };
->   
-> +&dma1 {
-> +	status = "okay";
-> +};
-> +
-> +&dma2 {
-> +	status = "okay";
-> 
-Why do you enable DMAs ? It seems not used by LTDC.
+[...]
 
-> +&ltdc {
-> +	pinctrl-0 = <&ltdc_pins_a>;
-> +	pinctrl-names = "default";
-> +	status = "okay";
-> +
-> +	port {
-> +		ltdc_out_rgb: endpoint {
-> +			remote-endpoint = <&panel_in_rgb>;
-> +		};
-> +	};
-> +};
-> +
->   &sdio1 {
->   	status = "okay";
->   	vmmc-supply = <&mmc_vcard>;
+>  drivers/spi/spi-dw-core.c  | 2 +-
 
+[...]
+
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index a8ba41ad4541..45f5acc26b1d 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
+> @@ -932,7 +932,7 @@ int dw_spi_add_host(struct device *dev, struct dw_spi *dws)
+>  	if (dws->mem_ops.exec_op)
+>  		master->mem_ops = &dws->mem_ops;
+>  	master->max_speed_hz = dws->max_freq;
+> -	master->flags = SPI_MASTER_GPIO_SS;
+> +	master->flags = SPI_CONTROLLER_GPIO_SS;
+>  	master->auto_runtime_pm = true;
+>  
+>  	/* Get default rx sample delay */
+
+For the DW APB/AHB SSI driver:
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+
+-Serge(y)
+
+[...]
+
+> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+> index 06a92a3a5746..bcabae98cb7c 100644
+> --- a/drivers/spi/spi.c
+> +++ b/drivers/spi/spi.c
+> @@ -995,7 +995,7 @@ static void spi_set_cs(struct spi_device *spi, bool enable, bool force)
+>  				gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), activate);
+>  		}
+>  		/* Some SPI masters need both GPIO CS & slave_select */
+> -		if ((spi->controller->flags & SPI_MASTER_GPIO_SS) &&
+> +		if ((spi->controller->flags & SPI_CONTROLLER_GPIO_SS) &&
+>  		    spi->controller->set_cs)
+>  			spi->controller->set_cs(spi, !enable);
+>  	} else if (spi->controller->set_cs) {
+> @@ -3020,7 +3020,7 @@ static int spi_get_gpio_descs(struct spi_controller *ctlr)
+>  
+>  	ctlr->unused_native_cs = ffs(~native_cs_mask) - 1;
+>  
+> -	if ((ctlr->flags & SPI_MASTER_GPIO_SS) && num_cs_gpios &&
+> +	if ((ctlr->flags & SPI_CONTROLLER_GPIO_SS) && num_cs_gpios &&
+>  	    ctlr->max_native_cs && ctlr->unused_native_cs >= ctlr->max_native_cs) {
+>  		dev_err(dev, "No unused native chip select available\n");
+>  		return -EINVAL;
+> diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
+> index cdc3addfe117..43f6c3f71a76 100644
+> --- a/include/linux/spi/spi.h
+> +++ b/include/linux/spi/spi.h
+> @@ -578,8 +578,7 @@ struct spi_controller {
+>  #define SPI_CONTROLLER_NO_TX		BIT(2)	/* Can't do buffer write */
+>  #define SPI_CONTROLLER_MUST_RX		BIT(3)	/* Requires rx */
+>  #define SPI_CONTROLLER_MUST_TX		BIT(4)	/* Requires tx */
+> -
+> -#define SPI_MASTER_GPIO_SS		BIT(5)	/* GPIO CS must select slave */
+> +#define SPI_CONTROLLER_GPIO_SS		BIT(5)	/* GPIO CS must select slave */
+>  
+>  	/* Flag indicating if the allocation of this struct is devres-managed */
+>  	bool			devm_allocated;
+> -- 
+> 2.40.0.1.gaa8946217a0b
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
