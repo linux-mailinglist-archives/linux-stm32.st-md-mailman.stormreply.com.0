@@ -2,90 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76ABD74EF6C
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:52:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E2374EFBE
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 15:01:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35EBFC6B457;
-	Tue, 11 Jul 2023 12:52:11 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1567C6B457;
+	Tue, 11 Jul 2023 13:01:27 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E710CC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06B00C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 12:52:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689079930; x=1720615930;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=fixFH5Llqroff/AhZ015VZ+OpUUgSBQ7xNlXodB8idQ=;
- b=klgdWUv3awaIOz6Mfjj53LWNmORb8gYtkitHxFAtWbUo7Q0MOBvgp24E
- WIDGvbIKJq3brziDibkH7xbW3vNVQa5yYpMO9oT5AxpyPqjF/GEftCW/y
- D0w9MMabokPD5fTp4gTi1hBdUA7OV7TfZRykA89potQtE2IijJSWw8t6p
- /fsZCU+UTATdjoTRO3Dzwj6tyN9ZO6mQVlgyEoYxoFgIIYfCkUWamS/0y
- QuMbnZtb+KBQA0JuVIKuTfDGOcP285f5KDkVX+KI1Tw2khaPz/fpX5XmG
- AYwPLm0SRXazwJFwQ3dGC5wbIQgYHNjvMjjuyuOYoFX9h/Xi7ujb8JB0R A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344205676"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="344205676"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 05:52:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="786613329"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="786613329"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga008.fm.intel.com with ESMTP; 11 Jul 2023 05:51:56 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1qJCqO-001qnp-39; Tue, 11 Jul 2023 15:51:52 +0300
-Date: Tue, 11 Jul 2023 15:51:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Message-ID: <ZK1QaK3Qy/mDauae@smile.fi.intel.com>
-References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-2-andriy.shevchenko@linux.intel.com>
- <f0b9e2e4-b2c0-4336-0ec4-5afd9f1b6c72@collabora.com>
+ Tue, 11 Jul 2023 13:01:25 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36B9Sx2x026949; Tue, 11 Jul 2023 15:01:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=CcJYk6OSmAh/ZRlDaYkuV0Et2MLWaOhRgR+ej3SaWJc=;
+ b=8MfxHLPnPm+POlrdjBx/RA/yUfCPOH39vHMbTd1S2+R/VXraTD7dXMVTtQNwMZJ8ZHaC
+ eCMcTe1cxl+mAhZqaatOdWOmxwMIZ+q+t2VOp4cj4lzgFhoh0pmhCsQi7PMqkXbKbjfa
+ z0TSvldsQCmuBz6BSPD7cGTiyjvCvFpyTXJ7OFdPQYeplLEkuBACbFjb0WZFAWmufPFp
+ CixPugFKuJ2J4io6bnbdheD5s/FPR/KrN6ippp7I/lkVhtg/ZryKVxLjgTz/1mSDsqt2
+ J3zpIgCesTzBhZjq8t3canoc+iejYg3nMei9GIbjfVwaH46RjgBpAmkBtapfYsMjagKe lw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rrs59dfe2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 15:01:03 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B663E100070;
+ Tue, 11 Jul 2023 15:01:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A5194226FAE;
+ Tue, 11 Jul 2023 15:01:01 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 11 Jul
+ 2023 15:01:00 +0200
+Message-ID: <531a282f-9a0d-cb64-d1d1-ebaf9356b717@foss.st.com>
+Date: Tue, 11 Jul 2023 15:00:59 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f0b9e2e4-b2c0-4336-0ec4-5afd9f1b6c72@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-kernel@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-rockchip@lists.infradead.org,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-trace-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Yang Yingliang <yangyingliang@huawei.com>,
- Steven Rostedt <rostedt@goodmis.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 01/15] spi: Remove unneeded OF node
-	NULL checks
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Sean Nyekjaer <sean@geanix.com>, <a.fatoum@pengutronix.de>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20230621063339.1361073-1-sean@geanix.com>
+ <20230621063339.1361073-8-sean@geanix.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230621063339.1361073-8-sean@geanix.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-11_07,2023-07-11_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 8/8] ARM: dts: stm32: Add Octavo
+	OSD32MP1-RED board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,30 +77,274 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 11, 2023 at 10:12:55AM +0200, AngeloGioacchino Del Regno wrote:
-> Il 10/07/23 17:49, Andy Shevchenko ha scritto:
-> > In the couple of places the NULL check of OF node is implied by the call
-> > that takes it as a parameter. Drop the respective duplicate checks.
-> > 
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Hi Sean
+
+On 6/21/23 08:33, Sean Nyekjaer wrote:
+> Add support for the Octavo OSD32MP1-RED development board.
 > 
-> Validated against spi-mt65xx, spi-mt7621, spi-mtk-nor, spi-mtk-snfi;
+> General features:
+>   - STM32MP157C
+>   - 512MB DDR3
+>   - CAN-FD
+>   - HDMI
+>   - USB-C OTG
+>   - UART
 > 
-> Reviewed-by: AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> # MediaTek
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
 
-By some reason the tag is split and I'm not sure `b4` can cope with that.
-In any case, added manually. Thank you for the review!
+You must update Makefile if you want I build it :). In the same time you 
+could also ordering your phandle nodes by alphabetic order. It makes the 
+file easier to read.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Regards
+Alex
 
+> Changes since v1:
+>   - Fixed comments from Ahmad
+> 
+>   .../arm/boot/dts/stm32mp157c-osd32mp1-red.dts | 226 ++++++++++++++++++
+>   1 file changed, 226 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> 
+> diff --git a/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> new file mode 100644
+> index 000000000000..f840b7faf02a
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+> @@ -0,0 +1,226 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) Geanix ApS 2023 - All Rights Reserved
+> + * Author: Sean Nyekjaer <sean@geanix.com>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "stm32mp157.dtsi"
+> +#include "stm32mp15xc.dtsi"
+> +#include "stm32mp15xx-osd32.dtsi"
+> +#include "stm32mp15xxac-pinctrl.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/pinctrl/stm32-pinfunc.h>
+> +
+> +/ {
+> +	model = "Octavo OSD32MP1 RED board";
+> +	compatible = "oct,stm32mp157c-osd32-red", "oct,stm32mp15xx-osd32", "st,stm32mp157";
+> +
+> +	aliases {
+> +		serial0 = &uart4;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	led-controller-0 {
+> +		compatible = "gpio-leds";
+> +
+> +		led-0 {
+> +			label = "heartbeat";
+> +			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +		};
+> +	};
+> +};
+> +
+> +&ethernet0 {
+> +	status = "okay";
+> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+> +	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
+> +	pinctrl-names = "default", "sleep";
+> +	phy-mode = "rgmii-id";
+> +	max-speed = <1000>;
+> +	phy-handle = <&phy0>;
+> +	st,eth-clk-sel;
+> +
+> +	mdio0 {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		phy0: ethernet-phy@3 {
+> +			reg = <3>;
+> +		};
+> +	};
+> +};
+> +
+> +
+> +&i2s2 {
+> +	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc CK_PER>, <&rcc PLL3_R>;
+> +	clock-names = "pclk", "i2sclk", "x8k", "x11k";
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2s2_pins_b>;
+> +	pinctrl-1 = <&i2s2_sleep_pins_b>;
+> +	status = "okay";
+> +
+> +	i2s2_port: port {
+> +		i2s2_endpoint: endpoint {
+> +			remote-endpoint = <&sii9022_tx_endpoint>;
+> +			format = "i2s";
+> +			mclk-fs = <256>;
+> +		};
+> +	};
+> +};
+> +
+> +&iwdg2 {
+> +	timeout-sec = <32>;
+> +	status = "okay";
+> +};
+> +
+> +&pwr_regulators {
+> +	vdd-supply = <&vdd>;
+> +	vdd_3v3_usbfs-supply = <&vdd_usb>;
+> +};
+> +
+> +&ltdc {
+> +	status = "okay";
+> +
+> +	port {
+> +		ltdc_ep0_out: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&sii9022_in>;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c1 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2c1_pins_a>;
+> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
+> +	status = "okay";
+> +	i2c-scl-rising-time-ns = <100>;
+> +	i2c-scl-falling-time-ns = <7>;
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +
+> +	hdmi-transmitter@39 {
+> +		compatible = "sil,sii9022";
+> +		reg = <0x39>;
+> +		reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>;
+> +		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
+> +		interrupt-parent = <&gpiog>;
+> +		pinctrl-names = "default", "sleep";
+> +		pinctrl-0 = <&ltdc_pins_e>;
+> +		pinctrl-1 = <&ltdc_sleep_pins_e>;
+> +		status = "okay";
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				sii9022_in: endpoint {
+> +					remote-endpoint = <&ltdc_ep0_out>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +				sii9022_tx_endpoint: endpoint {
+> +					remote-endpoint = <&i2s2_endpoint>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&sdmmc1 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+> +	cd-gpios = <&gpioe 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+> +	disable-wp;
+> +	st,neg-edge;
+> +	bus-width = <4>;
+> +	vmmc-supply = <&v3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc2 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_d>;
+> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_d>;
+> +	non-removable;
+> +	no-sd;
+> +	no-sdio;
+> +	st,neg-edge;
+> +	bus-width = <8>;
+> +	vmmc-supply = <&v3v3>;
+> +	vqmmc-supply = <&vdd>;
+> +	mmc-ddr-3_3v;
+> +	status = "okay";
+> +};
+> +
+> +&uart4 {
+> +	pinctrl-names = "default", "sleep", "idle";
+> +	pinctrl-0 = <&uart4_pins_a>;
+> +	pinctrl-1 = <&uart4_sleep_pins_a>;
+> +	pinctrl-2 = <&uart4_idle_pins_a>;
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +	status = "okay";
+> +};
+> +
+> +&m_can1 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&m_can1_pins_d>;
+> +	pinctrl-1 = <&m_can1_sleep_pins_d>;
+> +	status = "okay";
+> +};
+> +
+> +&usbh_ehci {
+> +	phys = <&usbphyc_port0>;
+> +	phy-names = "usb";
+> +	status = "okay";
+> +};
+> +
+> +&usbh_ohci {
+> +	phys = <&usbphyc_port0>;
+> +	phy-names = "usb";
+> +	status = "okay";
+> +};
+> +
+> +&usbotg_hs {
+> +	vbus-supply = <&vbus_otg>;
+> +};
+> +
+> +&usbphyc {
+> +	status = "okay";
+> +};
+> +
+> +&usbphyc_port0 {
+> +	phy-supply = <&vdd_usb>;
+> +};
+> +
+> +&usbphyc_port1 {
+> +	phy-supply = <&vdd_usb>;
+> +};
+> +
+> +&rtc {
+> +	status = "okay";
+> +};
+> +
+> +&crc1 {
+> +	status = "okay";
+> +};
+> +
+> +&dts {
+> +	status = "okay";
+> +};
 
 _______________________________________________
 Linux-stm32 mailing list
