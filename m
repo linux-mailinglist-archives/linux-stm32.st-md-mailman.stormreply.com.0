@@ -2,84 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD20774ED7D
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:01:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED5374EDD0
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:13:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7ABF7C6B457;
-	Tue, 11 Jul 2023 12:01:37 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C1AAC6B457;
+	Tue, 11 Jul 2023 12:13:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 277E6C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29903C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 12:01:36 +0000 (UTC)
-Received: from mercury (dyndsl-091-248-213-212.ewe-ip-backbone.de
- [91.248.213.212])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sre)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 3BE4E6607007;
- Tue, 11 Jul 2023 13:01:35 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1689076895;
- bh=VpEG3ri1MmPk1vvBqKyVzFd1wmdbrZrML5Y0FqY4wUg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HQDJgxlTR8vo1RaEsB3D+nH2+IRG9QN4tbrCrAaA85UTPwMmgGSzMeLBmp8bq8Ej6
- pgwZP23sqCYBHYEmhmfwkK6ZwddZDGY5nvAyjCHRxCLhh+PU1kHLVi4qEYii04KpmG
- cZIBzK40pXQjgo62B5RaZ5YhAs3eAX9lyz/b27cO1rLw+fmbUEzB/bIkdWz6tNdnsD
- l37m5GS8joB/wsoJ81rU7USdQhqBwTSytws8Gf8fo6kkpx4AITWu33A+o3yUYXuRI2
- WpJS6erpP2P9LRQMv/o3BmpdZLgyRs0csbkK1sM9hkgaBX9fGW0SBkbzX/Ag+Cs0tn
- nvbJMMzvoOh0A==
-Received: by mercury (Postfix, from userid 1000)
- id 34BCD106765E; Tue, 11 Jul 2023 14:01:33 +0200 (CEST)
-Date: Tue, 11 Jul 2023 14:01:33 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <20230711120133.45drgk46y4cz7aut@mercury.elektranox.org>
-References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-6-andriy.shevchenko@linux.intel.com>
- <7557bada-3076-4d6e-a5c5-d368433706e2@sirena.org.uk>
- <ZK03rBqoQ0IZz617@smile.fi.intel.com>
+ Tue, 11 Jul 2023 12:13:28 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36BC95Y2015254; Tue, 11 Jul 2023 14:13:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=sCuZ/9hR/lPRsTzfts991T5JQ1QG/1OJ5zsN85rXrt8=;
+ b=34/UyTlDI65TARTZzRibNlZiylBgJKUUXOlXb01LX/4vCeFqRehsUbWUo7lgg1+DVZIj
+ 4syoI/l4sijMQ5lUD9ZbbLya+ZIhHYuWhK5ror8LQ8G91mB7xDtW2vXBeK77bs4Zb8lZ
+ 4GxAPX/Uzt8mj/Q4a+6UkexJjf2ageLZC/iSWC+0HSeU3E04eWGPeLZrrm7qX3WLcnRR
+ lLZPXCnWQEIIDF/qtweWl8CJlBvRMB891ZmcTP55HUKKeeasV9qV+mWZdKfaesteX4nR
+ g0gR6j+NiBWLjLLJpKdsYK2x4lGsY3pR6PPkzFEEid0nV2M8HbwSe1hHD4Ne6u61OM5V qA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rs6u680t9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 14:13:11 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D803C100067;
+ Tue, 11 Jul 2023 14:13:09 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5DC94222CA3;
+ Tue, 11 Jul 2023 14:13:09 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 11 Jul
+ 2023 14:13:09 +0200
+Message-ID: <abff4a25-a178-7eb7-1576-a94b0a57a896@foss.st.com>
+Date: Tue, 11 Jul 2023 14:13:08 +0200
 MIME-Version: 1.0
-In-Reply-To: <ZK03rBqoQ0IZz617@smile.fi.intel.com>
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-kernel@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-rockchip@lists.infradead.org,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-trace-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Yang Yingliang <yangyingliang@huawei.com>,
- Steven Rostedt <rostedt@goodmis.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
- Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 05/15] spi: Remove code duplication in
- spi_add_device_locked()
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20230629083726.84910-1-dario.binacchi@amarulasolutions.com>
+ <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230629083726.84910-4-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-11_06,2023-07-11_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ michael@amarulasolutions.com,
+ Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 3/3] ARM: dts: stm32: support display
+ on stm32f746-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,117 +78,118 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0143160203656350551=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Dario
 
---===============0143160203656350551==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fcthwhge3iyvg2gl"
-Content-Disposition: inline
+On 6/29/23 10:37, Dario Binacchi wrote:
+> Add support to Rocktech RK043FN48H display on stm32f746-disco board.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> 
+> ---
+> 
+> Changes in v5:
+> I am confident that framebuffer sizing is a real requirement for STM32 boards,
+> but I need some time to understand if and how to introduce this functionality.
+> Therefore, I drop the following patches to allow the series to be fully merged:
+>   - [4/6] dt-bindings: display: stm32-ltdc: add optional st,fb-bpp property
+>   - [5/6] ARM: dts: stm32: set framebuffer bit depth on stm32f746-disco
+>   - [6/6] drm/stm: set framebuffer bit depth through DTS property
+> 
+> Changes in v4:
+> - Use DTS property instead of module parameter to set the framebuffer bit depth.
+> 
+> Changes in v3:
+> - drop [4/6] dt-bindings: display: simple: add Rocktech RK043FN48H
+>    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next):
+>    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c42a37a27c777d63961dd634a30f7c887949491a
+> - drop [5/6] drm/panel: simple: add support for Rocktech RK043FN48H panel
+>    Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
+>    https://cgit.freedesktop.org/drm/drm-misc/commit/?id=13cdd12a9f934158f4ec817cf048fcb4384aa9dc
+> 
+>   arch/arm/boot/dts/stm32f746-disco.dts | 51 +++++++++++++++++++++++++++
+>   1 file changed, 51 insertions(+)
+> 
+> diff --git a/arch/arm/boot/dts/stm32f746-disco.dts b/arch/arm/boot/dts/stm32f746-disco.dts
+> index c11616ed5fc6..cda423b6a874 100644
+> --- a/arch/arm/boot/dts/stm32f746-disco.dts
+> +++ b/arch/arm/boot/dts/stm32f746-disco.dts
+> @@ -60,10 +60,41 @@ memory@c0000000 {
+>   		reg = <0xC0000000 0x800000>;
+>   	};
+>   
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		linux,cma {
+> +			compatible = "shared-dma-pool";
+> +			no-map;
+> +			size = <0x80000>;
+> +			linux,dma-default;
+> +		};
+> +	};
+> +
+>   	aliases {
+>   		serial0 = &usart1;
+>   	};
+>   
+> +	backlight: backlight {
+> +		compatible = "gpio-backlight";
+> +		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
+> +		status = "okay";
+> +	};
+> +
+> +	panel_rgb: panel-rgb {
+> +		compatible = "rocktech,rk043fn48h";
+> +		backlight = <&backlight>;
+> +		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
+> +		status = "okay";
+> +		port {
+> +			panel_in_rgb: endpoint {
+> +				remote-endpoint = <&ltdc_out_rgb>;
+> +			};
+> +		};
+> +	};
+> +
+>   	usbotg_hs_phy: usb-phy {
+>   		#phy-cells = <0>;
+>   		compatible = "usb-nop-xceiv";
+> @@ -99,6 +130,26 @@ &i2c1 {
+>   	status = "okay";
+>   };
+>   
+> +&dma1 {
+> +	status = "okay";
+> +};
+> +
+> +&dma2 {
+> +	status = "okay";
+> 
+Why do you enable DMAs ? It seems not used by LTDC.
 
-
---fcthwhge3iyvg2gl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-On Tue, Jul 11, 2023 at 02:06:20PM +0300, Andy Shevchenko wrote:
-> On Mon, Jul 10, 2023 at 06:16:22PM +0100, Mark Brown wrote:
-> > On Mon, Jul 10, 2023 at 06:49:22PM +0300, Andy Shevchenko wrote:
-> > > Seems by unknown reason, probably some kind of mis-rebase,
-> > > the commit 0c79378c0199 ("spi: add ancillary device support")
-> > > adds a dozen of duplicating lines of code. Drop them.
-> > >=20
-> > > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > > ---
-> > >  drivers/spi/spi.c | 11 -----------
-> > >  1 file changed, 11 deletions(-)
-> > >=20
-> > > diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> > > index c99ee4164f11..46cbda383228 100644
-> > > --- a/drivers/spi/spi.c
-> > > +++ b/drivers/spi/spi.c
-> > > @@ -712,17 +712,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
-> > >  static int spi_add_device_locked(struct spi_device *spi)
-> > >  {
-> > >  	struct spi_controller *ctlr =3D spi->controller;
-> > > -	struct device *dev =3D ctlr->dev.parent;
-> > > -
-> > > -	/* Chipselects are numbered 0..max; validate. */
-> > > -	if (spi_get_chipselect(spi, 0) >=3D ctlr->num_chipselect) {
-> > > -		dev_err(dev, "cs%d >=3D max %d\n", spi_get_chipselect(spi, 0),
-> > > -			ctlr->num_chipselect);
-> > > -		return -EINVAL;
-> > > -	}
-> > > -
-> > > -	/* Set the bus ID string */
-> > > -	spi_dev_set_name(spi);
-> >=20
-> > I see that this is duplicating spi_add_device() (and we really could do
-> > better with code sharing there I think) but I can't immediately see
-> > where the duplication that's intended to be elimiated is here - where
-> > else in the one call path that spi_add_device_locked() has would we do
-> > the above?  Based on the changelog I was expecting to see some
-> > duplicated code in the function itself.
->=20
-> Oh, by some reason Sebastian wasn't in this rather long Cc list.
-> Added him.
->=20
-> Reading again I don't see any useful explanation why that piece of code h=
-as to
-> be duplicated among these two functions. It's 100% a copy.
->=20
-> Sebastian, can you shed some light here?
-
-The patch in this thread is obviously wrong. It results in the
-checks never beeing called for spi_add_device_locked(). The copy is
-in spi_add_device() and those two are not calling into each other.
-
-But it should be fine to move the code to the start of
-__spi_add_device(), which allows removing the duplication. In that
-case the code will be run with the add_lock held, which is probably
-what I was worried about two years ago. Looking at it again, the
-lock is held anyways in case of spi_add_device_locked().
-
-Greetings,
-
--- Sebastian
-
---fcthwhge3iyvg2gl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmStRJIACgkQ2O7X88g7
-+pp6dQ//QWqSMddfA8JIA4/cd4pYKRoojbIso2JQaAhIWBB48KjH/GX7xoNCH4Ig
-MRloAncuXxqH1quGGpphBRJL2bAKVRcinKKtYdwCyM6P422hjD5GqVDKOr2H1u2f
-4+wWcKeKNk5ect4iYj/kRZYYpdlJzxK1hsd7bCwBCz3I0k7rlxqIg5td7e/7Q7CC
-4bvNEtL0Ub1iB+vzDNoqNKN48Bp87xr+kM1wSDsDhPqf1TrTmxgOFIYNmy2x+XuV
-20ZRE4olEfUMFlPNNCaAurOPVZmclVstzBUwRhU7uVBH4/ZnbY02wsklP0D8SbV8
-inFOurRiLtWaRSQfkwMEF2DAp4l5a6eWVyuy5Rf0mdVmgq9bgeXFycbiYkOM6Gsz
-aQ0g5SV64PYZSwPljucB28GrWfLdDNlp693elljAeDElhbF1bqhbVozqhkyfH5Ih
-J4wpwr/DgZaW31B0V/sQVlJTIRtjAmIRgydid81aaSOzXmW0B+Pu74EU/cMNcy0f
-iSGRdSPX+eA5OPNHQWPz1RQvJOHMVrMBXTdSCeVzZdV4VSTZSv9/LL922e9qK2DB
-yGQTeUox+5d2hdcQlSmo+LQGhiZiiJ9qoVWPsWjhNwbb3fh3HCSP9X/BJHNNGzqr
-WU6SN8gRjCaL3/i5pT08DOL6WdKhn/qo8EzCnOBxloSjD2uF1Ic=
-=v6T3
------END PGP SIGNATURE-----
-
---fcthwhge3iyvg2gl--
-
---===============0143160203656350551==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +&ltdc {
+> +	pinctrl-0 = <&ltdc_pins_a>;
+> +	pinctrl-names = "default";
+> +	status = "okay";
+> +
+> +	port {
+> +		ltdc_out_rgb: endpoint {
+> +			remote-endpoint = <&panel_in_rgb>;
+> +		};
+> +	};
+> +};
+> +
+>   &sdio1 {
+>   	status = "okay";
+>   	vmmc-supply = <&mmc_vcard>;
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0143160203656350551==--
