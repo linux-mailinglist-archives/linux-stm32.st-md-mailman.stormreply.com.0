@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3545574EF4A
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76ABD74EF6C
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 14:52:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE92DC6B457;
-	Tue, 11 Jul 2023 12:49:23 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35EBFC6B457;
+	Tue, 11 Jul 2023 12:52:11 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F974C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E710CC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 12:49:22 +0000 (UTC)
+ Tue, 11 Jul 2023 12:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689079762; x=1720615762;
+ t=1689079930; x=1720615930;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=OYszt38IqNikveaxxJtUvxsFTPNnv5LlXD+DX90BkWs=;
- b=NUnwOesaBs5hHs3Tlu/Y707XaSufPi92G8G37LCVaNT/46096bfsY6vN
- xYufRIID95IKnz8wp27+NfBaSqsd6+avdGLO9P1Xf4jEYTxtKWQkmcVmA
- oHtkk0ZGNqx8FhqDv9chuZA2iun3M8wtm3ppB+MI3s+becfCcX7lTHoP4
- BAAqK/dXhtPAtvUaevk5sW4Kaf0kiAemHgHuJU/3RcQqEpsqLUkeSEy5K
- nOESY+b3YsjoLGBiQKELzBdA7kppsN1uMR5qSCNxdeomYNNQMIpghtVQA
- abXxHFA8KdAmdGUHUSH+RviLHb0Kj+yqePUOaNCbgsANwUhN2YqaO3fWg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="354470013"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="354470013"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 05:49:20 -0700
+ bh=fixFH5Llqroff/AhZ015VZ+OpUUgSBQ7xNlXodB8idQ=;
+ b=klgdWUv3awaIOz6Mfjj53LWNmORb8gYtkitHxFAtWbUo7Q0MOBvgp24E
+ WIDGvbIKJq3brziDibkH7xbW3vNVQa5yYpMO9oT5AxpyPqjF/GEftCW/y
+ D0w9MMabokPD5fTp4gTi1hBdUA7OV7TfZRykA89potQtE2IijJSWw8t6p
+ /fsZCU+UTATdjoTRO3Dzwj6tyN9ZO6mQVlgyEoYxoFgIIYfCkUWamS/0y
+ QuMbnZtb+KBQA0JuVIKuTfDGOcP285f5KDkVX+KI1Tw2khaPz/fpX5XmG
+ AYwPLm0SRXazwJFwQ3dGC5wbIQgYHNjvMjjuyuOYoFX9h/Xi7ujb8JB0R A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344205676"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="344205676"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 05:52:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="721078284"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="721078284"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="786613329"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="786613329"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga002.jf.intel.com with ESMTP; 11 Jul 2023 05:49:08 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 11 Jul 2023 05:51:56 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1qJCng-001qlR-32; Tue, 11 Jul 2023 15:49:04 +0300
-Date: Tue, 11 Jul 2023 15:49:04 +0300
+ id 1qJCqO-001qnp-39; Tue, 11 Jul 2023 15:51:52 +0300
+Date: Tue, 11 Jul 2023 15:51:52 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZK1PwMAz8OjsHgsE@smile.fi.intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Message-ID: <ZK1QaK3Qy/mDauae@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-14-andriy.shevchenko@linux.intel.com>
- <tvm772o6uqndgyjvycv27qouqq76crpre5tyqcnanaautqjjwn@pydiwhjzhbgd>
+ <20230710154932.68377-2-andriy.shevchenko@linux.intel.com>
+ <f0b9e2e4-b2c0-4336-0ec4-5afd9f1b6c72@collabora.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <tvm772o6uqndgyjvycv27qouqq76crpre5tyqcnanaautqjjwn@pydiwhjzhbgd>
+In-Reply-To: <f0b9e2e4-b2c0-4336-0ec4-5afd9f1b6c72@collabora.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -73,10 +73,10 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Paul Walmsley <paul.walmsley@sifive.com>,
  Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
  Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-spi@vger.kernel.org,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
@@ -84,8 +84,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 13/15] spi: Rename SPI_MASTER_GPIO_SS
- to SPI_CONTROLLER_GPIO_SS
+Subject: Re: [Linux-stm32] [PATCH v2 01/15] spi: Remove unneeded OF node
+	NULL checks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,26 +102,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 11, 2023 at 03:30:19PM +0300, Serge Semin wrote:
-> On Mon, Jul 10, 2023 at 06:49:30PM +0300, Andy Shevchenko wrote:
-> > Rename SPI_MASTER_GPIO_SS to SPI_CONTROLLER_GPIO_SS and
-> > convert the users to SPI_CONTROLLER_GPIO_SS to follow
+On Tue, Jul 11, 2023 at 10:12:55AM +0200, AngeloGioacchino Del Regno wrote:
+> Il 10/07/23 17:49, Andy Shevchenko ha scritto:
+> > In the couple of places the NULL check of OF node is implied by the call
+> > that takes it as a parameter. Drop the respective duplicate checks.
+> > 
+> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > 
-> * I'm not an expert in English, but imo the next would look a
-> * bit more readable:
-> * convert s/the users to SPI_CONTROLLER_GPIO_SS/the code to using SPI_CONTROLLER_GPIO_SS
-
-> > the new naming shema.
+> Validated against spi-mt65xx, spi-mt7621, spi-mtk-nor, spi-mtk-snfi;
 > 
-> s/shema/schema
+> Reviewed-by: AngeloGioacchino Del Regno
+> <angelogioacchino.delregno@collabora.com> # MediaTek
 
-Right, thank you!
-
-...
-
-> Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-
-Thank you for the review!
+By some reason the tag is split and I'm not sure `b4` can cope with that.
+In any case, added manually. Thank you for the review!
 
 -- 
 With Best Regards,
