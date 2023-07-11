@@ -2,54 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C4FE74F096
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 15:45:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5688D74F16E
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 16:15:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CFFDC6B44C;
-	Tue, 11 Jul 2023 13:45:47 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F17F5C6B44C;
+	Tue, 11 Jul 2023 14:15:10 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F207CC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D14B7C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 13:45:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689083145; x=1720619145;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9H4lxY6vAKcrrWzIJhW2JQY4hyPVgKM+IPDOVEDyRyc=;
- b=YRp4JNhDCzFERSwi5nNwnwfJypJqDpF5Hnhwq0fQEZyOYTF2z1hGcTV0
- mIlAkhTLZwXphBFasPujZ5nZnrTxHfs6C0T/r6K+wIfBB0VjhVo+WoUCU
- avkKOcPfnJHX/996xF4SlsH8KicNMgsz+ktlC2hHqISDO4ekci5PW1WCJ
- 2Pe2w3uApuKkRxNKA+1Z5PbAhTqhSrChXg6bW7mffkfRM9fn1pqbqk06b
- Pk5R1b++vEVhrgZpLbgG5infr6/T7GxhobLX3cP83nKzM5Aebyn8G6C91
- qGHRfbrxpFk9byKQqDTar1YkKkeJZK1T3UK6h3aUpdFQKYSBVsDy63i4Y A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="354484245"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="354484245"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 06:45:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="750766718"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="750766718"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga008.jf.intel.com with ESMTP; 11 Jul 2023 06:45:29 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1qJDgE-001rb5-12; Tue, 11 Jul 2023 16:45:26 +0300
-Date: Tue, 11 Jul 2023 16:45:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <ZK1c9RIHZ+gSkFVw@smile.fi.intel.com>
+ Tue, 11 Jul 2023 14:15:09 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 77C8D61360;
+ Tue, 11 Jul 2023 14:15:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209CBC433C9;
+ Tue, 11 Jul 2023 14:14:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1689084907;
+ bh=A+lgFSqWg8vRgir1XqFzY9nIE1Cw0dwqFBu8P2BdZBc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KwXQpO0JwJwS2tync5AfGpO9HXb9u4mgZfpWRxyxjmWV7o23oHa66oSgLBUqWen2D
+ ZlOHsSEyXpzrsEeWWEmLhLLitAzI15911I18ub63ARZldiwGDK6EeLi3B34Qy+IEG4
+ waxyA6VmnpE80hBohYtayTpWfyRhiz5yBCu2xfPCie7wDB1OJGO5pfFeIe7TmhLaf6
+ 2F7TtEpspxDmIAOKWfQt4n5/QaTo60Dymh5zBKNq1hnkXPOMFNsHXFu721qfrAekf9
+ KAql0ORVXuf2YxOmwhPq6tE1iNaCTZM61qgKsPoZvWs0hppRNFtMcBrTT4RcCr66z6
+ VpMXSzxRgleHw==
+Date: Tue, 11 Jul 2023 15:14:54 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <5959b123-09e3-474b-9ab0-68d71cfdd9a2@sirena.org.uk>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <58c6f76a-8028-4ce8-a101-d5feb3b40897@sirena.org.uk>
- <ZK04/8UQEaNinLoK@smile.fi.intel.com>
- <af598782-6998-4d60-b7fc-3d9aaeb0fe8f@sirena.org.uk>
+ <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
+ <cfaffa00-4b61-4d81-8675-70295844513b@sirena.org.uk>
+ <ZK02efTYxV3czigr@smile.fi.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <af598782-6998-4d60-b7fc-3d9aaeb0fe8f@sirena.org.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <ZK02efTYxV3czigr@smile.fi.intel.com>
+X-Cookie: marriage, n.:
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
  Heiko Stuebner <heiko@sntech.de>,
@@ -86,8 +78,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 00/15] spi: Header and core clean up
-	and refactoring
+Subject: Re: [Linux-stm32] [PATCH v2 04/15] spi: Replace open coded
+ spi_controller_xfer_timeout()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,30 +91,77 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4438393262925447567=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 11, 2023 at 02:38:37PM +0100, Mark Brown wrote:
-> On Tue, Jul 11, 2023 at 02:11:59PM +0300, Andy Shevchenko wrote:
-> 
-> > Do you think patch 9 deserves to be proceeded?
-> 
-> That one I need to think about, may as well resend it and I can think
-> about the resend.
 
-Got it.
+--===============4438393262925447567==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MZrPSMfLUzZVYlnE"
+Content-Disposition: inline
 
-Probably I have to amend commit message in the patch 9 to point out why
-struct_size() is better.
 
--- 
-With Best Regards,
-Andy Shevchenko
+--MZrPSMfLUzZVYlnE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Tue, Jul 11, 2023 at 02:01:13PM +0300, Andy Shevchenko wrote:
+> On Mon, Jul 10, 2023 at 06:30:32PM +0100, Mark Brown wrote:
+> > On Mon, Jul 10, 2023 at 06:49:21PM +0300, Andy Shevchenko wrote:
+
+> > > + * Assume speed to be 100 kHz if it's not defined at the time of invocation.
+
+> > You didn't mention this bit in the changelog, and I'm not 100% convinced
+> > it was the best idea in the first place.  It's going to result in some
+> > very big timeouts if it goes off, and we really should be doing
+> > validation much earlier in the process.
+
+> Okay, let's drop this change.
+
+Like I say we *should* be fine with the refactoring without this, or at
+least if it's an issue we should improve the validation.
+
+> > > +	u32 speed_hz = xfer->speed_hz ?: 100000;
+
+> > Not only the ternery operator, but the version without the second
+> > argument for extra clarity!
+
+> Elvis can be interpreted as "A _or_ B (if A is false/0)".
+> Some pieces related to SPI use Elvis already IIRC.
+
+I understand what it means, I just don't find it's adding clarity most
+of the times it's used (there's a few places where it is useful like
+pasting in strings in formats).  There are some examples that I'd
+complain about in the code, most of them predating me working on SPI too
+much, but I'm not a fan.
+
+--MZrPSMfLUzZVYlnE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmStY90ACgkQJNaLcl1U
+h9DeQQf+MxpgOv6egcsQtreuAtaq7Ev7HPCaH6MbusHDNH2hElvH+GmEYjovkV6m
+h3LadU5OvktJBaXfjDQRjU71Cbf70/Nlo8I3WN5V4iRKzqWtfMV16ZStvy2+1Rx/
+jHek+Aib8L8SiwlzvD6WB163yHCsSn5KBv2Pqp95DjGWamTl918onxXzSS6g2j5A
+ib1Mz8aOXWBsiIdaFTQ3NoK7Uvnykzp1X2uGcfrRZuPWQNVvpJs/wt5iOuTpuEws
+6O2PEgJext+6CeKBCv8pCvpex2QsVtDKLnDVvmDX4Oa2impxsxSIjLyVbZfbJ480
+4XviYIQ2LNlTFidlbAAqqEafOQrvRg==
+=WM20
+-----END PGP SIGNATURE-----
+
+--MZrPSMfLUzZVYlnE--
+
+--===============4438393262925447567==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4438393262925447567==--
