@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43AD874EC11
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 12:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E8374EC17
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 12:59:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F28FDC6B457;
-	Tue, 11 Jul 2023 10:58:32 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 187A3C6B457;
+	Tue, 11 Jul 2023 10:59:06 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4E0CC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D543C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 10:58:30 +0000 (UTC)
+ Tue, 11 Jul 2023 10:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689073110; x=1720609110;
+ t=1689073144; x=1720609144;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=lIHyBeHEaNenp9Q/l2JAcaQuyI3ymSNUAckdiFell2M=;
- b=lRABrF/cEY7nQUciARdU5300ecSA5i9ZC5WfrB4esC41QT63wjJrX8Sl
- ZEpWH/fDLzarEsVacn/ZlKrpGbYM1bSESL8cv4fGfWB67/JkMhQmdZX5c
- Vb+C7FXCB0ZHRhGLiqqhJh+dYio41I0XF7q1YfhtqoAkY/3/LDcJ/vz/+
- bJYiaiHJpHMn5vDnlFumsO3z+Hv2hOSR5v2ODBfL7rBcBbv0rFfzVEv8f
- 59WCefD2GURzfG8no6d9B9JpgrcRPVpEN2gxxDB1cr8nJHI/v8OT5s3tw
- SUR8uUuANhFK7JD+CoNJVadPXamN1ehrLBQa6DJro4NARCMX2AvTB4Eiu g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368087279"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="368087279"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 03:58:28 -0700
+ bh=+zeFSMPLY2Z95wTb4g4rf/2HnStio6yWOtQ5rXla3Pk=;
+ b=IVuIsPTgLUQMc4Komu3ux+LxVqRPgwBcggZXoINxPnGZr2v0hXpMVAcX
+ A+ojL+I0WIUA3nH3OWWJQsnjwOVKOxUc1dhdkJfYlfz9WY9L0XMuNjQXx
+ TIsI+sGljMSYBCIgtV59SQaUJmApW+sXudmG+Nvhlyx+TLB1iBQoGiT3v
+ mPe3m0t0s26QpUZLxZlj82n1AnR4XV/d0brwkw2yEos6Nm7woio21GE1P
+ RNxuYrPJLtVA5opjDPFYkN/4UeqR1uS/0NOjML09mwsmHTt/hR1RTjTDY
+ C1FHBIuKmNIefTdBUCzr6XoQaG/pGmTjRiq2oR7MRBTFCLCFHxoH3w5Qn A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="450948925"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="450948925"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 03:59:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="724404293"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="724404293"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="721055869"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="721055869"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga007.fm.intel.com with ESMTP; 11 Jul 2023 03:58:16 -0700
+ by orsmga002.jf.intel.com with ESMTP; 11 Jul 2023 03:58:49 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1qJB4O-001p51-1q; Tue, 11 Jul 2023 13:58:12 +0300
-Date: Tue, 11 Jul 2023 13:58:12 +0300
+ id 1qJB4v-001p5g-2V; Tue, 11 Jul 2023 13:58:45 +0300
+Date: Tue, 11 Jul 2023 13:58:45 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>
-Message-ID: <ZK01xAqLc8AGFDo/@smile.fi.intel.com>
+Message-ID: <ZK015fKTOK5wjck+@smile.fi.intel.com>
 References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-3-andriy.shevchenko@linux.intel.com>
- <97f3436a-78ca-4a94-a409-ef04bd3b593f@sirena.org.uk>
+ <20230710154932.68377-4-andriy.shevchenko@linux.intel.com>
+ <24e71654-bc79-42ac-86d1-4e6100f6893a@sirena.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <97f3436a-78ca-4a94-a409-ef04bd3b593f@sirena.org.uk>
+In-Reply-To: <24e71654-bc79-42ac-86d1-4e6100f6893a@sirena.org.uk>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Cc: Richard Cochran <richardcochran@gmail.com>,
  Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
@@ -85,8 +85,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
  Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 02/15] spi: Drop duplicate IDR
- allocation code in spi_register_controller()
+Subject: Re: [Linux-stm32] [PATCH v2 03/15] spi: Replace if-else-if by
+ bitops and multiplications
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,36 +103,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jul 10, 2023 at 06:09:00PM +0100, Mark Brown wrote:
-> On Mon, Jul 10, 2023 at 06:49:19PM +0300, Andy Shevchenko wrote:
+On Mon, Jul 10, 2023 at 05:56:59PM +0100, Mark Brown wrote:
+> On Mon, Jul 10, 2023 at 06:49:20PM +0300, Andy Shevchenko wrote:
 > 
-> > Refactor spi_register_controller() to drop duplicate IDR allocation.
-> > Instead of if-else-if branching use two sequential if:s, which allows
-> > to re-use the logic of IDR allocation in all cases.
+> > -		if (xfer->bits_per_word <= 8)
+> > -			maxsize = maxwords;
+> > -		else if (xfer->bits_per_word <= 16)
+> > -			maxsize = 2 * maxwords;
+> > -		else
+> > -			maxsize = 4 * maxwords;
+> > -
+> > +		maxsize = maxwords * roundup_pow_of_two(BITS_TO_BYTES(xfer->bits_per_word));
 > 
-> For legibility this should have been split into a separate factoring out
-> of the shared code and rewriting of the logic, that'd make it trivial to
-> review.
+> This will change the behaviour if bits_per_word is more than 32.  That
+> is validated out elsewhere but I shouldn't have had to go around
+> checking the code to confirm that this is the case.  This is the sort of
+> thing that should be highlighted when doing this sort of edge case
+> stylistic change.
 
-Should I do that for v3?
-
-> > -		mutex_lock(&board_lock);
-> > -		id = idr_alloc(&spi_master_idr, ctlr, first_dynamic,
-> > -			       0, GFP_KERNEL);
-> > -		mutex_unlock(&board_lock);
-> > -		if (WARN(id < 0, "couldn't get idr"))
-> > -			return id;
-> > -		ctlr->bus_num = id;
-> > +		status = spi_controller_id_alloc(ctlr, first_dynamic, 0);
-> > +		if (status)
-> > +			return status;
-> 
-> The original does not do the remapping of return codes that the previous
-> two copies do...
-
-Yes, I had to mention this in the commit message that in my opinion this makes
-no difference. With the dynamically allocated aliases the absence of the slot
-has the same effect as in the other cases.
+Right, I have to add this into commit message of v3.
 
 -- 
 With Best Regards,
