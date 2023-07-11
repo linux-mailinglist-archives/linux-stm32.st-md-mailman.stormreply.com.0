@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D15674F6D6
+	by mail.lfdr.de (Postfix) with ESMTPS id 4385174F6D5
 	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 19:19:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15E60C6B46B;
-	Tue, 11 Jul 2023 17:19:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1A34C6B467;
+	Tue, 11 Jul 2023 17:19:24 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F78AC6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96AFBC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 11 Jul 2023 17:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689095964; x=1720631964;
+ t=1689095963; x=1720631963;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rn9d/T3W6Uq2IhVx3LkqBWZwSCJuFxg8vPiXigm9Nk4=;
- b=P0Ur9PgSnro5qy493MP8jfBiTaOxbr1KgTUXTMm/lpQdwKna2VZCfThI
- HfjYRtZhOVqWlNyvAXAeaNz2KMEvdsACVZmLJ0Y+AoDd15x+pQ62XkhGN
- nuV+cLfs1ExpbYShx77r3O7RK+6aNuAt95IuRNDAe5eEvr45aRQ6nndSb
- adjHP3gAVirggDJmbliZQj7jTzIn/QTmnTRD3XJ7DlrafAO/Fex5M2Vbt
- 84h3QLwM2AIxguLYekBxZj480lWQCVcw1zoa5RRIuL07Sr+/KIijQ4sE1
- W07OI9xAoR349rsmqK2CVC15RkzRPdm7WLymYimA4T0+tBJkLpkPj/VJ/ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="362148827"
-X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="362148827"
+ bh=AaJS6i6oBeO9EHp15z+Qk/kBsYr58o4Zqaz8k2QQyPM=;
+ b=E7SzU70ma8pbeOVxrPmxaNb1w9w3RJGRkbWyPPezDZhZfQI7VNZheBkJ
+ I307snccieNziHnLWBpifyahCIvBWLaio4BF1f4xBtLGS7HxOdikKQc1t
+ lnaHI9NjIX2bPaR5Zn07AyodcNGMrWx2GtwoSYk0npwsrXcNr9mwl1rzA
+ BYXBXaO7mmKDwjuVLwqoCUiGzxrqIbOy1EayKaPR2LWOGFIQ25jvZG/qE
+ wLL/NmtguqKMAu3pbpw7dZBW5WBIJLRx5YsrXRpb8CAfV+PPGTNn/0m20
+ 2b6QLv1rDmCODRHd1NvfsrXyS4FbvX9VxthYEdXO0AoxNewCbaQwjlnNN g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="362148809"
+X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="362148809"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 10:19:19 -0700
+ 11 Jul 2023 10:19:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715240840"
-X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="715240840"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="715240843"
+X-IronPort-AV: E=Sophos;i="6.01,197,1684825200"; d="scan'208";a="715240843"
 Received: from black.fi.intel.com ([10.237.72.28])
  by orsmga007.jf.intel.com with ESMTP; 11 Jul 2023 10:17:56 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 3818F3E3; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
+ id 4C9884BD; Tue, 11 Jul 2023 20:17:59 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
@@ -54,8 +54,8 @@ To: Mark Brown <broonie@kernel.org>,
  linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org
-Date: Tue, 11 Jul 2023 20:17:45 +0300
-Message-Id: <20230711171756.86736-4-andriy.shevchenko@linux.intel.com>
+Date: Tue, 11 Jul 2023 20:17:46 +0300
+Message-Id: <20230711171756.86736-5-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
 References: <20230711171756.86736-1-andriy.shevchenko@linux.intel.com>
@@ -84,8 +84,8 @@ Cc: Richard Cochran <richardcochran@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: [Linux-stm32] [PATCH v3 03/14] spi: Refactor bus number assigning
-	code in spi_register_controller()
+Subject: [Linux-stm32] [PATCH v3 04/14] spi: Remove code duplication in
+	spi_add_device*()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,50 +102,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Instead of 'else' branching use two sequential if:s, which allows
-to re-use the logic of IDR allocation in both cases.
+The commit 0c79378c0199 ("spi: add ancillary device support")
+added a dozen of duplicating lines of code. We may move them
+to the __spi_add_device(). Note, that the code may be called
+under the mutex.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/spi/spi.c | 32 ++++++++++----------------------
+ 1 file changed, 10 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index d8064998aa27..6d74218cf38e 100644
+index 6d74218cf38e..876d40d2c708 100644
 --- a/drivers/spi/spi.c
 +++ b/drivers/spi/spi.c
-@@ -3122,8 +3122,8 @@ int spi_register_controller(struct spi_controller *ctlr)
+@@ -631,6 +631,16 @@ static int __spi_add_device(struct spi_device *spi)
+ 	struct device *dev = ctlr->dev.parent;
+ 	int status;
+ 
++	/* Chipselects are numbered 0..max; validate. */
++	if (spi_get_chipselect(spi, 0) >= ctlr->num_chipselect) {
++		dev_err(dev, "cs%d >= max %d\n", spi_get_chipselect(spi, 0),
++			ctlr->num_chipselect);
++		return -EINVAL;
++	}
++
++	/* Set the bus ID string */
++	spi_dev_set_name(spi);
++
+ 	/*
+ 	 * We need to make sure there's no other device with this
+ 	 * chipselect **BEFORE** we call setup(), else we'll trash
+@@ -689,19 +699,8 @@ static int __spi_add_device(struct spi_device *spi)
+ int spi_add_device(struct spi_device *spi)
  {
- 	struct device		*dev = ctlr->dev.parent;
- 	struct boardinfo	*bi;
-+	int			first_dynamic;
- 	int			status;
--	int			id, first_dynamic;
+ 	struct spi_controller *ctlr = spi->controller;
+-	struct device *dev = ctlr->dev.parent;
+ 	int status;
  
- 	if (!dev)
- 		return -ENODEV;
-@@ -3136,19 +3136,13 @@ int spi_register_controller(struct spi_controller *ctlr)
- 	if (status)
- 		return status;
+-	/* Chipselects are numbered 0..max; validate. */
+-	if (spi_get_chipselect(spi, 0) >= ctlr->num_chipselect) {
+-		dev_err(dev, "cs%d >= max %d\n", spi_get_chipselect(spi, 0),
+-			ctlr->num_chipselect);
+-		return -EINVAL;
+-	}
+-
+-	/* Set the bus ID string */
+-	spi_dev_set_name(spi);
+-
+ 	mutex_lock(&ctlr->add_lock);
+ 	status = __spi_add_device(spi);
+ 	mutex_unlock(&ctlr->add_lock);
+@@ -712,17 +711,6 @@ EXPORT_SYMBOL_GPL(spi_add_device);
+ static int spi_add_device_locked(struct spi_device *spi)
+ {
+ 	struct spi_controller *ctlr = spi->controller;
+-	struct device *dev = ctlr->dev.parent;
+-
+-	/* Chipselects are numbered 0..max; validate. */
+-	if (spi_get_chipselect(spi, 0) >= ctlr->num_chipselect) {
+-		dev_err(dev, "cs%d >= max %d\n", spi_get_chipselect(spi, 0),
+-			ctlr->num_chipselect);
+-		return -EINVAL;
+-	}
+-
+-	/* Set the bus ID string */
+-	spi_dev_set_name(spi);
  
-+	if (ctlr->bus_num < 0)
-+		ctlr->bus_num = of_alias_get_id(ctlr->dev.of_node, "spi");
- 	if (ctlr->bus_num >= 0) {
- 		/* Devices with a fixed bus num must check-in with the num */
- 		status = spi_controller_id_alloc(ctlr, ctlr->bus_num, ctlr->bus_num + 1);
- 		if (status)
- 			return status;
--	} else {
--		/* Allocate dynamic bus number using Linux idr */
--		id = of_alias_get_id(ctlr->dev.of_node, "spi");
--		if (id >= 0) {
--			status = spi_controller_id_alloc(ctlr, id, id + 1);
--			if (status)
--				return status;
--		}
- 	}
- 	if (ctlr->bus_num < 0) {
- 		first_dynamic = of_alias_get_highest_id("spi");
+ 	WARN_ON(!mutex_is_locked(&ctlr->add_lock));
+ 	return __spi_add_device(spi);
 -- 
 2.40.0.1.gaa8946217a0b
 
