@@ -2,85 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1327774F018
-	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 15:29:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8B574F04B
+	for <lists+linux-stm32@lfdr.de>; Tue, 11 Jul 2023 15:37:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB827C6B457;
-	Tue, 11 Jul 2023 13:29:30 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64203C6B44C;
+	Tue, 11 Jul 2023 13:37:58 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86B64C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 905DBC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 13:29:29 +0000 (UTC)
-Received: from [192.168.1.100] (2-237-20-237.ip236.fastwebnet.it
- [2.237.20.237])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 78FF36607010;
- Tue, 11 Jul 2023 14:29:26 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1689082168;
- bh=A6Rhy91tdjux/U1OjfY+XN+em6idN9fFsp4Gj75jj3Q=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Bj0EFZpAy7nFby7CUTs+PEwT8vs+La8bzX9UYqF73oazR63yx2IHPPA2JHUd1crN7
- u7PAxyRka3DqmNvhZ5M72I2mvt/zbjiS0yMalOlSuWvlx/bfnSvODSAi5oU/MRyGf3
- aGWBbXbtkrs/c69s3IIJc3n9NU+l9N7Vq3udf22WAzHRfo+NjJu3NVNgqg/mGODjal
- U+8BVvc+3X5TXjQn5d75fL8W+WXl0I2H6Avc6DBiihqQZ7faWNiWwtdS1K6qIpx6e4
- KBce2lFKpLIa/z0lFI7YUxCPDHlYxhSB5sfm0e4oNH095a1OsDfr7jPiRj41PQODwj
- CMKuG2rPGicFQ==
-Message-ID: <82a48b1c-b070-ba45-04f8-2f2bf645d893@collabora.com>
-Date: Tue, 11 Jul 2023 15:29:23 +0200
+ Tue, 11 Jul 2023 13:37:57 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36BC98m4015312; Tue, 11 Jul 2023 15:37:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=RjPhbi1cT49sUS0SQLqiRDs+n9LacP3Eh9vVSfof8mY=;
+ b=NuabFqUi3Do7nr3nqeSNc3InSpQChaW7caK3QrsZcViN9f2ahGdSe2o4/bYAnXj/c0OQ
+ A6yRWEon2a10QrDoVLJTQAMdllZD/prVNMrbqG5ulvvI4zp/DI5lsAWlSy+0PwX1Nv/u
+ /W+3iazEm3HiXvxa8ENFFq2zUbeJmecoSn6bviKeVa+XW6ONIQI5uWJd7T5ZuMb3MJNG
+ CxnHjcKbIGQh9YcwmSinZbHq9oJcF6BeiXUd5/eyoJoc+RcTg9zcGG3K76qdxXw6AI2p
+ x0SOgXd1wYBKSKe94y1MuWzqqyJZyNdzfLe1NkRKXiKB38a0gv8sEGH89L3hcm7x4eot Fw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rs6u68j50-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 11 Jul 2023 15:37:35 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2EAFC100053;
+ Tue, 11 Jul 2023 15:37:35 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 19F6021863B;
+ Tue, 11 Jul 2023 15:37:35 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 11 Jul
+ 2023 15:37:34 +0200
+Message-ID: <9e15a84e-33f7-3654-6ad2-66328c120ee6@foss.st.com>
+Date: Tue, 11 Jul 2023 15:37:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
+ Thunderbird/102.11.0
 Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
- <20230710154932.68377-5-andriy.shevchenko@linux.intel.com>
- <83c4b75a-06d7-9fca-ffa0-f2e6a6ae7aed@collabora.com>
- <e3688ce5-616a-4399-a4e3-c410a09f6a45@sirena.org.uk>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <e3688ce5-616a-4399-a4e3-c410a09f6a45@sirena.org.uk>
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-kernel@vger.kernel.org, Max Filippov <jcmvbkbc@gmail.com>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, linux-rockchip@lists.infradead.org,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Orson Zhai <orsonzhai@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-trace-kernel@vger.kernel.org,
+To: Marek Vasut <marex@denx.de>, <linux-arm-kernel@lists.infradead.org>
+References: <20230518011246.438097-1-marex@denx.de>
+ <20230518011246.438097-4-marex@denx.de>
+ <42b1d80b-9cbc-16e2-73a4-ee8b67f5cb2b@denx.de>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <42b1d80b-9cbc-16e2-73a4-ee8b67f5cb2b@denx.de>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-11_08,2023-07-11_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Yang Yingliang <yangyingliang@huawei.com>,
- Steven Rostedt <rostedt@goodmis.org>, Sanjay R Mehta <sanju.mehta@amd.com>,
- linux-mediatek@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>,
- Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v2 04/15] spi: Replace open coded
- spi_controller_xfer_timeout()
+ linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com
+Subject: Re: [Linux-stm32] [PATCH 4/5] ARM: dts: stm32: Add missing detach
+ mailbox for DHCOR SoM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,30 +77,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Il 11/07/23 15:05, Mark Brown ha scritto:
-> On Tue, Jul 11, 2023 at 10:28:13AM +0200, AngeloGioacchino Del Regno wrote:
->> Il 10/07/23 17:49, Andy Shevchenko ha scritto:
-> 
->>> +		ms = spi_controller_xfer_timeout(ctlr, xfer);
-> 
->> I agree on using helpers, but the logic is slightly changing here: yes it is
->> unlikely (and also probably useless) to get ms == UINT_MAX, but the helper is
->> limiting the maximum timeout value to 500mS, which may not work for some slow
->> controllers/devices.
-> 
-> The helper is limiting the *minimum* timeout value to 500ms - it's using
-> max() not min().  The idea is the other way around, that for a very fast
-> transfer we don't want to end up with such a short timeout that it false
-> triggers due to scheduling issues.
-
-After reading the code again, yeah, I've totally misread it the first time. Argh!
-Thanks! :-)
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTWFyZWsKCk9uIDcvMTEvMjMgMDQ6MDUsIE1hcmVrIFZhc3V0IHdyb3RlOgo+IE9uIDUvMTgv
+MjMgMDM6MTIsIE1hcmVrIFZhc3V0IHdyb3RlOgo+PiBBZGQgbWlzc2luZyAiZGV0YWNoIiBtYWls
+Ym94IHRvIHRoaXMgYm9hcmQgdG8gcGVybWl0IHRoZSBDUFUgdG8gaW5mb3JtCj4+IHRoZSByZW1v
+dGUgcHJvY2Vzc29yIG9uIGEgZGV0YWNoLiBUaGlzIHNpZ25hbCBhbGxvd3MgdGhlIHJlbW90ZSBw
+cm9jZXNzb3IKPj4gZmlybXdhcmUgdG8gc3RvcCBJUEMgY29tbXVuaWNhdGlvbiBhbmQgdG8gcmVp
+bml0aWFsaXplIHRoZSByZXNvdXJjZXMgZm9yCj4+IGEgcmUtYXR0YWNoLgo+Pgo+PiBXaXRob3V0
+IHRoaXMgbWFpbGJveCwgZGV0YWNoIGlzIG5vdCBwb3NzaWJsZSBhbmQga2VybmVsIGxvZyBjb250
+YWlucyB0aGUKPj4gZm9sbG93aW5nIHdhcm5pbmcgdG8sIHNvIG1ha2Ugc3VyZSBhbGwgdGhlIFNU
+TTMyTVAxNXh4IHBsYXRmb3JtIERUcyBhcmUKPj4gaW4gc3luYyByZWdhcmRpbmcgdGhlIG1haWxi
+b3hlcyB0byBmaXggdGhlIGRldGFjaCBpc3N1ZSBhbmQgdGhlIHdhcm5pbmc6Cj4+ICIKPj4gc3Rt
+MzItcnByb2MgMTAwMDAwMDAubTQ6IG1ib3hfcmVxdWVzdF9jaGFubmVsX2J5bmFtZSgpIGNvdWxk
+IG5vdCAKPj4gbG9jYXRlIGNoYW5uZWwgbmFtZWQgImRldGFjaCIKPj4gIgo+Pgo+PiBGaXhlczog
+NjI1N2RmYzFjNDEyICgiQVJNOiBkdHM6IHN0bTMyOiBBZGQgY29wcm9jZXNzb3IgZGV0YWNoIG1i
+b3ggb24gCj4+IHN0bTMybXAxNXgtZGt4IGJvYXJkcyIpCj4+IFNpZ25lZC1vZmYtYnk6IE1hcmVr
+IFZhc3V0IDxtYXJleEBkZW54LmRlPgo+PiAtLS0KPj4gQ2M6IEFsZXhhbmRyZSBUb3JndWUgPGFs
+ZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4+IENjOiBDb25vciBEb29sZXkgPGNvbm9yK2R0
+QGtlcm5lbC5vcmc+Cj4+IENjOiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93
+c2tpK2R0QGxpbmFyby5vcmc+Cj4+IENjOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0z
+MkBnbWFpbC5jb20+Cj4+IENjOiBSaWNoYXJkIENvY2hyYW4gPHJpY2hhcmRjb2NocmFuQGdtYWls
+LmNvbT4KPj4gQ2M6IFJvYiBIZXJyaW5nIDxyb2JoK2R0QGtlcm5lbC5vcmc+Cj4+IENjOiBkZXZp
+Y2V0cmVlQHZnZXIua2VybmVsLm9yZwo+PiBDYzoga2VybmVsQGRoLWVsZWN0cm9uaWNzLmNvbQo+
+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+IENjOiBsaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCj4+IC0tLQo+PiDCoCBhcmNoL2FybS9i
+b290L2R0cy9zdG0zMm1wMTV4eC1kaGNvci1zb20uZHRzaSB8IDQgKystLQo+PiDCoCAxIGZpbGUg
+Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0
+IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3Itc29tLmR0c2kgCj4+IGIvYXJj
+aC9hcm0vYm9vdC9kdHMvc3RtMzJtcDE1eHgtZGhjb3Itc29tLmR0c2kKPj4gaW5kZXggODY0OTYw
+Mzg3ZTYzNC4uZjAzNTFmNTk5YTUwOCAxMDA2NDQKPj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMv
+c3RtMzJtcDE1eHgtZGhjb3Itc29tLmR0c2kKPj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Rt
+MzJtcDE1eHgtZGhjb3Itc29tLmR0c2kKPj4gQEAgLTIyNyw4ICsyMjcsOCBAQCAmaXdkZzIgewo+
+PiDCoCAmbTRfcnByb2Mgewo+PiDCoMKgwqDCoMKgIG1lbW9yeS1yZWdpb24gPSA8JnJldHJhbT4s
+IDwmbWN1cmFtPiwgPCZtY3VyYW0yPiwgPCZ2ZGV2MHZyaW5nMD4sCj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIDwmdmRldjB2cmluZzE+LCA8JnZkZXYwYnVmZmVyPjsKPj4gLcKgwqDCoCBt
+Ym94ZXMgPSA8JmlwY2MgMD4sIDwmaXBjYyAxPiwgPCZpcGNjIDI+Owo+PiAtwqDCoMKgIG1ib3gt
+bmFtZXMgPSAidnEwIiwgInZxMSIsICJzaHV0ZG93biI7Cj4+ICvCoMKgwqAgbWJveGVzID0gPCZp
+cGNjIDA+LCA8JmlwY2MgMT4sIDwmaXBjYyAyPiwgPCZpcGNjIDM+Owo+PiArwqDCoMKgIG1ib3gt
+bmFtZXMgPSAidnEwIiwgInZxMSIsICJzaHV0ZG93biIsICJkZXRhY2giOwo+PiDCoMKgwqDCoMKg
+IGludGVycnVwdC1wYXJlbnQgPSA8JmV4dGk+Owo+PiDCoMKgwqDCoMKgIGludGVycnVwdHMgPSA8
+NjggMT47Cj4+IMKgwqDCoMKgwqAgc3RhdHVzID0gIm9rYXkiOwo+IAo+IElzIGFueXRoaW5nIGJs
+b2NraW5nIDEvNS4uNC81IChpLmUuIHRoZSBkdXBsaWNhdGlvbiBpbiBlYWNoIGJvYXJkIERUKSAK
+PiBwYXRjaGVzIGZyb20gYmVpbmcgYXBwbGllZCA/CgpOb3RoaW5nLiBJIHdhcyBqdXN0IHdhaXRp
+bmcgdG8gZGlzY3VzcyB3aXRoIHlvdSBhYm91dCBwYXRjaCA1IGF0IFByYWd1ZSAKdGhlbiBtZXJn
+ZSB3aW5kb3dzLgoKU28gcGF0Y2ggMSB0byA0IGFwcGxpZWQgb24gc3RtMzItbmV4dC4KCkNoZWVy
+cwpBbGV4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
