@@ -2,49 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B527502B6
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 11:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23CC67502CD
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 11:20:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDB53C6B459;
-	Wed, 12 Jul 2023 09:19:05 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBB76C6B459;
+	Wed, 12 Jul 2023 09:20:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D155BC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46823C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 09:19:04 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <a.fatoum@pengutronix.de>)
- id 1qJVzm-0005QN-Qy; Wed, 12 Jul 2023 11:18:50 +0200
-Message-ID: <d57fdae4-9931-6e37-56e1-9649074b3142@pengutronix.de>
-Date: Wed, 12 Jul 2023 11:18:48 +0200
+ Wed, 12 Jul 2023 09:20:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 148DB61719;
+ Wed, 12 Jul 2023 09:20:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6B844C433C7;
+ Wed, 12 Jul 2023 09:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1689153621;
+ bh=Ex71MzvqnoPSUmJRcXm5WZyi4T6gvlCMkVAhvg0LzGE=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=P2zHdNl2EydNK3q5sGc+nCH2LtNPsa7JIIjoTAxTlKKh7qQ07gNuX6wUisB9DoVQl
+ ENjdh05laikc2HkDUjtU7cMbtKj7eEQ9uqVDmfk5khfmej5ymKVwe/u0C9BaK4yAHb
+ oUD6ujNzjFukKAZgg9IcurQYyyPx78FEKUsaDX/q90pS3f9EpBA5TnZ7RfdrvZrGYh
+ M9bZqdA3aBKhP1bLtCyGjciDzFohNdIJO7ZPKYpeHQ1kaSvI3tyBJWwfPUhkcnsTk1
+ hI89322GvO7MdbIPsy4Gi2916nDEb2ydr8eVbynXyDDuoLMz91KWazPkk620WNtl/G
+ +4jUjPfrA1mEw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 47AD5E29F44; Wed, 12 Jul 2023 09:20:21 +0000 (UTC)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Content-Language: en-US
-To: Sean Nyekjaer <sean@geanix.com>, Leonard Goehrs <l.goehrs@pengutronix.de>
-References: <20230712062954.2194505-1-sean@geanix.com>
- <20230712062954.2194505-7-sean@geanix.com>
- <92f7f4cd-c9cc-8a1a-74c7-39eed955cd6a@pengutronix.de>
- <92C36A18-F359-497E-8267-03E5C62811F6@geanix.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-In-Reply-To: <92C36A18-F359-497E-8267-03E5C62811F6@geanix.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: a.fatoum@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>, dantuguf14105@gmail.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <168915362128.1981.13684727730813685010.git-patchwork-notify@kernel.org>
+Date: Wed, 12 Jul 2023 09:20:21 +0000
+References: <20230710201636.200412-1-ahalaney@redhat.com>
+In-Reply-To: <20230710201636.200412-1-ahalaney@redhat.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, andrew@lunn.ch,
+ netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
+ simon.horman@corigine.com, kuba@kernel.org, pabeni@redhat.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 7/8] dt-bindings: arm: stm32: add extra
- SiP compatible for oct, stm32mp157c-osd32-red
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/3] net: stmmac:
+ dwmac-qcom-ethqos: Improve error handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,78 +66,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12.07.23 11:11, Sean Nyekjaer wrote:
->> On 12 Jul 2023, at 10.38, Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
->> On 12.07.23 08:29, Sean Nyekjaer wrote:
->>> Add binding support for the Octavo OSD32MP1-RED development board.
->>>
->>> General features:
->>> - STM32MP157C
->>> - 512MB DDR3
->>> - CAN-FD
->>> - HDMI
->>> - USB-C OTG
->>> - UART
->>>
->>> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
->>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->>
->> Just a heads up: The LXA TAC, another OSD32MP1 board has been merged into
->> stm32-next yesterday, so applying your series onto that tree may result
->> in conflicts. You may want to rebase for v4.
->>
->> Cheers,
->> Ahmad
-> 
-> Thanks, will do :)
-> 
-> Can I get you to look at 4/8, 5/8 and 6/8 in this series? Will they break anything for LXA TAC?
+Hello:
 
-Leonard, does the LXA TAC have an implicit dependency on any of the rails that Sean is
-now turning off by default?
+This series was applied to netdev/net-next.git (main)
+by David S. Miller <davem@davemloft.net>:
 
-Cheers,
-Ahmad
+On Mon, 10 Jul 2023 15:06:36 -0500 you wrote:
+> This series includes some very minor quality of life patches in the
+> error handling.
+> 
+> I recently ran into a few issues where these patches would have made my
+> life easier (messing with the devicetree, dependent driver of this
+> failing, and incorrect kernel configs resulting in this driver not
+> probing).
+> 
+> [...]
 
-> 
-> /Sean
-> 
->>
->>
->>> ---
->>> Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 3 ++-
->>> 1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
->>> index 13e34241145b..55e45db1af26 100644
->>> --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
->>> +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
->>> @@ -143,7 +143,8 @@ properties:
->>>       - description: Octavo OSD32MP15x System-in-Package based boards
->>>         items:
->>>           - enum:
->>> -              - lxa,stm32mp157c-mc1 # Linux Automation MC-1
->>> +              - lxa,stm32mp157c-mc1       # Linux Automation MC-1
->>> +              - oct,stm32mp157c-osd32-red # Octavo OSD32MP1 RED board
->>>           - const: oct,stm32mp15xx-osd32
->>>           - enum:
->>>               - st,stm32mp157
->>
->> -- 
->> Pengutronix e.K.                           |                             |
->> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
->> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
->> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-> 
-> 
-> 
-> 
+Here is the summary with links:
+  - [net-next,v2,1/3] net: stmmac: dwmac-qcom-ethqos: Use of_get_phy_mode() over device_get_phy_mode()
+    https://git.kernel.org/netdev/net-next/c/a8aa20a64ef2
+  - [net-next,v2,2/3] net: stmmac: dwmac-qcom-ethqos: Use dev_err_probe()
+    https://git.kernel.org/netdev/net-next/c/b2f3d915b4fe
+  - [net-next,v2,3/3] net: stmmac: dwmac-qcom-ethqos: Log more errors in probe
+    https://git.kernel.org/netdev/net-next/c/27381e72a2db
 
+You are awesome, thank you!
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
