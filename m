@@ -2,58 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF92374FF4C
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 08:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45BB75008D
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 09:59:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B97CEC6B45A;
-	Wed, 12 Jul 2023 06:30:54 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5ABCDC6B459;
+	Wed, 12 Jul 2023 07:59:06 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AF80C6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BBECC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 06:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=Content-Transfer-Encoding:MIME-Version:References:
- In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=yizx/bWe4mJQHublra1LDakim5cyR3NpInTAKLCC6nQ=; b=vveAE67dVX8D/ObrLCto8MEsFK
- IE2eab8eyvxnHuQYuZA+ZUm9VqIZMkhMkR02PHTULUhOA1XFzqq/ehmgp7c5FNkmnyGZBqyTkfbpx
- 2o7iD2c62IYAgF3StcCS4b730jJO0281usBkd5/XMnS3onyQu32DFw0EApXXMKBHPhC8I33bgipw0
- YKSRjK4oexzky9LVL4z/m9hiT5GdQfSK9wt2dlbHcMHnaiibKoG5mFr6d9+9caDJOnfz0MEwFlQe0
- 10/l7nOfp+C0XpqbVKeVH/wJhxXNuepLSybJNRaobyWlm9ZalDBZW3WEamRoe/BDdJlZQ5FQpzQbU
- +oNCjp/Q==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1qJTN6-000ANs-AV; Wed, 12 Jul 2023 08:30:44 +0200
-Received: from [185.17.218.86] (helo=zen..)
- by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <sean@geanix.com>)
- id 1qJTN5-00020e-Jv; Wed, 12 Jul 2023 08:30:43 +0200
-From: Sean Nyekjaer <sean@geanix.com>
-To: a.fatoum@pengutronix.de, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
- soc@kernel.org
-Date: Wed, 12 Jul 2023 08:29:53 +0200
-Message-Id: <20230712062954.2194505-8-sean@geanix.com>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230712062954.2194505-1-sean@geanix.com>
-References: <20230712062954.2194505-1-sean@geanix.com>
+ Wed, 12 Jul 2023 07:59:05 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36C50ZAK015254; Wed, 12 Jul 2023 09:58:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=selector1;
+ bh=Um1B9av/YquzKvNJu7FsuOTP/FgdzsJGIJWDhEQJ774=;
+ b=6dBxyx5S7+VNmvzTQOD8oDl0fwA6nWSebqi37ymuLJGuAv5KKl3hJ41fzx6ECqwKH+gI
+ SFxaNFLdtF4T7334wrmMgWNvAV3f33y4EerRKOkDsIuMBrBsT1bsHGRsefu5DcgvkuHN
+ MZqFiX80vqtP/9g3r5leiM1IVtPp0QQpWicLG1aMofP79v2ikBT+shUirt6eZOLj4rXS
+ cnhvyUKswk24bzgKnYD8Sji7/7MurhEkczKHwvf0hoKob8U//n1fzjD8YFvnvn/Oya9g
+ NeMAfcql5D05IxSDm4BtUln6BN1EyinD2GkTseuP36Wby//dNY13IkGwenI8EGFGSG+F nA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3rs6u6dr4k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 12 Jul 2023 09:58:39 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 24765100058;
+ Wed, 12 Jul 2023 09:58:37 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E4E9A2115E0;
+ Wed, 12 Jul 2023 09:58:37 +0200 (CEST)
+Received: from [10.201.22.9] (10.201.22.9) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 12 Jul
+ 2023 09:58:37 +0200
+Message-ID: <a584c152-329e-9c79-ec62-795485302a55@foss.st.com>
+Date: Wed, 12 Jul 2023 09:58:36 +0200
 MIME-Version: 1.0
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.8/26966/Tue Jul 11 09:28:31 2023)
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 8/8] ARM: dts: stm32: Add Octavo
-	OSD32MP1-RED board
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+To: Linus Walleij <linus.walleij@linaro.org>
+References: <20230706073719.1156288-1-thomas.bourgoin@foss.st.com>
+ <20230706073719.1156288-3-thomas.bourgoin@foss.st.com>
+ <CACRpkdaHn8fhZtuhU4sXHK1xoxO3-xYg_Xb=3=bX8i-uJM9KDA@mail.gmail.com>
+From: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
+In-Reply-To: <CACRpkdaHn8fhZtuhU4sXHK1xoxO3-xYg_Xb=3=bX8i-uJM9KDA@mail.gmail.com>
+X-Originating-IP: [10.201.22.9]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-12_04,2023-07-11_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/7] crypto: stm32 - add new algorithms
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,280 +78,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the Octavo OSD32MP1-RED development board.
+Hi Linus,
 
-General features:
- - STM32MP157C
- - 512MB DDR3
- - CAN-FD
- - HDMI
- - USB-C OTG
- - UART
+Did you run your test only with the patch adding the support for 
+STM32MP13 or did you try the whole patch set ?
 
-Signed-off-by: Sean Nyekjaer <sean@geanix.com>
-Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+The error is on the test vector number 4, which is an HASH of 64 bytes 
+which is exactly the size of a blcok for SHA1.
+
+Did you try to run the test for SHA256 ? (I guess you will see the same 
+error on test vector 4)
+
+I have two hypothesis :
+	- it could be related to the padding of the data. (I don't think, the 
+patch does not modify these lines)
+	- it could come from the way the first block of data is handle. To 
+start the first pre computation, we have to write 1 block + 1 word. The 
+test only write one block so maybe the issue is here.
+
+On 7/6/23 09:37, Thomas BOURGOIN wrote:
+ > +		/*
+ > +		 * After first block + 1 words are fill up,
+ > +		 * we only need to fill 1 block to start partial computation
+ > +		 */
+ > +		rctx->state.blocklen -= sizeof(u32);
+ > +
+
+I found a typo in the number of CSR to save/restore for the SHA1 and 
+SHA256 algorithm. It should be 38 instead of 22.
+Tell me if it fixes the regression.
+
+It could be possible to divide the patch in 2 (one patch rework 
+preparing MP13 and one patch with the new algorithm) but for the 
+upstream I do not know if it is relevant to have 2 patches instead of one.
+
+Best regards,
+
+Thomas
+
 ---
-Changes since v2:
- - Reordered phandles alfabetically
- - Added devicetree to Makefile
+  drivers/crypto/stm32/stm32-hash.c | 2 +-
+  1 file changed, 1 insertion(+), 1 deletion(-)
 
- arch/arm/boot/dts/Makefile                    |   3 +-
- .../arm/boot/dts/stm32mp157c-osd32mp1-red.dts | 225 ++++++++++++++++++
- 2 files changed, 227 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
+diff --git a/drivers/crypto/stm32/stm32-hash.c 
+b/drivers/crypto/stm32/stm32-hash.c
+index a50d73c18d5c..88a186c3dd78 100644
+--- a/drivers/crypto/stm32/stm32-hash.c
++++ b/drivers/crypto/stm32/stm32-hash.c
+@@ -74,7 +74,7 @@
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 59829fc90315..a57e223eb0eb 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1266,7 +1266,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp157c-ev1.dtb \
- 	stm32mp157c-ev1-scmi.dtb \
- 	stm32mp157c-lxa-mc1.dtb \
--	stm32mp157c-odyssey.dtb
-+	stm32mp157c-odyssey.dtb \
-+	stm32mp157c-osd32mp1-red.dts
- dtb-$(CONFIG_MACH_SUN4I) += \
- 	sun4i-a10-a1000.dtb \
- 	sun4i-a10-ba10-tvbox.dtb \
-diff --git a/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
-new file mode 100644
-index 000000000000..dc4ad28e69b1
---- /dev/null
-+++ b/arch/arm/boot/dts/stm32mp157c-osd32mp1-red.dts
-@@ -0,0 +1,225 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-+/*
-+ * Copyright (C) Geanix ApS 2023 - All Rights Reserved
-+ * Author: Sean Nyekjaer <sean@geanix.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "stm32mp157.dtsi"
-+#include "stm32mp15xc.dtsi"
-+#include "stm32mp15xx-osd32.dtsi"
-+#include "stm32mp15xxac-pinctrl.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/stm32-pinfunc.h>
-+
-+/ {
-+	model = "Octavo OSD32MP1 RED board";
-+	compatible = "oct,stm32mp157c-osd32-red", "oct,stm32mp15xx-osd32", "st,stm32mp157";
-+
-+	aliases {
-+		serial0 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	led-controller-0 {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			label = "heartbeat";
-+			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+};
-+
-+&crc1 {
-+	status = "okay";
-+};
-+
-+&dts {
-+	status = "okay";
-+};
-+
-+&ethernet0 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
-+	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
-+	phy-mode = "rgmii-id";
-+	max-speed = <1000>;
-+	phy-handle = <&phy0>;
-+	st,eth-clk-sel;
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy0: ethernet-phy@3 {
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&iwdg2 {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_sleep_pins_a>;
-+	status = "okay";
-+	i2c-scl-rising-time-ns = <100>;
-+	i2c-scl-falling-time-ns = <7>;
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	hdmi-transmitter@39 {
-+		compatible = "sil,sii9022";
-+		reg = <0x39>;
-+		reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>;
-+		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
-+		interrupt-parent = <&gpiog>;
-+		pinctrl-names = "default", "sleep";
-+		pinctrl-0 = <&ltdc_pins_e>;
-+		pinctrl-1 = <&ltdc_sleep_pins_e>;
-+		status = "okay";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				sii9022_in: endpoint {
-+					remote-endpoint = <&ltdc_ep0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				sii9022_tx_endpoint: endpoint {
-+					remote-endpoint = <&i2s2_endpoint>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2s2 {
-+	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc CK_PER>, <&rcc PLL3_R>;
-+	clock-names = "pclk", "i2sclk", "x8k", "x11k";
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2s2_pins_b>;
-+	pinctrl-1 = <&i2s2_sleep_pins_b>;
-+	status = "okay";
-+
-+	i2s2_port: port {
-+		i2s2_endpoint: endpoint {
-+			remote-endpoint = <&sii9022_tx_endpoint>;
-+			format = "i2s";
-+			mclk-fs = <256>;
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_ep0_out: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&sii9022_in>;
-+		};
-+	};
-+};
-+
-+&m_can1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can1_pins_d>;
-+	pinctrl-1 = <&m_can1_sleep_pins_d>;
-+	status = "okay";
-+};
-+
-+&pwr_regulators {
-+	vdd-supply = <&vdd>;
-+	vdd_3v3_usbfs-supply = <&vdd_usb>;
-+};
-+
-+&rtc {
-+	status = "okay";
-+};
-+
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	cd-gpios = <&gpioe 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-+	disable-wp;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&v3v3>;
-+	status = "okay";
-+};
-+
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_d>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_d>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	st,neg-edge;
-+	bus-width = <8>;
-+	vmmc-supply = <&v3v3>;
-+	vqmmc-supply = <&vdd>;
-+	mmc-ddr-3_3v;
-+	status = "okay";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default", "sleep", "idle";
-+	pinctrl-0 = <&uart4_pins_a>;
-+	pinctrl-1 = <&uart4_sleep_pins_a>;
-+	pinctrl-2 = <&uart4_idle_pins_a>;
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+	status = "okay";
-+};
-+
-+&usbh_ehci {
-+	phys = <&usbphyc_port0>;
-+	phy-names = "usb";
-+	status = "okay";
-+};
-+
-+&usbh_ohci {
-+	phys = <&usbphyc_port0>;
-+	phy-names = "usb";
-+	status = "okay";
-+};
-+
-+&usbotg_hs {
-+	vbus-supply = <&vbus_otg>;
-+};
-+
-+&usbphyc {
-+	status = "okay";
-+};
-+
-+&usbphyc_port0 {
-+	phy-supply = <&vdd_usb>;
-+};
-+
-+&usbphyc_port1 {
-+	phy-supply = <&vdd_usb>;
-+};
+  /* Context swap register */
+  #define HASH_CSR_NB_SHA256_HMAC		54
+-#define HASH_CSR_NB_SHA256		22
++#define HASH_CSR_NB_SHA256		38
+  #define HASH_CSR_NB_SHA512_HMAC		103
+  #define HASH_CSR_NB_SHA512		91
+  #define HASH_CSR_NB_SHA3_HMAC		88
 -- 
-2.40.0
+2.25.1
+
 
 _______________________________________________
 Linux-stm32 mailing list
