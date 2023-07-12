@@ -2,72 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C9C274FF32
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 08:29:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4A674FF49
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 08:30:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30FD7C6B45D;
-	Wed, 12 Jul 2023 06:29:28 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92A4EC6B463;
+	Wed, 12 Jul 2023 06:30:51 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5254C6B457
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76584C6B45A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 06:29:26 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-977e0fbd742so817430366b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 11 Jul 2023 23:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1689143366; x=1691735366;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YGihCxuuhTbmdH2hnVIgkw0LhiTdDuWDElMvl2JmI2g=;
- b=HEETYVF3Cf6caU2IVpn4bhYyehyMrkZj0FSsQW4T2hk5zhXn/NHB7K/kMvUU7kVxMi
- pouTOgs9goWm/CoaQeWJ67nbqNE7TlU9yviMsfiurJuptNHqKzXFWQK8Q4Wjj6QGS2QQ
- eKnB7WC7jXlVkFsetY7luStWJHeEZHeZ3nMl4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689143366; x=1691735366;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YGihCxuuhTbmdH2hnVIgkw0LhiTdDuWDElMvl2JmI2g=;
- b=i0TrenAn6JFeoYFhui51B7bU6DBDA0EmdxWx0tg04WO7Y7H271h55hiVmtPknJIrLC
- I76IDM+gHKyq71H6YcOBkSJDqIJjFLH8RhrY3jZco6vG8/JEmrLDtPmXpg4KWQ3zwC2f
- O917rB071zCAys6yGOFe2jSZkhJFlEL5idhlyF5ujSx00dL2KVYORcLYianQWyiFDOGC
- UaZnDnymg5kY6WuhdVWr47P3gZO+AeImaxTegmgZdH5DjmFpBA2wCSpOGOw31MUHvvVI
- ezX9bpUGgHaNl02H8k7SQ+UHpJbIOs4KBOU8TpXm36S5cqsKZZjxEt9T9I1A5h4tMe9l
- w3xA==
-X-Gm-Message-State: ABy/qLZQb3+tVXbzZ346wnfLjXq9/3HmHseXeVmBwbynfSu2U1MQNDUP
- 1Xs3+lF0MuSQHUIXQYybdoFOhA==
-X-Google-Smtp-Source: APBJJlFF3w23VrtUP2Jho/NHDdyX4yhYeXWYdAdFRNtQms0pVry9bxGVi6Yn1q1w77BPLV2osXrV2Q==
-X-Received: by 2002:a17:906:15:b0:993:f611:7c95 with SMTP id
- 21-20020a170906001500b00993f6117c95mr12384538eja.39.1689143366256; 
- Tue, 11 Jul 2023 23:29:26 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.amarulasolutions.com
- (host-82-58-49-236.retail.telecomitalia.it. [82.58.49.236])
- by smtp.gmail.com with ESMTPSA id
- d21-20020a170906371500b009890e402a6bsm2065390ejc.221.2023.07.11.23.29.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Jul 2023 23:29:25 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Wed, 12 Jul 2023 08:29:18 +0200
-Message-Id: <20230712062918.2248573-4-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20230712062918.2248573-1-dario.binacchi@amarulasolutions.com>
-References: <20230712062918.2248573-1-dario.binacchi@amarulasolutions.com>
-MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Wed, 12 Jul 2023 06:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=T0dcoPCLaDYQMrHuXNE7wQ+1ki8yqQNoSM6auWBUDjc=; b=HcUtX5qvnoJrix64OWVAgd7w39
+ TokPNlo6ncPjrCuUv31j8KpQyhvOuPHbv80e2ekFkdJAbXVPQOTMC5r7gF3ekGq5DfZD5uRHTd+xj
+ 7b1WfDpr0jbtZdDGmLgrKlJK2WF++I+cbgHVWDpk4D5v55hlqOCVkeOep4bE5PgzI3VTdS1l23f0m
+ 5xjo3MeZs4VGuaay39CWKmcs0nm8MSKwqNOnqOM8FAZA1svUiRebP34LS2FA8i0vFMEvke5pRwAQU
+ rocoOX4FGahQfzrHdiuXkvYDyk8xJqj54UjeVDA+09Il/cGk2A6diAzfEFcdOB1zMlejKlBi8dHiA
+ S7T9lgXw==;
+Received: from sslproxy03.your-server.de ([88.198.220.132])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1qJTN0-000AMl-90; Wed, 12 Jul 2023 08:30:38 +0200
+Received: from [185.17.218.86] (helo=zen..)
+ by sslproxy03.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <sean@geanix.com>)
+ id 1qJTMz-00020e-Lv; Wed, 12 Jul 2023 08:30:37 +0200
+From: Sean Nyekjaer <sean@geanix.com>
+To: a.fatoum@pengutronix.de, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 12 Jul 2023 08:29:46 +0200
+Message-Id: <20230712062954.2194505-1-sean@geanix.com>
+X-Mailer: git-send-email 2.40.0
+MIME-Version: 1.0
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/26966/Tue Jul 11 09:28:31 2023)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 3/3] ARM: dts: stm32: support display on
-	stm32f746-disco board
+Subject: [Linux-stm32] [PATCH v3 1/8] ARM: dts: stm32: Add alternate pinmux
+	for i2s pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,105 +66,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support to Rocktech RK043FN48H display on stm32f746-disco board.
+Add another mux option for i2s pins, this is used on Octavo OSD32MP1-RED board.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
 ---
+ arch/arm/boot/dts/stm32mp15-pinctrl.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-Changes in v6:
-- Remove dma nodes from stm32f746-disco.dts, they are not used by LTDC,
-  so there is no need to enable them.
-
-Changes in v5:
-I am confident that framebuffer sizing is a real requirement for STM32 boards,
-but I need some time to understand if and how to introduce this functionality.
-Therefore, I drop the following patches to allow the series to be fully merged:
- - [4/6] dt-bindings: display: stm32-ltdc: add optional st,fb-bpp property
- - [5/6] ARM: dts: stm32: set framebuffer bit depth on stm32f746-disco
- - [6/6] drm/stm: set framebuffer bit depth through DTS property
-
-Changes in v4:
-- Use DTS property instead of module parameter to set the framebuffer bit depth.
-
-Changes in v3:
-- drop [4/6] dt-bindings: display: simple: add Rocktech RK043FN48H
-  Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next):
-  https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c42a37a27c777d63961dd634a30f7c887949491a
-- drop [5/6] drm/panel: simple: add support for Rocktech RK043FN48H panel
-  Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
-  https://cgit.freedesktop.org/drm/drm-misc/commit/?id=13cdd12a9f934158f4ec817cf048fcb4384aa9dc
-
- arch/arm/boot/dts/st/stm32f746-disco.dts | 43 ++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32f746-disco.dts b/arch/arm/boot/dts/st/stm32f746-disco.dts
-index c11616ed5fc6..c00d34179e2e 100644
---- a/arch/arm/boot/dts/st/stm32f746-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32f746-disco.dts
-@@ -60,10 +60,41 @@ memory@c0000000 {
- 		reg = <0xC0000000 0x800000>;
+diff --git a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+index e86d989dd351..d79f89f37bc7 100644
+--- a/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/stm32mp15-pinctrl.dtsi
+@@ -686,6 +686,25 @@ pins {
+ 		};
  	};
  
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		linux,cma {
-+			compatible = "shared-dma-pool";
-+			no-map;
-+			size = <0x80000>;
-+			linux,dma-default;
++	i2s2_pins_b: i2s2-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C',  3, AF5)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, AF5)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, AF5)>; /* I2S2_CK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <1>;
 +		};
 +	};
 +
- 	aliases {
- 		serial0 = &usart1;
- 	};
- 
-+	backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
-+	};
-+
-+	panel_rgb: panel-rgb {
-+		compatible = "rocktech,rk043fn48h";
-+		backlight = <&backlight>;
-+		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
-+		port {
-+			panel_in_rgb: endpoint {
-+				remote-endpoint = <&ltdc_out_rgb>;
-+			};
++	i2s2_sleep_pins_b: i2s2-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 3, ANALOG)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, ANALOG)>; /* I2S2_CK */
 +		};
 +	};
 +
- 	usbotg_hs_phy: usb-phy {
- 		#phy-cells = <0>;
- 		compatible = "usb-nop-xceiv";
-@@ -99,6 +130,18 @@ &i2c1 {
- 	status = "okay";
- };
- 
-+&ltdc {
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	port {
-+		ltdc_out_rgb: endpoint {
-+			remote-endpoint = <&panel_in_rgb>;
-+		};
-+	};
-+};
-+
- &sdio1 {
- 	status = "okay";
- 	vmmc-supply = <&mmc_vcard>;
+ 	ltdc_pins_a: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G',  7, AF14)>, /* LCD_CLK */
 -- 
-2.32.0
+2.40.0
 
 _______________________________________________
 Linux-stm32 mailing list
