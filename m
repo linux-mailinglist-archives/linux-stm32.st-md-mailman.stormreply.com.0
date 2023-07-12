@@ -2,81 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D91A75069F
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 13:47:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D83B750801
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 14:19:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 246EAC6B459;
-	Wed, 12 Jul 2023 11:47:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34787C6B44D;
+	Wed, 12 Jul 2023 12:19:26 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB160C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A119C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 11:47:56 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A2B01617A4;
- Wed, 12 Jul 2023 11:47:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6827AC433C9;
- Wed, 12 Jul 2023 11:47:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689162475;
- bh=BL+8Fo9QG0zNtj0y7Lgb/m7HMTTimtNx9krlJ8PROKk=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MBDgsatfZpWqdAMwV6qveeIfLQ6N7jrowK9LjuavtymGZJ2RZ2Oc1MpqiENhz3quE
- 3C52w4yN+XHh2R9JtS9d5C82wdCYmJLOyIegf8gaLO9fnbUYfmxOmBAQgyocJctiAI
- 6E59ipQJyxOm+qSbYi3HkSZBX2tCKWY1iP+GjHTkOSnvKhvbhkax3ZarfbH5wu0wKK
- qx68/+nBANjiNw+aQoV6C1vLW4EDygmSD4fpo+BTkFwtXsm5w2b39Kd49evlvRZIW7
- KcdjwPLLtdt+TqxuNclA8arYxR3eJ8wd/C5/2IO8CCIn4CiFbVXi916UJQXvZWbBYq
- HcHdiJ1RRWg+A==
-From: Mark Brown <broonie@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Yang Yingliang <yangyingliang@huawei.com>, 
- Amit Kumar Mahapatra via Alsa-devel <alsa-devel@alsa-project.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>, 
- Vijaya Krishna Nivarthi <quic_vnivarth@quicinc.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- linux-trace-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-In-Reply-To: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
-References: <20230710154932.68377-1-andriy.shevchenko@linux.intel.com>
-Message-Id: <168916246513.47003.10097115249886306259.b4-ty@kernel.org>
-Date: Wed, 12 Jul 2023 12:47:45 +0100
+ Wed, 12 Jul 2023 12:19:25 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <l.goehrs@pengutronix.de>)
+ id 1qJYoJ-0001cW-3E; Wed, 12 Jul 2023 14:19:11 +0200
+Message-ID: <44633ed0-9401-6d03-000a-4fce5e16ae5c@pengutronix.de>
+Date: Wed, 12 Jul 2023 14:19:08 +0200
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-099c9
-Cc: Richard Cochran <richardcochran@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Heiko Stuebner <heiko@sntech.de>, Max Filippov <jcmvbkbc@gmail.com>,
- Fabio Estevam <festevam@gmail.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>, Tudor Ambarus <tudor.ambarus@linaro.org>,
- Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Orson Zhai <orsonzhai@gmail.com>, Radu Pirea <radu_nicolae.pirea@upb.ro>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Steven Rostedt <rostedt@goodmis.org>,
- Sanjay R Mehta <sanju.mehta@amd.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Serge Semin <fancer.lancer@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH v2 00/15] spi: Header and core
- clean up and refactoring
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.12.0
+Content-Language: en-US-large
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Sean Nyekjaer <sean@geanix.com>
+References: <20230712062954.2194505-1-sean@geanix.com>
+ <20230712062954.2194505-7-sean@geanix.com>
+ <92f7f4cd-c9cc-8a1a-74c7-39eed955cd6a@pengutronix.de>
+ <92C36A18-F359-497E-8267-03E5C62811F6@geanix.com>
+ <d57fdae4-9931-6e37-56e1-9649074b3142@pengutronix.de>
+From: =?UTF-8?Q?Leonard_G=c3=b6hrs?= <l.goehrs@pengutronix.de>
+In-Reply-To: <d57fdae4-9931-6e37-56e1-9649074b3142@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: l.goehrs@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, dantuguf14105@gmail.com,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 7/8] dt-bindings: arm: stm32: add extra
+ SiP compatible for oct, stm32mp157c-osd32-red
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,77 +57,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 10 Jul 2023 18:49:17 +0300, Andy Shevchenko wrote:
-> Various cleanups and refactorings of the SPI header and core parts
-> united in a single series. It also touches drivers under SPI subsystem
-> folder on the pure renaming purposes of some constants.
-> 
-> No functional change intended.
-> 
-> Changelog v2:
-> - added new patches 3,4,5,10,13,14
-> - massaged comment and kernel doc in patch 9
-> - split used to be patch 4 to patches 11,12
-> - covered a few things in SPI core in patch 15
-> - amended commit message for above (Mark)
-> - reshuffled patches in the series for better logical grouping
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[01/15] spi: Remove unneeded OF node NULL checks
-        commit: fbab5b2c09060e8034fee6ec2df69a62594fb7db
-[02/15] spi: Drop duplicate IDR allocation code in spi_register_controller()
-        commit: 440c47331bdb889e24128c75387c695ca81d9b9b
-[03/15] spi: Replace if-else-if by bitops and multiplications
-        commit: 2b308e7176e366a52a07a49868e3b1a295e56785
-[06/15] spi: Use sysfs_emit() to instead of s*printf()
-        commit: f2daa4667fda1aa951b91da0ae9675a5da9d7716
-[07/15] spi: Sort headers alphabetically
-        commit: edf6a864c996f9a9f5299a3b3e574a37e64000c5
-[08/15] spi: Clean up headers
-        (no commit info)
-[11/15] spi: Get rid of old SPI_MASTER_NO_TX & SPI_MASTER_NO_RX
-        commit: c397f09e5498994790503a64486213ef85e58db9
-[12/15] spi: Get rid of old SPI_MASTER_MUST_TX & SPI_MASTER_MUST_RX
-        commit: 90366cd60133a9f5b6a2f31360367c658585e125
-[13/15] spi: Rename SPI_MASTER_GPIO_SS to SPI_CONTROLLER_GPIO_SS
-        commit: 82238d2cbd99ebd09dda48fb7c1c8802097da6a2
-[14/15] spi: Convert to SPI_CONTROLLER_HALF_DUPLEX
-        commit: 7a2b552c8e0e5bb280558f6c120140f5f06323bc
-[15/15] spi: Fix spelling typos and acronyms capitalization
-        commit: 702ca0269ed56e2d8dae7874a4d8af268e2a382e
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDEyLjA3LjIzIDExOjE4LCBBaG1hZCBGYXRvdW0gd3JvdGU6Cj4gT24gMTIuMDcuMjMgMTE6
+MTEsIFNlYW4gTnlla2phZXIgd3JvdGU6Cj4+PiBPbiAxMiBKdWwgMjAyMywgYXQgMTAuMzgsIEFo
+bWFkIEZhdG91bSA8YS5mYXRvdW1AcGVuZ3V0cm9uaXguZGU+IHdyb3RlOgo+Pj4gT24gMTIuMDcu
+MjMgMDg6MjksIFNlYW4gTnlla2phZXIgd3JvdGU6Cj4+Pj4gQWRkIGJpbmRpbmcgc3VwcG9ydCBm
+b3IgdGhlIE9jdGF2byBPU0QzMk1QMS1SRUQgZGV2ZWxvcG1lbnQgYm9hcmQuCj4+Pj4KPj4+PiBH
+ZW5lcmFsIGZlYXR1cmVzOgo+Pj4+IC0gU1RNMzJNUDE1N0MKPj4+PiAtIDUxMk1CIEREUjMKPj4+
+PiAtIENBTi1GRAo+Pj4+IC0gSERNSQo+Pj4+IC0gVVNCLUMgT1RHCj4+Pj4gLSBVQVJUCj4+Pj4K
+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBTZWFuIE55ZWtqYWVyIDxzZWFuQGdlYW5peC5jb20+Cj4+Pj4g
+QWNrZWQtYnk6IENvbm9yIERvb2xleSA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+Cj4+Pgo+
+Pj4gSnVzdCBhIGhlYWRzIHVwOiBUaGUgTFhBIFRBQywgYW5vdGhlciBPU0QzMk1QMSBib2FyZCBo
+YXMgYmVlbiBtZXJnZWQgaW50bwo+Pj4gc3RtMzItbmV4dCB5ZXN0ZXJkYXksIHNvIGFwcGx5aW5n
+IHlvdXIgc2VyaWVzIG9udG8gdGhhdCB0cmVlIG1heSByZXN1bHQKPj4+IGluIGNvbmZsaWN0cy4g
+WW91IG1heSB3YW50IHRvIHJlYmFzZSBmb3IgdjQuCj4+Pgo+Pj4gQ2hlZXJzLAo+Pj4gQWhtYWQK
+Pj4KPj4gVGhhbmtzLCB3aWxsIGRvIDopCj4+Cj4+IENhbiBJIGdldCB5b3UgdG8gbG9vayBhdCA0
+LzgsIDUvOCBhbmQgNi84IGluIHRoaXMgc2VyaWVzPyBXaWxsIHRoZXkgYnJlYWsgYW55dGhpbmcg
+Zm9yIExYQSBUQUM/Cj4gCj4gTGVvbmFyZCwgZG9lcyB0aGUgTFhBIFRBQyBoYXZlIGFuIGltcGxp
+Y2l0IGRlcGVuZGVuY3kgb24gYW55IG9mIHRoZSByYWlscyB0aGF0IFNlYW4gaXMKPiBub3cgdHVy
+bmluZyBvZmYgYnkgZGVmYXVsdD8KCk5vLCByZW1vdmluZyB0aGUgcmVndWxhdG9yLWFsd2F5cy1v
+biBmb3IgdGhlc2UgdGhyZWUgcmVndWxhdG9ycyBvbiB0aGUgTFhBIFRBQyBzaG91bGQgYmUgZmlu
+ZS4KV2UgZG8gbm90IHVzZSB2MXYyX2hkbWkgYW5kIHYxdjhfYXVkaW8gYXQgYWxsIGFuZCBhbHJl
+YWR5IGhhdmUKIi9kZWxldGUtcHJvcGVydHkvcmVndWxhdG9yLWFsd2F5cy1vbiIgaW4gb3VyIHN0
+bTMybXAxNXhjLWx4YS10YWMuZHRzaSBmb3IgdjN2M19oZG1pLAp3aGljaCBiZWNvbWVzIG9ic29s
+ZXRlIHdpdGggdGhpcyBwYXRjaC4KSSB3b3VsZCBhcHByZWNpYXRlIGl0IGlmIHlvdSBhZGRlZCBw
+YXRjaCB0byByZW1vdmUgaXQgZnJvbSBzdG0zMm1wMTV4Yy1seGEtdGFjLmR0c2kgaWYgeW91CnNl
+bmQgYSB2NC4KCllvdSBjYW4gYWRkIG15IEFja2VkLWJ5OiBMZW9uYXJkIEfDtmhycyA8bC5nb2Vo
+cnNAcGVuZ3V0cm9uaXguZGU+IHRvIHRoZXNlIHRocmVlIHBhdGNoZXMsCmlmIHlvdSBsaWtlLgoK
+R3JlZXRpbmdzCkxlb25hcmQKCj4gQ2hlZXJzLAo+IEFobWFkCj4gCj4+Cj4+IC9TZWFuCj4+Cj4+
+Pgo+Pj4KPj4+PiAtLS0KPj4+PiBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJt
+L3N0bTMyL3N0bTMyLnlhbWwgfCAzICsrLQo+Pj4+IDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
+bnMoKyksIDEgZGVsZXRpb24oLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwgYi9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwKPj4+PiBpbmRleCAxM2Uz
+NDI0MTE0NWIuLjU1ZTQ1ZGIxYWYyNiAxMDA2NDQKPj4+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwKPj4+PiArKysgYi9Eb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvYXJtL3N0bTMyL3N0bTMyLnlhbWwKPj4+PiBAQCAt
+MTQzLDcgKzE0Myw4IEBAIHByb3BlcnRpZXM6Cj4+Pj4gICAgICAgIC0gZGVzY3JpcHRpb246IE9j
+dGF2byBPU0QzMk1QMTV4IFN5c3RlbS1pbi1QYWNrYWdlIGJhc2VkIGJvYXJkcwo+Pj4+ICAgICAg
+ICAgIGl0ZW1zOgo+Pj4+ICAgICAgICAgICAgLSBlbnVtOgo+Pj4+IC0gICAgICAgICAgICAgIC0g
+bHhhLHN0bTMybXAxNTdjLW1jMSAjIExpbnV4IEF1dG9tYXRpb24gTUMtMQo+Pj4+ICsgICAgICAg
+ICAgICAgIC0gbHhhLHN0bTMybXAxNTdjLW1jMSAgICAgICAjIExpbnV4IEF1dG9tYXRpb24gTUMt
+MQo+Pj4+ICsgICAgICAgICAgICAgIC0gb2N0LHN0bTMybXAxNTdjLW9zZDMyLXJlZCAjIE9jdGF2
+byBPU0QzMk1QMSBSRUQgYm9hcmQKPj4+PiAgICAgICAgICAgIC0gY29uc3Q6IG9jdCxzdG0zMm1w
+MTV4eC1vc2QzMgo+Pj4+ICAgICAgICAgICAgLSBlbnVtOgo+Pj4+ICAgICAgICAgICAgICAgIC0g
+c3Qsc3RtMzJtcDE1Nwo+Pj4KPj4+IC0tIAo+Pj4gUGVuZ3V0cm9uaXggZS5LLiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwKPj4+IFN0ZXVl
+cndhbGRlciBTdHIuIDIxICAgICAgICAgICAgICAgICAgICAgICB8IGh0dHA6Ly93d3cucGVuZ3V0
+cm9uaXguZGUvICB8Cj4+PiAzMTEzNyBIaWxkZXNoZWltLCBHZXJtYW55ICAgICAgICAgICAgICAg
+ICAgfCBQaG9uZTogKzQ5LTUxMjEtMjA2OTE3LTAgICAgfAo+Pj4gQW10c2dlcmljaHQgSGlsZGVz
+aGVpbSwgSFJBIDI2ODYgICAgICAgICAgIHwgRmF4OiAgICs0OS01MTIxLTIwNjkxNy01NTU1IHwK
+Pj4KPj4KPj4KPj4KPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
