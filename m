@@ -2,83 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D115751129
-	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 21:25:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DA575113C
+	for <lists+linux-stm32@lfdr.de>; Wed, 12 Jul 2023 21:30:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0617DC6B44D;
-	Wed, 12 Jul 2023 19:25:38 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77432C6B44D;
+	Wed, 12 Jul 2023 19:30:02 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5CFE2C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B3FEC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 19:25:36 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-9891c73e0fbso250395166b.1
+ Wed, 12 Jul 2023 19:30:00 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-51a52a7d859so2496686a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 12:25:36 -0700 (PDT)
+ Wed, 12 Jul 2023 12:30:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689189936; x=1691781936;
+ d=linaro.org; s=google; t=1689190200; x=1691782200;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=qlC2xd+LWkAw6VtZI/SCBHO2xi/vQf/CwDed84n3xeQ=;
- b=lTzQAFm0UwnXd24PWylRYpcU0F457aHyP9KciWJkMJEWnnNM1CDllzQ4uWcH8EfUQv
- cbZrg8V55iXV0C8nY+uTF7hJl5aPxJnjV9T0geZilx5Ca0xXAKbU8yDrCIYeYYezeCTD
- LnK9GtarHRZDKWRyLhJztJPJDs+bfLXXFymXnErXhGDmgjYgkmbbsy/yjPESTQGA3IC6
- vPSBfHKsAR+Iq642bz+6uTsci/xNYrGfUkpeK2n05ltckLJGjCXRJl8BxhYPr4qqUNuo
- TvOd0aQSG1GkKzUTsXpwujhkrVkL1VFqLHYH/P+us70BQ1E3IzzJGKKGQjUMsylhYQgF
- MJQw==
+ bh=vCDyMfyZw0JBMHEQP3zkn43WOBZMaiSkCPKkobV+TU0=;
+ b=KRiPHIywurXs7a/vCB61jmxjOuTF39PCsXp3Cb3aaIEkfrDNF316xsroxHXUDGiinP
+ VpKZJSoYGFc+7mMbH7Zed8JkU8kL//1DmZZO77xEEVF57MJI55S/NtUFtsWweziLOhUh
+ +22QJTjGpxDapbZ50hqAhEzp2OYwp9QCzjQO2t56QQ42XNo8aEoG6BKgi4V5lOlrXusE
+ zTZiXhF8ExMBP9Rpr/M3ecZZBgap1BR+oGFiquS7vASI15z8QooubZaf+VV58U2yXIQ0
+ +xdsgWcSm5/lnTJqsG5v4JwbvtnWnIXXBXfOYLSWNhtGaX6iLAMGPEdCnEUK6wHf1KXV
+ px7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689189936; x=1691781936;
+ d=1e100.net; s=20221208; t=1689190200; x=1691782200;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qlC2xd+LWkAw6VtZI/SCBHO2xi/vQf/CwDed84n3xeQ=;
- b=KASNBpyWx4GqloCDB6U8skQMBhCEZFXwiLkMggZxDE8MEzvcyA/ACjqjQYfujr0SaB
- GzTMs9JIsAs0yfcYc3623Va6wIc5pcAv8osuGi/yklF8QMLT0SFe4NCUyFFzFEu80UeS
- jzhsrqo9WwH4LEa9nCaZGrLD+4RVA6ORbih+iI/1c4UurD6X+rzgBS5wpjSMCEJxAcoQ
- 3nJD6MLDJyzbVTtDxHaZrtaZj/W9CSAxzHz77XjOz1yZ4n8JIQ7BkIGS5ms7cy1qwT2i
- tw4Qqdw1Y0EYZSkLakvWRqbexdxnqaUWzDtl1t6DhLbgGC2bFpJ7GXqdlzS5yH4TStn9
- TWRA==
-X-Gm-Message-State: ABy/qLZkAXpDS66a2W45zHUkRz39SCxYJ+w4uyv7RcGcSg5RgM9WnDp5
- SLru7v5Blyf2hVsoP4uobdfCYg==
-X-Google-Smtp-Source: APBJJlGsZdGD7bEjsV+5Ybs5t0WWeawP39YFnwraXzAZG+K1Jg6V4qqvtL+9S5NUbMA6Ge3qBEZgnA==
-X-Received: by 2002:a17:906:1053:b0:992:8d96:4de3 with SMTP id
- j19-20020a170906105300b009928d964de3mr4213382ejj.24.1689189935773; 
- Wed, 12 Jul 2023 12:25:35 -0700 (PDT)
+ bh=vCDyMfyZw0JBMHEQP3zkn43WOBZMaiSkCPKkobV+TU0=;
+ b=U1o9y411gR2/grpZYQCxNpyl4oEv6b0vPbHnL2dNvKChN7/NMaWrzWXHZnmfCmXmGW
+ oS92dnxgJhi6PQiZnWW60eXk1CUT03lhSSgZLUrtdbM/Y2os2r4skd8+vCNec31NZOJC
+ 8UEXXkv1CVn3lCo191qVqY1Hm5G1mATpv6OjcQs+fIoVdIFHcPXU5x+aoIzSUdl+RSDZ
+ 2ozyGCoCnFJjcu6uEzSb8DiErjjIDltJRoyBYEUZl2phb7Srgpqq/PPdTfv/bzU4OmNQ
+ DQpFki/sW8YgeSeOPBrw4pMFEdhnTywp74W2YJ4ph15A71AoIXq0pbe67t8MxiJfO0jA
+ qEWA==
+X-Gm-Message-State: ABy/qLYvYQwPFzWpRJkE+OL8MTKvlXMlYZbocCFPcnR804F6yPIACjiu
+ Nkx6ME/l4u0vAZX9948m0sw79g==
+X-Google-Smtp-Source: APBJJlEaEds1c2vimfu2d4L3qIYc0gZlAn6G4CfWoTav0SMD+/rulpZFWT35TcKT6fjcTnUfdPRrbA==
+X-Received: by 2002:a05:6402:3492:b0:51e:48e7:72ca with SMTP id
+ v18-20020a056402349200b0051e48e772camr4298779edc.13.1689190199933; 
+ Wed, 12 Jul 2023 12:29:59 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.104])
  by smtp.gmail.com with ESMTPSA id
- b19-20020a170906661300b009920e9a3a73sm2929510ejp.115.2023.07.12.12.25.33
+ b22-20020aa7dc16000000b0051bed21a635sm3168330edu.74.2023.07.12.12.29.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jul 2023 12:25:35 -0700 (PDT)
-Message-ID: <aa05bcd6-140d-d951-2c7f-c09abf7f49f7@linaro.org>
-Date: Wed, 12 Jul 2023 21:25:33 +0200
+ Wed, 12 Jul 2023 12:29:59 -0700 (PDT)
+Message-ID: <53ece8ff-c3cf-5c7c-2d1a-243d2569fbd2@linaro.org>
+Date: Wed, 12 Jul 2023 21:29:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
-To: p.paillet@foss.st.com, Rob Herring <robh+dt@kernel.org>,
+To: Sean Nyekjaer <sean@geanix.com>, l.goehrs@pengutronix.de,
+ a.fatoum@pengutronix.de, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20230712142432.1885162-1-p.paillet@foss.st.com>
- <20230712142432.1885162-5-p.paillet@foss.st.com>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230712124248.2400862-1-sean@geanix.com>
+ <20230712124248.2400862-8-sean@geanix.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230712142432.1885162-5-p.paillet@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH 4/4] ARM: multi_v7_defconfig: Add SCMI
-	regulator support
+In-Reply-To: <20230712124248.2400862-8-sean@geanix.com>
+Cc: devicetree@vger.kernel.org, dantuguf14105@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 8/9] dt-bindings: arm: stm32: add extra
+ SiP compatible for oct, stm32mp157c-osd32-red
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,13 +90,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 12/07/2023 16:24, p.paillet@foss.st.com wrote:
-> From: Pascal Paillet <p.paillet@foss.st.com>
+On 12/07/2023 14:42, Sean Nyekjaer wrote:
+> Add binding support for the Octavo OSD32MP1-RED development board.
 > 
-> Enable ARM SCMI regulator support.
+> General features:
+>  - STM32MP157C
+>  - 512MB DDR3
+>  - CAN-FD
+>  - HDMI
+>  - USB-C OTG
+>  - UART
 > 
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> ---
+>  Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> index 4bf28e717a56..232abdcef0fd 100644
+> --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+> @@ -143,9 +143,10 @@ properties:
+>        - description: Octavo OSD32MP15x System-in-Package based boards
+>          items:
+>            - enum:
+> -              - lxa,stm32mp157c-mc1      # Linux Automation MC-1
+> -              - lxa,stm32mp157c-tac-gen1 # Linux Automation TAC (Generation 1)
+> -              - lxa,stm32mp157c-tac-gen2 # Linux Automation TAC (Generation 2)
+> +              - lxa,stm32mp157c-mc1        # Linux Automation MC-1
+> +              - lxa,stm32mp157c-tac-gen1   # Linux Automation TAC (Generation 1)
+> +              - lxa,stm32mp157c-tac-gen2   # Linux Automation TAC (Generation 2)
+> +              - oct,stm32mp157c-osd32-red  # Octavo OSD32MP1 RED board
 
-This we see from the diff. Please explain why, e.g. which boards use it.
+I would prefer the change without touching previous lines for
+re-indenting the comment. However it's ok if your arch maintainers is happy:
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
