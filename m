@@ -2,43 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60A79768DA9
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26CC9768D96
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DF88C6C859;
-	Mon, 31 Jul 2023 07:16:24 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 999C8C6A613;
+	Mon, 31 Jul 2023 07:16:20 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34710C04B10
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E521AC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 12 Jul 2023 10:14:24 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id A814DFF813;
- Wed, 12 Jul 2023 10:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1689156863;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=pUZeSfojSh8tyQKh/pCOiQO/bJAvUa3k92qKX0dswKM=;
- b=hdRvXwWhgslDICiCkZwZGbTfJKrpN1Anr48dpccrbV0vvt/TF1dEOrGo3SIhj0snd8e3kY
- SrnIYyH49q2K5lQliRUQOpmQ10mxhIc5ivNuAnsUWBZQzqqXMrVjZ8gNBWVgkiYBLwYe9e
- UxXPiD0+6i5/bzsvWCZ9UvPlHqvqryHi0UdAMHhHoe0qTkixfzoYvl5aqHYWfpTI211Xuy
- aIgQBAcuoODejw5o2Z0fqZqIS0RzaKDcpWC15Bz+qrNSkoLKb3cjtnwZaBcDMH108gSwR2
- 0qBheI52LJU215IQjQt4e4UxQ7sTp4VA1J0YxEXMmm0nY+tY0d2ZBoBosk6F2g==
-Date: Wed, 12 Jul 2023 12:13:38 +0200
-From: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <ZK580kHQrDp_JNCH@aptenodytes>
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ Wed, 12 Jul 2023 11:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689160485; x=1720696485;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=pa2Bj6VqT5cElyyhfEvI8AxkZz4IX9juc4rRJw0HbBE=;
+ b=hFYg/N22Sh9CfxaftH8T5xpVegf2lB1XDELWh8aWRe23i4sHP1idMeX/
+ ZNTeJ8EwlFlVb0jtLfJfoxFbqAQKLwJUl5Z7KAeBWro6MaWe0l7DOmtMu
+ 9p56+g98xyXcP+yo7vREKzlNHJMO7Bhjrt2YVPh8JjWFrsfvVdtKoYN6j
+ jnPHTGE+oCIawcNeF0atihkCmqCA3+cWV9JWs8ADXE9ZnFoOrYgNTjuyM
+ rEBakjD4CkOf6TPuMrn2ozKAbgIOqti63kiZ0enkc3WQM8nF/09yrw3wi
+ IRn9tDWTTI86UplLNhiwI5rCsankuzs/RZyfRETT2g6G4zkMRDJ3CLpv+ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="368396114"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="368396114"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 04:14:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="1052148842"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="1052148842"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.31.249])
+ ([10.213.31.249])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 04:13:48 -0700
+Message-ID: <60a183df-9776-1f10-bbd7-248531921888@intel.com>
+Date: Wed, 12 Jul 2023 13:13:45 +0200
 MIME-Version: 1.0
-In-Reply-To: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
-X-GND-Sasl: paul.kocialkowski@bootlin.com
-X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Content-Language: en-US
+To: Julia Lawall <julia.lawall@inria.fr>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com>
+ <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
+ <acd7913-3c42-7354-434-a826b6c8718@inria.fr>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <acd7913-3c42-7354-434-a826b6c8718@inria.fr>
+X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:17 +0000
+Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
- Marian Cichy <m.cichy@pengutronix.de>, Xinliang Liu <xinliang.liu@linaro.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
  Linus Walleij <linus.walleij@linaro.org>,
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
  Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
@@ -59,31 +77,29 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
  linux-sunxi@lists.linux.dev, Stylon Wang <stylon.wang@amd.com>,
  Tim Huang <Tim.Huang@amd.com>, Suraj Kandpal <suraj.kandpal@intel.com>,
- =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
  Andi Shyti <andi.shyti@linux.intel.com>, Yifan Zhang <yifan1.zhang@amd.com>,
  Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
  Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
  Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
  Matt Roper <matthew.d.roper@intel.com>,
- =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
+ =?UTF-8?Q?=c5=81ukasz_Bartosik?= <lb@semihalf.com>,
  Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
  Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Manasi Navare <manasi.d.navare@intel.com>,
- Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
  Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
  Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
  Gerd Hoffmann <kraxel@redhat.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- Edmund Dea <edmund.j.dea@intel.com>,
- =?utf-8?B?Sm9zw6k=?= Roberto de Souza <jose.souza@intel.com>,
+ =?UTF-8?Q?Jos=c3=a9_Roberto_de_Souza?= <jose.souza@intel.com>,
  virtualization@lists.linux-foundation.org,
  Thierry Reding <thierry.reding@gmail.com>,
  Yongqin Liu <yongqin.liu@linaro.org>,
  Mario Limonciello <mario.limonciello@amd.com>, Fei Yang <fei.yang@intel.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  David Lechner <david@lechnology.com>,
  Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>,
  "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
@@ -93,13 +109,14 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
  VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
  Ben Skeggs <bskeggs@redhat.com>,
- Jouni =?utf-8?B?SMO2Z2FuZGVy?= <jouni.hogander@intel.com>,
+ =?UTF-8?Q?Jouni_H=c3=b6gander?= <jouni.hogander@intel.com>,
  Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org,
- Graham Sider <Graham.Sider@amd.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  linux-arm-msm@vger.kernel.org, Animesh Manna <animesh.manna@intel.com>,
- Maxime Ripard <mripard@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ linux-renesas-soc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
  Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
  Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
@@ -109,7 +126,8 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
  Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
  Swati Sharma <swati2.sharma@intel.com>, John Stultz <jstultz@google.com>,
- linux-renesas-soc@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
  Drew Davenport <ddavenport@chromium.org>, Kevin Hilman <khilman@baylibre.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>,
  Haneen Mohammed <hamohammed.sa@gmail.com>,
@@ -118,14 +136,14 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  linux-hyperv@vger.kernel.org, Stefan Agner <stefan@agner.ch>,
  Melissa Wen <melissa.srw@gmail.com>,
- =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>,
  Luca Coelho <luciano.coelho@intel.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Likun Gao <Likun.Gao@amd.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, xurui <xurui@kylinos.cn>,
+ Joel Stanley <joel@jms.id.au>, Philipp Zabel <p.zabel@pengutronix.de>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Harry Wentland <harry.wentland@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
@@ -135,8 +153,7 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Gustavo Sousa <gustavo.sousa@intel.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Mikko Perttunen <mperttunen@nvidia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikko Perttunen <mperttunen@nvidia.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
  Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
@@ -144,7 +161,7 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  Khaled Almahallawy <khaled.almahallawy@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>, Imre Deak <imre.deak@intel.com>,
@@ -157,15 +174,14 @@ Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
  Uma Shankar <uma.shankar@intel.com>, Mika Kahola <mika.kahola@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jiasheng Jiang <jiasheng@iscas.ac.cn>,
  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Vinod Govindapillai <vinod.govindapillai@intel.com>,
  linux-tegra@vger.kernel.org,
- Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
  Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
  linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
  Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
@@ -193,415 +209,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6017933032545783319=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6017933032545783319==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="DbTmTNcmEZJ3sxG3"
-Content-Disposition: inline
-
-
---DbTmTNcmEZJ3sxG3
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hi Uwe,
-
-On Wed 12 Jul 23, 11:46, Uwe Kleine-K=C3=B6nig wrote:
-> Hello,
->=20
-> while I debugged an issue in the imx-lcdc driver I was constantly
-> irritated about struct drm_device pointer variables being named "dev"
-> because with that name I usually expect a struct device pointer.
-
-Well personally I usually expect that the "dev" member of a subsystem-speci=
-fic
-struct refers to a device of that subsystem, so for me having "dev" refer to
-a drm_device for e.g. drm_crtc makes good sense.
-
-I would only expect dev to refer to a struct device in the subsystem-specif=
-ic
-device structure (drm_device). I don't think it makes much sense to carry
-the struct device in any other subsystem-specific structure anyway.
-
-So IMO things are fine as-is but this is not a very strong opinion either.
-
-> I think there is a big benefit when these are all renamed to "drm_dev".
-> I have no strong preference here though, so "drmdev" or "drm" are fine
-> for me, too. Let the bikesheding begin!
-
-I would definitely prefer "drm_dev" over "drmdev" (hard to read, feels like
-aborted camelcase, pretty ugly) or "drm" (too vague).
-
-Cheers,
-
-Paul
-
-> Some statistics:
->=20
-> $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | uniq=
- -c | sort -n
->       1 struct drm_device *adev_to_drm
->       1 struct drm_device *drm_
->       1 struct drm_device          *drm_dev
->       1 struct drm_device        *drm_dev
->       1 struct drm_device *pdev
->       1 struct drm_device *rdev
->       1 struct drm_device *vdev
->       2 struct drm_device *dcss_drv_dev_to_drm
->       2 struct drm_device **ddev
->       2 struct drm_device *drm_dev_alloc
->       2 struct drm_device *mock
->       2 struct drm_device *p_ddev
->       5 struct drm_device *device
->       9 struct drm_device * dev
->      25 struct drm_device *d
->      95 struct drm_device *
->     216 struct drm_device *ddev
->     234 struct drm_device *drm_dev
->     611 struct drm_device *drm
->    4190 struct drm_device *dev
->=20
-> This series starts with renaming struct drm_crtc::dev to drm_dev. If
-> it's not only me and others like the result of this effort it should be
-> followed up by adapting the other structs and the individual usages in
-> the different drivers.
->=20
-> To make this series a bit easier handleable, I first added an alias for
-> drm_crtc::dev, then converted the drivers one after another and the last
-> patch drops the "dev" name. This has the advantage of being easier to
-> review, and if I should have missed an instance only the last patch must
-> be dropped/reverted. Also this series might conflict with other patches,
-> in this case the remaining patches can still go in (apart from the last
-> one of course). Maybe it also makes sense to delay applying the last
-> patch by one development cycle?
->=20
-> The series was compile tested for arm, arm64, powerpc and amd64 using an
-> allmodconfig (though I only build drivers/gpu/).
->=20
-> Best regards
-> Uwe
->=20
-> Uwe Kleine-K=C3=B6nig (52):
->   drm/crtc: Start renaming struct drm_crtc::dev to drm_dev
->   drm/core: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/amd: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/armada: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/arm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/aspeed: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/ast: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/atmel-hlcdc: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/exynos: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/fsl-dcu: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/gma500: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/gud: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/hisilicon: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/hyperv: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/i915: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/imx: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/ingenic: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/kmb: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/logicvc: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/mcde: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/mediatek: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/meson: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/mgag200: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/msm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/mxsfb: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/nouveau: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/omapdrm: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/panel-ili9341: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/pl111: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/qxl: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/radeon: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/renesas: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/rockchip: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/solomon: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/sprd: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/sti: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/stm: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/sun4i: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/tegra: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/tidss: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/tilcdc: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/tiny: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/tve200: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/udl: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/vboxvideo: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/vc4: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/virtio: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/vkms: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/vmwgfx: Use struct drm_crtc::drm_dev instead of struct
->     drm_crtc::dev
->   drm/xen: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/xlnx: Use struct drm_crtc::drm_dev instead of struct drm_crtc::dev
->   drm/crtc: Complete renaming struct drm_crtc::dev to drm_dev
->=20
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  18 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pll.c       |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |   8 +-
->  drivers/gpu/drm/amd/amdgpu/atombios_crtc.c    |  22 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  26 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  28 ++--
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  26 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  26 +--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  29 ++--
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |  20 +--
->  .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   8 +-
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  22 +--
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +-
->  .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  24 +--
->  .../gpu/drm/arm/display/komeda/komeda_kms.c   |   2 +-
->  drivers/gpu/drm/arm/hdlcd_crtc.c              |   4 +-
->  drivers/gpu/drm/arm/malidp_crtc.c             |   7 +-
->  drivers/gpu/drm/armada/armada_crtc.c          |  10 +-
->  drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c      |   6 +-
->  drivers/gpu/drm/ast/ast_dp.c                  |   2 +-
->  drivers/gpu/drm/ast/ast_mode.c                |  26 +--
->  .../gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c    |  10 +-
->  drivers/gpu/drm/drm_atomic.c                  |  22 +--
->  drivers/gpu/drm/drm_atomic_helper.c           |  20 ++-
->  drivers/gpu/drm/drm_atomic_state_helper.c     |   2 +-
->  drivers/gpu/drm/drm_atomic_uapi.c             |  22 +--
->  drivers/gpu/drm/drm_blend.c                   |   2 +-
->  drivers/gpu/drm/drm_color_mgmt.c              |  10 +-
->  drivers/gpu/drm/drm_crtc.c                    |  19 ++-
->  drivers/gpu/drm/drm_crtc_helper.c             |  10 +-
->  drivers/gpu/drm/drm_debugfs.c                 |   2 +-
->  drivers/gpu/drm/drm_debugfs_crc.c             |   2 +-
->  drivers/gpu/drm/drm_fb_helper.c               |   6 +-
->  drivers/gpu/drm/drm_mipi_dbi.c                |   4 +-
->  drivers/gpu/drm/drm_plane.c                   |   2 +-
->  drivers/gpu/drm/drm_plane_helper.c            |   2 +-
->  drivers/gpu/drm/drm_self_refresh_helper.c     |   2 +-
->  drivers/gpu/drm/drm_vblank.c                  |  40 ++---
->  drivers/gpu/drm/drm_vblank_work.c             |   2 +-
->  drivers/gpu/drm/exynos/exynos_drm_crtc.c      |   8 +-
->  drivers/gpu/drm/exynos/exynos_drm_plane.c     |   4 +-
->  drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_crtc.c    |  16 +-
->  drivers/gpu/drm/gma500/cdv_intel_display.c    |   2 +-
->  drivers/gpu/drm/gma500/cdv_intel_dp.c         |   2 +-
->  drivers/gpu/drm/gma500/gma_display.c          |  20 +--
->  drivers/gpu/drm/gma500/oaktrail_crtc.c        |   8 +-
->  drivers/gpu/drm/gma500/oaktrail_hdmi.c        |   4 +-
->  drivers/gpu/drm/gma500/psb_intel_display.c    |   2 +-
->  drivers/gpu/drm/gma500/psb_irq.c              |   6 +-
->  drivers/gpu/drm/gud/gud_pipe.c                |   6 +-
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    |  20 +--
->  .../gpu/drm/hisilicon/kirin/kirin_drm_ade.c   |   4 +-
->  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   6 +-
->  drivers/gpu/drm/i915/display/g4x_dp.c         |   4 +-
->  drivers/gpu/drm/i915/display/hsw_ips.c        |  16 +-
->  drivers/gpu/drm/i915/display/i9xx_plane.c     |   4 +-
->  drivers/gpu/drm/i915/display/i9xx_wm.c        |  40 ++---
->  drivers/gpu/drm/i915/display/icl_dsi.c        |   2 +-
->  drivers/gpu/drm/i915/display/intel_atomic.c   |   2 +-
->  .../gpu/drm/i915/display/intel_atomic_plane.c |   4 +-
->  drivers/gpu/drm/i915/display/intel_audio.c    |   2 +-
->  drivers/gpu/drm/i915/display/intel_bw.c       |  10 +-
->  drivers/gpu/drm/i915/display/intel_cdclk.c    |   6 +-
->  drivers/gpu/drm/i915/display/intel_color.c    | 124 +++++++-------
->  drivers/gpu/drm/i915/display/intel_crtc.c     |  20 +--
->  .../drm/i915/display/intel_crtc_state_dump.c  |   4 +-
->  drivers/gpu/drm/i915/display/intel_cursor.c   |   2 +-
->  drivers/gpu/drm/i915/display/intel_ddi.c      |  28 ++--
->  drivers/gpu/drm/i915/display/intel_display.c  | 154 +++++++++---------
->  .../gpu/drm/i915/display/intel_display_irq.c  |  22 +--
->  .../gpu/drm/i915/display/intel_display_rps.c  |   2 +-
->  .../drm/i915/display/intel_display_trace.h    |  12 +-
->  drivers/gpu/drm/i915/display/intel_dp.c       |   2 +-
->  drivers/gpu/drm/i915/display/intel_dpll.c     |  38 ++---
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  44 ++---
->  drivers/gpu/drm/i915/display/intel_dpt.c      |   2 +-
->  drivers/gpu/drm/i915/display/intel_drrs.c     |  10 +-
->  drivers/gpu/drm/i915/display/intel_dsb.c      |   8 +-
->  drivers/gpu/drm/i915/display/intel_fbc.c      |   2 +-
->  drivers/gpu/drm/i915/display/intel_fdi.c      |  22 +--
->  .../drm/i915/display/intel_fifo_underrun.c    |   6 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
->  .../drm/i915/display/intel_modeset_setup.c    |  22 +--
->  .../drm/i915/display/intel_modeset_verify.c   |   2 +-
->  drivers/gpu/drm/i915/display/intel_panel.c    |   4 +-
->  .../gpu/drm/i915/display/intel_pch_display.c  |  32 ++--
->  .../gpu/drm/i915/display/intel_pch_refclk.c   |   2 +-
->  drivers/gpu/drm/i915/display/intel_pipe_crc.c |  10 +-
->  .../drm/i915/display/intel_plane_initial.c    |   6 +-
->  drivers/gpu/drm/i915/display/intel_psr.c      |  14 +-
->  drivers/gpu/drm/i915/display/intel_sdvo.c     |   2 +-
->  drivers/gpu/drm/i915/display/intel_vblank.c   |  24 +--
->  drivers/gpu/drm/i915/display/intel_vdsc.c     |  18 +-
->  drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +-
->  drivers/gpu/drm/i915/display/skl_scaler.c     |  10 +-
->  .../drm/i915/display/skl_universal_plane.c    |   6 +-
->  drivers/gpu/drm/i915/display/skl_watermark.c  |  42 ++---
->  drivers/gpu/drm/i915/display/vlv_dsi.c        |   2 +-
->  drivers/gpu/drm/imx/dcss/dcss-crtc.c          |  20 +--
->  drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c        |  15 +-
->  drivers/gpu/drm/imx/lcdc/imx-lcdc.c           |  16 +-
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |   4 +-
->  drivers/gpu/drm/kmb/kmb_crtc.c                |  16 +-
->  drivers/gpu/drm/logicvc/logicvc_crtc.c        |  14 +-
->  drivers/gpu/drm/mcde/mcde_display.c           |  18 +-
->  drivers/gpu/drm/mediatek/mtk_drm_crtc.c       |  22 +--
->  drivers/gpu/drm/meson/meson_crtc.c            |  12 +-
->  drivers/gpu/drm/mgag200/mgag200_g200.c        |   4 +-
->  drivers/gpu/drm/mgag200/mgag200_g200eh.c      |   2 +-
->  drivers/gpu/drm/mgag200/mgag200_g200er.c      |   4 +-
->  drivers/gpu/drm/mgag200/mgag200_g200ev.c      |   4 +-
->  drivers/gpu/drm/mgag200/mgag200_g200se.c      |   6 +-
->  drivers/gpu/drm/mgag200/mgag200_g200wb.c      |   2 +-
->  drivers/gpu/drm/mgag200/mgag200_mode.c        |  10 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c |   6 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c      |  70 ++++----
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c       |   2 +-
->  drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c     |  12 +-
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c     |  20 +--
->  drivers/gpu/drm/msm/msm_drv.c                 |   4 +-
->  drivers/gpu/drm/mxsfb/lcdif_kms.c             |  18 +-
->  drivers/gpu/drm/mxsfb/mxsfb_kms.c             |  16 +-
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c       |  58 +++----
->  drivers/gpu/drm/nouveau/dispnv04/cursor.c     |  10 +-
->  drivers/gpu/drm/nouveau/dispnv50/atom.h       |   2 +-
->  drivers/gpu/drm/nouveau/dispnv50/crc.c        |  30 ++--
->  drivers/gpu/drm/nouveau/dispnv50/crc907d.c    |   6 +-
->  drivers/gpu/drm/nouveau/dispnv50/crcc37d.c    |   6 +-
->  drivers/gpu/drm/nouveau/dispnv50/crcc57d.c    |   2 +-
->  drivers/gpu/drm/nouveau/dispnv50/disp.c       |   5 +-
->  drivers/gpu/drm/nouveau/dispnv50/head.c       |   4 +-
->  drivers/gpu/drm/nouveau/dispnv50/head507d.c   |  26 +--
->  drivers/gpu/drm/nouveau/dispnv50/head827d.c   |  10 +-
->  drivers/gpu/drm/nouveau/dispnv50/head907d.c   |  26 +--
->  drivers/gpu/drm/nouveau/dispnv50/head917d.c   |   6 +-
->  drivers/gpu/drm/nouveau/dispnv50/headc37d.c   |  18 +-
->  drivers/gpu/drm/nouveau/dispnv50/headc57d.c   |  10 +-
->  drivers/gpu/drm/nouveau/nouveau_connector.h   |   2 +-
->  drivers/gpu/drm/nouveau/nouveau_display.c     |   2 +-
->  drivers/gpu/drm/omapdrm/omap_crtc.c           |  56 +++----
->  drivers/gpu/drm/omapdrm/omap_irq.c            |   6 +-
->  drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |   4 +-
->  drivers/gpu/drm/pl111/pl111_display.c         |  16 +-
->  drivers/gpu/drm/qxl/qxl_display.c             |   2 +-
->  drivers/gpu/drm/radeon/atombios_crtc.c        |  54 +++---
->  drivers/gpu/drm/radeon/radeon_cursor.c        |  14 +-
->  drivers/gpu/drm/radeon/radeon_display.c       |  28 ++--
->  drivers/gpu/drm/radeon/radeon_kms.c           |   6 +-
->  drivers/gpu/drm/radeon/radeon_legacy_crtc.c   |  16 +-
->  .../gpu/drm/renesas/rcar-du/rcar_du_crtc.c    |  14 +-
->  .../gpu/drm/renesas/shmobile/shmob_drm_crtc.c |  20 +--
->  drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |   8 +-
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c  |  15 +-
->  drivers/gpu/drm/solomon/ssd130x.c             |   2 +-
->  drivers/gpu/drm/sprd/sprd_dpu.c               |   6 +-
->  drivers/gpu/drm/sti/sti_crtc.c                |  14 +-
->  drivers/gpu/drm/stm/ltdc.c                    |  12 +-
->  drivers/gpu/drm/sun4i/sun4i_crtc.c            |  12 +-
->  drivers/gpu/drm/tegra/dc.c                    |  12 +-
->  drivers/gpu/drm/tidss/tidss_crtc.c            |  19 ++-
->  drivers/gpu/drm/tidss/tidss_irq.c             |   4 +-
->  drivers/gpu/drm/tilcdc/tilcdc_crtc.c          |  43 ++---
->  drivers/gpu/drm/tiny/bochs.c                  |   6 +-
->  drivers/gpu/drm/tiny/cirrus.c                 |   2 +-
->  drivers/gpu/drm/tiny/gm12u320.c               |   4 +-
->  drivers/gpu/drm/tiny/hx8357d.c                |   4 +-
->  drivers/gpu/drm/tiny/ili9163.c                |   4 +-
->  drivers/gpu/drm/tiny/ili9225.c                |   8 +-
->  drivers/gpu/drm/tiny/ili9341.c                |   4 +-
->  drivers/gpu/drm/tiny/ili9486.c                |   4 +-
->  drivers/gpu/drm/tiny/mi0283qt.c               |   4 +-
->  drivers/gpu/drm/tiny/ofdrm.c                  |   8 +-
->  drivers/gpu/drm/tiny/panel-mipi-dbi.c         |   6 +-
->  drivers/gpu/drm/tiny/repaper.c                |   8 +-
->  drivers/gpu/drm/tiny/simpledrm.c              |   2 +-
->  drivers/gpu/drm/tiny/st7586.c                 |   6 +-
->  drivers/gpu/drm/tiny/st7735r.c                |   4 +-
->  drivers/gpu/drm/tve200/tve200_display.c       |  14 +-
->  drivers/gpu/drm/udl/udl_modeset.c             |   4 +-
->  drivers/gpu/drm/vboxvideo/vbox_mode.c         |   6 +-
->  drivers/gpu/drm/vc4/vc4_crtc.c                |  38 ++---
->  drivers/gpu/drm/vc4/vc4_hdmi.c                |   2 +-
->  drivers/gpu/drm/vc4/vc4_hvs.c                 |  12 +-
->  drivers/gpu/drm/vc4/vc4_txp.c                 |   2 +-
->  drivers/gpu/drm/virtio/virtgpu_display.c      |   4 +-
->  drivers/gpu/drm/vkms/vkms_crtc.c              |  12 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c           |   4 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c          |  10 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c          |   8 +-
->  drivers/gpu/drm/xen/xen_drm_front_kms.c       |  10 +-
->  drivers/gpu/drm/xlnx/zynqmp_kms.c             |   8 +-
->  include/drm/drm_atomic_helper.h               |   2 +-
->  include/drm/drm_crtc.h                        |   4 +-
->  194 files changed, 1296 insertions(+), 1264 deletions(-)
->=20
-> base-commit: 06c2afb862f9da8dc5efa4b6076a0e48c3fbaaa5
-> --=20
-> 2.39.2
->=20
-
---=20
-Paul Kocialkowski, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
---DbTmTNcmEZJ3sxG3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEJZpWjZeIetVBefti3cLmz3+fv9EFAmSufNEACgkQ3cLmz3+f
-v9FSMgf+JV6Salw2w4GLv+9asbGD6ik0oblmM2PMKoiE0lr5WJxx13dzR24bybN+
-/yLeBZDoIu/s7Q6LeqGCsxmFbec13qKaZGYBYkJLv+OMHbyh4REeRiAcb8UmsooR
-a6BhJiU9HH2PH5snsQ9nH1H5grb3DPvwgaqO2yXIOYSlF70H8t7zyD8zjlPAywwZ
-0xBkR+4qw63MDKu5RWTeaIjIpjKpEUFfhA323992hjshPmtNphRHKAw0w0jGQ33u
-yscku+iOuCxxEek3Mvf0VIc9wrVwGstUzFgAyNde+Hw9qWoe8r9L1igpwudGKgSK
-2EbKtFUVm+TGcuoAh1GijOyj9Fgf9A==
-=F3Xd
------END PGP SIGNATURE-----
-
---DbTmTNcmEZJ3sxG3--
-
---===============6017933032545783319==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6017933032545783319==--
+CgpPbiAxMi4wNy4yMDIzIDEzOjA3LCBKdWxpYSBMYXdhbGwgd3JvdGU6Cj4KPiBPbiBXZWQsIDEy
+IEp1bCAyMDIzLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPgo+PiBPbiBXZWQsIEp1bCAxMiwg
+MjAyMyBhdCAxMjo0NjozM1BNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0g
+MTIuMDcuMjMgdW0gMTE6NDYgc2NocmllYiBVd2UgS2xlaW5lLUvDtm5pZzoKPj4+PiBIZWxsbywK
+Pj4+Pgo+Pj4+IHdoaWxlIEkgZGVidWdnZWQgYW4gaXNzdWUgaW4gdGhlIGlteC1sY2RjIGRyaXZl
+ciBJIHdhcyBjb25zdGFudGx5Cj4+Pj4gaXJyaXRhdGVkIGFib3V0IHN0cnVjdCBkcm1fZGV2aWNl
+IHBvaW50ZXIgdmFyaWFibGVzIGJlaW5nIG5hbWVkICJkZXYiCj4+Pj4gYmVjYXVzZSB3aXRoIHRo
+YXQgbmFtZSBJIHVzdWFsbHkgZXhwZWN0IGEgc3RydWN0IGRldmljZSBwb2ludGVyLgo+Pj4+Cj4+
+Pj4gSSB0aGluayB0aGVyZSBpcyBhIGJpZyBiZW5lZml0IHdoZW4gdGhlc2UgYXJlIGFsbCByZW5h
+bWVkIHRvICJkcm1fZGV2Ii4KPj4+PiBJIGhhdmUgbm8gc3Ryb25nIHByZWZlcmVuY2UgaGVyZSB0
+aG91Z2gsIHNvICJkcm1kZXYiIG9yICJkcm0iIGFyZSBmaW5lCj4+Pj4gZm9yIG1lLCB0b28uIExl
+dCB0aGUgYmlrZXNoZWRpbmcgYmVnaW4hCj4+Pj4KPj4+PiBTb21lIHN0YXRpc3RpY3M6Cj4+Pj4K
+Pj4+PiAkIGdpdCBncmVwIC1vaEUgJ3N0cnVjdCBkcm1fZGV2aWNlICpcKiAqW14gKCksO10qJyB2
+Ni41LXJjMSB8IHNvcnQgfCB1bmlxIC1jIHwgc29ydCAtbgo+Pj4+ICAgICAgICAgMSBzdHJ1Y3Qg
+ZHJtX2RldmljZSAqYWRldl90b19kcm0KPj4+PiAgICAgICAgIDEgc3RydWN0IGRybV9kZXZpY2Ug
+KmRybV8KPj4+PiAgICAgICAgIDEgc3RydWN0IGRybV9kZXZpY2UgICAgICAgICAgKmRybV9kZXYK
+Pj4+PiAgICAgICAgIDEgc3RydWN0IGRybV9kZXZpY2UgICAgICAgICpkcm1fZGV2Cj4+Pj4gICAg
+ICAgICAxIHN0cnVjdCBkcm1fZGV2aWNlICpwZGV2Cj4+Pj4gICAgICAgICAxIHN0cnVjdCBkcm1f
+ZGV2aWNlICpyZGV2Cj4+Pj4gICAgICAgICAxIHN0cnVjdCBkcm1fZGV2aWNlICp2ZGV2Cj4+Pj4g
+ICAgICAgICAyIHN0cnVjdCBkcm1fZGV2aWNlICpkY3NzX2Rydl9kZXZfdG9fZHJtCj4+Pj4gICAg
+ICAgICAyIHN0cnVjdCBkcm1fZGV2aWNlICoqZGRldgo+Pj4+ICAgICAgICAgMiBzdHJ1Y3QgZHJt
+X2RldmljZSAqZHJtX2Rldl9hbGxvYwo+Pj4+ICAgICAgICAgMiBzdHJ1Y3QgZHJtX2RldmljZSAq
+bW9jawo+Pj4+ICAgICAgICAgMiBzdHJ1Y3QgZHJtX2RldmljZSAqcF9kZGV2Cj4+Pj4gICAgICAg
+ICA1IHN0cnVjdCBkcm1fZGV2aWNlICpkZXZpY2UKPj4+PiAgICAgICAgIDkgc3RydWN0IGRybV9k
+ZXZpY2UgKiBkZXYKPj4+PiAgICAgICAgMjUgc3RydWN0IGRybV9kZXZpY2UgKmQKPj4+PiAgICAg
+ICAgOTUgc3RydWN0IGRybV9kZXZpY2UgKgo+Pj4+ICAgICAgIDIxNiBzdHJ1Y3QgZHJtX2Rldmlj
+ZSAqZGRldgo+Pj4+ICAgICAgIDIzNCBzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2Rldgo+Pj4+ICAg
+ICAgIDYxMSBzdHJ1Y3QgZHJtX2RldmljZSAqZHJtCj4+Pj4gICAgICA0MTkwIHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYKPj4+Pgo+Pj4+IFRoaXMgc2VyaWVzIHN0YXJ0cyB3aXRoIHJlbmFtaW5nIHN0
+cnVjdCBkcm1fY3J0Yzo6ZGV2IHRvIGRybV9kZXYuIElmCj4+Pj4gaXQncyBub3Qgb25seSBtZSBh
+bmQgb3RoZXJzIGxpa2UgdGhlIHJlc3VsdCBvZiB0aGlzIGVmZm9ydCBpdCBzaG91bGQgYmUKPj4+
+PiBmb2xsb3dlZCB1cCBieSBhZGFwdGluZyB0aGUgb3RoZXIgc3RydWN0cyBhbmQgdGhlIGluZGl2
+aWR1YWwgdXNhZ2VzIGluCj4+Pj4gdGhlIGRpZmZlcmVudCBkcml2ZXJzLgo+Pj4+Cj4+Pj4gVG8g
+bWFrZSB0aGlzIHNlcmllcyBhIGJpdCBlYXNpZXIgaGFuZGxlYWJsZSwgSSBmaXJzdCBhZGRlZCBh
+biBhbGlhcyBmb3IKPj4+PiBkcm1fY3J0Yzo6ZGV2LCB0aGVuIGNvbnZlcnRlZCB0aGUgZHJpdmVy
+cyBvbmUgYWZ0ZXIgYW5vdGhlciBhbmQgdGhlIGxhc3QKPj4+PiBwYXRjaCBkcm9wcyB0aGUgImRl
+diIgbmFtZS4gVGhpcyBoYXMgdGhlIGFkdmFudGFnZSBvZiBiZWluZyBlYXNpZXIgdG8KPj4+PiBy
+ZXZpZXcsIGFuZCBpZiBJIHNob3VsZCBoYXZlIG1pc3NlZCBhbiBpbnN0YW5jZSBvbmx5IHRoZSBs
+YXN0IHBhdGNoIG11c3QKPj4+PiBiZSBkcm9wcGVkL3JldmVydGVkLiBBbHNvIHRoaXMgc2VyaWVz
+IG1pZ2h0IGNvbmZsaWN0IHdpdGggb3RoZXIgcGF0Y2hlcywKPj4+PiBpbiB0aGlzIGNhc2UgdGhl
+IHJlbWFpbmluZyBwYXRjaGVzIGNhbiBzdGlsbCBnbyBpbiAoYXBhcnQgZnJvbSB0aGUgbGFzdAo+
+Pj4+IG9uZSBvZiBjb3Vyc2UpLiBNYXliZSBpdCBhbHNvIG1ha2VzIHNlbnNlIHRvIGRlbGF5IGFw
+cGx5aW5nIHRoZSBsYXN0Cj4+Pj4gcGF0Y2ggYnkgb25lIGRldmVsb3BtZW50IGN5Y2xlPwo+Pj4g
+V2hlbiB5b3UgYXV0b21hdGljYWxseSBnZW5lcmF0ZSB0aGUgcGF0Y2ggKHdpdGggY29jY2kgZm9y
+IGV4YW1wbGUpIEkgdXN1YWxseQo+Pj4gcHJlZmVyIGEgc2luZ2xlIHBhdGNoIGluc3RlYWQuCj4+
+IE1heWJlIEknbSB0b28gc3R1cGlkLCBidXQgb25seSBwYXJ0cyBvZiB0aGlzIHBhdGNoIHdlcmUg
+Y3JlYXRlZCBieQo+PiBjb2NjaW5lbGxlLiBJIGZhaWxlZCB0byBjb252ZXJ0IGNvZGUgbGlrZQo+
+Pgo+PiAtICAgICAgIHNwaW5fbG9ja19pcnEoJmNydGMtPmRldi0+ZXZlbnRfbG9jayk7Cj4+ICsg
+ICAgICAgc3Bpbl9sb2NrX2lycSgmY3J0Yy0+ZHJtX2Rldi0+ZXZlbnRfbG9jayk7Cj4+Cj4+IEFk
+ZGVkIEp1bGlhIHRvIENjLCBtYXliZSBzaGUgaGFzIGEgaGludD8hCj4gQSBwcmlvcmksIEkgc2Vl
+IG5vIHJlYXNvbiB3aHkgdGhlIHJ1bGUgYmVsb3cgc2hvdWxkIG5vdCBhcHBseSB0byB0aGUgYWJv
+dmUKPiBjb2RlLiAgSXMgdGhlcmUgYSBwYXJzaW5nIHByb2JsZW0gaW4gdGhlIGNvbnRhaW5pbmcg
+ZnVuY3Rpb24/ICBZb3UgY2FuIHJ1bgo+Cj4gc3BhdGNoIC0tcGFyc2UtYyBmaWxlLmMKPgo+IElm
+IHRoZXJlIGlzIGEgcGFyaW5nIHByb2JsZW0sIHBsZWFzZSBsZXQgbWUga25vdyBhbmQgaSB3aWxs
+IHRyeSB0byBmaXggaXQKPiBzbyB0aGUgd2hpbGUgdGhpbmcgY2FuIGJlIGRvbmUgYXV0b21hdGlj
+YWxseS4KCkkgZ3Vlc3Mgc29tZSBjbGV2ZXIgbWFjcm9zIGNhbiBmb29sIHNwYXRjaCwgYXQgbGVh
+c3QgSSBvYnNlcnZlIHN1Y2ggCnRoaW5ncyBpbiBpOTE1IHdoaWNoIG9mdGVuIHVzZXMgY3VzdG9t
+IGl0ZXJhdG9ycy4KClJlZ2FyZHMKQW5kcnplagoKPgo+IGp1bGlhCj4KPj4gKFVwIHRvIG5vdyBp
+dCdzIG9ubHkKPj4KPj4gQEAKPj4gc3RydWN0IGRybV9jcnRjICpjcnRjOwo+PiBAQAo+PiAtY3J0
+Yy0+ZGV2Cj4+ICtjcnRjLT5kcm1fZGV2Cj4+Cj4+ICkKPj4KPj4+IEJhY2tncm91bmQgaXMgdGhh
+dCB0aGlzIG1ha2VzIG1lcmdlIGNvbmZsaWN0cyBlYXNpZXIgdG8gaGFuZGxlIGFuZCBkZXRlY3Qu
+Cj4+IFJlYWxseT8gRWFjaCBmaWxlIChhcGFydCBmcm9tIGluY2x1ZGUvZHJtL2RybV9jcnRjLmgp
+IGlzIG9ubHkgdG91Y2hlZAo+PiBvbmNlLiBTbyB1bmxlc3MgSSdtIG1pc3Npbmcgc29tZXRoaW5n
+IHlvdSBkb24ndCBnZXQgbGVzcyBvciBlYXNpZXIKPj4gY29uZmxpY3RzIGJ5IGRvaW5nIGl0IGFs
+bCBpbiBhIHNpbmdsZSBwYXRjaC4gQnV0IHlvdSBnYWluIHRoZSBmcmVlZG9tIHRvCj4+IGRyb3Ag
+YSBwYXRjaCBmb3Igb25lIGRyaXZlciB3aXRob3V0IGhhdmluZyB0byBkcm9wIHRoZSByZXN0IHdp
+dGggaXQuIFNvCj4+IEkgc3RpbGwgbGlrZSB0aGUgc3BsaXQgdmVyc2lvbiBiZXR0ZXIsIGJ1dCBJ
+J20gb3BlbiB0byBhIG1vcmUgdmVyYm9zZQo+PiByZWFzb25pbmcgZnJvbSB5b3VyIHNpZGUuCj4+
+Cj4+PiBXaGVuIHlvdSBoYXZlIG11bHRpcGxlIHBhdGNoZXMgYW5kIGEgbWVyZ2UgY29uZmxpY3Qg
+YmVjYXVzZSBvZiBzb21lIGFkZGVkCj4+PiBsaW5lcyB1c2luZyB0aGUgb2xkIGZpZWxkIHRoZSBi
+dWlsZCBicmVha3Mgb25seSBvbiB0aGUgbGFzdCBwYXRjaCB3aGljaAo+Pj4gcmVtb3ZlcyB0aGUg
+b2xkIGZpZWxkLgo+PiBUaGVuIHlvdSBjYW4gcmV2ZXJ0L2Ryb3AgdGhlIGxhc3QgcGF0Y2ggd2l0
+aG91dCBoYXZpbmcgdG8gcmVzcGluIHRoZQo+PiB3aG9sZSBzaW5nbGUgcGF0Y2ggYW5kIHRodXMg
+Y2FyaW5nIGZvciBzdGlsbCBtb3JlIGNvbmZsaWN0cyB0aGF0IGFyaXNlCj4+IHVudGlsIHRoZSBu
+ZXcgdmVyc2lvbiBpcyBzZW50Lgo+Pgo+PiBCZXN0IHJlZ2FyZHMKPj4gVXdlCj4+Cj4+IC0tCj4+
+IFBlbmd1dHJvbml4IGUuSy4gICAgICAgICAgICAgICAgICAgICAgICAgICB8IFV3ZSBLbGVpbmUt
+S8O2bmlnICAgICAgICAgICAgfAo+PiBJbmR1c3RyaWFsIExpbnV4IFNvbHV0aW9ucyAgICAgICAg
+ICAgICAgICAgfCBodHRwczovL3d3dy5wZW5ndXRyb25peC5kZS8gfAo+ID4KCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
