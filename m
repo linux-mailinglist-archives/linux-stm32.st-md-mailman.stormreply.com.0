@@ -2,71 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA24C754154
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 19:50:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B347375412D
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 19:49:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F3BAC6B452;
-	Fri, 14 Jul 2023 17:50:04 +0000 (UTC)
-Received: from mail-il1-f181.google.com (mail-il1-f181.google.com
- [209.85.166.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E0FCC6B452;
+	Fri, 14 Jul 2023 17:49:50 +0000 (UTC)
+Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
+ [209.85.166.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07BBEC6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E642EC6B44C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 17:50:03 +0000 (UTC)
-Received: by mail-il1-f181.google.com with SMTP id
- e9e14a558f8ab-345ff33d286so9649055ab.3
+ Fri, 14 Jul 2023 17:49:48 +0000 (UTC)
+Received: by mail-il1-f175.google.com with SMTP id
+ e9e14a558f8ab-3457157a164so9387885ab.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 10:50:02 -0700 (PDT)
+ Fri, 14 Jul 2023 10:49:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689357002; x=1691949002;
+ d=1e100.net; s=20221208; t=1689356988; x=1691948988;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=+f9hPpq/FXIH2pHQG9BDcclVOF3HlSLvSdnqDrW8SI0=;
- b=lixUjKZgaOe0yZvDcXk0Iz1LctJoV7w+VRuq/kBrp0RNm+m97DKLJs+TgG/3itxMmO
- RL/vSW4a+VEbaCjBWIiZ5P0uFB0oLquUUAnMghbfc5bxos8mj+xG+AYyj5U2urikHcVb
- ZslC/rlVGmCTjpIlwHfqOFgfrwePaGVCSaaJEuiSQ/BjNvjmmrOoyR5l7gYZHrZcV9Ie
- zHQlRpvcBfA6shYjpgG0jJm5uhXsaadCWQadE0lYnIi9ZTuJl3tXmWoWLanfGd79QFAe
- oCzfP2rHvFpDFbRInI0xrucXqpMCEw3W843lHJmKj990ZqTLdLvRojQUN6jG3KplNvEc
- XNyg==
-X-Gm-Message-State: ABy/qLZGa+Q0wh/GivWDz21/JRkLTOfryV0Gb2w89m26uiP+qIjQG5ui
- gVLObOsdesWtPfjiXDuGgQ==
-X-Google-Smtp-Source: APBJJlEmRadOVoGt8KXkozByqFztIzgh8zxRONlCM8tFyXmfW6xPPXdHjET1RPuYiepJ5yWUm0smmA==
-X-Received: by 2002:a92:d08c:0:b0:347:693a:a52b with SMTP id
- h12-20020a92d08c000000b00347693aa52bmr4722888ilh.6.1689357001812; 
- Fri, 14 Jul 2023 10:50:01 -0700 (PDT)
+ bh=x7CAXtBYk6X27uebkH9zYJjyXa8Snp/PDN8dALPovlA=;
+ b=YNLJX5WCh7rf65t68pbXqYAxN2UFO4VzL3tF4hPHkwH+FXUM29M+UXQQtFU5U5hEzn
+ RtQb66IkseAjQ0hZcUpr99HA7tktLpnD5MhkkgJMyDOPv2V/GADRnYia6OmaCNbwFlpL
+ 2CP5gD6Ur5/LlY7HKo3oN0p88ZKXj3mqBiVcIX2Zpl5crRoOAzIErdNJS63UQ+mQfTYH
+ HE6PD2UdL05KjBzPTKzIGe3XbAW1Dy4I75PblriWE5QmdBpsa7SkHlLC1oYvYEzjFpur
+ o106awuxjO9m7eDDaw1HJGM9UBjSpChKcszwy0/whT3jXSg2TpUhYXtkDp5HuiSHd2dd
+ jZRA==
+X-Gm-Message-State: ABy/qLYNIiP+ILKNjUsQ+3/zOqRCATjzzygOenf9B/djCGoWFEe9v02v
+ wAZOkfDG4LzIAG/vcuKURw==
+X-Google-Smtp-Source: APBJJlHM+IfdU83rP5wrXpggh4K0BHRspj+8cjiFvu8XdIfuPps+mwrVgBvFaLyiPhM0nRIFKO8M+A==
+X-Received: by 2002:a92:d311:0:b0:346:77f5:116f with SMTP id
+ x17-20020a92d311000000b0034677f5116fmr4943472ila.16.1689356987789; 
+ Fri, 14 Jul 2023 10:49:47 -0700 (PDT)
 Received: from robh_at_kernel.org ([64.188.179.250])
  by smtp.gmail.com with ESMTPSA id
- c13-20020a92dc8d000000b00345da2c4776sm2856766iln.81.2023.07.14.10.49.59
+ g7-20020a0566380bc700b0042b2e309f97sm2656917jad.177.2023.07.14.10.49.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Jul 2023 10:50:01 -0700 (PDT)
-Received: (nullmailer pid 4063470 invoked by uid 1000);
- Fri, 14 Jul 2023 17:49:33 -0000
+ Fri, 14 Jul 2023 10:49:47 -0700 (PDT)
+Received: (nullmailer pid 4063624 invoked by uid 1000);
+ Fri, 14 Jul 2023 17:49:37 -0000
 From: Rob Herring <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Saravanan Sekar <sravanhome@gmail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Tony Lindgren <tony@atomide.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
+To: Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Andy Gross <agross@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>
-Date: Fri, 14 Jul 2023 11:49:28 -0600
-Message-Id: <20230714174930.4063320-1-robh@kernel.org>
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 14 Jul 2023 11:49:33 -0600
+Message-Id: <20230714174935.4063513-1-robh@kernel.org>
 X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] regulator: Explicitly include correct DT
+Subject: [Linux-stm32] [PATCH] remoteproc: Explicitly include correct DT
 	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -95,524 +89,249 @@ explicitly include the correct includes.
 
 Signed-off-by: Rob Herring <robh@kernel.org>
 ---
- drivers/regulator/act8945a-regulator.c      | 2 +-
- drivers/regulator/atc260x-regulator.c       | 3 ++-
- drivers/regulator/axp20x-regulator.c        | 1 -
- drivers/regulator/cpcap-regulator.c         | 2 +-
- drivers/regulator/fan53555.c                | 2 +-
- drivers/regulator/fixed.c                   | 1 -
- drivers/regulator/ltc3589.c                 | 1 -
- drivers/regulator/max77826-regulator.c      | 1 -
- drivers/regulator/mp5416.c                  | 2 +-
- drivers/regulator/mp886x.c                  | 2 +-
- drivers/regulator/mpq7920.c                 | 1 -
- drivers/regulator/mt6315-regulator.c        | 2 +-
- drivers/regulator/mt6359-regulator.c        | 3 ++-
- drivers/regulator/mtk-dvfsrc-regulator.c    | 3 +--
- drivers/regulator/pbias-regulator.c         | 1 -
- drivers/regulator/pca9450-regulator.c       | 1 -
- drivers/regulator/pwm-regulator.c           | 2 +-
- drivers/regulator/qcom-rpmh-regulator.c     | 1 -
- drivers/regulator/qcom_smd-regulator.c      | 1 -
- drivers/regulator/qcom_usb_vbus-regulator.c | 1 -
- drivers/regulator/rk808-regulator.c         | 3 ++-
- drivers/regulator/rt5759-regulator.c        | 2 +-
- drivers/regulator/stm32-pwr.c               | 3 +--
- drivers/regulator/stm32-vrefbuf.c           | 2 +-
- drivers/regulator/sy8824x.c                 | 2 +-
- drivers/regulator/sy8827n.c                 | 2 +-
- drivers/regulator/tps6286x-regulator.c      | 2 +-
- drivers/regulator/tps6287x-regulator.c      | 2 +-
- drivers/regulator/tps65218-regulator.c      | 2 +-
- drivers/regulator/tps65219-regulator.c      | 2 +-
- drivers/regulator/tps6594-regulator.c       | 2 +-
- drivers/regulator/twl-regulator.c           | 1 -
- drivers/regulator/twl6030-regulator.c       | 1 -
- drivers/regulator/uniphier-regulator.c      | 2 +-
- drivers/regulator/vctrl-regulator.c         | 2 +-
- drivers/regulator/vexpress-regulator.c      | 3 ++-
- 36 files changed, 28 insertions(+), 38 deletions(-)
+ drivers/remoteproc/imx_dsp_rproc.c        | 3 +--
+ drivers/remoteproc/imx_rproc.c            | 2 +-
+ drivers/remoteproc/omap_remoteproc.c      | 3 ++-
+ drivers/remoteproc/pru_rproc.c            | 3 ++-
+ drivers/remoteproc/qcom_q6v5_adsp.c       | 2 +-
+ drivers/remoteproc/qcom_q6v5_mss.c        | 3 ++-
+ drivers/remoteproc/qcom_q6v5_pas.c        | 2 +-
+ drivers/remoteproc/qcom_sysmon.c          | 1 -
+ drivers/remoteproc/qcom_wcnss.c           | 2 +-
+ drivers/remoteproc/qcom_wcnss_iris.c      | 1 +
+ drivers/remoteproc/rcar_rproc.c           | 3 ++-
+ drivers/remoteproc/st_slim_rproc.c        | 1 -
+ drivers/remoteproc/stm32_rproc.c          | 4 ++--
+ drivers/remoteproc/ti_k3_dsp_remoteproc.c | 2 +-
+ drivers/remoteproc/ti_k3_r5_remoteproc.c  | 3 ++-
+ drivers/remoteproc/wkup_m3_rproc.c        | 2 +-
+ 16 files changed, 20 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/regulator/act8945a-regulator.c b/drivers/regulator/act8945a-regulator.c
-index e26264529b74..24cbdd833863 100644
---- a/drivers/regulator/act8945a-regulator.c
-+++ b/drivers/regulator/act8945a-regulator.c
-@@ -8,7 +8,7 @@
-  */
- 
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/atc260x-regulator.c b/drivers/regulator/atc260x-regulator.c
-index 87e237d740bc..09fe51464090 100644
---- a/drivers/regulator/atc260x-regulator.c
-+++ b/drivers/regulator/atc260x-regulator.c
-@@ -7,7 +7,8 @@
- 
- #include <linux/mfd/atc260x/core.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- 
-diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-index 810f90f3e2a1..c657820b0bbb 100644
---- a/drivers/regulator/axp20x-regulator.c
-+++ b/drivers/regulator/axp20x-regulator.c
-@@ -20,7 +20,6 @@
- #include <linux/mfd/axp20x.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/cpcap-regulator.c b/drivers/regulator/cpcap-regulator.c
-index 1fd79fb17303..6958d154442b 100644
---- a/drivers/regulator/cpcap-regulator.c
-+++ b/drivers/regulator/cpcap-regulator.c
-@@ -12,7 +12,7 @@
- #include <linux/err.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/fan53555.c b/drivers/regulator/fan53555.c
-index 289c06e09f47..48f312167e53 100644
---- a/drivers/regulator/fan53555.c
-+++ b/drivers/regulator/fan53555.c
-@@ -12,7 +12,7 @@
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/param.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-diff --git a/drivers/regulator/fixed.c b/drivers/regulator/fixed.c
-index 364d1a2683b7..55130efae9b8 100644
---- a/drivers/regulator/fixed.c
-+++ b/drivers/regulator/fixed.c
-@@ -25,7 +25,6 @@
- #include <linux/gpio/consumer.h>
- #include <linux/slab.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/regulator/machine.h>
- #include <linux/clk.h>
-diff --git a/drivers/regulator/ltc3589.c b/drivers/regulator/ltc3589.c
-index e9751c206d95..cf931b8c36dc 100644
---- a/drivers/regulator/ltc3589.c
-+++ b/drivers/regulator/ltc3589.c
-@@ -10,7 +10,6 @@
- #include <linux/module.h>
- #include <linux/kernel.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/max77826-regulator.c b/drivers/regulator/max77826-regulator.c
-index 3855f5e686d8..5590cdf615b7 100644
---- a/drivers/regulator/max77826-regulator.c
-+++ b/drivers/regulator/max77826-regulator.c
-@@ -9,7 +9,6 @@
- #include <linux/init.h>
- #include <linux/err.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/mp5416.c b/drivers/regulator/mp5416.c
-index 3886b252fbe7..d068ac93d373 100644
---- a/drivers/regulator/mp5416.c
-+++ b/drivers/regulator/mp5416.c
-@@ -10,7 +10,7 @@
- #include <linux/i2c.h>
- #include <linux/init.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/mp886x.c b/drivers/regulator/mp886x.c
-index ede1b1e58002..9911be2e6bac 100644
---- a/drivers/regulator/mp886x.c
-+++ b/drivers/regulator/mp886x.c
-@@ -9,7 +9,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/mpq7920.c b/drivers/regulator/mpq7920.c
-index bf677c535edc..4926c229109b 100644
---- a/drivers/regulator/mpq7920.c
-+++ b/drivers/regulator/mpq7920.c
-@@ -11,7 +11,6 @@
- #include <linux/init.h>
- #include <linux/err.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/mt6315-regulator.c b/drivers/regulator/mt6315-regulator.c
-index 8047081ea2f7..2608a6652d77 100644
---- a/drivers/regulator/mt6315-regulator.c
-+++ b/drivers/regulator/mt6315-regulator.c
-@@ -3,7 +3,7 @@
- // Copyright (c) 2021 MediaTek Inc.
- 
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/mt6359-regulator.c b/drivers/regulator/mt6359-regulator.c
-index 3eb86ec21d08..5cf6448fb05f 100644
---- a/drivers/regulator/mt6359-regulator.c
-+++ b/drivers/regulator/mt6359-regulator.c
-@@ -2,12 +2,13 @@
- //
- // Copyright (c) 2021 MediaTek Inc.
- 
-+#include <linux/platform_device.h>
- #include <linux/platform_device.h>
- #include <linux/mfd/mt6359/registers.h>
- #include <linux/mfd/mt6359p/registers.h>
- #include <linux/mfd/mt6397/core.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/mtk-dvfsrc-regulator.c b/drivers/regulator/mtk-dvfsrc-regulator.c
-index efca67207a5a..f1280d45265d 100644
---- a/drivers/regulator/mtk-dvfsrc-regulator.c
-+++ b/drivers/regulator/mtk-dvfsrc-regulator.c
-@@ -6,8 +6,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
--#include <linux/of_device.h>
--#include <linux/of_platform.h>
-+#include <linux/of_.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/soc/mediatek/mtk_dvfsrc.h>
-diff --git a/drivers/regulator/pbias-regulator.c b/drivers/regulator/pbias-regulator.c
-index 0c9873e9abdc..cd5a0d7e4455 100644
---- a/drivers/regulator/pbias-regulator.c
-+++ b/drivers/regulator/pbias-regulator.c
-@@ -25,7 +25,6 @@
- #include <linux/regmap.h>
- #include <linux/slab.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- 
- struct pbias_reg_info {
- 	u32 enable;
-diff --git a/drivers/regulator/pca9450-regulator.c b/drivers/regulator/pca9450-regulator.c
-index 91bfb7e026c9..2ab365d2749f 100644
---- a/drivers/regulator/pca9450-regulator.c
-+++ b/drivers/regulator/pca9450-regulator.c
-@@ -11,7 +11,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/pwm-regulator.c b/drivers/regulator/pwm-regulator.c
-index b64d99695b84..2aff6db748e2 100644
---- a/drivers/regulator/pwm-regulator.c
-+++ b/drivers/regulator/pwm-regulator.c
-@@ -10,11 +10,11 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/err.h>
-+#include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/pwm.h>
- #include <linux/gpio/consumer.h>
- 
-diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-index f3b280af0773..ec1b50721ec6 100644
---- a/drivers/regulator/qcom-rpmh-regulator.c
-+++ b/drivers/regulator/qcom-rpmh-regulator.c
-@@ -7,7 +7,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/string.h>
-diff --git a/drivers/regulator/qcom_smd-regulator.c b/drivers/regulator/qcom_smd-regulator.c
-index 18189f35db68..f53ada076252 100644
---- a/drivers/regulator/qcom_smd-regulator.c
-+++ b/drivers/regulator/qcom_smd-regulator.c
-@@ -6,7 +6,6 @@
- 
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/qcom_usb_vbus-regulator.c b/drivers/regulator/qcom_usb_vbus-regulator.c
-index 57ec613f4a0a..cd94ed67621f 100644
---- a/drivers/regulator/qcom_usb_vbus-regulator.c
-+++ b/drivers/regulator/qcom_usb_vbus-regulator.c
-@@ -8,7 +8,6 @@
- #include <linux/err.h>
- #include <linux/kernel.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/rk808-regulator.c b/drivers/regulator/rk808-regulator.c
-index 460525ed006c..867a2cf243f6 100644
---- a/drivers/regulator/rk808-regulator.c
-+++ b/drivers/regulator/rk808-regulator.c
-@@ -17,9 +17,10 @@
- #include <linux/delay.h>
- #include <linux/gpio.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_gpio.h>
- #include <linux/mfd/rk808.h>
-+#include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/gpio/consumer.h>
-diff --git a/drivers/regulator/rt5759-regulator.c b/drivers/regulator/rt5759-regulator.c
-index 90555a9ef1b0..c2553dcee050 100644
---- a/drivers/regulator/rt5759-regulator.c
-+++ b/drivers/regulator/rt5759-regulator.c
-@@ -4,7 +4,7 @@
- #include <linux/i2c.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/stm32-pwr.c b/drivers/regulator/stm32-pwr.c
-index 4c60eddad60d..85b0102fb9b1 100644
---- a/drivers/regulator/stm32-pwr.c
-+++ b/drivers/regulator/stm32-pwr.c
-@@ -6,8 +6,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
+diff --git a/drivers/remoteproc/imx_dsp_rproc.c b/drivers/remoteproc/imx_dsp_rproc.c
+index d95fa5586189..8fcda9b74545 100644
+--- a/drivers/remoteproc/imx_dsp_rproc.c
++++ b/drivers/remoteproc/imx_dsp_rproc.c
+@@ -12,8 +12,7 @@
+ #include <linux/mailbox_client.h>
+ #include <linux/mfd/syscon.h>
  #include <linux/module.h>
 -#include <linux/of_address.h>
 -#include <linux/of_device.h>
 +#include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
  #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/stm32-vrefbuf.c b/drivers/regulator/stm32-vrefbuf.c
-index f5ccc7dd309a..717144cbe0f9 100644
---- a/drivers/regulator/stm32-vrefbuf.c
-+++ b/drivers/regulator/stm32-vrefbuf.c
-@@ -10,7 +10,7 @@
+ #include <linux/pm_domain.h>
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index f9874fc5a80f..b403a37ddb02 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -13,9 +13,9 @@
+ #include <linux/mailbox_client.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/of_reserved_mem.h>
+-#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_domain.h>
+ #include <linux/regmap.h>
+diff --git a/drivers/remoteproc/omap_remoteproc.c b/drivers/remoteproc/omap_remoteproc.c
+index 82ed90f03d91..8f50ab80e56f 100644
+--- a/drivers/remoteproc/omap_remoteproc.c
++++ b/drivers/remoteproc/omap_remoteproc.c
+@@ -19,7 +19,8 @@
+ #include <linux/clk/ti.h>
+ #include <linux/err.h>
  #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
 -#include <linux/of_device.h>
 +#include <linux/of.h>
++#include <linux/of_platform.h>
+ #include <linux/of_reserved_mem.h>
  #include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/sy8824x.c b/drivers/regulator/sy8824x.c
-index d0703105c439..d49c0cba09fb 100644
---- a/drivers/regulator/sy8824x.c
-+++ b/drivers/regulator/sy8824x.c
-@@ -8,7 +8,7 @@
- 
- #include <linux/module.h>
- #include <linux/i2c.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/sy8827n.c b/drivers/regulator/sy8827n.c
-index 433959b43549..f11ff38b36c9 100644
---- a/drivers/regulator/sy8827n.c
-+++ b/drivers/regulator/sy8827n.c
-@@ -9,7 +9,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/module.h>
- #include <linux/i2c.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/tps6286x-regulator.c b/drivers/regulator/tps6286x-regulator.c
-index b1c4b5120745..c06f6d1dc737 100644
---- a/drivers/regulator/tps6286x-regulator.c
-+++ b/drivers/regulator/tps6286x-regulator.c
-@@ -4,7 +4,7 @@
- #include <linux/err.h>
- #include <linux/i2c.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/pru_rproc.c b/drivers/remoteproc/pru_rproc.c
+index 2874c8d324f7..5b2dc75836fc 100644
+--- a/drivers/remoteproc/pru_rproc.c
++++ b/drivers/remoteproc/pru_rproc.c
+@@ -16,8 +16,9 @@
+ #include <linux/debugfs.h>
+ #include <linux/irqdomain.h>
  #include <linux/module.h>
 -#include <linux/of_device.h>
 +#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/tps6287x-regulator.c b/drivers/regulator/tps6287x-regulator.c
-index b1c0963586ac..19a4a300a963 100644
---- a/drivers/regulator/tps6287x-regulator.c
-+++ b/drivers/regulator/tps6287x-regulator.c
-@@ -8,8 +8,8 @@
- 
- #include <linux/err.h>
- #include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/regulator/machine.h>
-diff --git a/drivers/regulator/tps65218-regulator.c b/drivers/regulator/tps65218-regulator.c
-index 13985883e5f0..f44b5767099c 100644
---- a/drivers/regulator/tps65218-regulator.c
-+++ b/drivers/regulator/tps65218-regulator.c
-@@ -8,12 +8,12 @@
-  */
- 
+ #include <linux/of_irq.h>
++#include <linux/platform_device.h>
+ #include <linux/remoteproc/pruss.h>
+ #include <linux/pruss_driver.h>
+ #include <linux/remoteproc.h>
+diff --git a/drivers/remoteproc/qcom_q6v5_adsp.c b/drivers/remoteproc/qcom_q6v5_adsp.c
+index 6777a3bd6226..7733be477db5 100644
+--- a/drivers/remoteproc/qcom_q6v5_adsp.c
++++ b/drivers/remoteproc/qcom_q6v5_adsp.c
+@@ -14,8 +14,8 @@
  #include <linux/kernel.h>
-+#include <linux/mod_devicetable.h>
+ #include <linux/mfd/syscon.h>
  #include <linux/module.h>
- #include <linux/device.h>
- #include <linux/init.h>
- #include <linux/err.h>
- #include <linux/platform_device.h>
--#include <linux/of_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/tps65219-regulator.c b/drivers/regulator/tps65219-regulator.c
-index 8971b507a79a..b4065356392f 100644
---- a/drivers/regulator/tps65219-regulator.c
-+++ b/drivers/regulator/tps65219-regulator.c
-@@ -15,8 +15,8 @@
- #include <linux/device.h>
- #include <linux/init.h>
- #include <linux/err.h>
 +#include <linux/of.h>
- #include <linux/platform_device.h>
+ #include <linux/of_address.h>
 -#include <linux/of_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/tps6594-regulator.c b/drivers/regulator/tps6594-regulator.c
-index d5a574ec6d12..25ef102c8270 100644
---- a/drivers/regulator/tps6594-regulator.c
-+++ b/drivers/regulator/tps6594-regulator.c
-@@ -9,7 +9,7 @@
- #include <linux/init.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
+index 70bffc9f33f6..76c546871a94 100644
+--- a/drivers/remoteproc/qcom_q6v5_mss.c
++++ b/drivers/remoteproc/qcom_q6v5_mss.c
+@@ -15,9 +15,10 @@
+ #include <linux/kernel.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_address.h>
+-#include <linux/of_device.h>
+ #include <linux/of_reserved_mem.h>
++#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 3153d82037e7..faec3a3d8e4e 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -13,8 +13,8 @@
+ #include <linux/interrupt.h>
  #include <linux/kernel.h>
  #include <linux/module.h>
--#include <linux/of_device.h>
 +#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/twl-regulator.c b/drivers/regulator/twl-regulator.c
-index 3e724f5345de..5bacfcebf59a 100644
---- a/drivers/regulator/twl-regulator.c
-+++ b/drivers/regulator/twl-regulator.c
-@@ -12,7 +12,6 @@
- #include <linux/err.h>
- #include <linux/platform_device.h>
- #include <linux/of.h>
+ #include <linux/of_address.h>
 -#include <linux/of_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/twl6030-regulator.c b/drivers/regulator/twl6030-regulator.c
-index f9c695f9bde8..6eed0f6e0adb 100644
---- a/drivers/regulator/twl6030-regulator.c
-+++ b/drivers/regulator/twl6030-regulator.c
-@@ -13,7 +13,6 @@
- #include <linux/err.h>
  #include <linux/platform_device.h>
- #include <linux/of.h>
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/qcom_sysmon.c b/drivers/remoteproc/qcom_sysmon.c
+index 746f56b4bafb..c24e4a882873 100644
+--- a/drivers/remoteproc/qcom_sysmon.c
++++ b/drivers/remoteproc/qcom_sysmon.c
+@@ -9,7 +9,6 @@
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
+ #include <linux/of_irq.h>
+-#include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/remoteproc/qcom_rproc.h>
+ #include <linux/rpmsg.h>
+diff --git a/drivers/remoteproc/qcom_wcnss.c b/drivers/remoteproc/qcom_wcnss.c
+index 1ed0647bc962..c109096bbfe3 100644
+--- a/drivers/remoteproc/qcom_wcnss.c
++++ b/drivers/remoteproc/qcom_wcnss.c
+@@ -14,8 +14,8 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
++#include <linux/of.h>
+ #include <linux/of_address.h>
 -#include <linux/of_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/uniphier-regulator.c b/drivers/regulator/uniphier-regulator.c
-index 7e2785e10dc6..1d8304b88bd6 100644
---- a/drivers/regulator/uniphier-regulator.c
-+++ b/drivers/regulator/uniphier-regulator.c
-@@ -7,7 +7,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_domain.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/qcom_wcnss_iris.c b/drivers/remoteproc/qcom_wcnss_iris.c
+index 09720ddddc85..dd36fd077911 100644
+--- a/drivers/remoteproc/qcom_wcnss_iris.c
++++ b/drivers/remoteproc/qcom_wcnss_iris.c
+@@ -10,6 +10,7 @@
  #include <linux/clk.h>
- #include <linux/io.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/regulator/consumer.h>
+diff --git a/drivers/remoteproc/rcar_rproc.c b/drivers/remoteproc/rcar_rproc.c
+index 90e8769d5624..cc17e8421f65 100644
+--- a/drivers/remoteproc/rcar_rproc.c
++++ b/drivers/remoteproc/rcar_rproc.c
+@@ -5,8 +5,9 @@
+ 
+ #include <linux/limits.h>
  #include <linux/module.h>
 -#include <linux/of_device.h>
 +#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/regulator/driver.h>
-diff --git a/drivers/regulator/vctrl-regulator.c b/drivers/regulator/vctrl-regulator.c
-index 85dca90233f6..2796580a3a3c 100644
---- a/drivers/regulator/vctrl-regulator.c
-+++ b/drivers/regulator/vctrl-regulator.c
-@@ -10,7 +10,7 @@
- #include <linux/init.h>
+ #include <linux/of_reserved_mem.h>
++#include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/remoteproc.h>
+ #include <linux/reset.h>
+diff --git a/drivers/remoteproc/st_slim_rproc.c b/drivers/remoteproc/st_slim_rproc.c
+index 4ed9467897e5..d17719384c16 100644
+--- a/drivers/remoteproc/st_slim_rproc.c
++++ b/drivers/remoteproc/st_slim_rproc.c
+@@ -12,7 +12,6 @@
+ #include <linux/kernel.h>
  #include <linux/module.h>
  #include <linux/of.h>
 -#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/remoteproc.h>
+ #include <linux/remoteproc/st_slim_rproc.h>
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index cf073bac79f7..98234b44f038 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -12,9 +12,9 @@
+ #include <linux/mailbox_client.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+-#include <linux/of_address.h>
+-#include <linux/of_device.h>
++#include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
 +#include <linux/platform_device.h>
- #include <linux/regulator/coupler.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/of_regulator.h>
-diff --git a/drivers/regulator/vexpress-regulator.c b/drivers/regulator/vexpress-regulator.c
-index b545dbc70a4d..6687077e9a97 100644
---- a/drivers/regulator/vexpress-regulator.c
-+++ b/drivers/regulator/vexpress-regulator.c
-@@ -8,7 +8,8 @@
- #include <linux/device.h>
- #include <linux/err.h>
+ #include <linux/pm_wakeirq.h>
+ #include <linux/regmap.h>
+ #include <linux/remoteproc.h>
+diff --git a/drivers/remoteproc/ti_k3_dsp_remoteproc.c b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+index ec626a37fef6..ef8415a7cd54 100644
+--- a/drivers/remoteproc/ti_k3_dsp_remoteproc.c
++++ b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+@@ -9,7 +9,7 @@
+ #include <linux/io.h>
+ #include <linux/mailbox_client.h>
  #include <linux/module.h>
 -#include <linux/of_device.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/platform_device.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
++#include <linux/of.h>
+ #include <linux/of_reserved_mem.h>
+ #include <linux/omap-mailbox.h>
+ #include <linux/platform_device.h>
+diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+index 23fe44d4d7a5..ad3415a3851b 100644
+--- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
++++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+@@ -12,9 +12,10 @@
+ #include <linux/kernel.h>
+ #include <linux/mailbox_client.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_address.h>
+-#include <linux/of_device.h>
+ #include <linux/of_reserved_mem.h>
++#include <linux/of_platform.h>
+ #include <linux/omap-mailbox.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+diff --git a/drivers/remoteproc/wkup_m3_rproc.c b/drivers/remoteproc/wkup_m3_rproc.c
+index 120dc7d2dac1..36a55f7ffa64 100644
+--- a/drivers/remoteproc/wkup_m3_rproc.c
++++ b/drivers/remoteproc/wkup_m3_rproc.c
+@@ -12,7 +12,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+-#include <linux/of_device.h>
++#include <linux/of.h>
+ #include <linux/of_address.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
 -- 
 2.40.1
 
