@@ -2,99 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37BD17542D6
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 20:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41E807542E4
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 20:54:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5CC4C6B44F;
-	Fri, 14 Jul 2023 18:53:38 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03A27C6B44F;
+	Fri, 14 Jul 2023 18:54:46 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C279C6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D8F6C6B44C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 18:53:36 +0000 (UTC)
-Received: by mail-pl1-f171.google.com with SMTP id
- d9443c01a7336-1b9d80e33fbso14081595ad.0
+ Fri, 14 Jul 2023 18:54:44 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-98e2865e2f2so59415766b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 11:53:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689360815; x=1691952815;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:from:to:cc:subject:date:message-id:reply-to;
- bh=QDOamkgORfyhvxq4x1buyrQlAhB1+1+FBqiJz6qBSdw=;
- b=aLQ+ayR80feY09jSqw1sNYN9JFyDvqU/+L4rgzRkSRtlJ/4rq5v3WIcObY1zgSYP0x
- G6ri/V9axPRhgSREhQNDanHyYI9dngG/xyAf11L4q5ii2e1FkEZVD15pFBO6IIxv6IFa
- MyK50maYXkNf1vnDtoRe8w23o6D6PAmivX10urXUoHjvfawgMYh9BajgLe5h7Mt1/dTo
- 3H/Dqksdh9gUoaMxNkNIPd7gE6oNRdU2nnBeO6OzVjVQyzeHcdZALeX0UXSCw2NaL4m3
- mB1Gq5teUcp7iorOrA0LjAeOPuyq7JPkDK9MAmDcvCbaOXuxGVFYokeERCWtYsaC0yas
- pOGA==
+ Fri, 14 Jul 2023 11:54:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689360815; x=1691952815;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :sender:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=QDOamkgORfyhvxq4x1buyrQlAhB1+1+FBqiJz6qBSdw=;
- b=Ae6+1hAjLz6lZmpm/D2hVjgoScJuowtWlj3ew3lag04hwTCDK9ycs7U8FTf6XZXjxY
- hKNBHIyhaIY5A/oNnAm1iiblZAxVO4Pot+FE73v6YB6KdXcZGY8u1RwP65Q45ZzN+RG6
- pBWJ+dFbT7UiRa56NdnlM2ZdWWK270LTwuyHR1L9p5QBpLLRf4l5s+TYF/ipYe+hrnbZ
- DgwnJvXS9t43iLc2iLUQyQVfUJaS5P6IqJGalhvRTDKXC1tSyqHZwhC361/EE3uGxYXn
- V888Gd7HgtBtMRR//R82bcridUCAiGruWKC0k0YSvyjf7SyDJ3U0JPrv75zwYY75c68c
- NeyA==
-X-Gm-Message-State: ABy/qLbV+NUAuvZQJWGDGpXcK4ZnHyQSuKuJwn0omp2qj1vke9+CtJ7F
- rk5/sKL0twR9cfQOrhzD1wdVYIe7ISI=
-X-Google-Smtp-Source: APBJJlHd2lueNojMXmcaO3BccJXFGwkfa7lKKhJW7wZhhZJftxpLnmhRdzyPunVGNePBwM08mMqRPQ==
-X-Received: by 2002:a17:903:442:b0:1b8:95a2:d87e with SMTP id
- iw2-20020a170903044200b001b895a2d87emr4022333plb.2.1689360815298; 
- Fri, 14 Jul 2023 11:53:35 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:329c:23ff:fee3:9d7c?
- ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- ji19-20020a170903325300b001b869410ed2sm8144811plb.72.2023.07.14.11.53.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 14 Jul 2023 11:53:34 -0700 (PDT)
-Message-ID: <83bfbafd-eb9a-4549-4d06-c71a0e12d321@roeck-us.net>
-Date: Fri, 14 Jul 2023 11:53:30 -0700
+ d=1e100.net; s=20221208; t=1689360884; x=1689965684;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=f9Q+l2wgz1odf30ahJjWbv4V4PSTmin8e6j6JZq03ec=;
+ b=kzD4Dqkl26mZ+00khGnauYXRWDxMiB2aZbRzx6prUIexthT86RURrDdhNUoMLNjjLo
+ 6vDk0PyaFuRZalI2CPnVD3UHZxN72sTenB381MFdpnhUdcecimGgwAj2/kYvz4poUNxu
+ OIvU3Gp/s/eCc0RtR38oKJmrZqB3/MjJtnIf1C7h0R58QAj7pA1Xy8RM3/FWbaYHyeGb
+ CCoZFaBtmMHwR8ZitG2nHw5103tJ4pWXDzm3tMilvz4dEa4rLbPptLhEFxZGhjFZgf3F
+ zhPK0rTlGnAHZcMoGoCsgYvxlCtE9KECF2JUDEjucERZZRJJR7dQJDQFVg5htjP2d7xI
+ +Jiw==
+X-Gm-Message-State: ABy/qLYzhibIWXnPizjJc8uUCBvZMA6obXd3KCTR9szgjU/BE5rSvTf+
+ D63CRcqg0PFPYOpKQvSa0An2BKCorFodBcvASSk=
+X-Google-Smtp-Source: APBJJlGhaOM79BfPa2VO7mCVX5b0FIZOwxwzZu/FbMxOsMzMxZRHoIVKOP+u0TuNNIMmvmEFgweRKWR164C4QCOMVmY=
+X-Received: by 2002:a17:906:64cb:b0:993:d54b:3e42 with SMTP id
+ p11-20020a17090664cb00b00993d54b3e42mr40714ejn.5.1689360883937; Fri, 14 Jul
+ 2023 11:54:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, =?UTF-8?Q?Marek_Beh=c3=ban?=
- <kabel@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
+References: <20230714175008.4064592-1-robh@kernel.org>
+In-Reply-To: <20230714175008.4064592-1-robh@kernel.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 14 Jul 2023 20:54:32 +0200
+Message-ID: <CAJZ5v0i-OByOSjpxrj5d9S9QHRySK-MEUo+bK_J_4ihsCBmnSg@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Yangtao Li <tiny.windzz@gmail.com>,
+ Amit Kucheria <amitk@kernel.org>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
+ Zhang Rui <rui.zhang@intel.com>, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
+ Markus Mayer <mmayer@broadcom.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Srinivas Neeli <srinivas.neeli@amd.com>,
- Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
- Michal Simek <michal.simek@amd.com>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Xingyu Wu
- <xingyu.wu@starfivetech.com>, Samin Guo <samin.guo@starfivetech.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-References: <20230714175040.4065660-1-robh@kernel.org>
-From: Guenter Roeck <linux@roeck-us.net>
-In-Reply-To: <20230714175040.4065660-1-robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-mediatek@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] watchdog: Explicitly include correct DT
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] thermal: Explicitly include correct DT
 	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -107,416 +89,242 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/14/23 10:50, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it as merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-
-> ---
->   drivers/watchdog/armada_37xx_wdt.c | 1 -
->   drivers/watchdog/at91rm9200_wdt.c  | 3 +--
->   drivers/watchdog/cpwd.c            | 2 +-
->   drivers/watchdog/ftwdt010_wdt.c    | 6 ++----
->   drivers/watchdog/imx2_wdt.c        | 3 +--
->   drivers/watchdog/imx7ulp_wdt.c     | 1 -
->   drivers/watchdog/meson_wdt.c       | 4 ++--
->   drivers/watchdog/mtk_wdt.c         | 1 -
->   drivers/watchdog/of_xilinx_wdt.c   | 3 +--
->   drivers/watchdog/pic32-dmt.c       | 3 +--
->   drivers/watchdog/pic32-wdt.c       | 3 +--
->   drivers/watchdog/pika_wdt.c        | 2 +-
->   drivers/watchdog/qcom-wdt.c        | 1 -
->   drivers/watchdog/rave-sp-wdt.c     | 2 +-
->   drivers/watchdog/riowd.c           | 2 +-
->   drivers/watchdog/rza_wdt.c         | 4 ++--
->   drivers/watchdog/rzg2l_wdt.c       | 2 +-
->   drivers/watchdog/s3c2410_wdt.c     | 1 -
->   drivers/watchdog/sama5d4_wdt.c     | 1 -
->   drivers/watchdog/sbsa_gwdt.c       | 3 +--
->   drivers/watchdog/starfive-wdt.c    | 3 ++-
->   drivers/watchdog/stm32_iwdg.c      | 1 -
->   drivers/watchdog/sunxi_wdt.c       | 1 -
->   drivers/watchdog/xilinx_wwdt.c     | 4 ++--
->   24 files changed, 21 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/watchdog/armada_37xx_wdt.c b/drivers/watchdog/armada_37xx_wdt.c
-> index e58652939f8a..8133a5d05647 100644
-> --- a/drivers/watchdog/armada_37xx_wdt.c
-> +++ b/drivers/watchdog/armada_37xx_wdt.c
-> @@ -14,7 +14,6 @@
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/regmap.h>
->   #include <linux/types.h>
-> diff --git a/drivers/watchdog/at91rm9200_wdt.c b/drivers/watchdog/at91rm9200_wdt.c
-> index d20ec27ba354..558015f08c7a 100644
-> --- a/drivers/watchdog/at91rm9200_wdt.c
-> +++ b/drivers/watchdog/at91rm9200_wdt.c
-> @@ -18,6 +18,7 @@
->   #include <linux/mfd/syscon.h>
->   #include <linux/mfd/syscon/atmel-st.h>
->   #include <linux/miscdevice.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
->   #include <linux/platform_device.h>
-> @@ -26,8 +27,6 @@
->   #include <linux/types.h>
->   #include <linux/watchdog.h>
->   #include <linux/uaccess.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->   
->   #define WDT_DEFAULT_TIME	5	/* seconds */
->   #define WDT_MAX_TIME		256	/* seconds */
-> diff --git a/drivers/watchdog/cpwd.c b/drivers/watchdog/cpwd.c
-> index 47250f9b68c7..901b94d456db 100644
-> --- a/drivers/watchdog/cpwd.c
-> +++ b/drivers/watchdog/cpwd.c
-> @@ -31,7 +31,7 @@
->   #include <linux/mutex.h>
->   #include <linux/io.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
->   #include <linux/uaccess.h>
->   
->   #include <asm/irq.h>
-> diff --git a/drivers/watchdog/ftwdt010_wdt.c b/drivers/watchdog/ftwdt010_wdt.c
-> index 442c5bf63ff4..28f5af752c10 100644
-> --- a/drivers/watchdog/ftwdt010_wdt.c
-> +++ b/drivers/watchdog/ftwdt010_wdt.c
-> @@ -14,7 +14,7 @@
->   #include <linux/io.h>
->   #include <linux/kernel.h>
->   #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/platform_device.h>
->   #include <linux/slab.h>
->   #include <linux/watchdog.h>
-> @@ -221,20 +221,18 @@ static const struct dev_pm_ops ftwdt010_wdt_dev_pm_ops = {
->   				ftwdt010_wdt_resume)
->   };
->   
-> -#ifdef CONFIG_OF
->   static const struct of_device_id ftwdt010_wdt_match[] = {
->   	{ .compatible = "faraday,ftwdt010" },
->   	{ .compatible = "cortina,gemini-watchdog" },
->   	{},
->   };
->   MODULE_DEVICE_TABLE(of, ftwdt010_wdt_match);
-> -#endif
->   
->   static struct platform_driver ftwdt010_wdt_driver = {
->   	.probe		= ftwdt010_wdt_probe,
->   	.driver		= {
->   		.name	= "ftwdt010-wdt",
-> -		.of_match_table = of_match_ptr(ftwdt010_wdt_match),
-> +		.of_match_table = ftwdt010_wdt_match,
->   		.pm = &ftwdt010_wdt_dev_pm_ops,
->   	},
->   };
-> diff --git a/drivers/watchdog/imx2_wdt.c b/drivers/watchdog/imx2_wdt.c
-> index 6fcc3596103c..1a27665a2f53 100644
-> --- a/drivers/watchdog/imx2_wdt.c
-> +++ b/drivers/watchdog/imx2_wdt.c
-> @@ -26,8 +26,7 @@
->   #include <linux/kernel.h>
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->   #include <linux/platform_device.h>
->   #include <linux/regmap.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/imx7ulp_wdt.c b/drivers/watchdog/imx7ulp_wdt.c
-> index 7ca486794ba7..c703586c6e5f 100644
-> --- a/drivers/watchdog/imx7ulp_wdt.c
-> +++ b/drivers/watchdog/imx7ulp_wdt.c
-> @@ -9,7 +9,6 @@
->   #include <linux/kernel.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/reboot.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/meson_wdt.c b/drivers/watchdog/meson_wdt.c
-> index 539feaa1f904..497496f64f55 100644
-> --- a/drivers/watchdog/meson_wdt.c
-> +++ b/drivers/watchdog/meson_wdt.c
-> @@ -11,11 +11,11 @@
->   #include <linux/init.h>
->   #include <linux/io.h>
->   #include <linux/kernel.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
-> +#include <linux/property.h>
->   #include <linux/types.h>
->   #include <linux/watchdog.h>
->   
-> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-> index a9c437598e7e..b2330b16b497 100644
-> --- a/drivers/watchdog/mtk_wdt.c
-> +++ b/drivers/watchdog/mtk_wdt.c
-> @@ -25,7 +25,6 @@
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/reset-controller.h>
->   #include <linux/types.h>
-> diff --git a/drivers/watchdog/of_xilinx_wdt.c b/drivers/watchdog/of_xilinx_wdt.c
-> index 2a079ca04aa3..05657dc1d36a 100644
-> --- a/drivers/watchdog/of_xilinx_wdt.c
-> +++ b/drivers/watchdog/of_xilinx_wdt.c
-> @@ -10,14 +10,13 @@
->   #include <linux/clk.h>
->   #include <linux/err.h>
->   #include <linux/module.h>
-> +#include <linux/platform_device.h>
->   #include <linux/types.h>
->   #include <linux/kernel.h>
->   #include <linux/ioport.h>
->   #include <linux/watchdog.h>
->   #include <linux/io.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_address.h>
->   
->   /* Register offsets for the Wdt device */
->   #define XWT_TWCSR0_OFFSET   0x0 /* Control/Status Register0 */
-> diff --git a/drivers/watchdog/pic32-dmt.c b/drivers/watchdog/pic32-dmt.c
-> index bc4ccddc75a3..466b4a41411f 100644
-> --- a/drivers/watchdog/pic32-dmt.c
-> +++ b/drivers/watchdog/pic32-dmt.c
-> @@ -10,9 +10,8 @@
->   #include <linux/err.h>
->   #include <linux/io.h>
->   #include <linux/kernel.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/pic32-wdt.c b/drivers/watchdog/pic32-wdt.c
-> index 6d1a00222991..4d7eaf290e1c 100644
-> --- a/drivers/watchdog/pic32-wdt.c
-> +++ b/drivers/watchdog/pic32-wdt.c
-> @@ -10,9 +10,8 @@
->   #include <linux/err.h>
->   #include <linux/io.h>
->   #include <linux/kernel.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/pika_wdt.c b/drivers/watchdog/pika_wdt.c
-> index a98abd0d3146..782b8c23d99c 100644
-> --- a/drivers/watchdog/pika_wdt.c
-> +++ b/drivers/watchdog/pika_wdt.c
-> @@ -23,8 +23,8 @@
->   #include <linux/bitops.h>
->   #include <linux/uaccess.h>
->   #include <linux/io.h>
-> +#include <linux/of.h>
->   #include <linux/of_address.h>
-> -#include <linux/of_platform.h>
->   
->   #define DRV_NAME "PIKA-WDT"
->   
-> diff --git a/drivers/watchdog/qcom-wdt.c b/drivers/watchdog/qcom-wdt.c
-> index d776474dcdf3..9e790f0c2096 100644
-> --- a/drivers/watchdog/qcom-wdt.c
-> +++ b/drivers/watchdog/qcom-wdt.c
-> @@ -11,7 +11,6 @@
->   #include <linux/of.h>
->   #include <linux/platform_device.h>
->   #include <linux/watchdog.h>
-> -#include <linux/of_device.h>
->   
->   enum wdt_reg {
->   	WDT_RST,
-> diff --git a/drivers/watchdog/rave-sp-wdt.c b/drivers/watchdog/rave-sp-wdt.c
-> index 2c95615b6354..5d1c2176d445 100644
-> --- a/drivers/watchdog/rave-sp-wdt.c
-> +++ b/drivers/watchdog/rave-sp-wdt.c
-> @@ -13,7 +13,7 @@
->   #include <linux/mfd/rave-sp.h>
->   #include <linux/module.h>
->   #include <linux/nvmem-consumer.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->   #include <linux/platform_device.h>
->   #include <linux/reboot.h>
->   #include <linux/slab.h>
-> diff --git a/drivers/watchdog/riowd.c b/drivers/watchdog/riowd.c
-> index c04b383e1712..b293792a292a 100644
-> --- a/drivers/watchdog/riowd.c
-> +++ b/drivers/watchdog/riowd.c
-> @@ -14,7 +14,7 @@
->   #include <linux/miscdevice.h>
->   #include <linux/watchdog.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
->   #include <linux/io.h>
->   #include <linux/uaccess.h>
->   #include <linux/slab.h>
-> diff --git a/drivers/watchdog/rza_wdt.c b/drivers/watchdog/rza_wdt.c
-> index fe6c2ed35e04..cb4901b3f777 100644
-> --- a/drivers/watchdog/rza_wdt.c
-> +++ b/drivers/watchdog/rza_wdt.c
-> @@ -9,9 +9,9 @@
->   #include <linux/bitops.h>
->   #include <linux/clk.h>
->   #include <linux/delay.h>
-> +#include <linux/io.h>
->   #include <linux/module.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->   #include <linux/platform_device.h>
->   #include <linux/watchdog.h>
->   
-> diff --git a/drivers/watchdog/rzg2l_wdt.c b/drivers/watchdog/rzg2l_wdt.c
-> index d404953d0e0f..1741f98ca67c 100644
-> --- a/drivers/watchdog/rzg2l_wdt.c
-> +++ b/drivers/watchdog/rzg2l_wdt.c
-> @@ -11,7 +11,7 @@
->   #include <linux/iopoll.h>
->   #include <linux/kernel.h>
->   #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->   #include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/reset.h>
-> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-> index 95416a9bdd4b..2bcc8faa7fa5 100644
-> --- a/drivers/watchdog/s3c2410_wdt.c
-> +++ b/drivers/watchdog/s3c2410_wdt.c
-> @@ -23,7 +23,6 @@
->   #include <linux/slab.h>
->   #include <linux/err.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/mfd/syscon.h>
->   #include <linux/regmap.h>
->   #include <linux/delay.h>
-> diff --git a/drivers/watchdog/sama5d4_wdt.c b/drivers/watchdog/sama5d4_wdt.c
-> index aeee934ca51b..71e8b5fbf51f 100644
-> --- a/drivers/watchdog/sama5d4_wdt.c
-> +++ b/drivers/watchdog/sama5d4_wdt.c
-> @@ -11,7 +11,6 @@
->   #include <linux/kernel.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/of_irq.h>
->   #include <linux/platform_device.h>
->   #include <linux/reboot.h>
-> diff --git a/drivers/watchdog/sbsa_gwdt.c b/drivers/watchdog/sbsa_gwdt.c
-> index fd3cfdda4949..421ebcda62e6 100644
-> --- a/drivers/watchdog/sbsa_gwdt.c
-> +++ b/drivers/watchdog/sbsa_gwdt.c
-> @@ -43,10 +43,9 @@
->   #include <linux/io.h>
->   #include <linux/io-64-nonatomic-lo-hi.h>
->   #include <linux/interrupt.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
-> -#include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/uaccess.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/starfive-wdt.c b/drivers/watchdog/starfive-wdt.c
-> index 8058fca4d05d..9e6db8e0164f 100644
-> --- a/drivers/watchdog/starfive-wdt.c
-> +++ b/drivers/watchdog/starfive-wdt.c
-> @@ -8,7 +8,8 @@
->   #include <linux/clk.h>
->   #include <linux/iopoll.h>
->   #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/reset.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index 570a71509d2a..fa5e70c4b93a 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -17,7 +17,6 @@
->   #include <linux/kernel.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/watchdog.h>
->   
-> diff --git a/drivers/watchdog/sunxi_wdt.c b/drivers/watchdog/sunxi_wdt.c
-> index 6cf82922d3fb..b85354a99582 100644
-> --- a/drivers/watchdog/sunxi_wdt.c
-> +++ b/drivers/watchdog/sunxi_wdt.c
-> @@ -18,7 +18,6 @@
->   #include <linux/module.h>
->   #include <linux/moduleparam.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/platform_device.h>
->   #include <linux/types.h>
->   #include <linux/watchdog.h>
-> diff --git a/drivers/watchdog/xilinx_wwdt.c b/drivers/watchdog/xilinx_wwdt.c
-> index 2585038d5575..1d998db41533 100644
-> --- a/drivers/watchdog/xilinx_wwdt.c
-> +++ b/drivers/watchdog/xilinx_wwdt.c
-> @@ -9,9 +9,9 @@
->   #include <linux/interrupt.h>
->   #include <linux/io.h>
->   #include <linux/ioport.h>
-> +#include <linux/mod_devicetable.h>
->   #include <linux/module.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->   #include <linux/watchdog.h>
->   
->   /* Max timeout is calculated at 100MHz source clock */
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdWwgMTQsIDIwMjMgYXQgNzo1MeKAr1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5l
+bC5vcmc+IHdyb3RlOgo+Cj4gVGhlIERUIG9mX2RldmljZS5oIGFuZCBvZl9wbGF0Zm9ybS5oIGRh
+dGUgYmFjayB0byB0aGUgc2VwYXJhdGUKPiBvZl9wbGF0Zm9ybV9idXNfdHlwZSBiZWZvcmUgaXQg
+YXMgbWVyZ2VkIGludG8gdGhlIHJlZ3VsYXIgcGxhdGZvcm0gYnVzLgo+IEFzIHBhcnQgb2YgdGhh
+dCBtZXJnZSBwcmVwcGluZyBBcm0gRFQgc3VwcG9ydCAxMyB5ZWFycyBhZ28sIHRoZXkKPiAidGVt
+cG9yYXJpbHkiIGluY2x1ZGUgZWFjaCBvdGhlci4gVGhleSBhbHNvIGluY2x1ZGUgcGxhdGZvcm1f
+ZGV2aWNlLmgKPiBhbmQgb2YuaC4gQXMgYSByZXN1bHQsIHRoZXJlJ3MgYSBwcmV0dHkgbXVjaCBy
+YW5kb20gbWl4IG9mIHRob3NlIGluY2x1ZGUKPiBmaWxlcyB1c2VkIHRocm91Z2hvdXQgdGhlIHRy
+ZWUuIEluIG9yZGVyIHRvIGRldGFuZ2xlIHRoZXNlIGhlYWRlcnMgYW5kCj4gcmVwbGFjZSB0aGUg
+aW1wbGljaXQgaW5jbHVkZXMgd2l0aCBzdHJ1Y3QgZGVjbGFyYXRpb25zLCB1c2VycyBuZWVkIHRv
+Cj4gZXhwbGljaXRseSBpbmNsdWRlIHRoZSBjb3JyZWN0IGluY2x1ZGVzLgo+Cj4gU2lnbmVkLW9m
+Zi1ieTogUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz4KCkFja2VkLWJ5OiBSYWZhZWwgSi4g
+V3lzb2NraSA8cmFmYWVsQGtlcm5lbC5vcmc+CgpvciBwbGVhc2UgbGV0IG1lIGtub3cgaWYgeW91
+IHdhbnQgbWUgdG8gcGljayB0aGlzIHVwLgoKVGhhbmtzIQoKPiAtLS0KPiAgZHJpdmVycy90aGVy
+bWFsL2FtbG9naWNfdGhlcm1hbC5jICAgICAgICAgICB8IDIgLS0KPiAgZHJpdmVycy90aGVybWFs
+L2Jyb2FkY29tL2JjbTI3MTFfdGhlcm1hbC5jICB8IDIgKy0KPiAgZHJpdmVycy90aGVybWFsL2Jy
+b2FkY29tL2JyY21zdGJfdGhlcm1hbC5jICB8IDIgKy0KPiAgZHJpdmVycy90aGVybWFsL2hpc2lf
+dGhlcm1hbC5jICAgICAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy90aGVybWFsL2lteDhtbV90
+aGVybWFsLmMgICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL3RoZXJtYWwvaW14X3NjX3RoZXJt
+YWwuYyAgICAgICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvdGhlcm1hbC9pbXhfdGhlcm1hbC5jICAg
+ICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1hbC9rM19iYW5kZ2FwLmMgICAgICAg
+ICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1hbC9rM19qNzJ4eF9iYW5kZ2FwLmMgICAg
+ICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1hbC9tZWRpYXRlay9hdXhhZGNfdGhlcm1hbC5j
+ICAgfCAxIC0KPiAgZHJpdmVycy90aGVybWFsL21lZGlhdGVrL2x2dHNfdGhlcm1hbC5jICAgICB8
+IDIgKy0KPiAgZHJpdmVycy90aGVybWFsL3Fjb20vcWNvbS1zcG1pLWFkYy10bTUuYyAgICB8IDEg
+LQo+ICBkcml2ZXJzL3RoZXJtYWwvcWNvbS9xY29tLXNwbWktdGVtcC1hbGFybS5jIHwgMSAtCj4g
+IGRyaXZlcnMvdGhlcm1hbC9yY2FyX2dlbjNfdGhlcm1hbC5jICAgICAgICAgfCAyICstCj4gIGRy
+aXZlcnMvdGhlcm1hbC9yY2FyX3RoZXJtYWwuYyAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZl
+cnMvdGhlcm1hbC9yemcybF90aGVybWFsLmMgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMv
+dGhlcm1hbC9zYW1zdW5nL2V4eW5vc190bXUuYyAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhl
+cm1hbC9zcHJkX3RoZXJtYWwuYyAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1h
+bC9zdC9zdG1fdGhlcm1hbC5jICAgICAgICAgICAgfCAyIC0tCj4gIGRyaXZlcnMvdGhlcm1hbC9z
+dW44aV90aGVybWFsLmMgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1hbC90ZWdy
+YS90ZWdyYTMwLXRzZW5zb3IuYyAgICAgfCAyICstCj4gIGRyaXZlcnMvdGhlcm1hbC90aGVybWFs
+X29mLmMgICAgICAgICAgICAgICAgfCAzICstLQo+ICBkcml2ZXJzL3RoZXJtYWwvdW5pcGhpZXJf
+dGhlcm1hbC5jICAgICAgICAgIHwgMSAtCj4gIDIzIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlv
+bnMoKyksIDI2IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9h
+bWxvZ2ljX3RoZXJtYWwuYyBiL2RyaXZlcnMvdGhlcm1hbC9hbWxvZ2ljX3RoZXJtYWwuYwo+IGlu
+ZGV4IDc1NmIyMTg4ODBhNy4uODFlYmJmNmRlMGRlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhl
+cm1hbC9hbWxvZ2ljX3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9hbWxvZ2ljX3Ro
+ZXJtYWwuYwo+IEBAIC0yMiw4ICsyMiw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9tZmQvc3lzY29u
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+
+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9k
+ZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcmVnbWFwLmg+Cj4gICNpbmNsdWRlIDxsaW51eC90aGVybWFsLmg+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9icm9hZGNvbS9iY20yNzExX3RoZXJtYWwuYyBiL2RyaXZl
+cnMvdGhlcm1hbC9icm9hZGNvbS9iY20yNzExX3RoZXJtYWwuYwo+IGluZGV4IGMyNDNhNzZhMzQ3
+MS4uMDNhYzJkMDJlOWQ0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9icm9hZGNvbS9i
+Y20yNzExX3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9icm9hZGNvbS9iY20yNzEx
+X3RoZXJtYWwuYwo+IEBAIC0xNSw4ICsxNSw4IEBACj4gICNpbmNsdWRlIDxsaW51eC9rZXJuZWwu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L21mZC9zeXNjb24uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21v
+ZHVsZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRm
+b3JtX2RldmljZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPgo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvYnJvYWRjb20vYnJjbXN0Yl90aGVybWFsLmMgYi9kcml2
+ZXJzL3RoZXJtYWwvYnJvYWRjb20vYnJjbXN0Yl90aGVybWFsLmMKPiBpbmRleCA3MmQxZGJlNjBi
+OGYuLjBiNzNhYmRhYTc5MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwvYnJvYWRjb20v
+YnJjbXN0Yl90aGVybWFsLmMKPiArKysgYi9kcml2ZXJzL3RoZXJtYWwvYnJvYWRjb20vYnJjbXN0
+Yl90aGVybWFsLmMKPiBAQCAtMTcsOCArMTcsOCBAQAo+ICAjaW5jbHVkZSA8bGludXgvaW50ZXJy
+dXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21v
+ZHVsZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRm
+b3JtX2RldmljZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC90aGVybWFsLmg+Cj4KPiAgI2RlZmluZSBBVlNfVE1PTl9TVEFUVVMgICAgICAgICAg
+ICAgICAgICAgICAgICAweDAwCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9oaXNpX3Ro
+ZXJtYWwuYyBiL2RyaXZlcnMvdGhlcm1hbC9oaXNpX3RoZXJtYWwuYwo+IGluZGV4IDNmMDllZjhi
+ZTQxYS4uZmI1NGVkNGJmNmYwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9oaXNpX3Ro
+ZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9oaXNpX3RoZXJtYWwuYwo+IEBAIC0xMyw5
+ICsxMyw5IEBACj4gICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+aW50ZXJydXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiArI2luY2x1ZGUgPGxp
+bnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L2lvLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPgo+ICAjZGVmaW5lIEhJNjIyMF9URU1QMF9MQUcgICAgICAg
+ICAgICAgICAgICAgICAgICgweDApCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9pbXg4
+bW1fdGhlcm1hbC5jIGIvZHJpdmVycy90aGVybWFsL2lteDhtbV90aGVybWFsLmMKPiBpbmRleCBk
+NGI0MDg2OWM3ZDcuLmU4OWIxMWIzZjJiOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwv
+aW14OG1tX3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9pbXg4bW1fdGhlcm1hbC5j
+Cj4gQEAgLTEyLDcgKzEyLDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvbnZtZW0tY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4g
+LSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3Jt
+X2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+dGhlcm1hbC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvaW14X3NjX3RoZXJtYWwu
+YyBiL2RyaXZlcnMvdGhlcm1hbC9pbXhfc2NfdGhlcm1hbC5jCj4gaW5kZXggOGQ2YjRlZjIzNzQ2
+Li43MjI0ZjhkMjFkYjkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy90aGVybWFsL2lteF9zY190aGVy
+bWFsLmMKPiArKysgYi9kcml2ZXJzL3RoZXJtYWwvaW14X3NjX3RoZXJtYWwuYwo+IEBAIC04LDcg
+KzgsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgvZmlybXdhcmUvaW14L3NjaS5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90aGVybWFsL2lteF90aGVybWFsLmMgYi9kcml2ZXJzL3Ro
+ZXJtYWwvaW14X3RoZXJtYWwuYwo+IGluZGV4IGE5NGVjMGEwYzlkZC4uODI2MzU4Y2JlODEwIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9pbXhfdGhlcm1hbC5jCj4gKysrIGIvZHJpdmVy
+cy90aGVybWFsL2lteF90aGVybWFsLmMKPiBAQCAtMTEsNyArMTEsNyBAQAo+ICAjaW5jbHVkZSA8
+bGludXgvbWZkL3N5c2Nvbi5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNs
+dWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvdGhlcm1hbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbnZtZW0t
+Y29uc3VtZXIuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90aGVybWFsL2szX2JhbmRnYXAuYyBi
+L2RyaXZlcnMvdGhlcm1hbC9rM19iYW5kZ2FwLmMKPiBpbmRleCAxYzNlNTkwMTU3ZWMuLjY4ZjU5
+YjM3MzVkMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwvazNfYmFuZGdhcC5jCj4gKysr
+IGIvZHJpdmVycy90aGVybWFsL2szX2JhbmRnYXAuYwo+IEBAIC0xMSw3ICsxMSw3IEBACj4gICNp
+bmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX3BsYXRmb3JtLmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bt
+X3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L3R5cGVzLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9rM19qNzJ4eF9iYW5k
+Z2FwLmMgYi9kcml2ZXJzL3RoZXJtYWwvazNfajcyeHhfYmFuZGdhcC5jCj4gaW5kZXggNWJlMWYw
+OWVlYjJjLi5hNWEwZmM5YjkzNTYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy90aGVybWFsL2szX2o3
+Mnh4X2JhbmRnYXAuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9rM19qNzJ4eF9iYW5kZ2FwLmMK
+PiBAQCAtMTAsMTAgKzEwLDEwIEBACj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2luaXQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICsjaW5j
+bHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50
+aW1lLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9lcnIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3R5cGVz
+Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+aW8uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29m
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9tZWRpYXRlay9hdXhhZGNfdGhlcm1h
+bC5jIGIvZHJpdmVycy90aGVybWFsL21lZGlhdGVrL2F1eGFkY190aGVybWFsLmMKPiBpbmRleCBm
+NTlkMzZkZTIwYTAuLmM1MzdhZWQ3MTAxNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwv
+bWVkaWF0ZWsvYXV4YWRjX3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9tZWRpYXRl
+ay9hdXhhZGNfdGhlcm1hbC5jCj4gQEAgLTE1LDcgKzE1LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4
+L252bWVtLWNvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvb2ZfYWRkcmVzcy5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1h
+bC9tZWRpYXRlay9sdnRzX3RoZXJtYWwuYyBiL2RyaXZlcnMvdGhlcm1hbC9tZWRpYXRlay9sdnRz
+X3RoZXJtYWwuYwo+IGluZGV4IGI2OTNmYWMyZDY3Ny4uMDU0Yzk2NWFlNWUxIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvdGhlcm1hbC9tZWRpYXRlay9sdnRzX3RoZXJtYWwuYwo+ICsrKyBiL2RyaXZl
+cnMvdGhlcm1hbC9tZWRpYXRlay9sdnRzX3RoZXJtYWwuYwo+IEBAIC0xMyw3ICsxMyw3IEBACj4g
+ICNpbmNsdWRlIDxsaW51eC9pb3BvbGwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvbnZtZW0tY29uc3VtZXIuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29m
+X2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bs
+YXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3RoZXJtYWwuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90aGVybWFsL3Fjb20vcWNv
+bS1zcG1pLWFkYy10bTUuYyBiL2RyaXZlcnMvdGhlcm1hbC9xY29tL3Fjb20tc3BtaS1hZGMtdG01
+LmMKPiBpbmRleCA1ZGRjMzliMmJlMzIuLjc1NmFjNjg0MmZmOSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL3RoZXJtYWwvcWNvbS9xY29tLXNwbWktYWRjLXRtNS5jCj4gKysrIGIvZHJpdmVycy90aGVy
+bWFsL3Fjb20vcWNvbS1zcG1pLWFkYy10bTUuYwo+IEBAIC0xNCw3ICsxNCw2IEBACj4gICNpbmNs
+dWRlIDxsaW51eC9pbnRlcnJ1cHQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdt
+YXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy90aGVybWFsL3Fjb20vcWNvbS1zcG1pLXRlbXAtYWxhcm0uYyBiL2RyaXZlcnMvdGhlcm1hbC9x
+Y29tL3Fjb20tc3BtaS10ZW1wLWFsYXJtLmMKPiBpbmRleCAwZThlYmZjZDg0YzUuLjc4YzVjZmU2
+YTBjMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwvcWNvbS9xY29tLXNwbWktdGVtcC1h
+bGFybS5jCj4gKysrIGIvZHJpdmVycy90aGVybWFsL3Fjb20vcWNvbS1zcG1pLXRlbXAtYWxhcm0u
+Ywo+IEBAIC0xMCw3ICsxMCw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9pbnRlcnJ1cHQuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2
+aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Ro
+ZXJtYWwuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy90aGVybWFsL3JjYXJfZ2VuM190aGVybWFs
+LmMgYi9kcml2ZXJzL3RoZXJtYWwvcmNhcl9nZW4zX3RoZXJtYWwuYwo+IGluZGV4IDkwMjlkMDFl
+MDI5Yi4uYmQyZmI4YzJlOTY4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9yY2FyX2dl
+bjNfdGhlcm1hbC5jCj4gKysrIGIvZHJpdmVycy90aGVybWFsL3JjYXJfZ2VuM190aGVybWFsLmMK
+PiBAQCAtMTEsNyArMTEsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvaW50ZXJydXB0Lmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9pby5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNs
+dWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRp
+bWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy90aGVybWFsL3JjYXJfdGhlcm1hbC5jIGIvZHJpdmVycy90aGVybWFsL3JjYXJfdGhlcm1hbC5j
+Cj4gaW5kZXggYjg1NzFmNzA5MGFhLi4yOTNmOGRkOWZlMGEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy90aGVybWFsL3JjYXJfdGhlcm1hbC5jCj4gKysrIGIvZHJpdmVycy90aGVybWFsL3JjYXJfdGhl
+cm1hbC5jCj4gQEAgLTExLDcgKzExLDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2ludGVycnVwdC5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvaW8uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+
+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9w
+bV9ydW50aW1lLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWJvb3QuaD4KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy90aGVybWFsL3J6ZzJsX3RoZXJtYWwuYyBiL2RyaXZlcnMvdGhlcm1hbC9yemcybF90
+aGVybWFsLmMKPiBpbmRleCBiNTY5ODFmODUzMDYuLjZiMmJmMzQyNmY1MiAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL3RoZXJtYWwvcnpnMmxfdGhlcm1hbC5jCj4gKysrIGIvZHJpdmVycy90aGVybWFs
+L3J6ZzJsX3RoZXJtYWwuYwo+IEBAIC05LDggKzksOCBAQAo+ICAjaW5jbHVkZSA8bGludXgvaW8u
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbWF0aC5o
+Pgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxlLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJt
+YWwvc2Ftc3VuZy9leHlub3NfdG11LmMgYi9kcml2ZXJzL3RoZXJtYWwvc2Ftc3VuZy9leHlub3Nf
+dG11LmMKPiBpbmRleCA0NWU1Yzg0MGQxMzAuLjU4ZjRkOGY3YTNmZCAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL3RoZXJtYWwvc2Ftc3VuZy9leHlub3NfdG11LmMKPiArKysgYi9kcml2ZXJzL3RoZXJt
+YWwvc2Ftc3VuZy9leHlub3NfdG11LmMKPiBAQCAtMTUsNyArMTUsNyBAQAo+ICAjaW5jbHVkZSA8
+bGludXgvaW8uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2ludGVycnVwdC5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9vZl9pcnEuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5o
+Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvc3ByZF90aGVybWFsLmMgYi9kcml2ZXJz
+L3RoZXJtYWwvc3ByZF90aGVybWFsLmMKPiBpbmRleCAyZmI5MGZkYWQ3NmUuLmUyN2M0YmRjODkx
+MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwvc3ByZF90aGVybWFsLmMKPiArKysgYi9k
+cml2ZXJzL3RoZXJtYWwvc3ByZF90aGVybWFsLmMKPiBAQCAtNiw3ICs2LDcgQEAKPiAgI2luY2x1
+ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9udm1lbS1jb25zdW1lci5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNl
+Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1f
+ZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4gICNpbmNsdWRlIDxsaW51eC90
+aGVybWFsLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC9zdC9zdG1fdGhlcm1hbC5j
+IGIvZHJpdmVycy90aGVybWFsL3N0L3N0bV90aGVybWFsLmMKPiBpbmRleCA5MDNmY2YxNzYzZjEu
+LjE0MmE3ZTVkMTJmNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3RoZXJtYWwvc3Qvc3RtX3RoZXJt
+YWwuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC9zdC9zdG1fdGhlcm1hbC5jCj4gQEAgLTE0LDgg
+KzE0LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+YWRkcmVzcy5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3RoZXJtYWwuaD4KPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3RoZXJtYWwvc3VuOGlfdGhlcm1hbC5jIGIvZHJpdmVycy90
+aGVybWFsL3N1bjhpX3RoZXJtYWwuYwo+IGluZGV4IDE5NWYzYzVkMGIzOC4uY2NhMTZkNjMyZDlm
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvdGhlcm1hbC9zdW44aV90aGVybWFsLmMKPiArKysgYi9k
+cml2ZXJzL3RoZXJtYWwvc3VuOGlfdGhlcm1hbC5jCj4gQEAgLTE0LDcgKzE0LDcgQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2ludGVycnVwdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9udm1lbS1jb25zdW1lci5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+ZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxh
+dGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3Jlc2V0Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvdGhlcm1hbC90ZWdyYS90ZWdy
+YTMwLXRzZW5zb3IuYyBiL2RyaXZlcnMvdGhlcm1hbC90ZWdyYS90ZWdyYTMwLXRzZW5zb3IuYwo+
+IGluZGV4IGMyNDNlOWQ3NmQzYy4uZDkxMWZhNjBmMTAwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+dGhlcm1hbC90ZWdyYS90ZWdyYTMwLXRzZW5zb3IuYwo+ICsrKyBiL2RyaXZlcnMvdGhlcm1hbC90
+ZWdyYS90ZWdyYTMwLXRzZW5zb3IuYwo+IEBAIC0xOCw3ICsxOCw3IEBACj4gICNpbmNsdWRlIDxs
+aW51eC9pb3BvbGwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21hdGguaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRl
+IDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9wbS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy90aGVybWFsL3RoZXJtYWxfb2YuYyBiL2RyaXZlcnMvdGhlcm1hbC90aGVy
+bWFsX29mLmMKPiBpbmRleCA2ZmIxNGU1MjExOTcuLmMzNmM3ZDIzNWNiYSAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL3RoZXJtYWwvdGhlcm1hbF9vZi5jCj4gKysrIGIvZHJpdmVycy90aGVybWFsL3Ro
+ZXJtYWxfb2YuYwo+IEBAIC0xMCw4ICsxMCw3IEBACj4KPiAgI2luY2x1ZGUgPGxpbnV4L2Vyci5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZp
+Y2UuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51
+eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ICAjaW5jbHVkZSA8bGludXgvdGhl
+cm1hbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy90aGVybWFsL3VuaXBoaWVyX3RoZXJtYWwuYyBiL2RyaXZlcnMvdGhlcm1hbC91bmlwaGllcl90
+aGVybWFsLmMKPiBpbmRleCBhZWY2MTE5Y2MwMDQuLjZmMzJhYjYxZDE3NCAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL3RoZXJtYWwvdW5pcGhpZXJfdGhlcm1hbC5jCj4gKysrIGIvZHJpdmVycy90aGVy
+bWFsL3VuaXBoaWVyX3RoZXJtYWwuYwo+IEBAIC0xMiw3ICsxMiw2IEBACj4gICNpbmNsdWRlIDxs
+aW51eC9tZmQvc3lzY29uLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVnbWFwLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC90aGVybWFsLmg+Cj4gLS0KPiAyLjQwLjEKPgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
