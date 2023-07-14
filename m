@@ -2,91 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE28A75436E
-	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 21:53:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE849754464
+	for <lists+linux-stm32@lfdr.de>; Fri, 14 Jul 2023 23:45:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 906ECC6B44F;
-	Fri, 14 Jul 2023 19:53:14 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85C98C6B44F;
+	Fri, 14 Jul 2023 21:45:33 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA386C6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0C54C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 19:53:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6BC5361DDC
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 19:53:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA879C433C9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 19:53:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689364391;
- bh=DnEjVGiuXfP3swFolvK4a+TN59hjw2gEVcLZQUXBvDY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=mn87tiPgZ6ilmAUhV977eN8ghu423vnPb3bEQXiueuJFlG6WzckKVMBYgx1XXxNaX
- uZLBgaozxXIxTjMwwZNV48AJ6IMuBYZoVyzOzjRfheSwy+adVIZ73Ma7GMH/LYoiS8
- hcOEgR57LDhoIb4QTvPCf/wCVxc3h7Kvt4VD/k4D0c/wK97+sjzu6mr25aZQsYNWl3
- 098AiK51OpiCy2cNMNRiacvZN6BEPN3mg7PfGgRH9OxiHBDW8JTYfTM1FqidsDFTCm
- d1GulW7sULPhNG45eCQXrmcwpCNJF/mD+Y+rb0JwswPdlZCblEQ5fjs6Gv1LtynJYb
- iJzdclHBcYkvA==
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-2b74310566cso36378251fa.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 14 Jul 2023 12:53:11 -0700 (PDT)
-X-Gm-Message-State: ABy/qLaEz7dS0t4GjiSKyviBJ6lq3N7EvjkUSsMNoSGHtvpqWqZehqO+
- h4+6PnoCumb8n21/DTMts9szEZstLqz672/07g==
-X-Google-Smtp-Source: APBJJlFIVq6SSfDGp/7zlzMmel1HUM1zDWT3EoUpkE1rCFI61SUoU0+rrNxJc3PIb6p4Jh4x1E4RyP9tWO4eKUbbP0E=
-X-Received: by 2002:a2e:9a8a:0:b0:2b4:765b:f6ee with SMTP id
- p10-20020a2e9a8a000000b002b4765bf6eemr4915096lji.41.1689364389871; Fri, 14
- Jul 2023 12:53:09 -0700 (PDT)
+ Fri, 14 Jul 2023 21:45:32 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qKQbR-0004IW-Il; Fri, 14 Jul 2023 23:45:29 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qKQbP-00ER0X-JW; Fri, 14 Jul 2023 23:45:27 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qKQbO-004ugD-UR; Fri, 14 Jul 2023 23:45:26 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 14 Jul 2023 23:45:18 +0200
+Message-Id: <20230714214519.2503468-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <20230714175008.4064592-1-robh@kernel.org>
- <CAJZ5v0i-OByOSjpxrj5d9S9QHRySK-MEUo+bK_J_4ihsCBmnSg@mail.gmail.com>
-In-Reply-To: <CAJZ5v0i-OByOSjpxrj5d9S9QHRySK-MEUo+bK_J_4ihsCBmnSg@mail.gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Fri, 14 Jul 2023 13:52:57 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqLy22S5bTFu-ZKXhSMtMPPq9z1Gdb5kJMVmhui55miDsQ@mail.gmail.com>
-Message-ID: <CAL_JsqLy22S5bTFu-ZKXhSMtMPPq9z1Gdb5kJMVmhui55miDsQ@mail.gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Markus Mayer <mmayer@broadcom.com>,
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- Yangtao Li <tiny.windzz@gmail.com>, Amit Kucheria <amitk@kernel.org>,
- linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- Guillaume La Roque <glaroque@baylibre.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, Orson Zhai <orsonzhai@gmail.com>,
- Zhang Rui <rui.zhang@intel.com>, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pm@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-mediatek@lists.infradead.org, linux-rpi-kernel@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] thermal: Explicitly include correct DT
-	includes
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2206;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=/NLXX93dNegW8/RPV4eZsWEDxqUOClEE95P3xGBbnoQ=;
+ b=owGbwMvMwMXY3/A7olbonx/jabUkhpSNB9/qR6tP29mU8sfOXsF5tjCXtvrcM1xxU792d99c3
+ D6Nd6p0J6MxCwMjF4OsmCKLfeOaTKsqucjOtf8uwwxiZQKZwsDFKQATyT7M/lcuy1E8snLV60VP
+ ky5NdlpRXXbm2LZ7+SVaxzxS9CaFfJss2pJ6feUJORs2tj/RHm4pf4S/K3S2TxI7LVi45s3nuXy
+ dxZN8c/2i55VL64Xo9TFvlX7d6rg3rGnm3FkatR7tXvZx0hfDbf7r74wUepGY9oJ/oceLpzXJT3
+ jiJiq9P+tn+Z2fo+g1o7KZbbad5dp7Qe+bNv016Z2tt5Bjj7yYcp7Pput8UqXrpez1GsWd8+qV3
+ S58WH9p1xv9Q080HgZOiluc8GSuhOd6NfnN2epfF325bFaw5u3V5plZKwu1ttVU6t/584tLUHS6
+ o8uqpdPqTONCVX+dnOVwtuuj5dcU+Q1r7EzKa7Skoix8AQ==
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ kernel@pengutronix.de
+Subject: [Linux-stm32] [PATCH 1/2] pwm: stmpe: Handle errors when disabling
+	the signal
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,23 +71,44 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdWwgMTQsIDIwMjMgYXQgMTI6NTTigK9QTSBSYWZhZWwgSi4gV3lzb2NraSA8cmFm
-YWVsQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gT24gRnJpLCBKdWwgMTQsIDIwMjMgYXQgNzo1MeKA
-r1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4KPiA+IFRoZSBEVCBv
-Zl9kZXZpY2UuaCBhbmQgb2ZfcGxhdGZvcm0uaCBkYXRlIGJhY2sgdG8gdGhlIHNlcGFyYXRlCj4g
-PiBvZl9wbGF0Zm9ybV9idXNfdHlwZSBiZWZvcmUgaXQgYXMgbWVyZ2VkIGludG8gdGhlIHJlZ3Vs
-YXIgcGxhdGZvcm0gYnVzLgo+ID4gQXMgcGFydCBvZiB0aGF0IG1lcmdlIHByZXBwaW5nIEFybSBE
-VCBzdXBwb3J0IDEzIHllYXJzIGFnbywgdGhleQo+ID4gInRlbXBvcmFyaWx5IiBpbmNsdWRlIGVh
-Y2ggb3RoZXIuIFRoZXkgYWxzbyBpbmNsdWRlIHBsYXRmb3JtX2RldmljZS5oCj4gPiBhbmQgb2Yu
-aC4gQXMgYSByZXN1bHQsIHRoZXJlJ3MgYSBwcmV0dHkgbXVjaCByYW5kb20gbWl4IG9mIHRob3Nl
-IGluY2x1ZGUKPiA+IGZpbGVzIHVzZWQgdGhyb3VnaG91dCB0aGUgdHJlZS4gSW4gb3JkZXIgdG8g
-ZGV0YW5nbGUgdGhlc2UgaGVhZGVycyBhbmQKPiA+IHJlcGxhY2UgdGhlIGltcGxpY2l0IGluY2x1
-ZGVzIHdpdGggc3RydWN0IGRlY2xhcmF0aW9ucywgdXNlcnMgbmVlZCB0bwo+ID4gZXhwbGljaXRs
-eSBpbmNsdWRlIHRoZSBjb3JyZWN0IGluY2x1ZGVzLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IFJv
-YiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4KPiBBY2tlZC1ieTogUmFmYWVsIEouIFd5c29j
-a2kgPHJhZmFlbEBrZXJuZWwub3JnPgo+Cj4gb3IgcGxlYXNlIGxldCBtZSBrbm93IGlmIHlvdSB3
-YW50IG1lIHRvIHBpY2sgdGhpcyB1cC4KClNpbmdsZSBwYXRjaCBpbiB5b3VyIHN1YnN5c3RlbSB3
-aXRoIG5vIGRlcGVuZGVuY2llcy4gUGxlYXNlIHBpY2sgaXQgdXAuCgpSb2IKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+QmVmb3JlIHRoZSBwd20gZnJhbWV3b3JrIGltcGxlbWVudGVkYXRvbWljIHVwZGF0ZXMgKHdpdGgg
+dGhlIC5hcHBseSgpCmNhbGxiYWNrKSB0aGUgLmRpc2FibGUoKSBjYWxsYmFjayByZXR1cm5lZCB2
+b2lkLiBUaGlzIGlzIHN0aWxsIHZpc2libGUKaW4gdGhlIHN0bXBlIGRyaXZlciB3aGljaCBkcm9w
+cyBlcnJvcnMgaW4gdGhlIGRpc2FibGUgcGF0aC4KCkltcHJvdmUgdGhlIGRyaXZlciB0byBmb3J3
+YXJkIGZhaWx1cmVzIGluIHN0bXBlXzI0eHhfcHdtX2Rpc2FibGUoKSB0bwp0aGUgY2FsbGVyIG9m
+IHB3bV9hcHBseV9zdGF0ZSgpLgoKU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUu
+a2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KLS0tCiBkcml2ZXJzL3B3bS9wd20tc3RtcGUu
+YyB8IDE3ICsrKysrKysrKy0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCsp
+LCA4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1zdG1wZS5jIGIv
+ZHJpdmVycy9wd20vcHdtLXN0bXBlLmMKaW5kZXggNWQ0YTQ3NjJjZTBjLi5lMjA1NDA1YzQ4Mjgg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvcHdtL3B3bS1zdG1wZS5jCisrKyBiL2RyaXZlcnMvcHdtL3B3
+bS1zdG1wZS5jCkBAIC02MSw4ICs2MSw4IEBAIHN0YXRpYyBpbnQgc3RtcGVfMjR4eF9wd21fZW5h
+YmxlKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkKIAlyZXR1
+cm4gMDsKIH0KIAotc3RhdGljIHZvaWQgc3RtcGVfMjR4eF9wd21fZGlzYWJsZShzdHJ1Y3QgcHdt
+X2NoaXAgKmNoaXAsCi0JCQkJICAgc3RydWN0IHB3bV9kZXZpY2UgKnB3bSkKK3N0YXRpYyBpbnQg
+c3RtcGVfMjR4eF9wd21fZGlzYWJsZShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsCisJCQkJICBzdHJ1
+Y3QgcHdtX2RldmljZSAqcHdtKQogewogCXN0cnVjdCBzdG1wZV9wd20gKnN0bXBlX3B3bSA9IHRv
+X3N0bXBlX3B3bShjaGlwKTsKIAl1OCB2YWx1ZTsKQEAgLTcyLDE3ICs3MiwxNiBAQCBzdGF0aWMg
+dm9pZCBzdG1wZV8yNHh4X3B3bV9kaXNhYmxlKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwKIAlpZiAo
+cmV0IDwgMCkgewogCQlkZXZfZXJyKGNoaXAtPmRldiwgImVycm9yIHJlYWRpbmcgUFdNIyV1IGNv
+bnRyb2xcbiIsCiAJCQlwd20tPmh3cHdtKTsKLQkJcmV0dXJuOworCQlyZXR1cm4gcmV0OwogCX0K
+IAogCXZhbHVlID0gcmV0ICYgfkJJVChwd20tPmh3cHdtKTsKIAogCXJldCA9IHN0bXBlX3JlZ193
+cml0ZShzdG1wZV9wd20tPnN0bXBlLCBTVE1QRTI0WFhfUFdNQ1MsIHZhbHVlKTsKLQlpZiAocmV0
+KSB7CisJaWYgKHJldCkKIAkJZGV2X2VycihjaGlwLT5kZXYsICJlcnJvciB3cml0aW5nIFBXTSMl
+dSBjb250cm9sXG4iLAogCQkJcHdtLT5od3B3bSk7Ci0JCXJldHVybjsKLQl9CisJcmV0dXJuIHJl
+dDsKIH0KIAogLyogU1RNUEUgMjR4eCBQV00gaW5zdHJ1Y3Rpb25zICovCkBAIC0xMTEsNyArMTEw
+LDkgQEAgc3RhdGljIGludCBzdG1wZV8yNHh4X3B3bV9jb25maWcoc3RydWN0IHB3bV9jaGlwICpj
+aGlwLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLAogCiAJLyogTWFrZSBzdXJlIHdlIGFyZSBkaXNh
+YmxlZCAqLwogCWlmIChwd21faXNfZW5hYmxlZChwd20pKSB7Ci0JCXN0bXBlXzI0eHhfcHdtX2Rp
+c2FibGUoY2hpcCwgcHdtKTsKKwkJcmV0ID0gc3RtcGVfMjR4eF9wd21fZGlzYWJsZShjaGlwLCBw
+d20pOworCQlpZiAocmV0KQorCQkJcmV0dXJuIHJldDsKIAl9IGVsc2UgewogCQkvKiBDb25uZWN0
+IHRoZSBQV00gdG8gdGhlIHBpbiAqLwogCQlwaW4gPSBwd20tPmh3cHdtOwpAQCAtMjY5LDcgKzI3
+MCw3IEBAIHN0YXRpYyBpbnQgc3RtcGVfMjR4eF9wd21fYXBwbHkoc3RydWN0IHB3bV9jaGlwICpj
+aGlwLCBzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLAogCiAJaWYgKCFzdGF0ZS0+ZW5hYmxlZCkgewog
+CQlpZiAocHdtLT5zdGF0ZS5lbmFibGVkKQotCQkJc3RtcGVfMjR4eF9wd21fZGlzYWJsZShjaGlw
+LCBwd20pOworCQkJcmV0dXJuIHN0bXBlXzI0eHhfcHdtX2Rpc2FibGUoY2hpcCwgcHdtKTsKIAog
+CQlyZXR1cm4gMDsKIAl9CgpiYXNlLWNvbW1pdDogMDZjMmFmYjg2MmY5ZGE4ZGM1ZWZhNGI2MDc2
+YTBlNDhjM2ZiYWFhNQotLSAKMi4zOS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
