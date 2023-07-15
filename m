@@ -2,79 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F80768DB1
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D653768DB2
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06EBBC6C831;
-	Mon, 31 Jul 2023 07:17:17 +0000 (UTC)
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3131EC6C822;
+	Mon, 31 Jul 2023 07:17:27 +0000 (UTC)
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com
+ [203.205.221.209])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6CAFC6A617
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B76BC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Jul 2023 15:11:50 +0000 (UTC)
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-3461053677eso6531845ab.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 15 Jul 2023 08:11:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ieee.org; s=google; t=1689433909; x=1692025909;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=x9XlpRMNdAAEFImKOS7TDT4umEsjSeY77+bJ4P1MRe8=;
- b=KpbiwA9NRF8+W6tdUk7oAEajedYliLcT3fLwx1hKWNPafETFpJG9nnPmhVRp1UdI1a
- ec9mVwfBesk49WkdsrPfeQTQNowRCIhbKJuP16XD7dO7TZekJ8yDxNsj6kgUO5dmVinN
- O/xItmOPmt9BnCnKdfjfmpm5zf8eizKb7wHPU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689433909; x=1692025909;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=x9XlpRMNdAAEFImKOS7TDT4umEsjSeY77+bJ4P1MRe8=;
- b=GE5886lfislXJ8Ti3aS+nKEXVI+DMQOhEEqFbQ1XwFmuBTHaPnHVa52y206xvJO0ce
- t6A40fjH9LnxqJ1NSrB+x2XvpgeFYTUMIvfDavoOtF+FlEd2OOt+2oUXVJkTyQNFd7sl
- aPYd5Wd8flRpHXxXPAQFaPykaQM3BtR8BEtolOW9FK3Im94YKB2wg0SWaEImaL4NMwNe
- 8IhzBhpU6HNajQu55lJ7IUnMTLwYWgp6a9rgIFWyS7U5051nHHAZ86rnPhYnRylMHEFR
- 6OK8dCg7II+bX70YczrjviyoaDwg/AYyRTXKrnTEpOc3MxfxjGnVz03HbD9prOrYxlMO
- meng==
-X-Gm-Message-State: ABy/qLZW63hCaPAzIMogW4PbEhRoVTb4RUf/dLBkggOO/yHM4qbKiuXK
- eLv7n9/VWyYUKgMdjefLEI86vQ==
-X-Google-Smtp-Source: APBJJlGJVqbBu5lKEA54CgyQF24n/fOTJfhIYz9w3XH4VGOvH3KCmWksDsEmgsEiSCeG83sO26Hgmw==
-X-Received: by 2002:a05:6e02:1148:b0:343:ef5e:8286 with SMTP id
- o8-20020a056e02114800b00343ef5e8286mr3847417ill.7.1689433909634; 
- Sat, 15 Jul 2023 08:11:49 -0700 (PDT)
-Received: from [10.211.55.3] (c-98-61-227-136.hsd1.mn.comcast.net.
- [98.61.227.136]) by smtp.googlemail.com with ESMTPSA id
- f8-20020a056638022800b0042b2959e6dcsm3321388jaq.87.2023.07.15.08.11.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 15 Jul 2023 08:11:48 -0700 (PDT)
-Message-ID: <1c6175fc-496a-843c-c8c5-2173e065eaa8@ieee.org>
-Date: Sat, 15 Jul 2023 10:11:46 -0500
+ Sat, 15 Jul 2023 15:56:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1689436574;
+ bh=Q4AIE3ORkFkez9a9uTEasaw5aPDPog8DGCyhlYhijtQ=;
+ h=From:To:Cc:Subject:Date;
+ b=l4roMFnIZh9BbEdmleocIhUX0QBk+WyKibPJLQGnEHAVB+22banQNPCr83g7y8ymf
+ 4z7KOxCdsVdYHkbA7stcKgCWjZRvTy95NPuzJy4GSVPlL7lBphVKXGIVuWiDsvRglK
+ z0lqv/iURpDnJD5q4QqYTUOn21yyoQxZ8M7NEGLk=
+Received: from KernelDevBox.byted.org ([180.184.49.4])
+ by newxmesmtplogicsvrszb9-0.qq.com (NewEsmtp) with SMTP
+ id DF305C36; Sat, 15 Jul 2023 23:55:51 +0800
+X-QQ-mid: xmsmtpt1689436551toyuslagu
+Message-ID: <tencent_994DA85912C937E3B5405BA960B31ED90A08@qq.com>
+X-QQ-XMAILINFO: Mh1dUllL/+A2vhqHkhb7/gbp7caHWu3yMPEaqAyj5XA8papyHBSXtvAfD/ZjW3
+ C4kT0qRyiZZKbdkqCYuxPuM9KQO8fzJ/ju1Ab8Pds4sdFaTl3RnLpBWT7mFN3HJaq9Bo/MPvh31B
+ VfUEXkWQR6WzB2VrYboWIhWpWuwmnZSIIpn0ZFVQqcxixa3Iam3ai8+k1ZrCM/tZwAQF328cdCNi
+ zM6z6E0JnfFqyAPER780NcHNyGGxIbhabC4r674y17MelD9RJRL74b2TFr60cvR1ZthrcGfn1GFP
+ UGkGu++cyhOF37to76jS4umSneMTn4JmLH33y7G1yO6x1HpynmCNj+G8Oc3dRXQux2/kcP8MXKRx
+ 15jmN5YKDvnjstk4WGF6GJCcGT0oZ9VnyQOdt6ikh+RzjPMM/L8C8JcEM+FbeMIUba2giTmurVj+
+ REJnfM3DiZH5YrTNUvIR0zeZVjwJGNjkGRlMZkY6aQnzXsb8wthhjdBlHYMxHNDS5FPElAESdN5+
+ /tp0YWENXjW/F1vn7FhBxor7suyS6+UdXy8+gYu8wA8NpEXjoIfRBhQDpX1ZoQc3b537VxBR5IUu
+ uF+Ke1KSmyuMSYY/KnCzLPCBmOAXvJb8IOUH5CScml1b7Xh9BujIqIGK792Q6lgH7A9UddFC9AzB
+ TAEXPefm+fLuN6Y3mC/ek0jjWgpgVN30AZgR3BW9WB5Gq/PfOggAgzcVLRpqthSzqUaY0GAkXMho
+ zxMQTeuGFc9aX3I3cFmTWODlrX69jiO5+eap74ZB2NeMnH93qKhK79o267XTzhnK8z7S/+xzz1VT
+ oUxa1pYgGLmT5l/4FHiBTIrrFlRFNOQrf4fo78r+Cha5Zy3km/qSULIqXl8LsLGu8MTr8j+hzChM
+ tKUuUcUe/xhWmPv3Hy7YVfnwa/vWSowwY+gR1CeYGoAL/CwIqEugA3m5945C883OYJ/fON0b3L3t
+ 0zTxRDb/JE+35a3SbEPet/LUVTXHPsr5U187AvQTrktEn0jD01flhEtxGgcXnPdJzfCgV+/gqlLz
+ pL2Cqzuw==
+X-QQ-XMRINFO: NI4Ajvh11aEj8Xl/2s1/T8w=
+From: Zhang Shurong <zhang_shurong@foxmail.com>
+To: jic23@kernel.org
+Date: Sat, 15 Jul 2023 23:55:50 +0800
+X-OQ-MSGID: <20230715155550.2306245-1-zhang_shurong@foxmail.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Alex Elder <elder@kernel.org>
-References: <20230714174809.4060885-1-robh@kernel.org>
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20230714174809.4060885-1-robh@kernel.org>
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: devicetree@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- ath10k@lists.infradead.org, linux-can@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-wpan@vger.kernel.org,
- linux-mediatek@lists.infradead.org, ath11k@lists.infradead.org,
- wcn36xx@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-oxnas@groups.io,
- linuxppc-dev@lists.ozlabs.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: Explicitly include correct DT
-	includes
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Zhang Shurong <zhang_shurong@foxmail.com>
+Subject: [Linux-stm32] [PATCH] io: adc: stm32-adc: fix potential NULL
+	pointer dereference in stm32_adc_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,66 +66,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 7/14/23 12:48 PM, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it as merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
+of_match_device() may fail and returns a NULL pointer.
 
-(I significantly reduced the addressee list to permit the message
-to be sent.)
+Fix this by checking the return value of of_match_device().
 
-For "drivers/net/ipa/ipa_main.c":
+Fixes: 64ad7f6438f3 ("iio: adc: stm32: introduce compatible data cfg")
+Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
+---
+ drivers/iio/adc/stm32-adc-core.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Acked-by: Alex Elder <elder@linaro.org>
+diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+index 48f02dcc81c1..70011fdbf5f6 100644
+--- a/drivers/iio/adc/stm32-adc-core.c
++++ b/drivers/iio/adc/stm32-adc-core.c
+@@ -706,6 +706,8 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	struct stm32_adc_priv *priv;
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np = pdev->dev.of_node;
++	const struct of_device_id *of_id;
++
+ 	struct resource *res;
+ 	u32 max_rate;
+ 	int ret;
+@@ -718,8 +720,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 	platform_set_drvdata(pdev, &priv->common);
+ 
+-	priv->cfg = (const struct stm32_adc_priv_cfg *)
+-		of_match_device(dev->driver->of_match_table, dev)->data;
++	of_id = of_match_device(dev->driver->of_match_table, dev);
++	if (!of_id)
++		return -ENODEV;
++
++	priv->cfg = (const struct stm32_adc_priv_cfg *)of_id->data;
+ 	priv->nb_adc_max = priv->cfg->num_adcs;
+ 	spin_lock_init(&priv->common.lock);
+ 
+-- 
+2.30.2
 
-> ---
->   drivers/net/can/bxcan.c                                 | 1 -
->   drivers/net/can/ifi_canfd/ifi_canfd.c                   | 1 -
-. . .
->   drivers/net/ieee802154/ca8210.c                         | 1 -
->   drivers/net/ipa/ipa_main.c                              | 2 +-
->   drivers/net/pcs/pcs-rzn1-miic.c                         | 1 +
->   drivers/net/phy/marvell-88x2222.c                       | 1 -
->   drivers/net/phy/mediatek-ge-soc.c                       | 2 --
->   drivers/net/wireless/ath/ath10k/ahb.c                   | 2 +-
->   drivers/net/wireless/ath/ath11k/qmi.c                   | 1 -
->   drivers/net/wireless/ath/wcn36xx/main.c                 | 3 +--
->   drivers/net/wireless/intersil/orinoco/airport.c         | 2 +-
->   drivers/net/wireless/mediatek/mt76/mt7915/soc.c         | 1 -
->   drivers/net/wireless/silabs/wfx/bus_sdio.c              | 2 +-
->   net/core/of_net.c                                       | 1 +
->   124 files changed, 110 insertions(+), 120 deletions(-)
-
-. . .
-
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 6a2f2fc2f501..da853353a5c7 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -13,8 +13,8 @@
->   #include <linux/firmware.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> -#include <linux/of_device.h>
->   #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/firmware/qcom/qcom_scm.h>
->   #include <linux/soc/qcom/mdt_loader.h>
-
-. . .
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
