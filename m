@@ -2,63 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8792E754EA5
-	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jul 2023 14:51:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4444754F8F
+	for <lists+linux-stm32@lfdr.de>; Sun, 16 Jul 2023 18:08:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 366DAC6A608;
-	Sun, 16 Jul 2023 12:51:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74A7AC6A603;
+	Sun, 16 Jul 2023 16:08:33 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02D4FC6A5FA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2CEBC6A5FA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jul 2023 12:51:40 +0000 (UTC)
+ Sun, 16 Jul 2023 16:08:31 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AE76A60C99;
- Sun, 16 Jul 2023 12:51:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13645C433C8;
- Sun, 16 Jul 2023 12:51:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7E4F460C40;
+ Sun, 16 Jul 2023 16:08:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1D0C433C7;
+ Sun, 16 Jul 2023 16:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689511899;
- bh=S4v2KgibSFbKIsZlQ38KnV9FNhJrX3MV15+dg8ot1js=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=OoMtJPxf7SjsyC9RQZnYmoXwB+n88i+P2G7rOdEkw9RoB5uPg/I4n3t5iPuRiosl7
- 2DKBw0lWtczzb/MSi1ChJDKVVNFP0HzTJfvccGdVovQ/JWfHEXZgCB7TSBCh6XDGnk
- t4Ug7X+hqG2YWshHr22sGhHjvUj7QsXPsSB1bnj/cxB67nvFpCy+WaWJw0Z1IaDS+L
- oRxrO9IXemmp0UhqbC8v+VikVtD2cij0PEFzv02BHOI1xfwe1MqZtrinSrrhoGJ5tE
- jME9UYXynE+aatcqiQxhDW/iIqWj9LuvckE+Zs4neqN20A0+uX/INMlL3Lv7OxkyEj
- FudMxeewLMnKw==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Cristian Ciocaltea <cristian.ciocaltea@gmail.com>, 
- Chen-Yu Tsai <wens@csie.org>, Saravanan Sekar <sravanhome@gmail.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Tony Lindgren <tony@atomide.com>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
- Sudeep Holla <sudeep.holla@arm.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>
-In-Reply-To: <20230714174930.4063320-1-robh@kernel.org>
-References: <20230714174930.4063320-1-robh@kernel.org>
-Message-Id: <168951189379.112004.11594538020708568822.b4-ty@kernel.org>
-Date: Sun, 16 Jul 2023 13:51:33 +0100
+ s=k20201202; t=1689523709;
+ bh=2D3MFmPbQXBQT41enlYNrNF+ZPXvLktf687yt9uncyA=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=LDXU4dAp0cr9/tMTOwGgnlSomzaWNGtcPd1/jX7xlb3TkuPTqPzvasiH6RhWKOLmH
+ BsJfE41+wqCb95BBcUB7ITyqKn2Ku/QwXS70bmkBvb3o71t4RxDTJgx2Rl8OGdPgCF
+ qBoLtxTkoxYh78SkWSbtoJxhTg8MrCTbbMlMzQVH15mmKSV+CG922OKTLrLRLFsxaH
+ BnUhAbNZUi2rSQva8i6ko/Rj0ynhD07/1xR711yilCEKtmJ7/D3Jhwm8/zDeLnTRtv
+ V4DecYgHIkJ/aWd8KlMkBav7Y5uePDi9+AptR6OVCSIqiyRN8bRkqTqF5UK2F2z+nC
+ sYpjnHi9YyfaA==
+Date: Sun, 16 Jul 2023 17:08:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Zhang Shurong <zhang_shurong@foxmail.com>
+Message-ID: <20230716170821.3305e3fa@jic23-huawei>
+In-Reply-To: <tencent_994DA85912C937E3B5405BA960B31ED90A08@qq.com>
+References: <tencent_994DA85912C937E3B5405BA960B31ED90A08@qq.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-099c9
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-actions@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-omap@vger.kernel.org,
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, broonie@kernel.org, mcoquelin.stm32@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] regulator: Explicitly include correct DT
-	includes
+Subject: Re: [Linux-stm32] [PATCH] io: adc: stm32-adc: fix potential NULL
+ pointer dereference in stm32_adc_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,45 +60,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 14 Jul 2023 11:49:28 -0600, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it as merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
+On Sat, 15 Jul 2023 23:55:50 +0800
+Zhang Shurong <zhang_shurong@foxmail.com> wrote:
+
+> of_match_device() may fail and returns a NULL pointer.
 > 
-> [...]
+> Fix this by checking the return value of of_match_device().
+> 
+> Fixes: 64ad7f6438f3 ("iio: adc: stm32: introduce compatible data cfg")
+> Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
+Hi Zhang,
 
-Applied to
+I'm not sure we can actually make this bug happen. Do you have
+a way of triggering it?  The driver is only probed on devices where
+that match will work.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-next
+Also, assuming the match table is the same one associated with this probe
+function, then us priv->cfg = of_device_get_match_data() and check the output
+of that which is what we really care about.
 
-Thanks!
+Jonathan
 
-[1/1] regulator: Explicitly include correct DT includes
-      commit: 045a44d4c9b32578aacf0811063e5bb741c7c32c
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+> ---
+>  drivers/iio/adc/stm32-adc-core.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> index 48f02dcc81c1..70011fdbf5f6 100644
+> --- a/drivers/iio/adc/stm32-adc-core.c
+> +++ b/drivers/iio/adc/stm32-adc-core.c
+> @@ -706,6 +706,8 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>  	struct stm32_adc_priv *priv;
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *np = pdev->dev.of_node;
+> +	const struct of_device_id *of_id;
+> +
+>  	struct resource *res;
+>  	u32 max_rate;
+>  	int ret;
+> @@ -718,8 +720,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  	platform_set_drvdata(pdev, &priv->common);
+>  
+> -	priv->cfg = (const struct stm32_adc_priv_cfg *)
+> -		of_match_device(dev->driver->of_match_table, dev)->data;
+> +	of_id = of_match_device(dev->driver->of_match_table, dev);
+> +	if (!of_id)
+> +		return -ENODEV;
+> +
+> +	priv->cfg = (const struct stm32_adc_priv_cfg *)of_id->data;
+>  	priv->nb_adc_max = priv->cfg->num_adcs;
+>  	spin_lock_init(&priv->common.lock);
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
