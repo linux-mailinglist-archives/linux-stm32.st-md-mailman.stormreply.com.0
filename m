@@ -2,101 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E189755E54
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jul 2023 10:20:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916E1755EDB
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jul 2023 11:00:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 439FAC6B452;
-	Mon, 17 Jul 2023 08:20:22 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09629C6A603
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4230AC6B452;
+	Mon, 17 Jul 2023 09:00:27 +0000 (UTC)
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F8E6C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 08:20:20 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A67211FB;
- Mon, 17 Jul 2023 01:21:03 -0700 (PDT)
-Received: from [10.57.37.37] (unknown [10.57.37.37])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 41CB33F73F;
- Mon, 17 Jul 2023 01:19:59 -0700 (PDT)
-Message-ID: <e2c69d34-7523-98ae-93a2-04e132745ebd@arm.com>
-Date: Mon, 17 Jul 2023 09:19:59 +0100
+ Mon, 17 Jul 2023 09:00:25 +0000 (UTC)
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 8BAA73F2D2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Jul 2023 09:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1689584423;
+ bh=JHnHS0B61qcl/Td8/lm9RDjYsfSOyiiTTr5PsC3FWaA=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=cjjX2f3GtORdVHhLvdkR6dCrcMHr2MAIBKwmMJggdDi0YC0ppg2CIOlluoaHaSTIz
+ vQGsS3jNDlod/gBW/5VbbnSgCuQ+puWs/Jl1aL61Zgy1WLCbHlSnSf10xf3kLcZksF
+ a3rXvBlKYWjUQBiV/HBZZMjjklEO/klZTs/KPxHhJW2PXw56iup6y6WD1rOkmCYZPb
+ sfBXpgI+98ReWm6tCDYMyIUQZE4IdlSLvKcFfyiYCWCfHze3APSRUtfZ6OXrDZ9mr7
+ Cykz3l3jUEmHVUzM/oF7gLS/mpBfBGDfLLwGvNHKxLhOpMO6TeIxHviEit9yL3d5Qw
+ cg9O5lPS6/zOA==
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-635e244d063so34219666d6.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Jul 2023 02:00:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689584422; x=1692176422;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=JHnHS0B61qcl/Td8/lm9RDjYsfSOyiiTTr5PsC3FWaA=;
+ b=gDiDftMshpVbFNLE/uiSTb/61yrzAwlmsNOLQF+RErBus4iMMnUMfAtHneGIczEkzR
+ 3CtFmNRncz5Xb6Pdko0eRYjsa8UgdBRpBFPF53O8HU+ou0YmQ+yy4M413xz0Q2azQAUi
+ vQ/NE1/21uCwv19Npl+GyyFT4qhzE/iA0dkTOrx4MJZWbbouAKWQV3c/q2otaHs+bhlA
+ 12wRVOzMdyWGfGvKYsp/6Q8NbRa5VSodnjuhfA1Ufn+NXopURUFQznWdvcyIKK00Bhg7
+ akShRiDVdDde6nMVchJ2Jrf9nmIqIUE7cvhxllUXh5ek5AN83tIKbhdowtsIJ6fhPHlE
+ cDYw==
+X-Gm-Message-State: ABy/qLZmhuBR4Akrt2IY+Slvv55ZRA3BJU/NjWw1a05c4dRwiog2bRhf
+ dhkIjjCWNMS86m2DdsJNIKgSlhC78p5kcvX+xylB1T8o6/JBwhqQ7+EJDRcWl9mlnprDyVYBo4U
+ Y4x5Jfe7KfHf6ln+gCJGZdm5CMB8pE4CyT5mYL3ffzh8BqNePSGDMS+CF7tkT143/bfVXOQCbVQ
+ ==
+X-Received: by 2002:ac8:7c48:0:b0:403:2dfd:1fdf with SMTP id
+ o8-20020ac87c48000000b004032dfd1fdfmr15892596qtv.23.1689584401522; 
+ Mon, 17 Jul 2023 02:00:01 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlEMazgMYki8IR1CHHFS4st+/s+/y1hah0oj0+nBQlO+NhXDM06BTdCzgvWJM4HcjDSd4KVriXj5Pmlo8MNpIrE=
+X-Received: by 2002:ac8:7c48:0:b0:403:2dfd:1fdf with SMTP id
+ o8-20020ac87c48000000b004032dfd1fdfmr15892526qtv.23.1689584401259; Mon, 17
+ Jul 2023 02:00:01 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+References: <20230714174901.4062397-1-robh@kernel.org>
+In-Reply-To: <20230714174901.4062397-1-robh@kernel.org>
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+Date: Mon, 17 Jul 2023 10:59:45 +0200
+Message-ID: <CAJM55Z_Eba-LKxKAH0i0_vDM6JO_HvWgDLCLFQDave2+UFLMzA@mail.gmail.com>
 To: Rob Herring <robh@kernel.org>
-References: <20230714174545.4056287-1-robh@kernel.org>
-Content-Language: en-GB
-From: Steven Price <steven.price@arm.com>
-In-Reply-To: <20230714174545.4056287-1-robh@kernel.org>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- NXP Linux Team <linux-imx@nxp.com>, xen-devel@lists.xenproject.org,
- linux-sunxi@lists.linux.dev, =?UTF-8?Q?Guido_G=c3=bcnther?= <agx@sigxcpu.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, etnaviv@lists.freedesktop.org,
- Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
- Ondrej Jirman <megi@xff.cz>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- freedreno@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
- Yongqin Liu <yongqin.liu@linaro.org>, lima@lists.freedesktop.org,
- Fabio Estevam <festevam@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-rockchip@lists.infradead.org, Jagan Teki <jagan@amarulasolutions.com>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
- Jianhua Lu <lujianhua000@gmail.com>, linux-rpi-kernel@lists.infradead.org,
- Tian Tao <tiantao6@hisilicon.com>, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Tomeu Vizoso <tomeu.vizoso@collabora.com>, Sandy Huang <hjc@rock-chips.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Stefan Agner <stefan@agner.ch>,
- linux-tegra@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+Cc: Andrew Lunn <andrew@lunn.ch>, NXP S32 Linux Team <s32@nxp.com>,
+ Jacky Bai <ping.bai@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Tomasz Figa <tomasz.figa@gmail.com>, Dvorkin Dmitry <dvorkin@tibbo.com>,
+ linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
+ Haojian Zhuang <haojian.zhuang@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, linux-riscv@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-renesas-soc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Kevin Hilman <khilman@baylibre.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
+ Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Orson Zhai <orsonzhai@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Daniel Vetter <daniel@ffwll.ch>,
- Tomi Valkeinen <tomba@kernel.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- John Stultz <jstultz@google.com>, Shawn Guo <shawnguo@kernel.org>,
- Ondrej Jirman <megous@megous.com>, Emma Anholt <emma@anholt.net>,
- Liviu Dudau <liviu.dudau@arm.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- Paul Cercueil <paul@crapouillou.net>, David Airlie <airlied@gmail.com>,
- Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
- Artur Weber <aweber.kernel@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Icenowy Zheng <icenowy@aosc.io>, devicetree@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- linux-mediatek@lists.infradead.org,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Orson Zhai <orsonzhai@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ linux-sunxi@lists.linux.dev,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ devicetree@vger.kernel.org, Emil Renner Berthing <kernel@esmil.dk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Vladimir Zapolskiy <vz@mleia.com>, Chester Lin <clin@suse.com>,
+ linux-gpio@vger.kernel.org, Robert Jarzmik <robert.jarzmik@free.fr>,
+ Damien Le Moal <dlemoal@kernel.org>, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Purism Kernel Team <kernel@puri.sm>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
- Rob Clark <robdclark@gmail.com>, Qiang Yu <yuq825@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Dmitry B aryshkov <dmitry.baryshkov@linaro.org>, Liu Ying <victor.liu@nxp.com>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH] drm: Explicitly include correct DT
+ Dong Aisheng <aisheng.dong@nxp.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Scott Branden <sbranden@broadcom.com>,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>, Sean Wang <sean.wang@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, soc@kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Jianlong Huang <jianlong.huang@starfivetech.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Viresh Kumar <vireshk@kernel.org>, Wells Lu <wellslutw@gmail.com>,
+ linux-oxnas@groups.io, Shawn Guo <shawnguo@kernel.org>,
+ Daniel Mack <daniel@zonque.org>
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: Explicitly include correct DT
 	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -114,7 +129,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 14/07/2023 18:45, Rob Herring wrote:
+On Fri, 14 Jul 2023 at 19:52, Rob Herring <robh@kernel.org> wrote:
+>
 > The DT of_device.h and of_platform.h date back to the separate
 > of_platform_bus_type before it as merged into the regular platform bus.
 > As part of that merge prepping Arm DT support 13 years ago, they
@@ -123,32 +139,17 @@ On 14/07/2023 18:45, Rob Herring wrote:
 > files used throughout the tree. In order to detangle these headers and
 > replace the implicit includes with struct declarations, users need to
 > explicitly include the correct includes.
-> 
+>
 > Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-[...]
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index bbada731bbbd..20c25c836198 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -4,8 +4,9 @@
->  /* Copyright 2019 Collabora ltd. */
->  
->  #include <linux/module.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/of.h>
->  #include <linux/pagemap.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <drm/panfrost_drm.h>
->  #include <drm/drm_drv.h>
 
-Panfrost part:
+>  drivers/pinctrl/starfive/pinctrl-starfive-jh7110-aon.c | 5 +----
+>  drivers/pinctrl/starfive/pinctrl-starfive-jh7110-sys.c | 2 --
+>  drivers/pinctrl/starfive/pinctrl-starfive-jh7110.c     | 1 -
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+Acked-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 
-Steve
-
+Thanks,
+/Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
