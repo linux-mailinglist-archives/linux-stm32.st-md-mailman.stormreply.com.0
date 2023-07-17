@@ -2,91 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CA1E756898
-	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jul 2023 18:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B437568EA
+	for <lists+linux-stm32@lfdr.de>; Mon, 17 Jul 2023 18:18:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52606C6B457;
-	Mon, 17 Jul 2023 16:03:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E17CC6B457;
+	Mon, 17 Jul 2023 16:18:07 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F68BC6A611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B88AC6A611
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 16:03:05 +0000 (UTC)
+ Mon, 17 Jul 2023 16:18:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E327A6114A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 16:03:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53708C433D9
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 16:03:04 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E8B2D61154;
+ Mon, 17 Jul 2023 16:18:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 456CCC433C7;
+ Mon, 17 Jul 2023 16:18:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689609784;
- bh=aZICCOVfKf1PqTHgRCOupCS9EkykRJONrhoP14RlBbY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=RjTKbIlOKFKAdT9+GbcTkdLrDGOHEezkmDutGTRyLx2lp53JR+Nz+OR6K+D9kTAaq
- AiKAEbcjoQm/6Y4ZH2T94uqpkUTXE/ivwfxwwzCs3GX629h8bGy6BxqwTffITGuDgz
- lrWsuT+VfZUJhf5khJL01hNYIk7FTk420NOk02QnaYVF3z8+Md13oy8ytRu/scv6uO
- jhYu7UHeznp3ruJwr/tNBSXy4ect2sUkWAgSioVZjPhu5oeLzhGDc4zky934XT//wF
- jZx/4IwrsVwoVvV1FzoAV+rY/02+4k0C0RSeWmeEazP8s1BxvRca5gX6K46WO7ajgV
- sJK4ccBDA5WTQ==
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-4fbbfaacfc1so7480212e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 09:03:04 -0700 (PDT)
-X-Gm-Message-State: ABy/qLbIUJPy0E5bZooHSX9JWWkfQKG2dzuMP+gwHECdNGoGMDn+eG+d
- 6Zww8XhlJkNYO2TPWh1Lhkz7C3xZTCfllNCZug==
-X-Google-Smtp-Source: APBJJlGT3Z4OwG+5PD2iOuBmukBKYkwOVI4cYi2ZBHphRuP2mDYunFyhxEBn+UEFg93NJOzQaxqKN1Nt2m8NdZz6Fm0=
-X-Received: by 2002:a2e:9455:0:b0:2b4:6f0c:4760 with SMTP id
- o21-20020a2e9455000000b002b46f0c4760mr8630130ljh.11.1689609761393; Mon, 17
- Jul 2023 09:02:41 -0700 (PDT)
+ s=k20201202; t=1689610684;
+ bh=2JnoWmK4iiKhwvm4zZER4WLqRTh1WYZ3pksnmGmNMF0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=JEd/NWkpgNyU1zp8QYb+T90jg3gHO5xywy6EXUiluLzC3z3JEpGFFvW03J6OifvvH
+ ckFdGvk6CnHo/egSHVgu4wdfuvg8aksVpFMOBEL/BRsEeJjOozRk5eETmUDrYVKgdB
+ c2JZezHUa/HkSrAOtKWckhLCa6kTj7qANsfMwBdMY/gaYJ2Sjt4UbkCJFs68nySI9f
+ x9RgXh790tAp8K7l8p3HGYJGvnZyo7N0ip7sc1gq9xw+PY1VlN5ndTCiRc0wsJqG5z
+ xAtk51Q6KksvJp/WBf7cZcqTKW8Omr5KMjguZESqxgtmpkQoBUbi23cd+7qMGDiED2
+ J4VBeQuwBWleA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Date: Tue, 18 Jul 2023 00:06:28 +0800
+Message-Id: <20230717160630.1892-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230714174430.4054533-1-robh@kernel.org>
-In-Reply-To: <20230714174430.4054533-1-robh@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 17 Jul 2023 10:02:28 -0600
-X-Gmail-Original-Message-ID: <CAL_Jsq+qcoFd7_wWUZeHgqWpB0JfdE0j4qLCxfJwD_Cqkz-HgA@mail.gmail.com>
-Message-ID: <CAL_Jsq+qcoFd7_wWUZeHgqWpB0JfdE0j4qLCxfJwD_Cqkz-HgA@mail.gmail.com>
-To: Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>, 
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Vinod Koul <vkoul@kernel.org>, 
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, 
- Paul Cercueil <paul@crapouillou.net>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Viresh Kumar <vireshk@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Li Yang <leoyang.li@nxp.com>, Zhang Wei <zw@zh-kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>, 
- Vladimir Zapolskiy <vz@mleia.com>, Sean Wang <sean.wang@mediatek.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Manivannan Sadhasivam <mani@kernel.org>, Sinan Kaya <okaya@kernel.org>,
- Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, 
- Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@csie.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Laxman Dewangan <ldewangan@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>, 
- Thierry Reding <thierry.reding@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, 
- Michal Simek <michal.simek@amd.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-mediatek@lists.infradead.org,
- asahi@lists.linux.dev, dmaengine@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dmaengine: Explicitly include correct DT
-	includes
+Cc: netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v5 0/2] net: stmmac: improve driver
+	statistics
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,44 +61,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBKdWwgMTQsIDIwMjMgYXQgMTE6NDTigK9BTSBSb2IgSGVycmluZyA8cm9iaEBrZXJu
-ZWwub3JnPiB3cm90ZToKPgo+IFRoZSBEVCBvZl9kZXZpY2UuaCBhbmQgb2ZfcGxhdGZvcm0uaCBk
-YXRlIGJhY2sgdG8gdGhlIHNlcGFyYXRlCj4gb2ZfcGxhdGZvcm1fYnVzX3R5cGUgYmVmb3JlIGl0
-IGFzIG1lcmdlZCBpbnRvIHRoZSByZWd1bGFyIHBsYXRmb3JtIGJ1cy4KPiBBcyBwYXJ0IG9mIHRo
-YXQgbWVyZ2UgcHJlcHBpbmcgQXJtIERUIHN1cHBvcnQgMTMgeWVhcnMgYWdvLCB0aGV5Cj4gInRl
-bXBvcmFyaWx5IiBpbmNsdWRlIGVhY2ggb3RoZXIuIFRoZXkgYWxzbyBpbmNsdWRlIHBsYXRmb3Jt
-X2RldmljZS5oCj4gYW5kIG9mLmguIEFzIGEgcmVzdWx0LCB0aGVyZSdzIGEgcHJldHR5IG11Y2gg
-cmFuZG9tIG1peCBvZiB0aG9zZSBpbmNsdWRlCj4gZmlsZXMgdXNlZCB0aHJvdWdob3V0IHRoZSB0
-cmVlLiBJbiBvcmRlciB0byBkZXRhbmdsZSB0aGVzZSBoZWFkZXJzIGFuZAo+IHJlcGxhY2UgdGhl
-IGltcGxpY2l0IGluY2x1ZGVzIHdpdGggc3RydWN0IGRlY2xhcmF0aW9ucywgdXNlcnMgbmVlZCB0
-bwo+IGV4cGxpY2l0bHkgaW5jbHVkZSB0aGUgY29ycmVjdCBpbmNsdWRlcy4KPgo+IFNpZ25lZC1v
-ZmYtYnk6IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gLS0tCj4gIGRyaXZlcnMvZG1h
-L2FwcGxlLWFkbWFjLmMgICAgICAgICAgICAgICAgICAgICAgfCAzICsrLQo+ICBkcml2ZXJzL2Rt
-YS9hdF9oZG1hYy5jICAgICAgICAgICAgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL2Rt
-YS9iY20tc2JhLXJhaWQuYyAgICAgICAgICAgICAgICAgICAgIHwgNCArKystCj4gIGRyaXZlcnMv
-ZG1hL2Jlc3Rjb21tL2Jlc3Rjb21tLmMgICAgICAgICAgICAgICAgfCA0ICstLS0KCnYyIGNvbWlu
-ZyBmb3IgdGhpczoKCj4+IGRyaXZlcnMvZG1hL2Jlc3Rjb21tL2Jlc3Rjb21tLgpjOjgwOjEzOiBl
-cnJvcjogY2FsbCB0byB1bmRlY2xhcmVkIGZ1bmN0aW9uICdpcnFfb2ZfcGFyc2VfYW5kX21hcCc7
-CklTTyBDOTkgYW5kIGxhdGVyIGRvIG5vdCBzdXBwb3J0IGltcGxpY2l0IGZ1bmN0aW9uIGRlY2xh
-cmF0aW9ucwpbLVdpbXBsaWNpdC1mdW5jdGlvbi1kZWNsYXJhdGlvbl0KICAgICAgODAgfCAgICAg
-ICAgIHRzay0+aXJxID0gaXJxX29mX3BhcnNlX2FuZF9tYXAoYmNvbV9lbmctPm9mbm9kZSwKdHNr
-LT50YXNrbnVtKTsKICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgXgo+PiBkcml2ZXJzL2Rt
-YS9iZXN0Y29tbS9iZXN0Y29tbS5jOjEwNTo0OiBlcnJvcjogY2FsbCB0byB1bmRlY2xhcmVkIGZ1
-bmN0aW9uICdpcnFfZGlzcG9zZV9tYXBwaW5nJzsgSVNPIEM5OSBhbmQgbGF0ZXIgZG8gbm90IHN1
-cHBvcnQgaW1wbGljaXQgZnVuY3Rpb24gZGVjbGFyYXRpb25zIFstV2ltcGxpY2l0LWZ1bmN0aW9u
-LWRlY2xhcmF0aW9uXQogICAgIDEwNSB8ICAgICAgICAgICAgICAgICAgICAgICAgIGlycV9kaXNw
-b3NlX21hcHBpbmcodHNrLT5pcnEpOwogICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAg
-IF4KICAgZHJpdmVycy9kbWEvYmVzdGNvbW0vYmVzdGNvbW0uYzoxMjg6MjogZXJyb3I6IGNhbGwg
-dG8gdW5kZWNsYXJlZApmdW5jdGlvbiAnaXJxX2Rpc3Bvc2VfbWFwcGluZyc7IElTTyBDOTkgYW5k
-IGxhdGVyIGRvIG5vdCBzdXBwb3J0CmltcGxpY2l0IGZ1bmN0aW9uIGRlY2xhcmF0aW9ucyBbLVdp
-bXBsaWNpdC1mdW5jdGlvbi1kZWNsYXJhdGlvbl0KICAgICAxMjggfCAgICAgICAgIGlycV9kaXNw
-b3NlX21hcHBpbmcodHNrLT5pcnEpOwogICAgICAgICB8ICAgICAgICAgXgogICAzIGVycm9ycyBn
-ZW5lcmF0ZWQuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+improve the stmmac driver statistics:
+
+1. don't clear network driver statistics in .ndo_close() and
+.ndo_open() cycle
+2. avoid some network driver statistics overflow on 32 bit platforms
+3. use per-queue statistics where necessary to remove frequent
+cacheline ping pongs.
+
+NOTE: v1 and v2 are back ported from an internal LTS tree, I made
+some mistakes when backporting and squashing. Now, net-next + v3
+has been well tested with 'ethtool -s' and 'ip -s link show'.
+
+Since v4:
+  - rebased on the latest net-next
+
+Since v3:
+  - coding style pointed out by Simon, I.E reverse xmas tree for local
+    variable declarations and so on.
+  - put the counters in queue structs, I.E per-queue rather than per-cpu
+  - use _irqsave() variant where necessary.
+
+Since v2:
+  - fix ethtool .get_sset_count, .get_strings and per queue stats
+    couting.
+  - fix .ndo_get_stats64 only counts the last cpu's pcpu stats.
+  - fix typo: s/iff/if in commit msg.
+  - remove unnecessary if statement brackets since we have removed
+    one LoC.
+
+Since v1:
+  - rebase on net-next
+  - fold two original patches into one patch
+  - fix issues found by lkp
+  - update commit msg
+
+
+Jisheng Zhang (2):
+  net: stmmac: don't clear network statistics in .ndo_open()
+  net: stmmac: use per-queue 64 bit statistics where necessary
+
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  39 ++--
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  12 +-
+ .../ethernet/stmicro/stmmac/dwmac100_dma.c    |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac4_descs.c    |  16 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  15 +-
+ .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  12 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |   6 +-
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  14 +-
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    |  20 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  12 +-
+ .../net/ethernet/stmicro/stmmac/norm_desc.c   |  15 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   2 +
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 123 ++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 206 ++++++++++++++----
+ 14 files changed, 337 insertions(+), 162 deletions(-)
+
+-- 
+2.40.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
