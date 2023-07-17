@@ -2,135 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A24DF768DB4
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A89C768D98
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F6E7C6C828;
-	Mon, 31 Jul 2023 07:17:27 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17EF1C6A603
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA840C6B473;
+	Mon, 31 Jul 2023 07:16:20 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 325F7C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 17 Jul 2023 04:11:33 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-3fbea147034so36751985e9.0
+ Mon, 17 Jul 2023 11:10:14 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5A9E1655
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 16 Jul 2023 21:11:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1689567092; x=1692159092;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=9/C3h+YAuv9KnwxiMTpYjTL5zKv/NT7ML7VfP+t2M3I=;
- b=Tq9qHBG0lu7jaaAzGVh7zW7APZtFqPFIgTt3eG3xJ/s7hMnGTjI7W2D8hZoah+DDnD
- pRrvMcwDgek3qOc+WonJ1iU/UbAhg6l1xRUE5o8E5oFfjdJD/VJP1CxdqfUm+IfSqKaU
- 8a14t20FAcXqurrVqKftaXeLnpfTcWm+23LcvMilL395WAY39aifHH+WmdKQX5YoVI9S
- Pruk1PcbXpLaau6VGu9yRiISM9XpUic7/awIVGbQ8d57t0F3hATZyamsTu5JMRNKEjfp
- m2V158CR+XtxiWdunD8YUfpODlbVKTHUt5QlQ12LZbVzVPTtlt6AXcUTnl2h3dDlxFBb
- Kplg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689567092; x=1692159092;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=9/C3h+YAuv9KnwxiMTpYjTL5zKv/NT7ML7VfP+t2M3I=;
- b=NVXZF4tPxRyKXQTr1j2p1dLrITIsnLbwsFxF+5VXbxmQrdMs4MTksyEYWa2gBRfTPO
- vfm5D03UpW2VxTaAOSjk0usuhIe3SSvjLbacoCDc5ggMZZgGX7jpLdM/ohNfjYjVB0+k
- LQbW3qztKDM25fE/iG43daqp5PzlmbPSq1yRLnA8zeUD/tyj5/0UeW7kEe2n8UtiWNOa
- l4jSkzlOOZVlTHBP8txE2lJ/LOy/y1rYiJfJgMfAXwCgI1gYmjkRt+jzmNCXFdCS4rb+
- jUH6+3pnjjxVITMrFY/skycB2C6FQVEekqAFrAya30K/NoAIEwyrk7hXtDvWJwSCsqm0
- vlWA==
-X-Gm-Message-State: ABy/qLYITSa1VbNGWC5HEgMNHRQA5x9lcZODAFWGQvgViIZX0I31xJDl
- hXagTPxP7baObxgE02rco2a9Oy0+wb7t9uepVyoTXg==
-X-Google-Smtp-Source: APBJJlFVgINdLd0ZjyG1d4SW9nOol1WL7NOReo9GzHjRTsjxVloFn7tQ1+7ACSCkL/sokPI3hAftdMe8yJM6T3n0vTY=
-X-Received: by 2002:a05:6000:10c1:b0:313:f4f5:2ddc with SMTP id
- b1-20020a05600010c100b00313f4f52ddcmr8398204wrx.62.1689567091817; Sun, 16 Jul
- 2023 21:11:31 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230714174809.4060885-1-robh@kernel.org>
-In-Reply-To: <20230714174809.4060885-1-robh@kernel.org>
-From: Bhupesh Sharma <bhupesh.sharma@linaro.org>
-Date: Mon, 17 Jul 2023 09:41:19 +0530
-Message-ID: <CAH=2NtzJReCJTXa4XVAeGd6PBx-wywEQ5sWr4c2FRShb2Gy7Cw@mail.gmail.com>
+ Mon, 17 Jul 2023 04:10:56 -0700 (PDT)
+Received: from e110455-lin.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EC4CB3F67D
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 17 Jul 2023 04:10:12 -0700 (PDT)
+Date: Mon, 17 Jul 2023 12:07:47 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
 To: Rob Herring <robh@kernel.org>
-X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: Andrew Lunn <andrew@lunn.ch>, Kevin Brace <kevinbrace@bracecomputerlab.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Iyappan Subramanian <iyappan@os.amperecomputing.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Horatiu Vultur <horatiu.vultur@microchip.com>,
- Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
- Sean Anderson <sean.anderson@seco.com>, Kevin Hilman <khilman@baylibre.com>,
- Madalin Bucur <madalin.bucur@nxp.com>, Jose Abreu <joabreu@synopsys.com>,
- NXP Linux Team <linux-imx@nxp.com>, Mark Lee <Mark-MC.Lee@mediatek.com>,
- Landen Chao <Landen.Chao@mediatek.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-omap@vger.kernel.org, Alex Elder <elder@kernel.org>,
- =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
- Douglas Miller <dougmill@linux.ibm.com>, Daniel Golle <daniel@makrotopia.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Vladimir Oltean <olteanv@gmail.com>, linux-wpan@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Shayne Chen <shayne.chen@mediatek.com>,
- Steve Glendinning <steve.glendinning@shawell.net>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- =?UTF-8?B?SsOpcsO0bWUgUG91aWxsZSBy?= <jerome.pouiller@silabs.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Chris Snook <chris.snook@gmail.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Thierry Reding <thierry.reding@gmail.com>,
- Pantelis Antoniou <pantelis.antoniou@gmail.com>, wcn36xx@lists.infradead.org,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- SkyLake Huang <SkyLake.Huang@mediatek.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>,
- Yisen Zhuang <yisen.zhuang@huawei.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Woojung Huh <woojung.huh@microchip.com>,
+Message-ID: <ZLUhA1yxQQONA0eL@e110455-lin.cambridge.arm.com>
+References: <20230714174545.4056287-1-robh@kernel.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230714174545.4056287-1-robh@kernel.org>
+X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:17 +0000
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-rockchip@lists.infradead.org,
+ Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, etnaviv@lists.freedesktop.org,
+ Inki Dae <inki.dae@samsung.com>, Sean Paul <sean@poorly.run>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
+ Ondrej Jirman <megi@xff.cz>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Icenowy Zheng <icenowy@aosc.io>, freedreno@lists.freedesktop.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>, lima@lists.freedesktop.org,
+ Fabio Estevam <festevam@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Liu Ying <victor.liu@nxp.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Jerome Brunet <jbrunet@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sean Wang <sean.wang@mediatek.com>, linux-can@vger.kernel.org,
- Cla udiu Manoil <claudiu.manoil@nxp.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Mirko Lindner <mlindner@marvell.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Jianhua Lu <lujianhua000@gmail.com>, linux-rpi-kernel@lists.infradead.org,
+ Tian Tao <tiantao6@hisilicon.com>, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Chandrasekar Ramakrishnan <rcsekar@samsung.com>, UNGLinuxDriver@microchip.com,
- linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Wei Fang <wei.fang@nxp.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- Tara s Chornyi <taras.chornyi@plvision.eu>, linux-wireless@vger.kernel.org,
- Emil Renner Berthing <kernel@esmil.dk>, Andreas Larsson <andreas@gaisler.com>,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-tegra@vger.kernel.org,
- ath10k@lists.infradead.org, linux-amlogic@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Shenwei Wang <shenwei.wang@nxp.com>,
- Samin Guo <samin.guo@starfivetech.com>, Francois Romieu <romieu@fr.zoreil.com>,
- Paolo Abeni <pabeni@redhat.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- ath11k@lists.infradead.org, Grygorii Strashko <grygorii.strashko@ti.com>,
- John Crispin <john@phrozen.org>, Salil Mehta <salil.mehta@huawei.com>,
- Sergey Shtylyov <s.shtylyov@omp.ru>, Timur Tabi <timur@kernel.org>,
- =?UTF-8?B?QXLEsW7DpyDDnE5BTA==?= <arinc.unal@arinc9.com>,
- linux-sunxi@lists.linux.dev, linux-oxnas@groups.io,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- Alexander Aring <alex.aring@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- George McCollister <george.mccollister@gmail.com>,
- Ryder Lee <ryder.lee@mediatek.com>,
+ Tomeu Vizoso <tomeu.vizoso@collabora.com>, Sandy Huang <hjc@rock-chips.com>,
+ Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Stefan Agner <stefan@agner.ch>,
+ linux-tegra@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, xen-devel@lists.xenproject.org,
+ Daniel Vetter <daniel@ffwll.ch>, Tomi Valkeinen <tomba@kernel.org>,
+ linux-sunxi@lists.linux.dev,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ John Stultz <jstultz@google.com>, Shawn Guo <shawnguo@kernel.org>,
+ Ondrej Jirman <megous@megous.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Emma Anholt <emma@anholt.net>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Paul Cercueil <paul@crapouillou.net>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, linux-renesas-soc@vger.kernel.org,
+ Artur Weber <aweber.kernel@gmail.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
- linux-mediatek@lists.infradead.org, Russell King <linux@armlinux.org.uk>,
- Clark Wang <xiaoning.wang@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- devicetree@vger.kernel.org, Kalle Valo <kvalo@kernel.org>,
- Keyur Chudgar <keyur@os.amperecomputing.com>, DENG Qingfang <dqfext@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>, Marcin Wojtas <mw@semihalf.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Qiang Yu <yuq825@gmail.com>, devicetree@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-mediatek@lists.infradead.org,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Loic Poulain <loic.poulain@linaro.org>, netdev@vger.kernel.org,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Li Yang <leoyang.li@nxp.com>,
- Stephen Hemminger <stephen@networkplumber.org>, Vinod Ko ul <vkoul@kernel.org>,
- =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
- linuxppc-dev@lists.ozlabs.org, Felix Fietkau <nbd@nbd.name>
-Subject: Re: [Linux-stm32] [PATCH] net: Explicitly include correct DT
+ Purism Kernel Team <kernel@puri.sm>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Rob Clark <robdclark@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Dmitry B aryshkov <dmitry.baryshkov@linaro.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH] drm: Explicitly include correct DT
 	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -143,1859 +112,1326 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 15 Jul 2023 at 08:13, Rob Herring <robh@kernel.org> wrote:
->
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it as merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
->
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
->  drivers/net/can/bxcan.c                                 | 1 -
->  drivers/net/can/ifi_canfd/ifi_canfd.c                   | 1 -
->  drivers/net/can/m_can/m_can.c                           | 1 -
->  drivers/net/can/m_can/m_can.h                           | 1 -
->  drivers/net/can/rcar/rcar_canfd.c                       | 1 -
->  drivers/net/can/sja1000/sja1000_platform.c              | 1 -
->  drivers/net/can/sun4i_can.c                             | 1 -
->  drivers/net/can/ti_hecc.c                               | 1 -
->  drivers/net/dsa/b53/b53_mdio.c                          | 1 +
->  drivers/net/dsa/b53/b53_mmap.c                          | 1 +
->  drivers/net/dsa/hirschmann/hellcreek.c                  | 1 -
->  drivers/net/dsa/hirschmann/hellcreek_ptp.c              | 1 +
->  drivers/net/dsa/lan9303-core.c                          | 1 +
->  drivers/net/dsa/microchip/ksz8863_smi.c                 | 3 +++
->  drivers/net/dsa/microchip/ksz_common.c                  | 2 +-
->  drivers/net/dsa/mt7530-mmio.c                           | 3 ++-
->  drivers/net/dsa/mv88e6xxx/chip.c                        | 2 +-
->  drivers/net/dsa/ocelot/felix_vsc9959.c                  | 1 +
->  drivers/net/dsa/ocelot/seville_vsc9953.c                | 3 ++-
->  drivers/net/dsa/qca/qca8k-leds.c                        | 1 +
->  drivers/net/dsa/realtek/realtek-mdio.c                  | 2 +-
->  drivers/net/dsa/realtek/realtek-smi.c                   | 1 -
->  drivers/net/dsa/sja1105/sja1105_main.c                  | 1 -
->  drivers/net/dsa/vitesse-vsc73xx-core.c                  | 1 -
->  drivers/net/dsa/xrs700x/xrs700x.c                       | 2 +-
->  drivers/net/ethernet/aeroflex/greth.c                   | 4 ++--
->  drivers/net/ethernet/amd/sunlance.c                     | 2 +-
->  drivers/net/ethernet/apm/xgene-v2/main.h                | 1 +
->  drivers/net/ethernet/arc/emac_main.c                    | 2 +-
->  drivers/net/ethernet/atheros/ag71xx.c                   | 3 ++-
->  drivers/net/ethernet/cadence/macb_main.c                | 1 -
->  drivers/net/ethernet/cirrus/cs89x0.c                    | 1 -
->  drivers/net/ethernet/ezchip/nps_enet.c                  | 5 ++---
->  drivers/net/ethernet/freescale/dpaa/dpaa_eth.c          | 3 ++-
->  drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c      | 2 ++
->  drivers/net/ethernet/freescale/enetc/enetc_ierb.c       | 2 +-
->  drivers/net/ethernet/freescale/fec_mpc52xx.c            | 4 ++--
->  drivers/net/ethernet/freescale/fec_mpc52xx_phy.c        | 3 ++-
->  drivers/net/ethernet/freescale/fec_ptp.c                | 1 -
->  drivers/net/ethernet/freescale/fman/fman.c              | 1 +
->  drivers/net/ethernet/freescale/fman/fman_port.c         | 1 +
->  drivers/net/ethernet/freescale/fman/mac.c               | 2 ++
->  drivers/net/ethernet/freescale/fs_enet/mac-fcc.c        | 1 -
->  drivers/net/ethernet/freescale/fs_enet/mac-fec.c        | 1 -
->  drivers/net/ethernet/freescale/fs_enet/mac-scc.c        | 1 -
->  drivers/net/ethernet/freescale/fsl_pq_mdio.c            | 1 +
->  drivers/net/ethernet/freescale/gianfar.c                | 2 +-
->  drivers/net/ethernet/freescale/gianfar_ethtool.c        | 2 ++
->  drivers/net/ethernet/freescale/ucc_geth.c               | 3 ++-
->  drivers/net/ethernet/freescale/xgmac_mdio.c             | 4 ++--
->  drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c       | 3 ---
->  drivers/net/ethernet/hisilicon/hns/hns_dsaf_rcb.c       | 4 ----
->  drivers/net/ethernet/ibm/ehea/ehea_main.c               | 1 +
->  drivers/net/ethernet/ibm/emac/core.c                    | 1 +
->  drivers/net/ethernet/ibm/emac/core.h                    | 1 -
->  drivers/net/ethernet/ibm/emac/mal.c                     | 2 ++
->  drivers/net/ethernet/ibm/emac/rgmii.c                   | 2 ++
->  drivers/net/ethernet/ibm/emac/tah.c                     | 2 ++
->  drivers/net/ethernet/ibm/emac/zmii.c                    | 2 ++
->  drivers/net/ethernet/korina.c                           | 2 +-
->  drivers/net/ethernet/marvell/mvmdio.c                   | 2 +-
->  drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c         | 1 -
->  drivers/net/ethernet/marvell/prestera/prestera_rxtx.c   | 3 ---
->  drivers/net/ethernet/marvell/sky2.c                     | 1 -
->  drivers/net/ethernet/mediatek/mtk_eth_soc.c             | 3 ++-
->  drivers/net/ethernet/mediatek/mtk_star_emac.c           | 1 -
->  drivers/net/ethernet/mediatek/mtk_wed.c                 | 1 +
->  drivers/net/ethernet/mediatek/mtk_wed_wo.c              | 3 +--
->  drivers/net/ethernet/microchip/lan966x/lan966x_main.c   | 3 ++-
->  drivers/net/ethernet/mscc/ocelot_fdma.c                 | 1 -
->  drivers/net/ethernet/mscc/ocelot_vsc7514.c              | 3 ++-
->  drivers/net/ethernet/ni/nixge.c                         | 5 ++---
->  drivers/net/ethernet/qualcomm/emac/emac-sgmii.c         | 2 ++
->  drivers/net/ethernet/qualcomm/emac/emac.c               | 1 -
->  drivers/net/ethernet/qualcomm/qca_spi.c                 | 1 -
->  drivers/net/ethernet/qualcomm/qca_uart.c                | 1 -
->  drivers/net/ethernet/renesas/ravb_main.c                | 3 +--
->  drivers/net/ethernet/renesas/rswitch.c                  | 3 +--
->  drivers/net/ethernet/renesas/sh_eth.c                   | 2 --
->  drivers/net/ethernet/smsc/smsc911x.c                    | 1 -
->  drivers/net/ethernet/socionext/sni_ave.c                | 3 ++-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c         | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c     | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c    | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c     | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-oxnas.c       | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c          | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c    | 4 +++-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c         | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c       | 1 -
->  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c       | 3 ++-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c       | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c    | 3 ++-
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c   | 1 -
->  drivers/net/ethernet/sun/niu.c                          | 2 +-
->  drivers/net/ethernet/sun/sunbmac.c                      | 2 +-
->  drivers/net/ethernet/sun/sungem.c                       | 1 +
->  drivers/net/ethernet/sun/sunhme.c                       | 3 ++-
->  drivers/net/ethernet/sun/sunqe.c                        | 2 +-
->  drivers/net/ethernet/ti/am65-cpsw-nuss.c                | 1 +
->  drivers/net/ethernet/ti/cpsw-common.c                   | 1 -
->  drivers/net/ethernet/ti/cpsw-phy-sel.c                  | 1 -
->  drivers/net/ethernet/ti/davinci_mdio.c                  | 1 -
->  drivers/net/ethernet/via/via-rhine.c                    | 2 +-
->  drivers/net/ethernet/via/via-velocity.c                 | 2 +-
->  drivers/net/ethernet/xilinx/ll_temac.h                  | 1 +
->  drivers/net/ethernet/xilinx/ll_temac_main.c             | 4 +---
->  drivers/net/ethernet/xilinx/ll_temac_mdio.c             | 2 +-
->  drivers/net/ethernet/xilinx/xilinx_axienet_main.c       | 3 ++-
->  drivers/net/ethernet/xilinx/xilinx_emaclite.c           | 4 ++--
->  drivers/net/ieee802154/ca8210.c                         | 1 -
->  drivers/net/ipa/ipa_main.c                              | 2 +-
->  drivers/net/pcs/pcs-rzn1-miic.c                         | 1 +
->  drivers/net/phy/marvell-88x2222.c                       | 1 -
->  drivers/net/phy/mediatek-ge-soc.c                       | 2 --
->  drivers/net/wireless/ath/ath10k/ahb.c                   | 2 +-
->  drivers/net/wireless/ath/ath11k/qmi.c                   | 1 -
->  drivers/net/wireless/ath/wcn36xx/main.c                 | 3 +--
->  drivers/net/wireless/intersil/orinoco/airport.c         | 2 +-
->  drivers/net/wireless/mediatek/mt76/mt7915/soc.c         | 1 -
->  drivers/net/wireless/silabs/wfx/bus_sdio.c              | 2 +-
->  net/core/of_net.c                                       | 1 +
->  124 files changed, 110 insertions(+), 120 deletions(-)
->
-> diff --git a/drivers/net/can/bxcan.c b/drivers/net/can/bxcan.c
-> index 39de7164bc4e..49cf9682b925 100644
-> --- a/drivers/net/can/bxcan.c
-> +++ b/drivers/net/can/bxcan.c
-> @@ -23,7 +23,6 @@
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
->
-> diff --git a/drivers/net/can/ifi_canfd/ifi_canfd.c b/drivers/net/can/ifi_canfd/ifi_canfd.c
-> index 1d6642c94f2f..72307297d75e 100644
-> --- a/drivers/net/can/ifi_canfd/ifi_canfd.c
-> +++ b/drivers/net/can/ifi_canfd/ifi_canfd.c
-> @@ -20,7 +20,6 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->
->  #include <linux/can/dev.h>
-> diff --git a/drivers/net/can/m_can/m_can.c b/drivers/net/can/m_can/m_can.c
-> index c5af92bcc9c9..4e76cd9c02b0 100644
-> --- a/drivers/net/can/m_can/m_can.c
-> +++ b/drivers/net/can/m_can/m_can.c
-> @@ -18,7 +18,6 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/phy/phy.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/can/m_can/m_can.h b/drivers/net/can/m_can/m_can.h
-> index a839dc71dc9b..267d06ce6ade 100644
-> --- a/drivers/net/can/m_can/m_can.h
-> +++ b/drivers/net/can/m_can/m_can.h
-> @@ -22,7 +22,6 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/phy/phy.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/pm_runtime.h>
-> diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
-> index e4d748913439..b82842718735 100644
-> --- a/drivers/net/can/rcar/rcar_canfd.c
-> +++ b/drivers/net/can/rcar/rcar_canfd.c
-> @@ -34,7 +34,6 @@
->  #include <linux/moduleparam.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/reset.h>
-> diff --git a/drivers/net/can/sja1000/sja1000_platform.c b/drivers/net/can/sja1000/sja1000_platform.c
-> index 4e59952c66d4..33f0e46ab1c2 100644
-> --- a/drivers/net/can/sja1000/sja1000_platform.c
-> +++ b/drivers/net/can/sja1000/sja1000_platform.c
-> @@ -17,7 +17,6 @@
->  #include <linux/clk.h>
->  #include <linux/io.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->
->  #include "sja1000.h"
->
-> diff --git a/drivers/net/can/sun4i_can.c b/drivers/net/can/sun4i_can.c
-> index 0827830bbf28..b493a3d8ea9a 100644
-> --- a/drivers/net/can/sun4i_can.c
-> +++ b/drivers/net/can/sun4i_can.c
-> @@ -59,7 +59,6 @@
->  #include <linux/io.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/reset.h>
->
-> diff --git a/drivers/net/can/ti_hecc.c b/drivers/net/can/ti_hecc.c
-> index 54284661992e..a8243acde92d 100644
-> --- a/drivers/net/can/ti_hecc.c
-> +++ b/drivers/net/can/ti_hecc.c
-> @@ -21,7 +21,6 @@
->  #include <linux/clk.h>
->  #include <linux/io.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/regulator/consumer.h>
->
->  #include <linux/can/dev.h>
-> diff --git a/drivers/net/dsa/b53/b53_mdio.c b/drivers/net/dsa/b53/b53_mdio.c
-> index 8b422b298cd5..4d55d8d18376 100644
-> --- a/drivers/net/dsa/b53/b53_mdio.c
-> +++ b/drivers/net/dsa/b53/b53_mdio.c
-> @@ -19,6 +19,7 @@
->  #include <linux/kernel.h>
->  #include <linux/phy.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/delay.h>
->  #include <linux/brcmphy.h>
->  #include <linux/rtnetlink.h>
-> diff --git a/drivers/net/dsa/b53/b53_mmap.c b/drivers/net/dsa/b53/b53_mmap.c
-> index 5db1ed26f03a..5e39641ea887 100644
-> --- a/drivers/net/dsa/b53/b53_mmap.c
-> +++ b/drivers/net/dsa/b53/b53_mmap.c
-> @@ -19,6 +19,7 @@
->  #include <linux/bits.h>
->  #include <linux/kernel.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/io.h>
->  #include <linux/platform_device.h>
->  #include <linux/platform_data/b53.h>
-> diff --git a/drivers/net/dsa/hirschmann/hellcreek.c b/drivers/net/dsa/hirschmann/hellcreek.c
-> index af50001ccdd4..720f4e4ed0b0 100644
-> --- a/drivers/net/dsa/hirschmann/hellcreek.c
-> +++ b/drivers/net/dsa/hirschmann/hellcreek.c
-> @@ -11,7 +11,6 @@
->  #include <linux/module.h>
->  #include <linux/device.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/platform_device.h>
->  #include <linux/bitops.h>
-> diff --git a/drivers/net/dsa/hirschmann/hellcreek_ptp.c b/drivers/net/dsa/hirschmann/hellcreek_ptp.c
-> index 3e44ccb7db84..5249a1c2a80b 100644
-> --- a/drivers/net/dsa/hirschmann/hellcreek_ptp.c
-> +++ b/drivers/net/dsa/hirschmann/hellcreek_ptp.c
-> @@ -9,6 +9,7 @@
->   *         Kurt Kanzenbach <kurt@linutronix.de>
->   */
->
-> +#include <linux/of.h>
->  #include <linux/ptp_clock_kernel.h>
->  #include "hellcreek.h"
->  #include "hellcreek_ptp.h"
-> diff --git a/drivers/net/dsa/lan9303-core.c b/drivers/net/dsa/lan9303-core.c
-> index ff76444057d2..02e93559d536 100644
-> --- a/drivers/net/dsa/lan9303-core.c
-> +++ b/drivers/net/dsa/lan9303-core.c
-> @@ -8,6 +8,7 @@
->  #include <linux/regmap.h>
->  #include <linux/mutex.h>
->  #include <linux/mii.h>
-> +#include <linux/of.h>
->  #include <linux/phy.h>
->  #include <linux/if_bridge.h>
->  #include <linux/if_vlan.h>
-> diff --git a/drivers/net/dsa/microchip/ksz8863_smi.c b/drivers/net/dsa/microchip/ksz8863_smi.c
-> index fd6e2e69a42a..5711a59e2ac9 100644
-> --- a/drivers/net/dsa/microchip/ksz8863_smi.c
-> +++ b/drivers/net/dsa/microchip/ksz8863_smi.c
-> @@ -5,6 +5,9 @@
->   * Copyright (C) 2019 Pengutronix, Michael Grzeschik <kernel@pengutronix.de>
->   */
->
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/property.h>
-> +
->  #include "ksz8.h"
->  #include "ksz_common.h"
->
-> diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
-> index 813b91a816bb..3662bb791afb 100644
-> --- a/drivers/net/dsa/microchip/ksz_common.c
-> +++ b/drivers/net/dsa/microchip/ksz_common.c
-> @@ -18,8 +18,8 @@
->  #include <linux/if_vlan.h>
->  #include <linux/irq.h>
->  #include <linux/irqdomain.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/micrel_phy.h>
->  #include <net/dsa.h>
-> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-> index 1a3d4b692f34..0a6a2fe34e64 100644
-> --- a/drivers/net/dsa/mt7530-mmio.c
-> +++ b/drivers/net/dsa/mt7530-mmio.c
-> @@ -1,7 +1,8 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/reset.h>
-> diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
-> index 8b51756bd805..77f078995e04 100644
-> --- a/drivers/net/dsa/mv88e6xxx/chip.c
-> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
-> @@ -23,7 +23,7 @@
->  #include <linux/list.h>
->  #include <linux/mdio.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/platform_data/mv88e6xxx.h>
-> diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c b/drivers/net/dsa/ocelot/felix_vsc9959.c
-> index bb39fedd46c7..d2af1896527b 100644
-> --- a/drivers/net/dsa/ocelot/felix_vsc9959.c
-> +++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
-> @@ -16,6 +16,7 @@
->  #include <net/pkt_sched.h>
->  #include <linux/iopoll.h>
->  #include <linux/mdio.h>
-> +#include <linux/of.h>
->  #include <linux/pci.h>
->  #include <linux/time.h>
->  #include "felix.h"
-> diff --git a/drivers/net/dsa/ocelot/seville_vsc9953.c b/drivers/net/dsa/ocelot/seville_vsc9953.c
-> index 15003b2af264..8f912bda120b 100644
-> --- a/drivers/net/dsa/ocelot/seville_vsc9953.c
-> +++ b/drivers/net/dsa/ocelot/seville_vsc9953.c
-> @@ -2,13 +2,14 @@
->  /* Distributed Switch Architecture VSC9953 driver
->   * Copyright (C) 2020, Maxim Kochetkov <fido_max@inbox.ru>
->   */
-> +#include <linux/platform_device.h>
->  #include <linux/types.h>
->  #include <soc/mscc/ocelot_vcap.h>
->  #include <soc/mscc/ocelot_sys.h>
->  #include <soc/mscc/ocelot.h>
->  #include <linux/mdio/mdio-mscc-miim.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_platform.h>
->  #include <linux/pcs-lynx.h>
->  #include <linux/dsa/ocelot.h>
->  #include <linux/iopoll.h>
-> diff --git a/drivers/net/dsa/qca/qca8k-leds.c b/drivers/net/dsa/qca/qca8k-leds.c
-> index 1261e0bb21ef..e8c16e76e34b 100644
-> --- a/drivers/net/dsa/qca/qca8k-leds.c
-> +++ b/drivers/net/dsa/qca/qca8k-leds.c
-> @@ -1,4 +1,5 @@
->  // SPDX-License-Identifier: GPL-2.0
-> +#include <linux/property.h>
->  #include <linux/regmap.h>
->  #include <net/dsa.h>
->
-> diff --git a/drivers/net/dsa/realtek/realtek-mdio.c b/drivers/net/dsa/realtek/realtek-mdio.c
-> index 5a8fe707ca25..4310e7793e58 100644
-> --- a/drivers/net/dsa/realtek/realtek-mdio.c
-> +++ b/drivers/net/dsa/realtek/realtek-mdio.c
-> @@ -20,7 +20,7 @@
->   */
->
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/overflow.h>
->  #include <linux/regmap.h>
->
-> diff --git a/drivers/net/dsa/realtek/realtek-smi.c b/drivers/net/dsa/realtek/realtek-smi.c
-> index 1b447d96b9c4..c2bd8bb6c9c2 100644
-> --- a/drivers/net/dsa/realtek/realtek-smi.c
-> +++ b/drivers/net/dsa/realtek/realtek-smi.c
-> @@ -31,7 +31,6 @@
->  #include <linux/spinlock.h>
->  #include <linux/skbuff.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
-> diff --git a/drivers/net/dsa/sja1105/sja1105_main.c b/drivers/net/dsa/sja1105/sja1105_main.c
-> index 3529a565b4aa..b74300d38943 100644
-> --- a/drivers/net/dsa/sja1105/sja1105_main.c
-> +++ b/drivers/net/dsa/sja1105/sja1105_main.c
-> @@ -15,7 +15,6 @@
->  #include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_device.h>
->  #include <linux/pcs/pcs-xpcs.h>
->  #include <linux/netdev_features.h>
->  #include <linux/netdevice.h>
-> diff --git a/drivers/net/dsa/vitesse-vsc73xx-core.c b/drivers/net/dsa/vitesse-vsc73xx-core.c
-> index ef1a4a7c47b2..4f09e7438f3b 100644
-> --- a/drivers/net/dsa/vitesse-vsc73xx-core.c
-> +++ b/drivers/net/dsa/vitesse-vsc73xx-core.c
-> @@ -18,7 +18,6 @@
->  #include <linux/module.h>
->  #include <linux/device.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/bitops.h>
->  #include <linux/if_bridge.h>
-> diff --git a/drivers/net/dsa/xrs700x/xrs700x.c b/drivers/net/dsa/xrs700x/xrs700x.c
-> index fa622639d640..753fef757f11 100644
-> --- a/drivers/net/dsa/xrs700x/xrs700x.c
-> +++ b/drivers/net/dsa/xrs700x/xrs700x.c
-> @@ -7,7 +7,7 @@
->  #include <net/dsa.h>
->  #include <linux/etherdevice.h>
->  #include <linux/if_bridge.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/netdev_features.h>
->  #include <linux/if_hsr.h>
->  #include "xrs700x.h"
-> diff --git a/drivers/net/ethernet/aeroflex/greth.c b/drivers/net/ethernet/aeroflex/greth.c
-> index aa0d2f3aaeaa..597a02c75d52 100644
-> --- a/drivers/net/ethernet/aeroflex/greth.c
-> +++ b/drivers/net/ethernet/aeroflex/greth.c
-> @@ -29,9 +29,9 @@
->  #include <linux/io.h>
->  #include <linux/crc32.h>
->  #include <linux/mii.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <asm/cacheflush.h>
->  #include <asm/byteorder.h>
-> diff --git a/drivers/net/ethernet/amd/sunlance.c b/drivers/net/ethernet/amd/sunlance.c
-> index 68ca1225eedc..33bb539ad70a 100644
-> --- a/drivers/net/ethernet/amd/sunlance.c
-> +++ b/drivers/net/ethernet/amd/sunlance.c
-> @@ -92,7 +92,7 @@ static char lancestr[] = "LANCE";
->  #include <linux/bitops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
->  #include <linux/gfp.h>
->  #include <linux/pgtable.h>
->
-> diff --git a/drivers/net/ethernet/apm/xgene-v2/main.h b/drivers/net/ethernet/apm/xgene-v2/main.h
-> index b3985a7be59d..7be6f83e22fe 100644
-> --- a/drivers/net/ethernet/apm/xgene-v2/main.h
-> +++ b/drivers/net/ethernet/apm/xgene-v2/main.h
-> @@ -22,6 +22,7 @@
->  #include <linux/of_mdio.h>
->  #include <linux/prefetch.h>
->  #include <linux/phy.h>
-> +#include <linux/platform_device.h>
->  #include <net/ip.h>
->  #include "mac.h"
->  #include "enet.h"
-> diff --git a/drivers/net/ethernet/arc/emac_main.c b/drivers/net/ethernet/arc/emac_main.c
-> index 2b427d8a1831..31ee477dd131 100644
-> --- a/drivers/net/ethernet/arc/emac_main.c
-> +++ b/drivers/net/ethernet/arc/emac_main.c
-> @@ -15,11 +15,11 @@
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
->
->  #include "emac.h"
->
-> diff --git a/drivers/net/ethernet/atheros/ag71xx.c b/drivers/net/ethernet/atheros/ag71xx.c
-> index ff1a5edf8df1..009e0b3066fa 100644
-> --- a/drivers/net/ethernet/atheros/ag71xx.c
-> +++ b/drivers/net/ethernet/atheros/ag71xx.c
-> @@ -29,9 +29,10 @@
->
->  #include <linux/if_vlan.h>
->  #include <linux/mfd/syscon.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/phylink.h>
->  #include <linux/regmap.h>
->  #include <linux/reset.h>
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-> index f6a0f12a6d52..b61566afb2f4 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -26,7 +26,6 @@
->  #include <linux/platform_device.h>
->  #include <linux/phylink.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_gpio.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> diff --git a/drivers/net/ethernet/cirrus/cs89x0.c b/drivers/net/ethernet/cirrus/cs89x0.c
-> index 276c32c3926a..7c51fd9fc9be 100644
-> --- a/drivers/net/ethernet/cirrus/cs89x0.c
-> +++ b/drivers/net/ethernet/cirrus/cs89x0.c
-> @@ -54,7 +54,6 @@
->  #include <linux/netdevice.h>
->  #include <linux/etherdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/kernel.h>
->  #include <linux/types.h>
-> diff --git a/drivers/net/ethernet/ezchip/nps_enet.c b/drivers/net/ethernet/ezchip/nps_enet.c
-> index f1eb660aaee2..edf000e7bab4 100644
-> --- a/drivers/net/ethernet/ezchip/nps_enet.c
-> +++ b/drivers/net/ethernet/ezchip/nps_enet.c
-> @@ -6,10 +6,9 @@
->  #include <linux/module.h>
->  #include <linux/etherdevice.h>
->  #include <linux/interrupt.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_irq.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include "nps_enet.h"
->
->  #define DRV_NAME                       "nps_mgt_enet"
-> diff --git a/drivers/net/ethernet/freescale/dpaa/dpaa_eth.c b/drivers/net/ethernet/freescale/dpaa/dpaa_eth.c
-> index 431f8917dc39..7cbfc5864ade 100644
-> --- a/drivers/net/ethernet/freescale/dpaa/dpaa_eth.c
-> +++ b/drivers/net/ethernet/freescale/dpaa/dpaa_eth.c
-> @@ -7,8 +7,8 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->
->  #include <linux/init.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
-> -#include <linux/of_platform.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/io.h>
-> @@ -17,6 +17,7 @@
->  #include <linux/icmp.h>
->  #include <linux/ip.h>
->  #include <linux/ipv6.h>
-> +#include <linux/platform_device.h>
->  #include <linux/udp.h>
->  #include <linux/tcp.h>
->  #include <linux/net.h>
-> diff --git a/drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c b/drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c
-> index 9c71cbbb13d8..5bd0b36d1feb 100644
-> --- a/drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c
-> +++ b/drivers/net/ethernet/freescale/dpaa/dpaa_ethtool.c
-> @@ -6,7 +6,9 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->
->  #include <linux/string.h>
-> +#include <linux/of.h>
->  #include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/net_tstamp.h>
->  #include <linux/fsl/ptp_qoriq.h>
->
-> diff --git a/drivers/net/ethernet/freescale/enetc/enetc_ierb.c b/drivers/net/ethernet/freescale/enetc/enetc_ierb.c
-> index b307bef4dc29..d39617ab9306 100644
-> --- a/drivers/net/ethernet/freescale/enetc/enetc_ierb.c
-> +++ b/drivers/net/ethernet/freescale/enetc/enetc_ierb.c
-> @@ -18,8 +18,8 @@
->   */
->
->  #include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
->  #include <linux/pci.h>
->  #include <linux/platform_device.h>
->  #include "enetc.h"
-> diff --git a/drivers/net/ethernet/freescale/fec_mpc52xx.c b/drivers/net/ethernet/freescale/fec_mpc52xx.c
-> index b88816b71ddf..f843ea0df065 100644
-> --- a/drivers/net/ethernet/freescale/fec_mpc52xx.c
-> +++ b/drivers/net/ethernet/freescale/fec_mpc52xx.c
-> @@ -29,12 +29,12 @@
->  #include <linux/crc32.h>
->  #include <linux/hardirq.h>
->  #include <linux/delay.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->
->  #include <linux/netdevice.h>
->  #include <linux/etherdevice.h>
-> diff --git a/drivers/net/ethernet/freescale/fec_mpc52xx_phy.c b/drivers/net/ethernet/freescale/fec_mpc52xx_phy.c
-> index 95f778cce98c..894130985e2c 100644
-> --- a/drivers/net/ethernet/freescale/fec_mpc52xx_phy.c
-> +++ b/drivers/net/ethernet/freescale/fec_mpc52xx_phy.c
-> @@ -13,10 +13,11 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/phy.h>
-> -#include <linux/of_platform.h>
->  #include <linux/slab.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/of_mdio.h>
-> +#include <linux/platform_device.h>
->  #include <asm/io.h>
->  #include <asm/mpc52xx.h>
->  #include "fec_mpc52xx.h"
-> diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-> index ab86bb8562ef..9428a06b6a87 100644
-> --- a/drivers/net/ethernet/freescale/fec_ptp.c
-> +++ b/drivers/net/ethernet/freescale/fec_ptp.c
-> @@ -30,7 +30,6 @@
->  #include <linux/phy.h>
->  #include <linux/fec.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_gpio.h>
->  #include <linux/of_net.h>
->
-> diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
-> index 9d85fb136e34..d96028f01770 100644
-> --- a/drivers/net/ethernet/freescale/fman/fman.c
-> +++ b/drivers/net/ethernet/freescale/fman/fman.c
-> @@ -7,6 +7,7 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->
->  #include <linux/fsl/guts.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/delay.h>
->  #include <linux/module.h>
-> diff --git a/drivers/net/ethernet/freescale/fman/fman_port.c b/drivers/net/ethernet/freescale/fman/fman_port.c
-> index ab90fe2bee5e..406e75e9e5ea 100644
-> --- a/drivers/net/ethernet/freescale/fman/fman_port.c
-> +++ b/drivers/net/ethernet/freescale/fman/fman_port.c
-> @@ -6,6 +6,7 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->
->  #include <linux/io.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/module.h>
->  #include <linux/interrupt.h>
-> diff --git a/drivers/net/ethernet/freescale/fman/mac.c b/drivers/net/ethernet/freescale/fman/mac.c
-> index 43665806c590..57de8a6ab180 100644
-> --- a/drivers/net/ethernet/freescale/fman/mac.c
-> +++ b/drivers/net/ethernet/freescale/fman/mac.c
-> @@ -12,12 +12,14 @@
->  #include <linux/of_net.h>
->  #include <linux/of_mdio.h>
->  #include <linux/device.h>
-> +#include <linux/of_platform.h>
->  #include <linux/phy.h>
->  #include <linux/netdevice.h>
->  #include <linux/phy_fixed.h>
->  #include <linux/phylink.h>
->  #include <linux/etherdevice.h>
->  #include <linux/libfdt_env.h>
-> +#include <linux/platform_device.h>
->
->  #include "mac.h"
->  #include "fman_mac.h"
-> diff --git a/drivers/net/ethernet/freescale/fs_enet/mac-fcc.c b/drivers/net/ethernet/freescale/fs_enet/mac-fcc.c
-> index b47490be872c..925428f1b0c8 100644
-> --- a/drivers/net/ethernet/freescale/fs_enet/mac-fcc.c
-> +++ b/drivers/net/ethernet/freescale/fs_enet/mac-fcc.c
-> @@ -32,7 +32,6 @@
->  #include <linux/platform_device.h>
->  #include <linux/phy.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->  #include <linux/gfp.h>
->  #include <linux/pgtable.h>
-> diff --git a/drivers/net/ethernet/freescale/fs_enet/mac-fec.c b/drivers/net/ethernet/freescale/fs_enet/mac-fec.c
-> index 61f4b6e50d29..f609dc112458 100644
-> --- a/drivers/net/ethernet/freescale/fs_enet/mac-fec.c
-> +++ b/drivers/net/ethernet/freescale/fs_enet/mac-fec.c
-> @@ -32,7 +32,6 @@
->  #include <linux/fs.h>
->  #include <linux/platform_device.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->  #include <linux/gfp.h>
->
-> diff --git a/drivers/net/ethernet/freescale/fs_enet/mac-scc.c b/drivers/net/ethernet/freescale/fs_enet/mac-scc.c
-> index 64300ac13e02..66d40da5cde0 100644
-> --- a/drivers/net/ethernet/freescale/fs_enet/mac-scc.c
-> +++ b/drivers/net/ethernet/freescale/fs_enet/mac-scc.c
-> @@ -32,7 +32,6 @@
->  #include <linux/platform_device.h>
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
-> -#include <linux/of_platform.h>
->
->  #include <asm/irq.h>
->  #include <linux/uaccess.h>
-> diff --git a/drivers/net/ethernet/freescale/fsl_pq_mdio.c b/drivers/net/ethernet/freescale/fsl_pq_mdio.c
-> index 9d58d8334467..647a499fe84b 100644
-> --- a/drivers/net/ethernet/freescale/fsl_pq_mdio.c
-> +++ b/drivers/net/ethernet/freescale/fsl_pq_mdio.c
-> @@ -12,6 +12,7 @@
->   */
->
->  #include <linux/kernel.h>
-> +#include <linux/platform_device.h>
->  #include <linux/string.h>
->  #include <linux/errno.h>
->  #include <linux/slab.h>
-> diff --git a/drivers/net/ethernet/freescale/gianfar.c b/drivers/net/ethernet/freescale/gianfar.c
-> index 38d5013c6fed..4f0099ce8f1e 100644
-> --- a/drivers/net/ethernet/freescale/gianfar.c
-> +++ b/drivers/net/ethernet/freescale/gianfar.c
-> @@ -60,6 +60,7 @@
->  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
->
->  #include <linux/kernel.h>
-> +#include <linux/platform_device.h>
->  #include <linux/string.h>
->  #include <linux/errno.h>
->  #include <linux/unistd.h>
-> @@ -75,7 +76,6 @@
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_platform.h>
->  #include <linux/ip.h>
->  #include <linux/tcp.h>
->  #include <linux/udp.h>
-> diff --git a/drivers/net/ethernet/freescale/gianfar_ethtool.c b/drivers/net/ethernet/freescale/gianfar_ethtool.c
-> index b2b0d3c26fcc..7a15b9245698 100644
-> --- a/drivers/net/ethernet/freescale/gianfar_ethtool.c
-> +++ b/drivers/net/ethernet/freescale/gianfar_ethtool.c
-> @@ -38,7 +38,9 @@
->  #include <linux/phy.h>
->  #include <linux/sort.h>
->  #include <linux/if_vlan.h>
-> +#include <linux/of.h>
->  #include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/fsl/ptp_qoriq.h>
->
->  #include "gianfar.h"
-> diff --git a/drivers/net/ethernet/freescale/ucc_geth.c b/drivers/net/ethernet/freescale/ucc_geth.c
-> index 7a4cb4f07c32..49e759f24444 100644
-> --- a/drivers/net/ethernet/freescale/ucc_geth.c
-> +++ b/drivers/net/ethernet/freescale/ucc_geth.c
-> @@ -28,11 +28,12 @@
->  #include <linux/phy.h>
->  #include <linux/phy_fixed.h>
->  #include <linux/workqueue.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->
->  #include <linux/uaccess.h>
->  #include <asm/irq.h>
-> diff --git a/drivers/net/ethernet/freescale/xgmac_mdio.c b/drivers/net/ethernet/freescale/xgmac_mdio.c
-> index a13b4ba4d6e1..65dc07d0df0f 100644
-> --- a/drivers/net/ethernet/freescale/xgmac_mdio.c
-> +++ b/drivers/net/ethernet/freescale/xgmac_mdio.c
-> @@ -19,10 +19,10 @@
->  #include <linux/kernel.h>
->  #include <linux/mdio.h>
->  #include <linux/module.h>
-> -#include <linux/of_address.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_platform.h>
->  #include <linux/phy.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->
->  /* Number of microseconds to wait for a register to respond */
-> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
-> index a7eb87da4e70..a08d1f0a5a16 100644
-> --- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
-> +++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
-> @@ -9,9 +9,6 @@
->  #include <linux/netdevice.h>
->  #include <linux/etherdevice.h>
->  #include <linux/platform_device.h>
-> -#include <linux/of.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_platform.h>
->
->  #include "hns_dsaf_ppe.h"
->
-> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_rcb.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_rcb.c
-> index e2ff3ca198d1..93344563a259 100644
-> --- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_rcb.c
-> +++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_rcb.c
-> @@ -11,10 +11,6 @@
->  #include <linux/etherdevice.h>
->  #include <asm/cacheflush.h>
->  #include <linux/platform_device.h>
-> -#include <linux/of.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_platform.h>
-> -#include <linux/of_irq.h>
->  #include <linux/spinlock.h>
->
->  #include "hns_dsaf_main.h"
-> diff --git a/drivers/net/ethernet/ibm/ehea/ehea_main.c b/drivers/net/ethernet/ibm/ehea/ehea_main.c
-> index 858c71ef5213..997e41c4f05e 100644
-> --- a/drivers/net/ethernet/ibm/ehea/ehea_main.c
-> +++ b/drivers/net/ethernet/ibm/ehea/ehea_main.c
-> @@ -31,6 +31,7 @@
->  #include <linux/prefetch.h>
->  #include <linux/of.h>
->  #include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->
->  #include <net/ip.h>
->
-> diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
-> index c97095abd26a..0c314bf97480 100644
-> --- a/drivers/net/ethernet/ibm/emac/core.c
-> +++ b/drivers/net/ethernet/ibm/emac/core.c
-> @@ -38,6 +38,7 @@
->  #include <linux/of_irq.h>
->  #include <linux/of_net.h>
->  #include <linux/of_mdio.h>
-> +#include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/slab.h>
->
-> diff --git a/drivers/net/ethernet/ibm/emac/core.h b/drivers/net/ethernet/ibm/emac/core.h
-> index 89a1b0fea158..295516b07662 100644
-> --- a/drivers/net/ethernet/ibm/emac/core.h
-> +++ b/drivers/net/ethernet/ibm/emac/core.h
-> @@ -27,7 +27,6 @@
->  #include <linux/netdevice.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/spinlock.h>
-> -#include <linux/of_platform.h>
->  #include <linux/slab.h>
->
->  #include <asm/io.h>
-> diff --git a/drivers/net/ethernet/ibm/emac/mal.c b/drivers/net/ethernet/ibm/emac/mal.c
-> index ff5487bbebe3..c3236b59e7e9 100644
-> --- a/drivers/net/ethernet/ibm/emac/mal.c
-> +++ b/drivers/net/ethernet/ibm/emac/mal.c
-> @@ -22,7 +22,9 @@
->
->  #include <linux/delay.h>
->  #include <linux/slab.h>
-> +#include <linux/of.h>
->  #include <linux/of_irq.h>
-> +#include <linux/platform_device.h>
->
->  #include "core.h"
->  #include <asm/dcr-regs.h>
-> diff --git a/drivers/net/ethernet/ibm/emac/rgmii.c b/drivers/net/ethernet/ibm/emac/rgmii.c
-> index 50358cf00130..fd437f986edf 100644
-> --- a/drivers/net/ethernet/ibm/emac/rgmii.c
-> +++ b/drivers/net/ethernet/ibm/emac/rgmii.c
-> @@ -19,7 +19,9 @@
->  #include <linux/slab.h>
->  #include <linux/kernel.h>
->  #include <linux/ethtool.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <asm/io.h>
->
->  #include "emac.h"
-> diff --git a/drivers/net/ethernet/ibm/emac/tah.c b/drivers/net/ethernet/ibm/emac/tah.c
-> index 008bbdaf1204..aae9a88d95d7 100644
-> --- a/drivers/net/ethernet/ibm/emac/tah.c
-> +++ b/drivers/net/ethernet/ibm/emac/tah.c
-> @@ -14,7 +14,9 @@
->   *
->   * Copyright (c) 2005 Eugene Surovegin <ebs@ebshome.net>
->   */
-> +#include <linux/mod_devicetable.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <asm/io.h>
->
->  #include "emac.h"
-> diff --git a/drivers/net/ethernet/ibm/emac/zmii.c b/drivers/net/ethernet/ibm/emac/zmii.c
-> index 57a25c7a9e70..6337388ee5f4 100644
-> --- a/drivers/net/ethernet/ibm/emac/zmii.c
-> +++ b/drivers/net/ethernet/ibm/emac/zmii.c
-> @@ -19,7 +19,9 @@
->  #include <linux/slab.h>
->  #include <linux/kernel.h>
->  #include <linux/ethtool.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <asm/io.h>
->
->  #include "emac.h"
-> diff --git a/drivers/net/ethernet/korina.c b/drivers/net/ethernet/korina.c
-> index 2b9335cb4bb3..41f3f3df6ec3 100644
-> --- a/drivers/net/ethernet/korina.c
-> +++ b/drivers/net/ethernet/korina.c
-> @@ -33,6 +33,7 @@
->   *  should stick to this procedure.
->   */
->
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
->  #include <linux/kernel.h>
->  #include <linux/moduleparam.h>
-> @@ -43,7 +44,6 @@
->  #include <linux/ioport.h>
->  #include <linux/iopoll.h>
->  #include <linux/in.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/slab.h>
->  #include <linux/string.h>
-> diff --git a/drivers/net/ethernet/marvell/mvmdio.c b/drivers/net/ethernet/marvell/mvmdio.c
-> index 8662543ca5c8..a1a80f13b1e8 100644
-> --- a/drivers/net/ethernet/marvell/mvmdio.c
-> +++ b/drivers/net/ethernet/marvell/mvmdio.c
-> @@ -24,8 +24,8 @@
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/kernel.h>
-> +#include <linux/mod_devicetable.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> index 1fec84b4c068..9e1b596c8f08 100644
-> --- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> +++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-> @@ -24,7 +24,6 @@
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/phy.h>
->  #include <linux/phylink.h>
->  #include <linux/phy/phy.h>
-> diff --git a/drivers/net/ethernet/marvell/prestera/prestera_rxtx.c b/drivers/net/ethernet/marvell/prestera/prestera_rxtx.c
-> index 9277a8fd1339..cc2a9ae794be 100644
-> --- a/drivers/net/ethernet/marvell/prestera/prestera_rxtx.c
-> +++ b/drivers/net/ethernet/marvell/prestera/prestera_rxtx.c
-> @@ -5,9 +5,6 @@
->  #include <linux/dmapool.h>
->  #include <linux/etherdevice.h>
->  #include <linux/if_vlan.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of.h>
->  #include <linux/platform_device.h>
->
->  #include "prestera_dsa.h"
-> diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet/marvell/sky2.c
-> index 7c487f9b36ec..c4cca27fb0d5 100644
-> --- a/drivers/net/ethernet/marvell/sky2.c
-> +++ b/drivers/net/ethernet/marvell/sky2.c
-> @@ -32,7 +32,6 @@
->  #include <linux/prefetch.h>
->  #include <linux/debugfs.h>
->  #include <linux/mii.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/dmi.h>
->
-> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-> index 834c644b67db..e76ca9489149 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-> @@ -6,11 +6,12 @@
->   *   Copyright (C) 2013-2016 Michael Lee <igvtee@gmail.com>
->   */
->
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/of_address.h>
->  #include <linux/mfd/syscon.h>
-> +#include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/clk.h>
->  #include <linux/pm_runtime.h>
-> diff --git a/drivers/net/ethernet/mediatek/mtk_star_emac.c b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-> index 02c03325911f..31aebeb2e285 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_star_emac.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-> @@ -17,7 +17,6 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
-> index 985cff910f30..52688cbaa7b4 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_wed.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
-> @@ -2,6 +2,7 @@
->  /* Copyright (C) 2021 Felix Fietkau <nbd@nbd.name> */
->
->  #include <linux/kernel.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/module.h>
->  #include <linux/bitfield.h>
-> diff --git a/drivers/net/ethernet/mediatek/mtk_wed_wo.c b/drivers/net/ethernet/mediatek/mtk_wed_wo.c
-> index 69fba29055e9..3bd51a3d6650 100644
-> --- a/drivers/net/ethernet/mediatek/mtk_wed_wo.c
-> +++ b/drivers/net/ethernet/mediatek/mtk_wed_wo.c
-> @@ -7,10 +7,9 @@
->
->  #include <linux/kernel.h>
->  #include <linux/dma-mapping.h>
-> -#include <linux/of_platform.h>
->  #include <linux/interrupt.h>
-> -#include <linux/of_address.h>
->  #include <linux/mfd/syscon.h>
-> +#include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/bitfield.h>
->
-> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> index fbb0bb4594cd..73f20683210e 100644
-> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
-> @@ -5,9 +5,10 @@
->  #include <linux/if_vlan.h>
->  #include <linux/iopoll.h>
->  #include <linux/ip.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
->  #include <linux/reset.h>
->  #include <net/addrconf.h>
->
-> diff --git a/drivers/net/ethernet/mscc/ocelot_fdma.c b/drivers/net/ethernet/mscc/ocelot_fdma.c
-> index 8e3894cf5f7c..41efdc836580 100644
-> --- a/drivers/net/ethernet/mscc/ocelot_fdma.c
-> +++ b/drivers/net/ethernet/mscc/ocelot_fdma.c
-> @@ -12,7 +12,6 @@
->  #include <linux/dmapool.h>
->  #include <linux/dsa/ocelot.h>
->  #include <linux/netdevice.h>
-> -#include <linux/of_platform.h>
->  #include <linux/skbuff.h>
->
->  #include "ocelot_fdma.h"
-> diff --git a/drivers/net/ethernet/mscc/ocelot_vsc7514.c b/drivers/net/ethernet/mscc/ocelot_vsc7514.c
-> index 97e90e2869d4..151b42465348 100644
-> --- a/drivers/net/ethernet/mscc/ocelot_vsc7514.c
-> +++ b/drivers/net/ethernet/mscc/ocelot_vsc7514.c
-> @@ -10,8 +10,9 @@
->  #include <linux/of_net.h>
->  #include <linux/netdevice.h>
->  #include <linux/phylink.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/skbuff.h>
->  #include <net/switchdev.h>
-> diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
-> index 0fd156286d4d..ba27bbc68f85 100644
-> --- a/drivers/net/ethernet/ni/nixge.c
-> +++ b/drivers/net/ethernet/ni/nixge.c
-> @@ -7,11 +7,10 @@
->  #include <linux/etherdevice.h>
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
-> -#include <linux/of_address.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> -#include <linux/of_irq.h>
-> +#include <linux/platform_device.h>
->  #include <linux/skbuff.h>
->  #include <linux/phy.h>
->  #include <linux/mii.h>
-> diff --git a/drivers/net/ethernet/qualcomm/emac/emac-sgmii.c b/drivers/net/ethernet/qualcomm/emac/emac-sgmii.c
-> index 802ef81493e0..e4bc18009d08 100644
-> --- a/drivers/net/ethernet/qualcomm/emac/emac-sgmii.c
-> +++ b/drivers/net/ethernet/qualcomm/emac/emac-sgmii.c
-> @@ -8,7 +8,9 @@
->  #include <linux/interrupt.h>
->  #include <linux/iopoll.h>
->  #include <linux/acpi.h>
-> +#include <linux/of.h>
->  #include <linux/of_device.h>
-> +#include <linux/of_platform.h>
->  #include "emac.h"
->  #include "emac-mac.h"
->  #include "emac-sgmii.h"
-> diff --git a/drivers/net/ethernet/qualcomm/emac/emac.c b/drivers/net/ethernet/qualcomm/emac/emac.c
-> index eaa50050aa0b..19bb16daf4e7 100644
-> --- a/drivers/net/ethernet/qualcomm/emac/emac.c
-> +++ b/drivers/net/ethernet/qualcomm/emac/emac.c
-> @@ -11,7 +11,6 @@
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_device.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/acpi.h>
-> diff --git a/drivers/net/ethernet/qualcomm/qca_spi.c b/drivers/net/ethernet/qualcomm/qca_spi.c
-> index 4a1b94e5a8ea..bec723028e96 100644
-> --- a/drivers/net/ethernet/qualcomm/qca_spi.c
-> +++ b/drivers/net/ethernet/qualcomm/qca_spi.c
-> @@ -35,7 +35,6 @@
->  #include <linux/moduleparam.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/sched.h>
->  #include <linux/skbuff.h>
-> diff --git a/drivers/net/ethernet/qualcomm/qca_uart.c b/drivers/net/ethernet/qualcomm/qca_uart.c
-> index 26646cb6a20a..ace99c62d03a 100644
-> --- a/drivers/net/ethernet/qualcomm/qca_uart.c
-> +++ b/drivers/net/ethernet/qualcomm/qca_uart.c
-> @@ -32,7 +32,6 @@
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/sched.h>
->  #include <linux/serdev.h>
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> index 4d6b3b7d6abb..7df9f9f8e134 100644
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -21,10 +21,9 @@
->  #include <linux/module.h>
->  #include <linux/net_tstamp.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/slab.h>
->  #include <linux/spinlock.h>
-> diff --git a/drivers/net/ethernet/renesas/rswitch.c b/drivers/net/ethernet/renesas/rswitch.c
-> index 4e412ac0965a..0ba7fb75d589 100644
-> --- a/drivers/net/ethernet/renesas/rswitch.c
-> +++ b/drivers/net/ethernet/renesas/rswitch.c
-> @@ -12,11 +12,10 @@
->  #include <linux/module.h>
->  #include <linux/net_tstamp.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/rtnetlink.h>
->  #include <linux/slab.h>
-> diff --git a/drivers/net/ethernet/renesas/sh_eth.c b/drivers/net/ethernet/renesas/sh_eth.c
-> index d8ec729825be..274ea16c0a1f 100644
-> --- a/drivers/net/ethernet/renesas/sh_eth.c
-> +++ b/drivers/net/ethernet/renesas/sh_eth.c
-> @@ -19,8 +19,6 @@
->  #include <linux/mdio-bitbang.h>
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_irq.h>
->  #include <linux/of_net.h>
->  #include <linux/phy.h>
->  #include <linux/cache.h>
-> diff --git a/drivers/net/ethernet/smsc/smsc911x.c b/drivers/net/ethernet/smsc/smsc911x.c
-> index 174dc8908b72..2f755722e858 100644
-> --- a/drivers/net/ethernet/smsc/smsc911x.c
-> +++ b/drivers/net/ethernet/smsc/smsc911x.c
-> @@ -43,7 +43,6 @@
->  #include <linux/smsc911x.h>
->  #include <linux/device.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_gpio.h>
->  #include <linux/of_net.h>
->  #include <linux/acpi.h>
-> diff --git a/drivers/net/ethernet/socionext/sni_ave.c b/drivers/net/ethernet/socionext/sni_ave.c
-> index 492c39c08af1..4838d2383a43 100644
-> --- a/drivers/net/ethernet/socionext/sni_ave.c
-> +++ b/drivers/net/ethernet/socionext/sni_ave.c
-> @@ -15,10 +15,11 @@
->  #include <linux/mii.h>
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
-> +#include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/of_mdio.h>
-> -#include <linux/of_platform.h>
->  #include <linux/phy.h>
-> +#include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/reset.h>
->  #include <linux/types.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> index 9f88530c5e8c..2bf74efbf2eb 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
-> @@ -14,7 +14,7 @@
->  #include <linux/iopoll.h>
->  #include <linux/ioport.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> index b9378a63f0e8..92e06a96757a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> @@ -12,7 +12,6 @@
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-> index 8063ba1c3ce8..e22ef0d6bc73 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
-> @@ -11,7 +11,6 @@
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 73c1dfa7ecb1..e301bf7fc30f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> @@ -7,8 +7,8 @@
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
-> +#include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/stmmac.h>
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> index 92b16048f91c..0b159dc0d5f6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> @@ -13,7 +13,7 @@
->  #include <linux/io.h>
->  #include <linux/ioport.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-oxnas.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-oxnas.c
-> index 42954020de2c..f91753565d60 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-oxnas.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-oxnas.c
-> @@ -12,7 +12,6 @@
->  #include <linux/io.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/mfd/syscon.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index e62940414e54..fa791f0f24ad 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -3,7 +3,6 @@
->
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/phy.h>
->  #include <linux/phy/phy.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index d81591b470a2..35789cb549f7 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -14,8 +14,8 @@
->  #include <linux/of_net.h>
->  #include <linux/gpio.h>
->  #include <linux/module.h>
-> +#include <linux/of.h>
->  #include <linux/of_gpio.h>
-> -#include <linux/of_device.h>
->  #include <linux/platform_device.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/delay.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-> index d3a39d2fb3a9..b1c5f2527c0d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-> @@ -7,8 +7,10 @@
->   *
->   */
->
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
->  #include <linux/mfd/syscon.h>
-> -#include <linux/of_device.h>
->  #include <linux/regmap.h>
->
->  #include "stmmac_platform.h"
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> index dcbb17c4f07a..ef03e4669491 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
-> @@ -17,7 +17,6 @@
->  #include <linux/regmap.h>
->  #include <linux/clk.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->
->  #include "stmmac_platform.h"
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> index bdb4de59a672..3a09085819dc 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> @@ -11,7 +11,6 @@
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_net.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> index 1e714380d125..2885d8568d4b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-> @@ -11,9 +11,10 @@
->  #include <linux/mdio-mux.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> +#include <linux/of_platform.h>
->  #include <linux/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> index f8367c5b490b..65ddf6ce1535 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->  #include <linux/platform_device.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/module.h>
->  #include <linux/stmmac.h>
->  #include <linux/clk.h>
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> index acbb284be174..a8731ce0fff0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
-> @@ -6,7 +6,8 @@
->   */
->
->  #include <linux/module.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
->  #include <linux/of_net.h>
->  #include <linux/stmmac.h>
->
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 231152ee5a32..85ec9d975a55 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -15,7 +15,6 @@
->  #include <linux/io.h>
->  #include <linux/of.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->
->  #include "stmmac.h"
-> diff --git a/drivers/net/ethernet/sun/niu.c b/drivers/net/ethernet/sun/niu.c
-> index 7a2e76776297..011d74087f86 100644
-> --- a/drivers/net/ethernet/sun/niu.c
-> +++ b/drivers/net/ethernet/sun/niu.c
-> @@ -31,7 +31,7 @@
->  #include <linux/slab.h>
->
->  #include <linux/io.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->
->  #include "niu.h"
->
-> diff --git a/drivers/net/ethernet/sun/sunbmac.c b/drivers/net/ethernet/sun/sunbmac.c
-> index 34b94153bf0c..cc34d92d2e3d 100644
-> --- a/drivers/net/ethernet/sun/sunbmac.c
-> +++ b/drivers/net/ethernet/sun/sunbmac.c
-> @@ -25,7 +25,7 @@
->  #include <linux/bitops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
->  #include <linux/gfp.h>
->
->  #include <asm/auxio.h>
-> diff --git a/drivers/net/ethernet/sun/sungem.c b/drivers/net/ethernet/sun/sungem.c
-> index 4154e68639ac..9bd1df8308d2 100644
-> --- a/drivers/net/ethernet/sun/sungem.c
-> +++ b/drivers/net/ethernet/sun/sungem.c
-> @@ -40,6 +40,7 @@
->  #include <linux/bitops.h>
->  #include <linux/mm.h>
->  #include <linux/gfp.h>
-> +#include <linux/of.h>
->
->  #include <asm/io.h>
->  #include <asm/byteorder.h>
-> diff --git a/drivers/net/ethernet/sun/sunhme.c b/drivers/net/ethernet/sun/sunhme.c
-> index b93613cd1994..b983b9c23be6 100644
-> --- a/drivers/net/ethernet/sun/sunhme.c
-> +++ b/drivers/net/ethernet/sun/sunhme.c
-> @@ -32,9 +32,10 @@
->  #include <linux/mm.h>
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
-> -#include <linux/of_device.h>
->  #include <linux/of.h>
-> +#include <linux/of_device.h>
->  #include <linux/pci.h>
-> +#include <linux/platform_device.h>
->  #include <linux/random.h>
->  #include <linux/skbuff.h>
->  #include <linux/slab.h>
-> diff --git a/drivers/net/ethernet/sun/sunqe.c b/drivers/net/ethernet/sun/sunqe.c
-> index 6418fcc3139f..b37360f44972 100644
-> --- a/drivers/net/ethernet/sun/sunqe.c
-> +++ b/drivers/net/ethernet/sun/sunqe.c
-> @@ -27,8 +27,8 @@
->  #include <linux/bitops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/pgtable.h>
-> +#include <linux/platform_device.h>
->
->  #include <asm/io.h>
->  #include <asm/dma.h>
-> diff --git a/drivers/net/ethernet/ti/am65-cpsw-nuss.c b/drivers/net/ethernet/ti/am65-cpsw-nuss.c
-> index bebcfd5e6b57..bea6fc0f324c 100644
-> --- a/drivers/net/ethernet/ti/am65-cpsw-nuss.c
-> +++ b/drivers/net/ethernet/ti/am65-cpsw-nuss.c
-> @@ -19,6 +19,7 @@
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/of_device.h>
-> +#include <linux/of_platform.h>
->  #include <linux/phylink.h>
->  #include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/ti/cpsw-common.c b/drivers/net/ethernet/ti/cpsw-common.c
-> index bfa81bbfce3f..26dc906eae90 100644
-> --- a/drivers/net/ethernet/ti/cpsw-common.c
-> +++ b/drivers/net/ethernet/ti/cpsw-common.c
-> @@ -3,7 +3,6 @@
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/regmap.h>
->  #include <linux/mfd/syscon.h>
->
-> diff --git a/drivers/net/ethernet/ti/cpsw-phy-sel.c b/drivers/net/ethernet/ti/cpsw-phy-sel.c
-> index 25e707d7b87c..4edb7963f856 100644
-> --- a/drivers/net/ethernet/ti/cpsw-phy-sel.c
-> +++ b/drivers/net/ethernet/ti/cpsw-phy-sel.c
-> @@ -12,7 +12,6 @@
->  #include <linux/netdevice.h>
->  #include <linux/phy.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->
->  #include "cpsw.h"
->
-> diff --git a/drivers/net/ethernet/ti/davinci_mdio.c b/drivers/net/ethernet/ti/davinci_mdio.c
-> index 23169e36a3d4..89b6d23e9937 100644
-> --- a/drivers/net/ethernet/ti/davinci_mdio.c
-> +++ b/drivers/net/ethernet/ti/davinci_mdio.c
-> @@ -23,7 +23,6 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/davinci_emac.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_mdio.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/mdio-bitbang.h>
-> diff --git a/drivers/net/ethernet/via/via-rhine.c b/drivers/net/ethernet/via/via-rhine.c
-> index d716e6fe26e1..3e09e5036490 100644
-> --- a/drivers/net/ethernet/via/via-rhine.c
-> +++ b/drivers/net/ethernet/via/via-rhine.c
-> @@ -94,7 +94,7 @@ static const int multicast_filter_limit = 32;
->  #include <linux/ioport.h>
->  #include <linux/interrupt.h>
->  #include <linux/pci.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/platform_device.h>
->  #include <linux/dma-mapping.h>
-> diff --git a/drivers/net/ethernet/via/via-velocity.c b/drivers/net/ethernet/via/via-velocity.c
-> index 86f7843b4591..731f689412e6 100644
-> --- a/drivers/net/ethernet/via/via-velocity.c
-> +++ b/drivers/net/ethernet/via/via-velocity.c
-> @@ -57,8 +57,8 @@
->  #include <linux/if.h>
->  #include <linux/uaccess.h>
->  #include <linux/proc_fs.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->  #include <linux/inetdevice.h>
->  #include <linux/platform_device.h>
-> diff --git a/drivers/net/ethernet/xilinx/ll_temac.h b/drivers/net/ethernet/xilinx/ll_temac.h
-> index 6668d1b760d8..90d122d5475c 100644
-> --- a/drivers/net/ethernet/xilinx/ll_temac.h
-> +++ b/drivers/net/ethernet/xilinx/ll_temac.h
-> @@ -5,6 +5,7 @@
->
->  #include <linux/netdevice.h>
->  #include <linux/of.h>
-> +#include <linux/platform_device.h>
->  #include <linux/spinlock.h>
->
->  #ifdef CONFIG_PPC_DCR
-> diff --git a/drivers/net/ethernet/xilinx/ll_temac_main.c b/drivers/net/ethernet/xilinx/ll_temac_main.c
-> index e0ac1bcd9925..0bf9cdee1df2 100644
-> --- a/drivers/net/ethernet/xilinx/ll_temac_main.c
-> +++ b/drivers/net/ethernet/xilinx/ll_temac_main.c
-> @@ -35,12 +35,10 @@
->  #include <linux/netdevice.h>
->  #include <linux/if_ether.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
-> -#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <linux/skbuff.h>
->  #include <linux/spinlock.h>
->  #include <linux/tcp.h>      /* needed for sizeof(tcphdr) */
-> diff --git a/drivers/net/ethernet/xilinx/ll_temac_mdio.c b/drivers/net/ethernet/xilinx/ll_temac_mdio.c
-> index 2371c072b53f..07a9fb49eda1 100644
-> --- a/drivers/net/ethernet/xilinx/ll_temac_mdio.c
-> +++ b/drivers/net/ethernet/xilinx/ll_temac_mdio.c
-> @@ -10,8 +10,8 @@
->  #include <linux/mutex.h>
->  #include <linux/phy.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/of_mdio.h>
->  #include <linux/platform_data/xilinx-ll-temac.h>
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index 8e32dc50a408..b7ec4dafae90 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> @@ -27,11 +27,12 @@
->  #include <linux/etherdevice.h>
->  #include <linux/module.h>
->  #include <linux/netdevice.h>
-> +#include <linux/of.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
-> -#include <linux/of_platform.h>
->  #include <linux/of_irq.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <linux/skbuff.h>
->  #include <linux/math64.h>
->  #include <linux/phy.h>
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_emaclite.c b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-> index ad2c30d9a482..b358ecc67227 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-> @@ -8,6 +8,7 @@
->   */
->
->  #include <linux/module.h>
-> +#include <linux/platform_device.h>
->  #include <linux/uaccess.h>
->  #include <linux/netdevice.h>
->  #include <linux/etherdevice.h>
-> @@ -15,9 +16,8 @@
->  #include <linux/ethtool.h>
->  #include <linux/io.h>
->  #include <linux/slab.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_platform.h>
->  #include <linux/of_mdio.h>
->  #include <linux/of_net.h>
->  #include <linux/phy.h>
-> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
-> index f9b10e84de06..aebb19f1b3a4 100644
-> --- a/drivers/net/ieee802154/ca8210.c
-> +++ b/drivers/net/ieee802154/ca8210.c
-> @@ -57,7 +57,6 @@
->  #include <linux/io.h>
->  #include <linux/kfifo.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_gpio.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 6a2f2fc2f501..da853353a5c7 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -13,8 +13,8 @@
->  #include <linux/firmware.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_address.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/firmware/qcom/qcom_scm.h>
->  #include <linux/soc/qcom/mdt_loader.h>
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-> index 323bec5e57f8..e5d642c67a2c 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -12,6 +12,7 @@
->  #include <linux/of_platform.h>
->  #include <linux/pcs-rzn1-miic.h>
->  #include <linux/phylink.h>
-> +#include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
->  #include <dt-bindings/net/pcs-rzn1-miic.h>
->
-> diff --git a/drivers/net/phy/marvell-88x2222.c b/drivers/net/phy/marvell-88x2222.c
-> index f83cae64585d..e3aa30dad2e6 100644
-> --- a/drivers/net/phy/marvell-88x2222.c
-> +++ b/drivers/net/phy/marvell-88x2222.c
-> @@ -14,7 +14,6 @@
->  #include <linux/mdio.h>
->  #include <linux/marvell_phy.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_gpio.h>
->  #include <linux/sfp.h>
->  #include <linux/netdevice.h>
-> diff --git a/drivers/net/phy/mediatek-ge-soc.c b/drivers/net/phy/mediatek-ge-soc.c
-> index 95369171a7ba..da512fab0eb0 100644
-> --- a/drivers/net/phy/mediatek-ge-soc.c
-> +++ b/drivers/net/phy/mediatek-ge-soc.c
-> @@ -2,8 +2,6 @@
->  #include <linux/bitfield.h>
->  #include <linux/module.h>
->  #include <linux/nvmem-consumer.h>
-> -#include <linux/of_address.h>
-> -#include <linux/of_platform.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/phy.h>
->
-> diff --git a/drivers/net/wireless/ath/ath10k/ahb.c b/drivers/net/wireless/ath/ath10k/ahb.c
-> index 4a006fb4d424..76efea2f1138 100644
-> --- a/drivers/net/wireless/ath/ath10k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath10k/ahb.c
-> @@ -5,7 +5,7 @@
->   */
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
->  #include <linux/clk.h>
->  #include <linux/reset.h>
->  #include "core.h"
-> diff --git a/drivers/net/wireless/ath/ath11k/qmi.c b/drivers/net/wireless/ath/ath11k/qmi.c
-> index d4eaf7d2ba84..98efa0f299ca 100644
-> --- a/drivers/net/wireless/ath/ath11k/qmi.c
-> +++ b/drivers/net/wireless/ath/ath11k/qmi.c
-> @@ -13,7 +13,6 @@
->  #include <linux/of_address.h>
->  #include <linux/ioport.h>
->  #include <linux/firmware.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_irq.h>
->
->  #define SLEEP_CLOCK_SELECT_INTERNAL_BIT        0x02
-> diff --git a/drivers/net/wireless/ath/wcn36xx/main.c b/drivers/net/wireless/ath/wcn36xx/main.c
-> index 8dbd115a393c..2bd1163177f0 100644
-> --- a/drivers/net/wireless/ath/wcn36xx/main.c
-> +++ b/drivers/net/wireless/ath/wcn36xx/main.c
-> @@ -19,9 +19,8 @@
->  #include <linux/module.h>
->  #include <linux/firmware.h>
->  #include <linux/platform_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_address.h>
-> -#include <linux/of_device.h>
-> -#include <linux/of_irq.h>
->  #include <linux/rpmsg.h>
->  #include <linux/soc/qcom/smem_state.h>
->  #include <linux/soc/qcom/wcnss_ctrl.h>
-> diff --git a/drivers/net/wireless/intersil/orinoco/airport.c b/drivers/net/wireless/intersil/orinoco/airport.c
-> index a890bfa0d5cc..45ac00fdafa5 100644
-> --- a/drivers/net/wireless/intersil/orinoco/airport.c
-> +++ b/drivers/net/wireless/intersil/orinoco/airport.c
-> @@ -18,7 +18,7 @@
->  #include <linux/kernel.h>
->  #include <linux/init.h>
->  #include <linux/delay.h>
-> -#include <linux/of_device.h>
-> +#include <linux/mod_devicetable.h>
->  #include <asm/pmac_feature.h>
->
->  #include "orinoco.h"
-> diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/soc.c b/drivers/net/wireless/mediatek/mt76/mt7915/soc.c
-> index 32c137066e7f..701a27ffa4c2 100644
-> --- a/drivers/net/wireless/mediatek/mt76/mt7915/soc.c
-> +++ b/drivers/net/wireless/mediatek/mt76/mt7915/soc.c
-> @@ -6,7 +6,6 @@
->  #include <linux/platform_device.h>
->  #include <linux/pinctrl/consumer.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_reserved_mem.h>
->  #include <linux/of_gpio.h>
->  #include <linux/iopoll.h>
-> diff --git a/drivers/net/wireless/silabs/wfx/bus_sdio.c b/drivers/net/wireless/silabs/wfx/bus_sdio.c
-> index 51a0d58a9070..909d5f346a01 100644
-> --- a/drivers/net/wireless/silabs/wfx/bus_sdio.c
-> +++ b/drivers/net/wireless/silabs/wfx/bus_sdio.c
-> @@ -10,7 +10,7 @@
->  #include <linux/mmc/sdio_func.h>
->  #include <linux/mmc/card.h>
->  #include <linux/interrupt.h>
-> -#include <linux/of_device.h>
-> +#include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/irq.h>
->  #include <linux/align.h>
-> diff --git a/net/core/of_net.c b/net/core/of_net.c
-> index 55d3fe229269..93ea425b9248 100644
-> --- a/net/core/of_net.c
-> +++ b/net/core/of_net.c
-> @@ -8,6 +8,7 @@
->  #include <linux/kernel.h>
->  #include <linux/of_net.h>
->  #include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
->  #include <linux/phy.h>
->  #include <linux/export.h>
->  #include <linux/device.h>
-> --
-
-For 'drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c' :
-Reviewed-by: Bhupesh Sharma <bhupesh.sharma@linaro.org>
-
-Thanks.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBKdWwgMTQsIDIwMjMgYXQgMTE6NDU6MzRBTSAtMDYwMCwgUm9iIEhlcnJpbmcgd3Jv
+dGU6Cj4gVGhlIERUIG9mX2RldmljZS5oIGFuZCBvZl9wbGF0Zm9ybS5oIGRhdGUgYmFjayB0byB0
+aGUgc2VwYXJhdGUKPiBvZl9wbGF0Zm9ybV9idXNfdHlwZSBiZWZvcmUgaXQgYXMgbWVyZ2VkIGlu
+dG8gdGhlIHJlZ3VsYXIgcGxhdGZvcm0gYnVzLgo+IEFzIHBhcnQgb2YgdGhhdCBtZXJnZSBwcmVw
+cGluZyBBcm0gRFQgc3VwcG9ydCAxMyB5ZWFycyBhZ28sIHRoZXkKPiAidGVtcG9yYXJpbHkiIGlu
+Y2x1ZGUgZWFjaCBvdGhlci4gVGhleSBhbHNvIGluY2x1ZGUgcGxhdGZvcm1fZGV2aWNlLmgKPiBh
+bmQgb2YuaC4gQXMgYSByZXN1bHQsIHRoZXJlJ3MgYSBwcmV0dHkgbXVjaCByYW5kb20gbWl4IG9m
+IHRob3NlIGluY2x1ZGUKPiBmaWxlcyB1c2VkIHRocm91Z2hvdXQgdGhlIHRyZWUuIEluIG9yZGVy
+IHRvIGRldGFuZ2xlIHRoZXNlIGhlYWRlcnMgYW5kCj4gcmVwbGFjZSB0aGUgaW1wbGljaXQgaW5j
+bHVkZXMgd2l0aCBzdHJ1Y3QgZGVjbGFyYXRpb25zLCB1c2VycyBuZWVkIHRvCj4gZXhwbGljaXRs
+eSBpbmNsdWRlIHRoZSBjb3JyZWN0IGluY2x1ZGVzLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFJvYiBI
+ZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gLS0tCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hcm0vZGlzcGxheS9rb21lZGEva29tZWRhX2Rldi5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FybS9kaXNwbGF5L2tvbWVkYS9rb21lZGFfZGV2LmMKPiBpbmRleCBjYzc2NjRjOTVhNTQuLjE0
+ZWU3OWJlY2FjYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYXJtL2Rpc3BsYXkva29t
+ZWRhL2tvbWVkYV9kZXYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hcm0vZGlzcGxheS9rb21l
+ZGEva29tZWRhX2Rldi5jCj4gQEAgLTYsNyArNiw3IEBACj4gICAqLwo+ICAjaW5jbHVkZSA8bGlu
+dXgvaW8uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvbW11Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9v
+Zl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9v
+Zl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcmVzZXJ2ZWRfbWVtLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FybS9tYWxpZHBfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYXJtL21hbGlkcF9kcnYuYwo+
+IGluZGV4IGMwM2NmZDU3Yjc1Mi4uYTVhOTUzNGQ0MzUzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hcm0vbWFsaWRwX2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FybS9tYWxp
+ZHBfZHJ2LmMKPiBAQCAtMTIsNiArMTIsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2Zf
+cmVzZXJ2ZWRfbWVtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2RlYnVnZnMu
+aD4KPgoKRm9yIHRoZSBrb21lZGEgYW5kIG1hbGlkcCBkcml2ZXJzOgoKQWNrZWQtYnk6IExpdml1
+IER1ZGF1IDxsaXZpdS5kdWRhdUBhcm0uY29tPgoKQmVzdCByZWdhcmRzLApMaXZpdQoKCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvYWR2NzUxMS9hZHY3NTExX2NlYy5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9hZHY3NTExL2Fkdjc1MTFfY2VjLmMKPiBpbmRleCA5OTk2
+NGY1YTU0NTcuLjJhNmI5MWY3NTJjYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJp
+ZGdlL2Fkdjc1MTEvYWR2NzUxMV9jZWMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uv
+YWR2NzUxMS9hZHY3NTExX2NlYy5jCj4gQEAgLTcsNyArNyw2IEBACj4gIAo+ICAjaW5jbHVkZSA8
+bGludXgvZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUg
+PGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvY2xrLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdl
+L2Fkdjc1MTEvYWR2NzUxMV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvYWR2NzUxMS9h
+ZHY3NTExX2Rydi5jCj4gaW5kZXggMjI1NDQ1N2FiNWQwLi5iOTk1N2RhMGY1NWEgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9hZHY3NTExL2Fkdjc1MTFfZHJ2LmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2Fkdjc1MTEvYWR2NzUxMV9kcnYuYwo+IEBAIC05LDcg
+KzksNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9n
+cGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUg
+PGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3NsYWIuaD4KPiAgCj4gICNpbmNsdWRlIDxtZWRpYS9jZWMuaD4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9jYWRlbmNlL2NkbnMtZHNpLWNvcmUuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9icmlkZ2UvY2FkZW5jZS9jZG5zLWRzaS1jb3JlLmMKPiBpbmRleCBmNTBkNjVm
+NTQzMTQuLjc0NTdkMzg2MjJiMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdl
+L2NhZGVuY2UvY2Rucy1kc2ktY29yZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9j
+YWRlbmNlL2NkbnMtZHNpLWNvcmUuYwo+IEBAIC0xNCw4ICsxNCw3IEBACj4gICNpbmNsdWRlIDxs
+aW51eC9pbnRlcnJ1cHQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gLSNp
+bmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2
+aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9icmlkZ2UvY2FkZW5jZS9jZG5zLW1oZHA4NTQ2LWNvcmUuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9icmlkZ2UvY2FkZW5jZS9jZG5zLW1oZHA4NTQ2LWNvcmUuYwo+IGluZGV4IGY2
+ODIyZGZhMzgwNS4uNGFmZjgxN2Y4MmNlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9i
+cmlkZ2UvY2FkZW5jZS9jZG5zLW1oZHA4NTQ2LWNvcmUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9icmlkZ2UvY2FkZW5jZS9jZG5zLW1oZHA4NTQ2LWNvcmUuYwo+IEBAIC0yOSw3ICsyOSw2IEBA
+Cj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9v
+Zl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BoeS9waHkuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L3BoeS9waHktZHAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2NoaXBvbmUtaWNuNjIxMS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9jaGlwb25lLWljbjYyMTEuYwo+IGluZGV4IDhiZmNlMjFk
+NmI5MC4uZDIwNWU3NTVlNTI0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uv
+Y2hpcG9uZS1pY242MjExLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2NoaXBvbmUt
+aWNuNjIxMS5jCj4gQEAgLTE3LDcgKzE3LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2kyYy5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxp
+bnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2JyaWRnZS9kaXNwbGF5LWNvbm5lY3Rvci5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9kaXNw
+bGF5LWNvbm5lY3Rvci5jCj4gaW5kZXggZjdmNDM2Y2Y5NmUwLi4wOGJkNTY5NWRkYWUgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9kaXNwbGF5LWNvbm5lY3Rvci5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9kaXNwbGF5LWNvbm5lY3Rvci5jCj4gQEAgLTEwLDcg
+KzEwLDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bXV0ZXguaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9k
+ZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYnJpZGdlL2ZzbC1sZGIuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvZnNsLWxk
+Yi5jCj4gaW5kZXggYjhlNTIxNTZiMDdhLi4wZTRiYWM3ZGQwNGYgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2JyaWRnZS9mc2wtbGRiLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJp
+ZGdlL2ZzbC1sZGIuYwo+IEBAIC04LDcgKzgsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgvbWZkL3N5
+c2Nvbi5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9v
+Zi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9v
+Zl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9yZWdtYXAuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRn
+ZS9pbXgvaW14OHFtLWxkYi5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9pbXgvaW14OHFtLWxk
+Yi5jCj4gaW5kZXggMzg2MDMyYTAyNTk5Li4yMTQ3MWE5YTI4YjIgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2JyaWRnZS9pbXgvaW14OHFtLWxkYi5jCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2JyaWRnZS9pbXgvaW14OHFtLWxkYi5jCj4gQEAgLTksOSArOSw5IEBACj4gICNpbmNsdWRl
+IDxsaW51eC9tZmQvc3lzY29uLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9waHkvcGh5Lmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bt
+X3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9pbXgvaW14OHF4cC1sZGIuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9icmlkZ2UvaW14L2lteDhxeHAtbGRiLmMKPiBpbmRleCBjODA2NTc2YjFlMjIuLjc5ODRk
+YTljMGEzNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2lteC9pbXg4cXhw
+LWxkYi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9pbXgvaW14OHF4cC1sZGIuYwo+
+IEBAIC0xMiw2ICsxMiw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9waHkvcGh5Lmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bt
+X3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTIxMS5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2JyaWRnZS9sb250aXVtLWx0OTIxMS5jCj4gaW5kZXggYWE4ZDQ3ZTdmNDBkLi40ZDQwNGY1
+ZWY4N2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTIx
+MS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9sb250aXVtLWx0OTIxMS5jCj4gQEAg
+LTE2LDcgKzE2LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2kyYy5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNp
+bmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRv
+ci9jb25zdW1lci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2x2ZHMt
+Y29kZWMuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvbHZkcy1jb2RlYy5jCj4gaW5kZXggNjcz
+NjhmMjNkNGFhLi44YzU2NjhkY2EwYzQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Jy
+aWRnZS9sdmRzLWNvZGVjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2x2ZHMtY29k
+ZWMuYwo+IEBAIC03LDcgKzcsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+
+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9ncmFw
+aC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2JyaWRnZS9ud2wtZHNpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL253bC1kc2kuYwo+IGlu
+ZGV4IDRhNWY1YzRmNWRjYy4uOGQ1NDA5MWVjNjZlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9icmlkZ2UvbndsLWRzaS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9ud2wt
+ZHNpLmMKPiBAQCAtMTYsOCArMTYsOCBAQAo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9tdXgvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+
+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGh5
+L3BoeS5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jlc2V0Lmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9zeXNfc29jLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uv
+cGFyYWRlLXBzODYyMi5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9wYXJhZGUtcHM4NjIyLmMK
+PiBpbmRleCBjOWI2Y2I3Njc4ZTMuLmFlM2FiOTI2MmVmMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYnJpZGdlL3BhcmFkZS1wczg2MjIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9i
+cmlkZ2UvcGFyYWRlLXBzODYyMi5jCj4gQEAgLTEyLDcgKzEyLDYgQEAKPiAgI2luY2x1ZGUgPGxp
+bnV4L2kyYy5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9wbS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gIAo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3NhbXN1bmctZHNpbS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2JyaWRnZS9zYW1zdW5nLWRzaW0uYwo+IGluZGV4IDA0M2I4MTA5ZTY0YS4uNDZi
+MmM1MDI3NjkwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc2Ftc3VuZy1k
+c2ltLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3NhbXN1bmctZHNpbS5jCj4gQEAg
+LTE2LDggKzE2LDkgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9pcnEuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21lZGlhLWJ1cy1mb3JtYXQuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L3BoeS9waHkuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2Rldmlj
+ZS5oPgo+ICAKPiAgI2luY2x1ZGUgPHZpZGVvL21pcGlfZGlzcGxheS5oPgo+ICAKPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zaW1wbGUtYnJpZGdlLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYnJpZGdlL3NpbXBsZS1icmlkZ2UuYwo+IGluZGV4IGQ4NWQ5ZWU0NjNiOC4uY2JlOGU3
+NzhkN2M3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc2ltcGxlLWJyaWRn
+ZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zaW1wbGUtYnJpZGdlLmMKPiBAQCAt
+OCw4ICs4LDkgQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+
+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jl
+Z3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBl
+ci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhk
+bWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jCj4gaW5kZXgg
+OWQ2ZGNhZjMxN2ExLi45ZGYxOWQ3Yjg0NDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdl
+L3N5bm9wc3lzL2R3LWhkbWkuYwo+IEBAIC0xNCw3ICsxNCw3IEBACj4gICNpbmNsdWRlIDxsaW51
+eC9pcnEuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bXV0ZXguaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BpbmN0cmwvY29uc3VtZXIuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1taXBpLWRzaS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1taXBpLWRzaS5jCj4gaW5kZXgg
+YjJlZmVjZjdkMTYwLi41Y2M5YTYzYTY1ZmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2JyaWRnZS9zeW5vcHN5cy9kdy1taXBpLWRzaS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Jy
+aWRnZS9zeW5vcHN5cy9kdy1taXBpLWRzaS5jCj4gQEAgLTEzLDcgKzEzLDcgQEAKPiAgI2luY2x1
+ZGUgPGxpbnV4L2RlYnVnZnMuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAr
+I2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1f
+cnVudGltZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiAgCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvdGktc242NWRzaTgzLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YnJpZGdlL3RpLXNuNjVkc2k4My5jCj4gaW5kZXggN2U5ZjRlYzhlNzgwLi4wNjFlOGJkNTkxNWQg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90aS1zbjY1ZHNpODMuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2UvdGktc242NWRzaTgzLmMKPiBAQCAtMzEsNyArMzEs
+NyBAQAo+ICAjaW5jbHVkZSA8bGludXgvaTJjLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1i
+dXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxp
+bnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vZHJtX21pcGlfZHNpLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX21pcGlfZHNpLmMKPiBpbmRl
+eCA2MjUyYWMwMWU5NDUuLjE0MjAxZjczYWFiMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vZHJtX21pcGlfZHNpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX21pcGlfZHNpLmMK
+PiBAQCAtMjcsNiArMjcsNyBAQAo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2RldmljZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9ldG5hdml2L2V0bmF2aXZfZ3B1LmMgYi9kcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2
+X2dwdS5jCj4gaW5kZXggZGU4Yzk4OTQ5NjdjLi5iYmM5YzU0ODcxZjQgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9ncHUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9ldG5hdml2L2V0bmF2aXZfZ3B1LmMKPiBAQCAtOCw4ICs4LDggQEAKPiAgI2luY2x1ZGUg
+PGxpbnV4L2RlbGF5Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9kbWEtZmVuY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNldGFi
+bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+ZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25z
+dW1lci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vczU0MzNf
+ZHJtX2RlY29uLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vczU0MzNfZHJtX2RlY29u
+LmMKPiBpbmRleCAyODY3YjM5ZmEzNWUuLjRkOTg2MDc3NzM4YiAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vczU0MzNfZHJtX2RlY29uLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vZXh5bm9zL2V4eW5vczU0MzNfZHJtX2RlY29uLmMKPiBAQCAtMTIsNyArMTIsNyBA
+QAo+ICAjaW5jbHVkZSA8bGludXgvaW9wb2xsLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pcnEuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L21mZC9zeXNjb24uaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2Rl
+dmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRm
+b3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcmVnbWFwLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9leHlub3Mv
+ZXh5bm9zN19kcm1fZGVjb24uYyBiL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zN19kcm1f
+ZGVjb24uYwo+IGluZGV4IDMxMjZmNzM1ZGVkYy4uMDE1NmE1ZTk0NDM1IDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zN19kcm1fZGVjb24uYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9leHlub3MvZXh5bm9zN19kcm1fZGVjb24uYwo+IEBAIC0xMiw3ICsxMiw2IEBA
+Cj4gICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcG1fcnVudGltZS5oPgo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2V4
+eW5vcy9leHlub3NfZHJtX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJt
+X2RzaS5jCj4gaW5kZXggZmM4MWY3MjhlNmJhLi42OWVhMzNjYWU2NTEgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2RzaS5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2RzaS5jCj4gQEAgLTgsNyArOCw4IEBACj4gICAqLwo+
+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+ZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxh
+dGZvcm1fZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVkZSA8ZHJtL2JyaWRnZS9zYW1zdW5nLWRzaW0u
+aD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zX2RybV9maW1kLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+ZXh5bm9zL2V4eW5vc19kcm1fZmltZC5jCj4gaW5kZXggN2Y0YTBiZTAzZGQxLi44ZGRlN2IxZTli
+MzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX2ZpbWQu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zX2RybV9maW1kLmMKPiBAQCAt
+MTIsNyArMTIsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9tZmQvc3lzY29uLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21h
+cC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1fcm90
+YXRvci5jIGIvZHJpdmVycy9ncHUvZHJtL2V4eW5vcy9leHlub3NfZHJtX3JvdGF0b3IuYwo+IGlu
+ZGV4IDg3MDZmMzc3YzM0OS4uZmZiMzI3YzUxMzllIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9leHlub3MvZXh5bm9zX2RybV9yb3RhdG9yLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+ZXh5bm9zL2V4eW5vc19kcm1fcm90YXRvci5jCj4gQEAgLTEyLDcgKzEyLDcgQEAKPiAgI2luY2x1
+ZGUgPGxpbnV4L2ludGVycnVwdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvaW8uaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L2tlcm5lbC5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNp
+bmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9zaXpl
+cy5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1fc2Nh
+bGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19kcm1fc2NhbGVyLmMKPiBpbmRl
+eCAyMDYwOGU5NzgwY2UuLmYyYjhiMDlhNmI0ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vZXh5bm9zL2V4eW5vc19kcm1fc2NhbGVyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZXh5
+bm9zL2V4eW5vc19kcm1fc2NhbGVyLmMKPiBAQCAtMTEsNyArMTEsNyBAQAo+ICAjaW5jbHVkZSA8
+bGludXgvaW50ZXJydXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pby5oPgo+ICAjaW5jbHVkZSA8
+bGludXgva2VybmVsLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9leHlub3MvZXh5bm9zX2hkbWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5
+bm9zX2hkbWkuYwo+IGluZGV4IGI3YzExYmRjZTJjOC4uZjNhYWE0ZWEzZTY4IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zX2hkbWkuYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9leHlub3MvZXh5bm9zX2hkbWkuYwo+IEBAIC0yMSw4ICsyMSw4IEBACj4gICNpbmNs
+dWRlIDxsaW51eC9pcnEuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvbWZkL3N5c2Nvbi5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L29mX2FkZHJlc3MuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3Jt
+X2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19taXhlci5jIGIvZHJpdmVycy9ncHUvZHJt
+L2V4eW5vcy9leHlub3NfbWl4ZXIuYwo+IGluZGV4IDhkMzMzZGI4MTNiNy4uYjMwMjM5MmZmMGQ3
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9leHlub3MvZXh5bm9zX21peGVyLmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vZXh5bm9zL2V4eW5vc19taXhlci5jCj4gQEAgLTE4LDcgKzE4
+LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICAjaW5jbHVkZSA8bGludXgva3Rp
+bWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVy
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9oaXNpbGljb24va2lyaW4va2lyaW5f
+ZHJtX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2hpc2lsaWNvbi9raXJpbi9raXJpbl9kcm1fZHJ2
+LmMKPiBpbmRleCA5YzVkNDliZjQwYzkuLjcxMWY3Y2U5ODk0YSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vaGlzaWxpY29uL2tpcmluL2tpcmluX2RybV9kcnYuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9oaXNpbGljb24va2lyaW4va2lyaW5fZHJtX2Rydi5jCj4gQEAgLTExLDkgKzEx
+LDkgQEAKPiAgICoJWGlud2VpIEtvbmcgPGtvbmcua29uZ3hpbndlaUBoaXNpbGljb24uY29tPgo+
+ICAgKi8KPiAgCj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvY29tcG9uZW50Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vaW14L2Rjc3MvZGNzcy1kZXYuYyBiL2RyaXZlcnMvZ3B1L2RybS9pbXgvZGNzcy9kY3Nz
+LWRldi5jCj4gaW5kZXggNWQxNzc5YWI2NWMwLi40ZjNhZjBkZmIzNDQgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2lteC9kY3NzL2Rjc3MtZGV2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vaW14L2Rjc3MvZGNzcy1kZXYuYwo+IEBAIC00LDggKzQsOSBAQAo+ICAgKi8KPiAgCj4gICNp
+bmNsdWRlIDxsaW51eC9jbGsuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gKyNp
+bmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1
+bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1f
+YnJpZGdlX2Nvbm5lY3Rvci5oPgo+IEBAIC0xOTgsNyArMTk5LDcgQEAgc3RydWN0IGRjc3NfZGV2
+ICpkY3NzX2Rldl9jcmVhdGUoc3RydWN0IGRldmljZSAqZGV2LCBib29sIGhkbWlfb3V0cHV0KQo+
+ICAKPiAgCWRjc3MtPm9mX3BvcnQgPSBvZl9ncmFwaF9nZXRfcG9ydF9ieV9pZChkZXYtPm9mX25v
+ZGUsIDApOwo+ICAJaWYgKCFkY3NzLT5vZl9wb3J0KSB7Cj4gLQkJZGV2X2VycihkZXYsICJubyBw
+b3J0QDAgbm9kZSBpbiAlc1xuIiwgZGV2LT5vZl9ub2RlLT5mdWxsX25hbWUpOwo+ICsJCWRldl9l
+cnIoZGV2LCAibm8gcG9ydEAwIG5vZGUgaW4gJXBPRlxuIiwgZGV2LT5vZl9ub2RlKTsKPiAgCQly
+ZXQgPSAtRU5PREVWOwo+ICAJCWdvdG8gY2xrc19lcnI7Cj4gIAl9Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9pbXgvbGNkYy9pbXgtbGNkYy5jIGIvZHJpdmVycy9ncHUvZHJtL2lteC9s
+Y2RjL2lteC1sY2RjLmMKPiBpbmRleCAyNzdlYWQ2YTQ1OWEuLjIyYjY1ZjRhMGUzMCAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaW14L2xjZGMvaW14LWxjZGMuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9pbXgvbGNkYy9pbXgtbGNkYy5jCj4gQEAgLTE5LDggKzE5LDggQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2JpdGZpZWxkLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNl
+dGFibGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgv
+b2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgCj4g
+ICNkZWZpbmUgSU1YMjFMQ0RDX0xTU0FSICAgICAgICAgMHgwMDAwIC8qIExDREMgU2NyZWVuIFN0
+YXJ0IEFkZHJlc3MgUmVnaXN0ZXIgKi8KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2lu
+Z2VuaWMvaW5nZW5pYy1kcm0tZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vaW5nZW5pYy9pbmdlbmlj
+LWRybS1kcnYuYwo+IGluZGV4IDVlYzc1ZTliYTQ5OS4uOGRiZDQ4NDdkM2E2IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9pbmdlbmljL2luZ2VuaWMtZHJtLWRydi5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2luZ2VuaWMvaW5nZW5pYy1kcm0tZHJ2LmMKPiBAQCAtMTQsNyArMTQsNyBA
+QAo+ICAjaW5jbHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tdXRleC5oPgo+IC0jaW5jbHVkZSA8bGlu
+dXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvb2ZfcmVzZXJ2ZWRfbWVtLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2Uu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9pbmdlbmljL2luZ2VuaWMtaXB1LmMgYi9kcml2ZXJzL2dwdS9kcm0vaW5nZW5pYy9pbmdlbmlj
+LWlwdS5jCj4gaW5kZXggN2E0MzUwNTAxMWE1Li42ZDIzNjU0N2Y2MTEgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2luZ2VuaWMvaW5nZW5pYy1pcHUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9pbmdlbmljL2luZ2VuaWMtaXB1LmMKPiBAQCAtMTQsNyArMTQsNyBAQAo+ICAjaW5jbHVk
+ZSA8bGludXgvaW50ZXJydXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2lu
+Y2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVnbWFw
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC90aW1lLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vbGltYS9saW1hX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2xpbWEvbGltYV9kcnYu
+Ywo+IGluZGV4IDM5Y2FiNGE1NWY1Ny4uMzljNzI1OTU4ZWYzIDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9saW1hL2xpbWFfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbGltYS9s
+aW1hX2Rydi5jCj4gQEAgLTIsNyArMiw4IEBACj4gIC8qIENvcHlyaWdodCAyMDE3LTIwMTkgUWlh
+bmcgWXUgPHl1cTgyNUBnbWFpbC5jb20+ICovCj4gIAo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxl
+Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICsjaW5jbHVkZSA8bGludXgv
+b2YuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvdWFjY2Vzcy5oPgo+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcG1fcnVudGltZS5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbG9naWN2
+Yy9sb2dpY3ZjX2RybS5jIGIvZHJpdmVycy9ncHUvZHJtL2xvZ2ljdmMvbG9naWN2Y19kcm0uYwo+
+IGluZGV4IGMzNWM0NTNmZDAyNS4uZTZiNjhjMmUyNDliIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9sb2dpY3ZjL2xvZ2ljdmNfZHJtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbG9n
+aWN2Yy9sb2dpY3ZjX2RybS5jCj4gQEAgLTEwLDggKzEwLDggQEAKPiAgI2luY2x1ZGUgPGxpbnV4
+L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29m
+X2FkZHJlc3MuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvb2ZfcmVzZXJ2ZWRfbWVtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvdHlw
+ZXMuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tY2RlL21jZGVfZHJ2LmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vbWNkZS9tY2RlX2Rydi5jCj4gaW5kZXggYThjZDg2YzA2YzE0Li41
+ZDY4ZDBmMjcyMTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21jZGUvbWNkZV9kcnYu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tY2RlL21jZGVfZHJ2LmMKPiBAQCAtNDcxLDcgKzQ3
+MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIG1jZGVfb2ZfbWF0Y2hbXSA9
+IHsKPiAgc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgbWNkZV9kcml2ZXIgPSB7Cj4gIAku
+ZHJpdmVyID0gewo+ICAJCS5uYW1lICAgICAgICAgICA9ICJtY2RlIiwKPiAtCQkub2ZfbWF0Y2hf
+dGFibGUgPSBvZl9tYXRjaF9wdHIobWNkZV9vZl9tYXRjaCksCj4gKwkJLm9mX21hdGNoX3RhYmxl
+ID0gbWNkZV9vZl9tYXRjaCwKPiAgCX0sCj4gIAkucHJvYmUgPSBtY2RlX3Byb2JlLAo+ICAJLnJl
+bW92ZSA9IG1jZGVfcmVtb3ZlLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0
+ZWsvbXRrX2Rpc3BfYWFsLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfYWFs
+LmMKPiBpbmRleCA0MzRlOGE5Y2U4YWIuLmNkYmVjNzk0NzRkMSAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfYWFsLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vbWVkaWF0ZWsvbXRrX2Rpc3BfYWFsLmMKPiBAQCAtNiw4ICs2LDcgQEAKPiAgI2luY2x1ZGUg
+PGxpbnV4L2Nsay5oPgo+ICAjaW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+IC0jaW5j
+bHVkZSA8bGludXgvb2ZfaXJxLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9zb2MvbWVkaWF0
+ZWsvbXRrLWNtZHEuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRl
+ay9tdGtfZGlzcF9jY29yci5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX2Nj
+b3JyLmMKPiBpbmRleCAxNzczMzc5YjI0MzkuLjdjNWUwNGVlNWI5ZiAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfY2NvcnIuYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9jY29yci5jCj4gQEAgLTYsOCArNiw3IEBACj4gICNp
+bmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4K
+PiAtI2luY2x1ZGUgPGxpbnV4L29mX2lycS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvc29j
+L21lZGlhdGVrL210ay1jbWRxLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+bWVkaWF0ZWsvbXRrX2Rpc3BfY29sb3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtf
+ZGlzcF9jb2xvci5jCj4gaW5kZXggY2FjOTIwNjA3OWU3Li4wYjliNGIwNmQxOWMgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX2NvbG9yLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfY29sb3IuYwo+IEBAIC02LDggKzYsNyBA
+QAo+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2
+aWNlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9pcnEuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29m
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L3NvYy9tZWRpYXRlay9tdGstY21kcS5oPgo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL21lZGlhdGVrL210a19kaXNwX2dhbW1hLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0
+ZWsvbXRrX2Rpc3BfZ2FtbWEuYwo+IGluZGV4IGM4NDQ5NDI2MDNmNy4uNzc0NmRjZWFkYjIwIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9nYW1tYS5jCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX2dhbW1hLmMKPiBAQCAtNiw4
+ICs2LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+ICAjaW5jbHVkZSA8bGludXgvY29t
+cG9uZW50Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4
+L29mX2RldmljZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfaXJxLmg+Cj4gKyNpbmNsdWRlIDxs
+aW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9zb2MvbWVkaWF0ZWsvbXRrLWNtZHEuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9tZXJnZS5jIGIvZHJpdmVycy9ncHUvZHJt
+L21lZGlhdGVrL210a19kaXNwX21lcmdlLmMKPiBpbmRleCA2NDI4YjYyMDNmZmUuLmJlYThhMGQ4
+MDQwYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfbWVy
+Z2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9tZXJnZS5jCj4g
+QEAgLTUsOCArNSw3IEBACj4gIAo+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9jb21wb25lbnQuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+IC0j
+aW5jbHVkZSA8bGludXgvb2ZfaXJxLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZXNldC5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvc29jL21lZGlhdGVrL210ay1jbWRxLmg+Cj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9vdmwuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9tZWRpYXRlay9tdGtfZGlzcF9vdmwuYwo+IGluZGV4IDhmNTJjYzFmM2ZiYS4uNzMzMjBh
+NzQyNWNkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9v
+dmwuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9vdmwuYwo+IEBA
+IC0xMCw4ICsxMCw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L2NvbXBvbmVudC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRl
+IDxsaW51eC9vZl9kZXZpY2UuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2lycS5oPgo+ICsjaW5j
+bHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvc29jL21l
+ZGlhdGVrL210ay1jbWRxLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRl
+ay9tdGtfZGlzcF9vdmxfYWRhcHRvci5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19k
+aXNwX292bF9hZGFwdG9yLmMKPiBpbmRleCBjMGEzOGY1MjE3ZWUuLjg3ODU3NWJiOTY3MSAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3Bfb3ZsX2FkYXB0b3Iu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZGlzcF9vdmxfYWRhcHRvci5j
+Cj4gQEAgLTcsOCArNyw5IEBACj4gICNpbmNsdWRlIDxkcm0vZHJtX29mLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPgo+IC0jaW5jbHVk
+ZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvb2ZfYWRkcmVzcy5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX3JkbWEuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9tZWRpYXRlay9tdGtfZGlzcF9yZG1hLmMKPiBpbmRleCBkNGRmMTdhZDYwMGEuLmExMmMwNTc4
+NmQyOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rpc3BfcmRt
+YS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kaXNwX3JkbWEuYwo+IEBA
+IC04LDggKzgsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9jb21wb25lbnQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9pcnEuaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NvYy9tZWRp
+YXRlay9tdGstY21kcS5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsv
+bXRrX2RwaS5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19kcGkuYwo+IGluZGV4IDk0
+OGE1M2YxZjRiMy4uMjhiZGIxZjQyN2ZmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9t
+ZWRpYXRlay9tdGtfZHBpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2Rw
+aS5jCj4gQEAgLTEwLDcgKzEwLDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2Yu
+aD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2Zf
+Z3JhcGguaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BpbmN0cmwvY29uc3VtZXIuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vbWVkaWF0ZWsvbXRrX2RybV9jcnRjLmMgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRr
+X2RybV9jcnRjLmMKPiBpbmRleCBkNDAxNDI4NDJmODUuLjhhNDM2NTZlY2MzMCAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9jcnRjLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RybV9jcnRjLmMKPiBAQCAtNiw2ICs2LDcgQEAKPiAg
+I2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L21haWxib3hfY29udHJvbGxlci5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L3NvYy9tZWRpYXRlay9tdGstY21kcS5oPgo+ICAjaW5jbHVkZSA8bGludXgvc29jL21lZGlh
+dGVrL210ay1tbXN5cy5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsv
+bXRrX2RybV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHJtX2Rydi5jCj4g
+aW5kZXggNmRjYjRiYTI0NjZjLi5lMDE0Mjc3MTc5MTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL21lZGlhdGVrL210a19kcm1fZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbWVk
+aWF0ZWsvbXRrX2RybV9kcnYuYwo+IEBAIC03LDggKzcsOSBAQAo+ICAjaW5jbHVkZSA8bGludXgv
+Y29tcG9uZW50Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pb21tdS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gKyNpbmNsdWRl
+IDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGlt
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4KPiAgCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZXRoZHIuYyBiL2RyaXZlcnMvZ3B1L2RybS9t
+ZWRpYXRlay9tdGtfZXRoZHIuYwo+IGluZGV4IDczZGM0ZGEzYmEzYi4uZGI3YWM2NjZlYzVlIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZXRoZHIuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZXRoZHIuYwo+IEBAIC03LDcgKzcsNyBAQAo+
+ICAjaW5jbHVkZSA8ZHJtL2RybV9mcmFtZWJ1ZmZlci5oPgo+ICAjaW5jbHVkZSA8bGludXgvY2xr
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29m
+X2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29m
+X2FkZHJlc3MuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvcmVzZXQuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21lZGlh
+dGVrL210a19tZHBfcmRtYS5jIGIvZHJpdmVycy9ncHUvZHJtL21lZGlhdGVrL210a19tZHBfcmRt
+YS5jCj4gaW5kZXggZTA2ZGI2ZTU2YjVmLi40ODA2YmRkNGI4ZmEgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL21lZGlhdGVrL210a19tZHBfcmRtYS5jCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL21lZGlhdGVrL210a19tZHBfcmRtYS5jCj4gQEAgLTYsOCArNiw3IEBACj4gICNpbmNsdWRl
+IDxkcm0vZHJtX2ZvdXJjYy5oPgo+ICAjaW5jbHVkZSA8bGludXgvY2xrLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9jb21wb25lbnQuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2FkZHJlc3MuaD4KPiAt
+I2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2Rldmlj
+ZXRhYmxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NvYy9tZWRpYXRlay9t
+dGstY21kcS5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHJ2
+LmggYi9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHJ2LmgKPiBpbmRleCBiMjMwMDlhMzM4
+MGYuLjNmOTM0NWMxNGYzMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVz
+b25fZHJ2LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHJ2LmgKPiBAQCAt
+OSw3ICs5LDYgQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9kZXZpY2UuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3JlZ21hcC5oPgo+ICAKPiAgc3RydWN0IGRybV9jcnRjOwo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHdfaGRtaS5jIGIvZHJpdmVycy9ncHUvZHJtL21l
+c29uL21lc29uX2R3X2hkbWkuYwo+IGluZGV4IDNkMDQ2ODc4Y2U2Yy4uNjMyMDY1MzVkZTY1IDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tZXNvbi9tZXNvbl9kd19oZG1pLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHdfaGRtaS5jCj4gQEAgLTksOCArOSw5IEBA
+Cj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5l
+bC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9k
+ZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9n
+cmFwaC5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jlc2V0Lmg+
+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVzb25fZHdfbWlwaV9k
+c2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9tZXNvbi9tZXNvbl9kd19taXBpX2RzaS5jCj4gaW5kZXgg
+NTc0NDdhYmYxYTI5Li5lNWZlNGU5OTRmNDMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L21lc29uL21lc29uX2R3X21pcGlfZHNpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbWVzb24v
+bWVzb25fZHdfbWlwaV9kc2kuYwo+IEBAIC03LDkgKzcsMTAgQEAKPiAgCj4gICNpbmNsdWRlIDxs
+aW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvbW9kX2RldmljZXRhYmxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4K
+PiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cmVzZXQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BoeS9waHkuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L2JpdGZpZWxkLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tZXNvbi9tZXNvbl9l
+bmNvZGVyX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2VuY29kZXJfZHNpLmMK
+PiBpbmRleCA4MTJlMTcyZGVjNjMuLjNmOTNjNzA0ODhjYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vbWVzb24vbWVzb25fZW5jb2Rlcl9kc2kuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9tZXNvbi9tZXNvbl9lbmNvZGVyX2RzaS5jCj4gQEAgLTcsNyArNyw2IEBACj4gIAo+ICAjaW5j
+bHVkZSA8bGludXgva2VybmVsLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4K
+PiAgCj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pY19oZWxwZXIuaD4KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2VuY29kZXJfaGRtaS5jIGIvZHJpdmVycy9ncHUv
+ZHJtL21lc29uL21lc29uX2VuY29kZXJfaGRtaS5jCj4gaW5kZXggNTMyMzFiZmRmN2UyLi45OTEz
+OTcxZmE1ZDIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2VuY29k
+ZXJfaGRtaS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2VuY29kZXJfaGRt
+aS5jCj4gQEAgLTksOCArOSwxMCBAQAo+ICAjaW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+
+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mX3BsYXRm
+b3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4K
+PiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211LmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vbXNtL2FkcmVuby9hNnh4X2dtdS5jCj4gaW5kZXggNWRlYjc5OTI0
+ODk3Li5iMjBlZjZjOGVhMjYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9hZHJl
+bm8vYTZ4eF9nbXUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vYWRyZW5vL2E2eHhfZ211
+LmMKPiBAQCAtMyw2ICszLDggQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2ludGVyY29ubmVjdC5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZv
+cm0uaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcG1fZG9tYWluLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9vcHAuaD4KPiAgI2luY2x1
+ZGUgPHNvYy9xY29tL2NtZC1kYi5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXNt
+L2RwL2RwX2F1ZGlvLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2F1ZGlvLmMKPiBpbmRl
+eCAxMjQ1YzdhYTQ5ZGYuLjRhMmU0Nzk3MjNhOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vbXNtL2RwL2RwX2F1ZGlvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2RwL2RwX2F1
+ZGlvLmMKPiBAQCAtNiw3ICs2LDcgQEAKPiAgCj4gICNkZWZpbmUgcHJfZm10KGZtdCkJIltkcm0t
+ZHBdICVzOiAiIGZtdCwgX19mdW5jX18KPiAgCj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9y
+bS5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVk
+ZSA8ZHJtL2Rpc3BsYXkvZHJtX2RwX2hlbHBlci5oPgo+ICAjaW5jbHVkZSA8ZHJtL2RybV9lZGlk
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9tc20vZHNpL2RzaV9ob3N0LmMgYi9k
+cml2ZXJzL2dwdS9kcm0vbXNtL2RzaS9kc2lfaG9zdC5jCj4gaW5kZXggM2Y2ZGZiNGY5ZDVhLi40
+YzZkNzNlMjRiYjUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9kc2kvZHNpX2hv
+c3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9tc20vZHNpL2RzaV9ob3N0LmMKPiBAQCAtMTAs
+NyArMTAsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvaW50ZXJydXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tZmQvc3lzY29uLmg+Cj4g
+LSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfaXJxLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9waW5jdHJsL2NvbnN1bWVyLmg+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9tc20vaGRtaS9oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkv
+aGRtaS5jCj4gaW5kZXggMzEzMjEwNWEyYTQzLi42MDUwOWZiMzk3MTAgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL21zbS9oZG1pL2hkbWkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9t
+c20vaGRtaS9oZG1pLmMKPiBAQCAtNyw2ICs3LDggQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9v
+Zl9pcnEuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dwaW8uaD4KPiArI2luY2x1ZGUgPGxpbnV4
+L29mX3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2JyaWRnZV9jb25uZWN0b3IuaD4KPiAgI2luY2x1ZGUgPGRy
+bS9kcm1fb2YuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9oZG1pL2hkbWlf
+cGh5LmMgYi9kcml2ZXJzL2dwdS9kcm0vbXNtL2hkbWkvaGRtaV9waHkuYwo+IGluZGV4IDk3ODAx
+MDdlMWNjOS4uM2UwMGZiODE5MGIyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9tc20v
+aGRtaS9oZG1pX3BoeS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21zbS9oZG1pL2hkbWlfcGh5
+LmMKPiBAQCAtMyw3ICszLDggQEAKPiAgICogQ29weXJpZ2h0IChjKSAyMDE2LCBUaGUgTGludXgg
+Rm91bmRhdGlvbi4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KPiAgICovCj4gIAo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8
+bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVkZSAiaGRtaS5oIgo+ICAKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fbWRzcy5jIGIvZHJpdmVycy9ncHUv
+ZHJtL21zbS9tc21fbWRzcy5jCj4gaW5kZXggMDU2NDhjOTEwYzY4Li42YmY2YzRhMGY1NTAgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL21zbS9tc21fbWRzcy5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL21zbS9tc21fbWRzcy5jCj4gQEAgLTEwLDYgKzEwLDggQEAKPiAgI2luY2x1ZGUg
+PGxpbnV4L2lycWNoaXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lycWRlc2MuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L2lycWNoaXAvY2hhaW5lZF9pcnEuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mX3Bs
+YXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jlc2V0Lmg+Cj4gIAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbXhzZmIvbGNkaWZfZHJ2LmMgYi9kcml2ZXJz
+L2dwdS9kcm0vbXhzZmIvbGNkaWZfZHJ2LmMKPiBpbmRleCBjOWQ4Y2JiMjE0MDcuLjVlOGRjODhl
+ZmVhMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbXhzZmIvbGNkaWZfZHJ2LmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vbXhzZmIvbGNkaWZfZHJ2LmMKPiBAQCAtMTAsNyArMTAsNiBA
+QAo+ICAjaW5jbHVkZSA8bGludXgvaW8uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3Jt
+X2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtYWJ0LXkwMzB4eDA2N2EuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9wYW5lbC9wYW5lbC1hYnQteTAzMHh4MDY3YS5jCj4gaW5kZXggMWNjMGYxZDA5Njg0
+Li42NjJjN2JjYmU2ZTUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVs
+LWFidC15MDMweHgwNjdhLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtYWJ0
+LXkwMzB4eDA2N2EuYwo+IEBAIC0xMSw3ICsxMSw4IEBACj4gICNpbmNsdWRlIDxsaW51eC9ncGlv
+L2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+
+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2Rldmlj
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVnbWFwLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1
+bGF0b3IvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NwaS9zcGkuaD4KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWF1by1hMDMwanRuMDEuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1hdW8tYTAzMGp0bjAxLmMKPiBpbmRleCAzYzk3NmE5OGRl
+NmEuLjZjODZlYmYyY2FkNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFu
+ZWwtYXVvLWEwMzBqdG4wMS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWF1
+by1hMDMwanRuMDEuYwo+IEBAIC0xMSw4ICsxMSw4IEBACj4gICNpbmNsdWRlIDxsaW51eC9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L21lZGlhLWJ1cy1mb3JtYXQuaD4KPiArI2luY2x1ZGUgPGxpbnV4L21vZF9kZXZpY2V0YWJs
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9k
+ZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9zcGkvc3BpLmg+Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ib2UtaGltYXg4Mjc5ZC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWJvZS1oaW1heDgyNzlkLmMKPiBpbmRleCBkODc5
+YjNiMTRjNDguLjExYjY0YWNiZThhOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFu
+ZWwvcGFuZWwtYm9lLWhpbWF4ODI3OWQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9w
+YW5lbC1ib2UtaGltYXg4Mjc5ZC5jCj4gQEAgLTEwLDcgKzEwLDYgQEAKPiAgI2luY2x1ZGUgPGxp
+bnV4L2tlcm5lbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVk
+ZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2Nv
+bnN1bWVyLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ib2Ut
+dHYxMDF3dW0tbmw2LmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtYm9lLXR2MTAxd3Vt
+LW5sNi5jCj4gaW5kZXggZGMyNzZjMzQ2ZmQxLi41YWM5MjYyODFkMmMgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWJvZS10djEwMXd1bS1ubDYuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ib2UtdHYxMDF3dW0tbmw2LmMKPiBAQCAtOCw3ICs4
+LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4
+L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4g
+IAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9jb25uZWN0b3IuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL3BhbmVsL3BhbmVsLWRzaS1jbS5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3Bh
+bmVsLWRzaS1jbS5jCj4gaW5kZXggYmExN2JjYzQ0NjFjLi42YjNmNGQ2NjRkMmEgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWRzaS1jbS5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL3BhbmVsL3BhbmVsLWRzaS1jbS5jCj4gQEAgLTExLDcgKzExLDcgQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2ppZmZpZXMu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2
+aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxh
+dG9yL2NvbnN1bWVyLmg+Cj4gIAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9jb25uZWN0b3IuaD4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWZlaXhpbi1rMTAxLWltMmJh
+MDIuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1mZWl4aW4tazEwMS1pbTJiYTAyLmMK
+PiBpbmRleCA3NjU3MmM5MjI5ODMuLjk4NmUzZTE5Mjg4MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcGFuZWwvcGFuZWwtZmVpeGluLWsxMDEtaW0yYmEwMi5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL3BhbmVsL3BhbmVsLWZlaXhpbi1rMTAxLWltMmJhMDIuYwo+IEBAIC03LDcgKzcs
+NiBAQAo+ICAjaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZF9k
+ZXZpY2V0YWJsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxs
+aW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5o
+Pgo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fbWlwaV9kc2kuaD4KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWZlaXlhbmctZnkwNzAyNGRpMjZhMzBkLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtZmVpeWFuZy1meTA3MDI0ZGkyNmEzMGQuYwo+IGluZGV4
+IGRmNDkzZGE1MGFmZS4uNDhlM2FjYWVjZGYzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9wYW5lbC9wYW5lbC1mZWl5YW5nLWZ5MDcwMjRkaTI2YTMwZC5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL3BhbmVsL3BhbmVsLWZlaXlhbmctZnkwNzAyNGRpMjZhMzBkLmMKPiBAQCAtMTEsNyAr
+MTEsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvZGVsYXkuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNldGFibGUuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiAgI2RlZmluZSBG
+RUlZQU5HX0lOSVRfQ01EX0xFTgkyCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5l
+bC9wYW5lbC1oaW1heC1oeDgzOTQuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1oaW1h
+eC1oeDgzOTQuYwo+IGluZGV4IGQ0ZmI1ZDFiMjk1Yi4uYzczMjQzZDg1ZGU3IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1oaW1heC1oeDgzOTQuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1oaW1heC1oeDgzOTQuYwo+IEBAIC0xNSw3ICsxNSw3
+IEBACj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9tb2RfZGV2aWNldGFibGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0j
+aW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gIAo+ICAjaW5jbHVkZSA8dmlk
+ZW8vbWlwaV9kaXNwbGF5Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9w
+YW5lbC1pbGl0ZWstaWxpOTMyMi5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlsaXRl
+ay1pbGk5MzIyLmMKPiBpbmRleCAzZGZhZmE1ODUxMjcuLjYxYzg3MmYwZjdjYSAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtaWxpdGVrLWlsaTkzMjIuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1pbGl0ZWstaWxpOTMyMi5jCj4gQEAgLTIyLDcg
+KzIyLDggQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2JpdG9wcy5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+Z3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRl
+IDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gKyNpbmNsdWRl
+IDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9zcGkvc3BpLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1p
+bGl0ZWstaWxpOTM0MS5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlsaXRlay1pbGk5
+MzQxLmMKPiBpbmRleCAzZmRmODg0YjMyNTcuLjM1NzQ2ODE4OTFlOCAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtaWxpdGVrLWlsaTkzNDEuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1pbGl0ZWstaWxpOTM0MS5jCj4gQEAgLTIzLDcgKzIzLDcg
+QEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2Nv
+bnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4
+L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvc3BpL3NwaS5oPgo+ICAK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlsaXRlay1pbGk5ODgx
+Yy5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlsaXRlay1pbGk5ODgxYy5jCj4gaW5k
+ZXggMWVjNjk2YWRmOWRlLi43MmRiYjgxODQyODAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3BhbmVsL3BhbmVsLWlsaXRlay1pbGk5ODgxYy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L3BhbmVsL3BhbmVsLWlsaXRlay1pbGk5ODgxYy5jCj4gQEAgLTksNyArOSw3IEBACj4gICNpbmNs
+dWRlIDxsaW51eC9lcnJuby5oPgo+ICAjaW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiAgCj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVy
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlubm9sdXgtZWowMzBuYS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3BhbmVsL3BhbmVsLWlubm9sdXgtZWowMzBuYS5jCj4gaW5kZXggYjJiMGViYzll
+OTQzLi44ZmRiZGE1OWJlNDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3Bh
+bmVsLWlubm9sdXgtZWowMzBuYS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVs
+LWlubm9sdXgtZWowMzBuYS5jCj4gQEAgLTExLDcgKzExLDggQEAKPiAgI2luY2x1ZGUgPGxpbnV4
+L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21lZGlhLWJ1cy1mb3JtYXQuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNl
+Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1f
+ZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWdtYXAuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvc3BpL3NwaS5oPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtaW5ub2x1eC1wMDc5emNhLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtaW5ub2x1eC1wMDc5emNhLmMKPiBpbmRleCA5
+OTkyZDBkNGMwZTUuLjQ4NTE3OGE5OTkxMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+cGFuZWwvcGFuZWwtaW5ub2x1eC1wMDc5emNhLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFu
+ZWwvcGFuZWwtaW5ub2x1eC1wMDc5emNhLmMKPiBAQCAtNyw3ICs3LDYgQEAKPiAgI2luY2x1ZGUg
+PGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gIAo+ICAjaW5jbHVkZSA8dmlk
+ZW8vbWlwaV9kaXNwbGF5Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9w
+YW5lbC1qYWRhcmQtamQ5MzY1ZGEtaDMuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1q
+YWRhcmQtamQ5MzY1ZGEtaDMuYwo+IGluZGV4IDMyM2MzM2M5YzM3YS4uNDg3OTgzNWZlMTAxIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1qYWRhcmQtamQ5MzY1ZGEt
+aDMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1qYWRhcmQtamQ5MzY1ZGEt
+aDMuYwo+IEBAIC0xNiw3ICsxNiw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVy
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxl
+Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29m
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAgCj4gICNkZWZp
+bmUgSkQ5MzY1REFfSU5JVF9DTURfTEVOCQkyCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9wYW5lbC9wYW5lbC1sZWFkdGVrLWx0azA1MGgzMTQ2dy5jIGIvZHJpdmVycy9ncHUvZHJtL3Bh
+bmVsL3BhbmVsLWxlYWR0ZWstbHRrMDUwaDMxNDZ3LmMKPiBpbmRleCBkMmVmZDg4NzQ4NGIuLmQ0
+MTQ4MmQzYTM0ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbGVh
+ZHRlay1sdGswNTBoMzE0NncuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1s
+ZWFkdGVrLWx0azA1MGgzMTQ2dy5jCj4gQEAgLTgsNyArOCw2IEBACj4gICNpbmNsdWRlIDxsaW51
+eC9tZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiAgI2luY2x1ZGUgPHZpZGVv
+L2Rpc3BsYXlfdGltaW5nLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9w
+YW5lbC1sdmRzLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbHZkcy5jCj4gaW5kZXgg
+ZGU4NzU4YzMwZTZlLi42YzQ2OTg1MjM3YzYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L3BhbmVsL3BhbmVsLWx2ZHMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1s
+dmRzLmMKPiBAQCAtMTAsNyArMTAsNyBAQAo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29u
+c3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgv
+b2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1l
+ci5oPgo+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vcGFuZWwvcGFuZWwtbWFnbmFjaGlwLWQ1M2U2ZWE4OTY2LmMgYi9kcml2ZXJzL2dwdS9k
+cm0vcGFuZWwvcGFuZWwtbWFnbmFjaGlwLWQ1M2U2ZWE4OTY2LmMKPiBpbmRleCAyNmQzNThiOWI4
+NWEuLjc5OWMyMTYxZmM4NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFu
+ZWwtbWFnbmFjaGlwLWQ1M2U2ZWE4OTY2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwv
+cGFuZWwtbWFnbmFjaGlwLWQ1M2U2ZWE4OTY2LmMKPiBAQCAtMTgsNyArMTgsNiBAQAo+ICAjaW5j
+bHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3NwaS9zcGkuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5l
+bC9wYW5lbC1tYW50aXgtbWxhZjA1N3dlNTEuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5l
+bC1tYW50aXgtbWxhZjA1N3dlNTEuYwo+IGluZGV4IDkyNDNiMmFkODI4ZC4uZWE0YTZiZjZkMzVi
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1tYW50aXgtbWxhZjA1
+N3dlNTEuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1tYW50aXgtbWxhZjA1
+N3dlNTEuYwo+IEBAIC0xMCw3ICsxMCw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1
+bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5j
+bHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5o
+Pgo+ICAKPiAgI2luY2x1ZGUgPHZpZGVvL21pcGlfZGlzcGxheS5oPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbmV3dmlzaW9uLW52MzA1MWQuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9wYW5lbC9wYW5lbC1uZXd2aXNpb24tbnYzMDUxZC5jCj4gaW5kZXggYTA3OTU4MDM4
+ZmZkLi5hZDk4ZGQ5MzIyYjQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3Bh
+bmVsLW5ld3Zpc2lvbi1udjMwNTFkLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFu
+ZWwtbmV3dmlzaW9uLW52MzA1MWQuYwo+IEBAIC0xMyw3ICsxMyw3IEBACj4gICNpbmNsdWRlIDxs
+aW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tZWRpYS1idXMtZm9ybWF0
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2Rl
+dmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3Vs
+YXRvci9jb25zdW1lci5oPgo+ICAKPiAgI2luY2x1ZGUgPHZpZGVvL2Rpc3BsYXlfdGltaW5nLmg+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1uZXd2aXNpb24tbnYz
+MDUyYy5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5ld3Zpc2lvbi1udjMwNTJjLmMK
+PiBpbmRleCBjZjA3OGYwZDNjZDMuLjcxZTU3ZGU2ZDhiMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcGFuZWwvcGFuZWwtbmV3dmlzaW9uLW52MzA1MmMuYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9wYW5lbC9wYW5lbC1uZXd2aXNpb24tbnYzMDUyYy5jCj4gQEAgLTExLDcgKzExLDgg
+QEAKPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L21lZGlhLWJ1cy1mb3JtYXQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5j
+bHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5j
+bHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0
+b3IvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NwaS9zcGkuaD4KPiAgI2luY2x1ZGUg
+PHZpZGVvL21pcGlfZGlzcGxheS5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFu
+ZWwvcGFuZWwtbm92YXRlay1udDM1NTEwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwt
+bm92YXRlay1udDM1NTEwLmMKPiBpbmRleCA0OTNjM2MyM2YwZDYuLmQ2ZGNlYjg1ODAwOCAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM1NTEwLmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM1NTEwLmMKPiBA
+QCAtMjYsNyArMjYsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvYml0b3BzLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAt
+I2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2Nv
+bnN1bWVyLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwt
+bm92YXRlay1udDM1NTYwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1u
+dDM1NTYwLmMKPiBpbmRleCBjYzdmOTZkNzA4MjYuLjViYmVhNzM0MTIzYiAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM1NTYwLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM1NTYwLmMKPiBAQCAtMTgsNyAr
+MTgsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGlu
+dXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4K
+PiAgCj4gICNpbmNsdWRlIDx2aWRlby9taXBpX2Rpc3BsYXkuaD4KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5vdmF0ZWstbnQzNTk1MC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL3BhbmVsL3BhbmVsLW5vdmF0ZWstbnQzNTk1MC5jCj4gaW5kZXggOGIxMDhhYzgwYjU1Li40
+MTJjYTg0ZDA1ODEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5v
+dmF0ZWstbnQzNTk1MC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5vdmF0
+ZWstbnQzNTk1MC5jCj4gQEAgLTgsNyArOCw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9kZWxheS5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxp
+bnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM2NTIzLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwv
+cGFuZWwtbm92YXRlay1udDM2NTIzLmMKPiBpbmRleCBjM2JlZmE3ZjI1M2QuLjk2MzJiOWU5NWI3
+MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM2
+NTIzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92YXRlay1udDM2NTIz
+LmMKPiBAQCAtOSw3ICs5LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4K
+PiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0
+b3IvY29uc3VtZXIuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9w
+YW5lbC1ub3ZhdGVrLW50MzY2NzJhLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtbm92
+YXRlay1udDM2NjcyYS5jCj4gaW5kZXggNzNiY2ZmYTFlMGMxLi4zM2ZiM2Q3MTVlNTQgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLW5vdmF0ZWstbnQzNjY3MmEuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ub3ZhdGVrLW50MzY2NzJhLmMKPiBA
+QCAtMTYsNyArMTYsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxs
+aW51eC9vZl9kZXZpY2UuaD4KPiAgCj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9waW5jdHJsL2NvbnN1bWVyLmg+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ub3ZhdGVrLW50MzkwMTYuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9wYW5lbC9wYW5lbC1ub3ZhdGVrLW50MzkwMTYuYwo+IGluZGV4IGY1OGNmYjEwYjU4YS4u
+MDU5MjYwMjYyYjVhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1u
+b3ZhdGVrLW50MzkwMTYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1ub3Zh
+dGVrLW50MzkwMTYuYwo+IEBAIC0xMiw3ICsxMiw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9tZWRp
+YS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9zcGkvc3BpLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9wYW5lbC9wYW5lbC1vcmlzZXRlY2gtb3RhNTYwMWEuYyBiL2RyaXZlcnMvZ3B1L2RybS9w
+YW5lbC9wYW5lbC1vcmlzZXRlY2gtb3RhNTYwMWEuYwo+IGluZGV4IGU0NmJlNTAxNGQ0Mi4uYzQx
+NWRhY2YxODE2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1vcmlz
+ZXRlY2gtb3RhNTYwMWEuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1vcmlz
+ZXRlY2gtb3RhNTYwMWEuYwo+IEBAIC0xMiw3ICsxMiw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9t
+ZWRpYS1idXMtZm9ybWF0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVy
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9zcGkvc3BpLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9wYW5lbC9wYW5lbC1yYXNwYmVycnlwaS10b3VjaHNjcmVlbi5jIGIvZHJpdmVycy9n
+cHUvZHJtL3BhbmVsL3BhbmVsLXJhc3BiZXJyeXBpLXRvdWNoc2NyZWVuLmMKPiBpbmRleCA5MGVh
+OTFlNDMxMWQuLjQ2MThjODkyY2RkNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFu
+ZWwvcGFuZWwtcmFzcGJlcnJ5cGktdG91Y2hzY3JlZW4uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9wYW5lbC9wYW5lbC1yYXNwYmVycnlwaS10b3VjaHNjcmVlbi5jCj4gQEAgLTQ3LDcgKzQ3LDYg
+QEAKPiAgI2luY2x1ZGUgPGxpbnV4L21lZGlhLWJ1cy1mb3JtYXQuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4
+L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L3BtLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFu
+ZWwtc2Ftc3VuZy1zNmQxNmQwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3Vu
+Zy1zNmQxNmQwLmMKPiBpbmRleCAwMDhlMmIwZDY2NTIuLjc5ZjYxMTk2M2M2MSAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmQxNmQwLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmQxNmQwLmMKPiBAQCAtMTEs
+NyArMTEsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1lci5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9kZWxheS5o
+Pgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2Rf
+ZGV2aWNldGFibGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAKPiAgc3RydWN0
+IHM2ZDE2ZDAgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ft
+c3VuZy1zNmQ3YWEwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmQ3
+YWEwLmMKPiBpbmRleCAxMDJlMWZjN2VlMzguLjA3NTVmODVhNDRiZCAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmQ3YWEwLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zNmQ3YWEwLmMKPiBAQCAtMTEsNyArMTEs
+NiBAQAo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1
+bGF0b3IvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxs
+aW51eC9vZl9kZXZpY2UuaD4KPiAgCj4gICNpbmNsdWRlIDx2aWRlby9taXBpX2Rpc3BsYXkuaD4K
+PiAgI2luY2x1ZGUgPGRybS9kcm1fbWlwaV9kc2kuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1bmctczZlM2hhMi5jIGIvZHJpdmVycy9ncHUvZHJtL3Bh
+bmVsL3BhbmVsLXNhbXN1bmctczZlM2hhMi5jCj4gaW5kZXggMzllZWYzZGNlN2M5Li42MzlhNGZk
+ZjU3YmIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1bmct
+czZlM2hhMi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1bmctczZl
+M2hhMi5jCj4gQEAgLTEyLDcgKzEyLDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1
+bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgv
+b2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiAgI2lu
+Y2x1ZGUgPGRybS9kcm1fbWlwaV9kc2kuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3BhbmVsL3BhbmVsLXNhbXN1bmctczZlNjNtMC1kc2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5l
+bC9wYW5lbC1zYW1zdW5nLXM2ZTYzbTAtZHNpLmMKPiBpbmRleCBlZDM4OTVlNGNhNWUuLmE4OWQ5
+MjVmZGZiMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3Vu
+Zy1zNmU2M20wLWRzaS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNhbXN1
+bmctczZlNjNtMC1kc2kuYwo+IEBAIC02LDcgKzYsNyBAQAo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4
+L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KPiAtI2luY2x1ZGUgPGxpbnV4
+L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxlLmg+Cj4gIAo+
+ICAjaW5jbHVkZSA8ZHJtL2RybV9taXBpX2RzaS5oPgo+ICAjaW5jbHVkZSA8ZHJtL2RybV9wcmlu
+dC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1z
+b2ZlZjAwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zb2ZlZjAwLmMK
+PiBpbmRleCAxZWJiNzllMzEwM2MuLmNiZjk2MDdkZDU3NiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zb2ZlZjAwLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vcGFuZWwvcGFuZWwtc2Ftc3VuZy1zb2ZlZjAwLmMKPiBAQCAtOCw3ICs4LDYgQEAKPiAg
+I2luY2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVs
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2Rldmlj
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9iYWNrbGlnaHQuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9w
+YW5lbC9wYW5lbC1zaXRyb25peC1zdDc3MDEuYyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5l
+bC1zaXRyb25peC1zdDc3MDEuYwo+IGluZGV4IDdlYWU4M2FhMGVhMS4uMDQ1OTk2NWUxYjRmIDEw
+MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1zaXRyb25peC1zdDc3MDEu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC1zaXRyb25peC1zdDc3MDEuYwo+
+IEBAIC0xMiw3ICsxMiw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4g
+LSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAgCj4gICNpbmNsdWRlIDx2
+aWRlby9taXBpX2Rpc3BsYXkuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVs
+L3BhbmVsLXNpdHJvbml4LXN0NzcwMy5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNp
+dHJvbml4LXN0NzcwMy5jCj4gaW5kZXggM2FhMzFmM2Q2MTU3Li42YTM5NDU2Mzk1MzUgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNpdHJvbml4LXN0NzcwMy5jCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXNpdHJvbml4LXN0NzcwMy5jCj4gQEAg
+LTEzLDcgKzEzLDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L21lZGlhLWJ1cy1mb3JtYXQuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZF9kZXZpY2V0YWJsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9k
+dWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4
+L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiAgCj4gICNp
+bmNsdWRlIDx2aWRlby9kaXNwbGF5X3RpbWluZy5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vcGFuZWwvcGFuZWwtc29ueS10ZDQzNTMtamRpLmMgYi9kcml2ZXJzL2dwdS9kcm0vcGFu
+ZWwvcGFuZWwtc29ueS10ZDQzNTMtamRpLmMKPiBpbmRleCA4ZDg4MTNkYmFhNDUuLjFiZGUyZjAx
+Nzg2YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc29ueS10ZDQz
+NTMtamRpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtc29ueS10ZDQzNTMt
+amRpLmMKPiBAQCAtMTQsNyArMTQsNiBAQAo+ICAjaW5jbHVkZSA8bGludXgvZ3Bpby9jb25zdW1l
+ci5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5o
+Pgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1
+bGF0b3IvY29uc3VtZXIuaD4KPiAgCj4gICNpbmNsdWRlIDx2aWRlby9taXBpX2Rpc3BsYXkuaD4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXRydWx5LW50MzU1OTcu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC10cnVseS1udDM1NTk3LmMKPiBpbmRleCBi
+MzFjZmZiNjYwYTcuLjRmNDAwOWY5ZmUyNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+cGFuZWwvcGFuZWwtdHJ1bHktbnQzNTU5Ny5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVs
+L3BhbmVsLXRydWx5LW50MzU1OTcuYwo+IEBAIC03LDcgKzcsNyBAQAo+ICAjaW5jbHVkZSA8bGlu
+dXgvZGVsYXkuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29uc3VtZXIuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNp
+bmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L3BpbmN0cmwvY29uc3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3Vs
+YXRvci9jb25zdW1lci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFu
+ZWwtdmlzaW9ub3gtcm02OTI5OS5jIGIvZHJpdmVycy9ncHUvZHJtL3BhbmVsL3BhbmVsLXZpc2lv
+bm94LXJtNjkyOTkuYwo+IGluZGV4IGVjMjI4YzI2OTE0Ni4uYzI4MDZlNGZkNTUzIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9wYW5lbC9wYW5lbC12aXNpb25veC1ybTY5Mjk5LmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vcGFuZWwvcGFuZWwtdmlzaW9ub3gtcm02OTI5OS5jCj4gQEAg
+LTUsNyArNSw3IEBACj4gIAo+ICAjaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNs
+dWRlIDxsaW51eC9tb2RfZGV2aWNldGFibGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2dwaW8vY29u
+c3VtZXIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ3VsYXRvci9jb25zdW1lci5oPgo+ICAKPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3BhbmZyb3N0L3BhbmZyb3N0X2Rydi5jIGIvZHJp
+dmVycy9ncHUvZHJtL3BhbmZyb3N0L3BhbmZyb3N0X2Rydi5jCj4gaW5kZXggYmJhZGE3MzFiYmJk
+Li4yMGMyNWM4MzYxOTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3BhbmZyb3N0L3Bh
+bmZyb3N0X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3BhbmZyb3N0L3BhbmZyb3N0X2Ry
+di5jCj4gQEAgLTQsOCArNCw5IEBACj4gIC8qIENvcHlyaWdodCAyMDE5IENvbGxhYm9yYSBsdGQu
+ICovCj4gIAo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9v
+Zl9wbGF0Zm9ybS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L3BhZ2VtYXAuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8ZHJtL3BhbmZyb3N0X2RybS5o
+Pgo+ICAjaW5jbHVkZSA8ZHJtL2RybV9kcnYuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL3BsMTExL3BsMTExX3ZlcnNhdGlsZS5jIGIvZHJpdmVycy9ncHUvZHJtL3BsMTExL3BsMTEx
+X3ZlcnNhdGlsZS5jCj4gaW5kZXggMDBjM2ViZDMyMzU5Li4xZTRiMjhkMDNmNGQgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3BsMTExL3BsMTExX3ZlcnNhdGlsZS5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL3BsMTExL3BsMTExX3ZlcnNhdGlsZS5jCj4gQEAgLTE1LDYgKzE1LDcgQEAK
+PiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L29mX3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9y
+bV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvdmV4cHJlc3MuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2Fz
+L3JjYXItZHUvcmNhcl9kdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3JjYXItZHUv
+cmNhcl9kdV9kcnYuYwo+IGluZGV4IDFmZmRlMTljYjg3Zi4uMzkwNGIwY2NhODE0IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3JjYXItZHUvcmNhcl9kdV9kcnYuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3JjYXItZHUvcmNhcl9kdV9kcnYuYwo+IEBAIC0x
+Miw3ICsxMiw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9pby5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bW0uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+ZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxh
+dGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvc2xhYi5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1
+L3JjYXJfZHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVf
+a21zLmMKPiBpbmRleCBhZGZiMzZiMGU4MTUuLjlmZjQ1MzdjMjZjOCAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfa21zLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfa21zLmMKPiBAQCAtMjAsOCArMjAs
+MTAgQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L2RtYS1idWYuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9v
+Zl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1ZGUg
+PGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvd2FpdC5oPgo+ICAK
+PiAgI2luY2x1ZGUgInJjYXJfZHVfY3J0Yy5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfdnNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNh
+cy9yY2FyLWR1L3JjYXJfZHVfdnNwLmMKPiBpbmRleCA0NWMwNWQwZmZjNzAuLjljYmI1ZTZlMmNi
+YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVf
+dnNwLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfZHVfdnNw
+LmMKPiBAQCAtMjIsNiArMjIsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvYml0b3BzLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9kbWEtbWFwcGluZy5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZv
+cm0uaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvc2NhdHRlcmxpc3QuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3ZpZGVvZGV2Mi5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmVu
+ZXNhcy9yY2FyLWR1L3JjYXJfbWlwaV9kc2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9yZW5lc2FzL3Jj
+YXItZHUvcmNhcl9taXBpX2RzaS5jCj4gaW5kZXggZTEwZTRkNGI4OWEyLi5kYjJlNmYxNmY5NTQg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcmNhci1kdS9yY2FyX21pcGlf
+ZHNpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmVuZXNhcy9yY2FyLWR1L3JjYXJfbWlwaV9k
+c2kuYwo+IEBAIC0xMiw3ICsxMiw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9tYXRoNjQuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cmVzZXQuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcmNhci1kdS9y
+emcybF9taXBpX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcmNhci1kdS9yemcybF9t
+aXBpX2RzaS5jCj4gaW5kZXggYWE5NWI4NWEyOTY0Li44MDQ4YmRjYTJkNmMgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcmNhci1kdS9yemcybF9taXBpX2RzaS5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL3JlbmVzYXMvcmNhci1kdS9yemcybF9taXBpX2RzaS5jCj4gQEAg
+LTEwLDcgKzEwLDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGlu
+dXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1l
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9hbmFsb2dpeF9kcC1y
+b2NrY2hpcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL2FuYWxvZ2l4X2RwLXJvY2tjaGlw
+LmMKPiBpbmRleCBhZDJkM2FlN2U2MjEuLjI1NWU2ZWFiODU0NCAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vcm9ja2NoaXAvYW5hbG9naXhfZHAtcm9ja2NoaXAuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9yb2NrY2hpcC9hbmFsb2dpeF9kcC1yb2NrY2hpcC5jCj4gQEAgLTEwLDggKzEw
+LDkgQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L21mZC9zeXNjb24uaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5j
+bHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gKyNpbmNs
+dWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2Nsay5oPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvZHctbWlwaS1kc2ktcm9ja2No
+aXAuYyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kdy1taXBpLWRzaS1yb2NrY2hpcC5jCj4g
+aW5kZXggOTE3ZTc5OTUxYWFjLi4yNzQ0ZDhmNGE2ZmEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL3JvY2tjaGlwL2R3LW1pcGktZHNpLXJvY2tjaGlwLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vcm9ja2NoaXAvZHctbWlwaS1kc2ktcm9ja2NoaXAuYwo+IEBAIC0xMiw3ICsxMiw5IEBA
+Cj4gICNpbmNsdWRlIDxsaW51eC9tZmQvc3lzY29uLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1
+bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGludXgv
+b2ZfcGxhdGZvcm0uaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BoeS9waHkuaD4KPiArI2luY2x1ZGUg
+PGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvcmVnbWFwLmg+Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vcm9ja2NoaXAvaW5ub19oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
+aW5ub19oZG1pLmMKPiBpbmRleCA5YWZiODg5OTYzYzEuLjc1MWU2OTRiMzljZCAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvaW5ub19oZG1pLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vcm9ja2NoaXAvaW5ub19oZG1pLmMKPiBAQCAtMTEsOSArMTEsMTAgQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2Vyci5oPgo+ICAjaW5jbHVkZSA8bGludXgvaGRtaS5oPgo+ICAjaW5jbHVk
+ZSA8bGludXgvbWZkL3N5c2Nvbi5oPgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L211dGV4
+Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3Bs
+YXRmb3JtX2RldmljZS5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljX2hlbHBlci5o
+Pgo+ICAjaW5jbHVkZSA8ZHJtL2RybV9lZGlkLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9yb2NrY2hpcC9yb2NrY2hpcF9kcm1fZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vcm9ja2No
+aXAvcm9ja2NoaXBfZHJtX2Rydi5jCj4gaW5kZXggZDk3ZjJlZGM2NDZiLi4wMTk1NGEwYjU2OTYg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlwX2RybV9kcnYu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2NrY2hpcF9kcm1fZHJ2LmMKPiBA
+QCAtNyw2ICs3LDcgQEAKPiAgICovCj4gIAo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcu
+aD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9vZl9ncmFwaC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2No
+aXAvcm9ja2NoaXBfZHJtX3ZvcC5jIGIvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlw
+X2RybV92b3AuYwo+IGluZGV4IGE1MzBlY2M0ZDIwNy4uODZmZDlmNTFjNjkyIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2NrY2hpcF9kcm1fdm9wLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4gQEAgLTEyLDcgKzEy
+LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2xvZzIuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVs
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2Rldmlj
+ZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb3ZlcmZsb3cuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Bs
+YXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcDIuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2NrY2hpcF9kcm1fdm9wMi5jCj4gaW5kZXggY2E3M2I4
+Y2NjMjlmLi41ODNkZjRkMjJmN2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tj
+aGlwL3JvY2tjaGlwX2RybV92b3AyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
+cm9ja2NoaXBfZHJtX3ZvcDIuYwo+IEBAIC0xMyw3ICsxMyw2IEBACj4gICNpbmNsdWRlIDxsaW51
+eC9tZmQvc3lzY29uLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL3NwcmQvc3ByZF9kcHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9zcHJkL3NwcmRfZHB1LmMK
+PiBpbmRleCBiOTZmYzY4MzdiMGQuLjQ4MTgzYmJkMDU5MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vc3ByZC9zcHJkX2RwdS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NwcmQvc3By
+ZF9kcHUuYwo+IEBAIC05LDEwICs5LDggQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+Cj4gICNp
+bmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gLSNpbmNs
+dWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9pcnEu
+aD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvd2FpdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvd29ya3F1ZXVlLmg+Cj4gIAo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vc3ByZC9zcHJkX2RybS5jIGIvZHJpdmVycy9ncHUvZHJtL3Nw
+cmQvc3ByZF9kcm0uYwo+IGluZGV4IGJlNjBjMGQ1NDZhMy4uMGFhMzkxNTZmMmZhIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zcHJkL3NwcmRfZHJtLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vc3ByZC9zcHJkX2RybS5jCj4gQEAgLTUsMTAgKzUsMTEgQEAKPiAgCj4gICNpbmNsdWRl
+IDxsaW51eC9jb21wb25lbnQuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4g
+KyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNldGFibGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21v
+ZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbXV0ZXguaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29m
+X2dyYXBoLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICsjaW5jbHVkZSA8
+bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9hdG9taWNf
+aGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2Rydi5oPgo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vc3ByZC9zcHJkX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL3NwcmQvc3ByZF9k
+c2kuYwo+IGluZGV4IGFiMGU1Y2NlN2FkYi4uZDdiMTQzYTc1NjAxIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9zcHJkL3NwcmRfZHNpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3By
+ZC9zcHJkX2RzaS5jCj4gQEAgLTUsMTAgKzUsOCBAQAo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2Nv
+bXBvbmVudC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51
+eC9vZl9hZGRyZXNzLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAtI2luY2x1
+ZGUgPGxpbnV4L29mX2lycS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiArI2lu
+Y2x1ZGUgPGxpbnV4L29mLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4K
+PiAgI2luY2x1ZGUgPHZpZGVvL21pcGlfZGlzcGxheS5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9k
+cm1fYXRvbWljX2hlbHBlci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0
+aV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdGkvc3RpX2Rydi5jCj4gaW5kZXggMWI4N2I1ODk5
+ZjllLi5kZWI3NWI2MWU0Y2YgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0aS9zdGlf
+ZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RpL3N0aV9kcnYuYwo+IEBAIC04LDcgKzgs
+OSBAQAo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L2tlcm5lbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gKyNpbmNsdWRlIDxsaW51
+eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1ZGUgPGxp
+bnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fYXRvbWljLmg+
+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pY19oZWxwZXIuaD4KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL3N0bS9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMKPiBpbmRl
+eCBjYjQ0MDRiM2NlNjIuLmU1MDc3MzljZWQwYyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vc3RtL2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYwo+IEBAIC0xMCw4
+ICsxMCw5IEBACj4gIAo+ICAjaW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+Cj4gICNpbmNsdWRl
+IDxsaW51eC9kbWEtbWFwcGluZy5oPgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX3Bs
+YXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgCj4gICNpbmNsdWRlIDxkcm0vZHJtX2FwZXJ0dXJl
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIGIvZHJpdmVycy9n
+cHUvZHJtL3N0bS9sdGRjLmMKPiBpbmRleCBiOGJlNGMxZGI0MjMuLjU1NzZmZGFlNDk2MiAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9zdG0vbHRkYy5jCj4gQEAgLTE0LDcgKzE0LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2lu
+dGVycnVwdC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1hdC5oPgo+ICAjaW5j
+bHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGluY3RybC9j
+b25zdW1lci5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV9mcm9udGVuZC5jIGIvZHJpdmVycy9n
+cHUvZHJtL3N1bjRpL3N1bjRpX2Zyb250ZW5kLmMKPiBpbmRleCA3OTlhYjc0NjBhZTUuLmUxNTZh
+OWU5N2ZkOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfZnJvbnRl
+bmQuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV9mcm9udGVuZC5jCj4gQEAg
+LTcsNyArNyw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L2NvbXBvbmVudC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxs
+aW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vc3VuNGkvc3VuNGlfZnJvbnRlbmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV9m
+cm9udGVuZC5oCj4gaW5kZXggMmU3Yjc2ZTUwYzJiLi42MWMyNDA4ODc3MmMgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjRpX2Zyb250ZW5kLmgKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vc3VuNGkvc3VuNGlfZnJvbnRlbmQuaAo+IEBAIC04LDYgKzgsNyBAQAo+ICAjZGVm
+aW5lIF9TVU40SV9GUk9OVEVORF9IXwo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2xpc3QuaD4KPiAr
+I2luY2x1ZGUgPGxpbnV4L21vZF9kZXZpY2V0YWJsZS5oPgo+ICAKPiAgI2RlZmluZSBTVU40SV9G
+Uk9OVEVORF9FTl9SRUcJCQkweDAwMAo+ICAjZGVmaW5lIFNVTjRJX0ZST05URU5EX0VOX0VOCQkJ
+CUJJVCgwKQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfaGRtaV9l
+bmMuYyBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV9oZG1pX2VuYy5jCj4gaW5kZXggYzBk
+ZjVlODkyZmE3Li5hYzRlMDcxNDIzNzggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N1
+bjRpL3N1bjRpX2hkbWlfZW5jLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlf
+aGRtaV9lbmMuYwo+IEBAIC0xMCw3ICsxMCw3IEBACj4gICNpbmNsdWRlIDxsaW51eC9pMmMuaD4K
+PiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+
+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfdGNvbi5jIGIvZHJpdmVycy9ncHUvZHJtL3N1
+bjRpL3N1bjRpX3Rjb24uYwo+IGluZGV4IDZhNTJmYjEyY2JmYi4uNjYyMDI3ZjEzN2E2IDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW40aV90Y29uLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vc3VuNGkvc3VuNGlfdGNvbi5jCj4gQEAgLTEwLDkgKzEwLDkgQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2lvcG9ydC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbWVkaWEtYnVzLWZvcm1h
+dC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9h
+ZGRyZXNzLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAtI2luY2x1ZGUgPGxp
+bnV4L29mX2lycS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiArI2luY2x1ZGUgPGxpbnV4
+L29mX3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcmVzZXQuaD4KPiAg
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9kd19oZG1pLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuOGlfZHdfaGRtaS5jCj4gaW5kZXggN2NhYjQyMTNhNjgw
+Li5hNDUwZjMzZmIwMmEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjhp
+X2R3X2hkbWkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9kd19oZG1pLmMK
+PiBAQCAtNSw3ICs1LDcgQEAKPiAgCj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+
+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2
+aWNlLmg+Cj4gIAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9tb2Rlc2V0X2hlbHBlcl92dGFibGVzLmg+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9oZG1pX3BoeS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX2hkbWlfcGh5LmMKPiBpbmRleCBjYTUzYjVlOWZm
+ZmMuLjRmYTY5YzQ2M2RjNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3Vu
+OGlfaGRtaV9waHkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9oZG1pX3Bo
+eS5jCj4gQEAgLTQsOCArNCw5IEBACj4gICAqLwo+ICAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlbGF5
+Lmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9v
+Zi5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1ZGUgPGxpbnV4
+L3BsYXRmb3JtX2RldmljZS5oPgo+ICAKPiAgI2luY2x1ZGUgInN1bjhpX2R3X2hkbWkuaCIKPiAg
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9taXhlci5jIGIvZHJp
+dmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX21peGVyLmMKPiBpbmRleCAxMWQ1MjQ0YTVhYTUuLmRh
+YzQ0MmY5NDEyOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3VuNGkvc3VuOGlfbWl4
+ZXIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9zdW44aV9taXhlci5jCj4gQEAgLTEw
+LDggKzEwLDEwIEBACj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAgI2luY2x1ZGUg
+PGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiArI2lu
+Y2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiAgI2lu
+Y2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jlc2V0Lmg+Cj4gIAo+ICAjaW5jbHVkZSA8ZHJtL2Ry
+bV9hdG9taWNfaGVscGVyLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdW40aS9z
+dW44aV90Y29uX3RvcC5jIGIvZHJpdmVycy9ncHUvZHJtL3N1bjRpL3N1bjhpX3Rjb25fdG9wLmMK
+PiBpbmRleCBkYTk3NjgyYjY4MzUuLmE3Y2IyYjBmZmIwMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vc3VuNGkvc3VuOGlfdGNvbl90b3AuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
+dW40aS9zdW44aV90Y29uX3RvcC5jCj4gQEAgLTcsNyArNyw3IEBACj4gICNpbmNsdWRlIDxsaW51
+eC9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9t
+b2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90
+ZWdyYS9kYy5jIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2RjLmMKPiBpbmRleCA2ZTc4NDE2ZTY0
+YjAuLjEzYjE4MmFiOTA1ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZGMu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9kYy5jCj4gQEAgLTExLDcgKzExLDggQEAK
+PiAgI2luY2x1ZGUgPGxpbnV4L2lvbW11Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pbnRlcmNvbm5l
+Y3QuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2Zf
+ZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxh
+dGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9kb21haW4uaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3BtX29wcC5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZHBhdXguYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS90ZWdyYS9kcGF1eC5jCj4gaW5kZXggNGQyNjc3ZGNkODMxLi45NmE4YWZjYWIzZWYgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2RwYXV4LmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vdGVncmEvZHBhdXguYwo+IEBAIC04LDcgKzgsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgv
+aW50ZXJydXB0Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pby5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+bW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxp
+bnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9waW5jdHJsL3BpbmNvbmYtZ2VuZXJpYy5oPgo+
+ICAjaW5jbHVkZSA8bGludXgvcGluY3RybC9waW5jdHJsLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9w
+aW5jdHJsL3Bpbm11eC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZ3Iy
+ZC5jIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2dyMmQuYwo+IGluZGV4IDUwZjc3ZmRkZGE1NC4u
+NGM1NTEzMzQ2N2EwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9ncjJkLmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZ3IyZC5jCj4gQEAgLTcsNyArNyw4IEBACj4g
+ICNpbmNsdWRlIDxsaW51eC9kZWxheS5oPgo+ICAjaW5jbHVkZSA8bGludXgvaW9tbXUuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+
+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGV2
+aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4gICNpbmNsdWRlIDxsaW51
+eC9yZXNldC5oPgo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2dyM2Qu
+YyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9ncjNkLmMKPiBpbmRleCBjMDI2YzJjOTE2YzEuLjI3
+NjhmOGYwNzNlZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZ3IzZC5jCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2dyM2QuYwo+IEBAIC05LDcgKzksNyBAQAo+ICAj
+aW5jbHVkZSA8bGludXgvaG9zdDF4Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pb21tdS5oPgo+ICAj
+aW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9kZXZpY2UuaD4K
+PiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZp
+Y2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX2RvbWFpbi5oPgo+ICAjaW5jbHVkZSA8bGludXgv
+cG1fb3BwLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9oZG1pLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vdGVncmEvaGRtaS5jCj4gaW5kZXggNmVhYzU0YWUxMjA1Li4wMGJlMzA3
+Y2EwNzAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2hkbWkuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9oZG1pLmMKPiBAQCAtMTAsNyArMTAsOCBAQAo+ICAjaW5j
+bHVkZSA8bGludXgvaGRtaS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbWF0aDY0Lmg+Cj4gICNpbmNs
+dWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICsj
+aW5jbHVkZSA8bGludXgvb2YuaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvcG1fb3BwLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50
+aW1lLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9yZWd1bGF0b3IvY29uc3VtZXIuaD4KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2h1Yi5jIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3Jh
+L2h1Yi5jCj4gaW5kZXggOTE2ODU3MzYxYTkxLi4xYWY1ZjgzMThkOTEgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2h1Yi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3Jh
+L2h1Yi5jCj4gQEAgLTksOCArOSw4IEBACj4gICNpbmNsdWRlIDxsaW51eC9ob3N0MXguaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4K
+PiArI2luY2x1ZGUgPGxpbnV4L29mX3BsYXRmb3JtLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0
+Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1
+ZGUgPGxpbnV4L3Jlc2V0Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9u
+dmRlYy5jIGIvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL252ZGVjLmMKPiBpbmRleCBhZTc4YTgxZTVl
+ZWYuLmY4MjFlMzYxMTFhNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvbnZk
+ZWMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9udmRlYy5jCj4gQEAgLTExLDggKzEx
+LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2lvcG9sbC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9k
+dWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2
+aWNlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+dGVncmEvc29yLmMgYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvc29yLmMKPiBpbmRleCBhYmQ2ZTNi
+OTIyOTMuLjkzNDcxYjcwZTE4MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEv
+c29yLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvc29yLmMKPiBAQCAtOCw3ICs4LDcg
+QEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RlYnVnZnMuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+
+Cj4gICNpbmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29mX2Rldmlj
+ZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2YuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3Jt
+X2RldmljZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvcmVndWxhdG9yL2NvbnN1bWVyLmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS90ZWdyYS92aWMuYyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS92aWMuYwo+IGluZGV4IGRhN2Ew
+MzhkY2EyMC4uNWRhOTg5YWM3MDBlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90ZWdy
+YS92aWMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS92aWMuYwo+IEBAIC0xMCw4ICsx
+MCw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9pb21tdS5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9k
+dWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZi5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2
+aWNlLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8bGlu
+dXgvcGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9yZXNldC5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+dGlkc3MvdGlkc3NfZGlzcGMuYyBiL2RyaXZlcnMvZ3B1L2RybS90aWRzcy90aWRzc19kaXNwYy5j
+Cj4gaW5kZXggZGNhMDc3NDExZjc3Li5kYTZiMmIwMWY3YmQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL3RpZHNzL3RpZHNzX2Rpc3BjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdGlk
+c3MvdGlkc3NfZGlzcGMuYwo+IEBAIC0xNSw4ICsxNSw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9t
+b2R1bGUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21mZC9zeXNjb24uaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L29mLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9ncmFwaC5oPgo+IC0jaW5jbHVkZSA8bGlu
+dXgvb2ZfZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3JlZ21hcC5o
+Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdGlkc3MvdGlkc3NfZHJ2LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vdGlkc3MvdGlkc3NfZHJ2LmMKPiBpbmRleCAzZjVmMjdmYjZlYmMuLjFmMDZh
+NjI4NDc3MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdGlkc3MvdGlkc3NfZHJ2LmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdGlkc3MvdGlkc3NfZHJ2LmMKPiBAQCAtNSw3ICs1LDcg
+QEAKPiAgICovCj4gIAo+ICAjaW5jbHVkZSA8bGludXgvY29uc29sZS5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfZGV2aWNlLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8
+bGludXgvbW9kdWxlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4gIAo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9jcnRjLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vdmM0L3ZjNF9jcnRjLmMKPiBpbmRleCBiZWY5ZDQ1ZWYxZGYuLjdiMzBlNDY3NTU1OSAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9jcnRjLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vdmM0L3ZjNF9jcnRjLmMKPiBAQCAtMzEsNyArMzEsOCBAQAo+ICAKPiAgI2luY2x1
+ZGUgPGxpbnV4L2Nsay5oPgo+ICAjaW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+Cj4gLSNpbmNs
+dWRlIDxsaW51eC9vZl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gKyNpbmNs
+dWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRp
+bWUuaD4KPiAgCj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9kcGkuYyBiL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X2Rw
+aS5jCj4gaW5kZXggZTY4YzA3ZDg2MDQwLi4zMzNmNzc2MDlkYmEgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL3ZjNC92YzRfZHBpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3Zj
+NF9kcGkuYwo+IEBAIC0yMiw4ICsyMiw4IEBACj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAg
+I2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPgo+ICAjaW5jbHVkZSA8bGludXgvbWVkaWEtYnVz
+LWZvcm1hdC5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAtI2luY2x1ZGUgPGxp
+bnV4L29mX3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9tb2RfZGV2aWNldGFibGUuaD4K
+PiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+ICAjaW5jbHVkZSAidmM0X2Ry
+di5oIgo+ICAjaW5jbHVkZSAidmM0X3JlZ3MuaCIKPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS92YzQvdmM0X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfZHJ2LmMKPiBp
+bmRleCA4MjMzOTVjMjNjYzMuLjI3MmM2NTAzYWFjOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vdmM0L3ZjNF9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X2Rydi5j
+Cj4gQEAgLTI2LDcgKzI2LDcgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4g
+ICNpbmNsdWRlIDxsaW51eC9pby5oPgo+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gLSNp
+bmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICsjaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNl
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxp
+bnV4L3BtX3J1bnRpbWUuaD4KPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS92YzQv
+dmM0X2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfZHNpLmMKPiBpbmRleCA5ZTBjMzU1
+YjIzNmYuLjQ2ZjI4ZTA0Y2VmYyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3Zj
+NF9kc2kuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X2RzaS5jCj4gQEAgLTI1LDgg
+KzI1LDkgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9kbWFlbmdpbmUuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2lvLmg+Cj4gKyNpbmNsdWRlIDxs
+aW51eC9vZi5oPgo+ICAjaW5jbHVkZSA8bGludXgvb2ZfYWRkcmVzcy5oPgo+IC0jaW5jbHVkZSA8
+bGludXgvb2ZfcGxhdGZvcm0uaD4KPiArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9k
+cm1fYXRvbWljX2hlbHBlci5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3Zj
+NF9oZG1pLmMgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMKPiBpbmRleCA1MjYxNTI2
+ZDI4NmYuLmE5NTE1ZWI3YjU4NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3Zj
+NF9oZG1pLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9oZG1pLmMKPiBAQCAtNDEs
+OCArNDEsOCBAQAo+ICAjaW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9ncGlvL2NvbnN1bWVyLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9pMmMuaD4KPiArI2luY2x1
+ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9vZl9hZGRyZXNzLmg+Cj4gLSNpbmNs
+dWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5oPgo+ICAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5o
+Pgo+ICAjaW5jbHVkZSA8bGludXgvcmF0aW9uYWwuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3Jlc2V0
+Lmg+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X3R4cC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3ZjNC92YzRfdHhwLmMKPiBpbmRleCBjNWFiZGVjMDMxMDMuLjEzNmZiNGY0ZmU3
+YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF90eHAuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS92YzQvdmM0X3R4cC5jCj4gQEAgLTksOCArOSw4IEBACj4gIAo+ICAjaW5j
+bHVkZSA8bGludXgvY2xrLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9jb21wb25lbnQuaD4KPiAtI2lu
+Y2x1ZGUgPGxpbnV4L29mX2dyYXBoLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9vZl9wbGF0Zm9ybS5o
+Pgo+ICsjaW5jbHVkZSA8bGludXgvbW9kX2RldmljZXRhYmxlLmg+Cj4gKyNpbmNsdWRlIDxsaW51
+eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L3BtX3J1bnRpbWUuaD4KPiAg
+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vdmM0L3ZjNF92ZWMuYyBiL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X3ZlYy5jCj4gaW5k
+ZXggZDZlNmExYTIyZWJhLi4yNjQ0MWJlNDEyNjUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3ZjNC92YzRfdmVjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF92ZWMuYwo+
+IEBAIC0yMSw4ICsyMSw4IEBACj4gICNpbmNsdWRlIDxkcm0vZHJtX3NpbXBsZV9rbXNfaGVscGVy
+Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9jbGsuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L2NvbXBvbmVu
+dC5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZ3JhcGguaD4KPiAtI2luY2x1ZGUgPGxpbnV4L29m
+X3BsYXRmb3JtLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+ICsjaW5jbHVkZSA8bGludXgv
+cGxhdGZvcm1fZGV2aWNlLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Cj4gIAo+
+ICAjaW5jbHVkZSAidmM0X2Rydi5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0veGVu
+L3hlbl9kcm1fZnJvbnQuYyBiL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5jCj4g
+aW5kZXggOTA5OTZjMTA4MTQ2Li5hODNmMDU0ZDBhOGIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0veGVuL3hl
+bl9kcm1fZnJvbnQuYwo+IEBAIC0xMSw3ICsxMSw2IEBACj4gICNpbmNsdWRlIDxsaW51eC9kZWxh
+eS5oPgo+ICAjaW5jbHVkZSA8bGludXgvZG1hLW1hcHBpbmcuaD4KPiAgI2luY2x1ZGUgPGxpbnV4
+L21vZHVsZS5oPgo+IC0jaW5jbHVkZSA8bGludXgvb2ZfZGV2aWNlLmg+Cj4gIAo+ICAjaW5jbHVk
+ZSA8ZHJtL2RybV9hdG9taWNfaGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2Rydi5oPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9pcHUtdjMvaXB1LWNvbW1vbi5jIGIvZHJpdmVycy9n
+cHUvaXB1LXYzL2lwdS1jb21tb24uYwo+IGluZGV4IGMzNWVhYzExMTZmNS4uNzFlYzFlN2Y2NTdh
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2lwdS12My9pcHUtY29tbW9uLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9pcHUtdjMvaXB1LWNvbW1vbi5jCj4gQEAgLTE4LDcgKzE4LDcgQEAKPiAgI2lu
+Y2x1ZGUgPGxpbnV4L2lycS5oPgo+ICAjaW5jbHVkZSA8bGludXgvaXJxY2hpcC9jaGFpbmVkX2ly
+cS5oPgo+ICAjaW5jbHVkZSA8bGludXgvaXJxZG9tYWluLmg+Cj4gLSNpbmNsdWRlIDxsaW51eC9v
+Zl9kZXZpY2UuaD4KPiArI2luY2x1ZGUgPGxpbnV4L29mLmg+Cj4gICNpbmNsdWRlIDxsaW51eC9v
+Zl9ncmFwaC5oPgo+ICAKPiAgI2luY2x1ZGUgPGRybS9kcm1fZm91cmNjLmg+Cj4gLS0gCj4gMi40
+MC4xCj4gCgotLSAKPT09PT09PT09PT09PT09PT09PT0KfCBJIHdvdWxkIGxpa2UgdG8gfAp8IGZp
+eCB0aGUgd29ybGQsICB8CnwgYnV0IHRoZXkncmUgbm90IHwKfCBnaXZpbmcgbWUgdGhlICAgfAog
+XCBzb3VyY2UgY29kZSEgIC8KICAtLS0tLS0tLS0tLS0tLS0KICAgIMKvXF8o44OEKV8vwq8KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
+bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
+cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
+c3RtMzIK
