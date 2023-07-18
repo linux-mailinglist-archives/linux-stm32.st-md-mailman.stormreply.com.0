@@ -2,47 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98527757CE9
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jul 2023 15:10:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57575757F6E
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jul 2023 16:29:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BCC5C6B442;
-	Tue, 18 Jul 2023 13:10:29 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1496C6B442;
+	Tue, 18 Jul 2023 14:29:17 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8482AC65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 243D5C6A60C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jul 2023 13:10:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=ZObdJe8z/FH7zyHM59qxcKSRiK8MNQZG6bz1KjetFWc=; b=bGSb5YgyK1ofKeyANqnrfWiqLC
- DunnFcwfGSxCdPLD3qDwwGLCxZscB1JWxVai2j/EBpGbjtLA1LxBqwnuMz9Fuj14fatVofdQGOcXR
- Hwf2ATdxNjd+iLwFzCe7lKFiw7Zeeg/tdGOC6wda1EHC3F4y4XN0A9BjoTzEXPyXXK8g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qLkT1-001cvq-KC; Tue, 18 Jul 2023 15:10:15 +0200
-Date: Tue, 18 Jul 2023 15:10:15 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Message-ID: <9214ae14-b501-4d94-9d52-fd7dab2a86af@lunn.ch>
-References: <20230717164307.2868264-1-m.felsch@pengutronix.de>
- <20230717164307.2868264-2-m.felsch@pengutronix.de>
- <cd8c177e-7840-4636-a039-dbe8884b3d2b@lunn.ch>
- <20230718083841.p67wflhjlwnu56j4@pengutronix.de>
+ Tue, 18 Jul 2023 14:29:16 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1qLlhR-0006sb-1r; Tue, 18 Jul 2023 16:29:13 +0200
+Received: from [2a0a:edc0:0:900:1d::4e] (helo=lupine)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1qLlhP-000OT0-1G; Tue, 18 Jul 2023 16:29:11 +0200
+Received: from pza by lupine with local (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1qLlhO-000Eqt-2k;
+ Tue, 18 Jul 2023 16:29:10 +0200
+Message-ID: <6032fcba75d34b0273508166c8b79331cd5c34ef.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=
+ <u.kleine-koenig@pengutronix.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,  Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 18 Jul 2023 16:29:10 +0200
+In-Reply-To: <dac9c545-fcbc-3aec-c341-abc62f551703@foss.st.com>
+References: <20230608-pwm-stm32-get-state-v1-1-db7e58a7461b@pengutronix.de>
+ <dac9c545-fcbc-3aec-c341-abc62f551703@foss.st.com>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230718083841.p67wflhjlwnu56j4@pengutronix.de>
-Cc: kernel@pengutronix.de, joabreu@synopsys.com, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: platform: add
- support for phy-supply
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Implement .get_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,37 +63,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jul 18, 2023 at 10:38:41AM +0200, Marco Felsch wrote:
-> On 23-07-18, Andrew Lunn wrote:
-> > > +static int stmmac_phy_power(struct platform_device *pdev,
-> > > +			    struct plat_stmmacenet_data *plat,
-> > > +			    bool enable)
-> > > +{
-> > > +	struct regulator *regulator = plat->phy_regulator;
-> > > +	int ret = 0;
-> > > +
-> > > +	if (regulator) {
-> > > +		if (enable)
-> > > +			ret = regulator_enable(regulator);
-> > > +		else
-> > > +			regulator_disable(regulator);
-> > > +	}
-> > > +
-> > > +	if (ret)
-> > > +		dev_err(&pdev->dev, "Fail to enable regulator\n");
-> > 
-> > 'enable' is only correct 50% of the time.
+Hi Fabrice,
+
+On Fr, 2023-06-09 at 15:06 +0200, Fabrice Gasnier wrote:
+[...]
+> > @@ -635,7 +675,10 @@ static int stm32_pwm_probe(struct platform_device *pdev)
+> >  
+> >  	priv->chip.dev = dev;
+> >  	priv->chip.ops = &stm32pwm_ops;
+> > -	priv->chip.npwm = stm32_pwm_detect_channels(priv);
+> > +	priv->chip.npwm = stm32_pwm_detect_channels(priv, &n_enabled);
+> > +
 > 
-> You mean to move it under the enable path.
+> I'd suggest to comment a bit here, to explain it initializes the PWM
+> counter clock refcount in sync with PWM initial state left by the
+> bootloader.
+> 
+> In all case, this is fine for me, you can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Or don't use the word 'enable'. 'modify' ?
+Thank you, I'll add a comment here.
 
-> Good point didn't consider WOL. Is there a way to check if WOL is
-> enabled?
-
-Yes, plenty of MAC drivers do this. Look around.
-
-     Andrew
+regards
+Philipp
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
