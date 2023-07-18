@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABA3A757F97
-	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jul 2023 16:31:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44B3A75847A
+	for <lists+linux-stm32@lfdr.de>; Tue, 18 Jul 2023 20:19:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75702C6B442;
-	Tue, 18 Jul 2023 14:31:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CA33C6B442;
+	Tue, 18 Jul 2023 18:19:24 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42FB5C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70132C6A60C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 18 Jul 2023 14:31:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3262761601;
- Tue, 18 Jul 2023 14:31:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003F7C433C8;
- Tue, 18 Jul 2023 14:31:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689690705;
- bh=70cuzw2gc455uN2uJfTfcohrRKp2MyYUfjNgt4cg/N8=;
- h=From:To:Cc:Subject:Date:From;
- b=hfhdhA9EH++2H+s5xeXMFY84x2ApHhGajiSepP85szjEn7BKRUdVn8JcRbwE6F4NO
- cZpGPbHLbBfypwXmWzkUzQlyxxnRBMO8rravJKOZ1EmaGgPgZ2fzbBoPgY7PX/T6b3
- omC/jCEyVMEfjvUioBRnNnUi9baWC30dhpN9bIOzWprB0YdWAOWep6GSzKpB+jOB1G
- Ljjd5bbjjxDm/j2rA9eQLnrRqroQ+wXPSqOvuSfdJxvrf0wUg3ltjStum5IuXoFN43
- qZNVdXc68PwOWfRjSS2a9FTqjirvdz0f8ZDnbv5fIJzoV4a76VILXTheyPVSd23uAg
- M2NRawA8lvNXA==
-Received: (nullmailer pid 1066292 invoked by uid 1000);
- Tue, 18 Jul 2023 14:31:39 -0000
-From: Rob Herring <robh@kernel.org>
-To: Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Vinod Koul <vkoul@kernel.org>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Paul Cercueil <paul@crapouillou.net>,
- Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
- Viresh Kumar <vireshk@kernel.org>,
+ Tue, 18 Jul 2023 18:19:23 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qLpHp-0001nt-Mw; Tue, 18 Jul 2023 20:19:01 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qLpHj-000QmT-V6; Tue, 18 Jul 2023 20:18:55 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qLpHj-005unQ-2j; Tue, 18 Jul 2023 20:18:55 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Jonathan Corbet <corbet@lwn.net>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Li Yang <leoyang.li@nxp.com>, Zhang Wei <zw@zh-kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Sean Wang <sean.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
- Manivannan Sadhasivam <mani@kernel.org>, Sinan Kaya <okaya@kernel.org>,
- Andy Gross <agross@ker nel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Mark Brown <broonie@kernel.org>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ James Clark <james.clark@arm.com>, Hector Martin <marcan@marcan.st>,
+ Sven Peter <sven@svenpeter.dev>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, Vladimir Zapolskiy <vz@mleia.com>,
+ =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan <ldewangan@nvidia.com>,
- Jon Hunter <jonathanh@nvidia.com>, Thierry Reding <thierry.reding@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, Michal Simek <michal.simek@amd.com>
-Date: Tue, 18 Jul 2023 08:31:35 -0600
-Message-Id: <20230718143138.1066177-1-robh@kernel.org>
-X-Mailer: git-send-email 2.40.1
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>
+Date: Tue, 18 Jul 2023 20:18:31 +0200
+Message-Id: <20230718181849.3947851-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sunxi@lists.linux.dev, linux-mediatek@lists.infradead.org,
- asahi@lists.linux.dev, dmaengine@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2] dmaengine: Explicitly include correct DT
-	includes
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7254;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=AxfhHB+fj8t4rKmZJukUKFb5Sqv1bFVe4073b7F6ck8=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBkttbnsyazXoY5AyJi9CUCvzEzscD5RBfgEwDVu
+ VerhHjJzZeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZLbW5wAKCRCPgPtYfRL+
+ Tr3xCACcU04pnKPPnWb1xNYxGVIeETJrNq96AlZYktxEZpHV+g+4bjLTFR9Y3UETN+L3L/B4neP
+ Bstfhxzb35BgXjja9zHTiqSbbQn3pGGwcUldCkZVLZ6EqIThVWpLZhnX+RsFoRvAsNYr2KgICU9
+ f9uLIQ9AfYjttFTCOK4UJyIZ+iAcv/NFSz1YSHzX13bitcZLgHYA8f78KypxlA51Z+bgL2QXBYU
+ cSvmkhM8ja8cS3cgTTsP/lIm8bP8gkIrSA0PoZmO/GitlNN63nQ3Aomc3yZnb0k6qyvgyUplxcR
+ jtzp4AEKi8UXfPNh8tfWLpYJJxGCbVUQNnVT5C/9u7DyMXE3
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Andy Shevchenko <andy@kernel.org>, linux-pwm@vger.kernel.org,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, linux-doc@vger.kernel.org,
+ linux-mips@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
+ linux-gpio@vger.kernel.org, asahi@lists.linux.dev, kernel@pengutronix.de,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>
+Subject: [Linux-stm32] [PATCH 00/18] pwm: Provide devm_pwmchip_alloc()
+	function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,622 +84,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DT of_device.h and of_platform.h date back to the separate
-of_platform_bus_type before it as merged into the regular platform bus.
-As part of that merge prepping Arm DT support 13 years ago, they
-"temporarily" include each other. They also include platform_device.h
-and of.h. As a result, there's a pretty much random mix of those include
-files used throughout the tree. In order to detangle these headers and
-replace the implicit includes with struct declarations, users need to
-explicitly include the correct includes.
-
-Signed-off-by: Rob Herring <robh@kernel.org>
----
-v2:
-- Fix build error on bestcomm
----
- drivers/dma/apple-admac.c                      | 3 ++-
- drivers/dma/at_hdmac.c                         | 2 +-
- drivers/dma/bcm-sba-raid.c                     | 4 +++-
- drivers/dma/bestcomm/bestcomm.c                | 3 +--
- drivers/dma/dma-jz4780.c                       | 1 -
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 1 -
- drivers/dma/dw/rzn1-dmamux.c                   | 4 +++-
- drivers/dma/fsl-qdma.c                         | 4 ++--
- drivers/dma/fsl_raid.c                         | 3 ++-
- drivers/dma/fsldma.c                           | 3 ++-
- drivers/dma/img-mdc-dma.c                      | 1 -
- drivers/dma/imx-dma.c                          | 2 +-
- drivers/dma/imx-sdma.c                         | 1 -
- drivers/dma/lpc18xx-dmamux.c                   | 4 +++-
- drivers/dma/mediatek/mtk-cqdma.c               | 1 -
- drivers/dma/mediatek/mtk-hsdma.c               | 1 -
- drivers/dma/mediatek/mtk-uart-apdma.c          | 1 -
- drivers/dma/mpc512x_dma.c                      | 4 ++--
- drivers/dma/mxs-dma.c                          | 1 -
- drivers/dma/nbpfaxi.c                          | 1 -
- drivers/dma/owl-dma.c                          | 3 ++-
- drivers/dma/ppc4xx/adma.c                      | 2 +-
- drivers/dma/qcom/hidma.c                       | 2 +-
- drivers/dma/sh/shdmac.c                        | 1 -
- drivers/dma/sprd-dma.c                         | 2 +-
- drivers/dma/stm32-dmamux.c                     | 4 +++-
- drivers/dma/stm32-mdma.c                       | 1 -
- drivers/dma/sun6i-dma.c                        | 2 +-
- drivers/dma/tegra186-gpc-dma.c                 | 2 +-
- drivers/dma/tegra20-apb-dma.c                  | 1 -
- drivers/dma/tegra210-adma.c                    | 3 ++-
- drivers/dma/ti/dma-crossbar.c                  | 5 +++--
- drivers/dma/ti/edma.c                          | 1 -
- drivers/dma/ti/k3-udma-private.c               | 2 ++
- drivers/dma/ti/k3-udma.c                       | 1 -
- drivers/dma/ti/omap-dma.c                      | 2 +-
- drivers/dma/xgene-dma.c                        | 3 ++-
- drivers/dma/xilinx/xilinx_dma.c                | 4 ++--
- drivers/dma/xilinx/zynqmp_dma.c                | 3 ++-
- 39 files changed, 46 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
-index 4cf8da77bdd9..3af795635c5c 100644
---- a/drivers/dma/apple-admac.c
-+++ b/drivers/dma/apple-admac.c
-@@ -10,8 +10,9 @@
- #include <linux/device.h>
- #include <linux/init.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/platform_device.h>
- #include <linux/reset.h>
- #include <linux/spinlock.h>
- #include <linux/interrupt.h>
-diff --git a/drivers/dma/at_hdmac.c b/drivers/dma/at_hdmac.c
-index ee3a219e3a89..b2876f67471f 100644
---- a/drivers/dma/at_hdmac.c
-+++ b/drivers/dma/at_hdmac.c
-@@ -20,7 +20,7 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/overflow.h>
--#include <linux/of_device.h>
-+#include <linux/of_platform.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-diff --git a/drivers/dma/bcm-sba-raid.c b/drivers/dma/bcm-sba-raid.c
-index 064761289a73..94ea35330eb5 100644
---- a/drivers/dma/bcm-sba-raid.c
-+++ b/drivers/dma/bcm-sba-raid.c
-@@ -35,7 +35,9 @@
- #include <linux/mailbox_client.h>
- #include <linux/mailbox/brcm-message.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/raid/pq.h>
- 
-diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
-index eabbcfcaa7cb..80096f94032d 100644
---- a/drivers/dma/bestcomm/bestcomm.c
-+++ b/drivers/dma/bestcomm/bestcomm.c
-@@ -14,9 +14,8 @@
- #include <linux/slab.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/of_device.h>
- #include <linux/of_irq.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <asm/io.h>
- #include <asm/irq.h>
- #include <asm/mpc52xx.h>
-diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
-index 9c1a6e9a9c03..adbd47bd6adf 100644
---- a/drivers/dma/dma-jz4780.c
-+++ b/drivers/dma/dma-jz4780.c
-@@ -13,7 +13,6 @@
- #include <linux/interrupt.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index 796b6caf0bab..dd02f84e404d 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -21,7 +21,6 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/dw/rzn1-dmamux.c b/drivers/dma/dw/rzn1-dmamux.c
-index f9912c3dd4d7..4fb8508419db 100644
---- a/drivers/dma/dw/rzn1-dmamux.c
-+++ b/drivers/dma/dw/rzn1-dmamux.c
-@@ -5,8 +5,10 @@
-  * Based on TI crossbar driver written by Peter Ujfalusi <peter.ujfalusi@ti.com>
-  */
- #include <linux/bitops.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/soc/renesas/r9a06g032-sysctrl.h>
- #include <linux/types.h>
-diff --git a/drivers/dma/fsl-qdma.c b/drivers/dma/fsl-qdma.c
-index eddb2688f234..a8cc8a4bc610 100644
---- a/drivers/dma/fsl-qdma.c
-+++ b/drivers/dma/fsl-qdma.c
-@@ -13,10 +13,10 @@
- 
- #include <linux/module.h>
- #include <linux/delay.h>
--#include <linux/of_irq.h>
--#include <linux/of_platform.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
- #include <linux/dma-mapping.h>
-+#include <linux/platform_device.h>
- 
- #include "virt-dma.h"
- #include "fsldma.h"
-diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-index fdf3500d96a9..0b9ca93ce3dc 100644
---- a/drivers/dma/fsl_raid.c
-+++ b/drivers/dma/fsl_raid.c
-@@ -60,9 +60,10 @@
-  */
- #include <linux/interrupt.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_irq.h>
--#include <linux/of_address.h>
- #include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmapool.h>
- #include <linux/dmaengine.h>
-diff --git a/drivers/dma/fsldma.c b/drivers/dma/fsldma.c
-index f8459cc5315d..ddcf736d283d 100644
---- a/drivers/dma/fsldma.c
-+++ b/drivers/dma/fsldma.c
-@@ -28,9 +28,10 @@
- #include <linux/delay.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmapool.h>
-+#include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_irq.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/fsldma.h>
- #include "dmaengine.h"
- #include "fsldma.h"
-diff --git a/drivers/dma/img-mdc-dma.c b/drivers/dma/img-mdc-dma.c
-index ad084552640f..9be0d3226e19 100644
---- a/drivers/dma/img-mdc-dma.c
-+++ b/drivers/dma/img-mdc-dma.c
-@@ -17,7 +17,6 @@
- #include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/imx-dma.c b/drivers/dma/imx-dma.c
-index f040751690af..114f254b9f50 100644
---- a/drivers/dma/imx-dma.c
-+++ b/drivers/dma/imx-dma.c
-@@ -21,7 +21,7 @@
- #include <linux/clk.h>
- #include <linux/dmaengine.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
- 
- #include <asm/irq.h>
-diff --git a/drivers/dma/imx-sdma.c b/drivers/dma/imx-sdma.c
-index 7a912f90c2a9..51012bd39900 100644
---- a/drivers/dma/imx-sdma.c
-+++ b/drivers/dma/imx-sdma.c
-@@ -31,7 +31,6 @@
- #include <linux/dmaengine.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/workqueue.h>
- 
-diff --git a/drivers/dma/lpc18xx-dmamux.c b/drivers/dma/lpc18xx-dmamux.c
-index df98cae8792b..2b6436f4b193 100644
---- a/drivers/dma/lpc18xx-dmamux.c
-+++ b/drivers/dma/lpc18xx-dmamux.c
-@@ -12,8 +12,10 @@
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/mfd/syscon.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/spinlock.h>
- 
-diff --git a/drivers/dma/mediatek/mtk-cqdma.c b/drivers/dma/mediatek/mtk-cqdma.c
-index 9ae92b8940ef..324b7387b1b9 100644
---- a/drivers/dma/mediatek/mtk-cqdma.c
-+++ b/drivers/dma/mediatek/mtk-cqdma.c
-@@ -18,7 +18,6 @@
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/mediatek/mtk-hsdma.c b/drivers/dma/mediatek/mtk-hsdma.c
-index 69cc61c0b262..64120767d983 100644
---- a/drivers/dma/mediatek/mtk-hsdma.c
-+++ b/drivers/dma/mediatek/mtk-hsdma.c
-@@ -17,7 +17,6 @@
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/mediatek/mtk-uart-apdma.c b/drivers/dma/mediatek/mtk-uart-apdma.c
-index a1517ef1f4a0..69366ba5db65 100644
---- a/drivers/dma/mediatek/mtk-uart-apdma.c
-+++ b/drivers/dma/mediatek/mtk-uart-apdma.c
-@@ -16,7 +16,6 @@
- #include <linux/kernel.h>
- #include <linux/list.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/mpc512x_dma.c b/drivers/dma/mpc512x_dma.c
-index 4a51fdbf5aa9..1104017320b8 100644
---- a/drivers/dma/mpc512x_dma.c
-+++ b/drivers/dma/mpc512x_dma.c
-@@ -36,11 +36,11 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/slab.h>
-+#include <linux/of.h>
- #include <linux/of_address.h>
--#include <linux/of_device.h>
- #include <linux/of_irq.h>
- #include <linux/of_dma.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- 
- #include <linux/random.h>
- 
-diff --git a/drivers/dma/mxs-dma.c b/drivers/dma/mxs-dma.c
-index acc4d53e4630..cfb9962417ef 100644
---- a/drivers/dma/mxs-dma.c
-+++ b/drivers/dma/mxs-dma.c
-@@ -21,7 +21,6 @@
- #include <linux/module.h>
- #include <linux/stmp_device.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/list.h>
- #include <linux/dma/mxs-dma.h>
-diff --git a/drivers/dma/nbpfaxi.c b/drivers/dma/nbpfaxi.c
-index e72e8c10355e..0b2f96fd8bf0 100644
---- a/drivers/dma/nbpfaxi.c
-+++ b/drivers/dma/nbpfaxi.c
-@@ -15,7 +15,6 @@
- #include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-diff --git a/drivers/dma/owl-dma.c b/drivers/dma/owl-dma.c
-index 95a462a1f511..e745f0c67094 100644
---- a/drivers/dma/owl-dma.c
-+++ b/drivers/dma/owl-dma.c
-@@ -20,8 +20,9 @@
- #include <linux/io.h>
- #include <linux/mm.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include "virt-dma.h"
- 
-diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-index 686c270ef710..f9b82dff3387 100644
---- a/drivers/dma/ppc4xx/adma.c
-+++ b/drivers/dma/ppc4xx/adma.c
-@@ -28,7 +28,7 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/of_irq.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <asm/dcr.h>
- #include <asm/dcr-regs.h>
- #include "adma.h"
-diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
-index 344525c3a32f..5baf7e593ea5 100644
---- a/drivers/dma/qcom/hidma.c
-+++ b/drivers/dma/qcom/hidma.c
-@@ -45,12 +45,12 @@
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
- #include <linux/list.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/of_dma.h>
--#include <linux/of_device.h>
- #include <linux/property.h>
- #include <linux/delay.h>
- #include <linux/acpi.h>
-diff --git a/drivers/dma/sh/shdmac.c b/drivers/dma/sh/shdmac.c
-index 5aafe548ca5f..6f881d7d2f79 100644
---- a/drivers/dma/sh/shdmac.c
-+++ b/drivers/dma/sh/shdmac.c
-@@ -23,7 +23,6 @@
- #include <linux/module.h>
- #include <linux/notifier.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/rculist.h>
-diff --git a/drivers/dma/sprd-dma.c b/drivers/dma/sprd-dma.c
-index 2b639adb48ba..168aa0bd73a0 100644
---- a/drivers/dma/sprd-dma.c
-+++ b/drivers/dma/sprd-dma.c
-@@ -15,7 +15,7 @@
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_device.h>
-+#include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/slab.h>
- 
-diff --git a/drivers/dma/stm32-dmamux.c b/drivers/dma/stm32-dmamux.c
-index e415bd9f4f2b..8d77e2a7939a 100644
---- a/drivers/dma/stm32-dmamux.c
-+++ b/drivers/dma/stm32-dmamux.c
-@@ -15,8 +15,10 @@
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
-index 1d0e9dd72ab3..0de234022c6d 100644
---- a/drivers/dma/stm32-mdma.c
-+++ b/drivers/dma/stm32-mdma.c
-@@ -24,7 +24,6 @@
- #include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
-index ebfd29888b2f..2469efddf540 100644
---- a/drivers/dma/sun6i-dma.c
-+++ b/drivers/dma/sun6i-dma.c
-@@ -14,8 +14,8 @@
- #include <linux/dmapool.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-index 8f67f453a492..33b101001100 100644
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -13,7 +13,7 @@
- #include <linux/iopoll.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-diff --git a/drivers/dma/tegra20-apb-dma.c b/drivers/dma/tegra20-apb-dma.c
-index cc6b91f48979..063022f9df76 100644
---- a/drivers/dma/tegra20-apb-dma.c
-+++ b/drivers/dma/tegra20-apb-dma.c
-@@ -17,7 +17,6 @@
- #include <linux/mm.h>
- #include <linux/module.h>
- #include <linux/of.h>
--#include <linux/of_device.h>
- #include <linux/of_dma.h>
- #include <linux/platform_device.h>
- #include <linux/pm.h>
-diff --git a/drivers/dma/tegra210-adma.c b/drivers/dma/tegra210-adma.c
-index b97004036071..e557bada1510 100644
---- a/drivers/dma/tegra210-adma.c
-+++ b/drivers/dma/tegra210-adma.c
-@@ -8,9 +8,10 @@
- #include <linux/clk.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
- #include <linux/of_irq.h>
-+#include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/slab.h>
- 
-diff --git a/drivers/dma/ti/dma-crossbar.c b/drivers/dma/ti/dma-crossbar.c
-index f744ddbbbad7..7f17ee87a6dc 100644
---- a/drivers/dma/ti/dma-crossbar.c
-+++ b/drivers/dma/ti/dma-crossbar.c
-@@ -3,14 +3,15 @@
-  *  Copyright (C) 2015 Texas Instruments Incorporated - http://www.ti.com
-  *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
-  */
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/list.h>
- #include <linux/io.h>
--#include <linux/of_address.h>
--#include <linux/of_device.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
-+#include <linux/of_platform.h>
- 
- #define TI_XBAR_DRA7		0
- #define TI_XBAR_AM335X		1
-diff --git a/drivers/dma/ti/edma.c b/drivers/dma/ti/edma.c
-index 9ea91c640c32..aa8e2e8ac260 100644
---- a/drivers/dma/ti/edma.c
-+++ b/drivers/dma/ti/edma.c
-@@ -20,7 +20,6 @@
- #include <linux/of_dma.h>
- #include <linux/of_irq.h>
- #include <linux/of_address.h>
--#include <linux/of_device.h>
- #include <linux/pm_runtime.h>
- 
- #include <linux/platform_data/edma.h>
-diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-private.c
-index 85e00701473c..05228bf00033 100644
---- a/drivers/dma/ti/k3-udma-private.c
-+++ b/drivers/dma/ti/k3-udma-private.c
-@@ -3,6 +3,8 @@
-  *  Copyright (C) 2019 Texas Instruments Incorporated - http://www.ti.com
-  *  Author: Peter Ujfalusi <peter.ujfalusi@ti.com>
-  */
-+#include <linux/of.h>
-+#include <linux/of_platform.h>
- 
- int xudma_navss_psil_pair(struct udma_dev *ud, u32 src_thread, u32 dst_thread)
- {
-diff --git a/drivers/dma/ti/k3-udma.c b/drivers/dma/ti/k3-udma.c
-index eb4dc5fffe64..30fd2f386f36 100644
---- a/drivers/dma/ti/k3-udma.c
-+++ b/drivers/dma/ti/k3-udma.c
-@@ -20,7 +20,6 @@
- #include <linux/sys_soc.h>
- #include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_device.h>
- #include <linux/of_irq.h>
- #include <linux/workqueue.h>
- #include <linux/completion.h>
-diff --git a/drivers/dma/ti/omap-dma.c b/drivers/dma/ti/omap-dma.c
-index 02e1c08c596d..cf96cf915c0c 100644
---- a/drivers/dma/ti/omap-dma.c
-+++ b/drivers/dma/ti/omap-dma.c
-@@ -16,8 +16,8 @@
- #include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_device.h>
- 
- #include "../virt-dma.h"
- 
-diff --git a/drivers/dma/xgene-dma.c b/drivers/dma/xgene-dma.c
-index 3589b4ef50b8..bb4ff8c86733 100644
---- a/drivers/dma/xgene-dma.c
-+++ b/drivers/dma/xgene-dma.c
-@@ -18,8 +18,9 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/irq.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
--#include <linux/of_device.h>
-+#include <linux/platform_device.h>
- 
- #include "dmaengine.h"
- 
-diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-index ac09f0e5f58d..8a4c98d28dfc 100644
---- a/drivers/dma/xilinx/xilinx_dma.c
-+++ b/drivers/dma/xilinx/xilinx_dma.c
-@@ -41,10 +41,10 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
--#include <linux/of_address.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_platform.h>
- #include <linux/of_irq.h>
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/clk.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
-diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-index 9360f43b8e0f..bd8c3cc2eaab 100644
---- a/drivers/dma/xilinx/zynqmp_dma.c
-+++ b/drivers/dma/xilinx/zynqmp_dma.c
-@@ -11,8 +11,9 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_dma.h>
--#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
- #include <linux/slab.h>
- #include <linux/clk.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
--- 
-2.40.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpteSBldmVudHVhbCBnb2FsIGlzIHRvIHByb3ZpZGUgYSBjaGFyZGV2IEFQSSB0byBQ
+V01zIHNpbWlsYXIgdG8gdGhlIGdwaW9jdGwKQVBJLiBGb3IgdGhhdCB0byB3b3JrIGZsYXdsZXNz
+bHkgaXQncyByZXF1aXJlZCB0aGF0IGEgcHdtY2hpcCBzdGF5cwphcm91bmQgd2hpbGUgdGhlIGNv
+cnJlc3BvbmRpbmcgZGV2aWNlIGlzIG9wZW5lZCBldmVuIGlmIHRoZSByZXNwZWN0aXZlCmxvd2xl
+dmVsIGRyaXZlciBnb2VzIGF3YXkuIFNlZSBXb2xmcmFtJ3MgRU9TUyB0YWxrWzFdIGZvciBzb21l
+IG1vcmUKZGV0YWlscy4KClRoaXMgc2VyaWVzIHByb3ZpZGVzIGEgbmV3IGZ1bmN0aW9uIGRldm1f
+cHdtY2hpcF9hbGxvYygpIHRoYXQgYWxsb2NhdGVzCmEgc3RydWN0IHB3bV9jaGlwIHRvZ2V0aGVy
+IHdpdGggZHJpdmVyIGRhdGEuIEN1cnJlbnRseSB0aGlzIGlzIHN0aWxsCnVzaW5nIGRldm1fa3ph
+bGxvYyBhbmQgc28gZ29lcyBhd2F5IHdoZW4gdGhlIGRldmljZSBpcyB1bmJvdW5kIGZyb20gdGhl
+CmRyaXZlci4gSG93ZXZlciB0aGlzIGNhbiBiZSBjaGFuZ2VkIHdpdGhvdXQgaGF2aW5nIHRvIHRv
+dWNoIGFsbCBkcml2ZXJzCmFnYWluLgoKVGhlIGZ1bmN0aW9uIGRldm1fcHdtY2hpcF9hbGxvYygp
+IGlzIG1vZGVsbGVkIGFmdGVyIHNpbWlsYXIgZnVuY3Rpb25zCmZyb20gc3BpLCBjb3VudGVyIGFu
+ZCBuZXR3b3JraW5nIGNvZGUuIFRoZSBmaXJzdCBwYXRjaCBwcm92aWRlcyB0aGUKYWxsb2NhdG9y
+IGZ1bmN0aW9uIGFuZCBhbiBhY2Nlc3NvciBmb3IgZHJpdmVyIGRhdGEsIHRoZSBmb2xsb3dpbmcK
+cGF0Y2hlcyBjb252ZXJ0IGEgc3Vic2V0IG9mIHRoZSBhdmFpbGFibGUgZHJpdmVycyB0byB0aGlz
+IG5ldyBBUEkuCgpUaGUgc2VyaWVzIGlzIGZ1bGx5IGJpc2VjdGFibGUgYW5kIHRoZSBvbmx5IGlu
+dGVyZGVwZW5kZW5jeSBpcyB0aGF0CnBhdGNoICMxIGlzIG5lZWRlZCBmb3IgYWxsIG90aGVyIHBh
+dGNoZXMuIFRoZSBpZGVhIGlzIHRvIGNvbXBsZXRlCmNvbnZlcnNpb24gb2YgYWxsIHJlbWFpbmlu
+ZyBkcml2ZXJzIGFuZCB0aGVuIGFkZCBhIHN0cnVjdCBkZXZpY2UgdG8Kc3RydWN0IHB3bV9jaGlw
+IGFuZCBzbyBtYWtlIHB3bV9jaGlwIHJlZmVyZW5jZSBjb3VudGVkLiBUaGVyZSBhcmUgc3RpbGwK
+YSBmZXcgbW9yZSBkcml2ZXJzIHRvIGNvbnZlcnQsIGJ1dCBJIHRob3VnaHQgdG8gc2VuZCBvdXQg
+dGhlIGN1cnJlbnQKcGF0Y2ggc2V0IHRvIGdldCBzb21lIGVhcmx5IGZlZWRiYWNrLgoKVGhlIGJh
+c2UgZm9yIHRoaXMgc2VyaWVzIGlzIHY2LjUtcmMxIHBsdXMgdGhlIGZvbGxvd2luZyBzZXJpZXM6
+CgpbUEFUQ0ggdjIgMC84XSBwd206IEdldCByaWQgb2YgcHdtX1tzZ11ldF9jaGlwX2RhdGEoKQog
+ICAgICAgIDIwMjMwNzA1MDgwNjUwLjIzNTMzOTEtMS11LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9u
+aXguZGUKW1BBVENIIDAvMl0gcHdtOiBzdG0zMjogQSAoc21hbGwpIGZpeCBhbmQgYSBjbGVhbnVw
+CiAgICAgICAgMjAyMzA3MTMxNTUxNDIuMjQ1NDAxMC0xLXUua2xlaW5lLWtvZW5pZ0BwZW5ndXRy
+b25peC5kZQpbUEFUQ0ggMDAvMTBdIHB3bTogQ29uc3Rpc3Rlbmx5IG5hbWUgcHdtX2NoaXAgdmFy
+aWFibGVzICJjaGlwIgogICAgICAgIDIwMjMwNzE0MjA1NjIzLjI0OTY1OTAtMS11LmtsZWluZS1r
+b2VuaWdAcGVuZ3V0cm9uaXguZGUKW1BBVENIXSBzdGFnaW5nOiBncmV5YnVzOiBwd206IERyb3Ag
+dW51c2VkIG1lbWJlciBmcm9tIGRyaXZlciBzdHJ1Y3QKICAgICAgICAyMDIzMDcxNDIwMTYyMi4y
+NDkwNzkyLTEtdS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlCltQQVRDSF0gcHdtOiBscGMx
+OHh4LXNjdDogU2ltcGxpZnkgdXNpbmcgZGV2bV9jbGtfZ2V0X2VuYWJsZWQoKQogICAgICAgIDIw
+MjMwNzE4MTQ0MTI4LjM3MTgxOC0xLXUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZQpbUEFU
+Q0hdIHB3bTogbHBjMzJ4eDogcmVtb3ZlIGhhbmRsaW5nIG9mIFBXTSBjaGFubmVscwogICAgICAg
+IDIwMjMwNzE3MTU1MjU3LjI1Njg2MjctMS11LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGUK
+W1BBVENIXSBwd206IHB4YTogRG9uJ3QgcmVpbXBsZW1lbnQgb2ZfZGV2aWNlX2dldF9tYXRjaF9k
+YXRhKCkKICAgICAgICAyMDIzMDcxODE1MDY1Ny4xNzI4MTY2LTEtdS5rbGVpbmUta29lbmlnQHBl
+bmd1dHJvbml4LmRlCltQQVRDSF0gcHdtOiBudHhlYzogRHJvcCBhIHdyaXRlLW9ubHkgdmFyaWFi
+bGUgZnJvbSBkcml2ZXIgZGF0YQogICAgICAgIDIwMjMwNzE4MTUyMzI3LjI1ODM4ODYtMS11Lmts
+ZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGUKW1BBVENIXSBncGlvOiBtdmVidTogTWFrZSB1c2Ug
+b2YgZGV2bV9wd21jaGlwX2FkZAogICAgICAgIDIwMjMwNzE3MTQyNzQzLjI1NTU3MzktMS11Lmts
+ZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGUKW1BBVENIXSBwd206IG50eGVjOiBVc2UgZGV2aWNl
+X3NldF9vZl9ub2RlX2Zyb21fZGV2KCkKICAgICAgICAyMDIzMDcxODE3NTMxMC4zOTQ2Njg3LTEt
+dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4LmRlCltQQVRDSF0gcHdtOiBiZXJsaW46IFNpbXBs
+aWZ5IHVzaW5nIGRldm0gZnVuY3Rpb25zCiAgICAgICAgMjAyMzA3MTgxNzU1NDUuMzk0NjkzNS0x
+LXUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZQoKSSdtIG5vdCBzdXJlIHRoZSBidWlsZCBi
+b3RzIGNhbiBwcm9wZXJseSBoYW5kbGUgdGhhdCwgc28gaXQgd291bGQgYmUKZ3JlYXQgdG8gZ2V0
+IHRoZXNlIGJhc2Ugc2VyaWVzIGludG8gbmV4dCBzb29uLgoKQmVzdCByZWdhcmRzClV3ZQoKWzFd
+IGh0dHBzOi8vc3RhdGljLnNjaGVkLmNvbS9ob3N0ZWRfZmlsZXMvZW9zczIwMjMvZTMvTGlmZWN5
+Y2xlSXNzdWVzX1dvbGZyYW1TYW5nXzIwMjMucGRmCgpVd2UgS2xlaW5lLUvDtm5pZyAoMTgpOgog
+IHB3bTogUHJvdmlkZSBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogYWI4NTAw
+OiBNYWtlIHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogYXBwbGU6
+IE1ha2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBiZXJsaW46
+IE1ha2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBjbGs6IE1h
+a2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBmc2wtZnRtOiBN
+YWtlIHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogaGlidnQ6IE1h
+a2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBpbXgxOiBNYWtl
+IHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogaW14Mjc6IE1ha2Ug
+dXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBqejQ3NDA6IE1ha2Ug
+dXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBrZWVtYmF5OiBNYWtl
+IHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogbHBjMTh4eC1zY3Q6
+IE1ha2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBscGMzMnh4
+OiBNYWtlIHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogbXhzOiBN
+YWtlIHVzZSBvZiBkZXZtX3B3bWNoaXBfYWxsb2MoKSBmdW5jdGlvbgogIHB3bTogbnR4ZWM6IE1h
+a2UgdXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBweGE6IE1ha2Ug
+dXNlIG9mIGRldm1fcHdtY2hpcF9hbGxvYygpIGZ1bmN0aW9uCiAgcHdtOiBzdG0zMjogTWFrZSB1
+c2Ugb2YgZGV2bV9wd21jaGlwX2FsbG9jKCkgZnVuY3Rpb24KICBncGlvOiBtdmVidTogTWFrZSB1
+c2Ugb2YgZGV2bV9wd21jaGlwX2FsbG9jKCkgZnVuY3Rpb24KCiAuLi4vZHJpdmVyLWFwaS9kcml2
+ZXItbW9kZWwvZGV2cmVzLnJzdCAgICAgICAgfCAgMSArCiBEb2N1bWVudGF0aW9uL2RyaXZlci1h
+cGkvcHdtLnJzdCAgICAgICAgICAgICAgfCAxMCArKy0tCiBkcml2ZXJzL2dwaW8vZ3Bpby1tdmVi
+dS5jICAgICAgICAgICAgICAgICAgICAgfCAxNyArKystLS0tCiBkcml2ZXJzL3B3bS9jb3JlLmMg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAyMyArKysrKysrKysKIGRyaXZlcnMvcHdtL3B3
+bS1hYjg1MDAuYyAgICAgICAgICAgICAgICAgICAgICB8IDE3ICsrKy0tLS0KIGRyaXZlcnMvcHdt
+L3B3bS1hcHBsZS5jICAgICAgICAgICAgICAgICAgICAgICB8IDE3ICsrKy0tLS0KIGRyaXZlcnMv
+cHdtL3B3bS1iZXJsaW4uYyAgICAgICAgICAgICAgICAgICAgICB8IDI4ICsrKysrKy0tLS0tCiBk
+cml2ZXJzL3B3bS9wd20tY2xrLmMgICAgICAgICAgICAgICAgICAgICAgICAgfCAyNiArKysrKy0t
+LS0tCiBkcml2ZXJzL3B3bS9wd20tZnNsLWZ0bS5jICAgICAgICAgICAgICAgICAgICAgfCA0NyAr
+KysrKysrKysrLS0tLS0tLS0tCiBkcml2ZXJzL3B3bS9wd20taGlidnQuYyAgICAgICAgICAgICAg
+ICAgICAgICAgfCAyNiArKysrKy0tLS0tCiBkcml2ZXJzL3B3bS9wd20taW14MS5jICAgICAgICAg
+ICAgICAgICAgICAgICAgfCAxNiArKystLS0tCiBkcml2ZXJzL3B3bS9wd20taW14MjcuYyAgICAg
+ICAgICAgICAgICAgICAgICAgfCAxOSArKysrLS0tLQogZHJpdmVycy9wd20vcHdtLWp6NDc0MC5j
+ICAgICAgICAgICAgICAgICAgICAgIHwgMjUgKysrKystLS0tLQogZHJpdmVycy9wd20vcHdtLWtl
+ZW1iYXkuYyAgICAgICAgICAgICAgICAgICAgIHwgMTYgKysrLS0tLQogZHJpdmVycy9wd20vcHdt
+LWxwYzE4eHgtc2N0LmMgICAgICAgICAgICAgICAgIHwgMjQgKysrKystLS0tLQogZHJpdmVycy9w
+d20vcHdtLWxwYzMyeHguYyAgICAgICAgICAgICAgICAgICAgIHwgMTggKysrLS0tLQogZHJpdmVy
+cy9wd20vcHdtLW14cy5jICAgICAgICAgICAgICAgICAgICAgICAgIHwgMTkgKysrKy0tLS0KIGRy
+aXZlcnMvcHdtL3B3bS1udHhlYy5jICAgICAgICAgICAgICAgICAgICAgICB8IDI3ICsrKysrLS0t
+LS0tCiBkcml2ZXJzL3B3bS9wd20tcHhhLmMgICAgICAgICAgICAgICAgICAgICAgICAgfCAyMCAr
+KysrLS0tLQogZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgICAgICAgICAgICAgICAgICAgICAgIHwg
+NDIgKysrKysrKysrKystLS0tLS0KIGluY2x1ZGUvbGludXgvcHdtLmggICAgICAgICAgICAgICAg
+ICAgICAgICAgICB8ICA0ICsrCiAyMSBmaWxlcyBjaGFuZ2VkLCAyNDkgaW5zZXJ0aW9ucygrKSwg
+MTkzIGRlbGV0aW9ucygtKQoKCmJhc2UtY29tbWl0OiAwNmMyYWZiODYyZjlkYThkYzVlZmE0YjYw
+NzZhMGU0OGMzZmJhYWE1CnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogYzg1NmUwYmFhYmZjMjJkMjUw
+YjdjZTg4MTQyN2NkYjc0NjEzZTY5YQpwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDJhNWY5YzA0ZTRi
+NTc5NGI1YTVkMGIzMDI4MGY3NWI3NmEwNTA5MmIKcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiBhNDhi
+MDViOTRiNjFmODAyOWI0YmI5YTc4YWUxZjJjZDhjNDc2ZDgwCnByZXJlcXVpc2l0ZS1wYXRjaC1p
+ZDogYzdkZmQzNzk4ZjAyNGIyN2I2ZTIzNmRhMWVhZTQwYjc5YmIzZTI4MQpwcmVyZXF1aXNpdGUt
+cGF0Y2gtaWQ6IDMxM2FkYTcyYWI1NzQzOGE4ZDU0ZGYwZGY5YzA5MjZiYjRmNjliMzYKcHJlcmVx
+dWlzaXRlLXBhdGNoLWlkOiAzMTg4MjRjMDhmM2U3ZDY1MDBlM2M1YTQ3YTExYzVkYWZmYWVhMzRh
+CnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogZWE3NWJmZDQ4ZWE0ZDAxMzJjNjM3MTcyNTY0YmMxYTU3
+MDYxMzc3YQpwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDI3OGIyNWE4ZDVmZWY0OWY3ZTVjNDZiNjI3
+ZDQ4NjJkMGIyNGJhYWYKcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiBhM2IxMWUwYTdjOGY2NTY0ZTY2
+OGUyZWQxYjYzNzM1MWU1ZmQ5ZGQyCnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogNTU1ODhiMjVlYTdj
+ZTY5ZDcxNmEzM2E3YWFlZDY2MmQ3NWJiOTY4NwpwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDM5OWQ3
+ZTk0YmFmYzVkYzk3MGEwZjIxMzc0NWU0OTgyMDY2Yjg1ODMKcHJlcmVxdWlzaXRlLXBhdGNoLWlk
+OiA4N2FjYTFiZWI2ZWZkYWFiOTVkZGNlN2UyZDllZWQ4OWE4OTI1MmExCnByZXJlcXVpc2l0ZS1w
+YXRjaC1pZDogZTEzZTNkYjgwN2YyYzViNDkxODBlMjQ0OTJmNDk2ZjhlOTQ1ZTQyZApwcmVyZXF1
+aXNpdGUtcGF0Y2gtaWQ6IDg3MTJiMTdkZWUyYTVmMjQ0MTkwOGUyZGUyNjBjZWVjOGNlNmZmMzcK
+cHJlcmVxdWlzaXRlLXBhdGNoLWlkOiA5ODdiMGEzNTE4MDFiMWUzNjE5MzJiZWVlZWRiYzUyNDU1
+NDAwMzdjCnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogODY5ZDM5MzI5ODNmM2FlNmE4OTgyZTE4NmIy
+N2RmMTFjNTZlOWU1ZQpwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDRmNjBiMGFmYjQzNTAxMWI1OGI3
+Y2M2YmVhZDFkMzg1ZGI3ZDhlMTEKcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiAwZTg2ZGE1MmMwMjMw
+MGQ0MDdkNGMwYjZmMmI5ZjgyOTNlMzMyMGRjCnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogYTczMTg1
+NmY1ZDdkZWU3ZjM0NjVmMDIxZTVjNTY5ODFhODAzYjIyZApwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6
+IGI3NTlkMDM2Y2Y1NzgwODNlYzc2YWE3YmEwMWRkODY0MzY2N2Q0ZjYKcHJlcmVxdWlzaXRlLXBh
+dGNoLWlkOiA5YWJkOGIxNmU3NDYyNWUyNjMwNjU1ZGE3ZDIyZTc1YmJlMGM2MjMxCnByZXJlcXVp
+c2l0ZS1wYXRjaC1pZDogNmFkMDNjZWI1MDVhMjkzZjIzMDgyMzUxNjFjNTRmZjZiNTA4ZTU5Zgpw
+cmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IGNiNmQ3NWJlOWI3MmNjMDQwNjliNjk1MmJhOWU1YWM4MGEy
+NmExYWIKcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiBjOGZhNzI5NmE3MzZmNDJlYzQ5YWIxMzM0Y2Ix
+OTk0N2Q2NDdhMmI0CnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogYjYwMWVhNjk1ODE1ZmI2NWVkNzA0
+MzQ5MzAyYmE2NjQ0MjI3N2ZjMwpwcmVyZXF1aXNpdGUtcGF0Y2gtaWQ6IDdhMGRhYTI5MThmOGEz
+MTczMzNlNTdjMWQxNjk4MDc4YTE5Njg3MjAKcHJlcmVxdWlzaXRlLXBhdGNoLWlkOiBiNjc2MmY2
+ZGVlYjc0YWFmNzNhZmUyZDhkZDgxNmQ0OGNlYzRlMWVlCnByZXJlcXVpc2l0ZS1wYXRjaC1pZDog
+YTBjOGQ2MzQyNDI0MWU2NGMzZTVmOTk5MWVhMDQwMThhNTFmY2M5NAotLSAKMi4zOS4yCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
