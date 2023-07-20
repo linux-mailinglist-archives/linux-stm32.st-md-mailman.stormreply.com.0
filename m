@@ -2,51 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEFB768DBD
+	by mail.lfdr.de (Postfix) with ESMTPS id 757FD768DBE
 	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B398C6C84D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D339C6C84F;
 	Mon, 31 Jul 2023 07:17:28 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FE9FC6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E092C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jul 2023 06:46:59 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1qMNQt-0002wa-Kg; Thu, 20 Jul 2023 08:46:39 +0200
-Received: from mfe by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1qMNQq-000153-7Z; Thu, 20 Jul 2023 08:46:36 +0200
-Date: Thu, 20 Jul 2023 08:46:36 +0200
+ Thu, 20 Jul 2023 07:23:35 +0000 (UTC)
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <m.felsch@pengutronix.de>)
+ id 1qMO0H-00086j-G1; Thu, 20 Jul 2023 09:23:13 +0200
 From: Marco Felsch <m.felsch@pengutronix.de>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20230720064636.5l45ad64kwwgd2iw@pengutronix.de>
-References: <20230718132049.3028341-1-m.felsch@pengutronix.de>
- <20230718132049.3028341-2-m.felsch@pengutronix.de>
- <20230719211235.1758bbc0@kernel.org>
+To: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
+ conor+dt@kernel.org, peppe.cavallaro@st.com, alexandre.torgue@foss.st.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com
+Date: Thu, 20 Jul 2023 09:23:03 +0200
+Message-Id: <20230720072304.3358701-1-m.felsch@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230719211235.1758bbc0@kernel.org>
-User-Agent: NeoMutt/20180716
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:1101:1d::28
+X-SA-Exim-Mail-From: m.felsch@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: kernel@pengutronix.de, joabreu@synopsys.com, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: add support
-	for phy-supply
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 1/2] dt-bindings: net: snps,
+	dwmac: add phy-supply support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,54 +54,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Document the common phy-supply property to be able to specify a phy
+regulator.
 
-On 23-07-19, Jakub Kicinski wrote:
-> On Tue, 18 Jul 2023 15:20:49 +0200 Marco Felsch wrote:
-> > Add generic phy-supply handling support to control the phy regulator to
-> > avoid handling it within the glue code. Use the generic stmmac_platform
-> > code to register a possible phy-supply and the stmmac_main code to
-> > handle the power on/off.
-> > 
-> > Changelog
-> > ---
-> > 
-> > v2:
-> > - adapt stmmac_phy_power
-> > - move power-on/off into stmmac_main to handle WOL
-> > - adapt commit message
-> > 
-> > Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> > ---
-> 
-> Format should be:
-> 
-> Bla bla bla
-> 
-> Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> ---
-> Changelog
-> 
-> v2:
->  bla bla bla
-> 
-> 
-> Please fix and rebase because the current version does not apply to
-> net-next/main.
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+Changelog
+v3:
+- no changes
 
-Sure, I thought the changelog should be part of the commit message in
-net-dev therefore I included it. Unfortunately I used --- as underline
-:/
+v2:
+- added Krzysztof ack-by
 
-I will fix this and rebase it on-top of net-next/main.
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Regards,
-  Marco
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index ddf9522a5dc23..847ecb82b37ee 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -160,6 +160,9 @@ properties:
+       can be passive (no SW requirement), and requires that the MAC operate
+       in a different mode than the PHY in order to function.
+ 
++  phy-supply:
++    description: PHY regulator
++
+   snps,axi-config:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+-- 
+2.39.2
 
-
-> -- 
-> pw-bot: cr
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
