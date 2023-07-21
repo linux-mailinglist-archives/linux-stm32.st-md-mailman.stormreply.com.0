@@ -2,53 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C752768DC0
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5079768D9E
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:16:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62E45C6C856;
-	Mon, 31 Jul 2023 07:17:28 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91278C6C828;
+	Mon, 31 Jul 2023 07:16:21 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8D1EC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94801C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 20 Jul 2023 15:39:13 +0000 (UTC)
-Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1qMVjn-0000me-3S; Thu, 20 Jul 2023 17:38:43 +0200
-Received: from mfe by ptx.hi.pengutronix.de with local (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1qMVjj-0001sD-IF; Thu, 20 Jul 2023 17:38:39 +0200
-Date: Thu, 20 Jul 2023 17:38:39 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20230720153839.klrukzea3o2dxif7@pengutronix.de>
-References: <20230718132049.3028341-1-m.felsch@pengutronix.de>
- <20230718132049.3028341-2-m.felsch@pengutronix.de>
- <20230719211235.1758bbc0@kernel.org>
- <20230720064636.5l45ad64kwwgd2iw@pengutronix.de>
- <20230720081945.5cf783f0@kernel.org>
+ Fri, 21 Jul 2023 06:26:58 +0000 (UTC)
+X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="453327515"
+X-IronPort-AV: E=Sophos;i="6.01,220,1684825200"; d="scan'208";a="453327515"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2023 23:26:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="727990179"
+X-IronPort-AV: E=Sophos;i="6.01,220,1684825200"; d="scan'208";a="727990179"
+Received: from pglmail07.png.intel.com ([10.221.193.207])
+ by fmsmga007.fm.intel.com with ESMTP; 20 Jul 2023 23:26:52 -0700
+Received: from localhost (pglc00300.png.intel.com [10.221.233.223])
+ by pglmail07.png.intel.com (Postfix) with ESMTP id 968BA482B;
+ Fri, 21 Jul 2023 14:26:51 +0800 (+08)
+Received: by localhost (Postfix, from userid 11742525)
+ id 909A580F8C4; Fri, 21 Jul 2023 14:26:51 +0800 (+08)
+From: Boon@ecsmtp.png.intel.com, Khai@ecsmtp.png.intel.com,
+ "Ng <boon.khai.ng"@intel.com
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 21 Jul 2023 14:26:15 +0800
+Message-Id: <20230721062617.9810-1-boon.khai.ng@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230720081945.5cf783f0@kernel.org>
-User-Agent: NeoMutt/20180716
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: kernel@pengutronix.de, joabreu@synopsys.com, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: add support
-	for phy-supply
+X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:17 +0000
+Cc: Boon Khai Ng <boon.khai.ng@intel.com>,
+ Mun Yew Tham <mun.yew.tham@intel.com>,
+ Leong Ching Swee <leong.ching.swee@intel.com>,
+ G Thomas Rohan <rohan.g.thomas@intel.com>,
+ Shevchenko Andriy <andriy.shevchenko@linux.intel.com>,
+ Shevchenko Andriy <andriy.shevchenko@intel.com>
+Subject: [Linux-stm32] [Enable Designware XGMAC VLAN Stripping Feature 0/2]
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,32 +67,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23-07-20, Jakub Kicinski wrote:
-> On Thu, 20 Jul 2023 08:46:36 +0200 Marco Felsch wrote:
-> > > Please fix and rebase because the current version does not apply to
-> > > net-next/main.  
-> > 
-> > Sure, I thought the changelog should be part of the commit message in
-> > net-dev therefore I included it.
-> 
-> Old rules, I think. Since started adding lore links to all patches you
-> can put the changelog in the cut-off section.
+From: Boon Khai Ng <boon.khai.ng@intel.com>
 
-Make sense.
+Hi,
+The Designware 10G MAC(dwxgmac) driver has lack of vlan support
+in term of hardware, such as the hardware accelerated VLAN stripping.
+The driver was not draft from scratch, however it was ported from the
+Ethernet Quality-of-Service (dwmac4) driver, it was tested working on
+ourside.
 
-> Adding a link to the previous revision there is highly encouraged,
-> too!
+Reviewed-by: Shevchenko Andriy <andriy.shevchenko@linux.intel.com>
 
-Sure, I will check my tooling to use b4 for sending, so the links are
-provided autom.
+Boon Khai Ng (2):
+  dt-bindings: net: snps,dwmac: Add description for rx-vlan-offload
+  net: stmmac: dwxgmac2: Add support for HW-accelerated VLAN Stripping
 
-> There's a sample of the preferred format at:
-> https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#changes-requested
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  5 +++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    | 28 ++++++++++++++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 38 +++++++++++++++++++
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  | 18 +++++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    | 16 ++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 29 +++++++++++---
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |  6 +++
+ include/linux/stmmac.h                        |  1 +
+ 8 files changed, 136 insertions(+), 5 deletions(-)
 
-I will keep that in mind.
+-- 
+2.25.1
 
-Regards,
-  Marco
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
