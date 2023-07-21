@@ -2,51 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F9EF75BCA8
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 05:11:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FFB475C269
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 11:06:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA813C6B44D;
-	Fri, 21 Jul 2023 03:11:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30FDBC6B442;
+	Fri, 21 Jul 2023 09:06:25 +0000 (UTC)
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A364EC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D835C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jul 2023 03:11:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ Fri, 21 Jul 2023 09:06:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1689930383; x=1721466383;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=I75kCCDlibaMONLjfxO4Q2JWzzPAojEBILnYVxUnPFI=;
+ b=hZK3UL3PhpefyLPEOY36rt1jHRoPOdiPhYbQ67GAi6h4PiYE5zqL1h5S
+ ds1v0Oz4JHy+nDZaAsA/ahnR0WB7h6xHICCRTADwWeXoVkktKP6aJ2t1I
+ twlaFy3+rljqYGiqZ/KajwQu1+OIroxpaLLhjGfUhiyrlg3kB5LbVkuXT
+ KP8tl8JNLF/ceyzf50Wmkgl4EYsG9G8heOQY6hHVQskM/S169FgmU/huC
+ stsG/DtXUnnTP5xJiXjHkaSzKJIS++94k4WJuzRb9aixbu8AcuoHgnIcW
+ hUflIWMihsr8jwUyodp4UIR4e6I8CSMS72TjObpVF+ycujqcIsKPbkLXE w==;
+X-IronPort-AV: E=Sophos;i="6.01,220,1684792800"; d="scan'208";a="32049643"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 21 Jul 2023 11:06:22 +0200
+Received: from steina-w.tq-net.de (unknown [10.123.53.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 728D861CB8;
- Fri, 21 Jul 2023 03:11:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4870DC433C8;
- Fri, 21 Jul 2023 03:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689909093;
- bh=Pq/Uyc4eped6jMU42cvi7k4WYaZlbwcGo8MIhkmhssA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=IdcWhLUERbQ0UoanBhSRVkQHJNHwuWctu0603avFZSV2CPkyQmFln54oHsoTVwPfA
- utcAoCCENB92dWcGAyoF8NxtlSwlbU7SJS2rURAt60n0VlkKX+60t3uQ+bWO/tzE9G
- qkm/1TT881Y4S0msDZz/p7P7q34XSjgHqaBEKLhawpH6opKaRVR/DxVTI+PrURDZYw
- zx1bItni2S5VO3a6MF1QdwfTSOqziQx1yLKwNE5ad7yY4xs7LU+MeoWmGRsUUWUE8Q
- jAm/xzR2z5AEZFgx2lhVkreiYnfW2wWQ5/IHIXMhoIRS1nLAYbwFdO+r+x9Euq3lLO
- SN5bNvbW6ezKg==
-Date: Thu, 20 Jul 2023 20:11:32 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Message-ID: <20230720201132.6c6a4c54@kernel.org>
-In-Reply-To: <20230720072304.3358701-2-m.felsch@pengutronix.de>
-References: <20230720072304.3358701-1-m.felsch@pengutronix.de>
- <20230720072304.3358701-2-m.felsch@pengutronix.de>
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 6E89D280078;
+ Fri, 21 Jul 2023 11:06:22 +0200 (CEST)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <brgl@bgdev.pl>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Pavel Machek <pavel@ucw.cz>, Lee Jones <lee@kernel.org>
+Date: Fri, 21 Jul 2023 11:06:16 +0200
+Message-Id: <20230721090618.1211081-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: kernel@pengutronix.de, joabreu@synopsys.com, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- edumazet@google.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net: stmmac: add support
-	for phy-supply
+Cc: devicetree@vger.kernel.org,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-leds@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 1/2] dt-bindings: gpio: Add gpio-line-names to
+	STMPE GPIO
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,16 +69,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 20 Jul 2023 09:23:04 +0200 Marco Felsch wrote:
-> Add generic phy-supply handling support to control the phy regulator to
-> avoid handling it within the glue code. Use the generic stmmac_platform
-> code to register a possible phy-supply and the stmmac_main code to
-> handle the power on/off.
+This is a gpio-controller, so gpio-line-names should be allowed as well.
 
-Please rebase on latest net-next/master.
-Bartosz converted the use_phy_wol bool to a flag a few weeks back.
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
+index 22c0cae73425..b226a8892f8a 100644
+--- a/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/st,stmpe-gpio.yaml
+@@ -27,6 +27,7 @@ properties:
+     const: 2
+ 
+   gpio-controller: true
++  gpio-line-names: true
+ 
+   interrupt-controller: true
+ 
 -- 
-pw-bot: cr
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
