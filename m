@@ -2,47 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72D6475C7FB
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 15:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C59B75CC6B
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 17:49:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19666C6B442;
-	Fri, 21 Jul 2023 13:39:22 +0000 (UTC)
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE2FBC6B442;
+	Fri, 21 Jul 2023 15:49:00 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD49CC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E15B1C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jul 2023 13:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1689946761;
- x=1721482761;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=Iw+bltGRYz/2l9De5LyQdFIZrY7VU+/N+bnY6dDOT/s=;
- b=bvgpvFD7FfrecKps/wbMCOhJz9I9V7+54eN8alczSUPIAoMk9YA/SAYu
- RyJc4laDTp8V2TM+/ONRzqFPBqcJIANvh3krHnoW1gR/GfJp4mtk664j9
- d397Zk2hpBBlSGe9PHZU2ajjy7yhgs8gMELry9twxrV/8log0bVyeQ3LQ
- 4lMQWodUQXXuMpkz7TJkvFoYIUJNuhX3oOZ7YlycWkFovizdLckTsyzBK
- 3JtAE9AvqW9DW+mY6IO+ANBUZA83fh1qOWv6Rz4SMdbaAfmmVbOiV5MaA
- c5GxxRbACpglGHBVSWkPsJqCvncMppnzOfUGxIu2ORE3/oL+kymdcEc8C A==;
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-Date: Fri, 21 Jul 2023 15:39:20 +0200
+ Fri, 21 Jul 2023 15:48:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689954539; x=1721490539;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=R8WEdCXTW/dlJZdkuVMQaXyvnxbiy+28P+8xBmUAS78=;
+ b=fDu6ng2NPFLo/iCjCfY/JpWqkC6GZ0FaNZcgyZxS9D+pmrDVKYHh4dy8
+ bPxIZHyCfssMTNPPpPlhjSu7xgz37/Q6DzL39GsrXyhsBjgnUcFMBC55R
+ vluUdR4ZUu1d/EGaP+2YsyI2uDu5z8zkvPgiV32J8U13Lsn0bEKriGZer
+ YbmQ7I2jIANo5g1KyWFI7kaN1F/lYOpFnpygwPCDOpXXbPeqHEo7DFcVe
+ 2Dy97x5uzC5HjS0vkL6ZuFfWBVEr4oVM5nzheaToG2VtjpyS8sbHNtRzX
+ sIY/FAEScMY9ejp/MabFF5XhhciF1K4LEK29krt0YKZ0gR4qRN4sabjcR Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="364514626"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="364514626"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 08:48:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="728147277"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="728147277"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga007.fm.intel.com with ESMTP; 21 Jul 2023 08:48:51 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@intel.com>) id 1qMsN7-00B57Q-0m;
+ Fri, 21 Jul 2023 18:48:49 +0300
+Date: Fri, 21 Jul 2023 18:48:49 +0300
+From: "Shevchenko, Andriy" <andriy.shevchenko@intel.com>
+To: "Ng, Boon Khai" <boon.khai.ng@intel.com>
+Message-ID: <ZLqo4SL+OAovs2In@smile.fi.intel.com>
+References: <20230721062617.9810-1-boon.khai.ng@intel.com>
+ <20230721062617.9810-2-boon.khai.ng@intel.com>
+ <ZLpbPxy4XHEGyU6I@smile.fi.intel.com>
+ <DM8PR11MB5751E1290649A690A0B50F7AC13FA@DM8PR11MB5751.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Message-ID: <20230721-stmmac-tx-workaround-v1-1-9411cbd5ee07@axis.com>
-X-B4-Tracking: v=1; b=H4sIAIeKumQC/x3MQQqDMBBA0avIrB0wUQz0KuIixrEOxUQmaRVC7
- m7o8i3+zxBJmCK8mgxCP44cfIVqG3C79W9CXqtBd7rvjFYY03FYh+nGK8jHSvj6FbdFGTMo1+u
- RoKan0Mb3fzuBpwRzKQ+mHijHawAAAA==
-To: Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>
-X-Mailer: b4 0.12.3
-Cc: netdev@vger.kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
- linux-kernel@vger.kernel.org, kernel@axis.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Apply redundant write work
- around on 4.xx too
+Content-Disposition: inline
+In-Reply-To: <DM8PR11MB5751E1290649A690A0B50F7AC13FA@DM8PR11MB5751.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Tham,
+ Mun Yew" <mun.yew.tham@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, "Swee,
+ Leong Ching" <leong.ching.swee@intel.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "G Thomas, Rohan" <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [Enable Designware XGMAC VLAN Stripping Feature
+ 1/2] dt-bindings: net: snps, dwmac: Add description for rx-vlan-offload
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,52 +79,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-commit a3a57bf07de23fe1ff779e0fdf710aa581c3ff73 ("net: stmmac: work
-around sporadic tx issue on link-up") worked around a problem with TX
-sometimes not working after a link-up by avoiding a redundant write to
-MAC_CTRL_REG (aka GMAC_CONFIG), since the IP appeared to have problems
-with handling multiple writes to that register in some cases.
+On Fri, Jul 21, 2023 at 06:35:44PM +0300, Ng, Boon Khai wrote:
+> > From: Shevchenko, Andriy <andriy.shevchenko@intel.com>
+> > Sent: Friday, July 21, 2023 6:18 PM
+> > On Fri, Jul 21, 2023 at 02:26:16PM +0800, Boon@ecsmtp.png.intel.com wrote:
+> > > From: Boon Khai Ng <boon.khai.ng@intel.com>
 
-That commit however only added the work around to dwmac_lib.c (apart
-from the common code in stmmac_main.c), but my systems with version
-4.21a of the IP exhibit the same problem, so add the work around to
-dwmac4_lib.c too.
+...
 
-Fixes: a3a57bf07de2 ("net: stmmac: work around sporadic tx issue on link-up")
-Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> > > Reviewed-by: Shevchenko Andriy <andriy.shevchenko@linux.intel.com>
+> > 
+> > This is wrong:
+> > - I never reviewed DT bindings in all your series.
+> > - My name for the patches is also wrong.
+> > 
+> > P.S. What I mentioned in the internal mail is that you can add my tag to
+> >     the code, and not to the DT. Sorry, I probably hadn't been clear.
+> 
+> My bad, sorry for interpreting the meaning wrongly, I will remove all the 
+> "Reviewed-by" stamp from all the DT patches on the next update.
+> 
+> However I copied the Reviewed-by: from the previous email, your name
+> Shouldn't be wrong.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-index df41eac54058..03ceb6a94073 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-@@ -240,13 +240,15 @@ void stmmac_dwmac4_set_mac_addr(void __iomem *ioaddr, const u8 addr[6],
- void stmmac_dwmac4_set_mac(void __iomem *ioaddr, bool enable)
- {
- 	u32 value = readl(ioaddr + GMAC_CONFIG);
-+	u32 old_val = value;
- 
- 	if (enable)
- 		value |= GMAC_CONFIG_RE | GMAC_CONFIG_TE;
- 	else
- 		value &= ~(GMAC_CONFIG_TE | GMAC_CONFIG_RE);
- 
--	writel(value, ioaddr + GMAC_CONFIG);
-+	if (value != old_val)
-+		writel(value, ioaddr + GMAC_CONFIG);
- }
- 
- void stmmac_dwmac4_get_mac_addr(void __iomem *ioaddr, unsigned char *addr,
+Oh, this is a bit messy. The address for the kernel work should be
+Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
----
-base-commit: fdf0eaf11452d72945af31804e2a1048ee1b574c
-change-id: 20230721-stmmac-tx-workaround-fb17741c326e
-
-Best regards,
 -- 
-Vincent Whitchurch <vincent.whitchurch@axis.com>
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
