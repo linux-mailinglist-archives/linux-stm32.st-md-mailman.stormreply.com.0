@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45C7975CEA3
-	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 18:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A82375CEA9
+	for <lists+linux-stm32@lfdr.de>; Fri, 21 Jul 2023 18:23:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07951C6B442;
-	Fri, 21 Jul 2023 16:22:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C54FC6B442;
+	Fri, 21 Jul 2023 16:23:01 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 974AAC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6667CC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 21 Jul 2023 16:22:29 +0000 (UTC)
+ Fri, 21 Jul 2023 16:23:00 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A073661D47;
- Fri, 21 Jul 2023 16:22:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA8DC433C9;
- Fri, 21 Jul 2023 16:22:21 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5361461D1E;
+ Fri, 21 Jul 2023 16:22:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C49C433C7;
+ Fri, 21 Jul 2023 16:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1689956548;
- bh=9LpmD5uO93V8k4qPmv5QFl14qrmyvndUuSFfp2XhlnU=;
+ s=k20201202; t=1689956578;
+ bh=Ew/4v1UbqQoZb20JkMzVmOCzBgdeH1pynDMmIlPkrEM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=b+pTEQVY8tlhkGJFSfrK9njudzpErbDYj9xNVxU5I5+IdVYoO27AXO+5bkE7XnrrJ
- 88Cz3DwunJM+UC6AE8RS8VUKbXgTK2wbnQlbLGzOKGvbn6stS93nVm/fzpZc08jrd/
- 5aR9ChloCGqYCUNidkoteNg81EDhzc/pNUb77SWXUKw+EA2oMGOoH6ym4YplTOdG7l
- L+Mu99v7f6fYsklq840Nk0QwU/QfD1AbQG/VvdMBtIIgC4YUNs+fPDdUWnMOkM+Fk3
- eBaLpok6kZuirpVRkfzSjyRQ/oNGeFcquln5PNtrt0ISByk92b/i9k3dam0upfe4hY
- TjuKisLNOmzkw==
-Message-ID: <0f997467-c5c4-6d25-080d-94422127d51d@kernel.org>
-Date: Fri, 21 Jul 2023 18:22:19 +0200
+ b=eQZfFq4H2O53duuZx0xDupi2JgSJ+w6qoYQwPDqw0N9WeaLxg0UDAhgWguoUy+HeH
+ 6kR3WQuNy1RtWqPJcV9+jAlF+QSl/ZdNN2rjEDzw56/aMxO8u6jQ2G9sjT+Vo/Abco
+ JS3TF41A4nHUJbhiKGBM971t50MOf37nEgb19kUNbMSEVuPicvcQ7dV1e6Uf2LWInW
+ q5SyIEgjyzCdBJQtwtPR5afInW7MJXZcSFQ4TlQ21fSQfmNLRAB/z0pxkDr/xPwbWT
+ PFG7vztmFl/tr2eI7+N13atfihHYhofUnv81z5uu9IKb+5+rtlRsiaUpbYqKXHE6rN
+ U/bKoy49yJHOg==
+Message-ID: <68485bf5-0550-4954-cbaa-7f6a5443e4aa@kernel.org>
+Date: Fri, 21 Jul 2023 18:22:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
-To: "Ng, Boon Khai" <boon.khai.ng@intel.com>,
+To: Florian Fainelli <f.fainelli@gmail.com>,
+ "Ng, Boon Khai" <boon.khai.ng@intel.com>,
  "Boon@ecsmtp.png.intel.com" <Boon@ecsmtp.png.intel.com>,
  "Khai@ecsmtp.png.intel.com" <Khai@ecsmtp.png.intel.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
@@ -55,8 +56,9 @@ References: <20230721062617.9810-1-boon.khai.ng@intel.com>
  <20230721062617.9810-3-boon.khai.ng@intel.com>
  <cfba8fa4-47e5-7553-f40e-9e34b25d1405@kernel.org>
  <DM8PR11MB5751E5388AEFCFB80BCB483FC13FA@DM8PR11MB5751.namprd11.prod.outlook.com>
+ <7549a014-4f5e-cf87-f07d-c4980ab44dc1@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <DM8PR11MB5751E5388AEFCFB80BCB483FC13FA@DM8PR11MB5751.namprd11.prod.outlook.com>
+In-Reply-To: <7549a014-4f5e-cf87-f07d-c4980ab44dc1@gmail.com>
 Cc: "Swee, Leong Ching" <leong.ching.swee@intel.com>, "G Thomas,
  Rohan" <rohan.g.thomas@intel.com>,
  Shevchenko Andriy <andriy.shevchenko@linux.intel.com>, "Shevchenko,
@@ -80,34 +82,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/07/2023 17:30, Ng, Boon Khai wrote:
->> git
->>> a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->>> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->>> index 23d53ea04b24..bd7f3326a44c 100644
->>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->>> @@ -543,6 +543,12 @@ stmmac_probe_config_dt(struct platform_device
->> *pdev, u8 *mac)
->>>  			plat->flags |= STMMAC_FLAG_TSO_EN;
->>>  	}
+On 21/07/2023 17:59, Florian Fainelli wrote:
+>>>> +	/* Rx VLAN HW Stripping */
+>>>> +	if (of_property_read_bool(np, "snps,rx-vlan-offload")) {
+>>>> +		dev_info(&pdev->dev, "RX VLAN HW Stripping\n");
 >>>
->>> +	/* Rx VLAN HW Stripping */
->>> +	if (of_property_read_bool(np, "snps,rx-vlan-offload")) {
->>> +		dev_info(&pdev->dev, "RX VLAN HW Stripping\n");
+>>> Why? Drop.
+>>>
 >>
->> Why? Drop.
+>> This is an dts option export to dts for user to choose whether or not they
+>> Want a Hardware stripping or a software stripping.
 >>
+>> May I know what is the reason to drop this?
 > 
-> This is an dts option export to dts for user to choose whether or not they 
-> Want a Hardware stripping or a software stripping. 
+> Because the networking stack already exposes knobs for drivers to 
+> advertise and control VLAN stripping/insertion on RX/TX using ethtool 
+> and feature bits (NETIF_F_HW_VLAN_CTAG_RX, NETIF_F_HW_VLAN_CTAG_TX).
 > 
-> May I know what is the reason to drop this?
+> What you are doing here is encode a policy as a Device Tree property 
+> rather than describe whether the hardware supports a given feature and 
+> this is frowned upon.
 
-Because we do not print simple confirmation of DT properties parsing.
-It's usually useless and obvious from DT.
-
-To be clear - we talk about dev_info.
+That's even better reason...
 
 Best regards,
 Krzysztof
