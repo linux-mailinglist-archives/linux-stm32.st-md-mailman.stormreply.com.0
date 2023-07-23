@@ -2,66 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8F475E1E9
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jul 2023 14:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB7575E38C
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jul 2023 18:22:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A402AC6A615;
-	Sun, 23 Jul 2023 12:39:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC5CDC6B442;
+	Sun, 23 Jul 2023 16:22:08 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42CB0C6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A59E3C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jul 2023 12:39:01 +0000 (UTC)
+ Sun, 23 Jul 2023 16:22:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D064660C1F;
- Sun, 23 Jul 2023 12:38:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11D6C433C7;
- Sun, 23 Jul 2023 12:38:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 702E960DFC;
+ Sun, 23 Jul 2023 16:22:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1153C433C8;
+ Sun, 23 Jul 2023 16:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690115939;
- bh=DqMrwul8Z+Kp+FVoVrlZHdVil5ffk4Br9Pj1Hqbnxm4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Ob77RBPFBoVTTNibSWxMjo0wYIwPaVtL0+Hj7xKLbn+8iwdFiEl306vNqyY02UYoL
- jPYeKJ+MmA8RU2waU4uBNAvx+/k8LWhw1LvDiwwxOYcT8A1N61ZbBJwn2kgvupboS1
- BS/Ly2Fwldf5uZurcjDRKOMfZVR+pXchkx2F9ETNpzNFputSU9qCWgDPTK3ficVtVB
- hkKcaRcnMnpipcBvew2sRWfQD5EKlTmzr9CfzlxoWvfTNZGhet4PsFi1FmXGnXleMF
- gtaTvOuB9gZlAqFWvC0RyHGmfCN2287EnLmncsKSc1B6d50Aw/+XGT9xje7oGzxj+G
- JP70unohiRQRQ==
-Date: Sun, 23 Jul 2023 13:38:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20230723133848.5dc96150@jic23-huawei>
-In-Reply-To: <20230715182510.3d09970c@jic23-huawei>
-References: <20230714174628.4057920-1-robh@kernel.org>
- <20230715182510.3d09970c@jic23-huawei>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+ s=k20201202; t=1690129325;
+ bh=7hHXq5KIGZC56c1hv7UXeUsgzL3fx7D0F+Gla1+ZuLg=;
+ h=From:To:Cc:Subject:Date:From;
+ b=lahRw5W+Sld4yPDA3+L9Vc2Rkfld49P9uq31pPL2GHeT5QMH/scER6UMa6DQwbzaz
+ YK+LIJG1GZnrSv5aRDvWJFmaNxRwJfhLTopV7YBP1Chs6Ws/1J2T/KOEsms5YPZ+kR
+ cTHoKeEMTtXx5jA8p39buiLddz0WvTIbOI/uwTfGed1m+lAqE1a1W+SA3DN6eHuJvl
+ o/4QUPVJpdDl32ffWVmiiYkFgVXsX4h0wcEEE6N6xiOtkqBuK9qrm17lPZVtMpNcZ1
+ VHS+5NJ+mAWig5S8WlQ1V2zTTMfLZky5A5DvsdIHOa1LT9P8Zq9Djac0J/GnuR/Eoh
+ 6wgU05nH/XwoA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Mon, 24 Jul 2023 00:10:19 +0800
+Message-Id: <20230723161029.1345-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Crt Mori <cmo@melexis.com>, Heiko Stuebner <heiko@sntech.de>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Lars-Peter Clausen <lars@metafoo.de>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
- Andy Gross <agross@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
- linux-sunxi@lists.linux.dev, Alexandru Tachici <alexandru.tachici@analog.com>,
- devicetree@vger.kernel.org, Michael Hennerich <michael.hennerich@analog.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Baolin Wang <baolin.wang@linux.alibaba.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: Explicitly include correct DT
-	includes
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next 00/10] net: stmmac: add new features
+	to xgmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,57 +65,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, 15 Jul 2023 18:25:10 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+This series add below new features to xgmac:
 
-> On Fri, 14 Jul 2023 11:46:26 -0600
-> Rob Herring <robh@kernel.org> wrote:
-> 
-> > The DT of_device.h and of_platform.h date back to the separate
-> > of_platform_bus_type before it as merged into the regular platform bus.
-> > As part of that merge prepping Arm DT support 13 years ago, they
-> > "temporarily" include each other. They also include platform_device.h
-> > and of.h. As a result, there's a pretty much random mix of those include
-> > files used throughout the tree. In order to detangle these headers and
-> > replace the implicit includes with struct declarations, users need to
-> > explicitly include the correct includes.
-> > 
-> > Signed-off-by: Rob Herring <robh@kernel.org>  
-> 
-> Hi Rob,
-> 
-> Just one in here that I noticed isn't quite right. I'd have fixed it 
-> up (and can still do so if nothing else comes up) but I want to give
-> this more time on list anyway so won't pick it up today.
+correct RX COE parsing
+add more feature parsing from hw cap
+enlarge C22 ADDR and rx/tx channels
+support parse safety ce/ue irq from DT
+support per channel irq
 
-Fixed up whilst applying.
+Jisheng Zhang (10):
+  net: stmmac: correct RX COE parsing for xgmac
+  net: stmmac: xgmac: add more feature parsing from hw cap
+  net: stmmac: mdio: enlarge the max XGMAC C22 ADDR to 31
+  net: stmmac: enlarge max rx/tx queues and channels to 16
+  net: stmmac: rename multi_msi_en to perch_irq_en
+  net: stmmac: xgmac: support per-channel irq
+  dt-bindings: net: snps,dwmac: add safety irq support
+  net: stmmac: platform: support parsing safety irqs from DT
+  dt-bindings: net: snps,dwmac: add per channel irq support
+  net: stmmac: platform: support parsing per channel irq from DT
 
-Applied to the togreg branch of iio.git and pushed out as testing to see
-if 0-day can find anything we missed.
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 27 +++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  4 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  5 +++
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  5 +--
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 37 +++++++++++-------
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++---
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  2 +-
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 39 +++++++++++++++++++
+ include/linux/stmmac.h                        | 10 ++---
+ 10 files changed, 112 insertions(+), 31 deletions(-)
 
-Thanks,
-
-Jonathan
-
-> 
-> Jonathan
-> 
-> > diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
-> > index 67518e460e05..55e36b40fdf5 100644
-> > --- a/drivers/iio/adc/stmpe-adc.c
-> > +++ b/drivers/iio/adc/stmpe-adc.c
-> > @@ -14,9 +14,10 @@
-> >  #include <linux/kernel.h>
-> >  #include <linux/mfd/stmpe.h>
-> >  #include <linux/module.h>
-> > -#include <linux/of_platform.h>
-> > +#include <linux/of.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/device.h>
-> > +#include <linux/of.h>  
-> 
-> Duplicate include.
-> 
+-- 
+2.40.1
 
 _______________________________________________
 Linux-stm32 mailing list
