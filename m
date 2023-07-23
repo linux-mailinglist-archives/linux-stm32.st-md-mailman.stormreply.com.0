@@ -2,46 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2E0575DE6D
-	for <lists+linux-stm32@lfdr.de>; Sat, 22 Jul 2023 22:07:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B8F475E1E9
+	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jul 2023 14:39:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FD3BC6B44D;
-	Sat, 22 Jul 2023 20:07:33 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-30.smtpout.orange.fr
- [80.12.242.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A402AC6A615;
+	Sun, 23 Jul 2023 12:39:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 198EBC6A611
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42CB0C6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 22 Jul 2023 20:07:32 +0000 (UTC)
-Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
- id NIsyqCllLulAmNIszqCc5G; Sat, 22 Jul 2023 22:07:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1690056451;
- bh=7S4ycyHIMkZJiLKQzCPxeyh+eo13SBWOIVq3MxxljJ4=;
- h=From:To:Cc:Subject:Date;
- b=H1cITbJGrQCdw/dC2WdazoyVY0mrYULO1Vall8mjmOZhUf2HpWZfD5DXrHO7Fn447
- iY3GHjnyT2VmoVdqX5leLbMcYQnneDP9YXuVSUKXMTUtiqDNTKVMS5T7Ki5SK2BOmi
- QRef6/MoHPpVKxzX+YnsLQdwSUYSUZ2FKJjF+2cn/z/VEHHKzXFzWMgX0gMqsrkdZ3
- x403vWMINEMsctZ55M0vSjPQ7iDnes1FYWLJwL77q3Wuum82zXi94W+cvARrsWfGrJ
- vAMGUCVychN9LGChTN1g0SOTA5QWooUmDW19fCFBSlB8ec//PDWhefBwKbFsNQBF4q
- 9D9y0+LtrieXQ==
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sat, 22 Jul 2023 22:07:31 +0200
-X-ME-IP: 86.243.2.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Sat, 22 Jul 2023 22:07:26 +0200
-Message-Id: <d14d51f409c1e87fb87fa39869bdf7ce1b766120.1690056420.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
+ Sun, 23 Jul 2023 12:39:01 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D064660C1F;
+ Sun, 23 Jul 2023 12:38:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11D6C433C7;
+ Sun, 23 Jul 2023 12:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690115939;
+ bh=DqMrwul8Z+Kp+FVoVrlZHdVil5ffk4Br9Pj1Hqbnxm4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ob77RBPFBoVTTNibSWxMjo0wYIwPaVtL0+Hj7xKLbn+8iwdFiEl306vNqyY02UYoL
+ jPYeKJ+MmA8RU2waU4uBNAvx+/k8LWhw1LvDiwwxOYcT8A1N61ZbBJwn2kgvupboS1
+ BS/Ly2Fwldf5uZurcjDRKOMfZVR+pXchkx2F9ETNpzNFputSU9qCWgDPTK3ficVtVB
+ hkKcaRcnMnpipcBvew2sRWfQD5EKlTmzr9CfzlxoWvfTNZGhet4PsFi1FmXGnXleMF
+ gtaTvOuB9gZlAqFWvC0RyHGmfCN2287EnLmncsKSc1B6d50Aw/+XGT9xje7oGzxj+G
+ JP70unohiRQRQ==
+Date: Sun, 23 Jul 2023 13:38:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20230723133848.5dc96150@jic23-huawei>
+In-Reply-To: <20230715182510.3d09970c@jic23-huawei>
+References: <20230714174628.4057920-1-robh@kernel.org>
+ <20230715182510.3d09970c@jic23-huawei>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] stm class: Use struct_size()
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Crt Mori <cmo@melexis.com>, Heiko Stuebner <heiko@sntech.de>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Samuel Holland <samuel@sholland.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-sunxi@lists.linux.dev, Alexandru Tachici <alexandru.tachici@analog.com>,
+ devicetree@vger.kernel.org, Michael Hennerich <michael.hennerich@analog.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: Explicitly include correct DT
+	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,35 +78,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Use struct_size() instead of hand-writing it, when allocating a structure
-with a flex array.
+On Sat, 15 Jul 2023 18:25:10 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-This is less verbose, more robust and more informative.
+> On Fri, 14 Jul 2023 11:46:26 -0600
+> Rob Herring <robh@kernel.org> wrote:
+> 
+> > The DT of_device.h and of_platform.h date back to the separate
+> > of_platform_bus_type before it as merged into the regular platform bus.
+> > As part of that merge prepping Arm DT support 13 years ago, they
+> > "temporarily" include each other. They also include platform_device.h
+> > and of.h. As a result, there's a pretty much random mix of those include
+> > files used throughout the tree. In order to detangle these headers and
+> > replace the implicit includes with struct declarations, users need to
+> > explicitly include the correct includes.
+> > 
+> > Signed-off-by: Rob Herring <robh@kernel.org>  
+> 
+> Hi Rob,
+> 
+> Just one in here that I noticed isn't quite right. I'd have fixed it 
+> up (and can still do so if nothing else comes up) but I want to give
+> this more time on list anyway so won't pick it up today.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-It will also be helpful if the __counted_by() annotation is added with a
-Coccinelle script such as:
-   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git/commit/?h=devel/counted_by&id=adc5b3cb48a049563dc673f348eab7b6beba8a9b
----
- drivers/hwtracing/stm/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Fixed up whilst applying.
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 534fbefc7f6a..2195310ab81c 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -863,7 +863,7 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
- 		return -EINVAL;
- 
- 	nmasters = stm_data->sw_end - stm_data->sw_start + 1;
--	stm = vzalloc(sizeof(*stm) + nmasters * sizeof(void *));
-+	stm = vzalloc(struct_size(stm, masters, nmasters));
- 	if (!stm)
- 		return -ENOMEM;
- 
--- 
-2.34.1
+Applied to the togreg branch of iio.git and pushed out as testing to see
+if 0-day can find anything we missed.
+
+Thanks,
+
+Jonathan
+
+> 
+> Jonathan
+> 
+> > diff --git a/drivers/iio/adc/stmpe-adc.c b/drivers/iio/adc/stmpe-adc.c
+> > index 67518e460e05..55e36b40fdf5 100644
+> > --- a/drivers/iio/adc/stmpe-adc.c
+> > +++ b/drivers/iio/adc/stmpe-adc.c
+> > @@ -14,9 +14,10 @@
+> >  #include <linux/kernel.h>
+> >  #include <linux/mfd/stmpe.h>
+> >  #include <linux/module.h>
+> > -#include <linux/of_platform.h>
+> > +#include <linux/of.h>
+> >  #include <linux/platform_device.h>
+> >  #include <linux/device.h>
+> > +#include <linux/of.h>  
+> 
+> Duplicate include.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
