@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00F275E616
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jul 2023 03:15:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6755875E6A8
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jul 2023 03:22:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84BEFC6B442;
-	Mon, 24 Jul 2023 01:15:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 002B6C6B442;
+	Mon, 24 Jul 2023 01:22:07 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D268C6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B4E2C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jul 2023 01:15:02 +0000 (UTC)
+ Mon, 24 Jul 2023 01:22:07 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D42DC60F0A;
- Mon, 24 Jul 2023 01:15:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99C7C433C7;
- Mon, 24 Jul 2023 01:14:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id F161660E9C;
+ Mon, 24 Jul 2023 01:22:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052F6C433CC;
+ Mon, 24 Jul 2023 01:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690161300;
+ s=k20201202; t=1690161725;
  bh=QhZf8toMd5+zDGE1EOIeW6wBNB1VaLLB+7VguP4KCAE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OUhAWf0eKyCot2e+mbFe1KQ9YFR0jcjjhPaYFrokV/ojDoCmwWqPeCUSc23cx3kLg
- UuTj44IuTrAuCyTSajBHo2A4gHYplr6Lvb8UPqKaFj9MIF4Zc5I33ToX+8jVI+mtMx
- 1g+fv93Kz+un6oZV2Zs23SpMDvqpWBKH+/LQ48aNmTesMghmXVoZVNKAJnkJ2w99o/
- BM8e2HkJpd/p5S+MwivnFg2S5qkDhj8xkZF/24T2NqR+iVXc2/mHXF1+cVhvWeyNf0
- fzo6Iwce6B4T3FCG+bfFwX+9CxhdTc+kFab1QBVVDh+vXl2pAQ3UrCqkGz3W/b4PR9
- 8dxAlY8RchzgQ==
+ b=XZd/+hzLzDmDDgdgDlolWa/N65EciP5nslL1pyAlrasFVTWcW74iS8kckewop+c08
+ O4ebMkurCQsmsjf0tRWKN/lbUTaOFi/flT2sX6zWmVvrKEL5Lvzy61hHoneO6IQA/N
+ K5dROOZWtrOyb4GPrDdOr+WacWZyfEHX0DKeUhXkMwdrvjQXmshZNo6tmg8trgslQg
+ YJfy2O8pROebtUmuW2IlYwyiic86cPm2g9rEwi53gZ1Pj+gT3DUS00vXke+E2xPdAD
+ tqqzdVcnqarYDykuo3VnD1pipKfjd8rMBdQ/bvb5Y5nVl2bcteGKy68yeNUh9uBxqr
+ AOftbQK1dazmA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Sun, 23 Jul 2023 21:12:44 -0400
-Message-Id: <20230724011338.2298062-16-sashal@kernel.org>
+Date: Sun, 23 Jul 2023 21:20:44 -0400
+Message-Id: <20230724012118.2316073-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230724011338.2298062-1-sashal@kernel.org>
-References: <20230724011338.2298062-1-sashal@kernel.org>
+In-Reply-To: <20230724012118.2316073-1-sashal@kernel.org>
+References: <20230724012118.2316073-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.4.5
+X-stable-base: Linux 6.1.40
 Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
  Dan Carpenter <error27@gmail.com>, yannick.fertre@foss.st.com,
  dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  kernel test robot <lkp@intel.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.4 16/58] drm/stm: ltdc: fix late
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 11/41] drm/stm: ltdc: fix late
 	dereference check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
