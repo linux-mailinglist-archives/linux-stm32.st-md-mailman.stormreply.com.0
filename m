@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B7175F85B
-	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jul 2023 15:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6F8C75F85C
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jul 2023 15:36:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DDCEC6B442;
-	Mon, 24 Jul 2023 13:36:04 +0000 (UTC)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BCA0C6B442;
+	Mon, 24 Jul 2023 13:36:08 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 067C4C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC00EC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jul 2023 13:36:04 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-51e28cac164so11243609a12.1
+ Mon, 24 Jul 2023 13:36:07 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-9936b3d0286so776500566b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 24 Jul 2023 06:36:04 -0700 (PDT)
+ Mon, 24 Jul 2023 06:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690205763; x=1690810563;
+ d=linaro.org; s=google; t=1690205767; x=1690810567;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=5mpGN1sK2QXh4+Jmk/N0VrGqJC404Ue1gP6VHyXAM7A=;
- b=DVhka/Gg1EmteFojO2ma3hxVj1EKeRHyp9OBxNLwzuwV15YgFDr0n24IbZks9+ZH8u
- VyKFSc3zi4L5fXwmsZBdGUJQVEmog6uTeyaCrBRscZ0hQaYy+yYKgRS5+xgbJadgf6IX
- otp68DRMZVSkacT0iL4TGUuQerw7DymYXtK9Sqc2+gt167TsaLMaTvabOh5q+D0U2YmY
- OpH/2dAiMVFQFRItIf87kTlEj3XCdizHHj0D6qQ+AL2nQ6v8zkTwZZdCtVaPyf/q3oSS
- QDKwGPreKGV9RHV1ZMYmRxi16BJERztLKZE/pglD2xIQAIYBsVug2unUNFkDeNVmsrf4
- VPMg==
+ bh=CUZQpPdIT858egNmU25ruQR94eOxPvH6ltaodarNd9g=;
+ b=uz3c1UnB5ZXJhSrBInto1AcNQVdonbA1zngvwd1fUOakUAKuUGuZ9tef8/jNk+qC8o
+ cPm3O6xdgYS3r2j422yCFMDvg81CqPMOkgBBwJ2M2zf82HkUE1fmhoX2IY67ngeGApGF
+ iW+wE1ghO7KbnzIl+y6FcBSqURnEzI/YIVsBBDvuJNYj/t324Ubx168t1tiNFzaOFfFp
+ 9m0zZCAJr+xrz+WRx64Q0GhDZChKBKWya4Onl+zWI8bvZNlF5w438dyx48yK7VsGplkv
+ IVXo3kOfUWLMO1MtRM5omsRMYpgvg74H/grqZF8UlrI+B4I/dGOUP5vnDzOcYOac15WX
+ 56mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690205763; x=1690810563;
+ d=1e100.net; s=20221208; t=1690205767; x=1690810567;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=5mpGN1sK2QXh4+Jmk/N0VrGqJC404Ue1gP6VHyXAM7A=;
- b=KWOx/QbGIhCKPpHgbiN1AWBZoab8TA25AVNKjyHY9xF4cVbs/Ah2wH/gcZV4Q1uHue
- lb6h7XiRfO7QK3XtWfh1UkpCbaqdRjivA4oLFofe4sHn8V38ApTzclnz+cR539Y9iox0
- e8KNEOvj1Txe4antvHtChoferZ9ABvPmMv8g+zJkxvUrgLJrpF9AlHufh14kx6tG8jjV
- 1+c6jSyKcZxV7m1wIPwwJB0WvizKrmQCJe60+z9u7YBEVCmojdeNkEGCcaLNtci9W84M
- 4bJIwRlpztIamBrjMrZRtQUz57LQ9Iyg+13+MXVwwdlIbm96ftmORNe007DyB3koKsJa
- a4XQ==
-X-Gm-Message-State: ABy/qLZqqJ+whJ/jEOxw3zR4zdCWZEvX7hbkYU84cKIBhZBosalJzJoe
- Nb/sIOxmTfyE3TDDOprr5Ka5ww==
-X-Google-Smtp-Source: APBJJlHVB9K6K5BSR/6zupLkVOZYeSc3WOUwXfUTugUj5DabDaCWuWD4Of1GvZR38Zwo3cUrNvJjpg==
-X-Received: by 2002:a17:907:7ba6:b0:99b:4867:5e1c with SMTP id
- ne38-20020a1709077ba600b0099b48675e1cmr14638324ejc.28.1690205763548; 
- Mon, 24 Jul 2023 06:36:03 -0700 (PDT)
+ bh=CUZQpPdIT858egNmU25ruQR94eOxPvH6ltaodarNd9g=;
+ b=fcrkuikbo4sqd/+inaqwVmj3w2I64P8kMHuynjkVF6AjqNO7eriDudAdPIR4gqkalo
+ 5g0urIUmbMmZxQimBuU9Tgxw9Cl4MC0V9DD/xjSRBP0kcC9WbyWHYd2P4j1gNweU3IH5
+ zbnqgTP6y8chn7xWvKTXw5gOWig0wHGEyLogt4veFnzsr8ujV8pFvxZwxRf1Xh6zYGjO
+ AFn2oyRLngsvaEOVATWebpHwyH9YRoCXUQGzY/RsCE/JEmuY58q8b8PrquA4ke+8Euh/
+ JQmVinRXElCQ45oYsu+kHfpfUA/ko+KgNPYqoYpuLYXrmTI4bJSMMq5SZNJPUrlFBi0c
+ CJ5g==
+X-Gm-Message-State: ABy/qLZeBtwPBvMHL0Ku1dhKZ1AXWmuBCfDypmQhRBwwCqN/0wRBkGUa
+ md04MIh8muRH/B5TSSsJQm+LKQ==
+X-Google-Smtp-Source: APBJJlEFZc2GAnLQ7Chh6jd7HJTFUIs3C1+QLUm3qcXM4djlWORHjq2OVwXgSuJWE+3KbN4PA5mQ5Q==
+X-Received: by 2002:a17:906:778f:b0:994:3207:cde3 with SMTP id
+ s15-20020a170906778f00b009943207cde3mr11143513ejm.49.1690205767468; 
+ Mon, 24 Jul 2023 06:36:07 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.104])
  by smtp.gmail.com with ESMTPSA id
- d19-20020a170906041300b009883a3edcfcsm6861549eja.171.2023.07.24.06.36.00
+ p24-20020a170906a01800b00992f2befcbcsm6764671ejy.180.2023.07.24.06.36.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Jul 2023 06:36:01 -0700 (PDT)
-Message-ID: <7a5b978b-1846-874b-042b-cc5704963366@linaro.org>
-Date: Mon, 24 Jul 2023 15:35:59 +0200
+ Mon, 24 Jul 2023 06:36:06 -0700 (PDT)
+Message-ID: <68c371ed-f178-9d85-da31-4b5b894813cd@linaro.org>
+Date: Mon, 24 Jul 2023 15:36:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
@@ -69,13 +69,14 @@ To: Alexander Stein <alexander.stein@ew.tq-group.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Pavel Machek
  <pavel@ucw.cz>, Lee Jones <lee@kernel.org>
 References: <20230724063520.182888-1-alexander.stein@ew.tq-group.com>
+ <20230724063520.182888-2-alexander.stein@ew.tq-group.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230724063520.182888-1-alexander.stein@ew.tq-group.com>
+In-Reply-To: <20230724063520.182888-2-alexander.stein@ew.tq-group.com>
 Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: gpio: Add
- gpio-line-names to STMPE GPIO
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: leds: Add
+ gpio-line-names to PCA9532 GPIO
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,10 +95,11 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 24/07/2023 08:35, Alexander Stein wrote:
 > This is a gpio-controller, so gpio-line-names should be allowed as well.
-> stmpe2403 supports up to 24 GPIOs.
+> pca9532 supports up to 16 GPIOs.
 > 
 > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 > ---
+
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
