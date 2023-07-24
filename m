@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6E7175E3A4
-	for <lists+linux-stm32@lfdr.de>; Sun, 23 Jul 2023 18:22:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D00F275E616
+	for <lists+linux-stm32@lfdr.de>; Mon, 24 Jul 2023 03:15:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7816DC6B45C;
-	Sun, 23 Jul 2023 16:22:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84BEFC6B442;
+	Mon, 24 Jul 2023 01:15:04 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 752D1C6B45C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D268C6A5E6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 23 Jul 2023 16:22:47 +0000 (UTC)
+ Mon, 24 Jul 2023 01:15:02 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 79E2860E16;
- Sun, 23 Jul 2023 16:22:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE3FC433C9;
- Sun, 23 Jul 2023 16:22:42 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D42DC60F0A;
+ Mon, 24 Jul 2023 01:15:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99C7C433C7;
+ Mon, 24 Jul 2023 01:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690129365;
- bh=qDI0Xb5iaQWdsQql8g8clSdLAw51YwA2gB/y/HlqbvM=;
+ s=k20201202; t=1690161300;
+ bh=QhZf8toMd5+zDGE1EOIeW6wBNB1VaLLB+7VguP4KCAE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fVXln860LhUZcxF5EYN3gLM6af9tazNAY7YXKWeCJndIKqyXeMu8VBtbEEPrnnJJf
- pgz4q/ToKIP59p1+VzHxLLHDojPmJpfu0VZcIeBw499UMjt6dovJefE8Bm6ebXkBzE
- e3GORnARNutWgspjrF8VJVtzJFUV9kXshfdBhK3NLiM0tstmPOEX65Y/pLoCWvthUF
- yBj/TQlm45C85bQyDIsPSsVK6aGGJlJPVTuMfLewFSeD2ttgfHGRpi+lbPKHUa4+ds
- 01IoMUIfk6k+eucfSvTVZiopFDKcMOsJYKFFC1WCH56N91vHrSJnw54cSH8BS6irtC
- JMTiTPs3TaUMw==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Date: Mon, 24 Jul 2023 00:10:29 +0800
-Message-Id: <20230723161029.1345-11-jszhang@kernel.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230723161029.1345-1-jszhang@kernel.org>
-References: <20230723161029.1345-1-jszhang@kernel.org>
+ b=OUhAWf0eKyCot2e+mbFe1KQ9YFR0jcjjhPaYFrokV/ojDoCmwWqPeCUSc23cx3kLg
+ UuTj44IuTrAuCyTSajBHo2A4gHYplr6Lvb8UPqKaFj9MIF4Zc5I33ToX+8jVI+mtMx
+ 1g+fv93Kz+un6oZV2Zs23SpMDvqpWBKH+/LQ48aNmTesMghmXVoZVNKAJnkJ2w99o/
+ BM8e2HkJpd/p5S+MwivnFg2S5qkDhj8xkZF/24T2NqR+iVXc2/mHXF1+cVhvWeyNf0
+ fzo6Iwce6B4T3FCG+bfFwX+9CxhdTc+kFab1QBVVDh+vXl2pAQ3UrCqkGz3W/b4PR9
+ 8dxAlY8RchzgQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun, 23 Jul 2023 21:12:44 -0400
+Message-Id: <20230724011338.2298062-16-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230724011338.2298062-1-sashal@kernel.org>
+References: <20230724011338.2298062-1-sashal@kernel.org>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 10/10] net: stmmac: platform: support
-	parsing per channel irq from DT
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.4.5
+Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
+ Dan Carpenter <error27@gmail.com>, yannick.fertre@foss.st.com,
+ dri-devel@lists.freedesktop.org, daniel@ffwll.ch, airlied@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ kernel test robot <lkp@intel.com>
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.4 16/58] drm/stm: ltdc: fix late
+	dereference check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,72 +66,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The snps dwmac IP may support per channel interrupt. Add support to
-parse the per channel irq from DT.
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+[ Upstream commit 898a9e3f56db9860ab091d4bf41b6caa99aafc3d ]
+
+In ltdc_crtc_set_crc_source(), struct drm_crtc was dereferenced in a
+container_of() before the pointer check. This could cause a kernel panic.
+
+Fix this smatch warning:
+drivers/gpu/drm/stm/ltdc.c:1124 ltdc_crtc_set_crc_source() warn: variable dereferenced before check 'crtc' (see line 1119)
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/lkml/202212241802.zeLFZCXB-lkp@intel.com/
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/lkml/202212241802.zeLFZCXB-lkp@intel.com/
+Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Acked-by: Philippe Cornu <philippe.cornu@foss.st.com>
+Signed-off-by: Philippe Cornu <philippe.cornu@foss.st.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230515123818.93971-1-raphael.gallais-pou@foss.st.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/stm/ltdc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index e1b7a3fefd1a..16fff66c578b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -539,10 +539,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 	if (of_device_is_compatible(np, "snps,dwxgmac")) {
- 		plat->has_xgmac = 1;
- 		plat->pmt = 1;
-+
- 		if (of_property_read_bool(np, "snps,tso"))
- 			plat->flags |= STMMAC_FLAG_TSO_EN;
- 	}
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 03c6becda795c..b8be4c1db4235 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -1145,7 +1145,7 @@ static void ltdc_crtc_disable_vblank(struct drm_crtc *crtc)
  
-+	if (of_property_read_bool(np, "snps,per-channel-interrupt"))
-+		plat->flags |= STMMAC_FLAG_PERCH_IRQ_EN;
-+
- 	dma_cfg = devm_kzalloc(&pdev->dev, sizeof(*dma_cfg),
- 			       GFP_KERNEL);
- 	if (!dma_cfg) {
-@@ -705,6 +709,9 @@ EXPORT_SYMBOL_GPL(stmmac_remove_config_dt);
- int stmmac_get_platform_resources(struct platform_device *pdev,
- 				  struct stmmac_resources *stmmac_res)
+ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
  {
-+	char irq_name[8];
-+	int i;
-+
- 	memset(stmmac_res, 0, sizeof(*stmmac_res));
+-	struct ltdc_device *ldev = crtc_to_ltdc(crtc);
++	struct ltdc_device *ldev;
+ 	int ret;
  
- 	/* Get IRQ information early to have an ability to ask for deferred
-@@ -738,6 +745,26 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
- 	}
+ 	DRM_DEBUG_DRIVER("\n");
+@@ -1153,6 +1153,8 @@ static int ltdc_crtc_set_crc_source(struct drm_crtc *crtc, const char *source)
+ 	if (!crtc)
+ 		return -ENODEV;
  
-+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-+		snprintf(irq_name, sizeof(irq_name), "rx%i", i);
-+		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-+		if (stmmac_res->rx_irq[i] < 0) {
-+			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+			break;
-+		}
-+	}
++	ldev = crtc_to_ltdc(crtc);
 +
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-+		snprintf(irq_name, sizeof(irq_name), "tx%i", i);
-+		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-+		if (stmmac_res->tx_irq[i] < 0) {
-+			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+			break;
-+		}
-+	}
-+
- 	stmmac_res->sfty_ce_irq = platform_get_irq_byname_optional(pdev, "sfty_ce_irq");
- 	if (stmmac_res->sfty_ce_irq < 0) {
- 		if (stmmac_res->sfty_ce_irq == -EPROBE_DEFER)
+ 	if (source && strcmp(source, "auto") == 0) {
+ 		ldev->crc_active = true;
+ 		ret = regmap_set_bits(ldev->regmap, LTDC_GCR, GCR_CRCEN);
 -- 
-2.40.1
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
