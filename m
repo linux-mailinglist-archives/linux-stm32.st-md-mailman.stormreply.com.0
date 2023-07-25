@@ -2,82 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A8F7623BB
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jul 2023 22:42:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F4676246C
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jul 2023 23:30:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05DD9C6A61A;
-	Tue, 25 Jul 2023 20:42:29 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7F4BC6905A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC1FBC6A61A;
+	Tue, 25 Jul 2023 21:30:04 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0718BC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jul 2023 20:42:27 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-992dcae74e0so970155366b.3
+ Tue, 25 Jul 2023 21:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1690320601;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=eI0IPJDYPNrVyX0XGlXeCaRs7mSlaEbPza1/eXegfXE=;
+ b=Xeo9ZcVdEbLXg2NxdwmowkzkyqcItWX22ZIEHRTD4rZPyV9rO+VbrhZhzo11shGu6tXaoM
+ nfDGQ1PVX7xuCm78Pc8B8hICVFu1ebzfz9JUgXZs6WMRDUKaIQSvaEImE1Kul1w1O0PRKb
+ XtaGQLRi0gxBHdDVMPlDTY7p042d6Tc=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-477-sc32afdyOaihya5DIm156Q-1; Tue, 25 Jul 2023 17:30:00 -0400
+X-MC-Unique: sc32afdyOaihya5DIm156Q-1
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-7659924cf20so657800485a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jul 2023 13:42:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690317747; x=1690922547;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=luoqn8Oevn7bkqgAb6fNJnOH+RZZKqe9njAp7OGyFq0=;
- b=TbDvrQE8gms3+U4G88aHi+ZQECy/VuP63cWu8W2dq0cyAMuW4okMl6e5H6YZGvHdFA
- 09cT8OdwzanTzAVTAKSYmHtIwNNfGdE/62luw5mHiryktLTpk+PT2BNNvVqFAwyFYGZN
- sBrDQo0YMB61Ao/F3pwRV3nbm8415wyzaR8PxhuSqpANptSdsoxE5QwbaoaEupbkWsHL
- y73d/08ukkJUV5YJdnkCfbpstBWhOXPQjiateZyzmIzqqZ0kLAooo216anwXs3I+gpVe
- bWA2wSUbx23qnpu63RAUdMVJpNwyMQJRkmBrBvkTB1IOSjHX8KdaBgGLGOwdK0HstgAZ
- 8nbA==
+ Tue, 25 Jul 2023 14:30:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690317747; x=1690922547;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=luoqn8Oevn7bkqgAb6fNJnOH+RZZKqe9njAp7OGyFq0=;
- b=iqsQrI9++pzAO5Wf3/ijerdp7U8s43Jx6hmluIsTXqq2TYvxiF/N+bLKGcVFJ7aPn0
- rGeookVm2nUi9eNgwttPhj/AYBZmm4R+2/LIEi/VbW+Pwcx/LEeW2JDzGMeE+gVIxsb/
- PUGkeZpKHOfa1MmIZbiccSO0+Rl2aTHKM2OYZXU2ajVKYPe88bZsVyfViSdnn3NAGQfZ
- ZUIRehVYQmKh0pjdA6bVACrymt7/juSoT4PlQqD6WYqBiuvdnBf6yo4kPL+dittP7Dr+
- stNiPvQiMe1Xx+wySDqPNkWoX3xJU2glziUe7hPWp6T2lcAqQ64gkTxlzH38/5csfCLt
- +tyg==
-X-Gm-Message-State: ABy/qLbtanC7XasxIeP1GbgwV6V+4TBLii5BsclrdpcGJt0ehu5ZYnXd
- urHexNhb5p7a97UZqRY3oCMRmA==
-X-Google-Smtp-Source: APBJJlEN+nPjs/HeMvPv2U7XvIehtqxdjyI+/5qdTTdyp4g8mGDSFv84MiTD2ay4Fs+0aghWfmNRYw==
-X-Received: by 2002:a17:906:224c:b0:993:e752:1a70 with SMTP id
- 12-20020a170906224c00b00993e7521a70mr14758414ejr.19.1690317747226; 
- Tue, 25 Jul 2023 13:42:27 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
+ d=1e100.net; s=20221208; t=1690320600; x=1690925400;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=eI0IPJDYPNrVyX0XGlXeCaRs7mSlaEbPza1/eXegfXE=;
+ b=Sz650GslDolbGqxJjxP1BjKUwWE109hFrUo4AMgPYMsI0XktA0TocNtw1gDYEAln2W
+ 8NpGlTfjrRbn4y4UN/YH9Cp8fK4afTYtT9XprIUGr6QHNHpLpd6vqomNEncuGG/P3/Ei
+ djMQJHAUXAnjs+UZDVGh+ChRv9OZXz1FcHrcFmXqZKxF0o2/xh8jN7NmMElK8rhvWz/V
+ Njhhb8p1UvMBaqIn4/zPHs07HVmdIkeeKVzfN5Qrk+kDKI6ll5tddSy1UJKRVCldkhjI
+ 1QNiNgUeILv2orm4EJxW3Jw7Viq3nUAiOMbh5w70gwFI28NoLxO7StLDlmVijEN5kSez
+ WrNg==
+X-Gm-Message-State: ABy/qLbZMV8ye1nZAQQ9uPtXHQ/ojLZ2OztJ9bDggaynu5n+a0fPSwzu
+ E7YsKcWJv0oD6TXPti/zzJRGQxEkgROqCzCJZpZHFB8xZ9kG/pFgttSuHr8axS/zkYoMG0eRy3q
+ bb/1n+8QDGG22D7C6tkALMeayAcQ0z7QcVPJCfvRJ
+X-Received: by 2002:a05:620a:f05:b0:767:1241:54b5 with SMTP id
+ v5-20020a05620a0f0500b00767124154b5mr181003qkl.1.1690320600063; 
+ Tue, 25 Jul 2023 14:30:00 -0700 (PDT)
+X-Google-Smtp-Source: APBJJlF24tMAjJjYlaklb00gjuYXYzEgTXG7QQEk+fVvTcFB3Y0hqtiYP0Qq5YM3YPRmvMFNY0tH+g==
+X-Received: by 2002:a05:620a:f05:b0:767:1241:54b5 with SMTP id
+ v5-20020a05620a0f0500b00767124154b5mr180977qkl.1.1690320599711; 
+ Tue, 25 Jul 2023 14:29:59 -0700 (PDT)
+Received: from fedora.redhat.com ([2600:1700:1ff0:d0e0::17])
  by smtp.gmail.com with ESMTPSA id
- rv14-20020a17090710ce00b0099b921de301sm3930223ejb.159.2023.07.25.13.42.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jul 2023 13:42:26 -0700 (PDT)
-Message-ID: <aa2c2681-1593-2e5e-0131-2f916fbdd14a@linaro.org>
-Date: Tue, 25 Jul 2023 22:42:24 +0200
+ j3-20020a37c243000000b00767d7307490sm3943067qkm.34.2023.07.25.14.29.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jul 2023 14:29:59 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 25 Jul 2023 16:04:24 -0500
+Message-ID: <20230725211853.895832-2-ahalaney@redhat.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>
-References: <20230725105421.99160-1-krzysztof.kozlowski@linaro.org>
- <246eea6e-dd34-426f-9fc7-427d808fe8f0@sirena.org.uk>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <246eea6e-dd34-426f-9fc7-427d808fe8f0@sirena.org.uk>
-Cc: linux-arm-msm@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Saravanan Sekar <sravanhome@gmail.com>,
- devicetree@vger.kernel.org, Pascal Paillet <p.paillet@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- ChiYuan Huang <cy_huang@richtek.com>, Andy Gross <agross@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- - <patches@opensource.cirrus.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Robin Gong <yibin.gong@nxp.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] regulator: dt-bindings: add missing
- unevaluatedProperties for each regulator
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, jsuraj@qti.qualcomm.com, davem@davemloft.net,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ peppe.cavallaro@st.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ ahalaney@redhat.com
+Subject: [Linux-stm32] [PATCH net-next v2 0/2] net: stmmac: Increase
+	clk_ptp_ref rate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,23 +89,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/07/2023 13:14, Mark Brown wrote:
-> On Tue, Jul 25, 2023 at 12:54:20PM +0200, Krzysztof Kozlowski wrote:
->> Each regulator node, which references common regulator.yaml schema,
->> should disallow additional or unevaluated properties.  Otherwise
->> mistakes in properties will go unnoticed.
-> 
-> This doesn't apply against current code, please check and resend.
-> 
->>  Documentation/devicetree/bindings/regulator/ti,tps65090.yaml  | 1 +
-> 
-> This doesn't seem to be upstream.
+This series aims to increase the clk_ptp_ref rate to get the best
+possible PTP timestamping resolution possible. Some modified disclosure
+about my development/testing process from the RFC/RFT v1 follows.
 
-Indeed, I should exclude any work-in-progress. Apologies. I'll fix and
-send v2 of this patch.
+Disclosure: I don't know much about PTP beyond what you can google in an
+afternoon, don't have access to documentation about the stmmac IP,
+and have only tested that (based on code comments and git commit
+history) the programming of the subsecond register (and the clock rate)
+makes more sense with these changes. Qualcomm has tested a similar
+change offlist, verifying PTP more formally as I understand it.
 
-Best regards,
-Krzysztof
+The last version was an RFC/RFT, but I didn't get a lot of confirmation
+that doing patch 3 in that series (essentially setting clk_ptp_ref to
+whatever its max value is) for the whole stmmac ecosystem was a safe
+idea. So I am erring on the side of caution and doing this for the
+Qualcomm platform only. See v1 for an approach that would apply to
+all stmmac platform drivers with clk_ptp_ref.
+
+v1: https://lore.kernel.org/netdev/20230711205732.364954-1-ahalaney@redhat.com/
+Changes since v1:
+    - Collected Reviewed-by tags (Simon)
+    - Dropped RFC/RFT, dropped patch 3 that implemented this rate
+      change at a stmmac platform level
+
+Andrew Halaney (2):
+  net: stmmac: Make ptp_clk_freq_config variable type explicit
+  net: stmmac: dwmac-qcom-ethqos: Use max frequency for clk_ptp_ref
+
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c  |  3 +--
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c         | 18 ++++++++++++++++++
+ include/linux/stmmac.h                         |  4 +++-
+ 3 files changed, 22 insertions(+), 3 deletions(-)
+
+-- 
+2.41.0
 
 _______________________________________________
 Linux-stm32 mailing list
