@@ -2,80 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 478AA76246F
-	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jul 2023 23:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE32776241A
+	for <lists+linux-stm32@lfdr.de>; Tue, 25 Jul 2023 23:04:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0569CC6A61A;
-	Tue, 25 Jul 2023 21:30:26 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C23C7C65E4C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55BCCC6A61A;
+	Tue, 25 Jul 2023 21:04:56 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42829C6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jul 2023 21:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1690320623;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=M6R5PqHz89a5dYS6wq5jIGBjMTrYBr/afZbcaHTTyIA=;
- b=F0RQqs6vBWayEefcDpLTe3YUMiP6Rqc8UUht7x7qNwi3NXxQpRwB+NP+jLewqJCsbvd/1p
- ya1KvXnbb1J7SJz2bunVsvxc7i3DZGoIuDIY/CgJ6sw1nbMk+OVZL/ooVWwPdk6+PXWmgg
- 7aAU+BRNRyywcdeAeRPGYSpsHEXUnfU=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-587-q-72E5-RPACb3fcPM_PNYQ-1; Tue, 25 Jul 2023 17:30:21 -0400
-X-MC-Unique: q-72E5-RPACb3fcPM_PNYQ-1
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-7683cdabcb7so808413985a.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jul 2023 14:30:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690320621; x=1690925421;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=M6R5PqHz89a5dYS6wq5jIGBjMTrYBr/afZbcaHTTyIA=;
- b=O2m5t0I6+I7IoZcvETmDEsQzSACrNIVdgaqCCvgITNftwIOtyGFrvy7jaslAEYuoTD
- LpM9aGY/EeEqsydgLfVziQmL0BphWEA/Akyv084dA5PSHYYCgBWU7nPxBgB6EaSAOOMR
- KiDqu6EntVtse7JRODedllSK7bvbMyfdWpgFiuBCsYdam6m8m6W/dJSvZ/QuZzAm5+sE
- XUYfCo+HOqk9x+ijiAp8Tw69DY6E2fx0rpjWdMpFLoNS3kvSmE7Q9bO0ksAjIglRB0aX
- h5dw0mwlYUtns4/A862vTlO8jXN6G/3gcRGOAbNO7EbNBZ6ftA/GQ9FGEZUZ+Hg73piX
- wZkw==
-X-Gm-Message-State: ABy/qLZpg6xteQkQjUI4+IbDuvoQA6AJ9T7q4H2Tr3zxe2PfQsgiHVu1
- +Xe+kH5r9GG3yIewXJIIefvWIVWa2572WQOVsSIGRMRjHinE16zhGTmoHUJKLpwwbdQbA5BpFUr
- 6Mlyzuj1y/0xNVGu5S7lNzJiqRrZwCb9vtOCW5at5
-X-Received: by 2002:a05:620a:2545:b0:768:156e:41b8 with SMTP id
- s5-20020a05620a254500b00768156e41b8mr171812qko.56.1690320621300; 
- Tue, 25 Jul 2023 14:30:21 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlEXEDMipNpnjboiVX9tymuPzO29w0eF8hLR09Ab5g7ZDyLrlEARGaZBlmf5qh4U8wb5xzUttQ==
-X-Received: by 2002:a05:620a:2545:b0:768:156e:41b8 with SMTP id
- s5-20020a05620a254500b00768156e41b8mr171797qko.56.1690320620999; 
- Tue, 25 Jul 2023 14:30:20 -0700 (PDT)
-Received: from fedora.redhat.com ([2600:1700:1ff0:d0e0::17])
- by smtp.gmail.com with ESMTPSA id
- j3-20020a37c243000000b00767d7307490sm3943067qkm.34.2023.07.25.14.30.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jul 2023 14:30:20 -0700 (PDT)
-From: Andrew Halaney <ahalaney@redhat.com>
-To: linux-kernel@vger.kernel.org
-Date: Tue, 25 Jul 2023 16:04:26 -0500
-Message-ID: <20230725211853.895832-4-ahalaney@redhat.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230725211853.895832-2-ahalaney@redhat.com>
-References: <20230725211853.895832-2-ahalaney@redhat.com>
+ Tue, 25 Jul 2023 21:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=gjPsbkJgGKQCEAaIw+4CvOGfIWuqL8tQPEgzB7IKUFw=; b=jOCoIzIOQW+7dDTWROzc94ArUv
+ ZHvd1xaiiFNCH6SfYuM5RlpgQLocgjGfbaCgw8/Sg49lcAo4AfQl5vmyoMvsEvE4gTncp1DQVS8RI
+ sLjp6qTDeNNKr0u6JjmUFqiY61GPZThQI2GzifaacuOBY8ggIFghr8bWtKfOqVk8d89bK+suLfyF5
+ RjEEsZa/XmX8ydXzOUrrlB8o4I9eBk0+AzeFGjSPUtwBZAwSm4zHm9gpw2wIXbT3gwyoQ/x7ULoJe
+ V5AjG2SKBJLDqQ97flH283laIj1Tvf0THaHw+RiUL65J6WCS8qcWp5tXz05vnVKcArPS+NMroNP99
+ FgmNeJyw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49862)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qOPCz-0002fG-3B;
+ Tue, 25 Jul 2023 22:04:42 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qOPCv-0002AG-HH; Tue, 25 Jul 2023 22:04:37 +0100
+Date: Tue, 25 Jul 2023 22:04:37 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Message-ID: <ZMA45XUMM94GTjHx@shell.armlinux.org.uk>
+References: <20230725194931.1989102-1-shenwei.wang@nxp.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: vkoul@kernel.org, bhupesh.sharma@linaro.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, jsuraj@qti.qualcomm.com, davem@davemloft.net,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, Simon Horman <simon.horman@corigine.com>,
- kuba@kernel.org, pabeni@redhat.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, ahalaney@redhat.com
-Subject: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac:
-	dwmac-qcom-ethqos: Use max frequency for clk_ptp_ref
+Content-Disposition: inline
+In-Reply-To: <20230725194931.1989102-1-shenwei.wang@nxp.com>
+Cc: imx@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <frank.li@nxp.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-imx: pause the TXC
+	clock in fixed-link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,58 +70,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Qualcomm clocks can set their frequency to a variety of levels
-generally. Let's use the max for clk_ptp_ref to ensure the best
-timestamping resolution possible.
+On Tue, Jul 25, 2023 at 02:49:31PM -0500, Shenwei Wang wrote:
+> +static bool imx_dwmac_is_fixed_link(struct imx_priv_data *dwmac)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct device_node *dn;
+> +
+> +	if (!dwmac || !dwmac->plat_dat)
+> +		return false;
+> +
+> +	plat_dat = dwmac->plat_dat;
+> +	dn = of_get_child_by_name(dwmac->dev->of_node, "fixed-link");
+> +	if (!dn)
+> +		return false;
+> +
+> +	if (plat_dat->phy_node == dn || plat_dat->phylink_node == dn)
+> +		return true;
 
-Without this, the default value of the clock is used. For sa8775p-ride
-this is 19.2 MHz, far less than the 230.4 MHz possible.
+Why would the phy_node or the phylink_node ever be pointing at the
+fixed-link node?
 
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
-Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c         | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+For one, phylink expects the fwnode being passed to it to be pointing
+at the _parent_ node of the fixed-link node, since it looks up from
+the parent for "fixed-link" node.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 735525ba8b93..a85501874801 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -694,6 +694,23 @@ static void ethqos_clks_disable(void *data)
- 	ethqos_clks_config(data, false);
- }
- 
-+static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
-+{
-+	struct plat_stmmacenet_data *plat_dat = priv->plat;
-+	int err;
-+
-+	if (!plat_dat->clk_ptp_ref)
-+		return;
-+
-+	/* Max the PTP ref clock out to get the best resolution possible */
-+	err = clk_set_rate(plat_dat->clk_ptp_ref, ULONG_MAX);
-+	if (err)
-+		netdev_err(priv->dev, "Failed to max out clk_ptp_ref: %d\n", err);
-+	plat_dat->clk_ptp_rate = clk_get_rate(plat_dat->clk_ptp_ref);
-+
-+	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
-+}
-+
- static int qcom_ethqos_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
-@@ -779,6 +796,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	plat_dat->bsp_priv = ethqos;
- 	plat_dat->fix_mac_speed = ethqos_fix_mac_speed;
- 	plat_dat->dump_debug_regs = rgmii_dump;
-+	plat_dat->ptp_clk_freq_config = ethqos_ptp_clk_freq_config;
- 	plat_dat->has_gmac4 = 1;
- 	if (ethqos->has_emac_ge_3)
- 		plat_dat->dwmac4_addrs = &data->dwmac4_addrs;
 -- 
-2.41.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
