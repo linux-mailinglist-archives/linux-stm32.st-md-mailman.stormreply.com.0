@@ -2,73 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F2DB762C76
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 09:04:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81631762EAC
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 09:49:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6512BC6B45D;
-	Wed, 26 Jul 2023 07:04:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DA78C6A61A;
+	Wed, 26 Jul 2023 07:49:46 +0000 (UTC)
 Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
  [209.85.218.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C3FCC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 121DFC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 07:04:01 +0000 (UTC)
+ Wed, 26 Jul 2023 07:49:45 +0000 (UTC)
 Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-992b66e5affso1049457766b.3
+ a640c23a62f3a-977e0fbd742so1008704866b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 00:04:01 -0700 (PDT)
+ Wed, 26 Jul 2023 00:49:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690355040; x=1690959840;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KBZ9nkefs+Guv5W4o1fCyA4lt8kjyOA2HRoasDNFuK8=;
- b=jhhnyEITh5AaGNVeGXy/ByEcFQXL+Sjx6SGJ8azKZODSlFR3+UVgKmfZ68dGz3cN5e
- 0Cub31uI8AeH7fMUsCHZoRzaPYz/+kpw95/s4FCUtL524aA2dmy7fdOU1Ve4PAb4t2W1
- Ek4kaHRaDh6ZcrzS9m5+QjNVANz8z1MBxx3S83IKzNNh1boYh5s/z0SS3AvqwPBXzNa/
- RmUT/X9cCZWRbkZ909fxrLVkSQ5lxyXgjHxeUqCPUEgrkSBYmCmv4/9hJ+i7IL5Ljbod
- rWS3hE4aufZ+8fQNhnisFBnkUBfSPgkY3/mpTYLUNDzkqbwmWrTUAAoUwYp3p/cOWeQP
- 73cQ==
+ d=linaro.org; s=google; t=1690357784; x=1690962584;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CrsD2ku3FYUSbEYLd18QefccXrMIMs58LNZUmwrbrKY=;
+ b=b9Uk0NppRr+rkGY9TslqqUwqX6vqJDpM4jhJBfGUSzLvxZnEIwzaoGwJiYgcmrXew3
+ gCGW1ypQiqlOeTUcniQ7x2O13WIZIKaBXdRkayMCqXQ0udjcHpNZ3XaBmPqpSmN4S0YM
+ hKxo8LHz06XW+8m/uV8NLI1b9dAc1qCU3LtzpZlJ28Z0CFdnjY2SR1OB6NwLydSPy5hf
+ asT2WvruZJU+oECM3PPeZJ5vslpjdz0fSNVjiDWQ8MoCSk8G+PsRRXGJx6onQnUEeH9v
+ ZueNevR4DAWbUpalLL3xn5dQqbuSRctg/nqqAUlUx/WJ8qGtW5hLgwR7LS4l1USMIk01
+ 9aOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690355040; x=1690959840;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KBZ9nkefs+Guv5W4o1fCyA4lt8kjyOA2HRoasDNFuK8=;
- b=bo1yWMPpyAtD5Qxt7zCUTree8Mk7o/4hDd44LW4mHUps27LxR73sjEsAIh9OgEn9dl
- ZPOUhsvDUaIB6BlRu06K0TVmtqjwr2gA7E9G0PBhT3lVQPTefPM+95La1siqvVcohayq
- nETVXbMsBz1JsTXeBgJK4iWJM6iyEV6wkusNKgOMC6bieWbhtdfwsWJ2NaXkaWiU7EW1
- GYZC3gZbZRBlmFQYSwlM6KFyEQ3PUF+0kZA27hlMLDUgKm38/Wz67zvuPIGP/4VZ5WAJ
- 7VDWz0vhNOn+JvwzT414QHWSkw1dnQnF1aMKYSke7XMpB211llMzBLQ4afLUYHDTwbhq
- nfoA==
-X-Gm-Message-State: ABy/qLaN+dGsBEL9eHv46AV/dfN6//RYNa4VNhs+n8Fn+Wmv1y05xSz6
- 9T4RLU7mONM8INTweRlokhpgAg==
-X-Google-Smtp-Source: APBJJlGn3l9hRuVm9wnbpKyx/+KTgfdlF7yVYlWpOmc5m8Up6hQRd6J8D6rVsblNvjqg6B4+wve9sg==
-X-Received: by 2002:a17:906:73c8:b0:997:e7d9:50f7 with SMTP id
- n8-20020a17090673c800b00997e7d950f7mr967939ejl.66.1690355040781; 
- Wed, 26 Jul 2023 00:04:00 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1690357784; x=1690962584;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CrsD2ku3FYUSbEYLd18QefccXrMIMs58LNZUmwrbrKY=;
+ b=ctNPo2BU/HvtEZVZBtEg4pP6ZZDGcyXhFZFalW61Ull8OnSDR7DuH0A0FjcAepGa9D
+ lnehe3JBzOSNx4yPqs1DyRd1GZ6Kb0wkD9T5Ivg1965j/O+j1o6FWPW2NguVK1YES8+C
+ D+A45C+z9ksWLHjsV7IFFCFmFA8Py/Rv6skeqYqyGubQTaRyi8WBeRkQCZF6tNylpGqq
+ K8LPT9+IgsFptV5g1Z0daYP9Ubbzu+PRLnUX++QoK+LsQy6mna9/q8izJOglVmr0gDSe
+ h3kZqLpStdFt/EcHmNdNcFMCDbRLET2Fsg5ur+yTeS6hciX8755FpO5e3qoZx8TGl1iG
+ hXjQ==
+X-Gm-Message-State: ABy/qLbpChr8IxHp2mLqJl5V4oxvtaTfXdTlEewD5lFMsUk7efKNTs8k
+ ADJHVx7oBkELKw3WCXj7pSw1fg==
+X-Google-Smtp-Source: APBJJlE5SEYnQwUx8wsx9vWg+u+oTmQFY4q7UYsSYWFVWyKkbwKNrfwAMB+kXD4rA1nSu4piS0iYgw==
+X-Received: by 2002:a17:906:51db:b0:99b:4956:e4e3 with SMTP id
+ v27-20020a17090651db00b0099b4956e4e3mr1032988ejk.8.1690357784438; 
+ Wed, 26 Jul 2023 00:49:44 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.223.104]) by smtp.gmail.com with ESMTPSA id
- ks27-20020a170906f85b00b0097404f4a124sm9212372ejb.2.2023.07.26.00.03.59
+ qh1-20020a170906eca100b0099bc8bd9066sm360455ejb.150.2023.07.26.00.49.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jul 2023 00:04:00 -0700 (PDT)
+ Wed, 26 Jul 2023 00:49:43 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+To: Saravanan Sekar <sravanhome@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 26 Jul 2023 09:03:53 +0200
-Message-Id: <20230726070353.103989-4-krzysztof.kozlowski@linaro.org>
+ Robin Gong <yibin.gong@nxp.com>, ChiYuan Huang <cy_huang@richtek.com>,
+ Pascal Paillet <p.paillet@foss.st.com>, - <patches@opensource.cirrus.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Wed, 26 Jul 2023 09:49:40 +0200
+Message-Id: <20230726074940.121040-1-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230726070353.103989-1-krzysztof.kozlowski@linaro.org>
-References: <20230726070353.103989-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 4/4] AMR: dts: st: stih407: drop max-duty-cycle
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: [Linux-stm32] [PATCH v2] regulator: dt-bindings: add missing
+	unevaluatedProperties for each regulator
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,28 +90,195 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-"max-duty-cycle" property was removed in the commit f747a1fe7848
-("regulator: pwm-regulator: Remove obsoleted property"):
+Each regulator node, which references common regulator.yaml schema,
+should disallow additional or unevaluated properties.  Otherwise
+mistakes in properties will go unnoticed.
 
-  stih418-b2199.dtb: pwm-regulator: Unevaluated properties are not allowed ('max-duty-cycle' was unexpected)
-
+Reported-by: Konrad Dybcio <konrad.dybcio@linaro.org>
+Closes: https://git.codelinaro.org/linaro/qcomlt/kernel/-/commit/1c8aeef8a6e84520b77f0c270d99c8bf692c5933
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- arch/arm/boot/dts/st/stih407-family.dtsi | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
-index 3f58383a7b59..29302e74aa1d 100644
---- a/arch/arm/boot/dts/st/stih407-family.dtsi
-+++ b/arch/arm/boot/dts/st/stih407-family.dtsi
-@@ -111,7 +111,6 @@ pwm_regulator: pwm-regulator {
- 		regulator-min-microvolt = <784000>;
- 		regulator-max-microvolt = <1299000>;
- 		regulator-always-on;
--		max-duty-cycle = <255>;
- 		status = "okay";
- 	};
+---
+
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+Changes in v2:
+1. Rebase, drop patches from work-in-progress branch
+---
+ Documentation/devicetree/bindings/regulator/mps,mp5416.yaml   | 2 ++
+ Documentation/devicetree/bindings/regulator/mps,mpq7920.yaml  | 2 ++
+ Documentation/devicetree/bindings/regulator/pfuze100.yaml     | 4 ++++
+ .../devicetree/bindings/regulator/qcom,rpmh-regulator.yaml    | 2 ++
+ .../devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml | 1 +
+ .../bindings/regulator/richtek,rt4831-regulator.yaml          | 1 +
+ .../bindings/regulator/richtek,rtmv20-regulator.yaml          | 1 +
+ .../bindings/regulator/richtek,rtq6752-regulator.yaml         | 1 +
+ .../devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml    | 2 +-
+ Documentation/devicetree/bindings/regulator/wlf,arizona.yaml  | 2 ++
+ 10 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/regulator/mps,mp5416.yaml b/Documentation/devicetree/bindings/regulator/mps,mp5416.yaml
+index 2e720d152890..0221397eb51e 100644
+--- a/Documentation/devicetree/bindings/regulator/mps,mp5416.yaml
++++ b/Documentation/devicetree/bindings/regulator/mps,mp5416.yaml
+@@ -29,10 +29,12 @@ properties:
+     patternProperties:
+       "^buck[1-4]$":
+         $ref: regulator.yaml#
++        unevaluatedProperties: false
+         type: object
  
+       "^ldo[1-4]$":
+         $ref: regulator.yaml#
++        unevaluatedProperties: false
+         type: object
+ 
+     additionalProperties: false
+diff --git a/Documentation/devicetree/bindings/regulator/mps,mpq7920.yaml b/Documentation/devicetree/bindings/regulator/mps,mpq7920.yaml
+index 019c60942efc..6de5b027f990 100644
+--- a/Documentation/devicetree/bindings/regulator/mps,mpq7920.yaml
++++ b/Documentation/devicetree/bindings/regulator/mps,mpq7920.yaml
+@@ -38,11 +38,13 @@ properties:
+       ldortc:
+         type: object
+         $ref: regulator.yaml#
++        unevaluatedProperties: false
+ 
+     patternProperties:
+       "^ldo[1-4]$":
+         type: object
+         $ref: regulator.yaml#
++        unevaluatedProperties: false
+ 
+       "^buck[1-4]$":
+         type: object
+diff --git a/Documentation/devicetree/bindings/regulator/pfuze100.yaml b/Documentation/devicetree/bindings/regulator/pfuze100.yaml
+index e384e4953f0a..0eda44752cdd 100644
+--- a/Documentation/devicetree/bindings/regulator/pfuze100.yaml
++++ b/Documentation/devicetree/bindings/regulator/pfuze100.yaml
+@@ -68,18 +68,22 @@ properties:
+       "^sw([1-4]|[1-4][a-c]|[1-4][a-c][a-c])$":
+         $ref: regulator.yaml#
+         type: object
++        unevaluatedProperties: false
+ 
+       "^vgen[1-6]$":
+         $ref: regulator.yaml#
+         type: object
++        unevaluatedProperties: false
+ 
+       "^vldo[1-4]$":
+         $ref: regulator.yaml#
+         type: object
++        unevaluatedProperties: false
+ 
+       "^(vsnvs|vref|vrefddr|swbst|coin|v33|vccsd)$":
+         $ref: regulator.yaml#
+         type: object
++        unevaluatedProperties: false
+ 
+     additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+index 72b533c3761a..e758093365bc 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+@@ -111,6 +111,7 @@ properties:
+   bob:
+     type: object
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+     description: BOB regulator node.
+     dependencies:
+       regulator-allow-set-load: [ regulator-allowed-modes ]
+@@ -119,6 +120,7 @@ patternProperties:
+   "^(smps|ldo|lvs|bob)[0-9]+$":
+     type: object
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+     description: smps/ldo regulator nodes(s).
+     dependencies:
+       regulator-allow-set-load: [ regulator-allowed-modes ]
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml
+index a8ca8e0b27f8..9ea8ac0786ac 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,smd-rpm-regulator.yaml
+@@ -110,6 +110,7 @@ patternProperties:
+   "^((s|l|lvs|5vs)[0-9]*)|(boost-bypass)|(bob)$":
+     description: List of regulators and its properties
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+ 
+ additionalProperties: false
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/richtek,rt4831-regulator.yaml b/Documentation/devicetree/bindings/regulator/richtek,rt4831-regulator.yaml
+index d9c23333e157..cd06e957b9db 100644
+--- a/Documentation/devicetree/bindings/regulator/richtek,rt4831-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/richtek,rt4831-regulator.yaml
+@@ -29,6 +29,7 @@ patternProperties:
+   "^DSV(LCM|P|N)$":
+     type: object
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+     description:
+       Properties for single Display Bias Voltage regulator.
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/richtek,rtmv20-regulator.yaml b/Documentation/devicetree/bindings/regulator/richtek,rtmv20-regulator.yaml
+index 446ec5127d1f..fec3d396ca50 100644
+--- a/Documentation/devicetree/bindings/regulator/richtek,rtmv20-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/richtek,rtmv20-regulator.yaml
+@@ -121,6 +121,7 @@ properties:
+     description: load switch current regulator description.
+     type: object
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/regulator/richtek,rtq6752-regulator.yaml b/Documentation/devicetree/bindings/regulator/richtek,rtq6752-regulator.yaml
+index e6e5a9a7d940..ef62c618de67 100644
+--- a/Documentation/devicetree/bindings/regulator/richtek,rtq6752-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/richtek,rtq6752-regulator.yaml
+@@ -35,6 +35,7 @@ properties:
+       "^(p|n)avdd$":
+         type: object
+         $ref: regulator.yaml#
++        unevaluatedProperties: false
+         description: |
+           regulator description for pavdd and navdd.
+ 
+diff --git a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+index 7d53cfa2c288..c9586d277f41 100644
+--- a/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
++++ b/Documentation/devicetree/bindings/regulator/st,stm32mp1-pwr-reg.yaml
+@@ -25,8 +25,8 @@ properties:
+ patternProperties:
+   "^(reg11|reg18|usb33)$":
+     type: object
+-
+     $ref: regulator.yaml#
++    unevaluatedProperties: false
+ 
+ required:
+   - compatible
+diff --git a/Documentation/devicetree/bindings/regulator/wlf,arizona.yaml b/Documentation/devicetree/bindings/regulator/wlf,arizona.yaml
+index 011819c10988..11e378648b3f 100644
+--- a/Documentation/devicetree/bindings/regulator/wlf,arizona.yaml
++++ b/Documentation/devicetree/bindings/regulator/wlf,arizona.yaml
+@@ -29,11 +29,13 @@ properties:
+       Initial data for the LDO1 regulator.
+     $ref: regulator.yaml#
+     type: object
++    unevaluatedProperties: false
+ 
+   micvdd:
+     description:
+       Initial data for the MICVDD regulator.
+     $ref: regulator.yaml#
+     type: object
++    unevaluatedProperties: false
+ 
+ additionalProperties: true
 -- 
 2.34.1
 
