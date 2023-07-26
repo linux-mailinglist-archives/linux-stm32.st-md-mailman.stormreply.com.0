@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEDB8768DCC
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF7E768DCD
 	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80D58C6DD79;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 926F3C6DD7C;
 	Mon, 31 Jul 2023 07:17:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB8DDC6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B68DDC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 25 Jul 2023 16:45:42 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Wed, 26 Jul 2023 09:03:34 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36PEamrU017484; Tue, 25 Jul 2023 18:45:09 +0200
+ 36Q8fLqo008437; Wed, 26 Jul 2023 11:03:00 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding : content-type; s=selector1;
- bh=65PcScM1bbnyyzXuU3DobCKOo4SvsqBeWCURh7pGt5c=;
- b=jP4nPjd5A4FSNzGJ6/4vI11/t30mWMK3c0HgWVs6NxJFYmMPLLqNO4ZzTDvC4BTWgKuX
- VGJFELFI+z+91YCo9CkjxgqhuJ9zEMMA4TzjsPZJ34L8USO0rJf4HQOoPVFgKs0PYNdO
- VgscijpUD00xX7xKccr+wqSVr4QHpXERFXtaJT40+KcIj0LZQGz1Gpj7KD37dbc1Mazy
- 36/CiuBzaMBm6m/md29OTmagjgIIxlv9TMpIXJf2zlskGdNtD6RDN3ZhbtCLfhZ8cV7u
- aCLNnW+DAhI75FcPFl5PwWNlgyHkl1O4P+EjS2T7U+z6pUKmP6YYPWPQIIUJCfsKnKm6 Zg== 
+ bh=4CGThAjzmh/4WpHERuOkvQIh2ezHTPTPjSx6vujCOgY=;
+ b=IeOtuihZ5cNo5yF5us8z85w+hqTHqKNNOB5tzzepWv7pGD8QH6vomopMH3cC+4SzTEsh
+ AZg86WeDsQtY3yuX5xSqy/bQm8teq9p92c9yoYNUb/pjuGb2g4/SFajzQHqNiiJVJWqA
+ wgZCtqISIpodfrwy7nXp+GMH4VV4eDxOn0rn0BvaHrx1TmQFsPRYYjewdSeGxbqQleVa
+ iLBaJ52uI4uFCVvTJ2V1hbF5GA6No2yT4/ktgvtMTxX+Qmt8NT+am4W3AuM9X8a0cx1q
+ 4E+URaxOWLIOQCOBydHYGnrDS74811EqL3QdhsFyxcXwLlFlzmrynxTxneQYsvYmT3La Sg== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s2cabja77-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s306u86r9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 25 Jul 2023 18:45:08 +0200
+ Wed, 26 Jul 2023 11:02:59 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B545C10002A;
- Tue, 25 Jul 2023 18:45:07 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9443E10004D;
+ Wed, 26 Jul 2023 11:02:57 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AB2EF27FABB;
- Tue, 25 Jul 2023 18:45:07 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8AE7E2115F5;
+ Wed, 26 Jul 2023 11:02:57 +0200 (CEST)
 Received: from localhost (10.201.21.121) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 25 Jul
- 2023 18:45:07 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 26 Jul
+ 2023 11:02:57 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
  <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
@@ -53,18 +53,19 @@ To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
  <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
  <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
  <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>
-Date: Tue, 25 Jul 2023 18:41:03 +0200
-Message-ID: <20230725164104.273965-11-gatien.chevallier@foss.st.com>
+Date: Wed, 26 Jul 2023 11:01:28 +0200
+Message-ID: <20230726090129.233316-7-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230725164104.273965-1-gatien.chevallier@foss.st.com>
-References: <20230725164104.273965-1-gatien.chevallier@foss.st.com>
+In-Reply-To: <20230726090129.233316-1-gatien.chevallier@foss.st.com>
+References: <20230726083810.232100-1-gatien.chevallier@foss.st.com>
+ <20230726090129.233316-1-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.201.21.121]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-25_08,2023-07-25_01,2023-05-22_02
+ definitions=2023-07-26_03,2023-07-25_01,2023-05-22_02
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
@@ -74,7 +75,7 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-i2c@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 10/11] ARM: dts: stm32: add ETZPC as a
+Subject: [Linux-stm32] [PATCH v3 10/11] ARM: dts: stm32: add ETZPC as a
 	system bus for STM32MP15x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -3163,7 +3164,7 @@ index b06a55a2fa18..55524a8d3093 100644
  	};
  };
 -- 
-2.35.3
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
