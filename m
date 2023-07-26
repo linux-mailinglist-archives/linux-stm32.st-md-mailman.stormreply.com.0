@@ -2,42 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB9E762908
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 05:06:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFBA3762935
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 05:22:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A7AAC6A61A;
-	Wed, 26 Jul 2023 03:06:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E7B7C6A61A;
+	Wed, 26 Jul 2023 03:22:59 +0000 (UTC)
+Received: from mail-io1-f47.google.com (mail-io1-f47.google.com
+ [209.85.166.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB9C0C6905A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26B0EC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 03:06:09 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 59265601D6;
- Wed, 26 Jul 2023 03:06:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096C8C433C8;
- Wed, 26 Jul 2023 03:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690340767;
- bh=NEOYLP0iznHbMTzUU1WZ7txltHSA0/SCINhS/IbFbPU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=KKKZzkFQ3GhIJTIU/R3X+a3LwSNBQmigXdNNLlKxV3HynLFUp12f+shUAsV7nxE2T
- apogwZkAs2KQ7wfnRbRWr95TdgVmepWi1R23/+XyUiIQApr01h3GCVXlM1x0mle4wU
- WC7tz3XK5lZzP6O+MgSwphNVisONDwNgpT8o4E3c/zvDlFie7x7rBfjQAr/dzM8QC3
- 7Kz85d6c0k9fSbOT7eGKSYnfpBtkIJGLGQSbMEi/gF+W5URn93dyKZWXACYKSl88jZ
- gpYYGeENSvyhTtEjLdl7Qmd7I7dpB44Wh3pYaT1tvdFCwWmIcDeS2MsWL1o/OkGC7J
- XOTvSM0taNrOw==
-Date: Tue, 25 Jul 2023 20:06:06 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Richard Cochran <richardcochran@gmail.com>
-Message-ID: <20230725200606.5264b59c@kernel.org>
-In-Reply-To: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+ Wed, 26 Jul 2023 03:22:58 +0000 (UTC)
+Received: by mail-io1-f47.google.com with SMTP id
+ ca18e2360f4ac-78706966220so53146139f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 25 Jul 2023 20:22:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690341777; x=1690946577;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=NL3EuYyvjjhZCYD78dzuWYzAA4q7ImU5255kcivdAlA=;
+ b=YrDQVT3n1O3EiYwvIGJo9jid1fKsLNw2s5BtVJ5JvGxYyPR1XjrUtnjfk86ybuDqvD
+ mjkbbUuyR5VaB9rjSCR72ECLkPoHrMLk2ceMPKchY63bLMTQ0uCFoaZDI1rHSRdcZkBa
+ Rj4LJYewPahFgAw+IE0I66Qm8T3wULByAcoETQYDq8VJzatnTf4P27YEUdI0SknFz3lz
+ XEQP6TM/KY0h1JyYR68C89+l8h3L8U59mSzM8/oIOIzhC7QsCaK/HqQy8I1TjSgmiW8m
+ rYeskGDA9hosrrCFYfjvbKnf/0CWiTVMAuWvQE8UyAnzJLx1bvG10rIKl4kTIK4KL4+E
+ i4Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690341777; x=1690946577;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NL3EuYyvjjhZCYD78dzuWYzAA4q7ImU5255kcivdAlA=;
+ b=eYxHeefDGRXOJkbWKqMrBrSnTJen3epVgK4jCS8zkYVrKMcrrbXoJpTUWyjQr+3Rw/
+ 9grpRc/pV0PFOr7KwuSkpTV4zTRwZwlxyR8k3oo4x5op5Bg69//px+f9DUkuf5ess+L0
+ UEYeytwMr5bVStVf+yL5SmgnT7oXuaq7FeJtwEIiKBg8ga75RD+cYJnWJiBtILocmqgU
+ 46eX4pCH602jjJMx/7XvlloHfnJEPR1J7GnK5XIEA7rHctavh63paghbytEVy0JSlYeE
+ u23+c38x/r4hHF0/Tnz3I01rPeQjoj+a/XKiWRRawmpv60ruoa27AZxs2g3VkymCoy6x
+ FvBw==
+X-Gm-Message-State: ABy/qLbjPZII4Xr6KFxGfz3u/36cGRHyLE3H+lQ0ukvOEn3S9QzLdhel
+ 4GTSga1VpfTghYFPXel9VFhDKOWezMY=
+X-Google-Smtp-Source: APBJJlH6yBw+cvBcbmXyvs1PZzwvZEc6/RU38mhLvcrD3wYRbKLXGce0SxktHOdc8rnQsf8pyEfhoA==
+X-Received: by 2002:a6b:1446:0:b0:77a:ee79:652 with SMTP id
+ 67-20020a6b1446000000b0077aee790652mr603947iou.1.1690341776913; 
+ Tue, 25 Jul 2023 20:22:56 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ i75-20020a639d4e000000b0055387ffef10sm134985pgd.24.2023.07.25.20.22.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Jul 2023 20:22:56 -0700 (PDT)
+Date: Tue, 25 Jul 2023 20:22:53 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
 References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+ <20230725200606.5264b59c@kernel.org>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230725200606.5264b59c@kernel.org>
 Cc: Johannes Zink <j.zink@pengutronix.de>, linux-kernel@vger.kernel.org,
  kernel@pengutronix.de, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
@@ -64,166 +87,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 24 Jul 2023 12:01:31 +0200 Johannes Zink wrote:
-> The IEEE1588 Standard specifies that the timestamps of Packets must be
-> captured when the PTP message timestamp point (leading edge of first
-> octet after the start of frame delimiter) crosses the boundary between
-> the node and the network. As the MAC latches the timestamp at an
-> internal point, the captured timestamp must be corrected for the
-> additional path latency, as described in the publicly available
-> datasheet [1].
-> 
-> This patch only corrects for the MAC-Internal delay, which can be read
-> out from the MAC_Ingress_Timestamp_Latency register, since the Phy
-> framework currently does not support querying the Phy ingress and egress
-> latency. The Closs Domain Crossing Circuits errors as indicated in [1]
-> are already being accounted in the stmmac_get_tx_hwtstamp() function and
-> are not corrected here.
-> 
-> As the Latency varies for different link speeds and MII
-> modes of operation, the correction value needs to be updated on each
-> link state change.
-> 
-> As the delay also causes a phase shift in the timestamp counter compared
-> to the rest of the network, this correction will also reduce phase error
-> when generating PPS outputs from the timestamp counter.
-> 
-> [1] i.MX8MP Reference Manual, rev.1 Section 11.7.2.5.3 "Timestamp
-> correction"
+On Tue, Jul 25, 2023 at 08:06:06PM -0700, Jakub Kicinski wrote:
 
-Hi Richard,
+> any opinion on this one?
 
-any opinion on this one?
+Yeah, I saw it, but I can't get excited about drivers trying to
+correct delays.  I don't think this can be done automatically in a
+reliable way, and so I expect that the few end users who are really
+getting into the microseconds and nanoseconds will calibrate their
+systems end to end, maybe even patching out this driver nonsense in
+their kernels.
 
-The subject read to me like it's about *MII clocking delays, I figured
-you may have missed it, too.
+Having said that, I won't stand in the way of such driver stuff.
+After all, who cares about a few microseconds time error one way or
+the other?
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index 6ee7cf07cfd7..95a4d6099577 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -536,6 +536,7 @@ struct stmmac_hwtimestamp {
->  	void (*get_systime) (void __iomem *ioaddr, u64 *systime);
->  	void (*get_ptptime)(void __iomem *ioaddr, u64 *ptp_time);
->  	void (*timestamp_interrupt)(struct stmmac_priv *priv);
-> +	void (*correct_latency)(struct stmmac_priv *priv);
->  };
->  
->  #define stmmac_config_hw_tstamping(__priv, __args...) \
-> @@ -554,6 +555,8 @@ struct stmmac_hwtimestamp {
->  	stmmac_do_void_callback(__priv, ptp, get_ptptime, __args)
->  #define stmmac_timestamp_interrupt(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, ptp, timestamp_interrupt, __args)
-> +#define stmmac_correct_latency(__priv, __args...) \
-> +	stmmac_do_void_callback(__priv, ptp, correct_latency, __args)
->  
->  struct stmmac_tx_queue;
->  struct stmmac_rx_queue;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> index fa2c3ba7e9fe..7e0fa024e0ad 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> @@ -60,6 +60,48 @@ static void config_sub_second_increment(void __iomem *ioaddr,
->  		*ssinc = data;
->  }
->  
-> +static void correct_latency(struct stmmac_priv *priv)
-> +{
-> +	void __iomem *ioaddr = priv->ptpaddr;
-> +	u32 reg_tsic, reg_tsicsns;
-> +	u32 reg_tsec, reg_tsecsns;
-> +	u64 scaled_ns;
-> +	u32 val;
-> +
-> +	/* MAC-internal ingress latency */
-> +	scaled_ns = readl(ioaddr + PTP_TS_INGR_LAT);
-> +
-> +	/* See section 11.7.2.5.3.1 "Ingress Correction" on page 4001 of
-> +	 * i.MX8MP Applications Processor Reference Manual Rev. 1, 06/2021
-> +	 */
-> +	val = readl(ioaddr + PTP_TCR);
-> +	if (val & PTP_TCR_TSCTRLSSR)
-> +		/* nanoseconds field is in decimal format with granularity of 1ns/bit */
-> +		scaled_ns = ((u64)NSEC_PER_SEC << 16) - scaled_ns;
-> +	else
-> +		/* nanoseconds field is in binary format with granularity of ~0.466ns/bit */
-> +		scaled_ns = ((1ULL << 31) << 16) -
-> +			DIV_U64_ROUND_CLOSEST(scaled_ns * PSEC_PER_NSEC, 466U);
-> +
-> +	reg_tsic = scaled_ns >> 16;
-> +	reg_tsicsns = scaled_ns & 0xff00;
-> +
-> +	/* set bit 31 for 2's compliment */
-> +	reg_tsic |= BIT(31);
-> +
-> +	writel(reg_tsic, ioaddr + PTP_TS_INGR_CORR_NS);
-> +	writel(reg_tsicsns, ioaddr + PTP_TS_INGR_CORR_SNS);
-> +
-> +	/* MAC-internal egress latency */
-> +	scaled_ns = readl(ioaddr + PTP_TS_EGR_LAT);
-> +
-> +	reg_tsec = scaled_ns >> 16;
-> +	reg_tsecsns = scaled_ns & 0xff00;
-> +
-> +	writel(reg_tsec, ioaddr + PTP_TS_EGR_CORR_NS);
-> +	writel(reg_tsecsns, ioaddr + PTP_TS_EGR_CORR_SNS);
-> +}
-> +
->  static int init_systime(void __iomem *ioaddr, u32 sec, u32 nsec)
->  {
->  	u32 value;
-> @@ -221,4 +263,5 @@ const struct stmmac_hwtimestamp stmmac_ptp = {
->  	.get_systime = get_systime,
->  	.get_ptptime = get_ptptime,
->  	.timestamp_interrupt = timestamp_interrupt,
-> +	.correct_latency = correct_latency,
->  };
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index efe85b086abe..ee78e69e9ae3 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -909,6 +909,8 @@ static int stmmac_init_ptp(struct stmmac_priv *priv)
->  	priv->hwts_tx_en = 0;
->  	priv->hwts_rx_en = 0;
->  
-> +	stmmac_correct_latency(priv, priv);
-> +
->  	return 0;
->  }
->  
-> @@ -1094,6 +1096,8 @@ static void stmmac_mac_link_up(struct phylink_config *config,
->  
->  	if (priv->dma_cap.fpesel)
->  		stmmac_fpe_link_state_handle(priv, true);
-> +
-> +	stmmac_correct_latency(priv, priv);
->  }
->  
->  static const struct phylink_mac_ops stmmac_phylink_mac_ops = {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.h
-> index bf619295d079..d1fe4b46f162 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.h
-> @@ -26,6 +26,12 @@
->  #define	PTP_ACR		0x40	/* Auxiliary Control Reg */
->  #define	PTP_ATNR	0x48	/* Auxiliary Timestamp - Nanoseconds Reg */
->  #define	PTP_ATSR	0x4c	/* Auxiliary Timestamp - Seconds Reg */
-> +#define	PTP_TS_INGR_CORR_NS	0x58	/* Ingress timestamp correction nanoseconds */
-> +#define	PTP_TS_EGR_CORR_NS	0x5C	/* Egress timestamp correction nanoseconds*/
-> +#define	PTP_TS_INGR_CORR_SNS	0x60	/* Ingress timestamp correction subnanoseconds */
-> +#define	PTP_TS_EGR_CORR_SNS	0x64	/* Egress timestamp correction subnanoseconds */
-> +#define	PTP_TS_INGR_LAT	0x68	/* MAC internal Ingress Latency */
-> +#define	PTP_TS_EGR_LAT	0x6c	/* MAC internal Egress Latency */
->  
->  #define	PTP_STNSUR_ADDSUB_SHIFT	31
->  #define	PTP_DIGITAL_ROLLOVER_MODE	0x3B9ACA00	/* 10e9-1 ns */
-> 
-> ---
-> base-commit: ba80e20d7f3f87dab3f9f0c0ca66e4b1fcc7be9f
-> change-id: 20230719-stmmac_correct_mac_delay-4278cb9d9bc1
-> 
-> Best regards,
-
+Thanks,
+Richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
