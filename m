@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1291762C68
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 09:03:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B95C762C69
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 09:03:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60751C6B459;
-	Wed, 26 Jul 2023 07:03:31 +0000 (UTC)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B909CC6B459;
+	Wed, 26 Jul 2023 07:03:33 +0000 (UTC)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D292BC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 505FFC6905A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 07:03:29 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-4fb5bcb9a28so10073364e87.3
+ Wed, 26 Jul 2023 07:03:32 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2b74209fb60so93233261fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 00:03:29 -0700 (PDT)
+ Wed, 26 Jul 2023 00:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690355009; x=1690959809;
+ d=linaro.org; s=google; t=1690355011; x=1690959811;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x2Us6IanwbA8lyT4wscmTLO3lQgiVOsW82AXUR4/W/0=;
- b=h5a5Ac1hn8yggKYHnK0Ea0eq0sPlb0SCDzSmrBp2f1YkY39I4d5iuPFKYZDggVzmhw
- tRdsB2RybIlv1yX+vFOEp6FMs+Nmac5eSk1vQ4HSmNfi7F4NrCR+Sx7QRDSI3XDFO5Cf
- A2JPP93OYXqCYc0LSPyrk+IQ4NxwkZ5BTRe4sZICG4NxHMpNfeMWxG7d7rT4dynch80N
- 6VjoXYkMCvVIzptdNWnEtjhpxPmLw8f4ml026vm+AwclOlibqoIMDR9RaU7nVGYQWZB3
- tUFYdGrSc0WQ61omIutYCvbegm8uOpBU77MzPYGqynZmWa8/TPX/PbnAQ2EqvnAd6xbx
- rrBQ==
+ bh=KkfcJ6m4rMM+iyxRVIwvcMlF3hObn2JrNhl7UUZvcR8=;
+ b=ovI7chw5qWg3NSsekWG+uefx619yR7xOgr2xvKsTvSgEz0QYgfZP2WBG9cNErcf0uu
+ pWRMK/btYC/u+awhud4hNRW17nfQ7zpVaPsdqfYj50K8qWElHMSxpViotFrXCdGKazKZ
+ OJcyghDNf77a1xJWN8aIp+/mzOd5jGpHFmFdg2dIlD6GtMDfMgXbHokt7WsK9cJbSjVt
+ KXHbhFrCCf2RGu8G7w7x24OjFjDDAU15G2k/VR/EI1dx5iJZda1FBT7D4Mba2yWVrkNM
+ uoW9Mqz2pukz52dzOcY6a4Qt9+tBLjEUtNnrgKuPxqIh7RjwTx0q2Qw0UGs3gX8zwWow
+ xe+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690355009; x=1690959809;
+ d=1e100.net; s=20221208; t=1690355011; x=1690959811;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=x2Us6IanwbA8lyT4wscmTLO3lQgiVOsW82AXUR4/W/0=;
- b=ZslJebLsn/Xa8+IMyZiGGMZtgvSxqdZuhjE/RPv3RtPPJw/udUnVdV8SEN/82h3dCu
- QZHaD+dgPSHkD4rLcF4fIJZzbXh5jhsJDCoqD7cQB57OuuxqG+8nt2WwiQY3sRNEAPiW
- SAbo33dWRT5lggqvSmmiQo14FUCH+C2dK6sTTrqPEAsgxD5qkBhTvOm5YE/n7YwJtdb0
- k6JPkJrOELkOieKTC2FGKme6R/1/s/ma7Y9RrlFy2seVwB4GZyKbLORPFaYUqpOgSfIn
- P4xWttj0PcX4YAouZQAnh+17jj81dj1PWr6FqZBXv+EsrKCl0o9Yp+Rpxt/mg6KIi2Ks
- pQHA==
-X-Gm-Message-State: ABy/qLYIb7c7XlWgGFZKk57cYO6bro+oPDjjTR9U5K5E/A6yRPvmqMT6
- 1+MZ1/xA68lhRhvMk0pwHr2X/Q==
-X-Google-Smtp-Source: APBJJlG4uqDx0Nzj3xqvM/cGrQVm3JUntsakohrvMYir78Hup05JTdxpG9dbBpUL8/aRfXCsc4mgvQ==
-X-Received: by 2002:a05:6512:4006:b0:4f8:5d94:2e46 with SMTP id
- br6-20020a056512400600b004f85d942e46mr790257lfb.48.1690355009306; 
- Wed, 26 Jul 2023 00:03:29 -0700 (PDT)
+ bh=KkfcJ6m4rMM+iyxRVIwvcMlF3hObn2JrNhl7UUZvcR8=;
+ b=SZPVzjt3dvlm/rp8sNE4moAom+/ImmHv5MKcHao6A8QpYFmjSmqKLclcB8o0FBn92j
+ nHxkuViL4+8YSy/JJ+6OJPedXBKWUHRUhajF7cT5GeEKQEVSqDGmqd6GqdF3h5wobONU
+ W8faba4e1x3vFw3LCV/SuaTErnEKJlNBqwYMnFiLDl6J9vH83qR/OGjEqi3w4bQtuVMH
+ 4KwQNzyH3DAv0xB2ona94qiFk3ZRPkhSdr8v/vYKvMLDhRvlk+WxY++xI5GW7wQT0a5G
+ 9mdy3VJQLUKVlhz3dIQo4yHfDVzhE9icEvLl3tM/sEvO7koT9/rLXHvVlAgtfG3IEpCw
+ HQfw==
+X-Gm-Message-State: ABy/qLZJPg1y5O3tZRF1vn2HVcVludR+4vJobSZc0Afr0/RK4Mks12Ke
+ 2VKl9R6ou+z2grotugt101ObFA==
+X-Google-Smtp-Source: APBJJlEufPD2DcGYOU9R7Qm5kXmjp7K+eCgVpmZDKR2Uy3XPSFXWKnNqNHFEpagOzQm0KLH1eS4vMA==
+X-Received: by 2002:ac2:4564:0:b0:4fe:d0f:1f1e with SMTP id
+ k4-20020ac24564000000b004fe0d0f1f1emr635349lfm.25.1690355011565; 
+ Wed, 26 Jul 2023 00:03:31 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.223.104]) by smtp.gmail.com with ESMTPSA id
- dy16-20020a05640231f000b005224f840130sm1572003edb.60.2023.07.26.00.03.27
+ dy16-20020a05640231f000b005224f840130sm1572003edb.60.2023.07.26.00.03.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Jul 2023 00:03:28 -0700 (PDT)
+ Wed, 26 Jul 2023 00:03:31 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -63,15 +63,15 @@ To: Rob Herring <robh+dt@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 26 Jul 2023 09:03:16 +0200
-Message-Id: <20230726070322.103871-2-krzysztof.kozlowski@linaro.org>
+Date: Wed, 26 Jul 2023 09:03:17 +0200
+Message-Id: <20230726070322.103871-3-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230726070322.103871-1-krzysztof.kozlowski@linaro.org>
 References: <20230726070322.103871-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 2/8] AMR: dts: imx6ull-colibri: drop incorrect
-	regulator regulator-type
+Subject: [Linux-stm32] [PATCH 3/8] AMR: dts: imx28-m28evk: populate fixed
+	regulators
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,27 +88,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-regulator-fixed-clock does not take "regulator-type" property:
-
-  imx6ull-colibri-iris-v2.dtb: regulator-eth-phy: Unevaluated properties are not allowed ('regulator-type' was unexpected)
+Fixed regulators put under "regulators" node will not be populated,
+unless simple-bus or something similar is used.  Drop the "regulators"
+wrapper node to fix this.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm/boot/dts/nxp/mxs/imx28-m28evk.dts | 45 ++++++++++------------
+ 1 file changed, 20 insertions(+), 25 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-index fde8a19aac0f..ec3c1e7301f4 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
-@@ -102,7 +102,6 @@ reg_eth_phy: regulator-eth-phy {
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
- 		regulator-name = "+V3.3_ETH";
--		regulator-type = "voltage";
- 		vin-supply = <&reg_module_3v3>;
- 		clocks = <&clks IMX6UL_CLK_ENET2_REF_125M>;
- 		startup-delay-us = <150000>;
+diff --git a/arch/arm/boot/dts/nxp/mxs/imx28-m28evk.dts b/arch/arm/boot/dts/nxp/mxs/imx28-m28evk.dts
+index e350d57a4cec..6bf26f386a5e 100644
+--- a/arch/arm/boot/dts/nxp/mxs/imx28-m28evk.dts
++++ b/arch/arm/boot/dts/nxp/mxs/imx28-m28evk.dts
+@@ -18,33 +18,28 @@ backlight {
+ 		default-brightness-level = <6>;
+ 	};
+ 
+-	regulators {
+-		reg_vddio_sd0: regulator@1 {
+-			compatible = "regulator-fixed";
+-			reg = <1>;
+-			regulator-name = "vddio-sd0";
+-			regulator-min-microvolt = <3300000>;
+-			regulator-max-microvolt = <3300000>;
+-			gpio = <&gpio3 28 0>;
+-		};
++	reg_vddio_sd0: regulator-1 {
++		compatible = "regulator-fixed";
++		regulator-name = "vddio-sd0";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&gpio3 28 0>;
++	};
+ 
+-		reg_usb0_vbus: regulator@2 {
+-			compatible = "regulator-fixed";
+-			reg = <2>;
+-			regulator-name = "usb0_vbus";
+-			regulator-min-microvolt = <5000000>;
+-			regulator-max-microvolt = <5000000>;
+-			gpio = <&gpio3 12 0>;
+-		};
++	reg_usb0_vbus: regulator-2 {
++		compatible = "regulator-fixed";
++		regulator-name = "usb0_vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio3 12 0>;
++	};
+ 
+-		reg_usb1_vbus: regulator@3 {
+-			compatible = "regulator-fixed";
+-			reg = <3>;
+-			regulator-name = "usb1_vbus";
+-			regulator-min-microvolt = <5000000>;
+-			regulator-max-microvolt = <5000000>;
+-			gpio = <&gpio3 13 0>;
+-		};
++	reg_usb1_vbus: regulator-3 {
++		compatible = "regulator-fixed";
++		regulator-name = "usb1_vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpio3 13 0>;
+ 	};
+ 
+ 	sound {
 -- 
 2.34.1
 
