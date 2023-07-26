@@ -2,128 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DF0C763F64
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 21:18:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 250DD7640CC
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 22:57:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20E8BC6B45C;
-	Wed, 26 Jul 2023 19:18:02 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2068.outbound.protection.outlook.com [40.107.22.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0BAAC6B45C;
+	Wed, 26 Jul 2023 20:57:34 +0000 (UTC)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F487C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DCD0C6B45A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 19:18:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BWXu6NIaDhiypKdVoCaXTvsE0LtUGCdZnSBvXL88KgLDMQZ3YczpN4v4MbNlbPtJPpaRfKH38OTERA3bYuxsG6KXnHHUuVBNQOYGKE+GMTFr/f9JHogMHmCpzW0t6ZZjrjuLynJadCpEM9YMXTixLcWHqh19NNyxp+LeW8GK+wbMw9cuBL8RaJfNiAE+3nAc6KiBEqSOHFxj+lWrwS6zXx4FKQUwtnMVhSxA8nLuNppa69smV5/NVV+TTxJq3TqGAH8ySX3xJLNSbcZXHXHjNZUySxbXUTn3lzoo+IxqCxXzRArKzEuImx8dU/GGL8qn15vUDKYXGDeksW5U6nLfjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j6KCAKqKMpdq/ZDDBi4tR6C9qbG+HR6ctApZyp94EUU=;
- b=JtSLfztm+3MJ+94TYT7U1PNRmMiTWS+V/g9nrqQ8iy0tIZH8glZF56Nai/ORioJhmdoeS9YAED8mKUp/W0pgUWUCvxxKP0MOOIqr0DJ7ldHS7V+Lwwle1AbQdclA02cL9r/zaEx1eN3M3ryj1saphTfipfISzr47EDaDzjE7rnX1OybGPxpb3flx7dhXiHtUWUTPG9ciemhM6wXi7815In43SpiyRF7BMkY9jksmogE4HTeDbWQYKK7foFSPGiYvQ+lsuNgO7VghoLaEzNSb1FPGRvrYq/Hjh6tkKE+QI7mjIx2G9uTZVe9vkIR3wgT5SIUgtnOPYnvyL72IuS+4Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j6KCAKqKMpdq/ZDDBi4tR6C9qbG+HR6ctApZyp94EUU=;
- b=O1ZJ3MjIAw4Xu73pHxfXenC3NvEY+zqnYpv95QRUSG0dB8ArtjSVYrhXH9PYl1yMnoWP+yMP7vLECUHEs9JqJqC7pnr6dPcRTohmp+DizgiHP8zsWCfi56pD92vkVHiLwslrjNjjK65KCNmObxM7Q9OOE7+TPO0ylJgcrDoNo7I=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by DU0PR04MB9345.eurprd04.prod.outlook.com (2603:10a6:10:355::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Wed, 26 Jul
- 2023 19:17:59 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
- 19:17:59 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>
-Thread-Topic: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
- fixed-link
-Thread-Index: AQHZvzEtwr0cB5x9EUCXrQC85+we9K/LNgwAgADv2GCAAAekgIAABiMwgAATfwCAABs2cIAABq2AgAACNGA=
-Date: Wed, 26 Jul 2023 19:17:59 +0000
-Message-ID: <PAXPR04MB91855E5990464A1B31058B508900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20230725194931.1989102-1-shenwei.wang@nxp.com>
- <20230726004338.6i354ue576hb35of@skbuf>
- <PAXPR04MB9185C1A95E101AC2E08639B78900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZME71epmSHYIB4DZ@shell.armlinux.org.uk>
- <PAXPR04MB91856018959FE0752F1A27888900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZMFRVtg5WQyGlBJ1@shell.armlinux.org.uk>
- <PAXPR04MB9185108CB4A04C4CD5AE29FC8900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZMFtw0LNozhNjRGF@shell.armlinux.org.uk>
-In-Reply-To: <ZMFtw0LNozhNjRGF@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|DU0PR04MB9345:EE_
-x-ms-office365-filtering-correlation-id: 67ae2589-5287-44ad-0240-08db8e0d061a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: WNF1Igf4NphUyMUxdma5ICwpnQ3lA11SWzbA2x4J7kceu93n3R2kTMHJtfSKQ4/w7w8FJ6lGxpnWZMu1ldo5gGPH7iDSNzYCW6uCjKrS09cXCONXvMdiOdL/jVOBk9SFZ3qqBDtey96kpAPW5yiW0o3KuAOkKmoaIFac8hCDhud5robuPvUQS73lgArU/j/aSiN4LgjLnMLDjKpkjP15pJYg0G0HTftahE9DkKAThtJK44OHE4UGlnsYyaIvE109/gxUkPXc/XvGAo/7dIgzJDqji9PodIqLyYXWGUit1a5saTupSBnOGqn3X1674OI/d9Nk4Q8CiKcYAEw3J4SHN4O/EMljshVkInkiuQEv8oa5wMvYj4qUD/FOj5LhWacs3mpgWry5Q9qbsGm8x4QROCC1OJVPGXvZw7lpjHij1OkEXkcfNQL7MBYQSHlRXnWiZPlxxlt9SF6DsxD53v3rLM1sok+RDzua8rdsmYZkPvaSFDp7LRnZdZJsDZ7AewkxTE9IMLOB0RIXIcHHKtRG9OPgozsDvnfONDKKWD5DXgi4SD18iqfOLsFGQiRkaEGEgnfdlRrgLOMfWmhfR5BGbz0LY9GS42Y0dRs2Cb8km/U=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(136003)(366004)(39860400002)(396003)(451199021)(54906003)(66476007)(66556008)(76116006)(66446008)(64756008)(66946007)(38070700005)(83380400001)(55016003)(86362001)(45080400002)(33656002)(38100700002)(122000001)(9686003)(478600001)(966005)(53546011)(26005)(55236004)(186003)(71200400001)(7696005)(6506007)(41300700001)(5660300002)(6916009)(316002)(2906002)(4326008)(8936002)(7416002)(8676002)(44832011)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GGkRN0R3zGRAAHS15/7dk8K9hNrjNgKmuU8yMq+Pd6Lfd+FuttjlawKkwHY8?=
- =?us-ascii?Q?jI63EqbyfRdbZZFdJS2LlsJJi0/AMZmFqKmN1stqzM4EhAbxeU7AOFfTbpZ1?=
- =?us-ascii?Q?YnYUONGkc3zIqDmqEbOtCLPhCefN5jisLIgm4gDGRKObyxHeVbzueARDBehi?=
- =?us-ascii?Q?Z/vRDSBTOsLOrwVUEY7n0ZQRK8FTL/P87XukPDRMK+WRuZ6ikfwa9oBPQJEq?=
- =?us-ascii?Q?aFdr7qLArZEPySAld7n8v37f/EFcKR7joNnlYpWfZSpHIVXd9tJnHZcZE6/x?=
- =?us-ascii?Q?jX8tisAfNy6yTGTSFAJ/ZFTYcozNisS629uozx00XpwsjwvYX7ySDlQ0jbht?=
- =?us-ascii?Q?dFit0lvxyjVCPngf0/YPqflQBBm3/bWmCaA+LmbhUbDXIEvpeD6VI6IFYu/r?=
- =?us-ascii?Q?9lX05dzY4jCGRSp8HkDBTEW1OdMK/ry4lO2YW5XjIM28i1xz/nB+AXgko/hg?=
- =?us-ascii?Q?rveedAkNO6Iy1r6n6hJCehRM6hIBzYKtlqg1R0kA2gyEl8gXTgm9/UL4DCY4?=
- =?us-ascii?Q?WdQYjGypF1cFpuUr3T/yRlVp2dIbj/HVWJEPugI2w9hPtVWL30srC1TXSeOr?=
- =?us-ascii?Q?zO1CWq9NzD719qK7T1xHl395mOIMqaP//kbLwEs0ETYozKAEb7781KkzCGpp?=
- =?us-ascii?Q?Y3PGSguu0n3Gz3buqlDqIv8I1fwKI49nbkjqOp7dttHCvSQH4M4ypfZs28hE?=
- =?us-ascii?Q?BIsF5cvqR6QNDx7YZEKDF08IYNVS1rEd0l3Yb9VCPfrHmUlJ6yUWKrCvRBzd?=
- =?us-ascii?Q?IFVDAruSO6K1ExR8yYL3iAhWXC2cKhlFhin3TQAHQF49/0Sub/4FeidQmvpX?=
- =?us-ascii?Q?qoHYvBMuobCW2MwrQcz1rL8Ra33hRw484YH8GfLXKostIJGBlh1KUnOoA+xa?=
- =?us-ascii?Q?lnexpQW2l4JejpuIQ1bNkM8uGskt0yjmHUwiE98kg1DiQTWuP178PRNGPzoc?=
- =?us-ascii?Q?6+GaNI6T7UvwjKV3z3WgfrKH6JhzItcX4GqAcoP9Tpv07Si/kKIOQQTIu4Zx?=
- =?us-ascii?Q?4Epw9TI4M7/nVv6nL8ntTX6Tl4KuVp9Cw4pxLj9/kLzMTo8BlKLyDwRltFCQ?=
- =?us-ascii?Q?kCoeub9hds0zl7RAP0an8wLc9BoLURPMHj7yN1GYDJGB9inAhQUr6biwftoc?=
- =?us-ascii?Q?dZsje4GkIgHzXFZ3Wbb2eFuiNezL9+4BOVJ6PEVegJc/HoGXEvUd8sAyLSKj?=
- =?us-ascii?Q?VfmIe3YVRy4HVLyX+/DzLiNFyVMvg39uWclODMPJYm4pqNK1ezXC0LN2AjxD?=
- =?us-ascii?Q?pCvGdLG494lBnj8ltzuxDbolEfOzgyMFrtjP6FSMPUDzkbMjBCzbHcOvRUSr?=
- =?us-ascii?Q?G4OP6LAKUPTAGFNaW0Axei9OUtwJSbGbgVFrO7nIrLglYG+YC/bGF7bJgvse?=
- =?us-ascii?Q?nKLtsDvFSWuufG2OXUjzaPt1TuzL6CUl8Nu73XEuoeUiYzg7a5gPWd5u/HxT?=
- =?us-ascii?Q?L8/s2U2sCg2WQGzGb49mYi9qs4l4aKTg2ZBywF4fnkmE8uqVb87foVxLdJ+a?=
- =?us-ascii?Q?7CDG1VTf/CUwW+rkZImpnjmb7tcKmn9b77Qr5K5dvkTGzSF1Vgk36K4MNNtU?=
- =?us-ascii?Q?52ORyykXx+2BjT7omDLAg6+T/bsR6/z2TBAxyWvE?=
+ Wed, 26 Jul 2023 20:57:33 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-682eef7d752so66594b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 26 Jul 2023 13:57:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690405052; x=1691009852;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=40xe9fvFJ9sOsupKilGdDObjo09oxlOirIRg3aGbZbs=;
+ b=aghccPiw+p9jl5oj4/mcOtE1wC1J1UAJ2zUK/5yyjyk1dFvroG7sU6HuGwpy9/hvVj
+ 5jK+Jb3SxNJ5ZQIFHmq3EExt5e9K5UJ4J13mbKBPTqxwJ5djmgPP30A/L6rafMnaawiv
+ DHONLr/aScs0ReBeBekOjIRVTu0W3tPcZ4NTpBDC9cMzvmQSp6Y2UdwdNx+LG0E81zy3
+ pSBmUU8BFSyB4tjXLaaGKaFvhZbQ836OmdxBiK4bGLRdPL3sbNomzAKelKvSLeV9VEni
+ 8LzVfDBqMBOw7bIYBmYiiJVZdxrjXfslOoK1xcJxmbJFTcBfwY1JE4AvVf+o8G9CmVUc
+ iNrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690405052; x=1691009852;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=40xe9fvFJ9sOsupKilGdDObjo09oxlOirIRg3aGbZbs=;
+ b=P6E0Jnh/Ia6uakNCm0O6MFpyhOPgViYuBUAH2D6ryM6RyWX/Ttb8KpN5oSn/utmCA6
+ 0xyqtIIgluof3Zy83XhDGwRL1wYPLxQei6KiaGNuDEktJ1QWA8cGdRYyBxCCbTlEyWOz
+ zjYZLvfOHoqLDJkFoKk3VH/nvGrO0WZD7tjk6k1+vrGdHnknpGCJkrJ6bkIZYu94pjCD
+ uuxyO/MSC5/8Tzo3KMmWQZAzNliLp0+53WgJS+4OsaK3wJzl/kuYcrhxmiTqp1/9zdha
+ eaGbX8kVmSz7V7Yv254zDtfuI31V9ZJgl0DMKDCGiTd9O0ZKVMg8iPEH69mwAJxMC8DZ
+ RFYw==
+X-Gm-Message-State: ABy/qLaed8ypJrLrHfOfSlp8AOh56SQ/JoRrrHA1PlmKSpWpESqOzgqn
+ Hn8Ftsi/PaZuNWorEnozPsk=
+X-Google-Smtp-Source: APBJJlFwOFlKgUr5EHQGcfI4UKTPdcLNmhmJVe7LY3hHHwZO0dDZEIG8OC7wGY1Ci/7PEnT5pj2+sA==
+X-Received: by 2002:a05:6a00:4a0e:b0:677:3439:874a with SMTP id
+ do14-20020a056a004a0e00b006773439874amr3577463pfb.3.1690405051983; 
+ Wed, 26 Jul 2023 13:57:31 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ n10-20020aa7904a000000b00682c864f35bsm27660pfo.140.2023.07.26.13.57.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Jul 2023 13:57:31 -0700 (PDT)
+Date: Wed, 26 Jul 2023 13:57:28 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Johannes Zink <j.zink@pengutronix.de>
+Message-ID: <ZMGIuKVP7BEotbrn@hoboy.vegasvil.org>
+References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67ae2589-5287-44ad-0240-08db8e0d061a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 19:17:59.0850 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xG2tBJPZ4F/pz1MyM/HQzSBrVp9i4buPzNc9vtkfMkMTbm6amaXLfeTsMiKSotcXEvu4fd/3vgxbKlLto4T2nQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9345
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Vladimir Oltean <olteanv@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <frank.li@nxp.com>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause
- the TXC clock in fixed-link
+Content-Disposition: inline
+In-Reply-To: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
+	delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,54 +85,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Mon, Jul 24, 2023 at 12:01:31PM +0200, Johannes Zink wrote:
 
+Earlier versions of the IP core return zero from these...
 
-> -----Original Message-----
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: Wednesday, July 26, 2023 2:02 PM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> Cc: Vladimir Oltean <olteanv@gmail.com>; David S. Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
-> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Maxime
-> Coquelin <mcoquelin.stm32@gmail.com>; Shawn Guo <shawnguo@kernel.org>;
-> dl-linux-imx <linux-imx@nxp.com>; Giuseppe Cavallaro
-> <peppe.cavallaro@st.com>; Alexandre Torgue <alexandre.torgue@foss.st.com>;
-> Jose Abreu <joabreu@synopsys.com>; Sascha Hauer <s.hauer@pengutronix.de>;
-> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
-> <festevam@gmail.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
-> imx@lists.linux.dev; Frank Li <frank.li@nxp.com>
-> Subject: Re: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
-> fixed-link
-> >
-> > Then, the way this phylink driver behaves makes the rest of the
-> > discussion kind of pointless for now, because I don't actually need
-> fix_mac_speed to give me any interface info now.
-> > The basic of_phy_is_fixed_link check does the job for me.
-> >
-> > Not sure why you think it's inefficient - could you explain that part?
->
-> Because of_phy_is_fixed_link() has to chase various pointers, walk the child
-> nodes and do a string compare on each, whereas you could just be testing an
-> integer!
->
+> +#define	PTP_TS_INGR_LAT	0x68	/* MAC internal Ingress Latency */
+> +#define	PTP_TS_EGR_LAT	0x6c	/* MAC internal Egress Latency */
 
-I don't think It's worth the effort to change the definition of fix_mac_speed across all platforms,
-because the function is only called once when the interface is up.
+and so...
+
+> +static void correct_latency(struct stmmac_priv *priv)
+> +{
+> +	void __iomem *ioaddr = priv->ptpaddr;
+> +	u32 reg_tsic, reg_tsicsns;
+> +	u32 reg_tsec, reg_tsecsns;
+> +	u64 scaled_ns;
+> +	u32 val;
+> +
+> +	/* MAC-internal ingress latency */
+> +	scaled_ns = readl(ioaddr + PTP_TS_INGR_LAT);
+> +
+> +	/* See section 11.7.2.5.3.1 "Ingress Correction" on page 4001 of
+> +	 * i.MX8MP Applications Processor Reference Manual Rev. 1, 06/2021
+> +	 */
+> +	val = readl(ioaddr + PTP_TCR);
+> +	if (val & PTP_TCR_TSCTRLSSR)
+> +		/* nanoseconds field is in decimal format with granularity of 1ns/bit */
+> +		scaled_ns = ((u64)NSEC_PER_SEC << 16) - scaled_ns;
+> +	else
+> +		/* nanoseconds field is in binary format with granularity of ~0.466ns/bit */
+> +		scaled_ns = ((1ULL << 31) << 16) -
+> +			DIV_U64_ROUND_CLOSEST(scaled_ns * PSEC_PER_NSEC, 466U);
+> +
+> +	reg_tsic = scaled_ns >> 16;
+> +	reg_tsicsns = scaled_ns & 0xff00;
+> +
+> +	/* set bit 31 for 2's compliment */
+> +	reg_tsic |= BIT(31);
+> +
+> +	writel(reg_tsic, ioaddr + PTP_TS_INGR_CORR_NS);
+
+here reg_tsic = 0x80000000 for a correction of -2.15 seconds!
+
+@Jakub  Can you please revert this patch?
 
 Thanks,
-Shenwei
-
-> --
-> RMK's Patch system:
-> https://www.ar/
-> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&data=05%7C01%7Cshenwei.wang
-> %40nxp.com%7C682cfc4392cc4e4b539508db8e0ae172%7C686ea1d3bc2b4c6fa
-> 92cd99c5c301635%7C0%7C0%7C638259949620016392%7CUnknown%7CTWFp
-> bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
-> Mn0%3D%7C3000%7C%7C%7C&sdata=sJy6gzd1LBe%2Bikz1lL3Pq4fK30ehMY%2
-> BJKQMJbkOFp4I%3D&reserved=0
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
