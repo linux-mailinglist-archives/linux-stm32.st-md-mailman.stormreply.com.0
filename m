@@ -2,52 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5155762B16
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 08:05:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B8A762B23
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 08:10:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66320C6A61A;
-	Wed, 26 Jul 2023 06:05:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB887C6A61A;
+	Wed, 26 Jul 2023 06:10:58 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F9E6C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90527C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 06:05:09 +0000 (UTC)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
- helo=bjornoya.blackshift.org) by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1qOXdY-0006Dv-Gs; Wed, 26 Jul 2023 08:04:40 +0200
-Received: from pengutronix.de (unknown [172.20.34.65])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id B74FB1FAD7A;
- Wed, 26 Jul 2023 06:04:37 +0000 (UTC)
-Date: Wed, 26 Jul 2023 08:04:37 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Richard Cochran <richardcochran@gmail.com>
-Message-ID: <20230726-dreamboat-cornhusk-1bd71d19d0d4-mkl@pengutronix.de>
-References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
- <20230725200606.5264b59c@kernel.org>
- <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
+ Wed, 26 Jul 2023 06:10:57 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <j.zink@pengutronix.de>)
+ id 1qOXjP-00073w-Ss; Wed, 26 Jul 2023 08:10:43 +0200
+Message-ID: <09a2d767-d781-eba2-028f-a949f1128fbd@pengutronix.de>
+Date: Wed, 26 Jul 2023 08:10:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Richard Cochran <richardcochran@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>
+References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+ <20230725200606.5264b59c@kernel.org> <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
+Content-Language: en-US, de-DE
+From: Johannes Zink <j.zink@pengutronix.de>
 In-Reply-To: <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:b01:1d::7b
-X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: j.zink@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Johannes Zink <j.zink@pengutronix.de>, kernel test robot <lkp@intel.com>,
- "David S. Miller" <davem@davemloft.net>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, patchwork-jzi@pengutronix.de
+Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ patchwork-jzi@pengutronix.de
 Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
 	delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -61,93 +55,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1075963639113733079=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Richard,
 
---===============1075963639113733079==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xnhwr73ip5umpg2f"
-Content-Disposition: inline
-
-
---xnhwr73ip5umpg2f
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On 25.07.2023 20:22:53, Richard Cochran wrote:
+On 7/26/23 05:22, Richard Cochran wrote:
 > On Tue, Jul 25, 2023 at 08:06:06PM -0700, Jakub Kicinski wrote:
->=20
-> > any opinion on this one?
->=20
+> 
+>> any opinion on this one?
+> 
 > Yeah, I saw it, but I can't get excited about drivers trying to
 > correct delays.  I don't think this can be done automatically in a
-> reliable way,
-
-At least the datasheet of the IP core tells to read the MAC delay from
-the IP core (1), add the PHY delay (2) and the clock domain crossing
-delay (3) and write it to the time stamp correction register.
-
-(1) added in this patch
-(2) future work
-(3) already in the driver,
-    though corrected manually when reading the timestamp
-
-At least in our measurements the peer delay is better with this patch
-(measured with ptp4linux) and the end-to-end delay (comparison of 2 PPS
-signals on a scope) is also better.
-
-> and so I expect that the few end users who are really
+> reliable way, and so I expect that the few end users who are really
 > getting into the microseconds and nanoseconds will calibrate their
 > systems end to end, maybe even patching out this driver nonsense in
 > their kernels.
+> 
 
-What issues make you think this change/approach is counterproductive?
+Thanks for your reading and commenting on my patch. As the commit message 
+elaborates, the Patch corrects for the MAC-internal delays (this is neither PHY 
+delays nor cable delays), that arise from the timestamps not being taken at the 
+packet egress, but at an internal point in the MAC. The compensation values are 
+read from internal registers of the hardware since these values depend on the 
+actual operational mode of the MAC and on the MII link. I have done extensive 
+testing, and as far as my results are concerned, this is reliable at least on 
+the i.MX8MP Hardware I can access for testing. I would actually like correct 
+this on other MACs too, but they are often poorly documented. I have to admit 
+that the DWMAC is one of the first hardwares I encountered with proper 
+documentation. The driver admittedly still has room for improvements - so here 
+we go...
+
+Nevertheless, there is still PHY delays to be corrected for, but I need to 
+extend the PHY framework for querying the clause 45 registers to account for 
+the PHY delays (which are even a larger factor of). I plan to send another 
+series fixing this, but this still needs some cleanup being done.
+
+Also on a side-note, "driver nonsense" sounds a bit harsh from someone always 
+insisting that one should not compensate for bad drivers in the userspace stack 
+and instead fixing driver and hardware issues in the kernel, don't you think?
 
 > Having said that, I won't stand in the way of such driver stuff.
 > After all, who cares about a few microseconds time error one way or
 > the other?
 
-There are several companies that use or plan to use PTP in their
-products and are striving to achieve sub-microsecond synchronization.
+I do, and so does my customer. If you want to reach sub-microsecond accuracy 
+with a linuxptp setup (which is absolutely feasible on COTS hardware), you have 
+to take these things into account. I did quite extensive tests, and measuring 
+the peer delay as precisely as possible is one of the key steps in getting 
+offsets down between physical nodes. As I use the PHCs to recover clocks with 
+as low phase offset as possible, the peer delays matter, as they add phase 
+error. At the moment, this patch reduces the offset of approx 150ns to <50ns in 
+a real world application, which is not so bad for a few lines of code, i guess...
 
-regards,
-Marc
+I don't want to kick off a lengthy discussion here (especially since Jakub 
+already picked the patch to next), but maybe this mail can help for 
+clarification in the future, when the next poor soul does work on the hwtstamps 
+in the dwmac.
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+Thanks, also for keeping linuxptp going,
+Johannes
 
---xnhwr73ip5umpg2f
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> Thanks,
+> Richard
+> 
+> 
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmTAt3IACgkQvlAcSiqK
-BOh0DAgAqG6sHE3eeulbdXpyxVkjVIcKYjN/Hdv69xC9upUFvYFR+OQx4UoUbqCj
-cDnLoipaxlcGfUob+Qr9QYUKjVI9TVqY82sU6LJ2DsbRAXdE7v7Pp/cINSatJ0Vq
-Sb7Srv7RG2Xh+4oLChZ7fm2BGfoTehVQh0W3VpVXhIeMmGWeNFankax+sPOwYPfK
-/OIQ/OYKRW0EI2Hrhbb/wnGv8cUCUSj5ZxQsc2rNJptWwQE1Ps/ljCOCyeyP8Alu
-OOjGHjN1pjzZKg5hnOeKTKmmN9r5e5mD0EuSIm5PCtAQnCu2FOkQh1C+uyjNLx6m
-jibMx4NFgoCRMo76PJp1y4m6hzEtkw==
-=4iaa
------END PGP SIGNATURE-----
-
---xnhwr73ip5umpg2f--
-
---===============1075963639113733079==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+Pengutronix e.K.                | Johannes Zink                  |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1075963639113733079==--
