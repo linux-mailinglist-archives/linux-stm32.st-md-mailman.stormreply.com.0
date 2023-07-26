@@ -2,81 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC0F768DD0
+	by mail.lfdr.de (Postfix) with ESMTPS id 20886768DD1
 	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C605BC6DD86;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9B44C6DD89;
 	Mon, 31 Jul 2023 07:17:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF95CC6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56FA5C6B45A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 10:40:01 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36Q7VZaZ007966; Wed, 26 Jul 2023 12:39:37 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=selector1;
- bh=W8GLfB17+jUE7Nw68o8tScgzzDDgHpp5NKWkRxESZlI=;
- b=qLRE5+KmvbKk5B/UW10nGEjBoDKipiB1flNkgDwSQYqmZMZdBpctbst7Vwt4EUF87UAQ
- lGs1OpG9iWa7NPx/eqb8ySrQnjHJTDAhdOqjGv8LVHdxJLHd4/JhOqgzW88/jAn5GpJe
- /9sWA3Z+uL0eH5JViXAbOVXN00Amp02Tix6WttAS9w4R9wAmpstvy5KIJGiwDfWDgPWe
- 7Ll7vUdK2tWD46wDK1zTVYHE+KrDhr1nsi10XJw0x7tkd+qwL727Kpu0HqUADsa0lQkG
- 4pxFNpRPxpJfDasvoPH+WokzK6DrXEtEA/wNoEISShjpOySH6a8QFdhtHwnQ+A4I7C3/ 6g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s2y641c6j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 26 Jul 2023 12:39:37 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C13A210002A;
- Wed, 26 Jul 2023 12:39:36 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B6D7C21787E;
- Wed, 26 Jul 2023 12:39:36 +0200 (CEST)
-Received: from [10.201.21.121] (10.201.21.121) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 26 Jul
- 2023 12:39:34 +0200
-Message-ID: <9f34d34b-911a-c064-9e44-34e030b76786@foss.st.com>
-Date: Wed, 26 Jul 2023 12:39:31 +0200
+ Wed, 26 Jul 2023 21:21:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 32F9C61CC2;
+ Wed, 26 Jul 2023 21:21:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12830C433C8;
+ Wed, 26 Jul 2023 21:21:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690406496;
+ bh=Jm4KifBbM6N3tIIsQSE7xXWvpsnj5QlwhDvw9jJ1fMM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rcZ7rkPOhtAdPW4TB/0T0DZzOIyKG8gqUNLEM/d3qSy8XUORBTq4sxKaSeAaiwbXg
+ ESuDVgWjjAv86PrX1Znn4cxWj8l884u8J8F5Dqu44faLX1iwLe5j4jvZYeuIvUjPgj
+ odjW9ASMIENAkJvy3KEHq9bvZ1UGAW1HgLqqZaN9vbbujL4SY60plU+jRMf1NJ//e3
+ 4x0AkK3e6gIMXPa37ZIDiLIzxd+L8mztyzQxUgK1WkslBMJvBoPB4iiUFwEyqcdQGZ
+ w14OTaQYZEL9QYImEqJXYn9r8p/6dHKTyKe2bvHC11+nwGKGoXFH1B35mTGESi7p4y
+ dtCtDX87qZqaA==
+Date: Wed, 26 Jul 2023 23:21:32 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <20230726212132.vylu6qulpyu5fndh@intel.intel>
+References: <20230718105435.2641207-1-sean@geanix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Simon Horman <simon.horman@corigine.com>
-References: <20230725164104.273965-1-gatien.chevallier@foss.st.com>
- <20230725164104.273965-6-gatien.chevallier@foss.st.com>
- <ZMDz1AhlEeZTM/vi@corigine.com>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <ZMDz1AhlEeZTM/vi@corigine.com>
-X-Originating-IP: [10.201.21.121]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-26_04,2023-07-25_01,2023-05-22_02
+Content-Disposition: inline
+In-Reply-To: <20230718105435.2641207-1-sean@geanix.com>
 X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
- hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- andi.shyti@kernel.org, alsa-devel@alsa-project.org, richardcochran@gmail.com,
- robh+dt@kernel.org, linux-serial@vger.kernel.org, mchehab@kernel.org,
- linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 05/11] firewall: introduce
-	stm32_firewall framework
+Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] i2c: stm32f7: Add atomic_xfer method
+	to driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,47 +56,179 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Sean,
 
+[...]
 
-On 7/26/23 12:22, Simon Horman wrote:
-> On Tue, Jul 25, 2023 at 06:40:58PM +0200, Gatien Chevallier wrote:
-> 
-> ...
-> 
->> diff --git a/drivers/bus/stm32_firewall.c b/drivers/bus/stm32_firewall.c
-> 
-> ...
-> 
->> +int stm32_firewall_controller_register(struct stm32_firewall_controller *firewall_controller)
->> +{
->> +	struct stm32_firewall_controller *ctrl;
->> +
->> +	pr_info("Registering %s firewall controller\n", firewall_controller->name);
->> +
->> +	if (!firewall_controller)
->> +		return -ENODEV;
-> 
-> HI Gatien,
-> 
-> Sorry, one more on this patch, that I missed before sending my previous
-> email.
-> 
-> firewall_controller is checked for NULL here.
-> But it is already dereferenced on the line above the check.
-> 
-> Flagged by Smatch.
-> 
-> ...
+> @@ -905,38 +906,43 @@ static void stm32f7_i2c_xfer_msg(struct stm32f7_i2c_dev *i2c_dev,
+>  		cr2 |= STM32F7_I2C_CR2_NBYTES(f7_msg->count);
+>  	}
+>  
+> -	/* Enable NACK, STOP, error and transfer complete interrupts */
+> -	cr1 |= STM32F7_I2C_CR1_ERRIE | STM32F7_I2C_CR1_TCIE |
+> -		STM32F7_I2C_CR1_STOPIE | STM32F7_I2C_CR1_NACKIE;
+> -
+> -	/* Clear DMA req and TX/RX interrupt */
+> -	cr1 &= ~(STM32F7_I2C_CR1_RXIE | STM32F7_I2C_CR1_TXIE |
+> -			STM32F7_I2C_CR1_RXDMAEN | STM32F7_I2C_CR1_TXDMAEN);
+> -
+> -	/* Configure DMA or enable RX/TX interrupt */
+> -	i2c_dev->use_dma = false;
+> -	if (i2c_dev->dma && f7_msg->count >= STM32F7_I2C_DMA_LEN_MIN) {
+> -		ret = stm32_i2c_prep_dma_xfer(i2c_dev->dev, i2c_dev->dma,
+> -					      msg->flags & I2C_M_RD,
+> -					      f7_msg->count, f7_msg->buf,
+> -					      stm32f7_i2c_dma_callback,
+> -					      i2c_dev);
+> -		if (!ret)
+> -			i2c_dev->use_dma = true;
+> -		else
+> -			dev_warn(i2c_dev->dev, "can't use DMA\n");
+> -	}
+> +	if (!i2c_dev->atomic) {
+> +		/* Enable NACK, STOP, error and transfer complete interrupts */
+> +		cr1 |= STM32F7_I2C_CR1_ERRIE | STM32F7_I2C_CR1_TCIE |
+> +			STM32F7_I2C_CR1_STOPIE | STM32F7_I2C_CR1_NACKIE;
+> +
+> +		/* Clear DMA req and TX/RX interrupt */
+> +		cr1 &= ~(STM32F7_I2C_CR1_RXIE | STM32F7_I2C_CR1_TXIE |
+> +				STM32F7_I2C_CR1_RXDMAEN | STM32F7_I2C_CR1_TXDMAEN);
+> +
+> +		/* Configure DMA or enable RX/TX interrupt */
+> +		i2c_dev->use_dma = false;
+> +		if (i2c_dev->dma && f7_msg->count >= STM32F7_I2C_DMA_LEN_MIN) {
+> +			ret = stm32_i2c_prep_dma_xfer(i2c_dev->dev, i2c_dev->dma,
+> +					msg->flags & I2C_M_RD,
+> +					f7_msg->count, f7_msg->buf,
+> +					stm32f7_i2c_dma_callback,
+> +					i2c_dev);
+> +			if (!ret)
+> +				i2c_dev->use_dma = true;
+> +			else
+> +				dev_warn(i2c_dev->dev, "can't use DMA\n");
+> +		}
+>  
+> -	if (!i2c_dev->use_dma) {
+> -		if (msg->flags & I2C_M_RD)
+> -			cr1 |= STM32F7_I2C_CR1_RXIE;
+> -		else
+> -			cr1 |= STM32F7_I2C_CR1_TXIE;
+> +		if (!i2c_dev->use_dma) {
+> +			if (msg->flags & I2C_M_RD)
+> +				cr1 |= STM32F7_I2C_CR1_RXIE;
+> +			else
+> +				cr1 |= STM32F7_I2C_CR1_TXIE;
+> +		} else {
+> +			if (msg->flags & I2C_M_RD)
+> +				cr1 |= STM32F7_I2C_CR1_RXDMAEN;
+> +			else
+> +				cr1 |= STM32F7_I2C_CR1_TXDMAEN;
+> +		}
+>  	} else {
+> -		if (msg->flags & I2C_M_RD)
+> -			cr1 |= STM32F7_I2C_CR1_RXDMAEN;
+> -		else
+> -			cr1 |= STM32F7_I2C_CR1_TXDMAEN;
+> +		/* Disable all interrupts */
+> +		cr1 &= ~STM32F7_I2C_ALL_IRQ_MASK;
 
-Indeed, thank you. I will change this for V4
+if you do
 
-Best regards,
-Gatien
+	if (i2c_dev->atomic) {
+		/* Disable all interrupts */
+		cr1 &= ~STM32F7_I2C_ALL_IRQ_MASK;
+		return;
+	}
+
+you save all the above from a leveel of indentation.
+
+>  	}
+>  
+>  	/* Configure Start/Repeated Start */
+> @@ -1670,7 +1676,22 @@ static irqreturn_t stm32f7_i2c_isr_error(int irq, void *data)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> -static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+> +static int stm32f7_i2c_wait_polling(struct stm32f7_i2c_dev *i2c_dev)
+> +{
+> +	ktime_t timeout = ktime_add_ms(ktime_get(), i2c_dev->adap.timeout);
+> +
+> +	while (ktime_compare(ktime_get(), timeout) < 0) {
+> +		udelay(5);
+> +		stm32f7_i2c_isr_event(0, i2c_dev);
+> +
+> +		if (try_wait_for_completion(&i2c_dev->complete))
+> +			return 1;
+
+I'm wondering if it makes really sense to have a complete() and
+wait_for_completion() scheme here.
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32f7_i2c_xfer_core(struct i2c_adapter *i2c_adap,
+>  			    struct i2c_msg msgs[], int num)
+>  {
+>  	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
+> @@ -1694,8 +1715,13 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+>  
+>  	stm32f7_i2c_xfer_msg(i2c_dev, msgs);
+>  
+> -	time_left = wait_for_completion_timeout(&i2c_dev->complete,
+> -						i2c_dev->adap.timeout);
+> +	if (!i2c_dev->atomic) {
+> +		time_left = wait_for_completion_timeout(&i2c_dev->complete,
+> +							i2c_dev->adap.timeout);
+> +	} else {
+> +		time_left = stm32f7_i2c_wait_polling(i2c_dev);
+> +	}
+
+please, drop the brackets here... and time_left here serves only
+not to get the -ETIMEDOUT... looks a bit ugly to me, but can't
+think of a better way.
+
+> +
+>  	ret = f7_msg->result;
+>  	if (ret) {
+>  		if (i2c_dev->use_dma)
+> @@ -1727,6 +1753,24 @@ static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+>  	return (ret < 0) ? ret : num;
+>  }
+>  
+> +static int stm32f7_i2c_xfer(struct i2c_adapter *i2c_adap,
+> +			    struct i2c_msg msgs[], int num)
+> +{
+> +	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
+> +
+> +	i2c_dev->atomic = 0;
+
+false
+
+> +	return stm32f7_i2c_xfer_core(i2c_adap, msgs, num);
+> +}
+> +
+> +static int stm32f7_i2c_xfer_atomic(struct i2c_adapter *i2c_adap,
+> +			    struct i2c_msg msgs[], int num)
+> +{
+> +	struct stm32f7_i2c_dev *i2c_dev = i2c_get_adapdata(i2c_adap);
+> +
+> +	i2c_dev->atomic = 1;
+
+true
+
+Andi
+
+> +	return stm32f7_i2c_xfer_core(i2c_adap, msgs, num);
+> +}
+> +
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
