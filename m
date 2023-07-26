@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0874776295E
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 05:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A93A4762978
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 05:50:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A928AC6A61A;
-	Wed, 26 Jul 2023 03:39:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DF60C6A61A;
+	Wed, 26 Jul 2023 03:50:25 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 743D7C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7454EC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 03:39:52 +0000 (UTC)
+ Wed, 26 Jul 2023 03:50:23 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1142C611BE;
- Wed, 26 Jul 2023 03:39:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7EB0C433C7;
- Wed, 26 Jul 2023 03:39:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3321F6119F;
+ Wed, 26 Jul 2023 03:50:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99B32C43391;
+ Wed, 26 Jul 2023 03:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690342790;
- bh=/DXkxDc0cjY513B5QGcbSthekDMBSig0Uuz5USmRB9g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=H157GANRAtY9o9O/MLKKTTbuWpOwR4XmTVaem5NtxNwnkOrUiwqdx6pKbPVRZyxZp
- XsrhqhKIY1O74VUIwmGYMvKVAa7F/mum5SbnVjk+tZ2dUYbv4brqLThJ0UPAXGhjc4
- nO1vw4bl4Iv66QnJ4u0WwqG0pd8FueE8M/yzw7B4zWsoHYI1fbR9LYzkXa78PgjWTJ
- DQVv4aw6MZVD7uzWaIvbUJ/K4ImsCSxC73xWyDRUOXIUKsX1rSQlztJloyiBGiOJ7k
- N/h7SBzK5mn5cwjYvmMEe9Da0xYHpv5gXt/zbrYdsZGYhFItjoUZKl2NSaVLZrTUkP
- pK1jE7jQdNRTQ==
-Date: Tue, 25 Jul 2023 20:39:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Richard Cochran <richardcochran@gmail.com>
-Message-ID: <20230725203948.4037fee7@kernel.org>
-In-Reply-To: <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
-References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
- <20230725200606.5264b59c@kernel.org>
- <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
+ s=k20201202; t=1690343419;
+ bh=LlxH6m3gJxKW+Jx8L4JTmLBmIoATMBBpcofInJbVcIc=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=l0Qv2afVZjK/quzpQaLNYWcbn60W+6jf9HhnGrtfPlGcRe2x1WF4CooGoHsI+UeR7
+ i/9FKj5JuFz/6zVcLSz60v49AkPwFA686+hmi4DHcsx9Nq/gW/m/7qBv+kOIEL2mLZ
+ AqhQEpxX3lc67FzXl8ETNoSSdWVNxMwum216BASWD1yFh48TRwudmCiQ3XyThr9WFF
+ h89XcDjrRaS4WjhxEJ9fdtVeG+XwlsnJiJWELqtHpHjq7TtbNBhmyBRDvfZgKSm7XZ
+ 0te1FwoMkGAErHd4C/aBQ7QbfU6ubq1fYw9mOzFELzJ+8GOGzUEdCY2KUmV9neKz7m
+ Yg9miv+KGTnXA==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 68CDBE1F65A; Wed, 26 Jul 2023 03:50:19 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Johannes Zink <j.zink@pengutronix.de>, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169034341942.4604.1855470719545245647.git-patchwork-notify@kernel.org>
+Date: Wed, 26 Jul 2023 03:50:19 +0000
+References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+In-Reply-To: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+To: Johannes Zink <j.zink@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
+ richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux@armlinux.org.uk, lkp@intel.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ peppe.cavallaro@st.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
 Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
 	delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -66,21 +66,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 25 Jul 2023 20:22:53 -0700 Richard Cochran wrote:
-> > any opinion on this one?  
-> 
-> Yeah, I saw it, but I can't get excited about drivers trying to
-> correct delays.  I don't think this can be done automatically in a
-> reliable way, and so I expect that the few end users who are really
-> getting into the microseconds and nanoseconds will calibrate their
-> systems end to end, maybe even patching out this driver nonsense in
-> their kernels.
-> 
-> Having said that, I won't stand in the way of such driver stuff.
-> After all, who cares about a few microseconds time error one way or
-> the other?
+Hello:
 
-I see :)
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 24 Jul 2023 12:01:31 +0200 you wrote:
+> The IEEE1588 Standard specifies that the timestamps of Packets must be
+> captured when the PTP message timestamp point (leading edge of first
+> octet after the start of frame delimiter) crosses the boundary between
+> the node and the network. As the MAC latches the timestamp at an
+> internal point, the captured timestamp must be corrected for the
+> additional path latency, as described in the publicly available
+> datasheet [1].
+> 
+> [...]
+
+Here is the summary with links:
+  - [v2] net: stmmac: correct MAC propagation delay
+    https://git.kernel.org/netdev/net-next/c/20bf98c94146
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
