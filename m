@@ -2,80 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64726763745
-	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 15:15:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1937639C5
+	for <lists+linux-stm32@lfdr.de>; Wed, 26 Jul 2023 17:00:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BE2BC6B45C;
-	Wed, 26 Jul 2023 13:15:34 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CD11C6B45C;
+	Wed, 26 Jul 2023 15:00:53 +0000 (UTC)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on2081.outbound.protection.outlook.com [40.107.14.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72F56C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D1D7C6B45A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 13:15:33 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-99bcc0adab4so70851066b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 26 Jul 2023 06:15:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1690377333; x=1690982133;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=xxpwGdqfKpW+2bA8L4L3lh4iGcowSXsRVpwai0mk4fQ=;
- b=aBmywB8kJps6NL8kYvNQkYJixI+qt0vHUmnmDQL+JaHi33F/2lIJLWXRTW3t4o7Mlg
- WrZHD3nyD/VyY+S65kqDZHPdUpACQQ8+BmX+U2PHnDrXJf53acmFV/x4JCy690s4zc2Y
- FYMegG8v2565mbDeZbI+3sPoFAg7DZSiGauJTCuhHbG+zmA0iCkRf1tEhQ5U/dyUOal5
- +kx9DKbzGtWh4Jg8uwEE30I7NPXDCyQQnLrmaIB1tMw+ZpvqNTMw8zKC6iDUagMHBrDZ
- OUaGlbtQGbQFid4ezBHNIomlTBjv4/DghU5y/GAhxkiATl+b6cycISfJwr162uJLLuSo
- l94Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690377333; x=1690982133;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xxpwGdqfKpW+2bA8L4L3lh4iGcowSXsRVpwai0mk4fQ=;
- b=d63V3GuWTrR14Ms1ovC7Nw0ajSo9PYGXhCVPkc5TmqcsxlK+wHJSKD4Hlpe4cVkyxS
- HdOenQdoO+JODh7xdRkcP0w37BbrWKYNQ8n7HfLiC8Cfr/oxq08hdImdjWRWuil4PqrB
- FKwmtAHFWaaiXfOi1IMR4BrL+T1uYZf36fpC+1MINwCcq17o2BDywH7bZjQhARoD1a48
- DczI4fHugDB8xYeG5ui5Df9mt+GDOQieBIYb58XBhfX1RegLWPhYpRFnqmUjrf0lnIWk
- NLrvrdPJwvbdr7MtQeCYDrHBwdsTEKRfiASxvSG2JOYvPOK51Xg2zUxMl+G0oYzgfOd/
- F6Iw==
-X-Gm-Message-State: ABy/qLYe8TSpQzJAwq2Uj+EUq341PB27KQ7J0qBlDIUw53VQ2x2y2ayz
- /Ak3WM4YpoOGokApqHptwFzTDQ==
-X-Google-Smtp-Source: APBJJlFMhteteZfyviZtv4MyvkzBxODZxA8tpAKbuYijpc64a+D7iboNckbTfSv3dVIDPN6HQHdc/w==
-X-Received: by 2002:a17:906:64cc:b0:994:539d:f97f with SMTP id
- p12-20020a17090664cc00b00994539df97fmr1726109ejn.37.1690377332545; 
- Wed, 26 Jul 2023 06:15:32 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.223.104])
- by smtp.gmail.com with ESMTPSA id
- z9-20020a1709064e0900b009886aaeb722sm9518979eju.137.2023.07.26.06.15.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jul 2023 06:15:31 -0700 (PDT)
-Message-ID: <453c362a-c9bf-1cd4-187c-8916ed406c64@linaro.org>
-Date: Wed, 26 Jul 2023 15:15:30 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
+ Wed, 26 Jul 2023 15:00:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VCfoOPvCMrNNcuBktvN1xK3pgfnh4RCSP72MKHkcguMnKPAhNNgIHPFO/SddolvmB8NzEPthJi/csocwDdinjf6MEUySxPQ2GxarYqvly9qxf1xZDP4vY9b0sbfShoauWkVAuDwVEfENc4wtjP+bYas2vpWUdyWWq+AJmW28ouuu0TLRBQJMvPU1VBdcI5UVbgmbQuSjRuXlmCnTvAXzp9xfEdosJ9NVwNPztxhOqRx+qkx5Avj8hF0DWIS55FSxZHZydNESdd7ko2/WXjpnzCqt+8gvm/xFYbboKANcCnr8e+m3m2fuCLYR0wBhYqjHj2MXN760G9sYKpV4QhKfmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BwS0P9AFgb4pxb8y6ZAQZa3OS+wndRrVVkyZKDpnMLY=;
+ b=F7UY0ailveSBDQNnpgQSalltJ+duYy0TO4B5sZaU8euNS7jDzTOTRz3qxXYph6L5Y3uGU1+SZhzP24Orl2HMHNG3dr2gliBmWlURH0/RDB5KcWmm90X5b1AEr1U0IfjNPjmxVibdVr6WAZpgNATNH/pDMQjaW+w6LnCwjr/6sXBUsiu7R7xhwBEVsvNEEF4L5oZZCF6yrXzK2GI7R6PouIRtONgIcIeSTz8igWB4ho9QjKSDgbsI5W4oBJC+tFyRFZpd6qrRKdHMHy4KWQ8l47ZYpKGcXWX4MuxMEUuIU4chx+f3iVW8piGYuA1gKahi/qF4bblrRPLEqzpj4wJfRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BwS0P9AFgb4pxb8y6ZAQZa3OS+wndRrVVkyZKDpnMLY=;
+ b=NW5r4XIf1DBGaqvDNvJixnOGqPCQukPJaXYGZb776RBVdFAB+ypeRHyVkPFMkPtkBKT0gRphuJwW1yTteWiPYv4pMSHJ5quxAg9OUQhjeM7cnrr7LnXnq1vxqxaA4hdciuvJN9MoI2ERtBfOb+ID3C5M8WJGAjGB1Q9hJ3gsMLQ=
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by PAWPR04MB9888.eurprd04.prod.outlook.com (2603:10a6:102:385::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Wed, 26 Jul
+ 2023 15:00:49 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.026; Wed, 26 Jul 2023
+ 15:00:49 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: Russell King <linux@armlinux.org.uk>
+Thread-Topic: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
+ fixed-link
+Thread-Index: AQHZvzEtwr0cB5x9EUCXrQC85+we9K/K+NqAgAEqaxA=
+Date: Wed, 26 Jul 2023 15:00:49 +0000
+Message-ID: <PAXPR04MB91857EA7A0CECF71F961DC0B8900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
+References: <20230725194931.1989102-1-shenwei.wang@nxp.com>
+ <ZMA45XUMM94GTjHx@shell.armlinux.org.uk>
+In-Reply-To: <ZMA45XUMM94GTjHx@shell.armlinux.org.uk>
+Accept-Language: en-US
 Content-Language: en-US
-To: Fabio Estevam <festevam@gmail.com>
-References: <20230726070322.103871-1-krzysztof.kozlowski@linaro.org>
- <20230726070322.103871-3-krzysztof.kozlowski@linaro.org>
- <CAOMZO5C1JN7w+LhK-J0_ttKVopyeRq6VmCpAHujN_tGPMobotA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <CAOMZO5C1JN7w+LhK-J0_ttKVopyeRq6VmCpAHujN_tGPMobotA@mail.gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|PAWPR04MB9888:EE_
+x-ms-office365-filtering-correlation-id: f4c93cd3-3b03-46b5-f1de-08db8de91934
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: iLAPyuaamXlZHmdBV9MENcxo8b0nRcxP8ud3e4Pa4WVj1z+G0UZmHAp+pvAAXPmb4Ul1Og4Y9SZAJnfrvgGbKYtTes5etyeE9WpP1I3lqMI2HgrhTdlsnxA7Ad05cITdCFSymnxnTeNYFldtioXpG/Q6uCrvcIkkMYr7BqV7ULK/A7ERjDIE8otA1k/TpmviagwMol2V55W1jW7+WVZ4jzMVO9Gi/4YXDYcXQXJerbi/Kv7xTFJAhREFR8WI4BBYv4HCpmtSSaG0uZqeksq5LDOhU7L6LOr1wfW+GaOibVd7xIVgKA/bZd3hxx7lEZMk1HjhKtm/s+Nr3jcIjojPw986onjOCtgHHJNsgBqLDunWIoJk+L2ZoXtaD+jRsQpesjuyl/T4RU8Q/i8RupkAaQsIzGVdPr4E/BNxRn+5HmM2n/vbkVqgefuVHGhXzwRqL4chBBw0M98jcRApMqKKyTNCxV6sPBq/HtZ/dn8C9CVQfhwZTNR26nSYztHnbgRfGFNGAHlYXtOc4jfL+q04XFEdpAzemjBeLXSg9weWIcdufQMsZ+3q03IKnus1xdDInYrgrW6CFcydNDiuPsY7apFflNFbbrUoVdqb2PiSa60=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(376002)(396003)(136003)(366004)(451199021)(2906002)(122000001)(54906003)(52536014)(7696005)(71200400001)(45080400002)(5660300002)(478600001)(8936002)(8676002)(44832011)(64756008)(38070700005)(66446008)(66556008)(76116006)(66476007)(66946007)(6916009)(4326008)(316002)(55016003)(7416002)(38100700002)(41300700001)(55236004)(53546011)(26005)(6506007)(33656002)(186003)(86362001)(83380400001)(966005)(9686003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uX5xaqRCqOHnkNRofSxpvCHG+MO2NIH0gnew1lPvf94M4IIxvswUb/L2rmHJ?=
+ =?us-ascii?Q?jvksyR2NYGtitIttRcUigfxH99ZJODSKDafqsgGsRRpBGPSeTZ4XkDKkxVb7?=
+ =?us-ascii?Q?I9SccDhL3GrlJad+cgvmOCTsykhXgt8H/xtBOWy2Ckz76Sn1Q8ECBURpvEpl?=
+ =?us-ascii?Q?r960zYBuSgNURlrY9UZE5f9o0p2nMfHZAXMRrCjfdjXomSVta523IdGSLs1E?=
+ =?us-ascii?Q?I3Qe4aFIp81nyYwxTwGMKloy0LA9bbsLPq4mD5hmmN8TIr6HFuohOQTjhDK3?=
+ =?us-ascii?Q?M3IGAaTIhsUZpEnqBMxPr+xEJCARwFmr9Wg1jQoJS9r5/3fdrqB3KngH96Kq?=
+ =?us-ascii?Q?cuFA5W2niCX4+lLSiDv5JNLYX6djcR4s2aeJTPTkHMR6+L5/1fk2nI+nH8B3?=
+ =?us-ascii?Q?eqDk6s+k241vu8p5IXSPA/fyiYRiVr+x7y5Pcc2h3nIe29h9naZ54e+TYMnH?=
+ =?us-ascii?Q?x2jt4XUreISUvTkjKxe0TwlRhn1E6E5ZOad/O2Oaqmwsqt2TtAOshsQsPurU?=
+ =?us-ascii?Q?0w0RJVQ61/OInO/pyqoaxk3s9A7znkoaR8xvsMIFD1WxMzug+5zbRPw8dOug?=
+ =?us-ascii?Q?CJcc6rbordxF4Qu/vm4chB3CJJTXh/2E1XSfcM5lRlT5Q1m9srr7qvMeFmQv?=
+ =?us-ascii?Q?gpuaMGehdYykLxGFC+rI8uQbrpGJP680yL0NSmn0CNRQgaX1XprQsJ0+nUKR?=
+ =?us-ascii?Q?0uxM23m5rR6itWsS0e/l/WFBftdHs+fznrkhOQ6DcON/w4JMeZEDl3hE+LkS?=
+ =?us-ascii?Q?OjJuOqOW6TTLOlaslTNkL0INZEUN6Awv/93yhyepjnL4NDsituDTMbAjCxaz?=
+ =?us-ascii?Q?jhSWo2q9QhYXKOc2YlYqukzT/z2PVLvMNQUuEwVk1aGgi/PR8oOcbg448oYK?=
+ =?us-ascii?Q?QBhxvOmtxMuFJviYv8xr7nZhBdpdEehvjuXa2J2+oTZaRJ9LeCeKZ0bk6/m+?=
+ =?us-ascii?Q?CzX8Xaqo66egZXA1n9RK2fYzziG/awSfwpj7fZWbk++70o3jHb8Erqd/6zVU?=
+ =?us-ascii?Q?BFn87/0UBwCm9yD+C1BBDi9GEojdlSsHFLOl7bWYzRWEzoxxb7CKZ5cBKuUV?=
+ =?us-ascii?Q?nn24yo99PGTDl9z1a7SKcP8cH+qqegZfNDUxUKRKvd2HMLwc3Eui0kcVNm6A?=
+ =?us-ascii?Q?Zh1M+fJTifDnjISNBwhrrANdiuiG/M3DJLfCtm7Zs/gahM4B52mYlLI/4dzg?=
+ =?us-ascii?Q?HTgRhSrJ/bXT5aiNTC0RwKwqnaw0s4KyLf2JDRxNJCj/IS3/N3rXCQelWsv7?=
+ =?us-ascii?Q?Q0cx1RILfh/snxM+gibinxnAqF7k1QuNbH+G+DNj/ge+hsUaqkkydzolubpQ?=
+ =?us-ascii?Q?lSRH/jajuEuekXKIDJrGfI36Z6NEa9cbjK1l1bhcHOkO/VaGxt4LgCxb31yp?=
+ =?us-ascii?Q?/lOLhQDGGznMGiioMyuLvdMeYMX3BUDO9nux7UjrglRQXTXTiwNUDxsfUSoV?=
+ =?us-ascii?Q?3TOLm1a1MyEAoJ65Ox+s9qV28fJXV0XxltU3QrdTDPmJhU09ATOR+8s0Rkug?=
+ =?us-ascii?Q?Sd9w5syjqtppZmpJ+c27p7PSTyfRFjD1uGnkkdIfz/+WRWumX2T+OhgoI+Cj?=
+ =?us-ascii?Q?Z4SM7DJRwZN1TZqBI/BvvvtayhB0FiTCdO5WeZfi?=
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4c93cd3-3b03-46b5-f1de-08db8de91934
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jul 2023 15:00:49.2435 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: T5N5zoqjy9b8V6fzkFFetFqX6a1PiHDsh8QKscl4UYt7vCD0sDaPJ5ZMQf/PEMbq4hNtAvQObDBOSOtakMF7KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB9888
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/8] AMR: dts: imx28-m28evk: populate
-	fixed regulators
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <frank.li@nxp.com>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause
+ the TXC clock in fixed-link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,43 +128,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMjYvMDcvMjAyMyAxNTowOCwgRmFiaW8gRXN0ZXZhbSB3cm90ZToKPiBQYXRjaGVzIDEsIDIs
-IDMsIGFuZCA0IGhhdmUgYSB0eXBvIGluIHRoZSBTdWJqZWN0OiBzL0FNUi9BUk0uCj4gCj4gT24g
-V2VkLCBKdWwgMjYsIDIwMjMgYXQgNDowM+KAr0FNIEtyenlzenRvZiBLb3psb3dza2kKPiA8a3J6
-eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPiB3cm90ZToKPj4KPj4gRml4ZWQgcmVndWxhdG9y
-cyBwdXQgdW5kZXIgInJlZ3VsYXRvcnMiIG5vZGUgd2lsbCBub3QgYmUgcG9wdWxhdGVkLAo+PiB1
-bmxlc3Mgc2ltcGxlLWJ1cyBvciBzb21ldGhpbmcgc2ltaWxhciBpcyB1c2VkLiAgRHJvcCB0aGUg
-InJlZ3VsYXRvcnMiCj4+IHdyYXBwZXIgbm9kZSB0byBmaXggdGhpcy4KPj4KPj4gU2lnbmVkLW9m
-Zi1ieTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3Jn
-Pgo+PiAtLS0KPj4gIGFyY2gvYXJtL2Jvb3QvZHRzL254cC9teHMvaW14MjgtbTI4ZXZrLmR0cyB8
-IDQ1ICsrKysrKysrKystLS0tLS0tLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAyMCBpbnNlcnRp
-b25zKCspLCAyNSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3Qv
-ZHRzL254cC9teHMvaW14MjgtbTI4ZXZrLmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9teHMv
-aW14MjgtbTI4ZXZrLmR0cwo+PiBpbmRleCBlMzUwZDU3YTRjZWMuLjZiZjI2ZjM4NmE1ZSAxMDA2
-NDQKPj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL214cy9pbXgyOC1tMjhldmsuZHRzCj4+
-ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9teHMvaW14MjgtbTI4ZXZrLmR0cwo+PiBAQCAt
-MTgsMzMgKzE4LDI4IEBAIGJhY2tsaWdodCB7Cj4+ICAgICAgICAgICAgICAgICBkZWZhdWx0LWJy
-aWdodG5lc3MtbGV2ZWwgPSA8Nj47Cj4+ICAgICAgICAgfTsKPj4KPj4gLSAgICAgICByZWd1bGF0
-b3JzIHsKPj4gLSAgICAgICAgICAgICAgIHJlZ192ZGRpb19zZDA6IHJlZ3VsYXRvckAxIHsKPj4g
-LSAgICAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOwo+
-PiAtICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MT47Cj4+IC0gICAgICAgICAgICAgICAg
-ICAgICAgIHJlZ3VsYXRvci1uYW1lID0gInZkZGlvLXNkMCI7Cj4+IC0gICAgICAgICAgICAgICAg
-ICAgICAgIHJlZ3VsYXRvci1taW4tbWljcm92b2x0ID0gPDMzMDAwMDA+Owo+PiAtICAgICAgICAg
-ICAgICAgICAgICAgICByZWd1bGF0b3ItbWF4LW1pY3Jvdm9sdCA9IDwzMzAwMDAwPjsKPj4gLSAg
-ICAgICAgICAgICAgICAgICAgICAgZ3BpbyA9IDwmZ3BpbzMgMjggMD47Cj4+IC0gICAgICAgICAg
-ICAgICB9Owo+PiArICAgICAgIHJlZ192ZGRpb19zZDA6IHJlZ3VsYXRvci0xIHsKPiAKPiBJdCBz
-aG91bGQgYmUgYmV0dGVyIHRvIHdyaXRlOgo+IAo+IHJlZ192ZGRpb19zZDA6IHJlZ3VsYXRvci12
-ZGRpby1zZDAgewo+IAo+IHJlZ3VsYXRvci0xIGlzIG5vdCB2ZXJ5IGRlc2NyaXB0aXZlLgoKTm9k
-ZSBuYW1lcyBzaG91bGQgYmUgZ2VuZXJpYywgbm90IGRlc2NyaXB0aXZlLiBUaGVzZSBhcmUgb2xk
-IHNvdXJjZXMsIHNvCnRoZXkgZG8gbm90IHVzZSBmdWxseSBvdmVycmlkZS1ieS1waGFuZGxlL2xh
-YmVsIHN0eWxlLCB0aHVzIHdpdGgKZXhpc3RpbmcgbmFtaW5nIEkgcmVkdWNlIHRoZSBjaGFuY2Vz
-IG9mIHdyb25nIG92ZXJyaWRlcyBpbiBzb21lIG90aGVyCmJvYXJkIG9yIERUU0kuCgpCZXN0IHJl
-Z2FyZHMsCktyenlzenRvZgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+
+> -----Original Message-----
+> From: Russell King <linux@armlinux.org.uk>
+> Sent: Tuesday, July 25, 2023 4:05 PM
+> To: Shenwei Wang <shenwei.wang@nxp.com>
+> Cc: David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
+> Shawn Guo <shawnguo@kernel.org>; dl-linux-imx <linux-imx@nxp.com>;
+> Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre Torgue
+> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; Sascha
+> Hauer <s.hauer@pengutronix.de>; Pengutronix Kernel Team
+> <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>;
+> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
+> arm-kernel@lists.infradead.org; imx@lists.linux.dev; Frank Li <frank.li@nxp.com>
+> Subject: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
+> fixed-link
+>
+> Caution: This is an external email. Please take care when clicking links or
+> opening attachments. When in doubt, report the message using the 'Report this
+> email' button
+>
+>
+> On Tue, Jul 25, 2023 at 02:49:31PM -0500, Shenwei Wang wrote:
+> > +static bool imx_dwmac_is_fixed_link(struct imx_priv_data *dwmac) {
+> > +     struct plat_stmmacenet_data *plat_dat;
+> > +     struct device_node *dn;
+> > +
+> > +     if (!dwmac || !dwmac->plat_dat)
+> > +             return false;
+> > +
+> > +     plat_dat = dwmac->plat_dat;
+> > +     dn = of_get_child_by_name(dwmac->dev->of_node, "fixed-link");
+> > +     if (!dn)
+> > +             return false;
+> > +
+> > +     if (plat_dat->phy_node == dn || plat_dat->phylink_node == dn)
+> > +             return true;
+>
+> Why would the phy_node or the phylink_node ever be pointing at the fixed-link
+> node?
+>
+
+The logic was learned from the function of stmmac_probe_config_dt, and it normally
+save the phy handle to those two members: phy_node and phylink_node. But seems
+checking phy_node is enough here, right?
+
+        plat->phy_node = of_parse_phandle(np, "phy-handle", 0);
+
+        /* PHYLINK automatically parses the phy-handle property */
+        plat->phylink_node = np;
+
+> For one, phylink expects the fwnode being passed to it to be pointing at the
+> _parent_ node of the fixed-link node, since it looks up from the parent for
+> "fixed-link" node.
+>
+
+Yes,  the above line of code passes the parent node to phylink_node.
+
+Thanks,
+Shenwei
+
+> --
+> RMK's Patch system:
+> https://www.ar/
+> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&data=05%7C01%7Cshenwei.wang
+> %40nxp.com%7Cd5a4b8372a4a4e5092b008db8d52c6ce%7C686ea1d3bc2b4c6f
+> a92cd99c5c301635%7C0%7C0%7C638259158876867949%7CUnknown%7CTWF
+> pbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
+> Mn0%3D%7C3000%7C%7C%7C&sdata=XPNpTlv7jbmOfeiQL5w0A6M2c3p5AOiT
+> UOGg73ijFb8%3D&reserved=0
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
