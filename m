@@ -2,75 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 011A3765534
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 15:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D0D2765699
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 17:00:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 855CDC6A603;
-	Thu, 27 Jul 2023 13:36:49 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F25BC6A603;
+	Thu, 27 Jul 2023 15:00:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2720C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15034C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 13:36:48 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-2684e225a6cso137959a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 06:36:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690465007; x=1691069807;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xOaiTAn8rGdkF5zlwNwyGQldTdN+p5xKE7WTqru15pI=;
- b=pMLpHBb6BmMtboe1C4sJxIkYr8dNkmU+gKItdL4KdTIAwZPMTR2WEHApDlsNV/exj1
- vy0HrrjjphyqbyWiPKGTuaxEYwpOglO2en25CdqUE9j5dhZ2a59goHyfmFznLDJueic8
- Ftx/ZuOfCZHWqLSYtBEVxldkYBeqd0YopDBzFV/paNo8mbOFGRNRgi9/5tupwMfANpMu
- Df5wCQmmFutdRrUMGt0Ju9G8B7vYQyrMyTlUYpmo1Vx4/K6QxFP5PUyUNLbfG4gtky2Y
- diAvLRVMBLWfPAkZ1CxES0UoHywH5CDidcKxVnCputXmfMZgTGXQesEw+D8ECKrNFyrc
- ZtCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690465007; x=1691069807;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xOaiTAn8rGdkF5zlwNwyGQldTdN+p5xKE7WTqru15pI=;
- b=g9QemtHa4aIhO8CfcWvsyBmFeYGizRhzYkPRZ6vOmnp4854L/9oxJ+Gvyf3i+fF1hX
- RUgjwqaXC4tx/EDsoga6M041TyRbdE+PbGS/S1VN+kyb+b55j5kOFtO6EF9nMS/eWO5d
- b1EzegULUQtHoTvSzIsESXwz8uC7W10v7mj31eUT2+rfbXkYKHsYpFR+p4mb3YFyl3qd
- sEwrajdOjVkLGbHLjY+tptYL8Y8StyvXtz23yuGWjhhRw0US2tqYLlXkrYd+uUZRjjEC
- iIHgOqC6zA95KveDdhPKXRqPe2EbEy6M5L+lfXLVDJLVM0ygdVv2X0MtH8/1/w6ipo4+
- v0Vg==
-X-Gm-Message-State: ABy/qLYUfqnaXFqtsOiouJHIgsDkVn1IQTMVEGxS3niY2RxToEKHc6gA
- wFrKtRZr/lXvG3bL7ZHGXIg=
-X-Google-Smtp-Source: APBJJlHCafwH9S3OPhpqA+8W7Lczg5j327l0RTvLcvMbx0d1mOFIr6oHUvQ+C0fUqmdUivM04gTd/g==
-X-Received: by 2002:a17:90a:1189:b0:263:f36e:d610 with SMTP id
- e9-20020a17090a118900b00263f36ed610mr4812722pja.0.1690465007141; 
- Thu, 27 Jul 2023 06:36:47 -0700 (PDT)
-Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
- by smtp.gmail.com with ESMTPSA id
- fy16-20020a17090b021000b00267f9bf21ebsm2899810pjb.0.2023.07.27.06.36.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 06:36:46 -0700 (PDT)
-Date: Thu, 27 Jul 2023 06:36:43 -0700
-From: Richard Cochran <richardcochran@gmail.com>
-To: Johannes Zink <j.zink@pengutronix.de>
-Message-ID: <ZMJy6yt4CL250x6Q@hoboy.vegasvil.org>
-References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
- <ZMGIuKVP7BEotbrn@hoboy.vegasvil.org>
- <729dd79e-83aa-0237-1edd-1662a6ae28cd@pengutronix.de>
+ Thu, 27 Jul 2023 15:00:20 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 36RAH1wh027816; Thu, 27 Jul 2023 16:59:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=selector1;
+ bh=doC1Pd1d3NibZb37WWHiE70DKjD6XTr1B8pDdUXXdeU=;
+ b=kXoqR2HH0CWHQ1GPMt9yevGGyieem0U7ABUHEI8AmP2jQ74X6lp+4e/m9W1c3cfgJAlG
+ I9c66gZAgkGwIQpL9H1UMF6EvN2OQyzcIKohIHp5uPysjh9skOJA39QRfRDtdPNjiJ86
+ 35aaX6kA73vd6cJ3jOBIMVozJ42aY33abrMRiPWyrxkc+HKv7Hz1VyMxUf9aAo7Ofssm
+ x8zFgTbacmiCB70yHXShcna0D9XLE3G1WcNJEQX9vOVqOvUoR5pMZmlTkhWWUHxMqmmh
+ 2q7paXg/5Tdm9VbdmYqn7lIrdtqf1wdL0hiRKK2E3uNbGyWhhyjFDCDqpyMRbN+5i0WF 1g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s3kn2b15h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Jul 2023 16:59:46 +0200
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D66C710002A;
+ Thu, 27 Jul 2023 16:59:44 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 787F2209721;
+ Thu, 27 Jul 2023 16:59:44 +0200 (CEST)
+Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 27 Jul
+ 2023 16:59:44 +0200
+From: Olivier Moysan <olivier.moysan@foss.st.com>
+To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>, Arnaud Pouliquen
+ <arnaud.pouliquen@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Frank Rowand
+ <frowand.list@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Thu, 27 Jul 2023 16:59:26 +0200
+Message-ID: <20230727145939.1157607-1-olivier.moysan@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <729dd79e-83aa-0237-1edd-1662a6ae28cd@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
-	delay
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-07-27_07,2023-07-26_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [RFC v2 00/11] iio: add iio backend device type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,29 +81,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 27, 2023 at 09:20:10AM +0200, Johannes Zink wrote:
-> Hi Richard,
-> 
-> On 7/26/23 22:57, Richard Cochran wrote:
-> > On Mon, Jul 24, 2023 at 12:01:31PM +0200, Johannes Zink wrote:
-> > 
-> > Earlier versions of the IP core return zero from these...
-> > 
-> > > +#define	PTP_TS_INGR_LAT	0x68	/* MAC internal Ingress Latency */
-> > > +#define	PTP_TS_EGR_LAT	0x6c	/* MAC internal Egress Latency */
-> > 
-> 
-> good catch. Gonna send a v3 with a check to and set the values for dwmac v5 only.
+This v2 is an addon to initial RFC:
+https://lore.kernel.org/lkml/20230623140944.2613002-1-olivier.moysan@foss.st.com/
 
-AFAICT there is no feature bit that indicates the presence or absence
-of these two registers.
+Despite the "IIO backend" naming has to be changed (as pointed out by
+Jonathan previously), it has been kept here, for time being. The
+appropriated naming still has to be discussed later on.
 
-Are you sure that *all* v5 IP cores have these?
+In the previous RFC the "IIO backend" concept was proposed through
+a set of template APIs.
 
-I am not sure.
+This v2 implements a functionnal exemple based on STM32 DFSDM,
+to bring scaling support to this peripheral.
 
-Thanks,
-Richard
+Olivier Moysan (11):
+  iio: introduce iio backend device
+  of: property: add device link support for io-backends
+  dt-bindings: iio: stm32-dfsdm-adc: add scaling support
+  dt-bindings: iio: adc: add scaling support to sd modulator
+  iio: adc: stm32-dfsdm: manage dfsdm as a channel provider
+  iio: adc: stm32-dfsdm: adopt generic channel bindings
+  iio: adc: stm32-dfsdm: add scaling support to dfsdm
+  iio: adc: sd modulator: add scale and offset support
+  ARM: dts: stm32: adopt new dfsdm bindings on stm32mp151
+  ARM: dts: stm32: add dfsdm pins muxing on stm32mp15
+  ARM: dts: stm32: add dfsdm iio support on stm32mp157c-ev
+
+ .../iio/adc/sigma-delta-modulator.yaml        |   9 +-
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 189 ++++++------------
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi   |  39 ++++
+ arch/arm/boot/dts/st/stm32mp151.dtsi          |  18 +-
+ arch/arm/boot/dts/st/stm32mp157c-ev1.dts      |  68 +++++++
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/adc/sd_adc_modulator.c            | 106 ++++++++--
+ drivers/iio/adc/stm32-dfsdm-adc.c             | 187 +++++++++++------
+ drivers/iio/industrialio-backend.c            | 107 ++++++++++
+ drivers/of/property.c                         |   2 +
+ include/linux/iio/backend.h                   |  56 ++++++
+ 11 files changed, 561 insertions(+), 221 deletions(-)
+ create mode 100644 drivers/iio/industrialio-backend.c
+ create mode 100644 include/linux/iio/backend.h
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
