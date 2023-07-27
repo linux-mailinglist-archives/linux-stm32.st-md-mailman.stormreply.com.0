@@ -2,48 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C2D765DB1
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 23:05:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6F48765E40
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 23:32:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F2E8C6B463;
-	Thu, 27 Jul 2023 21:05:00 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
- [217.70.183.195])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96E69C6B465;
+	Thu, 27 Jul 2023 21:32:03 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C164C6A603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B4F6C6B45C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 21:04:59 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8884360003;
- Thu, 27 Jul 2023 21:04:58 +0000 (UTC)
+ Thu, 27 Jul 2023 21:32:02 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B14E81BF205;
+ Thu, 27 Jul 2023 21:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1690491899;
+ t=1690493521;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=tOY5b3y9jRLepq1BGsdeSApJYxOtzopsf/Bc3hO4kvk=;
- b=SQF1cOAZCL8tI3y3wag8IGoJi6glP2Pd2fcsnVDYCVkOaazyVankPSLGIeDvK3TKTY/gRZ
- rTnL9jKFWskJ/5W2muGV1MvhYnxUneA3BvYsifIzgdDl/1+BoJZYlJBGuwz4mQjDZ9+Qy0
- LQadGW+pBHvWSgz9GZ9AtJrvUuUUwrkNcNfHB0vpkcTSc/VPWYdP4CdfVNWOSHR8HScJnC
- tKTrW3k3qvIYJloqk70YEC1zOGS4YjOKWNyIoOfBcqVNp4wosOQu9KmoltrobBkPTYqqX0
- 5cTZVMpzOF8WyVqxHij+97hUCeeOuUGxwP7nEMv//w4vGNaN4lVLlfnQzOygjQ==
-Date: Thu, 27 Jul 2023 23:04:58 +0200
+ bh=RVzGt1hU6/zJ2p8ESrItLga9WOYSY12aapmt+gJTTm0=;
+ b=KuzkthgvdjwJnivEU/aryJfGIVIwS2Jo2FGYznAjBe2XO2ObIJRvGb4lZ+5IDN1HoNpZYG
+ 4od2IsUmCvD1rkxDQUX70EEy/OerDBhxZu3PYbTnWRsnA+Uh3PCr6Soiqs7oTND51Z5H12
+ vPxGYo5bgxbp54fa9pK//rRC9ZjhXRAtXs5LXD+g2zg8loPvxEOC0OU9LKtcey5kXGqFUV
+ 3owWu3CEW9oVKY03yZ19bLiumKfiItmQPfrW7xy4+Zjs6amZuo4MDBNNBF0yaCOsre4eZ+
+ CZksNyGouFQz3JfaVim3BzM6WwJl4QqifmvRDrXEUYS0+aUG+hl2XEUkrWRj6g==
+Date: Thu, 27 Jul 2023 23:31:51 +0200
 From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Alessandro Zummo <a.zummo@towertech.it>,
- Valentin Caron <valentin.caron@foss.st.com>
-Message-ID: <169049184164.460519.5513202583626147097.b4-ty@bootlin.com>
-References: <20230705174357.353616-1-valentin.caron@foss.st.com>
+To: Alessandro Zummo <a.zummo@towertech.it>, Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, Vladimir Zapolskiy <vz@mleia.com>,
+ Eddie Huang <eddie.huang@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>
+Message-ID: <169049349537.641428.12895115995770744599.b4-ty@bootlin.com>
+References: <20230724205456.767430-1-robh@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230705174357.353616-1-valentin.caron@foss.st.com>
+In-Reply-To: <20230724205456.767430-1-robh@kernel.org>
 X-GND-Sasl: alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org,
- Christophe Guibout <christophe.guibout@foss.st.com>,
- linux-kernel@vger.kernel.org,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/7] rtc: stm32: multiple bug fixes and
-	improvements
+Subject: Re: [Linux-stm32] [PATCH v2] rtc: Explicitly include correct DT
+	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,35 +72,22 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Wed, 05 Jul 2023 19:43:50 +0200, Valentin Caron wrote:
-> This series implements some bug fixes for theses issues:
-> - typo issues
-> - register read sequence issue
-> - irq during pm callbacks issue
-> 
-> This series implements also some improvements:
-> - don't switch to INIT mode uselessly
-> - improve error printing during probe
-> - improve rtc precision on stm32mp1
+On Mon, 24 Jul 2023 14:54:54 -0600, Rob Herring wrote:
+> The DT of_device.h and of_platform.h date back to the separate
+> of_platform_bus_type before it as merged into the regular platform bus.
+> As part of that merge prepping Arm DT support 13 years ago, they
+> "temporarily" include each other. They also include platform_device.h
+> and of.h. As a result, there's a pretty much random mix of those include
+> files used throughout the tree. In order to detangle these headers and
+> replace the implicit includes with struct declarations, users need to
+> explicitly include the correct includes.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/7] rtc: stm32: use the proper register sequence to read date/time
-      commit: f69cb2d6034ddf8dae6848d29b9d4efba8cd4df9
-[2/7] rtc: stm32: don't stop time counter if not needed
-      commit: 1c18b8ec52396af6a6e20cd3450dc9bff0781ab8
-[3/7] rtc: stm32: improve rtc precision
-      commit: 2487925731b75961cf4b7d1d0d28d204b63787b9
-[4/7] rtc: stm32: don't print an error on probe deferral
-      commit: 95f7679c3ab2d032d935692426b6d9f7e681fd60
-[5/7] rtc: stm32: change PM callbacks to "_noirq()"
-      commit: fb9a7e5360dc8089097337a9685f6fed350a310f
-[6/7] rtc: stm32: fix issues of stm32_rtc_valid_alrm function
-      commit: 46828a5f89044b8e057f6bbb50ae2bac926a0fa2
-[7/7] rtc: stm32: fix unnecessary parentheses
-      commit: 650915ecd8f8cbb58e1ef55430f9e15ae03fd7d8
+[1/1] rtc: Explicitly include correct DT includes
+      commit: 48144c2890503b919bc8ee128b63e37008d69250
 
 Best regards,
 
