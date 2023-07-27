@@ -2,130 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C854476547A
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 15:03:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6B97654FE
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 15:30:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CE47C6A603;
-	Thu, 27 Jul 2023 13:03:53 +0000 (UTC)
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2084.outbound.protection.outlook.com [40.107.241.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 013E9C6A603;
+	Thu, 27 Jul 2023 13:30:29 +0000 (UTC)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6839CC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FFAAC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 13:03:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FycEWn/AXSdMwJ7qZf4HVJ3xIliAyv8n72x4JYSgd2DrOdTJpXpHtjOxNTEjEXqv71HzUaj5pmO5dF3uuR0yvX+T+/8pE0kWILpwjNFRMo1xAInnALM4nRrOc2CMaEs5Rv3S+MecIjqG3RY5T09HSQM9ZVxFC1mAsmYQ/u2nwP6JCBlF5dIOdB273ju2nxEEvOecriDP/auTjjHm45PM8Zw99EI9+Ar/ervmLYZbuUmolziQ8CVR6ETnLpDNmpaCeLGGc/NNmGK01FZsC2pTki1iWvvEAbpcPntj/kfa7PVVrnG2yFMroUN7gYy18NmjlQlctJO9qdnxkoIahEt3rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Do725Fiepu5OmUk/Z1tOeu5Hay3MCEG01AWJKETBCqY=;
- b=Pf6w5wRNk5gT+P6EYUyRx+K4fn5cFAqkAqQC+4cr7fLi0X6W/banUG0EbfxQKD4peoLQPJ+KovK0Iz/Pcp72rF9p1+pUwfR1xz/qhXfNiH+gxc2VR7no8z1sKnVBBx+YhQ+b10HmD4g0uOpIdS6v5x5oR+RpXbLGmxQ2pdBaqnIXXiCMAiqTiENh1iON4ntVma17jbH2BxU+S637p8dXkpmZUJRSYo0Umf/jGJl8Gh9kdIF59Ahe2Gpe0NzlgSGuguczAzVuEUCyZtChw/carpQAjTf7EQMpT2d/xg2yn/j5ec3HWFjnLFCb8UfF2VNMWO3QnhYRaspFnSE0Y5KgOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Do725Fiepu5OmUk/Z1tOeu5Hay3MCEG01AWJKETBCqY=;
- b=NMuTZb7zvNHo3YEh4V4RVLGsWeCgG44c4DUaydxZYY7iN1hc7I2ubv7A8CrIo0dw8Ftt32vloMJPUjh9kFU9D3C9N76Btoy4GgszaY+z6+jR81a7K8GM0tQtK63g4An/SFJnci5QpfBLedaXL1npQZeehNkbdean33OrHAvBL7M=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AM8PR04MB7938.eurprd04.prod.outlook.com (2603:10a6:20b:24e::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
- 2023 13:03:50 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
- 13:03:50 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>
-Thread-Topic: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
- fixed-link
-Thread-Index: AQHZvzEtwr0cB5x9EUCXrQC85+we9K/LNgwAgADv2GCAAAekgIAABiMwgAATfwCAABs2cIAABq2AgAACNGCAAOd3gIAAQuuQ
-Date: Thu, 27 Jul 2023 13:03:50 +0000
-Message-ID: <PAXPR04MB91859AE9A323EA6929F1D02F8901A@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20230725194931.1989102-1-shenwei.wang@nxp.com>
- <20230726004338.6i354ue576hb35of@skbuf>
- <PAXPR04MB9185C1A95E101AC2E08639B78900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZME71epmSHYIB4DZ@shell.armlinux.org.uk>
- <PAXPR04MB91856018959FE0752F1A27888900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZMFRVtg5WQyGlBJ1@shell.armlinux.org.uk>
- <PAXPR04MB9185108CB4A04C4CD5AE29FC8900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZMFtw0LNozhNjRGF@shell.armlinux.org.uk>
- <PAXPR04MB91855E5990464A1B31058B508900A@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <ZMIxx2TkW2Ry4AoR@shell.armlinux.org.uk>
-In-Reply-To: <ZMIxx2TkW2Ry4AoR@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM8PR04MB7938:EE_
-x-ms-office365-filtering-correlation-id: a127d848-d52d-4c55-df21-08db8ea1ebf2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: mTI2WRxWdrkyyPKfleVI7sXV/NKnTuGlqPyyHK2dRHmbYMJ5xuFrrlaONh7Mue9STu8XTfpd5FR5BLAjpz4tACPV4q6ZM0+O6plKGbNdBAOfxzBkjBgxd3FwTaUdeNRZM5uwvPzWpgcUr+kOpis18f2DqkvLvXwZr1YuAaAOMp3hl2CDkHXYziOCruxdkItjy7vUcIgAPA/OtJ1iu2ripsmB5lIZ+mchIGkez75GITBoQgE7V9g3XA3uE4MovAsnA3WRy2Bm3AMWm8Txpm5HMenwQ+IP75pXPg9LNaqCNbjSF9Q5MxR4fq3mHLwkHQJ0DxtVZ3lKhSs4U3mMbyz1YtDEK1JbSBtpeaQ0H/EHPtFSKpBiE0MXjyv4wJ6tRvjyHHwvQ2gTzp8P/BGVeEa08NAZlEv++b3NpF49AV23M/ab8Op05cDIQLmDtdooBBl6M6CH/SE52j70pRk+MM+z4zCQGBVa4trwnI3yXVS5vujf6YEugL7dROdACjWoU4t96Vu/5TeObPa/QCm9I4E2WUC4fwpzXzJ4QhWbL8cjQ4X2TP+h3pZHMKUd5gx5fd1150QYbu1XIbxygisQjE4TvIz31dye0bLin1uUHy3Ai6w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(366004)(376002)(346002)(396003)(39860400002)(451199021)(71200400001)(7696005)(45080400002)(478600001)(83380400001)(6506007)(26005)(53546011)(55236004)(9686003)(966005)(4326008)(64756008)(6916009)(66446008)(122000001)(54906003)(66476007)(76116006)(66946007)(66556008)(38100700002)(186003)(5660300002)(52536014)(44832011)(7416002)(38070700005)(316002)(33656002)(8936002)(8676002)(2906002)(41300700001)(86362001)(55016003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?5t5lqreEz1sBR15/2AtET2HRb7+WbzoLVc8+YfbyihZqWcYCCKvzlCe7gsOA?=
- =?us-ascii?Q?Bzhtn1EiYXLJewGJ7APQOeFFj+FjCPYjoQR7hT1BiBxiqphzucyiKWp9R8CM?=
- =?us-ascii?Q?3T6q9JQHC4MtGzSu2sx1zyIal0EAFGYD+iqfBGrBiYNLmozOn8Bq/bRpcOGE?=
- =?us-ascii?Q?gRyb5FYfiSF3V9elnVIiaRqSoKRR3nW4zXkgXTtyIALxUIPFfXb/UIyeEo3Y?=
- =?us-ascii?Q?7B3YD6Ej9jAut9xxPQtMDLj/fBMqKjcB878RNREqSvz558KeP26O4PxNj/YX?=
- =?us-ascii?Q?a4YmGqnOWEL2rh8eZApK+ysx22MLjzEVfLbpQf21cR4/m8zIXWOXz9RJcRWQ?=
- =?us-ascii?Q?J3Cqe/tZfTKxlviXifYMMt2MeBKtS0jQbl9wOO/J734tUdkve6vci5pEd5Yg?=
- =?us-ascii?Q?nnLQI/2ownuBAjnMCyPKekKb7a++tYKeQ0Abhng6XLEeno4QC7ISYRfLo5f1?=
- =?us-ascii?Q?7gFkCvHqDmGs4dhkF26N887NqBBnllUJFabBteL5QTM7I4VFkMGri2om3K5s?=
- =?us-ascii?Q?1SQKSlvgLsCbg2ETitc0Sx7fqO8ctsRUx1ltBTsSwJ1mEmZ++9dOxCV3z3Nm?=
- =?us-ascii?Q?DbuNh1zdMYkRMMthw1+boHuG91jqBW9uODWKfdojgxzIcXcUYO21HRDiD2uM?=
- =?us-ascii?Q?iaf6kAvq8I4uCoUbHErMy6SXjMSW7Luu4BnajhaX+NI0GBlf1kxAGXIjouM0?=
- =?us-ascii?Q?L+qYBDpgDYyJa2zqOyznx56Fa6vCP/pf/8nTwbLnsooYB/AGqFQYWu0PNb8B?=
- =?us-ascii?Q?vXULBXDhxPdbAGzuDQ9ZZijWUQidgCXTqnoLbUPtocp89JymCQvvXDARdJjf?=
- =?us-ascii?Q?TYhwwA7qy58pc8DPTTKuwyimPQAfwcb4i+gMiovWxn/yuKjW+GAsyGWYfPYA?=
- =?us-ascii?Q?/pFZHO2QPfHMqEke1YedpXqrzNX3lh1Kh6pMeLwQwowb0Njl1ByZTcILEXxA?=
- =?us-ascii?Q?ezoGD8RsxdgSxk3RCMvlcciaYAegHLPP/sgBx3p8R/WFILl7bVhJuzTxhroP?=
- =?us-ascii?Q?xRIPGRBRkTUwqUF2dj6vGulr/imEp2oy2anYJuHptMzyuOjizV7oSOaKiBBv?=
- =?us-ascii?Q?dDDXUdwm7Yx/kldLM+6FrQG/U161BO6u1/4K14tOCKzasSQc4dWHXSauTbsm?=
- =?us-ascii?Q?gTgQk7cvd5VG7YXOP/UcwQa60MFTOf/qWGQoWUYxg2WCl5UyC0iG4f6qBK8I?=
- =?us-ascii?Q?sXxZImQyauDqm9KkUUW1lfjn/xmnI+Ch/u6VeENCpIIh/jX4tfg/F0UyKl08?=
- =?us-ascii?Q?3lU3ZENh+oF3cnQq+gV1ByVpYg/7rvEuTO/H0+TplTcoPOe02T4QiaWCNYo+?=
- =?us-ascii?Q?WVWP1UKdzqPohRf04Sfvrq55XGiT8Z/VI0BumW4RQR8FltKuPVauORFo3h0Z?=
- =?us-ascii?Q?9VK8sAm4gvu9HS4jy+eBCFO6NWzogjW+yh241vf64EeSnsjaeDuIyiTbbdjx?=
- =?us-ascii?Q?QEUnNCMpNVhepAgV4YgiS/pHuo20A0zia6w3AYYuYr/ljh/PhYyNSTg0wxN0?=
- =?us-ascii?Q?frdaV/YpaGhT3uYxecDHecRO05xE3xS4Wk1Nx5QJpzFApiH7JGASqkWx9gBr?=
- =?us-ascii?Q?xiCiN+pUj/bBSWj2GwfnUDyKcVmlIiBpJi7d/1GR?=
+ Thu, 27 Jul 2023 13:30:27 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-682ae5d4184so223667b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 27 Jul 2023 06:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1690464626; x=1691069426;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=q15IWYuI/5HXw0x/ECyva1u3J08tlhfzm/oK0Hr+ZKE=;
+ b=kEIp9RgOgQCaTTw/aecerraAkoEs0C62NJdBO2YnNixfqY0YGhuogCBOWqDkHo4VAF
+ S4T3rRczmfOr9MC2Q+7AVGn73DAWOVCGYolD9KedHNb1uPlHk39/58BVm5wHJj4XHmbn
+ 2ZtUyXAdU9X5hXeGbiB/05wcHo+RlX/ERS7LcS5lTMBe6jydIXxxegosO64dfqnTQ27b
+ AwCKxp/4+qQngkJVUxc853IjsxeIC6wo8wR/IeUSEg5WUy9rNnEnD/NvjeP25TsAC3Yx
+ 3cc9S8IrwH95xEIPJWa4YQ9Eip3XO+bh2xoNgMtnx+kM6jNFWymrBjyMv2u+S0HnyKYa
+ 367Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690464626; x=1691069426;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q15IWYuI/5HXw0x/ECyva1u3J08tlhfzm/oK0Hr+ZKE=;
+ b=GtH9P9n5YO1DB0OVYngQmmU/d/B63oXJ+1GVoBE8jbXkmOuwZGoDepttjriT5DN7SB
+ hMMEJKoM2cfxZIKT3wYMMytHlq9BQ7nmD1tYM7EOKgPTaqtq11uA4oK3Lgpn9HBiMcOf
+ oODRqDNvNbHsrLRMKf+6qJGoInca8nOhdDIbYOYkAaVmwFOLShlT/nkArubh62jMzKJp
+ BcvwOuDBfOGCzPA17H1mFrg/sJV8DAhEAkRakAXJWTyX76rchFn/LOhpsXUqR6fuASE1
+ F6OCOWzG9JEQ5tRJ6H9Cb9yps8uk15HuIHPfVfN0xQt4ZwFMJiQ7zBfxXxOcn4aPds3x
+ rWYg==
+X-Gm-Message-State: ABy/qLbKInndYVPdUQKbRHWGteLSCLjaXaEGeHZi0ESEbWs+jBpAwiAk
+ 5TOgUUpOzDczb2shYXg/9nc=
+X-Google-Smtp-Source: APBJJlH2t6LvM3rfPgOJFkiOqxs8I29PpPEv4TY2g4fk8qzAa/BBrOgIS38EQ7PpAma2sVL6v4PZMA==
+X-Received: by 2002:a17:902:da82:b0:1b8:811:b079 with SMTP id
+ j2-20020a170902da8200b001b80811b079mr6462323plx.0.1690464626000; 
+ Thu, 27 Jul 2023 06:30:26 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ v11-20020a1709028d8b00b001bb99e188fcsm1610682plo.194.2023.07.27.06.30.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Jul 2023 06:30:25 -0700 (PDT)
+Date: Thu, 27 Jul 2023 06:30:22 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Johannes Zink <j.zink@pengutronix.de>
+Message-ID: <ZMJxbrXBeE3WnEUn@hoboy.vegasvil.org>
+References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
+ <20230725200606.5264b59c@kernel.org>
+ <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
+ <20230726-dreamboat-cornhusk-1bd71d19d0d4-mkl@pengutronix.de>
+ <ZME88hOgNug+PFga@hoboy.vegasvil.org>
+ <f7849436-8dac-64b1-8ec6-3aced13bee94@pengutronix.de>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a127d848-d52d-4c55-df21-08db8ea1ebf2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2023 13:03:50.2398 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dq19CfAo9i8X0Nurs14eQ/CCYd1B9z20K0J9YYBgcKvTMB9G6CqHB2KKbdZRlOndeKg+UXk3dwdRCcKLWpcPDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7938
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Vladimir Oltean <olteanv@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <frank.li@nxp.com>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause
- the TXC clock in fixed-link
+Content-Disposition: inline
+In-Reply-To: <f7849436-8dac-64b1-8ec6-3aced13bee94@pengutronix.de>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ kernel test robot <lkp@intel.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Marc Kleine-Budde <mkl@pengutronix.de>,
+ kernel@pengutronix.de, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
+	delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,65 +92,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Jul 27, 2023 at 08:40:51AM +0200, Johannes Zink wrote:
+> Hi Richard,
+> 
+> On 7/26/23 17:34, Richard Cochran wrote:
+> > That is great, until they change the data sheet.  Really, this happens.
+> 
+> I think I don't get your point here.
+> 
+> That's true for literally any register of any peripheral in a datasheet.
+> I think we can just stop doing driver development if we wait for a final
+> revision that is not changed any more. Datasheets change, and if they do we
+> update the driver.
 
+This is different than normal registers, because the values are a
+guess as to what the latency in the hardware design is.
 
-> -----Original Message-----
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: Thursday, July 27, 2023 3:59 AM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> Cc: Vladimir Oltean <olteanv@gmail.com>; David S. Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
-> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Maxime
-> Coquelin <mcoquelin.stm32@gmail.com>; Shawn Guo <shawnguo@kernel.org>;
-> dl-linux-imx <linux-imx@nxp.com>; Giuseppe Cavallaro
-> <peppe.cavallaro@st.com>; Alexandre Torgue <alexandre.torgue@foss.st.com>;
-> Jose Abreu <joabreu@synopsys.com>; Sascha Hauer <s.hauer@pengutronix.de>;
-> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
-> <festevam@gmail.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
-> imx@lists.linux.dev; Frank Li <frank.li@nxp.com>
-> Subject: Re: [EXT] Re: [PATCH] net: stmmac: dwmac-imx: pause the TXC clock in
-> fixed-link
->
-> Caution: This is an external email. Please take care when clicking links or
-> opening attachments. When in doubt, report the message using the 'Report this
-> email' button
->
->
-> On Wed, Jul 26, 2023 at 07:17:59PM +0000, Shenwei Wang wrote:
-> > > Because of_phy_is_fixed_link() has to chase various pointers, walk
-> > > the child nodes and do a string compare on each, whereas you could
-> > > just be testing an integer!
-> > >
-> >
-> > I don't think It's worth the effort to change the definition of
-> > fix_mac_speed across all platforms, because the function is only called once
-> when the interface is up.
->
-> If you look at Feiyang Chen's patch set, then his first patch of his set adds a
-> pointer to struct stmmac_priv to a whole bunch of callbacks used between the
-> stmmac core and the various implementations.
->
-> If you're not willing to do it, then I will send a patch instead.
->
-> I don't see what the problem is.
->
-
-Never mind. I will pull this off.
+Here is how it works in practice:  Vendor first asks a summer intern to
+measure the latency.  Intern does some kind of random measurement, and
+that goes into silicon.  One year later, customers discover that the
+values are bogus.  Vendor doesn't spin a new silicon revision just for
+that.  If vendor is honest, a footnote appears in the errata that the
+corrections are wrong.
 
 Thanks,
-Shenwei
-
-> --
-> RMK's Patch system:
-> https://www.ar/
-> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&data=05%7C01%7Cshenwei.wang
-> %40nxp.com%7C70e2358c209e47c8612608db8e7fb5cc%7C686ea1d3bc2b4c6fa
-> 92cd99c5c301635%7C0%7C0%7C638260451379427007%7CUnknown%7CTWFp
-> bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
-> Mn0%3D%7C3000%7C%7C%7C&sdata=KQCQ%2B6t%2BMz0EQsCAYOJ%2BY3Of
-> OG68KqJB0%2FCLiGnULRo%3D&reserved=0
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
