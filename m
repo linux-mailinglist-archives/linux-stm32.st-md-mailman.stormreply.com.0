@@ -2,43 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10EBD76485C
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 09:20:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77267764904
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 09:41:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD52AC6B463;
-	Thu, 27 Jul 2023 07:20:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AF8CC6B463;
+	Thu, 27 Jul 2023 07:41:44 +0000 (UTC)
 Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43709C6B45C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E3E1C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 07:20:29 +0000 (UTC)
+ Thu, 27 Jul 2023 07:41:43 +0000 (UTC)
 Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
  helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <j.zink@pengutronix.de>)
- id 1qOvIF-0000DH-VE; Thu, 27 Jul 2023 09:20:16 +0200
-Message-ID: <729dd79e-83aa-0237-1edd-1662a6ae28cd@pengutronix.de>
-Date: Thu, 27 Jul 2023 09:20:10 +0200
+ id 1qOvcX-000300-3c; Thu, 27 Jul 2023 09:41:13 +0200
+Message-ID: <2c9eda9d-c433-93c5-9719-78c4940c7957@pengutronix.de>
+Date: Thu, 27 Jul 2023 09:41:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US, de-DE
+From: Johannes Zink <j.zink@pengutronix.de>
 To: Richard Cochran <richardcochran@gmail.com>
 References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
- <ZMGIuKVP7BEotbrn@hoboy.vegasvil.org>
-From: Johannes Zink <j.zink@pengutronix.de>
-In-Reply-To: <ZMGIuKVP7BEotbrn@hoboy.vegasvil.org>
+ <20230725200606.5264b59c@kernel.org> <ZMCRjcRF9XqEPg/Z@hoboy.vegasvil.org>
+ <09a2d767-d781-eba2-028f-a949f1128fbd@pengutronix.de>
+ <ZME/GjBWdodiUO+8@hoboy.vegasvil.org>
+ <8742d597-e8b1-705f-6616-dca4ead529f4@pengutronix.de>
+ <c30e3a37-b7f5-77bc-198a-b9acf4eb6422@pengutronix.de>
+In-Reply-To: <c30e3a37-b7f5-77bc-198a-b9acf4eb6422@pengutronix.de>
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
 X-SA-Exim-Mail-From: j.zink@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
+Cc: kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+ kernel test robot <lkp@intel.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
 Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: correct MAC propagation
@@ -59,62 +64,48 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Richard,
+Hi,
 
-On 7/26/23 22:57, Richard Cochran wrote:
-> On Mon, Jul 24, 2023 at 12:01:31PM +0200, Johannes Zink wrote:
+On 7/27/23 08:55, Johannes Zink wrote:
+> Hi,
 > 
-> Earlier versions of the IP core return zero from these...
+> On 7/27/23 08:39, Johannes Zink wrote:
+>> Hi Richard,
+>>
 > 
->> +#define	PTP_TS_INGR_LAT	0x68	/* MAC internal Ingress Latency */
->> +#define	PTP_TS_EGR_LAT	0x6c	/* MAC internal Egress Latency */
+> [snip]
 > 
+> 
+>>> How many _other_ SoCs did you test your patch on?
+>>>
+>> I don't have many available, thus as stated in the description: on the 
+>> i.MX8MP only. That's why I am implementing my stuff in the imx glue code, 
+>> you're welcome to help testing on other hardware if you have any at hand.
 
-good catch. Gonna send a v3 with a check to and set the values for dwmac v5 only.
+small correction to what I wrote earlier: it's not implemented in the gluecode, 
+but in the general stmmac_hwtstamp. My bad, I added it to the gluecode in an 
+early prototype version, but then tried to generalize it.
 
-Best regards
 Johannes
 
-
-> and so...
 > 
->> +static void correct_latency(struct stmmac_priv *priv)
->> +{
->> +	void __iomem *ioaddr = priv->ptpaddr;
->> +	u32 reg_tsic, reg_tsicsns;
->> +	u32 reg_tsec, reg_tsecsns;
->> +	u64 scaled_ns;
->> +	u32 val;
->> +
->> +	/* MAC-internal ingress latency */
->> +	scaled_ns = readl(ioaddr + PTP_TS_INGR_LAT);
->> +
->> +	/* See section 11.7.2.5.3.1 "Ingress Correction" on page 4001 of
->> +	 * i.MX8MP Applications Processor Reference Manual Rev. 1, 06/2021
->> +	 */
->> +	val = readl(ioaddr + PTP_TCR);
->> +	if (val & PTP_TCR_TSCTRLSSR)
->> +		/* nanoseconds field is in decimal format with granularity of 1ns/bit */
->> +		scaled_ns = ((u64)NSEC_PER_SEC << 16) - scaled_ns;
->> +	else
->> +		/* nanoseconds field is in binary format with granularity of ~0.466ns/bit */
->> +		scaled_ns = ((1ULL << 31) << 16) -
->> +			DIV_U64_ROUND_CLOSEST(scaled_ns * PSEC_PER_NSEC, 466U);
->> +
->> +	reg_tsic = scaled_ns >> 16;
->> +	reg_tsicsns = scaled_ns & 0xff00;
->> +
->> +	/* set bit 31 for 2's compliment */
->> +	reg_tsic |= BIT(31);
->> +
->> +	writel(reg_tsic, ioaddr + PTP_TS_INGR_CORR_NS);
+> note: for v3 I am going to check if we have a dwmac v5 and won't call into the 
+> correction setup function otherwise.
 > 
-> here reg_tsic = 0x80000000 for a correction of -2.15 seconds! >
-> @Jakub  Can you please revert this patch?
+> Best regards
+> Johannes
 > 
-> Thanks,
-> Richard
 > 
+>> Best regards
+>> Johannes
+>>
+>>> Thanks,
+>>> Richard
+>>>
+>>>
+>>>
+>>
+>>
 > 
 
 -- 
