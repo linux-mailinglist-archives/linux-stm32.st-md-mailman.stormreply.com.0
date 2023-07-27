@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991D8765520
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 15:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 011A3765534
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 15:36:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 517C3C6A603;
-	Thu, 27 Jul 2023 13:34:18 +0000 (UTC)
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 855CDC6A603;
+	Thu, 27 Jul 2023 13:36:49 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A9F6C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2720C65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 13:34:17 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-686f6231bdeso195435b3a.1
+ Thu, 27 Jul 2023 13:36:48 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-2684e225a6cso137959a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 06:34:17 -0700 (PDT)
+ Thu, 27 Jul 2023 06:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690464856; x=1691069656;
+ d=gmail.com; s=20221208; t=1690465007; x=1691069807;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4QMI/vlzpJV7j3wA/LmKMP2eizxiAkesVF2nfD4pPBU=;
- b=Q5wLfe12VdIzPDpblQpZ7UyATf3DQ9s2gq7j5911KRQGlip8vaOO/waDiUjVLQGgJ8
- jVR9jkDwdbHCMYvX8KBIpkB40pcdhb7/Twka0oUJAMeepHNg5ELkCBi/+Z6aHfNgLh0I
- wZ/feFkXBJPN/Vo7vhQp4qhcSCTxMf0COOSOYlP3kL6YnQJ20xcVX3geFuBFGin4aNpr
- UhVjWm7B8CcIphHBV+IcJ94yo6NR4lhifzLOFbkiOrYaiBdftFpJ0Vwrwz/05OHqy61p
- zPtRnDqsLz0U1J9o915kxDJNe20qKre2eYBi0DDAIb5jSwG9zONnt54ouiABWxZ0gbUT
- C+7g==
+ bh=xOaiTAn8rGdkF5zlwNwyGQldTdN+p5xKE7WTqru15pI=;
+ b=pMLpHBb6BmMtboe1C4sJxIkYr8dNkmU+gKItdL4KdTIAwZPMTR2WEHApDlsNV/exj1
+ vy0HrrjjphyqbyWiPKGTuaxEYwpOglO2en25CdqUE9j5dhZ2a59goHyfmFznLDJueic8
+ Ftx/ZuOfCZHWqLSYtBEVxldkYBeqd0YopDBzFV/paNo8mbOFGRNRgi9/5tupwMfANpMu
+ Df5wCQmmFutdRrUMGt0Ju9G8B7vYQyrMyTlUYpmo1Vx4/K6QxFP5PUyUNLbfG4gtky2Y
+ diAvLRVMBLWfPAkZ1CxES0UoHywH5CDidcKxVnCputXmfMZgTGXQesEw+D8ECKrNFyrc
+ ZtCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690464856; x=1691069656;
+ d=1e100.net; s=20221208; t=1690465007; x=1691069807;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4QMI/vlzpJV7j3wA/LmKMP2eizxiAkesVF2nfD4pPBU=;
- b=ASLRRBItsMbb6ODESMHfFLlQUqG6ewPGCiqSZEiyFA1Vwj/BoEYas3s9+aM90ViX7+
- ZaU8xSvzzZmBtFvJiVYv8hdgj5E+nsDgIiZjsYB2Zt/rqyfj0Kpy/GrHV9ymP6fhGAFy
- EHhW/De3oR15xCwuOlkNook0EaV9NAr+pfyAx36lA6Txknk61PIIdQi2YKkKexS0GEAG
- IVVVRokjPEGM/MurvERba5KABuHKZRBGdBSlkANvos8GmZJmqHQMVi0tZ8XZPMXS5cV2
- yan0hVb85nLXRXE+n3c89wcRrX/TlZNrbE9tBSxb3QqMyiao8VsCWYDY+10+bN/qbE6o
- 04jQ==
-X-Gm-Message-State: ABy/qLboJntnokYkMi1yEPAz2+qxOvP6b3RyW/gVWBgtAfPe5ios10dY
- hGLS8L7WcksLAHZbYVhX0Gs=
-X-Google-Smtp-Source: APBJJlFbgEPhyuFnR/27BrDvGPU1qazB9QgORyU0BBYwxq9b2uyVmNVw0ZDY26pO/YAIM1sIZEoB2g==
-X-Received: by 2002:a17:902:d2c8:b0:1bb:ac37:384b with SMTP id
- n8-20020a170902d2c800b001bbac37384bmr6472527plc.6.1690464855668; 
- Thu, 27 Jul 2023 06:34:15 -0700 (PDT)
+ bh=xOaiTAn8rGdkF5zlwNwyGQldTdN+p5xKE7WTqru15pI=;
+ b=g9QemtHa4aIhO8CfcWvsyBmFeYGizRhzYkPRZ6vOmnp4854L/9oxJ+Gvyf3i+fF1hX
+ RUgjwqaXC4tx/EDsoga6M041TyRbdE+PbGS/S1VN+kyb+b55j5kOFtO6EF9nMS/eWO5d
+ b1EzegULUQtHoTvSzIsESXwz8uC7W10v7mj31eUT2+rfbXkYKHsYpFR+p4mb3YFyl3qd
+ sEwrajdOjVkLGbHLjY+tptYL8Y8StyvXtz23yuGWjhhRw0US2tqYLlXkrYd+uUZRjjEC
+ iIHgOqC6zA95KveDdhPKXRqPe2EbEy6M5L+lfXLVDJLVM0ygdVv2X0MtH8/1/w6ipo4+
+ v0Vg==
+X-Gm-Message-State: ABy/qLYUfqnaXFqtsOiouJHIgsDkVn1IQTMVEGxS3niY2RxToEKHc6gA
+ wFrKtRZr/lXvG3bL7ZHGXIg=
+X-Google-Smtp-Source: APBJJlHCafwH9S3OPhpqA+8W7Lczg5j327l0RTvLcvMbx0d1mOFIr6oHUvQ+C0fUqmdUivM04gTd/g==
+X-Received: by 2002:a17:90a:1189:b0:263:f36e:d610 with SMTP id
+ e9-20020a17090a118900b00263f36ed610mr4812722pja.0.1690465007141; 
+ Thu, 27 Jul 2023 06:36:47 -0700 (PDT)
 Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
  by smtp.gmail.com with ESMTPSA id
- h17-20020a170902f55100b001b9cdf11764sm1637276plf.31.2023.07.27.06.34.14
+ fy16-20020a17090b021000b00267f9bf21ebsm2899810pjb.0.2023.07.27.06.36.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 06:34:15 -0700 (PDT)
-Date: Thu, 27 Jul 2023 06:34:12 -0700
+ Thu, 27 Jul 2023 06:36:46 -0700 (PDT)
+Date: Thu, 27 Jul 2023 06:36:43 -0700
 From: Richard Cochran <richardcochran@gmail.com>
 To: Johannes Zink <j.zink@pengutronix.de>
-Message-ID: <ZMJyVLy4NnBMUI55@hoboy.vegasvil.org>
+Message-ID: <ZMJy6yt4CL250x6Q@hoboy.vegasvil.org>
 References: <20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de>
- <ZMFfI3xU5pkJW4x4@hoboy.vegasvil.org>
- <06859eed-6f9b-5d66-3221-e55dcd83466c@pengutronix.de>
+ <ZMGIuKVP7BEotbrn@hoboy.vegasvil.org>
+ <729dd79e-83aa-0237-1edd-1662a6ae28cd@pengutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <06859eed-6f9b-5d66-3221-e55dcd83466c@pengutronix.de>
+In-Reply-To: <729dd79e-83aa-0237-1edd-1662a6ae28cd@pengutronix.de>
 Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
  kernel test robot <lkp@intel.com>, Eric Dumazet <edumazet@google.com>,
@@ -87,15 +87,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 27, 2023 at 08:42:52AM +0200, Johannes Zink wrote:
+On Thu, Jul 27, 2023 at 09:20:10AM +0200, Johannes Zink wrote:
+> Hi Richard,
+> 
+> On 7/26/23 22:57, Richard Cochran wrote:
+> > On Mon, Jul 24, 2023 at 12:01:31PM +0200, Johannes Zink wrote:
+> > 
+> > Earlier versions of the IP core return zero from these...
+> > 
+> > > +#define	PTP_TS_INGR_LAT	0x68	/* MAC internal Ingress Latency */
+> > > +#define	PTP_TS_EGR_LAT	0x6c	/* MAC internal Egress Latency */
+> > 
+> 
+> good catch. Gonna send a v3 with a check to and set the values for dwmac v5 only.
 
-> good catch, I think adding the register definition won't hurt, but if you
-> feel more comfortable about it I can add them only for IP core version 5.
+AFAICT there is no feature bit that indicates the presence or absence
+of these two registers.
 
-Adding the offsets in the header is not the issue.
+Are you sure that *all* v5 IP cores have these?
 
-The issue is reading from these offsets when there is nothing there to
-read!
+I am not sure.
 
 Thanks,
 Richard
