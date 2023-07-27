@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D0D2765699
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 17:00:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B9E7656BA
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 17:04:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F25BC6A603;
-	Thu, 27 Jul 2023 15:00:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7505FC6A603;
+	Thu, 27 Jul 2023 15:04:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15034C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E1F7C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 15:00:20 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Thu, 27 Jul 2023 15:04:22 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36RAH1wh027816; Thu, 27 Jul 2023 16:59:46 +0200
+ 36RBD8l4020221; Thu, 27 Jul 2023 17:03:35 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  h=from : to : cc :
  subject : date : message-id : mime-version : content-transfer-encoding :
  content-type; s=selector1;
  bh=doC1Pd1d3NibZb37WWHiE70DKjD6XTr1B8pDdUXXdeU=;
- b=kXoqR2HH0CWHQ1GPMt9yevGGyieem0U7ABUHEI8AmP2jQ74X6lp+4e/m9W1c3cfgJAlG
- I9c66gZAgkGwIQpL9H1UMF6EvN2OQyzcIKohIHp5uPysjh9skOJA39QRfRDtdPNjiJ86
- 35aaX6kA73vd6cJ3jOBIMVozJ42aY33abrMRiPWyrxkc+HKv7Hz1VyMxUf9aAo7Ofssm
- x8zFgTbacmiCB70yHXShcna0D9XLE3G1WcNJEQX9vOVqOvUoR5pMZmlTkhWWUHxMqmmh
- 2q7paXg/5Tdm9VbdmYqn7lIrdtqf1wdL0hiRKK2E3uNbGyWhhyjFDCDqpyMRbN+5i0WF 1g== 
+ b=WKh8WR22AxBJ/QxFWaS3op28d0rl7a8Nyuf6roe+2yyfevhAi98xg0CqHDltNkrDgyCQ
+ cNGzI37Wav5oon8GfmjPvsK5pvTKyvP5Li5Saxd7N15R8t87i/2RCDrx3Yoqj/haszej
+ HsgcbTr9VqAs50j6UB6X28DAq7G5/Mx6ah0v/eg4zZUVfyeLLhX2MHCmJgLSDWST6NIB
+ r9bRDSvd10mF/j4yGAj88HdwyJ54sPzWV5wF+J/hMKLnx0od6XRv09VPyNNSDi8LKtla
+ xQ6DWpi3LzqPNU++36daT5H/8/mF2t15BFr7jtJWvhBOotJ202ikt8n3HS0WS3xpGXy4 8w== 
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s3kn2b15h-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s3qgy97v8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jul 2023 16:59:46 +0200
+ Thu, 27 Jul 2023 17:03:35 +0200
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D66C710002A;
- Thu, 27 Jul 2023 16:59:44 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4313010002A;
+ Thu, 27 Jul 2023 17:03:35 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 787F2209721;
- Thu, 27 Jul 2023 16:59:44 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3859B209BA1;
+ Thu, 27 Jul 2023 17:03:35 +0200 (CEST)
 Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 27 Jul
- 2023 16:59:44 +0200
+ 2023 17:03:34 +0200
 From: Olivier Moysan <olivier.moysan@foss.st.com>
 To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
@@ -51,8 +51,8 @@ To: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Frank Rowand
  <frowand.list@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
  <broonie@kernel.org>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Thu, 27 Jul 2023 16:59:26 +0200
-Message-ID: <20230727145939.1157607-1-olivier.moysan@foss.st.com>
+Date: Thu, 27 Jul 2023 17:03:11 +0200
+Message-ID: <20230727150324.1157933-1-olivier.moysan@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-Originating-IP: [10.201.20.178]
