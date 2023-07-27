@@ -2,66 +2,127 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E8E87656F1
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 17:07:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9611376576E
+	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 17:25:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B509C6B467;
-	Thu, 27 Jul 2023 15:07:04 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A26FC6B45C;
+	Thu, 27 Jul 2023 15:25:32 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2041.outbound.protection.outlook.com [40.107.22.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F04A9C6B45C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F25BC6A5FB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 15:07:02 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36RF3OLG027833; Thu, 27 Jul 2023 17:06:51 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=selector1;
- bh=8kootPtuej1akXRgIZj40uYTNZjB/maQQhJwmvSicyU=;
- b=ukz8m6iJxzBb3Iryqt8KSx1TdcAXmPHXaXAnow3s4oMHhq4vyctKF8FRhPUc4weEnZhr
- egQPpPvzivCZQdhWOlR3B5ND4PUcUisSUzgcXbiqcgjrTsIrQqp0n29/5csw44YzeuxF
- j7pfEXdLbd6Aqe1AYrMCS5TL2WZZt5LBXmVc/loMIrsiLUCQzy1tUTwC2c73GcKMVLBN
- C2qzboWQ9hKtk6i2PRzkbCGsMgHkw1FxsTEvFFsCbMLnSV88fNJhMtMYpXhAYsBU/29X
- FCwJ3HesQuO9tQzkvATT1ZfzeTAQ6qXls61BSH75XYf0F/8TQ/tPA/Y6lnf/2RtTLZNB lQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s3kn2b2b8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Jul 2023 17:06:51 +0200
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6E06D100049;
- Thu, 27 Jul 2023 17:06:50 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 65852209BA8;
- Thu, 27 Jul 2023 17:06:50 +0200 (CEST)
-Received: from localhost (10.201.20.178) by SHFDAG1NODE1.st.com (10.75.129.69)
+ Thu, 27 Jul 2023 15:25:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fEFs/CrNIhrqcMnE7T9c/346RQsmZbXZMdbJBYRoJ4MJRcmJQT7Aw5DLVmsWe5YWwLrrKoby/ru6fSfBqVOE28ISCxDsvG1itPT9iBJFfP/yiONFF194m2IAttKqlE2PRTK1PuZZfnHtTtfTbIOxTM3mLZwJ4q94UnQQxRwMdXcbPlOrJF0p+QFlt50YA6I0vkNRV9mXdqPpA6pB2Q+K43U0/VhK2n9g8ql5BlLONdUguXvWHRXBlagO6stvFRF+blyshrcGjcKCY1RLZLWe1ZpoLeLj7GtEnVlM9WmYAZoHVUYbcSek0dT65L0wW3WxpYqSB3JkPI7HOuZ7OmdKkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kbOqT2Su39riI0S0edFd0Cg/WCJk8/Twy8uszvUausM=;
+ b=GLw4xwDGQvBJsFrIZPUMW5EJr/O94PCGHZDeG1IDoL9zDwKq1/ESG8b/RCxROytdGeoDVWMrUL7O9yONJ78to8YCP20wKhEn140uO4noeNLTzPGn3tSpkFGKLB9k7ne6RQSL0niN4XqcWzIQjO7146sGl8/QO6cID0YY43mEhQnnmvEs/LyAYsHhihS0GRXoIaAhdwUpst4sX0Q5/+22Tyo4uT1vAokDEuwb1UKO86CdRUdLbbvq9S/1NJNdNPjvpm7mxd2y5NTZxFAx35P9sC/U7aMFY74YyHfpsajdo3HoH18NJrgZy8QFoM/wcJ4G51gq5Vujl/wYDlhozkmfYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kbOqT2Su39riI0S0edFd0Cg/WCJk8/Twy8uszvUausM=;
+ b=Qv6Ncj2dcAmRAIymd/RQL2gtDxS9x6ONGS8Icp6iQjTcfdyx/BNm1rqT7TT9pnIRXc5s/0sLW27YoJVW4wb+G3Y8OdpMMHUCyUWAGAsRYVwZSQ05uI2iWuY5OqV3WDVGssuf9Cz6wpPg7u6tK/07USsWBeUtTEpeEFb/b+65Iic=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by AM9PR04MB8257.eurprd04.prod.outlook.com (2603:10a6:20b:3b6::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 27 Jul
- 2023 17:06:50 +0200
-From: Olivier Moysan <olivier.moysan@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Thu, 27 Jul 2023 17:03:22 +0200
-Message-ID: <20230727150324.1157933-12-olivier.moysan@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230727150324.1157933-1-olivier.moysan@foss.st.com>
-References: <20230727150324.1157933-1-olivier.moysan@foss.st.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Thu, 27 Jul
+ 2023 15:25:25 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.026; Thu, 27 Jul 2023
+ 15:25:25 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Date: Thu, 27 Jul 2023 10:25:01 -0500
+Message-Id: <20230727152503.2199550-1-shenwei.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SJ0PR05CA0078.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::23) To PAXPR04MB9185.eurprd04.prod.outlook.com
+ (2603:10a6:102:231::11)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.178]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_07,2023-07-26_01,2023-05-22_02
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [RFC v2 11/11] ARM: dts: stm32: add dfsdm iio support
-	on stm32mp157c-ev
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9185:EE_|AM9PR04MB8257:EE_
+X-MS-Office365-Filtering-Correlation-Id: 509b706f-c2c2-4b69-8272-08db8eb5b361
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: n8oiCNBeuPZ+2n+MbtzSgbSweVGP5i8h0AxMtNR6TZc3ZGshv1dp1BIfipx5VM/0Kl0q115YfPBe7XTmsJJjc7Ov0d1XiPE1GB+CtbCZMyXmV7OLOeYp7B4Vz8V6Ub8IKH3RCDJ5lxjsrHome/Jzo3ZbNvBAlxzpttSyXx1EAfPC4KRREyrd+n3NpkjIij36cHWKPy1vZClrElV39jNXE6bm9AfZw6gNBzliJGkbKzXYTb1j6lXJpiS2w1OuceXA9zdwjwr9bcFcInD5v/Fk2pnsC2pdVEJ3UuOcLE6Apgs04U3YQQRpgxDiTjkehQl863RPAkzdQITNVRnZXP9BX9EQ1/FgYraxR+z+6JfEWJtbgWyaPeUWxhkQnXA7xP7AFj+Ft/CnU5/25COlPQOqvUGXOKpMF0i8J7ZEiqoavQi2Pc8wbyjskO4PHvx/+R8DfxBR5AHlssJl+HV1sNsnLRP+1wtciPbCO3up0ijD5wgxWcycjiwHcTpCvyUOPlh+UYk+PkEuOOKYU9ya0KuWiIhNtTAYBrZh51PfW5g1Dj3iEccn6ZWA4vHe8egXkhI54QUP97KulcNuJxKRqOGSV/MFVKwO5yhEQLS5kfk5hdsLyJwB2iVOHZLaG7gvmFKkIobt46RaaLplUQK5G6MCHQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(376002)(366004)(346002)(396003)(136003)(451199021)(316002)(2906002)(8676002)(8936002)(7416002)(7406005)(5660300002)(4744005)(41300700001)(44832011)(36756003)(86362001)(6506007)(26005)(6512007)(1076003)(55236004)(6666004)(921005)(478600001)(52116002)(6486002)(83380400001)(186003)(2616005)(4326008)(66476007)(38350700002)(66556008)(38100700002)(54906003)(110136005)(66946007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?wtt0Qa0kM+kW+VgqZq6serE2edetp0yZfxyGk2RtWXqSvrIs4BAxMrl4VDvp?=
+ =?us-ascii?Q?0c2cHYrgw56PAbrPoDr20QM2Ezxb4S9nldoiLAiC+S2DdKYvDvpuGoCLMijJ?=
+ =?us-ascii?Q?PzI4Zx/78kgOo7t7a+Qc0DG5rauYA6wxrfgvcRp6P8LKQp5SIC1onL4LTg3S?=
+ =?us-ascii?Q?E8Vuzx98YFjcD3U9XxSNnTDa08llJaWp5HpyXRDIOT1ZNpwOHyBLS959PObT?=
+ =?us-ascii?Q?Dvd10g5UMQr+9bXLydtVfRizk8Ag1yJ3P8iq6rF/kxpw4ghWWDxPlgRuf4/u?=
+ =?us-ascii?Q?o1ZDe56M8iFtSbhSq/9nyqid+g7bFAb8DAe6mCjQFAtcve5NHpdkLQ19Zz1Q?=
+ =?us-ascii?Q?QC4Dw/YpVIMXEzUtjAqlSH+/hCakiHtIjI3TTOB1Ii960e3nhHWrhc2e9KcW?=
+ =?us-ascii?Q?KGgLp2HMrGrS53PB3y4T4tXNzM1O13HdVjwl5zL/YRbx90gJM0yz6LMEzEzF?=
+ =?us-ascii?Q?N9J9fH49WEgaQ3AGEDYlnIwYW1GLuaJZgpXAm4aIvQJ1nZl+4Nex06r9Zizd?=
+ =?us-ascii?Q?gEzXqw9W8Ttq2x8XxJ0uO9unyNtup8kHe+d3GILCwHkarOYSz0Cyp4OWU7WU?=
+ =?us-ascii?Q?VMrDzqV2nPVNXa52sAlJDi6v38jqUp+0KgDXwC/nygFNFqwJde71Ug5uxB3/?=
+ =?us-ascii?Q?hQBZHfOVIOqQsOfEauZ/EqyZlGPLSvec2X0VlQmZdB64iOIzR4pvjSWKxxwf?=
+ =?us-ascii?Q?BZFQVfC1TTczLh1VzCsil32jLV9v8d2hKU0jF6tqnU+Vytc0IXOysvpPKEK2?=
+ =?us-ascii?Q?cgkadUniIG0HGpR/jIIbMHGdvN290au8hkwd7NvQOrFEFTbku6rYXFcq9KcG?=
+ =?us-ascii?Q?0hj4+wpz91iV3Xjnh7Rq134/e6igMbj4d+FrVGBZWSULRQqUnDBVLcNdJ5Lq?=
+ =?us-ascii?Q?vzBDfjbg1sARk0LoJD9QliH72+WOll7HaTHjfTkux9chBYd59LMV8whFHULd?=
+ =?us-ascii?Q?ovWzFsFV1lZmFVps8SptETy1ZDOLFMgaMNpNLN0pNZQbngW90T6Q2UDlBy6K?=
+ =?us-ascii?Q?lyWRFyulLStJ4e0VLyLf73bbryOxulgQ0ggBSjpnZg3Kv6drN7L64qioRtkD?=
+ =?us-ascii?Q?4hStYUWkHDv7DbkRMXK3JwUlXnsc9KvREooDUs3rH0rc9E1Zw5tjSfH1xfZj?=
+ =?us-ascii?Q?HlpxjdycZLjatJMzDF+KzFDDBTKzJiG2HJgvdXzmN/qkvS9ZvTFHCulpl3Oh?=
+ =?us-ascii?Q?7ojm80zmBd5msW/rSjW0d2yccF4QWAQLsupTKLyrgmNXlaqpzVyn5v3p4tpA?=
+ =?us-ascii?Q?zuf1KCnDyPKkjR1bZXEd5ngRC5lN4MEqwptP91kZpnM+uo48oLO/lSihhScn?=
+ =?us-ascii?Q?r69H1E+oepGbkE6plVaHKIXMk67R4HNyT70PeGVqpXlZp4yIy1IIb/aWa19q?=
+ =?us-ascii?Q?sR+fTmxoitryXOOhiFgCyBVm1X453mW/ibEkB62kJ926KHGoohOC7Xfohij9?=
+ =?us-ascii?Q?AkoUFOF+doqevImTxw06hCP6jGJnKM8wJQuZSXza0Ehhc9zm42uuT5EUy/aH?=
+ =?us-ascii?Q?2flnSYYelPDGuzsBba5RLrGHbsfDe1ZcrFOXeReUbdfwPDHLqt+IWg38NiJu?=
+ =?us-ascii?Q?ejbKyNS0V7RNWoM02jW/fZMu/QEhUtZIy5YdEipF?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 509b706f-c2c2-4b69-8272-08db8eb5b361
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2023 15:25:25.5825 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zIGOWBakiGGay+uYSNrAZCKK3y0FOA5QOnkD453oxHHJNOKNFYnOg9soBXi1qEMH+tdDWDqJbLoTOO9yK08bxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8257
+Cc: Jose Abreu <joabreu@synopsys.com>, imx@lists.linux.dev,
+ Simon Horman <simon.horman@corigine.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Wong Vee Khee <veekhee@apple.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: [Linux-stm32] [PATCH v2 net 0/2] update stmmac fix_mac_speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,103 +139,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This DT is an example of backend iio device used for STM32 DFSDM.
-DFSDM filter1 has a single input channel, while filter0 is configured
-to support scan mode with two input channels.
+Changes in V2:
+  - Call fix_mac_speed() with new mode parameter added.
+  - reorg the function of imx_dwmac_fix_speed_mx93 by using the
+    mode parameter.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp157c-ev1.dts | 68 ++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
+Shenwei Wang (2):
+  net: stmmac: add new mode parameter for fix_mac_speed
+  net: stmmac: dwmac-imx: pause the TXC clock in fixed-link
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-index af3800501875..edeac26f39a4 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-@@ -73,6 +73,27 @@ panel_backlight: panel-backlight {
- 		default-on;
- 		status = "okay";
- 	};
-+
-+	sd_adc0: sd-adc0 {
-+		compatible = "sd-modulator";
-+		#io-backend-cells = <0>;
-+		vref-supply = <&v3v3>;
-+		status = "okay";
-+	};
-+
-+	sd_adc1: sd-adc1 {
-+		compatible = "sd-modulator";
-+		#io-backend-cells = <0>;
-+		vref-supply = <&v3v3>;
-+		status = "okay";
-+	};
-+
-+	sd_adc2: sd-adc2 {
-+		compatible = "sd-modulator";
-+		#io-backend-cells = <0>;
-+		vref-supply = <&v3v3>;
-+		status = "okay";
-+	};
- };
- 
- &cec {
-@@ -99,6 +120,53 @@ dcmi_0: endpoint {
- 	};
- };
- 
-+&dfsdm {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&dfsdm_clkout_pins_a
-+		     &dfsdm_data1_pins_a &dfsdm_data3_pins_a>;
-+	pinctrl-1 = <&dfsdm_clkout_sleep_pins_a
-+		     &dfsdm_data1_sleep_pins_a &dfsdm_data3_sleep_pins_a>;
-+	spi-max-frequency = <2048000>;
-+	status = "okay";
-+
-+	dfsdm0: filter@0 {
-+		compatible = "st,stm32-dfsdm-adc";
-+		st,filter-order = <3>;
-+		status = "okay";
-+
-+		channel@0 {
-+			reg = <0>;
-+			label = "in0";
-+			st,adc-channel-types = "SPI_F";
-+			st,adc-channel-clk-src = "CLKOUT";
-+			st,adc-alt-channel;
-+			io-backends = <&sd_adc0>;
-+		};
-+
-+		channel@1 {
-+			reg = <1>;
-+			label = "in1";
-+			st,adc-channel-types = "SPI_R";
-+			st,adc-channel-clk-src = "CLKOUT";
-+			io-backends = <&sd_adc1>;
-+		};
-+	};
-+
-+	dfsdm1: filter@1 {
-+		compatible = "st,stm32-dfsdm-adc";
-+		st,filter-order = <3>;
-+		status = "okay";
-+
-+		channel@3 {
-+			reg = <3>;
-+			label = "in3";
-+			st,adc-channel-types = "SPI_R";
-+			st,adc-channel-clk-src = "CLKOUT";
-+			io-backends = <&sd_adc2>;
-+		};
-+	};
-+};
-+
- &dsi {
- 	phy-dsi-supply = <&reg18>;
- 	#address-cells = <1>;
--- 
-2.25.1
+ .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 47 ++++++++++++++++++-
+ .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-meson.c |  2 +-
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-sunxi.c |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-visconti.c  |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  2 +-
+ include/linux/stmmac.h                        |  2 +-
+ 10 files changed, 55 insertions(+), 10 deletions(-)
+
+--
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
