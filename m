@@ -2,48 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421A57666BC
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 10:18:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F4F766852
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 11:10:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED122C6B466;
-	Fri, 28 Jul 2023 08:18:11 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35A18C6B466;
+	Fri, 28 Jul 2023 09:10:40 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1417EC6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E43BBC6B45D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 08:18:11 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qPIfl-0005yV-Ba; Fri, 28 Jul 2023 10:18:05 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qPIfj-002fOF-T5; Fri, 28 Jul 2023 10:18:03 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qPIfj-008S77-7A; Fri, 28 Jul 2023 10:18:03 +0200
-Date: Fri, 28 Jul 2023 10:18:03 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Thierry Reding <thierry.reding@gmail.com>
-Message-ID: <20230728081803.aswbz4slvrqqi5hc@pengutronix.de>
-References: <20230714214519.2503468-1-u.kleine-koenig@pengutronix.de>
- <20230714214519.2503468-2-u.kleine-koenig@pengutronix.de>
- <ZMN2DtpxEpHcseTi@orome>
+ Fri, 28 Jul 2023 09:10:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A4A2662086;
+ Fri, 28 Jul 2023 09:10:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF74C433C7;
+ Fri, 28 Jul 2023 09:10:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690535437;
+ bh=jsukJ3h2ilmz083UcYGengZNcUIJYlLHWk6g/LKxW1A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Jq54e2P2vabTsv0/ZkCTu/TtAKcPA/986KlVzpTtjaLAFsettUVGxIIEhV012qHmY
+ XjZnDjmAeW2ab1ZsUURkM7jE4L/524t63e/2b+AR7jZDEQXiyB3jMa2BRjo+JEpwRs
+ l3QdUPJ8w/4urXWddV+VETsCyali7ZkVGVcRJ/K6g+RVz5T9C+bf9WioC+uygEDa9I
+ Rh3AvZFW0PdulmDiZySwu0Xy2XsI/jHB3Xyi77hPM/dAwa7KUnEsd9+KEupPqjueWP
+ u1x3RpBtfjI/oksjIHjYF89qn/jUU3ZW18drI+6RQKSDrQ5SYoMzV9cMfadNlCraZU
+ lW9h48LazI1/g==
+Date: Fri, 28 Jul 2023 10:10:24 +0100
+From: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Message-ID: <20230728091024.GE8175@google.com>
+References: <20230714174731.4059811-1-robh@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <ZMN2DtpxEpHcseTi@orome>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pwm@vger.kernel.org,
- kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stmpe: Don't issue error
- messages for problems in .apply_state()
+Content-Disposition: inline
+In-Reply-To: <20230714174731.4059811-1-robh@kernel.org>
+Cc: Thor Thayer <thor.thayer@linux.intel.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tony Lindgren <tony@atomide.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Guenter Roeck <groeck@chromium.org>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Chen-Yu Tsai <wens@csie.org>,
+ Andy Gross <agross@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org,
+ Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-actions@lists.infradead.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-omap@vger.kernel.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Support Opensource <support.opensource@diasemi.com>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Weinberger <richard@nod.at>
+Subject: Re: [Linux-stm32] [PATCH] mfd: Explicitly include correct DT
+	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,93 +80,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6464739495340802153=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6464739495340802153==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wtwb2wwbm2l6qz3u"
-Content-Disposition: inline
-
-
---wtwb2wwbm2l6qz3u
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Jul 28, 2023 at 10:02:22AM +0200, Thierry Reding wrote:
-> On Fri, Jul 14, 2023 at 11:45:19PM +0200, Uwe Kleine-K=F6nig wrote:
-> > pwm drivers are supposed to be silent for failures in .apply_state()
-> > because a problem is likely to be persistent and so it can easily flood
-> > the kernel log. So remove all error messages from .apply_state() and the
-> > functions that are (only) called by that callback.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> > ---
-> >  drivers/pwm/pwm-stmpe.c | 35 ++++++-----------------------------
-> >  1 file changed, 6 insertions(+), 29 deletions(-)
->=20
-> I don't necessarily agree with that claim. Given that some of the
-> implementations can be quite complex, the error messages may be useful
-> to diagnose what exactly is going wrong. It's also quite rare for any
-> consumers to call pwm_apply_state() in quick succession, so I don't
-> think "flooding" is really a problem.
->=20
-> Is this an actual problem anywhere?
-
-The real motivation for this change was to stop the driver making use of
-struct pwm_chip::dev as I'm changing that one in my effort to track a
-pwm_chip's lifetime using a struct device preparing character device
-support for PWMs. So each usage that is gone doesn't need to be touched
-later together with the pwm_chip restructurings.
-
-While I think that the error messages are hardly useful I also never
-were in a situation where they triggered, so maybe my judgement isn't
-well-founded.
-
-> On the other hand, the stmpe_reg_read() and stmpe_reg_write() produce
-> error messages of their own, so the ones in this driver mainly serve as
-> adding context. Perhaps rather than removing these, turning them into
-> dev_dbg() would be a good compromise?
-
-I will consider that. It would still use chip->dev, but I can cope with
-that. :-)
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---wtwb2wwbm2l6qz3u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmTDeboACgkQj4D7WH0S
-/k53ogf+OMjGXX6GAMEIDDzu8FYz5WjbCFY40R4pbnRPuh1aL5SAuGD9dkankZW6
-2MvpsY4+0ORZ97SNrayEc+EMajuMlBpuiJjgyzBbJJ6or5ZeK4q0DejcyMS87bMS
-9UkdR5eKmpofWEm5BfFuRnDJ3aE6ZewAPS8w6qgtyXXmocZKgMnzFdF/JZt1HJdL
-DtHoYDgTJQoX2u1wA5lqljag6vVFXI5Jz819z+GfW/IRvePxwBaLvO9wJT2tUq3B
-bBvcr5YZ0yZ/G1pZ1su1RdXGhuQZ9KGtlBpwjXGL+9/FLaJjdeCSfewyluptbS39
-rYvRhHRUaXsddTGhjNEJklm6EhcGRg==
-=8D0T
------END PGP SIGNATURE-----
-
---wtwb2wwbm2l6qz3u--
-
---===============6464739495340802153==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6464739495340802153==--
+T24gRnJpLCAxNCBKdWwgMjAyMywgUm9iIEhlcnJpbmcgd3JvdGU6Cgo+IFRoZSBEVCBvZl9kZXZp
+Y2UuaCBhbmQgb2ZfcGxhdGZvcm0uaCBkYXRlIGJhY2sgdG8gdGhlIHNlcGFyYXRlCj4gb2ZfcGxh
+dGZvcm1fYnVzX3R5cGUgYmVmb3JlIGl0IGFzIG1lcmdlZCBpbnRvIHRoZSByZWd1bGFyIHBsYXRm
+b3JtIGJ1cy4KPiBBcyBwYXJ0IG9mIHRoYXQgbWVyZ2UgcHJlcHBpbmcgQXJtIERUIHN1cHBvcnQg
+MTMgeWVhcnMgYWdvLCB0aGV5Cj4gInRlbXBvcmFyaWx5IiBpbmNsdWRlIGVhY2ggb3RoZXIuIFRo
+ZXkgYWxzbyBpbmNsdWRlIHBsYXRmb3JtX2RldmljZS5oCj4gYW5kIG9mLmguIEFzIGEgcmVzdWx0
+LCB0aGVyZSdzIGEgcHJldHR5IG11Y2ggcmFuZG9tIG1peCBvZiB0aG9zZSBpbmNsdWRlCj4gZmls
+ZXMgdXNlZCB0aHJvdWdob3V0IHRoZSB0cmVlLiBJbiBvcmRlciB0byBkZXRhbmdsZSB0aGVzZSBo
+ZWFkZXJzIGFuZAo+IHJlcGxhY2UgdGhlIGltcGxpY2l0IGluY2x1ZGVzIHdpdGggc3RydWN0IGRl
+Y2xhcmF0aW9ucywgdXNlcnMgbmVlZCB0bwo+IGV4cGxpY2l0bHkgaW5jbHVkZSB0aGUgY29ycmVj
+dCBpbmNsdWRlcy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwu
+b3JnPgo+IC0tLQo+ICBkcml2ZXJzL21mZC9hYjg1MDAtY29yZS5jICAgICAgICAgICB8IDEgLQo+
+ICBkcml2ZXJzL21mZC9hY2VyLWVjLWE1MDAuYyAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy9t
+ZmQvYWN0ODk0NWEuYyAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvbWZkL2FsdGVyYS1z
+eXNtZ3IuYyAgICAgICAgIHwgMyArLS0KPiAgZHJpdmVycy9tZmQvYXJpem9uYS1jb3JlLmMgICAg
+ICAgICAgfCAxIC0KPiAgZHJpdmVycy9tZmQvYXRjMjYweC1jb3JlLmMgICAgICAgICAgfCAxIC0K
+PiAgZHJpdmVycy9tZmQvYmNtNTkweHguYyAgICAgICAgICAgICAgfCAxIC0KPiAgZHJpdmVycy9t
+ZmQvY3Jvc19lY19kZXYuYyAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvbWZkL2RhOTA1Mi1p
+MmMuYyAgICAgICAgICAgIHwgNSArLS0tLQo+ICBkcml2ZXJzL21mZC9kYTkwNTUtaTJjLmMgICAg
+ICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC9kYTkwNjItY29yZS5jICAgICAgICAgICB8IDIg
+Ky0KPiAgZHJpdmVycy9tZmQvaGk2NTV4LXBtaWMuYyAgICAgICAgICAgfCA0ICsrLS0KPiAgZHJp
+dmVycy9tZmQvaXFzNjJ4LmMgICAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvbWZkL2xw
+ODczeC5jICAgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21mZC9tYWRlcmEtaTJjLmMg
+ICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC9tYWRlcmEtc3BpLmMgICAgICAgICAgICB8
+IDEgLQo+ICBkcml2ZXJzL21mZC9tYXg3NzYyMC5jICAgICAgICAgICAgICB8IDEgLQo+ICBkcml2
+ZXJzL21mZC9tYXg3NzY4Ni5jICAgICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC9tYXg3
+Nzg0My5jICAgICAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy9tZmQvbWF4ODkwNy5jICAgICAg
+ICAgICAgICAgfCAxIC0KPiAgZHJpdmVycy9tZmQvbWF4ODkyNS1jb3JlLmMgICAgICAgICAgfCAx
+IC0KPiAgZHJpdmVycy9tZmQvbWF4ODk5Ny5jICAgICAgICAgICAgICAgfCAxIC0KPiAgZHJpdmVy
+cy9tZmQvbWF4ODk5OC5jICAgICAgICAgICAgICAgfCAxIC0KPiAgZHJpdmVycy9tZmQvbXQ2MzU4
+LWlycS5jICAgICAgICAgICAgfCA1ICsrLS0tCj4gIGRyaXZlcnMvbWZkL210NjM5Ny1jb3JlLmMg
+ICAgICAgICAgIHwgNSArKystLQo+ICBkcml2ZXJzL21mZC9tdDYzOTctaXJxLmMgICAgICAgICAg
+ICB8IDUgKystLS0KPiAgZHJpdmVycy9tZmQvcGFsbWFzLmMgICAgICAgICAgICAgICAgfCAzICsr
+LQo+ICBkcml2ZXJzL21mZC9xY29tLXBtODAwOC5jICAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVy
+cy9tZmQvcmF2ZS1zcC5jICAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvbWZkL3JrOHh4
+LWNvcmUuYyAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21mZC9yb2htLWJkNzE4MjguYyAg
+ICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy9tZmQvcm9obS1iZDcxOHg3LmMgICAgICAgICAgfCAy
+ICstCj4gIGRyaXZlcnMvbWZkL3JvaG0tYmQ5NTc2LmMgICAgICAgICAgIHwgMiArLQo+ICBkcml2
+ZXJzL21mZC9ydDUwMzMuYyAgICAgICAgICAgICAgICB8IDIgKy0KPiAgZHJpdmVycy9tZmQvcnot
+bXR1My5jICAgICAgICAgICAgICAgfCA0ICsrKy0KPiAgZHJpdmVycy9tZmQvc2VjLWNvcmUuYyAg
+ICAgICAgICAgICAgfCAyIC0tCj4gIGRyaXZlcnMvbWZkL3NwcmQtc2MyN3h4LXNwaS5jICAgICAg
+IHwgMiArLQo+ICBkcml2ZXJzL21mZC9zc2JpLmMgICAgICAgICAgICAgICAgICB8IDYgKysrLS0t
+Cj4gIGRyaXZlcnMvbWZkL3N0bTMyLWxwdGltZXIuYyAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMv
+bWZkL3N0bTMyLXRpbWVycy5jICAgICAgICAgIHwgMSArCj4gIGRyaXZlcnMvbWZkL3N1bjRpLWdw
+YWRjLmMgICAgICAgICAgIHwgNCArKy0tCj4gIGRyaXZlcnMvbWZkL3RpLWxtdS5jICAgICAgICAg
+ICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvbWZkL3RpX2FtMzM1eF90c2NhZGMuYyAgICAgIHwgMiAr
+LQo+ICBkcml2ZXJzL21mZC90cHM2NTA3eC5jICAgICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJz
+L21mZC90cHM2NTA5MC5jICAgICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC90cHM2NTIx
+Ny5jICAgICAgICAgICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC90cHM2NTIxOC5jICAgICAgICAg
+ICAgICB8IDEgLQo+ICBkcml2ZXJzL21mZC90cHM2NTk0LWNvcmUuYyAgICAgICAgICB8IDIgKy0K
+PiAgZHJpdmVycy9tZmQvdHdsNjA0MC5jICAgICAgICAgICAgICAgfCAyIC0tCj4gIGRyaXZlcnMv
+bWZkL3dtODMxeC1jb3JlLmMgICAgICAgICAgIHwgMyArLS0KPiAgZHJpdmVycy9tdGQvY2hpcHMv
+Y2ZpX2NtZHNldF8wMDAyLmMgfCAzICstLQo+ICA1MSBmaWxlcyBjaGFuZ2VkLCA0MiBpbnNlcnRp
+b25zKCspLCA2NiBkZWxldGlvbnMoLSkKCkFwcGxpZWQsIHRoYW5rcwoKLS0gCkxlZSBKb25lcyBb
+5p2O55C85pavXQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
