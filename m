@@ -2,111 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E813576718A
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 18:09:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E680F76727D
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 18:56:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F29AC6B468;
-	Fri, 28 Jul 2023 16:09:33 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2054.outbound.protection.outlook.com [40.107.8.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FA6CC6B468;
+	Fri, 28 Jul 2023 16:56:23 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA48BC6B45D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41C22C6A610
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 16:09:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m1HfzQuhOTypRSdQ6ivQR/MEZElb5ELa1uZ0ZM3I7ra8DWEEK+oOqZlJgHgaLKjncKS3JIHbsbTBV+QQk6ORgmgXTg0/o6//UB+fZBjao3X+bnxM94VxPWMxTHa8uZcTyXrpnmj4kTdE8Lm3flwi3Dyh63PLc0yCDKsjNlIs/CRUY61rxO60aJwRHdTtALoHE6L+iKGt8Ku+XeCAr3P2c1VnCplsVTSG1zB4GGEfg33m96jFoETp+cn/jiEcbevdabYbbZjAlJBNd9wdt9SXZKnCdSC6+16VGT8Ns5MUPvYz9tDA+RnPodcKFrsX05XEw+JiQUb44zM2t8rb5PkYXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A/wtqdeGIhqexDWteR5SbI0NJNB1cbv4zHnDzzYRjRU=;
- b=A++dVbC5WOMeo1+bJcOJ0syL4VlgpsxHdPBNFulZA2Wk/71bOwfJFtCSg/q+nMp8Xxv8sm1oERpA9ltFQ4hIIkIIB44yZNjAAU91NHOLSOTE0MDQl5xNmfFsZ7/UhjULpP/TygZpHahZ0dqTmJvY07i/ebkykfxW7HkmUTBD56LBQkQ0jZ1s8apLUZmcXuvn8rcY4IZN7OjTy0btxtouup4N6Z6X+oXrw6OFep3YrF7AypteV6siUNLYxXxfvdp3DRl4WYHWIsmzyNSvEYDyWNUQm8pSWNc3xrtN9CUuPV9JOl5W6wTbKkqzQGf0REtcKgiqvrMoEL60l73IXNVTCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A/wtqdeGIhqexDWteR5SbI0NJNB1cbv4zHnDzzYRjRU=;
- b=f3EScmtDMM1oIl96kUADqNdZ9NAE4egDD0MZ/WT0PWJm2Z3tItzgHMurDv9tUaMDJXWSIF4TWXaS0byIvbyjEHD9toWMNgtqhbMPMp0ZOAKJWlZkJhSoCxKxxtgeEGYaH/he2TwU9p0PWms9hNRGkLzmUlabk6MD9PzI9Md3DFU=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by DB8PR04MB6956.eurprd04.prod.outlook.com (2603:10a6:10:11b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Fri, 28 Jul
- 2023 16:09:29 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.026; Fri, 28 Jul 2023
- 16:09:29 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Will Deacon <will@kernel.org>, "Russell King (Oracle)"
- <linux@armlinux.org.uk>
-Thread-Topic: [EXT] Re: [PATCH v2 net 2/2] net: stmmac: dwmac-imx: pause the
- TXC clock in fixed-link
-Thread-Index: AQHZwJ6ZmPtrsmRv9UGenRTta+C4Xq/N8VmAgAFcAoCAAAPhAIAAB8xg
-Date: Fri, 28 Jul 2023 16:09:29 +0000
-Message-ID: <PAXPR04MB918542A7030A3193562C4A948906A@PAXPR04MB9185.eurprd04.prod.outlook.com>
+ Fri, 28 Jul 2023 16:56:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=K70CKmBBT3LezttIHw7dBV6di1pK5wjt+ZfncAAM8eg=; b=J3bK/oJe/QpSNDl0GX966l3Us7
+ YkS8XKvV7D8VdgjitBaRQq2hKvL2FQwAkphg38AhqKsHoNdJVyfgQvCYpWdDfHY04x9cSUzJjbKBG
+ K5z8CYpU6oWOSnulwS1LYhlwNY6I0uGyM36CplcmklP4kLb3zMelQdHRUKPMq8x/+EFI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qPQkg-002Xp3-R6; Fri, 28 Jul 2023 18:55:42 +0200
+Date: Fri, 28 Jul 2023 18:55:42 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Message-ID: <f6c78350-e668-455f-bae5-731dbef633de@lunn.ch>
 References: <20230727152503.2199550-1-shenwei.wang@nxp.com>
  <20230727152503.2199550-3-shenwei.wang@nxp.com>
- <4govb566nypifbtqp5lcbsjhvoyble5luww3onaa2liinboguf@4kgihys6vhrg>
- <ZMPdKyOtpZKEMLsO@shell.armlinux.org.uk>
- <20230728153611.GH21718@willie-the-truck>
-In-Reply-To: <20230728153611.GH21718@willie-the-truck>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|DB8PR04MB6956:EE_
-x-ms-office365-filtering-correlation-id: 452117ac-b961-4715-0f83-08db8f8505d5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: r1cl+21UBhfC+GvyOLwGX6gqTJsg9Tf4VmH1xx0xsmLzVJ9ACwGlOWt3XpQcmsTX2x357JJBZi5ArdeTZZPI6eRIXijJk5lYGT6iATy1oWbVzn+Ec6pb0hFGtqJ9TvgNLS/ppJnUwJPWTp4oYzPb9vp1lola5WksB0JVDf0voXj11spChvCn63eDjaIOzMnEH4UG9FS0MBpt9TRURLkB+Uei3NKLIXrd4SrMhpDsAmvhHTvsBsvZB4PnIaSgVt5L+0rW57FF/qp9jNyvjA162iYcOVSHWwCxiTdYqIe6WSiXXfQo3OrW2xbJBOxlrE+vB6ijxNfPAGX4zIRms8C4QBWk76UUkajoM1T3OOSxhADODaOWVO95hF8Nao1oRshZ/LPE51okcHRGMaF1sQfAQXfaQEGbWBJHDZiXvYZgqX/Jf5nyVwCcVbDowVWmHFS462Fat/xc4UNzMbOmRwnEyE+SILhRxKJ2R2a0HC0jRjzLeuVtEuIkGpUfqsp1Fes73IYxQk5Y1AV4vLNP9kllJOS7U/0C2lzjyh5glZKnZC1eBFLLp7Zq7emTjk+epl7saGM3BdOK7XuqygqY0WGLw6b67IpeIaNaHVqIwb7Iuro=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(451199021)(86362001)(2906002)(8936002)(38070700005)(52536014)(316002)(8676002)(33656002)(7406005)(44832011)(83380400001)(5660300002)(66476007)(64756008)(66946007)(66556008)(66446008)(4326008)(76116006)(38100700002)(110136005)(54906003)(122000001)(186003)(45080400002)(26005)(53546011)(41300700001)(55236004)(6506007)(478600001)(71200400001)(7416002)(966005)(55016003)(9686003)(7696005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PM7LpVr2AEujg2dv+FGfD0b9wP4pQb4XMIEqBCezCVK5Tw67FsYpkFpe0+wP?=
- =?us-ascii?Q?g9peRCnyuHJFiw/v8KdtYmbExPbViQoBt3OUM8cj2MrAv7GgqVTA2bVqLrcI?=
- =?us-ascii?Q?6/+izTYRqhgd6ed/SnuWoRKwbG65jLCpzs8c47W1D9Y8ZRtICmr+oYhzKfO+?=
- =?us-ascii?Q?qvO+JP/KvehaRZFLtc8EA74QRrZtpZYaIt9DSaB8aahnw8C7hvi9TWzmg8qZ?=
- =?us-ascii?Q?6cMRic7EKpCpAI3YPZn5dSp9Ua0VSF8TxAA+s/UsgEJD3ZoBLMFvcLkMRVoF?=
- =?us-ascii?Q?cxkg32DbyzWGNbZcJhLGo2s+ypF+/N5JiRRNiZJpWpVuZt+DFafgReRzk5l/?=
- =?us-ascii?Q?6I+hE/YHUBpv9K1KwFjWJ4lBSJ0TaRPIMYh5bvIQg4/xLdexUA8IEEwzzd0n?=
- =?us-ascii?Q?rLDqeXF3gMX7FGXoT6PzJajbhX+ftnehUsEgKDRA1CPUcE9tkt3c8F61GfxN?=
- =?us-ascii?Q?bKBeDsz+yK2dJmaYSfkGYqTKSrwnYBl7akb4zd6sChrV5YpQvGb2rMxCnqWa?=
- =?us-ascii?Q?XoMr1kOwoa71rJjZttmlM7jrNDj9Ii3LbtnKITKTQ2UKmclEkEjnVgheQkV8?=
- =?us-ascii?Q?rOu+O3etCzfrIEZrqqEoAdy+QSjg0aATg812rqxK6tJxV5nhLCiWBPTh+uOn?=
- =?us-ascii?Q?jkDUWtASgmsxvE9CpajC/f0hSoIV2o0ulcxbqSHxzIcXvr3ujZBYLoT33vdf?=
- =?us-ascii?Q?zVYSAH+qgavgFvUIUkXJo6K0m6k4lWKrAsbP38DoVrysMzzC1fyRWL3vuMju?=
- =?us-ascii?Q?ottLZGs4T0+/jaAuDfSUcAoA7x5uObpF9NcvGONNXT7BVs9zMpcQ5us9+0ff?=
- =?us-ascii?Q?M8nFKBE/y5oVuFfuWWwGpQoUhrOKkHL7p2p+YeJqT1/kb7Ei926el5mB1eJk?=
- =?us-ascii?Q?fwMf2zo+jP6sez4v255CSZxVEjAweS7Yu9yTo4UqpHS6V7TP19OJ20MtZZQC?=
- =?us-ascii?Q?7OL7g9XdQ0k41XtgZRzYt6LtOzurTODmQSVKJhYozhYNiiWC3gveOXlvLs7i?=
- =?us-ascii?Q?k+Iach1O0VWHcyOrm67hNrVGbRBsYxskc440dg2yyj/2CaLtbuRZGQBdmW6w?=
- =?us-ascii?Q?lwIpBDtRHB5BUo6EAAes9Q5p2kMmpdJP3tF4r+sBZZfOvE8q/ttQfo6jOlD1?=
- =?us-ascii?Q?Di+7qjFmnOuY82ZEprKDEK+2q2Ug91Fl+fZU3F5yoP8ZHG6BO14QEMEhUQIP?=
- =?us-ascii?Q?j/kuJszFi5oPqnT8KtmQTQQemR5w5HYThVryBPEYE7PhsN4LikvkS4rUtfH0?=
- =?us-ascii?Q?YKkFJQZ+PTJgOmDax2sCutAQ77hPBdbMT/49s5bqi5REfin+lQaISt4OC5Zr?=
- =?us-ascii?Q?72B0Foj5GtCxTJftM9HPngtQACDESqTH5ZJpsqoT+eP8tPa055eRJuDUus/e?=
- =?us-ascii?Q?hWl+lwvPWopvRkuAE9e+QSjQdoiJuaz027wsTiuGFH6wDTtDAJ2lw1lIZJQQ?=
- =?us-ascii?Q?A2CNB7NIEloQ8WT4dNzKsT+ZeJNuEJDaYJLgutVhVCtQNFC2s5Rqtga3A67e?=
- =?us-ascii?Q?D75j2drcUaKdcWNXgUiL0DSkkFg9a6KKKOFWhxKRIBzpUFtV+N+3dx9PcfhR?=
- =?us-ascii?Q?0w7L+mBKSOeJhV8AzwIO5/oDKvX9jX6gdjVKGQar?=
+ <CAOMZO5ANQmVbk_jy7qdVtzs3716FisT2c72W+3WZyu7FoAochw@mail.gmail.com>
+ <PAXPR04MB9185945F7E5B1A36ADF4F3E28906A@PAXPR04MB9185.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 452117ac-b961-4715-0f83-08db8f8505d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2023 16:09:29.4010 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H5S7fIKe+uz55onENv08oY2pfS/yShoWc7nClbaxRRiHgklqBAPF1Uniqz0R4TSPTb+h1omgW0EaZbywUb2SgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6956
+Content-Disposition: inline
+In-Reply-To: <PAXPR04MB9185945F7E5B1A36ADF4F3E28906A@PAXPR04MB9185.eurprd04.prod.outlook.com>
 Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
  Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
  Eric Dumazet <edumazet@google.com>,
@@ -116,11 +44,11 @@ Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Wong Vee Khee <veekhee@apple.com>, Chen-Yu Tsai <wens@csie.org>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>,
+ Kevin Hilman <khilman@baylibre.com>, Russell King <linux@armlinux.org.uk>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Wong Vee Khee <veekhee@apple.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ dl-linux-imx <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
@@ -153,102 +81,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+> > Andrew Lunn gave the following feedback in v1:
+> > 
+> > "The SJA1105 has the problem, so i would expect it to be involved in the solution.
+> > Otherwise, how is this going to work for other MAC drivers?
+> > 
+> > Maybe you need to expose a common clock framework clock for the TXC clock
+> > line, which the SJA1105 can disable/enable? That then makes it clear what other
+> > MAC drivers need to do."
+> 
+> I have been considering this plan for some time. The idea should be implemented 
+> across all i.mx8/9 platforms. I am going to start to work on it in the following month, 
+> and it will take some time to implement it.
 
+So you don't think anybody will use anything else for driving this
+switch? Vybrid?
 
-> -----Original Message-----
-> From: Will Deacon <will@kernel.org>
-> Sent: Friday, July 28, 2023 10:36 AM
-> To: Russell King (Oracle) <linux@armlinux.org.uk>
-> Cc: Andrew Halaney <ahalaney@redhat.com>; Shenwei Wang
-> <shenwei.wang@nxp.com>; David S. Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; Shawn Guo <shawnguo@kernel.org>; Sascha
-> Hauer <s.hauer@pengutronix.de>; Neil Armstrong <neil.armstrong@linaro.org>;
-> Kevin Hilman <khilman@baylibre.com>; Vinod Koul <vkoul@kernel.org>; Chen-
-> Yu Tsai <wens@csie.org>; Jernej Skrabec <jernej.skrabec@gmail.com>; Samuel
-> Holland <samuel@sholland.org>; Giuseppe Cavallaro
-> <peppe.cavallaro@st.com>; Alexandre Torgue <alexandre.torgue@foss.st.com>;
-> Jose Abreu <joabreu@synopsys.com>; Pengutronix Kernel Team
-> <kernel@pengutronix.de>; Fabio Estevam <festevam@gmail.com>; dl-linux-imx
-> <linux-imx@nxp.com>; Jerome Brunet <jbrunet@baylibre.com>; Martin
-> Blumenstingl <martin.blumenstingl@googlemail.com>; Bhupesh Sharma
-> <bhupesh.sharma@linaro.org>; Nobuhiro Iwamatsu
-> <nobuhiro1.iwamatsu@toshiba.co.jp>; Simon Horman
-> <simon.horman@corigine.com>; Bartosz Golaszewski
-> <bartosz.golaszewski@linaro.org>; Wong Vee Khee <veekhee@apple.com>;
-> Revanth Kumar Uppala <ruppala@nvidia.com>; Jochen Henneberg
-> <jh@henneberg-systemdesign.com>; netdev@vger.kernel.org; linux-stm32@st-
-> md-mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; linux-amlogic@lists.infradead.org; imx@lists.linux.dev;
-> Frank Li <frank.li@nxp.com>
-> Subject: [EXT] Re: [PATCH v2 net 2/2] net: stmmac: dwmac-imx: pause the TXC
-> clock in fixed-link
->
-> Caution: This is an external email. Please take care when clicking links or
-> opening attachments. When in doubt, report the message using the 'Report this
-> email' button
->
->
-> On Fri, Jul 28, 2023 at 04:22:19PM +0100, Russell King (Oracle) wrote:
-> > On Thu, Jul 27, 2023 at 01:36:45PM -0500, Andrew Halaney wrote:
-> > > I don't have any documentation for the registers here, and as you
-> > > can see I'm an amateur with respect to memory ordering based on my
-> > > prior comment.
-> > >
-> > > But you:
-> > >
-> > >     1. Read intf_reg_off into variable iface
-> > >     2. Write the RESET_SPEED for the appropriate mode to MAC_CTRL_REG
-> > >     3. wmb() to ensure that write goes through
-> >
-> > I wonder about whether that wmb() is required. If the mapping is
-> > device-like rather than memory-like, the write should be committed
-> > before the read that regmap_update_bits() does according to the ARM
-> > memory model. Maybe a bit of information about where this barrier has
-> > come from would be good, and maybe getting it reviewed by the
-> > arm64 barrier specialist, Will Deacon. :)
-> >
-> > wmb() is normally required to be paired with a rmb(), but we're not
-> > talking about system memory here, so I also wonder whether wmb() is
-> > the correct barrier to use.
->
-> Yes, I don't think wmb() is the right thing here. If you need to ensure that the
-> write to MAC_CTRL_REG has taken effect, then you'll need to go through some
-> device-specific sequence which probably involves reading something back. If you
-> just need things to arrive in order eventually, the memory type already gives you
-> that.
->
-> It's also worth pointing out that udelay() isn't necessarily ordered wrt MMIO
-> writes, so that usleep_range() might need some help as well.
-> Non-relaxed MMIO reads, however, _are_ ordered against a subsequent
-> udelay(), so if you add the readback then this might all work out.
->
+It does not really matter what you implement it for, so long is at is
+a clear example for others to follow who might be using the switch
+with other SoCs.
 
-    1. Write RESET_SPEED
-    2. Write 0 to MX93_GPR_ENET_QOS_INTF_MODE_MASK
-    3. usleep_range()
-    4. Restore MX93_GPR_ENET_QOS_CLK_GEN_EN | iface
-
-In the above example, if a readback after step #2 could ensure sufficient time has passed
-before step #4, the wmb() here should be abandoned.
-
-Thanks,
-Shenwei
-
-> I gave a (slightly dated) talk about some of this at ELC a while back:
->
-> https://www.yo/
-> utube.com%2Fwatch%3Fv%3Di6DayghhA8Q&data=05%7C01%7Cshenwei.wang
-> %40nxp.com%7C32396fd0396e4e46975f08db8f806680%7C686ea1d3bc2b4c6fa
-> 92cd99c5c301635%7C0%7C0%7C638261553857503588%7CUnknown%7CTWFp
-> bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
-> Mn0%3D%7C3000%7C%7C%7C&sdata=X5CQrQEVmUjYafYJ%2BzcnGXI9mhDT%
-> 2BMzDazGHOcoomas%3D&reserved=0
->
-> which might help.
->
-> Will
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
