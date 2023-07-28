@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A807665C2
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 09:50:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 550E7766633
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 10:02:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF4DBC6B466;
-	Fri, 28 Jul 2023 07:50:14 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0984C6B466;
+	Fri, 28 Jul 2023 08:02:25 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C5F7C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA216C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 07:50:10 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-3178fa77b27so50380f8f.2
+ Fri, 28 Jul 2023 08:02:24 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-3fbd33a57b6so20692805e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 00:50:10 -0700 (PDT)
+ Fri, 28 Jul 2023 01:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690530610; x=1691135410;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20221208; t=1690531344; x=1691136144;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DDrQSF4flbfX31MTNsZ15td23C3i0hNJdQ7UI0vCA3I=;
- b=DJXTLmy58DH82+ndYnRhovf0F46i4Qt08gyosVKYjJaphIunwDUwAzldq17njcyipw
- 26pLbTBaOdB3JYXsJoFdcXPWy7flzVbsdlKiZEfyzzYj6AcyQPQ29RjWE8eTLmbJY86P
- dYK718jc4GtH7GdMCLY1g4FhRK8c0X0OtY2m9r16b79F5J69pOb7genW+sPoMKqvVIR6
- /MIAXbW+qxMPhX9L4SEsn4ulVqwoztDabTSdLzcSnBN1lcF7xBmLmZjDd3dUWPQDnfZU
- ObWglzNlQBifg+6WGmKCl+PQN8NlOft/lPIDp8kOvQHi8ZWimM/PYJYj8BUQLarguzWD
- A6+g==
+ bh=kYM+7Hxeiy/zYV2rA6It/fCBYA1mIgJrIwwqnoyI16Q=;
+ b=Wy6PcTqm0lASLVO6XrA5cXAZ52JkBtE7hd5w5A3ou1OOQPfgRembi0F9CnF7+ugo4t
+ LOqGmFrEoDGMhl9IRBiFmtwcisMIiaFastrV7CS5mtzan8yo+L15Q0A63BtkyFGM4xvg
+ 9fJ5koXRFLWGuCXunOD3XCPvvUe9mjyZMk55UBf59Bef56hWE5m6pP4kTDSRXTcclP3P
+ rcCToVZz6HkyTZMUxRsCNmEKxUR2Tc7wv19FzabfmP9Q/9LDOZqhgPjMSducLxNMd+YX
+ QFVd/QtSDPPUIsDpfE0W5E0DLbBN55bbEsZyvCUeMEgpMg74i5vvjm5TEkhfLJhAm5pX
+ oSXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690530610; x=1691135410;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20221208; t=1690531344; x=1691136144;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=DDrQSF4flbfX31MTNsZ15td23C3i0hNJdQ7UI0vCA3I=;
- b=ZoxGSq/WhNLXuOxPeHzFFz2w1/TdNA4sWsGb0h6nOGNy4sn8TtsrcVchwfd2GERfjT
- nxSYbhu6d6KkCLoF33yi/pawJCEMqmGn3eDM4DrJi5xq8oicRaBTC724lLBANIBJdTTv
- jxQjC6yX1am3DDcpqhBzkfMVE1TKlACaq1EVK30KGzyC2TALCpI7rU9/Lh/L5lcB1pMg
- slxSgIWsddKBTgfzREipUoKXuFgCxb8Ty6B9Mh8yCN8GTOze0vveXhMEk/cR/iv7wt9c
- o9RSsYBN8rMAPfMGmMxXv+9sY8dqnFXHDiIG94DEfM+ov9nMGLOgbB/+Pj8AkogxsYhN
- mQsQ==
-X-Gm-Message-State: ABy/qLYf2usu1bHNKBNgxnlBRPWDLCrlzQ7xQzLdELfeYlcYwZpieg7h
- 7noGlmUa5YPtxtyZq7FqQwo=
-X-Google-Smtp-Source: APBJJlEgSiKQeIzrK/jf6155faui04e89WIa1lf3pSVZA/JOpzJggqhsijVHEfTfWO5PmXty8T+t1g==
-X-Received: by 2002:a5d:4533:0:b0:317:69c7:98ad with SMTP id
- j19-20020a5d4533000000b0031769c798admr1181655wra.3.1690530609932; 
- Fri, 28 Jul 2023 00:50:09 -0700 (PDT)
-Received: from localhost
- (p200300e41f1bd600f22f74fffe1f3a53.dip0.t-ipconnect.de.
+ bh=kYM+7Hxeiy/zYV2rA6It/fCBYA1mIgJrIwwqnoyI16Q=;
+ b=K0KZPoxxK1ynPlAIBIeyuRIGCbtuWlnuRpJ4h7ANiLn+4dBpCGMPYMglhIGt7zb8+Y
+ LlWLubOKy0A3sumpf+xcbjSbP6lh1lNDHRYX1IJY9aVs7sKdJz4MCyirKUtS2ymXujnk
+ kozw79Wxf1ZvD1naM+mHlySct4+sSYk4raehw5JgDZujoNoLPf4QMys4VyCRqbollsGl
+ tUFJLUa1BwUWXrWTHip7yQ/vEWVpp/jNVcOTpjJz2wNHGcyttR+rAjIOJrgQZzd0zb1D
+ fpveT1+GaToRzzIFkLx4J9Lli8cNsuRmfcKXXodEqQq4aNjI2b5aG+7htZU1lgUiS9AQ
+ bJBw==
+X-Gm-Message-State: ABy/qLbNHGdV75puoAZsdyWpmR/AWttWkVxzZWv30Kr9Nhjy8hy8XJtn
+ O7r6V2HL7SbchGk3wwmMhXQ=
+X-Google-Smtp-Source: APBJJlElOTovIl2beeM+x0POT8VUO9qTc95oQ0L0Cyj7z/JG5/PDMHQsUoAqguf1s0EMmkcGlgs07Q==
+X-Received: by 2002:a1c:f309:0:b0:3fc:182:7eac with SMTP id
+ q9-20020a1cf309000000b003fc01827eacmr1322726wmq.33.1690531344075; 
+ Fri, 28 Jul 2023 01:02:24 -0700 (PDT)
+Received: from orome (p200300e41f1bd600f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f1b:d600:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- y8-20020adffa48000000b003159d2dabbasm4080107wrr.94.2023.07.28.00.50.09
+ o20-20020a05600c511400b003f7f475c3bcsm19727225wms.1.2023.07.28.01.02.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jul 2023 00:50:09 -0700 (PDT)
+ Fri, 28 Jul 2023 01:02:23 -0700 (PDT)
+Date: Fri, 28 Jul 2023 10:02:22 +0200
 From: Thierry Reding <thierry.reding@gmail.com>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Date: Fri, 28 Jul 2023 09:50:07 +0200
-Message-ID: <169053057431.3515253.3807570644936028334.b4-ty@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230714214519.2503468-1-u.kleine-koenig@pengutronix.de>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZMN2DtpxEpHcseTi@orome>
 References: <20230714214519.2503468-1-u.kleine-koenig@pengutronix.de>
+ <20230714214519.2503468-2-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- kernel@pengutronix.de
-Subject: Re: [Linux-stm32] (subset) [PATCH 1/2] pwm: stmpe: Handle errors
-	when disabling the signal
+In-Reply-To: <20230714214519.2503468-2-u.kleine-koenig@pengutronix.de>
+User-Agent: Mutt/2.2.10 (2023-03-25)
+Cc: kernel@pengutronix.de, linux-pwm@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stmpe: Don't issue error
+ messages for problems in .apply_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,22 +79,172 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0869744467684033761=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIEZyaSwgMTQgSnVsIDIwMjMgMjM6NDU6MTggKzAyMDAsIFV3ZSBLbGVpbmUtS8O2bmlnIHdy
-b3RlOgo+IEJlZm9yZSB0aGUgcHdtIGZyYW1ld29yayBpbXBsZW1lbnRlZGF0b21pYyB1cGRhdGVz
-ICh3aXRoIHRoZSAuYXBwbHkoKQo+IGNhbGxiYWNrKSB0aGUgLmRpc2FibGUoKSBjYWxsYmFjayBy
-ZXR1cm5lZCB2b2lkLiBUaGlzIGlzIHN0aWxsIHZpc2libGUKPiBpbiB0aGUgc3RtcGUgZHJpdmVy
-IHdoaWNoIGRyb3BzIGVycm9ycyBpbiB0aGUgZGlzYWJsZSBwYXRoLgo+IAo+IEltcHJvdmUgdGhl
-IGRyaXZlciB0byBmb3J3YXJkIGZhaWx1cmVzIGluIHN0bXBlXzI0eHhfcHdtX2Rpc2FibGUoKSB0
-bwo+IHRoZSBjYWxsZXIgb2YgcHdtX2FwcGx5X3N0YXRlKCkuCj4gCj4gWy4uLl0KCkFwcGxpZWQs
-IHRoYW5rcyEKClsxLzJdIHB3bTogc3RtcGU6IEhhbmRsZSBlcnJvcnMgd2hlbiBkaXNhYmxpbmcg
-dGhlIHNpZ25hbAogICAgICBjb21taXQ6IGIyYzcxZTlmOGRkMGQwMjNhODQ3ZjZjMzhmOWE4M2Mw
-OTQ5ZWMwMWEKCkJlc3QgcmVnYXJkcywKLS0gClRoaWVycnkgUmVkaW5nIDx0aGllcnJ5LnJlZGlu
-Z0BnbWFpbC5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============0869744467684033761==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bpX/+TxFeOrauri4"
+Content-Disposition: inline
+
+
+--bpX/+TxFeOrauri4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jul 14, 2023 at 11:45:19PM +0200, Uwe Kleine-K=C3=B6nig wrote:
+> pwm drivers are supposed to be silent for failures in .apply_state()
+> because a problem is likely to be persistent and so it can easily flood
+> the kernel log. So remove all error messages from .apply_state() and the
+> functions that are (only) called by that callback.
+>=20
+> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
+> ---
+>  drivers/pwm/pwm-stmpe.c | 35 ++++++-----------------------------
+>  1 file changed, 6 insertions(+), 29 deletions(-)
+
+I don't necessarily agree with that claim. Given that some of the
+implementations can be quite complex, the error messages may be useful
+to diagnose what exactly is going wrong. It's also quite rare for any
+consumers to call pwm_apply_state() in quick succession, so I don't
+think "flooding" is really a problem.
+
+Is this an actual problem anywhere?
+
+Looking at where these errors would originate, these can be either from
+I2C or SPI and the MFD driver will do some probing and failures in that
+code would lead to probe failure, so any persistent problems are likely
+going to be detected early on. And if there are errors that start to
+happen at runtime, it's probably not a bad idea to be as noisy as
+possible.
+
+On the other hand, the stmpe_reg_read() and stmpe_reg_write() produce
+error messages of their own, so the ones in this driver mainly serve as
+adding context. Perhaps rather than removing these, turning them into
+dev_dbg() would be a good compromise?
+
+Thierry
+
+>=20
+> diff --git a/drivers/pwm/pwm-stmpe.c b/drivers/pwm/pwm-stmpe.c
+> index e205405c4828..4a8d0d9b9cfc 100644
+> --- a/drivers/pwm/pwm-stmpe.c
+> +++ b/drivers/pwm/pwm-stmpe.c
+> @@ -43,22 +43,12 @@ static int stmpe_24xx_pwm_enable(struct pwm_chip *chi=
+p, struct pwm_device *pwm)
+>  	int ret;
+> =20
+>  	ret =3D stmpe_reg_read(stmpe_pwm->stmpe, STMPE24XX_PWMCS);
+> -	if (ret < 0) {
+> -		dev_err(chip->dev, "error reading PWM#%u control\n",
+> -			pwm->hwpwm);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+> =20
+>  	value =3D ret | BIT(pwm->hwpwm);
+> =20
+> -	ret =3D stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
+> -	if (ret) {
+> -		dev_err(chip->dev, "error writing PWM#%u control\n",
+> -			pwm->hwpwm);
+> -		return ret;
+> -	}
+> -
+> -	return 0;
+> +	return stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
+>  }
+> =20
+>  static int stmpe_24xx_pwm_disable(struct pwm_chip *chip,
+> @@ -69,19 +59,12 @@ static int stmpe_24xx_pwm_disable(struct pwm_chip *ch=
+ip,
+>  	int ret;
+> =20
+>  	ret =3D stmpe_reg_read(stmpe_pwm->stmpe, STMPE24XX_PWMCS);
+> -	if (ret < 0) {
+> -		dev_err(chip->dev, "error reading PWM#%u control\n",
+> -			pwm->hwpwm);
+> +	if (ret < 0)
+>  		return ret;
+> -	}
+> =20
+>  	value =3D ret & ~BIT(pwm->hwpwm);
+> =20
+> -	ret =3D stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
+> -	if (ret)
+> -		dev_err(chip->dev, "error writing PWM#%u control\n",
+> -			pwm->hwpwm);
+> -	return ret;
+> +	return stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
+>  }
+> =20
+>  /* STMPE 24xx PWM instructions */
+> @@ -124,11 +107,8 @@ static int stmpe_24xx_pwm_config(struct pwm_chip *ch=
+ip, struct pwm_device *pwm,
+> =20
+>  		ret =3D stmpe_set_altfunc(stmpe_pwm->stmpe, BIT(pin),
+>  					STMPE_BLOCK_PWM);
+> -		if (ret) {
+> -			dev_err(chip->dev, "unable to connect PWM#%u to pin\n",
+> -				pwm->hwpwm);
+> +		if (ret)
+>  			return ret;
+> -		}
+>  	}
+> =20
+>  	/* STMPE24XX */
+> @@ -241,11 +221,8 @@ static int stmpe_24xx_pwm_config(struct pwm_chip *ch=
+ip, struct pwm_device *pwm,
+>  		value =3D program[i] & 0xff;
+> =20
+>  		ret =3D stmpe_reg_write(stmpe_pwm->stmpe, offset, value);
+> -		if (ret) {
+> -			dev_err(chip->dev, "error writing register %02x: %d\n",
+> -				offset, ret);
+> +		if (ret)
+>  			return ret;
+> -		}
+>  	}
+> =20
+>  	/* If we were enabled, re-enable this PWM */
+> --=20
+> 2.39.2
+>=20
+
+--bpX/+TxFeOrauri4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmTDdgsACgkQ3SOs138+
+s6EpzA//fjFlgQrloiZWpkw958vNc6JYHa3kpUjykvO5CmGEHDdqjI9Tmmbl/5cB
+0t/FOBs+YG8CharyF4EKmqQRCQjy1OdTNivMI4AcnDKxoUR4WVYKII1e4fyOPLcp
+NUzKeED7qj4rsF02HHq8DEabLcWSOOSqN32Tr/6a1Rp2jxCD/ORsAEAxXDmFa+FY
+pJyWlrs7d8V20UVOtsSnNRFTJwtdDT3hhZqETL35wKxrGch4z6MxhFnNoh2Iysov
+CxhTLpZdnw+seuKtV6lgy+DexEIhbVr2LqFE09XqzJK3Fq3Rd95aLG4zWkJFlZyp
+tQim1sRprsvhBYoHPCo9r4RCpGyNk1HkT3z737VtxxIELQKmymCRXrkEuDR2lcsn
+XTqC8C+9GbSmsRyrrArIY1O+KmC3cw5cQPmCHkVpcYuVd3eWX73iTn4NlCfanfgo
+vu2Bk5WLZ33Szl3/4kDqZEj1lb1cJiTnykx/uj17jY5JJmPZKYP79+FxcFvHw73E
+UfaZxwervfhi3yIaweR4ARzpJc0G6wyvIKgKnkngV2sF9MI/E2/baEDJWy/aJSik
+Xg/4FZ84a0ELogv+J0MDZDLGTKsTiK0/6rh9PtxrS8cUTb4zIdMBMBE0uo9wcVmR
+VV8IVMIOJi456Vrb8NLkiMRe0aLyiipmUrLQyUTlny+Kcfz6Gz0=
+=ZY6e
+-----END PGP SIGNATURE-----
+
+--bpX/+TxFeOrauri4--
+
+--===============0869744467684033761==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0869744467684033761==--
