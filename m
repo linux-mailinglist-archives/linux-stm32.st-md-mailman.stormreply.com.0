@@ -2,59 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F48765E40
-	for <lists+linux-stm32@lfdr.de>; Thu, 27 Jul 2023 23:32:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EC98766283
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 05:40:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96E69C6B465;
-	Thu, 27 Jul 2023 21:32:03 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5235C6B468;
+	Fri, 28 Jul 2023 03:40:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B4F6C6B45C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DF4DC6B45C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 27 Jul 2023 21:32:02 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id B14E81BF205;
- Thu, 27 Jul 2023 21:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1690493521;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=RVzGt1hU6/zJ2p8ESrItLga9WOYSY12aapmt+gJTTm0=;
- b=KuzkthgvdjwJnivEU/aryJfGIVIwS2Jo2FGYznAjBe2XO2ObIJRvGb4lZ+5IDN1HoNpZYG
- 4od2IsUmCvD1rkxDQUX70EEy/OerDBhxZu3PYbTnWRsnA+Uh3PCr6Soiqs7oTND51Z5H12
- vPxGYo5bgxbp54fa9pK//rRC9ZjhXRAtXs5LXD+g2zg8loPvxEOC0OU9LKtcey5kXGqFUV
- 3owWu3CEW9oVKY03yZ19bLiumKfiItmQPfrW7xy4+Zjs6amZuo4MDBNNBF0yaCOsre4eZ+
- CZksNyGouFQz3JfaVim3BzM6WwJl4QqifmvRDrXEUYS0+aUG+hl2XEUkrWRj6g==
-Date: Thu, 27 Jul 2023 23:31:51 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Alessandro Zummo <a.zummo@towertech.it>, Andrew Lunn <andrew@lunn.ch>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@microchip.com>,
- Paul Cercueil <paul@crapouillou.net>, Vladimir Zapolskiy <vz@mleia.com>,
- Eddie Huang <eddie.huang@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>
-Message-ID: <169049349537.641428.12895115995770744599.b4-ty@bootlin.com>
-References: <20230724205456.767430-1-robh@kernel.org>
+ Fri, 28 Jul 2023 03:40:26 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8B87F61FC9;
+ Fri, 28 Jul 2023 03:40:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6E700C43391;
+ Fri, 28 Jul 2023 03:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690515623;
+ bh=nh7VNF71Px8+ehWsNezgTEu3Q5hpaEOt5oKxXH92/qA=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=n5OOA0hexFDJfGiqn8bTgbsd1NxuBlbkYDKSx4jve1A1uhS5AnTOvFTQV4JWG7aBf
+ g/w60ZUiuyy1xVob0CGewYJXVq1VL+QTFR/Web3ZJJ2NNh+cY5USv/q3z7SDcq/wTR
+ lonQnxK346qjNlcQZfWCfeuaLMI8E7TUSZjSKMLEMehF+DgMrtLu+XmXsACHxfUrce
+ uCl8v7KPKSe+YopRiOOHSvNs0MFFYZuVftoYlnB7ke0VUB/3LypcDS6Ej2rHAU9kNd
+ 8tKWHNxo+5s5dfDX+o4x42ap7+FrTJwJM45yRjAs4oZ8Nub3PfEMVbrmDiV7UKUGPk
+ vMj95R4jHRhaw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 417E1C691EE; Fri, 28 Jul 2023 03:40:23 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230724205456.767430-1-robh@kernel.org>
-X-GND-Sasl: alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] rtc: Explicitly include correct DT
-	includes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169051562326.23821.4231940284607437337.git-patchwork-notify@kernel.org>
+Date: Fri, 28 Jul 2023 03:40:23 +0000
+References: <20230727014944.3972546-1-robh@kernel.org>
+In-Reply-To: <20230727014944.3972546-1-robh@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: kevinbrace@bracecomputerlab.com, andrew@lunn.ch,
+ iyappan@os.amperecomputing.com, miquel.raynal@bootlin.com,
+ nobuhiro1.iwamatsu@toshiba.co.jp, jonathanh@nvidia.com,
+ horatiu.vultur@microchip.com, radhey.shyam.pandey@amd.com,
+ jbrunet@baylibre.com, samuel@sholland.org, sean.anderson@seco.com,
+ khilman@baylibre.com, madalin.bucur@nxp.com, joabreu@synopsys.com,
+ linux-imx@nxp.com, Mark-MC.Lee@mediatek.com, s.hauer@pengutronix.de,
+ linux-omap@vger.kernel.org, elder@kernel.org, dougmill@linux.ibm.com,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ linux-wpan@vger.kernel.org, claudiu.beznea@microchip.com,
+ alexandre.belloni@bootlin.com, hayashi.kunihiko@socionext.com,
+ chris.snook@gmail.com, edumazet@google.com, thierry.reding@gmail.com,
+ pantelis.antoniou@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ stefan@datenfreihafen.org, yisen.zhuang@huawei.com,
+ steve.glendinning@shawell.net, martin.blumenstingl@googlemail.com,
+ linux-arm-msm@vger.kernel.org, sean.wang@mediatek.com, claudiu.manoil@nxp.com,
+ linux-amlogic@lists.infradead.org, michal.simek@amd.com,
+ linux-arm-kernel@lists.infradead.org, mlindner@marvell.com,
+ neil.armstrong@linaro.org, UNGLinuxDriver@microchip.com,
+ linux-renesas-soc@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-mediatek@lists.infradead.org, hkallweit1@gmail.com,
+ taras.chornyi@plvision.eu, kernel@esmil.dk, andreas@gaisler.com,
+ linux-tegra@vger.kernel.org, peppe.cavallaro@st.com, festevam@gmail.com,
+ jernej.skrabec@gmail.com, wens@csie.org, shenwei.wang@nxp.com,
+ samin.guo@starfivetech.com, romieu@fr.zoreil.com, pabeni@redhat.com,
+ lorenzo@kernel.org, grygorii.strashko@ti.com, bhupesh.sharma@linaro.org,
+ john@phrozen.org, salil.mehta@huawei.com, s.shtylyov@omp.ru, timur@kernel.org,
+ linux-sunxi@lists.linux.dev, linux-oxnas@groups.io, shawnguo@kernel.org,
+ davem@davemloft.net, alex.aring@gmail.com, vladimir.oltean@nxp.com,
+ linux@armlinux.org.uk, xiaoning.wang@nxp.com, elder@linaro.org,
+ kuba@kernel.org, richardcochran@gmail.com, keyur@os.amperecomputing.com,
+ wei.fang@nxp.com, matthias.bgg@gmail.com, mw@semihalf.com,
+ angelogioacchino.delregno@collabora.com, netdev@vger.kernel.org,
+ nicolas.ferre@microchip.com, leoyang.li@nxp.com, stephen@networkplumber.org,
+ vkoul@kernel.org, linuxppc-dev@lists.ozlabs.org, nbd@nbd.name
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: Explicitly include
+	correct DT includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,8 +95,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hello:
 
-On Mon, 24 Jul 2023 14:54:54 -0600, Rob Herring wrote:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 26 Jul 2023 19:49:39 -0600 you wrote:
 > The DT of_device.h and of_platform.h date back to the separate
 > of_platform_bus_type before it as merged into the regular platform bus.
 > As part of that merge prepping Arm DT support 13 years ago, they
@@ -84,17 +112,16 @@ On Mon, 24 Jul 2023 14:54:54 -0600, Rob Herring wrote:
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [net-next,v3] net: Explicitly include correct DT includes
+    https://git.kernel.org/netdev/net-next/c/3d40aed86287
 
-[1/1] rtc: Explicitly include correct DT includes
-      commit: 48144c2890503b919bc8ee128b63e37008d69250
-
-Best regards,
-
+You are awesome, thank you!
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
