@@ -2,48 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8C876706B
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 17:23:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 033DA7670AC
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 17:36:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB93FC6B468;
-	Fri, 28 Jul 2023 15:23:03 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87945C6B468;
+	Fri, 28 Jul 2023 15:36:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF9EEC6A610
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB12BC6B45D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 15:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zFaTvjva0ryo1dGvlmwD9YwRXLb5KCK4M2vuVLGCmtY=; b=R648ApYvuLp9TRmpig3RK00k45
- iwo/6SoqI2MGew0WOsD/C0Pmrd8pPKAp71PCdAHyf3DtaYQsTPecUkOn3Ka5apKAjNYX6GLNVerk9
- FFE1jTiLl2rSU5G3jkLo1oh6P7XcoETkQj9jfhD9f6wgdOzCB8UBP3/wJV0846kRjE/XAE2JhyHZH
- 17FIB6eRR571XIYccm02B92tb7uFK5y7rI/XX8k2I4Kqoh8AAR60xEZyV2pvw8TPmoHWD372yIBE8
- vccayBxsZXU4StXzIKMWl3/WmbHP3Z2Iz5Jy/oCU3DexPI5jEKpOQOtuhgX3I+d6ZmBAypVpilYa/
- +TG9D+Kw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:34660)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qPPIQ-0007Qe-2c;
- Fri, 28 Jul 2023 16:22:26 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qPPIJ-00051L-6E; Fri, 28 Jul 2023 16:22:19 +0100
-Date: Fri, 28 Jul 2023 16:22:19 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Halaney <ahalaney@redhat.com>, Will Deacon <will@kernel.org>
-Message-ID: <ZMPdKyOtpZKEMLsO@shell.armlinux.org.uk>
+ Fri, 28 Jul 2023 15:36:23 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 910F062184;
+ Fri, 28 Jul 2023 15:36:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD475C433C8;
+ Fri, 28 Jul 2023 15:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690558582;
+ bh=g4K5vq4lPyGBYhqgJJE0//L14vL/7BRJwDrh2+NOlqk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=S0/2qOh9DNQM/zNi5r9udD62Tuu5Uosyrt7S4golN5beku3HBItbqx/hsmFGSsjso
+ /K78hYySn6CsOKCp40tUlRsYRNgEQR/ZSeR3x2gxM6/SvBC/W1YQyj7muSEibPxpt4
+ 9fx5kaG5gptMsk367e7ditSVFDcX2XzKOQai8PgIupG70U0dRp3wNZW74zkoQPzZ/g
+ DdsyYULweQssqFoRfX7p2gW8o4eVxrtPtFqJjxOjm0Ib1hFQBJULx5RV4D8BgBxHCD
+ dMb7FJIYJfoGEcIG/KcIdeYFlcF4Pb77Kzu9Gez3zZTCGgrk3wvZLSiigrkx4o4R2s
+ S/qZhlXIcMYCQ==
+Date: Fri, 28 Jul 2023 16:36:12 +0100
+From: Will Deacon <will@kernel.org>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20230728153611.GH21718@willie-the-truck>
 References: <20230727152503.2199550-1-shenwei.wang@nxp.com>
  <20230727152503.2199550-3-shenwei.wang@nxp.com>
  <4govb566nypifbtqp5lcbsjhvoyble5luww3onaa2liinboguf@4kgihys6vhrg>
+ <ZMPdKyOtpZKEMLsO@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <4govb566nypifbtqp5lcbsjhvoyble5luww3onaa2liinboguf@4kgihys6vhrg>
+In-Reply-To: <ZMPdKyOtpZKEMLsO@shell.armlinux.org.uk>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: imx@lists.linux.dev, Simon Horman <simon.horman@corigine.com>,
  Frank Li <frank.li@nxp.com>, Eric Dumazet <edumazet@google.com>,
  linux-amlogic@lists.infradead.org, Shenwei Wang <shenwei.wang@nxp.com>,
@@ -54,6 +53,7 @@ Cc: imx@lists.linux.dev, Simon Horman <simon.horman@corigine.com>,
  Wong Vee Khee <veekhee@apple.com>, Chen-Yu Tsai <wens@csie.org>,
  Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Andrew Halaney <ahalaney@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
@@ -85,78 +85,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jul 27, 2023 at 01:36:45PM -0500, Andrew Halaney wrote:
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> > index 53ee5a42c071..e7819960128e 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-> > @@ -40,6 +40,9 @@
-> >  #define DMA_BUS_MODE			0x00001000
-> >  #define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
-> >  #define RMII_RESET_SPEED		(0x3 << 14)
-> > +#define MII_RESET_SPEED			(0x2 << 14)
-> > +#define RGMII_RESET_SPEED		(0x0 << 14)
-> > +#define CTRL_SPEED_MASK			(0x3 << 14)
+On Fri, Jul 28, 2023 at 04:22:19PM +0100, Russell King (Oracle) wrote:
+> On Thu, Jul 27, 2023 at 01:36:45PM -0500, Andrew Halaney wrote:
+> > I don't have any documentation for the registers here, and as you can
+> > see I'm an amateur with respect to memory ordering based on my prior
+> > comment.
+> > 
+> > But you:
+> > 
+> >     1. Read intf_reg_off into variable iface
+> >     2. Write the RESET_SPEED for the appropriate mode to MAC_CTRL_REG
+> >     3. wmb() to ensure that write goes through
 > 
-> GENMASK() would be cleaner, as well as BIT() usage, but I do see
-> the driver currently does shifts.. so /me shrugs
-
-BIT() is only useful for single-bit items, not for use with bitfields,
-and their use with bitfields just makes the whole thing perverse.
-
-#define CTRL_SPEED_MASK		GENMASK(15, 14)
-#define CTRL_SPEED_RGMII_RESET	0
-#define CTRL_SPEED_MII_RESET	2
-#define CTRL_SPEED_RMII_RESET	3
-
-and then its use:
-
-	FIELD_PREP(CTRL_SPEED_MASK, CTRL_SPEED_RGMII_RESET)
-or
-	FIELD_PREP(CTRL_SPEED_MASK, CTRL_SPEED_MII_RESET)
-or
-	FIELD_PREP(CTRL_SPEED_MASK, CTRL_SPEED_RMII_RESET)
-
-alternatively:
-
-        if (iface == MX93_GPR_ENET_QOS_INTF_SEL_RMII)
-                speed = CTRL_SPEED_RMII_RESET;
-        else (iface == MX93_GPR_ENET_QOS_INTF_SEL_MII)
-                speed = CTRL_SPEED_MII_RESET;
-	else
-		speed = CTRL_SPEED_RGMII_RESET;
-
-	old_ctrl = readl(dwmac->base_addr + MAC_CTRL_REG);
-	ctrl = old_ctrl & ~CTRL_SPEED_MASK;
-	ctrl |= FIELD_PREP(CTRL_SPEED_MASK, speed);
-	writel(ctrl, dwmac->base_addr + MAC_CTRL_REG);
-
-> I don't have any documentation for the registers here, and as you can
-> see I'm an amateur with respect to memory ordering based on my prior
-> comment.
+> I wonder about whether that wmb() is required. If the mapping is
+> device-like rather than memory-like, the write should be committed
+> before the read that regmap_update_bits() does according to the ARM
+> memory model. Maybe a bit of information about where this barrier
+> has come from would be good, and maybe getting it reviewed by the
+> arm64 barrier specialist, Will Deacon. :)
 > 
-> But you:
-> 
->     1. Read intf_reg_off into variable iface
->     2. Write the RESET_SPEED for the appropriate mode to MAC_CTRL_REG
->     3. wmb() to ensure that write goes through
+> wmb() is normally required to be paired with a rmb(), but we're not
+> talking about system memory here, so I also wonder whether wmb() is
+> the correct barrier to use.
 
-I wonder about whether that wmb() is required. If the mapping is
-device-like rather than memory-like, the write should be committed
-before the read that regmap_update_bits() does according to the ARM
-memory model. Maybe a bit of information about where this barrier
-has come from would be good, and maybe getting it reviewed by the
-arm64 barrier specialist, Will Deacon. :)
+Yes, I don't think wmb() is the right thing here. If you need to ensure
+that the write to MAC_CTRL_REG has taken effect, then you'll need to go
+through some device-specific sequence which probably involves reading
+something back. If you just need things to arrive in order eventually,
+the memory type already gives you that.
 
-wmb() is normally required to be paired with a rmb(), but we're not
-talking about system memory here, so I also wonder whether wmb() is
-the correct barrier to use.
+It's also worth pointing out that udelay() isn't necessarily ordered wrt
+MMIO writes, so that usleep_range() might need some help as well.
+Non-relaxed MMIO reads, however, _are_ ordered against a subsequent
+udelay(), so if you add the readback then this might all work out.
 
-Adding Will.
+I gave a (slightly dated) talk about some of this at ELC a while back:
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+https://www.youtube.com/watch?v=i6DayghhA8Q
+
+which might help.
+
+Will
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
