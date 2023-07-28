@@ -2,70 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 550E7766633
-	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 10:02:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 421A57666BC
+	for <lists+linux-stm32@lfdr.de>; Fri, 28 Jul 2023 10:18:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0984C6B466;
-	Fri, 28 Jul 2023 08:02:25 +0000 (UTC)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED122C6B466;
+	Fri, 28 Jul 2023 08:18:11 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA216C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1417EC6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 08:02:24 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-3fbd33a57b6so20692805e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 01:02:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690531344; x=1691136144;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kYM+7Hxeiy/zYV2rA6It/fCBYA1mIgJrIwwqnoyI16Q=;
- b=Wy6PcTqm0lASLVO6XrA5cXAZ52JkBtE7hd5w5A3ou1OOQPfgRembi0F9CnF7+ugo4t
- LOqGmFrEoDGMhl9IRBiFmtwcisMIiaFastrV7CS5mtzan8yo+L15Q0A63BtkyFGM4xvg
- 9fJ5koXRFLWGuCXunOD3XCPvvUe9mjyZMk55UBf59Bef56hWE5m6pP4kTDSRXTcclP3P
- rcCToVZz6HkyTZMUxRsCNmEKxUR2Tc7wv19FzabfmP9Q/9LDOZqhgPjMSducLxNMd+YX
- QFVd/QtSDPPUIsDpfE0W5E0DLbBN55bbEsZyvCUeMEgpMg74i5vvjm5TEkhfLJhAm5pX
- oSXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690531344; x=1691136144;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=kYM+7Hxeiy/zYV2rA6It/fCBYA1mIgJrIwwqnoyI16Q=;
- b=K0KZPoxxK1ynPlAIBIeyuRIGCbtuWlnuRpJ4h7ANiLn+4dBpCGMPYMglhIGt7zb8+Y
- LlWLubOKy0A3sumpf+xcbjSbP6lh1lNDHRYX1IJY9aVs7sKdJz4MCyirKUtS2ymXujnk
- kozw79Wxf1ZvD1naM+mHlySct4+sSYk4raehw5JgDZujoNoLPf4QMys4VyCRqbollsGl
- tUFJLUa1BwUWXrWTHip7yQ/vEWVpp/jNVcOTpjJz2wNHGcyttR+rAjIOJrgQZzd0zb1D
- fpveT1+GaToRzzIFkLx4J9Lli8cNsuRmfcKXXodEqQq4aNjI2b5aG+7htZU1lgUiS9AQ
- bJBw==
-X-Gm-Message-State: ABy/qLbNHGdV75puoAZsdyWpmR/AWttWkVxzZWv30Kr9Nhjy8hy8XJtn
- O7r6V2HL7SbchGk3wwmMhXQ=
-X-Google-Smtp-Source: APBJJlElOTovIl2beeM+x0POT8VUO9qTc95oQ0L0Cyj7z/JG5/PDMHQsUoAqguf1s0EMmkcGlgs07Q==
-X-Received: by 2002:a1c:f309:0:b0:3fc:182:7eac with SMTP id
- q9-20020a1cf309000000b003fc01827eacmr1322726wmq.33.1690531344075; 
- Fri, 28 Jul 2023 01:02:24 -0700 (PDT)
-Received: from orome (p200300e41f1bd600f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f1b:d600:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- o20-20020a05600c511400b003f7f475c3bcsm19727225wms.1.2023.07.28.01.02.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Jul 2023 01:02:23 -0700 (PDT)
-Date: Fri, 28 Jul 2023 10:02:22 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <ZMN2DtpxEpHcseTi@orome>
+ Fri, 28 Jul 2023 08:18:11 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qPIfl-0005yV-Ba; Fri, 28 Jul 2023 10:18:05 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qPIfj-002fOF-T5; Fri, 28 Jul 2023 10:18:03 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qPIfj-008S77-7A; Fri, 28 Jul 2023 10:18:03 +0200
+Date: Fri, 28 Jul 2023 10:18:03 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Message-ID: <20230728081803.aswbz4slvrqqi5hc@pengutronix.de>
 References: <20230714214519.2503468-1-u.kleine-koenig@pengutronix.de>
  <20230714214519.2503468-2-u.kleine-koenig@pengutronix.de>
+ <ZMN2DtpxEpHcseTi@orome>
 MIME-Version: 1.0
-In-Reply-To: <20230714214519.2503468-2-u.kleine-koenig@pengutronix.de>
-User-Agent: Mutt/2.2.10 (2023-03-25)
-Cc: kernel@pengutronix.de, linux-pwm@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
+In-Reply-To: <ZMN2DtpxEpHcseTi@orome>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pwm@vger.kernel.org,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com
 Subject: Re: [Linux-stm32] [PATCH 2/2] pwm: stmpe: Don't issue error
  messages for problems in .apply_state()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -79,164 +55,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0869744467684033761=="
+Content-Type: multipart/mixed; boundary="===============6464739495340802153=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============0869744467684033761==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="bpX/+TxFeOrauri4"
+--===============6464739495340802153==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wtwb2wwbm2l6qz3u"
 Content-Disposition: inline
 
 
---bpX/+TxFeOrauri4
-Content-Type: text/plain; charset=utf-8
+--wtwb2wwbm2l6qz3u
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 14, 2023 at 11:45:19PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> pwm drivers are supposed to be silent for failures in .apply_state()
-> because a problem is likely to be persistent and so it can easily flood
-> the kernel log. So remove all error messages from .apply_state() and the
-> functions that are (only) called by that callback.
+On Fri, Jul 28, 2023 at 10:02:22AM +0200, Thierry Reding wrote:
+> On Fri, Jul 14, 2023 at 11:45:19PM +0200, Uwe Kleine-K=F6nig wrote:
+> > pwm drivers are supposed to be silent for failures in .apply_state()
+> > because a problem is likely to be persistent and so it can easily flood
+> > the kernel log. So remove all error messages from .apply_state() and the
+> > functions that are (only) called by that callback.
+> >=20
+> > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+> > ---
+> >  drivers/pwm/pwm-stmpe.c | 35 ++++++-----------------------------
+> >  1 file changed, 6 insertions(+), 29 deletions(-)
 >=20
-> Signed-off-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>
-> ---
->  drivers/pwm/pwm-stmpe.c | 35 ++++++-----------------------------
->  1 file changed, 6 insertions(+), 29 deletions(-)
-
-I don't necessarily agree with that claim. Given that some of the
-implementations can be quite complex, the error messages may be useful
-to diagnose what exactly is going wrong. It's also quite rare for any
-consumers to call pwm_apply_state() in quick succession, so I don't
-think "flooding" is really a problem.
-
-Is this an actual problem anywhere?
-
-Looking at where these errors would originate, these can be either from
-I2C or SPI and the MFD driver will do some probing and failures in that
-code would lead to probe failure, so any persistent problems are likely
-going to be detected early on. And if there are errors that start to
-happen at runtime, it's probably not a bad idea to be as noisy as
-possible.
-
-On the other hand, the stmpe_reg_read() and stmpe_reg_write() produce
-error messages of their own, so the ones in this driver mainly serve as
-adding context. Perhaps rather than removing these, turning them into
-dev_dbg() would be a good compromise?
-
-Thierry
-
+> I don't necessarily agree with that claim. Given that some of the
+> implementations can be quite complex, the error messages may be useful
+> to diagnose what exactly is going wrong. It's also quite rare for any
+> consumers to call pwm_apply_state() in quick succession, so I don't
+> think "flooding" is really a problem.
 >=20
-> diff --git a/drivers/pwm/pwm-stmpe.c b/drivers/pwm/pwm-stmpe.c
-> index e205405c4828..4a8d0d9b9cfc 100644
-> --- a/drivers/pwm/pwm-stmpe.c
-> +++ b/drivers/pwm/pwm-stmpe.c
-> @@ -43,22 +43,12 @@ static int stmpe_24xx_pwm_enable(struct pwm_chip *chi=
-p, struct pwm_device *pwm)
->  	int ret;
-> =20
->  	ret =3D stmpe_reg_read(stmpe_pwm->stmpe, STMPE24XX_PWMCS);
-> -	if (ret < 0) {
-> -		dev_err(chip->dev, "error reading PWM#%u control\n",
-> -			pwm->hwpwm);
-> +	if (ret < 0)
->  		return ret;
-> -	}
-> =20
->  	value =3D ret | BIT(pwm->hwpwm);
-> =20
-> -	ret =3D stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
-> -	if (ret) {
-> -		dev_err(chip->dev, "error writing PWM#%u control\n",
-> -			pwm->hwpwm);
-> -		return ret;
-> -	}
-> -
-> -	return 0;
-> +	return stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
->  }
-> =20
->  static int stmpe_24xx_pwm_disable(struct pwm_chip *chip,
-> @@ -69,19 +59,12 @@ static int stmpe_24xx_pwm_disable(struct pwm_chip *ch=
-ip,
->  	int ret;
-> =20
->  	ret =3D stmpe_reg_read(stmpe_pwm->stmpe, STMPE24XX_PWMCS);
-> -	if (ret < 0) {
-> -		dev_err(chip->dev, "error reading PWM#%u control\n",
-> -			pwm->hwpwm);
-> +	if (ret < 0)
->  		return ret;
-> -	}
-> =20
->  	value =3D ret & ~BIT(pwm->hwpwm);
-> =20
-> -	ret =3D stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
-> -	if (ret)
-> -		dev_err(chip->dev, "error writing PWM#%u control\n",
-> -			pwm->hwpwm);
-> -	return ret;
-> +	return stmpe_reg_write(stmpe_pwm->stmpe, STMPE24XX_PWMCS, value);
->  }
-> =20
->  /* STMPE 24xx PWM instructions */
-> @@ -124,11 +107,8 @@ static int stmpe_24xx_pwm_config(struct pwm_chip *ch=
-ip, struct pwm_device *pwm,
-> =20
->  		ret =3D stmpe_set_altfunc(stmpe_pwm->stmpe, BIT(pin),
->  					STMPE_BLOCK_PWM);
-> -		if (ret) {
-> -			dev_err(chip->dev, "unable to connect PWM#%u to pin\n",
-> -				pwm->hwpwm);
-> +		if (ret)
->  			return ret;
-> -		}
->  	}
-> =20
->  	/* STMPE24XX */
-> @@ -241,11 +221,8 @@ static int stmpe_24xx_pwm_config(struct pwm_chip *ch=
-ip, struct pwm_device *pwm,
->  		value =3D program[i] & 0xff;
-> =20
->  		ret =3D stmpe_reg_write(stmpe_pwm->stmpe, offset, value);
-> -		if (ret) {
-> -			dev_err(chip->dev, "error writing register %02x: %d\n",
-> -				offset, ret);
-> +		if (ret)
->  			return ret;
-> -		}
->  	}
-> =20
->  	/* If we were enabled, re-enable this PWM */
-> --=20
-> 2.39.2
->=20
+> Is this an actual problem anywhere?
 
---bpX/+TxFeOrauri4
+The real motivation for this change was to stop the driver making use of
+struct pwm_chip::dev as I'm changing that one in my effort to track a
+pwm_chip's lifetime using a struct device preparing character device
+support for PWMs. So each usage that is gone doesn't need to be touched
+later together with the pwm_chip restructurings.
+
+While I think that the error messages are hardly useful I also never
+were in a situation where they triggered, so maybe my judgement isn't
+well-founded.
+
+> On the other hand, the stmpe_reg_read() and stmpe_reg_write() produce
+> error messages of their own, so the ones in this driver mainly serve as
+> adding context. Perhaps rather than removing these, turning them into
+> dev_dbg() would be a good compromise?
+
+I will consider that. It would still use chip->dev, but I can cope with
+that. :-)
+
+Best regards
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--wtwb2wwbm2l6qz3u
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmTDdgsACgkQ3SOs138+
-s6EpzA//fjFlgQrloiZWpkw958vNc6JYHa3kpUjykvO5CmGEHDdqjI9Tmmbl/5cB
-0t/FOBs+YG8CharyF4EKmqQRCQjy1OdTNivMI4AcnDKxoUR4WVYKII1e4fyOPLcp
-NUzKeED7qj4rsF02HHq8DEabLcWSOOSqN32Tr/6a1Rp2jxCD/ORsAEAxXDmFa+FY
-pJyWlrs7d8V20UVOtsSnNRFTJwtdDT3hhZqETL35wKxrGch4z6MxhFnNoh2Iysov
-CxhTLpZdnw+seuKtV6lgy+DexEIhbVr2LqFE09XqzJK3Fq3Rd95aLG4zWkJFlZyp
-tQim1sRprsvhBYoHPCo9r4RCpGyNk1HkT3z737VtxxIELQKmymCRXrkEuDR2lcsn
-XTqC8C+9GbSmsRyrrArIY1O+KmC3cw5cQPmCHkVpcYuVd3eWX73iTn4NlCfanfgo
-vu2Bk5WLZ33Szl3/4kDqZEj1lb1cJiTnykx/uj17jY5JJmPZKYP79+FxcFvHw73E
-UfaZxwervfhi3yIaweR4ARzpJc0G6wyvIKgKnkngV2sF9MI/E2/baEDJWy/aJSik
-Xg/4FZ84a0ELogv+J0MDZDLGTKsTiK0/6rh9PtxrS8cUTb4zIdMBMBE0uo9wcVmR
-VV8IVMIOJi456Vrb8NLkiMRe0aLyiipmUrLQyUTlny+Kcfz6Gz0=
-=ZY6e
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmTDeboACgkQj4D7WH0S
+/k53ogf+OMjGXX6GAMEIDDzu8FYz5WjbCFY40R4pbnRPuh1aL5SAuGD9dkankZW6
+2MvpsY4+0ORZ97SNrayEc+EMajuMlBpuiJjgyzBbJJ6or5ZeK4q0DejcyMS87bMS
+9UkdR5eKmpofWEm5BfFuRnDJ3aE6ZewAPS8w6qgtyXXmocZKgMnzFdF/JZt1HJdL
+DtHoYDgTJQoX2u1wA5lqljag6vVFXI5Jz819z+GfW/IRvePxwBaLvO9wJT2tUq3B
+bBvcr5YZ0yZ/G1pZ1su1RdXGhuQZ9KGtlBpwjXGL+9/FLaJjdeCSfewyluptbS39
+rYvRhHRUaXsddTGhjNEJklm6EhcGRg==
+=8D0T
 -----END PGP SIGNATURE-----
 
---bpX/+TxFeOrauri4--
+--wtwb2wwbm2l6qz3u--
 
---===============0869744467684033761==
+--===============6464739495340802153==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -247,4 +144,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============0869744467684033761==--
+--===============6464739495340802153==--
