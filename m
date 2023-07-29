@@ -2,132 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61D717679F5
-	for <lists+linux-stm32@lfdr.de>; Sat, 29 Jul 2023 02:47:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8E1767E84
+	for <lists+linux-stm32@lfdr.de>; Sat, 29 Jul 2023 13:16:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E41B4C6B468;
-	Sat, 29 Jul 2023 00:47:11 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on2079.outbound.protection.outlook.com [40.107.6.79])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8461EC6B467;
+	Sat, 29 Jul 2023 11:16:38 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9EAAC6A610
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEC55C6B459
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 29 Jul 2023 00:47:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e8BEoD5zGSqd4pR/jKvNfmaakjFvDl6vIiCmkCoB7PdbbqctERON2cfBVjBzo5da7LfgwH60vTrgmd7y2WnQGhZZsOaX6gmMgkHmAPoLEcPk3Y54ue+lBwD5CYNIyLDJHP4M3nHHcz9KBKx2Au1IkVLxAF7XYUSGGEIrUFp2Cop/VKdQIT/Ga42jTvhJdWEUTurpaeYphLwADqPDa/xWEdHTWKAQnE88WKcqW71OCYVLiX/qFA8oW04a94Q/MrN59kQFFvicC381B3H6xRo5zvq95Ri+Y9FehEXzD157zJSbYywzjXH9UC2s4UmK4IKAFBay7CxWB1mGz+Hgn7ZL5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5cISNBWcGVL4/PXnDL9FlW0H4xCA8xzuHkOq7nHtfRQ=;
- b=RZwYFHZkEQRRA11a2B7WsrnlqnuJu37oHybbazvvJC6vxFZh7yuyH16wNS76/OSd/suvRadn+ULe/J5F8evACZcM212BDTkYXHEOoOoD8dGFUMNxh5eyTiUpjecucB1dvV6ofj5dSBmEMOcfcMonk8Rt9OSMN5MAqy7kzYAamCzCFBz79040Ew3a0rDKcK9XiGNl9xC7MlWmfIeyu3vVKB0wFj/2qLPrr3AWd10CA1vLW7gXR35RWr3ZWozwl6YotEvmQGSbehiqJEqPQ4srKTpAyLlv1iPA3+voultSQk6yXI+USzm53XK83zVTUjfHdLvB/veRmyhMplj+YU6IFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5cISNBWcGVL4/PXnDL9FlW0H4xCA8xzuHkOq7nHtfRQ=;
- b=CqoNeqPC3zh+Ak4rR6GkHGhITGHqHMnUIl04YbREDCjBe69z632Fv+Hk7u4ANazN5LxBT4MSpi0NN2chLXlkncAI7va8a+muhZlWKNEtAyrtWsWPkdJJpSWBV8P62suk+ZrreJAkqc1VP83RRBM1rjGYNU4hbUCTaE/CJY9Ugu0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6452.eurprd04.prod.outlook.com (2603:10a6:208:16d::21)
- by PAXPR04MB8877.eurprd04.prod.outlook.com (2603:10a6:102:20c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.29; Sat, 29 Jul
- 2023 00:47:08 +0000
-Received: from AM0PR04MB6452.eurprd04.prod.outlook.com
- ([fe80::6074:afac:3fae:6194]) by AM0PR04MB6452.eurprd04.prod.outlook.com
- ([fe80::6074:afac:3fae:6194%4]) with mapi id 15.20.6631.039; Sat, 29 Jul 2023
- 00:47:08 +0000
-Date: Sat, 29 Jul 2023 03:47:02 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Message-ID: <20230729004702.oiloyrt3p3x46u7s@skbuf>
-References: <20230728232215.2071351-1-rkannoth@marvell.com>
- <20230728232215.2071351-1-rkannoth@marvell.com>
-Content-Disposition: inline
-In-Reply-To: <20230728232215.2071351-1-rkannoth@marvell.com>
- <20230728232215.2071351-1-rkannoth@marvell.com>
-X-ClientProxiedBy: FR0P281CA0232.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b2::16) To AM0PR04MB6452.eurprd04.prod.outlook.com
- (2603:10a6:208:16d::21)
+ Sat, 29 Jul 2023 11:16:36 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 99E8560B95;
+ Sat, 29 Jul 2023 11:16:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 950F7C433C8;
+ Sat, 29 Jul 2023 11:16:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1690629395;
+ bh=jxNIB8O572fEJmMf7g6dPY/36mLF2jOEBJ8DivAd/vg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OglWkqAc3nL+qzC116wCncti+8oDXY9UrXFFeOsy8ag0eoZZIqyHpgA94xwIbafpN
+ sD7aNXJVmJSwQ6s5lcDX3kT44+S35QVTpG0TLdSPP37HA/WwP9CdtdRlMmLXrlATTD
+ axPZ7m6uMR5Di9+Vq0GJCVV65vgTZvEEe8d1ax335PrPaW1qCpTHAoh5R9hZEdeNSS
+ BkR136ogbml6j2zt19eHtjDvcKPJgyOk7P6kWF+mXYNw1TW5wwlFLEaFLMTF8VVAF1
+ 1iu6P1CgWRLFgnDPluNjTI7pahk/QocaEdLW4i9CZxeqLRxQEf2ufp+Bj/p9wtMG7D
+ vE19mUAaQEO9w==
+Date: Sat, 29 Jul 2023 12:16:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20230729121629.79ac3d9b@jic23-huawei>
+In-Reply-To: <20230726083810.232100-3-gatien.chevallier@foss.st.com>
+References: <20230726083810.232100-1-gatien.chevallier@foss.st.com>
+ <20230726083810.232100-3-gatien.chevallier@foss.st.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6452:EE_|PAXPR04MB8877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d5d51a2-1286-44c0-ef0a-08db8fcd5659
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: L3UyGqitxVnjw0dupaOqAp8lxHE3y4WHHUczPLMbt0ceAXF8ILiQWk382DFAAcAQW67mGHR8tqu4kz+hp3oQVKyIzGJptQotCP6x3eX4/7kPjMrW6kKoZMw0mmNWpCy1kC4i9byuEwUGZrPJDb4URYl+94bv7GKsAu2mYG92pKCXW9HtEcQ+sf0xFtFUtUb7t5W9z2eoKJnl6gMPSH83ANfv1IxNBrgcBBf/VUKEO/xWJgmhx1EgCE4Po7lPl53lnS+sm4Gd8XlHmWzAfVo6BjoLCzA2aTtNO9IoOnBk8kdZSVyd84ABDILMdGK4SEFGt+zjuO5aq1kKxkDQjvLc4EiebUdTm1qPQ5LDu9gI9/XkNYJNRbcu0il0yvCJF614eAi6UPcepuKQw0sFsqddw+vudFc009Tx4vDHYA096ko+TSxHBHPIRtNziRtVdtHXNNqKgqdKRgmawRxPw6yo8ujbUgT6R8EXUtfslCtOF4NnUe35qY34D881TxiL7gZYeGRGfDEqAGPuUYEGveJ3gcbCpDfE7RFOPhea64KrpwY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB6452.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(7916004)(4636009)(136003)(39860400002)(376002)(346002)(366004)(396003)(451199021)(6666004)(478600001)(6486002)(6916009)(83380400001)(6512007)(9686003)(1076003)(26005)(6506007)(966005)(38100700002)(66476007)(66556008)(66946007)(186003)(4326008)(5660300002)(7416002)(7366002)(7406005)(316002)(8936002)(8676002)(2906002)(41300700001)(44832011)(86362001)(33716001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?U5zszli7JXl4jXFfOciE9j2bTB3PTSMeXhxdX3qbhVCnulZGD202DfxRO79u?=
- =?us-ascii?Q?1HVmpX0EuTxwmBFgCVwX+dz6VYtQiuY0Nh/ovnsA9jVgh0V3weFSBk6B6Bwj?=
- =?us-ascii?Q?oJT9XEC5pXSsN36BZFY/XbpSzGRYyjK0RaHT5r1B43iIwTGCY3MACEccU1tK?=
- =?us-ascii?Q?Y1UKtHjtYk4Mqh48nmB4kY8dBL8NZH/AAI9OAjONWck+l8s2vmUeeKyzPuTH?=
- =?us-ascii?Q?6HW17621PKi/K6dmtPY3JbXisqHkNPB3DBYv9YRn5FaaxnKgLszpWtIcef8m?=
- =?us-ascii?Q?7rDMIgDWCkjduU+ej/gVRR320LHaiFeCAVyWDj19tTVpqwxhaeWeyyx53Erd?=
- =?us-ascii?Q?wg4QMZwLTFNdu/YYVsB7WTjx0TZDzBZowrDTVgxs9ICSzN49GQ8RjVMjRcrD?=
- =?us-ascii?Q?ElFHDLsn3iEVaJQy3KgJx/7lmB0dsN6vIsOgGWxhE92azOeP2iASxlJ72/In?=
- =?us-ascii?Q?vV1S8E164IFc3saCc/crJZ9scSGyti4UDlvB1XyikBcL1/l975R+chjlmNi3?=
- =?us-ascii?Q?ShqsZJFUlY5DTrJRrpanMRPT1MOTZUcH/cVlJ5S5xxuZyZOL4AYErfCn+yWR?=
- =?us-ascii?Q?NDxeJq6wSmgjMsDuAk0vyt1e7pd8VXI2A7IfxNi9e0S2XZblCZ/C0hurtmHl?=
- =?us-ascii?Q?CiliIZkV8RmWunadzLwvc6ArI3vKnn+URnhctl7pYsDJMUO7ffEw/z7CAzrQ?=
- =?us-ascii?Q?zKmGinWKh3tf9llKqiSyQKSh9oWrYLK/vSkQGVrl+7jFJe8ga9nym6YSh1To?=
- =?us-ascii?Q?pX8Tueu+P/MiQ8gxPwVETLOrxdNMzeSFpbRigOih8EKBxM6JcJhbPLybU0Hp?=
- =?us-ascii?Q?sKjtawdkqLJOoF3spV9KfPVwSHV1rhAoioAhRsmmGnZQUHZOYq+dqzeeAdre?=
- =?us-ascii?Q?y6ZemNI3Iad+co/mFeL965a9LX6uT2P0Ku8BQYUiuDBTiiQmrxWRt2Jn/tWx?=
- =?us-ascii?Q?eGXlzjPlDRYym/Z1H9/84pGnnNHHexYF/9MFPaQox8JiWIc4WU8XwpSdj0hR?=
- =?us-ascii?Q?y+SD7sGqZKb/B41/TKkN+i4RTMInxAZ0kIEb3kPygDiLO0unjkvg6JzQUwsZ?=
- =?us-ascii?Q?HpW+szKofx/ICARgSm4AYLvNqUkqoTH219NlLH0XQEPUjoQPnhQEvkR2CSIw?=
- =?us-ascii?Q?FOkAtzWxhZjsHoO4J3sF0TpMDjH2HptBD9SHF+ELQObgvF9rNBHR4n6Z+mE+?=
- =?us-ascii?Q?DSBPF1RBBY5d/Tub76kyLeWLF5H2nE2/HtwDm0T+CwMgg3Ks9IPbkTiiuVjz?=
- =?us-ascii?Q?MvDx3AgrMQ1jpChK9TE/bmoNBTQWPUroMIR0VOw5hCPNCMmt9FTdx1oHUO6c?=
- =?us-ascii?Q?M/dF2eXrFG47C3cbWzZotpu9NIzR8k6hS/mBSozFhMeBYSFykYEuZNC4KiRz?=
- =?us-ascii?Q?UypknypO6ecvmIDLAsdLJ3EgcItC4GwDFKhkLq7QO5yVE70RDhwF1voZ6EiG?=
- =?us-ascii?Q?gn7NwlT+Dh4tHfOJy3VuTpFmYEc7WfaLLgiHIbXbyDZhLOc7ctZZQjpM+3Sy?=
- =?us-ascii?Q?j5u51ogwUb60bGa5YfQsfIgTj5cHL3kxOvFztAQ4tUw3peq4K+DRCIQRxtpZ?=
- =?us-ascii?Q?HNEE3enQpQ5MgYgFFcFeV+CBLk9MUVm7BKZliynZUNiJZh8DPxnSL0n6RkSu?=
- =?us-ascii?Q?FQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d5d51a2-1286-44c0-ef0a-08db8fcd5659
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6452.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2023 00:47:08.4726 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OvGVmNDrH5qUeaqhEp3t2AWY+gYEL8EWbiFtesEipphtxsaX0gdA6h8NYXP0nx/ZDCatPOX/pAesTRMSdfnaWQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8877
-Cc: taras.chornyi@plvision.eu, andrew@lunn.ch, alexandre.belloni@bootlin.com,
- linux-stm32@st-md-mailman.stormreply.com, simon.horman@corigine.com,
- jdamato@fastly.com, kurt@linutronix.de, edumazet@google.com,
- anthony.l.nguyen@intel.com, ioana.ciornei@nxp.com,
- gerhard@engleder-embedded.com, wojciech.drewek@intel.com,
- UNGLinuxDriver@microchip.com, horatiu.vultur@microchip.com, lanhao@huawei.com,
- louis.peens@corigine.com, f.fainelli@gmail.com, leon@kernel.org,
- linux-net-drivers@amd.com, Steen.Hegelund@microchip.com,
- jesse.brandeburg@intel.com, kadlec@netfilter.org, huangguangbin2@huawei.com,
- joabreu@synopsys.com, intel-wired-lan@lists.osuosl.org,
- linux-arm-kernel@lists.infradead.org, kuba@kernel.org,
- d-tatianin@yandex-team.ru, pabeni@redhat.com, yisen.zhuang@huawei.com,
- pablo@netfilter.org, linux-rdma@vger.kernel.org, grygorii.strashko@ti.com,
- aelior@marvell.com, daniel.machon@microchip.com, idosch@nvidia.com,
- wenjuan.geng@corigine.com, claudiu.manoil@nxp.com, coreteam@netfilter.org,
- habetsm.xilinx@gmail.com, hui.zhou@corigine.com, peppe.cavallaro@st.com,
- michael.chan@broadcom.com, linux-omap@vger.kernel.org,
- lars.povlsen@microchip.com, petrm@nvidia.com, zdoychev@maxlinear.com,
- salil.mehta@huawei.com, muhammad.husaini.zulkifli@intel.com,
- wentao.jia@corigine.com, manishc@marvell.com, netdev@vger.kernel.org,
- oss-drivers@corigine.com, fw@strlen.de, linux-kernel@vger.kernel.org,
- shenjian15@huawei.com, ecree.xilinx@gmail.com, netfilter-devel@vger.kernel.org,
- shmulik.ladkani@gmail.com, mcoquelin.stm32@gmail.com, rajur@chelsio.com,
- olteanv@gmail.com, saeedm@nvidia.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v3 net-next] net: flow_dissector: Use
-	64bits for used_keys
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
+ will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
+ hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ andi.shyti@kernel.org, alsa-devel@alsa-project.org, richardcochran@gmail.com,
+ robh+dt@kernel.org, linux-serial@vger.kernel.org, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
+ linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 02/11] dt-bindings: treewide: add
+ feature-domains description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,68 +73,448 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Jul 29, 2023 at 04:52:15AM +0530, Ratheesh Kannoth wrote:
-> As 32bits of dissector->used_keys are exhausted,
-> increase the size to 64bits.
+On Wed, 26 Jul 2023 10:38:01 +0200
+Gatien Chevallier <gatien.chevallier@foss.st.com> wrote:
+
+> feature-domains is an optional property that allows a peripheral to
+> refer to one or more feature domain controller(s).
 > 
-> This is base change for ESP/AH flow dissector patch.
-> Please find patch and discussions at
-> https://lore.kernel.org/netdev/ZMDNjD46BvZ5zp5I@corigine.com/T/#t
+> Description of this property is added to all peripheral binding files of
+> the peripheral under the STM32 firewall controllers. It allows an accurate
+> representation of the hardware, where various peripherals are connected
+> to this firewall bus. The firewall can then check the peripheral accesses
+> before allowing it to probe.
 > 
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> Reviewed-by: Petr Machata <petrm@nvidia.com> # for mlxsw
-> Tested-by: Petr Machata <petrm@nvidia.com>
-> Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
-> Reviewed-by: Simon Horman <simon.horman@corigine.com>
-> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> #for IIO
+
 > ---
-> ChangeLog
 > 
-> v2 -> v3: commit message subject line fix as per comment of Petr Machata
-> v1 -> v2: Commit message typo fix.
-> v0 -> v1: Fix errors reported by kernel test robot
-> ---
-
-Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-> index 2b80fe73549d..8c531f4ec912 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-> @@ -221,16 +221,21 @@ mlx5_ct_fs_smfs_destroy(struct mlx5_ct_fs *fs)
->  }
+> Changes in V2: 
+> 	- Add missing "feature-domains" property declaration
+> 	  in bosch,m_can.yaml and st,stm32-cryp.yaml files
+> 
+>  Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dma.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 4 ++++
+>  .../devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml  | 4 ++++
+>  .../devicetree/bindings/media/cec/st,stm32-cec.yaml          | 4 ++++
+>  Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml   | 4 ++++
+>  .../bindings/memory-controllers/st,stm32-fmc2-ebi.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml   | 5 +++++
+>  Documentation/devicetree/bindings/mmc/arm,pl18x.yaml         | 4 ++++
+>  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml   | 4 ++++
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml       | 4 ++++
+>  Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml | 4 ++++
+>  .../devicetree/bindings/regulator/st,stm32-vrefbuf.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/rng/st,stm32-rng.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/serial/st,stm32-uart.yaml  | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml    | 4 ++++
+>  Documentation/devicetree/bindings/sound/st,stm32-sai.yaml    | 4 ++++
+>  .../devicetree/bindings/sound/st,stm32-spdifrx.yaml          | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml     | 4 ++++
+>  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml      | 4 ++++
+>  Documentation/devicetree/bindings/usb/dwc2.yaml              | 4 ++++
+>  26 files changed, 105 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml
+> index 0ddeb8a9a7a0..87a578327fc0 100644
+> --- a/Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-cryp.yaml
+> @@ -46,6 +46,10 @@ properties:
+>    power-domains:
+>      maxItems: 1
 >  
->  static inline bool
-> -mlx5_tc_ct_valid_used_dissector_keys(const u32 used_keys)
-> +mlx5_tc_ct_valid_used_dissector_keys(const u64 used_keys)
->  {
-> -#define DISS_BIT(name) BIT(FLOW_DISSECTOR_KEY_ ## name)
-> -	const u32 basic_keys = DISS_BIT(BASIC) | DISS_BIT(CONTROL) | DISS_BIT(META);
-> -	const u32 ipv4_tcp = basic_keys | DISS_BIT(IPV4_ADDRS) | DISS_BIT(PORTS) | DISS_BIT(TCP);
-> -	const u32 ipv6_tcp = basic_keys | DISS_BIT(IPV6_ADDRS) | DISS_BIT(PORTS) | DISS_BIT(TCP);
-> -	const u32 ipv4_udp = basic_keys | DISS_BIT(IPV4_ADDRS) | DISS_BIT(PORTS);
-> -	const u32 ipv6_udp = basic_keys | DISS_BIT(IPV6_ADDRS) | DISS_BIT(PORTS);
-> -	const u32 ipv4_gre = basic_keys | DISS_BIT(IPV4_ADDRS);
-> -	const u32 ipv6_gre = basic_keys | DISS_BIT(IPV6_ADDRS);
-> +#define DISS_BIT(name) BIT_ULL(FLOW_DISSECTOR_KEY_ ## name)
-> +	const u64 basic_keys = DISS_BIT(BASIC) | DISS_BIT(CONTROL) |
-> +				DISS_BIT(META);
-> +	const u64 ipv4_tcp = basic_keys | DISS_BIT(IPV4_ADDRS) |
-> +				DISS_BIT(PORTS) | DISS_BIT(TCP);
-> +	const u64 ipv6_tcp = basic_keys | DISS_BIT(IPV6_ADDRS) |
-> +				DISS_BIT(PORTS) | DISS_BIT(TCP);
-> +	const u64 ipv4_udp = basic_keys | DISS_BIT(IPV4_ADDRS) |
-> +				DISS_BIT(PORTS);
-> +	const u64 ipv6_udp = basic_keys | DISS_BIT(IPV6_ADDRS) |
-> +				 DISS_BIT(PORTS);
-> +	const u64 ipv4_gre = basic_keys | DISS_BIT(IPV4_ADDRS);
-> +	const u64 ipv6_gre = basic_keys | DISS_BIT(IPV6_ADDRS);
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> index b767ec72a999..042a1e005ab2 100644
+> --- a/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/st,stm32-hash.yaml
+> @@ -50,6 +50,10 @@ properties:
+>    power-domains:
+>      maxItems: 1
 >  
->  	return (used_keys == ipv4_tcp || used_keys == ipv4_udp || used_keys == ipv6_tcp ||
->  		used_keys == ipv6_udp || used_keys == ipv4_gre || used_keys == ipv6_gre);
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml b/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
+> index 329847ef096a..9f60915e6130 100644
+> --- a/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
+> +++ b/Documentation/devicetree/bindings/dma/st,stm32-dma.yaml
+> @@ -82,6 +82,10 @@ properties:
+>      description: if defined, it indicates that the controller
+>        supports memory-to-memory transfer
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml b/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml
+> index e722fbcd8a5f..15d33d41098f 100644
+> --- a/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml
+> +++ b/Documentation/devicetree/bindings/dma/st,stm32-dmamux.yaml
+> @@ -28,6 +28,10 @@ properties:
+>    resets:
+>      maxItems: 1
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> index 94b75d9f66cd..8a1a21faab8c 100644
+> --- a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+> @@ -99,6 +99,10 @@ properties:
+>  
+>    wakeup-source: true
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> index 995cbf8cefc6..d59ac9282a28 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> @@ -93,6 +93,10 @@ properties:
+>    '#size-cells':
+>      const: 0
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  allOf:
+>    - if:
+>        properties:
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> index 1970503389aa..39ee55aa4dd8 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> @@ -59,6 +59,10 @@ properties:
+>        If not, SPI CLKOUT frequency will not be accurate.
+>      maximum: 20000000
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml b/Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml
+> index 04045b932bd2..184d0a44d1de 100644
+> --- a/Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml
+> +++ b/Documentation/devicetree/bindings/iio/dac/st,stm32-dac.yaml
+> @@ -45,6 +45,10 @@ properties:
+>    '#size-cells':
+>      const: 0
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  additionalProperties: false
+>  
+>  required:
+> diff --git a/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+> index 2314a9a14650..41db21373301 100644
+> --- a/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+> +++ b/Documentation/devicetree/bindings/media/cec/st,stm32-cec.yaml
+> @@ -29,6 +29,10 @@ properties:
+>        - const: cec
+>        - const: hdmi-cec
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+> index 6b3e413cedb2..81e1cd5e30cc 100644
+> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+> @@ -36,6 +36,10 @@ properties:
+>    resets:
+>      maxItems: 1
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>    port:
+>      $ref: /schemas/graph.yaml#/$defs/port-base
+>      unevaluatedProperties: false
+> diff --git a/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+> index 14f1833d37c9..4ef01ee4a5e5 100644
+> --- a/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+> +++ b/Documentation/devicetree/bindings/memory-controllers/st,stm32-fmc2-ebi.yaml
+> @@ -45,6 +45,10 @@ properties:
+>        Reflects the memory layout with four integer values per bank. Format:
+>        <bank-number> 0 <address of the bank> <size>
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  patternProperties:
+>    "^.*@[0-4],[a-f0-9]+$":
+>      additionalProperties: true
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> index 27329c5dc38e..156aed282fb8 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-lptimer.yaml
+> @@ -44,6 +44,10 @@ properties:
+>  
+>    wakeup-source: true
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>    pwm:
+>      type: object
+>      additionalProperties: false
+> diff --git a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> index f84e09a5743b..d19981ef3fce 100644
+> --- a/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> +++ b/Documentation/devicetree/bindings/mfd/st,stm32-timers.yaml
+> @@ -67,6 +67,11 @@ properties:
+>    "#size-cells":
+>      const: 0
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +
+>    pwm:
+>      type: object
+>      additionalProperties: false
+> diff --git a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> index 2459a55ed540..5a8b53d5c35f 100644
+> --- a/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/arm,pl18x.yaml
+> @@ -79,6 +79,10 @@ properties:
+>            - const: rx
+>            - const: tx
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>    power-domains: true
+>  
+>    resets:
+> diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> index 67879aab623b..144cbcbefa37 100644
+> --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
+> @@ -118,6 +118,10 @@ properties:
+>    phys:
+>      maxItems: 1
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> index fc8c96b08d7d..133e1edbd561 100644
+> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> @@ -93,6 +93,10 @@ properties:
+>        select RCC clock instead of ETH_REF_CLK.
+>      type: boolean
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - clocks
+> diff --git a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> index 24a3dbde223b..89fa65f31d20 100644
+> --- a/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> +++ b/Documentation/devicetree/bindings/phy/phy-stm32-usbphyc.yaml
+> @@ -55,6 +55,10 @@ properties:
+>      description: number of clock cells for ck_usbo_48m consumer
+>      const: 0
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  # Required child nodes:
+>  
+>  patternProperties:
+> diff --git a/Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.yaml b/Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.yaml
+> index 05f4ad2c7d3a..b73a97f89fe4 100644
+> --- a/Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/st,stm32-vrefbuf.yaml
+> @@ -30,6 +30,10 @@ properties:
+>    vdda-supply:
+>      description: phandle to the vdda input analog voltage.
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> index 187b172d0cca..c45e6285653c 100644
+> --- a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> +++ b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+> @@ -30,6 +30,10 @@ properties:
+>      type: boolean
+>      description: If set enable the clock detection management
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> index 1df8ffe95fc6..b80d5a8ff4e8 100644
+> --- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
+> @@ -70,6 +70,10 @@ properties:
+>      enum: [1, 2, 4, 8, 12, 14, 16]
+>      default: 8
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  allOf:
+>    - $ref: rs485.yaml#
+>    - $ref: serial.yaml#
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> index b9111d375b93..30339447cc24 100644
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+> @@ -65,6 +65,10 @@ properties:
+>      $ref: audio-graph-port.yaml#
+>      unevaluatedProperties: false
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - "#sound-dai-cells"
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> index 56d206f97a96..f59770ead3e3 100644
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> @@ -48,6 +48,10 @@ properties:
+>    clock-names:
+>      maxItems: 3
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> index bc48151b9adb..480ce8704fda 100644
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> @@ -50,6 +50,10 @@ properties:
+>    resets:
+>      maxItems: 1
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - "#sound-dai-cells"
+> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+> index 8bba965a9ae6..3331f6cd1b75 100644
+> --- a/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/st,stm32-qspi.yaml
+> @@ -46,6 +46,10 @@ properties:
+>        - const: tx
+>        - const: rx
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  required:
+>    - compatible
+>    - reg
+> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> index 9ca1a843c820..a0664a0fcabf 100644
+> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> @@ -59,6 +59,10 @@ properties:
+>        - const: rx
+>        - const: tx
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  patternProperties:
+>    "^[a-zA-Z][a-zA-Z0-9,+\\-._]{0,63}@[0-9a-f]+$":
+>      type: object
+> diff --git a/Documentation/devicetree/bindings/usb/dwc2.yaml b/Documentation/devicetree/bindings/usb/dwc2.yaml
+> index 0a5c98ea711d..95b615ee3a07 100644
+> --- a/Documentation/devicetree/bindings/usb/dwc2.yaml
+> +++ b/Documentation/devicetree/bindings/usb/dwc2.yaml
+> @@ -172,6 +172,10 @@ properties:
+>  
+>    tpl-support: true
+>  
+> +  feature-domains:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+>  dependencies:
+>    port: [ usb-role-switch ]
+>    role-switch-default-mode: [ usb-role-switch ]
 
-Probably leaving the style alone here, and just changing the types,
-would have been a better choice. Anyway...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
