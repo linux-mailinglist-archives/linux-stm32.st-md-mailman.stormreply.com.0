@@ -2,130 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1831C769C2C
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 18:20:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F37769D39
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 18:55:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0D15C6B44B;
-	Mon, 31 Jul 2023 16:20:31 +0000 (UTC)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2044.outbound.protection.outlook.com [40.107.8.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E83D4C6B471;
+	Mon, 31 Jul 2023 16:55:13 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A48EEC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA601C6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jul 2023 16:20:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DexxKx864HhEono/iQBD4YPVEnRiaF9Pde0RTjQiF5nWNvJGMyu5hOQoWoQt7PlvVXbp7iqnkqyPXFKdE5a6UDZY+Lgla1/AmQ4OQEFMHk8zaFfDXLudWtUkenTN+jpBP+AdxLLL90eMMF8eGXXNt/0UiX000n/rkzfWsJR/JKpvWI99JyUIeZKseGkKI4NPwt/QEa5z2XOQ/2VU2zyvD/8AnEIr1TchhA/OZVkUAPryRpJFcZOtG/pJ5J7p8wHHm6VLgX6G79k5s8O7lxN8CTe82EQdLFtsWZ7yqofsqYrwV8vE+6B9QpEqGN3Sutmc1zS3wBggruvKnCYBMjdfGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5I8OU839VhPlsTYhHxwfzmqSlYssToK+cPVuu8TuiwI=;
- b=cEHkBCu3DV528DVSVGxAOo8MemIam/njv7OHLEqonR9abjodIlvO/QzoB8BPEmEl4+OpgxJB067UfPnSFBtUh6DBhtkDKk9aiZ1KToRiWh1SwPDUNkXaTvNV6nlPyXfcMkiyRPIMmjpytUc/oFmehQMyB0CesKi0htm6Fb+61lgle56vsOWF6zDmq+gFJ+h5LRu2KnccecvjCdTJp1Rgw/LhDKwnonzFLOQ5aDvQ3LV90JpHol0+HhlEswJBArLcc5WVPjQVpd2YOatpNu7TVgJ/IcRxShvsCxIlkXXRZW8Ktl4t2XF32UiAeR3B1ycmnorzWGNYBP5A4sETsKr22g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5I8OU839VhPlsTYhHxwfzmqSlYssToK+cPVuu8TuiwI=;
- b=PO0XAdE6J8chwZUQVjo+c3L7lInVFviupjkY37qk73facGKt+UIHhebHRL6KpyewH0gH1rZf0WtWHjQQwH+zqtrr8aSYV5G1lNpHYjAAzPuYA9Z25FUUzDftbiiNnBfIwgxU6bI//Gwce29N1IdEl97v3NuaZepjfxKg44XuKPM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AS1PR04MB9237.eurprd04.prod.outlook.com (2603:10a6:20b:4d1::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.43; Mon, 31 Jul
- 2023 16:20:29 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.043; Mon, 31 Jul 2023
- 16:20:29 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>,
+ Mon, 31 Jul 2023 16:55:12 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQWAk-0006a0-1h; Mon, 31 Jul 2023 18:55:06 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQWAf-000AQS-O1; Mon, 31 Jul 2023 18:55:01 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qQWAe-009NYd-FU; Mon, 31 Jul 2023 18:55:00 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
  "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Date: Mon, 31 Jul 2023 11:19:29 -0500
-Message-Id: <20230731161929.2341584-3-shenwei.wang@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230731161929.2341584-1-shenwei.wang@nxp.com>
-References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
-X-ClientProxiedBy: BYAPR03CA0022.namprd03.prod.outlook.com
- (2603:10b6:a02:a8::35) To PAXPR04MB9185.eurprd04.prod.outlook.com
- (2603:10a6:102:231::11)
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Thomas Bourgoin <thomas.bourgoin@foss.st.com>,
+ Lionel Debieve <lionel.debieve@foss.st.com>
+Date: Mon, 31 Jul 2023 18:54:53 +0200
+Message-Id: <20230731165456.799784-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9185:EE_|AS1PR04MB9237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d109f44-fc09-4d15-22ec-08db91e20e1c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3IQHA7YQGQvxbRc01cumXQQvxAvUThnqYrO0iQnBBjp2WgRUTGcKVS3myeFWMnCs5h7pGg+ktQockqwPfz0eXTC2OVECBxhZbh0riZ+xcVrU/88Czi6edn3XPPSOmTC/1DznEcDAaeu9EGUOVWJGqHBTi4XJRlOL+N4B7rQvd77MM+YpqbLL6bGfY846aiwMV/CfpH7OjhpjmJ5sqG8KBrIz2PKDn3pMxl9SDDvWLK1NvY0GPkAmkjh/fPPeCoN1G4ZgXg6E0aQ5eBbtT0ePLiEeW6cY4e9ngEAcgIfQZBSC+cjTK2yi6KF6wqKtF1FGJT1s3TMOudvABdwDl/LvWQm9PXysL26E7TlTBsmzls4csTsUM9FpYbfIobGez7N0aK9bFND4fZQxml8DrotV/Gxr/CpYs371mUNYdXWdFYrkE97W8cWySNbRdqHjb/9tVVPurlLCjPBHsMsLkudzevjXRBP0hbRbo7e3M/U1GlXRhhUDVWb34uECQ/zhIu4JTgzwm/8ISSfcPMEi9krctBWQaL9vGVV8l3zLquiQ3deQTN2MPETr62MrgFt9PDJ0lhFBWEOUu1iS7lOI3ZOPt00c0BhkZB5Pa6QgFxRQS0QH52DvNeeosCtDvu4oyBAR6FFWx+zmQKu/WpvYHbLDSg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(366004)(346002)(451199021)(6512007)(52116002)(6486002)(186003)(83380400001)(2616005)(36756003)(86362001)(921005)(38350700002)(38100700002)(26005)(1076003)(6506007)(55236004)(5660300002)(41300700001)(8936002)(8676002)(66946007)(66476007)(66556008)(2906002)(7406005)(316002)(7416002)(478600001)(110136005)(54906003)(4326008)(44832011);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QR9GzBiQQKSv01YT47Ny6FUr92Pm/3nEeYMW6lxxawn3xTzD36fxm5wanyvy?=
- =?us-ascii?Q?T996mnwo1gyVm8gHy20vJbj/gbeQWEyJiWaXRwVMNfP1f2MHXEa0RmbFo/ph?=
- =?us-ascii?Q?QzNeXT+qNpL+geuOKqlAnAAzv2xwCaA2H7gj9Pu2mhsjU4L5LGcDC/o4xn21?=
- =?us-ascii?Q?7dowciIVP/YhNoJViw0weqwGqCKdINvNhXfXt+0rAJtQLvaJlUx8A1g0WSWn?=
- =?us-ascii?Q?Jf/Wj+hGgNNrZ2JHqvJojlOdJwqF1BDPq5mVQuI5az/BrORu/EbLid3iGitW?=
- =?us-ascii?Q?WmxjJjjZ/oiX2+qC2QGLityvF/hxo6dNUj8+VAtaFIGrjcpJ9GGnvahD/2zD?=
- =?us-ascii?Q?xEO2DptIc75rGDZuKPUxkmrlmbqSk2FLDbNqmALYq52R7G8YICeROhENv0Zl?=
- =?us-ascii?Q?jVX0DAi18MU93YL3K0JsUWOz3/CirE7qMltPOaKgBBF8HAYLAsx+2zq0yenk?=
- =?us-ascii?Q?vDOR8PPqhGsJkNpy+l3vudLASi+9SggfEd906XXDKoG0ix+CqlYjnrIokHrC?=
- =?us-ascii?Q?40ZTVpR1hOlFNgLiQOXruNhIHuhIoKzKEYUknq90E4mv/jix2CCgk5RiqOSl?=
- =?us-ascii?Q?kzg6E1aSoS77XP+Apxki3Yr71RiFM5IOP80yIP4cTII6ho8zZ+C6U7q+J5iR?=
- =?us-ascii?Q?S68SdmEnf9mG+Nl/KXMvYmc8686qPJmHCeA6sXnV/wPlJ3jj6eThFvOxFaxZ?=
- =?us-ascii?Q?P7mqUwMsak/YUcvrQIHEpQL6ao3HA6bnyFRAhXZhdHkQAVOgQdBVoH9oGxLM?=
- =?us-ascii?Q?YT/8FwkNhwitxAYTN8oWfTLyqdVnVW99j0VjH61Cl9RaBQfeTg/F13eoRl0E?=
- =?us-ascii?Q?yWijAwx/MveZ45po3XAfn+fPGi8BjAs3Ew2JuG8Uw94JRuJy74goJpksPNYC?=
- =?us-ascii?Q?qYdUyQgaIHifIA4Tvp/djSEE96oniGzuVo4MY3nqWsJunGMzutKCRj6UUNeY?=
- =?us-ascii?Q?Ja2x8LqCfHdX1NWxSXaU9MvfRe2gr6Vyhh5kASwoac+R8gIK3svpZrAyiZ9T?=
- =?us-ascii?Q?1fT2YHrfXzEBDlqSMBtwTe7IG/3bL+nb9uymOXd0yqd6/Md+pm+EQyXQYWss?=
- =?us-ascii?Q?k4cKcU+z8PIS1BFzce4KTht8EszrISZMcaDGFqd4J/sMz4u/wOvU15Om6c+c?=
- =?us-ascii?Q?8EvY7eO3l/DO/3BLZS3FgzhjQZEsCPIQ1D0MGt9lAa1Kq6JIh5tbuoK4WNfT?=
- =?us-ascii?Q?2L9plVFH+hS0Y2m3uJSV5fux2wqrZvd21CP5Qbdf8xO/LTFsPXO5CTW8SrmY?=
- =?us-ascii?Q?klGYTErp7GNUjhkC7UbHCif7ZmdblDvBOQBo2c9tSzFKdhAYrhHsdDx4eTsu?=
- =?us-ascii?Q?DtY3V2wdpbCA6zsKJQn+0fB/2FcCzy9Ze92t5pmcUFPzuBE4Y/06R8FjN9wd?=
- =?us-ascii?Q?ZWSo/10/hlb4kxdYV5NdT589cJr08fSl/v112QbMrUs8NbGO1hLqO3AKXJXM?=
- =?us-ascii?Q?gZJLgoebYmYNe75S9iCC3u3836ZQJWAOMyFwH/ps7Jfa1rK9RkdqAJ7WLswt?=
- =?us-ascii?Q?TW+he1ADe10z1xqFYo07iHF4EborQb5uRksTfSlBDtbvq5Ly88nCuFzIg5g8?=
- =?us-ascii?Q?lPOS1Y/qJCLhkAmpt7Ip69KmLp5G0gHXgoyMOCtl?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d109f44-fc09-4d15-22ec-08db91e20e1c
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2023 16:20:29.1114 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ugICYOfmY6lpdWXfgvKtRRG73vXrfNOJwz5ORKnBv2Wfe5HyvVZZIhpZbNEJY2BheArkRPURgugzpVUalXzc8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9237
-Cc: Jose Abreu <joabreu@synopsys.com>, imx@lists.linux.dev,
- Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Wong Vee Khee <veekhee@apple.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- NXP Linux Team <linux-imx@nxp.com>, Andrew Halaney <ahalaney@redhat.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: [Linux-stm32] [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause the
-	TXC clock in fixed-link
+X-Developer-Signature: v=1; a=openpgp-sha256; l=935;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=w0wihl2nAbFj+WMOmikfkuigtjpGlCwMYZnP0JawFc8=;
+ b=owGbwMvMwMXY3/A7olbonx/jabUkhpTjzyNV31csM+zhm3Llpe/Vb8H3+9wq1i5ZtWXRYg+rD
+ Cc9y4pnnYzGLAyMXAyyYoos9o1rMq2q5CI71/67DDOIlQlkCgMXpwBMZM4r9v/5vSYusl3/XBIb
+ vH95dCREWbJ/XL1vmguXxZ1Ziux9c9zezVhq/lu0sa/Z8+AlDf5ZGatV6+TkS0WSbx7gyzw8x3X
+ xXHnpkuDV93lM1qrXs37dFqAeFBe8+7yvyOG59xYcYtK4cvP6Uf7k9WyTp3MGcsgFByruuZ8hkB
+ Wx220r1+NFHxUus2ppbmX7aPDoD8cGyZ3B3z6n/vO1/KBns2NOQL3qiVXr0/w2OFT1xF/65exfU
+ HK1dmakJecX5YpIge86vvtnNPLfDOiYmmJUGCfcNn9RlrHkqbivjbvcDHgmWdjeWjwjTe5r4tVd
+ zYk69tXFfL6ORWFsjvLu1b16LrIce8O1rzqurk7YJHoTAA==
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, linux-crypto@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/3] stm32/hash - Convert to platform remove
+	callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,115 +70,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-When using a fixed-link setup, certain devices like the SJA1105 require a
-small pause in the TXC clock line to enable their internal tunable
-delay line (TDL).
-
-To satisfy this requirement, this patch temporarily disables the TX clock,
-and restarts it after a required period. This provides the required
-silent interval on the clock line for SJA1105 to complete the frequency
-transition and enable the internal TDLs.
-
-So far we have only enabled this feature on the i.MX93 platform.
-
-Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
-Reviewed-by: Frank Li <frank.li@nxp.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 42 +++++++++++++++++++
- 1 file changed, 42 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 53ee5a42c071..2e4173d099f3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -32,6 +32,7 @@
- #define GPR_ENET_QOS_RGMII_EN		(0x1 << 21)
- 
- #define MX93_GPR_ENET_QOS_INTF_MODE_MASK	GENMASK(3, 0)
-+#define MX93_GPR_ENET_QOS_INTF_MASK		GENMASK(3, 1)
- #define MX93_GPR_ENET_QOS_INTF_SEL_MII		(0x0 << 1)
- #define MX93_GPR_ENET_QOS_INTF_SEL_RMII		(0x4 << 1)
- #define MX93_GPR_ENET_QOS_INTF_SEL_RGMII	(0x1 << 1)
-@@ -40,6 +41,7 @@
- #define DMA_BUS_MODE			0x00001000
- #define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
- #define RMII_RESET_SPEED		(0x3 << 14)
-+#define CTRL_SPEED_MASK			GENMASK(15, 14)
- 
- struct imx_dwmac_ops {
- 	u32 addr_width;
-@@ -56,6 +58,7 @@ struct imx_priv_data {
- 	struct regmap *intf_regmap;
- 	u32 intf_reg_off;
- 	bool rmii_refclk_ext;
-+	void __iomem *base_addr;
- 
- 	const struct imx_dwmac_ops *ops;
- 	struct plat_stmmacenet_data *plat_dat;
-@@ -212,6 +215,42 @@ static void imx_dwmac_fix_speed(void *priv, uint speed, uint mode)
- 		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
- }
- 
-+static void imx_dwmac_fix_speed_mx93(void *priv, uint speed, uint mode)
-+{
-+	struct imx_priv_data *dwmac = priv;
-+	int ctrl, old_ctrl, iface;
-+
-+	imx_dwmac_fix_speed(priv, speed, mode);
-+
-+	if (!dwmac || mode != MLO_AN_FIXED)
-+		return;
-+
-+	if (regmap_read(dwmac->intf_regmap, dwmac->intf_reg_off, &iface))
-+		return;
-+
-+	iface &= MX93_GPR_ENET_QOS_INTF_MASK;
-+	if (iface != MX93_GPR_ENET_QOS_INTF_SEL_RGMII)
-+		return;
-+
-+	old_ctrl = readl(dwmac->base_addr + MAC_CTRL_REG);
-+	ctrl = old_ctrl & ~CTRL_SPEED_MASK;
-+	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
-+			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, 0);
-+	writel(ctrl, dwmac->base_addr + MAC_CTRL_REG);
-+
-+	/* Ensure the settings for CTRL are applied and avoid CPU/Compiler
-+	 * reordering.
-+	 */
-+	wmb();
-+
-+	usleep_range(10, 20);
-+	iface |= MX93_GPR_ENET_QOS_CLK_GEN_EN;
-+	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
-+			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, iface);
-+
-+	writel(old_ctrl, dwmac->base_addr + MAC_CTRL_REG);
-+}
-+
- static int imx_dwmac_mx93_reset(void *priv, void __iomem *ioaddr)
- {
- 	struct plat_stmmacenet_data *plat_dat = priv;
-@@ -317,8 +356,11 @@ static int imx_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->exit = imx_dwmac_exit;
- 	plat_dat->clks_config = imx_dwmac_clks_config;
- 	plat_dat->fix_mac_speed = imx_dwmac_fix_speed;
-+	if (of_machine_is_compatible("fsl,imx93"))
-+		plat_dat->fix_mac_speed = imx_dwmac_fix_speed_mx93;
- 	plat_dat->bsp_priv = dwmac;
- 	dwmac->plat_dat = plat_dat;
-+	dwmac->base_addr = stmmac_res.addr;
- 
- 	ret = imx_dwmac_clks_config(dwmac, true);
- 	if (ret)
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp0aGlzIHBhdGNoIHNlcmllcyBjb252ZXJ0cyB0aGUgc3RtMzItaGFzaCBkcml2ZXIg
+dG8gdXNlIC5yZW1vdmVfbmV3LiBUaGUKZmlyc3QgcGF0Y2ggaXMgYSBmaXggdGhhdCBjb3VsZCBi
+ZSBiYWNrcG9ydGVkIHRvIHN0YWJsZSwgYnV0IGl0J3Mgbm90CnZlcnkgdXJnZW50LiBJdCdzIG9u
+bHkgcHJvYmxlbWF0aWMgaWYgc3VjaCBhIGRldmljZSBpcyB1bmJvdW5kICh3aGljaApoYXBwZW5z
+IHJhcmVseSkgYW5kIHRoZW4gY2xrX3ByZXBhcmVfZW5hYmxlKCkgZmFpbHMuIFVwIHRvIHlvdSBp
+ZiB5b3UKd2FudCB0byB0YWcgaXQgYXMgc3RhYmxlIG1hdGVyaWFsLgoKVGhlIG92ZXJhbGwgZ29h
+bCBpcyB0byByZWR1Y2UgdGhlIG51bWJlciBvZiBkcml2ZXJzIHVzaW5nIHRoZSBpcnJpdGF0aW5n
+Ci5yZW1vdmUoKSBjYWxsYmFjayBieSBvbmUuIFNlZSB0aGUgY29tbWl0IGxvZyBvZiB0aGUgdGhp
+cmQgcGF0Y2ggZm9yIHRoZQpyZWFzb25pbmcuCgpCZXN0IHJlZ2FyZHMKVXdlCgpVd2UgS2xlaW5l
+LUvDtm5pZyAoMyk6CiAgY3J5cHRvOiBzdG0zMi9oYXNoIC0gUHJvcGVybHkgaGFuZGxlIHBtX3J1
+bnRpbWVfZ2V0IGZhaWxpbmcKICBjcnlwdG86IHN0bTMyL2hhc2ggLSBEcm9wIGlmIGJsb2NrIHdp
+dGggYWx3YXlzIGZhbHNlIGNvbmRpdGlvbgogIGNyeXB0bzogc3RtMzIvaGFzaCAtIENvbnZlcnQg
+dG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZwogICAgdm9pZAoKIGRyaXZlcnMv
+Y3J5cHRvL3N0bTMyL3N0bTMyLWhhc2guYyB8IDE5ICsrKysrKy0tLS0tLS0tLS0tLS0KIDEgZmls
+ZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDEzIGRlbGV0aW9ucygtKQoKYmFzZS1jb21taXQ6
+IDNkZTAxNTJiZjI2ZmYwYzUwODNlZjgzMWJhNzY3NmZjNGM5MmU2M2EKLS0gCjIuMzkuMgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
