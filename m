@@ -2,40 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C617694C9
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 13:28:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 521C4769540
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 13:51:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E9F3C6B46E;
-	Mon, 31 Jul 2023 11:28:36 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB8CDC6B46E;
+	Mon, 31 Jul 2023 11:51:10 +0000 (UTC)
+Received: from mgamail.intel.com (unknown [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4869BC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CBBEC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jul 2023 11:28:35 +0000 (UTC)
-Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RDwtg0v9MzVjn2;
- Mon, 31 Jul 2023 19:26:51 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
- (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 31 Jul
- 2023 19:28:32 +0800
-From: Ruan Jinjie <ruanjinjie@huawei.com>
-To: <pierre-yves.mordret@foss.st.com>, <alain.volmat@foss.st.com>,
- <andi.shyti@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>
-Date: Mon, 31 Jul 2023 19:27:55 +0800
-Message-ID: <20230731112755.1943630-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+ Mon, 31 Jul 2023 11:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1690804269; x=1722340269;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Tb8UcV3JNO0OnfuujH03nYZbaEtctQ46lfuTXXi+SFA=;
+ b=Q4pIgpkCCHPMYqGzJ2PYX0x840tGWZFaGbU00OEhTPilYxsy0uNQ99DI
+ bfma4mDl0Cz+nYAFh9aJjwhGl5Ez4uuiO2Uv1Nqoks6zuZmLduHgVJ5rP
+ wGTQEXtuQ/omw3TWiPfukX2XBwdAviUcceCQmStT+Vc9M8mxdoss/5S5V
+ c132NCl5o8bx9aRjEp4Vh2rKFjBvaebLncCIT7V4tKCpSYd2056S93jmj
+ bliPf6iggSRsI8SNyAV5Bew1LGSBAdq7BuQ4P+7d6/01xg+RE4R5Oafhg
+ TegAWH+eZt77PSp8AnO8GbjzaEdFcFmryH8dHj9lyGzuNWhHt1KCvyFSm w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="367889850"
+X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; d="scan'208";a="367889850"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2023 04:51:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10787"; a="731571981"
+X-IronPort-AV: E=Sophos;i="6.01,244,1684825200"; d="scan'208";a="731571981"
+Received: from pglc1085.png.intel.com ([10.221.100.47])
+ by fmsmga007.fm.intel.com with ESMTP; 31 Jul 2023 04:51:03 -0700
+From: Rohan G Thomas <rohan.g.thomas@intel.com>
+To: "David S . Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Date: Mon, 31 Jul 2023 19:50:41 +0800
+Message-Id: <20230731115041.13893-1-rohan.g.thomas@intel.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-Originating-IP: [10.90.53.73]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- kwepemi500008.china.huawei.com (7.221.188.139)
-X-CFilter-Loop: Reflected
-Cc: ruanjinjie@huawei.com
-Subject: [Linux-stm32] [PATCH -next] i2c: stm32: fix the return value handle
-	for platform_get_irq()
+Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: XGMAC support for mdio
+	C22 addr > 3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -52,38 +66,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is no possible for platform_get_irq() to return 0,
-and the return value of platform_get_irq() is more sensible
-to show the error reason.
+For XGMAC versions < 2.2 number of supported mdio C22 addresses is
+restricted to 3. From XGMAC version 2.2 there are no restrictions on
+the C22 addresses, it supports all valid mdio addresses(0 to 31).
 
-Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 36 ++++++++++++-------
+ 2 files changed, 25 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index e897d9101434..579b30581725 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -2121,12 +2121,12 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	phy_addr = (dma_addr_t)res->start;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 57f2137bbe9d..c67171975d5c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -35,6 +35,7 @@
+ #define DWMAC_CORE_5_10		0x51
+ #define DWMAC_CORE_5_20		0x52
+ #define DWXGMAC_CORE_2_10	0x21
++#define DWXGMAC_CORE_2_20	0x22
+ #define DWXLGMAC_CORE_2_00	0x20
  
- 	irq_event = platform_get_irq(pdev, 0);
--	if (irq_event <= 0)
--		return irq_event ? : -ENOENT;
-+	if (irq_event < 0)
-+		return irq_event;
+ /* Device ID */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index 3db1cb0fd160..dd9e2fec5328 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -62,11 +62,16 @@ static void stmmac_xgmac2_c45_format(struct stmmac_priv *priv, int phyaddr,
+ static void stmmac_xgmac2_c22_format(struct stmmac_priv *priv, int phyaddr,
+ 				     int phyreg, u32 *hw_addr)
+ {
+-	u32 tmp;
++	u32 tmp = 0;
  
- 	irq_error = platform_get_irq(pdev, 1);
--	if (irq_error <= 0)
--		return irq_error ? : -ENOENT;
-+	if (irq_error < 0)
-+		return irq_error;
++	if (priv->synopsys_id < DWXGMAC_CORE_2_20) {
++		/* Until ver 2.20 XGMAC does not support C22 addr >= 4. Those
++		 * bits above bit 3 of XGMAC_MDIO_C22P register are reserved.
++		 */
++		tmp = readl(priv->ioaddr + XGMAC_MDIO_C22P);
++		tmp &= ~MII_XGMAC_C22P_MASK;
++	}
+ 	/* Set port as Clause 22 */
+-	tmp = readl(priv->ioaddr + XGMAC_MDIO_C22P);
+-	tmp &= ~MII_XGMAC_C22P_MASK;
+ 	tmp |= BIT(phyaddr);
+ 	writel(tmp, priv->ioaddr + XGMAC_MDIO_C22P);
  
- 	i2c_dev->wakeup_src = of_property_read_bool(pdev->dev.of_node,
- 						    "wakeup-source");
+@@ -132,8 +137,9 @@ static int stmmac_xgmac2_mdio_read_c22(struct mii_bus *bus, int phyaddr,
+ 
+ 	priv = netdev_priv(ndev);
+ 
+-	/* HW does not support C22 addr >= 4 */
+-	if (phyaddr > MII_XGMAC_MAX_C22ADDR)
++	/* Until ver 2.20 XGMAC does not support C22 addr >= 4 */
++	if (priv->synopsys_id < DWXGMAC_CORE_2_20 &&
++	    phyaddr > MII_XGMAC_MAX_C22ADDR)
+ 		return -ENODEV;
+ 
+ 	stmmac_xgmac2_c22_format(priv, phyaddr, phyreg, &addr);
+@@ -209,8 +215,9 @@ static int stmmac_xgmac2_mdio_write_c22(struct mii_bus *bus, int phyaddr,
+ 
+ 	priv = netdev_priv(ndev);
+ 
+-	/* HW does not support C22 addr >= 4 */
+-	if (phyaddr > MII_XGMAC_MAX_C22ADDR)
++	/* Until ver 2.20 XGMAC does not support C22 addr >= 4 */
++	if (priv->synopsys_id < DWXGMAC_CORE_2_20 &&
++	    phyaddr > MII_XGMAC_MAX_C22ADDR)
+ 		return -ENODEV;
+ 
+ 	stmmac_xgmac2_c22_format(priv, phyaddr, phyreg, &addr);
+@@ -551,13 +558,18 @@ int stmmac_mdio_register(struct net_device *ndev)
+ 		new_bus->read_c45 = &stmmac_xgmac2_mdio_read_c45;
+ 		new_bus->write_c45 = &stmmac_xgmac2_mdio_write_c45;
+ 
+-		/* Right now only C22 phys are supported */
+-		max_addr = MII_XGMAC_MAX_C22ADDR + 1;
++		if (priv->synopsys_id < DWXGMAC_CORE_2_20) {
++			/* Right now only C22 phys are supported */
++			max_addr = MII_XGMAC_MAX_C22ADDR + 1;
+ 
+-		/* Check if DT specified an unsupported phy addr */
+-		if (priv->plat->phy_addr > MII_XGMAC_MAX_C22ADDR)
+-			dev_err(dev, "Unsupported phy_addr (max=%d)\n",
++			/* Check if DT specified an unsupported phy addr */
++			if (priv->plat->phy_addr > MII_XGMAC_MAX_C22ADDR)
++				dev_err(dev, "Unsupported phy_addr (max=%d)\n",
+ 					MII_XGMAC_MAX_C22ADDR);
++		} else {
++			/* XGMAC version 2.20 onwards support 32 phy addr */
++			max_addr = PHY_MAX_ADDR;
++		}
+ 	} else {
+ 		new_bus->read = &stmmac_mdio_read_c22;
+ 		new_bus->write = &stmmac_mdio_write_c22;
 -- 
-2.34.1
+2.19.0
 
 _______________________________________________
 Linux-stm32 mailing list
