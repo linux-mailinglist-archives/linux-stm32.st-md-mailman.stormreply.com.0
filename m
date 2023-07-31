@@ -2,72 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E79A768FEA
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 10:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1967690E1
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 10:55:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45EDAC6B443;
-	Mon, 31 Jul 2023 08:20:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AEDFC6B443;
+	Mon, 31 Jul 2023 08:55:20 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21870C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EADFBC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 31 Jul 2023 08:20:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9D73460F88;
- Mon, 31 Jul 2023 08:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E9D4C433AD;
- Mon, 31 Jul 2023 08:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690791623;
- bh=iFw1eTT0uqbhzj8JDGSr0fgbWXoLNoGg8HGa6Krj/BE=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=pdzuiheNxcAIUt7dl4VvftR6KVgfb4WfHYzXw7S4BW3HMeL0KMuaUJegDV4ye1i2q
- xt+IXuw4p4K/OydDVMCVezK9Voc5opQc2n1uQHW+pCcF2S8wyiKFcuPa64UxEPUtvQ
- G1Iwdhc79AaODYjflPpqOtbjQJnp2U4Fo+ECkhcQA/WYz7nibFltasYOX6TfOGyiQm
- DkftOEw0qo8qS7YQ1KRXR6FKZrHxTFzDS6vQd6ySIF1lkhclBxDg0VactJ9YcERA3Q
- lruw6F4hQjhGdeD4QZ4puijNgB6y1lT949oNG2pypUD5bnAAqPINZFgkA0SmN19lHN
- qOipMmAtNgTCQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 1B4A1E96AC0; Mon, 31 Jul 2023 08:20:23 +0000 (UTC)
+ Mon, 31 Jul 2023 08:55:18 +0000 (UTC)
+Received: from ptx.hi.pengutronix.de ([2001:67c:670:100:1d::c0])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mfe@pengutronix.de>)
+ id 1qQOfr-0004jn-6K; Mon, 31 Jul 2023 10:54:43 +0200
+Received: from mfe by ptx.hi.pengutronix.de with local (Exim 4.92)
+ (envelope-from <mfe@pengutronix.de>)
+ id 1qQOfn-0004Bl-Pb; Mon, 31 Jul 2023 10:54:39 +0200
+Date: Mon, 31 Jul 2023 10:54:39 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: kernel test robot <lkp@intel.com>
+Message-ID: <20230731085439.yj3iakjparweziis@pengutronix.de>
+References: <20230720072304.3358701-2-m.felsch@pengutronix.de>
+ <202307220459.2gaQtSqH-lkp@intel.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169079162310.10005.11385616493848955483.git-patchwork-notify@kernel.org>
-Date: Mon, 31 Jul 2023 08:20:23 +0000
-References: <20230728232215.2071351-1-rkannoth@marvell.com>
-In-Reply-To: <20230728232215.2071351-1-rkannoth@marvell.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: taras.chornyi@plvision.eu, andrew@lunn.ch, alexandre.belloni@bootlin.com,
- linux-stm32@st-md-mailman.stormreply.com, vladimir.oltean@nxp.com,
- jdamato@fastly.com, kurt@linutronix.de, edumazet@google.com,
- anthony.l.nguyen@intel.com, ioana.ciornei@nxp.com,
- gerhard@engleder-embedded.com, wojciech.drewek@intel.com,
- UNGLinuxDriver@microchip.com, horatiu.vultur@microchip.com, lanhao@huawei.com,
- louis.peens@corigine.com, f.fainelli@gmail.com, leon@kernel.org,
- linux-net-drivers@amd.com, Steen.Hegelund@microchip.com,
- jesse.brandeburg@intel.com, kadlec@netfilter.org, huangguangbin2@huawei.com,
- joabreu@synopsys.com, intel-wired-lan@lists.osuosl.org,
- linux-arm-kernel@lists.infradead.org, simon.horman@corigine.com,
- kuba@kernel.org, d-tatianin@yandex-team.ru, pabeni@redhat.com,
- yisen.zhuang@huawei.com, pablo@netfilter.org, linux-rdma@vger.kernel.org,
- grygorii.strashko@ti.com, aelior@marvell.com, daniel.machon@microchip.com,
- idosch@nvidia.com, wenjuan.geng@corigine.com, claudiu.manoil@nxp.com,
- coreteam@netfilter.org, habetsm.xilinx@gmail.com, hui.zhou@corigine.com,
- peppe.cavallaro@st.com, michael.chan@broadcom.com, linux-omap@vger.kernel.org,
- lars.povlsen@microchip.com, petrm@nvidia.com, zdoychev@maxlinear.com,
- salil.mehta@huawei.com, muhammad.husaini.zulkifli@intel.com,
- wentao.jia@corigine.com, manishc@marvell.com, netdev@vger.kernel.org,
- oss-drivers@corigine.com, fw@strlen.de, linux-kernel@vger.kernel.org,
- shenjian15@huawei.com, ecree.xilinx@gmail.com, netfilter-devel@vger.kernel.org,
- shmulik.ladkani@gmail.com, mcoquelin.stm32@gmail.com, rajur@chelsio.com,
- olteanv@gmail.com, saeedm@nvidia.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v3 net-next] net: flow_dissector: Use
-	64bits for used_keys
+Content-Disposition: inline
+In-Reply-To: <202307220459.2gaQtSqH-lkp@intel.com>
+User-Agent: NeoMutt/20180716
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c0
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, joabreu@synopsys.com, conor+dt@kernel.org,
+ mcoquelin.stm32@gmail.com, devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 2/2] net: stmmac: add support
+	for phy-supply
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,31 +61,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Sat, 29 Jul 2023 04:52:15 +0530 you wrote:
-> As 32bits of dissector->used_keys are exhausted,
-> increase the size to 64bits.
+On 23-07-22, kernel test robot wrote:
+> Hi Marco,
 > 
-> This is base change for ESP/AH flow dissector patch.
-> Please find patch and discussions at
-> https://lore.kernel.org/netdev/ZMDNjD46BvZ5zp5I@corigine.com/T/#t
+> kernel test robot noticed the following build errors:
 > 
-> [...]
+> [auto build test ERROR on net-next/main]
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Marco-Felsch/net-stmmac-add-support-for-phy-supply/20230720-152642
+> base:   net-next/main
+> patch link:    https://lore.kernel.org/r/20230720072304.3358701-2-m.felsch%40pengutronix.de
+> patch subject: [PATCH net-next v3 2/2] net: stmmac: add support for phy-supply
+> config: x86_64-kexec (https://download.01.org/0day-ci/archive/20230722/202307220459.2gaQtSqH-lkp@intel.com/config)
+> compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+> reproduce: (https://download.01.org/0day-ci/archive/20230722/202307220459.2gaQtSqH-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202307220459.2gaQtSqH-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>):
+> 
+>    drivers/net/ethernet/stmicro/stmmac/stmmac_main.c: In function 'stmmac_suspend':
+> >> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:7706:32: error: 'struct plat_stmmacenet_data' has no member named 'use_phy_wol'
+>     7706 |                 if (!priv->plat->use_phy_wol)
+>          |                                ^~
+>    drivers/net/ethernet/stmicro/stmmac/stmmac_main.c: In function 'stmmac_resume':
+>    drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:7790:32: error: 'struct plat_stmmacenet_data' has no member named 'use_phy_wol'
+>     7790 |                 if (!priv->plat->use_phy_wol)
+>          |                                ^~
 
-Here is the summary with links:
-  - [v3,net-next] net: flow_dissector: Use 64bits for used_keys
-    https://git.kernel.org/netdev/net-next/c/2b3082c6ef3b
+The fixed v4 can be found here:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+https://lore.kernel.org/all/20230721110345.3925719-1-m.felsch@pengutronix.de/
 
-
+Regards,
+  Marco
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
