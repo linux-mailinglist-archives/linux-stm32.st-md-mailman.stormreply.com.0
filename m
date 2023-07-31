@@ -2,82 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1A96768DDA
-	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 09:17:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43DED768C57
+	for <lists+linux-stm32@lfdr.de>; Mon, 31 Jul 2023 08:52:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7DBCC71284;
-	Mon, 31 Jul 2023 07:17:30 +0000 (UTC)
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com
- [67.231.148.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D464DC6B472;
+	Mon, 31 Jul 2023 06:52:09 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3996EC6A610
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 891EEC6B46F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 28 Jul 2023 23:22:52 +0000 (UTC)
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
- by mx0a-0016f401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 36SLWQZL030879; Fri, 28 Jul 2023 16:22:39 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-transfer-encoding :
- content-type; s=pfpt0220; bh=QGtK1Bu72K9353KWb4CtyTdltYEVr3bTU5rSatg9PpA=;
- b=E68Z8u8IRG1wJE0zlPuD90fF7DSjY2dDTIQG2FjGmIWG31lrVZxZWGreAZpJeX04Bh7s
- 8Sd59vI0WXzoUccEAYte3ZJLNT84SzMTQA2fIt3odQyCdr2yJhDJdeF/JMlE29Lxh1+W
- ImNns2x8FqQ6DOGNKqIo5xzz3OImsjghScJlNu+CDguRxB9JB4NNYa6+IGFN9d6DDVBS
- ZIvj66lVdPUk5dZDcvWWAZ4yt4/Ev1B84ajpHA70DD6KlYq04hJfkVA/PTp9C2baPsQs
- Hb3+CnFDXr3s+TSKVAy+gbKHuXKfbv2pqY2f8E1RyzlcDXln22L68T+DG5m94so5L+OF sw== 
-Received: from dc5-exch01.marvell.com ([199.233.59.181])
- by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 3s4bd3jh0q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Fri, 28 Jul 2023 16:22:39 -0700
-Received: from DC5-EXCH02.marvell.com (10.69.176.39) by DC5-EXCH01.marvell.com
- (10.69.176.38) with Microsoft SMTP Server (TLS) id 15.0.1497.48;
- Fri, 28 Jul 2023 16:22:37 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH02.marvell.com
- (10.69.176.39) with Microsoft SMTP Server id 15.0.1497.48 via Frontend
- Transport; Fri, 28 Jul 2023 16:22:37 -0700
-Received: from marvell-OptiPlex-7090.marvell.com (unknown [10.28.36.165])
- by maili.marvell.com (Postfix) with ESMTP id B932C3F7090;
- Fri, 28 Jul 2023 16:22:17 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Sat, 29 Jul 2023 04:52:15 +0530
-Message-ID: <20230728232215.2071351-1-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 31 Jul 2023 06:52:08 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1bbf0f36ce4so14425405ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 30 Jul 2023 23:52:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1690786327; x=1691391127;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Xg0okkxNMIPy78CboE3GfCVG7lLpFuaINKCXsPHhdSQ=;
+ b=rggHe96SM92Pbbe/qNOdl5+d7mrGNv4Fyq2LZ6kxaoWJVaOwI5IVN6W5gmqZcNa1sM
+ +VhVUyuL9S8Sav4OB/Y2NLs7Krvqfq9RfAI0OlQLuIHuV3uuD0w5OH1Be3s86MgyB/4r
+ dgYEqPm9gi+JRwqJdC6lrHsJcQG+cwCrEsTQNjmoXSJvRGPIquC/83/i5zIWynkSDVGf
+ 0BmxqjqDLlw80r3rSWQCBsanZmfF3PhtjiEyZks+gl2aohQvG40karvQdd9lr2UjTFjl
+ frPlxU+GFuDUogt9VDuG+wG+aApPmJ9OzKYeU3g2dNs5DTxmZ1qziM+r+E2C52eIM51n
+ E3mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1690786327; x=1691391127;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Xg0okkxNMIPy78CboE3GfCVG7lLpFuaINKCXsPHhdSQ=;
+ b=NugwQl3WxWnbXI5+SDDvuIGWrvnjZGdluq4EOo36RnHeCo3A2NViS74nV+5Ksf9J/V
+ u/0QWrW7YmEstjY2TNkSHv2do4c0ANHOrnFkLocFJk/khOrm8x/MRnWZRvPtAJ+E49DK
+ azjMWKcAGQiXGC2a85O7kSIo30567fw3mimH9NAv8lQ6TSgy0Ugqs+HRrOVTkxjTO5uw
+ t0iM4E2qyt9Jfbe+F01RfMtNevnLv+vB9ls+0Zz5VP2cbP1czY/4UTPDuY3R/4v2IgMZ
+ 8q6vuncUGI5ZKTC1F0CIdvSdT+TejluVRKNiOhEyVRXlB4qzhL8YgjGJmlhymssRn2TN
+ Ti3w==
+X-Gm-Message-State: ABy/qLbgbVz/rNKYv+AJqQIa1WRnKcAJu0bFBelFMifhOU9M+eSMoxlU
+ U4UcVnUN55ycgKqXpwHB32orBw==
+X-Google-Smtp-Source: APBJJlEAabF1eaeAZ4FX89Z7495Bcaw23whPkBHCj185KSlzdtOU/p3zNUtBQLb1iWbqWHTK6Cxq1Q==
+X-Received: by 2002:a17:903:244d:b0:1b9:e8a5:3699 with SMTP id
+ l13-20020a170903244d00b001b9e8a53699mr9830150pls.21.1690786326923; 
+ Sun, 30 Jul 2023 23:52:06 -0700 (PDT)
+Received: from localhost.localdomain (fp9875a45d.knge128.ap.nuro.jp.
+ [152.117.164.93]) by smtp.gmail.com with ESMTPSA id
+ kb14-20020a170903338e00b001b8ad8382a4sm7706245plb.216.2023.07.30.23.52.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Jul 2023 23:52:06 -0700 (PDT)
+From: Masahisa Kojima <masahisa.kojima@linaro.org>
+To: Ard Biesheuvel <ardb@kernel.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Sumit Garg <sumit.garg@linaro.org>,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org
+Date: Mon, 31 Jul 2023 15:50:38 +0900
+Message-Id: <20230731065041.1447-4-masahisa.kojima@linaro.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230731065041.1447-1-masahisa.kojima@linaro.org>
+References: <20230731065041.1447-1-masahisa.kojima@linaro.org>
 MIME-Version: 1.0
-X-Proofpoint-GUID: d80cyBjSa4t3bzFQWewM-oOKqS0Syu8W
-X-Proofpoint-ORIG-GUID: d80cyBjSa4t3bzFQWewM-oOKqS0Syu8W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-07-27_10,2023-07-26_01,2023-05-22_02
-X-Mailman-Approved-At: Mon, 31 Jul 2023 07:16:18 +0000
-Cc: taras.chornyi@plvision.eu, andrew@lunn.ch, alexandre.belloni@bootlin.com,
- linux-stm32@st-md-mailman.stormreply.com, vladimir.oltean@nxp.com,
- jdamato@fastly.com, kurt@linutronix.de, edumazet@google.com,
- anthony.l.nguyen@intel.com, ioana.ciornei@nxp.com,
- gerhard@engleder-embedded.com, wojciech.drewek@intel.com,
- UNGLinuxDriver@microchip.com, horatiu.vultur@microchip.com, lanhao@huawei.com,
- louis.peens@corigine.com, f.fainelli@gmail.com, leon@kernel.org,
- linux-net-drivers@amd.com, Steen.Hegelund@microchip.com,
- jesse.brandeburg@intel.com, kadlec@netfilter.org, huangguangbin2@huawei.com,
- joabreu@synopsys.com, intel-wired-lan@lists.osuosl.org,
- linux-arm-kernel@lists.infradead.org, simon.horman@corigine.com,
- kuba@kernel.org, d-tatianin@yandex-team.ru, pabeni@redhat.com,
- yisen.zhuang@huawei.com, pablo@netfilter.org, linux-rdma@vger.kernel.org,
- grygorii.strashko@ti.com, aelior@marvell.com, daniel.machon@microchip.com,
- idosch@nvidia.com, wenjuan.geng@corigine.com, claudiu.manoil@nxp.com,
- Ratheesh Kannoth <rkannoth@marvell.com>, coreteam@netfilter.org,
- habetsm.xilinx@gmail.com, hui.zhou@corigine.com, peppe.cavallaro@st.com,
- michael.chan@broadcom.com, linux-omap@vger.kernel.org,
- lars.povlsen@microchip.com, petrm@nvidia.com, zdoychev@maxlinear.com,
- salil.mehta@huawei.com, muhammad.husaini.zulkifli@intel.com,
- manishc@marvell.com, wentao.jia@corigine.com, fw@strlen.de,
- oss-drivers@corigine.com, shenjian15@huawei.com, ecree.xilinx@gmail.com,
- netfilter-devel@vger.kernel.org, shmulik.ladkani@gmail.com,
- mcoquelin.stm32@gmail.com, rajur@chelsio.com, olteanv@gmail.com,
- saeedm@nvidia.com, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH v3 net-next] net: flow_dissector: Use 64bits
-	for used_keys
+Cc: linux-efi@vger.kernel.org, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Masahisa Kojima <masahisa.kojima@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Johan Hovold <johan+linaro@kernel.org>
+Subject: [Linux-stm32] [PATCH v7 3/5] efi: Add tee-based EFI variable driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,1478 +87,965 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As 32bits of dissector->used_keys are exhausted,
-increase the size to 64bits.
+When the flash is not owned by the non-secure world, accessing the EFI
+variables is straightforward and done via EFI Runtime Variable Services.
+In this case, critical variables for system integrity and security
+are normally stored in the dedicated secure storage and only accessible
+from the secure world.
 
-This is base change for ESP/AH flow dissector patch.
-Please find patch and discussions at
-https://lore.kernel.org/netdev/ZMDNjD46BvZ5zp5I@corigine.com/T/#t
+On the other hand, the small embedded devices don't have the special
+dedicated secure storage. The eMMC device with an RPMB partition is
+becoming more common, we can use an RPMB partition to store the
+EFI Variables.
 
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-Reviewed-by: Petr Machata <petrm@nvidia.com> # for mlxsw
-Tested-by: Petr Machata <petrm@nvidia.com>
-Reviewed-by: Martin Habets <habetsm.xilinx@gmail.com>
-Reviewed-by: Simon Horman <simon.horman@corigine.com>
+The eMMC device is typically owned by the non-secure world(linux in
+this case). There is an existing solution utilizing eMMC RPMB partition
+for EFI Variables, it is implemented by interacting with
+TEE(OP-TEE in this case), StandaloneMM(as EFI Variable Service Pseudo TA),
+eMMC driver and tee-supplicant. The last piece is the tee-based
+variable access driver to interact with TEE and StandaloneMM.
 
+So let's add the kernel functions needed.
+
+This feature is implemented as a kernel module.
+StMM PTA has TA_FLAG_DEVICE_ENUM_SUPP flag when registered to OP-TEE
+so that this tee_stmm_efi module is probed after tee-supplicant starts,
+since "SetVariable" EFI Runtime Variable Service requires to
+interact with tee-supplicant.
+
+Acked-by: Sumit Garg <sumit.garg@linaro.org>
+Co-developed-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Signed-off-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Signed-off-by: Masahisa Kojima <masahisa.kojima@linaro.org>
 ---
-ChangeLog
+ drivers/firmware/efi/Kconfig                 |  15 +
+ drivers/firmware/efi/Makefile                |   1 +
+ drivers/firmware/efi/stmm/mm_communication.h | 236 +++++++
+ drivers/firmware/efi/stmm/tee_stmm_efi.c     | 638 +++++++++++++++++++
+ 4 files changed, 890 insertions(+)
+ create mode 100644 drivers/firmware/efi/stmm/mm_communication.h
+ create mode 100644 drivers/firmware/efi/stmm/tee_stmm_efi.c
 
-v2 -> v3: commit message subject line fix as per comment of Petr Machata
-v1 -> v2: Commit message typo fix.
-v0 -> v1: Fix errors reported by kernel test robot
----
- drivers/net/dsa/ocelot/felix_vsc9959.c        |  8 +--
- drivers/net/dsa/sja1105/sja1105_flower.c      |  8 +--
- drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c  |  6 +-
- .../ethernet/chelsio/cxgb4/cxgb4_tc_flower.c  | 18 ++---
- .../freescale/dpaa2/dpaa2-switch-flower.c     | 22 +++---
- .../net/ethernet/freescale/enetc/enetc_qos.c  |  8 +--
- .../hisilicon/hns3/hns3pf/hclge_main.c        | 16 ++---
- drivers/net/ethernet/intel/i40e/i40e_main.c   | 18 ++---
- drivers/net/ethernet/intel/iavf/iavf_main.c   | 18 ++---
- drivers/net/ethernet/intel/ice/ice_tc_lib.c   | 44 ++++++------
- drivers/net/ethernet/intel/igb/igb_main.c     |  8 +--
- .../ethernet/marvell/octeontx2/nic/otx2_tc.c  | 18 ++---
- .../marvell/prestera/prestera_flower.c        | 20 +++---
- .../mellanox/mlx5/core/en/tc/ct_fs_smfs.c     | 25 ++++---
- .../net/ethernet/mellanox/mlx5/core/en_tc.c   | 44 ++++++------
- .../ethernet/mellanox/mlxsw/spectrum_flower.c | 22 +++---
- .../microchip/lan966x/lan966x_tc_flower.c     |  4 +-
- .../microchip/sparx5/sparx5_tc_flower.c       |  4 +-
- drivers/net/ethernet/microchip/vcap/vcap_tc.c | 18 ++---
- drivers/net/ethernet/microchip/vcap/vcap_tc.h |  2 +-
- drivers/net/ethernet/mscc/ocelot_flower.c     | 28 ++++----
- .../ethernet/netronome/nfp/flower/conntrack.c | 43 ++++++------
- .../ethernet/netronome/nfp/flower/offload.c   | 64 +++++++++---------
- .../net/ethernet/qlogic/qede/qede_filter.c    | 12 ++--
- drivers/net/ethernet/sfc/tc.c                 | 67 ++++++++++---------
- .../stmicro/stmmac/stmmac_selftests.c         |  6 +-
- drivers/net/ethernet/ti/am65-cpsw-qos.c       |  6 +-
- drivers/net/ethernet/ti/cpsw_priv.c           |  6 +-
- include/net/flow_dissector.h                  |  5 +-
- net/core/flow_dissector.c                     |  2 +-
- net/ethtool/ioctl.c                           | 16 ++---
- net/netfilter/nf_flow_table_offload.c         | 22 +++---
- net/netfilter/nf_tables_offload.c             | 13 ++--
- net/netfilter/nft_cmp.c                       |  2 +-
- 34 files changed, 317 insertions(+), 306 deletions(-)
-
-diff --git a/drivers/net/dsa/ocelot/felix_vsc9959.c b/drivers/net/dsa/ocelot/felix_vsc9959.c
-index 1c113957fcf4..7e7489321170 100644
---- a/drivers/net/dsa/ocelot/felix_vsc9959.c
-+++ b/drivers/net/dsa/ocelot/felix_vsc9959.c
-@@ -1745,10 +1745,10 @@ static int vsc9959_stream_identify(struct flow_cls_offload *f,
- 	struct flow_dissector *dissector = rule->match.dissector;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS)))
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS)))
- 		return -EOPNOTSUPP;
- 
- 	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_ETH_ADDRS)) {
-diff --git a/drivers/net/dsa/sja1105/sja1105_flower.c b/drivers/net/dsa/sja1105/sja1105_flower.c
-index fad5afe3819c..9e8ca182c722 100644
---- a/drivers/net/dsa/sja1105/sja1105_flower.c
-+++ b/drivers/net/dsa/sja1105/sja1105_flower.c
-@@ -205,10 +205,10 @@ static int sja1105_flower_parse_key(struct sja1105_private *priv,
- 	u16 pcp = U16_MAX;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Unsupported keys used");
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c
-index d8afcf8d6b30..38d89d80b4a9 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_tc.c
-@@ -373,9 +373,9 @@ static int bnxt_tc_parse_flow(struct bnxt *bp,
- 	struct flow_dissector *dissector = rule->match.dissector;
- 
- 	/* KEY_CONTROL and KEY_BASIC are needed for forming a meaningful key */
--	if ((dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_CONTROL)) == 0 ||
--	    (dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_BASIC)) == 0) {
--		netdev_info(bp->dev, "cannot form TC key: used_keys = 0x%x\n",
-+	if ((dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL)) == 0 ||
-+	    (dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_BASIC)) == 0) {
-+		netdev_info(bp->dev, "cannot form TC key: used_keys = 0x%llx\n",
- 			    dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-index d3541159487d..72ac4a34424b 100644
---- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-@@ -313,15 +313,15 @@ static int cxgb4_validate_flow_match(struct net_device *dev,
- 	u16 ethtype_key = 0;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IP))) {
--		netdev_warn(dev, "Unsupported key used: 0x%x\n",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP))) {
-+		netdev_warn(dev, "Unsupported key used: 0x%llx\n",
- 			    dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch-flower.c b/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch-flower.c
-index c39b866e2582..4798fb7fe35d 100644
---- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch-flower.c
-+++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch-flower.c
-@@ -17,14 +17,14 @@ static int dpaa2_switch_flower_parse_key(struct flow_cls_offload *cls,
- 	struct dpsw_acl_fields *acl_h, *acl_m;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Unsupported keys used");
- 		return -EOPNOTSUPP;
-@@ -539,9 +539,9 @@ static int dpaa2_switch_flower_parse_mirror_key(struct flow_cls_offload *cls,
- 	int ret = -EOPNOTSUPP;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Mirroring is supported only per VLAN");
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/ethernet/freescale/enetc/enetc_qos.c b/drivers/net/ethernet/freescale/enetc/enetc_qos.c
-index 270cbd5e8684..2513b44056c1 100644
---- a/drivers/net/ethernet/freescale/enetc/enetc_qos.c
-+++ b/drivers/net/ethernet/freescale/enetc/enetc_qos.c
-@@ -483,13 +483,13 @@ struct enetc_psfp {
- static struct actions_fwd enetc_act_fwd[] = {
- 	{
- 		BIT(FLOW_ACTION_GATE),
--		BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS),
-+		BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS),
- 		FILTER_ACTION_TYPE_PSFP
- 	},
- 	{
- 		BIT(FLOW_ACTION_POLICE) |
- 		BIT(FLOW_ACTION_GATE),
--		BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS),
-+		BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS),
- 		FILTER_ACTION_TYPE_PSFP
- 	},
- 	/* example for ACL actions */
-@@ -1069,8 +1069,8 @@ static int enetc_psfp_hw_set(struct enetc_ndev_priv *priv,
- 	return err;
- }
- 
--static struct actions_fwd *enetc_check_flow_actions(u64 acts,
--						    unsigned int inputkeys)
-+static struct actions_fwd *
-+enetc_check_flow_actions(u64 acts, unsigned long long inputkeys)
- {
- 	int i;
- 
-diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
-index bf675c15fbb9..83ab89f44250 100644
---- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
-+++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
-@@ -7315,14 +7315,14 @@ static int hclge_parse_cls_flower(struct hclge_dev *hdev,
- 	struct flow_dissector *dissector = flow->match.dissector;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS))) {
--		dev_err(&hdev->pdev->dev, "unsupported key set: %#x\n",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS))) {
-+		dev_err(&hdev->pdev->dev, "unsupported key set: %#llx\n",
- 			dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/intel/i40e/i40e_main.c b/drivers/net/ethernet/intel/i40e/i40e_main.c
-index 982ae70c51e8..3d0d6974c2a7 100644
---- a/drivers/net/ethernet/intel/i40e/i40e_main.c
-+++ b/drivers/net/ethernet/intel/i40e/i40e_main.c
-@@ -8525,15 +8525,15 @@ static int i40e_parse_cls_flower(struct i40e_vsi *vsi,
- 	u8 field_flags = 0;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID))) {
--		dev_err(&pf->pdev->dev, "Unsupported key used: 0x%x\n",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID))) {
-+		dev_err(&pf->pdev->dev, "Unsupported key used: 0x%llx\n",
- 			dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
-index 3a88d413ddee..09b492472408 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_main.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
-@@ -3743,15 +3743,15 @@ static int iavf_parse_cls_flower(struct iavf_adapter *adapter,
- 	struct virtchnl_filter *vf = &filter->f;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID))) {
--		dev_err(&adapter->pdev->dev, "Unsupported key used: 0x%x\n",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID))) {
-+		dev_err(&adapter->pdev->dev, "Unsupported key used: 0x%llx\n",
- 			dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.c b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-index 4a34ef5f58d3..38547db1ec4e 100644
---- a/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-+++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-@@ -1343,24 +1343,24 @@ ice_parse_cls_flower(struct net_device *filter_dev, struct ice_vsi *vsi,
- 	dissector = rule->match.dissector;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_CVLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_OPTS) |
--	      BIT(FLOW_DISSECTOR_KEY_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_PPPOE) |
--	      BIT(FLOW_DISSECTOR_KEY_L2TPV3))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_OPTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PPPOE) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_L2TPV3))) {
- 		NL_SET_ERR_MSG_MOD(fltr->extack, "Unsupported key used");
- 		return -EOPNOTSUPP;
- 	}
-@@ -1382,10 +1382,10 @@ ice_parse_cls_flower(struct net_device *filter_dev, struct ice_vsi *vsi,
- 		 */
- 		headers = &fltr->inner_headers;
- 	} else if (dissector->used_keys &
--		  (BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
--		   BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
--		   BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--		   BIT(FLOW_DISSECTOR_KEY_ENC_PORTS))) {
-+		  (BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
-+		   BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
-+		   BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+		   BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS))) {
- 		NL_SET_ERR_MSG_MOD(fltr->extack, "Tunnel key used, but device isn't a tunnel");
- 		return -EOPNOTSUPP;
- 	} else {
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index 9a2561409b06..9f63a10c6f80 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -2615,10 +2615,10 @@ static int igb_parse_cls_flower(struct igb_adapter *adapter,
- 	struct netlink_ext_ack *extack = f->common.extack;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Unsupported key used, only BASIC, CONTROL, ETH_ADDRS and VLAN are supported");
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-index 1e6fc23eca4f..71daff86f775 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
-@@ -454,15 +454,15 @@ static int otx2_tc_prepare_flow(struct otx2_nic *nic, struct otx2_tc_flow *node,
- 	dissector = rule->match.dissector;
- 
- 	if ((dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_IP))))  {
--		netdev_info(nic->netdev, "unsupported flow used key 0x%x",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP))))  {
-+		netdev_info(nic->netdev, "unsupported flow used key 0x%llx",
- 			    dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/marvell/prestera/prestera_flower.c b/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-index 3e20e71b0f81..8b9455d8a4f7 100644
---- a/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-+++ b/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-@@ -202,16 +202,16 @@ static int prestera_flower_parse(struct prestera_flow_block *block,
- 	int err;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_META) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ICMP) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS_RANGE) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_META) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ICMP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS_RANGE) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN))) {
- 		NL_SET_ERR_MSG_MOD(f->common.extack, "Unsupported key");
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-index 2b80fe73549d..8c531f4ec912 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/ct_fs_smfs.c
-@@ -221,16 +221,21 @@ mlx5_ct_fs_smfs_destroy(struct mlx5_ct_fs *fs)
- }
- 
- static inline bool
--mlx5_tc_ct_valid_used_dissector_keys(const u32 used_keys)
-+mlx5_tc_ct_valid_used_dissector_keys(const u64 used_keys)
- {
--#define DISS_BIT(name) BIT(FLOW_DISSECTOR_KEY_ ## name)
--	const u32 basic_keys = DISS_BIT(BASIC) | DISS_BIT(CONTROL) | DISS_BIT(META);
--	const u32 ipv4_tcp = basic_keys | DISS_BIT(IPV4_ADDRS) | DISS_BIT(PORTS) | DISS_BIT(TCP);
--	const u32 ipv6_tcp = basic_keys | DISS_BIT(IPV6_ADDRS) | DISS_BIT(PORTS) | DISS_BIT(TCP);
--	const u32 ipv4_udp = basic_keys | DISS_BIT(IPV4_ADDRS) | DISS_BIT(PORTS);
--	const u32 ipv6_udp = basic_keys | DISS_BIT(IPV6_ADDRS) | DISS_BIT(PORTS);
--	const u32 ipv4_gre = basic_keys | DISS_BIT(IPV4_ADDRS);
--	const u32 ipv6_gre = basic_keys | DISS_BIT(IPV6_ADDRS);
-+#define DISS_BIT(name) BIT_ULL(FLOW_DISSECTOR_KEY_ ## name)
-+	const u64 basic_keys = DISS_BIT(BASIC) | DISS_BIT(CONTROL) |
-+				DISS_BIT(META);
-+	const u64 ipv4_tcp = basic_keys | DISS_BIT(IPV4_ADDRS) |
-+				DISS_BIT(PORTS) | DISS_BIT(TCP);
-+	const u64 ipv6_tcp = basic_keys | DISS_BIT(IPV6_ADDRS) |
-+				DISS_BIT(PORTS) | DISS_BIT(TCP);
-+	const u64 ipv4_udp = basic_keys | DISS_BIT(IPV4_ADDRS) |
-+				DISS_BIT(PORTS);
-+	const u64 ipv6_udp = basic_keys | DISS_BIT(IPV6_ADDRS) |
-+				 DISS_BIT(PORTS);
-+	const u64 ipv4_gre = basic_keys | DISS_BIT(IPV4_ADDRS);
-+	const u64 ipv6_gre = basic_keys | DISS_BIT(IPV6_ADDRS);
- 
- 	return (used_keys == ipv4_tcp || used_keys == ipv4_udp || used_keys == ipv6_tcp ||
- 		used_keys == ipv6_udp || used_keys == ipv4_gre || used_keys == ipv6_gre);
-@@ -247,7 +252,7 @@ mlx5_ct_fs_smfs_ct_validate_flow_rule(struct mlx5_ct_fs *fs, struct flow_rule *f
- 	struct flow_match_tcp tcp;
- 
- 	if (!mlx5_tc_ct_valid_used_dissector_keys(flow_rule->match.dissector->used_keys)) {
--		ct_dbg("rule uses unexpected dissectors (0x%08x)",
-+		ct_dbg("rule uses unexpected dissectors (0x%016llx)",
- 		       flow_rule->match.dissector->used_keys);
- 		return false;
- 	}
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-index 8d0a3f69693e..842952e7b540 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-@@ -2593,29 +2593,29 @@ static int __parse_cls_flower(struct mlx5e_priv *priv,
- 	match_level = outer_match_level;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_META) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_CVLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_PORTS)	|
--	      BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_TCP) |
--	      BIT(FLOW_DISSECTOR_KEY_IP)  |
--	      BIT(FLOW_DISSECTOR_KEY_CT) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_OPTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ICMP) |
--	      BIT(FLOW_DISSECTOR_KEY_MPLS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_META) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS)	|
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_TCP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP)  |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CT) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_OPTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ICMP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_MPLS))) {
- 		NL_SET_ERR_MSG_MOD(extack, "Unsupported key");
--		netdev_dbg(priv->netdev, "Unsupported key used: 0x%x\n",
-+		netdev_dbg(priv->netdev, "Unsupported key used: 0x%llx\n",
- 			   dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-index 8329100479b3..af3f57d017ec 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-@@ -558,17 +558,17 @@ static int mlxsw_sp_flower_parse(struct mlxsw_sp *mlxsw_sp,
- 	int err;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_META) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS_RANGE) |
--	      BIT(FLOW_DISSECTOR_KEY_TCP) |
--	      BIT(FLOW_DISSECTOR_KEY_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_META) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS_RANGE) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_TCP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN))) {
- 		dev_err(mlxsw_sp->bus_info->dev, "Unsupported key\n");
- 		NL_SET_ERR_MSG_MOD(f->common.extack, "Unsupported key");
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_tc_flower.c b/drivers/net/ethernet/microchip/lan966x/lan966x_tc_flower.c
-index 96b3def6c474..d696cf9dbd19 100644
---- a/drivers/net/ethernet/microchip/lan966x/lan966x_tc_flower.c
-+++ b/drivers/net/ethernet/microchip/lan966x/lan966x_tc_flower.c
-@@ -75,7 +75,7 @@ lan966x_tc_flower_handler_control_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_CONTROL);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL);
- 
- 	return err;
- 
-@@ -172,7 +172,7 @@ lan966x_tc_flower_handler_basic_usage(struct vcap_tc_flower_parse_usage *st)
- 		}
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_BASIC);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_BASIC);
- 	return err;
- out:
- 	NL_SET_ERR_MSG_MOD(st->fco->common.extack, "ip_proto parse error");
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c
-index 3f87a5285a6d..906299ad8425 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c
-@@ -126,7 +126,7 @@ sparx5_tc_flower_handler_basic_usage(struct vcap_tc_flower_parse_usage *st)
- 		}
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_BASIC);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_BASIC);
- 
- 	return err;
- 
-@@ -175,7 +175,7 @@ sparx5_tc_flower_handler_control_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_CONTROL);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL);
- 
- 	return err;
- 
-diff --git a/drivers/net/ethernet/microchip/vcap/vcap_tc.c b/drivers/net/ethernet/microchip/vcap/vcap_tc.c
-index 09abe7944af6..27e2dffb65e6 100644
---- a/drivers/net/ethernet/microchip/vcap/vcap_tc.c
-+++ b/drivers/net/ethernet/microchip/vcap/vcap_tc.c
-@@ -50,7 +50,7 @@ int vcap_tc_flower_handler_ethaddr_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS);
- 
- 	return err;
- 
-@@ -86,7 +86,7 @@ int vcap_tc_flower_handler_ipv4_usage(struct vcap_tc_flower_parse_usage *st)
- 		}
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS);
- 
- 	return err;
- 
-@@ -124,7 +124,7 @@ int vcap_tc_flower_handler_ipv6_usage(struct vcap_tc_flower_parse_usage *st)
- 				goto out;
- 		}
- 	}
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS);
- 	return err;
- out:
- 	NL_SET_ERR_MSG_MOD(st->fco->common.extack, "ipv6_addr parse error");
-@@ -158,7 +158,7 @@ int vcap_tc_flower_handler_portnum_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_PORTS);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_PORTS);
- 
- 	return err;
- 
-@@ -201,7 +201,7 @@ int vcap_tc_flower_handler_cvlan_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_CVLAN);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN);
- 
- 	return 0;
- out:
-@@ -238,7 +238,7 @@ int vcap_tc_flower_handler_vlan_usage(struct vcap_tc_flower_parse_usage *st,
- 	if (mt.mask->vlan_tpid)
- 		st->tpid = be16_to_cpu(mt.key->vlan_tpid);
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_VLAN);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_VLAN);
- 
- 	return 0;
- out:
-@@ -313,7 +313,7 @@ int vcap_tc_flower_handler_tcp_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_TCP);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_TCP);
- 
- 	return err;
- 
-@@ -376,7 +376,7 @@ int vcap_tc_flower_handler_arp_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_ARP);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_ARP);
- 
- 	return 0;
- 
-@@ -401,7 +401,7 @@ int vcap_tc_flower_handler_ip_usage(struct vcap_tc_flower_parse_usage *st)
- 			goto out;
- 	}
- 
--	st->used_keys |= BIT(FLOW_DISSECTOR_KEY_IP);
-+	st->used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_IP);
- 
- 	return err;
- 
-diff --git a/drivers/net/ethernet/microchip/vcap/vcap_tc.h b/drivers/net/ethernet/microchip/vcap/vcap_tc.h
-index 071f892f9aa4..49b02d032906 100644
---- a/drivers/net/ethernet/microchip/vcap/vcap_tc.h
-+++ b/drivers/net/ethernet/microchip/vcap/vcap_tc.h
-@@ -14,7 +14,7 @@ struct vcap_tc_flower_parse_usage {
- 	u16 l3_proto;
- 	u8 l4_proto;
- 	u16 tpid;
--	unsigned int used_keys;
-+	unsigned long long used_keys;
- };
- 
- int vcap_tc_flower_handler_ethaddr_usage(struct vcap_tc_flower_parse_usage *st);
-diff --git a/drivers/net/ethernet/mscc/ocelot_flower.c b/drivers/net/ethernet/mscc/ocelot_flower.c
-index e0916afcddfb..33b438c6aec5 100644
---- a/drivers/net/ethernet/mscc/ocelot_flower.c
-+++ b/drivers/net/ethernet/mscc/ocelot_flower.c
-@@ -581,14 +581,14 @@ ocelot_flower_parse_key(struct ocelot *ocelot, int port, bool ingress,
- 	int ret;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_META) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_META) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
- 		return -EOPNOTSUPP;
- 	}
- 
-@@ -641,12 +641,12 @@ ocelot_flower_parse_key(struct ocelot *ocelot, int port, bool ingress,
- 		 * then just bail out
- 		 */
- 		if ((dissector->used_keys &
--		    (BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--		     BIT(FLOW_DISSECTOR_KEY_BASIC) |
--		     BIT(FLOW_DISSECTOR_KEY_CONTROL))) !=
--		    (BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--		     BIT(FLOW_DISSECTOR_KEY_BASIC) |
--		     BIT(FLOW_DISSECTOR_KEY_CONTROL)))
-+		    (BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL))) !=
-+		    (BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL)))
- 			return -EOPNOTSUPP;
- 
- 		flow_rule_match_eth_addrs(rule, &match);
-diff --git a/drivers/net/ethernet/netronome/nfp/flower/conntrack.c b/drivers/net/ethernet/netronome/nfp/flower/conntrack.c
-index 73032173ac4e..2643c4b3ff1f 100644
---- a/drivers/net/ethernet/netronome/nfp/flower/conntrack.c
-+++ b/drivers/net/ethernet/netronome/nfp/flower/conntrack.c
-@@ -61,7 +61,7 @@ bool is_pre_ct_flow(struct flow_cls_offload *flow)
- 	struct flow_match_ct ct;
- 	int i;
- 
--	if (dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_CT)) {
-+	if (dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CT)) {
- 		flow_rule_match_ct(rule, &ct);
- 		if (ct.key->ct_state)
- 			return false;
-@@ -94,7 +94,7 @@ bool is_post_ct_flow(struct flow_cls_offload *flow)
- 	struct flow_match_ct ct;
- 	int i;
- 
--	if (dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_CT)) {
-+	if (dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CT)) {
- 		flow_rule_match_ct(rule, &ct);
- 		if (ct.key->ct_state & TCA_FLOWER_KEY_CT_FLAGS_ESTABLISHED)
- 			return true;
-@@ -236,10 +236,11 @@ static bool nfp_ct_merge_check_cannot_skip(struct nfp_fl_ct_flow_entry *entry1,
- static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			      struct nfp_fl_ct_flow_entry *entry2)
- {
--	unsigned int ovlp_keys = entry1->rule->match.dissector->used_keys &
--				 entry2->rule->match.dissector->used_keys;
-+	unsigned long long ovlp_keys;
- 	bool out, is_v6 = false;
- 	u8 ip_proto = 0;
-+	ovlp_keys = entry1->rule->match.dissector->used_keys &
-+			entry2->rule->match.dissector->used_keys;
- 	/* Temporary buffer for mangling keys, 64 is enough to cover max
- 	 * struct size of key in various fields that may be mangled.
- 	 * Supported fields to mangle:
-@@ -257,7 +258,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 	/* Check the overlapped fields one by one, the unmasked part
- 	 * should not conflict with each other.
- 	 */
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_CONTROL)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL)) {
- 		struct flow_match_control match1, match2;
- 
- 		flow_rule_match_control(entry1->rule, &match1);
-@@ -267,7 +268,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_BASIC)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_BASIC)) {
- 		struct flow_match_basic match1, match2;
- 
- 		flow_rule_match_basic(entry1->rule, &match1);
-@@ -289,7 +290,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 	 * will be do merge check when do nft and post ct merge,
- 	 * so skip this ip merge check here.
- 	 */
--	if ((ovlp_keys & BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS)) &&
-+	if ((ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS)) &&
- 	    nfp_ct_merge_check_cannot_skip(entry1, entry2)) {
- 		struct flow_match_ipv4_addrs match1, match2;
- 
-@@ -311,7 +312,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 	 * will be do merge check when do nft and post ct merge,
- 	 * so skip this ip merge check here.
- 	 */
--	if ((ovlp_keys & BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS)) &&
-+	if ((ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS)) &&
- 	    nfp_ct_merge_check_cannot_skip(entry1, entry2)) {
- 		struct flow_match_ipv6_addrs match1, match2;
- 
-@@ -333,7 +334,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 	 * will be do merge check when do nft and post ct merge,
- 	 * so skip this tport merge check here.
- 	 */
--	if ((ovlp_keys & BIT(FLOW_DISSECTOR_KEY_PORTS)) &&
-+	if ((ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_PORTS)) &&
- 	    nfp_ct_merge_check_cannot_skip(entry1, entry2)) {
- 		enum flow_action_mangle_base htype = FLOW_ACT_MANGLE_UNSPEC;
- 		struct flow_match_ports match1, match2;
-@@ -355,7 +356,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS)) {
- 		struct flow_match_eth_addrs match1, match2;
- 
- 		flow_rule_match_eth_addrs(entry1->rule, &match1);
-@@ -371,7 +372,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_VLAN)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_VLAN)) {
- 		struct flow_match_vlan match1, match2;
- 
- 		flow_rule_match_vlan(entry1->rule, &match1);
-@@ -381,7 +382,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_MPLS)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_MPLS)) {
- 		struct flow_match_mpls match1, match2;
- 
- 		flow_rule_match_mpls(entry1->rule, &match1);
-@@ -391,7 +392,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_TCP)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_TCP)) {
- 		struct flow_match_tcp match1, match2;
- 
- 		flow_rule_match_tcp(entry1->rule, &match1);
-@@ -401,7 +402,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_IP)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_IP)) {
- 		struct flow_match_ip match1, match2;
- 
- 		flow_rule_match_ip(entry1->rule, &match1);
-@@ -413,7 +414,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_KEYID)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID)) {
- 		struct flow_match_enc_keyid match1, match2;
- 
- 		flow_rule_match_enc_keyid(entry1->rule, &match1);
-@@ -423,7 +424,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS)) {
- 		struct flow_match_ipv4_addrs match1, match2;
- 
- 		flow_rule_match_enc_ipv4_addrs(entry1->rule, &match1);
-@@ -433,7 +434,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS)) {
- 		struct flow_match_ipv6_addrs match1, match2;
- 
- 		flow_rule_match_enc_ipv6_addrs(entry1->rule, &match1);
-@@ -443,7 +444,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL)) {
- 		struct flow_match_control match1, match2;
- 
- 		flow_rule_match_enc_control(entry1->rule, &match1);
-@@ -453,7 +454,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_IP)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP)) {
- 		struct flow_match_ip match1, match2;
- 
- 		flow_rule_match_enc_ip(entry1->rule, &match1);
-@@ -463,7 +464,7 @@ static int nfp_ct_merge_check(struct nfp_fl_ct_flow_entry *entry1,
- 			goto check_failed;
- 	}
- 
--	if (ovlp_keys & BIT(FLOW_DISSECTOR_KEY_ENC_OPTS)) {
-+	if (ovlp_keys & BIT_ULL(FLOW_DISSECTOR_KEY_ENC_OPTS)) {
- 		struct flow_match_enc_opts match1, match2;
- 
- 		flow_rule_match_enc_opts(entry1->rule, &match1);
-@@ -589,7 +590,7 @@ static int nfp_ct_check_meta(struct nfp_fl_ct_flow_entry *post_ct_entry,
- 	int i;
- 
- 	ct_met = get_flow_act(nft_entry->rule, FLOW_ACTION_CT_METADATA);
--	if (ct_met && (dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_CT))) {
-+	if (ct_met && (dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CT))) {
- 		u32 *act_lbl;
- 
- 		act_lbl = ct_met->ct_metadata.labels;
-diff --git a/drivers/net/ethernet/netronome/nfp/flower/offload.c b/drivers/net/ethernet/netronome/nfp/flower/offload.c
-index 18328eb7f5c3..c153f0575b92 100644
---- a/drivers/net/ethernet/netronome/nfp/flower/offload.c
-+++ b/drivers/net/ethernet/netronome/nfp/flower/offload.c
-@@ -24,43 +24,43 @@
- 	 FLOW_DIS_FIRST_FRAG)
- 
- #define NFP_FLOWER_WHITELIST_DISSECTOR \
--	(BIT(FLOW_DISSECTOR_KEY_CONTROL) | \
--	 BIT(FLOW_DISSECTOR_KEY_BASIC) | \
--	 BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_TCP) | \
--	 BIT(FLOW_DISSECTOR_KEY_PORTS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_VLAN) | \
--	 BIT(FLOW_DISSECTOR_KEY_CVLAN) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_PORTS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_OPTS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IP) | \
--	 BIT(FLOW_DISSECTOR_KEY_MPLS) | \
--	 BIT(FLOW_DISSECTOR_KEY_CT) | \
--	 BIT(FLOW_DISSECTOR_KEY_META) | \
--	 BIT(FLOW_DISSECTOR_KEY_IP))
-+	(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_TCP) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_OPTS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_MPLS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_CT) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_META) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_IP))
- 
- #define NFP_FLOWER_WHITELIST_TUN_DISSECTOR \
--	(BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_OPTS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_PORTS) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IP))
-+	(BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_OPTS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP))
- 
- #define NFP_FLOWER_WHITELIST_TUN_DISSECTOR_R \
--	(BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS))
-+	(BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS))
- 
- #define NFP_FLOWER_WHITELIST_TUN_DISSECTOR_V6_R \
--	(BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
--	 BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS))
-+	(BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) | \
-+	 BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS))
- 
- #define NFP_FLOWER_MERGE_FIELDS \
- 	(NFP_FLOWER_LAYER_PORT | \
-@@ -1303,7 +1303,7 @@ static bool offload_pre_check(struct flow_cls_offload *flow)
- 	struct flow_dissector *dissector = rule->match.dissector;
- 	struct flow_match_ct ct;
- 
--	if (dissector->used_keys & BIT(FLOW_DISSECTOR_KEY_CT)) {
-+	if (dissector->used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CT)) {
- 		flow_rule_match_ct(rule, &ct);
- 		/* Allow special case where CT match is all 0 */
- 		if (memchr_inv(ct.key, 0, sizeof(*ct.key)))
-diff --git a/drivers/net/ethernet/qlogic/qede/qede_filter.c b/drivers/net/ethernet/qlogic/qede/qede_filter.c
-index 3010833ddde3..a5ac21a0ee33 100644
---- a/drivers/net/ethernet/qlogic/qede/qede_filter.c
-+++ b/drivers/net/ethernet/qlogic/qede/qede_filter.c
-@@ -1827,12 +1827,12 @@ qede_parse_flow_attr(struct qede_dev *edev, __be16 proto,
- 	memset(tuple, 0, sizeof(*tuple));
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS))) {
--		DP_NOTICE(edev, "Unsupported key set:0x%x\n",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS))) {
-+		DP_NOTICE(edev, "Unsupported key set:0x%llx\n",
- 			  dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/sfc/tc.c b/drivers/net/ethernet/sfc/tc.c
-index 15ebd3973922..4dc881159246 100644
---- a/drivers/net/ethernet/sfc/tc.c
-+++ b/drivers/net/ethernet/sfc/tc.c
-@@ -201,23 +201,23 @@ static int efx_tc_flower_parse_match(struct efx_nic *efx,
- 		}
- 	}
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_VLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_CVLAN) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_IP) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_PORTS) |
--	      BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_TCP) |
--	      BIT(FLOW_DISSECTOR_KEY_IP))) {
--		NL_SET_ERR_MSG_FMT_MOD(extack, "Unsupported flower keys %#x",
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_TCP) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_IP))) {
-+		NL_SET_ERR_MSG_FMT_MOD(extack, "Unsupported flower keys %#llx",
- 				       dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-@@ -228,12 +228,13 @@ static int efx_tc_flower_parse_match(struct efx_nic *efx,
- 	    !(match->value.eth_proto == htons(ETH_P_IP) ||
- 	      match->value.eth_proto == htons(ETH_P_IPV6)))
- 		if (dissector->used_keys &
--		    (BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
--		     BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
--		     BIT(FLOW_DISSECTOR_KEY_PORTS) |
--		     BIT(FLOW_DISSECTOR_KEY_IP) |
--		     BIT(FLOW_DISSECTOR_KEY_TCP))) {
--			NL_SET_ERR_MSG_FMT_MOD(extack, "L3/L4 flower keys %#x require protocol ipv[46]",
-+		    (BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_IP) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_TCP))) {
-+			NL_SET_ERR_MSG_FMT_MOD(extack,
-+					       "L3/L4 flower keys %#llx require protocol ipv[46]",
- 					       dissector->used_keys);
- 			return -EINVAL;
- 		}
-@@ -281,9 +282,10 @@ static int efx_tc_flower_parse_match(struct efx_nic *efx,
- 	if ((match->value.ip_proto != IPPROTO_UDP &&
- 	     match->value.ip_proto != IPPROTO_TCP) || !IS_ALL_ONES(match->mask.ip_proto))
- 		if (dissector->used_keys &
--		    (BIT(FLOW_DISSECTOR_KEY_PORTS) |
--		     BIT(FLOW_DISSECTOR_KEY_TCP))) {
--			NL_SET_ERR_MSG_FMT_MOD(extack, "L4 flower keys %#x require ipproto udp or tcp",
-+		    (BIT_ULL(FLOW_DISSECTOR_KEY_PORTS) |
-+		     BIT_ULL(FLOW_DISSECTOR_KEY_TCP))) {
-+			NL_SET_ERR_MSG_FMT_MOD(extack,
-+					       "L4 flower keys %#llx require ipproto udp or tcp",
- 					       dissector->used_keys);
- 			return -EINVAL;
- 		}
-@@ -344,12 +346,13 @@ static int efx_tc_flower_parse_match(struct efx_nic *efx,
- 		MAP_ENC_KEY_AND_MASK(PORTS, ports, enc_ports, dst, enc_dport);
- 		MAP_ENC_KEY_AND_MASK(KEYID, enc_keyid, enc_keyid, keyid, enc_keyid);
- 	} else if (dissector->used_keys &
--		   (BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--		    BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
--		    BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
--		    BIT(FLOW_DISSECTOR_KEY_ENC_IP) |
--		    BIT(FLOW_DISSECTOR_KEY_ENC_PORTS))) {
--		NL_SET_ERR_MSG_FMT_MOD(extack, "Flower enc keys require enc_control (keys: %#x)",
-+		   (BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+		    BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS) |
-+		    BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS) |
-+		    BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IP) |
-+		    BIT_ULL(FLOW_DISSECTOR_KEY_ENC_PORTS))) {
-+		NL_SET_ERR_MSG_FMT_MOD(extack,
-+				       "Flower enc keys require enc_control (keys: %#llx)",
- 				       dissector->used_keys);
- 		return -EOPNOTSUPP;
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index 687f43cd466c..f9e43fc32ee8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -1355,7 +1355,7 @@ static int __stmmac_test_l3filt(struct stmmac_priv *priv, u32 dst, u32 src,
- 		goto cleanup_rss;
- 	}
- 
--	dissector->used_keys |= (1 << FLOW_DISSECTOR_KEY_IPV4_ADDRS);
-+	dissector->used_keys |= (1ULL << FLOW_DISSECTOR_KEY_IPV4_ADDRS);
- 	dissector->offset[FLOW_DISSECTOR_KEY_IPV4_ADDRS] = 0;
- 
- 	cls = kzalloc(sizeof(*cls), GFP_KERNEL);
-@@ -1481,8 +1481,8 @@ static int __stmmac_test_l4filt(struct stmmac_priv *priv, u32 dst, u32 src,
- 		goto cleanup_rss;
- 	}
- 
--	dissector->used_keys |= (1 << FLOW_DISSECTOR_KEY_BASIC);
--	dissector->used_keys |= (1 << FLOW_DISSECTOR_KEY_PORTS);
-+	dissector->used_keys |= (1ULL << FLOW_DISSECTOR_KEY_BASIC);
-+	dissector->used_keys |= (1ULL << FLOW_DISSECTOR_KEY_PORTS);
- 	dissector->offset[FLOW_DISSECTOR_KEY_BASIC] = 0;
- 	dissector->offset[FLOW_DISSECTOR_KEY_PORTS] = offsetof(typeof(keys), key);
- 
-diff --git a/drivers/net/ethernet/ti/am65-cpsw-qos.c b/drivers/net/ethernet/ti/am65-cpsw-qos.c
-index eced87fa261c..9ac2ff05d501 100644
---- a/drivers/net/ethernet/ti/am65-cpsw-qos.c
-+++ b/drivers/net/ethernet/ti/am65-cpsw-qos.c
-@@ -624,9 +624,9 @@ static int am65_cpsw_qos_clsflower_add_policer(struct am65_cpsw_port *port,
- 	int ret;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Unsupported keys used");
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/ethernet/ti/cpsw_priv.c b/drivers/net/ethernet/ti/cpsw_priv.c
-index e966dd47e2db..ae52cdbcf8cc 100644
---- a/drivers/net/ethernet/ti/cpsw_priv.c
-+++ b/drivers/net/ethernet/ti/cpsw_priv.c
-@@ -1396,9 +1396,9 @@ static int cpsw_qos_clsflower_add_policer(struct cpsw_priv *priv,
- 	int ret;
- 
- 	if (dissector->used_keys &
--	    ~(BIT(FLOW_DISSECTOR_KEY_BASIC) |
--	      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--	      BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
-+	    ~(BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+	      BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS))) {
- 		NL_SET_ERR_MSG_MOD(extack,
- 				   "Unsupported keys used");
- 		return -EOPNOTSUPP;
-diff --git a/include/net/flow_dissector.h b/include/net/flow_dissector.h
-index 8664ed4fbbdf..830f06b2f36d 100644
---- a/include/net/flow_dissector.h
-+++ b/include/net/flow_dissector.h
-@@ -370,7 +370,8 @@ struct flow_dissector_key {
- };
- 
- struct flow_dissector {
--	unsigned int used_keys; /* each bit repesents presence of one key id */
-+	unsigned long long  used_keys;
-+		/* each bit represents presence of one key id */
- 	unsigned short int offset[FLOW_DISSECTOR_KEY_MAX];
- };
- 
-@@ -430,7 +431,7 @@ void skb_flow_get_icmp_tci(const struct sk_buff *skb,
- static inline bool dissector_uses_key(const struct flow_dissector *flow_dissector,
- 				      enum flow_dissector_key_id key_id)
- {
--	return flow_dissector->used_keys & (1 << key_id);
-+	return flow_dissector->used_keys & (1ULL << key_id);
- }
- 
- static inline void *skb_flow_dissector_target(struct flow_dissector *flow_dissector,
-diff --git a/net/core/flow_dissector.c b/net/core/flow_dissector.c
-index 85a2d0d9bd39..ed5dfa376024 100644
---- a/net/core/flow_dissector.c
-+++ b/net/core/flow_dissector.c
-@@ -40,7 +40,7 @@
- static void dissector_set_key(struct flow_dissector *flow_dissector,
- 			      enum flow_dissector_key_id key_id)
- {
--	flow_dissector->used_keys |= (1 << key_id);
-+	flow_dissector->used_keys |= (1ULL << key_id);
- }
- 
- void skb_flow_dissector_init(struct flow_dissector *flow_dissector,
-diff --git a/net/ethtool/ioctl.c b/net/ethtool/ioctl.c
-index 4a51e0ec295c..10fa880047ac 100644
---- a/net/ethtool/ioctl.c
-+++ b/net/ethtool/ioctl.c
-@@ -3207,7 +3207,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		if (v4_m_spec->ip4src ||
- 		    v4_m_spec->ip4dst) {
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_IPV4_ADDRS);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_IPV4_ADDRS);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_IPV4_ADDRS] =
- 				offsetof(struct ethtool_rx_flow_key, ipv4);
- 		}
-@@ -3222,7 +3222,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		if (v4_m_spec->psrc ||
- 		    v4_m_spec->pdst) {
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_PORTS);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_PORTS);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_PORTS] =
- 				offsetof(struct ethtool_rx_flow_key, tp);
- 		}
-@@ -3259,7 +3259,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		if (!ipv6_addr_any((struct in6_addr *)v6_m_spec->ip6src) ||
- 		    !ipv6_addr_any((struct in6_addr *)v6_m_spec->ip6dst)) {
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_IPV6_ADDRS);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_IPV6_ADDRS);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_IPV6_ADDRS] =
- 				offsetof(struct ethtool_rx_flow_key, ipv6);
- 		}
-@@ -3274,7 +3274,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		if (v6_m_spec->psrc ||
- 		    v6_m_spec->pdst) {
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_PORTS);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_PORTS);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_PORTS] =
- 				offsetof(struct ethtool_rx_flow_key, tp);
- 		}
-@@ -3282,7 +3282,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 			match->key.ip.tos = v6_spec->tclass;
- 			match->mask.ip.tos = v6_m_spec->tclass;
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_IP);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_IP);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_IP] =
- 				offsetof(struct ethtool_rx_flow_key, ip);
- 		}
-@@ -3306,7 +3306,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		break;
- 	}
- 
--	match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_BASIC);
-+	match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_BASIC);
- 	match->dissector.offset[FLOW_DISSECTOR_KEY_BASIC] =
- 		offsetof(struct ethtool_rx_flow_key, basic);
- 
-@@ -3339,7 +3339,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		if (ext_m_spec->vlan_etype ||
- 		    ext_m_spec->vlan_tci) {
- 			match->dissector.used_keys |=
--				BIT(FLOW_DISSECTOR_KEY_VLAN);
-+				BIT_ULL(FLOW_DISSECTOR_KEY_VLAN);
- 			match->dissector.offset[FLOW_DISSECTOR_KEY_VLAN] =
- 				offsetof(struct ethtool_rx_flow_key, vlan);
- 		}
-@@ -3354,7 +3354,7 @@ ethtool_rx_flow_rule_create(const struct ethtool_rx_flow_spec_input *input)
- 		       ETH_ALEN);
- 
- 		match->dissector.used_keys |=
--			BIT(FLOW_DISSECTOR_KEY_ETH_ADDRS);
-+			BIT_ULL(FLOW_DISSECTOR_KEY_ETH_ADDRS);
- 		match->dissector.offset[FLOW_DISSECTOR_KEY_ETH_ADDRS] =
- 			offsetof(struct ethtool_rx_flow_key, eth_addrs);
- 	}
-diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
-index 1c26f03fc661..a010b25076ca 100644
---- a/net/netfilter/nf_flow_table_offload.c
-+++ b/net/netfilter/nf_flow_table_offload.c
-@@ -34,7 +34,7 @@ static void nf_flow_rule_lwt_match(struct nf_flow_match *match,
- {
- 	struct nf_flow_key *mask = &match->mask;
- 	struct nf_flow_key *key = &match->key;
--	unsigned int enc_keys;
-+	unsigned long long enc_keys;
- 
- 	if (!tun_info || !(tun_info->mode & IP_TUNNEL_INFO_TX))
- 		return;
-@@ -43,8 +43,8 @@ static void nf_flow_rule_lwt_match(struct nf_flow_match *match,
- 	NF_FLOW_DISSECTOR(match, FLOW_DISSECTOR_KEY_ENC_KEYID, enc_key_id);
- 	key->enc_key_id.keyid = tunnel_id_to_key32(tun_info->key.tun_id);
- 	mask->enc_key_id.keyid = 0xffffffff;
--	enc_keys = BIT(FLOW_DISSECTOR_KEY_ENC_KEYID) |
--		   BIT(FLOW_DISSECTOR_KEY_ENC_CONTROL);
-+	enc_keys = BIT_ULL(FLOW_DISSECTOR_KEY_ENC_KEYID) |
-+		   BIT_ULL(FLOW_DISSECTOR_KEY_ENC_CONTROL);
- 
- 	if (ip_tunnel_info_af(tun_info) == AF_INET) {
- 		NF_FLOW_DISSECTOR(match, FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS,
-@@ -55,7 +55,7 @@ static void nf_flow_rule_lwt_match(struct nf_flow_match *match,
- 			mask->enc_ipv4.src = 0xffffffff;
- 		if (key->enc_ipv4.dst)
- 			mask->enc_ipv4.dst = 0xffffffff;
--		enc_keys |= BIT(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS);
-+		enc_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV4_ADDRS);
- 		key->enc_control.addr_type = FLOW_DISSECTOR_KEY_IPV4_ADDRS;
- 	} else {
- 		memcpy(&key->enc_ipv6.src, &tun_info->key.u.ipv6.dst,
-@@ -70,7 +70,7 @@ static void nf_flow_rule_lwt_match(struct nf_flow_match *match,
- 			   sizeof(struct in6_addr)))
- 			memset(&mask->enc_ipv6.dst, 0xff,
- 			       sizeof(struct in6_addr));
--		enc_keys |= BIT(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS);
-+		enc_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_ENC_IPV6_ADDRS);
- 		key->enc_control.addr_type = FLOW_DISSECTOR_KEY_IPV6_ADDRS;
- 	}
- 
-@@ -163,14 +163,14 @@ static int nf_flow_rule_match(struct nf_flow_match *match,
- 		return -EOPNOTSUPP;
- 	}
- 	mask->control.addr_type = 0xffff;
--	match->dissector.used_keys |= BIT(key->control.addr_type);
-+	match->dissector.used_keys |= BIT_ULL(key->control.addr_type);
- 	mask->basic.n_proto = 0xffff;
- 
- 	switch (tuple->l4proto) {
- 	case IPPROTO_TCP:
- 		key->tcp.flags = 0;
- 		mask->tcp.flags = cpu_to_be16(be32_to_cpu(TCP_FLAG_RST | TCP_FLAG_FIN) >> 16);
--		match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_TCP);
-+		match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_TCP);
- 		break;
- 	case IPPROTO_UDP:
- 	case IPPROTO_GRE:
-@@ -182,9 +182,9 @@ static int nf_flow_rule_match(struct nf_flow_match *match,
- 	key->basic.ip_proto = tuple->l4proto;
- 	mask->basic.ip_proto = 0xff;
- 
--	match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_META) |
--				      BIT(FLOW_DISSECTOR_KEY_CONTROL) |
--				      BIT(FLOW_DISSECTOR_KEY_BASIC);
-+	match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_META) |
-+				      BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL) |
-+				      BIT_ULL(FLOW_DISSECTOR_KEY_BASIC);
- 
- 	switch (tuple->l4proto) {
- 	case IPPROTO_TCP:
-@@ -194,7 +194,7 @@ static int nf_flow_rule_match(struct nf_flow_match *match,
- 		key->tp.dst = tuple->dst_port;
- 		mask->tp.dst = 0xffff;
- 
--		match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_PORTS);
-+		match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_PORTS);
- 		break;
- 	}
- 
-diff --git a/net/netfilter/nf_tables_offload.c b/net/netfilter/nf_tables_offload.c
-index 910ef881c3b8..12ab78fa5d84 100644
---- a/net/netfilter/nf_tables_offload.c
-+++ b/net/netfilter/nf_tables_offload.c
-@@ -35,12 +35,12 @@ void nft_flow_rule_set_addr_type(struct nft_flow_rule *flow,
- 	struct nft_flow_key *mask = &match->mask;
- 	struct nft_flow_key *key = &match->key;
- 
--	if (match->dissector.used_keys & BIT(FLOW_DISSECTOR_KEY_CONTROL))
-+	if (match->dissector.used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL))
- 		return;
- 
- 	key->control.addr_type = addr_type;
- 	mask->control.addr_type = 0xffff;
--	match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_CONTROL);
-+	match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_CONTROL);
- 	match->dissector.offset[FLOW_DISSECTOR_KEY_CONTROL] =
- 		offsetof(struct nft_flow_key, control);
- }
-@@ -59,7 +59,7 @@ static void nft_flow_rule_transfer_vlan(struct nft_offload_ctx *ctx,
- 		.mask	= match->mask.basic.n_proto,
- 	};
- 
--	if (match->dissector.used_keys & BIT(FLOW_DISSECTOR_KEY_VLAN) &&
-+	if (match->dissector.used_keys & BIT_ULL(FLOW_DISSECTOR_KEY_VLAN) &&
- 	    (match->key.vlan.vlan_tpid == htons(ETH_P_8021Q) ||
- 	     match->key.vlan.vlan_tpid == htons(ETH_P_8021AD))) {
- 		match->key.basic.n_proto = match->key.cvlan.vlan_tpid;
-@@ -70,8 +70,9 @@ static void nft_flow_rule_transfer_vlan(struct nft_offload_ctx *ctx,
- 		match->mask.vlan.vlan_tpid = ethertype.mask;
- 		match->dissector.offset[FLOW_DISSECTOR_KEY_CVLAN] =
- 			offsetof(struct nft_flow_key, cvlan);
--		match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_CVLAN);
--	} else if (match->dissector.used_keys & BIT(FLOW_DISSECTOR_KEY_BASIC) &&
-+		match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_CVLAN);
-+	} else if (match->dissector.used_keys &
-+		   BIT_ULL(FLOW_DISSECTOR_KEY_BASIC) &&
- 		   (match->key.basic.n_proto == htons(ETH_P_8021Q) ||
- 		    match->key.basic.n_proto == htons(ETH_P_8021AD))) {
- 		match->key.basic.n_proto = match->key.vlan.vlan_tpid;
-@@ -80,7 +81,7 @@ static void nft_flow_rule_transfer_vlan(struct nft_offload_ctx *ctx,
- 		match->mask.vlan.vlan_tpid = ethertype.mask;
- 		match->dissector.offset[FLOW_DISSECTOR_KEY_VLAN] =
- 			offsetof(struct nft_flow_key, vlan);
--		match->dissector.used_keys |= BIT(FLOW_DISSECTOR_KEY_VLAN);
-+		match->dissector.used_keys |= BIT_ULL(FLOW_DISSECTOR_KEY_VLAN);
- 	}
- }
- 
-diff --git a/net/netfilter/nft_cmp.c b/net/netfilter/nft_cmp.c
-index 6eb21a4f5698..cd4652259095 100644
---- a/net/netfilter/nft_cmp.c
-+++ b/net/netfilter/nft_cmp.c
-@@ -162,7 +162,7 @@ static int __nft_cmp_offload(struct nft_offload_ctx *ctx,
- 	memcpy(key + reg->offset, data, reg->len);
- 	memcpy(mask + reg->offset, datamask, reg->len);
- 
--	flow->match.dissector.used_keys |= BIT(reg->key);
-+	flow->match.dissector.used_keys |= BIT_ULL(reg->key);
- 	flow->match.dissector.offset[reg->key] = reg->base_offset;
- 
- 	if (reg->key == FLOW_DISSECTOR_KEY_META &&
+diff --git a/drivers/firmware/efi/Kconfig b/drivers/firmware/efi/Kconfig
+index 043ca31c114e..aa38089d1e4a 100644
+--- a/drivers/firmware/efi/Kconfig
++++ b/drivers/firmware/efi/Kconfig
+@@ -287,3 +287,18 @@ config UEFI_CPER_X86
+ 	bool
+ 	depends on UEFI_CPER && X86
+ 	default y
++
++config TEE_STMM_EFI
++	tristate "TEE based EFI runtime variable service driver"
++	depends on EFI && OPTEE && !EFI_VARS_PSTORE
++	help
++	  Select this config option if TEE is compiled to include StandAloneMM
++	  as a separate secure partition it has the ability to check and store
++	  EFI variables on an RPMB or any other non-volatile medium used by
++	  StandAloneMM.
++
++	  Enabling this will change the EFI runtime services from the firmware
++	  provided functions to TEE calls.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called tee_stmm_efi.
+diff --git a/drivers/firmware/efi/Makefile b/drivers/firmware/efi/Makefile
+index b51f2a4c821e..2ca8ee6ab490 100644
+--- a/drivers/firmware/efi/Makefile
++++ b/drivers/firmware/efi/Makefile
+@@ -41,3 +41,4 @@ obj-$(CONFIG_EFI_CAPSULE_LOADER)	+= capsule-loader.o
+ obj-$(CONFIG_EFI_EARLYCON)		+= earlycon.o
+ obj-$(CONFIG_UEFI_CPER_ARM)		+= cper-arm.o
+ obj-$(CONFIG_UEFI_CPER_X86)		+= cper-x86.o
++obj-$(CONFIG_TEE_STMM_EFI)		+= stmm/tee_stmm_efi.o
+diff --git a/drivers/firmware/efi/stmm/mm_communication.h b/drivers/firmware/efi/stmm/mm_communication.h
+new file mode 100644
+index 000000000000..52a1f32cd1eb
+--- /dev/null
++++ b/drivers/firmware/efi/stmm/mm_communication.h
+@@ -0,0 +1,236 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ *  Headers for EFI variable service via StandAloneMM, EDK2 application running
++ *  in OP-TEE. Most of the structs and defines resemble the EDK2 naming.
++ *
++ *  Copyright (c) 2017, Intel Corporation. All rights reserved.
++ *  Copyright (C) 2020 Linaro Ltd.
++ */
++
++#ifndef _MM_COMMUNICATION_H_
++#define _MM_COMMUNICATION_H_
++
++/*
++ * Interface to the pseudo Trusted Application (TA), which provides a
++ * communication channel with the Standalone MM (Management Mode)
++ * Secure Partition running at Secure-EL0
++ */
++
++#define PTA_STMM_CMD_COMMUNICATE 0
++
++/*
++ * Defined in OP-TEE, this UUID is used to identify the pseudo-TA.
++ * OP-TEE is using big endian GUIDs while UEFI uses little endian ones
++ */
++#define PTA_STMM_UUID \
++	UUID_INIT(0xed32d533, 0x99e6, 0x4209, \
++		  0x9c, 0xc0, 0x2d, 0x72, 0xcd, 0xd9, 0x98, 0xa7)
++
++#define EFI_MM_VARIABLE_GUID \
++	EFI_GUID(0xed32d533, 0x99e6, 0x4209, \
++		 0x9c, 0xc0, 0x2d, 0x72, 0xcd, 0xd9, 0x98, 0xa7)
++
++/**
++ * struct efi_mm_communicate_header - Header used for SMM variable communication
++
++ * @header_guid:  header use for disambiguation of content
++ * @message_len:  length of the message. Does not include the size of the
++ *                header
++ * @data:         payload of the message
++ *
++ * Defined in the PI spec as EFI_MM_COMMUNICATE_HEADER.
++ * To avoid confusion in interpreting frames, the communication buffer should
++ * always begin with efi_mm_communicate_header.
++ */
++struct efi_mm_communicate_header {
++	efi_guid_t header_guid;
++	size_t     message_len;
++	u8         data[];
++} __packed;
++
++#define MM_COMMUNICATE_HEADER_SIZE \
++	(sizeof(struct efi_mm_communicate_header))
++
++/* SPM return error codes */
++#define ARM_SVC_SPM_RET_SUCCESS               0
++#define ARM_SVC_SPM_RET_NOT_SUPPORTED        -1
++#define ARM_SVC_SPM_RET_INVALID_PARAMS       -2
++#define ARM_SVC_SPM_RET_DENIED               -3
++#define ARM_SVC_SPM_RET_NO_MEMORY            -5
++
++#define SMM_VARIABLE_FUNCTION_GET_VARIABLE  1
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_GET_NEXT_VARIABLE_NAME.
++ */
++#define SMM_VARIABLE_FUNCTION_GET_NEXT_VARIABLE_NAME  2
++/*
++ * The payload for this function is SMM_VARIABLE_COMMUNICATE_ACCESS_VARIABLE.
++ */
++#define SMM_VARIABLE_FUNCTION_SET_VARIABLE  3
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_QUERY_VARIABLE_INFO.
++ */
++#define SMM_VARIABLE_FUNCTION_QUERY_VARIABLE_INFO  4
++/*
++ * It is a notify event, no extra payload for this function.
++ */
++#define SMM_VARIABLE_FUNCTION_READY_TO_BOOT  5
++/*
++ * It is a notify event, no extra payload for this function.
++ */
++#define SMM_VARIABLE_FUNCTION_EXIT_BOOT_SERVICE  6
++/*
++ * The payload for this function is VARIABLE_INFO_ENTRY.
++ * The GUID in EFI_SMM_COMMUNICATE_HEADER is gEfiSmmVariableProtocolGuid.
++ */
++#define SMM_VARIABLE_FUNCTION_GET_STATISTICS  7
++/*
++ * The payload for this function is SMM_VARIABLE_COMMUNICATE_LOCK_VARIABLE
++ */
++#define SMM_VARIABLE_FUNCTION_LOCK_VARIABLE   8
++
++#define SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_SET  9
++
++#define SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_GET  10
++
++#define SMM_VARIABLE_FUNCTION_GET_PAYLOAD_SIZE  11
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_RUNTIME_VARIABLE_CACHE_CONTEXT
++ */
++#define SMM_VARIABLE_FUNCTION_INIT_RUNTIME_VARIABLE_CACHE_CONTEXT 12
++
++#define SMM_VARIABLE_FUNCTION_SYNC_RUNTIME_CACHE  13
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_GET_RUNTIME_CACHE_INFO
++ */
++#define SMM_VARIABLE_FUNCTION_GET_RUNTIME_CACHE_INFO  14
++
++/**
++ * struct smm_variable_communicate_header - Used for SMM variable communication
++
++ * @function:     function to call in Smm.
++ * @ret_status:   return status
++ * @data:         payload
++ */
++struct smm_variable_communicate_header {
++	size_t  function;
++	efi_status_t ret_status;
++	u8 data[];
++};
++
++#define MM_VARIABLE_COMMUNICATE_SIZE \
++	(sizeof(struct smm_variable_communicate_header))
++
++/**
++ * struct smm_variable_access - Used to communicate with StMM by
++ *                              SetVariable and GetVariable.
++
++ * @guid:         vendor GUID
++ * @data_size:    size of EFI variable data
++ * @name_size:    size of EFI name
++ * @attr:         attributes
++ * @name:         variable name
++ *
++ */
++struct smm_variable_access {
++	efi_guid_t  guid;
++	size_t data_size;
++	size_t name_size;
++	u32 attr;
++	u16 name[];
++};
++
++#define MM_VARIABLE_ACCESS_HEADER_SIZE \
++	(sizeof(struct smm_variable_access))
++/**
++ * struct smm_variable_payload_size - Used to get the max allowed
++ *                                    payload used in StMM.
++ *
++ * @size:  size to fill in
++ *
++ */
++struct smm_variable_payload_size {
++	size_t size;
++};
++
++/**
++ * struct smm_variable_getnext - Used to communicate with StMM for
++ *                               GetNextVariableName.
++ *
++ * @guid:       vendor GUID
++ * @name_size:  size of the name of the variable
++ * @name:       variable name
++ *
++ */
++struct smm_variable_getnext {
++	efi_guid_t  guid;
++	size_t name_size;
++	u16         name[];
++};
++
++#define MM_VARIABLE_GET_NEXT_HEADER_SIZE \
++	(sizeof(struct smm_variable_getnext))
++
++/**
++ * struct smm_variable_query_info - Used to communicate with StMM for
++ *                                  QueryVariableInfo.
++ *
++ * @max_variable_storage:        max available storage
++ * @remaining_variable_storage:  remaining available storage
++ * @max_variable_size:           max variable supported size
++ * @attr:                        attributes to query storage for
++ *
++ */
++struct smm_variable_query_info {
++	u64 max_variable_storage;
++	u64 remaining_variable_storage;
++	u64 max_variable_size;
++	u32 attr;
++};
++
++#define VAR_CHECK_VARIABLE_PROPERTY_REVISION 0x0001
++#define VAR_CHECK_VARIABLE_PROPERTY_READ_ONLY BIT(0)
++/**
++ * struct var_check_property - Used to store variable properties in StMM
++ *
++ * @revision:   magic revision number for variable property checking
++ * @property:   properties mask for the variable used in StMM.
++ *              Currently RO flag is supported
++ * @attributes: variable attributes used in StMM checking when properties
++ *              for a variable are enabled
++ * @minsize:    minimum allowed size for variable payload checked against
++ *              smm_variable_access->datasize in StMM
++ * @maxsize:    maximum allowed size for variable payload checked against
++ *              smm_variable_access->datasize in StMM
++ *
++ */
++struct var_check_property {
++	u16 revision;
++	u16 property;
++	u32 attributes;
++	size_t minsize;
++	size_t maxsize;
++};
++
++/**
++ * struct smm_variable_var_check_property - Used to communicate variable
++ *                                          properties with StMM
++ *
++ * @guid:       vendor GUID
++ * @name_size:  size of EFI name
++ * @property:   variable properties struct
++ * @name:       variable name
++ *
++ */
++struct smm_variable_var_check_property {
++	efi_guid_t guid;
++	size_t name_size;
++	struct var_check_property property;
++	u16 name[];
++};
++
++#endif /* _MM_COMMUNICATION_H_ */
+diff --git a/drivers/firmware/efi/stmm/tee_stmm_efi.c b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+new file mode 100644
+index 000000000000..f6623171ae04
+--- /dev/null
++++ b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+@@ -0,0 +1,638 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ *  EFI variable service via TEE
++ *
++ *  Copyright (C) 2022 Linaro
++ */
++
++#include <linux/efi.h>
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/tee.h>
++#include <linux/tee_drv.h>
++#include <linux/ucs2_string.h>
++#include "mm_communication.h"
++
++static struct efivars tee_efivars;
++static struct efivar_operations tee_efivar_ops;
++
++static size_t max_buffer_size; /* comm + var + func + data */
++static size_t max_payload_size; /* func + data */
++
++struct tee_stmm_efi_private {
++	struct tee_context *ctx;
++	u32 session;
++	struct device *dev;
++};
++
++static struct tee_stmm_efi_private pvt_data;
++
++/* UUID of the stmm PTA */
++static const struct tee_client_device_id tee_stmm_efi_id_table[] = {
++	{PTA_STMM_UUID},
++	{}
++};
++
++static int tee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
++{
++	/* currently only OP-TEE is supported as a communication path */
++	if (ver->impl_id == TEE_IMPL_ID_OPTEE)
++		return 1;
++	else
++		return 0;
++}
++
++/**
++ * tee_mm_communicate() - Pass a buffer to StandaloneMM running in TEE
++ *
++ * @comm_buf:		locally allocated communication buffer
++ * @dsize:		buffer size
++ * Return:		status code
++ */
++static efi_status_t tee_mm_communicate(void *comm_buf, size_t dsize)
++{
++	size_t buf_size;
++	efi_status_t ret;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct tee_ioctl_invoke_arg arg;
++	struct tee_param param[4];
++	struct tee_shm *shm = NULL;
++	int rc;
++
++	if (!comm_buf)
++		return EFI_INVALID_PARAMETER;
++
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	buf_size = mm_hdr->message_len + sizeof(efi_guid_t) + sizeof(size_t);
++
++	if (dsize != buf_size)
++		return EFI_INVALID_PARAMETER;
++
++	shm = tee_shm_register_kernel_buf(pvt_data.ctx, comm_buf, buf_size);
++	if (IS_ERR(shm)) {
++		dev_err(pvt_data.dev, "Unable to register shared memory\n");
++		return EFI_UNSUPPORTED;
++	}
++
++	memset(&arg, 0, sizeof(arg));
++	arg.func = PTA_STMM_CMD_COMMUNICATE;
++	arg.session = pvt_data.session;
++	arg.num_params = 4;
++
++	memset(param, 0, sizeof(param));
++	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
++	param[0].u.memref.size = buf_size;
++	param[0].u.memref.shm = shm;
++	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT;
++	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
++	param[3].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
++
++	rc = tee_client_invoke_func(pvt_data.ctx, &arg, param);
++	tee_shm_free(shm);
++
++	if (rc < 0 || arg.ret != 0) {
++		dev_err(pvt_data.dev,
++			"PTA_STMM_CMD_COMMUNICATE invoke error: 0x%x\n", arg.ret);
++		return EFI_DEVICE_ERROR;
++	}
++
++	switch (param[1].u.value.a) {
++	case ARM_SVC_SPM_RET_SUCCESS:
++		ret = EFI_SUCCESS;
++		break;
++
++	case ARM_SVC_SPM_RET_INVALID_PARAMS:
++		ret = EFI_INVALID_PARAMETER;
++		break;
++
++	case ARM_SVC_SPM_RET_DENIED:
++		ret = EFI_ACCESS_DENIED;
++		break;
++
++	case ARM_SVC_SPM_RET_NO_MEMORY:
++		ret = EFI_OUT_OF_RESOURCES;
++		break;
++
++	default:
++		ret = EFI_ACCESS_DENIED;
++	}
++
++	return ret;
++}
++
++/**
++ * mm_communicate() - Adjust the communication buffer to StandAlonneMM and send
++ * it to TEE
++ *
++ * @comm_buf:		locally allocated communication buffer, buffer should
++ *			be enough big to have some headers and payload
++ * @payload_size:	payload size
++ * Return:		status code
++ */
++static efi_status_t mm_communicate(u8 *comm_buf, size_t payload_size)
++{
++	size_t dsize;
++	efi_status_t ret;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct smm_variable_communicate_header *var_hdr;
++
++	dsize = payload_size + MM_COMMUNICATE_HEADER_SIZE +
++		MM_VARIABLE_COMMUNICATE_SIZE;
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	var_hdr = (struct smm_variable_communicate_header *)mm_hdr->data;
++
++	ret = tee_mm_communicate(comm_buf, dsize);
++	if (ret != EFI_SUCCESS) {
++		dev_err(pvt_data.dev, "%s failed!\n", __func__);
++		return ret;
++	}
++
++	return var_hdr->ret_status;
++}
++
++/**
++ * setup_mm_hdr() -	Allocate a buffer for StandAloneMM and initialize the
++ *			header data.
++ *
++ * @dptr:		pointer address to store allocated buffer
++ * @payload_size:	payload size
++ * @func:		standAloneMM function number
++ * @ret:		EFI return code
++ * Return:		pointer to corresponding StandAloneMM function buffer or NULL
++ */
++static void *setup_mm_hdr(u8 **dptr, size_t payload_size, size_t func,
++			  efi_status_t *ret)
++{
++	const efi_guid_t mm_var_guid = EFI_MM_VARIABLE_GUID;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct smm_variable_communicate_header *var_hdr;
++	u8 *comm_buf;
++
++	/* In the init function we initialize max_buffer_size with
++	 * get_max_payload(). So skip the test if max_buffer_size is initialized
++	 * StandAloneMM will perform similar checks and drop the buffer if it's
++	 * too long
++	 */
++	if (max_buffer_size &&
++	    max_buffer_size < (MM_COMMUNICATE_HEADER_SIZE +
++			       MM_VARIABLE_COMMUNICATE_SIZE + payload_size)) {
++		*ret = EFI_INVALID_PARAMETER;
++		return NULL;
++	}
++
++	comm_buf = kzalloc(MM_COMMUNICATE_HEADER_SIZE +
++				   MM_VARIABLE_COMMUNICATE_SIZE + payload_size,
++			   GFP_KERNEL);
++	if (!comm_buf) {
++		*ret = EFI_OUT_OF_RESOURCES;
++		return NULL;
++	}
++
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	memcpy(&mm_hdr->header_guid, &mm_var_guid, sizeof(mm_hdr->header_guid));
++	mm_hdr->message_len = MM_VARIABLE_COMMUNICATE_SIZE + payload_size;
++
++	var_hdr = (struct smm_variable_communicate_header *)mm_hdr->data;
++	var_hdr->function = func;
++	if (dptr)
++		*dptr = comm_buf;
++	*ret = EFI_SUCCESS;
++
++	return var_hdr->data;
++}
++
++/**
++ * get_max_payload() - Get variable payload size from StandAloneMM.
++ *
++ * @size:    size of the variable in storage
++ * Return:   status code
++ */
++static efi_status_t get_max_payload(size_t *size)
++{
++	struct smm_variable_payload_size *var_payload = NULL;
++	size_t payload_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!size) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	payload_size = sizeof(*var_payload);
++	var_payload = setup_mm_hdr(&comm_buf, payload_size,
++				   SMM_VARIABLE_FUNCTION_GET_PAYLOAD_SIZE,
++				   &ret);
++	if (!comm_buf)
++		goto out;
++
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	/* Make sure the buffer is big enough for storing variables */
++	if (var_payload->size < MM_VARIABLE_ACCESS_HEADER_SIZE + 0x20) {
++		ret = EFI_DEVICE_ERROR;
++		goto out;
++	}
++	*size = var_payload->size;
++	/*
++	 * There seems to be a bug in EDK2 miscalculating the boundaries and
++	 * size checks, so deduct 2 more bytes to fulfill this requirement. Fix
++	 * it up here to ensure backwards compatibility with older versions
++	 * (cf. StandaloneMmPkg/Drivers/StandaloneMmCpu/AArch64/EventHandle.c.
++	 * sizeof (EFI_MM_COMMUNICATE_HEADER) instead the size minus the
++	 * flexible array member).
++	 *
++	 * size is guaranteed to be > 2 due to checks on the beginning.
++	 */
++	*size -= 2;
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t get_property_int(u16 *name, size_t name_size,
++				     const efi_guid_t *vendor,
++				     struct var_check_property *var_property)
++{
++	struct smm_variable_var_check_property *smm_property;
++	size_t payload_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	memset(var_property, 0, sizeof(*var_property));
++	payload_size = sizeof(*smm_property) + name_size;
++	if (payload_size > max_payload_size) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++	smm_property = setup_mm_hdr(
++		&comm_buf, payload_size,
++		SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_GET, &ret);
++	if (!comm_buf)
++		goto out;
++
++	memcpy(&smm_property->guid, vendor, sizeof(smm_property->guid));
++	smm_property->name_size = name_size;
++	memcpy(smm_property->name, name, name_size);
++
++	ret = mm_communicate(comm_buf, payload_size);
++	/*
++	 * Currently only R/O property is supported in StMM.
++	 * Variables that are not set to R/O will not set the property in StMM
++	 * and the call will return EFI_NOT_FOUND. We are setting the
++	 * properties to 0x0 so checking against that is enough for the
++	 * EFI_NOT_FOUND case.
++	 */
++	if (ret == EFI_NOT_FOUND)
++		ret = EFI_SUCCESS;
++	if (ret != EFI_SUCCESS)
++		goto out;
++	memcpy(var_property, &smm_property->property, sizeof(*var_property));
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_get_variable(u16 *name, efi_guid_t *vendor,
++				     u32 *attributes, unsigned long *data_size,
++				     void *data)
++{
++	struct var_check_property var_property;
++	struct smm_variable_access *var_acc;
++	size_t payload_size;
++	size_t name_size;
++	size_t tmp_dsize;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!name || !vendor || !data_size) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++	if (name_size > max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	/* Trim output buffer size */
++	tmp_dsize = *data_size;
++	if (name_size + tmp_dsize >
++	    max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE) {
++		tmp_dsize = max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE -
++			    name_size;
++	}
++
++	/* Get communication buffer and initialize header */
++	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + tmp_dsize;
++	var_acc = setup_mm_hdr(&comm_buf, payload_size,
++			       SMM_VARIABLE_FUNCTION_GET_VARIABLE, &ret);
++	if (!comm_buf)
++		goto out;
++
++	/* Fill in contents */
++	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
++	var_acc->data_size = tmp_dsize;
++	var_acc->name_size = name_size;
++	var_acc->attr = attributes ? *attributes : 0;
++	memcpy(var_acc->name, name, name_size);
++
++	/* Communicate */
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL)
++		/* Update with reported data size for trimmed case */
++		*data_size = var_acc->data_size;
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	ret = get_property_int(name, name_size, vendor, &var_property);
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	if (attributes)
++		*attributes = var_acc->attr;
++
++	if (data)
++		memcpy(data, (u8 *)var_acc->name + var_acc->name_size,
++		       var_acc->data_size);
++	else
++		ret = EFI_INVALID_PARAMETER;
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_get_next_variable(unsigned long *name_size,
++					  efi_char16_t *name, efi_guid_t *guid)
++{
++	struct smm_variable_getnext *var_getnext;
++	size_t payload_size;
++	size_t out_name_size;
++	size_t in_name_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!name_size || !name || !guid) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	out_name_size = *name_size;
++	in_name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++
++	if (out_name_size < in_name_size) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	if (in_name_size >
++	    max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	/* Trim output buffer size */
++	if (out_name_size > max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE)
++		out_name_size =
++			max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE;
++
++	payload_size = MM_VARIABLE_GET_NEXT_HEADER_SIZE + out_name_size;
++	var_getnext = setup_mm_hdr(&comm_buf, payload_size,
++				   SMM_VARIABLE_FUNCTION_GET_NEXT_VARIABLE_NAME,
++				   &ret);
++	if (!comm_buf)
++		goto out;
++
++	/* Fill in contents */
++	memcpy(&var_getnext->guid, guid, sizeof(var_getnext->guid));
++	var_getnext->name_size = out_name_size;
++	memcpy(var_getnext->name, name, in_name_size);
++	memset((u8 *)var_getnext->name + in_name_size, 0x0,
++	       out_name_size - in_name_size);
++
++	/* Communicate */
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL) {
++		/* Update with reported data size for trimmed case */
++		*name_size = var_getnext->name_size;
++	}
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	memcpy(guid, &var_getnext->guid, sizeof(*guid));
++	memcpy(name, var_getnext->name, var_getnext->name_size);
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_set_variable(efi_char16_t *name, efi_guid_t *vendor,
++				     u32 attributes, unsigned long data_size,
++				     void *data)
++{
++	efi_status_t ret;
++	struct var_check_property var_property;
++	struct smm_variable_access *var_acc;
++	size_t payload_size;
++	size_t name_size;
++	u8 *comm_buf = NULL;
++
++	if (!name || name[0] == 0 || !vendor) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++	if (data_size > 0 && !data) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++	/* Check payload size */
++	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + data_size;
++	if (payload_size > max_payload_size) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++
++	/*
++	 * Allocate the buffer early, before switching to RW (if needed)
++	 * so we won't need to account for any failures in reading/setting
++	 * the properties, if the allocation fails
++	 */
++	var_acc = setup_mm_hdr(&comm_buf, payload_size,
++			       SMM_VARIABLE_FUNCTION_SET_VARIABLE, &ret);
++	if (!comm_buf)
++		goto out;
++
++	/*
++	 * The API has the ability to override RO flags. If no RO check was
++	 * requested switch the variable to RW for the duration of this call
++	 */
++	ret = get_property_int(name, name_size, vendor, &var_property);
++	if (ret != EFI_SUCCESS) {
++		dev_err(pvt_data.dev, "Getting variable property failed\n");
++		goto out;
++	}
++
++	if (var_property.property & VAR_CHECK_VARIABLE_PROPERTY_READ_ONLY) {
++		ret = EFI_WRITE_PROTECTED;
++		goto out;
++	}
++
++	/* Fill in contents */
++	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
++	var_acc->data_size = data_size;
++	var_acc->name_size = name_size;
++	var_acc->attr = attributes;
++	memcpy(var_acc->name, name, name_size);
++	memcpy((u8 *)var_acc->name + name_size, data, data_size);
++
++
++	/* Communicate */
++	ret = mm_communicate(comm_buf, payload_size);
++	dev_dbg(pvt_data.dev, "Set Variable %s %d %lx\n", __FILE__, __LINE__, ret);
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_set_variable_nonblocking(efi_char16_t *name,
++						 efi_guid_t *vendor,
++						 u32 attributes,
++						 unsigned long data_size,
++						 void *data)
++{
++	return EFI_UNSUPPORTED;
++}
++
++static efi_status_t tee_query_variable_info(u32 attributes,
++					    u64 *max_variable_storage_size,
++					    u64 *remain_variable_storage_size,
++					    u64 *max_variable_size)
++{
++	struct smm_variable_query_info *mm_query_info;
++	size_t payload_size;
++	efi_status_t ret;
++	u8 *comm_buf;
++
++	payload_size = sizeof(*mm_query_info);
++	mm_query_info = setup_mm_hdr(&comm_buf, payload_size,
++				SMM_VARIABLE_FUNCTION_QUERY_VARIABLE_INFO,
++				&ret);
++	if (!comm_buf)
++		goto out;
++
++	mm_query_info->attr = attributes;
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret != EFI_SUCCESS)
++		goto out;
++	*max_variable_storage_size = mm_query_info->max_variable_storage;
++	*remain_variable_storage_size =
++		mm_query_info->remaining_variable_storage;
++	*max_variable_size = mm_query_info->max_variable_size;
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static int tee_stmm_efi_probe(struct device *dev)
++{
++	struct tee_ioctl_open_session_arg sess_arg;
++	efi_status_t ret;
++	int rc;
++
++	/* Open context with TEE driver */
++	pvt_data.ctx = tee_client_open_context(NULL, tee_ctx_match, NULL, NULL);
++	if (IS_ERR(pvt_data.ctx))
++		return -ENODEV;
++
++	/* Open session with StMM PTA */
++	memset(&sess_arg, 0, sizeof(sess_arg));
++	export_uuid(sess_arg.uuid, &tee_stmm_efi_id_table[0].uuid);
++	rc = tee_client_open_session(pvt_data.ctx, &sess_arg, NULL);
++	if ((rc < 0) || (sess_arg.ret != 0)) {
++		dev_err(dev, "tee_client_open_session failed, err: %x\n",
++			sess_arg.ret);
++		rc = -EINVAL;
++		goto out_ctx;
++	}
++	pvt_data.session = sess_arg.session;
++	pvt_data.dev = dev;
++
++	ret = get_max_payload(&max_payload_size);
++	if (ret != EFI_SUCCESS) {
++		rc = -EIO;
++		goto out_sess;
++	}
++
++	max_buffer_size = MM_COMMUNICATE_HEADER_SIZE +
++			  MM_VARIABLE_COMMUNICATE_SIZE +
++			  max_payload_size;
++
++	tee_efivar_ops.get_variable = tee_get_variable;
++	tee_efivar_ops.get_next_variable = tee_get_next_variable;
++	tee_efivar_ops.set_variable = tee_set_variable;
++	tee_efivar_ops.set_variable_nonblocking = tee_set_variable_nonblocking;
++	tee_efivar_ops.query_variable_store = efi_query_variable_store;
++	tee_efivar_ops.query_variable_info = tee_query_variable_info;
++
++	efivars_generic_ops_unregister();
++	pr_info("Use tee-based EFI runtime variable services\n");
++	efivars_register(&tee_efivars, &tee_efivar_ops);
++
++	return 0;
++
++out_sess:
++	tee_client_close_session(pvt_data.ctx, pvt_data.session);
++out_ctx:
++	tee_client_close_context(pvt_data.ctx);
++
++	return rc;
++}
++
++static int tee_stmm_efi_remove(struct device *dev)
++{
++	efivars_unregister(&tee_efivars);
++	efivars_generic_ops_register();
++
++	tee_client_close_session(pvt_data.ctx, pvt_data.session);
++	tee_client_close_context(pvt_data.ctx);
++
++	return 0;
++}
++
++MODULE_DEVICE_TABLE(tee, tee_stmm_efi_id_table);
++
++static struct tee_client_driver tee_stmm_efi_driver = {
++	.id_table	= tee_stmm_efi_id_table,
++	.driver		= {
++		.name		= "tee-stmm-efi",
++		.bus		= &tee_bus_type,
++		.probe		= tee_stmm_efi_probe,
++		.remove		= tee_stmm_efi_remove,
++	},
++};
++
++static int __init tee_stmm_efi_mod_init(void)
++{
++	return driver_register(&tee_stmm_efi_driver.driver);
++}
++
++static void __exit tee_stmm_efi_mod_exit(void)
++{
++	driver_unregister(&tee_stmm_efi_driver.driver);
++}
++
++module_init(tee_stmm_efi_mod_init);
++module_exit(tee_stmm_efi_mod_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Ilias Apalodimas <ilias.apalodimas@linaro.org>");
++MODULE_AUTHOR("Masahisa Kojima <masahisa.kojima@linaro.org>");
++MODULE_DESCRIPTION("TEE based EFI runtime variable service driver");
 -- 
-2.25.1
+2.30.2
 
 _______________________________________________
 Linux-stm32 mailing list
