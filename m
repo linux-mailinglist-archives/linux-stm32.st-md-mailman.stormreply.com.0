@@ -2,49 +2,139 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 906FB76B9B0
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 18:34:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 916CD76BAC2
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 19:06:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DC47C6A5F2;
-	Tue,  1 Aug 2023 16:34:23 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C91AC6A5F2;
+	Tue,  1 Aug 2023 17:06:51 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2053.outbound.protection.outlook.com [40.107.20.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F657C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 16B26C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Aug 2023 16:34:21 +0000 (UTC)
-Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.200])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4RFgZp3WT4z67kys;
- Wed,  2 Aug 2023 00:30:42 +0800 (CST)
-Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
- (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 1 Aug
- 2023 17:34:19 +0100
-Date: Tue, 1 Aug 2023 17:34:18 +0100
-From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
-To: Masahisa Kojima <masahisa.kojima@linaro.org>
-Message-ID: <20230801173418.00007337@Huawei.com>
-In-Reply-To: <20230731065041.1447-4-masahisa.kojima@linaro.org>
-References: <20230731065041.1447-1-masahisa.kojima@linaro.org>
- <20230731065041.1447-4-masahisa.kojima@linaro.org>
-Organization: Huawei Technologies Research and Development (UK) Ltd.
-X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
+ Tue,  1 Aug 2023 17:06:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KAbVTTXdGDGyn3F3XsR4+mij1D8hhOCqriGFYHABNmM3LGylHddNMgQRXXa5vU/LnGG3PV719G7sa7KzFI2kJGqVKtoQOZMCgjEKiS8vlVeErp8+CtsWba2fyNyc3lm8v2rzxERp/F4xfqHcC7zG/f4XJMm9HoI9/umTxz9pQlYZNhxme4NRLAQmKqaHIryE3AiCtpWPHNwoM9IVWImi3LnLZ3+bk65xyqHdTiye4R/+uvYrsVuaciGtoOaeDT5xIYSyel1t+6a1Rg+ViVvR2l8fRWK4rM07YjUSmIHgJnFHksRiKw1kVGdbiamrfF+P1+cJ9Gzfn5+aswq1J3fyZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I7VJkdlzkvkfGQhJf7/FhknAsg8V5iXhf3Uc6CyOyAg=;
+ b=cRvoZAc9trifZ+N0sSRPDm2+QyDoEPWj7S+mSZvtSiYNErrXzsBs/VMt0LnimypnDlCErX3alAlMjXtuB9r4Hnm6M3cFs80Td7MAIfnFPVA0pVWf20m2eu/yVVCn0/b1wiWVuRPOX2J+E1izWg8xxkk2cxuEYr1XYZS34h7IyS9DTMOJHnbqDGvl78QfLD/AmC/yjFWMn1B6BlnzD63HJtsn1SFQZgkWLnbvPZ+LLFfx81HXamcXk4N8nReKokrl7vsxVHbRQuWorRt3qOTmFsrNx6mgKLef4jzyCd65j5DuKIEmqc0CwHsC+y00PLf/kWXOnbbnCtpUq7GdbCg79A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I7VJkdlzkvkfGQhJf7/FhknAsg8V5iXhf3Uc6CyOyAg=;
+ b=YcxWljvvCS7mnZpqltP8CAHvvW5a3xgp/wyjMBjn3CL1O65ZSvQQoTSPbT82KPX2iCcmquDNT0PLySK76/lyF0ImTxsAytrbp+ECdHkrqmz+jCS/8FLz9Vq/7LFoY2yKBkxo0b4fQtHxP1BaGvkflGKY+yAf0X6Njt+KeymBH5Y=
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
+ by AS1PR04MB9559.eurprd04.prod.outlook.com (2603:10a6:20b:483::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.42; Tue, 1 Aug
+ 2023 17:06:47 +0000
+Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
+ ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.043; Tue, 1 Aug 2023
+ 17:06:46 +0000
+From: Shenwei Wang <shenwei.wang@nxp.com>
+To: Russell King <linux@armlinux.org.uk>, Johannes Zink <j.zink@pengutronix.de>
+Thread-Topic: [EXT] Re: [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause the
+ TXC clock in fixed-link
+Thread-Index: AQHZw8rr+4AkxJNLt0GANB66N1LNC6/VZScAgAACfQCAAELmoA==
+Date: Tue, 1 Aug 2023 17:06:46 +0000
+Message-ID: <PAXPR04MB9185207744645A9064D2ACF5890AA@PAXPR04MB9185.eurprd04.prod.outlook.com>
+References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
+ <20230731161929.2341584-3-shenwei.wang@nxp.com>
+ <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
+ <ZMkBCGJrX/COB5+f@shell.armlinux.org.uk>
+In-Reply-To: <ZMkBCGJrX/COB5+f@shell.armlinux.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AS1PR04MB9559:EE_
+x-ms-office365-filtering-correlation-id: 8abe8636-229b-470e-b4e4-08db92b1b04b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: lefBc2X4tAEImXJIgok1sCm4zTz2W6Rv9PC/Da69NCzmB/WRONa4cl3Pwxi6YNflC7URV8oDBUuMkIbV9om2bbZFfNue//JLXjcSbflyjgd5uFgjYTvsXsceZ4dMeY0r0GRVFBbGlVghCg1/gz69EE55zDRKRuW0Hf/rtr9BN6zGijMOUvdeJYv+I6hfUjrKvlC3CtW5UbftoLfixfLuF4ohUV1mZ9WTFOYabLWGOWGRV0NYmE6mHUSgntrmZ/mbztqDflg1JSRnsvasSg9FwTEnvY9URc/Ym9soX2qA8Xbz4xJJgD+DJMHGkhJPfdhcZt8AjPOMLitbNRXpJAgXxmnxviuG605czIDnMNMxgOY/HLT1/rHcETaG+V/kArsTdq9hKGHs5tPF336IO08DZ6m1BiUDYcUfw/HB8rOSqr2qGYoqAltwTXrslYcv1voSGbQhxZeIfKGFNO9JvgsxLGR2csu9wWHYRF84ev35NYILk6dngIQQgHZY8y8XyeibeztV3hDqn8WG0cFMVszjO14lAsOxI1TKJNm8Cnr+Ui3PxxWqQRz0fFLHWfBSqJfO0cJ96FgzlrfCJHwiGAwJNMb6LKdGVmH13PSZb67Nnf8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(451199021)(966005)(44832011)(9686003)(7696005)(53546011)(55016003)(55236004)(26005)(6506007)(83380400001)(186003)(76116006)(33656002)(52536014)(66946007)(66556008)(7416002)(110136005)(54906003)(122000001)(38070700005)(7406005)(41300700001)(86362001)(38100700002)(66476007)(66446008)(4326008)(5660300002)(8676002)(8936002)(316002)(64756008)(2906002)(71200400001)(66899021)(478600001)(45080400002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+U6Y1sCMs6SIDR7T5cbALmQByDD1lcg8pxnojv5u/MJ1QE7fIm3Cytv2M5sl?=
+ =?us-ascii?Q?ld6HvwlvOxTFkHc4Hyg1NSmNBdiKIPSd+K6ThRb7C2GpOWVYmPjJxX5cU5dp?=
+ =?us-ascii?Q?jVmXop8eWo5K20a4cn1fffURabBTxkn8VpLBLotM4pp7ckMwU1L4R0G1tKhy?=
+ =?us-ascii?Q?JG1E8HdpQTS1BLK5j2RklLhS0K8AR53e5sD3AgCBMVzUpwH/POQ1gYl4OPFu?=
+ =?us-ascii?Q?5KxGWQEvZcaw4sJCxvUmE0JZw3soQbl92lWcBreszBWtnWfOOp8uuCVwiGN0?=
+ =?us-ascii?Q?HZc0NBta0tISdhnkkAZQQmS892ubOS5sk7oJ94YwD1k8z2bA/S02CW5WnByC?=
+ =?us-ascii?Q?6D8f6Ub/XBInUIjXYSE4hrni6UdJizvpGxSI9XWZ5ePGR5p6tXtcktqkwcHS?=
+ =?us-ascii?Q?gAOTNJaRBmNLdht0La13LwsdVBbcCmABU1Em153LQmbiDaxTR/Wzfvcjc2vq?=
+ =?us-ascii?Q?zix59v4JVlozx48Bxf70+l6lL+CV3CI93GqM7teBrW8JfGQh6t4zJDpHf7QG?=
+ =?us-ascii?Q?+SpQLfblaBcQmEZAI3/qiEsnO/Z6rRa+mU53UWN06H5ZYVdR6bP69Ugwzhv4?=
+ =?us-ascii?Q?vbXrIdlfGfpF6AUSMbAhLsi1mc0icARiI3F0U762vtX78RUAy9tdzz0DsnYc?=
+ =?us-ascii?Q?Q5MAO3sljGwonVxAk/fiExiFxCky0YH1T0VAi7woQ/JiVpzTm5FBEEHtZVjL?=
+ =?us-ascii?Q?5Y5qCJBGcYZluBiTECAp1o60q9o+k9GVemYse3mQD68lZWnYvnFF4P1YyQSF?=
+ =?us-ascii?Q?8x7iFqF3PvHzD6tycC+XywwqcKSN8xaA+cPUn2tf5RGNK33SzsY3dbnATyco?=
+ =?us-ascii?Q?Ka6uiapt7sk/jhKc4AchvgTtwGAti0CEf828HRiUezP47JLzxcTw5wjgvq7Q?=
+ =?us-ascii?Q?sLMOrXxzYW8LNk2ugSkS7RpdDY1jMI75OLAsY0jIdZefmDRSQyaoD2lUspyd?=
+ =?us-ascii?Q?b46z4TydiOg/4Yzbm97j/ForgsKmzJmn//5603UhuoPS0T71yI5QVbQUQsOc?=
+ =?us-ascii?Q?NRrwZAclauVYwdI9YPapE1bCWTZ3ppNAOhu0SjTkB2nfI+1wtDmU+tKxgJK4?=
+ =?us-ascii?Q?LBxvjQ2CCdoASoISMbsHUqDQcyuLm7yXH0lrFQEoX3AU26P9i/GeLAiAWrOf?=
+ =?us-ascii?Q?5npBLPrQCUE53wliKY5jbUAhygO2OoNT32Thi1SXndxByZXXoPH4K4AV4bCg?=
+ =?us-ascii?Q?i3JzExYChWoUepaS+j0VWvSUa0sP+u/6fzX/OzH1mG+48HCCgFBztiSPSwLH?=
+ =?us-ascii?Q?TJLznrDwVzZzITbM1naKelobjfH6442Bb5Aehq5mEz6FBuHC/3RtFj82n0w/?=
+ =?us-ascii?Q?WqhKM+0zXNkH5mgpLVoIFUP4LhV92h0HZwsQWVUFswY8rj2uVhRouBrfcGBx?=
+ =?us-ascii?Q?FsBW3pd2F0a+s1unwwiEEWcUj/HZvoW5HiiFogFj+/PJ/pHQVLgjQTdLP63A?=
+ =?us-ascii?Q?co74c8tToMdMEElDgPZUG8RP+gXiuluPuUaEqisK1uptB3MkfXSjBzY3to65?=
+ =?us-ascii?Q?+XSmXXPmKrsKliRNT2uH7KMfkX9xMTDUDA0MUXkJEwMPA1TZ5MN2Y37NYTc3?=
+ =?us-ascii?Q?yl1yUJEz5VGfiZSzonYmWStedc1Yt8lUjkMfHtrN?=
 MIME-Version: 1.0
-X-Originating-IP: [10.202.227.76]
-X-ClientProxiedBy: lhrpeml500001.china.huawei.com (7.191.163.213) To
- lhrpeml500005.china.huawei.com (7.191.163.240)
-X-CFilter-Loop: Reflected
-Cc: Sumit Garg <sumit.garg@linaro.org>, linux-efi@vger.kernel.org,
- Jan Kiszka <jan.kiszka@siemens.com>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Jens Wiklander <jens.wiklander@linaro.org>, op-tee@lists.trustedfirmware.org,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v7 3/5] efi: Add tee-based EFI variable
-	driver
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8abe8636-229b-470e-b4e4-08db92b1b04b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Aug 2023 17:06:46.7617 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Beof31fmBXRpdAujP0CiTy78Y8aoAByLigSyaqBp9akZ25v8UkdC1Pq+dkjxAYuvbKs8ej3e3u0oAZaulKVcdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9559
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
+ Eric Dumazet <edumazet@google.com>,
+ "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Wong Vee Khee <veekhee@apple.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andrew Halaney <ahalaney@redhat.com>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [EXT] Re: [PATCH v3 net 2/2] net: stmmac:
+ dwmac-imx: pause the TXC clock in fixed-link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,536 +151,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 31 Jul 2023 15:50:38 +0900
-Masahisa Kojima <masahisa.kojima@linaro.org> wrote:
-
-> When the flash is not owned by the non-secure world, accessing the EFI
-> variables is straightforward and done via EFI Runtime Variable Services.
-> In this case, critical variables for system integrity and security
-> are normally stored in the dedicated secure storage and only accessible
-> from the secure world.
-> 
-> On the other hand, the small embedded devices don't have the special
-> dedicated secure storage. The eMMC device with an RPMB partition is
-> becoming more common, we can use an RPMB partition to store the
-> EFI Variables.
-> 
-> The eMMC device is typically owned by the non-secure world(linux in
-> this case). There is an existing solution utilizing eMMC RPMB partition
-> for EFI Variables, it is implemented by interacting with
-> TEE(OP-TEE in this case), StandaloneMM(as EFI Variable Service Pseudo TA),
-> eMMC driver and tee-supplicant. The last piece is the tee-based
-> variable access driver to interact with TEE and StandaloneMM.
-> 
-> So let's add the kernel functions needed.
-> 
-> This feature is implemented as a kernel module.
-> StMM PTA has TA_FLAG_DEVICE_ENUM_SUPP flag when registered to OP-TEE
-> so that this tee_stmm_efi module is probed after tee-supplicant starts,
-> since "SetVariable" EFI Runtime Variable Service requires to
-> interact with tee-supplicant.
-> 
-> Acked-by: Sumit Garg <sumit.garg@linaro.org>
-> Co-developed-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-> Signed-off-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
-> Signed-off-by: Masahisa Kojima <masahisa.kojima@linaro.org>
-
-I was curious - so drive by review. Feel free to ignore :)
-All general code readability stuff and a suggestion for the subsystem to
-get rid of boilerplate (like most large subsystems did years ago!)
-
-Jonathan
 
 
-> diff --git a/drivers/firmware/efi/stmm/tee_stmm_efi.c b/drivers/firmware/efi/stmm/tee_stmm_efi.c
-> new file mode 100644
-> index 000000000000..f6623171ae04
-> --- /dev/null
-> +++ b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+> -----Original Message-----
+> From: Russell King <linux@armlinux.org.uk>
+> Sent: Tuesday, August 1, 2023 7:57 AM
+> To: Johannes Zink <j.zink@pengutronix.de>
+> Cc: Shenwei Wang <shenwei.wang@nxp.com>; David S. Miller
+> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
+> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Maxime
+> Coquelin <mcoquelin.stm32@gmail.com>; Shawn Guo <shawnguo@kernel.org>;
+> Sascha Hauer <s.hauer@pengutronix.de>; Neil Armstrong
+> <neil.armstrong@linaro.org>; Kevin Hilman <khilman@baylibre.com>; Vinod
+> Koul <vkoul@kernel.org>; Chen-Yu Tsai <wens@csie.org>; Jernej Skrabec
+> <jernej.skrabec@gmail.com>; Samuel Holland <samuel@sholland.org>;
+> Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre Torgue
+> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
+> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
+> <festevam@gmail.com>; dl-linux-imx <linux-imx@nxp.com>; Jerome Brunet
+> <jbrunet@baylibre.com>; Martin Blumenstingl
+> <martin.blumenstingl@googlemail.com>; Bhupesh Sharma
+> <bhupesh.sharma@linaro.org>; Nobuhiro Iwamatsu
+> <nobuhiro1.iwamatsu@toshiba.co.jp>; Simon Horman
+> <simon.horman@corigine.com>; Andrew Halaney <ahalaney@redhat.com>;
+> Bartosz Golaszewski <bartosz.golaszewski@linaro.org>; Wong Vee Khee
+> <veekhee@apple.com>; Revanth Kumar Uppala <ruppala@nvidia.com>; Jochen
+> Henneberg <jh@henneberg-systemdesign.com>; netdev@vger.kernel.org; linux-
+> stm32@st-md-mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
+> linux-kernel@vger.kernel.org; linux-amlogic@lists.infradead.org;
+> imx@lists.linux.dev; Frank Li <frank.li@nxp.com>
+> Subject: [EXT] Re: [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause the TXC
+> clock in fixed-link
+>
+> Caution: This is an external email. Please take care when clicking links or
+> opening attachments. When in doubt, report the message using the 'Report this
+> email' button
+>
+>
+> On Tue, Aug 01, 2023 at 02:47:46PM +0200, Johannes Zink wrote:
+> > Hi Shenwei,
+> >
+> > thanks for your patch.
+> >
+> > On 7/31/23 18:19, Shenwei Wang wrote:
+> > > When using a fixed-link setup, certain devices like the SJA1105
+> > > require a small pause in the TXC clock line to enable their internal
+> > > tunable delay line (TDL).
+> >
+> > If this is only required for some devices, is it safe to enforce this
+> > behaviour unconditionally for any kind of fixed link devices connected
+> > to the MX93 EQOS or could this possibly break for other devices?
+>
+> This same point has been raised by Andrew Halaney in message-id
+> <4govb566nypifbtqp5lcbsjhvoyble5luww3onaa2liinboguf@4kgihys6vhrg>
+> and Fabio Estevam in message-id
+>
+> <CAOMZO5ANQmVbk_jy7qdVtzs3716FisT2c72W+3WZyu7FoAochw@mail.gmail.
+> com>
+> but we don't seem to have any answer for it.
+>
+Hi Russell,
 
-...
+I hope you have thoroughly read all of my earlier responses, as I believe I already addressed this question.
+I'm happy to clarify further, but kindly avoid unsubstantiated comments.
 
-> +/**
-> + * tee_mm_communicate() - Pass a buffer to StandaloneMM running in TEE
-> + *
-> + * @comm_buf:		locally allocated communication buffer
-> + * @dsize:		buffer size
-> + * Return:		status code
-> + */
-> +static efi_status_t tee_mm_communicate(void *comm_buf, size_t dsize)
-> +{
-> +	size_t buf_size;
-> +	efi_status_t ret;
-> +	struct efi_mm_communicate_header *mm_hdr;
-> +	struct tee_ioctl_invoke_arg arg;
-> +	struct tee_param param[4];
-> +	struct tee_shm *shm = NULL;
-> +	int rc;
-> +
-> +	if (!comm_buf)
-> +		return EFI_INVALID_PARAMETER;
-> +
-> +	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
-> +	buf_size = mm_hdr->message_len + sizeof(efi_guid_t) + sizeof(size_t);
-> +
-> +	if (dsize != buf_size)
-> +		return EFI_INVALID_PARAMETER;
-> +
-> +	shm = tee_shm_register_kernel_buf(pvt_data.ctx, comm_buf, buf_size);
-> +	if (IS_ERR(shm)) {
-> +		dev_err(pvt_data.dev, "Unable to register shared memory\n");
-> +		return EFI_UNSUPPORTED;
-> +	}
-> +
-> +	memset(&arg, 0, sizeof(arg));
-> +	arg.func = PTA_STMM_CMD_COMMUNICATE;
-> +	arg.session = pvt_data.session;
-> +	arg.num_params = 4;
-> +
-> +	memset(param, 0, sizeof(param));
-> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
-> +	param[0].u.memref.size = buf_size;
-> +	param[0].u.memref.shm = shm;
-> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT;
-> +	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
-> +	param[3].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
-> +
-> +	rc = tee_client_invoke_func(pvt_data.ctx, &arg, param);
-> +	tee_shm_free(shm);
-> +
-> +	if (rc < 0 || arg.ret != 0) {
-> +		dev_err(pvt_data.dev,
-> +			"PTA_STMM_CMD_COMMUNICATE invoke error: 0x%x\n", arg.ret);
-> +		return EFI_DEVICE_ERROR;
-> +	}
-> +
-> +	switch (param[1].u.value.a) {
-> +	case ARM_SVC_SPM_RET_SUCCESS:
-> +		ret = EFI_SUCCESS;
-> +		break;
-> +
-> +	case ARM_SVC_SPM_RET_INVALID_PARAMS:
-> +		ret = EFI_INVALID_PARAMETER;
-> +		break;
-> +
-> +	case ARM_SVC_SPM_RET_DENIED:
-> +		ret = EFI_ACCESS_DENIED;
-> +		break;
-> +
-> +	case ARM_SVC_SPM_RET_NO_MEMORY:
-> +		ret = EFI_OUT_OF_RESOURCES;
-> +		break;
-> +
-> +	default:
-> +		ret = EFI_ACCESS_DENIED;
-> +	}
-> +
-> +	return ret;
+https://lore.kernel.org/imx/20230727152503.2199550-1-shenwei.wang@nxp.com/T/#m08da3797a056d4d8ea4c1d8956b445ae967e7cfa
+" Yes, that's the purpose because it won't hurt even the other side is not SJA1105."
 
-Direct returns both shorter and easier to review!
+> Also, the patch still uses wmb() between the write and the delay, and as Will
+> Deacon pointed out in his message, message-id
+> <20230728153611.GH21718@willie-the-truck>
+> this is not safe, yet still a new version was sent.
+>
 
-> +}
-> +
+Can we conclude that even without the wmb() here, the desired delay time between
+operations can still be ensured?
 
-Lots of similar stuff to below...
+Thanks,
+Shenwei
 
-
-> +
-> +static efi_status_t tee_get_variable(u16 *name, efi_guid_t *vendor,
-> +				     u32 *attributes, unsigned long *data_size,
-> +				     void *data)
-> +{
-> +	struct var_check_property var_property;
-> +	struct smm_variable_access *var_acc;
-> +	size_t payload_size;
-> +	size_t name_size;
-> +	size_t tmp_dsize;
-> +	u8 *comm_buf = NULL;
-> +	efi_status_t ret;
-> +
-> +	if (!name || !vendor || !data_size) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-> +	}
-> +
-> +	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
-> +	if (name_size > max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-> +	}
-> +
-> +	/* Trim output buffer size */
-> +	tmp_dsize = *data_size;
-> +	if (name_size + tmp_dsize >
-> +	    max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE) {
-> +		tmp_dsize = max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE -
-> +			    name_size;
-> +	}
-> +
-> +	/* Get communication buffer and initialize header */
-> +	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + tmp_dsize;
-> +	var_acc = setup_mm_hdr(&comm_buf, payload_size,
-> +			       SMM_VARIABLE_FUNCTION_GET_VARIABLE, &ret);
-> +	if (!comm_buf)
-> +		goto out;
-> +
-> +	/* Fill in contents */
-> +	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
-> +	var_acc->data_size = tmp_dsize;
-> +	var_acc->name_size = name_size;
-> +	var_acc->attr = attributes ? *attributes : 0;
-> +	memcpy(var_acc->name, name, name_size);
-> +
-> +	/* Communicate */
-
-Comment seems a bit obvious.  General rule, don't comment the obvious. It just
-provides places where the comments might become wrong during future refactors.
-
-> +	ret = mm_communicate(comm_buf, payload_size);
-> +	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL)
-> +		/* Update with reported data size for trimmed case */
-> +		*data_size = var_acc->data_size;
-> +	if (ret != EFI_SUCCESS)
-> +		goto out;
-> +
-> +	ret = get_property_int(name, name_size, vendor, &var_property);
-> +	if (ret != EFI_SUCCESS)
-> +		goto out;
-> +
-> +	if (attributes)
-> +		*attributes = var_acc->attr;
-> +
-> +	if (data)
-> +		memcpy(data, (u8 *)var_acc->name + var_acc->name_size,
-> +		       var_acc->data_size);
-> +	else
-> +		ret = EFI_INVALID_PARAMETER;
-
-Keep to a simple out of line error flow as it's more readable even when it
-is a line or 2 more code.
-
-	if (!data) {
-		ret = EFI_INVALID_PARAMETER;
-		goto out;
-	}
-	memcpy()...
-> +
-> +out:
-> +	kfree(comm_buf);
-> +	return ret;
-> +}
-> +
-> +static efi_status_t tee_get_next_variable(unsigned long *name_size,
-> +					  efi_char16_t *name, efi_guid_t *guid)
-> +{
-> +	struct smm_variable_getnext *var_getnext;
-> +	size_t payload_size;
-> +	size_t out_name_size;
-> +	size_t in_name_size;
-> +	u8 *comm_buf = NULL;
-> +	efi_status_t ret;
-> +
-> +	if (!name_size || !name || !guid) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-
-As below.  Direct returns make it clear nothing to do and generally
-give easier code to review.
-
-> +	}
-> +
-> +	out_name_size = *name_size;
-> +	in_name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
-> +
-> +	if (out_name_size < in_name_size) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-> +	}
-> +
-> +	if (in_name_size >
-> +	    max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-> +	}
-> +
-> +	/* Trim output buffer size */
-> +	if (out_name_size > max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE)
-> +		out_name_size =
-> +			max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE;
-> +
-> +	payload_size = MM_VARIABLE_GET_NEXT_HEADER_SIZE + out_name_size;
-> +	var_getnext = setup_mm_hdr(&comm_buf, payload_size,
-> +				   SMM_VARIABLE_FUNCTION_GET_NEXT_VARIABLE_NAME,
-> +				   &ret);
-> +	if (!comm_buf)
-
-As below (I'm reviewing up the code)
-
-> +		goto out;
-> +
-> +	/* Fill in contents */
-> +	memcpy(&var_getnext->guid, guid, sizeof(var_getnext->guid));
-> +	var_getnext->name_size = out_name_size;
-> +	memcpy(var_getnext->name, name, in_name_size);
-> +	memset((u8 *)var_getnext->name + in_name_size, 0x0,
-> +	       out_name_size - in_name_size);
-> +
-> +	/* Communicate */
-> +	ret = mm_communicate(comm_buf, payload_size);
-> +	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL) {
-> +		/* Update with reported data size for trimmed case */
-> +		*name_size = var_getnext->name_size;
-> +	}
-> +	if (ret != EFI_SUCCESS)
-> +		goto out;
-> +
-> +	memcpy(guid, &var_getnext->guid, sizeof(*guid));
-> +	memcpy(name, var_getnext->name, var_getnext->name_size);
-> +
-> +out:
-> +	kfree(comm_buf);
-> +	return ret;
-> +}
-> +
-> +static efi_status_t tee_set_variable(efi_char16_t *name, efi_guid_t *vendor,
-> +				     u32 attributes, unsigned long data_size,
-> +				     void *data)
-> +{
-> +	efi_status_t ret;
-> +	struct var_check_property var_property;
-> +	struct smm_variable_access *var_acc;
-> +	size_t payload_size;
-> +	size_t name_size;
-> +	u8 *comm_buf = NULL;
-> +
-> +	if (!name || name[0] == 0 || !vendor) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-
-Nothing to do so why not return here?
-
-> +	}
-> +	if (data_size > 0 && !data) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-
-Also return here?
-
-> +	}
-> +	/* Check payload size */
-> +	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
-> +	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + data_size;
-> +	if (payload_size > max_payload_size) {
-> +		ret = EFI_INVALID_PARAMETER;
-> +		goto out;
-and here.
-
-> +	}
-> +
-> +	/*
-> +	 * Allocate the buffer early, before switching to RW (if needed)
-> +	 * so we won't need to account for any failures in reading/setting
-> +	 * the properties, if the allocation fails
-> +	 */
-> +	var_acc = setup_mm_hdr(&comm_buf, payload_size,
-> +			       SMM_VARIABLE_FUNCTION_SET_VARIABLE, &ret);
-> +	if (!comm_buf)
-
-In this case still nothing to do. Return here - plus ideally check ret
-rather than comm_buf so it's clear that an error is being returned without
-us having to look in setup_mm_hdr()
-
-> +		goto out;
-> +
-> +	/*
-> +	 * The API has the ability to override RO flags. If no RO check was
-> +	 * requested switch the variable to RW for the duration of this call
-> +	 */
-> +	ret = get_property_int(name, name_size, vendor, &var_property);
-> +	if (ret != EFI_SUCCESS) {
-> +		dev_err(pvt_data.dev, "Getting variable property failed\n");
-> +		goto out;
-> +	}
-> +
-> +	if (var_property.property & VAR_CHECK_VARIABLE_PROPERTY_READ_ONLY) {
-> +		ret = EFI_WRITE_PROTECTED;
-> +		goto out;
-> +	}
-> +
-> +	/* Fill in contents */
-> +	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
-> +	var_acc->data_size = data_size;
-> +	var_acc->name_size = name_size;
-> +	var_acc->attr = attributes;
-> +	memcpy(var_acc->name, name, name_size);
-> +	memcpy((u8 *)var_acc->name + name_size, data, data_size);
-> +
-
-Not sure why 2 blank lines here. One probably fine.
-
-> +
-> +	/* Communicate */
-> +	ret = mm_communicate(comm_buf, payload_size);
-> +	dev_dbg(pvt_data.dev, "Set Variable %s %d %lx\n", __FILE__, __LINE__, ret);
-> +out:
-> +	kfree(comm_buf);
-> +	return ret;
-> +}
-> +
-> +static efi_status_t tee_set_variable_nonblocking(efi_char16_t *name,
-> +						 efi_guid_t *vendor,
-> +						 u32 attributes,
-> +						 unsigned long data_size,
-> +						 void *data)
-> +{
-> +	return EFI_UNSUPPORTED;
-> +}
-> +
-> +static efi_status_t tee_query_variable_info(u32 attributes,
-> +					    u64 *max_variable_storage_size,
-> +					    u64 *remain_variable_storage_size,
-> +					    u64 *max_variable_size)
-> +{
-> +	struct smm_variable_query_info *mm_query_info;
-> +	size_t payload_size;
-> +	efi_status_t ret;
-> +	u8 *comm_buf;
-> +
-> +	payload_size = sizeof(*mm_query_info);
-> +	mm_query_info = setup_mm_hdr(&comm_buf, payload_size,
-> +				SMM_VARIABLE_FUNCTION_QUERY_VARIABLE_INFO,
-> +				&ret);
-> +	if (!comm_buf)
-> +		goto out;
-
-if (!comm_buf) nothing to do (which is good as I'd not expect setup_mm_hdr
-to have side effects if it fails.  So return ret.  Which is a little odd.
-Can we just use ret as the check instead? That way it's clear the error returned
-isn't an accidental success.
-
-> +
-> +	mm_query_info->attr = attributes;
-> +	ret = mm_communicate(comm_buf, payload_size);
-> +	if (ret != EFI_SUCCESS)
-> +		goto out;
-> +	*max_variable_storage_size = mm_query_info->max_variable_storage;
-> +	*remain_variable_storage_size =
-> +		mm_query_info->remaining_variable_storage;
-> +	*max_variable_size = mm_query_info->max_variable_size;
-> +
-> +out:
-> +	kfree(comm_buf);
-> +	return ret;
-> +}
-> +
-> +static int tee_stmm_efi_probe(struct device *dev)
-> +{
-> +	struct tee_ioctl_open_session_arg sess_arg;
-> +	efi_status_t ret;
-> +	int rc;
-> +
-> +	/* Open context with TEE driver */
-> +	pvt_data.ctx = tee_client_open_context(NULL, tee_ctx_match, NULL, NULL);
-> +	if (IS_ERR(pvt_data.ctx))
-> +		return -ENODEV;
-> +
-> +	/* Open session with StMM PTA */
-> +	memset(&sess_arg, 0, sizeof(sess_arg));
-> +	export_uuid(sess_arg.uuid, &tee_stmm_efi_id_table[0].uuid);
-> +	rc = tee_client_open_session(pvt_data.ctx, &sess_arg, NULL);
-> +	if ((rc < 0) || (sess_arg.ret != 0)) {
-> +		dev_err(dev, "tee_client_open_session failed, err: %x\n",
-> +			sess_arg.ret);
-> +		rc = -EINVAL;
-> +		goto out_ctx;
-
-Up to you, but I'd be tempted to take this all devm_ managed
-via devm_add_action_or_reset() and suitable callbacks.
-
-Marginal benefit in lines of code but makes it much harder to forget
-to tidy something up in some future refactoring / reordering of code.
-
-> +	}
-> +	pvt_data.session = sess_arg.session;
-> +	pvt_data.dev = dev;
-> +
-> +	ret = get_max_payload(&max_payload_size);
-> +	if (ret != EFI_SUCCESS) {
-> +		rc = -EIO;
-> +		goto out_sess;
-> +	}
-> +
-> +	max_buffer_size = MM_COMMUNICATE_HEADER_SIZE +
-> +			  MM_VARIABLE_COMMUNICATE_SIZE +
-> +			  max_payload_size;
-> +
-> +	tee_efivar_ops.get_variable = tee_get_variable;
-> +	tee_efivar_ops.get_next_variable = tee_get_next_variable;
-> +	tee_efivar_ops.set_variable = tee_set_variable;
-> +	tee_efivar_ops.set_variable_nonblocking = tee_set_variable_nonblocking;
-> +	tee_efivar_ops.query_variable_store = efi_query_variable_store;
-> +	tee_efivar_ops.query_variable_info = tee_query_variable_info;
-> +
-> +	efivars_generic_ops_unregister();
-> +	pr_info("Use tee-based EFI runtime variable services\n");
-> +	efivars_register(&tee_efivars, &tee_efivar_ops);
-> +
-> +	return 0;
-> +
-> +out_sess:
-> +	tee_client_close_session(pvt_data.ctx, pvt_data.session);
-> +out_ctx:
-> +	tee_client_close_context(pvt_data.ctx);
-> +
-> +	return rc;
-> +}
-> +
-> +static int tee_stmm_efi_remove(struct device *dev)
-> +{
-> +	efivars_unregister(&tee_efivars);
-> +	efivars_generic_ops_register();
-> +
-> +	tee_client_close_session(pvt_data.ctx, pvt_data.session);
-> +	tee_client_close_context(pvt_data.ctx);
-> +
-> +	return 0;
-> +}
-> +
-> +MODULE_DEVICE_TABLE(tee, tee_stmm_efi_id_table);
-> +
-> +static struct tee_client_driver tee_stmm_efi_driver = {
-> +	.id_table	= tee_stmm_efi_id_table,
-> +	.driver		= {
-> +		.name		= "tee-stmm-efi",
-> +		.bus		= &tee_bus_type,
-> +		.probe		= tee_stmm_efi_probe,
-> +		.remove		= tee_stmm_efi_remove,
-> +	},
-> +};
-> +
-> +static int __init tee_stmm_efi_mod_init(void)
-> +{
-> +	return driver_register(&tee_stmm_efi_driver.driver);
-> +}
-> +
-> +static void __exit tee_stmm_efi_mod_exit(void)
-> +{
-> +	driver_unregister(&tee_stmm_efi_driver.driver);
-> +}
-> +
-> +module_init(tee_stmm_efi_mod_init);
-> +module_exit(tee_stmm_efi_mod_exit);
-
-Looks like tee client drivers could benefit from a 
-#define module_tee_client_driver(__tee_client_driver) 
-similar to module_platform_driver() and similar.
- 
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Ilias Apalodimas <ilias.apalodimas@linaro.org>");
-> +MODULE_AUTHOR("Masahisa Kojima <masahisa.kojima@linaro.org>");
-> +MODULE_DESCRIPTION("TEE based EFI runtime variable service driver");
-
+> It seems the author of these patches is pretty resistant to comments, and has
+> shown that when I was requesting changes - it was an awful struggle to get
+> changes made. I'm now of the opinion that I really can't be bothered to review
+> these patches, precisely because feedback is clearly not welcome or if welcome,
+> apparently acted upon.
+>
+> --
+> RMK's Patch system:
+> https://www.ar/
+> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&data=05%7C01%7Cshenwei.wang
+> %40nxp.com%7Ce65ab380ff5b4748da5308db928ec751%7C686ea1d3bc2b4c6fa
+> 92cd99c5c301635%7C0%7C0%7C638264914150592989%7CUnknown%7CTWFp
+> bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
+> Mn0%3D%7C3000%7C%7C%7C&sdata=%2FzSqRqJFRQljX6ky3XJvfkMH9PwgOstb
+> w8HpEppYOIM%3D&reserved=0
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
