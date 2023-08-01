@@ -2,74 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26DD176B544
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 14:57:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5180476B669
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 15:55:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C38E2C6A5E6;
-	Tue,  1 Aug 2023 12:57:17 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFE23C6A5E6;
+	Tue,  1 Aug 2023 13:55:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CDC0C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1E536C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Aug 2023 12:57:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=A1UXyGi4tVO1CNUnpyY8C1O55E/6x79wyybqrcHbfvA=; b=0IC1RGg2Hm6kgEu7PxHbmxTU0D
- h4LJEtklGDODfDxqL2zvXibphfmcLkhnLMgU90+1UpkswU7hCpTMnwdIqFZ66X7KG2ZWjWUk1udRh
- AIjs13najytZS+5vLWfUkcs59o4/5QI4VE0ucL1cnJKiYdxOORrbtKxvtnryYUNaRwkcZ25TUwSDi
- e6+btWY5g4lPajiNzOpQoRTulBSlMq1EaEqiY7RXswMvxBMbMHcHt9m3UwmtICalV3EREDwXtJLXV
- dXHZurCfRd1AjEA7F8zW64y/dM6jBybCT5fSPMmAq3AKLU1fKA2xjL7nrEQJRhYcOLqvg5fO/RAMA
- hhpXN4LA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:55550)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qQovd-00045o-14;
- Tue, 01 Aug 2023 13:56:45 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qQovY-0000i5-6Y; Tue, 01 Aug 2023 13:56:40 +0100
-Date: Tue, 1 Aug 2023 13:56:40 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Johannes Zink <j.zink@pengutronix.de>
-Message-ID: <ZMkBCGJrX/COB5+f@shell.armlinux.org.uk>
-References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
- <20230731161929.2341584-3-shenwei.wang@nxp.com>
- <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
+ Tue,  1 Aug 2023 13:55:37 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3719k4VI008191; Tue, 1 Aug 2023 15:55:10 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=MLBE3FzrM2b0nVsbnwYAb0B63uPqrpp4S1Mc+KvXP80=; b=Sg
+ dEd91Zu30DuWa7GryPAwP1LXYKLL2tpmI8no5QnvkkOsFgg/+ekkRKfHR87XnvV1
+ XW9gPHgDUY1zxJLMRnxX0zZr9kycIB1PBgkdDaNVq0yZUvFrSfSBdCjxRakKLy5i
+ 0iCrSaGslEvwfGAHO+ZoBN8yejkMLsfd3BKG8eTfzIvZt1/whpmGNyiR0IbvU14h
+ X25yQfvk75roCaR+lLM45joaRH5VtQsgCFfkVIvJXd1LMM3FGpNM6Y03EhJRK2dl
+ L/Bmn3Yl3gl2nzE4JH+F0BzO/RCSgEgapR+Sfub18jwqK2NVprphpZA4RlzvLiJc
+ hw/ptO6cPsz0VNtXBDuw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s6yq6sfbu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 01 Aug 2023 15:55:10 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C10B9100080;
+ Tue,  1 Aug 2023 15:55:08 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9440A22A6EC;
+ Tue,  1 Aug 2023 15:55:08 +0200 (CEST)
+Received: from [10.201.20.168] (10.201.20.168) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 1 Aug
+ 2023 15:55:07 +0200
+Message-ID: <a7a373b7-1f3e-3b17-e323-cb636816fb99@foss.st.com>
+Date: Tue, 1 Aug 2023 15:55:07 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
-Cc: imx@lists.linux.dev, Simon Horman <simon.horman@corigine.com>,
- Frank Li <frank.li@nxp.com>, Eric Dumazet <edumazet@google.com>,
- linux-amlogic@lists.infradead.org, Shenwei Wang <shenwei.wang@nxp.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Wong Vee Khee <veekhee@apple.com>, Chen-Yu Tsai <wens@csie.org>,
- Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Arnd Bergmann <arnd@kernel.org>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>
+References: <20230801105932.3738430-1-arnd@kernel.org>
+From: Valentin CARON <valentin.caron@foss.st.com>
+In-Reply-To: <20230801105932.3738430-1-arnd@kernel.org>
+X-Originating-IP: [10.201.20.168]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-01_09,2023-08-01_01,2023-05-22_02
+Cc: linux-rtc@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
+ Christophe Guibout <christophe.guibout@foss.st.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause
- the TXC clock in fixed-link
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: remove incorrect #ifdef check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,45 +76,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 01, 2023 at 02:47:46PM +0200, Johannes Zink wrote:
-> Hi Shenwei,
-> 
-> thanks for your patch.
-> 
-> On 7/31/23 18:19, Shenwei Wang wrote:
-> > When using a fixed-link setup, certain devices like the SJA1105 require a
-> > small pause in the TXC clock line to enable their internal tunable
-> > delay line (TDL).
-> 
-> If this is only required for some devices, is it safe to enforce this
-> behaviour unconditionally for any kind of fixed link devices connected to
-> the MX93 EQOS or could this possibly break for other devices?
+Hi Arnd,
 
-This same point has been raised by Andrew Halaney in message-id
- <4govb566nypifbtqp5lcbsjhvoyble5luww3onaa2liinboguf@4kgihys6vhrg>
-and Fabio Estevam in message-id
- <CAOMZO5ANQmVbk_jy7qdVtzs3716FisT2c72W+3WZyu7FoAochw@mail.gmail.com>
-but we don't seem to have any answer for it.
+Thanks for your patch !
 
-Also, the patch still uses wmb() between the write and the delay, and as
-Will Deacon pointed out in his message, message-id
- <20230728153611.GH21718@willie-the-truck>
-this is not safe, yet still a new version was sent.
-
-It seems the author of these patches is pretty resistant to comments,
-and has shown that when I was requesting changes - it was an awful
-struggle to get changes made. I'm now of the opinion that I really
-can't be bothered to review these patches, precisely because feedback
-is clearly not welcome or if welcome, apparently acted upon.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+On 8/1/23 12:59, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> After a previous commit changed the driver over to
+> SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(), the suspend/resume
+> functions must no longer be hidden behind an #ifdef:
+>
+> In file included from include/linux/clk.h:13,
+>                   from drivers/rtc/rtc-stm32.c:8:
+> drivers/rtc/rtc-stm32.c:927:39: error: 'stm32_rtc_suspend' undeclared here (not in a function); did you mean 'stm32_rtc_probe'?
+>    927 |         SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
+>        |                                       ^~~~~~~~~~~~~~~~~
+> include/linux/kernel.h:58:44: note: in definition of macro 'PTR_IF'
+>     58 | #define PTR_IF(cond, ptr)       ((cond) ? (ptr) : NULL)
+>        |                                            ^~~
+> include/linux/pm.h:329:26: note: in expansion of macro 'pm_sleep_ptr'
+>    329 |         .suspend_noirq = pm_sleep_ptr(suspend_fn), \
+>        |                          ^~~~~~~~~~~~
+>
+> Fixes: fb9a7e5360dc8 ("rtc: stm32: change PM callbacks to "_noirq()"")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Valentin Caron <valentin.caron@foss.st.com>
+> ---
+>   drivers/rtc/rtc-stm32.c | 2 --
+>   1 file changed, 2 deletions(-)
+>
+> diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
+> index 85689192fa7ae..c296e7af0700c 100644
+> --- a/drivers/rtc/rtc-stm32.c
+> +++ b/drivers/rtc/rtc-stm32.c
+> @@ -890,7 +890,6 @@ static void stm32_rtc_remove(struct platform_device *pdev)
+>   	device_init_wakeup(&pdev->dev, false);
+>   }
+>   
+> -#ifdef CONFIG_PM_SLEEP
+>   static int stm32_rtc_suspend(struct device *dev)
+>   {
+>   	struct stm32_rtc *rtc = dev_get_drvdata(dev);
+> @@ -921,7 +920,6 @@ static int stm32_rtc_resume(struct device *dev)
+>   
+>   	return ret;
+>   }
+> -#endif
+>   
+>   static const struct dev_pm_ops stm32_rtc_pm_ops = {
+>   	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
