@@ -2,48 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D43276B273
-	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 12:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 878B776B500
+	for <lists+linux-stm32@lfdr.de>; Tue,  1 Aug 2023 14:48:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27907C6B45A;
-	Tue,  1 Aug 2023 10:59:41 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B1D3C6A5E6;
+	Tue,  1 Aug 2023 12:48:39 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F186BC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C556C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  1 Aug 2023 10:59:39 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C21786150F;
- Tue,  1 Aug 2023 10:59:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F66C433C8;
- Tue,  1 Aug 2023 10:59:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1690887578;
- bh=W6uC+hfdQjXTE0b+hUiFIq4lfhy6AJ+5JMfKAqdfPEg=;
- h=From:To:Cc:Subject:Date:From;
- b=I3i7dgT+D7pQRjctNSQCfp2q3NsGd0IjKONwgsV5qi8MuPuNxiXt3FhH/F8UHr3NJ
- H6mbydie71eLjQgprazKi0/9WCDZaQdB9CI+YGBeO4ic0O7fDcb+Wh5kSA6akqKvsM
- rYzIwsA1LuNixpwVzxZzH4m1Kffo/le6cp3BCbeKy24Iuhw24sdRfesACPcTPrQ6FY
- Fy/HTlrayvB15X/PhESYg52xrOovl+Y5/mXrdEu0Y25QGEKzqdccTzl450jNLZ3EsJ
- szRAHJrb6MjAXz7UoAIcBBCTUn7hiYskhJrEbuvUPw3QcjsUIQWe0o2lp5XtyUblRS
- Jo/W818d0jTyw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Date: Tue,  1 Aug 2023 12:59:15 +0200
-Message-Id: <20230801105932.3738430-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.39.2
+ Tue,  1 Aug 2023 12:48:37 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <j.zink@pengutronix.de>)
+ id 1qQonB-0004wo-0E; Tue, 01 Aug 2023 14:48:01 +0200
+Message-ID: <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
+Date: Tue, 1 Aug 2023 14:47:46 +0200
 MIME-Version: 1.0
-Cc: linux-rtc@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Christophe Guibout <christophe.guibout@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] rtc: stm32: remove incorrect #ifdef check
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.1
+Content-Language: en-US, de-DE
+To: Shenwei Wang <shenwei.wang@nxp.com>, Russell King
+ <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
+ <20230731161929.2341584-3-shenwei.wang@nxp.com>
+From: Johannes Zink <j.zink@pengutronix.de>
+In-Reply-To: <20230731161929.2341584-3-shenwei.wang@nxp.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: j.zink@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: imx@lists.linux.dev, Simon Horman <simon.horman@corigine.com>,
+ Frank Li <frank.li@nxp.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause
+ the TXC clock in fixed-link
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,57 +71,130 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Arnd Bergmann <arnd@arndb.de>
+Hi Shenwei,
 
-After a previous commit changed the driver over to
-SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(), the suspend/resume
-functions must no longer be hidden behind an #ifdef:
+thanks for your patch.
 
-In file included from include/linux/clk.h:13,
-                 from drivers/rtc/rtc-stm32.c:8:
-drivers/rtc/rtc-stm32.c:927:39: error: 'stm32_rtc_suspend' undeclared here (not in a function); did you mean 'stm32_rtc_probe'?
-  927 |         SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
-      |                                       ^~~~~~~~~~~~~~~~~
-include/linux/kernel.h:58:44: note: in definition of macro 'PTR_IF'
-   58 | #define PTR_IF(cond, ptr)       ((cond) ? (ptr) : NULL)
-      |                                            ^~~
-include/linux/pm.h:329:26: note: in expansion of macro 'pm_sleep_ptr'
-  329 |         .suspend_noirq = pm_sleep_ptr(suspend_fn), \
-      |                          ^~~~~~~~~~~~
+On 7/31/23 18:19, Shenwei Wang wrote:
+> When using a fixed-link setup, certain devices like the SJA1105 require a
+> small pause in the TXC clock line to enable their internal tunable
+> delay line (TDL).
 
-Fixes: fb9a7e5360dc8 ("rtc: stm32: change PM callbacks to "_noirq()"")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/rtc/rtc-stm32.c | 2 --
- 1 file changed, 2 deletions(-)
+If this is only required for some devices, is it safe to enforce this behaviour 
+unconditionally for any kind of fixed link devices connected to the MX93 EQOS 
+or could this possibly break for other devices?
 
-diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index 85689192fa7ae..c296e7af0700c 100644
---- a/drivers/rtc/rtc-stm32.c
-+++ b/drivers/rtc/rtc-stm32.c
-@@ -890,7 +890,6 @@ static void stm32_rtc_remove(struct platform_device *pdev)
- 	device_init_wakeup(&pdev->dev, false);
- }
- 
--#ifdef CONFIG_PM_SLEEP
- static int stm32_rtc_suspend(struct device *dev)
- {
- 	struct stm32_rtc *rtc = dev_get_drvdata(dev);
-@@ -921,7 +920,6 @@ static int stm32_rtc_resume(struct device *dev)
- 
- 	return ret;
- }
--#endif
- 
- static const struct dev_pm_ops stm32_rtc_pm_ops = {
- 	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
+Best regards
+Johannes
+
+> 
+> To satisfy this requirement, this patch temporarily disables the TX clock,
+> and restarts it after a required period. This provides the required
+> silent interval on the clock line for SJA1105 to complete the frequency
+> transition and enable the internal TDLs.
+> 
+> So far we have only enabled this feature on the i.MX93 platform.
+> 
+> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
+> Reviewed-by: Frank Li <frank.li@nxp.com>
+> ---
+>   .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 42 +++++++++++++++++++
+>   1 file changed, 42 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+> index 53ee5a42c071..2e4173d099f3 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+> @@ -32,6 +32,7 @@
+>   #define GPR_ENET_QOS_RGMII_EN		(0x1 << 21)
+>   
+>   #define MX93_GPR_ENET_QOS_INTF_MODE_MASK	GENMASK(3, 0)
+> +#define MX93_GPR_ENET_QOS_INTF_MASK		GENMASK(3, 1)
+>   #define MX93_GPR_ENET_QOS_INTF_SEL_MII		(0x0 << 1)
+>   #define MX93_GPR_ENET_QOS_INTF_SEL_RMII		(0x4 << 1)
+>   #define MX93_GPR_ENET_QOS_INTF_SEL_RGMII	(0x1 << 1)
+> @@ -40,6 +41,7 @@
+>   #define DMA_BUS_MODE			0x00001000
+>   #define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
+>   #define RMII_RESET_SPEED		(0x3 << 14)
+> +#define CTRL_SPEED_MASK			GENMASK(15, 14)
+>   
+>   struct imx_dwmac_ops {
+>   	u32 addr_width;
+> @@ -56,6 +58,7 @@ struct imx_priv_data {
+>   	struct regmap *intf_regmap;
+>   	u32 intf_reg_off;
+>   	bool rmii_refclk_ext;
+> +	void __iomem *base_addr;
+>   
+>   	const struct imx_dwmac_ops *ops;
+>   	struct plat_stmmacenet_data *plat_dat;
+> @@ -212,6 +215,42 @@ static void imx_dwmac_fix_speed(void *priv, uint speed, uint mode)
+>   		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
+>   }
+>   
+> +static void imx_dwmac_fix_speed_mx93(void *priv, uint speed, uint mode)
+> +{
+> +	struct imx_priv_data *dwmac = priv;
+> +	int ctrl, old_ctrl, iface;
+> +
+> +	imx_dwmac_fix_speed(priv, speed, mode);
+> +
+> +	if (!dwmac || mode != MLO_AN_FIXED)
+> +		return;
+> +
+> +	if (regmap_read(dwmac->intf_regmap, dwmac->intf_reg_off, &iface))
+> +		return;
+> +
+> +	iface &= MX93_GPR_ENET_QOS_INTF_MASK;
+> +	if (iface != MX93_GPR_ENET_QOS_INTF_SEL_RGMII)
+> +		return;
+> +
+> +	old_ctrl = readl(dwmac->base_addr + MAC_CTRL_REG);
+> +	ctrl = old_ctrl & ~CTRL_SPEED_MASK;
+> +	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
+> +			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, 0);
+> +	writel(ctrl, dwmac->base_addr + MAC_CTRL_REG);
+> +
+> +	/* Ensure the settings for CTRL are applied and avoid CPU/Compiler
+> +	 * reordering.
+> +	 */
+> +	wmb();
+> +
+> +	usleep_range(10, 20);
+> +	iface |= MX93_GPR_ENET_QOS_CLK_GEN_EN;
+> +	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
+> +			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, iface);
+> +
+> +	writel(old_ctrl, dwmac->base_addr + MAC_CTRL_REG);
+> +}
+> +
+>   static int imx_dwmac_mx93_reset(void *priv, void __iomem *ioaddr)
+>   {
+>   	struct plat_stmmacenet_data *plat_dat = priv;
+> @@ -317,8 +356,11 @@ static int imx_dwmac_probe(struct platform_device *pdev)
+>   	plat_dat->exit = imx_dwmac_exit;
+>   	plat_dat->clks_config = imx_dwmac_clks_config;
+>   	plat_dat->fix_mac_speed = imx_dwmac_fix_speed;
+> +	if (of_machine_is_compatible("fsl,imx93"))
+> +		plat_dat->fix_mac_speed = imx_dwmac_fix_speed_mx93;
+>   	plat_dat->bsp_priv = dwmac;
+>   	dwmac->plat_dat = plat_dat;
+> +	dwmac->base_addr = stmmac_res.addr;
+>   
+>   	ret = imx_dwmac_clks_config(dwmac, true);
+>   	if (ret)
+
 -- 
-2.39.2
+Pengutronix e.K.                | Johannes Zink                  |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 
 _______________________________________________
 Linux-stm32 mailing list
