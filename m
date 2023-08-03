@@ -2,75 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6A776E053
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 08:37:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CDC176E4CB
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 11:43:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 503E1C6A5FA;
-	Thu,  3 Aug 2023 06:37:19 +0000 (UTC)
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5036C6A5FA;
+	Thu,  3 Aug 2023 09:43:50 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7725DC6A5E6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9D50C6904B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Aug 2023 06:37:18 +0000 (UTC)
-Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
- helo=[127.0.0.1]) by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <j.zink@pengutronix.de>)
- id 1qRRwt-0004xV-Ry; Thu, 03 Aug 2023 08:36:39 +0200
-Message-ID: <22f979e8-7591-3393-f323-114da0131e7a@pengutronix.de>
-Date: Thu, 3 Aug 2023 08:36:23 +0200
+ Thu,  3 Aug 2023 09:43:49 +0000 (UTC)
+Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RGkR73n6szrSCJ;
+ Thu,  3 Aug 2023 17:42:43 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemi500008.china.huawei.com
+ (7.221.188.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 3 Aug
+ 2023 17:43:47 +0800
+From: Ruan Jinjie <ruanjinjie@huawei.com>
+To: <linux-gpio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>, 
+ <linux-arm-kernel@lists.infradead.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Thu, 3 Aug 2023 17:43:04 +0800
+Message-ID: <20230803094304.733371-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.1
-To: Shenwei Wang <shenwei.wang@nxp.com>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
- <20230731161929.2341584-3-shenwei.wang@nxp.com>
- <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
- <PAXPR04MB9185D7D3B088E4786A216044890AA@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <e32c89e1-7385-105b-63c9-74f58c2253cb@pengutronix.de>
- <PAXPR04MB91851BB5D1375AF0EF3C51B7890BA@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <49d52a10-20cf-9c5b-ebe3-07292664fe11@pengutronix.de>
- <PAXPR04MB9185C0C3B3E41534F555BC43890BA@PAXPR04MB9185.eurprd04.prod.outlook.com>
-Content-Language: en-US, de-DE
-From: Johannes Zink <j.zink@pengutronix.de>
-In-Reply-To: <PAXPR04MB9185C0C3B3E41534F555BC43890BA@PAXPR04MB9185.eurprd04.prod.outlook.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
-X-SA-Exim-Mail-From: j.zink@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
- dl-linux-imx <linux-imx@nxp.com>, Andrew Halaney <ahalaney@redhat.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH v3 net 2/2] net: stmmac:
- dwmac-imx: pause the TXC clock in fixed-link
+X-Originating-IP: [10.90.53.73]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ kwepemi500008.china.huawei.com (7.221.188.139)
+X-CFilter-Loop: Reflected
+Cc: ruanjinjie@huawei.com
+Subject: [Linux-stm32] [PATCH -next] pinctrl: stmfx: Do not check for 0
+	return after calling platform_get_irq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,62 +47,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Shenwei,
+Since commit ce753ad1549c ("platform: finally disallow IRQ0 in
+platform_get_irq() and its ilk"), there is no possible for
+platform_get_irq() to return 0. Use the return value
+from platform_get_irq().
 
-[snip]
->>>
->>>> Also: does this only apply to i.MX93, or would we have to test and
->>>> enable it on e.g. i.MX8MP as well?
->>>>
->>>
->>> Yes, it is required when the EQOS MAC is selected. However, this patch
->>> just enables The feature on i.MX93.
->>
->> If this behaviour is required on all EQOS, I think the name
->> imx_dwmac_fix_speed_mx93() is misleading. It should either be
->> imx_dwmac_fix_speed() if applicable to all imx implementations, or
->> dwmac_fix_speed() (and moved to a non-gluecode file) if applicable for all
->> implementations in general.
->>
-> 
-> It has the general fix_speed function there named imx_dwmac_fix_speed.
-> This one is the special for this mx93 fix.
+Signed-off-by: Ruan Jinjie <ruanjinjie@huawei.com>
+---
+ drivers/pinctrl/pinctrl-stmfx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I think I might have misunderstood your last statement or I failed to express 
-my point. If you need to replace the dwmac_fix_speed() on mx93, because this 
-SoC implementation requires doing so (the usual reason for doing something like 
-this is something like reset quirks because of screwed up IP Core integration), 
-then your approach is imho valid.
-
-But if I got your last comment right, your changes should apply to EQOS MAC in 
-general (but you want to only enable it for mx93 at the moment). In this case 
-this quirk will later be as the fix_mac_speed function for other hardware as 
-well, in which case the name ..._mx93 is misleading, and imho rather a 
-descriptive name should be used (i.e. have the name describe what it does 
-rather than for what hardware it is implemented).
-
-Except if the maintainers have a strong opinion that the ..._mx93 suffix 
-version is exactly how you should proceed...
-
-Best regards
-Johannes
-
-> 
-> Thanks,
-> Shenwei
-> [snip]
-
-
+diff --git a/drivers/pinctrl/pinctrl-stmfx.c b/drivers/pinctrl/pinctrl-stmfx.c
+index ab23d7ac3107..0974bbf57b54 100644
+--- a/drivers/pinctrl/pinctrl-stmfx.c
++++ b/drivers/pinctrl/pinctrl-stmfx.c
+@@ -659,8 +659,8 @@ static int stmfx_pinctrl_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	irq = platform_get_irq(pdev, 0);
+-	if (irq <= 0)
+-		return -ENXIO;
++	if (irq < 0)
++		return irq;
+ 
+ 	mutex_init(&pctl->lock);
+ 
 -- 
-Pengutronix e.K.                | Johannes Zink                  |
-Steuerwalder Str. 21            | https://www.pengutronix.de/    |
-31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
