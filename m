@@ -2,136 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D26B576EED2
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 17:58:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B863676EBD4
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 16:08:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 795BEC6B44B;
-	Thu,  3 Aug 2023 15:58:02 +0000 (UTC)
-Received: from sender-op-o13.zoho.in (sender-op-o13.zoho.in [103.117.158.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 561BFC6904B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A361C6A5F2;
+	Thu,  3 Aug 2023 14:08:29 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C847FC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Aug 2023 05:58:54 +0000 (UTC)
-Delivered-To: manank@manank.me
-ARC-Seal: i=1; a=rsa-sha256; t=1691042259; cv=none; d=zohomail.in; s=zohoarc; 
- b=dJicvY75PY0b3s4qKvKDaNKPSVb1wraRGk40M3JoXuruEbVD6M7s7vEZGTav3fxAH/CsLb4U5Ai3JsgcKqVpZhX++e0tZwOYAZev2gXGim3gD1U3bzWGnXjFZxPd3BNroOcRW+Gvdk1WSgS1QSyaZLNMu/6jXOAPnhS3pKiVQUc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in;
- s=zohoarc; t=1691042259;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To;
- bh=CadaJrF/rpy1sP8SKNRSh3x1dnJZ9rNtrtRhvLWUVUo=; 
- b=DKzP5IWMR8Ss5MLLHlGjlJ7RLl2BQ6YCBkCDhP1Z2fKn8ZZHW0a/PRJHCS2cyc+f+ww/rXzIrctrJLT6k1oo0ddyvGhmRrZl1DsyycPjluqEN4IcoJmP/EeGheK7hv0eUSTS3scdS8p2q9jVQ3tHb8Bpe3LbEhJ6MOCRL9RbXx8=
-ARC-Authentication-Results: i=1; mx.zohomail.in; dkim=pass  header.i=manank.me;
- spf=pass  smtp.mailfrom=manank@manank.me;
- dmarc=pass header.from=<manank@manank.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1691042259; 
- s=zmail; d=manank.me; i=manank@manank.me;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=CadaJrF/rpy1sP8SKNRSh3x1dnJZ9rNtrtRhvLWUVUo=;
- b=XFT8k9iNY9SYcHfSZGAtltV6f+v2DZIlVQXImMUadmSwV4XiCBytU/pzXNw2ZBFC
- KrBoW0vHmF5sN8+Z4cWV1kXZC4spTvJBy0VQ73T1N8K9zEMin9nTsxDJ077PlKESPzW
- qgUOVmgRJRs4vqrNfkEqRfO9NtGRTziNws2V65NA=
-Received: from localhost (103.176.11.243 [103.176.11.243]) by mx.zoho.in
- with SMTPS id 1691042257514977.3416243917786;
- Thu, 3 Aug 2023 11:27:37 +0530 (IST)
-From: Manank Patel <manank@manank.me>
-Date: Thu, 03 Aug 2023 11:27:30 +0530
+ Thu,  3 Aug 2023 14:08:27 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qRYyZ-0006mV-Nr; Thu, 03 Aug 2023 16:06:51 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qRYyN-000rBF-In; Thu, 03 Aug 2023 16:06:39 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qRYyM-00A9kB-Jk; Thu, 03 Aug 2023 16:06:38 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Date: Thu,  3 Aug 2023 16:06:30 +0200
+Message-Id: <20230803140633.138165-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Message-Id: <20230803-fix-typo-v1-1-b794378d594e@manank.me>
-X-B4-Tracking: v=1; b=H4sIAMlBy2QC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDI2MDCwNj3bTMCt2SyoJ8XePkJCMDcyMLE2NDAyWg8oKiVKAc2Kjo2NpaAGm
- Gpy9aAAAA
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1211; i=manank@manank.me;
- h=from:subject:message-id; bh=0vIqaZEzzjbvukjGmjA1Gz79kmWmEraGb+GXgudYmls=;
- b=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
-X-Developer-Key: i=manank@manank.me; a=openpgp;
- fpr=DDD8277A82997763AFCD764E7A18A64A084EA6BF
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Thu, 03 Aug 2023 15:58:01 +0000
-Cc: Manank Patel <manank@manank.me>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org,
- Jens Schleusener <Jens.Schleusener@fossies.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] tools: perf: pmu-events: Fix typo
-	poiint->point
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4136;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=fUIfC654WxtfT7CEJ8mGT4DHYTt22edc6EeQOO0mgBU=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBky7RhOm8jkQTlEYB5GsZS8El0/H9apHFEdsZFO
+ x8y+5Ja40OJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZMu0YQAKCRCPgPtYfRL+
+ TsJcB/90L6hN+ip+TjX3AzflYEmXfAvsD7DvqLlndSD4q7tLpczaexF3R7J6u81XciSqOUe2jgL
+ ZFH92dwUdpov0xdqiWraRK+aZJ+b0W4jpGsrqqlhoMdolr0pAB7fIFytPguywOKD62dbKy1CvL1
+ Dhl29UAwsXqsIV7jcTR/3lRLsFUwN9/STI8/IVeD4JJHoLv16c1Q61uVC/I22L/ivskcK9F/YQX
+ 7it5vFhz9lfLpr79GuNQ3+d+atoBJRDfjCnDak/HWaR9JRk7b7F8pb+oq6ih+R2INrvw1jlBxDW
+ 1b3cg6OWSLaXTh/Y3/NSkgaZz/kG8/JbVRjAFD6tfDS0KfZO
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-staging@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Johan Hovold <johan@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-tegra@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Pavel Machek <pavel@ucw.cz>, Guenter Roeck <groeck@chromium.org>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Michal Simek <michal.simek@amd.com>, David Airlie <airlied@gmail.com>,
+ linux-riscv@lists.infradead.org, Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Jerome Brunet <jbrunet@baylibre.com>, chrome-platform@lists.linux.dev,
+ linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
+ Fabio Estevam <festevam@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Lee Jones <lee@kernel.org>, Michael Walle <michael@walle.cc>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Hammer Hsieh <hammerh0314@gmail.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-leds@vger.kernel.org,
+ Orson Zhai <orsonzhai@gmail.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+ linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-pwm@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ =?utf-8?q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Vladimir Zapolskiy <vz@mleia.com>, linux-gpio@vger.kernel.org,
+ linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Sven Peter <sven@svenpeter.dev>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andy Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Alex Elder <elder@kernel.org>, Alexander Shiyan <shc_work@mail.ru>,
+ Scott Branden <sbranden@broadcom.com>, greybus-dev@lists.linaro.org,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, dri-devel@lists.freedesktop.org,
+ Hector Martin <marcan@marcan.st>, Heiko Stuebner <heiko@sntech.de>,
+ Douglas Anderson <dianders@chromium.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, asahi@lists.linux.dev,
+ Daniel Vetter <daniel@ffwll.ch>, Kevin Hilman <khilman@baylibre.com>,
+ Shawn Guo <shawnguo@kernel.org>, Claudiu Beznea <claudiu.beznea@microchip.com>,
+ linux-rpi-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] pwm: Manage owner assignment implicitly
+	for drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,43 +113,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix typo in file floating-point.json in /arch/x86/westmereep-dp
-
-Reported-by: Jens Schleusener <Jens.Schleusener@fossies.org>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=205891
-Signed-off-by: Manank Patel <manank@manank.me>
----
- tools/perf/pmu-events/arch/x86/westmereep-dp/floating-point.json | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/pmu-events/arch/x86/westmereep-dp/floating-point.json b/tools/perf/pmu-events/arch/x86/westmereep-dp/floating-point.json
-index c03f8990fa82..196ae1d9b157 100644
---- a/tools/perf/pmu-events/arch/x86/westmereep-dp/floating-point.json
-+++ b/tools/perf/pmu-events/arch/x86/westmereep-dp/floating-point.json
-@@ -8,7 +8,7 @@
-         "UMask": "0x1"
-     },
-     {
--        "BriefDescription": "X87 Floating poiint assists for invalid input value (Precise Event)",
-+        "BriefDescription": "X87 Floating point assists for invalid input value (Precise Event)",
-         "EventCode": "0xF7",
-         "EventName": "FP_ASSIST.INPUT",
-         "PEBS": "1",
-
----
-base-commit: 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4
-change-id: 20230803-fix-typo-3cb207284310
-
-Best regards,
--- 
-Manank Patel <manank@manank.me>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp3aGlsZSB3b3JraW5nIG9uIHRoZSBwd20gY29yZSBJIG5vdGljZWQgdGhhdCBwd20t
+Y3JjIGRvZXNuJ3QgYXNzaWduCi5vd25lciBpbiBpdHMgcHdtX29wcyBzdHJ1Y3R1cmUuIFRoaXMg
+aXNuJ3QgYSBwcm9ibGVtIGluIHByYWN0aXNlIHRob3VnaAphcyB0aGlzIGRyaXZlciBjYW4gb25s
+eSBiZSBjb21waWxlZCBidWlsdC1pbiAodXAgdG8gbm93KS4KClN0aWxsIHByZXZlbnQgZnV0dXJl
+IHB3bSBkcml2ZXJzIG5vdCBhc3NpZ25pbmcgLm93bmVyIGJ5IHdyYXBwaW5nCnB3bWNoaXBfYWRk
+KCkgaW4gYSBtYWNybyB0aGF0IGF1dG9tYXRlcyBvd25lciBoYW5kbGluZyBzaW1wbGlmeWluZyBl
+YWNoCmRyaXZlciBhICh0aW55KSBiaXQuCgpJIGFsc28gZm91bmQgdGhhdCB0aGVyZSBpcyBubyBo
+YXJkIHJlYXNvbiB0byBvbmx5IGNvbXBpbGUgcHdtLWNyYyBhcyBhCmJ1aWx0LWluIG9uIHg4Niwg
+c28gdGhpcyBsaW1pdGF0aW9uIGlzIGxpZnRlZCBpbiB0aGUgc2Vjb25kIHBhdGNoLgoKQmVzdCBy
+ZWdhcmRzClV3ZQoKVXdlIEtsZWluZS1Lw7ZuaWcgKDIpOgogIHB3bTogTWFuYWdlIG93bmVyIGFz
+c2lnbm1lbnQgaW1wbGljaXRseSBmb3IgZHJpdmVycwogIHB3bTogY3JjOiBBbGxvdyBjb21waWxh
+dGlvbiBhcyBtb2R1bGUgYW5kIHdpdGggQ09NUElMRV9URVNUCgogZHJpdmVycy9ncGlvL2dwaW8t
+bXZlYnUuYyAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvdGktc242
+NWRzaTg2LmMgfCAgMSAtCiBkcml2ZXJzL2xlZHMvcmdiL2xlZHMtcWNvbS1scGcuYyAgICAgIHwg
+IDEgLQogZHJpdmVycy9wd20vS2NvbmZpZyAgICAgICAgICAgICAgICAgICB8ICA0ICsrLS0KIGRy
+aXZlcnMvcHdtL2NvcmUuYyAgICAgICAgICAgICAgICAgICAgfCAyMCArKysrKysrKysrKy0tLS0t
+LS0tLQogZHJpdmVycy9wd20vcHdtLWFiODUwMC5jICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZl
+cnMvcHdtL3B3bS1hcHBsZS5jICAgICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20t
+YXRtZWwtaGxjZGMuYyAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWF0bWVsLXRjYi5j
+ICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1hdG1lbC5jICAgICAgICAgICAgICAg
+fCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tYmNtLWlwcm9jLmMgICAgICAgICAgIHwgIDEgLQogZHJp
+dmVycy9wd20vcHdtLWJjbS1rb25hLmMgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3
+bS1iY20yODM1LmMgICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tYmVybGluLmMg
+ICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWJyY21zdGIuYyAgICAgICAgICAg
+ICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1jbGsuYyAgICAgICAgICAgICAgICAgfCAgMSAtCiBk
+cml2ZXJzL3B3bS9wd20tY2xwczcxMXguYyAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20v
+cHdtLWNyYy5jICAgICAgICAgICAgICAgICB8ICA1ICsrKystCiBkcml2ZXJzL3B3bS9wd20tY3Jv
+cy1lYy5jICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWR3Yy5jICAgICAgICAg
+ICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1lcDkzeHguYyAgICAgICAgICAgICAgfCAg
+MSAtCiBkcml2ZXJzL3B3bS9wd20tZnNsLWZ0bS5jICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVy
+cy9wd20vcHdtLWhpYnZ0LmMgICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1p
+bWcuYyAgICAgICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20taW14LXRwbS5jICAg
+ICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWlteDEuYyAgICAgICAgICAgICAgICB8
+ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1pbXgyNy5jICAgICAgICAgICAgICAgfCAgMSAtCiBkcml2
+ZXJzL3B3bS9wd20taW50ZWwtbGdtLmMgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdt
+LWlxczYyMGEuYyAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1qejQ3NDAuYyAg
+ICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20ta2VlbWJheS5jICAgICAgICAgICAg
+IHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWxwMzk0My5jICAgICAgICAgICAgICB8ICAxIC0KIGRy
+aXZlcnMvcHdtL3B3bS1scGMxOHh4LXNjdC5jICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9w
+d20tbHBjMzJ4eC5jICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLWxwc3MuYyAg
+ICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1tZWRpYXRlay5jICAgICAgICAg
+ICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tbWVzb24uYyAgICAgICAgICAgICAgIHwgIDEgLQog
+ZHJpdmVycy9wd20vcHdtLW1pY3JvY2hpcC1jb3JlLmMgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdt
+L3B3bS1tdGstZGlzcC5jICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tbXhzLmMg
+ICAgICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLW50eGVjLmMgICAgICAgICAg
+ICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1vbWFwLWRtdGltZXIuYyAgICAgICAgfCAgMSAt
+CiBkcml2ZXJzL3B3bS9wd20tcGNhOTY4NS5jICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9w
+d20vcHdtLXB4YS5jICAgICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1yYXNw
+YmVycnlwaS1wb2UuYyAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tcmNhci5jICAgICAgICAg
+ICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLXJlbmVzYXMtdHB1LmMgICAgICAgICB8ICAx
+IC0KIGRyaXZlcnMvcHdtL3B3bS1yb2NrY2hpcC5jICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJz
+L3B3bS9wd20tcnotbXR1My5jICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLXNh
+bXN1bmcuYyAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1zaWZpdmUuYyAgICAg
+ICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tc2wyOGNwbGQuYyAgICAgICAgICAgIHwg
+IDEgLQogZHJpdmVycy9wd20vcHdtLXNwZWFyLmMgICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZl
+cnMvcHdtL3B3bS1zcHJkLmMgICAgICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20t
+c3RpLmMgICAgICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMg
+ICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jICAgICAgICAgICAgICAg
+fCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tc3RtcGUuYyAgICAgICAgICAgICAgIHwgIDEgLQogZHJp
+dmVycy9wd20vcHdtLXN1bjRpLmMgICAgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3
+bS1zdW5wbHVzLmMgICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20tdGVncmEuYyAg
+ICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9wd20vcHdtLXRpZWNhcC5jICAgICAgICAgICAg
+ICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS10aWVocnB3bS5jICAgICAgICAgICAgfCAgMSAtCiBk
+cml2ZXJzL3B3bS9wd20tdHdsLWxlZC5jICAgICAgICAgICAgIHwgIDIgLS0KIGRyaXZlcnMvcHdt
+L3B3bS10d2wuYyAgICAgICAgICAgICAgICAgfCAgMiAtLQogZHJpdmVycy9wd20vcHdtLXZpc2Nv
+bnRpLmMgICAgICAgICAgICB8ICAxIC0KIGRyaXZlcnMvcHdtL3B3bS12dDg1MDAuYyAgICAgICAg
+ICAgICAgfCAgMSAtCiBkcml2ZXJzL3B3bS9wd20teGlsaW54LmMgICAgICAgICAgICAgIHwgIDEg
+LQogZHJpdmVycy9zdGFnaW5nL2dyZXlidXMvcHdtLmMgICAgICAgICB8ICAxIC0KIGluY2x1ZGUv
+bGludXgvcHdtLmggICAgICAgICAgICAgICAgICAgfCAgOCArKysrKy0tLQogNzAgZmlsZXMgY2hh
+bmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgODMgZGVsZXRpb25zKC0pCgoKYmFzZS1jb21taXQ6IDNj
+Y2IxNzlhYTQwZDkzMWViMDBlZjg5MTBkN2I4MTJhOTU2NTk1NjMKLS0gCjIuMzkuMgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
