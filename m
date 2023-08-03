@@ -2,143 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 548AF76E989
-	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 15:08:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD0976EA2E
+	for <lists+linux-stm32@lfdr.de>; Thu,  3 Aug 2023 15:26:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C900C6B45A;
-	Thu,  3 Aug 2023 13:08:07 +0000 (UTC)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on2054.outbound.protection.outlook.com [40.107.14.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2071EC6A5F2;
+	Thu,  3 Aug 2023 13:26:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2895EC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35561C6904B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  3 Aug 2023 13:08:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bozFGSxXbvJ/qW12EKCDuUhsddhBIbHnNlb0pflD3b/KbXjdmLiUpPX5X9ClrOWVW3QBKKg/UzX9fw+VTXm811SUUw0YhUod56EQKmz6zGeNP4tKg9IcAzsgodlYcQYcNwnB/90aetZN0Z52+1VG97ITYJ/kG9jUwkTja5A7nhOaUFwVdAEsJJ2++kkqxleG/a50G/Rpzl/AeeNhoQd0b+NVpKdGZJbtB0X3w9vmXCZTWcOKyAZdhRnc7UBmLwESBfsemGgczY0kgYe4P5WLxmphFoIbt8VpYSq+XiiUvc4MZP02SRxjCZzArmh1FUEX7GO9uVHCzk5PW4Fw6P1ovg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cP0QUPSl56zdo3LgBD2UOgk1OjiC7FnJ9jjEw9uR1aQ=;
- b=BMmR2L3Wnr+OkckIqD0iwEH7Fw8Q2ooznSr8tNjOVH9PiG55eJMrqH++ZQSJ3EaYIfHTt1X7p8gOYgVNIx9ON4ngbxXxBhYHr5l5dLpVZn4tw32rGSNsfEwdVEyV5L1TBQaVeax8kj9Bhm1ILwiOmwPUHjmHy4q5PgXI0TNhI83lHlA4TB0gnOEV8tzdK9FWVfFJ2ruN4edPk+NdSVrP5i6Ugc0QJUrrlNNIJGpk1MEyq0o1mlUvQ7ZxNzwopbpRrU7uCFNIJqmxGWEfNpgNAZt9DacqVHf6MuIOkrzqPuwsCitGIxzabKMj1XHESJRLwUw0ubJeK9ucJTWMZZy6Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cP0QUPSl56zdo3LgBD2UOgk1OjiC7FnJ9jjEw9uR1aQ=;
- b=FD2DHvcMAG1Y1Y4qSdbn4xjkEUp/7AqZ/L/3f8ztVj7QgDSOChShDzhMW8WukoJbKl3WBw2aT3EI7n6L+iLYoKwLA6aPjDzT0ivuZGwW4jZrvw3RX84RZR+rhK7Yf7yEdZOba2lMAgcEPmowyL2n5SGs/1vjUelQOpskUF3osbc=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AM9PR04MB8604.eurprd04.prod.outlook.com (2603:10a6:20b:43b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6631.47; Thu, 3 Aug
- 2023 13:08:03 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.046; Thu, 3 Aug 2023
- 13:08:03 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Johannes Zink <j.zink@pengutronix.de>, Russell King
- <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo
- <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Vinod Koul
- <vkoul@kernel.org>, Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>
-Thread-Topic: [EXT] Re: [PATCH v3 net 2/2] net: stmmac: dwmac-imx: pause the
- TXC clock in fixed-link
-Thread-Index: AQHZw8rr+4AkxJNLt0GANB66N1LNC6/VZScAgABIh3CAAN8TAIAAhezwgAAERICAABXLQIAA9VKAgABnjmA=
-Date: Thu, 3 Aug 2023 13:08:02 +0000
-Message-ID: <PAXPR04MB9185E6512A5220E83D17D6A58908A@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20230731161929.2341584-1-shenwei.wang@nxp.com>
- <20230731161929.2341584-3-shenwei.wang@nxp.com>
- <bf2979c4-0b63-be53-b530-3d7385796534@pengutronix.de>
- <PAXPR04MB9185D7D3B088E4786A216044890AA@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <e32c89e1-7385-105b-63c9-74f58c2253cb@pengutronix.de>
- <PAXPR04MB91851BB5D1375AF0EF3C51B7890BA@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <49d52a10-20cf-9c5b-ebe3-07292664fe11@pengutronix.de>
- <PAXPR04MB9185C0C3B3E41534F555BC43890BA@PAXPR04MB9185.eurprd04.prod.outlook.com>
- <22f979e8-7591-3393-f323-114da0131e7a@pengutronix.de>
-In-Reply-To: <22f979e8-7591-3393-f323-114da0131e7a@pengutronix.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM9PR04MB8604:EE_
-x-ms-office365-filtering-correlation-id: b53b30fa-b95a-4ae8-dce8-08db9422ab81
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TjxgsExC4/RAzJtyEBcjSNmTuhhzsrgiTM5OpWxuHPByo8V+1fmFqd4TsIkcAHOdtHa30/qrniMIMK2w+w6hL7nhN1yP/h+T4G7H0Z/h/aSK/7CffDBH7TCV7tDzqBCfdcHHqAUm9jqpdi68nibxvqjsVBxLL7Ca0/z46PGtff3fjp1XTvIc+rMWvEqBnXuPpO1RrR0TZ9g71Ks0aIQVvChMI1brQogX3XJcqifeNNNoVmlIvCx+P4iL728rPS0/bxwFAoh4EJZjCg5W0iOnrfWSSLxbfABYIeG3YI/+JgPQMBZqX6vlC0VqdFG0EhTrbuJcdjp4K2bw2jXjjg+oFDuqXqntznAjE6/XJqxE3riW6IjFNPFsK440Yf6NTcdzfj1zZ/1jULV8GuVoLdrTnDfmR7o/EM5q25DZql32//1O5CZUpmI9884pGqNl4iftEEawpouS9VuHdsBmxcUoP7MVTyOmZAxmF5r1VEz5bTve1GVc1SzcZ9sq4nYYwAxA+153mj88odeRlboTmgjk0cN94YwYZw7v2cy8YHRxFqgtzqkmpyNnXb/OisA946T0+k+T9IhlUKKI1zi/E92pHiidIRm8tFRlp5Ga13JEcOlxVJiVEAwo+QB36kziDBPk
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(376002)(136003)(39860400002)(396003)(346002)(451199021)(53546011)(55236004)(83380400001)(6506007)(26005)(186003)(41300700001)(52536014)(2906002)(66946007)(76116006)(4326008)(64756008)(66446008)(66476007)(66556008)(5660300002)(316002)(44832011)(7416002)(8676002)(8936002)(7696005)(71200400001)(966005)(7406005)(9686003)(45080400002)(478600001)(54906003)(110136005)(55016003)(38100700002)(921005)(122000001)(33656002)(86362001)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?MkNqZII/6Odjt5OpNRfmakRxvPB+HY9Wbepal+5J0APGsHvoka/fLni+LpKN?=
- =?us-ascii?Q?giY7/Rgl0fIfPQlCkxd+EfFdOJ4kjyGsDJUr/tmKzi7QtycKptiO6mcavY9N?=
- =?us-ascii?Q?oXB4hKlJAuWwwBK40WCZOde068f94N7QhIcgyMeF/29yduqgPQG3FRTUtk/8?=
- =?us-ascii?Q?E40qqIRCUJBlLplPBLuvU2aDeferZJAImm0xyMfVrmwzZdS3itMpRUTGtSPd?=
- =?us-ascii?Q?1JGX5E5a0+2HT7JHjT2orz+1Kg9wyJKLMEXle1RoPqBfKvau2g0C/rvdhKKe?=
- =?us-ascii?Q?PD/yNt2VB2bFjIxafS0pFI7Zu5Z0xRtrLbMcFKla4OiZm+clAQQ+BSpyosgY?=
- =?us-ascii?Q?EqaGnkEUVf1NSZ0qwogCdOtaDQvr0OPsuu9sq11QDa/+wpU+QXRhmhqfqOhS?=
- =?us-ascii?Q?QW0+Qiy/p30ZiIC4giLJnHqnl0tDWtjV9O6eva/cQfDvtP2DVFEXBimcDLuR?=
- =?us-ascii?Q?1bVw0O2D+BdbkdPdmgSODNGRBjXPb8VsuZkVf1E1RYlvg6YCEp06VlCOyRKp?=
- =?us-ascii?Q?ieCf/YIQM6BbLL/T6lDHEgfnI4f+qokFkf212+hQ3bOPl8rmJziJSd6rHhei?=
- =?us-ascii?Q?04hEg1LiQXtSMlCxdbogf9BdOgKMV+y5nwnX36QfntwwjMkShlW06yIgCHV8?=
- =?us-ascii?Q?hmaLlc9ii2qdTfAiPdAwEl/a31NjnM2yD+8rhZPA/7tFxSOPurVYNIWS81l5?=
- =?us-ascii?Q?WVB+AVkxfj592ehKZ3ncXFgIk4yUztNUfUAvxNn/14luGdAKR5oEsMoBfL/y?=
- =?us-ascii?Q?XNlFHc6aDyX++KzHk8D+2wIgDcy51SKMDUM0Vrc0S/arFnQbvjWQ1RJkw4Xg?=
- =?us-ascii?Q?YxFH9zc+6P0st14xZHHJwp7+NyaaIMy7c1YvhGQfsg7nSLvBz5Q2kQCRa8g4?=
- =?us-ascii?Q?8UzJAnsmq6o1CH/iRurNLiGYURIn6dP6H1VXc54/tHAaZr42EdCqUyJaPx4v?=
- =?us-ascii?Q?++2pOwXmsgjJQx9bOIbauNVos8K3ws16L47hmnpGebaq5dtK3iuHLQVm9m0l?=
- =?us-ascii?Q?dyVsEjZm88XADzPM/uQXy1zbqzVZMfLjPwCIVG/qRorfh1q4ZzgKoGaDVbyS?=
- =?us-ascii?Q?xd6YJnS5EuW3h2QIYweKrNpe8g+5m90FcHyl2Q4peXrNtNoh7z3J/6gIhU8j?=
- =?us-ascii?Q?B8+PDumVtHl8tOOXkQgFB0paj6jyzxPXqivUIVLcACRgB2kWMnsFLaTEetMc?=
- =?us-ascii?Q?LmAJ4azkciA6TAJZgjyfIBgT+NNX/+6mYKKIc6OCYQ0xBVboIXERCmGR2FEV?=
- =?us-ascii?Q?X7VLEN5lyRTuFCZl1eG50cZUBGu5lFBltKClVDNIVzfULtUq/SAmzm8hrZmh?=
- =?us-ascii?Q?A5W0q8zGmia2ii6rtATRQIDjGep6GTopTBkwJwRrr+GQ+zjV9emBN3Joozk0?=
- =?us-ascii?Q?R7+gqxdhvpFXVGPs9WTzW2EXmanXnZON1IeFC1CP0VdB7bWTdd7wcg829eKD?=
- =?us-ascii?Q?eiy/zjbPEUyI9XhabvQWlYar+8ikPkUrp6jTu3BRG3e5R4879W+Is5DoPjLx?=
- =?us-ascii?Q?7f18PYKKK7Fo1+FpzrAERp3ofPzlI7CoabcDMDLT+fsqvkS/Dqh5wQ7QBN8q?=
- =?us-ascii?Q?YXUcGtxVfytGs7llJH37hxC1QHZnNHIj6o1lTqZw?=
+ Thu,  3 Aug 2023 13:26:34 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 373CUaUd005319; Thu, 3 Aug 2023 15:26:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=769HHGAF/6gRexcMz7wlX14yHSAscue5CPjDxlCcFNs=; b=EX
+ 0N59efnCEKZ2fu5sSysVtXhkt6Iyu1sZKmkXgPpL4tbmhJwuHQTdKv1KTptbDSzx
+ HznLDiFipuLOnp55ODSo5vEgoaUOYd7HILQBNa8yatnDehNiAbZN/zKJdFLTBDAe
+ kAj4BviRVWpCT8OJYLtpyl0I0Vk/9NrIyVkwoLwSOwriO7X3Zo94pSbzAcPjeeQo
+ U+wxRIG8nPWq+J3sGJlEF/V0xICP6EMoRvfd6Bg0lVgJJRSU7jpySh50WY5Z5nkN
+ Wi9RMe7iCKo9PWXmnGAVU2DzHAQOrb+Ig+ug8mbKORDe9KIK0lK6XoNlS0mGZMwt
+ 3jBi0d3pLALgEvq3LM6A==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s85xr33bb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 03 Aug 2023 15:26:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D6BC2100089;
+ Thu,  3 Aug 2023 15:26:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BD983222C9D;
+ Thu,  3 Aug 2023 15:26:27 +0200 (CEST)
+Received: from [10.201.20.168] (10.201.20.168) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 3 Aug
+ 2023 15:26:27 +0200
+Message-ID: <6047bf29-14c0-c06f-3161-09e89a992b41@foss.st.com>
+Date: Thu, 3 Aug 2023 15:26:26 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b53b30fa-b95a-4ae8-dce8-08db9422ab81
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2023 13:08:03.0071 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ogRgzMKTTo0SiPD8un3W7cs7qjhAxCf0V11sVAOf1Ean/FNAPkAFfoLl850acAfGJQgEdfO8OlougQLN9U/CMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8604
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Wong Vee Khee <veekhee@apple.com>, Jose Abreu <joabreu@synopsys.com>,
- dl-linux-imx <linux-imx@nxp.com>, Andrew Halaney <ahalaney@redhat.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH v3 net 2/2] net: stmmac:
- dwmac-imx: pause the TXC clock in fixed-link
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Linus Walleij <linus.walleij@linaro.org>
+References: <20230620104349.834687-1-valentin.caron@foss.st.com>
+ <40b91e5a-0b25-c5e3-66f1-70e1d12f661c@foss.st.com>
+Content-Language: en-US
+From: Valentin CARON <valentin.caron@foss.st.com>
+In-Reply-To: <40b91e5a-0b25-c5e3-66f1-70e1d12f661c@foss.st.com>
+X-Originating-IP: [10.201.20.168]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-03_12,2023-08-03_01,2023-05-22_02
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] pinctrl: stm32: set default gpio line
+ names using pin names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -150,89 +73,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-> -----Original Message-----
-> From: Johannes Zink <j.zink@pengutronix.de>
-> Sent: Thursday, August 3, 2023 1:36 AM
-> To: Shenwei Wang <shenwei.wang@nxp.com>; Russell King
-> <linux@armlinux.org.uk>; David S. Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; Shawn Guo <shawnguo@kernel.org>; Sascha
-> Hauer <s.hauer@pengutronix.de>; Neil Armstrong <neil.armstrong@linaro.org>;
-> Kevin Hilman <khilman@baylibre.com>; Vinod Koul <vkoul@kernel.org>; Chen-
-> Yu Tsai <wens@csie.org>; Jernej Skrabec <jernej.skrabec@gmail.com>; Samuel
-> Holland <samuel@sholland.org>
-> Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> Pengutronix Kernel Team <kernel@pengutronix.de>; Fabio Estevam
-> <festevam@gmail.com>; dl-linux-imx <linux-imx@nxp.com>; Jerome Brunet
-> <jbrunet@baylibre.com>; Martin Blumenstingl
-> <martin.blumenstingl@googlemail.com>; Bhupesh Sharma
-> <bhupesh.sharma@linaro.org>; Nobuhiro Iwamatsu
-> <nobuhiro1.iwamatsu@toshiba.co.jp>; Simon Horman
-> > It has the general fix_speed function there named imx_dwmac_fix_speed.
-> > This one is the special for this mx93 fix.
->
-> I think I might have misunderstood your last statement or I failed to express my
-> point. If you need to replace the dwmac_fix_speed() on mx93, because this SoC
-> implementation requires doing so (the usual reason for doing something like this
-> is something like reset quirks because of screwed up IP Core integration), then
-> your approach is imho valid.
->
-> But if I got your last comment right, your changes should apply to EQOS MAC in
-> general (but you want to only enable it for mx93 at the moment). In this case
-> this quirk will later be as the fix_mac_speed function for other hardware as well,
-> in which case the name ..._mx93 is misleading, and imho rather a descriptive
-> name should be used (i.e. have the name describe what it does rather than for
-> what hardware it is implemented).
->
-
-The idea of supporting the SJA1105 is general, but the implementation depends on the
-specific SoC. This patch provides the implementation for the MX93 SoC. To support the
-MX8x SoCs, the implementation would need to be rewritten based on the current state
-of the dwmac-imx driver.
-
-I agree the function name is somewhat ugly. Maybe a better name could be:
-mx93_dwmac_fix_speed()
-
-The assumption is that the process of pausing the clock can still be considered part of fixing the speed.
-
-Thanks,
-Shenwei
-
-> Except if the maintainers have a strong opinion that the ..._mx93 suffix version
-> is exactly how you should proceed...
->
-> Best regards
-> Johannes
->
-> >
-> > Thanks,
-> > Shenwei
-> > [snip]
->
->
-> --
-> Pengutronix e.K.                | Johannes Zink                  |
-> Steuerwalder Str. 21            |
-> https://www.pe/
-> ngutronix.de%2F&data=05%7C01%7Cshenwei.wang%40nxp.com%7Cd328d89d
-> 14e847270d5a08db93ebff01%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C0%7
-> C0%7C638266414027048795%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLj
-> AwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C
-> %7C&sdata=dkE9Es7kl3uNYx8zJYZt2r6933dSNtYDpQzCEagAV3M%3D&reserved
-> =0    |
-> 31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
-> Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTGludXMsCgpJcyB0aGUgQWNrZWQtYnkgZnJvbSBBbGV4YW5kcmUgZW5vdWdoID8KCkhlIGlz
+IG1haW50YWluZXIgb2YgYXJtL3N0bTMyIGFyY2hpdGVjdHVyZS4KClRoYW5rcywKVmFsZW50aW4K
+Ck9uIDYvMjEvMjMgMTA6MTgsIEFsZXhhbmRyZSBUT1JHVUUgd3JvdGU6Cj4gSGkKPgo+IE9uIDYv
+MjAvMjMgMTI6NDMsIFZhbGVudGluIENhcm9uIHdyb3RlOgo+PiBBZGQgc3RtMzJfcGN0cmxfZ2V0
+X2Rlc2NfcGluX2Zyb21fZ3BpbyBmdW5jdGlvbiB0byBmaW5kIGEgc3RtMzIgcGluCj4+IGRlc2Ny
+aXB0b3Igd2hpY2ggaXMgbWF0Y2hpbmcgd2l0aCBhIGdwaW8uCj4+IE1vc3Qgb2YgdGhlIHRpbWUg
+cGluIG51bWJlciBpcyBlcXVhbCB0byBwaW4gaW5kZXggaW4gYXJyYXkuIFNvIHRoZSBmaXJzdAo+
+PiBwYXJ0IG9mIHRoZSBmdW5jdGlvbiBpcyB1c2VmdWwgdG8gc3BlZWQgdXAuCj4+Cj4+IEFuZCBk
+dXJpbmcgZ3BpbyBiYW5rIHJlZ2lzdGVyLCB3ZSBzZXQgZGVmYXVsdCBncGlvIG5hbWVzIHdpdGgg
+cGluIG5hbWVzLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBWYWxlbnRpbiBDYXJvbiA8dmFsZW50aW4u
+Y2Fyb25AZm9zcy5zdC5jb20+Cj4+IC0tLQo+Cj4gQWNrZWQtYnk6IEFsZXhhbmRyZSBUT1JHVUUg
+PGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20+Cj4KPj4gwqAgZHJpdmVycy9waW5jdHJsL3N0
+bTMyL3BpbmN0cmwtc3RtMzIuYyB8IDM1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiDC
+oCAxIGZpbGUgY2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9waW5jdHJsL3N0bTMyL3BpbmN0cmwtc3RtMzIuYyAKPj4gYi9kcml2ZXJzL3BpbmN0cmwv
+c3RtMzIvcGluY3RybC1zdG0zMi5jCj4+IGluZGV4IDRiOTdiZDAwMTkxYi4uZWVkYmI5Yjk3YTY1
+IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL3BpbmN0cmwvc3RtMzIvcGluY3RybC1zdG0zMi5jCj4+
+ICsrKyBiL2RyaXZlcnMvcGluY3RybC9zdG0zMi9waW5jdHJsLXN0bTMyLmMKPj4gQEAgLTEyNzUs
+NiArMTI3NSwyOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBpbmNvbmZfb3BzIAo+PiBzdG0zMl9w
+Y29uZl9vcHMgPSB7Cj4+IMKgwqDCoMKgwqAgLnBpbl9jb25maWdfZGJnX3Nob3fCoMKgwqAgPSBz
+dG0zMl9wY29uZl9kYmdfc2hvdywKPj4gwqAgfTsKPj4gwqAgK3N0YXRpYyBzdHJ1Y3Qgc3RtMzJf
+ZGVzY19waW4gCj4+ICpzdG0zMl9wY3RybF9nZXRfZGVzY19waW5fZnJvbV9ncGlvKHN0cnVjdCBz
+dG0zMl9waW5jdHJsICpwY3RsLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgc3RtMzJfZ3Bpb19iYW5rICpi
+YW5rLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgb2Zmc2V0KQo+PiArewo+PiArwqDCoMKgIHVu
+c2lnbmVkIGludCBzdG0zMl9waW5fbmIgPSBiYW5rLT5iYW5rX25yICogCj4+IFNUTTMyX0dQSU9f
+UElOU19QRVJfQkFOSyArIG9mZnNldDsKPj4gK8KgwqDCoCBzdHJ1Y3Qgc3RtMzJfZGVzY19waW4g
+KnBpbl9kZXNjOwo+PiArwqDCoMKgIGludCBpOwo+PiArCj4+ICvCoMKgwqAgLyogV2l0aCBmZXcg
+ZXhjZXB0aW9ucyAoZS5nLiBiYW5rICdaJyksIHBpbiBudW1iZXIgbWF0Y2hlcyB3aXRoIAo+PiBw
+aW4gaW5kZXggaW4gYXJyYXkgKi8KPj4gK8KgwqDCoCBwaW5fZGVzYyA9IHBjdGwtPnBpbnMgKyBz
+dG0zMl9waW5fbmI7Cj4+ICvCoMKgwqAgaWYgKHBpbl9kZXNjLT5waW4ubnVtYmVyID09IHN0bTMy
+X3Bpbl9uYikKPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBwaW5fZGVzYzsKPj4gKwo+PiArwqDC
+oMKgIC8qIE90aGVyd2lzZSwgbG9vcCBhbGwgYXJyYXkgdG8gZmluZCB0aGUgcGluIHdpdGggdGhl
+IHJpZ2h0IAo+PiBudW1iZXIgKi8KPj4gK8KgwqDCoCBmb3IgKGkgPSAwOyBpIDwgcGN0bC0+bnBp
+bnM7IGkrKykgewo+PiArwqDCoMKgwqDCoMKgwqAgcGluX2Rlc2MgPSBwY3RsLT5waW5zICsgaTsK
+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChwaW5fZGVzYy0+cGluLm51bWJlciA9PSBzdG0zMl9waW5f
+bmIpCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBwaW5fZGVzYzsKPj4gK8KgwqDC
+oCB9Cj4+ICvCoMKgwqAgcmV0dXJuIE5VTEw7Cj4+ICt9Cj4+ICsKPj4gwqAgc3RhdGljIGludCBz
+dG0zMl9ncGlvbGliX3JlZ2lzdGVyX2Jhbmsoc3RydWN0IHN0bTMyX3BpbmN0cmwgKnBjdGwsIAo+
+PiBzdHJ1Y3QgZndub2RlX2hhbmRsZSAqZndub2RlKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgc3Ry
+dWN0IHN0bTMyX2dwaW9fYmFuayAqYmFuayA9ICZwY3RsLT5iYW5rc1twY3RsLT5uYmFua3NdOwo+
+PiBAQCAtMTI4NSw2ICsxMzA3LDggQEAgc3RhdGljIGludCBzdG0zMl9ncGlvbGliX3JlZ2lzdGVy
+X2Jhbmsoc3RydWN0IAo+PiBzdG0zMl9waW5jdHJsICpwY3RsLCBzdHJ1Y3QgZndub2RlCj4+IMKg
+wqDCoMKgwqAgc3RydWN0IHJlc291cmNlIHJlczsKPj4gwqDCoMKgwqDCoCBpbnQgbnBpbnMgPSBT
+VE0zMl9HUElPX1BJTlNfUEVSX0JBTks7Cj4+IMKgwqDCoMKgwqAgaW50IGJhbmtfbnIsIGVyciwg
+aSA9IDA7Cj4+ICvCoMKgwqAgc3RydWN0IHN0bTMyX2Rlc2NfcGluICpzdG0zMl9waW47Cj4+ICvC
+oMKgwqAgY2hhciAqKm5hbWVzOwo+PiDCoCDCoMKgwqDCoMKgIGlmICghSVNfRVJSKGJhbmstPnJz
+dGMpKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmVzZXRfY29udHJvbF9kZWFzc2VydChiYW5rLT5y
+c3RjKTsKPj4gQEAgLTEzNTQsNiArMTM3OCwxNyBAQCBzdGF0aWMgaW50IHN0bTMyX2dwaW9saWJf
+cmVnaXN0ZXJfYmFuayhzdHJ1Y3QgCj4+IHN0bTMyX3BpbmN0cmwgKnBjdGwsIHN0cnVjdCBmd25v
+ZGUKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4gwqDCoMKgwqDCoCB9Cj4+IMKgICvCoMKgwqAg
+bmFtZXMgPSBkZXZtX2tjYWxsb2MoZGV2LCBucGlucywgc2l6ZW9mKGNoYXIgKiksIEdGUF9LRVJO
+RUwpOwo+PiArwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBucGluczsgaSsrKSB7Cj4+ICvCoMKgwqDC
+oMKgwqDCoCBzdG0zMl9waW4gPSBzdG0zMl9wY3RybF9nZXRfZGVzY19waW5fZnJvbV9ncGlvKHBj
+dGwsIGJhbmssIGkpOwo+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHN0bTMyX3BpbiAmJiBzdG0zMl9w
+aW4tPnBpbi5uYW1lKQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBuYW1lc1tpXSA9IGRldm1f
+a2FzcHJpbnRmKGRldiwgR0ZQX0tFUk5FTCwgIiVzIiwgCj4+IHN0bTMyX3Bpbi0+cGluLm5hbWUp
+Owo+PiArwqDCoMKgwqDCoMKgwqAgZWxzZQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBuYW1l
+c1tpXSA9IE5VTEw7Cj4+ICvCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqAgYmFuay0+Z3Bpb19jaGlw
+Lm5hbWVzID0gKGNvbnN0IGNoYXIgKiBjb25zdCAqKW5hbWVzOwo+PiArCj4+IMKgwqDCoMKgwqAg
+ZXJyID0gZ3Bpb2NoaXBfYWRkX2RhdGEoJmJhbmstPmdwaW9fY2hpcCwgYmFuayk7Cj4+IMKgwqDC
+oMKgwqAgaWYgKGVycikgewo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2VycihkZXYsICJGYWls
+ZWQgdG8gYWRkIGdwaW9jaGlwKCVkKSFcbiIsIGJhbmtfbnIpOwo+Cl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
