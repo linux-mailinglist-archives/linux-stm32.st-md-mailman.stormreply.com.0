@@ -2,138 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF4A770409
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 17:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 758D87704E8
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 17:37:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62676C6B466;
-	Fri,  4 Aug 2023 15:09:00 +0000 (UTC)
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2073.outbound.protection.outlook.com [40.107.241.73])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A4FEC6B466;
+	Fri,  4 Aug 2023 15:37:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 041F7C6B45D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80387C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Aug 2023 15:08:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n6ul/sbE9l4Zl7OpCJPpZQHpRrD066c1giEoumNYCYjk0Fr1wAa/YkQWTfUZSOWmE088QxmINlVfJOLak+JBP57S7q/VGNorXZhs+hfthwyGCvFkL4eXncUJlhXg1xEkyUeGLyY7VjBZVdwXse9vVbRNK6a78NXuvB6wsncD49kMxGeY8JbH8ZQ858iNN/xrgaDfRz60yF2529B85Per4RXiNfR8xtnbT+T+lxDjhsVS9gejOrJTO+HTshKPvCZ7RovJscgaNbsKXCgNWYyKgZR0RpV9YMhAZyyUZjj5CJRg0H8ZjvWO1a5FCPbJ2KyB6YLnrxi+EkAPOfaEjFMeRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J76+y6Nww2N39iFBmfZQ7ChqR5jp/K3julaLCHkHVqE=;
- b=mnhTyL/vdxV2oWMyh+YjklalcF+eBpLE/SSXmIhPwTK7azfT6QCTZcjVeNFmur+HLMZpmkTCVRWPRRjJv9irFCBFw7q3w6kvKzeJI9ZC/O5a6taI71pBzg9MZP14M/0PgxtDXYncoT+xqxe8gh1DbOLLbFw2/PLrQzUeqfnx0ApSbIaDN3He6GLfsHEF0VKZU7Qh8540zjfoWZVsCYHJpH5/NsZro0I0f08INaX6p0Jw+sSed6D3PWlU2zpRR73TUpo/HyjvYj1o1ietL3+mW5azVZbFcIL/bq4eot5WfCCCLGM/rTzw+AVtLQKgRA91daxSiLVq2CvfslWkp/MRkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J76+y6Nww2N39iFBmfZQ7ChqR5jp/K3julaLCHkHVqE=;
- b=VLk8C42mOoDjhzKI6v28+AhMFFIhs5VmvwWcCVofg6554N2NG0BAXeFc3KCA6C8Jc9vINxQZIlXJnuuQetmz8vH7szTzVQqWN5HKUs9nWpMrw8ZupiodoPyDIya57NicW+rPQexZozY9Eekx992TCx3rdT2yLpiynTrqUudz4RQ=
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com (2603:10a6:102:231::11)
- by AM8PR04MB7763.eurprd04.prod.outlook.com (2603:10a6:20b:246::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6652.21; Fri, 4 Aug
- 2023 15:08:57 +0000
-Received: from PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671]) by PAXPR04MB9185.eurprd04.prod.outlook.com
- ([fe80::d4ee:8daa:92f4:9671%3]) with mapi id 15.20.6631.046; Fri, 4 Aug 2023
- 15:08:56 +0000
-From: Shenwei Wang <shenwei.wang@nxp.com>
-To: Russell King <linux@armlinux.org.uk>
-Thread-Topic: [EXT] Re: [PATCH v4 net-next 2/2] net: stmmac: dwmac-imx: pause
- the TXC clock in fixed-link
-Thread-Index: AQHZxuKiZUs/AXOMS0qXmBpSCSPAEK/aOeGAgAACu7A=
-Date: Fri, 4 Aug 2023 15:08:56 +0000
-Message-ID: <PAXPR04MB9185B0397B5C9C37F99CBF518909A@PAXPR04MB9185.eurprd04.prod.outlook.com>
-References: <20230804144629.358455-1-shenwei.wang@nxp.com>
- <20230804144629.358455-3-shenwei.wang@nxp.com>
- <ZM0Rk4paok5cAvp5@shell.armlinux.org.uk>
-In-Reply-To: <ZM0Rk4paok5cAvp5@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAXPR04MB9185:EE_|AM8PR04MB7763:EE_
-x-ms-office365-filtering-correlation-id: 4a4976ec-10ef-4058-f7f1-08db94fcb994
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: TrwhU/m2Q1LWPrKGLZveoT90rRYce0C+b83jiDux+HU/3M9Q5ZlR1AnDp5nTGC7/wJUB40YqUv5576lbzwJsWjG491s3QkMQYZCjOeuTC5gavy+IJqnWDpPe0Ye8S5as8nkXpfQjHHX87MgKZSF1KcNFNLxDXwZzlGdMfqpGhPu29L/Wn2jmMYZoiJBaMj9Qotsn6F0HwnkdWTNc1ToXCOdu/l7U3qqKSjtd/3FMiJ+0N6xyqH7ZOFSxscKR3H5XsmIKNgluGBRZPy/CTruCKSFeX6V8IKZRjhBFO2EdVvDevOvR5a7HFHVxadFpI+dN74HvB0A25RKelpXYtuqaD/olr5cQsFivOWfZYQuKbFp5ew3hptrqcQhf4Nc3fjkJhWxvBJS/eaH8dK/xcUGXbsLM7VeaBSHUZREBjjDu2sZDsuvkwIvXZKfTFdZQ2s+TfCq2AOGrvDIxGj7i6hh+L25V11SRI8R2TRtQXpidaOsQsm5O8cdqw/FKcLBZwamO/i6MTl3hMQW0lGpfK+v3nuNYxUm24aA9+2b5qlfFfphSMuuX1r5YrXGNm9QW1qnZipPDYRGihpTYf/e/0HuXoD7FYLAI84BH+I043ZK2NGI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PAXPR04MB9185.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(396003)(366004)(346002)(136003)(376002)(1800799003)(186006)(451199021)(8936002)(8676002)(4744005)(26005)(45080400002)(478600001)(55016003)(966005)(86362001)(9686003)(7696005)(33656002)(71200400001)(316002)(41300700001)(5660300002)(64756008)(4326008)(66476007)(66556008)(66446008)(66946007)(6916009)(44832011)(52536014)(83380400001)(7416002)(7406005)(54906003)(2906002)(76116006)(6506007)(122000001)(38100700002)(55236004)(53546011)(38070700005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LOtBrqsJSdLPY7vQJuzTmm2Ii/SaQPltCVsxCDYLIxVICUJZxla6n7sVt/ms?=
- =?us-ascii?Q?z6HDos4NZRqFoKVyLGh6P8MPl8W/By9ku3N2+y2jO5fTGzl+AjqikjmawfHA?=
- =?us-ascii?Q?OTVBdIaaNFnbWKcWgk3OypTcwkkoti5hQaxd57jNlMzbhE+++gMx+w2g82lr?=
- =?us-ascii?Q?ObTpWfB9eryr+2Q1qAcfNQTvOV5qAFl3SRVzqiymtwAsN6fO9SRa36IBu0eS?=
- =?us-ascii?Q?fY9M7D93x+6/49MKSvZJVAETeZFngZEib7v94XGwy+wfrMMicsq/x0PVT8MV?=
- =?us-ascii?Q?Iwfn5d8WvmpVwtDPBC+Kl6xIWF/fDJHQ0xsbv/1EMzlyh9SG4DxY2vi7xcJg?=
- =?us-ascii?Q?V9ysaszn7gVuZHKgqZ3RlL4MObjR90gxjF8FJVy9nYnxvRrtL9vCaI2jz/Rp?=
- =?us-ascii?Q?UcRkXysQfLcafs0MZ2tPlWh47gqtglDSwODHgKsS42myfISsqu4qwDbLnh9T?=
- =?us-ascii?Q?bAqu2KUx9bZkCfNS2t5hLwLRT1n3oLttbDvr0ZSSGbNRIDc6v8meLkSnOEY4?=
- =?us-ascii?Q?A2yOxhd9aEGjDKbJ54aSuuIq3T/Pyo6W4YwwTSZf1tQv0pCRXxIbnyIwlNUC?=
- =?us-ascii?Q?T5+oWWHBbjtCqEP2Ti4JvEmKk/9tTwfkuXk2ared9zzjVLrppFueaQ/IRPyR?=
- =?us-ascii?Q?38dxiEqDPkWS8t0ZEfZpm5kqpC8DSYZOVaM8WG3TORWgeFUKTx/zJKcFRUPN?=
- =?us-ascii?Q?kZ1A+O+I7JRnTVADkOE/XiMdXOgMqu9AhpEtYJ4hYeBDNi6HGMFHN3/L0zxp?=
- =?us-ascii?Q?AYiwiHU1VEERdMH2MjfTr97NINQJ2yw6zOqVTzh+Qbh05GiBCMBsgticUHYi?=
- =?us-ascii?Q?TCS7nQLsJw+kGFj882vk7S+Ai34sjADZ7395mPHZ2VZhIFqve5+z0v94Iw5W?=
- =?us-ascii?Q?vbIc6OTYTSiLhgXrix9QQnFnQV6mWa/pOd6psaj5Y3aEDuCe5rkvV98gb4K6?=
- =?us-ascii?Q?cycuBgSulAEcHpFvxPNjlLMPm/StwD7uinrLlU9Lcwlwc12SIDN4e6Tx6SQe?=
- =?us-ascii?Q?NjmT3VHrXXy71lk/9Y8wQ4uizP3ObGfEUJsJgTUxnFfBMtbfPyKnzVaqplzp?=
- =?us-ascii?Q?yj1eFqjZEAtu3tvXD6oZY+mw6uMSGw9fDc3E3CSkMG0znx9rBIZp3s2ZeWJ1?=
- =?us-ascii?Q?uuilSShgSYcUYwTRRPBbi+tIKPZ9+1q3ZVqwZufih6ndhnZBJtcLev2rHuNW?=
- =?us-ascii?Q?DQ42yZUmDQbAcBFzWgYDpBU3BLbl0xgozQoa0JFyMeJ358hzd7xpsYktnKlQ?=
- =?us-ascii?Q?Syzkrii2tybo16Rzoen4yVaPNTgvh8B1STF3XdopwJ5ciWtO5w6u0c31ENIU?=
- =?us-ascii?Q?2Im3n138uZ0O9vnEhoiX5XfHPQjN3de9KcTzD3mtxv5WPDtpcx7b9HecYv38?=
- =?us-ascii?Q?1gIu2teoi4OPgPJVTu9TC8isHmM/DgRMusi1hTWA8zeo2AWgc3X/j/aO23y1?=
- =?us-ascii?Q?C/Y29qsxuTKGrs/AcuQnI2GZ7IKi2Ifm8KHgtA+7phs8YqdFEDkHkiRuQMZm?=
- =?us-ascii?Q?G+9p4LgzNzDHUia68SkiJPJOaJ2ioQDy23YE46SHEsXFO4Iaxn1+dpqDhTxK?=
- =?us-ascii?Q?81lSasndv0nlfRuFjmFLT+TwAEiJIWHY3mKOrlDv?=
+ Fri,  4 Aug 2023 15:37:44 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 374DxTYt016361; Fri, 4 Aug 2023 17:37:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=2MnJLd/cw+qk9zY3eSbS/WUEJw7QWsi5u4vo7z3Bjqk=; b=zC
+ WsRTeAzXfTb9ZxdDjdGg2ZIBEvkHBeTXB4GbqUxHnZZ8IPh+V5izWoW7/WxO/WUH
+ vPlNMzbEP7SWUxzVsmSC6WPdoYIt2WUh9DZ/8fJ7z+Fwxv84eGd5NFkVw3T6CnAa
+ JdQnsKCAEP/DuTmxQySA/2K0NS1FvJxfJc4qYufkvzowMQbWBYFgncF4UWEc4g+X
+ mE71KMfGu+dZX9DMw9892Jml8D9g3wIi57m9ghLocsHvRnqRLzF9OxduCFkQIMlt
+ bgtjeDKxOhKI0fwuQuy8LoJi7Ff/M6MShvn5MC1SMdFd0GH/aNoHvP2BJaQtlAzR
+ HhdKTf+2ffN2xd9DwNyg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3s8xy89v4t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Aug 2023 17:37:34 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 128AC10004F;
+ Fri,  4 Aug 2023 17:37:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0B47B2248AC;
+ Fri,  4 Aug 2023 17:37:34 +0200 (CEST)
+Received: from [10.201.20.38] (10.201.20.38) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 4 Aug
+ 2023 17:37:33 +0200
+Message-ID: <a02b8501-d47f-77df-444a-a867a9438443@foss.st.com>
+Date: Fri, 4 Aug 2023 17:37:32 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9185.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a4976ec-10ef-4058-f7f1-08db94fcb994
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2023 15:08:56.9141 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qciY6Um68e0zZJwucHKU11q8ox/WdHXW4t0uKdn5rYgbTJLgXneKccbSNS3yP6g8zqZgZlqQYfOuRQQRmn9WUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7763
-Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
- Simon Horman <simon.horman@corigine.com>, Frank Li <frank.li@nxp.com>,
- Eric Dumazet <edumazet@google.com>,
- "linux-amlogic@lists.infradead.org" <linux-amlogic@lists.infradead.org>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Wong Vee Khee <veekhee@apple.com>, Chen-Yu Tsai <wens@csie.org>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Marc Kleine-Budde <mkl@pengutronix.de>,
- Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [EXT] Re: [PATCH v4 net-next 2/2] net: stmmac:
- dwmac-imx: pause the TXC clock in fixed-link
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20230726070353.103989-1-krzysztof.kozlowski@linaro.org>
+ <20230726070353.103989-4-krzysztof.kozlowski@linaro.org>
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20230726070353.103989-4-krzysztof.kozlowski@linaro.org>
+X-Originating-IP: [10.201.20.38]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-04_15,2023-08-03_01,2023-05-22_02
+Subject: Re: [Linux-stm32] [PATCH 4/4] AMR: dts: st: stih407: drop
+	max-duty-cycle
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,32 +84,33 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-> -----Original Message-----
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: Friday, August 4, 2023 9:56 AM
-> To: Shenwei Wang <shenwei.wang@nxp.com>
-> On Fri, Aug 04, 2023 at 09:46:29AM -0500, Shenwei Wang wrote:
-> > +     if (dwmac->ops->fix_soc_reset)
-> > +             plat_dat->fix_mac_speed = dwmac->ops->fix_mac_speed;
->
-> The if() condition looks like a typo to me.
->
+On 7/26/23 09:03, Krzysztof Kozlowski wrote:
+> "max-duty-cycle" property was removed in the commit f747a1fe7848
+> ("regulator: pwm-regulator: Remove obsoleted property"):
+> 
+>   stih418-b2199.dtb: pwm-regulator: Unevaluated properties are not allowed ('max-duty-cycle' was unexpected)
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  arch/arm/boot/dts/st/stih407-family.dtsi | 1 -
+>  1 file changed, 1 deletion(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
+> index 3f58383a7b59..29302e74aa1d 100644
+> --- a/arch/arm/boot/dts/st/stih407-family.dtsi
+> +++ b/arch/arm/boot/dts/st/stih407-family.dtsi
+> @@ -111,7 +111,6 @@ pwm_regulator: pwm-regulator {
+>  		regulator-min-microvolt = <784000>;
+>  		regulator-max-microvolt = <1299000>;
+>  		regulator-always-on;
+> -		max-duty-cycle = <255>;
+>  		status = "okay";
+>  	};
+>  
+Acked-by: Patrice Chotard <patrice.chotard@foss.st.com>
 
-My bad. Thank you very much for pointing that out!
-
-Thanks,
-Shenwei
-
-> --
-> RMK's Patch system:
-> https://www.ar/
-> mlinux.org.uk%2Fdeveloper%2Fpatches%2F&data=05%7C01%7Cshenwei.wang
-> %40nxp.com%7C893e89bfb80c46549b3c08db94fafd80%7C686ea1d3bc2b4c6fa
-> 92cd99c5c301635%7C0%7C0%7C638267577931730269%7CUnknown%7CTWFp
-> bGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6
-> Mn0%3D%7C3000%7C%7C%7C&sdata=xR58pNE5yNXCj6Fl8aWS1an5wgdDI%2F
-> k1mv%2Fw%2BnLBhl0%3D&reserved=0
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
