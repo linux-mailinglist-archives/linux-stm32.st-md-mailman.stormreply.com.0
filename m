@@ -2,49 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEDB676FD75
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 11:36:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B2B176FFE5
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 14:05:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97B10C6B459;
-	Fri,  4 Aug 2023 09:36:43 +0000 (UTC)
-Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
- (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C81FCC6B45A;
+	Fri,  4 Aug 2023 12:05:03 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50324C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A4A9C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Aug 2023 09:36:41 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1qRrDk-003baN-9J; Fri, 04 Aug 2023 17:35:45 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 04 Aug 2023 17:35:44 +0800
-Date: Fri, 4 Aug 2023 17:35:44 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <ZMzGcMJh6TA+V+p5@gondor.apana.org.au>
-References: <20230728134828.3224218-1-robh@kernel.org>
+ Fri,  4 Aug 2023 12:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+ Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+ Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+ In-Reply-To:References; bh=BF7IxsJwwF3H6hTxOnnRHhHm2pxerHz0TwcwSYZ5mmo=; b=hn
+ ITZz2x2U9gv8VyS3tbPuS1qJb2s+QdLDombVGgJBuIMp94B/jdNGHm1K8rEfkYkMQ3+ewn5LIO6kF
+ LbiK6e4ZLwcXUaPHNQrnsjqHyQv9cFjU/JmA3DscTJjlqurbFbCQLAHvCpreRbwfhm9fptZMUrUZ6
+ wuSJ327BFnrmpP0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qRtXG-0034lQ-BA; Fri, 04 Aug 2023 14:04:02 +0200
+Date: Fri, 4 Aug 2023 14:04:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+Message-ID: <5bd05ba2-fd88-4e5c-baed-9971ff917484@lunn.ch>
+References: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230728134828.3224218-1-robh@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Benjamin Fair <benjaminfair@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Michael Ellerman <mpe@ellerman.id.au>, openbmc@lists.ozlabs.org,
- Christophe Leroy <christophe.leroy@csgroup.eu>, Nancy Yuen <yuenn@google.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- devicetree@vger.kernel.org, Deepak Saxena <dsaxena@plexity.net>,
- Ray Jui <rjui@broadcom.com>, Nicholas Piggin <npiggin@gmail.com>,
- linux-rpi-kernel@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- linux-arm-kernel@lists.infradead.org, Scott Branden <sbranden@broadcom.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, Claudiu Beznea <claudiu.beznea@microchip.com>
-Subject: Re: [Linux-stm32] [PATCH v3] hwrng: Explicitly include correct DT
-	includes
+In-Reply-To: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
+Cc: Voon Wei Feng <weifeng.voon@intel.com>, Alexei Starovoitov <ast@kernel.org>,
+ Jesse Brandeburg <jesse.brandeburg@intel.com>,
+ Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric Dumazet <edumazet@google.com>,
+ David E Box <david.e.box@linux.intel.com>, Shenwei Wang <shenwei.wang@nxp.com>,
+ Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
+ Tan Tee Min <tee.min.tan@linux.intel.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Wong Vee Khee <veekhee@apple.com>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Andrey Konovalov <andrey.konovalov@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Jose Abreu <Jose.Abreu@synopsys.com>,
+ Jean Delvare <jdelvare@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Richard Cochran <richardcochran@gmail.com>, Mark Gross <markgross@kernel.org>,
+ Hans de Goede <hdegoede@redhat.com>, Revanth Kumar Uppala <ruppala@nvidia.com>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ platform-driver-x86@vger.kernel.org,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, bpf@vger.kernel.org,
+ "David S . Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/5] TSN auto negotiation
+	between 1G and 2.5G
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,48 +74,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jul 28, 2023 at 07:48:27AM -0600, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it was merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
-> 
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> v3:
->  - Split out hw_random, ipmi and tpm
-> v2:
->  - Fix build for pic32-rng.c dropping of_match_ptr()
-> ---
->  drivers/char/hw_random/atmel-rng.c     | 2 +-
->  drivers/char/hw_random/bcm2835-rng.c   | 3 +--
->  drivers/char/hw_random/ingenic-trng.c  | 2 +-
->  drivers/char/hw_random/iproc-rng200.c  | 3 +--
->  drivers/char/hw_random/npcm-rng.c      | 3 +--
->  drivers/char/hw_random/omap-rng.c      | 2 --
->  drivers/char/hw_random/omap3-rom-rng.c | 1 -
->  drivers/char/hw_random/pasemi-rng.c    | 3 +--
->  drivers/char/hw_random/pic32-rng.c     | 5 ++---
->  drivers/char/hw_random/stm32-rng.c     | 3 ++-
->  drivers/char/hw_random/xgene-rng.c     | 5 ++---
->  drivers/char/hw_random/xiphera-trng.c  | 1 -
->  12 files changed, 12 insertions(+), 21 deletions(-)
-
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBBdWcgMDQsIDIwMjMgYXQgMDQ6NDU6MjJQTSArMDgwMCwgQ2hvb25nIFlvbmcgTGlh
+bmcgd3JvdGU6Cj4gSW50ZWwgcGxhdGZvcm1z4oCZIGludGVncmF0ZWQgR2lnYWJpdCBFdGhlcm5l
+dCBjb250cm9sbGVycyBzdXBwb3J0Cj4gMi41R2JwcyBtb2RlIHN0YXRpY2FsbHkgdXNpbmcgQklP
+UyBwcm9ncmFtbWluZy4gSW4gdGhlIGN1cnJlbnQKPiBpbXBsZW1lbnRhdGlvbiwgdGhlIEJJT1Mg
+bWVudSBwcm92aWRlcyBhbiBvcHRpb24gdG8gc2VsZWN0IGJldHdlZW4KPiAxMC8xMDAvMTAwME1i
+cHMgYW5kIDIuNUdicHMgbW9kZXMuIEJhc2VkIG9uIHRoZSBzZWxlY3Rpb24sIHRoZSBCSU9TCj4g
+cHJvZ3JhbXMgdGhlIFBoYXNlIExvY2sgTG9vcCAoUExMKSByZWdpc3RlcnMuIFRoZSBCSU9TIGFs
+c28gcmVhZCB0aGUKPiBUU04gbGFuZSByZWdpc3RlcnMgZnJvbSBGbGV4aWJsZSBJL08gQWRhcHRl
+ciAoRklBKSBibG9jayBhbmQgcHJvdmlkZWQKPiAxMC8xMDAvMTAwME1icHMvMi41R2JwcyBpbmZv
+cm1hdGlvbiB0byB0aGUgc3RtbWFjIGRyaXZlci4gQnV0Cj4gYXV0by1uZWdvdGlhdGlvbiBiZXR3
+ZWVuIDEwLzEwMC8xMDAwTWJwcyBhbmQgMi41R2JwcyBpcyBub3QgYWxsb3dlZC4KPiBUaGUgbmV3
+IHByb3Bvc2FsIGlzIHRvIHN1cHBvcnQgYXV0by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLzEwMC8x
+MDAwTWJwcwo+IGFuZCAyLjVHYnBzIC4gQXV0by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLCAxMDAs
+IDEwMDBNYnBzIHdpbGwgdXNlCj4gaW4tYmFuZCBhdXRvIG5lZ290aWF0aW9uLiBBdXRvLW5lZ290
+aWF0aW9uIGJldHdlZW4gMTAvMTAwLzEwMDBNYnBzIGFuZAo+IDIuNUdicHMgd2lsbCB3b3JrIGFz
+IHRoZSBmb2xsb3dpbmcgcHJvcG9zZWQgZmxvdywgdGhlIHN0bW1hYyBkcml2ZXIgcmVhZHMKPiB0
+aGUgUEhZIGxpbmsgc3RhdHVzIHJlZ2lzdGVycyB0aGVuIGlkZW50aWZpZXMgdGhlIG5lZ290aWF0
+ZWQgc3BlZWQuCj4gQmFzZWQgb24gdGhlIHNwZWVkIHN0bW1hYyBkcml2ZXIgd2lsbCBpZGVudGlm
+eSBUU04gbGFuZSByZWdpc3RlcnMgZnJvbQo+IEZJQSB0aGVuIHNlbmQgSVBDIGNvbW1hbmQgdG8g
+dGhlIFBvd2VyIE1hbmFnZW1lbnQgY29udHJvbGxlciAoUE1DKQo+IHRocm91Z2ggUE1DIGRyaXZl
+ci9BUEkuIFBNQyB3aWxsIGFjdCBhcyBhIHByb3h5IHRvIHByb2dyYW1zIHRoZQo+IFBMTCByZWdp
+c3RlcnMuCgpIYXZlIHlvdSBjb25zaWRlcmVkIHVzaW5nIG91dCBvZiBiYW5kIGZvciBhbGwgbGlu
+ayBtb2Rlcz8gWW91IG1pZ2h0CmVuZCB1cCB3aXRoIGEgY2xlYW5lciBhcmNoaXRlY3R1cmUsIGFu
+ZCBub3QgbmVlZCBhbnkgcGh5bGluay9waHlsaWIKaGFja3MuCgoJQW5kcmV3Cl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
