@@ -2,67 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2B176FFE5
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 14:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7D97700C4
+	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 15:05:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C81FCC6B45A;
-	Fri,  4 Aug 2023 12:05:03 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70CA3C6B465;
+	Fri,  4 Aug 2023 13:05:39 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A4A9C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46D2BC6B45D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Aug 2023 12:05:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
- Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
- In-Reply-To:References; bh=BF7IxsJwwF3H6hTxOnnRHhHm2pxerHz0TwcwSYZ5mmo=; b=hn
- ITZz2x2U9gv8VyS3tbPuS1qJb2s+QdLDombVGgJBuIMp94B/jdNGHm1K8rEfkYkMQ3+ewn5LIO6kF
- LbiK6e4ZLwcXUaPHNQrnsjqHyQv9cFjU/JmA3DscTJjlqurbFbCQLAHvCpreRbwfhm9fptZMUrUZ6
- wuSJ327BFnrmpP0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qRtXG-0034lQ-BA; Fri, 04 Aug 2023 14:04:02 +0200
-Date: Fri, 4 Aug 2023 14:04:02 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <5bd05ba2-fd88-4e5c-baed-9971ff917484@lunn.ch>
-References: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
+ Fri,  4 Aug 2023 13:05:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EC68A61FD3;
+ Fri,  4 Aug 2023 13:05:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31FCC433C8;
+ Fri,  4 Aug 2023 13:05:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1691154336;
+ bh=CMmrQBOMwR0aByOYeSTrPYxAkxl+tK2+Yy4ucbFVepY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D1Ep/aX1YfrLsVLG16EHNKOMgzJDmwOS7a3oXTfVP4t5UZ98vesrovc3AqG/nV+ua
+ zkRweltGyiyd5druyJ+Cydf/yV+EcdLmBC6exbz0mqYMM5OGXGBwCgiADB1WA88qtm
+ fucdckWGxZF46V/XbPfI42XaT5T1/9q/XTwinVI8=
+Date: Fri, 4 Aug 2023 15:05:33 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Valentin Caron <valentin.caron@foss.st.com>
+Message-ID: <2023080414-props-senior-c40a@gregkh>
+References: <20230803130134.155355-1-valentin.caron@foss.st.com>
+ <20230803130134.155355-7-valentin.caron@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
-Cc: Voon Wei Feng <weifeng.voon@intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric Dumazet <edumazet@google.com>,
- David E Box <david.e.box@linux.intel.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
- Tan Tee Min <tee.min.tan@linux.intel.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Jean Delvare <jdelvare@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Richard Cochran <richardcochran@gmail.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- platform-driver-x86@vger.kernel.org,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, bpf@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/5] TSN auto negotiation
-	between 1G and 2.5G
+In-Reply-To: <20230803130134.155355-7-valentin.caron@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 6/6] serial: stm32: synchronize RX DMA
+	channel in shutdown
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,35 +53,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCBBdWcgMDQsIDIwMjMgYXQgMDQ6NDU6MjJQTSArMDgwMCwgQ2hvb25nIFlvbmcgTGlh
-bmcgd3JvdGU6Cj4gSW50ZWwgcGxhdGZvcm1z4oCZIGludGVncmF0ZWQgR2lnYWJpdCBFdGhlcm5l
-dCBjb250cm9sbGVycyBzdXBwb3J0Cj4gMi41R2JwcyBtb2RlIHN0YXRpY2FsbHkgdXNpbmcgQklP
-UyBwcm9ncmFtbWluZy4gSW4gdGhlIGN1cnJlbnQKPiBpbXBsZW1lbnRhdGlvbiwgdGhlIEJJT1Mg
-bWVudSBwcm92aWRlcyBhbiBvcHRpb24gdG8gc2VsZWN0IGJldHdlZW4KPiAxMC8xMDAvMTAwME1i
-cHMgYW5kIDIuNUdicHMgbW9kZXMuIEJhc2VkIG9uIHRoZSBzZWxlY3Rpb24sIHRoZSBCSU9TCj4g
-cHJvZ3JhbXMgdGhlIFBoYXNlIExvY2sgTG9vcCAoUExMKSByZWdpc3RlcnMuIFRoZSBCSU9TIGFs
-c28gcmVhZCB0aGUKPiBUU04gbGFuZSByZWdpc3RlcnMgZnJvbSBGbGV4aWJsZSBJL08gQWRhcHRl
-ciAoRklBKSBibG9jayBhbmQgcHJvdmlkZWQKPiAxMC8xMDAvMTAwME1icHMvMi41R2JwcyBpbmZv
-cm1hdGlvbiB0byB0aGUgc3RtbWFjIGRyaXZlci4gQnV0Cj4gYXV0by1uZWdvdGlhdGlvbiBiZXR3
-ZWVuIDEwLzEwMC8xMDAwTWJwcyBhbmQgMi41R2JwcyBpcyBub3QgYWxsb3dlZC4KPiBUaGUgbmV3
-IHByb3Bvc2FsIGlzIHRvIHN1cHBvcnQgYXV0by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLzEwMC8x
-MDAwTWJwcwo+IGFuZCAyLjVHYnBzIC4gQXV0by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLCAxMDAs
-IDEwMDBNYnBzIHdpbGwgdXNlCj4gaW4tYmFuZCBhdXRvIG5lZ290aWF0aW9uLiBBdXRvLW5lZ290
-aWF0aW9uIGJldHdlZW4gMTAvMTAwLzEwMDBNYnBzIGFuZAo+IDIuNUdicHMgd2lsbCB3b3JrIGFz
-IHRoZSBmb2xsb3dpbmcgcHJvcG9zZWQgZmxvdywgdGhlIHN0bW1hYyBkcml2ZXIgcmVhZHMKPiB0
-aGUgUEhZIGxpbmsgc3RhdHVzIHJlZ2lzdGVycyB0aGVuIGlkZW50aWZpZXMgdGhlIG5lZ290aWF0
-ZWQgc3BlZWQuCj4gQmFzZWQgb24gdGhlIHNwZWVkIHN0bW1hYyBkcml2ZXIgd2lsbCBpZGVudGlm
-eSBUU04gbGFuZSByZWdpc3RlcnMgZnJvbQo+IEZJQSB0aGVuIHNlbmQgSVBDIGNvbW1hbmQgdG8g
-dGhlIFBvd2VyIE1hbmFnZW1lbnQgY29udHJvbGxlciAoUE1DKQo+IHRocm91Z2ggUE1DIGRyaXZl
-ci9BUEkuIFBNQyB3aWxsIGFjdCBhcyBhIHByb3h5IHRvIHByb2dyYW1zIHRoZQo+IFBMTCByZWdp
-c3RlcnMuCgpIYXZlIHlvdSBjb25zaWRlcmVkIHVzaW5nIG91dCBvZiBiYW5kIGZvciBhbGwgbGlu
-ayBtb2Rlcz8gWW91IG1pZ2h0CmVuZCB1cCB3aXRoIGEgY2xlYW5lciBhcmNoaXRlY3R1cmUsIGFu
-ZCBub3QgbmVlZCBhbnkgcGh5bGluay9waHlsaWIKaGFja3MuCgoJQW5kcmV3Cl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Thu, Aug 03, 2023 at 03:01:34PM +0200, Valentin Caron wrote:
+> From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> 
+> In shutdown, RX DMA channel is terminated. If the DMA RX callback is
+> scheduled but not yet executed, while a new RX DMA transfer is started, the
+> callback can be executed, and then disturb the ongoing RX DMA transfer.
+> To avoid such a case, call dmaengine_synchronize in shutdown, after the
+> DMA RX channel is terminated.
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+> ---
+
+You can't forward on a patch from someone else and not sign-off on it
+yourself :(
+
+Please fix up and resend the series.
+
+thanks,
+
+greg k-h
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
