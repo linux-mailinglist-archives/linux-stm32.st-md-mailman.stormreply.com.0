@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E2A77113E
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Aug 2023 20:05:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E59F771171
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Aug 2023 20:31:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDDE4C6B46E;
-	Sat,  5 Aug 2023 18:05:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56571C6B46E;
+	Sat,  5 Aug 2023 18:31:04 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B550BC6B469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7711FC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Aug 2023 18:05:34 +0000 (UTC)
+ Sat,  5 Aug 2023 18:31:02 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A30CD60D3E;
- Sat,  5 Aug 2023 18:05:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80FEC433C7;
- Sat,  5 Aug 2023 18:05:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5357060DEB;
+ Sat,  5 Aug 2023 18:31:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6F2C433C7;
+ Sat,  5 Aug 2023 18:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691258733;
- bh=6ngnT+YpvhD93TEqzBDpiBPquP2+w46b9BGTWjyu8w0=;
+ s=k20201202; t=1691260260;
+ bh=8A0dIW8Ncx95axIcP4Bjov5VDnhG33vLjWhpY8dE0f4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ltdF/niLESAi+aozfLjIa4kbuIJibRedI0s7K6xJq4WCpejM8K0nuWsnKRFVtQmXT
- bh5uEipChE7m5I0WIVZY/LqNHWKYVOcC067ocbBGMcePhrmbZA4OOMKkx2g/41CsMt
- wubx6QngdGf/sGnMeUxZIjqv8ltjliF1eh+udig+gI/vCqOLqfXU3wywGd4PuVLcR7
- QF/SbUyQ/hmzYtHViN9wVgVuXMiHslBRxFE/h3jXj4UxkRCfxDrd6BXsdWY3oFfmh3
- Fj/qMb4sxyv9dnBTnOOvc8WGkJB1s/iW8ESC/apFjnq421auhVGFVUBTlSOSZYc1Qa
- qcE823d/JH3rA==
-Date: Sat, 5 Aug 2023 19:05:24 +0100
+ b=i5PiXd4rnGVWyam+yeyRvqSbBy3qYS7ih/44/RmHm2/i2s143mEYoP33L7gw8s7wy
+ OOSTE/BRpZx5rRk3GrKogKm+fHMTc95gdpl5Z+gLtyOIAz/2lpr0zKSGu1I5Tphauh
+ 1jJaStj2FWU5/6DSrabMJe/8M3H/dNCmL/h0fqAuqK3ozaDcXWsBPsTHJ2OwrTxjsn
+ Cn2IhSjU+iJNBwb4KRkV/OP8ilu5COn1KNfLDuoaWvPHpXdHYv5AXaCCt7yduvSKJ1
+ sX2ZqPsH1bl8DJDr+VLIIx72d7IPCfVJWMmIU4BNmLyXvcCEM/XCbqdZvm9hM5DKI/
+ nmA4Gw5RZdd1Q==
+Date: Sat, 5 Aug 2023 19:30:52 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Andrei Coardos <aboutphysycs@gmail.com>
-Message-ID: <20230805190524.5dc00883@jic23-huawei>
+Message-ID: <20230805193052.690c87e8@jic23-huawei>
 In-Reply-To: <20230802133509.29381-1-aboutphysycs@gmail.com>
 References: <20230802133509.29381-1-aboutphysycs@gmail.com>
 X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
@@ -71,13 +71,6 @@ Andrei Coardos <aboutphysycs@gmail.com> wrote:
 > 
 > Reviewed-by: Alexandru Ardelean <alex@shruggie.ro>
 > Signed-off-by: Andrei Coardos <aboutphysycs@gmail.com>
-
-Oops. Missed there was a v2.  Ah well, end result the same ;)
-
-Thanks,
-
-Jonathan
-
 > ---
 > 
 > Changelog V1->V2:
@@ -103,6 +96,11 @@ Jonathan
 > -
 > -	return 0;
 > +	return stm32_lptim_setup_trig(priv);
+Both of us failed to notice ret isn't used any more.  Anyhow, I cleaned that
+up after spotting the build warning.
+
+Jonathan
+
 >  }
 >  
 >  static const struct of_device_id stm32_lptim_trig_of_match[] = {
