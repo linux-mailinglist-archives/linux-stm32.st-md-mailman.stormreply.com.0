@@ -2,76 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E022F771052
-	for <lists+linux-stm32@lfdr.de>; Sat,  5 Aug 2023 17:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D27A771138
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Aug 2023 20:04:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 773B3C6B46E;
-	Sat,  5 Aug 2023 15:04:43 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C87D1C6B46E;
+	Sat,  5 Aug 2023 18:04:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B2CEC65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6E14C6B469
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  5 Aug 2023 15:04:41 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1bb91c20602so6523385ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 05 Aug 2023 08:04:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691247880; x=1691852680;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ytrMVlVv1UK/Az0eboWXoW3oWMRE9Ry5HZu9EP4O7Hk=;
- b=Mk+wLubbtaR1qwT8sRDFUvnGC6q178WVxAnUzZsXJqb78Bi7HyfLQv37e9+cNYgtfe
- MQvhVW1w9wG3pNf4iVnRViD6V/Mp8AnkEDNpASleivqmUYhIGhJpXanqfrXnkYmH4UkV
- Z2yHlUV1PM3SllRDNxjkTCraMkCryDBud3mNwFmocYm4pJPzqEP5n9/f3GHoM7Vniqar
- Q4xrpQDPfaXefIboS0GHi0BJ/79Le7cHAmeaRjyEPJLEySe48L5MUbzRO44rI+usXfNE
- qJVZhx5e3aSLKKKtUdKrWrKZZgtoCXVv2WE/SE6BSueIAFzmL6a4pRD+DJWqZWssDr6p
- NOnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691247880; x=1691852680;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ytrMVlVv1UK/Az0eboWXoW3oWMRE9Ry5HZu9EP4O7Hk=;
- b=lfEoY37KUtdJkBIKBG0BPdJghvYN0KzVcUKKSDFhBaeXGrLmZZL1lspH+UixIOSwrD
- lura8SunnT7HAXhMcQK1QJ1QqkAy4ftUzVJci66c9xeamDI2Kdb9YDMJ3Bdk0jyvrRJJ
- m0u3S++gOUc43lPuYIceXsRyjUy+QJhw5PwFyeGtCE0CzzlYDTFOfz6cSgeMYbvjffJw
- vgILP8a5cDYYii2r6afpIUmIwSWTSxNbdI82bqNq1pc12AYrb7klNRN7h5tkJ0hwzphY
- OG/cKTn2ntvjX7skKl6gCMhfM9Xix7kRIuZqPhG0tOPb5StSmvf7x3m04RQcXef+yGkK
- lUcQ==
-X-Gm-Message-State: AOJu0Ywvu5SWOZl2AG7BwCHCMqmYC30pkSFsxDaIM2vXJ6CJggKxjIYc
- /PE41Mzc7NlWJrmCMCldCko=
-X-Google-Smtp-Source: AGHT+IF82ItI3skCFLQdfd5ecBJpcyON+saJ/4iH20OqWKlhvzIiHpi4OFMsVyx/ucee9F5mPKGlig==
-X-Received: by 2002:a05:6a20:8e19:b0:140:5067:84b3 with SMTP id
- y25-20020a056a208e1900b00140506784b3mr2213271pzj.0.1691247880108; 
- Sat, 05 Aug 2023 08:04:40 -0700 (PDT)
-Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
- by smtp.gmail.com with ESMTPSA id
- u6-20020a62ed06000000b006870ccfbb54sm3263234pfh.196.2023.08.05.08.04.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 05 Aug 2023 08:04:39 -0700 (PDT)
-Date: Sat, 5 Aug 2023 08:04:36 -0700
-From: Richard Cochran <richardcochran@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <ZM5lBG+eXG9WukOV@hoboy.vegasvil.org>
-References: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
- <20230804132403.4d9209de@kernel.org>
+ Sat,  5 Aug 2023 18:04:56 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 745E660D3E;
+ Sat,  5 Aug 2023 18:04:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7354BC433C7;
+ Sat,  5 Aug 2023 18:04:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691258694;
+ bh=96EhEx/ZwAoLEZrGKhah56CZPPgGexCaaNmFBjOhFbo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=hvB++aps/bNGYC6pSwdXTNR5Fj41/6hoGjDLgBIcH9qUmPPT3i1+7LyB0Yk5rrExR
+ j4sVxJewj4lZu2OUjCHkzzBP2AfjvPSTxJRxqAWhK0lSKFCP39BMwkUObyW3BET+OB
+ nPDmNvVPduv6yM/imIEF54LXw9VuloACj101O2b8OfUkDEZ64ZZPad1IHiLyO/a4gd
+ bEUMjjoW/XXoXcaYNmaW3juFPHhMuQXWPGRLFXwGnYvdzuxbweJvIAFywwnOLERHYu
+ jxfyNpXBp1EqIcIB0lMP0GfOWKUHn0FLOlnOuosTWgkQt+gs/M5OOMWGYV1vEBaBTP
+ tAqmdtEJEEpGw==
+Date: Sat, 5 Aug 2023 19:04:45 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Alexandru Ardelean <alex@shruggie.ro>
+Message-ID: <20230805190445.08036501@jic23-huawei>
+In-Reply-To: <CAH3L5QpuoDYU6qvWH7_z5Yx0cW2qPMbCA8AFEYAPsiEkSzCiwQ@mail.gmail.com>
+References: <20230802120915.25631-1-aboutphysycs@gmail.com>
+ <CAH3L5QpuoDYU6qvWH7_z5Yx0cW2qPMbCA8AFEYAPsiEkSzCiwQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230804132403.4d9209de@kernel.org>
-Cc: Johannes Zink <j.zink@pengutronix.de>, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, kernel test robot <lkp@intel.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v3 0/2] net: stmmac: correct MAC
-	propagation delay
+Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
+ Andrei Coardos <aboutphysycs@gmail.com>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: trigger: stm32-lptimer-trigger:
+ remove unneeded platform_set_drvdata()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,22 +57,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 04, 2023 at 01:24:03PM -0700, Jakub Kicinski wrote:
-
-> Richard? Sure would be nice to have an official ack from you on this
-> one so I don't have to revert it again ;)
-
-No objections to this version, as the correction is behind a feature
-flag that is opt-in per device flavor.
-
-Thanks,
-Richard
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCAyIEF1ZyAyMDIzIDE1OjM3OjAyICswMzAwCkFsZXhhbmRydSBBcmRlbGVhbiA8YWxl
+eEBzaHJ1Z2dpZS5ybz4gd3JvdGU6Cgo+IE9uIFdlZCwgQXVnIDIsIDIwMjMgYXQgMzowOeKAr1BN
+IEFuZHJlaSBDb2FyZG9zIDxhYm91dHBoeXN5Y3NAZ21haWwuY29tPiB3cm90ZToKPiA+Cj4gPiBU
+aGlzIGZ1bmN0aW9uIGNhbGwgd2FzIGZvdW5kIHRvIGJlIHVubmVjZXNzYXJ5IGFzIHRoZXJlIGlz
+IG5vIGVxdWl2YWxlbnQKPiA+IHBsYXRmb3JtX2dldF9kcnZkYXRhKCkgY2FsbCB0byBhY2Nlc3Mg
+dGhlIHByaXZhdGUgZGF0YSBvZiB0aGUgZHJpdmVyLiBBbHNvLAo+ID4gdGhlIHByaXZhdGUgZGF0
+YSBpcyBkZWZpbmVkIGluIHRoaXMgZHJpdmVyLCBzbyB0aGVyZSBpcyBubyByaXNrIG9mIGl0IGJl
+aW5nCj4gPiBhY2Nlc3NlZCBvdXRzaWRlIG9mIHRoaXMgZHJpdmVyIGZpbGUuCj4gPgo+ID4gUmV2
+aWV3ZWQtYnk6IEFsZXhhbmRydSBBcmRlbGVhbiA8YWxleEBzaHJ1Z2dpZS5ybz4KPiA+IFNpZ25l
+ZC1vZmYtYnk6IEFuZHJlaSBDb2FyZG9zIDxhYm91dHBoeXN5Y3NAZ21haWwuY29tPgo+ID4gLS0t
+Cj4gPiAgZHJpdmVycy9paW8vdHJpZ2dlci9zdG0zMi1scHRpbWVyLXRyaWdnZXIuYyB8IDIgLS0K
+PiA+ICAxIGZpbGUgY2hhbmdlZCwgMiBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9paW8vdHJpZ2dlci9zdG0zMi1scHRpbWVyLXRyaWdnZXIuYyBiL2RyaXZlcnMvaWlv
+L3RyaWdnZXIvc3RtMzItbHB0aW1lci10cmlnZ2VyLmMKPiA+IGluZGV4IDJlNDQ3YTNmMDQ3ZC4u
+ZGYyNDE2ZTMzMzc1IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9paW8vdHJpZ2dlci9zdG0zMi1s
+cHRpbWVyLXRyaWdnZXIuYwo+ID4gKysrIGIvZHJpdmVycy9paW8vdHJpZ2dlci9zdG0zMi1scHRp
+bWVyLXRyaWdnZXIuYwo+ID4gQEAgLTkyLDggKzkyLDYgQEAgc3RhdGljIGludCBzdG0zMl9scHRp
+bV90cmlnZ2VyX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgICAgICAg
+IGlmIChyZXQpCj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsgIAo+IAo+IHRoaXMgY2Fu
+IGJlY29tZSBub3c6Cj4gCj4gICAgICAgICAgICAgcmV0dXJuIHN0bTMyX2xwdGltX3NldHVwX3Ry
+aWcocHJpdik7CkkgbWFkZSB0aGF0IGNoYW5nZSB3aGlsc3QgYXBwbHlpbmcuCgpBcHBsaWVkIHRv
+IHRoZSB0b2dyZWcgYnJhbmNoIG9mIGlpby5naXQgYW5kIHB1c2hlZCBvdXQgYXMgdGVzdGluZyBm
+b3IKdGhlIGF1dG9idWlsZGVycyB0byB0YWtlIGEgbG9vayBhdCBpdCBhbmQgc2VlIGlmIHRoZXkg
+Y2FuIGZpbmQgYW55dGhpbmcKd2UgbWlzc2VkLgoKVGhhbmtzLAoKSm9uYXRoYW4KCj4gCj4gCj4g
+Pgo+ID4gLSAgICAgICBwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBwcml2KTsKPiA+IC0KPiA+
+ICAgICAgICAgcmV0dXJuIDA7Cj4gPiAgfQo+ID4KPiA+IC0tCj4gPiAyLjM0LjEKPiA+ICAKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
+IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
+dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
+LXN0bTMyCg==
