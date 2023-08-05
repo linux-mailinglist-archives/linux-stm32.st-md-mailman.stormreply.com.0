@@ -2,53 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FF707709A7
-	for <lists+linux-stm32@lfdr.de>; Fri,  4 Aug 2023 22:24:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD7E770D0B
+	for <lists+linux-stm32@lfdr.de>; Sat,  5 Aug 2023 03:30:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CA23C6B469;
-	Fri,  4 Aug 2023 20:24:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DAA3C6B469;
+	Sat,  5 Aug 2023 01:30:08 +0000 (UTC)
+Received: from 10.mo582.mail-out.ovh.net (10.mo582.mail-out.ovh.net
+ [87.98.157.236])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FA99C6B466
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8665EC6B45D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  4 Aug 2023 20:24:07 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 45F1C61EC4;
- Fri,  4 Aug 2023 20:24:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F6CC433C8;
- Fri,  4 Aug 2023 20:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691180645;
- bh=MN8Ir5pH3svELvRVWkYhOhFDhYH6jPowbfYlT+skAZU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Z+rNfBjRljT7BMNl9BeMpg8gSzG3afyNJqmBduhCOJwxMpuy34xi6jV8JJMzBm9LU
- R0ipkW8j6NebYUUIKABm+F/z6K0oen0SxgruY7Ggn1D/WcCxxk8qoywCH8ohaFAdJ+
- UfW/osKhfAAvFuX29JvqaaPXfDXbyDbc+hMdXiQ/SbEsKHnFNNtHtJrbtR5aGShTxK
- 0GjSFGj3zrZGbh2tyQWFITLE+BziTFWKWpmTYNPeSmX275VbB7yOaCueqqXmFEv5F9
- Tp8tbkuX7WkILnMpu3iDdkIY5f1A8RLOPIH9wbhU5FBT5O3/yFRFWlH4ukVsMx/uIi
- NjJLtQ7lN6RSg==
-Date: Fri, 4 Aug 2023 13:24:03 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Richard Cochran <richardcochran@gmail.com>
-Message-ID: <20230804132403.4d9209de@kernel.org>
-In-Reply-To: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
-References: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
+ Sat,  5 Aug 2023 01:30:06 +0000 (UTC)
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.109.156.62])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id 2B572256DE
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat,  5 Aug 2023 01:30:06 +0000 (UTC)
+Received: from ghost-submission-6684bf9d7b-pnhxz (unknown [10.110.171.120])
+ by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5B5731FE49;
+ Sat,  5 Aug 2023 01:30:05 +0000 (UTC)
+Received: from etezian.org ([37.59.142.108])
+ by ghost-submission-6684bf9d7b-pnhxz with ESMTPSA
+ id Ix4hDR2mzWQPPwAAYnACEA
+ (envelope-from <andi@etezian.org>); Sat, 05 Aug 2023 01:30:05 +0000
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-108S002dd6b534a-6dc9-46b8-bb69-b53ea92a6e10,
+ 05ACED94171614EC843435E2D99940E8A2AB1814) smtp.auth=andi@etezian.org
+X-OVh-ClientIp: 178.238.172.51
+From: Andi Shyti <andi.shyti@kernel.org>
+To: pierre-yves.mordret@foss.st.com, alain.volmat@foss.st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Ruan Jinjie <ruanjinjie@huawei.com>
+Date: Sat,  5 Aug 2023 03:29:12 +0200
+Message-Id: <169119887102.1781235.17733733758389845864.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230731112755.1943630-1-ruanjinjie@huawei.com>
+References: <20230731112755.1943630-1-ruanjinjie@huawei.com>
 MIME-Version: 1.0
-Cc: Johannes Zink <j.zink@pengutronix.de>, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, netdev@vger.kernel.org,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- Russell King <linux@armlinux.org.uk>, kernel test robot <lkp@intel.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v3 0/2] net: stmmac: correct MAC
-	propagation delay
+X-Ovh-Tracer-Id: 11970004863637654087
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedviedrkeehgdegfecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomheptehnughiucfuhhihthhiuceorghnughirdhshhihthhisehkvghrnhgvlhdrohhrgheqnecuggftrfgrthhtvghrnhepveevieffieefgfefuddvteelffeuhfelffejteejuddvveekveehvdejgeefteevnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepuddvjedrtddrtddruddpudejkedrvdefkedrudejvddrhedupdefjedrheelrddugedvrddutdeknecuvehluhhsthgvrhfuihiivgepfeenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpeeorghnughisegvthgviihirghnrdhorhhgqedpnhgspghrtghpthhtohepuddprhgtphhtthhopehlihhnuhigqdhsthhmfedvsehsthdqmhguqdhmrghilhhmrghnrdhsthhorhhmrhgvphhlhidrtghomhdpoffvtefjohhsthepmhhoheekvddpmhhouggvpehsmhhtphhouhht
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH -next] i2c: stm32: fix the return value
+	handle for platform_get_irq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,11 +64,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 01 Aug 2023 17:44:28 +0200 Johannes Zink wrote:
-> ---
+Hi
 
-Richard? Sure would be nice to have an official ack from you on this
-one so I don't have to revert it again ;)
+On Mon, 31 Jul 2023 19:27:55 +0800, Ruan Jinjie wrote:
+> There is no possible for platform_get_irq() to return 0,
+> and the return value of platform_get_irq() is more sensible
+> to show the error reason.
+> 
+> 
+
+With the commit log fixed, applied to i2c/andi-for-next on
+
+https://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git
+
+Please note that this patch may still undergo further evaluation
+and the final decision will be made in collaboration with
+Wolfram.
+
+Thank you,
+Andi
+
+Patches applied
+===============
+[1/1] i2c: stm32: fix the return value handle for platform_get_irq()
+      commit: 603b3cf89d8a96cc0e51eb15853f28944eb78f31
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
