@@ -2,65 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F40997713ED
-	for <lists+linux-stm32@lfdr.de>; Sun,  6 Aug 2023 10:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14FD477158D
+	for <lists+linux-stm32@lfdr.de>; Sun,  6 Aug 2023 16:19:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D6F7C6B456;
-	Sun,  6 Aug 2023 08:14:54 +0000 (UTC)
-Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
- [209.85.166.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE117C6B456;
+	Sun,  6 Aug 2023 14:19:26 +0000 (UTC)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C213C6B454
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54A5AC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  6 Aug 2023 08:14:52 +0000 (UTC)
-Received: by mail-io1-f43.google.com with SMTP id
- ca18e2360f4ac-790976d86a1so142225439f.2
+ Sun,  6 Aug 2023 14:19:25 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-686b91c2744so2646445b3a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 06 Aug 2023 01:14:52 -0700 (PDT)
+ Sun, 06 Aug 2023 07:19:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691309692; x=1691914492;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=oslzktuLlQuV/9tgiDlABRFZ0qfHlpBYOi45TJmyGLc=;
- b=NS97xhilq3s4K9gvE596eIPyUH6XJ3jAL2zU2p3wZ+cfKxMAHLImT//P4m38V7sCZ6
- vv8nvf+rZYq0QqByOHrhjyW272TdHCaANT4iNBGeKgr8sqFLbwpW/a/OqPs6auAMF9z3
- 79aYzKb4uB0HoSFnNoZR7i3p/3wSL8B+7EHaLHyt6UIfW3DMZDCZBnkBxjJEdqQxVO30
- DGDBRrl5JcoAyL2Ziav5Yt35PlOECglhgQvkXqh2DrnAOhHudNk7xt/RIGdusKsmS7H2
- m0NMWbdEkF6YirHhO74fRJOS819AoQCKOOAe7+bR+nzZHNd6hHDz72GSfWldy+X1wXOC
- c2nQ==
+ d=gmail.com; s=20221208; t=1691331564; x=1691936364;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=kMrHwhbdYHGzF5f4FRST3mgNtv9aM+wyBhJFzSQJn7k=;
+ b=You7tRiDq3HIYF8el3bAjZHn5hthzGmN9r/zgD11DK1Z5IyRXNqu9tLT28s0yqwKDu
+ 3M8nMYMAOEpDkhuQ5h/+USpObBh2Z+WlzhRyDkTX1adFo5CEZSRuWKEITxsdacJaUdjg
+ iW+BtwJl5WeiOC/SPpTVIDM7TI+rqUmObGXNQCQQcjqAGYJiZLZ7VlPcd2G36GqiFNXa
+ Fm9+IEpFV/5LQAFwh/7YdVGUrrYeeDybBrXzHJ5hJssXLMjXL/WajxrKDW9G/N/A8S74
+ vkjgbZL/XhxCTRLLlAoe7yNuGdX4ebDetx/DtdorneTVXC6s3z8ybZUaRjNIIs0ixjxn
+ GT7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691309692; x=1691914492;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oslzktuLlQuV/9tgiDlABRFZ0qfHlpBYOi45TJmyGLc=;
- b=C1jSSDF5I9hPj8SWLrtx/iYdoG7+r1WtiNBcTcyN1r2kbT+s/jIWFkIbdeaLCxOiMq
- 3JNF2rcvHSjVtl3murNSAp8GPDRpsLXqdzAXq2/jQLl5UnJuGBgrFANa8mOsz6Ny0pr1
- lrHqFE+oO7+/MPt9LqERQv8f2xogEt9EkzHDsQYNIQBYIU35m+AMQ0p40gTskRdtqlwt
- GS52Kppw5GlIaJD5TFvUplixk/K9cJ0LsLu60krwajYVjv13ZCwkBDnx29f/lVcJL8vj
- 1f7pcE0SWGuRfA5D1b+rYKyKi4T8IE+HcNjxifBn3zmiWVH8bCisHtFKA3oYjjWX9k/O
- kFyw==
-X-Gm-Message-State: AOJu0YxW9Ko5wpw9eqbyF0OONXdpoGwArEGq49R5CmgqhaXFZMoEBBhU
- OE5prgnUzNIu7l3WmG8D4rmeaHI1wp0/PmdE0S8=
-X-Google-Smtp-Source: AGHT+IHVc2Fooi3YCjJ9SgBa4bKFKhmqzl4AFAaiBQoPiHD7T07vcjs8HA++6tkd7d3k2lgS0UnRj85G1NAGLWHtTl0=
-X-Received: by 2002:a05:6602:254a:b0:783:3899:e1d0 with SMTP id
- cg10-20020a056602254a00b007833899e1d0mr7146880iob.6.1691309691790; Sun, 06
- Aug 2023 01:14:51 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1691331564; x=1691936364;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kMrHwhbdYHGzF5f4FRST3mgNtv9aM+wyBhJFzSQJn7k=;
+ b=gXSPt+/ryNzBmilUj0Dv3s/pVP0UnJ4LAoxNEJjfxvPsstmruYL7yEER4c4XOpoOZE
+ NOeS8eE0q0fFLUR/iq4VjK9iSyd3+684XhnMFDLDfV/i9TlUTKvV1fl9+onRpdr/2+/5
+ LA6W7WuXjhDHSHJ8tSH64gY3KGm7NECq9Py0RZguABS61E3Nt8xh+cFsShZPWzFdjuR2
+ zhgkGrjgsP/b59g1PC6ESTWwxZ8ew3pLSAAzIhFhD6BiJYHG0MIPHzvIfvJZHwCgwKLz
+ v9etZ4HUSmxSbuvHZLccxRDvm298fbKoeIuSfkyV3Aky9HjZBW0k0t0JD02Fdjlc0Ude
+ CbLA==
+X-Gm-Message-State: AOJu0YyTc1wba+Qb7mE41RO5mV3/VVdpkbmnukoaGEkbCTAlRkzsJXI+
+ ZBFOgN8v28cyelZxel+tDYM=
+X-Google-Smtp-Source: AGHT+IHpzDA3To08YqkkqT3hDuY0GEdLocwERyC8TQTBy07pjaQp/IcAvurfgtYfL+1pfjQ1+o79Iw==
+X-Received: by 2002:a17:903:32d1:b0:1bc:56c3:ebb7 with SMTP id
+ i17-20020a17090332d100b001bc56c3ebb7mr6168085plr.20.1691331563717; 
+ Sun, 06 Aug 2023 07:19:23 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ p21-20020a1709028a9500b001bb0b1a93dfsm4947709plo.126.2023.08.06.07.19.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Aug 2023 07:19:23 -0700 (PDT)
+Date: Sun, 6 Aug 2023 07:19:21 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Marek Vasut <marex@denx.de>
+Message-ID: <ba596dd5-e9b9-4972-a768-e42e69897fea@roeck-us.net>
+References: <20230517194349.105745-1-marex@denx.de>
+ <20230517194349.105745-2-marex@denx.de>
 MIME-Version: 1.0
-References: <20230802133509.29381-1-aboutphysycs@gmail.com>
- <20230805193052.690c87e8@jic23-huawei>
-In-Reply-To: <20230805193052.690c87e8@jic23-huawei>
-From: Andrei Coardos <aboutphysycs@gmail.com>
-Date: Sun, 6 Aug 2023 11:14:40 +0300
-Message-ID: <CAMu7dgvt0mmQTkL9t1F_NpEBSew+0fa1aQnn=Aw=6FA9KpP2nw@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: lars@metafoo.de, linux-iio@vger.kernel.org,
- Alexandru Ardelean <alex@shruggie.ro>, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] iio: trigger: stm32-lptimer-trigger:
-	remove unneeded platform_set_drvdata()
+Content-Disposition: inline
+In-Reply-To: <20230517194349.105745-2-marex@denx.de>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Marc Zyngier <maz@kernel.org>, Richard Cochran <richardcochran@gmail.com>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/3] watchdog: stm32_iwdg: Add
+	pretimeout support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +88,256 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Thank you very much!
+On Wed, May 17, 2023 at 09:43:48PM +0200, Marek Vasut wrote:
+> The STM32MP15xx IWDG adds registers which permit this IP to generate
+> pretimeout interrupt. This interrupt can also be used to wake the CPU
+> from suspend. Implement support for generating this interrupt and let
+> userspace configure the pretimeout. In case the pretimeout is not
+> configured by user, set pretimeout to half of the WDT timeout cycle.
+> 
+> Signed-off-by: Marek Vasut <marex@denx.de>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Antonio Borneo <antonio.borneo@foss.st.com>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Richard Cochran <richardcochran@gmail.com>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> Cc: linux-watchdog@vger.kernel.org
+> ---
+> V2: - Subtract the pretimeout value from timeout value before writing it
+>       into the IWDG pretimeout register, because the watchdog counter
+>       register is counting down, and the pretimeout interrupt triggers
+>       when watchdog counter register matches the pretimeout register
+>       content.
+>     - Set default pretimeout to 3/4 of timeout .
+> ---
+>  drivers/watchdog/stm32_iwdg.c | 94 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 93 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
+> index 570a71509d2a9..4c69d4026dd9c 100644
+> --- a/drivers/watchdog/stm32_iwdg.c
+> +++ b/drivers/watchdog/stm32_iwdg.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_device.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/pm_wakeirq.h>
+>  #include <linux/watchdog.h>
+>  
+>  /* IWDG registers */
+> @@ -27,6 +28,7 @@
+>  #define IWDG_RLR	0x08 /* ReLoad Register */
+>  #define IWDG_SR		0x0C /* Status Register */
+>  #define IWDG_WINR	0x10 /* Windows Register */
+> +#define IWDG_EWCR	0x14 /* Early Wake-up Register */
+>  
+>  /* IWDG_KR register bit mask */
+>  #define KR_KEY_RELOAD	0xAAAA /* reload counter enable */
+> @@ -46,22 +48,29 @@
+>  #define SR_PVU	BIT(0) /* Watchdog prescaler value update */
+>  #define SR_RVU	BIT(1) /* Watchdog counter reload value update */
+>  
+> +#define EWCR_EWIT	GENMASK(11, 0) /* Watchdog counter window value */
+> +#define EWCR_EWIC	BIT(14) /* Watchdog early interrupt acknowledge */
+> +#define EWCR_EWIE	BIT(15) /* Watchdog early interrupt enable */
+> +
+>  /* set timeout to 100000 us */
+>  #define TIMEOUT_US	100000
+>  #define SLEEP_US	1000
+>  
+>  struct stm32_iwdg_data {
+>  	bool has_pclk;
+> +	bool has_early_wakeup;
+>  	u32 max_prescaler;
+>  };
+>  
+>  static const struct stm32_iwdg_data stm32_iwdg_data = {
+>  	.has_pclk = false,
+> +	.has_early_wakeup = false,
+>  	.max_prescaler = 256,
+>  };
+>  
+>  static const struct stm32_iwdg_data stm32mp1_iwdg_data = {
+>  	.has_pclk = true,
+> +	.has_early_wakeup = true,
+>  	.max_prescaler = 1024,
+>  };
+>  
+> @@ -87,13 +96,18 @@ static inline void reg_write(void __iomem *base, u32 reg, u32 val)
+>  static int stm32_iwdg_start(struct watchdog_device *wdd)
+>  {
+>  	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
+> -	u32 tout, presc, iwdg_rlr, iwdg_pr, iwdg_sr;
+> +	u32 tout, ptot, presc, iwdg_rlr, iwdg_ewcr, iwdg_pr, iwdg_sr;
+>  	int ret;
+>  
+>  	dev_dbg(wdd->parent, "%s\n", __func__);
+>  
+> +	if (!wdd->pretimeout)
+> +		wdd->pretimeout = 3 * wdd->timeout / 4;
+> +
+>  	tout = clamp_t(unsigned int, wdd->timeout,
+>  		       wdd->min_timeout, wdd->max_hw_heartbeat_ms / 1000);
+> +	ptot = clamp_t(unsigned int, tout - wdd->pretimeout,
+> +		       wdd->min_timeout, tout);
+>  
+>  	presc = DIV_ROUND_UP(tout * wdt->rate, RLR_MAX + 1);
+>  
+> @@ -101,6 +115,7 @@ static int stm32_iwdg_start(struct watchdog_device *wdd)
+>  	presc = roundup_pow_of_two(presc);
+>  	iwdg_pr = presc <= 1 << PR_SHIFT ? 0 : ilog2(presc) - PR_SHIFT;
+>  	iwdg_rlr = ((tout * wdt->rate) / presc) - 1;
+> +	iwdg_ewcr = ((ptot * wdt->rate) / presc) - 1;
+>  
+>  	/* enable write access */
+>  	reg_write(wdt->regs, IWDG_KR, KR_KEY_EWA);
+> @@ -108,6 +123,8 @@ static int stm32_iwdg_start(struct watchdog_device *wdd)
+>  	/* set prescaler & reload registers */
+>  	reg_write(wdt->regs, IWDG_PR, iwdg_pr);
+>  	reg_write(wdt->regs, IWDG_RLR, iwdg_rlr);
+> +	if (wdt->data->has_early_wakeup)
+> +		reg_write(wdt->regs, IWDG_EWCR, iwdg_ewcr | EWCR_EWIE);
+>  	reg_write(wdt->regs, IWDG_KR, KR_KEY_ENABLE);
+>  
+>  	/* wait for the registers to be updated (max 100ms) */
+> @@ -150,6 +167,34 @@ static int stm32_iwdg_set_timeout(struct watchdog_device *wdd,
+>  	return 0;
+>  }
+>  
+> +static int stm32_iwdg_set_pretimeout(struct watchdog_device *wdd,
+> +				     unsigned int pretimeout)
+> +{
+> +	dev_dbg(wdd->parent, "%s pretimeout: %d sec\n", __func__, pretimeout);
+> +
+> +	wdd->pretimeout = pretimeout;
+> +
+> +	if (watchdog_active(wdd))
+> +		return stm32_iwdg_start(wdd);
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t stm32_iwdg_isr(int irq, void *wdog_arg)
+> +{
+> +	struct watchdog_device *wdd = wdog_arg;
+> +	struct stm32_iwdg *wdt = watchdog_get_drvdata(wdd);
+> +	u32 reg;
+> +
+> +	reg = reg_read(wdt->regs, IWDG_EWCR);
+> +	reg |= EWCR_EWIC;
+> +	reg_write(wdt->regs, IWDG_EWCR, reg);
+> +
+> +	watchdog_notify_pretimeout(wdd);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+>  static void stm32_clk_disable_unprepare(void *data)
+>  {
+>  	clk_disable_unprepare(data);
+> @@ -206,11 +251,20 @@ static const struct watchdog_info stm32_iwdg_info = {
+>  	.identity	= "STM32 Independent Watchdog",
+>  };
+>  
+> +static const struct watchdog_info stm32_iwdg_preinfo = {
+> +	.options	= WDIOF_SETTIMEOUT |
+> +			  WDIOF_MAGICCLOSE |
+> +			  WDIOF_KEEPALIVEPING |
+> +			  WDIOF_PRETIMEOUT,
+> +	.identity	= "STM32 Independent Watchdog",
+> +};
+> +
+>  static const struct watchdog_ops stm32_iwdg_ops = {
+>  	.owner		= THIS_MODULE,
+>  	.start		= stm32_iwdg_start,
+>  	.ping		= stm32_iwdg_ping,
+>  	.set_timeout	= stm32_iwdg_set_timeout,
+> +	.set_pretimeout	= stm32_iwdg_set_pretimeout,
+>  };
+>  
+>  static const struct of_device_id stm32_iwdg_of_match[] = {
+> @@ -220,6 +274,39 @@ static const struct of_device_id stm32_iwdg_of_match[] = {
+>  };
+>  MODULE_DEVICE_TABLE(of, stm32_iwdg_of_match);
+>  
+> +static int stm32_iwdg_irq_init(struct platform_device *pdev,
+> +			       struct stm32_iwdg *wdt)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct watchdog_device *wdd = &wdt->wdd;
+> +	struct device *dev = &pdev->dev;
+> +	int irq, ret;
+> +
+> +	if (!wdt->data->has_early_wakeup)
+> +		return 0;
+> +
+> +	irq = platform_get_irq(pdev, 0);
+> +	if (irq <= 0)
+> +		return 0;
+> +
+> +	if (of_property_read_bool(np, "wakeup-source")) {
+> +		ret = device_init_wakeup(&pdev->dev, true);
 
-On Sat, 5 Aug 2023 at 21:31, Jonathan Cameron <jic23@kernel.org> wrote:
->
-> On Wed,  2 Aug 2023 16:35:09 +0300
-> Andrei Coardos <aboutphysycs@gmail.com> wrote:
->
-> > This function call was found to be unnecessary as there is no equivalent
-> > platform_get_drvdata() call to access the private data of the driver. Also,
-> > the private data is defined in this driver, so there is no risk of it being
-> > accessed outside of this driver file.
-> >
-> > Reviewed-by: Alexandru Ardelean <alex@shruggie.ro>
-> > Signed-off-by: Andrei Coardos <aboutphysycs@gmail.com>
-> > ---
-> >
-> > Changelog V1->V2:
-> >
-> > * https://lore.kernel.org/linux-iio/CAH3L5QpuoDYU6qvWH7_z5Yx0cW2qPMbCA8AFEYAPsiEkSzCiwQ@mail.gmail.com/T/#t
-> > * Adjusted the returning values of the function
-> >
-> >
-> >  drivers/iio/trigger/stm32-lptimer-trigger.c | 6 +-----
-> >  1 file changed, 1 insertion(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/iio/trigger/stm32-lptimer-trigger.c b/drivers/iio/trigger/stm32-lptimer-trigger.c
-> > index df2416e33375..ab1cc6a05f26 100644
-> > --- a/drivers/iio/trigger/stm32-lptimer-trigger.c
-> > +++ b/drivers/iio/trigger/stm32-lptimer-trigger.c
-> > @@ -88,11 +88,7 @@ static int stm32_lptim_trigger_probe(struct platform_device *pdev)
-> >       priv->dev = &pdev->dev;
-> >       priv->trg = stm32_lptim_triggers[index];
-> >
-> > -     ret = stm32_lptim_setup_trig(priv);
-> > -     if (ret)
-> > -             return ret;
-> > -
-> > -     return 0;
-> > +     return stm32_lptim_setup_trig(priv);
-> Both of us failed to notice ret isn't used any more.  Anyhow, I cleaned that
-> up after spotting the build warning.
->
-> Jonathan
->
-> >  }
-> >
-> >  static const struct of_device_id stm32_lptim_trig_of_match[] = {
->
+use dev
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = dev_pm_set_wake_irq(&pdev->dev, irq);
+
+use dev
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret = devm_request_irq(dev, irq, stm32_iwdg_isr, 0,
+> +			       dev_name(dev), wdd);
+> +	if (!ret)
+> +		wdd->info = &stm32_iwdg_preinfo;
+
+	if (ret)
+		return ret;
+
+	wdd->info = &stm32_iwdg_preinfo;
+	return 0;
+
+> +
+> +	return ret;
+> +}
+> +
+>  static int stm32_iwdg_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> @@ -253,6 +340,11 @@ static int stm32_iwdg_probe(struct platform_device *pdev)
+>  	wdd->max_hw_heartbeat_ms = ((RLR_MAX + 1) * wdt->data->max_prescaler *
+>  				    1000) / wdt->rate;
+>  
+> +	/* Initialize IRQ, this might override wdd->info, hence it is here. */
+> +	ret = stm32_iwdg_irq_init(pdev, wdt);
+> +	if (ret)
+> +		return ret;
+> +
+
+What if the interrupt fires for whatever reason and the watchdog
+isn't registered yet and the driver data is not set and the
+watchdog core doesn't know about the watchdog ?
+
+Guenter
+
+>  	watchdog_set_drvdata(wdd, wdt);
+>  	watchdog_set_nowayout(wdd, WATCHDOG_NOWAYOUT);
+>  	watchdog_init_timeout(wdd, 0, dev);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
