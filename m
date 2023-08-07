@@ -2,55 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C17772EA5
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 21:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C268772EAE
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 21:31:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1190BC6B45B;
-	Mon,  7 Aug 2023 19:30:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31895C6B45C;
+	Mon,  7 Aug 2023 19:31:34 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAE7EC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6B17C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Aug 2023 19:30:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 46E6E621AC;
- Mon,  7 Aug 2023 19:30:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC2D3C433CC;
- Mon,  7 Aug 2023 19:30:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691436624;
- bh=uE2fa7Fe0pYN2Kl+HM144jNfenom/57ArJYynw749Y8=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=rKa2GrlyguweRNZ5knCI8EenRhfj2Xvv2Ldea63alaBe7mpjAlGAOeHhsepJQ14gb
- Jm8DJwFzGVGq3VyFl8f43PeOU/f/g56xUljiQnpgRNFf31oqYOKnl56HfUFW9ee0Uw
- x2fiek2lEFT/bjTqiWdNZ+YTEdt18OjnpYIn093Pb4A72qsKCER1Gm5ID5oxgWCrTP
- hSpy8fDAYm6XQQJPeeDzjc26MsT9BJYnhCbYlY7COpBJY+SKT/0p4aGDOzCmLu0Orx
- h7gYTFFULHHfLZZtUvi9q+U3h6XA4FJgoQaKdHWAFNK45uIaMreW5vGFCzImfKZouL
- CNchHLHJC/bqg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- AE4E5E270C3; Mon,  7 Aug 2023 19:30:24 +0000 (UTC)
+ Mon,  7 Aug 2023 19:31:32 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-3fe24dd8898so42073325e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 07 Aug 2023 12:31:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1691436692; x=1692041492;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=eRSwV6Gm+XzxbXgNMBpKpDlEh6gTRS+MFq99dQgncbQ=;
+ b=mHrDzRq+wq6uTZHPmwteMcteTqBarR3Nk2/LC+UMcpxDdpyYVB/0FPzO+LDxTTbbNr
+ hRhzkXWggtKCLT4xwA7fIp3dNwm5RWOSGd3w4YU41OwbdBx+3TsaQno03l0rK33u9g29
+ Mm3pzAcNw4BPYcA6KtUHgbmxynAXxh683LDni4HrDhgv95CoIFLQOyru7phiWKQkGpPI
+ LecLAQigg50nsbneHX72Bl9nT/Umvd5U9X6d/NHRYZWJrzCXRsQ0oxSGLsRB6I04PHxm
+ pomhLzO6E0p/XZZ9ABl879hBlfPQi9HFO3KNgYy1Nc8E7e3gSGuQk5OWV4X7lV4DBs+G
+ oFAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691436692; x=1692041492;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=eRSwV6Gm+XzxbXgNMBpKpDlEh6gTRS+MFq99dQgncbQ=;
+ b=jyyOis4nsQlEANY5+Wl5vv2BQ31fnfw03YaCpHuQ29vBwBrGTQby7X9wVOxsIaYMHP
+ YOVE6EPEpmNUudFMRmftcu3Xc1SIdIpaiIxF97k6y7RCtOrw0MgXmxFx2w0EYkHCpbuN
+ oOWBnzlQbmJcFPUYqfZ6wPt4FGXbKt9W5taUlhTKaEQFOCzWwncf57vuU3P/oH7NtMx1
+ F7eSe/PAvfZx/jzJz3xddwS+Kia1nnBPQK633rBIOe7u+97c71Ox1jkO9HdxSCoZdScB
+ RwbcyVWDusz4xMV+u/qoWhEoLkACGiH3/Ox2H48igse2m4pzdIx/3APcBl78s9ydjn0/
+ 5GPw==
+X-Gm-Message-State: AOJu0YxDRThhZ01BMBAxo39vULA4qQO/3s0GD1Fp4x/StQ9zZpYsdRGJ
+ m3dWTSsXKzexpm7YMy8aN2YfvQ==
+X-Google-Smtp-Source: AGHT+IHcrhdGZU6crsuk18nFD4cu1qWw7VPP+T0+AdP+h8J/EgCXLVdYCouqFEEXXaCm890UjwpwOg==
+X-Received: by 2002:a1c:740b:0:b0:3fe:5053:1a0b with SMTP id
+ p11-20020a1c740b000000b003fe50531a0bmr4034769wmc.11.1691436692253; 
+ Mon, 07 Aug 2023 12:31:32 -0700 (PDT)
+Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:b3d6:9e6:79d9:37cd])
+ by smtp.gmail.com with ESMTPSA id
+ l7-20020a7bc347000000b003fbdbd0a7desm15985654wmj.27.2023.08.07.12.31.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Aug 2023 12:31:31 -0700 (PDT)
+From: Bartosz Golaszewski <brgl@bgdev.pl>
+To: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Alex Elder <elder@linaro.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>
+Date: Mon,  7 Aug 2023 21:31:00 +0200
+Message-Id: <20230807193102.6374-1-brgl@bgdev.pl>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169143662470.21933.13583691380398650705.git-patchwork-notify@kernel.org>
-Date: Mon, 07 Aug 2023 19:30:24 +0000
-References: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
-In-Reply-To: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
-To: Johannes Zink <j.zink@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
- richardcochran@gmail.com, kurt@linutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk, lkp@intel.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v3 0/2] net: stmmac: correct MAC
-	propagation delay
+Cc: devicetree@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/2] net: stmmac: allow sharing MDIO lines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,35 +88,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Two MACs may share MDIO lines to the PHYs. Let's allow that in the
+stmmac driver by providing a new device-tree property allowing one MAC
+node to reference the MDIO bus defined on a second MAC node.
 
-On Tue, 01 Aug 2023 17:44:28 +0200 you wrote:
-> ---
-> Changes in v3:
-> - work in Richard's review feedback. Thank you for reviewing my patch:
->   - as some of the hardware may have no or invalid correction value
->     registers: introduce feature switch which can be enabled in the glue
->     code drivers depending on the actual hardware support
->   - only enable the feature on the i.MX8MP for the time being, as the patch
->     improves timing accuracy and is tested for this hardware
-> - Link to v2: https://lore.kernel.org/r/20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de
-> 
-> [...]
+Bartosz Golaszewski (2):
+  dt-bindings: net: snps,dwmac: document the snps,shared-mdio property
+  net: stmmac: support shared MDIO
 
-Here is the summary with links:
-  - [v3,1/2] net: stmmac: correct MAC propagation delay
-    https://git.kernel.org/netdev/net-next/c/26cfb838aa00
-  - [v3,2/2] net: stmmac: dwmac-imx: enable MAC propagation delay correction for i.MX8MP
-    https://git.kernel.org/netdev/net-next/c/6cb2e613c796
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 6 ++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c     | 8 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 6 ++++++
+ include/linux/stmmac.h                                | 1 +
+ 4 files changed, 21 insertions(+)
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
