@@ -2,189 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7BF771792
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 02:48:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 467E3771887
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 04:55:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC629C6B455;
-	Mon,  7 Aug 2023 00:48:50 +0000 (UTC)
-Received: from mo-csw.securemx.jp (mo-csw1122.securemx.jp [210.130.202.158])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7401C6B455;
+	Mon,  7 Aug 2023 02:55:33 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27022C6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0897DC6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Aug 2023 00:48:48 +0000 (UTC)
-Received: by mo-csw.securemx.jp (mx-mo-csw1122) id 3770kewA3541981;
- Mon, 7 Aug 2023 09:46:42 +0900
-X-Iguazu-Qid: 2rWhi9UHctJRCPunNS
-X-Iguazu-QSIG: v=2; s=0; t=1691369200; q=2rWhi9UHctJRCPunNS;
- m=jrhgtdijEgMzX+Vu4ym46y1lQAiePzBjFmiF7FNvJAs=
-Received: from imx12-a.toshiba.co.jp ([38.106.60.135])
- by relay.securemx.jp (mx-mr1122) id 3770kVI7683717
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 7 Aug 2023 09:46:31 +0900
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KGsVZci9eC2KiNeYVvWFZc14ENTeNFFd8JgDTMtEbC93HiXF+8SIHIeUR7gc5DOFgZ0uIdxPc5bYJa5hc3IyjriVBrXdXcz7DVS5erCaLWr14ZKUqnJuy6qJWTQCzZOMpWilCAy/5KOYtAlaobG4w3qqsYHvjfJTY0IcgYhhZqiOC4O7xxFafsBxjmEXVeKLxun/5AiIMwf+I1FYNyCFWgds103bTwV/sgmMGZxBY8UKXFhZTOh0Uv26w/7P4htk3xeeeKZK7zFNaUQ5OV2I7dVah3eXzqBKOBuZdzMWKTlzKDnjodW1MR+zyhNi2Lau4XFKmMLvWjw3HjogeoB2rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TmlVcp/nJHdL+ideVRUfJHoNO7rffrKyMrVJ3dGWORQ=;
- b=Ct5p0+5oTPtymapLsYAG3O4q+AiDgxpY9EjdOD6hoKC0hyp9wKcb1UTf3e3xPof45sDG70ZNj13gDq4F0HUu++bbyxG5kV0irZhnR6MrAdu417bAKzsy5iP10vj4gQSYY5ZMvDu3izLx+OugxXFUokvM250wXoX9tG3pOjRxIxySDQNMAKTdjsteO5sXBV2l5hCpU1sIowuKR2e0rfCQ5U+SRCnZAqTIcgD7T/uiSXh/6M2mqV7CyVzkyjbPhimBm4RLcDoko5WxanUlP3vqIA5wPvrrPeheZjzTBG+ZTGdK71dotcasquNgDhctx8TA7xYwwo/AcIhN64M5y18Qrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=toshiba.co.jp; dmarc=pass action=none
- header.from=toshiba.co.jp; dkim=pass header.d=toshiba.co.jp; arc=none
-From: <nobuhiro1.iwamatsu@toshiba.co.jp>
-To: <u.kleine-koenig@pengutronix.de>, <thierry.reding@gmail.com>,
- <Laurent.pinchart@ideasonboard.com>
-Thread-Topic: [PATCH v2 1/2] pwm: Manage owner assignment implicitly for
- drivers
-Thread-Index: AQHZxt/9rzh2lixcHUWwJjEI7Tv9T6/eAw4g
-Date: Mon, 7 Aug 2023 00:46:27 +0000
-X-TSB-HOP2: ON
-Message-ID: <TYWPR01MB9420275DEE9D8E68EE79FE6C920CA@TYWPR01MB9420.jpnprd01.prod.outlook.com>
-References: <20230804142707.412137-1-u.kleine-koenig@pengutronix.de>
- <20230804142707.412137-2-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20230804142707.412137-2-u.kleine-koenig@pengutronix.de>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=toshiba.co.jp;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYWPR01MB9420:EE_|TYCPR01MB9554:EE_
-x-ms-office365-filtering-correlation-id: e987abb3-52a5-4649-7486-08db96dfbb8b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: izKuq1nmeJVt/HOHsJcvqLAo59nGd3/Cr/uUPRvJ7CUJmNuslh9nRF3LYst1NhbXwp/weOFThIqlvWTER9qERQLsw5jhDxoNvvMP0GDxTqL1PojMuz+JAuYxl747W/KWsTTC6GHPR7PnwNy8pk8NInytVh6OQbhoh27+R5ZYCW/DHN8+gBZIVKoA7PfE1GyQQAsl6baXLEtWLClNRh1xJikOS7Jj2whQcVK/TMEMEn3bhknYD4xK07H16zt20VtcfWk0jr/X6pum62MSI0z/lxs4tdWN9GN/UQ//OS7UaDw9XFh6hr3+rfiZvjYLh2cZWwJuQ8cTi1HhdBoaZMS908UdbXVhq5dHWGbumDrU/cYCijyTeVbxJZBVex9IwR+8QW01+iUQkcwx7ZlCb6oiHOfhAzI672dZ4IpKVgAPtuiDOXesmpCFl/BI5LFidDiXacy1SqGJijVic4FI1tETSp1/0GyuxUho98PeJzFMVq8Yhzlss4v68tbqdkq5Y/WxJTiOsPyzta8zTbUP0PVdEym97nv1BZ/PtSVehxqcrf/qm1IJXhVw3QQPQtg8LOfxYnbfnFRB2QW5jlc/9NM9SxqwM4IcsDwmTjAFIgnjz1L7oZ0m+U8aLUVAc8QfafmQqTsxVEWJ+lesTV1hM9caJA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYWPR01MB9420.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(376002)(366004)(136003)(396003)(346002)(451199021)(1800799003)(186006)(66556008)(66446008)(76116006)(64756008)(66476007)(4326008)(316002)(66946007)(41300700001)(2906002)(110136005)(54906003)(478600001)(6506007)(7696005)(9686003)(7336002)(71200400001)(26005)(53546011)(7416002)(7366002)(7406005)(8676002)(8936002)(5660300002)(52536014)(33656002)(83380400001)(38070700005)(86362001)(55016003)(122000001)(38100700002)(241875001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?N3pPTlRyS3ZRZ045QUtxQmYzUDd5d1BnbEE5ZFo3dWRzcXQvcHRoZDFDNlAr?=
- =?utf-8?B?L1htSGlRdHR1dVFDUGhvQ0hnc1dUczZIOTdSLy9KT2I2YldYOWg1eURkVHZw?=
- =?utf-8?B?U20zZS9HSWpJeWRXVkVmWmNxTlFWRndTYzBnM1paTkxMRXFKUXlmc2RTaDdJ?=
- =?utf-8?B?OVJTVGJlbFN0S1diY2NYMjdhdzZLaVFSUnlvTm9sWkVDcXlncjEwZ1BaTkJv?=
- =?utf-8?B?Y3djVHJWRk5pYTU5VC90bVplWHNQK00xV0g2S2w4SW4xNjVsM21tYnBzUGpo?=
- =?utf-8?B?Y2Z2UW56ZHVicXVCNEZPZmVkRkVBTkx4WjE3eE9LQXBidFRDZ05zWGJZZnhm?=
- =?utf-8?B?aldvbXZFUWZMUXcwQzF1bXI0bXQyUEdKY3lFZFVLWnppczNnYXk4V3IrVEFl?=
- =?utf-8?B?S3dSNXVRVzZTb0JqNkVOVlgxbXMyZm5vSjF2LzJMWEhSWVRTWEl3RkNOZi9E?=
- =?utf-8?B?bE90SFpGZThsakVDRFllRWdJUG11NlRBTlcrcEt1dTJ0SGplcUNYcDkrQWgw?=
- =?utf-8?B?L2kvUEIweXFIakhvSTF3MVdEcTBHdUFyWXprZ2xhYkJSWGQ4Sk4wekI0c1lD?=
- =?utf-8?B?M05oeGtUZDlIRDN3cUxtdm1HZVkrU09pUmQrcy9aeGozU3dNNVJ5eUJoZnFP?=
- =?utf-8?B?WVU0eXowdXlqTnowY2o5ZjY4Vy9KYllBMW5DM2lFT1c4YSt0WkdHUUVGSnlB?=
- =?utf-8?B?NmZZMzRZTmFqS3V4MDFraGRZYVhLQUo4OXpkUHZ0YzRHSmxQaVV5SUpsL09S?=
- =?utf-8?B?dnowbzZ0WUNCVFNhYnIrblNiVmlzL2NBSXM4SXQ3QXNvRStTV0swL2srT0RL?=
- =?utf-8?B?VEZFTTFrSGVJYU5WWlFqZmRiQjNDTHUzYjhqMXhYbG5MWk8vTHdnZGI5bHk2?=
- =?utf-8?B?ei9neGRmdm5XQS8xcUY0WklmaTFHMitUbGplaHBTcTFnTlVNQ3N1QVNOR0VP?=
- =?utf-8?B?c0s0L1p4NW5KbU55QUNld1ovNmxKb3YzM1NyOE9XODBMTkFIN2VwRmZDM0dX?=
- =?utf-8?B?TGwxbDFKQTR5WHNWdm9YbDhZSnJXRW9ITjZYTWJqbndmb0NoZHAxdHc0OEJ3?=
- =?utf-8?B?QTlsdmtOQ2tPNE1tcDdNdjFHRnhRUUdNQWFlMlh4bnVrVnJzRHRtallnbTFH?=
- =?utf-8?B?UnJPdkl3ckZzSW5FYXE3dEZ3S3BmYTdubjl3WHZJSWMrWXIwbllkMGltRWVh?=
- =?utf-8?B?VjVBZ0ZVdWlqNkFkOTR6Y045Y1JWcFd5c2hvSmh2cERCZExLaDRWTHYydzdG?=
- =?utf-8?B?UjNKWXRPR2V0R1g0Znp3dUk4ZFpycDlLcjZBQUtZMmpkdytERE1sY0w5alRO?=
- =?utf-8?B?RzlsVUZNakRNZjFyMmF4ZTJSWFdOTjBTaHBFWVJDOUFubWhBM2l6VGp5cHpJ?=
- =?utf-8?B?KzZVWFg3dHM3K2Z0eHFMWjRQVHBZNTREQ0dRRFJzZEZ6QWVYeXliMzVtMW9z?=
- =?utf-8?B?anFqUWxIaEMrQkNxQkttZFJ2OUV5MHhBUDgwTHF2MFR5ZkVWdUtwVDlJMm1R?=
- =?utf-8?B?VStDckYzeTBDK3B4UDJ2KzRBd0g3ZUhYUkhwWVoxZDV6YTJ3dU9Lb3R3RDBq?=
- =?utf-8?B?djR1QzVWOVdTN0xxeFlYK0xFTkd2N3pwWEgwbmwwTGtiaFpCTHRZWm4zbkVJ?=
- =?utf-8?B?ZWlzNjBLN0lzc3c2VG1HbFZOSFlKSEFFTEFxaFl3N3lNaFV4disrOU9ZR01r?=
- =?utf-8?B?SmM5K2Y0NXRRQjREUWRUb3ZFUndpZUpYVU01SmxDeEhWN21mc3FJY0FMTUtK?=
- =?utf-8?B?MmhtZklyUnNiL2d3YWkvUVZZaUFMbGVVS2xuOXhmdU8rUlRQdTdxZTRvNHRZ?=
- =?utf-8?B?S2wzc25rWExobnkxMTBteXlpaXdDNE9aN1kwTTROeUxGVENqcldsUXRmTkEw?=
- =?utf-8?B?SW9TcHJ4TTcycEV2Z05ITU8xMnRoVk5ydEl1MW0rWnpKNWNzWGtiWHphK2s3?=
- =?utf-8?B?QjlBQ3RDZ2ZXZ2NnZUhZT054eTAycE9IcFJlVnR5Y2syTFVqNWZ2OTBuQzV2?=
- =?utf-8?B?c2ltWHNHVCtpc1ExWkZBV1dIQmR3eXNDcnI4VlcwM05QL0FvRnh4OEdKRTRM?=
- =?utf-8?B?aXBEYXAyemVLZExkdEJQeHdqUlNHMk1RVkJKMkNQN2cxOHFMTWl2UEpNdHpM?=
- =?utf-8?B?TXd5YUs5ZXlyWXFlWHBRVW05RnZsaHVQZFdhTEdSZDNHRmZXaDc4VFcrSlNt?=
- =?utf-8?B?b1E9PQ==?=
+ Mon,  7 Aug 2023 02:55:32 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-686f1240a22so3939394b3a.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 06 Aug 2023 19:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691376931; x=1691981731;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I30LR7RqqUcRB5n1eEXCQBYIF50bDtjcn/tZZCmrvJY=;
+ b=HrmHxW2xjBatUJsKBaBYeJjfuK6OBiVZSEMuSjD47q7oTQPytQop+qo/Gj24ahukdE
+ 4OI6XE9cPHhhYxqMch0WYgtm6VsjRmS6Pzq3N3Zdpm1VTQiMKurGFwSpnJnq+QPGW+AU
+ S8Gc/UMG3ScefjYSAJQTrBPlRdjH5bwkehWZtMGOJT6e0Ioky7COoJFhPj2BqJSdbZFk
+ ACXK3BTfss25we+EEVFbBci2rJQDLK8zoEy7MxtlVsyQ35650AJ//rF8Z2QNCpthoCP0
+ BoC96CaEHGOlF1w0Z5lM8FmEKH+w8VcTTvlSl43fuaAWtsfZVvGolU4RquOeIp1YuZ+j
+ 5Wfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691376931; x=1691981731;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=I30LR7RqqUcRB5n1eEXCQBYIF50bDtjcn/tZZCmrvJY=;
+ b=ibOBfmE67bCkJj3ers5a706kHeaY1+xkqZQiG0NBgldQ7iHtPAOSk2xi7+CEG/gvr0
+ gTdLW1uyUbJ2K7qUnQxg43fYwHMeqvDBgqr4upP56akUpcGrs4CK7itkXmn0U+lGUiDu
+ CzKUG0b2/8qkxhBccmil8EHqvzjNesoQH/MzuFsZPwmwg5dmEli4EvYDdFtZOOVle0om
+ hrfkX7XVUqReWNll9Gvq0ONdJuDJTL+ibk4eH0fsgPVSh7DlwVwKB6HRlxSsa4xOgi/5
+ rmkj6SdkhfMaLrhkxvMDxsyvU4Qgq5wuJekgEMXs753UlgkQWq4zE6uTwS9DuliLy2Pc
+ UoLw==
+X-Gm-Message-State: AOJu0Yz3EIVzJURps+wkCwiWPJA68IQG2LVubA2vZ6SmjAcLnADmiVaw
+ OKgwRxA5jO6UZnwkdldFLMFqIQ==
+X-Google-Smtp-Source: AGHT+IEJujkXOjeduBvcACtToFVjhtavjJij9sXWxHPJLz061EuTgUrhVaSBRe8bgmfRFF77lgYH7w==
+X-Received: by 2002:a05:6a21:615:b0:140:cb66:73c0 with SMTP id
+ ll21-20020a056a21061500b00140cb6673c0mr3107656pzb.58.1691376931422; 
+ Sun, 06 Aug 2023 19:55:31 -0700 (PDT)
+Received: from localhost ([164.70.16.189]) by smtp.gmail.com with ESMTPSA id
+ k25-20020a6568d9000000b0056399ef039esm3705318pgt.77.2023.08.06.19.55.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 06 Aug 2023 19:55:29 -0700 (PDT)
+From: Masahisa Kojima <masahisa.kojima@linaro.org>
+To: Ard Biesheuvel <ardb@kernel.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Sumit Garg <sumit.garg@linaro.org>,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org
+Date: Mon,  7 Aug 2023 11:53:40 +0900
+Message-Id: <20230807025343.1939-4-masahisa.kojima@linaro.org>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230807025343.1939-1-masahisa.kojima@linaro.org>
+References: <20230807025343.1939-1-masahisa.kojima@linaro.org>
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?U0MzeUZBaFBiSTcvRDBBTGd4VXNrVm5kZ3BZYzU2N0s3MEdST2thRk9CcWhN?=
- =?utf-8?B?VitIWXFLMXBaZXkrWUpFam5uNlZIWjJIVG1iN2llMXBiZy9laHBVOVlRMlRB?=
- =?utf-8?B?OGtXM09Nd2FkL0VBYW9jU2dFemxXVUF4UGJVZXc4UmhiM2V3Tk1NL3NvT2U5?=
- =?utf-8?B?M2VlZXBndGJIblVYQkc1UUNiR2YzVTVMOU5KSnNuN0NNN2tva3p4Ykdzdkw5?=
- =?utf-8?B?U1h2V1d1VGhVbGhoWTFUaFJLek9xYnZNT3ZBVmkrNGJ6amREMXc3QW5YTTY4?=
- =?utf-8?B?UW5IK2lscktBTEhVcGhqTkd2cVJqamVibkdMZWFFT3h1aEt3Tk11OXVnZk9P?=
- =?utf-8?B?SXUwbFREZk1LQlM3QktJcDRVaXNhMkdYVGYyZUhzVnd1YnRWWjhmWVh6TzJB?=
- =?utf-8?B?MmM2cTkyZ2gydC9GcTNubG93clhaVDUvQXM5UzBNMi9sZm02WGVtSTZzSk5a?=
- =?utf-8?B?Y1pqRXBEZjdtTmFBck1rWUpkZUozZFBhby84eW9OSFRyTGtWVG1OOUc5V2Rq?=
- =?utf-8?B?TDVGci9Ha09IOE15OFpuTUJXOTkwRWhpeEp2aVRrbHNOZ3hzTUhaSW9yNDlx?=
- =?utf-8?B?V2lyc013WjEyWEdMWng5ai9wRnd0MXhDdWNmR0Y3NjVwYVhJN1ZaVFN5YkFI?=
- =?utf-8?B?Q0tWUi9nZFhWQ2Y0cDl0Vm5Qc3Fna2piWkFjb3dNemNoU01hNVNjWW1LYWN0?=
- =?utf-8?B?d09ZYzZva0hrbDBDeTFWM3pveG8zK1lpVXZ6R3FmYnNORjhjeDl3OUNaVTAx?=
- =?utf-8?B?NnBRSVFTRXVzK09vblJibVVsS1k0UUhodzJiZUwvT09Ea3Z4TnB6Smc2TTlK?=
- =?utf-8?B?bG1mNHlJQVVZQmVLOGl3bjRuQ2thbG42S2Y1ek1YL1JQU25nS0UzUlBnNjZQ?=
- =?utf-8?B?ZmdweVAwREowK2h2Yk9QNnFNc2UwU0JxZk5kcjdKdUwxMTlNQ3Z3TXh5dmx5?=
- =?utf-8?B?OHZ5ZnNqemhUMGZ0TVdqQ2ZnV2pyVmxHaVE5UVZTM1FtdHZDak5FYkdWWjE4?=
- =?utf-8?B?N2pSN3FCaFl4T0xEUUVjcnJoR3lNWDV0N05kNXJhM0ZiLytFaDdtb1g4N1Mx?=
- =?utf-8?B?YWs3Y2pSZGZsQnlPb05jb2FuR3FUY1laUzRSclBmVFlZTGpOdnpKUWx3TFh1?=
- =?utf-8?B?OUROMHZhOTJuSTlZNmtxbHUwazZvRHZRL0VrT2xYY215c2RFS3l5RERha1lV?=
- =?utf-8?B?YUh3d3BqSTUyb1k2QkFKRjl6Y1RYS0JvRHI2VjE4QU8yeUhhOGpPYkM5MXNy?=
- =?utf-8?B?ZWlrWG56MWJmWmMvTS9SUzNiT2pFd2ZxTmx0V21PMm5qbTdIUTZLM0F0YWtX?=
- =?utf-8?B?TVdjaVhlcTJ4RUprM1ljK084Y0R1R1o5dE11bjkxM1pTR3BqU3FPZEYyRjhM?=
- =?utf-8?B?YzlaOXRmZFZ1S2NBQjVOMzRjVndXTjFYYXFidm14WjhrQ3c5OTNiMXVteDNw?=
- =?utf-8?B?dkVRdk1EeUg4dkNDT1ZKUDJzaVNzb2ExMzF3ZWR2eU0zZjUxbncreDl5L3Zs?=
- =?utf-8?B?djdHaytsQW96T2lRR1NDVDEycGlRMXBnMkZkakRucTlFeFN4R1hJcS9OMEVX?=
- =?utf-8?B?Yk9SZ2ZqRGN0bloyRlR0Uk11WFl0TVFPSjV0Z21YR2NzMzE1WE9lTkp3aFFE?=
- =?utf-8?B?Sk8wMFozajBDSTF2OWZQNnJXYS85QU5KWVVOZmxsUGhZUFZLWnorb0Y1NS8v?=
- =?utf-8?B?NDdJRTdzMUJ0MVhKY29wemQrY25lTm1uTjRld21uTUZ2UHRKZ2lnemZSaXE2?=
- =?utf-8?B?eXkxazNTT2FoUlN0L1JqdktzU3NOMFBKNjNJNFhIajhodzNLbDVVK1B0Y1V0?=
- =?utf-8?B?a3JJcnd3d3BteWVGT0ptMEVGd2YzQS8ra0lPZzNJK0pKZzFQenlhaG5wSFFq?=
- =?utf-8?B?U3AwQVFLOVg0akp5ZnBNc1N0WnpkMHU4SW1PUTBqRjN2Nm1TaHJ6a2sybDJz?=
- =?utf-8?B?VDZEQzlGL1BEUU5ZN04zZ3NGUFpwTGc3aGJsejJzeTNKWnhvdUVTbmkxdHRF?=
- =?utf-8?B?dHJqOWVnL2NGWEFkbzdNS2ZJdjZYelZxL0IwNjk4eSt1ZmM1a0FER21aR1lh?=
- =?utf-8?B?YzQ3SmwxRFRkVnBPUnJEQjAzRWtvNlh6eHpIMFdjaTRqY1dRZDZlSW9WaTds?=
- =?utf-8?B?clBaRGdrMVVoZnY5Wm9jWDlkOTFNYU5jdWsxUGJpbGw2ZGY2bUJ3ZEdXczFq?=
- =?utf-8?B?ZW5vdmIwMXhDdmM1UWtNaGZ4S3BaZWtNbUdrVUxBYllLVjQyOS9KSXJ6RmxL?=
- =?utf-8?B?SEZTcVNRSWFsUG5kTnJKTHg4TTFkNWtHbTFsbHN6WkJIMWZJajEyOUlaelBs?=
- =?utf-8?B?dlBDUTIzQU16UlAvWTFwOUhZWHltSDZPcEd1Y3VvYlZIUFU1RFJvWTY5MjZm?=
- =?utf-8?Q?LsGMtyfyM8kKzh/Q4h8DX3KXoLEK9styhObG2QG2b/V92?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-1: OyX75RbbnCV4aBCUbviiY5Wy5PW5tNnC7cASHzWnO/yVZaunY21dQKIJu/F68sTsvO9MDCLwoSMdAz9AaAe3W09f4reZ+19VvCuzthkRwWoT3Pfi82Yrwev9QAYEGMwO4u6/J0wUPU7nP3yAsHEOolCjrJZ8p5ySjJOzIoUDE7sgAKkERe6yvObv2WcscZS///giPF5rM2dgSq3SlFVrODnqMtBO+nXXNFS+N88tvRfYcsiNJF0rLuxl/odM4rbHJnLJCOhDAe2PIsv9JM/+fTTG8Nndt2jtdbElgwD6JBr4QKhYvLNLHgeTHvTBzqqhwASdM7eMunMOPe4zz9rvpoamPKvmrPjs6/dhHAc7dJIyxtAF88hNNgBTuPHWryA+lAhscsX3NuaxfXUAVQHc6dyRzichAe+sv4nfoYo0dJXmg3QRAiiZJ/MlmcKOfERfVqRfpDNKOyyJxatL0FSt38lNnQBQsDhrBzYevKE2KUcEtoCBAmMmNdkEUAJ3sE5J9obc4RH4MXulrY5I74XEigt6c3CHJ7lzY1Y=
-X-OriginatorOrg: toshiba.co.jp
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB9420.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e987abb3-52a5-4649-7486-08db96dfbb8b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2023 00:46:27.0808 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f109924e-fb71-4ba0-b2cc-65dcdf6fbe4f
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QX8qs0eEVY+masL+cPpF84CCSP728TBziblWOUrcvq1+hw93plctqiLGXkFNP3QLq04zhRoSq0MSkLJMaqPPioaGjZ0MfUPME1YiDSTOINdGaS5Xn3CyfeWTYDpoZmo4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9554
-Cc: alexandre.belloni@bootlin.com, linux-staging@lists.linux.dev,
- andrzej.hajda@intel.com, gregkh@linuxfoundation.org, linus.walleij@linaro.org,
- dri-devel@lists.freedesktop.org, nicolas.ferre@microchip.com,
- paul@crapouillou.net, linux-tegra@vger.kernel.org, conor.dooley@microchip.com,
- pavel@ucw.cz, linux-amlogic@lists.infradead.org, groeck@chromium.org,
- chrome-platform@lists.linux.dev, johan@kernel.org, michal.simek@amd.com,
- airlied@gmail.com, linux-riscv@lists.infradead.org, alyssa@rosenzweig.io,
- jbrunet@baylibre.com, luca@z3ntu.xyz, linux-samsung-soc@vger.kernel.org,
- rfoss@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- florian.fainelli@broadcom.com, samuel@sholland.org, sean.anderson@seco.com,
- festevam@gmail.com, brgl@bgdev.pl, lee@kernel.org, michael@walle.cc,
- jernej.skrabec@gmail.com, jonathanh@nvidia.com, hammerh0314@gmail.com,
- linux-rockchip@lists.infradead.org, wens@csie.org,
- bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com,
- linux-leds@vger.kernel.org, orsonzhai@gmail.com, alim.akhtar@samsung.com,
- linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
- mcoquelin.stm32@gmail.com, linux-pwm@vger.kernel.org, kernel@pengutronix.de,
- jonas@kwiboo.se, martin.blumenstingl@googlemail.com, rjui@broadcom.com,
- s.hauer@pengutronix.de, j.neuschaefer@gmx.net, vz@mleia.com,
- linux-gpio@vger.kernel.org, linux-mediatek@lists.infradead.org,
- baolin.wang@linux.alibaba.com, sven@svenpeter.dev, paul.walmsley@sifive.com,
- matthias.bgg@gmail.com, quic_bjorande@quicinc.com, bleung@chromium.org,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
- andy@kernel.org, neil.armstrong@linaro.org, elder@kernel.org, shc_work@mail.ru,
- sbranden@broadcom.com, greybus-dev@lists.linaro.org,
- daire.mcnamara@microchip.com, zhang.lyra@gmail.com, marcan@marcan.st,
- heiko@sntech.de, dianders@chromium.org, krzysztof.kozlowski@linaro.org,
- palmer@dabbelt.com, asahi@lists.linux.dev, daniel@ffwll.ch,
- khilman@baylibre.com, dmitry.baryshkov@linaro.org, shawnguo@kernel.org,
- claudiu.beznea@microchip.com, quic_amelende@quicinc.com,
- linux-rpi-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] pwm: Manage owner assignment
- implicitly for drivers
+Cc: linux-arm-kernel@lists.infradead.org, Randy Dunlap <rdunlap@infradead.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org,
+ Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Masahisa Kojima <masahisa.kojima@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Johan Hovold <johan+linaro@kernel.org>
+Subject: [Linux-stm32] [PATCH v8 3/5] efi: Add tee-based EFI variable driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -196,148 +83,946 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgVXdlLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFV3ZSBLbGVp
-bmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+DQo+IFNlbnQ6IEZyaWRh
-eSwgQXVndXN0IDQsIDIwMjMgMTE6MjcgUE0NCj4gVG86IFRoaWVycnkgUmVkaW5nIDx0aGllcnJ5
-LnJlZGluZ0BnbWFpbC5jb20+OyBMYXVyZW50IFBpbmNoYXJ0DQo+IDxMYXVyZW50LnBpbmNoYXJ0
-QGlkZWFzb25ib2FyZC5jb20+DQo+IENjOiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxp
-bmFyby5vcmc+OyBCYXJ0b3N6IEdvbGFzemV3c2tpDQo+IDxicmdsQGJnZGV2LnBsPjsgQW5keSBT
-aGV2Y2hlbmtvIDxhbmR5QGtlcm5lbC5vcmc+OyBEb3VnbGFzIEFuZGVyc29uDQo+IDxkaWFuZGVy
-c0BjaHJvbWl1bS5vcmc+OyBBbmRyemVqIEhhamRhIDxhbmRyemVqLmhhamRhQGludGVsLmNvbT47
-IE5laWwNCj4gQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPjsgUm9iZXJ0IEZv
-c3MgPHJmb3NzQGtlcm5lbC5vcmc+Ow0KPiBKb25hcyBLYXJsbWFuIDxqb25hc0Brd2lib28uc2U+
-OyBKZXJuZWogU2tyYWJlYw0KPiA8amVybmVqLnNrcmFiZWNAZ21haWwuY29tPjsgRGF2aWQgQWly
-bGllIDxhaXJsaWVkQGdtYWlsLmNvbT47IERhbmllbCBWZXR0ZXINCj4gPGRhbmllbEBmZndsbC5j
-aD47IFBhdmVsIE1hY2hlayA8cGF2ZWxAdWN3LmN6PjsgTGVlIEpvbmVzDQo+IDxsZWVAa2VybmVs
-Lm9yZz47IEhlY3RvciBNYXJ0aW4gPG1hcmNhbkBtYXJjYW4uc3Q+OyBTdmVuIFBldGVyDQo+IDxz
-dmVuQHN2ZW5wZXRlci5kZXY+OyBBbHlzc2EgUm9zZW56d2VpZyA8YWx5c3NhQHJvc2VuendlaWcu
-aW8+OyBOaWNvbGFzDQo+IEZlcnJlIDxuaWNvbGFzLmZlcnJlQG1pY3JvY2hpcC5jb20+OyBBbGV4
-YW5kcmUgQmVsbG9uaQ0KPiA8YWxleGFuZHJlLmJlbGxvbmlAYm9vdGxpbi5jb20+OyBDbGF1ZGl1
-IEJlem5lYQ0KPiA8Y2xhdWRpdS5iZXpuZWFAbWljcm9jaGlwLmNvbT47IFJheSBKdWkgPHJqdWlA
-YnJvYWRjb20uY29tPjsgU2NvdHQNCj4gQnJhbmRlbiA8c2JyYW5kZW5AYnJvYWRjb20uY29tPjsg
-QnJvYWRjb20gaW50ZXJuYWwga2VybmVsIHJldmlldyBsaXN0DQo+IDxiY20ta2VybmVsLWZlZWRi
-YWNrLWxpc3RAYnJvYWRjb20uY29tPjsgRmxvcmlhbiBGYWluZWxsaQ0KPiA8Zmxvcmlhbi5mYWlu
-ZWxsaUBicm9hZGNvbS5jb20+OyBBbGV4YW5kZXIgU2hpeWFuIDxzaGNfd29ya0BtYWlsLnJ1PjsN
-Cj4gQmVuc29uIExldW5nIDxibGV1bmdAY2hyb21pdW0ub3JnPjsgR3VlbnRlciBSb2Vjaw0KPiA8
-Z3JvZWNrQGNocm9taXVtLm9yZz47IFNoYXduIEd1byA8c2hhd25ndW9Aa2VybmVsLm9yZz47IFNh
-c2NoYQ0KPiBIYXVlciA8cy5oYXVlckBwZW5ndXRyb25peC5kZT47IFBlbmd1dHJvbml4IEtlcm5l
-bCBUZWFtDQo+IDxrZXJuZWxAcGVuZ3V0cm9uaXguZGU+OyBGYWJpbyBFc3RldmFtIDxmZXN0ZXZh
-bUBnbWFpbC5jb20+OyBOWFANCj4gTGludXggVGVhbSA8bGludXgtaW14QG54cC5jb20+OyBQYXVs
-IENlcmN1ZWlsIDxwYXVsQGNyYXBvdWlsbG91Lm5ldD47DQo+IFZsYWRpbWlyIFphcG9sc2tpeSA8
-dnpAbWxlaWEuY29tPjsgS2V2aW4gSGlsbWFuIDxraGlsbWFuQGJheWxpYnJlLmNvbT47DQo+IEpl
-cm9tZSBCcnVuZXQgPGpicnVuZXRAYmF5bGlicmUuY29tPjsgTWFydGluIEJsdW1lbnN0aW5nbA0K
-PiA8bWFydGluLmJsdW1lbnN0aW5nbEBnb29nbGVtYWlsLmNvbT47IENvbm9yIERvb2xleQ0KPiA8
-Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+OyBEYWlyZSBNY05hbWFyYQ0KPiA8ZGFpcmUubWNu
-YW1hcmFAbWljcm9jaGlwLmNvbT47IE1hdHRoaWFzIEJydWdnZXINCj4gPG1hdHRoaWFzLmJnZ0Bn
-bWFpbC5jb20+OyBBbmdlbG9HaW9hY2NoaW5vIERlbCBSZWdubw0KPiA8YW5nZWxvZ2lvYWNjaGlu
-by5kZWxyZWdub0Bjb2xsYWJvcmEuY29tPjsgSm9uYXRoYW4gTmV1c2Now6RmZXINCj4gPGoubmV1
-c2NoYWVmZXJAZ214Lm5ldD47IEhlaWtvIFN0dWVibmVyIDxoZWlrb0BzbnRlY2guZGU+OyBLcnp5
-c3p0b2YNCj4gS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+OyBBbGlt
-IEFraHRhcg0KPiA8YWxpbS5ha2h0YXJAc2Ftc3VuZy5jb20+OyBQYWxtZXIgRGFiYmVsdCA8cGFs
-bWVyQGRhYmJlbHQuY29tPjsgUGF1bA0KPiBXYWxtc2xleSA8cGF1bC53YWxtc2xleUBzaWZpdmUu
-Y29tPjsgTWljaGFlbCBXYWxsZSA8bWljaGFlbEB3YWxsZS5jYz47DQo+IE9yc29uIFpoYWkgPG9y
-c29uemhhaUBnbWFpbC5jb20+OyBCYW9saW4gV2FuZw0KPiA8YmFvbGluLndhbmdAbGludXguYWxp
-YmFiYS5jb20+OyBDaHVueWFuIFpoYW5nDQo+IDx6aGFuZy5seXJhQGdtYWlsLmNvbT47IEZhYnJp
-Y2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPjsNCj4gTWF4aW1lIENvcXVl
-bGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPjsgQWxleGFuZHJlIFRvcmd1ZQ0KPiA8YWxl
-eGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT47IENoZW4tWXUgVHNhaSA8d2Vuc0Bjc2llLm9yZz47
-IFNhbXVlbA0KPiBIb2xsYW5kIDxzYW11ZWxAc2hvbGxhbmQub3JnPjsgSGFtbWVyIEhzaWVoDQo+
-IDxoYW1tZXJoMDMxNEBnbWFpbC5jb20+OyBKb25hdGhhbiBIdW50ZXIgPGpvbmF0aGFuaEBudmlk
-aWEuY29tPjsNCj4gaXdhbWF0c3Ugbm9idWhpcm8o5bKp5p2+IOS/oea0iyDil4vvvKTvvKnvvLTv
-vKPilqHvvKTvvKnvvLTil4vvvK/vvLPvvLQpDQo+IDxub2J1aGlybzEuaXdhbWF0c3VAdG9zaGli
-YS5jby5qcD47IFNlYW4gQW5kZXJzb24NCj4gPHNlYW4uYW5kZXJzb25Ac2Vjby5jb20+OyBNaWNo
-YWwgU2ltZWsgPG1pY2hhbC5zaW1la0BhbWQuY29tPjsNCj4gSm9oYW4gSG92b2xkIDxqb2hhbkBr
-ZXJuZWwub3JnPjsgQWxleCBFbGRlciA8ZWxkZXJAa2VybmVsLm9yZz47IEdyZWcNCj4gS3JvYWgt
-SGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+OyBBbmplbGlxdWUgTWVsZW5kZXoN
-Cj4gPHF1aWNfYW1lbGVuZGVAcXVpY2luYy5jb20+OyBEbWl0cnkgQmFyeXNoa292DQo+IDxkbWl0
-cnkuYmFyeXNoa292QGxpbmFyby5vcmc+OyBMdWNhIFdlaXNzIDxsdWNhQHozbnR1Lnh5ej47IEJq
-b3JuDQo+IEFuZGVyc3NvbiA8cXVpY19iam9yYW5kZUBxdWljaW5jLmNvbT47IGxpbnV4LXB3bUB2
-Z2VyLmtlcm5lbC5vcmc7DQo+IGxpbnV4LWdwaW9Admdlci5rZXJuZWwub3JnOyBkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnOw0KPiBsaW51eC1sZWRzQHZnZXIua2VybmVsLm9yZzsgYXNh
-aGlAbGlzdHMubGludXguZGV2Ow0KPiBsaW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5v
-cmc7IGxpbnV4LXJwaS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsNCj4gY2hyb21lLXBsYXRm
-b3JtQGxpc3RzLmxpbnV4LmRldjsgbGludXgtbWlwc0B2Z2VyLmtlcm5lbC5vcmc7DQo+IGxpbnV4
-LWFtbG9naWNAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFk
-Lm9yZzsNCj4gbGludXgtbWVkaWF0ZWtAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgtcm9ja2No
-aXBAbGlzdHMuaW5mcmFkZWFkLm9yZzsNCj4gbGludXgtc2Ftc3VuZy1zb2NAdmdlci5rZXJuZWwu
-b3JnOw0KPiBsaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tOyBsaW51eC1z
-dW54aUBsaXN0cy5saW51eC5kZXY7DQo+IGxpbnV4LXRlZ3JhQHZnZXIua2VybmVsLm9yZzsgZ3Jl
-eWJ1cy1kZXZAbGlzdHMubGluYXJvLm9yZzsNCj4gbGludXgtc3RhZ2luZ0BsaXN0cy5saW51eC5k
-ZXYNCj4gU3ViamVjdDogW1BBVENIIHYyIDEvMl0gcHdtOiBNYW5hZ2Ugb3duZXIgYXNzaWdubWVu
-dCBpbXBsaWNpdGx5IGZvciBkcml2ZXJzDQo+IA0KPiBJbnN0ZWFkIG9mIHJlcXVpcmluZyBlYWNo
-IGRyaXZlciB0byBjYXJlIGZvciBhc3NpZ25pbmcgdGhlIG93bmVyIG1lbWJlciBvZg0KPiBzdHJ1
-Y3QgcHdtX29wcywgaGFuZGxlIHRoYXQgaW1wbGljaXRseSB1c2luZyBhIG1hY3JvLiBOb3RlIHRo
-YXQgdGhlIG93bmVyDQo+IG1lbWJlciBoYXMgdG8gYmUgbW92ZWQgdG8gc3RydWN0IHB3bV9jaGlw
-LCBhcyB0aGUgb3BzIHN0cnVjdHVyZSB1c3VhbGx5IGxpdmVzDQo+IGluIHJlYWQtb25seSBtZW1v
-cnkgYW5kIHNvIGNhbm5vdCBiZSBtb2RpZmllZC4NCj4gDQo+IFRoZSB1cHNpZGUgaXMgdGhhdCBu
-ZXcgbG93bGV2ZWwgZHJpdmVycyBjYW5ub3QgZm9yZ2V0IHRoZSBhc3NpZ25tZW50IGFuZCBzYXZl
-DQo+IG9uZSBsaW5lIGVhY2guIFRoZSBwd20tY3JjIGRyaXZlciBkaWRuJ3QgYXNzaWduIC5vd25l
-ciwgdGhhdCdzIG5vdCBhIHByb2JsZW0gaW4NCj4gcHJhY3Rpc2UgdGhvdWdoIGFzIHRoZSBkcml2
-ZXIgY2Fubm90IGJlIGNvbXBpbGVkIGFzIGEgbW9kdWxlLg0KPiANCj4gU2lnbmVkLW9mZi1ieTog
-VXdlIEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4NCj4gLS0t
-DQo+ICBkcml2ZXJzL2dwaW8vZ3Bpby1tdmVidS5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJp
-dmVycy9ncHUvZHJtL2JyaWRnZS90aS1zbjY1ZHNpODYuYyB8ICAxIC0NCj4gIGRyaXZlcnMvbGVk
-cy9yZ2IvbGVkcy1xY29tLWxwZy5jICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9jb3JlLmMg
-ICAgICAgICAgICAgICAgICAgIHwgMjQNCj4gKysrKysrKysrKysrKystLS0tLS0tLS0tDQo+ICBk
-cml2ZXJzL3B3bS9wd20tYWI4NTAwLmMgICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9w
-d20vcHdtLWFwcGxlLmMgICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1h
-dG1lbC1obGNkYy5jICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tYXRtZWwtdGNi
-LmMgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLWF0bWVsLmMgICAgICAgICAg
-ICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1iY20taXByb2MuYyAgICAgICAgICAgfCAg
-MSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tYmNtLWtvbmEuYyAgICAgICAgICAgIHwgIDEgLQ0KPiAg
-ZHJpdmVycy9wd20vcHdtLWJjbTI4MzUuYyAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMv
-cHdtL3B3bS1iZXJsaW4uYyAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20t
-YnJjbXN0Yi5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLWNsay5jICAg
-ICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1jbHBzNzExeC5jICAgICAg
-ICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tY3Jvcy1lYy5jICAgICAgICAgICAgIHwg
-IDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLWR3Yy5jICAgICAgICAgICAgICAgICB8ICAxIC0NCj4g
-IGRyaXZlcnMvcHdtL3B3bS1lcDkzeHguYyAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJz
-L3B3bS9wd20tZnNsLWZ0bS5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdt
-LWhpYnZ0LmMgICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1pbWcuYyAg
-ICAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20taW14LXRwbS5jICAgICAg
-ICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLWlteDEuYyAgICAgICAgICAgICAgICB8
-ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1pbXgyNy5jICAgICAgICAgICAgICAgfCAgMSAtDQo+
-ICBkcml2ZXJzL3B3bS9wd20taW50ZWwtbGdtLmMgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVy
-cy9wd20vcHdtLWlxczYyMGEuYyAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3
-bS1qejQ3NDAuYyAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20ta2VlbWJh
-eS5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLWxwMzk0My5jICAgICAg
-ICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1scGMxOHh4LXNjdC5jICAgICAgICAg
-fCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tbHBjMzJ4eC5jICAgICAgICAgICAgIHwgIDEgLQ0K
-PiAgZHJpdmVycy9wd20vcHdtLWxwc3MuYyAgICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZl
-cnMvcHdtL3B3bS1tZWRpYXRlay5jICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9w
-d20tbWVzb24uYyAgICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLW1pY3Jv
-Y2hpcC1jb3JlLmMgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1tdGstZGlzcC5jICAg
-ICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tbXhzLmMgICAgICAgICAgICAgICAg
-IHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLW50eGVjLmMgICAgICAgICAgICAgICB8ICAxIC0N
-Cj4gIGRyaXZlcnMvcHdtL3B3bS1vbWFwLWRtdGltZXIuYyAgICAgICAgfCAgMSAtDQo+ICBkcml2
-ZXJzL3B3bS9wd20tcGNhOTY4NS5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20v
-cHdtLXB4YS5jICAgICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1yYXNw
-YmVycnlwaS1wb2UuYyAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tcmNhci5jICAgICAg
-ICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLXJlbmVzYXMtdHB1LmMgICAgICAg
-ICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1yb2NrY2hpcC5jICAgICAgICAgICAgfCAgMSAt
-DQo+ICBkcml2ZXJzL3B3bS9wd20tcnotbXR1My5jICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJp
-dmVycy9wd20vcHdtLXNhbXN1bmcuYyAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdt
-L3B3bS1zaWZpdmUuYyAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tc2wy
-OGNwbGQuYyAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLXNwZWFyLmMgICAg
-ICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1zcHJkLmMgICAgICAgICAgICAg
-ICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tc3RpLmMgICAgICAgICAgICAgICAgIHwgIDEg
-LQ0KPiAgZHJpdmVycy9wd20vcHdtLXN0bTMyLWxwLmMgICAgICAgICAgICB8ICAxIC0NCj4gIGRy
-aXZlcnMvcHdtL3B3bS1zdG0zMi5jICAgICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3
-bS9wd20tc3RtcGUuYyAgICAgICAgICAgICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLXN1
-bjRpLmMgICAgICAgICAgICAgICB8ICAxIC0NCj4gIGRyaXZlcnMvcHdtL3B3bS1zdW5wbHVzLmMg
-ICAgICAgICAgICAgfCAgMSAtDQo+ICBkcml2ZXJzL3B3bS9wd20tdGVncmEuYyAgICAgICAgICAg
-ICAgIHwgIDEgLQ0KPiAgZHJpdmVycy9wd20vcHdtLXRpZWNhcC5jICAgICAgICAgICAgICB8ICAx
-IC0NCj4gIGRyaXZlcnMvcHdtL3B3bS10aWVocnB3bS5jICAgICAgICAgICAgfCAgMSAtDQo+ICBk
-cml2ZXJzL3B3bS9wd20tdHdsLWxlZC5jICAgICAgICAgICAgIHwgIDIgLS0NCj4gIGRyaXZlcnMv
-cHdtL3B3bS10d2wuYyAgICAgICAgICAgICAgICAgfCAgMiAtLQ0KPiAgZHJpdmVycy9wd20vcHdt
-LXZpc2NvbnRpLmMgICAgICAgICAgICB8ICAxIC0NCg0KRm9yIFZpc2NvbnRpOg0KQWNrZWQtYnk6
-IE5vYnVoaXJvIEl3YW1hdHN1IDxub2J1aGlybzEuaXdhbWF0c3VAdG9zaGliYS5jby5qcCA+DQoN
-CkJlc3QgcmVnYXJkcywNCiAgTm9idWhpcm8NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMy
-QHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+When the flash is not owned by the non-secure world, accessing the EFI
+variables is straightforward and done via EFI Runtime Variable Services.
+In this case, critical variables for system integrity and security
+are normally stored in the dedicated secure storage and only accessible
+from the secure world.
+
+On the other hand, the small embedded devices don't have the special
+dedicated secure storage. The eMMC device with an RPMB partition is
+becoming more common, we can use an RPMB partition to store the
+EFI Variables.
+
+The eMMC device is typically owned by the non-secure world(linux in
+this case). There is an existing solution utilizing eMMC RPMB partition
+for EFI Variables, it is implemented by interacting with
+TEE(OP-TEE in this case), StandaloneMM(as EFI Variable Service Pseudo TA),
+eMMC driver and tee-supplicant. The last piece is the tee-based
+variable access driver to interact with TEE and StandaloneMM.
+
+So let's add the kernel functions needed.
+
+This feature is implemented as a kernel module.
+StMM PTA has TA_FLAG_DEVICE_ENUM_SUPP flag when registered to OP-TEE
+so that this tee_stmm_efi module is probed after tee-supplicant starts,
+since "SetVariable" EFI Runtime Variable Service requires to
+interact with tee-supplicant.
+
+Acked-by: Sumit Garg <sumit.garg@linaro.org>
+Co-developed-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Signed-off-by: Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Signed-off-by: Masahisa Kojima <masahisa.kojima@linaro.org>
+---
+ drivers/firmware/efi/Kconfig                 |  15 +
+ drivers/firmware/efi/Makefile                |   1 +
+ drivers/firmware/efi/stmm/mm_communication.h | 236 +++++++
+ drivers/firmware/efi/stmm/tee_stmm_efi.c     | 612 +++++++++++++++++++
+ 4 files changed, 864 insertions(+)
+ create mode 100644 drivers/firmware/efi/stmm/mm_communication.h
+ create mode 100644 drivers/firmware/efi/stmm/tee_stmm_efi.c
+
+diff --git a/drivers/firmware/efi/Kconfig b/drivers/firmware/efi/Kconfig
+index 231f1c70d1db..ea73be9a4b81 100644
+--- a/drivers/firmware/efi/Kconfig
++++ b/drivers/firmware/efi/Kconfig
+@@ -301,3 +301,18 @@ config UEFI_CPER_X86
+ 	bool
+ 	depends on UEFI_CPER && X86
+ 	default y
++
++config TEE_STMM_EFI
++	tristate "TEE-based EFI runtime variable service driver"
++	depends on EFI && OPTEE && !EFI_VARS_PSTORE
++	help
++	  Select this config option if TEE is compiled to include StandAloneMM
++	  as a separate secure partition. It has the ability to check and store
++	  EFI variables on an RPMB or any other non-volatile medium used by
++	  StandAloneMM.
++
++	  Enabling this will change the EFI runtime services from the firmware
++	  provided functions to TEE calls.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called tee_stmm_efi.
+diff --git a/drivers/firmware/efi/Makefile b/drivers/firmware/efi/Makefile
+index e489fefd23da..a2d0009560d0 100644
+--- a/drivers/firmware/efi/Makefile
++++ b/drivers/firmware/efi/Makefile
+@@ -42,3 +42,4 @@ obj-$(CONFIG_EFI_EARLYCON)		+= earlycon.o
+ obj-$(CONFIG_UEFI_CPER_ARM)		+= cper-arm.o
+ obj-$(CONFIG_UEFI_CPER_X86)		+= cper-x86.o
+ obj-$(CONFIG_UNACCEPTED_MEMORY)		+= unaccepted_memory.o
++obj-$(CONFIG_TEE_STMM_EFI)		+= stmm/tee_stmm_efi.o
+diff --git a/drivers/firmware/efi/stmm/mm_communication.h b/drivers/firmware/efi/stmm/mm_communication.h
+new file mode 100644
+index 000000000000..52a1f32cd1eb
+--- /dev/null
++++ b/drivers/firmware/efi/stmm/mm_communication.h
+@@ -0,0 +1,236 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ *  Headers for EFI variable service via StandAloneMM, EDK2 application running
++ *  in OP-TEE. Most of the structs and defines resemble the EDK2 naming.
++ *
++ *  Copyright (c) 2017, Intel Corporation. All rights reserved.
++ *  Copyright (C) 2020 Linaro Ltd.
++ */
++
++#ifndef _MM_COMMUNICATION_H_
++#define _MM_COMMUNICATION_H_
++
++/*
++ * Interface to the pseudo Trusted Application (TA), which provides a
++ * communication channel with the Standalone MM (Management Mode)
++ * Secure Partition running at Secure-EL0
++ */
++
++#define PTA_STMM_CMD_COMMUNICATE 0
++
++/*
++ * Defined in OP-TEE, this UUID is used to identify the pseudo-TA.
++ * OP-TEE is using big endian GUIDs while UEFI uses little endian ones
++ */
++#define PTA_STMM_UUID \
++	UUID_INIT(0xed32d533, 0x99e6, 0x4209, \
++		  0x9c, 0xc0, 0x2d, 0x72, 0xcd, 0xd9, 0x98, 0xa7)
++
++#define EFI_MM_VARIABLE_GUID \
++	EFI_GUID(0xed32d533, 0x99e6, 0x4209, \
++		 0x9c, 0xc0, 0x2d, 0x72, 0xcd, 0xd9, 0x98, 0xa7)
++
++/**
++ * struct efi_mm_communicate_header - Header used for SMM variable communication
++
++ * @header_guid:  header use for disambiguation of content
++ * @message_len:  length of the message. Does not include the size of the
++ *                header
++ * @data:         payload of the message
++ *
++ * Defined in the PI spec as EFI_MM_COMMUNICATE_HEADER.
++ * To avoid confusion in interpreting frames, the communication buffer should
++ * always begin with efi_mm_communicate_header.
++ */
++struct efi_mm_communicate_header {
++	efi_guid_t header_guid;
++	size_t     message_len;
++	u8         data[];
++} __packed;
++
++#define MM_COMMUNICATE_HEADER_SIZE \
++	(sizeof(struct efi_mm_communicate_header))
++
++/* SPM return error codes */
++#define ARM_SVC_SPM_RET_SUCCESS               0
++#define ARM_SVC_SPM_RET_NOT_SUPPORTED        -1
++#define ARM_SVC_SPM_RET_INVALID_PARAMS       -2
++#define ARM_SVC_SPM_RET_DENIED               -3
++#define ARM_SVC_SPM_RET_NO_MEMORY            -5
++
++#define SMM_VARIABLE_FUNCTION_GET_VARIABLE  1
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_GET_NEXT_VARIABLE_NAME.
++ */
++#define SMM_VARIABLE_FUNCTION_GET_NEXT_VARIABLE_NAME  2
++/*
++ * The payload for this function is SMM_VARIABLE_COMMUNICATE_ACCESS_VARIABLE.
++ */
++#define SMM_VARIABLE_FUNCTION_SET_VARIABLE  3
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_QUERY_VARIABLE_INFO.
++ */
++#define SMM_VARIABLE_FUNCTION_QUERY_VARIABLE_INFO  4
++/*
++ * It is a notify event, no extra payload for this function.
++ */
++#define SMM_VARIABLE_FUNCTION_READY_TO_BOOT  5
++/*
++ * It is a notify event, no extra payload for this function.
++ */
++#define SMM_VARIABLE_FUNCTION_EXIT_BOOT_SERVICE  6
++/*
++ * The payload for this function is VARIABLE_INFO_ENTRY.
++ * The GUID in EFI_SMM_COMMUNICATE_HEADER is gEfiSmmVariableProtocolGuid.
++ */
++#define SMM_VARIABLE_FUNCTION_GET_STATISTICS  7
++/*
++ * The payload for this function is SMM_VARIABLE_COMMUNICATE_LOCK_VARIABLE
++ */
++#define SMM_VARIABLE_FUNCTION_LOCK_VARIABLE   8
++
++#define SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_SET  9
++
++#define SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_GET  10
++
++#define SMM_VARIABLE_FUNCTION_GET_PAYLOAD_SIZE  11
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_RUNTIME_VARIABLE_CACHE_CONTEXT
++ */
++#define SMM_VARIABLE_FUNCTION_INIT_RUNTIME_VARIABLE_CACHE_CONTEXT 12
++
++#define SMM_VARIABLE_FUNCTION_SYNC_RUNTIME_CACHE  13
++/*
++ * The payload for this function is
++ * SMM_VARIABLE_COMMUNICATE_GET_RUNTIME_CACHE_INFO
++ */
++#define SMM_VARIABLE_FUNCTION_GET_RUNTIME_CACHE_INFO  14
++
++/**
++ * struct smm_variable_communicate_header - Used for SMM variable communication
++
++ * @function:     function to call in Smm.
++ * @ret_status:   return status
++ * @data:         payload
++ */
++struct smm_variable_communicate_header {
++	size_t  function;
++	efi_status_t ret_status;
++	u8 data[];
++};
++
++#define MM_VARIABLE_COMMUNICATE_SIZE \
++	(sizeof(struct smm_variable_communicate_header))
++
++/**
++ * struct smm_variable_access - Used to communicate with StMM by
++ *                              SetVariable and GetVariable.
++
++ * @guid:         vendor GUID
++ * @data_size:    size of EFI variable data
++ * @name_size:    size of EFI name
++ * @attr:         attributes
++ * @name:         variable name
++ *
++ */
++struct smm_variable_access {
++	efi_guid_t  guid;
++	size_t data_size;
++	size_t name_size;
++	u32 attr;
++	u16 name[];
++};
++
++#define MM_VARIABLE_ACCESS_HEADER_SIZE \
++	(sizeof(struct smm_variable_access))
++/**
++ * struct smm_variable_payload_size - Used to get the max allowed
++ *                                    payload used in StMM.
++ *
++ * @size:  size to fill in
++ *
++ */
++struct smm_variable_payload_size {
++	size_t size;
++};
++
++/**
++ * struct smm_variable_getnext - Used to communicate with StMM for
++ *                               GetNextVariableName.
++ *
++ * @guid:       vendor GUID
++ * @name_size:  size of the name of the variable
++ * @name:       variable name
++ *
++ */
++struct smm_variable_getnext {
++	efi_guid_t  guid;
++	size_t name_size;
++	u16         name[];
++};
++
++#define MM_VARIABLE_GET_NEXT_HEADER_SIZE \
++	(sizeof(struct smm_variable_getnext))
++
++/**
++ * struct smm_variable_query_info - Used to communicate with StMM for
++ *                                  QueryVariableInfo.
++ *
++ * @max_variable_storage:        max available storage
++ * @remaining_variable_storage:  remaining available storage
++ * @max_variable_size:           max variable supported size
++ * @attr:                        attributes to query storage for
++ *
++ */
++struct smm_variable_query_info {
++	u64 max_variable_storage;
++	u64 remaining_variable_storage;
++	u64 max_variable_size;
++	u32 attr;
++};
++
++#define VAR_CHECK_VARIABLE_PROPERTY_REVISION 0x0001
++#define VAR_CHECK_VARIABLE_PROPERTY_READ_ONLY BIT(0)
++/**
++ * struct var_check_property - Used to store variable properties in StMM
++ *
++ * @revision:   magic revision number for variable property checking
++ * @property:   properties mask for the variable used in StMM.
++ *              Currently RO flag is supported
++ * @attributes: variable attributes used in StMM checking when properties
++ *              for a variable are enabled
++ * @minsize:    minimum allowed size for variable payload checked against
++ *              smm_variable_access->datasize in StMM
++ * @maxsize:    maximum allowed size for variable payload checked against
++ *              smm_variable_access->datasize in StMM
++ *
++ */
++struct var_check_property {
++	u16 revision;
++	u16 property;
++	u32 attributes;
++	size_t minsize;
++	size_t maxsize;
++};
++
++/**
++ * struct smm_variable_var_check_property - Used to communicate variable
++ *                                          properties with StMM
++ *
++ * @guid:       vendor GUID
++ * @name_size:  size of EFI name
++ * @property:   variable properties struct
++ * @name:       variable name
++ *
++ */
++struct smm_variable_var_check_property {
++	efi_guid_t guid;
++	size_t name_size;
++	struct var_check_property property;
++	u16 name[];
++};
++
++#endif /* _MM_COMMUNICATION_H_ */
+diff --git a/drivers/firmware/efi/stmm/tee_stmm_efi.c b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+new file mode 100644
+index 000000000000..e03475966dc1
+--- /dev/null
++++ b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+@@ -0,0 +1,612 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ *  EFI variable service via TEE
++ *
++ *  Copyright (C) 2022 Linaro
++ */
++
++#include <linux/efi.h>
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/tee.h>
++#include <linux/tee_drv.h>
++#include <linux/ucs2_string.h>
++#include "mm_communication.h"
++
++static struct efivars tee_efivars;
++static struct efivar_operations tee_efivar_ops;
++
++static size_t max_buffer_size; /* comm + var + func + data */
++static size_t max_payload_size; /* func + data */
++
++struct tee_stmm_efi_private {
++	struct tee_context *ctx;
++	u32 session;
++	struct device *dev;
++};
++
++static struct tee_stmm_efi_private pvt_data;
++
++/* UUID of the stmm PTA */
++static const struct tee_client_device_id tee_stmm_efi_id_table[] = {
++	{PTA_STMM_UUID},
++	{}
++};
++
++static int tee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
++{
++	/* currently only OP-TEE is supported as a communication path */
++	if (ver->impl_id == TEE_IMPL_ID_OPTEE)
++		return 1;
++	else
++		return 0;
++}
++
++/**
++ * tee_mm_communicate() - Pass a buffer to StandaloneMM running in TEE
++ *
++ * @comm_buf:		locally allocated communication buffer
++ * @dsize:		buffer size
++ * Return:		status code
++ */
++static efi_status_t tee_mm_communicate(void *comm_buf, size_t dsize)
++{
++	size_t buf_size;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct tee_ioctl_invoke_arg arg;
++	struct tee_param param[4];
++	struct tee_shm *shm = NULL;
++	int rc;
++
++	if (!comm_buf)
++		return EFI_INVALID_PARAMETER;
++
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	buf_size = mm_hdr->message_len + sizeof(efi_guid_t) + sizeof(size_t);
++
++	if (dsize != buf_size)
++		return EFI_INVALID_PARAMETER;
++
++	shm = tee_shm_register_kernel_buf(pvt_data.ctx, comm_buf, buf_size);
++	if (IS_ERR(shm)) {
++		dev_err(pvt_data.dev, "Unable to register shared memory\n");
++		return EFI_UNSUPPORTED;
++	}
++
++	memset(&arg, 0, sizeof(arg));
++	arg.func = PTA_STMM_CMD_COMMUNICATE;
++	arg.session = pvt_data.session;
++	arg.num_params = 4;
++
++	memset(param, 0, sizeof(param));
++	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT;
++	param[0].u.memref.size = buf_size;
++	param[0].u.memref.shm = shm;
++	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT;
++	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
++	param[3].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
++
++	rc = tee_client_invoke_func(pvt_data.ctx, &arg, param);
++	tee_shm_free(shm);
++
++	if (rc < 0 || arg.ret != 0) {
++		dev_err(pvt_data.dev,
++			"PTA_STMM_CMD_COMMUNICATE invoke error: 0x%x\n", arg.ret);
++		return EFI_DEVICE_ERROR;
++	}
++
++	switch (param[1].u.value.a) {
++	case ARM_SVC_SPM_RET_SUCCESS:
++		return EFI_SUCCESS;
++
++	case ARM_SVC_SPM_RET_INVALID_PARAMS:
++		return EFI_INVALID_PARAMETER;
++
++	case ARM_SVC_SPM_RET_DENIED:
++		return EFI_ACCESS_DENIED;
++
++	case ARM_SVC_SPM_RET_NO_MEMORY:
++		return EFI_OUT_OF_RESOURCES;
++
++	default:
++		return EFI_ACCESS_DENIED;
++	}
++}
++
++/**
++ * mm_communicate() - Adjust the communication buffer to StandAlonneMM and send
++ * it to TEE
++ *
++ * @comm_buf:		locally allocated communication buffer, buffer should
++ *			be enough big to have some headers and payload
++ * @payload_size:	payload size
++ * Return:		status code
++ */
++static efi_status_t mm_communicate(u8 *comm_buf, size_t payload_size)
++{
++	size_t dsize;
++	efi_status_t ret;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct smm_variable_communicate_header *var_hdr;
++
++	dsize = payload_size + MM_COMMUNICATE_HEADER_SIZE +
++		MM_VARIABLE_COMMUNICATE_SIZE;
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	var_hdr = (struct smm_variable_communicate_header *)mm_hdr->data;
++
++	ret = tee_mm_communicate(comm_buf, dsize);
++	if (ret != EFI_SUCCESS) {
++		dev_err(pvt_data.dev, "%s failed!\n", __func__);
++		return ret;
++	}
++
++	return var_hdr->ret_status;
++}
++
++/**
++ * setup_mm_hdr() -	Allocate a buffer for StandAloneMM and initialize the
++ *			header data.
++ *
++ * @dptr:		pointer address to store allocated buffer
++ * @payload_size:	payload size
++ * @func:		standAloneMM function number
++ * @ret:		EFI return code
++ * Return:		pointer to corresponding StandAloneMM function buffer or NULL
++ */
++static void *setup_mm_hdr(u8 **dptr, size_t payload_size, size_t func,
++			  efi_status_t *ret)
++{
++	const efi_guid_t mm_var_guid = EFI_MM_VARIABLE_GUID;
++	struct efi_mm_communicate_header *mm_hdr;
++	struct smm_variable_communicate_header *var_hdr;
++	u8 *comm_buf;
++
++	/* In the init function we initialize max_buffer_size with
++	 * get_max_payload(). So skip the test if max_buffer_size is initialized
++	 * StandAloneMM will perform similar checks and drop the buffer if it's
++	 * too long
++	 */
++	if (max_buffer_size &&
++	    max_buffer_size < (MM_COMMUNICATE_HEADER_SIZE +
++			       MM_VARIABLE_COMMUNICATE_SIZE + payload_size)) {
++		*ret = EFI_INVALID_PARAMETER;
++		return NULL;
++	}
++
++	comm_buf = kzalloc(MM_COMMUNICATE_HEADER_SIZE +
++				   MM_VARIABLE_COMMUNICATE_SIZE + payload_size,
++			   GFP_KERNEL);
++	if (!comm_buf) {
++		*ret = EFI_OUT_OF_RESOURCES;
++		return NULL;
++	}
++
++	mm_hdr = (struct efi_mm_communicate_header *)comm_buf;
++	memcpy(&mm_hdr->header_guid, &mm_var_guid, sizeof(mm_hdr->header_guid));
++	mm_hdr->message_len = MM_VARIABLE_COMMUNICATE_SIZE + payload_size;
++
++	var_hdr = (struct smm_variable_communicate_header *)mm_hdr->data;
++	var_hdr->function = func;
++	if (dptr)
++		*dptr = comm_buf;
++	*ret = EFI_SUCCESS;
++
++	return var_hdr->data;
++}
++
++/**
++ * get_max_payload() - Get variable payload size from StandAloneMM.
++ *
++ * @size:    size of the variable in storage
++ * Return:   status code
++ */
++static efi_status_t get_max_payload(size_t *size)
++{
++	struct smm_variable_payload_size *var_payload = NULL;
++	size_t payload_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!size)
++		return EFI_INVALID_PARAMETER;
++
++	payload_size = sizeof(*var_payload);
++	var_payload = setup_mm_hdr(&comm_buf, payload_size,
++				   SMM_VARIABLE_FUNCTION_GET_PAYLOAD_SIZE,
++				   &ret);
++	if (!var_payload)
++		return EFI_OUT_OF_RESOURCES;
++
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	/* Make sure the buffer is big enough for storing variables */
++	if (var_payload->size < MM_VARIABLE_ACCESS_HEADER_SIZE + 0x20) {
++		ret = EFI_DEVICE_ERROR;
++		goto out;
++	}
++	*size = var_payload->size;
++	/*
++	 * There seems to be a bug in EDK2 miscalculating the boundaries and
++	 * size checks, so deduct 2 more bytes to fulfill this requirement. Fix
++	 * it up here to ensure backwards compatibility with older versions
++	 * (cf. StandaloneMmPkg/Drivers/StandaloneMmCpu/AArch64/EventHandle.c.
++	 * sizeof (EFI_MM_COMMUNICATE_HEADER) instead the size minus the
++	 * flexible array member).
++	 *
++	 * size is guaranteed to be > 2 due to checks on the beginning.
++	 */
++	*size -= 2;
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t get_property_int(u16 *name, size_t name_size,
++				     const efi_guid_t *vendor,
++				     struct var_check_property *var_property)
++{
++	struct smm_variable_var_check_property *smm_property;
++	size_t payload_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	memset(var_property, 0, sizeof(*var_property));
++	payload_size = sizeof(*smm_property) + name_size;
++	if (payload_size > max_payload_size)
++		return EFI_INVALID_PARAMETER;
++
++	smm_property = setup_mm_hdr(
++		&comm_buf, payload_size,
++		SMM_VARIABLE_FUNCTION_VAR_CHECK_VARIABLE_PROPERTY_GET, &ret);
++	if (!smm_property)
++		return EFI_OUT_OF_RESOURCES;
++
++	memcpy(&smm_property->guid, vendor, sizeof(smm_property->guid));
++	smm_property->name_size = name_size;
++	memcpy(smm_property->name, name, name_size);
++
++	ret = mm_communicate(comm_buf, payload_size);
++	/*
++	 * Currently only R/O property is supported in StMM.
++	 * Variables that are not set to R/O will not set the property in StMM
++	 * and the call will return EFI_NOT_FOUND. We are setting the
++	 * properties to 0x0 so checking against that is enough for the
++	 * EFI_NOT_FOUND case.
++	 */
++	if (ret == EFI_NOT_FOUND)
++		ret = EFI_SUCCESS;
++	if (ret != EFI_SUCCESS)
++		goto out;
++	memcpy(var_property, &smm_property->property, sizeof(*var_property));
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_get_variable(u16 *name, efi_guid_t *vendor,
++				     u32 *attributes, unsigned long *data_size,
++				     void *data)
++{
++	struct var_check_property var_property;
++	struct smm_variable_access *var_acc;
++	size_t payload_size;
++	size_t name_size;
++	size_t tmp_dsize;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!name || !vendor || !data_size)
++		return EFI_INVALID_PARAMETER;
++
++	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++	if (name_size > max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE)
++		return EFI_INVALID_PARAMETER;
++
++	/* Trim output buffer size */
++	tmp_dsize = *data_size;
++	if (name_size + tmp_dsize >
++	    max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE) {
++		tmp_dsize = max_payload_size - MM_VARIABLE_ACCESS_HEADER_SIZE -
++			    name_size;
++	}
++
++	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + tmp_dsize;
++	var_acc = setup_mm_hdr(&comm_buf, payload_size,
++			       SMM_VARIABLE_FUNCTION_GET_VARIABLE, &ret);
++	if (!var_acc)
++		return EFI_OUT_OF_RESOURCES;
++
++	/* Fill in contents */
++	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
++	var_acc->data_size = tmp_dsize;
++	var_acc->name_size = name_size;
++	var_acc->attr = attributes ? *attributes : 0;
++	memcpy(var_acc->name, name, name_size);
++
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL)
++		/* Update with reported data size for trimmed case */
++		*data_size = var_acc->data_size;
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	ret = get_property_int(name, name_size, vendor, &var_property);
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	if (attributes)
++		*attributes = var_acc->attr;
++
++	if (!data) {
++		ret = EFI_INVALID_PARAMETER;
++		goto out;
++	}
++	memcpy(data, (u8 *)var_acc->name + var_acc->name_size,
++	       var_acc->data_size);
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_get_next_variable(unsigned long *name_size,
++					  efi_char16_t *name, efi_guid_t *guid)
++{
++	struct smm_variable_getnext *var_getnext;
++	size_t payload_size;
++	size_t out_name_size;
++	size_t in_name_size;
++	u8 *comm_buf = NULL;
++	efi_status_t ret;
++
++	if (!name_size || !name || !guid)
++		return EFI_INVALID_PARAMETER;
++
++	out_name_size = *name_size;
++	in_name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++
++	if (out_name_size < in_name_size)
++		return EFI_INVALID_PARAMETER;
++
++	if (in_name_size > max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE)
++		return EFI_INVALID_PARAMETER;
++
++	/* Trim output buffer size */
++	if (out_name_size > max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE)
++		out_name_size =
++			max_payload_size - MM_VARIABLE_GET_NEXT_HEADER_SIZE;
++
++	payload_size = MM_VARIABLE_GET_NEXT_HEADER_SIZE + out_name_size;
++	var_getnext = setup_mm_hdr(&comm_buf, payload_size,
++				   SMM_VARIABLE_FUNCTION_GET_NEXT_VARIABLE_NAME,
++				   &ret);
++	if (!var_getnext)
++		return EFI_OUT_OF_RESOURCES;
++
++	/* Fill in contents */
++	memcpy(&var_getnext->guid, guid, sizeof(var_getnext->guid));
++	var_getnext->name_size = out_name_size;
++	memcpy(var_getnext->name, name, in_name_size);
++	memset((u8 *)var_getnext->name + in_name_size, 0x0,
++	       out_name_size - in_name_size);
++
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret == EFI_SUCCESS || ret == EFI_BUFFER_TOO_SMALL) {
++		/* Update with reported data size for trimmed case */
++		*name_size = var_getnext->name_size;
++	}
++	if (ret != EFI_SUCCESS)
++		goto out;
++
++	memcpy(guid, &var_getnext->guid, sizeof(*guid));
++	memcpy(name, var_getnext->name, var_getnext->name_size);
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_set_variable(efi_char16_t *name, efi_guid_t *vendor,
++				     u32 attributes, unsigned long data_size,
++				     void *data)
++{
++	efi_status_t ret;
++	struct var_check_property var_property;
++	struct smm_variable_access *var_acc;
++	size_t payload_size;
++	size_t name_size;
++	u8 *comm_buf = NULL;
++
++	if (!name || name[0] == 0 || !vendor)
++		return EFI_INVALID_PARAMETER;
++
++	if (data_size > 0 && !data)
++		return EFI_INVALID_PARAMETER;
++
++	/* Check payload size */
++	name_size = (ucs2_strnlen(name, EFI_VAR_NAME_LEN) + 1) * sizeof(u16);
++	payload_size = MM_VARIABLE_ACCESS_HEADER_SIZE + name_size + data_size;
++	if (payload_size > max_payload_size)
++		return EFI_INVALID_PARAMETER;
++
++	/*
++	 * Allocate the buffer early, before switching to RW (if needed)
++	 * so we won't need to account for any failures in reading/setting
++	 * the properties, if the allocation fails
++	 */
++	var_acc = setup_mm_hdr(&comm_buf, payload_size,
++			       SMM_VARIABLE_FUNCTION_SET_VARIABLE, &ret);
++	if (!var_acc)
++		return EFI_OUT_OF_RESOURCES;
++
++	/*
++	 * The API has the ability to override RO flags. If no RO check was
++	 * requested switch the variable to RW for the duration of this call
++	 */
++	ret = get_property_int(name, name_size, vendor, &var_property);
++	if (ret != EFI_SUCCESS) {
++		dev_err(pvt_data.dev, "Getting variable property failed\n");
++		goto out;
++	}
++
++	if (var_property.property & VAR_CHECK_VARIABLE_PROPERTY_READ_ONLY) {
++		ret = EFI_WRITE_PROTECTED;
++		goto out;
++	}
++
++	/* Fill in contents */
++	memcpy(&var_acc->guid, vendor, sizeof(var_acc->guid));
++	var_acc->data_size = data_size;
++	var_acc->name_size = name_size;
++	var_acc->attr = attributes;
++	memcpy(var_acc->name, name, name_size);
++	memcpy((u8 *)var_acc->name + name_size, data, data_size);
++
++	ret = mm_communicate(comm_buf, payload_size);
++	dev_dbg(pvt_data.dev, "Set Variable %s %d %lx\n", __FILE__, __LINE__, ret);
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static efi_status_t tee_set_variable_nonblocking(efi_char16_t *name,
++						 efi_guid_t *vendor,
++						 u32 attributes,
++						 unsigned long data_size,
++						 void *data)
++{
++	return EFI_UNSUPPORTED;
++}
++
++static efi_status_t tee_query_variable_info(u32 attributes,
++					    u64 *max_variable_storage_size,
++					    u64 *remain_variable_storage_size,
++					    u64 *max_variable_size)
++{
++	struct smm_variable_query_info *mm_query_info;
++	size_t payload_size;
++	efi_status_t ret;
++	u8 *comm_buf;
++
++	payload_size = sizeof(*mm_query_info);
++	mm_query_info = setup_mm_hdr(&comm_buf, payload_size,
++				SMM_VARIABLE_FUNCTION_QUERY_VARIABLE_INFO,
++				&ret);
++	if (!mm_query_info)
++		return EFI_OUT_OF_RESOURCES;
++
++	mm_query_info->attr = attributes;
++	ret = mm_communicate(comm_buf, payload_size);
++	if (ret != EFI_SUCCESS)
++		goto out;
++	*max_variable_storage_size = mm_query_info->max_variable_storage;
++	*remain_variable_storage_size =
++		mm_query_info->remaining_variable_storage;
++	*max_variable_size = mm_query_info->max_variable_size;
++
++out:
++	kfree(comm_buf);
++	return ret;
++}
++
++static void tee_stmm_efi_close_context(void *data)
++{
++	tee_client_close_context(pvt_data.ctx);
++}
++
++static void tee_stmm_efi_close_session(void *data)
++{
++	tee_client_close_session(pvt_data.ctx, pvt_data.session);
++}
++
++static int tee_stmm_efi_probe(struct device *dev)
++{
++	struct tee_ioctl_open_session_arg sess_arg;
++	efi_status_t ret;
++	int rc;
++
++	/* Open context with TEE driver */
++	pvt_data.ctx = tee_client_open_context(NULL, tee_ctx_match, NULL, NULL);
++	if (IS_ERR(pvt_data.ctx))
++		return -ENODEV;
++
++	rc = devm_add_action_or_reset(dev, tee_stmm_efi_close_context, NULL);
++	if (rc)
++		return rc;
++
++	/* Open session with StMM PTA */
++	memset(&sess_arg, 0, sizeof(sess_arg));
++	export_uuid(sess_arg.uuid, &tee_stmm_efi_id_table[0].uuid);
++	rc = tee_client_open_session(pvt_data.ctx, &sess_arg, NULL);
++	if ((rc < 0) || (sess_arg.ret != 0)) {
++		dev_err(dev, "tee_client_open_session failed, err: %x\n",
++			sess_arg.ret);
++		return -EINVAL;
++	}
++	pvt_data.session = sess_arg.session;
++	pvt_data.dev = dev;
++	rc = devm_add_action_or_reset(dev, tee_stmm_efi_close_session, NULL);
++	if (rc)
++		return rc;
++
++	ret = get_max_payload(&max_payload_size);
++	if (ret != EFI_SUCCESS)
++		return -EIO;
++
++	max_buffer_size = MM_COMMUNICATE_HEADER_SIZE +
++			  MM_VARIABLE_COMMUNICATE_SIZE +
++			  max_payload_size;
++
++	tee_efivar_ops.get_variable = tee_get_variable;
++	tee_efivar_ops.get_next_variable = tee_get_next_variable;
++	tee_efivar_ops.set_variable = tee_set_variable;
++	tee_efivar_ops.set_variable_nonblocking = tee_set_variable_nonblocking;
++	tee_efivar_ops.query_variable_store = efi_query_variable_store;
++	tee_efivar_ops.query_variable_info = tee_query_variable_info;
++
++	efivars_generic_ops_unregister();
++	pr_info("Use tee-based EFI runtime variable services\n");
++	efivars_register(&tee_efivars, &tee_efivar_ops);
++
++	return 0;
++}
++
++static int tee_stmm_efi_remove(struct device *dev)
++{
++	efivars_unregister(&tee_efivars);
++	efivars_generic_ops_register();
++
++	return 0;
++}
++
++MODULE_DEVICE_TABLE(tee, tee_stmm_efi_id_table);
++
++static struct tee_client_driver tee_stmm_efi_driver = {
++	.id_table	= tee_stmm_efi_id_table,
++	.driver		= {
++		.name		= "tee-stmm-efi",
++		.bus		= &tee_bus_type,
++		.probe		= tee_stmm_efi_probe,
++		.remove		= tee_stmm_efi_remove,
++	},
++};
++
++static int __init tee_stmm_efi_mod_init(void)
++{
++	return driver_register(&tee_stmm_efi_driver.driver);
++}
++
++static void __exit tee_stmm_efi_mod_exit(void)
++{
++	driver_unregister(&tee_stmm_efi_driver.driver);
++}
++
++module_init(tee_stmm_efi_mod_init);
++module_exit(tee_stmm_efi_mod_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Ilias Apalodimas <ilias.apalodimas@linaro.org>");
++MODULE_AUTHOR("Masahisa Kojima <masahisa.kojima@linaro.org>");
++MODULE_DESCRIPTION("TEE based EFI runtime variable service driver");
+-- 
+2.30.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
