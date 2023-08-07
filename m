@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BE46772BA1
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 18:54:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A479772BA3
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 18:54:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53CC5C6B469;
-	Mon,  7 Aug 2023 16:54:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60ECBC6B469;
+	Mon,  7 Aug 2023 16:54:10 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3308C6B469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FDC8C6B45A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Aug 2023 16:54:04 +0000 (UTC)
+ Mon,  7 Aug 2023 16:54:08 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BE4A861FA0;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 75E3161F89;
+ Mon,  7 Aug 2023 16:54:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040E5C433C9;
  Mon,  7 Aug 2023 16:54:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A18C433C8;
- Mon,  7 Aug 2023 16:54:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691427243;
- bh=2GxVXefyNbdQErExbmg0/pws/HcbyG4JyeKhzXvRnBE=;
+ s=k20201202; t=1691427246;
+ bh=+gV2OwgbEESWlTBw1vccjy1Lziej65rySDz1k5zLKn4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=isNPA8VjsZLDLmk3teiuHGbXo4lE9uRIceVNL+NUBpMZljoqr0M2pYuIKf4nMpvxE
- VAqO3uRfxyTjsDvb6kDq+ERekznq4fiUU6yDdP6is/OzJE/OWat0MKryk0g/rzMh6T
- mZCDRUCKZ/vf62PQu9T+uUEgR7Cq5z2Pbk6quX9fgRzdRYiuTzfugYpM+GW3tL/vQF
- fkjcTJSK/Ar/a/ogARUGLBJUof6J33LRFi8ThH4WTvjnR9/A0rdCD9jxsCqaBF8YGd
- lFfx0H971y3hIDT46KdB/veZgNv4n5M9euSfpeH7a4KC1HpLyJ1+zc3Bw8Ri3Nrl3x
- 9XHLXYDZIL/Ig==
+ b=lk41pLhcEvbcRlk0Ghwfq5+V5oNP2DVAqeH5W4Ji1yCDzYOVskRRfMmdUBPcV71cG
+ 8R7ccknV2Caa0lPazKNgCTD7wow65XATCsKeZ9PayomLzLyrC0/92jaC8KlILrbSFZ
+ GCoi7s+DeNf36Q2BJqlXv+iVoeSAH2KBt1gOhgS6MzRHvImiq7FyPyyZCCL8zsGAbD
+ kZ2EDaJRQre4aUkygKuX1GaPsVB5BorIjpd2fmvYKA7io7UUPCsSv0XzhI1gF5a6Qt
+ qC1kS/ovu2aACZ1BAUzD4RkgPblju27ZYfjbKMD0L5MxwKZ+z0blHbbUL8ucH6SteH
+ mHkcONWri8Ipw==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: "David S . Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -40,8 +40,8 @@ To: "David S . Miller" <davem@davemloft.net>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Tue,  8 Aug 2023 00:41:49 +0800
-Message-Id: <20230807164151.1130-9-jszhang@kernel.org>
+Date: Tue,  8 Aug 2023 00:41:50 +0800
+Message-Id: <20230807164151.1130-10-jszhang@kernel.org>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230807164151.1130-1-jszhang@kernel.org>
 References: <20230807164151.1130-1-jszhang@kernel.org>
@@ -49,8 +49,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 08/10] net: stmmac: platform:
-	support parsing safety irqs from DT
+Subject: [Linux-stm32] [PATCH net-next v2 09/10] dt-bindings: net: snps,
+	dwmac: add per channel irq support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,38 +67,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The snps dwmac IP may support safety features, and those Safety
-Feature Correctible Error and Uncorrectible Error irqs may be
-separate irqs. Add support to parse the safety irqs from DT.
+The IP supports per channel interrupt, add support for this usage case.
 
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c    | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 23d53ea04b24..29145682b57b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -738,6 +738,18 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
- 	}
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 5d81042f5634..5a63302ad200 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -109,6 +109,7 @@ properties:
+       - description: The interrupt that occurs when Rx exits the LPI state
+       - description: The interrupt that occurs when Safety Feature Correctible Errors happen
+       - description: The interrupt that occurs when Safety Feature Uncorrectible Errors happen
++      - description: All of the rx/tx per-channel interrupts
  
-+	stmmac_res->sfty_ce_irq = platform_get_irq_byname_optional(pdev, "sfty_ce");
-+	if (stmmac_res->sfty_ce_irq < 0) {
-+		if (stmmac_res->sfty_ce_irq == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+	}
-+
-+	stmmac_res->sfty_ue_irq = platform_get_irq_byname_optional(pdev, "sfty_ue");
-+	if (stmmac_res->sfty_ue_irq < 0) {
-+		if (stmmac_res->sfty_ue_irq == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+	}
-+
- 	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
+   interrupt-names:
+     minItems: 1
+@@ -118,6 +119,38 @@ properties:
+       - const: eth_lpi
+       - const: sfty_ce
+       - const: sfty_ue
++      - const: rx0
++      - const: rx1
++      - const: rx2
++      - const: rx3
++      - const: rx4
++      - const: rx5
++      - const: rx6
++      - const: rx7
++      - const: rx8
++      - const: rx9
++      - const: rx10
++      - const: rx11
++      - const: rx12
++      - const: rx13
++      - const: rx14
++      - const: rx15
++      - const: tx0
++      - const: tx1
++      - const: tx2
++      - const: tx3
++      - const: tx4
++      - const: tx5
++      - const: tx6
++      - const: tx7
++      - const: tx8
++      - const: tx9
++      - const: tx10
++      - const: tx11
++      - const: tx12
++      - const: tx13
++      - const: tx14
++      - const: tx15
  
- 	return PTR_ERR_OR_ZERO(stmmac_res->addr);
+   clocks:
+     minItems: 1
 -- 
 2.40.1
 
