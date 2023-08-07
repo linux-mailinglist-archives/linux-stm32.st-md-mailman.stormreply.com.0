@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD9C772BA6
-	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 18:54:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67C17772EA5
+	for <lists+linux-stm32@lfdr.de>; Mon,  7 Aug 2023 21:30:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7109DC6B45C;
-	Mon,  7 Aug 2023 16:54:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1190BC6B45B;
+	Mon,  7 Aug 2023 19:30:28 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46B56C6B469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAE7EC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  7 Aug 2023 16:54:11 +0000 (UTC)
+ Mon,  7 Aug 2023 19:30:26 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A18C61FB3;
- Mon,  7 Aug 2023 16:54:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450C2C433CB;
- Mon,  7 Aug 2023 16:54:07 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 46E6E621AC;
+ Mon,  7 Aug 2023 19:30:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CC2D3C433CC;
+ Mon,  7 Aug 2023 19:30:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691427250;
- bh=meIPlCLi1bchsiAPHa2YkAHiZoy6af5a6nvWxPBXByQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=T8+xLqHNrEOI5ubSRNwSnODx9PNj3Y8aPp+tRzdpDXrHdHfLT2wsmNdVDHVLv8oAg
- dYpGMCTnv83a9TyKjdjUMULv641OUyCNzV/lg3zHMUn9C1EnfwWSdNbAixUi6k8/Se
- dmV48RAleYf6zULf7Bk83NUaPJsXQcPYAltfqosGAvNhhAx4hvw5qF9geXMuMYENkW
- PwhBcTN1XAfywgY/lENUWxjya0dCfHJYBI6zoEIAGvX6kbAwjsxNfHZ/9nNip34ezG
- +B5ao3HxhZwXZ4W0ulDZFce3Iozuk1iTgyxw8w7Rp5zVuQMmEaNT6jsAYudXJkFdB0
- ndIGPd4ALY/5w==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Date: Tue,  8 Aug 2023 00:41:51 +0800
-Message-Id: <20230807164151.1130-11-jszhang@kernel.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230807164151.1130-1-jszhang@kernel.org>
-References: <20230807164151.1130-1-jszhang@kernel.org>
+ s=k20201202; t=1691436624;
+ bh=uE2fa7Fe0pYN2Kl+HM144jNfenom/57ArJYynw749Y8=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=rKa2GrlyguweRNZ5knCI8EenRhfj2Xvv2Ldea63alaBe7mpjAlGAOeHhsepJQ14gb
+ Jm8DJwFzGVGq3VyFl8f43PeOU/f/g56xUljiQnpgRNFf31oqYOKnl56HfUFW9ee0Uw
+ x2fiek2lEFT/bjTqiWdNZ+YTEdt18OjnpYIn093Pb4A72qsKCER1Gm5ID5oxgWCrTP
+ hSpy8fDAYm6XQQJPeeDzjc26MsT9BJYnhCbYlY7COpBJY+SKT/0p4aGDOzCmLu0Orx
+ h7gYTFFULHHfLZZtUvi9q+U3h6XA4FJgoQaKdHWAFNK45uIaMreW5vGFCzImfKZouL
+ CNchHLHJC/bqg==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ AE4E5E270C3; Mon,  7 Aug 2023 19:30:24 +0000 (UTC)
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 10/10] net: stmmac: platform:
-	support parsing per channel irq from DT
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169143662470.21933.13583691380398650705.git-patchwork-notify@kernel.org>
+Date: Mon, 07 Aug 2023 19:30:24 +0000
+References: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
+In-Reply-To: <20230719-stmmac_correct_mac_delay-v3-0-61e63427735e@pengutronix.de>
+To: Johannes Zink <j.zink@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
+ richardcochran@gmail.com, kurt@linutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk, lkp@intel.com,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, peppe.cavallaro@st.com, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v3 0/2] net: stmmac: correct MAC
+	propagation delay
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,75 +67,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The snps dwmac IP may support per channel interrupt. Add support to
-parse the per channel irq from DT.
+Hello:
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  6 +++--
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 23 +++++++++++++++++++
- 2 files changed, 27 insertions(+), 2 deletions(-)
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4ed5c976c7a3..7c607ef6f364 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7278,8 +7278,10 @@ int stmmac_dvr_probe(struct device *device,
- 	priv->plat = plat_dat;
- 	priv->ioaddr = res->addr;
- 	priv->dev->base_addr = (unsigned long)res->addr;
--	priv->plat->dma_cfg->perch_irq_en =
--		(priv->plat->flags & STMMAC_FLAG_PERCH_IRQ_EN);
-+	if (res->rx_irq[0] && res->tx_irq[0]) {
-+		priv->plat->flags |= STMMAC_FLAG_PERCH_IRQ_EN;
-+		priv->plat->dma_cfg->perch_irq_en = true;
-+	}
- 
- 	priv->dev->irq = res->irq;
- 	priv->wol_irq = res->wol_irq;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 29145682b57b..9b46775b41ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -705,6 +705,9 @@ EXPORT_SYMBOL_GPL(stmmac_remove_config_dt);
- int stmmac_get_platform_resources(struct platform_device *pdev,
- 				  struct stmmac_resources *stmmac_res)
- {
-+	char irq_name[8];
-+	int i;
-+
- 	memset(stmmac_res, 0, sizeof(*stmmac_res));
- 
- 	/* Get IRQ information early to have an ability to ask for deferred
-@@ -738,6 +741,26 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
- 	}
- 
-+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-+		snprintf(irq_name, sizeof(irq_name), "rx%i", i);
-+		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-+		if (stmmac_res->rx_irq[i] < 0) {
-+			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+			break;
-+		}
-+	}
-+
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-+		snprintf(irq_name, sizeof(irq_name), "tx%i", i);
-+		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-+		if (stmmac_res->tx_irq[i] < 0) {
-+			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
-+				return -EPROBE_DEFER;
-+			break;
-+		}
-+	}
-+
- 	stmmac_res->sfty_ce_irq = platform_get_irq_byname_optional(pdev, "sfty_ce");
- 	if (stmmac_res->sfty_ce_irq < 0) {
- 		if (stmmac_res->sfty_ce_irq == -EPROBE_DEFER)
+On Tue, 01 Aug 2023 17:44:28 +0200 you wrote:
+> ---
+> Changes in v3:
+> - work in Richard's review feedback. Thank you for reviewing my patch:
+>   - as some of the hardware may have no or invalid correction value
+>     registers: introduce feature switch which can be enabled in the glue
+>     code drivers depending on the actual hardware support
+>   - only enable the feature on the i.MX8MP for the time being, as the patch
+>     improves timing accuracy and is tested for this hardware
+> - Link to v2: https://lore.kernel.org/r/20230719-stmmac_correct_mac_delay-v2-1-3366f38ee9a6@pengutronix.de
+> 
+> [...]
+
+Here is the summary with links:
+  - [v3,1/2] net: stmmac: correct MAC propagation delay
+    https://git.kernel.org/netdev/net-next/c/26cfb838aa00
+  - [v3,2/2] net: stmmac: dwmac-imx: enable MAC propagation delay correction for i.MX8MP
+    https://git.kernel.org/netdev/net-next/c/6cb2e613c796
+
+You are awesome, thank you!
 -- 
-2.40.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
