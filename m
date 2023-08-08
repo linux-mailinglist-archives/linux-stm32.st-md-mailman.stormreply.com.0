@@ -2,50 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4717773D88
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 18:19:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE98C773D8A
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 18:19:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 669F9C6B469;
-	Tue,  8 Aug 2023 16:19:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96B61C6B479;
+	Tue,  8 Aug 2023 16:19:53 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D748C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19030C6B475
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Aug 2023 16:19:50 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 378DH73K008247; Tue, 8 Aug 2023 18:19:39 +0200
+ Tue,  8 Aug 2023 16:19:52 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 378Co66x027258; Tue, 8 Aug 2023 18:19:39 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=NnwPmcg
- lrq4+tukAQnH18ZnoSzsFYIrbdbKThdZsRx0=; b=sYd0E9sZMiBeOUEHZQZfNz2
- 32FWwUMNCEGOqKnuonvkwYRPNxZqi41OYZVESk7FIAnpIIdY1Q112aPrMtUeldCb
- n9lbhEOKA8u2x0ZSP+hpglfpPdtLgQbsSczicLSv7Imc37RXYXPwC+/XI25dcPfV
- YvQWz7BCHMKYXJxFHF8E77lmAm+OZF0zHJLxTSbusgmRHCfH+K0Wg0a5dZpW3q8n
- ivrteF26v3exqjxYmbIcfu+RsYisUp+YtxLIrYRDmbVG1c98b6RVSaCSxZru5nQb
- SVgA+H9cnsMvzZguxTZ16LFzfTAcfhl0JuP7y/MtK8aCGaoGdmx0S5nFpqxOogA=
- =
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding:content-type; s=
+ selector1; bh=dhCwEHX0DJwZiRNK4fFfUdVG5e5HKjrWxTyeEHdpYQ0=; b=tk
+ qcWJqgkcRx9YVxoTUtlxWsUZoJOIZX+PlKop0U4pAaNbPp7qa67js8T8BnqXlP1W
+ Q+Vm2Wgrz4Gm8E/9S9/griN3OikMYbXJ6dT7SB7figxBBXN6Cix7AzE8FBbdcPvc
+ LubWnmHmEC8BJuyXOtS+5VnTZNZa5qHdJNG/ayNrY3WEltJRL0MkwQkeRJrqBiOD
+ 8T+k5IEczpa1JULWZ0PeyygadBg+lpw12kYOigE03e7VrK50uO1pokNw0fr+7TQ/
+ /F04/9HRj+FcJn4PVzrZyi32Lvp5F19LoG3EZ6/WJ2vUJEc7/2WjKz1I1fY9Rq1x
+ NauNonA8Dnyou8ZYWJKQ==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sbjfn2n45-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sbp2d958h-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 08 Aug 2023 18:19:39 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 67F0F100061;
- Tue,  8 Aug 2023 18:19:37 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 72F77100062;
+ Tue,  8 Aug 2023 18:19:38 +0200 (CEST)
 Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8FA61235F2C;
- Tue,  8 Aug 2023 18:19:37 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 698BB235F32;
+ Tue,  8 Aug 2023 18:19:38 +0200 (CEST)
 Received: from localhost (10.201.20.168) by EQNDAG1NODE4.st.com
  (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 8 Aug
- 2023 18:19:37 +0200
+ 2023 18:19:38 +0200
 From: Valentin Caron <valentin.caron@foss.st.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 8 Aug 2023 18:19:00 +0200
-Message-ID: <20230808161906.178996-1-valentin.caron@foss.st.com>
+Date: Tue, 8 Aug 2023 18:19:01 +0200
+Message-ID: <20230808161906.178996-2-valentin.caron@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230808161906.178996-1-valentin.caron@foss.st.com>
+References: <20230808161906.178996-1-valentin.caron@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.201.20.168]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To EQNDAG1NODE4.st.com
@@ -56,8 +58,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 0/6] serial: stm32: improve DMA pause and
-	resume
+Subject: [Linux-stm32] [PATCH v2 1/6] serial: stm32: avoid clearing DMAT bit
+	during transfer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,35 +76,178 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series improves DMA management in stm32-usart driver.
+It's rather advised to rely on DMA pause / resume instead of
+clearing/setting DMA request enable bit for the same purpose. Some DMA
+request/acknowledge race may encountered by doing so. We prefer to use
+dmaengine_pause and resume instead to pause a dma transfer when it is
+necessary.
 
-It is not recommended to switch DMAT and DMAR bits when a DMA transfer
-is in progress. This is going to be replaced by dmaengine_pause or
-dmaengine_resume.
+It is also safer to close DMA before reset DMAT in stm32_usart_shutdown.
 
-stm32_usart_rx_dma_pause, stm32_usart_rx_dma_resume, stm32_usart_tx_dma_pause
-and stm32_usart_tx_dma_resume functions, are all redirected to a single function,
-called "stm32_usart_dma_pause_resume", that has been created to simplify dma
-pause/resume.
+Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+---
+ drivers/tty/serial/stm32-usart.c | 76 ++++++++++++++++++--------------
+ 1 file changed, 44 insertions(+), 32 deletions(-)
 
-Since v1:
-- Add my Signed-off in Amelie's patch.
-
-Amelie Delaunay (1):
-  serial: stm32: synchronize RX DMA channel in shutdown
-
-Valentin Caron (5):
-  serial: stm32: avoid clearing DMAT bit during transfer
-  serial: stm32: use DMAT as a configuration bit
-  serial: stm32: modify parameter and rename stm32_usart_rx_dma_enabled
-  serial: stm32: group dma pause/resume error handling into single
-    function
-  serial: stm32: replace access to DMAR bit by dmaengine_pause/resume
-
- drivers/tty/serial/stm32-usart.c | 307 ++++++++++++++++++-------------
- drivers/tty/serial/stm32-usart.h |   1 +
- 2 files changed, 185 insertions(+), 123 deletions(-)
-
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index be47cd343cf6..2f9672ba4ed3 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -506,13 +506,6 @@ static bool stm32_usart_tx_dma_started(struct stm32_port *stm32_port)
+ 	return stm32_port->tx_dma_busy;
+ }
+ 
+-static bool stm32_usart_tx_dma_enabled(struct stm32_port *stm32_port)
+-{
+-	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+-
+-	return !!(readl_relaxed(stm32_port->port.membase + ofs->cr3) & USART_CR3_DMAT);
+-}
+-
+ static void stm32_usart_tx_dma_complete(void *arg)
+ {
+ 	struct uart_port *port = arg;
+@@ -591,9 +584,6 @@ static void stm32_usart_transmit_chars_pio(struct uart_port *port)
+ 	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+ 	struct circ_buf *xmit = &port->state->xmit;
+ 
+-	if (stm32_usart_tx_dma_enabled(stm32_port))
+-		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
+-
+ 	while (!uart_circ_empty(xmit)) {
+ 		/* Check that TDR is empty before filling FIFO */
+ 		if (!(readl_relaxed(port->membase + ofs->isr) & USART_SR_TXE))
+@@ -616,10 +606,16 @@ static void stm32_usart_transmit_chars_dma(struct uart_port *port)
+ 	struct circ_buf *xmit = &port->state->xmit;
+ 	struct dma_async_tx_descriptor *desc = NULL;
+ 	unsigned int count;
++	int ret;
+ 
+ 	if (stm32_usart_tx_dma_started(stm32port)) {
+-		if (!stm32_usart_tx_dma_enabled(stm32port))
+-			stm32_usart_set_bits(port, ofs->cr3, USART_CR3_DMAT);
++		if (dmaengine_tx_status(stm32port->tx_ch,
++					stm32port->tx_ch->cookie,
++					NULL) == DMA_PAUSED) {
++			ret = dmaengine_resume(stm32port->tx_ch);
++			if (ret < 0)
++				goto dma_err;
++		}
+ 		return;
+ 	}
+ 
+@@ -664,11 +660,9 @@ static void stm32_usart_transmit_chars_dma(struct uart_port *port)
+ 	desc->callback_param = port;
+ 
+ 	/* Push current DMA TX transaction in the pending queue */
+-	if (dma_submit_error(dmaengine_submit(desc))) {
+-		/* dma no yet started, safe to free resources */
+-		stm32_usart_tx_dma_terminate(stm32port);
+-		goto fallback_err;
+-	}
++	/* DMA no yet started, safe to free resources */
++	if (dma_submit_error(dmaengine_submit(desc)))
++		goto dma_err;
+ 
+ 	/* Issue pending DMA TX requests */
+ 	dma_async_issue_pending(stm32port->tx_ch);
+@@ -679,6 +673,10 @@ static void stm32_usart_transmit_chars_dma(struct uart_port *port)
+ 
+ 	return;
+ 
++dma_err:
++	dev_err(port->dev, "DMA failed with error code: %d\n", ret);
++	stm32_usart_tx_dma_terminate(stm32port);
++
+ fallback_err:
+ 	stm32_usart_transmit_chars_pio(port);
+ }
+@@ -701,9 +699,15 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
+ 
+ 	if (port->x_char) {
+ 		if (stm32_usart_tx_dma_started(stm32_port) &&
+-		    stm32_usart_tx_dma_enabled(stm32_port))
+-			stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
+-
++		    dmaengine_tx_status(stm32_port->tx_ch,
++					stm32_port->tx_ch->cookie,
++					NULL) == DMA_IN_PROGRESS) {
++			ret = dmaengine_pause(stm32_port->tx_ch);
++			if (ret < 0) {
++				dev_err(port->dev, "DMA failed with error code: %d\n", ret);
++				stm32_usart_tx_dma_terminate(stm32_port);
++			}
++		}
+ 		/* Check that TDR is empty before filling FIFO */
+ 		ret =
+ 		readl_relaxed_poll_timeout_atomic(port->membase + ofs->isr,
+@@ -716,8 +720,14 @@ static void stm32_usart_transmit_chars(struct uart_port *port)
+ 		writel_relaxed(port->x_char, port->membase + ofs->tdr);
+ 		port->x_char = 0;
+ 		port->icount.tx++;
+-		if (stm32_usart_tx_dma_started(stm32_port))
+-			stm32_usart_set_bits(port, ofs->cr3, USART_CR3_DMAT);
++
++		if (stm32_usart_tx_dma_started(stm32_port)) {
++			ret = dmaengine_resume(stm32_port->tx_ch);
++			if (ret < 0) {
++				dev_err(port->dev, "DMA failed with error code: %d\n", ret);
++				stm32_usart_tx_dma_terminate(stm32_port);
++			}
++		}
+ 		return;
+ 	}
+ 
+@@ -850,11 +860,16 @@ static void stm32_usart_disable_ms(struct uart_port *port)
+ static void stm32_usart_stop_tx(struct uart_port *port)
+ {
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
+-	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
++	int ret;
+ 
+ 	stm32_usart_tx_interrupt_disable(port);
+-	if (stm32_usart_tx_dma_started(stm32_port) && stm32_usart_tx_dma_enabled(stm32_port))
+-		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
++	if (stm32_usart_tx_dma_started(stm32_port)) {
++		ret = dmaengine_pause(stm32_port->tx_ch);
++		if (ret < 0) {
++			dev_err(port->dev, "DMA failed with error code: %d\n", ret);
++			stm32_usart_tx_dma_terminate(stm32_port);
++		}
++	}
+ 
+ 	stm32_usart_rs485_rts_disable(port);
+ }
+@@ -878,12 +893,9 @@ static void stm32_usart_start_tx(struct uart_port *port)
+ static void stm32_usart_flush_buffer(struct uart_port *port)
+ {
+ 	struct stm32_port *stm32_port = to_stm32_port(port);
+-	const struct stm32_usart_offsets *ofs = &stm32_port->info->ofs;
+ 
+-	if (stm32_port->tx_ch) {
++	if (stm32_port->tx_ch)
+ 		stm32_usart_tx_dma_terminate(stm32_port);
+-		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
+-	}
+ }
+ 
+ /* Throttle the remote when input buffer is about to overflow. */
+@@ -1042,12 +1054,12 @@ static void stm32_usart_shutdown(struct uart_port *port)
+ 	u32 val, isr;
+ 	int ret;
+ 
+-	if (stm32_usart_tx_dma_enabled(stm32_port))
+-		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
+-
+ 	if (stm32_usart_tx_dma_started(stm32_port))
+ 		stm32_usart_tx_dma_terminate(stm32_port);
+ 
++	if (stm32_port->tx_ch)
++		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
++
+ 	/* Disable modem control interrupts */
+ 	stm32_usart_disable_ms(port);
+ 
 -- 
 2.25.1
 
