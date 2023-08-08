@@ -2,75 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 049FC773A00
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 14:03:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C46773A5C
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 15:10:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A16E3C6B469;
-	Tue,  8 Aug 2023 12:03:08 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7515AC6B469;
+	Tue,  8 Aug 2023 13:10:03 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0902C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0FD9C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Aug 2023 12:03:06 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-31751d7d96eso4189754f8f.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Aug 2023 05:03:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1691496186; x=1692100986;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Ie3WcAqbCuJwn+bSe+8uiPLhrE9XYV8epIzLQ3pbcL4=;
- b=1fO8HtnVKi35e//6KYE+HJ4EBCNIy4ZSnNw2nISTh5Q8eplnrPEKpbjbm6nlmeKh+T
- HvxCjWZ1/4Ln4x0Va1UeAm+byOL4lMIPCxu/ISYfBdLuWWbfBroA/C0PnEWujlBEhE4j
- txzQVb8sn+KbtFoGMge7ATRRig61xJaSDJwkFT9Uk2x3JIeVc9lc7X8LYLFsQwWzgPzY
- IMwp3DSs2kMQuovrw4ustqZBooiINCnAGrfoJHBAZmLB/Keqt4+DHzfc7+6fT76kJn4b
- NVsko35jwDTttbI1e/izd+NgepzYB3FQM1mzKMT1W02+oqdh+JCq2nuAdHRkpVxdJJg6
- UHNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691496186; x=1692100986;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Ie3WcAqbCuJwn+bSe+8uiPLhrE9XYV8epIzLQ3pbcL4=;
- b=Zzc58PJHA82OX21Ov8q5S1k7nA0l2JfpGj0OdMfKTKh8Ml60cHOdN8EMImqvnxt/48
- 48LeioG9P7lEemwcEYiI1FYSsuzRSxt/BkzZaxlmzFC1i6qE5FpbcjQ9Wwkye8ulD0FV
- 3mymWwhTAy5tZYtOFj6VyfBV+zOHzF218WbCZnDWR6cTlBtcEe6eW2+7aokASzqsgmLH
- 3rMF4AECQaYW6icYIAtatbNXbSnNGiRdz5pJH01qFN25G2qGqCWv6+TrKWsCOnPfMeqW
- Fu0rxB07j9WCzD8EGcqRkHtm+niLoTxkef8vS6ttUWthrPAek+WMBYXKuE/yqJWIE8mx
- n89Q==
-X-Gm-Message-State: AOJu0YyDXdHtwBbQ/jR/K/GOCmSQImSCKPC/memCZMIojp9mwqYaA27S
- V0i/jf/++1LKtUhRJZX/SUSyvw==
-X-Google-Smtp-Source: AGHT+IGUZorkCi64YkQRQ50LyONGuQyCaMkyjeEos2tgFQ6faizt7lG2rcTuyHFQW//RTS5PrFhblA==
-X-Received: by 2002:adf:ea11:0:b0:313:f1c8:a968 with SMTP id
- q17-20020adfea11000000b00313f1c8a968mr8055326wrm.2.1691496185883; 
- Tue, 08 Aug 2023 05:03:05 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:6a08:bcc0:ae83:e1dc])
- by smtp.gmail.com with ESMTPSA id
- v8-20020adfe4c8000000b00317046f21f9sm13499726wrm.114.2023.08.08.05.03.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Aug 2023 05:03:05 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alex Elder <elder@linaro.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Andrew Halaney <ahalaney@redhat.com>
-Date: Tue,  8 Aug 2023 14:02:54 +0200
-Message-Id: <20230808120254.11653-1-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.39.2
+ Tue,  8 Aug 2023 13:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=QkuDXA4j1tGMsv4/ORMgt9CX3zHb9CYX5634imlS4UY=; b=GnxRtNBN9QfTDtlrGsdD6R8saj
+ xV1PknLE+Z7yZpqrg/i9TuFRLGbD0aHl1PKQye/yCUOuYHNkCfFcs/U3baUwd2vFSTI86v9XnNXC5
+ xcaqPSDA6UMnKbd7JdrzPpwXnuW/GPPkvcOOjj09KQDskJpC2OcfIGOMnBgvZaPOiJig=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qTMSy-003SxZ-Ku; Tue, 08 Aug 2023 15:09:40 +0200
+Date: Tue, 8 Aug 2023 15:09:40 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <05e574e3-688e-49d6-b3e6-80b36bfc5158@lunn.ch>
+References: <20230807193102.6374-1-brgl@bgdev.pl>
+ <54421791-75fa-4ed3-8432-e21184556cde@lunn.ch>
+ <CAMRc=Mc6COaxM6GExHF2M+=v2TBpz87RciAv=9kHr41HkjQhCg@mail.gmail.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: don't create the MDIO
-	bus if there's no mdio node on DT
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Mc6COaxM6GExHF2M+=v2TBpz87RciAv=9kHr41HkjQhCg@mail.gmail.com>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Alex Elder <elder@linaro.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH 0/2] net: stmmac: allow sharing MDIO lines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,76 +61,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Ok so upon some further investigation, the actual culprit is in stmmac
+> platform code - it always tries to register an MDIO bus - independent
+> of whether there is an actual mdio child node - unless the MAC is
+> marked explicitly as having a fixed-link.
 
-The stmmac_dt_phy() function that parses the device-tree node of the MAC
-and allocates the MDIO and PHY resources misses one use-case: when the
-MAC doesn't have a fixed link but also doesn't define its own mdio bus
-on the device tree and instead shares the MDIO lines with a different
-MAC with its PHY phandle reaching over into a different node.
+If the MDIO bus does exist registering it should not be a problem.
+Ideally it should have an internal pull up on its MDIO line, so that
+all reads return 0xffff. The phylib core will then determine there are
+no devices on it. Not actually registering it because there is no MDIO
+node in DT is just an optimisation.
 
-As this function could also use some more readability, rework it to
-handle this use-case and simplify the code.
+> When I fixed that, MAC1's probe is correctly deferred until MAC0 has
+> created the MDIO bus.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 26 +++++++++----------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+Great. That is how it should work.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index be8e79c7aa34..91844673df43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -320,12 +320,14 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
- 			 struct device_node *np, struct device *dev)
- {
--	bool mdio = !of_phy_is_fixed_link(np);
- 	static const struct of_device_id need_mdio_ids[] = {
- 		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
- 		{},
- 	};
- 
-+	if (of_phy_is_fixed_link(np))
-+		return 0;
-+
- 	if (of_match_node(need_mdio_ids, np)) {
- 		plat->mdio_node = of_get_child_by_name(np, "mdio");
- 	} else {
-@@ -340,20 +342,18 @@ static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
- 		}
- 	}
- 
--	if (plat->mdio_node) {
--		dev_dbg(dev, "Found MDIO subnode\n");
--		mdio = true;
--	}
-+	if (!plat->mdio_node)
-+		return 0;
- 
--	if (mdio) {
--		plat->mdio_bus_data =
--			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
--				     GFP_KERNEL);
--		if (!plat->mdio_bus_data)
--			return -ENOMEM;
-+	dev_dbg(dev, "Found MDIO subnode\n");
- 
--		plat->mdio_bus_data->needs_reset = true;
--	}
-+	plat->mdio_bus_data = devm_kzalloc(dev,
-+					   sizeof(struct stmmac_mdio_bus_data),
-+					   GFP_KERNEL);
-+	if (!plat->mdio_bus_data)
-+		return -ENOMEM;
-+
-+	plat->mdio_bus_data->needs_reset = true;
- 
- 	return 0;
- }
--- 
-2.39.2
+> Even so, isn't it useful to actually reference the shared MDIO bus in some way?
 
+Why? Linux does not care where the PHY is. There are some SoCs with an
+independent MDIO bus masters. They have there own node in DT, there
+own driver etc. You can create an MDIO bus from two or three GPIOs and
+bit banging, again as an node in DT.  There are Ethernet switches
+which can have 11 ports, and 2 MDIO busses, one purely internal and
+one external, and the PHYs are scattered over these busses.
+
+All linux needs is a phandle to the PHY, nothing more.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
