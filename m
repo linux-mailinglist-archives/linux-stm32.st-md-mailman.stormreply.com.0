@@ -2,49 +2,115 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C46773A5C
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 15:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC5E773A64
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 15:18:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7515AC6B469;
-	Tue,  8 Aug 2023 13:10:03 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12486C6B469;
+	Tue,  8 Aug 2023 13:18:44 +0000 (UTC)
+Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
+ [209.85.219.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0FD9C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0D60C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Aug 2023 13:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=QkuDXA4j1tGMsv4/ORMgt9CX3zHb9CYX5634imlS4UY=; b=GnxRtNBN9QfTDtlrGsdD6R8saj
- xV1PknLE+Z7yZpqrg/i9TuFRLGbD0aHl1PKQye/yCUOuYHNkCfFcs/U3baUwd2vFSTI86v9XnNXC5
- xcaqPSDA6UMnKbd7JdrzPpwXnuW/GPPkvcOOjj09KQDskJpC2OcfIGOMnBgvZaPOiJig=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qTMSy-003SxZ-Ku; Tue, 08 Aug 2023 15:09:40 +0200
-Date: Tue, 8 Aug 2023 15:09:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Bartosz Golaszewski <brgl@bgdev.pl>
-Message-ID: <05e574e3-688e-49d6-b3e6-80b36bfc5158@lunn.ch>
-References: <20230807193102.6374-1-brgl@bgdev.pl>
- <54421791-75fa-4ed3-8432-e21184556cde@lunn.ch>
- <CAMRc=Mc6COaxM6GExHF2M+=v2TBpz87RciAv=9kHr41HkjQhCg@mail.gmail.com>
+ Tue,  8 Aug 2023 13:18:42 +0000 (UTC)
+Received: by mail-yb1-f177.google.com with SMTP id
+ 3f1490d57ef6-d299ed34bacso9514330276.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 08 Aug 2023 06:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691500721; x=1692105521;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cCJVGIzRWp3n6+ocRSshdb4+bDJCLF8hHPywBz67DZU=;
+ b=iy7zswmtYx6ZYNzYmCG5rqHRjdv+HqB8GrEKYccjle/8dJ9x1OShHO9OgMow0zFYho
+ RJhCC40wkFuTTf25ecgjND4T7pSlTzynELSybpF4Tq9lm0vpF/1WhH9PVjPDo3D92r0t
+ vE0MwfGWmp5O6GeDRRPpN190ezwOTKyeDzoh+6spHPvGNcXvDC15NYX5Fh6AdODwNh9i
+ u+xgCMzltAjprgtTTXUMnRSMUGU88rU5hQybpWcAAj9weIpW1fiVIhA90pqCkvmL6npO
+ 3XYinfPiJb8jbNTnaImLtOznhk/zT3v7clUSSq2VXwojFDvEIz4Ap+Wto2wlmlxEy3FT
+ jTzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691500721; x=1692105521;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=cCJVGIzRWp3n6+ocRSshdb4+bDJCLF8hHPywBz67DZU=;
+ b=Uv0mptJXvD2lIZmZYn6lFFoS+iNJ9MvBGIu/aAbo0+o/xbJKV6MO6v2kR8i+sQ3+ek
+ CJZC0QaVmsr8aaFDHXue/wmyPCV+th/d93UoyEUv2JwEgtLQl+OO84CZzJD+vTDgBUVi
+ B+PypKgq00T6OqpoXzktnObu6louQuqDaAZhirTkMjL+qlibd60ZJ+zShO7WA0Brcf6P
+ S1XufYdrGEm92N64iH2JZ5xGdh+Aj2N8r4HwVvwOoC1DSEUzxaWHlIVbJz/73Pj6UWOG
+ Cnq6O9MvSfzYgY/gUIa9Nd+WEEDDaaO5joMcnM21AriCB9ArdeXubWSlndcWPWU/n1jx
+ jO7g==
+X-Gm-Message-State: AOJu0YzMllJHHnyV4ZviWdV2D2cMmNBpP7C9tv8hn8f2SDoBMHseXgay
+ s84UE5e5M2RkXvrl9Hfb8cB3UV60Nvf87lmYaPu5pw==
+X-Google-Smtp-Source: AGHT+IGCQegfute4wq8vuctRCNyh2F9D25HtOrYRCxA1KPyHbK9gB5btAs+lYOVd+Us7kHls2/CFh6KxK9tgT70dyU8=
+X-Received: by 2002:a25:d14e:0:b0:cee:80e:23af with SMTP id
+ i75-20020a25d14e000000b00cee080e23afmr3349036ybg.11.1691500721596; Tue, 08
+ Aug 2023 06:18:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAMRc=Mc6COaxM6GExHF2M+=v2TBpz87RciAv=9kHr41HkjQhCg@mail.gmail.com>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Alex Elder <elder@linaro.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH 0/2] net: stmmac: allow sharing MDIO lines
+References: <20230804142707.412137-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230804142707.412137-1-u.kleine-koenig@pengutronix.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 8 Aug 2023 15:18:30 +0200
+Message-ID: <CACRpkdZ4OqLywBhCkDmA6bEkf3rfHpCODba9Rhx36fuP8ywt6Q@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ Conor Dooley <conor.dooley@microchip.com>, Pavel Machek <pavel@ucw.cz>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
+ Kevin Hilman <khilman@baylibre.com>, Hammer Hsieh <hammerh0314@gmail.com>,
+ NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
+ Sascha Hauer <s.hauer@pengutronix.de>, Andy Shevchenko <andy@kernel.org>,
+ Alex Elder <elder@kernel.org>, Scott Branden <sbranden@broadcom.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michael Walle <michael@walle.cc>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Guenter Roeck <groeck@chromium.org>,
+ chrome-platform@lists.linux.dev, Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Lee Jones <lee@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, greybus-dev@lists.linaro.org,
+ Hector Martin <marcan@marcan.st>, Douglas Anderson <dianders@chromium.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Alexander Shiyan <shc_work@mail.ru>,
+ linux-staging@lists.linux.dev, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Weiss <luca@z3ntu.xyz>, Chen-Yu Tsai <wens@csie.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, linux-pwm@vger.kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>, Ray Jui <rjui@broadcom.com>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Benson Leung <bleung@chromium.org>, asahi@lists.linux.dev,
+ Shawn Guo <shawnguo@kernel.org>,
+ Anjelique Melendez <quic_amelende@quicinc.com>, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, linux-riscv@lists.infradead.org,
+ David Airlie <airlied@gmail.com>, linux-leds@vger.kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Sven Peter <sven@svenpeter.dev>, Johan Hovold <johan@kernel.org>,
+ linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ linux-tegra@vger.kernel.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v2 0/2] pwm: Manage owner assignment
+	implicitly for drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -56,40 +122,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Ok so upon some further investigation, the actual culprit is in stmmac
-> platform code - it always tries to register an MDIO bus - independent
-> of whether there is an actual mdio child node - unless the MAC is
-> marked explicitly as having a fixed-link.
-
-If the MDIO bus does exist registering it should not be a problem.
-Ideally it should have an internal pull up on its MDIO line, so that
-all reads return 0xffff. The phylib core will then determine there are
-no devices on it. Not actually registering it because there is no MDIO
-node in DT is just an optimisation.
-
-> When I fixed that, MAC1's probe is correctly deferred until MAC0 has
-> created the MDIO bus.
-
-Great. That is how it should work.
-
-> Even so, isn't it useful to actually reference the shared MDIO bus in some way?
-
-Why? Linux does not care where the PHY is. There are some SoCs with an
-independent MDIO bus masters. They have there own node in DT, there
-own driver etc. You can create an MDIO bus from two or three GPIOs and
-bit banging, again as an node in DT.  There are Ethernet switches
-which can have 11 ports, and 2 MDIO busses, one purely internal and
-one external, and the PHYs are scattered over these busses.
-
-All linux needs is a phandle to the PHY, nothing more.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBBdWcgNCwgMjAyMyBhdCA0OjI44oCvUE0gVXdlIEtsZWluZS1Lw7ZuaWcKPHUua2xl
+aW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4gd3JvdGU6Cgo+IChpbXBsaWNpdCkgdjEgb2YgdGhp
+cyBzZXJpZXMgY2FuIGJlIGZvdW5kIGF0Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgt
+cHdtLzIwMjMwODAzMTQwNjMzLjEzODE2NS0xLXUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5k
+ZSAuCj4KPiBDaGFuZ2VzIHNpbmNlIHRoZW4gb25seSBhZmZlY3QgZG9jdW1lbnRhdGlvbiB0aGF0
+IEkgbWlzc2VkIHRvIGFkYXB0IGJlZm9yZS4KPiBUaGFua3MgdG8gTGF1cmVudCBmb3IgY2F0Y2hp
+bmcgdGhhdAo+Cj4gQmVzdCByZWdhcmRzCj4gVXdlCj4KPiBVd2UgS2xlaW5lLUvDtm5pZyAoMik6
+Cj4gICBwd206IE1hbmFnZSBvd25lciBhc3NpZ25tZW50IGltcGxpY2l0bHkgZm9yIGRyaXZlcnMK
+PiAgIHB3bTogY3JjOiBBbGxvdyBjb21waWxhdGlvbiBhcyBtb2R1bGUgYW5kIHdpdGggQ09NUElM
+RV9URVNUCgpDbGVhcmx5IHRoZSByaWdodCB0aGluZyB0byBkbyEgTmljZSBwYXRjaGVzLgpSZXZp
+ZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMs
+CkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
