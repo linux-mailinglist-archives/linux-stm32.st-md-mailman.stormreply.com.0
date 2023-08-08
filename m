@@ -2,53 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D937744AC
-	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 20:26:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E133774534
+	for <lists+linux-stm32@lfdr.de>; Tue,  8 Aug 2023 20:38:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 580D8C6B45C;
-	Tue,  8 Aug 2023 18:26:36 +0000 (UTC)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
- [209.85.217.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17714C6B45C;
+	Tue,  8 Aug 2023 18:38:24 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 865CAC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3C4EC65E70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Aug 2023 18:26:34 +0000 (UTC)
-Received: by mail-vs1-f45.google.com with SMTP id
- ada2fe7eead31-4474c7fce20so2203676137.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Aug 2023 11:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20221208.gappssmtp.com; s=20221208; t=1691519193; x=1692123993;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NbSuxAH1dmgDI1cFhSw3+FjHgNgeooTpwVKeZW63XUA=;
- b=omX3M6W7HI4CkdKEejiKetClW4YUWnvCPUq8gKc/AoVUAnqTLGguQDDx/Sp7R778JN
- J9TSo32CN6hMaWQKcsB0qNqnAfUmpGbESPtgNucK5ozybmP7dGop+fVUtC7USzhv0x20
- JypPvqhLY7OCKJtBcfnX+96fYG5NsovjpKeVeQyTpMIw8hCNkqz97Nj5+31R97GKArfx
- FvTCBQ21Dt/3FRicqjABaU4W4VS+jqKz5MgCjjWoW7/8fz5NgBnX8wQtxRvChUJ90vs8
- M6mrEFvM5V+hgB099+64rLexf3D68SYLB6togDUSjQ9USqOosVkxu49B4wTl+yHLi33a
- 3Kiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691519193; x=1692123993;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=NbSuxAH1dmgDI1cFhSw3+FjHgNgeooTpwVKeZW63XUA=;
- b=di3rTvTobhLiteGjF2VddFjcL9b1vLsvQ0D8Qm5IYOgQ2PiUCLs+Ve/TkDtkuZocFW
- s67cdnDWNIPTTmAnJL4/GblpLAdyFep/npa+5V1CKhb2crz77V1dIQk+6OnNX3afqxrT
- W5q9eZO1R8gREq9VKM5dnKX+A0uBVx+kZVx+3o8w24G7gk94aKzm8QVuCxgXc/sVkjeg
- KWLa3edX9KL631vyJNL1lSGG2WVHb0R8ysqgwnpgTMX0RpP7fx0LaEog8MEmqVh5vHgv
- 6JaonlnRQ2NO9FuLkn2g6KIDSBc7TCZPcXr2i9HEFGxoUSQU2vVqXoZx3m3EK4U5S73+
- KqIA==
-X-Gm-Message-State: AOJu0YwM7ZbbQwMQymbF1VQaqDsMMgVscJ5zpwSJAc8X93rIs0Wr0Moi
- C/8XR57fqGMOSjNUAJyMM0WZYVLtoirXoWFIYzDYCw==
-X-Google-Smtp-Source: AGHT+IG8ilz+lyyZPz/QTN9yYwu4PQ8UFXiUmVfIAYHkY7cO5/Ehx+F7e2EvG0Tpci9f03MzRW/uy/lDk0h8r21yu9I=
-X-Received: by 2002:a67:f905:0:b0:443:677e:246e with SMTP id
- t5-20020a67f905000000b00443677e246emr716156vsq.5.1691519193393; Tue, 08 Aug
- 2023 11:26:33 -0700 (PDT)
-MIME-Version: 1.0
+ Tue,  8 Aug 2023 18:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4/GzwtgyO3yL3knqSnKkQgDt/ZjWhgYmwDUnxSNeivU=; b=ZTaAl906VvA1CO04UyyOSNt18z
+ +3IsbiVKTQid2ofLWwAJuV39pbuhwcrgBohShnT12TDmSKX2N398Smb0yQ6vYmLiMSQI9SmWE0ST8
+ /HLOX7gO106Vq7WzEURe/5tYXFhRWYMXi3GeTQv6ElTJ6RsBP+fmFhTpgWlGtr9iGHGDvZ7KtytVB
+ HEV8tzkFgXo8CCAK+ekTHO020J4KkSVQw2RNgKj8vzxYDdcwvl2MN9QFi0hEzMMIi9m1102JahkG8
+ glkP/uOPnrvH2Sdkg/PqFXfhl4KSnLpr0mDWeN71gIBtcfe2J8lxXA548ZuypvtcoOdL130E/jCjC
+ NTlYDDug==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42308)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qTRar-0001Vc-0w;
+ Tue, 08 Aug 2023 19:38:09 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qTRao-0008LX-FJ; Tue, 08 Aug 2023 19:38:06 +0100
+Date: Tue, 8 Aug 2023 19:38:06 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Message-ID: <ZNKLjuxnR2+V3g1D@shell.armlinux.org.uk>
 References: <20230807193102.6374-1-brgl@bgdev.pl>
  <54421791-75fa-4ed3-8432-e21184556cde@lunn.ch>
  <CAMRc=Mc6COaxM6GExHF2M+=v2TBpz87RciAv=9kHr41HkjQhCg@mail.gmail.com>
@@ -58,23 +47,21 @@ References: <20230807193102.6374-1-brgl@bgdev.pl>
  <CAMRc=MecYHi=rPaT44kuX_XMog=uwB9imVZknSjnmTBW+fb5WQ@mail.gmail.com>
  <xfme5pgj4eqlgao3vmyg6vazaqk6qz2wq6kitgujtorouogjty@cklyof3xz2zm>
  <d021b8ae-a6a3-4697-a683-c9bd45e6c74b@lunn.ch>
-In-Reply-To: <d021b8ae-a6a3-4697-a683-c9bd45e6c74b@lunn.ch>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Tue, 8 Aug 2023 20:26:22 +0200
-Message-ID: <CAMRc=MegMdB0LZNRRrCfqFGZQWMFdBhd8o+_NBxwLk0xS99M_w@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ <CAMRc=MegMdB0LZNRRrCfqFGZQWMFdBhd8o+_NBxwLk0xS99M_w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MegMdB0LZNRRrCfqFGZQWMFdBhd8o+_NBxwLk0xS99M_w@mail.gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>,
  Srini Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-arm-kernel@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Alex Elder <elder@linaro.org>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-kernel@vger.kernel.org, Andrew Halaney <ahalaney@redhat.com>
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
 Subject: Re: [Linux-stm32] [PATCH 0/2] net: stmmac: allow sharing MDIO lines
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -87,50 +74,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBBdWcgOCwgMjAyMyBhdCA1OjE14oCvUE0gQW5kcmV3IEx1bm4gPGFuZHJld0BsdW5u
-LmNoPiB3cm90ZToKPgo+ID4gSSdsbCBtYWtlIHRoZSB3YXRlciBtdWRkaWVyIChob3BlZnVsbHkg
-Y2xlYXJlcj8pLiBJIGhhdmUgYWNjZXNzIHRvIHRoZQo+ID4gYm9hcmQgc2NoZW1hdGljIChub3Qg
-U0lQL1NPTSBzdHVmZiB0aG91Z2gpLCBidXQgdGhhdCBzaG91bGQgaGVscCBoZXJlLgo+ID4KPiA+
-IE1BQzAgb3ducyBpdHMgb3duIE1ESU8gYnVzICh3ZSdsbCBjYWxsIGl0IE1ESU8wKS4gSXQgaXMg
-cGlubXV4ZWQgdG8KPiA+IGdwaW84L2dwaW85IGZvciBtZGMvbWRpby4gTUFDMSBvd25zIGl0cyBv
-d24gYnVzIChNRElPMSkgd2hpY2ggaXMKPiA+IHBpbm11eGVkIHRvIGdwaW8yMS8yMi4KPiA+Cj4g
-PiBPbiBNRElPMCB0aGVyZSBhcmUgdHdvIFNHTUlJIGV0aGVybmV0IHBoeXMuIE9uZSBpcyBjb25u
-ZWN0ZWQgdG8gTUFDMCwKPiA+IG9uZSBpcyBjb25uZWN0ZWQgdG8gTUFDMS4KPiA+Cj4gPiBNRElP
-MSBpcyBub3QgY29ubmVjdGVkIHRvIGFueXRoaW5nIG9uIHRoZSBib2FyZC4gU28gdGhlcmUgaXMg
-b25seSBvbmUKPiA+IE1ESU8gbWFzdGVyLCBNQUMwIG9uIE1ESU8wLCBhbmQgaXQgbWFuYWdlcyB0
-aGUgZXRoZXJuZXQgcGh5IGZvciBib3RoCj4gPiBNQUMwL01BQzEuCj4gPgo+ID4gRG9lcyB0aGF0
-IG1ha2Ugc2Vuc2U/IEkgZG9uJ3QgdGhpbmsgZnJvbSBhIGhhcmR3YXJlIGRlc2lnbiBzdGFuZHBv
-aW50Cj4gPiB0aGlzIGlzIHZpb2xhdGluZyBhbnl0aGluZywgaXQgaXNuJ3QgYSBtdWx0aW1hc3Rl
-ciBzZXR1cCBvbiBNRElPLgo+Cj4gVGhhbmtzIGZvciB0YWtpbmcgYSBkZXRhaWxlZCBsb29rIGF0
-IHRoZSBzY2hlbWF0aWNzLiBUaGlzIGlzIGhvdyBpCj4gd291bGQgZXhwZWN0IGl0IHRvIGJlLgo+
-Cj4gPiA+ID4gPiBHb29kIHBvaW50LCBidXQgaXQncyB3b3JzZSB0aGFuIHRoYXQ6IHdoZW4gTUFD
-MCBpcyB1bmJvdW5kLCBpdCB3aWxsCj4gPiA+ID4gPiB1bnJlZ2lzdGVyIHRoZSBNRElPIGJ1cyBh
-bmQgZGVzdHJveSBhbGwgUEhZIGRldmljZXMuIFRoZXNlIGFyZSBub3QKPiA+ID4gPiA+IHJlZmNv
-dW50ZWQgc28gdGhleSB3aWxsIGxpdGVyYWxseSBnbyBmcm9tIHVuZGVyIE1BQzEuIE5vdCBzdXJl
-IGhvdwo+ID4gPiA+ID4gdGhpcyBjYW4gYmUgZGVhbHQgd2l0aD8KPiA+ID4gPgo+ID4gPiA+IHVu
-YmluZGluZyBpcyBub3QgYSBub3JtYWwgb3BlcmF0aW9uLiBTbyBpIHdvdWxkIGp1c3QgbGl2ZSB3
-aXRoIGl0LCBhbmQKPiA+ID4gPiBpZiByb290IGRlY2lkZXMgdG8gc2hvb3QgaGVyc2VsZiBpbiB0
-aGUgZm9vdCwgdGhhdCBpcyBoZXIgY2hvaWNlLgo+ID4gPiA+Cj4gPiA+Cj4gPiA+IEkgZGlzYWdy
-ZWUuIFVuYmluZGluZyBpcyB2ZXJ5IG11Y2ggYSBub3JtYWwgb3BlcmF0aW9uLgo+Cj4gV2hhdCBk
-byB5b3UgdXNlIGl0IGZvcj8KPgo+IEkgZG9uJ3QgdGhpbmsgaSd2ZSBldmVyIG1hbnVhbGx5IGRv
-bmUgaXQuIE1heWJlIGFzIHBhcnQgb2YgYSBzY3JpcHQgdG8KPiB1bmJpbmQgdGhlIEZUREkgZHJp
-dmVyIGZyb20gYW4gRlRESSBkZXZpY2UgaW4gb3JkZXIgdG8gdXNlIHVzZXIgc3BhY2UKPiB0b29s
-cyB0byBwcm9ncmFtIHRoZSBFRVBST00/IEJ1dCB0aGF0IGlzIGFib3V0IGl0Lgo+Cj4gSSBhY3R1
-YWxseSBleHBlY3QgbWFueSB1bmJpbmQgb3BlcmF0aW9ucyBhcmUgYnJva2VuIGJlY2F1c2UgaXQg
-aXMgdmVyeQo+IHJhcmVseSB1c2VkLgo+CgpXaGVuIEkgc2F5ICJkZXZpY2UgdW5iaW5kIiwgSSBk
-b24ndCBqdXN0IG1lYW4gbWFudWFsIHVuYmluZGluZyB1c2luZwpzeXNmcy4gSSBtZWFuIGFueSBj
-b2RlIHBhdGggKHJtbW9kLCB1bnBsdWdnaW5nIHRoZSBVU0IsIGV0Yy4pIHRoYXQKbGVhZHMgdG8g
-dGhlIGRldmljZSBiZWluZyBkZXRhY2hlZCBmcm9tIGl0cyBkcml2ZXIuIFRoaXMgaXMgYQpwZXJm
-ZWN0bHkgbm9ybWFsIHNpdHVhdGlvbiBhbmQgc2hvdWxkIHdvcmsgY29ycmVjdGx5LgoKSSB3b24n
-dCBiZSBmaXhpbmcgaXQgZm9yIHRoaXMgc2VyaWVzIGJ1dCBtYXkgZW5kIHVwIGxvb2tpbmcgaW50
-bwplc3RhYmxpc2hpbmcgc29tZSBraW5kIG9mIGRldmljZSBsaW5rcyBiZXR3ZWVuIE1BQ3MgYW5k
-IHRoZWlyICJyZW1vdGUiClBIWXMgdGhhdCB3b3VsZCBhbGxvdyB0byBzYWZlbHkgdW5iaW5kIHRo
-ZW0uCgpCYXJ0Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Aug 08, 2023 at 08:26:22PM +0200, Bartosz Golaszewski wrote:
+> When I say "device unbind", I don't just mean manual unbinding using
+> sysfs. I mean any code path (rmmod, unplugging the USB, etc.) that
+> leads to the device being detached from its driver. This is a
+> perfectly normal situation and should work correctly.
+> 
+> I won't be fixing it for this series but may end up looking into
+> establishing some kind of device links between MACs and their "remote"
+> PHYs that would allow to safely unbind them.
+
+I don't think you're the first to suggest that!
+
+That gets difficult - because although the PHY may be a different
+driver, the MDIO bus may be provided by the _same_ hardware as the
+ethernet MAC itself. So you end up with a circular dependency - the
+PHY device depends on the MDIO bus device (which is the ethernet MAC)
+and then you make the ethernet MAC depend on the PHY device.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
