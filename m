@@ -2,72 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A884877509F
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Aug 2023 04:02:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA4F77545C
+	for <lists+linux-stm32@lfdr.de>; Wed,  9 Aug 2023 09:45:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19791C6B45C;
-	Wed,  9 Aug 2023 02:02:59 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A29ABC6B472;
+	Wed,  9 Aug 2023 07:45:18 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D83A0C65E70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5C3EC6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Aug 2023 02:02:57 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-6bcbb0c40b1so4942666a34.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 08 Aug 2023 19:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691546576; x=1692151376;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Axs5IugcYQGA7KHD1wIEp1iCvcichKmuTF1YhYLpm2s=;
- b=IPmEF+Oc+Ymen9pbBQ1kQ8m7nBbjb4gHbbg5mwwR0AmavHfv0v/afWFmI45rIrXeJR
- mYt3a3r1MH9dHxkBqWc0bzKhcaYSbV8sjI0S4ED/COMmjNegeZ4K8tmKZVgASKIo8OMc
- UPKjfVGLLhljpEreQ6YVWiuZy8feXQwC6Jy5jRU/k+n1Lhi+byJCviv/mHU4MgYZOz8E
- QNIe19Tf7PN6pWRhEe1s/N/di1l1KD6IkaNCWTiOyS+MpdqX/pDMsvp1i1iDCdY/M2Ua
- XJrfKnVE60cmSSWKz/qBt1E4weGTXXtmWmrQi8j0F2RlvGuG+G9k9ZlxlsztSAq6NsPA
- oLNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691546576; x=1692151376;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Axs5IugcYQGA7KHD1wIEp1iCvcichKmuTF1YhYLpm2s=;
- b=SMzKSbI2VAsjalk5uIoTDeVyqEB1GCinmbRNXy85j7i8FlU1utA+HyJao/zILvUyit
- sgkL5GqFLrFD90E6hh5fr3hQKJe0F/pK+Imq0fN2k9AMEy47Y8dvBjmEgCt4LRp3xNUF
- cHIobZcL7FfL+DqqUDDwLmEZLWh2Vb+fSrMZZ2cOip1jxIC6e1kJSdJht0yUSdjgtfYX
- 1xB1lImBaLifhox6nbA97QUqNF7WA0VoEdZN6AY7MWOoOT742jkj/2a7onIQK8aWNJIy
- hVG678usJy/fvvxfYekikn4+FgyLkEkagLHReC+B/c80ech5oF9L0BPmu4IZixflgrQC
- 0fJA==
-X-Gm-Message-State: AOJu0Yw18CArgQD00lE9bDjKcJDEcGwlGhRa1KODkfkVnCY0PrNO7Atq
- PTWUj85aOJy/iEhdlHt8W1M=
-X-Google-Smtp-Source: AGHT+IHlgYgM84isX0Aajw5zqTgIYkCyQoIlFM65l9Iv7mC6XODNv+KRtcVU5ZT2+cB8K2U5tIwfAA==
-X-Received: by 2002:a05:6830:1e52:b0:6b9:f1d3:160 with SMTP id
- e18-20020a0568301e5200b006b9f1d30160mr1505440otj.11.1691546576354; 
- Tue, 08 Aug 2023 19:02:56 -0700 (PDT)
-Received: from localhost.localdomain ([198.211.45.220])
- by smtp.googlemail.com with ESMTPSA id
- v19-20020aa78093000000b00672401787c6sm8726941pff.109.2023.08.08.19.02.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Aug 2023 19:02:55 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>
-Date: Wed,  9 Aug 2023 10:02:38 +0800
-Message-Id: <20230809020238.1136732-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Wed,  9 Aug 2023 07:45:16 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3795L1ge008160; Wed, 9 Aug 2023 09:44:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=nz0H1Z+OBWW1YMb0cFHjQXSIrxZdBeUAIrANTmveQkI=; b=UR
+ Rc7iEG20nYN3g8UCo6wRUif/BuGIWfLp8pg1OUPuMJcQQmBFZJCj/Yu7JdomTuvH
+ f3FMNMGNaWic1Yxr+NPqKRyyIEHGlBUns+oV8WHCIL3XZu1QC6EbK7yKee7Zr2Dr
+ A4CUPdhdsx0UBnDtzwywFuL311Pjh68iQIehTA8gOF0cfSG9D19w3PMPARdNwmeL
+ OkoBHa5tVFooPAvxXzsC077iAzSbcC80U85o88WHju9603wBrkZ5R0D0aWMFhD1d
+ 6XOp1SJtTslWknrSbPy+SO8HZya+DitI/DbptG7Jj93cFXPw7pmnGLDkxRuKH8kU
+ Zir/WGSJ+Ikfwd8yzC0w==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sbjfn6yx5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 09 Aug 2023 09:44:52 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D1A05100061;
+ Wed,  9 Aug 2023 09:44:47 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9463E212FAA;
+ Wed,  9 Aug 2023 09:44:47 +0200 (CEST)
+Received: from [10.201.21.98] (10.201.21.98) by EQNDAG1NODE6.st.com
+ (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 9 Aug
+ 2023 09:44:46 +0200
+Message-ID: <f9ddac2f-28c0-1804-a1de-b8c8e9972638@foss.st.com>
+Date: Wed, 9 Aug 2023 09:44:30 +0200
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 1/1] net: stmmac: xgmac: RX queue
-	routing configuration
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.0
+To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
+ <davem@davemloft.net>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Linus Walleij
+ <linus.walleij@linaro.org>, Lionel Debieve <lionel.debieve@foss.st.com>
+References: <20230731165456.799784-1-u.kleine-koenig@pengutronix.de>
+ <20230731165456.799784-2-u.kleine-koenig@pengutronix.de>
+From: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
+In-Reply-To: <20230731165456.799784-2-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.201.21.98]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To EQNDAG1NODE6.st.com
+ (10.75.129.135)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-09_06,2023-08-08_01,2023-05-22_02
+Cc: kernel@pengutronix.de, linux-crypto@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 1/3] crypto: stm32/hash - Properly handle
+ pm_runtime_get failing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,115 +76,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit abe80fdc6ee6 ("net: stmmac: RX queue routing configuration")
-introduced RX queue routing to DWMAC4 core.
-This patch extend the support to XGMAC2 core.
-
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
-Changes in v3:
-  - Clean unused defines
-
-Changes in v2:
-  - Convert the shift ops to FIELD_PREP
----
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    | 12 +++++++
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 34 +++++++++++++++++--
- 2 files changed, 44 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 1913385df685..5f931afab9aa 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -74,8 +74,20 @@
- #define XGMAC_RXQEN(x)			GENMASK((x) * 2 + 1, (x) * 2)
- #define XGMAC_RXQEN_SHIFT(x)		((x) * 2)
- #define XGMAC_RXQ_CTRL1			0x000000a4
-+#define XGMAC_AVCPQ			GENMASK(31, 28)
-+#define XGMAC_AVCPQ_SHIFT		28
-+#define XGMAC_PTPQ			GENMASK(27, 24)
-+#define XGMAC_PTPQ_SHIFT		24
-+#define XGMAC_TACPQE			BIT(23)
-+#define XGMAC_DCBCPQ			GENMASK(19, 16)
-+#define XGMAC_DCBCPQ_SHIFT		16
-+#define XGMAC_MCBCQEN			BIT(15)
-+#define XGMAC_MCBCQ			GENMASK(11, 8)
-+#define XGMAC_MCBCQ_SHIFT		8
- #define XGMAC_RQ			GENMASK(7, 4)
- #define XGMAC_RQ_SHIFT			4
-+#define XGMAC_UPQ			GENMASK(3, 0)
-+#define XGMAC_UPQ_SHIFT			0
- #define XGMAC_RXQ_CTRL2			0x000000a8
- #define XGMAC_RXQ_CTRL3			0x000000ac
- #define XGMAC_PSRQ(x)			GENMASK((x) * 8 + 7, (x) * 8)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index a0c2ef8bb0ac..38782662ff98 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -127,6 +127,36 @@ static void dwxgmac2_tx_queue_prio(struct mac_device_info *hw, u32 prio,
- 	writel(value, ioaddr + reg);
- }
- 
-+static void dwxgmac2_rx_queue_routing(struct mac_device_info *hw,
-+				      u8 packet, u32 queue)
-+{
-+	void __iomem *ioaddr = hw->pcsr;
-+	u32 value;
-+
-+	static const struct stmmac_rx_routing dwxgmac2_route_possibilities[] = {
-+		{ XGMAC_AVCPQ, XGMAC_AVCPQ_SHIFT },
-+		{ XGMAC_PTPQ, XGMAC_PTPQ_SHIFT },
-+		{ XGMAC_DCBCPQ, XGMAC_DCBCPQ_SHIFT },
-+		{ XGMAC_UPQ, XGMAC_UPQ_SHIFT },
-+		{ XGMAC_MCBCQ, XGMAC_MCBCQ_SHIFT },
-+	};
-+
-+	value = readl(ioaddr + XGMAC_RXQ_CTRL1);
-+
-+	/* routing configuration */
-+	value &= ~dwxgmac2_route_possibilities[packet - 1].reg_mask;
-+	value |= (queue << dwxgmac2_route_possibilities[packet - 1].reg_shift) &
-+		 dwxgmac2_route_possibilities[packet - 1].reg_mask;
-+
-+	/* some packets require extra ops */
-+	if (packet == PACKET_AVCPQ)
-+		value |= FIELD_PREP(XGMAC_TACPQE, 1);
-+	else if (packet == PACKET_MCBCQ)
-+		value |= FIELD_PREP(XGMAC_MCBCQEN, 1);
-+
-+	writel(value, ioaddr + XGMAC_RXQ_CTRL1);
-+}
-+
- static void dwxgmac2_prog_mtl_rx_algorithms(struct mac_device_info *hw,
- 					    u32 rx_alg)
- {
-@@ -1463,7 +1493,7 @@ const struct stmmac_ops dwxgmac210_ops = {
- 	.rx_queue_enable = dwxgmac2_rx_queue_enable,
- 	.rx_queue_prio = dwxgmac2_rx_queue_prio,
- 	.tx_queue_prio = dwxgmac2_tx_queue_prio,
--	.rx_queue_routing = NULL,
-+	.rx_queue_routing = dwxgmac2_rx_queue_routing,
- 	.prog_mtl_rx_algorithms = dwxgmac2_prog_mtl_rx_algorithms,
- 	.prog_mtl_tx_algorithms = dwxgmac2_prog_mtl_tx_algorithms,
- 	.set_mtl_tx_queue_weight = dwxgmac2_set_mtl_tx_queue_weight,
-@@ -1524,7 +1554,7 @@ const struct stmmac_ops dwxlgmac2_ops = {
- 	.rx_queue_enable = dwxlgmac2_rx_queue_enable,
- 	.rx_queue_prio = dwxgmac2_rx_queue_prio,
- 	.tx_queue_prio = dwxgmac2_tx_queue_prio,
--	.rx_queue_routing = NULL,
-+	.rx_queue_routing = dwxgmac2_rx_queue_routing,
- 	.prog_mtl_rx_algorithms = dwxgmac2_prog_mtl_rx_algorithms,
- 	.prog_mtl_tx_algorithms = dwxgmac2_prog_mtl_tx_algorithms,
- 	.set_mtl_tx_queue_weight = dwxgmac2_set_mtl_tx_queue_weight,
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpUaGFua3MgZm9yIHRoZSBtb2RpZmljYXRpb24uClRoaXMgc2hvdWxkIGJlIGFwcGxp
+ZWQgZm9yIGZpeGVzL3N0YWJsZS4KUGxlYXNlIGFkZCBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9y
+ZyBpbiB5b3VyIGNvbW1pdCBtZXNzYWdlLgoKQmVzdCByZWdhcmRzLAoKVGhvbWFzCgpPbiA3LzMx
+LzIzIDE4OjU0LCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90ZToKPiBJZiBwbV9ydW50aW1lX2dldCgp
+IChkaXNndWlzZWQgYXMgcG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgpKSBmYWlscywgdGhpcwo+
+IG1lYW5zIHRoZSBjbGsgd2Fzbid0IHByZXBhcmVkIGFuZCBlbmFibGVkLiBSZXR1cm5pbmcgZWFy
+bHkgaW4gdGhpcyBjYXNlCj4gaG93ZXZlciBpcyB3cm9uZyBhcyB0aGVuIHRoZSBmb2xsb3dpbmcg
+cmVzb3VyY2UgZnJlZXMgYXJlIHNraXBwZWQgYW5kIHRoaXMKPiBpcyBuZXZlciBjYXRjaGVkIHVw
+LiBTbyBkbyBhbGwgdGhlIGNsZWFudXBzIGJ1dCBjbGtfZGlzYWJsZV91bnByZXBhcmUoKS4KPiAK
+PiBBbHNvIGRvbid0IGVtaXQgYSB3YXJuaW5nLCBhcyBzdG0zMl9oYXNoX3J1bnRpbWVfcmVzdW1l
+KCkgYWxyZWFkeSBlbWl0dGVkCj4gb25lLgo+IAo+IE5vdGUgdGhhdCB0aGUgcmV0dXJuIHZhbHVl
+IG9mIHN0bTMyX2hhc2hfcmVtb3ZlKCkgaXMgbW9zdGx5IGlnbm9yZWQgYnkKPiB0aGUgZGV2aWNl
+IGNvcmUuIFRoZSBvbmx5IGVmZmVjdCBvZiByZXR1cm5pbmcgemVybyBpbnN0ZWFkIG9mIGFuIGVy
+cm9yCj4gdmFsdWUgaXMgdG8gc3VwcHJlc3MgYW5vdGhlciB3YXJuaW5nIGluIHBsYXRmb3JtX3Jl
+bW92ZSgpLiBTbyByZXR1cm4gMAo+IGV2ZW4gaWYgcG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgp
+IGZhaWxlZC4KPiAKPiBGaXhlczogOGI0ZDU2NmRlNmE1ICgiY3J5cHRvOiBzdG0zMi9oYXNoIC0g
+QWRkIHBvd2VyIG1hbmFnZW1lbnQgc3VwcG9ydCIpCj4gU2lnbmVkLW9mZi1ieTogVXdlIEtsZWlu
+ZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KPiAtLS0KPiAgIGRyaXZl
+cnMvY3J5cHRvL3N0bTMyL3N0bTMyLWhhc2guYyB8IDcgKysrLS0tLQo+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDMgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9jcnlwdG8vc3RtMzIvc3RtMzItaGFzaC5jIGIvZHJpdmVycy9jcnlwdG8vc3RtMzIvc3Rt
+MzItaGFzaC5jCj4gaW5kZXggODhhMTg2YzNkZDc4Li43NWQyODFlZGFlMmEgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9jcnlwdG8vc3RtMzIvc3RtMzItaGFzaC5jCj4gKysrIGIvZHJpdmVycy9jcnlw
+dG8vc3RtMzIvc3RtMzItaGFzaC5jCj4gQEAgLTIxMjEsOSArMjEyMSw3IEBAIHN0YXRpYyBpbnQg
+c3RtMzJfaGFzaF9yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgIAlpZiAo
+IWhkZXYpCj4gICAJCXJldHVybiAtRU5PREVWOwo+ICAgCj4gLQlyZXQgPSBwbV9ydW50aW1lX3Jl
+c3VtZV9hbmRfZ2V0KGhkZXYtPmRldik7Cj4gLQlpZiAocmV0IDwgMCkKPiAtCQlyZXR1cm4gcmV0
+Owo+ICsJcmV0ID0gcG1fcnVudGltZV9nZXRfc3luYyhoZGV2LT5kZXYpOwo+ICAgCj4gICAJc3Rt
+MzJfaGFzaF91bnJlZ2lzdGVyX2FsZ3MoaGRldik7Cj4gICAKPiBAQCAtMjEzOSw3ICsyMTM3LDgg
+QEAgc3RhdGljIGludCBzdG0zMl9oYXNoX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpw
+ZGV2KQo+ICAgCXBtX3J1bnRpbWVfZGlzYWJsZShoZGV2LT5kZXYpOwo+ICAgCXBtX3J1bnRpbWVf
+cHV0X25vaWRsZShoZGV2LT5kZXYpOwo+ICAgCj4gLQljbGtfZGlzYWJsZV91bnByZXBhcmUoaGRl
+di0+Y2xrKTsKPiArCWlmIChyZXQgPj0gMCkKPiArCQljbGtfZGlzYWJsZV91bnByZXBhcmUoaGRl
+di0+Y2xrKTsKPiAgIAo+ICAgCXJldHVybiAwOwo+ICAgfQpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
+c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
