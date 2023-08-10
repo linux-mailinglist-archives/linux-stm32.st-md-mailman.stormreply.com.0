@@ -2,82 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EBC878471F
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1BC784720
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED230C6C82F;
-	Tue, 22 Aug 2023 16:25:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C3C6C6C832;
+	Tue, 22 Aug 2023 16:25:20 +0000 (UTC)
+Received: from mail-pj1-f73.google.com (mail-pj1-f73.google.com
+ [209.85.216.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EDBFC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FD12C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 16:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691685808; x=1723221808;
- h=message-id:subject:from:reply-to:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=r7+pRLOhmCU2mY1+yp43/cT6YSLlci8CmLi2j4cMZDM=;
- b=a7b4p0prZDMNt18PH5rRzljbNrrJfQGyyvuROzBm1LFttHstKjunoOdt
- hoNWUhvQeuyuceWq/n5VRdm8v4l/7yvODAVrLkVHsfKS0ZhVpfaoRq83h
- CbnfcgRMgPdMx/ib1NTPnGzROBUhNifxXn9hCu5L9p9hYxA1SrXM16f2W
- vsGWEXBuhoBq3BO+2C9nj1TgJi++vgjwjQVKD05O1dR/r7ZORBbMScnyL
- tZV+L9IhtFngAvRhdk94a0ksFG6bKfqcYWTFnuWpPhTM0X5aByhKa6Uex
- HvlCyk9xMf8aRjg4x4+Fi3a13wze2fzI2AyIHWhlJOT7iUUoxxGrTOnYv A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="351776958"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="351776958"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 09:36:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="855987630"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="855987630"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga004.jf.intel.com with ESMTP; 10 Aug 2023 09:36:15 -0700
-Received: from tphi-mobl.amr.corp.intel.com (tphi-mobl.amr.corp.intel.com
- [10.209.57.169])
- by linux.intel.com (Postfix) with ESMTP id 47411580AFF;
- Thu, 10 Aug 2023 09:36:15 -0700 (PDT)
-Message-ID: <b14b087d8905297504dde89920d8d0a67b7544e8.camel@linux.intel.com>
-From: "David E. Box" <david.e.box@linux.intel.com>
-To: Hans de Goede <hdegoede@redhat.com>, Choong Yong Liang
- <yong.liang.choong@linux.intel.com>, Rajneesh Bhardwaj
- <irenic.rajneesh@gmail.com>, Mark Gross <markgross@kernel.org>, Jose Abreu
- <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Marek
- =?ISO-8859-1?Q?Beh=FAn?= <kabel@kernel.org>, Jean Delvare
- <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>, Giuseppe Cavallaro
- <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard
- Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, Wong
- Vee Khee <veekhee@apple.com>, Jon Hunter <jonathanh@nvidia.com>, Jesse
- Brandeburg <jesse.brandeburg@intel.com>, Shenwei Wang
- <shenwei.wang@nxp.com>, Andrey Konovalov <andrey.konovalov@linaro.org>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>
-Date: Thu, 10 Aug 2023 09:36:15 -0700
-In-Reply-To: <145d7375-0e58-b7cf-6240-5d8bc16b0344@redhat.com>
-References: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
- <20230804084527.2082302-2-yong.liang.choong@linux.intel.com>
- <145d7375-0e58-b7cf-6240-5d8bc16b0344@redhat.com>
-Organization: David E. Box
-User-Agent: Evolution 3.44.4-0ubuntu2 
-MIME-Version: 1.0
+ Thu, 10 Aug 2023 18:09:11 +0000 (UTC)
+Received: by mail-pj1-f73.google.com with SMTP id
+ 98e67ed59e1d1-267f1559391so1429114a91.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Aug 2023 11:09:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20221208; t=1691690950; x=1692295750;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=xZA6CEiwrXGmKCo4HzAg+4dNTQSYp2lyGfBxT58BX1k=;
+ b=q0jGi+OjzV+GO7+s2YkYtHQRcufIGOrSEvJ/RdKdGau653Wn71Lqm6OQP9rpwPxIDr
+ G+WR6h1kr2arSJqBzU9riM6xqCNaduY7ULU2bw3E4Lh6tf9XlyVCx6sQVChFbHNR1kor
+ ECwzddcGhMOzUYzUF1iXfGnj+dwnyWhcmYKAcRErJjmoWIEPLFZs0iLBb3AC0w0W7Ot3
+ 6Uy7FxbsNHM2B44KSttVctEFwtv1O5C4dGCxRcrV6yZF2yRtxKJjZTHjn7kgbnybM0Se
+ RnZQBfYNLVDnj4a7NA/DJU6OjirVTs48QFgllsMnQogE47yXBaXemS4deZesK3/Lh5IF
+ l3/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691690950; x=1692295750;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=xZA6CEiwrXGmKCo4HzAg+4dNTQSYp2lyGfBxT58BX1k=;
+ b=TYLYJUQ7m0wxFiHtpa7QNFSxepOdb+Tl441o9QKmAa3touj5DxOvs9NpQ97O7GU8Qb
+ Zr1wSnOeia4LxEe6BpfYuWH2BYeIiXZPTeRUpA57WPMItu8ST70KGWZM6iMlvqlHtwuS
+ u8+T1K5OXRZQSmXtj1yQlxiatyBovGstlWZDPlpuKLB09tTa59bMk75fJcsr8flg4lMn
+ k8ujnQf4gYE3hvgMbLqxxfGc3MyGgOThLwlhgWqAaG608vmTMqUwAOAXTUTEV8/AweiZ
+ 25nj7EhzNrbujCNItsL34hNzBHTJN9Ze3wZ/v/HR1kw8LLLZ4ncz3KlNNGNgoEuEjB8y
+ r4GA==
+X-Gm-Message-State: AOJu0YzHrKS2pWWQzv0gugVXRkHhKR6mOX2aaa4g6T3aCIsbwinhnro0
+ cYAUycyHKp6dAAD1uGzMNBrVDqs=
+X-Google-Smtp-Source: AGHT+IHSaQ4aZmd8MIdgX6r7UqBsLG4470xdZ9xBw4J+GJzxLX6Hvu3rBPJ6ERqIclixWKSiZIDvpDU=
+X-Received: from sdf.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5935])
+ (user=sdf job=sendgmr) by 2002:a17:90a:a78a:b0:268:2c37:3f59 with SMTP id
+ f10-20020a17090aa78a00b002682c373f59mr711983pjq.4.1691690949813; Thu, 10 Aug
+ 2023 11:09:09 -0700 (PDT)
+Date: Thu, 10 Aug 2023 11:09:08 -0700
+In-Reply-To: <tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com>
+Mime-Version: 1.0
+References: <tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com>
+Message-ID: <ZNUnxJ26/4QfvoC+@google.com>
+From: Stanislav Fomichev <sdf@google.com>
+To: Rong Tao <rtoax@foxmail.com>
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: linux-hwmon@vger.kernel.org, Tan Tee Min <tee.min.tan@linux.intel.com>,
- Voon Wei Feng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Lai Peter Jun Ann <jun.ann.lai@intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>, bpf@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/5] platform/x86:
- intel_pmc_core: Add IPC mailbox accessor function and add SoC register
- access
+Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Song Liu <song@kernel.org>,
+ rongtao@cestc.cn, Yonghong Song <yonghong.song@linux.dev>,
+ Daniel =?utf-8?Q?M=C3=BCller?= <deso@posteo.net>,
+ Xu Kuohai <xukuohai@huawei.com>, Shuah Khan <shuah@kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Mykola Lysenko <mykolal@fb.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Manu Bretelle <chantr4@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ross Zwisler <zwisler@google.com>,
+ "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, ast@kernel.org,
+ KP Singh <kpsingh@kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>, open list <linux-kernel@vger.kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
+ "open list:BPF \[GENERAL\] \(Safe Dynamic Programs and Tools\)"
+ <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [PATCH bpf-next] selftests/bpf: trace_helpers.c:
+ optimize kallsyms cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,178 +85,183 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: david.e.box@linux.intel.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSGFucywKCk9uIE1vbiwgMjAyMy0wOC0wNyBhdCAxMzowMiArMDIwMCwgSGFucyBkZSBHb2Vk
-ZSB3cm90ZToKPiA+IEhpIERhdmlkLAo+ID4gCj4gPiBPbiA4LzQvMjMgMTA6NDUsIENob29uZyBZ
-b25nIExpYW5nIHdyb3RlOgo+ID4gPiA+IEZyb206ICJEYXZpZCBFLiBCb3giIDxkYXZpZC5lLmJv
-eEBsaW51eC5pbnRlbC5jb20+Cj4gPiA+ID4gCj4gPiA+ID4gLSBFeHBvcnRzIGludGVsX3BtY19j
-b3JlX2lwYygpIGZvciBob3N0IGFjY2VzcyB0byB0aGUgUE1DIElQQyBtYWlsYm94Cj4gPiA+ID4g
-LSBBZGQgc3VwcG9ydCB0byB1c2UgSVBDIGNvbW1hbmQgYWxsb3dzIGhvc3QgdG8gYWNjZXNzIFNv
-QyByZWdpc3RlcnMKPiA+ID4gPiB0aHJvdWdoIFBNQyBmaXJtd2FyZSB0aGF0IGFyZSBvdGhlcndp
-c2UgaW5hY2Nlc3NpYmxlIHRvIHRoZSBob3N0IGR1ZSB0bwo+ID4gPiA+IHNlY3VyaXR5IHBvbGlj
-aWVzLgo+ID4gPiA+IAo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IERhdmlkIEUuIEJveCA8ZGF2aWQu
-ZS5ib3hAbGludXguaW50ZWwuY29tPgo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IENoYW8gUWluIDxj
-aGFvLnFpbkBpbnRlbC5jb20+Cj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQ2hvb25nIFlvbmcgTGlh
-bmcgPHlvbmcubGlhbmcuY2hvb25nQGxpbnV4LmludGVsLmNvbT4KPiA+IAo+ID4gVGhlIG5ldyBl
-eHBvcnRlZCBpbnRlbF9wbWNfY29yZV9pcGMoKSBmdW5jdGlvbiBkb2VzIG5vdCBzZWVtIHRvCj4g
-PiBkZXBlbmQgb24gYW55IGV4aXN0aW5nIFBNQyBjb2RlLgo+ID4gCj4gPiBJTUhPIGl0IHdvdWxk
-IGJlIGJldHRlciB0byBwdXQgdGhpcyBpbiBhIG5ldyAuYyBmaWxlIHVuZGVyCj4gPiBhcmNoL3g4
-Ni9wbGF0Zm9ybS9pbnRlbC8gdGhpcyBpcyB3aGVyZSBzaW1pbGFyIGhlbHBlcnMgbGlrZQo+ID4g
-dGhlIGlvc2ZfbWJpIGZ1bmN0aW9ucyBhbHNvIGxpdmUuCj4gPiAKPiA+IFRoaXMgYWxzbyBhdm9p
-ZHMgS2NvbmZpZyBjb21wbGljYXRpb25zLiBDdXJyZW50bHkgdGhlCj4gPiBkcml2ZXJzL3BsYXRm
-b3JtL3g4Ni9pbnRlbC9wbWMvY29yZS5jIGNvZGUgaXMgb25seQo+ID4gYnVpbGQgaWYgQ09ORklH
-X1g4Nl9QTEFURk9STV9ERVZJQ0VTIGFuZAo+ID4gQ09ORklHX0lOVEVMX1BNQ19DT1JFIGFyZSBi
-b3RoIHNldC4gU28gaWYgYSBkcml2ZXIKPiA+IHdhbnRzIHRvIG1ha2Ugc3VyZSB0aGlzIGlzIGVu
-YWJsZWQgYnkgc2VsZWN0aW5nIHRoZW0KPiA+IHRoZW4gaXQgbmVlZHMgdG8gc2VsZWN0IGJvdGgu
-CgpZZWFoLCBtYWtlcyBzZW5zZS4gVGhpcyBpcyBhbiBvbGQgcGF0Y2guIE9uY2UgdXBvbiBhIHRp
-bWUgdGhlIFBNQyBkcml2ZXIgd2FzCmdvaW5nIHRvIHVzZSB0aGUgSVBDIHRvIGFjY2VzcyBzb21l
-IHJlZ2lzdGVycyBidXQgd2Ugd2VyZSBhYmxlIHRvIGdldCB0aGVtIGZyb20KZWxzZXdoZXJlLiBU
-aGUgcGF0Y2ggd2FzIGJyb3VnaHQgYmFjayBmb3IgdGhlIFRTTiB1c2UgY2FzZS4gQnV0IHlvdSdy
-ZSBjb3JyZWN0CnRoYXQgYXJjaC94ODYvcGxhdGZvcm0vaW50ZWwgbWFrZXMgbW9yZSBzZW5zZSBp
-ZiB0aGUgZnVuY3Rpb24gaXMgdG8gYmUgZXhwb3J0ZWQKbm93IGFuZCBkb2Vzbid0IHJlcXVpcmUg
-dG8gUE1DIGRyaXZlciB0byBkaXNjb3ZlciB0aGUgaW50ZXJmYWNlLiBXZSdsbCBkbyB0aGF0LgoK
-PiA+IAo+ID4gVGFsa2luZyBhYm91dCBLY29uZmlnOgo+ID4gCj4gPiAjaWYgSVNfRU5BQkxFRChD
-T05GSUdfSU5URUxfUE1DX0NPUkUpCj4gPiBpbnQgaW50ZWxfcG1jX2NvcmVfaXBjKHN0cnVjdCBw
-bWNfaXBjX2NtZCAqaXBjX2NtZCwgdTMyICpyYnVmKTsKPiA+ICNlbHNlCj4gPiBzdGF0aWMgaW5s
-aW5lIGludCBpbnRlbF9wbWNfY29yZV9pcGMoc3RydWN0IHBtY19pcGNfY21kICppcGNfY21kLCB1
-MzIgKnJidWYpCj4gPiB7Cj4gPiDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIC1FTk9ERVY7Cj4gPiB9
-Cj4gPiAjZW5kaWYgLyogQ09ORklHX0lOVEVMX1BNQ19DT1JFICovCj4gPiAKPiA+IE5vdGljZSB0
-aGF0IENPTkZJR19JTlRFTF9QTUNfQ09SRSBpcyBhIHRyaXN0YXRlLCBzbyBwbWMgbWlnaHQgYmUg
-YnVpbGQgYXMgYQo+ID4gPiBtb2R1bGUgd2hlcmUgYXMgYSBjb25zdW1lciBvZiBpbnRlbF9wbWNf
-Y29yZV9pcGMoKSBtaWdodCBlbmQgdXAgYnVpbHRpbiBpbgo+ID4gPiB3aGljaCBjYXNlIHRoaXMg
-d2lsbCBub3Qgd29yayB3aXRob3V0IGV4dHJhIEtjb25maWcgcHJvdGVjdGlvbi4gQW5kIGlmIHlv
-dQo+ID4gYXJlID4gZ29pbmcgdG8gYWRkIGV4dHJhIEtjb25maWcgeW91IG1pZ2h0IGp1c3QgYXMg
-d2VsbCBzZWxlY3Qgb3IgZGVwZW5kIG9uCj4gPiA+IElOVEVMX1BNQ19DT1JFIGFuZCBkcm9wIHRo
-ZSAjaWYgLgoKU3VyZS4gVGhhbmtzLgoKRGF2aWQKCj4gPiAKPiA+IFJlZ2FyZHMsCj4gPiAKPiA+
-IEhhbnMKPiA+IAo+ID4gCj4gPiAKPiA+IAo+ID4gCj4gPiAKPiA+ID4gPiAtLS0KPiA+ID4gPiDC
-oE1BSU5UQUlORVJTwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgIDEgKwo+ID4gPiA+IMKgZHJpdmVycy9wbGF0Zm9y
-bS94ODYvaW50ZWwvcG1jL2NvcmUuY8KgwqDCoMKgwqDCoMKgwqAgfCA2MCArKysrKysrKysrKysr
-KysrKysrCj4gPiA+ID4gwqAuLi4vbGludXgvcGxhdGZvcm1fZGF0YS94ODYvaW50ZWxfcG1jX2Nv
-cmUuaMKgIHwgNDEgKysrKysrKysrKysrKwo+ID4gPiA+IMKgMyBmaWxlcyBjaGFuZ2VkLCAxMDIg
-aW5zZXJ0aW9ucygrKQo+ID4gPiA+IMKgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvbGludXgv
-cGxhdGZvcm1fZGF0YS94ODYvaW50ZWxfcG1jX2NvcmUuaAo+ID4gPiA+IAo+ID4gPiA+IGRpZmYg
-LS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTCj4gPiA+ID4gaW5kZXggMDY5ZTE3NmQ2
-MDdhLi44YTAzNGRlZTlkYTkgMTAwNjQ0Cj4gPiA+ID4gLS0tIGEvTUFJTlRBSU5FUlMKPiA+ID4g
-PiArKysgYi9NQUlOVEFJTkVSUwo+ID4gPiA+IEBAIC0xMDY0OCw2ICsxMDY0OCw3IEBAIEw6wqDC
-oMKgwqDCoMKgcGxhdGZvcm0tZHJpdmVyLXg4NkB2Z2VyLmtlcm5lbC5vcmcKPiA+ID4gPiDCoFM6
-wqDCoMKgwqDCoE1haW50YWluZWQKPiA+ID4gPiDCoEY6wqDCoMKgwqDCoERvY3VtZW50YXRpb24v
-QUJJL3Rlc3Rpbmcvc3lzZnMtcGxhdGZvcm0taW50ZWwtcG1jCj4gPiA+ID4gwqBGOsKgwqDCoMKg
-wqBkcml2ZXJzL3BsYXRmb3JtL3g4Ni9pbnRlbC9wbWMvCj4gPiA+ID4gK0Y6wqDCoMKgwqDCoGxp
-bnV4L3BsYXRmb3JtX2RhdGEveDg2L2ludGVsX3BtY19jb3JlLmgKPiA+ID4gPiDCoAo+ID4gPiA+
-IMKgSU5URUwgUE1JQyBHUElPIERSSVZFUlMKPiA+ID4gPiDCoE06wqDCoMKgwqDCoEFuZHkgU2hl
-dmNoZW5rbyA8YW5keUBrZXJuZWwub3JnPgo+ID4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3Bs
-YXRmb3JtL3g4Ni9pbnRlbC9wbWMvY29yZS5jID4gPgo+ID4gPiA+IGIvZHJpdmVycy9wbGF0Zm9y
-bS94ODYvaW50ZWwvcG1jL2NvcmUuYwo+ID4gPiA+IGluZGV4IDVhMzZiM2Y3N2JjNS4uNmZiMWIw
-ZjQ1M2Q4IDEwMDY0NAo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvcGxhdGZvcm0veDg2L2ludGVsL3Bt
-Yy9jb3JlLmMKPiA+ID4gPiArKysgYi9kcml2ZXJzL3BsYXRmb3JtL3g4Ni9pbnRlbC9wbWMvY29y
-ZS5jCj4gPiA+ID4gQEAgLTIwLDYgKzIwLDcgQEAKPiA+ID4gPiDCoCNpbmNsdWRlIDxsaW51eC9w
-Y2kuaD4KPiA+ID4gPiDCoCNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4gPiA+ID4gwqAjaW5jbHVk
-ZSA8bGludXgvc3VzcGVuZC5oPgo+ID4gPiA+ICsjaW5jbHVkZSA8bGludXgvcGxhdGZvcm1fZGF0
-YS94ODYvaW50ZWxfcG1jX2NvcmUuaD4KPiA+ID4gPiDCoAo+ID4gPiA+IMKgI2luY2x1ZGUgPGFz
-bS9jcHVfZGV2aWNlX2lkLmg+Cj4gPiA+ID4gwqAjaW5jbHVkZSA8YXNtL2ludGVsLWZhbWlseS5o
-Pgo+ID4gPiA+IEBAIC0yOCw2ICsyOSw4IEBACj4gPiA+ID4gwqAKPiA+ID4gPiDCoCNpbmNsdWRl
-ICJjb3JlLmgiCj4gPiA+ID4gwqAKPiA+ID4gPiArI2RlZmluZSBQTUNfSVBDU19QQVJBTV9DT1VO
-VMKgwqDCoMKgwqDCoMKgwqDCoMKgIDcKPiA+ID4gPiArCj4gPiA+ID4gwqAvKiBNYXhpbXVtIG51
-bWJlciBvZiBtb2RlcyBzdXBwb3J0ZWQgYnkgcGxhdGZvbXMgdGhhdCBoYXMgbG93IHBvd2VyCj4g
-PiA+ID4gbW9kZSA+ID4gY2FwYWJpbGl0eSAqLwo+ID4gPiA+IMKgY29uc3QgY2hhciAqcG1jX2xw
-bV9tb2Rlc1tdID0gewo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgwqAiUzBpMi4wIiwKPiA+ID4gPiBA
-QCAtNTMsNiArNTYsNjMgQEAgY29uc3Qgc3RydWN0IHBtY19iaXRfbWFwIG1zcl9tYXBbXSA9IHsK
-PiA+ID4gPiDCoMKgwqDCoMKgwqDCoMKge30KPiA+ID4gPiDCoH07Cj4gPiA+ID4gwqAKPiA+ID4g
-PiAraW50IGludGVsX3BtY19jb3JlX2lwYyhzdHJ1Y3QgcG1jX2lwY19jbWQgKmlwY19jbWQsIHUz
-MiAqcmJ1ZikKPiA+ID4gPiArewo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoHN0cnVjdCBhY3BpX2J1
-ZmZlciBidWZmZXIgPSB7IEFDUElfQUxMT0NBVEVfQlVGRkVSLCBOVUxMIH07Cj4gPiA+ID4gK8Kg
-wqDCoMKgwqDCoMKgdW5pb24gYWNwaV9vYmplY3QgcGFyYW1zW1BNQ19JUENTX1BBUkFNX0NPVU5U
-XSA9IHsKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgey50eXBlID0gQUNQ
-SV9UWVBFX0lOVEVHRVIsfSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-ey50eXBlID0gQUNQSV9UWVBFX0lOVEVHRVIsfSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgey50eXBlID0gQUNQSV9UWVBFX0lOVEVHRVIsfSwKPiA+ID4gPiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgey50eXBlID0gQUNQSV9UWVBFX0lOVEVHRVIsfSwKPiA+
-ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgey50eXBlID0gQUNQSV9UWVBFX0lO
-VEVHRVIsfSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgey50eXBlID0g
-QUNQSV9UWVBFX0lOVEVHRVIsfSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgey50eXBlID0gQUNQSV9UWVBFX0lOVEVHRVIsfSwKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqB9
-Owo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoHN0cnVjdCBhY3BpX29iamVjdF9saXN0IGFyZ19saXN0
-ID0geyBQTUNfSVBDU19QQVJBTV9DT1VOVCwKPiA+ID4gPiBwYXJhbXMgfTsKPiA+ID4gPiArwqDC
-oMKgwqDCoMKgwqB1bmlvbiBhY3BpX29iamVjdCAqb2JqOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDC
-oGludCBzdGF0dXM7Cj4gPiA+ID4gKwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoGlmICghaXBjX2Nt
-ZCB8fCAhcmJ1ZikKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJu
-IC1FSU5WQUw7Cj4gPiA+ID4gKwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoC8qCj4gPiA+ID4gK8Kg
-wqDCoMKgwqDCoMKgICogMDogSVBDIENvbW1hbmQKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqAgKiAx
-OiBJUEMgU3ViIENvbW1hbmQKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqAgKiAyOiBTaXplCj4gPiA+
-ID4gK8KgwqDCoMKgwqDCoMKgICogMy02OiBXcml0ZSBCdWZmZXIgZm9yIG9mZnNldAo+ID4gPiA+
-ICvCoMKgwqDCoMKgwqDCoCAqLwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoHBhcmFtc1swXS5pbnRl
-Z2VyLnZhbHVlID0gaXBjX2NtZC0+Y21kOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoHBhcmFtc1sx
-XS5pbnRlZ2VyLnZhbHVlID0gaXBjX2NtZC0+c3ViX2NtZDsKPiA+ID4gPiArwqDCoMKgwqDCoMKg
-wqBwYXJhbXNbMl0uaW50ZWdlci52YWx1ZSA9IGlwY19jbWQtPnNpemU7Cj4gPiA+ID4gK8KgwqDC
-oMKgwqDCoMKgcGFyYW1zWzNdLmludGVnZXIudmFsdWUgPSBpcGNfY21kLT53YnVmWzBdOwo+ID4g
-PiA+ICvCoMKgwqDCoMKgwqDCoHBhcmFtc1s0XS5pbnRlZ2VyLnZhbHVlID0gaXBjX2NtZC0+d2J1
-ZlsxXTsKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqBwYXJhbXNbNV0uaW50ZWdlci52YWx1ZSA9IGlw
-Y19jbWQtPndidWZbMl07Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgcGFyYW1zWzZdLmludGVnZXIu
-dmFsdWUgPSBpcGNfY21kLT53YnVmWzNdOwo+ID4gPiA+ICsKPiA+ID4gPiArwqDCoMKgwqDCoMKg
-wqBzdGF0dXMgPSBhY3BpX2V2YWx1YXRlX29iamVjdChOVUxMLCAiXFxJUENTIiwgJmFyZ19saXN0
-LAo+ID4gPiA+ICZidWZmZXIpOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoGlmIChBQ1BJX0ZBSUxV
-UkUoc3RhdHVzKSkKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJu
-IC1FTk9ERVY7Cj4gPiA+ID4gKwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoG9iaiA9IGJ1ZmZlci5w
-b2ludGVyOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoC8qIENoZWNrIGlmIHRoZSBudW1iZXIgb2Yg
-ZWxlbWVudHMgaW4gcGFja2FnZSBpcyA1ICovCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgaWYgKG9i
-aiAmJiBvYmotPnR5cGUgPT0gQUNQSV9UWVBFX1BBQ0tBR0UgJiYgb2JqLT5wYWNrYWdlLmNvdW50
-Cj4gPiA+ID4gPT0gPiA+IDUpIHsKPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgY29uc3QgdW5pb24gYWNwaV9vYmplY3QgKm9ianMgPSBvYmotPnBhY2thZ2UuZWxlbWVudHM7
-Cj4gPiA+ID4gKwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqBpZiAoKHU4
-KW9ianNbMF0uaW50ZWdlci52YWx1ZSAhPSAwKQo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgcmV0dXJuIC1FSU5WQUw7Cj4gPiA+ID4gKwo+ID4g
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByYnVmWzBdID0gb2Jqc1sxXS5pbnRl
-Z2VyLnZhbHVlOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByYnVmWzFd
-ID0gb2Jqc1syXS5pbnRlZ2VyLnZhbHVlOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqByYnVmWzJdID0gb2Jqc1szXS5pbnRlZ2VyLnZhbHVlOwo+ID4gPiA+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqByYnVmWzNdID0gb2Jqc1s0XS5pbnRlZ2VyLnZhbHVlOwo+
-ID4gPiA+ICvCoMKgwqDCoMKgwqDCoH0gZWxzZSB7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoHJldHVybiAtRUlOVkFMOwo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoH0KPiA+
-ID4gPiArCj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgcmV0dXJuIDA7Cj4gPiA+ID4gK30KPiA+ID4g
-PiArRVhQT1JUX1NZTUJPTChpbnRlbF9wbWNfY29yZV9pcGMpOwo+ID4gPiA+ICsKPiA+ID4gPiDC
-oHN0YXRpYyBpbmxpbmUgdTMyIHBtY19jb3JlX3JlZ19yZWFkKHN0cnVjdCBwbWMgKnBtYywgaW50
-IHJlZ19vZmZzZXQpCj4gPiA+ID4gwqB7Cj4gPiA+ID4gwqDCoMKgwqDCoMKgwqDCoHJldHVybiBy
-ZWFkbChwbWMtPnJlZ2Jhc2UgKyByZWdfb2Zmc2V0KTsKPiA+ID4gPiBkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9saW51eC9wbGF0Zm9ybV9kYXRhL3g4Ni9pbnRlbF9wbWNfY29yZS5oID4gPgo+ID4gPiA+
-IGIvaW5jbHVkZS9saW51eC9wbGF0Zm9ybV9kYXRhL3g4Ni9pbnRlbF9wbWNfY29yZS5oCj4gPiA+
-ID4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiA+ID4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjliYjMz
-OTRmZWRjZgo+ID4gPiA+IC0tLSAvZGV2L251bGwKPiA+ID4gPiArKysgYi9pbmNsdWRlL2xpbnV4
-L3BsYXRmb3JtX2RhdGEveDg2L2ludGVsX3BtY19jb3JlLmgKPiA+ID4gPiBAQCAtMCwwICsxLDQx
-IEBACj4gPiA+ID4gKy8qIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wICovCj4gPiA+
-ID4gKy8qCj4gPiA+ID4gKyAqIEludGVsIENvcmUgU29DIFBvd2VyIE1hbmFnZW1lbnQgQ29udHJv
-bGxlciBIZWFkZXIgRmlsZQo+ID4gPiA+ICsgKgo+ID4gPiA+ICsgKiBDb3B5cmlnaHQgKGMpIDIw
-MjMsIEludGVsIENvcnBvcmF0aW9uLgo+ID4gPiA+ICsgKiBBbGwgUmlnaHRzIFJlc2VydmVkLgo+
-ID4gPiA+ICsgKgo+ID4gPiA+ICsgKiBBdXRob3JzOiBDaG9vbmcgWW9uZyBMaWFuZyA8eW9uZy5s
-aWFuZy5jaG9vbmdAbGludXguaW50ZWwuY29tPgo+ID4gPiA+ICsgKsKgwqDCoMKgwqDCoMKgwqDC
-oCBEYXZpZCBFLiBCb3ggPGRhdmlkLmUuYm94QGxpbnV4LmludGVsLmNvbT4KPiA+ID4gPiArICov
-Cj4gPiA+ID4gKyNpZm5kZWYgSU5URUxfUE1DX0NPUkVfSAo+ID4gPiA+ICsjZGVmaW5lIElOVEVM
-X1BNQ19DT1JFX0gKPiA+ID4gPiArCj4gPiA+ID4gKyNkZWZpbmUgSVBDX1NPQ19SRUdJU1RFUl9B
-Q0NFU1PCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAweEFB
-Cj4gPiA+ID4gKyNkZWZpbmUgSVBDX1NPQ19TVUJfQ01EX1JFQUTCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoDB4MDAKPiA+ID4gPiArI2RlZmluZSBJUENfU09DX1NVQl9DTURf
-V1JJVEXCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAweDAxCj4gPiA+ID4gKwo+
-ID4gPiA+ICtzdHJ1Y3QgcG1jX2lwY19jbWQgewo+ID4gPiA+ICvCoMKgwqDCoMKgwqDCoHUzMiBj
-bWQ7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgdTMyIHN1Yl9jbWQ7Cj4gPiA+ID4gK8KgwqDCoMKg
-wqDCoMKgdTMyIHNpemU7Cj4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgdTMyIHdidWZbNF07Cj4gPiA+
-ID4gK307Cj4gPiA+ID4gKwo+ID4gPiA+ICsjaWYgSVNfRU5BQkxFRChDT05GSUdfSU5URUxfUE1D
-X0NPUkUpCj4gPiA+ID4gKy8qKgo+ID4gPiA+ICsgKiBpbnRlbF9wbWNfY29yZV9pcGMoKSAtIFBN
-QyBJUEMgTWFpbGJveCBhY2Nlc3Nvcgo+ID4gPiA+ICsgKiBAaXBjX2NtZDrCoCBzdHJ1Y3QgcG1j
-X2lwY19jbWQgcHJlcGFyZWQgd2l0aCBpbnB1dCB0byBzZW5kCj4gPiA+ID4gKyAqIEByYnVmOsKg
-wqDCoMKgIEFsbG9jYXRlZCB1MzJbNF0gYXJyYXkgZm9yIHJldHVybmVkIElQQyBkYXRhCj4gPiA+
-ID4gKyAqCj4gPiA+ID4gKyAqIFJldHVybjogMCBvbiBzdWNjZXNzLiBOb24temVybyBvbiBtYWls
-Ym94IGVycm9yCj4gPiA+ID4gKyAqLwo+ID4gPiA+ICtpbnQgaW50ZWxfcG1jX2NvcmVfaXBjKHN0
-cnVjdCBwbWNfaXBjX2NtZCAqaXBjX2NtZCwgdTMyICpyYnVmKTsKPiA+ID4gPiArI2Vsc2UKPiA+
-ID4gPiArc3RhdGljIGlubGluZSBpbnQgaW50ZWxfcG1jX2NvcmVfaXBjKHN0cnVjdCBwbWNfaXBj
-X2NtZCAqaXBjX2NtZCwgdTMyID4KPiA+ID4gPiA+ICpyYnVmKQo+ID4gPiA+ICt7Cj4gPiA+ID4g
-K8KgwqDCoMKgwqDCoMKgcmV0dXJuIC1FTk9ERVY7Cj4gPiA+ID4gK30KPiA+ID4gPiArI2VuZGlm
-IC8qIENPTkZJR19JTlRFTF9QTUNfQ09SRSAqLwo+ID4gPiA+ICsKPiA+ID4gPiArI2VuZGlmIC8q
-IElOVEVMX1BNQ19DT1JFX0ggKi8KPiA+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 08/10, Rong Tao wrote:
+> From: Rong Tao <rongtao@cestc.cn>
+> 
+> Static ksyms often have problems because the number of symbols exceeds the
+> MAX_SYMS limit. Like changing the MAX_SYMS from 300000 to 400000 in
+> commit e76a014334a6("selftests/bpf: Bump and validate MAX_SYMS") solves
+> the problem somewhat, but it's not the perfect way.
+> 
+> This commit uses dynamic memory allocation, which completely solves the
+> problem caused by the limitation of the number of kallsyms.
+
+Thank you for doing this! I do remember complaining about it on the last
+"let's bump the limit" patch :-D
+
+> Signed-off-by: Rong Tao <rongtao@cestc.cn>
+> ---
+>  samples/bpf/offwaketime_user.c                |  1 +
+>  samples/bpf/sampleip_user.c                   |  1 +
+>  samples/bpf/spintest_user.c                   |  1 +
+>  samples/bpf/task_fd_query_user.c              |  1 +
+>  samples/bpf/trace_event_user.c                |  1 +
+>  .../selftests/bpf/prog_tests/bpf_cookie.c     |  1 +
+>  .../bpf/prog_tests/get_stack_raw_tp.c         |  1 +
+>  .../bpf/prog_tests/kprobe_multi_test.c        |  2 +
+>  .../prog_tests/kprobe_multi_testmod_test.c    |  2 +
+>  tools/testing/selftests/bpf/trace_helpers.c   | 74 ++++++++++++-------
+>  tools/testing/selftests/bpf/trace_helpers.h   |  1 +
+>  11 files changed, 60 insertions(+), 26 deletions(-)
+> 
+> diff --git a/samples/bpf/offwaketime_user.c b/samples/bpf/offwaketime_user.c
+> index b6eedcb98fb9..5e6934f2d932 100644
+> --- a/samples/bpf/offwaketime_user.c
+> +++ b/samples/bpf/offwaketime_user.c
+> @@ -149,5 +149,6 @@ int main(int argc, char **argv)
+>  		bpf_link__destroy(links[i]);
+>  
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+
+Do we really need to free the symbols? IOW, is it enough to load them
+once and keep them around until test_progs dies?
+
+If we do, I wonder what would happen when test_progs runs in parallel mode?
+Feels like if we're adding this alloc/free, then load_symbols
+should return some object which free_kallsyms should free?
+And ksym_get_addr would also work on that object, not on the global
+state..
+
+
+>  	return 0;
+>  }
+> diff --git a/samples/bpf/sampleip_user.c b/samples/bpf/sampleip_user.c
+> index 9283f47844fb..548ca1e9fcac 100644
+> --- a/samples/bpf/sampleip_user.c
+> +++ b/samples/bpf/sampleip_user.c
+> @@ -230,5 +230,6 @@ int main(int argc, char **argv)
+>  
+>  	free(links);
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+>  	return error;
+>  }
+> diff --git a/samples/bpf/spintest_user.c b/samples/bpf/spintest_user.c
+> index aadac14f748a..895a64afaf78 100644
+> --- a/samples/bpf/spintest_user.c
+> +++ b/samples/bpf/spintest_user.c
+> @@ -88,5 +88,6 @@ int main(int ac, char **argv)
+>  		bpf_link__destroy(links[j]);
+>  
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+>  	return 0;
+>  }
+> diff --git a/samples/bpf/task_fd_query_user.c b/samples/bpf/task_fd_query_user.c
+> index 1e61f2180470..3eb9477541fb 100644
+> --- a/samples/bpf/task_fd_query_user.c
+> +++ b/samples/bpf/task_fd_query_user.c
+> @@ -419,5 +419,6 @@ int main(int argc, char **argv)
+>  		bpf_link__destroy(links[i]);
+>  
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+>  	return err;
+>  }
+> diff --git a/samples/bpf/trace_event_user.c b/samples/bpf/trace_event_user.c
+> index 9664749bf618..a8b9343126fa 100644
+> --- a/samples/bpf/trace_event_user.c
+> +++ b/samples/bpf/trace_event_user.c
+> @@ -348,5 +348,6 @@ int main(int argc, char **argv)
+>  
+>  cleanup:
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+>  	err_exit(error);
+>  }
+> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> index 26b2d1bffdfd..4786396e554b 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> @@ -170,6 +170,7 @@ static void kprobe_multi_link_api_subtest(void)
+>  cleanup:
+>  	close(link1_fd);
+>  	close(link2_fd);
+> +	free_kallsyms();
+>  	kprobe_multi__destroy(skel);
+>  }
+>  
+> diff --git a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
+> index 858e0575f502..4e1c564746e1 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
+> @@ -146,4 +146,5 @@ void test_get_stack_raw_tp(void)
+>  	bpf_link__destroy(link);
+>  	perf_buffer__free(pb);
+>  	bpf_object__close(obj);
+> +	free_kallsyms();
+>  }
+> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
+> index 2173c4bb555e..d6c0b5f2f887 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
+> @@ -488,4 +488,6 @@ void test_kprobe_multi_test(void)
+>  		test_attach_api_syms();
+>  	if (test__start_subtest("attach_api_fails"))
+>  		test_attach_api_fails();
+> +
+> +	free_kallsyms();
+>  }
+> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
+> index 1fbe7e4ac00a..c25f262832b7 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
+> @@ -86,4 +86,6 @@ void serial_test_kprobe_multi_testmod_test(void)
+>  		test_testmod_attach_api_syms();
+>  	if (test__start_subtest("testmod_attach_api_addrs"))
+>  		test_testmod_attach_api_addrs();
+> +
+> +	free_kallsyms();
+>  }
+> diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
+> index f83d9f65c65b..08986f70836b 100644
+> --- a/tools/testing/selftests/bpf/trace_helpers.c
+> +++ b/tools/testing/selftests/bpf/trace_helpers.c
+> @@ -18,9 +18,32 @@
+>  #define TRACEFS_PIPE	"/sys/kernel/tracing/trace_pipe"
+>  #define DEBUGFS_PIPE	"/sys/kernel/debug/tracing/trace_pipe"
+>  
+> -#define MAX_SYMS 400000
+> -static struct ksym syms[MAX_SYMS];
+> -static int sym_cnt;
+> +static struct {
+> +	struct ksym *syms;
+> +	unsigned int sym_cnt;
+> +} ksyms = {
+> +	.syms = NULL,
+> +	.sym_cnt = 0,
+> +};
+> +
+> +static int ksyms__add_symbol(const char *name, unsigned long addr)
+> +{
+> +	void *tmp;
+> +	unsigned int cnt = ksyms.sym_cnt;
+> +
+> +	cnt++;
+> +	tmp = realloc(ksyms.syms, sizeof(struct ksym) * cnt);
+> +	if (!tmp)
+> +		return -ENOMEM;
+
+Should we do the usual len/capacity scheme here to amortize the cost
+of realloc (like doubling capacity when we reach it)?
+Calling realloc on every symbol doesn't seem right.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
