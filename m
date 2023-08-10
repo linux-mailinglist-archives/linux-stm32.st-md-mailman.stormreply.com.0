@@ -2,55 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0392478471C
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B4F278470D
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B55C3C6C826;
-	Tue, 22 Aug 2023 16:25:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7384C6C829;
+	Tue, 22 Aug 2023 16:25:00 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61071C6B45A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95536C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  8 Aug 2023 16:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691512717; x=1723048717;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/xmEuNUa1F857kBIWG/rzmWse5hqaes6dViG2uDIUl0=;
- b=dvQ9btwORD6I1srjua3Gh2++AXc46oz/eM1NE92mUWzMLnte3iBof66V
- 1waPXyUPJFKtbJ5qnXGwHYplF6nu+Jt1RwuG19CnRfMmsIiDZfkOK9NW/
- +MPjC4bDYlq7RHohoXC6F/IofYZgfaOU5r2LqWXj3kBNVG3uk1JFxlszO
- uvjEoeNlMFE+shb0xKcI4AtuheFeeD7Arw0Ra6Fdez2BZS8+htPOyw0VR
- 3y/FFhKGN4CpOmBtOsApV7oV3ejwgkoaxxSDi1DmQL9fhKI3aFYHFngb9
- ngYLuQtspYmoWvCqCkTplbASwGL05r0T0cry+Y9hn3pv/sclrrgnHUCtO g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="369777249"
-X-IronPort-AV: E=Sophos;i="6.01,156,1684825200"; d="scan'208";a="369777249"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2023 09:38:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="734623035"
-X-IronPort-AV: E=Sophos;i="6.01,156,1684825200"; d="scan'208";a="734623035"
-Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga007.fm.intel.com with ESMTP; 08 Aug 2023 09:38:32 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 5A8B515C; Tue,  8 Aug 2023 19:41:41 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue,  8 Aug 2023 19:41:37 +0300
-Message-Id: <20230808164137.66663-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+ Thu, 10 Aug 2023 13:47:17 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 642BB65CC8;
+ Thu, 10 Aug 2023 13:47:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E03C433C8;
+ Thu, 10 Aug 2023 13:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691675235;
+ bh=QkyBBRbhaAkBlqKoL0aRnLOyMswVogqYwOnrfamsuyI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=AyPw5yEFAHz2Y86hjai0dOH62HvASem+iQ1Gnh6MPraVhYC9FrPXveuwnF8+CI8ip
+ kfe5BEc4clCP/zCrKuzm7hIXN7l04ukqxmHzRkh6tiIkcI7mxLQKfjB13/qyYtJmvG
+ Wqw57Nm1mz/DlCoJryqUsIKza2yd+8VlfE+wyVP5Nm2lx7JAe187L688uFcgKqOhYz
+ sNla0vRV+mqybIHhF0rg4FYi2qieMkIpLzpYPdoolH67vfQf3DUltLvLdurBFCF6G4
+ HRVcXDqTaaV1QBD/u2OK6d/YsNEvtfVewprr3PO6NZYk/iaum6xlKCqCY7Chm4vSf9
+ H4U5KF32ZWfwQ==
+Message-ID: <0bea4002-8160-bebc-2243-c7d4044eb5ad@kernel.org>
+Date: Thu, 10 Aug 2023 22:47:12 +0900
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Lee Jones <lee@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH v1 1/1] iio: dac: stm32-dac: Use correct
-	header(s) instead of string_helpers.h
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
+References: <20230810095849.123321-1-krzysztof.kozlowski@linaro.org>
+ <20230810095849.123321-2-krzysztof.kozlowski@linaro.org>
+From: Chanwoo Choi <chanwoo@kernel.org>
+In-Reply-To: <20230810095849.123321-2-krzysztof.kozlowski@linaro.org>
+X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:58 +0000
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 2/9] mfd: max14577: Fix
+	Wvoid-pointer-to-enum-cast warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,35 +70,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There is nothing from string_helpers.h used in the driver, correct
-the header inclusion block accordingly.
+On 23. 8. 10. 18:58, Krzysztof Kozlowski wrote:
+> 'dev_type' is an enum, thus cast of pointer on 64-bit compile test with
+> W=1 causes:
+> 
+>   max14577.c:406:5: error: cast to smaller integer type 'enum maxim_device_type' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  drivers/mfd/max14577.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/mfd/max14577.c b/drivers/mfd/max14577.c
+> index 25ed8846b7fb..1f4f5002595c 100644
+> --- a/drivers/mfd/max14577.c
+> +++ b/drivers/mfd/max14577.c
+> @@ -402,8 +402,7 @@ static int max14577_i2c_probe(struct i2c_client *i2c)
+>  
+>  		of_id = of_match_device(max14577_dt_match, &i2c->dev);
+>  		if (of_id)
+> -			max14577->dev_type =
+> -				(enum maxim_device_type)of_id->data;
+> +			max14577->dev_type = (uintptr_t)of_id->data;
+>  	} else {
+>  		max14577->dev_type = id->driver_data;
+>  	}
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/iio/dac/stm32-dac.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Reviewed-by: Chanwoo Choi <cw00.choi@samsung.com>
 
-diff --git a/drivers/iio/dac/stm32-dac.c b/drivers/iio/dac/stm32-dac.c
-index 15eb44075107..3cab28c7ee3b 100644
---- a/drivers/iio/dac/stm32-dac.c
-+++ b/drivers/iio/dac/stm32-dac.c
-@@ -11,12 +11,13 @@
- #include <linux/delay.h>
- #include <linux/iio/iio.h>
- #include <linux/kernel.h>
-+#include <linux/kstrtox.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
--#include <linux/string_helpers.h>
-+#include <linux/string_choices.h>
- 
- #include "stm32-dac-core.h"
- 
 -- 
-2.40.0.1.gaa8946217a0b
+Best Regards,
+Samsung Electronics
+Chanwoo Choi
 
 _______________________________________________
 Linux-stm32 mailing list
