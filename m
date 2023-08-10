@@ -2,56 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E326E777E54
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 18:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EC95777E42
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 18:28:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A15C4C6B469;
-	Thu, 10 Aug 2023 16:33:38 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52859C6B469;
+	Thu, 10 Aug 2023 16:28:56 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5904AC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D09D4C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 16:33:37 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3BD18663B3;
- Thu, 10 Aug 2023 16:33:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3B3C433C9;
- Thu, 10 Aug 2023 16:33:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691685215;
- bh=SH23v5JCuQahsD9iCM2bgfQbBzq4iPZ3OI2hpiXwSkM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ko5x3E5Spop/wVulrKYKAGXwhX0h3VhOTiUA3kUDvnG/Z0xPIngdAvBHU5NVGjgMu
- myqzNbAoB7lPj+6uEaP0tBIo6zKdulmQeuL5jcRTwN5ZEHytB9yyrGUxCBDVvdAOEW
- g00Fmc3K3xgmcldj0PYi/k/aUY0PX4fCPhJrH6dlGhmZVQFmMA2Nd+HZKJhm6z17k6
- s4t3nEaoQldEXUCxK3VvIWsFk4n1nVcgsnOT3421iob5/+iYHe6gzEAqAVvKPPr9Qf
- gJoPRzMTlyaKMmDt3FHjfcT3bnJrGwWo3eoIwRq1OjP+H9T4AJioZwx37m6hNqHULN
- +jj/pKu/cxjYQ==
-Date: Fri, 11 Aug 2023 00:21:51 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <ZNUOn+QPK+N3yR+u@xhacker>
-References: <20230809165007.1439-1-jszhang@kernel.org>
- <20230809165007.1439-11-jszhang@kernel.org>
- <43ea0060-ed69-4efe-4a39-224aa67ae9b8@foss.st.com>
- <ZNULvNhWbRyOUDci@xhacker>
+ Thu, 10 Aug 2023 16:28:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ora/VmM1qG9A9o6C4o8z3h7zDpDPf1uS/fJQhNtWUDQ=; b=0DKlyOz4YHEM+YRxUBXOpi84C5
+ jXzuowk37XObhCzNCbisO76OUFBC3v/bQo0ir01y7YpFHTVXJ5dkN7G/RvOnPVA9Yw4y8V5FtHUEC
+ jxlLe50SOHJTWH7NrNsggXpWimJdA5pCJP89ehLgABJCQ0A+VZBm/FCgOEUZz5znrwhmYH2WsXo1O
+ U9rBfyti/fapNFGZuCS/JRjx17SAOIJ1nzjGzfjy6FrQf7kl3NqbmxzRtIoH8moY3RcT5CLvAUAyU
+ iBgK2AJ/X5E9GV2Tx00ugGUeJFR4tsCOJIPoUnZQdZSXGt8ux6uphYZKWpjeHR+b0VCITif8wjg5N
+ USW0vTpg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46224)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qU8Wi-0004Gb-2Z;
+ Thu, 10 Aug 2023 17:28:44 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qU8Wf-0001x8-Un; Thu, 10 Aug 2023 17:28:41 +0100
+Date: Thu, 10 Aug 2023 17:28:41 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>
+Message-ID: <ZNUQOS49kP5uTgqx@shell.armlinux.org.uk>
+References: <20230202081559.3553637-1-xiaoning.wang@nxp.com>
+ <83a8fb89ac7a69d08c9ea1422dade301dcc87297.camel@redhat.com>
+ <Y/c+MQtgtKFDjEZF@shell.armlinux.org.uk>
+ <HE1PR0402MB2939A09FD54E72C80C19A467F3AB9@HE1PR0402MB2939.eurprd04.prod.outlook.com>
+ <Y/dIoAqWfazh9k6F@shell.armlinux.org.uk>
+ <152ee4d9-800e-545a-c2c6-08b03e9d1301@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZNULvNhWbRyOUDci@xhacker>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 10/10] net: stmmac: platform:
- support parsing per channel irq from DT
+In-Reply-To: <152ee4d9-800e-545a-c2c6-08b03e9d1301@bootlin.com>
+Cc: "andrew@lunn.ch" <andrew@lunn.ch>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, dl-linux-imx <linux-imx@nxp.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "kuba@kernel.org" <kuba@kernel.org>,
+ "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
+ Paolo Abeni <pabeni@redhat.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "hkallweit1@gmail.com" <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH V3 1/2] net: phylink: add a function to
+ resume phy alone to fix resume issue with WoL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,115 +75,214 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 11, 2023 at 12:09:38AM +0800, Jisheng Zhang wrote:
-> On Thu, Aug 10, 2023 at 04:57:00PM +0200, Alexandre TORGUE wrote:
-> > On 8/9/23 18:50, Jisheng Zhang wrote:
-> > > The snps dwmac IP may support per channel interrupt. Add support to
-> > > parse the per channel irq from DT.
-> > > 
-> > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > > ---
-> > >   .../net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++----
-> > >   .../ethernet/stmicro/stmmac/stmmac_platform.c | 23 +++++++++++++++++++
-> > >   2 files changed, 29 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > index 4ed5c976c7a3..245eeb7d3e83 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > > @@ -3612,7 +3612,7 @@ static int stmmac_request_irq_multi(struct net_device *dev)
-> > >   	for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
-> > >   		if (i >= MTL_MAX_RX_QUEUES)
-> > >   			break;
-> > > -		if (priv->rx_irq[i] == 0)
-> > > +		if (priv->rx_irq[i] <= 0)
-> > 
-> > What do you fix here ?
-> 
-> No bug to fix, but adjust for parsing optional channel irqs from DT:
-> rx_irq[i] and tx_irq[i] may come from platform_get_irq_byname_optional()
-> so for !STMMAC_FLAG_PERCH_IRQ_EN platforms, they can be < 0. Before
-> 
+On Thu, Aug 10, 2023 at 06:10:04PM +0200, Alexis Lothor=E9 wrote:
+> Hello Clark, Russell,
+> =
 
-oops, I sent this email too quick before I complete it.
+> On 2/23/23 12:06, Russell King (Oracle) wrote:
+> > On Thu, Feb 23, 2023 at 10:27:06AM +0000, Clark Wang wrote:
+> >> Hi Russel,
+> >>
+> >> I have sent the V4 patch set yesterday.
+> >> You can check it from: https://lore.kernel.org/linux-arm-kernel/202302=
+22092636.1984847-2-xiaoning.wang@nxp.com/T/
+> >>
+> > =
 
-After this patch(parse optional channel irqs from DT), rx_irq[i] and
-tx_irq[i] may come from platform_get_irq_byname_optional(),
-so for STMMAC_FLAG_PERCH_IRQ_EN platforms which support less than
-MTL_MAX_TX_QUEUES channels, for example 8 tx and 8 rx, the last
-tx_irq[i] or rx_irq[i] can be < 0.
+> > Ah yes, sent while net-next is closed.
+> > =
 
-Thanks
+> > Have you had any contact with Cl=E9ment L=E9ger ? If not, please can you
+> > reach out to Cl=E9ment, because he has virtually the same problem. I
+> > don't want to end up with a load of different fixes in the mainline
+> > kernel for the same "we need the PHY clock enabled on stmmac" problem
+> > from different people.
+> =
 
-> > >   			continue;
-> > >   		int_name = priv->int_name_rx_irq[i];
-> > > @@ -3637,7 +3637,7 @@ static int stmmac_request_irq_multi(struct net_device *dev)
-> > >   	for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
-> > >   		if (i >= MTL_MAX_TX_QUEUES)
-> > >   			break;
-> > > -		if (priv->tx_irq[i] == 0)
-> > > +		if (priv->tx_irq[i] <= 0)
-> > 
-> > same here
-> > >   			continue;
-> > >   		int_name = priv->int_name_tx_irq[i];
-> > > @@ -7278,8 +7278,10 @@ int stmmac_dvr_probe(struct device *device,
-> > >   	priv->plat = plat_dat;
-> > >   	priv->ioaddr = res->addr;
-> > >   	priv->dev->base_addr = (unsigned long)res->addr;
-> > > -	priv->plat->dma_cfg->perch_irq_en =
-> > > -		(priv->plat->flags & STMMAC_FLAG_PERCH_IRQ_EN);
-> > > +	if (res->rx_irq[0] > 0 && res->tx_irq[0] > 0) {
-> > > +		priv->plat->flags |= STMMAC_FLAG_PERCH_IRQ_EN;
-> > > +		priv->plat->dma_cfg->perch_irq_en = true;
-> > > +	}
-> > >   	priv->dev->irq = res->irq;
-> > >   	priv->wol_irq = res->wol_irq;
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > > index 29145682b57b..9b46775b41ab 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > > @@ -705,6 +705,9 @@ EXPORT_SYMBOL_GPL(stmmac_remove_config_dt);
-> > >   int stmmac_get_platform_resources(struct platform_device *pdev,
-> > >   				  struct stmmac_resources *stmmac_res)
-> > >   {
-> > > +	char irq_name[8];
-> > > +	int i;
-> > > +
-> > >   	memset(stmmac_res, 0, sizeof(*stmmac_res));
-> > >   	/* Get IRQ information early to have an ability to ask for deferred
-> > > @@ -738,6 +741,26 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
-> > >   		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-> > >   	}
-> > > +	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-> > > +		snprintf(irq_name, sizeof(irq_name), "rx%i", i);
-> > > +		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-> > > +		if (stmmac_res->rx_irq[i] < 0) {
-> > > +			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
-> > > +				return -EPROBE_DEFER;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +
-> > > +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-> > > +		snprintf(irq_name, sizeof(irq_name), "tx%i", i);
-> > > +		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev, irq_name);
-> > > +		if (stmmac_res->tx_irq[i] < 0) {
-> > > +			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
-> > > +				return -EPROBE_DEFER;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +
-> > >   	stmmac_res->sfty_ce_irq = platform_get_irq_byname_optional(pdev, "sfty_ce");
-> > >   	if (stmmac_res->sfty_ce_irq < 0) {
-> > >   		if (stmmac_res->sfty_ce_irq == -EPROBE_DEFER)
-> > 
+> I am resuming Clement's initial efforts on RZN1 GMAC interface, which ind=
+eed is
+> in need of an early PCS initialization mechanism too ([1]).
+> =
+
+> > Please try to come up with one patch set between you both to fix this.
+> > =
+
+> > (effectively, that's a temporary NAK on your series.)>
+> =
+
+> I would like to know if this series is still ongoing/alive ? I have check=
+ed for
+> follow-ups after V4 sent by Clark ([2]), but did not find anything. Cleme=
+nt
+> handed me over the topic right when Russell suggested to discuss this sha=
+red
+> need, so I am not sure if any mutualization discussion has happened yet ?
+> =
+
+> If not, what would be the next steps ? Based on my understanding and comm=
+ents on
+> the [2] v3, I feel that Clark's series would be a good starting point. In=
+ order
+> to be able to use it in both series, we could possibly make it less speci=
+fic to
+> the "resume" mechanism (basically, phylink_phy_resume() =3D>
+> phylink_phy_early_start() ) ? It would then prevent [1] from moving the w=
+hole
+> phylink_start() in stmmac_main too early (see issue raised by Russell) an=
+d allow
+> to just call phylink_phy_early_start() early enough, while still being us=
+able in
+> the resume scenario raised by Clark. Or am I missing bigger issues with c=
+urrent
+> series ?
+
+The whole thing died a death as soon as I suggested that the two parties
+work together, so currently as far as I'm concerned, the issue is dead
+and no patches have been merged to fix it.
+
+As I stated, I don't want to merge one solution, and then have the other
+solution then come along later... the simple answer would have been for
+party A to test party B's changes to see whether they solved the
+problem, but clearly that never happened.
+
+If there's an unwillingness to work together to solve a common problem,
+then the problem will remain unsolved.
+
+Note that we also have an ongoing discussion because of the AR803x PHYs
+and their default-enabled hibernation mode, for which I've proposed
+this patch. I haven't considered whether it should impact the resume
+problem - it probably _should_ and it should probably cause the PHY to
+resume outputting its clock when it resumes (which should have already
+happened by the time stmmac begins resuming.)
+
+However, as no one seems prepared to constructively comment on either
+my proposal nor (so far) the patch, there's no guarantee that we'll
+merge the change below.
+
+So, right now I've no idea what's going to become of stmmac and its
+requirement to have RXC always present. It seems there's multiple
+issues that that requirement causes.
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/ne=
+t/ethernet/stmicro/stmmac/stmmac_main.c
+index fcab363d8dfa..a954f1d61709 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1254,6 +1254,11 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+ 			~(MAC_10HD | MAC_100HD | MAC_1000HD);
+ 	priv->phylink_config.mac_managed_pm =3D true;
+ =
+
++	/* stmmac always requires a receive clock in order for things like
++	 * hardware reset to work.
++	 */
++	priv->phylink_config.mac_requires_rxc =3D true;
++
+ 	phylink =3D phylink_create(&priv->phylink_config, fwnode,
+ 				 mode, &stmmac_phylink_mac_ops);
+ 	if (IS_ERR(phylink))
+diff --git a/drivers/net/phy/at803x.c b/drivers/net/phy/at803x.c
+index 13c4121fa309..619a63a0d14f 100644
+--- a/drivers/net/phy/at803x.c
++++ b/drivers/net/phy/at803x.c
+@@ -990,7 +990,8 @@ static int at803x_hibernation_mode_config(struct phy_de=
+vice *phydev)
+ 	/* The default after hardware reset is hibernation mode enabled. After
+ 	 * software reset, the value is retained.
+ 	 */
+-	if (!(priv->flags & AT803X_DISABLE_HIBERNATION_MODE))
++	if (!(priv->flags & AT803X_DISABLE_HIBERNATION_MODE) &&
++	    !(phydev->dev_flags & PHY_F_RXC_ALWAYS_ON))
+ 		return 0;
+ =
+
+ 	return at803x_debug_reg_mask(phydev, AT803X_DEBUG_REG_HIB_CTRL,
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 4f1c8bb199e9..6568a2759101 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1830,6 +1830,8 @@ static int phylink_bringup_phy(struct phylink *pl, st=
+ruct phy_device *phy,
+ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+ 			      phy_interface_t interface)
+ {
++	u32 flags =3D 0;
++
+ 	if (WARN_ON(pl->cfg_link_an_mode =3D=3D MLO_AN_FIXED ||
+ 		    (pl->cfg_link_an_mode =3D=3D MLO_AN_INBAND &&
+ 		     phy_interface_mode_is_8023z(interface) && !pl->sfp_bus)))
+@@ -1838,7 +1840,10 @@ static int phylink_attach_phy(struct phylink *pl, st=
+ruct phy_device *phy,
+ 	if (pl->phydev)
+ 		return -EBUSY;
+ =
+
+-	return phy_attach_direct(pl->netdev, phy, 0, interface);
++	if (pl->config.mac_requires_rxc)
++		flags |=3D PHY_F_RXC_ALWAYS_ON;
++
++	return phy_attach_direct(pl->netdev, phy, flags, interface);
+ }
+ =
+
+ /**
+@@ -1941,6 +1946,9 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
+ 		pl->link_config.interface =3D pl->link_interface;
+ 	}
+ =
+
++	if (pl->config.mac_requires_rxc)
++		flags |=3D PHY_F_RXC_ALWAYS_ON;
++
+ 	ret =3D phy_attach_direct(pl->netdev, phy_dev, flags,
+ 				pl->link_interface);
+ 	phy_device_free(phy_dev);
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index ba08b0e60279..79df5e01707d 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -761,6 +761,7 @@ struct phy_device {
+ =
+
+ /* Generic phy_device::dev_flags */
+ #define PHY_F_NO_IRQ		0x80000000
++#define PHY_F_RXC_ALWAYS_ON	BIT(30)
+ =
+
+ static inline struct phy_device *to_phy_device(const struct device *dev)
+ {
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 789c516c6b4a..a83c1a77338f 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -204,6 +204,7 @@ enum phylink_op_type {
+  * @poll_fixed_state: if true, starts link_poll,
+  *		      if MAC link is at %MLO_AN_FIXED mode.
+  * @mac_managed_pm: if true, indicate the MAC driver is responsible for PH=
+Y PM.
++ * @mac_requires_rxc: if true, the MAC always requires a receive clock fro=
+m PHY.
+  * @ovr_an_inband: if true, override PCS to MLO_AN_INBAND
+  * @get_fixed_state: callback to execute to determine the fixed link state,
+  *		     if MAC link is at %MLO_AN_FIXED mode.
+@@ -216,6 +217,7 @@ struct phylink_config {
+ 	enum phylink_op_type type;
+ 	bool poll_fixed_state;
+ 	bool mac_managed_pm;
++	bool mac_requires_rxc;
+ 	bool ovr_an_inband;
+ 	void (*get_fixed_state)(struct phylink_config *config,
+ 				struct phylink_link_state *state);
+
+-- =
+
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
