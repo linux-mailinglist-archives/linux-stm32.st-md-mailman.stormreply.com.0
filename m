@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E76F77752B
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:59:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A0ED77752C
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:59:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29BFEC6B45B;
-	Thu, 10 Aug 2023 09:59:41 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3443BC6B472;
+	Thu, 10 Aug 2023 09:59:42 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BD34C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03767C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 09:59:39 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-3fbd33a57b6so6417065e9.2
+ Thu, 10 Aug 2023 09:59:41 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-3110ab7110aso685338f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 02:59:39 -0700 (PDT)
+ Thu, 10 Aug 2023 02:59:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691661579; x=1692266379;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=3Qov7/EIECuN7YtcszuKxgzKAg/7N7RK250nQPWPETE=;
- b=v30CTiX2qKSiN2j2kOUXUCQ/qjZOMt4Q+Owm3rESRLeuhidDmOvCrOs1B751U7IBfS
- zndSh6XEzMhiKeb+ubNbtz+e+V72tx4UaERrTzDLqmbUcQYMs/Az6xez653LBbsHef++
- T9dy9CN7KcU+b943r8yFryvjBu0JP7Mk4ItyR7P7x3+Q5qJFaJ51j4Q2b/y97aIH/w6P
- 1RV2EzPllNQXNlOmHPs6wh3Qhc6uM/GvDWF1x8cfo5KWrurWHjgFCklcDtSh+vy45EqG
- /52U0A0GZVABjs+kvw7xVTeo0AFbVpIu6lKE/5Y7B+42GaFluEopx4cLAWbAg1eFDTnp
- NyYw==
+ d=linaro.org; s=google; t=1691661580; x=1692266380;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LA6g1+NA1MHwgD0J5/0iacU9T/Zj+WYPU0o6GQh2M60=;
+ b=O1zGd4xmWe411WBeHnJ8AnZONvqE7Z9u3MFhkDtUZCO307na8i8N5vr+98ztCj50oI
+ 0nb9hFMmwsuYc3rCJdKobyxauVd6dyWfkigXmeHz29uTSAtFkGxphfnCEl11yEHgKRu0
+ AbiDxcqsma9jYw1oIHWwQ76uNZN/cdYNxI3JYj4u0YDMwhVnzHEFrdP7Cmdqoc6R9AYx
+ 9Z9cGlrTILoqs7IE/361Y3mpszZ7qgJnMisepKC1a98bGVT97jNwSwGqEJpFtHGVuut+
+ DGwGz9UbXZZfJqeZjUmWWRTwaVt89t0o4NnN//b8QCToFu3aEeHskABnmhFGCuUpNcX9
+ 4TUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691661579; x=1692266379;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3Qov7/EIECuN7YtcszuKxgzKAg/7N7RK250nQPWPETE=;
- b=OxyLo0R2RFE3IFUu8vnQCdQHKByHwKAklj07opQzNIQz2PSeEA1MYpPeVeobAynrB1
- p5+jmEynv32/AqKL5X6VuTfbr1MOgp/wl87VshBI6Qti3VBff/dwSGtBsTLLtl0mUEIc
- 3Og4Jlj/QteR/9XZLSU6Xn31zoLBDFmoJmsBvwhKvFiGa4ziAQyiFwrwFEaQnE98Igx2
- LRZv47MIcZvBJaI4Vz1MoS9aEl/UcvLeW7fYIUL9B4RrlIuSask9hpbYa7oGdAd6Zo1q
- lSqnoVE8Guqxz0tqayD+lQhtBZmvkY51zNdmgHzqmf4LU3/6z0O8nCwz1L/kljNI0+1/
- l47g==
-X-Gm-Message-State: AOJu0YwRhxamk7d8CekpsZ84Oty+rIHQpDLSPDtfkIfVxTZtc1syZ/Sp
- TBWBlu1ilYqnR6qLqVqmwGaiig==
-X-Google-Smtp-Source: AGHT+IHW36O9ukQNOr4QWHcwll1B7aloOQhK9sSqv/YA8EWyZmzq6BHWsNTyVSKuU/1PJGhLJb1ZvA==
-X-Received: by 2002:a5d:66c6:0:b0:317:9537:d741 with SMTP id
- k6-20020a5d66c6000000b003179537d741mr1614416wrw.54.1691661579124; 
- Thu, 10 Aug 2023 02:59:39 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1691661580; x=1692266380;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LA6g1+NA1MHwgD0J5/0iacU9T/Zj+WYPU0o6GQh2M60=;
+ b=ATWt6CgUinLzWe5SQ3P0qm5BMsNshCeaNvTxXI6a/7CNJYlqONxFk3n+bOYyxQ9FSV
+ o5BM4nsCj2vooQ68iDVvyMP8YeAgYs7kKpBpjkJ8IsVAbBbbh2jVFsEOhREN9xBvcjQL
+ StuNrbuO8evZXlhv/C8w8m0xnDDg+YEZEIWcb/roytFJvxYPMZiMJABJbuJ6EkGhycAx
+ 3SdNh11nso8Mne2JD5oTDw4DQtNnQMyaL1TJY/83Uz82Ank+oHqxZr2GPi5jiThoAfLb
+ 6AC1T2AYKxrnEfiTrmU9WzXp9DXj6k435BmOgyIl0OIMELbqHgRRGseWbRnCEKISCtjL
+ m8ww==
+X-Gm-Message-State: AOJu0Yw4u5W6+e3u1oDMw5ZPy2UZaD2Nb9RLsw3ytEax+nn+mH2Uz0uR
+ k/GOQL0p9at7xGT0L6i3Pwg5cQ==
+X-Google-Smtp-Source: AGHT+IEOo9PSJhciOwaN1TWXgpDhd54pTrrYRzGVnPGGiXjSds0yhXAKmUVfpiMdr2xl8lBRf7vCwA==
+X-Received: by 2002:a05:6000:1090:b0:317:58eb:1e33 with SMTP id
+ y16-20020a056000109000b0031758eb1e33mr1507037wrw.8.1691661580528; 
+ Thu, 10 Aug 2023 02:59:40 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.222.113]) by smtp.gmail.com with ESMTPSA id
- a2-20020a5d4d42000000b00317ca89f6c5sm1623182wru.107.2023.08.10.02.59.37
+ a2-20020a5d4d42000000b00317ca89f6c5sm1623182wru.107.2023.08.10.02.59.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Aug 2023 02:59:38 -0700 (PDT)
+ Thu, 10 Aug 2023 02:59:40 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -58,14 +59,16 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Thu, 10 Aug 2023 11:59:35 +0200
-Message-Id: <20230810095936.123432-1-krzysztof.kozlowski@linaro.org>
+Date: Thu, 10 Aug 2023 11:59:36 +0200
+Message-Id: <20230810095936.123432-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230810095936.123432-1-krzysztof.kozlowski@linaro.org>
+References: <20230810095936.123432-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Andi Shyti <andi.shyti@kernel.org>
-Subject: [Linux-stm32] [PATCH 1/2] Input: mms114 - fix
-	Wvoid-pointer-to-enum-cast warning
+Subject: [Linux-stm32] [PATCH 2/2] Input: stmpe-ts - mark OF related data as
+	maybe unused
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,29 +85,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-'type' is an enum, thus cast of pointer on 64-bit compile test with W=1
-causes:
+When compile tested with W=1 on x86_64 with driver as built-in:
 
-  drivers/input/touchscreen/mms114.c:507:15: error: cast to smaller integer type 'enum mms_type' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+  stmpe-ts.c:371:34: error: unused variable 'stmpe_ts_ids' [-Werror,-Wunused-const-variable]
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/input/touchscreen/mms114.c | 2 +-
+ drivers/input/touchscreen/stmpe-ts.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/input/touchscreen/mms114.c b/drivers/input/touchscreen/mms114.c
-index af233b6a16d9..d9beb15a3676 100644
---- a/drivers/input/touchscreen/mms114.c
-+++ b/drivers/input/touchscreen/mms114.c
-@@ -504,7 +504,7 @@ static int mms114_probe(struct i2c_client *client)
- 	if (!match_data)
- 		return -EINVAL;
+diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touchscreen/stmpe-ts.c
+index 25c45c3a3561..a2032189fc25 100644
+--- a/drivers/input/touchscreen/stmpe-ts.c
++++ b/drivers/input/touchscreen/stmpe-ts.c
+@@ -368,7 +368,7 @@ static struct platform_driver stmpe_ts_driver = {
+ };
+ module_platform_driver(stmpe_ts_driver);
  
--	data->type = (enum mms_type)match_data;
-+	data->type = (uintptr_t)match_data;
- 
- 	data->num_keycodes = device_property_count_u32(&client->dev,
- 						       "linux,keycodes");
+-static const struct of_device_id stmpe_ts_ids[] = {
++static const struct of_device_id stmpe_ts_ids[] __maybe_unused = {
+ 	{ .compatible = "st,stmpe-ts", },
+ 	{ },
+ };
 -- 
 2.34.1
 
