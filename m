@@ -2,71 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF4A77765A
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 12:57:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF6B777741
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 13:37:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1964C6B469;
-	Thu, 10 Aug 2023 10:57:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2104EC6B469;
+	Thu, 10 Aug 2023 11:37:51 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C7C5C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49F1AC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 10:57:23 +0000 (UTC)
+ Thu, 10 Aug 2023 11:37:50 +0000 (UTC)
 Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37A7foE3008014; Thu, 10 Aug 2023 12:57:04 +0200
+ 37A7foLC008014; Thu, 10 Aug 2023 13:37:26 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=Yhm0/CwbeZ+3TGRcWoO3L2e1JDXPY/xgDeY05lQwYYY=; b=sJ
- 8cYy8ConmwDBQCvljl1mS7dc31mGcXcYy8q/k2OOtT8GLuj7ZktCyRULYWxENMgP
- T2sj5OrgtaCSaf9BRAZETuNRefGLOAyzPC+p+S1dDp++KorVHyAEt52h3OHCYTR5
- bQ+PZ0P+2D38jjTSmtZdtIerum2JdSLdzzl2iTut+2AhLQc7hTDeosRIb8pUh+Mh
- tr/v7L6NamCk2+Dg5KuASIzn6nrTvaZaco40P++Gsapbrwg3m7KGrZUJrhKbq36p
- DUtLv8glsfTFcR8Gmln7+3l2B8VkvgXrihK/bnnvvS0cZPyyQAnP8Se0xp21RM34
- 0uXgbJ02M2wPQn04ddVg==
+ selector1; bh=LGWUQDFoq0k+Yvp42HGxHlH78UJNLF3xltDQPEr71KE=; b=xN
+ Dahq6C+GXGGITaUq8xQbace9vRZVyXHe1SKFObwhLHPdgIsiBDJ2I2fRpgeL+mEx
+ t8wUeVeAlMy67HAMljHQjZxcvFZva/iO4RT5eDGZUjEAKkB+h9ZJ/EMDVQYstYC2
+ dKp0WdfjCq0c+67vXyWQ/RAQQMYfht1ljn239QUZnhuWIy60NGSh3Qo6+S+kjI0O
+ 8ksf89DU+a1k4nQQepMrTjgyyEwzNcVMfWo8yyXWTRW8WCisbZ4KHUYZBOV6aGSH
+ I5+knCvkqvhKBlaYC4a/1zyKqGAoytlmQE64iI5FDaC67eRav/FVOHwHF9k2ojSF
+ 4eINrE0bM4oxJQM5GUnQ==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3scdv7nhgn-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3scdv7ns8f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 12:57:04 +0200 (MEST)
+ Thu, 10 Aug 2023 13:37:26 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7DB39100053;
- Thu, 10 Aug 2023 12:56:59 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 219B8100053;
+ Thu, 10 Aug 2023 13:37:26 +0200 (CEST)
 Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6671821683F;
- Thu, 10 Aug 2023 12:56:59 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E9CD921512B;
+ Thu, 10 Aug 2023 13:37:24 +0200 (CEST)
 Received: from [10.201.21.122] (10.201.21.122) by EQNDAG1NODE4.st.com
  (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 10 Aug
- 2023 12:56:58 +0200
-Message-ID: <969ebe6f-997b-7cb9-2bae-025f73a8a61e@foss.st.com>
-Date: Thu, 10 Aug 2023 12:56:57 +0200
+ 2023 13:37:24 +0200
+Message-ID: <3f94ec91-214c-cbd1-d113-bb9e6a89c7d3@foss.st.com>
+Date: Thu, 10 Aug 2023 13:37:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20230805093203.3988194-1-dario.binacchi@amarulasolutions.com>
- <20230805093203.3988194-4-dario.binacchi@amarulasolutions.com>
 Content-Language: en-US
+To: Sean Nyekjaer <sean@geanix.com>, <l.goehrs@pengutronix.de>,
+ <a.fatoum@pengutronix.de>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20230712124248.2400862-1-sean@geanix.com>
+ <20230712124248.2400862-9-sean@geanix.com>
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230805093203.3988194-4-dario.binacchi@amarulasolutions.com>
+In-Reply-To: <20230712124248.2400862-9-sean@geanix.com>
 X-Originating-IP: [10.201.21.122]
 X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To EQNDAG1NODE4.st.com
  (10.75.129.133)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
  definitions=2023-08-10_10,2023-08-10_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- michael@amarulasolutions.com,
- Amarula patchwork <linux-amarula@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RESEND PATCH v7 3/3] ARM: dts: stm32: support
- display on stm32f746-disco board
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 9/9] ARM: dts: stm32: Add Octavo
+	OSD32MP1-RED board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,74 +77,372 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRGFyaW8KClNvcnJ5IGZvciBteSBsYXRlIGFuc3dlci4KCk9uIDgvNS8yMyAxMTozMiwgRGFy
-aW8gQmluYWNjaGkgd3JvdGU6Cj4gQWRkIHN1cHBvcnQgdG8gUm9ja3RlY2ggUkswNDNGTjQ4SCBk
-aXNwbGF5IG9uIHN0bTMyZjc0Ni1kaXNjbyBib2FyZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBEYXJp
-byBCaW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5jb20+Cj4gUmV2aWV3
-ZWQtYnk6IFJhcGhhw6tsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3Qu
-Y29tPgo+IAo+IC0tLQo+IAo+IENoYW5nZXMgaW4gdjc6Cj4gLSBBZGQgJ1Jldmlld2VkLWJ5JyB0
-YWcgSSBmb3Jnb3QgaW4gdjYuCj4gICAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtYXJt
-LWtlcm5lbC8yMDIzMDYyOTA4MzcyNi44NDkxMC0xLWRhcmlvLmJpbmFjY2hpQGFtYXJ1bGFzb2x1
-dGlvbnMuY29tL1QvCj4gCj4gQ2hhbmdlcyBpbiB2NjoKPiAtIFJlbW92ZSBkbWEgbm9kZXMgZnJv
-bSBzdG0zMmY3NDYtZGlzY28uZHRzLCB0aGV5IGFyZSBub3QgdXNlZCBieSBMVERDLAo+ICAgIHNv
-IHRoZXJlIGlzIG5vIG5lZWQgdG8gZW5hYmxlIHRoZW0uCj4gCj4gQ2hhbmdlcyBpbiB2NToKPiBJ
-IGFtIGNvbmZpZGVudCB0aGF0IGZyYW1lYnVmZmVyIHNpemluZyBpcyBhIHJlYWwgcmVxdWlyZW1l
-bnQgZm9yIFNUTTMyIGJvYXJkcywKPiBidXQgSSBuZWVkIHNvbWUgdGltZSB0byB1bmRlcnN0YW5k
-IGlmIGFuZCBob3cgdG8gaW50cm9kdWNlIHRoaXMgZnVuY3Rpb25hbGl0eS4KPiBUaGVyZWZvcmUs
-IEkgZHJvcCB0aGUgZm9sbG93aW5nIHBhdGNoZXMgdG8gYWxsb3cgdGhlIHNlcmllcyB0byBiZSBm
-dWxseSBtZXJnZWQ6Cj4gICAtIFs0LzZdIGR0LWJpbmRpbmdzOiBkaXNwbGF5OiBzdG0zMi1sdGRj
-OiBhZGQgb3B0aW9uYWwgc3QsZmItYnBwIHByb3BlcnR5Cj4gICAtIFs1LzZdIEFSTTogZHRzOiBz
-dG0zMjogc2V0IGZyYW1lYnVmZmVyIGJpdCBkZXB0aCBvbiBzdG0zMmY3NDYtZGlzY28KPiAgIC0g
-WzYvNl0gZHJtL3N0bTogc2V0IGZyYW1lYnVmZmVyIGJpdCBkZXB0aCB0aHJvdWdoIERUUyBwcm9w
-ZXJ0eQo+IAo+IENoYW5nZXMgaW4gdjQ6Cj4gLSBVc2UgRFRTIHByb3BlcnR5IGluc3RlYWQgb2Yg
-bW9kdWxlIHBhcmFtZXRlciB0byBzZXQgdGhlIGZyYW1lYnVmZmVyIGJpdCBkZXB0aC4KPiAKPiBD
-aGFuZ2VzIGluIHYzOgo+IC0gZHJvcCBbNC82XSBkdC1iaW5kaW5nczogZGlzcGxheTogc2ltcGxl
-OiBhZGQgUm9ja3RlY2ggUkswNDNGTjQ4SAo+ICAgIEFwcGxpZWQgdG8gaHR0cHM6Ly9hbm9uZ2l0
-LmZyZWVkZXNrdG9wLm9yZy9naXQvZHJtL2RybS1taXNjLmdpdCAoZHJtLW1pc2MtbmV4dCk6Cj4g
-ICAgaHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0vZHJtLW1pc2MvY29tbWl0Lz9pZD1j
-NDJhMzdhMjdjNzc3ZDYzOTYxZGQ2MzRhMzBmN2M4ODc5NDk0OTFhCj4gLSBkcm9wIFs1LzZdIGRy
-bS9wYW5lbDogc2ltcGxlOiBhZGQgc3VwcG9ydCBmb3IgUm9ja3RlY2ggUkswNDNGTjQ4SCBwYW5l
-bAo+ICAgIEFwcGxpZWQgdG8gaHR0cHM6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9naXQvZHJt
-L2RybS1taXNjLmdpdCAoZHJtLW1pc2MtbmV4dCkKPiAgICBodHRwczovL2NnaXQuZnJlZWRlc2t0
-b3Aub3JnL2RybS9kcm0tbWlzYy9jb21taXQvP2lkPTEzY2RkMTJhOWY5MzQxNThmNGVjODE3Y2Yw
-NDhmY2I0Mzg0YWE5ZGMKPiAKPiAgIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyZjc0Ni1kaXNj
-by5kdHMgfCA0MyArKysrKysrKysrKysrKysrKysrKysrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCA0
-MyBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0
-bTMyZjc0Ni1kaXNjby5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmY3NDYtZGlzY28u
-ZHRzCj4gaW5kZXggYzExNjE2ZWQ1ZmM2Li5jMDBkMzQxNzllMmUgMTAwNjQ0Cj4gLS0tIGEvYXJj
-aC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJmNzQ2LWRpc2NvLmR0cwo+ICsrKyBiL2FyY2gvYXJtL2Jv
-b3QvZHRzL3N0L3N0bTMyZjc0Ni1kaXNjby5kdHMKPiBAQCAtNjAsMTAgKzYwLDQxIEBAIG1lbW9y
-eUBjMDAwMDAwMCB7Cj4gICAJCXJlZyA9IDwweEMwMDAwMDAwIDB4ODAwMDAwPjsKPiAgIAl9Owo+
-ICAgCj4gKwlyZXNlcnZlZC1tZW1vcnkgewo+ICsJCSNhZGRyZXNzLWNlbGxzID0gPDE+Owo+ICsJ
-CSNzaXplLWNlbGxzID0gPDE+Owo+ICsJCXJhbmdlczsKPiArCj4gKwkJbGludXgsY21hIHsKPiAr
-CQkJY29tcGF0aWJsZSA9ICJzaGFyZWQtZG1hLXBvb2wiOwo+ICsJCQluby1tYXA7Cj4gKwkJCXNp
-emUgPSA8MHg4MDAwMD47Cj4gKwkJCWxpbnV4LGRtYS1kZWZhdWx0Owo+ICsJCX07Cj4gKwl9Owo+
-ICsKPiAgIAlhbGlhc2VzIHsKPiAgIAkJc2VyaWFsMCA9ICZ1c2FydDE7Cj4gICAJfTsKPiAgIAo+
-ICsJYmFja2xpZ2h0OiBiYWNrbGlnaHQgewo+ICsJCWNvbXBhdGlibGUgPSAiZ3Bpby1iYWNrbGln
-aHQiOwo+ICsJCWdwaW9zID0gPCZncGlvayAzIEdQSU9fQUNUSVZFX0hJR0g+Owo+ICsJCXN0YXR1
-cyA9ICJva2F5IjsKPiArCX07Cj4gKwo+ICsJcGFuZWxfcmdiOiBwYW5lbC1yZ2Igewo+ICsJCWNv
-bXBhdGlibGUgPSAicm9ja3RlY2gscmswNDNmbjQ4aCI7Cj4gKwkJYmFja2xpZ2h0ID0gPCZiYWNr
-bGlnaHQ+Owo+ICsJCWVuYWJsZS1ncGlvcyA9IDwmZ3Bpb2kgMTIgR1BJT19BQ1RJVkVfSElHSD47
-Cj4gKwkJc3RhdHVzID0gIm9rYXkiOwo+ICsJCXBvcnQgewo+ICsJCQlwYW5lbF9pbl9yZ2I6IGVu
-ZHBvaW50IHsKPiArCQkJCXJlbW90ZS1lbmRwb2ludCA9IDwmbHRkY19vdXRfcmdiPjsKPiArCQkJ
-fTsKPiArCQl9Owo+ICsJfTsKPiArCgpJIGdvdCB0aGlzIGJpbmRpbmdzIGlzc3VlOgouLi9hcmNo
-L2FybS9ib290L2R0cy9zdC9zdG0zMmY3NDYtZGlzY28uZHRiOiBwYW5lbC1yZ2I6ICdwb3dlci1z
-dXBwbHknIAppcyBhIHJlcXVpcmVkIHByb3BlcnR5Cglmcm9tIHNjaGVtYSAkaWQ6IApodHRwOi8v
-ZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3BhbmVsL3BhbmVsLXNpbXBsZS55YW1sIwoK
-RG8gSSBtaXNzIGEgZHQtYmluZGluZ3MgcGF0Y2ggPwoKcmVnYXJkcwpBbGV4CgoKPiAgIAl1c2Jv
-dGdfaHNfcGh5OiB1c2ItcGh5IHsKPiAgIAkJI3BoeS1jZWxscyA9IDwwPjsKPiAgIAkJY29tcGF0
-aWJsZSA9ICJ1c2Itbm9wLXhjZWl2IjsKPiBAQCAtOTksNiArMTMwLDE4IEBAICZpMmMxIHsKPiAg
-IAlzdGF0dXMgPSAib2theSI7Cj4gICB9Owo+ICAgCj4gKyZsdGRjIHsKPiArCXBpbmN0cmwtMCA9
-IDwmbHRkY19waW5zX2E+Owo+ICsJcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0IjsKPiArCXN0YXR1
-cyA9ICJva2F5IjsKPiArCj4gKwlwb3J0IHsKPiArCQlsdGRjX291dF9yZ2I6IGVuZHBvaW50IHsK
-PiArCQkJcmVtb3RlLWVuZHBvaW50ID0gPCZwYW5lbF9pbl9yZ2I+Owo+ICsJCX07Cj4gKwl9Owo+
-ICt9Owo+ICsKPiAgICZzZGlvMSB7Cj4gICAJc3RhdHVzID0gIm9rYXkiOwo+ICAgCXZtbWMtc3Vw
-cGx5ID0gPCZtbWNfdmNhcmQ+OwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Sean
+
+On 7/12/23 14:42, Sean Nyekjaer wrote:
+> Add support for the Octavo OSD32MP1-RED development board.
+> 
+> General features:
+>   - STM32MP157C
+>   - 512MB DDR3
+>   - CAN-FD
+>   - HDMI
+>   - USB-C OTG
+>   - UART
+> 
+> Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+> Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+> Changes since v1:
+>   - Fixed comments from Ahmad
+> 
+> Changes since v2:
+>   - Reordered phandles alfabetically
+>   - Added devicetree to Makefile
+> 
+> Changes since v3:
+>   - Explained the dma disable
+>   - Removed the status ok for hdmi-transmitter
+> 
+>   arch/arm/boot/dts/st/Makefile                 |   3 +-
+>   .../boot/dts/st/stm32mp157c-osd32mp1-red.dts  | 226 ++++++++++++++++++
+>   2 files changed, 228 insertions(+), 1 deletion(-)
+>   create mode 100644 arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
+> 
+
+Sorry for my late answer (just back from vacations). I got some build issue:
+
+make W=1 st/stm32mp157c-osd32mp1-red.dtb
+
+   DTC     arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts:138.4-14: Warning 
+(reg_format): /soc/display-controller@5a001000/port/endpoint@0:reg: 
+property has invalid length (4 bytes) (#address-cells == 2, #size-cells 
+== 1)
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(pci_device_reg): Failed prerequisite 'reg_format'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(pci_device_bus_num): Failed prerequisite 'reg_format'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(simple_bus_reg): Failed prerequisite 'reg_format'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(i2c_bus_reg): Failed prerequisite 'reg_format'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(spi_bus_reg): Failed prerequisite 'reg_format'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts:137.28-140.5: Warning 
+(avoid_default_addr_size): 
+/soc/display-controller@5a001000/port/endpoint@0: Relying on default 
+#address-cells value
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts:137.28-140.5: Warning 
+(avoid_default_addr_size): 
+/soc/display-controller@5a001000/port/endpoint@0: Relying on default 
+#size-cells value
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(avoid_unnecessary_addr_size): Failed prerequisite 'avoid_default_addr_size'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: Warning 
+(unique_unit_address_if_enabled): Failed prerequisite 
+'avoid_default_addr_size'
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts:137.28-140.5: Warning 
+(graph_endpoint): /soc/display-controller@5a001000/port/endpoint@0: 
+graph node '#address-cells' is -1, must be 1
+arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts:137.28-140.5: Warning 
+(graph_endpoint): /soc/display-controller@5a001000/port/endpoint@0: 
+graph node '#size-cells' is -1, must be 0
+
+
+And Yaml verification issue:
+
+
+  make CHECK_DTBS=y st/stm32mp157c-osd32mp1-red.dtb
+
+   UPD     include/config/kernel.release
+   LINT    Documentation/devicetree/bindings
+   CHKDT   Documentation/devicetree/bindings/processed-schema.json
+/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/Documentation/devicetree/bindings/iio/addac/adi,ad74115.yaml: 
+properties:adi,ext1-burnout-current-nanoamp: '$ref' should not be valid 
+under {'const': '$ref'}
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/Documentation/devicetree/bindings/iio/addac/adi,ad74115.yaml: 
+properties:adi,ext2-burnout-current-nanoamp: '$ref' should not be valid 
+under {'const': '$ref'}
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/Documentation/devicetree/bindings/iio/addac/adi,ad74115.yaml: 
+properties:adi,viout-burnout-current-nanoamp: '$ref' should not be valid 
+under {'const': '$ref'}
+	from schema $id: http://devicetree.org/meta-schemas/core.yaml#
+   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+   DTC_CHK arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb
+
+/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: 
+audio-controller@4000b000: port:endpoint: Unevaluated properties are not 
+allowed ('format' was unexpected)
+	from schema $id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
+/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dtb: 
+audio-controller@4000b000: Unevaluated properties are not allowed 
+('port' was unexpected)
+	from schema $id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
+
+
+I think we recently fixed some of them for ST boards, you could have a 
+look on correction we did.
+
+Regards
+Alex
+
+
+> diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
+> index 44b264c399ec..94feb1f1d569 100644
+> --- a/arch/arm/boot/dts/st/Makefile
+> +++ b/arch/arm/boot/dts/st/Makefile
+> @@ -59,7 +59,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
+>   	stm32mp157c-lxa-tac-gen1.dtb \
+>   	stm32mp157c-lxa-tac-gen2.dtb \
+>   	stm32mp157c-odyssey.dtb \
+> -	stm32mp157c-phycore-stm32mp1-3.dtb
+> +	stm32mp157c-phycore-stm32mp1-3.dtb \
+> +	stm32mp157c-osd32mp1-red.dtb
+>   dtb-$(CONFIG_ARCH_U8500) += \
+>   	ste-snowball.dtb \
+>   	ste-hrefprev60-stuib.dtb \
+> diff --git a/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
+> new file mode 100644
+> index 000000000000..2e2751a62aaf
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
+> @@ -0,0 +1,226 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+> +/*
+> + * Copyright (C) Geanix ApS 2023 - All Rights Reserved
+> + * Author: Sean Nyekjaer <sean@geanix.com>
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "stm32mp157.dtsi"
+> +#include "stm32mp15xc.dtsi"
+> +#include "stm32mp15xx-osd32.dtsi"
+> +#include "stm32mp15xxac-pinctrl.dtsi"
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/pinctrl/stm32-pinfunc.h>
+> +
+> +/ {
+> +	model = "Octavo OSD32MP1 RED board";
+> +	compatible = "oct,stm32mp157c-osd32-red", "oct,stm32mp15xx-osd32", "st,stm32mp157";
+> +
+> +	aliases {
+> +		serial0 = &uart4;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	led-controller-0 {
+> +		compatible = "gpio-leds";
+> +
+> +		led-0 {
+> +			label = "heartbeat";
+> +			gpios = <&gpiod 11 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +		};
+> +	};
+> +};
+> +
+> +&crc1 {
+> +	status = "okay";
+> +};
+> +
+> +&dts {
+> +	status = "okay";
+> +};
+> +
+> +&ethernet0 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+> +	pinctrl-1 = <&ethernet0_rgmii_sleep_pins_a>;
+> +	phy-mode = "rgmii-id";
+> +	max-speed = <1000>;
+> +	phy-handle = <&phy0>;
+> +	st,eth-clk-sel;
+> +	status = "okay";
+> +
+> +	mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		phy0: ethernet-phy@3 {
+> +			reg = <3>;
+> +		};
+> +	};
+> +};
+> +
+> +&iwdg2 {
+> +	timeout-sec = <32>;
+> +	status = "okay";
+> +};
+> +
+> +&i2c1 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2c1_pins_a>;
+> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
+> +	status = "okay";
+> +	i2c-scl-rising-time-ns = <100>;
+> +	i2c-scl-falling-time-ns = <7>;
+> +	/* spare dmas for other usage */
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +
+> +	hdmi-transmitter@39 {
+> +		compatible = "sil,sii9022";
+> +		reg = <0x39>;
+> +		reset-gpios = <&gpiog 0 GPIO_ACTIVE_LOW>;
+> +		interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
+> +		interrupt-parent = <&gpiog>;
+> +		pinctrl-names = "default", "sleep";
+> +		pinctrl-0 = <&ltdc_pins_e>;
+> +		pinctrl-1 = <&ltdc_sleep_pins_e>;
+> +
+> +		ports {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +
+> +			port@0 {
+> +				reg = <0>;
+> +				sii9022_in: endpoint {
+> +					remote-endpoint = <&ltdc_ep0_out>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg = <1>;
+> +				sii9022_tx_endpoint: endpoint {
+> +					remote-endpoint = <&i2s2_endpoint>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2s2 {
+> +	clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc CK_PER>, <&rcc PLL3_R>;
+> +	clock-names = "pclk", "i2sclk", "x8k", "x11k";
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&i2s2_pins_b>;
+> +	pinctrl-1 = <&i2s2_sleep_pins_b>;
+> +	status = "okay";
+> +
+> +	i2s2_port: port {
+> +		i2s2_endpoint: endpoint {
+> +			remote-endpoint = <&sii9022_tx_endpoint>;
+> +			format = "i2s";
+> +			mclk-fs = <256>;
+> +		};
+> +	};
+> +};
+> +
+> +&ltdc {
+> +	status = "okay";
+> +
+> +	port {
+> +		ltdc_ep0_out: endpoint@0 {
+> +			reg = <0>;
+> +			remote-endpoint = <&sii9022_in>;
+> +		};
+> +	};
+> +};
+> +
+> +&m_can1 {
+> +	pinctrl-names = "default", "sleep";
+> +	pinctrl-0 = <&m_can1_pins_d>;
+> +	pinctrl-1 = <&m_can1_sleep_pins_d>;
+> +	status = "okay";
+> +};
+> +
+> +&pwr_regulators {
+> +	vdd-supply = <&vdd>;
+> +	vdd_3v3_usbfs-supply = <&vdd_usb>;
+> +};
+> +
+> +&rtc {
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc1 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+> +	cd-gpios = <&gpioe 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+> +	disable-wp;
+> +	st,neg-edge;
+> +	bus-width = <4>;
+> +	vmmc-supply = <&v3v3>;
+> +	status = "okay";
+> +};
+> +
+> +&sdmmc2 {
+> +	pinctrl-names = "default", "opendrain", "sleep";
+> +	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_d>;
+> +	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
+> +	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_d>;
+> +	non-removable;
+> +	no-sd;
+> +	no-sdio;
+> +	st,neg-edge;
+> +	bus-width = <8>;
+> +	vmmc-supply = <&v3v3>;
+> +	vqmmc-supply = <&vdd>;
+> +	mmc-ddr-3_3v;
+> +	status = "okay";
+> +};
+> +
+> +&uart4 {
+> +	pinctrl-names = "default", "sleep", "idle";
+> +	pinctrl-0 = <&uart4_pins_a>;
+> +	pinctrl-1 = <&uart4_sleep_pins_a>;
+> +	pinctrl-2 = <&uart4_idle_pins_a>;
+> +	/* spare dmas for other usage */
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +	status = "okay";
+> +};
+> +
+> +&usbh_ehci {
+> +	phys = <&usbphyc_port0>;
+> +	phy-names = "usb";
+> +	status = "okay";
+> +};
+> +
+> +&usbh_ohci {
+> +	phys = <&usbphyc_port0>;
+> +	phy-names = "usb";
+> +	status = "okay";
+> +};
+> +
+> +&usbotg_hs {
+> +	vbus-supply = <&vbus_otg>;
+> +};
+> +
+> +&usbphyc {
+> +	status = "okay";
+> +};
+> +
+> +&usbphyc_port0 {
+> +	phy-supply = <&vdd_usb>;
+> +};
+> +
+> +&usbphyc_port1 {
+> +	phy-supply = <&vdd_usb>;
+> +};
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
