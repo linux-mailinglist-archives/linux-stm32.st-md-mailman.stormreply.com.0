@@ -2,78 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1BC784720
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB8F78472D
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C3C6C6C832;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86940C6C844;
 	Tue, 22 Aug 2023 16:25:20 +0000 (UTC)
-Received: from mail-pj1-f73.google.com (mail-pj1-f73.google.com
- [209.85.216.73])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FD12C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48581C6B468
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 18:09:11 +0000 (UTC)
-Received: by mail-pj1-f73.google.com with SMTP id
- 98e67ed59e1d1-267f1559391so1429114a91.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 11:09:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20221208; t=1691690950; x=1692295750;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=xZA6CEiwrXGmKCo4HzAg+4dNTQSYp2lyGfBxT58BX1k=;
- b=q0jGi+OjzV+GO7+s2YkYtHQRcufIGOrSEvJ/RdKdGau653Wn71Lqm6OQP9rpwPxIDr
- G+WR6h1kr2arSJqBzU9riM6xqCNaduY7ULU2bw3E4Lh6tf9XlyVCx6sQVChFbHNR1kor
- ECwzddcGhMOzUYzUF1iXfGnj+dwnyWhcmYKAcRErJjmoWIEPLFZs0iLBb3AC0w0W7Ot3
- 6Uy7FxbsNHM2B44KSttVctEFwtv1O5C4dGCxRcrV6yZF2yRtxKJjZTHjn7kgbnybM0Se
- RnZQBfYNLVDnj4a7NA/DJU6OjirVTs48QFgllsMnQogE47yXBaXemS4deZesK3/Lh5IF
- l3/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691690950; x=1692295750;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xZA6CEiwrXGmKCo4HzAg+4dNTQSYp2lyGfBxT58BX1k=;
- b=TYLYJUQ7m0wxFiHtpa7QNFSxepOdb+Tl441o9QKmAa3touj5DxOvs9NpQ97O7GU8Qb
- Zr1wSnOeia4LxEe6BpfYuWH2BYeIiXZPTeRUpA57WPMItu8ST70KGWZM6iMlvqlHtwuS
- u8+T1K5OXRZQSmXtj1yQlxiatyBovGstlWZDPlpuKLB09tTa59bMk75fJcsr8flg4lMn
- k8ujnQf4gYE3hvgMbLqxxfGc3MyGgOThLwlhgWqAaG608vmTMqUwAOAXTUTEV8/AweiZ
- 25nj7EhzNrbujCNItsL34hNzBHTJN9Ze3wZ/v/HR1kw8LLLZ4ncz3KlNNGNgoEuEjB8y
- r4GA==
-X-Gm-Message-State: AOJu0YzHrKS2pWWQzv0gugVXRkHhKR6mOX2aaa4g6T3aCIsbwinhnro0
- cYAUycyHKp6dAAD1uGzMNBrVDqs=
-X-Google-Smtp-Source: AGHT+IHSaQ4aZmd8MIdgX6r7UqBsLG4470xdZ9xBw4J+GJzxLX6Hvu3rBPJ6ERqIclixWKSiZIDvpDU=
-X-Received: from sdf.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5935])
- (user=sdf job=sendgmr) by 2002:a17:90a:a78a:b0:268:2c37:3f59 with SMTP id
- f10-20020a17090aa78a00b002682c373f59mr711983pjq.4.1691690949813; Thu, 10 Aug
- 2023 11:09:09 -0700 (PDT)
-Date: Thu, 10 Aug 2023 11:09:08 -0700
-In-Reply-To: <tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com>
-Mime-Version: 1.0
-References: <tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com>
-Message-ID: <ZNUnxJ26/4QfvoC+@google.com>
-From: Stanislav Fomichev <sdf@google.com>
-To: Rong Tao <rtoax@foxmail.com>
+ Thu, 10 Aug 2023 19:29:49 +0000 (UTC)
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37AJTTZ2001573;
+ Thu, 10 Aug 2023 14:29:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1691695769;
+ bh=z+/O/oJEzBl6XJbUbJ5i2E5EgCmgXxI/5YsPmBtngIE=;
+ h=From:Subject:Date:To:CC;
+ b=ykTkuXWCaxSY2N8vzYZyxhnQJzwRdH9+VStVZWpLYPv/ei6KDvtqL45AZ+6lG95pf
+ Vwwc7IAbge4NzkEfgSKAYAt7CBWi6ByQL8CG6qkoXSJrXvWxejY9+q7CFfgkF9g2wZ
+ y0e81aUAt8J9RtAGBgYT0f7ePvVokgTGYJ1wfs1A=
+Received: from DLEE101.ent.ti.com (dlee101.ent.ti.com [157.170.170.31])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37AJTTVO027942
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 10 Aug 2023 14:29:29 -0500
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 10
+ Aug 2023 14:29:29 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Thu, 10 Aug 2023 14:29:29 -0500
+Received: from localhost (ileaxei01-snat2.itg.ti.com [10.180.69.6])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37AJTSeW002155;
+ Thu, 10 Aug 2023 14:29:28 -0500
+From: Kamlesh Gurudasani <kamlesh@ti.com>
+Date: Fri, 11 Aug 2023 00:58:47 +0530
+Message-ID: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAG861WQC/3WNMQ6DMAxFr4Iy1xUEqkAn7lExGOOWDAFkp6gV4
+ u4N7B3f/3p6m1EWz2ru2WaEV69+nhLYS2ZoxOnF4IfExua2zF3RQCAheC8ahTGAQ27Q3Qj70pn
+ k9KgMveBE42EF1MhyHIvw03/O0KNLPHqNs3zP7loc67/EWkAOA9WuqdFWVLk2+ivNwXT7vv8Ad
+ 3v6JMAAAAA=
+To: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
+ <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.12.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1691695767; l=3032;
+ i=kamlesh@ti.com; s=20230614; h=from:subject:message-id;
+ bh=LWqG7WYZ/paBwbFSp816khIcJHbId0/YeHLEz1IDBiU=;
+ b=iYk5pAb85XLs5Klt2bkUeSJNIOB7CmIuI1EPgQsM7rZfDSZVI0F/OW7/m/KAgIXAqx5AQZaLb
+ sKT2A/5OJpEDjQvuVCREMZkbRlshuk4cDCvPNLN5LjE3igJThAj3ycJ
+X-Developer-Key: i=kamlesh@ti.com; a=ed25519;
+ pk=db9XKPVWDGJVqj2jDqgnPQd6uQf3GZ3oaQa4bq1odGo=
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Song Liu <song@kernel.org>,
- rongtao@cestc.cn, Yonghong Song <yonghong.song@linux.dev>,
- Daniel =?utf-8?Q?M=C3=BCller?= <deso@posteo.net>,
- Xu Kuohai <xukuohai@huawei.com>, Shuah Khan <shuah@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Mykola Lysenko <mykolal@fb.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Manu Bretelle <chantr4@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Ross Zwisler <zwisler@google.com>,
- "Steven Rostedt \(Google\)" <rostedt@goodmis.org>, ast@kernel.org,
- KP Singh <kpsingh@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, open list <linux-kernel@vger.kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
- "open list:BPF \[GENERAL\] \(Safe Dynamic Programs and Tools\)"
- <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
-Subject: Re: [Linux-stm32] [PATCH bpf-next] selftests/bpf: trace_helpers.c:
- optimize kallsyms cache
+Cc: devicetree@vger.kernel.org, Kamlesh Gurudasani <kamlesh@ti.com>,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/6] Add support for Texas Instruments
+	MCRC64 engine
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,177 +85,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 08/10, Rong Tao wrote:
-> From: Rong Tao <rongtao@cestc.cn>
-> 
-> Static ksyms often have problems because the number of symbols exceeds the
-> MAX_SYMS limit. Like changing the MAX_SYMS from 300000 to 400000 in
-> commit e76a014334a6("selftests/bpf: Bump and validate MAX_SYMS") solves
-> the problem somewhat, but it's not the perfect way.
-> 
-> This commit uses dynamic memory allocation, which completely solves the
-> problem caused by the limitation of the number of kallsyms.
+Add support for MCRC64 engine to calculate 64-bit CRC in Full-CPU mode
 
-Thank you for doing this! I do remember complaining about it on the last
-"let's bump the limit" patch :-D
+MCRC64 engine calculates 64-bit cyclic redundancy checks (CRC)
+according to the ISO 3309 standard.
 
-> Signed-off-by: Rong Tao <rongtao@cestc.cn>
-> ---
->  samples/bpf/offwaketime_user.c                |  1 +
->  samples/bpf/sampleip_user.c                   |  1 +
->  samples/bpf/spintest_user.c                   |  1 +
->  samples/bpf/task_fd_query_user.c              |  1 +
->  samples/bpf/trace_event_user.c                |  1 +
->  .../selftests/bpf/prog_tests/bpf_cookie.c     |  1 +
->  .../bpf/prog_tests/get_stack_raw_tp.c         |  1 +
->  .../bpf/prog_tests/kprobe_multi_test.c        |  2 +
->  .../prog_tests/kprobe_multi_testmod_test.c    |  2 +
->  tools/testing/selftests/bpf/trace_helpers.c   | 74 ++++++++++++-------
->  tools/testing/selftests/bpf/trace_helpers.h   |  1 +
->  11 files changed, 60 insertions(+), 26 deletions(-)
-> 
-> diff --git a/samples/bpf/offwaketime_user.c b/samples/bpf/offwaketime_user.c
-> index b6eedcb98fb9..5e6934f2d932 100644
-> --- a/samples/bpf/offwaketime_user.c
-> +++ b/samples/bpf/offwaketime_user.c
-> @@ -149,5 +149,6 @@ int main(int argc, char **argv)
->  		bpf_link__destroy(links[i]);
->  
->  	bpf_object__close(obj);
-> +	free_kallsyms();
+The ISO 3309 64-bit CRC model parameters are as follows:
+    Generator Polynomial: x^64 + x^4 + x^3 + x + 1
+    Polynomial Value: 0x000000000000001B
+    Initial value: 0x0000000000000000
+    Reflected Input: False
+    Reflected Output: False
+    Xor Final: 0x0000000000000000
 
-Do we really need to free the symbols? IOW, is it enough to load them
-once and keep them around until test_progs dies?
+Tested with
+CONFIG_CRYPTO_MANAGER_DISABLE_TESTS is not set
+CONFIG_CRYPTO_MANAGER_EXTRA_TESTS=y
 
-If we do, I wonder what would happen when test_progs runs in parallel mode?
-Feels like if we're adding this alloc/free, then load_symbols
-should return some object which free_kallsyms should free?
-And ksym_get_addr would also work on that object, not on the global
-state..
+and tcrypt,
+sudo modprobe tcrypt mode=329 sec=1
 
+User space application implemented using algif_hash,
+https://gist.github.com/ti-kamlesh/73abfcc1a33318bb3b199d36b6209e59
 
->  	return 0;
->  }
-> diff --git a/samples/bpf/sampleip_user.c b/samples/bpf/sampleip_user.c
-> index 9283f47844fb..548ca1e9fcac 100644
-> --- a/samples/bpf/sampleip_user.c
-> +++ b/samples/bpf/sampleip_user.c
-> @@ -230,5 +230,6 @@ int main(int argc, char **argv)
->  
->  	free(links);
->  	bpf_object__close(obj);
-> +	free_kallsyms();
->  	return error;
->  }
-> diff --git a/samples/bpf/spintest_user.c b/samples/bpf/spintest_user.c
-> index aadac14f748a..895a64afaf78 100644
-> --- a/samples/bpf/spintest_user.c
-> +++ b/samples/bpf/spintest_user.c
-> @@ -88,5 +88,6 @@ int main(int ac, char **argv)
->  		bpf_link__destroy(links[j]);
->  
->  	bpf_object__close(obj);
-> +	free_kallsyms();
->  	return 0;
->  }
-> diff --git a/samples/bpf/task_fd_query_user.c b/samples/bpf/task_fd_query_user.c
-> index 1e61f2180470..3eb9477541fb 100644
-> --- a/samples/bpf/task_fd_query_user.c
-> +++ b/samples/bpf/task_fd_query_user.c
-> @@ -419,5 +419,6 @@ int main(int argc, char **argv)
->  		bpf_link__destroy(links[i]);
->  
->  	bpf_object__close(obj);
-> +	free_kallsyms();
->  	return err;
->  }
-> diff --git a/samples/bpf/trace_event_user.c b/samples/bpf/trace_event_user.c
-> index 9664749bf618..a8b9343126fa 100644
-> --- a/samples/bpf/trace_event_user.c
-> +++ b/samples/bpf/trace_event_user.c
-> @@ -348,5 +348,6 @@ int main(int argc, char **argv)
->  
->  cleanup:
->  	bpf_object__close(obj);
-> +	free_kallsyms();
->  	err_exit(error);
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> index 26b2d1bffdfd..4786396e554b 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> @@ -170,6 +170,7 @@ static void kprobe_multi_link_api_subtest(void)
->  cleanup:
->  	close(link1_fd);
->  	close(link2_fd);
-> +	free_kallsyms();
->  	kprobe_multi__destroy(skel);
->  }
->  
-> diff --git a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> index 858e0575f502..4e1c564746e1 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> @@ -146,4 +146,5 @@ void test_get_stack_raw_tp(void)
->  	bpf_link__destroy(link);
->  	perf_buffer__free(pb);
->  	bpf_object__close(obj);
-> +	free_kallsyms();
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> index 2173c4bb555e..d6c0b5f2f887 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> @@ -488,4 +488,6 @@ void test_kprobe_multi_test(void)
->  		test_attach_api_syms();
->  	if (test__start_subtest("attach_api_fails"))
->  		test_attach_api_fails();
-> +
-> +	free_kallsyms();
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> index 1fbe7e4ac00a..c25f262832b7 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> @@ -86,4 +86,6 @@ void serial_test_kprobe_multi_testmod_test(void)
->  		test_testmod_attach_api_syms();
->  	if (test__start_subtest("testmod_attach_api_addrs"))
->  		test_testmod_attach_api_addrs();
-> +
-> +	free_kallsyms();
->  }
-> diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
-> index f83d9f65c65b..08986f70836b 100644
-> --- a/tools/testing/selftests/bpf/trace_helpers.c
-> +++ b/tools/testing/selftests/bpf/trace_helpers.c
-> @@ -18,9 +18,32 @@
->  #define TRACEFS_PIPE	"/sys/kernel/tracing/trace_pipe"
->  #define DEBUGFS_PIPE	"/sys/kernel/debug/tracing/trace_pipe"
->  
-> -#define MAX_SYMS 400000
-> -static struct ksym syms[MAX_SYMS];
-> -static int sym_cnt;
-> +static struct {
-> +	struct ksym *syms;
-> +	unsigned int sym_cnt;
-> +} ksyms = {
-> +	.syms = NULL,
-> +	.sym_cnt = 0,
-> +};
-> +
-> +static int ksyms__add_symbol(const char *name, unsigned long addr)
-> +{
-> +	void *tmp;
-> +	unsigned int cnt = ksyms.sym_cnt;
-> +
-> +	cnt++;
-> +	tmp = realloc(ksyms.syms, sizeof(struct ksym) * cnt);
-> +	if (!tmp)
-> +		return -ENOMEM;
+Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
+---
+Changes in v2:
+- Add generic implementation of crc64-iso
+- Fixes according to review comments
+- Link to v1: https://lore.kernel.org/r/20230719-mcrc-upstream-v1-0-dc8798a24c47@ti.com
 
-Should we do the usual len/capacity scheme here to amortize the cost
-of realloc (like doubling capacity when we reach it)?
-Calling realloc on every symbol doesn't seem right.
+---
+Kamlesh Gurudasani (6):
+      lib: add ISO 3309 model crc64
+      crypto: crc64 - add crc64-iso framework
+      dt-bindings: crypto: Add Texas Instruments MCRC64
+      crypto: ti - add driver for MCRC64 engine
+      arm64: dts: ti: k3-am62: Add dt node, cbass_main ranges for MCRC64
+      arm64: defconfig: enable TI MCRC64 module
+
+ Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml |  47 ++++++++
+ MAINTAINERS                                             |   7 ++
+ arch/arm64/boot/dts/ti/k3-am62-main.dtsi                |   7 ++
+ arch/arm64/boot/dts/ti/k3-am62.dtsi                     |   1 +
+ arch/arm64/configs/defconfig                            |   2 +
+ crypto/Kconfig                                          |  11 ++
+ crypto/Makefile                                         |   1 +
+ crypto/crc64_iso_generic.c                              | 119 ++++++++++++++++++
+ crypto/tcrypt.c                                         |   5 +
+ crypto/testmgr.c                                        |   7 ++
+ crypto/testmgr.h                                        | 404 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/crypto/Kconfig                                  |   1 +
+ drivers/crypto/Makefile                                 |   1 +
+ drivers/crypto/ti/Kconfig                               |  10 ++
+ drivers/crypto/ti/Makefile                              |   2 +
+ drivers/crypto/ti/mcrc64.c                              | 442 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/crc64.h                                   |   5 +
+ lib/crc64-iso.c                                         | 126 +++++++++++++++++++
+ lib/crc64.c                                             |  27 +++++
+ lib/gen_crc64table.c                                    |   6 +
+ 20 files changed, 1231 insertions(+)
+---
+base-commit: 21ef7b1e17d039053edaeaf41142423810572741
+change-id: 20230719-mcrc-upstream-7ae9a75cab37
+
+Best regards,
+-- 
+Kamlesh Gurudasani <kamlesh@ti.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
