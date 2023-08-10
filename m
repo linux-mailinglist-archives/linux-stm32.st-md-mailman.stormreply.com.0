@@ -2,52 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0086777C66
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 17:39:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3374C777CE4
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 17:56:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F76C6B469;
-	Thu, 10 Aug 2023 15:39:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBA9DC6B469;
+	Thu, 10 Aug 2023 15:56:54 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED638C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37FAFC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 15:39:36 +0000 (UTC)
+ Thu, 10 Aug 2023 15:56:53 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BA6486603F;
- Thu, 10 Aug 2023 15:39:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AEE9C433C7;
- Thu, 10 Aug 2023 15:39:32 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0A1AA660D5;
+ Thu, 10 Aug 2023 15:56:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3AFC433C8;
+ Thu, 10 Aug 2023 15:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691681975;
- bh=+RqZA0cX8VIY0s3e11+0Z9i6zfMLI9V7lSoagiXzHiM=;
+ s=k20201202; t=1691683011;
+ bh=KjR8tfjBjYapj4g2ZYHTR2lxl4LahNLGVGtwCEI8Er4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HjxbKhdZqC5p2SHPbNZsipblSdM/awSjA5WKv4TzP1/gOuM327LgmV4K1MyB2FGm1
- VwnxudQD81C4kPg9N1ZwuUQWnjnwhQM3uTknXSUuk3Y+YvY97Gec4bb2j+GM+mkSMc
- N6n5rtiqcoF9F5nfCF85qQBT34ip9ySg1Yt2YUYJyUQATX6G89y1//KgxR+Yx1WI+y
- LcV0w6CfzfiHlGjioxkW3EOAZtHbKmUIEqidUNu01UYNdEAsebCtWfYnKo/XAqNYAo
- LDHGTKGwc/Hi9mwU9r4gTl0h4SGzWcMoZMEeVarCKWcwqAz76GbNZD+nb5MH5dqpv1
- CiKiOa2yuI1aQ==
-Date: Thu, 10 Aug 2023 16:39:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Message-ID: <20230810-avid-perplexed-0c25013617c9@spud>
-References: <20230810150328.19704-1-rohan.g.thomas@intel.com>
- <20230810150328.19704-2-rohan.g.thomas@intel.com>
+ b=MsWd4rF5xyh2zaC4uc/x2prlgCayaZ0Ap62vmMFAow6DnmoHOggw5t8v/IVICi95z
+ /Vq90pLhOkXpu2e3yQb0HxhSbisrqqPZwiLGuKhAjAygvr1JXLgjYH3a971lXsmq6l
+ SfLKh95ZGJUerkdz6ATI/xxRXfKJkbMasJ/l2Yqv4Z9KkSF5ivGF0fWcJWU8foB6iR
+ dlBJo4sEhoXUZdlUMJxukw09qo6qDSKyZOgW0EwLX4N2OA/o3eirMd6F88BmEuZ938
+ yfNanbIaKYKanrvOzezqu96+bfYvwVFoYHokA4eAZDykdvPfmNHEaN6n2tF4pXw3kK
+ B/Z5hJ2BSzLRg==
+Date: Thu, 10 Aug 2023 23:45:07 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <ZNUGA+6/K5GJbK4d@xhacker>
+References: <20230809165007.1439-1-jszhang@kernel.org>
+ <20230809165007.1439-10-jszhang@kernel.org>
+ <20230809-scabby-cobweb-bb825dffb309@spud>
 MIME-Version: 1.0
-In-Reply-To: <20230810150328.19704-2-rohan.g.thomas@intel.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20230809-scabby-cobweb-bb825dffb309@spud>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- netdev@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] dt-bindings: net: snps,
- dwmac: Tx queues with coe
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3 09/10] dt-bindings: net: snps,
+ dwmac: add per channel irq support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,76 +62,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8863148197237952776=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Wed, Aug 09, 2023 at 06:38:36PM +0100, Conor Dooley wrote:
+> On Thu, Aug 10, 2023 at 12:50:06AM +0800, Jisheng Zhang wrote:
+> > The IP supports per channel interrupt, add support for this usage case.
+> > 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> 
+> I do not see a response to
+> <https://lore.kernel.org/all/20230808-clapper-corncob-0af7afa65752@spud/>
+> in my mailbox or on lore, nor is there any changes in v3 on this front.
 
---===============8863148197237952776==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="MuZ3wrqm02dw4gEw"
-Content-Disposition: inline
+oops, sorry, I didn't mbsync to fetch my inbox before sending out v3, so
+I missed your review comments ;)
 
+I will reply in the thread
+> 
+> Thanks,
+> Conor.
+> 
+> > ---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml   | 33 +++++++++++++++++++
+> >  1 file changed, 33 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 5d81042f5634..5a63302ad200 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -109,6 +109,7 @@ properties:
+> >        - description: The interrupt that occurs when Rx exits the LPI state
+> >        - description: The interrupt that occurs when Safety Feature Correctible Errors happen
+> >        - description: The interrupt that occurs when Safety Feature Uncorrectible Errors happen
+> > +      - description: All of the rx/tx per-channel interrupts
+> >  
+> >    interrupt-names:
+> >      minItems: 1
+> > @@ -118,6 +119,38 @@ properties:
+> >        - const: eth_lpi
+> >        - const: sfty_ce
+> >        - const: sfty_ue
+> > +      - const: rx0
+> > +      - const: rx1
+> > +      - const: rx2
+> > +      - const: rx3
+> > +      - const: rx4
+> > +      - const: rx5
+> > +      - const: rx6
+> > +      - const: rx7
+> > +      - const: rx8
+> > +      - const: rx9
+> > +      - const: rx10
+> > +      - const: rx11
+> > +      - const: rx12
+> > +      - const: rx13
+> > +      - const: rx14
+> > +      - const: rx15
+> > +      - const: tx0
+> > +      - const: tx1
+> > +      - const: tx2
+> > +      - const: tx3
+> > +      - const: tx4
+> > +      - const: tx5
+> > +      - const: tx6
+> > +      - const: tx7
+> > +      - const: tx8
+> > +      - const: tx9
+> > +      - const: tx10
+> > +      - const: tx11
+> > +      - const: tx12
+> > +      - const: tx13
+> > +      - const: tx14
+> > +      - const: tx15
+> >  
+> >    clocks:
+> >      minItems: 1
+> > -- 
+> > 2.40.1
+> > 
 
---MuZ3wrqm02dw4gEw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Aug 10, 2023 at 11:03:27PM +0800, Rohan G Thomas wrote:
-> Add dt-bindings for the number of tx queues with coe support. Some
-> dwmac IPs support tx queues only for few initial tx queues, starting
-> from tx queue 0.
->=20
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
-> ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Docu=
-mentation/devicetree/bindings/net/snps,dwmac.yaml
-> index ddf9522a5dc2..ad26a32e0557 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -313,6 +313,9 @@ properties:
->        snps,tx-queues-to-use:
->          $ref: /schemas/types.yaml#/definitions/uint32
->          description: number of TX queues to be used in the driver
-> +      snps,tx-queues-with-coe:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description: number of TX queues support TX checksum offloading
-
-Either you omitted a "ing" or a whole word from this description.
-
->        snps,tx-sched-wrr:
->          type: boolean
->          description: Weighted Round Robin
-> --=20
-> 2.26.2
->=20
-
---MuZ3wrqm02dw4gEw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZNUEsQAKCRB4tDGHoIJi
-0iOmAQDn/yAcD1JLuhTNKcQin6nvPE+5IS9OqAUHFX4TkbFa9gEAgTyktV5zdQHm
-uELPRWXyRAJCvDqDi2+ETRiC7hBXRAg=
-=3asX
------END PGP SIGNATURE-----
-
---MuZ3wrqm02dw4gEw--
-
---===============8863148197237952776==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8863148197237952776==--
