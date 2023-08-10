@@ -2,155 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91191777F88
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 19:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07E1778368
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 00:02:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 422ABC6B469;
-	Thu, 10 Aug 2023 17:48:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 664F8C6B469;
+	Thu, 10 Aug 2023 22:02:52 +0000 (UTC)
+Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
+ [209.85.166.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF991C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7F19C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 17:48:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691689693; x=1723225693;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=73d4fXwbQAUnmYlX5nKwtkfZ7EQ3ew+DbOMV/u7edp8=;
- b=agGTkDnOS26eCOC0dxXAiaLpTyjmOcmqmI2jkWILLv/dLBv73k7u/V+P
- 9C9n7DGsHa9Lh7LKXgxhx5tHgH8up2KwaaVm1gd/mZKilvNci1rJOyokG
- IbE5iYGFYR1rpiA4dXewzFUfEhpbkSp2Ir31whrU1DC5AlGYhll+6DNWH
- ukD4kLH6kIgM9hjXkCtJ8qUJGbR+O8VgxLoBZgxM5++F32uYuf3ofN3n+
- S/OD6s+piKK9Qh0JjP04WNlCH6+uq0UADi5bySXLPWk6ewK8TJGFhMuYz
- A789cKRM4CZ68vGB0w9+c1BBbmAX/I2KpdrfKYY65mWN6ypZQiGicDzsq g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="402449812"
-X-IronPort-AV: E=Sophos;i="6.01,163,1684825200"; d="scan'208";a="402449812"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 10:47:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="797697998"
-X-IronPort-AV: E=Sophos;i="6.01,163,1684825200"; d="scan'208";a="797697998"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga008.fm.intel.com with ESMTP; 10 Aug 2023 10:47:52 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 10 Aug 2023 10:47:52 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Thu, 10 Aug 2023 10:47:51 -0700
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Thu, 10 Aug 2023 10:47:51 -0700
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.45) by
- edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.27; Thu, 10 Aug 2023 10:47:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F/PynzNZfpvlmbMqBMK6WPVmoBf/WG2BcQ+W/EIfV09qWce6MYwLih7W0DqHUgzb+9FwA2RUT9c1UYL3YSS5BsfjE4ADQ2v2Pwu7/bzI9XSCO0BMCyhOCbeLEFj/BHHiwRNFqUTZ7khI4AiOywUaTVl+0qsm7HZo/faeUuZMn0tKvOd14T4+0pkLvl77dUwsLMS5KXtuRB2RJAiu4YAPiY+2GxP109FWHgQgAl3QeheRptf6I7iuh7lzpy2cdkcSupxgl0n0Vqknn2np1dF6MC3UhfJUOso6PbPM37lraRsRZnTyIfsVZeQ9LYtaZbaf7mVU4AhLx+CXYPVsBSQcSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4TXWgzCcAlHWQVuw2Tq0jyZdCD3xpu1X/VtfO3njlPM=;
- b=CVmCzFrifSRqeY5uvlcDeffUnsmAh61lMoqHM4JKHklXejTtzcVBlH1du5mPNmQuOhhmD8P9o7+ZUGpiDd4j2ARsTvdfFlcxfLMw/14tCpRXg+NqBkYAW9H81TNIp3zlUZ24ZBVxVFpHvvtZUY5fMm+W59ipLFGyKI1Bk0vdQIH7y1QcxA8o4wblFfvShAgVNbKuJxgOp60p2T6GPJ/sFx11e1/OqlMUnlyAEV7SyU/TksBZF58nfS6SUF9EQ7Ak8vQ+WLXJdNorku8/c6TLkiI/mGOngX8VkrhNJ2thQ4AU6m9mWD980icPae34/tqag3eG60T59weI2DFmoO1dtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM3PR11MB8714.namprd11.prod.outlook.com (2603:10b6:0:b::18) by
- PH0PR11MB4917.namprd11.prod.outlook.com (2603:10b6:510:32::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6652.30; Thu, 10 Aug 2023 17:47:49 +0000
-Received: from DM3PR11MB8714.namprd11.prod.outlook.com
- ([fe80::b393:daa3:e9cb:58d9]) by DM3PR11MB8714.namprd11.prod.outlook.com
- ([fe80::b393:daa3:e9cb:58d9%7]) with mapi id 15.20.6652.029; Thu, 10 Aug 2023
- 17:47:49 +0000
-From: "G Thomas, Rohan" <rohan.g.thomas@intel.com>
-To: Conor Dooley <conor@kernel.org>
-Thread-Topic: [PATCH net-next 1/2] dt-bindings: net: snps,dwmac: Tx queues
- with coe
-Thread-Index: AQHZy5vzXU8toRx87U6CwLClASZUn6/jqnuAgAAfHYA=
-Date: Thu, 10 Aug 2023 17:47:49 +0000
-Message-ID: <DM3PR11MB8714839031B25C932B13DB5CDE13A@DM3PR11MB8714.namprd11.prod.outlook.com>
-References: <20230810150328.19704-1-rohan.g.thomas@intel.com>
- <20230810150328.19704-2-rohan.g.thomas@intel.com>
- <20230810-avid-perplexed-0c25013617c9@spud>
-In-Reply-To: <20230810-avid-perplexed-0c25013617c9@spud>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM3PR11MB8714:EE_|PH0PR11MB4917:EE_
-x-ms-office365-filtering-correlation-id: b20d1920-37a5-432b-ab3d-08db99c9e9ae
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XSXbwBB3zYGDe1swOWcHNfEMC8mweLwYRPeErD+AA8RYL6Y69gbJFlaBg2Mb0I65WQcuu9MA/fLvE96w6P+WraxPF78dAfNFHuqpmknkAnnmEGJlARtw7wnI3D7WTpGDHbdP5z28zMJ5JQLDyM7SPvWkjZsXJtSoHT2sKOLN+U6sCJyFRjqJl62ohFxomW42lBYGtPFm0XLxPunrqA2urLnog2K1WkckyVeQEAaU6gO2Vqyh0bD/6irdB0ZioTwcxoz5qxxsGOr5momNBV1sz9KQUMvcAzuxTh+NQTR7lJ4KxJyZ2xauZSLAAsTa4PSPC5nFsSpzLnGb9wfGs7smtFvmTaDRg2tusLQG8SqEmcvA1MqIKtqbJ8z7GWH+E/0BQqigGlIgoVuOivGiSeGvCuAn2Y9QUqtv2L7C0zz6jnLfJ09rAP9A+4s3eqHmcU7/Y0+OoMeVgqeTYjKsPkHgADCfyknCbwGwopfJfnQEoVa4kYk8bDgIMHZQm49W1aR8Fpf7ocI/Y4stCplkWzCPFIldV2qeJW5NqGi2MfWSSKurAZ6+77s6Yl+nbdvI9d547XrcC1tjVMvwO0uHRMoQ2XEz90V4+DIdzOtk4l/5dcXzhGu41SPzB252ENt8Bo5i
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR11MB8714.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(136003)(346002)(39860400002)(366004)(376002)(396003)(186006)(1800799006)(451199021)(66446008)(5660300002)(26005)(71200400001)(82960400001)(41300700001)(38070700005)(52536014)(8936002)(8676002)(7696005)(316002)(6506007)(33656002)(66476007)(9686003)(6916009)(4326008)(64756008)(66556008)(66946007)(76116006)(7416002)(83380400001)(2906002)(86362001)(54906003)(38100700002)(122000001)(478600001)(55016003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?08lm03o/iSr3pBJQ49nGR92hUmnxFRcliBq6rxr0M4nG7tQGpT9aRIaD5h?=
- =?iso-8859-1?Q?KYXOoTCrz0OyEnd9ml+dhP92oKzuPxYfre5KMMsImW7T8p0NlBzhwp1R4a?=
- =?iso-8859-1?Q?EWPLGC2HfYqtQpvssTBKf2/1dTr9PfnsXMW1ZwVrPR+rnpf+/HY0zCZFP1?=
- =?iso-8859-1?Q?CLvxcuY4AGB0uasuZepEJlp+JI4lByz7DjhvSyKY4fQ0yYoamCQXna65/q?=
- =?iso-8859-1?Q?DVOzvZFYOEn/rG0MScXL8nocXd2iW+PShOhFYWSYPZga91HHbGYd9Zicl0?=
- =?iso-8859-1?Q?EDTcp2et8/1H015uu5mQMgevp8Cv3NnaNBINgjr9Cnj50ZqWtUOCjg2LsJ?=
- =?iso-8859-1?Q?XKjtV+i0444mHQ4BumXkkLQhvhUb60EV5eVOqaFMLeUBvPvM0G+j1kA9MJ?=
- =?iso-8859-1?Q?+Hy+VU9ZLZzGZmTleG/+T41OHFtxIG+yGCL+d5HcVJRfGKtOCYKdezO+ih?=
- =?iso-8859-1?Q?0VGQglYdGhHAhfdWJ0+b/bKIZ2C7u2Y7Yw18bHGXKfRzAwmn4oxptfjByY?=
- =?iso-8859-1?Q?A2ydLB3kKMkbOeLOuXFz/jbKewm3TcJ1W/qQMcTz51f7/5765V9f9+ufKv?=
- =?iso-8859-1?Q?ijNqgJIVGgDbEWc6fBf0/ezQNa4SXQvwtrmTUFJARRrUxIcmy5ma0aUpkT?=
- =?iso-8859-1?Q?Vx2BcNELI0hjHdVI6sIbQsUcGJuTEyL1Th3t0yxvNUi7BpVEREKuVxbUKI?=
- =?iso-8859-1?Q?mpmE3rLuMWb8gsx35WMEEa9Lzcrc1JbMmeK53cLQsKkDLPhqFOgc5JX2K2?=
- =?iso-8859-1?Q?mBKTHLXfyLq349RFWw96wsqWmiOb7MTQuHHbSVnI+IOV3ZWTHy3QYV1xEi?=
- =?iso-8859-1?Q?7NcNDkfpsytm+TASBcGXbyHQRCtIe/QiU6OZVybl1nibIHThpakNDRbtPx?=
- =?iso-8859-1?Q?3CiBylo62/ytP5fPCTLyc64bCKPAoXFAJ1tcZJIYwZJeBktPYcFMGTou1g?=
- =?iso-8859-1?Q?6iG6VFs0a0bH1WL4UkRoSL4sw6Pl6zeYW/2Oro2zJU2tToaA7GOcSWxoEk?=
- =?iso-8859-1?Q?eus0BLvMtBR8QrGh8PE1bu+mWaioiWec1dx94oNFqmNpXmK3FhHwNtxOis?=
- =?iso-8859-1?Q?Q17epLEMMyuRF9X1rPGQp6YGfALnu13pgyvkwhJ1ZKyBSbmXe0DYQ41Urj?=
- =?iso-8859-1?Q?gVV0FfWcmmMuvRlFvnQkbOEPaeOoKWmzpFB+E6y0qdcV6p64000I4YTC8D?=
- =?iso-8859-1?Q?XDEZeKCmp4wDNhwJkjdMDdNc3XJ3I8UlA+TmQVoTtpgAsRDBMysArNDScq?=
- =?iso-8859-1?Q?UOklg3HD5A4ZhzagkZGUkYj0MxIaDFpSzzgQJleoFb1OMgcgfyHTFi415J?=
- =?iso-8859-1?Q?s0cWB1Ywjd0iIH27l3eJWH2AXrmHBbC1gQNUQlnt+DmQbA9+M/tZsjUeoi?=
- =?iso-8859-1?Q?H13oITKeEjZzvzHzmNrK4rigCFsdjO8W3sKnjACicGcPniMk1SLlYAkN0k?=
- =?iso-8859-1?Q?zjseukEUf9K09DGieeHnlY7AJeBoZwRipmzHm9uTepFR5ST6pa2s/JMJL8?=
- =?iso-8859-1?Q?Mmj5dNHdZDSk4R8a/10P6OH/jkv9PwQTRVgkLj+4N6aRgvIC32X72RSQsY?=
- =?iso-8859-1?Q?kn6zRICkuM9AsreU8MGgVDDKU94eI5Ltgg8O0tHK5PMLG6BZTgqVzqt255?=
- =?iso-8859-1?Q?Iqn6ON3Ah2MGXVGqWXXfpALfe1jahN6hBS?=
+ Thu, 10 Aug 2023 22:02:51 +0000 (UTC)
+Received: by mail-il1-f178.google.com with SMTP id
+ e9e14a558f8ab-34985c13235so16925ab.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Aug 2023 15:02:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20221208; t=1691704970; x=1692309770;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WirRslw/0aDPkGhNScoiXM3zTY4G823fT91ETu+Lq6E=;
+ b=UkdroNGwQrguLsDBgIEgrLvfKjn25h5tidmJjeYWOg8t5dssZ1517XjbYhdh/tiPNO
+ EBpB6lGHrYvSxe5RzWSp9mAptNk9c7Meu+AWFWKissa9cQSd6+yCsJvq60LFZ+jCOIVe
+ Rr9sVB8JIfibwVkOG/suomrjoOrY2Geo4BFVDD8CLiVSW1pNChr4tcICXZFee5TT8RAD
+ PTG3bqf+yehy7fQNyjY/+xRXxvjckVSUSD5M+mjFhnQ5t5KXv1ApBtrP6GoofG9Sl8Hn
+ 9PCfxaJ/p5/oV6OwPWYN3qCFQUI38smFiA3zq2al3YjMc6Mg2brfo88yQImylhrW4ewn
+ S55Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691704970; x=1692309770;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=WirRslw/0aDPkGhNScoiXM3zTY4G823fT91ETu+Lq6E=;
+ b=WQ3pRJ2yAdGg7YJ8wYlH7j82yLtRLNF3FPmWq3zPA/suYTyZxxW+LNSnrnt8UYoojK
+ 8XueYL3s/PtNlAQN9YnPwspPXlwHb4cDt5/fwVrPPP2bww0TC/6/zYSosTxNchy17rtl
+ 5NJ9ax4MUbCtG/I3fCwF2q9P4iqXpJHsEJGcYoLa6zKYPgDE/F1+k6/7vUJozN5RrK6I
+ h/3XNKAHoxIYyopwsYN6C49BSACNtKEfiXrtVaO9G9uShoZWrbmne70Fbg7rKT+Rv+tK
+ 8nGXZvP/OzBz43EdLH6rl0Sq7CIdd1HMZvclI4F34Yj6kT4sRORg//V+31xcBblU9Fsz
+ eaSw==
+X-Gm-Message-State: AOJu0YxwPWKmGwNscoJ5SJZAjblmKzQuuv9ryZDvfiQZD3nnl/Lrn/hE
+ UCTKFfvVI080ykN00G5mE5HvHjinBgsJUh8OlVmHJQ==
+X-Google-Smtp-Source: AGHT+IEVz2QXUNlQHls+sgcBM1Gy6AYEvav8ViVH8f0MUbcqC3NuL9+xkH/d3pXnSUlrKBHYSG/nFcIRqELsmKHUvDg=
+X-Received: by 2002:a05:6e02:1987:b0:346:1919:7c9b with SMTP id
+ g7-20020a056e02198700b0034619197c9bmr112579ilf.26.1691704970628; Thu, 10 Aug
+ 2023 15:02:50 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR11MB8714.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b20d1920-37a5-432b-ab3d-08db99c9e9ae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2023 17:47:49.0600 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aEAxIDPyonWoTGAQfFR8F3yGvvskH/YYw1nSKufV1zbJP8MPuLQTRWG0xFDOCpSdNe1LDX81kHp5qgxGCegNBeI82UBlinHwViuEYoAF++Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4917
-X-OriginatorOrg: intel.com
-Cc: Conor Dooley <conor+dt@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] dt-bindings: net: snps,
- dwmac: Tx queues with coe
+References: <20230803-fix-typo-v1-1-b794378d594e@manank.me>
+ <ZMwRzQC+wBgJpDfr@kernel.org>
+In-Reply-To: <ZMwRzQC+wBgJpDfr@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Thu, 10 Aug 2023 15:02:37 -0700
+Message-ID: <CAP-5=fW_bC1s+43My1cXmF_og7SE4=8K=ZZn82WNSGqAo849oQ@mail.gmail.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, Edward <edward.baker@intel.com>
+Cc: Manank Patel <manank@manank.me>, Mark Rutland <mark.rutland@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+ Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>,
+ Jens Schleusener <Jens.Schleusener@fossies.org>, Jiri Olsa <jolsa@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] tools: perf: pmu-events: Fix typo
+	poiint->point
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,54 +78,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Dear Conor,
-
-On Thu, Aug 10, 2023 at 11:03:27PM +0800, Rohan G Thomas wrote:
-> > Add dt-bindings for the number of tx queues with coe support. Some
-> > dwmac IPs support tx queues only for few initial tx queues, starting
-> > from tx queue 0.
-> >
-> > Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
-> > ---
-> >  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > index ddf9522a5dc2..ad26a32e0557 100644
-> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> > @@ -313,6 +313,9 @@ properties:
-> >        snps,tx-queues-to-use:
-> >          $ref: /schemas/types.yaml#/definitions/uint32
-> >          description: number of TX queues to be used in the driver
-> > +      snps,tx-queues-with-coe:
-> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> > +        description: number of TX queues support TX checksum
-> > + offloading
-> =
-
-> Either you omitted a "ing" or a whole word from this description.
-
-Thanks for pointing this out. Will fix it in the next=A0version as below,
-description: number of TX queues that supports TX checksum offloading
-> =
-
-> >        snps,tx-sched-wrr:
-> >          type: boolean
-> >          description: Weighted Round Robin
-> > --
-> > 2.26.2
-> >
-
-Best Regards,
-Rohan
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBBdWcgMywgMjAyMyBhdCAxOjQ14oCvUE0gQXJuYWxkbyBDYXJ2YWxobyBkZSBNZWxv
+IDxhY21lQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gRW0gVGh1LCBBdWcgMDMsIDIwMjMgYXQgMTE6
+Mjc6MzBBTSArMDUzMCwgTWFuYW5rIFBhdGVsIGVzY3JldmV1Ogo+ID4gRml4IHR5cG8gaW4gZmls
+ZSBmbG9hdGluZy1wb2ludC5qc29uIGluIC9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwCj4KPiBBRkFJ
+SyB0aGVzZSBhcmUgZ2VuZXJhdGVkIHVzaW5nIGEgdG9vbCwgc28gdGhlIGZpeCBuZWVkcyB0byBn
+byB0byB0aGUKPiBmaWxlIGZyb20gd2hlcmUgdGhlIEpTT04gZmlsZXMgYXJlIGdlbmVyYXRlZCwg
+SWFuPwoKWWVzLCB0aGVzZSBhcmUgZ2VuZXJhdGVkIGJ5IHRoZSBzY3JpcHQ6Cmh0dHBzOi8vZ2l0
+aHViLmNvbS9pbnRlbC9wZXJmbW9uL2Jsb2IvbWFpbi9zY3JpcHRzL2NyZWF0ZV9wZXJmX2pzb24u
+cHkKQWRkZWQgRWR3YXJkIEJha2VyIGF0IEludGVsIHdobyBjYW4gY29ycmVjdCB0aGVzZSBpc3N1
+ZXMgYXQgc291cmNlLgoKVGhhbmtzLApJYW4KCj4gLSBBcm5hbGRvCj4KPiA+IFJlcG9ydGVkLWJ5
+OiBKZW5zIFNjaGxldXNlbmVyIDxKZW5zLlNjaGxldXNlbmVyQGZvc3NpZXMub3JnPgo+ID4gTGlu
+azogaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDU4OTEKPiA+
+IFNpZ25lZC1vZmYtYnk6IE1hbmFuayBQYXRlbCA8bWFuYW5rQG1hbmFuay5tZT4KPiA+IC0tLQo+
+ID4gIHRvb2xzL3BlcmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5n
+LXBvaW50Lmpzb24gfCAyICstCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAx
+IGRlbGV0aW9uKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvcG11LWV2ZW50cy9h
+cmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5nLXBvaW50Lmpzb24gYi90b29scy9wZXJmL3Bt
+dS1ldmVudHMvYXJjaC94ODYvd2VzdG1lcmVlcC1kcC9mbG9hdGluZy1wb2ludC5qc29uCj4gPiBp
+bmRleCBjMDNmODk5MGZhODIuLjE5NmFlMWQ5YjE1NyAxMDA2NDQKPiA+IC0tLSBhL3Rvb2xzL3Bl
+cmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5nLXBvaW50Lmpzb24K
+PiA+ICsrKyBiL3Rvb2xzL3BlcmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zs
+b2F0aW5nLXBvaW50Lmpzb24KPiA+IEBAIC04LDcgKzgsNyBAQAo+ID4gICAgICAgICAgIlVNYXNr
+IjogIjB4MSIKPiA+ICAgICAgfSwKPiA+ICAgICAgewo+ID4gLSAgICAgICAgIkJyaWVmRGVzY3Jp
+cHRpb24iOiAiWDg3IEZsb2F0aW5nIHBvaWludCBhc3Npc3RzIGZvciBpbnZhbGlkIGlucHV0IHZh
+bHVlIChQcmVjaXNlIEV2ZW50KSIsCj4gPiArICAgICAgICAiQnJpZWZEZXNjcmlwdGlvbiI6ICJY
+ODcgRmxvYXRpbmcgcG9pbnQgYXNzaXN0cyBmb3IgaW52YWxpZCBpbnB1dCB2YWx1ZSAoUHJlY2lz
+ZSBFdmVudCkiLAo+ID4gICAgICAgICAgIkV2ZW50Q29kZSI6ICIweEY3IiwKPiA+ICAgICAgICAg
+ICJFdmVudE5hbWUiOiAiRlBfQVNTSVNULklOUFVUIiwKPiA+ICAgICAgICAgICJQRUJTIjogIjEi
+LAo+ID4KPiA+IC0tLQo+ID4gYmFzZS1jb21taXQ6IDVkMGMyMzBmMWRlOGM3NTE1YjY1NjdkOWFm
+YmExZjE5NmZiNGUyZjQKPiA+IGNoYW5nZS1pZDogMjAyMzA4MDMtZml4LXR5cG8tM2NiMjA3Mjg0
+MzEwCj4gPgo+ID4gQmVzdCByZWdhcmRzLAo+ID4gLS0KPiA+IE1hbmFuayBQYXRlbCA8bWFuYW5r
+QG1hbmFuay5tZT4KPiA+Cj4KPiAtLQo+Cj4gLSBBcm5hbGRvCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
+eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
