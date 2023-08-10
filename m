@@ -2,80 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118F9776721
-	for <lists+linux-stm32@lfdr.de>; Wed,  9 Aug 2023 20:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A6D777141
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 09:22:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB8F2C6B472;
-	Wed,  9 Aug 2023 18:24:56 +0000 (UTC)
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FFA9C6B471;
+	Thu, 10 Aug 2023 07:22:31 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B96BC6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46FD1C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  9 Aug 2023 18:24:55 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 4C83A5C0069;
- Wed,  9 Aug 2023 14:24:54 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Wed, 09 Aug 2023 14:24:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1691605494; x=1691691894; bh=hB
- sRqPsdDyKhBWx869nPPrv7yqHSzjT8V/8SgiQ7D3k=; b=gdrzpKYpBd0IjkR7x4
- FysFuHh2rJMWsseUxCHohxKjODlWUnUy+xSGCho/5LmbKi4n6yPrUuXk9TA/s4gQ
- FVTXeyNIW2n3qTCFSgw4UkN8eH4syZwM+hR0Hyx+EVcNTz03EDzK/p5Fho4LEpr5
- w4u1meLp47qXO8cxcVqcr6SKeEarteECB04il1mpjPznIeqbSuGkIgQ5S7/clObI
- NMSur8HXCgfIWB/0Iw5dGh+xlELcIWJgDapqwbzmmB3R0Uum3ixBLkjY8CcsgOMe
- xUBd8/4xc/3tlMPSvsSqMusOraUyqq/QeGW604fCmJNxGyB7KWe5NwNjsDOHv3bz
- FwWw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; t=1691605494; x=1691691894; bh=hBsRqPsdDyKhB
- Wx869nPPrv7yqHSzjT8V/8SgiQ7D3k=; b=ZhdSS16o6u/8hEv8wV/Czd+XPRMkM
- Y10HEEe//DcvI6L2A1DYxDMoC9ZiHd/Q2aOuKjRZSsJOtOE/e3FcJuhvGhOsYIMZ
- SnGplUCMJUMJgAoonBfyx+GneCPJdvLRnKbftGJdhbvzldCFdWpJQLE3j2qaLKC+
- 09IIRynlbNeQVDzchyTg75hwfZL9QQX5Y5xBFqPDx8x62JCZKZhpQvFqJ/wWakml
- OPlIuKg1zRpOWynMeQnrD0eNbQ2lGdxXRD6xoVCx/T6XSQawgpNpCooZjYoj4g0s
- 84lbCxQy28SVL8wM1ZLv65kvffLjNBKCWOGK+9pVfn/+X4ML6ceoZgOOA==
-X-ME-Sender: <xms:9dnTZB9VcLzE1qw3rBnBe4nWPHtlPmurmPE_j9KjzFS-wQpSSnwyXQ>
- <xme:9dnTZFs02MrhEiQeG9f_2clS12zhYBPElcGJIWvriKT_AhJhw42KZUCjoa8OddTVL
- To9-zNex9nixVuZe40>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedrleeggdduvddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepvefhffeltdegheeffffhtdegvdehjedtgfekueevgfduffettedtkeekueef
- hedunecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpe
- dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrrhhnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:9dnTZPBkXML9WVuCCAUu77SYKQ-xH4M1Ux20ZvIbKyGwEXYcLLM7JQ>
- <xmx:9dnTZFcGKjbwZeO49TELBm2r3fJmunN3vQdamHaoFevvWindOLV5GQ>
- <xmx:9dnTZGOhDlgao8OgGmtjkgHfl_ICZFRk-QhMC-9y7C4sVppYozHOCQ>
- <xmx:9tnTZAu0xKXoOd6mU2anH1qjeSuQgUTaskkzHnsI34a_Jw2Kz0tLnQ>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id A0CC3B6008D; Wed,  9 Aug 2023 14:24:53 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-624-g7714e4406d-fm-20230801.001-g7714e440
-Mime-Version: 1.0
-Message-Id: <106a93ae-90f1-45fb-ae0a-034eb2d6faea@app.fastmail.com>
-In-Reply-To: <202308100045.WeVD1ttk-lkp@intel.com>
+ Thu, 10 Aug 2023 07:22:29 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id AACE920004;
+ Thu, 10 Aug 2023 07:22:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1691652148;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=F8ho0ZeRgf6GcBDYycgxV6RMNmHgIqASgZeOYExlJaA=;
+ b=n26apJIn/795ozqnWJ141CFV4AWyErDmkf+OaUyCNFQqGxjpFaIRyJb824nVFgMu4yDSa4
+ ZsgPHNoz/XsNVu4Q1wHG/s9K3BOJ0YSbyUtFspyaDHi3qJ4/bk/tsulYwigsA3FFqCL5ps
+ +5vyvADcWT0qiMqpONtfkbDwlGbrfOPT3pmVrmualHJfmkrK/5VG2sky5fLdAhW2maDJ/r
+ 7aLn4KZprlDINy0EDcnOtnqG/UvXHZkgNNbkaltdS3hMOJK8X0w5O1b5JzT6jAjB1ZzvoJ
+ Jp76S0pP30RlSr2+pwC+eEf6vlM+chLnY6ZM8UAPdXgprdENYzkJ6CX7CH/Xqw==
+Date: Thu, 10 Aug 2023 09:22:27 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <169165213049.964766.5251410326864889456.b4-ty@bootlin.com>
 References: <20230801105932.3738430-1-arnd@kernel.org>
- <202308100045.WeVD1ttk-lkp@intel.com>
-Date: Wed, 09 Aug 2023 20:24:33 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "kernel test robot" <lkp@intel.com>, "Arnd Bergmann" <arnd@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230801105932.3738430-1-arnd@kernel.org>
+X-GND-Sasl: alexandre.belloni@bootlin.com
 Cc: linux-rtc@vger.kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
  Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
  Christophe Guibout <christophe.guibout@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: remove incorrect #ifdef check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -94,31 +59,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 9, 2023, at 18:36, kernel test robot wrote:
->
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new 
-> version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: 
-> https://lore.kernel.org/oe-kbuild-all/202308100045.WeVD1ttk-lkp@intel.com/
->
-> All warnings (new ones prefixed by >>):
->
->>> drivers/rtc/rtc-stm32.c:903:12: warning: 'stm32_rtc_resume' defined but not used [-Wunused-function]
->      903 | static int stm32_rtc_resume(struct device *dev)
->          |            ^~~~~~~~~~~~~~~~
->>> drivers/rtc/rtc-stm32.c:893:12: warning: 'stm32_rtc_suspend' defined but not used [-Wunused-function]
->      893 | static int stm32_rtc_suspend(struct device *dev)
->          |            ^~~~~~~~~~~~~~~~~
 
-This is the warning you get if my patch is applied but the
-fb9a7e5360dc8 ("rtc: stm32: change PM callbacks to "_noirq()"")
-commit is not. If that patch is applied, mine is needed to address
-the other warning.
+On Tue, 01 Aug 2023 12:59:15 +0200, Arnd Bergmann wrote:
+> After a previous commit changed the driver over to
+> SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(), the suspend/resume
+> functions must no longer be hidden behind an #ifdef:
+> 
+> In file included from include/linux/clk.h:13,
+>                  from drivers/rtc/rtc-stm32.c:8:
+> drivers/rtc/rtc-stm32.c:927:39: error: 'stm32_rtc_suspend' undeclared here (not in a function); did you mean 'stm32_rtc_probe'?
+>   927 |         SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
+>       |                                       ^~~~~~~~~~~~~~~~~
+> include/linux/kernel.h:58:44: note: in definition of macro 'PTR_IF'
+>    58 | #define PTR_IF(cond, ptr)       ((cond) ? (ptr) : NULL)
+>       |                                            ^~~
+> include/linux/pm.h:329:26: note: in expansion of macro 'pm_sleep_ptr'
+>   329 |         .suspend_noirq = pm_sleep_ptr(suspend_fn), \
+>       |                          ^~~~~~~~~~~~
+> 
+> [...]
 
-      Arnd
+Applied, thanks!
+
+[1/1] rtc: stm32: remove incorrect #ifdef check
+      commit: a69c610e13e2b2de8a1ed2683f13e21b3200bd7a
+
+Best regards,
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
