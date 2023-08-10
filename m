@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 365D777751D
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:59:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43DEA77751E
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:59:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDA43C6B472;
-	Thu, 10 Aug 2023 09:59:03 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 084F1C6B474;
+	Thu, 10 Aug 2023 09:59:05 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E31AC6B471
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6C72C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 09:59:02 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-3fe4b95c371so3882595e9.1
+ Thu, 10 Aug 2023 09:59:03 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-3178dd81ac4so661118f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 02:59:02 -0700 (PDT)
+ Thu, 10 Aug 2023 02:59:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1691661542; x=1692266342;
+ d=linaro.org; s=google; t=1691661543; x=1692266343;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zekv1qUTHsXZMS52D/bblKYQ9yuAb3K5khsXk7JIads=;
- b=Hsk6a635P0uAUW2FI8CFKpCkorA724IY5XNrKigMaVTe/XyKck9fs2A+yBzzHij0M0
- 1qvAV8izKdrfUxYxu/93N605HJJ2hYYenHqzHQ3SO88mUlm/eJsuLphnT2WcfyRCGr+B
- OcG0uJNM9uVqWzAts3ZaJhhp4nkc0eksQF4tFOlvlot8gdUmd9SxDrfZbTSgN6yVJabE
- QDznRHzUux8migZ8J8W86WYwetjShJ+e0HordOTY9j3Bbo9ijueh498qxo6sVf/R6rKC
- ugpF4xt/BXsFr7Rcq7ITQOCppE5QX6rkKvq7rAC9kJcTFB5YJ8lJf9+OxHknho83FEdB
- la7A==
+ bh=OyZohlw6gTKzojkyNd13CC0T/G2VwEgEGSl6K82xhVw=;
+ b=kPoib7OprwN4AKPrr0KxUaWGgeFgnFlK9LaobUpxjQMqx2tbFiGz52D9fQZ6A8LRkR
+ GOCz/x8QbujG99dOHRyOW705kiQ95NvqD/JEaxpuGc7uk8+m9CMYO8e3NdBtTRFWgOI9
+ rf1EZhcmo9AMJjGngTByavgqVENOgfgPg/kKTegyzQ46fI9yO/1RM+46oSlHWi9P1z/f
+ 183VoIrE/PlNo018lajk2rQaW7br5wfQFgoNRnNnIBxvMmvCIy0bjd4UIhp7d6gIaE35
+ f4dL2WtNzwB3NOnpB/u20SOZ1rXesFtHZFMmyi7hhLcj0st1LMs9ajP6M1M8Gpi/rcdk
+ NaQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691661542; x=1692266342;
+ d=1e100.net; s=20221208; t=1691661543; x=1692266343;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zekv1qUTHsXZMS52D/bblKYQ9yuAb3K5khsXk7JIads=;
- b=I0QRVvaVjLWAZ4kfdugUTe/ndiSjuq8YLQLbRPnT5G4cwPGgrdk9oR95tSvn/t5O4N
- b10W8uSguGW+rD2dyRMpgFIjaPHEGgQLeyp3k6v6EeOln0vYLEVmTOkmo3Plxec/SeK8
- 7g/gaWAC3XZOjBgOogTk4YMpo8CpgJDKxlW7kMmRaIQggjhx4X5amImpU1xjusjVHg2t
- 24I6aTuHOgJstfcjgAlt1bAFaVevm8VbuUn4+39bFOncKMMjgL0ISWr1lT/v6d3p0xqv
- zbdofh/pxf15kqtzP2JGGVAcL+6ddPlm8dsqCzqS444EWxSIvZ3qx4XAWV0N0oeAlUwq
- fh0w==
-X-Gm-Message-State: AOJu0Yz+8VTg8Sbe0XjtnS+2cBI07XX9qWpI2Ic7m/+sHzu9G8EuXTHZ
- n2HNxFcbuJ6wDH4ai6regn0BKg==
-X-Google-Smtp-Source: AGHT+IGPHL6/KxDf4b9fFexyz/4oHkLvUgzvOtzHyP1978kHH/Xl4TBlrKa+67TCneX1W4cSLYE/mA==
-X-Received: by 2002:a05:600c:2909:b0:3fe:1b5e:82 with SMTP id
- i9-20020a05600c290900b003fe1b5e0082mr1114932wmd.20.1691661541849; 
- Thu, 10 Aug 2023 02:59:01 -0700 (PDT)
+ bh=OyZohlw6gTKzojkyNd13CC0T/G2VwEgEGSl6K82xhVw=;
+ b=kXx805BMnxIJKcIJRULKZMH0+O5Sb51uw2beHHSlUK9EvvyR2V/OkGR43vf3uANIpj
+ sWgYL9eG7h54kBT/VPRx8E+5t/E6PL8Gc+oX4mCVznlfc5g5+65bRIVI17jjLGn+x9yf
+ xnMTV01F5LJ94QyTdozohhZPADvZIu3mhK6gxFpQDB0n2RGCHWyaGVAcuqhlDyowrFAK
+ XOikMUpZ3PEfJBaJKA+wea7I619t6H/548KZJfpQXKW45JM64P7rq+0BZF6pABHcKiNg
+ dTCy4zIZyzJGE00dQUzNa2wpQadIronFivRyNmcElH73FKGSQluMHlX1YUI0gLuMF98L
+ 4ZxQ==
+X-Gm-Message-State: AOJu0Yy1gLYsZ8gIgVfM/w19Ha4sbW2Np/HVzcgZXTS3LxbsgUjeyQsi
+ BetSpdOQiqx1Yejivq4BpdEMyg==
+X-Google-Smtp-Source: AGHT+IGzc6mKzjbukRRfGvmwrkuAhc1MC6bSGvhSgb5jSnTolx9P1KxprDSlC1+TOYUcRyOHsUMQFA==
+X-Received: by 2002:adf:dd85:0:b0:314:3985:b291 with SMTP id
+ x5-20020adfdd85000000b003143985b291mr1613355wrl.15.1691661543602; 
+ Thu, 10 Aug 2023 02:59:03 -0700 (PDT)
 Received: from krzk-bin.. ([178.197.222.113]) by smtp.gmail.com with ESMTPSA id
- p1-20020adfcc81000000b003179b3fd837sm1621372wrj.33.2023.08.10.02.59.00
+ p1-20020adfcc81000000b003179b3fd837sm1621372wrj.33.2023.08.10.02.59.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Aug 2023 02:59:01 -0700 (PDT)
+ Thu, 10 Aug 2023 02:59:03 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Lee Jones <lee@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
@@ -62,14 +62,14 @@ To: Lee Jones <lee@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
-Date: Thu, 10 Aug 2023 11:58:47 +0200
-Message-Id: <20230810095849.123321-7-krzysztof.kozlowski@linaro.org>
+Date: Thu, 10 Aug 2023 11:58:48 +0200
+Message-Id: <20230810095849.123321-8-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230810095849.123321-1-krzysztof.kozlowski@linaro.org>
 References: <20230810095849.123321-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Andi Shyti <andi.shyti@kernel.org>
-Subject: [Linux-stm32] [PATCH 7/9] mfd: wm8994: Fix
+Subject: [Linux-stm32] [PATCH 8/9] mfd: wm31x: Fix
 	Wvoid-pointer-to-enum-cast warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -87,28 +87,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-'type' is an enum, thus cast of pointer on 64-bit compile test with W=1
-causes:
+'type' is an enum, thus cast of pointer on 64-bit compile test with
+W=1 causes:
 
-  wm8994-core.c:631:19: error: cast to smaller integer type 'enum wm8994_type' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+  wm831x-spi.c:36:10: error: cast to smaller integer type 'enum wm831x_parent' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/mfd/wm8994-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mfd/wm831x-i2c.c | 2 +-
+ drivers/mfd/wm831x-spi.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/wm8994-core.c b/drivers/mfd/wm8994-core.c
-index 1e4f1694f065..aba7af688175 100644
---- a/drivers/mfd/wm8994-core.c
-+++ b/drivers/mfd/wm8994-core.c
-@@ -628,7 +628,7 @@ static int wm8994_i2c_probe(struct i2c_client *i2c)
- 	if (i2c->dev.of_node) {
- 		of_id = of_match_device(wm8994_of_match, &i2c->dev);
- 		if (of_id)
--			wm8994->type = (enum wm8994_type)of_id->data;
-+			wm8994->type = (uintptr_t)of_id->data;
+diff --git a/drivers/mfd/wm831x-i2c.c b/drivers/mfd/wm831x-i2c.c
+index 997837f13180..694ddbbf0372 100644
+--- a/drivers/mfd/wm831x-i2c.c
++++ b/drivers/mfd/wm831x-i2c.c
+@@ -36,7 +36,7 @@ static int wm831x_i2c_probe(struct i2c_client *i2c)
+ 			dev_err(&i2c->dev, "Failed to match device\n");
+ 			return -ENODEV;
+ 		}
+-		type = (enum wm831x_parent)of_id->data;
++		type = (uintptr_t)of_id->data;
  	} else {
- 		wm8994->type = id->driver_data;
+ 		type = (enum wm831x_parent)id->driver_data;
+ 	}
+diff --git a/drivers/mfd/wm831x-spi.c b/drivers/mfd/wm831x-spi.c
+index 7bcddccbf155..76be7ef5c970 100644
+--- a/drivers/mfd/wm831x-spi.c
++++ b/drivers/mfd/wm831x-spi.c
+@@ -33,7 +33,7 @@ static int wm831x_spi_probe(struct spi_device *spi)
+ 			dev_err(&spi->dev, "Failed to match device\n");
+ 			return -ENODEV;
+ 		}
+-		type = (enum wm831x_parent)of_id->data;
++		type = (uintptr_t)of_id->data;
+ 	} else {
+ 		type = (enum wm831x_parent)id->driver_data;
  	}
 -- 
 2.34.1
