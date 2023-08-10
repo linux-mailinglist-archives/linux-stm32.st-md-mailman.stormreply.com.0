@@ -2,71 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A6E784731
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2494678470C
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD82EC6C854;
-	Tue, 22 Aug 2023 16:25:20 +0000 (UTC)
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF5A5C6C82C;
+	Tue, 22 Aug 2023 16:25:00 +0000 (UTC)
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ECE6C6B469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3AE27C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 19:29:56 +0000 (UTC)
+ Thu, 10 Aug 2023 20:22:33 +0000 (UTC)
 Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37AJTbd1069591;
- Thu, 10 Aug 2023 14:29:37 -0500
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37AKLmkd026494;
+ Thu, 10 Aug 2023 15:21:48 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1691695778;
- bh=5opL1COw+xqOW651vD1GsM3Ndd3OlOKC652w906qw+M=;
- h=From:Date:Subject:References:In-Reply-To:To:CC;
- b=KwAW6pHc3fMvXm2H2njAARJ+KUIfktA24OmJnDow5Q9+pCq7kp5DkYBl+BNI7hGg+
- DX7rOcH88PzRvTQ+O92n0z3rh547XWdR3ICXh0eHK59FJsaBbggROVeRe+IE1oCBHa
- Y1AD/iyefabWQnLFQH1nZGf+u7kuy077Jc59P54A=
-Received: from DLEE113.ent.ti.com (dlee113.ent.ti.com [157.170.170.24])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37AJTbNp027980
+ s=ti-com-17Q1; t=1691698908;
+ bh=j1aDevVbccNYpcdFHjgIPkEX2CjbS6rxvkxWOg9hKF8=;
+ h=Date:From:To:CC:Subject:References:In-Reply-To;
+ b=A7QpFeL43WW9ooMRiJiYV5cmKnUZM+60d4yzCSW/TCgVPiK4yZr8A5FA9hga4tVur
+ xD8BJQMLBj9Zv64thcpM1LLqPVWKf1LBN+mCAwwStG+cj1pQriLs1rF2yUdk7Ld0t3
+ +bqNBQtDkDYPy0FP12pRf9EBT1lKv3NgWv+Sasqk=
+Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37AKLm13028698
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 10 Aug 2023 14:29:37 -0500
-Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE113.ent.ti.com
- (157.170.170.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 10
- Aug 2023 14:29:37 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE115.ent.ti.com
+ Thu, 10 Aug 2023 15:21:48 -0500
+Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE115.ent.ti.com
  (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Thu, 10
+ Aug 2023 15:21:47 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Thu, 10 Aug 2023 14:29:37 -0500
-Received: from localhost (ileaxei01-snat2.itg.ti.com [10.180.69.6])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37AJTaqu047114;
- Thu, 10 Aug 2023 14:29:37 -0500
-From: Kamlesh Gurudasani <kamlesh@ti.com>
-Date: Fri, 11 Aug 2023 00:58:53 +0530
-MIME-Version: 1.0
-Message-ID: <20230719-mcrc-upstream-v2-6-4152b987e4c2@ti.com>
+ Frontend Transport; Thu, 10 Aug 2023 15:21:47 -0500
+Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37AKLlLx018218;
+ Thu, 10 Aug 2023 15:21:47 -0500
+Date: Thu, 10 Aug 2023 15:21:47 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Kamlesh Gurudasani <kamlesh@ti.com>
+Message-ID: <20230810202147.lh5m66t5ttfhsqr4@gloomily>
 References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
-In-Reply-To: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller"
- <davem@davemloft.net>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.12.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1691695767; l=1042;
- i=kamlesh@ti.com; s=20230614; h=from:subject:message-id;
- bh=7uIuxXRdX0Xq9f5vC0DhHJyhVex1q6PeQY1Wg6Rhzr4=;
- b=eQ9evn4II8cLmgLlFRsi0O/oYFCdMPuR+t2xvhyNiE4ww/Bm0khIjWER/OK4HpOYKgh/ImBy0
- vqE4gvzkpg9DKok5GE/ScOLB5im8s7mHSbp5lGV1h1IV74JbSdFnuhk
-X-Developer-Key: i=kamlesh@ti.com; a=ed25519;
- pk=db9XKPVWDGJVqj2jDqgnPQd6uQf3GZ3oaQa4bq1odGo=
+ <20230719-mcrc-upstream-v2-5-4152b987e4c2@ti.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230719-mcrc-upstream-v2-5-4152b987e4c2@ti.com>
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: devicetree@vger.kernel.org, Kamlesh Gurudasani <kamlesh@ti.com>,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 6/6] arm64: defconfig: enable TI MCRC64
-	module
+X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:58 +0000
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Herbert Xu <herbert@gondor.apana.org.au>
+Subject: Re: [Linux-stm32] [PATCH v2 5/6] arm64: dts: ti: k3-am62: Add dt
+ node, cbass_main ranges for MCRC64
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,41 +76,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-K3 devices include MCRC64 engine for crc64 calculation.
-Enable module to be built for K3 devices.
+On 00:58-20230811, Kamlesh Gurudasani wrote:
+> Add the address space for MCRC64 to the ranges property of the
+> cbass_main node and add dt node for MCRC64 engine
+> 
+> Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
+> ---
 
-Also enable algif_hash module, which is needed to access MCRC64 module
-from userspace.
-
-Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
----
- arch/arm64/configs/defconfig | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index bf13d5c46578..4d555a125315 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -1535,6 +1535,7 @@ CONFIG_CRYPTO_TEST=m
- CONFIG_CRYPTO_ECHAINIV=y
- CONFIG_CRYPTO_MICHAEL_MIC=m
- CONFIG_CRYPTO_ANSI_CPRNG=y
-+CONFIG_CRYPTO_USER_API_HASH=m
- CONFIG_CRYPTO_USER_API_RNG=m
- CONFIG_CRYPTO_CHACHA20_NEON=m
- CONFIG_CRYPTO_GHASH_ARM64_CE=y
-@@ -1558,6 +1559,7 @@ CONFIG_CRYPTO_DEV_HISI_ZIP=m
- CONFIG_CRYPTO_DEV_HISI_HPRE=m
- CONFIG_CRYPTO_DEV_HISI_TRNG=m
- CONFIG_CRYPTO_DEV_SA2UL=m
-+CONFIG_CRYPTO_DEV_TI_MCRC64=m
- CONFIG_DMA_RESTRICTED_POOL=y
- CONFIG_CMA_SIZE_MBYTES=32
- CONFIG_PRINTK_TIME=y
+Please mark device tree changes in the same series (if you are posting) as
+"DONOTMERGE" to help driver maintainers understand that the dts come in
+via SoC tree (most maintainers do not need this, but it keeps things
+sane and adjust your expectation that this will hit the next window from
+where the driver gets in).
 
 -- 
-2.34.1
-
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
