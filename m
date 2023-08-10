@@ -2,65 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF665777CB9
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 17:51:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 242D7777DC6
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 18:10:52 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86DFEC6B469;
-	Thu, 10 Aug 2023 15:51:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDA3FC6B469;
+	Thu, 10 Aug 2023 16:10:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81223C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3A2AC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 15:51:58 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 37AClMPY009213; Thu, 10 Aug 2023 17:51:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=g+8JhM5SSBXnEGBoDoQhWJziQ4ZCSrXrnm9iiuLxIDk=; b=Fp
- GQg3BnYhfEf9QARcqXnmN7GIWJ9LN4rj2fv9mXskpBbHFjF0lhIge+MUd2SrDB/g
- 5h8ZB/RhFE58kIj0jFzFQKAX0Kqd/ONBO4+ks+L/faH+9sGjYjy1sAkhMFr9i5wX
- oP6CmZU4XH+stxhokKvrdSyUgS6je6OGBv7F52oNh9m/saZjvsOja8Ojopu1WT2z
- vdbnv/EgSrBagecSYRvq3pImjqDw9bhkl015knbPjnPqBZCpmtGSytTs4d9Fn0BT
- 2ODeFbqlssEuMqdej8GjZPqUiOG2KtNUUIYKOPOoJiM3wO6XCVzy+dqXurtE5wSD
- jwk8XUVejmMwBjjgQQHQ==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sd0730yba-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Aug 2023 17:51:50 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF8F6100053;
- Thu, 10 Aug 2023 17:51:48 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A8313227EF6;
- Thu, 10 Aug 2023 17:51:48 +0200 (CEST)
-Received: from [10.201.21.122] (10.201.21.122) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 10 Aug
- 2023 17:51:48 +0200
-Message-ID: <6098f24e-c2fa-b74f-76e3-5a3718e887da@foss.st.com>
-Date: Thu, 10 Aug 2023 17:51:47 +0200
+ Thu, 10 Aug 2023 16:10:50 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8003466197;
+ Thu, 10 Aug 2023 16:10:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37CFC433C7;
+ Thu, 10 Aug 2023 16:10:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691683848;
+ bh=hU3zEJqh3v/qDDuwBKbxUUN5LenjFbRiKXk6hZBPbkY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ov/ISR/VUh/E/BVRWOz0QgqVAECA8Syehms+PpjS07xKA5ZI4OqwY/vYO29RAgZ7h
+ dMAU7YmZWhRsa/3euTGYup3zU1fvMTUcrjz77+Ur1N8y6GtGlntBPqLM5TChgU7ThY
+ OxDPsQYgxk/tvNAaCHRqt4tczeafnCEjkZXnDC/PNP7NBEiBKf1FiN+Tsq96u/2FR6
+ K1wTqHVUhhngmhhalIBcvQF2+Sd1ALTB11SbYC44LuKc2ZVtZGQh0X1RBSPsOw5Ego
+ ZfzW4Kt95N/6WpNykRZNlwS/G3BUBmnlJBM5bpSa9nrSIKhPWqmhf7RT3vwva3nWfZ
+ Oshf8AHsJxJ9A==
+Date: Thu, 10 Aug 2023 23:59:06 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <ZNUJSvJi+9QsWhAf@xhacker>
+References: <20230807164151.1130-1-jszhang@kernel.org>
+ <20230807164151.1130-10-jszhang@kernel.org>
+ <20230808-clapper-corncob-0af7afa65752@spud>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: <patrice.chotard@foss.st.com>, <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>
-References: <20230808093119.714224-1-patrice.chotard@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230808093119.714224-1-patrice.chotard@foss.st.com>
-X-Originating-IP: [10.201.21.122]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To EQNDAG1NODE4.st.com
- (10.75.129.133)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
- definitions=2023-08-10_13,2023-08-10_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/2] Add gpio_ranges property for stm32f7
+Content-Disposition: inline
+In-Reply-To: <20230808-clapper-corncob-0af7afa65752@spud>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 09/10] dt-bindings: net: snps,
+ dwmac: add per channel irq support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,29 +62,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 8/8/23 11:31, patrice.chotard@foss.st.com wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
+On Tue, Aug 08, 2023 at 08:39:58AM +0100, Conor Dooley wrote:
+> On Tue, Aug 08, 2023 at 12:41:50AM +0800, Jisheng Zhang wrote:
+> > The IP supports per channel interrupt, add support for this usage case.
+> > 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml   | 33 +++++++++++++++++++
+> >  1 file changed, 33 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 5d81042f5634..5a63302ad200 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -109,6 +109,7 @@ properties:
+> >        - description: The interrupt that occurs when Rx exits the LPI state
+> >        - description: The interrupt that occurs when Safety Feature Correctible Errors happen
+> >        - description: The interrupt that occurs when Safety Feature Uncorrectible Errors happen
+> > +      - description: All of the rx/tx per-channel interrupts
+> >  
+> >    interrupt-names:
+> >      minItems: 1
+> > @@ -118,6 +119,38 @@ properties:
+> >        - const: eth_lpi
+> >        - const: sfty_ce
+> >        - const: sfty_ue
+> > +      - const: rx0
+> > +      - const: rx1
+> > +      - const: rx2
+> > +      - const: rx3
+> > +      - const: rx4
+> > +      - const: rx5
+> > +      - const: rx6
+> > +      - const: rx7
+> > +      - const: rx8
+> > +      - const: rx9
+> > +      - const: rx10
+> > +      - const: rx11
+> > +      - const: rx12
+> > +      - const: rx13
+> > +      - const: rx14
+> > +      - const: rx15
+> > +      - const: tx0
+> > +      - const: tx1
+> > +      - const: tx2
+> > +      - const: tx3
+> > +      - const: tx4
+> > +      - const: tx5
+> > +      - const: tx6
+> > +      - const: tx7
+> > +      - const: tx8
+> > +      - const: tx9
+> > +      - const: tx10
+> > +      - const: tx11
+> > +      - const: tx12
+> > +      - const: tx13
+> > +      - const: tx14
+> > +      - const: tx15
 > 
-> Add missing gpio-ranges property for stm32f7 based boards.
-> 
-> Patrice Chotard (2):
->    ARM: dts: stm32: Add gpio-ranges for stm32f746-pinctrl
->    ARM: dts: stm32: Add gpio-ranges for stm32f769-pinctrl
-> 
->   arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi | 44 +++++++++++++++++++++
->   arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi | 44 +++++++++++++++++++++
->   2 files changed, 88 insertions(+)
-> 
+> I don't think Rob's comment about having added 2 interrupts but 32
+> interrupt names has been resolved.
 
-Series applied on stm32-next.
+I misunderstood Rob's comment. Now I'm not sure whether dt-binding
+can support regex or something or not, or let ask for advice in the
+following way: how could I write the dt-binding in this case? I didn't
+find similar examples so far. I'm not sure listing possible
+description and const properties for all channel interrupts is suitable.
 
-Cheers
-Alex
+> Did you actually test putting this many interrupts into a node?
+> AFAICT, any more than 6 will cause complaints.
+
+I tried 12rx and 12tx interrupts in a node, didn't see dtc warning.
+so I guess the complaints are from dtb check? I will try to reproduce
+them.
+
+> 
+> Thanks,
+> Conor.
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
