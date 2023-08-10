@@ -2,82 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E5A7774EB
-	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:52:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF0E2777517
+	for <lists+linux-stm32@lfdr.de>; Thu, 10 Aug 2023 11:58:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10E3BC6B469;
-	Thu, 10 Aug 2023 09:52:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F0C3C6B469;
+	Thu, 10 Aug 2023 09:58:54 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E680FC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08994C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 09:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691661161; x=1723197161;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=0QXCdnIeDvNVhe3zDIXfKLHqjJhkR646hmb6U9XbWSc=;
- b=dPn9uXQl3jcOX4YfafL6bYvgec3NwRkGk3KcjHCW4fR/LedJY3XGXGUR
- KNcGwAJbjZzz2FN7w2kmzCeHBlDBsVirf0Qm1ElhEbLCBodurZYoaLMHI
- YLunCGNae3Rnwo+Gq7IHKGHI8TmlPX6KzOoJuMu7UT4+NmOMjLFp+jXJ8
- RNP1Jh6O+9UHETpUhmJ6cVJoBoZVTWRWt5Wok4qkj8gmWaXLr+CUKZhqb
- 3jGCw75Ozb4hHGmrnN+M3+OAes1sTxExiuy31phQHzs/fEC1p1roxO0tE
- IS1s7IfTZ2AEysOLOuuTc0LfOZv5SiwePEm4zRxkyyLUfTSTN29pDMEyf g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="368810609"
-X-IronPort-AV: E=Sophos;i="6.01,161,1684825200"; d="scan'208";a="368810609"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 02:52:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="732142399"
-X-IronPort-AV: E=Sophos;i="6.01,161,1684825200"; d="scan'208";a="732142399"
-Received: from choongyo-mobl.gar.corp.intel.com (HELO [10.213.42.193])
- ([10.213.42.193])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 02:52:13 -0700
-Message-ID: <5e113258-7cb4-e503-5009-e46cd3aa5bee@linux.intel.com>
-Date: Thu, 10 Aug 2023 17:52:10 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Content-Language: en-US
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20230804084527.2082302-1-yong.liang.choong@linux.intel.com>
- <5bd05ba2-fd88-4e5c-baed-9971ff917484@lunn.ch>
-From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-In-Reply-To: <5bd05ba2-fd88-4e5c-baed-9971ff917484@lunn.ch>
-Cc: Voon Wei Feng <weifeng.voon@intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Jesse Brandeburg <jesse.brandeburg@intel.com>,
- Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric Dumazet <edumazet@google.com>,
- David E Box <david.e.box@linux.intel.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Jon Hunter <jonathanh@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- =?UTF-8?Q?Marek_Beh=c3=ban?= <kabel@kernel.org>,
- Tan Tee Min <tee.min.tan@linux.intel.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Wong Vee Khee <veekhee@apple.com>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Andrey Konovalov <andrey.konovalov@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>, Jose Abreu <Jose.Abreu@synopsys.com>,
- Jean Delvare <jdelvare@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Richard Cochran <richardcochran@gmail.com>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Revanth Kumar Uppala <ruppala@nvidia.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- platform-driver-x86@vger.kernel.org,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thu, 10 Aug 2023 09:58:52 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-3110ab7110aso684672f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 10 Aug 2023 02:58:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1691661532; x=1692266332;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FkvqrMOXwmTcAnreaYq76I2AZtMUkMuF0vVGwhitEBY=;
+ b=g/N1DWT58qicPn7aM797a838CAd0plUzi2BJWNf6ENVZomSjPXW96FFjXdcqIPtGZA
+ BD2ihtG76tzRLS2QdSMjMUBQKnIHTxGmuBP78cqDNu07vqDTWPH1maafZMCdE5PeY5BF
+ 673UABS0RzviQvrOKhpsOJZ085Yzz9tuwo7QyPMBaywSxJMZ/0sSEjBFNDkq08f/CfHm
+ yBeU1fg8oWVHc0jKQPonwe7w4LrFo4shzFaxzZGKLobN5K2BysRlSs2iT8/gqBGuOhVX
+ g4Osxd3++ssQbMdARZhvPXtmiP7+eh3xqNEyXCHS/ilTIusiG9AFAovZlOCppQ2xnLng
+ dM5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691661532; x=1692266332;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FkvqrMOXwmTcAnreaYq76I2AZtMUkMuF0vVGwhitEBY=;
+ b=ebUuAP4zVqo8uQ5dqySazR7oGKmb/F0arsgzT1AkuLX2+wqLm+L+IGiJGT/bzIg+bd
+ UJJHt436uQMqbuVw3wQEIgp6cwZ92rSIR/0pDCuEe8nALW/sI/ynW6GAGWfknuOopj4O
+ HR5zKSSPkWmoD7B36ew60p9yuEjs6Ox7Ozrq+KwV5oIEauJgAg4Vg6ZeOtmno32Qisza
+ ZGjcaXbz9sbxripbOpE9vaLDrU6O1dvr/2YxUw3W+0ehUTOa8uBP7QfL/aIO4eDdbw61
+ aMK851o8wMHttHYc+6hxpWY/psy6JlSA81Cy38Q6KVTRZROTKjJ1VikX0Ra4ngdY8UnF
+ thtA==
+X-Gm-Message-State: AOJu0YwAFCmP7UjXWDkFjgDRW7cGmxlRYju+jPboRHVo9kJdKHsBCUDK
+ ZUntjDvDL3BNXHucA76bA/6zvg==
+X-Google-Smtp-Source: AGHT+IG3X88ZKNaaHQptsEX+0z/EjxkhWAIwDrqS7AJwZwHbDUAJ6BHLalxATlDkew0dnEFTGjO0cA==
+X-Received: by 2002:adf:f74c:0:b0:313:f5e9:13ec with SMTP id
+ z12-20020adff74c000000b00313f5e913ecmr1581022wrp.68.1691661532380; 
+ Thu, 10 Aug 2023 02:58:52 -0700 (PDT)
+Received: from krzk-bin.. ([178.197.222.113]) by smtp.gmail.com with ESMTPSA id
+ p1-20020adfcc81000000b003179b3fd837sm1621372wrj.33.2023.08.10.02.58.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 10 Aug 2023 02:58:52 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: Lee Jones <lee@kernel.org>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, bpf@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/5] TSN auto negotiation
-	between 1G and 2.5G
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, patches@opensource.cirrus.com
+Date: Thu, 10 Aug 2023 11:58:41 +0200
+Message-Id: <20230810095849.123321-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Subject: [Linux-stm32] [PATCH 1/9] mfd: stmpe: Fix
+	Wvoid-pointer-to-enum-cast warning
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,39 +79,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiA0LzgvMjAyMyA4OjA0IHBtLCBBbmRyZXcgTHVubiB3cm90ZToKPiBPbiBGcmksIEF1ZyAw
-NCwgMjAyMyBhdCAwNDo0NToyMlBNICswODAwLCBDaG9vbmcgWW9uZyBMaWFuZyB3cm90ZToKPj4g
-SW50ZWwgcGxhdGZvcm1z4oCZIGludGVncmF0ZWQgR2lnYWJpdCBFdGhlcm5ldCBjb250cm9sbGVy
-cyBzdXBwb3J0Cj4+IDIuNUdicHMgbW9kZSBzdGF0aWNhbGx5IHVzaW5nIEJJT1MgcHJvZ3JhbW1p
-bmcuIEluIHRoZSBjdXJyZW50Cj4+IGltcGxlbWVudGF0aW9uLCB0aGUgQklPUyBtZW51IHByb3Zp
-ZGVzIGFuIG9wdGlvbiB0byBzZWxlY3QgYmV0d2Vlbgo+PiAxMC8xMDAvMTAwME1icHMgYW5kIDIu
-NUdicHMgbW9kZXMuIEJhc2VkIG9uIHRoZSBzZWxlY3Rpb24sIHRoZSBCSU9TCj4+IHByb2dyYW1z
-IHRoZSBQaGFzZSBMb2NrIExvb3AgKFBMTCkgcmVnaXN0ZXJzLiBUaGUgQklPUyBhbHNvIHJlYWQg
-dGhlCj4+IFRTTiBsYW5lIHJlZ2lzdGVycyBmcm9tIEZsZXhpYmxlIEkvTyBBZGFwdGVyIChGSUEp
-IGJsb2NrIGFuZCBwcm92aWRlZAo+PiAxMC8xMDAvMTAwME1icHMvMi41R2JwcyBpbmZvcm1hdGlv
-biB0byB0aGUgc3RtbWFjIGRyaXZlci4gQnV0Cj4+IGF1dG8tbmVnb3RpYXRpb24gYmV0d2VlbiAx
-MC8xMDAvMTAwME1icHMgYW5kIDIuNUdicHMgaXMgbm90IGFsbG93ZWQuCj4+IFRoZSBuZXcgcHJv
-cG9zYWwgaXMgdG8gc3VwcG9ydCBhdXRvLW5lZ290aWF0aW9uIGJldHdlZW4gMTAvMTAwLzEwMDBN
-YnBzCj4+IGFuZCAyLjVHYnBzIC4gQXV0by1uZWdvdGlhdGlvbiBiZXR3ZWVuIDEwLCAxMDAsIDEw
-MDBNYnBzIHdpbGwgdXNlCj4+IGluLWJhbmQgYXV0byBuZWdvdGlhdGlvbi4gQXV0by1uZWdvdGlh
-dGlvbiBiZXR3ZWVuIDEwLzEwMC8xMDAwTWJwcyBhbmQKPj4gMi41R2JwcyB3aWxsIHdvcmsgYXMg
-dGhlIGZvbGxvd2luZyBwcm9wb3NlZCBmbG93LCB0aGUgc3RtbWFjIGRyaXZlciByZWFkcwo+PiB0
-aGUgUEhZIGxpbmsgc3RhdHVzIHJlZ2lzdGVycyB0aGVuIGlkZW50aWZpZXMgdGhlIG5lZ290aWF0
-ZWQgc3BlZWQuCj4+IEJhc2VkIG9uIHRoZSBzcGVlZCBzdG1tYWMgZHJpdmVyIHdpbGwgaWRlbnRp
-ZnkgVFNOIGxhbmUgcmVnaXN0ZXJzIGZyb20KPj4gRklBIHRoZW4gc2VuZCBJUEMgY29tbWFuZCB0
-byB0aGUgUG93ZXIgTWFuYWdlbWVudCBjb250cm9sbGVyIChQTUMpCj4+IHRocm91Z2ggUE1DIGRy
-aXZlci9BUEkuIFBNQyB3aWxsIGFjdCBhcyBhIHByb3h5IHRvIHByb2dyYW1zIHRoZQo+PiBQTEwg
-cmVnaXN0ZXJzLgo+IAo+IEhhdmUgeW91IGNvbnNpZGVyZWQgdXNpbmcgb3V0IG9mIGJhbmQgZm9y
-IGFsbCBsaW5rIG1vZGVzPyBZb3UgbWlnaHQKPiBlbmQgdXAgd2l0aCBhIGNsZWFuZXIgYXJjaGl0
-ZWN0dXJlLCBhbmQgbm90IG5lZWQgYW55IHBoeWxpbmsvcGh5bGliCj4gaGFja3MuCj4gCj4gCUFu
-ZHJldwpIaSBBbmRyZXcsCgpUaGFuayB5b3UgZm9yIHlvdXIgZmVlZGJhY2suCkkgd2lsbCBzdHVk
-eSB0aGUgZmVhc2liaWxpdHkgb2YgdGhlIG91dC1vZi1iYW5kIChPT0IpIGFwcHJvYWNoLgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+'partnum' is an enum, thus cast of pointer on 64-bit compile test with W=1
+causes:
+
+stmpe-i2c.c:90:13: error: cast to smaller integer type 'enum stmpe_partnum' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ drivers/mfd/stmpe-i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/stmpe-i2c.c b/drivers/mfd/stmpe-i2c.c
+index 1d7b401776d1..fe018bedab98 100644
+--- a/drivers/mfd/stmpe-i2c.c
++++ b/drivers/mfd/stmpe-i2c.c
+@@ -87,7 +87,7 @@ stmpe_i2c_probe(struct i2c_client *i2c)
+ 		dev_info(&i2c->dev, "matching on node name, compatible is preferred\n");
+ 		partnum = id->driver_data;
+ 	} else
+-		partnum = (enum stmpe_partnum)of_id->data;
++		partnum = (uintptr_t)of_id->data;
+ 
+ 	return stmpe_probe(&i2c_ci, partnum);
+ }
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
