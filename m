@@ -2,55 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACBC0779350
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 17:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F4EC7795D6
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 19:10:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66442C6B474;
-	Fri, 11 Aug 2023 15:37:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4E5AC6B474;
+	Fri, 11 Aug 2023 17:10:16 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0061FC6B472
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64543C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 15:37:01 +0000 (UTC)
+ Fri, 11 Aug 2023 17:10:15 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E24E960B76;
- Fri, 11 Aug 2023 15:37:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D04ACC433C8;
- Fri, 11 Aug 2023 15:36:56 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 23E046351F;
+ Fri, 11 Aug 2023 17:10:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6671BC433C7;
+ Fri, 11 Aug 2023 17:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691768220;
- bh=IwOupUYX4uwoK+O9WEdepYooynfek5GkO6Od3LDdjAc=;
+ s=k20201202; t=1691773813;
+ bh=UdEqF3pGPTwVExsOaFfOCqMxAjBH843Ugv8NaoMyVwk=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BI6tLwYsm/mibN4q/5jKOlxwgQh6m0Wn8lC4eZwJZ4nvEIHRHLsvQieg8qZcfWMDe
- tSD7XyPgEtXeUsVZbxWOlJHpXStb5D4LK7/QFTsks9LyCXkaKWjxgntIKJO714QKg8
- XYqKupscCU+jdlz1FQh5pr9X+ke75OJl6FA27MguxGkQjxpXUWpAWC9hryXOsLN0ms
- 96/Piq6UBnaO9hqIrE2ECj2l2jZXkSC0Pm855wpUQMovvdeSMInxFdubciIaGPY4Sh
- U5AhvmwaL2l32Z4bS3dXTdvBE99hv+qyAtHiyEwgIUO+yCLfzbqxHZoUjfSAYQQd6o
- ztQAQQ+zxVuyw==
-Date: Fri, 11 Aug 2023 16:36:54 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Kamlesh Gurudasani <kamlesh@ti.com>
-Message-ID: <20230811-imminent-fancied-89663c373ab5@spud>
-References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
- <20230719-mcrc-upstream-v2-3-4152b987e4c2@ti.com>
- <20230811-crestless-gratify-21c9bb422375@spud>
+ b=KJ3NFlDcFjDpk1FuN54RAdpfWhRoISGqyl5eUZm2e3WsGQuNOme5lQFSu4XhuE5Gq
+ MEog3qPjSUzn77qziQ0HAQZpAyJTDskSZq4vd104RLovJiaveLDamut4I1HVrk4CTq
+ PgjZEecxM4pXTnEXb8tNTwsocMV5Pk9q5vO68FW8mlX0hjEF6O+8b4PnKMqiVnSVIZ
+ 5GHdJY/UA4I3zw45RmUz1C0biG+utvEVlxyELz8/HXKTH3KEY01yEhI7GqfBUiXEpe
+ N8U1pZ0qVSzU1NsK/s+oNRi3alFikMaZOYFT48ZB+aYRTGbNvU16fyxI4Sxem7AoMI
+ JP2Xvru9GJyng==
+Received: (nullmailer pid 3621153 invoked by uid 1000);
+ Fri, 11 Aug 2023 17:10:11 -0000
+Date: Fri, 11 Aug 2023 11:10:11 -0600
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Message-ID: <20230811171011.GA3618531-robh@kernel.org>
+References: <20230727150324.1157933-1-olivier.moysan@foss.st.com>
+ <20230727150324.1157933-4-olivier.moysan@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20230811-crestless-gratify-21c9bb422375@spud>
-Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20230727150324.1157933-4-olivier.moysan@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Vignesh Raghavendra <vigneshr@ti.com>
-Subject: Re: [Linux-stm32] [PATCH v2 3/6] dt-bindings: crypto: Add Texas
-	Instruments MCRC64
+ alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC v2 03/11] dt-bindings: iio: stm32-dfsdm-adc:
+ add scaling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,162 +62,299 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1320161902253871717=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Jul 27, 2023 at 05:03:14PM +0200, Olivier Moysan wrote:
+> Add scaling support to STM32 DFSDM.
+> 
+> This introduces the following changes:
 
---===============1320161902253871717==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="yk7Io+ad3L2jbO+M"
-Content-Disposition: inline
+Why?
 
+> - Add ADC generic channel binding and remove support of deprecated
+> channel bindings.
 
---yk7Io+ad3L2jbO+M
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When was it deprecated?
 
-On Fri, Aug 11, 2023 at 04:34:33PM +0100, Conor Dooley wrote:
-> On Fri, Aug 11, 2023 at 12:58:50AM +0530, Kamlesh Gurudasani wrote:
-> > Add binding for Texas Instruments MCRC64
-> >=20
-> > MCRC64 engine calculates 64-bit cyclic redundancy checks (CRC)
-> > according to the ISO 3309 standard.
-> >=20
-> > The ISO 3309 64-bit CRC model parameters are as follows:
-> >     Generator Polynomial: x^64 + x^4 + x^3 + x + 1
-> >     Polynomial Value: 0x000000000000001B
-> >     Initial value: 0x0000000000000000
-> >     Reflected Input: False
-> >     Reflected Output: False
-> >     Xor Final: 0x0000000000000000
-> >=20
-> > Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
-> > ---
-> >  Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml | 47 +++++++++=
-++++++++++++++++++++++++++++++++++++++
-> >  MAINTAINERS                                             |  5 +++++
-> >  2 files changed, 52 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml b/=
-Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml
-> > new file mode 100644
-> > index 000000000000..38bc7efebd68
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml
-> > @@ -0,0 +1,47 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/crypto/ti,mcrc64.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Texas Instruments MCRC64
-> > +
-> > +description: The MCRC64 engine calculates 64-bit cyclic redundancy che=
-cks
->=20
-> A newline after "description" please.
->=20
-> > +  (CRC) according to the ISO 3309 standard.
-> > +
-> > +maintainers:
-> > +  - Kamlesh Gurudasani <kamlesh@ti.com>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ti,am62-mcrc64
->=20
-> Is the am62 an SoC or a family of SoCs? I googled a wee bit for am62 &
-> there seems to be an am625 and an am623?
+> - DFSDM is now implemented as a channel provider, so remove io-channels
+> properties.
+> - Add iio-backend property to connect DFSDM to an SD modulator.
 
-Or is it an am62p5, in which case the compatible should contain
-ti,am62p5 I suppose. Sorry for my confusion here, its not really clear
-me too since I've been seeing many different-but-similar product names
-the last few days.
+io-backends
 
-Thanks,
-Conor.
+All sorts of ABI issues with this change. Please explain why you don't 
+care.
 
->=20
-> Otherwise, this looks good to me.
->=20
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  power-domains:
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - clocks
-> > +  - power-domains
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/soc/ti,sci_pm_domain.h>
-> > +
-> > +    crc@30300000 {
-> > +      compatible =3D "ti,am62-mcrc64";
-> > +      reg =3D <0x30300000 0x1000>;
-> > +      clocks =3D <&k3_clks 116 0>;
-> > +      power-domains =3D <&k3_pds 116 TI_SCI_PD_EXCLUSIVE>;
-> > +    };
-> > +
-> > +...
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 02a3192195af..66b51f43d196 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -21481,6 +21481,11 @@ S:	Maintained
-> >  F:	Documentation/devicetree/bindings/iio/adc/ti,lmp92064.yaml
-> >  F:	drivers/iio/adc/ti-lmp92064.c
-> > =20
-> > +TI MEMORY CYCLIC REDUNDANCY CHECK (MCRC64) DRIVER
-> > +M:	Kamlesh Gurudasani <kamlesh@ti.com>
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml
-> > +
-> >  TI PCM3060 ASoC CODEC DRIVER
-> >  M:	Kirill Marinushkin <kmarinushkin@birdec.com>
-> >  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
-> >=20
-> > --=20
-> > 2.34.1
-> >=20
-
-
-
---yk7Io+ad3L2jbO+M
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZNZVlgAKCRB4tDGHoIJi
-0uHpAP4hfYrFNPj0CkA40P9EKD3r/FKiAc6X2K23ePY3vww/XAEA6WukF13gDiEn
-uOcZZtE+v9yuqJykNIKHzEe9ishk3gI=
-=Qk3W
------END PGP SIGNATURE-----
-
---yk7Io+ad3L2jbO+M--
-
---===============1320161902253871717==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> ---
+>  .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 189 ++++++------------
+>  1 file changed, 63 insertions(+), 126 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> index 1970503389aa..128545cedc7f 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+> @@ -85,22 +85,14 @@ patternProperties:
+>          description: Specifies the DFSDM filter instance used.
+>          maxItems: 1
+>  
+> -      interrupts:
+> -        maxItems: 1
+> +      '#address-cells':
+> +        const: 1
+>  
+> -      st,adc-channels:
+> -        description: |
+> -          List of single-ended channels muxed for this ADC.
+> -          On stm32h7 and stm32mp1:
+> -          - For st,stm32-dfsdm-adc: up to 8 channels numbered from 0 to 7.
+> -          - For st,stm32-dfsdm-dmic: 1 channel numbered from 0 to 7.
+> -        $ref: /schemas/types.yaml#/definitions/uint32-array
+> -        items:
+> -          minimum: 0
+> -          maximum: 7
+> +      '#size-cells':
+> +        const: 0
+>  
+> -      st,adc-channel-names:
+> -        description: List of single-ended channel names.
+> +      interrupts:
+> +        maxItems: 1
+>  
+>        st,filter-order:
+>          description: |
+> @@ -111,39 +103,6 @@ patternProperties:
+>          $ref: /schemas/types.yaml#/definitions/uint32
+>          maximum: 5
+>  
+> -      "#io-channel-cells":
+> -        const: 1
+> -
+> -      st,adc-channel-types:
+> -        description: |
+> -          Single-ended channel input type.
+> -          - "SPI_R": SPI with data on rising edge (default)
+> -          - "SPI_F": SPI with data on falling edge
+> -          - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+> -          - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+> -        items:
+> -          enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+> -        $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> -
+> -      st,adc-channel-clk-src:
+> -        description: |
+> -          Conversion clock source.
+> -          - "CLKIN": external SPI clock (CLKIN x)
+> -          - "CLKOUT": internal SPI clock (CLKOUT) (default)
+> -          - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+> -          - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+> -        items:
+> -          enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+> -        $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> -
+> -      st,adc-alt-channel:
+> -        description:
+> -          Must be defined if two sigma delta modulators are
+> -          connected on same SPI input.
+> -          If not set, channel n is connected to SPI input n.
+> -          If set, channel n is connected to SPI input n + 1.
+> -        type: boolean
+> -
+>        st,filter0-sync:
+>          description:
+>            Set to 1 to synchronize with DFSDM filter instance 0.
+> @@ -157,14 +116,68 @@ patternProperties:
+>          items:
+>            - const: rx
+>  
+> +    patternProperties:
+> +      "^channel@([0-9]|1[0-9])$":
+> +        type: object
+> +        $ref: "adc.yaml"
+> +        description: Represents the external channels which are connected to the DFSDM.
+> +
+> +        properties:
+> +          reg:
+> +            items:
+> +              minimum: 0
+> +              maximum: 19
+> +
+> +          label:
+> +            description: |
+> +              Unique name to identify channel.
+> +
+> +          st,adc-channel-types:
+> +            description: |
+> +              Single-ended channel input type.
+> +              - "SPI_R": SPI with data on rising edge (default)
+> +              - "SPI_F": SPI with data on falling edge
+> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+> +            items:
+> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +
+> +          st,adc-channel-clk-src:
+> +            description: |
+> +              Conversion clock source.
+> +              - "CLKIN": external SPI clock (CLKIN x)
+> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
+> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+> +            items:
+> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+> +
+> +          st,adc-alt-channel:
+> +            description:
+> +              Must be defined if two sigma delta modulators are
+> +              connected on same SPI input.
+> +              If not set, channel n is connected to SPI input n.
+> +              If set, channel n is connected to SPI input n + 1.
+> +            type: boolean
+> +
+> +          io-backends:
+> +            description: |
+> +              phandle to an external sigma delta modulator or internal ADC output.
+> +            $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +        required:
+> +          - reg
+> +          - io-backends
+> +
+> +        additionalProperties: false
+> +
+>      required:
+>        - compatible
+>        - reg
+>        - interrupts
+> -      - st,adc-channels
+> -      - st,adc-channel-names
+>        - st,filter-order
+> -      - "#io-channel-cells"
+>  
+>      allOf:
+>        - if:
+> @@ -175,14 +188,6 @@ patternProperties:
+>  
+>          then:
+>            properties:
+> -            st,adc-channels:
+> -              minItems: 1
+> -              maxItems: 8
+> -
+> -            st,adc-channel-names:
+> -              minItems: 1
+> -              maxItems: 8
+> -
+>              st,adc-channel-types:
+>                minItems: 1
+>                maxItems: 8
+> @@ -191,14 +196,6 @@ patternProperties:
+>                minItems: 1
+>                maxItems: 8
+>  
+> -            io-channels:
+> -              description:
+> -                From common IIO binding. Used to pipe external sigma delta
+> -                modulator or internal ADC output to DFSDM channel.
+> -
+> -          required:
+> -            - io-channels
+> -
+>        - if:
+>            properties:
+>              compatible:
+> @@ -207,12 +204,6 @@ patternProperties:
+>  
+>          then:
+>            properties:
+> -            st,adc-channels:
+> -              maxItems: 1
+> -
+> -            st,adc-channel-names:
+> -              maxItems: 1
+> -
+>              st,adc-channel-types:
+>                maxItems: 1
+>  
+> @@ -237,15 +228,9 @@ patternProperties:
+>                  "#sound-dai-cells":
+>                    const: 0
+>  
+> -                io-channels:
+> -                  description:
+> -                    From common IIO binding. Used to pipe external sigma delta
+> -                    modulator or internal ADC output to DFSDM channel.
+> -
+>                required:
+>                  - compatible
+>                  - "#sound-dai-cells"
+> -                - io-channels
+>  
+>  allOf:
+>    - if:
+> @@ -278,52 +263,4 @@ allOf:
+>                  minimum: 0
+>                  maximum: 5
+>  
+> -examples:
+> -  - |
+> -    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> -    #include <dt-bindings/clock/stm32mp1-clks.h>
+> -    dfsdm: dfsdm@4400d000 {
+> -      compatible = "st,stm32mp1-dfsdm";
+> -      reg = <0x4400d000 0x800>;
+> -      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
+> -      clock-names = "dfsdm", "audio";
+> -      #address-cells = <1>;
+> -      #size-cells = <0>;
+> -
+> -      dfsdm0: filter@0 {
+> -        compatible = "st,stm32-dfsdm-dmic";
+> -        reg = <0>;
+> -        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+> -        dmas = <&dmamux1 101 0x400 0x01>;
+> -        dma-names = "rx";
+> -        #io-channel-cells = <1>;
+> -        st,adc-channels = <1>;
+> -        st,adc-channel-names = "dmic0";
+> -        st,adc-channel-types = "SPI_R";
+> -        st,adc-channel-clk-src = "CLKOUT";
+> -        st,filter-order = <5>;
+> -
+> -        asoc_pdm0: dfsdm-dai {
+> -          compatible = "st,stm32h7-dfsdm-dai";
+> -          #sound-dai-cells = <0>;
+> -          io-channels = <&dfsdm0 0>;
+> -        };
+> -      };
+> -
+> -      dfsdm_pdm1: filter@1 {
+> -        compatible = "st,stm32-dfsdm-adc";
+> -        reg = <1>;
+> -        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
+> -        dmas = <&dmamux1 102 0x400 0x01>;
+> -        dma-names = "rx";
+> -        #io-channel-cells = <1>;
+> -        st,adc-channels = <2 3>;
+> -        st,adc-channel-names = "in2", "in3";
+> -        st,adc-channel-types = "SPI_R", "SPI_R";
+> -        st,adc-channel-clk-src = "CLKOUT_F", "CLKOUT_F";
+> -        io-channels = <&sd_adc2 &sd_adc3>;
+> -        st,filter-order = <1>;
+> -      };
+> -    };
+> -
+>  ...
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1320161902253871717==--
