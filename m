@@ -2,72 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0774C778FE8
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 14:52:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80892779340
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 17:34:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFE51C6B474;
-	Fri, 11 Aug 2023 12:52:11 +0000 (UTC)
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D953C6B474;
+	Fri, 11 Aug 2023 15:34:42 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0635AC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2ED02C6B472
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 12:52:09 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-686ea67195dso1406410b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 05:52:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691758328; x=1692363128;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=KbKJe2tEe/lB5NizJfxNPF+lCmWbaQQ8/etXP32dMGg=;
- b=JZQY58hTx7UZ43EjBbTuSgw/ldGdUuDETy35lBvfcATVxUP/7MMSOchj7/cYCMZtdl
- JJlmZcWDclNWZ2jhAGQXMRrMifXeJLpZIIahMNHiY+GeIObRzuSLii9UMypJhjB5MNli
- a1yp7l4ydf1Wk1oJmA/ROiFJLxN0leVH62Tqp6O/kcDtG32451Qoc6ZHN5Sy71MUiQ/K
- 1IyZESCqfUG9C0W+Q5VV9u/vDlTSiebeM076DfgkMNBGOLv5A1113/3l58Yx8A1u2Hsh
- bRQN/eOKEYOCjRkw4LrfTdSbOoahFcIjA12X5d3ochHm+FRtsH9ynrzlGqKlev4YD7uM
- +2BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691758328; x=1692363128;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=KbKJe2tEe/lB5NizJfxNPF+lCmWbaQQ8/etXP32dMGg=;
- b=KafDSQZXhD3YcINwckPd0yuynjqu5fonhk5KgI1sbuiZnDCczknGFNnriaIV8bk+zS
- YsR5HYqulhMMmfOilaFIHSRIJMj+1fw3SpX/ub7+2wyb59sBoU5x/gGHsQaZ2QPDZDI1
- IMVT7eALolFddoYGxK96in7wX1mo7tjRt+85mDFAQBHxw/ALfHeS/OHmUN+TJkvB1L4p
- tiSisl7baQzmzhYh4Eku3ybQ9tNlhBWhVXOnT3FThwjRfGd0d40DnO1A3Bcj+h9a3wYy
- KHhmlrRMuJSNX7ysrGaZaTQa0l+s9VHgp09Ww5P8p3xglwkOl9tqStDnm/zaaO/Pb831
- xlLw==
-X-Gm-Message-State: AOJu0Yz1XuI7B8kAFbF/zMo9oNXJkckLpl7asBd4/ysMYEMfOJODzG4G
- 19TMTI92gHMOz0iztVmF064=
-X-Google-Smtp-Source: AGHT+IEYLAU/icss22mnR69KwGu2yTOnUC8KZ+3hUTw336+X0NC7us98dUOT1vIwuGYtu5MnQtEQag==
-X-Received: by 2002:a05:6a20:1595:b0:13d:7aa3:aa72 with SMTP id
- h21-20020a056a20159500b0013d7aa3aa72mr1993967pzj.5.1691758328438; 
- Fri, 11 Aug 2023 05:52:08 -0700 (PDT)
-Received: from localhost.localdomain ([198.211.45.220])
- by smtp.googlemail.com with ESMTPSA id
- t12-20020a1709028c8c00b001b9d88a4d1asm3796694plo.289.2023.08.11.05.51.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Aug 2023 05:52:07 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>
-Date: Fri, 11 Aug 2023 20:51:39 +0800
-Message-Id: <20230811125139.284272-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Fri, 11 Aug 2023 15:34:41 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id EC9D867578;
+ Fri, 11 Aug 2023 15:34:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4FA4C433C8;
+ Fri, 11 Aug 2023 15:34:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691768079;
+ bh=r3PGtOgGMhkDijdv+iZVGveDNuPb4HD9QD/+iFIfZYM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VCl3cPD8dgdIUONQxajxeQQgRrlu1YgPEm+SYDUJk01vLAZIbHIIAWMubcho9PGLK
+ K+ydgi3DaBDyvwiwiX3k3bdVfrNIbrCR61N3oTIx9n3AZbVXWy/cWO9F+x2jPBkgqw
+ Qxm4p4FoGvTXvB9Jx/1iAMeZKqgBivx6dfMeVfY1HgRLWHEuEvQqMQJ8q++3YifJYK
+ hhF/CC4jFkpZ3pZ61RJQw1+MwomN6gkJxqmTuBKsy3nz1Hx26BOH+1+vZYIoC9wa9H
+ 3kUmxgBdwIUtDDuQZOLWE8oa4avDf3up6Nne0WtTKzIfjW87BdJ90p9fsJD553ygg2
+ UyHpB6r03DLyQ==
+Date: Fri, 11 Aug 2023 16:34:33 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Kamlesh Gurudasani <kamlesh@ti.com>
+Message-ID: <20230811-crestless-gratify-21c9bb422375@spud>
+References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+ <20230719-mcrc-upstream-v2-3-4152b987e4c2@ti.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: xgmac: show more
-	MAC HW features in debugfs
+In-Reply-To: <20230719-mcrc-upstream-v2-3-4152b987e4c2@ti.com>
+Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [PATCH v2 3/6] dt-bindings: crypto: Add Texas
+	Instruments MCRC64
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,157 +61,149 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8127039744742047065=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-1. Show TSSTSSEL(Timestamp System Time Source),
-ADDMACADRSEL(additional MAC addresses), SMASEL(SMA/MDIO Interface),
-HDSEL(Half-duplex Support) in debugfs.
-2. Show exact number of additional MAC address registers for XGMAC2 core.
-3. XGMAC2 core does not have different IP checksum offload types, so just
-show rx_coe instead of rx_coe_type1 or rx_coe_type2.
-4. XGMAC2 core does not have rxfifo_over_2048 definition, skip it.
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  2 ++
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  4 +++
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  6 ++++-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 +++++++++++++++----
- 4 files changed, 31 insertions(+), 6 deletions(-)
+--===============8127039744742047065==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4VYflVWwOKTpj1iN"
+Content-Disposition: inline
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 16e67c18b6f7..b37f2f6b2229 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -434,6 +434,8 @@ struct dma_features {
- 	unsigned int tbssel;
- 	/* Numbers of Auxiliary Snapshot Inputs */
- 	unsigned int aux_snapshot_n;
-+	/* Timestamp System Time Source */
-+	unsigned int tssrc;
- };
- 
- /* RX Buffer size must be multiple of 4/8/16 bytes */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 1913385df685..a00398674015 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -111,6 +111,8 @@
- #define XGMAC_LPI_TIMER_CTRL		0x000000d4
- #define XGMAC_HW_FEATURE0		0x0000011c
- #define XGMAC_HWFEAT_SAVLANINS		BIT(27)
-+#define XGMAC_HWFEAT_TSSTSSEL		GENMASK(26, 25)
-+#define XGMAC_HWFEAT_ADDMACADRSEL	GENMASK(22, 18)
- #define XGMAC_HWFEAT_RXCOESEL		BIT(16)
- #define XGMAC_HWFEAT_TXCOESEL		BIT(14)
- #define XGMAC_HWFEAT_EEESEL		BIT(13)
-@@ -121,7 +123,9 @@
- #define XGMAC_HWFEAT_MMCSEL		BIT(8)
- #define XGMAC_HWFEAT_MGKSEL		BIT(7)
- #define XGMAC_HWFEAT_RWKSEL		BIT(6)
-+#define XGMAC_HWFEAT_SMASEL		BIT(5)
- #define XGMAC_HWFEAT_VLHASH		BIT(4)
-+#define XGMAC_HWFEAT_HDSEL		BIT(3)
- #define XGMAC_HWFEAT_GMIISEL		BIT(1)
- #define XGMAC_HW_FEATURE1		0x00000120
- #define XGMAC_HWFEAT_L3L4FNUM		GENMASK(30, 27)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 070bd912580b..6d6abc3ddb53 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -389,9 +389,11 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
- {
- 	u32 hw_cap;
- 
--	/*  MAC HW feature 0 */
-+	/* MAC HW feature 0 */
- 	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE0);
- 	dma_cap->vlins = (hw_cap & XGMAC_HWFEAT_SAVLANINS) >> 27;
-+	dma_cap->tssrc = (hw_cap & XGMAC_HWFEAT_TSSTSSEL) >> 25;
-+	dma_cap->multi_addr = (hw_cap & XGMAC_HWFEAT_ADDMACADRSEL) >> 18;
- 	dma_cap->rx_coe = (hw_cap & XGMAC_HWFEAT_RXCOESEL) >> 16;
- 	dma_cap->tx_coe = (hw_cap & XGMAC_HWFEAT_TXCOESEL) >> 14;
- 	dma_cap->eee = (hw_cap & XGMAC_HWFEAT_EEESEL) >> 13;
-@@ -402,7 +404,9 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
- 	dma_cap->rmon = (hw_cap & XGMAC_HWFEAT_MMCSEL) >> 8;
- 	dma_cap->pmt_magic_frame = (hw_cap & XGMAC_HWFEAT_MGKSEL) >> 7;
- 	dma_cap->pmt_remote_wake_up = (hw_cap & XGMAC_HWFEAT_RWKSEL) >> 6;
-+	dma_cap->sma_mdio = (hw_cap & XGMAC_HWFEAT_SMASEL) >> 5;
- 	dma_cap->vlhash = (hw_cap & XGMAC_HWFEAT_VLHASH) >> 4;
-+	dma_cap->half_duplex = (hw_cap & XGMAC_HWFEAT_HDSEL) >> 3;
- 	dma_cap->mbps_1000 = (hw_cap & XGMAC_HWFEAT_GMIISEL) >> 1;
- 
- 	/* MAC HW feature 1 */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4727f7be4f86..2d627640cc60 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6174,6 +6174,12 @@ DEFINE_SHOW_ATTRIBUTE(stmmac_rings_status);
- 
- static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- {
-+	static const char * const dwxgmac_timestamp_source[] = {
-+		"None",
-+		"Internal",
-+		"External",
-+		"Both",
-+	};
- 	struct net_device *dev = seq->private;
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 
-@@ -6194,8 +6200,13 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 		   (priv->dma_cap.half_duplex) ? "Y" : "N");
- 	seq_printf(seq, "\tHash Filter: %s\n",
- 		   (priv->dma_cap.hash_filter) ? "Y" : "N");
--	seq_printf(seq, "\tMultiple MAC address registers: %s\n",
--		   (priv->dma_cap.multi_addr) ? "Y" : "N");
-+	if (priv->plat->has_xgmac)
-+		seq_printf(seq,
-+			   "\tNumber of Additional MAC address registers: %d\n",
-+			   priv->dma_cap.multi_addr);
-+	else
-+		seq_printf(seq, "\tMultiple MAC address registers: %s\n",
-+			   (priv->dma_cap.multi_addr) ? "Y" : "N");
- 	seq_printf(seq, "\tPCS (TBI/SGMII/RTBI PHY interfaces): %s\n",
- 		   (priv->dma_cap.pcs) ? "Y" : "N");
- 	seq_printf(seq, "\tSMA (MDIO) Interface: %s\n",
-@@ -6210,12 +6221,16 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 		   (priv->dma_cap.time_stamp) ? "Y" : "N");
- 	seq_printf(seq, "\tIEEE 1588-2008 Advanced Time Stamp: %s\n",
- 		   (priv->dma_cap.atime_stamp) ? "Y" : "N");
-+	if (priv->plat->has_xgmac)
-+		seq_printf(seq, "\tTimestamp System Time Source: %s\n",
-+			   dwxgmac_timestamp_source[priv->dma_cap.tssrc]);
- 	seq_printf(seq, "\t802.3az - Energy-Efficient Ethernet (EEE): %s\n",
- 		   (priv->dma_cap.eee) ? "Y" : "N");
- 	seq_printf(seq, "\tAV features: %s\n", (priv->dma_cap.av) ? "Y" : "N");
- 	seq_printf(seq, "\tChecksum Offload in TX: %s\n",
- 		   (priv->dma_cap.tx_coe) ? "Y" : "N");
--	if (priv->synopsys_id >= DWMAC_CORE_4_00) {
-+	if (priv->synopsys_id >= DWMAC_CORE_4_00 ||
-+	    priv->plat->has_xgmac) {
- 		seq_printf(seq, "\tIP Checksum Offload in RX: %s\n",
- 			   (priv->dma_cap.rx_coe) ? "Y" : "N");
- 	} else {
-@@ -6223,9 +6238,9 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 			   (priv->dma_cap.rx_coe_type1) ? "Y" : "N");
- 		seq_printf(seq, "\tIP Checksum Offload (type2) in RX: %s\n",
- 			   (priv->dma_cap.rx_coe_type2) ? "Y" : "N");
-+		seq_printf(seq, "\tRXFIFO > 2048bytes: %s\n",
-+			   (priv->dma_cap.rxfifo_over_2048) ? "Y" : "N");
- 	}
--	seq_printf(seq, "\tRXFIFO > 2048bytes: %s\n",
--		   (priv->dma_cap.rxfifo_over_2048) ? "Y" : "N");
- 	seq_printf(seq, "\tNumber of Additional RX channel: %d\n",
- 		   priv->dma_cap.number_rx_channel);
- 	seq_printf(seq, "\tNumber of Additional TX channel: %d\n",
--- 
-2.34.1
+
+--4VYflVWwOKTpj1iN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Aug 11, 2023 at 12:58:50AM +0530, Kamlesh Gurudasani wrote:
+> Add binding for Texas Instruments MCRC64
+>=20
+> MCRC64 engine calculates 64-bit cyclic redundancy checks (CRC)
+> according to the ISO 3309 standard.
+>=20
+> The ISO 3309 64-bit CRC model parameters are as follows:
+>     Generator Polynomial: x^64 + x^4 + x^3 + x + 1
+>     Polynomial Value: 0x000000000000001B
+>     Initial value: 0x0000000000000000
+>     Reflected Input: False
+>     Reflected Output: False
+>     Xor Final: 0x0000000000000000
+>=20
+> Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
+> ---
+>  Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml | 47 +++++++++++=
+++++++++++++++++++++++++++++++++++++
+>  MAINTAINERS                                             |  5 +++++
+>  2 files changed, 52 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml b/Do=
+cumentation/devicetree/bindings/crypto/ti,mcrc64.yaml
+> new file mode 100644
+> index 000000000000..38bc7efebd68
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml
+> @@ -0,0 +1,47 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/crypto/ti,mcrc64.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments MCRC64
+> +
+> +description: The MCRC64 engine calculates 64-bit cyclic redundancy checks
+
+A newline after "description" please.
+
+> +  (CRC) according to the ISO 3309 standard.
+> +
+> +maintainers:
+> +  - Kamlesh Gurudasani <kamlesh@ti.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: ti,am62-mcrc64
+
+Is the am62 an SoC or a family of SoCs? I googled a wee bit for am62 &
+there seems to be an am625 and an am623?
+
+Otherwise, this looks good to me.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - power-domains
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/soc/ti,sci_pm_domain.h>
+> +
+> +    crc@30300000 {
+> +      compatible =3D "ti,am62-mcrc64";
+> +      reg =3D <0x30300000 0x1000>;
+> +      clocks =3D <&k3_clks 116 0>;
+> +      power-domains =3D <&k3_pds 116 TI_SCI_PD_EXCLUSIVE>;
+> +    };
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 02a3192195af..66b51f43d196 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21481,6 +21481,11 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/adc/ti,lmp92064.yaml
+>  F:	drivers/iio/adc/ti-lmp92064.c
+> =20
+> +TI MEMORY CYCLIC REDUNDANCY CHECK (MCRC64) DRIVER
+> +M:	Kamlesh Gurudasani <kamlesh@ti.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/crypto/ti,mcrc64.yaml
+> +
+>  TI PCM3060 ASoC CODEC DRIVER
+>  M:	Kirill Marinushkin <kmarinushkin@birdec.com>
+>  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--4VYflVWwOKTpj1iN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZNZVCQAKCRB4tDGHoIJi
+0n5RAP97iRCzLqZPNVjEVkEGcarsRXECumq3U8b3igybE6JXhgD+Kb1DanuELAIb
+I7R1WODmew1XCk2Elgnp/H8EOq2KKAA=
+=2dLk
+-----END PGP SIGNATURE-----
+
+--4VYflVWwOKTpj1iN--
+
+--===============8127039744742047065==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8127039744742047065==--
