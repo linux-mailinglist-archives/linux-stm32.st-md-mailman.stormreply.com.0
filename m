@@ -2,58 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8921778BB2
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 12:16:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5685778DA5
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 13:28:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 674C3C6B468;
-	Fri, 11 Aug 2023 10:16:50 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A6E8C6B468;
+	Fri, 11 Aug 2023 11:28:55 +0000 (UTC)
+Received: from 167-179-156-38.a7b39c.syd.nbn.aussiebb.net
+ (167-179-156-38.a7b39c.syd.nbn.aussiebb.net [167.179.156.38])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90839C6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF9E8C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 10:16:48 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2727460FF5;
- Fri, 11 Aug 2023 10:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C666C433C7;
- Fri, 11 Aug 2023 10:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1691749006;
- bh=p0874zC3P/4HkNA+wVRJkLg0l75K8zpw30iVncdc3hA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZnbEJxBBvvyRVrrgqaUgZZHjXTQaaVvRcmnG+Kw6tY0jW8JMLnEntCAan1/Jv/IwK
- 7S2gJZ1TdIKGrRy6ZexEARpp7JOigKWp2EyHIPnSQm30nHkGgawvRoW4h7JlKMa6bW
- B9VZPDYj7V1mJVZxUoasRspo2Tk97FQH9M1olZHQ=
-Date: Fri, 11 Aug 2023 12:16:44 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Message-ID: <2023081117-sprout-cruncher-862c@gregkh>
-References: <20230811100731.108145-1-gatien.chevallier@foss.st.com>
- <20230811100731.108145-2-gatien.chevallier@foss.st.com>
+ Fri, 11 Aug 2023 11:28:53 +0000 (UTC)
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1qUQJo-00247f-Ck; Fri, 11 Aug 2023 19:28:37 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 11 Aug 2023 19:28:36 +0800
+Date: Fri, 11 Aug 2023 19:28:36 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZNYbZNe+oJDMov2w@gondor.apana.org.au>
+References: <20230731165456.799784-1-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230811100731.108145-2-gatien.chevallier@foss.st.com>
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- peng.fan@oss.nxp.com, herbert@gondor.apana.org.au,
- Frank Rowand <frowand.list@gmail.com>, hugues.fruchet@foss.st.com,
- lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- andi.shyti@kernel.org, alsa-devel@alsa-project.org, richardcochran@gmail.com,
- robh+dt@kernel.org, linux-serial@vger.kernel.org, mchehab@kernel.org,
- linux-arm-kernel@lists.infradead.org, arnd@kernel.org, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, vkoul@kernel.org,
- linux-crypto@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [IGNORE][PATCH v4 01/11] dt-bindings: Document
- common device controller bindings
+In-Reply-To: <20230731165456.799784-1-u.kleine-koenig@pengutronix.de>
+Cc: kernel@pengutronix.de, Linus Walleij <linus.walleij@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/3] stm32/hash - Convert to platform
+ remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,33 +44,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 11, 2023 at 12:07:21PM +0200, Gatien Chevallier wrote:
-> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-> 
-> Introducing of the common device controller bindings for the controller
-> provider and consumer devices. Those bindings are intended to allow
-> divided system on chip into multiple domains, that can be used to
-> configure hardware permissions.
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> [Gatien: Fix typos and YAML error]
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
-> 
-> Changes in V4: 
-> 	Corrected typos and YAML errors	
+On Mon, Jul 31, 2023 at 06:54:53PM +0200, Uwe Kleine-K=F6nig wrote:
+> Hello,
+> =
 
-Why are we supposed to ignore the first patch in this series, but pay
-attention to the 10 after this that depend on it?
+> this patch series converts the stm32-hash driver to use .remove_new. The
+> first patch is a fix that could be backported to stable, but it's not
+> very urgent. It's only problematic if such a device is unbound (which
+> happens rarely) and then clk_prepare_enable() fails. Up to you if you
+> want to tag it as stable material.
+> =
 
-totally confused,
+> The overall goal is to reduce the number of drivers using the irritating
+> .remove() callback by one. See the commit log of the third patch for the
+> reasoning.
+> =
 
-greg k-h
+> Best regards
+> Uwe
+> =
+
+> Uwe Kleine-K=F6nig (3):
+>   crypto: stm32/hash - Properly handle pm_runtime_get failing
+>   crypto: stm32/hash - Drop if block with always false condition
+>   crypto: stm32/hash - Convert to platform remove callback returning
+>     void
+> =
+
+>  drivers/crypto/stm32/stm32-hash.c | 19 ++++++-------------
+>  1 file changed, 6 insertions(+), 13 deletions(-)
+> =
+
+> base-commit: 3de0152bf26ff0c5083ef831ba7676fc4c92e63a
+> -- =
+
+> 2.39.2
+
+All applied.  Thanks.
+-- =
+
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
