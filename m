@@ -2,74 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3629C77866C
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 06:14:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0468B778676
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 06:24:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE5DFC6B468;
-	Fri, 11 Aug 2023 04:14:32 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87FD0C6B468;
+	Fri, 11 Aug 2023 04:24:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF92BC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29ABBC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 04:14:30 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-1bda9207132so8769345ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 21:14:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1691727269; x=1692332069;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YSR3Q04lK59tiGJay4SkNer8bq6qRzC22OcRjYST5Xs=;
- b=ixEv7OnX4jkE2gbNOieRXO69/GTH7zq/og7zqDIWbH+/gw6jP/MwDbdgnV45z35rsg
- W2/laVoakXArMI3jrZ/2W4BUrRjZljKaPvgZ5W2DI9HirG2WJ4iaYLvV65qV9jjpfM5Z
- jGZ6RVsQHERM9SswkODBO3BebWfrDrCMvhNIVC8ar4fH6xHv6d3Fj/6pqm9w/4MbVNda
- DV5LsjHSN7CUM6jFD2vavZRqs6ycrNrn1H/UsM/6YyvM5mvOyMIJ2E+dRxeSkgAnPMbC
- z2zPQ6t5HeSBwB17brm2ECR42uRHcWIUPUgubjJumA2T+M8C6x8BmPTxVthOEgeBHNm9
- EviQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691727269; x=1692332069;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=YSR3Q04lK59tiGJay4SkNer8bq6qRzC22OcRjYST5Xs=;
- b=BTPeMiXgTfs9U+u81kJpo4BEvqRNAJYnDtcv5ot5lj3Rl32v0a49gx+ZKsxmdBVmr8
- g1bJHuSDBSUmS54mliseOSF7nw6mk7V8uidjoXd6naTv4ovpn063KKqaNO9o3vGfYG6N
- ASXCsZXXCTR3DnhoXBdHY8S0D586fN8B48Z0firFi2/g8Gs4674FN/2wFYhOkw/LZKH7
- n0QrGfruJ3zumvfaFx/ftz8LLFsS8Z5jMOZILXB6NlPKcGthvDDTZeqStMu0cIX9O6O/
- guPZk+qSquPLl94nbj6u6jrji38YakAYbi9BnJSp15s5oC4fi4666mB3YJg4FQqPxzHT
- D2oQ==
-X-Gm-Message-State: AOJu0YxlvcDaZVY1At4+/7fc40ovtzjYam8isrwIopIzENg1hkza9Ca2
- We5ge2MSuEbKaWnF9VeZzxs=
-X-Google-Smtp-Source: AGHT+IEOhiTP3OqfDr24GR4MV2Zif3y73zLGJn4lAgQ4UFvuftuROMI632adJdSQEy0ThczGN6Em/w==
-X-Received: by 2002:a17:902:c409:b0:1bc:6c8:cded with SMTP id
- k9-20020a170902c40900b001bc06c8cdedmr1027879plk.67.1691727269271; 
- Thu, 10 Aug 2023 21:14:29 -0700 (PDT)
-Received: from localhost ([198.211.45.220]) by smtp.gmail.com with ESMTPSA id
- r2-20020a170902be0200b001bb9883714dsm2626522pls.143.2023.08.10.21.14.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Aug 2023 21:14:29 -0700 (PDT)
-Date: Fri, 11 Aug 2023 12:14:20 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20230811121420.00007a95@gmail.com>
-In-Reply-To: <9b9635bd-2635-4115-bafb-8a07573c6556@lunn.ch>
-References: <20230810095929.246901-1-0x1207@gmail.com>
- <9b9635bd-2635-4115-bafb-8a07573c6556@lunn.ch>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-w64-mingw32)
+ Fri, 11 Aug 2023 04:24:27 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DABC96146E;
+ Fri, 11 Aug 2023 04:24:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C27C433C7;
+ Fri, 11 Aug 2023 04:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691727865;
+ bh=tFTch+Vt3hmXVV5W6NxEILrRRxKFsve4GjiYPL3bFxI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tDwSTMykeWxpIGLeOu3IiYkMhslf3W0y9Wd7xmQudpL+OJX6C2GX3kZkJzcIPO0AQ
+ Bh9FzaJP6YfG6qeTg3ulmo0/+YSn8TQ4CJSlv44kV7jKQVjZnpxZoEbawJ83Ns+sD+
+ s+eSVrjCTmW+8Ais4F+9lsn1QSbgeRvh9HMLNdNXu3osjyDo2T4OPY7GMsIFmNE9V6
+ OBaHWJ6EEBKvhFqyHprATLQeyixBG6wAYb8j9pnQvm2UOhjiUGH519JqOlBKseeRjm
+ tpu7AufenVwScWolHFut7isQfj5tTE2TGkA7Bj4iwJ4gQoufZ5ZFcX1NnKnxJYoH50
+ zk8bxUwLkhfbQ==
+Date: Thu, 10 Aug 2023 21:24:23 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Kamlesh Gurudasani <kamlesh@ti.com>
+Message-ID: <20230811042423.GA1295@sol.localdomain>
+References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+ <20230719-mcrc-upstream-v2-2-4152b987e4c2@ti.com>
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH 1/1] net: stmmac: dwmac4: extract
- MAC_HW_Feature regs MSB first
+Content-Disposition: inline
+In-Reply-To: <20230719-mcrc-upstream-v2-2-4152b987e4c2@ti.com>
+Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [PATCH v2 2/6] crypto: crc64 - add crc64-iso
+	framework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,37 +67,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 10 Aug 2023 15:59:25 +0200
-Andrew Lunn <andrew@lunn.ch> wrote:
+On Fri, Aug 11, 2023 at 12:58:49AM +0530, Kamlesh Gurudasani wrote:
+> diff --git a/lib/crc64-iso.c b/lib/crc64-iso.c
+> new file mode 100644
+> index 000000000000..d6e803124fa0
+[...]
+> +u64 crc64_iso_update(u64 crc, const unsigned char *buffer, size_t len)
+> +{
+> +	struct {
+> +		struct shash_desc shash;
+> +		u64 crc;
+> +	} desc;
+> +	int err;
+> +
+> +	if (static_branch_unlikely(&crc64_iso_fallback))
+> +		return crc64_iso_generic(crc, buffer, len);
+> +
+> +	rcu_read_lock();
+> +	desc.shash.tfm = rcu_dereference(crc64_iso_tfm);
+> +	desc.crc = crc;
+> +	err = crypto_shash_update(&desc.shash, buffer, len);
+> +	rcu_read_unlock();
+> +
+> +	WARN_ON_ONCE(err);
+> +
+> +	return desc.crc;
+> +}
+> +EXPORT_SYMBOL_GPL(crc64_iso_update);
+> +
+> +u64 crc64_iso(const unsigned char *buffer, size_t len)
+> +{
+> +	return crc64_iso_update(0, buffer, len);
+> +}
+> +EXPORT_SYMBOL_GPL(crc64_iso);
 
-> On Thu, Aug 10, 2023 at 05:59:29PM +0800, Furong Xu wrote:
-> > The bit extraction sequences are a little messy.
-> > No code changes, just reorder them.  
-> 
-> How is this substantially better?
-> 
-> If bugs are found in this code, your change is going to make it harder
-> to back port the fixes to stable kernels. cherry-pick is unlikely to
-> work, it will need a human to look at it. Not hard, but still effort
-> for somebody.
-> 
-> So i think there needs to be a clear benefit to this, and you should
-> mention the benefit in the commit message.
-> 
->     Andrew
+These functions are never called.
 
-Hi Andrew, Alexandre
+Why are you trying to add unused code to the kernel?
 
-In Synopsys databook, the description tables about all registers
-start with the MSB.
-So we can read one line code and then check it against one table row,
-and goto next line of code against next row of table.
-
-I agree with that this commit make cherry-pick less compatible.
-
-If the benefit above is not worthy enough, we abandon this commit :)
-
-Thanks.
+- Eric
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
