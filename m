@@ -2,65 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47CF2784733
+	by mail.lfdr.de (Postfix) with ESMTPS id 56001784734
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CDBBC6C85A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C24AC6C822;
 	Tue, 22 Aug 2023 16:25:21 +0000 (UTC)
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com
- [203.205.221.202])
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DD97C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F331C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 00:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1691712115;
- bh=Dw7XtY4SevyEQWP/R3km8lwVfji8O5oF8nQ61Ju8lII=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=wQ/w2OYRb55uo7a0KjMWAjzCgsK+2zcXXuCuCzkaLtNX5m9w7OiH2MNl9DJo0cLjH
- Mo0+r6DK/56pO5O1tpUpcMtGY/r4GlgiHstjudm6Upwg5ydpk2ltlRq0y/w8wZfcN2
- YieSgV2goVXOyMRYlE64Tjel3IjFHfAvjRY9WFPE=
-Received: from localhost.localdomain ([39.156.73.12])
- by newxmesmtplogicsvrszc5-0.qq.com (NewEsmtp) with SMTP
- id 5C93239; Fri, 11 Aug 2023 08:01:28 +0800
-X-QQ-mid: xmsmtpt1691712088tsfdmiii9
-Message-ID: <tencent_9C20DA1AB80A0564315EF2A91CBF7A8C260A@qq.com>
-X-QQ-XMAILINFO: NY3HYYTs4gYS7ayxzI94vsOZqKVqzudryzUCgm2P/WZtV5OQZSk4thPDk4eEea
- aOAs2ToOp0ryzFXZFmC5//FrsUCvlph1kCqtBy17GTWj5v06gIDvPYoQPUAm3eXXgwY+8YZcn7wH
- nZ5Bv033LLS2gs6ZbFTeZOMZbGPBooqpR1kVEX8oUbEGLAQqFDyrVgCdphpUsnGtDFCjH1G9RKYd
- JQIYkqSvxZPkF0QUpRYPQjsJTW+WESgkevpos0ZrUv1JE2pBY+LufkvpE7iDJRFLh+uslBk1H+Xc
- vM3p+r4h/oz9x+mDl2UcnjveZnz//TyMkAx2s9tuECDg0I9xxr8htuMrnBWBvG2itJOIgU1nNx5a
- ihlL0pc2XKwPjmHyOj8rHX3E2rNLbpYYhoceF94vtR8XaoY+At/u1fQEV3OiykDtZg7ZBTXeLbWN
- SCHBBCDoBTct28+Eq4HrXH9o1hVl8h5MGy7NSzZcuv6q5RwdpeQ0uWHW/AIcuCw9Tto+w/lrlu+b
- EadIcOJW7lATigJ8z7ITNUkSQeWtiuYTXmgkOXXW9+gajSAwIUdIfiavia2zLSCJQE2eadhn+tG0
- Pbzy5+KuLpcV1MCGF1GOxkHvf0YwUUtY5caEQpeHrupbrQBPm6GQAOTzNppjpGQSBH/WaDyNopv4
- OaFd1ALlwVZhbbuaSXRa/4/TYldXvISgNPCvc4OgWUx2e0/rR6wh7w0cOHYxNP9HdKrfTXjphFH7
- psBmTEBCjRRMO4RxHMeZ+5CKTkwmVhO65hHeSuAutrUujDm73PERC3mmza6exk2f/z9rt4v4EKIr
- T2K8MkaXdR1hX1ezbY8mT34Sazzt0qGeXOL7xj5DU7iRQepKbj+BahIhiHvrzItdlrqY9NYvnqkG
- CvPQCxjmB6TOSOp09g5b7xGoNFeB3PQuQr7p+pGjdx6elLQW7QCaEwTN0B37dkjt/i+ZWex7/RdC
- FvUpfn5YT7dHIdykWUVks76hC5OA2M4AnIJDLTxXWrMmfNYz7KOA+QtVZDcRaQ
-X-QQ-XMRINFO: OWPUhxQsoeAVDbp3OJHYyFg=
-From: Rong Tao <rtoax@foxmail.com>
-To: sdf@google.com
-Date: Fri, 11 Aug 2023 08:01:28 +0800
-X-OQ-MSGID: <20230811000128.298569-1-rtoax@foxmail.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <ZNUnxJ26/4QfvoC+@google.com>
-References: <ZNUnxJ26/4QfvoC+@google.com>
+ Fri, 11 Aug 2023 06:40:32 +0000 (UTC)
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37B6eBOd021185;
+ Fri, 11 Aug 2023 01:40:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1691736011;
+ bh=jF7veAJCg7xxofNq8kFXr6on39XUtII8DDbN01UPOg8=;
+ h=From:To:CC:Subject:In-Reply-To:References:Date;
+ b=MhHDCWrW7h5mBgJXO24FHVkVesCB2J1yMupcXIKgKUUEhjv0ANFaSIFdhoq1W+EBh
+ riNtETxC2Mrr0SMFPYC2wRJZR0jNszh/ZCbWKD1aapk+XXLq+7HX0+ZOjm0EVuJyBb
+ LqskMROLcAzz3aYAD+h86I8WyRXq65Engmxb/tMA=
+Received: from DFLE110.ent.ti.com (dfle110.ent.ti.com [10.64.6.31])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37B6eBpO122620
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 11 Aug 2023 01:40:11 -0500
+Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 11
+ Aug 2023 01:40:10 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE108.ent.ti.com
+ (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Fri, 11 Aug 2023 01:40:10 -0500
+Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37B6e914007531;
+ Fri, 11 Aug 2023 01:40:09 -0500
+From: Kamlesh Gurudasani <kamlesh@ti.com>
+To: Eric Biggers <ebiggers@kernel.org>
+In-Reply-To: <20230811042423.GA1295@sol.localdomain>
+References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+ <20230719-mcrc-upstream-v2-2-4152b987e4c2@ti.com>
+ <20230811042423.GA1295@sol.localdomain>
+Date: Fri, 11 Aug 2023 12:10:09 +0530
+Message-ID: <87r0oadquu.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
 MIME-Version: 1.0
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: yonghong.song@linux.dev, chantr4@gmail.com, ast@kernel.org, song@kernel.org,
- rongtao@cestc.cn, linux-kselftest@vger.kernel.org, deso@posteo.net,
- rtoax@foxmail.com, xukuohai@huawei.com, shuah@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, mykolal@fb.com, iii@linux.ibm.com,
- daniel@iogearbox.net, john.fastabend@gmail.com, andrii@kernel.org,
- jolsa@kernel.org, zwisler@google.com, rostedt@goodmis.org, kpsingh@kernel.org,
- linux-arm-kernel@lists.infradead.org, haoluo@google.com,
- linux-kernel@vger.kernel.org, eddyz87@gmail.com, mcoquelin.stm32@gmail.com,
- bpf@vger.kernel.org, martin.lau@linux.dev
-Subject: Re: [Linux-stm32] [PATCH bpf-next] selftests/bpf: trace_helpers.c:
-	optimize kallsyms cache
+Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Will Deacon <will@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [EXTERNAL] Re: [PATCH v2 2/6] crypto: crc64 - add
+ crc64-iso framework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,17 +76,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Thanks for your advise, you are right, i just submit v2 [0].
+Eric Biggers <ebiggers@kernel.org> writes:
 
-I just found that, because of the modified patch, your email address was not
-obtained through scripts/get_maintainer.pl, so the v2 [0] email was not sent
-to you, sorry.
+> On Fri, Aug 11, 2023 at 12:58:49AM +0530, Kamlesh Gurudasani wrote:
+>> diff --git a/lib/crc64-iso.c b/lib/crc64-iso.c
+>> new file mode 100644
+>> index 000000000000..d6e803124fa0
+> [...]
+>> +u64 crc64_iso_update(u64 crc, const unsigned char *buffer, size_t len)
+>> +{
+>> +	struct {
+>> +		struct shash_desc shash;
+>> +		u64 crc;
+>> +	} desc;
+>> +	int err;
+>> +
+>> +	if (static_branch_unlikely(&crc64_iso_fallback))
+>> +		return crc64_iso_generic(crc, buffer, len);
+>> +
+>> +	rcu_read_lock();
+>> +	desc.shash.tfm = rcu_dereference(crc64_iso_tfm);
+>> +	desc.crc = crc;
+>> +	err = crypto_shash_update(&desc.shash, buffer, len);
+>> +	rcu_read_unlock();
+>> +
+>> +	WARN_ON_ONCE(err);
+>> +
+>> +	return desc.crc;
+>> +}
+>> +EXPORT_SYMBOL_GPL(crc64_iso_update);
+>> +
+>> +u64 crc64_iso(const unsigned char *buffer, size_t len)
+>> +{
+>> +	return crc64_iso_update(0, buffer, len);
+>> +}
+>> +EXPORT_SYMBOL_GPL(crc64_iso);
+>
+> These functions are never called.
+>
+> Why are you trying to add unused code to the kernel?
+>
+> - Eric
+Thanks for the review, Eric.
 
-Rong Tao,
-Good day.
+Will remove this in next revision.
 
-[0] v2: https://lore.kernel.org/lkml/tencent_B655EE5E5D463110D70CD2846AB3262EED09@qq.com/
-
+Regards,
+Kamlesh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
