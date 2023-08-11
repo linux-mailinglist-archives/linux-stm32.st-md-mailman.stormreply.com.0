@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DB9277976C
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 21:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 897CF779770
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 21:01:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3703CC6B474;
-	Fri, 11 Aug 2023 19:00:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DAD3C6B474;
+	Fri, 11 Aug 2023 19:01:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 902BDC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 242FBC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 19:00:41 +0000 (UTC)
+ Fri, 11 Aug 2023 19:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691780441; x=1723316441;
+ t=1691780470; x=1723316470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wtEhmMOeJDkVUYiG8gBXOCWEqswA0gnZypTeZtKMdYQ=;
- b=D6la6wZ0Js91usY4RG+kmLHIKY6SCvisSUxyZy0m/de9CUw7f90DwhTp
- 6hEl33MiWf4MXOF5HkMH4QSqsUCA818LtJE41NDzG6x4TjRYzuqA8GD+z
- TG+8+A6nYx3oQ4NWrW7sNU6QKdici7e3MCunTPhFS6aBf5KZZrTq973xJ
- QaaU1VrnhVGkopcBy17/Ttj/qq7dwh98GYzJThVwbDw+hbbC5DzL7ZlR6
- QBoLDJflDkx3vF46dsCmDr92VeOniP8ZnHu5HaevRyRIjOEp+CBNBAVIV
- 86IYfoUA9jd4lnXbp0ZPeZslAe1HZBWAyNWmOnIcyJIDEhAdGP0EybLE3 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="402718789"
-X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="402718789"
+ bh=JvC5ybwWd2s2QwBOcdZZsCQYPiTGu+dFmBHjemTdC1g=;
+ b=WhM71dR3uG4fnCje81K0a8IGpTsnlroDgLscfuzodu9KJl/buesRp8Bb
+ MnPS3/VrVQGoKNShBXeEcrDorESd2qJWZcq69hh0RRJsLtIkbqxZ7LnyD
+ 63Pe78ZyNJyKKruvsM0Qw6+E8J5dH2RE11oUcMxQChixKv+IasQ9q0e0F
+ y7Ixkr40eCVIQViFxdWEEZ9VW6PUnwjez3dKGG+OwCv0lVaJaFhLNr/b3
+ 81W3cBQplM8woHgqqZ3rRuQ+AXntDXQbK+JEaRibnq0a7E9lfHXTR9t/q
+ kLiyEaHe9hvhAdA+gJDuRXCfmak2k4xDu6cWfgPKOuLG26q9SBVC/fNEw g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="402718878"
+X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="402718878"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2023 12:00:39 -0700
+ 11 Aug 2023 12:00:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="802768017"
-X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="802768017"
+X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="802768053"
+X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="802768053"
 Received: from pglc00052.png.intel.com ([10.221.207.72])
- by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2023 12:00:35 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2023 12:00:44 -0700
 From: Rohan G Thomas <rohan.g.thomas@intel.com>
 To: "David S . Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -44,17 +44,18 @@ To: "David S . Miller" <davem@davemloft.net>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>
-Date: Sat, 12 Aug 2023 03:00:30 +0800
-Message-Id: <20230811190032.13391-1-rohan.g.thomas@intel.com>
+Date: Sat, 12 Aug 2023 03:00:31 +0800
+Message-Id: <20230811190032.13391-2-rohan.g.thomas@intel.com>
 X-Mailer: git-send-email 2.19.0
-In-Reply-To: <20230810150328.19704-1-rohan.g.thomas@intel.com>
+In-Reply-To: <20230811190032.13391-1-rohan.g.thomas@intel.com>
 References: <20230810150328.19704-1-rohan.g.thomas@intel.com>
+ <20230811190032.13391-1-rohan.g.thomas@intel.com>
 MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 0/2] Tx coe sw fallback for
-	unsupported queues
+Subject: [Linux-stm32] [PATCH net-next v2 1/2] dt-bindings: net: snps,
+	dwmac: Tx queues with coe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,27 +72,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
-Some DWMAC IPs support tx coe only for a few initial tx queues,
-starting from tx queue 0. This patchset adds support for tx coe sw
-fallback for those queues that don't support tx coe. Also, add binding
-for snps,tx-queues-with-coe property.
+Add dt-bindings for the number of tx queues with coe support. Some
+dwmac IPs support tx queues only for a few initial tx queues,
+starting from tx queue 0.
 
-changelog v2:
-* Reformed binding description.
-* Minor grammatical corrections in comments and commit messages.
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
+---
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Rohan G Thomas (2):
-  dt-bindings: net: snps,dwmac: Tx queues with coe
-  net: stmmac: Tx coe sw fallback
-
- .../devicetree/bindings/net/snps,dwmac.yaml   |  3 +++
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 ++++
- include/linux/stmmac.h                        |  1 +
- 5 files changed, 29 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index ddf9522a5dc2..0c6431c10cf9 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -313,6 +313,9 @@ properties:
+       snps,tx-queues-to-use:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         description: number of TX queues to be used in the driver
++      snps,tx-queues-with-coe:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: number of TX queues that support TX checksum offloading
+       snps,tx-sched-wrr:
+         type: boolean
+         description: Weighted Round Robin
 -- 
 2.19.0
 
