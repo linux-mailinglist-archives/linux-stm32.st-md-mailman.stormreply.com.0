@@ -2,71 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B07E1778368
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 00:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA54778488
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 02:30:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 664F8C6B469;
-	Thu, 10 Aug 2023 22:02:52 +0000 (UTC)
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC151C6B469;
+	Fri, 11 Aug 2023 00:30:24 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7F19C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DF50C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 22:02:51 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id
- e9e14a558f8ab-34985c13235so16925ab.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 10 Aug 2023 15:02:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20221208; t=1691704970; x=1692309770;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WirRslw/0aDPkGhNScoiXM3zTY4G823fT91ETu+Lq6E=;
- b=UkdroNGwQrguLsDBgIEgrLvfKjn25h5tidmJjeYWOg8t5dssZ1517XjbYhdh/tiPNO
- EBpB6lGHrYvSxe5RzWSp9mAptNk9c7Meu+AWFWKissa9cQSd6+yCsJvq60LFZ+jCOIVe
- Rr9sVB8JIfibwVkOG/suomrjoOrY2Geo4BFVDD8CLiVSW1pNChr4tcICXZFee5TT8RAD
- PTG3bqf+yehy7fQNyjY/+xRXxvjckVSUSD5M+mjFhnQ5t5KXv1ApBtrP6GoofG9Sl8Hn
- 9PCfxaJ/p5/oV6OwPWYN3qCFQUI38smFiA3zq2al3YjMc6Mg2brfo88yQImylhrW4ewn
- S55Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691704970; x=1692309770;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WirRslw/0aDPkGhNScoiXM3zTY4G823fT91ETu+Lq6E=;
- b=WQ3pRJ2yAdGg7YJ8wYlH7j82yLtRLNF3FPmWq3zPA/suYTyZxxW+LNSnrnt8UYoojK
- 8XueYL3s/PtNlAQN9YnPwspPXlwHb4cDt5/fwVrPPP2bww0TC/6/zYSosTxNchy17rtl
- 5NJ9ax4MUbCtG/I3fCwF2q9P4iqXpJHsEJGcYoLa6zKYPgDE/F1+k6/7vUJozN5RrK6I
- h/3XNKAHoxIYyopwsYN6C49BSACNtKEfiXrtVaO9G9uShoZWrbmne70Fbg7rKT+Rv+tK
- 8nGXZvP/OzBz43EdLH6rl0Sq7CIdd1HMZvclI4F34Yj6kT4sRORg//V+31xcBblU9Fsz
- eaSw==
-X-Gm-Message-State: AOJu0YxwPWKmGwNscoJ5SJZAjblmKzQuuv9ryZDvfiQZD3nnl/Lrn/hE
- UCTKFfvVI080ykN00G5mE5HvHjinBgsJUh8OlVmHJQ==
-X-Google-Smtp-Source: AGHT+IEVz2QXUNlQHls+sgcBM1Gy6AYEvav8ViVH8f0MUbcqC3NuL9+xkH/d3pXnSUlrKBHYSG/nFcIRqELsmKHUvDg=
-X-Received: by 2002:a05:6e02:1987:b0:346:1919:7c9b with SMTP id
- g7-20020a056e02198700b0034619197c9bmr112579ilf.26.1691704970628; Thu, 10 Aug
- 2023 15:02:50 -0700 (PDT)
+ Fri, 11 Aug 2023 00:30:24 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9BE9964DCB;
+ Fri, 11 Aug 2023 00:30:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 001F6C433CA;
+ Fri, 11 Aug 2023 00:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1691713822;
+ bh=VTdqDcF8RsP1Tx5iHwaXGP1sG1BJp3vTg2yHLtubAGY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=c1cvUsLVvbNOxrcxKegdBTWgRa317/WWR1Oi1n6cAFjOaCcxZsBiY53OcJg1fS7Ev
+ G89XIHnIu8dqylZvu+OMJMiBDLSZ4Rt7losPpISfhl3+FG02roRQxO9UCWBiKBOi7A
+ fs3ku7qcm6EWDUA4kU/beALERnma4vRJb3x/bB1oztNxINbjIXS/IiRtzJGXVj1gXY
+ YF7+XOdu/pbCTHWoV6Cm7VAkb87fSc0QPrkCdzQ4itEgwZzfsyQKTF0vOQpKCba7Ie
+ dStQ0fBtVtYEhiK6Q4diHYrkE9LtkSbtCIQs/yQnGO3Od3b0l4WKqlK8ZLnvDWcnkY
+ m6dFswKw9/Q9g==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ D498FC595D0; Fri, 11 Aug 2023 00:30:21 +0000 (UTC)
 MIME-Version: 1.0
-References: <20230803-fix-typo-v1-1-b794378d594e@manank.me>
- <ZMwRzQC+wBgJpDfr@kernel.org>
-In-Reply-To: <ZMwRzQC+wBgJpDfr@kernel.org>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 10 Aug 2023 15:02:37 -0700
-Message-ID: <CAP-5=fW_bC1s+43My1cXmF_og7SE4=8K=ZZn82WNSGqAo849oQ@mail.gmail.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Edward <edward.baker@intel.com>
-Cc: Manank Patel <manank@manank.me>, Mark Rutland <mark.rutland@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- Adrian Hunter <adrian.hunter@intel.com>, linux-perf-users@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>,
- Jens Schleusener <Jens.Schleusener@fossies.org>, Jiri Olsa <jolsa@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] tools: perf: pmu-events: Fix typo
-	poiint->point
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169171382186.19672.4297213896256628885.git-patchwork-notify@kernel.org>
+Date: Fri, 11 Aug 2023 00:30:21 +0000
+References: <20230807160716.259072-1-shenwei.wang@nxp.com>
+In-Reply-To: <20230807160716.259072-1-shenwei.wang@nxp.com>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+Cc: imx@lists.linux.dev, simon.horman@corigine.com, edumazet@google.com,
+ linux-amlogic@lists.infradead.org, nobuhiro1.iwamatsu@toshiba.co.jp,
+ festevam@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ jbrunet@baylibre.com, samuel@sholland.org, khilman@baylibre.com,
+ linux@armlinux.org.uk, jernej.skrabec@gmail.com, veekhee@apple.com,
+ wens@csie.org, joabreu@synopsys.com, linux-imx@nxp.com, kuba@kernel.org,
+ pabeni@redhat.com, ahalaney@redhat.com, mcoquelin.stm32@gmail.com,
+ bhupesh.sharma@linaro.org, martin.blumenstingl@googlemail.com,
+ s.hauer@pengutronix.de, mkl@pengutronix.de, ruppala@nvidia.com,
+ jh@henneberg-systemdesign.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
+ netdev@vger.kernel.org, bartosz.golaszewski@linaro.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, kernel@pengutronix.de,
+ shawnguo@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v5 net-next 0/2] update stmmac
+	fix_mac_speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,43 +69,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBBdWcgMywgMjAyMyBhdCAxOjQ14oCvUE0gQXJuYWxkbyBDYXJ2YWxobyBkZSBNZWxv
-IDxhY21lQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gRW0gVGh1LCBBdWcgMDMsIDIwMjMgYXQgMTE6
-Mjc6MzBBTSArMDUzMCwgTWFuYW5rIFBhdGVsIGVzY3JldmV1Ogo+ID4gRml4IHR5cG8gaW4gZmls
-ZSBmbG9hdGluZy1wb2ludC5qc29uIGluIC9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwCj4KPiBBRkFJ
-SyB0aGVzZSBhcmUgZ2VuZXJhdGVkIHVzaW5nIGEgdG9vbCwgc28gdGhlIGZpeCBuZWVkcyB0byBn
-byB0byB0aGUKPiBmaWxlIGZyb20gd2hlcmUgdGhlIEpTT04gZmlsZXMgYXJlIGdlbmVyYXRlZCwg
-SWFuPwoKWWVzLCB0aGVzZSBhcmUgZ2VuZXJhdGVkIGJ5IHRoZSBzY3JpcHQ6Cmh0dHBzOi8vZ2l0
-aHViLmNvbS9pbnRlbC9wZXJmbW9uL2Jsb2IvbWFpbi9zY3JpcHRzL2NyZWF0ZV9wZXJmX2pzb24u
-cHkKQWRkZWQgRWR3YXJkIEJha2VyIGF0IEludGVsIHdobyBjYW4gY29ycmVjdCB0aGVzZSBpc3N1
-ZXMgYXQgc291cmNlLgoKVGhhbmtzLApJYW4KCj4gLSBBcm5hbGRvCj4KPiA+IFJlcG9ydGVkLWJ5
-OiBKZW5zIFNjaGxldXNlbmVyIDxKZW5zLlNjaGxldXNlbmVyQGZvc3NpZXMub3JnPgo+ID4gTGlu
-azogaHR0cHM6Ly9idWd6aWxsYS5rZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDU4OTEKPiA+
-IFNpZ25lZC1vZmYtYnk6IE1hbmFuayBQYXRlbCA8bWFuYW5rQG1hbmFuay5tZT4KPiA+IC0tLQo+
-ID4gIHRvb2xzL3BlcmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5n
-LXBvaW50Lmpzb24gfCAyICstCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAx
-IGRlbGV0aW9uKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL3Rvb2xzL3BlcmYvcG11LWV2ZW50cy9h
-cmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5nLXBvaW50Lmpzb24gYi90b29scy9wZXJmL3Bt
-dS1ldmVudHMvYXJjaC94ODYvd2VzdG1lcmVlcC1kcC9mbG9hdGluZy1wb2ludC5qc29uCj4gPiBp
-bmRleCBjMDNmODk5MGZhODIuLjE5NmFlMWQ5YjE1NyAxMDA2NDQKPiA+IC0tLSBhL3Rvb2xzL3Bl
-cmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zsb2F0aW5nLXBvaW50Lmpzb24K
-PiA+ICsrKyBiL3Rvb2xzL3BlcmYvcG11LWV2ZW50cy9hcmNoL3g4Ni93ZXN0bWVyZWVwLWRwL2Zs
-b2F0aW5nLXBvaW50Lmpzb24KPiA+IEBAIC04LDcgKzgsNyBAQAo+ID4gICAgICAgICAgIlVNYXNr
-IjogIjB4MSIKPiA+ICAgICAgfSwKPiA+ICAgICAgewo+ID4gLSAgICAgICAgIkJyaWVmRGVzY3Jp
-cHRpb24iOiAiWDg3IEZsb2F0aW5nIHBvaWludCBhc3Npc3RzIGZvciBpbnZhbGlkIGlucHV0IHZh
-bHVlIChQcmVjaXNlIEV2ZW50KSIsCj4gPiArICAgICAgICAiQnJpZWZEZXNjcmlwdGlvbiI6ICJY
-ODcgRmxvYXRpbmcgcG9pbnQgYXNzaXN0cyBmb3IgaW52YWxpZCBpbnB1dCB2YWx1ZSAoUHJlY2lz
-ZSBFdmVudCkiLAo+ID4gICAgICAgICAgIkV2ZW50Q29kZSI6ICIweEY3IiwKPiA+ICAgICAgICAg
-ICJFdmVudE5hbWUiOiAiRlBfQVNTSVNULklOUFVUIiwKPiA+ICAgICAgICAgICJQRUJTIjogIjEi
-LAo+ID4KPiA+IC0tLQo+ID4gYmFzZS1jb21taXQ6IDVkMGMyMzBmMWRlOGM3NTE1YjY1NjdkOWFm
-YmExZjE5NmZiNGUyZjQKPiA+IGNoYW5nZS1pZDogMjAyMzA4MDMtZml4LXR5cG8tM2NiMjA3Mjg0
-MzEwCj4gPgo+ID4gQmVzdCByZWdhcmRzLAo+ID4gLS0KPiA+IE1hbmFuayBQYXRlbCA8bWFuYW5r
-QG1hbmFuay5tZT4KPiA+Cj4KPiAtLQo+Cj4gLSBBcm5hbGRvCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  7 Aug 2023 11:07:14 -0500 you wrote:
+> Changes in V5:
+>   - fixed the typo in if condition reported by Russell.
+>   - fixed the build errors in dwmac-sti.c reported by 'kernel test robot'.
+> 
+> Changes in V4:
+>   - Keep the 'unsigned int' type specifier in the fix_mac_speed
+>     function declarations.
+>   - Move imx93_dwmac_fix_mac_speed into the SoC specific ops.
+>   - Use a read back to replace the wmb() instruction.
+>   - Correct the target to 'net-next'.
+> 
+> [...]
+
+Here is the summary with links:
+  - [v5,net-next,1/2] net: stmmac: add new mode parameter for fix_mac_speed
+    https://git.kernel.org/netdev/net-next/c/1fc04a0b9733
+  - [v5,net-next,2/2] net: stmmac: dwmac-imx: pause the TXC clock in fixed-link
+    https://git.kernel.org/netdev/net-next/c/4fa6c976158b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
