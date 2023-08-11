@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 897CF779770
-	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 21:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95BE1779773
+	for <lists+linux-stm32@lfdr.de>; Fri, 11 Aug 2023 21:01:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DAD3C6B474;
-	Fri, 11 Aug 2023 19:01:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F360C6B474;
+	Fri, 11 Aug 2023 19:01:30 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 242FBC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00827C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 11 Aug 2023 19:01:09 +0000 (UTC)
+ Fri, 11 Aug 2023 19:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691780470; x=1723316470;
+ t=1691780489; x=1723316489;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JvC5ybwWd2s2QwBOcdZZsCQYPiTGu+dFmBHjemTdC1g=;
- b=WhM71dR3uG4fnCje81K0a8IGpTsnlroDgLscfuzodu9KJl/buesRp8Bb
- MnPS3/VrVQGoKNShBXeEcrDorESd2qJWZcq69hh0RRJsLtIkbqxZ7LnyD
- 63Pe78ZyNJyKKruvsM0Qw6+E8J5dH2RE11oUcMxQChixKv+IasQ9q0e0F
- y7Ixkr40eCVIQViFxdWEEZ9VW6PUnwjez3dKGG+OwCv0lVaJaFhLNr/b3
- 81W3cBQplM8woHgqqZ3rRuQ+AXntDXQbK+JEaRibnq0a7E9lfHXTR9t/q
- kLiyEaHe9hvhAdA+gJDuRXCfmak2k4xDu6cWfgPKOuLG26q9SBVC/fNEw g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="402718878"
-X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="402718878"
+ bh=k+MHekhYBs3WdAqPDc1G+2v4ip6Z4JNaBx70Obb3qiI=;
+ b=gBQixs/4B+5/eDZ3rwRt1VhISHEzH5EbJ5uaSP+k+YtvmrFJXBxxG1tI
+ SSk8liefKgTmD90cGgObFgAeDYpCvPkfBRdzgRg5mo4KUl6BSRBWsLR6f
+ N+wqYELhbitFBvtF5B2j6MfxArwNdRfwuOS83bwsv+xEDNupkrkXADT7s
+ 9zUsDBfi6qnas2NQC0mQ9WrZafUTdEYM7DbqsQynYYnwd9/kK7/p9gloB
+ QzJIfGmj1jeT8sFj5pbiKNnlcsQLjqQP7QznRWldAXmAPKx3r7x53H813
+ 3XpZ8Q4bvyLk32NErjCtQySy+cPs5D/vhCBPMlAFtzABfJsnJfYFzvIw8 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="402719009"
+X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="402719009"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2023 12:00:48 -0700
+ 11 Aug 2023 12:00:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="802768053"
-X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="802768053"
+X-IronPort-AV: E=McAfee;i="6600,9927,10799"; a="802768096"
+X-IronPort-AV: E=Sophos;i="6.01,166,1684825200"; d="scan'208";a="802768096"
 Received: from pglc00052.png.intel.com ([10.221.207.72])
- by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2023 12:00:44 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 11 Aug 2023 12:00:50 -0700
 From: Rohan G Thomas <rohan.g.thomas@intel.com>
 To: "David S . Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -44,8 +44,8 @@ To: "David S . Miller" <davem@davemloft.net>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Conor Dooley <conor+dt@kernel.org>
-Date: Sat, 12 Aug 2023 03:00:31 +0800
-Message-Id: <20230811190032.13391-2-rohan.g.thomas@intel.com>
+Date: Sat, 12 Aug 2023 03:00:32 +0800
+Message-Id: <20230811190032.13391-3-rohan.g.thomas@intel.com>
 X-Mailer: git-send-email 2.19.0
 In-Reply-To: <20230811190032.13391-1-rohan.g.thomas@intel.com>
 References: <20230810150328.19704-1-rohan.g.thomas@intel.com>
@@ -54,8 +54,8 @@ MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v2 1/2] dt-bindings: net: snps,
-	dwmac: Tx queues with coe
+Subject: [Linux-stm32] [PATCH net-next v2 2/2] net: stmmac: Tx coe sw
+	fallback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,29 +72,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add dt-bindings for the number of tx queues with coe support. Some
-dwmac IPs support tx queues only for a few initial tx queues,
-starting from tx queue 0.
+Add sw fallback of tx checksum calculation for those tx queues that
+don't support tx checksum offloading. Because, some DWMAC IPs support
+tx checksum offloading only for a few initial tx queues, starting
+from tx queue 0.
 
 Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
 ---
- Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 ++++
+ include/linux/stmmac.h                        |  1 +
+ 4 files changed, 26 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index ddf9522a5dc2..0c6431c10cf9 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -313,6 +313,9 @@ properties:
-       snps,tx-queues-to-use:
-         $ref: /schemas/types.yaml#/definitions/uint32
-         description: number of TX queues to be used in the driver
-+      snps,tx-queues-with-coe:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description: number of TX queues that support TX checksum offloading
-       snps,tx-sched-wrr:
-         type: boolean
-         description: Weighted Round Robin
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 3401e888a9f6..f526bcaaaf64 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -219,6 +219,8 @@ struct stmmac_priv {
+ 	int hwts_tx_en;
+ 	bool tx_path_in_lpi_mode;
+ 	bool tso;
++	bool tx_q_coe_lmt;
++	u32 tx_q_with_coe;
+ 	int sph;
+ 	int sph_cap;
+ 	u32 sarc_type;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index fcab363d8dfa..cb8d2c159832 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4409,6 +4409,17 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	WARN_ON(tx_q->tx_skbuff[first_entry]);
+ 
+ 	csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
++	/* Some DWMAC IPs support tx coe only for a few initial tx queues,
++	 * starting from tx queue 0. So checksum offloading for those queues
++	 * that don't support tx coe needs to fallback to software checksum
++	 * calculation.
++	 */
++	if (csum_insertion && priv->tx_q_coe_lmt &&
++	    queue >= priv->tx_q_with_coe) {
++		if (unlikely(skb_checksum_help(skb)))
++			goto dma_map_err;
++		csum_insertion = !csum_insertion;
++	}
+ 
+ 	if (likely(priv->extend_desc))
+ 		desc = (struct dma_desc *)(tx_q->dma_etx + entry);
+@@ -7386,6 +7397,14 @@ int stmmac_dvr_probe(struct device *device,
+ 		dev_info(priv->device, "SPH feature enabled\n");
+ 	}
+ 
++	if (priv->plat->tx_coe &&
++	    priv->plat->tx_queues_with_coe < priv->plat->tx_queues_to_use) {
++		priv->tx_q_coe_lmt = true;
++		priv->tx_q_with_coe = priv->plat->tx_queues_with_coe;
++		dev_info(priv->device, "TX COE limited to %u tx queues\n",
++			 priv->tx_q_with_coe);
++	}
++
+ 	/* Ideally our host DMA address width is the same as for the
+ 	 * device. However, it may differ and then we have to use our
+ 	 * host DMA width for allocation and the device DMA width for
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index be8e79c7aa34..0138b7c9c7ab 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -225,6 +225,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ 				 &plat->tx_queues_to_use))
+ 		plat->tx_queues_to_use = 1;
+ 
++	if (of_property_read_u32(tx_node, "snps,tx-queues-with-coe",
++				 &plat->tx_queues_with_coe))
++		plat->tx_queues_with_coe = plat->tx_queues_to_use;
++
+ 	if (of_property_read_bool(tx_node, "snps,tx-sched-wrr"))
+ 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
+ 	else if (of_property_read_bool(tx_node, "snps,tx-sched-wfq"))
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 652404c03944..795c10d19c1c 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
+ 	u32 host_dma_width;
+ 	u32 rx_queues_to_use;
+ 	u32 tx_queues_to_use;
++	u32 tx_queues_with_coe;
+ 	u8 rx_sched_algorithm;
+ 	u8 tx_sched_algorithm;
+ 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
 -- 
 2.19.0
 
