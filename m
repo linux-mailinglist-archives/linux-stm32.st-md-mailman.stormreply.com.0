@@ -2,153 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5167277A6D1
-	for <lists+linux-stm32@lfdr.de>; Sun, 13 Aug 2023 16:18:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CF4077B110
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Aug 2023 08:05:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01EF0C6B462;
-	Sun, 13 Aug 2023 14:18:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95DC0C6B472;
+	Mon, 14 Aug 2023 06:05:32 +0000 (UTC)
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
+ [67.231.156.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0AAEC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64EA9C6B45F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 13 Aug 2023 14:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691936314; x=1723472314;
- h=from:to:cc:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=vaY0h3XyjILUoFc0gEPKPcVu7f2rYwwaHrLpd3OZXXA=;
- b=GoBkrBbc2Dwvd5ZJHAno6gGatd/iRM/jUNTsG8Yqi1uBLKTk2g6xvMKw
- boukaaDYb7lAJ6GFi79vV5/0P0/G9yQafqxZcvbldkTgZrJ065NNVgrmW
- hJbsPFzuLLkCrsgUpUFyPPuHql0fCDNXdZmZ9jYRhNCywrZ+SIuBWbPcB
- JlcKFKMbc7Pv3o6o+jJ2NgpfWwkfyRhrgU2xxXoBsgD+uS+/v+oT3Sz2T
- /4BzLsfKsdBeeQhb0ALOWKT0NPCwRmUzYBtlSjy79COWSClPW2sagzO4r
- m11c0EDC+mJYV384r+2F9V2qP+swNYCOxXoXn5fBSc499Q0AJ1KIBtzxM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="374663741"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="374663741"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2023 07:18:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10801"; a="847332846"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="847332846"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmsmga002.fm.intel.com with ESMTP; 13 Aug 2023 07:18:31 -0700
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Sun, 13 Aug 2023 07:18:30 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27; Sun, 13 Aug 2023 07:18:30 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.27 via Frontend Transport; Sun, 13 Aug 2023 07:18:30 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.41) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.27; Sun, 13 Aug 2023 07:18:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LqT7EtZ6mUrb15Dwyfntwhsqc/wYGbHMHA4BVRECauqXyeRLWOef2FcYyqz0B1LgXiY86EeLBjXXJLgigJMgBI5NI+m1BW4yu5lltqVmcN8R9gOtnxvKngv6/B+tFCBAWN/cRq8qQ44G7CNsnO/jomWpDZYd3hePsx0pXi/+jSccvYu+r4sKGCiWwVMWAYjg9NQE9681VqR7o8mD1tt9rcxZv5v0KZsN4wUtPA/sKNtemzBe7d5Nxkq6+vlsWKzpw7StSVCNCckAlyNceOLClJuu+1biD8f4TamPf0LLgGjwUBx6l+SfQGJGnZc/2RCIFVLB5bZ0kPbMjdL+vHpKTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UHNc4WT05Tyr68XHRxFS77w9+irKaS3Tiea8lIm3Cqk=;
- b=CTaeFeEmu3Q+wafJg9s6RlT3yuczUpiTqFk3Dx8+GYModFCKKAkHI9qXfmOoccLpDea/eVgnapU0RbFHjLLFA3LQ++4aAwiXwH7F6/P/ojzq/8vQPy8vkcIqXeVQ2p7dCeYzXr3wH9DQCRohLJ3mCYANzwOHqTekhlJ84IQwOAmXKsMPJnwc3uZHwQ50z2aWyoh3JqW+0EtTNxZ90VXsTQVPo6NMJT4vEgykk44CJlxLCgo9AklGTkc6vrPLyb2wkPUj7hAjAuief2Qb2P6fMopTt/ty3HR/8LvUbZV6P9/kucPAdwsZfloAOad+CZBW3WqVJVY6J8frHWkqAKy/kQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM3PR11MB8714.namprd11.prod.outlook.com (2603:10b6:0:b::18) by
- CY8PR11MB7171.namprd11.prod.outlook.com (2603:10b6:930:92::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6678.24; Sun, 13 Aug 2023 14:18:28 +0000
-Received: from DM3PR11MB8714.namprd11.prod.outlook.com
- ([fe80::b393:daa3:e9cb:58d9]) by DM3PR11MB8714.namprd11.prod.outlook.com
- ([fe80::b393:daa3:e9cb:58d9%7]) with mapi id 15.20.6678.022; Sun, 13 Aug 2023
- 14:18:28 +0000
-From: "G Thomas, Rohan" <rohan.g.thomas@intel.com>
-To: "jszhang@kernel.org" <jszhang@kernel.org>
-Thread-Topic: Re: [PATCH net-next v3 03/10] net: stmmac: mdio: enlarge the max
- XGMAC C22 ADDR to 31
-Thread-Index: AdnN64iTNewURgUoSuyDlZj1njalFw==
-Date: Sun, 13 Aug 2023 14:18:27 +0000
-Message-ID: <DM3PR11MB871491A357B9A12BF1B0CC82DE16A@DM3PR11MB8714.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM3PR11MB8714:EE_|CY8PR11MB7171:EE_
-x-ms-office365-filtering-correlation-id: 090729dc-b9ea-43de-2571-08db9c0829eb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: JfStwQbltdlwz2SAUWUD/gY/hlB/z66LoJZ4vlekB8C0hGjvYTWJfTIYImx16O1t12OZdQn/0kekJvRdP7il6Rk233JW+TKIfWC/QCF2PCDQ4qbv6umh9XGgExMD85RrZq4iUvGy01qJ6nF8kBq7gF31yV0rnilNmRyI/t6VIAHDEneRkHFs0nuDZIFvvVD3giH3NR8dh6DN+LpR4kVNZ0SeeNxkOrwuq31nIYrjtbh3HOL9SATqZ6MEk9O9Mg5ty6A7lZKzvNOUhL9WeT75mdMWwKJ6wkvrk+y5ncc+3deJdha5gHDlm8QzFe3L8oayKCEmP5tWeTRMW/KaKBBThycjxuvAr4Q1Sf5ws8H3gqXlv/mIjf3nqVBupl7b3HiBA54qZYuKb8Nw/1jOd3G2IcvDHUZgThHgEEbfOmqi0xOcMjcqA0igvZO7y13T2dTHQNA7ozKL9hsI1wtQb+JKE/futxMV6iCupy6fXnT1H7iC2LGhJllpAIQ36QRuvlwskZt7SDxZTh92UqLyhRuGGzv/5J/aIUh/g+D3q9EA7pUlS2pDQx+0NsZK+r2AbiSmV0PRgqwNVX+eAB5yL/5wNTy3SCIJZgZHBoU4e8fyp1iD5WZpDeligNlAUMJ6mhTQytJh1s5vhoX6gkDCPjayKg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR11MB8714.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(376002)(39860400002)(136003)(396003)(366004)(346002)(186006)(451199021)(1800799006)(66946007)(66556008)(64756008)(66446008)(66476007)(6916009)(76116006)(316002)(41300700001)(54906003)(8936002)(8676002)(52536014)(5660300002)(478600001)(71200400001)(7416002)(2906002)(53546011)(6506007)(9686003)(83380400001)(26005)(7696005)(4326008)(82960400001)(55016003)(38070700005)(38100700002)(122000001)(86362001)(33656002)(147533002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VbzEWJQQbUoCAsPHEIpBPZriIQFOJHwwflswVQog5SJIPM52NOvy3Qbt9YNV?=
- =?us-ascii?Q?q499XE7HLIbNlx0XuZBNkaJjc3Q25Ia+SDnphCuvlGRqRN5aLHOH1EPqmhA4?=
- =?us-ascii?Q?bo9Khwl6Wnv5sm5rlLDNRHr8pbtRm3Olo36qpxB4pIsKOCHYyJG6xoyXwxMs?=
- =?us-ascii?Q?9h0QnUWyyOJQXZ0YM4U+Ic3fl3LehPf9FtjwRHrZSiiHrrta6orNjtt7P3Eu?=
- =?us-ascii?Q?5EWBpH9BlCE0/eb6BjtKxrOzpfZ4cxb5ngr7XEdNvEcnUpSDj7n5E0lujxlB?=
- =?us-ascii?Q?h8Abt226HIYvmcPL1TwGOuD0BRxx54BMaNwCvIO9zedKFgGYY5e7rllDdiAo?=
- =?us-ascii?Q?bsDstZs1RQg02Z1T5m3+kqGptlZAIPF6DyivVUHV7L8+tlX+velGJ7MLxRz7?=
- =?us-ascii?Q?Ob/AlseYxcbrLI0gvCWhP3s6SjY7ZHpQ7RxYbsmkUxy4hTMNsAQ5ZhAbg+VO?=
- =?us-ascii?Q?38DKr6KHVS+EatduprsveJWPArNQYdmeSdtyGsONKq9TjK/6gFuojMmlELEM?=
- =?us-ascii?Q?zU7PzRdWACzeqCs5vfGZUTXxv3tN1JXW5S0GPORlMUWbKU+xZhUiXdgpexpO?=
- =?us-ascii?Q?qeAZOL7lzj3P2arF97SBEFm9JX1KSPKBVv+jrJ6sA4skwOMa6UBjB5aZX5PW?=
- =?us-ascii?Q?gm0qSj/Tcm0F538sEpq7TIlLq/W21wXm/pAV5jNN/2ZomkYD0B+GSQUGB9++?=
- =?us-ascii?Q?xMwOgVei1V9aliw2aBUICkt3l5YxfjMgTeBhIpbud/t8i7yXADhQeSWRIV+i?=
- =?us-ascii?Q?I9tjWzs+8EkJ6ybEHCS0+ppkJZKvQ/HinYY4s3AQnqCghhcgbudVJoFPDr7q?=
- =?us-ascii?Q?ff/bBK+ZPyJiyP7foUSzycIhm6yNl+HpNwrUjuFleZY7E3JRhxp3ep5rtzm5?=
- =?us-ascii?Q?5lyUJHDzdURKpAkEWmtZw7a2iOsIS65I4gXFc/5Vj+r3K2GoqMmPUgD7IK37?=
- =?us-ascii?Q?CMqhnLrElVQi3DNxNUAFkWiL0yu6qJz3TULpKLdFLmuiV8sTKmTeb/Xge6rA?=
- =?us-ascii?Q?feitfmlipPIZy+z6uXhyblIHnq/RH6SHSx+JUosxjwjB6WCRuA713RbAlVP8?=
- =?us-ascii?Q?16sLEpeJv/Ln4ye4LATl44VYmwXqk+tT+C4Y3TkMwtj/bA3GTh2phbpDe0GV?=
- =?us-ascii?Q?Cd9q4o7rqHOPfJ0tWpHRCXHDKzto60mYz3+x+L0hTPG3jcokRp+QW/E+eUpY?=
- =?us-ascii?Q?sNYZWstkugYsT7gQNbF2rH0EghlEURM4oODLulNY+z+9dOL/bw39D6ffn7z2?=
- =?us-ascii?Q?BDlY/Ndmzzm5Sa67aKc3So+XxRMYRk48Kr2i1sg0Wa1CepATOWinSoRu2QOC?=
- =?us-ascii?Q?AXVESlcrrW2x3jkPD+C9fB2xtoZ6n5JqCNKr1IW9qvNU9FU1t1EB2Se70nVf?=
- =?us-ascii?Q?sed1Xt1aS7iICmnmmoNvoDWFyP9L6J2IPEl1dGOUru/KLTjw+1hs9cw1X9DO?=
- =?us-ascii?Q?gzgBR9p6Tgs/mJbQdopI8s2Uc+VXQX9vDb7uJmbtocTzRP6Nu20XrtZIkntr?=
- =?us-ascii?Q?uLajo0UFmGadfn2vImkHLbg1vaJdNZz1N5NV8PUuzBds9R1XU68J75i1pMAw?=
- =?us-ascii?Q?rKiVntObqY0xPhMTKcK9E/N8PLV0WA/b81/+JraB?=
+ Mon, 14 Aug 2023 06:05:30 +0000 (UTC)
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+ by mx0b-0016f401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37E5dnKn028174; Sun, 13 Aug 2023 23:04:53 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-transfer-encoding :
+ content-type; s=pfpt0220; bh=2e/DgbPH5Z735BTpVc79AFms8kX4Gp8CjDRy+gF54Og=;
+ b=E/8P5/+jNOFDXnIeAK6eLktq00L60xiKYdb2qKHYNE+xCpg5uzwBma5HNeeDm5+xDr/z
+ PtUPN2CVxipoL7xIRglPjHM0nr73ebcCfiBNHKO+ejsrYpyGT1z5owXlVZBvcqnjQTMi
+ xVpi7MTLbBxFyMgVXN2gotRa8b8ZGbhZzCnaie9FgVwAx0KVLDEe3Z0Hs/va3cj30eI3
+ bQep63FV2AJCT9K2ToAglpvTN/WgrwwX8gb7FG8I4boMHs0BV/6m7+XurB6k5AN7oOOW
+ iqus7BoMwgqKR+ia384IF8M69kir+dL0CX57DDgO8auPhc0KzwAXvTjo5NFnI/q/asdB kQ== 
+Received: from dc5-exch02.marvell.com ([199.233.59.182])
+ by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 3se9kj4xs9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Sun, 13 Aug 2023 23:04:52 -0700
+Received: from DC5-EXCH02.marvell.com (10.69.176.39) by DC5-EXCH02.marvell.com
+ (10.69.176.39) with Microsoft SMTP Server (TLS) id 15.0.1497.48;
+ Sun, 13 Aug 2023 23:04:50 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH02.marvell.com
+ (10.69.176.39) with Microsoft SMTP Server id 15.0.1497.48 via Frontend
+ Transport; Sun, 13 Aug 2023 23:04:50 -0700
+Received: from marvell-OptiPlex-7090.marvell.com (unknown [10.28.36.165])
+ by maili.marvell.com (Postfix) with ESMTP id A95D13F707E;
+ Sun, 13 Aug 2023 23:04:25 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 14 Aug 2023 11:34:11 +0530
+Message-ID: <20230814060411.2401817-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR11MB8714.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 090729dc-b9ea-43de-2571-08db9c0829eb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Aug 2023 14:18:27.9451 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Zz0FiPSy3zx1j7ehIrxH4keH4iM4UiZQtrgB2Y+/e538zTzoDLg57LCehLrI1bC/P7WCuIm9tKSS5jTH1jh79A5Q1VFvQUn5nZHEeWSuJLE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7171
-X-OriginatorOrg: intel.com
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "edumazet@google.com" <edumazet@google.com>,
- "joabreu@synopsys.com" <joabreu@synopsys.com>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "peppe.cavallaro@st.com" <peppe.cavallaro@st.com>,
- "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 03/10] net: stmmac: mdio:
- enlarge the max XGMAC C22 ADDR to 31
+X-Proofpoint-GUID: aFZU2RAx_UAE8R4K6KZZzbh7PQU3_GNE
+X-Proofpoint-ORIG-GUID: aFZU2RAx_UAE8R4K6KZZzbh7PQU3_GNE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.591,FMLib:17.11.176.26
+ definitions=2023-08-13_24,2023-08-10_01,2023-05-22_02
+Cc: yonghong.song@linux.dev, kys@microsoft.com, horatiu.vultur@microchip.com,
+ wei.liu@kernel.org, longli@microsoft.com, joabreu@synopsys.com,
+ linux-imx@nxp.com, xen-devel@lists.xenproject.org, Mark-MC.Lee@mediatek.com,
+ linux@roeck-us.net, jdelvare@suse.com, hawk@kernel.org,
+ linux-omap@vger.kernel.org, ilias.apalodimas@linaro.org,
+ linux-wireless@vger.kernel.org, oleksandr_tyshchenko@epam.com,
+ linyunsheng@huawei.com, jolsa@kernel.org, shayne.chen@mediatek.com,
+ linux-hyperv@vger.kernel.org, simon.horman@corigine.com, song@kernel.org,
+ edumazet@google.com, sdf@google.com, rkannoth@marvell.com,
+ shradhagupta@linux.microsoft.com, leon@kernel.org, davem@davemloft.net,
+ john.fastabend@gmail.com, andrii@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, yisen.zhuang@huawei.com,
+ richardcochran@gmail.com, maciej.fijalkowski@intel.com, sean.wang@mediatek.com,
+ jaswinder.singh@linaro.org, linux-arm-kernel@lists.infradead.org,
+ haoluo@google.com, UNGLinuxDriver@microchip.com, jiawenwu@trustnetic.com,
+ mcoquelin.stm32@gmail.com, wei.fang@nxp.com, error27@gmail.com,
+ alexanderduyck@fb.com, ast@kernel.org, sbhatta@marvell.com,
+ daniel@iogearbox.net, linux-rdma@vger.kernel.org, decui@microsoft.com,
+ shenwei.wang@nxp.com, mengyuanlou@net-swift.com, lorenzo@kernel.org,
+ grygorii.strashko@ti.com, haiyangz@microsoft.com, kpsingh@kernel.org,
+ broonie@kernel.org, john@phrozen.org, michael.chan@broadcom.com,
+ linux-hwmon@vger.kernel.org, salil.mehta@huawei.com, pabeni@redhat.com,
+ lgirdwood@gmail.com, yang.lee@linux.alibaba.com, gakula@marvell.com,
+ vladimir.oltean@nxp.com, thomas.petazzoni@bootlin.com,
+ gerhard@engleder-embedded.com, ryder.lee@mediatek.com, linux@armlinux.org.uk,
+ xiaoning.wang@nxp.com, kuba@kernel.org, sgoutham@marvell.com, kvalo@kernel.org,
+ sstabellini@kernel.org, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, mw@semihalf.com,
+ angelogioacchino.delregno@collabora.com, jgross@suse.com, saeedm@nvidia.com,
+ aleksander.lobakin@intel.com, hkelam@marvell.com, p.zabel@pengutronix.de,
+ martin.lau@linux.dev, nbd@nbd.name
+Subject: [Linux-stm32] [PATCH v1 net] page_pool: Cap queue size to 32k.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,38 +98,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Clamp to 32k instead of returning error.
 
-On 8/9/23 18:50, Jisheng Zhang wrote:
-> The IP can support up to 31 xgmac c22 addresses now.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->   drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index 3db1cb0fd160..e6d8e34fafef 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -40,7 +40,7 @@
->   #define MII_XGMAC_WRITE			(1 << MII_XGMAC_CMD_SHIFT)
->   #define MII_XGMAC_READ			(3 << MII_XGMAC_CMD_SHIFT)
->   #define MII_XGMAC_BUSY			BIT(22)
-> -#define MII_XGMAC_MAX_C22ADDR		3
-> +#define MII_XGMAC_MAX_C22ADDR		31
->   #define MII_XGMAC_C22P_MASK		GENMASK(MII_XGMAC_MAX_C22ADDR, 0)
->   #define MII_XGMAC_PA_SHIFT		16
->   #define MII_XGMAC_DA_SHIFT		21
+Please find discussion at
+https://lore.kernel.org/lkml/
+CY4PR1801MB1911E15D518A77535F6E51E2D308A@CY4PR1801MB1911.
+namprd18.prod.outlook.com/T/
 
-Recent commit 10857e677905 ("net: stmmac: XGMAC support for mdio C22
-addr > 3") already addressed this in a different way. As per Synopsis
-IP team until version 2.2, XGMAC supports only MDIO devices 0 - 3. An
-XGMAC IP version check is newly added for the same reason. I think this
-covers your commit also. Please have a look and if so you can drop this
-commit.
+Fixes: ff7d6b27f894 ("page_pool: refurbish version of page_pool code")
+Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
 
-BR,
-Rohan
+---
+ChangeLog:
+v0 -> v1: Rebase && commit message changes
+---
+ net/core/page_pool.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/page_pool.c b/net/core/page_pool.c
+index a3e12a61d456..e9dc8d8966ad 100644
+--- a/net/core/page_pool.c
++++ b/net/core/page_pool.c
+@@ -171,9 +171,10 @@ static int page_pool_init(struct page_pool *pool,
+ 	if (pool->p.pool_size)
+ 		ring_qsize = pool->p.pool_size;
+ 
+-	/* Sanity limit mem that can be pinned down */
++	/* Cap queue size to 32k */
+ 	if (ring_qsize > 32768)
+-		return -E2BIG;
++		ring_qsize = 32768;
++
+ 
+ 	/* DMA direction is either DMA_FROM_DEVICE or DMA_BIDIRECTIONAL.
+ 	 * DMA_BIDIRECTIONAL is for allowing page used for DMA sending,
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
