@@ -2,53 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD19377B214
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Aug 2023 09:10:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31FF477B279
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Aug 2023 09:31:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F2F7C6B472;
-	Mon, 14 Aug 2023 07:10:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75B52C6B472;
+	Mon, 14 Aug 2023 07:31:07 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF510C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 526B4C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Aug 2023 07:10:25 +0000 (UTC)
+ Mon, 14 Aug 2023 07:31:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7B15562FAF;
- Mon, 14 Aug 2023 07:10:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 67F33C433D9;
- Mon, 14 Aug 2023 07:10:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1B0426128D;
+ Mon, 14 Aug 2023 07:31:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9652BC433C7;
+ Mon, 14 Aug 2023 07:30:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1691997023;
- bh=HVwZ5wQmMpQjBYIgbnBdLCimB2FJTBsZAHAd8NHFlwU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=D6N0ZqGBtjjYTYg0BF0LJnUeCjtg4w3jWMYjtw95+kfNBjRFWx5QaHFRpbQM8IdRa
- ytiRdQFPHo9pe/GESoSk5fhjP1RjVDtqKJhAew4iFqQaSHBgKYPgg6CWANE9xTh/ZD
- vbQe6jQwufRhXDioJqe2ObFcC++cB0HT1ElEK+VoI0aO9Fy6r9hN9wPEUTHsd4q2cI
- CYhiJl2Lvsm4mY4G7Nwj5y+evn9AhXRzDZXoZpH6tPW+MpiHBfFM7coiy86B0fe+9A
- NOVsmpYrWaGDY4v03RvUpxwyiG4Rl/iD6tY5IubxpvYJe31RpA1zjP/kS7WRezAxO0
- qCbCFCsh4oywQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 4DBFAC395F3; Mon, 14 Aug 2023 07:10:23 +0000 (UTC)
+ s=k20201202; t=1691998264;
+ bh=+wVLxwxYeITuhnEHSDMVdq/EHuC0zXvhqJzjEpHNoL0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=MtyrHjkaqZOC8vTm60mW7OIGLTc37l2BnMN6vw/UILe6ZHa49edhBQLwrTmUh62xp
+ LwxZD6HPkH1QLaMtRgohb+gMo4JO/kDwiJW6uTPaHRx+wETPNSIxLrD4rgvZiaionl
+ 0UbmAnXFwUYXrWI2L8hp0N7ZrbqIwQt4AVFuKATFEOQYZJJ1j8boxB+NxDjVZwZN/2
+ 8atPLhLzWgiSOKuRFiZrZJ7bqpwjNF85rU/v1AavbZmqqnlQEM4X3KHVv2lqqviMFL
+ 8hocmKb4UrTJ9PJzrBlYndcQcFw2E87wshzSKahFdXtoJlKOcg8t59rbi2Bo0t3nxa
+ 4z2yM6onN7tAw==
+Message-ID: <9f69629b-b341-44d0-de31-f8ac3f22fa6b@kernel.org>
+Date: Mon, 14 Aug 2023 09:30:56 +0200
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169199702331.11756.17114238819765963207.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Aug 2023 07:10:23 +0000
-References: <20230811125139.284272-1-0x1207@gmail.com>
-In-Reply-To: <20230811125139.284272-1-0x1207@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, horms@kernel.org, jpinto@synopsys.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- xfr@outlook.com, kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: xgmac: show
- more MAC HW features in debugfs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+To: Rohan G Thomas <rohan.g.thomas@intel.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20230810150328.19704-1-rohan.g.thomas@intel.com>
+ <20230810150328.19704-2-rohan.g.thomas@intel.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
+In-Reply-To: <20230810150328.19704-2-rohan.g.thomas@intel.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] dt-bindings: net: snps,
+ dwmac: Tx queues with coe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,31 +69,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Fri, 11 Aug 2023 20:51:39 +0800 you wrote:
-> 1. Show TSSTSSEL(Timestamp System Time Source),
-> ADDMACADRSEL(additional MAC addresses), SMASEL(SMA/MDIO Interface),
-> HDSEL(Half-duplex Support) in debugfs.
-> 2. Show exact number of additional MAC address registers for XGMAC2 core.
-> 3. XGMAC2 core does not have different IP checksum offload types, so just
-> show rx_coe instead of rx_coe_type1 or rx_coe_type2.
-> 4. XGMAC2 core does not have rxfifo_over_2048 definition, skip it.
+On 10/08/2023 17:03, Rohan G Thomas wrote:
+> Add dt-bindings for the number of tx queues with coe support. Some
+> dwmac IPs support tx queues only for few initial tx queues, starting
+> from tx queue 0.
 > 
-> [...]
+> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
 
-Here is the summary with links:
-  - [net-next,v1,1/1] net: stmmac: xgmac: show more MAC HW features in debugfs
-    https://git.kernel.org/netdev/net-next/c/58c1e0bace59
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+You missed at least DT list (maybe more), so this won't be tested by
+automated tooling. Performing review on untested code might be a waste
+of time, thus I will skip this patch entirely till you follow the
+process allowing the patch to be tested.
 
+Please kindly resend and include all necessary To/Cc entries.
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
