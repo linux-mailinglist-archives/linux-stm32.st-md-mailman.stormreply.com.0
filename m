@@ -2,60 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48EE377BAF1
-	for <lists+linux-stm32@lfdr.de>; Mon, 14 Aug 2023 16:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5413F77BCC7
+	for <lists+linux-stm32@lfdr.de>; Mon, 14 Aug 2023 17:14:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EB75C6B472;
-	Mon, 14 Aug 2023 14:07:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D940C6B472;
+	Mon, 14 Aug 2023 15:14:40 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5BA4C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B0BBC6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 14 Aug 2023 14:07:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692022027; x=1723558027;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=St4U/wuWh0OAhYdmVt6mYPM5qL5I3ElRVCMLo6R0/uk=;
- b=e2GY0SJ0regnvK7WBn6XKdm5hbr/7bom1ee8ncahJcFiKE2HAMrkPVRn
- jeIip4l/ew8MTU2AOjc6a1HV9nLR4JD+jazbGg5QnnUsUJh2ScliPGIUo
- 1Vgq/Vp2IIx3LzoOmoloFziPXvE7+A06fiXKkOYyY7axoR/OYhBIwu9z0
- QKOg9RNqjr2m8auWtGTsI/fXZ+suO387TUeFsSyvXFQ4psUbibE1LdxTo
- SBgtAcpSvzJ1FbXPSRI1Srco9i13xB7Kj7MkbE3SVnyqyVh1xiGGgrO2q
- Aghkxxiw6JMz9xic4HWQRhrle0wRvjyWu+PiQlR5IpOhZloVcZJQPgL+9 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="438377261"
-X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; d="scan'208";a="438377261"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 07:07:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="683317948"
-X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; d="scan'208";a="683317948"
-Received: from pglc00067.png.intel.com ([10.221.207.87])
- by orsmga003.jf.intel.com with ESMTP; 14 Aug 2023 07:06:57 -0700
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Mon, 14 Aug 2023 22:06:37 +0800
-Message-Id: <20230814140637.27629-3-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.19.0
-In-Reply-To: <20230814140637.27629-1-rohan.g.thomas@intel.com>
-References: <20230814140637.27629-1-rohan.g.thomas@intel.com>
+ Mon, 14 Aug 2023 15:14:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C41D665613;
+ Mon, 14 Aug 2023 15:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE040C433C8;
+ Mon, 14 Aug 2023 15:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1692026077;
+ bh=PG6FtD1ip+pZiry2bEeVhermxO5kKOn73yucbpsIIp0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=aVDJxDqL7+401wcZju/POHlqg9F9YqVMYGW5xd+DUPLFFjkDUSWm8Bi/xD1l9fYdn
+ NB2Dt3dy2dq6v0I3Qy2zszNUqovD0H5xuP5OcrG/PFpzpFzteCK91W11xc1tApeZMN
+ yJaeyrBZs855MlSQ9NJz9EjQsKIrB/N5Ml8Xj/tNPQK6/0txdSsMVk+GdIpGC3ZLKG
+ LRj8js/aCi1jldCTxN8sfNsb1YrBvRLwKJuJvR99vmCxsaMnaSFi3F7yh7KVu7wN31
+ 1U8aCP2m7SzxNPofg7eSTijvDvQ83ZXnUVXswS6ZNtLB8uBmh6o5qHL+uYkUqmtAxb
+ k4UuK0TNa7caQ==
+Date: Mon, 14 Aug 2023 17:14:34 +0200
+From: Wolfram Sang <wsa@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Message-ID: <ZNpE2g9682EmYPa3@shikoro>
+Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, pierre-yves.mordret@foss.st.com,
+ alain.volmat@foss.st.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+ Ruan Jinjie <ruanjinjie@huawei.com>
+References: <20230731112755.1943630-1-ruanjinjie@huawei.com>
+ <169119887102.1781235.17733733758389845864.b4-ty@kernel.org>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3 2/2] net: stmmac: Tx coe sw
-	fallback
+In-Reply-To: <169119887102.1781235.17733733758389845864.b4-ty@kernel.org>
+Cc: Ruan Jinjie <ruanjinjie@huawei.com>, linux-i2c@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH -next] i2c: stm32: fix the return value
+ handle for platform_get_irq()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,105 +62,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1660098684150725226=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add sw fallback of tx checksum calculation for those tx queues that
-don't support tx checksum offloading. Because, some DWMAC IPs support
-tx checksum offloading only for a few initial tx queues, starting
-from tx queue 0.
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 ++++
- include/linux/stmmac.h                        |  1 +
- 4 files changed, 26 insertions(+)
+--===============1660098684150725226==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9JuskXm4Fm5kE6Gm"
+Content-Disposition: inline
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 3401e888a9f6..f526bcaaaf64 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -219,6 +219,8 @@ struct stmmac_priv {
- 	int hwts_tx_en;
- 	bool tx_path_in_lpi_mode;
- 	bool tso;
-+	bool tx_q_coe_lmt;
-+	u32 tx_q_with_coe;
- 	int sph;
- 	int sph_cap;
- 	u32 sarc_type;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 733b5e900817..555d40bcc089 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4409,6 +4409,17 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	WARN_ON(tx_q->tx_skbuff[first_entry]);
- 
- 	csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
-+	/* Some DWMAC IPs support tx coe only for a few initial tx queues,
-+	 * starting from tx queue 0. So checksum offloading for those queues
-+	 * that don't support tx coe needs to fallback to software checksum
-+	 * calculation.
-+	 */
-+	if (csum_insertion && priv->tx_q_coe_lmt &&
-+	    queue >= priv->tx_q_with_coe) {
-+		if (unlikely(skb_checksum_help(skb)))
-+			goto dma_map_err;
-+		csum_insertion = !csum_insertion;
-+	}
- 
- 	if (likely(priv->extend_desc))
- 		desc = (struct dma_desc *)(tx_q->dma_etx + entry);
-@@ -7401,6 +7412,14 @@ int stmmac_dvr_probe(struct device *device,
- 		dev_info(priv->device, "SPH feature enabled\n");
- 	}
- 
-+	if (priv->plat->tx_coe &&
-+	    priv->plat->tx_queues_with_coe < priv->plat->tx_queues_to_use) {
-+		priv->tx_q_coe_lmt = true;
-+		priv->tx_q_with_coe = priv->plat->tx_queues_with_coe;
-+		dev_info(priv->device, "TX COE limited to %u tx queues\n",
-+			 priv->tx_q_with_coe);
-+	}
-+
- 	/* Ideally our host DMA address width is the same as for the
- 	 * device. However, it may differ and then we have to use our
- 	 * host DMA width for allocation and the device DMA width for
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index be8e79c7aa34..0138b7c9c7ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -225,6 +225,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- 				 &plat->tx_queues_to_use))
- 		plat->tx_queues_to_use = 1;
- 
-+	if (of_property_read_u32(tx_node, "snps,tx-queues-with-coe",
-+				 &plat->tx_queues_with_coe))
-+		plat->tx_queues_with_coe = plat->tx_queues_to_use;
-+
- 	if (of_property_read_bool(tx_node, "snps,tx-sched-wrr"))
- 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
- 	else if (of_property_read_bool(tx_node, "snps,tx-sched-wfq"))
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 784277d666eb..cb508164eaea 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
- 	u32 host_dma_width;
- 	u32 rx_queues_to_use;
- 	u32 tx_queues_to_use;
-+	u32 tx_queues_with_coe;
- 	u8 rx_sched_algorithm;
- 	u8 tx_sched_algorithm;
- 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
--- 
-2.19.0
+
+--9JuskXm4Fm5kE6Gm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, Aug 05, 2023 at 03:29:12AM +0200, Andi Shyti wrote:
+> Hi
+>=20
+> On Mon, 31 Jul 2023 19:27:55 +0800, Ruan Jinjie wrote:
+> > There is no possible for platform_get_irq() to return 0,
+> > and the return value of platform_get_irq() is more sensible
+> > to show the error reason.
+> >=20
+> >=20
+
+Applied to for-next (via Andi's branch), thanks!
+
+
+--9JuskXm4Fm5kE6Gm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmTaRNoACgkQFA3kzBSg
+KbZxPg//cstfDoCoeK3xgIuYxr57m0cxTCegkyg7J6+tO9hhH/P4ato9olYv3PnU
++lEPi5ajeqSVH66PUlh90WfJByukSOSFsavghRphoDd97G0FhPE6kEMwsNADJJt2
+M8Bw/6IGhEgJNvP40ubaqiYHhijynPCO+NCZxAya8onaY0DXTBH7PztcL6IT3r+S
+Z8Dek67bQ+WyDsroN1ci9LVD7Dr3maoqZOqnRHUJfa6jyglM/KcX0DWpSAMjhbJ2
+WLWqClq/UPC6ASylVZnE96mRpj9kby0D+moJQ/SNHisv0GMYGajYSF9yMT48Dk7u
+P4/9pusNYTEF8xVzyn57yFXCn19AvyCF95gBkB47uYyhw11FYoChCysUBqdo8P/m
+y6fcoQi/Kd0sqC2WxKIeDUwKllhfozgf3uZILRZwlAVduuGFbDNEUBYC2TYy7xbX
+N0GEUnW/AoQsDiiG5Shz/IzpURC4enEzo3xYJTyCfJ/AESHFSx0Fl0qxdQwShhYE
+j06+QPHVDIDihV9fyDBwXjVgZlm8dEYocXNR4UCHcmvqo/gL6Gx3XAA6JbxiTEWJ
+EbdV2ckFohH7s5/nPKHJ1NzC7Zl+7J78hBMM2mBgEXT8H37YJw7F+R0rGFebk3Il
+7VcssKFMMHiEuZO5eqpV9Y60jku05aUn+uS8nT0iWzyyuAD8gf0=
+=ySOT
+-----END PGP SIGNATURE-----
+
+--9JuskXm4Fm5kE6Gm--
+
+--===============1660098684150725226==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1660098684150725226==--
