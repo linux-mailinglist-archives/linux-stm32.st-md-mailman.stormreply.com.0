@@ -2,81 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F9E277D4E4
-	for <lists+linux-stm32@lfdr.de>; Tue, 15 Aug 2023 23:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F19B77D5D1
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 00:16:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C95A3C6B45E;
-	Tue, 15 Aug 2023 21:09:34 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C15D6C6B45E;
+	Tue, 15 Aug 2023 22:16:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20257C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9AC42C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Aug 2023 21:09:33 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-3180fd48489so4832557f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 15 Aug 2023 14:09:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692133772; x=1692738572;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=E8bBzfKoERpsKitiZN4nMKM6RbRCpRMSgVwMeOyuDg4=;
- b=OjxSJtIN2ZIP+L8D41IWH1CGQyReANeeXBAPLe69Hpr+3kS54QfG/oynwDua/CAnHi
- Nw72Vp5E3PUMgDzPld8Q8GpMHfJCci4b71+2wmbo7cMaAZA4wz1t08sJzfDqqMVqSvHM
- fJoFmh49Fkc/sd8FtHOtRVe7/ftXUrfoYxSOgNAOq9MzuLaGQTaZ7y/6Xa8HGNAa3uEu
- G7vGn9EFWuibwGW9FIC2JtJ9f2ixiRzBDF/IIGiCYvYeaLpMQVjPFwkYw/Suk79SLR6M
- Kh+MWNwFD/jJC5leFulRdQzOljIyYv2KZAg7DGR4zFqRncV/00jgOBRTOkIIirFyb7SY
- 2VfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692133772; x=1692738572;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=E8bBzfKoERpsKitiZN4nMKM6RbRCpRMSgVwMeOyuDg4=;
- b=aXBJl5rqmE+bn8wILNhtd63+Y3CtVKUEPZVSInckfYkZbYrDCvqaEM46YRIKl8njO6
- jE63CCgAlaVBDCAq1mNN48RyM1dujbagkV6FoqO5Ykd15gt5WmDRdQinWe/Et3rCZTQi
- emTTMtJ5Xqc5Cv70T0T66E59wTLYZJIcXsVHqdAOZjRwl+t8tKoDr0ptNfpGGqkQihWA
- AdeLRgPLbb2QuNX+io2gq8P1kQhNi+TqhNWfboW2h3jowcFKcPB4MWuG7zrP8MuXxeIK
- 70jj2YDd6avMaCOApjplLqZ1QlcCMSEV07CKVrVSid55KvJCW29qPbDMs5P4FE9a2Umh
- criw==
-X-Gm-Message-State: AOJu0Yy+NHlxUPiYFXMYZ8Dk1pDfY9+jKwkL+qurCZSyluRbciu7Ypu7
- YR+SNK+ICroP+qsjjSbDMVmUdQ==
-X-Google-Smtp-Source: AGHT+IFeyYIxvUFpoWnFQI7t+pjFr9Q0npWo2Sw9oiEPkR63padzY60CtlGuUN1fxXnm795IfPPgtg==
-X-Received: by 2002:adf:ee87:0:b0:317:5e0d:c249 with SMTP id
- b7-20020adfee87000000b003175e0dc249mr11068136wro.35.1692133772560; 
- Tue, 15 Aug 2023 14:09:32 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.214.188])
- by smtp.gmail.com with ESMTPSA id
- l13-20020adfe9cd000000b0031934b035d2sm18253015wrn.52.2023.08.15.14.09.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Aug 2023 14:09:32 -0700 (PDT)
-Message-ID: <2f1cb309-9cc7-cdf6-261b-ee5bc8095d67@linaro.org>
-Date: Tue, 15 Aug 2023 23:09:29 +0200
+ Tue, 15 Aug 2023 22:16:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2FF1162A47;
+ Tue, 15 Aug 2023 22:16:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C56DC433C8;
+ Tue, 15 Aug 2023 22:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1692137807;
+ bh=XwXvMZmSyw0Fultdv91spvUYs8G7JznbXwG0CGzyAxM=;
+ h=From:Date:Subject:To:Cc:From;
+ b=KaH3eQclvi001FrOcutYbDGQo7hpeSF0k96n1brchRa+PiK6n2Ae+08jPrhGrUg8T
+ eGCnjPwfFEWv+aMO+PZtOQKDFyPKAdFvH/OSA/jtdlDAW4KZqzIs2CCVlesgdEr8Hh
+ MTwHqy+4AcvB3zN7Fto4z2hfELMIGWO6M4uO+lrwREwp/cETpubtrlMs5hock/a7hQ
+ cW6lJXtRXM2fhmXtByLyZjKJcHtJjUQb0IaZuON8+tszOg3o2QwPmXObWcboYaF5ge
+ TMS6t95ODItsb5blWCaSKTaqKU3ogPmd6ZEZayY/9p48hBjFqAEqfR1M14/gQ4k2Li
+ geulV0KHc0eWw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Tue, 15 Aug 2023 15:16:41 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Content-Language: en-US
-To: Jisheng Zhang <jszhang@kernel.org>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>
-References: <20230809165007.1439-1-jszhang@kernel.org>
- <20230809165007.1439-8-jszhang@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230809165007.1439-8-jszhang@kernel.org>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 07/10] dt-bindings: net: snps,
- dwmac: add safety irq support
+Message-Id: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAEj522QC/x3MMQ6DMAxA0asgz1hKAq1Cr4IYWscpHkhRTBAS4
+ u5EHd/w/wnKWVjh1ZyQeReVX6qwbQM0v9OXUUI1OOM64+0D80ao29I5LKkoB1wXjCWR4mCC7z/
+ kyNgn1H7NHOX4v8fpum502a94awAAAA==
+To: a.zummo@towertech.it, alexandre.belloni@bootlin.com
+X-Mailer: b4 0.13-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2767; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=XwXvMZmSyw0Fultdv91spvUYs8G7JznbXwG0CGzyAxM=;
+ b=owGbwMvMwCEmm602sfCA1DTG02pJDCm3f/rNPqfvaPfxjI/qv/SEwyGPJnwSUl0SduxYtgDPp
+ S69U5dPdJSyMIhxMMiKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJbCxm+B/Vfi3Ps2eVwv+z
+ d45+XBFroiSRWzq3mEllOSNb0qquM7wMv9kzPjClnctoZ5LVLOpb6rI3oe17fUy/WCuD88+wnYt
+ X8QMA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Cc: linux-rtc@vger.kernel.org, arnd@arndb.de, patches@lists.linux.dev,
+ Nathan Chancellor <nathan@kernel.org>, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] rtc: stm32: Use NOIRQ_SYSTEM_SLEEP_PM_OPS()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,17 +68,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 09/08/2023 18:50, Jisheng Zhang wrote:
-> The snps dwmac IP support safety features, and those Safety Feature
-> Correctible Error and Uncorrectible Error irqs may be separate irqs.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
+After the switch to SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() and a subsequent
+fix, stm32_rtc_{suspend,resume}() are unused when CONFIG_PM_SLEEP is not
+set because SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is a no-op in that
+configuration:
 
-Please share, how did you address comment from Conor on v2?
+  drivers/rtc/rtc-stm32.c:904:12: error: 'stm32_rtc_resume' defined but not used [-Werror=unused-function]
+    904 | static int stm32_rtc_resume(struct device *dev)
+        |            ^~~~~~~~~~~~~~~~
+  drivers/rtc/rtc-stm32.c:894:12: error: 'stm32_rtc_suspend' defined but not used [-Werror=unused-function]
+    894 | static int stm32_rtc_suspend(struct device *dev)
+        |            ^~~~~~~~~~~~~~~~~
+  cc1: all warnings being treated as errors
+
+The non-"SET_" version of this macro, NOIRQ_SYSTEM_SLEEP_PM_OPS(), is
+designed to handle this situation by only assigning the callbacks when
+CONFIG_PM_SLEEP is set while allowing the functions to appear used to
+the compiler. Switch to that macro to resolve the warnings. There is no
+functional change with this, as SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is
+defined using NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set.
+
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+I am not sure what to do about a Fixes: tag for this change. I am not
+sure how Arnd triggered the error/warning in commit a69c610e13e2 ("rtc:
+stm32: remove incorrect #ifdef check"), since from what I can tell,
+SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is only defined in terms of
+NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set, so I am not
+sure how those functions could be absent in the source file but used in
+NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is unset... I could be
+missing something though.
+
+However, I think this change should have been done as part of commit
+fb9a7e5360dc ("rtc: stm32: change PM callbacks to "_noirq()"") because
+the "SET_" macros are deprecated and that would have made Arnd's change
+necessary so... assign an appropriate Fixes: tag based on that
+information as you will :)
+---
+ drivers/rtc/rtc-stm32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
+index 3ce4b3d08155..76753c71d92e 100644
+--- a/drivers/rtc/rtc-stm32.c
++++ b/drivers/rtc/rtc-stm32.c
+@@ -923,7 +923,7 @@ static int stm32_rtc_resume(struct device *dev)
+ }
+ 
+ static const struct dev_pm_ops stm32_rtc_pm_ops = {
+-	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_rtc_suspend, stm32_rtc_resume)
+ };
+ 
+ static struct platform_driver stm32_rtc_driver = {
+
+---
+base-commit: 4f3688dca15053555ade31a785a9c75837a64fb8
+change-id: 20230815-rtc-stm32-unused-pm-funcs-90d84bc2c016
 
 Best regards,
-Krzysztof
+-- 
+Nathan Chancellor <nathan@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
