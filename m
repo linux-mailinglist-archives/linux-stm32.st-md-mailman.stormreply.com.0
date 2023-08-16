@@ -2,74 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC6777E09A
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 13:39:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9282177E175
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 14:25:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A14E8C6B45F;
-	Wed, 16 Aug 2023 11:39:41 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41EC4C6B45F;
+	Wed, 16 Aug 2023 12:25:17 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64D28C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C96FC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 11:39:40 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37G8qjjf002232; Wed, 16 Aug 2023 13:39:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=a8L54AqLoW+YCVf5muWdGfhIDNv/gOLzOo4eeextb24=; b=wT
- sLsklvobkJHK4RDIIDi6CiH/ENfG3+EN25t25S77kRYign479HodC8eXywKBES7Q
- 0dN/h3NwCc1z6d6DRWBXVLe9YOmNnmAKfpYE81/58s2fV/03+K7wnlP5kAdbbPmv
- EGuedlynJi69hHWc3hcgTbgYy+7yfOHTXE3YqnA+GLf2qZv3fUI1VuKV+1rOWNQJ
- ljsHcjSyf1YPDxtMdgIB0GluU1c5iXD3OIzABKdylWkqCXVBQ9MDrla+kCWWzmHe
- 9nBdmGlWbSLgeSEIlAgGb5MAd0TYwZEciEcu3HGDPfcdVayltHPvn3u+f059hHBZ
- az2q+V1rEejY6dn8kGnA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sgth61d4g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Aug 2023 13:39:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D68E9100064;
- Wed, 16 Aug 2023 13:39:09 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CB7F22309FB;
- Wed, 16 Aug 2023 13:39:09 +0200 (CEST)
-Received: from [10.201.21.122] (10.201.21.122) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 16 Aug
- 2023 13:39:08 +0200
-Message-ID: <e0e35593-bccc-4959-1de6-07062849ccf5@foss.st.com>
-Date: Wed, 16 Aug 2023 13:39:07 +0200
+ Wed, 16 Aug 2023 12:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
+ Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References;
+ bh=Kf3+Ik/2/DpWB4G4xK9ar2JSB/p+JlR316Rf+SkYxiM=; b=vyIooF4vj53zJhk4J8x1/dKc8Q
+ BsFkhbzK1crCL+LxN2S4iQRIsOrYn1uTtHU29w3ySbHOZ5j1VoTFLmtn+5FKv/Bw/BnOOaL5LyPfI
+ zvwGD6q10hjiTKFs9g43vEkiPQQAMBTm+QJl29lql7uCYB7c53ppwoGVal4dpLaFwn4Sau7kmIZfH
+ 8DX7uh73vLwl1aq5Eouxh0B0NkcKwX5cnI3vV37ohdtwC3FQvU7bacAt0MerGbzipgMYjIr/hFr7l
+ /RGgq96Tf8xSa/en3UipYQ1RLxOcT1OONdAue3ZvQyj2QagkVICmMLAqgajnusllPqnfkb2QSdpa1
+ wtSYuj/g==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1qWFaF-000NAo-JG; Wed, 16 Aug 2023 14:25:07 +0200
+Received: from [185.17.218.86] (helo=zen..)
+ by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <sean@geanix.com>)
+ id 1qWFaE-000HIl-PR; Wed, 16 Aug 2023 14:25:06 +0200
+From: Sean Nyekjaer <sean@geanix.com>
+To: l.goehrs@pengutronix.de, a.fatoum@pengutronix.de,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 16 Aug 2023 14:24:21 +0200
+Message-ID: <20230816122435.3153513-1-sean@geanix.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: <p.paillet@foss.st.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Russell
- King <linux@armlinux.org.uk>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, Claudiu Beznea
- <claudiu.beznea@microchip.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>, Geert Uytterhoeven
- <geert+renesas@glider.be>, <devicetree@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20230712142432.1885162-1-p.paillet@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20230712142432.1885162-1-p.paillet@foss.st.com>
-X-Originating-IP: [10.201.21.122]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To EQNDAG1NODE4.st.com
- (10.75.129.133)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-16_10,2023-08-15_02,2023-05-22_02
-Subject: Re: [Linux-stm32] [PATCH 0/4] STM32MP13x expose SCMI regulators
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.8/27002/Wed Aug 16 09:38:26 2023)
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dantuguf14105@gmail.com, Sean Nyekjaer <sean@geanix.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 1/9] ARM: dts: stm32: Add alternate pinmux
+	for i2s pins
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,42 +62,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Pascal
+Add another mux option for i2s pins, this is used on Octavo OSD32MP1-RED board.
 
-On 7/12/23 16:24, p.paillet@foss.st.com wrote:
-> From: Pascal Paillet <p.paillet@foss.st.com>
-> 
-> Updates STM32MP13 DTS files to define the voltage regulators
-> exposed by OP-TEE SCMI service and remove the fixed regulator
-> abstraction previously used.
-> 
-> Etienne Carriere (3):
->    dt-bindings: rcc: stm32: add STM32MP13 SCMI regulators IDs
->    ARM: dts: stm32: STM32MP13x SoC exposes SCMI regulators
->    ARM: dts: stm32: add SCMI PMIC regulators on stm32mp135f-dk board
-> 
-> Pascal Paillet (1):
->    ARM: multi_v7_defconfig: Add SCMI regulator support
-> 
->   arch/arm/boot/dts/st/stm32mp131.dtsi          | 50 +++++++-------
->   arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 68 ++++++++-----------
->   arch/arm/configs/multi_v7_defconfig           |  1 +
->   .../regulator/st,stm32mp13-regulator.h        | 42 ++++++++++++
->   4 files changed, 98 insertions(+), 63 deletions(-)
->   create mode 100644 include/dt-bindings/regulator/st,stm32mp13-regulator.h
-> 
+Signed-off-by: Sean Nyekjaer <sean@geanix.com>
+Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-Series applied on stm32-next. Commit title of patch[4] has been updated 
-to explain the reason of the patch (as suggested by Krzysztof). I also 
-ordered the config flag.
+diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+index 098153ee99a3..92726ad7285f 100644
+--- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+@@ -787,6 +787,25 @@ pins {
+ 		};
+ 	};
+ 
++	i2s2_pins_b: i2s2-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C',  3, AF5)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, AF5)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, AF5)>; /* I2S2_CK */
++			bias-disable;
++			drive-push-pull;
++			slew-rate = <1>;
++		};
++	};
++
++	i2s2_sleep_pins_b: i2s2-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('C', 3, ANALOG)>, /* I2S2_SDO */
++				 <STM32_PINMUX('B', 12, ANALOG)>, /* I2S2_WS */
++				 <STM32_PINMUX('B', 13, ANALOG)>; /* I2S2_CK */
++		};
++	};
++
+ 	ltdc_pins_a: ltdc-0 {
+ 		pins {
+ 			pinmux = <STM32_PINMUX('G',  7, AF14)>, /* LCD_CLK */
+-- 
+2.41.0
 
-Regards
-Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
