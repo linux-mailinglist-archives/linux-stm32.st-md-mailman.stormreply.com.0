@@ -2,74 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8735277E259
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 15:17:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D3A977E310
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 15:53:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B8B1C6B45F;
-	Wed, 16 Aug 2023 13:17:02 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9FA2C6B45F;
+	Wed, 16 Aug 2023 13:53:32 +0000 (UTC)
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9B8BC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2046DC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 13:17:01 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37G9HZ92006710; Wed, 16 Aug 2023 15:16:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=jsHo/ihgFYCOIGCHbTa9POhm1lQRQXAOCQAEy92C/gc=; b=nm
- l1ZymMVeYMLFF8iXGrVjIRUYzEERJsXsr/9dY6v2bZt5qJUt7xA4jhdwbAI3zRaQ
- TwwJVRay3dXZpjkSFhBmT1stu2/jmQh+FYoPC8h3YaPet69KjUEWHw782WXzi/Mx
- aax1SQqzibX5mRqeeqvngqX/kEU/qeHC1kbBlzfHTqVIvhIxZyUvBEIrCRmhglu1
- c9Isj47+pYrtOhO7a9py8ZpUuFR+s8Q4G9mmisCfwPv+fXIKUlgvLtV3WTDLT0FR
- HJMCZFKt+2rAsx7fI1tS2cwWyKTQXfqxADfaC0LLcMhFn18VQw/6IyfcR4uJbXLv
- 6VG9j3eI7VsUC9f0ZPAA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sguptsbre-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Aug 2023 15:16:35 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 92DA310005D;
- Wed, 16 Aug 2023 15:16:33 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5B96C23D3F6;
- Wed, 16 Aug 2023 15:16:33 +0200 (CEST)
-Received: from [10.201.22.206] (10.201.22.206) by EQNDAG1NODE4.st.com
- (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 16 Aug
- 2023 15:16:32 +0200
-Message-ID: <f93fd404-2c66-cde0-ea9c-06390db015b8@foss.st.com>
-Date: Wed, 16 Aug 2023 15:16:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: Arnd Bergmann <arnd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230724195704.2432382-1-arnd@kernel.org>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <20230724195704.2432382-1-arnd@kernel.org>
-X-Originating-IP: [10.201.22.206]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To EQNDAG1NODE4.st.com
- (10.75.129.133)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-16_12,2023-08-15_02,2023-05-22_02
-Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>, Randy
- Dunlap <rdunlap@infradead.org>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
- =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, Dan
- Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: fix incorrect optional
-	pointers
+ Wed, 16 Aug 2023 13:53:32 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C68F0320092E;
+ Wed, 16 Aug 2023 09:53:29 -0400 (EDT)
+Received: from imap51 ([10.202.2.101])
+ by compute6.internal (MEProxy); Wed, 16 Aug 2023 09:53:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:sender
+ :subject:subject:to:to; s=fm3; t=1692194009; x=1692280409; bh=Ii
+ 4yG/ZcyE3q39VYUZ9Y40rpiAUHhEuHOoKZpmHnIVE=; b=XKQOm2vRAaeMr+s8ia
+ bET6858Gma6hb0CAP8dE01xA+DqcXKFGMrEOvfVTh0+i2vJyn8htU0Xwl7Kn4vK3
+ 5xgSDnQ7znZp6b0M10tQiV72JONEyKerZnlWEXwHcTQixD3WfmGznqNqStL021ER
+ E5PUH8Mk07tqqmFuhJZ0bb483vknpjor3huVfhokUCNsmIfaLPcmS7jCQXx0aP62
+ T+s/6bfKSECdOPD9cQZjsAo+wMHET4RO2y0tmgzJiEYY6ecl7WYalBNb95kC9fW/
+ NbIw1889k1DkVlV+3SnrkLJQXwCElA1SN0Oo4//e8AK0ZbjUaH4MuF4EdtCjtoW2
+ tceA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; t=1692194009; x=1692280409; bh=Ii4yG/ZcyE3q3
+ 9VYUZ9Y40rpiAUHhEuHOoKZpmHnIVE=; b=fazCe2n5+x9PGnyaSSn7RwjPqyZVC
+ 1ciHlLmGQP5bSXQ/00Bm2lXXR265/t3mANvGN6gbgaVWXExW6WdEzCw9YZICH3iA
+ WKIvCsJOKhJt46Hruzyb51RNPQ84rOHaEn6eAiPxbKMHtswPXIU+1yZu988m2zUO
+ CjXl4za2UZhtsN5+FCt4EdVhzGlc+opHsP/JrzCdbxJ54uzTC5qXubbljHivpHY8
+ Vx46Az8iooLs3nFlBLK/vyR0t3+no7lTiCjCscAm6fHxaCX3ySuZ7om6j7egv5wu
+ N5EsVu3s7qx0ow0OydR+/Jf1V++kt/Sn3lr4uAOCxnYQ5Z5jxqxsQGZaw==
+X-ME-Sender: <xms:2NTcZKoX3PRXcOGPjz-G7b93mLLkNhXJoccUoAcbeddj-97N99CUag>
+ <xme:2NTcZIrrpoM6AMP77rN0ErNAZN57056JQ6694zOKWfvsOh60TkQBMmlTRTlE_ukOl
+ btY-PBqZLgDjWugca4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedruddtledgjedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
+ nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
+ htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
+ teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hrnhgusegrrhhnuggsrdguvg
+X-ME-Proxy: <xmx:2NTcZPOdSMw6KTThLUurAJbPgTAfzshXIUhqeW1a0w9sr8Q77LBjlA>
+ <xmx:2NTcZJ7-utNZFV7D8rFD2wzSboqJlylJSxaY4AcqBmGhGvjXzystlg>
+ <xmx:2NTcZJ4hTCGE4wuBGi5JSV3NDDQgO6Q0oTd0Abu-fMhYljy4PO8JAw>
+ <xmx:2dTcZGu7hgiLnEoBIu9C3in-rQWwTXue7qRYELawHRLWHQX_5QBH1g>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 68E88B6008D; Wed, 16 Aug 2023 09:53:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.9.0-alpha0-624-g7714e4406d-fm-20230801.001-g7714e440
+Mime-Version: 1.0
+Message-Id: <df08d0d5-2598-4805-a1bd-43d223092311@app.fastmail.com>
+In-Reply-To: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
+References: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
+Date: Wed, 16 Aug 2023 15:53:07 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Nathan Chancellor" <nathan@kernel.org>,
+ "Alessandro Zummo" <a.zummo@towertech.it>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org, patches@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Use
+	NOIRQ_SYSTEM_SLEEP_PM_OPS()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,88 +92,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Arnd,
 
-On 7/24/23 21:56, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> Compile-testing without CONFIG_OF shows that the of_match_ptr() macro
-> was used incorrectly here:
-> 
-> drivers/remoteproc/stm32_rproc.c:662:34: warning: unused variable 'stm32_rproc_match' [-Wunused-const-variable]
-> 
-> As in almost every driver, the solution is simply to remove the
-> use of this macro. The same thing happened with the deprecated
-> SIMPLE_DEV_PM_OPS(), but the corresponding warning was already shut
-> up with __maybe_unused annotations, so fix those as well by using the
-> correct DEFINE_SIMPLE_DEV_PM_OPS() macros and removing the extraneous
-> __maybe_unused modifiers. For completeness, also add a pm_ptr() to let
-> the PM ops be eliminated completely when CONFIG_PM is turned off.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202307242300.ia82qBTp-lkp@intel.com
-> Fixes: 03bd158e1535e ("remoteproc: stm32: use correct format strings on 64-bit")
-> Fixes: 410119ee29b6c ("remoteproc: stm32: wakeup the system by wdg irq")
-> Fixes: 13140de09cc2d ("remoteproc: stm32: add an ST stm32_rproc driver")
 
-The checkpatch complains here as you put 13 char instead of 12 for the sha1.
-I don't know if this can generate issue for scripts...
+On Wed, Aug 16, 2023, at 00:16, Nathan Chancellor wrote:
+> After the switch to SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() and a subsequent
+> fix, stm32_rtc_{suspend,resume}() are unused when CONFIG_PM_SLEEP is not
+> set because SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is a no-op in that
+> configuration:
+>
+>   drivers/rtc/rtc-stm32.c:904:12: error: 'stm32_rtc_resume' defined but 
+> not used [-Werror=unused-function]
+>     904 | static int stm32_rtc_resume(struct device *dev)
+>         |            ^~~~~~~~~~~~~~~~
+>   drivers/rtc/rtc-stm32.c:894:12: error: 'stm32_rtc_suspend' defined 
+> but not used [-Werror=unused-function]
+>     894 | static int stm32_rtc_suspend(struct device *dev)
+>         |            ^~~~~~~~~~~~~~~~~
+>   cc1: all warnings being treated as errors
+>
+> The non-"SET_" version of this macro, NOIRQ_SYSTEM_SLEEP_PM_OPS(), is
+> designed to handle this situation by only assigning the callbacks when
+> CONFIG_PM_SLEEP is set while allowing the functions to appear used to
+> the compiler. Switch to that macro to resolve the warnings. There is no
+> functional change with this, as SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is
+> defined using NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set.
+>
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-w or w/o the fix:
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
 
-acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-
-Thanks!
-Arnaud
-
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 > ---
->  drivers/remoteproc/stm32_rproc.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 98234b44f0389..9d9b13530f78a 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -921,7 +921,7 @@ static void stm32_rproc_remove(struct platform_device *pdev)
->  	rproc_free(rproc);
->  }
->  
-> -static int __maybe_unused stm32_rproc_suspend(struct device *dev)
-> +static int stm32_rproc_suspend(struct device *dev)
->  {
->  	struct rproc *rproc = dev_get_drvdata(dev);
->  	struct stm32_rproc *ddata = rproc->priv;
-> @@ -932,7 +932,7 @@ static int __maybe_unused stm32_rproc_suspend(struct device *dev)
->  	return 0;
->  }
->  
-> -static int __maybe_unused stm32_rproc_resume(struct device *dev)
-> +static int stm32_rproc_resume(struct device *dev)
->  {
->  	struct rproc *rproc = dev_get_drvdata(dev);
->  	struct stm32_rproc *ddata = rproc->priv;
-> @@ -943,16 +943,16 @@ static int __maybe_unused stm32_rproc_resume(struct device *dev)
->  	return 0;
->  }
->  
-> -static SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
-> -			 stm32_rproc_suspend, stm32_rproc_resume);
-> +static DEFINE_SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
-> +				stm32_rproc_suspend, stm32_rproc_resume);
->  
->  static struct platform_driver stm32_rproc_driver = {
->  	.probe = stm32_rproc_probe,
->  	.remove_new = stm32_rproc_remove,
->  	.driver = {
->  		.name = "stm32-rproc",
-> -		.pm = &stm32_rproc_pm_ops,
-> -		.of_match_table = of_match_ptr(stm32_rproc_match),
-> +		.pm = pm_ptr(&stm32_rproc_pm_ops),
-> +		.of_match_table = stm32_rproc_match,
->  	},
->  };
->  module_platform_driver(stm32_rproc_driver);
+> I am not sure what to do about a Fixes: tag for this change. I am not
+> sure how Arnd triggered the error/warning in commit a69c610e13e2 ("rtc:
+> stm32: remove incorrect #ifdef check"), since from what I can tell,
+> SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is only defined in terms of
+> NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set, so I am not
+> sure how those functions could be absent in the source file but used in
+> NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is unset... I could be
+> missing something though.
+
+It was a mistake on my end: my randconfig tree has an experimental
+patch to clean up all 13 users of SET_NOIRQ_SYSTEM_SLEEP_PM_OPS()
+that actually rely on the old behavior and changing the definition
+to be the same as NOIRQ_SYSTEM_SLEEP_PM_OPS. I should get back
+to that series and actually send out patches towards removing
+the deprecated helpers.
+
+      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
