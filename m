@@ -2,72 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9634877E07D
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 13:35:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC6777E09A
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 13:39:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CC33C6B45F;
-	Wed, 16 Aug 2023 11:35:19 +0000 (UTC)
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
- [209.85.128.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A14E8C6B45F;
+	Wed, 16 Aug 2023 11:39:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0814AC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64D28C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 11:35:16 +0000 (UTC)
-Received: by mail-yw1-f180.google.com with SMTP id
- 00721157ae682-58d41109351so2602357b3.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 04:35:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692185716; x=1692790516;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=W1TXDu+zgSSUXElwM6x2NcHaHgdAL86FtyCcicPVe4Q=;
- b=GYrrZpOaEp+uLPVdkoRd7Z6CUNSRiET5q8N6nwMzb7556402t/9YMRUwFeA29t3HhT
- eLD2gEv+A1MUhjoDS6KkwaoFviuJc0wyhAPdSQqTG9LlMnM7GVUvbu5edi4j1JH/GW1Z
- /+HAQ8nV+PAcSF4EYlNX/VtOE47qFfDhJ+uCFQxeMRMDAHHbknrS4llKZsNfBye/smSz
- aaSrd/mqK2YH7AGJhVW+cohc8L95hZpDJY9dRjVhWFie4gpi3bSFxCyJ3g1JsAqCNm+V
- xQm7m1SW3RRC802vktsSLhwxCeyCNhwmEvevTa+6EhY1oQdA+kNDOWFr003P81Ih5EFw
- PMFA==
-X-Gm-Message-State: AOJu0Yxr0h438eL+A+CHe2tYKmWYLn4v4Cy/a1M7LJAKHzciFs5PeWdG
- xOchYQ8HmpQuzwGs15ljftaSvvTOAxMiOA==
-X-Google-Smtp-Source: AGHT+IFdunPFYCufZwauBUkTZgnaycha9DbANIF9wou6XQ3s8f8OnwdVOqYuFxfBHOHcmsD06aXemA==
-X-Received: by 2002:a0d:d913:0:b0:583:821b:603a with SMTP id
- b19-20020a0dd913000000b00583821b603amr5560564ywe.20.1692185715199; 
- Wed, 16 Aug 2023 04:35:15 -0700 (PDT)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
- [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
- n186-20020a8172c3000000b0058605521e6esm3958404ywc.125.2023.08.16.04.35.14
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Aug 2023 04:35:14 -0700 (PDT)
-Received: by mail-yb1-f174.google.com with SMTP id
- 3f1490d57ef6-d67305c80deso6801898276.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 04:35:14 -0700 (PDT)
-X-Received: by 2002:a25:abc7:0:b0:d71:99da:49b6 with SMTP id
- v65-20020a25abc7000000b00d7199da49b6mr1971998ybi.29.1692185714245; Wed, 16
- Aug 2023 04:35:14 -0700 (PDT)
+ Wed, 16 Aug 2023 11:39:40 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37G8qjjf002232; Wed, 16 Aug 2023 13:39:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=a8L54AqLoW+YCVf5muWdGfhIDNv/gOLzOo4eeextb24=; b=wT
+ sLsklvobkJHK4RDIIDi6CiH/ENfG3+EN25t25S77kRYign479HodC8eXywKBES7Q
+ 0dN/h3NwCc1z6d6DRWBXVLe9YOmNnmAKfpYE81/58s2fV/03+K7wnlP5kAdbbPmv
+ EGuedlynJi69hHWc3hcgTbgYy+7yfOHTXE3YqnA+GLf2qZv3fUI1VuKV+1rOWNQJ
+ ljsHcjSyf1YPDxtMdgIB0GluU1c5iXD3OIzABKdylWkqCXVBQ9MDrla+kCWWzmHe
+ 9nBdmGlWbSLgeSEIlAgGb5MAd0TYwZEciEcu3HGDPfcdVayltHPvn3u+f059hHBZ
+ az2q+V1rEejY6dn8kGnA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sgth61d4g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Aug 2023 13:39:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D68E9100064;
+ Wed, 16 Aug 2023 13:39:09 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CB7F22309FB;
+ Wed, 16 Aug 2023 13:39:09 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 16 Aug
+ 2023 13:39:08 +0200
+Message-ID: <e0e35593-bccc-4959-1de6-07062849ccf5@foss.st.com>
+Date: Wed, 16 Aug 2023 13:39:07 +0200
 MIME-Version: 1.0
-References: <20230801105932.3738430-1-arnd@kernel.org>
- <202308100045.WeVD1ttk-lkp@intel.com>
- <106a93ae-90f1-45fb-ae0a-034eb2d6faea@app.fastmail.com>
-In-Reply-To: <106a93ae-90f1-45fb-ae0a-034eb2d6faea@app.fastmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 16 Aug 2023 13:35:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWAO=-Qc71YWF2UFBVhbp55Fog-iUAuENNtiEP4xqx5ig@mail.gmail.com>
-Message-ID: <CAMuHMdWAO=-Qc71YWF2UFBVhbp55Fog-iUAuENNtiEP4xqx5ig@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: linux-rtc@vger.kernel.org, Arnd Bergmann <arnd@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- kernel test robot <lkp@intel.com>, Alessandro Zummo <a.zummo@towertech.it>,
- linux-kernel@vger.kernel.org,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Christophe Guibout <christophe.guibout@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: remove incorrect #ifdef check
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: <p.paillet@foss.st.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Russell
+ King <linux@armlinux.org.uk>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, Claudiu Beznea
+ <claudiu.beznea@microchip.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, <devicetree@vger.kernel.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20230712142432.1885162-1-p.paillet@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230712142432.1885162-1-p.paillet@foss.st.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To EQNDAG1NODE4.st.com
+ (10.75.129.133)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-16_10,2023-08-15_02,2023-05-22_02
+Subject: Re: [Linux-stm32] [PATCH 0/4] STM32MP13x expose SCMI regulators
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,50 +81,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQXJuZCwKCk9uIFdlZCwgQXVnIDksIDIwMjMgYXQgODoyNuKAr1BNIEFybmQgQmVyZ21hbm4g
-PGFybmRAYXJuZGIuZGU+IHdyb3RlOgo+IE9uIFdlZCwgQXVnIDksIDIwMjMsIGF0IDE4OjM2LCBr
-ZXJuZWwgdGVzdCByb2JvdCB3cm90ZToKPiA+IElmIHlvdSBmaXggdGhlIGlzc3VlIGluIGEgc2Vw
-YXJhdGUgcGF0Y2gvY29tbWl0IChpLmUuIG5vdCBqdXN0IGEgbmV3Cj4gPiB2ZXJzaW9uIG9mCj4g
-PiB0aGUgc2FtZSBwYXRjaC9jb21taXQpLCBraW5kbHkgYWRkIGZvbGxvd2luZyB0YWdzCj4gPiB8
-IFJlcG9ydGVkLWJ5OiBrZXJuZWwgdGVzdCByb2JvdCA8bGtwQGludGVsLmNvbT4KPiA+IHwgQ2xv
-c2VzOgo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2Uta2J1aWxkLWFsbC8yMDIzMDgxMDAw
-NDUuV2VWRDF0dGstbGtwQGludGVsLmNvbS8KPiA+Cj4gPiBBbGwgd2FybmluZ3MgKG5ldyBvbmVz
-IHByZWZpeGVkIGJ5ID4+KToKPiA+Cj4gPj4+IGRyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jOjkwMzox
-Mjogd2FybmluZzogJ3N0bTMyX3J0Y19yZXN1bWUnIGRlZmluZWQgYnV0IG5vdCB1c2VkIFstV3Vu
-dXNlZC1mdW5jdGlvbl0KPiA+ICAgICAgOTAzIHwgc3RhdGljIGludCBzdG0zMl9ydGNfcmVzdW1l
-KHN0cnVjdCBkZXZpY2UgKmRldikKPiA+ICAgICAgICAgIHwgICAgICAgICAgICBefn5+fn5+fn5+
-fn5+fn5+Cj4gPj4+IGRyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jOjg5MzoxMjogd2FybmluZzogJ3N0
-bTMyX3J0Y19zdXNwZW5kJyBkZWZpbmVkIGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtZnVuY3Rpb25d
-Cj4gPiAgICAgIDg5MyB8IHN0YXRpYyBpbnQgc3RtMzJfcnRjX3N1c3BlbmQoc3RydWN0IGRldmlj
-ZSAqZGV2KQo+ID4gICAgICAgICAgfCAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+Cj4KPiBU
-aGlzIGlzIHRoZSB3YXJuaW5nIHlvdSBnZXQgaWYgbXkgcGF0Y2ggaXMgYXBwbGllZCBidXQgdGhl
-Cj4gZmI5YTdlNTM2MGRjOCAoInJ0Yzogc3RtMzI6IGNoYW5nZSBQTSBjYWxsYmFja3MgdG8gIl9u
-b2lycSgpIiIpCj4gY29tbWl0IGlzIG5vdC4gSWYgdGhhdCBwYXRjaCBpcyBhcHBsaWVkLCBtaW5l
-IGlzIG5lZWRlZCB0byBhZGRyZXNzCj4gdGhlIG90aGVyIHdhcm5pbmcuCgpBbHRob3VnaCBib3Ro
-IGFyZSBub3cgaW4gbGludXgtbmV4dCwga2lzc2tiIHJlcG9ydGVkIGZvciBtNjhrL2FsbG1vZGNv
-bmZpZzoKCiAgICBkcml2ZXJzL3J0Yy9ydGMtc3RtMzIuYzo5MDQ6MTI6IGVycm9yOiDigJhzdG0z
-Ml9ydGNfcmVzdW1l4oCZIGRlZmluZWQKYnV0IG5vdCB1c2VkIFstV2Vycm9yPXVudXNlZC1mdW5j
-dGlvbl0KICAgICAgOTA0IHwgc3RhdGljIGludCBzdG0zMl9ydGNfcmVzdW1lKHN0cnVjdCBkZXZp
-Y2UgKmRldikKICAgICAgICAgIHwgICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+CiAgICBkcml2
-ZXJzL3J0Yy9ydGMtc3RtMzIuYzo4OTQ6MTI6IGVycm9yOiDigJhzdG0zMl9ydGNfc3VzcGVuZOKA
-mSBkZWZpbmVkCmJ1dCBub3QgdXNlZCBbLVdlcnJvcj11bnVzZWQtZnVuY3Rpb25dCiAgICAgIDg5
-NCB8IHN0YXRpYyBpbnQgc3RtMzJfcnRjX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQogICAg
-ICAgICAgfCAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+CgpTZWVtcyBsaWtlIHlvdSBtaXNz
-ZWQgdGhhdCB0aGUgZHJpdmVyIHVzZXMgdGhlIG9sZApTRVRfTk9JUlFfU1lTVEVNX1NMRUVQX1BN
-X09QUygpIGluc3RlYWQgb2YgdGhlIG5ldwpOT0lSUV9TWVNURU1fU0xFRVBfUE1fT1BTKCkuCgpQ
-YXRjaCBzZW50LgpodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIwMjMwODE2MTEzMzI2LjE0Njg0
-MzUtMS1nZWVydEBsaW51eC1tNjhrLm9yZwoKR3J7b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAg
-ICAgICAgICAgICAgICBHZWVydAoKLS0gCkdlZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxv
-dHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0gZ2VlcnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNv
-bmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNobmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEg
-aGFja2VyLiBCdXQKd2hlbiBJJ20gdGFsa2luZyB0byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJw
-cm9ncmFtbWVyIiBvciBzb21ldGhpbmcgbGlrZSB0aGF0LgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIC0tIExpbnVzIFRvcnZhbGRzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBz
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJl
-cGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hi Pascal
+
+On 7/12/23 16:24, p.paillet@foss.st.com wrote:
+> From: Pascal Paillet <p.paillet@foss.st.com>
+> 
+> Updates STM32MP13 DTS files to define the voltage regulators
+> exposed by OP-TEE SCMI service and remove the fixed regulator
+> abstraction previously used.
+> 
+> Etienne Carriere (3):
+>    dt-bindings: rcc: stm32: add STM32MP13 SCMI regulators IDs
+>    ARM: dts: stm32: STM32MP13x SoC exposes SCMI regulators
+>    ARM: dts: stm32: add SCMI PMIC regulators on stm32mp135f-dk board
+> 
+> Pascal Paillet (1):
+>    ARM: multi_v7_defconfig: Add SCMI regulator support
+> 
+>   arch/arm/boot/dts/st/stm32mp131.dtsi          | 50 +++++++-------
+>   arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 68 ++++++++-----------
+>   arch/arm/configs/multi_v7_defconfig           |  1 +
+>   .../regulator/st,stm32mp13-regulator.h        | 42 ++++++++++++
+>   4 files changed, 98 insertions(+), 63 deletions(-)
+>   create mode 100644 include/dt-bindings/regulator/st,stm32mp13-regulator.h
+> 
+
+Series applied on stm32-next. Commit title of patch[4] has been updated 
+to explain the reason of the patch (as suggested by Krzysztof). I also 
+ordered the config flag.
+
+Regards
+Alex
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
