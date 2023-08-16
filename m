@@ -2,80 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D3A977E310
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 15:53:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3948177E382
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 16:26:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9FA2C6B45F;
-	Wed, 16 Aug 2023 13:53:32 +0000 (UTC)
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DECD0C6B45F;
+	Wed, 16 Aug 2023 14:26:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2046DC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3FABEC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 13:53:32 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id C68F0320092E;
- Wed, 16 Aug 2023 09:53:29 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Wed, 16 Aug 2023 09:53:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:sender
- :subject:subject:to:to; s=fm3; t=1692194009; x=1692280409; bh=Ii
- 4yG/ZcyE3q39VYUZ9Y40rpiAUHhEuHOoKZpmHnIVE=; b=XKQOm2vRAaeMr+s8ia
- bET6858Gma6hb0CAP8dE01xA+DqcXKFGMrEOvfVTh0+i2vJyn8htU0Xwl7Kn4vK3
- 5xgSDnQ7znZp6b0M10tQiV72JONEyKerZnlWEXwHcTQixD3WfmGznqNqStL021ER
- E5PUH8Mk07tqqmFuhJZ0bb483vknpjor3huVfhokUCNsmIfaLPcmS7jCQXx0aP62
- T+s/6bfKSECdOPD9cQZjsAo+wMHET4RO2y0tmgzJiEYY6ecl7WYalBNb95kC9fW/
- NbIw1889k1DkVlV+3SnrkLJQXwCElA1SN0Oo4//e8AK0ZbjUaH4MuF4EdtCjtoW2
- tceA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; t=1692194009; x=1692280409; bh=Ii4yG/ZcyE3q3
- 9VYUZ9Y40rpiAUHhEuHOoKZpmHnIVE=; b=fazCe2n5+x9PGnyaSSn7RwjPqyZVC
- 1ciHlLmGQP5bSXQ/00Bm2lXXR265/t3mANvGN6gbgaVWXExW6WdEzCw9YZICH3iA
- WKIvCsJOKhJt46Hruzyb51RNPQ84rOHaEn6eAiPxbKMHtswPXIU+1yZu988m2zUO
- CjXl4za2UZhtsN5+FCt4EdVhzGlc+opHsP/JrzCdbxJ54uzTC5qXubbljHivpHY8
- Vx46Az8iooLs3nFlBLK/vyR0t3+no7lTiCjCscAm6fHxaCX3ySuZ7om6j7egv5wu
- N5EsVu3s7qx0ow0OydR+/Jf1V++kt/Sn3lr4uAOCxnYQ5Z5jxqxsQGZaw==
-X-ME-Sender: <xms:2NTcZKoX3PRXcOGPjz-G7b93mLLkNhXJoccUoAcbeddj-97N99CUag>
- <xme:2NTcZIrrpoM6AMP77rN0ErNAZN57056JQ6694zOKWfvsOh60TkQBMmlTRTlE_ukOl
- btY-PBqZLgDjWugca4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedruddtledgjedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtsehttdertderredtnecuhfhrohhmpedftehr
- nhguuceuvghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrth
- htvghrnhepffehueegteeihfegtefhjefgtdeugfegjeelheejueethfefgeeghfektdek
- teffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprg
- hrnhgusegrrhhnuggsrdguvg
-X-ME-Proxy: <xmx:2NTcZPOdSMw6KTThLUurAJbPgTAfzshXIUhqeW1a0w9sr8Q77LBjlA>
- <xmx:2NTcZJ7-utNZFV7D8rFD2wzSboqJlylJSxaY4AcqBmGhGvjXzystlg>
- <xmx:2NTcZJ4hTCGE4wuBGi5JSV3NDDQgO6Q0oTd0Abu-fMhYljy4PO8JAw>
- <xmx:2dTcZGu7hgiLnEoBIu9C3in-rQWwTXue7qRYELawHRLWHQX_5QBH1g>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 68E88B6008D; Wed, 16 Aug 2023 09:53:28 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-624-g7714e4406d-fm-20230801.001-g7714e440
-Mime-Version: 1.0
-Message-Id: <df08d0d5-2598-4805-a1bd-43d223092311@app.fastmail.com>
-In-Reply-To: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
-References: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
-Date: Wed, 16 Aug 2023 15:53:07 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Nathan Chancellor" <nathan@kernel.org>,
- "Alessandro Zummo" <a.zummo@towertech.it>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, patches@lists.linux.dev,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Wed, 16 Aug 2023 14:26:36 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37GDHGWA002228; Wed, 16 Aug 2023 16:26:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=szXQJpt
+ kKizXSfwXSxIj1fEKQa8MbeyLm6VyELkCJP8=; b=eDXXTE+kNc8l575O6SYJRbx
+ Q64U+Q2QfzVvBMbbcsz/6S8w395jRmLR8VkA2xerleMO4xW2D09rsYq4/36avVM2
+ 5oCAXH4Fy9wFyaNxqE26563DkeQxzekw8GXDJqZtp8iBSMnQL0Sh4EuzZOQFkZu8
+ jWzW0umKGWEyoGvB7ChfVoX/l8g0V11y3LeHoROQSWs/mbgNfax0tt4KOQ5/siZV
+ UpPaT9BQMd8OOKIPu3XOW9lctPrblJ8y7AZmjJr8+IklNcGRbPz47xDce4viyyx4
+ TIT/++f0Vu7Ya2/6NzOQMS/XuXMELH/cZMYgJ2Zowt3AOZy9Ev/c9nOncfB+svA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sgth628tk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Aug 2023 16:26:24 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3E382100061;
+ Wed, 16 Aug 2023 16:26:22 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 35C3824C447;
+ Wed, 16 Aug 2023 16:26:22 +0200 (CEST)
+Received: from localhost (10.252.20.29) by EQNDAG1NODE4.st.com (10.75.129.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 16 Aug
+ 2023 16:26:21 +0200
+From: Thomas BOURGOIN <thomas.bourgoin@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Wed, 16 Aug 2023 16:26:17 +0200
+Message-ID: <20230816142617.2625802-1-thomas.bourgoin@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.252.20.29]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To EQNDAG1NODE4.st.com
+ (10.75.129.133)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-16_14,2023-08-15_02,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Use
-	NOIRQ_SYSTEM_SLEEP_PM_OPS()
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add HASH on stm32mp131
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,53 +75,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Lionel Debieve <lionel.debieve@foss.st.com>
 
+Add the HASH support on stm32mp131.
 
-On Wed, Aug 16, 2023, at 00:16, Nathan Chancellor wrote:
-> After the switch to SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() and a subsequent
-> fix, stm32_rtc_{suspend,resume}() are unused when CONFIG_PM_SLEEP is not
-> set because SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is a no-op in that
-> configuration:
->
->   drivers/rtc/rtc-stm32.c:904:12: error: 'stm32_rtc_resume' defined but 
-> not used [-Werror=unused-function]
->     904 | static int stm32_rtc_resume(struct device *dev)
->         |            ^~~~~~~~~~~~~~~~
->   drivers/rtc/rtc-stm32.c:894:12: error: 'stm32_rtc_suspend' defined 
-> but not used [-Werror=unused-function]
->     894 | static int stm32_rtc_suspend(struct device *dev)
->         |            ^~~~~~~~~~~~~~~~~
->   cc1: all warnings being treated as errors
->
-> The non-"SET_" version of this macro, NOIRQ_SYSTEM_SLEEP_PM_OPS(), is
-> designed to handle this situation by only assigning the callbacks when
-> CONFIG_PM_SLEEP is set while allowing the functions to appear used to
-> the compiler. Switch to that macro to resolve the warnings. There is no
-> functional change with this, as SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is
-> defined using NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set.
->
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Lionel Debieve <lionel.debieve@foss.st.com>
+Signed-off-by: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index 672f3b7735a2..4e4f64cfb75b 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -1210,6 +1210,17 @@ timer {
+ 			};
+ 		};
+ 
++		hash: hash@54003000 {
++			compatible = "st,stm32mp13-hash";
++			reg = <0x54003000 0x400>;
++			interrupts = <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&rcc HASH1>;
++			resets = <&rcc HASH1_R>;
++			dmas = <&mdma 30 0x2 0x1000a02 0x0 0x0>;
++			dma-names = "in";
++			status = "disabled";
++		};
++
+ 		mdma: dma-controller@58000000 {
+ 			compatible = "st,stm32h7-mdma";
+ 			reg = <0x58000000 0x1000>;
+-- 
+2.25.1
 
-> ---
-> I am not sure what to do about a Fixes: tag for this change. I am not
-> sure how Arnd triggered the error/warning in commit a69c610e13e2 ("rtc:
-> stm32: remove incorrect #ifdef check"), since from what I can tell,
-> SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is only defined in terms of
-> NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is set, so I am not
-> sure how those functions could be absent in the source file but used in
-> NOIRQ_SYSTEM_SLEEP_PM_OPS() when CONFIG_PM_SLEEP is unset... I could be
-> missing something though.
-
-It was a mistake on my end: my randconfig tree has an experimental
-patch to clean up all 13 users of SET_NOIRQ_SYSTEM_SLEEP_PM_OPS()
-that actually rely on the old behavior and changing the definition
-to be the same as NOIRQ_SYSTEM_SLEEP_PM_OPS. I should get back
-to that series and actually send out patches towards removing
-the deprecated helpers.
-
-      Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
