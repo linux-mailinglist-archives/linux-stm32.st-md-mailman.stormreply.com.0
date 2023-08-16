@@ -2,55 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950ED77E5F3
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 18:04:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 198F577ED6F
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Aug 2023 00:53:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4846BC6B45F;
-	Wed, 16 Aug 2023 16:04:42 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C310CC6B461;
+	Wed, 16 Aug 2023 22:53:48 +0000 (UTC)
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
+ [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1DDEC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78643C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 16:04:40 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A568A65BD4;
- Wed, 16 Aug 2023 16:04:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90265C433C8;
- Wed, 16 Aug 2023 16:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692201879;
- bh=4Zp3gWJ/UNXl5LmVpCbTdj3eqr5kWiHHc7k0ReSn3hQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OdpNHr+CytMtoJpZeiAl2Xzi7+pDId7Xfjb/3bZi8Pk+XWouoXSg9a0POUmnKK8gK
- OcEephfmv973Ybjmgpmuw41k/dYlLPEoZBlRChm34EsmWn2GrifjY+cu6oGNAcj2iL
- yvl1HfXQFX1oVYxsFaFsda2FVI4l+03j9ERhPGMus+ri/E5ah7C1JLAadr/LTYE6NK
- r09mWMjaoFOrWOKTgJGMpmiRDwOzOIdg4JCkytUL61ndvuQYLeRJrJZXIYOIuBZw7T
- ew5tURaBN7HSkAWt7eFw8H8tSWC+0A3uKowil81GNaAOWA5a0ytyeF5GaWTP/fZZyA
- bVnJ+wQ04434g==
-Date: Wed, 16 Aug 2023 23:52:53 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-Message-ID: <ZNzw1cqmGQaKpfGi@xhacker>
-References: <20230809165007.1439-1-jszhang@kernel.org>
- <20230809165007.1439-7-jszhang@kernel.org>
- <a12b6d39-0e26-7bdc-4207-c767342ebcf6@foss.st.com>
+ Wed, 16 Aug 2023 22:53:47 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id E13431BF204;
+ Wed, 16 Aug 2023 22:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1692226427;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZkA52x5JxaZ+AT2nw9BymX9U93LFxgF/xY18z1ou/7o=;
+ b=YP8Gbc4+kQnxNs/whubTSuO1BfjExnUHrt8H2hCwLvPv9dpg9ZhsqVWSZg9pu+n6thlHfC
+ jAtf/oATcAtVkDUFPxab4Swp5mACCMjPowQsKN8kjYWkaOjm8HB+mug/I242fQ+heDqnNE
+ oavPMFXXBOWJVzGA0nlDWXTXUptkcYSzvUxpaoEdYugQXaOLn6aE+m66AshC5qZU95uZh8
+ 4Xq+/xUf1tu9e/WkvI7uSJipKsmPsYn/hXQ0lbW3zc+ZJZTqWsCe530SB7PgTZo9o4f0Hs
+ EjMgpF3HRgDS8XZIXCOLgui6gwdUTJmfUXhwFVFvq8kZA7ZConmyv7BORBWtbg==
+Date: Thu, 17 Aug 2023 00:53:44 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: a.zummo@towertech.it, Nathan Chancellor <nathan@kernel.org>
+Message-ID: <169222639035.110507.11805270756093172176.b4-ty@bootlin.com>
+References: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a12b6d39-0e26-7bdc-4207-c767342ebcf6@foss.st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+In-Reply-To: <20230815-rtc-stm32-unused-pm-funcs-v1-1-82eb8e02d903@kernel.org>
+X-GND-Sasl: alexandre.belloni@bootlin.com
+Cc: linux-rtc@vger.kernel.org, arnd@arndb.de, patches@lists.linux.dev,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 06/10] net: stmmac: xgmac:
- support per-channel irq
+Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Use
+	NOIRQ_SYSTEM_SLEEP_PM_OPS()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,88 +57,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 10, 2023 at 04:52:01PM +0200, Alexandre TORGUE wrote:
-> On 8/9/23 18:50, Jisheng Zhang wrote:
-> > The IP supports per channel interrupt, add support for this usage case.
-> > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> >   .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 ++
-> >   .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 33 +++++++++++--------
-> >   2 files changed, 22 insertions(+), 13 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > index 81cbb13a101d..12e1228ccf2a 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > @@ -327,6 +327,8 @@
-> >   /* DMA Registers */
-> >   #define XGMAC_DMA_MODE			0x00003000
-> > +#define XGMAC_INTM			GENMASK(13, 12)
-> > +#define XGMAC_INTM_MODE1		0x1
-> >   #define XGMAC_SWR			BIT(0)
-> >   #define XGMAC_DMA_SYSBUS_MODE		0x00003004
-> >   #define XGMAC_WR_OSR_LMT		GENMASK(29, 24)
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > index b5ba4e0cca55..ef25af92d6cc 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> > @@ -31,6 +31,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
-> >   		value |= XGMAC_EAME;
-> >   	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
-> > +
-> > +	if (dma_cfg->perch_irq_en) {
-> > +		value = readl(ioaddr + XGMAC_DMA_MODE);
-> > +		value &= ~XGMAC_INTM;
-> > +		value |= FIELD_PREP(XGMAC_INTM, XGMAC_INTM_MODE1);
-> > +		writel(value, ioaddr + XGMAC_DMA_MODE);
-> > +	}
-> >   }
-> >   static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
-> > @@ -365,20 +372,20 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
-> >   	}
-> >   	/* TX/RX NORMAL interrupts */
-> > -	if (likely(intr_status & XGMAC_NIS)) {
+
+On Tue, 15 Aug 2023 15:16:41 -0700, Nathan Chancellor wrote:
+> After the switch to SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() and a subsequent
+> fix, stm32_rtc_{suspend,resume}() are unused when CONFIG_PM_SLEEP is not
+> set because SET_NOIRQ_SYSTEM_SLEEP_PM_OPS() is a no-op in that
+> configuration:
 > 
-> No longer need to check NIS bit ?
-
-Hi Alexandre,
-
-NIS is RI | TI | TBU, since we have checked these three
-bits we can ignore NIS. And dwmac4 behaves similarly.
-
-Thanks
-
+>   drivers/rtc/rtc-stm32.c:904:12: error: 'stm32_rtc_resume' defined but not used [-Werror=unused-function]
+>     904 | static int stm32_rtc_resume(struct device *dev)
+>         |            ^~~~~~~~~~~~~~~~
+>   drivers/rtc/rtc-stm32.c:894:12: error: 'stm32_rtc_suspend' defined but not used [-Werror=unused-function]
+>     894 | static int stm32_rtc_suspend(struct device *dev)
+>         |            ^~~~~~~~~~~~~~~~~
+>   cc1: all warnings being treated as errors
 > 
-> > -		if (likely(intr_status & XGMAC_RI)) {
-> > -			u64_stats_update_begin(&rx_q->rxq_stats.syncp);
-> > -			rx_q->rxq_stats.rx_normal_irq_n++;
-> > -			u64_stats_update_end(&rx_q->rxq_stats.syncp);
-> > -			ret |= handle_rx;
-> > -		}
-> > -		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
-> > -			u64_stats_update_begin(&tx_q->txq_stats.syncp);
-> > -			tx_q->txq_stats.tx_normal_irq_n++;
-> > -			u64_stats_update_end(&tx_q->txq_stats.syncp);
-> > -			ret |= handle_tx;
-> > -		}
-> > +	if (likely(intr_status & XGMAC_RI)) {
-> > +		u64_stats_update_begin(&rx_q->rxq_stats.syncp);
-> > +		rx_q->rxq_stats.rx_normal_irq_n++;
-> > +		u64_stats_update_end(&rx_q->rxq_stats.syncp);
-> > +		ret |= handle_rx;
-> > +	}
-> > +	if (likely(intr_status & XGMAC_TI)) {
-> > +		u64_stats_update_begin(&tx_q->txq_stats.syncp);
-> > +		tx_q->txq_stats.tx_normal_irq_n++;
-> > +		u64_stats_update_end(&tx_q->txq_stats.syncp);
-> > +		ret |= handle_tx;
-> >   	}
-> > +	if (unlikely(intr_status & XGMAC_TBU))
-> > +		ret |= handle_tx;
-> >   	/* Clear interrupts */
-> >   	writel(intr_en & intr_status, ioaddr + XGMAC_DMA_CH_STATUS(chan));
-> 
+> [...]
+
+Applied, thanks!
+
+[1/1] rtc: stm32: Use NOIRQ_SYSTEM_SLEEP_PM_OPS()
+      commit: 2cf2a1acc6ebdffc6363de9156db8737f33c1803
+
+Best regards,
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
