@@ -2,83 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20C1577E237
-	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 15:10:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8735277E259
+	for <lists+linux-stm32@lfdr.de>; Wed, 16 Aug 2023 15:17:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7B7FC6B45F;
-	Wed, 16 Aug 2023 13:10:43 +0000 (UTC)
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B8B1C6B45F;
+	Wed, 16 Aug 2023 13:17:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35527C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9B8BC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 16 Aug 2023 13:10:43 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 9A3193200921;
- Wed, 16 Aug 2023 09:10:40 -0400 (EDT)
-Received: from imap51 ([10.202.2.101])
- by compute6.internal (MEProxy); Wed, 16 Aug 2023 09:10:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm3; t=
- 1692191440; x=1692277840; bh=dbk6un3F9NnxFuDCsKeUUKbwa0Jf99CB0Bc
- mOR3Wn+0=; b=CLEqak0tE68MU7X604tFBhFvR3ckdz9EVSqebZDPM4412w5LT32
- v39CH8OHGm1G46dZFDLtCVNJDg9Iqb/lXNC6YIZc4qKv8YuF1ocRjytH43SYOlVO
- x5K8Ianu6vf9dVHikV7j2zQk3cTu4+gbTWDPgeVXWrfUTJHcbzA4hFVIqtdFcGbQ
- n9WvYCZsLJDF8OpxjZp2DY+RdN1QHlHy58tqLrXukT4KbHRV7Zj8Kwul8QOuqHLW
- sNMOPFbLMYflBBiG6gG5XfKDOtS+lJ51zu4raPz7gho3HxC3QXB8hz/Dv8QBeYOF
- n+cL+LFUtuKWP/8N9W1jaf7ZSeXOhzbvYNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
- 1692191440; x=1692277840; bh=dbk6un3F9NnxFuDCsKeUUKbwa0Jf99CB0Bc
- mOR3Wn+0=; b=Ei+4V9vSBYhEDhIyw2K+eQBiq8yLHWNbg0Vyqb03n0nh9NiUtmu
- 3YXh7IzxYKbFzhgwBkpfqkfaBn2/PWQHNBd9YG3zRC2Wd0qbmB/zYqfJg40il6YT
- sZJSzGVvsSV1jCBNQBavIUi9+tJAkjlT8Z3y6B50ichQEjlLmqz50klHvppwLjcZ
- IS3ZNrKwYlE87Pk+40xA4ylWSTiomicW37jPfGqtBGmMLIGwx1UFegnYrhpgFM4s
- 1m7zhytJb11/eLsSRxCNEj9MECsLhpz28mQ+MG8d7156A1ot/viEXUM8HM0uCLJU
- sk9yjgzQNxYi8T58q9L99YOk1z4EZV4DMhQ==
-X-ME-Sender: <xms:z8rcZGMqhiJVQkL9IjXfwu6mnuORyhH4MOQNJ6tTLpHgsNL0hCWNjg>
- <xme:z8rcZE8ab3LP9R4_kopyEp8YI4FkZEnFsfnW-PvI1gzmW1vDbYUguUdsM1a8-8hc2
- RM2tIW0-QftF3fdc74>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedviedruddtledgiedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvfevufgtgfesthhqredtreerjeenucfhrhhomhepfdet
- rhhnugcuuegvrhhgmhgrnhhnfdcuoegrrhhnugesrghrnhgusgdruggvqeenucggtffrrg
- htthgvrhhnpeegfeejhedvledvffeijeeijeeivddvhfeliedvleevheejleetgedukedt
- gfejveenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grrhhnugesrghrnhgusgdruggv
-X-ME-Proxy: <xmx:z8rcZNSFJUXm7tJqf7pd6zJ-EhpqhX-9I0DqEBem-u93B8xOQvN4pw>
- <xmx:z8rcZGvfiaO3tkaZnFUGFgyt5KmPTxXcwNlIy9lNYpYAp-jGUHg73A>
- <xmx:z8rcZOcGVn25vovTgrgWsZD4t0r0gdxoKcMNA6RoCfJAaeh4ry4OGg>
- <xmx:0MrcZEvWn2oPgo6BgojWIa1ndLwZb8v7cKa1MK4BQTXiGxqNB7S0VA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 7A443B60089; Wed, 16 Aug 2023 09:10:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.9.0-alpha0-624-g7714e4406d-fm-20230801.001-g7714e440
-Mime-Version: 1.0
-Message-Id: <500a73ea-98e9-4b85-a34f-88a7bd98550d@app.fastmail.com>
-In-Reply-To: <20230816113326.1468435-1-geert@linux-m68k.org>
-References: <20230816113326.1468435-1-geert@linux-m68k.org>
-Date: Wed, 16 Aug 2023 15:10:19 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "Alessandro Zummo" <a.zummo@towertech.it>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Valentin Caron" <valentin.caron@foss.st.com>
-Cc: linux-rtc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] rtc: stm32: Use
-	NOIRQ_SYSTEM_SLEEP_PM_OPS()
+ Wed, 16 Aug 2023 13:17:01 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37G9HZ92006710; Wed, 16 Aug 2023 15:16:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=jsHo/ihgFYCOIGCHbTa9POhm1lQRQXAOCQAEy92C/gc=; b=nm
+ l1ZymMVeYMLFF8iXGrVjIRUYzEERJsXsr/9dY6v2bZt5qJUt7xA4jhdwbAI3zRaQ
+ TwwJVRay3dXZpjkSFhBmT1stu2/jmQh+FYoPC8h3YaPet69KjUEWHw782WXzi/Mx
+ aax1SQqzibX5mRqeeqvngqX/kEU/qeHC1kbBlzfHTqVIvhIxZyUvBEIrCRmhglu1
+ c9Isj47+pYrtOhO7a9py8ZpUuFR+s8Q4G9mmisCfwPv+fXIKUlgvLtV3WTDLT0FR
+ HJMCZFKt+2rAsx7fI1tS2cwWyKTQXfqxADfaC0LLcMhFn18VQw/6IyfcR4uJbXLv
+ 6VG9j3eI7VsUC9f0ZPAA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sguptsbre-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 16 Aug 2023 15:16:35 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 92DA310005D;
+ Wed, 16 Aug 2023 15:16:33 +0200 (CEST)
+Received: from Webmail-eu.st.com (eqndag1node4.st.com [10.75.129.133])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5B96C23D3F6;
+ Wed, 16 Aug 2023 15:16:33 +0200 (CEST)
+Received: from [10.201.22.206] (10.201.22.206) by EQNDAG1NODE4.st.com
+ (10.75.129.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Wed, 16 Aug
+ 2023 15:16:32 +0200
+Message-ID: <f93fd404-2c66-cde0-ea9c-06390db015b8@foss.st.com>
+Date: Wed, 16 Aug 2023 15:16:31 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Arnd Bergmann <arnd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230724195704.2432382-1-arnd@kernel.org>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Organization: STMicroelectronics
+In-Reply-To: <20230724195704.2432382-1-arnd@kernel.org>
+X-Originating-IP: [10.201.22.206]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To EQNDAG1NODE4.st.com
+ (10.75.129.133)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-16_12,2023-08-15_02,2023-05-22_02
+Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
+ kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>, Randy
+ Dunlap <rdunlap@infradead.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Dan
+ Carpenter <dan.carpenter@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: fix incorrect optional
+	pointers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,28 +81,94 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBBdWcgMTYsIDIwMjMsIGF0IDEzOjMzLCBHZWVydCBVeXR0ZXJob2V2ZW4gd3JvdGU6
-Cj4gSWYgQ09ORklHX1BNX1NMRUVQPW4gKGUuZy4gbTY4ay9hbGxtb2Rjb25maWcpOgo+Cj4gICAg
-IGRyaXZlcnMvcnRjL3J0Yy1zdG0zMi5jOjkwNDoxMjogZXJyb3I6IOKAmHN0bTMyX3J0Y19yZXN1
-bWXigJkgZGVmaW5lZCAKPiBidXQgbm90IHVzZWQgWy1XZXJyb3I9dW51c2VkLWZ1bmN0aW9uXQo+
-ICAgICAgIDkwNCB8IHN0YXRpYyBpbnQgc3RtMzJfcnRjX3Jlc3VtZShzdHJ1Y3QgZGV2aWNlICpk
-ZXYpCj4gCSAgfCAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn4KPiAgICAgZHJpdmVycy9ydGMv
-cnRjLXN0bTMyLmM6ODk0OjEyOiBlcnJvcjog4oCYc3RtMzJfcnRjX3N1c3BlbmTigJkgZGVmaW5l
-ZCAKPiBidXQgbm90IHVzZWQgWy1XZXJyb3I9dW51c2VkLWZ1bmN0aW9uXQo+ICAgICAgIDg5NCB8
-IHN0YXRpYyBpbnQgc3RtMzJfcnRjX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+IAkgIHwg
-ICAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fgo+Cj4gSW5kZWVkLCB0aGUgcHJldmlvdXMgY2hh
-bmdlIG1peGVkIHVwIHRoZSBzZW1hbnRpY3MgYmV0d2Vlbgo+IFNFVF9OT0lSUV9TWVNURU1fU0xF
-RVBfUE1fT1BTKCkgYW5kIE5PSVJRX1NZU1RFTV9TTEVFUF9QTV9PUFMoKS4KPiBGaXggdGhpcyBi
-eSB1c2luZyB0aGUgbW9kZXJuIE5PSVJRX1NZU1RFTV9TTEVFUF9QTV9PUFMoKSBpbnN0ZWFkLgo+
-Cj4gUmVwb3J0ZWQtYnk6IG5vcmVwbHlAZWxsZXJtYW4uaWQuYXUKPiBGaXhlczogYTY5YzYxMGUx
-M2UyYjJkZSAoInJ0Yzogc3RtMzI6IHJlbW92ZSBpbmNvcnJlY3QgI2lmZGVmIGNoZWNrIikKPiBT
-aWduZWQtb2ZmLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0QGxpbnV4LW02OGsub3JnPgoK
-UmV2aWV3ZWQtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello Arnd,
+
+On 7/24/23 21:56, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> Compile-testing without CONFIG_OF shows that the of_match_ptr() macro
+> was used incorrectly here:
+> 
+> drivers/remoteproc/stm32_rproc.c:662:34: warning: unused variable 'stm32_rproc_match' [-Wunused-const-variable]
+> 
+> As in almost every driver, the solution is simply to remove the
+> use of this macro. The same thing happened with the deprecated
+> SIMPLE_DEV_PM_OPS(), but the corresponding warning was already shut
+> up with __maybe_unused annotations, so fix those as well by using the
+> correct DEFINE_SIMPLE_DEV_PM_OPS() macros and removing the extraneous
+> __maybe_unused modifiers. For completeness, also add a pm_ptr() to let
+> the PM ops be eliminated completely when CONFIG_PM is turned off.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202307242300.ia82qBTp-lkp@intel.com
+> Fixes: 03bd158e1535e ("remoteproc: stm32: use correct format strings on 64-bit")
+> Fixes: 410119ee29b6c ("remoteproc: stm32: wakeup the system by wdg irq")
+> Fixes: 13140de09cc2d ("remoteproc: stm32: add an ST stm32_rproc driver")
+
+The checkpatch complains here as you put 13 char instead of 12 for the sha1.
+I don't know if this can generate issue for scripts...
+
+w or w/o the fix:
+
+acked-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+
+Thanks!
+Arnaud
+
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index 98234b44f0389..9d9b13530f78a 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -921,7 +921,7 @@ static void stm32_rproc_remove(struct platform_device *pdev)
+>  	rproc_free(rproc);
+>  }
+>  
+> -static int __maybe_unused stm32_rproc_suspend(struct device *dev)
+> +static int stm32_rproc_suspend(struct device *dev)
+>  {
+>  	struct rproc *rproc = dev_get_drvdata(dev);
+>  	struct stm32_rproc *ddata = rproc->priv;
+> @@ -932,7 +932,7 @@ static int __maybe_unused stm32_rproc_suspend(struct device *dev)
+>  	return 0;
+>  }
+>  
+> -static int __maybe_unused stm32_rproc_resume(struct device *dev)
+> +static int stm32_rproc_resume(struct device *dev)
+>  {
+>  	struct rproc *rproc = dev_get_drvdata(dev);
+>  	struct stm32_rproc *ddata = rproc->priv;
+> @@ -943,16 +943,16 @@ static int __maybe_unused stm32_rproc_resume(struct device *dev)
+>  	return 0;
+>  }
+>  
+> -static SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
+> -			 stm32_rproc_suspend, stm32_rproc_resume);
+> +static DEFINE_SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
+> +				stm32_rproc_suspend, stm32_rproc_resume);
+>  
+>  static struct platform_driver stm32_rproc_driver = {
+>  	.probe = stm32_rproc_probe,
+>  	.remove_new = stm32_rproc_remove,
+>  	.driver = {
+>  		.name = "stm32-rproc",
+> -		.pm = &stm32_rproc_pm_ops,
+> -		.of_match_table = of_match_ptr(stm32_rproc_match),
+> +		.pm = pm_ptr(&stm32_rproc_pm_ops),
+> +		.of_match_table = stm32_rproc_match,
+>  	},
+>  };
+>  module_platform_driver(stm32_rproc_driver);
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
