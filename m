@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCFF4784710
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122A2784711
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63109C6C836;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6811C6C839;
 	Tue, 22 Aug 2023 16:25:01 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E298C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F0F9C6B461
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 02:45:30 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.56])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RR8Td4ChWzrSX8;
- Thu, 17 Aug 2023 10:44:05 +0800 (CST)
+ Thu, 17 Aug 2023 02:45:31 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RR8Sp01SMzVkS3;
+ Thu, 17 Aug 2023 10:43:21 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500012.china.huawei.com
  (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Thu, 17 Aug
- 2023 10:45:26 +0800
+ 2023 10:45:27 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <michal.simek@amd.com>, <vz@mleia.com>, <matthias.bgg@gmail.com>,
@@ -27,8 +27,8 @@ To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <alexandre.torgue@foss.st.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
  <samuel@sholland.org>, <stefan@agner.ch>, <tudor.ambarus@linaro.org>,
  <pratyush@kernel.org>, <michael@walle.cc>, <frank.li@vivo.com>
-Date: Thu, 17 Aug 2023 10:44:59 +0800
-Message-ID: <20230817024509.3951629-2-lizetao1@huawei.com>
+Date: Thu, 17 Aug 2023 10:45:00 +0800
+Message-ID: <20230817024509.3951629-3-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817024509.3951629-1-lizetao1@huawei.com>
 References: <20230817024509.3951629-1-lizetao1@huawei.com>
@@ -46,7 +46,7 @@ Cc: robh@kernel.org, paul@crapouillou.net, dmitry.torokhov@gmail.com,
  linux-mediatek@lists.infradead.org, jinpu.wang@ionos.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  heiko@sntech.de
-Subject: [Linux-stm32] [PATCH -next 01/11] mtd: spear_smi: Use helper
+Subject: [Linux-stm32] [PATCH -next 02/11] mtd: rawnand: arasan: Use helper
 	function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,62 +74,74 @@ handling path.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/mtd/devices/spear_smi.c | 15 +++------------
- 1 file changed, 3 insertions(+), 12 deletions(-)
+ drivers/mtd/nand/raw/arasan-nand-controller.c | 29 ++++---------------
+ 1 file changed, 5 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/mtd/devices/spear_smi.c b/drivers/mtd/devices/spear_smi.c
-index 93bca5225116..0a35e5236ae5 100644
---- a/drivers/mtd/devices/spear_smi.c
-+++ b/drivers/mtd/devices/spear_smi.c
-@@ -993,21 +993,17 @@ static int spear_smi_probe(struct platform_device *pdev)
- 		dev->num_flashes = MAX_NUM_FLASH_CHIP;
- 	}
+diff --git a/drivers/mtd/nand/raw/arasan-nand-controller.c b/drivers/mtd/nand/raw/arasan-nand-controller.c
+index 906eef70cb6d..4621ec549cc7 100644
+--- a/drivers/mtd/nand/raw/arasan-nand-controller.c
++++ b/drivers/mtd/nand/raw/arasan-nand-controller.c
+@@ -1440,45 +1440,29 @@ static int anfc_probe(struct platform_device *pdev)
  
--	dev->clk = devm_clk_get(&pdev->dev, NULL);
-+	dev->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(dev->clk)) {
- 		ret = PTR_ERR(dev->clk);
- 		goto err;
- 	}
+ 	anfc_reset(nfc);
  
--	ret = clk_prepare_enable(dev->clk);
+-	nfc->controller_clk = devm_clk_get(&pdev->dev, "controller");
++	nfc->controller_clk = devm_clk_get_enabled(&pdev->dev, "controller");
+ 	if (IS_ERR(nfc->controller_clk))
+ 		return PTR_ERR(nfc->controller_clk);
+ 
+-	nfc->bus_clk = devm_clk_get(&pdev->dev, "bus");
++	nfc->bus_clk = devm_clk_get_enabled(&pdev->dev, "bus");
+ 	if (IS_ERR(nfc->bus_clk))
+ 		return PTR_ERR(nfc->bus_clk);
+ 
+-	ret = clk_prepare_enable(nfc->controller_clk);
 -	if (ret)
--		goto err;
+-		return ret;
 -
- 	ret = devm_request_irq(&pdev->dev, irq, spear_smi_int_handler, 0,
- 			       pdev->name, dev);
- 	if (ret) {
- 		dev_err(&dev->pdev->dev, "SMI IRQ allocation failed\n");
--		goto err_irq;
-+		goto err;
- 	}
+-	ret = clk_prepare_enable(nfc->bus_clk);
+-	if (ret)
+-		goto disable_controller_clk;
+-
+ 	ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
+ 	if (ret)
+-		goto disable_bus_clk;
++		return ret;
  
- 	mutex_init(&dev->lock);
-@@ -1020,14 +1016,11 @@ static int spear_smi_probe(struct platform_device *pdev)
- 		ret = spear_smi_setup_banks(pdev, i, pdata->np[i]);
- 		if (ret) {
- 			dev_err(&dev->pdev->dev, "bank setup failed\n");
--			goto err_irq;
-+			goto err;
- 		}
- 	}
+ 	ret = anfc_parse_cs(nfc);
+ 	if (ret)
+-		goto disable_bus_clk;
++		return ret;
+ 
+ 	ret = anfc_chips_init(nfc);
+ 	if (ret)
+-		goto disable_bus_clk;
++		return ret;
+ 
+ 	platform_set_drvdata(pdev, nfc);
  
  	return 0;
 -
--err_irq:
--	clk_disable_unprepare(dev->clk);
- err:
- 	return ret;
- }
-@@ -1056,8 +1049,6 @@ static int spear_smi_remove(struct platform_device *pdev)
- 		WARN_ON(mtd_device_unregister(&flash->mtd));
- 	}
- 
--	clk_disable_unprepare(dev->clk);
+-disable_bus_clk:
+-	clk_disable_unprepare(nfc->bus_clk);
 -
- 	return 0;
+-disable_controller_clk:
+-	clk_disable_unprepare(nfc->controller_clk);
+-
+-	return ret;
  }
  
+ static void anfc_remove(struct platform_device *pdev)
+@@ -1486,9 +1470,6 @@ static void anfc_remove(struct platform_device *pdev)
+ 	struct arasan_nfc *nfc = platform_get_drvdata(pdev);
+ 
+ 	anfc_chips_cleanup(nfc);
+-
+-	clk_disable_unprepare(nfc->bus_clk);
+-	clk_disable_unprepare(nfc->controller_clk);
+ }
+ 
+ static const struct of_device_id anfc_ids[] = {
 -- 
 2.34.1
 
