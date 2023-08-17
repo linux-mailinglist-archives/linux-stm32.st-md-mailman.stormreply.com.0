@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E9778470F
+	by mail.lfdr.de (Postfix) with ESMTPS id CCFF4784710
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CC1BC6C832;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63109C6C836;
 	Tue, 22 Aug 2023 16:25:01 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64661C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E298C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 02:45:29 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.53])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RR8R63hSzzNn0t;
- Thu, 17 Aug 2023 10:41:54 +0800 (CST)
+ Thu, 17 Aug 2023 02:45:30 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RR8Td4ChWzrSX8;
+ Thu, 17 Aug 2023 10:44:05 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500012.china.huawei.com
  (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Thu, 17 Aug
- 2023 10:45:25 +0800
+ 2023 10:45:26 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <michal.simek@amd.com>, <vz@mleia.com>, <matthias.bgg@gmail.com>,
@@ -27,9 +27,11 @@ To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <alexandre.torgue@foss.st.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
  <samuel@sholland.org>, <stefan@agner.ch>, <tudor.ambarus@linaro.org>,
  <pratyush@kernel.org>, <michael@walle.cc>, <frank.li@vivo.com>
-Date: Thu, 17 Aug 2023 10:44:58 +0800
-Message-ID: <20230817024509.3951629-1-lizetao1@huawei.com>
+Date: Thu, 17 Aug 2023 10:44:59 +0800
+Message-ID: <20230817024509.3951629-2-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230817024509.3951629-1-lizetao1@huawei.com>
+References: <20230817024509.3951629-1-lizetao1@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.90.53.73]
 X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
@@ -44,8 +46,8 @@ Cc: robh@kernel.org, paul@crapouillou.net, dmitry.torokhov@gmail.com,
  linux-mediatek@lists.infradead.org, jinpu.wang@ionos.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  heiko@sntech.de
-Subject: [Linux-stm32] [PATCH -next 00/11] mtd: Use devm_clk_get_enabled()
-	to simplify the drivers.
+Subject: [Linux-stm32] [PATCH -next 01/11] mtd: spear_smi: Use helper
+	function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,43 +64,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
-and enabled clocks") provides a new helper function for prepared and
-enabled clocks when a driver keeps a clock prepared (or enabled) during
-the whole lifetime of the driver. So where drivers get clocks and enable
-them immediately, it can be combined into a single function
-devm_clk_get_*enabled(). Moreover, the unprepare and disable function
-has been registered to devm_clk_state, and before devm_clk_state is
-released, the clocks will be unprepareed and disable, so it is unnecessary
-to unprepare and disable clock explicitly when remove drivers or in the
-error handling path.
+After the commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for
+prepared and enabled clocks"), it can replace the pair of functions,
+devm_clk_get() and clk_prepare_enable() with a single helper function
+devm_clk_get_enabled(). Moreover, the driver will keeps a clock prepared
+(or enabled) during the whole lifetime of the driver, it is unnecessary to
+unprepare and disable clock explicitly when remove driver or in the error
+handling path.
 
-Li Zetao (11):
-  mtd: spear_smi: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: arasan: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: fsmc: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: intel: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: lpc32xx_slc: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: mpc5121: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: mtk: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: stm32_fmc2: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: sunxi: Use helper function devm_clk_get_enabled()
-  mtd: rawnand: vf610_nfc: Use helper function devm_clk_get_enabled()
-  mtd: spi-nor: Use helper function devm_clk_get_enabled()
+Signed-off-by: Li Zetao <lizetao1@huawei.com>
+---
+ drivers/mtd/devices/spear_smi.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
- drivers/mtd/devices/spear_smi.c               | 15 ++-------
- drivers/mtd/nand/raw/arasan-nand-controller.c | 29 +++-------------
- drivers/mtd/nand/raw/fsmc_nand.c              |  8 +----
- drivers/mtd/nand/raw/intel-nand-controller.c  | 15 ++-------
- drivers/mtd/nand/raw/lpc32xx_slc.c            | 12 ++-----
- drivers/mtd/nand/raw/mpc5121_nfc.c            | 11 ++-----
- drivers/mtd/nand/raw/mtk_nand.c               | 20 ++++-------
- drivers/mtd/nand/raw/stm32_fmc2_nand.c        | 17 +++-------
- drivers/mtd/nand/raw/sunxi_nand.c             | 29 ++++------------
- drivers/mtd/nand/raw/vf610_nfc.c              | 29 +++++-----------
- drivers/mtd/spi-nor/controllers/nxp-spifi.c   | 33 ++++---------------
- 11 files changed, 48 insertions(+), 170 deletions(-)
-
+diff --git a/drivers/mtd/devices/spear_smi.c b/drivers/mtd/devices/spear_smi.c
+index 93bca5225116..0a35e5236ae5 100644
+--- a/drivers/mtd/devices/spear_smi.c
++++ b/drivers/mtd/devices/spear_smi.c
+@@ -993,21 +993,17 @@ static int spear_smi_probe(struct platform_device *pdev)
+ 		dev->num_flashes = MAX_NUM_FLASH_CHIP;
+ 	}
+ 
+-	dev->clk = devm_clk_get(&pdev->dev, NULL);
++	dev->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(dev->clk)) {
+ 		ret = PTR_ERR(dev->clk);
+ 		goto err;
+ 	}
+ 
+-	ret = clk_prepare_enable(dev->clk);
+-	if (ret)
+-		goto err;
+-
+ 	ret = devm_request_irq(&pdev->dev, irq, spear_smi_int_handler, 0,
+ 			       pdev->name, dev);
+ 	if (ret) {
+ 		dev_err(&dev->pdev->dev, "SMI IRQ allocation failed\n");
+-		goto err_irq;
++		goto err;
+ 	}
+ 
+ 	mutex_init(&dev->lock);
+@@ -1020,14 +1016,11 @@ static int spear_smi_probe(struct platform_device *pdev)
+ 		ret = spear_smi_setup_banks(pdev, i, pdata->np[i]);
+ 		if (ret) {
+ 			dev_err(&dev->pdev->dev, "bank setup failed\n");
+-			goto err_irq;
++			goto err;
+ 		}
+ 	}
+ 
+ 	return 0;
+-
+-err_irq:
+-	clk_disable_unprepare(dev->clk);
+ err:
+ 	return ret;
+ }
+@@ -1056,8 +1049,6 @@ static int spear_smi_remove(struct platform_device *pdev)
+ 		WARN_ON(mtd_device_unregister(&flash->mtd));
+ 	}
+ 
+-	clk_disable_unprepare(dev->clk);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
