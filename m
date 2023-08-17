@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D801780204
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EED6780203
 	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 01:59:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B63FC6C831;
-	Thu, 17 Aug 2023 23:59:10 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3319C6C82E;
+	Thu, 17 Aug 2023 23:59:09 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70BF9C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6928C6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 23:59:09 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-686be3cbea0so1070487b3a.0
+ Thu, 17 Aug 2023 23:59:08 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1bee82fad0fso2847675ad.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 16:59:09 -0700 (PDT)
+ Thu, 17 Aug 2023 16:59:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1692316748; x=1692921548;
+ d=chromium.org; s=google; t=1692316747; x=1692921547;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=V0kK2+3d+yiGwIKod7tAy7TFaHWZ7E5+177fueAct/8=;
- b=hsCjUwllgjqgnFtDBr302edLntwmqFMb2tjxSM0F2KLywUR1T2qWiokFqCgsixWScn
- vr+ifD5w6Aj4JONDrH0M5DZoCakUeGfmHHiWsWaup/P9GeC1F9prcku9j8zWYsPcEqe0
- 0BL4rkzR3ZXfDE82c9HgH/7iPg1ZBtp/rPUaE=
+ bh=GBig4ojju35UeR5nYJdcskzCIyszltPP8aM7eZxhMAc=;
+ b=CX+q3KLcZFLRq0HGaHxCoLa5L4myxQlB3+uLkExLgTIU/M13dAR+tuImGaMRsXlnIX
+ 5EiwzNERqO941u1ZgpeILGDAjF+aAXTGTWftiTYrIx49flrdRuPcBwQo92heAoso26aV
+ L2seXLXD2MlKm/ksaN6j4O9A14UF3zqIGgNCc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692316748; x=1692921548;
+ d=1e100.net; s=20221208; t=1692316747; x=1692921547;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=V0kK2+3d+yiGwIKod7tAy7TFaHWZ7E5+177fueAct/8=;
- b=RIf02eK3tmesF3w6AgG3Q8agBuWQ8Ubn6lIXpiuIg0WgeRizz4T2urZUdu0SC/shSa
- fu+UeZSrLMiM4HP6EKAmQ3ZJmz1QqBNBcguv+RxBAD1Q0TI8Ega1/r+PuQ7uiNaW0VZj
- 1hOz4pdLCbBKf6DDS3njeA8GIBcz39gh6S+j7hmA3UgxtkMy/uFrSIPzxK0RqEgurNDR
- xUgJw8y1+nNHrzxz7Qo0OPxRs3sw9h9n4tGylHhZRbvvBrPS6InR5Ij1G5xL9gNBIm4Y
- h9J+j1QH7OI6ZyeFg/jSX8gx+6Q3n5Uyv/QgfKi9FG6gcHAc2Fr0cIt6YC8SYQrdAZfP
- ot1A==
-X-Gm-Message-State: AOJu0YyU6itWf13BH9HiyY+E4CV3VUD1NPObdgpoOSWM8yL4Eej6S1YW
- J9h7Sprrmqo5VFkDbgHhVF6H8Q==
-X-Google-Smtp-Source: AGHT+IH/IPZEu2hD4vXoHg+QeGyl/JNpbC5Ce8fholtE5OspKAUfjQ5VF5f7w3cDph9sQgTbEz2k+w==
-X-Received: by 2002:a05:6a00:138c:b0:688:79c6:1c13 with SMTP id
- t12-20020a056a00138c00b0068879c61c13mr1187966pfg.9.1692316747963; 
+ bh=GBig4ojju35UeR5nYJdcskzCIyszltPP8aM7eZxhMAc=;
+ b=AWr/qDu+UtOQqhAuBco6fP6/sOTsrorBeINGXLxqFHSH3tpJ6G7Vy0042O98sKvP+k
+ xJkH9p+JrCgSeeepnRY576zbdI0A2TxakGHEtAMi6+oojzOP69oC1ed1j+PZBnj0Prs/
+ 0O3IkNT/MPNIPRfp2/8qU1Kuj7MKX+DZcuOE5yBsj2vkHvxBPWMVicA9TntQLTp7zLmr
+ XFINkjDmtWCDQzMwvVMeicvuO2h/lY3FrwDKgebX+UmmgY/QdlCsMDW2oxhGJJXq/7l8
+ zvE+R8hseZzFRc1zJGstf3Pwu1i4P8Y3bc2jX+mcaadd/gGC6D8qyvZNOUq/38sWbVrl
+ P0/A==
+X-Gm-Message-State: AOJu0YytlSH/gDYz3D+Csg5jRpB6QvXxur7QGINSc2gw9fIY5fp4NwKW
+ nzWBabHlpC1s3GlW2CW1BnykZg==
+X-Google-Smtp-Source: AGHT+IFtTiKmPIDtGWpZKY6Src1ZWuKVRaDR2AR8ZYsjCDrDdceH4jjvLBuUX2egDZo9GWTtP8NFrw==
+X-Received: by 2002:a17:902:dacd:b0:1b8:adea:76d0 with SMTP id
+ q13-20020a170902dacd00b001b8adea76d0mr1012481plx.31.1692316747494; 
  Thu, 17 Aug 2023 16:59:07 -0700 (PDT)
 Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
  [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- b1-20020aa78701000000b0068895d26b79sm330575pfo.10.2023.08.17.16.59.01
+ u7-20020a170902e80700b001b9e9f191f2sm342824plg.15.2023.08.17.16.59.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 17 Aug 2023 16:59:03 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: Vinod Koul <vkoul@kernel.org>
-Date: Thu, 17 Aug 2023 16:58:44 -0700
-Message-Id: <20230817235859.49846-7-keescook@chromium.org>
+Date: Thu, 17 Aug 2023 16:58:45 -0700
+Message-Id: <20230817235859.49846-8-keescook@chromium.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817235428.never.111-kees@kernel.org>
 References: <20230817235428.never.111-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1277; i=keescook@chromium.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2230; i=keescook@chromium.org; 
  h=from:subject;
- bh=EQ7cpalnAKUyzLqTacn9WNqARa63ulJkEyu4D2Ryyyc=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRAitRrc5HSuDDp9nSRHlzoamdndhZaOduWN
- UM/7/lcEfqJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QAAKCRCJcvTf3G3A
- JqFGEACsptEBgA3lauCtB5TOKqtQKh3P+mbX/mtGO8a9W0CiYk5jSkW8FeW+uEEu9jqPlOe2zp6
- VSn60+wScZZEY+K3j1v/qMyWWXD45XjY50dVtFHtTJRPTWyVPBQ26JpXBlcUIxJWVXE+qEqu8xs
- nM9fAd0Q4raL9j6gTyl4Q/H57pFGmekGp6X011FxYjG06ztC8X1kYIpW+n5spozri+LKhexD5l+
- 7n6syLTt5CG3eI4MTbgFf8b9KsEIvIWoY1Xf5nTs2KenjD0o0oNK4KkAX788uTSFtpS3uXYjuXU
- cUTm2k9PIAJsA1uPnVdTPyJwq3oFeBvteGhQS+eNCYOjz7Q8uncrDTyrjgfhAx5cgVXDD9iXEPW
- 14ufmJkFuOH7MBsTRhtKaPqnoDu8zW+Cxh7oaKTqN3nGiXHq9Dx0kckpHyQNC+Tr/NsEfp+KGA7
- iZgUEQZJRnMlRXZUj7gHdrvhU2nXB4JCmDY2wDoJBkNJzMCKFpGtaCDFxsaS9VOyd8o6SdV+ek4
- gQxjEcG6VcYNhBec8cPzkPHJRX52CUyMWCs9+V/DOtst7ojlX1ZxoNbO+fFYC9vpV3qMFhsDshK
- xwSv51OKzq3KOFZdMPD0yf7xcDItQXPgtLzfS2NeB6hSlD07ZusYdvsF/hh2k9j9TYtPAgKyHl+
- /onf0nURDF25ejQ==
+ bh=xRJQQKdAwogb4vqWXbK3omVk8LQ2U1Kgbhap9AYkMvo=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRAxAkVjLsoroU7aJkr1WgWWzRBzbsR+tdxD
+ lgeTVdiQveJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QAAKCRCJcvTf3G3A
+ JspMD/9uCbBEkWVx4Whm0SjF91ZUEjFm+uw5va5kJYSQaUggli1PUAzEbtIfkqE0tHxpXylvHV6
+ MZAMbsTTMc4sB4m4xnYRc0EoTzuMdduuaXj7l/sncv7/LmFSoowcBNgOyqPORRYUM775TWDHeXO
+ KeoIqOfRBA1pU2p6SABeK4PvYr9w3rZRX+aZiNFriijmZlDDlbGfeq8v9uQ2Im17NvWmo78uSnB
+ OkH0/Si61oGt8YkSxwx3WwhmqB2o702deHwP3SlOa/ZeqfTijE2YZhDmMuKHYx7QeBfC/eMcUiR
+ Z5Ir99EHJYfiOQtN+yLXwoR+0SaqDwlthzf36cY91M4+RIxRUpoV7xLXmq2q4GCAdnuZf61znzs
+ M6Bidmh9xg6pqyHEGPynCNRRpn/UsrhseCWdJGYMQZLkXP2bP0VJzaHIlfivSURYMQVXc4KQwBd
+ DRji9b/iiSnnLi3fSIhaQxYXT5+Ps4Au0oZl5ksmYDaMky5nRGOgwaH8K/PsnaL2g5HvZnClItG
+ bdITH1ZZpfW22BCSxjF6WLtrNaQQQACl25/pjzcUllaIN1ntJsfEnFtqBBzeDv+cMihyO6Z99a5
+ Kmn4lAvlEhqg16rC1j3EkD7ZrTt+gPUQteXqDvYw1UUclntbSMql5Tik8DK4sYfnwMmbaR4qWIx
+ Q6tm80uQco8mfqw==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
@@ -99,8 +99,8 @@ Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Thierry Reding <thierry.reding@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 07/21] dmaengine: qcom: bam_dma: Annotate
-	struct bam_async_desc with __counted_by
+Subject: [Linux-stm32] [PATCH 08/21] dmaengine: sa11x0: Annotate struct
+	sa11x0_dma_desc with __counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,34 +123,64 @@ their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
 (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 functions).
 
-As found with Coccinelle[1], add __counted_by for struct bam_async_desc.
+As found with Coccinelle[1], add __counted_by for struct sa11x0_dma_desc.
+Additionally, since the element count member must be set before accessing
+the annotated flexible array member, move its initialization earlier.
 
 [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
 Cc: Vinod Koul <vkoul@kernel.org>
-Cc: Andy Gross <agross@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org
 Cc: dmaengine@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/dma/qcom/bam_dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/sa11x0-dma.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 4c3eb972039d..65b89bb7a56b 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -74,7 +74,7 @@ struct bam_async_desc {
- 	struct list_head desc_node;
- 	enum dma_transfer_direction dir;
- 	size_t length;
--	struct bam_desc_hw desc[];
-+	struct bam_desc_hw desc[] __counted_by(num_desc);
+diff --git a/drivers/dma/sa11x0-dma.c b/drivers/dma/sa11x0-dma.c
+index a29c13cae716..e5849622f198 100644
+--- a/drivers/dma/sa11x0-dma.c
++++ b/drivers/dma/sa11x0-dma.c
+@@ -78,7 +78,7 @@ struct sa11x0_dma_desc {
+ 	bool			cyclic;
+ 
+ 	unsigned		sglen;
+-	struct sa11x0_dma_sg	sg[];
++	struct sa11x0_dma_sg	sg[] __counted_by(sglen);
  };
  
- enum bam_reg {
+ struct sa11x0_dma_phy;
+@@ -558,6 +558,7 @@ static struct dma_async_tx_descriptor *sa11x0_dma_prep_slave_sg(
+ 		dev_dbg(chan->device->dev, "vchan %p: kzalloc failed\n", &c->vc);
+ 		return NULL;
+ 	}
++	txd->sglen = j;
+ 
+ 	j = 0;
+ 	for_each_sg(sg, sgent, sglen, i) {
+@@ -593,7 +594,6 @@ static struct dma_async_tx_descriptor *sa11x0_dma_prep_slave_sg(
+ 
+ 	txd->ddar = c->ddar;
+ 	txd->size = size;
+-	txd->sglen = j;
+ 
+ 	dev_dbg(chan->device->dev, "vchan %p: txd %p: size %zu nr %u\n",
+ 		&c->vc, &txd->vd, txd->size, txd->sglen);
+@@ -628,6 +628,7 @@ static struct dma_async_tx_descriptor *sa11x0_dma_prep_dma_cyclic(
+ 		dev_dbg(chan->device->dev, "vchan %p: kzalloc failed\n", &c->vc);
+ 		return NULL;
+ 	}
++	txd->sglen = sglen;
+ 
+ 	for (i = k = 0; i < size / period; i++) {
+ 		size_t tlen, len = period;
+@@ -653,7 +654,6 @@ static struct dma_async_tx_descriptor *sa11x0_dma_prep_dma_cyclic(
+ 
+ 	txd->ddar = c->ddar;
+ 	txd->size = size;
+-	txd->sglen = sglen;
+ 	txd->cyclic = 1;
+ 	txd->period = sgperiod;
+ 
 -- 
 2.34.1
 
