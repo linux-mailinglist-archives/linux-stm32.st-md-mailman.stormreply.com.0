@@ -2,59 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76FC5784743
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E54784744
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AFC5C6DD89;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4879BC6DD8C;
 	Tue, 22 Aug 2023 16:25:22 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BF0DC6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB074C6B461
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 08:38:05 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 361EE1C0009;
- Thu, 17 Aug 2023 08:37:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1692261484;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GFrTZexqLjQTWDNUsvnncrD9kb8WfaN/zu8FiMtEY4A=;
- b=lCDxw3lXC0rdW6d/sfAkKUVKB76hkI6rZgcTaNM6U7Qx6Izl1d2tvqTk7UV0Z/DOruFrMq
- e1mI0T6e/MO5/fuk6FvcsuoE4e1pdfLL3zH3dSYMf5+noGzZb2FQ5wFH3B4I66yfAGGgEd
- hVlneit7lZSNTujY0iVpbt91htI1D52CZAy5G2jOmtbs68gtApOnwZ65SN05jjoUOOYa0/
- fe0eJ7FjgBTvGTT9fL+OAMondBlTiidxhLbU+qHh7tQ/iqCMKYKGeRCRxV/hfmH5kIJD12
- HbQVMNi/JV61f4tUoUKKg03ZRWhrZ5xcDw+AYzgocORVBX/3CWpctKyyed8BpQ==
-Date: Thu, 17 Aug 2023 10:37:59 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Li Zetao <lizetao1@huawei.com>
-Message-ID: <20230817103759.3b8934a7@xps-13>
-In-Reply-To: <20230817024509.3951629-12-lizetao1@huawei.com>
-References: <20230817024509.3951629-1-lizetao1@huawei.com>
- <20230817024509.3951629-12-lizetao1@huawei.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+ Thu, 17 Aug 2023 09:50:16 +0000 (UTC)
+Received: from kwepemi500008.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RRKvm1pyTzrRgx;
+ Thu, 17 Aug 2023 17:48:52 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemi500008.china.huawei.com (7.221.188.139) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.31; Thu, 17 Aug 2023 17:50:13 +0800
+Message-ID: <5a885cda-4ee3-6c26-e6ea-5074427e974b@huawei.com>
+Date: Thu, 17 Aug 2023 17:50:13 +0800
 MIME-Version: 1.0
-X-GND-Sasl: miquel.raynal@bootlin.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.0
+Content-Language: en-US
+To: Leon Romanovsky <leon@kernel.org>
+References: <20230817071941.346590-1-ruanjinjie@huawei.com>
+ <20230817080257.GD22185@unreal>
+From: Ruan Jinjie <ruanjinjie@huawei.com>
+In-Reply-To: <20230817080257.GD22185@unreal>
+X-Originating-IP: [10.67.109.254]
+X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
+ kwepemi500008.china.huawei.com (7.221.188.139)
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: vigneshr@ti.com, geert+renesas@glider.be, stefan@agner.ch,
- paul@crapouillou.net, linux-mtd@lists.infradead.org,
- christophe.leroy@csgroup.eu, jinpu.wang@ionos.com,
- linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, robh@kernel.org,
- samuel@sholland.org, richard@nod.at, wens@csie.org, jernej.skrabec@gmail.com,
- tudor.ambarus@linaro.org, u.kleine-koenig@pengutronix.de,
- linux-sunxi@lists.linux.dev, frank.li@vivo.com,
- martin.blumenstingl@googlemail.com, yangyingliang@huawei.com, vz@mleia.com,
- rogerq@kernel.org, linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
- michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com, philmd@linaro.org,
- dmitry.torokhov@gmail.com, nicolas.ferre@microchip.com, michael@walle.cc,
- mcoquelin.stm32@gmail.com, pratyush@kernel.org
-Subject: Re: [Linux-stm32] [PATCH -next 11/11] mtd: spi-nor: Use helper
- function devm_clk_get_enabled()
+Cc: daniel.machon@microchip.com, simon.horman@corigine.com,
+ Steen.Hegelund@microchip.com, linux-stm32@st-md-mailman.stormreply.com,
+ horatiu.vultur@microchip.com, edumazet@google.com, joabreu@synopsys.com,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, lars.povlsen@microchip.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: Use helper function
+	IS_ERR_OR_NULL()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,24 +55,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgTGksCgpsaXpldGFvMUBodWF3ZWkuY29tIHdyb3RlIG9uIFRodSwgMTcgQXVnIDIwMjMgMTA6
-NDU6MDkgKzA4MDA6Cgo+IEFmdGVyIHRoZSBjb21taXQgN2VmOTY1MWU5NzkyICgiY2xrOiBQcm92
-aWRlIG5ldyBkZXZtX2NsayBoZWxwZXJzIGZvcgo+IHByZXBhcmVkIGFuZCBlbmFibGVkIGNsb2Nr
-cyIpLCBpdCBjYW4gcmVwbGFjZSB0aGUgcGFpciBvZiBmdW5jdGlvbnMsCj4gZGV2bV9jbGtfZ2V0
-KCkgYW5kIGNsa19wcmVwYXJlX2VuYWJsZSgpIHdpdGggYSBzaW5nbGUgaGVscGVyIGZ1bmN0aW9u
-Cj4gZGV2bV9jbGtfZ2V0X2VuYWJsZWQoKS4gTW9yZW92ZXIsIHRoZSBkcml2ZXIgd2lsbCBrZWVw
-cyBhIGNsb2NrIHByZXBhcmVkCj4gKG9yIGVuYWJsZWQpIGR1cmluZyB0aGUgd2hvbGUgbGlmZXRp
-bWUgb2YgdGhlIGRyaXZlciwgaXQgaXMgdW5uZWNlc3NhcnkgdG8KPiB1bnByZXBhcmUgYW5kIGRp
-c2FibGUgY2xvY2sgZXhwbGljaXRseSB3aGVuIHJlbW92ZSBkcml2ZXIgb3IgaW4gdGhlIGVycm9y
-Cj4gaGFuZGxpbmcgcGF0aC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBMaSBaZXRhbyA8bGl6ZXRhbzFA
-aHVhd2VpLmNvbT4KCldpdGggdGhlIGNvbW1pdCBsb2cgY29ycmVjdGVkIGFzIHN1Z2dlc3RlZCBp
-biBhbm90aGVyIGFuc3dlciwKClJldmlld2VkLWJ5OiBNaXF1ZWwgUmF5bmFsIDxtaXF1ZWwucmF5
-bmFsQGJvb3RsaW4uY29tPgoKVGhhbmtzLApNaXF1w6hsCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+
+On 2023/8/17 16:02, Leon Romanovsky wrote:
+> On Thu, Aug 17, 2023 at 03:19:39PM +0800, Ruan Jinjie wrote:
+>> Use IS_ERR_OR_NULL() instead of open-coding it
+>> to simplify the code.
+>>
+>> Ruan Jinjie (2):
+>>   net: microchip: sparx5: Use helper function IS_ERR_OR_NULL()
+>>   net: stmmac: Use helper function IS_ERR_OR_NULL()
+>>
+>>  drivers/net/ethernet/microchip/sparx5/sparx5_tc_flower.c | 2 +-
+>>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c        | 2 +-
+>>  2 files changed, 2 insertions(+), 2 deletions(-)
+>>
+> 
+> Thanks,
+> Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+> 
+> As a side note, grep of vcap_get_rule() shows that many callers don't
+> properly check return value and expect it to be or valid or NULL.
+
+Right! I will try to fix these problems together by the way. Thank you!
+
+> 
+> For example this code is not correct:
+> drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c
+>     61         vrule = vcap_get_rule(lan966x->vcap_ctrl, rule_id);
+>     62         if (vrule) {
+>     63                 u32 value, mask;
+>     64
+>     65                 /* Just modify the ingress port mask and exit */
+>     66                 vcap_rule_get_key_u32(vrule, VCAP_KF_IF_IGR_PORT_MASK,
+>     67                                       &value, &mask);
+>     68                 mask &= ~BIT(port->chip_port);
+>     69                 vcap_rule_mod_key_u32(vrule, VCAP_KF_IF_IGR_PORT_MASK,
+>     70                                       value, mask);
+>     71
+>     72                 err = vcap_mod_rule(vrule);
+>     73                 goto free_rule;
+>     74         }
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
