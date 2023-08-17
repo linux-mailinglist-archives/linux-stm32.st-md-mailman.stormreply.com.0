@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25598784712
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D2E784713
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7553C6C83C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC70BC6C840;
 	Tue, 22 Aug 2023 16:25:01 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com [45.249.212.189])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0924C6B472
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 143E9C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 02:45:32 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RR8Sq0XFRzVkPQ;
- Thu, 17 Aug 2023 10:43:23 +0800 (CST)
+ Thu, 17 Aug 2023 02:45:34 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.53])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4RR8Rr56nPzFqjm;
+ Thu, 17 Aug 2023 10:42:32 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500012.china.huawei.com
  (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Thu, 17 Aug
- 2023 10:45:28 +0800
+ 2023 10:45:29 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <michal.simek@amd.com>, <vz@mleia.com>, <matthias.bgg@gmail.com>,
@@ -27,8 +27,8 @@ To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <alexandre.torgue@foss.st.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
  <samuel@sholland.org>, <stefan@agner.ch>, <tudor.ambarus@linaro.org>,
  <pratyush@kernel.org>, <michael@walle.cc>, <frank.li@vivo.com>
-Date: Thu, 17 Aug 2023 10:45:01 +0800
-Message-ID: <20230817024509.3951629-4-lizetao1@huawei.com>
+Date: Thu, 17 Aug 2023 10:45:02 +0800
+Message-ID: <20230817024509.3951629-5-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817024509.3951629-1-lizetao1@huawei.com>
 References: <20230817024509.3951629-1-lizetao1@huawei.com>
@@ -46,7 +46,7 @@ Cc: robh@kernel.org, paul@crapouillou.net, dmitry.torokhov@gmail.com,
  linux-mediatek@lists.infradead.org, jinpu.wang@ionos.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  heiko@sntech.de
-Subject: [Linux-stm32] [PATCH -next 03/11] mtd: rawnand: fsmc: Use helper
+Subject: [Linux-stm32] [PATCH -next 04/11] mtd: rawnand: intel: Use helper
 	function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,47 +74,58 @@ handling path.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/mtd/nand/raw/fsmc_nand.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ drivers/mtd/nand/raw/intel-nand-controller.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
-index 7b4742420dfc..ab1b9a5c93e9 100644
---- a/drivers/mtd/nand/raw/fsmc_nand.c
-+++ b/drivers/mtd/nand/raw/fsmc_nand.c
-@@ -1066,16 +1066,12 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
- 	host->regs_va = base + FSMC_NOR_REG_SIZE +
- 		(host->bank * FSMC_NAND_BANK_SZ);
- 
--	host->clk = devm_clk_get(&pdev->dev, NULL);
-+	host->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(host->clk)) {
- 		dev_err(&pdev->dev, "failed to fetch block clock\n");
- 		return PTR_ERR(host->clk);
+diff --git a/drivers/mtd/nand/raw/intel-nand-controller.c b/drivers/mtd/nand/raw/intel-nand-controller.c
+index a9909eb08124..cb5d88f42297 100644
+--- a/drivers/mtd/nand/raw/intel-nand-controller.c
++++ b/drivers/mtd/nand/raw/intel-nand-controller.c
+@@ -626,16 +626,10 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 		goto err_of_node_put;
  	}
  
--	ret = clk_prepare_enable(host->clk);
--	if (ret)
--		return ret;
+-	ebu_host->clk = devm_clk_get(dev, NULL);
++	ebu_host->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(ebu_host->clk)) {
+ 		ret = dev_err_probe(dev, PTR_ERR(ebu_host->clk),
+-				    "failed to get clock\n");
+-		goto err_of_node_put;
+-	}
 -
- 	/*
- 	 * This device ID is actually a common AMBA ID as used on the
- 	 * AMBA PrimeCell bus. However it is not a PrimeCell.
-@@ -1157,7 +1153,6 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
- 		dma_release_channel(host->read_dma_chan);
- disable_clk:
- 	fsmc_nand_disable(host);
--	clk_disable_unprepare(host->clk);
- 
- 	return ret;
- }
-@@ -1182,7 +1177,6 @@ static void fsmc_nand_remove(struct platform_device *pdev)
- 			dma_release_channel(host->write_dma_chan);
- 			dma_release_channel(host->read_dma_chan);
- 		}
--		clk_disable_unprepare(host->clk);
+-	ret = clk_prepare_enable(ebu_host->clk);
+-	if (ret) {
+-		dev_err(dev, "failed to enable clock: %d\n", ret);
++				    "failed to get and enable clock\n");
+ 		goto err_of_node_put;
  	}
+ 
+@@ -643,7 +637,7 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 	if (IS_ERR(ebu_host->dma_tx)) {
+ 		ret = dev_err_probe(dev, PTR_ERR(ebu_host->dma_tx),
+ 				    "failed to request DMA tx chan!.\n");
+-		goto err_disable_unprepare_clk;
++		goto err_of_node_put;
+ 	}
+ 
+ 	ebu_host->dma_rx = dma_request_chan(dev, "rx");
+@@ -698,8 +692,6 @@ static int ebu_nand_probe(struct platform_device *pdev)
+ 	nand_cleanup(&ebu_host->chip);
+ err_cleanup_dma:
+ 	ebu_dma_cleanup(ebu_host);
+-err_disable_unprepare_clk:
+-	clk_disable_unprepare(ebu_host->clk);
+ err_of_node_put:
+ 	of_node_put(chip_np);
+ 
+@@ -716,7 +708,6 @@ static void ebu_nand_remove(struct platform_device *pdev)
+ 	nand_cleanup(&ebu_host->chip);
+ 	ebu_nand_disable(&ebu_host->chip);
+ 	ebu_dma_cleanup(ebu_host);
+-	clk_disable_unprepare(ebu_host->clk);
  }
  
+ static const struct of_device_id ebu_nand_match[] = {
 -- 
 2.34.1
 
