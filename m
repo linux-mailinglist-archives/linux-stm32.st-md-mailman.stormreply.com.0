@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3678177FC90
-	for <lists+linux-stm32@lfdr.de>; Thu, 17 Aug 2023 19:09:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F02F77FC92
+	for <lists+linux-stm32@lfdr.de>; Thu, 17 Aug 2023 19:09:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC931C6B475;
-	Thu, 17 Aug 2023 17:09:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9D1CC6B478;
+	Thu, 17 Aug 2023 17:09:39 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18597C6B461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B235C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 17:09:38 +0000 (UTC)
+ Thu, 17 Aug 2023 17:09:39 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A97F16758F;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C799A675B9;
+ Thu, 17 Aug 2023 17:09:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4C9C43391;
  Thu, 17 Aug 2023 17:09:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D18C433C8;
- Thu, 17 Aug 2023 17:09:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692292174;
- bh=/IF04sHkLLuYwZg5UDGG+9COl2K4c5dV5hCvL3rgYGo=;
- h=From:To:Cc:Subject:Date:From;
- b=jGCwjPthnd6uH4tJfKVWBnQmxaCK2g/kXtyb2msrBxtoW25nEs7w1Ajj/BW+fpY6p
- ItcloqGHp1tbzAHwf4QfunNDFPfY7UB2kiKfKvAkHdYjt+pHMEWCAnaS9nmhH+m+UE
- AvW4HFjtvK0lKfL35Mniy6hFbixtI9oMmTXRTqaUQsroGbbvE5Vhk2KHNcvv9WZ3Jt
- Zat6t4/CaGZykYor1fD6Jm7h7kGHsLKEVbAKRIQ7xc53TTEnl0O1eJmmcwZG3T2Jkn
- zbIErRgMecOnIu7Y45iR/vX7Ke8LrJy7n9fHjsa9uoqKp6DBsRnKQG69QAWu9GDFOl
- nPipyytJQzJJQ==
+ s=k20201202; t=1692292177;
+ bh=4IGcaQBS31O4UxIqmGLC17t6CNsWT5osrD81dv+HBug=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=m3Ecdo94iULh102ihxFOsBgvc/1wjMNN1TBd/yV9CJ2QXFoLCfRS/tftGeX+pFDDy
+ zOoqoSgYlFjX/ZtEqsbGx5lhzi6xuIA5NMf4yyHPjuViJvsenCN7NCbYLS5W8mrb99
+ DCD9Sq1518sj/JXp9G+pKv1Xd7nxilp89P/0C5JuoQGKU7KjDIfXaAwNrxP8q+U1Tw
+ jAZEj/+/U46IDJDmnJ0Obpr8B9r1ykPeaT6w+5D34mqNOEsa7KkITEa2Xd8f7wKcjy
+ zGezq4lKcHBRK511EfQZruiuMHkJi+RLLpsdYg2GsyJZMSwcMkaLOFU2ydd38gxIA6
+ 0wbkKhuJaqwqQ==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: "David S . Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -40,15 +40,17 @@ To: "David S . Miller" <davem@davemloft.net>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Date: Fri, 18 Aug 2023 00:57:40 +0800
-Message-Id: <20230817165749.672-1-jszhang@kernel.org>
+Date: Fri, 18 Aug 2023 00:57:41 +0800
+Message-Id: <20230817165749.672-2-jszhang@kernel.org>
 X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230817165749.672-1-jszhang@kernel.org>
+References: <20230817165749.672-1-jszhang@kernel.org>
 MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next v5 0/9] net: stmmac: add new features
-	to xgmac
+Subject: [Linux-stm32] [PATCH net-next v5 1/9] net: stmmac: correct RX COE
+	parsing for xgmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,63 +67,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This series add below new features to xgmac:
+xgmac can support RX COE, but there's no two kinds of COE, I.E type 1
+and type 2 COE.
 
-correct RX COE parsing
-add more feature parsing from hw cap
-enlarge C22 ADDR and rx/tx channels
-support parse safety ce/ue irq from DT
-support per channel irq
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Acked-by: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Since v4:
- - move "additionalItems" and "maxItems" a bit earlier to patch5 to
-   fix "interrupt-names... is too long"
-
-Since v3:
- - collect Acked-by tag
- - remove patch which enlarges the max XGMAC C22 ADDR to 31 since it's
-   merged
- - s/stmmac_request_irq_multi/stmmac_request_irq_multi_channel
- - update the dt-binding to refelct the optional per-channel irq:
-     - use enum
-     - add additionalItems and maxItems to fix the "interrupt-names ..
-       is too long"
-
-Since v2:
- - check per channel irq by (res->rx_irq[0] > 0 && res->tx_irq[0] > 0)
-   rather than (res->rx_irq[0] && res->tx_irq[0])
- - bypass if (irq <= 0) when request rx/tx irq
-
-Since v1:
- - remove "_irq" suffix from safety irqs dt binding
- - remove "snps,per-channel-interrupt" dt binding, check the channel irq
-   instead.
- - more renaming about "msi" to reflect per channel irq isn't MSI
-   specific
-
-
-Jisheng Zhang (9):
-  net: stmmac: correct RX COE parsing for xgmac
-  net: stmmac: xgmac: add more feature parsing from hw cap
-  net: stmmac: enlarge max rx/tx queues and channels to 16
-  net: stmmac: reflect multi irqs for tx/rx channels and mac and safety
-  net: stmmac: xgmac: support per-channel irq
-  dt-bindings: net: snps,dwmac: add safety irq support
-  net: stmmac: platform: support parsing safety irqs from DT
-  dt-bindings: net: snps,dwmac: add per channel irq support
-  net: stmmac: platform: support parsing per channel irq from DT
-
- .../devicetree/bindings/net/snps,dwmac.yaml   | 77 ++++++++++++++++++-
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  4 +-
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +-
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 +
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  5 +-
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 34 ++++----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 56 +++++++-------
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 35 +++++++++
- include/linux/stmmac.h                        | 10 +--
- 9 files changed, 172 insertions(+), 53 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 733b5e900817..3d90ca983389 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7035,7 +7035,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 	if (priv->plat->rx_coe) {
+ 		priv->hw->rx_csum = priv->plat->rx_coe;
+ 		dev_info(priv->device, "RX Checksum Offload Engine supported\n");
+-		if (priv->synopsys_id < DWMAC_CORE_4_00)
++		if (priv->synopsys_id < DWMAC_CORE_4_00 && !priv->plat->has_xgmac)
+ 			dev_info(priv->device, "COE Type %d\n", priv->hw->rx_csum);
+ 	}
+ 	if (priv->plat->tx_coe)
 -- 
 2.40.1
 
