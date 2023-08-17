@@ -2,77 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEEF7801FE
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 01:59:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24BE3780202
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 01:59:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77729C6B47E;
-	Thu, 17 Aug 2023 23:59:05 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D53D3C6C82B;
+	Thu, 17 Aug 2023 23:59:09 +0000 (UTC)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33214C6B461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 740CDC6C824
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 23:59:04 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-1bdbbede5d4so3026535ad.2
+ Thu, 17 Aug 2023 23:59:07 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-5654051b27fso328826a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 16:59:04 -0700 (PDT)
+ Thu, 17 Aug 2023 16:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1692316743; x=1692921543;
+ d=chromium.org; s=google; t=1692316746; x=1692921546;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dgDb9t+7/ejCIiWITvPkmc45oRJcq4Tq1gnklL5DwBg=;
- b=gp5ssm6W/crP68h3PR6YM9N4hoSOFMia50leGRcJIpv3QxHc6K310MAhVMKiQN1vDe
- 6XDvd9L8P+GICLL/SzUn2hZV/7zDwXYCIUEdy/5QgtrcPF4oVEj2zncjy5Ta/55q102+
- Y8N2W6Lec4dl6oqMoxwLRmjsr5L5N4lSXR44I=
+ bh=b5fo4SAlFZblqGlj3AOCCnMbC1x74PqOTDSdnlOgmQc=;
+ b=Bm5yXs/7C7SrMAj5NYLLnKAg8in4eJxveBbF4DO2ZjTd3wvxKBVyaWbMsbIdgjBk1G
+ Hi55+qF7vYuSjUdxaCq3KNt8Tr5loAJ4JV9fNliA5JjgX4O8ToCJfH5hMhlyoJP+XXFu
+ Vjs5RDTopNiXlWJl6j/wjh/5LopbcqoukMzus=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692316743; x=1692921543;
+ d=1e100.net; s=20221208; t=1692316746; x=1692921546;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=dgDb9t+7/ejCIiWITvPkmc45oRJcq4Tq1gnklL5DwBg=;
- b=TAe9sCZYKRReGRDONkg7UZDQtqjbjZQL1vjQdX4JD/vfHpMDBweS+SGTtqeNnFvOF0
- 6kC8dEMA5W4bk3pJioloaUNvD9QQS//PLs4rWwxxdmZbQn7FkTUQT08yrKMzZURDIorT
- kGDthoISoreH8Ey8iT8znaKmkgpUFR4ZCTxvV0SRiY1LsTId2JuE+W+aCRKKryVaWGm+
- hDBed+CXqf6okP4p420tkH2y+LRdtqoEJTsxIjWix3VTIs1g3cxTu/yx+Pd6cnTxfCNp
- /u9lqnHxgHtCqmUyv/l6xWTLmUXOkR4Hx9D4MH1XdDozfhEaMlgDGC5icqkLSfSUzoWe
- x3RQ==
-X-Gm-Message-State: AOJu0Yxbo0JqJWs9iTJ+BZvoHL2/Xp2XSH4WXjG8djbupaDJRG1NZRRG
- C3V+26Lb5FOwoNXGOqCxdnwgbg==
-X-Google-Smtp-Source: AGHT+IGnJcGGJIwJmhxr7GHTyyaiBOKpy+5C/lr0+vOgplwlQIG+JS98pD0vaUYU/SWQGiIph5zitQ==
-X-Received: by 2002:a17:902:d4d1:b0:1b8:b285:ec96 with SMTP id
- o17-20020a170902d4d100b001b8b285ec96mr993739plg.23.1692316742870; 
- Thu, 17 Aug 2023 16:59:02 -0700 (PDT)
+ bh=b5fo4SAlFZblqGlj3AOCCnMbC1x74PqOTDSdnlOgmQc=;
+ b=KT3l7YbVKtwa1c2eYrIJyS48MJg3JiUcMLKltOIkuyAolth+GmJbtwg7bDX3ZYy+kn
+ 834MTx5G7hxYhwwBt79SeqJK3eTRR7NNhoGMVXjjt3iYJVDhiSRL8av4KQMvI3kAzXfC
+ w0GHLOQ2I0gbNfKcRiQLJTEFKms8h7d2Nft9c/mi6Va2oLC/laW6KJEhuTcmYk5nHXpE
+ hDSuHviGc5Nx+GOsGcFlvCDzNRGZGeYCOEff0zJUQlyJdbzHN8GefBMOME5cK6tW1OOG
+ 7gVWJ1y+9IJK5E6EMfvs+bm2Drm6l2P2JsipqLGVtoDe4tT8JzW1KESZDZ7Ck5zQyY9+
+ zocQ==
+X-Gm-Message-State: AOJu0YzIyQP7AiB9BnWo6EGVpzjtw8xhnP/1f7reKAnZku0EQM4nb7Df
+ CMLWqbpce7y+/NcSemisirPaVA==
+X-Google-Smtp-Source: AGHT+IEdMYKnrjBUAvE0ru71ZoYllBiARB+b9n/0lQdAuapi28gfRsr/R7sjhWjkmiBp/Woqb8QO3A==
+X-Received: by 2002:a05:6a21:78a5:b0:131:a21:9f96 with SMTP id
+ bf37-20020a056a2178a500b001310a219f96mr1649983pzc.6.1692316746157; 
+ Thu, 17 Aug 2023 16:59:06 -0700 (PDT)
 Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
  [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- u11-20020a17090282cb00b001bdccf6b8c9sm328924plz.127.2023.08.17.16.58.59
+ u16-20020a62ed10000000b00682669dc19bsm296091pfh.201.2023.08.17.16.59.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Aug 2023 16:59:00 -0700 (PDT)
+ Thu, 17 Aug 2023 16:59:03 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: Vinod Koul <vkoul@kernel.org>
-Date: Thu, 17 Aug 2023 16:58:41 -0700
-Message-Id: <20230817235859.49846-4-keescook@chromium.org>
+Date: Thu, 17 Aug 2023 16:58:42 -0700
+Message-Id: <20230817235859.49846-5-keescook@chromium.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817235428.never.111-kees@kernel.org>
 References: <20230817235428.never.111-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1141; i=keescook@chromium.org; 
- h=from:subject;
- bh=CxJ6MlIzuwlOlN/Wrdkn0iEmj9pF0KihHoSm4sK1AQE=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRAH0qG/vBOg6d32PmSGBdb9FgPWdM34DlOY
- S6MQjJa8MGJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QAAKCRCJcvTf3G3A
- JgDZD/9pmP2TVIj071pr/xyHiGbK3XGACh35BOwyOSmVR32o10zeAaScACc5sA6JTyKBQTeKMqM
- OiU4/RZCPyvSJ0+kn5zx2xTD8Dzs0e6sPsgp0KoFhIJ0ciF59IeIY+ePM4obTxE+zseomTocI/B
- W3+Ccb+Ddpe40TBBUBbJb2OSdNTtsddC0S1DRENhjNP9y2GvGsfSvtNzGdzB9rmHIU3Kwr618mM
- NA0wObwXuPTIEeX1xnhdfs/LfndxHJmjmqJAl4iTNb7D3oeBdjGSsu9NId4YHZ4ppQhiOZdJfyS
- 76y+ro95077WLAcguuIC2xyGXXYx01zuI4SkbekZwd8auA4mkoihxp7rwOdkyJptdvFkM4+w125
- x90bm3CuSEoIANeW3jAR2no9RBaql2zJYd+OY4tF+F+fTMqKLOZjJHLFzYPkQ1+R6/faM/uzzDY
- k6mmbIxde8euFh4pyyZkmcTDcAqDpdnGFMI7Gs1VZR9vmxoZdekc1ylAZ9Q1ztm2dh2jQJZ0N6f
- 2XhWo5IWTNM6QO1XDsK7nVgV7vMJEsg+j5we0S5O1zmc+/K+iRP039YBM7uJ/DQJr9RSYPqQZHx
- BOmrjRKeWSh2e+AFUzg3zrlrhsjmsHxK9Pf6E7T50+IjMLog/S6Sx1o7acTHEdQsFZdvK5LJfFF
- jzaIXT9gT9yvVig==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1221; i=keescook@chromium.org;
+ h=from:subject; bh=wAhaXdpkO4UhROqbBEzwnUztv43Z9vPtGenl3m44PI8=;
+ b=owEBbAKT/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRAdafn2BXNub2CVczBzS1nMrcCu/W1l7fmc
+ oQMCeB3hAmJAjIEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QAAKCRCJcvTf3G3A
+ JiDKD/jzQjtA/rejP0UfKxnwSb1Bs9ETBWk/rP2eCU65spDyZslCdJJKzJuu7MicgCSEPDfNPg6
+ xaxgsDv0fnzJthUj1b7GYgIJW4Ev/EFiMgpDPhlkjPeabqKRWZZxyEgFvhJU73k5H4w9d+hkXBe
+ +dTfjZFVsH0hEK2sD9pdYpWoDrGsGfvB969UPwgcSelEYZSrHRb0kyaQWL5oOnurAP5e3KthrFp
+ ll8wy38odnrUKDahwF8NPUamJcVbFBudhg16PZL3IhE3NtZV9tjMQtrMiwy7G2uhHqhd1w6bQXk
+ lXZWrzzAqgpnUayVPMrVptkfVuD0dViVQEwjPjma3woC/B8FZa7ymi5O/geVC/ugDZlVZcu/4XR
+ WddDqRioBq6b2M2HnQDKsyArKe8jj6Lq/WFaQM+xHiUptWNl3rqG2dRzd+ksTdn+fmfPnzhhxr9
+ cLZFoy8XzDMZ4yU0IBzoZBY0pSrIKPxJjMwsjtTkwmM+fflGR86LOt+ClFW7/FgWk9ZARIt88bj
+ hZgS8SwCeRYEviYdtimOfiDhjAZXaDRYEMzpVonw/x42ays3FO9x405hS5QD/Lfd9z4TB9WJPg/
+ JBOX/lvE+vJHEnJJFJbpLdY+bOR+uhcTApAmU/ggJr4cRtC8l64Hw5lDostncXilc6oEPpzpmNL
+ OQDT2dm/jOCGN
 X-Developer-Key: i=keescook@chromium.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
@@ -99,8 +98,8 @@ Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Thierry Reding <thierry.reding@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 04/21] dmaengine: fsl-edma: Annotate struct
-	fsl_edma_desc with __counted_by
+Subject: [Linux-stm32] [PATCH 05/21] dmaengine: hisilicon: Annotate struct
+	hisi_dma_dev with __counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,30 +122,32 @@ their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
 (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 functions).
 
-As found with Coccinelle[1], add __counted_by for struct fsl_edma_desc.
+As found with Coccinelle[1], add __counted_by for struct hisi_dma_dev.
 
 [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
 Cc: Vinod Koul <vkoul@kernel.org>
+Cc: Zhou Wang <wangzhou1@hisilicon.com>
+Cc: Jie Hai <haijie1@huawei.com>
 Cc: dmaengine@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/dma/fsl-edma-common.h | 2 +-
+ drivers/dma/hisi_dma.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma/fsl-edma-common.h b/drivers/dma/fsl-edma-common.h
-index 004ec4a6bc86..fdbc79787643 100644
---- a/drivers/dma/fsl-edma-common.h
-+++ b/drivers/dma/fsl-edma-common.h
-@@ -135,7 +135,7 @@ struct fsl_edma_desc {
- 	bool				iscyclic;
- 	enum dma_transfer_direction	dirn;
- 	unsigned int			n_tcds;
--	struct fsl_edma_sw_tcd		tcd[];
-+	struct fsl_edma_sw_tcd		tcd[] __counted_by(n_tcds);
+diff --git a/drivers/dma/hisi_dma.c b/drivers/dma/hisi_dma.c
+index c1350a36fddd..4c47bff81064 100644
+--- a/drivers/dma/hisi_dma.c
++++ b/drivers/dma/hisi_dma.c
+@@ -163,7 +163,7 @@ struct hisi_dma_dev {
+ 	u32 chan_depth;
+ 	enum hisi_dma_reg_layout reg_layout;
+ 	void __iomem *queue_base; /* queue region start of register */
+-	struct hisi_dma_chan chan[];
++	struct hisi_dma_chan chan[] __counted_by(chan_num);
  };
  
- enum edma_version {
+ #ifdef CONFIG_DEBUG_FS
 -- 
 2.34.1
 
