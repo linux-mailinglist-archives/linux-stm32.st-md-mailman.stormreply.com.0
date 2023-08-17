@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F01C780206
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 01:59:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4D30780208
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 01:59:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E760C6C829;
-	Thu, 17 Aug 2023 23:59:13 +0000 (UTC)
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
- [209.85.167.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E25DC6C82C;
+	Thu, 17 Aug 2023 23:59:14 +0000 (UTC)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E6E3C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F067DC6C821
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 23:59:10 +0000 (UTC)
-Received: by mail-oi1-f174.google.com with SMTP id
- 5614622812f47-3a44cccbd96so227796b6e.3
+ Thu, 17 Aug 2023 23:59:12 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-689e8115f8dso324453b3a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 16:59:10 -0700 (PDT)
+ Thu, 17 Aug 2023 16:59:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1692316749; x=1692921549;
+ d=chromium.org; s=google; t=1692316751; x=1692921551;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aFfpOm3BUPwNUFmD6NhnAMbQ/2S0ir/QqXgwBqevnLk=;
- b=EqYcViRLy+hIr+dGw8oMOHY5NdZUL3VGgCCB1DCYkyJCtv9U0YnPuWHnP6ypMyMFrr
- Vk0YDZNsPMj8eHr69pt/3dPEPWWe0DnNmDTipbpAdcFo51ZUD3H+79JZFkylV+sVqmZL
- fM7pL/eKGfT2nw6+cn3duAt/BNduGqjmY/D3o=
+ bh=UPIu4p5LokRgX8D90uVV1XnYO5Ym/ms7iXgxGBeHR9Y=;
+ b=M6wL6hWwGDRmISDltc37KS8ptBiEf3Qr48SdCfCb6p+ByGHD+wOnNkD0wIphUGF/ZN
+ QSMjqs4TY0WneT0GQRWA8wiQRqDyIYf0YH5LQgPa35FwvVwnvz1IZEWWuvicKx2kp/EG
+ vF4AVAPFwe9UZRviz3FVkuSBzJGWyenINNoI8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692316749; x=1692921549;
+ d=1e100.net; s=20221208; t=1692316751; x=1692921551;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aFfpOm3BUPwNUFmD6NhnAMbQ/2S0ir/QqXgwBqevnLk=;
- b=ShdnK/vBk2vghj6dcy43ufZbyNGkwQHUPLMLMYrQ2CBNMMku4WDqlBU/OivlvljWX1
- o2BJ3jteqJUNRJm8lxU7ETA+feqksPCMdd51j4j7yG8CGq0OMhdzCj4Cn4xHTtF0i3Zq
- 8Tux8vt1yvmJyoUkOAquzJnBoyAXh4Xkp18Resyq9PA7MlmTjSTHKZ6gIuzYsgB88H+Z
- J5HqnRs6TnIekny+VHH9WeqNm8ZFN6dISLYMFwzuydUFae8xN8kMxMpiv3NxuMB7FCLI
- fq0Lw5t5cXy+MiIIcHgQzgH1JZtyy+4dGBa0RDIMg1fWtioVXceh02IJaII9+nUUYHdE
- zsXA==
-X-Gm-Message-State: AOJu0Ywt+2Tu/Vh2ylBLK0uz9YUZXjxTFk3a/YgbpHfUK6U7sFQcgg63
- IBUPLrw/Qq7uFgB4ea6fCJuv5g==
-X-Google-Smtp-Source: AGHT+IHtstSGrCASuEyhbAzUFkHex296TETFK9xFy7uimzuBnpJ+27CsVn7a16vwqiJacwvtpQrDaw==
-X-Received: by 2002:a54:4098:0:b0:3a7:7bd3:7a7d with SMTP id
- i24-20020a544098000000b003a77bd37a7dmr1133716oii.23.1692316749254; 
- Thu, 17 Aug 2023 16:59:09 -0700 (PDT)
+ bh=UPIu4p5LokRgX8D90uVV1XnYO5Ym/ms7iXgxGBeHR9Y=;
+ b=fAm5hZaC36xkKxP8Y1+Xjt6wJNbOYAryO39m4VzN66KtQ+4d0OTap2i4vdFkUyLrsa
+ wxzc4qlO8LrwFxBOGsI+Ax/MItJwHU/YNx4sBDWN4j6mx0nfXnzINqKyFSgk8ci8C5SV
+ w6g36dVyDOYeMG6qbIlSdts9Y9NifttJFEXdD+TZkQNFCL0nhqYst0U9sHM9mk72M2uE
+ GzUMHsHXMRGmxc3wRLeC6PrYBKb456f6kb/DrL1wG6rmpPQty3ZEFSo8PLYsrT3vMEzt
+ QLgiODE/tbfp05RUmjQYuc29gB6uYInyMIMKTL8CGPIeAXTfEMi4LVd160rciAuEK2Oj
+ JBPw==
+X-Gm-Message-State: AOJu0Yw7jH12y59BsMKFlSY0J3afUnMIHkVDK6/PoY18jw+sl+EJPG35
+ K5X5n4uxLnw5pgTt5sYGMF5FYQ==
+X-Google-Smtp-Source: AGHT+IEp9NsNs5bP5Txz/M6Zf1bH84aBR/zLrx+4UwkkfuWiGVH3ef0DKY/ohXremovjTUpPNjANyw==
+X-Received: by 2002:a05:6a21:999a:b0:129:d944:2e65 with SMTP id
+ ve26-20020a056a21999a00b00129d9442e65mr1690595pzb.13.1692316751709; 
+ Thu, 17 Aug 2023 16:59:11 -0700 (PDT)
 Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
  [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- n7-20020a6543c7000000b005658d3a46d7sm195752pgp.84.2023.08.17.16.59.03
+ z16-20020aa785d0000000b00682a8e600f0sm317127pfn.35.2023.08.17.16.59.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 17 Aug 2023 16:59:03 -0700 (PDT)
+ Thu, 17 Aug 2023 16:59:08 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: Vinod Koul <vkoul@kernel.org>
-Date: Thu, 17 Aug 2023 16:58:49 -0700
-Message-Id: <20230817235859.49846-12-keescook@chromium.org>
+Date: Thu, 17 Aug 2023 16:58:50 -0700
+Message-Id: <20230817235859.49846-13-keescook@chromium.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817235428.never.111-kees@kernel.org>
 References: <20230817235428.never.111-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3177; i=keescook@chromium.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1846; i=keescook@chromium.org; 
  h=from:subject;
- bh=4L1vW+SexsLQ4jAjdxhKOyEQSjWuUKIs12iHtuVmifc=; 
- b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRAY4GtRmAVHf6Ya9dY+gshf8QSkUD7pnmTh
- rHHqQiA5g2JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QAAKCRCJcvTf3G3A
- JkvpEACe4GyFK86EwP8rAzGWpbQmF4TLiOHpR/Sq37SBWAGhApzKHiufbeypSkbGVsc9zm8k6ox
- HqRPculRTXgBz6x5KLRagVnv6DvDL7Iz/CpcJo2cWK4ar0q8QnmYHWS6srfDmg7X2FS+zXcbV9b
- NgSTHPpW+Nm4j438UvFT7/zD5q5vDmD6KhRNDdvoJHlRVEuZHZTntNyzawnhyTbnhLQtndJ8D9B
- 2XWAvz31M9/B7kXy3mdeWDAHS93cup09V731uJhDp2vl18OV2uu4ADKpwql478KUkL1/YQCXlqu
- MkwLExvrtT9pHo/FT6Kc4jg20iN0lHgOECgTK+knaJzWdKkTP30N0xQY+/BLEURfiZ3zccqfGJ3
- UQZSWxAWNhoDuwTvXMKczoJuCdQXuiM3LXEAkmQ7On812q7pqXHbwB4kiy6pWOMgbjmdeb+R//J
- xfTexss8BN1pf/RxPxWh7Chb4ZJ8NdVrkZBCHYaIRyq5auYyZthjKwR79bj1hXOk7XzTHzpxnx1
- rGYLSr63iThlFrUS+YwRldwE0xr7Kr7jgLVJkxC1tWSMA6e6tTOT1sOgg1SW0m13ukSAD3EK1FP
- faU8ba7KBOiO+J/s1i9j8OuxVMhUyNOYgZ8J667chD62Kn6PLWJan8xTbP4Dp3W/LZotOBsL30w
- oFDolQxdjzT8sBQ==
+ bh=qxPmilAAIkLoOYICjRkX4cjKcAjqE7CQu+wWoaP3kts=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rRBiikOng0Pfopo+sTAW7rtw4RZgr55AKvYH
+ ziP0G2svk6JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60QQAKCRCJcvTf3G3A
+ JkzQEACx/KvF+wEb76F6NHodgtyBW5Bo96EDbaR+uzQ1M+6MkoJ+z5QX375uyUt/2CSiohYitZE
+ 3k9R5DImexGGnDErX1pyh0O54lVFZh4trqFmrjlIRP5MN1o00A+aPOY5fBOappLuZYEvZPIImN/
+ bkNgwNZlVFH5giEHSpJo3q24BT/VtqNjlOT6gb4ZATrfFUS7m5trL8xe0bW/JduIhqBt0u2Ce61
+ +P1AkdS0k/0ZmbnTf84lcr3/BMXf0orJ6GdhIIhxq6Ee2MTFmWQbQvsi8r/LlmKlwXfWtwsnuNW
+ 7XH33IQQiKv7pTeV31N6Vn+Gz9G8rv0DMiS4KbLN451Vn+KQrXTljf7wE/hPct5E+yWNpKk83L/
+ YHOWq9nvagB+yvrBBa0rcA3Gc8nEckvDx6pTmtntal/BEcG+ZLwjf9s7Gj7I6V2qKtdfHXMhHv8
+ PX7jTwRf+V+jIJs3dTWZDmLWvRY1ydelSG4tFuR9LL+XMPV6tRJ4czS5VhRYZ3YCYi44H1w7jPl
+ REwibv6UXxwafopUJ2UvHkguL07fha0L/4qVQI/RYIhUf2IXo9AdRcsgnXBaHA2eyY+wj2YEqqD
+ hplXqLsFgvg+xjjNJ4/LWnRcqYy/nyVPy0WQNubxImH9dS2lT0g+cZu5wOL9gLZyxvZGJ5p3frE
+ 3FY7s8aJWg4iKHg==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
@@ -99,8 +99,8 @@ Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Thierry Reding <thierry.reding@gmail.com>,
  Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 12/21] dmaengine: stm32-dma: Annotate struct
-	stm32_dma_desc with __counted_by
+Subject: [Linux-stm32] [PATCH 13/21] dmaengine: stm32-mdma: Annotate struct
+	stm32_mdma_desc with __counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,7 +123,7 @@ their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
 (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 functions).
 
-As found with Coccinelle[1], add __counted_by for struct stm32_dma_desc.
+As found with Coccinelle[1], add __counted_by for struct stm32_mdma_desc.
 Additionally, since the element count member must be set before accessing
 the annotated flexible array member, move its initialization earlier.
 
@@ -137,73 +137,39 @@ Cc: linux-stm32@st-md-mailman.stormreply.com
 Cc: linux-arm-kernel@lists.infradead.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/dma/stm32-dma.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/dma/stm32-mdma.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma/stm32-dma.c b/drivers/dma/stm32-dma.c
-index 5c36811aa134..a732b3807b11 100644
---- a/drivers/dma/stm32-dma.c
-+++ b/drivers/dma/stm32-dma.c
-@@ -191,7 +191,7 @@ struct stm32_dma_desc {
- 	struct virt_dma_desc vdesc;
+diff --git a/drivers/dma/stm32-mdma.c b/drivers/dma/stm32-mdma.c
+index 0de234022c6d..926d6ecf1274 100644
+--- a/drivers/dma/stm32-mdma.c
++++ b/drivers/dma/stm32-mdma.c
+@@ -224,7 +224,7 @@ struct stm32_mdma_desc {
+ 	u32 ccr;
  	bool cyclic;
- 	u32 num_sgs;
--	struct stm32_dma_sg_req sg_req[];
-+	struct stm32_dma_sg_req sg_req[] __counted_by(num_sgs);
+ 	u32 count;
+-	struct stm32_mdma_desc_node node[];
++	struct stm32_mdma_desc_node node[] __counted_by(count);
  };
  
- /**
-@@ -1105,6 +1105,7 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_slave_sg(
- 	desc = kzalloc(struct_size(desc, sg_req, sg_len), GFP_NOWAIT);
+ struct stm32_mdma_dma_config {
+@@ -321,6 +321,7 @@ static struct stm32_mdma_desc *stm32_mdma_alloc_desc(
+ 	desc = kzalloc(struct_size(desc, node, count), GFP_NOWAIT);
  	if (!desc)
  		return NULL;
-+	desc->num_sgs = sg_len;
++	desc->count = count;
  
- 	/* Set peripheral flow controller */
- 	if (chan->dma_sconfig.device_fc)
-@@ -1141,8 +1142,6 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_slave_sg(
- 			desc->sg_req[i].chan_reg.dma_sm1ar += sg_dma_len(sg);
- 		desc->sg_req[i].chan_reg.dma_sndtr = nb_data_items;
+ 	for (i = 0; i < count; i++) {
+ 		desc->node[i].hwdesc =
+@@ -330,8 +331,6 @@ static struct stm32_mdma_desc *stm32_mdma_alloc_desc(
+ 			goto err;
  	}
+ 
+-	desc->count = count;
 -
--	desc->num_sgs = sg_len;
- 	desc->cyclic = false;
+ 	return desc;
  
- 	return vchan_tx_prep(&chan->vchan, &desc->vdesc, flags);
-@@ -1216,6 +1215,7 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_cyclic(
- 	desc = kzalloc(struct_size(desc, sg_req, num_periods), GFP_NOWAIT);
- 	if (!desc)
- 		return NULL;
-+	desc->num_sgs = num_periods;
- 
- 	for (i = 0; i < num_periods; i++) {
- 		desc->sg_req[i].len = period_len;
-@@ -1232,8 +1232,6 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_cyclic(
- 		if (!chan->trig_mdma)
- 			buf_addr += period_len;
- 	}
--
--	desc->num_sgs = num_periods;
- 	desc->cyclic = true;
- 
- 	return vchan_tx_prep(&chan->vchan, &desc->vdesc, flags);
-@@ -1254,6 +1252,7 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_memcpy(
- 	desc = kzalloc(struct_size(desc, sg_req, num_sgs), GFP_NOWAIT);
- 	if (!desc)
- 		return NULL;
-+	desc->num_sgs = num_sgs;
- 
- 	threshold = chan->threshold;
- 
-@@ -1283,8 +1282,6 @@ static struct dma_async_tx_descriptor *stm32_dma_prep_dma_memcpy(
- 		desc->sg_req[i].chan_reg.dma_sndtr = xfer_count;
- 		desc->sg_req[i].len = xfer_count;
- 	}
--
--	desc->num_sgs = num_sgs;
- 	desc->cyclic = false;
- 
- 	return vchan_tx_prep(&chan->vchan, &desc->vdesc, flags);
+ err:
 -- 
 2.34.1
 
