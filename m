@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122A2784711
+	by mail.lfdr.de (Postfix) with ESMTPS id 25598784712
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6811C6C839;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7553C6C83C;
 	Tue, 22 Aug 2023 16:25:01 +0000 (UTC)
 Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F0F9C6B461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0924C6B472
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 17 Aug 2023 02:45:31 +0000 (UTC)
+ Thu, 17 Aug 2023 02:45:32 +0000 (UTC)
 Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.54])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RR8Sp01SMzVkS3;
- Thu, 17 Aug 2023 10:43:21 +0800 (CST)
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RR8Sq0XFRzVkPQ;
+ Thu, 17 Aug 2023 10:43:23 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500012.china.huawei.com
  (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Thu, 17 Aug
- 2023 10:45:27 +0800
+ 2023 10:45:28 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <michal.simek@amd.com>, <vz@mleia.com>, <matthias.bgg@gmail.com>,
@@ -27,8 +27,8 @@ To: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
  <alexandre.torgue@foss.st.com>, <wens@csie.org>, <jernej.skrabec@gmail.com>,
  <samuel@sholland.org>, <stefan@agner.ch>, <tudor.ambarus@linaro.org>,
  <pratyush@kernel.org>, <michael@walle.cc>, <frank.li@vivo.com>
-Date: Thu, 17 Aug 2023 10:45:00 +0800
-Message-ID: <20230817024509.3951629-3-lizetao1@huawei.com>
+Date: Thu, 17 Aug 2023 10:45:01 +0800
+Message-ID: <20230817024509.3951629-4-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230817024509.3951629-1-lizetao1@huawei.com>
 References: <20230817024509.3951629-1-lizetao1@huawei.com>
@@ -46,7 +46,7 @@ Cc: robh@kernel.org, paul@crapouillou.net, dmitry.torokhov@gmail.com,
  linux-mediatek@lists.infradead.org, jinpu.wang@ionos.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  heiko@sntech.de
-Subject: [Linux-stm32] [PATCH -next 02/11] mtd: rawnand: arasan: Use helper
+Subject: [Linux-stm32] [PATCH -next 03/11] mtd: rawnand: fsmc: Use helper
 	function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,74 +74,47 @@ handling path.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
- drivers/mtd/nand/raw/arasan-nand-controller.c | 29 ++++---------------
- 1 file changed, 5 insertions(+), 24 deletions(-)
+ drivers/mtd/nand/raw/fsmc_nand.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/arasan-nand-controller.c b/drivers/mtd/nand/raw/arasan-nand-controller.c
-index 906eef70cb6d..4621ec549cc7 100644
---- a/drivers/mtd/nand/raw/arasan-nand-controller.c
-+++ b/drivers/mtd/nand/raw/arasan-nand-controller.c
-@@ -1440,45 +1440,29 @@ static int anfc_probe(struct platform_device *pdev)
+diff --git a/drivers/mtd/nand/raw/fsmc_nand.c b/drivers/mtd/nand/raw/fsmc_nand.c
+index 7b4742420dfc..ab1b9a5c93e9 100644
+--- a/drivers/mtd/nand/raw/fsmc_nand.c
++++ b/drivers/mtd/nand/raw/fsmc_nand.c
+@@ -1066,16 +1066,12 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 	host->regs_va = base + FSMC_NOR_REG_SIZE +
+ 		(host->bank * FSMC_NAND_BANK_SZ);
  
- 	anfc_reset(nfc);
+-	host->clk = devm_clk_get(&pdev->dev, NULL);
++	host->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(host->clk)) {
+ 		dev_err(&pdev->dev, "failed to fetch block clock\n");
+ 		return PTR_ERR(host->clk);
+ 	}
  
--	nfc->controller_clk = devm_clk_get(&pdev->dev, "controller");
-+	nfc->controller_clk = devm_clk_get_enabled(&pdev->dev, "controller");
- 	if (IS_ERR(nfc->controller_clk))
- 		return PTR_ERR(nfc->controller_clk);
- 
--	nfc->bus_clk = devm_clk_get(&pdev->dev, "bus");
-+	nfc->bus_clk = devm_clk_get_enabled(&pdev->dev, "bus");
- 	if (IS_ERR(nfc->bus_clk))
- 		return PTR_ERR(nfc->bus_clk);
- 
--	ret = clk_prepare_enable(nfc->controller_clk);
+-	ret = clk_prepare_enable(host->clk);
 -	if (ret)
 -		return ret;
 -
--	ret = clk_prepare_enable(nfc->bus_clk);
--	if (ret)
--		goto disable_controller_clk;
--
- 	ret = dma_set_mask(&pdev->dev, DMA_BIT_MASK(64));
- 	if (ret)
--		goto disable_bus_clk;
-+		return ret;
+ 	/*
+ 	 * This device ID is actually a common AMBA ID as used on the
+ 	 * AMBA PrimeCell bus. However it is not a PrimeCell.
+@@ -1157,7 +1153,6 @@ static int __init fsmc_nand_probe(struct platform_device *pdev)
+ 		dma_release_channel(host->read_dma_chan);
+ disable_clk:
+ 	fsmc_nand_disable(host);
+-	clk_disable_unprepare(host->clk);
  
- 	ret = anfc_parse_cs(nfc);
- 	if (ret)
--		goto disable_bus_clk;
-+		return ret;
- 
- 	ret = anfc_chips_init(nfc);
- 	if (ret)
--		goto disable_bus_clk;
-+		return ret;
- 
- 	platform_set_drvdata(pdev, nfc);
- 
- 	return 0;
--
--disable_bus_clk:
--	clk_disable_unprepare(nfc->bus_clk);
--
--disable_controller_clk:
--	clk_disable_unprepare(nfc->controller_clk);
--
--	return ret;
+ 	return ret;
+ }
+@@ -1182,7 +1177,6 @@ static void fsmc_nand_remove(struct platform_device *pdev)
+ 			dma_release_channel(host->write_dma_chan);
+ 			dma_release_channel(host->read_dma_chan);
+ 		}
+-		clk_disable_unprepare(host->clk);
+ 	}
  }
  
- static void anfc_remove(struct platform_device *pdev)
-@@ -1486,9 +1470,6 @@ static void anfc_remove(struct platform_device *pdev)
- 	struct arasan_nfc *nfc = platform_get_drvdata(pdev);
- 
- 	anfc_chips_cleanup(nfc);
--
--	clk_disable_unprepare(nfc->bus_clk);
--	clk_disable_unprepare(nfc->controller_clk);
- }
- 
- static const struct of_device_id anfc_ids[] = {
 -- 
 2.34.1
 
