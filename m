@@ -2,28 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D910A784748
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0497C784749
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:25:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B1C6C6DD98;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFBA2C6DD9B;
 	Tue, 22 Aug 2023 16:25:22 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D7A5C6B478
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ED19C6B475
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 07:47:14 +0000 (UTC)
-Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.55])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4RRv4q2V6VzNn0P;
- Fri, 18 Aug 2023 15:43:39 +0800 (CST)
+ Fri, 18 Aug 2023 07:47:15 +0000 (UTC)
+Received: from kwepemi500012.china.huawei.com (unknown [172.30.72.56])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RRv7K2VNgzkX73;
+ Fri, 18 Aug 2023 15:45:49 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemi500012.china.huawei.com
  (7.221.188.12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Fri, 18 Aug
- 2023 15:47:10 +0800
+ 2023 15:47:11 +0800
 From: Li Zetao <lizetao1@huawei.com>
 To: <lizetao1@huawei.com>
-Date: Fri, 18 Aug 2023 15:46:35 +0800
-Message-ID: <20230818074642.308166-6-lizetao1@huawei.com>
+Date: Fri, 18 Aug 2023 15:46:36 +0800
+Message-ID: <20230818074642.308166-7-lizetao1@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230818074642.308166-1-lizetao1@huawei.com>
 References: <20230817024509.3951629-1-lizetao1@huawei.com>
@@ -47,7 +47,7 @@ Cc: heiko@sntech.de, geert+renesas@glider.be, stefan@agner.ch,
  angelogioacchino.delregno@collabora.com, philmd@linaro.org,
  dmitry.torokhov@gmail.com, nicolas.ferre@microchip.com, michael@walle.cc,
  mcoquelin.stm32@gmail.com, pratyush@kernel.org
-Subject: [Linux-stm32] [PATCH -next v2 05/12] mtd: rawnand: lpc32xx_slc: Use
+Subject: [Linux-stm32] [PATCH -next v2 06/12] mtd: rawnand: mpc5121: Use
 	helper function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -69,71 +69,49 @@ Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
 and enabled clocks"), devm_clk_get() and clk_prepare_enable() can now be
 replaced by devm_clk_get_enabled() when driver enable (and possibly
 prepare) the clocks for the whole lifetime of the device. Moreover, it is
-no longer necessary to unprepare and disable the clock explicitly, so drop
-the label "unprepare_clk".
+no longer necessary to unprepare and disable the clock explicitly.
 
 Signed-off-by: Li Zetao <lizetao1@huawei.com>
 ---
 v1 -> v2: Modify commit message.
-v1: https://lore.kernel.org/all/20230817024509.3951629-6-lizetao1@huawei.com/
+v1: https://lore.kernel.org/all/20230817024509.3951629-7-lizetao1@huawei.com/
 
- drivers/mtd/nand/raw/lpc32xx_slc.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/mtd/nand/raw/mpc5121_nfc.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/lpc32xx_slc.c b/drivers/mtd/nand/raw/lpc32xx_slc.c
-index 2201264d3c37..1c5fa855b9f2 100644
---- a/drivers/mtd/nand/raw/lpc32xx_slc.c
-+++ b/drivers/mtd/nand/raw/lpc32xx_slc.c
-@@ -871,15 +871,12 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
- 	mtd->dev.parent = &pdev->dev;
+diff --git a/drivers/mtd/nand/raw/mpc5121_nfc.c b/drivers/mtd/nand/raw/mpc5121_nfc.c
+index 6e8e790f84e7..215610f808f1 100644
+--- a/drivers/mtd/nand/raw/mpc5121_nfc.c
++++ b/drivers/mtd/nand/raw/mpc5121_nfc.c
+@@ -595,8 +595,6 @@ static void mpc5121_nfc_free(struct device *dev, struct mtd_info *mtd)
+ 	struct nand_chip *chip = mtd_to_nand(mtd);
+ 	struct mpc5121_nfc_prv *prv = nand_get_controller_data(chip);
  
- 	/* Get NAND clock */
--	host->clk = devm_clk_get(&pdev->dev, NULL);
-+	host->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(host->clk)) {
- 		dev_err(&pdev->dev, "Clock failure\n");
- 		res = -ENOENT;
- 		goto enable_wp;
- 	}
--	res = clk_prepare_enable(host->clk);
--	if (res)
--		goto enable_wp;
- 
- 	/* Set NAND IO addresses and command/ready functions */
- 	chip->legacy.IO_ADDR_R = SLC_DATA(host->io_base);
-@@ -907,13 +904,13 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
- 				      GFP_KERNEL);
- 	if (host->data_buf == NULL) {
- 		res = -ENOMEM;
--		goto unprepare_clk;
-+		goto enable_wp;
- 	}
- 
- 	res = lpc32xx_nand_dma_setup(host);
- 	if (res) {
- 		res = -EIO;
--		goto unprepare_clk;
-+		goto enable_wp;
- 	}
- 
- 	/* Find NAND device */
-@@ -934,8 +931,6 @@ static int lpc32xx_nand_probe(struct platform_device *pdev)
- 	nand_cleanup(chip);
- release_dma:
- 	dma_release_channel(host->dma_chan);
--unprepare_clk:
--	clk_disable_unprepare(host->clk);
- enable_wp:
- 	lpc32xx_wp_enable(host);
- 
-@@ -962,7 +957,6 @@ static void lpc32xx_nand_remove(struct platform_device *pdev)
- 	tmp &= ~SLCCFG_CE_LOW;
- 	writel(tmp, SLC_CTRL(host->io_base));
- 
--	clk_disable_unprepare(host->clk);
- 	lpc32xx_wp_enable(host);
+-	clk_disable_unprepare(prv->clk);
+-
+ 	if (prv->csreg)
+ 		iounmap(prv->csreg);
  }
+@@ -717,17 +715,12 @@ static int mpc5121_nfc_probe(struct platform_device *op)
+ 	}
  
+ 	/* Enable NFC clock */
+-	clk = devm_clk_get(dev, "ipg");
++	clk = devm_clk_get_enabled(dev, "ipg");
+ 	if (IS_ERR(clk)) {
+-		dev_err(dev, "Unable to acquire NFC clock!\n");
++		dev_err(dev, "Unable to acquire and enable NFC clock!\n");
+ 		retval = PTR_ERR(clk);
+ 		goto error;
+ 	}
+-	retval = clk_prepare_enable(clk);
+-	if (retval) {
+-		dev_err(dev, "Unable to enable NFC clock!\n");
+-		goto error;
+-	}
+ 	prv->clk = clk;
+ 
+ 	/* Reset NAND Flash controller */
 -- 
 2.34.1
 
