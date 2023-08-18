@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BB0781147
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 19:10:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6598C781227
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 19:40:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53BDEC6B461;
-	Fri, 18 Aug 2023 17:10:27 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D5F1C6B461;
+	Fri, 18 Aug 2023 17:40:02 +0000 (UTC)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B00C1C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D52C7C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 17:10:25 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-4fe85fd3d27so1810295e87.0
+ Fri, 18 Aug 2023 17:40:00 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-2b9db1de50cso17661141fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 10:10:25 -0700 (PDT)
+ Fri, 18 Aug 2023 10:40:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692378625; x=1692983425;
+ d=gmail.com; s=20221208; t=1692380400; x=1692985200;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qZncaXQLSh9js0I4WjpTSahy4Bvx67wGvUaNA9X9QL4=;
- b=mWiVtgsWZW2NgtZV2B1VWpSdYomDbnE5IM3I8NwhrcqW1ICl6KDFCrHBvLEuRWsiw4
- h68dv3P2mof7Uvn0W27wQKaU+szILp/iQk+ZZ7NCHMVhJhaaxYk1+a6IgcFBFaY8cReV
- hvVjg6Cg+nEmYiod4CbK7H4JM4/8z4fuiu3u9xolueCbV5aqABwD/8/5V7g2I2feoYCR
- G5ILCR+KA5LzRYlbIJJR4nNGFEdPFRL7j0QSshp/zTF4GjzyaXgW7MjbGUrCcX5PuhQv
- Ye3hwRCyudxym7NAyPZZLQ5am6U3HSWki/kp7aWRPkMXCwRq46p0gkXyFdFG+B5oJG4d
- a9GQ==
+ bh=SBqiuE1W/JJkU+Tq/bgiu3Be54o3xfgf8EPQHSsbYvE=;
+ b=BE6OaS94KC3ES1uLbXhuynhUsT43JlDerMghFFjqIBLZRKj3V6ayVWQjeDeSF0fpIM
+ m1eWPzhApnMgn2BM6oKkZASsKq1b5exbcw4gYIBhdWwkF8rKGj8MEfH5soKjOGHwvkBH
+ mAfzprqByd9zneoNWzFx/Ilo9cqeQqsSnY4MRvX0Vu2cU7Xx0oY05D7X2WveFD/gsJlR
+ lEa4a7PRqZP2059Wln0pRUKBOXPlsyu0IBwJ1zJGV2sIs7DDdPCTtl6wlpdeVRM8IyYu
+ 6IfzJRkMFBJCXIhh68jJB25BDm0d2oLGBtuGWLVWq9h+yrKU8goCbjPLkk7OVurTkGYA
+ BqgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692378625; x=1692983425;
+ d=1e100.net; s=20221208; t=1692380400; x=1692985200;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qZncaXQLSh9js0I4WjpTSahy4Bvx67wGvUaNA9X9QL4=;
- b=QVXxmXMTVg8FNKN/aUxYs+TSo/Q9nia4QpPLVFNOFbXf8vsEAxczVJD9Uzl9qa5CAV
- 7ooybe0hi4AVHnZ48aPtLAP73+TEvuQngXuGoVzJ5pcG+DST51vfnx5cpgzRenrdOoQK
- Vwrwps1MxXERA1EFqMupY9gWzXHHAsH/jLw2K6RU+hLVPxP4pZdxQ8VWuCBhXxBti5nd
- GqJvvkEfXmR/IW46s8NCV68KKmWvxmQReuz4xMb+kxtLda+fsXC7D5Q+yUmyV5qyFzd4
- xIVkmbPKoGbgxCE2OYp9xd6F/uRdqvAss1i608vW47lFetNLMm7KMeUWoUzojcSEjTHy
- acNA==
-X-Gm-Message-State: AOJu0Yx6QiAUXsa4qjru0SioDhNzyeeXabSq+pfTyAuvt7lrm/g73YYy
- uaVCww+1rjJzt3toG/B++ts=
-X-Google-Smtp-Source: AGHT+IHsEr3WOE514VOmtMPl7fzHNR2vgMsIyU//tQb/ScBsu4i9rGSZix1w2kzZUdJX/qwEfDWk5Q==
-X-Received: by 2002:a05:6512:477:b0:4f8:49a7:2deb with SMTP id
- x23-20020a056512047700b004f849a72debmr2118416lfd.8.1692378624613; 
- Fri, 18 Aug 2023 10:10:24 -0700 (PDT)
+ bh=SBqiuE1W/JJkU+Tq/bgiu3Be54o3xfgf8EPQHSsbYvE=;
+ b=T2uetrODvYMMiOwJlZvgK+G9EekKQSwfMNPovvTynHgglbXzq7R2LjvT4oYW0OgElp
+ yKCF58NWTNZeNh9Lo9CfC4tLVfP1jzG5fBxpgRBBEqrfo64rOnUUj1czTguv4rCQUfD4
+ JkuU3giAZshdhAT4H4OkuOB7dBKi57wve5GO+HJEOR7MDEi1ANzt32g9+ec3t40mT5XF
+ zz5XOzROz50XjP+G4Azmgee50Ih91BApFxy28sqy1GVf3dIsZW0qqbAISUQPvs8HqqE4
+ UsrSdPCAfdOakUpBSIb/hS5ZIbMLeH3eCWy0UbNbw/4ADiWaKZx9pCFHxXcYu5cl34/l
+ Iw2Q==
+X-Gm-Message-State: AOJu0YwhtSvnBcqnsheOlQdwf1SD58lT/iW9rvSZ5rmQ345O/KrxhOQR
+ 5p0LgHM4YzeR5rKkbhVoXqk=
+X-Google-Smtp-Source: AGHT+IGK+CdeoXcBxxlJm2PEhmKHd4mivKEyLJ33UNYeWnW7bCiXLwfuHFYfdl82c1rbMIs3ytviaw==
+X-Received: by 2002:a2e:9c55:0:b0:2b9:eb9d:cc53 with SMTP id
+ t21-20020a2e9c55000000b002b9eb9dcc53mr2439249ljj.42.1692380399736; 
+ Fri, 18 Aug 2023 10:39:59 -0700 (PDT)
 Received: from mobilestation ([93.157.254.210])
  by smtp.gmail.com with ESMTPSA id
- v20-20020ac25934000000b004faf6a87d63sm417332lfi.38.2023.08.18.10.10.23
+ v22-20020a2e9256000000b002b9f4f3e16dsm546065ljg.85.2023.08.18.10.39.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Aug 2023 10:10:24 -0700 (PDT)
-Date: Fri, 18 Aug 2023 20:10:21 +0300
+ Fri, 18 Aug 2023 10:39:59 -0700 (PDT)
+Date: Fri, 18 Aug 2023 20:39:56 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Jisheng Zhang <jszhang@kernel.org>
-Message-ID: <k57laovdsomy4eblyu5neujkkcqinitfmdvojcph3zh2ygn4jt@iton4m73y6nz>
+Message-ID: <wkzy3v272ia237pfhlvtrwbij7qeswb2zmkxhnsir5xtroezr7@frow2mvqeq35>
 References: <20230817165749.672-1-jszhang@kernel.org>
- <20230817165749.672-6-jszhang@kernel.org>
+ <20230817165749.672-7-jszhang@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230817165749.672-6-jszhang@kernel.org>
+In-Reply-To: <20230817165749.672-7-jszhang@kernel.org>
 Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
  devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
@@ -69,8 +69,8 @@ Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v5 5/9] net: stmmac: xgmac:
- support per-channel irq
+Subject: Re: [Linux-stm32] [PATCH net-next v5 6/9] dt-bindings: net: snps,
+ dwmac: add safety irq support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,91 +87,102 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Aug 18, 2023 at 12:57:45AM +0800, Jisheng Zhang wrote:
-> The IP supports per channel interrupt, add support for this usage case.
+On Fri, Aug 18, 2023 at 12:57:46AM +0800, Jisheng Zhang wrote:
+> The snps dwmac IP support safety features, and those Safety Feature
+> Correctible Error and Uncorrectible Error irqs may be separate irqs.
 > 
 > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 > ---
->  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  2 ++
->  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 33 +++++++++++--------
->  2 files changed, 22 insertions(+), 13 deletions(-)
+>  .../devicetree/bindings/net/snps,dwmac.yaml         | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> index 7f68bef456b7..18a042834d75 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> @@ -340,6 +340,8 @@
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index ddf9522a5dc2..ee9174f77d97 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -103,17 +103,26 @@ properties:
 >  
->  /* DMA Registers */
->  #define XGMAC_DMA_MODE			0x00003000
-> +#define XGMAC_INTM			GENMASK(13, 12)
-> +#define XGMAC_INTM_MODE1		0x1
->  #define XGMAC_SWR			BIT(0)
->  #define XGMAC_DMA_SYSBUS_MODE		0x00003004
->  #define XGMAC_WR_OSR_LMT		GENMASK(29, 24)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index 1ef8fc132c2d..ce228c362403 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -31,6 +31,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
->  		value |= XGMAC_EAME;
+>    interrupts:
+>      minItems: 1
+> +    maxItems: 5
+> +    additionalItems: true
+>      items:
+>        - description: Combined signal for various interrupt events
+>        - description: The interrupt to manage the remote wake-up packet detection
+>        - description: The interrupt that occurs when Rx exits the LPI state
+> +      - description: The interrupt that occurs when Safety Feature Correctible Errors happen
+> +      - description: The interrupt that occurs when Safety Feature Uncorrectible Errors happen
 >  
->  	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
-> +
-> +	if (dma_cfg->perch_irq_en) {
-> +		value = readl(ioaddr + XGMAC_DMA_MODE);
-> +		value &= ~XGMAC_INTM;
-> +		value |= FIELD_PREP(XGMAC_INTM, XGMAC_INTM_MODE1);
-> +		writel(value, ioaddr + XGMAC_DMA_MODE);
-> +	}
->  }
->  
->  static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
-> @@ -365,20 +372,20 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
->  	}
->  
->  	/* TX/RX NORMAL interrupts */
+>    interrupt-names:
+>      minItems: 1
+> +    maxItems: 5
+> +    additionalItems: true
+>      items:
+>        - const: macirq
+> -      - enum: [eth_wake_irq, eth_lpi]
+> -      - const: eth_lpi
+> +      - enum:
+> +          - eth_wake_irq
+> +          - eth_lpi
+> +          - sfty_ce
+> +          - sfty_ue
 
-> -	if (likely(intr_status & XGMAC_NIS)) {
-> -		if (likely(intr_status & XGMAC_RI)) {
-> -			u64_stats_update_begin(&rx_q->rxq_stats.syncp);
-> -			rx_q->rxq_stats.rx_normal_irq_n++;
-> -			u64_stats_update_end(&rx_q->rxq_stats.syncp);
-> -			ret |= handle_rx;
-> -		}
-> -		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
-> -			u64_stats_update_begin(&tx_q->txq_stats.syncp);
-> -			tx_q->txq_stats.tx_normal_irq_n++;
-> -			u64_stats_update_end(&tx_q->txq_stats.syncp);
-> -			ret |= handle_tx;
-> -		}
-> +	if (likely(intr_status & XGMAC_RI)) {
-> +		u64_stats_update_begin(&rx_q->rxq_stats.syncp);
-> +		rx_q->rxq_stats.rx_normal_irq_n++;
-> +		u64_stats_update_end(&rx_q->rxq_stats.syncp);
-> +		ret |= handle_rx;
-> +	}
-> +	if (likely(intr_status & XGMAC_TI)) {
-> +		u64_stats_update_begin(&tx_q->txq_stats.syncp);
-> +		tx_q->txq_stats.tx_normal_irq_n++;
-> +		u64_stats_update_end(&tx_q->txq_stats.syncp);
-> +		ret |= handle_tx;
->  	}
-> +	if (unlikely(intr_status & XGMAC_TBU))
-> +		ret |= handle_tx;
+IIUC this would mean the next constraints:
+Item    0: must be macirq,
+Item    1: any of eth_wake_irq, eth_lpi, sfty_ce, sfty_ue
+Items 2:4: any bla-bla-bla.
 
-Just curious. Is this change really necessary seeing NIS IRQ is
-unmasked and it is unmasked-OR of the RI/TI/TBU flags in the
-DMA_CHx_Status register? Moreover based on the HW manual,
-DMA_CHx_Status reflects raw IRQ flags status except NIS and AIS which
-are the masked OR of the respective flags. So AFAIU NIS will be set in
-anyway if you have RI/TI/TBU IRQs enabled.
+After adding the per-DMA-channel IRQs in the next patches the array
+will be extended to up to 37 any names. It doesn't look correct. What
+about converting it to the position independent arrays constraint:
+
+  interrupts:
+    minItems: 1
+    maxItems: 34
+
+    
+  interrupt-names:
+    minItems: 1
+    maxItems: 34
+    items:
+      oneOf:
+        - description: Combined signal for various interrupt events
+          const: macirq
+        - description: The interrupt to manage the remote wake-up packet detection
+          const: eth_wake_irq
+        - description: The interrupt that occurs when Rx exits the LPI state
+          const: eth_lpi
+        - description: Safety Feature Correctible Errors interrupt
+          const: sfty_ce
+        - description: Safety Feature Uncorrectible Errors interrupt
+          const: sfty_ue
+        - description: DMA Tx per-channel interrupt
+          pattern: '^dma_tx([0-9]|1[0-5])?$'
+        - description: DMA Rx per-channel interrupt
+          pattern: '^dma_rx([0-9]|1[0-1])?$'
+
+    allOf:
+      - contains:
+          const: macirq
+
+Hope neither Krzysztof nor Rob will be against such modification
+especially seeing it's the only way to resolve the very much possible
+case of a device having macirq and per-DMA-channel IRQs but lacking
+the LPI, PMT or Safety IRQs.
+
+Note 1. I've changed the name of the Tx/Rx IRQs to having the "dma_"
+suffix to signify that these are actually DMA-channel IRQs. The MTL
+queue interrupts drive the sbd_intr_o signal which is tracked by the
+"macirq" line.
+
+Note 2. I've reduced the number of DMA Rx IRQs to being up to 12 in
+accordance with available to me DW XGMAC HW manual.
 
 -Serge(y)
 
 >  
->  	/* Clear interrupts */
->  	writel(intr_en & intr_status, ioaddr + XGMAC_DMA_CH_STATUS(chan));
+>    clocks:
+>      minItems: 1
 > -- 
 > 2.40.1
 > 
