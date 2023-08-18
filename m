@@ -2,63 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A244784756
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C03F784757
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:26:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEFB3C7128B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF699C7128E;
 	Tue, 22 Aug 2023 16:26:15 +0000 (UTC)
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9482EC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFF1AC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 09:07:03 +0000 (UTC)
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37I96ZKE055690;
- Fri, 18 Aug 2023 04:06:35 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1692349595;
- bh=upWGZ08Ag7ZkIKjE4aoKarr1uV5vkbFFohJdu5uXs3s=;
- h=From:To:CC:Subject:In-Reply-To:References:Date;
- b=MEZFUUAL8lzfFn1grmOljrTXC4qaUMc4GBjop3lqh/SkFkbY8yE1vDXd/ddguSrnK
- 1bLQDyP22c5QuksnhKToIvnCd2kAGNtBwTSLzpg/HTxSRnQwgV+vPaeure6avUk6gm
- 6QU6l1qwLcAnKKLOtIHFW8sk8d6CLVJENpRq5kDw=
-Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37I96ZW5106682
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 18 Aug 2023 04:06:35 -0500
-Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Fri, 18
- Aug 2023 04:06:35 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Fri, 18 Aug 2023 04:06:35 -0500
-Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37I96Ynp051919;
- Fri, 18 Aug 2023 04:06:35 -0500
-From: Kamlesh Gurudasani <kamlesh@ti.com>
-To: Eric Biggers <ebiggers@kernel.org>
-In-Reply-To: <20230812030116.GF971@sol.localdomain>
-References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
- <20230812030116.GF971@sol.localdomain>
-Date: Fri, 18 Aug 2023 14:36:34 +0530
-Message-ID: <87h6owen39.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+ Fri, 18 Aug 2023 10:19:56 +0000 (UTC)
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-4fe8c16c1b4so1043696e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 18 Aug 2023 03:19:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1692353996; x=1692958796;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=pb0pctZb8QtUfFQr+rA7AG4CHO5Qtd4k3pKgwlh5qck=;
+ b=Pa05IZmzxUof/JTX5sYgmbso85hDS8hYULdKoqRJ9pa7oEJj3KKPJvlp8aKsu7BkWe
+ 7LZCZAAJkdeFzE8FevvQGusqrJtgmxn63kAVxmqmD8CfifcwAxo4VH35MPrbg9GbhWMM
+ 4Pw0oOpcSQ1TqydswzrxSNGG6n0QblyYXklq1LMn07Tim5a8r7oIQu4TBSHlU18VTiTy
+ sBll8RKZRHt1X3nHO72Gp4owtRF1Gac+qGE0ZG+H+wdJvjIc12gGSim0WTlF1kEbpD4M
+ /2t9f30R9G0Ku/t4SGWRcIvvtXOz0qNl7O68eEhByuz5Q9l7b+4Asm6TdNGwsKlLpIQ7
+ EULQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692353996; x=1692958796;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=pb0pctZb8QtUfFQr+rA7AG4CHO5Qtd4k3pKgwlh5qck=;
+ b=D6otIqzwwjF/2IXSDRY0OXfJPLyM5VDM10TzpwATWnjAR/Z5VRPBhu7iswVJpnr6Zd
+ lfLVLAr3Dzus48b742m+X7EMybyJxdTU5jFYlr3K4ZLQZLYNRpCs/OLRoG68B3VCbrPX
+ 21COa8lvkhD7Et3a9Q6H/UHHijHjkA0nmCNAq1aeU4gzH445XoeZZfcyC7/URshk5h7q
+ uiFp/HustHmOHFhZSqpZ6rwqXvaaEDpHTlwUHcOdEL0qA7/XfGBUhWRcN9J+nBofWtwz
+ RO0rBG6mw4REaAstgBiwk9mTck8NBs+ntHQr1Jouj9tcsTR5XZnkEgp9IASc0G2uWhvb
+ Mw4w==
+X-Gm-Message-State: AOJu0YxckhcW96cQ/MgYgrC72N+LVZiNntMJjyTu2Rp1vFt1SCTFJD5G
+ IhvT1LOcCTg+vs8D3jXgbN3rUw==
+X-Google-Smtp-Source: AGHT+IGRjpQiG6m5okW2Rjffn2dFFyB2X81OzXUKgZV+AmI+W2jGdx/QNJfEpqKmEPeD398d/xB9VQ==
+X-Received: by 2002:a05:6512:3d08:b0:4ff:727e:9e67 with SMTP id
+ d8-20020a0565123d0800b004ff727e9e67mr2032630lfv.40.1692353995812; 
+ Fri, 18 Aug 2023 03:19:55 -0700 (PDT)
+Received: from [192.168.0.173] ([79.115.63.195])
+ by smtp.gmail.com with ESMTPSA id
+ k12-20020adfe3cc000000b0031ad5470f89sm2306468wrm.18.2023.08.18.03.19.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 18 Aug 2023 03:19:55 -0700 (PDT)
+Message-ID: <04f7f779-e92e-ec7a-994d-19e555e5c460@linaro.org>
+Date: Fri, 18 Aug 2023 13:19:52 +0300
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Li Zetao <lizetao1@huawei.com>
+References: <20230817024509.3951629-1-lizetao1@huawei.com>
+ <20230818074642.308166-1-lizetao1@huawei.com>
+ <20230818074642.308166-12-lizetao1@huawei.com>
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20230818074642.308166-12-lizetao1@huawei.com>
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
-Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Will Deacon <will@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Vignesh Raghavendra <vigneshr@ti.com>
-Subject: Re: [Linux-stm32] [EXTERNAL] Re: [PATCH v2 0/6] Add support for
- Texas Instruments MCRC64 engine
+Cc: heiko@sntech.de, geert+renesas@glider.be, stefan@agner.ch,
+ paul@crapouillou.net, linux-mtd@lists.infradead.org, jernej.skrabec@gmail.com,
+ miquel.raynal@bootlin.com, jinpu.wang@ionos.com,
+ linux-stm32@st-md-mailman.stormreply.com, vigneshr@ti.com, robh@kernel.org,
+ samuel@sholland.org, richard@nod.at, christophe.leroy@csgroup.eu,
+ wens@csie.org, u.kleine-koenig@pengutronix.de, linux-sunxi@lists.linux.dev,
+ frank.li@vivo.com, martin.blumenstingl@googlemail.com,
+ yangyingliang@huawei.com, vz@mleia.com, rogerq@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com, philmd@linaro.org,
+ dmitry.torokhov@gmail.com, nicolas.ferre@microchip.com, michael@walle.cc,
+ mcoquelin.stm32@gmail.com, pratyush@kernel.org
+Subject: Re: [Linux-stm32] [PATCH -next v2 11/12] mtd: spi-nor: nxp-spifi:
+ Use helper function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,63 +97,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Eric Biggers <ebiggers@kernel.org> writes:
+Just a reminder that for the owners of the driver that we'd like to move
+all the SPI NOR controller drivers to drivers/spi and that until then
+we'll no longer queue features for the controllers, but just fixes or
+cosmetics patches like this one.
 
-> On Fri, Aug 11, 2023 at 12:58:47AM +0530, Kamlesh Gurudasani wrote:
->> Add support for MCRC64 engine to calculate 64-bit CRC in Full-CPU mode
->> 
->> MCRC64 engine calculates 64-bit cyclic redundancy checks (CRC)
->> according to the ISO 3309 standard.
->> 
->> The ISO 3309 64-bit CRC model parameters are as follows:
->>     Generator Polynomial: x^64 + x^4 + x^3 + x + 1
->>     Polynomial Value: 0x000000000000001B
->>     Initial value: 0x0000000000000000
->>     Reflected Input: False
->>     Reflected Output: False
->>     Xor Final: 0x0000000000000000
->> 
->> Tested with
->> CONFIG_CRYPTO_MANAGER_DISABLE_TESTS is not set
->> CONFIG_CRYPTO_MANAGER_EXTRA_TESTS=y
->> 
->> and tcrypt,
->> sudo modprobe tcrypt mode=329 sec=1
->> 
->> User space application implemented using algif_hash,
->> https://gist.github.com/ti-kamlesh/73abfcc1a33318bb3b199d36b6209e59
->> 
->> Signed-off-by: Kamlesh Gurudasani <kamlesh@ti.com>
->
-> I do not see any in-kernel user of this CRC variant being introduced, which
-> leaves algif_hash as the only use case.
->
-> Can you elaborate on the benefit this brings to your application?  Yes, it
-> allows you to use your hardware CRC engine.  But, that comes with all the
-> overhead from the syscalls, algif_hash, and the driver.  How does performance
-> compare to a properly optimized software CRC implementation on your platform,
-> i.e. an implementation using carryless multiplication instructions (e.g. ARMv8
-> CE) if available on your platform, otherwise an implementation using the
-> slice-by-8 or slice-by-16 method?
->
-> - Eric
-Hi Eric,
-
-We are more interested in offload than performance, with splice system
-call and DMA mode in driver(will be implemented after this series gets
-merged), good amount of cpu cycles will be saved.
-
-There is one more mode(auto mode) in mcrc64 which helps to verify crc64
-values against pre calculated crc64, saving the efforts of comparing in
-userspace.
-
-Current generic implementation of crc64-iso(part of this series)
-gives 173 Mb/s of speed as opposed to mcrc64 which gives speed of 812
-Mb/s when tested with tcrypt.
-
-Regard,
-Kamlesh
-
+Cheers,
+ta
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
