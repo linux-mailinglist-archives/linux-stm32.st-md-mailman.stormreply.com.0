@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C28B780313
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 03:23:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C676780319
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 03:23:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E311FC6B476;
-	Fri, 18 Aug 2023 01:23:44 +0000 (UTC)
-Received: from omta34.uswest2.a.cloudfilter.net
- (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 031A3C6B476;
+	Fri, 18 Aug 2023 01:23:56 +0000 (UTC)
+Received: from omta040.useast.a.cloudfilter.net
+ (omta040.useast.a.cloudfilter.net [44.202.169.39])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D891C6B472
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 344EFC6B472
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 01:23:43 +0000 (UTC)
-Received: from eig-obgw-5005a.ext.cloudfilter.net ([10.0.29.234])
+ Fri, 18 Aug 2023 01:23:54 +0000 (UTC)
+Received: from eig-obgw-5009a.ext.cloudfilter.net ([10.0.29.176])
  by cmsmtp with ESMTP
- id WIWCqqNQ6faVXWoDGqSKxt; Fri, 18 Aug 2023 01:23:42 +0000
+ id WmuKqjqvWyYOwWoDSqzlbn; Fri, 18 Aug 2023 01:23:54 +0000
 Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTPS
- id WoDFqQMRji8uRWoDFq7XoT; Fri, 18 Aug 2023 01:23:42 +0000
-X-Authority-Analysis: v=2.4 cv=JOsoDuGb c=1 sm=1 tr=0 ts=64dec81e
+ id WoDRqKggO0LVOWoDRqo0hj; Fri, 18 Aug 2023 01:23:53 +0000
+X-Authority-Analysis: v=2.4 cv=BvCOfKb5 c=1 sm=1 tr=0 ts=64dec829
  a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=WzbPXH4gqzPVN0x6HrNMNA==:17
  a=OWjo9vPv0XrRhIrVQ50Ab3nP57M=:19 a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19
  a=IkcTkHD0fZMA:10 a=UttIx32zK-AA:10 a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8
- a=VwQbUJbxAAAA:8 a=pFyQfRViAAAA:8 a=cm27Pg_UAAAA:8 a=HvF037n1xESchLcPDVoA:9
- a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22 a=oJz5jJLG1JtSoe7EL652:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=SRrdq9N9AAAA:8 a=cm27Pg_UAAAA:8
+ a=HvF037n1xESchLcPDVoA:9 a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22
  a=xmb-EsYY8bH0VWELuYED:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
@@ -32,29 +32,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=o/+pO3PIu+Y61Kvz7emltSb9pfrpT5BKJMwFpbJx990=; b=gnDTM/eokucdSfrXYpZWTvzo9y
- PnhEJcdKe+ysvz++MjaS7mXcLzRp+VQsTcaEcrJDiMoOcHSes2URK+vfTyEztz1Fl0eOu7wgAD2m9
- fR3aG6737S+LuG8WSbjRHsGBoNWnM8SQnO0gapIJtNSw0Xs7NF/PU+elgfTv+9Y66iDBwj9GVDu5L
- mExbhtCFUqk0DfTTtzTJYyNvZgSmwuMcQPkbWFrG5vGwRZSzVA1yAtdb4F3jfg3g2C54oDKCzPVCu
- d7AvgRutV3bGjyTpDDZAtvvi0WMAFSQ1li7COg+sKwN+uUlKHpyc3rfvft0OYXPOCeE7PhOevogQy
- vtEChXHg==;
-Received: from 187-162-21-192.static.axtel.net ([187.162.21.192]:42794
+ bh=rV+WYRnH5TXA/Y405RDLo11+a66UWskxwRISLK/OmBI=; b=FJu+paHXo96eE8gQAEcxG7Ef8a
+ XWwtsMMaJR30bKbG+wqSV3e0xMTA2NAt8+4Sld4LWF6jKM1wknDMnEV6YjkoHaxubC5sErJgWjEWW
+ rxVylS8//8+rYl0ENj0XOzUyiS2mG7ME9ZaNUDrxMgNQsEmF3E4iuxHWzbpRwWzh2nbACl8LAnBXC
+ wUjyqPrnSdes293KRNE+eF3m5s4jyJuUcfhjGBWOoNKkUYRAZVjuQcVKNbmpydLNw7eE9vYLpfRyX
+ Vao1iyrQRhTs8bfHGyqyccbl/2mQGZyYT8COOzwxHbTb5IxERn1JwDsBJSWwa0HGA4pL1m2tkceIv
+ ObLo8hgg==;
+Received: from 187-162-21-192.static.axtel.net ([187.162.21.192]:34254
  helo=[192.168.15.8])
  by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <gustavo@embeddedor.com>) id 1qWoD9-000Vx3-2f;
- Thu, 17 Aug 2023 20:23:35 -0500
-Message-ID: <1a0c3c57-6a83-28d9-18e6-29aaedcd9507@embeddedor.com>
-Date: Thu, 17 Aug 2023 19:24:34 -0600
+ (envelope-from <gustavo@embeddedor.com>) id 1qWoDL-000WJd-1n;
+ Thu, 17 Aug 2023 20:23:47 -0500
+Message-ID: <488f56f6-7a46-b8f9-bfc8-5d1934d095ab@embeddedor.com>
+Date: Thu, 17 Aug 2023 19:24:46 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.13.0
 Content-Language: en-US
 To: Kees Cook <keescook@chromium.org>, Vinod Koul <vkoul@kernel.org>
 References: <20230817235428.never.111-kees@kernel.org>
- <20230817235859.49846-9-keescook@chromium.org>
+ <20230817235859.49846-10-keescook@chromium.org>
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20230817235859.49846-9-keescook@chromium.org>
+In-Reply-To: <20230817235859.49846-10-keescook@chromium.org>
 X-AntiAbuse: This header was added to track abuse,
  please include it with any abuse report
 X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
@@ -64,22 +64,22 @@ X-AntiAbuse: Sender Address Domain - embeddedor.com
 X-BWhitelist: no
 X-Source-IP: 187.162.21.192
 X-Source-L: No
-X-Exim-ID: 1qWoD9-000Vx3-2f
+X-Exim-ID: 1qWoDL-000WJd-1n
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
 X-Source-Sender: 187-162-21-192.static.axtel.net ([192.168.15.8])
- [187.162.21.192]:42794
+ [187.162.21.192]:34254
 X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 256
+X-Email-Count: 298
 X-Org: HG=hgshared;ORG=hostgator;
 X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNr1ibfOPrhj0WcsS820h45eKgnoGVR+al+JzH2StSTS+n2UmvCZPuFspjTvQ0B9RaIQv9n9nc2B9/NfHUKhD8xX1E5mixtDXQth1L0O7DzZM03pPKIr
- 6SS+h47/aNcI0PdxCvaBTCSIWD9Xe4b5kC79NRlf/MW+QqQW39IO4SbYU191HmiR5A/DTt44S/vG/FtaFinFhkbtLM8pIAwhC9xso8QpDC+km3kRp/N8GPYw
+X-CMAE-Envelope: MS4xfKcpemUJ3Zop11TuafiTo2z8Qs852Am5Jrpek8GLx2X+E6Ksj8V/n/7pcRV/NtP8I8L/PrdFL/qrLnf9kuj/JyaXx7j288HaYYSWGgmJafk8TCvXmTU9
+ r7wTC3QsQpqBMYr52YGdul1G/2hvRsK31si6+n8sPKpeEiV2K8kLUE74WzG85c+uORXsmwabGP0b+oc8yKNpAxWLOTxk0pwNJ+53fLVyB2pGGfaF1q5Che8E
 Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- Laxman Dewangan <ldewangan@nvidia.com>, linux-hardening@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>, linux-hardening@vger.kernel.org,
  Peter Ujfalusi <peter.ujfalusi@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com,
  Alyssa Rosenzweig <alyssa@rosenzweig.io>, Lars-Peter Clausen <lars@metafoo.de>,
@@ -98,11 +98,10 @@ Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
  Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
  Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@linaro.org>, Zhou Wang <wangzhou1@hisilicon.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
+ Laxman Dewangan <ldewangan@nvidia.com>, Masami Hiramatsu <mhiramat@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 09/21] dmaengine: sf-pdma: Annotate struct
- sf_pdma with __counted_by
+Subject: Re: [Linux-stm32] [PATCH 10/21] dmaengine: sprd: Annotate struct
+ sprd_dma_dev with __counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,12 +127,14 @@ On 8/17/23 17:58, Kees Cook wrote:
 > (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
 > functions).
 > 
-> As found with Coccinelle[1], add __counted_by for struct sf_pdma.
+> As found with Coccinelle[1], add __counted_by for struct sprd_dma_dev.
 > 
 > [1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 > 
 > Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Green Wan <green.wan@sifive.com>
+> Cc: Orson Zhai <orsonzhai@gmail.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Chunyan Zhang <zhang.lyra@gmail.com>
 > Cc: dmaengine@vger.kernel.org
 > Signed-off-by: Kees Cook <keescook@chromium.org>
 
@@ -144,22 +145,22 @@ Thanks
 Gustavo
 
 > ---
->   drivers/dma/sf-pdma/sf-pdma.h | 2 +-
+>   drivers/dma/sprd-dma.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/dma/sf-pdma/sf-pdma.h b/drivers/dma/sf-pdma/sf-pdma.h
-> index 5c398a83b491..d05772b5d8d3 100644
-> --- a/drivers/dma/sf-pdma/sf-pdma.h
-> +++ b/drivers/dma/sf-pdma/sf-pdma.h
-> @@ -113,7 +113,7 @@ struct sf_pdma {
->   	void __iomem            *membase;
->   	void __iomem            *mappedbase;
->   	u32			n_chans;
-> -	struct sf_pdma_chan	chans[];
-> +	struct sf_pdma_chan	chans[] __counted_by(n_chans);
+> diff --git a/drivers/dma/sprd-dma.c b/drivers/dma/sprd-dma.c
+> index 168aa0bd73a0..07871dcc4593 100644
+> --- a/drivers/dma/sprd-dma.c
+> +++ b/drivers/dma/sprd-dma.c
+> @@ -212,7 +212,7 @@ struct sprd_dma_dev {
+>   	struct clk		*ashb_clk;
+>   	int			irq;
+>   	u32			total_chns;
+> -	struct sprd_dma_chn	channels[];
+> +	struct sprd_dma_chn	channels[] __counted_by(total_chns);
 >   };
 >   
->   #endif /* _SF_PDMA_H */
+>   static void sprd_dma_free_desc(struct virt_dma_desc *vd);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
