@@ -2,60 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB622780D0B
-	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 15:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D10D781030
+	for <lists+linux-stm32@lfdr.de>; Fri, 18 Aug 2023 18:21:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC3E0C6B475;
-	Fri, 18 Aug 2023 13:54:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC928C6B461;
+	Fri, 18 Aug 2023 16:21:07 +0000 (UTC)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C635AC6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1798C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 18 Aug 2023 13:54:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692366851; x=1723902851;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=JDFUtXRUDrxtVzEusowNhWGcSf1zOgP5VGknWG1AdaE=;
- b=SMSDilNkDeUvWQ57LwPhCmje7gUBZCSeSwgXPb6SGsa5SWu2fQwgEEgc
- JYJPNNO5QNwcbBDbSkgCkWLjoVssdkieUX9LtMnSCDtaJsen0Xkj+KZQn
- SU8/y8zHp3aLJWLCzzNzxfZGYYYtMZ7rviR4AS9kqb5AusjlJO948KmS9
- ylZ6r4tQXiYHGlEe6X20K6F4iQFlfCVCxW753/Bm53KRkxIA4dloR1UIu
- QrBw8HXSig+YQv4iIXYj8u2+RYT/YzejWQ3A1eCbhiA3GwC3vBGizRFME
- CS12tezl+ci91lNoqS1GZeo/WAlQ+uL3R41L90QCOBQbqwatpBhzfgIHK Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="353408044"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="353408044"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2023 06:54:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="849307172"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="849307172"
-Received: from pglc00067.png.intel.com ([10.221.207.87])
- by fmsmga002.fm.intel.com with ESMTP; 18 Aug 2023 06:54:06 -0700
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Fri, 18 Aug 2023 21:53:50 +0800
-Message-Id: <20230818135350.12474-3-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230818135350.12474-1-rohan.g.thomas@intel.com>
-References: <20230818135350.12474-1-rohan.g.thomas@intel.com>
+ Fri, 18 Aug 2023 16:21:05 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2b95d5ee18dso16873611fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 18 Aug 2023 09:21:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1692375665; x=1692980465;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ISevr3prZA/3S0QxHj5ydXN0Zv61FsI9PfVEfof23CI=;
+ b=jZahUfj/MmduD+IPM03Pint/RLvUMSFv0iyRRMZSaK908OZyaz1O8uAqEOBN88VHc1
+ qNUNn4OVR+Z5EdbK7gnS4UphDN5VeVwufEUMpn8lpNV2nvE0UB4iMLP8b+cjHbHV47u/
+ 2bqeW+UcsPb1eQTiJ5flLoGXw+0pKJFWwXm03O2yDfz5x39ZvdyJ+EOW2S5LatN4wemT
+ pFYYtLSTflnCmN31qdlqNS/9ABA85Bw7JTX4xETOWP1ymW5V+RDZfzrwYw/5LX6Ds9k3
+ bZeWn68Ym2ldz7i9zXQjKozmlM+fRC5okYuigbqgTnkiYKmUAldLuYmhHznPiV3rREO2
+ YiVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692375665; x=1692980465;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ISevr3prZA/3S0QxHj5ydXN0Zv61FsI9PfVEfof23CI=;
+ b=DiFv1bucdGGxMStAnsYVJKNbR9SHVeKeex2S6Brs4l6oUuMAIQ9QAAu4e3xoY2lKNE
+ zXlLZGRAgJ2LGJJ/shMYkq9bD6Nui3sym4xYXpvfkt+ojpsPX+0bHIKehX7HBV3Rrp/a
+ r3sA99rS49oHPBTmB+o9ipjeiZaElBvsdFJdjQcydnqbd5Cwk8JBo4MncTq2bo+S8GNk
+ gUI8s4723OYCGO2TJBiJeXSUEhAQwyeX48sP/vrM1t3rQi7+SjI1t1w+yToPm6YrUdRe
+ FHupxfZKDGl/zUWt2gSUp9Ufso2Cn3wD3sq9fFKC4JczhZOEPkVQHlBCcX7yzGuAHHr1
+ pdsQ==
+X-Gm-Message-State: AOJu0YzQkwBZUMP+ffIqc2KtHG5tOnwmwhZcuAxtq7jdlO5V3qld1xWy
+ eGpvlIxew91uZ8fg1WkJpBA=
+X-Google-Smtp-Source: AGHT+IE3/49Cxy+7LqkfRNSOMxG3XFb7K+P7OqdpNJXTtf3WMhq9yD7RJ9phPsVggVXGgrG0MkRTsw==
+X-Received: by 2002:a19:4f42:0:b0:4fb:9129:705b with SMTP id
+ a2-20020a194f42000000b004fb9129705bmr1957691lfk.6.1692375664574; 
+ Fri, 18 Aug 2023 09:21:04 -0700 (PDT)
+Received: from mobilestation ([93.157.254.210])
+ by smtp.gmail.com with ESMTPSA id
+ l17-20020ac25551000000b004fe432108aesm406648lfk.261.2023.08.18.09.21.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 18 Aug 2023 09:21:04 -0700 (PDT)
+Date: Fri, 18 Aug 2023 19:21:02 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Jisheng Zhang <jszhang@kernel.org>
+Message-ID: <2kx4oyzkt3d72lf746rhblx4cecy32yosyyshqzehd5vadth7w@4jppnqxpm6ww>
+References: <20230817165749.672-1-jszhang@kernel.org>
+ <20230817165749.672-2-jszhang@kernel.org>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 2/2] net: stmmac: Tx coe sw
-	fallback
+Content-Disposition: inline
+In-Reply-To: <20230817165749.672-2-jszhang@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v5 1/9] net: stmmac: correct RX
+ COE parsing for xgmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,108 +87,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add sw fallback of tx checksum calculation for those tx queues that
-don't support tx checksum offloading. Because, some DWMAC IPs support
-tx checksum offloading only for a few initial tx queues, starting
-from tx queue 0.
+On Fri, Aug 18, 2023 at 12:57:41AM +0800, Jisheng Zhang wrote:
+> xgmac can support RX COE, but there's no two kinds of COE, I.E type 1
+> and type 2 COE.
+> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> Acked-by: Alexandre TORGUE <alexandre.torgue@foss.st.com>
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  5 +++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 +++++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 ++++
- include/linux/stmmac.h                        |  1 +
- 4 files changed, 29 insertions(+)
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 3401e888a9f6..64d7dbe474bd 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -210,12 +210,17 @@ struct stmmac_dma_conf {
- 	unsigned int dma_tx_size;
- };
- 
-+#define STMMAC_PRIV_FLG_TXQ_COE_LIMIT	BIT(0)
-+
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
- 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
- 	u32 tx_coal_timer[MTL_MAX_TX_QUEUES];
- 	u32 rx_coal_frames[MTL_MAX_TX_QUEUES];
- 
-+	u32 flags;
-+
-+	u32 tx_q_with_coe;
- 	int hwts_tx_en;
- 	bool tx_path_in_lpi_mode;
- 	bool tso;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 733b5e900817..f9ab6635218c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4409,6 +4409,17 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	WARN_ON(tx_q->tx_skbuff[first_entry]);
- 
- 	csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
-+	/* Some DWMAC IPs support tx coe only for a few initial tx queues,
-+	 * starting from tx queue 0. So checksum offloading for those queues
-+	 * that don't support tx coe needs to fallback to software checksum
-+	 * calculation.
-+	 */
-+	if (csum_insertion && (priv->flags & STMMAC_PRIV_FLG_TXQ_COE_LIMIT) &&
-+	    queue >= priv->tx_q_with_coe) {
-+		if (unlikely(skb_checksum_help(skb)))
-+			goto dma_map_err;
-+		csum_insertion = !csum_insertion;
-+	}
- 
- 	if (likely(priv->extend_desc))
- 		desc = (struct dma_desc *)(tx_q->dma_etx + entry);
-@@ -7401,6 +7412,14 @@ int stmmac_dvr_probe(struct device *device,
- 		dev_info(priv->device, "SPH feature enabled\n");
- 	}
- 
-+	if (priv->plat->tx_coe &&
-+	    priv->plat->tx_queues_with_coe < priv->plat->tx_queues_to_use) {
-+		priv->flags |= STMMAC_PRIV_FLG_TXQ_COE_LIMIT;
-+		priv->tx_q_with_coe = priv->plat->tx_queues_with_coe;
-+		dev_info(priv->device, "TX COE limited to %u tx queues\n",
-+			 priv->tx_q_with_coe);
-+	}
-+
- 	/* Ideally our host DMA address width is the same as for the
- 	 * device. However, it may differ and then we have to use our
- 	 * host DMA width for allocation and the device DMA width for
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index be8e79c7aa34..0138b7c9c7ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -225,6 +225,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- 				 &plat->tx_queues_to_use))
- 		plat->tx_queues_to_use = 1;
- 
-+	if (of_property_read_u32(tx_node, "snps,tx-queues-with-coe",
-+				 &plat->tx_queues_with_coe))
-+		plat->tx_queues_with_coe = plat->tx_queues_to_use;
-+
- 	if (of_property_read_bool(tx_node, "snps,tx-sched-wrr"))
- 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
- 	else if (of_property_read_bool(tx_node, "snps,tx-sched-wfq"))
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 784277d666eb..cb508164eaea 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
- 	u32 host_dma_width;
- 	u32 rx_queues_to_use;
- 	u32 tx_queues_to_use;
-+	u32 tx_queues_with_coe;
- 	u8 rx_sched_algorithm;
- 	u8 tx_sched_algorithm;
- 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
--- 
-2.19.0
+-Serge(y)
 
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 733b5e900817..3d90ca983389 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -7035,7 +7035,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+>  	if (priv->plat->rx_coe) {
+>  		priv->hw->rx_csum = priv->plat->rx_coe;
+>  		dev_info(priv->device, "RX Checksum Offload Engine supported\n");
+> -		if (priv->synopsys_id < DWMAC_CORE_4_00)
+> +		if (priv->synopsys_id < DWMAC_CORE_4_00 && !priv->plat->has_xgmac)
+>  			dev_info(priv->device, "COE Type %d\n", priv->hw->rx_csum);
+>  	}
+>  	if (priv->plat->tx_coe)
+> -- 
+> 2.40.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
