@@ -2,61 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E94017816AD
-	for <lists+linux-stm32@lfdr.de>; Sat, 19 Aug 2023 04:32:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA097817B8
+	for <lists+linux-stm32@lfdr.de>; Sat, 19 Aug 2023 08:57:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B01A0C6B460;
-	Sat, 19 Aug 2023 02:32:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33854C6B460;
+	Sat, 19 Aug 2023 06:57:39 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59828C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5591AC65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 19 Aug 2023 02:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692412332; x=1723948332;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LEjADStVhAAijpcwNiIM9Zhi3t+hw0nFfACu76UjFKk=;
- b=gS/UpdRfouju6DzdH0dssE/JcdnxECG+wheBjTD0W/lRl112yaYoRIx7
- a1fBS8lDJzj9Z+84yklIAdQmCEDVgQT/gwRPLtj2Bl5XMu7iWSwXNS3Oa
- N2O6Nyzb5QnivbX5/qdtT5mG+krXmoLMzHg24G10CO0lWBj2pCZNOslCK
- G+fHfe7KMf03l4+lRQ2yvexDrnIZyj1Ki9JhgY+7+QkpyG0IoI2HqMpAy
- wwU9Wgq69eXb7FnnqrAeNQxm9buonQ1REgF45HSVubvDoZUkRi4va5EG2
- 8PszTd7EBraAk071HwdTgDL5t/2CXDKC6VKQCYgARwho7YwFjZ1bx8O1K g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="439629470"
-X-IronPort-AV: E=Sophos;i="6.01,185,1684825200"; d="scan'208";a="439629470"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Aug 2023 19:31:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10806"; a="800660811"
-X-IronPort-AV: E=Sophos;i="6.01,184,1684825200"; d="scan'208";a="800660811"
-Received: from pglc00067.png.intel.com ([10.221.207.87])
- by fmsmga008.fm.intel.com with ESMTP; 18 Aug 2023 19:31:49 -0700
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Sat, 19 Aug 2023 10:31:32 +0800
-Message-Id: <20230819023132.23082-3-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230819023132.23082-1-rohan.g.thomas@intel.com>
-References: <20230819023132.23082-1-rohan.g.thomas@intel.com>
+ Sat, 19 Aug 2023 06:57:38 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E64AE61215;
+ Sat, 19 Aug 2023 06:57:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F12FC433C7;
+ Sat, 19 Aug 2023 06:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1692428256;
+ bh=NJ+AzEErbCS9Uj2GmaQZ/wrbE6c9H2qORM9U8sYbwSc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=INaR/I8iU3IbGQDU94rliksjxWziuXDqnC9Jnq5nAMRg1AaDpg86WgrTbTnMdlfTN
+ TkGM56cqN9GQMUQgSmGgf7h/vVLstHdEyikRSYJ8naChN54OhtsrygQwSkz6/49hHO
+ KPObH40gdfoktYdrq1yTgFW36X++c2EnTWqG8O79H4o5Ev5AWuutX7sicPYxiUSzrV
+ X+imAjAz59fiAkfXZHesbyV7gWPEamh/dT0tnJl6+k1k7ne8yBZ85Qkp7hGI8W5DFc
+ uNYyFpzS5jMB4bov+DqKA5bXrQ/4dceSiKG/yTPgZMnBQaU+bHnDP99qy1dwei1lcD
+ AoRHrc5Gyoaig==
+Date: Sat, 19 Aug 2023 08:57:31 +0200
+From: Simon Horman <horms@kernel.org>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <ZOBn22NT/GYbZKxY@vergenet.net>
+References: <20230818094832.179420-1-0x1207@gmail.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 2/2] net: stmmac: Tx coe sw
-	fallback
+Content-Disposition: inline
+In-Reply-To: <20230818094832.179420-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Check more MAC
+ HW features for XGMAC Core 3.20
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,83 +64,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add sw fallback of tx checksum calculation for those tx queues that
-don't support tx checksum offloading. Because, some DWMAC IPs support
-tx checksum offloading only for a few initial tx queues, starting
-from tx queue 0.
+On Fri, Aug 18, 2023 at 05:48:32PM +0800, Furong Xu wrote:
+> 1. XGMAC core does not have hash_filter definition, it uses
+> vlhash(VLAN Hash Filtering) instead, skip hash_filter when XGMAC.
+> 2. Show exact size of Hash Table instead of raw register value.
+> 3. Show full description of safety features defined by Synopsys Databook.
+> 4. When safety feature is configured with no parity, or ECC only,
+> keep FSM Parity Checking disabled.
+> 
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c  |  4 ++++
- include/linux/stmmac.h                         |  1 +
- 3 files changed, 23 insertions(+)
+Hi Furong Xu,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 733b5e900817..3ffef45a2861 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4409,6 +4409,16 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	WARN_ON(tx_q->tx_skbuff[first_entry]);
- 
- 	csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
-+	/* Some DWMAC IPs support tx coe only for a few initial tx queues,
-+	 * starting from tx queue 0. So checksum offloading for those queues
-+	 * that don't support tx coe needs to fallback to software checksum
-+	 * calculation.
-+	 */
-+	if (csum_insertion && queue >= priv->plat->tx_queues_with_coe) {
-+		if (unlikely(skb_checksum_help(skb)))
-+			goto dma_map_err;
-+		csum_insertion = !csum_insertion;
-+	}
- 
- 	if (likely(priv->extend_desc))
- 		desc = (struct dma_desc *)(tx_q->dma_etx + entry);
-@@ -7401,6 +7411,14 @@ int stmmac_dvr_probe(struct device *device,
- 		dev_info(priv->device, "SPH feature enabled\n");
- 	}
- 
-+	if (priv->plat->tx_coe && !priv->plat->tx_queues_with_coe)
-+		priv->plat->tx_queues_with_coe = priv->plat->tx_queues_to_use;
-+	else if (!priv->plat->tx_coe)
-+		priv->plat->tx_queues_with_coe = 0;
-+	else if (priv->plat->tx_queues_with_coe < priv->plat->tx_queues_to_use)
-+		dev_info(priv->device, "TX COE only available for %u queues\n",
-+			 priv->plat->tx_queues_with_coe);
-+
- 	/* Ideally our host DMA address width is the same as for the
- 	 * device. However, it may differ and then we have to use our
- 	 * host DMA width for allocation and the device DMA width for
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index be8e79c7aa34..0138b7c9c7ab 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -225,6 +225,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- 				 &plat->tx_queues_to_use))
- 		plat->tx_queues_to_use = 1;
- 
-+	if (of_property_read_u32(tx_node, "snps,tx-queues-with-coe",
-+				 &plat->tx_queues_with_coe))
-+		plat->tx_queues_with_coe = plat->tx_queues_to_use;
-+
- 	if (of_property_read_bool(tx_node, "snps,tx-sched-wrr"))
- 		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
- 	else if (of_property_read_bool(tx_node, "snps,tx-sched-wfq"))
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 784277d666eb..cb508164eaea 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -252,6 +252,7 @@ struct plat_stmmacenet_data {
- 	u32 host_dma_width;
- 	u32 rx_queues_to_use;
- 	u32 tx_queues_to_use;
-+	u32 tx_queues_with_coe;
- 	u8 rx_sched_algorithm;
- 	u8 tx_sched_algorithm;
- 	struct stmmac_rxq_cfg rx_queues_cfg[MTL_MAX_RX_QUEUES];
+thanks for your patch.
+
+Unfortunately it does not apply cleanly to net-next,
+which means that it isn't run through the upstream  CI and
+creates a process issue for the maintainers.
+
+Please consider rebasing on net-next and reposting.
+
 -- 
-2.19.0
+pw-bot: changes-requested
 
 _______________________________________________
 Linux-stm32 mailing list
