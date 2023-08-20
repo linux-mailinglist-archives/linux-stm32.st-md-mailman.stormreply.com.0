@@ -2,55 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7428C781E5C
-	for <lists+linux-stm32@lfdr.de>; Sun, 20 Aug 2023 16:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8F92781F67
+	for <lists+linux-stm32@lfdr.de>; Sun, 20 Aug 2023 21:15:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C537C6B44E;
-	Sun, 20 Aug 2023 14:55:25 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E233C6B44E;
+	Sun, 20 Aug 2023 19:15:19 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79248C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05362C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Aug 2023 14:55:24 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1B89E603F6;
- Sun, 20 Aug 2023 14:55:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3B6C433C7;
- Sun, 20 Aug 2023 14:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1692543322;
- bh=w9t1lG3nIXBHvGJOFxIpJq4TLZ70IlfQiWLNlqF02W8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ekBfJ0+wo7GE9ww/Hzr7migpmeBOCxbYh+5wGe3xcRIAW9YGmF1FMI3eIEIjQZbGF
- 912YIV2GmjsIB6QZr2nOHtX/1xUua+z44CFEzc9MgDSGOidS2N1rJXuQk78LM0/Ita
- DXkyYlTjmYB40vAjqGiGhYu/jQ2i26gdBjSLZKl3bGJIieRn4kEfTN64y19ti2Odaf
- H1Olju7qQUT1TwLbrQJNJfc09x8/ZpNKSIsHY6HZ8QhmdubyM7Me/Ch0PnfUfLZBql
- CYp9aJsFg1z9vB7LIaPRb5bfJr9qdLt+0yjnIont/VADLcj/84Ug0/s1/s3YAOcSIn
- jT+35py98HQkw==
-Date: Sun, 20 Aug 2023 16:55:17 +0200
-From: Simon Horman <horms@kernel.org>
+ Sun, 20 Aug 2023 19:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=WgJ8CrolknwjFwN0OyobejCpVpfKcAujTpI4FL8b0/s=; b=PsTiMnr8r12HO3sDikExAkyprm
+ ZtqNizIeluuRqhu3jAMSreEmA0CSPK65eV2AnRr4ORczF6xxNtAenmrbvmaqMT41fMnRdAB5X0JHE
+ B+ArNrC5lSsdXJUDXNn7HFt+b2y0UYlA5AswFd1TUpSIaRbe0/4vkasW6gEdsBP+WSlo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qXntC-004dSm-Le; Sun, 20 Aug 2023 21:15:06 +0200
+Date: Sun, 20 Aug 2023 21:15:06 +0200
+From: Andrew Lunn <andrew@lunn.ch>
 To: Jisheng Zhang <jszhang@kernel.org>
-Message-ID: <ZOIpVVp+JUnbhFV1@vergenet.net>
-References: <20230820120213.2054-1-jszhang@kernel.org>
- <20230820120213.2054-4-jszhang@kernel.org>
+Message-ID: <9e55fd03-6b05-46de-874e-01d9cdbf4524@lunn.ch>
+References: <20230816152926.4093-1-jszhang@kernel.org>
+ <20230816152926.4093-3-jszhang@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230820120213.2054-4-jszhang@kernel.org>
+In-Reply-To: <20230816152926.4093-3-jszhang@kernel.org>
 Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Rob Herring <robh+dt@kernel.org>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-riscv@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: add glue layer
- for T-HEAD TH1520 SoC
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/9] net: stmmac: xgmac: add
+ more feature parsing from hw cap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,78 +59,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Aug 20, 2023 at 08:02:13PM +0800, Jisheng Zhang wrote:
-> Add dwmac glue driver to support the dwmac on the T-HEAD TH1520 SoC.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+On Wed, Aug 16, 2023 at 11:29:19PM +0800, Jisheng Zhang wrote:
+> The XGMAC_HWFEAT_GMIISEL bit also indicates whether support 10/100Mbps
+> or not.
 
-...
+The commit message fails to explain the 'Why?' question. GMII does
+normally imply 10/100/1000, so i would expect dma_cap->mbps_1000 also
+implies 10/100/1000? So why also set dma_cap->mbps_10_100?
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c
+Maybe a better change would be to modify:
 
-...
+        seq_printf(seq, "\t1000 Mbps: %s\n",
+                   (priv->dma_cap.mbps_1000) ? "Y" : "N");
 
-> +static void thead_dwmac_fix_speed(void *priv, unsigned int speed, unsigned int mode)
-> +{
-> +	struct thead_dwmac *dwmac = priv;
-> +	struct plat_stmmacenet_data *plat = dwmac->plat;
-> +	unsigned long rate;
-> +	u32 div;
-> +
-> +	switch (plat->interface) {
-> +	/* For MII, rxc/txc is provided by phy */
-> +	case PHY_INTERFACE_MODE_MII:
-> +		return;
-> +
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		rate = clk_get_rate(plat->stmmac_clk);
-> +		if (!rate || rate % GMAC_GMII_RGMII_RATE != 0 ||
-> +		    rate % GMAC_MII_RATE != 0) {
-> +			dev_err(dwmac->dev, "invalid gmac rate %ld\n", rate);
-> +			return;
-> +		}
-> +
-> +		regmap_update_bits(dwmac->apb_regmap, GMAC_PLLCLK_DIV, GMAC_PLLCLK_DIV_EN, 0);
-> +
-> +		switch (speed) {
-> +		case SPEED_1000:
-> +			div = rate / GMAC_GMII_RGMII_RATE;
-> +			break;
-> +		case SPEED_100:
-> +			div = rate / GMAC_MII_RATE;
-> +			break;
-> +		case SPEED_10:
-> +			div = rate * 10 / GMAC_MII_RATE;
-> +			break;
-> +		default:
-> +			dev_err(dwmac->dev, "invalid speed %u\n", speed);
-> +			break;
+to actually say 10/100/1000 Mbps? It does not appear this is used for
+anything other than debugfs?
 
-Hi Jisheng Zhang,
-
-In this case, div is not initialised, but it is used a few
-lines below. Perhaps the function should return here?
-
-As flagged by clang-16 (W=1) and Smatch.
-
-> +		}
-> +		regmap_update_bits(dwmac->apb_regmap, GMAC_PLLCLK_DIV,
-> +				   GMAC_PLLCLK_DIV_MASK, GMAC_PLLCLK_DIV_NUM(div));
-> +
-> +		regmap_update_bits(dwmac->apb_regmap, GMAC_PLLCLK_DIV,
-> +				   GMAC_PLLCLK_DIV_EN, GMAC_PLLCLK_DIV_EN);
-> +		break;
-> +	default:
-> +		dev_err(dwmac->dev, "unsupported phy interface %d\n",
-> +			plat->interface);
-> +		return;
-> +	}
-> +}
-
-...
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
