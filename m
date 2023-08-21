@@ -2,74 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D0A7831BF
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Aug 2023 22:20:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857517833A7
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Aug 2023 22:33:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 689EBC6B44B;
-	Mon, 21 Aug 2023 20:20:39 +0000 (UTC)
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A271C6B44B;
+	Mon, 21 Aug 2023 20:33:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F99C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BC5CC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Aug 2023 20:20:38 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-68a529e1974so927131b3a.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Aug 2023 13:20:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692649237; x=1693254037;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=PJzS96kMorSHcInyTnYW6Eub6rGk1Addu59Qv90D7BM=;
- b=UFKHdM3hyYjf0/QyShd749nOd5v65vukEEJzaNxswmyTx26BTeCZum7NuLOyDB9+fk
- lmVTnsgSqV4u0O/XKzVR3PLwCDfa79wQvoGvsSkQpjesXQHwoWi8JIzmFUDwmmQuajM+
- hvXbb0Dm09SEPLF3eErYTEXcP7D4nTrMb9V3caY2/N/s8JGjJUziR8bR3Q4e0pS3y9hC
- 55k/zBAZPBSqA7218bpkXWTQv1yeej8MzRcCJ77APGz/omaadx2xuHQ8EV7OjpjBHVV9
- 9giy3kgKeRDe5VsqNXtEQv7JOtn/Ke2J6Qbajei8XyKXGNja4pLsHK2ER7Opyg4avcpE
- SjfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692649237; x=1693254037;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PJzS96kMorSHcInyTnYW6Eub6rGk1Addu59Qv90D7BM=;
- b=Oyrtg8RnB1Odl6LJkFu8wUI/Pg/9oTBSI1KZy2D3z3FGFhIb45pB5VU/3KM5CS3MsY
- qFmZ3RLcXbxGv7TVkXXsamjM1KUzGWFqRIeZpkUx4TonRwWwA7SdmqHGt2WPDILUh+5V
- IZ9qKYrpSpLcMKc6nM2YrkVBoTWiQHp085MgQ2xSN2tkG7eKQGmcJl2Et6cNmrnFuTp+
- SfF2oaqiCw8kCwGf7AYjLnlMGTF/coD9qq/FhnTiJ1tRC8LYAlZdPaFBh8kFC8RN4XBk
- 66BTbr5/5Tt2d0S+2y0r+bwv7e88k9YU7BArAs7hnrYpOZtG8NsRPfI0p78r8GHM4K4x
- R1Zg==
-X-Gm-Message-State: AOJu0Yz5FOrQpfr1yk3xJ2coUlk4O0OReIV4QUNADAxhkd+q6/fyfHK8
- 4FK/gDZhcpC/dPLbRxM9byn6hg==
-X-Google-Smtp-Source: AGHT+IEuRV2LPIg5opv4ffRpSuXdwrxTeyThcglAzmosQIGFbR+27zcpzc0KAqZXKHd6c1spz2/hGg==
-X-Received: by 2002:a05:6a20:7f8f:b0:135:38b5:7e58 with SMTP id
- d15-20020a056a207f8f00b0013538b57e58mr6622091pzj.37.1692649237041; 
- Mon, 21 Aug 2023 13:20:37 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:2289:93a7:5faa:cd11])
- by smtp.gmail.com with ESMTPSA id
- s15-20020aa7828f000000b006877a2e6285sm6472296pfm.128.2023.08.21.13.20.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Aug 2023 13:20:36 -0700 (PDT)
-Date: Mon, 21 Aug 2023 14:20:33 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <ZOPHEUQYzbYsFS7Y@p14s>
-References: <20230724195704.2432382-1-arnd@kernel.org>
+ Mon, 21 Aug 2023 20:33:33 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1BFA0647CD;
+ Mon, 21 Aug 2023 20:33:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2339C433C7;
+ Mon, 21 Aug 2023 20:33:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1692650011;
+ bh=5vlYrHkhc7cFmjCTrb/meqorIzW1oUWzABr2g9dGJ2I=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jCpkAnjeAAqTR93vSTyj3v30/3TC6Ft0XUih2pb9KE9QgRHMG6ZHIO1TGu178JiqN
+ KvSHLj7h2+xI1pmeEMV+k1i8kNrrcwRIswS4QKQ+moy23SqowM/KxhTxJZfMuwbivD
+ Oa0y/Jwesoi1lwav8V7D6H2mc7FK2cbjHmnrEt2X37K7nD/JjbaoofMBSiIFtpYQHF
+ 9jcwxcfTxuY/QDMQhZdMK4cG4ZTNN9HKqBZW6oWMD4XMCanrlaF2xjRvsK2yDAP6xC
+ WQc7aeTnGi7jLbLIkjTzwEmcZeCi8sbA3GEm4+gjb+kDsKDWzhaJepNYbQ4cS1yDkV
+ 0TGi0DXNqTXzA==
+Received: (nullmailer pid 2247465 invoked by uid 1000);
+ Mon, 21 Aug 2023 20:33:28 -0000
+Date: Mon, 21 Aug 2023 15:33:28 -0500
+From: Rob Herring <robh@kernel.org>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <20230821203328.GA2197059-robh@kernel.org>
+References: <20230817165749.672-1-jszhang@kernel.org>
+ <20230817165749.672-7-jszhang@kernel.org>
+ <wkzy3v272ia237pfhlvtrwbij7qeswb2zmkxhnsir5xtroezr7@frow2mvqeq35>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230724195704.2432382-1-arnd@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- kernel test robot <lkp@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- Bjorn Andersson <andersson@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-remoteproc@vger.kernel.org, Fabien Dessenne <fabien.dessenne@st.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com,
- Dan Carpenter <dan.carpenter@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH] remoteproc: stm32: fix incorrect optional
-	pointers
+In-Reply-To: <wkzy3v272ia237pfhlvtrwbij7qeswb2zmkxhnsir5xtroezr7@frow2mvqeq35>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Jisheng Zhang <jszhang@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v5 6/9] dt-bindings: net: snps,
+ dwmac: add safety irq support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,85 +69,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jul 24, 2023 at 09:56:49PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Fri, Aug 18, 2023 at 08:39:56PM +0300, Serge Semin wrote:
+> On Fri, Aug 18, 2023 at 12:57:46AM +0800, Jisheng Zhang wrote:
+> > The snps dwmac IP support safety features, and those Safety Feature
+> > Correctible Error and Uncorrectible Error irqs may be separate irqs.
+> > 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml         | 13 +++++++++++--
+> >  1 file changed, 11 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index ddf9522a5dc2..ee9174f77d97 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -103,17 +103,26 @@ properties:
+> >  
+> >    interrupts:
+> >      minItems: 1
+> > +    maxItems: 5
+> > +    additionalItems: true
+> >      items:
+> >        - description: Combined signal for various interrupt events
+> >        - description: The interrupt to manage the remote wake-up packet detection
+> >        - description: The interrupt that occurs when Rx exits the LPI state
+> > +      - description: The interrupt that occurs when Safety Feature Correctible Errors happen
+> > +      - description: The interrupt that occurs when Safety Feature Uncorrectible Errors happen
+> >  
+> >    interrupt-names:
+> >      minItems: 1
+> > +    maxItems: 5
+> > +    additionalItems: true
+> >      items:
+> >        - const: macirq
+> > -      - enum: [eth_wake_irq, eth_lpi]
+> > -      - const: eth_lpi
+> > +      - enum:
+> > +          - eth_wake_irq
+> > +          - eth_lpi
+> > +          - sfty_ce
+> > +          - sfty_ue
 > 
-> Compile-testing without CONFIG_OF shows that the of_match_ptr() macro
-> was used incorrectly here:
-> 
-> drivers/remoteproc/stm32_rproc.c:662:34: warning: unused variable 'stm32_rproc_match' [-Wunused-const-variable]
-> 
-> As in almost every driver, the solution is simply to remove the
-> use of this macro. The same thing happened with the deprecated
-> SIMPLE_DEV_PM_OPS(), but the corresponding warning was already shut
-> up with __maybe_unused annotations, so fix those as well by using the
-> correct DEFINE_SIMPLE_DEV_PM_OPS() macros and removing the extraneous
-> __maybe_unused modifiers. For completeness, also add a pm_ptr() to let
-> the PM ops be eliminated completely when CONFIG_PM is turned off.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202307242300.ia82qBTp-lkp@intel.com
-> Fixes: 03bd158e1535e ("remoteproc: stm32: use correct format strings on 64-bit")
-> Fixes: 410119ee29b6c ("remoteproc: stm32: wakeup the system by wdg irq")
-> Fixes: 13140de09cc2d ("remoteproc: stm32: add an ST stm32_rproc driver")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/remoteproc/stm32_rproc.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
+> IIUC this would mean the next constraints:
+> Item    0: must be macirq,
+> Item    1: any of eth_wake_irq, eth_lpi, sfty_ce, sfty_ue
+> Items 2:4: any bla-bla-bla.
 
-Fixed 13-character SHAs and applied.
+Indeed.
 
-Thanks,
-Mathieu
-
-
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 98234b44f0389..9d9b13530f78a 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -921,7 +921,7 @@ static void stm32_rproc_remove(struct platform_device *pdev)
->  	rproc_free(rproc);
->  }
->  
-> -static int __maybe_unused stm32_rproc_suspend(struct device *dev)
-> +static int stm32_rproc_suspend(struct device *dev)
->  {
->  	struct rproc *rproc = dev_get_drvdata(dev);
->  	struct stm32_rproc *ddata = rproc->priv;
-> @@ -932,7 +932,7 @@ static int __maybe_unused stm32_rproc_suspend(struct device *dev)
->  	return 0;
->  }
->  
-> -static int __maybe_unused stm32_rproc_resume(struct device *dev)
-> +static int stm32_rproc_resume(struct device *dev)
->  {
->  	struct rproc *rproc = dev_get_drvdata(dev);
->  	struct stm32_rproc *ddata = rproc->priv;
-> @@ -943,16 +943,16 @@ static int __maybe_unused stm32_rproc_resume(struct device *dev)
->  	return 0;
->  }
->  
-> -static SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
-> -			 stm32_rproc_suspend, stm32_rproc_resume);
-> +static DEFINE_SIMPLE_DEV_PM_OPS(stm32_rproc_pm_ops,
-> +				stm32_rproc_suspend, stm32_rproc_resume);
->  
->  static struct platform_driver stm32_rproc_driver = {
->  	.probe = stm32_rproc_probe,
->  	.remove_new = stm32_rproc_remove,
->  	.driver = {
->  		.name = "stm32-rproc",
-> -		.pm = &stm32_rproc_pm_ops,
-> -		.of_match_table = of_match_ptr(stm32_rproc_match),
-> +		.pm = pm_ptr(&stm32_rproc_pm_ops),
-> +		.of_match_table = stm32_rproc_match,
->  	},
->  };
->  module_platform_driver(stm32_rproc_driver);
-> -- 
-> 2.39.2
 > 
+> After adding the per-DMA-channel IRQs in the next patches the array
+> will be extended to up to 37 any names. It doesn't look correct. What
+> about converting it to the position independent arrays constraint:
+> 
+>   interrupts:
+>     minItems: 1
+>     maxItems: 34
+> 
+>     
+>   interrupt-names:
+>     minItems: 1
+>     maxItems: 34
+>     items:
+>       oneOf:
+>         - description: Combined signal for various interrupt events
+>           const: macirq
+>         - description: The interrupt to manage the remote wake-up packet detection
+>           const: eth_wake_irq
+>         - description: The interrupt that occurs when Rx exits the LPI state
+>           const: eth_lpi
+>         - description: Safety Feature Correctible Errors interrupt
+>           const: sfty_ce
+>         - description: Safety Feature Uncorrectible Errors interrupt
+>           const: sfty_ue
+>         - description: DMA Tx per-channel interrupt
+>           pattern: '^dma_tx([0-9]|1[0-5])?$'
+>         - description: DMA Rx per-channel interrupt
+>           pattern: '^dma_rx([0-9]|1[0-1])?$'
+> 
+>     allOf:
+>       - contains:
+>           const: macirq
+
+This would keep macirq being first:
+
+allOf:
+  - maxItems: 34
+    items:
+      - const: macirq
+
+In newer json-schema the schema and list versions were split into 
+"prefixItems" and "items", so we could avoid the "allOf" with that. 
+Unfortunately, the former is the list version which we use everywhere. I 
+don't really want to do a treewide change of that and also I find the 
+'prefixItems' name kind of awkward.
+
+
+> Hope neither Krzysztof nor Rob will be against such modification
+> especially seeing it's the only way to resolve the very much possible
+> case of a device having macirq and per-DMA-channel IRQs but lacking
+> the LPI, PMT or Safety IRQs.
+
+Don't love it, but I give up on these licensed IPs. :(
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
