@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66CFA784772
+	by mail.lfdr.de (Postfix) with ESMTPS id 77BBE784773
 	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 18:26:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2613FC78033;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37981C78036;
 	Tue, 22 Aug 2023 16:26:18 +0000 (UTC)
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
+ [217.70.183.197])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DF46C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B123C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Aug 2023 07:57:56 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C089040008;
- Mon, 21 Aug 2023 07:57:53 +0000 (UTC)
+ Mon, 21 Aug 2023 07:58:02 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 4CD901C0005;
+ Mon, 21 Aug 2023 07:57:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1692604676;
+ t=1692604681;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=di8i0pP2dCAJSgGZaukddb5M4pYMr87fx9m1yQlQKWM=;
- b=UN/6EjD6TR+3s2eYbVQa7Xa24ehHvKGILahV/2f8PcPZFDrGelYDtcW2pJr/2jtkh1f0GU
- jbOmcmNqZD50kkZtgmQeMSAWxpZFUQfVGUuIcek883iXOWThKRPzFz8HhePwix+g7muN3H
- lkfrsB3BqitQ7tTuQbfsN3RuE+3Jp1FPntqLeoCiNtwG++vjuH5Kq4I2yuK8D4ySUvGyT8
- cHj9uFGay9wyWXQPEmSiRiAoAWIJcRPG+wtd0U0feyYzM+XKnjb54tIzE+K9rgzZyACDhx
- lIRquHgguZVOuYnJ0Z5FRkvDpiReQ+SJDIErYKUxfggKOkWaQsPfNdQeS8YCYQ==
+ bh=H9IW2myyvlcQASMEmCGgIUBSSfVbeEbU292WMO1lxUU=;
+ b=BMBwqNNphJpbZA//fik3B8MZ3yW6Dk75XYe976rqKpdyfiaFH4RcoyfZGMjYicWjmpAgQK
+ 1qVvRurbQpT34+i+VthZsnlRMelhWmoGjFP4FGxoYcRtRXrfi1hRnvMSlAyWfwsxI7FMPs
+ 78PXxPldJ91sjfYXRC3/5BKSiiWvlyK2fTa2YQRbvkSwbesfARKZwgyxObYK//cqN3b68r
+ POfWowdFkl4hSnEi4tMt1nOMH+FJKvbn+r5BOFp+nhQhyVA8SlHNohoZ4LpKtDiaPacQOv
+ RD6jfKXDbB7MZQuZMtlIMPpJX9bXI9mBlLjm6LqqlJY2gf5yOhgKYwha1s+QNQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Li Zetao <lizetao1@huawei.com>,
 	miquel.raynal@bootlin.com
-Date: Mon, 21 Aug 2023 09:57:53 +0200
-Message-Id: <20230821075753.33303-1-miquel.raynal@bootlin.com>
+Date: Mon, 21 Aug 2023 09:57:58 +0200
+Message-Id: <20230821075759.33340-1-miquel.raynal@bootlin.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230821031737.1973183-7-lizetao1@huawei.com>
+In-Reply-To: <20230821031737.1973183-6-lizetao1@huawei.com>
 References: 
 MIME-Version: 1.0
 X-linux-mtd-patch-notification: thanks
-X-linux-mtd-patch-commit: b'008b239fe2c5feee1004643d2886a3bce530edf2'
+X-linux-mtd-patch-commit: b'7714579d041feef8675d9decf7d0764aaf2fab05'
 X-GND-Sasl: miquel.raynal@bootlin.com
 X-Mailman-Approved-At: Tue, 22 Aug 2023 16:24:59 +0000
 Cc: heiko@sntech.de, geert+renesas@glider.be, stefan@agner.ch,
@@ -53,8 +53,8 @@ Cc: heiko@sntech.de, geert+renesas@glider.be, stefan@agner.ch,
  angelogioacchino.delregno@collabora.com, philmd@linaro.org,
  dmitry.torokhov@gmail.com, michael@walle.cc, mcoquelin.stm32@gmail.com,
  pratyush@kernel.org
-Subject: Re: [Linux-stm32] [PATCH -next v3 06/12] mtd: rawnand: mpc5121: Use
-	helper function devm_clk_get_enabled()
+Subject: Re: [Linux-stm32] [PATCH -next v3 05/12] mtd: rawnand: lpc32xx_slc:
+	Use helper function devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,12 +71,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2023-08-21 at 03:17:31 UTC, Li Zetao wrote:
+On Mon, 2023-08-21 at 03:17:30 UTC, Li Zetao wrote:
 > Since commit 7ef9651e9792 ("clk: Provide new devm_clk helpers for prepared
 > and enabled clocks"), devm_clk_get() and clk_prepare_enable() can now be
 > replaced by devm_clk_get_enabled() when driver enables (and possibly
 > prepares) the clocks for the whole lifetime of the device. Moreover, it is
-> no longer necessary to unprepare and disable the clocks explicitly.
+> no longer necessary to unprepare and disable the clocks explicitly, so drop
+> the label "unprepare_clk".
 > 
 > Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 > Signed-off-by: Li Zetao <lizetao1@huawei.com>
