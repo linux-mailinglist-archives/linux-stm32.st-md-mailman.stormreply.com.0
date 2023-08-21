@@ -2,82 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A621D7823B4
-	for <lists+linux-stm32@lfdr.de>; Mon, 21 Aug 2023 08:29:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 846507828A7
+	for <lists+linux-stm32@lfdr.de>; Mon, 21 Aug 2023 14:11:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AA79C6B44E;
-	Mon, 21 Aug 2023 06:29:14 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 341E4C6B44B;
+	Mon, 21 Aug 2023 12:11:14 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F24ECC6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DCAFC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 21 Aug 2023 06:29:12 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-99c93638322so612193666b.1
+ Mon, 21 Aug 2023 12:11:12 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2bbad32bc79so56508821fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 20 Aug 2023 23:29:12 -0700 (PDT)
+ Mon, 21 Aug 2023 05:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692599352; x=1693204152;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+jqHn5WqQaJCtg0AUJN1FB+zw67/mJle7arazhBOmko=;
- b=uBhtrmUWcQZYqn4uY2bSvQU2eud7UeI4VaPCawfTs8lFgDgS4S6oPVwHPGi/J9JSi9
- Cg8t2/x3c9XBn7O2ZyzPmAa24lRvVSS56PbNRD8WZZy6uXNC7vSRqI/mEFUQYiFtw82n
- QaAe6CwzMeadrUWLErPi90FmPSizT7npPdN807HHxfQ0ETTTy/8g2I0+rE9upci26NjO
- 4q9QkuIwRxz6Wf4VpZ+NqpPEaIE/xpwICIzuQ+c7zIu8BvbwwJUpJzvP2hsEvDYbkObr
- Vqnwj0FO0s8LL4qTBPyGsn0llyb/7JC1OBKfQGzlOZVvhLQ41PJlUlyAHlhXi5L8SuyF
- ExTA==
+ d=gmail.com; s=20221208; t=1692619871; x=1693224671;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=kpA+hrX20JQoPrR1fjncSFOrMNKcG0nPz8OtL2DrgHA=;
+ b=cM/GQ+nvpMp9bIwmSoyyGXwSbTPbkUcKMO4uYUKfKynlni6O6GlxRiE7cTYpFI/IQL
+ WimsIXKIsUtHOt9uM/sG9QQz6+jUoNXa7kq4fsYGQhssLmcuthf/PcrQ3F1Uzh+va5aK
+ Ajd0NXUvtEVPq4G+6USBsDrDMGk86dXm+k24pt8fqcwe5JLJXkty9ynkbaElAX4vt4Rv
+ ahOG9RsX59IITyoq+io62swgF4DZhavonD6mUZpVOIGcWEtwo3D0zYCFvIkOeH5nZEyH
+ SIDQQ9E64awa5fEvjv3r69LmV8hYs8GB72VtZp7APuvfY+kWiPTuMJi5tYQ8z/B59nR+
+ LPmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692599352; x=1693204152;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+jqHn5WqQaJCtg0AUJN1FB+zw67/mJle7arazhBOmko=;
- b=kdhyBp7T4QCI24++nhMsu1wOUPDcZggOcD8yL1ukyWiN+FCFMzjgne8OiPwkwXne3S
- 6qs14KAbxjeXXxwT6O5UHuLIP0R99+oBowW8J6rfDnixe+XchdheZUBwyQQGUkCvkBGO
- W0znqWogXYy+04EkZYAikpCMnlxtbwGNc28Fzw0R/7scne7Tmbrg6Uv2IZrUe+bWxe+D
- spc5AjHYoKbjciiDYMwWF3+v2r9THAI2Ey3MZquXBzUb8tA3zB/Yes/KCmBhTuOFi3V3
- Z5W4gCjwQqsxBU0mT0+gy1tcCZ1aoG8w70EhneMiOw279oOzga9CfJ8wK2ioZMsy+dJS
- MeDg==
-X-Gm-Message-State: AOJu0Yy9R3TxxQf+Rhk6cjCo4ueBQoQ7b2ezEvlVxnEhx0Fy0Kp36siz
- /c87Qy0iozEhgE5xeXicC5l3/w==
-X-Google-Smtp-Source: AGHT+IHd6+ypVwsYhxnMdbL1UGq6ySkQpWZQ9iHuM8cgfdj0lw84KWdQOHSNV2yTMAzl8mMt2IyJ8A==
-X-Received: by 2002:a17:907:9483:b0:99d:f274:316e with SMTP id
- dm3-20020a170907948300b0099df274316emr5384047ejc.2.1692599352343; 
- Sun, 20 Aug 2023 23:29:12 -0700 (PDT)
-Received: from [192.168.0.22] ([77.252.47.198])
+ d=1e100.net; s=20221208; t=1692619871; x=1693224671;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kpA+hrX20JQoPrR1fjncSFOrMNKcG0nPz8OtL2DrgHA=;
+ b=TOOmE4jQXT+h2Xy7p8BBf2jVerXw3o+R2IwgKwVv3WafI+tbnxAEAjJ84JPQJ2oHLy
+ bP25s4+X4zfN3WMAiG4Ol5e9z4LROBkIayt3zUv+3OHC5EesIWbC03NRn025GHila9wX
+ YLafB/8F++jFmRagylYrhGz3V0U+oZlVsoe9dokG+KSnope9EWI6m9o2jP4w8eKBQ7rA
+ yKBtASrt9X0likIzMNjRvBYQNS39uZhOdc+CMSnja7IVSbVIfqtNQnL2apOD2LEKFpfH
+ Mvm6oOqeQqh8vj+Y/RwhMwk677xhHZDH4lwSHbWi0+MOBkU7poIz8iR4y3Qqi3brbwUJ
+ WBBg==
+X-Gm-Message-State: AOJu0YzY2xJkXN1e8+IkqlKFxtcEi5+b7DYVsOEey16u/Tjp1Fg8yhWb
+ gLa2cQgJ/SsXqMDq2JTm15Q=
+X-Google-Smtp-Source: AGHT+IGXLWrxzYVesCuPIPJnkvwQZyXbsUcN8wEOadyTGVdiLY4Ul7S+OS2VRaWDjUAUQMlu74+l4w==
+X-Received: by 2002:a2e:9357:0:b0:2b7:33b9:8809 with SMTP id
+ m23-20020a2e9357000000b002b733b98809mr4691640ljh.16.1692619870788; 
+ Mon, 21 Aug 2023 05:11:10 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- kj20-20020a170907765400b0099cc402d3ddsm5836644ejc.202.2023.08.20.23.29.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 20 Aug 2023 23:29:11 -0700 (PDT)
-Message-ID: <946ef7a0-a60b-b6ab-69f8-b169343f36f9@linaro.org>
-Date: Mon, 21 Aug 2023 08:29:10 +0200
+ a22-20020a2e88d6000000b002b6dc99f858sm2200866ljk.66.2023.08.21.05.11.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 21 Aug 2023 05:11:10 -0700 (PDT)
+Date: Mon, 21 Aug 2023 15:11:07 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <k2emlehqp64sb3vqzfnsocppvngtyxpta32xw3uvve4s6lnzns@bnknws7wv47y>
+References: <20230819105440.226892-1-0x1207@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-Content-Language: en-US
-To: Jisheng Zhang <jszhang@kernel.org>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20230820120213.2054-1-jszhang@kernel.org>
- <20230820120213.2054-3-jszhang@kernel.org>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230820120213.2054-3-jszhang@kernel.org>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/3] dt-bindings: net: add T-HEAD
-	dwmac support
+Content-Disposition: inline
+In-Reply-To: <20230819105440.226892-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Check more
+ MAC HW features for XGMAC Core 3.20
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,80 +85,426 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 20/08/2023 14:02, Jisheng Zhang wrote:
-> Add documentation to describe T-HEAD dwmac.
+Hi Furong
+
+Having changes enumerated in the patch log is an implicit sign
+that the patch solves several problems at a time. Please split them up
+into dedicated patches.
+
+On Sat, Aug 19, 2023 at 06:54:40PM +0800, Furong Xu wrote:
+
+> 1. XGMAC Core does not have hash_filter definition, it uses
+> vlhash(VLAN Hash Filtering) instead, skip hash_filter when XGMAC.
+
+Because these a completely different flags.
+
+"hash_filter" indicates an availability of the HASH-based MAC-address
+filters in DW (G)MAC IP-cores by means of the HASHSEL flag available
+in "Register 22 HW Feature Register".
+
+"vlhash" indicates the HASH-based VLAN ID filters in DW QoS Eth and DW
+XGMAC IP-cores by means of the VLHASH flag available in
+the MAC_HW_Feature0 register.
+
+DW xGMAC and DW QoS Eth use hash_tb_sz field as the HASH-based
+MAC-address filter indicator. It's zero if there is no HASH-based
+filter available in the controller. So your fix is a half measure
+only.
+
+> 2. Show exact size of Hash Table instead of raw register value.
+> 3. Show full description of safety features defined by Synopsys Databook.
+
+> 4. When safety feature is configured with no parity, or ECC only,
+> keep FSM Parity Checking disabled.
+
+This change looks as a significant alteration of the DW XGMAC v3.x
+Safety Feature configuration procedure. It must be in a separate
+patch in order to be independently revertable in case of regressions.
+
+The description in the patch log doesn't include all the changes
+provided by the patch itself. Once again please split the changes up.
+
 > 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
 > ---
+> Changes in v2:
+>   - Rebase patch on net-next. Thanks Simon :)
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/common.h  | 36 ++++++++++
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    | 21 ++++++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |  6 +-
+>  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 23 ++++++
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 71 +++++++++++++++++--
+>  5 files changed, 149 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+> index 1f5293c8cc04..403cb397d4d3 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+> @@ -410,6 +410,18 @@ struct dma_features {
+>  	unsigned int number_tx_queues;
+>  	/* PPS output */
+>  	unsigned int pps_out_num;
+> +	/* Number of Traffic Classes */
+> +	unsigned int numtc;
+> +	/* DCB Feature Enable */
+> +	unsigned int dcben;
+> +	/* IEEE 1588 High Word Register Enable */
+> +	unsigned int advthword;
+> +	/* PTP Offload Enable */
+> +	unsigned int ptoen;
+> +	/* One-Step Timestamping Enable */
+> +	unsigned int osten;
+> +	/* Priority-Based Flow Control Enable */
+> +	unsigned int pfcen;
+>  	/* Alternate (enhanced) DESC mode */
+>  	unsigned int enh_desc;
+>  	/* TX and RX FIFO sizes */
+> @@ -430,16 +442,40 @@ struct dma_features {
+>  	unsigned int dvlan;
+>  	unsigned int l3l4fnum;
+>  	unsigned int arpoffsel;
+> +	/* One Step for PTP over UDP/IP Feature Enable */
+> +	unsigned int pou_ost_en;
+> +	/* Tx Timestamp FIFO Depth */
+> +	unsigned int ttsfd;
+> +	/* Queue/Channel-Based VLAN tag insertion on Tx */
+> +	unsigned int cbtisel;
+> +	/* Supported Parallel Instruction Processor Engines */
+> +	unsigned int frppipe_num;
+> +	/* Number of Extended VLAN Tag Filters */
+> +	unsigned int nrvf_num;
+>  	/* TSN Features */
+>  	unsigned int estwid;
+>  	unsigned int estdep;
+>  	unsigned int estsel;
+>  	unsigned int fpesel;
+>  	unsigned int tbssel;
+> +	/* Number of DMA channels enabled for TBS */
+> +	unsigned int tbs_ch_num;
+> +	/* Per-Stream Filtering Enable */
+> +	unsigned int sgfsel;
+>  	/* Numbers of Auxiliary Snapshot Inputs */
+>  	unsigned int aux_snapshot_n;
+>  	/* Timestamp System Time Source */
+>  	unsigned int tssrc;
+> +	/* Enhanced DMA Enable */
+> +	unsigned int edma;
+> +	/* Different Descriptor Cache Enable */
+> +	unsigned int ediffc;
+> +	/* VxLAN/NVGRE Enable */
+> +	unsigned int vxn;
+> +	/* Debug Memory Interface Enable */
+> +	unsigned int dbgmem;
+> +	/* Number of Policing Counters */
+> +	unsigned int pcsel;
 
-Thank you for your patch. There is something to discuss/improve.
+All of these have little value since unused by the driver in anyway
+but only printed by the DbgFS features node.
 
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/thead,dwmac.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: T-HEAD DWMAC glue layer
+>  };
+>  
+>  /* RX Buffer size must be multiple of 4/8/16 bytes */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 7f68bef456b7..7a8f47e7b728 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -122,6 +122,9 @@
+>  #define XGMAC_TLPIEN			BIT(0)
+>  #define XGMAC_LPI_TIMER_CTRL		0x000000d4
+>  #define XGMAC_HW_FEATURE0		0x0000011c
+> +#define XGMAC_HWFEAT_EDMA		BIT(31)
+> +#define XGMAC_HWFEAT_EDIFFC		BIT(30)
+> +#define XGMAC_HWFEAT_VXN		BIT(29)
+>  #define XGMAC_HWFEAT_SAVLANINS		BIT(27)
+>  #define XGMAC_HWFEAT_TSSTSSEL		GENMASK(26, 25)
+>  #define XGMAC_HWFEAT_ADDMACADRSEL	GENMASK(22, 18)
+> @@ -142,29 +145,47 @@
+>  #define XGMAC_HW_FEATURE1		0x00000120
+>  #define XGMAC_HWFEAT_L3L4FNUM		GENMASK(30, 27)
+>  #define XGMAC_HWFEAT_HASHTBLSZ		GENMASK(25, 24)
+> +#define XGMAC_HWFEAT_NUMTC		GENMASK(23, 21)
+>  #define XGMAC_HWFEAT_RSSEN		BIT(20)
+> +#define XGMAC_HWFEAT_DBGMEMA		BIT(19)
+>  #define XGMAC_HWFEAT_TSOEN		BIT(18)
+>  #define XGMAC_HWFEAT_SPHEN		BIT(17)
+> +#define XGMAC_HWFEAT_DCBEN		BIT(16)
+>  #define XGMAC_HWFEAT_ADDR64		GENMASK(15, 14)
+> +#define XGMAC_HWFEAT_ADVTHWORD		BIT(13)
+> +#define XGMAC_HWFEAT_PTOEN		BIT(12)
+> +#define XGMAC_HWFEAT_OSTEN		BIT(11)
+>  #define XGMAC_HWFEAT_TXFIFOSIZE		GENMASK(10, 6)
+> +#define XGMAC_HWFEAT_PFCEN		BIT(5)
+>  #define XGMAC_HWFEAT_RXFIFOSIZE		GENMASK(4, 0)
+>  #define XGMAC_HW_FEATURE2		0x00000124
+> +#define XGMAC_HWFEAT_AUXSNAPNUM		GENMASK(30, 28)
+>  #define XGMAC_HWFEAT_PPSOUTNUM		GENMASK(26, 24)
+>  #define XGMAC_HWFEAT_TXCHCNT		GENMASK(21, 18)
+>  #define XGMAC_HWFEAT_RXCHCNT		GENMASK(15, 12)
+>  #define XGMAC_HWFEAT_TXQCNT		GENMASK(9, 6)
+>  #define XGMAC_HWFEAT_RXQCNT		GENMASK(3, 0)
+>  #define XGMAC_HW_FEATURE3		0x00000128
+> +#define XGMAC_HWFEAT_TBSCH		GENMASK(31, 28)
+>  #define XGMAC_HWFEAT_TBSSEL		BIT(27)
+>  #define XGMAC_HWFEAT_FPESEL		BIT(26)
+> +#define XGMAC_HWFEAT_SGFSEL		BIT(25)
+>  #define XGMAC_HWFEAT_ESTWID		GENMASK(24, 23)
+>  #define XGMAC_HWFEAT_ESTDEP		GENMASK(22, 20)
+>  #define XGMAC_HWFEAT_ESTSEL		BIT(19)
+> +#define XGMAC_HWFEAT_TTSFD		GENMASK(18, 16)
+>  #define XGMAC_HWFEAT_ASP		GENMASK(15, 14)
+>  #define XGMAC_HWFEAT_DVLAN		BIT(13)
+>  #define XGMAC_HWFEAT_FRPES		GENMASK(12, 11)
+>  #define XGMAC_HWFEAT_FRPPB		GENMASK(10, 9)
+> +#define XGMAC_HWFEAT_POUOST		BIT(8)
+> +#define XGMAC_HWFEAT_FRPPIPE		GENMASK(7, 5)
+> +#define XGMAC_HWFEAT_CBTISEL		BIT(4)
+>  #define XGMAC_HWFEAT_FRPSEL		BIT(3)
+> +#define XGMAC_HWFEAT_NRVF		GENMASK(2, 0)
+> +#define XGMAC_HW_FEATURE4		0x0000012c
+> +#define XGMAC_HWFEAT_EASP		BIT(4)
+> +#define XGMAC_HWFEAT_PCSEL		GENMASK(1, 0)
+>  #define XGMAC_MAC_DPP_FSM_INT_STATUS	0x00000150
+>  #define XGMAC_MAC_FSM_CONTROL		0x00000158
+>  #define XGMAC_PRTYEN			BIT(1)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index 38782662ff98..34e1b0c3f346 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -861,8 +861,10 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
+>  	value |= XGMAC_TCEIE; /* TSO Memory Correctable Error */
+>  	writel(value, ioaddr + XGMAC_DMA_ECC_INT_ENABLE);
+>  
 
-Describe/name rather the actual device, not some layer.
+> -	/* Only ECC Protection for External Memory feature is selected */
+> -	if (asp <= 0x1)
+> +	/* 0x2: Without ECC or Parity Ports on External Application Interface
+> +	 * 0x4: Only ECC Protection for External Memory feature is selected
+> +	 */
+> +	if (asp == 0x2 || asp == 0x4)
+>  		return 0;
 
-> +
-> +maintainers:
-> +  - Jisheng Zhang <jszhang@kernel.org>
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - thead,th1520-dwmac
-> +  required:
-> +    - compatible
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - thead,th1520-dwmac
-> +      - const: snps,dwmac-3.70a
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: GMAC main clock
-> +      - description: AXI clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: stmmaceth
-> +      - const: axi
+This changes the dwxgmac3_safety_feat_config() method semantic. Please
+detach in a separate patch and thoroughly explain.
 
-Isn't basically axi clock a pclk? You should rather use the names from
-snps,dwmac
-
+>  
+>  	/* 4. Enable Parity and Timeout for FSM */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index 3aacf791efeb..fa69d64a8694 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -393,6 +393,9 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+>  
+>  	/* MAC HW feature 0 */
+>  	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE0);
+> +	dma_cap->edma = (hw_cap & XGMAC_HWFEAT_EDMA) >> 31;
+> +	dma_cap->ediffc = (hw_cap & XGMAC_HWFEAT_EDIFFC) >> 30;
+> +	dma_cap->vxn = (hw_cap & XGMAC_HWFEAT_VXN) >> 29;
+>  	dma_cap->vlins = (hw_cap & XGMAC_HWFEAT_SAVLANINS) >> 27;
+>  	dma_cap->tssrc = (hw_cap & XGMAC_HWFEAT_TSSTSSEL) >> 25;
+>  	dma_cap->multi_addr = (hw_cap & XGMAC_HWFEAT_ADDMACADRSEL) >> 18;
+> @@ -425,9 +428,12 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+>  		dma_cap->l3l4fnum = 32;
+>  
+>  	dma_cap->hash_tb_sz = (hw_cap & XGMAC_HWFEAT_HASHTBLSZ) >> 24;
+> +	dma_cap->numtc = ((hw_cap & XGMAC_HWFEAT_NUMTC) >> 21) + 1;
+>  	dma_cap->rssen = (hw_cap & XGMAC_HWFEAT_RSSEN) >> 20;
+> +	dma_cap->dbgmem = (hw_cap & XGMAC_HWFEAT_DBGMEMA) >> 19;
+>  	dma_cap->tsoen = (hw_cap & XGMAC_HWFEAT_TSOEN) >> 18;
+>  	dma_cap->sphen = (hw_cap & XGMAC_HWFEAT_SPHEN) >> 17;
+> +	dma_cap->dcben = (hw_cap & XGMAC_HWFEAT_DCBEN) >> 16;
+>  
+>  	dma_cap->addr64 = (hw_cap & XGMAC_HWFEAT_ADDR64) >> 14;
+>  	switch (dma_cap->addr64) {
+> @@ -445,13 +451,18 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+>  		break;
+>  	}
+>  
+> +	dma_cap->advthword = (hw_cap & XGMAC_HWFEAT_ADVTHWORD) >> 13;
+> +	dma_cap->ptoen = (hw_cap & XGMAC_HWFEAT_PTOEN) >> 12;
+> +	dma_cap->osten = (hw_cap & XGMAC_HWFEAT_OSTEN) >> 11;
+>  	dma_cap->tx_fifo_size =
+>  		128 << ((hw_cap & XGMAC_HWFEAT_TXFIFOSIZE) >> 6);
+> +	dma_cap->pfcen = (hw_cap & XGMAC_HWFEAT_PFCEN) >> 5;
+>  	dma_cap->rx_fifo_size =
+>  		128 << ((hw_cap & XGMAC_HWFEAT_RXFIFOSIZE) >> 0);
+>  
+>  	/* MAC HW feature 2 */
+>  	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE2);
+> +	dma_cap->aux_snapshot_n = (hw_cap & XGMAC_HWFEAT_AUXSNAPNUM) >> 28;
+>  	dma_cap->pps_out_num = (hw_cap & XGMAC_HWFEAT_PPSOUTNUM) >> 24;
+>  	dma_cap->number_tx_channel =
+>  		((hw_cap & XGMAC_HWFEAT_TXCHCNT) >> 18) + 1;
+> @@ -464,16 +475,28 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+>  
+>  	/* MAC HW feature 3 */
+>  	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE3);
+> +	dma_cap->tbs_ch_num = ((hw_cap & XGMAC_HWFEAT_TBSCH) >> 28) + 1;
+>  	dma_cap->tbssel = (hw_cap & XGMAC_HWFEAT_TBSSEL) >> 27;
+>  	dma_cap->fpesel = (hw_cap & XGMAC_HWFEAT_FPESEL) >> 26;
+> +	dma_cap->sgfsel = (hw_cap & XGMAC_HWFEAT_SGFSEL) >> 25;
+>  	dma_cap->estwid = (hw_cap & XGMAC_HWFEAT_ESTWID) >> 23;
+>  	dma_cap->estdep = (hw_cap & XGMAC_HWFEAT_ESTDEP) >> 20;
+>  	dma_cap->estsel = (hw_cap & XGMAC_HWFEAT_ESTSEL) >> 19;
+> +	dma_cap->ttsfd = (hw_cap & XGMAC_HWFEAT_TTSFD) >> 16;
+>  	dma_cap->asp = (hw_cap & XGMAC_HWFEAT_ASP) >> 14;
+>  	dma_cap->dvlan = (hw_cap & XGMAC_HWFEAT_DVLAN) >> 13;
+>  	dma_cap->frpes = (hw_cap & XGMAC_HWFEAT_FRPES) >> 11;
+>  	dma_cap->frpbs = (hw_cap & XGMAC_HWFEAT_FRPPB) >> 9;
+> +	dma_cap->pou_ost_en = (hw_cap & XGMAC_HWFEAT_POUOST) >> 8;
+> +	dma_cap->frppipe_num = ((hw_cap & XGMAC_HWFEAT_FRPPIPE) >> 5) + 1;
+> +	dma_cap->cbtisel = (hw_cap & XGMAC_HWFEAT_CBTISEL) >> 4;
+>  	dma_cap->frpsel = (hw_cap & XGMAC_HWFEAT_FRPSEL) >> 3;
+> +	dma_cap->nrvf_num = (hw_cap & XGMAC_HWFEAT_NRVF) >> 0;
 > +
-> +  thead,gmacapb:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      The phandle to the syscon node that control ethernet
-> +      interface and timing delay.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - phy-mode
-> +  - thead,gmacapb
+> +	/* MAC HW feature 4 */
+> +	hw_cap = readl(ioaddr + XGMAC_HW_FEATURE4);
 
-Best regards,
-Krzysztof
+> +	dma_cap->asp |= (hw_cap & XGMAC_HWFEAT_EASP) >> 2;
 
+So you intermix ASP and EASP flags in the dma_features->asp field.
+This makes the field value being deviated from what DW Eth QoS/XGMAC
+defines. It doesn't look correct. Am I missing something?
+
+> +	dma_cap->pcsel = (hw_cap & XGMAC_HWFEAT_PCSEL) >> 0;
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 733b5e900817..7a9bbcf03ea5 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6243,6 +6243,16 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>  		"External",
+>  		"Both",
+>  	};
+
+> +	static const char * const dwxgmac_safety_feature_desc[] = {
+> +		"No",
+> +		"All Safety Features with ECC and Parity",
+> +		"All Safety Features without ECC or Parity",
+> +		"All Safety Features with Parity Only",
+> +		"ECC Only",
+
+Hm, Looking at the DW Eth QoS v5.10a HW manual the description is the
+opposite:
+ 0x0 (NONE): No Safety features selected
+ 0x1 (ECC_ONLY): Only "ECC protection for external
+memory" feature is selected
+ 0x2 (AS_NPPE): All the Automotive Safety features are
+selected without the "Parity Port Enable for external inter-
+face" feature
+ 0x3 (AS_PPE): All the Automotive Safety features are
+selected with the "Parity Port Enable for external interface"
+feature
+
+Something isn't right. I doubt DW XGMAC v3.x has a different Safety
+feature implementation. Please double check the description text.
+
+-Serge(y)
+
+> +		"UNDEFINED",
+> +		"UNDEFINED",
+> +		"UNDEFINED",
+> +	};
+>  	struct net_device *dev = seq->private;
+>  	struct stmmac_priv *priv = netdev_priv(dev);
+>  
+> @@ -6261,15 +6271,16 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>  		   (priv->dma_cap.mbps_1000) ? "Y" : "N");
+>  	seq_printf(seq, "\tHalf duplex: %s\n",
+>  		   (priv->dma_cap.half_duplex) ? "Y" : "N");
+> -	seq_printf(seq, "\tHash Filter: %s\n",
+> -		   (priv->dma_cap.hash_filter) ? "Y" : "N");
+> -	if (priv->plat->has_xgmac)
+> +	if (priv->plat->has_xgmac) {
+>  		seq_printf(seq,
+>  			   "\tNumber of Additional MAC address registers: %d\n",
+>  			   priv->dma_cap.multi_addr);
+> -	else
+> +	} else {
+> +		seq_printf(seq, "\tHash Filter: %s\n",
+> +			   (priv->dma_cap.hash_filter) ? "Y" : "N");
+>  		seq_printf(seq, "\tMultiple MAC address registers: %s\n",
+>  			   (priv->dma_cap.multi_addr) ? "Y" : "N");
+> +	}
+>  	seq_printf(seq, "\tPCS (TBI/SGMII/RTBI PHY interfaces): %s\n",
+>  		   (priv->dma_cap.pcs) ? "Y" : "N");
+>  	seq_printf(seq, "\tSMA (MDIO) Interface: %s\n",
+> @@ -6316,12 +6327,13 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>  		   (priv->dma_cap.enh_desc) ? "Y" : "N");
+>  	seq_printf(seq, "\tTX Fifo Size: %d\n", priv->dma_cap.tx_fifo_size);
+>  	seq_printf(seq, "\tRX Fifo Size: %d\n", priv->dma_cap.rx_fifo_size);
+> -	seq_printf(seq, "\tHash Table Size: %d\n", priv->dma_cap.hash_tb_sz);
+> +	seq_printf(seq, "\tHash Table Size: %lu\n", priv->dma_cap.hash_tb_sz ?
+> +		   (BIT(priv->dma_cap.hash_tb_sz) << 5) : 0);
+>  	seq_printf(seq, "\tTSO: %s\n", priv->dma_cap.tsoen ? "Y" : "N");
+>  	seq_printf(seq, "\tNumber of PPS Outputs: %d\n",
+>  		   priv->dma_cap.pps_out_num);
+>  	seq_printf(seq, "\tSafety Features: %s\n",
+> -		   priv->dma_cap.asp ? "Y" : "N");
+> +		   dwxgmac_safety_feature_desc[priv->dma_cap.asp]);
+>  	seq_printf(seq, "\tFlexible RX Parser: %s\n",
+>  		   priv->dma_cap.frpsel ? "Y" : "N");
+>  	seq_printf(seq, "\tEnhanced Addressing: %d\n",
+> @@ -6346,6 +6358,53 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
+>  		   priv->dma_cap.fpesel ? "Y" : "N");
+>  	seq_printf(seq, "\tTime-Based Scheduling (TBS): %s\n",
+>  		   priv->dma_cap.tbssel ? "Y" : "N");
+> +	seq_printf(seq, "\tNumber of DMA Channels Enabled for TBS: %d\n",
+> +		   priv->dma_cap.tbs_ch_num);
+> +	seq_printf(seq, "\tPer-Stream Filtering: %s\n",
+> +		   priv->dma_cap.sgfsel ? "Y" : "N");
+> +	seq_printf(seq, "\tTX Timestamp FIFO Depth: %lu\n",
+> +		   BIT(priv->dma_cap.ttsfd) >> 1);
+> +	seq_printf(seq, "\tNumber of Traffic Classes: %d\n",
+> +		   priv->dma_cap.numtc);
+> +	seq_printf(seq, "\tDCB Feature: %s\n",
+> +		   priv->dma_cap.dcben ? "Y" : "N");
+> +	seq_printf(seq, "\tIEEE 1588 High Word Register: %s\n",
+> +		   priv->dma_cap.advthword ? "Y" : "N");
+> +	seq_printf(seq, "\tPTP Offload: %s\n",
+> +		   priv->dma_cap.ptoen ? "Y" : "N");
+> +	seq_printf(seq, "\tOne-Step Timestamping: %s\n",
+> +		   priv->dma_cap.osten ? "Y" : "N");
+> +	seq_printf(seq, "\tPriority-Based Flow Control: %s\n",
+> +		   priv->dma_cap.pfcen ? "Y" : "N");
+> +	seq_printf(seq, "\tNumber of Flexible RX Parser Instructions: %lu\n",
+> +		   BIT(priv->dma_cap.frpes) << 6);
+> +	seq_printf(seq, "\tNumber of Flexible RX Parser Parsable Bytes: %lu\n",
+> +		   BIT(priv->dma_cap.frpbs) << 6);
+> +	seq_printf(seq, "\tParallel Instruction Processor Engines: %d\n",
+> +		   priv->dma_cap.frppipe_num);
+> +	seq_printf(seq, "\tNumber of Extended VLAN Tag Filters: %lu\n",
+> +		   priv->dma_cap.nrvf_num ?
+> +		   (BIT(priv->dma_cap.nrvf_num) << 1) : 0);
+> +	seq_printf(seq, "\tWidth of the Time Interval Field in GCL: %d\n",
+> +		   priv->dma_cap.estwid ? 4 * priv->dma_cap.estwid + 12 : 0);
+> +	seq_printf(seq, "\tDepth of GCL: %lu\n",
+> +		   priv->dma_cap.estdep ? (BIT(priv->dma_cap.estdep) << 5) : 0);
+> +	seq_printf(seq, "\tQueue/Channel-Based VLAN Tag Insertion on TX: %s\n",
+> +		   priv->dma_cap.cbtisel ? "Y" : "N");
+> +	seq_printf(seq, "\tNumber of Auxiliary Snapshot Inputs: %d\n",
+> +		   priv->dma_cap.aux_snapshot_n);
+> +	seq_printf(seq, "\tOne-Step Timestamping for PTP over UDP/IP: %s\n",
+> +		   priv->dma_cap.pou_ost_en ? "Y" : "N");
+> +	seq_printf(seq, "\tEnhanced DMA: %s\n",
+> +		   priv->dma_cap.edma ? "Y" : "N");
+> +	seq_printf(seq, "\tDifferent Descriptor Cache: %s\n",
+> +		   priv->dma_cap.ediffc ? "Y" : "N");
+> +	seq_printf(seq, "\tVxLAN/NVGRE: %s\n",
+> +		   priv->dma_cap.vxn ? "Y" : "N");
+> +	seq_printf(seq, "\tDebug Memory Interface: %s\n",
+> +		   priv->dma_cap.dbgmem ? "Y" : "N");
+> +	seq_printf(seq, "\tNumber of Policing Counters: %lu\n",
+> +		   priv->dma_cap.pcsel ? BIT(priv->dma_cap.pcsel + 3) : 0);
+>  	return 0;
+>  }
+>  DEFINE_SHOW_ATTRIBUTE(stmmac_dma_cap);
+> -- 
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
