@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E1467849A0
-	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 20:50:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C1517849A2
+	for <lists+linux-stm32@lfdr.de>; Tue, 22 Aug 2023 20:50:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAE02C6B44C;
-	Tue, 22 Aug 2023 18:50:42 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8212C6B44C;
+	Tue, 22 Aug 2023 18:50:47 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F952C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9C670C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 22 Aug 2023 18:50:41 +0000 (UTC)
+ Tue, 22 Aug 2023 18:50:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hVOCuc5IYYSeGY5UU7ESNANeOTu+gCFR0FT1EEk+RqY=; b=OsfL23fKVLXUJo+ZsF5lvgJKSO
- pBZhMDBfgFyIjIqVsv4peZBbORaaZUKKqcfdndD9tAkMtg5GRKeL2PGHOE8Nqo/VIh8wnVahTd+w8
- IvUqgsL/KqUpCuQyZBCky+FFhlcYgCLcIlYtj5kBVbLF21cVGcn7Ls0+j+4Mu19ZWMg0v9T+kRIzb
- tGoQrTatHpz9ddVDi5q7TyrvNmZ1Y25oqPg5gCrle3G6zlar1x6sZFvTx8Xm+vnKJBcN0j9e+tG+C
- I9Qa5WZZrEKseIJF1H5mxGnF2oRQmYoITm3q2vNhjNbbJRMAhDeyzYUksbSqfyPfOISzrl9POh3Kh
- VGYoZOPA==;
+ bh=KsLiqnb32ZcxjS1LxD1pBZYLglJtuaP+623PTyulk2g=; b=NqBejPsyt7HIdR/H0+xVVLINKR
+ DyOmk65LmIM1I2NZv+htLfJLstz31Wgy9+cgjGntLfZ33UMRHD/u1WM/ns564rYTeU1/VQs2d+5T9
+ v0d3+UvZwSkkG5rVpTEryuOO9dHTI94Jy/zEEoVsPoi9A6GNpNjKIBmS7L8TeFd8jNhfhz1m826Ro
+ 5W541McFfeTh4inZxoetQ84ZQE2URSGD1qwCVrN7jqyIR6M7g7HfBM7ytB7XBNDK4BOEFJYY5z3w6
+ eMuqoOg8Dn+bNrnLqDKQaevDTu1/jsKzG5k5/Oy0cMj9dyoxbgKei/dJqdhUkwwzaK1+SKp0bg/HD
+ 1bjHUfmQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:46866 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50516 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1qYWSY-0001si-0d;
- Tue, 22 Aug 2023 19:50:34 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1qYWSd-0001sz-1C;
+ Tue, 22 Aug 2023 19:50:39 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1qYWSY-005fY9-Gm; Tue, 22 Aug 2023 19:50:34 +0100
+ id 1qYWSd-005fYF-L9; Tue, 22 Aug 2023 19:50:39 +0100
 In-Reply-To: <ZOUDRkBXzY884SJ1@shell.armlinux.org.uk>
 References: <ZOUDRkBXzY884SJ1@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,16 +41,16 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1qYWSY-005fY9-Gm@rmk-PC.armlinux.org.uk>
-Date: Tue, 22 Aug 2023 19:50:34 +0100
+Message-Id: <E1qYWSd-005fYF-L9@rmk-PC.armlinux.org.uk>
+Date: Tue, 22 Aug 2023 19:50:39 +0100
 Cc: Andrew Lunn <andrew@lunn.ch>, Feiyang Chen <chenfeiyang@loongson.cn>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [Linux-stm32] [PATCH net-next 7/9] net: stmmac: move gmac4 specific
- phylink capabilities to gmac4
+Subject: [Linux-stm32] [PATCH net-next 8/9] net: stmmac: move xgmac specific
+ phylink caps to dwxgmac2 core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,69 +67,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Move the setup of gmac4 speicifc phylink capabilities into gmac4 code.
+Move the xgmac specific phylink capabilities to the dwxgmac2 support
+core.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 8 ++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 10 ++++++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 10 ----------
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 03b1c5a97826..c6ff1fa0e04d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -68,6 +68,11 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 		init_waitqueue_head(&priv->tstamp_busy_wait);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 34e1b0c3f346..f352be269deb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -47,6 +47,14 @@ static void dwxgmac2_core_init(struct mac_device_info *hw,
+ 	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
  }
  
-+static void dwmac4_phylink_get_caps(struct stmmac_priv *priv)
++static void xgmac_phylink_get_caps(struct stmmac_priv *priv)
 +{
-+	priv->phylink_config.mac_capabilities |= MAC_2500FD;
++	priv->phylink_config.mac_capabilities |= MAC_2500FD | MAC_5000FD |
++						 MAC_10000FD | MAC_25000FD |
++						 MAC_40000FD | MAC_50000FD |
++						 MAC_100000FD;
 +}
 +
- static void dwmac4_rx_queue_enable(struct mac_device_info *hw,
- 				   u8 mode, u32 queue)
+ static void dwxgmac2_set_mac(void __iomem *ioaddr, bool enable)
  {
-@@ -1131,6 +1136,7 @@ static int dwmac4_config_l4_filter(struct mac_device_info *hw, u32 filter_no,
+ 	u32 tx = readl(ioaddr + XGMAC_TX_CONFIG);
+@@ -1490,6 +1498,7 @@ static void dwxgmac3_fpe_configure(void __iomem *ioaddr, u32 num_txq,
  
- const struct stmmac_ops dwmac4_ops = {
- 	.core_init = dwmac4_core_init,
-+	.phylink_get_caps = dwmac4_phylink_get_caps,
- 	.set_mac = stmmac_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
-@@ -1173,6 +1179,7 @@ const struct stmmac_ops dwmac4_ops = {
+ const struct stmmac_ops dwxgmac210_ops = {
+ 	.core_init = dwxgmac2_core_init,
++	.phylink_get_caps = xgmac_phylink_get_caps,
+ 	.set_mac = dwxgmac2_set_mac,
+ 	.rx_ipc = dwxgmac2_rx_ipc,
+ 	.rx_queue_enable = dwxgmac2_rx_queue_enable,
+@@ -1551,6 +1560,7 @@ static void dwxlgmac2_rx_queue_enable(struct mac_device_info *hw, u8 mode,
  
- const struct stmmac_ops dwmac410_ops = {
- 	.core_init = dwmac4_core_init,
-+	.phylink_get_caps = dwmac4_phylink_get_caps,
- 	.set_mac = stmmac_dwmac4_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
-@@ -1221,6 +1228,7 @@ const struct stmmac_ops dwmac410_ops = {
- 
- const struct stmmac_ops dwmac510_ops = {
- 	.core_init = dwmac4_core_init,
-+	.phylink_get_caps = dwmac4_phylink_get_caps,
- 	.set_mac = stmmac_dwmac4_set_mac,
- 	.rx_ipc = dwmac4_rx_ipc_enable,
- 	.rx_queue_enable = dwmac4_rx_queue_enable,
+ const struct stmmac_ops dwxlgmac2_ops = {
+ 	.core_init = dwxgmac2_core_init,
++	.phylink_get_caps = xgmac_phylink_get_caps,
+ 	.set_mac = dwxgmac2_set_mac,
+ 	.rx_ipc = dwxgmac2_rx_ipc,
+ 	.rx_queue_enable = dwxlgmac2_rx_queue_enable,
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a9cf6aecdddf..0b02845e7e9d 100644
+index 0b02845e7e9d..5cf8304564c6 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1227,9 +1227,7 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
+@@ -1227,16 +1227,6 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
  	/* Get the MAC specific capabilities */
  	stmmac_mac_phylink_get_caps(priv);
  
--	if (priv->plat->has_gmac4) {
+-	if (priv->plat->has_xgmac) {
 -		priv->phylink_config.mac_capabilities |= MAC_2500FD;
--	} else if (priv->plat->has_xgmac) {
-+	if (priv->plat->has_xgmac) {
- 		priv->phylink_config.mac_capabilities |= MAC_2500FD;
- 		priv->phylink_config.mac_capabilities |= MAC_5000FD;
- 		priv->phylink_config.mac_capabilities |= MAC_10000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_5000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_10000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_25000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_40000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_50000FD;
+-		priv->phylink_config.mac_capabilities |= MAC_100000FD;
+-	}
+-
+ 	/* Half-Duplex can only work with single queue */
+ 	if (priv->plat->tx_queues_to_use > 1)
+ 		priv->phylink_config.mac_capabilities &=
 -- 
 2.30.2
 
