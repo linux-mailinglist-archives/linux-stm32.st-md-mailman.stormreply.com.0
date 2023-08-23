@@ -2,55 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53915785655
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 12:58:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72C6578573E
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 13:53:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13C7DC6B44C;
-	Wed, 23 Aug 2023 10:58:49 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21E66C6B44C;
+	Wed, 23 Aug 2023 11:53:44 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A52FC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C40A6C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Aug 2023 10:58:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QpqzTXlkvfTZwb/qvLffSgOkdmA3MgzLw1gYn4Tft4k=; b=s/9kx6+CR/fuCvSdzEXiuQjEfZ
- EdboCKEcmE68sjpbz32RSMAnopH5pDf5FWnykSJznpjzbcLne2CEzF/ettMHvNxEZRwVE84hajdMi
- NK88pFfypItbIjF3cChnkLE6vL2H8WQit9euN7sWPjMxwQjzOiSPZy+En65nCYIFEk6TejmTV9yxc
- 3BSESc8hQZqVZH1d4SKqulITtnWdmHws66OttGpvKlGtRUzwVgj0iPKwY9vYa3HaysPc7b6n/z0i8
- NGnex4U5VnAjp6bSr3FR0EK+NP/LM8+C51OLtz2klZ/imZyb1e7HMGAHvV3sPD3iiYaiy3BRUCxJY
- ikXoj3uA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42594)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qYlZJ-0002eW-1e;
- Wed, 23 Aug 2023 11:58:33 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qYlZI-0006lA-Js; Wed, 23 Aug 2023 11:58:32 +0100
-Date: Wed, 23 Aug 2023 11:58:32 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZOXmWLB4TKGKvkiE@shell.armlinux.org.uk>
+ Wed, 23 Aug 2023 11:53:42 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7EFC0660D8
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Aug 2023 11:53:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CDA8C43395
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Aug 2023 11:53:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1692791620;
+ bh=9ozTPMOCGjgHLaJa54zNz+3htX4e52MyhqXdip941jo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=l24jGUE83dTC5LIpesTj/6es0p1WS7ylU3MUON3FJiuoWQxxRCjlR5z3wIFk4K+oU
+ K2AWIcTPkmDsluBNADDyBlpMDLA8Rp+uKKqJoCHs0avzOBmXGyOqYqn+BCh16bjUI2
+ hvhq9h51Ry+gIiCJSOxxraYuuki2GsBa0J1eiiJ7gXumwLCguGvREwpTyW9YV+YEk7
+ dNwAKeoP3UDdpi+bdNOnHPI9JPaBhU60YEN1dK+7znlOZ/CRo/Tve9mIsDAErxAZ59
+ jKyyPyla2DIuaYkyUmtM5hqQ6DDKwQ7Gc/a1lvWnat8Yxav7r0p1B08W1yk1QFolNU
+ SsschzuYYGj6A==
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2b9a2033978so85419751fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 23 Aug 2023 04:53:39 -0700 (PDT)
+X-Gm-Message-State: AOJu0Yw4xPj3kfT94wg+pAXyge9kiMx6JmfYMR0pFKxjBSU+vNqqMjtQ
+ 8hCV11XSgvXP5hYOvRtZjRM1mS0CcmjX7keweQ==
+X-Google-Smtp-Source: AGHT+IG6AYWn2ZBtqiggebw0M0LEoLpjEjEkmAuyxGb6SqXHXb0v7iaIhaSPWuqzMe7IxI9zjdhMNEvmSNHymSTc/JA=
+X-Received: by 2002:a2e:7008:0:b0:2bc:d8fd:13df with SMTP id
+ l8-20020a2e7008000000b002bcd8fd13dfmr2086615ljc.41.1692791617967; Wed, 23 Aug
+ 2023 04:53:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Synopsys XGMII MAC and USXGMII interfaces
+References: <20230714174702.4059100-1-robh@kernel.org>
+ <CABb+yY0ZEkU2fEoFcihDM0GPuNBkCJHYXfkq-+bLJY1xtbf5Jw@mail.gmail.com>
+In-Reply-To: <CABb+yY0ZEkU2fEoFcihDM0GPuNBkCJHYXfkq-+bLJY1xtbf5Jw@mail.gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 23 Aug 2023 06:53:25 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+EbxHkdXEJsgAETrQj8Ps30umOMcArt1fCaNumxBem5A@mail.gmail.com>
+Message-ID: <CAL_Jsq+EbxHkdXEJsgAETrQj8Ps30umOMcArt1fCaNumxBem5A@mail.gmail.com>
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, linux-tegra@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, linux-riscv@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>,
+ Orson Zhai <orsonzhai@gmail.com>, devicetree@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] mailbox: Explicitly include correct DT
+	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,40 +80,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Part 2 of the discussion...
-
-A similar issue applies to PHY_INTERFACE_MODE_USXGMII, but is reversed.
-USXGMII supports 10M, 100M, 1G, 2.5G, 5G and 10G. Phylink allows all of
-these because that's what the appropriate standard says. dwxgmac2
-initialises config register settings for speeds from 10M up to 10G.
-However, the PHY_INTERFACE_MODE_USXGMII switch() block in
-stmmac_mac_link_up() only handles 2.5G, 5G and 10G. Shouldn't it handle
-the other speed cases - it looks like the MAC does support them.
-
-The initialisation done by dwxgmac2_setup() does setup control register
-masks for everything from 10M to 10G, so on the face of it, it looks
-like a mistake in stmmac_mac_link_up().
-
-If it's something outside of the MAC that doesn't support these speeds
-when operating as USXGMII, then that needs to be handled.
-
-The other weird thing is that when using PHY_INTERFACE_MODE_USXGMII
-with XPCS, XPCS supports 1G, 2.5G and 10G ethtool link modes, but not
-5G. So combining the implementation in stmmac_mac_link_up(), that
-means only 2.5G and 10G can actually be functional. Is that a fair
-assessment of the USXGMII situation with stmmac?
-
-Thanks.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBdWcgMjIsIDIwMjMgYXQgNjowNeKAr1BNIEphc3NpIEJyYXIgPGphc3Npc2luZ2hi
+cmFyQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBGcmksIEp1bCAxNCwgMjAyMyBhdCAxMjo0N+KA
+r1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+IHdyb3RlOgo+ID4KPiA+IFRoZSBEVCBv
+Zl9kZXZpY2UuaCBhbmQgb2ZfcGxhdGZvcm0uaCBkYXRlIGJhY2sgdG8gdGhlIHNlcGFyYXRlCj4g
+PiBvZl9wbGF0Zm9ybV9idXNfdHlwZSBiZWZvcmUgaXQgYXMgbWVyZ2VkIGludG8gdGhlIHJlZ3Vs
+YXIgcGxhdGZvcm0gYnVzLgo+ID4gQXMgcGFydCBvZiB0aGF0IG1lcmdlIHByZXBwaW5nIEFybSBE
+VCBzdXBwb3J0IDEzIHllYXJzIGFnbywgdGhleQo+ID4gInRlbXBvcmFyaWx5IiBpbmNsdWRlIGVh
+Y2ggb3RoZXIuIFRoZXkgYWxzbyBpbmNsdWRlIHBsYXRmb3JtX2RldmljZS5oCj4gPiBhbmQgb2Yu
+aC4gQXMgYSByZXN1bHQsIHRoZXJlJ3MgYSBwcmV0dHkgbXVjaCByYW5kb20gbWl4IG9mIHRob3Nl
+IGluY2x1ZGUKPiA+IGZpbGVzIHVzZWQgdGhyb3VnaG91dCB0aGUgdHJlZS4gSW4gb3JkZXIgdG8g
+ZGV0YW5nbGUgdGhlc2UgaGVhZGVycyBhbmQKPiA+IHJlcGxhY2UgdGhlIGltcGxpY2l0IGluY2x1
+ZGVzIHdpdGggc3RydWN0IGRlY2xhcmF0aW9ucywgdXNlcnMgbmVlZCB0bwo+ID4gZXhwbGljaXRs
+eSBpbmNsdWRlIHRoZSBjb3JyZWN0IGluY2x1ZGVzLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IFJv
+YiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Cj4gPgo+IEkgdGhvdWdodCBJIHdhcyB0byBwaWNr
+IHRoZSBwYXRjaC4gQnV0IEkgc2VlIHlvdSBpbnRlbmQgdG8gZG8gaXQuIE5wLgoKTm8sIHBsZWFz
+ZSBhcHBseSBpdC4KClRoYW5rcywKUm9iCgo+Cj4gQWNrZWQtYnk6IEphc3NpIEJyYXIgPGphc3Np
+c2luZ2hicmFyQGdtYWlsLmNvbT4KPgo+IHRoYW5rcwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
