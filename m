@@ -2,55 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F150B785316
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 10:52:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F20F3785317
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 10:52:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A259FC6907A;
-	Wed, 23 Aug 2023 08:52:03 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6E8FC6B454;
+	Wed, 23 Aug 2023 08:52:04 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 712DEC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F680C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Aug 2023 08:52:01 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-50087d47d4dso3206909e87.1
+ Wed, 23 Aug 2023 08:52:03 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-4ff8f2630e3so8551934e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Aug 2023 01:52:01 -0700 (PDT)
+ Wed, 23 Aug 2023 01:52:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1692780720; x=1693385520;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7D2ouUhW30X6Tc9yQKY+DadfBMJeG3kxkyZx2pcZ+Fg=;
- b=sIlOYGc/ZmKfI2RhksznWNTLXphb9ZU1vnoGgw+9kpuBCsrs+KwtG7j1eVs/ryvpFg
- H6A5+1YRebYkjaA/UW6C/PPIEOXNlTcKpC4p/NtVg2r9wYMBZ7779wtWiJdrXcLFnBeH
- ZvFiQGuTARPQxbHziGh6JDOqd2xUP5ZP6CSrKgP2Qvnvtu80JtBgCbUtcK0ioi9KhuA3
- v6M+J92F0Soe/DfWS1BPm5YHlvQU4XCki6xXIrDZWoKBclI3KR8pA3JghKqS4dxvcnWQ
- n2BiuDHFkUqLAumUTHqf4U/rkl6E7dXFXirxUnz2FA61IF+LiiWNLw6bIrwwumB0Folp
- 06Qw==
+ d=linaro.org; s=google; t=1692780723; x=1693385523;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=S71Z3v1GQlAhT0GgnhlVdV4En9/oMRjgvUgf9fiW+Sw=;
+ b=ib27ZO4E07FOfYBGN14Puwk9lz2/GWy4Wvey+Tlrr7cVpa3c84dBMsQaSDoRPPhvVm
+ mIQ9rw9dk/YIGQif9ketvd7SnBTYEEN+aOapjlfjfW2QHjD1+MSlhvypLHHoRpEqnLe5
+ A7etlYUsIYLfNXR0VkQgb0x0DlSlvk8bVnPGIJsXeG3oFkoQZzzF35Y3g/FQMmGT9R2f
+ U3uL5D9hQcblL0w8l1uHAhZW7wMLGKyc8L+61xzNulm2KMS/iJcig9Q7JG9PqJZrjgog
+ 82eUzCO4H6xn36SCYguYgyf251UvMgE005JIaeoFHVbCce7MDlXIMtB+i0LwT3mwpdY7
+ qZsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692780720; x=1693385520;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=7D2ouUhW30X6Tc9yQKY+DadfBMJeG3kxkyZx2pcZ+Fg=;
- b=JPyzRKJJ9wBB0npYLYT1D39Ll/BmCpHj8Po6dpb+wP9VyFpY2ohNtZyRllU2dubst1
- NhpPVoTWQGEpxqpoG0NwAB+dN9g2vdYrI4sE4cXoUKixib1ONGpqJC+tLj3nUyPN2bO/
- CxaQxgbKo5hnAc+9Chd5aKXKejo/uSKRH4ubyDeDkAKRGS+kUcleRM0t4yHZQ47+dNm5
- kGMb3DzFH7RcLenWQFQMdUm8MTOPYFGnDIkLXccPmBuU0t2WPq4u8KDlQDgUs+DkX+Kp
- d+8nUZzGpxe9eH1J4SoBdAEem2ubAwYe/ujb+Sn9276p5UrQKnT27xx8xNSYlEwVkjBX
- CKSQ==
-X-Gm-Message-State: AOJu0YxVS2Wf+RURpQ2Jd2wc27m8q44bQgGJy78+vfW8qORjB5b2x6tw
- 1/ygEST/7AJSnSH6i+LGSG913w==
-X-Google-Smtp-Source: AGHT+IF5ZWP6+GMqNyYtzuRMXVyZPxGrTYqGvfpxsUPFPsvr3clkivSzzEml7p4XyTWsj2zwc843FQ==
-X-Received: by 2002:a19:385e:0:b0:4fd:d517:fbcd with SMTP id
- d30-20020a19385e000000b004fdd517fbcdmr6963552lfj.6.1692780720501; 
- Wed, 23 Aug 2023 01:52:00 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1692780723; x=1693385523;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=S71Z3v1GQlAhT0GgnhlVdV4En9/oMRjgvUgf9fiW+Sw=;
+ b=UbE84I6PVzOWBgGDBewx9Pnn7eyb2LdDnTqIMUhkuRZe29Ok/CwxYHg0CHkRuK3dRL
+ +Yi44XWHEwBpVm2WaSlkCmjR2DwdqL8HZhj2erv05QgxLtjmBndrrnqBafU4+DZYzXzL
+ /bOkRTY62eat54ciCYiyRYypDo+F/RI/MsevqRMILFvCkkliL76RnGfKI8LJ7m7vk0LC
+ WqMMmYmwZaEvJSCUuPJ3F0artBvWZ5wYyLA8RfN3GpGKDhv4doyuS1OlN39mMbsmSm3R
+ ABtIOJ9uiA6p6tOcb8896PuI7UCaHFXqQwbspkPDDIxuFKMVt+79Hgsq6N97Ax4jLXRf
+ Azkw==
+X-Gm-Message-State: AOJu0Yzy4UzaaozJEcyhxEnKBcwyT/nTW+IZZIrT5gR7kJx2BvF2yRcG
+ HlEba5oIszxnfdoIe6F5BP3LwA==
+X-Google-Smtp-Source: AGHT+IG3y2We8LvW8xzNm5Xdrybkzoznuv7gHdEdg9zgd8UZXnFHJjxnBaAgk/U/actn9j4zztQjyA==
+X-Received: by 2002:a05:6512:318a:b0:4fe:1d88:2c61 with SMTP id
+ i10-20020a056512318a00b004fe1d882c61mr10615468lfe.32.1692780722664; 
+ Wed, 23 Aug 2023 01:52:02 -0700 (PDT)
 Received: from krzk-bin.. ([77.252.47.198]) by smtp.gmail.com with ESMTPSA id
- s19-20020aa7c553000000b0051bed21a635sm9090986edr.74.2023.08.23.01.51.58
+ s19-20020aa7c553000000b0051bed21a635sm9090986edr.74.2023.08.23.01.52.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Aug 2023 01:52:00 -0700 (PDT)
+ Wed, 23 Aug 2023 01:52:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
  arm@kernel.org, soc@kernel.org, Rob Herring <robh+dt@kernel.org>,
@@ -72,12 +73,14 @@ To: Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-renesas-soc@vger.kernel.org
-Date: Wed, 23 Aug 2023 10:51:45 +0200
-Message-Id: <20230823085146.113562-1-krzysztof.kozlowski@linaro.org>
+Date: Wed, 23 Aug 2023 10:51:46 +0200
+Message-Id: <20230823085146.113562-2-krzysztof.kozlowski@linaro.org>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230823085146.113562-1-krzysztof.kozlowski@linaro.org>
+References: <20230823085146.113562-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH 1/2] ARM: dts: use capital "OR" for multiple
+Subject: [Linux-stm32] [PATCH 2/2] arm64: dts: use capital "OR" for multiple
 	licenses in SPDX
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,171 +93,446 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RG9jdW1lbnRhdGlvbi9wcm9jZXNzL2xpY2Vuc2UtcnVsZXMucnN0IGFuZCBjaGVja3BhdGNoIGV4
-cGVjdCB0aGUgU1BEWAppZGVudGlmaWVyIHN5bnRheCBmb3IgbXVsdGlwbGUgbGljZW5zZXMgdG8g
-dXNlIGNhcGl0YWwgIk9SIi4gIENvcnJlY3QgaXQKdG8ga2VlcCBjb25zaXN0ZW50IGZvcm1hdCBh
-bmQgYXZvaWQgY29weS1wYXN0ZSBpc3N1ZXMuCgpTaWduZWQtb2ZmLWJ5OiBLcnp5c3p0b2YgS296
-bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+CgotLS0KClJlYmFzZWQgb24g
-bmV4dC0yMDIzMDgyMiwgc28gbWlnaHQgbm90IGFwcGx5IGNsZWFubHkuICBXaGF0IGRvZXMgbm90
-CmFwcGx5LCBjYW4gYmUgc2tpcHBlZCBhbmQgSSB3aWxsIGZpeCBpdCBhZnRlciBuZXh0IFJDLgot
-LS0KIGFyY2gvYXJtL2Jvb3QvZHRzL2FsbHdpbm5lci9zdW44aS10MTEzcy1tYW5nb3BpLW1xLXIt
-dDExMy5kdHMgfCAyICstCiBhcmNoL2FybS9ib290L2R0cy9hbGx3aW5uZXIvc3VuOGktdDExM3Mu
-ZHRzaSAgICAgICAgICAgICAgICAgIHwgMiArLQogYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVy
-L3N1bnhpLWQxcy10MTEzLW1hbmdvcGktbXEtci5kdHNpICB8IDIgKy0KIGFyY2gvYXJtL2Jvb3Qv
-ZHRzL254cC9pbXgvaW14NmRsLWIxMDVwdjIuZHRzICAgICAgICAgICAgICAgICAgfCAyICstCiBh
-cmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1iMTA1djIuZHRzICAgICAgICAgICAgICAg
-ICAgIHwgMiArLQogYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtYjEyNXB2Mi5kdHMg
-ICAgICAgICAgICAgICAgICB8IDIgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRs
-LWIxMjV2Mi5kdHMgICAgICAgICAgICAgICAgICAgfCAyICstCiBhcmNoL2FybS9ib290L2R0cy9u
-eHAvaW14L2lteDZkbC1iMTU1djIuZHRzICAgICAgICAgICAgICAgICAgIHwgMiArLQogYXJjaC9h
-cm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtYjF4NXB2Mi5kdHNpICAgICAgICAgICAgICAgICB8
-IDIgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxeDV2Mi5kdHNpICAgICAg
-ICAgICAgICAgICAgfCAyICstCiBhcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1lbWNv
-bi1hdmFyaS5kdHMgICAgICAgICAgICAgIHwgMiArLQogYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lt
-eC9pbXg2ZGwtcW14Ni5kdHNpICAgICAgICAgICAgICAgICAgICB8IDIgKy0KIGFyY2gvYXJtL2Jv
-b3QvZHRzL254cC9pbXgvaW14NnEtZW1jb24tYXZhcmkuZHRzICAgICAgICAgICAgICAgfCAyICst
-CiBhcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZxZGwtZW1jb24tYXZhcmkuZHRzaSAgICAg
-ICAgICAgIHwgMiArLQogYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2cWRsLWVtY29uLmR0
-c2kgICAgICAgICAgICAgICAgICB8IDIgKy0KIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAx
-NTdjLWVtc2JjLWFyZ29uLmR0cyAgICAgICAgICAgICAgfCAyICstCiBhcmNoL2FybS9ib290L2R0
-cy9zdC9zdG0zMm1wMTU3Yy1lbXN0YW1wLWFyZ29uLmR0c2kgICAgICAgICAgIHwgMiArLQogMTcg
-ZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMTcgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVyL3N1bjhpLXQxMTNzLW1hbmdvcGktbXEt
-ci10MTEzLmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FsbHdpbm5lci9zdW44aS10MTEzcy1tYW5n
-b3BpLW1xLXItdDExMy5kdHMKaW5kZXggOTRlMjRiNTkyNmRkLi44YjNhNzUzODM4MTYgMTAwNjQ0
-Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FsbHdpbm5lci9zdW44aS10MTEzcy1tYW5nb3BpLW1x
-LXItdDExMy5kdHMKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVyL3N1bjhpLXQxMTNz
-LW1hbmdvcGktbXEtci10MTEzLmR0cwpAQCAtMSw0ICsxLDQgQEAKLS8vIFNQRFgtTGljZW5zZS1J
-ZGVudGlmaWVyOiAoR1BMLTIuMCsgb3IgTUlUKQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
-IChHUEwtMi4wKyBPUiBNSVQpCiAvLyBDb3B5cmlnaHQgKEMpIDIwMjIgQXJtIEx0ZC4KIAogI2lu
-Y2x1ZGUgPGR0LWJpbmRpbmdzL2ludGVycnVwdC1jb250cm9sbGVyL2lycS5oPgpkaWZmIC0tZ2l0
-IGEvYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVyL3N1bjhpLXQxMTNzLmR0c2kgYi9hcmNoL2Fy
-bS9ib290L2R0cy9hbGx3aW5uZXIvc3VuOGktdDExM3MuZHRzaQppbmRleCA4MDRhYTE5N2EyNGYu
-LmM3MTgxMzA4YWU2ZiAxMDA2NDQKLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVyL3N1
-bjhpLXQxMTNzLmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvYWxsd2lubmVyL3N1bjhpLXQx
-MTNzLmR0c2kKQEAgLTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQ
-TC0yLjArIG9yIE1JVCkKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCsgT1Ig
-TUlUKQogLy8gQ29weXJpZ2h0IChDKSAyMDIyIEFybSBMdGQuCiAKICNkZWZpbmUgU09DX1BFUklQ
-SEVSQUxfSVJRKG5yKSBHSUNfU1BJIG5yCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9h
-bGx3aW5uZXIvc3VueGktZDFzLXQxMTMtbWFuZ29waS1tcS1yLmR0c2kgYi9hcmNoL2FybS9ib290
-L2R0cy9hbGx3aW5uZXIvc3VueGktZDFzLXQxMTMtbWFuZ29waS1tcS1yLmR0c2kKaW5kZXggZTli
-Yzc0OTQ4OGJiLi5hNDE1YzRhNzhhNzAgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL2Fs
-bHdpbm5lci9zdW54aS1kMXMtdDExMy1tYW5nb3BpLW1xLXIuZHRzaQorKysgYi9hcmNoL2FybS9i
-b290L2R0cy9hbGx3aW5uZXIvc3VueGktZDFzLXQxMTMtbWFuZ29waS1tcS1yLmR0c2kKQEAgLTEs
-NCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjArIG9yIE1JVCkK
-Ky8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCsgT1IgTUlUKQogLy8gQ29weXJp
-Z2h0IChDKSAyMDIyIEFybSBMdGQuCiAvKgogICogQ29tbW9uIHBlcmlwaGVyYWxzIGFuZCBjb25m
-aWd1cmF0aW9ucyBmb3IgTWFuZ29QaSBNUS1SIGJvYXJkcy4KZGlmZiAtLWdpdCBhL2FyY2gvYXJt
-L2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMDVwdjIuZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMv
-bnhwL2lteC9pbXg2ZGwtYjEwNXB2Mi5kdHMKaW5kZXggNDExYWE3MmQzNDRiLi43ZDRhZTExM2Mz
-ODEgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMDVwdjIu
-ZHRzCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMDVwdjIuZHRzCkBA
-IC0xLDQgKzEsNCBAQAotLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgb3IgTUlU
-CisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBNSVQKIC8vCiAvLyBEZXZp
-Y2UgVHJlZSBTb3VyY2UgZm9yIEdlbmVyYWwgRWxlY3RyaWMgQjEwNVB2MgogLy8KZGlmZiAtLWdp
-dCBhL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMDV2Mi5kdHMgYi9hcmNoL2Fy
-bS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1iMTA1djIuZHRzCmluZGV4IGQwMTExMjdjNjM1Yi4u
-OWM1OTM4ZTE2ZDk5IDEwMDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZk
-bC1iMTA1djIuZHRzCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMDV2
-Mi5kdHMKQEAgLTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIu
-MCBvciBNSVQKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIE9SIE1JVAogLy8K
-IC8vIERldmljZSBUcmVlIFNvdXJjZSBmb3IgR2VuZXJhbCBFbGVjdHJpYyBCMTA1djIKIC8vCmRp
-ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1iMTI1cHYyLmR0cyBi
-L2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxMjVwdjIuZHRzCmluZGV4IGNhODQw
-ZmE4NDA1Mi4uMDFkZjdjZmZjZWYyIDEwMDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9ueHAv
-aW14L2lteDZkbC1iMTI1cHYyLmR0cworKysgYi9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lt
-eDZkbC1iMTI1cHYyLmR0cwpAQCAtMSw0ICsxLDQgQEAKLS8vIFNQRFgtTGljZW5zZS1JZGVudGlm
-aWVyOiBHUEwtMi4wIG9yIE1JVAorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAg
-T1IgTUlUCiAvLwogLy8gRGV2aWNlIFRyZWUgU291cmNlIGZvciBHZW5lcmFsIEVsZWN0cmljIEIx
-MjVQdjIKIC8vCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1i
-MTI1djIuZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtYjEyNXYyLmR0cwpp
-bmRleCA4MWU1YTljYjg5MDAuLmEwMTU0NTNkYWYxMCAxMDA2NDQKLS0tIGEvYXJjaC9hcm0vYm9v
-dC9kdHMvbnhwL2lteC9pbXg2ZGwtYjEyNXYyLmR0cworKysgYi9hcmNoL2FybS9ib290L2R0cy9u
-eHAvaW14L2lteDZkbC1iMTI1djIuZHRzCkBAIC0xLDQgKzEsNCBAQAotLy8gU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IEdQTC0yLjAgb3IgTUlUCisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-R1BMLTIuMCBPUiBNSVQKIC8vCiAvLyBEZXZpY2UgVHJlZSBTb3VyY2UgZm9yIEdlbmVyYWwgRWxl
-Y3RyaWMgQjEyNXYyCiAvLwpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9p
-bXg2ZGwtYjE1NXYyLmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxNTV2
-Mi5kdHMKaW5kZXggYzg2MTkzN2IzMGY2Li5iNzFlZTZiNzkyMDggMTAwNjQ0Ci0tLSBhL2FyY2gv
-YXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxNTV2Mi5kdHMKKysrIGIvYXJjaC9hcm0vYm9v
-dC9kdHMvbnhwL2lteC9pbXg2ZGwtYjE1NXYyLmR0cwpAQCAtMSw0ICsxLDQgQEAKLS8vIFNQRFgt
-TGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIG9yIE1JVAorLy8gU1BEWC1MaWNlbnNlLUlkZW50
-aWZpZXI6IEdQTC0yLjAgT1IgTUlUCiAvLwogLy8gRGV2aWNlIFRyZWUgU291cmNlIGZvciBHZW5l
-cmFsIEVsZWN0cmljIEIxNTV2MgogLy8KZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL254
-cC9pbXgvaW14NmRsLWIxeDVwdjIuZHRzaSBiL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14
-NmRsLWIxeDVwdjIuZHRzaQppbmRleCA2ZTQ4N2ViZjI3YTIuLjlmMTY1NTU0MGNiOSAxMDA2NDQK
-LS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtYjF4NXB2Mi5kdHNpCisrKyBi
-L2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxeDVwdjIuZHRzaQpAQCAtMSw0ICsx
-LDQgQEAKLS8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wIG9yIE1JVAorLy8gU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgT1IgTUlUCiAvLwogLy8gRGV2aWNlIFRyZWUg
-U291cmNlIGZvciBHZW5lcmFsIEVsZWN0cmljIEIxeDVQdjIKIC8vIHBhdGllbnQgbW9uaXRvciBz
-ZXJpZXMKZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14NmRsLWIxeDV2
-Mi5kdHNpIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtYjF4NXYyLmR0c2kKaW5k
-ZXggZjAyOGI2YTE5MWRmLi41OTBkY2MwOTUzY2MgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3Qv
-ZHRzL254cC9pbXgvaW14NmRsLWIxeDV2Mi5kdHNpCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL254
-cC9pbXgvaW14NmRsLWIxeDV2Mi5kdHNpCkBAIC0xLDQgKzEsNCBAQAotLy8gU1BEWC1MaWNlbnNl
-LUlkZW50aWZpZXI6IEdQTC0yLjAgb3IgTUlUCisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjog
-R1BMLTIuMCBPUiBNSVQKIC8vCiAvLyBEZXZpY2UgVHJlZSBTb3VyY2UgZm9yIEdlbmVyYWwgRWxl
-Y3RyaWMgQjF4NXYyCiAvLyBwYXRpZW50IG1vbml0b3Igc2VyaWVzCmRpZmYgLS1naXQgYS9hcmNo
-L2FybS9ib290L2R0cy9ueHAvaW14L2lteDZkbC1lbWNvbi1hdmFyaS5kdHMgYi9hcmNoL2FybS9i
-b290L2R0cy9ueHAvaW14L2lteDZkbC1lbWNvbi1hdmFyaS5kdHMKaW5kZXggNDA3YWQ4ZDQzYzg0
-Li43N2Q3NjAwYjI2NzUgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL254cC9pbXgvaW14
-NmRsLWVtY29uLWF2YXJpLmR0cworKysgYi9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZk
-bC1lbWNvbi1hdmFyaS5kdHMKQEAgLTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRlbnRp
-ZmllcjogKEdQTC0yLjAgb3IgTUlUKQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwt
-Mi4wIE9SIE1JVCkKIC8vCiAvLyBDb3B5cmlnaHQgKEMpIDIwMTggZW10cmlvbiBHbWJICiAvLwpk
-aWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtcW14Ni5kdHNpIGIv
-YXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwtcW14Ni5kdHNpCmluZGV4IDA1ZmQ4ZmY0
-ZGExZS4uOGE2MzdmZGZmMDczIDEwMDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14
-L2lteDZkbC1xbXg2LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2ZGwt
-cW14Ni5kdHNpCkBAIC0xLDQgKzEsNCBAQAotLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQ
-TC0yLjAgb3IgTUlUCisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCBPUiBNSVQK
-IC8vCiAvLyBEZXZpY2UgVHJlZSBTb3VyY2UgZm9yIGkuTVg2REwgYmFzZWQgY29uZ2F0ZWMgUU1Y
-NgogLy8gU3lzdGVtIG9uIE1vZHVsZQpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhw
-L2lteC9pbXg2cS1lbWNvbi1hdmFyaS5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lt
-eDZxLWVtY29uLWF2YXJpLmR0cwppbmRleCAwZjU4MmE5ZDRjMGUuLjAyODEzMzY4YTgyMCAxMDA2
-NDQKLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2cS1lbWNvbi1hdmFyaS5kdHMK
-KysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2cS1lbWNvbi1hdmFyaS5kdHMKQEAg
-LTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAgb3IgTUlU
-KQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wIE9SIE1JVCkKIC8vCiAvLyBD
-b3B5cmlnaHQgKEMpIDIwMTggZW10cmlvbiBHbWJICiAvLwpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0v
-Ym9vdC9kdHMvbnhwL2lteC9pbXg2cWRsLWVtY29uLWF2YXJpLmR0c2kgYi9hcmNoL2FybS9ib290
-L2R0cy9ueHAvaW14L2lteDZxZGwtZW1jb24tYXZhcmkuZHRzaQppbmRleCBjNGUxNDZmMzM0MWIu
-LmYxYTQxYzc2NzI5YyAxMDA2NDQKLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2
-cWRsLWVtY29uLWF2YXJpLmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2
-cWRsLWVtY29uLWF2YXJpLmR0c2kKQEAgLTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRl
-bnRpZmllcjogKEdQTC0yLjAgb3IgTUlUKQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChH
-UEwtMi4wIE9SIE1JVCkKIC8vCiAvLyBDb3B5cmlnaHQgKEMpIDIwMTggZW10cmlvbiBHbWJICiAv
-LwpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lteC9pbXg2cWRsLWVtY29uLmR0
-c2kgYi9hcmNoL2FybS9ib290L2R0cy9ueHAvaW14L2lteDZxZGwtZW1jb24uZHRzaQppbmRleCBl
-ZTJkZDc1Y2VhZDYuLmE2M2U3M2FkYzFmYyAxMDA2NDQKLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMv
-bnhwL2lteC9pbXg2cWRsLWVtY29uLmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnhwL2lt
-eC9pbXg2cWRsLWVtY29uLmR0c2kKQEAgLTEsNCArMSw0IEBACi0vLyBTUERYLUxpY2Vuc2UtSWRl
-bnRpZmllcjogKEdQTC0yLjAgb3IgTUlUKQorLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChH
-UEwtMi4wIE9SIE1JVCkKIC8vCiAvLyBDb3B5cmlnaHQgKEMpIDIwMTggZW10cmlvbiBHbWJICiAv
-LwpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2MtZW1zYmMtYXJn
-b24uZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2MtZW1zYmMtYXJnb24uZHRz
-CmluZGV4IDMzYjNmMTFkMjRiYi4uYTE5YzQ4OGNmN2M4IDEwMDY0NAotLS0gYS9hcmNoL2FybS9i
-b290L2R0cy9zdC9zdG0zMm1wMTU3Yy1lbXNiYy1hcmdvbi5kdHMKKysrIGIvYXJjaC9hcm0vYm9v
-dC9kdHMvc3Qvc3RtMzJtcDE1N2MtZW1zYmMtYXJnb24uZHRzCkBAIC0xLDQgKzEsNCBAQAotLy8g
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wIG9yIE1JVCkKKy8vIFNQRFgtTGljZW5z
-ZS1JZGVudGlmaWVyOiAoR1BMLTIuMCBPUiBNSVQpCiAvLwogLy8gQ29weXJpZ2h0IChjKSAyMDIx
-IGVtdHJpb24gR21iSAogLy8gQXV0aG9yOiBSZWluaG9sZCBNw7xsbGVyIDxyZWluaG9sZC5tdWVs
-bGVyQGVtdHJpb24uZGU+LgpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJt
-cDE1N2MtZW1zdGFtcC1hcmdvbi5kdHNpIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1
-N2MtZW1zdGFtcC1hcmdvbi5kdHNpCmluZGV4IDAwOTIwOWNhNjczYi4uZjkyOGNmYjgwYjg3IDEw
-MDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1lbXN0YW1wLWFyZ29u
-LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2MtZW1zdGFtcC1hcmdv
-bi5kdHNpCkBAIC0xLDQgKzEsNCBAQAotLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwt
-Mi4wIG9yIE1JVCkKKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiAoR1BMLTIuMCBPUiBNSVQp
-CiAvLwogLy8gQ29weXJpZ2h0IChjKSAyMDIxIGVtdHJpb24gR21iSAogLy8gQXV0aG9yOiBSZWlu
-aG9sZCBNw7xsbGVyIDxyZWluaG9sZC5tdWVsbGVyQGVtdHJpb24uZGU+LgotLSAKMi4zNC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+Documentation/process/license-rules.rst and checkpatch expect the SPDX
+identifier syntax for multiple licenses to use capital "OR".  Correct it
+to keep consistent format and avoid copy-paste issues.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+---
+
+Rebased on next-20230822, so might not apply cleanly.  What does not
+apply, can be skipped and I will fix it after next RC.
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a100-allwinner-perf1.dts  | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi                 | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64-model-b.dts   | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi   | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts   | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-h616-x96-mate.dts         | 2 +-
+ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts   | 2 +-
+ arch/arm64/boot/dts/arm/corstone1000-fvp.dts                   | 2 +-
+ arch/arm64/boot/dts/arm/corstone1000-mps3.dts                  | 2 +-
+ arch/arm64/boot/dts/arm/corstone1000.dtsi                      | 2 +-
+ arch/arm64/boot/dts/broadcom/stingray/bcm958802a802x.dts       | 2 +-
+ arch/arm64/boot/dts/broadcom/stingray/stingray-board-base.dtsi | 2 +-
+ arch/arm64/boot/dts/broadcom/stingray/stingray-pcie.dtsi       | 2 +-
+ arch/arm64/boot/dts/broadcom/stingray/stingray-usb.dtsi        | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dts           | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtsi          | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm-emcon.dtsi                | 2 +-
+ arch/arm64/boot/dts/renesas/r8a77980a.dtsi                     | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779f0-spider-cpu.dtsi           | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779f0-spider.dts                | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779f0.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m0.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dts           | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dts               | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dts                  | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m1.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m2.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dts           | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dts               | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dts                  | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m3.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m4.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dts           | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m5.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m6.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m7.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779m8.dtsi                      | 2 +-
+ arch/arm64/boot/dts/renesas/r8a779mb.dtsi                      | 2 +-
+ 38 files changed, 38 insertions(+), 38 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a100-allwinner-perf1.dts b/arch/arm64/boot/dts/allwinner/sun50i-a100-allwinner-perf1.dts
+index d34c2bb1079f..f5c5c1464482 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a100-allwinner-perf1.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a100-allwinner-perf1.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (c) 2020 Yangtao Li <frank@allwinnertech.com>
+  */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
+index 97e3e6907acd..a3dccf193765 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a100.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (c) 2020 Yangtao Li <frank@allwinnertech.com>
+  */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64-model-b.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64-model-b.dts
+index 686f58e77004..b710f1a0f53a 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64-model-b.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-pine-h64-model-b.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (C) 2019 Corentin LABBE <clabbe@baylibre.com>
+  */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi
+index 8788c129b288..15290e6892fc 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (C) 2020 Arm Ltd.
+  *
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+index d6e732b12c52..d83852e72f06 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (C) 2020 Arm Ltd.
+  */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616-x96-mate.dts b/arch/arm64/boot/dts/allwinner/sun50i-h616-x96-mate.dts
+index 07424c28b696..959b6fd18483 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616-x96-mate.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-x96-mate.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (C) 2021 Arm Ltd.
+  */
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
+index 96a685172811..00fe28caac93 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0+ or MIT)
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ /*
+  * Copyright (C) 2023 Arm Ltd.
+  */
+diff --git a/arch/arm64/boot/dts/arm/corstone1000-fvp.dts b/arch/arm64/boot/dts/arm/corstone1000-fvp.dts
+index 26b0f1b3cea6..901a7fc83307 100644
+--- a/arch/arm64/boot/dts/arm/corstone1000-fvp.dts
++++ b/arch/arm64/boot/dts/arm/corstone1000-fvp.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0 or MIT
++// SPDX-License-Identifier: GPL-2.0 OR MIT
+ /*
+  * Copyright (c) 2022, Arm Limited. All rights reserved.
+  * Copyright (c) 2022, Linaro Limited. All rights reserved.
+diff --git a/arch/arm64/boot/dts/arm/corstone1000-mps3.dts b/arch/arm64/boot/dts/arm/corstone1000-mps3.dts
+index e3146747c2d9..10d265be0c02 100644
+--- a/arch/arm64/boot/dts/arm/corstone1000-mps3.dts
++++ b/arch/arm64/boot/dts/arm/corstone1000-mps3.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0 or MIT
++// SPDX-License-Identifier: GPL-2.0 OR MIT
+ /*
+  * Copyright (c) 2022, Arm Limited. All rights reserved.
+  * Copyright (c) 2022, Linaro Limited. All rights reserved.
+diff --git a/arch/arm64/boot/dts/arm/corstone1000.dtsi b/arch/arm64/boot/dts/arm/corstone1000.dtsi
+index 34bc336ba8d1..6ad7829f9e28 100644
+--- a/arch/arm64/boot/dts/arm/corstone1000.dtsi
++++ b/arch/arm64/boot/dts/arm/corstone1000.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: GPL-2.0 or MIT
++// SPDX-License-Identifier: GPL-2.0 OR MIT
+ /*
+  * Copyright (c) 2022, Arm Limited. All rights reserved.
+  * Copyright (c) 2022, Linaro Limited. All rights reserved.
+diff --git a/arch/arm64/boot/dts/broadcom/stingray/bcm958802a802x.dts b/arch/arm64/boot/dts/broadcom/stingray/bcm958802a802x.dts
+index a41facd7d79b..66471a25e4ac 100644
+--- a/arch/arm64/boot/dts/broadcom/stingray/bcm958802a802x.dts
++++ b/arch/arm64/boot/dts/broadcom/stingray/bcm958802a802x.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or BSD-3-Clause)
++// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+ /*
+  *Copyright(c) 2018 Broadcom
+  */
+diff --git a/arch/arm64/boot/dts/broadcom/stingray/stingray-board-base.dtsi b/arch/arm64/boot/dts/broadcom/stingray/stingray-board-base.dtsi
+index 82a24711d0d8..cdd709491f01 100644
+--- a/arch/arm64/boot/dts/broadcom/stingray/stingray-board-base.dtsi
++++ b/arch/arm64/boot/dts/broadcom/stingray/stingray-board-base.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or BSD-3-Clause)
++// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+ /*
+  *  Copyright(c) 2016-2018 Broadcom
+  */
+diff --git a/arch/arm64/boot/dts/broadcom/stingray/stingray-pcie.dtsi b/arch/arm64/boot/dts/broadcom/stingray/stingray-pcie.dtsi
+index 33a472ab17e8..663e51756746 100644
+--- a/arch/arm64/boot/dts/broadcom/stingray/stingray-pcie.dtsi
++++ b/arch/arm64/boot/dts/broadcom/stingray/stingray-pcie.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or BSD-3-Clause)
++// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+ /*
+  *Copyright(c) 2018 Broadcom
+  */
+diff --git a/arch/arm64/boot/dts/broadcom/stingray/stingray-usb.dtsi b/arch/arm64/boot/dts/broadcom/stingray/stingray-usb.dtsi
+index 5401a646c840..ac4f7b8f9273 100644
+--- a/arch/arm64/boot/dts/broadcom/stingray/stingray-usb.dtsi
++++ b/arch/arm64/boot/dts/broadcom/stingray/stingray-usb.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or BSD-3-Clause)
++// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+ /*
+  *Copyright(c) 2018 Broadcom
+  */
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dts b/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dts
+index b2e8967e9687..c8ff70212602 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ //
+ // Copyright (c) 2021 emtrion GmbH
+ // Author: Frank Erdrich <frank.erdrich@emtrion.com>
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtsi
+index 5028f232b6bd..d897a8527335 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-emcon-avari.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ //
+ // Copyright (C) 2021 emtrion GmbH
+ // Author: Frank Erdrich <frank.erdrich@emtrion.com>
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-emcon.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-emcon.dtsi
+index 40e18edbaadd..af7dc8d1f5f1 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-emcon.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-emcon.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ //
+ // Copyright 2018 NXP
+ // Copyright (C) 2021 emtrion GmbH
+diff --git a/arch/arm64/boot/dts/renesas/r8a77980a.dtsi b/arch/arm64/boot/dts/renesas/r8a77980a.dtsi
+index 25b2d27b6167..83f5e21111c9 100644
+--- a/arch/arm64/boot/dts/renesas/r8a77980a.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a77980a.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car V3H2 (R8A77980A) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779f0-spider-cpu.dtsi b/arch/arm64/boot/dts/renesas/r8a779f0-spider-cpu.dtsi
+index 76a94812875e..5cbde8e8fcd5 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779f0-spider-cpu.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider-cpu.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the Spider CPU board
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779f0-spider.dts b/arch/arm64/boot/dts/renesas/r8a779f0-spider.dts
+index 7aac3f4d319c..f139cc4feb37 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779f0-spider.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779f0-spider.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the Spider CPU and BreakOut boards
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+index 0059c9c580f3..ecdd5a523fa3 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car S4-8 (R8A779F0) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m0.dtsi b/arch/arm64/boot/dts/renesas/r8a779m0.dtsi
+index 6fb1979cc041..38978360e722 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m0.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car H3e (R8A779M0) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dts b/arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dts
+index 084b75b04680..74b0ac04ffe1 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m1-salvator-xs.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the Salvator-X 2nd version board with R-Car H3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dts b/arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dts
+index 0baebc5c58b0..d2089e1d7100 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m1-ulcb-kf.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the H3ULCB Kingfisher board with R-Car H3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dts b/arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dts
+index e294b6bda28c..705ea047ef62 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m1-ulcb.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the H3ULCB (R-Car Starter Kit Premier) with R-Car H3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m1.dtsi b/arch/arm64/boot/dts/renesas/r8a779m1.dtsi
+index 1064a87a0c77..be0219defe3a 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m1.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m1.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car H3e-2G (R8A779M1) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m2.dtsi b/arch/arm64/boot/dts/renesas/r8a779m2.dtsi
+index 324627340b86..bced12764c69 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m2.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m2.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car M3e (R8A779M2) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dts b/arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dts
+index 4ab26fd7233d..e53a6e88ccfa 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m3-salvator-xs.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the Salvator-X 2nd version board with R-Car M3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dts b/arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dts
+index 6bacee1d2ef5..587e8764bcd2 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m3-ulcb-kf.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the M3ULCB Kingfisher board with R-Car M3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dts b/arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dts
+index 8f215a0b771b..413f000b4630 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m3-ulcb.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the M3ULCB (R-Car Starter Kit Pro) with R-Car M3e-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m3.dtsi b/arch/arm64/boot/dts/renesas/r8a779m3.dtsi
+index 7fdbdd97ed4b..ffde141137df 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m3.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m3.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car M3e-2G (R8A779M3) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m4.dtsi b/arch/arm64/boot/dts/renesas/r8a779m4.dtsi
+index d7fbb6c05502..ae8486056962 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m4.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m4.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car M3Ne (R8A779M4) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dts b/arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dts
+index c0341a88d641..6efc23171a66 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779m5-salvator-xs.dts
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the Salvator-X 2nd version board with R-Car M3Ne-2G
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m5.dtsi b/arch/arm64/boot/dts/renesas/r8a779m5.dtsi
+index df51e0ff5986..aded03ad31a1 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m5.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m5.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car M3Ne-2G (R8A779M5) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m6.dtsi b/arch/arm64/boot/dts/renesas/r8a779m6.dtsi
+index afe3cabfb898..94d6a6cf503e 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m6.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m6.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car E3e (R8A779M6) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m7.dtsi b/arch/arm64/boot/dts/renesas/r8a779m7.dtsi
+index 4958babc52fd..0580fa614034 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m7.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m7.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car D3e (R8A779M7) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779m8.dtsi b/arch/arm64/boot/dts/renesas/r8a779m8.dtsi
+index 750bd8ccdb7f..dfccc080fb3e 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779m8.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779m8.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car H3Ne (R8A779M8) SoC
+  *
+diff --git a/arch/arm64/boot/dts/renesas/r8a779mb.dtsi b/arch/arm64/boot/dts/renesas/r8a779mb.dtsi
+index 40d1dce2f350..181b737c91cd 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779mb.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779mb.dtsi
+@@ -1,4 +1,4 @@
+-// SPDX-License-Identifier: (GPL-2.0 or MIT)
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+ /*
+  * Device Tree Source for the R-Car H3Ne-1.7G (R8A779MB) SoC
+  *
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
