@@ -2,71 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C24785C46
-	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 17:38:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6D5A785E49
+	for <lists+linux-stm32@lfdr.de>; Wed, 23 Aug 2023 19:10:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07171C6B44C;
-	Wed, 23 Aug 2023 15:38:12 +0000 (UTC)
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
- [209.85.210.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66790C6B44C;
+	Wed, 23 Aug 2023 17:10:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B25AC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A53BC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Aug 2023 15:38:09 +0000 (UTC)
-Received: by mail-ot1-f46.google.com with SMTP id
- 46e09a7af769-6bdc2f95f10so905478a34.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 23 Aug 2023 08:38:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692805089; x=1693409889;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
- :reply-to; bh=b4SkKlAbqJpn3W9mREOS7xdidgwXt26+Nc2zXplGeHM=;
- b=D3j+jtASsvw3oke8XXXeyrK5llBEgvl5isUWuMzWxMymFNaa10eJZPCl/WFl5UmCmT
- ARkI86XYumfasFLi9MCQKAFd+vV2g2xPPc5Wc26RLOWIgNaXY92kiocVAoVCcFxuUypS
- 5yFbM5osKf0erPayZYbXXIyLGkDQWuUkNIvhKo56/PNYIGChjZgV5WsqCCLJthl6flTB
- 4IvhDDG78OvABM7jTj9CdCrczGuHelz2BtL6rpUSDn1kYBYJlAwgYPRjdIpkEOif61wF
- xclKxq1b1p94bEb1FWcPcxGC1eYCYvlT6wMXhHG5D8axEKX8bjaLvF7OT5hOrAEV2C3N
- C+RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692805089; x=1693409889;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=b4SkKlAbqJpn3W9mREOS7xdidgwXt26+Nc2zXplGeHM=;
- b=IXXdVsNOcRlZCII3M4a9f4nKHEhQlZRLaqEi960zjbg86wyJn0DLOSh6Rl2bGZ2GFK
- vkunWDulLq+FUS2I31OuJh+r9L1JmoQ9khPVCEBTRzfqJmRLwlH7LkK/NkV+qtZ0DuOn
- QBvxnUkgc9dvfDgrerFRqxheHKLh+BlRW98NJHelHyjqU/rTAYuVoDfGjRgQDKZJuSjr
- hehqNmnjtV+DFdRZNB+9bXVBTY745A3QULsWLyXqpgn02tjpIQa95v2rX+CbeFAx1xNK
- u+05N3VNmPV3lgBNr9W70TCFbtCGNcCPof1IF39f0tlpSx6hzW5dxNsEVgDUVPAyqZ34
- I5rQ==
-X-Gm-Message-State: AOJu0YxHgYEmsVoyiS99YXj++FxQaXMwAq50mZqFEnyc3aJCCHOMFhi+
- 2L/W8VP3nYovgpbcdLSF91g=
-X-Google-Smtp-Source: AGHT+IGDtTWQriiaiDHkSAZKWgk7OvDpXpVUuf0KtOeULPl1ptD4cv0ietjjTEiml/7ncCSA/eRZLQ==
-X-Received: by 2002:a9d:6c45:0:b0:6b9:b665:7f with SMTP id
- g5-20020a9d6c45000000b006b9b665007fmr12824092otq.17.1692805088733; 
- Wed, 23 Aug 2023 08:38:08 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- bt18-20020a632912000000b0056b920051b3sm6267366pgb.7.2023.08.23.08.38.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Aug 2023 08:38:08 -0700 (PDT)
-Date: Wed, 23 Aug 2023 08:38:06 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <970cbe44-9958-4315-b112-74f34bf97740@roeck-us.net>
-References: <20230823151059.2356881-1-robh@kernel.org>
+ Wed, 23 Aug 2023 17:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1692810623; x=1724346623;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xrRC0v01qmst+o9CFPIeg2m8CpONvn/tnWf4Ftn+KSE=;
+ b=MTFzHQI496oHJar1cHN6MdibTi58pk3Zetg12xH48BIibQhdwWVtZZDu
+ 2jid3BGgzzVVdiEyPUz6+7xyPO8bXsGZaZyabiYiX4ml2k9DINhUCCGJW
+ P/c243x9hcUFjuMZmiOzuc7admLAWQhf98H6rgDLpztHkYQ1FofvmaLhf
+ OPpGZEpL71yTDQy712eX7/dIWB0ERHCF4uT94bdnEIrWuAwdxEcvxBcI0
+ 02o9TocJq6wNYhNVyutLc432gZKGR0X+i093IA1zD1Ul21DKjhUpP00jC
+ gwQEvuHdyes2sTPG/mGOix0Gc82qKy5t9isiUeXy/GtNTB1xWw9qwLxHc Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="376945465"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="376945465"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Aug 2023 10:10:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="806782503"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="806782503"
+Received: from pglc00067.png.intel.com ([10.221.207.87])
+ by fmsmga004.fm.intel.com with ESMTP; 23 Aug 2023 10:10:15 -0700
+From: Rohan G Thomas <rohan.g.thomas@intel.com>
+To: fancer.lancer@gmail.com
+Date: Thu, 24 Aug 2023 01:10:04 +0800
+Message-Id: <20230823171004.6825-1-rohan.g.thomas@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <l7yajzhpuotn62pjkxk43qtcn3u4zltpyqcvo224737bjg3eab@bzu6pirxbvh2>
+References: <l7yajzhpuotn62pjkxk43qtcn3u4zltpyqcvo224737bjg3eab@bzu6pirxbvh2>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230823151059.2356881-1-robh@kernel.org>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- kernel test robot <lkp@intel.com>
-Subject: Re: [Linux-stm32] [PATCH] watchdog: stm32: Drop unnecessary
-	of_match_ptr()
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, conor.dooley@microchip.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh+dt@kernel.org,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com, kuba@kernel.org,
+ rohan.g.thomas@intel.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v5 1/2] dt-bindings: net: snps,
+	dwmac: Tx queues with coe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,39 +68,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Aug 23, 2023 at 10:10:59AM -0500, Rob Herring wrote:
-> With COMPILE_TEST recently enabled, 0-day reports a warning:
-> 
-> drivers/watchdog/stm32_iwdg.c:215:34: warning: 'stm32_iwdg_of_match' defined but not used [-Wunused-const-variable=]
-> 
-> As STM32 platforms are always used with DT, drop the of_match_ptr().
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202308211837.4VBSUAtZ-lkp@intel.com/
-> Signed-off-by: Rob Herring <robh@kernel.org>
+>On Tue, Aug 22, 2023 at 05:15:25PM -0700, Jakub Kicinski wrote:
+>> On Sat, 19 Aug 2023 10:31:31 +0800 Rohan G Thomas wrote:
+>> > +      snps,tx-queues-with-coe:
+>> > +        $ref: /schemas/types.yaml#/definitions/uint32
+>> > +        description: number of TX queues that support TX checksum offloading
+>> 
+>
+>> Is it going to be obvious that if not present all queues support
+>> checksum offload? I think we should document the default.
+>
+>This question is debatable:
+>1. By default the DW xGMAC and DW QoS Eth IP-cores are
+>synthesized with only the very first Tx queue having Tx COE enabled.
+>2. If TSO is disabled then the Tx COE can be individually enabled
+>for each queue available on DW QoS Eth controller and for the very
+>first N queues on DW xGMAC controller.
+>3. If TSO is enabled then the Tx COE will be automatically and always
+>enabled for as many first queues as there are TSO-capable
+>DMA-channels.
+>4. At the current state the STMMAC driver assumes that all Tx Queues
+>support Tx COE.
+>
+>The entry 4 can't be changed since we'll risk to catch regressions on
+>the platforms with no property specified. On the other hand it partly
+>contradicts to the rest of the entries. I don't know what would be a
+>correct way to specify the default value in this case. Most likely
+>just keep the entry 4 and be done with it.
+>
+>BTW I just noticed that but the suggested "snps,tx-queues-with-coe"
+>property semantic will only cover a DW XGMAC-part of the case 2. DW
+>QoS Eth can be synthesized with Tx COE individually enabled for a
+>particular queue if TSO is unavailable.
 
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+Hi Serge,
 
-> ---
->  drivers/watchdog/stm32_iwdg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/watchdog/stm32_iwdg.c b/drivers/watchdog/stm32_iwdg.c
-> index 570a71509d2a..9a554a3db4e2 100644
-> --- a/drivers/watchdog/stm32_iwdg.c
-> +++ b/drivers/watchdog/stm32_iwdg.c
-> @@ -288,7 +288,7 @@ static struct platform_driver stm32_iwdg_driver = {
->  	.probe		= stm32_iwdg_probe,
->  	.driver = {
->  		.name	= "iwdg",
-> -		.of_match_table = of_match_ptr(stm32_iwdg_of_match),
-> +		.of_match_table = stm32_iwdg_of_match,
->  	},
->  };
->  module_platform_driver(stm32_iwdg_driver);
-> -- 
-> 2.40.1
-> 
+Didn't know about a different IP configuration supported by DW QoS Eth IP. If
+this is the case, I think we can have a flag 'coe-unsupported' for any TX
+queue subnode as below.
+
++          snps,coe-unsupported:
++            $ref: /schemas/types.yaml#/definitions/flag
++            description:
++              TX checksum offload is unsupported by the TX queue. If TX checksum
++              offload is requested for a packet to be transmitted through this
++              TX queue then have a software fallback in the driver for checksum
++              calculation.
+
+If this is okay, I can rework the patch based on this. Covers both DW QoS Eth IP
+and DW XGMAC IP cases.
+
+>
+>-Serge(y)
+>
+>> -- 
+>> pw-bot: cr
+
+BR,
+Rohan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
