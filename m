@@ -2,49 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7076786FDD
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Aug 2023 15:04:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7110787058
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Aug 2023 15:37:46 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 571CEC6B442;
-	Thu, 24 Aug 2023 13:04:28 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6263DC6B44C;
+	Thu, 24 Aug 2023 13:37:46 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AAB5C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A225C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Aug 2023 13:04:27 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
- [213.243.189.158])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id C4E7B87F3;
- Thu, 24 Aug 2023 15:03:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1692882188;
- bh=lmURSCwOgg+aQoQ721pMBdHJuBeAn08oT40y6zo6TFo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nhLxMlpiJQnligF7VzMZbyIZ479Gf5a9oQPN1MQ1JhV7umyyImZPnqz2phU5NPO6R
- zPFdbE6PSH0i6vBC1G24MqZa+ymQNZMdAMc/IXS6mHXp8w7TpO0SQ962ReglrRTc5n
- xRQ3eqs5mNSqKwlsunRR8VMGN+Nt67RSOXOW6ML4=
-Date: Thu, 24 Aug 2023 16:04:32 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20230824130432.GB27092@pendragon.ideasonboard.com>
-References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
- <20220910144010.34272-4-hugues.fruchet@foss.st.com>
- <ZNC5k3PynnEWL/ou@kekkonen.localdomain>
- <20230824110934.GA18226@gnbcxd0016.gnb.st.com>
- <ZOdMghQXfNgKZ6cN@kekkonen.localdomain>
+ Thu, 24 Aug 2023 13:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9uNaEXjoy1rCUbtJUY2Q6cQ9YGOBFWQLBcicsuRkWpo=; b=KB6MnUGGxVbi/R69UMddzQBvT6
+ OTHMKb0jraDzfNVuD+he4/a0I6gYW0VsOI8dAjvMHZRb2HOp6r/Ct9KiiY9mJyIKaesOit8QX0h2k
+ LoATTz0KbRXETPH4AowMDZ3EUf7hFhOFFIk6PHFin0HFb1JnJlZjym6A8d6NstP9tBDtunVfGd451
+ jbxZ4kpEGo2hp9fARBwhV0ACTY1Nyn1+ilIycqZqfWURULjyB8PSSXKMwpbJyMJjqfkIrnCtBwuv3
+ FLpQRvv7jTgHw/+1zCauFpR7gPFq73YHw8586gr7l6gMHKhkwYn9H1cIJ5JIymoZ7C1I8THvY4egn
+ PMI4UAig==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:44118)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qZAWf-0004Bj-0w;
+ Thu, 24 Aug 2023 14:37:29 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qZAWa-0007tt-CA; Thu, 24 Aug 2023 14:37:24 +0100
+Date: Thu, 24 Aug 2023 14:37:24 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Message-ID: <ZOddFH22PWmOmbT5@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZOdMghQXfNgKZ6cN@kekkonen.localdomain>
-Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Rob Herring <robh+dt@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v1 3/5] media: stm32-dcmipp: STM32 DCMIPP
- camera interface driver
+Cc: Andrew Lunn <andrew@lunn.ch>, Feiyang Chen <chenfeiyang@loongson.cn>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [Linux-stm32] [PATCH net-next v2 0/10] stmmac cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,81 +64,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 24, 2023 at 12:26:42PM +0000, Sakari Ailus wrote:
-> On Thu, Aug 24, 2023 at 01:09:34PM +0200, Alain Volmat wrote:
-> > Hi Sakari,
-> > 
-> > thanks a lot for the review.  I've already taken care of the comments I got
-> > from Dan and will also add fixes for your comments as well before
-> > pushing the v2.  Before going into that I thought I'd better clarify the
-> > framerate part which seems the most tricky part.
-> > 
-> > On Mon, Aug 07, 2023 at 09:29:55AM +0000, Sakari Ailus wrote:
-> 
-> ...
-> 
-> > > > +static int dcmipp_byteproc_g_frame_interval(struct v4l2_subdev *sd,
-> > > > +					    struct v4l2_subdev_frame_interval *fi)
-> > > > +{
-> > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
-> > > > +
-> > > > +	if (IS_SINK(fi->pad))
-> > > > +		fi->interval = byteproc->sink_interval;
-> > > > +	else
-> > > > +		fi->interval = byteproc->src_interval;
-> > > > +
-> > > > +	return 0;
-> > > > +}
-> > > > +
-> > > > +static int dcmipp_byteproc_s_frame_interval(struct v4l2_subdev *sd,
-> > > > +					    struct v4l2_subdev_frame_interval *fi)
-> > > > +{
-> > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
-> > > > +
-> > > > +	mutex_lock(&byteproc->lock);
-> > > > +
-> > > > +	if (byteproc->streaming) {
-> > > > +		mutex_unlock(&byteproc->lock);
-> > > > +		return -EBUSY;
-> > > > +	}
-> > > > +
-> > > > +	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
-> > > > +		fi->interval = byteproc->sink_interval;
-> > > > +
-> > > > +	if (IS_SINK(fi->pad)) {
-> > > > +		/*
-> > > > +		 * Setting sink frame interval resets frame skipping.
-> > > > +		 * Sink frame interval is propagated to src.
-> > > > +		 */
-> > > > +		byteproc->frate = 0;
-> > > > +		byteproc->sink_interval = fi->interval;
-> > > > +		byteproc->src_interval = byteproc->sink_interval;
-> > > 
-> > > Is this used for anything else than configure skipping?
-> > > 
-> > > I think I'd just have a control for it in that case.
-> > > 
-> > > I don't think exposing frame interval configuration is necessarily even
-> > > meaningful for a device that just processes data but does not produce it.
-> > 
-> > The DCMIPP is able to perform frame drop, 1/2, 1/4, 1/8 basically.
-> > As Dan pointed me out, indeed setting frame interval as we did on both
-> > sink and source pad isn't a defined behavior.  I first thought that
-> > using the frame interval was the proper way to do that but that is
-> > indeed only used on producers such as sensors ....
-> > Which ctrl would you propose in such case ?
-> 
-> We don't have one, AFAIK, and I think it may be unlikely this will be
-> needed elsewhere. So I'd use a private control.
-> 
-> I wonder what others think. Cc Laurent as well.
+Hi,
 
-What are the use cases for this feature ?
+One of the comments I had on Feiyang Chen's series was concerning the
+initialisation of phylink... and so I've decided to do something about
+it, cleaning it up a bit.
+
+This series:
+
+1) adds a new phylink function to limit the MAC capabilities according
+   to a maximum speed. This allows us to greatly simplify stmmac's
+   initialisation of phylink's mac capabilities.
+
+2) everywhere that uses priv->plat->phylink_node first converts this
+   to a fwnode before doing anything with it. This is silly. Let's
+   instead store it as a fwnode to eliminate these conversions in
+   multiple places.
+
+3) clean up passing the fwnode to phylink - it might as well happen
+   at the phylink_create() callsite, rather than being scattered
+   throughout the entire function.
+
+4) same for mdio_bus_data
+
+5) use phylink_limit_mac_speed() to handle the priv->plat->max_speed
+   restriction.
+
+6) add a method to get the MAC-specific capabilities from the code
+   dealing with the MACs, and arrange to call it at an appropriate
+   time.
+
+7) convert the gmac4 users to use the MAC specific method.
+
+8) same for xgmac.
+
+9) group all the simple phylink_config initialisations together.
+
+10) convert half-duplex logic to being positive logic.
+
+While looking into all of this, this raised eyebrows:
+
+        if (priv->plat->tx_queues_to_use > 1)
+                priv->phylink_config.mac_capabilities &=
+                        ~(MAC_10HD | MAC_100HD | MAC_1000HD);
+
+priv->plat->tx_queues_to_use is initialised by platforms to either 1,
+4 or 8, and can be controlled from userspace via the --set-channels
+ethtool op. The implementation of this op in this driver limits the
+number of channels to priv->dma_cap.number_tx_queues, which is derived
+from the DMA hwcap.
+
+So, the obvious questions are:
+
+1) what guarantees that the static initialisation of tx_queues_to_use
+will always be less than or equal to number_tx_queues from the DMA hw
+cap?
+
+2) tx_queues_to_use starts off as 1, but number_tx_queues is larger,
+we will leave the half-duplex capabilities in place, but userspace can
+increase tx_queues_to_use above 1. Does that mean half-duplex is then
+not supported?
+
+3) Should we be basing the decision whether half-duplex is supported
+off the DMA capabilities?
+
+4) What about priv->dma_cap.half_duplex? Doesn't that get a say in
+whether half-duplex is supported or not? Why isn't this used? Why is
+it only reported via debugfs? If it's not being used by the driver,
+what's the point of reporting it via debugfs?
+
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  8 +++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 10 ++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 60 +++++++++-------------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |  3 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  |  2 +-
+ drivers/net/phy/phylink.c                          | 18 +++++++
+ include/linux/phylink.h                            |  2 +
+ include/linux/stmmac.h                             |  2 +-
+ 9 files changed, 70 insertions(+), 39 deletions(-)
 
 -- 
-Regards,
-
-Laurent Pinchart
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
