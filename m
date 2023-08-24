@@ -2,83 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9B267874D7
-	for <lists+linux-stm32@lfdr.de>; Thu, 24 Aug 2023 18:05:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 219E27877E4
+	for <lists+linux-stm32@lfdr.de>; Thu, 24 Aug 2023 20:33:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E1CAC6B454;
-	Thu, 24 Aug 2023 16:05:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FCD9C6B44E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5222C6B456;
+	Thu, 24 Aug 2023 18:33:04 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47084C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 24 Aug 2023 16:05:39 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37O9XXte014368; Thu, 24 Aug 2023 18:05:15 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=eLiR4Yrg36nAV4ckmGB/w
- PqPu3zC6LLXLH1wrY+CNaU=; b=h2xwuEgTlLpBZLHDUaSTHwZaDlK7vH1OD82I4
- JyjnAbVQWc/q2mIgUNm7PT6BUemn7EbWduZ0f+Yg98mtuA/NzvID3P/2gB0M9vAb
- LBJ1e49L6XMVvzAJM2jiE4B74Yxyq0roj+uv3vKr77KneJf+Xl3AiXDJSzH2Kpeg
- Aqj14FSIlp6cZq8wwk8gXchg7HSAcL2y6wB1Z8tNr44Ezx+svkYg8yk+LpeWvhkd
- Pp6NHAQJRZpS265j1t6LSlbMGZzbuqdgZqyhZh3v5Ji5ba8Enyu0p8l+dbPdb2m1
- Pl4dU6wgXIiujhQmE7b8WCxFhdF7KuvTUjdI5ixvgi16TS7kg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sn1y5rhjf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Aug 2023 18:05:15 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DBBAE100059;
- Thu, 24 Aug 2023 18:05:13 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CA001252239;
- Thu, 24 Aug 2023 18:05:13 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 24 Aug
- 2023 18:05:13 +0200
-Date: Thu, 24 Aug 2023 18:05:06 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20230824160506.GA21560@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- devicetree@vger.kernel.org,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Rob Herring <robh+dt@kernel.org>,
- Dan Scally <dan.scally@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
- <20220910144010.34272-4-hugues.fruchet@foss.st.com>
- <ZNC5k3PynnEWL/ou@kekkonen.localdomain>
- <20230824110934.GA18226@gnbcxd0016.gnb.st.com>
- <ZOdMghQXfNgKZ6cN@kekkonen.localdomain>
- <20230824130432.GB27092@pendragon.ideasonboard.com>
+ Thu, 24 Aug 2023 18:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1692901981;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=MENyLQ2N3cu7YkwE8woYh2Uz3htsa5ND2UWg2HZ3684=;
+ b=VTpENyx+XDuRdT/rrBHRGb/yE9qBGrwB2XGjhZOoXKvPCvXDdv9QuyzpqcItMSVR3KM5Ze
+ lVQ2elYO6MU6Cpvho0okIJqrATGfiUUbac9xvCyi2HchN39vLSych3rcmnVXgtuf9EGGDu
+ 3RRfEzw0WBFmrdaai51NTsQ0aQwhSuw=
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-75-wi1A9J-MOAWseXF0_BM3WQ-1; Thu, 24 Aug 2023 14:32:58 -0400
+X-MC-Unique: wi1A9J-MOAWseXF0_BM3WQ-1
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-79983fb0afaso46739241.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 24 Aug 2023 11:32:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692901977; x=1693506777;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MENyLQ2N3cu7YkwE8woYh2Uz3htsa5ND2UWg2HZ3684=;
+ b=C1CS9a04rLC4U3uRx28RQ2IEDH48O5xFnRi755B9u6pW0yjOw25OyaR/ft2BSz2fs4
+ S1pJPN+gQim4m+ZY2mLMw7+HJ+19oQnI97p0mQp7iMc+2L58SQBSZMOMQEgAYMUmsIb6
+ oNE4Kk9wjWx0MtvUc6toBefYuCPWpdBWMYcy+oUo3Hg6sW1YOIJKi/+HRLM2wRTTYOlb
+ houh+lr45wHHH9DGLJX6DDbJarTCe7pw6ahrhi+Qt8BvelPQgfrO+ufHGcZ0Fxa/5zSH
+ 71ySTXa1SyXaZMF73wT7dGMBJzYpiRnALRDbwkEEooi4MM/uIjyF13VK40Mc4K3fcCX4
+ rIcg==
+X-Gm-Message-State: AOJu0YwtMXEcEOQxYn0umymFA6UUo44hNrOtP+mKrdWtMW5gsAzX1NTt
+ ST2Mzgy8JFwWCM4TfzlULkBWN1sYxYXSz/gTlD+dTaeYZdNS69TxTGXYCaguygZ5EW2BFHYX9bi
+ CE9R4ya0IxMmOMM/p5dn583T0L8dE+n2ooqKA/YR9
+X-Received: by 2002:a67:e403:0:b0:44e:8874:585a with SMTP id
+ d3-20020a67e403000000b0044e8874585amr4528617vsf.27.1692901977579; 
+ Thu, 24 Aug 2023 11:32:57 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEgMO96NWiKDcYXf5IRr9AXBP8x7ijYPK4xRhHHkKJy0v9wR6V9lgxekYM8Ssryo0WjBBvQqQ==
+X-Received: by 2002:a67:e403:0:b0:44e:8874:585a with SMTP id
+ d3-20020a67e403000000b0044e8874585amr4528610vsf.27.1692901977351; 
+ Thu, 24 Aug 2023 11:32:57 -0700 (PDT)
+Received: from [192.168.1.165] ([2600:1700:1ff0:d0e0::37])
+ by smtp.gmail.com with ESMTPSA id
+ j17-20020a0ceb11000000b0064f77d37798sm4209qvp.5.2023.08.24.11.32.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Aug 2023 11:32:56 -0700 (PDT)
+From: Andrew Halaney <ahalaney@redhat.com>
+Date: Thu, 24 Aug 2023 13:32:51 -0500
+Message-Id: <20230824-stmmac-subsecond-inc-cleanup-v1-0-e0b9f7c18b37@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230824130432.GB27092@pendragon.ideasonboard.com>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-24_12,2023-08-24_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Rob Herring <robh+dt@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIAFOi52QC/x3MwQ6CMAwA0F8hPdtkbororxgPoyvaRApZByEh/
+ LuLx3d5OxhnYYNHs0PmVUwmrTifGqBP1DejpGrwzgfX+QtaGcdIaEtvTJMmFCWkL0ddZgzuGu4
+ 3ail2CWoxZx5k+/dPUC6ovBV4HccPlXRkO3gAAAA=
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Richard Cochran <richardcochran@gmail.com>
+X-Mailer: b4 0.12.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: netdev@vger.kernel.org, Andrew Halaney <ahalaney@redhat.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v1 3/5] media: stm32-dcmipp: STM32 DCMIPP
- camera interface driver
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next 0/7] net: stmmac: Improve default
+ addend/subsecond increment readability
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,97 +94,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
+This series aims to improve the readability of the calculations
+for the default addend and subsecond increment values.
 
-On Thu, Aug 24, 2023 at 04:04:32PM +0300, Laurent Pinchart wrote:
-> On Thu, Aug 24, 2023 at 12:26:42PM +0000, Sakari Ailus wrote:
-> > On Thu, Aug 24, 2023 at 01:09:34PM +0200, Alain Volmat wrote:
-> > > Hi Sakari,
-> > > 
-> > > thanks a lot for the review.  I've already taken care of the comments I got
-> > > from Dan and will also add fixes for your comments as well before
-> > > pushing the v2.  Before going into that I thought I'd better clarify the
-> > > framerate part which seems the most tricky part.
-> > > 
-> > > On Mon, Aug 07, 2023 at 09:29:55AM +0000, Sakari Ailus wrote:
-> > 
-> > ...
-> > 
-> > > > > +static int dcmipp_byteproc_g_frame_interval(struct v4l2_subdev *sd,
-> > > > > +					    struct v4l2_subdev_frame_interval *fi)
-> > > > > +{
-> > > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
-> > > > > +
-> > > > > +	if (IS_SINK(fi->pad))
-> > > > > +		fi->interval = byteproc->sink_interval;
-> > > > > +	else
-> > > > > +		fi->interval = byteproc->src_interval;
-> > > > > +
-> > > > > +	return 0;
-> > > > > +}
-> > > > > +
-> > > > > +static int dcmipp_byteproc_s_frame_interval(struct v4l2_subdev *sd,
-> > > > > +					    struct v4l2_subdev_frame_interval *fi)
-> > > > > +{
-> > > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
-> > > > > +
-> > > > > +	mutex_lock(&byteproc->lock);
-> > > > > +
-> > > > > +	if (byteproc->streaming) {
-> > > > > +		mutex_unlock(&byteproc->lock);
-> > > > > +		return -EBUSY;
-> > > > > +	}
-> > > > > +
-> > > > > +	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
-> > > > > +		fi->interval = byteproc->sink_interval;
-> > > > > +
-> > > > > +	if (IS_SINK(fi->pad)) {
-> > > > > +		/*
-> > > > > +		 * Setting sink frame interval resets frame skipping.
-> > > > > +		 * Sink frame interval is propagated to src.
-> > > > > +		 */
-> > > > > +		byteproc->frate = 0;
-> > > > > +		byteproc->sink_interval = fi->interval;
-> > > > > +		byteproc->src_interval = byteproc->sink_interval;
-> > > > 
-> > > > Is this used for anything else than configure skipping?
-> > > > 
-> > > > I think I'd just have a control for it in that case.
-> > > > 
-> > > > I don't think exposing frame interval configuration is necessarily even
-> > > > meaningful for a device that just processes data but does not produce it.
-> > > 
-> > > The DCMIPP is able to perform frame drop, 1/2, 1/4, 1/8 basically.
-> > > As Dan pointed me out, indeed setting frame interval as we did on both
-> > > sink and source pad isn't a defined behavior.  I first thought that
-> > > using the frame interval was the proper way to do that but that is
-> > > indeed only used on producers such as sensors ....
-> > > Which ctrl would you propose in such case ?
-> > 
-> > We don't have one, AFAIK, and I think it may be unlikely this will be
-> > needed elsewhere. So I'd use a private control.
-> > 
-> > I wonder what others think. Cc Laurent as well.
-> 
-> What are the use cases for this feature ?
+I recently had to understand what the hardware did by reading this code,
+and it took me longer than I care to admit. These patches aim to make it
+more self explanatory.
 
-This is basically to allow reducing the framerate of the
-captured stream when this is not possible at the producer
-(sensor) level and we need to lower down the stress on elements down the
-pipeline.
+Suggestions to further improve this are very welcomed.
 
-Regards,
-Alain
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+Andrew Halaney (7):
+      net: stmmac: Use consistent variable name for subsecond increment
+      net: stmmac: Use NSEC_PER_SEC for hwtstamp calculations
+      net: stmmac: Precede entire addend calculation with its comment
+      net: stmmac: Remove a pointless cast
+      net: stmmac: Correct addend typo
+      net: stmmac: Fix comment about default addend calculation
+      net: stmmac: Make PTP reference clock references more clear
 
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> _______________________________________________
-> Linux-stm32 mailing list
-> Linux-stm32@st-md-mailman.stormreply.com
-> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  5 +++--
+ .../net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c  | 14 +++++++-------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 22 ++++++++++++----------
+ 3 files changed, 22 insertions(+), 19 deletions(-)
+---
+base-commit: 9f6708a668186dc5b38532fc1d1ff2f5311722d6
+change-id: 20230824-stmmac-subsecond-inc-cleanup-305397c6ca8d
+
+Best regards,
+-- 
+Andrew Halaney <ahalaney@redhat.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
