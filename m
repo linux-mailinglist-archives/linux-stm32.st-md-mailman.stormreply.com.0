@@ -2,65 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 944357896EB
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Aug 2023 15:36:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AE9578978A
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Aug 2023 16:52:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5402CC6B44F;
-	Sat, 26 Aug 2023 13:36:51 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9227C6B44F;
+	Sat, 26 Aug 2023 14:52:12 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5626FC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 864E5C6B44E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Aug 2023 13:36:50 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-4ff8cf11b90so2830289e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Aug 2023 06:36:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693057009; x=1693661809;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6VkMa5W6uY3fSZYkhCX3GMktDqjJzGb0eTy0nnjALzA=;
- b=VUfosENc6y/n5gCCAAAV0zZo9DYMBol7CZSu70vmZ8hUuszuGjKhgjIZCU3gtz1iTv
- FkO531+MIkQf60yH9909064vmM6yWSrvW3nCxwbiGGViKxnwg3fiIU0oQq/t6wHEVS/K
- 5sS0xpIrNmYc1DGhp9K4Iq6EqLKKwwJEFIWno6iZv9/iOqfZZJZCw3Tv5T9R7l9EReWD
- E5K5mlAS7ZNVpWRcyqxl094bjusJa6PeYZH8WN+DveFayodNCFeUW3kWAZXMII9HMY9o
- Aa1i/Ki6lxWyGRg6AI98e16s7EJa1lvek+iSRGz/wfElDGOAKazfFOh1HSDuJbz9r3s4
- uNrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693057009; x=1693661809;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6VkMa5W6uY3fSZYkhCX3GMktDqjJzGb0eTy0nnjALzA=;
- b=PiN8O6CwmOst2sNZNk9xpYdflMCILpVWqcMOf9UV20F56DZtA/vWfOa5abn2Jq79fQ
- yYOopRrFY3Z0UfSB1BKofJJtiVNWqTijse1IXfP5MlseEUVSzB1OOc5cVqCOO22IDyqL
- Dkv1yZy42LJ0iDsw9bFwfOgjYcdfUUqFHAlathqnvLlpjD7HR4KZA0tWSR2ET1FeF+Vf
- DAI+BbhUUFbD/4TvvO0ha73Morr+hRH6FJRlz30Hne2WSzm1iyuF3jrE3t4OPxmF7Bpi
- hXvCuDzaiybLJxvqd+oSlLJZ5Y1t8AWbJtMB3dap9mm5ZqWEv7WoOTqtbh7jeauQpawN
- oshA==
-X-Gm-Message-State: AOJu0Yy2Z9eQBgT21lP7Y+ZfkESo/deHdCpCykDrwPOqNKWbf+2vDCpH
- eCoMIdBmMFPIp0P0LGk4HGE=
-X-Google-Smtp-Source: AGHT+IECrT/f4YU7eGYMT2JKLqncJPJWUk/GN3HdGnXoaiZGZEg51ifpGDI4TjkBwNtKbaT99ZyWtw==
-X-Received: by 2002:a05:6512:b22:b0:4fe:df2:b82d with SMTP id
- w34-20020a0565120b2200b004fe0df2b82dmr15910554lfu.37.1693057009281; 
- Sat, 26 Aug 2023 06:36:49 -0700 (PDT)
-Received: from mobilestation ([95.79.200.178])
- by smtp.gmail.com with ESMTPSA id
- c3-20020ac24143000000b004ff8631d6c0sm709430lfi.278.2023.08.26.06.36.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Aug 2023 06:36:48 -0700 (PDT)
-Date: Sat, 26 Aug 2023 16:36:46 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <m6wo7hsk2wy2sgwjxlj37u5zg3iba7ecgjrvmhvkw7kdm7o6j7@ggcag6ziyk4c>
+ Sat, 26 Aug 2023 14:52:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2/XFiRWbsHAztbiWsUZlx5MlU2MgZke2abs/3p9CZK0=; b=QjG4Go9OCC7TxDShCUFGAF/zK2
+ GIzsaw2gEFaflqFM+3jnuXZ1K5IZ/jQ/C7vYg86wDWiWcpSouG2j2oDMn4dpjDRSQHKSgoDmrH6TL
+ 8ehl9Xa+ZZJQt0HBC0ivqh2htMi/kqYCJrRF06ZTVxVM0qMIRoCMxvzsAfJ7myttlO0aUsA0Quuwa
+ aQsg57cyGb2dZs4yVGmOHCkxNWTiqJNyabMxiAOhkBitDx3CZnhGkakXr+TQ9WbTxvLt+dRtZuXV6
+ eEO3n1a/2/cv+DlegEunqKdGGZ1WaL89ZxFN/lk4z8Rr3h1kLtXErLTUJZNK+Z3o4lddCELcYPzlE
+ WpbtmYFg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58886)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qZudp-0006HZ-0F;
+ Sat, 26 Aug 2023 15:51:57 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qZudl-0001Zm-B8; Sat, 26 Aug 2023 15:51:53 +0100
+Date: Sat, 26 Aug 2023 15:51:53 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <ZOoRiVZiAyf7pArp@shell.armlinux.org.uk>
 References: <ZOddFH22PWmOmbT5@shell.armlinux.org.uk>
  <E1qZAXd-005pUP-JL@rmk-PC.armlinux.org.uk>
+ <rpwsyyjdzeixx3f7o3pxeslyff7yc3fuutm436ygjggoyiwjcb@7s3skg627mid>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1qZAXd-005pUP-JL@rmk-PC.armlinux.org.uk>
+In-Reply-To: <rpwsyyjdzeixx3f7o3pxeslyff7yc3fuutm436ygjggoyiwjcb@7s3skg627mid>
 Cc: Andrew Lunn <andrew@lunn.ch>, Feiyang Chen <chenfeiyang@loongson.cn>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
@@ -85,84 +68,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 24, 2023 at 02:38:29PM +0100, Russell King (Oracle) wrote:
-> Move the xgmac specific phylink capabilities to the dwxgmac2 support
-> core.
+On Sat, Aug 26, 2023 at 04:32:15PM +0300, Serge Semin wrote:
+> On Thu, Aug 24, 2023 at 02:38:29PM +0100, Russell King (Oracle) wrote:
+> > Move the xgmac specific phylink capabilities to the dwxgmac2 support
+> > core.
+> > 
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > ---
+> >  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 10 ++++++++++
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 10 ----------
+> >  2 files changed, 10 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > index 34e1b0c3f346..f352be269deb 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > @@ -47,6 +47,14 @@ static void dwxgmac2_core_init(struct mac_device_info *hw,
+> >  	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
+> >  }
+> >  
+> > +static void xgmac_phylink_get_caps(struct stmmac_priv *priv)
+> > +{
+> > +	priv->phylink_config.mac_capabilities |= MAC_2500FD | MAC_5000FD |
+> > +						 MAC_10000FD | MAC_25000FD |
+> > +						 MAC_40000FD | MAC_50000FD |
+> > +						 MAC_100000FD;
+> > +}
+> > +
+> >  static void dwxgmac2_set_mac(void __iomem *ioaddr, bool enable)
+> >  {
+> >  	u32 tx = readl(ioaddr + XGMAC_TX_CONFIG);
+> > @@ -1490,6 +1498,7 @@ static void dwxgmac3_fpe_configure(void __iomem *ioaddr, u32 num_txq,
+> >  
+> >  const struct stmmac_ops dwxgmac210_ops = {
+> >  	.core_init = dwxgmac2_core_init,
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 10 ++++++++++
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 10 ----------
->  2 files changed, 10 insertions(+), 10 deletions(-)
+> > +	.phylink_get_caps = xgmac_phylink_get_caps,
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> index 34e1b0c3f346..f352be269deb 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> @@ -47,6 +47,14 @@ static void dwxgmac2_core_init(struct mac_device_info *hw,
->  	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
->  }
->  
+> This doesn't look correct. DW XGMAC doesn't support 25/40/50/100Gbps
+> speeds.
 
-> +static void xgmac_phylink_get_caps(struct stmmac_priv *priv)
+So the reason this got added is to keep the code compatible with how
+things work today.
 
-Also after splitting this method up into DW XGMAC v2.x and DW XLGMAC
-v2.x specific functions please preserve the local naming convention:
-use dwxgmac2_ and dwxlgmac2_ prefixes.
+When priv->plat->has_xgmac is true, the old code in stmmac_phy_setup()
+would enable speeds from 2.5G up to 100G, limiting them if
+priv->plat->max_speed is set non-zero.
 
--Serge(y)
+The table in hwif.c matches when:
+	entry->gmac == priv->plat->has_gmac,
+	entry->gmac4 == priv->plat->has_gmac4 and
+	entry->xgmac == priv->plat->has_xgmac
 
-> +{
-> +	priv->phylink_config.mac_capabilities |= MAC_2500FD | MAC_5000FD |
-> +						 MAC_10000FD | MAC_25000FD |
-> +						 MAC_40000FD | MAC_50000FD |
-> +						 MAC_100000FD;
-> +}
-> +
->  static void dwxgmac2_set_mac(void __iomem *ioaddr, bool enable)
->  {
->  	u32 tx = readl(ioaddr + XGMAC_TX_CONFIG);
-> @@ -1490,6 +1498,7 @@ static void dwxgmac3_fpe_configure(void __iomem *ioaddr, u32 num_txq,
->  
->  const struct stmmac_ops dwxgmac210_ops = {
->  	.core_init = dwxgmac2_core_init,
-> +	.phylink_get_caps = xgmac_phylink_get_caps,
->  	.set_mac = dwxgmac2_set_mac,
->  	.rx_ipc = dwxgmac2_rx_ipc,
->  	.rx_queue_enable = dwxgmac2_rx_queue_enable,
-> @@ -1551,6 +1560,7 @@ static void dwxlgmac2_rx_queue_enable(struct mac_device_info *hw, u8 mode,
->  
->  const struct stmmac_ops dwxlgmac2_ops = {
->  	.core_init = dwxgmac2_core_init,
-> +	.phylink_get_caps = xgmac_phylink_get_caps,
->  	.set_mac = dwxgmac2_set_mac,
->  	.rx_ipc = dwxgmac2_rx_ipc,
->  	.rx_queue_enable = dwxlgmac2_rx_queue_enable,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 0b02845e7e9d..5cf8304564c6 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -1227,16 +1227,6 @@ static int stmmac_phy_setup(struct stmmac_priv *priv)
->  	/* Get the MAC specific capabilities */
->  	stmmac_mac_phylink_get_caps(priv);
->  
-> -	if (priv->plat->has_xgmac) {
-> -		priv->phylink_config.mac_capabilities |= MAC_2500FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_5000FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_10000FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_25000FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_40000FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_50000FD;
-> -		priv->phylink_config.mac_capabilities |= MAC_100000FD;
-> -	}
-> -
->  	/* Half-Duplex can only work with single queue */
->  	if (priv->plat->tx_queues_to_use > 1)
->  		priv->phylink_config.mac_capabilities &=
-> -- 
-> 2.30.2
-> 
-> 
+The entries in the table which patch on has_xgmac = true contain the
+following:
+
+                .mac = &dwxgmac210_ops,
+                .mac = &dwxlgmac2_ops,
+
+Therefore, to keep things compatible, I've effectively moved this
+initialisation into the new .phylink_get_caps method that is part of
+those two ops, and since they have has_xgmac true, this means that
+all these speeds need to be set.
+
+We do this without regard to max_speed, which we apply separately,
+after the .phylink_get_caps method has returned.
+
+So, the code is functionally identical to what happens in the driver,
+even if it is the case that xgmac210 doesn't actually support the
+speeds. If those extra speeds that the hardware doesn't support were
+present before, they're present after. If those extra speeds are
+limited by the max_speed, then they will be similarly limited.
+
+While it may look odd, since the specifications for Synopsys are all
+behind closed doors, all I can do is transform the code - I can't
+know that such-and-such a core doesn't actually support stuff. So
+my only option is to keep the code bug-compatible.
+
+I think all I've done here is make it glaringly obvious what the old
+code is doing and you've spotted "but that isn't right!" - which is
+actually a good thing!
+
+Feel free to submit patches to correct the functionality as bugs in
+the driver become more obvious!
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
