@@ -2,76 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF98788E06
-	for <lists+linux-stm32@lfdr.de>; Fri, 25 Aug 2023 19:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A472F789336
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Aug 2023 04:00:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0648FC6B44E;
-	Fri, 25 Aug 2023 17:51:07 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54A13C6B44E;
+	Sat, 26 Aug 2023 02:00:31 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2791C6B443
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D21F1C6B443
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Aug 2023 17:51:05 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-50043cf2e29so1767276e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 25 Aug 2023 10:51:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692985865; x=1693590665;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+HU+lLtrZXHjuxL9OMB53dDboEIGrCqtI9QtLAZsZXw=;
- b=bPf7pvZMQaGW8LsKpCJEclLFrdjDybSKAlLkTvTBpVUP49fZxzWEQtnsT1tFtt1k+c
- RmcVLuLVoCFxzgbJ45KWX609MwhO5WUOo47aoBjUO5qmjitxYJqXm0OkLyVqzW1VABPM
- h5S+Yw26d3X9Ioa7aMZTk/FkKppqvEVwtuW639TO/BXVnpNaL6EOhDJt+kNCA8+7tvDc
- JSQiD8MCSRQWBIYrNGdsO8crZvA4CdYZaJc0vttVUSkNPdTgQ2LIFHDxlOzkj22fgrTz
- C+lN1W7x8EyA0viKeA75N8UcwEbwCzhSjKLI6apKFCxRq1mv2awsMN/Keqtu1pCtCT6a
- Ubew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692985865; x=1693590665;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+HU+lLtrZXHjuxL9OMB53dDboEIGrCqtI9QtLAZsZXw=;
- b=VLgwadMIiX3mmbY26TDCJGexAQsuEKICsUMxXKH86gkbSDwWPXoKDe+ToXOTHOKYJj
- n6mDTiagZiTolD+CYCQ6Va5qFJDqrOxtB0ywHcniIM8nOjcuvigCjuPTML7YYUwh+XtM
- V6D416WEzJJtdbtm4pSk3MvMohs0WMzBD27W65nrL+VrPsG0ln50kTOuANXLO89rjZrI
- 3ibQfbZ+QI231QezkhC/pinZ362pGGrdd4JHSoR2v1UU2AL0I+z4RNOEVuzgol4cUZT5
- e6i3gXCMY3WtU3Im2nEg6UV/X/umvH3Q4cQJsTGyRwZ6/X+kIOSIujS2/aaqk03moAgs
- eqrg==
-X-Gm-Message-State: AOJu0YxKOguv0nq6JvWYtTCfTAbnBtJveX0uoqdIFlWUTFOKAYdy2YfJ
- 7q6gERz9AmCkPc9kgHHKtFs=
-X-Google-Smtp-Source: AGHT+IEkrzjdqgRY4pQ3wcJMRIKWGmZqSszGLKO0Gd865Lj0vSC09gMrcs5hGCR1SX9F79qQgdSAfQ==
-X-Received: by 2002:a05:6512:3ae:b0:500:8f65:c624 with SMTP id
- v14-20020a05651203ae00b005008f65c624mr7265415lfp.53.1692985864553; 
- Fri, 25 Aug 2023 10:51:04 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- r4-20020ac24d04000000b004fbab4b7d45sm365806lfi.67.2023.08.25.10.51.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Aug 2023 10:51:03 -0700 (PDT)
-Date: Fri, 25 Aug 2023 20:51:00 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <6r43uvb5jdyga5afsxonagta4ygsyxamyc53lijow5jd7sirdf@w7z54rn5ljiv>
-References: <ZOXlpkbcAZ4okric@shell.armlinux.org.uk>
+ Sat, 26 Aug 2023 02:00:29 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9804260A70;
+ Sat, 26 Aug 2023 02:00:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E9FECC433CD;
+ Sat, 26 Aug 2023 02:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1693015228;
+ bh=mBlqZKRX75iObqBjHmpEw+uziOh4bWzEZufO9Teq5zM=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=u+N6197q4ce8zTDxWx+tZn7XBioEtnTbVw5Fughq7Lj76iY/SgzK0AOF8K0eakbqk
+ XYU6jRAMdM15GNv4UmBa5jdHPBPDWhzPf/A/LQk2hp9RHBGegQXi7JmBwiC8RRgTXA
+ TGkIu/XPijP4kXZADOCpZI5wufr5sahRQ9b+pXIeyAUyAq5cTs/cuVKpR2+egW8aQ4
+ fQWbhCBj/wmkmBmmHkrH8zzZg4AqjvhIg4RZ3TgftE/4zT/wwkuKkFJOa1h4iKiMXZ
+ b0AlFxILnbELbgDDqOpswxlWIT/Vufw6XnOe22Pis8eadojsoR+JbJgjA3YTLbkkBf
+ nvAhosFgrtf4Q==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ CB4DBE33083; Sat, 26 Aug 2023 02:00:27 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZOXlpkbcAZ4okric@shell.armlinux.org.uk>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] Synopsis XLGMII MAC,
-	IEEE 802.3 and XLGMII interfaces
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169301522782.10076.5815529392176754957.git-patchwork-notify@kernel.org>
+Date: Sat, 26 Aug 2023 02:00:27 +0000
+References: <ZOddFH22PWmOmbT5@shell.armlinux.org.uk>
+In-Reply-To: <ZOddFH22PWmOmbT5@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, chenfeiyang@loongson.cn, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/10] stmmac cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,287 +64,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russel
+Hello:
 
-On Wed, Aug 23, 2023 at 11:55:34AM +0100, Russell King (Oracle) wrote:
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 24 Aug 2023 14:37:24 +0100 you wrote:
 > Hi,
 > 
-> Okay, I think it's time to get to the bottom of this, and below are my
-> ramblings so far.
-
-Thanks for the raised topic. Especially the last part which was very
-actual in my recent work.
-
-Regarding DW XLGMAC. Alas it's the only DW MAC IP-core for which I
-currently don't have a databook. So I'll respond to you based on my
-experience working with the DW GMAC/XGMAC/XPCS hardware and with the
-STMMAC+XPCS drivers.
-
+> One of the comments I had on Feiyang Chen's series was concerning the
+> initialisation of phylink... and so I've decided to do something about
+> it, cleaning it up a bit.
 > 
-> According to IEEE 802.3 80.1.3, XLGMII is the 40 Gb/s MII and CGMII
-> is the 100 Gb/s MII. 81.1 goes on to state:
+> This series:
 > 
-> The XLGMII/CGMII has the following characteristics:
-> 
->   a)    The XLGMII supports a speed of 40 Gb/s.
->   b)    The CGMII supports a speed of 100 Gb/s.
->   c)    Data and delimiters are synchronous to a clock reference.
->   d)    It provides independent 64-bit wide transmit and receive data paths.
->   e)    It supports full duplex operation only.
-> 
-> That seems very clear.
+> [...]
 
-Right.
+Here is the summary with links:
+  - [net-next,01/10] net: phylink: add phylink_limit_mac_speed()
+    https://git.kernel.org/netdev/net-next/c/70934c7c99ad
+  - [net-next,02/10] net: stmmac: convert plat->phylink_node to fwnode
+    https://git.kernel.org/netdev/net-next/c/e80af2acdef7
+  - [net-next,03/10] net: stmmac: clean up passing fwnode to phylink
+    https://git.kernel.org/netdev/net-next/c/1a37c1c19832
+  - [net-next,04/10] net: stmmac: use "mdio_bus_data" local variable
+    https://git.kernel.org/netdev/net-next/c/2b070cdd3afd
+  - [net-next,05/10] net: stmmac: use phylink_limit_mac_speed()
+    https://git.kernel.org/netdev/net-next/c/a4ac612bd345
+  - [net-next,06/10] net: stmmac: provide stmmac_mac_phylink_get_caps()
+    https://git.kernel.org/netdev/net-next/c/d42ca04e0448
+  - [net-next,07/10] net: stmmac: move gmac4 specific phylink capabilities to gmac4
+    https://git.kernel.org/netdev/net-next/c/f1dae3d222c6
+  - [net-next,08/10] net: stmmac: move xgmac specific phylink caps to dwxgmac2 core
+    https://git.kernel.org/netdev/net-next/c/bedf9b81233d
+  - [net-next,09/10] net: stmmac: move priv->phylink_config.mac_managed_pm
+    https://git.kernel.org/netdev/net-next/c/64961f1b8ca1
+  - [net-next,10/10] net: stmmac: convert half-duplex support to positive logic
+    https://git.kernel.org/netdev/net-next/c/76649fc93f09
 
-> 
-> According to
-> https://www.synopsys.com/dw/ipdir.php?ds=dwc_ether_enterprise_mac
-> XLGMII operates at 25 Gb/s, 40 Gb/s, 50 Gb/s and 100 Gb/s. This
-> appears to "disagree" with IEEE 802.3.
-> 
-> It appears, at least to me, that CGMII and XLGMII are physically
-> similar interfaces, the only difference seems to be the speed of
-> operation, so it would be entirely possible to have a MAC that
-> can operate at both speeds - or indeed at other speeds such as
-> Synopsys' "XLGMII" MAC.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-DW XLGMAC IP-core supports three various sub-interfaces (see at the
-bottom of the page in the link you cited): "Interfaces to the PHY layer
-through a configurable interface supporting XLGMII/CGMII, XGMII or
-GMII interface". Based on what is done in the DW XGMAC I assume that
-it's either the same physical port which signals are somehow
-multiplexed for working with different protocols or just separate
-physical interfaces which can't work simultaneously but can be
-connected to a PCS/PMA in a SoC/platform-dependent way. At least
-that's the way the XGMII and GMII interfaces are implemented on the DW
-XGMAC IP-core: either they are multiplexed on the same wires or the
-GMII port is separately synthesized within the same MAC.
 
-The XLGMII and CGMII interfaces are indeed similar the only difference
-is speed which most likely is regulated by means of the reference
-clock (TX_CLK/RX_CLK) rate which by IEEE 802.3 C81 shall be just
-"one-sixty-fourth of the MAC transmit/receive data rate". So it's
-625MHz for XLGMII and 1.5625GHz for CGMII. From that perspective
-nothing prevents a vendor to implement an XLGMII/CGMII interface
-working with any speed. For instance the 50/25Gbps speeds can be
-reached just be halfing the base 100Gbps value.
-
-XGMII and GMII are a bit different story. Physically they represent
-completely different interfaces. But as I noted earlier DW XGMAC can
-be synthesized with having these interfaces being either multiplexed
-in a single port or provided as separate ports. But in both cases only
-a single interface can be activated at a time.
-
-The most modern DW XGMAC IP-core document I have is of v2.11a
-(released at 2015). It states that the controller can expose two
-interfaces: XGMII working with 10Gbps and GMII working with 2.5Gbps
-and 1Gbps (that's what the STMMAC driver had supported before commit
-5b0d7d7da64b ("net: stmmac: Add the missing speeds that XGMAC
-supports")). Moreover in order for all those GMII speeds to work
-correctly first XGMAC_TX_CONFIG must have the respective field updated
-_and_ the clk_tx_156pt25_i reference clock must be driven with
-312.5-MHz clock for 2.5G mode and with 125-MHz clock for 1G mode
-(312.5 / 2.5 = 125).
-
-Note my HW databook doesn't say anything about the XGMII 5.0/2.5Gbps and
-MII 100/10Mbps modes. But seeing Jose added them in 2019 to the STMMAC
-driver most likely these modes were introduced later perhaps in v3.x
-or in the latest v2.x IP-cores. I bet these speeds are configured in
-the same way as the GMII modes described above: set the respective
-mode in the XMGAC_TX_CONFIG register (added by Jose) and drive the
-reference clock with specific rate (it's platform-specific setting).
-
-Considering all the above it's most likely DW XLGMAC works in a
-similar way for the various speeds: XLGMII/CGMII - 100/50/40/25Gbps.
-At least based on the available in the STMMAC
-(drivers/net/ethernet/stmicro/stmmac) and Synopsys DW XLGMAC
-(drivers/net/ethernet/synosps) code, the only thing that needs to be
-done is to set the respective mode in the MAC Tx Control register. The
-reference clock update is likely a platform-specific thing. Seeing
-there is no any glue-driver available in kernel supporting DW XLGMAC
-alas we can't proof the later statement.
-
-Finally consolidating all of the above we can now get a notion about
-the way the DW XGLMAC working in all the modes: XLGMII/CGMII
-100/50/40/25Gbps, XGMII 10/5/2.5/1Gbps, GMII/MII 1000/100Mbps.
-
-> 
-> Now, the problem is... phylink interprets PHY_INTERFACE_MODE_XLGMII
-> to mean the IEEE 802.3 defined 40 Gb/s mode - in that it _only_
-> supports 40 Gb/s over that interface mode. Clearly, that's the right
-> thing to be doing, because this is what IEEE defines and vendor
-> stuff doesn't apply for generic code.
-> 
-> phylib hasn't defined PHY_INTERFACE_MODE_CGMII yet, so phylink doesn't
-> provide that (maybe it should.) However, when it does, phylink will
-> then allow 100 Gb/s over CGMII.
-> 
-> Are there other standards that define 25 and 50 Gb/s over an XLGMII-
-> like link?
-
-I failed to find any. So my bet these are the Synopsys-specific speed
-modes.
-
-> 
-> Given the way things are at present, it means that the switch statement
-> in stmmac_mac_link_up() for PHY_INTERFACE_MODE_XLGMII, only one case
-> will ever be used - SPEED_40000. I'm guessing this isn't a problem as
-> no one has reported any problems.
-
-No one has reported any problems because there seems to be no actual
-user of that STMMAC code in the kernel. There is no DT-bindings
-defined, there is no DW XLGMAC specific compatible string defined,
-there is no any xlgmac/xgmac glue-driver added. So IMO one of the
-next situation might be relevant in this case:
-1. Jose tested out the submitted XLGMAC patch with having a generic
-"snps,dwgmac" or "snps,dwxgmac"-compatible node defined, made sure
-it's working for the 40Gbps speed and that was it.
-2. Alternatively are you sure the speed is validated before being
-passed to the stmmac_mac_link_up() in the phylink_resolve() method
-after the Auto-negotiation is finished?
-
-Regarding the generic questions you raised before. IMO:
-1. PHY_INTERFACE_MODE_CGMII should be defined with at least 100Gbps
-speed allowed.
-2.1 Either "xlgmii" and "cgmii" interfaces need to be extended with
-wider speed settings but being marked with an in-situ comment that
-these are vendor-specific speeds,
-2.2 or some new interfaces could be defined like
-"xlgmii-ext"/"cgmii-ext" or even "xxvgmii"/"lgmii" with the extended
-set of speeds.
-
-As for me option 2.1 seems much better but we need to decide to what
-interface the vendor-specific speeds are supposed to be added. I can't
-say for sure what interface Synopsys DW XLGMAC defines as working with
-25/50Gbps speeds especially seeing XLGMII and CGMII are physically
-compatible with only reference clock different. So IMO CGMII looks a
-bit more suitable for them since those speeds are the direct quotient
-of 100Gbps - base CGMII interface speed.
-
-> 
-> Then... there's the inclusion of 10G, 2.5G and 1G in the XLGMII switch.
-> The above link to Synopsys website suggests that XGMII is used for 10G
-> and GMII for 1G.
-
-As I explained above XGMII interface can work with the 10/5/2.5Gbps speeds
-and GMII - with the 2.5/1Gbps speeds. I have doubts these speeds need
-to be added to the XLGMII/CGMII interface modes.
-
-> 
-> Given that this is just the MAC, and we would normally have a PCS after
-> it (which may be XPCS), the interface used between the MAC and PCS isn't
-> all that relevant, since PHY_INTERFACE_MODE_xxx primerily defines the
-> interface to any PHY that is connected, and as a secondary function the
-> interface to fiber (since [MAC - PCS - Serdes] - PHY - media and
-> [MAC - PCS - Serdes] - media are common, it has made sense to use the
-> PHY interface mode to define the protocol used on that part of the
-> link that a PHY _could_ be connected to.)
-> 
-> So, I'm not convinced that the fact that this MAC core uses XLGMII,
-> XGMII and GMII has any relevance to the PHY_INTERFACE_MODE_ passed
-> by phylink into functions such as stmmac_mac_link_up(), _unless_ a
-> PHY is connected directly to the MAC.
-> 
-> If XPCS is connected, that interface mode would be whatever XPCS is
-> using to talk to the "outside world" not what the connection is
-> between the MAC and XPCS.
-
-That's what I thought too and that's exactly the issues I met a few
-months ago while I was working on adding the XGMII interface support
-to the XPCS driver. After a lot of digging into the problem I came to
-the next semantics implemented in the STMMAC and XPCS drivers:
-
-1. XLGMII - phy-mode only activates C73 AN,
-            PHY-less setup is only supported.
-   Basically the mode is utilized to activate the C73
-   Auto-negotiation. So after it's finished the respective speed
-   would be set in DW XLGMAC registers. Seeing PHY can't be attached
-   in this setup the interface mode isn't that relevant except it
-   just makes the PHY-link core and the XPCS driver creating a proper
-   supported link-modes field and activate respective speed in the
-   MAC.
-
-   IMO seeing this PHY-mode doesn't imply external PHY attached and always
-   activates Clause 73 auto-negotiation, this MAC-PCS interface mode is useful
-   for the "Backplane" setups when you have XLGMAC/XPCS/PMA directly attached
-   to a network fabrics and you actually don't know what physical link
-   mode is there. At least that's the way I decided to implement for
-   the "xgmii" PHY-mode support in the DW XPCS driver: it doesn't imply
-   any external PHY detected and initialized, it just activates the
-   C73 auto-negotiation and re-configures XPCS from 10GBase-R, to
-   10GBase-KX4, to 1000Base-X until the link gets up or fails. Though in
-   that case DW XPCS needs to have some CSR updated to get different
-   modes activated. There is no any similar setups (for instance in
-   order to switch between Base-KR, Base-KR2 and Base-KR4 looking for
-   a supported physical link) performed in the "xlgmii" mode
-   implementation in the driver.
-
-Here are some other my observations I came up to on my way of the
-STMMAC/XPCS drivers alteration:
-
-2. 1000Base-X, SGMII - phy-mode indicates PCS/PMA<=>PHY interface,
-                       PHY and PHY-less setups are supported.
-   No problem with that. There are both AN and actual PCS setups in
-   the driver.
-
-3. 2500Base-X - phy-mode indicates PCS/PMA<=>PHY interface,
-                PHY and PHY-less setups are supported.
-   No series problem with this too except in fact this mode doesn't
-   imply auto-negotiation but has Autoneg flag set. Most likely it's
-   needed to prevent the pcs_validate() method to clear out the external
-   PHY link-mode Autoneg flag.
-
-4. USXGMII - phy-mode indicates PCS/PMA<=>PHY interface,
-             PHY-less setup is only supported.
-   DW XGMAC actually doesn't support USXGMII interface, instead
-   it has a multi-protocol port(s) XGMII/GMII/MII as I noted before.
-   So the only thing that is required for the MAC is to activate the
-   respective interface and speed by means of the MAC Tx Control
-   register. The rest is supposed to be done by the DW XPCS/PMA/PHY
-   IP-cores chain: https://www.synopsys.com/dw/ipdir.php?ds=dwc_multi_protocol_10g_phy
-   It seems weird why this mode doesn't permit an external PHY
-   attached but only relies on the auto-negotiation.
-
-5. 10GBase-KR - phy-mode only activates C73 AN,
-                PHY-less setup is only supported.
-   This mode is very weird. First it isn't supported by the STMMAC
-   driver. Second no actual PCS setup is performed except the
-   auto-negotiation ones. So the XPCS driver relies on the default
-   device state. Third both PHY-mode and the link-modes match. It's
-   kind of strange seeing no PHY is implied by the STMMAC driver
-   in this case. I failed to find any NIC driver in kernel which
-   would have XPCS attached and have the PHY_INTERFACE_MODE_10GKR mode
-   supported. So at the first glance this mode support seems redundant.
-
-6. Another questionable part in the XPCS driver is the way the
-   pcs_validate() method is implemented. In case of the platform with
-   an external PHY available it filters out all the link-modes the PHY
-   can advertise including the actual physical link modes. It doesn't
-   look correct especially in case of 2. and 3. IMO this filtering should
-   have been activated only on the PHY-less systems only or even dropped
-   seeing none of the PCS driver do that.
-
-I might have missed something but I failed to find a well
-justification at the very least to the entries 5 and 6.
-
-> If we want to know what that is, then
-> stmmac needs to be asking XPCS for that information (and maybe
-> phylink needs to get that from its PCS on behalf of the MAC driver.)
-
-My thoughts about this is in the entry 1 above.
-
--Serge(y)
-
-> 
-> I think there's a lot that needs to be thought about here.
-> 
-> Part 2 of this will be USXGMII... which I'll do as a separate email.
-> 
-> Thanks.
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
