@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E45D7896E8
-	for <lists+linux-stm32@lfdr.de>; Sat, 26 Aug 2023 15:32:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 944357896EB
+	for <lists+linux-stm32@lfdr.de>; Sat, 26 Aug 2023 15:36:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A0FEC6B44F;
-	Sat, 26 Aug 2023 13:32:21 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5402CC6B44F;
+	Sat, 26 Aug 2023 13:36:51 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7677C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5626FC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Aug 2023 13:32:19 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5007f3d3235so2763387e87.2
+ Sat, 26 Aug 2023 13:36:50 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-4ff8cf11b90so2830289e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Aug 2023 06:32:19 -0700 (PDT)
+ Sat, 26 Aug 2023 06:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693056739; x=1693661539;
+ d=gmail.com; s=20221208; t=1693057009; x=1693661809;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=IkJ7s8OrsLy9BfgJwAFkbNy+c764NK4QgxuZUl0LtFo=;
- b=bUcLauVa3UalyuzHJnik09YWrDw/DeI+/Ao3YFhMPPx9zWGHjn71E0vHNj2inQe6WO
- r26MvoC7HE+ISnOssAMaHidPPi0j8ZsPrAAoB39t0tjH4jGZ4qngR0p/QMqosPvwID3t
- +Z+bb1rHxw6RByu6rw2yCKU6hF5Wo+KZuO6+3D2Gteo7zLjCIwDdYsuALuSKU+oGDd3y
- RssbsMa1FYxf7oq2/S7afqVVWhWgE0KuMhE3rHf/U5xnjZvLI3gqp7cu0gEaPiu5TJhl
- 2O7rav7xd339Vd2pGMA2xga+2HkTuPucLKF24jjjVxzQnBxeSfbcytPHsQG7F87Ddq9C
- n4JQ==
+ bh=6VkMa5W6uY3fSZYkhCX3GMktDqjJzGb0eTy0nnjALzA=;
+ b=VUfosENc6y/n5gCCAAAV0zZo9DYMBol7CZSu70vmZ8hUuszuGjKhgjIZCU3gtz1iTv
+ FkO531+MIkQf60yH9909064vmM6yWSrvW3nCxwbiGGViKxnwg3fiIU0oQq/t6wHEVS/K
+ 5sS0xpIrNmYc1DGhp9K4Iq6EqLKKwwJEFIWno6iZv9/iOqfZZJZCw3Tv5T9R7l9EReWD
+ E5K5mlAS7ZNVpWRcyqxl094bjusJa6PeYZH8WN+DveFayodNCFeUW3kWAZXMII9HMY9o
+ Aa1i/Ki6lxWyGRg6AI98e16s7EJa1lvek+iSRGz/wfElDGOAKazfFOh1HSDuJbz9r3s4
+ uNrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693056739; x=1693661539;
+ d=1e100.net; s=20221208; t=1693057009; x=1693661809;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IkJ7s8OrsLy9BfgJwAFkbNy+c764NK4QgxuZUl0LtFo=;
- b=giqZLxtbwluQtPCDjx4D91zxLdlv4aslxSbN9EVy3g3At2niBTSZpL9ErmHfZO/REr
- 88CdwARqragcqbZqKIKZ6QbBBcji4dlEJyFr3tVxNfpJ4kC3nxe5d1bffyjbjfvtQfvK
- sl7J5LjZF+NnoEODAB3n7JlLmvZtBJ6LPiAo0Zzq1Mfzuvzzi/GwlNwo+3ubZ4EoPPU5
- NmKD1IYnEnyE/MyjEbX7fuSImKrF3Bk6jc4t43op/dQjJkTiaq/fDtErJ+SgjYOSoGXO
- MSIwbb1TX2O8SwKn3YHmEQ8oCOBr8reA9UDEBtSOdFtoTCsD3uJd7chno9h1IRCenkFu
- 32Jw==
-X-Gm-Message-State: AOJu0YzlTUsQaGhthE4qjS6o45JowJqemuzYcQJomcrnnKOIi1iIucf2
- e6VcbITLfDUcIO68mN+yPE0=
-X-Google-Smtp-Source: AGHT+IER9+Ix/5U4zo/mvxWZ8NAT0EXTNAoaCbHNthqYpZAi1xLAQEQ/2uTxn94TPquRaZnTHv7tdA==
-X-Received: by 2002:a05:6512:1042:b0:4fe:d0f:1f1e with SMTP id
- c2-20020a056512104200b004fe0d0f1f1emr18744343lfb.25.1693056738553; 
- Sat, 26 Aug 2023 06:32:18 -0700 (PDT)
+ bh=6VkMa5W6uY3fSZYkhCX3GMktDqjJzGb0eTy0nnjALzA=;
+ b=PiN8O6CwmOst2sNZNk9xpYdflMCILpVWqcMOf9UV20F56DZtA/vWfOa5abn2Jq79fQ
+ yYOopRrFY3Z0UfSB1BKofJJtiVNWqTijse1IXfP5MlseEUVSzB1OOc5cVqCOO22IDyqL
+ Dkv1yZy42LJ0iDsw9bFwfOgjYcdfUUqFHAlathqnvLlpjD7HR4KZA0tWSR2ET1FeF+Vf
+ DAI+BbhUUFbD/4TvvO0ha73Morr+hRH6FJRlz30Hne2WSzm1iyuF3jrE3t4OPxmF7Bpi
+ hXvCuDzaiybLJxvqd+oSlLJZ5Y1t8AWbJtMB3dap9mm5ZqWEv7WoOTqtbh7jeauQpawN
+ oshA==
+X-Gm-Message-State: AOJu0Yy2Z9eQBgT21lP7Y+ZfkESo/deHdCpCykDrwPOqNKWbf+2vDCpH
+ eCoMIdBmMFPIp0P0LGk4HGE=
+X-Google-Smtp-Source: AGHT+IECrT/f4YU7eGYMT2JKLqncJPJWUk/GN3HdGnXoaiZGZEg51ifpGDI4TjkBwNtKbaT99ZyWtw==
+X-Received: by 2002:a05:6512:b22:b0:4fe:df2:b82d with SMTP id
+ w34-20020a0565120b2200b004fe0df2b82dmr15910554lfu.37.1693057009281; 
+ Sat, 26 Aug 2023 06:36:49 -0700 (PDT)
 Received: from mobilestation ([95.79.200.178])
  by smtp.gmail.com with ESMTPSA id
- x2-20020ac25dc2000000b004fe39f31dc7sm715616lfq.294.2023.08.26.06.32.17
+ c3-20020ac24143000000b004ff8631d6c0sm709430lfi.278.2023.08.26.06.36.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Aug 2023 06:32:17 -0700 (PDT)
-Date: Sat, 26 Aug 2023 16:32:15 +0300
+ Sat, 26 Aug 2023 06:36:48 -0700 (PDT)
+Date: Sat, 26 Aug 2023 16:36:46 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <rpwsyyjdzeixx3f7o3pxeslyff7yc3fuutm436ygjggoyiwjcb@7s3skg627mid>
+Message-ID: <m6wo7hsk2wy2sgwjxlj37u5zg3iba7ecgjrvmhvkw7kdm7o6j7@ggcag6ziyk4c>
 References: <ZOddFH22PWmOmbT5@shell.armlinux.org.uk>
  <E1qZAXd-005pUP-JL@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
@@ -103,7 +103,15 @@ On Thu, Aug 24, 2023 at 02:38:29PM +0100, Russell King (Oracle) wrote:
 >  	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
 >  }
 >  
+
 > +static void xgmac_phylink_get_caps(struct stmmac_priv *priv)
+
+Also after splitting this method up into DW XGMAC v2.x and DW XLGMAC
+v2.x specific functions please preserve the local naming convention:
+use dwxgmac2_ and dwxlgmac2_ prefixes.
+
+-Serge(y)
+
 > +{
 > +	priv->phylink_config.mac_capabilities |= MAC_2500FD | MAC_5000FD |
 > +						 MAC_10000FD | MAC_25000FD |
@@ -118,12 +126,7 @@ On Thu, Aug 24, 2023 at 02:38:29PM +0100, Russell King (Oracle) wrote:
 >  
 >  const struct stmmac_ops dwxgmac210_ops = {
 >  	.core_init = dwxgmac2_core_init,
-
 > +	.phylink_get_caps = xgmac_phylink_get_caps,
-
-This doesn't look correct. DW XGMAC doesn't support 25/40/50/100Gbps
-speeds.
-
 >  	.set_mac = dwxgmac2_set_mac,
 >  	.rx_ipc = dwxgmac2_rx_ipc,
 >  	.rx_queue_enable = dwxgmac2_rx_queue_enable,
@@ -131,13 +134,7 @@ speeds.
 >  
 >  const struct stmmac_ops dwxlgmac2_ops = {
 >  	.core_init = dwxgmac2_core_init,
-
 > +	.phylink_get_caps = xgmac_phylink_get_caps,
-
-This is ok.
-
--Serge(y)
-
 >  	.set_mac = dwxgmac2_set_mac,
 >  	.rx_ipc = dwxgmac2_rx_ipc,
 >  	.rx_queue_enable = dwxlgmac2_rx_queue_enable,
