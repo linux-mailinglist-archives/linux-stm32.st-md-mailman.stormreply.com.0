@@ -2,86 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57DA78B3A6
+	by mail.lfdr.de (Postfix) with ESMTPS id BEE3778B3A7
 	for <lists+linux-stm32@lfdr.de>; Mon, 28 Aug 2023 16:52:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B630C6B457;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41B7DC6B459;
 	Mon, 28 Aug 2023 14:52:15 +0000 (UTC)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
- [209.85.218.53])
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com
+ [209.85.128.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E460DC65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E01F2C65E58
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Aug 2023 09:39:17 +0000 (UTC)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-991c786369cso287834766b.1
+ Sun, 27 Aug 2023 17:33:22 +0000 (UTC)
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-594f8a7125cso10689137b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Aug 2023 02:39:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693129157; x=1693733957;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gvvKN0TAPFHdCp8TiarzVc3ZrxBCGikf4AIZqurpbJw=;
- b=AP3ugP4q8Dc7gH8nGsfcbukTu2IE/IstFgHt+J+5YtaPAvg05hc8r8etFQMqGjvXig
- cOSlU0KxnNh/0n6Su/UToISGFS3X2Y5e2iHJDbEZE3LSXqmrUm/UZ2n8JI7v+V9QyILo
- yPZcnn1/59kQhupa6DSc1vOMLcgQR9ejkVFLawCeLaMyjV9WUy7j2Aqk9J/V4xy5gCXD
- aRUe08B1oKDODr0QU9reX0BnelUdyqtESB9aht7FYG/7MKmT565D6HkDhQRrDmWEpcW6
- /eEq1TD/YrH+JF5gKEL69QArsnINc5wI47L7rJ+zmFvbBNSf1MUzKzuPDSZX4Sz7U8zK
- 0ViA==
+ Sun, 27 Aug 2023 10:33:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693129157; x=1693733957;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gvvKN0TAPFHdCp8TiarzVc3ZrxBCGikf4AIZqurpbJw=;
- b=V7h6sct4y+1/2n7k3U83DTKYkgoPbDxr/C/ti41uCRhmchiNQn7RJZdkiAiSyhIygZ
- wzslh/e5GD7iKiOiU/rlTn+YPHsprRHeSDZBuWLgk0yunG4WAYfFJaqm7GHysDND/KVX
- eiPuVv3MRMp8otmIKPMezMuosdPbfdc1e9EXvZXq6/88GaVkV1an5ZSpxDeEXJZB5nmc
- 56qObQLh9jTre3cT5y7XjKVrhHvJUh8I0Sgq50pcIszzOrWrlHSlhtcrf9yaVdyvEXTf
- McIry1tu3V+ql3T0lamzFq8m1w9v7+hJi5rdgNxoOHynlDqyrHwwYrv/DGLIHLolJpwK
- ufQw==
-X-Gm-Message-State: AOJu0YyRCV1naCkHg7HoM6vFlcz28/ylNmCPz7JhhGMvE9LsJTo9noUw
- 6/6sbufhuw3hLiI5XKiJs0A=
-X-Google-Smtp-Source: AGHT+IGf83p0/6GBqzbdKGZAxY9pWC2RpOWvrWO03tBP+G5ZFNX2M4vEUCRdYLgzghdShp3Vd+ALSQ==
-X-Received: by 2002:a17:906:8462:b0:9a5:81cf:57b5 with SMTP id
- hx2-20020a170906846200b009a581cf57b5mr3873312ejc.2.1693129157285; 
- Sun, 27 Aug 2023 02:39:17 -0700 (PDT)
-Received: from krava (ip-94-113-247-30.net.vodafone.cz. [94.113.247.30])
- by smtp.gmail.com with ESMTPSA id
- ks10-20020a170906f84a00b00997cce73cc7sm3237743ejb.29.2023.08.27.02.39.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Aug 2023 02:39:16 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Sun, 27 Aug 2023 11:39:13 +0200
-To: Rong Tao <rtoax@foxmail.com>
-Message-ID: <ZOsZwQptH05Gn9yU@krava>
-References: <tencent_6D23FE187408D965E95DFAA858BC7E8C760A@qq.com>
+ d=1e100.net; s=20221208; t=1693157602; x=1693762402;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=AXRQ29Kd0gz5Nx/WOSU5Qc0o5kViYnspMVCSG/2JHCQ=;
+ b=H4w6CxSGMhrSyB7dJuVFCZihopAdGrrqeMrUtEGpAhlSXuGFNqzoRJMfkKntd5tHgv
+ ndfbxdoWLH0YzQXsdYuUVst3dzTR5JGFFjRF+6Ab1ufVHeEtnBQOC9/zwDXieMt7Aumo
+ eHcBH5P9SMLp9ZeOLWWAvnBET8Le7niADgah7MFrfNz7E73zjx0jLBrwtYRhr9oB+eTP
+ 8//xCXaXsgbu4UbrXNnAavTxIXZivS6//g1wDFd7OvZA5Xyww7zOTHLi/DFZUNoF785B
+ t3yonuYXHkevN6sEuU2OukXMoLKKrKf7cZ5TqEtaO5AptwgLQ5T9VZd8BfR/nZ0f81UU
+ lQNQ==
+X-Gm-Message-State: AOJu0YzgD6yYtL027iqGbbmT6JNhZ64LZGeCnDjG06MXvx2Amtfg7vk2
+ fzsNhvK/i02GTTzoDa6nFAuOF0rVv+iyjKl85AI=
+X-Google-Smtp-Source: AGHT+IFeGyy/bOxlt/AopeThQo710RCsTrK7BUhmNx2WxxR/Zx+G5YbigEwuQUWlQAo8X0U6SjRSRv2LcPeHqj5YXsk=
+X-Received: by 2002:a05:690c:2d85:b0:593:47ff:bd7 with SMTP id
+ er5-20020a05690c2d8500b0059347ff0bd7mr4875229ywb.46.1693157601831; Sun, 27
+ Aug 2023 10:33:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <tencent_6D23FE187408D965E95DFAA858BC7E8C760A@qq.com>
+References: <20230827134150.2918-1-jszhang@kernel.org>
+ <20230827134150.2918-3-jszhang@kernel.org>
+In-Reply-To: <20230827134150.2918-3-jszhang@kernel.org>
+From: Emil Renner Berthing <kernel@esmil.dk>
+Date: Sun, 27 Aug 2023 19:33:10 +0200
+Message-ID: <CANBLGcwFW_Y4PC1hxJ7OQN-h025e5wwoCNwnk8OXh3ALFQPcXg@mail.gmail.com>
+To: Jisheng Zhang <jszhang@kernel.org>
 X-Mailman-Approved-At: Mon, 28 Aug 2023 14:52:13 +0000
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Song Liu <song@kernel.org>,
- Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
- Yonghong Song <yonghong.song@linux.dev>,
- Daniel =?iso-8859-1?Q?M=FCller?= <deso@posteo.net>,
- Xu Kuohai <xukuohai@huawei.com>, Shuah Khan <shuah@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Mykola Lysenko <mykolal@fb.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, daniel@iogearbox.net,
- Manu Bretelle <chantr4@gmail.com>, andrii@kernel.org,
- Ross Zwisler <zwisler@google.com>, Alexei Starovoitov <ast@kernel.org>,
- KP Singh <kpsingh@kernel.org>, olsajiri@gmail.com,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, open list <linux-kernel@vger.kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "open list:BPF \[GENERAL\] \(Safe Dynamic Programs and Tools\)"
- <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, sdf@google.com
-Subject: Re: [Linux-stm32] [PATCH bpf-next v8] selftests/bpf:
- trace_helpers.c: optimize kallsyms cache
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Samin Guo <samin.guo@starfivetech.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-starfive:
+ remove unnecessary clk_get_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,607 +69,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Aug 26, 2023 at 10:46:19PM +0800, Rong Tao wrote:
+On Sun, 27 Aug 2023 at 15:53, Jisheng Zhang <jszhang@kernel.org> wrote:
+>
+> In starfive_dwmac_fix_mac_speed(), the rate gotten by clk_get_rate()
+> is not necessary, remove the clk_get_rate() calling.
 
-SNIP
+Thanks. I suggested this change during the initial review, but someone
+wanted the code as it is. I must admit I don't understand why, so
+Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 
-> diff --git a/samples/bpf/sampleip_user.c b/samples/bpf/sampleip_user.c
-> index 9283f47844fb..aec3d557aa6b 100644
-> --- a/samples/bpf/sampleip_user.c
-> +++ b/samples/bpf/sampleip_user.c
-> @@ -25,6 +25,7 @@
->  static int map_fd;
->  static int nr_cpus;
->  static long _text_addr;
-> +struct ksyms *ksyms;
->  
->  static void usage(void)
->  {
-> @@ -109,7 +110,7 @@ static void print_ip_map(int fd)
->  	qsort(counts, max, sizeof(struct ipcount), count_cmp);
->  	for (i = 0; i < max; i++) {
->  		if (counts[i].ip > _text_addr) {
-> -			sym = ksym_search(counts[i].ip);
-> +			sym = ksym_search(ksyms, counts[i].ip);
->  			if (!sym) {
->  				printf("ksym not found. Is kallsyms loaded?\n");
->  				continue;
-> @@ -164,13 +165,14 @@ int main(int argc, char **argv)
->  	}
->  
->  	/* initialize kernel symbol translation */
-> -	if (load_kallsyms()) {
-> +	ksyms = load_kallsyms();
-
-if we keep the load_kallsyms/ksym_search/ksym_get_addr functions as described
-in [1] the samples/bpf would stay untouched apart from the Makefile change
-
-jirka
-
-[1] https://lore.kernel.org/lkml/ZOjUpt16gcTSGkdl@krava/
-
-> +	if (!ksyms) {
->  		fprintf(stderr, "ERROR: loading /proc/kallsyms\n");
->  		return 2;
->  	}
->  
->  	/* used to determine whether the address is kernel space */
-> -	_text_addr = ksym_get_addr("_text");
-> +	_text_addr = ksym_get_addr(ksyms, "_text");
->  	if (!_text_addr) {
->  		fprintf(stderr, "ERROR: no '_text' in /proc/kallsyms\n");
->  		return 3;
-> @@ -230,5 +232,6 @@ int main(int argc, char **argv)
->  
->  	free(links);
->  	bpf_object__close(obj);
-> +	free_kallsyms(ksyms);
->  	return error;
->  }
-> diff --git a/samples/bpf/spintest_user.c b/samples/bpf/spintest_user.c
-> index 55971edb1088..db6a3c6d5329 100644
-> --- a/samples/bpf/spintest_user.c
-> +++ b/samples/bpf/spintest_user.c
-> @@ -16,8 +16,10 @@ int main(int ac, char **argv)
->  	int map_fd, i, j = 0;
->  	char filename[256];
->  	struct ksym *sym;
-> +	struct ksyms *ksyms;
->  
-> -	if (load_kallsyms()) {
-> +	ksyms = load_kallsyms();
-> +	if (!ksyms) {
->  		printf("failed to process /proc/kallsyms\n");
->  		return 2;
->  	}
-> @@ -58,7 +60,7 @@ int main(int ac, char **argv)
->  		while (bpf_map_get_next_key(map_fd, &key, &next_key) == 0) {
->  			bpf_map_lookup_elem(map_fd, &next_key, &value);
->  			assert(next_key == value);
-> -			sym = ksym_search(value);
-> +			sym = ksym_search(ksyms, value);
->  			key = next_key;
->  			if (!sym) {
->  				printf("ksym not found. Is kallsyms loaded?\n");
-> @@ -80,5 +82,6 @@ int main(int ac, char **argv)
->  		bpf_link__destroy(links[j]);
->  
->  	bpf_object__close(obj);
-> +	free_kallsyms(ksyms);
->  	return 0;
->  }
-> diff --git a/samples/bpf/task_fd_query_user.c b/samples/bpf/task_fd_query_user.c
-> index 1e61f2180470..6e7710a4a96f 100644
-> --- a/samples/bpf/task_fd_query_user.c
-> +++ b/samples/bpf/task_fd_query_user.c
-> @@ -315,8 +315,10 @@ int main(int argc, char **argv)
->  	struct bpf_program *prog;
->  	struct bpf_object *obj;
->  	int i = 0, err = -1;
-> +	struct ksyms *ksyms;
->  
-> -	if (load_kallsyms()) {
-> +	ksyms = load_kallsyms();
-> +	if (!ksyms) {
->  		printf("failed to process /proc/kallsyms\n");
->  		return err;
->  	}
-> @@ -368,22 +370,22 @@ int main(int argc, char **argv)
->  					     BPF_FD_TYPE_KRETPROBE,
->  					     buf, sizeof(buf)));
->  	CHECK_AND_RET(test_nondebug_fs_probe("kprobe", NULL, 0x0,
-> -					     ksym_get_addr("bpf_check"), false,
-> +					     ksym_get_addr(ksyms, "bpf_check"), false,
->  					     BPF_FD_TYPE_KPROBE,
->  					     BPF_FD_TYPE_KRETPROBE,
->  					     buf, sizeof(buf)));
->  	CHECK_AND_RET(test_nondebug_fs_probe("kprobe", NULL, 0x0,
-> -					     ksym_get_addr("bpf_check"), false,
-> +					     ksym_get_addr(ksyms, "bpf_check"), false,
->  					     BPF_FD_TYPE_KPROBE,
->  					     BPF_FD_TYPE_KRETPROBE,
->  					     NULL, 0));
->  	CHECK_AND_RET(test_nondebug_fs_probe("kprobe", NULL, 0x0,
-> -					     ksym_get_addr("bpf_check"), true,
-> +					     ksym_get_addr(ksyms, "bpf_check"), true,
->  					     BPF_FD_TYPE_KPROBE,
->  					     BPF_FD_TYPE_KRETPROBE,
->  					     buf, sizeof(buf)));
->  	CHECK_AND_RET(test_nondebug_fs_probe("kprobe", NULL, 0x0,
-> -					     ksym_get_addr("bpf_check"), true,
-> +					     ksym_get_addr(ksyms, "bpf_check"), true,
->  					     BPF_FD_TYPE_KPROBE,
->  					     BPF_FD_TYPE_KRETPROBE,
->  					     0, 0));
-> @@ -419,5 +421,6 @@ int main(int argc, char **argv)
->  		bpf_link__destroy(links[i]);
->  
->  	bpf_object__close(obj);
-> +	free_kallsyms(ksyms);
->  	return err;
->  }
-> diff --git a/samples/bpf/trace_event_user.c b/samples/bpf/trace_event_user.c
-> index 9664749bf618..b4822166182f 100644
-> --- a/samples/bpf/trace_event_user.c
-> +++ b/samples/bpf/trace_event_user.c
-> @@ -23,6 +23,7 @@ static int pid;
->  static int map_fd[2];
->  struct bpf_program *prog;
->  static bool sys_read_seen, sys_write_seen;
-> +struct ksyms *ksyms;
->  
->  static void print_ksym(__u64 addr)
->  {
-> @@ -30,7 +31,7 @@ static void print_ksym(__u64 addr)
->  
->  	if (!addr)
->  		return;
-> -	sym = ksym_search(addr);
-> +	sym = ksym_search(ksyms, addr);
->  	if (!sym) {
->  		printf("ksym not found. Is kallsyms loaded?\n");
->  		return;
-> @@ -303,7 +304,8 @@ int main(int argc, char **argv)
->  	signal(SIGINT, err_exit);
->  	signal(SIGTERM, err_exit);
->  
-> -	if (load_kallsyms()) {
-> +	ksyms = load_kallsyms();
-> +	if (!ksyms) {
->  		printf("failed to process /proc/kallsyms\n");
->  		goto cleanup;
->  	}
-> @@ -348,5 +350,6 @@ int main(int argc, char **argv)
->  
->  cleanup:
->  	bpf_object__close(obj);
-> +	free_kallsyms(ksyms);
->  	err_exit(error);
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> index 1454cebc262b..26bf1f33b8d5 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> @@ -104,8 +104,10 @@ static void kprobe_multi_link_api_subtest(void)
->  	LIBBPF_OPTS(bpf_link_create_opts, opts);
->  	unsigned long long addrs[8];
->  	__u64 cookies[8];
-> +	struct ksyms *ksyms;
->  
-> -	if (!ASSERT_OK(load_kallsyms(), "load_kallsyms"))
-> +	ksyms = load_kallsyms();
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms"))
->  		goto cleanup;
->  
->  	skel = kprobe_multi__open_and_load();
-> @@ -116,7 +118,7 @@ static void kprobe_multi_link_api_subtest(void)
->  	skel->bss->test_cookie = true;
->  
->  #define GET_ADDR(__sym, __addr) ({				\
-> -	__addr = ksym_get_addr(__sym);				\
-> +	__addr = ksym_get_addr(ksyms, __sym);				\
->  	if (!ASSERT_NEQ(__addr, 0, "ksym_get_addr " #__sym))	\
->  		goto cleanup;					\
->  })
-> @@ -171,6 +173,7 @@ static void kprobe_multi_link_api_subtest(void)
->  cleanup:
->  	close(link1_fd);
->  	close(link2_fd);
-> +	free_kallsyms(ksyms);
->  	kprobe_multi__destroy(skel);
->  }
->  
-> diff --git a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> index 9d768e083714..a134eda17446 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> @@ -302,16 +302,18 @@ void test_fill_link_info(void)
->  {
->  	struct test_fill_link_info *skel;
->  	int i;
-> +	struct ksyms *ksyms;
->  
->  	skel = test_fill_link_info__open_and_load();
->  	if (!ASSERT_OK_PTR(skel, "skel_open"))
->  		return;
->  
->  	/* load kallsyms to compare the addr */
-> -	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
-> +	ksyms = load_kallsyms_refresh(NULL);
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_refresh"))
->  		goto cleanup;
->  
-> -	kprobe_addr = ksym_get_addr(KPROBE_FUNC);
-> +	kprobe_addr = ksym_get_addr(ksyms, KPROBE_FUNC);
->  	if (test__start_subtest("kprobe_link_info"))
->  		test_kprobe_fill_link_info(skel, BPF_PERF_EVENT_KPROBE, false);
->  	if (test__start_subtest("kretprobe_link_info"))
-> @@ -329,7 +331,7 @@ void test_fill_link_info(void)
->  
->  	qsort(kmulti_syms, KMULTI_CNT, sizeof(kmulti_syms[0]), symbols_cmp_r);
->  	for (i = 0; i < KMULTI_CNT; i++)
-> -		kmulti_addrs[i] = ksym_get_addr(kmulti_syms[i]);
-> +		kmulti_addrs[i] = ksym_get_addr(ksyms, kmulti_syms[i]);
->  	if (test__start_subtest("kprobe_multi_link_info"))
->  		test_kprobe_multi_fill_link_info(skel, false, false);
->  	if (test__start_subtest("kretprobe_multi_link_info"))
-> @@ -339,4 +341,5 @@ void test_fill_link_info(void)
->  
->  cleanup:
->  	test_fill_link_info__destroy(skel);
-> +	free_kallsyms(ksyms);
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> index 858e0575f502..7a5e7741da14 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/get_stack_raw_tp.c
-> @@ -9,6 +9,7 @@
->  #define MAX_STACK_RAWTP	100
->  
->  static int duration = 0;
-> +static struct ksyms *ksyms;
->  
->  struct get_stack_trace_t {
->  	int pid;
-> @@ -48,7 +49,7 @@ static void get_stack_print_output(void *ctx, int cpu, void *data, __u32 size)
->  			found = num_stack > 0;
->  		} else {
->  			for (i = 0; i < num_stack; i++) {
-> -				ks = ksym_search(raw_data[i]);
-> +				ks = ksym_search(ksyms, raw_data[i]);
->  				if (ks && (strcmp(ks->name, nonjit_func) == 0)) {
->  					found = true;
->  					break;
-> @@ -65,7 +66,7 @@ static void get_stack_print_output(void *ctx, int cpu, void *data, __u32 size)
->  			good_kern_stack = num_stack > 0;
->  		} else {
->  			for (i = 0; i < num_stack; i++) {
-> -				ks = ksym_search(e.kern_stack[i]);
-> +				ks = ksym_search(ksyms, e.kern_stack[i]);
->  				if (ks && (strcmp(ks->name, nonjit_func) == 0)) {
->  					good_kern_stack = true;
->  					break;
-> @@ -112,8 +113,8 @@ void test_get_stack_raw_tp(void)
->  	if (CHECK(!map, "bpf_find_map", "not found\n"))
->  		goto close_prog;
->  
-> -	err = load_kallsyms();
-> -	if (CHECK(err < 0, "load_kallsyms", "err %d errno %d\n", err, errno))
-> +	ksyms = load_kallsyms();
-> +	if (CHECK(!ksyms, "load_kallsyms", "err %d errno %d\n", err, errno))
->  		goto close_prog;
->  
->  	CPU_ZERO(&cpu_set);
-> @@ -146,4 +147,5 @@ void test_get_stack_raw_tp(void)
->  	bpf_link__destroy(link);
->  	perf_buffer__free(pb);
->  	bpf_object__close(obj);
-> +	free_kallsyms(ksyms);
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> index 179fe300534f..e902ea50de57 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_test.c
-> @@ -6,6 +6,8 @@
->  #include "bpf/libbpf_internal.h"
->  #include "bpf/hashmap.h"
->  
-> +static struct ksyms *ksyms;
-> +
->  static void kprobe_multi_test_run(struct kprobe_multi *skel, bool test_return)
->  {
->  	LIBBPF_OPTS(bpf_test_run_opts, topts);
-> @@ -89,7 +91,7 @@ static void test_link_api(struct bpf_link_create_opts *opts)
->  }
->  
->  #define GET_ADDR(__sym, __addr) ({					\
-> -	__addr = ksym_get_addr(__sym);					\
-> +	__addr = ksym_get_addr(ksyms, __sym);					\
->  	if (!ASSERT_NEQ(__addr, 0, "kallsyms load failed for " #__sym))	\
->  		return;							\
->  })
-> @@ -222,8 +224,8 @@ static void test_attach_api_fails(void)
->  	};
->  	__u64 cookies[2];
->  
-> -	addrs[0] = ksym_get_addr("bpf_fentry_test1");
-> -	addrs[1] = ksym_get_addr("bpf_fentry_test2");
-> +	addrs[0] = ksym_get_addr(ksyms, "bpf_fentry_test1");
-> +	addrs[1] = ksym_get_addr(ksyms, "bpf_fentry_test2");
->  
->  	if (!ASSERT_FALSE(!addrs[0] || !addrs[1], "ksym_get_addr"))
->  		goto cleanup;
-> @@ -463,7 +465,8 @@ void serial_test_kprobe_multi_bench_attach(void)
->  
->  void test_kprobe_multi_test(void)
->  {
-> -	if (!ASSERT_OK(load_kallsyms(), "load_kallsyms"))
-> +	ksyms = load_kallsyms();
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms"))
->  		return;
->  
->  	if (test__start_subtest("skel_api"))
-> @@ -480,4 +483,6 @@ void test_kprobe_multi_test(void)
->  		test_attach_api_syms();
->  	if (test__start_subtest("attach_api_fails"))
->  		test_attach_api_fails();
-> +
-> +	free_kallsyms(ksyms);
->  }
-> diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> index 1fbe7e4ac00a..69de53db63fd 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
-> @@ -4,6 +4,8 @@
->  #include "trace_helpers.h"
->  #include "bpf/libbpf_internal.h"
->  
-> +static struct ksyms *ksyms;
-> +
->  static void kprobe_multi_testmod_check(struct kprobe_multi *skel)
->  {
->  	ASSERT_EQ(skel->bss->kprobe_testmod_test1_result, 1, "kprobe_test1_result");
-> @@ -50,11 +52,11 @@ static void test_testmod_attach_api_addrs(void)
->  	LIBBPF_OPTS(bpf_kprobe_multi_opts, opts);
->  	unsigned long long addrs[3];
->  
-> -	addrs[0] = ksym_get_addr("bpf_testmod_fentry_test1");
-> +	addrs[0] = ksym_get_addr(ksyms, "bpf_testmod_fentry_test1");
->  	ASSERT_NEQ(addrs[0], 0, "ksym_get_addr");
-> -	addrs[1] = ksym_get_addr("bpf_testmod_fentry_test2");
-> +	addrs[1] = ksym_get_addr(ksyms, "bpf_testmod_fentry_test2");
->  	ASSERT_NEQ(addrs[1], 0, "ksym_get_addr");
-> -	addrs[2] = ksym_get_addr("bpf_testmod_fentry_test3");
-> +	addrs[2] = ksym_get_addr(ksyms, "bpf_testmod_fentry_test3");
->  	ASSERT_NEQ(addrs[2], 0, "ksym_get_addr");
->  
->  	opts.addrs = (const unsigned long *) addrs;
-> @@ -79,11 +81,14 @@ static void test_testmod_attach_api_syms(void)
->  
->  void serial_test_kprobe_multi_testmod_test(void)
->  {
-> -	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
-> +	ksyms = load_kallsyms_refresh(NULL);
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_refresh"))
->  		return;
->  
->  	if (test__start_subtest("testmod_attach_api_syms"))
->  		test_testmod_attach_api_syms();
->  	if (test__start_subtest("testmod_attach_api_addrs"))
->  		test_testmod_attach_api_addrs();
-> +
-> +	free_kallsyms(ksyms);
->  }
-> diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
-> index f83d9f65c65b..048522d2ac6e 100644
-> --- a/tools/testing/selftests/bpf/trace_helpers.c
-> +++ b/tools/testing/selftests/bpf/trace_helpers.c
-> @@ -14,99 +14,143 @@
->  #include <linux/limits.h>
->  #include <libelf.h>
->  #include <gelf.h>
-> +#include "bpf/libbpf_internal.h"
->  
->  #define TRACEFS_PIPE	"/sys/kernel/tracing/trace_pipe"
->  #define DEBUGFS_PIPE	"/sys/kernel/debug/tracing/trace_pipe"
->  
-> -#define MAX_SYMS 400000
-> -static struct ksym syms[MAX_SYMS];
-> -static int sym_cnt;
-> +struct ksyms {
-> +	struct ksym *syms;
-> +	size_t sym_cap;
-> +	size_t sym_cnt;
-> +};
-> +
-> +static int ksyms__add_symbol(struct ksyms *ksyms, const char *name,
-> +							 unsigned long addr)
-> +{
-> +	void *tmp;
-> +
-> +	tmp = strdup(name);
-> +	if (!tmp)
-> +		return -ENOMEM;
-> +	ksyms->syms[ksyms->sym_cnt].addr = addr;
-> +	ksyms->syms[ksyms->sym_cnt].name = tmp;
-> +
-> +	ksyms->sym_cnt++;
-> +
-> +	return 0;
-> +}
-> +
-> +void free_kallsyms(struct ksyms *ksyms)
-> +{
-> +	unsigned int i;
-> +
-> +	if (!ksyms)
-> +		return;
-> +
-> +	if (!ksyms->syms) {
-> +		free(ksyms);
-> +		return;
-> +	}
-> +
-> +	for (i = 0; i < ksyms->sym_cnt; i++)
-> +		free(ksyms->syms[i].name);
-> +	free(ksyms->syms);
-> +	free(ksyms);
-> +}
->  
->  static int ksym_cmp(const void *p1, const void *p2)
->  {
->  	return ((struct ksym *)p1)->addr - ((struct ksym *)p2)->addr;
->  }
->  
-> -int load_kallsyms_refresh(void)
-> +struct ksyms *load_kallsyms_refresh(struct ksyms *ksyms)
->  {
->  	FILE *f;
->  	char func[256], buf[256];
->  	char symbol;
->  	void *addr;
-> -	int i = 0;
-> +	int ret;
->  
-> -	sym_cnt = 0;
-> +	/* flush kallsyms, free the previously allocated dynamic memory */
-> +	free_kallsyms(ksyms);
->  
->  	f = fopen("/proc/kallsyms", "r");
->  	if (!f)
-> -		return -ENOENT;
-> +		return NULL;
-> +
-> +	ksyms = calloc(1, sizeof(struct ksyms));
-> +	if (!ksyms)
-> +		return NULL;
->  
->  	while (fgets(buf, sizeof(buf), f)) {
->  		if (sscanf(buf, "%p %c %s", &addr, &symbol, func) != 3)
->  			break;
->  		if (!addr)
->  			continue;
-> -		if (i >= MAX_SYMS)
-> -			return -EFBIG;
->  
-> -		syms[i].addr = (long) addr;
-> -		syms[i].name = strdup(func);
-> -		i++;
-> +		ret = libbpf_ensure_mem((void **) &ksyms->syms, &ksyms->sym_cap,
-> +					sizeof(struct ksym), ksyms->sym_cnt + 1);
-> +		if (ret)
-> +			goto error;
-> +		ret = ksyms__add_symbol(ksyms, func, (unsigned long)addr);
-> +		if (ret)
-> +			goto error;
->  	}
->  	fclose(f);
-> -	sym_cnt = i;
-> -	qsort(syms, sym_cnt, sizeof(struct ksym), ksym_cmp);
-> -	return 0;
-> +	qsort(ksyms->syms, ksyms->sym_cnt, sizeof(struct ksym), ksym_cmp);
-> +	return ksyms;
-> +
-> +error:
-> +	free_kallsyms(ksyms);
-> +	return NULL;
->  }
->  
-> -int load_kallsyms(void)
-> +struct ksyms *load_kallsyms(void)
->  {
-> -	/*
-> -	 * This is called/used from multiplace places,
-> -	 * load symbols just once.
-> -	 */
-> -	if (sym_cnt)
-> -		return 0;
-> -	return load_kallsyms_refresh();
-> +	return load_kallsyms_refresh(NULL);
->  }
->  
-> -struct ksym *ksym_search(long key)
-> +struct ksym *ksym_search(struct ksyms *ksyms, long key)
->  {
-> -	int start = 0, end = sym_cnt;
-> +	int start = 0, end = ksyms->sym_cnt;
->  	int result;
->  
-> +	if (!ksyms)
-> +		return NULL;
-> +
->  	/* kallsyms not loaded. return NULL */
-> -	if (sym_cnt <= 0)
-> +	if (ksyms->sym_cnt <= 0)
->  		return NULL;
->  
->  	while (start < end) {
->  		size_t mid = start + (end - start) / 2;
->  
-> -		result = key - syms[mid].addr;
-> +		result = key - ksyms->syms[mid].addr;
->  		if (result < 0)
->  			end = mid;
->  		else if (result > 0)
->  			start = mid + 1;
->  		else
-> -			return &syms[mid];
-> +			return &ksyms->syms[mid];
->  	}
->  
-> -	if (start >= 1 && syms[start - 1].addr < key &&
-> -	    key < syms[start].addr)
-> +	if (start >= 1 && ksyms->syms[start - 1].addr < key &&
-> +	    key < ksyms->syms[start].addr)
->  		/* valid ksym */
-> -		return &syms[start - 1];
-> +		return &ksyms->syms[start - 1];
->  
->  	/* out of range. return _stext */
-> -	return &syms[0];
-> +	return &ksyms->syms[0];
->  }
->  
-> -long ksym_get_addr(const char *name)
-> +long ksym_get_addr(struct ksyms *ksyms, const char *name)
->  {
->  	int i;
->  
-> -	for (i = 0; i < sym_cnt; i++) {
-> -		if (strcmp(syms[i].name, name) == 0)
-> -			return syms[i].addr;
-> +	for (i = 0; i < ksyms->sym_cnt; i++) {
-> +		if (strcmp(ksyms->syms[i].name, name) == 0)
-> +			return ksyms->syms[i].addr;
->  	}
->  
->  	return 0;
-> diff --git a/tools/testing/selftests/bpf/trace_helpers.h b/tools/testing/selftests/bpf/trace_helpers.h
-> index 876f3e711df6..6be64f44dd76 100644
-> --- a/tools/testing/selftests/bpf/trace_helpers.h
-> +++ b/tools/testing/selftests/bpf/trace_helpers.h
-> @@ -11,12 +11,14 @@ struct ksym {
->  	long addr;
->  	char *name;
->  };
-> +struct ksyms;
->  
-> -int load_kallsyms(void);
-> -int load_kallsyms_refresh(void);
-> +struct ksyms *load_kallsyms(void);
-> +struct ksyms *load_kallsyms_refresh(struct ksyms *ksyms);
-> +void free_kallsyms(struct ksyms *ksyms);
->  
-> -struct ksym *ksym_search(long key);
-> -long ksym_get_addr(const char *name);
-> +struct ksym *ksym_search(struct ksyms *ksyms, long key);
-> +long ksym_get_addr(struct ksyms *ksyms, const char *name);
->  
->  /* open kallsyms and find addresses on the fly, faster than load + search. */
->  int kallsyms_find(const char *sym, unsigned long long *addr);
-> -- 
-> 2.41.0
-> 
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> index b68f42795eaa..422138ef565e 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+> @@ -30,8 +30,6 @@ static void starfive_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigne
+>         unsigned long rate;
+>         int err;
+>
+> -       rate = clk_get_rate(dwmac->clk_tx);
+> -
+>         switch (speed) {
+>         case SPEED_1000:
+>                 rate = 125000000;
+> @@ -44,7 +42,7 @@ static void starfive_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigne
+>                 break;
+>         default:
+>                 dev_err(dwmac->dev, "invalid speed %u\n", speed);
+> -               break;
+> +               return;
+>         }
+>
+>         err = clk_set_rate(dwmac->clk_tx, rate);
+> --
+> 2.40.1
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
