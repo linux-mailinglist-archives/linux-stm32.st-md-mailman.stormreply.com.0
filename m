@@ -2,73 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F40F87899E8
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Aug 2023 02:18:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF205789ABD
+	for <lists+linux-stm32@lfdr.de>; Sun, 27 Aug 2023 03:05:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72F27C6B454;
-	Sun, 27 Aug 2023 00:18:08 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62516C6B455;
+	Sun, 27 Aug 2023 01:05:31 +0000 (UTC)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E497C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5A1DC6B44E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Aug 2023 00:18:07 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2bcc846fed0so31508151fa.2
+ Sun, 27 Aug 2023 01:05:29 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-2bcb50e194dso31654011fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 26 Aug 2023 17:18:07 -0700 (PDT)
+ Sat, 26 Aug 2023 18:05:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693095486; x=1693700286;
+ d=gmail.com; s=20221208; t=1693098329; x=1693703129;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=R0O9+Nd81lV61HUqL9J8WFR0wEb+50cA6S0W+jgCLe8=;
- b=c/affskxQbENShZrDrcXcKAkTEXbHsnQQKmV0Pou8bPhhXgqTFq+jOGmmDB/J9k+Z3
- Lwj8SoVltyelWC4dq4f05GgIu1Vl3mAC1moPIvkwCjrkQda++FmI0T73NwWdda9WZ4tl
- ZPUL61i4oIuWMvnAWboCGhLHW5Yiz4OTRdctRiGAv3YePFte8v7Eb0sfg1dqQeEuzE6p
- GI41iMMFHl97rHL/QlgVJZnR2W2SO8laQCgdHK0nAUme/x6tOqEILrLVU82JZDGO5H0c
- NVJNCC7/BocOfV9X13sU7FSmqaC1KEGSjvkPH9+ez455BpePqhA8J5kTYASrGoC8D72D
- 8fLQ==
+ bh=Wh08RvjtMadNV8YyJ9pJe6FtKaLPWrZmhvyrDo+tDiY=;
+ b=frkaAwktoorcXwQ2lF0D4PouETVI7MnarulLVDj54omSxdzlMT/d5DfMOCYYM3uVbD
+ KdI9s+TvWDyPw7dIGBxQjkHq8amEsK5D6wcd/fWDXsrukkSjeBQrNyOm2VTp9T0VSwJ+
+ Nt0x7ePCJhUssJBuO3t4sl1dh4pVkW6zMfTsnSs0HQbx6b3GaHoM7g2bniZScSiy4tI0
+ K6p8XVOknpAoUjjK0k9KlX0q+qwr0+74SJGoHmwm91DoZW6HcbMUFEYldPGWXUgwRQRa
+ E1MuX5EziEJ+DoI79D+uLfeneuyCPvneGiyQZ+U7ZJF7t4HKF+KvRtFkpzn4m9FPVAC2
+ eC4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693095486; x=1693700286;
+ d=1e100.net; s=20221208; t=1693098329; x=1693703129;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R0O9+Nd81lV61HUqL9J8WFR0wEb+50cA6S0W+jgCLe8=;
- b=Vir/6SPJ5nc9IfmYDNZRPjJLRBPFhJ0M8+sIfu+Gn9KprsqHl2XbJ4sQvvQA+jyVBA
- R6k7eyKIAZKzW49USellw6Dbng4g6IjMGdz1VAbnSta7plrO0h5E67n4OMmE6Zunrheh
- vybaK+QbCAtYIDv4P2R5dNNywhNWwr5nxRS+yK1eHvHzhAGOB+U+L0KbVcdUcVpOoxOn
- bAJZ9v3VGBzgV+wE9P1/0OklnV3/+EV871HtU4WopJ59kMJiTASqKQUSq4GZJIxruiUn
- bbWsP7ZF95kTn6MGAahMzU/gBcghZPEWS5qFF22dSiLpftSUtjf0xydpPLnUKlV1MXuM
- 7//Q==
-X-Gm-Message-State: AOJu0YxQD4IWxbV0AJ5MVNGwOunDotniVM7a2OnK9BYVzEUbsdTSy7hX
- GWQk6mzQxv6y+m9lO19Kr3c=
-X-Google-Smtp-Source: AGHT+IETf2PT2oT9j6J9nHb3QF2V2wh+kc6yhG5eIffZAbTs9nY9WVTgxgZMkeph09QnN5G5PyYhHw==
-X-Received: by 2002:a2e:3c0e:0:b0:2b6:3651:f12f with SMTP id
- j14-20020a2e3c0e000000b002b63651f12fmr17021462lja.3.1693095486177; 
- Sat, 26 Aug 2023 17:18:06 -0700 (PDT)
+ bh=Wh08RvjtMadNV8YyJ9pJe6FtKaLPWrZmhvyrDo+tDiY=;
+ b=L5aBGxjoq3kbwV5Ses8DWdw/pFh/t49Iw0rau6i8XGoKX967dzApoORgWPay5LJZ4G
+ CJiOef1yQOh189keQetyLqbnh9ffMHhUb5UabW3mVNxZ6//BpI81kwx5Mx/gN64c6jUX
+ X+xYvVYn0n8kX4g4EJr/gvVRM/+8RFR71z36QjnBeBk8h3/K2molP5xzDabaK35XeaHr
+ NPJeZrSoXT2lXI84P+/MoIGtHyZ7ISTSJSuSUnG1/U+g3nU9a77ZPDhNqTL0OuOGlBv9
+ Tjpvcli1SC7Aqi/uTCLOf9b3CAX4/LeKlgeT/isr7/dzp1ptptpFnKTQ9sSgaBRI9RgY
+ rchw==
+X-Gm-Message-State: AOJu0Yxq/VJiPnY2lXQwxF4onnkkGOdAQozSRQkBn3RQ1ekNDp7llcvo
+ kEPBFCwakIgpCHt1x/uqfTI=
+X-Google-Smtp-Source: AGHT+IH0UZuuaxknJzE6dFxZoiFGxR4nMxrJELQhqMeeO4NGfTXq2f+Ep7uv2zM0/BtVTCJzV2giSg==
+X-Received: by 2002:a2e:9699:0:b0:2bc:d6d8:fd35 with SMTP id
+ q25-20020a2e9699000000b002bcd6d8fd35mr10569761lji.47.1693098328914; 
+ Sat, 26 Aug 2023 18:05:28 -0700 (PDT)
 Received: from mobilestation ([95.79.200.178])
  by smtp.gmail.com with ESMTPSA id
- x1-20020a05651c104100b002bcd2653872sm1015042ljm.30.2023.08.26.17.18.04
+ e25-20020a2e8199000000b002b702dfb510sm1000375ljg.39.2023.08.26.18.05.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 26 Aug 2023 17:18:05 -0700 (PDT)
-Date: Sun, 27 Aug 2023 03:18:03 +0300
+ Sat, 26 Aug 2023 18:05:28 -0700 (PDT)
+Date: Sun, 27 Aug 2023 04:05:26 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Message-ID: <stdtvjzyaudpnxoj4pxdqw4okrmq2bkmbefvyapbs2racx4dhv@of5t463f4nm5>
-References: <l7yajzhpuotn62pjkxk43qtcn3u4zltpyqcvo224737bjg3eab@bzu6pirxbvh2>
- <20230823171004.6825-1-rohan.g.thomas@intel.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <q325fnweuebsmjrsfi3xfnttetgjmjsssvlscgq6lftg6acjsh@zkku2kmtpbmk>
+References: <ZOXmWLB4TKGKvkiE@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230823171004.6825-1-rohan.g.thomas@intel.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, conor.dooley@microchip.com,
- linux-stm32@st-md-mailman.stormreply.com, robh+dt@kernel.org,
- linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
- krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v5 1/2] dt-bindings: net: snps,
- dwmac: Tx queues with coe
+In-Reply-To: <ZOXmWLB4TKGKvkiE@shell.armlinux.org.uk>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] Synopsys XGMII MAC and USXGMII interfaces
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,81 +87,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 24, 2023 at 01:10:04AM +0800, Rohan G Thomas wrote:
-> >On Tue, Aug 22, 2023 at 05:15:25PM -0700, Jakub Kicinski wrote:
-> >> On Sat, 19 Aug 2023 10:31:31 +0800 Rohan G Thomas wrote:
-> >> > +      snps,tx-queues-with-coe:
-> >> > +        $ref: /schemas/types.yaml#/definitions/uint32
-> >> > +        description: number of TX queues that support TX checksum offloading
-> >> 
-> >
-> >> Is it going to be obvious that if not present all queues support
-> >> checksum offload? I think we should document the default.
-> >
-> >This question is debatable:
-> >1. By default the DW xGMAC and DW QoS Eth IP-cores are
-> >synthesized with only the very first Tx queue having Tx COE enabled.
-> >2. If TSO is disabled then the Tx COE can be individually enabled
-> >for each queue available on DW QoS Eth controller and for the very
-> >first N queues on DW xGMAC controller.
-> >3. If TSO is enabled then the Tx COE will be automatically and always
-> >enabled for as many first queues as there are TSO-capable
-> >DMA-channels.
-> >4. At the current state the STMMAC driver assumes that all Tx Queues
-> >support Tx COE.
-> >
-> >The entry 4 can't be changed since we'll risk to catch regressions on
-> >the platforms with no property specified. On the other hand it partly
-> >contradicts to the rest of the entries. I don't know what would be a
-> >correct way to specify the default value in this case. Most likely
-> >just keep the entry 4 and be done with it.
-> >
-> >BTW I just noticed that but the suggested "snps,tx-queues-with-coe"
-> >property semantic will only cover a DW XGMAC-part of the case 2. DW
-> >QoS Eth can be synthesized with Tx COE individually enabled for a
-> >particular queue if TSO is unavailable.
+On Wed, Aug 23, 2023 at 11:58:32AM +0100, Russell King (Oracle) wrote:
+> Part 2 of the discussion...
 > 
-> Hi Serge,
-> 
-> Didn't know about a different IP configuration supported by DW QoS Eth IP. If
-> this is the case, I think we can have a flag 'coe-unsupported' for any TX
-> queue subnode as below.
-> 
-> +          snps,coe-unsupported:
+> A similar issue applies to PHY_INTERFACE_MODE_USXGMII, but is reversed.
+> USXGMII supports 10M, 100M, 1G, 2.5G, 5G and 10G. Phylink allows all of
+> these because that's what the appropriate standard says. dwxgmac2
+> initialises config register settings for speeds from 10M up to 10G.
+> However, the PHY_INTERFACE_MODE_USXGMII switch() block in
+> stmmac_mac_link_up() only handles 2.5G, 5G and 10G. Shouldn't it handle
+> the other speed cases - it looks like the MAC does support them.
 
-> +            $ref: /schemas/types.yaml#/definitions/flag
-
-AFAIR tKrzysztof preferred to use type: boolean for the flags.
-
-> +            description:
-> +              TX checksum offload is unsupported by the TX queue. 
-
-> +              If TX checksum
-> +              offload is requested for a packet to be transmitted through this
-> +              TX queue then have a software fallback in the driver for checksum
-> +              calculation.
-
-This is redundant in the HW description.
+AFAICS yes, it should.
 
 > 
+> The initialisation done by dwxgmac2_setup() does setup control register
+> masks for everything from 10M to 10G, so on the face of it, it looks
+> like a mistake in stmmac_mac_link_up().
 
-> If this is okay, I can rework the patch based on this. Covers both DW QoS Eth IP
-> and DW XGMAC IP cases.
+Right.
 
-I guess that's the only choice we have seeing the driver already
-expects all the Tx queues having the COE supported.
+> 
+> If it's something outside of the MAC that doesn't support these speeds
+> when operating as USXGMII, then that needs to be handled.
+
+Based on what USXGMII is mentioned on just a single Synopsys PCS/PHY
+page on the Synopsys site I guess that DW XGMAC doesn't know anything
+about the USXGMII interface. As I explained in my comment to part 1 it
+just exposes a multi-protocol port(s) capable of working as XGMII,
+GMII or MII. Then XPCS consumes/supplies the data from/to the
+activated interface and performs a respective data encoding/decoding.
+On the lowest level DW PMA/PHY does the serdes-ing. See the brief
+description on the Synopsys 10G PHY page (on the "Downloads and
+Documentation" menu):
+https://www.synopsys.com/dw/ipdir.php?ds=dwc_multi_protocol_10g_phy
+it has two layers:
+- Multi-protocol PCS
+- Multi-protocol PHY
+both are designed to provide USXGMII and SGMII interfaces. 
+
+> 
+> The other weird thing is that when using PHY_INTERFACE_MODE_USXGMII
+> with XPCS, XPCS supports 1G, 2.5G and 10G ethtool link modes, but not
+> 5G. So combining the implementation in stmmac_mac_link_up(), that
+> means only 2.5G and 10G can actually be functional. Is that a fair
+> assessment of the USXGMII situation with stmmac?
+
+AFAICS assessment seems quite fair. If USXGMII is an external
+interface then these ethtool link modes are just irrelevant. Despite
+of the XLGMII case I don't just see of how USXGMII mode could be used
+as an internal MAC-PCS. Since it's an external interface then the
+actual link modes are supposed to be retrieved from an external PHY.
+Seeing STMMAC driver doesn't support an external PHY attached if XPCS
+performs C73 auto-negotiation, then the xpcs_usxgmii_features array
+should have been filled with all the USXGMII-speed-compatible link
+modes.
 
 -Serge(y)
 
 > 
-> >
-> >-Serge(y)
-> >
-> >> -- 
-> >> pw-bot: cr
+> Thanks.
 > 
-> BR,
-> Rohan
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
