@@ -2,57 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2056E78A0B9
-	for <lists+linux-stm32@lfdr.de>; Sun, 27 Aug 2023 19:57:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC4178A488
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Aug 2023 04:15:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEF82C6A613;
-	Sun, 27 Aug 2023 17:57:33 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46B73C65E58;
+	Mon, 28 Aug 2023 02:15:07 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1691DC65E58
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6395C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Aug 2023 17:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3bcqGb8c9MJdTQ6tWNLuuoF9D7rQzI8cfAXINlj2RDI=; b=XXdQMLUmFZOx4/OSGyjOKjkXQO
- 6NMQdjFHsIPxoVX1hyRgrdHuXR63gKElQ/cNdJIl2uZ3gy5+NGINuxF7oWPDqxBA9ThHOW+f3osK7
- p+fDlQ90EEK5mC2Z0A9LTYzcEvDFtEWGrAEELsbthQkpWFt5pbHF6I79rRBECnHF5zE6WfQFZxTxe
- SNGGsfVnpxQ8IzqYH+8qz4BvRZq4a1jv/K2SiW2oxuazQccAMje6MBWTRnsnR2pwmUP9y5sj1s0qT
- eUwkURqWTczX0h8KVf+nROL0UQy/zYNAMEcVjXJOPYf2Q07tNq47i/ekqDZG8/uE+Ci8IsnFrinC1
- vlLHV+KQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51984)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qaK0f-00076U-35;
- Sun, 27 Aug 2023 18:57:14 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qaK0c-0002it-AX; Sun, 27 Aug 2023 18:57:10 +0100
-Date: Sun, 27 Aug 2023 18:57:10 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Emil Renner Berthing <kernel@esmil.dk>
-Message-ID: <ZOuOdt2/y5mKuuv0@shell.armlinux.org.uk>
-References: <20230827134150.2918-1-jszhang@kernel.org>
- <20230827134150.2918-3-jszhang@kernel.org>
- <CANBLGcwFW_Y4PC1hxJ7OQN-h025e5wwoCNwnk8OXh3ALFQPcXg@mail.gmail.com>
+ Mon, 28 Aug 2023 02:15:04 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2690803a368so655199a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 27 Aug 2023 19:15:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1693188903; x=1693793703;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ue+CxuSDtyTYvwjrZI51+SYlIrMgm3DrcfChgWaBaBo=;
+ b=nu5VR2Q+m1SzatCfC+hiOx+NVGpmEIkwaZr1G/mduu1Y5LvTzOcLCKxska7gXWnhLb
+ mltuXuK3HtTBiIvy0jvowUXvuZpQximHM/OwQniwyH665wS4zqUSpbaFaA2GBjeecPQ2
+ oJIRT2Ao3/Mow+d1AgW9QRImffrecJpH4dTPrdEDC67yFngsLtriWe37E4aIw6Jhhevw
+ jBAn3x0DsZjYleT5Rx+rO+duCAbQicDoA4oITqZAUBuvjoa/2DGb2DJLwxQmyr3iwevm
+ ZQl5NVWt2AzX9odPmBNw+z15Atk8uLtgGZxBADSxKzZdSuojpY99u5M+9Hg//zWZTfxg
+ 3A8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693188903; x=1693793703;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ue+CxuSDtyTYvwjrZI51+SYlIrMgm3DrcfChgWaBaBo=;
+ b=bPaatyOrloTklFr8wzn9mC4IW6U4oe1IvMZ8MOiSh2BDxFRomOP5CuzOmWGUtycMuh
+ 7YvnXvshn7oTC5VpRpwdl+tVcjPOVsjRReNawQviyGhOeUrXFl0vSvZ/ylAkn/aZGVw+
+ 6KKfm5JyKJn8iWX/jGtJ726ss860vNp2LVa/MeDasv0URUOvCtI6ojlT2nAI/Yj4liJQ
+ AXBT7mfEibL0+4e7WrHZEKm1m1AwlT+dYmhrK2IS0dP4RwJARwsKXjUq2HQQHwTvAT42
+ jAoW9umwkJN/3xq0ZfvsIoHzvtKaWDHYEAe6KnPpBnkIfsPKWc8FSSrLnAJK4n4Q+YvX
+ T0uA==
+X-Gm-Message-State: AOJu0YwZlq3MTnvbteSukOkglz6Bv5KYd/HU9gfVtGAGhTJXZTaBymPy
+ 9M7pqSWsVq8dMIGKZkssP8M=
+X-Google-Smtp-Source: AGHT+IHN8Fl8NxVm4qZhrKUgyN/xyGKFzRASfTqOLe7L6wZHAG3dfs74EByha7PmEEiqFWQ/Y/1/3w==
+X-Received: by 2002:a05:6a00:2d88:b0:68b:68de:5848 with SMTP id
+ fb8-20020a056a002d8800b0068b68de5848mr17170824pfb.3.1693188903353; 
+ Sun, 27 Aug 2023 19:15:03 -0700 (PDT)
+Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
+ by smtp.gmail.com with ESMTPSA id
+ bm2-20020a056a00320200b00687196f369esm5520055pfb.62.2023.08.27.19.15.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 27 Aug 2023 19:15:02 -0700 (PDT)
+Date: Sun, 27 Aug 2023 19:15:00 -0700
+From: Richard Cochran <richardcochran@gmail.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Message-ID: <ZOwDJB5cFEPGEoPk@hoboy.vegasvil.org>
+References: <20230824-stmmac-subsecond-inc-cleanup-v1-0-e0b9f7c18b37@redhat.com>
+ <20230824-stmmac-subsecond-inc-cleanup-v1-7-e0b9f7c18b37@redhat.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CANBLGcwFW_Y4PC1hxJ7OQN-h025e5wwoCNwnk8OXh3ALFQPcXg@mail.gmail.com>
-Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Samin Guo <samin.guo@starfivetech.com>, Jisheng Zhang <jszhang@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-starfive:
- remove unnecessary clk_get_rate()
+In-Reply-To: <20230824-stmmac-subsecond-inc-cleanup-v1-7-e0b9f7c18b37@redhat.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 7/7] net: stmmac: Make PTP
+ reference clock references more clear
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,29 +84,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sun, Aug 27, 2023 at 07:33:10PM +0200, Emil Renner Berthing wrote:
-> On Sun, 27 Aug 2023 at 15:53, Jisheng Zhang <jszhang@kernel.org> wrote:
-> >
-> > In starfive_dwmac_fix_mac_speed(), the rate gotten by clk_get_rate()
-> > is not necessary, remove the clk_get_rate() calling.
-> 
-> Thanks. I suggested this change during the initial review, but someone
-> wanted the code as it is. I must admit I don't understand why, so
-> Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+On Thu, Aug 24, 2023 at 01:32:58PM -0500, Andrew Halaney wrote:
 
-The code in starfive_dwmac_fix_mac_speed() is a repeated pattern amongst
-many drivers, and having each platform driver re-implement this is not
-sane. Those who know me will know that I have a patch that cleans this
-all up - moving basically the guts of this to a library function which
-platform drivers can make use of.
+> @@ -34,14 +34,14 @@ static void config_sub_second_increment(void __iomem *ioaddr,
+>  	 * increment to twice the number of nanoseconds of a clock cycle.
+>  	 * The calculation of the default_addend value by the caller will set it
+>  	 * to mid-range = 2^31 when the remainder of this division is zero,
+> -	 * which will make the accumulator overflow once every 2 ptp_clock
+> +	 * which will make the accumulator overflow once every 2 clk_ptp_rate
+>  	 * cycles, adding twice the number of nanoseconds of a clock cycle :
+> -	 * 2 * NSEC_PER_SEC / ptp_clock.
+> +	 * 2 * NSEC_PER_SEC / clk_ptp_rate.
+>  	 */
 
-It's not like the clock rates are somehow special - they're standard for
-10M/100M/1G speeds on a GMII-family interface, and the 10M/100M also
-share the clock rates with MII.
+This part of the driver is complete garbage.  But that isn't your fault.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Richard
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
