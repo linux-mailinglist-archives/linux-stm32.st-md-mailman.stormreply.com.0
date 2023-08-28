@@ -2,72 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC4178A488
-	for <lists+linux-stm32@lfdr.de>; Mon, 28 Aug 2023 04:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3B778A5E4
+	for <lists+linux-stm32@lfdr.de>; Mon, 28 Aug 2023 08:43:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46B73C65E58;
-	Mon, 28 Aug 2023 02:15:07 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67B41C6B444;
+	Mon, 28 Aug 2023 06:43:16 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6395C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93DA8C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 28 Aug 2023 02:15:04 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-2690803a368so655199a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 27 Aug 2023 19:15:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693188903; x=1693793703;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ue+CxuSDtyTYvwjrZI51+SYlIrMgm3DrcfChgWaBaBo=;
- b=nu5VR2Q+m1SzatCfC+hiOx+NVGpmEIkwaZr1G/mduu1Y5LvTzOcLCKxska7gXWnhLb
- mltuXuK3HtTBiIvy0jvowUXvuZpQximHM/OwQniwyH665wS4zqUSpbaFaA2GBjeecPQ2
- oJIRT2Ao3/Mow+d1AgW9QRImffrecJpH4dTPrdEDC67yFngsLtriWe37E4aIw6Jhhevw
- jBAn3x0DsZjYleT5Rx+rO+duCAbQicDoA4oITqZAUBuvjoa/2DGb2DJLwxQmyr3iwevm
- ZQl5NVWt2AzX9odPmBNw+z15Atk8uLtgGZxBADSxKzZdSuojpY99u5M+9Hg//zWZTfxg
- 3A8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693188903; x=1693793703;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ue+CxuSDtyTYvwjrZI51+SYlIrMgm3DrcfChgWaBaBo=;
- b=bPaatyOrloTklFr8wzn9mC4IW6U4oe1IvMZ8MOiSh2BDxFRomOP5CuzOmWGUtycMuh
- 7YvnXvshn7oTC5VpRpwdl+tVcjPOVsjRReNawQviyGhOeUrXFl0vSvZ/ylAkn/aZGVw+
- 6KKfm5JyKJn8iWX/jGtJ726ss860vNp2LVa/MeDasv0URUOvCtI6ojlT2nAI/Yj4liJQ
- AXBT7mfEibL0+4e7WrHZEKm1m1AwlT+dYmhrK2IS0dP4RwJARwsKXjUq2HQQHwTvAT42
- jAoW9umwkJN/3xq0ZfvsIoHzvtKaWDHYEAe6KnPpBnkIfsPKWc8FSSrLnAJK4n4Q+YvX
- T0uA==
-X-Gm-Message-State: AOJu0YwZlq3MTnvbteSukOkglz6Bv5KYd/HU9gfVtGAGhTJXZTaBymPy
- 9M7pqSWsVq8dMIGKZkssP8M=
-X-Google-Smtp-Source: AGHT+IHN8Fl8NxVm4qZhrKUgyN/xyGKFzRASfTqOLe7L6wZHAG3dfs74EByha7PmEEiqFWQ/Y/1/3w==
-X-Received: by 2002:a05:6a00:2d88:b0:68b:68de:5848 with SMTP id
- fb8-20020a056a002d8800b0068b68de5848mr17170824pfb.3.1693188903353; 
- Sun, 27 Aug 2023 19:15:03 -0700 (PDT)
-Received: from hoboy.vegasvil.org ([2601:640:8000:54:e2d5:5eff:fea5:802f])
- by smtp.gmail.com with ESMTPSA id
- bm2-20020a056a00320200b00687196f369esm5520055pfb.62.2023.08.27.19.15.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Aug 2023 19:15:02 -0700 (PDT)
-Date: Sun, 27 Aug 2023 19:15:00 -0700
-From: Richard Cochran <richardcochran@gmail.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <ZOwDJB5cFEPGEoPk@hoboy.vegasvil.org>
-References: <20230824-stmmac-subsecond-inc-cleanup-v1-0-e0b9f7c18b37@redhat.com>
- <20230824-stmmac-subsecond-inc-cleanup-v1-7-e0b9f7c18b37@redhat.com>
+ Mon, 28 Aug 2023 06:43:14 +0000 (UTC)
+Received: from kwepemm600013.china.huawei.com (unknown [172.30.72.57])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RZ1B22c9GzhZGk;
+ Mon, 28 Aug 2023 14:39:22 +0800 (CST)
+Received: from huawei.com (10.175.104.67) by kwepemm600013.china.huawei.com
+ (7.193.23.68) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.31; Mon, 28 Aug
+ 2023 14:43:10 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <richard@nod.at>, <miquel.raynal@bootlin.com>, <vigneshr@ti.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
+Date: Mon, 28 Aug 2023 14:38:33 +0800
+Message-ID: <20230828063845.3142561-1-chengzhihao1@huawei.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230824-stmmac-subsecond-inc-cleanup-v1-7-e0b9f7c18b37@redhat.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 7/7] net: stmmac: Make PTP
- reference clock references more clear
+X-Originating-IP: [10.175.104.67]
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
+ kwepemm600013.china.huawei.com (7.193.23.68)
+X-CFilter-Loop: Reflected
+Cc: bagasdotme@gmail.com, linux-mtd@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 00/12] ubi: fastmap: Fix a series of wear
+	leveling problems
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,22 +51,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Aug 24, 2023 at 01:32:58PM -0500, Andrew Halaney wrote:
+This series of patches fix three problems:
+1. Inconsistent erase counter from wl entry and disk, for patches 1~4.
+2. Same PEB is always resued for fastmap data, for patches 5~9.
+3. First 64 PEBs have large erase counter than others, for patches 10~12.
 
-> @@ -34,14 +34,14 @@ static void config_sub_second_increment(void __iomem *ioaddr,
->  	 * increment to twice the number of nanoseconds of a clock cycle.
->  	 * The calculation of the default_addend value by the caller will set it
->  	 * to mid-range = 2^31 when the remainder of this division is zero,
-> -	 * which will make the accumulator overflow once every 2 ptp_clock
-> +	 * which will make the accumulator overflow once every 2 clk_ptp_rate
->  	 * cycles, adding twice the number of nanoseconds of a clock cycle :
-> -	 * 2 * NSEC_PER_SEC / ptp_clock.
-> +	 * 2 * NSEC_PER_SEC / clk_ptp_rate.
->  	 */
+Besides, patches 4/5 bring an improvement of the UBI service life.
 
-This part of the driver is complete garbage.  But that isn't your fault.
+Regression tests are in [Link].
 
-Richard
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=217787.
+
+v1->v2:
+  Patch 6: Change wait condition in wait_free_pebs_for_pool(), there are
+	   two situations that cause waiting infinately:
+	   1. __erase_worker schedules itself if -EBUSY returned when
+	      shutting down system.
+	   2. The 'min_expect_free' cannot be satisfied when bad block
+	      occurs and ubi becomes ro(The erased PEB should be the
+              last one of 'min_expect_free', but it becomes bad in
+	      __erase_worker).
+ PS: After re-testing, the testing results in [Link] is not affected.
+
+
+Zhihao Cheng (12):
+  ubi: fastmap: Fix missed ec updating after erasing old fastmap data
+    block
+  ubi: fastmap: erase_block: Get erase counter from wl_entry rather than
+    flash
+  ubi: fastmap: Allocate memory with GFP_NOFS in ubi_update_fastmap
+  ubi: Replace erase_block() with sync_erase()
+  ubi: fastmap: Use free pebs reserved for bad block handling
+  ubi: fastmap: Wait until there are enough free PEBs before filling
+    pools
+  ubi: fastmap: Remove unneeded break condition while filling pools
+  ubi: fastmap: may_reserve_for_fm: Don't reserve PEB if fm_anchor
+    exists
+  ubi: fastmap: Get wl PEB even ec beyonds the 'max' if free PEBs are
+    run out
+  ubi: fastmap: Fix lapsed wear leveling for first 64 PEBs
+  ubi: fastmap: Add module parameter to control reserving filling pool
+    PEBs
+  ubi: fastmap: Add control in 'UBI_IOCATT' ioctl to reserve PEBs for
+    filling pools
+
+ drivers/mtd/ubi/build.c      |  25 +++++++-
+ drivers/mtd/ubi/cdev.c       |   3 +-
+ drivers/mtd/ubi/eba.c        |   3 -
+ drivers/mtd/ubi/fastmap-wl.c | 112 +++++++++++++++++++++++++++--------
+ drivers/mtd/ubi/fastmap.c    |  66 +++------------------
+ drivers/mtd/ubi/ubi.h        |  10 +++-
+ drivers/mtd/ubi/wl.c         |  48 +++++++++------
+ drivers/mtd/ubi/wl.h         |   6 +-
+ include/uapi/mtd/ubi-user.h  |   4 +-
+ 9 files changed, 164 insertions(+), 113 deletions(-)
+
+-- 
+2.39.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
