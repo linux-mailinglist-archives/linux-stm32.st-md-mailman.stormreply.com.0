@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E443978C64A
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 15:41:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C91BB78C648
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 15:41:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A838AC6A613;
-	Tue, 29 Aug 2023 13:41:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B0E8C6A61D;
+	Tue, 29 Aug 2023 13:41:10 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88BC4C6A60C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E80B1C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Aug 2023 13:41:12 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Tue, 29 Aug 2023 13:41:08 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37TBwku8022670; Tue, 29 Aug 2023 15:40:57 +0200
+ 37TBrQKU019514; Tue, 29 Aug 2023 15:40:58 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=cjpw0qMq1w37JRDndUFptdySW5NdRruZOLIYm1872aA=; b=sO
- iabn6zFkWNuNYqYku/H7W0x2xXHoWpzWtEBlSqBI2B+AHZzveUP3ck8Ljj8pdetl
- crMUbtvpz+9u2GSH/+vCzUNFjuiLsnJUxCtuRXG/jnY0gjx9AvxeaofXfEj+i39s
- +awzKc8eky0mgzmxR0KtQqhJVg73Ehb45dKK2s7Ne3JEwdhtBSbx9LJdoSHdFOyl
- Cpp8GT5bJaqvPS6cIpObFjLD8f5DvYfiIamm6ZsTR2yAeze2QcPS4+uxb/eh9bRB
- p7Okon5Ntdspf2rejeTkW1+7uNcvjLyylEX+BbOzJQ6aDyLt8X4H+anfknE/F6sP
- 1N0VJ+Y3/WziGBFuxwOg==
+ selector1; bh=PwB5UAXoCWyBxCXABWMO2FWSZwa0SK8ik9JE6Z0KgzY=; b=mR
+ XwklBzu1lZv2pXDoprQzD52F3B1S7lXai4jSBGk9L/tSnxtmFJZrh5d1qToeUFzF
+ JIKR68O5hK5O4y4E+nPz0VFdT9XyBBgM8rTwT7+ENWRAc6sfvJ4bNOHWVF7NjWiL
+ Cro+J8Osro0ojOWAE8pYaFZ8V8yx6+tI0FisHi93g1Ms4g9XVL0loPcR/r2mIMBy
+ HMK+7briU+7vs3GCUBTvITLA4HSssOhjeOlqjSshzuGd3SpYALtIWWCdKs5CTfHw
+ B+NxPqxUaQn44cG3n+QxecZrzwp/HFbfs0TshkPAIB7gwaO8tZqxbvq5YGU+qsOD
+ z5VXygz6RGA7blPf3EmA==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq8qwc3jc-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq6tfmchm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Aug 2023 15:40:57 +0200 (MEST)
+ Tue, 29 Aug 2023 15:40:58 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E10D1100057;
- Tue, 29 Aug 2023 15:40:56 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AD7B910005E;
+ Tue, 29 Aug 2023 15:40:57 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D59DD2207DB;
- Tue, 29 Aug 2023 15:40:56 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A4DB82207DB;
+ Tue, 29 Aug 2023 15:40:57 +0200 (CEST)
 Received: from localhost (10.201.22.39) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 29 Aug
- 2023 15:40:56 +0200
+ 2023 15:40:57 +0200
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <william.gray@linaro.org>, <lee@kernel.org>
-Date: Tue, 29 Aug 2023 15:40:24 +0200
-Message-ID: <20230829134029.2402868-4-fabrice.gasnier@foss.st.com>
+Date: Tue, 29 Aug 2023 15:40:25 +0200
+Message-ID: <20230829134029.2402868-5-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
 References: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
@@ -57,8 +57,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2023-08-29_10,2023-08-29_01,2023-05-22_02
 Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/8] tools/counter: add a flexible watch
-	events tool
+Subject: [Linux-stm32] [PATCH 4/8] mfd: stm32-timers: add support for
+	interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,416 +75,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This adds a new counter tool to be able to test various watch events.
-A flexible watch array can be populated from command line, each field
-may be tuned with a dedicated command line argument.
-Each argument can be repeated several times: each time it gets repeated,
-a corresponding new watch element is allocated.
-
-It also comes with a simple default watch (to monitor overflows), used
-when no watch parameters are provided.
-
-The print_usage() routine proposes another example, from the command line,
-which generates a 2 elements watch array, to monitor:
-- overflow events
-- capture events, on channel 3, that reads read captured data by
-  specifying the component id (capture3_component_id being 7 here).
+There are two types of STM32 timers that may have:
+- a global interrupt line
+- 4 dedicated interrupt lines.
+Those interrupts are optional as defined in the dt-bindings. Enforce checks
+on either one, four or no interrupts are provided with their names.
+Optionally get them here, to be used by child devices.
 
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
- tools/counter/Build                  |   1 +
- tools/counter/Makefile               |   8 +-
- tools/counter/counter_watch_events.c | 348 +++++++++++++++++++++++++++
- 3 files changed, 356 insertions(+), 1 deletion(-)
- create mode 100644 tools/counter/counter_watch_events.c
+ drivers/mfd/stm32-timers.c       | 46 ++++++++++++++++++++++++++++++++
+ include/linux/mfd/stm32-timers.h | 11 ++++++++
+ 2 files changed, 57 insertions(+)
 
-diff --git a/tools/counter/Build b/tools/counter/Build
-index 33f4a51d715e..4bbadb7ec93a 100644
---- a/tools/counter/Build
-+++ b/tools/counter/Build
-@@ -1 +1,2 @@
- counter_example-y += counter_example.o
-+counter_watch_events-y += counter_watch_events.o
-diff --git a/tools/counter/Makefile b/tools/counter/Makefile
-index b2c2946f44c9..00e211edd768 100644
---- a/tools/counter/Makefile
-+++ b/tools/counter/Makefile
-@@ -14,7 +14,7 @@ MAKEFLAGS += -r
+diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
+index 44ed2fce0319..51fb97bdab9c 100644
+--- a/drivers/mfd/stm32-timers.c
++++ b/drivers/mfd/stm32-timers.c
+@@ -214,6 +214,48 @@ static void stm32_timers_dma_remove(struct device *dev,
+ 			dma_release_channel(ddata->dma.chans[i]);
+ }
  
- override CFLAGS += -O2 -Wall -g -D_GNU_SOURCE -I$(OUTPUT)include
- 
--ALL_TARGETS := counter_example
-+ALL_TARGETS := counter_example counter_watch_events
- ALL_PROGRAMS := $(patsubst %,$(OUTPUT)%,$(ALL_TARGETS))
- 
- all: $(ALL_PROGRAMS)
-@@ -31,6 +31,12 @@ $(OUTPUT)include/linux/counter.h: ../../include/uapi/linux/counter.h
- 
- prepare: $(OUTPUT)include/linux/counter.h
- 
-+COUNTER_WATCH_EVENTS := $(OUTPUT)counter_watch_events.o
-+$(COUNTER_WATCH_EVENTS): prepare FORCE
-+	$(Q)$(MAKE) $(build)=counter_watch_events
-+$(OUTPUT)counter_watch_events: $(COUNTER_WATCH_EVENTS)
-+	$(QUIET_LINK)$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@
-+
- COUNTER_EXAMPLE := $(OUTPUT)counter_example.o
- $(COUNTER_EXAMPLE): prepare FORCE
- 	$(Q)$(MAKE) $(build)=counter_example
-diff --git a/tools/counter/counter_watch_events.c b/tools/counter/counter_watch_events.c
-new file mode 100644
-index 000000000000..7f73a1519d8e
---- /dev/null
-+++ b/tools/counter/counter_watch_events.c
-@@ -0,0 +1,348 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Counter - Test various watch events in a userspace application
-+ * inspired by counter_example.c
-+ */
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <getopt.h>
-+#include <linux/counter.h>
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <unistd.h>
-+
-+#define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
-+
-+static struct counter_watch simple_watch[] = {
-+	{
-+		/* Component data: Count 0 count */
-+		.component.type = COUNTER_COMPONENT_COUNT,
-+		.component.scope = COUNTER_SCOPE_COUNT,
-+		.component.parent = 0,
-+		/* Event type: Index */
-+		.event = COUNTER_EVENT_OVERFLOW_UNDERFLOW,
-+		/* Device event channel 0 */
-+		.channel = 0,
-+	},
++static const char * const stm32_timers_irq_name[STM32_TIMERS_MAX_IRQS] = {
++	"brk", "up", "trg-com", "cc"
 +};
 +
-+static int find_match_or_number_from_array(char *arg, const char * const str[], int sz, __u8 *val)
++static int stm32_timers_irq_probe(struct platform_device *pdev,
++				  struct stm32_timers *ddata)
 +{
-+	unsigned int i;
-+	char *dummy;
-+	unsigned long idx;
-+	int ret;
++	int i, ret;
 +
-+	for (i = 0; i < sz; i++) {
-+		ret = strncmp(arg, str[i], strlen(str[i]));
-+		if (!ret && strlen(str[i]) == strlen(arg)) {
-+			*val = i;
-+			return 0;
-+		}
-+	}
-+
-+	/* fallback to number */
-+	idx = strtoul(optarg, &dummy, 10);
-+	if (!errno) {
-+		if (idx >= sz)
-+			return -EINVAL;
-+		*val = idx;
++	/*
++	 * STM32 Timer may have either:
++	 * - a unique global interrupt line
++	 * - four dedicated interrupt lines that may be handled separately.
++	 * Optionally get them here, to be used by child devices.
++	 */
++	ret = platform_get_irq_byname_optional(pdev, "global");
++	if (ret < 0 && ret != -ENXIO) {
++		return ret;
++	} else if (ret != -ENXIO) {
++		ddata->irq[STM32_TIMERS_IRQ_GLOBAL_BRK] = ret;
++		ddata->nr_irqs = 1;
 +		return 0;
 +	}
 +
-+	return -errno;
-+}
-+
-+static const char * const counter_event_type_name[] = {
-+	"COUNTER_EVENT_OVERFLOW",
-+	"COUNTER_EVENT_UNDERFLOW",
-+	"COUNTER_EVENT_OVERFLOW_UNDERFLOW",
-+	"COUNTER_EVENT_THRESHOLD",
-+	"COUNTER_EVENT_INDEX",
-+	"COUNTER_EVENT_CHANGE_OF_STATE",
-+	"COUNTER_EVENT_CAPTURE",
-+};
-+
-+static int counter_arg_to_event_type(char *arg, __u8 *event)
-+{
-+	return find_match_or_number_from_array(arg, counter_event_type_name,
-+					       ARRAY_SIZE(counter_event_type_name), event);
-+}
-+
-+static const char * const counter_component_type_name[] = {
-+	"COUNTER_COMPONENT_NONE",
-+	"COUNTER_COMPONENT_SIGNAL",
-+	"COUNTER_COMPONENT_COUNT",
-+	"COUNTER_COMPONENT_FUNCTION",
-+	"COUNTER_COMPONENT_SYNAPSE_ACTION",
-+	"COUNTER_COMPONENT_EXTENSION",
-+};
-+
-+static int counter_arg_to_component_type(char *arg, __u8 *type)
-+{
-+	return find_match_or_number_from_array(arg, counter_component_type_name,
-+					       ARRAY_SIZE(counter_component_type_name), type);
-+}
-+
-+static const char * const counter_scope_name[] = {
-+	"COUNTER_SCOPE_DEVICE",
-+	"COUNTER_SCOPE_SIGNAL",
-+	"COUNTER_SCOPE_COUNT",
-+};
-+
-+static int counter_arg_to_scope(char *arg, __u8 *type)
-+{
-+	return find_match_or_number_from_array(arg, counter_scope_name,
-+					       ARRAY_SIZE(counter_scope_name), type);
-+}
-+
-+static void print_usage(void)
-+{
-+	fprintf(stderr, "Usage: counter_watch_events [options]...\n"
-+		"Test various watch events for given counter device\n"
-+		"  --channel -c <n>\n"
-+		"        Set watch.channel\n"
-+		"  --debug -d\n"
-+		"        Prints debug information\n"
-+		"  --event -e <number or counter_event_type string>\n"
-+		"        Sets watch.event\n"
-+		"  --help -h\n"
-+		"        Prints usage\n"
-+		"  --device-num -n <n>\n"
-+		"        Set device number (/dev/counter<n>, default to 0)\n"
-+		"  --id -i <n>\n"
-+		"        Set watch.component.id\n"
-+		"  --loop -l <n>\n"
-+		"        Loop for a number of events (forever if n < 0)\n"
-+		"  --parent -p <n>\n"
-+		"        Set watch.component.parent number\n"
-+		"  --scope -s <number or counter_scope string>\n"
-+		"        Set watch.component.scope\n"
-+		"  --type -t <number or counter_component_type string>\n"
-+		"        Set watch.component.type\n"
-+		"\n"
-+		"Example with two watched events:\n\n"
-+		"counter_watch_events -d \\\n"
-+		"\t-t COUNTER_COMPONENT_COUNT -s COUNTER_SCOPE_COUNT"
-+		" -e COUNTER_EVENT_OVERFLOW_UNDERFLOW -i 0 -c 0 \\\n"
-+		"\t-t COUNTER_COMPONENT_EXTENSION -s COUNTER_SCOPE_COUNT"
-+		" -e COUNTER_EVENT_CAPTURE -i 7 -c 3\n"
-+		);
-+}
-+
-+static void print_watch(struct counter_watch *watch, int nwatch)
-+{
-+	int i;
-+
-+	/* prints the watch array in C-like structure */
-+	printf("watch[%d] = {\n", nwatch);
-+	for (i = 0; i < nwatch; i++) {
-+		printf(" [%d] =\t{\n"
-+		       "\t\t.component.type = %s\n"
-+		       "\t\t.component.scope = %s\n"
-+		       "\t\t.component.parent = %d\n"
-+		       "\t\t.component.id = %d\n"
-+		       "\t\t.event = %s\n"
-+		       "\t\t.channel = %d\n"
-+		       "\t},\n",
-+		       i,
-+		       counter_component_type_name[watch[i].component.type],
-+		       counter_scope_name[watch[i].component.scope],
-+		       watch[i].component.parent,
-+		       watch[i].component.id,
-+		       counter_event_type_name[watch[i].event],
-+		       watch[i].channel);
-+	}
-+	printf("};\n");
-+}
-+
-+static const struct option longopts[] = {
-+	{ "channel",		required_argument, 0, 'c' },
-+	{ "debug",		no_argument,       0, 'd' },
-+	{ "event",		required_argument, 0, 'e' },
-+	{ "help",		no_argument,       0, 'h' },
-+	{ "device-num",		required_argument, 0, 'n' },
-+	{ "id",			required_argument, 0, 'i' },
-+	{ "loop",		required_argument, 0, 'l' },
-+	{ "parent",		required_argument, 0, 'p' },
-+	{ "scope",		required_argument, 0, 's' },
-+	{ "type",		required_argument, 0, 't' },
-+	{ },
-+};
-+
-+int main(int argc, char **argv)
-+{
-+	int c, fd, i, ret;
-+	struct counter_event event_data;
-+	char *device_name = NULL;
-+	int debug = 0, loop = -1;
-+	char *dummy;
-+	int dev_num = 0, nwatch = 0, ncfg[] = {0, 0, 0, 0, 0, 0};
-+	int num_chan = 0, num_evt = 0, num_id = 0, num_p = 0, num_s = 0, num_t = 0;
-+	struct counter_watch *watches;
-+
-+	/*
-+	 * 1st pass: count events configurations number to allocate the watch array.
-+	 * Each watch argument can be repeated several times: each time it gets repeated,
-+	 * a corresponding watch is allocated (and configured) in 2nd pass.
-+	 */
-+	while ((c = getopt_long(argc, argv, "c:de:hn:i:l:p:s:t:", longopts, NULL)) != -1) {
-+		switch (c) {
-+		case 'c':
-+			ncfg[0]++;
-+			break;
-+		case 'e':
-+			ncfg[1]++;
-+			break;
-+		case 'i':
-+			ncfg[2]++;
-+			break;
-+		case 'p':
-+			ncfg[3]++;
-+			break;
-+		case 's':
-+			ncfg[4]++;
-+			break;
-+		case 't':
-+			ncfg[5]++;
-+			break;
-+		};
-+	};
-+
-+	for (i = 0; i < ARRAY_SIZE(ncfg); i++)
-+		if (ncfg[i] > nwatch)
-+			nwatch = ncfg[i];
-+
-+	if (nwatch) {
-+		watches = calloc(nwatch, sizeof(*watches));
-+	} else {
-+		/* default to simple watch example */
-+		watches = simple_watch;
-+		nwatch = ARRAY_SIZE(simple_watch);
-+	}
-+
-+	/* 2nd pass: read arguments to fill in watch array */
-+	optind = 1;
-+	while ((c = getopt_long(argc, argv, "c:de:hn:i:l:p:s:t:", longopts, NULL)) != -1) {
-+		switch (c) {
-+		case 'c':
-+			/* watch.channel */
-+			watches[num_chan].channel = strtoul(optarg, &dummy, 10);
-+			if (errno)
-+				return -errno;
-+			num_chan++;
-+			break;
-+		case 'd':
-+			debug = 1;
-+			break;
-+		case 'e':
-+			/* watch.event */
-+			ret = counter_arg_to_event_type(optarg, &watches[num_evt].event);
-+			if (ret)
-+				return ret;
-+			num_evt++;
-+			break;
-+		case 'h':
-+			print_usage();
-+			return -1;
-+		case 'n':
-+			errno = 0;
-+			dev_num = strtoul(optarg, &dummy, 10);
-+			if (errno)
-+				return -errno;
-+			break;
-+		case 'i':
-+			/* watch.component.id */
-+			watches[num_id].component.id = strtoul(optarg, &dummy, 10);
-+			if (errno)
-+				return -errno;
-+			num_id++;
-+			break;
-+		case 'l':
-+			loop = strtol(optarg, &dummy, 10);
-+			if (errno)
-+				return -errno;
-+			break;
-+		case 'p':
-+			/* watch.component.parent */
-+			watches[num_p].component.parent = strtoul(optarg, &dummy, 10);
-+			if (errno)
-+				return -errno;
-+			num_p++;
-+			break;
-+		case 's':
-+			/* watch.component.scope */
-+			ret = counter_arg_to_scope(optarg, &watches[num_s].component.scope);
-+			if (ret)
-+				return ret;
-+			num_s++;
-+			break;
-+		case 't':
-+			/* watch.component.type */
-+			ret = counter_arg_to_component_type(optarg, &watches[num_t].component.type);
-+			if (ret)
-+				return ret;
-+			num_t++;
-+			break;
-+		}
-+
-+	};
-+
-+	if (debug)
-+		print_watch(watches, nwatch);
-+
-+	ret = asprintf(&device_name, "/dev/counter%d", dev_num);
-+	if (ret < 0)
-+		return -ENOMEM;
-+
-+	if (debug)
-+		printf("Opening %s\n", device_name);
-+
-+	fd = open(device_name, O_RDWR);
-+	if (fd == -1) {
-+		perror("Unable to open counter device");
-+		return 1;
-+	}
-+
-+	for (i = 0; i < nwatch; i++) {
-+		ret = ioctl(fd, COUNTER_ADD_WATCH_IOCTL, watches + i);
-+		if (ret == -1) {
-+			fprintf(stderr, "Error adding watches[%d]: %s\n", i,
-+				strerror(errno));
-+			return 1;
++	for (i = 0; i < STM32_TIMERS_MAX_IRQS; i++) {
++		ret = platform_get_irq_byname_optional(pdev, stm32_timers_irq_name[i]);
++		if (ret < 0 && ret != -ENXIO) {
++			return ret;
++		} else if (ret != -ENXIO) {
++			ddata->irq[i] = ret;
++			ddata->nr_irqs++;
 +		}
 +	}
 +
-+	ret = ioctl(fd, COUNTER_ENABLE_EVENTS_IOCTL);
-+	if (ret == -1) {
-+		perror("Error enabling events");
-+		return 1;
-+	}
-+
-+	for (i = 0; loop <= 0 || i < loop; i++) {
-+		ret = read(fd, &event_data, sizeof(event_data));
-+		if (ret == -1) {
-+			perror("Failed to read event data");
-+			return 1;
-+		}
-+
-+		if (ret != sizeof(event_data)) {
-+			fprintf(stderr, "Failed to read event data\n");
-+			return -EIO;
-+		}
-+
-+		printf("Timestamp: %llu\tData: %llu\t event: %s\tch: %d\n",
-+		       event_data.timestamp, event_data.value,
-+		       counter_event_type_name[event_data.watch.event],
-+		       event_data.watch.channel);
-+
-+		if (event_data.status) {
-+			fprintf(stderr, "Error %d: %s\n", event_data.status,
-+				strerror(event_data.status));
-+		}
++	if (ddata->nr_irqs && ddata->nr_irqs != STM32_TIMERS_MAX_IRQS) {
++		dev_err(&pdev->dev, "Invalid number of IRQs %d\n", ddata->nr_irqs);
++		return -EINVAL;
 +	}
 +
 +	return 0;
 +}
++
+ static int stm32_timers_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -245,6 +287,10 @@ static int stm32_timers_probe(struct platform_device *pdev)
+ 
+ 	stm32_timers_get_arr_size(ddata);
+ 
++	ret = stm32_timers_irq_probe(pdev, ddata);
++	if (ret)
++		return ret;
++
+ 	ret = stm32_timers_dma_probe(dev, ddata);
+ 	if (ret) {
+ 		stm32_timers_dma_remove(dev, ddata);
+diff --git a/include/linux/mfd/stm32-timers.h b/include/linux/mfd/stm32-timers.h
+index 1b94325febb3..ca35af30745f 100644
+--- a/include/linux/mfd/stm32-timers.h
++++ b/include/linux/mfd/stm32-timers.h
+@@ -102,6 +102,15 @@ enum stm32_timers_dmas {
+ 	STM32_TIMERS_MAX_DMAS,
+ };
+ 
++/* STM32 Timer may have either a unique global interrupt or 4 interrupt lines */
++enum stm32_timers_irqs {
++	STM32_TIMERS_IRQ_GLOBAL_BRK, /* global or brk IRQ */
++	STM32_TIMERS_IRQ_UP,
++	STM32_TIMERS_IRQ_TRG_COM,
++	STM32_TIMERS_IRQ_CC,
++	STM32_TIMERS_MAX_IRQS,
++};
++
+ /**
+  * struct stm32_timers_dma - STM32 timer DMA handling.
+  * @completion:		end of DMA transfer completion
+@@ -123,6 +132,8 @@ struct stm32_timers {
+ 	struct regmap *regmap;
+ 	u32 max_arr;
+ 	struct stm32_timers_dma dma; /* Only to be used by the parent */
++	unsigned int nr_irqs;
++	int irq[STM32_TIMERS_MAX_IRQS];
+ };
+ 
+ #if IS_REACHABLE(CONFIG_MFD_STM32_TIMERS)
 -- 
 2.25.1
 
