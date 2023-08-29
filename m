@@ -2,63 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35A6578C64D
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 15:42:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3715F78C6CB
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 16:05:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA6DEC6A613;
-	Tue, 29 Aug 2023 13:42:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60AE3C6A60C;
+	Tue, 29 Aug 2023 14:05:06 +0000 (UTC)
+Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 957C3C6A60C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15DD0C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Aug 2023 13:42:21 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37TC4ipW022673; Tue, 29 Aug 2023 15:42:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=2b/Urmpixky2eQRaU/4lkgH9werd2cvqOZ7IIz+15Kg=; b=B3
- yEacZ23+RBmGNw38HUdvSOMBJ3+psuaC/Qh9TPURsDgFZizoobV58QA4QKBhPrff
- 64q7FuI0Uey4zprLc0F63+lIHr9Rs5S2XdyR0xuQbTKdzIsg9tr03DyrqzlA5ite
- Whdmy8XuRzyZsDYgHiTswBtKKwMfncfIlXcxNf4iHlTOaRvs3D3ldm9fIi9optkA
- tHUT+NQ2b2gMppnNWxGct+9jkvezYGckpsuzfX92iBPMdtMp+m5wEhsxzWW2/Vkh
- Vex6uJtA4/FiVHXT0dppbfZSNMWinmIIz2E5zvjByvB4heqTBD23pej+wisbqIUj
- V0xMQ0V6f66IwFuhHI7g==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq8qwc3q4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Aug 2023 15:42:11 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 45AA2100057;
- Tue, 29 Aug 2023 15:42:11 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3CFE922AFFD;
- Tue, 29 Aug 2023 15:42:11 +0200 (CEST)
-Received: from localhost (10.201.22.39) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 29 Aug
- 2023 15:42:10 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <william.gray@linaro.org>, <lee@kernel.org>
-Date: Tue, 29 Aug 2023 15:40:29 +0200
-Message-ID: <20230829134029.2402868-9-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
-References: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
+ Tue, 29 Aug 2023 14:05:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
+ t=1693317905; x=1724853905;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HIjB6DSGcDiXSyJUkfXprhzVVBjmfilf4Wii2YLRbOw=;
+ b=KQ1dJI90DtU789iIxdXZC3jy1UDBtcn+6jG+36/OMP6P8MEBsFviiV1J
+ /2FW95DMdbRL+WrMmKV+ZslHRz3nPJaxQs+quTMJCyvs702F7rppGI0ao
+ MhK4o+ieyhYUtSyLeF8uinLI5Lt72FVRRCQINLTbpomxzmRxdn5L6xwyw
+ FfHYPanzOZ1fROCFrv/SX92IVpluvnXCRARGuEfbFKPKKfaNZdUlolQa9
+ kbgGXyZfTHTMUJ7g3ur6HUB0Fu+BG5cvQygXTKGQnaxNWX/6ifTkMQJQs
+ j/wjp3akiCgGImSzOyBmZcZkJcbW7EjxQPveB8qZfi2/Kq6Jorlhwea/p Q==;
+X-IronPort-AV: E=Sophos;i="6.02,210,1688421600"; d="scan'208";a="32680003"
+Received: from vtuxmail01.tq-net.de ([10.115.0.20])
+ by mx1.tq-group.com with ESMTP; 29 Aug 2023 16:05:04 +0200
+Received: from steina-w.localnet (steina-w.tq-net.de [10.123.53.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 0271E280045;
+ Tue, 29 Aug 2023 16:05:03 +0200 (CEST)
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Date: Tue, 29 Aug 2023 16:05:03 +0200
+Message-ID: <4507976.LvFx2qVVIh@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <E1qayn0-006Q8J-GE@rmk-PC.armlinux.org.uk>
+References: <E1qayn0-006Q8J-GE@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.22.39]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-08-29_10,2023-08-29_01,2023-05-22_02
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 8/8] counter: stm32-timer-cnt: add support for
-	events
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: failure to probe
+	without MAC interface specified
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,467 +62,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for capture and overflow events. Also add the related
-validation and configuration. Captured counter value can be retrieved
-through CCRx register. Register and enable interrupts to push events.
+Am Dienstag, 29. August 2023, 15:29:50 CEST schrieb Russell King (Oracle):
+> Alexander Stein reports that commit a014c35556b9 ("net: stmmac: clarify
+> difference between "interface" and "phy_interface"") caused breakage,
+> because plat->mac_interface will never be negative. Fix this by using
+> the "rc" temporary variable in stmmac_probe_config_dt().
+> =
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/counter/stm32-timer-cnt.c | 279 +++++++++++++++++++++++++++++-
- include/linux/mfd/stm32-timers.h  |  15 ++
- 2 files changed, 285 insertions(+), 9 deletions(-)
+> Reported-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+> I don't think the net tree is up to date with the net-next, so this
+> patch needs applying to net-next preferably before the pull request
+> to fix a regression.
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index e39b3964bc9d..05188f1da0b0 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -8,6 +8,7 @@
-  *
-  */
- #include <linux/counter.h>
-+#include <linux/interrupt.h>
- #include <linux/mfd/stm32-timers.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
-@@ -37,6 +38,7 @@ struct stm32_timer_regs {
- 
- struct stm32_timer_cnt {
- 	struct regmap *regmap;
-+	atomic_t nb_ovf;
- 	struct clk *clk;
- 	u32 max_arr;
- 	bool enabled;
-@@ -44,6 +46,8 @@ struct stm32_timer_cnt {
- 	bool has_encoder;
- 	u32 idx;
- 	unsigned int nchannels;
-+	unsigned int nr_irqs;
-+	u32 *irq;
- };
- 
- static const enum counter_function stm32_count_functions[] = {
-@@ -253,6 +257,60 @@ static int stm32_count_prescaler_write(struct counter_device *counter,
- 	return regmap_write(priv->regmap, TIM_PSC, psc);
- }
- 
-+static int stm32_count_cap_read(struct counter_device *counter,
-+				struct counter_count *count,
-+				size_t ch, u64 *cap)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 ccrx;
-+
-+	switch (ch) {
-+	case 0:
-+		regmap_read(priv->regmap, TIM_CCR1, &ccrx);
-+		break;
-+	case 1:
-+		regmap_read(priv->regmap, TIM_CCR2, &ccrx);
-+		break;
-+	case 2:
-+		regmap_read(priv->regmap, TIM_CCR3, &ccrx);
-+		break;
-+	case 3:
-+		regmap_read(priv->regmap, TIM_CCR4, &ccrx);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(counter->parent, "CCR%zu: 0x%08x\n", ch, ccrx);
-+
-+	*cap = ccrx;
-+
-+	return 0;
-+}
-+
-+static int stm32_count_nb_ovf_read(struct counter_device *counter,
-+				   struct counter_count *count, u64 *val)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+
-+	*val = atomic_read(&priv->nb_ovf);
-+
-+	return 0;
-+}
-+
-+static int stm32_count_nb_ovf_write(struct counter_device *counter,
-+				    struct counter_count *count, u64 val)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+
-+	if (val > U32_MAX)
-+		return -ERANGE;
-+
-+	atomic_set(&priv->nb_ovf, val);
-+
-+	return 0;
-+}
-+
- static struct counter_comp stm32_count_ext[] = {
- 	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
- 	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
-@@ -260,6 +318,43 @@ static struct counter_comp stm32_count_ext[] = {
- 			     stm32_count_ceiling_write),
- 	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
- 			       stm32_count_prescaler_write),
-+	COUNTER_COMP_COUNT_U64("num_overflows", stm32_count_nb_ovf_read, stm32_count_nb_ovf_write),
-+};
-+
-+static DEFINE_COUNTER_ARRAY_CAPTURE(stm32_count_cap_array_4ch, 4);
-+static struct counter_comp stm32_count_4ch_ext[] = {
-+	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
-+	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
-+	COUNTER_COMP_CEILING(stm32_count_ceiling_read,
-+			     stm32_count_ceiling_write),
-+	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
-+			       stm32_count_prescaler_write),
-+	COUNTER_COMP_ARRAY_CAPTURE(stm32_count_cap_read, NULL, stm32_count_cap_array_4ch),
-+	COUNTER_COMP_COUNT_U64("num_overflows", stm32_count_nb_ovf_read, stm32_count_nb_ovf_write),
-+};
-+
-+static DEFINE_COUNTER_ARRAY_CAPTURE(stm32_count_cap_array_2ch, 2);
-+static struct counter_comp stm32_count_2ch_ext[] = {
-+	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
-+	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
-+	COUNTER_COMP_CEILING(stm32_count_ceiling_read,
-+			     stm32_count_ceiling_write),
-+	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
-+			       stm32_count_prescaler_write),
-+	COUNTER_COMP_ARRAY_CAPTURE(stm32_count_cap_read, NULL, stm32_count_cap_array_2ch),
-+	COUNTER_COMP_COUNT_U64("num_overflows", stm32_count_nb_ovf_read, stm32_count_nb_ovf_write),
-+};
-+
-+static DEFINE_COUNTER_ARRAY_CAPTURE(stm32_count_cap_array_1ch, 1);
-+static struct counter_comp stm32_count_1ch_ext[] = {
-+	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
-+	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
-+	COUNTER_COMP_CEILING(stm32_count_ceiling_read,
-+			     stm32_count_ceiling_write),
-+	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
-+			       stm32_count_prescaler_write),
-+	COUNTER_COMP_ARRAY_CAPTURE(stm32_count_cap_read, NULL, stm32_count_cap_array_1ch),
-+	COUNTER_COMP_COUNT_U64("num_overflows", stm32_count_nb_ovf_read, stm32_count_nb_ovf_write),
- };
- 
- static const enum counter_synapse_action stm32_clock_synapse_actions[] = {
-@@ -321,12 +416,130 @@ static int stm32_action_read(struct counter_device *counter,
- 	}
- }
- 
-+struct stm32_count_cc_regs {
-+	u32 ccmr_reg;
-+	u32 ccmr_mask;
-+	u32 ccmr_bits;
-+	u32 ccer_bits;
-+};
-+
-+static const struct stm32_count_cc_regs stm32_cc[] = {
-+	{ TIM_CCMR1, TIM_CCMR_CC1S, TIM_CCMR_CC1S_TI1,
-+		TIM_CCER_CC1E | TIM_CCER_CC1P | TIM_CCER_CC1NP },
-+	{ TIM_CCMR1, TIM_CCMR_CC2S, TIM_CCMR_CC2S_TI2,
-+		TIM_CCER_CC2E | TIM_CCER_CC2P | TIM_CCER_CC2NP },
-+	{ TIM_CCMR2, TIM_CCMR_CC3S, TIM_CCMR_CC3S_TI3,
-+		TIM_CCER_CC3E | TIM_CCER_CC3P | TIM_CCER_CC3NP },
-+	{ TIM_CCMR2, TIM_CCMR_CC4S, TIM_CCMR_CC4S_TI4,
-+		TIM_CCER_CC4E | TIM_CCER_CC4P | TIM_CCER_CC4NP },
-+};
-+
-+static int stm32_count_capture_configure(struct counter_device *counter, unsigned int ch,
-+					 bool enable)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 ccmr, ccer, sr;
-+
-+	if (ch >= ARRAY_SIZE(stm32_cc)) {
-+		dev_err(counter->parent, "invalid ch: %d\n", ch);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * configure channel in input capture mode, map channel 1 on TI1, channel2 on TI2...
-+	 * Select both edges / non-inverted to trigger a capture.
-+	 */
-+	if (enable) {
-+		/* first clear possibly latched capture flag upon enabling */
-+		regmap_read(priv->regmap, TIM_CCER, &ccer);
-+		if (!(ccer & stm32_cc[ch].ccer_bits)) {
-+			sr = ~TIM_SR_CC_IF(ch);
-+			regmap_write(priv->regmap, TIM_SR, sr);
-+		}
-+		regmap_update_bits(priv->regmap, stm32_cc[ch].ccmr_reg, stm32_cc[ch].ccmr_mask,
-+				   stm32_cc[ch].ccmr_bits);
-+		regmap_set_bits(priv->regmap, TIM_CCER, stm32_cc[ch].ccer_bits);
-+	} else {
-+		regmap_clear_bits(priv->regmap, TIM_CCER, stm32_cc[ch].ccer_bits);
-+		regmap_clear_bits(priv->regmap, stm32_cc[ch].ccmr_reg, stm32_cc[ch].ccmr_mask);
-+	}
-+
-+	regmap_read(priv->regmap, stm32_cc[ch].ccmr_reg, &ccmr);
-+	regmap_read(priv->regmap, TIM_CCER, &ccer);
-+	dev_dbg(counter->parent, "%s(%s) ch%d 0x%08x 0x%08x\n", __func__, enable ? "ena" : "dis",
-+		ch, ccmr, ccer);
-+
-+	return 0;
-+}
-+
-+static int stm32_count_events_configure(struct counter_device *counter)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	struct counter_event_node *event_node;
-+	int i, ret;
-+	u32 val, dier = 0;
-+
-+	list_for_each_entry(event_node, &counter->events_list, l) {
-+		switch (event_node->event) {
-+		case COUNTER_EVENT_OVERFLOW_UNDERFLOW:
-+			/* first clear possibly latched UIF before enabling */
-+			regmap_read(priv->regmap, TIM_DIER, &val);
-+			if (!(val & TIM_DIER_UIE))
-+				regmap_write(priv->regmap, TIM_SR, (u32)~TIM_SR_UIF);
-+			dier |= TIM_DIER_UIE;
-+			break;
-+		case COUNTER_EVENT_CAPTURE:
-+			ret = stm32_count_capture_configure(counter, event_node->channel, true);
-+			if (ret)
-+				return ret;
-+			dier |= TIM_DIER_CC_IE(event_node->channel);
-+			break;
-+		default:
-+			/* should never reach this path */
-+			return -EINVAL;
-+		}
-+	}
-+
-+	regmap_write(priv->regmap, TIM_DIER, dier);
-+
-+	/* check for disabled capture events */
-+	for (i = 0 ; i < priv->nchannels; i++) {
-+		if (!(dier & TIM_DIER_CC_IE(i))) {
-+			ret = stm32_count_capture_configure(counter, i, false);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int stm32_count_watch_validate(struct counter_device *counter,
-+				      const struct counter_watch *watch)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+
-+	switch (watch->event) {
-+	case COUNTER_EVENT_CAPTURE:
-+		if (watch->channel >= priv->nchannels) {
-+			dev_err(counter->parent, "Invalid channel %d\n", watch->channel);
-+			return -EINVAL;
-+		}
-+	case COUNTER_EVENT_OVERFLOW_UNDERFLOW:
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static const struct counter_ops stm32_timer_cnt_ops = {
- 	.count_read = stm32_count_read,
- 	.count_write = stm32_count_write,
- 	.function_read = stm32_count_function_read,
- 	.function_write = stm32_count_function_write,
- 	.action_read = stm32_action_read,
-+	.events_configure = stm32_count_events_configure,
-+	.watch_validate = stm32_count_watch_validate,
- };
- 
- static int stm32_count_clk_get_freq(struct counter_device *counter,
-@@ -404,8 +617,8 @@ static struct counter_count stm32_counts_enc_4ch = {
- 	.num_functions = ARRAY_SIZE(stm32_count_functions),
- 	.synapses = stm32_count_synapses_enc_4ch,
- 	.num_synapses = ARRAY_SIZE(stm32_count_synapses_enc_4ch),
--	.ext = stm32_count_ext,
--	.num_ext = ARRAY_SIZE(stm32_count_ext)
-+	.ext = stm32_count_4ch_ext,
-+	.num_ext = ARRAY_SIZE(stm32_count_4ch_ext)
- };
- 
- /* STM32 Timer with up to 4 capture channels (without encoder) */
-@@ -469,8 +682,8 @@ static struct counter_count stm32_counts_4ch = {
- 	.num_functions = 1, /* increase */
- 	.synapses = stm32_count_synapses_no_enc,
- 	.num_synapses = ARRAY_SIZE(stm32_count_synapses_no_enc),
--	.ext = stm32_count_ext,
--	.num_ext = ARRAY_SIZE(stm32_count_ext)
-+	.ext = stm32_count_4ch_ext,
-+	.num_ext = ARRAY_SIZE(stm32_count_4ch_ext)
- };
- 
- static struct counter_count stm32_counts_2ch = {
-@@ -480,8 +693,8 @@ static struct counter_count stm32_counts_2ch = {
- 	.num_functions = 1, /* increase */
- 	.synapses = stm32_count_synapses_no_enc,
- 	.num_synapses = 3, /* clock, ch1 and ch2 */
--	.ext = stm32_count_ext,
--	.num_ext = ARRAY_SIZE(stm32_count_ext)
-+	.ext = stm32_count_2ch_ext,
-+	.num_ext = ARRAY_SIZE(stm32_count_2ch_ext)
- };
- 
- static struct counter_count stm32_counts_1ch = {
-@@ -491,8 +704,8 @@ static struct counter_count stm32_counts_1ch = {
- 	.num_functions = 1, /* increase */
- 	.synapses = stm32_count_synapses_no_enc,
- 	.num_synapses = 2, /* clock, ch1 */
--	.ext = stm32_count_ext,
--	.num_ext = ARRAY_SIZE(stm32_count_ext)
-+	.ext = stm32_count_1ch_ext,
-+	.num_ext = ARRAY_SIZE(stm32_count_1ch_ext)
- };
- 
- static struct counter_count stm32_counts = {
-@@ -506,6 +719,42 @@ static struct counter_count stm32_counts = {
- 	.num_ext = ARRAY_SIZE(stm32_count_ext)
- };
- 
-+static irqreturn_t stm32_timer_cnt_isr(int irq, void *ptr)
-+{
-+	struct counter_device *counter = ptr;
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 clr = GENMASK(31, 0); /* SR flags can be cleared by writing 0 (wr 1 has no effect) */
-+	u32 sr, dier;
-+	int i;
-+
-+	regmap_read(priv->regmap, TIM_SR, &sr);
-+	regmap_read(priv->regmap, TIM_DIER, &dier);
-+	/* Only take care of enabled IRQs */
-+	dier &= (TIM_DIER_UIE | TIM_DIER_CC1IE | TIM_DIER_CC2IE | TIM_DIER_CC3IE | TIM_DIER_CC4IE);
-+	sr &= dier;
-+
-+	if (sr & TIM_SR_UIF) {
-+		atomic_inc(&priv->nb_ovf);
-+		counter_push_event(counter, COUNTER_EVENT_OVERFLOW_UNDERFLOW, 0);
-+		dev_dbg(counter->parent, "COUNTER_EVENT_OVERFLOW_UNDERFLOW\n");
-+		/* SR flags can be cleared by writing 0, only clear relevant flag */
-+		clr &= ~TIM_SR_UIF;
-+	}
-+
-+	/* Check capture events */
-+	for (i = 0 ; i < priv->nchannels; i++) {
-+		if (sr & TIM_SR_CC_IF(i)) {
-+			counter_push_event(counter, COUNTER_EVENT_CAPTURE, i);
-+			clr &= ~TIM_SR_CC_IF(i);
-+			dev_dbg(counter->parent, "COUNTER_EVENT_CAPTURE, %d\n", i);
-+		}
-+	}
-+
-+	regmap_write(priv->regmap, TIM_SR, clr);
-+
-+	return IRQ_HANDLED;
-+};
-+
- static void stm32_timer_cnt_detect_channels(struct platform_device *pdev,
- 					    struct stm32_timer_cnt *priv)
- {
-@@ -568,7 +817,7 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct stm32_timer_cnt *priv;
- 	struct counter_device *counter;
--	int ret;
-+	int i, ret;
- 
- 	if (IS_ERR_OR_NULL(ddata))
- 		return -EINVAL;
-@@ -582,6 +831,8 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
- 	priv->regmap = ddata->regmap;
- 	priv->clk = ddata->clk;
- 	priv->max_arr = ddata->max_arr;
-+	priv->nr_irqs = ddata->nr_irqs;
-+	priv->irq = ddata->irq;
- 
- 	ret = stm32_timer_cnt_probe_encoder(pdev, priv);
- 	if (ret)
-@@ -630,6 +881,16 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, priv);
- 
-+	for (i = 0; i < priv->nr_irqs; i++) {
-+		ret = devm_request_irq(&pdev->dev, priv->irq[i], stm32_timer_cnt_isr,
-+				       0, dev_name(dev), counter);
-+		if (ret) {
-+			dev_err(dev, "Failed to request irq %d (err %d)\n",
-+				priv->irq[i], ret);
-+			return ret;
-+		}
-+	}
-+
- 	/* Reset input selector to its default input */
- 	regmap_write(priv->regmap, TIM_TISEL, 0x0);
- 
-diff --git a/include/linux/mfd/stm32-timers.h b/include/linux/mfd/stm32-timers.h
-index ca35af30745f..f0c6e6d2df66 100644
---- a/include/linux/mfd/stm32-timers.h
-+++ b/include/linux/mfd/stm32-timers.h
-@@ -41,6 +41,11 @@
- #define TIM_SMCR_SMS	(BIT(0) | BIT(1) | BIT(2)) /* Slave mode selection */
- #define TIM_SMCR_TS	(BIT(4) | BIT(5) | BIT(6)) /* Trigger selection */
- #define TIM_DIER_UIE	BIT(0)	/* Update interrupt	   */
-+#define TIM_DIER_CC1IE	BIT(1)  /* CC1 Interrupt Enable    */
-+#define TIM_DIER_CC2IE	BIT(2)  /* CC2 Interrupt Enable    */
-+#define TIM_DIER_CC3IE	BIT(3)  /* CC3 Interrupt Enable    */
-+#define TIM_DIER_CC4IE	BIT(4)  /* CC4 Interrupt Enable    */
-+#define TIM_DIER_CC_IE(x)	BIT((x) + 1) /* CC1, CC2, CC3, CC4 interrupt enable */
- #define TIM_DIER_UDE	BIT(8)  /* Update DMA request Enable */
- #define TIM_DIER_CC1DE	BIT(9)  /* CC1 DMA request Enable  */
- #define TIM_DIER_CC2DE	BIT(10) /* CC2 DMA request Enable  */
-@@ -49,6 +54,7 @@
- #define TIM_DIER_COMDE	BIT(13) /* COM DMA request Enable  */
- #define TIM_DIER_TDE	BIT(14) /* Trigger DMA request Enable */
- #define TIM_SR_UIF	BIT(0)	/* Update interrupt flag   */
-+#define TIM_SR_CC_IF(x)	BIT((x) + 1) /* CC1, CC2, CC3, CC4 interrupt flag */
- #define TIM_EGR_UG	BIT(0)	/* Update Generation       */
- #define TIM_CCMR_PE	BIT(3)	/* Channel Preload Enable  */
- #define TIM_CCMR_M1	(BIT(6) | BIT(5))  /* Channel PWM Mode 1 */
-@@ -60,16 +66,23 @@
- #define TIM_CCMR_CC1S_TI2	BIT(1)	/* IC1/IC3 selects TI2/TI4 */
- #define TIM_CCMR_CC2S_TI2	BIT(8)	/* IC2/IC4 selects TI2/TI4 */
- #define TIM_CCMR_CC2S_TI1	BIT(9)	/* IC2/IC4 selects TI1/TI3 */
-+#define TIM_CCMR_CC3S		(BIT(0) | BIT(1)) /* Capture/compare 3 sel */
-+#define TIM_CCMR_CC4S		(BIT(8) | BIT(9)) /* Capture/compare 4 sel */
-+#define TIM_CCMR_CC3S_TI3	BIT(0)	/* IC3 selects TI3 */
-+#define TIM_CCMR_CC4S_TI4	BIT(8)	/* IC4 selects TI4 */
- #define TIM_CCER_CC1E	BIT(0)	/* Capt/Comp 1  out Ena    */
- #define TIM_CCER_CC1P	BIT(1)	/* Capt/Comp 1  Polarity   */
- #define TIM_CCER_CC1NE	BIT(2)	/* Capt/Comp 1N out Ena    */
- #define TIM_CCER_CC1NP	BIT(3)	/* Capt/Comp 1N Polarity   */
- #define TIM_CCER_CC2E	BIT(4)	/* Capt/Comp 2  out Ena    */
- #define TIM_CCER_CC2P	BIT(5)	/* Capt/Comp 2  Polarity   */
-+#define TIM_CCER_CC2NP	BIT(7)	/* Capt/Comp 2N Polarity   */
- #define TIM_CCER_CC3E	BIT(8)	/* Capt/Comp 3  out Ena    */
- #define TIM_CCER_CC3P	BIT(9)	/* Capt/Comp 3  Polarity   */
-+#define TIM_CCER_CC3NP	BIT(11)	/* Capt/Comp 3N Polarity   */
- #define TIM_CCER_CC4E	BIT(12)	/* Capt/Comp 4  out Ena    */
- #define TIM_CCER_CC4P	BIT(13)	/* Capt/Comp 4  Polarity   */
-+#define TIM_CCER_CC4NP	BIT(15)	/* Capt/Comp 4N Polarity   */
- #define TIM_CCER_CCXE	(BIT(0) | BIT(4) | BIT(8) | BIT(12))
- #define TIM_BDTR_BKE(x)	BIT(12 + (x) * 12) /* Break input enable */
- #define TIM_BDTR_BKP(x)	BIT(13 + (x) * 12) /* Break input polarity */
-@@ -91,6 +104,8 @@
- #define TIM_BDTR_BKF_MASK	0xF
- #define TIM_BDTR_BKF_SHIFT(x)	(16 + (x) * 4)
- 
-+#define MAX_TIM_IC_CHANNELS	4 /* Max number of input capature channels */
-+
- enum stm32_timers_dmas {
- 	STM32_TIMERS_DMA_CH1,
- 	STM32_TIMERS_DMA_CH2,
--- 
-2.25.1
+On top of next-20230829:
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+
+Thanks
+
+> Thanks.
+> =
+
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> =
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c index
+> 35f4b1484029..0f28795e581c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -419,9 +419,8 @@ stmmac_probe_config_dt(struct platform_device *pdev, =
+u8
+> *mac) return ERR_PTR(phy_mode);
+> =
+
+>  	plat->phy_interface =3D phy_mode;
+> -	plat->mac_interface =3D stmmac_of_get_mac_mode(np);
+> -	if (plat->mac_interface < 0)
+> -		plat->mac_interface =3D plat->phy_interface;
+> +	rc =3D stmmac_of_get_mac_mode(np);
+> +	plat->mac_interface =3D rc < 0 ? plat->phy_interface : rc;
+> =
+
+>  	/* Some wrapper drivers still rely on phy_node. Let's save it while
+>  	 * they are not converted to phylink. */
+
+
+-- =
+
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
 _______________________________________________
 Linux-stm32 mailing list
