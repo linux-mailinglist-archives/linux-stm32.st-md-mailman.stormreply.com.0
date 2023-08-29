@@ -2,55 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3715F78C6CB
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 16:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC8578C72D
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 16:17:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60AE3C6A60C;
-	Tue, 29 Aug 2023 14:05:06 +0000 (UTC)
-Received: from mx1.tq-group.com (mx1.tq-group.com [93.104.207.81])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30D3DC6A60C;
+	Tue, 29 Aug 2023 14:17:49 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15DD0C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBD2CC65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Aug 2023 14:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tq-group.com; i=@tq-group.com; q=dns/txt; s=key1;
- t=1693317905; x=1724853905;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=HIjB6DSGcDiXSyJUkfXprhzVVBjmfilf4Wii2YLRbOw=;
- b=KQ1dJI90DtU789iIxdXZC3jy1UDBtcn+6jG+36/OMP6P8MEBsFviiV1J
- /2FW95DMdbRL+WrMmKV+ZslHRz3nPJaxQs+quTMJCyvs702F7rppGI0ao
- MhK4o+ieyhYUtSyLeF8uinLI5Lt72FVRRCQINLTbpomxzmRxdn5L6xwyw
- FfHYPanzOZ1fROCFrv/SX92IVpluvnXCRARGuEfbFKPKKfaNZdUlolQa9
- kbgGXyZfTHTMUJ7g3ur6HUB0Fu+BG5cvQygXTKGQnaxNWX/6ifTkMQJQs
- j/wjp3akiCgGImSzOyBmZcZkJcbW7EjxQPveB8qZfi2/Kq6Jorlhwea/p Q==;
-X-IronPort-AV: E=Sophos;i="6.02,210,1688421600"; d="scan'208";a="32680003"
-Received: from vtuxmail01.tq-net.de ([10.115.0.20])
- by mx1.tq-group.com with ESMTP; 29 Aug 2023 16:05:04 +0200
-Received: from steina-w.localnet (steina-w.tq-net.de [10.123.53.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by vtuxmail01.tq-net.de (Postfix) with ESMTPSA id 0271E280045;
- Tue, 29 Aug 2023 16:05:03 +0200 (CEST)
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Date: Tue, 29 Aug 2023 16:05:03 +0200
-Message-ID: <4507976.LvFx2qVVIh@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <E1qayn0-006Q8J-GE@rmk-PC.armlinux.org.uk>
-References: <E1qayn0-006Q8J-GE@rmk-PC.armlinux.org.uk>
+ Tue, 29 Aug 2023 14:17:47 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37TC0c4Q012262; Tue, 29 Aug 2023 16:17:34 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=selector1; bh=kp0YOE09RKKEmrhUW9St1
+ nqG8EmHj1OTHO3cGIKN36M=; b=Vc1SXe1tiL39xXTwA40io/hIVRy5KlSmkRXfT
+ cTdsGiIJRqn1KfAxf4reXX4vz2W/eUB4rZntXJzF5slahxVrG+lXEef0iadmrBAo
+ Rep4G1QuuXUs+pv8i066NH8iZL/FHTUTDfnmVwIYYpI2EqKyJIIg3aJwydSnrzu+
+ gUC34gLGGuY/hSlaEB43lsriD6ipzpTbvbjD0pL/vn2OztppENPg4TDOd+NlD6gq
+ e/5C4aks7JvXG0ymuVRy0mdh0S60Hp3HqCGApwc+mLk6vSXIuxbZFbz+9E4l9q1+
+ oMdCXLOT7aIcDujG5jGKZ++0wBEVepHUrkzmA7ACbkDEpqb1g==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sqvbha7pt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 29 Aug 2023 16:17:34 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0984610005E;
+ Tue, 29 Aug 2023 16:17:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EDC2B22FA2C;
+ Tue, 29 Aug 2023 16:17:33 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 29 Aug
+ 2023 16:17:33 +0200
+Date: Tue, 29 Aug 2023 16:17:28 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20230829141623.GA193536@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ devicetree@vger.kernel.org,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Rob Herring <robh+dt@kernel.org>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
+ <20220910144010.34272-4-hugues.fruchet@foss.st.com>
+ <ZNC5k3PynnEWL/ou@kekkonen.localdomain>
+ <20230824110934.GA18226@gnbcxd0016.gnb.st.com>
+ <ZOdMghQXfNgKZ6cN@kekkonen.localdomain>
+ <20230824130432.GB27092@pendragon.ideasonboard.com>
+ <20230824160506.GA21560@gnbcxd0016.gnb.st.com>
+ <20230829082635.GC4698@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: failure to probe
-	without MAC interface specified
+Content-Disposition: inline
+In-Reply-To: <20230829082635.GC4698@pendragon.ideasonboard.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-29_11,2023-08-29_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Rob Herring <robh+dt@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v1 3/5] media: stm32-dcmipp: STM32 DCMIPP
+ camera interface driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,67 +92,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Dienstag, 29. August 2023, 15:29:50 CEST schrieb Russell King (Oracle):
-> Alexander Stein reports that commit a014c35556b9 ("net: stmmac: clarify
-> difference between "interface" and "phy_interface"") caused breakage,
-> because plat->mac_interface will never be negative. Fix this by using
-> the "rc" temporary variable in stmmac_probe_config_dt().
-> =
+Hi Laurent,
 
-> Reported-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
-> I don't think the net tree is up to date with the net-next, so this
-> patch needs applying to net-next preferably before the pull request
-> to fix a regression.
+On Tue, Aug 29, 2023 at 11:26:35AM +0300, Laurent Pinchart wrote:
+> On Thu, Aug 24, 2023 at 06:05:06PM +0200, Alain Volmat wrote:
+> > Hi Laurent,
+> > 
+> > On Thu, Aug 24, 2023 at 04:04:32PM +0300, Laurent Pinchart wrote:
+> > > On Thu, Aug 24, 2023 at 12:26:42PM +0000, Sakari Ailus wrote:
+> > > > On Thu, Aug 24, 2023 at 01:09:34PM +0200, Alain Volmat wrote:
+> > > > > Hi Sakari,
+> > > > > 
+> > > > > thanks a lot for the review.  I've already taken care of the comments I got
+> > > > > from Dan and will also add fixes for your comments as well before
+> > > > > pushing the v2.  Before going into that I thought I'd better clarify the
+> > > > > framerate part which seems the most tricky part.
+> > > > > 
+> > > > > On Mon, Aug 07, 2023 at 09:29:55AM +0000, Sakari Ailus wrote:
+> > > > 
+> > > > ...
+> > > > 
+> > > > > > > +static int dcmipp_byteproc_g_frame_interval(struct v4l2_subdev *sd,
+> > > > > > > +					    struct v4l2_subdev_frame_interval *fi)
+> > > > > > > +{
+> > > > > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
+> > > > > > > +
+> > > > > > > +	if (IS_SINK(fi->pad))
+> > > > > > > +		fi->interval = byteproc->sink_interval;
+> > > > > > > +	else
+> > > > > > > +		fi->interval = byteproc->src_interval;
+> > > > > > > +
+> > > > > > > +	return 0;
+> > > > > > > +}
+> > > > > > > +
+> > > > > > > +static int dcmipp_byteproc_s_frame_interval(struct v4l2_subdev *sd,
+> > > > > > > +					    struct v4l2_subdev_frame_interval *fi)
+> > > > > > > +{
+> > > > > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
+> > > > > > > +
+> > > > > > > +	mutex_lock(&byteproc->lock);
+> > > > > > > +
+> > > > > > > +	if (byteproc->streaming) {
+> > > > > > > +		mutex_unlock(&byteproc->lock);
+> > > > > > > +		return -EBUSY;
+> > > > > > > +	}
+> > > > > > > +
+> > > > > > > +	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
+> > > > > > > +		fi->interval = byteproc->sink_interval;
+> > > > > > > +
+> > > > > > > +	if (IS_SINK(fi->pad)) {
+> > > > > > > +		/*
+> > > > > > > +		 * Setting sink frame interval resets frame skipping.
+> > > > > > > +		 * Sink frame interval is propagated to src.
+> > > > > > > +		 */
+> > > > > > > +		byteproc->frate = 0;
+> > > > > > > +		byteproc->sink_interval = fi->interval;
+> > > > > > > +		byteproc->src_interval = byteproc->sink_interval;
+> > > > > > 
+> > > > > > Is this used for anything else than configure skipping?
+> > > > > > 
+> > > > > > I think I'd just have a control for it in that case.
+> > > > > > 
+> > > > > > I don't think exposing frame interval configuration is necessarily even
+> > > > > > meaningful for a device that just processes data but does not produce it.
+> > > > > 
+> > > > > The DCMIPP is able to perform frame drop, 1/2, 1/4, 1/8 basically.
+> > > > > As Dan pointed me out, indeed setting frame interval as we did on both
+> > > > > sink and source pad isn't a defined behavior.  I first thought that
+> > > > > using the frame interval was the proper way to do that but that is
+> > > > > indeed only used on producers such as sensors ....
+> > > > > Which ctrl would you propose in such case ?
+> > > > 
+> > > > We don't have one, AFAIK, and I think it may be unlikely this will be
+> > > > needed elsewhere. So I'd use a private control.
+> > > > 
+> > > > I wonder what others think. Cc Laurent as well.
+> > > 
+> > > What are the use cases for this feature ?
+> > 
+> > This is basically to allow reducing the framerate of the
+> > captured stream when this is not possible at the producer
+> > (sensor) level and we need to lower down the stress on elements down the
+> > pipeline.
+> 
+> I wonder if the frame interval API is a good fit for this. The driver
+> accepts frame rates of 1, 2, 4 and 8 fps and maps them to the
+> corresponding decimation factor, these values are not the actual frame
+> rate.
 
-On top of next-20230829:
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+Not exactly.  The way it was done was that we allow setting frame
+interval on both sink and source pad of the subdev and compute the frame
+skip based on the those two framerates.
+As an example, if the framerate on sink pad is 1/30 and the one on the
+source pad is 1/15 we will skip half of the frames.  The frame interval
+setted via the pads were real framerates.
+The issue here is that it seems there is no such driver implementing frame
+rate adjustments in the kernel and moreover the V4L2 subdev spec says that
+frame interval control should only be done on a single pad of a subdev.
 
-Thanks
+Dan proposed as an alternative to only keep the frame interval setting
+on the source pad of the subdev and have the subdev driver retrieve the
+stream framerate via inter subdev calls down to a subdev implementing the
+get frame interval.
 
-> Thanks.
-> =
-
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> =
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c index
-> 35f4b1484029..0f28795e581c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -419,9 +419,8 @@ stmmac_probe_config_dt(struct platform_device *pdev, =
-u8
-> *mac) return ERR_PTR(phy_mode);
-> =
-
->  	plat->phy_interface =3D phy_mode;
-> -	plat->mac_interface =3D stmmac_of_get_mac_mode(np);
-> -	if (plat->mac_interface < 0)
-> -		plat->mac_interface =3D plat->phy_interface;
-> +	rc =3D stmmac_of_get_mac_mode(np);
-> +	plat->mac_interface =3D rc < 0 ? plat->phy_interface : rc;
-> =
-
->  	/* Some wrapper drivers still rely on phy_node. Let's save it while
->  	 * they are not converted to phylink. */
-
-
--- =
-
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
-
+Regards,
+Alain
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
