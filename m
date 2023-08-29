@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 731DA78C524
-	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 15:24:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD4878C522
+	for <lists+linux-stm32@lfdr.de>; Tue, 29 Aug 2023 15:24:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28C84C6A61D;
-	Tue, 29 Aug 2023 13:24:40 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF62C6A60C;
+	Tue, 29 Aug 2023 13:24:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E482C6A60C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB336C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 29 Aug 2023 13:24:38 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ Tue, 29 Aug 2023 13:24:34 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 37TCA4in012205; Tue, 29 Aug 2023 15:24:10 +0200
+ 37TBl94U019510; Tue, 29 Aug 2023 15:24:10 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=HOHMmPN
- tb2/KAKCNwRrItjo3x21ZNwnn7k1eSYj8xNA=; b=t5NEXiKZeVdWee1K2SAdYQf
- Lg+c97uGgPTbhHOqD8Nh4SnCl1QMOIluQlBlQbHx3edHcE78qCFchZ2q4KorEGAx
- jyVGRtOj9xmpWaISIj81R4QDrN8B8z2jwwYPpwqEwbwgcqjdYPxOYDSCTsCOHNUc
- cxqcklac4OtvUs+TUlI/sklrHyyvBDeZT+UvOR0c5TkalcklJOWYDeOBUSkxELf4
- 8n9vWtjflq5yZINXFfq28zuZxB+sFeWd2Ur8Cx12FKPRQOYKp5G03qWeLb8l47Ez
- unmHZYfjnRCoYqNOOxB78WNLBCU9Z0LuY4EaCNXlu7fDY8DaGE5coRJ5uSG8RrA=
- =
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding:content-type; s=
+ selector1; bh=4em9UKIMaULH9wxLD+bIc6Z2tmssCfw0yaCJmXeWre8=; b=B+
+ yMcmCINFFmJCCbD6Y3G5krTt1BBQ1XgRGhk4/3lXyvq6cbaw6LVySFJdu9ck84Rh
+ iW1pDbp1MCIEBv6vs9lbl4qz/nrd+LNcaYF4uO6uBVHFhvI9W8P+zkpdKaT3chc6
+ YZW1/6WZVGkUqWgX+7GYN6iS0sfK3JpEFWcJj5tFwJ6D5z7QAt9hz0Ayy5PBzOjE
+ uXVNB/oP+OKPvRQnNr1NwfmcgSUfKYCd7iN4G4JW+xL0hb3C9AffIbldEds/fbYW
+ DUkLXt7wCDSNFBFN+6SPoZGKfz28xvlXvRaYHvcV2bcomKhsdnOoY6+ybr68wpCy
+ 1CwbrUi8+ByQ9bMpS2ng==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sqvbha0cs-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq6tfma0y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Aug 2023 15:24:10 +0200 (MEST)
+ Tue, 29 Aug 2023 15:24:09 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 30DD4100057;
- Tue, 29 Aug 2023 15:24:07 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9F3010005E;
+ Tue, 29 Aug 2023 15:24:08 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4CE3A21ED54;
- Tue, 29 Aug 2023 15:24:07 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id AFAA422A6DF;
+ Tue, 29 Aug 2023 15:24:08 +0200 (CEST)
 Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 29 Aug
- 2023 15:24:07 +0200
+ 2023 15:24:08 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
  <alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob
  Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
  <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Date: Tue, 29 Aug 2023 15:23:44 +0200
-Message-ID: <20230829132357.192535-1-alain.volmat@foss.st.com>
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 29 Aug 2023 15:23:45 +0200
+Message-ID: <20230829132357.192535-2-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230829132357.192535-1-alain.volmat@foss.st.com>
+References: <20230829132357.192535-1-alain.volmat@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.129.178.213]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
@@ -64,8 +65,8 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 0/5] Add support for DCMIPP camera
-	interface of STMicroelectronics STM32 SoC series
+Subject: [Linux-stm32] [PATCH v2 1/5] dt-bindings: media: add bindings for
+	dcmipp driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,67 +83,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patchset introduces support for Digital Camera Memory Interface
-Pixel Processor (DCMIPP) of STMicroelectronics STM32 SoC series.
+Add the yaml binding for the DCMIPP driver.
 
-This initial support implements a single capture pipe
-allowing RGB565, YUV, Y, RAW8 and JPEG capture with
-frame skipping, prescaling and cropping.
-
-DCMIPP is exposed through 3 subdevices:
-- dcmipp_dump_parallel: parallel interface handling
-- dcmipp_dump_postproc: frame skipping, prescaling and cropping control
-- dcmipp_dump_capture: video device capture node
-
-v2:
-  - removal of pclk-max-frequency from yaml example dts
-  - codying-style fixes
-  - correction in enum functions (format, mbus, frame_size ...) handling
-  - drop of v4l2_pipeline_pm_ calls, and specific open/close handler of
-    vdev
-  - video dev s_stream handling updated to call s_stream of remote subdev
-    instead of loop until sensor subdev
-  - code update following media_pipeline & v4l2_async_ api changes since v1
-  - removal of IP reset call upon error
-  - removal of link_validate handlers
-  - addition of V4L2_CAP_IO_MC device_caps
-  - removal of the frame skip control for the time being, will be added
-    back in another commit once control method will be agreed
-  - change byteproc entity type to MEDIA_ENT_F_PROC_VIDEO_SCALER
-  - various fixes from Dan & Sakari remarks
-
-Alain Volmat (2):
-  dt-bindings: media: add bindings for dcmipp driver
-  media: MAINTAINERS: add entry for STM32 DCMIPP driver
-
-Hugues Fruchet (3):
-  media: stm32-dcmipp: STM32 DCMIPP camera interface driver
-  ARM: dts: stm32: add dcmipp support to stm32mp135
-  ARM: multi_v7_defconfig: enable STM32 DCMIPP media support
-
- .../bindings/media/st,stm32-dcmipp.yaml       |   95 ++
- MAINTAINERS                                   |    9 +
- arch/arm/boot/dts/st/stm32mp135.dtsi          |    9 +
- arch/arm/configs/multi_v7_defconfig           |    1 +
- drivers/media/platform/st/stm32/Kconfig       |   15 +
- drivers/media/platform/st/stm32/Makefile      |    1 +
- .../platform/st/stm32/stm32-dcmipp/Makefile   |    5 +
- .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c    | 1040 +++++++++++++++++
- .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c   |  692 +++++++++++
- .../st/stm32/stm32-dcmipp/dcmipp-common.c     |  105 ++
- .../st/stm32/stm32-dcmipp/dcmipp-common.h     |  227 ++++
- .../st/stm32/stm32-dcmipp/dcmipp-core.c       |  673 +++++++++++
- .../st/stm32/stm32-dcmipp/dcmipp-parallel.c   |  523 +++++++++
- 13 files changed, 3395 insertions(+)
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ .../bindings/media/st,stm32-dcmipp.yaml       | 95 +++++++++++++++++++
+ 1 file changed, 95 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
- create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
 
+diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+new file mode 100644
+index 000000000000..63f03a1c42b6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/st,stm32-dcmipp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 DCMIPP Digital Camera Memory Interface Pixel Processor binding
++
++maintainers:
++  - Hugues Fruchet <hugues.fruchet@foss.st.com>
++  - Alain Volmat <alain.volmat@foss.st.com>
++
++properties:
++  compatible:
++    const: st,stm32mp13-dcmipp
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: kclk
++
++  resets:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++    description:
++      DCMIPP supports a single port node with parallel bus.
++
++    properties:
++      endpoint:
++        $ref: video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          bus-type:
++            enum: [5, 6]
++            default: 5
++
++          bus-width:
++            enum: [8, 10, 12, 14]
++            default: 8
++
++          pclk-sample: true
++          hsync-active: true
++          vsync-active: true
++
++        required:
++          - pclk-sample
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp13-clks.h>
++    #include <dt-bindings/reset/stm32mp13-resets.h>
++    dcmipp: dcmipp@5a000000 {
++        compatible = "st,stm32mp13-dcmipp";
++        reg = <0x5a000000 0x400>;
++        interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
++        resets = <&rcc DCMIPP_R>;
++        clocks = <&rcc DCMIPP_K>;
++        clock-names = "kclk";
++
++        port {
++             dcmipp_0: endpoint {
++                   remote-endpoint = <&mipid02_2>;
++                   bus-width = <8>;
++                   hsync-active = <0>;
++                   vsync-active = <0>;
++                   pclk-sample = <0>;
++             };
++        };
++    };
++
++...
 -- 
 2.25.1
 
