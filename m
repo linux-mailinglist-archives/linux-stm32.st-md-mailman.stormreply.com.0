@@ -2,76 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F1178D605
-	for <lists+linux-stm32@lfdr.de>; Wed, 30 Aug 2023 15:05:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C480178D64F
+	for <lists+linux-stm32@lfdr.de>; Wed, 30 Aug 2023 15:49:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFD78C6B444;
-	Wed, 30 Aug 2023 13:05:10 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DE3FC6B444;
+	Wed, 30 Aug 2023 13:49:19 +0000 (UTC)
+Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55B9DC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3695C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Aug 2023 13:05:09 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-52a3ec08d93so7273834a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Aug 2023 06:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693400709; x=1694005509;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=HEKRlFZUS3dyupZ+kK+mkGNYk/gW0Ty72y8W+FwpGBU=;
- b=rxry6Dgqazr8Gn2hkPidV1vFtAiGR7TVYShiWo3SapTmM2uTDrjbvKvbGwtY0DLCyE
- V3q0dJWA54MpWmDzQoyLbNPVQFTKXku+I7R5QCiODJCc9t/S+a9CBxMg4MMeToZYr+Wd
- dVosB9rwoszApZxRN/hGfaI1ej1U8UJ10myQdkfv8kjaARCdCnu+pl6PaMxHOOshQqd1
- hKgurUiIX3N6tMX3QLCA2qqzq2TZPgn/LlLLyi2JxKaOr02zPhAv2F8UCnYVBN1EkocI
- KSw5JexMB6naPa8KUl2fTNvuuksmOAHS/kAJ/5Vy7Sjt1kO7mlstP6CeEHsyGbP+m14u
- yb0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693400709; x=1694005509;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:from:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HEKRlFZUS3dyupZ+kK+mkGNYk/gW0Ty72y8W+FwpGBU=;
- b=ax/lgunp4vCdbOc1J1REU0Iq94RSpofQRb252duJWu4ECVTW5Pn3oPMk0WTyQCLUWl
- DLb8tXNv297kJfqr5XtxjsblNnfalFRcwMes/C8oxPi83835QzHSj1KzyWCyebRIOjcI
- 5lTSM1nq8iZ7jhs+Kay8mbijVolUZ3mFZMHvRYdKYZCPyNjwFdOwxpo0ve8cwOcWi+os
- kKOFX6yGQm4ZxvFiSGYJeWt3Rwq/ZqIq2XSR3PRBty4HAizf8Iwrql9k7AVCcZUk0rU5
- 9ojyy2M1ba+hm35vHE7NF0aW5gLg5DwwZ5AeWQb6pO6zFXs7KatxZntuehAxBZzb7g7z
- oVRQ==
-X-Gm-Message-State: AOJu0YwLtgXr4zMX/OqnhlA6a/KqP6d88JJoy32VbTKWRcJf64KvSSAf
- GuVglE3pnQOBZkQME9Cw/LpQ1w==
-X-Google-Smtp-Source: AGHT+IG6tuWBogY1getqOWrJLQDobdIhDHQe+O6MXdBwyeWVbJP1FM/i5KkUVahXRdHtVbpn5qnMfg==
-X-Received: by 2002:aa7:d311:0:b0:523:bfec:4912 with SMTP id
- p17-20020aa7d311000000b00523bfec4912mr1838174edq.11.1693400708725; 
- Wed, 30 Aug 2023 06:05:08 -0700 (PDT)
-Received: from [192.168.0.22] (77-252-46-238.static.ip.netia.com.pl.
- [77.252.46.238]) by smtp.gmail.com with ESMTPSA id
- c6-20020a056402120600b005232c051605sm6740478edw.19.2023.08.30.06.05.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Aug 2023 06:05:08 -0700 (PDT)
-Message-ID: <f40497d1-3547-9434-459f-050f592937ca@linaro.org>
-Date: Wed, 30 Aug 2023 15:05:06 +0200
+ Wed, 30 Aug 2023 13:49:17 +0000 (UTC)
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 37UDmsSH069738;
+ Wed, 30 Aug 2023 08:48:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1693403334;
+ bh=k3G+QCd0qq+SmUmXwQ1w+6uf1+2cGUO++sEcK3YjTPM=;
+ h=From:To:CC:Subject:In-Reply-To:References:Date;
+ b=iz8aBw26EMlFJ3f4qOvXvi5WCcONePsIYPOQ75mdUaRjlqzKVcBpjiB17nxzgktvq
+ 0+sKBr1nJV3xEyNPx43OCQyCcum61cZeOIvnRjplbzQVdDRgJkLOQI6bKDwFr7n7HU
+ 8ojsmayw0NReO5596uAOaoeVnn+vpuX/mtnrIxDg=
+Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 37UDmssS019352
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 30 Aug 2023 08:48:54 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE103.ent.ti.com
+ (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 30
+ Aug 2023 08:48:54 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 30 Aug 2023 08:48:54 -0500
+Received: from localhost (ileaxei01-snat2.itg.ti.com [10.180.69.6])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 37UDmrha038381;
+ Wed, 30 Aug 2023 08:48:54 -0500
+From: Kamlesh Gurudasani <kamlesh@ti.com>
+To: Eric Biggers <ebiggers@kernel.org>
+In-Reply-To: <20230822051710.GC1661@sol.localdomain>
+References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+ <20230812030116.GF971@sol.localdomain>
+ <87h6owen39.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+ <20230822051710.GC1661@sol.localdomain>
+Date: Wed, 30 Aug 2023 19:18:53 +0530
+Message-ID: <87v8cwd4je.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.14.0
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20230830114335.106344-1-eagle.alexander923@gmail.com>
- <e2dc91a9-d027-dc69-14bf-3a1184045254@linaro.org>
-Content-Language: en-US
-In-Reply-To: <e2dc91a9-d027-dc69-14bf-3a1184045254@linaro.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add MyirTech
- MYD-YA15XC-T development board support
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, kamlesh@ti.com,
+ Will Deacon <will@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [EXTERNAL] Re: [EXTERNAL] Re: [PATCH v2 0/6] Add
+ support for Texas Instruments MCRC64 engine
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,30 +76,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/08/2023 14:51, Krzysztof Kozlowski wrote:
-> On 30/08/2023 13:43, Alexander Shiyan wrote:
->> Add support for the MyirTech MYD-YA15XC-T development board.
->>
->> General features:
->>  - STM32MP151
->>  - 256MB RAM
->>  - 2xUSB HOST
->>  - USB-C OTG
->>  - Gigabit ethernet
->>  - UART
->>  - Boot from NAND, eMMC, SD
->>
->> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
->> ---
->>  arch/arm/boot/dts/st/Makefile                 |   3 +-
->>  .../boot/dts/st/stm32mp15x-myirtech-myc.dtsi  | 351 ++++++++++++++
->>  .../boot/dts/st/stm32mp15x-myirtech-myd.dts   | 457 ++++++++++++++++++
+Eric Biggers <ebiggers@kernel.org> writes:
 
-Also naming looks wrong. This is stm32mp151, not 15x.
+> On Fri, Aug 18, 2023 at 02:36:34PM +0530, Kamlesh Gurudasani wrote:
+>> Hi Eric,
+>> 
+>> We are more interested in offload than performance, with splice system
+>> call and DMA mode in driver(will be implemented after this series gets
+>> merged), good amount of cpu cycles will be saved.
+>
+> So it's for power usage, then?  Or freeing up CPU for other tasks?
+>
 
-Best regards,
-Krzysztof
+It's for freeing up CPU for other tasks
 
+>> There is one more mode(auto mode) in mcrc64 which helps to verify crc64
+>> values against pre calculated crc64, saving the efforts of comparing in
+>> userspace.
+>
+> Is there any path forward to actually support this?
+>
+>> 
+>> Current generic implementation of crc64-iso(part of this series)
+>> gives 173 Mb/s of speed as opposed to mcrc64 which gives speed of 812
+>> Mb/s when tested with tcrypt.
+>
+> This doesn't answer my question, which to reiterate was:
+>
+>     How does performance compare to a properly optimized software CRC
+>     implementation on your platform, i.e. an implementation using carryless
+>     multiplication instructions (e.g. ARMv8 CE) if available on your platform,
+>     otherwise an implementation using the slice-by-8 or slice-by-16 method?
+>
+> The implementation you tested was slice-by-1.  Compared to that, it's common for
+> slice-by-8 to speed up CRCs by about 4 times and for folding with carryless
+> multiplication to speed up CRCs by 10-30 times, sometimes limited only by memory
+> bandwidth.  I don't know what specific results you would get on your specific
+> CPU and for this specific CRC, and you could certainly see something different
+> if you e.g. have some low-end embedded CPU.  But those are the typical results
+> I've seen for other CRCs on different CPUs.  So, a software implementation may
+> be more attractive than you realize.  It could very well be the case that a
+> PMULL based CRC implementation actually ends up with less CPU load than your
+> "hardware offload", when taking into syscall, algif_hash, and driver overhead...
+>
+> - Eric
+
+Hi Eric, thanks for your detailed and valuable inputs.
+
+As per your suggestion, we did some profiling. 
+
+Use case is to calculate crc32/crc64 for file input from user space.
+
+Instead of directly implementing PMULL based CRC64, we made first comparison between 
+Case 1.
+CRC32 (splice() + kernel space SW driver) 
+https://gist.github.com/ti-kamlesh/5be75dbde292e122135ddf795fad9f21
+
+Case 2.
+CRC32(mmap() + userspace armv8 crc32 instruction implementation)
+(tried read() as well to get contents of file, but that lost to mmap() so not mentioning number here)
+https://gist.github.com/ti-kamlesh/002df094dd522422c6cb62069e15c40d
+
+Case 3.
+CRC64 (splice() + MCRC64 HW)
+https://gist.github.com/ti-kamlesh/98b1fc36c9a7c3defcc2dced4136b8a0
+
+
+Overall, overhead of userspace + af_alg + driver in (Case 1) and ( Case 3) is ~0.025s, which is constant for any file size.
+This is calculated using real time to calculate crc  - driver time (time spend inside init() + update() +final()) = overhead ~0.025s    
+
+Here, if we consider similar numbers for crc64 PMULL implementation as crc32 (case 2) , we save good number of cpu cycles using mcrc64
+in case of files bigger than 5-10mb as most of the time is being spent in HW offload.
+
++-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+|                   |                             |                       |                        |                        |
+| File size         | 120mb(ideal size for us)    | 20mb                  | 15mb                   | 5mb                    |
++===================+=============================+=======================+========================+========================+
+|                   |                             |                       |                        |                        |
+| CRC32 (Case 1)    | Driver time 0.155s          | Driver time 0.0325s   | Driver time 0.019s     | Driver time 0.0062s    |
+|                   |    real time 0.18s          |    real time 0.06s    |    real time 0.04s     |    real time 0.03s     |
+|                   |    overhead 0.025s          |    overhead 0.025s    |    overhead 0.021s     |    overhead ~0.023s    |
++-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+|                   |                             |                       |                        |                        |
+| CRC32 (Case 2)    | Real time 0.30s             | Real time 0.05s       | Real time 0.04s        | Real time 0.02s        |
++-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+|                   |                             |                       |                        |                        |
+| CRC64 (Case 3)    | Driver time   0.385s        | Driver time 0.0665s   | Driver time 0.0515s    | Driver time 0.019s     |
+|                   |    real time 0.41s          |    real time 0.09s    |    real time 0.08s     |    real time 0.04s     |
+|                   |    overhead 0.025s          |    overhead 0.025s    |    overhead ~0.025s    |    overhead ~0.021s    |
++-------------------+-----------------------------+-----------------------+------------------------+------------------------+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
