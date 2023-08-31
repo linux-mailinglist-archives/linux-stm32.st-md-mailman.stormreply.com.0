@@ -2,70 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E862278E6DF
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Aug 2023 08:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5246A78EF0C
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Aug 2023 15:57:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DB6CC6B44B;
-	Thu, 31 Aug 2023 06:56:44 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA8DC6A615;
+	Thu, 31 Aug 2023 13:57:38 +0000 (UTC)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6788DC6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F4CEC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Aug 2023 14:30:26 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-271b0a8e7ecso1195060a91.3
+ Thu, 31 Aug 2023 13:52:07 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-52a39a1c4d5so1074855a12.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 30 Aug 2023 07:30:26 -0700 (PDT)
+ Thu, 31 Aug 2023 06:52:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693405825; x=1694010625;
+ d=gmail.com; s=20221208; t=1693489926; x=1694094726;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=LTBF5RZjge1RM0OTnXY7rRonWIcAk181t3jjXQW2nOI=;
- b=XINo55Au9gJEWxRBWn4wJ7MOJeqfeL3GqvI13rmRPtuYlfnnUCz8SLXtCe9OKOUVrz
- yNG9DZgByNKj2X7O90Qa+zT5UQ+Dbp9Wam6BpNVRm5FLp2dwUxmYL191QKn5ic9vA21e
- UEMIbrVeR1hXOmqp7xOo6nlgLNQc18j3m9KEhAbzeJ0yzMfwxoDmcmtm7XOvb0/eh/sI
- 9WfA6OQHg7QAxt5FzemgmQafu2EwbBn0LLotx7NtWdfhuCpSeZvqVP2PFTEB2/QOlo0X
- ga/lwLh9lU5sncubgV/WKy4SEipfW/D0qfkM76EaWG85Hwphq/T4w/eGVxN2qTWkK8zN
- BgSg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xYOUD5lXQca1WFTvIiOtEDQstacjLP+FCLr0A1NUsT0=;
+ b=npQ6XUqEX/fxnA/yMV4D22Rs3pupgk0Ntwyz+iuRR7MK4LgkmF+/wACPGybOmtrTFk
+ fPllEq+OucjAJFVAf7D3bsjJ7nolMGtG55LX27KAVlJwyYVDZSFh1UXgENiiPyXgkZcY
+ txC0kbXLVStImAsQGegGZwq+OxOEdgxG58wSZyjz+SJPQGlh+dwKkHh5kPPuNudG4cgS
+ JsCZMmFatJHQP7kwEhgFAeDDkBEyuZgZqE7Vl3RL0llfM+banWf1ATvLzUGC/apucytb
+ uz5Ak2SUEQA1lCJLsLX+FOC0yPLdjEaqfXb6bt0jKHtpP1oEpIoC3xeKmOcEy/2gEXuC
+ 21Vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693405825; x=1694010625;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=LTBF5RZjge1RM0OTnXY7rRonWIcAk181t3jjXQW2nOI=;
- b=ewAJDFrdOqJxmTVKRU3WVwF5bX4ejUv9Mo4DZWvUTPfinbYrrwsXHthLKpIvOpYFqi
- NmF2JJJYGuSnpF3+vWov7I3v9LUUHhvPXpXyqq0ZiKstpwmMmiq+4h6nwnOTrAv8D5Ac
- /IEgiwwCsUPl24Z+SSuiIcQpxloeUqYArxOgIVPq4nHKqH6F1yF+TVxCc7jzDM66KQJW
- wyAYembgP5gY/lM1S4pHO/U3ESugkX0Tl70z4LokyBsKNK28RpMj1m5ALFRU/TZ1zBUA
- egSpj+/oSb8sWobS6PZBkB602hjGQs9RyKIdgB9VzQLHx3MCSyG7/ajaSFX+EgXhse4Y
- 2L7w==
-X-Gm-Message-State: AOJu0YzmCexohuJhEr23FPSXg4qM9hSUGxzB88N2KkBR+KDivpHeo4A+
- Xahs+QHNNtEB3Ke1G7lkT8kaYZe9ck7pPDNkDmo=
-X-Google-Smtp-Source: AGHT+IFwl4tlt03Cw/dP5WiUwCM0dpOdbmqnWRTX3UBBvi7P78wJTiQTlZj48ujsq28DHFgGL3hbwkWbbUCOVCMuPjc=
-X-Received: by 2002:a17:90a:5216:b0:268:5558:de4c with SMTP id
- v22-20020a17090a521600b002685558de4cmr2256076pjh.38.1693405824745; Wed, 30
- Aug 2023 07:30:24 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1693489926; x=1694094726;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xYOUD5lXQca1WFTvIiOtEDQstacjLP+FCLr0A1NUsT0=;
+ b=E+iYmdkxI3ilnRfTGD4gBguldhJu3KBWIyvHI7akoe2YvmwGbc5OtpSQBy9XTybvf0
+ qRVyyXV8FAoYQjy2OdLqEnknX02mMautr76wW9HOkeXcbNT7Bf6Jz7N1P2Sa7Qop5dTJ
+ 7rJr1P08B/MS3kPXjgMZZATf/YcyW37ULnwtqLcbxg+0SvIODXSU1ybM9jVwvgEuZdpY
+ Fq5rk3ay5Fhf/QkU3f+Ci/46pUcu6k2tk1vBtheL0lIHQAKBO+mNYczUN5GxPC5eDIGO
+ QOKNjmnC3u4oCJ4YkhdHVLjhPFafYir8JeAzHdk3LxpVzpzGVgdKsgjEmbzMCnlsHYFU
+ yUEw==
+X-Gm-Message-State: AOJu0YyrpgGWl//mqidi/J+vcg8k/krIRRql5wxLUvUZlEOuSzSB+MF/
+ xEWtkv0a/u0YF9D//awYjXI=
+X-Google-Smtp-Source: AGHT+IEiraQBzFw6RGp8YPRpJ1fST3v+Z2mvq7ugGZ1V9RQFFoEWTPv1Kh0qGIoblmibYEfCUGGSjg==
+X-Received: by 2002:aa7:d952:0:b0:525:4471:6b5d with SMTP id
+ l18-20020aa7d952000000b0052544716b5dmr4386016eds.19.1693489926241; 
+ Thu, 31 Aug 2023 06:52:06 -0700 (PDT)
+Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz.
+ [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
+ by smtp.gmail.com with ESMTPSA id
+ o21-20020aa7c515000000b0052576969ef8sm813790edq.14.2023.08.31.06.52.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 31 Aug 2023 06:52:05 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Thu, 31 Aug 2023 15:52:02 +0200
+To: Rong Tao <rtoax@foxmail.com>
+Message-ID: <ZPCbAs3ItjRd8XVh@krava>
+References: <tencent_254B7015EED7A5D112C45E033DA1822CF107@qq.com>
 MIME-Version: 1.0
-References: <20230830114335.106344-1-eagle.alexander923@gmail.com>
- <e2dc91a9-d027-dc69-14bf-3a1184045254@linaro.org>
- <f40497d1-3547-9434-459f-050f592937ca@linaro.org>
- <CAP1tNvTvd5mZ1eWiMeck14b5KGyyXBNrEE=of0OKesbNKE_jqQ@mail.gmail.com>
- <38cd46c1-d0e2-e27d-f872-87bfee9058bb@linaro.org>
-In-Reply-To: <38cd46c1-d0e2-e27d-f872-87bfee9058bb@linaro.org>
-From: Alexander Shiyan <eagle.alexander923@gmail.com>
-Date: Wed, 30 Aug 2023 17:30:13 +0300
-Message-ID: <CAP1tNvT5_iZdxHiqxdnyBFoCp3jQTMoJk+iUF9D2JJk54CNPLQ@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-X-Mailman-Approved-At: Thu, 31 Aug 2023 06:56:43 +0000
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: Add MyirTech
- MYD-YA15XC-T development board support
+Content-Disposition: inline
+In-Reply-To: <tencent_254B7015EED7A5D112C45E033DA1822CF107@qq.com>
+X-Mailman-Approved-At: Thu, 31 Aug 2023 13:57:38 +0000
+Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Song Liu <song@kernel.org>,
+ Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ Daniel =?iso-8859-1?Q?M=FCller?= <deso@posteo.net>,
+ Xu Kuohai <xukuohai@huawei.com>, Shuah Khan <shuah@kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Mykola Lysenko <mykolal@fb.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, daniel@iogearbox.net,
+ Manu Bretelle <chantr4@gmail.com>, andrii@kernel.org,
+ Ross Zwisler <zwisler@google.com>, Alexei Starovoitov <ast@kernel.org>,
+ KP Singh <kpsingh@kernel.org>, olsajiri@gmail.com,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>, open list <linux-kernel@vger.kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "open list:BPF \[GENERAL\] \(Safe Dynamic Programs and Tools\)"
+ <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, sdf@google.com
+Subject: Re: [Linux-stm32] [PATCH bpf-next v9] selftests/bpf:
+ trace_helpers.c: optimize kallsyms cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,33 +100,241 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As far as I understand, the CPU type is an option when ordering.
-Here's what it says on the manufacturer's website:
-CPU: STMicroelectronics STM32MP151AAC3 microprocessor
-(STM32MP153AAC3 and STM32MP157AAC3 are compatible and can be customized).
-It's not a problem for me to make one type of CPU in the bindings,
-I just wanted the bindings file to be more flexible.
-#include "stm32mp151.dtsi" in this case we can transfer to MYD,
-as we don't really need MYC to be compiled separately.
+On Tue, Aug 29, 2023 at 10:14:01PM +0800, Rong Tao wrote:
+> From: Rong Tao <rongtao@cestc.cn>
+> 
+> Static ksyms often have problems because the number of symbols exceeds the
+> MAX_SYMS limit. Like changing the MAX_SYMS from 300000 to 400000 in
+> commit e76a014334a6("selftests/bpf: Bump and validate MAX_SYMS") solves
+> the problem somewhat, but it's not the perfect way.
+> 
+> This commit uses dynamic memory allocation, which completely solves the
+> problem caused by the limitation of the number of kallsyms.
+> 
+> Acked-by: Stanislav Fomichev <sdf@google.com>
+> Signed-off-by: Rong Tao <rongtao@cestc.cn>
+> ---
+> v9: Add load_kallsyms_local,ksym_search_local,ksym_get_addr_local functions.
+> v8: https://lore.kernel.org/lkml/tencent_6D23FE187408D965E95DFAA858BC7E8C760A@qq.com/
+>     Resolves inter-thread contention for ksyms global variables.
+> v7: https://lore.kernel.org/lkml/tencent_BD6E19C00BF565CD5C36A9A0BD828CFA210A@qq.com/
+>     Fix __must_check macro.
+> v6: https://lore.kernel.org/lkml/tencent_4A09A36F883A06EA428A593497642AF8AF08@qq.com/
+>     Apply libbpf_ensure_mem()
+> v5: https://lore.kernel.org/lkml/tencent_0E9E1A1C0981678D5E7EA9E4BDBA8EE2200A@qq.com/
+>     Release the allocated memory once the load_kallsyms_refresh() upon error
+>     given it's dynamically allocated.
+> v4: https://lore.kernel.org/lkml/tencent_59C74613113F0C728524B2A82FE5540A5E09@qq.com/
+>     Make sure most cases we don't need the realloc() path to begin with,
+>     and check strdup() return value.
+> v3: https://lore.kernel.org/lkml/tencent_50B4B2622FE7546A5FF9464310650C008509@qq.com/
+>     Do not use structs and judge ksyms__add_symbol function return value.
+> v2: https://lore.kernel.org/lkml/tencent_B655EE5E5D463110D70CD2846AB3262EED09@qq.com/
+>     Do the usual len/capacity scheme here to amortize the cost of realloc, and
+>     don't free symbols.
+> v1: https://lore.kernel.org/lkml/tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com/
+> ---
+>  samples/bpf/Makefile                          |   4 +
+>  .../selftests/bpf/prog_tests/bpf_cookie.c     |   9 +-
+>  .../selftests/bpf/prog_tests/fill_link_info.c |   9 +-
+>  .../bpf/prog_tests/get_stack_raw_tp.c         |  10 +-
+>  .../bpf/prog_tests/kprobe_multi_test.c        |  15 +-
+>  .../prog_tests/kprobe_multi_testmod_test.c    |  19 ++-
+>  tools/testing/selftests/bpf/trace_helpers.c   | 142 +++++++++++++-----
+>  tools/testing/selftests/bpf/trace_helpers.h   |   8 +
+>  8 files changed, 159 insertions(+), 57 deletions(-)
+> 
+> diff --git a/samples/bpf/Makefile b/samples/bpf/Makefile
+> index 4ccf4236031c..6c707ebcebb9 100644
+> --- a/samples/bpf/Makefile
+> +++ b/samples/bpf/Makefile
+> @@ -175,6 +175,7 @@ TPROGS_CFLAGS += -I$(srctree)/tools/testing/selftests/bpf/
+>  TPROGS_CFLAGS += -I$(LIBBPF_INCLUDE)
+>  TPROGS_CFLAGS += -I$(srctree)/tools/include
+>  TPROGS_CFLAGS += -I$(srctree)/tools/perf
+> +TPROGS_CFLAGS += -I$(srctree)/tools/lib
+>  TPROGS_CFLAGS += -DHAVE_ATTR_TEST=0
+>  
+>  ifdef SYSROOT
+> @@ -314,6 +315,9 @@ XDP_SAMPLE_CFLAGS += -Wall -O2 \
+>  
+>  $(obj)/$(XDP_SAMPLE): TPROGS_CFLAGS = $(XDP_SAMPLE_CFLAGS)
+>  $(obj)/$(XDP_SAMPLE): $(src)/xdp_sample_user.h $(src)/xdp_sample_shared.h
+> +# Override includes for trace_helpers.o because __must_check won't be defined
+> +# in our include path.
+> +$(obj)/$(TRACE_HELPERS): TPROGS_CFLAGS := $(TPROGS_CFLAGS) -D__must_check=
+>  
+>  -include $(BPF_SAMPLES_PATH)/Makefile.target
+>  
+> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> index 1454cebc262b..4ed47dc75669 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
+> @@ -104,8 +104,10 @@ static void kprobe_multi_link_api_subtest(void)
+>  	LIBBPF_OPTS(bpf_link_create_opts, opts);
+>  	unsigned long long addrs[8];
+>  	__u64 cookies[8];
+> +	struct ksyms *ksyms;
+>  
+> -	if (!ASSERT_OK(load_kallsyms(), "load_kallsyms"))
+> +	ksyms = load_kallsyms_local();
+> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_local"))
+>  		goto cleanup;
 
-> On 30/08/2023 15:42, Alexander Shiyan wrote:
-> > The initial thought in the file name was that the modules could be
-> > equipped with a CPU
-> > other than STM32MP151, i.e. 153 or 157. The development board, as far
-> > i understand,
-> > equipped with a STM32MP151 only, so can we leave the current name for
-> > the module (15x)
-> > as is and change it only in the file name (and in compatible property)
-> > for the development
-> > board only?
->
-> Depends. I do not see SoM here. You called it "MYIR MYC-YA15XC-T", so it
-> looks like end product for me. Can the same product have different SoC
-> module? How would your DTSI look like? You include there 151.dtsi, so it
-> could not have...
->
-> Yes, you also need to adjust compatibles to reflect real names, not
-> wildcards.
+hum, this wont work right? I think you should use ASSERT_OK_PTR in here
+and ther similar places below
+
+>  
+>  	skel = kprobe_multi__open_and_load();
+> @@ -116,8 +118,8 @@ static void kprobe_multi_link_api_subtest(void)
+>  	skel->bss->test_cookie = true;
+>  
+>  #define GET_ADDR(__sym, __addr) ({				\
+> -	__addr = ksym_get_addr(__sym);				\
+> -	if (!ASSERT_NEQ(__addr, 0, "ksym_get_addr " #__sym))	\
+> +	__addr = ksym_get_addr_local(ksyms, __sym);		\
+> +	if (!ASSERT_NEQ(__addr, 0, "ksym_get_addr_local " #__sym))	\
+>  		goto cleanup;					\
+>  })
+>  
+> @@ -171,6 +173,7 @@ static void kprobe_multi_link_api_subtest(void)
+>  cleanup:
+>  	close(link1_fd);
+>  	close(link2_fd);
+> +	free_kallsyms_local(ksyms);
+
+I think we don't need to change any test that's calling load_kallsyms,
+it should use load_kallsyms and global ksyms data
+
+the load_kallsyms_local would be used in tests that use load_kallsyms_refresh
+and need updated ksyms data for bpf_testmod symbols
+
+we just need to make sure that global ksyms initialization won't race, like with:
+
+	+static pthread_mutex_t ksyms_mutex = PTHREAD_MUTEX_INITIALIZER;
+	+
+	 int load_kallsyms(void)
+	 {
+	-       /*
+	-        * This is called/used from multiplace places,
+	-        * load symbols just once.
+	-        */
+	-       if (sym_cnt)
+	-               return 0;
+	-       return load_kallsyms_refresh();
+	+       pthread_mutex_lock(&ksyms_mutex);
+	+       if (!ksyms)
+	+               ksyms = load_kallsyms_local();
+	+       pthread_mutex_unlock(&ksyms_mutex);
+	+       return ksyms ? 0 : 1;
+	 }
+
+it could be in separate patch perhaps, because currently there's the same race
+
+>  	kprobe_multi__destroy(skel);
+>  }
+>  
+> diff --git a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
+> index 9d768e083714..154aaa08761f 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
+> @@ -302,16 +302,18 @@ void test_fill_link_info(void)
+>  {
+>  	struct test_fill_link_info *skel;
+>  	int i;
+> +	struct ksyms *ksyms;
+>  
+>  	skel = test_fill_link_info__open_and_load();
+>  	if (!ASSERT_OK_PTR(skel, "skel_open"))
+>  		return;
+>  
+>  	/* load kallsyms to compare the addr */
+> -	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
+> +	ksyms = load_kallsyms_refresh_local(NULL);
+> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_refresh_local"))
+
+ASSERT_OK_PTR
+
+SNIP
+
+> -int load_kallsyms_refresh(void)
+> +struct ksyms *load_kallsyms_refresh_local(struct ksyms *ksyms)
+>  {
+>  	FILE *f;
+>  	char func[256], buf[256];
+>  	char symbol;
+>  	void *addr;
+> -	int i = 0;
+> +	int ret;
+>  
+> -	sym_cnt = 0;
+> +	/* flush kallsyms, free the previously allocated dynamic memory */
+> +	free_kallsyms_local(ksyms);
+>  
+>  	f = fopen("/proc/kallsyms", "r");
+>  	if (!f)
+> -		return -ENOENT;
+> +		return NULL;
+> +
+> +	ksyms = calloc(1, sizeof(struct ksyms));
+> +	if (!ksyms)
+> +		return NULL;
+>  
+>  	while (fgets(buf, sizeof(buf), f)) {
+>  		if (sscanf(buf, "%p %c %s", &addr, &symbol, func) != 3)
+>  			break;
+>  		if (!addr)
+>  			continue;
+> -		if (i >= MAX_SYMS)
+> -			return -EFBIG;
+>  
+> -		syms[i].addr = (long) addr;
+> -		syms[i].name = strdup(func);
+> -		i++;
+> +		ret = libbpf_ensure_mem((void **) &ksyms->syms, &ksyms->sym_cap,
+> +					sizeof(struct ksym), ksyms->sym_cnt + 1);
+> +		if (ret)
+> +			goto error;
+> +		ret = ksyms__add_symbol(ksyms, func, (unsigned long)addr);
+> +		if (ret)
+> +			goto error;
+>  	}
+>  	fclose(f);
+> -	sym_cnt = i;
+> -	qsort(syms, sym_cnt, sizeof(struct ksym), ksym_cmp);
+> -	return 0;
+> +	qsort(ksyms->syms, ksyms->sym_cnt, sizeof(struct ksym), ksym_cmp);
+> +	return ksyms;
+> +
+> +error:
+> +	free_kallsyms_local(ksyms);
+> +	return NULL;
+> +}
+> +
+> +int load_kallsyms_refresh(void)
+> +{
+> +	ksyms = load_kallsyms_refresh_local(NULL);
+> +	return ksyms ? 0 : 1;
+> +}
+> +
+> +struct ksyms *load_kallsyms_local(void)
+> +{
+> +	return load_kallsyms_refresh_local(NULL);
+>  }
+
+do we need to have load_kallsyms_refresh_local?
+
+we could have ksyms arg passed directly to load_kallsyms_local
+
+  struct ksyms *load_kallsyms_local(struct ksyms *old);
+
+it would return fresh ksyms and release old ksyms if it's passed as an argument
+
+basically I mean just to drop load_kallsyms_local above and rename
+load_kallsyms_refresh_local to load_kallsyms_local
+
+
+jirka
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
