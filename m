@@ -2,88 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5246A78EF0C
-	for <lists+linux-stm32@lfdr.de>; Thu, 31 Aug 2023 15:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89BA378F09F
+	for <lists+linux-stm32@lfdr.de>; Thu, 31 Aug 2023 17:53:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA8DC6A615;
-	Thu, 31 Aug 2023 13:57:38 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 343E0C6A615;
+	Thu, 31 Aug 2023 15:53:39 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F4CEC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91CDFC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Aug 2023 13:52:07 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-52a39a1c4d5so1074855a12.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 31 Aug 2023 06:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693489926; x=1694094726;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xYOUD5lXQca1WFTvIiOtEDQstacjLP+FCLr0A1NUsT0=;
- b=npQ6XUqEX/fxnA/yMV4D22Rs3pupgk0Ntwyz+iuRR7MK4LgkmF+/wACPGybOmtrTFk
- fPllEq+OucjAJFVAf7D3bsjJ7nolMGtG55LX27KAVlJwyYVDZSFh1UXgENiiPyXgkZcY
- txC0kbXLVStImAsQGegGZwq+OxOEdgxG58wSZyjz+SJPQGlh+dwKkHh5kPPuNudG4cgS
- JsCZMmFatJHQP7kwEhgFAeDDkBEyuZgZqE7Vl3RL0llfM+banWf1ATvLzUGC/apucytb
- uz5Ak2SUEQA1lCJLsLX+FOC0yPLdjEaqfXb6bt0jKHtpP1oEpIoC3xeKmOcEy/2gEXuC
- 21Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693489926; x=1694094726;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xYOUD5lXQca1WFTvIiOtEDQstacjLP+FCLr0A1NUsT0=;
- b=E+iYmdkxI3ilnRfTGD4gBguldhJu3KBWIyvHI7akoe2YvmwGbc5OtpSQBy9XTybvf0
- qRVyyXV8FAoYQjy2OdLqEnknX02mMautr76wW9HOkeXcbNT7Bf6Jz7N1P2Sa7Qop5dTJ
- 7rJr1P08B/MS3kPXjgMZZATf/YcyW37ULnwtqLcbxg+0SvIODXSU1ybM9jVwvgEuZdpY
- Fq5rk3ay5Fhf/QkU3f+Ci/46pUcu6k2tk1vBtheL0lIHQAKBO+mNYczUN5GxPC5eDIGO
- QOKNjmnC3u4oCJ4YkhdHVLjhPFafYir8JeAzHdk3LxpVzpzGVgdKsgjEmbzMCnlsHYFU
- yUEw==
-X-Gm-Message-State: AOJu0YyrpgGWl//mqidi/J+vcg8k/krIRRql5wxLUvUZlEOuSzSB+MF/
- xEWtkv0a/u0YF9D//awYjXI=
-X-Google-Smtp-Source: AGHT+IEiraQBzFw6RGp8YPRpJ1fST3v+Z2mvq7ugGZ1V9RQFFoEWTPv1Kh0qGIoblmibYEfCUGGSjg==
-X-Received: by 2002:aa7:d952:0:b0:525:4471:6b5d with SMTP id
- l18-20020aa7d952000000b0052544716b5dmr4386016eds.19.1693489926241; 
- Thu, 31 Aug 2023 06:52:06 -0700 (PDT)
-Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz.
- [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
- by smtp.gmail.com with ESMTPSA id
- o21-20020aa7c515000000b0052576969ef8sm813790edq.14.2023.08.31.06.52.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Aug 2023 06:52:05 -0700 (PDT)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Thu, 31 Aug 2023 15:52:02 +0200
-To: Rong Tao <rtoax@foxmail.com>
-Message-ID: <ZPCbAs3ItjRd8XVh@krava>
-References: <tencent_254B7015EED7A5D112C45E033DA1822CF107@qq.com>
+ Thu, 31 Aug 2023 15:53:38 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 37VE3Toe012289; Thu, 31 Aug 2023 17:53:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=tdfXHbaA8B9kmWWa7lzvV7hPJOZ3PDnaE1ei6pzWp5M=; b=tJ
+ xKDbn7+rxWdFXMOyLMw0rZWWSk2WZS4XKTFPqrpWZaBDxZPUpQHUcqThqKA0NzkY
+ MmKQ+6UwJ1iMaAaxD1d/L8APEr3UNGQpwkGZ9JraNXdc5khwo6CbRqsVWof2iyic
+ 4HppAH+eGWIzRoXYKzXrxmsbq4p7VAjWpcwB1wlDFcvYV9ZBiI0IPGVQ3x+ya5u4
+ djK3Xle9egS2qMrDg3SvyrBhMHRN2xkNdYn5EH/fe7YM40qJKoUGQzroEviDhTnf
+ GDt2UFllxFYMTHcyMZjQCu4stvItpUT8ddGriR9zo3vSJNs8LkegLAyZ+WVEn6H2
+ hmk/GTuQKoQY3GLc+ORg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sqvbhm8m1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 31 Aug 2023 17:53:04 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C7359100056;
+ Thu, 31 Aug 2023 17:53:02 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C53C2092E2;
+ Thu, 31 Aug 2023 17:53:02 +0200 (CEST)
+Received: from [10.201.20.178] (10.201.20.178) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Thu, 31 Aug
+ 2023 17:53:01 +0200
+Message-ID: <d17f56a5-6f6b-d359-0123-ce04bb177e33@foss.st.com>
+Date: Thu, 31 Aug 2023 17:53:00 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <tencent_254B7015EED7A5D112C45E033DA1822CF107@qq.com>
-X-Mailman-Approved-At: Thu, 31 Aug 2023 13:57:38 +0000
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Song Liu <song@kernel.org>,
- Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
- Yonghong Song <yonghong.song@linux.dev>,
- Daniel =?iso-8859-1?Q?M=FCller?= <deso@posteo.net>,
- Xu Kuohai <xukuohai@huawei.com>, Shuah Khan <shuah@kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Mykola Lysenko <mykolal@fb.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, daniel@iogearbox.net,
- Manu Bretelle <chantr4@gmail.com>, andrii@kernel.org,
- Ross Zwisler <zwisler@google.com>, Alexei Starovoitov <ast@kernel.org>,
- KP Singh <kpsingh@kernel.org>, olsajiri@gmail.com,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, open list <linux-kernel@vger.kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+References: <20230727150324.1157933-1-olivier.moysan@foss.st.com>
+ <20230727150324.1157933-4-olivier.moysan@foss.st.com>
+ <20230811171011.GA3618531-robh@kernel.org>
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <20230811171011.GA3618531-robh@kernel.org>
+X-Originating-IP: [10.201.20.178]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-31_14,2023-08-31_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "open list:BPF \[GENERAL\] \(Safe Dynamic Programs and Tools\)"
- <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, sdf@google.com
-Subject: Re: [Linux-stm32] [PATCH bpf-next v9] selftests/bpf:
- trace_helpers.c: optimize kallsyms cache
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC v2 03/11] dt-bindings: iio: stm32-dfsdm-adc:
+ add scaling support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,246 +79,319 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Aug 29, 2023 at 10:14:01PM +0800, Rong Tao wrote:
-> From: Rong Tao <rongtao@cestc.cn>
+Hi Rob,
+
+On 8/11/23 19:10, Rob Herring wrote:
+> On Thu, Jul 27, 2023 at 05:03:14PM +0200, Olivier Moysan wrote:
+>> Add scaling support to STM32 DFSDM.
+>>
+>> This introduces the following changes:
 > 
-> Static ksyms often have problems because the number of symbols exceeds the
-> MAX_SYMS limit. Like changing the MAX_SYMS from 300000 to 400000 in
-> commit e76a014334a6("selftests/bpf: Bump and validate MAX_SYMS") solves
-> the problem somewhat, but it's not the perfect way.
+> Why?
 > 
-> This commit uses dynamic memory allocation, which completely solves the
-> problem caused by the limitation of the number of kallsyms.
+
+This RFC is an attempt to support scaling through a change in DFSDM 
+topology.
+
+These changes have some impacts on DFSDM and sd modulator bindings.
+To keep things simple in this RFC, I skipped legacy support, to put the 
+emphasis on the new bindings proposal.
+There are two changes here: adoption of the generic IIO bindings and new 
+"io-backends" property. This needs to be put in two separate patches at 
+the end, I think (as already done for driver patches)
+
+Anyway, the current bindings would become deprecated with these changes. 
+I still have to consider how to support these legacy bindings for next 
+step, However.
+
+BRs
+Olivier
+
+>> - Add ADC generic channel binding and remove support of deprecated
+>> channel bindings.
 > 
-> Acked-by: Stanislav Fomichev <sdf@google.com>
-> Signed-off-by: Rong Tao <rongtao@cestc.cn>
-> ---
-> v9: Add load_kallsyms_local,ksym_search_local,ksym_get_addr_local functions.
-> v8: https://lore.kernel.org/lkml/tencent_6D23FE187408D965E95DFAA858BC7E8C760A@qq.com/
->     Resolves inter-thread contention for ksyms global variables.
-> v7: https://lore.kernel.org/lkml/tencent_BD6E19C00BF565CD5C36A9A0BD828CFA210A@qq.com/
->     Fix __must_check macro.
-> v6: https://lore.kernel.org/lkml/tencent_4A09A36F883A06EA428A593497642AF8AF08@qq.com/
->     Apply libbpf_ensure_mem()
-> v5: https://lore.kernel.org/lkml/tencent_0E9E1A1C0981678D5E7EA9E4BDBA8EE2200A@qq.com/
->     Release the allocated memory once the load_kallsyms_refresh() upon error
->     given it's dynamically allocated.
-> v4: https://lore.kernel.org/lkml/tencent_59C74613113F0C728524B2A82FE5540A5E09@qq.com/
->     Make sure most cases we don't need the realloc() path to begin with,
->     and check strdup() return value.
-> v3: https://lore.kernel.org/lkml/tencent_50B4B2622FE7546A5FF9464310650C008509@qq.com/
->     Do not use structs and judge ksyms__add_symbol function return value.
-> v2: https://lore.kernel.org/lkml/tencent_B655EE5E5D463110D70CD2846AB3262EED09@qq.com/
->     Do the usual len/capacity scheme here to amortize the cost of realloc, and
->     don't free symbols.
-> v1: https://lore.kernel.org/lkml/tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com/
-> ---
->  samples/bpf/Makefile                          |   4 +
->  .../selftests/bpf/prog_tests/bpf_cookie.c     |   9 +-
->  .../selftests/bpf/prog_tests/fill_link_info.c |   9 +-
->  .../bpf/prog_tests/get_stack_raw_tp.c         |  10 +-
->  .../bpf/prog_tests/kprobe_multi_test.c        |  15 +-
->  .../prog_tests/kprobe_multi_testmod_test.c    |  19 ++-
->  tools/testing/selftests/bpf/trace_helpers.c   | 142 +++++++++++++-----
->  tools/testing/selftests/bpf/trace_helpers.h   |   8 +
->  8 files changed, 159 insertions(+), 57 deletions(-)
+> When was it deprecated?
 > 
-> diff --git a/samples/bpf/Makefile b/samples/bpf/Makefile
-> index 4ccf4236031c..6c707ebcebb9 100644
-> --- a/samples/bpf/Makefile
-> +++ b/samples/bpf/Makefile
-> @@ -175,6 +175,7 @@ TPROGS_CFLAGS += -I$(srctree)/tools/testing/selftests/bpf/
->  TPROGS_CFLAGS += -I$(LIBBPF_INCLUDE)
->  TPROGS_CFLAGS += -I$(srctree)/tools/include
->  TPROGS_CFLAGS += -I$(srctree)/tools/perf
-> +TPROGS_CFLAGS += -I$(srctree)/tools/lib
->  TPROGS_CFLAGS += -DHAVE_ATTR_TEST=0
->  
->  ifdef SYSROOT
-> @@ -314,6 +315,9 @@ XDP_SAMPLE_CFLAGS += -Wall -O2 \
->  
->  $(obj)/$(XDP_SAMPLE): TPROGS_CFLAGS = $(XDP_SAMPLE_CFLAGS)
->  $(obj)/$(XDP_SAMPLE): $(src)/xdp_sample_user.h $(src)/xdp_sample_shared.h
-> +# Override includes for trace_helpers.o because __must_check won't be defined
-> +# in our include path.
-> +$(obj)/$(TRACE_HELPERS): TPROGS_CFLAGS := $(TPROGS_CFLAGS) -D__must_check=
->  
->  -include $(BPF_SAMPLES_PATH)/Makefile.target
->  
-> diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> index 1454cebc262b..4ed47dc75669 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/bpf_cookie.c
-> @@ -104,8 +104,10 @@ static void kprobe_multi_link_api_subtest(void)
->  	LIBBPF_OPTS(bpf_link_create_opts, opts);
->  	unsigned long long addrs[8];
->  	__u64 cookies[8];
-> +	struct ksyms *ksyms;
->  
-> -	if (!ASSERT_OK(load_kallsyms(), "load_kallsyms"))
-> +	ksyms = load_kallsyms_local();
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_local"))
->  		goto cleanup;
-
-hum, this wont work right? I think you should use ASSERT_OK_PTR in here
-and ther similar places below
-
->  
->  	skel = kprobe_multi__open_and_load();
-> @@ -116,8 +118,8 @@ static void kprobe_multi_link_api_subtest(void)
->  	skel->bss->test_cookie = true;
->  
->  #define GET_ADDR(__sym, __addr) ({				\
-> -	__addr = ksym_get_addr(__sym);				\
-> -	if (!ASSERT_NEQ(__addr, 0, "ksym_get_addr " #__sym))	\
-> +	__addr = ksym_get_addr_local(ksyms, __sym);		\
-> +	if (!ASSERT_NEQ(__addr, 0, "ksym_get_addr_local " #__sym))	\
->  		goto cleanup;					\
->  })
->  
-> @@ -171,6 +173,7 @@ static void kprobe_multi_link_api_subtest(void)
->  cleanup:
->  	close(link1_fd);
->  	close(link2_fd);
-> +	free_kallsyms_local(ksyms);
-
-I think we don't need to change any test that's calling load_kallsyms,
-it should use load_kallsyms and global ksyms data
-
-the load_kallsyms_local would be used in tests that use load_kallsyms_refresh
-and need updated ksyms data for bpf_testmod symbols
-
-we just need to make sure that global ksyms initialization won't race, like with:
-
-	+static pthread_mutex_t ksyms_mutex = PTHREAD_MUTEX_INITIALIZER;
-	+
-	 int load_kallsyms(void)
-	 {
-	-       /*
-	-        * This is called/used from multiplace places,
-	-        * load symbols just once.
-	-        */
-	-       if (sym_cnt)
-	-               return 0;
-	-       return load_kallsyms_refresh();
-	+       pthread_mutex_lock(&ksyms_mutex);
-	+       if (!ksyms)
-	+               ksyms = load_kallsyms_local();
-	+       pthread_mutex_unlock(&ksyms_mutex);
-	+       return ksyms ? 0 : 1;
-	 }
-
-it could be in separate patch perhaps, because currently there's the same race
-
->  	kprobe_multi__destroy(skel);
->  }
->  
-> diff --git a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> index 9d768e083714..154aaa08761f 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
-> @@ -302,16 +302,18 @@ void test_fill_link_info(void)
->  {
->  	struct test_fill_link_info *skel;
->  	int i;
-> +	struct ksyms *ksyms;
->  
->  	skel = test_fill_link_info__open_and_load();
->  	if (!ASSERT_OK_PTR(skel, "skel_open"))
->  		return;
->  
->  	/* load kallsyms to compare the addr */
-> -	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
-> +	ksyms = load_kallsyms_refresh_local(NULL);
-> +	if (!ASSERT_OK(ksyms != NULL, "load_kallsyms_refresh_local"))
-
-ASSERT_OK_PTR
-
-SNIP
-
-> -int load_kallsyms_refresh(void)
-> +struct ksyms *load_kallsyms_refresh_local(struct ksyms *ksyms)
->  {
->  	FILE *f;
->  	char func[256], buf[256];
->  	char symbol;
->  	void *addr;
-> -	int i = 0;
-> +	int ret;
->  
-> -	sym_cnt = 0;
-> +	/* flush kallsyms, free the previously allocated dynamic memory */
-> +	free_kallsyms_local(ksyms);
->  
->  	f = fopen("/proc/kallsyms", "r");
->  	if (!f)
-> -		return -ENOENT;
-> +		return NULL;
-> +
-> +	ksyms = calloc(1, sizeof(struct ksyms));
-> +	if (!ksyms)
-> +		return NULL;
->  
->  	while (fgets(buf, sizeof(buf), f)) {
->  		if (sscanf(buf, "%p %c %s", &addr, &symbol, func) != 3)
->  			break;
->  		if (!addr)
->  			continue;
-> -		if (i >= MAX_SYMS)
-> -			return -EFBIG;
->  
-> -		syms[i].addr = (long) addr;
-> -		syms[i].name = strdup(func);
-> -		i++;
-> +		ret = libbpf_ensure_mem((void **) &ksyms->syms, &ksyms->sym_cap,
-> +					sizeof(struct ksym), ksyms->sym_cnt + 1);
-> +		if (ret)
-> +			goto error;
-> +		ret = ksyms__add_symbol(ksyms, func, (unsigned long)addr);
-> +		if (ret)
-> +			goto error;
->  	}
->  	fclose(f);
-> -	sym_cnt = i;
-> -	qsort(syms, sym_cnt, sizeof(struct ksym), ksym_cmp);
-> -	return 0;
-> +	qsort(ksyms->syms, ksyms->sym_cnt, sizeof(struct ksym), ksym_cmp);
-> +	return ksyms;
-> +
-> +error:
-> +	free_kallsyms_local(ksyms);
-> +	return NULL;
-> +}
-> +
-> +int load_kallsyms_refresh(void)
-> +{
-> +	ksyms = load_kallsyms_refresh_local(NULL);
-> +	return ksyms ? 0 : 1;
-> +}
-> +
-> +struct ksyms *load_kallsyms_local(void)
-> +{
-> +	return load_kallsyms_refresh_local(NULL);
->  }
-
-do we need to have load_kallsyms_refresh_local?
-
-we could have ksyms arg passed directly to load_kallsyms_local
-
-  struct ksyms *load_kallsyms_local(struct ksyms *old);
-
-it would return fresh ksyms and release old ksyms if it's passed as an argument
-
-basically I mean just to drop load_kallsyms_local above and rename
-load_kallsyms_refresh_local to load_kallsyms_local
-
-
-jirka
+>> - DFSDM is now implemented as a channel provider, so remove io-channels
+>> properties.
+>> - Add iio-backend property to connect DFSDM to an SD modulator.
+> 
+> io-backends
+> 
+> All sorts of ABI issues with this change. Please explain why you don't
+> care.
+> 
+>>
+>> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+>> ---
+>>   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 189 ++++++------------
+>>   1 file changed, 63 insertions(+), 126 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> index 1970503389aa..128545cedc7f 100644
+>> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
+>> @@ -85,22 +85,14 @@ patternProperties:
+>>           description: Specifies the DFSDM filter instance used.
+>>           maxItems: 1
+>>   
+>> -      interrupts:
+>> -        maxItems: 1
+>> +      '#address-cells':
+>> +        const: 1
+>>   
+>> -      st,adc-channels:
+>> -        description: |
+>> -          List of single-ended channels muxed for this ADC.
+>> -          On stm32h7 and stm32mp1:
+>> -          - For st,stm32-dfsdm-adc: up to 8 channels numbered from 0 to 7.
+>> -          - For st,stm32-dfsdm-dmic: 1 channel numbered from 0 to 7.
+>> -        $ref: /schemas/types.yaml#/definitions/uint32-array
+>> -        items:
+>> -          minimum: 0
+>> -          maximum: 7
+>> +      '#size-cells':
+>> +        const: 0
+>>   
+>> -      st,adc-channel-names:
+>> -        description: List of single-ended channel names.
+>> +      interrupts:
+>> +        maxItems: 1
+>>   
+>>         st,filter-order:
+>>           description: |
+>> @@ -111,39 +103,6 @@ patternProperties:
+>>           $ref: /schemas/types.yaml#/definitions/uint32
+>>           maximum: 5
+>>   
+>> -      "#io-channel-cells":
+>> -        const: 1
+>> -
+>> -      st,adc-channel-types:
+>> -        description: |
+>> -          Single-ended channel input type.
+>> -          - "SPI_R": SPI with data on rising edge (default)
+>> -          - "SPI_F": SPI with data on falling edge
+>> -          - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+>> -          - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+>> -        items:
+>> -          enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+>> -        $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> -
+>> -      st,adc-channel-clk-src:
+>> -        description: |
+>> -          Conversion clock source.
+>> -          - "CLKIN": external SPI clock (CLKIN x)
+>> -          - "CLKOUT": internal SPI clock (CLKOUT) (default)
+>> -          - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+>> -          - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+>> -        items:
+>> -          enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+>> -        $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> -
+>> -      st,adc-alt-channel:
+>> -        description:
+>> -          Must be defined if two sigma delta modulators are
+>> -          connected on same SPI input.
+>> -          If not set, channel n is connected to SPI input n.
+>> -          If set, channel n is connected to SPI input n + 1.
+>> -        type: boolean
+>> -
+>>         st,filter0-sync:
+>>           description:
+>>             Set to 1 to synchronize with DFSDM filter instance 0.
+>> @@ -157,14 +116,68 @@ patternProperties:
+>>           items:
+>>             - const: rx
+>>   
+>> +    patternProperties:
+>> +      "^channel@([0-9]|1[0-9])$":
+>> +        type: object
+>> +        $ref: "adc.yaml"
+>> +        description: Represents the external channels which are connected to the DFSDM.
+>> +
+>> +        properties:
+>> +          reg:
+>> +            items:
+>> +              minimum: 0
+>> +              maximum: 19
+>> +
+>> +          label:
+>> +            description: |
+>> +              Unique name to identify channel.
+>> +
+>> +          st,adc-channel-types:
+>> +            description: |
+>> +              Single-ended channel input type.
+>> +              - "SPI_R": SPI with data on rising edge (default)
+>> +              - "SPI_F": SPI with data on falling edge
+>> +              - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
+>> +              - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
+>> +            items:
+>> +              enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
+>> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +
+>> +          st,adc-channel-clk-src:
+>> +            description: |
+>> +              Conversion clock source.
+>> +              - "CLKIN": external SPI clock (CLKIN x)
+>> +              - "CLKOUT": internal SPI clock (CLKOUT) (default)
+>> +              - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
+>> +              - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
+>> +            items:
+>> +              enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
+>> +            $ref: /schemas/types.yaml#/definitions/non-unique-string-array
+>> +
+>> +          st,adc-alt-channel:
+>> +            description:
+>> +              Must be defined if two sigma delta modulators are
+>> +              connected on same SPI input.
+>> +              If not set, channel n is connected to SPI input n.
+>> +              If set, channel n is connected to SPI input n + 1.
+>> +            type: boolean
+>> +
+>> +          io-backends:
+>> +            description: |
+>> +              phandle to an external sigma delta modulator or internal ADC output.
+>> +            $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +        required:
+>> +          - reg
+>> +          - io-backends
+>> +
+>> +        additionalProperties: false
+>> +
+>>       required:
+>>         - compatible
+>>         - reg
+>>         - interrupts
+>> -      - st,adc-channels
+>> -      - st,adc-channel-names
+>>         - st,filter-order
+>> -      - "#io-channel-cells"
+>>   
+>>       allOf:
+>>         - if:
+>> @@ -175,14 +188,6 @@ patternProperties:
+>>   
+>>           then:
+>>             properties:
+>> -            st,adc-channels:
+>> -              minItems: 1
+>> -              maxItems: 8
+>> -
+>> -            st,adc-channel-names:
+>> -              minItems: 1
+>> -              maxItems: 8
+>> -
+>>               st,adc-channel-types:
+>>                 minItems: 1
+>>                 maxItems: 8
+>> @@ -191,14 +196,6 @@ patternProperties:
+>>                 minItems: 1
+>>                 maxItems: 8
+>>   
+>> -            io-channels:
+>> -              description:
+>> -                From common IIO binding. Used to pipe external sigma delta
+>> -                modulator or internal ADC output to DFSDM channel.
+>> -
+>> -          required:
+>> -            - io-channels
+>> -
+>>         - if:
+>>             properties:
+>>               compatible:
+>> @@ -207,12 +204,6 @@ patternProperties:
+>>   
+>>           then:
+>>             properties:
+>> -            st,adc-channels:
+>> -              maxItems: 1
+>> -
+>> -            st,adc-channel-names:
+>> -              maxItems: 1
+>> -
+>>               st,adc-channel-types:
+>>                 maxItems: 1
+>>   
+>> @@ -237,15 +228,9 @@ patternProperties:
+>>                   "#sound-dai-cells":
+>>                     const: 0
+>>   
+>> -                io-channels:
+>> -                  description:
+>> -                    From common IIO binding. Used to pipe external sigma delta
+>> -                    modulator or internal ADC output to DFSDM channel.
+>> -
+>>                 required:
+>>                   - compatible
+>>                   - "#sound-dai-cells"
+>> -                - io-channels
+>>   
+>>   allOf:
+>>     - if:
+>> @@ -278,52 +263,4 @@ allOf:
+>>                   minimum: 0
+>>                   maximum: 5
+>>   
+>> -examples:
+>> -  - |
+>> -    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> -    #include <dt-bindings/clock/stm32mp1-clks.h>
+>> -    dfsdm: dfsdm@4400d000 {
+>> -      compatible = "st,stm32mp1-dfsdm";
+>> -      reg = <0x4400d000 0x800>;
+>> -      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
+>> -      clock-names = "dfsdm", "audio";
+>> -      #address-cells = <1>;
+>> -      #size-cells = <0>;
+>> -
+>> -      dfsdm0: filter@0 {
+>> -        compatible = "st,stm32-dfsdm-dmic";
+>> -        reg = <0>;
+>> -        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+>> -        dmas = <&dmamux1 101 0x400 0x01>;
+>> -        dma-names = "rx";
+>> -        #io-channel-cells = <1>;
+>> -        st,adc-channels = <1>;
+>> -        st,adc-channel-names = "dmic0";
+>> -        st,adc-channel-types = "SPI_R";
+>> -        st,adc-channel-clk-src = "CLKOUT";
+>> -        st,filter-order = <5>;
+>> -
+>> -        asoc_pdm0: dfsdm-dai {
+>> -          compatible = "st,stm32h7-dfsdm-dai";
+>> -          #sound-dai-cells = <0>;
+>> -          io-channels = <&dfsdm0 0>;
+>> -        };
+>> -      };
+>> -
+>> -      dfsdm_pdm1: filter@1 {
+>> -        compatible = "st,stm32-dfsdm-adc";
+>> -        reg = <1>;
+>> -        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
+>> -        dmas = <&dmamux1 102 0x400 0x01>;
+>> -        dma-names = "rx";
+>> -        #io-channel-cells = <1>;
+>> -        st,adc-channels = <2 3>;
+>> -        st,adc-channel-names = "in2", "in3";
+>> -        st,adc-channel-types = "SPI_R", "SPI_R";
+>> -        st,adc-channel-clk-src = "CLKOUT_F", "CLKOUT_F";
+>> -        io-channels = <&sd_adc2 &sd_adc3>;
+>> -        st,filter-order = <1>;
+>> -      };
+>> -    };
+>> -
+>>   ...
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
