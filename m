@@ -2,79 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D1578FCE5
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Sep 2023 14:06:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 716DB78FCED
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Sep 2023 14:09:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3746C6B454;
-	Fri,  1 Sep 2023 12:06:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33835C6B455;
+	Fri,  1 Sep 2023 12:09:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C9E3C6B44E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F894C6B44E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Sep 2023 12:06:06 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ Fri,  1 Sep 2023 12:09:07 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 381BPsDF013382; Fri, 1 Sep 2023 14:05:45 +0200
+ 381Bq5ex019007; Fri, 1 Sep 2023 14:08:45 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=NdSlHIHqa5tMok/K2U+U9
- v+r1JijepolsIc0T+IbFQ4=; b=ejU/A+57BLWOJdbX0rDTGXH7bpUvLf5c3Gitr
- lHWbqUuJkFpEYOhDqMTA5HzPKc5io4kyfTAECheP/TFtHZvSWAM1wUVFsj03csiO
- 85tWlzxzgGOC4BaOkMzTiR9Q3P8G8kwrKEzfks8aT5bTiDp1D2EEjicB3uc8KUXy
- hZq4WZipRvw9YJsBx5htSZy+ttmm2bN2ibHD96/Lii8uwFPC2Ddwg1I11cdJle6/
- era68FaMWsQwMH+nyUoaLXpK8BxeUnLQsMgi5I1swJwnTpdj4cA6AK3U/p5qy2Bh
- EmN/P0nbE1/kgYKP8Vrvue9lxHI/WW2VloB9xo73W+4j5gBzg==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=AgPdwxl
+ fOYkddWeICfh2R/QYx7gBeJPsYy7S8++5P8c=; b=3w9zYjBNuZIbhCVscGU/hi0
+ bRf9MlZr7433vPpdtXDgAF89RqWpWbi+Hn//4y2c8vpvJpWUtwZvvcnebUnuPHOp
+ 9EFiPbLWYNP4XXEknGM94he010dkMk0A53+Im8avcm4TjO1ttYux4IqGh04qrZxJ
+ hhzU9t8KTOuYweWZngp8gdwI8D7kkYag8bmQuk68UBy9NFFR00MVKqVdWoEsxiUX
+ ZywFa/3ltwtm2S9JG7YQWNeLl1keVO2S/rQ1H4CEJexvENlrgSU5zbMc7djX//3l
+ HTDaITEygKnW7OoamcOSmtVI7fqgoXlgOtnPNtOtMeDwi7D9itlldjFDCLZ1MSw=
+ =
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq6tg1td9-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq89capmw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Sep 2023 14:05:45 +0200 (MEST)
+ Fri, 01 Sep 2023 14:08:45 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 816CB100056;
- Fri,  1 Sep 2023 14:05:44 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 619A22291C9;
- Fri,  1 Sep 2023 14:05:44 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C0318100056;
+ Fri,  1 Sep 2023 14:08:43 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DBAAF2291CF;
+ Fri,  1 Sep 2023 14:08:43 +0200 (CEST)
+Received: from localhost (10.201.20.125) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 1 Sep
- 2023 14:05:44 +0200
-Date: Fri, 1 Sep 2023 14:05:35 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Message-ID: <20230901120535.GA247208@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, Rob Herring <robh+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Philippe CORNU <philippe.cornu@foss.st.com>
-References: <20220910144010.34272-1-hugues.fruchet@foss.st.com>
- <20220910144010.34272-4-hugues.fruchet@foss.st.com>
- <ZNC5k3PynnEWL/ou@kekkonen.localdomain>
- <20230825110903.GA30381@gnbcxd0016.gnb.st.com>
- <ZO771VvxPREnoyOY@kekkonen.localdomain>
+ 2023 14:08:42 +0200
+From: Yann Gautier <yann.gautier@foss.st.com>
+To: Ulf Hansson <ulf.hansson@linaro.org>, Russell King <linux@armlinux.org.uk>
+Date: Fri, 1 Sep 2023 14:08:36 +0200
+Message-ID: <20230901120836.1057900-1-yann.gautier@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZO771VvxPREnoyOY@kekkonen.localdomain>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+X-Originating-IP: [10.201.20.125]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
  definitions=2023-09-01_10,2023-08-31_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v1 3/5] media: stm32-dcmipp: STM32 DCMIPP
- camera interface driver
+Cc: Rob Herring <robh@kernel.org>, Linus Walleij <linus.walleij@linaro.org>,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] mmc: mmci: stm32: add SDIO in-band interrupt
+	mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,106 +76,211 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Sakari,
+From: Christophe Kerello <christophe.kerello@foss.st.com>
 
-Thank you for your comments.  I made corrections on top of the
-v2 I already pushed and will push this into a v3 shortly.
+Add the support of SDIO in-band interrupt mode for STM32 variant.
+It allows the SD I/O card to interrupt the host on SDMMC_D1 data line.
 
-On Wed, Aug 30, 2023 at 08:20:37AM +0000, Sakari Ailus wrote:
+Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
+---
+ drivers/mmc/host/mmci.c             | 61 +++++++++++++++++++++++++++++
+ drivers/mmc/host/mmci.h             |  4 ++
+ drivers/mmc/host/mmci_stm32_sdmmc.c | 21 ++++++++++
+ 3 files changed, 86 insertions(+)
 
-...
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index dda756a563793..c4d3ffc5340f7 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -272,6 +272,7 @@ static struct variant_data variant_stm32_sdmmc = {
+ 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
+ 	.stm32_idmabsize_mask	= GENMASK(12, 5),
+ 	.stm32_idmabsize_align	= BIT(5),
++	.use_sdio_irq		= true,
+ 	.busy_timeout		= true,
+ 	.busy_detect		= true,
+ 	.busy_detect_flag	= MCI_STM32_BUSYD0,
+@@ -299,6 +300,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
+ 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
+ 	.stm32_idmabsize_mask	= GENMASK(16, 5),
+ 	.stm32_idmabsize_align	= BIT(5),
++	.use_sdio_irq		= true,
+ 	.dma_lli		= true,
+ 	.busy_timeout		= true,
+ 	.busy_detect		= true,
+@@ -327,6 +329,7 @@ static struct variant_data variant_stm32_sdmmcv3 = {
+ 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
+ 	.stm32_idmabsize_mask	= GENMASK(16, 6),
+ 	.stm32_idmabsize_align	= BIT(6),
++	.use_sdio_irq		= true,
+ 	.dma_lli		= true,
+ 	.busy_timeout		= true,
+ 	.busy_detect		= true,
+@@ -423,6 +426,10 @@ static void mmci_write_datactrlreg(struct mmci_host *host, u32 datactrl)
+ 	/* Keep busy mode in DPSM if enabled */
+ 	datactrl |= host->datactrl_reg & host->variant->busy_dpsm_flag;
+ 
++	/* Keep SD I/O interrupt mode enabled */
++	if (host->variant->use_sdio_irq && host->mmc->caps & MMC_CAP_SDIO_IRQ)
++		datactrl |= host->variant->datactrl_mask_sdio;
++
+ 	if (host->datactrl_reg != datactrl) {
+ 		host->datactrl_reg = datactrl;
+ 		writel(datactrl, host->base + MMCIDATACTRL);
+@@ -1805,6 +1812,11 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
+ 			mmci_data_irq(host, host->data, status);
+ 		}
+ 
++		if (host->variant->use_sdio_irq &&
++		    host->mmc->caps & MMC_CAP_SDIO_IRQ &&
++		    host->ops && host->ops->sdio_irq)
++			host->ops->sdio_irq(host, status);
++
+ 		/*
+ 		 * Busy detection has been handled by mmci_cmd_irq() above.
+ 		 * Clear the status bit to prevent polling in IRQ context.
+@@ -2041,6 +2053,45 @@ static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
+ 	return ret;
+ }
+ 
++static void mmci_enable_sdio_irq(struct mmc_host *mmc, int enable)
++{
++	struct mmci_host *host = mmc_priv(mmc);
++	unsigned long flags;
++
++	if (!host->variant->use_sdio_irq)
++		return;
++
++	if (host->ops && host->ops->enable_sdio_irq) {
++		if (enable)
++			/* Keep device active while SDIO IRQ is enabled */
++			pm_runtime_get_sync(mmc_dev(mmc));
++
++		spin_lock_irqsave(&host->lock, flags);
++		host->ops->enable_sdio_irq(host, enable);
++		spin_unlock_irqrestore(&host->lock, flags);
++
++		if (!enable) {
++			pm_runtime_mark_last_busy(mmc_dev(mmc));
++			pm_runtime_put_autosuspend(mmc_dev(mmc));
++		}
++	}
++}
++
++static void mmci_ack_sdio_irq(struct mmc_host *mmc)
++{
++	struct mmci_host *host = mmc_priv(mmc);
++	unsigned long flags;
++
++	if (!host->variant->use_sdio_irq)
++		return;
++
++	if (host->ops && host->ops->enable_sdio_irq) {
++		spin_lock_irqsave(&host->lock, flags);
++		host->ops->enable_sdio_irq(host, 1);
++		spin_unlock_irqrestore(&host->lock, flags);
++	}
++}
++
+ static struct mmc_host_ops mmci_ops = {
+ 	.request	= mmci_request,
+ 	.pre_req	= mmci_pre_request,
+@@ -2049,6 +2100,8 @@ static struct mmc_host_ops mmci_ops = {
+ 	.get_ro		= mmc_gpio_get_ro,
+ 	.get_cd		= mmci_get_cd,
+ 	.start_signal_voltage_switch = mmci_sig_volt_switch,
++	.enable_sdio_irq = mmci_enable_sdio_irq,
++	.ack_sdio_irq	= mmci_ack_sdio_irq,
+ };
+ 
+ static void mmci_probe_level_translator(struct mmc_host *mmc)
+@@ -2316,6 +2369,14 @@ static int mmci_probe(struct amba_device *dev,
+ 		mmc->caps |= MMC_CAP_WAIT_WHILE_BUSY;
+ 	}
+ 
++	if (variant->use_sdio_irq && host->mmc->caps & MMC_CAP_SDIO_IRQ) {
++		mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
++
++		if (variant->datactrl_mask_sdio)
++			mmci_write_datactrlreg(host,
++					       host->variant->datactrl_mask_sdio);
++	}
++
+ 	/* Variants with mandatory busy timeout in HW needs R1B responses. */
+ 	if (variant->busy_timeout)
+ 		mmc->caps |= MMC_CAP_NEED_RSP_BUSY;
+diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+index 253197f132fca..554473c01b8af 100644
+--- a/drivers/mmc/host/mmci.h
++++ b/drivers/mmc/host/mmci.h
+@@ -332,6 +332,7 @@ enum mmci_busy_state {
+  * @opendrain: bitmask identifying the OPENDRAIN bit inside MMCIPOWER register
+  * @dma_lli: true if variant has dma link list feature.
+  * @stm32_idmabsize_mask: stm32 sdmmc idma buffer size.
++ * @use_sdio_irq: allow SD I/O card to interrupt the host
+  */
+ struct variant_data {
+ 	unsigned int		clkreg;
+@@ -376,6 +377,7 @@ struct variant_data {
+ 	u32			start_err;
+ 	u32			opendrain;
+ 	u8			dma_lli:1;
++	u8			use_sdio_irq:1;
+ 	u32			stm32_idmabsize_mask;
+ 	u32			stm32_idmabsize_align;
+ 	void (*init)(struct mmci_host *host);
+@@ -400,6 +402,8 @@ struct mmci_host_ops {
+ 	bool (*busy_complete)(struct mmci_host *host, struct mmc_command *cmd, u32 status, u32 err_msk);
+ 	void (*pre_sig_volt_switch)(struct mmci_host *host);
+ 	int (*post_sig_volt_switch)(struct mmci_host *host, struct mmc_ios *ios);
++	void (*enable_sdio_irq)(struct mmci_host *host, int enable);
++	void (*sdio_irq)(struct mmci_host *host, u32 status);
+ };
+ 
+ struct mmci_host {
+diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+index 35067e1e6cd80..d66871f1a57ed 100644
+--- a/drivers/mmc/host/mmci_stm32_sdmmc.c
++++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+@@ -668,6 +668,25 @@ static int sdmmc_post_sig_volt_switch(struct mmci_host *host,
+ 	return ret;
+ }
+ 
++static void sdmmc_enable_sdio_irq(struct mmci_host *host, int enable)
++{
++	void __iomem *base = host->base;
++	u32 mask = readl_relaxed(base + MMCIMASK0);
++
++	if (enable)
++		writel_relaxed(mask | MCI_ST_SDIOITMASK, base + MMCIMASK0);
++	else
++		writel_relaxed(mask & ~MCI_ST_SDIOITMASK, base + MMCIMASK0);
++}
++
++static void sdmmc_sdio_irq(struct mmci_host *host, u32 status)
++{
++	if (status & MCI_ST_SDIOIT) {
++		sdmmc_enable_sdio_irq(host, 0);
++		sdio_signal_irq(host->mmc);
++	}
++}
++
+ static struct mmci_host_ops sdmmc_variant_ops = {
+ 	.validate_data = sdmmc_idma_validate_data,
+ 	.prep_data = sdmmc_idma_prep_data,
+@@ -681,6 +700,8 @@ static struct mmci_host_ops sdmmc_variant_ops = {
+ 	.busy_complete = sdmmc_busy_complete,
+ 	.pre_sig_volt_switch = sdmmc_pre_sig_volt_vswitch,
+ 	.post_sig_volt_switch = sdmmc_post_sig_volt_switch,
++	.enable_sdio_irq = sdmmc_enable_sdio_irq,
++	.sdio_irq = sdmmc_sdio_irq,
+ };
+ 
+ static struct sdmmc_tuning_ops dlyb_tuning_mp15_ops = {
+-- 
+2.34.1
 
-> > > > +#define STOP_TIMEOUT_US 1000
-> > > > +#define POLL_INTERVAL_US  50
-> > > > +static int dcmipp_byteproc_s_stream(struct v4l2_subdev *sd, int enable)
-> > > > +{
-> > > > +	struct dcmipp_byteproc_device *byteproc = v4l2_get_subdevdata(sd);
-> > > > +	int ret = 0;
-> > > > +
-> > > > +	mutex_lock(&byteproc->lock);
-> > > > +	if (enable) {
-> > > > +		dcmipp_byteproc_configure_framerate(byteproc);
-> > > > +
-> > > > +		ret = dcmipp_byteproc_configure_scale_crop(byteproc);
-> > > > +		if (ret)
-> > > > +			goto err;
-> > > 
-> > > This does nothing.
-> > 
-> > Not sure to understand your point here.  The s_stream callback of this
-> > subdev is used to configure the registers (here the ones controlling
-> > decimation and cropping) of the byteproc subdev.
-> 
-> I was referring to the last two lines --- you're jumping to essentially the
-> same location here.
-
-Ok.  Fixed with the s_stream calls rework.
-
-...
-
-> > > > diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > > > new file mode 100644
-> > > > index 000000000000..aa7ae9a5b1a8
-> > > > --- /dev/null
-> > > > +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > > > @@ -0,0 +1,682 @@
-> > > > +// SPDX-License-Identifier: GPL-2.0
-> > > > +/*
-> > > > + * Driver for STM32 Digital Camera Memory Interface Pixel Processor
-> > > > + *
-> > > > + * Copyright (C) STMicroelectronics SA 2022
-> > > > + * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > > > + *          Alain Volmat <alain.volmat@foss.st.com>
-> > > > + *          for STMicroelectronics.
-> > > > + */
-> > > > +
-> > > > +#include <linux/clk.h>
-> > > > +#include <linux/component.h>
-> > > > +#include <linux/delay.h>
-> > > > +#include <linux/init.h>
-> > > > +#include <linux/module.h>
-> > > > +#include <linux/of.h>
-> > > > +#include <linux/of_device.h>
-> > > > +#include <linux/of_graph.h>
-> > > 
-> > > #include <linux/property.h> instead of these three.
-> > 
-> > Added linux/property.h however kept of_graph.h which is still necessary.
-> > 
-> You should switch to fwnode graph API as you're already using fwnodes in
-> the driver --- due to V4L2 fwnode.
-
-Done as well.
-
-> ...
-> 
-> > > > +static int dcmipp_graph_notify_bound(struct v4l2_async_notifier *notifier,
-> > > > +				     struct v4l2_subdev *subdev,
-> > > > +				     struct v4l2_async_subdev *asd)
-> > > > +{
-> > > > +	struct dcmipp_device *dcmipp = notifier_to_dcmipp(notifier);
-> > > > +	unsigned int ret;
-> > > > +	int src_pad;
-> > > > +	struct dcmipp_ent_device *sink;
-> > > > +	struct device_node *np = dcmipp->dev->of_node;
-> > > > +	struct v4l2_fwnode_endpoint ep = { .bus_type = 0 };
-> > > 
-> > > Please set bus_type explicitly (DPHY)?
-> > 
-> > My understanding is that I cannot set the bus_type here to have the
-> > framework check for me since we support both V4L2_MBUS_PARALLEL and
-> > V4L2_MBUS_BT656.
-> 
-> Ah, I missed this was using a parallel bus.
-> 
-> As you have a default in bindings, then you'll need to parse this assuming
-> that bus-type first. I.e. set the bus type to the default and if parsing
-> fails, try the other one.
-
-Ok
-
-Regards,
-Alain
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
