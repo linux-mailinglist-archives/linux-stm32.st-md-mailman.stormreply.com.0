@@ -2,68 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EFB478FEBD
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Sep 2023 16:10:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E96BF78FF62
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Sep 2023 16:43:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C54CFC6B458;
-	Fri,  1 Sep 2023 14:10:38 +0000 (UTC)
-Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
- [209.85.219.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94499C6B459;
+	Fri,  1 Sep 2023 14:43:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79967C6B44E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4284DC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Sep 2023 14:10:37 +0000 (UTC)
-Received: by mail-yb1-f178.google.com with SMTP id
- 3f1490d57ef6-d7b89ae27d3so1535008276.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 01 Sep 2023 07:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1693577436; x=1694182236;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=w5ivJRk6mwgIHtFh3KMVKCYCuw+/3Xv2OEnm7TPvNFg=;
- b=UBNeM1CWQr3vZ/JPW2xo5IwJceJMWI/gTOxXibmtGsWZ67XZXV/dWgy8nYef/61+60
- +awaM+XMSV7ucxOLj8ZEBOy3Se5it9ka7C6t4y4eNsMHo8wdIzVsXNwEf4Y1GkCEfuwr
- paK9/vXXch2DrF4RnlzuSGgFfDHM33wyrreNWoe63W5Y/ZlIPMrZ3BCbNo/bbIigPmw/
- kY005YQDzeLebjWOR3/j7W4xFgwY7w2cu4VtLgqplylbaRyxb96J+RvdklUYW/CPx3R4
- 10ZGVmQEs6/2l3sri/6gs7SFrZzfID0IzNB0sb8gu+PoJdLMDBp/2iZqEsqwvvAgXQ0j
- FaQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693577436; x=1694182236;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=w5ivJRk6mwgIHtFh3KMVKCYCuw+/3Xv2OEnm7TPvNFg=;
- b=jn/hGDX2NVp+NDy81yvIVfpTA2BrEWJXB+2OT7i1ygWOP6pkpTZ3IYan6pm9MFJPem
- DJx/iIp4lej79FLJ/plG9872wGqSgx6FD3oNBOC2IgMYP26XfcXfIsg54tm7CUqm0qLl
- PHeMVCqcqOkwXMMFdOYEo/boE/l7I7Y3qEEpWpXnSEexg6f+08oltTZPeGImVGS3np/2
- hUU0ePQ3uMgNQHSll6Y5R29sGDtTdIQSFXfXU9Xglq/g/z2Fa3axVHqU6Gg5D/HhlWvM
- qvBpMpUkkBDU57guIEpA7R2499Jtm4Q6pZ0puRd/2BYvOtBxc7QbTIsJO5+dHdt1Zazg
- YBAg==
-X-Gm-Message-State: AOJu0Yxqvewe5gbzy5knMilwJIt+PEbbg95AMzkr39e0NPWhftbkI5FA
- nPEolLBAjYNAQOezRUqB6X/Cq4q0frS6dEjgwcpLpw==
-X-Google-Smtp-Source: AGHT+IGeX6+J14WR9ieCPyefDidZy7twC0zUDNwqm05Rh5OKw5fhGR/Ho7cwhgB+niUlVC3unnXfoiKzgYTT1vOvBGg=
-X-Received: by 2002:a25:258f:0:b0:d7a:edf3:f0a9 with SMTP id
- l137-20020a25258f000000b00d7aedf3f0a9mr2880483ybl.50.1693577435568; Fri, 01
- Sep 2023 07:10:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230901120836.1057900-1-yann.gautier@foss.st.com>
-In-Reply-To: <20230901120836.1057900-1-yann.gautier@foss.st.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 1 Sep 2023 16:10:23 +0200
-Message-ID: <CACRpkdacRe5cPoSFJyEdo6nZrtmUHTNqMxf55CntvsdpFqhhrQ@mail.gmail.com>
-To: Yann Gautier <yann.gautier@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>,
+ Fri,  1 Sep 2023 14:43:48 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 381BQwb1013201; Fri, 1 Sep 2023 16:43:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=selector1; bh=hY3r0yZOfH3NsDgAjFUEN
+ Juf3sBAYxJNoDPD9+XNP58=; b=o3jP3SQOJ9OfSWj5XFoIi4P5f2xBBhpnHCC1K
+ 1GjqKoFLDdhlh79rCdk7SS3b//SzHsAFtoTF4A61cuwVpa/pkAmAAyf4pnOUvVol
+ viUQV8nE7e/4/Bk9t0dmNeiGi0sl4DPZbhUUHwuxEwQY5Jc3uR4vSDnyxe3TOmQK
+ ruTXHx62xJx032cH9n7E2ovexQ0Y+gzmDZB1smvoQFHdWkg3/Wh2hPQ8lM+caQAz
+ UcXCPgHRH+CpV8AFQ7XOPmqgpKvC0mruyXdtMxsHQm50n8O5vlqXcbX4Jgjtj4i8
+ I5zMDNGrP0KhqgM+Lj/7yKnck61dB68EpIE0IwDm5GiFEiM8g==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sq6tg2bmw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 01 Sep 2023 16:43:30 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5E72D100056;
+ Fri,  1 Sep 2023 16:43:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5129D236942;
+ Fri,  1 Sep 2023 16:43:27 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 1 Sep
+ 2023 16:43:26 +0200
+Date: Fri, 1 Sep 2023 16:43:18 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Conor Dooley <conor@kernel.org>
+Message-ID: <20230901144318.GA248638@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Conor Dooley <conor@kernel.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Yang Yingliang <yangyingliang@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: add SDIO in-band
-	interrupt mode
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20230829132357.192535-1-alain.volmat@foss.st.com>
+ <20230829132357.192535-2-alain.volmat@foss.st.com>
+ <20230829-juror-decathlon-f7b252a330bf@spud>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230829-juror-decathlon-f7b252a330bf@spud>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-01_12,2023-08-31_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: media: add bindings
+	for dcmipp driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,40 +93,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgWWFubi9DaHJpc3RvcGhlLAoKdGhhbmtzIGZvciB5b3VyIHBhdGNoIQoKT24gRnJpLCBTZXAg
-MSwgMjAyMyBhdCAyOjA44oCvUE0gWWFubiBHYXV0aWVyIDx5YW5uLmdhdXRpZXJAZm9zcy5zdC5j
-b20+IHdyb3RlOgoKPiBGcm9tOiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlzdG9waGUua2VyZWxs
-b0Bmb3NzLnN0LmNvbT4KPgo+IEFkZCB0aGUgc3VwcG9ydCBvZiBTRElPIGluLWJhbmQgaW50ZXJy
-dXB0IG1vZGUgZm9yIFNUTTMyIHZhcmlhbnQuCj4gSXQgYWxsb3dzIHRoZSBTRCBJL08gY2FyZCB0
-byBpbnRlcnJ1cHQgdGhlIGhvc3Qgb24gU0RNTUNfRDEgZGF0YSBsaW5lLgo+Cj4gU2lnbmVkLW9m
-Zi1ieTogQ2hyaXN0b3BoZSBLZXJlbGxvIDxjaHJpc3RvcGhlLmtlcmVsbG9AZm9zcy5zdC5jb20+
-Cj4gU2lnbmVkLW9mZi1ieTogWWFubiBHYXV0aWVyIDx5YW5uLmdhdXRpZXJAZm9zcy5zdC5jb20+
-CiguLi4pCj4gKysrIGIvZHJpdmVycy9tbWMvaG9zdC9tbWNpLmgKPiBAQCAtMzMyLDYgKzMzMiw3
-IEBAIGVudW0gbW1jaV9idXN5X3N0YXRlIHsKPiAgICogQG9wZW5kcmFpbjogYml0bWFzayBpZGVu
-dGlmeWluZyB0aGUgT1BFTkRSQUlOIGJpdCBpbnNpZGUgTU1DSVBPV0VSIHJlZ2lzdGVyCj4gICAq
-IEBkbWFfbGxpOiB0cnVlIGlmIHZhcmlhbnQgaGFzIGRtYSBsaW5rIGxpc3QgZmVhdHVyZS4KPiAg
-ICogQHN0bTMyX2lkbWFic2l6ZV9tYXNrOiBzdG0zMiBzZG1tYyBpZG1hIGJ1ZmZlciBzaXplLgo+
-ICsgKiBAdXNlX3NkaW9faXJxOiBhbGxvdyBTRCBJL08gY2FyZCB0byBpbnRlcnJ1cHQgdGhlIGhv
-c3QKClRoZSBkb2N1bWVudGF0aW9uIHRhZyBzaG91bGQgYmUgb25lIGxpbmUgdXAgKGNvbXBhcmUg
-dG8gdGhlIG1lbWJlcnMuLi4pCgo+IEBAIC0zNzYsNiArMzc3LDcgQEAgc3RydWN0IHZhcmlhbnRf
-ZGF0YSB7Cj4gICAgICAgICB1MzIgICAgICAgICAgICAgICAgICAgICBzdGFydF9lcnI7Cj4gICAg
-ICAgICB1MzIgICAgICAgICAgICAgICAgICAgICBvcGVuZHJhaW47Cj4gICAgICAgICB1OCAgICAg
-ICAgICAgICAgICAgICAgICBkbWFfbGxpOjE7Cj4gKyAgICAgICB1OCAgICAgICAgICAgICAgICAg
-ICAgICB1c2Vfc2Rpb19pcnE6MTsKCjEuIGJvb2wgdXNlX3NkaW9faXJxOwoKMi4gc3VwcG9ydHNf
-c2Rpb19pcnEgaXMgbW9yZSB0byB0aGUgcG9pbnQgZG9uJ3QgeW91IHRoaW5rPwogICAgRXNwZWNp
-YWxseSBzaW5jZSBpdCBhY3RpdmF0ZXMgdGhlc2UgdHdvIGNhbGxiYWNrczoKCj4gKyAgICAgICB2
-b2lkICgqZW5hYmxlX3NkaW9faXJxKShzdHJ1Y3QgbW1jaV9ob3N0ICpob3N0LCBpbnQgZW5hYmxl
-KTsKPiArICAgICAgIHZvaWQgKCpzZGlvX2lycSkoc3RydWN0IG1tY2lfaG9zdCAqaG9zdCwgdTMy
-IHN0YXR1cyk7CgpGdXJ0aGVyOiBhbGwgdGhlIFV4NTAwIHZhcmlhbnRzIHN1cHBvcnQgdGhpcyAo
-Yml0IDIyKSBhcyB3ZWxsLCBzbyBlbmFibGUgdGhvc2UKdG9vIGluIHRoZWlyIHZlbmRvciBkYXRh
-LiBBbGwgSSBoYXZlIGlzIG91dC1vZi1iYW5kIHNpZ25hbGluZyB3aXRoIGFuIEdQSU8gSVJRCm9u
-IG15IEJyb2FkY29tIGNoaXBzIGJ1dCBJIHRoaW5rIGl0IHdvcmtzIChtYXliZSBVbGYgaGFzIHRl
-c3RlZCBpdCBpbiB0aGUKZmFyIHBhc3QpLgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
-ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
-dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Conor,
+
+thanks for the review.  I've taken into account your comment and
+will push this into the v3.
+
+
+On Tue, Aug 29, 2023 at 04:00:06PM +0100, Conor Dooley wrote:
+> Hey,
+> 
+> On Tue, Aug 29, 2023 at 03:23:45PM +0200, Alain Volmat wrote:
+> > Add the yaml binding for the DCMIPP driver.
+> 
+> Please drop all mentions of drivers, bindings are for hardware.
+
+Ok
+
+> 
+> > 
+> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > ---
+> >  .../bindings/media/st,stm32-dcmipp.yaml       | 95 +++++++++++++++++++
+> >  1 file changed, 95 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+> > new file mode 100644
+> > index 000000000000..63f03a1c42b6
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+> > @@ -0,0 +1,95 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/st,stm32-dcmipp.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: STMicroelectronics STM32 DCMIPP Digital Camera Memory Interface Pixel Processor binding
+> 
+> s/binding// to appease the bot.
+
+Ok
+
+> 
+> > +
+> > +maintainers:
+> > +  - Hugues Fruchet <hugues.fruchet@foss.st.com>
+> > +  - Alain Volmat <alain.volmat@foss.st.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: st,stm32mp13-dcmipp
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: kclk
+> 
+> Can drop the items: here since you only have one. The name is also
+> pretty pointless when you only have one...
+
+Ok, I removed clock-names (from required as well).
+> 
+> > +
+> > +  resets:
+> > +    maxItems: 1
+> > +
+> > +  port:
+> > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > +    unevaluatedProperties: false
+> > +    description:
+> > +      DCMIPP supports a single port node with parallel bus.
+> > +
+> > +    properties:
+> > +      endpoint:
+> > +        $ref: video-interfaces.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          bus-type:
+> > +            enum: [5, 6]
+> > +            default: 5
+> > +
+> > +          bus-width:
+> > +            enum: [8, 10, 12, 14]
+> > +            default: 8
+> > +
+> > +          pclk-sample: true
+> > +          hsync-active: true
+> > +          vsync-active: true
+> > +
+> > +        required:
+> > +          - pclk-sample
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - clocks
+> > +  - clock-names
+> > +  - resets
+> > +  - port
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/clock/stm32mp13-clks.h>
+> > +    #include <dt-bindings/reset/stm32mp13-resets.h>
+> > +    dcmipp: dcmipp@5a000000 {
+> 
+> Neither of the labels here are used AFAICT, please remove them.
+
+Done
+
+Regards,
+Alain
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
