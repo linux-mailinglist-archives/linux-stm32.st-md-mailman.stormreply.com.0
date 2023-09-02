@@ -2,76 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80562791269
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F5A379126A
 	for <lists+linux-stm32@lfdr.de>; Mon,  4 Sep 2023 09:41:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 328DEC6B45F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47073C6B467;
 	Mon,  4 Sep 2023 07:41:40 +0000 (UTC)
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com
+ [162.62.57.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A009C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6B72C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Sep 2023 23:40:59 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-6befdad890eso1939718a34.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 01 Sep 2023 16:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1693611658; x=1694216458;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=t1eWAYznHaK0aWczuNWbSMuURPigxfjsQS0xy+Sev48=;
- b=KEHS6Zzn4z6P2Mlcc/C27JsgiHJl88uCVsigWS3T3KK7G5OE+AgDwTFY6S7xNO149R
- gPyt5/UGd+FVRzAUzf4BltrWL/UvdnlebvKWo76GDXhnRjQ5RSx5NTYFdbha1sVnW0yI
- 1D9eJPH94K7GX/e0/sd/uoKhJ/yvN4O7iPseY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693611658; x=1694216458;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=t1eWAYznHaK0aWczuNWbSMuURPigxfjsQS0xy+Sev48=;
- b=FNp6xb676EFbnBd6d+98ZHNfRA3+lmLn8bajQRuGi8ZM4S05Dgm7cfW36HMoPclY3c
- wOAQCWJzkts5SD5lHJJqdQEE8Zw7Ajn4F4B5F7Q8k0bwiyDKpEFGBBP8D1whpehh8n/2
- iZRmB6omyvxQ781p7dfvobSazpzO2CZK/RMDs7E/wpd8BBx36FXBlYOJD0RxFxyivVbG
- dZBTwoSSNFx9limitVFMaS1eLZMmnRxLbreOvAX1CRtBnqoifzCP5Uula4LnV+5glAnQ
- qhpgJcMBsEEBp3muqoAW95VjydjnlEC8m9h1tvhIO6V0SmQSZcCWPnqPdecWh+KXP3ks
- M1mQ==
-X-Gm-Message-State: AOJu0Yx3EGX/2qhFOFDZvebut8Q0j1Onj62CcdtdmIn+/2sU1ZdwhdMC
- wpgWfRNSNvxJYWjuxiybhzwZdw==
-X-Google-Smtp-Source: AGHT+IHWh0EZjB4sRwdO+sv2azBowUIC3rylFr9w/wT3XrqIi1O/kU8t1TW+RVuuA1jXai1FluM7wA==
-X-Received: by 2002:a05:6870:e2d4:b0:1d0:f067:bf23 with SMTP id
- w20-20020a056870e2d400b001d0f067bf23mr4176763oad.25.1693611658361; 
- Fri, 01 Sep 2023 16:40:58 -0700 (PDT)
-Received: from tictac2.mtv.corp.google.com
- ([2620:15c:9d:2:8d94:1fc5:803c:41cc])
- by smtp.gmail.com with ESMTPSA id
- 5-20020a17090a1a4500b0026b4ca7f62csm3773488pjl.39.2023.09.01.16.40.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Sep 2023 16:40:56 -0700 (PDT)
-From: Douglas Anderson <dianders@chromium.org>
-To: dri-devel@lists.freedesktop.org,
-	Maxime Ripard <mripard@kernel.org>
-Date: Fri,  1 Sep 2023 16:39:56 -0700
-Message-ID: <20230901163944.RFT.5.I771eb4bd03d8772b19e7dcfaef3e2c167bce5846@changeid>
-X-Mailer: git-send-email 2.42.0.283.g2d96d420d3-goog
-In-Reply-To: <20230901234015.566018-1-dianders@chromium.org>
-References: <20230901234015.566018-1-dianders@chromium.org>
+ Sat,  2 Sep 2023 04:41:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1693629711;
+ bh=wOe7c+2nZWH3wTrLJU0gRDjYnChL8PPmVBbhj5PcaRY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=lITCWGN6js+GhWesnFT/NFw/LNVM2h3bsevvc/yDxDFwASFMIGSMuYUw+3wURNhR9
+ BXWLivSetLaoOkjg+FuKycjA5tptl4YAvOeYXfBlQweptUnYcU8jY5wMWmIHEx+JvM
+ NIeteWdnG6nC/enYq19BHzZsquiouyfxpzyqeXIs=
+Received: from rtoax.lan ([120.245.114.63])
+ by newxmesmtplogicsvrsza12-0.qq.com (NewEsmtp) with SMTP
+ id A4223C8B; Sat, 02 Sep 2023 12:41:02 +0800
+X-QQ-mid: xmsmtpt1693629666tp5gz2zde
+Message-ID: <tencent_3A470910D50DC0859EB22C2EA7547A5FB109@qq.com>
+X-QQ-XMAILINFO: MGSlRwRrdVfI5AYhsHwSylVqpokh9nHWugmwHPM2oF/xI9hgN4K/JEgjY7Tmj3
+ xsZbygLVf+iDFmCPTixPAmwknlLl97bd96YfcXAJxIMsiBxbvjVB61UB1/B7Efjtt6Hu+ZTv5JbT
+ VOldTexJq+AanIamEmMkzRiaEK7IjYL/Zo8KGmQ60B6Q8asMeUjovJfClfMRoG3Ll670z6sUO7JM
+ TYQn+BgYKAVquwWIYj+ygUGCOqRy+hXG+Y0z7NlvFuE2NIzrMfLi6KnlMghh2SIdl7K4z4Zj3ogK
+ k3st1ZxlOcfJ4vzgh7GdQPAFx9VvRTEQjhUuIp50snxHkzt9hfN+czdBQWDPDsYNTsfJLW5YEdJF
+ 8bYRVv9UHNRMf51NHhLvmDeiv7zxWzbomlcnK5pP0ancWWBvfpdOFU4BPeytrWGoTess6g9VCZGq
+ ddv6umGoG160jczUyeYGkzBkQQDnr6LA4d+jTGyHSfAXV1ImWwPZ7EDy59cK0ha+YklOVMUnBYZm
+ AYO8tSBIpxRpx5ovAZp7xu1gwHKLWI2jSX7VcjipHkN4YqC3vpVb7j+KPti2frzP9lDC6f4E3HZb
+ /ILYs0k7JyzQcfLdF+crr7fTW6z48FU6K5hcfsK51E6jnMNCbQ2U9YCcc+p5tUpG3vyUYZy9JsJR
+ cpAbz+ojq3cKNZ0lxwOjYhRWuYC35eyDhBmhNwKIH0SGe6i7nt46l+h4V+GaQty6sLskaEyP9pRa
+ A1w93TolsmUw6ZWBQCblE8c7sVrdGI6qYmj7GJ0l41PxLuxB22IAeqShzlKezydI6qoS6Fdpk/89
+ W+D9gItGF7Z2LqoI+YgDWpaDgYnZv95qA8peRgbNvR5CPkhGWrcyFNfUNebeXkHcEj2pNhGLKaI4
+ eX7+TTe8Ky3kM3cmXJoc4PXa/faaiE8CzIgI0L/rhwA44rKGkDXye3/EBvPio/2EjJpqcs43GyWh
+ RICizg/BDYwObnqnQXx3mOKyiBD3Un4bHSFaOoPnC9BRQRl4E/cXldTWViR2VF
+X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
+From: Rong Tao <rtoax@foxmail.com>
+To: olsajiri@gmail.com, andrii@kernel.org, daniel@iogearbox.net, sdf@google.com
+Date: Sat,  2 Sep 2023 12:40:18 +0800
+X-OQ-MSGID: <20230902044040.137804-2-rtoax@foxmail.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230902044040.137804-1-rtoax@foxmail.com>
+References: <20230902044040.137804-1-rtoax@foxmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 04 Sep 2023 07:41:37 +0000
-Cc: linux-aspeed@lists.ozlabs.org, tomi.valkeinen@ideasonboard.com,
- linus.walleij@linaro.org, Douglas Anderson <dianders@chromium.org>,
- airlied@gmail.com, linux-stm32@st-md-mailman.stormreply.com, emma@anholt.net,
- joel@jms.id.au, airlied@redhat.com, daniel@ffwll.ch, hdegoede@redhat.com,
- linux-arm-kernel@lists.infradead.org, jfalempe@redhat.com, andrew@aj.id.au,
- tzimmermann@suse.de, yannick.fertre@foss.st.com, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, jyri.sarha@iki.fi
-Subject: [Linux-stm32] [RFT PATCH 5/6] drm: Call
-	drm_atomic_helper_shutdown() at shutdown/remove time for misc
-	drivers
+X-Mailman-Approved-At: Mon, 04 Sep 2023 07:41:38 +0000
+Cc: "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, Hao Luo <haoluo@google.com>,
+ Mykola Lysenko <mykolal@fb.com>, open list <linux-kernel@vger.kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ KP Singh <kpsingh@kernel.org>, Song Liu <song@kernel.org>,
+ Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ "open list:BPF \[GENERAL\] Safe Dynamic Programs and Tools"
+ <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: [Linux-stm32] [PATCH bpf-next v10 1/2] selftests/bpf:
+	trace_helpers.c: optimize kallsyms cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,289 +82,410 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Based on grepping through the source code these drivers appear to be
-missing a call to drm_atomic_helper_shutdown() at system shutdown time
-and at driver remove (or unbind) time. Among other things, this means
-that if a panel is in use that it won't be cleanly powered off at
-system shutdown time.
+From: Rong Tao <rongtao@cestc.cn>
 
-The fact that we should call drm_atomic_helper_shutdown() in the case
-of OS shutdown/restart and at driver remove (or unbind) time comes
-straight out of the kernel doc "driver instance overview" in
-drm_drv.c.
+Static ksyms often have problems because the number of symbols exceeds the
+MAX_SYMS limit. Like changing the MAX_SYMS from 300000 to 400000 in
+commit e76a014334a6("selftests/bpf: Bump and validate MAX_SYMS") solves
+the problem somewhat, but it's not the perfect way.
 
-A few notes about these fixes:
-- I confirmed that these drivers were all DRIVER_MODESET type drivers,
-  which I believe makes this relevant.
-- I confirmed that these drivers were all DRIVER_ATOMIC.
-- When adding drm_atomic_helper_shutdown() to the remove/unbind path,
-  I added it after drm_kms_helper_poll_fini() when the driver had
-  it. This seemed to be what other drivers did. If
-  drm_kms_helper_poll_fini() wasn't there I added it straight after
-  drm_dev_unregister().
-- This patch deals with drivers using the component model in similar
-  ways as the patch ("drm: Call drm_atomic_helper_shutdown() at
-  shutdown time for misc drivers")
-- These fixes rely on the patch ("drm/atomic-helper:
-  drm_atomic_helper_shutdown(NULL) should be a noop") to simplify
-  shutdown.
+This commit uses dynamic memory allocation, which completely solves the
+problem caused by the limitation of the number of kallsyms. At the same
+time, add APIs:
 
-Suggested-by: Maxime Ripard <mripard@kernel.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
+    load_kallsyms_local()
+    ksym_search_local()
+    ksym_get_addr_local()
+
+There are used to solve the problem of selftests/bpf updating kallsyms
+after attach new symbols during testmod testing.
+
+Acked-by: Stanislav Fomichev <sdf@google.com>
+Signed-off-by: Rong Tao <rongtao@cestc.cn>
 ---
+v10: Keep the original load_kallsyms().
+v9: https://lore.kernel.org/lkml/tencent_254B7015EED7A5D112C45E033DA1822CF107@qq.com/
+    Add load_kallsyms_local,ksym_search_local,ksym_get_addr_local functions.
+v8: https://lore.kernel.org/lkml/tencent_6D23FE187408D965E95DFAA858BC7E8C760A@qq.com/
+    Resolves inter-thread contention for ksyms global variables.
+v7: https://lore.kernel.org/lkml/tencent_BD6E19C00BF565CD5C36A9A0BD828CFA210A@qq.com/
+    Fix __must_check macro.
+v6: https://lore.kernel.org/lkml/tencent_4A09A36F883A06EA428A593497642AF8AF08@qq.com/
+    Apply libbpf_ensure_mem()
+v5: https://lore.kernel.org/lkml/tencent_0E9E1A1C0981678D5E7EA9E4BDBA8EE2200A@qq.com/
+    Release the allocated memory once the load_kallsyms_refresh() upon error
+    given it's dynamically allocated.
+v4: https://lore.kernel.org/lkml/tencent_59C74613113F0C728524B2A82FE5540A5E09@qq.com/
+    Make sure most cases we don't need the realloc() path to begin with,
+    and check strdup() return value.
+v3: https://lore.kernel.org/lkml/tencent_50B4B2622FE7546A5FF9464310650C008509@qq.com/
+    Do not use structs and judge ksyms__add_symbol function return value.
+v2: https://lore.kernel.org/lkml/tencent_B655EE5E5D463110D70CD2846AB3262EED09@qq.com/
+    Do the usual len/capacity scheme here to amortize the cost of realloc, and
+    don't free symbols.
+v1: https://lore.kernel.org/lkml/tencent_AB461510B10CD484E0B2F62E3754165F2909@qq.com/
+---
+ samples/bpf/Makefile                          |   4 +
+ .../selftests/bpf/prog_tests/fill_link_info.c |   9 +-
+ .../prog_tests/kprobe_multi_testmod_test.c    |  24 ++-
+ tools/testing/selftests/bpf/trace_helpers.c   | 137 +++++++++++++-----
+ tools/testing/selftests/bpf/trace_helpers.h   |  10 +-
+ 5 files changed, 137 insertions(+), 47 deletions(-)
 
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c |  7 +++++++
- drivers/gpu/drm/mgag200/mgag200_drv.c   |  8 ++++++++
- drivers/gpu/drm/pl111/pl111_drv.c       |  7 +++++++
- drivers/gpu/drm/stm/drv.c               |  7 +++++++
- drivers/gpu/drm/tilcdc/tilcdc_drv.c     | 11 ++++++++++-
- drivers/gpu/drm/tve200/tve200_drv.c     |  7 +++++++
- drivers/gpu/drm/vboxvideo/vbox_drv.c    | 10 ++++++++++
- 7 files changed, 56 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index d207b03f8357..78122b35a0cb 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -358,11 +358,18 @@ static void aspeed_gfx_remove(struct platform_device *pdev)
- 	sysfs_remove_group(&pdev->dev.kobj, &aspeed_sysfs_attr_group);
- 	drm_dev_unregister(drm);
- 	aspeed_gfx_unload(drm);
-+	drm_atomic_helper_shutdown(drm);
-+}
-+
-+static void aspeed_gfx_shutdown(struct platform_device *pdev)
-+{
-+	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
- }
+diff --git a/samples/bpf/Makefile b/samples/bpf/Makefile
+index 4ccf4236031c..6c707ebcebb9 100644
+--- a/samples/bpf/Makefile
++++ b/samples/bpf/Makefile
+@@ -175,6 +175,7 @@ TPROGS_CFLAGS += -I$(srctree)/tools/testing/selftests/bpf/
+ TPROGS_CFLAGS += -I$(LIBBPF_INCLUDE)
+ TPROGS_CFLAGS += -I$(srctree)/tools/include
+ TPROGS_CFLAGS += -I$(srctree)/tools/perf
++TPROGS_CFLAGS += -I$(srctree)/tools/lib
+ TPROGS_CFLAGS += -DHAVE_ATTR_TEST=0
  
- static struct platform_driver aspeed_gfx_platform_driver = {
- 	.probe		= aspeed_gfx_probe,
- 	.remove_new	= aspeed_gfx_remove,
-+	.shutdown	= aspeed_gfx_shutdown,
- 	.driver = {
- 		.name = "aspeed_gfx",
- 		.of_match_table = aspeed_gfx_match,
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index abddf37f0ea1..2fb18b782b05 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -10,6 +10,7 @@
- #include <linux/pci.h>
+ ifdef SYSROOT
+@@ -314,6 +315,9 @@ XDP_SAMPLE_CFLAGS += -Wall -O2 \
  
- #include <drm/drm_aperture.h>
-+#include <drm/drm_atomic_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_file.h>
-@@ -278,6 +279,12 @@ static void mgag200_pci_remove(struct pci_dev *pdev)
- 	struct drm_device *dev = pci_get_drvdata(pdev);
+ $(obj)/$(XDP_SAMPLE): TPROGS_CFLAGS = $(XDP_SAMPLE_CFLAGS)
+ $(obj)/$(XDP_SAMPLE): $(src)/xdp_sample_user.h $(src)/xdp_sample_shared.h
++# Override includes for trace_helpers.o because __must_check won't be defined
++# in our include path.
++$(obj)/$(TRACE_HELPERS): TPROGS_CFLAGS := $(TPROGS_CFLAGS) -D__must_check=
  
- 	drm_dev_unregister(dev);
-+	drm_atomic_helper_shutdown(dev);
-+}
-+
-+static void mgag200_pci_shutdown(struct pci_dev *pdev)
-+{
-+	drm_atomic_helper_shutdown(pci_get_drvdata(pdev));
- }
+ -include $(BPF_SAMPLES_PATH)/Makefile.target
  
- static struct pci_driver mgag200_pci_driver = {
-@@ -285,6 +292,7 @@ static struct pci_driver mgag200_pci_driver = {
- 	.id_table = mgag200_pciidlist,
- 	.probe = mgag200_pci_probe,
- 	.remove = mgag200_pci_remove,
-+	.shutdown = mgag200_pci_shutdown,
- };
+diff --git a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
+index 9d768e083714..13e618317c8b 100644
+--- a/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
++++ b/tools/testing/selftests/bpf/prog_tests/fill_link_info.c
+@@ -302,16 +302,18 @@ void test_fill_link_info(void)
+ {
+ 	struct test_fill_link_info *skel;
+ 	int i;
++	struct ksyms *ksyms;
  
- drm_module_pci_driver_if_modeset(mgag200_pci_driver, mgag200_modeset);
-diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-index ba3b5b5f0cdf..02e6b74d5016 100644
---- a/drivers/gpu/drm/pl111/pl111_drv.c
-+++ b/drivers/gpu/drm/pl111/pl111_drv.c
-@@ -323,12 +323,18 @@ static void pl111_amba_remove(struct amba_device *amba_dev)
- 	struct pl111_drm_dev_private *priv = drm->dev_private;
- 
- 	drm_dev_unregister(drm);
-+	drm_atomic_helper_shutdown(drm);
- 	if (priv->panel)
- 		drm_panel_bridge_remove(priv->bridge);
- 	drm_dev_put(drm);
- 	of_reserved_mem_device_release(dev);
- }
- 
-+static void pl111_amba_shutdown(struct amba_device *amba_dev)
-+{
-+	drm_atomic_helper_shutdown(amba_get_drvdata(amba_dev));
-+}
-+
- /*
-  * This early variant lacks the 565 and 444 pixel formats.
-  */
-@@ -431,6 +437,7 @@ static struct amba_driver pl111_amba_driver __maybe_unused = {
- 	},
- 	.probe = pl111_amba_probe,
- 	.remove = pl111_amba_remove,
-+	.shutdown = pl111_amba_shutdown,
- 	.id_table = pl111_id_table,
- };
- 
-diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-index c68c831136c9..e8523abef27a 100644
---- a/drivers/gpu/drm/stm/drv.c
-+++ b/drivers/gpu/drm/stm/drv.c
-@@ -114,6 +114,7 @@ static void drv_unload(struct drm_device *ddev)
- 	DRM_DEBUG("%s\n", __func__);
- 
- 	drm_kms_helper_poll_fini(ddev);
-+	drm_atomic_helper_shutdown(ddev);
- 	ltdc_unload(ddev);
- }
- 
-@@ -225,6 +226,11 @@ static void stm_drm_platform_remove(struct platform_device *pdev)
- 	drm_dev_put(ddev);
- }
- 
-+static void stm_drm_platform_shutdown(struct platform_device *pdev)
-+{
-+	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
-+}
-+
- static const struct of_device_id drv_dt_ids[] = {
- 	{ .compatible = "st,stm32-ltdc"},
- 	{ /* end node */ },
-@@ -234,6 +240,7 @@ MODULE_DEVICE_TABLE(of, drv_dt_ids);
- static struct platform_driver stm_drm_platform_driver = {
- 	.probe = stm_drm_platform_probe,
- 	.remove_new = stm_drm_platform_remove,
-+	.shutdown = stm_drm_platform_shutdown,
- 	.driver = {
- 		.name = "stm32-display",
- 		.of_match_table = drv_dt_ids,
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_drv.c b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-index fe56beea3e93..8ebd7134ee21 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.c
-@@ -175,6 +175,7 @@ static void tilcdc_fini(struct drm_device *dev)
- 		drm_dev_unregister(dev);
- 
- 	drm_kms_helper_poll_fini(dev);
-+	drm_atomic_helper_shutdown(dev);
- 	tilcdc_irq_uninstall(dev);
- 	drm_mode_config_cleanup(dev);
- 
-@@ -389,6 +390,7 @@ static int tilcdc_init(const struct drm_driver *ddrv, struct device *dev)
- 
- init_failed:
- 	tilcdc_fini(ddev);
-+	platform_set_drvdata(pdev, NULL);
- 
- 	return ret;
- }
-@@ -537,7 +539,8 @@ static void tilcdc_unbind(struct device *dev)
- 	if (!ddev->dev_private)
+ 	skel = test_fill_link_info__open_and_load();
+ 	if (!ASSERT_OK_PTR(skel, "skel_open"))
  		return;
  
--	tilcdc_fini(dev_get_drvdata(dev));
-+	tilcdc_fini(ddev);
-+	dev_set_drvdata(dev, NULL);
+ 	/* load kallsyms to compare the addr */
+-	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
++	ksyms = load_kallsyms_local();
++	if (!ASSERT_OK_PTR(ksyms, "load_kallsyms_local"))
+ 		goto cleanup;
+ 
+-	kprobe_addr = ksym_get_addr(KPROBE_FUNC);
++	kprobe_addr = ksym_get_addr_local(ksyms, KPROBE_FUNC);
+ 	if (test__start_subtest("kprobe_link_info"))
+ 		test_kprobe_fill_link_info(skel, BPF_PERF_EVENT_KPROBE, false);
+ 	if (test__start_subtest("kretprobe_link_info"))
+@@ -329,7 +331,7 @@ void test_fill_link_info(void)
+ 
+ 	qsort(kmulti_syms, KMULTI_CNT, sizeof(kmulti_syms[0]), symbols_cmp_r);
+ 	for (i = 0; i < KMULTI_CNT; i++)
+-		kmulti_addrs[i] = ksym_get_addr(kmulti_syms[i]);
++		kmulti_addrs[i] = ksym_get_addr_local(ksyms, kmulti_syms[i]);
+ 	if (test__start_subtest("kprobe_multi_link_info"))
+ 		test_kprobe_multi_fill_link_info(skel, false, false);
+ 	if (test__start_subtest("kretprobe_multi_link_info"))
+@@ -339,4 +341,5 @@ void test_fill_link_info(void)
+ 
+ cleanup:
+ 	test_fill_link_info__destroy(skel);
++	free_kallsyms_local(ksyms);
+ }
+diff --git a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
+index 1fbe7e4ac00a..532b05ae2da4 100644
+--- a/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
++++ b/tools/testing/selftests/bpf/prog_tests/kprobe_multi_testmod_test.c
+@@ -4,6 +4,8 @@
+ #include "trace_helpers.h"
+ #include "bpf/libbpf_internal.h"
+ 
++static struct ksyms *ksyms;
++
+ static void kprobe_multi_testmod_check(struct kprobe_multi *skel)
+ {
+ 	ASSERT_EQ(skel->bss->kprobe_testmod_test1_result, 1, "kprobe_test1_result");
+@@ -50,12 +52,12 @@ static void test_testmod_attach_api_addrs(void)
+ 	LIBBPF_OPTS(bpf_kprobe_multi_opts, opts);
+ 	unsigned long long addrs[3];
+ 
+-	addrs[0] = ksym_get_addr("bpf_testmod_fentry_test1");
+-	ASSERT_NEQ(addrs[0], 0, "ksym_get_addr");
+-	addrs[1] = ksym_get_addr("bpf_testmod_fentry_test2");
+-	ASSERT_NEQ(addrs[1], 0, "ksym_get_addr");
+-	addrs[2] = ksym_get_addr("bpf_testmod_fentry_test3");
+-	ASSERT_NEQ(addrs[2], 0, "ksym_get_addr");
++	addrs[0] = ksym_get_addr_local(ksyms, "bpf_testmod_fentry_test1");
++	ASSERT_NEQ(addrs[0], 0, "ksym_get_addr_local");
++	addrs[1] = ksym_get_addr_local(ksyms, "bpf_testmod_fentry_test2");
++	ASSERT_NEQ(addrs[1], 0, "ksym_get_addr_local");
++	addrs[2] = ksym_get_addr_local(ksyms, "bpf_testmod_fentry_test3");
++	ASSERT_NEQ(addrs[2], 0, "ksym_get_addr_local");
+ 
+ 	opts.addrs = (const unsigned long *) addrs;
+ 	opts.cnt = ARRAY_SIZE(addrs);
+@@ -79,11 +81,19 @@ static void test_testmod_attach_api_syms(void)
+ 
+ void serial_test_kprobe_multi_testmod_test(void)
+ {
+-	if (!ASSERT_OK(load_kallsyms_refresh(), "load_kallsyms_refresh"))
++	ksyms = load_kallsyms_local();
++	if (!ASSERT_OK_PTR(ksyms, "load_kallsyms_local"))
+ 		return;
+ 
+ 	if (test__start_subtest("testmod_attach_api_syms"))
+ 		test_testmod_attach_api_syms();
++
++	ksyms = load_kallsyms_refresh(ksyms);
++	if (!ASSERT_OK_PTR(ksyms, "load_kallsyms_refresh"))
++		return;
++
+ 	if (test__start_subtest("testmod_attach_api_addrs"))
+ 		test_testmod_attach_api_addrs();
++
++	free_kallsyms_local(ksyms);
+ }
+diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
+index f83d9f65c65b..d64c4ef336e1 100644
+--- a/tools/testing/selftests/bpf/trace_helpers.c
++++ b/tools/testing/selftests/bpf/trace_helpers.c
+@@ -14,104 +14,171 @@
+ #include <linux/limits.h>
+ #include <libelf.h>
+ #include <gelf.h>
++#include "bpf/libbpf_internal.h"
+ 
+ #define TRACEFS_PIPE	"/sys/kernel/tracing/trace_pipe"
+ #define DEBUGFS_PIPE	"/sys/kernel/debug/tracing/trace_pipe"
+ 
+-#define MAX_SYMS 400000
+-static struct ksym syms[MAX_SYMS];
+-static int sym_cnt;
++struct ksyms {
++	struct ksym *syms;
++	size_t sym_cap;
++	size_t sym_cnt;
++};
++
++static struct ksyms *ksyms;
++
++static int ksyms__add_symbol(struct ksyms *ksyms, const char *name,
++							 unsigned long addr)
++{
++	void *tmp;
++
++	tmp = strdup(name);
++	if (!tmp)
++		return -ENOMEM;
++	ksyms->syms[ksyms->sym_cnt].addr = addr;
++	ksyms->syms[ksyms->sym_cnt].name = tmp;
++
++	ksyms->sym_cnt++;
++
++	return 0;
++}
++
++void free_kallsyms_local(struct ksyms *ksyms)
++{
++	unsigned int i;
++
++	if (!ksyms)
++		return;
++
++	if (!ksyms->syms) {
++		free(ksyms);
++		return;
++	}
++
++	for (i = 0; i < ksyms->sym_cnt; i++)
++		free(ksyms->syms[i].name);
++	free(ksyms->syms);
++	free(ksyms);
++}
+ 
+ static int ksym_cmp(const void *p1, const void *p2)
+ {
+ 	return ((struct ksym *)p1)->addr - ((struct ksym *)p2)->addr;
  }
  
- static const struct component_master_ops tilcdc_comp_ops = {
-@@ -582,6 +585,11 @@ static int tilcdc_pdev_remove(struct platform_device *pdev)
+-int load_kallsyms_refresh(void)
++struct ksyms *load_kallsyms_refresh(struct ksyms *ksyms)
+ {
+ 	FILE *f;
+ 	char func[256], buf[256];
+ 	char symbol;
+ 	void *addr;
+-	int i = 0;
++	int ret;
+ 
+-	sym_cnt = 0;
++	/* flush kallsyms, free the previously allocated dynamic memory */
++	free_kallsyms_local(ksyms);
+ 
+ 	f = fopen("/proc/kallsyms", "r");
+ 	if (!f)
+-		return -ENOENT;
++		return NULL;
++
++	ksyms = calloc(1, sizeof(struct ksyms));
++	if (!ksyms)
++		return NULL;
+ 
+ 	while (fgets(buf, sizeof(buf), f)) {
+ 		if (sscanf(buf, "%p %c %s", &addr, &symbol, func) != 3)
+ 			break;
+ 		if (!addr)
+ 			continue;
+-		if (i >= MAX_SYMS)
+-			return -EFBIG;
+ 
+-		syms[i].addr = (long) addr;
+-		syms[i].name = strdup(func);
+-		i++;
++		ret = libbpf_ensure_mem((void **) &ksyms->syms, &ksyms->sym_cap,
++					sizeof(struct ksym), ksyms->sym_cnt + 1);
++		if (ret)
++			goto error;
++		ret = ksyms__add_symbol(ksyms, func, (unsigned long)addr);
++		if (ret)
++			goto error;
+ 	}
+ 	fclose(f);
+-	sym_cnt = i;
+-	qsort(syms, sym_cnt, sizeof(struct ksym), ksym_cmp);
+-	return 0;
++	qsort(ksyms->syms, ksyms->sym_cnt, sizeof(struct ksym), ksym_cmp);
++	return ksyms;
++
++error:
++	free_kallsyms_local(ksyms);
++	return NULL;
++}
++
++struct ksyms *load_kallsyms_local(void)
++{
++	return load_kallsyms_refresh(NULL);
+ }
+ 
+ int load_kallsyms(void)
+ {
+-	/*
+-	 * This is called/used from multiplace places,
+-	 * load symbols just once.
+-	 */
+-	if (sym_cnt)
+-		return 0;
+-	return load_kallsyms_refresh();
++	if (!ksyms)
++		ksyms = load_kallsyms_local();
++	return ksyms ? 0 : 1;
+ }
+ 
+-struct ksym *ksym_search(long key)
++struct ksym *ksym_search_local(struct ksyms *ksyms, long key)
+ {
+-	int start = 0, end = sym_cnt;
++	int start = 0, end = ksyms->sym_cnt;
+ 	int result;
+ 
++	if (!ksyms)
++		return NULL;
++
+ 	/* kallsyms not loaded. return NULL */
+-	if (sym_cnt <= 0)
++	if (ksyms->sym_cnt <= 0)
+ 		return NULL;
+ 
+ 	while (start < end) {
+ 		size_t mid = start + (end - start) / 2;
+ 
+-		result = key - syms[mid].addr;
++		result = key - ksyms->syms[mid].addr;
+ 		if (result < 0)
+ 			end = mid;
+ 		else if (result > 0)
+ 			start = mid + 1;
+ 		else
+-			return &syms[mid];
++			return &ksyms->syms[mid];
+ 	}
+ 
+-	if (start >= 1 && syms[start - 1].addr < key &&
+-	    key < syms[start].addr)
++	if (start >= 1 && ksyms->syms[start - 1].addr < key &&
++	    key < ksyms->syms[start].addr)
+ 		/* valid ksym */
+-		return &syms[start - 1];
++		return &ksyms->syms[start - 1];
+ 
+ 	/* out of range. return _stext */
+-	return &syms[0];
++	return &ksyms->syms[0];
+ }
+ 
+-long ksym_get_addr(const char *name)
++struct ksym *ksym_search(long key)
++{
++	if (!ksyms)
++		return NULL;
++	return ksym_search_local(ksyms, key);
++}
++
++long ksym_get_addr_local(struct ksyms *ksyms, const char *name)
+ {
+ 	int i;
+ 
+-	for (i = 0; i < sym_cnt; i++) {
+-		if (strcmp(syms[i].name, name) == 0)
+-			return syms[i].addr;
++	for (i = 0; i < ksyms->sym_cnt; i++) {
++		if (strcmp(ksyms->syms[i].name, name) == 0)
++			return ksyms->syms[i].addr;
+ 	}
+ 
  	return 0;
  }
  
-+static void tilcdc_pdev_shutdown(struct platform_device *pdev)
++long ksym_get_addr(const char *name)
 +{
-+	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
++	if (!ksyms)
++		return 0;
++	return ksym_get_addr_local(ksyms, name);
 +}
 +
- static const struct of_device_id tilcdc_of_match[] = {
- 		{ .compatible = "ti,am33xx-tilcdc", },
- 		{ .compatible = "ti,da850-tilcdc", },
-@@ -592,6 +600,7 @@ MODULE_DEVICE_TABLE(of, tilcdc_of_match);
- static struct platform_driver tilcdc_platform_driver = {
- 	.probe      = tilcdc_pdev_probe,
- 	.remove     = tilcdc_pdev_remove,
-+	.shutdown   = tilcdc_pdev_shutdown,
- 	.driver     = {
- 		.name   = "tilcdc",
- 		.pm     = pm_sleep_ptr(&tilcdc_pm_ops),
-diff --git a/drivers/gpu/drm/tve200/tve200_drv.c b/drivers/gpu/drm/tve200/tve200_drv.c
-index 0bb56d063536..acce210e2554 100644
---- a/drivers/gpu/drm/tve200/tve200_drv.c
-+++ b/drivers/gpu/drm/tve200/tve200_drv.c
-@@ -242,6 +242,7 @@ static void tve200_remove(struct platform_device *pdev)
- 	struct tve200_drm_dev_private *priv = drm->dev_private;
- 
- 	drm_dev_unregister(drm);
-+	drm_atomic_helper_shutdown(drm);
- 	if (priv->panel)
- 		drm_panel_bridge_remove(priv->bridge);
- 	drm_mode_config_cleanup(drm);
-@@ -249,6 +250,11 @@ static void tve200_remove(struct platform_device *pdev)
- 	drm_dev_put(drm);
- }
- 
-+static void tve200_shutdown(struct platform_device *pdev)
-+{
-+	drm_atomic_helper_shutdown(platform_get_drvdata(pdev));
-+}
-+
- static const struct of_device_id tve200_of_match[] = {
- 	{
- 		.compatible = "faraday,tve200",
-@@ -263,6 +269,7 @@ static struct platform_driver tve200_driver = {
- 	},
- 	.probe = tve200_probe,
- 	.remove_new = tve200_remove,
-+	.shutdown = tve200_shutdown,
+ /* open kallsyms and read symbol addresses on the fly. Without caching all symbols,
+  * this is faster than load + find.
+  */
+diff --git a/tools/testing/selftests/bpf/trace_helpers.h b/tools/testing/selftests/bpf/trace_helpers.h
+index 876f3e711df6..1449a107240c 100644
+--- a/tools/testing/selftests/bpf/trace_helpers.h
++++ b/tools/testing/selftests/bpf/trace_helpers.h
+@@ -11,13 +11,19 @@ struct ksym {
+ 	long addr;
+ 	char *name;
  };
- drm_module_platform_driver(tve200_driver);
++struct ksyms;
  
-diff --git a/drivers/gpu/drm/vboxvideo/vbox_drv.c b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-index 4fee15c97c34..047b95812334 100644
---- a/drivers/gpu/drm/vboxvideo/vbox_drv.c
-+++ b/drivers/gpu/drm/vboxvideo/vbox_drv.c
-@@ -12,6 +12,7 @@
- #include <linux/vt_kern.h>
+ int load_kallsyms(void);
+-int load_kallsyms_refresh(void);
+-
+ struct ksym *ksym_search(long key);
+ long ksym_get_addr(const char *name);
  
- #include <drm/drm_aperture.h>
-+#include <drm/drm_atomic_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_fbdev_generic.h>
- #include <drm/drm_file.h>
-@@ -97,11 +98,19 @@ static void vbox_pci_remove(struct pci_dev *pdev)
- 	struct vbox_private *vbox = pci_get_drvdata(pdev);
- 
- 	drm_dev_unregister(&vbox->ddev);
-+	drm_atomic_helper_shutdown(&vbox->ddev);
- 	vbox_irq_fini(vbox);
- 	vbox_mode_fini(vbox);
- 	vbox_hw_fini(vbox);
- }
- 
-+static void vbox_pci_shutdown(struct pci_dev *pdev)
-+{
-+	struct vbox_private *vbox = pci_get_drvdata(pdev);
++struct ksyms *load_kallsyms_local(void);
++struct ksym *ksym_search_local(struct ksyms *ksyms, long key);
++long ksym_get_addr_local(struct ksyms *ksyms, const char *name);
 +
-+	drm_atomic_helper_shutdown(&vbox->ddev);
-+}
++struct ksyms *load_kallsyms_refresh(struct ksyms *ksyms);
++void free_kallsyms_local(struct ksyms *ksyms);
 +
- static int vbox_pm_suspend(struct device *dev)
- {
- 	struct vbox_private *vbox = dev_get_drvdata(dev);
-@@ -165,6 +174,7 @@ static struct pci_driver vbox_pci_driver = {
- 	.id_table = pciidlist,
- 	.probe = vbox_pci_probe,
- 	.remove = vbox_pci_remove,
-+	.shutdown = vbox_pci_shutdown,
- 	.driver.pm = pm_sleep_ptr(&vbox_pm_ops),
- };
+ /* open kallsyms and find addresses on the fly, faster than load + search. */
+ int kallsyms_find(const char *sym, unsigned long long *addr);
  
 -- 
-2.42.0.283.g2d96d420d3-goog
+2.41.0
 
 _______________________________________________
 Linux-stm32 mailing list
