@@ -2,57 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F1C790777
-	for <lists+linux-stm32@lfdr.de>; Sat,  2 Sep 2023 12:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D3927908B8
+	for <lists+linux-stm32@lfdr.de>; Sat,  2 Sep 2023 18:43:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8795CC6A61D;
-	Sat,  2 Sep 2023 10:53:57 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02E84C6B442;
+	Sat,  2 Sep 2023 16:43:21 +0000 (UTC)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22632C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBC70C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 Sep 2023 10:53:56 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9741F60ACB;
- Sat,  2 Sep 2023 10:53:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9A3C433C8;
- Sat,  2 Sep 2023 10:53:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1693652034;
- bh=5mUneaMYsihzWac40KTej7cQHjUWMP3FfxWNxAgPEkM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dL4rU5o8pCsKc2PY7aL5CGYUYhElJpKvmfz3MDOOSpTbA2vmzJMGSoWJIuGe71k81
- OB1xk5+hCq/07LiGqbDBfgEjEicbqlOyv5dbiw848ZF18qhE6XzjXrXWj2mn83YD1G
- /ZM3trcDbUEl0eMbnOilM1Kl7gvfut9Y1xXAESaT6ErtkAewxHVemsYktL+ukXA9iO
- ieS1CJcZ0NtABhPMCJuCvSv4y9ZfQLG3UA3kUo6xutH58roKzvaI+8Tw/mCqGHOe6c
- P427fH++cyWfiQA0MfSGcBzNRd7clZHmFOeW+Mp2ooV472Eq3UzHZulxjU8naFuHSR
- Z+l23hbl8RUFQ==
-Date: Sat, 2 Sep 2023 11:53:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20230902-undone-mobster-234b589d3714@spud>
-References: <20230901155732.252436-1-alain.volmat@foss.st.com>
- <20230901155732.252436-2-alain.volmat@foss.st.com>
+ Sat,  2 Sep 2023 16:43:19 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-d7b91422da8so75339276.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 02 Sep 2023 09:43:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1693672999; x=1694277799;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RUQI1IMPxq/0QcnuPOG+oY2Cvb8cpMwVnmqwILZAnjE=;
+ b=D/wR5ljpj6MA0EgGhw3oFr9pfO8njUR8X5MUYOnBfpoLu0JsS3Mz/9QExAxRx05691
+ myN8IFUQ6L2STibdaMl1WeEnEexdiSfx9ywJJ6gkrZvDjWuTvYLruNgmACvpPC79giS0
+ GWClOsWykGy9/0w0ej711VHFuAV19E7HkWO+mjDqcrpfIIIhDrDPqNGlyiM3OBWBemCT
+ tEJdZRTFlFpa7kZ87+bYT5LcvWBo0nz3LefxWqHgJXWHyGm6A0Xedpz3cXwNVVppAUVY
+ mVVLyaJfDl+xJkggA4dhFEZ/PjrdPx8pU3O6G7k1gHhe/ndTIPdTMK7UC/baKYktXB+N
+ damw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1693672999; x=1694277799;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=RUQI1IMPxq/0QcnuPOG+oY2Cvb8cpMwVnmqwILZAnjE=;
+ b=U4cZ4PXqmmAHCgYW7IixkjIFnPaTD/8NpQJ9fqZqWhuVMnnqP/V2OVlJ8mQwdac3cg
+ /DkwKCZHXdh17/sWVOjsU4MYpskTAHen8782fZC+egvV9lM5bdFARrV1ayVpOA3ZMcFV
+ dPP3NB3/dcQs/l5ofIoPWGqmAIJXqftluWCQhsxRdp0lbsKMYnycYlhEfjWWESYYiehJ
+ 6qOoCCdIaiganx9KFgnQ9CMdDSCsSd1VZzhsSqwrwUivamtfFl0PPSTnxZd7GHWw21Io
+ o7CzrT5NPkcc/5Fmc2iF9IphMgYyPVzduJ7x1i6H+EIbHfPwv117IrkIu2yjLTlmHGPm
+ ZJ6Q==
+X-Gm-Message-State: AOJu0YwjaHUGLc4HEpGJ1knI2QrE+gM/8kNj0RQbiCxcWqa3wMqKZICl
+ XmXhJLh5ob31Gm+BonCf2DY7WRitPhD3VEUjyR5mzQ==
+X-Google-Smtp-Source: AGHT+IE/lyKUxC+R61qFXqvryIakPGcGdMcW/bi3SrxhNQy2coxvc4NC7uGhbA7OM2U7ZRuQsjY6HNyjJvBnSDvaMR4=
+X-Received: by 2002:a25:2495:0:b0:d78:1f87:d6f1 with SMTP id
+ k143-20020a252495000000b00d781f87d6f1mr5941437ybk.33.1693672998777; Sat, 02
+ Sep 2023 09:43:18 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20230901155732.252436-2-alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
- Dan Scally <dan.scally@ideasonboard.com>,
+References: <20230901120836.1057900-1-yann.gautier@foss.st.com>
+In-Reply-To: <20230901120836.1057900-1-yann.gautier@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Sat, 2 Sep 2023 18:43:07 +0200
+Message-ID: <CACRpkdaj6bEQTo6a5gOJQne-wKqBLvuxiOe9kE+q-nkYLOU7Pw@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/5] dt-bindings: media: add bindings
-	for stm32 dcmipp
+ Yang Yingliang <yangyingliang@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: add SDIO in-band
+	interrupt mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,55 +75,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1466882560876338008=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1466882560876338008==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="y2l6E071THuAoQbt"
-Content-Disposition: inline
-
-
---y2l6E071THuAoQbt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Sep 01, 2023 at 05:57:20PM +0200, Alain Volmat wrote:
-> Add the yaml binding for the ST Microelectronics STM32 DCMIPP
-> (Digital Camera Memory Interface Pixel Processor)
->=20
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-
-Thanks,
-Conor.
-
---y2l6E071THuAoQbt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZPMUPAAKCRB4tDGHoIJi
-0mJUAP9nsxwmCpy9C0wAB98r+NuyBpnBXvMJkEM7Sxp8M7zyYgD8C/cME37tRoxC
-X9j9prRoXAsDDO1R9EO1/JcMhzGh6QE=
-=dnj9
------END PGP SIGNATURE-----
-
---y2l6E071THuAoQbt--
-
---===============1466882560876338008==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1466882560876338008==--
+SGkgWWFubi9DaHJpc3RvcGhlLAoKanVzdCBhIHF1aWNrIG5vdGU6CgpPbiBGcmksIFNlcCAxLCAy
+MDIzIGF0IDI6MDjigK9QTSBZYW5uIEdhdXRpZXIgPHlhbm4uZ2F1dGllckBmb3NzLnN0LmNvbT4g
+d3JvdGU6Cgo+ICtzdGF0aWMgdm9pZCBzZG1tY19lbmFibGVfc2Rpb19pcnEoc3RydWN0IG1tY2lf
+aG9zdCAqaG9zdCwgaW50IGVuYWJsZSkKPiArewo+ICsgICAgICAgdm9pZCBfX2lvbWVtICpiYXNl
+ID0gaG9zdC0+YmFzZTsKPiArICAgICAgIHUzMiBtYXNrID0gcmVhZGxfcmVsYXhlZChiYXNlICsg
+TU1DSU1BU0swKTsKPiArCj4gKyAgICAgICBpZiAoZW5hYmxlKQo+ICsgICAgICAgICAgICAgICB3
+cml0ZWxfcmVsYXhlZChtYXNrIHwgTUNJX1NUX1NESU9JVE1BU0ssIGJhc2UgKyBNTUNJTUFTSzAp
+Owo+ICsgICAgICAgZWxzZQo+ICsgICAgICAgICAgICAgICB3cml0ZWxfcmVsYXhlZChtYXNrICYg
+fk1DSV9TVF9TRElPSVRNQVNLLCBiYXNlICsgTU1DSU1BU0swKTsKPiArfQo+ICsKPiArc3RhdGlj
+IHZvaWQgc2RtbWNfc2Rpb19pcnEoc3RydWN0IG1tY2lfaG9zdCAqaG9zdCwgdTMyIHN0YXR1cykK
+PiArewo+ICsgICAgICAgaWYgKHN0YXR1cyAmIE1DSV9TVF9TRElPSVQpIHsKPiArICAgICAgICAg
+ICAgICAgc2RtbWNfZW5hYmxlX3NkaW9faXJxKGhvc3QsIDApOwo+ICsgICAgICAgICAgICAgICBz
+ZGlvX3NpZ25hbF9pcnEoaG9zdC0+bW1jKTsKPiArICAgICAgIH0KPiArfQoKWW91IG5lZWQgdG8g
+bW92ZSB0aGVzZSB0byBtbWNpIGFuZCByZW5hbWUgdGhlbSBzaW5jZSBVeDUwMCB3aWxsIHVzZQp0
+aGUgc2FtZSBjYWxsYmFja3MuCgo+ICBzdGF0aWMgc3RydWN0IG1tY2lfaG9zdF9vcHMgc2RtbWNf
+dmFyaWFudF9vcHMgPSB7Cj4gICAgICAgICAudmFsaWRhdGVfZGF0YSA9IHNkbW1jX2lkbWFfdmFs
+aWRhdGVfZGF0YSwKKC4uLikKPiArICAgICAgIC5lbmFibGVfc2Rpb19pcnEgPSBzZG1tY19lbmFi
+bGVfc2Rpb19pcnEsCj4gKyAgICAgICAuc2Rpb19pcnEgPSBzZG1tY19zZGlvX2lycSwKPiAgfTsK
+CldoYXQgYWJvdXQgZHJvcHBpbmcgdGhlIHBlci12YXJpYW50IGNhbGxiYWNrcyBhbmQganVzdCBp
+bmxpbmUKdGhpcyBpbnRvIG1tY2lfZW5hYmxlX3NkaW9faXJxKCkvbW1jaV9hY2tfc2Rpb19pcnEo
+KSBzaW5jZQpzbyBtYW55IHZhcmlhbnRzIGhhdmUgdGhlIHNhbWUgc2NoZW1lPyBJIGhhdmVuJ3Qg
+bG9va2VkCmF0IHRoZSBRdWFsY29tbSB2YXJpYW50IHRob3VnaCwgbWF5YmUgaXQgaXMgY29tcGxl
+dGVseQpkaWZmZXJlbnQuLi4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
+aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
