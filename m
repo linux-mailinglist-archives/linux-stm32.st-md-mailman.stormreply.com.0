@@ -2,69 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947EB791C51
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Sep 2023 20:06:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42897791D9E
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Sep 2023 21:31:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FFDEC6B455;
-	Mon,  4 Sep 2023 18:06:43 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
- [209.85.208.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4455C6B455;
+	Mon,  4 Sep 2023 19:31:57 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28C2EC6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D2D1C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Sep 2023 18:06:42 +0000 (UTC)
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-2bceb02fd2bso24748421fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Sep 2023 11:06:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1693850801; x=1694455601;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UerQu8X0sDSfgf2+CbpRUuHP8N70bRTmPby/bAIFB0Q=;
- b=h0mP3Hix1dcpLZUZ1e75KUZimZUXTiKFvXk7oCvwRZd1geP87vFyBZ7sgheAmsLx9X
- rm9L8R9m8VN2gBCobBPWGBT1e8Oh3UY3EPqiKQNGD2rK8lUiIY+jaVmZSOiBe0zbSHYD
- QtqGfXi+GwDj2Xu47NgnYd7af9BxAEe5BdoHI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693850801; x=1694455601;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UerQu8X0sDSfgf2+CbpRUuHP8N70bRTmPby/bAIFB0Q=;
- b=VEqjuQwlgH6oZ6ZL+/SG+H1jSbdc+Bi2QQZZGbPbS1ZlS8iLQKaBgWTaqN5VPbepC9
- qIS0ZzWnnSWpI4Od+Iy6D1jxLOQqo+JCnjCdB9nwMXRSXcfVmZET9Va9WtonBQBVj1Jd
- SDuA8bM6LKCcfJ3TVZqo5W3+/Ytwi4g3q5VN9dp2EBZHfvlNuAaI3y06WFctMMdgtrmS
- z+aSYwKG8Nxn84ffShTr5fWZmlDGM+PRrYzBM85srtpc3fGcs+ezo7M1iA21AHv5OAZl
- KcgonmRqgPzBjBe4sl/3p4Et9ojK8FCAmXlZQ6DFFVFZokWqZA/aHYnGXWsrRinfhm5b
- 7gfg==
-X-Gm-Message-State: AOJu0YxswKkliAJYyFBXUqWKz5TxDbL0iw49MvJRRZrNrgUZOQvDPjQr
- d0ws2hTZZJVGo8W9dPvNDZ4+vA==
-X-Google-Smtp-Source: AGHT+IE/yOwJTB71sCvOOHxNASxN/IQyYmWk7RSn4j6RvAtd5i/3U4nhAxCAXlqEBo6qGeVdzmGmfw==
-X-Received: by 2002:a2e:b6c2:0:b0:2bc:da3e:3bda with SMTP id
- m2-20020a2eb6c2000000b002bcda3e3bdamr6653000ljo.2.1693850801146; 
- Mon, 04 Sep 2023 11:06:41 -0700 (PDT)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-79-54-71-141.retail.telecomitalia.it. [79.54.71.141])
- by smtp.gmail.com with ESMTPSA id
- l13-20020a170906a40d00b0099bc0daf3d7sm6534375ejz.182.2023.09.04.11.06.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Sep 2023 11:06:40 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon,  4 Sep 2023 20:06:35 +0200
-Message-Id: <20230904180635.923506-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.34.1
+ Mon,  4 Sep 2023 19:31:55 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 402F8CE0F1F;
+ Mon,  4 Sep 2023 19:31:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A86C433C7;
+ Mon,  4 Sep 2023 19:31:51 +0000 (UTC)
+Date: Mon, 4 Sep 2023 15:31:49 -0400
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ZPYwpdQUWp0V43FU@ishi>
+References: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RFC PATCH] ARM: dts: stm32f469-disco: use the same
-	3v3 for SD and DSI nodes
+In-Reply-To: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
+Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/8] counter: fix,
+ improvements and stm32 timer events support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,69 +43,95 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0511935170270417683=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the board schematic, the power supply for the SD card is the same 3.3
-volts used to power the LCD panel and other peripherals. By generalizing
-the name of the voltage regulator, it simplifies the device tree and makes
-it more readable.
 
-Link: https://www.st.com/en/evaluation-tools/32f469idiscovery.html#cad-resources
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+--===============0511935170270417683==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CVt1obDrKjorrKCm"
+Content-Disposition: inline
 
----
 
- arch/arm/boot/dts/st/stm32f469-disco.dts | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+--CVt1obDrKjorrKCm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm/boot/dts/st/stm32f469-disco.dts b/arch/arm/boot/dts/st/stm32f469-disco.dts
-index cbbd521bf010..8a4f8ddd083d 100644
---- a/arch/arm/boot/dts/st/stm32f469-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32f469-disco.dts
-@@ -69,16 +69,9 @@ aliases {
- 		serial0 = &usart3;
- 	};
- 
--	mmc_vcard: mmc_vcard {
-+	vcc_3v3: vcc-3v3 {
- 		compatible = "regulator-fixed";
--		regulator-name = "mmc_vcard";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--	};
--
--	vdd_dsi: vdd-dsi {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_dsi";
-+		regulator-name = "vcc_3v3";
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
- 	};
-@@ -164,7 +157,7 @@ panel@0 {
- 		compatible = "orisetech,otm8009a";
- 		reg = <0>; /* dsi virtual channel (0..3) */
- 		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
--		power-supply = <&vdd_dsi>;
-+		power-supply = <&vcc_3v3>;
- 		status = "okay";
- 
- 		port {
-@@ -219,7 +212,7 @@ timer@2 {
- 
- &sdio {
- 	status = "okay";
--	vmmc-supply = <&mmc_vcard>;
-+	vmmc-supply = <&vcc_3v3>;
- 	cd-gpios = <&gpiog 2 GPIO_ACTIVE_LOW>;
- 	broken-cd;
- 	pinctrl-names = "default", "opendrain";
--- 
-2.34.1
+On Tue, Aug 29, 2023 at 03:40:21PM +0200, Fabrice Gasnier wrote:
+> This series combines some fix and improvements to the counter interface,
+> found while stm32 timer counter driver developements.
+> It also introduces a new tool that can be used for testing.
+>=20
+> Then, it improves the stm32 timer counter driver by introducing new signa=
+ls,
+> e.g. counting frequency, and missing channels.
+> It also adds support for interrupt based events using the chrdev interfac=
+e.
+> Two event types are added in this series: overflows and capture.
+>=20
+> Up to now, stm32 timer counter driver focused mainly on quadrature
+> encoder feature. With this series, all timer instances can be enabled
+> for simple counting (with overflow and capture events).
+>=20
+> Fabrice Gasnier (8):
+>   counter: chrdev: fix getting array extensions
+>   counter: chrdev: remove a typo in header file comment
+>   tools/counter: add a flexible watch events tool
+>   mfd: stm32-timers: add support for interrupts
+>   counter: stm32-timer-cnt: rename quadrature signal
+>   counter: stm32-timer-cnt: introduce clock signal
+>   counter: stm32-timer-cnt: populate capture channels and check encoder
+>   counter: stm32-timer-cnt: add support for events
+>=20
+>  drivers/counter/counter-chrdev.c     |   4 +-
+>  drivers/counter/stm32-timer-cnt.c    | 585 ++++++++++++++++++++++++++-
+>  drivers/mfd/stm32-timers.c           |  46 +++
+>  include/linux/mfd/stm32-timers.h     |  26 ++
+>  include/uapi/linux/counter.h         |   2 +-
+>  tools/counter/Build                  |   1 +
+>  tools/counter/Makefile               |   8 +-
+>  tools/counter/counter_watch_events.c | 348 ++++++++++++++++
+>  8 files changed, 998 insertions(+), 22 deletions(-)
+>  create mode 100644 tools/counter/counter_watch_events.c
+>=20
+> --=20
+> 2.25.1
+>=20
+
+Hi Fabrice,
+
+There are a number of precursor changes in this series that are somewhat
+independent, so I'll be taking some patches separately to simplify
+things and review this patchset a little at a time.
+
+Thanks,
+
+William Breathitt Gray
+
+--CVt1obDrKjorrKCm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZPYwpQAKCRC1SFbKvhIj
+K3XrAQCnJXaTzbk3S1ZQotXMnidjHAeezrMw2IP6V2HkdsTgeQD+IwiZkXrVD0n/
+fcBlRITVdLaPEwU4OA/RUVBqbs83ZQw=
+=/BPa
+-----END PGP SIGNATURE-----
+
+--CVt1obDrKjorrKCm--
+
+--===============0511935170270417683==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0511935170270417683==--
