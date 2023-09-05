@@ -2,69 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DAF579222F
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Sep 2023 13:37:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEDD79234A
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Sep 2023 16:06:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12FAAC6B454;
-	Tue,  5 Sep 2023 11:37:12 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C103C6B454;
+	Tue,  5 Sep 2023 14:06:13 +0000 (UTC)
+Received: from out203-205-251-80.mail.qq.com (out203-205-251-80.mail.qq.com
+ [203.205.251.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25B6DC65068
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48AB9C6A60C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Sep 2023 11:37:11 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3858B0Zo026337; Tue, 5 Sep 2023 13:36:52 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=xTreX0qrOQ8jivX3KmmeTeFgWDwnQFOPBeV+r8cQ//4=; b=zH
- aoKBjbidp/+Kg/QdJ2WI6CrCICt/P9Blwt6/UJ4kFnfyoz7JHFgJmnqHa34/nohK
- wiG7VaavvDoYXgqLgsvvt+V7k8c5eYNDTCTKP+gmdRZ9j9IgEcjl2Rc7VO93NMF+
- f3DcJdcNsZ5KwylR/DDBREF1Q8/k/jCOb1Skr9rRyLvD8NToSf+AMDjuTp+dOTvr
- xfKAH0BCGUcvmQpDNIgsEjzPxbTnf6H/iIzUiGZnl/k9YY8Ah8a6rsyXKvoi7mt+
- iU3OxHmk//hpUMYLVFVK8o9XzkCFq5icXX/QOkhmVI82PMW1xSMHYuXu0aNV3DHj
- p32daEkRh8yxREvNzQgg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3svem0hfxw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 Sep 2023 13:36:52 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 95AD1100057;
- Tue,  5 Sep 2023 13:36:51 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 84F6D23C685;
- Tue,  5 Sep 2023 13:36:51 +0200 (CEST)
-Received: from [10.129.178.32] (10.129.178.32) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Tue, 5 Sep
- 2023 13:36:50 +0200
-Message-ID: <f5abe08e-4dec-1ff0-ccef-9224e3ab7b6b@foss.st.com>
-Date: Tue, 5 Sep 2023 13:36:50 +0200
+ Tue,  5 Sep 2023 14:06:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1693922770;
+ bh=j++hW7hBYNWYYglVpF7psTQmZPPLAOIfD9k/RR4Upqo=;
+ h=From:To:Cc:Subject:Date;
+ b=gpTwVQy4Gk3Esy4VzxUcxyz7X3QY7Vy0y8q39mp7T547lKh6HpV76ncqCf7r2+Q9Y
+ hJ1e7c3rZAvNfajV/zkKaHRD2rXwQ7owOOQqW7v/tu5PyTLRXBU8kcLXpDyZ8hwCGx
+ bghhzvEAjmxPiRMOxeejFAfnEU28wC9H0mDPIMdQ=
+Received: from rtoax.lan ([120.245.114.157])
+ by newxmesmtplogicsvrszc2-0.qq.com (NewEsmtp) with SMTP
+ id 12C80033; Tue, 05 Sep 2023 22:04:44 +0800
+X-QQ-mid: xmsmtpt1693922684t6nawmh8y
+Message-ID: <tencent_F04BD6C8A5A70AD82BCCE820E2B2419CD006@qq.com>
+X-QQ-XMAILINFO: N+tZcXNNUKPOwN8ITHEbltp5Kv0oYE5xRtAsesoPEBX00pQKxTUQdryVDwTyG6
+ wYKJ3XGWaTwkGxuIAbuFhCQvhBxCwznGoRZzqC3TPkj394XYog3SL7i4MRjC0gPer8KYNJRAf1tU
+ uiHLwIIq6PnJ6cyHp6wocXi1uZrKaHm96TeRVhke9KhluVkwfITTElINqGvABHZyl0qnsnCxv8JO
+ b7OI7c5sxnwMGnmumY6+TEnRcNKYwXEG6qsoc30uYDKx78kgUFORWRV9Ozuzi3dt9NAS5sZMD6DK
+ 1DLFJGRZC28DbC9Vv2FD1i1eMMsehbH/zwqgk7JI4c30U6ZouPguqHtZzH6fTEUe/LS8Y2zZMVLy
+ P0yajztAvNdqelFBG/1Z8vSEOa7mQ0fqmF5UeQQTzF1r65ecIAelqKNnvO/u+EEXNouz+V/K7V7I
+ OqFaQor91AREutPIBgwzGsd2gRIKThj+YTHm57r5laQxP5SUAkSN1c65mR0mNe7GKpFlMkQtQpr0
+ +oxdgRozTckXGAhKtUuDwndd7gb7tLVYBQsuvPfneY70+0StawrgQX0iKUF42AiVZfZ+rUQJ4iTM
+ XjMeYW7rn9u2w+pk1nDMp9DyU2aF8oGZHRcgXTE5yk1wL3XzbBWdN9sZhJyOhoEhwfy2VxRTZ/jR
+ zefo+lun4sOikIPbr2IhB7gAcfKYYZE+O+er7KNuGuF4UmYzDO/VrIOte2UhDB4X3rgyOUxuH+20
+ I6DvITNEriHaOrtXkfqJDsTKLyZu3XYZFOQJmohCVCrz9MkwgrXbxJfRmh14iAcKnOVL/3R4P3qr
+ fwK7t3YqYbUKd900F6VAuyG4zKQLyBQSKsb8QMH55++/zu9IiSWDK6OGrFdjgwh8xJHDKZwU1f2M
+ VJU/mYok5RxTEqp1yUbmEAwQTW7pmf5r/RXT30eQEcCNBpDS4hdLqsiRBjSE/60GnPN7o7od5qSU
+ IQ+y7StIzTGMIRZEItsyLq65RZqSIu35JcLgT2tZ4oEc+vE9AFc7Mebs5asUE5
+X-QQ-XMRINFO: M/715EihBoGSf6IYSX1iLFg=
+From: Rong Tao <rtoax@foxmail.com>
+To: olsajiri@gmail.com, andrii@kernel.org, daniel@iogearbox.net, sdf@google.com
+Date: Tue,  5 Sep 2023 22:04:17 +0800
+X-OQ-MSGID: <cover.1693922135.git.rongtao@cestc.cn>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20230904180341.923038-1-dario.binacchi@amarulasolutions.com>
-Content-Language: en-US
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20230904180341.923038-1-dario.binacchi@amarulasolutions.com>
-X-Originating-IP: [10.129.178.32]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-05_10,2023-09-05_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] ARM: dts: stm32: stm32f7-pinctrl: don't
- use multiple blank lines
+Cc: "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, Hao Luo <haoluo@google.com>,
+ Mykola Lysenko <mykolal@fb.com>, open list <linux-kernel@vger.kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ KP Singh <kpsingh@kernel.org>, Song Liu <song@kernel.org>,
+ Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ "open list:BPF \[GENERAL\] Safe Dynamic Programs and Tools"
+ <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: [Linux-stm32] [PATCH bpf-next v11 0/2] selftests/bpf: Optimize
+	kallsyms cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,19 +74,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgRGFyaW8KCk9uIDkvNC8yMyAyMDowMywgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4gVGhlIHBh
-dGNoIGZpeGVzIHRoZSBmb2xsb3dpbmcgd2FybmluZzoKPgo+IGFyY2gvYXJtL2R0cy9zdG0zMmY3
-LXBpbmN0cmwuZHRzaTozODA6IGNoZWNrOiBQbGVhc2UgZG9uJ3QgdXNlIG11bHRpcGxlIGJsYW5r
-IGxpbmVzCj4KPiBGaXhlczogYmEyODdkMWEwMTM3ICgiQVJNOiBkdHM6IHN0bTMyOiBhZGQgcGlu
-IG1hcCBmb3IgTFREQyBvbiBzdG0zMmY3IikKPiBTaWduZWQtb2ZmLWJ5OiBEYXJpbyBCaW5hY2No
-aSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5jb20+CgoKUmV2aWV3ZWQtYnk6IFJh
-cGhhw6tsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgoKClJl
-Z2FyZHMsCgpSYXBoYcOrbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Rong Tao <rongtao@cestc.cn>
+
+We need to optimize the kallsyms cache, including optimizations for the
+number of symbols limit, and, some test cases add new kernel symbols
+(such as testmods) and we need to refresh kallsyms (reload or refresh).
+
+Rong Tao (2):
+  selftests/bpf: trace_helpers.c: optimize kallsyms cache
+  selftests/bpf: trace_helpers.c: Add a global ksyms initialization
+    mutex
+
+ samples/bpf/Makefile                          |   4 +
+ .../selftests/bpf/prog_tests/fill_link_info.c |   2 +-
+ .../prog_tests/kprobe_multi_testmod_test.c    |  20 ++-
+ tools/testing/selftests/bpf/trace_helpers.c   | 136 +++++++++++++-----
+ tools/testing/selftests/bpf/trace_helpers.h   |   9 +-
+ 5 files changed, 126 insertions(+), 45 deletions(-)
+
+-- 
+2.41.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
