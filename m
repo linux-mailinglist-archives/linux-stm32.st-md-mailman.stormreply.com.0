@@ -2,73 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87CDC797044
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Sep 2023 08:21:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635A779718A
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Sep 2023 12:46:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38140C6B471;
-	Thu,  7 Sep 2023 06:21:29 +0000 (UTC)
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com
- [162.62.57.64])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F034C6B468;
+	Thu,  7 Sep 2023 10:46:38 +0000 (UTC)
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E59FAC6B467
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A55BC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Sep 2023 02:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1694052015;
- bh=Lhf4n1nBq4VAEDet52XCaOndkj8vQcHGv7waBa1OZl0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FIEJ3zpYI4S8inuU9KR9pB889EB393rB1TF8hOOFUfkmFtcFIz9cs6VQbkA4hE776
- eONwKcLvBQbIZTyUTS/ZbVMmtxPQHWQuAhhTw8wpvYKGmPhhl1o+hAuw/a/f+WRYly
- pOEI2jZRnNN2fIvk4wYZQyffPGmW3aX5WcOMF5wk=
-Received: from RT-NUC.. ([39.156.73.12])
- by newxmesmtplogicsvrszc2-0.qq.com (NewEsmtp) with SMTP
- id EEB27808; Thu, 07 Sep 2023 09:59:43 +0800
-X-QQ-mid: xmsmtpt1694052001t6cwiynfr
-Message-ID: <tencent_5D0A837E219E2CFDCB0495DAD7D5D1204407@qq.com>
-X-QQ-XMAILINFO: NQR8mRxMnur9GVejZOqymyOCfTJKiLGmBPL7+7quQyquwS3OB2Gq/OewjNcZQa
- R3UmyCZo5Q1bz9iL/9q5RpvMvv/uWpt0ZY4mNaaQEQlqJ1plAMs4Y8okMUK1FFfRqp9rgx5lhcOQ
- k1N7nMMXe6ZG7OZKFmSRKsaE24N8BGGkoTmMfVrMYfwjCOfTfyCn8tSgzKca7MR4palCrkZk+L8h
- 5azCXhUrb28MpbEcbt86qGaIZJtWgP7R1AymBcVyVaJOgSRq0RgAdIyNcxB/fry2nEiv7qfxjRUN
- kzFfxTR6Rj+N7j8bsoC31krlbyUpmK3YBbyulMOF8Oy20H6/o658+DWsE+vySGOa++4OGyhyVRRx
- 6YBPAbYu+3sz+7ceWTCTN8C4Sen3vjcwoJfRHRhXAfHXGNP4eJAOtU+LQaxrcwZkBag9c3Pv4NyG
- O4DjGMgBg2UUzN6WsGNJnhwo9b3Q4vURldACPNGHIQ3CiMTpTuTr2l6lsh+NFhu6ZXZ72TAojscq
- L+9gJkTE/5QCpuwsfDfhYtB9jcbtOhXy4ms43Ll76rSo+ZYsIghKEUijqpllCUaYXHrm3s7GnFnD
- vpfyGA+mlRe8n7Q4xKHw4qe01LKUbBDxX8nh0N34VwFhFannpTTneQ9tLuS2Mq33q63jz3gBin6q
- b8Bz4SPvBtfsgZnkX3jSibCJ7FMR4JQFUi8gqFSXSnZR6iOd5xlxPvS8lca86br+fZHd9PjJedO1
- bHgCyKlugrYH+Y4hpIor4soYylEJPksG833jeAfNV7Vw5qycDsqCcPNaqVwdkkSs7vhNTI0t231d
- 7+/we2ZLeX7QlfmzbsdlbcUZ13ZtKzMa5GvLFXnNFDZtVyk97ve6ZfB2c+MnXI/fELPJJmAADVCK
- mtuNlioTc29T4+MnwbMrgiARcOURhupGt2BNumJXBqcuTkdm3/wLwz2Zv23Z+QZ0HZ1on0xYG0oe
- L58wBOAYye2i1rJgmYRUnL9khIWydDgS6a/kkpjo3a2g0M9c/yEjC1aXuF/zQZUb65yOQmENs=
-X-QQ-XMRINFO: NyFYKkN4Ny6FSmKK/uo/jdU=
-From: Rong Tao <rtoax@foxmail.com>
-To: olsajiri@gmail.com,
-	andrii@kernel.org,
-	daniel@iogearbox.net
-Date: Thu,  7 Sep 2023 09:59:14 +0800
-X-OQ-MSGID: <f1088b90f525d4a0a46d77c2e5bfcc3854015714.1694051654.git.rongtao@cestc.cn>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <cover.1694051654.git.rongtao@cestc.cn>
-References: <cover.1694051654.git.rongtao@cestc.cn>
+ Thu,  7 Sep 2023 10:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=axis.com; q=dns/txt; s=axis-central1; t=1694083596;
+ x=1725619596;
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:to:cc;
+ bh=diUzlnvHkwnFRUQDjEqQ8wBxKHMIU3epIc6mBh7MkYE=;
+ b=mKrutlD3eHWKHYYZ1lTZFqakTvO2OXDEstLj1hGR7MRiPxZQAHfwjzaT
+ RHwtchFXw3R7P/2nv6HtA2eeKXJrmXyUqTNXN1CAy6ekhupFhPGmikoxg
+ NUv7IX8MD5dHoeD/wJwrH8XSNTp32X0VvpZr/XYtXw6C1+ZIweVlK6o//
+ Xh7bmegUl1cgLNa993uAZqvarxAFvEBtaRS1LiesHJl9OHS4VdvQKkAVh
+ M11PYQNRBUqScJ+5Td317exLlCOxqu+cZaMwTgQtd0IrRuzDk3/WM2Flp
+ XP5SBbANws8FG4sibxN144/oSPXV4sXuhz855qhXsBfSe+Vc1RKkw+KBo A==;
+From: Vincent Whitchurch <vincent.whitchurch@axis.com>
+Date: Thu, 7 Sep 2023 12:46:31 +0200
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 07 Sep 2023 06:21:28 +0000
-Cc: "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>, Hao Luo <haoluo@google.com>,
- Mykola Lysenko <mykolal@fb.com>, open list <linux-kernel@vger.kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Shuah Khan <shuah@kernel.org>,
- "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- KP Singh <kpsingh@kernel.org>, Song Liu <song@kernel.org>,
- Yafang Shao <laoar.shao@gmail.com>, Rong Tao <rongtao@cestc.cn>,
- Yonghong Song <yonghong.song@linux.dev>,
- "open list:BPF \[GENERAL\] Safe Dynamic Programs and Tools"
- <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Stanislav Fomichev <sdf@google.com>
-Subject: [Linux-stm32] [PATCH bpf-next v12 2/2] selftests/bpf:
-	trace_helpers.c: Add a global ksyms initialization mutex
+Message-ID: <20230907-stmmac-coaloff-v2-1-38ccfac548b9@axis.com>
+X-B4-Tracking: v=1; b=H4sIAAaq+WQC/12Nyw7CIBREf6W5azEUa9O68j9MFzwu9iZSDBBS0
+ /DvEuLK5ZnJnDkgYiCMcOsOCJgpkt8qiFMHepXbExmZyiC4uPCZDywm56Rm2suXt5ZJLUeFVhk
+ xKKijd0BLexM+YMMESw1XismHTzvJfat+vuu/L/esZyjmSXCcrB3NXe4Uz9o7WEopX1DdP1mwA
+ AAA
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+X-Mailer: b4 0.12.3
+Cc: netdev@vger.kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ linux-kernel@vger.kernel.org, Maxim Mikityanskiy <maxtram95@gmail.com>,
+ kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Felix Fietkau <nbd@nbd.name>
+Subject: [Linux-stm32] [PATCH net v2] net: stmmac: fix handling of zero
+ coalescing tx-usecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,52 +60,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rong Tao <rongtao@cestc.cn>
+Setting ethtool -C eth0 tx-usecs 0 is supposed to disable the use of the
+coalescing timer but currently it gets programmed with zero delay
+instead.
 
-As Jirka said [0], we just need to make sure that global ksyms
-initialization won't race.
+Disable the use of the coalescing timer if tx-usecs is zero by
+preventing it from being restarted.  Note that to keep things simple we
+don't start/stop the timer when the coalescing settings are changed, but
+just let that happen on the next transmit or timer expiry.
 
-[0] https://lore.kernel.org/lkml/ZPCbAs3ItjRd8XVh@krava/
-
-Acked-by: Jiri Olsa <jolsa@kernel.org>
-Signed-off-by: Rong Tao <rongtao@cestc.cn>
+Fixes: 8fce33317023 ("net: stmmac: Rework coalesce timer and fix multi-queue races")
+Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
 ---
- tools/testing/selftests/bpf/trace_helpers.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes in v2:
+- Rebased on current net/main.
+- Link to v1: https://lore.kernel.org/r/20230905-stmmac-coaloff-v1-1-e29820e8ff6d@axis.com
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/trace_helpers.c b/tools/testing/selftests/bpf/trace_helpers.c
-index dc4efaf538ae..4faa898ff7fc 100644
---- a/tools/testing/selftests/bpf/trace_helpers.c
-+++ b/tools/testing/selftests/bpf/trace_helpers.c
-@@ -7,6 +7,7 @@
- #include <errno.h>
- #include <fcntl.h>
- #include <poll.h>
-+#include <pthread.h>
- #include <unistd.h>
- #include <linux/perf_event.h>
- #include <sys/mman.h>
-@@ -26,6 +27,7 @@ struct ksyms {
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 9a3182b9e767..2206789802bf 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2704,9 +2704,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
  
- static struct ksyms *ksyms;
-+static pthread_mutex_t ksyms_mutex = PTHREAD_MUTEX_INITIALIZER;
+ 	/* We still have pending packets, let's call for a new scheduling */
+ 	if (tx_q->dirty_tx != tx_q->cur_tx)
+-		hrtimer_start(&tx_q->txtimer,
+-			      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
+-			      HRTIMER_MODE_REL);
++		stmmac_tx_timer_arm(priv, queue);
  
- static int ksyms__add_symbol(struct ksyms *ksyms, const char *name,
- 			     unsigned long addr)
-@@ -109,8 +111,10 @@ struct ksyms *load_kallsyms_local(void)
- 
- int load_kallsyms(void)
+ 	flags = u64_stats_update_begin_irqsave(&tx_q->txq_stats.syncp);
+ 	tx_q->txq_stats.tx_packets += tx_packets;
+@@ -2995,9 +2993,13 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
+ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
  {
-+	pthread_mutex_lock(&ksyms_mutex);
- 	if (!ksyms)
- 		ksyms = load_kallsyms_local();
-+	pthread_mutex_unlock(&ksyms_mutex);
- 	return ksyms ? 0 : 1;
+ 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
++	u32 tx_coal_timer = priv->tx_coal_timer[queue];
++
++	if (!tx_coal_timer)
++		return;
+ 
+ 	hrtimer_start(&tx_q->txtimer,
+-		      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
++		      STMMAC_COAL_TIMER(tx_coal_timer),
+ 		      HRTIMER_MODE_REL);
  }
  
+
+---
+base-commit: 35494b0d61e44b517178aa1c6f5a69168b086940
+change-id: 20230904-stmmac-coaloff-aca6befbd24b
+
+Best regards,
 -- 
-2.41.0
+Vincent Whitchurch <vincent.whitchurch@axis.com>
 
 _______________________________________________
 Linux-stm32 mailing list
