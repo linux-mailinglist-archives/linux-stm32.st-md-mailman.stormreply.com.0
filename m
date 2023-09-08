@@ -2,48 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 635A779718A
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Sep 2023 12:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2340A798AE5
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Sep 2023 18:52:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F034C6B468;
-	Thu,  7 Sep 2023 10:46:38 +0000 (UTC)
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3D37C6B47E;
+	Fri,  8 Sep 2023 16:52:02 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0A55BC6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DAA0C6B44F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Sep 2023 10:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; q=dns/txt; s=axis-central1; t=1694083596;
- x=1725619596;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=diUzlnvHkwnFRUQDjEqQ8wBxKHMIU3epIc6mBh7MkYE=;
- b=mKrutlD3eHWKHYYZ1lTZFqakTvO2OXDEstLj1hGR7MRiPxZQAHfwjzaT
- RHwtchFXw3R7P/2nv6HtA2eeKXJrmXyUqTNXN1CAy6ekhupFhPGmikoxg
- NUv7IX8MD5dHoeD/wJwrH8XSNTp32X0VvpZr/XYtXw6C1+ZIweVlK6o//
- Xh7bmegUl1cgLNa993uAZqvarxAFvEBtaRS1LiesHJl9OHS4VdvQKkAVh
- M11PYQNRBUqScJ+5Td317exLlCOxqu+cZaMwTgQtd0IrRuzDk3/WM2Flp
- XP5SBbANws8FG4sibxN144/oSPXV4sXuhz855qhXsBfSe+Vc1RKkw+KBo A==;
-From: Vincent Whitchurch <vincent.whitchurch@axis.com>
-Date: Thu, 7 Sep 2023 12:46:31 +0200
+ Fri,  8 Sep 2023 16:52:01 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 388ENMo1022982; Fri, 8 Sep 2023 18:51:33 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=r6Gr5rp
+ kk1VW/S8lUEi+0DFipylC3JBR3dSDFFvyWsM=; b=DXqR1kjzDGez2o1yInWz6mE
+ +f7FN/ooVNI4sPI//vBezx44ZAPwd3WsN1bdFr4IJd71FMWC2/zC1Vgsf4dHW7wp
+ F+axhkwfTjmrJTnq6/YPFtLi78/MlPPB6Bfa85zSSeUOQQZc57ZKRu5+N01v3DUr
+ n8GOn9AJZzmLi0+jS6UYzI+bCtWSW84RRkb6Eg2nnrh2VthYqRlf/6chgE6X5GSp
+ Nx2Ak93t4MZJGD2ImyxMPB+7geJMP3H3W+rto853LjJ3KjVnSV0a7almZAswM/g7
+ IGFuD6NhKAIVbjfrhRWrEbSaOqP7HhmqHpcojGoaxnUlodi1gAUzrMv3LEOZ7Wg=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3sxwjp2g4e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Sep 2023 18:51:32 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 487F710004B;
+ Fri,  8 Sep 2023 18:51:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3ED6D209EEB;
+ Fri,  8 Sep 2023 18:51:28 +0200 (CEST)
+Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 8 Sep
+ 2023 18:51:27 +0200
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 8 Sep 2023 18:51:10 +0200
+Message-ID: <20230908165120.730867-1-gatien.chevallier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Message-ID: <20230907-stmmac-coaloff-v2-1-38ccfac548b9@axis.com>
-X-B4-Tracking: v=1; b=H4sIAAaq+WQC/12Nyw7CIBREf6W5azEUa9O68j9MFzwu9iZSDBBS0
- /DvEuLK5ZnJnDkgYiCMcOsOCJgpkt8qiFMHepXbExmZyiC4uPCZDywm56Rm2suXt5ZJLUeFVhk
- xKKijd0BLexM+YMMESw1XismHTzvJfat+vuu/L/esZyjmSXCcrB3NXe4Uz9o7WEopX1DdP1mwA
- AAA
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
- <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-X-Mailer: b4 0.12.3
-Cc: netdev@vger.kernel.org, Vincent Whitchurch <vincent.whitchurch@axis.com>,
- linux-kernel@vger.kernel.org, Maxim Mikityanskiy <maxtram95@gmail.com>,
- kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Felix Fietkau <nbd@nbd.name>
-Subject: [Linux-stm32] [PATCH net v2] net: stmmac: fix handling of zero
- coalescing tx-usecs
+X-Originating-IP: [10.201.20.32]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-08_12,2023-09-05_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 00/10] hwrng: stm32: support STM32MP13x
+	platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,63 +78,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Setting ethtool -C eth0 tx-usecs 0 is supposed to disable the use of the
-coalescing timer but currently it gets programmed with zero delay
-instead.
+The STM32MP13x platforms have a RNG hardware block that supports
+customization, a conditional reset sequences that allows to
+recover from certain situations and a configuration locking
+mechanism.
 
-Disable the use of the coalescing timer if tx-usecs is zero by
-preventing it from being restarted.  Note that to keep things simple we
-don't start/stop the timer when the coalescing settings are changed, but
-just let that happen on the next transmit or timer expiry.
+This series adds support for the mentionned features. Note that
+the hardware RNG can and should be managed in the secure world
+for this platform, hence the rng not being default enabled on
+the STM32MP135F-DK board. 
 
-Fixes: 8fce33317023 ("net: stmmac: Rework coalesce timer and fix multi-queue races")
-Signed-off-by: Vincent Whitchurch <vincent.whitchurch@axis.com>
----
-Changes in v2:
-- Rebased on current net/main.
-- Link to v1: https://lore.kernel.org/r/20230905-stmmac-coaloff-v1-1-e29820e8ff6d@axis.com
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Gatien Chevallier (10):
+  dt-bindings: rng: introduce new compatible for STM32MP13x
+  hwrng: stm32 - use devm_platform_get_and_ioremap_resource() API
+  hwrng: stm32 - implement STM32MP13x support
+  hwrng: stm32 - implement error concealment
+  hwrng: stm32 - rework error handling in stm32_rng_read()
+  hwrng: stm32 - restrain RNG noise source clock
+  dt-bindings: rng: add st,rng-lock-conf
+  hwrng: stm32 - support RNG configuration locking mechanism
+  hwrng: stm32 - rework power management sequences
+  ARM: dts: stm32: add RNG node for STM32MP13x platforms
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9a3182b9e767..2206789802bf 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2704,9 +2704,7 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue)
- 
- 	/* We still have pending packets, let's call for a new scheduling */
- 	if (tx_q->dirty_tx != tx_q->cur_tx)
--		hrtimer_start(&tx_q->txtimer,
--			      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
--			      HRTIMER_MODE_REL);
-+		stmmac_tx_timer_arm(priv, queue);
- 
- 	flags = u64_stats_update_begin_irqsave(&tx_q->txq_stats.syncp);
- 	tx_q->txq_stats.tx_packets += tx_packets;
-@@ -2995,9 +2993,13 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
- static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
- {
- 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
-+	u32 tx_coal_timer = priv->tx_coal_timer[queue];
-+
-+	if (!tx_coal_timer)
-+		return;
- 
- 	hrtimer_start(&tx_q->txtimer,
--		      STMMAC_COAL_TIMER(priv->tx_coal_timer[queue]),
-+		      STMMAC_COAL_TIMER(tx_coal_timer),
- 		      HRTIMER_MODE_REL);
- }
- 
+ .../devicetree/bindings/rng/st,stm32-rng.yaml |  18 +-
+ arch/arm/boot/dts/st/stm32mp131.dtsi          |   8 +
+ drivers/char/hw_random/stm32-rng.c            | 509 +++++++++++++++---
+ 3 files changed, 452 insertions(+), 83 deletions(-)
 
----
-base-commit: 35494b0d61e44b517178aa1c6f5a69168b086940
-change-id: 20230904-stmmac-coaloff-aca6befbd24b
-
-Best regards,
 -- 
-Vincent Whitchurch <vincent.whitchurch@axis.com>
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
