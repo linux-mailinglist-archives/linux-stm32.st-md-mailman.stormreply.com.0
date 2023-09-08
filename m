@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3409A798AF3
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Sep 2023 18:52:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C2C798AF6
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Sep 2023 18:53:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9281C6B475;
-	Fri,  8 Sep 2023 16:52:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17AF6C6B468;
+	Fri,  8 Sep 2023 16:53:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10A63C6B472
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF10AC6B44F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Sep 2023 16:52:56 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Fri,  8 Sep 2023 16:53:08 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 388Fj6TW020297; Fri, 8 Sep 2023 18:52:43 +0200
+ 388ABbpt031291; Fri, 8 Sep 2023 18:52:46 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=QUriKgAIAV2H+EDbut4I3imj3RNChpoKLH5/B3MDzDQ=; b=Fh
- ULsVW+1ljOHKV0Bwjg4slbRk5U5dnaBCgGReKdYCkoRGBykyRKexPGSug2E72ZtR
- +aBQrkBYe4Nsl9Au+81oNohswaKCIX/A70LjxsYXKTpMFONNoOM2rUxZiUTBuVDQ
- N8RalLjjoMEm5xWxw1QLvlLNCxMuGxETiDNOAyAJaBR0A9q0NdueHLthKctUYQxM
- 2vEqUU1uQjnVxWvkbhjpe6R86GYy6Y61H8BvrfAJ5qJ/HqluBdgv0M5yg7GF4sC3
- in84eGZ4AFn5eb3nupY3kXiTMZWVIA81N5zXxgrvLEZ0TiAb2ZA7PnzTM6fTcEH7
- 0lYWbfdWayqyd+n90j1g==
+ selector1; bh=fUR1GBMB4mpwmi+3FRdeGu6mwVffrm2wfQk8yZwS44c=; b=zH
+ SuTrVjupfSPR1rrTeeexVV4I1xpVvSFwf5mrd7LZz5aDXdcZuB6+PdWKQpahCxp4
+ DEIzwVNaF1BU8wawwhIUX1X198ZPK11XMc91V7plSMZF6vfCKVWfWuwKaNqjFxuD
+ J/lVgrcU+/ky5eihXJUaOqvXlL1e/x+TAAfyMf5OIhcAyFIoduexKub04EoOaAP6
+ vUjUbSHIMijRNlKlKphI7x+b/k7i2CVqmj8Nj4CzABk0ywvMXrKflYNGdO9kmT9q
+ mZAa9e8gXkpQgasWqfsPvpTe4vokj2yz5z/CoBXtNXzG4pbwiWyXrtBgT4Nqq1gv
+ JVHgUbz2EmxQJp1ioHnw==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3suuxcndj1-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3suvd13wmq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Sep 2023 18:52:43 +0200 (MEST)
+ Fri, 08 Sep 2023 18:52:46 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5AA9C10004B;
- Fri,  8 Sep 2023 18:52:43 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2EDE9100056;
+ Fri,  8 Sep 2023 18:52:44 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4C58E209EF6;
- Fri,  8 Sep 2023 18:52:43 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1D94D209EF5;
+ Fri,  8 Sep 2023 18:52:44 +0200 (CEST)
 Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.21; Fri, 8 Sep
- 2023 18:52:42 +0200
+ 2023 18:52:43 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
  <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Fri, 8 Sep 2023 18:51:16 +0200
-Message-ID: <20230908165120.730867-7-gatien.chevallier@foss.st.com>
+Date: Fri, 8 Sep 2023 18:51:17 +0200
+Message-ID: <20230908165120.730867-8-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230908165120.730867-1-gatien.chevallier@foss.st.com>
 References: <20230908165120.730867-1-gatien.chevallier@foss.st.com>
@@ -62,8 +62,7 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 06/10] hwrng: stm32 - restrain RNG noise
-	source clock
+Subject: [Linux-stm32] [PATCH 07/10] dt-bindings: rng: add st, rng-lock-conf
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,105 +79,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For NIST certification the noise source sampling may need to be
-restrained.
-
-This change implements an algorithm that gets the rate of the RNG
-clock and apply the correct value in CLKDIV field in RNG_CR register
-to force the RNG clock rate to be "max_clock_rate" maximum.
-
-As it is platform-specific, implement it as a compat data.
+If st,rng-lock-conf is set, the RNG configuration in RNG_CR, RNG_HTCR
+and RNG_NSCR will be locked. It is supported starting from the RNG
+version present in the STM32MP13
 
 Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 ---
- drivers/char/hw_random/stm32-rng.c | 34 ++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/rng/st,stm32-rng.yaml      | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index 3d32e0f4baef..3b77f1fe6aea 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -23,11 +23,13 @@
- #define RNG_CR_CONFIG1		GENMASK(11, 8)
- #define RNG_CR_NISTC		BIT(12)
- #define RNG_CR_CONFIG2		GENMASK(15, 13)
-+#define RNG_CR_CLKDIV_SHIFT	16
-+#define RNG_CR_CLKDIV		GENMASK(19, 16)
- #define RNG_CR_CONFIG3		GENMASK(25, 20)
- #define RNG_CR_CONDRST		BIT(30)
- #define RNG_CR_CONFLOCK		BIT(31)
- #define RNG_CR_ENTROPY_SRC_MASK	(RNG_CR_CONFIG1 | RNG_CR_NISTC | RNG_CR_CONFIG2 | RNG_CR_CONFIG3)
--#define RNG_CR_CONFIG_MASK	(RNG_CR_ENTROPY_SRC_MASK | RNG_CR_CED)
-+#define RNG_CR_CONFIG_MASK	(RNG_CR_ENTROPY_SRC_MASK | RNG_CR_CED | RNG_CR_CLKDIV)
+diff --git a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+index 59abdc85a9fb..0055f14a8e3f 100644
+--- a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
++++ b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
+@@ -37,6 +37,20 @@ required:
+   - reg
+   - clocks
  
- #define RNG_SR			0x04
- #define RNG_SR_DRDY		BIT(0)
-@@ -46,6 +48,7 @@
- #define RNG_NB_RECOVER_TRIES	3
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - st,stm32mp13-rng
++    then:
++      properties:
++        st,rng-lock-conf:
++          type: boolean
++          description: If set, the RNG configuration in RNG_CR, RNG_HTCR and
++                       RNG_NSCR will be locked.
++
+ additionalProperties: false
  
- struct stm32_rng_data {
-+	uint	max_clock_rate;
- 	u32	cr;
- 	u32	nscr;
- 	u32	htcr;
-@@ -238,6 +241,28 @@ static int stm32_rng_read(struct hwrng *rng, void *data, size_t max, bool wait)
- 	return retval || !wait ? retval : -EIO;
- }
- 
-+static uint stm32_rng_clock_freq_restrain(struct hwrng *rng)
-+{
-+	struct stm32_rng_private *priv =
-+	    container_of(rng, struct stm32_rng_private, rng);
-+	unsigned long clock_rate = 0;
-+	uint clock_div = 0;
-+
-+	clock_rate = clk_get_rate(priv->clk);
-+
-+	/*
-+	 * Get the exponent to apply on the CLKDIV field in RNG_CR register
-+	 * No need to handle the case when clock-div > 0xF as it is physically
-+	 * impossible
-+	 */
-+	while ((clock_rate >> clock_div) > priv->data->max_clock_rate)
-+		clock_div++;
-+
-+	pr_debug("RNG clk rate : %lu\n", clk_get_rate(priv->clk) >> clock_div);
-+
-+	return clock_div;
-+}
-+
- static int stm32_rng_init(struct hwrng *rng)
- {
- 	struct stm32_rng_private *priv =
-@@ -259,8 +284,11 @@ static int stm32_rng_init(struct hwrng *rng)
- 	 * 0 is an invalid value as it disables all entropy sources.
- 	 */
- 	if (priv->data->has_cond_reset && priv->data->cr) {
-+		uint clock_div = stm32_rng_clock_freq_restrain(rng);
-+
- 		reg &= ~RNG_CR_CONFIG_MASK;
--		reg |= RNG_CR_CONDRST | (priv->data->cr & RNG_CR_ENTROPY_SRC_MASK);
-+		reg |= RNG_CR_CONDRST | (priv->data->cr & RNG_CR_ENTROPY_SRC_MASK) |
-+		       (clock_div << RNG_CR_CLKDIV_SHIFT);
- 		if (priv->ced)
- 			reg &= ~RNG_CR_CED;
- 		else
-@@ -360,6 +388,7 @@ static const struct dev_pm_ops stm32_rng_pm_ops = {
- 
- static const struct stm32_rng_data stm32mp13_rng_data = {
- 	.has_cond_reset = true,
-+	.max_clock_rate = 48000000,
- 	.cr = 0x00F00D00,
- 	.nscr = 0x2B5BB,
- 	.htcr = 0x969D,
-@@ -367,6 +396,7 @@ static const struct stm32_rng_data stm32mp13_rng_data = {
- 
- static const struct stm32_rng_data stm32_rng_data = {
- 	.has_cond_reset = false,
-+	.max_clock_rate = 3000000,
- };
- 
- static const struct of_device_id stm32_rng_match[] = {
+ examples:
 -- 
 2.25.1
 
