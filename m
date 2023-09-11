@@ -2,43 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C664579A274
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 06:31:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2F5979A28E
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 06:49:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66C82C6B467;
-	Mon, 11 Sep 2023 04:31:43 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60ECBC6B467;
+	Mon, 11 Sep 2023 04:49:06 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C455C0356E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36F61C0356E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Sep 2023 04:31:42 +0000 (UTC)
+ Mon, 11 Sep 2023 04:49:05 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C2E3960EFA;
- Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21BFEC433C9;
- Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 12C0FCE0F28;
+ Mon, 11 Sep 2023 04:49:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E1D7C433C8;
+ Mon, 11 Sep 2023 04:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694406700;
- bh=HeAxVqUDbuPU8OlsjqH69CvpFFmY4UWq7/M/U9Q7wfg=;
+ s=k20201202; t=1694407740;
+ bh=jRbGX37pKE/flPAVK4KmRTNNYn+YjmtCaP+B5V/gVX0=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=G85zgQQvJZg1Y5x8UnCyix+l2Yfn+Rogh9QvzeRm5oKG7U7YkZgrNdt1C3AgCbeIM
- amofs9m/cffOZH9wjwwpOTybDZQoulvVrk94Nr5MH4SxlxbPPM70twdmGJ6kdEdzhs
- k6WNSoqBV8upYywO+aAzkbPpmAnX2Rl84Y2IEbEyDo5lA3w0qTuvwNUESUvO7dcALV
- XFFWvb/BnzKJj6gWPjOKY4MrxcSqPBDAZCwcOnS4PypiYAY8rhtUBZXmyHUw7q6VFX
- KFKgpwDyWVJq3EX5QmmGA+GkOmL+KczLnAkLKnVQ987HqV1sDhgfou/6d7fGRPn6ng
- FkWiamQUpTQRw==
+ b=hRTK/O7zd2EVcyRIHv/i0CAjz9UpjidahDXSIXk4ACb38jZ+6K0Q30pzOqZOLqypY
+ C75nnrtT8Yv6GiMTvD61pKvkFLRfhtUBVWtZcBLARUs5c+zflqjKF2vVtznLpozQoM
+ GCNDa18FhndrrkuE6m/0q7HCv7yOAC6mlWVm+BRnredL6UXg7U1td5nMObALXI8tDQ
+ 4sZzvZ12uCsLziIZXf9AsxgF8FMszCNitekMmUlSZhzGlOAtLbZ6bAuUGQovA8xlPE
+ s6xIC6qIfoHYkDG9jnYDNje1UTc0fpBvjr9tsdVWGYlC4/aJBTcr3g4fKbEVro77gN
+ eo2XoPvZ0aheA==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 03727E1F67E; Mon, 11 Sep 2023 04:31:40 +0000 (UTC)
+ 122E7E1F67E; Mon, 11 Sep 2023 04:49:00 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+chrome-platform@kernel.org
-Message-Id: <169440670000.22573.14595180245385997034.git-patchwork-notify@kernel.org>
-Date: Mon, 11 Sep 2023 04:31:40 +0000
+Message-Id: <169440774007.22573.6670993122914766002.git-patchwork-notify@kernel.org>
+Date: Mon, 11 Sep 2023 04:49:00 +0000
 References: <20230714174731.4059811-1-robh@kernel.org>
 In-Reply-To: <20230714174731.4059811-1-robh@kernel.org>
 To: Rob Herring <robh@kernel.org>
@@ -79,7 +79,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to chrome-platform/linux.git (for-kernelci)
+This patch was applied to chrome-platform/linux.git (for-next)
 by Lee Jones <lee@kernel.org>:
 
 On Fri, 14 Jul 2023 11:47:27 -0600 you wrote:
