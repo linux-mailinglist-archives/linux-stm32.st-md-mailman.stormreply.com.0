@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E443879A9A5
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 17:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11BB379A9A8
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 17:29:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE556C6B46E;
-	Mon, 11 Sep 2023 15:29:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7CC5C6B472;
+	Mon, 11 Sep 2023 15:29:24 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C178C6B470
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC49BC6B470
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Sep 2023 15:29:12 +0000 (UTC)
+ Mon, 11 Sep 2023 15:29:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
  :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
  Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5Bw3V6l7OAdGCcXOYDDsqxqV/1ww1WRoNiEO2wv3Q/8=; b=DfoA6Bup2Ibmll4Kg6OopirYQF
- ZCcJvC5k2l422MRSQDMAT0Dum8ewrb+DTsGvdxOZ7FyzfVtPd4HZlDo1ME0bEBQniXxDwT6D0ok9R
- KQSBL77cJE7QI3qsinx6LxIsOooo+mdTf/SJ/i0RJFtzBUB56BEdsb6WgBZqluoyMQwTPwT+3ClAh
- XAWFS2nPjj5l3rcLRys2g9Yib5D6QMTgFb5QOHAmyjJCpo+hSeC4Mc5a8qc6yrdm8ZtJHp77sO8bo
- 6xwDeREsx81o4ITRj5h8Isa6G3qoaQJES58wCCFRwR6CRQAb6JuCfxr5lNmHBafG6EdlGScoUjcrZ
- kX4DYYFw==;
+ bh=2UMKl9n6SLgFdjTeNxnsUryhc1R/WooK+tuMaErZ3oE=; b=qEj1+bc93rj+0epYihxDOqx4/Z
+ mABGVEXvtjKGP28VeYvOHb8c5lYoO4rO2u9cdMXUQHxwHCUK1AMgxyFAUlfGmkpjpsCEuL/C/ajLo
+ AfdJtzm06H66VbnRnvBf7WF9ZCHfBxo/dDdw+J4g/r+zdhm1uDUySpQRFA29lP5sBfPjIvomAgNLQ
+ T3iQo/jbcMsXN+z3hmCS7Kk9hKE0FYFTH7twLVnioR87uRRjw6MShRTuwHL+OcW+VtZlQPGBaKvsH
+ /hXW1/XZKncoZCgLmFHmD7AWVGr2Wx8gTOzBxTEcs83sR5qD93Fjjz0jnxRanANuHQR3WsmPbIl8X
+ dZ33r9YQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53338 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53346 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1qfiqN-0008Cd-03;
- Mon, 11 Sep 2023 16:28:55 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1qfiqV-0008Cu-31;
+ Mon, 11 Sep 2023 16:29:04 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1qfiqN-007TP3-Mo; Mon, 11 Sep 2023 16:28:55 +0100
+ id 1qfiqS-007TP9-Rp; Mon, 11 Sep 2023 16:29:00 +0100
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1qfiqN-007TP3-Mo@rmk-PC.armlinux.org.uk>
-Date: Mon, 11 Sep 2023 16:28:55 +0100
+Message-Id: <E1qfiqS-007TP9-Rp@rmk-PC.armlinux.org.uk>
+Date: Mon, 11 Sep 2023 16:29:00 +0100
 Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  Emil Renner Berthing <kernel@esmil.dk>, Daniel Borkmann <daniel@iogearbox.net>,
  netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
@@ -52,8 +52,8 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
  Fabio Estevam <festevam@gmail.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Jesper Dangaard Brouer <hawk@kernel.org>
-Subject: [Linux-stm32] [PATCH net-next 4/6] net: stmmac: rk: use
-	dwmac_set_tx_clk_gmii()
+Subject: [Linux-stm32] [PATCH net-next 5/6] net: stmmac: starfive: use
+ dwmac_set_tx_clk_gmii()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,95 +72,58 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 61 ++++++-------------
- 1 file changed, 17 insertions(+), 44 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 29 +++++--------------
+ 1 file changed, 8 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index d920a50dd16c..30172ca3bd06 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -24,6 +24,7 @@
- #include <linux/pm_runtime.h>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+index 9289bb87c3e3..3dc04017e3d3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+@@ -14,6 +14,7 @@
+ #include <linux/regmap.h>
  
  #include "stmmac_platform.h"
 +#include "stmmac_plat_lib.h"
  
- struct rk_priv_data;
- struct rk_gmac_ops {
-@@ -1081,28 +1082,14 @@ static void rk3568_set_gmac_speed(struct rk_priv_data *bsp_priv, int speed)
+ #define STARFIVE_DWMAC_PHY_INFT_RGMII	0x1
+ #define STARFIVE_DWMAC_PHY_INFT_RMII	0x4
+@@ -27,29 +28,15 @@ struct starfive_dwmac {
+ static void starfive_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
  {
- 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
- 	struct device *dev = &bsp_priv->pdev->dev;
+ 	struct starfive_dwmac *dwmac = priv;
 -	unsigned long rate;
--	int ret;
+ 	int err;
+ 
+-	rate = clk_get_rate(dwmac->clk_tx);
 -
 -	switch (speed) {
--	case 10:
--		rate = 2500000;
--		break;
--	case 100:
--		rate = 25000000;
--		break;
--	case 1000:
+-	case SPEED_1000:
 -		rate = 125000000;
 -		break;
+-	case SPEED_100:
+-		rate = 25000000;
+-		break;
+-	case SPEED_10:
+-		rate = 2500000;
+-		break;
 -	default:
--		dev_err(dev, "unknown speed value for GMAC speed=%d", speed);
--		return;
+-		dev_err(dwmac->dev, "invalid speed %u\n", speed);
+-		break;
 -	}
 -
--	ret = clk_set_rate(clk_mac_speed, rate);
--	if (ret)
--		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
--			__func__, rate, ret);
-+	int err;
-+
-+	err = dwmac_set_tx_clk_gmii(clk_mac_speed, speed);
+-	err = clk_set_rate(dwmac->clk_tx, rate);
+-	if (err)
+-		dev_err(dwmac->dev, "failed to set tx rate %lu\n", rate);
++	err = dwmac_set_tx_clk_gmii(dwmac->clk_tx, speed);
 +	if (err == -ENOTSUPP)
-+		dev_err(dev, "invalid speed %dMbps\n", speed);
++		dev_err(dwmac->dev, "invalid speed %dMbps\n", speed);
 +	else if (err)
-+		dev_err(dev, "failed to set tx rate for speed %dMbps: %pe\n",
++		dev_err(dwmac->dev,
++			"failed to set tx rate for speed %dMbps: %pe\n",
 +			speed, ERR_PTR(err));
  }
  
- static const struct rk_gmac_ops rk3568_ops = {
-@@ -1387,28 +1374,14 @@ static void rv1126_set_rgmii_speed(struct rk_priv_data *bsp_priv, int speed)
- {
- 	struct clk *clk_mac_speed = bsp_priv->clks[RK_CLK_MAC_SPEED].clk;
- 	struct device *dev = &bsp_priv->pdev->dev;
--	unsigned long rate;
--	int ret;
--
--	switch (speed) {
--	case 10:
--		rate = 2500000;
--		break;
--	case 100:
--		rate = 25000000;
--		break;
--	case 1000:
--		rate = 125000000;
--		break;
--	default:
--		dev_err(dev, "unknown speed value for RGMII speed=%d", speed);
--		return;
--	}
--
--	ret = clk_set_rate(clk_mac_speed, rate);
--	if (ret)
--		dev_err(dev, "%s: set clk_mac_speed rate %ld failed %d\n",
--			__func__, rate, ret);
-+	int err;
-+
-+	err = dwmac_set_tx_clk_gmii(clk_mac_speed, speed);
-+	if (err == -ENOTSUPP)
-+		dev_err(dev, "invalid speed %dMbps\n", speed);
-+	else if (err)
-+		dev_err(dev, "failed to set tx rate for speed %dMbps: %pe\n",
-+			speed, ERR_PTR(err));
- }
- 
- static void rv1126_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
+ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
 -- 
 2.30.2
 
