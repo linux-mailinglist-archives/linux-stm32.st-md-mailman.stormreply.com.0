@@ -2,53 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD6B79A47F
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 09:30:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F33079A49E
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 09:36:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2659C6B467;
-	Mon, 11 Sep 2023 07:30:52 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21106C6B46E;
+	Mon, 11 Sep 2023 07:36:18 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ADE6C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35185C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Sep 2023 07:30:51 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6CAC3B80EA3;
- Mon, 11 Sep 2023 07:30:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0CD5EC433C9;
- Mon, 11 Sep 2023 07:30:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694417450;
- bh=WM/Let72K1wMRwb05Q5dSJO19Qx8XAwYxUcOvPl3aVI=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=IgyOQQajD2aHRq+JcNAxxLIAdTPiOJX6tiHAxrlsa/rOl9CZR0ygkhFiIHha48PVv
- UIZXBTDP8hQXPZsLuPn8RA+UYWAkaMmgSWMx5OnprjqiZilRA4h5oIwnnHWb+OzdBL
- Zmgd0YK4F/pe2bD4A0z7QMoFxuqW2VTY78NPkIXtnN6W+yEFJP2nIQRCHa74k1UdXM
- zqP7h+38qAKbPABBzlXRAkl98My7qmL6PcVKHsV0f5G0mU+NTRTbiunGe3LemNR6LX
- KH02KHr55lzk/GAuZExTu5FWqOlIWgFlK5n3JuHEC9KprIqWiWD0LbJ8qRWRhkA3f+
- b2n5ZJmFyRwfw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- E0510C00446; Mon, 11 Sep 2023 07:30:49 +0000 (UTC)
+ Mon, 11 Sep 2023 07:36:17 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-52a250aa012so5366492a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Sep 2023 00:36:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694417776; x=1695022576;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=E++QcmaSCqRTogZf0py8lxCDiY1aiEIVkjD7gfQ6xAc=;
+ b=SvfNvOh81ph1C6JvI4BC7exQjBs2TfMKrzDZUcNFOVQLOiL6zZV0axDOCMewHwNPt5
+ rOLgikiUzdsDj2/3yUSyVPDPbE3RhNmmQYi7+FH0rB2pHJTPewjIOoMhT1qJ23eNsUR2
+ 9kh2PDinUedzQo8depedRSpq0fIy2itqFDsuxCb1I8Img1989CC1i8oNraS1UQab0qh6
+ UkIcqdeIMThisq7S+qJ2CSryohNLazPICO5ezzv/Q2Hk/1tpfbBYWKSIgTz+wbokzzVV
+ navNILW4E5pnORgJ7UlBNl3f9FZ13b0Jmgb6i65TktzN1K5ALDCF+/t8AjXmEYrgxVuT
+ Cisg==
+X-Gm-Message-State: AOJu0Yy1k7lJjk+zFyxaOHGJcGEQaN/kgGWz4qqUD5Lx+MNgndpaqFvz
+ ZrrzxSbp9D2+SytXN+ditng=
+X-Google-Smtp-Source: AGHT+IFjbgI2p7VIOt+A7f05oIS5iZ+7BHD5jL8GSbm3gtDeDn6DEJ4gzH5WlS5acf6oV4/HaPfRgQ==
+X-Received: by 2002:a17:906:530c:b0:99d:f056:5d6b with SMTP id
+ h12-20020a170906530c00b0099df0565d6bmr8124022ejo.20.1694417776464; 
+ Mon, 11 Sep 2023 00:36:16 -0700 (PDT)
+Received: from ?IPV6:2a0b:e7c0:0:107::aaaa:59? ([2a0b:e7c0:0:107::aaaa:59])
+ by smtp.gmail.com with ESMTPSA id
+ ga17-20020a170906b85100b009a1e0349c4csm4892779ejb.23.2023.09.11.00.36.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Sep 2023 00:36:15 -0700 (PDT)
+Message-ID: <d3a92651-d427-af84-70c2-bc6004e79c80@kernel.org>
+Date: Mon, 11 Sep 2023 09:36:15 +0200
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169441744991.31104.1654820093252613008.git-patchwork-notify@kernel.org>
-Date: Mon, 11 Sep 2023 07:30:49 +0000
-References: <20230907-stmmac-coaloff-v2-1-38ccfac548b9@axis.com>
-In-Reply-To: <20230907-stmmac-coaloff-v2-1-38ccfac548b9@axis.com>
-To: Vincent Whitchurch <vincent.whitchurch@axis.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, maxtram95@gmail.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, kernel@axis.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, nbd@nbd.name
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: fix handling of zero
- coalescing tx-usecs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Content-Language: en-US
+To: Valentin Caron <valentin.caron@foss.st.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20230906151547.840302-1-valentin.caron@foss.st.com>
+From: Jiri Slaby <jirislaby@kernel.org>
+In-Reply-To: <20230906151547.840302-1-valentin.caron@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] serial: stm32: add support for break
+	control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,37 +67,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Thu, 7 Sep 2023 12:46:31 +0200 you wrote:
-> Setting ethtool -C eth0 tx-usecs 0 is supposed to disable the use of the
-> coalescing timer but currently it gets programmed with zero delay
-> instead.
+On 06. 09. 23, 17:15, Valentin Caron wrote:
+> From: Erwan Le Ray <erwan.leray@foss.st.com>
 > 
-> Disable the use of the coalescing timer if tx-usecs is zero by
-> preventing it from being restarted.  Note that to keep things simple we
-> don't start/stop the timer when the coalescing settings are changed, but
-> just let that happen on the next transmit or timer expiry.
+> Add support for break control to the stm32 serial driver.
 > 
-> [...]
+> Signed-off-by: Erwan Le Ray <erwan.leray@foss.st.com>
+> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
 
-Here is the summary with links:
-  - [net,v2] net: stmmac: fix handling of zero coalescing tx-usecs
-    https://git.kernel.org/netdev/net/c/fa60b8163816
+LGTM
 
-You are awesome, thank you!
+Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+js
+suse labs
 
 _______________________________________________
 Linux-stm32 mailing list
