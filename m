@@ -2,54 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B77ED79A976
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 17:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB83379A99E
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Sep 2023 17:28:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70FF7C6B46E;
-	Mon, 11 Sep 2023 15:10:03 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F503C6B46E;
+	Mon, 11 Sep 2023 15:28:42 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67057C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACA3FC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Sep 2023 15:10:02 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E7A17B816A0;
- Mon, 11 Sep 2023 15:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2B2AC433CA;
- Mon, 11 Sep 2023 15:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694445000;
- bh=HBK913hbzSRgMTx4gQeXjHRhatWJrh9efNenYNX4HvE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XWCISGVQTm+q4IZ0aIgoiBhr0vMMgWqKcq6/4A/0XFK+f8gvISxV56VsG3PCFFdB3
- cHEqBxscq6koa28/cAEzJ6KRNdbzw/LVspl2gBCvYdKsn5a7J88Mgh3Pc0a2z2h/CA
- 5tQAZG0VuwL+hM48f0osvnjm2G8rPdX/6HDIwNaxBuFiKn5ayFZvfKx3+CZplth6ul
- 9uJc2Y4QxOfr8ygilTH2YRDGpyL5Sfwa+coHnnMNJAl7b06sGk+LC10jduURemQV5L
- VsC56QP3mubqcxk9J+tnfVHXhZLNTSH1L0E2PEAH0+IA+gq5k5YQD23IKYygQ54Z5w
- yRRhLWeX0mr3g==
-Received: (nullmailer pid 1259085 invoked by uid 1000);
- Mon, 11 Sep 2023 15:09:58 -0000
-Date: Mon, 11 Sep 2023 10:09:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Message-ID: <20230911150958.GA1255978-robh@kernel.org>
-References: <20230908165120.730867-1-gatien.chevallier@foss.st.com>
- <20230908165120.730867-8-gatien.chevallier@foss.st.com>
+ Mon, 11 Sep 2023 15:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=L3aWAk1k0F3xbo0PvehavMWBi8SSBtH1rAKg3ce9DIM=; b=ty7Ypls+BHIWlRgl2wrP6P562d
+ bKwZytfMDIWEq0e/K6fz5pSdCicwgf+cJmbBsSj/WJ1875CYuX3zbVDxuJJEtgtQiie413huwdi4I
+ ignBXctM0Gofrr8PcOcPw7hIintSS/3Btb3q/PL1GrLSDUqIZOLLcMS2yAoSw4N2vTkuIslrJhI5v
+ sN1adAX3lnSC1UOtWY4vqRv0350qh7E9zzoPKH3gLaYwiWWuqiMKMqFpDXe2vo3U+AgPtYeyn9OGz
+ 9MwLNkCTS3CSaKj1GAS9Bgat9ACvjkeQJltC7ae7avK7b0fRnUBf3zb0OuX3riHKYLYu2NqX2w1Ip
+ gEhfeuvQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:53518)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1qfipq-0008BR-2W;
+ Mon, 11 Sep 2023 16:28:22 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1qfipk-0001m7-Vh; Mon, 11 Sep 2023 16:28:16 +0100
+Date: Mon, 11 Sep 2023 16:28:16 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Message-ID: <ZP8yEFWn0Ml3ALWq@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230908165120.730867-8-gatien.chevallier@foss.st.com>
-Cc: devicetree@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Olivia Mackall <olivia@selenic.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/10] dt-bindings: rng: add st,
-	rng-lock-conf
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Daniel Borkmann <daniel@iogearbox.net>,
+ netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Samin Guo <samin.guo@starfivetech.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ Fabio Estevam <festevam@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Jesper Dangaard Brouer <hawk@kernel.org>
+Subject: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: add and use library
+ for setting clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,55 +70,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 08, 2023 at 06:51:17PM +0200, Gatien Chevallier wrote:
-> If st,rng-lock-conf is set, the RNG configuration in RNG_CR, RNG_HTCR
-> and RNG_NSCR will be locked. It is supported starting from the RNG
-> version present in the STM32MP13
+Hi,
 
-This should be squashed into the prior binding patch.
+There is a common theme throughout several "bsps" in the stmmac driver
+which all code up the same thing: for 10M, 100M and 1G, select the
+appropriate 2.5MHz, 25MHz, or 125MHz clock.
 
-> 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
->  .../devicetree/bindings/rng/st,stm32-rng.yaml      | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-> index 59abdc85a9fb..0055f14a8e3f 100644
-> --- a/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-> +++ b/Documentation/devicetree/bindings/rng/st,stm32-rng.yaml
-> @@ -37,6 +37,20 @@ required:
->    - reg
->    - clocks
->  
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - st,stm32mp13-rng
-> +    then:
-> +      properties:
-> +        st,rng-lock-conf:
-> +          type: boolean
-> +          description: If set, the RNG configuration in RNG_CR, RNG_HTCR and
-> +                       RNG_NSCR will be locked.
+Rather than having every BSP implement the same thing but slightly
+differently, let's provide a single implementation which is passed
+the struct clk and the speed, and have that do the speed to clock
+rate decode.
 
-Define the property at the top-level and then restrict its presence in 
-a if/then schema.
+Note: only build tested.
 
-> +
->  additionalProperties: false
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |  2 +-
+ .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 37 ++++---------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    | 27 +++-------
+ .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c | 35 ++++---------
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     | 61 ++++++----------------
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   | 29 +++-------
+ .../net/ethernet/stmicro/stmmac/stmmac_plat_lib.c  | 29 ++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_plat_lib.h  |  8 +++
+ 8 files changed, 91 insertions(+), 137 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.h
 
-Did you test this property is allowed? No, because additionalProperties 
-won't work with properties defined in if/then schemas.
-
->  
->  examples:
-> -- 
-> 2.25.1
-> 
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
