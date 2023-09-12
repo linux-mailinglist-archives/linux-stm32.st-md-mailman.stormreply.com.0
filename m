@@ -2,79 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AF1879D3E3
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 16:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D074279D416
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 16:52:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3E65C6B46F;
-	Tue, 12 Sep 2023 14:39:02 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8935EC6B46F;
+	Tue, 12 Sep 2023 14:52:41 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F5DAC6B461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BEF9C6B461
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 14:39:01 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-501bd164fbfso9323509e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 07:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1694529540; x=1695134340;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=90jC6lxpRCDPUe28BcYQwA0xCL7xf56sZ85Q5b+uKGA=;
- b=ZGDj7wiRibsIyx0cnHLsLAHeL6Zwln2fwS4Z+hiiSZaVO+mCktIa9NgJxEfBHpqqwr
- rbE2/mLO45x2DaJ3C3z2zIOY6c3AhJJe4IPv7D+l9XlWuxDMe75Is4ricW1yVnyVwfqG
- M5+BLQItibI4MGzgLKxSG2fzzszIYI0CE6szkUlKCEFkqTS+Y66/cI+XCVau0k21uJIZ
- rAqS+LRcAJaP6gtRG8EjHUNPk5zIxUnyevN5a90vWDEXqPZ+6pubHMwg4ScP8IB42nNg
- Cb6TdtsYuzCLZvJKO08Ptyu0yIV1c4hKr0x4Ks/Ei/Qjzv9rsJq6eyKJ/eFx17WvqEL5
- lfig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694529540; x=1695134340;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=90jC6lxpRCDPUe28BcYQwA0xCL7xf56sZ85Q5b+uKGA=;
- b=byJwlU/oqDT5Vs283JYvsA6efJpsbNgHb2Nb21xfyEEKu+MytRPyxJbafdCJL7nylO
- NmbyF5xrEbqS5kCBQGfn5RnOgf6es1ZPpHAJ7vQnwf5MLu79JYyeDoNkKIQtpS/LBWyG
- 6loFX9I/lCdBVJEJmBcFSfIbFgMtg4kL5XwDI5jiceGEywD8mjb2kmkAnk+vbTKish1R
- ltjn28e43bV+qk9LBpw+j2XHkY6K4u7JDVEPe7tBRgZ2b9ZKnlSfzaY6EgIdPhMiFIQG
- tMOX8ruSyLpvftPlIQWQhmp0sxR9ZuKUK2tefvN3PapigwOJXFqGos70QWigQfoDwIPL
- 3NGA==
-X-Gm-Message-State: AOJu0YxNeJc7PrXSGv7Y8uX6QDH88xx1X+pWkCSP1Q3f33yDfBjRXFQ+
- e2BDBRHtBtxBsjcWK/V1ruod3g==
-X-Google-Smtp-Source: AGHT+IGTLkWR/G9NZRRA7prqCKEl3s/MsYlgvEESmIxQqGWWdnJSzY4il2hoUqsAEx+R0TwNJNs6YQ==
-X-Received: by 2002:a05:6512:b95:b0:500:a6c1:36f7 with SMTP id
- b21-20020a0565120b9500b00500a6c136f7mr12163748lfv.3.1694529540570; 
- Tue, 12 Sep 2023 07:39:00 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.214.188])
- by smtp.gmail.com with ESMTPSA id
- d32-20020a056402402000b00521d2f7459fsm4484835eda.49.2023.09.12.07.38.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Sep 2023 07:39:00 -0700 (PDT)
-Message-ID: <327ff0b3-21c9-1452-af1b-e9b6ece52924@linaro.org>
-Date: Tue, 12 Sep 2023 16:38:58 +0200
+ Tue, 12 Sep 2023 14:52:40 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id D0AFACE1934;
+ Tue, 12 Sep 2023 14:52:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93AF7C433CD;
+ Tue, 12 Sep 2023 14:52:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694530356;
+ bh=Ayl+OQo2GhxKzgk/+pTD2IDT8nzvjC7bYrHEQNjKOhs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tbX5NZaZDg4omgGReZeg3XcT52zv8O95SQf5BlDQ6yAxYUCyCznrpQ8kEgx+Mh4dZ
+ 4VyxXJD9UCo5/BbZfC1mfbdxdeuq+sCGl6v+7r9c/6+2eOKpnpxsRwHtwwzhQLPTeH
+ 7pQhxIN1IJJ9IRyS4FzWQfCOlMswRunfMQ1jdJNVofX+gnjHeQm0lZXYGS+tvetqNB
+ OHXficeHt+wN9/CKI/UP1ZtH7DFPH4/VCOlndcwvJx4p5vQK7ieaJ/h+EmY/HqTFHj
+ /Q//KGi+Zh1WtjpbAncBMicQTuYW4Js/UXPTx1844+Yu96/qBFQV+PwctmZwFdaTHt
+ 5vh4QNf4rjf9A==
+Date: Tue, 12 Sep 2023 16:52:27 +0200
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20230912145227.GE401982@kernel.org>
+References: <ZP8yEFWn0Ml3ALWq@shell.armlinux.org.uk>
+ <E1qfiqd-007TPL-7K@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.0
-Content-Language: en-US
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Olivia Mackall <olivia@selenic.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <E1qfiqd-007TPL-7K@rmk-PC.armlinux.org.uk>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
+ Samin Guo <samin.guo@starfivetech.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20230911120203.774632-1-gatien.chevallier@foss.st.com>
- <20230911120203.774632-11-gatien.chevallier@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20230911120203.774632-11-gatien.chevallier@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 10/10] ARM: dts: stm32: add RNG node
- for STM32MP13x platforms
+ Sascha Hauer <s.hauer@pengutronix.de>, Alexei Starovoitov <ast@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, bpf@vger.kernel.org,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: stmmac: add platform
+	library
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,38 +70,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/09/2023 14:02, Gatien Chevallier wrote:
-> The RNG on STM32MP13 offers upgrades like customization of its
-> configuration and the conditional reset.
+On Mon, Sep 11, 2023 at 04:29:11PM +0100, Russell King (Oracle) wrote:
+> Add a platform library of helper functions for common traits in the
+> platform drivers. Currently, this is setting the tx clock.
 > 
-> The hardware RNG should be managed in the secure world for but it
-> is supported on Linux. Therefore, is it not default enabled.
-> 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+
+Hi Russell,
+
+some minor issues raised by checkpatch follow.
+
 > ---
->  arch/arm/boot/dts/st/stm32mp131.dtsi | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |  2 +-
+>  .../ethernet/stmicro/stmmac/stmmac_plat_lib.c | 29 +++++++++++++++++++
+>  .../ethernet/stmicro/stmmac/stmmac_plat_lib.h |  8 +++++
+>  3 files changed, 38 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.c
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.h
 > 
-> diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-> index ac90fcbf0c09..39db82b782eb 100644
-> --- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-> @@ -1220,6 +1220,14 @@ mdma: dma-controller@58000000 {
->  			dma-requests = <48>;
->  		};
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> index 5b57aee19267..ba2cbfa0c9d1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Makefile
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+> @@ -6,7 +6,7 @@ stmmac-objs:= stmmac_main.o stmmac_ethtool.o stmmac_mdio.o ring_mode.o	\
+>  	      mmc_core.o stmmac_hwtstamp.o stmmac_ptp.o dwmac4_descs.o	\
+>  	      dwmac4_dma.o dwmac4_lib.o dwmac4_core.o dwmac5.o hwif.o \
+>  	      stmmac_tc.o dwxgmac2_core.o dwxgmac2_dma.o dwxgmac2_descs.o \
+> -	      stmmac_xdp.o \
+> +	      stmmac_xdp.o stmmac_plat_lib.o \
+>  	      $(stmmac-y)
 >  
-> +		rng: rng@54004000 {
-> +			compatible = "st,stm32mp13-rng";
-> +			reg = <0x54004000 0x400>;
-> +			clocks = <&rcc RNG1_K>;
-> +			resets = <&rcc RNG1_R>;
-> +			status = "disabled";
+>  stmmac-$(CONFIG_STMMAC_SELFTESTS) += stmmac_selftests.o
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.c
+> new file mode 100644
+> index 000000000000..abb9f512bb0e
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_plat_lib.c
+> @@ -0,0 +1,29 @@
 
-Why? What other resources are missing?
+Is an SPDX identifier appropriate here?
 
-Best regards,
-Krzysztof
+> +#include <linux/stmmac.h>
+> +#include <linux/clk.h>
+> +
+> +#include "stmmac_plat_lib.h"
+> +
+> +int dwmac_set_tx_clk_gmii(struct clk *tx_clk, int speed)
+> +{
+> +	unsigned long rate;
+> +
+> +	switch (speed) {
+> +	case SPEED_1000:
+> +		rate = 125000000;
+> +		break;
+> +
+> +	case SPEED_100:
+> +		rate = 25000000;
+> +		break;
+> +
+> +	case SPEED_10:
+> +		rate = 2500000;
+> +		break;
+> +
+> +	default:
+> +		return -ENOTSUPP;
 
+Checkpatch seems to think that EOPNOTSUPP would be more appropriate
+as "ENOTSUPP is not a SUSV4 error code".
+
+> +	}
+> +
+> +	return clk_set_rate(tx_clk, rate);
+> +}
+> +EXPORT_SYMBOL_GPL(dwmac_set_tx_clk_gmii);
+
+...
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
