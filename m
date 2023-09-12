@@ -2,46 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70CDC79D029
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 13:38:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5768D79D156
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 14:45:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20C07C6B46F;
-	Tue, 12 Sep 2023 11:38:20 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDA5FC6B461;
+	Tue, 12 Sep 2023 12:45:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0B6EC6A5EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 988B6C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 11:38:18 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 0FDACCE1A30;
- Tue, 12 Sep 2023 11:38:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D6EC433C7;
- Tue, 12 Sep 2023 11:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694518695;
- bh=PJj+NB24qGj8OVTKKzav3otPXDkniuIk97R5xoR//QY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=nUTGLWVbPda4UyLtV2EZbX9+g8D2tnomB2NpVhWSeEjwBWiOnAPTgqauYgKgrvDUz
- C/aKFhz6YYhCDUnT1zq251Qa0YKdlxNS2N62OMj5q9zI7V+Mx+mWLhQvP1O1Ck/3Uh
- YAM5IByK6aRL3XAVTSlC0bJGaQWAVfoHm9LbJpz4EQO97TYhTDURJthkR4oRJ85Hsv
- IPvqplteBNPhjUfpOOf95fx84JZyzEjhEyduKSZEMw4BO1zQu8pcXoXNJQt9ZLeiQ3
- oukPGb97sZSHNj5No73sSkGpZXJ/83a7ITe6ZT21tOc6GfdatZtzBe75ZsBGz1SPvj
- qDznyDuGj1pBg==
-From: Mark Brown <broonie@kernel.org>
-To: Valentin Caron <valentin.caron@foss.st.com>
-In-Reply-To: <20230906132735.748174-1-valentin.caron@foss.st.com>
-References: <20230906132735.748174-1-valentin.caron@foss.st.com>
-Message-Id: <169451869294.2398433.12354327819600702705.b4-ty@kernel.org>
-Date: Tue, 12 Sep 2023 12:38:12 +0100
+ Tue, 12 Sep 2023 12:45:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694522742; x=1726058742;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=JORVoShSUssYanYhIK2ak04tDR05aXZaMKTmOofr+wI=;
+ b=bEpTiGrkYzHVciyTmTyGH05tYGb7RX1L9AkUijMXXJbLLbHOup7FBEzb
+ G6yVk0ha0parcRuHjU2uXzR3LmzWXE7Lcb9eBJnRZbnz6TQXxkVFyDdQ2
+ 0YOn6A7sIVB8GMn7mUqs2WriuexPHCcavAjFfZ+oWnNctLz/ruDv9uDSY
+ /fgaR1xvJvPafKzvFj+77Faw2PXX9euOqHhnnSGRm5bLpfhSAt5w097Le
+ eK/1nEt+XtMzmf2aKZW3ljkjv6aYQ8tar882CO/y1tnLwSvRLFcnN1mUD
+ uL0Q5243gf0IdVHVuE6999e89s1r3IJS2gLML2Boq3KjvKzLYAndT+7GV g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="378274612"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="378274612"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 05:45:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="858797210"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="858797210"
+Received: from lkp-server02.sh.intel.com (HELO 1e56c5165d33) ([10.239.97.151])
+ by fmsmga002.fm.intel.com with ESMTP; 12 Sep 2023 05:45:37 -0700
+Received: from kbuild by 1e56c5165d33 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qg2lr-0000Nl-0H;
+ Tue, 12 Sep 2023 12:45:35 +0000
+Date: Tue, 12 Sep 2023 20:45:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <202309122017.GsJspucF-lkp@intel.com>
+References: <20230911120203.774632-10-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-099c9
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: add a delay before SPI disable
+Content-Disposition: inline
+In-Reply-To: <20230911120203.774632-10-gatien.chevallier@foss.st.com>
+Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 09/10] hwrng: stm32 - rework power
+	management sequences
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,45 +73,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 06 Sep 2023 15:27:35 +0200, Valentin Caron wrote:
-> As explained in errata sheet, in section "2.14.5 Truncation of SPI output
-> signals after EOT event":
-> On STM32MP1x, EOT interrupt can be thrown before the true end of
-> communication.
-> 
-> So we add a delay of a half period to wait the real end of the
-> transmission.
-> 
-> [...]
+Hi Gatien,
 
-Applied to
+kernel test robot noticed the following build warnings:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+[auto build test WARNING on atorgue-stm32/stm32-next]
+[also build test WARNING on robh/for-next herbert-crypto-2.6/master herbert-cryptodev-2.6/master linus/master v6.6-rc1 next-20230912]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thanks!
+url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/dt-bindings-rng-introduce-new-compatible-for-STM32MP13x/20230912-051851
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20230911120203.774632-10-gatien.chevallier%40foss.st.com
+patch subject: [PATCH v2 09/10] hwrng: stm32 - rework power management sequences
+config: arm64-randconfig-r003-20230912 (https://download.01.org/0day-ci/archive/20230912/202309122017.GsJspucF-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project.git 4a5ac14ee968ff0ad5d2cc1ffa0299048db4c88a)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230912/202309122017.GsJspucF-lkp@intel.com/reproduce)
 
-[1/1] spi: stm32: add a delay before SPI disable
-      commit: 6de8a70c84ee0586fdde4e671626b9caca6aed74
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309122017.GsJspucF-lkp@intel.com/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+All warnings (new ones prefixed by >>):
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+>> drivers/char/hw_random/stm32-rng.c:472:21: warning: attribute declaration must precede definition [-Wignored-attributes]
+     472 | static const struct __maybe_unused dev_pm_ops stm32_rng_pm_ops = {
+         |                     ^
+   include/linux/compiler_attributes.h:344:56: note: expanded from macro '__maybe_unused'
+     344 | #define __maybe_unused                  __attribute__((__unused__))
+         |                                                        ^
+   include/linux/pm.h:286:8: note: previous definition is here
+     286 | struct dev_pm_ops {
+         |        ^
+   1 warning generated.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+vim +472 drivers/char/hw_random/stm32-rng.c
 
-Thanks,
-Mark
+   471	
+ > 472	static const struct __maybe_unused dev_pm_ops stm32_rng_pm_ops = {
+   473		SET_RUNTIME_PM_OPS(stm32_rng_runtime_suspend,
+   474				   stm32_rng_runtime_resume, NULL)
+   475		SET_SYSTEM_SLEEP_PM_OPS(stm32_rng_suspend,
+   476					stm32_rng_resume)
+   477	};
+   478	
 
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
