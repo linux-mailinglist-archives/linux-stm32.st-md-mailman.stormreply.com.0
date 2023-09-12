@@ -2,87 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E3B79CE04
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 12:18:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70CDC79D029
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Sep 2023 13:38:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17E20C6B46E;
-	Tue, 12 Sep 2023 10:18:45 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED781C65E42
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20C07C6B46F;
+	Tue, 12 Sep 2023 11:38:20 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0B6EC6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 10:18:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1694513923;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Oucudl+k5IeCt8bSPR9EAaN7OT3eWorjofAbojhI4aE=;
- b=R+M3OTbgoRS/FWEzI2PIoWTa2TlGEzP3qTGeadw2jkuNRPn22UskZFMS4+4gQ7YLAkqilu
- igyininG/IlcCsxXI2Ox1/ctDOOukmNTT32d5/6uHEM7rInyp8ysEfPinuZlEeeZjGhi+Y
- A0j0yFgJyr/EVCnxmSqj7FGDTDOpgiA=
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-126-MZQBOvhTPnepS69Cl8XJpw-1; Tue, 12 Sep 2023 06:18:39 -0400
-X-MC-Unique: MZQBOvhTPnepS69Cl8XJpw-1
-Received: by mail-ej1-f71.google.com with SMTP id
- a640c23a62f3a-9aa25791fc7so48572666b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 03:18:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694513918; x=1695118718;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Oucudl+k5IeCt8bSPR9EAaN7OT3eWorjofAbojhI4aE=;
- b=uNQCHZ2OdATwF855Tm6diNIhxAE1+c9PmiqA5BWfRLwqchgpOy0AZORO5mcKOh8vOw
- HwiH//7ntTGOXXOTUdOrS4eGqYGYgflYr/YCTcTf2tu8c+/NZNDc6YeXxc1Q7bUv5T7B
- PIIrEJbQe9wUM250cKpFVoxmrulb9sU7AFLU68GYYz1tmq2siZ1V0H8oBl5dKjTSVHRw
- ALIjm2guPtUkZoFllV6vcIRRg1ltSAP7OI4C+g4Trv8VBeLbICSr9OyEgIQdha6+jXKk
- +C2ox1DJ7namy0px+OOKy8pOvcUrGrJtC7npbWYG/uslPessmY9atHhRMcD4z8X6smOX
- yPbg==
-X-Gm-Message-State: AOJu0YwFkaWzHe3szSMrXrImXU7KQieHLAjFusOz7u9IscV09mZQVDzJ
- y4fQXivp0Qjh4QFypf8Ky0Y5TzJISp1djEso2Yf04j1CCnFhRDqm5mKSgUKUrazsyZusy3rgZhw
- XJkT/rizQBDNV/WWRHK12QFLc7WOKnJ/yFDn1+z/k
-X-Received: by 2002:a17:907:971d:b0:9ad:786d:72af with SMTP id
- jg29-20020a170907971d00b009ad786d72afmr2092903ejc.5.1694513918690; 
- Tue, 12 Sep 2023 03:18:38 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IEKwCMgpdBMyoyLEjev3VQygvMbQjCTrvrmIP82YAFTOsxsVft5rlwggdRA/8rvn4uqVVCjZw==
-X-Received: by 2002:a17:907:971d:b0:9ad:786d:72af with SMTP id
- jg29-20020a170907971d00b009ad786d72afmr2092894ejc.5.1694513918370; 
- Tue, 12 Sep 2023 03:18:38 -0700 (PDT)
-Received: from gerbillo.redhat.com (146-241-249-231.dyn.eolo.it.
- [146.241.249.231]) by smtp.gmail.com with ESMTPSA id
- z25-20020a1709067e5900b009937e7c4e54sm6681815ejr.39.2023.09.12.03.18.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Sep 2023 03:18:38 -0700 (PDT)
-Message-ID: <ad61e3fffdfb899d57307b2bddb2226a084bcb65.camel@redhat.com>
-From: Paolo Abeni <pabeni@redhat.com>
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>
-Date: Tue, 12 Sep 2023 12:18:36 +0200
-In-Reply-To: <E1qfiqd-007TPL-7K@rmk-PC.armlinux.org.uk>
-References: <ZP8yEFWn0Ml3ALWq@shell.armlinux.org.uk>
- <E1qfiqd-007TPL-7K@rmk-PC.armlinux.org.uk>
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37)
+ Tue, 12 Sep 2023 11:38:18 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 0FDACCE1A30;
+ Tue, 12 Sep 2023 11:38:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D6EC433C7;
+ Tue, 12 Sep 2023 11:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694518695;
+ bh=PJj+NB24qGj8OVTKKzav3otPXDkniuIk97R5xoR//QY=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=nUTGLWVbPda4UyLtV2EZbX9+g8D2tnomB2NpVhWSeEjwBWiOnAPTgqauYgKgrvDUz
+ C/aKFhz6YYhCDUnT1zq251Qa0YKdlxNS2N62OMj5q9zI7V+Mx+mWLhQvP1O1Ck/3Uh
+ YAM5IByK6aRL3XAVTSlC0bJGaQWAVfoHm9LbJpz4EQO97TYhTDURJthkR4oRJ85Hsv
+ IPvqplteBNPhjUfpOOf95fx84JZyzEjhEyduKSZEMw4BO1zQu8pcXoXNJQt9ZLeiQ3
+ oukPGb97sZSHNj5No73sSkGpZXJ/83a7ITe6ZT21tOc6GfdatZtzBe75ZsBGz1SPvj
+ qDznyDuGj1pBg==
+From: Mark Brown <broonie@kernel.org>
+To: Valentin Caron <valentin.caron@foss.st.com>
+In-Reply-To: <20230906132735.748174-1-valentin.caron@foss.st.com>
+References: <20230906132735.748174-1-valentin.caron@foss.st.com>
+Message-Id: <169451869294.2398433.12354327819600702705.b4-ty@kernel.org>
+Date: Tue, 12 Sep 2023 12:38:12 +0100
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Daniel Borkmann <daniel@iogearbox.net>,
- netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Samin Guo <samin.guo@starfivetech.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Jesper Dangaard Brouer <hawk@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: stmmac: add platform
-	library
+X-Mailer: b4 0.13-dev-099c9
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32: add a delay before SPI disable
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,19 +58,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 2023-09-11 at 16:29 +0100, Russell King (Oracle) wrote:
-> Add a platform library of helper functions for common traits in the
-> platform drivers. Currently, this is setting the tx clock.
+On Wed, 06 Sep 2023 15:27:35 +0200, Valentin Caron wrote:
+> As explained in errata sheet, in section "2.14.5 Truncation of SPI output
+> signals after EOT event":
+> On STM32MP1x, EOT interrupt can be thrown before the true end of
+> communication.
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> So we add a delay of a half period to wait the real end of the
+> transmission.
+> 
+> [...]
 
-FTR, two copies of this series landed on the ML. I'm marking the no-
-cover-letter version as Superseded, but please have a look at the
-comments there, too.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
+
+Thanks!
+
+[1/1] spi: stm32: add a delay before SPI disable
+      commit: 6de8a70c84ee0586fdde4e671626b9caca6aed74
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-
-Paolo
+Mark
 
 _______________________________________________
 Linux-stm32 mailing list
