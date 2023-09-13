@@ -2,58 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C798879EB8D
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 16:50:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5CB79EE35
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 18:24:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7A559C6B46F;
-	Wed, 13 Sep 2023 14:50:02 +0000 (UTC)
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 615ACC6B46F;
+	Wed, 13 Sep 2023 16:24:35 +0000 (UTC)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC850C6B462
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4FB83C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Sep 2023 14:50:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=AKHZcby/SaXTGDFhOnska1CWWaoisj9GGC+K/yEWJ4Q=; 
- t=1694616600; x=1695826200; b=ijd+vcjU+UoemGk+JHVDJKQ8QQiZ3hoSsIPszpTqYWQohBo
- fkLfP3u5vRp75kO1yVpQEh7lry+oc57BRdPSw6Vur/oTOhHQWJAe7WFB63oL6Q6k5M34eBAwWy2nW
- LKC66XppqQEVj7sC0e0c13Kz9AKTcWN++MHMx/PTlGofbJWYZ507sp+9XfOXe/ttiOAM0hkcqKF6v
- DLmNFARjtW4hr4MYJUnGCKIgoLPHleDF8wZ8gazcWPsHYQpniy2NNIZGxLzfp9m4RL6mekb6NsBJo
- cqIJ7tJKRV+XiHbImkHR2WrTZlRb32qckwMyo7yzRiY3KmmNMzlft+pamQW4Bezg==;
-Received: by sipsolutions.net with esmtpsa
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
- (Exim 4.96) (envelope-from <johannes@sipsolutions.net>)
- id 1qgRBU-00F30o-2d; Wed, 13 Sep 2023 16:49:41 +0200
-Message-ID: <27579950c5a5f9221e7b52524cbc8de97d8b90e0.camel@sipsolutions.net>
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Jisheng Zhang <jszhang@kernel.org>
-Date: Wed, 13 Sep 2023 16:49:39 +0200
-In-Reply-To: <ZQHIgmcnCNoZwtwu@xhacker>
-References: <20230717160630.1892-1-jszhang@kernel.org>
- <20230717160630.1892-3-jszhang@kernel.org>
- <20230911171102.cwieugrpthm7ywbm@pengutronix.de> <ZQAa3277GC4c9W1D@xhacker>
- <99695befef06b025de2c457ea5f861aa81a0883c.camel@pengutronix.de>
- <20230912092411.pprnpvrbxwz77x6a@pengutronix.de>
- <2fcc9fb0e40ceff8ea4ae55cca3ce0aff75a20ca.camel@sipsolutions.net>
- <ZQHIgmcnCNoZwtwu@xhacker>
-User-Agent: Evolution 3.48.4 (3.48.4-1.fc38) 
+ Wed, 13 Sep 2023 16:24:34 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-269304c135aso6164a91.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 13 Sep 2023 09:24:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1694622273; x=1695227073;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=T8zYJ0RCDSzCvH0QmeVklyy3iTRroJs+iiHGO8/+f8I=;
+ b=ATE81iu177Uq/2fPRR9LnnqQFscbXNyIV04SJy1gw4ahSZ2vcXt7IbIOp3Yjp3bs6q
+ f6AyTDvtSPIqPlsfdXNxB8ijkuqWnGRjD+Cftw5nn+2zodD/amMsu2GghkR5o9mdhEqm
+ J3yf4L1qYNMbEAOqg/tZKI/vEk9td8KS5cykC1F4ZZIpzqMKB9TMA/0Tisxh4VS0d0mJ
+ 7eJJV1dpFU9SbVkUf/pwIZ8lAH7GB1jFLkdpeATZGqMnhxGf/fnqZAVNJk+GxBM6/Lod
+ 7GuorTAiXB6aIogL+hiFGTMkfkqWUTORxlYG8sPJKOf6fNfVqzopvQgY4gF4kSix2Qsm
+ 9gjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694622273; x=1695227073;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T8zYJ0RCDSzCvH0QmeVklyy3iTRroJs+iiHGO8/+f8I=;
+ b=S1G2aFmNKvzzCzLK5zDUJIhUIjyNGLIU98IWFdTyKD2x9Z5GOKTaSXZpFx1u6me+/k
+ 0Ne+f1Vstw7ZGUvH2F7Ul6Or6mhMk3jq9FPttBJq6+5T8teRQ1r1Ma/6Xf7xs75EdGtu
+ PNvKBvwduA8c/ohVgcp+AMLj0CL7bm5BSR1zX8wtiw047Jta2Ep+EFkYxisZLv5pfom6
+ ncgiu9Oa5T3EbJVmMtIZq2sPPXgpaHwX3U0DS17QFYEvdbRFOkoInyhXsQBU3n9z0VIW
+ MgF/xm7B5RHs7GgZtzbi9kW4TdKlFFfDPGKTO1pb8ZDGmRyoe2lHSzCHFZZqvv5aN2tk
+ p97w==
+X-Gm-Message-State: AOJu0Yy+V53dLQ0q8GKoOOxV6HL/TwO29h5wlXUr4J57B/Ys9XYVCQjt
+ NWqne8h3DqodQtXU8DZZWtEqRg==
+X-Google-Smtp-Source: AGHT+IHWgvdtB+C/HoVawZpYur0vnXtpwb+tKQOBHfzGcJms7pMWVUlPNPLiwp+O2MlPn4j6G7TlYg==
+X-Received: by 2002:a17:90b:4c4f:b0:268:1068:4464 with SMTP id
+ np15-20020a17090b4c4f00b0026810684464mr2548211pjb.30.1694622272676; 
+ Wed, 13 Sep 2023 09:24:32 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:d880:f5d9:a2c5:d083])
+ by smtp.gmail.com with ESMTPSA id
+ gj19-20020a17090b109300b002680ef05c40sm1668280pjb.55.2023.09.13.09.24.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Sep 2023 09:24:32 -0700 (PDT)
+Date: Wed, 13 Sep 2023 10:24:29 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Chen Jiahao <chenjiahao16@huawei.com>
+Message-ID: <ZQHiPUYYLNwJ/rz1@p14s>
+References: <20230817083336.404635-1-chenjiahao16@huawei.com>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
-Cc: Paolo Abeni <pabeni@redhat.com>, kernel@pengutronix.de,
- Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@csie.org>,
- linux-sunxi@lists.linux.dev, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [REGRESSION] [PATCH net-next v5 2/2] net: stmmac:
- use per-queue 64 bit statistics where necessary
+Content-Disposition: inline
+In-Reply-To: <20230817083336.404635-1-chenjiahao16@huawei.com>
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH -next v2] remoteproc: stm32: Clean up
+ redundant dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,33 +82,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 2023-09-13 at 22:34 +0800, Jisheng Zhang wrote:
+On Thu, Aug 17, 2023 at 04:33:36PM +0800, Chen Jiahao wrote:
+> Referring to platform_get_irq()'s definition, the return value has
+> already been checked if ret < 0, and printed via dev_err_probe().
+> Calling dev_err_probe() one more time outside platform_get_irq()
+> is obviously redundant. Removing outside dev_err_probe() to
+> clean it up.
 > 
-> Since we are in rc1, I need to fix the bug with as small changes as
-> possible. so another solution could be: replace rx/tx stats structure
-> with pointers, then setup pointers in the new allocated dma_conf with
-> the old one as current code did for dma_tx_size/dma_rx_size in
-> stmmac_setup_dma_desc():
+> Besides, switch to use platform_get_irq_optional() since the irq
+> is optional here.
 > 
-> dma_conf->dma_tx_size = priv->dma_conf.dma_tx_size
+> Signed-off-by: Chen Jiahao <chenjiahao16@huawei.com>
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+
+Applied.
+
+Thanks,
+Mathieu
+
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index 98234b44f038..1f53c672c66b 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -712,9 +712,9 @@ static int stm32_rproc_parse_dt(struct platform_device *pdev,
+>  	unsigned int tzen;
+>  	int err, irq;
+>  
+> -	irq = platform_get_irq(pdev, 0);
+> +	irq = platform_get_irq_optional(pdev, 0);
+>  	if (irq == -EPROBE_DEFER)
+> -		return dev_err_probe(dev, irq, "failed to get interrupt\n");
+> +		return irq;
+>  
+>  	if (irq > 0) {
+>  		err = devm_request_irq(dev, irq, stm32_rproc_wdg, 0,
+> -- 
+> 2.34.1
 > 
-> Is it acceptable?
-
-I'm not sure who you're asking of all the people in this thread, but I
-honestly don't understand much about this driver other than what I
-gleaned in the few minutes looking at it with Uwe ... so I don't think
-I'm able to answer that question :)
-
-
-You could also just move the stats out of the structure entirely, I
-guess? And perhaps even start some new structure where more things might
-move in the future that shouldn't be reallocated?
-
-I'm all for not moving things now that haven't caused problems, but I
-guess doing a minimal fix just for the sake of being minimal in -rc1
-wouldn't be my preference.
-
-johannes
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
