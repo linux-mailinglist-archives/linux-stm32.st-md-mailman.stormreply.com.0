@@ -2,87 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CC6979DD46
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 02:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4BF79E122
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 09:49:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54101C6B475;
-	Wed, 13 Sep 2023 00:56:12 +0000 (UTC)
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
- [209.85.208.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BAFBC6B46F;
+	Wed, 13 Sep 2023 07:49:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18FD9C6B46F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC599C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Sep 2023 00:56:11 +0000 (UTC)
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-2bcc331f942so5161161fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Sep 2023 17:56:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694566570; x=1695171370;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=TKovJZqebXJbOFUyHFPe+N2WMCwxRV8QMx9N79j3g7c=;
- b=BQtBCVEEIzLT+H4qtAwEJBd0+tZCCeX+B5fGkZmgws4ZBjR5wNv+5822y3vfTtIThV
- CfOyprLRqg2bcouytw+fg9eMabqm6ZGzbLaIgMWTlXiM1ak9dsIY2oJdydNEjl4DX0/S
- jY3no0UGtzlifQmkad6ktyM/22GKFtHXVvcqz9BeRSCrOhy5Y0q+eYJ996AHEUpbqeKt
- mabdqchs52ihs2e+axZ5GkiTAhVvWdw3PRbsZsrtZutUnG1Lq07OXYlFhOHJbMRb7lIP
- JSioSCuAs7yJ2+ZHWTLiKkfMqWZxLoLPOa6wDUbjk2rnVDydBcFUpibCASQB857Xfqow
- cavg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694566570; x=1695171370;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TKovJZqebXJbOFUyHFPe+N2WMCwxRV8QMx9N79j3g7c=;
- b=Qj4oSoVE+dLhn2pnBtr3B+H7ei/BL9onR/FPLgMj8DLPQVUCtBMdYiO8jkKF+yDpuV
- /bWZAljuO1gjXCYQtXELETqtGF1P/v25UuzJr9n6nTuMUwg55G6RwnYBIXAlhzOscN4P
- evwTTji+SC6M3VLaK2rgcOPUGIpnQoEfLa1gYCUn0yKFLrFrgXZ/O5LdHw9m6a7Fbb1s
- BXGneJjg1Q60tPG0l3JF+4qgjddnFO065lmg6uuhshtZ2mUICFNIrEv5hxQVvw2YX/Wm
- QOndoLryBbvr7QVw7V/dHm5KN4y+SDxMr+zcAs/gH1yQNEbrtCe9bOneACrHPTFdGh6v
- mqQw==
-X-Gm-Message-State: AOJu0YyINbUP354M6FS8ecuJbUhrOZMhhhEaOVUjPPTQdEBCrQ29VY/g
- BWO8kutrNt3SuPRqyxHb930=
-X-Google-Smtp-Source: AGHT+IHUrxU60J1tom9TqtgSJejIbp2hGaIwb6cddhpFYE26qISZmBLljXKw2AjEbpsbuPyzWyUTEg==
-X-Received: by 2002:a2e:6812:0:b0:2bc:ff6c:3018 with SMTP id
- c18-20020a2e6812000000b002bcff6c3018mr370809lja.21.1694566569782; 
- Tue, 12 Sep 2023 17:56:09 -0700 (PDT)
-Received: from mobilestation ([95.79.219.206])
- by smtp.gmail.com with ESMTPSA id
- s10-20020a2e2c0a000000b002b836d8c839sm2151252ljs.40.2023.09.12.17.56.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Sep 2023 17:56:09 -0700 (PDT)
-Date: Wed, 13 Sep 2023 03:56:07 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <okbvyvjjww5mvwj2ogrphfsy66gx2bjn4fl27vywbl52gdgwe5@aps4umive6lk>
-References: <E1qfiq8-007TOe-9F@rmk-PC.armlinux.org.uk>
- <DM4PR12MB5088F83CE829184956147E6BD3F1A@DM4PR12MB5088.namprd12.prod.outlook.com>
- <u7sabfdqk7i6wlv2j4cxuyb6psjwqs2kukdkafhcpq2zc766m3@m6iqexqjrvkv>
- <ZQCbB3qZlTvIM7rf@shell.armlinux.org.uk>
+ Wed, 13 Sep 2023 07:49:35 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38D7IYCY012197; Wed, 13 Sep 2023 09:49:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=qvNrnSqmnkbcVN82Gdh3SbGyVzQj2Bekue7XEA12AWI=; b=Yc
+ y2NwhjcV7oUxZHalY/c3jSPAgKLENTGyEzJISuOlGDDe6iSlhgartrpn74UjLtBD
+ 1Q795kytgQP29NvHjGU1R1MrZW72i7U2Zw0IEk34IyJLZBa43EbNV3Ki7uC0Ew1O
+ C7kAqKzm8Ni2fCylkWdpodRzI07K0boBGbs0okVx7+g90pqlBYoK4gX26kmbtZzW
+ Qe220r8ssdGysZWC4Db+U5tOyYlUa/x9N/q52DSiWAZi/x4Dk9W6Luyreze7opue
+ i5G1mnInh/IdIdMscobI22EEt0hQ3qAeaffx5gmI4VCUYLahWbmrUYH9CTwsS5pM
+ Vl8nUu/JbDB2fB0mAJoA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t2y7n9y2v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Sep 2023 09:49:06 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4D39E100057;
+ Wed, 13 Sep 2023 09:49:03 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 43A8F226FC7;
+ Wed, 13 Sep 2023 09:49:03 +0200 (CEST)
+Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Sep
+ 2023 09:49:02 +0200
+Message-ID: <d5f2d1b3-fc91-76f0-af3d-bcdf6c4b5703@foss.st.com>
+Date: Wed, 13 Sep 2023 09:48:55 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZQCbB3qZlTvIM7rf@shell.armlinux.org.uk>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Samin Guo <samin.guo@starfivetech.com>, NXP Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alexei Starovoitov <ast@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: stmmac: add platform
-	library
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.0
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Olivia Mackall
+ <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring
+ <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20230911120203.774632-1-gatien.chevallier@foss.st.com>
+ <20230911120203.774632-8-gatien.chevallier@foss.st.com>
+ <28ec58a3-63d5-f604-cef9-571b062fe244@linaro.org>
+Content-Language: en-US
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <28ec58a3-63d5-f604-cef9-571b062fe244@linaro.org>
+X-Originating-IP: [10.201.20.32]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-12_24,2023-09-05_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 07/10] dt-bindings: rng: add st,
+	rng-lock-conf
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,60 +80,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Sep 12, 2023 at 06:08:23PM +0100, Russell King (Oracle) wrote:
-> On Tue, Sep 12, 2023 at 12:32:40PM +0300, Serge Semin wrote:
-> > On Tue, Sep 12, 2023 at 07:59:49AM +0000, Jose Abreu wrote:
-> > > From: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > Date: Mon, Sep 11, 2023 at 16:28:40
-> > > 
-> > > > Add a platform library of helper functions for common traits in the
-> > > > platform drivers. Currently, this is setting the tx clock.
-> > > > 
-> > > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > > ---
-> > 
-> > > >  drivers/net/ethernet/stmicro/stmmac/Makefile  |  2 +-
-> > > >  .../ethernet/stmicro/stmmac/stmmac_plat_lib.c | 29 +++++++++++++++++++
-> > > >  .../ethernet/stmicro/stmmac/stmmac_plat_lib.h |  8 +++++
-> > > 
-> > > Wouldn't it be better to just call it "stmmac_lib{.c,.h}" in case we need to add
-> > > more helpers on the future that are not only for platform-based drivers?
-> > 
-> > What is the difference between stmmac_platform.{c,h} and
-> > stmmac_plat_lib.{c,h} files? It isn't clear really. In perspective it
-> > may cause confusions like mixed definitions in both of these files.
-> > 
-> > Why not to use the stmmac_platform.{c,h} instead of adding one more
-> > file?
+On 9/12/23 16:38, Krzysztof Kozlowski wrote:
+> On 11/09/2023 14:02, Gatien Chevallier wrote:
+>> If st,rng-lock-conf is set, the RNG configuration in RNG_CR, RNG_HTCR
+>> and RNG_NSCR will be locked. It is supported starting from the RNG
+>> version present in the STM32MP13
+>>
+>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> 
+> How did you implement the comment? There is no changelog, so was it ignored?
+> 
+> Best regards,
+> Krzysztof
 > 
 
-> Is stmmac_platform.{c,h} used by all the drivers that are making use of
-> this? I'm not entirely sure.
-> 
-> If it is, then yes, it can go in stmmac_platform.[ch]. If not, then I
-> don't think we'd want the bloat of forcing all of stmmac_platform.[ch]
-> onto drivers that only want to use this one function.
+Hello Krzysztof,
 
-With a few exceptions almost all the STMMAC/DW*MAC glue drivers use
-the methods from the stmmac_platform.c module including the bits
-touched by your patchset. AFAICS semantically both stmmac_platform.c
-and stmmac_plat_lib.c look the same. They don't do anything on its own
-but provide some common methods utilized by the glue drivers for some
-platform-specific setups. So basically stmmac_platform.[ch] is already
-a library of the common platform methods. There is no need in creating
-another one.
+I've sent V2 before Rob's review. I'll apply Rob's comment for V3.
 
--Serge(y)
-
-> 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Best regards,
+Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
