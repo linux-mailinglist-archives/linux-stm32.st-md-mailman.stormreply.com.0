@@ -2,70 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0861A79EAE6
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 16:21:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E19379EB7C
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 16:46:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABAC6C6B475;
-	Wed, 13 Sep 2023 14:21:27 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FC1FC6B46F;
+	Wed, 13 Sep 2023 14:46:50 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DB41C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EBBEC6B462
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Sep 2023 14:21:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KCohIAGtLewQbO/Nc+8K1hlWnKuwUOQS3ZuzHeKjiOQ=; b=y9bDquHTmq6CirxuODf/HEvQKY
- c1yCkZ57l8yO3N01TetIkz1BUKdBFjXsUQ7I6Pu6EbQVCBLFGC+o05XirB31ZFTmm8FcFJ6xEUkAb
- nA4b1BPWysySvUEC3xZD0gXMQGqA+SFITUkb7bxeL6noyKgtnERhNigrEUUCnT5I0L2aT+Xd6WG3S
- iLar6a/MZ/BCR6sR45CLfnfPlllZDdQDzx7Leo3YYcE4vBLcTXpNAwTaDM/aBDUP1UwyWH+tfDyzh
- 4B66t9BNIa8ffo3xsVWiXuPwzq23xr+eQyVoj0g/SgoTbf90DnSNbhvSA+iIvArI4pn9U7wuvIpBL
- PsAy+reA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:41340)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qgQjv-0002ad-2A;
- Wed, 13 Sep 2023 15:21:11 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qgQju-0003nm-GP; Wed, 13 Sep 2023 15:21:10 +0100
-Date: Wed, 13 Sep 2023 15:21:10 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <ZQHFVmWPkamDGBAW@shell.armlinux.org.uk>
-References: <E1qfiq8-007TOe-9F@rmk-PC.armlinux.org.uk>
- <DM4PR12MB5088F83CE829184956147E6BD3F1A@DM4PR12MB5088.namprd12.prod.outlook.com>
- <u7sabfdqk7i6wlv2j4cxuyb6psjwqs2kukdkafhcpq2zc766m3@m6iqexqjrvkv>
- <ZQCbB3qZlTvIM7rf@shell.armlinux.org.uk>
- <okbvyvjjww5mvwj2ogrphfsy66gx2bjn4fl27vywbl52gdgwe5@aps4umive6lk>
- <ZQHD16KIF4Z++w0I@shell.armlinux.org.uk>
+ Wed, 13 Sep 2023 14:46:48 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1F0586197C;
+ Wed, 13 Sep 2023 14:46:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE9FC433C8;
+ Wed, 13 Sep 2023 14:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694616406;
+ bh=MEPRVLhq94lkOpBYdxRoPzKxMTXOzT6mLYuQo0C5GYg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=oGLkwU9FWN+uir2AxMWDTeonZoJko3bsyCrAoEwRogRsrKE3tdrx4B9pi8+bKr/rN
+ YNmj1snrt3z/3uMq8t3XLwRcIdtFeEX4usIBazutl44jkrrsnbzmUi+o/KlszxGhTW
+ kQ/3EbY9WMqXrWE+yQ0jghLPZaWW+prreEFa455H+PLcHo/nLRU9nYtgaZo3JnKrPj
+ vFqlFKnCj6MRw+R8ApLZnFn10v9011Amq+LnEVzCYWDd8jZUbGtwzr5m5NpxvdL84/
+ 3VKpgZuZL8GyrJ1R2wgmk36jUw1EttiwIhx9Ix80TmVPWYzmiShvDIdhGPcyxDKqwd
+ tx3968REAuSrA==
+Date: Wed, 13 Sep 2023 22:34:42 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Johannes Berg <johannes@sipsolutions.net>
+Message-ID: <ZQHIgmcnCNoZwtwu@xhacker>
+References: <20230717160630.1892-1-jszhang@kernel.org>
+ <20230717160630.1892-3-jszhang@kernel.org>
+ <20230911171102.cwieugrpthm7ywbm@pengutronix.de>
+ <ZQAa3277GC4c9W1D@xhacker>
+ <99695befef06b025de2c457ea5f861aa81a0883c.camel@pengutronix.de>
+ <20230912092411.pprnpvrbxwz77x6a@pengutronix.de>
+ <2fcc9fb0e40ceff8ea4ae55cca3ce0aff75a20ca.camel@sipsolutions.net>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZQHD16KIF4Z++w0I@shell.armlinux.org.uk>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Samin Guo <samin.guo@starfivetech.com>, NXP Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alexei Starovoitov <ast@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/6] net: stmmac: add platform
-	library
+In-Reply-To: <2fcc9fb0e40ceff8ea4ae55cca3ce0aff75a20ca.camel@sipsolutions.net>
+Cc: Paolo Abeni <pabeni@redhat.com>, kernel@pengutronix.de,
+ Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@csie.org>,
+ linux-sunxi@lists.linux.dev, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [Linux-stm32] [REGRESSION] [PATCH net-next v5 2/2] net: stmmac:
+ use per-queue 64 bit statistics where necessary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,68 +68,41 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Sep 13, 2023 at 03:14:47PM +0100, Russell King (Oracle) wrote:
-> On Wed, Sep 13, 2023 at 03:56:07AM +0300, Serge Semin wrote:
-> > On Tue, Sep 12, 2023 at 06:08:23PM +0100, Russell King (Oracle) wrote:
-> > > On Tue, Sep 12, 2023 at 12:32:40PM +0300, Serge Semin wrote:
-> > > > On Tue, Sep 12, 2023 at 07:59:49AM +0000, Jose Abreu wrote:
-> > > > > From: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > > > Date: Mon, Sep 11, 2023 at 16:28:40
-> > > > > 
-> > > > > > Add a platform library of helper functions for common traits in the
-> > > > > > platform drivers. Currently, this is setting the tx clock.
-> > > > > > 
-> > > > > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > > > > ---
-> > > > 
-> > > > > >  drivers/net/ethernet/stmicro/stmmac/Makefile  |  2 +-
-> > > > > >  .../ethernet/stmicro/stmmac/stmmac_plat_lib.c | 29 +++++++++++++++++++
-> > > > > >  .../ethernet/stmicro/stmmac/stmmac_plat_lib.h |  8 +++++
-> > > > > 
-> > > > > Wouldn't it be better to just call it "stmmac_lib{.c,.h}" in case we need to add
-> > > > > more helpers on the future that are not only for platform-based drivers?
-> > > > 
-> > > > What is the difference between stmmac_platform.{c,h} and
-> > > > stmmac_plat_lib.{c,h} files? It isn't clear really. In perspective it
-> > > > may cause confusions like mixed definitions in both of these files.
-> > > > 
-> > > > Why not to use the stmmac_platform.{c,h} instead of adding one more
-> > > > file?
-> > > 
-> > 
-> > > Is stmmac_platform.{c,h} used by all the drivers that are making use of
-> > > this? I'm not entirely sure.
-> > > 
-> > > If it is, then yes, it can go in stmmac_platform.[ch]. If not, then I
-> > > don't think we'd want the bloat of forcing all of stmmac_platform.[ch]
-> > > onto drivers that only want to use this one function.
-> > 
-> > With a few exceptions almost all the STMMAC/DW*MAC glue drivers use
-> > the methods from the stmmac_platform.c module including the bits
-> > touched by your patchset. AFAICS semantically both stmmac_platform.c
-> > and stmmac_plat_lib.c look the same. They don't do anything on its own
-> > but provide some common methods utilized by the glue drivers for some
-> > platform-specific setups. So basically stmmac_platform.[ch] is already
-> > a library of the common platform methods. There is no need in creating
-> > another one.
-> 
-> I'm not questioning whether it should be merged, I'm questioning whether
-> all drivers that I'm touching make use of stmmac_platform.c, so your
-> long winded answer was entirely unnecessary. All you needed to do was
-> answer the question I asked, rather than teach me how to suck eggs.
-
-So what about the name of the function? Are you happy that it's called
-"dwmac_set_tx_clk_gmii" rather than "stmmac_set_tx_clk_gmii" ?
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBTZXAgMTIsIDIwMjMgYXQgMTE6MzA6MTRBTSArMDIwMCwgSm9oYW5uZXMgQmVyZyB3
+cm90ZToKPiBPbiBUdWUsIDIwMjMtMDktMTIgYXQgMTE6MjQgKzAyMDAsIFV3ZSBLbGVpbmUtS8O2
+bmlnIHdyb3RlOgo+ID4gPiAKPiA+ID4gVGhlIG5ld2x5IGFkZGVkICJzdHJ1Y3QgdTY0X3N0YXRz
+X3N5bmMgc3luY3AiIHVzZXMgYSBzZXFsb2NrCj4gPiA+IGludGVybmFsbHksIHdoaWNoIGlzIGJy
+b2tlbiBpbnRvIG11bHRpcGxlIHdvcmRzIG9uIDMyYml0IG1hY2hpbmVzLCBhbmQKPiA+ID4gbmVl
+ZHMgdG8gYmUgaW5pdGlhbGl6ZWQgcHJvcGVybHkuIFlvdSBuZWVkIHRvIGNhbGwgdTY0X3N0YXRz
+X2luaXQgb24KPiA+ID4gc3luY3AgYmVmb3JlIGZpcnN0IHVzYWdlLgo+ID4gCj4gPiBUaGlzIGlz
+IGRvbmUuIFRoZSBwcm9ibGVtYXRpYyB0aGluZyBpcyB0aGF0IGluIHN0bW1hY19vcGVuKCkgLT4K
+PiA+IF9fc3RtbWFjX29wZW4oKSB0aGUgc3luY3AgaW5pdGlhbGl6ZWQgYmVmb3JlIGlzIG92ZXJ3
+cml0dGVuIGJ5Cj4gPiAKPiA+IAltZW1jcHkoJnByaXYtPmRtYV9jb25mLCBkbWFfY29uZiwgc2l6
+ZW9mKCpkbWFfY29uZikpOwoKVGhhbmsgSm9oYW5uZXMgYW5kIFV3ZSBmb3IgcG9pbnRpbmcgb3V0
+IHRoZSBpc3N1ZS4KCj4gPiAKPiA+IERvIEkgbmVlZCB0byBwb2ludCBvdXQgdGhhdCB0aGlzIGlz
+IHVnbHk/Cj4gCj4gSSB0aGluayBpdCBhbHNvIGxlYWtzIHRoZSAobG9ja2RlcCkgc3RhdGUgc2lu
+Y2UgaXQgcmVpbml0cyB0aGUgc3luY3AKPiAoYW5kIGEgbG90IG9mIG90aGVyIHN0YXRlKSBkb2lu
+ZyB0aGlzLiBUaGlzIGlzIGFsc28gY2FsbGVkIHdoZW4gdGhlIE1UVQo+IGNoYW5nZXMuCj4gCj4g
+QWxzbywgSSBjb3VsZG4ndCBjb252aW5jZSBteXNlbGYgdGhhdCBpdCdzIGV2ZW4gcmFjZS1mcmVl
+PyBFdmVuIGlmIGl0Cj4gaXMsIGl0J3Mgbm90IHJlYWxseSBvYnZpb3VzLCBJTUhPLgo+IAo+IFNv
+IGl0IHNlZW1zIHRvIG1lIHRoYXQgcmVhbGx5IHRoaXMgbmVlZHMgdG8gYmUgc3BsaXQgaW50byBk
+YXRhIHRoYXQKPiBhY3R1YWxseSBzaG91bGQgYmUgcmVpbml0aWFsaXplZCwgYW5kIGRhdGEgdGhh
+dCBzaG91bGRuJ3QsIG9yIGp1c3Qgbm90Cj4gdXNlIG1lbWNweSgpIGhlcmUgYnV0IGNvcHkgb25s
+eSB0aGUgcmVsZXZhbnQgc3RhdGU/CgpTaW5jZSB3ZSBhcmUgaW4gcmMxLCBJIG5lZWQgdG8gZml4
+IHRoZSBidWcgd2l0aCBhcyBzbWFsbCBjaGFuZ2VzIGFzCnBvc3NpYmxlLiBzbyBhbm90aGVyIHNv
+bHV0aW9uIGNvdWxkIGJlOiByZXBsYWNlIHJ4L3R4IHN0YXRzIHN0cnVjdHVyZQp3aXRoIHBvaW50
+ZXJzLCB0aGVuIHNldHVwIHBvaW50ZXJzIGluIHRoZSBuZXcgYWxsb2NhdGVkIGRtYV9jb25mIHdp
+dGgKdGhlIG9sZCBvbmUgYXMgY3VycmVudCBjb2RlIGRpZCBmb3IgZG1hX3R4X3NpemUvZG1hX3J4
+X3NpemUgaW4Kc3RtbWFjX3NldHVwX2RtYV9kZXNjKCk6CgpkbWFfY29uZi0+ZG1hX3R4X3NpemUg
+PSBwcml2LT5kbWFfY29uZi5kbWFfdHhfc2l6ZQoKSXMgaXQgYWNjZXB0YWJsZT8KClRoYW5rcwoK
+PiAKPiBCdXQgYW55d2F5LCBJIGhhdmUgbm8gc2tpbiBpbiB0aGlzIGdhbWUgLSBqdXN0IHJldmll
+d2luZyB0aGlzIGJlY2F1c2UgSQo+IHdhcyB0cnlpbmcgdG8gaGVscCBvdXQgVXdlLgo+IAo+IGpv
+aGFubmVzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
