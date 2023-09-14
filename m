@@ -2,45 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 312457A0667
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Sep 2023 15:50:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 347A97A066E
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Sep 2023 15:51:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7E4AC6A5EF;
-	Thu, 14 Sep 2023 13:50:47 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC35BC6A5EF;
+	Thu, 14 Sep 2023 13:51:30 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5102C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1AE4C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Sep 2023 13:50:46 +0000 (UTC)
+ Thu, 14 Sep 2023 13:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RPqNFZg2BovBFcxN8fL9WiXVlKTruIYUJDcYs8EBwH8=; b=pyQ/acaFg1vj/25frlNPsNNWxH
- MH7Gq1UHz16ehdwMtql7TzZ0BhwXVUdntVztYotbpqn9+tOhvBu9Xp+uZBaNUmIhnNuvsVbG594C9
- MKBAtEvPiDPXlrQle/x30NCif0jor4iW2BrxBQInHmby8aNx/tXWShdJVeuKordTPfPcbLsEJuIVP
- dpBzTJr9TbKr+s+EAc2Dc/l9OqRvyIfrjQVaVuAqhOEEzsXl+a9t7TdhMErwVQp2RFxtpVgnEHQ4R
- AHqRu5oh5lBJBuJtOnU/EZwdxHeNCD2Uv/XwJFsqhCwH4pcUhKpRpWl5+yF1kDGfI2bulfjhb3Xap
- UqIIrm9A==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56204)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8fReHoJYksbbxqknkvPfNrb5e3cqgf2PgJTyjFj+x+Y=; b=cGroKfB7bVzGWXQukapi2TIE/o
+ RKThpImDI0Q543380fqqnxbRYDEgqnUHMPcnksXnsS9TMjL52K2GxtXIquB3dnAsvg5TDQIxNybhB
+ pnw0WX3L2/ymrLrPQRDFGCyAgQln0t1eeQEaqt3Z41mefQ6F19LbnVuZWWYXwCLERz7Gg0fi8MPPO
+ bkWmsmQwU7vuJw9GtYSBZiWacg6Lw7pEXVilBknwdI2N7bvxA7zig0qmnRQohJWfC5MgGC6RHgcfO
+ AQe/Fhb2ARjP5Hs/1XpWe1f6DDZbazamPlwgNVuiblVn1dKKDbdGLuC87bSOFXWez4kwiPH6ATPlr
+ b+eDqUNQ==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59538 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qgmjk-0004F7-2B;
- Thu, 14 Sep 2023 14:50:28 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qgmjf-0004oZ-BT; Thu, 14 Sep 2023 14:50:23 +0100
-Date: Thu, 14 Sep 2023 14:50:23 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1qgmkZ-0004FZ-15;
+ Thu, 14 Sep 2023 14:51:19 +0100
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1qgmka-007Z4Z-1E; Thu, 14 Sep 2023 14:51:20 +0100
+In-Reply-To: <ZQMPnyutz6T23E8T@shell.armlinux.org.uk>
+References: <ZQMPnyutz6T23E8T@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Message-ID: <ZQMPnyutz6T23E8T@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1qgmka-007Z4Z-1E@rmk-PC.armlinux.org.uk>
+Date: Thu, 14 Sep 2023 14:51:20 +0100
 Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  Emil Renner Berthing <kernel@esmil.dk>, Daniel Borkmann <daniel@iogearbox.net>,
  netdev@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
@@ -52,8 +54,8 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
  bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
  Fabio Estevam <festevam@gmail.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org, Jesper Dangaard Brouer <hawk@kernel.org>
-Subject: [Linux-stm32] [PATCH net-next v2 0/6] net: stmmac: add and use
- library for setting clock
+Subject: [Linux-stm32] [PATCH net-next 1/6] net: stmmac: add
+	stmmac_set_tx_clk_gmii()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,37 +72,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+Add a helper function for setting the transmit clock for GMII
+interfaces. This handles 1G, 100M and 10M using the standard clock
+rates of 125MHz, 25MHz and 2.5MHz.
 
-There is a common theme throughout several "bsps" in the stmmac driver
-which all code up the same thing: for 10M, 100M and 1G, select the
-appropriate 2.5MHz, 25MHz, or 125MHz clock.
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 25 +++++++++++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.h |  1 +
+ 2 files changed, 26 insertions(+)
 
-Rather than having every BSP implement the same thing but slightly
-differently, let's provide a single implementation which is passed
-the struct clk and the speed, and have that do the speed to clock
-rate decode.
-
-Note: only build tested.
-
-v2:
-- move dwmac_set_tx_clk_gmii() to stmmac_platform, and rename to have
-   stmmac_ prefix.
-- add comment body to conversion patches
-- use %u for printing speed
-
- .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    | 36 ++++---------
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    | 26 +++-------
- .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c | 34 +++---------
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     | 60 ++++++----------------
- .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   | 28 +++-------
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 25 +++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_platform.h  |  1 +
- 7 files changed, 74 insertions(+), 136 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 0f28795e581c..f7635ed2b255 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -700,6 +700,31 @@ EXPORT_SYMBOL_GPL(stmmac_probe_config_dt);
+ EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
+ EXPORT_SYMBOL_GPL(stmmac_remove_config_dt);
+ 
++int stmmac_set_tx_clk_gmii(struct clk *tx_clk, unsigned int speed)
++{
++	unsigned long rate;
++
++	switch (speed) {
++	case SPEED_1000:
++		rate = 125000000;
++		break;
++
++	case SPEED_100:
++		rate = 25000000;
++		break;
++
++	case SPEED_10:
++		rate = 2500000;
++		break;
++
++	default:
++		return -ENOTSUPP;
++	}
++
++	return clk_set_rate(tx_clk, rate);
++}
++EXPORT_SYMBOL_GPL(stmmac_set_tx_clk_gmii);
++
+ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 				  struct stmmac_resources *stmmac_res)
+ {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+index c5565b2a70ac..8dc2287c6724 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+@@ -11,6 +11,7 @@
+ 
+ #include "stmmac.h"
+ 
++int stmmac_set_tx_clk_gmii(struct clk *tx_clk, unsigned int speed);
+ struct plat_stmmacenet_data *
+ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac);
+ struct plat_stmmacenet_data *
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
