@@ -2,91 +2,129 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D9FC7A0B34
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Sep 2023 19:05:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA40E7A0CC5
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Sep 2023 20:38:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20197C6A5EF;
-	Thu, 14 Sep 2023 17:05:16 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 324ABC6A5EF;
+	Thu, 14 Sep 2023 18:38:42 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CDF8C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C593C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Sep 2023 17:05:15 +0000 (UTC)
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-2bcde83ce9fso19039251fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Sep 2023 10:05:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694711114; x=1695315914;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Z7PUq4z7Yde3HhHsl15RcXAi8VXTsK+aq00VAgDqTaQ=;
- b=UVn8qZhLQe8o++JBBQIHZ1voZ4rG8YMGFmAlH8vaN8Y9bkQadSAU7qmhZXHG3NKDAH
- 2T2vEXAtdZdeDEN7hmwXo5uex8bIrhzXD3o+wPC4NUJJY+nRoX9hWPe6xLjD9mRG6lWy
- MsqHlmyyBcaF9nBC1EtEjrx1QN2V97GxnLCSOHiujw8DGld85V0q9QqUL1vmFp8MLYjB
- ChvLZH8Uirh1JkZMi9KChnoyp+meaHq2qLhAyMlSgvHv/x3jcPueA0maR/uTqf3krGFe
- DhCZlW+rdnzzU4296Wh+Ba9J7JqnRORUcnmht7hN9gaufYsU0rb4uX41mijTQy+D1V59
- 0CMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694711114; x=1695315914;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Z7PUq4z7Yde3HhHsl15RcXAi8VXTsK+aq00VAgDqTaQ=;
- b=NbyKEN+5xTT5e0ZfMlgkOPlCg4x+8fNYa3sjUUgkB39rSZsqocCSd74tYwzXWz+Usr
- ahXEDDCOTZsUP5eP0utqCEb3wnblhJ8olPKlvN+tiZCxvDwChBy0bo6kY7uwPJiNR8lx
- 8m1eDzjmWWP9Jy5GgJYdKIWz4uuS3e4nTes6UTLcQchYxnP9v91PkqcCYE81BUV//6dg
- 6ndeUBd71y6z7x5kIZlk2NXOh4C77DMZdMPepyKd/3Z3QF5sVtR8+3NkWYyZZ1BqbdQp
- NR0Y/O0IFHdXLokPhhHqBOTSgGy0WxzWrPY4TtkSio3DTwRTyV9O2JrirQNerLL4ax9q
- PCbQ==
-X-Gm-Message-State: AOJu0YxCtiNlKbB9Gz7bftJgmj/aQYwJiXINxdRU8ICavzZiGj4GpQXc
- XgCUFZAWIlaCbGV64iyh/bc=
-X-Google-Smtp-Source: AGHT+IEFFuiQcDwb16erYvK+paHa9WvWcimYHEOp/iMQZzEm5VGA0IKKzOIzxyflILVljh8SHNikrg==
-X-Received: by 2002:a2e:9bcc:0:b0:2bc:b6ce:eab with SMTP id
- w12-20020a2e9bcc000000b002bcb6ce0eabmr5094658ljj.51.1694711113788; 
- Thu, 14 Sep 2023 10:05:13 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- o10-20020a2e0c4a000000b002b962ee0c14sm354310ljd.23.2023.09.14.10.05.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Sep 2023 10:05:13 -0700 (PDT)
-Date: Thu, 14 Sep 2023 20:05:09 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Jose Abreu <Jose.Abreu@synopsys.com>, 
- Russell King <linux@armlinux.org.uk>, Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <uzvjph54kg2jkfbmwrvmunqv64ig7j6szr6pxxbiesnz5lletg@zq57w7jj2up4>
-References: <ZQMPnyutz6T23E8T@shell.armlinux.org.uk>
- <E1qgmkp-007Z4s-GL@rmk-PC.armlinux.org.uk>
- <7vhtvd25qswsju34lgqi4em5v3utsxlvi3lltyt5yqqecddpyh@c5yvk7t5k5zz>
- <ZQMgtXSTsNoZohnx@shell.armlinux.org.uk>
- <rene2x562lqsknmwpaxpu337mhl4bgynct6vcyryebvem2umso@2pjocnxluxgg>
- <ZQMmV2pSCAX8AJzz@shell.armlinux.org.uk>
- <ZQMnA1PgPDDQzDrC@shell.armlinux.org.uk>
- <DM4PR12MB50888CA414C76F5C59C27E50D3F7A@DM4PR12MB5088.namprd12.prod.outlook.com>
+ Thu, 14 Sep 2023 18:38:40 +0000 (UTC)
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1694716719;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=aQcu0Tj+ffJBWZVQ9fNZPj8/IhtyreTS7DJJKIPF900=;
+ b=Z8UeMKj4Fav9MLhk6d+JmpTi5nJHEpVJNO1ur5Ad3vBiVWCnoe9Eog0Qg33XlH6id3FWbz
+ S8l2Lt2jSbU2XHwf8xi9UIitF4+b8K7paGx1bjjYr5t2rdTDVV0Fim6UAKFi2CtuZ1mb3L
+ E0TJN4HYA+tWtKTLOiVDx3F+jVsGlfsYYAnFZvFt3iKUUrP7SkGJJcZ1UIkJ/UqIQ0831V
+ SMEuLB8ZIcl+FG04i7hT9/QWq5F02SyOTdFIc9j7ps1+LHHwMSHMPuADoGutw3ZHkUAICp
+ RXxdloN+Gh4cSEl07/GwEgsU+m8aqlGccQ2NbBYv7A5wSEzPoJaqC36jkiHDjg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1694716719;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=aQcu0Tj+ffJBWZVQ9fNZPj8/IhtyreTS7DJJKIPF900=;
+ b=6i/Rykkl4Rl5SBtIHP9RIQNQNOB8Crkkj2AcFISLN8Dmxq51odZMyUMI6Usmo7xHPgkuGu
+ 8OGeRMSrDoYZsqCg==
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Thu, 14 Sep 2023 20:43:17 +0206
+Message-Id: <20230914183831.587273-1-john.ogness@linutronix.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <DM4PR12MB50888CA414C76F5C59C27E50D3F7A@DM4PR12MB5088.namprd12.prod.outlook.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Samin Guo <samin.guo@starfivetech.com>,
- NXP Linux Team <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Alexei Starovoitov <ast@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
+ linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>,
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Hammer Hsieh <hammerh0314@gmail.com>, Jiamei Xie <jiamei.xie@arm.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Vineet Gupta <vgupta@kernel.org>,
+ Thierry Reding <treding@nvidia.com>, Petr Mladek <pmladek@suse.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Nicholas Piggin <npiggin@gmail.com>,
+ linux-unisoc@lists.infradead.org, Thomas Gleixner <tglx@linutronix.de>,
+ Andrew Jeffery <andrew@aj.id.au>, linux-kernel@vger.kernel.org,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Richard Genoud <richard.genoud@gmail.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 4/6] net: stmmac: rk: use
- stmmac_set_tx_clk_gmii()
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, Laxman Dewangan <ldewangan@nvidia.com>,
+ Dmitry Rokosov <ddrokosov@sberdevices.ru>,
+ Xiongfeng Wang <wangxiongfeng2@huawei.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ delisun <delisun@pateo.com.cn>, Fabio Estevam <festevam@gmail.com>,
+ Ruan Jinjie <ruanjinjie@huawei.com>,
+ Matthew Howell <matthew.howell@sealevel.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gabriel Somlo <gsomlo@gmail.com>,
+ Hongyu Xie <xiehongyu1@kylinos.cn>, Tobias Klauser <tklauser@distanz.ch>,
+ Yangtao Li <frank.li@vivo.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, Sherry Sun <sherry.sun@nxp.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
+ Lukas Wunner <lukas@wunner.de>, Sergey Organov <sorganov@gmail.com>,
+ Mukesh Ojha <quic_mojha@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+ Lino Sanfilippo <l.sanfilippo@kunbus.com>, Tom Rix <trix@redhat.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
+ Yuan Can <yuancan@huawei.com>, Isaac True <isaac.true@canonical.com>,
+ linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ Rob Herring <robh@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+ Mateusz Holenko <mholenko@antmicro.com>, Kevin Cernekee <cernekee@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-snps-arc@lists.infradead.org, Jacky Huang <ychuang3@nuvoton.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+ Timur Tabi <timur@kernel.org>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Sudeep Holla <sudeep.holla@arm.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
+ Baruch Siach <baruch@tkos.co.il>, Tony Lindgren <tony@atomide.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, sparclinux@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, linux-riscv@lists.infradead.org,
+ Marek Vasut <marex@denx.de>, Lech Perczak <lech.perczak@camlingroup.com>,
+ Russell King <linux@armlinux.org.uk>, Nick Hu <nick.hu@sifive.com>,
+ Andy Gross <agross@kernel.org>, linux-serial@vger.kernel.org,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Johan Hovold <johan@kernel.org>,
+ linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Lucas Tanure <tanure@linux.com>,
+ Andrew Davis <afd@ti.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [Linux-stm32] [PATCH tty v1 00/74] serial: wrappers for uart port
+	lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,53 +141,344 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Russel, Jose
+When a serial port is used for kernel console output, then all
+modifications to the UART registers which are done from other contexts,
+e.g. getty, termios, are interference points for the kernel console.
 
-On Thu, Sep 14, 2023 at 04:01:41PM +0000, Jose Abreu wrote:
-> From: Russell King (Oracle) <linux@armlinux.org.uk>
-> Date: Thu, Sep 14, 2023 at 16:30:11
-> 
-> > On Thu, Sep 14, 2023 at 04:27:19PM +0100, Russell King (Oracle) wrote:
+So far this has been ignored and the printk output is based on the
+principle of hope. The rework of the console infrastructure which aims to
+support threaded and atomic consoles, requires to mark sections which
+modify the UART registers as unsafe. This allows the atomic write function
+to make informed decisions and eventually to restore operational state. It
+also allows to prevent the regular UART code from modifying UART registers
+while printk output is in progress.
 
-> > > I won't be doing that, sorry. If that's not acceptable, then I'm
-> > > junking this series.
-> > 
-> > In fact, no, I'm making that decision now. I have 42 patches. I'm
-> > deleting them all because I just can't be bothered with the hassle
-> > of trying to improve this crappy driver.
+All modifications of UART registers are guarded by the UART port lock,
+which provides an obvious synchronization point with the console
+infrastructure.
 
-I am sorry to read that. In no means I intended to cause such
-reaction, but merely to improve the suggested changes as I see it.
+Provide and use wrapper functions for spin_[un]lock*(port->lock)
+invocations so that the console mechanics can be applied later on at a
+single place and does not require to copy the same logic all over the
+drivers.
 
-Speaking about the stmmac driver. I've got over _200_ cleanup, fix and
-feature patches in my local repo waiting for me having a free time to
-be properly prepared and finally submitted for review. So I totally
-understand your initial desire to improve the driver code.
+Patch 1 adds the wrapper functions.
 
-> 
-> Hi Russell, Serge, Jakub,
-> 
-> My apologies for not being that active on the review. I totally understand
-> there's a lot of revamps needed on "stmmac", somethings may even
-> need to be totally re-written.
-> 
-> I'm also aware that Russell has contributed significantly for this process
-> and was of great help when we first switched "stmmac" to phylink.
-> 
-> So, my 5-cents here is that, on this stage, any contribution on
-> "stmmac" is welcomed and we shouldn't try to ask for more
-> but focus instead on small steps.
+Patches 2-74 switch all uart port locking call sites to use the new
+wrappers. These patches were automatically generated using coccinelle.
+The 2 used coccinelle scripts are included below and executed as
+follows:
 
-I actually thought the driver has been long abandoned seeing how many
-questionable changes have been accepted. That's why I decided to step
-in with more detailed reviews for now. Anyway It's up to you to
-decide. You are the driver maintainer after all.
+$ spatch --sp-file uartlock-1.cocci $FILE
+$ spatch --sp-file uartlock-2.cocci --recursive-includes $FILE
 
--Serge(y)
+This series brings no functional change.
 
-> 
-> Thanks,
-> Jose
+Patches 2-74 contain identical commit message bodies. Feel free to
+fold them into a single commit if that seems more reasonable.
+
+Thomas Gleixner (74):
+  serial: core: Provide port lock wrappers
+  serial: core: Use lock wrappers
+  serial: 21285: Use port lock wrappers
+  serial: 8250_aspeed_vuart: Use port lock wrappers
+  serial: 8250_bcm7271: Use port lock wrappers
+  serial: 8250: Use port lock wrappers
+  serial: 8250_dma: Use port lock wrappers
+  serial: 8250_dw: Use port lock wrappers
+  serial: 8250_exar: Use port lock wrappers
+  serial: 8250_fsl: Use port lock wrappers
+  serial: 8250_mtk: Use port lock wrappers
+  serial: 8250_omap: Use port lock wrappers
+  serial: 8250_pci1xxxx: Use port lock wrappers
+  serial: altera_jtaguart: Use port lock wrappers
+  serial: altera_uart: Use port lock wrappers
+  serial: amba-pl010: Use port lock wrappers
+  serial: amba-pl011: Use port lock wrappers
+  serial: apb: Use port lock wrappers
+  serial: ar933x: Use port lock wrappers
+  serial: arc_uart: Use port lock wrappers
+  serial: atmel: Use port lock wrappers
+  serial: bcm63xx-uart: Use port lock wrappers
+  serial: cpm_uart: Use port lock wrappers
+  serial: digicolor: Use port lock wrappers
+  serial: dz: Use port lock wrappers
+  serial: linflexuart: Use port lock wrappers
+  serial: fsl_lpuart: Use port lock wrappers
+  serial: icom: Use port lock wrappers
+  serial: imx: Use port lock wrappers
+  serial: ip22zilog: Use port lock wrappers
+  serial: jsm: Use port lock wrappers
+  serial: liteuart: Use port lock wrappers
+  serial: lpc32xx_hs: Use port lock wrappers
+  serial: ma35d1: Use port lock wrappers
+  serial: mcf: Use port lock wrappers
+  serial: men_z135_uart: Use port lock wrappers
+  serial: meson: Use port lock wrappers
+  serial: milbeaut_usio: Use port lock wrappers
+  serial: mpc52xx: Use port lock wrappers
+  serial: mps2-uart: Use port lock wrappers
+  serial: msm: Use port lock wrappers
+  serial: mvebu-uart: Use port lock wrappers
+  serial: omap: Use port lock wrappers
+  serial: owl: Use port lock wrappers
+  serial: pch: Use port lock wrappers
+  serial: pic32: Use port lock wrappers
+  serial: pmac_zilog: Use port lock wrappers
+  serial: pxa: Use port lock wrappers
+  serial: qcom-geni: Use port lock wrappers
+  serial: rda: Use port lock wrappers
+  serial: rp2: Use port lock wrappers
+  serial: sa1100: Use port lock wrappers
+  serial: samsung_tty: Use port lock wrappers
+  serial: sb1250-duart: Use port lock wrappers
+  serial: sc16is7xx: Use port lock wrappers
+  serial: tegra: Use port lock wrappers
+  serial: core: Use port lock wrappers
+  serial: mctrl_gpio: Use port lock wrappers
+  serial: txx9: Use port lock wrappers
+  serial: sh-sci: Use port lock wrappers
+  serial: sifive: Use port lock wrappers
+  serial: sprd: Use port lock wrappers
+  serial: st-asc: Use port lock wrappers
+  serial: stm32: Use port lock wrappers
+  serial: sunhv: Use port lock wrappers
+  serial: sunplus-uart: Use port lock wrappers
+  serial: sunsab: Use port lock wrappers
+  serial: sunsu: Use port lock wrappers
+  serial: sunzilog: Use port lock wrappers
+  serial: timbuart: Use port lock wrappers
+  serial: uartlite: Use port lock wrappers
+  serial: ucc_uart: Use port lock wrappers
+  serial: vt8500: Use port lock wrappers
+  serial: xilinx_uartps: Use port lock wrappers
+
+ drivers/tty/serial/21285.c                  |   8 +-
+ drivers/tty/serial/8250/8250_aspeed_vuart.c |   6 +-
+ drivers/tty/serial/8250/8250_bcm7271.c      |  28 +++---
+ drivers/tty/serial/8250/8250_core.c         |  12 +--
+ drivers/tty/serial/8250/8250_dma.c          |   8 +-
+ drivers/tty/serial/8250/8250_dw.c           |   8 +-
+ drivers/tty/serial/8250/8250_exar.c         |   4 +-
+ drivers/tty/serial/8250/8250_fsl.c          |   6 +-
+ drivers/tty/serial/8250/8250_mtk.c          |   8 +-
+ drivers/tty/serial/8250/8250_omap.c         |  52 +++++-----
+ drivers/tty/serial/8250/8250_pci1xxxx.c     |   8 +-
+ drivers/tty/serial/8250/8250_port.c         | 100 ++++++++++----------
+ drivers/tty/serial/altera_jtaguart.c        |  28 +++---
+ drivers/tty/serial/altera_uart.c            |  20 ++--
+ drivers/tty/serial/amba-pl010.c             |  20 ++--
+ drivers/tty/serial/amba-pl011.c             |  72 +++++++-------
+ drivers/tty/serial/apbuart.c                |   8 +-
+ drivers/tty/serial/ar933x_uart.c            |  26 ++---
+ drivers/tty/serial/arc_uart.c               |  16 ++--
+ drivers/tty/serial/atmel_serial.c           |  24 ++---
+ drivers/tty/serial/bcm63xx_uart.c           |  22 ++---
+ drivers/tty/serial/cpm_uart.c               |   8 +-
+ drivers/tty/serial/digicolor-usart.c        |  18 ++--
+ drivers/tty/serial/dz.c                     |  32 +++----
+ drivers/tty/serial/fsl_linflexuart.c        |  26 ++---
+ drivers/tty/serial/fsl_lpuart.c             |  88 ++++++++---------
+ drivers/tty/serial/icom.c                   |  26 ++---
+ drivers/tty/serial/imx.c                    |  84 ++++++++--------
+ drivers/tty/serial/ip22zilog.c              |  36 +++----
+ drivers/tty/serial/jsm/jsm_neo.c            |   4 +-
+ drivers/tty/serial/jsm/jsm_tty.c            |  16 ++--
+ drivers/tty/serial/liteuart.c               |  20 ++--
+ drivers/tty/serial/lpc32xx_hs.c             |  26 ++---
+ drivers/tty/serial/ma35d1_serial.c          |  22 ++---
+ drivers/tty/serial/mcf.c                    |  20 ++--
+ drivers/tty/serial/men_z135_uart.c          |   8 +-
+ drivers/tty/serial/meson_uart.c             |  30 +++---
+ drivers/tty/serial/milbeaut_usio.c          |  16 ++--
+ drivers/tty/serial/mpc52xx_uart.c           |  12 +--
+ drivers/tty/serial/mps2-uart.c              |  16 ++--
+ drivers/tty/serial/msm_serial.c             |  38 ++++----
+ drivers/tty/serial/mvebu-uart.c             |  18 ++--
+ drivers/tty/serial/omap-serial.c            |  38 ++++----
+ drivers/tty/serial/owl-uart.c               |  26 ++---
+ drivers/tty/serial/pch_uart.c               |  10 +-
+ drivers/tty/serial/pic32_uart.c             |  20 ++--
+ drivers/tty/serial/pmac_zilog.c             |  52 +++++-----
+ drivers/tty/serial/pxa.c                    |  30 +++---
+ drivers/tty/serial/qcom_geni_serial.c       |   8 +-
+ drivers/tty/serial/rda-uart.c               |  34 +++----
+ drivers/tty/serial/rp2.c                    |  20 ++--
+ drivers/tty/serial/sa1100.c                 |  20 ++--
+ drivers/tty/serial/samsung_tty.c            |  50 +++++-----
+ drivers/tty/serial/sb1250-duart.c           |  12 +--
+ drivers/tty/serial/sc16is7xx.c              |  40 ++++----
+ drivers/tty/serial/serial-tegra.c           |  32 +++----
+ drivers/tty/serial/serial_core.c            |  88 ++++++++---------
+ drivers/tty/serial/serial_mctrl_gpio.c      |   4 +-
+ drivers/tty/serial/serial_port.c            |   4 +-
+ drivers/tty/serial/serial_txx9.c            |  26 ++---
+ drivers/tty/serial/sh-sci.c                 |  68 ++++++-------
+ drivers/tty/serial/sifive.c                 |  16 ++--
+ drivers/tty/serial/sprd_serial.c            |  30 +++---
+ drivers/tty/serial/st-asc.c                 |  18 ++--
+ drivers/tty/serial/stm32-usart.c            |  38 ++++----
+ drivers/tty/serial/sunhv.c                  |  28 +++---
+ drivers/tty/serial/sunplus-uart.c           |  26 ++---
+ drivers/tty/serial/sunsab.c                 |  34 +++----
+ drivers/tty/serial/sunsu.c                  |  46 ++++-----
+ drivers/tty/serial/sunzilog.c               |  42 ++++----
+ drivers/tty/serial/timbuart.c               |   8 +-
+ drivers/tty/serial/uartlite.c               |  18 ++--
+ drivers/tty/serial/ucc_uart.c               |   4 +-
+ drivers/tty/serial/vt8500_serial.c          |   8 +-
+ drivers/tty/serial/xilinx_uartps.c          |  56 +++++------
+ include/linux/serial_core.h                 |  91 ++++++++++++++++--
+ 76 files changed, 1086 insertions(+), 1007 deletions(-)
+
+
+base-commit: 0bb80ecc33a8fb5a682236443c1e740d5c917d1d
+-- 
+2.39.2
+
+--------------8<--------------
+// uartlock-1.cocci
+
+@r1@
+struct uart_port *U;
+@@
+
+-spin_lock(&U->lock)
++uart_port_lock(U)
+
+@r2@
+struct uart_port *U;
+@@
+
+-spin_lock_irq(&U->lock)
++uart_port_lock_irq(U)
+
+@r3@
+struct uart_port *U;
+identifier F;
+@@
+
+-spin_lock_irqsave(&U->lock, F)
++uart_port_lock_irqsave(U, &F)
+
+@r4@
+struct uart_port *U;
+@@
+
+-spin_unlock(&U->lock)
++uart_port_unlock(U)
+
+@r5@
+struct uart_port *U;
+@@
+
+-spin_unlock_irq(&U->lock)
++uart_port_unlock_irq(U)
+
+@r6@
+struct uart_port *U;
+identifier F;
+@@
+
+-spin_unlock_irqrestore(&U->lock, F)
++uart_port_unlock_irqrestore(U, F)
+
+@r7@
+struct uart_port *U;
+@@
+
+-spin_trylock(&U->lock)
++uart_port_trylock(U)
+
+@r8@
+struct uart_port *U;
+identifier F;
+@@
+
+-spin_trylock_irqsave(&U->lock, F)
++uart_port_trylock_irqsave(U, &F)
+
+--------------8<--------------
+// uartlock-2.cocci
+
+@r10@
+type T1;
+identifier U;
+@@
+
+T1 {
+   ...
+   struct uart_port U;
+   ...
+};
+
+@r11@
+r10.T1 *E;
+identifier r10.U;
+@@
+
+-spin_lock(&E->U.lock)
++uart_port_lock(&E->U)
+
+@r12@
+r10.T1 *E;
+identifier r10.U;
+@@
+
+-spin_lock_irq(&E->U.lock)
++uart_port_lock_irq(&E->U)
+
+@r13@
+r10.T1 *E;
+identifier r10.U;
+identifier F;
+@@
+
+-spin_lock_irqsave(&E->U.lock, F)
++uart_port_lock_irqsave(&E->U, &F)
+
+@r14@
+r10.T1 *E;
+identifier r10.U;
+@@
+
+-spin_unlock(&E->U.lock)
++uart_port_unlock(&E->U)
+
+@r15@
+r10.T1 *E;
+identifier r10.U;
+@@
+
+-spin_unlock_irq(&E->U.lock)
++uart_port_unlock_irq(&E->U)
+
+@r16@
+r10.T1 *E;
+identifier r10.U;
+identifier F;
+@@
+
+-spin_unlock_irqrestore(&E->U.lock, F)
++uart_port_unlock_irqrestore(&E->U, F)
+
+@r17@
+r10.T1 *E;
+identifier r10.U;
+@@
+
+-spin_trylock(&E->U.lock)
++uart_port_trylock(&E->U)
+
+@r18@
+r10.T1 *E;
+identifier r10.U;
+identifier F;
+@@
+
+-spin_trylock_irqsave(&E->U.lock, F)
++uart_port_trylock_irqsave(&E->U, &F)
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
