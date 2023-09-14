@@ -2,62 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0C879F29D
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Sep 2023 22:12:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1965C79FF35
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Sep 2023 10:57:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6168CC6B477;
-	Wed, 13 Sep 2023 20:12:23 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF02AC6B46F;
+	Thu, 14 Sep 2023 08:57:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C900C6B46F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E1ADC6B462
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Sep 2023 20:12:22 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qgWDi-0001jv-1g; Wed, 13 Sep 2023 22:12:18 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qgWDd-0069Er-3M; Wed, 13 Sep 2023 22:12:13 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qgWDc-001Q1d-Pi; Wed, 13 Sep 2023 22:12:12 +0200
-Date: Wed, 13 Sep 2023 22:12:12 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Jisheng Zhang <jszhang@kernel.org>
-Message-ID: <20230913201212.eiedub5rsztuwaa7@pengutronix.de>
-References: <20230717160630.1892-1-jszhang@kernel.org>
- <20230717160630.1892-3-jszhang@kernel.org>
- <20230911171102.cwieugrpthm7ywbm@pengutronix.de>
- <ZQAa3277GC4c9W1D@xhacker>
- <99695befef06b025de2c457ea5f861aa81a0883c.camel@pengutronix.de>
- <20230912092411.pprnpvrbxwz77x6a@pengutronix.de>
- <2fcc9fb0e40ceff8ea4ae55cca3ce0aff75a20ca.camel@sipsolutions.net>
- <ZQHIgmcnCNoZwtwu@xhacker>
+ Thu, 14 Sep 2023 08:57:24 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38E6Xcu0002603; Thu, 14 Sep 2023 10:57:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=ZQBqEG8x2ZR1d+czt7xEBbqZ15WBaeXC2ws3BWPlTeY=; b=J2
+ 6+AsEY3NpbRiy4wM6dNzH5nil45JumT2fvDUylodSuOIVvOfr2NeH1Y96I/HaDBj
+ UWF0HKA1i7N7LBEB7kSE59fb8mp2XQrZhq6oCo36WpNHlk4RSk8vaSNOdizhESpC
+ HorJZ7SjIRO0S5tViSuBoWMmCT3PpjtVoCcYJ+Lp5aP072oAFPzbtxgtyy/OLY3a
+ 2amlmXmAe8ZzzTg1h2bJ2+hMm8eycODZSre7PLDlgYjFbHTO8ujhZn7yBiMaBjUt
+ x9oOAryCNPtJ0zd+E/pgN0+Zp76Vc+TYp8VWhfTdtMSV+vFu4x2QJjaCTKVTFZEW
+ yv6zORHdfvnga7V39/BQ==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t2y7nyfgu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 14 Sep 2023 10:57:02 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 18302100065;
+ Thu, 14 Sep 2023 10:57:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0834C228A20;
+ Thu, 14 Sep 2023 10:57:01 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 14 Sep
+ 2023 10:57:00 +0200
+Message-ID: <5e75b5fd-c351-1f42-94ed-b6dc1d3f030e@foss.st.com>
+Date: Thu, 14 Sep 2023 10:56:59 +0200
 MIME-Version: 1.0
-In-Reply-To: <ZQHIgmcnCNoZwtwu@xhacker>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-kernel@vger.kernel.org,
- Chen-Yu Tsai <wens@csie.org>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, kernel@pengutronix.de,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Johannes Berg <johannes@sipsolutions.net>, Paolo Abeni <pabeni@redhat.com>,
- linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [REGRESSION] [PATCH net-next v5 2/2] net: stmmac:
- use per-queue 64 bit statistics where necessary
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20230904180635.923506-1-dario.binacchi@amarulasolutions.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230904180635.923506-1-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-09-14_07,2023-09-13_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH] ARM: dts: stm32f469-disco: use the
+ same 3v3 for SD and DSI nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,101 +76,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5833862050547215350=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 9/4/23 20:06, Dario Binacchi wrote:
+> In the board schematic, the power supply for the SD card is the same 3.3
+> volts used to power the LCD panel and other peripherals. By generalizing
+> the name of the voltage regulator, it simplifies the device tree and makes
+> it more readable.
+> 
 
---===============5833862050547215350==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dpbv4jds3tisu2kp"
-Content-Disposition: inline
+It makes sens as it is the same discret regulator (no pmic involved).
 
+regards
+Alex
 
---dpbv4jds3tisu2kp
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Wed, Sep 13, 2023 at 10:34:42PM +0800, Jisheng Zhang wrote:
-> On Tue, Sep 12, 2023 at 11:30:14AM +0200, Johannes Berg wrote:
-> > On Tue, 2023-09-12 at 11:24 +0200, Uwe Kleine-K=F6nig wrote:
-> > > >=20
-> > > > The newly added "struct u64_stats_sync syncp" uses a seqlock
-> > > > internally, which is broken into multiple words on 32bit machines, =
-and
-> > > > needs to be initialized properly. You need to call u64_stats_init on
-> > > > syncp before first usage.
-> > >=20
-> > > This is done. The problematic thing is that in stmmac_open() ->
-> > > __stmmac_open() the syncp initialized before is overwritten by
-> > >=20
-> > > 	memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
->=20
-> Thank Johannes and Uwe for pointing out the issue.
->=20
-> > >=20
-> > > Do I need to point out that this is ugly?
-> >=20
-> > I think it also leaks the (lockdep) state since it reinits the syncp
-> > (and a lot of other state) doing this. This is also called when the MTU
-> > changes.
-> >=20
-> > Also, I couldn't convince myself that it's even race-free? Even if it
-> > is, it's not really obvious, IMHO.
-> >=20
-> > So it seems to me that really this needs to be split into data that
-> > actually should be reinitialized, and data that shouldn't, or just not
-> > use memcpy() here but copy only the relevant state?
->=20
-> Since we are in rc1, I need to fix the bug with as small changes as
-> possible. so another solution could be: replace rx/tx stats structure
-> with pointers, then setup pointers in the new allocated dma_conf with
-> the old one as current code did for dma_tx_size/dma_rx_size in
-> stmmac_setup_dma_desc():
->=20
-> dma_conf->dma_tx_size =3D priv->dma_conf.dma_tx_size
->=20
-> Is it acceptable?
-
-I wondered if you can just initialize the data directly in *priv, instead
-of setting up a local copy, initialize that one + copy it over?!
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---dpbv4jds3tisu2kp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmUCF5sACgkQj4D7WH0S
-/k5YqAf/QoHjd1H4OMaQOFFZq5Z1GnCqzupN9tFvF4XnK2Y0RUzjcmrLVkjEZSvA
-GbuGtwdxWJr8ixqCzqbfibyZAY7i8nK6se1X4wOUikFWfsd4VVlMAvLwyvZDIeEM
-6EmLYW1jMo6O+PvxapPzIKtKkNuO51/BmZ1pLy40UKINT8txpwMrCLSvCJgGTbhr
-abaJvfJZS2Pel0QVCkYpm7dqX7pNPmLiNlDXwJwatnQrT2FmSxH1ftchDS3KE4Rl
-QSFlKi7cYMQydd8QZp3i4NzQ+xeTWL0WROSxm7p376NFUYItnDXIBmMw0MvkyL82
-XY/qJUJCraljLXTiRlSGhrHVHDMUqQ==
-=fL1E
------END PGP SIGNATURE-----
-
---dpbv4jds3tisu2kp--
-
---===============5833862050547215350==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> Link: https://www.st.com/en/evaluation-tools/32f469idiscovery.html#cad-resources
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> 
+> ---
+> 
+>   arch/arm/boot/dts/st/stm32f469-disco.dts | 15 ++++-----------
+>   1 file changed, 4 insertions(+), 11 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/st/stm32f469-disco.dts b/arch/arm/boot/dts/st/stm32f469-disco.dts
+> index cbbd521bf010..8a4f8ddd083d 100644
+> --- a/arch/arm/boot/dts/st/stm32f469-disco.dts
+> +++ b/arch/arm/boot/dts/st/stm32f469-disco.dts
+> @@ -69,16 +69,9 @@ aliases {
+>   		serial0 = &usart3;
+>   	};
+>   
+> -	mmc_vcard: mmc_vcard {
+> +	vcc_3v3: vcc-3v3 {
+>   		compatible = "regulator-fixed";
+> -		regulator-name = "mmc_vcard";
+> -		regulator-min-microvolt = <3300000>;
+> -		regulator-max-microvolt = <3300000>;
+> -	};
+> -
+> -	vdd_dsi: vdd-dsi {
+> -		compatible = "regulator-fixed";
+> -		regulator-name = "vdd_dsi";
+> +		regulator-name = "vcc_3v3";
+>   		regulator-min-microvolt = <3300000>;
+>   		regulator-max-microvolt = <3300000>;
+>   	};
+> @@ -164,7 +157,7 @@ panel@0 {
+>   		compatible = "orisetech,otm8009a";
+>   		reg = <0>; /* dsi virtual channel (0..3) */
+>   		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
+> -		power-supply = <&vdd_dsi>;
+> +		power-supply = <&vcc_3v3>;
+>   		status = "okay";
+>   
+>   		port {
+> @@ -219,7 +212,7 @@ timer@2 {
+>   
+>   &sdio {
+>   	status = "okay";
+> -	vmmc-supply = <&mmc_vcard>;
+> +	vmmc-supply = <&vcc_3v3>;
+>   	cd-gpios = <&gpiog 2 GPIO_ACTIVE_LOW>;
+>   	broken-cd;
+>   	pinctrl-names = "default", "opendrain";
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5833862050547215350==--
