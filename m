@@ -2,34 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22AFC7A2034
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Sep 2023 15:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AF777A1E01
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Sep 2023 14:04:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2387C6B47F;
-	Fri, 15 Sep 2023 13:51:12 +0000 (UTC)
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E034C65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8C1DC6B462;
+	Fri, 15 Sep 2023 12:04:17 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED8E3C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Sep 2023 19:01:04 +0000 (UTC)
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
- id AF2EC92009C; Thu, 14 Sep 2023 21:01:01 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by angie.orcam.me.uk (Postfix) with ESMTP id A78F392009B;
- Thu, 14 Sep 2023 20:01:01 +0100 (BST)
-Date: Thu, 14 Sep 2023 20:01:01 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: John Ogness <john.ogness@linutronix.de>
-In-Reply-To: <20230914183831.587273-1-john.ogness@linutronix.de>
-Message-ID: <alpine.DEB.2.21.2309141959100.57368@angie.orcam.me.uk>
+ Fri, 15 Sep 2023 12:04:15 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1694779455;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=q3Ibg3p9cDagivhDktxq8eP8BYordpmk7hum3Axk04g=;
+ b=hfofoNUXRajtM0GjlTDL3S8uCPrZulnUAl3sDOuUPa5oy4jGgAgNbuoN9zq30CvsIMo6cQ
+ 76S8YLIyYmUWLWqXq+B6LailcKKqcikZGHOc4Erpeot3J8LvMzg2R6WVBIi3xzRwnUY395
+ pS/yCtuKAjRQXT0+x4oEIpQyUhpbeGdMECufG8cXCZoM+44lexmwXf4O2LHWyQ5xwYsTtI
+ hG+jNq5wP5koi7uiKsR8aQVs4cDip7FcG5dlrN7qOoLDiEan+8YKeUcutQq6RBBnllQ/za
+ F8F1a6fTyU+1T0L+VnAkTGdL1QBpNnEZDKqVeyezp0ZEm/31ANRktL+QyqAdKA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1694779455;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=q3Ibg3p9cDagivhDktxq8eP8BYordpmk7hum3Axk04g=;
+ b=XoGHAuaQljzpxY7rNPRk66q5CkUTImgsUWadAIDMEofDY3WaI6vm1ZUxH4Wc2bfKw2zqPJ
+ 9SjBirKXUrFTwlAA==
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>, John Ogness
+ <john.ogness@linutronix.de>
+In-Reply-To: <alpine.DEB.2.21.2309141959100.57368@angie.orcam.me.uk>
 References: <20230914183831.587273-1-john.ogness@linutronix.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <alpine.DEB.2.21.2309141959100.57368@angie.orcam.me.uk>
+Date: Fri, 15 Sep 2023 14:04:14 +0200
+Message-ID: <87il8b1w3l.ffs@tglx>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 15 Sep 2023 13:51:11 +0000
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
  linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
  Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
- Kevin Hilman <khilman@baylibre.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
  Hugo Villeneuve <hvilleneuve@dimonoff.com>,
  Christophe Leroy <christophe.leroy@csgroup.eu>,
  Hammer Hsieh <hammerh0314@gmail.com>, Jiamei Xie <jiamei.xie@arm.com>,
@@ -37,8 +53,7 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Thierry Reding <treding@nvidia.com>, Petr Mladek <pmladek@suse.com>,
  Arend van Spriel <arend.vanspriel@broadcom.com>,
  Sascha Hauer <s.hauer@pengutronix.de>, Nicholas Piggin <npiggin@gmail.com>,
- linux-unisoc@lists.infradead.org, Thomas Gleixner <tglx@linutronix.de>,
- Andrew Jeffery <andrew@aj.id.au>,
+ linux-unisoc@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Samuel Holland <samuel.holland@sifive.com>,
  Richard Genoud <richard.genoud@gmail.com>,
@@ -60,13 +75,14 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
  Michal Simek <michal.simek@amd.com>, Sherry Sun <sherry.sun@nxp.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, "David
+ S. Miller" <davem@davemloft.net>,
  Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
  Lukas Wunner <lukas@wunner.de>, Sergey Organov <sorganov@gmail.com>,
  Mukesh Ojha <quic_mojha@quicinc.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Pali =?utf-8?Q?Roh=C3=A1r?= <pali@kernel.org>,
  Lino Sanfilippo <l.sanfilippo@kunbus.com>, Tom Rix <trix@redhat.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
  Yuan Can <yuancan@huawei.com>, Isaac True <isaac.true@canonical.com>,
@@ -77,11 +93,11 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Shenwei Wang <shenwei.wang@nxp.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?utf-8?Q?J?= =?utf-8?Q?=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  linux-snps-arc@lists.infradead.org, Jacky Huang <ychuang3@nuvoton.com>,
  Arnd Bergmann <arnd@arndb.de>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
  Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
  Orson Zhai <orsonzhai@gmail.com>,
  Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
@@ -89,7 +105,7 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Thierry Reding <thierry.reding@gmail.com>, Sudeep Holla <sudeep.holla@arm.com>,
  Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
  Baruch Siach <baruch@tkos.co.il>, Tony Lindgren <tony@atomide.com>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Liviu Dudau <liviu.dudau@arm.com>, sparclinux@vger.kernel.org,
@@ -129,14 +145,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 14 Sep 2023, John Ogness wrote:
+On Thu, Sep 14 2023 at 20:01, Maciej W. Rozycki wrote:
 
-> Patches 2-74 switch all uart port locking call sites to use the new
-> wrappers. These patches were automatically generated using coccinelle.
+> On Thu, 14 Sep 2023, John Ogness wrote:
+>
+>> Patches 2-74 switch all uart port locking call sites to use the new
+>> wrappers. These patches were automatically generated using coccinelle.
+>
+>  Hmm, no need to do this for drivers/tty/serial/zs.c?
 
- Hmm, no need to do this for drivers/tty/serial/zs.c?
+zs.c does not use port lock at all. It has like a couple of other
+drivers a local homebrewn spinlock.
 
-  Maciej
+Thanks,
+
+        tglx
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
