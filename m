@@ -2,57 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5487A22B0
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Sep 2023 17:43:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E98757A2493
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Sep 2023 19:23:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A091C6B47C;
-	Fri, 15 Sep 2023 15:43:04 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE47EC6A5EF
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A9CEC6B47C;
+	Fri, 15 Sep 2023 17:23:48 +0000 (UTC)
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17797C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Sep 2023 15:43:02 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3C6A4B82CBF;
- Fri, 15 Sep 2023 15:43:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620ADC433C7;
- Fri, 15 Sep 2023 15:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694792581;
- bh=9bRj4OGDHZcWypcbZ6nrLnPTFGOMENS0AvkmhkVoxF0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=K4HmihmqyVuBI7ExjAGaEePXqlsxLyl0pyr7CY7q1/UigsvPNGqVIo4QlDeC3yvUX
- X/JN5TCdKnWoL1hVVy4NouqrfLZ7SDilBmkCRGokIfc2ZdpWb8V0DsEd2U6nzCVF4V
- /4NuE6QAjTGkDA99f1ZCYP+yVFCKRI34ceDSluxCSV7+rkVTBQl2TQjc55U+9wiowC
- 2zHHTM/arQemdTlgHn7QqEVzOKXlsSX0W2W20JTfNnbfKfBknsuXKMFDGqGkT8GUXF
- AxzoGkYisQPGKRABk5LuQBUb5lWl00q1NA23Wzmmu6sylV/riYdgBaiNZMZgsqNvva
- K9izqTNKNkIIQ==
-Received: (nullmailer pid 3773371 invoked by uid 1000);
- Fri, 15 Sep 2023 15:42:58 -0000
-Date: Fri, 15 Sep 2023 10:42:58 -0500
-From: Rob Herring <robh@kernel.org>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Message-ID: <20230915154258.GA3769303-robh@kernel.org>
-References: <20230915095417.1949-1-rohan.g.thomas@intel.com>
- <20230915095417.1949-2-rohan.g.thomas@intel.com>
+ Fri, 15 Sep 2023 17:23:47 +0000 (UTC)
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+ id 09EFA92009D; Fri, 15 Sep 2023 19:23:45 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by angie.orcam.me.uk (Postfix) with ESMTP id 03E9292009C;
+ Fri, 15 Sep 2023 18:23:44 +0100 (BST)
+Date: Fri, 15 Sep 2023 18:23:44 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Thomas Gleixner <tglx@linutronix.de>
+In-Reply-To: <87il8b1w3l.ffs@tglx>
+Message-ID: <alpine.DEB.2.21.2309151739290.57368@angie.orcam.me.uk>
+References: <20230914183831.587273-1-john.ogness@linutronix.de>
+ <alpine.DEB.2.21.2309141959100.57368@angie.orcam.me.uk> <87il8b1w3l.ffs@tglx>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230915095417.1949-2-rohan.g.thomas@intel.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- netdev@vger.kernel.org, fancer.lancer@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v6 1/2] dt-bindings: net: snps,
- dwmac: Tx coe unsupported
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Kevin Hilman <khilman@baylibre.com>,
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Hammer Hsieh <hammerh0314@gmail.com>, Jiamei Xie <jiamei.xie@arm.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Vineet Gupta <vgupta@kernel.org>,
+ Thierry Reding <treding@nvidia.com>, Petr Mladek <pmladek@suse.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Nicholas Piggin <npiggin@gmail.com>,
+ linux-unisoc@lists.infradead.org, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Richard Genoud <richard.genoud@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, Laxman Dewangan <ldewangan@nvidia.com>,
+ Dmitry Rokosov <ddrokosov@sberdevices.ru>,
+ Xiongfeng Wang <wangxiongfeng2@huawei.com>,
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>,
+ delisun <delisun@pateo.com.cn>, Fabio Estevam <festevam@gmail.com>,
+ Ruan Jinjie <ruanjinjie@huawei.com>,
+ Matthew Howell <matthew.howell@sealevel.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gabriel Somlo <gsomlo@gmail.com>,
+ Hongyu Xie <xiehongyu1@kylinos.cn>, Tobias Klauser <tklauser@distanz.ch>,
+ John Ogness <john.ogness@linutronix.de>, Yangtao Li <frank.li@vivo.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, linux-actions@lists.infradead.org,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, Sherry Sun <sherry.sun@nxp.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
+ Lukas Wunner <lukas@wunner.de>, Sergey Organov <sorganov@gmail.com>,
+ Mukesh Ojha <quic_mojha@quicinc.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ Lino Sanfilippo <l.sanfilippo@kunbus.com>, Tom Rix <trix@redhat.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
+ Yuan Can <yuancan@huawei.com>, Isaac True <isaac.true@canonical.com>,
+ linux-tegra@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ Rob Herring <robh@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+ Mateusz Holenko <mholenko@antmicro.com>, Kevin Cernekee <cernekee@gmail.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ linux-snps-arc@lists.infradead.org, Jacky Huang <ychuang3@nuvoton.com>,
+ Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
+ Timur Tabi <timur@kernel.org>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>, Sudeep Holla <sudeep.holla@arm.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ Baruch Siach <baruch@tkos.co.il>, Tony Lindgren <tony@atomide.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Liviu Dudau <liviu.dudau@arm.com>, sparclinux@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, linux-riscv@lists.infradead.org,
+ Marek Vasut <marex@denx.de>, Lech Perczak <lech.perczak@camlingroup.com>,
+ Russell King <linux@armlinux.org.uk>, Nick Hu <nick.hu@sifive.com>,
+ Andy Gross <agross@kernel.org>, linux-serial@vger.kernel.org,
+ Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Johan Hovold <johan@kernel.org>,
+ linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Taichi Sugaya <sugaya.taichi@socionext.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Lucas Tanure <tanure@linux.com>,
+ Andrew Davis <afd@ti.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Takao Orito <orito.takao@socionext.com>,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH tty v1 00/74] serial: wrappers for uart
+	port lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,40 +128,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 15, 2023 at 05:54:16PM +0800, Rohan G Thomas wrote:
-> Add dt-bindings for coe-unsupported property per tx queue.
+On Fri, 15 Sep 2023, Thomas Gleixner wrote:
 
-Why? (What every commit msg should answer)
-
+> >> Patches 2-74 switch all uart port locking call sites to use the new
+> >> wrappers. These patches were automatically generated using coccinelle.
+> >
+> >  Hmm, no need to do this for drivers/tty/serial/zs.c?
 > 
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
-> ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index ddf9522a5dc2..365e6cb73484 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -394,6 +394,9 @@ properties:
->                When a PFC frame is received with priorities matching the bitmask,
->                the queue is blocked from transmitting for the pause time specified
->                in the PFC frame.
+> zs.c does not use port lock at all. It has like a couple of other
+> drivers a local homebrewn spinlock.
 
-blank line needed
+ Ah, right, that's because there are registers shared between two ports 
+within one SCC, so the spinlock has to be shared as well.
 
-> +          snps,coe-unsupported:
-> +            type: boolean
-> +            description: TX checksum offload is unsupported by the TX queue.
+ This also indicates that dz.c is wrong and shouldn't be using a per-port 
+spinlock as the DZ has a shared register set between all the four ports 
+(it's a serial line multiplexer rather than a set discrete ports; up to 8 
+lines are architecturally supported, though we don't have support in Linux 
+for systems having those), e.g. there's only one 16-bit receiver buffer 
+register for all the four ports, supplying the 8-bit character received 
+along with the receive status and the number of the line this data arrived 
+on, and similarly there's only one transmit data register, which supplies 
+data to the next enabled line whose transmit buffer needs servicing, and 
+the chip routes the data itself.  Therefore the driver ought to use a 
+shared spinlock too.
 
-And here.
+ I guess it wasn't noticed so far because DZ devices aren't that common 
+(and my usual test machine is currently broken too, pending an SRAM chip 
+replacement, hopefully in the next few weeks) and then hardly ever more 
+than one serial line has been used at a time with these devices.  It looks 
+like the first issue for me to look into once the machine has been fixed.
 
->          allOf:
->            - if:
->                required:
-> -- 
-> 2.25.1
-> 
+ Maybe dz.c shouldn't be touched by this series then?  (Though obviously 
+both drivers will have to be eventually adapted for the ultimate console 
+rework.)
+
+ Thanks for your input, as it turns out it has had an unexpected outcome.
+
+  Maciej
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
