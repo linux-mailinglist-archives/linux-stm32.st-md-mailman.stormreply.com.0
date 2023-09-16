@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F1977A2E9B
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Sep 2023 10:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45C697A2EA1
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Sep 2023 10:12:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E251EC6B47C;
-	Sat, 16 Sep 2023 08:12:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09D94C6B47C;
+	Sat, 16 Sep 2023 08:12:08 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9819AC6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD240C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Sep 2023 08:11:59 +0000 (UTC)
+ Sat, 16 Sep 2023 08:12:06 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 1AB25CE1D31;
- Sat, 16 Sep 2023 08:11:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E41DC433CC;
- Sat, 16 Sep 2023 08:11:50 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 5F23BCE2C88;
+ Sat, 16 Sep 2023 08:12:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E3AC43391;
+ Sat, 16 Sep 2023 08:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694851916;
- bh=isFMv5J3rpOHLVDhhNbIoTnhkQjoG9ObXVsYmwnSTWs=;
+ s=k20201202; t=1694851923;
+ bh=QnUj2UcWjwSt/r3IooG168fCs/+hvc8TMJRfrlPuAhc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J8Dujy+CQpnn20jOp4hfFCrL0YMWPTrkPx9UkZC0mGwmsD581rKr8waQDUEiJymJM
- LF1FQ1gE9T6HbjfLot3zV+of7uE6E/pEmZ9eLTdV3CJ6W1rVeFDbNu9wEf4LCpNlUN
- 9apO353t7HkpmQ4zHf0TY1E4gYHIJZIEsqhGiSswJMKIOPKd4LQjrQZJ2kEVz/fGum
- SSwFsmFnB3mPyjZ0tLDDCwkHJYnY4Kg3JRc7wNCEoCtMDPXd+lYmfHqHZ6V4IDfirS
- D/heg3pY6tEx7VOuPsVmoSX4vsiblGAA9Wq9sKiQMW8/4qDX/ieAwK1znNJtQKn2ar
- y9xudAthRcg6A==
+ b=CzD1kc6YyYKRCxIo6So1taAA0DUd7gek1Y3uNl0Z2NgX/pa3f+ymKB2uPvloicRQb
+ lzwKMNpWXNCWSB+f0LUEFEK4ZF4blpGPX9fx558wrMhcL10muodo5lfLnE8jSPYyN3
+ XP/MAnsO/Ec5a67YaeQ9ofa1vQRlMs9SLJ5kQbB5IhbFGq2aW4TLqJa7y4D0gIzO7S
+ pvHWGsbbh8oWEhZgvG+hhctY8ZZRZqO1umeKhFeD2WA4l4LxwSN/Wmz+z0mCIPp2Xf
+ NDzO378fgWsjoU6boFTP5GZcD5js+6NhVVjF7i6diewBSkii96uIwkz5yTBcjfnuGT
+ AxywFClOptu6w==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -55,8 +55,8 @@ To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Russell King <linux@armlinux.org.uk>,
  Matthias Brugger <matthias.bgg@gmail.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Date: Sat, 16 Sep 2023 15:58:18 +0800
-Message-Id: <20230916075829.1560-13-jszhang@kernel.org>
+Date: Sat, 16 Sep 2023 15:58:19 +0800
+Message-Id: <20230916075829.1560-14-jszhang@kernel.org>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230916075829.1560-1-jszhang@kernel.org>
 References: <20230916075829.1560-1-jszhang@kernel.org>
@@ -65,8 +65,8 @@ Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 12/23] net: stmmac: dwmac-meson8b:
-	use devm_stmmac_probe_config_dt()
+Subject: [Linux-stm32] [PATCH net-next v2 13/23] net: stmmac: dwmac-rk: use
+	devm_stmmac_probe_config_dt()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,19 +86,16 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Simplify the driver's probe() function by using the devres
 variant of stmmac_probe_config_dt().
 
-The remove_new() callback now needs to be switched to
-stmmac_pltfr_remove_no_dt().
-
 Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 ---
- .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 55 ++++++-------------
- 1 file changed, 18 insertions(+), 37 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-index 0b159dc0d5f6..37f249980929 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-@@ -400,33 +400,27 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index d920a50dd16c..382e8de1255d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1824,7 +1824,7 @@ static int rk_gmac_probe(struct platform_device *pdev)
  	if (ret)
  		return ret;
  
@@ -107,111 +104,38 @@ index 0b159dc0d5f6..37f249980929 100644
  	if (IS_ERR(plat_dat))
  		return PTR_ERR(plat_dat);
  
- 	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
--	if (!dwmac) {
--		ret = -ENOMEM;
+@@ -1836,18 +1836,16 @@ static int rk_gmac_probe(struct platform_device *pdev)
+ 	plat_dat->fix_mac_speed = rk_fix_speed;
+ 
+ 	plat_dat->bsp_priv = rk_gmac_setup(pdev, plat_dat, data);
+-	if (IS_ERR(plat_dat->bsp_priv)) {
+-		ret = PTR_ERR(plat_dat->bsp_priv);
 -		goto err_remove_config_dt;
 -	}
-+	if (!dwmac)
-+		return -ENOMEM;
++	if (IS_ERR(plat_dat->bsp_priv))
++		return PTR_ERR(plat_dat->bsp_priv);
  
- 	dwmac->data = (const struct meson8b_dwmac_data *)
- 		of_device_get_match_data(&pdev->dev);
--	if (!dwmac->data) {
--		ret = -EINVAL;
--		goto err_remove_config_dt;
--	}
-+	if (!dwmac->data)
-+		return -EINVAL;
- 	dwmac->regs = devm_platform_ioremap_resource(pdev, 1);
--	if (IS_ERR(dwmac->regs)) {
--		ret = PTR_ERR(dwmac->regs);
--		goto err_remove_config_dt;
--	}
-+	if (IS_ERR(dwmac->regs))
-+		return PTR_ERR(dwmac->regs);
- 
- 	dwmac->dev = &pdev->dev;
- 	ret = of_get_phy_mode(pdev->dev.of_node, &dwmac->phy_mode);
- 	if (ret) {
- 		dev_err(&pdev->dev, "missing phy-mode property\n");
--		goto err_remove_config_dt;
-+		return ret;
- 	}
- 
- 	/* use 2ns as fallback since this value was previously hardcoded */
-@@ -448,53 +442,40 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
- 		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
- 			dev_err(dwmac->dev,
- 				"The RGMII RX delay range is 0..3000ps in 200ps steps");
--			ret = -EINVAL;
--			goto err_remove_config_dt;
-+			return -EINVAL;
- 		}
- 	} else {
- 		if (dwmac->rx_delay_ps != 0 && dwmac->rx_delay_ps != 2000) {
- 			dev_err(dwmac->dev,
- 				"The only allowed RGMII RX delays values are: 0ps, 2000ps");
--			ret = -EINVAL;
--			goto err_remove_config_dt;
-+			return -EINVAL;
- 		}
- 	}
- 
- 	dwmac->timing_adj_clk = devm_clk_get_optional(dwmac->dev,
- 						      "timing-adjustment");
--	if (IS_ERR(dwmac->timing_adj_clk)) {
--		ret = PTR_ERR(dwmac->timing_adj_clk);
--		goto err_remove_config_dt;
--	}
-+	if (IS_ERR(dwmac->timing_adj_clk))
-+		return PTR_ERR(dwmac->timing_adj_clk);
- 
- 	ret = meson8b_init_rgmii_delays(dwmac);
+ 	ret = rk_gmac_clk_init(plat_dat);
  	if (ret)
 -		goto err_remove_config_dt;
 +		return ret;
  
- 	ret = meson8b_init_rgmii_tx_clk(dwmac);
+ 	ret = rk_gmac_powerup(plat_dat->bsp_priv);
  	if (ret)
 -		goto err_remove_config_dt;
 +		return ret;
  
- 	ret = dwmac->data->set_phy_mode(dwmac);
+ 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
  	if (ret)
--		goto err_remove_config_dt;
-+		return ret;
+@@ -1857,8 +1855,6 @@ static int rk_gmac_probe(struct platform_device *pdev)
  
- 	ret = meson8b_init_prg_eth(dwmac);
- 	if (ret)
--		goto err_remove_config_dt;
-+		return ret;
- 
- 	plat_dat->bsp_priv = dwmac;
- 
--	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
--	if (ret)
--		goto err_remove_config_dt;
--
--	return 0;
--
+ err_gmac_powerdown:
+ 	rk_gmac_powerdown(plat_dat->bsp_priv);
 -err_remove_config_dt:
 -	stmmac_remove_config_dt(pdev, plat_dat);
--
--	return ret;
-+	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+ 
+ 	return ret;
  }
- 
- static const struct meson8b_dwmac_data meson8b_dwmac_data = {
-@@ -539,7 +520,7 @@ MODULE_DEVICE_TABLE(of, meson8b_dwmac_match);
- 
- static struct platform_driver meson8b_dwmac_driver = {
- 	.probe  = meson8b_dwmac_probe,
--	.remove_new = stmmac_pltfr_remove,
-+	.remove_new = stmmac_pltfr_remove_no_dt,
- 	.driver = {
- 		.name           = "meson8b-dwmac",
- 		.pm		= &stmmac_pltfr_pm_ops,
 -- 
 2.40.1
 
