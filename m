@@ -2,60 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D6B7A2E3A
-	for <lists+linux-stm32@lfdr.de>; Sat, 16 Sep 2023 08:33:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D6E7A2E87
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Sep 2023 10:10:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BB05C6B47C;
-	Sat, 16 Sep 2023 06:33:33 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C3FDC6B47C;
+	Sat, 16 Sep 2023 08:10:34 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F32E2C6B47C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CC44C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 16 Sep 2023 06:33:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694846012; x=1726382012;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dlwnheLHWrheCZf+0lnqyF5y1gAk0XJDuzApxL+C0IU=;
- b=TBllwcyhIdZ+NyiUfUXugXwLiE1T75avpMawxy3OPTbBgNBkKOR3qUTw
- kn9uPxQbKcWgHRhd2bWX7p7yDiX1CLj5VpaVcJJU56/hmFKsjHFo0v5v1
- EOgOiYMA3V7AkC2n8ZYgy3VvpMsTVbZXK0rP3iza0KXlKDCZB5jMfhTJ4
- azjWhuOun/2rmGIkyyFM8R4nxubRibq+cN+8tZT2uRCmG66Rw/GugAt+k
- GJuPmbj4r21kXCy4mxWlWorBhJXqm+tU14J/nzIXVp7TDqMqfZN5I1/bk
- McMZ3B+Z/SDwLdcfEbYuRRjjQ7cJpR+mooUtlHKCeXt2QtuoSUd2fKSWJ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="359637817"
-X-IronPort-AV: E=Sophos;i="6.02,151,1688454000"; d="scan'208";a="359637817"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 23:33:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="780351428"
-X-IronPort-AV: E=Sophos;i="6.02,151,1688454000"; d="scan'208";a="780351428"
-Received: from pglc00032.png.intel.com ([10.221.207.52])
- by orsmga001.jf.intel.com with ESMTP; 15 Sep 2023 23:33:27 -0700
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
+ Sat, 16 Sep 2023 08:10:32 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8F278608C0;
+ Sat, 16 Sep 2023 08:10:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE5EC433C8;
+ Sat, 16 Sep 2023 08:10:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694851830;
+ bh=Vn2DREJrAn8aRUxiz3WQryX63T4UuS6DU0+Ekb7wTm4=;
+ h=From:To:Cc:Subject:Date:From;
+ b=n/BOcYygBC0G4RcSGiatuCr/r8q4kLlIb9Oibd9j78tGln5AE7VUXlKzUGv3oZoNe
+ yZkB2iu0/WGky4eM/U3qo0reTujDlH0LCjfJd6NKB1BztVhzQc/jTLP9JhYsCVNGB5
+ xc4hpPrN4FPCFKfdktUEMdT46R/j6pjWt9Eisaw4JQOs3thUJmzZQY3nrgKSEzYShd
+ AGDnPuV4q97Ka6oajzo+OnYG8rEjS/kKyl1ZvnR/ff6K7djRnbTC01GhRabGmls9I2
+ ST6JK+dDTWDbGe6jr2DkerJrghE3QC2l+ErthmzjWKTak7ZhGHgAr479NyhLAZFLR8
+ QctLBFjj0spCQ==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, fancer.lancer@gmail.com
-Date: Sat, 16 Sep 2023 14:33:12 +0800
-Message-Id: <20230916063312.7011-3-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230916063312.7011-1-rohan.g.thomas@intel.com>
-References: <20230916063312.7011-1-rohan.g.thomas@intel.com>
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vladimir Zapolskiy <vz@mleia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Russell King <linux@armlinux.org.uk>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Date: Sat, 16 Sep 2023 15:58:06 +0800
+Message-Id: <20230916075829.1560-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v7 2/2] net: stmmac: Tx coe sw
-	fallback
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 00/22] convert to
+	devm_stmmac_probe_config_dt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,73 +81,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add sw fallback of tx checksum calculation for those tx queues that
-don't support tx checksum offloading. DW xGMAC IP can be synthesized
-such that it can support tx checksum offloading only for a few
-initial tx queues. Also as Serge pointed out, for the DW QoS IP, tx
-coe can be individually configured for each tx queue.
+Russell pointed out there's a new devm_stmmac_probe_config_dt()
+helper now when reviewing my starfive gmac error handling patch[1].
+After greping the code, this nice helper was introduced by Bartosz in
+[2], I think it's time to convert all dwmac users to this helper and
+finally complete the TODO in [2] "but once all users of the old
+stmmac_pltfr_remove() are converted to the devres helper, it will be
+renamed back to stmmac_pltfr_remove() and the no_dt function removed."
 
-So when tx coe is enabled, for any tx queue that doesn't support
-tx coe with 'coe-unsupported' flag set will have a sw fallback
-happen in the driver for tx checksum calculation when any packets to
-be transmitted on these tx queues.
+Link: https://lore.kernel.org/netdev/ZOtWmedBsa6wQQ6+@shell.armlinux.org.uk/ [1]
+Link: https://lore.kernel.org/all/20230623100417.93592-1-brgl@bgdev.pl/  [2]
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 10 ++++++++++
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c |  3 +++
- include/linux/stmmac.h                                |  1 +
- 3 files changed, 14 insertions(+)
+Since v1:
+ - rebase on new net-next
+ - add make stmmac_{probe|remove}_config_dt static as suggested by Russell.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 2206789802bf..9201ed778ebc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4401,6 +4401,16 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	WARN_ON(tx_q->tx_skbuff[first_entry]);
- 
- 	csum_insertion = (skb->ip_summed == CHECKSUM_PARTIAL);
-+	/* DWMAC IPs can be synthesized to support tx coe only for a few tx
-+	 * queues. In that case, checksum offloading for those queues that don't
-+	 * support tx coe needs to fallback to software checksum calculation.
-+	 */
-+	if (csum_insertion &&
-+	    priv->plat->tx_queues_cfg[queue].coe_unsupported) {
-+		if (unlikely(skb_checksum_help(skb)))
-+			goto dma_map_err;
-+		csum_insertion = !csum_insertion;
-+	}
- 
- 	if (likely(priv->extend_desc))
- 		desc = (struct dma_desc *)(tx_q->dma_etx + entry);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 0f28795e581c..a09014c9e7d0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -276,6 +276,9 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- 			plat->tx_queues_cfg[queue].use_prio = true;
- 		}
- 
-+		plat->tx_queues_cfg[queue].coe_unsupported =
-+			of_property_read_bool(q_node, "snps,coe-unsupported");
-+
- 		queue++;
- 	}
- 	if (queue != plat->tx_queues_to_use) {
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index ce89cc3e4913..c0079a7574ae 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -139,6 +139,7 @@ struct stmmac_rxq_cfg {
- 
- struct stmmac_txq_cfg {
- 	u32 weight;
-+	bool coe_unsupported;
- 	u8 mode_to_use;
- 	/* Credit Base Shaper parameters */
- 	u32 send_slope;
+Jisheng Zhang (23):
+  net: stmmac: dwmac-anarion: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-dwc-qos-eth: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-generic: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-generic: use devm_stmmac_pltfr_probe()
+  net: stmmac: dwmac-imx: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-ingenic: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-intel-plat: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-ipq806x: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-lpc18xx: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-mediatek: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-meson: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-meson8b: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-rk: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-socfpga: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-starfive: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-sti: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-stm32: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-sun8i: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-sunxi: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-tegra: use devm_stmmac_probe_config_dt()
+  net: stmmac: dwmac-visconti: use devm_stmmac_probe_config_dt()
+  net: stmmac: rename stmmac_pltfr_remove_no_dt to stmmac_pltfr_remove
+  net: stmmac: make stmmac_{probe|remove}_config_dt static
+
+ .../ethernet/stmicro/stmmac/dwmac-anarion.c   | 10 +--
+ .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 15 +---
+ .../ethernet/stmicro/stmmac/dwmac-generic.c   | 15 +---
+ .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 13 ++--
+ .../ethernet/stmicro/stmmac/dwmac-ingenic.c   | 33 +++------
+ .../stmicro/stmmac/dwmac-intel-plat.c         | 25 +++----
+ .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   | 27 +++----
+ .../ethernet/stmicro/stmmac/dwmac-lpc18xx.c   | 19 ++---
+ .../ethernet/stmicro/stmmac/dwmac-mediatek.c  |  6 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-meson.c | 25 ++-----
+ .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 53 +++++---------
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 14 ++--
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 16 ++---
+ .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 10 +--
+ .../net/ethernet/stmicro/stmmac/dwmac-sti.c   | 14 ++--
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 17 ++---
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  6 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-sunxi.c | 23 +++---
+ .../net/ethernet/stmicro/stmmac/dwmac-tegra.c | 10 ++-
+ .../ethernet/stmicro/stmmac/dwmac-visconti.c  | 18 ++---
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 70 ++++++-------------
+ .../ethernet/stmicro/stmmac/stmmac_platform.h |  5 --
+ 22 files changed, 127 insertions(+), 317 deletions(-)
+
 -- 
-2.25.1
+2.40.1
 
 _______________________________________________
 Linux-stm32 mailing list
