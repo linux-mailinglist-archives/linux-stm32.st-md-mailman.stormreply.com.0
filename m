@@ -2,98 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9417A3E6D
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 00:25:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A5697A3F03
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 02:35:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58E9EC6B477;
-	Sun, 17 Sep 2023 22:25:59 +0000 (UTC)
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B631FC6B477;
+	Mon, 18 Sep 2023 00:35:30 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22372C6B474
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A614C6B461
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Sep 2023 22:25:58 +0000 (UTC)
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 542913F185
+ Mon, 18 Sep 2023 00:35:29 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2bff776fe0bso18514831fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Sep 2023 22:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20210705; t=1694989556;
- bh=I9MD/frOYatXvnTs5iG7mBs2PH8/IlXgMFq6W02dlmo=;
- h=From:In-Reply-To:References:Mime-Version:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=NmQRKRhi0LohoPlWsC0Tzix0+bVD7BtHqObbtgxvQ/+GycprG3wYcIoMLZqE8AiqF
- k5oIzFDC0M+zXmVKJWGViVC+ZbXccz+sQRfqlMvdMRGxfWXdaP0Fnntn7DSfyDO1o6
- kqziQ/bOoIBUcT8160q880Hhkv07Dzz4A/pEicwM7CzSajWc2c5jZ9XL3znRlpk+LS
- U4Fwf/Ua60DpxiL0kyS1OmwQyA2r0/LoSPa1QKIP2TMa2dNm371Pia9Bohv/JrKTKu
- o38QfEE+s1bYz57xAULK0IN0heugS3zHgR2H8Nsi/LwLzSbkHkIIz9SizYX5aIebp2
- de38Fzd7zSxTw==
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-416695bd009so47572251cf.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Sep 2023 15:25:56 -0700 (PDT)
+ Sun, 17 Sep 2023 17:35:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1694997329; x=1695602129;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=GO29z9RignFFHbu12u74l94xcqtaPR4h8snHrNTAFJk=;
+ b=ZenQBGIPzMTx0rPVdSO8NY3q3ZmYykUHCjBjxtJTHD8VggbNBqEgnnHsprsDBDGAuk
+ Q13pZADiaZWqh/9SS8FsOqg9TgQZI9dCf6+uv+QAszPD6IYF+Gfx0sTyTy9rqGrq3vMp
+ Ij++KQHnLaeL878pptCrVya2S76Qq5oObpdYIyDQ+EAFPKPpsO0Qr/7C/dJwd5Hj7vE+
+ icnGvfL25VSpEMpuTQ6aNYecM+ssLtS0KArsnPR1q4ga2m9MO5osRpZWynS90QPZalkm
+ /LwaHKUHHBAgalGkHoMOwTl6vS6HQvYZM/ni2wEpqtB+xLw+8mYfWPmVYbY87kd2OjUX
+ X/1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694989555; x=1695594355;
- h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=I9MD/frOYatXvnTs5iG7mBs2PH8/IlXgMFq6W02dlmo=;
- b=LmV3qySqmgnTCqt1KYyQNKh9q1z9pnv/gX31z2Fa4aaR0FWtTsZVjnjmB2P0JrA18A
- p4jgueRM4WJ89T1VaWMEQEhxz8fN/lTMB4NRSanQSlw4qPTbxUpS5JuogyJ8bkSg4jJZ
- eFU6UdL9TsbBuTLOdgv+gctJ9Uf5kNGq62bB7SIG+Oji866SSk44ypC/mHBlinaTAU+m
- N0BWV33PGhrpNRHc6ED8cO3BrQOrEcg88yPnUZ62ilaVViQzpLqm3N6cJ0mwVnyMYP/9
- 6YuoUYKePGO8DEOOVNh32DdKVGkjjOuxNhLP08c/7hz3+xqM521xHR8xQlZdSyjOAVaI
- 4HWw==
-X-Gm-Message-State: AOJu0Yyx1fSPxq85OEWmypCzpyTQAttkU0qGg8aZzf3YNitUiox45F7A
- 8+VeylRNEZAF6lbiCcTEHWjvIsPr1sbiUSNICpIalVd5x8Jgg79Mnpe9cV826gzGlLpc2Gt86nU
- VrLwHikxnTZ202BPGd3VsY5xqSsPzNJ3FXSA14kVP/JCZajsK/0/ncA6GzXRpFdySpp29PwHpMQ
- ==
-X-Received: by 2002:ac8:7f91:0:b0:416:db70:2653 with SMTP id
- z17-20020ac87f91000000b00416db702653mr8876088qtj.38.1694989555284; 
- Sun, 17 Sep 2023 15:25:55 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IFezqxmfqtGhS2FxPCsYpubnTNK6tACbhkhYR/40Y08aycFwHOLWJhOoCYZSF3ud4i1i0EL+r/CXjLeOYzof7Y=
-X-Received: by 2002:ac8:7f91:0:b0:416:db70:2653 with SMTP id
- z17-20020ac87f91000000b00416db702653mr8876059qtj.38.1694989554976; Sun, 17
- Sep 2023 15:25:54 -0700 (PDT)
-Received: from 348282803490 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 17 Sep 2023 15:25:54 -0700
-From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
-In-Reply-To: <20230916075829.1560-1-jszhang@kernel.org>
-References: <20230916075829.1560-1-jszhang@kernel.org>
-Mime-Version: 1.0
-Date: Sun, 17 Sep 2023 15:25:54 -0700
-Message-ID: <CAJM55Z-_yq3DrOC2KxQf8j5y_iDD7ejEReP4XajUz74iVp02LQ@mail.gmail.com>
-To: Jisheng Zhang <jszhang@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, 
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>, 
- Vladimir Zapolskiy <vz@mleia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Emil Renner Berthing <kernel@esmil.dk>, 
- Samin Guo <samin.guo@starfivetech.com>, Chen-Yu Tsai <wens@csie.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
- Thierry Reding <thierry.reding@gmail.com>, 
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- Russell King <linux@armlinux.org.uk>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ d=1e100.net; s=20230601; t=1694997329; x=1695602129;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=GO29z9RignFFHbu12u74l94xcqtaPR4h8snHrNTAFJk=;
+ b=WqURjaAb7N0yZkEK7iduKW3m6mqHs3enZ5cZAkcBrmcA2VKMuH8+hLhoYJOU4KSXOs
+ 3aCG+1Dix9jRJcSq5sf++H6sDLqTN4CT/UKNC/vxRA7ksofXXydDysxgpbiKMy5JjC5f
+ ddpe4t2f13mXjSTxCjlgxA4QrZ1MlJ/3bMZK8pMxIFYebpl97Kv+koF9DSyXr3aolZGS
+ PU0m2Y1G0PO1ps36xB4kzCPl3zv6HzRAnIHi9c1LsRWaStT9w8YGRG+kUqdidfGXtMge
+ nhRDYbb0n2g43CrFeiYOAST5v69qS+R3IXYsugBDSlEO/f+EoYEQLXo8N0lV5K8WkXr0
+ cyZA==
+X-Gm-Message-State: AOJu0YxyntkKeDEZ1DC7rezr75QS9RUUVD+yA2nKAaeaAubb8+qVkmfW
+ 93Kjpfl4/Ap8WKIsyXDiV1o=
+X-Google-Smtp-Source: AGHT+IHkmIWAA/lVu0Etf2C/gw42g2+fX5kkwfLGMnZ4J9YEoGLPFjeL6R3F/+OLnmA4s3CwzJ7xeA==
+X-Received: by 2002:a05:651c:2115:b0:2bf:df8c:4e56 with SMTP id
+ a21-20020a05651c211500b002bfdf8c4e56mr7212908ljq.39.1694997328320; 
+ Sun, 17 Sep 2023 17:35:28 -0700 (PDT)
+Received: from mobilestation ([95.79.219.206])
+ by smtp.gmail.com with ESMTPSA id
+ y14-20020a05651c154e00b002bff5d46b4csm844737ljp.16.2023.09.17.17.35.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 Sep 2023 17:35:27 -0700 (PDT)
+Date: Mon, 18 Sep 2023 03:35:25 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Rohan G Thomas <rohan.g.thomas@intel.com>
+Message-ID: <vvgo2wqc66neeapl64g7io7abjfainjgaqb4v3rvxn7bomkwbt@jdlbs6uzfgvh>
+References: <20230916063312.7011-1-rohan.g.thomas@intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20230916063312.7011-1-rohan.g.thomas@intel.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ netdev@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/22] convert to
-	devm_stmmac_probe_config_dt
+Subject: Re: [Linux-stm32] [PATCH net-next v7 0/2] net: stmmac: Tx coe sw
+	fallback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,78 +88,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Jisheng Zhang wrote:
-> Russell pointed out there's a new devm_stmmac_probe_config_dt()
-> helper now when reviewing my starfive gmac error handling patch[1].
-> After greping the code, this nice helper was introduced by Bartosz in
-> [2], I think it's time to convert all dwmac users to this helper and
-> finally complete the TODO in [2] "but once all users of the old
-> stmmac_pltfr_remove() are converted to the devres helper, it will be
-> renamed back to stmmac_pltfr_remove() and the no_dt function removed."
+On Sat, Sep 16, 2023 at 02:33:10PM +0800, Rohan G Thomas wrote:
+> Hi,
+> DW xGMAC IP can be synthesized such that it can support tx checksum
+> offloading only for a few initial tx queues. Also as Serge pointed
+> out, for the DW QoS IP, tx coe can be individually configured for
+> each tx queue. This patchset adds support for tx coe sw fallback for
+> those queues that don't support tx coe. Also, add binding for
+> snps,coe-unsupported property.
 
-Thanks for doing this.
+The series looks good to me. Thanks!
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
-Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+-Serge(y)
 
->
-> Link: https://lore.kernel.org/netdev/ZOtWmedBsa6wQQ6+@shell.armlinux.org.uk/ [1]
-> Link: https://lore.kernel.org/all/20230623100417.93592-1-brgl@bgdev.pl/  [2]
->
-> Since v1:
->  - rebase on new net-next
->  - add make stmmac_{probe|remove}_config_dt static as suggested by Russell.
->
-> Jisheng Zhang (23):
->   net: stmmac: dwmac-anarion: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-dwc-qos-eth: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-generic: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-generic: use devm_stmmac_pltfr_probe()
->   net: stmmac: dwmac-imx: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-ingenic: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-intel-plat: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-ipq806x: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-lpc18xx: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-mediatek: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-meson: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-meson8b: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-rk: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-socfpga: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-starfive: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-sti: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-stm32: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-sun8i: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-sunxi: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-tegra: use devm_stmmac_probe_config_dt()
->   net: stmmac: dwmac-visconti: use devm_stmmac_probe_config_dt()
->   net: stmmac: rename stmmac_pltfr_remove_no_dt to stmmac_pltfr_remove
->   net: stmmac: make stmmac_{probe|remove}_config_dt static
->
->  .../ethernet/stmicro/stmmac/dwmac-anarion.c   | 10 +--
->  .../stmicro/stmmac/dwmac-dwc-qos-eth.c        | 15 +---
->  .../ethernet/stmicro/stmmac/dwmac-generic.c   | 15 +---
->  .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 13 ++--
->  .../ethernet/stmicro/stmmac/dwmac-ingenic.c   | 33 +++------
->  .../stmicro/stmmac/dwmac-intel-plat.c         | 25 +++----
->  .../ethernet/stmicro/stmmac/dwmac-ipq806x.c   | 27 +++----
->  .../ethernet/stmicro/stmmac/dwmac-lpc18xx.c   | 19 ++---
->  .../ethernet/stmicro/stmmac/dwmac-mediatek.c  |  6 +-
->  .../net/ethernet/stmicro/stmmac/dwmac-meson.c | 25 ++-----
->  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 53 +++++---------
->  .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 14 ++--
->  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 16 ++---
->  .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 10 +--
->  .../net/ethernet/stmicro/stmmac/dwmac-sti.c   | 14 ++--
->  .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 17 ++---
->  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  6 +-
->  .../net/ethernet/stmicro/stmmac/dwmac-sunxi.c | 23 +++---
->  .../net/ethernet/stmicro/stmmac/dwmac-tegra.c | 10 ++-
->  .../ethernet/stmicro/stmmac/dwmac-visconti.c  | 18 ++---
->  .../ethernet/stmicro/stmmac/stmmac_platform.c | 70 ++++++-------------
->  .../ethernet/stmicro/stmmac/stmmac_platform.h |  5 --
->  22 files changed, 127 insertions(+), 317 deletions(-)
->
-> --
-> 2.40.1
+> 
+> changelog v7:
+> * Updated commit message.
+> * Add blank lines around newly added dt binding.
+> 
+> changelog v6:
+> * Reworked patchset to cover DW QoS Ethernet IP also.
+> 
+> changelog v5:
+> * As rightly suggested by Serge, reworked redundant code.
+> 
+> changelog v4: 
+> * Replaced tx_q_coe_lmt with bit flag.
+> 
+> changelog v3: 
+> * Resend with complete email list.
+> 
+> changelog v2: 
+> * Reformed binding description.
+> * Minor grammatical corrections in comments and commit messages.
+> 
+> Rohan G Thomas (2):
+>   dt-bindings: net: snps,dwmac: Tx coe unsupported
+>   net: stmmac: Tx coe sw fallback
+> 
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml |  5 +++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c     | 10 ++++++++++
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c |  3 +++
+>  include/linux/stmmac.h                                |  1 +
+>  4 files changed, 19 insertions(+)
+> 
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
