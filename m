@@ -2,43 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D2D7A4489
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 10:23:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 216FF7A4495
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 10:26:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99D08C6B46F;
-	Mon, 18 Sep 2023 08:23:43 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0A2CC6B46F;
+	Mon, 18 Sep 2023 08:26:46 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0151C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49F01C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Sep 2023 08:23:42 +0000 (UTC)
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1695025421;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vbS9QPc1Pl8aynK4QW1lmF6vjAQ0ZTxsQY3l4MyK258=;
- b=I/zxI14CZHZrII9ihm3trQ7fyyqM9MBHlADU5jK/WCz0qmJ7qdh/gVp7MrHnT76kGCn2OS
- thbrjm+5/p0AUL3k3y0Me+t3WXGfgewtHVa3jLT3mQIW+uh19uaZJo4dDuuzTnKNH9gxbv
- YqECxqsZmXE12Rs6n3pfqikyRNI02rXD922Wk1RsqzmyFP2Q/TQ0JlDB7tNnIb53lXVkEi
- CufhfKqHdPXTBi4P4Wa/XMaoZh4D9DvciGhluoUsXp5UvHxZKk2LWwPbB1vTfE61jrJ00V
- Ogro8L9qiUNaoDXe+9b8RHsC1EhXb9nWyWvagEl9+oWqRYTCu3Dz/+VCPP0L6A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1695025421;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=vbS9QPc1Pl8aynK4QW1lmF6vjAQ0ZTxsQY3l4MyK258=;
- b=ZRHDOxKys82eUfF3vL0yjr3X8TEhFmzqT0RH/vdzReXsYMA0wfYIhUsDDRhUJ++sGu6dag
- f4crLl8OAPE2xoBw==
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-In-Reply-To: <20230914183831.587273-1-john.ogness@linutronix.de>
+ Mon, 18 Sep 2023 08:26:45 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E281160FF6;
+ Mon, 18 Sep 2023 08:26:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1362EC433C7;
+ Mon, 18 Sep 2023 08:26:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1695025603;
+ bh=sMXA/6fEari6gFcvN4K1t3oFk4UFIEvXkCv0bTqIj5w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Z2XvmWcozWHkSw/N8sb8Ry+NwN7vHjaQPDv3sxyalk6XldCahUkcj1cgGARw0kkHz
+ yKR/pNFJ9fM2gO4iQ63iJwfyjudX+nJreWAHWO/Y0KD87L4PsdK8/ClAb9aCu4qrBz
+ XIHRzKPc76RORYHeobe15Z6xsHb2TSzbLBEp9zlA=
+Date: Mon, 18 Sep 2023 10:26:38 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: John Ogness <john.ogness@linutronix.de>
+Message-ID: <2023091826-seventy-opium-17b8@gregkh>
 References: <20230914183831.587273-1-john.ogness@linutronix.de>
-Date: Mon, 18 Sep 2023 10:29:30 +0206
-Message-ID: <87y1h3lwjh.fsf@jogness.linutronix.de>
+ <87y1h3lwjh.fsf@jogness.linutronix.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <87y1h3lwjh.fsf@jogness.linutronix.de>
 Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Alim Akhtar <alim.akhtar@samsung.com>, Peter Korsgaard <jacmet@sunsite.dk>,
  linux-stm32@st-md-mailman.stormreply.com, Karol Gugala <kgugala@antmicro.com>,
@@ -74,14 +72,13 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
  Michal Simek <michal.simek@amd.com>, Sherry Sun <sherry.sun@nxp.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, "David
- S. Miller" <davem@davemloft.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, "David S. Miller" <davem@davemloft.net>,
  Kumaravel Thiagarajan <kumaravel.thiagarajan@microchip.com>,
  Lukas Wunner <lukas@wunner.de>, Sergey Organov <sorganov@gmail.com>,
  Mukesh Ojha <quic_mojha@quicinc.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Michael Ellerman <mpe@ellerman.id.au>,
- Pali =?utf-8?Q?Roh=C3=A1r?= <pali@kernel.org>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
  Lino Sanfilippo <l.sanfilippo@kunbus.com>, Tom Rix <trix@redhat.com>,
  Lorenzo Pieralisi <lpieralisi@kernel.org>, Al Cooper <alcooperx@gmail.com>,
  Yuan Can <yuancan@huawei.com>, Isaac True <isaac.true@canonical.com>,
@@ -92,11 +89,11 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Shenwei Wang <shenwei.wang@nxp.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
  Joel Stanley <joel@jms.id.au>, Chen-Yu Tsai <wenst@chromium.org>,
- Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  linux-snps-arc@lists.infradead.org, Jacky Huang <ychuang3@nuvoton.com>,
  Arnd Bergmann <arnd@arndb.de>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
  Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
  Orson Zhai <orsonzhai@gmail.com>,
  Tharun Kumar P <tharunkumar.pasumarthi@microchip.com>,
@@ -104,7 +101,7 @@ Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Thierry Reding <thierry.reding@gmail.com>, Sudeep Holla <sudeep.holla@arm.com>,
  Shawn Guo <shawnguo@kernel.org>,
- Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
  Baruch Siach <baruch@tkos.co.il>, Tony Lindgren <tony@atomide.com>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Liviu Dudau <liviu.dudau@arm.com>, sparclinux@vger.kernel.org,
@@ -144,19 +141,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2023-09-14, John Ogness <john.ogness@linutronix.de> wrote:
-> Provide and use wrapper functions for spin_[un]lock*(port->lock)
-> invocations so that the console mechanics can be applied later on at a
-> single place and does not require to copy the same logic all over the
-> drivers.
+On Mon, Sep 18, 2023 at 10:29:30AM +0206, John Ogness wrote:
+> On 2023-09-14, John Ogness <john.ogness@linutronix.de> wrote:
+> > Provide and use wrapper functions for spin_[un]lock*(port->lock)
+> > invocations so that the console mechanics can be applied later on at a
+> > single place and does not require to copy the same logic all over the
+> > drivers.
+> 
+> For the full 74-patch series:
+> 
+> Signed-off-by: John Ogness <john.ogness@linutronix.de>
+> 
+> Sorry that my SoB was missing from the initial posting.
 
-For the full 74-patch series:
+Thanks for this, I'll rebuild my tree with this added.
 
-Signed-off-by: John Ogness <john.ogness@linutronix.de>
-
-Sorry that my SoB was missing from the initial posting.
-
-John Ogness
+greg k-h
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
