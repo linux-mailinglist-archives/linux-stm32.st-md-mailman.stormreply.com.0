@@ -2,55 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B0C17A4751
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 12:40:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D97E7A48BE
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Sep 2023 13:50:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F524C6B46F;
-	Mon, 18 Sep 2023 10:40:30 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4849C6B45B;
+	Mon, 18 Sep 2023 11:50:32 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31A0CC6A5F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCC37C6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Sep 2023 10:40:28 +0000 (UTC)
+ Mon, 18 Sep 2023 11:50:31 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 97D5ECE0DFE;
- Mon, 18 Sep 2023 10:40:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CB70CC433CA;
- Mon, 18 Sep 2023 10:40:23 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 46CD0B80DE3;
+ Mon, 18 Sep 2023 11:50:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CAD37C433C7;
+ Mon, 18 Sep 2023 11:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695033623;
- bh=/rpJw4blscres1SH9Zd4BIBgxuOh6y7bC27y4ZB68YQ=;
+ s=k20201202; t=1695037829;
+ bh=oT5snbuM6TfIDJhxJsWR/PSxNRbw+iiiuFc7Xp3a8+I=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=gJI1peO3zt+gO8WpdZdzPjd7qONwLmBJkn2VIBjA8c9ZURKJdkTPJG9ltqIjaMnu2
- G5s4tFd6+vHj5+Rw8kIfNrXjCnq26QpSkBQIiKywS5RaIx2CWTiAVOaKNwrme3J7cP
- qTaZJHQ34x9oWnwBwmMAqBpHuZ/vqzCMKd1L5HxczrVyEMfCPH4Iiz0hiwLcEveQIw
- NRKViL1DFyJGebuhWdfycZ4LYwdytBEOY17EtP6MPYqj2USFfdkop1nM/uu+864HUg
- YM8p9mJc22GWhCnl4/ZxqCyiGWHjouvBGM2MGxkzhqWUDoi/sFTiwijQsEimU0qcPy
- 2ZUBY7C9oq5OQ==
+ b=uZ7FGpqOOOW4QGMAG4E31OhORIcesAUkf7+AMd+dsPzh46DiEGuFjAIIhigCjpVJL
+ DwbZLMUVDePIq6nrbjOfTbzXtettFFgIyY2rnnqxkUb/zAQgp+ndayV41JWxb1zLMo
+ AbI3ombnz9obEikffx68Z0fVqGGNkZQKYCDV1P39O8JxfbAfmD/97IyEGrtWpqGfsP
+ 5sR9Uc4vWEZJBRM/S+0t5Q8N7s9KRKP6pCpKx6h60qwQV1CKH3ulLO4OQM8TnaNqdb
+ K5zs590+yp6+YrY9ggF3Ph/91j0zolaKDFIYLi5JTOTbhB+mIXrp/jkzKzlYTTCB0Q
+ EXB1uzYcbpgnw==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- B3867E11F41; Mon, 18 Sep 2023 10:40:23 +0000 (UTC)
+ B4871E11F41; Mon, 18 Sep 2023 11:50:29 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169503362373.26042.16292520553887987397.git-patchwork-notify@kernel.org>
-Date: Mon, 18 Sep 2023 10:40:23 +0000
-References: <20230916063312.7011-1-rohan.g.thomas@intel.com>
-In-Reply-To: <20230916063312.7011-1-rohan.g.thomas@intel.com>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
- netdev@vger.kernel.org, robh+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, fancer.lancer@gmail.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v7 0/2] net: stmmac: Tx coe sw
-	fallback
+Message-Id: <169503782973.2272.13506822186977436052.git-patchwork-notify@kernel.org>
+Date: Mon, 18 Sep 2023 11:50:29 +0000
+References: <20230916075829.1560-1-jszhang@kernel.org>
+In-Reply-To: <20230916075829.1560-1-jszhang@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: kernel@esmil.dk, linux-tegra@vger.kernel.org, edumazet@google.com,
+ thierry.reding@gmail.com, linux-amlogic@lists.infradead.org,
+ nobuhiro1.iwamatsu@toshiba.co.jp, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ samuel@sholland.org, khilman@baylibre.com, linux@armlinux.org.uk,
+ jernej.skrabec@gmail.com, wens@csie.org, joabreu@synopsys.com,
+ samin.guo@starfivetech.com, linux-imx@nxp.com, kuba@kernel.org,
+ pabeni@redhat.com, linux-sunxi@lists.linux.dev, mcoquelin.stm32@gmail.com,
+ martin.blumenstingl@googlemail.com, s.hauer@pengutronix.de, vz@mleia.com,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ peppe.cavallaro@st.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com, neil.armstrong@linaro.org,
+ netdev@vger.kernel.org, kernel@pengutronix.de, shawnguo@kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/22] convert to
+	devm_stmmac_probe_config_dt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,22 +79,64 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by David S. Miller <davem@davemloft.net>:
 
-On Sat, 16 Sep 2023 14:33:10 +0800 you wrote:
-> Hi,
-> DW xGMAC IP can be synthesized such that it can support tx checksum
-> offloading only for a few initial tx queues. Also as Serge pointed
-> out, for the DW QoS IP, tx coe can be individually configured for
-> each tx queue. This patchset adds support for tx coe sw fallback for
-> those queues that don't support tx coe. Also, add binding for
-> snps,coe-unsupported property.
+On Sat, 16 Sep 2023 15:58:06 +0800 you wrote:
+> Russell pointed out there's a new devm_stmmac_probe_config_dt()
+> helper now when reviewing my starfive gmac error handling patch[1].
+> After greping the code, this nice helper was introduced by Bartosz in
+> [2], I think it's time to convert all dwmac users to this helper and
+> finally complete the TODO in [2] "but once all users of the old
+> stmmac_pltfr_remove() are converted to the devres helper, it will be
+> renamed back to stmmac_pltfr_remove() and the no_dt function removed."
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v7,1/2] dt-bindings: net: snps,dwmac: Tx coe unsupported
-    https://git.kernel.org/netdev/net-next/c/6fb8c20a04be
-  - [net-next,v7,2/2] net: stmmac: Tx coe sw fallback
-    https://git.kernel.org/netdev/net-next/c/8452a05b2c63
+  - [net-next,v2,01/23] net: stmmac: dwmac-anarion: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/6f799fd9dda7
+  - [net-next,v2,02/23] net: stmmac: dwmac-dwc-qos-eth: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/0485825dd6a8
+  - [net-next,v2,03/23] net: stmmac: dwmac-generic: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/d53b19d2a1a8
+  - [net-next,v2,04/23] net: stmmac: dwmac-generic: use devm_stmmac_pltfr_probe()
+    https://git.kernel.org/netdev/net-next/c/14ec0fc582c5
+  - [net-next,v2,05/23] net: stmmac: dwmac-imx: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/115c9248b19b
+  - [net-next,v2,06/23] net: stmmac: dwmac-ingenic: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/6bb53b2abf30
+  - [net-next,v2,07/23] net: stmmac: dwmac-intel-plat: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/abea8fd5e801
+  - [net-next,v2,08/23] net: stmmac: dwmac-ipq806x: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/72ab86c27d4e
+  - [net-next,v2,09/23] net: stmmac: dwmac-lpc18xx: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/d30c08a3b001
+  - [net-next,v2,10/23] net: stmmac: dwmac-mediatek: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/d7209c056a49
+  - [net-next,v2,11/23] net: stmmac: dwmac-meson: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/780b63ae208e
+  - [net-next,v2,12/23] net: stmmac: dwmac-meson8b: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/551022d680ec
+  - [net-next,v2,13/23] net: stmmac: dwmac-rk: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/8eee20e10d6f
+  - [net-next,v2,14/23] net: stmmac: dwmac-socfpga: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/9086d3f2b560
+  - [net-next,v2,15/23] net: stmmac: dwmac-starfive: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/6d6c11937359
+  - [net-next,v2,16/23] net: stmmac: dwmac-sti: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/c9445e0bd729
+  - [net-next,v2,17/23] net: stmmac: dwmac-stm32: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/373845154618
+  - [net-next,v2,18/23] net: stmmac: dwmac-sun8i: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/9bdf6909877c
+  - [net-next,v2,19/23] net: stmmac: dwmac-sunxi: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/291595337626
+  - [net-next,v2,20/23] net: stmmac: dwmac-tegra: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/acf73ccff08e
+  - [net-next,v2,21/23] net: stmmac: dwmac-visconti: use devm_stmmac_probe_config_dt()
+    https://git.kernel.org/netdev/net-next/c/d336a117b593
+  - [net-next,v2,22/23] net: stmmac: rename stmmac_pltfr_remove_no_dt to stmmac_pltfr_remove
+    https://git.kernel.org/netdev/net-next/c/2c9fc838067b
+  - [net-next,v2,23/23] net: stmmac: make stmmac_{probe|remove}_config_dt static
+    https://git.kernel.org/netdev/net-next/c/b2504f649bda
 
 You are awesome, thank you!
 -- 
