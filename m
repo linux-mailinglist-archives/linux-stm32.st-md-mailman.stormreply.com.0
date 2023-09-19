@@ -2,47 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C4097A5981
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Sep 2023 07:45:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 786377A5CB4
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Sep 2023 10:36:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1B03C6B477;
-	Tue, 19 Sep 2023 05:45:22 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp-29.smtpout.orange.fr
- [80.12.242.29])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22600C6C821;
+	Tue, 19 Sep 2023 08:36:15 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E42CC6B46F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BE06C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Sep 2023 05:45:22 +0000 (UTC)
-Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
- id iTY0qaEMmvRSUiTY0qPDf2; Tue, 19 Sep 2023 07:45:22 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1695102322;
- bh=+ONgWObKo5NbEUwKbwWBJxWXXFQ2LXOOuOi9XpmUiLY=;
- h=From:To:Cc:Subject:Date;
- b=Pr7fg7BKwrXGBU+UQzw7eYkyx/PDNBvtoAkngAPPXsLhm1ZpxMCssQ0iEcTs1lWYN
- zj+tiAENj5aXaJsXeKuGmwLGwwoWugDJGb7B1sxlGby9lVix2TywjY7YKqpTsCQdDa
- 3Ho52N59jy9PTrCgkT3MpkmiNa41MSddiR5ihCz2xvolvYvnqxpOCK8+gheKZ/AyDg
- CREPMv9VDynsYCg3MEsJFIQcnCzIrUmyuvys0dDm/126g1NhPP/O7iwhIUjYR/oh3s
- tltzUHzsciDykl9nQkIR/DUqsdYaxKy3ws3a1oQ1iKySVcOgl5ksnlE8KBGyYaFymR
- 49X7bCNOOqgkA==
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Tue, 19 Sep 2023 07:45:22 +0200
-X-ME-IP: 86.243.2.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Tue, 19 Sep 2023 07:45:19 +0200
-Message-Id: <b8fccac27d1ab1eb78525e12616b9279687cc27e.1695102301.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
+ Tue, 19 Sep 2023 08:36:13 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2bcb50e194dso85319091fa.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Sep 2023 01:36:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1695112572; x=1695717372;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=N5NhVCKkYOu64uwVPHARrnvpzesl8pDt3ArYQZAwDH4=;
+ b=LydedOg9XbLOm5N07hycWib7q1IJi4v5z3lUnh1izvQ8iDjI88P4huTUjZxyDVRcrC
+ 5oGMapNk9z4YdVqpa80HChijwlxJ3svdpLLZ65jPmTqgFSeOrZVQLaJgbmYh17pzc/9u
+ zrxhxY/OP57Gby5iQGBzCWwPVnyS/uPbQptL/48LupIaOLGNIcrOiH27ZiuxHf7tEjSP
+ j8IHCHhU3nxogP2JxYosb5GlTrAqLQvU0diNxgbT/CIGYWCcOPnZdpXU681OtvrCjfGl
+ vhT5mqskIcXyr2WYq2HboXBk81kH/1QW28BB7SOIGQEAUvdE3xUz/WYoZPyCu3Px3a0m
+ QNIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695112572; x=1695717372;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=N5NhVCKkYOu64uwVPHARrnvpzesl8pDt3ArYQZAwDH4=;
+ b=WfTze+4G7/yjpzIKUbTG6WdvujT+5hb1DntRxv+pkdZqMTolNiVBG1TB6cIQ/RyNBO
+ mnYbzd0GDOfsYxWcQaz7DXCCCksZzBUtnYf5XezLY3s+ViZNjKOQgzJiog2yfz+17wRG
+ +f21QINfk2VwcNor9iI4lYMrwTY8cWDHA+++dsVyrokJF9pMVJ7c62+OsW9Z1PkGFhnz
+ rnf9/T57kqh3tDpXzBLpQs9+Y2evdtszREbKLsUeu/rWgfM93e5LplKSpFAgvIeGWg77
+ qyqsRtqb44vkfgaL7BNqy5rWAysFlHXlPQOTYlbpb2TLGDjbQIE2aU0cn4B7ZSzV6D7C
+ O8zQ==
+X-Gm-Message-State: AOJu0YzZ/HVv1ax9jscmHlPL221xWRNdr26L7JZJdqPLS2xxzQLyiGWq
+ DrN0KQyDY9qk9h1xHx6oE9u7zMOElU183AWh
+X-Google-Smtp-Source: AGHT+IHdGGsaZuZKGb51rVUdXj/Ben++8s/lC0j6WlJ58HaRtIyBR8ilVWoP+LrufSQJ2BIcaBFRcg==
+X-Received: by 2002:a2e:781a:0:b0:2bb:985f:8479 with SMTP id
+ t26-20020a2e781a000000b002bb985f8479mr8944877ljc.48.1695112572019; 
+ Tue, 19 Sep 2023 01:36:12 -0700 (PDT)
+Received: from localhost.localdomain ([188.243.23.53])
+ by smtp.gmail.com with ESMTPSA id
+ f22-20020a2ea0d6000000b002bcd992d006sm2502774ljm.87.2023.09.19.01.36.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Sep 2023 01:36:11 -0700 (PDT)
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 19 Sep 2023 11:35:52 +0300
+Message-Id: <20230919083553.35981-1-eagle.alexander923@gmail.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] stm class: Use memdup_user_nul() to simplify
-	stm_char_policy_set_ioctl()
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexander Shiyan <eagle.alexander923@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 1/2] dt-bindings: stm32: document
+	MYD-YA151C-T development board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,44 +82,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Instead of hand-writing kzalloc(size+1) + copy_from_user(size), use
-memdup_user_nul() that does the same with a few less lines of code.
+Add new entry for MYD-YA151C-T development board.
 
-This also saves a useless zeroing of the allocated memory.
-
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
 ---
- drivers/hwtracing/stm/core.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 534fbefc7f6a..3ee98208ea8f 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -739,19 +739,11 @@ static int stm_char_policy_set_ioctl(struct stm_file *stmf, void __user *arg)
- 	if (size < sizeof(*id) || size >= PATH_MAX + sizeof(*id))
- 		return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index 4bf28e717a56..5252b9108ddc 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -140,6 +140,11 @@ properties:
+           - const: engicam,microgea-stm32mp1
+           - const: st,stm32mp157
  
--	/*
--	 * size + 1 to make sure the .id string at the bottom is terminated,
--	 * which is also why memdup_user() is not useful here
--	 */
--	id = kzalloc(size + 1, GFP_KERNEL);
-+	/* Make sure the .id string at the bottom is nul terminated. */
-+	id = memdup_user_nul(arg, size);
- 	if (!id)
- 		return -ENOMEM;
- 
--	if (copy_from_user(id, arg, size)) {
--		ret = -EFAULT;
--		goto err_free;
--	}
--
- 	if (id->__reserved_0 || id->__reserved_1)
- 		goto err_free;
- 
++      - description: MyirTech MYD-YA15XC-T SoM based Boards
++        items:
++          - const: myir,myd-ya151c-t   # MYIR MYD-YA151C-T STM32MP151C
++          - const: st,stm32mp151
++
+       - description: Octavo OSD32MP15x System-in-Package based boards
+         items:
+           - enum:
 -- 
-2.34.1
+2.39.1
 
 _______________________________________________
 Linux-stm32 mailing list
