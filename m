@@ -2,75 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50017A727C
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Sep 2023 08:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95ED57A7336
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Sep 2023 08:53:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55E74C6C825;
-	Wed, 20 Sep 2023 06:04:12 +0000 (UTC)
-Received: from mail-qk1-f193.google.com (mail-qk1-f193.google.com
- [209.85.222.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D0DFC6B477;
+	Wed, 20 Sep 2023 06:53:55 +0000 (UTC)
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C1D8C6B46F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3CA0C6B46F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Sep 2023 19:20:04 +0000 (UTC)
-Received: by mail-qk1-f193.google.com with SMTP id
- af79cd13be357-770819c1db6so383558085a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Sep 2023 12:20:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1695151203; x=1695756003;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fCY81i+nseXrrFOhCCMbEZ9jSIB5L2BqWxrjnhtX0k0=;
- b=IHSdSrOmZFakWpH8BPZqt60bruH5+q01Sd2vCVsa5v7WMaeuhyEcTeqWWlmSjJoeBK
- CnnYBP5fdZjMVPV5M8wnAehtolb7S1S5XacuM3MwgvSaWDBB7vtAhW+w7kx+rodDuPNR
- IWVwxw+nibF0+O9gVax3+q2F4PXvEuR/cRoKtXe0KYmClJthxune2K9C9Qx1SbrbHm3f
- FhnH7+5ZtpldK5Y9mPrO6oakwG6aoBMv0oC1ltlpXw8xPlBtOJdcME4xGBG6V+1TIPr4
- vPfXQIUUn/Qvkewz0+lEGzgltk+tKoGJjJ+jvk/vdEoiLCbcylXg8J79wnTLjxdwk3Yd
- Rw1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695151203; x=1695756003;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fCY81i+nseXrrFOhCCMbEZ9jSIB5L2BqWxrjnhtX0k0=;
- b=BBuV8QxL/L+hTCiMaJYrUBYS3f3SXZPBHWa2WB3aKlBDbb/utG6CcAkUEUdVMzVT/c
- +HoLMetMWI3xy7RWS4zbZ1zmdJxW8rOrRtcgw0FFzP7FjfsnFtVGS6gK52bnWEaRYa86
- QbnFB4Xw5LTbt/aX+5CNtMmLLNqdUjVWQ4QK+oSJqM4l26aH6iVFx/EBfYERbtekTvZ6
- X4mRuRGUEjTYEai+VfclxfEnQ5JLChSGPV39bTgSoLE2ctHig5mf257zcGNCmE9BT5ou
- 2Od1we56RZcnFbFx2n0Xe7DcpjeV9yN9lNixFMR17uaz4vqXB0Lc8zmsWz88COMajfnr
- dXJw==
-X-Gm-Message-State: AOJu0YwgfTi+0Mk+U35o6BIekS20O/ePqjBc67LRtTlMUX1nNh5o69Ez
- VP3VnBDbSXLN9DvPQjFdtBuD3PlZRapaCWEfrbWyVXGe
-X-Google-Smtp-Source: AGHT+IEiK0fjP9NmWWu/r8rCHgd3P7ehoSIOSkTPV4Wj0AIazIHRILRyy1BeOefIMr+wNBb2I6i4ow==
-X-Received: by 2002:a05:620a:2ac4:b0:772:6384:e749 with SMTP id
- bn4-20020a05620a2ac400b007726384e749mr619554qkb.20.1695151202974; 
- Tue, 19 Sep 2023 12:20:02 -0700 (PDT)
-Received: from dell-precision-5540.lan ([2601:18c:8002:3d40:df77:9915:c17e:79])
- by smtp.gmail.com with ESMTPSA id
- x12-20020ae9f80c000000b0076c60b95b87sm4179704qkh.96.2023.09.19.12.20.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Sep 2023 12:20:02 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Tue, 19 Sep 2023 12:45:36 -0400
-Message-ID: <20230919164535.128125-4-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230919164535.128125-2-ben.wolsieffer@hefring.com>
-References: <20230919164535.128125-2-ben.wolsieffer@hefring.com>
+ Wed, 20 Sep 2023 06:53:53 +0000 (UTC)
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 38K6rR4K056956;
+ Wed, 20 Sep 2023 01:53:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1695192807;
+ bh=vlqRL+AKyD7un6uI2p8NliupoFl8GxtG647gtWnU+oU=;
+ h=From:To:CC:Subject:In-Reply-To:References:Date;
+ b=RHmAtXcNgSNBC2kZHuWoD6qLhgousfDLoLU4gsF4XrqRGHeigW7ZBP9sHwFfuW1Cr
+ 7qj6ULZyXIUJp91biwvg4WWkMsN8Pu2eZwpc0rCZHyV3uCkMdk9lfJgeKiM6HqKeeK
+ Qgfj2YqJqrqSqpHFmbpATnXdkHycrz//QvTwcrxI=
+Received: from DLEE108.ent.ti.com (dlee108.ent.ti.com [157.170.170.38])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 38K6rRaH005175
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 20 Sep 2023 01:53:27 -0500
+Received: from DLEE115.ent.ti.com (157.170.170.26) by DLEE108.ent.ti.com
+ (157.170.170.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Wed, 20
+ Sep 2023 01:53:27 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE115.ent.ti.com
+ (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
+ Frontend Transport; Wed, 20 Sep 2023 01:53:26 -0500
+Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 38K6rQ5U113227;
+ Wed, 20 Sep 2023 01:53:26 -0500
+From: Kamlesh Gurudasani <kamlesh@ti.com>
+To: Eric Biggers <ebiggers@kernel.org>
+In-Reply-To: <87zg28d9z4.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
+ <20230812030116.GF971@sol.localdomain>
+ <87h6owen39.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+ <20230822051710.GC1661@sol.localdomain>
+ <87zg28d9z4.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+Date: Wed, 20 Sep 2023 12:23:25 +0530
+Message-ID: <87a5thgwt6.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 20 Sep 2023 06:04:11 +0000
-Cc: Ben Wolsieffer <ben.wolsieffer@hefring.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 2/2] net: stmmac: dwmac-stm32: refactor clock
-	config
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
+ Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Will Deacon <will@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Vignesh Raghavendra <vigneshr@ti.com>
+Subject: Re: [Linux-stm32] [EXTERNAL] Re: [EXTERNAL] Re: [PATCH v2 0/6] Add
+ support for Texas Instruments MCRC64 engine
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,246 +77,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, clock configuration is spread throughout the driver and
-partially duplicated for the STM32MP1 and STM32 MCU variants. This makes
-it difficult to keep track of which clocks need to be enabled or disabled
-in various scenarios.
+Kamlesh Gurudasani <kamlesh@ti.com> writes:
+...
 
-This patch adds symmetric stm32_dwmac_clk_enable/disable() functions
-that handle all clock configuration, including quirks required while
-suspending or resuming. syscfg_clk and clk_eth_ck are not present on
-STM32 MCUs, but it is fine to try to configure them anyway since NULL
-clocks are ignored.
+> Hi Eric, thanks for your detailed and valuable inputs.
+>
+> As per your suggestion, we did some profiling. 
+>
+> Use case is to calculate crc32/crc64 for file input from user space.
+>
+> Instead of directly implementing PMULL based CRC64, we made first comparison between 
+> Case 1.
+> CRC32 (splice() + kernel space SW driver) 
+> https://gist.github.com/ti-kamlesh/5be75dbde292e122135ddf795fad9f21
+>
+> Case 2.
+> CRC32(mmap() + userspace armv8 crc32 instruction implementation)
+> (tried read() as well to get contents of file, but that lost to mmap() so not mentioning number here)
+> https://gist.github.com/ti-kamlesh/002df094dd522422c6cb62069e15c40d
+>
+> Case 3.
+> CRC64 (splice() + MCRC64 HW)
+> https://gist.github.com/ti-kamlesh/98b1fc36c9a7c3defcc2dced4136b8a0
+>
+>
+> Overall, overhead of userspace + af_alg + driver in (Case 1) and
+> ( Case 3) is ~0.025s, which is constant for any file size.
+> This is calculated using real time to calculate crc  -
+> driver time (time spend inside init() + update() +final()) = overhead ~0.025s    
+>
+>
+>
+> +-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+> |                   |                             |                       |                        |                        |
+> | File size         | 120mb(ideal size for us)    | 20mb                  | 15mb                   | 5mb                    |
+> +===================+=============================+=======================+========================+========================+
+> |                   |                             |                       |                        |                        |
+> | CRC32 (Case 1)    | Driver time 0.155s          | Driver time 0.0325s   | Driver time 0.019s     | Driver time 0.0062s    |
+> |                   |    real time 0.18s          |    real time 0.06s    |    real time 0.04s     |    real time 0.03s     |
+> |                   |    overhead 0.025s          |    overhead 0.025s    |    overhead 0.021s     |    overhead ~0.023s    |
+> +-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+> |                   |                             |                       |                        |                        |
+> | CRC32 (Case 2)    | Real time 0.30s             | Real time 0.05s       | Real time 0.04s        | Real time 0.02s        |
+> +-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+> |                   |                             |                       |                        |                        |
+> | CRC64 (Case 3)    | Driver time   0.385s        | Driver time 0.0665s   | Driver time 0.0515s    | Driver time 0.019s     |
+> |                   |    real time 0.41s          |    real time 0.09s    |    real time 0.08s     |    real time 0.04s     |
+> |                   |    overhead 0.025s          |    overhead 0.025s    |    overhead ~0.025s    |    overhead ~0.021s    |
+> +-------------------+-----------------------------+-----------------------+------------------------+------------------------+
+>
+> Here, if we consider similar numbers for crc64 PMULL implementation as
+> crc32 (case 2) , we save good number of cpu cycles using mcrc64
+> in case of files bigger than 5-10mb as most of the time is being spent in HW offload.
+>
+> Regards,
+> Kamlesh
 
-Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 113 +++++++-----------
- 1 file changed, 45 insertions(+), 68 deletions(-)
+Hi Eric,
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index a0e276783e65..e53ca4111cbe 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -98,7 +98,6 @@ struct stm32_dwmac {
- 
- struct stm32_ops {
- 	int (*set_mode)(struct plat_stmmacenet_data *plat_dat);
--	int (*clk_prepare)(struct stm32_dwmac *dwmac, bool prepare);
- 	int (*suspend)(struct stm32_dwmac *dwmac);
- 	void (*resume)(struct stm32_dwmac *dwmac);
- 	int (*parse_data)(struct stm32_dwmac *dwmac,
-@@ -107,62 +106,55 @@ struct stm32_ops {
- 	bool clk_rx_enable_in_suspend;
- };
- 
--static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat)
-+static int stm32_dwmac_clk_enable(struct stm32_dwmac *dwmac, bool resume)
- {
--	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
- 	int ret;
- 
--	if (dwmac->ops->set_mode) {
--		ret = dwmac->ops->set_mode(plat_dat);
--		if (ret)
--			return ret;
--	}
--
- 	ret = clk_prepare_enable(dwmac->clk_tx);
- 	if (ret)
--		return ret;
-+		goto err_clk_tx;
- 
--	if (!dwmac->ops->clk_rx_enable_in_suspend ||
--	    !dwmac->dev->power.is_suspended) {
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !resume) {
- 		ret = clk_prepare_enable(dwmac->clk_rx);
--		if (ret) {
--			clk_disable_unprepare(dwmac->clk_tx);
--			return ret;
--		}
-+		if (ret)
-+			goto err_clk_rx;
- 	}
- 
--	if (dwmac->ops->clk_prepare) {
--		ret = dwmac->ops->clk_prepare(dwmac, true);
--		if (ret) {
--			clk_disable_unprepare(dwmac->clk_rx);
--			clk_disable_unprepare(dwmac->clk_tx);
--		}
-+	ret = clk_prepare_enable(dwmac->syscfg_clk);
-+	if (ret)
-+		goto err_syscfg_clk;
-+
-+	if (dwmac->enable_eth_ck) {
-+		ret = clk_prepare_enable(dwmac->clk_eth_ck);
-+		if (ret)
-+			goto err_clk_eth_ck;
- 	}
- 
- 	return ret;
-+
-+err_clk_eth_ck:
-+	clk_disable_unprepare(dwmac->syscfg_clk);
-+err_syscfg_clk:
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !resume)
-+		clk_disable_unprepare(dwmac->clk_rx);
-+err_clk_rx:
-+	clk_disable_unprepare(dwmac->clk_tx);
-+err_clk_tx:
-+	return ret;
- }
- 
--static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
-+static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat, bool resume)
- {
--	int ret = 0;
-+	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-+	int ret;
- 
--	if (prepare) {
--		ret = clk_prepare_enable(dwmac->syscfg_clk);
-+	if (dwmac->ops->set_mode) {
-+		ret = dwmac->ops->set_mode(plat_dat);
- 		if (ret)
- 			return ret;
--		if (dwmac->enable_eth_ck) {
--			ret = clk_prepare_enable(dwmac->clk_eth_ck);
--			if (ret) {
--				clk_disable_unprepare(dwmac->syscfg_clk);
--				return ret;
--			}
--		}
--	} else {
--		clk_disable_unprepare(dwmac->syscfg_clk);
--		if (dwmac->enable_eth_ck)
--			clk_disable_unprepare(dwmac->clk_eth_ck);
- 	}
--	return ret;
-+
-+	return stm32_dwmac_clk_enable(dwmac, resume);
- }
- 
- static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
-@@ -252,13 +244,15 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 				 dwmac->ops->syscfg_eth_mask, val << 23);
- }
- 
--static void stm32_dwmac_clk_disable(struct stm32_dwmac *dwmac)
-+static void stm32_dwmac_clk_disable(struct stm32_dwmac *dwmac, bool suspend)
- {
- 	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->clk_rx);
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !suspend)
-+		clk_disable_unprepare(dwmac->clk_rx);
- 
--	if (dwmac->ops->clk_prepare)
--		dwmac->ops->clk_prepare(dwmac, false);
-+	clk_disable_unprepare(dwmac->syscfg_clk);
-+	if (dwmac->enable_eth_ck)
-+		clk_disable_unprepare(dwmac->clk_eth_ck);
- }
- 
- static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
-@@ -400,7 +394,7 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
- 
- 	plat_dat->bsp_priv = dwmac;
- 
--	ret = stm32_dwmac_init(plat_dat);
-+	ret = stm32_dwmac_init(plat_dat, false);
- 	if (ret)
- 		goto err_remove_config_dt;
- 
-@@ -411,7 +405,7 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_clk_disable:
--	stm32_dwmac_clk_disable(dwmac);
-+	stm32_dwmac_clk_disable(dwmac, false);
- err_remove_config_dt:
- 	stmmac_remove_config_dt(pdev, plat_dat);
- 
-@@ -426,7 +420,7 @@ static void stm32_dwmac_remove(struct platform_device *pdev)
- 
- 	stmmac_dvr_remove(&pdev->dev);
- 
--	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
-+	stm32_dwmac_clk_disable(dwmac, false);
- 
- 	if (dwmac->irq_pwr_wakeup >= 0) {
- 		dev_pm_clear_wake_irq(&pdev->dev);
-@@ -436,18 +430,7 @@ static void stm32_dwmac_remove(struct platform_device *pdev)
- 
- static int stm32mp1_suspend(struct stm32_dwmac *dwmac)
- {
--	int ret = 0;
--
--	ret = clk_prepare_enable(dwmac->clk_ethstp);
--	if (ret)
--		return ret;
--
--	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->syscfg_clk);
--	if (dwmac->enable_eth_ck)
--		clk_disable_unprepare(dwmac->clk_eth_ck);
--
--	return ret;
-+	return clk_prepare_enable(dwmac->clk_ethstp);
- }
- 
- static void stm32mp1_resume(struct stm32_dwmac *dwmac)
-@@ -455,14 +438,6 @@ static void stm32mp1_resume(struct stm32_dwmac *dwmac)
- 	clk_disable_unprepare(dwmac->clk_ethstp);
- }
- 
--static int stm32mcu_suspend(struct stm32_dwmac *dwmac)
--{
--	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->clk_rx);
--
--	return 0;
--}
--
- #ifdef CONFIG_PM_SLEEP
- static int stm32_dwmac_suspend(struct device *dev)
- {
-@@ -473,6 +448,10 @@ static int stm32_dwmac_suspend(struct device *dev)
- 	int ret;
- 
- 	ret = stmmac_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	stm32_dwmac_clk_disable(dwmac, true);
- 
- 	if (dwmac->ops->suspend)
- 		ret = dwmac->ops->suspend(dwmac);
-@@ -490,7 +469,7 @@ static int stm32_dwmac_resume(struct device *dev)
- 	if (dwmac->ops->resume)
- 		dwmac->ops->resume(dwmac);
- 
--	ret = stm32_dwmac_init(priv->plat);
-+	ret = stm32_dwmac_init(priv->plat, true);
- 	if (ret)
- 		return ret;
- 
-@@ -505,13 +484,11 @@ static SIMPLE_DEV_PM_OPS(stm32_dwmac_pm_ops,
- 
- static struct stm32_ops stm32mcu_dwmac_data = {
- 	.set_mode = stm32mcu_set_mode,
--	.suspend = stm32mcu_suspend,
- 	.syscfg_eth_mask = SYSCFG_MCU_ETH_MASK
- };
- 
- static struct stm32_ops stm32mp1_dwmac_data = {
- 	.set_mode = stm32mp1_set_mode,
--	.clk_prepare = stm32mp1_clk_prepare,
- 	.suspend = stm32mp1_suspend,
- 	.resume = stm32mp1_resume,
- 	.parse_data = stm32mp1_parse_data,
--- 
-2.42.0
+Please let me know if above numbers make sense to you and I should send
+next revision.
 
+Regards,
+Kamlesh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
