@@ -2,48 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4830B7A9183
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 07:05:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E85A87A91AF
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 08:23:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2FAFC6B47D;
-	Thu, 21 Sep 2023 05:05:35 +0000 (UTC)
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net
- (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAF6AC6B462
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91E55C6B47D;
+	Thu, 21 Sep 2023 06:23:21 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A45BC6B44C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Sep 2023 05:05:34 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.192.154.10])
- by mail-app3 (Coremail) with SMTP id cC_KCgB37sHIzgtlZ72LAA--.26251S4;
- Thu, 21 Sep 2023 13:04:14 +0800 (CST)
-From: Dinghao Liu <dinghao.liu@zju.edu.cn>
-To: dinghao.liu@zju.edu.cn
-Date: Thu, 21 Sep 2023 13:03:52 +0800
-Message-Id: <20230921050353.23485-1-dinghao.liu@zju.edu.cn>
-X-Mailer: git-send-email 2.17.1
-X-CM-TRANSID: cC_KCgB37sHIzgtlZ72LAA--.26251S4
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jw18JF4rXFykAw4UAw1rXrb_yoW3tFb_Cw
- 1UZr9rWr48G3WfKr1UZr4fZ34I9rs2qrZ3Ar4kKF95u347Z39xZrWvgry29w15WrZrZF9x
- Zay7Jr45ZryUCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb28Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
- wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
- vE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4UJVW0owA2z4x0Y4vEx4A2
- jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
- x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWU
- GwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
- 8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv
- 6cx26r4fKr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
- C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
- MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
- IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
- 87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x0JUdHUDUUUUU=
-X-CM-SenderInfo: qrrzjiaqtzq6lmxovvfxof0/1tbiAgYRBmUAdB8q6wAXsL
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Wed, 20 Sep 2023 12:05:41 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <sha@pengutronix.de>)
+ id 1qivxT-0004MG-T3; Wed, 20 Sep 2023 14:05:31 +0200
+Received: from [2a0a:edc0:0:1101:1d::28] (helo=dude02.red.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1qivxR-007g38-VX; Wed, 20 Sep 2023 14:05:29 +0200
+Received: from sha by dude02.red.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <sha@pengutronix.de>)
+ id 1qivxR-00BmIp-Ma; Wed, 20 Sep 2023 14:05:29 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Wed, 20 Sep 2023 14:05:20 +0200
+Message-Id: <20230920120520.2807275-1-s.hauer@pengutronix.de>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: sha@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+X-Mailman-Approved-At: Thu, 21 Sep 2023 06:23:20 +0000
+Cc: kernel@pengutronix.de, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] stm class: Fix a potential double free in
-	stm_register_device
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: Fix ethernet pins used on
+	phyCORE-STM32MP15
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,36 +59,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the error handling path after err_device, the vfree is
-redundant. stm_device_release will free the stm device
-after put_device(). Set stm to NULL to prevent double free.
+On the phyCORE-STM32MP15 the 125MHz clock for the ethernet phy must
+be provided on the ETH_RGMII_GTX_CLK. ETH_RGMII_CLK125 is unused though,
+so remove the latter pin and add the former.
 
-Fixes: 7bd1d4093c2f ("stm class: Introduce an abstraction for System Trace Module devices")
-Signed-off-by: Dinghao Liu <dinghao.liu@zju.edu.cn>
+ethernet0_rgmii_pins_d and ethernet0_rgmii_sleep_pins_d are used by the
+phyCORE-STM32MP15 board only, so we can do this change in the generic
+pinctrl file without breaking other boards.
+
+Fixes: 303f3fe1d88f ("ARM: dts: stm32: Add alternate pinmux for ethernet for stm32mp15")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- drivers/hwtracing/stm/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 534fbefc7f6a..5500aa5046ee 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -915,6 +915,7 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+diff --git a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+index 098153ee99a3a..5d85bcc8b3a8c 100644
+--- a/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15-pinctrl.dtsi
+@@ -354,7 +354,7 @@ pins1 {
  
- 	/* matches device_initialize() above */
- 	put_device(&stm->dev);
-+	stm = NULL;
- err_free:
- 	vfree(stm);
+ 	ethernet0_rgmii_pins_d: rgmii-3 {
+ 		pins1 {
+-			pinmux = <STM32_PINMUX('G', 5, AF11)>, /* ETH_RGMII_CLK125 */
++			pinmux = <STM32_PINMUX('G', 4, AF11)>, /* ETH_RGMII_GTX_CLK */
+ 				 <STM32_PINMUX('G', 13, AF11)>,	/* ETH_RGMII_TXD0 */
+ 				 <STM32_PINMUX('G', 14, AF11)>,	/* ETH_RGMII_TXD1 */
+ 				 <STM32_PINMUX('C', 2, AF11)>, /* ETH_RGMII_TXD2 */
+@@ -384,8 +384,7 @@ pins3 {
  
+ 	ethernet0_rgmii_sleep_pins_d: rgmii-sleep-3 {
+ 		pins1 {
+-			pinmux = <STM32_PINMUX('G', 5, ANALOG)>, /* ETH_RGMII_CLK125 */
+-				 <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
++			pinmux = <STM32_PINMUX('G', 4, ANALOG)>, /* ETH_RGMII_GTX_CLK */
+ 				 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH_RGMII_TXD0 */
+ 				 <STM32_PINMUX('G', 14, ANALOG)>, /* ETH_RGMII_TXD1 */
+ 				 <STM32_PINMUX('C', 2, ANALOG)>, /* ETH_RGMII_TXD2 */
 -- 
-2.17.1
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
