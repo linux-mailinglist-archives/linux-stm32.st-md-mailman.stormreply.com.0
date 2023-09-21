@@ -2,68 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1DB7A9281
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 10:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDADD7A93FB
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 13:50:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A5DFC6C825;
-	Thu, 21 Sep 2023 08:05:50 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AF52C6C823;
+	Thu, 21 Sep 2023 11:50:57 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BDB9C6C822
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C1B8C6B46F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Sep 2023 08:05:49 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38L4Je1t015083; Thu, 21 Sep 2023 10:05:36 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=QNEkYKRW+zpzx0P74SNWmpxXLHw8AgBvEDWW0I7ar5k=; b=Zw
- yVz//79e+avZKNxDBOz8g/d4IH9u+jyyl67CY5JD2Wo6kVFZnv0dGU/tcGjeLNGJ
- WNX5WaWxlnFd2ERjRClBFxMWK1NPGMhzYIoWAqe/UGTeCxkIZjFstQ+C4RO5f0yX
- yADihizDwBQ6KMqKcqM6UFBBBHRPP7u/SpdtGrcj/rjXjFeQpJEWV3xXbTVHa6Mw
- Z/FMcgQgbS5NsWGXBz5BdJgdc5VYoKzQ9jJjg5exU60f8Ej2ST5siDKIISZNVL8x
- OfilyWT4EWmQv0SnpHUmIJJ/khHnsRWmheVMRA2hBuxFt02ZoDa++q2xHNDRGWwW
- F058HMBhF9aGADfVRbKw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t7ybev09y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Sep 2023 10:05:35 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 78A35100058;
- Thu, 21 Sep 2023 10:05:35 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 719E321863C;
- Thu, 21 Sep 2023 10:05:35 +0200 (CEST)
-Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Sep
- 2023 10:05:35 +0200
-From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 21 Sep 2023 10:03:01 +0200
-Message-ID: <20230921080301.253563-10-gatien.chevallier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
-References: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
+ Thu, 21 Sep 2023 11:50:55 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1E07261ED1;
+ Thu, 21 Sep 2023 11:50:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91A2C4AF7B;
+ Thu, 21 Sep 2023 11:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695297053;
+ bh=mXYzQ1Aw2AmUUG7pVcJYPh5w/95BLX6Xyx+iv32GdjM=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=Bs2WggFziPp0qrw2QPhcDrEk2iWOjqSQHn7c+YlHM/5kRBfSCxdlUXbYPM5UknYKM
+ t75jJJqXm4wRyg2gGjrsZtyfooghoz7C/bJOP6/zSOwkA2uLsJAsPXMsYpmN6JLVGw
+ 8MFNURKRlvcipijmnRr+i+K1ab4Ofk3AybcxouKfYlng1S5z8qvNnw4jQO4R+gw0Er
+ YmJqw+V2ZTRUIQ3RGeelZr92fzcpWFmM4+xp5Q8/pu48a0hfIPiN0rvRAeipckKMaK
+ CQZPD0H6T10DUVULVf9Ud3NZenXyl4qlByMEHHXZDLHvuf3nJOZJGmylLkdNZ7GGn6
+ 1jm9QEt6fhN6g==
+From: Lee Jones <lee@kernel.org>
+To: william.gray@linaro.org, lee@kernel.org, 
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20230829134029.2402868-5-fabrice.gasnier@foss.st.com>
+References: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
+ <20230829134029.2402868-5-fabrice.gasnier@foss.st.com>
+Message-Id: <169529705167.3631705.15052366988953895917.b4-ty@kernel.org>
+Date: Thu, 21 Sep 2023 12:50:51 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.601,FMLib:17.11.176.26
- definitions=2023-09-21_06,2023-09-20_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 9/9] ARM: dts: stm32: add RNG node for
-	STM32MP13x platforms
+X-Mailer: b4 0.12.2
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] (subset) [PATCH 4/8] mfd: stm32-timers: add
+ support for interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,45 +56,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The RNG on STM32MP13 offers upgrades like customization of its
-configuration and the conditional reset.
-
-The hardware RNG should be managed in the secure world for but it
-is supported on Linux. Therefore, is it not default enabled.
-
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp131.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index ac90fcbf0c09..39db82b782eb 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -1220,6 +1220,14 @@ mdma: dma-controller@58000000 {
- 			dma-requests = <48>;
- 		};
- 
-+		rng: rng@54004000 {
-+			compatible = "st,stm32mp13-rng";
-+			reg = <0x54004000 0x400>;
-+			clocks = <&rcc RNG1_K>;
-+			resets = <&rcc RNG1_R>;
-+			status = "disabled";
-+		};
-+
- 		fmc: memory-controller@58002000 {
- 			compatible = "st,stm32mp1-fmc2-ebi";
- 			reg = <0x58002000 0x1000>;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAyOSBBdWcgMjAyMyAxNTo0MDoyNSArMDIwMCwgRmFicmljZSBHYXNuaWVyIHdyb3Rl
+Ogo+IFRoZXJlIGFyZSB0d28gdHlwZXMgb2YgU1RNMzIgdGltZXJzIHRoYXQgbWF5IGhhdmU6Cj4g
+LSBhIGdsb2JhbCBpbnRlcnJ1cHQgbGluZQo+IC0gNCBkZWRpY2F0ZWQgaW50ZXJydXB0IGxpbmVz
+Lgo+IFRob3NlIGludGVycnVwdHMgYXJlIG9wdGlvbmFsIGFzIGRlZmluZWQgaW4gdGhlIGR0LWJp
+bmRpbmdzLiBFbmZvcmNlIGNoZWNrcwo+IG9uIGVpdGhlciBvbmUsIGZvdXIgb3Igbm8gaW50ZXJy
+dXB0cyBhcmUgcHJvdmlkZWQgd2l0aCB0aGVpciBuYW1lcy4KPiBPcHRpb25hbGx5IGdldCB0aGVt
+IGhlcmUsIHRvIGJlIHVzZWQgYnkgY2hpbGQgZGV2aWNlcy4KPiAKPiBbLi4uXQoKQXBwbGllZCwg
+dGhhbmtzIQoKWzQvOF0gbWZkOiBzdG0zMi10aW1lcnM6IGFkZCBzdXBwb3J0IGZvciBpbnRlcnJ1
+cHRzCiAgICAgIGNvbW1pdDogZjc0N2I2MjdkMzk1YzRlYjhhODI4NDlkY2NjZjMxYmY0NmIyMTUw
+NAoKLS0KTGVlIEpvbmVzIFvmnY7nkLzmlq9dCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
