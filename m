@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D15A27A9278
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 10:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E33FB7A927C
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Sep 2023 10:04:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83402C6C825;
-	Thu, 21 Sep 2023 08:03:46 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF195C6C822;
+	Thu, 21 Sep 2023 08:04:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94219C6C822
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26871C6B46F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Sep 2023 08:03:45 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 38L523u4030984; Thu, 21 Sep 2023 10:03:12 +0200
+ Thu, 21 Sep 2023 08:04:38 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 38L2NWEu015467; Thu, 21 Sep 2023 10:04:22 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=cNbDhJfganlNu9SpBlUNKaMvCAIqSTwJFs77mpVa7aw=; b=Kz
- gvfp220/TAbsN+kpiAMU7yxbzg2HgRHqvUqkqYMNI81nJO4rRP2ioBIVMOfkbawi
- 7OYAUMctZfcBtq/hVyCSuG2OU5oM2btdf6Buwk8Pr40mUWQwWWYbxnc0Ju4It7G0
- kD8O4uWMJ25MYxSZfmQeMCiew6vak+rj4GqLhYKHqOVHvAH1qyvZQw9bld5VdKSB
- eFNcvz583up8IrKBIZp8hv6dKbgWzMd8+kvquyQNKnxBc161TLllqNxPmcdHMjSf
- /5LVIQb8KETRFp96o37muFYD6LkW2HFyOzk1OUwnt2wBvOnxuJVh8E4BAJODy0lO
- 58Ul0FsSKALoPcT6Hc3w==
+ :mime-version:content-type:content-transfer-encoding; s=
+ selector1; bh=5eotLIVG1/ksJkXMN8rGNoGTy8xSu69V4NtaWZNrFaI=; b=DI
+ UWlzq/3dXk34t+a44Ndwnq671xAg4c3hVLb0IlNqtjV0ugHrbRM0Lvj/pVrKrRaF
+ aJrqJFbBpxQ/H+L94kIxBT3BURzzAfxfz+IUYyCPhgnQ/z7WNvEFUFO2Jt+tmtuu
+ B/TXBOFaUFH0f8h7YyGqUVT6Kuqu6XJE6iaUfUFrYGscEfdtsF7uwDGPF6sJqiii
+ xt7LFFzh/9cCqxaXh8KQMIhMfgHCxES5UJBwgkbYfCyhDRFZ6CurMqFBSFyUY2Ca
+ shp28+iH63YNMkar0vDUTZZhoFhPpemMta4hcOOHnBY3i3UvYLdjMU26maLJ/1+Q
+ Y6784JN/YyvDUDkhDwXQ==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t51sfkb4e-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t8d0m94y3-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Sep 2023 10:03:11 +0200 (MEST)
+ Thu, 21 Sep 2023 10:04:22 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 9D76510005C;
- Thu, 21 Sep 2023 10:03:10 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7570A100057;
+ Thu, 21 Sep 2023 10:04:21 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 94A1E212FB8;
- Thu, 21 Sep 2023 10:03:10 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6C5EC21863D;
+ Thu, 21 Sep 2023 10:04:21 +0200 (CEST)
 Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Sep
- 2023 10:03:10 +0200
+ 2023 10:04:21 +0200
 From: Gatien Chevallier <gatien.chevallier@foss.st.com>
 To: Olivia Mackall <olivia@selenic.com>, Herbert Xu
  <herbert@gondor.apana.org.au>, Rob Herring <robh+dt@kernel.org>, Krzysztof
  Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
  <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 21 Sep 2023 10:02:55 +0200
-Message-ID: <20230921080301.253563-4-gatien.chevallier@foss.st.com>
+Date: Thu, 21 Sep 2023 10:02:56 +0200
+Message-ID: <20230921080301.253563-5-gatien.chevallier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
 References: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
@@ -62,8 +62,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/9] hwrng: stm32 - implement STM32MP13x
-	support
+Subject: [Linux-stm32] [PATCH v3 4/9] hwrng: stm32 - implement error
+	concealment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,313 +75,100 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The RNG present on STM32MP13x platforms introduces a customizable
-configuration and the conditional reset.
-
-STM32 RNG configuration should best fit the requirements of the
-platform. Therefore, put a platform-specific RNG configuration
-field in the platform data. Default RNG configuration for STM32MP13
-is the NIST certified configuration [1].
-
-While there, fix and the RNG init sequence to support all RNG
-versions.
-
-[1] https://csrc.nist.gov/projects/cryptographic-module-validation-program/entropy-validations/certificate/53
-
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
- drivers/char/hw_random/stm32-rng.c | 222 ++++++++++++++++++++---------
- 1 file changed, 158 insertions(+), 64 deletions(-)
-
-diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-index d64d25d0fee8..54bd5807bbac 100644
---- a/drivers/char/hw_random/stm32-rng.c
-+++ b/drivers/char/hw_random/stm32-rng.c
-@@ -17,22 +17,43 @@
- #include <linux/reset.h>
- #include <linux/slab.h>
- 
--#define RNG_CR 0x00
--#define RNG_CR_RNGEN BIT(2)
--#define RNG_CR_CED BIT(5)
--
--#define RNG_SR 0x04
--#define RNG_SR_SEIS BIT(6)
--#define RNG_SR_CEIS BIT(5)
--#define RNG_SR_DRDY BIT(0)
--
--#define RNG_DR 0x08
-+#define RNG_CR			0x00
-+#define RNG_CR_RNGEN		BIT(2)
-+#define RNG_CR_CED		BIT(5)
-+#define RNG_CR_CONFIG1		GENMASK(11, 8)
-+#define RNG_CR_NISTC		BIT(12)
-+#define RNG_CR_CONFIG2		GENMASK(15, 13)
-+#define RNG_CR_CONFIG3		GENMASK(25, 20)
-+#define RNG_CR_CONDRST		BIT(30)
-+#define RNG_CR_CONFLOCK		BIT(31)
-+#define RNG_CR_ENTROPY_SRC_MASK	(RNG_CR_CONFIG1 | RNG_CR_NISTC | RNG_CR_CONFIG2 | RNG_CR_CONFIG3)
-+#define RNG_CR_CONFIG_MASK	(RNG_CR_ENTROPY_SRC_MASK | RNG_CR_CED)
-+
-+#define RNG_SR		0x04
-+#define RNG_SR_SEIS	BIT(6)
-+#define RNG_SR_CEIS	BIT(5)
-+#define RNG_SR_DRDY	BIT(0)
-+
-+#define RNG_DR			0x08
-+
-+#define RNG_NSCR		0x0C
-+#define RNG_NSCR_MASK		GENMASK(17, 0)
-+
-+#define RNG_HTCR		0x10
-+
-+struct stm32_rng_data {
-+	u32	cr;
-+	u32	nscr;
-+	u32	htcr;
-+	bool	has_cond_reset;
-+};
- 
- struct stm32_rng_private {
- 	struct hwrng rng;
- 	void __iomem *base;
- 	struct clk *clk;
- 	struct reset_control *rst;
-+	const struct stm32_rng_data *data;
- 	bool ced;
- };
- 
-@@ -87,32 +108,145 @@ static int stm32_rng_init(struct hwrng *rng)
- 	struct stm32_rng_private *priv =
- 	    container_of(rng, struct stm32_rng_private, rng);
- 	int err;
-+	u32 reg;
- 
- 	err = clk_prepare_enable(priv->clk);
- 	if (err)
- 		return err;
- 
--	if (priv->ced)
--		writel_relaxed(RNG_CR_RNGEN, priv->base + RNG_CR);
--	else
--		writel_relaxed(RNG_CR_RNGEN | RNG_CR_CED,
--			       priv->base + RNG_CR);
--
- 	/* clear error indicators */
- 	writel_relaxed(0, priv->base + RNG_SR);
- 
-+	reg = readl_relaxed(priv->base + RNG_CR);
-+
-+	/*
-+	 * Keep default RNG configuration if none was specified.
-+	 * 0 is an invalid value as it disables all entropy sources.
-+	 */
-+	if (priv->data->has_cond_reset && priv->data->cr) {
-+		reg &= ~RNG_CR_CONFIG_MASK;
-+		reg |= RNG_CR_CONDRST | (priv->data->cr & RNG_CR_ENTROPY_SRC_MASK);
-+		if (priv->ced)
-+			reg &= ~RNG_CR_CED;
-+		else
-+			reg |= RNG_CR_CED;
-+		writel_relaxed(reg, priv->base + RNG_CR);
-+
-+		/* Health tests and noise control registers */
-+		writel_relaxed(priv->data->htcr, priv->base + RNG_HTCR);
-+		writel_relaxed(priv->data->nscr & RNG_NSCR_MASK, priv->base + RNG_NSCR);
-+
-+		reg &= ~RNG_CR_CONDRST;
-+		reg |= RNG_CR_RNGEN;
-+		writel_relaxed(reg, priv->base + RNG_CR);
-+
-+		err = readl_relaxed_poll_timeout_atomic(priv->base + RNG_CR, reg,
-+							(!(reg & RNG_CR_CONDRST)),
-+							10, 50000);
-+		if (err) {
-+			dev_err((struct device *)priv->rng.priv,
-+				"%s: timeout %x!\n", __func__, reg);
-+			return -EINVAL;
-+		}
-+	} else {
-+		/* Handle all RNG versions by checking if conditional reset should be set */
-+		if (priv->data->has_cond_reset)
-+			reg |= RNG_CR_CONDRST;
-+
-+		if (priv->ced)
-+			reg &= ~RNG_CR_CED;
-+		else
-+			reg |= RNG_CR_CED;
-+
-+		writel_relaxed(reg, priv->base + RNG_CR);
-+
-+		if (priv->data->has_cond_reset)
-+			reg &= ~RNG_CR_CONDRST;
-+
-+		reg |= RNG_CR_RNGEN;
-+
-+		writel_relaxed(reg, priv->base + RNG_CR);
-+	}
-+
-+	err = readl_relaxed_poll_timeout_atomic(priv->base + RNG_SR, reg,
-+						reg & RNG_SR_DRDY,
-+						10, 100000);
-+	if (err | (reg & ~RNG_SR_DRDY)) {
-+		clk_disable_unprepare(priv->clk);
-+		dev_err((struct device *)priv->rng.priv,
-+			"%s: timeout:%x SR: %x!\n", __func__, err, reg);
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
--static void stm32_rng_cleanup(struct hwrng *rng)
-+static int stm32_rng_remove(struct platform_device *ofdev)
- {
--	struct stm32_rng_private *priv =
--	    container_of(rng, struct stm32_rng_private, rng);
-+	pm_runtime_disable(&ofdev->dev);
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_PM
-+static int stm32_rng_runtime_suspend(struct device *dev)
-+{
-+	u32 reg;
-+	struct stm32_rng_private *priv = dev_get_drvdata(dev);
- 
--	writel_relaxed(0, priv->base + RNG_CR);
-+	reg = readl_relaxed(priv->base + RNG_CR);
-+	reg &= ~RNG_CR_RNGEN;
-+	writel_relaxed(reg, priv->base + RNG_CR);
- 	clk_disable_unprepare(priv->clk);
-+
-+	return 0;
- }
- 
-+static int stm32_rng_runtime_resume(struct device *dev)
-+{
-+	u32 reg;
-+	struct stm32_rng_private *priv = dev_get_drvdata(dev);
-+
-+	clk_prepare_enable(priv->clk);
-+	reg = readl_relaxed(priv->base + RNG_CR);
-+	reg |= RNG_CR_RNGEN;
-+	writel_relaxed(reg, priv->base + RNG_CR);
-+
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops stm32_rng_pm_ops = {
-+	SET_RUNTIME_PM_OPS(stm32_rng_runtime_suspend,
-+			   stm32_rng_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
-+};
-+
-+static const struct stm32_rng_data stm32mp13_rng_data = {
-+	.has_cond_reset = true,
-+	.cr = 0x00F00D00,
-+	.nscr = 0x2B5BB,
-+	.htcr = 0x969D,
-+};
-+
-+static const struct stm32_rng_data stm32_rng_data = {
-+	.has_cond_reset = false,
-+};
-+
-+static const struct of_device_id stm32_rng_match[] = {
-+	{
-+		.compatible = "st,stm32mp13-rng",
-+		.data = &stm32mp13_rng_data,
-+	},
-+	{
-+		.compatible = "st,stm32-rng",
-+		.data = &stm32_rng_data,
-+	},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, stm32_rng_match);
-+
- static int stm32_rng_probe(struct platform_device *ofdev)
- {
- 	struct device *dev = &ofdev->dev;
-@@ -141,13 +275,14 @@ static int stm32_rng_probe(struct platform_device *ofdev)
- 
- 	priv->ced = of_property_read_bool(np, "clock-error-detect");
- 
-+	priv->data = of_device_get_match_data(dev);
-+	if (!priv->data)
-+		return -ENODEV;
-+
- 	dev_set_drvdata(dev, priv);
- 
- 	priv->rng.name = dev_driver_string(dev);
--#ifndef CONFIG_PM
- 	priv->rng.init = stm32_rng_init;
--	priv->rng.cleanup = stm32_rng_cleanup;
--#endif
- 	priv->rng.read = stm32_rng_read;
- 	priv->rng.priv = (unsigned long) dev;
- 	priv->rng.quality = 900;
-@@ -159,47 +294,6 @@ static int stm32_rng_probe(struct platform_device *ofdev)
- 	return devm_hwrng_register(dev, &priv->rng);
- }
- 
--static int stm32_rng_remove(struct platform_device *ofdev)
--{
--	pm_runtime_disable(&ofdev->dev);
--
--	return 0;
--}
--
--#ifdef CONFIG_PM
--static int stm32_rng_runtime_suspend(struct device *dev)
--{
--	struct stm32_rng_private *priv = dev_get_drvdata(dev);
--
--	stm32_rng_cleanup(&priv->rng);
--
--	return 0;
--}
--
--static int stm32_rng_runtime_resume(struct device *dev)
--{
--	struct stm32_rng_private *priv = dev_get_drvdata(dev);
--
--	return stm32_rng_init(&priv->rng);
--}
--#endif
--
--static const struct dev_pm_ops stm32_rng_pm_ops = {
--	SET_RUNTIME_PM_OPS(stm32_rng_runtime_suspend,
--			   stm32_rng_runtime_resume, NULL)
--	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
--				pm_runtime_force_resume)
--};
--
--
--static const struct of_device_id stm32_rng_match[] = {
--	{
--		.compatible = "st,stm32-rng",
--	},
--	{},
--};
--MODULE_DEVICE_TABLE(of, stm32_rng_match);
--
- static struct platform_driver stm32_rng_driver = {
- 	.driver = {
- 		.name = "stm32-rng",
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlIFJORyBkcml2ZXIgc2hvdWxkIGJlIGNhcGFibGUgb2YgcmVjb3ZlcmluZyBmcm9tIGFuIGVy
+cm9yLiBJbXBsZW1lbnQKYW4gZXJyb3IgY29uY2VhbG1lbnQgQVBJLiBUaGlzIGF2b2lkcyBpcnJl
+Y292ZXJhYmxlIFJORyBzdGF0ZS4KClNpZ25lZC1vZmYtYnk6IEdhdGllbiBDaGV2YWxsaWVyIDxn
+YXRpZW4uY2hldmFsbGllckBmb3NzLnN0LmNvbT4KLS0tCiBkcml2ZXJzL2NoYXIvaHdfcmFuZG9t
+L3N0bTMyLXJuZy5jIHwgMTE0ICsrKysrKysrKysrKysrKysrKysrKysrKysrKystCiAxIGZpbGUg
+Y2hhbmdlZCwgMTEwIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9jaGFyL2h3X3JhbmRvbS9zdG0zMi1ybmcuYyBiL2RyaXZlcnMvY2hhci9od19yYW5k
+b20vc3RtMzItcm5nLmMKaW5kZXggNTRiZDU4MDdiYmFjLi5hZGVmZThlZGZkMDcgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvY2hhci9od19yYW5kb20vc3RtMzItcm5nLmMKKysrIGIvZHJpdmVycy9jaGFy
+L2h3X3JhbmRvbS9zdG0zMi1ybmcuYwpAQCAtMjksMTAgKzI5LDEyIEBACiAjZGVmaW5lIFJOR19D
+Ul9FTlRST1BZX1NSQ19NQVNLCShSTkdfQ1JfQ09ORklHMSB8IFJOR19DUl9OSVNUQyB8IFJOR19D
+Ul9DT05GSUcyIHwgUk5HX0NSX0NPTkZJRzMpCiAjZGVmaW5lIFJOR19DUl9DT05GSUdfTUFTSwko
+Uk5HX0NSX0VOVFJPUFlfU1JDX01BU0sgfCBSTkdfQ1JfQ0VEKQogCi0jZGVmaW5lIFJOR19TUgkJ
+MHgwNAotI2RlZmluZSBSTkdfU1JfU0VJUwlCSVQoNikKLSNkZWZpbmUgUk5HX1NSX0NFSVMJQklU
+KDUpCi0jZGVmaW5lIFJOR19TUl9EUkRZCUJJVCgwKQorI2RlZmluZSBSTkdfU1IJCQkweDA0Cisj
+ZGVmaW5lIFJOR19TUl9EUkRZCQlCSVQoMCkKKyNkZWZpbmUgUk5HX1NSX0NFQ1MJCUJJVCgxKQor
+I2RlZmluZSBSTkdfU1JfU0VDUwkJQklUKDIpCisjZGVmaW5lIFJOR19TUl9DRUlTCQlCSVQoNSkK
+KyNkZWZpbmUgUk5HX1NSX1NFSVMJCUJJVCg2KQogCiAjZGVmaW5lIFJOR19EUgkJCTB4MDgKIApA
+QCAtNTcsNiArNTksMTA3IEBAIHN0cnVjdCBzdG0zMl9ybmdfcHJpdmF0ZSB7CiAJYm9vbCBjZWQ7
+CiB9OwogCisvKgorICogRXh0cmFjdHMgZnJvbSB0aGUgU1RNMzIgUk5HIHNwZWNpZmljYXRpb24g
+d2hlbiBSTkcgc3VwcG9ydHMgQ09ORFJTVC4KKyAqCisgKiBXaGVuIGEgbm9pc2Ugc291cmNlIChv
+ciBzZWVkKSBlcnJvciBvY2N1cnMsIHRoZSBSTkcgc3RvcHMgZ2VuZXJhdGluZworICogcmFuZG9t
+IG51bWJlcnMgYW5kIHNldHMgdG8g4oCcMeKAnSBib3RoIFNFSVMgYW5kIFNFQ1MgYml0cyB0byBp
+bmRpY2F0ZQorICogdGhhdCBhIHNlZWQgZXJyb3Igb2NjdXJyZWQuICguLi4pCisgKgorICogMS4g
+U29mdHdhcmUgcmVzZXQgYnkgd3JpdGluZyBDT05EUlNUIGF0IDEgYW5kIGF0IDAgKHNlZSBiaXRm
+aWVsZAorICogZGVzY3JpcHRpb24gZm9yIGRldGFpbHMpLiBUaGlzIHN0ZXAgaXMgbmVlZGVkIG9u
+bHkgaWYgU0VDUyBpcyBzZXQuCisgKiBJbmRlZWQsIHdoZW4gU0VJUyBpcyBzZXQgYW5kIFNFQ1Mg
+aXMgY2xlYXJlZCBpdCBtZWFucyBSTkcgcGVyZm9ybWVkCisgKiB0aGUgcmVzZXQgYXV0b21hdGlj
+YWxseSAoYXV0by1yZXNldCkuCisgKiAyLiBJZiBTRUNTIHdhcyBzZXQgaW4gc3RlcCAxIChubyBh
+dXRvLXJlc2V0KSB3YWl0IGZvciBDT05EUlNUCisgKiB0byBiZSBjbGVhcmVkIGluIHRoZSBSTkdf
+Q1IgcmVnaXN0ZXIsIHRoZW4gY29uZmlybSB0aGF0IFNFSVMgaXMKKyAqIGNsZWFyZWQgaW4gdGhl
+IFJOR19TUiByZWdpc3Rlci4gT3RoZXJ3aXNlIGp1c3QgY2xlYXIgU0VJUyBiaXQgaW4KKyAqIHRo
+ZSBSTkdfU1IgcmVnaXN0ZXIuCisgKiAzLiBJZiBTRUNTIHdhcyBzZXQgaW4gc3RlcCAxIChubyBh
+dXRvLXJlc2V0KSB3YWl0IGZvciBTRUNTIHRvIGJlCisgKiBjbGVhcmVkIGJ5IFJORy4gVGhlIHJh
+bmRvbSBudW1iZXIgZ2VuZXJhdGlvbiBpcyBub3cgYmFjayB0byBub3JtYWwuCisgKi8KK3N0YXRp
+YyBpbnQgc3RtMzJfcm5nX2NvbmNlYWxfc2VlZF9lcnJvcl9jb25kX3Jlc2V0KHN0cnVjdCBzdG0z
+Ml9ybmdfcHJpdmF0ZSAqcHJpdikKK3sKKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAoc3RydWN0IGRl
+dmljZSAqKXByaXYtPnJuZy5wcml2OworCXUzMiBzciA9IHJlYWRsX3JlbGF4ZWQocHJpdi0+YmFz
+ZSArIFJOR19TUik7CisJdTMyIGNyID0gcmVhZGxfcmVsYXhlZChwcml2LT5iYXNlICsgUk5HX0NS
+KTsKKwlpbnQgZXJyOworCisJaWYgKHNyICYgUk5HX1NSX1NFQ1MpIHsKKwkJLyogQ29uY2VhbCBi
+eSByZXNldHRpbmcgdGhlIHN1YnN5c3RlbSAoc3RlcCAxLikgKi8KKwkJd3JpdGVsX3JlbGF4ZWQo
+Y3IgfCBSTkdfQ1JfQ09ORFJTVCwgcHJpdi0+YmFzZSArIFJOR19DUik7CisJCXdyaXRlbF9yZWxh
+eGVkKGNyICYgflJOR19DUl9DT05EUlNULCBwcml2LT5iYXNlICsgUk5HX0NSKTsKKwl9IGVsc2Ug
+eworCQkvKiBSTkcgYXV0by1yZXNldCAoc3RlcCAyLikgKi8KKwkJd3JpdGVsX3JlbGF4ZWQoc3Ig
+JiB+Uk5HX1NSX1NFSVMsIHByaXYtPmJhc2UgKyBSTkdfU1IpOworCQlnb3RvIGVuZDsKKwl9CisK
+KwllcnIgPSByZWFkbF9yZWxheGVkX3BvbGxfdGltZW91dF9hdG9taWMocHJpdi0+YmFzZSArIFJO
+R19DUiwgY3IsICEoY3IgJiBSTkdfQ1JfQ09ORFJTVCksIDEwLAorCQkJCQkJMTAwMDAwKTsKKwlp
+ZiAoZXJyKSB7CisJCWRldl9lcnIoZGV2LCAiJXM6IHRpbWVvdXQgJXhcbiIsIF9fZnVuY19fLCBz
+cik7CisJCXJldHVybiBlcnI7CisJfQorCisJLyogQ2hlY2sgU0VJUyBpcyBjbGVhcmVkIChzdGVw
+IDIuKSAqLworCWlmIChyZWFkbF9yZWxheGVkKHByaXYtPmJhc2UgKyBSTkdfU1IpICYgUk5HX1NS
+X1NFSVMpCisJCXJldHVybiAtRUlOVkFMOworCisJZXJyID0gcmVhZGxfcmVsYXhlZF9wb2xsX3Rp
+bWVvdXRfYXRvbWljKHByaXYtPmJhc2UgKyBSTkdfU1IsIHNyLCAhKHNyICYgUk5HX1NSX1NFQ1Mp
+LCAxMCwKKwkJCQkJCTEwMDAwMCk7CisJaWYgKGVycikgeworCQlkZXZfZXJyKGRldiwgIiVzOiB0
+aW1lb3V0ICV4XG4iLCBfX2Z1bmNfXywgc3IpOworCQlyZXR1cm4gZXJyOworCX0KKworZW5kOgor
+CXJldHVybiAwOworfQorCisvKgorICogRXh0cmFjdHMgZnJvbSB0aGUgU1RNMzIgUk5HIHNwZWNp
+ZmljYXRpb24sIHdoZW4gQ09ORFJTVCBpcyBub3Qgc3VwcG9ydGVkCisgKgorICogV2hlbiBhIG5v
+aXNlIHNvdXJjZSAob3Igc2VlZCkgZXJyb3Igb2NjdXJzLCB0aGUgUk5HIHN0b3BzIGdlbmVyYXRp
+bmcKKyAqIHJhbmRvbSBudW1iZXJzIGFuZCBzZXRzIHRvIOKAnDHigJ0gYm90aCBTRUlTIGFuZCBT
+RUNTIGJpdHMgdG8gaW5kaWNhdGUKKyAqIHRoYXQgYSBzZWVkIGVycm9yIG9jY3VycmVkLiAoLi4u
+KQorICoKKyAqIFRoZSBmb2xsb3dpbmcgc2VxdWVuY2Ugc2hhbGwgYmUgdXNlZCB0byBmdWxseSBy
+ZWNvdmVyIGZyb20gYSBzZWVkCisgKiBlcnJvciBhZnRlciB0aGUgUk5HIGluaXRpYWxpemF0aW9u
+OgorICogMS4gQ2xlYXIgdGhlIFNFSVMgYml0IGJ5IHdyaXRpbmcgaXQgdG8g4oCcMOKAnS4KKyAq
+IDIuIFJlYWQgb3V0IDEyIHdvcmRzIGZyb20gdGhlIFJOR19EUiByZWdpc3RlciwgYW5kIGRpc2Nh
+cmQgZWFjaCBvZgorICogdGhlbSBpbiBvcmRlciB0byBjbGVhbiB0aGUgcGlwZWxpbmUuCisgKiAz
+LiBDb25maXJtIHRoYXQgU0VJUyBpcyBzdGlsbCBjbGVhcmVkLiBSYW5kb20gbnVtYmVyIGdlbmVy
+YXRpb24gaXMKKyAqIGJhY2sgdG8gbm9ybWFsLgorICovCitzdGF0aWMgaW50IHN0bTMyX3JuZ19j
+b25jZWFsX3NlZWRfZXJyb3Jfc3dfcmVzZXQoc3RydWN0IHN0bTMyX3JuZ19wcml2YXRlICpwcml2
+KQoreworCXVuc2lnbmVkIGludCBpID0gMDsKKwl1MzIgc3IgPSByZWFkbF9yZWxheGVkKHByaXYt
+PmJhc2UgKyBSTkdfU1IpOworCisJd3JpdGVsX3JlbGF4ZWQoc3IgJiB+Uk5HX1NSX1NFSVMsIHBy
+aXYtPmJhc2UgKyBSTkdfU1IpOworCisJZm9yIChpID0gMTI7IGkgIT0gMDsgaS0tKQorCQkodm9p
+ZClyZWFkbF9yZWxheGVkKHByaXYtPmJhc2UgKyBSTkdfRFIpOworCisJaWYgKHJlYWRsX3JlbGF4
+ZWQocHJpdi0+YmFzZSArIFJOR19TUikgJiBSTkdfU1JfU0VJUykKKwkJcmV0dXJuIC1FSU5WQUw7
+CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGljIGludCBzdG0zMl9ybmdfY29uY2VhbF9zZWVkX2Vy
+cm9yKHN0cnVjdCBod3JuZyAqcm5nKQoreworCXN0cnVjdCBzdG0zMl9ybmdfcHJpdmF0ZSAqcHJp
+diA9IGNvbnRhaW5lcl9vZihybmcsIHN0cnVjdCBzdG0zMl9ybmdfcHJpdmF0ZSwgcm5nKTsKKwor
+CWRldl9kYmcoKHN0cnVjdCBkZXZpY2UgKilwcml2LT5ybmcucHJpdiwgIkNvbmNlYWxpbmcgc2Vl
+ZCBlcnJvclxuIik7CisKKwlpZiAocHJpdi0+ZGF0YS0+aGFzX2NvbmRfcmVzZXQpCisJCXJldHVy
+biBzdG0zMl9ybmdfY29uY2VhbF9zZWVkX2Vycm9yX2NvbmRfcmVzZXQocHJpdik7CisJZWxzZQor
+CQlyZXR1cm4gc3RtMzJfcm5nX2NvbmNlYWxfc2VlZF9lcnJvcl9zd19yZXNldChwcml2KTsKK307
+CisKKwogc3RhdGljIGludCBzdG0zMl9ybmdfcmVhZChzdHJ1Y3QgaHdybmcgKnJuZywgdm9pZCAq
+ZGF0YSwgc2l6ZV90IG1heCwgYm9vbCB3YWl0KQogewogCXN0cnVjdCBzdG0zMl9ybmdfcHJpdmF0
+ZSAqcHJpdiA9CkBAIC02Niw2ICsxNjksOSBAQCBzdGF0aWMgaW50IHN0bTMyX3JuZ19yZWFkKHN0
+cnVjdCBod3JuZyAqcm5nLCB2b2lkICpkYXRhLCBzaXplX3QgbWF4LCBib29sIHdhaXQpCiAKIAlw
+bV9ydW50aW1lX2dldF9zeW5jKChzdHJ1Y3QgZGV2aWNlICopIHByaXYtPnJuZy5wcml2KTsKIAor
+CWlmIChyZWFkbF9yZWxheGVkKHByaXYtPmJhc2UgKyBSTkdfU1IpICYgUk5HX1NSX1NFSVMpCisJ
+CXN0bTMyX3JuZ19jb25jZWFsX3NlZWRfZXJyb3Iocm5nKTsKKwogCXdoaWxlIChtYXggPj0gc2l6
+ZW9mKHUzMikpIHsKIAkJc3IgPSByZWFkbF9yZWxheGVkKHByaXYtPmJhc2UgKyBSTkdfU1IpOwog
+CQkvKiBNYW5hZ2UgdGltZW91dCB3aGljaCBpcyBiYXNlZCBvbiB0aW1lciBhbmQgdGFrZSAqLwot
+LSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
