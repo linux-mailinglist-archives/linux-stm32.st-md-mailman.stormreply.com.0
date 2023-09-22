@@ -2,124 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D2AE7AD0D2
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Sep 2023 08:57:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3977AD2C2
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Sep 2023 10:10:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2890FC65E4F;
-	Mon, 25 Sep 2023 06:57:52 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E68A4C6B462;
+	Mon, 25 Sep 2023 08:10:46 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFE0BC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4965CC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Sep 2023 06:57:51 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-9a58dbd5daeso705401666b.2
+ Fri, 22 Sep 2023 19:54:57 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-59c0a7d54bdso33099277b3.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Sep 2023 23:57:51 -0700 (PDT)
+ Fri, 22 Sep 2023 12:54:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1695625071; x=1696229871;
+ d=gmail.com; s=20230601; t=1695412496; x=1696017296;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VG+6Xq/ASFsGoWBTTYjiIoHFQswBUUcv0GAt9Hgd6pE=;
- b=dneyhykx4UsPMB4OzeaQZ992FokgfcukyI2iuzrXBo9Paard/+nu7j/RqRQ9b/OkAy
- vMqKc/3XDM36FgrxQ4dZ1CPVNkKpeoCuwuHPkzck4A0uJqwRr15fwY5ZDdjjzo3qeMMg
- CcPOQ+LuBGQ6KLI+gUSR5fZT0Wt6Lk9gMqCCSyBHjpnsdUsPo3gVu7eyrMKTqU026/7h
- btw0KYWoFX36NcFz1YWkA+vg43QD8v7FRILHC5FSJn7QUXGwZWDNlHr+t5eY6PpftboA
- m3zzfIWQa51CJ42yM1a9A8TlhTf9Vtb1jBw7OVgO1Lfnkznmm/nIjDC9X0xvDuChVMjh
- MUAw==
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0/q+DLZbwziI1Qsk9b09AGVVAZXUqPJr8h06YV70fmM=;
+ b=g9e3wuq32//LZgOmAMbqBZrR5zY3LpnKB3REHlM7ohX5ty7a8uw/wlPU1B3UP0niH9
+ EzWAhWowZ2nF6Pp/mExvTaXuSyy/krCBg2l6xrvzyN0XpxGqlMEq5ban+tWUV8wvPCKX
+ WmRIwtSdpK4D/hNZAKXi0y1MOSiftxmAl91TxJds7Vfmu5ePdn3hC4wzKV7yYRZWfikw
+ 94zs7iR04sg4oD2fnYkmORCxLMK7sS25Mga2W4gc9+09syC41QYwjtdccixw1Q/JSJah
+ vkZ0ucD9/HxkDAKuILRtkgzrr7KeD5duP1coe4wtnoq0PAYUk8XDZ5PQWsRbaPyJk5Jm
+ Eyhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695625071; x=1696229871;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VG+6Xq/ASFsGoWBTTYjiIoHFQswBUUcv0GAt9Hgd6pE=;
- b=ioEnt09db2aBF9z1XiDfTeKLikhGI3Sm3o/dyF2Kxe6Uh63uq9Kg5KCzXhBJpYRd8h
- h4TjAOPRxDqDE9KCMgWeFEAwqNia4Z2B81g4v5ek7Jwa/T7/KzJPFmTHkdg+JdRmYLxB
- VjAsSq36a+6QQd5kcuxkrVPUYdlW2CP6ebj/I9sTPAlirwC6SMBE15NKpVNl+dkPGOB/
- pjrOIlp1qF5PyQQPRXKQrN3q3DYM5z731HFm7TNzG4/mbSy0nEwXa/HKK/YP2wmwNsv8
- MQ4wA6/9Pon0vuhkV2XyjLTSTIIlPgcxwl3OAPuiyNobKQHVg5i6ApgzJxqvuR/HEAwT
- z2Kw==
-X-Gm-Message-State: AOJu0YwbKRpthXmI6Uz9I8fQOinSHoGULKypp3RV3txNL+vKJ6TAphZz
- PAmqA0WF6SZPCpfu8uCMReAWRA==
-X-Google-Smtp-Source: AGHT+IFxCVTNHJvlQP8y3JcQW8lBT4gWQjafPrW/whl5M7iEpho5GlXkCsnAKu6tfKMlbtbSjcmaEQ==
-X-Received: by 2002:a17:907:7d90:b0:9ae:68d6:48f5 with SMTP id
- oz16-20020a1709077d9000b009ae68d648f5mr6051822ejc.41.1695625071258; 
- Sun, 24 Sep 2023 23:57:51 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.219.100])
- by smtp.gmail.com with ESMTPSA id
- g27-20020a170906349b00b0099bc0daf3d7sm5843290ejb.182.2023.09.24.23.57.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 Sep 2023 23:57:50 -0700 (PDT)
-Message-ID: <d08f6f17-f90c-4d71-a203-1d5365b5598a@linaro.org>
-Date: Mon, 25 Sep 2023 08:57:49 +0200
+ d=1e100.net; s=20230601; t=1695412496; x=1696017296;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0/q+DLZbwziI1Qsk9b09AGVVAZXUqPJr8h06YV70fmM=;
+ b=ZPXNwgXX59ptxP6mCoU1VPjv8OLVA8kWFGAzCN9EiBux7YUxRYjM9UBlvCMHW7q+YT
+ sLoxrXK9JfdoxxcJbLoma9gSJjH7JUu5GSlIsgruK/QsITmRsrvxWrxQuNixT1xPYg4F
+ vV9AD90U92gb3xURm7Z7ZklMr4q/1gmvImgmGMthVR/kSuf1BAe7X61NDNsZziyYhxUk
+ iSJ8gmDKMGlj72TRvVe9E6uI2FxxTGGX7b7hKzAxWxnWt20khNFldBkrpmPj77Bq5Pt7
+ 4HisPCryXmGVRSXcCy6hrGrSsTBU+8U7z4K0d7iBRyWn76lkiWfJLbzuQL/MXjpj8sHp
+ QP5g==
+X-Gm-Message-State: AOJu0YxNNdkcpW2QTEQq10muoHy7K5m/rMRze+SvwVucKHeQwqMMLQDd
+ Md6XzGAtMuZY/wiYQwpP4zP6CnvgV9bV405k2V8=
+X-Google-Smtp-Source: AGHT+IGmLNduTCyf7zJG2o+Xy19zbVZqRLA6xEkRBnq0dCqBoggs9lxH0CgZoFp0qbl4pn8KUuAH7gA/pqlgMsVOOC8=
+X-Received: by 2002:a81:a250:0:b0:57a:8456:3401 with SMTP id
+ z16-20020a81a250000000b0057a84563401mr766512ywg.29.1695412495973; Fri, 22 Sep
+ 2023 12:54:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Patrice CHOTARD <patrice.chotard@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20230730174954.5293-1-krzysztof.kozlowski@linaro.org>
- <20230730174954.5293-4-krzysztof.kozlowski@linaro.org>
- <e6afc5bb-7477-36d6-b05b-2afdd1107f03@foss.st.com>
- <a004afcd-08a0-4da4-9e3c-3b12445c7b43@linaro.org>
- <b02d3983-c238-f79f-0edc-dd0db305b697@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <b02d3983-c238-f79f-0edc-dd0db305b697@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH v2 4/4] ARM: dts: st: stih407: drop
-	max-duty-cycle
+References: <20230922111247.497-1-ansuelsmth@gmail.com>
+ <20230922111247.497-3-ansuelsmth@gmail.com>
+ <13bc074d-30c2-4bbf-8b4c-82f561c844b0@lunn.ch>
+ <650d8af4.5d0a0220.5ce38.2c5e@mx.google.com>
+In-Reply-To: <650d8af4.5d0a0220.5ce38.2c5e@mx.google.com>
+From: Dave Taht <dave.taht@gmail.com>
+Date: Fri, 22 Sep 2023 12:54:43 -0700
+Message-ID: <CAA93jw5i6T8QE0HuPGRA4hirp84EXk-DALu8WNcCtj5V4GggFg@mail.gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+X-Mailman-Approved-At: Mon, 25 Sep 2023 08:10:46 +0000
+Cc: Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Ping-Ke Shih <pkshih@realtek.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Hangbin Liu <liuhangbin@gmail.com>, dave seddon <dave.seddon.ca@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Simon Horman <horms@kernel.org>, Raju Rangoju <rajur@chelsio.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [net-next PATCH 3/3] net: stmmac: increase TX
+	coalesce timer to 5ms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,65 +84,304 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1866605009457990755=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 25/09/2023 08:50, Patrice CHOTARD wrote:
-> 
-> 
-> On 9/24/23 20:53, Krzysztof Kozlowski wrote:
->> On 16/08/2023 08:54, Patrice CHOTARD wrote:
->>>
->>>
->>> On 7/30/23 19:49, Krzysztof Kozlowski wrote:
->>>> "max-duty-cycle" property was removed in the commit f747a1fe7848
->>>> ("regulator: pwm-regulator: Remove obsoleted property"):
->>>>
->>>>   stih418-b2199.dtb: pwm-regulator: Unevaluated properties are not allowed ('max-duty-cycle' was unexpected)
->>>>
->>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->>>>
->>>> ---
->>>>
->>>> Changes in v2:
->>>> 1. Correct subject prefix: AMR->ARM
->>>> ---
->>>>  arch/arm/boot/dts/st/stih407-family.dtsi | 1 -
->>>>  1 file changed, 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm/boot/dts/st/stih407-family.dtsi b/arch/arm/boot/dts/st/stih407-family.dtsi
->>>> index 3f58383a7b59..29302e74aa1d 100644
->>>> --- a/arch/arm/boot/dts/st/stih407-family.dtsi
->>>> +++ b/arch/arm/boot/dts/st/stih407-family.dtsi
->>>> @@ -111,7 +111,6 @@ pwm_regulator: pwm-regulator {
->>>>  		regulator-min-microvolt = <784000>;
->>>>  		regulator-max-microvolt = <1299000>;
->>>>  		regulator-always-on;
->>>> -		max-duty-cycle = <255>;
->>>>  		status = "okay";
->>>>  	};
->>>>  
->>>
->>>
->>> Applied on sti-next
->>
->> This is still not in linux-next (one month later!).
-> 
-> Hi Krzysztof
-> 
-> Yes i saw that, i submitted my pull request to ML but it hasn't be merged.
-> I just notice i forgot to add soc@kernel.org in the sender list, my bad :-(
-> I expect to resubmit it for v6.7.
+--===============1866605009457990755==
+Content-Type: multipart/alternative; boundary="00000000000092059c0605f7fbd3"
 
-So if you have them in your tree, why they are not in linux-next? Soc
-has nothing to do with it.
+--00000000000092059c0605f7fbd3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Krzysztof
+On Fri, Sep 22, 2023 at 5:39=E2=80=AFAM Christian Marangi <ansuelsmth@gmail=
+.com>
+wrote:
+
+> On Fri, Sep 22, 2023 at 02:28:06PM +0200, Andrew Lunn wrote:
+> > On Fri, Sep 22, 2023 at 01:12:47PM +0200, Christian Marangi wrote:
+> > > Commit 8fce33317023 ("net: stmmac: Rework coalesce timer and fix
+> > > multi-queue races") decreased the TX coalesce timer from 40ms to 1ms.
+> > >
+> > > This caused some performance regression on some target (regression wa=
+s
+> > > reported at least on ipq806x) in the order of 600mbps dropping from
+> > > gigabit handling to only 200mbps.
+> > >
+> > > The problem was identified in the TX timer getting armed too much tim=
+e.
+> > > While this was fixed and improved in another commit, performance can =
+be
+> > > improved even further by increasing the timer delay a bit moving from
+> > > 1ms to 5ms.
+>
+
+I am always looking for finding ways to improve interrupt service time,
+rather than paper over the problem by increasing batchi-ness.
+
+http://www.taht.net/~d/broadcom_aug9_2018.pdf
+
+But also looking for hard data.
+
+I have tried to question other assumptions more modern kernels are making,
+in particular I wish more folk would experience with decreasing
+the overlarge (IMHO) NAPI default of 64 packets to, say 8 in the mq case,
+benefiting from multiple arm cores still equipped with limited cache, as
+well as looking at the impact of TLB flushes,
+and other deferred multi-core processing... that is looking good on a
+modern xeon, but might not be so good on a more limited arm.
+
+Over here there was an enormous test series recently run against a bunch of
+older arm64s which appears to indicate that memory bandwidth is a source of
+problems:
+
+https://docs.google.com/document/d/1HxIU_TEBI6xG9jRHlr8rzyyxFEN43zMcJXUFlRu=
+hiUI/edit
+
+We are looking to add more devices to that testbed.
+
+
+> > >
+> > > The value is a good balance between battery saving by prevending too
+> > > much interrupt to be generated and permitting good performance for
+> > > internet oriented devices.
+> >
+> > ethtool has a settings you can use for this:
+> >
+> >       ethtool -C|--coalesce devname [adaptive-rx on|off] [adaptive-tx
+> on|off]
+> >               [rx-usecs N] [rx-frames N] [rx-usecs-irq N] [rx-frames-ir=
+q
+> N]
+> >               [tx-usecs N] [tx-frames N] [tx-usecs-irq N] [tx-frames-ir=
+q
+> N]
+> >               [stats-block-usecs N] [pkt-rate-low N] [rx-usecs-low N]
+> >               [rx-frames-low N] [tx-usecs-low N] [tx-frames-low N]
+> >               [pkt-rate-high N] [rx-usecs-high N] [rx-frames-high N]
+> >               [tx-usecs-high N] [tx-frames-high N] [sample-interval N]
+> >               [cqe-mode-rx on|off] [cqe-mode-tx on|off]
+> [tx-aggr-max-bytes N]
+> >               [tx-aggr-max-frames N] [tx-aggr-time-usecs N]
+> >
+> > If this is not implemented, i suggest you add support for it.
+> >
+> > Changing the default might cause regressions. Say there is a VoIP
+> > application which wants this low latency? It would be safer to allow
+> > user space to configure it as wanted.
+> >
+>
+> Yep stmmac already support it. Idea here was to not fallback to use
+> ethtool and find a good value.
+>
+> Just for reference before one commit, the value was set to 40ms and
+> nobody ever pointed out regression about VoIP application. Wtih some
+> testing I found 5ms a small increase that restore original perf and
+> should not cause any regression.
+>
+> (for reference keeping this to 1ms cause a lost of about 100-200mbps)
+
+
+Does this driver have BQL also?
+
+
+> (also the tx timer implementation was created before any napi poll logic
+> and before dma interrupt handling was a thing, with the later change I
+> expect this timer to be very little used in VoIP scenario or similar
+> with continuous traffic as napi will take care of handling packet)
+>
+
+I would be pretty interested in a kernel flame graph of the before vs the
+after.
+
+>
+> Aside from these reason I totally get the concern and totally ok with
+> this not getting applied, was just an idea to push for a common value.
+>
+
+I try to get people to run much longer and more complicated tests such as
+the flent rrul test to see what kind of damage bigger buffers did to
+latency, as well as how other problems might show up. Really notable in the
+above test series was how badly various devices behaved over time on that
+workload. Extremely notable in that test series above was how badly the
+jetson performed:
+
+https://github.com/randomizedcoder/cake/blob/2023_09_02/pfifo_fast/jetson.p=
+ng
+
+And the nanopi was weird.
+
+https://github.com/randomizedcoder/cake/blob/2023_09_02/pfifo_fast/nanopi-n=
+eo3.png
+
+
+>
+> Just preferred to handle this here instead of script+userspace :(
+> (the important part is the previous patch)
+>
+> --
+>         Ansuel
+>
+>
+
+--=20
+Oct 30: https://netdevconf.info/0x17/news/the-maestro-and-the-music-bof.htm=
+l
+Dave T=C3=A4ht CSO, LibreQos
+
+--00000000000092059c0605f7fbd3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div><br></div></div><div class=3D"gmail_=
+quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Sep 22, 2023 at 5:39=
+=E2=80=AFAM Christian Marangi &lt;<a href=3D"mailto:ansuelsmth@gmail.com" t=
+arget=3D"_blank">ansuelsmth@gmail.com</a>&gt; wrote:<br></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">On Fri, Sep 22, 2023 at 02:28:06PM +02=
+00, Andrew Lunn wrote:<br>
+&gt; On Fri, Sep 22, 2023 at 01:12:47PM +0200, Christian Marangi wrote:<br>
+&gt; &gt; Commit 8fce33317023 (&quot;net: stmmac: Rework coalesce timer and=
+ fix<br>
+&gt; &gt; multi-queue races&quot;) decreased the TX coalesce timer from 40m=
+s to 1ms.<br>
+&gt; &gt; <br>
+&gt; &gt; This caused some performance regression on some target (regressio=
+n was<br>
+&gt; &gt; reported at least on ipq806x) in the order of 600mbps dropping fr=
+om<br>
+&gt; &gt; gigabit handling to only 200mbps.<br>
+&gt; &gt; <br>
+&gt; &gt; The problem was identified in the TX timer getting armed too much=
+ time.<br>
+&gt; &gt; While this was fixed and improved in another commit, performance =
+can be<br>
+&gt; &gt; improved even further by increasing the timer delay a bit moving =
+from<br>
+&gt; &gt; 1ms to 5ms.<br></blockquote><div><br></div>I am always looking fo=
+r finding ways to improve interrupt service time, rather than paper over th=
+e problem by increasing batchi-ness.=C2=A0<div><br></div><div><a href=3D"ht=
+tp://www.taht.net/~d/broadcom_aug9_2018.pdf" target=3D"_blank">http://www.t=
+aht.net/~d/broadcom_aug9_2018.pdf</a><div class=3D"gmail-sendToPdfFiller" s=
+tyle=3D"width:40px;display:inline-block;margin-left:10px" title=3D"Open wit=
+h pdfFiller"><img style=3D"background: none;"></div></div><div><br></div><d=
+iv>But also looking for hard data.</div><div><br></div><div><div>I have tri=
+ed to question other assumptions more modern kernels are making, in particu=
+lar I wish more folk would experience with decreasing</div><div>the overlar=
+ge (IMHO) NAPI default of 64 packets to, say 8 in the mq case, benefiting f=
+rom multiple arm cores still equipped with limited cache, as well as lookin=
+g at the impact of TLB flushes,</div><div>and other deferred multi-core pro=
+cessing... that is looking good on a modern xeon, but might not be so good =
+on a more limited arm.=C2=A0</div><div><br></div><div>Over here there was a=
+n enormous test series recently run against a bunch of older arm64s which a=
+ppears to indicate that memory bandwidth is a source of problems:</div><div=
+><br></div><div><a href=3D"https://docs.google.com/document/d/1HxIU_TEBI6xG=
+9jRHlr8rzyyxFEN43zMcJXUFlRuhiUI/edit" target=3D"_blank">https://docs.google=
+.com/document/d/1HxIU_TEBI6xG9jRHlr8rzyyxFEN43zMcJXUFlRuhiUI/edit</a><br></=
+div><div><br></div></div><div>We are looking to add more devices to that te=
+stbed.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">
+&gt; &gt; <br>
+&gt; &gt; The value is a good balance between battery saving by prevending =
+too<br>
+&gt; &gt; much interrupt to be generated and permitting good performance fo=
+r<br>
+&gt; &gt; internet oriented devices.<br>
+&gt; <br>
+&gt; ethtool has a settings you can use for this:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0ethtool -C|--coalesce devname [adaptive-rx o=
+n|off] [adaptive-tx on|off]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[rx-usecs N] [rx=
+-frames N] [rx-usecs-irq N] [rx-frames-irq N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[tx-usecs N] [tx=
+-frames N] [tx-usecs-irq N] [tx-frames-irq N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[stats-block-use=
+cs N] [pkt-rate-low N] [rx-usecs-low N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[rx-frames-low N=
+] [tx-usecs-low N] [tx-frames-low N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[pkt-rate-high N=
+] [rx-usecs-high N] [rx-frames-high N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[tx-usecs-high N=
+] [tx-frames-high N] [sample-interval N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[cqe-mode-rx on|=
+off] [cqe-mode-tx on|off] [tx-aggr-max-bytes N]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0[tx-aggr-max-fra=
+mes N] [tx-aggr-time-usecs N]<br>
+&gt; <br>
+&gt; If this is not implemented, i suggest you add support for it.<br>
+&gt; <br>
+&gt; Changing the default might cause regressions. Say there is a VoIP<br>
+&gt; application which wants this low latency? It would be safer to allow<b=
+r>
+&gt; user space to configure it as wanted.<br>
+&gt;<br>
+<br>
+Yep stmmac already support it. Idea here was to not fallback to use<br>
+ethtool and find a good value.<br>
+<br>
+Just for reference before one commit, the value was set to 40ms and<br>
+nobody ever pointed out regression about VoIP application. Wtih some<br>
+testing I found 5ms a small increase that restore original perf and<br>
+should not cause any regression.<br>
+<br>
+(for reference keeping this to 1ms cause a lost of about 100-200mbps)</bloc=
+kquote><div><br></div><div>Does this driver have BQL also?</div><div>=C2=A0=
+<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+(also the tx timer implementation was created before any napi poll logic<br=
+>
+and before dma interrupt handling was a thing, with the later change I<br>
+expect this timer to be very little used in VoIP scenario or similar<br>
+with continuous traffic as napi will take care of handling packet)<br></blo=
+ckquote><div><br></div><div>I would be pretty interested in a kernel flame =
+graph of the before vs the after.=C2=A0</div><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">
+<br>
+Aside from these reason I totally get the concern and totally ok with<br>
+this not getting applied, was just an idea to push for a common value.<br><=
+/blockquote><div><br></div><div>I try to get people to run much longer and =
+more complicated tests such as the flent rrul test to see what kind of dama=
+ge bigger buffers did to latency, as well as how other problems might show =
+up. Really notable in the above test series was how badly various devices b=
+ehaved over time on that workload. Extremely notable in that test series ab=
+ove was how badly the=C2=A0 jetson performed:</div><div><br></div><div><a h=
+ref=3D"https://github.com/randomizedcoder/cake/blob/2023_09_02/pfifo_fast/j=
+etson.png">https://github.com/randomizedcoder/cake/blob/2023_09_02/pfifo_fa=
+st/jetson.png</a></div><div><br></div><div>And the nanopi was weird.</div><=
+div><br></div><div><a href=3D"https://github.com/randomizedcoder/cake/blob/=
+2023_09_02/pfifo_fast/nanopi-neo3.png">https://github.com/randomizedcoder/c=
+ake/blob/2023_09_02/pfifo_fast/nanopi-neo3.png</a></div><div>=C2=A0</div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Just preferred to handle this here instead of script+userspace :(<br>
+(the important part is the previous patch)<br>
+<br>
+-- <br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Ansuel<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><div>Oct 30: <a href=3D"https://netdevconf.info/0x17/news/th=
+e-maestro-and-the-music-bof.html" target=3D"_blank">https://netdevconf.info=
+/0x17/news/the-maestro-and-the-music-bof.html</a></div><div>Dave T=C3=A4ht =
+CSO, LibreQos<br></div></div></div></div>
+
+--00000000000092059c0605f7fbd3--
+
+--===============1866605009457990755==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1866605009457990755==--
