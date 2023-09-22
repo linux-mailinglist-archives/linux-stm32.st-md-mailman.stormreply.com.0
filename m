@@ -2,79 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23A927AB2B9
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 15:30:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D3B67AB21A
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 14:28:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9FC2C6A5EF;
-	Fri, 22 Sep 2023 13:30:52 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F9F6C6A5EF;
+	Fri, 22 Sep 2023 12:28:40 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E39B5C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8E92C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Sep 2023 11:13:06 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-31fa15f4cc6so1895077f8f.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Sep 2023 04:13:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695381186; x=1695985986;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Mo60L/CqsBXTZMp9OSNBO8agQpgsikCTWPBLj8xU0z8=;
- b=KwUzumPuSVFh40F0MoU9DcJR7mOsw59gFGdrJlCFbI7ZhaM6NEDZvOUB+4MNvMKAEg
- i5ZdocTF8ZNRs8Q4plbKOpZzJVw5sw77llq954HM1pOkrXNi2W/vhpGUaIR3n/v1h0CF
- +OZiAJaqko0i+AsOPLeclB1BtIO1Yhf2/Xg+eokfDZMisHTLUotk2Eq6O/1cbMyP/xwE
- tqgoZceaLb8Uh/7GAx3+bje+YUz7KVyFcwJkYXfoGVNRmPNjaX/sE6DS6N4++joT4rXI
- zE0njwlQ5MNFa5B5u73d++u2Cp652XsBdv40N/KZuI9h0pzPcP4wDMX/MMz/1T+KYGsz
- TzZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695381186; x=1695985986;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Mo60L/CqsBXTZMp9OSNBO8agQpgsikCTWPBLj8xU0z8=;
- b=oYz1wdO09Q6qAcl6edkvhWUDaw6h5ewdcJklRroXqDtc0PdOm4hwu8LSN+74FDHS/R
- ZBZt3iEyimzq1NKkMpCNRnPiLDADd7ZTuFDtU9Y39t0EsSIh0NRQAS9KvAArhqOHwvjJ
- qfodqxIV288eQuzxLzAzKIv7nVhPWnCA5akebDPW96uCSzR9tJNpDIx+4SgeSZKUlYSV
- bon2Xm0AmYAiXXMF+nqCmIQOs5EqhoGcGcvmDTJ08aOz4NZPM8uTnlhqLpg7ZiIct4JX
- bSiN/IE9hK0+hBjrtSCjrfMb7BsMIt+rB53MfYvtyApAaGoES+kHcVLdt/bwqR4D71Df
- wlhg==
-X-Gm-Message-State: AOJu0Yx2wGkSmUBwRWugNhakR2Ribd0l8JQSnj6fxuyFCXrMzULRerIZ
- l/xIBov57DfK5yiuPK2bfmU=
-X-Google-Smtp-Source: AGHT+IH7mPXmlPp61fOS1UbXVt881rz7wfseEorF4MkXdznkIZPNZgazS5rBLuHv+qOU+uGgsaXdlQ==
-X-Received: by 2002:a5d:694d:0:b0:314:12c:4322 with SMTP id
- r13-20020a5d694d000000b00314012c4322mr7281735wrw.4.1695381185667; 
- Fri, 22 Sep 2023 04:13:05 -0700 (PDT)
-Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
- [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- g10-20020adffc8a000000b003176c6e87b1sm4191765wrr.81.2023.09.22.04.13.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Sep 2023 04:13:04 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Vincent Whitchurch <vincent.whitchurch@axis.com>,
- Raju Rangoju <rajur@chelsio.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>,
- Simon Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jiri Pirko <jiri@resnulli.us>, Hangbin Liu <liuhangbin@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org
-Date: Fri, 22 Sep 2023 13:12:45 +0200
-Message-Id: <20230922111247.497-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.40.1
+ Fri, 22 Sep 2023 12:28:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=/hHJSVVNBq+Q25kH/Q3wHbSMiRa2RSWRIm+2U1rOzjk=; b=RGnfJOeunzJN6IjLYEZrXxcAL/
+ fpuqpfDgH6Qj5AGs24gad1FLT/whsUz9i+WsoI2JuCWqvJREJGjVEjZGDNHJYKJ6ciBPPNTd/I/0+
+ Zj7N6VWu/XuVFoJ4TnxeWgPsNcLEZE4uTMKvr56eStvdFil+9r9xQ7pQu1x1FCDurx1c=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1qjfGQ-007CHP-5B; Fri, 22 Sep 2023 14:28:06 +0200
+Date: Fri, 22 Sep 2023 14:28:06 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Message-ID: <13bc074d-30c2-4bbf-8b4c-82f561c844b0@lunn.ch>
+References: <20230922111247.497-1-ansuelsmth@gmail.com>
+ <20230922111247.497-3-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 22 Sep 2023 13:30:52 +0000
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH 1/3] net: introduce napi_is_scheduled
-	helper
+Content-Disposition: inline
+In-Reply-To: <20230922111247.497-3-ansuelsmth@gmail.com>
+Cc: linux-wireless@vger.kernel.org, Ping-Ke Shih <pkshih@realtek.com>,
+ Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ Kalle Valo <kvalo@kernel.org>,
+ Vincent Whitchurch <vincent.whitchurch@axis.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Hangbin Liu <liuhangbin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Raju Rangoju <rajur@chelsio.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next PATCH 3/3] net: stmmac: increase TX
+ coalesce timer to 5ms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,89 +62,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We currently have napi_if_scheduled_mark_missed that can be used to
-check if napi is scheduled but that does more thing than simply checking
-it and return a bool. Some driver already implement custom function to
-check if napi is scheduled.
+On Fri, Sep 22, 2023 at 01:12:47PM +0200, Christian Marangi wrote:
+> Commit 8fce33317023 ("net: stmmac: Rework coalesce timer and fix
+> multi-queue races") decreased the TX coalesce timer from 40ms to 1ms.
+> 
+> This caused some performance regression on some target (regression was
+> reported at least on ipq806x) in the order of 600mbps dropping from
+> gigabit handling to only 200mbps.
+> 
+> The problem was identified in the TX timer getting armed too much time.
+> While this was fixed and improved in another commit, performance can be
+> improved even further by increasing the timer delay a bit moving from
+> 1ms to 5ms.
+> 
+> The value is a good balance between battery saving by prevending too
+> much interrupt to be generated and permitting good performance for
+> internet oriented devices.
 
-Drop these custom function and introduce napi_is_scheduled that simply
-check if napi is scheduled atomically.
+ethtool has a settings you can use for this:
 
-Update any driver and code that implement a similar check and instead
-use this new helper.
+      ethtool -C|--coalesce devname [adaptive-rx on|off] [adaptive-tx on|off]
+              [rx-usecs N] [rx-frames N] [rx-usecs-irq N] [rx-frames-irq N]
+              [tx-usecs N] [tx-frames N] [tx-usecs-irq N] [tx-frames-irq N]
+              [stats-block-usecs N] [pkt-rate-low N] [rx-usecs-low N]
+              [rx-frames-low N] [tx-usecs-low N] [tx-frames-low N]
+              [pkt-rate-high N] [rx-usecs-high N] [rx-frames-high N]
+              [tx-usecs-high N] [tx-frames-high N] [sample-interval N]
+              [cqe-mode-rx on|off] [cqe-mode-tx on|off] [tx-aggr-max-bytes N]
+              [tx-aggr-max-frames N] [tx-aggr-time-usecs N]
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/ethernet/chelsio/cxgb3/sge.c  | 8 --------
- drivers/net/wireless/realtek/rtw89/core.c | 2 +-
- include/linux/netdevice.h                 | 5 +++++
- net/core/dev.c                            | 2 +-
- 4 files changed, 7 insertions(+), 10 deletions(-)
+If this is not implemented, i suggest you add support for it.
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb3/sge.c b/drivers/net/ethernet/chelsio/cxgb3/sge.c
-index 2e9a74fe0970..71fa2dc19034 100644
---- a/drivers/net/ethernet/chelsio/cxgb3/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb3/sge.c
-@@ -2501,14 +2501,6 @@ static int napi_rx_handler(struct napi_struct *napi, int budget)
- 	return work_done;
- }
- 
--/*
-- * Returns true if the device is already scheduled for polling.
-- */
--static inline int napi_is_scheduled(struct napi_struct *napi)
--{
--	return test_bit(NAPI_STATE_SCHED, &napi->state);
--}
--
- /**
-  *	process_pure_responses - process pure responses from a response queue
-  *	@adap: the adapter
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 133bf289bacb..bbf4ea3639d4 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -1744,7 +1744,7 @@ static void rtw89_core_rx_to_mac80211(struct rtw89_dev *rtwdev,
- 	struct napi_struct *napi = &rtwdev->napi;
- 
- 	/* In low power mode, napi isn't scheduled. Receive it to netif. */
--	if (unlikely(!test_bit(NAPI_STATE_SCHED, &napi->state)))
-+	if (unlikely(!napi_is_scheduled(napi)))
- 		napi = NULL;
- 
- 	rtw89_core_hw_to_sband_rate(rx_status);
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index db3d8429d50d..8eac00cd3b92 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -482,6 +482,11 @@ static inline bool napi_prefer_busy_poll(struct napi_struct *n)
- 	return test_bit(NAPI_STATE_PREFER_BUSY_POLL, &n->state);
- }
- 
-+static inline bool napi_is_scheduled(struct napi_struct *n)
-+{
-+	return test_bit(NAPI_STATE_SCHED, &n->state);
-+}
-+
- bool napi_schedule_prep(struct napi_struct *n);
- 
- /**
-diff --git a/net/core/dev.c b/net/core/dev.c
-index cc03a5758d2d..32ba8002f65a 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6523,7 +6523,7 @@ static int __napi_poll(struct napi_struct *n, bool *repoll)
- 	 * accidentally calling ->poll() when NAPI is not scheduled.
- 	 */
- 	work = 0;
--	if (test_bit(NAPI_STATE_SCHED, &n->state)) {
-+	if (napi_is_scheduled(n)) {
- 		work = n->poll(n, weight);
- 		trace_napi_poll(n, work, weight);
- 	}
--- 
-2.40.1
+Changing the default might cause regressions. Say there is a VoIP
+application which wants this low latency? It would be safer to allow
+user space to configure it as wanted.
 
+     Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
