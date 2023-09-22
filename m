@@ -2,54 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B8B7AB58C
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 18:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4427C7AB70A
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 19:16:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11E44C6A5EF;
-	Fri, 22 Sep 2023 16:08:08 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6749C6A5EF;
+	Fri, 22 Sep 2023 17:16:09 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A280CC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3490FC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Sep 2023 16:08:06 +0000 (UTC)
-Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
- [213.243.189.158])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7715EB53;
- Fri, 22 Sep 2023 18:06:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1695398787;
- bh=Xs3HJJWVKmjQFBtIkxcpfdhvwl2YfTPFfT5f3BfS2P4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=t73D12u6qC9MwrL4EN+MJkqQgp8Rs+xx1TrYWHeuwHkDYx6/IRBk+tcFmwEQp2yDF
- xUu+ANq5DNzWHpse7/U/0k6LIx7krIxAb3UQ9SblPw+J9fqW5N8uET3qKi1EKGQDcG
- hGHEk39Slm/akpi8hzrc/Gc9BJSt4dU8Yipks9ns=
-Date: Fri, 22 Sep 2023 19:08:18 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20230922160818.GJ19112@pendragon.ideasonboard.com>
-References: <20230901155732.252436-1-alain.volmat@foss.st.com>
- <20230901155732.252436-5-alain.volmat@foss.st.com>
- <20230905090258.GC31594@pendragon.ideasonboard.com>
- <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
+ Fri, 22 Sep 2023 17:16:09 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1c5db4925f9so17205615ad.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Sep 2023 10:16:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1695402967; x=1696007767;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ICBL/Q4jbf7cf4gR4zY8Pazn4MfjoBlTiYldqzQrKlk=;
+ b=GhJynI+YkGewWTPefgUfw0mE5Yp9aXDewaDl89ItA9NCzH7NQMG9YBtWMEdbScC/Am
+ 3wPYMQPjc88K326bKLbEF3dCWuCv3LEVIqFCGQETTt1TnL064IGt+m3dvGcF61Jqm8w8
+ X4giSYz/AedrEeIp3vLQLrG1kLH7K5eqBrx+w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695402967; x=1696007767;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ICBL/Q4jbf7cf4gR4zY8Pazn4MfjoBlTiYldqzQrKlk=;
+ b=QCGOg3nUC8OqpLcl3OuiT4b0Qh5/0V5t70wJ6W6xNZHrqmcjznd899qtFrUhLOzLz2
+ l7M+zH539TlkSo6KVtNDlalx+cvqUWdBmJaXJvpjoo9aVajSXViFUbrxNQxN9A5TvG0l
+ UwwE9PRRW2xVbWqkvPiBBUAY2EhnLqER5D0PDl/Ufq0s+/SgWR7EfYVwu8BOFV9H2WmI
+ z0QZ77QqHRdgFd8tVdEFOQc2iIE4ttmbLcpLaUU/HRehGxBqtbifOP1Jc14cx51+dWco
+ Q8j9b5c5PzR3D8jHuolSr3bNSPWGm94K1VSdMXvj8JBEzrKj/qBd8K/AUJbOrO5ZHDwl
+ RvWA==
+X-Gm-Message-State: AOJu0YwuSJoEBGbmU5c2UXkYaAHHJHlGPWrGj+7POoqT79wMche5URad
+ najNP9U21qUr3XtVLozivw7EEQ==
+X-Google-Smtp-Source: AGHT+IEetMJnHs5bBcV9L3R6HPyKeQTS1z7sgSklrhHfcojQhz5I0wr5ShzBfZ21ocAxIbhohXa34w==
+X-Received: by 2002:a17:902:a416:b0:1c5:ecfc:2650 with SMTP id
+ p22-20020a170902a41600b001c5ecfc2650mr2175732plq.14.1695402967593; 
+ Fri, 22 Sep 2023 10:16:07 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ ji18-20020a170903325200b001bdbe6c86a9sm3742195plb.225.2023.09.22.10.16.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Sep 2023 10:16:07 -0700 (PDT)
+Date: Fri, 22 Sep 2023 10:16:06 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Vinod Koul <vkoul@kernel.org>
+Message-ID: <202309221015.AB63726@keescook>
+References: <20230817235428.never.111-kees@kernel.org>
+ <202309151307.F3341BD5A@keescook>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
- Dan Scally <dan.scally@ideasonboard.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v3 4/5] ARM: dts: stm32: add dcmipp
-	support to stm32mp135
+In-Reply-To: <202309151307.F3341BD5A@keescook>
+Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Laxman Dewangan <ldewangan@nvidia.com>, linux-hardening@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Lars-Peter Clausen <lars@metafoo.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
+ Orson Zhai <orsonzhai@gmail.com>, asahi@lists.linux.dev,
+ Jie Hai <haijie1@huawei.com>, Sven Peter <sven@svenpeter.dev>,
+ linux-arm-msm@vger.kernel.org, Green Wan <green.wan@sifive.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Kuai <yukuai3@huawei.com>,
+ linux-tegra@vger.kernel.org, Jordy Zomer <jordy@pwning.systems>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Zhou Wang <wangzhou1@hisilicon.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/21] dmaengine: Annotate with
+	__counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,68 +101,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 22, 2023 at 06:02:27PM +0200, Alain Volmat wrote:
-> On Tue, Sep 05, 2023 at 12:02:58PM +0300, Laurent Pinchart wrote:
-> > On Fri, Sep 01, 2023 at 05:57:23PM +0200, Alain Volmat wrote:
-> > > From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > > 
-> > > Add dcmipp support to STM32MP135.
-> > > 
-> > > Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > > ---
-> > >  arch/arm/boot/dts/st/stm32mp135.dtsi | 8 ++++++++
-> > >  1 file changed, 8 insertions(+)
-> > > 
-> > > diff --git a/arch/arm/boot/dts/st/stm32mp135.dtsi b/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > > index abf2acd37b4e..beee9ec7ed0d 100644
-> > > --- a/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > > +++ b/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > > @@ -8,5 +8,13 @@
-> > >  
-> > >  / {
-> > >  	soc {
-> > > +		dcmipp: dcmipp@5a000000 {
-> > > +			compatible = "st,stm32mp13-dcmipp";
-> > > +			reg = <0x5a000000 0x400>;
-> > > +			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
-> > > +			resets = <&rcc DCMIPP_R>;
-> > > +			clocks = <&rcc DCMIPP_K>;
-> > > +			status = "disabled";
-> > 
-> > This needs a port, as it's marked as required in the bindings. You can
-> > leave the endpoint out.
+On Fri, Sep 15, 2023 at 01:08:30PM -0700, Kees Cook wrote:
+> Just a ping on the series... how do these look to you, Vinod?
 > 
-> I first agreed with your comment but, having done the check (make
-> CHECK_DTBS=y  ...) this doesn't seem to be required because the dcmipp
-> node is kept disabled within our dtsi.
+> If you want I can carry them in my tree. Please let me know.
 
-Interesting.
+I'm now carrying this in my for-next/hardening tree. Let me know if
+you'd prefer I drop it.
 
-> (it is later on only enabled in dts file which as well have the port
-> property).
-> Indeed, to check this I changed it to okay and DTC_CHK complained about
-> missing port property.
-> 
-> Hence, I'd think that port doesn't have to be added in this dtsi file.
-> Would you agree with that ?
+Thanks!
 
-I still think the port belongs here, as it's an intrinsic property of
-the dcmipp, not a property of the board. Does it cause any issue to add
-a port in the .dtsi ?
-
-> > With this fixed,
-> > 
-> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > 
-> > > +		};
-> > >  	};
-> > >  };
+-Kees
 
 -- 
-Regards,
-
-Laurent Pinchart
+Kees Cook
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
