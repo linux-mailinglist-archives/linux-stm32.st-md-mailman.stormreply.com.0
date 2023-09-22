@@ -2,76 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634307AB56D
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 18:03:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50B8B7AB58C
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Sep 2023 18:08:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2069C6A5EF;
-	Fri, 22 Sep 2023 16:03:11 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11E44C6A5EF;
+	Fri, 22 Sep 2023 16:08:08 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB9BDC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A280CC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Sep 2023 16:03:10 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38M9vf5r030685; Fri, 22 Sep 2023 18:02:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=YgwADyaAKP0p1utyzmW0h
- AzmCYwU7A3xe+e+mBk+eQ0=; b=fO8br+JCSQ5ogq5agBmect4Rxnu8pYZhCAtlV
- 370cONvJUPRFJ9A5QbsYjhbJ7+EcL4Bke0DM/MBNlIcNe/r84eovPjiHwMNOKCvb
- w8sRQQGJnJkxEyBBxwsOMAA43RLrKi3JAd76D2mgupogGqSOR2PmYdrQQrRXzmzH
- cEhVI9pZ/NtdDB6pByJ/s1ngwGRZNMHC8lprNSv8RQrCIBnu9kP/3X3usj3s35UJ
- augYvfkrjniu08V7qmJgY90hHJV3IkJkkNye2WbG3gwzXgSkqGLM67FgzvUYkpSl
- 0odtNLbBIpvCYqYC8kMl2GXiwZ7fGqHMEDh1MrugXv6ks2Rgw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t8tt74730-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Sep 2023 18:02:38 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3125B100051;
- Fri, 22 Sep 2023 18:02:37 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1A4A724C0FA;
- Fri, 22 Sep 2023 18:02:37 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 22 Sep
- 2023 18:02:36 +0200
-Date: Fri, 22 Sep 2023 18:02:27 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Dan Scally <dan.scally@ideasonboard.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+ Fri, 22 Sep 2023 16:08:06 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (213-243-189-158.bb.dnainternet.fi
+ [213.243.189.158])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7715EB53;
+ Fri, 22 Sep 2023 18:06:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1695398787;
+ bh=Xs3HJJWVKmjQFBtIkxcpfdhvwl2YfTPFfT5f3BfS2P4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=t73D12u6qC9MwrL4EN+MJkqQgp8Rs+xx1TrYWHeuwHkDYx6/IRBk+tcFmwEQp2yDF
+ xUu+ANq5DNzWHpse7/U/0k6LIx7krIxAb3UQ9SblPw+J9fqW5N8uET3qKi1EKGQDcG
+ hGHEk39Slm/akpi8hzrc/Gc9BJSt4dU8Yipks9ns=
+Date: Fri, 22 Sep 2023 19:08:18 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <20230922160818.GJ19112@pendragon.ideasonboard.com>
 References: <20230901155732.252436-1-alain.volmat@foss.st.com>
  <20230901155732.252436-5-alain.volmat@foss.st.com>
  <20230905090258.GC31594@pendragon.ideasonboard.com>
+ <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230905090258.GC31594@pendragon.ideasonboard.com>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-09-22_14,2023-09-21_01,2023-05-22_02
+In-Reply-To: <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  linux-kernel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -102,70 +66,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Laurent,
-
-On Tue, Sep 05, 2023 at 12:02:58PM +0300, Laurent Pinchart wrote:
-> Hi Alain,
-> 
-> Thank you for the patch.
-> 
-> On Fri, Sep 01, 2023 at 05:57:23PM +0200, Alain Volmat wrote:
-> > From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+On Fri, Sep 22, 2023 at 06:02:27PM +0200, Alain Volmat wrote:
+> On Tue, Sep 05, 2023 at 12:02:58PM +0300, Laurent Pinchart wrote:
+> > On Fri, Sep 01, 2023 at 05:57:23PM +0200, Alain Volmat wrote:
+> > > From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> > > 
+> > > Add dcmipp support to STM32MP135.
+> > > 
+> > > Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> > > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > > ---
+> > >  arch/arm/boot/dts/st/stm32mp135.dtsi | 8 ++++++++
+> > >  1 file changed, 8 insertions(+)
+> > > 
+> > > diff --git a/arch/arm/boot/dts/st/stm32mp135.dtsi b/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > index abf2acd37b4e..beee9ec7ed0d 100644
+> > > --- a/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > +++ b/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > @@ -8,5 +8,13 @@
+> > >  
+> > >  / {
+> > >  	soc {
+> > > +		dcmipp: dcmipp@5a000000 {
+> > > +			compatible = "st,stm32mp13-dcmipp";
+> > > +			reg = <0x5a000000 0x400>;
+> > > +			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+> > > +			resets = <&rcc DCMIPP_R>;
+> > > +			clocks = <&rcc DCMIPP_K>;
+> > > +			status = "disabled";
 > > 
-> > Add dcmipp support to STM32MP135.
-> > 
-> > Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > ---
-> >  arch/arm/boot/dts/st/stm32mp135.dtsi | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/arch/arm/boot/dts/st/stm32mp135.dtsi b/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > index abf2acd37b4e..beee9ec7ed0d 100644
-> > --- a/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > +++ b/arch/arm/boot/dts/st/stm32mp135.dtsi
-> > @@ -8,5 +8,13 @@
-> >  
-> >  / {
-> >  	soc {
-> > +		dcmipp: dcmipp@5a000000 {
-> > +			compatible = "st,stm32mp13-dcmipp";
-> > +			reg = <0x5a000000 0x400>;
-> > +			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
-> > +			resets = <&rcc DCMIPP_R>;
-> > +			clocks = <&rcc DCMIPP_K>;
-> > +			status = "disabled";
+> > This needs a port, as it's marked as required in the bindings. You can
+> > leave the endpoint out.
 > 
-> This needs a port, as it's marked as required in the bindings. You can
-> leave the endpoint out.
+> I first agreed with your comment but, having done the check (make
+> CHECK_DTBS=y  ...) this doesn't seem to be required because the dcmipp
+> node is kept disabled within our dtsi.
 
-I first agreed with your comment but, having done the check (make
-CHECK_DTBS=y  ...) this doesn't seem to be required because the dcmipp
-node is kept disabled within our dtsi.
-(it is later on only enabled in dts file which as well have the port
-property).
-Indeed, to check this I changed it to okay and DTC_CHK complained about
-missing port property.
+Interesting.
 
-Hence, I'd think that port doesn't have to be added in this dtsi file.
-Would you agree with that ?
+> (it is later on only enabled in dts file which as well have the port
+> property).
+> Indeed, to check this I changed it to okay and DTC_CHK complained about
+> missing port property.
+> 
+> Hence, I'd think that port doesn't have to be added in this dtsi file.
+> Would you agree with that ?
 
+I still think the port belongs here, as it's an intrinsic property of
+the dcmipp, not a property of the board. Does it cause any issue to add
+a port in the .dtsi ?
+
+> > With this fixed,
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > 
+> > > +		};
+> > >  	};
+> > >  };
+
+-- 
 Regards,
-Alain
 
-> 
-> With this fixed,
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> > +		};
-> >  	};
-> >  };
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
