@@ -2,61 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 366107B0585
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Sep 2023 15:33:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 368677B0774
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Sep 2023 16:59:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9E01C6A60C;
-	Wed, 27 Sep 2023 13:33:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6FEBC6A60C;
+	Wed, 27 Sep 2023 14:59:42 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25702C6A60C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6ABCC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Sep 2023 13:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695821620; x=1727357620;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dtL29E/BwrOaZOSvMgF27vlanWODXVxmTDllXA3PIbI=;
- b=gVLZqqb+mxIppnp7WIKIssI8LG+2KPE1BPhGVGouTinIVtd9TGXFdOus
- gseFM7SfbvST70aKlPY1mJ/D6yJJD5x8cQBz4vf2nRHfPBmKdC6D2PPYk
- z1spuDvuDHPEeQtgVzQaDxKaEWFwDkLI4uNxWf2JJexIVktrvc3piKHRH
- cdEnmZjA21UViRdemlSHhB97CX4LTDXgxgtM1lZACZohGyTk68mPPaKGi
- b/f8a8fyO5fVrgo7RAmmeUQbiThwosiPRo0iC7Hv1scXCjcHLnefpF0AE
- KyZoDIFuVcpDrE4uTgPrSX4v2fSsj/lbF7FP8PlQda38qMf3XP7sQp/Gu w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="380700779"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="380700779"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 06:09:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="698867015"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="698867015"
-Received: from pglc00352.png.intel.com ([10.221.235.155])
- by orsmga003.jf.intel.com with ESMTP; 27 Sep 2023 06:09:38 -0700
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Wed, 27 Sep 2023 21:09:19 +0800
-Message-Id: <20230927130919.25683-3-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230927130919.25683-1-rohan.g.thomas@intel.com>
-References: <20230927130919.25683-1-rohan.g.thomas@intel.com>
+ Wed, 27 Sep 2023 14:59:40 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 41D43618C5;
+ Wed, 27 Sep 2023 14:59:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BD49C433C8;
+ Wed, 27 Sep 2023 14:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1695826778;
+ bh=J5WMHeQmOYa9DaNiL6kj1L9JZ8CZSajg8MxP1uoMKSE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FQmBq3PQj4PKvUzkHXkkFH9/JcpmiCxSZ2WWd1Rqwr/OIjrCqal+CfgHOkmWb/dEw
+ z4+x6qdDG1mLyQF1GXNZslivHxCxIloJMsAzgePtAAQ8SoVJdqWbknQZMZEbb3v1l/
+ MpGF3+38TNA9lMfj4wVNYQQGgW9CpoKVnB1yM9FGp+erUuI36ngPz0DaUb8+uaw7cm
+ 7dwzy7GrXYHz8q+qdee56LVDhvoAPsSEgmDWy6ruOMr/KQasD81JDXYCMqGed26LsW
+ MP5UdZSko+ftXTax8zedAE2iRfR4+hQbZGEyw1CoAgRRWh/1MYXIsPmrizuO4uZDpg
+ HI1KsWr0aDtwA==
+Date: Wed, 27 Sep 2023 15:59:32 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Message-ID: <20230927-dense-scoundrel-22ede0e27973@spud>
+References: <20230927122928.22033-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
-	platform driver
+In-Reply-To: <20230927122928.22033-1-ansuelsmth@gmail.com>
+Cc: Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Shenwei Wang <shenwei.wang@nxp.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Simon Horman <horms@kernel.org>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Rob Herring <robh+dt@kernel.org>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [net-next PATCH 1/2] dt-bindings: net: snps,
+ dwmac: DMA Arbitration scheme
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,90 +63,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7016525794487140890=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Enable Time Based Scheduling(TBS) support for Tx queues through the
-stmmac platform driver. For this a new per-queue tx-config property,
-tbs-enabled is added to the devicetree.
 
-Commit 7eadf57290ec ("net: stmmac: pci: Enable TBS on GMAC5 IPK PCI
-entry") enables similar support for the stmmac pci driver.
+--===============7016525794487140890==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="00CqfJ64cfG+S8hl"
+Content-Disposition: inline
 
-Also add check whether TBS support is available for a Tx DMA channel
-before enabling TBS support for that Tx DMA channel.
 
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 +++++++++++++++----
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 +++
- 2 files changed, 24 insertions(+), 5 deletions(-)
+--00CqfJ64cfG+S8hl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 81b6f3ecdf92..7333f0640b3d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3773,12 +3773,18 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
- 		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
- 
- 	/* Earlier check for TBS */
--	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
--		struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
--		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
-+	if (priv->dma_cap.tbssel) {
-+		/* TBS is available only for tbs_ch_num of Tx DMA channels,
-+		 * starting from the highest Tx DMA channel.
-+		 */
-+		chan = priv->dma_cap.number_tx_channel - priv->dma_cap.tbs_ch_num;
-+		for (; chan < priv->plat->tx_queues_to_use; chan++) {
-+			struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
-+			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
- 
--		/* Setup per-TXQ tbs flag before TX descriptor alloc */
--		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-+			/* Setup per-TXQ tbs flag before TX descriptor alloc */
-+			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-+		}
- 	}
- 
- 	ret = alloc_dma_desc_resources(priv, dma_conf);
-@@ -7505,6 +7511,15 @@ int stmmac_dvr_probe(struct device *device,
- 		}
- 	}
- 
-+	/* If TBS feature is supported(i.e. tbssel is true), then at least 1 Tx
-+	 * DMA channel supports TBS. So if tbs_ch_num is 0 and tbssel is true,
-+	 * assume all Tx DMA channels support TBS. TBS_CH field, which gives
-+	 * number of Tx DMA channels with TBS support is only available only for
-+	 * DW xGMAC IP. For other DWMAC IPs all Tx DMA channels can support TBS.
-+	 */
-+	if (priv->dma_cap.tbssel && !priv->dma_cap.tbs_ch_num)
-+		priv->dma_cap.tbs_ch_num = priv->dma_cap.number_tx_channel;
-+
- 	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
- 	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
- #ifdef STMMAC_VLAN_TAG_USED
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 843bd8804bfa..6c0191c84071 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -279,6 +279,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
- 		plat->tx_queues_cfg[queue].coe_unsupported =
- 			of_property_read_bool(q_node, "snps,coe-unsupported");
- 
-+		/* Select TBS for supported queues */
-+		plat->tx_queues_cfg[queue].tbs_en =
-+			of_property_read_bool(q_node, "snps,tbs-enabled");
-+
- 		queue++;
- 	}
- 	if (queue != plat->tx_queues_to_use) {
--- 
-2.26.2
+On Wed, Sep 27, 2023 at 02:29:27PM +0200, Christian Marangi wrote:
+> Document new binding snps,arbit to program the DMA to use Arbitration
+> scheme. (Rx has priority over Tx)
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Docu=
+mentation/devicetree/bindings/net/snps,dwmac.yaml
+> index 5c2769dc689a..4499f221c29b 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -442,6 +442,12 @@ properties:
+>      description:
+>        Use Address-Aligned Beats
+> =20
+> +  snps,arbit:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      Program the DMA to use Arbitration scheme.
+> +      (Rx has priority over Tx)
+
+Can you explain please what makes this a property of the hardware, or
+otherwise makes it suitable for inclusion in DT?
+
+> +
+>    snps,fixed-burst:
+>      $ref: /schemas/types.yaml#/definitions/flag
+>      description:
+> --=20
+> 2.40.1
+>=20
+
+--00CqfJ64cfG+S8hl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZRRDVAAKCRB4tDGHoIJi
+0vXYAQD67f4By+s5MP5vlHvV6WZ1uTkpsDKRXlhwiGwhPFF9aAD8CRBHJ1ufdl98
+4zTcZIm8hVr0NdUOXt28M5x1qXtgmgg=
+=JEy+
+-----END PGP SIGNATURE-----
+
+--00CqfJ64cfG+S8hl--
+
+--===============7016525794487140890==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7016525794487140890==--
