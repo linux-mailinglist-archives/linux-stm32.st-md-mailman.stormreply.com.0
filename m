@@ -2,72 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93457AEBA7
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Sep 2023 13:43:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA7E7B0256
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Sep 2023 13:03:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB7C4C6B462;
-	Tue, 26 Sep 2023 11:43:24 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2B8CC6A60C;
+	Wed, 27 Sep 2023 11:03:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 572FEC6A5F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6221CC65068
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Sep 2023 11:43:23 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2c123eed8b2so142870371fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Sep 2023 04:43:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695728602; x=1696333402;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=G4Jo6O14HRB1lG6y0fYE66EjY1Mf0lwNVNRvWwmPG5M=;
- b=L24sTmQidwyf8w0t/2tsQUciqovZxMUZ1pAXEWQ5vfzUVGFmmpxoJs8uDVoL0QCipc
- fyZF1JYGnv+tinh7A88Uh3ZPgk+W8cIs/cay47kS7OmRNujTjoHtRIY/TgAOkfNTJ5fU
- XYCbr24nMCEI6XkXh7u12ZDAh+ww4TvxxXMx/3cXeR1Dddgeom9/5O7PMItJ3Gs5HTnR
- XLseQcOwrOiZ58mG4snUzsU0l9QNqI7nXP/pMbxVUqzDK3rIryy9bDRkKVM5l7jkrurc
- Us6DfnmxxGv4y2YV+rjJFkiLr72tXkM19yFup82Y/MeSPI1IHBYtC9a53AX8ZK5uRZoX
- e1CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695728602; x=1696333402;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G4Jo6O14HRB1lG6y0fYE66EjY1Mf0lwNVNRvWwmPG5M=;
- b=XcPPm+nPoayDfzkIcG4iNLX7hHbC3Z1YdBeWe/w88m/N2VMn7wukEE/F5qDENwRYln
- X8b6btU9bU0Jrb1fDmv04Qs7+geZpnEzkGKGh4l1Lr13/xXrVJ+Rsr2/Im7Z0VuK9Zct
- 81Rj8ijZ5yuNK9RCG9jTSUQs/iAciHgDdcxkUg82QwpouBnCcYLtIZZ5brpmQnPiDIL6
- 2UxZoWRa4xAWzoqSfI9H9YwX6AHti7XL+bNf96bVLLf2slHCkxYKTbscJ479+YMJdT4J
- X9geqU7FATmyoehuqn0BC1COorZG/uAEeeZ/yFef1RYGrll3VWb5hvCY8OwriEkFo30O
- Pf9Q==
-X-Gm-Message-State: AOJu0Yz79EyBJjMVIisTt48PuXeVVvb4EMnjQ6r5LKpY5SMkI7q5X8mo
- /oE/C2VNj+favnSu3RRijp0=
-X-Google-Smtp-Source: AGHT+IH/MS17QN8xe+m37vMDEV0uLfGOO0lTQnOrpBtUvOIUyGxxmjrwjFZUXHSzbrEjc3LbupuBfw==
-X-Received: by 2002:a05:6512:2025:b0:503:1d46:6f29 with SMTP id
- s5-20020a056512202500b005031d466f29mr8151639lfs.37.1695728602373; 
- Tue, 26 Sep 2023 04:43:22 -0700 (PDT)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- u2-20020a056512040200b004fb78959218sm2197277lfk.200.2023.09.26.04.43.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Sep 2023 04:43:21 -0700 (PDT)
-Date: Tue, 26 Sep 2023 14:43:19 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Clark Wang <xiaoning.wang@nxp.com>
-Message-ID: <mq4q2ku5ephuk7gd4wmh65qqgxawvlb5dncdedyzeifphi3zdq@pk4g7tj5jhpl>
-References: <20230921062443.1251292-1-xiaoning.wang@nxp.com>
+ Wed, 27 Sep 2023 11:03:59 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38RAqtcH007388; Wed, 27 Sep 2023 13:03:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=selector1; bh=7yB8NpWtK7dweb2CR9jUC
+ ltaouL0nwx9ysquf7k9XsU=; b=6MqffwuzRrn1OHJG57ZKwmRGL7DSWZNV0eqiA
+ RW5LVYc4K10Avm+4T0WRZ266snMYvpY29q3RyyisXXHugzrt5z3834lRld5qNTqb
+ vD1BcP4hWKj3A9aNo9JuT3MPsRzb2DpOO7kgSFxxD6zd+6A4k8g3fSdrUxBGoEdo
+ n3OKi7kXLuBSSMWAOLJIGMzlmYMQhuYWPVO2aDFDbdtj/hEed1djI67C7QjPXe1E
+ YLHDkM+7lM69cmYKd5E0BgP33kyDy8fMgmfo62xvfVja1yYetDAh20ncaA8x2WZm
+ xBJfD8USXkIe90IRKzDWBsWaJfADp2qFdwtlOMFpzjUFLhYKQ==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t9pwd9thf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Sep 2023 13:03:21 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E8259100058;
+ Wed, 27 Sep 2023 13:03:19 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D736C217B6C;
+ Wed, 27 Sep 2023 13:03:19 +0200 (CEST)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 27 Sep
+ 2023 13:03:19 +0200
+Date: Wed, 27 Sep 2023 13:03:11 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <20230927110311.GA834168@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20230901155732.252436-1-alain.volmat@foss.st.com>
+ <20230901155732.252436-5-alain.volmat@foss.st.com>
+ <20230905090258.GC31594@pendragon.ideasonboard.com>
+ <20230922160227.GA608616@gnbcxd0016.gnb.st.com>
+ <20230922160818.GJ19112@pendragon.ideasonboard.com>
+ <20230925113542.GA646870@gnbcxd0016.gnb.st.com>
+ <20230925114332.GC8583@pendragon.ideasonboard.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230921062443.1251292-1-xiaoning.wang@nxp.com>
-Cc: linux-kernel@vger.kernel.org, bartosz.golaszewski@linaro.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: platform: fix the
-	incorrect parameter
+In-Reply-To: <20230925114332.GC8583@pendragon.ideasonboard.com>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-27_06,2023-09-27_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v3 4/5] ARM: dts: stm32: add dcmipp
+	support to stm32mp135
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,85 +106,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Sep 21, 2023 at 02:24:43PM +0800, Clark Wang wrote:
-> The second parameter of stmmac_pltfr_init() needs the pointer of
-> "struct plat_stmmacenet_data". So, correct the parameter typo when calling the
-> function.
+Hi Laurent,
 
-Right. Thanks for fixing this.
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
--Serge(y)
+On Mon, Sep 25, 2023 at 02:43:32PM +0300, Laurent Pinchart wrote:
+> On Mon, Sep 25, 2023 at 01:35:42PM +0200, Alain Volmat wrote:
+> > On Fri, Sep 22, 2023 at 07:08:18PM +0300, Laurent Pinchart wrote:
+> > > On Fri, Sep 22, 2023 at 06:02:27PM +0200, Alain Volmat wrote:
+> > > > On Tue, Sep 05, 2023 at 12:02:58PM +0300, Laurent Pinchart wrote:
+> > > > > On Fri, Sep 01, 2023 at 05:57:23PM +0200, Alain Volmat wrote:
+> > > > > > From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> > > > > > 
+> > > > > > Add dcmipp support to STM32MP135.
+> > > > > > 
+> > > > > > Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> > > > > > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> > > > > > ---
+> > > > > >  arch/arm/boot/dts/st/stm32mp135.dtsi | 8 ++++++++
+> > > > > >  1 file changed, 8 insertions(+)
+> > > > > > 
+> > > > > > diff --git a/arch/arm/boot/dts/st/stm32mp135.dtsi b/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > > > > index abf2acd37b4e..beee9ec7ed0d 100644
+> > > > > > --- a/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > > > > +++ b/arch/arm/boot/dts/st/stm32mp135.dtsi
+> > > > > > @@ -8,5 +8,13 @@
+> > > > > >  
+> > > > > >  / {
+> > > > > >  	soc {
+> > > > > > +		dcmipp: dcmipp@5a000000 {
+> > > > > > +			compatible = "st,stm32mp13-dcmipp";
+> > > > > > +			reg = <0x5a000000 0x400>;
+> > > > > > +			interrupts = <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>;
+> > > > > > +			resets = <&rcc DCMIPP_R>;
+> > > > > > +			clocks = <&rcc DCMIPP_K>;
+> > > > > > +			status = "disabled";
+> > > > > 
+> > > > > This needs a port, as it's marked as required in the bindings. You can
+> > > > > leave the endpoint out.
+> > > > 
+> > > > I first agreed with your comment but, having done the check (make
+> > > > CHECK_DTBS=y  ...) this doesn't seem to be required because the dcmipp
+> > > > node is kept disabled within our dtsi.
+> > > 
+> > > Interesting.
+> > > 
+> > > > (it is later on only enabled in dts file which as well have the port
+> > > > property).
+> > > > Indeed, to check this I changed it to okay and DTC_CHK complained about
+> > > > missing port property.
+> > > > 
+> > > > Hence, I'd think that port doesn't have to be added in this dtsi file.
+> > > > Would you agree with that ?
+> > > 
+> > > I still think the port belongs here, as it's an intrinsic property of
+> > > the dcmipp, not a property of the board. Does it cause any issue to add
+> > > a port in the .dtsi ?
+> > 
+> > I agree that the port refers more to the SoC (hence dtsi) rather than
+> > the board (hence dts), however I am wondering if this is really
+> > something usually done.  I had a look at other dtsi with node related
+> > to similar kind of devices and it seems to me that there is no such case
+> > of a dtsi with a port having nothing in it.  Did I missed something ?
+> 
+> Look at the csi@32e4000 and csi@32e5000 nodes in
+> arch/arm64/boot/dts/freescale/imx8mp.dtsi for instance. There are quite
+> a few other examples.
+
+Ok, thanks for pointer.  Understood, I add an empty port child within
+the node.  I've also covered the points of your review of the v3 and
+post now the v4.
 
 > 
-> Otherwise, it may cause this alignment exception when doing suspend/resume.
-> [   49.067201] CPU1 is up
-> [   49.135258] Internal error: SP/PC alignment exception: 000000008a000000 [#1] PREEMPT SMP
-> [   49.143346] Modules linked in: soc_imx9 crct10dif_ce polyval_ce nvmem_imx_ocotp_fsb_s400 polyval_generic layerscape_edac_mod snd_soc_fsl_asoc_card snd_soc_imx_audmux snd_soc_imx_card snd_soc_wm8962 el_enclave snd_soc_fsl_micfil rtc_pcf2127 rtc_pcf2131 flexcan can_dev snd_soc_fsl_xcvr snd_soc_fsl_sai imx8_media_dev(C) snd_soc_fsl_utils fuse
-> [   49.173393] CPU: 0 PID: 565 Comm: sh Tainted: G         C         6.5.0-rc4-next-20230804-05047-g5781a6249dae #677
-> [   49.183721] Hardware name: NXP i.MX93 11X11 EVK board (DT)
-> [   49.189190] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [   49.196140] pc : 0x80800052
-> [   49.198931] lr : stmmac_pltfr_resume+0x34/0x50
-> [   49.203368] sp : ffff800082f8bab0
-> [   49.206670] x29: ffff800082f8bab0 x28: ffff0000047d0ec0 x27: ffff80008186c170
-> [   49.213794] x26: 0000000b5e4ff1ba x25: ffff800081e5fa74 x24: 0000000000000010
-> [   49.220918] x23: ffff800081fe0000 x22: 0000000000000000 x21: 0000000000000000
-> [   49.228042] x20: ffff0000001b4010 x19: ffff0000001b4010 x18: 0000000000000006
-> [   49.235166] x17: ffff7ffffe007000 x16: ffff800080000000 x15: 0000000000000000
-> [   49.242290] x14: 00000000000000fc x13: 0000000000000000 x12: 0000000000000000
-> [   49.249414] x11: 0000000000000001 x10: 0000000000000a60 x9 : ffff800082f8b8c0
-> [   49.256538] x8 : 0000000000000008 x7 : 0000000000000001 x6 : 000000005f54a200
-> [   49.263662] x5 : 0000000001000000 x4 : ffff800081b93680 x3 : ffff800081519be0
-> [   49.270786] x2 : 0000000080800052 x1 : 0000000000000000 x0 : ffff0000001b4000
-> [   49.277911] Call trace:
-> [   49.280346]  0x80800052
-> [   49.282781]  platform_pm_resume+0x2c/0x68
-> [   49.286785]  dpm_run_callback.constprop.0+0x74/0x134
-> [   49.291742]  device_resume+0x88/0x194
-> [   49.295391]  dpm_resume+0x10c/0x230
-> [   49.298866]  dpm_resume_end+0x18/0x30
-> [   49.302515]  suspend_devices_and_enter+0x2b8/0x624
-> [   49.307299]  pm_suspend+0x1fc/0x348
-> [   49.310774]  state_store+0x80/0x104
-> [   49.314258]  kobj_attr_store+0x18/0x2c
-> [   49.318002]  sysfs_kf_write+0x44/0x54
-> [   49.321659]  kernfs_fop_write_iter+0x120/0x1ec
-> [   49.326088]  vfs_write+0x1bc/0x300
-> [   49.329485]  ksys_write+0x70/0x104
-> [   49.332874]  __arm64_sys_write+0x1c/0x28
-> [   49.336783]  invoke_syscall+0x48/0x114
-> [   49.340527]  el0_svc_common.constprop.0+0xc4/0xe4
-> [   49.345224]  do_el0_svc+0x38/0x98
-> [   49.348526]  el0_svc+0x2c/0x84
-> [   49.351568]  el0t_64_sync_handler+0x100/0x12c
-> [   49.355910]  el0t_64_sync+0x190/0x194
-> [   49.359567] Code: ???????? ???????? ???????? ???????? (????????)
-> [   49.365644] ---[ end trace 0000000000000000 ]---
+> > > > > With this fixed,
+> > > > > 
+> > > > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > > > 
+> > > > > > +		};
+> > > > > >  	};
+> > > > > >  };
 > 
-> Fixes: 97117eb51ec8 ("net: stmmac: platform: provide stmmac_pltfr_init()")
-> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 0d9b2138b60a..3c6fd9027934 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -900,7 +900,7 @@ static int __maybe_unused stmmac_pltfr_resume(struct device *dev)
->  	struct platform_device *pdev = to_platform_device(dev);
->  	int ret;
->  
-> -	ret = stmmac_pltfr_init(pdev, priv->plat->bsp_priv);
-> +	ret = stmmac_pltfr_init(pdev, priv->plat);
->  	if (ret)
->  		return ret;
->  
 > -- 
-> 2.34.1
+> Regards,
 > 
-> 
+> Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
