@@ -2,85 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16DF17B0423
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Sep 2023 14:29:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCD077B0462
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Sep 2023 14:40:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF982C6B473;
-	Wed, 27 Sep 2023 12:29:36 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72123C6A60C;
+	Wed, 27 Sep 2023 12:40:39 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE311C6B462
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F7A6C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Sep 2023 12:29:35 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4063e3ce085so28403545e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Sep 2023 05:29:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1695817775; x=1696422575;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=djhGgzEttuBwypRoTD2e7qd8nkSbwt4HcuoP4naClbc=;
- b=TUxkqE6tGwse2JIgoYp8neVVnDpqMkmtTNAyXdWkgijsPxoPUtqXWkd3g1Yt0Y4dBr
- bWI3TQJO/jefu6nAyC02jXuEp/8E5L6W9tGxDnM0YbpjJBGuYz26d496M32K078YkeHD
- qF78CHQnL8c1DpvqWtF3M4DpEJRNzjc3q17f/uQ2kHzFfkDN9D3WJj00ts7jIdhDv7wQ
- GKhdm45veg18+305aSmG37CiEav7PHQspJujypAwuzVFuqWjKqztltzvRGdvU1WvrMAU
- t2gzwmS7R49dGVkU1VVzm9XIWFepP4i6rf2XJZVn9XontI9pbWBYzxQ5PUg+elcgbYDB
- dLkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695817775; x=1696422575;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=djhGgzEttuBwypRoTD2e7qd8nkSbwt4HcuoP4naClbc=;
- b=YvKao5CuQHxrRwRUkTL2Ok2MWICWDQhX+nFuEbBRT8njl7Ah9C/Xb/l/CYvrkZdgBv
- AUM1gu1JIMBxykZbIjOilP6o2GeYYfGvfgufftVtScTt7+7EUubLoU3C9wNg9ZzpuqQz
- gulpsb/eIMNTLhhLMYfUIMrup1lO1hG3FScpw1uut44UFMa9YB946tRYeNTebxWjjqGy
- wG59Aq7y3dFTEBvInj7FZSJY3SfrYKUZden8MU5Q6R8yZYPgUO81YcdvglFjZwOrQico
- yUsRyCxGgsAl9MiJturLetuAg91tbQ3fBw7u8+MQynKw/3EcCq4FFePChBBZatNwkF3g
- 7crA==
-X-Gm-Message-State: AOJu0YwmshNIfTDMzxVmXUr+l8vsf97hFmx/xRTmFkvBTGMYzzGHW7Ti
- v2EUykokhRb4/gcwRgn3e24=
-X-Google-Smtp-Source: AGHT+IHcQL3pFBI02XxvUXVb6GR+GG2cph2JWQp8B1W1KKSu38pGMBYcBmAR8ek1iOZ6aemezFAIAA==
-X-Received: by 2002:a05:6000:1188:b0:31a:d4e4:4f63 with SMTP id
- g8-20020a056000118800b0031ad4e44f63mr1488621wrx.18.1695817775087; 
- Wed, 27 Sep 2023 05:29:35 -0700 (PDT)
-Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
- [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- 8-20020a05600c230800b004042dbb8925sm4521218wmo.38.2023.09.27.05.29.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Sep 2023 05:29:34 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Simon Horman <horms@kernel.org>, Andrew Halaney <ahalaney@redhat.com>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Wed, 27 Sep 2023 14:29:28 +0200
-Message-Id: <20230927122928.22033-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230927122928.22033-1-ansuelsmth@gmail.com>
-References: <20230927122928.22033-1-ansuelsmth@gmail.com>
+ Wed, 27 Sep 2023 12:40:38 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38RArC6r032260; Wed, 27 Sep 2023 14:40:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=emca6je
+ z2K/ZVKcbp1qKhyIDAykmyL5j+vxAhAC3rKc=; b=Tp6HhNd3AEqOainzO6DHFvP
+ avkfnh7mir61X2K5vXJGGcXA77H+uY6pgJHguoWNx6oPiiz74CsVSIvlT60yt3FV
+ xpO6hwhj4vdiKBbXDw4K/Tjmc7LkX9Y0zM6gw68vdqWAZSz/+TbjpjZ0mw81ATAJ
+ pRIAX0g53LPPz5A1yDtC/CfRyatKQOh27D4AJ0HhG3T9LRL71BBxx+DdrYbZ8FN1
+ mCz+j0vddW4G+HbAKLMJARKKT/tmcHt6oB363hkrE7U+m18nD+CpSVrhEy6Rh3lc
+ Mn9n0mqSVu9O1DarKXEpSXXL0zrZWOPfwCL60yxirmNuWyJvN9Jvoc/+wcuhA+Q=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3taayhqwf0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 27 Sep 2023 14:40:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D0D17100058;
+ Wed, 27 Sep 2023 14:40:10 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C579A23C6A1;
+ Wed, 27 Sep 2023 14:40:10 +0200 (CEST)
+Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 27 Sep
+ 2023 14:40:10 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
+ <alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob
+ Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Russell King <linux@armlinux.org.uk>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Wed, 27 Sep 2023 14:38:29 +0200
+Message-ID: <20230927123842.944025-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH 2/2] net: stmmac: add support for DMA
-	Arbitration Scheme
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-27_06,2023-09-27_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 0/5] Add support for DCMIPP camera
+	interface of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,60 +83,94 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for DMA Arbitration Scheme tune up to program the DMA to put
-priority on Rx instead of applying Round-Robin logic.
+This patchset introduces support for Digital Camera Memory Interface
+Pixel Processor (DCMIPP) of STMicroelectronics STM32 SoC series.
 
-This special DMA bus mode was defined in the header from a long time but
-was never actually implemented. This option is used on the original
-setup on the ipq806x-gmac driver based on DWMAC1000.
+This initial support implements a single capture pipe
+allowing RGB565, YUV, Y, RAW8 and JPEG capture with
+frame skipping, prescaling and cropping.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c   | 3 +++
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 1 +
- include/linux/stmmac.h                                | 1 +
- 3 files changed, 5 insertions(+)
+DCMIPP is exposed through 3 subdevices:
+- dcmipp_dump_parallel: parallel interface handling
+- dcmipp_dump_postproc: frame skipping, prescaling and cropping control
+- dcmipp_dump_capture: video device capture node
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-index daf79cdbd3ec..14eb7e8d61ea 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-@@ -104,6 +104,9 @@ static void dwmac1000_dma_init(void __iomem *ioaddr,
- 	if (dma_cfg->aal)
- 		value |= DMA_BUS_MODE_AAL;
- 
-+	if (dma_cfg->arbit)
-+		value |= DMA_BUS_MODE_DA;
-+
- 	writel(value, ioaddr + DMA_BUS_MODE);
- 
- 	/* Mask interrupts by writing to CSR7 */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 843bd8804bfa..f5791b03b320 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -576,6 +576,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- 	dma_cfg->pblx8 = !of_property_read_bool(np, "snps,no-pbl-x8");
- 
- 	dma_cfg->aal = of_property_read_bool(np, "snps,aal");
-+	dma_cfg->arbit = of_property_read_bool(np, "snps,arbit");
- 	dma_cfg->fixed_burst = of_property_read_bool(np, "snps,fixed-burst");
- 	dma_cfg->mixed_burst = of_property_read_bool(np, "snps,mixed-burst");
- 
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index c0079a7574ae..04a61f1eba90 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -97,6 +97,7 @@ struct stmmac_dma_cfg {
- 	int fixed_burst;
- 	int mixed_burst;
- 	bool aal;
-+	bool arbit;
- 	bool eame;
- 	bool multi_msi_en;
- 	bool dche;
+v4:
+  - rework of mutex / spinlock handling
+  - addition of dma mask setting
+  - removal of __maybe_unused, use pm_ptr and new declaration macros
+  - driver now only generate a single stm32-dcmipp.ko module instead of
+    several as before
+  - removal of the component framework usage
+  - various small fixes (function names, lowercase values, indentation,
+    print formats)
+  - register name removal in register access function, only dev_dbg with
+    address & values are kept
+  - removal of VB2_READ and CAP_READWRITE
+  - usage of subdev active state mechanism and removal of locally stored
+    format/compose/crop
+  - addition of port { } within the stm32mp135.dtsi
+
+v3:
+  - Have same To & Cc in all patches emails of the serie so that everybody
+    has coherent view of the serie
+  - bindings: correct wording, clock-names & label removal
+  - driver: replace of_graph call with fwnode_graph
+  - driver: use defined bus-type when calling v4l2_fwnode_endpoint_parse
+  - driver: remove clock name
+  - dtsi: remove clock-names property
+
+v2:
+  - removal of pclk-max-frequency from yaml example dts
+  - codying-style fixes
+  - correction in enum functions (format, mbus, frame_size ...) handling
+  - drop of v4l2_pipeline_pm_ calls, and specific open/close handler of
+    vdev
+  - video dev s_stream handling updated to call s_stream of remote subdev
+    instead of loop until sensor subdev
+  - code update following media_pipeline & v4l2_async_ api changes since v1
+  - removal of IP reset call upon error
+  - removal of link_validate handlers
+  - addition of V4L2_CAP_IO_MC device_caps
+  - removal of the frame skip control for the time being, will be added
+    back in another commit once control method will be agreed
+  - change byteproc entity type to MEDIA_ENT_F_PROC_VIDEO_SCALER
+  - various fixes from Dan & Sakari remarks
+
+Alain Volmat (2):
+  dt-bindings: media: add bindings for stm32 dcmipp
+  media: MAINTAINERS: add entry for STM32 DCMIPP driver
+
+Hugues Fruchet (3):
+  media: stm32-dcmipp: STM32 DCMIPP camera interface driver
+  ARM: dts: stm32: add dcmipp support to stm32mp135
+  ARM: multi_v7_defconfig: enable STM32 DCMIPP media support
+
+ .../bindings/media/st,stm32-dcmipp.yaml       |  89 ++
+ MAINTAINERS                                   |   5 +-
+ arch/arm/boot/dts/st/stm32mp135.dtsi          |  11 +
+ arch/arm/configs/multi_v7_defconfig           |   1 +
+ drivers/media/platform/st/stm32/Kconfig       |  15 +
+ drivers/media/platform/st/stm32/Makefile      |   1 +
+ .../platform/st/stm32/stm32-dcmipp/Makefile   |   4 +
+ .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c    | 993 ++++++++++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c   | 591 +++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-common.c     | 106 ++
+ .../st/stm32/stm32-dcmipp/dcmipp-common.h     | 207 ++++
+ .../st/stm32/stm32-dcmipp/dcmipp-core.c       | 603 +++++++++++
+ .../st/stm32/stm32-dcmipp/dcmipp-parallel.c   | 461 ++++++++
+ 13 files changed, 3086 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/media/st,stm32-dcmipp.yaml
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+ create mode 100644 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
+
 -- 
-2.40.1
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
