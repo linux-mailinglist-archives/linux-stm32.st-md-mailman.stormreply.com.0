@@ -2,52 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7407F7B26B1
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Sep 2023 22:39:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B267C7B28EC
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Sep 2023 01:42:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1517BC6B476;
-	Thu, 28 Sep 2023 20:39:13 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C468C6B476;
+	Thu, 28 Sep 2023 23:42:14 +0000 (UTC)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B515C6B473
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D4FDC6B474
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Sep 2023 20:39:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 4886FB81C1C;
- Thu, 28 Sep 2023 20:39:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D00C433C8;
- Thu, 28 Sep 2023 20:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695933550;
- bh=xINXDKcTe6ijRIqT/PemFdRIVgJJnLG488c56JbijgA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iwGeJcBnI4vzd0lgEzuKqStNzmqnNABTX3xmghorXxnqzGNG6fOsKS0yoXIjFGHX8
- hoRJRFEQau+i9BA8D5FUzu0TlSKY/OJeMI4mxDGOYphFOnFGBLTJu3z62TJkdw7M8o
- sBnzZaGl5t+KCMwnxVfd4WVh0oH0myH1whk9T9wT6uBC38H5H+dL5oJtYA+8HvsYIc
- 7f7mWXomZ4TwjnMJRUYY5JQibY7xFJlsyh5Yvw0G2JVxXnbk36zYjIO0Jl0znRPkG5
- 8TgGEbUNYa62BWEKEBKY6JSM1w1j7x//N1I9tPJOhBgtzgsEyqKrAEs/rWAlPwIXQ8
- OERuE5KGkNnXQ==
-Date: Thu, 28 Sep 2023 21:39:04 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-Message-ID: <20230928-footwork-padlock-524173c3e205@spud>
-References: <20230928151512.322016-1-christophe.roullier@foss.st.com>
- <20230928151512.322016-2-christophe.roullier@foss.st.com>
+ Thu, 28 Sep 2023 23:42:12 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-57b574c6374so5771970eaf.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 28 Sep 2023 16:42:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1695944532; x=1696549332;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3RV2WVrYFvmUIy/kF4sgLaI/igSwAmnqnqr5+CNVDt8=;
+ b=gTxDZmL666z+pHJqdRT0eghHOpIUo59TToKDjLeUHJENnzkQ5lwYEdjXcH/wkTdxoN
+ qlWN3xrccJm0df+QK393JbtH+HEsjb4uo5MVdQy+nmQM2khVZq7KbBlkGudz4YBygbMe
+ 6PnhE7XPOMfwEbnke/FYinqfAj7PE9Klsvcbw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695944532; x=1696549332;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3RV2WVrYFvmUIy/kF4sgLaI/igSwAmnqnqr5+CNVDt8=;
+ b=IGAXmiV7T5KHYzVwcawUvKH+7LePsw8KeygC0MuVy+2TRu7EXja4SUzs3RQesNsIfe
+ uyew9H2/EN2ev3Mh6Jn7MTzDqnQbpkLd2YmEt+1TdcWc7PEqA9nUNwP9UDFrKuL1zgKW
+ dKaSDj9cjSFr+QEqfmqP+ywJt+nx7dQS6CEpY5WVKJ/JQo7UZUT/EJXUf8DpEdQ7pGND
+ nsjXxgO9xcQ2Z8WabAwtlcA08TC1d+HEY0RNGbB1BB88fCgNT515pdBqQcmYBlAX1Hxi
+ 2lUxkMaeWfIOo7qh23iPYPWCKWbaZ3VGJTpInaMEdvAySMndz+mf2mAsmMOJubtIQjn6
+ 84OA==
+X-Gm-Message-State: AOJu0YzJ/heS4NtSgYYD5rozOcKwCp6S/1YZ/HgFkvpVAVy2UXK8hGgM
+ uXW0vtE9qWkiWUli7HGazD9KZQ==
+X-Google-Smtp-Source: AGHT+IHBsCldxysDZTajanQY+g4dIkq4a5ohe3XveIhxwgWt0zJyzNyJaoBdNbO8ZXRuiDiGJefhMw==
+X-Received: by 2002:a05:6358:2808:b0:13e:ea2a:40aa with SMTP id
+ k8-20020a056358280800b0013eea2a40aamr1895209rwb.8.1695944531707; 
+ Thu, 28 Sep 2023 16:42:11 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ t6-20020a639546000000b0057a868900a9sm13316234pgn.67.2023.09.28.16.42.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Sep 2023 16:42:10 -0700 (PDT)
+Date: Thu, 28 Sep 2023 16:42:09 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Vinod Koul <vkoul@kernel.org>
+Message-ID: <202309281641.47911CC@keescook>
+References: <20230817235428.never.111-kees@kernel.org>
+ <169590216841.152265.1942803099201042070.b4-ty@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20230928151512.322016-2-christophe.roullier@foss.st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 01/12] dt-bindings: net: add STM32MP13
- compatible in documentation for stm32
+Content-Disposition: inline
+In-Reply-To: <169590216841.152265.1942803099201042070.b4-ty@kernel.org>
+Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
+ Laxman Dewangan <ldewangan@nvidia.com>, linux-hardening@vger.kernel.org,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Lars-Peter Clausen <lars@metafoo.de>,
+ Chunyan Zhang <zhang.lyra@gmail.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
+ Orson Zhai <orsonzhai@gmail.com>, asahi@lists.linux.dev,
+ Jie Hai <haijie1@huawei.com>, Sven Peter <sven@svenpeter.dev>,
+ linux-arm-msm@vger.kernel.org, Green Wan <green.wan@sifive.com>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Kuai <yukuai3@huawei.com>,
+ linux-tegra@vger.kernel.org, Jordy Zomer <jordy@pwning.systems>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Zhou Wang <wangzhou1@hisilicon.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/21] dmaengine: Annotate with
+	__counted_by
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,193 +96,35 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3187503042976057760=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Sep 28, 2023 at 05:26:08PM +0530, Vinod Koul wrote:
+> 
+> On Thu, 17 Aug 2023 16:58:37 -0700, Kees Cook wrote:
+> > This annotates several structures with the coming __counted_by attribute
+> > for bounds checking of flexible arrays at run-time. For more details, see
+> > commit dd06e72e68bc ("Compiler Attributes: Add __counted_by macro").
+> > 
+> > Thanks!
+> > 
+> > -Kees
+> > 
+> > [...]
+> 
+> Applied, thanks!
 
---===============3187503042976057760==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8U54nw6WVDXbYGlQ"
-Content-Disposition: inline
+Thanks! I've dropped them from my tree. :)
 
+Also, I found 1 more, which I'll send separately.
 
---8U54nw6WVDXbYGlQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+-Kees
 
-Hey,
-
-On Thu, Sep 28, 2023 at 05:15:01PM +0200, Christophe Roullier wrote:
-> New STM32 SOC have 2 GMACs instances.
-> GMAC IP version is SNPS 4.20.
->=20
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
->  .../devicetree/bindings/net/stm32-dwmac.yaml  | 78 +++++++++++++++++--
->  1 file changed, 70 insertions(+), 8 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Doc=
-umentation/devicetree/bindings/net/stm32-dwmac.yaml
-> index fc8c96b08d7dc..ca976281bfc22 100644
-> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-> @@ -22,18 +22,17 @@ select:
->          enum:
->            - st,stm32-dwmac
->            - st,stm32mp1-dwmac
-> +          - st,stm32mp13-dwmac
->    required:
->      - compatible
-> =20
-> -allOf:
-> -  - $ref: snps,dwmac.yaml#
-> -
->  properties:
->    compatible:
->      oneOf:
->        - items:
->            - enum:
->                - st,stm32mp1-dwmac
-> +              - st,stm32mp13-dwmac
->            - const: snps,dwmac-4.20a
->        - items:
->            - enum:
-> @@ -74,13 +73,10 @@ properties:
-> =20
->    st,syscon:
->      $ref: /schemas/types.yaml#/definitions/phandle-array
-> -    items:
-> -      - items:
-> -          - description: phandle to the syscon node which encompases the=
- glue register
-> -          - description: offset of the control register
->      description:
->        Should be phandle/offset pair. The phandle to the syscon node which
-> -      encompases the glue register, and the offset of the control regist=
-er
-> +      encompases the glue register, the offset of the control register a=
-nd
-> +      the mask to set bitfield in control register
-> =20
->    st,eth-clk-sel:
->      description:
-> @@ -101,6 +97,38 @@ required:
-> =20
->  unevaluatedProperties: false
-> =20
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - st,stm32mp1-dwmac
-> +              - st,stm32-dwmac
-> +    then:
-> +      properties:
-> +        st,syscon:
-> +          items:
-> +            items:
-> +              - description: phandle to the syscon node which encompases=
- the glue register
-> +              - description: offset of the control register
-
-These descriptions should, IMO, be moved back out to the st,syscon
-definition. If you put the 3 descriptions there, with "minItems: 2" &
-put "maxItems: 2" and "minItems: 3" in each of the if/then clauses.
-Also, it should be sufficient to simplify to if/then/else.
-
-Cheers,
-Conor.
-
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - st,stm32mp13-dwmac
-> +    then:
-> +      properties:
-> +        st,syscon:
-> +          items:
-> +            items:
-> +              - description: phandle to the syscon node which encompases=
- the glue register
-> +              - description: offset of the control register
-> +              - description: field to set mask in register
-> +
->  examples:
->    - |
->      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> @@ -161,3 +189,37 @@ examples:
->             snps,pbl =3D <8>;
->             phy-mode =3D "mii";
->         };
-> +
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    #include <dt-bindings/reset/stm32mp1-resets.h>
-> +    #include <dt-bindings/mfd/stm32h7-rcc.h>
-> +    //Example 4
-> +     ethernet3: ethernet@5800a000 {
-> +           compatible =3D "st,stm32mp13-dwmac", "snps,dwmac-4.20a";
-> +           reg =3D <0x5800a000 0x2000>;
-> +           reg-names =3D "stmmaceth";
-> +           interrupts-extended =3D <&intc GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH=
->,
-> +                                 <&exti 68 IRQ_TYPE_LEVEL_HIGH>;
-> +           interrupt-names =3D "macirq",
-> +                             "eth_wake_irq";
-> +           clock-names =3D "stmmaceth",
-> +                         "mac-clk-tx",
-> +                         "mac-clk-rx",
-> +                         "eth-ck",
-> +                         "ptp_ref",
-> +                         "ethstp";
-> +           clocks =3D <&rcc ETHMAC>,
-> +                    <&rcc ETHTX>,
-> +                    <&rcc ETHRX>,
-> +                    <&rcc ETHCK_K>,
-> +                    <&rcc ETHPTP_K>,
-> +                    <&rcc ETHSTP>;
-> +           st,syscon =3D <&syscfg 0x4 0xff0000>;
-> +           snps,mixed-burst;
-> +           snps,pbl =3D <2>;
-> +           snps,axi-config =3D <&stmmac_axi_config_1>;
-> +           snps,tso;
-> +           phy-mode =3D "rmii";
-> +     };
-> --=20
-> 2.25.1
->=20
-
---8U54nw6WVDXbYGlQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZRXkaAAKCRB4tDGHoIJi
-0opWAP9JSnWhMjiIcX6Vc/XK2po8UfJBgrzDdpbxtFfTG/BmvwEA3JncB06h6fKE
-ThgDVUqVEGxr4yKfVfIj32yBSVdxXwU=
-=awMY
------END PGP SIGNATURE-----
-
---8U54nw6WVDXbYGlQ--
-
---===============3187503042976057760==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Kees Cook
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3187503042976057760==--
