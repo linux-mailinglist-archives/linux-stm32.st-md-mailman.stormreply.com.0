@@ -2,70 +2,119 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DFF57B12C6
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Sep 2023 08:25:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1D397B137D
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Sep 2023 09:05:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D49B3C6B476;
-	Thu, 28 Sep 2023 06:25:11 +0000 (UTC)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70104C6A60C;
+	Thu, 28 Sep 2023 07:05:25 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11D1DC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0733C65068
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Sep 2023 18:47:05 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-77574dec71bso121560385a.2
+ Thu, 28 Sep 2023 07:05:23 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-3231d6504e1so8692249f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Sep 2023 11:47:05 -0700 (PDT)
+ Thu, 28 Sep 2023 00:05:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1695840423; x=1696445223;
+ d=linaro.org; s=google; t=1695884723; x=1696489523;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xGsoS6S76d+wc39dHVr5d6LqZuXhI4/2gCLnqm1TcHs=;
- b=sfHCZqGhm2Jhs7IikrlBhUpq71J4pVPmEkiGvdZpQskIOb+z9aZeUsg82+rUa6Iw0R
- DJEJaC5Q+47jFjqkaPH/thkCjMaa/Y6CU3189ILKOpBdG7X6q+hWwSr44mbEUEZCEKJE
- w2SP2kV3+y7RcK8xtFA42tVvSchhNSLkPfpTHnKXIBFrjHkgcpuXkTylChDGXYcsrmsE
- ayroRKQXadNd3Q+a4Col/jtSiQXm6JdcN/RDveXMDq6TSkppXHXNiDWZzos4MxRh9GFh
- 9vnw/VwMjxwh+sfZD7c6BqAaaiSt3/pT/UGdBNLgWl/RmQY0WjWjo3m5CEftMD3D33Ko
- E+Tw==
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=JK5FKcmSKFk/poFkH6WaIiPHJq3+6nK77MGlhBlv5xc=;
+ b=ZyNhnPdL8qyqUJcrVnRBqkZGLqsYlHqZUuP9zP4GBgKBPscq4PvgpWOHirYV10dRXC
+ AimiNzZbRyTYUdEp0FOGRCznZpYYhW0YuSWdJc+qSRxlc+VEUtNJT8o//A9Fc5uOmVNG
+ 8MHZAFDS3pU3SU5coJHAsR2DBKcFwG9SLKhDYzxKIlkg3HtcFXEOduFD4HUyfiXM4V9o
+ G+Nk0XtaKBcQubGMSHjNYxQ2r20GkXtca5VLWHsDVCLid+qLYmPGoGwFA5SFiGmeh/nK
+ wdzuZYwuaH5aqwTN3OoDCwPl3ZoOMEVVC/hgn863rIdAUVGeN6ePlKNgaZmUPvbbA5aD
+ hqMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695840423; x=1696445223;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xGsoS6S76d+wc39dHVr5d6LqZuXhI4/2gCLnqm1TcHs=;
- b=absftDwww+90MMF4DZmfhrBbQAa2LekU/Sjlc72i2YmzSIuCiutY1baokFQjaZ+6py
- DtLNgVxetGqFXcKWFu7fu6FcPXfn8qRxEGuXP3iMFARHC3cmTf8jbYq3xlvYfVHuB5Fd
- S2Ng6Q7WFNx13dU+AoZemmkgtixlIQKs670LkizUIoNhlkupqOeeElyDAqbe1XFw2Agw
- oBLBPxFy4CYJPCTTD3c634KaTdjgYoOd/YWyDurbddyFrxuMPvST9aXz8sKXy/AsAzcD
- tHwPLlXQfihf4g+B3P9BekziQARW+xoBUbhvkb3ZkjfsoITlvYeHp31icr5SVAtOQd8R
- ItAQ==
-X-Gm-Message-State: AOJu0YyxOubLoPfR4Jn/a2htYyOaLw4fPXps5V3nQ38QlGR4a1RWHuwz
- DZmq535WHibCABLBFmRd2UuzWD03BmrAfcKsvrxsEQ==
-X-Google-Smtp-Source: AGHT+IG7+8cNxtjYaW8DLvuAzwkpFnOPp3GRgfoPosS/SSNgOQZqBfvWW6vOfnDQFgGdZtkac5nPfA==
-X-Received: by 2002:a05:620a:8325:b0:774:2893:3f25 with SMTP id
- pa37-20020a05620a832500b0077428933f25mr2602290qkn.25.1695840423687; 
- Wed, 27 Sep 2023 11:47:03 -0700 (PDT)
-Received: from localhost.localdomain ([50.212.55.89])
- by smtp.gmail.com with ESMTPSA id
- d8-20020ac81188000000b00411fcc18cc1sm5522232qtj.64.2023.09.27.11.47.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Sep 2023 11:47:03 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-stm32@st-md-mailman.stormreply.com, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 27 Sep 2023 14:45:56 -0400
-Message-ID: <20230927184556.1422122-1-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.42.0
+ d=1e100.net; s=20230601; t=1695884723; x=1696489523;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=JK5FKcmSKFk/poFkH6WaIiPHJq3+6nK77MGlhBlv5xc=;
+ b=RXtQnXwHxc6vYisy/q7eK7ZDsFMOJvNVpVhyeUazi/NTLsbTbhdPE5MHOpn6Gc0bdT
+ T5sFHrXobbjmp9NbRkzV6WXUOokIw96mg3IIsrKVO+ISNg5OZw0ZCNhR1Keo4AbG3hvE
+ HCqvpcSlJrZXdgjdXOz53mDC1lpnB3oXVJKncuUxeEDQYVr7QPwBalLQQ50bVyjkYCZ+
+ +SF/S3gOCnolTzo8KFuD3QgpayUYf753E45YGXZmEp7qm5WS/cnlr0Q3wkWdtRI7CobU
+ WsTRlO/aEicO6j7V0PHTGdAWLcrt1+Qa+9avUZtRKJrqswmpmnjRCQpTsASqhTJXFMbs
+ S/ag==
+X-Gm-Message-State: AOJu0YwIdyD1dcPkIG7aMOYlo/jhfuU1fkL1lBpxJfp22Y/1naVvC2wS
+ DZ6SrLuizTb0CUIFkxvWc6yQLQ==
+X-Google-Smtp-Source: AGHT+IHtRxKk7CXcPNdMQTTEBVfCDemBFx4pebeQoAgF8nP7IxdEu3s1ozmEdmztrqIM2F97b6iYUw==
+X-Received: by 2002:a5d:5b17:0:b0:31f:a4fa:130a with SMTP id
+ bx23-20020a5d5b17000000b0031fa4fa130amr465227wrb.14.1695884723076; 
+ Thu, 28 Sep 2023 00:05:23 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:c49e:e1a5:3210:b8c0?
+ ([2a05:6e02:1041:c10:c49e:e1a5:3210:b8c0])
+ by smtp.googlemail.com with ESMTPSA id
+ bv19-20020a0560001f1300b0032327b70ef6sm10037825wrb.70.2023.09.28.00.05.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Sep 2023 00:05:22 -0700 (PDT)
+Message-ID: <d8515a00-4d41-2d23-09ca-30f474fcbabd@linaro.org>
+Date: Thu, 28 Sep 2023 09:05:20 +0200
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 28 Sep 2023 06:25:10 +0000
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>, Russell King <linux@armlinux.org.uk>,
- Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
-Subject: [Linux-stm32] [PATCH] mmc: mmci: use peripheral flow control for
-	STM32
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>
+References: <20230927193736.2236447-1-u.kleine-koenig@pengutronix.de>
+ <CAJZ5v0guyQ-SpNHXYBG2F_WyCSvgjXocGBy61Ep1Cy5-H-MOsQ@mail.gmail.com>
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <CAJZ5v0guyQ-SpNHXYBG2F_WyCSvgjXocGBy61Ep1Cy5-H-MOsQ@mail.gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+ linux-arm-msm@vger.kernel.org, Amit Kucheria <amitk@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Chen-Yu Tsai <wenst@chromium.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Balsam CHIHI <bchihi@baylibre.com>, linux-renesas-soc@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Alexandre Mergnat <amergnat@baylibre.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Johan Hovold <johan+linaro@kernel.org>,
+ Minghao Chi <chi.minghao@zte.com.cn>, Jonathan Hunter <jonathanh@nvidia.com>,
+ linux-rockchip@lists.infradead.org, Andy Gross <agross@kernel.org>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Ray Jui <rjui@broadcom.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Zhang Rui <rui.zhang@intel.com>,
+ Rob Herring <robh@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ linux-tegra@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?B?TsOtY29sYXMgRi4gUi4gQS4gUHJhZG8=?= <nfraprado@collabora.com>,
+ linux-pm@vger.kernel.org, ye xingchen <ye.xingchen@zte.com.cn>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Yang Yingliang <yangyingliang@huawei.com>,
+ Eduardo Valentin <edubezval@gmail.com>, Chen Jiahao <chenjiahao16@huawei.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ linux-omap@vger.kernel.org,
+ Adam Ward <DLG-Adam.Ward.opensource@dm.renesas.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Support Opensource <support.opensource@diasemi.com>,
+ Scott Branden <sbranden@broadcom.com>, Keerthy <j-keerthy@ti.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, kernel@pengutronix.de,
+ =?UTF-8?Q?Niklas_S=c3=b6derlund?= <niklas.soderlund@ragnatech.se>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/31] thermal: Convert to platform remove
+ callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,76 +126,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
-
-The STM32 SDMMC peripheral (at least for the STM32F429, STM32F469 and
-STM32F746, which are all the currently supported devices using periphid
-0x00880180) requires DMA to be performed in peripheral flow controller
-mode. From the STM32F74/5 reference manual, section 35.3.2:
-
-"SDMMC host allows only to use the DMA in peripheral flow controller
-mode. DMA stream used to serve SDMMC must be configured in peripheral
-flow controller mode"
-
-This patch adds a variant option to control peripheral flow control and
-enables it for the STM32 variant.
-
-Signed-off-by: Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
----
- drivers/mmc/host/mmci.c | 3 ++-
- drivers/mmc/host/mmci.h | 2 ++
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 769b34afa835..90e32f18abbc 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -249,6 +249,7 @@ static struct variant_data variant_stm32 = {
- 	.f_max			= 48000000,
- 	.pwrreg_clkgate		= true,
- 	.pwrreg_nopower		= true,
-+	.dma_flow_controller	= true,
- 	.init			= mmci_variant_init,
- };
- 
-@@ -1012,7 +1013,7 @@ static int _mmci_dmae_prep_data(struct mmci_host *host, struct mmc_data *data,
- 		.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES,
- 		.src_maxburst = variant->fifohalfsize >> 2, /* # of words */
- 		.dst_maxburst = variant->fifohalfsize >> 2, /* # of words */
--		.device_fc = false,
-+		.device_fc = variant->dma_flow_controller,
- 	};
- 	struct dma_chan *chan;
- 	struct dma_device *device;
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index 253197f132fc..9a81f30f6748 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -332,6 +332,7 @@ enum mmci_busy_state {
-  * @opendrain: bitmask identifying the OPENDRAIN bit inside MMCIPOWER register
-  * @dma_lli: true if variant has dma link list feature.
-  * @stm32_idmabsize_mask: stm32 sdmmc idma buffer size.
-+ * @dma_flow_controller: use peripheral as flow controller for DMA.
-  */
- struct variant_data {
- 	unsigned int		clkreg;
-@@ -378,6 +379,7 @@ struct variant_data {
- 	u8			dma_lli:1;
- 	u32			stm32_idmabsize_mask;
- 	u32			stm32_idmabsize_align;
-+	u8			dma_flow_controller:1;
- 	void (*init)(struct mmci_host *host);
- };
- 
--- 
-2.42.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjcvMDkvMjAyMyAyMTo0NSwgUmFmYWVsIEouIFd5c29ja2kgd3JvdGU6Cj4gSGksCj4gCj4g
+T24gV2VkLCBTZXAgMjcsIDIwMjMgYXQgOTozOOKAr1BNIFV3ZSBLbGVpbmUtS8O2bmlnCj4gPHUu
+a2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4gd3JvdGU6Cj4+Cj4+IEhlbGxvLAo+Pgo+PiB0
+aGlzIHNlcmllcyBjb252ZXJ0cyBhbGwgcGxhdGZvcm0gZHJpdmVycyBiZWxvdyBkcml2ZXJzL3Ro
+ZXJtYWwgdG8gdXNlCj4+IC5yZW1vdmVfbmV3KCkuIFRoZSBtb3RpdmF0aW9uIGlzIHRvIGdldCBy
+aWQgb2YgYW4gaW50ZWdlciByZXR1cm4gY29kZQo+PiB0aGF0IGlzIChtb3N0bHkpIGlnbm9yZWQg
+YnkgdGhlIHBsYXRmb3JtIGRyaXZlciBjb3JlIGFuZCBlcnJvciBwcm9uZSBvbgo+PiB0aGUgZHJp
+dmVyIHNpZGUuCj4+Cj4+IFNlZSBjb21taXQgNWM1YTc2ODBlNjdiICgicGxhdGZvcm06IFByb3Zp
+ZGUgYSByZW1vdmUgY2FsbGJhY2sgdGhhdAo+PiByZXR1cm5zIG5vIHZhbHVlIikgZm9yIGFuIGV4
+dGVuZGVkIGV4cGxhbmF0aW9uIGFuZCB0aGUgZXZlbnR1YWwgZ29hbC4KPj4KPj4gVGhlcmUgYXJl
+IG5vIGludGVyZGVwZW5kZW5jaWVzIGJldHdlZW4gdGhlIHBhdGNoZXMuIEFzIHRoZXJlIGFyZSBz
+dGlsbAo+PiBxdWl0ZSBhIGZldyBkcml2ZXJzIHRvIGNvbnZlcnQsIEknbSBoYXBweSBhYm91dCBl
+dmVyeSBwYXRjaCB0aGF0IG1ha2VzCj4+IGl0IGluLiBTbyBldmVuIGlmIHRoZXJlIGlzIGEgbWVy
+Z2UgY29uZmxpY3Qgd2l0aCBvbmUgcGF0Y2ggdW50aWwgeW91Cj4+IGFwcGx5IG9yIGEgc3ViamVj
+dCBwcmVmaXggaXMgc3Vib3B0aW1hbCwgcGxlYXNlIGFwcGx5IHRoZSByZW1haW5kZXIgb2YKPj4g
+dGhpcyBzZXJpZXMgYW55aG93Lgo+IAo+IEkgdGhpbmsgSSdsbCBnbyBhaGVhZCBhbmQgYXBwbHkg
+YWxsIG9mIHRoaXMgaW4gb25lIGdvIChmb3IgNi43KS4KPiAKPiBEYW5pZWwsIGFueSBvYmplY3Rp
+b25zPwoKTm8gb2JqZWN0aW9uLCBmb3IgdGhlIHNlcmllczoKCkFja2VkLWJ5OiBEYW5pZWwgTGV6
+Y2FubyA8ZGFuaWVsLmxlemNhbm9AbGluYXJvLm9yZz4KCi0tIAo8aHR0cDovL3d3dy5saW5hcm8u
+b3JnLz4gTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCgpG
+b2xsb3cgTGluYXJvOiAgPGh0dHA6Ly93d3cuZmFjZWJvb2suY29tL3BhZ2VzL0xpbmFybz4gRmFj
+ZWJvb2sgfAo8aHR0cDovL3R3aXR0ZXIuY29tLyMhL2xpbmFyb29yZz4gVHdpdHRlciB8CjxodHRw
+Oi8vd3d3LmxpbmFyby5vcmcvbGluYXJvLWJsb2cvPiBCbG9nCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
