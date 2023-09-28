@@ -2,66 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17C97B1B77
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Sep 2023 13:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 388D17B1C2C
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Sep 2023 14:25:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90D0CC6A60C;
-	Thu, 28 Sep 2023 11:56:22 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEB16C6B476;
+	Thu, 28 Sep 2023 12:25:11 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31C94C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32C9FC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Sep 2023 11:56:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 244E6B81BDD;
- Thu, 28 Sep 2023 11:56:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9EFC433CA;
- Thu, 28 Sep 2023 11:56:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695902179;
- bh=6Zl5GUxFA2nc/y6O7NdAMik2lRzNv6/dDwBAB74Y+WU=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=kU1QMlU2oOcCh9DJWgxxKCGPuu9i9708CIb4rLHyv1+Ax6Boy93WAwoDcnNkK8uQz
- +Bwq9RUhYgcCqMMjsK8CaSRC5n8KKLnrrcrSxhhsIYl+PJtr/zL32i9zpOrp4zh0sl
- AiXUVhkHAan10BqdRf9m3aH92jvzO43o0XkVHNoyluJ3uf46NTm/x5puntUOxsXf94
- JL5IU0Nzba4ouykEsdYXLZrjFO+x3aocGihrmWmQq6W8AYJGTpZsve1H/9PnNpLZ3x
- Qb4G3VAnRj5oIIhqqSLTkaKHm3NAFyv350AMCtqXaxabHCO1hSxdjq69ENpWq4DqgF
- JGGSZy1WzVOkA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-In-Reply-To: <20230817235428.never.111-kees@kernel.org>
-References: <20230817235428.never.111-kees@kernel.org>
-Message-Id: <169590216841.152265.1942803099201042070.b4-ty@kernel.org>
-Date: Thu, 28 Sep 2023 17:26:08 +0530
+ Thu, 28 Sep 2023 12:25:10 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38S8XGKb001847; Thu, 28 Sep 2023 14:24:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=IsFOOmi
+ 4nAml8fnkKfJtzI5xW/IzPa/vkIZenzUzEzo=; b=Imdoxsn0sCo1H1Fb875VIQ8
+ kf7YpDaFQFVWgWc6Axv7A1tKiWoHRuqADFYRSnm0ISlm4PUUdom0CUOmOZkpOS56
+ ZwroG/Olne2a5aO0WLzs7ujteJtQ6m5a2UROidfKc7NZN2M7vf8drwQyiBI6kgFF
+ yovU2ibHC4MiyLOeOPhSvuM/EJbEdEGFFCWccGlF47Brq56pcRv5G9QXgOXbiBxE
+ eRlxcQLtMafS2QflvRw8Lk6bsFvIfrKI8mLPErCczhWPYNM5PeMqcrvMgHJTwLGu
+ 72kXDA2lSQKne0kf2Fy6aQiJhA2JwG8jAKcYf4qQ0hqF+4j3UlokRcWWlaFNpEQ=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3t9pwdf438-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 28 Sep 2023 14:24:39 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E787C100067;
+ Thu, 28 Sep 2023 14:24:34 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DCCC62309DA;
+ Thu, 28 Sep 2023 14:24:34 +0200 (CEST)
+Received: from localhost (10.201.21.249) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 28 Sep
+ 2023 14:24:31 +0200
+From: Christophe Roullier <christophe.roullier@foss.st.com>
+To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Christophe Roullier
+ <christophe.roullier@foss.st.com>
+Date: Thu, 28 Sep 2023 14:24:15 +0200
+Message-ID: <20230928122427.313271-1-christophe.roullier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mailer: b4 0.12.3
-Cc: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Tom Rix <trix@redhat.com>, llvm@lists.linux.dev,
- Laxman Dewangan <ldewangan@nvidia.com>, linux-hardening@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Lars-Peter Clausen <lars@metafoo.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Andy Gross <agross@kernel.org>,
- Orson Zhai <orsonzhai@gmail.com>, asahi@lists.linux.dev,
- Jie Hai <haijie1@huawei.com>, Sven Peter <sven@svenpeter.dev>,
- linux-arm-msm@vger.kernel.org, Green Wan <green.wan@sifive.com>,
- Nathan Chancellor <nathan@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Yu Kuai <yukuai3@huawei.com>,
- linux-tegra@vger.kernel.org, Jordy Zomer <jordy@pwning.systems>,
- linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, Hector Martin <marcan@marcan.st>,
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Zhou Wang <wangzhou1@hisilicon.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/21] dmaengine: Annotate with
-	__counted_by
+X-Originating-IP: [10.201.21.249]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-28_11,2023-09-28_01,2023-05-22_02
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2 00/12] Series to deliver Ethernets for
+	STM32MP13
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,67 +82,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+STM32MP13 is STM32 SOC with 2 GMACs instances
+This board have 2 RMII phy:
+  -Ethernet1: RMII with crystal
+  -Ethernet2: RMII without crystal
+Rework dwmac glue to simplify management for next stm32
 
-On Thu, 17 Aug 2023 16:58:37 -0700, Kees Cook wrote:
-> This annotates several structures with the coming __counted_by attribute
-> for bounds checking of flexible arrays at run-time. For more details, see
-> commit dd06e72e68bc ("Compiler Attributes: Add __counted_by macro").
-> 
-> Thanks!
-> 
-> -Kees
-> 
-> [...]
+-V2: Update from remark of Andrew Lunn (split commit into a number of smaller patches)
+     Update from Conor Dooley (yaml documentation)
 
-Applied, thanks!
+Christophe Roullier (12):
+  dt-bindings: net: add STM32MP13 compatible in documentation for stm32
+  dt-bindings: net: add new property st,ext-phyclk in documentation for
+    stm32
+  dt-bindings: net: add phy-supply property for stm32
+  net: ethernet: stmmac: rework glue to simplify management for next
+    stm32
+  net: ethernet: stmmac: add management of stm32mp13 for stm32
+  net: ethernet: stmmac: stm32: update config management for phy wo
+    cristal
+  net: ethernet: stm32: clean the way to manage wol irqwake
+  net: ethernet: stmmac: stm32: support the phy-supply regulator binding
+  ARM: dts: stm32: add ethernet1 and ethernet2 support on stm32mp13
+  ARM: dts: stm32: add ethernet1/2 RMII pins for STM32MP13F-DK board
+  ARM: dts: stm32: add ethernet1 and ethernet2 for STM32MP135F-DK board
+  ARM: multi_v7_defconfig: Add MCP23S08 pinctrl support
 
-[01/21] dmaengine: apple-admac: Annotate struct admac_data with __counted_by
-        commit: 83c5d35bf9112577da097c1b4fbfedef93b951e6
-[02/21] dmaengine: at_hdmac: Annotate struct at_desc with __counted_by
-        commit: 81cd3cb3b3dd37df1fc45c5b6443a07bc2a7fee4
-[03/21] dmaengine: axi-dmac: Annotate struct axi_dmac_desc with __counted_by
-        commit: f1bc0d01cb349da43d55548b57c915ef8fe024c7
-[04/21] dmaengine: fsl-edma: Annotate struct fsl_edma_desc with __counted_by
-        (no commit info)
-[05/21] dmaengine: hisilicon: Annotate struct hisi_dma_dev with __counted_by
-        commit: 7d4b82185521538eab8b0532b9bd7b8c8ca3e63b
-[06/21] dmaengine: moxart-dma: Annotate struct moxart_desc with __counted_by
-        commit: fd1cb31a037bf8894a710392c2354281c5276d09
-[07/21] dmaengine: qcom: bam_dma: Annotate struct bam_async_desc with __counted_by
-        commit: b9fe0bd5903140cc3e1ae4e542ae7ff38c90d011
-[08/21] dmaengine: sa11x0: Annotate struct sa11x0_dma_desc with __counted_by
-        commit: 04b5433b8c0e1b014f081f4bf79767bbc207a7b0
-[09/21] dmaengine: sf-pdma: Annotate struct sf_pdma with __counted_by
-        commit: 1539a22e144106eefc0ef05e7b91f68ad20a71ad
-[10/21] dmaengine: sprd: Annotate struct sprd_dma_dev with __counted_by
-        commit: 8360c11aef5775745fc10438e24db95ab2329b1d
-[11/21] dmaengine: st_fdma: Annotate struct st_fdma_desc with __counted_by
-        commit: 8279f0b476f37c51de2ed8bd70d770b2893dd2fa
-[12/21] dmaengine: stm32-dma: Annotate struct stm32_dma_desc with __counted_by
-        commit: 195e46df2d996ff4bbf624891b1d3ae8ea9f315d
-[13/21] dmaengine: stm32-mdma: Annotate struct stm32_mdma_desc with __counted_by
-        commit: 035472170a2a21fc62d8258883a9f566943058b7
-[14/21] dmaengine: stm32-mdma: Annotate struct stm32_mdma_device with __counted_by
-        commit: 7ba0035dc02ce0c877004dc4052c6d5f873539db
-[15/21] dmaengine: tegra: Annotate struct tegra_dma_desc with __counted_by
-        commit: 32b5e2d7cd14c80de1fa1cdffcc6ec211b615d82
-[16/21] dmaengine: tegra210-adma: Annotate struct tegra_adma with __counted_by
-        commit: 15f2c636dde8c4370db87ceabce5cc8325460d77
-[17/21] dmaengine: ti: edma: Annotate struct edma_desc with __counted_by
-        commit: 5f240e0cdbcb0cc60d6a75ea7d492ce93b7fd52e
-[18/21] dmaengine: ti: omap-dma: Annotate struct omap_desc with __counted_by
-        commit: b85178611c1156deb3c09e7f8d8cdd662b8df99c
-[19/21] dmaengine: uniphier-xdmac: Annotate struct uniphier_xdmac_desc with __counted_by
-        commit: 5a67a8f93f02027e4ac8583715d2f4bd2de20e10
-[20/21] dmaengine: uniphier-xdmac: Annotate struct uniphier_xdmac_device with __counted_by
-        commit: 7935de861aed45f97a4262d9b215d9feb172516b
-[21/21] dmaengine: usb-dmac: Annotate struct usb_dmac_desc with __counted_by
-        commit: a04bbeaa37d8789de5592506fa776256e784b69c
+ .../devicetree/bindings/net/stm32-dwmac.yaml  |  90 ++++++-
+ arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi   |  71 ++++++
+ arch/arm/boot/dts/st/stm32mp131.dtsi          |  31 +++
+ arch/arm/boot/dts/st/stm32mp133.dtsi          |  30 +++
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts       |  48 ++++
+ arch/arm/configs/multi_v7_defconfig           |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 229 +++++++++++++-----
+ 7 files changed, 425 insertions(+), 75 deletions(-)
 
-Best regards,
 -- 
-~Vinod
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
