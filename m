@@ -2,80 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21DA07B4EB4
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Oct 2023 11:11:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4002A7B540F
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Oct 2023 15:37:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D054FC6B473;
-	Mon,  2 Oct 2023 09:10:59 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3771C6B473;
+	Mon,  2 Oct 2023 13:37:13 +0000 (UTC)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com
+ [209.85.219.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6321BC6B456
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C3C3C6A5EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Oct 2023 09:10:58 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3928E3qR022118; Mon, 2 Oct 2023 11:10:14 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=E01OcOCHWhP/6+N5KY2PJxe8Vqf5B2GZBRHXsK7b/ZI=; b=aA
- egtRg/HZV5z61BlbQRmw/xhKB5/NOvXNbEABAWfThJ4zPTHndz302pa5QVjGM+sM
- 3J8B5ueo8i4iRhw3Pi7HwaWlrkqWsy58TBUitGYwlxhFctZH+p7nxHxKyjmiDHP0
- gunyUnqWwhUVh8dpDShiYuX54yeB8rEzvnWdNJYWKBCqzgkrTC+zGteyX1b5Pb5j
- Rf6xRjDsxe+C3FBAdS36hxq9MRrXNisC3EZbZEbT4TzCJ6MY1lbLR6cryXr1bkaw
- d59gty15vIlgDcfiUoAb0YziosPbln43LGmK99GlHY0DfgQb6OF9EUVre9tgoPIq
- Z+Sxdr7e5cMYwyIcmVVA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tew80bymt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 02 Oct 2023 11:10:14 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9C5F100059;
- Mon,  2 Oct 2023 11:10:12 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6252F211F22;
- Mon,  2 Oct 2023 11:10:12 +0200 (CEST)
-Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 2 Oct
- 2023 11:10:10 +0200
-Message-ID: <f3dbcd84-1320-9efb-f715-71b6bb4c7bdb@foss.st.com>
-Date: Mon, 2 Oct 2023 11:10:05 +0200
+ Thu, 28 Sep 2023 13:57:31 +0000 (UTC)
+Received: by mail-qv1-f44.google.com with SMTP id
+ 6a1803df08f44-65d0b0e7798so6766576d6.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 28 Sep 2023 06:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1695909449; x=1696514249;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oSN40jT34NDKom0qJtUzhXag8Ev4KHRW8ZHHC4ki3H0=;
+ b=2r4CVfqtoMB5CkfwZKHeN9N8jbIG+41tD9iXA9G83lYUFbAGUkxuwZZDMWPPJN2UXi
+ zO7fsz6+nMhA8rJDOOS11nusf2CyOkZ/H8DYCs8gllN4sBuW1/63CdFmDxiTOIN/hdbQ
+ lF3mz1aSdVG5Vt7qwFlz3eFXo5IM+9jzTM2HOe41dZbxuvuJLEFLYzIVqm0onWQFjTNP
+ djCmuY+ANoKZZpLuMiQZFCj+lo+YXqGNjKLc1ja/aFyKXibgcK6ZOSCEQx10HGHlWmvp
+ 5oFMHyFFkXCoz0vwy7T0HVAD46S5F/prha67JkIrTPGzxSeix+WkPIsm5Nr82+MvWxtg
+ t1LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695909449; x=1696514249;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oSN40jT34NDKom0qJtUzhXag8Ev4KHRW8ZHHC4ki3H0=;
+ b=vzUzdyGD1Om3He2T3BSWuGrW30u4EWfArmAbhCU4MszFcfjsCfzBEuypFzH93t6xOx
+ XzuDV4hqOD26v/0UbcVjqUWvk5TBCKltIXeIIeRIAgFSad5h4Ib2xclc+Y3kuJ2IuJW9
+ iH71Clu+8aRNrvMcnic2LV8S4EqUcZ9g5u5JjjLlGli/UcD+2kHMS4wMLTHzN3Yt6wPS
+ 0wkyhCSWxZPahABIRpFSqCW6HGw34+XlO2c3X4ekFXU23XW6GvRMD/2m4umfjIqPBryS
+ TySbHQdM4wBiCmlCJ3BFGQjDPsuR5mIjbtT+pRGjYBhwhxZTIAfatnM+NdbXHrlsRL9S
+ UPcA==
+X-Gm-Message-State: AOJu0Yy+rXwnotXdm3Cg35eR/+wXOfAQT+3O2+fWzz7Y+KO9xL3gVDZe
+ yz8DXtYzQ6aPksp8tby0myajDk9I3DzvG85Z9uiSyQ==
+X-Google-Smtp-Source: AGHT+IGWdn26NNdifnVExovijL5Usr/Yz4eGRPPDpetnJW0N8ZJ8ASVWk2eVgwnW8IZq0ltvmEXprg==
+X-Received: by 2002:a0c:cb12:0:b0:64f:4a4a:edc9 with SMTP id
+ o18-20020a0ccb12000000b0064f4a4aedc9mr1141508qvk.64.1695909449665; 
+ Thu, 28 Sep 2023 06:57:29 -0700 (PDT)
+Received: from localhost.localdomain ([50.212.55.89])
+ by smtp.gmail.com with ESMTPSA id
+ r10-20020a0c9e8a000000b006562b70805bsm3843529qvd.84.2023.09.28.06.57.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Sep 2023 06:57:29 -0700 (PDT)
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: linux-stm32@st-md-mailman.stormreply.com, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 28 Sep 2023 09:56:44 -0400
+Message-ID: <20230928135644.1489691-1-ben.wolsieffer@hefring.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-To: Rob Herring <robh@kernel.org>
-References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
- <20230929142852.578394-2-gatien.chevallier@foss.st.com>
- <169600172184.3601218.2121908606358610119.robh@kernel.org>
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <169600172184.3601218.2121908606358610119.robh@kernel.org>
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-02_03,2023-09-28_03,2023-05-22_02
-Cc: ulf.hansson@linaro.org, peng.fan@oss.nxp.com, gregkh@linuxfoundation.org,
- linux-iio@vger.kernel.org, catalin.marinas@arm.com, hugues.fruchet@foss.st.com,
- edumazet@google.com, Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andi.shyti@kernel.org, herbert@gondor.apana.org.au,
- Frank Rowand <frowand.list@gmail.com>, lee@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, linux-serial@vger.kernel.org, richardcochran@gmail.com,
- robh+dt@kernel.org, mchehab@kernel.org, linux-arm-kernel@lists.infradead.org,
- arnd@kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- al.sa-devel@alsa-project.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 01/11] dt-bindings: document generic
-	access controller
+X-Mailman-Approved-At: Mon, 02 Oct 2023 13:37:12 +0000
+Cc: Ulf Hansson <ulf.hansson@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Russell King <linux@armlinux.org.uk>,
+ Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
+Subject: [Linux-stm32] [PATCH v2] mmc: mmci: use peripheral flow control for
+	STM32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,123 +77,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
 
+The STM32 SDMMC peripheral (at least for the STM32F429, STM32F469 and
+STM32F746, which are all the currently supported devices using periphid
+0x00880180) requires DMA to be performed in peripheral flow controller
+mode. From the STM32F74/5 reference manual, section 35.3.2:
 
-On 9/29/23 17:35, Rob Herring wrote:
-> 
-> On Fri, 29 Sep 2023 16:28:42 +0200, Gatien Chevallier wrote:
->> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
->>
->> Introducing of the generic access controller bindings for the
->> access controller provider and consumer devices. Those bindings are
->> intended to allow a better handling of accesses to resources in a
->> hardware architecture supporting several compartments.
->>
->> This patch is based on [1]. It is integrated in this patchset as it
->> provides a use-case for it.
->>
->> Diffs with [1]:
->> 	- Rename feature-domain* properties to access-control* to narrow
->> 	  down the scope of the binding
->> 	- YAML errors and typos corrected.
->> 	- Example updated
->> 	- Some rephrasing in the binding description
->>
->> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
->>
->> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
->> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->>
->> ---
->> Changes in V5:
->> 	- Diffs with [1]
->> 	- Discarded the [IGNORE] tag as the patch is now part of the
->> 	  patchset
->>
->>   .../access-controllers/access-controller.yaml | 90 +++++++++++++++++++
->>   1 file changed, 90 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controller.yaml
->>
-> 
-> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-> on your patch (DT_CHECKER_FLAGS is new in v5.13):
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/access-controllers/access-controller.yaml: access-control-provider: missing type definition
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230929142852.578394-2-gatien.chevallier@foss.st.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
+"SDMMC host allows only to use the DMA in peripheral flow controller
+mode. DMA stream used to serve SDMMC must be configured in peripheral
+flow controller mode"
 
-Hi Rob,
+This patch adds a variant option to control peripheral flow control and
+enables it for the STM32 variant.
 
-Running:
-1- make dt_binding_check | grep access-control
-2- make dt_binding_check 
-DT_SCHEMA_FILES=Documentation/devicetree/bindings/access-controllers/access-controller.yaml
-from Krzysztof's slideset
+Signed-off-by: Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+---
+Changes in v2: use bool instead of u8:1
 
-with
+ drivers/mmc/host/mmci.c | 3 ++-
+ drivers/mmc/host/mmci.h | 2 ++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-pip3 show dtschema
-Name: dtschema
-Version: 2023.9
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 769b34afa835..90e32f18abbc 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -249,6 +249,7 @@ static struct variant_data variant_stm32 = {
+ 	.f_max			= 48000000,
+ 	.pwrreg_clkgate		= true,
+ 	.pwrreg_nopower		= true,
++	.dma_flow_controller	= true,
+ 	.init			= mmci_variant_init,
+ };
+ 
+@@ -1012,7 +1013,7 @@ static int _mmci_dmae_prep_data(struct mmci_host *host, struct mmc_data *data,
+ 		.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES,
+ 		.src_maxburst = variant->fifohalfsize >> 2, /* # of words */
+ 		.dst_maxburst = variant->fifohalfsize >> 2, /* # of words */
+-		.device_fc = false,
++		.device_fc = variant->dma_flow_controller,
+ 	};
+ 	struct dma_chan *chan;
+ 	struct dma_device *device;
+diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
+index 253197f132fc..34d9897c289b 100644
+--- a/drivers/mmc/host/mmci.h
++++ b/drivers/mmc/host/mmci.h
+@@ -332,6 +332,7 @@ enum mmci_busy_state {
+  * @opendrain: bitmask identifying the OPENDRAIN bit inside MMCIPOWER register
+  * @dma_lli: true if variant has dma link list feature.
+  * @stm32_idmabsize_mask: stm32 sdmmc idma buffer size.
++ * @dma_flow_controller: use peripheral as flow controller for DMA.
+  */
+ struct variant_data {
+ 	unsigned int		clkreg;
+@@ -378,6 +379,7 @@ struct variant_data {
+ 	u8			dma_lli:1;
+ 	u32			stm32_idmabsize_mask;
+ 	u32			stm32_idmabsize_align;
++	bool			dma_flow_controller;
+ 	void (*init)(struct mmci_host *host);
+ };
+ 
+-- 
+2.42.0
 
-and
-
-pip3 show yamllint
-Name: yamllint
-Version: 1.32.0
-
-I don't see any of the errors reported by the robot. I have to clone
-your repository to reproduce it.
-
-Should I resubmit with a clean dt-check using the latest dtschema?
-
-***********
-However, I get:
-warning: ignoring duplicate '$id' value 
-'http://devicetree.org/schemas/reserved-memory/framebuffer.yaml#
-warning: ignoring duplicate '$id' value 
-'http://devicetree.org/schemas/reserved-memory/memory-region.yaml#
-warning: ignoring duplicate '$id' value 
-'http://devicetree.org/schemas/reserved-memory/shared-dma-pool.yaml#
-warning: ignoring duplicate '$id' value 
-'http://devicetree.org/schemas/reserved-memory/reserved-memory.yaml
-
-Above warnings disappears when switching to:
-pip3 show dtschema
-Name: dtschema
-Version: 2023.7
-
-The above YAMLs seem to be duplicated in dtschema's latest version.
-I guess it's a synchro that needs to be done since:
-https://lore.kernel.org/all/20230830231758.2561402-2-sjg@chromium.org/
-***********
-
-Best regards,
-Gatien
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
