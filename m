@@ -2,56 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5315F7B2B1C
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Sep 2023 07:18:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72C67B2CC8
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Sep 2023 09:03:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD028C6B477;
-	Fri, 29 Sep 2023 05:18:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5340AC6B477;
+	Fri, 29 Sep 2023 07:03:14 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 097E9C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBC4FC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Sep 2023 05:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695964689; x=1727500689;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=QE7xX2WezWE3ftoKtKzbLcE6HA7lPFiTOPv5jyc5Dxg=;
- b=SFh8TI8REFIzzFMInufZ2yWTecVqyPp4W44I1MnRqWLEwHjU8Q0HAUet
- 8VboWFNHPETr2vJCxf4daZDUxMB1r1NFDoG38VGvq81smfjh081mc1yjE
- zJcQ53UM7rJ+t89V/NRl1kTX0XZ0oIrKwn+EE5Ox/oFkhfJxlygKOyF/y
- ivMk4XffKz8+63k1XTH90R8SfH9XNQ6wlqo+Cy6wkM4we/0SaqUhew8qO
- nyOYnpqJPkLsc3/wmSRf0WXks67VEAm15g0dQrFE0oRhPBO5gtroMPQaI
- 1e6v3ZGJPTgdy5OtTB0cFwCABZNdc2JUCZnTLCZLao3dSjsX4x54UaHV/ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="3807794"
-X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; 
-   d="scan'208";a="3807794"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 22:18:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="840171527"
-X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="840171527"
-Received: from pglc00352.png.intel.com ([10.221.235.155])
- by FMSMGA003.fm.intel.com with ESMTP; 28 Sep 2023 22:18:02 -0700
-From: rohan.g.thomas@intel.com
-To: robh@kernel.org
-Date: Fri, 29 Sep 2023 13:17:58 +0800
-Message-Id: <20230929051758.21492-1-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20230928180942.GA932326-robh@kernel.org>
-References: <20230928180942.GA932326-robh@kernel.org>
+ Fri, 29 Sep 2023 07:03:12 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 38T2OFY7007793; Fri, 29 Sep 2023 09:02:54 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=2enBjh4tBxnFdWt6QZ9vWmJjW+oWmfOTuuCNhdQashs=; b=hA
+ LmJsmNvjtMnacnVyLmDwWZUqI0KctgUSXU5c0cyflFnB9t8e9OKJzASTKQuLYRMW
+ ac95QohIZpKntKaxv1fkgRbrpSeKjnlJw8UfBD4Qx8bhJpp1whbCwvtIyH2NH+fW
+ G9VhU/rYMXz/s40zvgm0tSB0hDZAMKuxcT0eOg5sC7kDkMfp5jGdiYw3PDfc9cHh
+ 5pT0kcL3IO3gq4VqJwoCnw42+MFGDfh/Giq5pCKAhl7SDI8AZHwu3KNa/TCGujxB
+ QSwxQsPhomDmfsKAt7MIO8x5k3qJhzckt4fRWF5/CkMb2lub7eq5kSCwU66fxIch
+ eCiwj5HRvHH69B0lKnRg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ta9k0qe0t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 29 Sep 2023 09:02:54 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D7433100058;
+ Fri, 29 Sep 2023 09:02:53 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BF953226FBF;
+ Fri, 29 Sep 2023 09:02:53 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 29 Sep
+ 2023 09:02:53 +0200
+Message-ID: <74467a49-4218-f9f5-5f98-b43ea12fef2e@foss.st.com>
+Date: Fri, 29 Sep 2023 09:02:52 +0200
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, edumazet@google.com,
- joabreu@synopsys.com, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, kuba@kernel.org, rohan.g.thomas@intel.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] dt-bindings: net: snps,
-	dwmac: Time Based Scheduling
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>
+References: <20230922081055.6242-1-alexandre.torgue@foss.st.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20230922081055.6242-1-alexandre.torgue@foss.st.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-09-29_04,2023-09-28_03,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 0/2] Declare and enable watchdog on
+	stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,97 +73,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
+On 9/22/23 10:10, Alexandre Torgue wrote:
+> Secure ARM watchdog is used on stm32mp25 relying on SMC to configure
+> and kick the watchdog. It is set to 32 seconds on stm32mp257f-ev1
+> board.
+> 
+> Regards
+> Alex
+> 
+> Alexandre Torgue (2):
+>    arm64: dts: st: add arm-wdt node for watchdog support on stm32mp251
+>    arm64: dts: st: enable secure arm-wdt watchdog on stm32mp257f-ev1
+> 
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi     | 6 ++++++
+>   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 5 +++++
+>   2 files changed, 11 insertions(+)
+> 
+Series applied on stm32-next.
 
-On Wed, Sep 27, 2023 at 09:09:18PM +0800, Rohan G Thomas wrote:
->> Add new property tbs-enabled to enable Time Based Scheduling(TBS)
->
->That's not the property you added.
->
->> support per Tx queues. TBS feature can be enabled later using ETF
->> qdisc but for only those queues that have TBS support enabled.
->
->This property defines capable or enabled? 
-
-This property is to enable TBS support for any Tx queue. Why this
-added is because I think TBS need not be enabled for all capable
-Tx queues(Tx DMA channels) because of the following hw limitations.
-1. As per DWMAC QoS and DWXGMAC databooks, TBS cannot coexist with
-TSO. So TBS cannot be enabled for a Tx queue which is for TSO. 
-2. Also as per DWXGMAC databook, "Do not enable time-based scheduling
-(or enhanced descriptors) for the channel for which TSO or transmit
-timestamp or one-step timestamping control correction feature is
-enabled".
-3. As per DWXGMAC databook, "Use separate channel (without TBS
-enabled) for time critical traffic. Mixing such traffic with TBS
-enabled traffic can cause delays in transmitting time critical
-traffic."
-More explanation below...
-
->
->Seems like OS configuration and policy.
-
-Tx queues need to be configured for TBS during hw setup itself as
-special enhanced descriptors are used by the hw for TBS support
-enabled queues. Switching between enhanced and normal descriptors
-on run is not feasible. So this flag is for enabling "Enhanced
-Descriptors for Time Based Scheduling". This I think is a hw specific
-requirement.
-
->
->Doesn't eh DWMAC have capability registers for supported features? Or 
->did they forget per queue capabilities?
-
-Yes, capability registers are available. For DWMAC5 IP, if TBSSEL bit
-is set, then TBS is supported by all Tx queues. For DWXGMAC IP, if
-TBSSEL bit is set, then TBS is supported by TBS_CH number of Tx
-queues starting from the highest Tx queue. But because of the hw
-limitations mentioned above, TBS cannot be enabled for all capable
-queues.
-
->
->> 
->> Commit 7eadf57290ec ("net: stmmac: pci: Enable TBS on GMAC5 IPK PCI
->> entry") enables similar support from the stmmac pci driver.
->
->Why does unconditionally enabling TBS work there, but not here?
-
-There, Tx queue 0 is not enabled for TBS as it is used for TSO.
-
->
->> 
->> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
->> ---
->>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->> 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/>devicetree/bindings/net/snps,dwmac.yaml
->> index 5c2769dc689a..db1eb0997602 100644
->> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
->> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
->> @@ -399,6 +399,14 @@ properties:
->>              type: boolean
->>              description: TX checksum offload is unsupported by the TX queue.
->>  
->> +          snps,tbs-enabled:
->> +            type: boolean
->> +            description:
->> +              Enable Time Based Scheduling(TBS) support for the TX queue. TSO and
->> +              TBS cannot be supported by a queue at the same time. If TSO support
->> +              is enabled, then default TX queue 0 for TSO and in that case don't
->> +              enable TX queue 0 for TBS.
->> +
->>          allOf:
->>            - if:
->>                required:
->> -- 
->> 2.26.2
->> 
+Regards
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
