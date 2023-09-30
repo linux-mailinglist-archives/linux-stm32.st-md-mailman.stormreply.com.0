@@ -2,153 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B26B87B3A64
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Sep 2023 21:07:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4C2A7B4032
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Sep 2023 14:04:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60275C6B479;
-	Fri, 29 Sep 2023 19:07:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFDC0C6B47A;
+	Sat, 30 Sep 2023 12:04:34 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75781C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55C0AC6B479
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Sep 2023 19:07:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696014423; x=1727550423;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=YhsLcmvuYenJsFLd3nU+z34rv58hqqrOrqFENq2bwd4=;
- b=OSDRn6x9EubH3p6CiJyvtVLIfTdHpVmpEEcwuTO8JpBxUHrN7YLrVxI8
- jFW919E2NDxbIz0pbFyJZ5gX4JYkOL8laK015ONVfntQPQPbPs+qr54Qf
- WfjZp/NJz9Vxkq88sOkYr6yR8AoYQE+fHyafrwZUwWt/4V4qhLpw2DDD5
- X2sUfM4cmaO5bxjr6D2XFVs8ShNAxT+wfOrkR1iA2NdqzjNWytBmSwvcX
- 1cZSKm2xAaRPe2DVn3eJWnOp6OHhTmu+zb7FcqvdbDpBQktxewaQSICCN
- r8qTdJF/tE7Okw2vigdALO60DuZ7cbWol5DS5c0PbwGqx7vpm0kUSzvi/ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="468633209"
-X-IronPort-AV: E=Sophos;i="6.03,188,1694761200"; d="scan'208";a="468633209"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 10:48:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="1081006484"
-X-IronPort-AV: E=Sophos;i="6.03,188,1694761200"; d="scan'208";a="1081006484"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmsmga005.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 29 Sep 2023 10:48:53 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.32; Fri, 29 Sep 2023 10:48:53 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.32 via Frontend Transport; Fri, 29 Sep 2023 10:48:53 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.32; Fri, 29 Sep 2023 10:48:51 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=em341Bhne2GCIskcYw8SpAl69iM+urLSCCeM/zQiHuqJShiRxYzYPCpQetGlGjHVErnSo6Zlid27tQqs8zQ3rkY6qHd2qtO5feMiLHNK8l/Q8wI3my6XELbvyO1I5T627+LMQKn6dgulAJZXIqNNMGlezuFxLmLL/23gE8vH7cNwsjLKpz8x755E4w9jVFUhxrif2/bV8Z4T47QhsWK+PJ4HOkzGZzM4ayp68dcght8oG9ZiZ82WOJXQvehGz9fz8b9Gb/tKSVTWzpZ5ZyR7KkOg6vnGvbci30DLGsceRiHWXxMu6RKfH+Jk58QuVK7M68ouTRtjElgSaSkbkxfwxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KfDt6faCJM8la4p6Qd6g1bgYoy7QwnwjLsqFeFEjOxM=;
- b=nqBIsY0nXtozQ7++wjgkoZzy3KkA/eoa2CCNBDeDdj4T3lqeiOCMqPxpvDgaw4Z6HcfOGYTc22dHW6UGj1UBlBg7pZDk/sf5hm2oqFf3b64Xh5J6CzB+nlOYjblc7ENwPQYF5C2/WCaABqR3CSiF6Tyn+9Z+uB2HBzqFzsfgl/fuh/wVHpXrOHXDAsv46NG3oTwNZ5yAbUaTjJm1SZYejWmjD7JocTGnP+TZmHI6Br12JpycYJ/PNHEvVEnF92G3Kr9An9dSV5KEj+CFGYXWDGpqVGLfzcEvMjjQXhhcl7q+mEJUJjNxJGsTKhxedgPZZLr23iBQbKKY1bxNrNL+vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
- by MN2PR11MB4678.namprd11.prod.outlook.com (2603:10b6:208:264::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6813.28; Fri, 29 Sep
- 2023 17:48:50 +0000
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::9654:610d:227a:104f]) by CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::9654:610d:227a:104f%5]) with mapi id 15.20.6838.024; Fri, 29 Sep 2023
- 17:48:50 +0000
-Message-ID: <681cc4ca-9fd7-9436-6c7d-d7da95026ce3@intel.com>
-Date: Fri, 29 Sep 2023 10:48:47 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Ben Wolsieffer <ben.wolsieffer@hefring.com>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>
-References: <20230927175749.1419774-1-ben.wolsieffer@hefring.com>
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <20230927175749.1419774-1-ben.wolsieffer@hefring.com>
-X-ClientProxiedBy: MW4PR03CA0188.namprd03.prod.outlook.com
- (2603:10b6:303:b8::13) To CO1PR11MB5089.namprd11.prod.outlook.com
- (2603:10b6:303:9b::16)
+ Sat, 30 Sep 2023 12:04:33 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-40652e570d9so26584095e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 30 Sep 2023 05:04:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1696075473; x=1696680273;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:subject:cc:to:from:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=y1aX76wnxIZc/qepBCMoxahwj6U8pp0kTrNtby/mtII=;
+ b=Mq+7g7mYzopz07YtO8VP9ZyYyhEHlzc9tp5qaiqww7scY+51qHUy63eLWBfh/ZcOy1
+ yAp+6QHvcro8E3QLCgcwnUk8u+E+dMYyJ5AcfdisHMB2p1qysCWlxxslDvw5UouhKYvR
+ Ea+8hy5SbBevNxOk4frKXpnBKHAmPRhPPxAmqwiCfGxAp0km/J3FnUhkWxRylZPG9AD0
+ r6jSjEHo9AYZ/Obv0KtHPU3qpuRas61JxMIOiBbkw/QgYY93EBU+/S3nH08sf3A5l9Dp
+ mrJhya8wj9Mpnjpz0tuZ1ip8XBjG65jtrepnYRHpj2PFG1zs6PZY+9+uw45KFVhTjDP5
+ pWFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696075473; x=1696680273;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:subject:cc:to:from:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=y1aX76wnxIZc/qepBCMoxahwj6U8pp0kTrNtby/mtII=;
+ b=bCV0mhhT1Ty3j18amyTMeQPgo9wJIO3PZYfvSPUUs/iSpu5FJch25qR29wcbHZPa/P
+ cqmGFoabvH31RyMX9nxPFVpBq9hifCN3DVWX5o09bPLbMev2Wn5MtZVmI5/dxa+XCMMN
+ MoL1qi1AB66uW1yOVPGf0imFkH5tvY8GsKyTmXVBmSxBdiK0TPVy9VOcjS4pprfrmYiL
+ Cq99QNyArmfFR3cUkqJfNRR+S1KB2MW7E47QVXFW3UrfqFjw3hyp9AHIm9h0TGETJ2KX
+ A2dIvg3LNTDJuSlUvyrl85S7keQLzDz57DurzhoyUGuAvE+yLvp0sCnk2J4dV804yR8f
+ q9Sg==
+X-Gm-Message-State: AOJu0YwX7ljVt4ylUzq/bRNbwVTaeB0LlDxcDxi+wf1CZ/pfvTGE70cW
+ ICutZ02lDyxRVaqmunbYHBI=
+X-Google-Smtp-Source: AGHT+IF/09054jO/NN87gwAvDg9HEwLTvzP+yEzINsQIqa4JrVOm5cj6VxTTRZevsBs3NYcn6qIy1w==
+X-Received: by 2002:a05:600c:2317:b0:402:f5c4:2e5a with SMTP id
+ 23-20020a05600c231700b00402f5c42e5amr6281596wmo.37.1696075472327; 
+ Sat, 30 Sep 2023 05:04:32 -0700 (PDT)
+Received: from Ansuel-xps. (93-34-89-13.ip49.fastwebnet.it. [93.34.89.13])
+ by smtp.gmail.com with ESMTPSA id
+ c19-20020a05600c0ad300b00405c33a9a12sm2415923wmr.0.2023.09.30.05.04.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 30 Sep 2023 05:04:31 -0700 (PDT)
+Message-ID: <65180ecf.050a0220.10a98.7a51@mx.google.com>
+X-Google-Original-Message-ID: <ZRgOzeSsTmTOhCdo@Ansuel-xps.>
+Date: Sat, 30 Sep 2023 14:04:29 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Vincent Whitchurch <Vincent.Whitchurch@axis.com>
+References: <20230922111247.497-1-ansuelsmth@gmail.com>
+ <20230922111247.497-2-ansuelsmth@gmail.com>
+ <0a62a2b6bff4fd01065e0de6a8703c96e344f1dc.camel@axis.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|MN2PR11MB4678:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ef47757-769b-4fb5-3424-08dbc11456ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: xTho1RVEtdan+NyPxRnekDlxa6j63dzRT/Bbv9Wecjw2utORwpTL//toQ9i+crxHiK+SHnmmNUjyG1P+5a/g/aYCoExgCvaz4hlg70soNk5U5TS9eifKjIf+6fGR21js50KsDMTjyDBGWR0vsptnsJVOSP8x+xW1CYQMs+P4yDI+jEjdd3mtmslRmwKgDaqY/nbCah3SAhQYO1nd916TJKfgPqOVRvH610ykFGp5egq3urrOJSn5p38PPu2rBe81yl6q0KggHn7KOdaKzaECDVhu56Txe1EJh5OaQyJPst7IokIwW1LEY3lPKL3q/xDttKYRIPa5u901/iOTeNpHj3jk9pK80N0mDt6xrRgS9UeoK5S86gevNF9afwAwikC7E46fdcqZGm9iKRnO+UJEpoC+2/W6nXhVSUVfGqoEwOG6EMGSUbFAANsIuTI0dXb3zVumJdU8KzDVdWAdhb8NKQuoUzF5VjNtn9UmnxPas8FzAOvWVJfzU7gmO6388QFElsbfvA/qcN8OGLj0cPUMier5FJApIuL5x5WLcXxXt/Gm1s52qJv3LOFgdRhKPkisSRfWKB7HfYnecWOluILBd9wB1l5AnliVv6uhTB13UbnaU5Wx6WvVkbQUEc46zizfvexOFoaXnUGBexFeuBj2zQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(376002)(39860400002)(346002)(136003)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(41300700001)(31686004)(7416002)(316002)(83380400001)(8936002)(66946007)(8676002)(36756003)(2616005)(82960400001)(4326008)(5660300002)(53546011)(66556008)(6512007)(31696002)(6666004)(6506007)(54906003)(66476007)(86362001)(26005)(6486002)(2906002)(38100700002)(478600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TTZ4VXFYNWRWczg2a3JOUlc2Z01OK1prYmN4MVFJVlREUmYvcFNwR3VQZ283?=
- =?utf-8?B?MEpDNktMSy80clp4alRMS1IxN3FjK0VCSngrZXFDNi94RkExa2RMU00zYzBP?=
- =?utf-8?B?RldPT3hqd1RPQXFhdklZUTdCN1RvK0QyWE9veVgxT3pwVDBlR3RKZzdQU0Yx?=
- =?utf-8?B?VHUxaWlTSHZ3bDlkVjNkem9UVXo2azlNNndLYUhaaFlCMTlxWW9vKzBXVWZw?=
- =?utf-8?B?K2RCTEpHSC9uU3h5b3NPYXVwRlVZQzl2dE9jNFlTOEgxL0tOZndsckZqV3Zk?=
- =?utf-8?B?aFJtc1MzQSt5YktuRHZNUVNpb0lZd3E5R0Y1YjFaYWNIam5sSENyd05lK010?=
- =?utf-8?B?dkNsUkdnK0R5elBTVzlWdTYxcGY1Qmx6L3RoTkdjWnowUVltbGtESU1mN3Iw?=
- =?utf-8?B?WEZ0N1ZSM1dNaDRjeGxHVzlBUWcvUG0yNW9HSjVlWVdaSmowV0ZKT1pidjRU?=
- =?utf-8?B?dzV2NTFpSGhFVTQ1T3BMTnRxaERWMFlMU1ZzdnFWVUpRbk0waXl0V1I2Mi9k?=
- =?utf-8?B?WUxWNmg4Smx2RElEdDRhZUxLNXRIdWdhTmYxY0kxRENDS0toZDNJK1BKOXlY?=
- =?utf-8?B?L1YrcG9oYXgxTlcrRHhlVDEvN3o3OVJvMm15aENWalo4WmlHQlhjUW5od0c4?=
- =?utf-8?B?dEljU3NJRVU0SUw2THhVdEVlT1NoL2dsL09TSHBpNDA2cWtMK2paV3dONmtG?=
- =?utf-8?B?SDJjenBObHpRQWZYREJabUh1K25VeXBwS3ZqUC9ibENEa0dpb2dSNTYrMGRm?=
- =?utf-8?B?cEYyTXlRcnRlcVJQM2t0RVZnVEc2Zk9BcDdNM1lpeGdBbFpZa2pMYnErbE40?=
- =?utf-8?B?amFEcXRPRnZpTENkeHg5bjZXd0RrTGtPWllZLytNQkhYMG14US84RzRHZVVV?=
- =?utf-8?B?QlhxQUJZMWRJZno2NFlrTGZQVHJ0c1RySkN3TVgxUkhGam5kaU5iV0x3ZVNn?=
- =?utf-8?B?bUZ6UjNrVnQwUlFXYTE4Z1JDbjRSRnBrdjVORmlPVWExNkxDdElhNFUzVVBm?=
- =?utf-8?B?QlNFNUpiQnZ4dWM1UlRyYlV6V3d4dk9wUlYvMXE2SGluRFdmRlU3ODhzMUVB?=
- =?utf-8?B?QzlFTi9ISWlzVHF0eE0rUkpZbEcya20wMTFOeTJUb25PTFp2TW5lSWJ2Mnpw?=
- =?utf-8?B?WkpSbisrUHFYamRXdXkzczgyNHcxK1NxcGdSZkswNENEa3puQkZvZjhacVJC?=
- =?utf-8?B?RnoySU5YSHFyOU1SamNNT28xYk9iYVZMM2lMWFNPdnU4bWlHbjFad3duQ2lq?=
- =?utf-8?B?K1c1bVMvVStUeUZncHl6Q1FrYVlqczh4Z0JvU0NMZXJyS3lxcUF2VWFoNmRR?=
- =?utf-8?B?QmM2Q2d6M3BKWndIenFaL3pzV0tadkVlUGFXSEtNWG11Q3I0YVdsendVSEtu?=
- =?utf-8?B?Unh2eDgyUDUrMzNXMnIzNVRSbWZxem1mMjg4cWx5VElpdG1tR2diK2d3NU9U?=
- =?utf-8?B?aUtTMHFJZC9XWkI4ODEzejFEK1VHdHpibDVrN3F6c2dBQjZxc0F2OTVqUTlq?=
- =?utf-8?B?VnBHOHdMLythcjhMb2RIcVVucVhjb0xuQTUrYkRad0NyS29CdWROWUd0Z2ZX?=
- =?utf-8?B?QzlzTWprbUcyVHNLaVZmcjZmZldkVHBJWjZOaTJQVjZTeFQwUm1EcGJjd0tH?=
- =?utf-8?B?d2RtZ3dycDhUREJWcnkzSTV5SHV3cGxIcmh0VHdEd0JHSERwaW9VMXMrVFpL?=
- =?utf-8?B?Y2UrQmpIQ0FwV0E5R2VnK0xnVlBhVzBUWEE1YUhGdjY2djR6OEM5d1BYbGxm?=
- =?utf-8?B?YmNiRU80UUNibWJCdWk4SWpIUUFkN2xIMG9rbGZFUjJqZWQ4VzU0L2xRaVZw?=
- =?utf-8?B?SnVKb0lEZkZ5MUhCejhmU2pYU3dHUUtoYzY1SDRWTjQ4aTNDdVVpQWZKZ1Jy?=
- =?utf-8?B?dVhlazh6enNZZk0zbHR1anZDT0NoazBZdzZ6OFhEY1ZWbmJkM1FXcnNKQmFG?=
- =?utf-8?B?ZGhLanlxSWZzU09jSmdMRFJWNW9QZVFaWmVYUnJPM0NtRUsxUXpsT041cGxX?=
- =?utf-8?B?SmI5WndmZ3pPM2txZWlFMmFxWURMcXVsOXFzdTJXQ0htMm9Dd1FrVGpleXVh?=
- =?utf-8?B?OEtDYy9xTlZhZFdJNmVwK1pzYzhBSDZ0MEc3RzVCSUwyMEtoWG5XdnM3U0kx?=
- =?utf-8?B?OHJTcE5LNjU4Zm5zR28vaC81RTFTeU82bVJkdFg1a2dJeXdUc0FLZkJ4SnJU?=
- =?utf-8?B?NkE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef47757-769b-4fb5-3424-08dbc11456ae
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2023 17:48:50.1766 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JxvXz/701xxIUEjabqjbIYwzbcG71se3RE8CAQLIRIoCQ6qCGlqqxhlPXlWhYk8WnBO9ZtvJj/2UTSwuTDSAqCSsSx1tyFv/2PPw6qhPhWs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4678
-X-OriginatorOrg: intel.com
-Cc: Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-stm32: fix resume
-	on STM32 MCU
+Content-Disposition: inline
+In-Reply-To: <0a62a2b6bff4fd01065e0de6a8703c96e344f1dc.camel@axis.com>
+Cc: "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "pkshih@realtek.com" <pkshih@realtek.com>,
+ "jiri@resnulli.us" <jiri@resnulli.us>, "horms@kernel.org" <horms@kernel.org>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "kvalo@kernel.org" <kvalo@kernel.org>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "joabreu@synopsys.com" <joabreu@synopsys.com>,
+ "liuhangbin@gmail.com" <liuhangbin@gmail.com>,
+ "rajur@chelsio.com" <rajur@chelsio.com>, "kuba@kernel.org" <kuba@kernel.org>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [net-next PATCH 2/3] net: stmmac: improve TX
+	timer arm logic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -160,82 +95,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Sep 29, 2023 at 12:38:48PM +0000, Vincent Whitchurch wrote:
+> On Fri, 2023-09-22 at 13:12 +0200, Christian Marangi wrote:
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/driver=
+s/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index 9201ed778ebc..14bf6fae6662 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -2994,13 +2994,25 @@ static void stmmac_tx_timer_arm(struct stmmac_p=
+riv *priv, u32 queue)
+> > =A0{
+> > =A0	struct stmmac_tx_queue *tx_q =3D &priv->dma_conf.tx_queue[queue];
+> > =A0	u32 tx_coal_timer =3D priv->tx_coal_timer[queue];
+> > +	struct stmmac_channel *ch;
+> > +	struct napi_struct *napi;
+> > =A0
+> > =
 
+> > =A0	if (!tx_coal_timer)
+> > =A0		return;
+> > =A0
+> > =
 
-On 9/27/2023 10:57 AM, Ben Wolsieffer wrote:
-> The STM32MP1 keeps clk_rx enabled during suspend, and therefore the
-> driver does not enable the clock in stm32_dwmac_init() if the device was
-> suspended. The problem is that this same code runs on STM32 MCUs, which
-> do disable clk_rx during suspend, causing the clock to never be
-> re-enabled on resume.
-> 
-> This patch adds a variant flag to indicate that clk_rx remains enabled
-> during suspend, and uses this to decide whether to enable the clock in
-> stm32_dwmac_init() if the device was suspended.
-> 
+> > -	hrtimer_start(&tx_q->txtimer,
+> > -		      STMMAC_COAL_TIMER(tx_coal_timer),
+> > -		      HRTIMER_MODE_REL);
+> > +	ch =3D &priv->channel[tx_q->queue_index];
+> > +	napi =3D tx_q->xsk_pool ? &ch->rxtx_napi : &ch->tx_napi;
+> > +
+> > +	/* Arm timer only if napi is not already scheduled.
+> > +	 * Try to cancel any timer if napi is scheduled, timer will be armed
+> > +	 * again in the next scheduled napi.
+> > +	 */
+> > +	if (unlikely(!napi_is_scheduled(napi)))
+> > +		hrtimer_start(&tx_q->txtimer,
+> > +			      STMMAC_COAL_TIMER(tx_coal_timer),
+> > +			      HRTIMER_MODE_REL);
+> > +	else
+> > +		hrtimer_try_to_cancel(&tx_q->txtimer);
+> =
 
-Why not just keep clk_rx enabled unconditionally or unconditionally stop
-it during suspend? I guess that might be part of a larger cleanup and
-has more side effects?
+> When this function is called from within the napi poll function
+> (stmmac_tx_clean()), NAPI_STATE_SCHED will always be set and so after
+> this patch the "We still have pending packets, let's call for a new
+> scheduling" logic will never start the timer.  Was that really
+> intentional?
+>
 
-> This approach fixes this specific bug with limited opportunity for
-> unintended side-effects, but I have a follow up patch that will refactor
-> the clock configuration and hopefully make it less error prone.
-> 
+No and understanding the code flow of napi and tx-coal is hard... (also
+problem with tx coal arise only with real world scenario and now with
+synthetic tests like iperf.
 
-I'd guess the follow-up refactor would target next?
+I will shortly send a v2 of this that will just move the logic of arming
+the TX timer outside napi call after DMA interrupt is enabled again.
+Currently testing the new version on openwrt with ipq806x hoping
+everything is good.
 
-> Fixes: 6528e02cc9ff ("net: ethernet: stmmac: add adaptation for stm32mp157c.")
-> Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-> ---
+(same perf increase observed but no queue timeout)
 
-This seems pretty small and targeted so it does make sense to me as a
-net fix, but it definitely feels like a workaround.
+-- =
 
-I look forward to reading the cleanup patch mentioned.
-
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> index bdb4de59a672..28c8ca5fba6c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-> @@ -105,6 +105,7 @@ struct stm32_ops {
->  	int (*parse_data)(struct stm32_dwmac *dwmac,
->  			  struct device *dev);
->  	u32 syscfg_eth_mask;
-> +	bool clk_rx_enable_in_suspend;
->  };
->  
->  static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat)
-> @@ -122,7 +123,8 @@ static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat)
->  	if (ret)
->  		return ret;
->  
-> -	if (!dwmac->dev->power.is_suspended) {
-> +	if (!dwmac->ops->clk_rx_enable_in_suspend ||
-> +	    !dwmac->dev->power.is_suspended) {
->  		ret = clk_prepare_enable(dwmac->clk_rx);
->  		if (ret) {
->  			clk_disable_unprepare(dwmac->clk_tx);
-> @@ -514,7 +516,8 @@ static struct stm32_ops stm32mp1_dwmac_data = {
->  	.suspend = stm32mp1_suspend,
->  	.resume = stm32mp1_resume,
->  	.parse_data = stm32mp1_parse_data,
-> -	.syscfg_eth_mask = SYSCFG_MP1_ETH_MASK
-> +	.syscfg_eth_mask = SYSCFG_MP1_ETH_MASK,
-> +	.clk_rx_enable_in_suspend = true
->  };
->  
->  static const struct of_device_id stm32_dwmac_match[] = {
+	Ansuel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
