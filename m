@@ -2,50 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDA97B477F
-	for <lists+linux-stm32@lfdr.de>; Sun,  1 Oct 2023 15:00:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7595A7B4823
+	for <lists+linux-stm32@lfdr.de>; Sun,  1 Oct 2023 16:44:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 540F6C6B460;
-	Sun,  1 Oct 2023 13:00:33 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29D1FC6B460;
+	Sun,  1 Oct 2023 14:44:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9758EC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83333C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Oct 2023 13:00:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5EB47CE09E6;
- Sun,  1 Oct 2023 13:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CFCDC433C9;
- Sun,  1 Oct 2023 13:00:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696165228;
- bh=KE32febKGb47tLpnvfPISs6CgPJyT2Z3jvLI18b/CZE=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Cb6N9le8JIVKWgDdKmhaJat4dEl3HSDKhi2nW1LRvFb8Tt9vUbNkxFOCD11at5p6m
- Q/Qf9zsCWCLVy/zKl3WEVIuV3uD/X7i2IoQfBa6/ikbt5gzyJpsioQlchb1q8yw8RR
- E5JXts2uCQ2OvG1F8qseOihpHVyUgh6zPvkA0qa6GPk/XG73ZQuQ2wrUXmi8rsyoHQ
- pjDQL77APMR76tXt4LDBi+yQC2fGkA8YXRHGzqpi1QdZTKxj0g/z6oaQFI5IOG+6gI
- 4UGLlZciSf9Yo0gnVv55CKbNFrawshLoAHLM+SeGrL8dMZ2XhezxBToIzJvAobiphg
- NkNJbkiuFjukg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 77625E29AFE; Sun,  1 Oct 2023 13:00:28 +0000 (UTC)
+ Sun,  1 Oct 2023 14:44:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1696171451; x=1727707451;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=eaZ6EntjZndNXd4oKfdQ0McHn3ig2hRV/qhNZ2cj228=;
+ b=Pj/CbjEOs2hkMPRr8CaqC/hqziBdDZBfJsghz/NJeJ8RG0/foraplMjz
+ LR3lT86eUyy4/G9mSQovbyTUXO4aNj6mfj8zPgRAIPQFiDuFVPfTbf9uQ
+ Olxc9jlTWqgZPgRSysV2Xcfv8/+EgV8r/OXoe986d7Lq0CWyTGSjTK096
+ FsvcgYlxAQtoRSrKkqCU9xuNmHhDpVkSOlbMffKVKGCSMQnOPtIfaLzYu
+ ihzVQEa5qdB5fB0aR4pEQjPOLFLky31whHiBtbA+OEziNcsEvn3ACdUmA
+ l6xp1mh4PNNtgb6s6WccX1/djbtWXvKXKdG2oYd+33nu4YLZEUhCUPP9q Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10850"; a="361906865"
+X-IronPort-AV: E=Sophos;i="6.03,191,1694761200"; d="scan'208";a="361906865"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2023 07:44:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10850"; a="840769901"
+X-IronPort-AV: E=Sophos;i="6.03,191,1694761200"; d="scan'208";a="840769901"
+Received: from lkp-server02.sh.intel.com (HELO c3b01524d57c) ([10.239.97.151])
+ by FMSMGA003.fm.intel.com with ESMTP; 01 Oct 2023 07:44:02 -0700
+Received: from kbuild by c3b01524d57c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qmxfo-00058N-1r;
+ Sun, 01 Oct 2023 14:43:57 +0000
+Date: Sun, 1 Oct 2023 22:43:51 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sean Young <sean@mess.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vladimir Zapolskiy <vz@mleia.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Daire McNamara <daire.mcnamara@microchip.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <202310012229.ldJwkjOY-lkp@intel.com>
+References: <1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean@mess.org>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169616522848.29918.13585341326782756004.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Oct 2023 13:00:28 +0000
-References: <20230921062443.1251292-1-xiaoning.wang@nxp.com>
-In-Reply-To: <20230921062443.1251292-1-xiaoning.wang@nxp.com>
-To: Clark Wang <xiaoning.wang@nxp.com>
-Cc: linux-kernel@vger.kernel.org, bartosz.golaszewski@linaro.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: platform: fix the
-	incorrect parameter
+Content-Disposition: inline
+In-Reply-To: <1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean@mess.org>
+Cc: linux-pwm@vger.kernel.org, Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+ Sean Young <sean@mess.org>, linux-kernel@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] pwm: make it possible to apply pwm
+ changes in atomic context
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,73 +80,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hi Sean,
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+kernel test robot noticed the following build errors:
 
-On Thu, 21 Sep 2023 14:24:43 +0800 you wrote:
-> The second parameter of stmmac_pltfr_init() needs the pointer of
-> "struct plat_stmmacenet_data". So, correct the parameter typo when calling the
-> function.
-> 
-> Otherwise, it may cause this alignment exception when doing suspend/resume.
-> [   49.067201] CPU1 is up
-> [   49.135258] Internal error: SP/PC alignment exception: 000000008a000000 [#1] PREEMPT SMP
-> [   49.143346] Modules linked in: soc_imx9 crct10dif_ce polyval_ce nvmem_imx_ocotp_fsb_s400 polyval_generic layerscape_edac_mod snd_soc_fsl_asoc_card snd_soc_imx_audmux snd_soc_imx_card snd_soc_wm8962 el_enclave snd_soc_fsl_micfil rtc_pcf2127 rtc_pcf2131 flexcan can_dev snd_soc_fsl_xcvr snd_soc_fsl_sai imx8_media_dev(C) snd_soc_fsl_utils fuse
-> [   49.173393] CPU: 0 PID: 565 Comm: sh Tainted: G         C         6.5.0-rc4-next-20230804-05047-g5781a6249dae #677
-> [   49.183721] Hardware name: NXP i.MX93 11X11 EVK board (DT)
-> [   49.189190] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [   49.196140] pc : 0x80800052
-> [   49.198931] lr : stmmac_pltfr_resume+0x34/0x50
-> [   49.203368] sp : ffff800082f8bab0
-> [   49.206670] x29: ffff800082f8bab0 x28: ffff0000047d0ec0 x27: ffff80008186c170
-> [   49.213794] x26: 0000000b5e4ff1ba x25: ffff800081e5fa74 x24: 0000000000000010
-> [   49.220918] x23: ffff800081fe0000 x22: 0000000000000000 x21: 0000000000000000
-> [   49.228042] x20: ffff0000001b4010 x19: ffff0000001b4010 x18: 0000000000000006
-> [   49.235166] x17: ffff7ffffe007000 x16: ffff800080000000 x15: 0000000000000000
-> [   49.242290] x14: 00000000000000fc x13: 0000000000000000 x12: 0000000000000000
-> [   49.249414] x11: 0000000000000001 x10: 0000000000000a60 x9 : ffff800082f8b8c0
-> [   49.256538] x8 : 0000000000000008 x7 : 0000000000000001 x6 : 000000005f54a200
-> [   49.263662] x5 : 0000000001000000 x4 : ffff800081b93680 x3 : ffff800081519be0
-> [   49.270786] x2 : 0000000080800052 x1 : 0000000000000000 x0 : ffff0000001b4000
-> [   49.277911] Call trace:
-> [   49.280346]  0x80800052
-> [   49.282781]  platform_pm_resume+0x2c/0x68
-> [   49.286785]  dpm_run_callback.constprop.0+0x74/0x134
-> [   49.291742]  device_resume+0x88/0x194
-> [   49.295391]  dpm_resume+0x10c/0x230
-> [   49.298866]  dpm_resume_end+0x18/0x30
-> [   49.302515]  suspend_devices_and_enter+0x2b8/0x624
-> [   49.307299]  pm_suspend+0x1fc/0x348
-> [   49.310774]  state_store+0x80/0x104
-> [   49.314258]  kobj_attr_store+0x18/0x2c
-> [   49.318002]  sysfs_kf_write+0x44/0x54
-> [   49.321659]  kernfs_fop_write_iter+0x120/0x1ec
-> [   49.326088]  vfs_write+0x1bc/0x300
-> [   49.329485]  ksys_write+0x70/0x104
-> [   49.332874]  __arm64_sys_write+0x1c/0x28
-> [   49.336783]  invoke_syscall+0x48/0x114
-> [   49.340527]  el0_svc_common.constprop.0+0xc4/0xe4
-> [   49.345224]  do_el0_svc+0x38/0x98
-> [   49.348526]  el0_svc+0x2c/0x84
-> [   49.351568]  el0t_64_sync_handler+0x100/0x12c
-> [   49.355910]  el0t_64_sync+0x190/0x194
-> [   49.359567] Code: ???????? ???????? ???????? ???????? (????????)
-> [   49.365644] ---[ end trace 0000000000000000 ]---
-> 
-> [...]
+[auto build test ERROR on thierry-reding-pwm/for-next]
+[also build test ERROR on shawnguo/for-next atorgue-stm32/stm32-next media-tree/master linus/master v6.6-rc3 next-20230929]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Here is the summary with links:
-  - [net] net: stmmac: platform: fix the incorrect parameter
-    https://git.kernel.org/netdev/net/c/6b09edc1b317
+url:    https://github.com/intel-lab-lkp/linux/commits/Sean-Young/media-pwm-ir-tx-trigger-edges-from-hrtimer-interrupt-context/20231001-194056
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/thierry.reding/linux-pwm.git for-next
+patch link:    https://lore.kernel.org/r/1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean%40mess.org
+patch subject: [PATCH 1/2] pwm: make it possible to apply pwm changes in atomic context
+config: arm-randconfig-002-20231001 (https://download.01.org/0day-ci/archive/20231001/202310012229.ldJwkjOY-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231001/202310012229.ldJwkjOY-lkp@intel.com/reproduce)
 
-You are awesome, thank you!
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310012229.ldJwkjOY-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/cpumask.h:10,
+                    from include/linux/smp.h:13,
+                    from include/linux/lockdep.h:14,
+                    from include/linux/spinlock.h:63,
+                    from include/linux/mmzone.h:8,
+                    from include/linux/gfp.h:7,
+                    from include/linux/slab.h:16,
+                    from include/linux/resource_ext.h:11,
+                    from include/linux/acpi.h:13,
+                    from include/linux/i2c.h:13,
+                    from drivers/input/misc/da7280.c:12:
+   include/linux/pwm.h: In function 'pwm_apply_state':
+>> include/linux/pwm.h:428:24: error: implicit declaration of function 'pwm_can_sleep'; did you mean 'cant_sleep'? [-Werror=implicit-function-declaration]
+     428 |         might_sleep_if(pwm_can_sleep(pwm));
+         |                        ^~~~~~~~~~~~~
+   include/linux/kernel.h:194:39: note: in definition of macro 'might_sleep_if'
+     194 | #define might_sleep_if(cond) do { if (cond) might_sleep(); } while (0)
+         |                                       ^~~~
+   In file included from drivers/input/misc/da7280.c:16:
+   include/linux/pwm.h: At top level:
+>> include/linux/pwm.h:455:20: error: conflicting types for 'pwm_can_sleep'; have 'bool(struct pwm_device *)' {aka '_Bool(struct pwm_device *)'}
+     455 | static inline bool pwm_can_sleep(struct pwm_device *pwm)
+         |                    ^~~~~~~~~~~~~
+   include/linux/pwm.h:428:24: note: previous implicit declaration of 'pwm_can_sleep' with type 'int()'
+     428 |         might_sleep_if(pwm_can_sleep(pwm));
+         |                        ^~~~~~~~~~~~~
+   include/linux/kernel.h:194:39: note: in definition of macro 'might_sleep_if'
+     194 | #define might_sleep_if(cond) do { if (cond) might_sleep(); } while (0)
+         |                                       ^~~~
+   cc1: some warnings being treated as errors
+
+
+vim +428 include/linux/pwm.h
+
+   419	
+   420	struct pwm_device *devm_pwm_get(struct device *dev, const char *con_id);
+   421	struct pwm_device *devm_fwnode_pwm_get(struct device *dev,
+   422					       struct fwnode_handle *fwnode,
+   423					       const char *con_id);
+   424	#else
+   425	static inline int pwm_apply_state(struct pwm_device *pwm,
+   426					  const struct pwm_state *state)
+   427	{
+ > 428		might_sleep_if(pwm_can_sleep(pwm));
+   429		return -ENOTSUPP;
+   430	}
+   431	
+   432	static inline int pwm_adjust_config(struct pwm_device *pwm)
+   433	{
+   434		return -ENOTSUPP;
+   435	}
+   436	
+   437	static inline int pwm_config(struct pwm_device *pwm, int duty_ns,
+   438				     int period_ns)
+   439	{
+   440		might_sleep_if(pwm_can_sleep(pwm));
+   441		return -EINVAL;
+   442	}
+   443	
+   444	static inline int pwm_enable(struct pwm_device *pwm)
+   445	{
+   446		might_sleep_if(pwm_can_sleep(pwm));
+   447		return -EINVAL;
+   448	}
+   449	
+   450	static inline void pwm_disable(struct pwm_device *pwm)
+   451	{
+   452		might_sleep_if(pwm_can_sleep(pwm));
+   453	}
+   454	
+ > 455	static inline bool pwm_can_sleep(struct pwm_device *pwm)
+   456	{
+   457		return true;
+   458	}
+   459	
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
