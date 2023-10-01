@@ -2,71 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46DB07B42D5
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Sep 2023 19:57:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 831947B4649
+	for <lists+linux-stm32@lfdr.de>; Sun,  1 Oct 2023 10:33:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC97FC6B479;
-	Sat, 30 Sep 2023 17:57:10 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DD57C6B460;
+	Sun,  1 Oct 2023 08:33:53 +0000 (UTC)
+Received: from abb.hmeau.com (abb.hmeau.com [144.6.53.87])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6010C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A22F0C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Sep 2023 17:57:09 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1c737d61a00so26430415ad.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Sep 2023 10:57:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1696096628; x=1696701428;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ye4XTAWb4daUNWZiDSISaHwk+X7iJoEzGWCL7sgi0rE=;
- b=d48/8L/AqWoYC/48gg1HMm4VT2tjqCicav/zotrjG6EDuqvQRQQMhfmUdmUAd2ovz4
- iUWpyt4F+c7/o5suE4Gw8trgPHRt314TDRuj3rx0ZnUOxe5m5QOuIoLabtJj0V0IJj0C
- K8Q8LHKC4ELNZHjKEkO7qP6aNyGa4Wpj34egs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696096628; x=1696701428;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ye4XTAWb4daUNWZiDSISaHwk+X7iJoEzGWCL7sgi0rE=;
- b=vxxAOvlEcYkdSSve5L/6srmO5RZxbMW8okC68CMG/zb9J+cC/OAuROEOu330mXzdCw
- GO8ZxqzxW4MaYHnxWOomjZkS1mOkdfRg3nyZDkOBOxt415R59/dCed0JmClQJdbqRgAf
- Fk5eBOEC5HjgqT+K+8LfHteDMCAa+7CDXTcYAcNkCxVrScFsEEXrrWhk83E9hd1IMpUT
- RTR9xkET667YN6olBYk0lkj3n3Xu6QPg7YnAPez8QZA/3l72+Sj8otJOH+5oivn75sAQ
- QW4u0A12Hk4bn2M7ZkIM0U6dhKIDqMr71zvkH2mmf1zg/26rVA0o1wSe6NSk7AgtEvkt
- rGoA==
-X-Gm-Message-State: AOJu0YyiIYcXhpSlgiKYb9i+u6TzB/j4rwaXBvF58WGqhXlIvReLzbmL
- TbjFdQj4QiGA3RjXR8meGJhIqw==
-X-Google-Smtp-Source: AGHT+IFTEuvq+b7y368t9GEXwnKx90oqxSX/2b3AsPpSe1C2LnJOYtXNrap0hYgQfFUMDxuxcnPy6A==
-X-Received: by 2002:a17:902:ee89:b0:1c5:f68d:cec3 with SMTP id
- a9-20020a170902ee8900b001c5f68dcec3mr6686648pld.64.1696096628167; 
- Sat, 30 Sep 2023 10:57:08 -0700 (PDT)
-Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
- [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
- x10-20020a170902820a00b001c1f161949fsm18920114pln.96.2023.09.30.10.57.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 30 Sep 2023 10:57:07 -0700 (PDT)
-Date: Sat, 30 Sep 2023 10:57:03 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <202309301056.5A21C37D5@keescook>
-References: <20230921-strncpy-drivers-iio-adc-stm32-adc-c-v1-1-c50eca098597@google.com>
- <202309232006.690F89A@keescook>
- <20230930184118.73d7465a@jic23-huawei>
+ Sun,  1 Oct 2023 08:33:51 +0000 (UTC)
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1qmrtL-002PUo-Ba; Sun, 01 Oct 2023 16:33:32 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Sun, 01 Oct 2023 16:33:35 +0800
+Date: Sun, 1 Oct 2023 16:33:35 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <ZRku36epapNNQP3b@gondor.apana.org.au>
+References: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20230930184118.73d7465a@jic23-huawei>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Justin Stitt <justinstitt@google.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: replace deprecated
-	strncpy
+In-Reply-To: <20230921080301.253563-1-gatien.chevallier@foss.st.com>
+Cc: devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Olivia Mackall <olivia@selenic.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 0/9] hwrng: stm32: support STM32MP13x
+	platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,79 +50,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Sep 30, 2023 at 06:41:18PM +0100, Jonathan Cameron wrote:
-> On Sat, 23 Sep 2023 20:15:09 -0700
-> Kees Cook <keescook@chromium.org> wrote:
+On Thu, Sep 21, 2023 at 10:02:52AM +0200, Gatien Chevallier wrote:
+> The STM32MP13x platforms have a RNG hardware block that supports
+> customization, a conditional reset sequences that allows to
+> recover from certain situations and a configuration locking
+> mechanism.
 > 
-> > On Thu, Sep 21, 2023 at 04:54:00AM +0000, Justin Stitt wrote:
-> > > `strncpy` is deprecated for use on NUL-terminated destination strings [1].
-> > > 
-> > > We should prefer more robust and less ambiguous string interfaces.
-> > > 
-> > > We expect adc->chan_name[val] to be NUL-terminated based on ch_name's
-> > > use within functions that expect NUL-terminated strings like strncmp and
-> > > printf-likes:
-> > > | 	if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
-> > > | 		/* Check internal channel availability */
-> > > | 		switch (i) {
-> > > | 		case STM32_ADC_INT_CH_VDDCORE:
-> > > | 			if (!adc->cfg->regs->or_vddcore.reg)
-> > > | 				dev_warn(&indio_dev->dev,
-> > > | 					 "%s channel not available\n", ch_name);
-> > > ...
-> > > 
-> > > There is no evidence that NUL-padding is needed either.  
-> > 
-> > Agreed -- it's used as a C string everywhere I can see.
-> > 
-> > > 
-> > > Considering the above, a suitable replacement is `strscpy` [2] due to
-> > > the fact that it guarantees NUL-termination on the destination buffer
-> > > without unnecessarily NUL-padding. If, for any reason, NUL-padding _is_
-> > > required we should go for `strscpy_pad`.
-> > > 
-> > > Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings [1]
-> > > Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
-> > > Link: https://github.com/KSPP/linux/issues/90
-> > > Cc: linux-hardening@vger.kernel.org
-> > > Signed-off-by: Justin Stitt <justinstitt@google.com>
-> > > ---
-> > > Note: build-tested
-> > > ---
-> > >  drivers/iio/adc/stm32-adc.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> > > index f7613efb870d..9cdcf396d901 100644
-> > > --- a/drivers/iio/adc/stm32-adc.c
-> > > +++ b/drivers/iio/adc/stm32-adc.c
-> > > @@ -2209,7 +2209,7 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
-> > >  				ret = -EINVAL;
-> > >  				goto err;
-> > >  			}
-> > > -			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
-> > > +			strscpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);  
-> > 
-> > I still prefer sizeof($dst), but yes, these are the same:
-> > 
-> >         char chan_name[STM32_ADC_CH_MAX][STM32_ADC_CH_SZ];
-> > 
-> > If this needs a v2, please improve the Subject, but it is technically
-> > correct, so:
+> This series adds support for the mentionned features. Note that
+> the hardware RNG can and should be managed in the secure world
+> for this platform, hence the rng not being default enabled on
+> the STM32MP135F-DK board.
 > 
-> Hi Kees,
+> Changes in V2:
+> 	- Use pm_ptr() and add __maybe_unused on PM API
+> 	- Correct bug using WARN_ON
 > 
-> I can tweak the subject whilst applying.  What did you have in mind
-> as a better one?
+> Changes in V3:
+> 	- Squash of bindings patches
+> 	- st,rng-lock-conf property declaration rework
+> 	- Fix stm32_rng_pm_ops declaration in patch [5/9]
+> 
+> Gatien Chevallier (9):
+>   dt-bindings: rng: introduce new compatible for STM32MP13x
+>   hwrng: stm32 - use devm_platform_get_and_ioremap_resource() API
+>   hwrng: stm32 - implement STM32MP13x support
+>   hwrng: stm32 - implement error concealment
+>   hwrng: stm32 - rework error handling in stm32_rng_read()
+>   hwrng: stm32 - restrain RNG noise source clock
+>   hwrng: stm32 - support RNG configuration locking mechanism
+>   hwrng: stm32 - rework power management sequences
+>   ARM: dts: stm32: add RNG node for STM32MP13x platforms
+> 
+>  .../devicetree/bindings/rng/st,stm32-rng.yaml |  20 +-
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          |   8 +
+>  drivers/char/hw_random/stm32-rng.c            | 511 +++++++++++++++---
+>  3 files changed, 455 insertions(+), 84 deletions(-)
+> 
+> -- 
+> 2.25.1
 
-I would use "iio: adc: stm32-adc: Replace deprecated strncpy() with strscpy()"
-
-Thanks!
-
--Kees
-
+Patches 1-8 applied.  Thanks.
 -- 
-Kees Cook
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
