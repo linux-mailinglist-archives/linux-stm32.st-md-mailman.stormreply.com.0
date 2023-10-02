@@ -2,76 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06AB67B6C72
+	by mail.lfdr.de (Postfix) with ESMTPS id 159797B6C73
 	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 16:54:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB201C6C839;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE33DC6C83B;
 	Tue,  3 Oct 2023 14:54:44 +0000 (UTC)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C52F1C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E34C2C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Oct 2023 18:09:32 +0000 (UTC)
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-775810b032aso5662985a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 02 Oct 2023 11:09:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1696270171; x=1696874971;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=enn49m+u5BPouPPBFnWi7pFBr5eL70bjzUn/Jw/Gb7Y=;
- b=J9PZ3A9z7lfG2Bvvr/OsG9OwM3b7COgrzZEkeseAgURPYBOYH00NilCG4FHTla6KZw
- G+2Yj1PQbuK7+O4EzRequylwUKl41CTPpB7m0dhCluD8uc049RCPThfVGTmGXH9Wk+MW
- BStyoxgMlWy5E7O7p5wVMd9VZzXuN+tsi3vBKp/4voOOMru18QLqj5C21oQdgtrOmEBe
- Uop2Lh+3VPg+GA6ZH+2WmMXsmOfd9Prs6E8voI7x7xWOfN7GqLzDz/x+8zwVulKZyBdB
- g7qbiMQa+8XxzgeBKn55JDzt3SCjb3iOtnC/O31/Nm7qZXOtvSrnwuA+xrLfQcwo2pCP
- Z7YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696270171; x=1696874971;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=enn49m+u5BPouPPBFnWi7pFBr5eL70bjzUn/Jw/Gb7Y=;
- b=jyRb9n6lYpe0zx+AkwwyNqJumDtIoTlgTu9NzAmmAhxTDPBJITfGNyP+9UkgM+sWRp
- 4aukONW8cjJZXtLYQFLctnGccWNXqDQ9bn69WH0x420QuwomZt4ls/Gr0jPwwIIET418
- FKpVMNRNue+4ioRQWd/CMr8RHDFTIsObNs1Ggpi9i9w2xeejzmtP/yx4wbC9+tWwbPPd
- 1mTyTCPNCuY/j8SEHBacmxzAh3PXoY58HHc7Rn705i/0eZv4cUdH22/+yNh96B0bappa
- Ba3M4yZJ9oC37BRqZeto25shdRXkKYxaeXHGBkXNPriWWfvhX864biG6ojMyxUxhZ0sH
- DujA==
-X-Gm-Message-State: AOJu0YzTCKCtDyep1BJHSjPHzbERxNA7k7Lkqw0YBJCOrxEF5GkOwD07
- bVW+i8bCf2wF4o/JrUDPH9MJxAhCa4EXF/ItGgATcQ==
-X-Google-Smtp-Source: AGHT+IGbm3hPu5C1IxAYRUSQ0N1W5PEJBkC2q3LNchbtHI/lAgmYwg34UKKjCKKoqU3EXFfTTbBBDQ==
-X-Received: by 2002:a05:620a:294f:b0:775:8fcd:3b03 with SMTP id
- n15-20020a05620a294f00b007758fcd3b03mr11795348qkp.3.1696270171210; 
- Mon, 02 Oct 2023 11:09:31 -0700 (PDT)
-Received: from localhost.localdomain ([50.212.55.89])
- by smtp.gmail.com with ESMTPSA id
- w15-20020ae9e50f000000b0077423f849c3sm7390255qkf.24.2023.10.02.11.09.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Oct 2023 11:09:30 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-Date: Mon,  2 Oct 2023 14:08:54 -0400
-Message-ID: <20231002180854.1603452-3-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231002180854.1603452-1-ben.wolsieffer@hefring.com>
-References: <20231002180854.1603452-1-ben.wolsieffer@hefring.com>
+ Mon,  2 Oct 2023 21:42:29 +0000 (UTC)
+Received: from pps.filterd (m0353723.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 392Lc35b009233; Mon, 2 Oct 2023 21:41:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : date :
+ mime-version : subject : to : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=9DoH5Z0FBBn7OOXsdsVMtbrWjPpvQTS37XxZVqX2ya0=;
+ b=lxWXuknd3yuLsB86dOCJbRBBlD1v8Gr3EKV5SxMyczpYq9wVkuu9dRTsHmqBPIZEOrxH
+ RD5yl7IZRyLRaBM00mbLWa6O6cbBcdU6azN8t6TnT3PDvMgdSBmWA95OCiZUzRMnT1Od
+ rDuK07M+9ePTBIr763u/90apwJmDdY1L8gdceYC16fJJY9GDYZ85Nqg0Ch/G1V4h2Z60
+ iRaMo6XOEkYreYQBFyDo3oVThvgzs0bjAubGuZ/c0AHqVvxQ4Mq7FBbIldd3qMC/lsHo
+ qjIT/lXGdiSENpNgiiQMZRA8yrHTWxQTMCyotLa+Oq306GD7AIKHYwGG6O/qUpRzUthr /w== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3tg5q109ax-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Oct 2023 21:41:31 +0000
+Received: from m0353723.ppops.net (m0353723.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 392LcTNL009989;
+ Mon, 2 Oct 2023 21:41:30 GMT
+Received: from ppma12.dal12v.mail.ibm.com
+ (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3tg5q109a6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Oct 2023 21:41:30 +0000
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma12.dal12v.mail.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 392K30kt005924; Mon, 2 Oct 2023 21:41:28 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+ by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 3tex0scxuw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 02 Oct 2023 21:41:28 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 392LfR6B27001512
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 2 Oct 2023 21:41:27 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 866195803F;
+ Mon,  2 Oct 2023 21:41:27 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6C15A5804E;
+ Mon,  2 Oct 2023 21:41:23 +0000 (GMT)
+Received: from [9.61.133.200] (unknown [9.61.133.200])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Mon,  2 Oct 2023 21:41:23 +0000 (GMT)
+Message-ID: <406173de-f215-4719-be69-7789869126a0@linux.ibm.com>
+Date: Mon, 2 Oct 2023 16:41:20 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Christian Marangi <ansuelsmth@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Wolfgang Grandegger <wg@grandegger.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, "David S. Miller"
+ <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Chris Snook <chris.snook@gmail.com>,
+ Raju Rangoju <rajur@chelsio.com>, Jeroen de Borst <jeroendb@google.com>,
+ Praveen Kaligineedi <pkaligineedi@google.com>,
+ Shailend Chand <shailend@google.com>, Douglas Miller
+ <dougmill@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Haren Myneni <haren@linux.ibm.com>, Rick Lindsley <ricklind@linux.ibm.com>,
+ Dany Madden <danymadden@us.ibm.com>,
+ Thomas Falcon <tlfalcon@linux.ibm.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Halasa <khalasa@piap.pl>, Kalle Valo <kvalo@kernel.org>,
+ Jeff Johnson <quic_jjohnson@quicinc.com>,
+ Gregory Greenman <gregory.greenman@intel.com>,
+ Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Intel Corporation <linuxwwan@intel.com>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
+ Liu Haijun <haijun.liu@mediatek.com>,
+ M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
+ Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Yuanjun Gong <ruc_gongyuanjun@163.com>, Wei Fang <wei.fang@nxp.com>,
+ Alex Elder <elder@linaro.org>, Simon Horman <horms@kernel.org>,
+ Rob Herring <robh@kernel.org>, Bailey Forrest <bcf@google.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Junfeng Guo <junfeng.guo@intel.com>, Ziwei Xiao <ziweixiao@google.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Rushil Gupta <rushilg@google.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Yuri Karpov <YKarpov@ispras.ru>, Zhengchao Shao <shaozhengchao@huawei.com>,
+ Andrew Lunn <andrew@lunn.ch>, Zheng Zengkai <zhengzengkai@huawei.com>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, Lee Jones
+ <lee@kernel.org>, Dawei Li <set_pte_at@outlook.com>,
+ Hans de Goede <hdegoede@redhat.com>, Benjamin Berg
+ <benjamin.berg@intel.com>, Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-can@vger.kernel.org, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, ath10k@lists.infradead.org,
+ linux-wireless@vger.kernel.org
+References: <20231002151023.4054-1-ansuelsmth@gmail.com>
+ <20231002151023.4054-3-ansuelsmth@gmail.com>
+Content-Language: en-US
+From: Nick Child <nnac123@linux.ibm.com>
+In-Reply-To: <20231002151023.4054-3-ansuelsmth@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: AFJ5CXgaf9gn3Ls0jloeGnb824w-iwMV
+X-Proofpoint-ORIG-GUID: Qz1_8zO7QXXjWE3s-ruwlXCzRrelvADM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-02_15,2023-10-02_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ clxscore=1011 impostorscore=0 adultscore=0 mlxlogscore=829 mlxscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2309180000 definitions=main-2310020167
 X-Mailman-Approved-At: Tue, 03 Oct 2023 14:54:42 +0000
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ben Wolsieffer <ben.wolsieffer@hefring.com>
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: add pwrcfg clock for
-	stm32f4/7
+Subject: Re: [Linux-stm32] [net-next PATCH 3/4] netdev: replace
+ napi_reschedule with napi_schedule
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,48 +144,30 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now that the circular dependency between syscon and clock initialization
-has been resolved, we can add the clock that drives the pwrcfg syscon to
-the device tree.
 
-Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
----
- arch/arm/boot/dts/st/stm32f429.dtsi | 1 +
- arch/arm/boot/dts/st/stm32f746.dtsi | 1 +
- 2 files changed, 2 insertions(+)
 
-diff --git a/arch/arm/boot/dts/st/stm32f429.dtsi b/arch/arm/boot/dts/st/stm32f429.dtsi
-index 8efcda9ef8ae..7c9a9133cc86 100644
---- a/arch/arm/boot/dts/st/stm32f429.dtsi
-+++ b/arch/arm/boot/dts/st/stm32f429.dtsi
-@@ -665,6 +665,7 @@ spi6: spi@40015400 {
- 		pwrcfg: power-config@40007000 {
- 			compatible = "st,stm32-power-config", "syscon";
- 			reg = <0x40007000 0x400>;
-+			clocks = <&rcc 0 STM32F4_APB1_CLOCK(PWR)>;
- 		};
- 
- 		ltdc: display-controller@40016800 {
-diff --git a/arch/arm/boot/dts/st/stm32f746.dtsi b/arch/arm/boot/dts/st/stm32f746.dtsi
-index d1802efd067c..cc8177466a51 100644
---- a/arch/arm/boot/dts/st/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/st/stm32f746.dtsi
-@@ -510,6 +510,7 @@ pwm {
- 		pwrcfg: power-config@40007000 {
- 			compatible = "st,stm32-power-config", "syscon";
- 			reg = <0x40007000 0x400>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(PWR)>;
- 		};
- 
- 		crc: crc@40023000 {
--- 
-2.42.0
+On 10/2/23 10:10, Christian Marangi wrote:
+> Now that napi_schedule return a bool, we can drop napi_reschedule that
+> does the same exact function. The function comes from a very old commit
+> bfe13f54f502 ("ibm_emac: Convert to use napi_struct independent of struct
+> net_device") and the purpose is actually deprecated in favour of
+> different logic.
+> 
+> Convert every user of napi_reschedule to napi_schedule.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
 
+For
+>   drivers/net/ethernet/ibm/ibmveth.c                     |  2 +-
+>   drivers/net/ethernet/ibm/ibmvnic.c                     |  2 +-
+
+Acked-by: Nick Child <nnac123@linux.ibm.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
