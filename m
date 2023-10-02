@@ -2,96 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3F447B6896
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 14:09:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D587B6C6C
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 16:54:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2597C6B478;
-	Tue,  3 Oct 2023 12:09:03 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D905C6B478;
+	Tue,  3 Oct 2023 14:54:44 +0000 (UTC)
+Received: from mail-qk1-f193.google.com (mail-qk1-f193.google.com
+ [209.85.222.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E660C6B476
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 09B6CC6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Oct 2023 12:09:00 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1qneCg-0007eJ-Ik; Tue, 03 Oct 2023 14:08:42 +0200
-Received: from [2a0a:edc0:0:b01:1d::7b] (helo=bjornoya.blackshift.org)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <mkl@pengutronix.de>)
- id 1qneCb-00Al6F-SV; Tue, 03 Oct 2023 14:08:37 +0200
-Received: from pengutronix.de (unknown [172.20.34.65])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id D0B6422CC33;
- Tue,  3 Oct 2023 11:26:49 +0000 (UTC)
-Date: Tue, 3 Oct 2023 13:26:49 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Message-ID: <20231003-struggle-lung-3d7c89eab00b-mkl@pengutronix.de>
-References: <20231002151023.4054-1-ansuelsmth@gmail.com>
- <20231002151023.4054-3-ansuelsmth@gmail.com>
- <20231003-living-seltzer-172ea6aec629-mkl@pengutronix.de>
- <651bf88c.050a0220.3a982.31fc@mx.google.com>
+ Mon,  2 Oct 2023 13:54:45 +0000 (UTC)
+Received: by mail-qk1-f193.google.com with SMTP id
+ af79cd13be357-7743448d88eso792631585a.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 Oct 2023 06:54:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1696254885; x=1696859685;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=STxM7vkkmDyUmxUH+gQAbgTWzPPiXJaAVUcK/e9j1i4=;
+ b=FQfGmjHa85zz7qFcuEEVreISYyy7zUfxaYEghL3v5Rjdxf/wmlfmqoI40MjUlLabyf
+ 7CojN81QsHA60lZ2iGdxobqgNe6mkCJ2Zm9voWJ8XES7nGFp8UxJVULKLIIH/93LvCYg
+ FX7gec0rbpMPdD3UfI+YzI26NcERNbIyynF4tsZ0XmXR3n6pfnZuThvIWZVuBZdI6eUl
+ cmdHNgokh/w52MnqDKMX+boy04I2eIBS8RKwRNCvtLjX2qsfes4C9Zug56FySuvBZVTr
+ HR2xnloj855wZI3DTLipvutuxZ8KFK5aTPEO5nQlJ19nRKBYVEK9Zn1Fk+xamT816Zkh
+ rfxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1696254885; x=1696859685;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=STxM7vkkmDyUmxUH+gQAbgTWzPPiXJaAVUcK/e9j1i4=;
+ b=L2RnoyN1dBu+E++4+aPi54E0e/voiV7rByUs79OWg5/g/bgtzKBIjxlcq59Dpu0GHB
+ 1PmYcB9I7Xq2IxOSGDIwoUvPh5Fym4ey70RP3IZ4fA0zm4R0UeDuEPMvuOqmhySkOyAQ
+ GYjDCDDtx0u8NHZ8Ne4sbBj3AHWaLnJFMkzLYESHAlb/FcyjqvmccoFLb1AutuVTGhiL
+ stqJVwAwwZ2W60dQlTIzisiRpdIAqekokNfYXky9sOMkGHeTsprDWBJny5B6+0LVohxO
+ aaf+O/+TXK3CrX5nDvz9mA3aZwMMBCR13ZlQSife93hYD2lAUNes6dMnVASvD4gYJ3Sg
+ lMNA==
+X-Gm-Message-State: AOJu0YxOPKERsUF5o0HiKBv2DZ2K+Mtsuj+vZUSfMy6tyvzfll1P0+Q1
+ d45NKmxS4t8vKK2PxNnmlD8dfw==
+X-Google-Smtp-Source: AGHT+IEs4NNprUgXOj7mVjG0S6MI/X0bgLI21KGJ4S6Xc/WbrCRFCrApaXSxBK8zWzz0pDpmlfRmAA==
+X-Received: by 2002:a05:620a:12f1:b0:774:13e:71cd with SMTP id
+ f17-20020a05620a12f100b00774013e71cdmr10622494qkl.56.1696254884697; 
+ Mon, 02 Oct 2023 06:54:44 -0700 (PDT)
+Received: from dell-precision-5540 ([50.212.55.89])
+ by smtp.gmail.com with ESMTPSA id
+ h8-20020ae9ec08000000b0076e672f535asm8922296qkg.57.2023.10.02.06.54.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Oct 2023 06:54:44 -0700 (PDT)
+Date: Mon, 2 Oct 2023 09:54:34 -0400
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: Jacob Keller <jacob.e.keller@intel.com>
+Message-ID: <ZRrLmjxoIIx7pIcs@dell-precision-5540>
+References: <20230927175749.1419774-1-ben.wolsieffer@hefring.com>
+ <681cc4ca-9fd7-9436-6c7d-d7da95026ce3@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <651bf88c.050a0220.3a982.31fc@mx.google.com>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Andrew Lunn <andrew@lunn.ch>, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Ziwei Xiao <ziweixiao@google.com>, Chris Snook <chris.snook@gmail.com>,
- Rick Lindsley <ricklind@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Lee Jones <lee@kernel.org>,
- Dany Madden <danymadden@us.ibm.com>,
- Gregory Greenman <gregory.greenman@intel.com>,
- Zhengchao Shao <shaozhengchao@huawei.com>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
- Dawei Li <set_pte_at@outlook.com>, Intel Corporation <linuxwwan@intel.com>,
- Rob Herring <robh@kernel.org>, Jeroen de Borst <jeroendb@google.com>,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Haren Myneni <haren@linux.ibm.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- linux-stm32@st-md-mailman.stormreply.com, Rushil Gupta <rushilg@google.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Thomas Falcon <tlfalcon@linux.ibm.com>,
- Jose Abreu <joabreu@synopsys.com>, Alex Elder <elder@linaro.org>,
- linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
- Wolfgang Grandegger <wg@grandegger.com>, Nick Child <nnac123@linux.ibm.com>,
- Simon Horman <horms@kernel.org>, Liu Haijun <haijun.liu@mediatek.com>,
- Kalle Valo <kvalo@kernel.org>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Bailey Forrest <bcf@google.com>, Nicholas Piggin <npiggin@gmail.com>,
- linux-can@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- Yuanjun Gong <ruc_gongyuanjun@163.com>, Shailend Chand <shailend@google.com>,
- Krzysztof Halasa <khalasa@piap.pl>, Benjamin Berg <benjamin.berg@intel.com>,
- M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Yuri Karpov <YKarpov@ispras.ru>,
- linux-arm-kernel@lists.infradead.org,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Ricardo Martinez <ricardo.martinez@linux.intel.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Zheng Zengkai <zhengzengkai@huawei.com>, netdev@vger.kernel.org,
- Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>, linuxppc-dev@lists.ozlabs.org,
- Douglas Miller <dougmill@linux.ibm.com>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Junfeng Guo <junfeng.guo@intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Raju Rangoju <rajur@chelsio.com>,
- Praveen Kaligineedi <pkaligineedi@google.com>,
- Johannes Berg <johannes@sipsolutions.net>, ath10k@lists.infradead.org,
- Jeff Johnson <quic_jjohnson@quicinc.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [net-next PATCH 3/4] netdev: replace
- napi_reschedule with napi_schedule
+Content-Disposition: inline
+In-Reply-To: <681cc4ca-9fd7-9436-6c7d-d7da95026ce3@intel.com>
+X-Mailman-Approved-At: Tue, 03 Oct 2023 14:54:42 +0000
+Cc: "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-stm32: fix resume
+	on STM32 MCU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,86 +81,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0925957110889954652=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Jacob,
 
---===============0925957110889954652==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zbzdaj4jqyp54e52"
-Content-Disposition: inline
+On Fri, Sep 29, 2023 at 10:48:47AM -0700, Jacob Keller wrote:
+> 
+> 
+> On 9/27/2023 10:57 AM, Ben Wolsieffer wrote:
+> > The STM32MP1 keeps clk_rx enabled during suspend, and therefore the
+> > driver does not enable the clock in stm32_dwmac_init() if the device was
+> > suspended. The problem is that this same code runs on STM32 MCUs, which
+> > do disable clk_rx during suspend, causing the clock to never be
+> > re-enabled on resume.
+> > 
+> > This patch adds a variant flag to indicate that clk_rx remains enabled
+> > during suspend, and uses this to decide whether to enable the clock in
+> > stm32_dwmac_init() if the device was suspended.
+> > 
+> 
+> Why not just keep clk_rx enabled unconditionally or unconditionally stop
+> it during suspend? I guess that might be part of a larger cleanup and
+> has more side effects?
 
+Ideally, you want to turn off as many clocks as possible in suspend to
+save power. I'm assuming there is some hardware reason the STM32MP1
+needs the RX clock on during suspend, but it was not explained in the
+original patch. Without more information, I'm trying to maintain the
+existing behavior.
 
---zbzdaj4jqyp54e52
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> 
+> > This approach fixes this specific bug with limited opportunity for
+> > unintended side-effects, but I have a follow up patch that will refactor
+> > the clock configuration and hopefully make it less error prone.
+> > 
+> 
+> I'd guess the follow-up refactor would target next?
+> 
+> > Fixes: 6528e02cc9ff ("net: ethernet: stmmac: add adaptation for stm32mp157c.")
+> > Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+> > ---
+> 
+> This seems pretty small and targeted so it does make sense to me as a
+> net fix, but it definitely feels like a workaround.
+> 
+> I look forward to reading the cleanup patch mentioned.
 
-On 03.10.2023 13:18:33, Christian Marangi wrote:
-> On Tue, Oct 03, 2023 at 09:16:33AM +0200, Marc Kleine-Budde wrote:
-> > On 02.10.2023 17:10:22, Christian Marangi wrote:
-> > > Now that napi_schedule return a bool, we can drop napi_reschedule that
-> > > does the same exact function. The function comes from a very old comm=
-it
-> > > bfe13f54f502 ("ibm_emac: Convert to use napi_struct independent of st=
-ruct
-> > > net_device") and the purpose is actually deprecated in favour of
-> > > different logic.
-> > >=20
-> > > Convert every user of napi_reschedule to napi_schedule.
-> > >=20
-> > > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > > ---
-> > >  drivers/infiniband/ulp/ipoib/ipoib_ib.c                |  4 ++--
-> > >  drivers/net/can/dev/rx-offload.c                       |  2 +-
-> >=20
-> > Acked-by: Marc Kleine-Budde # for can/dev/rx-offload.c
->=20
-> Just to make sure can I use the correct tag: (you didn't include the
-> mail)
+Sorry, I should have linked this when I re-posted this patch for
+net, but I previously submitted this patch as part of a series with
+the cleanup but was asked to split them up for net and net-next.
+Personally, I would be fine with them going into net-next together (or
+squashed).
 
-Doh! Sure.
+The original series can be found here:
+https://lore.kernel.org/linux-arm-kernel/20230919164535.128125-3-ben.wolsieffer@hefring.com/T/
 
-> Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for can/dev/rx-offload=
-=2Ec
-
-Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for can/dev/rx-offload.c
-
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---zbzdaj4jqyp54e52
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmUb+nYACgkQvlAcSiqK
-BOgAwwf9HSZX1sxRgnOHWLXSBACCTpqNm26rDzNrIqPlybJQVie8rNauFCEQbSz+
-cKDZD68pDokwEv+8WajpOBW0d/Zc27B2d7EZtYhlopNFjo0XIPYoYfA6QTXfZ6Qs
-vi22lC87vHoyEwEi37X3yTPapJVY2GDgyGSD+8FsdOliNE679gautzYvZSWLPiRF
-stXo71bRBm15AbVKwCuOqymieHGxKbooQ09lRIYUXdK6oF671CJLKUia6m9Qg42f
-6Itf4TBPlF4XdxS0vqKrvTsg78XduHN1FmuI+RJIPdzULMx9CoUlr8BOSfGomsN3
-eoH9v4s8IDrkLGQifa7oRIgxg9EkFw==
-=72hV
------END PGP SIGNATURE-----
-
---zbzdaj4jqyp54e52--
-
---===============0925957110889954652==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks, Ben
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0925957110889954652==--
