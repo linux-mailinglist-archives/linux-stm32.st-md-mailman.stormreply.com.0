@@ -2,60 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D20537B5A08
-	for <lists+linux-stm32@lfdr.de>; Mon,  2 Oct 2023 20:30:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 345EB7B5C4C
+	for <lists+linux-stm32@lfdr.de>; Mon,  2 Oct 2023 22:56:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80A9CC6B474;
-	Mon,  2 Oct 2023 18:30:49 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D96ADC6B474;
+	Mon,  2 Oct 2023 20:56:01 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A89A6C6B473
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B8E2C6B473
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Oct 2023 18:30:48 +0000 (UTC)
+ Mon,  2 Oct 2023 20:56:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5374460FC0;
- Mon,  2 Oct 2023 18:30:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEC6C433C7;
- Mon,  2 Oct 2023 18:30:42 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 5B277CE1276;
+ Mon,  2 Oct 2023 20:55:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7B0C433C8;
+ Mon,  2 Oct 2023 20:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696271447;
- bh=1//f2YouULqAiADtTsQpdUerbTsC5x6cElTMSDp4Lbs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bi3H48gw6TxHb/xgPIWTF4A7VE+gxBmVvSU7jPU4eG84RKGCb36Q1H8oCpmZDY7pl
- Ez9aM3h3TYpqzKl1n3EzY6ldb8JrMq4tTDUeLBFWupzS8hMjEIU0HRFa+zRC2yckIQ
- +CJlbmZVTJ8Fak0tJp+DJIPt2x8poJRCXlkBuPceq1pvv4sqBs9uLCeF9S3OHv4ANC
- kz0kBvAdjIVIqPgS3qT6PGfaOJqNodNT3afHaTiLHzKX38+4mIcUZjRpbnxt+zbMhU
- 75XjXJAAf1jf9ezT5DAg6EvXJsMp4PLdmP64J66+EIYyaGwwTL2vB+qopg+2ZMR941
- wVgsHp9MLI2Ug==
-Received: (nullmailer pid 2308269 invoked by uid 1000);
- Mon, 02 Oct 2023 18:30:41 -0000
-Date: Mon, 2 Oct 2023 13:30:41 -0500
-From: Rob Herring <robh@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Message-ID: <20231002183041.GA2062984-robh@kernel.org>
-References: <20230929142852.578394-1-gatien.chevallier@foss.st.com>
- <20230929142852.578394-4-gatien.chevallier@foss.st.com>
+ s=k20201202; t=1696280157;
+ bh=3SUjHS1R/+k33+41I8df1OAaO4gb+JCavb+GatMXfr8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Ts6e8OPAXbwJSqbHZh7OB/J5bL/OHFILZtb1yBVm7HXPB1PZk/XGQ7AuIW4n29dj+
+ ecoBTO+7hrPW8Q6xuPPASkVTEUpIET4SQ0Jsvd2gVlk1zyw1YTaRy14t4smDjHCbYx
+ Ip/BJuo0W6EjA2rvCbaan0iEIW+cj78pq0AqAEptDJPl392/1LNQKv84du3Y6mEcD5
+ kLx5VdsMxdIHgNASSD2ZmOJqOflab/gjsH9hwidf2wGhMgu6x7m8pUtG4MO1ahLvP5
+ y4L8a3M2ByHooguBVfjxXHjB0K4VvDBx4MXBRBHPNchRHELaiLL3HcPvunO0YVRUT/
+ sMrIc2mpMLNtQ==
+Date: Mon, 2 Oct 2023 13:55:51 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <20231002135551.020f180c@kernel.org>
+In-Reply-To: <xwcwjtyy5yx6pruoa3vmssnjzkbeahmfyym4e5lrq2efcwwiym@2upf4ko4mah5>
+References: <20230923031031.21434-1-rohan.g.thomas@intel.com>
+ <xwcwjtyy5yx6pruoa3vmssnjzkbeahmfyym4e5lrq2efcwwiym@2upf4ko4mah5>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20230929142852.578394-4-gatien.chevallier@foss.st.com>
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- peng.fan@oss.nxp.com, herbert@gondor.apana.org.au,
- Frank Rowand <frowand.list@gmail.com>, hugues.fruchet@foss.st.com,
- lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- andi.shyti@kernel.org, alsa-devel@alsa-project.org, richardcochran@gmail.com,
- linux-serial@vger.kernel.org, mchehab@kernel.org,
- linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 03/11] dt-bindings: bus: document RIFSC
+Cc: devicetree@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rohan G Thomas <rohan.g.thomas@intel.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: xgmac: EST
+ interrupts handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,153 +61,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Sep 29, 2023 at 04:28:44PM +0200, Gatien Chevallier wrote:
-> Document RIFSC (RIF security controller). RIFSC is a firewall controller
-> composed of different kinds of hardware resources.
+On Tue, 26 Sep 2023 14:25:56 +0300 Serge Semin wrote:
+> On Sat, Sep 23, 2023 at 11:10:31AM +0800, Rohan G Thomas wrote:
+> > Enabled the following EST related interrupts:
+> >   1) Constant Gate Control Error (CGCE)
+> >   2) Head-of-Line Blocking due to Scheduling (HLBS)
+> >   3) Head-of-Line Blocking due to Frame Size (HLBF)
+> >   4) Base Time Register error (BTRE)
+> >   5) Switch to S/W owned list Complete (SWLC)
+> > Also, add EST errors into the ethtool statistic.
+> > 
+> > The commit e49aa315cb01 ("net: stmmac: EST interrupts handling and
+> > error reporting") and commit 9f298959191b ("net: stmmac: Add EST
+> > errors into ethtool statistic") add EST interrupts handling and error
+> > reporting support to DWMAC4 core. This patch enables the same support
+> > for XGMAC.  
 > 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
-> 
-> Changes in V5:
-> 	- Renamed feature-domain* to access-control*
-> 
-> Changes in V2:
-> 	- Corrected errors highlighted by Rob's robot
-> 	- No longer define the maxItems for the "feature-domains"
-> 	  property
-> 	- Fix example (node name, status)
-> 	- Declare "feature-domain-names" as an optional
-> 	  property for child nodes
-> 	- Fix description of "feature-domains" property
-> 
->  .../bindings/bus/st,stm32mp25-rifsc.yaml      | 105 ++++++++++++++++++
->  1 file changed, 105 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-> new file mode 100644
-> index 000000000000..c28fceff3036
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/st,stm32mp25-rifsc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32 Resource isolation framework security controller
-> +
-> +maintainers:
-> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
-> +
-> +description: |
-> +  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
-> +  designed to enforce and manage isolation of STM32 hardware resources like
-> +  memory and peripherals.
-> +
-> +  The RIFSC (RIF security controller) is composed of three sets of registers,
-> +  each managing a specific set of hardware resources:
-> +    - RISC registers associated with RISUP logic (resource isolation device unit
-> +      for peripherals), assign all non-RIF aware peripherals to zero, one or
-> +      any security domains (secure, privilege, compartment).
-> +    - RIMC registers: associated with RIMU logic (resource isolation master
-> +      unit), assign all non RIF-aware bus master to one security domain by
-> +      setting secure, privileged and compartment information on the system bus.
-> +      Alternatively, the RISUP logic controlling the device port access to a
-> +      peripheral can assign target bus attributes to this peripheral master port
-> +      (supported attribute: CID).
-> +    - RISC registers associated with RISAL logic (resource isolation device unit
-> +      for address space - Lite version), assign address space subregions to one
-> +      security domains (secure, privilege, compartment).
-> +
-> +properties:
-> +  compatible:
-> +    contains:
-> +      const: st,stm32mp25-rifsc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +  "#access-controller-cells":
-> +    const: 1
+> So, this is basically a copy of what was done for the DW QoS Eth
+> IP-core (DW GMAC v4.x/v5.x). IMO it would be better to factor it out
+> into a separate module together with the rest of the setup methods
+> like it's done for TC or PTP. But since it implies some much more work
+> I guess we can leave it as is for now...
 
-You should define what the cells contain here.
-
-> +
-> +  access-control-provider: true
-> +
-> +patternProperties:
-> +  "^.*@[0-9a-f]+$":
-> +    description: Peripherals
-> +    type: object
-
-       additionalProperties: true
-
-> +    properties:
-> +      access-controller:
-> +        minItems: 1
-> +        description:
-> +          The phandle of the firewall controller of the peripheral and the
-> +          platform-specific firewall ID of the peripheral.
-> +
-> +      access-controller-names:
-> +        minItems: 1
-
-Drop all this. You have to define these in the specific device schemas 
-anyways.
-
-> +
-> +    required:
-> +      - access-controller
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - access-control-provider
-> +  - "#access-controller-cells"
-> +  - ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    // In this example, the usart2 device refers to rifsc as its domain
-> +    // controller.
-> +    // Access rights are verified before creating devices.
-> +
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    rifsc: bus@42080000 {
-> +        compatible = "st,stm32mp25-rifsc";
-> +        reg = <0x42080000 0x1000>;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +        access-control-provider;
-> +        #access-controller-cells = <1>;
-> +        ranges;
-> +
-> +        usart2: serial@400e0000 {
-> +              compatible = "st,stm32h7-uart";
-> +              reg = <0x400e0000 0x400>;
-> +              interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
-> +              clocks = <&ck_flexgen_08>;
-> +              access-controller = <&rifsc 32>;
-> +        };
-> +    };
-> -- 
-> 2.25.1
-> 
+I think we can push back a little harder. At the very least we should
+get a clear explanation why this copy'n'paste is needed, i.e. what are
+the major differences. No?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
