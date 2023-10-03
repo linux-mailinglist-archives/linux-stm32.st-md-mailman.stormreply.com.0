@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3D1D7B710E
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 20:36:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07B817B7112
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 20:36:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A930DC6B478;
-	Tue,  3 Oct 2023 18:36:44 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C25E4C6B478;
+	Tue,  3 Oct 2023 18:36:47 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F180CC6B476
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 454EDC6C82F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Oct 2023 18:36:42 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-3231d6504e1so1216313f8f.2
+ Tue,  3 Oct 2023 18:36:46 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-405524e6768so12625225e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Oct 2023 11:36:42 -0700 (PDT)
+ Tue, 03 Oct 2023 11:36:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696358202; x=1696963002;
+ d=gmail.com; s=20230601; t=1696358206; x=1696963006;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=+fCFYguW26XBa+rOo0KRC67oNqcDD6Ug3bXWKB0TTpQ=;
- b=VQYc7mTmf+OwJNacnPgnXKl6bN+YA+0nqObtZlSfBKCUs45KLc+AzAArT2O+CuC1nf
- h6hBfkVpW9iOa5QyF32ThOJB8YVyS1FRcwCwrP1/PmRzmQguxqFb+lYLg0931acgAu/V
- vPP0cIeNPCCe5arkKG2coJMs/2BiM/qrQnYjGgbrUVkx/9QJfAqR4ll/Gx/MXfd3Z2IX
- v9hYSbL9OL14OtLkTg49c0pUyKDz3g/akvu/Wn6uOQdveFGtl3tgo3EnWq9V0ofGZuWa
- h66kjUW6hXRCP1s02nUNB66BtR+93TwE5GkgH/wMbnRgw27bnxwN1Nprjo0FI4PJckbT
- mRiA==
+ :reply-to; bh=6gyQNJ2XnyFpWZfsSOVQ7NTvT9jbamCtiO1RkGRSocs=;
+ b=KPTKGUkh1hEr85BKnIAtwJNjNjx9TCGBQlVV04qmF4y8vtrktMRqhEbGWk5iZw0GLg
+ zZPQrZ6u/aI3BryHnI2+14mGYfQfwZiYPeugZUgMwc9/UF7lGSjCUdpMNPua88jpwuS+
+ BdUdBuUG0VHsCwW+7ba6QnacdUsrudvqyNPevP2JL6BjmVkEOfSk9TMkT+G8PsPQhUvc
+ ts4qIRPyKidiNFCdeTnaZO5RNVv8x5NbWA/eIl3+e56khHIYap/QAH/rFDrdMwD9DpWc
+ 7AQVs4vTy1FPwae88EPV+h+Oawp1TItk+5nZ3Q3FAu1Q07onzif5mhOl/bjqObOcwUFO
+ zQqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696358202; x=1696963002;
+ d=1e100.net; s=20230601; t=1696358206; x=1696963006;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+fCFYguW26XBa+rOo0KRC67oNqcDD6Ug3bXWKB0TTpQ=;
- b=Tdew1dCzk3o8FGYCFDWzCX0l7Wmn3HsdvZuUqHWKrDfeHYOmW1kVfhxOjIoiWZPPci
- 2QrT4NuQ/7yfGga4PyS38YQy6rzgVnLsz0GaGvLVpaySlc7SNl05o5yzIdUZC8NF3uyT
- S+Ij8bVM/12Jk9YWaQcHMnMF/YHGk4Mzo5sCl8kj/KIUJ/O0d50afy5X5A/ev3CmPi/k
- oAexLI/nMO+6DZ8Zbz8J3pmo2EUm3JXFNK3+B3/+nnGziapbcJPnkwzlra9qId9Z5Kjz
- k/nB8Vzba2xbk9ynbZqMpvVdO/t09h10kS6P+eMWCISo/bxZ+3Gj/PZU9GxD5kcUI9+S
- 7JfQ==
-X-Gm-Message-State: AOJu0Yy/dOJ9JBcSUipcGUlGCoPtf5FTbCorMto0rKG6XAB6n0wMjbe3
- A4jr1F+B9yAelggvwITtDfI=
-X-Google-Smtp-Source: AGHT+IG7bkG2n/qQaertwmXTrNhAacTId8YcGp5AKj0I0Rq0xnocVh8f9vBhWG7s7pyfk1y9PtIoCw==
-X-Received: by 2002:adf:e892:0:b0:31f:f72c:dfa3 with SMTP id
- d18-20020adfe892000000b0031ff72cdfa3mr48759wrm.68.1696358202368; 
- Tue, 03 Oct 2023 11:36:42 -0700 (PDT)
+ bh=6gyQNJ2XnyFpWZfsSOVQ7NTvT9jbamCtiO1RkGRSocs=;
+ b=v88uZDcJ5ZsShFlIotnAIHYphnJAb+EJ/TfnmRyFnF5lh0FBEQ4Y+jetpF6Hzz+/Ni
+ 7KZI+aF/8eZ28UnpBqg5l6VCSRNWh8EmLb5iT9x7ohWSNu3WK3ucuqb/oINRduH2wfA4
+ cMraoym+ixrlZZQ5aoTOwP+2aoeqUe137ZmuE8Z0IEN+Se6735GwO9KqVtYalKGIcBp5
+ 4zw4knBSY0AmzAHz8Zpq0njynYPuEGOiclPDR/sWKXPUh3+HRXsN7kXthi7d3fS0jYrg
+ BsNeV5yzsh2r5jVrKebDojSQfkHwla026T+C5MU0kJHpMcZMY7XL4gCfPT6ef4MQ2yrg
+ /Pvg==
+X-Gm-Message-State: AOJu0YwGL4f7H1oAB05mtqaYBBAZW91a+Jb+r2BXuFzy4oxnovoS4OOL
+ m4o5roaxjGmscpNEbv6d4kU=
+X-Google-Smtp-Source: AGHT+IEYiqmB3FHX80gX8tQMzI8kEwWFIYbZ3oxXBoRCokmvLgveVRe6BiL4NPRW0r5qNgswYRjDHQ==
+X-Received: by 2002:a05:600c:22ce:b0:405:4c3a:796f with SMTP id
+ 14-20020a05600c22ce00b004054c3a796fmr308411wmg.2.1696358205305; 
+ Tue, 03 Oct 2023 11:36:45 -0700 (PDT)
 Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
  [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- k15-20020a7bc40f000000b004013797efb6sm10147400wmi.9.2023.10.03.11.36.39
+ k15-20020a7bc40f000000b004013797efb6sm10147400wmi.9.2023.10.03.11.36.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Oct 2023 11:36:42 -0700 (PDT)
+ Tue, 03 Oct 2023 11:36:45 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  Wolfgang Grandegger <wg@grandegger.com>,
@@ -105,14 +105,14 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, ath10k@lists.infradead.org,
  linux-wireless@vger.kernel.org
-Date: Tue,  3 Oct 2023 16:51:49 +0200
-Message-Id: <20231003145150.2498-3-ansuelsmth@gmail.com>
+Date: Tue,  3 Oct 2023 16:51:50 +0200
+Message-Id: <20231003145150.2498-4-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231003145150.2498-1-ansuelsmth@gmail.com>
 References: <20231003145150.2498-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [net-next PATCH v2 3/4] netdev: replace
-	napi_reschedule with napi_schedule
+Subject: [Linux-stm32] [net-next PATCH v2 4/4] netdev: use napi_schedule
+	bool instead of napi_schedule_prep/__napi_schedule
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,314 +129,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now that napi_schedule return a bool, we can drop napi_reschedule that
-does the same exact function. The function comes from a very old commit
-bfe13f54f502 ("ibm_emac: Convert to use napi_struct independent of struct
-net_device") and the purpose is actually deprecated in favour of
-different logic.
-
-Convert every user of napi_reschedule to napi_schedule.
+Replace if condition of napi_schedule_prep/__napi_schedule and use bool
+from napi_schedule directly where possible.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Acked-by: Jeff Johnson <quic_jjohnson@quicinc.com> # ath10k
-Acked-by: Nick Child <nnac123@linux.ibm.com> # ibm
-Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for can/dev/rx-offload.c
 ---
-Changes v2:
-- Add ack tag
----
- drivers/infiniband/ulp/ipoib/ipoib_ib.c                |  4 ++--
- drivers/net/can/dev/rx-offload.c                       |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/sge.c               |  2 +-
- drivers/net/ethernet/chelsio/cxgb4vf/sge.c             |  2 +-
- drivers/net/ethernet/ezchip/nps_enet.c                 |  2 +-
- drivers/net/ethernet/google/gve/gve_main.c             |  2 +-
- drivers/net/ethernet/ibm/ehea/ehea_main.c              |  2 +-
- drivers/net/ethernet/ibm/emac/mal.c                    |  2 +-
- drivers/net/ethernet/ibm/ibmveth.c                     |  2 +-
- drivers/net/ethernet/ibm/ibmvnic.c                     |  2 +-
- drivers/net/ethernet/mellanox/mlx4/en_rx.c             |  2 +-
- drivers/net/ethernet/ni/nixge.c                        |  2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c |  2 +-
- drivers/net/ethernet/xscale/ixp4xx_eth.c               |  4 ++--
- drivers/net/fjes/fjes_main.c                           |  2 +-
- drivers/net/wan/ixp4xx_hss.c                           |  4 ++--
- drivers/net/wireless/ath/ath10k/pci.c                  |  2 +-
- drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c             |  2 +-
- include/linux/netdevice.h                              | 10 ----------
- 19 files changed, 21 insertions(+), 31 deletions(-)
+ drivers/net/ethernet/atheros/atlx/atl1.c     | 4 +---
+ drivers/net/ethernet/toshiba/tc35815.c       | 4 +---
+ drivers/net/wireless/intel/iwlwifi/pcie/rx.c | 4 +---
+ 3 files changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-index ed25061fac62..7f84d9866cef 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-@@ -488,7 +488,7 @@ int ipoib_rx_poll(struct napi_struct *napi, int budget)
- 		if (unlikely(ib_req_notify_cq(priv->recv_cq,
- 					      IB_CQ_NEXT_COMP |
- 					      IB_CQ_REPORT_MISSED_EVENTS)) &&
--		    napi_reschedule(napi))
-+		    napi_schedule(napi))
- 			goto poll_more;
- 	}
+diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
+index 02aa6fd8ebc2..a9014d7932db 100644
+--- a/drivers/net/ethernet/atheros/atlx/atl1.c
++++ b/drivers/net/ethernet/atheros/atlx/atl1.c
+@@ -2446,7 +2446,7 @@ static int atl1_rings_clean(struct napi_struct *napi, int budget)
  
-@@ -518,7 +518,7 @@ int ipoib_tx_poll(struct napi_struct *napi, int budget)
- 		napi_complete(napi);
- 		if (unlikely(ib_req_notify_cq(priv->send_cq, IB_CQ_NEXT_COMP |
- 					      IB_CQ_REPORT_MISSED_EVENTS)) &&
--		    napi_reschedule(napi))
-+		    napi_schedule(napi))
- 			goto poll_more;
- 	}
- 	return n < 0 ? 0 : n;
-diff --git a/drivers/net/can/dev/rx-offload.c b/drivers/net/can/dev/rx-offload.c
-index 77091f7d1fa7..46e7b6db4a1e 100644
---- a/drivers/net/can/dev/rx-offload.c
-+++ b/drivers/net/can/dev/rx-offload.c
-@@ -67,7 +67,7 @@ static int can_rx_offload_napi_poll(struct napi_struct *napi, int quota)
- 
- 		/* Check if there was another interrupt */
- 		if (!skb_queue_empty(&offload->skb_queue))
--			napi_reschedule(&offload->napi);
-+			napi_schedule(&offload->napi);
- 	}
- 
- 	return work_done;
-diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
-index 98dd78551d89..b5ff2e1a9975 100644
---- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
-@@ -4261,7 +4261,7 @@ static void sge_rx_timer_cb(struct timer_list *t)
- 
- 			if (fl_starving(adap, fl)) {
- 				rxq = container_of(fl, struct sge_eth_rxq, fl);
--				if (napi_reschedule(&rxq->rspq.napi))
-+				if (napi_schedule(&rxq->rspq.napi))
- 					fl->starving++;
- 				else
- 					set_bit(id, s->starving_fl);
-diff --git a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
-index 2d0cf76fb3c5..5b1d746e6563 100644
---- a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
-@@ -2094,7 +2094,7 @@ static void sge_rx_timer_cb(struct timer_list *t)
- 				struct sge_eth_rxq *rxq;
- 
- 				rxq = container_of(fl, struct sge_eth_rxq, fl);
--				if (napi_reschedule(&rxq->rspq.napi))
-+				if (napi_schedule(&rxq->rspq.napi))
- 					fl->starving++;
- 				else
- 					set_bit(id, s->starving_fl);
-diff --git a/drivers/net/ethernet/ezchip/nps_enet.c b/drivers/net/ethernet/ezchip/nps_enet.c
-index edf000e7bab4..4d7184d46824 100644
---- a/drivers/net/ethernet/ezchip/nps_enet.c
-+++ b/drivers/net/ethernet/ezchip/nps_enet.c
-@@ -198,7 +198,7 @@ static int nps_enet_poll(struct napi_struct *napi, int budget)
+ static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
+ {
+-	if (!napi_schedule_prep(&adapter->napi))
++	if (!napi_schedule(&adapter->napi))
+ 		/* It is possible in case even the RX/TX ints are disabled via IMR
+ 		 * register the ISR bits are set anyway (but do not produce IRQ).
+ 		 * To handle such situation the napi functions used to check is
+@@ -2454,8 +2454,6 @@ static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
  		 */
- 		if (nps_enet_is_tx_pending(priv)) {
- 			nps_enet_reg_set(priv, NPS_ENET_REG_BUF_INT_ENABLE, 0);
--			napi_reschedule(napi);
-+			napi_schedule(napi);
- 		}
- 	}
+ 		return 0;
  
-diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-index 83b09dcfafc4..276f996f95dc 100644
---- a/drivers/net/ethernet/google/gve/gve_main.c
-+++ b/drivers/net/ethernet/google/gve/gve_main.c
-@@ -281,7 +281,7 @@ static int gve_napi_poll(struct napi_struct *napi, int budget)
- 		if (block->rx)
- 			reschedule |= gve_rx_work_pending(block->rx);
- 
--		if (reschedule && napi_reschedule(napi))
-+		if (reschedule && napi_schedule(napi))
- 			iowrite32be(GVE_IRQ_MASK, irq_doorbell);
- 	}
- 	return work_done;
-diff --git a/drivers/net/ethernet/ibm/ehea/ehea_main.c b/drivers/net/ethernet/ibm/ehea/ehea_main.c
-index 251dedd55cfb..1e29e5c9a2df 100644
---- a/drivers/net/ethernet/ibm/ehea/ehea_main.c
-+++ b/drivers/net/ethernet/ibm/ehea/ehea_main.c
-@@ -900,7 +900,7 @@ static int ehea_poll(struct napi_struct *napi, int budget)
- 		if (!cqe && !cqe_skb)
- 			return rx;
- 
--		if (!napi_reschedule(napi))
-+		if (!napi_schedule(napi))
- 			return rx;
- 
- 		cqe_skb = ehea_proc_cqes(pr, EHEA_POLL_MAX_CQES);
-diff --git a/drivers/net/ethernet/ibm/emac/mal.c b/drivers/net/ethernet/ibm/emac/mal.c
-index 462646d1b817..2439f7e96e05 100644
---- a/drivers/net/ethernet/ibm/emac/mal.c
-+++ b/drivers/net/ethernet/ibm/emac/mal.c
-@@ -442,7 +442,7 @@ static int mal_poll(struct napi_struct *napi, int budget)
- 		if (unlikely(mc->ops->peek_rx(mc->dev) ||
- 			     test_bit(MAL_COMMAC_RX_STOPPED, &mc->flags))) {
- 			MAL_DBG2(mal, "rotting packet" NL);
--			if (!napi_reschedule(napi))
-+			if (!napi_schedule(napi))
- 				goto more_work;
- 
- 			spin_lock_irqsave(&mal->lock, flags);
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 832a2ae01950..9490272c0421 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -1433,7 +1433,7 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
- 		BUG_ON(lpar_rc != H_SUCCESS);
- 
- 		if (ibmveth_rxq_pending_buffer(adapter) &&
--		    napi_reschedule(napi)) {
-+		    napi_schedule(napi)) {
- 			lpar_rc = h_vio_signal(adapter->vdev->unit_address,
- 					       VIO_IRQ_DISABLE);
- 		}
-diff --git a/drivers/net/ethernet/ibm/ibmvnic.c b/drivers/net/ethernet/ibm/ibmvnic.c
-index cdf5251e5679..2094f413cbe4 100644
---- a/drivers/net/ethernet/ibm/ibmvnic.c
-+++ b/drivers/net/ethernet/ibm/ibmvnic.c
-@@ -3519,7 +3519,7 @@ static int ibmvnic_poll(struct napi_struct *napi, int budget)
- 		if (napi_complete_done(napi, frames_processed)) {
- 			enable_scrq_irq(adapter, rx_scrq);
- 			if (pending_scrq(adapter, rx_scrq)) {
--				if (napi_reschedule(napi)) {
-+				if (napi_schedule(napi)) {
- 					disable_scrq_irq(adapter, rx_scrq);
- 					goto restart_poll;
- 				}
-diff --git a/drivers/net/ethernet/mellanox/mlx4/en_rx.c b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-index 332472fe4990..a09b6e05337d 100644
---- a/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-+++ b/drivers/net/ethernet/mellanox/mlx4/en_rx.c
-@@ -400,7 +400,7 @@ void mlx4_en_recover_from_oom(struct mlx4_en_priv *priv)
- 	for (ring = 0; ring < priv->rx_ring_num; ring++) {
- 		if (mlx4_en_is_ring_empty(priv->rx_ring[ring])) {
- 			local_bh_disable();
--			napi_reschedule(&priv->rx_cq[ring]->napi);
-+			napi_schedule(&priv->rx_cq[ring]->napi);
- 			local_bh_enable();
- 		}
- 	}
-diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
-index f71a4f8bbb89..fa1f78b03cb2 100644
---- a/drivers/net/ethernet/ni/nixge.c
-+++ b/drivers/net/ethernet/ni/nixge.c
-@@ -683,7 +683,7 @@ static int nixge_poll(struct napi_struct *napi, int budget)
- 		if (status & (XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK)) {
- 			/* If there's more, reschedule, but clear */
- 			nixge_dma_write_reg(priv, XAXIDMA_RX_SR_OFFSET, status);
--			napi_reschedule(napi);
-+			napi_schedule(napi);
- 		} else {
- 			/* if not, turn on RX IRQs again ... */
- 			cr = nixge_dma_read_reg(priv, XAXIDMA_RX_CR_OFFSET);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index f9e43fc32ee8..3ca1c2a816ff 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -802,7 +802,7 @@ static int stmmac_test_flowctrl(struct stmmac_priv *priv)
- 		stmmac_start_rx(priv, priv->ioaddr, i);
- 
- 		local_bh_disable();
--		napi_reschedule(&ch->rx_napi);
-+		napi_schedule(&ch->rx_napi);
- 		local_bh_enable();
- 	}
- 
-diff --git a/drivers/net/ethernet/xscale/ixp4xx_eth.c b/drivers/net/ethernet/xscale/ixp4xx_eth.c
-index b242aa61d8ab..64dea4ad2ad3 100644
---- a/drivers/net/ethernet/xscale/ixp4xx_eth.c
-+++ b/drivers/net/ethernet/xscale/ixp4xx_eth.c
-@@ -714,9 +714,9 @@ static int eth_poll(struct napi_struct *napi, int budget)
- 			napi_complete(napi);
- 			qmgr_enable_irq(rxq);
- 			if (!qmgr_stat_below_low_watermark(rxq) &&
--			    napi_reschedule(napi)) { /* not empty again */
-+			    napi_schedule(napi)) { /* not empty again */
- #if DEBUG_RX
--				netdev_debug(dev, "eth_poll napi_reschedule succeeded\n");
-+				netdev_debug(dev, "eth_poll napi_schedule succeeded\n");
- #endif
- 				qmgr_disable_irq(rxq);
- 				continue;
-diff --git a/drivers/net/fjes/fjes_main.c b/drivers/net/fjes/fjes_main.c
-index 2513be6d4e11..cd8cf08477ec 100644
---- a/drivers/net/fjes/fjes_main.c
-+++ b/drivers/net/fjes/fjes_main.c
-@@ -1030,7 +1030,7 @@ static int fjes_poll(struct napi_struct *napi, int budget)
- 		}
- 
- 		if (((long)jiffies - (long)adapter->rx_last_jiffies) < 3) {
--			napi_reschedule(napi);
-+			napi_schedule(napi);
- 		} else {
- 			spin_lock(&hw->rx_status_lock);
- 			for (epidx = 0; epidx < hw->max_epid; epidx++) {
-diff --git a/drivers/net/wan/ixp4xx_hss.c b/drivers/net/wan/ixp4xx_hss.c
-index e46b7f5ee49e..b09f4c235142 100644
---- a/drivers/net/wan/ixp4xx_hss.c
-+++ b/drivers/net/wan/ixp4xx_hss.c
-@@ -687,10 +687,10 @@ static int hss_hdlc_poll(struct napi_struct *napi, int budget)
- 			napi_complete(napi);
- 			qmgr_enable_irq(rxq);
- 			if (!qmgr_stat_empty(rxq) &&
--			    napi_reschedule(napi)) {
-+			    napi_schedule(napi)) {
- #if DEBUG_RX
- 				printk(KERN_DEBUG "%s: hss_hdlc_poll"
--				       " napi_reschedule succeeded\n",
-+				       " napi_schedule succeeded\n",
- 				       dev->name);
- #endif
- 				qmgr_disable_irq(rxq);
-diff --git a/drivers/net/wireless/ath/ath10k/pci.c b/drivers/net/wireless/ath/ath10k/pci.c
-index 23f366221939..2f8c785277af 100644
---- a/drivers/net/wireless/ath/ath10k/pci.c
-+++ b/drivers/net/wireless/ath/ath10k/pci.c
-@@ -3148,7 +3148,7 @@ static int ath10k_pci_napi_poll(struct napi_struct *ctx, int budget)
- 		 * immediate servicing.
- 		 */
- 		if (ath10k_ce_interrupt_summary(ar)) {
--			napi_reschedule(ctx);
-+			napi_schedule(ctx);
- 			goto out;
- 		}
- 		ath10k_pci_enable_legacy_irq(ar);
-diff --git a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-index f4ff2198b5ef..210d84c67ef9 100644
---- a/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-+++ b/drivers/net/wwan/t7xx/t7xx_hif_dpmaif_rx.c
-@@ -852,7 +852,7 @@ int t7xx_dpmaif_napi_rx_poll(struct napi_struct *napi, const int budget)
- 	if (!ret) {
- 		napi_complete_done(napi, work_done);
- 		rxq->sleep_lock_pending = true;
--		napi_reschedule(napi);
-+		napi_schedule(napi);
- 		return work_done;
- 	}
- 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 2bead8e2a14d..bbf9038f2afd 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -516,16 +516,6 @@ static inline void napi_schedule_irqoff(struct napi_struct *n)
- 		__napi_schedule_irqoff(n);
- }
- 
--/* Try to reschedule poll. Called by dev->poll() after napi_complete().  */
--static inline bool napi_reschedule(struct napi_struct *napi)
--{
--	if (napi_schedule_prep(napi)) {
--		__napi_schedule(napi);
--		return true;
--	}
--	return false;
--}
+-	__napi_schedule(&adapter->napi);
 -
- /**
-  * napi_complete_done - NAPI processing complete
-  * @n: NAPI context
+ 	/*
+ 	 * Disable RX/TX ints via IMR register if it is
+ 	 * allowed. NAPI handler must reenable them in same
+diff --git a/drivers/net/ethernet/toshiba/tc35815.c b/drivers/net/ethernet/toshiba/tc35815.c
+index 14cf6ecf6d0d..a8b8a0e13f9a 100644
+--- a/drivers/net/ethernet/toshiba/tc35815.c
++++ b/drivers/net/ethernet/toshiba/tc35815.c
+@@ -1436,9 +1436,7 @@ static irqreturn_t tc35815_interrupt(int irq, void *dev_id)
+ 	if (!(dmactl & DMA_IntMask)) {
+ 		/* disable interrupts */
+ 		tc_writel(dmactl | DMA_IntMask, &tr->DMA_Ctl);
+-		if (napi_schedule_prep(&lp->napi))
+-			__napi_schedule(&lp->napi);
+-		else {
++		if (!napi_schedule(&lp->napi)) {
+ 			printk(KERN_ERR "%s: interrupt taken in poll\n",
+ 			       dev->name);
+ 			BUG();
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
+index 23b5a0adcbd6..146bc7bd14fb 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
+@@ -1660,9 +1660,7 @@ irqreturn_t iwl_pcie_irq_rx_msix_handler(int irq, void *dev_id)
+ 	IWL_DEBUG_ISR(trans, "[%d] Got interrupt\n", entry->entry);
+ 
+ 	local_bh_disable();
+-	if (napi_schedule_prep(&rxq->napi))
+-		__napi_schedule(&rxq->napi);
+-	else
++	if (!napi_schedule(&rxq->napi))
+ 		iwl_pcie_clear_irq(trans, entry->entry);
+ 	local_bh_enable();
+ 
 -- 
 2.40.1
 
