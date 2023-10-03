@@ -2,72 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED227B6C76
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 16:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F4127B701B
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 19:42:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8AA5C6C830;
-	Tue,  3 Oct 2023 14:54:53 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3695DC6B478;
+	Tue,  3 Oct 2023 17:42:57 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DCE2C6B474
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBFDAC6B474
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Oct 2023 14:51:47 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-406589e5765so10046935e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Oct 2023 07:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20230601.gappssmtp.com; s=20230601; t=1696344707; x=1696949507;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5j3W5gbiwB/5gwTM96ugP2be7g+wEOoUYMu+wXUrQYg=;
- b=0DkAtpvqayme01dP/m/48OTLNzbhQR1BBiGJz3ScbcrPwdXLELOY8H1KjVAYqIYJne
- 6ALo5DnzVhUJzcJIIp01Rhmvx594HZ0Zi1blc0bsnQrsX+WMH9xwLdYSLNcJAK0H5FuD
- 4wItF72HMubmmLIKsW0f3ko7Rx0DgS6HlCQmUHjNflFvzaUfgds8XmH9cqjohDy3m7JO
- pez/cKu3/QUxA+f10hS+3dU6TrMnQOpxvlczLsyIXOAsMaDy+ZaWTw5+X9t4b0hDX8Jx
- ZdJo64mQ1K/U3HLzMfJDLhEBV7frY/PQScpezhSGX18egAFpykLjeRbRetVXXcEbrKAZ
- jUoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696344707; x=1696949507;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=5j3W5gbiwB/5gwTM96ugP2be7g+wEOoUYMu+wXUrQYg=;
- b=dlaxdeVNvAlTaWvivLHMToMbNI+4bjJS7CQHOHoh8iBH5QeMgTcx4aAK7jYZvFgQcv
- Z/OKkD7UD6HX4fMfQicqyd03wE4MtQ3MVY9l3LoTFB74CCeAX2wnjFa2z8xN0MdwIoyr
- wyW98yxlJVHhpsuIyLSJbLn+7h9Np6nJmyweBTbaquEsyPbrOHfKtmnVJNzBlhci06KP
- Hd/mJZ4JPd2HQ+iEb7IqnUvBsZlU5JHrQZNT/4Vu129wTVpJU8OMkzGCs6Y5HM5vgbqQ
- KkGoUDsty/RA5fFPuGMkpHqEeCl/qiougMX5q7JiaOoJQle07JSJKDMo3xc+i2ASdugW
- 4AjA==
-X-Gm-Message-State: AOJu0YzcARPifeufBCE/59hphnXwGXxlg9XAXwhe2h4tCqzlvfGn5APq
- W9t+mx7edlBHlV33hsXif1n2Hw==
-X-Google-Smtp-Source: AGHT+IE9rY8QXd3hX73Q6lwbGcVQvBQsR36SBdXE4r91ckRXTZW8tA0AY76GpxKS6c+NIXmjS4Oxeg==
-X-Received: by 2002:a05:600c:3786:b0:405:3ee3:c69c with SMTP id
- o6-20020a05600c378600b004053ee3c69cmr11960246wmr.15.1696344706839; 
- Tue, 03 Oct 2023 07:51:46 -0700 (PDT)
-Received: from brgl-uxlite.home ([2a01:cb1d:334:ac00:1f2d:3479:a5de:fa35])
- by smtp.gmail.com with ESMTPSA id
- c15-20020a05600c0acf00b003fe29f6b61bsm1462773wmr.46.2023.10.03.07.51.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Oct 2023 07:51:46 -0700 (PDT)
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-To: Linus Walleij <linus.walleij@linaro.org>, Andy Shevchenko <andy@kernel.org>
-Date: Tue,  3 Oct 2023 16:51:07 +0200
-Message-Id: <20231003145114.21637-30-brgl@bgdev.pl>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231003145114.21637-1-brgl@bgdev.pl>
-References: <20231003145114.21637-1-brgl@bgdev.pl>
+ Tue,  3 Oct 2023 17:42:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 865D5612E6;
+ Tue,  3 Oct 2023 17:42:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441DCC433C7;
+ Tue,  3 Oct 2023 17:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696354972;
+ bh=sr31N4h3bq02A/ddKJ/WDzDhSutvV5w7GfrIuqiakpI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M8z/PNZbksvHrABXDOZg64hkD56vVavPYEouOcdhLLy/telDwVu4pXPBuCth5vR+F
+ WwJJJkSmXYXh+UwSjtSJPogexkZFSDOCWxjXOMHw8PieAakXbS94fDbBrc7wV8JzUA
+ +MP/vxx8BlBf1jYeLKt0iUWP1PVKFdqhFbCJul1SzdESHga31kwDG5EY98VX2PHc4q
+ 2puaKf4eXJncUKYPej2a8jsBW9uQ0GLVkOSq21wHgXHnx7jYE9fpFHSDzIlAD0nYwu
+ rd4B8WQcNOLdwnaY0VwHhU0X5xsuYm7BeJDBypARXd0u86W8GJEzPgofJAQ0ssHYru
+ AIqaSck7LuQUQ==
+Date: Tue, 3 Oct 2023 19:42:46 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <20231003174246.vdazyls3c7kykd63@zenone.zhora.eu>
+References: <20231002084211.1108940-1-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 03 Oct 2023 14:54:52 +0000
-Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: [Linux-stm32] [PATCH 29/36] pinctrl: st: use new pinctrl GPIO
-	helpers
+Content-Disposition: inline
+In-Reply-To: <20231002084211.1108940-1-alain.volmat@foss.st.com>
+Cc: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
+ linux-kernel@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
+ linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Fix PEC handling in case of
+	SMBUS transfers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,42 +59,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Hi Alain,
 
-Replace the pinctrl helpers taking the global GPIO number as argument
-with the improved variants that instead take a pointer to the GPIO chip
-and the controller-relative offset.
+On Mon, Oct 02, 2023 at 10:42:10AM +0200, Alain Volmat wrote:
+> The PECBYTE bit allows to generate (in case of write) or
+> compute/compare the PEC byte (in case of read).  In case
+> of reading a value (performed by first sending a write
+> command, then followed by a read command) the PECBYTE should
+> only be set before starting the read command and not before
+> the first write command.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
----
- drivers/pinctrl/pinctrl-st.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+What is this patch fixing?
 
-diff --git a/drivers/pinctrl/pinctrl-st.c b/drivers/pinctrl/pinctrl-st.c
-index c1f36b164ea5..ec763572ab3e 100644
---- a/drivers/pinctrl/pinctrl-st.c
-+++ b/drivers/pinctrl/pinctrl-st.c
-@@ -719,7 +719,7 @@ static void st_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
- 
- static int st_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
- {
--	pinctrl_gpio_direction_input(chip->base + offset);
-+	pinctrl_gpio_direction_input_new(chip, offset);
- 
- 	return 0;
- }
-@@ -730,7 +730,7 @@ static int st_gpio_direction_output(struct gpio_chip *chip,
- 	struct st_gpio_bank *bank = gpiochip_get_data(chip);
- 
- 	__st_gpio_set(bank, offset, value);
--	pinctrl_gpio_direction_output(chip->base + offset);
-+	pinctrl_gpio_direction_output_new(chip, offset);
- 
- 	return 0;
- }
--- 
-2.39.2
+Can you please point this detail in the documentation, I haven't
+found it[*]
 
+> Fixes: 9e48155f6bfe ("i2c: i2c-stm32f7: Add initial SMBus protocols support")
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+
+please, don't leave blank lines between tags.
+
+Thanks,
+Andi
+
+[*] Hope this is the correct one:
+https://www.st.com/resource/en/reference_manual/rm0385-stm32f75xxx-and-stm32f74xxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
+
+> ---
+>  drivers/i2c/busses/i2c-stm32f7.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> index 579b30581725..0d3c9a041b56 100644
+> --- a/drivers/i2c/busses/i2c-stm32f7.c
+> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> @@ -1059,9 +1059,10 @@ static int stm32f7_i2c_smbus_xfer_msg(struct stm32f7_i2c_dev *i2c_dev,
+>  	/* Configure PEC */
+>  	if ((flags & I2C_CLIENT_PEC) && f7_msg->size != I2C_SMBUS_QUICK) {
+>  		cr1 |= STM32F7_I2C_CR1_PECEN;
+> -		cr2 |= STM32F7_I2C_CR2_PECBYTE;
+> -		if (!f7_msg->read_write)
+> +		if (!f7_msg->read_write) {
+> +			cr2 |= STM32F7_I2C_CR2_PECBYTE;
+>  			f7_msg->count++;
+> +		}
+>  	} else {
+>  		cr1 &= ~STM32F7_I2C_CR1_PECEN;
+>  		cr2 &= ~STM32F7_I2C_CR2_PECBYTE;
+> @@ -1149,8 +1150,10 @@ static void stm32f7_i2c_smbus_rep_start(struct stm32f7_i2c_dev *i2c_dev)
+>  	f7_msg->stop = true;
+>  
+>  	/* Add one byte for PEC if needed */
+> -	if (cr1 & STM32F7_I2C_CR1_PECEN)
+> +	if (cr1 & STM32F7_I2C_CR1_PECEN) {
+> +		cr2 |= STM32F7_I2C_CR2_PECBYTE;
+>  		f7_msg->count++;
+> +	}
+>  
+>  	/* Set number of bytes to be transferred */
+>  	cr2 &= ~(STM32F7_I2C_CR2_NBYTES_MASK);
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
