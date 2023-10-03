@@ -2,66 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC2C7B60A1
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 08:08:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97AFB7B6288
+	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 09:34:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7725FC6B476;
-	Tue,  3 Oct 2023 06:08:08 +0000 (UTC)
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C2EFC6B476;
+	Tue,  3 Oct 2023 07:34:02 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42199C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B967BC64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Oct 2023 06:08:06 +0000 (UTC)
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id 39367fQY111012;
- Tue, 3 Oct 2023 01:07:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1696313261;
- bh=8nHXIz83JEIbMHbNl4Btub6SQ0/ni/ZIwsC2FHxJX6Q=;
- h=From:To:CC:Subject:In-Reply-To:References:Date;
- b=KPmkj9WCNcya62CDRzjUVxY4xqNJavEtHWYOmAYryzGsYCRtBEcaIsgec20Th59y8
- 29iId9xbdoEKqS7a0WxpijUilcfV/NLexAYsizKm+gzspJjKwqcyI66sRpWY9W5W9Z
- QnQtI30rjGiL6z+9O/FAkIJt1Y/Iy+4cr/WlynKI=
-Received: from DFLE111.ent.ti.com (dfle111.ent.ti.com [10.64.6.32])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 39367fmU010004
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 3 Oct 2023 01:07:41 -0500
-Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE111.ent.ti.com
- (10.64.6.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23; Tue, 3
- Oct 2023 01:07:41 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.23 via
- Frontend Transport; Tue, 3 Oct 2023 01:07:41 -0500
-Received: from localhost (ileaxei01-snat.itg.ti.com [10.180.69.5])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 39367epB042204;
- Tue, 3 Oct 2023 01:07:41 -0500
-From: Kamlesh Gurudasani <kamlesh@ti.com>
-To: Eric Biggers <ebiggers@kernel.org>
-In-Reply-To: <87a5thgwt6.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
-References: <20230719-mcrc-upstream-v2-0-4152b987e4c2@ti.com>
- <20230812030116.GF971@sol.localdomain>
- <87h6owen39.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
- <20230822051710.GC1661@sol.localdomain>
- <87zg28d9z4.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
- <87a5thgwt6.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
-Date: Tue, 3 Oct 2023 11:37:40 +0530
-Message-ID: <87wmw4fdcj.fsf@kamlesh.i-did-not-set--mail-host-address--so-tickle-me>
+ Tue,  3 Oct 2023 07:34:00 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1qnZub-0003ZK-PJ; Tue, 03 Oct 2023 09:33:45 +0200
+Received: from [2a0a:edc0:0:b01:1d::7b] (helo=bjornoya.blackshift.org)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <mkl@pengutronix.de>)
+ id 1qnZuX-00Aidd-0Z; Tue, 03 Oct 2023 09:33:41 +0200
+Received: from pengutronix.de (unknown [172.20.34.65])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ (Authenticated sender: mkl-all@blackshift.org)
+ by smtp.blackshift.org (Postfix) with ESMTPSA id 9626922CA40;
+ Tue,  3 Oct 2023 07:16:33 +0000 (UTC)
+Date: Tue, 3 Oct 2023 09:16:33 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Message-ID: <20231003-living-seltzer-172ea6aec629-mkl@pengutronix.de>
+References: <20231002151023.4054-1-ansuelsmth@gmail.com>
+ <20231002151023.4054-3-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Nishanth Menon <nm@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- Tero Kristo <kristo@kernel.org>, devicetree@vger.kernel.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-crypto@vger.kernel.org, Krzysztof
- Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Will Deacon <will@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Vignesh Raghavendra <vigneshr@ti.com>
-Subject: Re: [Linux-stm32] [EXTERNAL] Re: [EXTERNAL] Re: [PATCH v2 0/6] Add
- support for Texas Instruments MCRC64 engine
+In-Reply-To: <20231002151023.4054-3-ansuelsmth@gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Ziwei Xiao <ziweixiao@google.com>, Chris Snook <chris.snook@gmail.com>,
+ Rick Lindsley <ricklind@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Lee Jones <lee@kernel.org>,
+ Dany Madden <danymadden@us.ibm.com>,
+ Gregory Greenman <gregory.greenman@intel.com>,
+ Zhengchao Shao <shaozhengchao@huawei.com>,
+ Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
+ Dawei Li <set_pte_at@outlook.com>, Intel Corporation <linuxwwan@intel.com>,
+ Rob Herring <robh@kernel.org>, Jeroen de Borst <jeroendb@google.com>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Haren Myneni <haren@linux.ibm.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ linux-stm32@st-md-mailman.stormreply.com, Rushil Gupta <rushilg@google.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thomas Falcon <tlfalcon@linux.ibm.com>,
+ Jose Abreu <joabreu@synopsys.com>, Alex Elder <elder@linaro.org>,
+ linux-wireless@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
+ Wolfgang Grandegger <wg@grandegger.com>, Nick Child <nnac123@linux.ibm.com>,
+ Simon Horman <horms@kernel.org>, Liu Haijun <haijun.liu@mediatek.com>,
+ Kalle Valo <kvalo@kernel.org>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Bailey Forrest <bcf@google.com>, Nicholas Piggin <npiggin@gmail.com>,
+ linux-can@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
+ Yuanjun Gong <ruc_gongyuanjun@163.com>, Shailend Chand <shailend@google.com>,
+ Krzysztof Halasa <khalasa@piap.pl>, Benjamin Berg <benjamin.berg@intel.com>,
+ M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Yuri Karpov <YKarpov@ispras.ru>,
+ linux-arm-kernel@lists.infradead.org,
+ Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+ Loic Poulain <loic.poulain@linaro.org>,
+ Zheng Zengkai <zhengzengkai@huawei.com>, netdev@vger.kernel.org,
+ Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>, linuxppc-dev@lists.ozlabs.org,
+ Douglas Miller <dougmill@linux.ibm.com>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Tariq Toukan <tariqt@nvidia.com>, Junfeng Guo <junfeng.guo@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Raju Rangoju <rajur@chelsio.com>,
+ Praveen Kaligineedi <pkaligineedi@google.com>,
+ Johannes Berg <johannes@sipsolutions.net>, ath10k@lists.infradead.org,
+ Jeff Johnson <quic_jjohnson@quicinc.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [net-next PATCH 3/4] netdev: replace
+ napi_reschedule with napi_schedule
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,43 +101,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8419968462611953787=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Kamlesh Gurudasani <kamlesh@ti.com> writes:
 
->>
->> Here, if we consider similar numbers for crc64 PMULL implementation as
->> crc32 (case 2) , we save good number of cpu cycles using mcrc64
->> in case of files bigger than 5-10mb as most of the time is being spent in HW offload.
->>
->> Regards,
->> Kamlesh
->
-> Hi Eric,
->
-> Please let me know if above numbers make sense to you and I should send
-> next revision.
+--===============8419968462611953787==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rxxtlje5djnxwkyg"
+Content-Disposition: inline
 
-Hi Eric,
 
-I understand that there is no in-kernel user for crc64-iso3309 and this
-is new algorithm that we are trying to add in linux kernel.
+--rxxtlje5djnxwkyg
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As per your suggestion we did the calculations and it turns out to be we
-are saving good number of cpu cycles with HW offload.
+On 02.10.2023 17:10:22, Christian Marangi wrote:
+> Now that napi_schedule return a bool, we can drop napi_reschedule that
+> does the same exact function. The function comes from a very old commit
+> bfe13f54f502 ("ibm_emac: Convert to use napi_struct independent of struct
+> net_device") and the purpose is actually deprecated in favour of
+> different logic.
+>=20
+> Convert every user of napi_reschedule to napi_schedule.
+>=20
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/infiniband/ulp/ipoib/ipoib_ib.c                |  4 ++--
+>  drivers/net/can/dev/rx-offload.c                       |  2 +-
 
-Also, there are some automotive customers who have a safety
-requirement to offload any parameters that are in Linux to ensure FFI.
+Acked-by: Marc Kleine-Budde # for can/dev/rx-offload.c
 
-Let me know if you are willing to accept this driver, so that I can put
-efforts to send next revision.
+regards,
+Marc
 
-Regards,
-Kamlesh
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--rxxtlje5djnxwkyg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEDs2BvajyNKlf9TJQvlAcSiqKBOgFAmUbv84ACgkQvlAcSiqK
+BOjnFwf+OhxcXa9c83Acv0LbbO4tgmF/CI9y5Gz59aFevokQHG/8d2f2USWDkqPB
+r/Yi54VuZtFU1I6dV9XVQtndbXcoPbhBYFOrdNFJtYbXU405HTkgVrKM3LEv8Num
+vuyP5J6+IPisIYReCl6jAlWMNbZmiQHVdI4dyV/I0R3W0VDSBcDd8vxouQrT+iNb
+wqTBUCgjHnea7OhI3S+CDi7692mmk8RC5Jbhxb0rr+i49Dx6gtpmCUb8QmB94TDT
+Rn5auDyJLh0+Wcg+eDdnNvKjNBS7v//BDSY+asVFVwlQ3/aMqVBXlKStFwHQa33O
+P/Y7vHxUVvIeimQmBn2zif8iFQjF3Q==
+=qf69
+-----END PGP SIGNATURE-----
+
+--rxxtlje5djnxwkyg--
+
+--===============8419968462611953787==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8419968462611953787==--
