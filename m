@@ -2,58 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E02227B7CBE
-	for <lists+linux-stm32@lfdr.de>; Wed,  4 Oct 2023 11:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BFCC7B7D46
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Oct 2023 12:37:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3950C6C833;
-	Wed,  4 Oct 2023 09:59:40 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01B7CC6C835;
+	Wed,  4 Oct 2023 10:37:53 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03D37C6C832
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3331AC6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Oct 2023 09:59:38 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1qnyf5-0002vN-0q; Wed, 04 Oct 2023 11:59:23 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qnyf3-00Azxr-7z; Wed, 04 Oct 2023 11:59:21 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1qnyf2-008uPw-UB; Wed, 04 Oct 2023 11:59:20 +0200
-Date: Wed, 4 Oct 2023 11:59:20 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Sean Young <sean@mess.org>
-Message-ID: <20231004095920.ne7yrrthow6tnuvg@pengutronix.de>
-References: <cover.1696156485.git.sean@mess.org>
- <1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean@mess.org>
-MIME-Version: 1.0
-In-Reply-To: <1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean@mess.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+ Wed,  4 Oct 2023 10:37:51 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 394AEoCZ026784; Wed, 4 Oct 2023 12:37:30 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=CpI7neB
+ XhCSjFx6tMjeMOMf+DEVU5RTw/WINZZr8x8k=; b=FqfspHoPTMg+H9TBxgX/CzP
+ VNndxrfDVRa6vRMPU6nwgIXSd+U8PcGRsqkPZHK5dFOzoMmyflPjedA2mgruxcJZ
+ pYvUIj5V+k97SEde0mkLRy32PHpx+ZSBgsE5s0V5n2xcM4ncc0wXPYX96HY5Pp6i
+ sCp/JCVyyITge+04lBPa1sKNYuq2NJ3eK6xCcvnsl2ixgg5mcM+Rcbxbuse8T2Us
+ YaV94BKrXQn+AiOmPs1kdCnkIhbovL2GI6aeBKiaeldxJOeBY3akHUohKj5zx0so
+ e0EYyVN9DpdL1pBiPVJmljU6T8ePUo/J5a0/DJqSIKiNWzWNRDyc7fK84hrxuag=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tew80p71d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 Oct 2023 12:37:29 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1C0B1100053;
+ Wed,  4 Oct 2023 12:37:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0CDEC231510;
+ Wed,  4 Oct 2023 12:37:28 +0200 (CEST)
+Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 4 Oct
+ 2023 12:37:27 +0200
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Benjamin Mugnier
+ <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Daire McNamara <daire.mcnamara@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
- Conor Dooley <conor.dooley@microchip.com>,
- Thierry Reding <thierry.reding@gmail.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Paul Walmsley <paul.walmsley@sifive.com>, linux-riscv@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] pwm: make it possible to apply pwm
- changes in atomic context
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>
+Date: Wed, 4 Oct 2023 12:37:14 +0200
+Message-ID: <20231004103720.3540436-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-04_02,2023-10-02_01,2023-05-22_02
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
+ Marco Felsch <m.felsch@pengutronix.de>
+Subject: [Linux-stm32] [RFC 0/6] VP8 H1 stateless encoding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,107 +84,76 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3471987847152701924=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi all,
 
---===============3471987847152701924==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hz3c3li5tw4muaqt"
-Content-Disposition: inline
+Here is an RFC to support VP8 encoding using Hantro H1 hardware
+of STM32MP25 SoCs (Verisilicon VC8000NanoE IP).
+This work is derived from work done to support Rockchip RK3399
+VPU2 in RFC [1] with a reshuffling of registers to match H1
+register set.
+
+This has been tested on STM32MP257F-EV1 evaluation board using
+GStreamer userspace [2]:
+gst-launch-1.0 videotestsrc num-buffers=500 ! video/x-raw,width=640,height=480 \
+! v4l2slvp8enc ! queue ! matroskamux ! filesink location=test_vp8.mkv
+
+For the sake of simplicity I have embedded here the RFC [1] before the
+changes related to this exact RFC, all rebased on v6.6 + STM32MP25
+hardware codecs support [3].
+
+[1] https://lwn.net/ml/linux-media/20230309125651.23911-1-andrzej.p@collabora.com/
+[2] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/3736
+[3] https://patchwork.kernel.org/project/linux-media/list/?series=789861
+
+Best regards,
+Hugues.
 
 
---hz3c3li5tw4muaqt
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Andrzej Pietrasiewicz (2):
+  media: uapi: Add VP8 stateless encoder controls
+  media: hantro: add VP8 encode support for Rockchip RK3399 VPU2
 
-Hello Sean,
+Hugues Fruchet (4):
+  media: hantro: add h1 vp8 encode support
+  media: hantro: add VP8 encode support for STM32MP25 VENC
+  media: hantro: h1: NV12 single-plane support
+  media: hantro: add NV12 single-plane support for STM32MP25 VENC
 
-On Sun, Oct 01, 2023 at 11:40:29AM +0100, Sean Young wrote:
-> diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
-> index dc66e3405bf5..d9679ae5b2be 100644
-> --- a/drivers/pwm/core.c
-> +++ b/drivers/pwm/core.c
-> @@ -505,7 +505,7 @@ int pwm_apply_state(struct pwm_device *pwm, const str=
-uct pwm_state *state)
->  	 * is a bad idea. So make it explicit that calling this function might
->  	 * sleep.
->  	 */
-> -	might_sleep();
-> +	might_sleep_if(pwm_can_sleep(pwm));
-> =20
->  	if (!pwm || !state || !state->period ||
->  	    state->duty_cycle > state->period)
+ drivers/media/platform/verisilicon/Makefile   |    3 +
+ drivers/media/platform/verisilicon/hantro.h   |   10 +
+ .../platform/verisilicon/hantro_boolenc.c     |   69 +
+ .../platform/verisilicon/hantro_boolenc.h     |   21 +
+ .../media/platform/verisilicon/hantro_drv.c   |   15 +-
+ .../platform/verisilicon/hantro_h1_jpeg_enc.c |   42 +-
+ .../platform/verisilicon/hantro_h1_regs.h     |   71 +-
+ .../platform/verisilicon/hantro_h1_vp8_enc.c  | 1589 +++++++++++++++++
+ .../media/platform/verisilicon/hantro_hw.h    |   93 +
+ .../media/platform/verisilicon/hantro_v4l2.c  |    5 +-
+ .../media/platform/verisilicon/hantro_vp8.c   |  118 ++
+ .../verisilicon/rockchip_vpu2_hw_vp8_enc.c    | 1574 ++++++++++++++++
+ .../platform/verisilicon/rockchip_vpu2_regs.h |    1 +
+ .../platform/verisilicon/rockchip_vpu_hw.c    |   23 +-
+ .../platform/verisilicon/stm32mp25_venc_hw.c  |   35 +-
+ drivers/media/v4l2-core/v4l2-ctrls-core.c     |   13 +
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |    5 +
+ include/media/v4l2-ctrls.h                    |    2 +
+ include/uapi/linux/v4l2-controls.h            |   91 +
+ include/uapi/linux/videodev2.h                |    3 +
+ 20 files changed, 3755 insertions(+), 28 deletions(-)
+ create mode 100644 drivers/media/platform/verisilicon/hantro_boolenc.c
+ create mode 100644 drivers/media/platform/verisilicon/hantro_boolenc.h
+ create mode 100644 drivers/media/platform/verisilicon/hantro_h1_vp8_enc.c
+ create mode 100644 drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_enc.c
 
-I'd like to have a mechanism to catch drivers that missed to set
-=2Ecan_sleep. The best idea I currently have for that is to disable
-preemption if IS_ENABLED(CONFIG_PWM_DEBUG) && !pwm_can_sleep(pwm) while
-=2Eapply() is running.
-
-> diff --git a/drivers/pwm/pwm-fsl-ftm.c b/drivers/pwm/pwm-fsl-ftm.c
-> index b7c6045c5d08..b8b9392844e9 100644
-> --- a/drivers/pwm/pwm-fsl-ftm.c
-> +++ b/drivers/pwm/pwm-fsl-ftm.c
-> @@ -405,6 +405,7 @@ static int fsl_pwm_probe(struct platform_device *pdev)
-> =20
->  	fpc->soc =3D of_device_get_match_data(&pdev->dev);
->  	fpc->chip.dev =3D &pdev->dev;
-> +	fpc->chip.can_sleep =3D true;
-
-As .apply() being callable in non-sleepable context only depends on
-=2Eapply() I think a better place for this property is in struct pwm_ops.
-
-Also I wonder if the distinction between atomic and sleeping
-pwm_state_apply() should be more explicit. For GPIOs you have a sleeping
-variant gpiod_set_value_cansleep() that allows to immediately determine
-the intended context in the caller. This would allow that programming
-a PWM stays a preemption point (if possible/desired) even if the
-underlying hardware/driver is atomic. To not have to touch all consumer
-drivers, maybe the pair for pwm should better be
-
-	pwm_apply_state()
-	pwm_apply_state_atomic()
-
-instead of a "cansleep" suffix for the sleeping variant? Or maybe it's
-better to accept touching all consumer drivers to get semantics similar
-to gpio? I couldn't decide quickly what I really like better here, so
-that's your chance to comment and influence the outcome :-)
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---hz3c3li5tw4muaqt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmUdN3gACgkQj4D7WH0S
-/k7Vgwf+OSTM/5a3jTbEn+zj18WbWk6jQQdj6kqyM47GR36RweXbkLMfbl++5ogJ
-z6xjVfn/ov9rQsnn2Em53Zkv7yV/AQb+Hu1tLnuVAsdyxVC/CrCRjWAcrkpoZf6o
-Ru7Nf7hs/mJ57jeLgBfPp+k2kwntn470QPIpzLiruZge1YeEwuYKzeHuO7WI4KCb
-777XYS5j+tntQRSrlm2dzE8H+5lEqc7mEzG22MAd+yIt4dAsuSAdno2hKLMJx960
-4k6Y+UmLJB3cC+BPcAjEllupp1c4turpZ+3P/7D0Fo8P5BgH937nm/wktXJJlPBs
-aJ8B/mMpia+WhQcYdq+TjejxlzAf3Q==
-=THVI
------END PGP SIGNATURE-----
-
---hz3c3li5tw4muaqt--
-
---===============3471987847152701924==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3471987847152701924==--
