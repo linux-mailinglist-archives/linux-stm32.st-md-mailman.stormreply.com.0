@@ -2,117 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07B817B7112
-	for <lists+linux-stm32@lfdr.de>; Tue,  3 Oct 2023 20:36:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A77CC7B7618
+	for <lists+linux-stm32@lfdr.de>; Wed,  4 Oct 2023 03:06:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C25E4C6B478;
-	Tue,  3 Oct 2023 18:36:47 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F972C6B478;
+	Wed,  4 Oct 2023 01:06:06 +0000 (UTC)
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
+ [209.85.217.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 454EDC6C82F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 233EFC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Oct 2023 18:36:46 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-405524e6768so12625225e9.2
+ Wed,  4 Oct 2023 01:06:05 +0000 (UTC)
+Received: by mail-vs1-f52.google.com with SMTP id
+ ada2fe7eead31-452b4fd977eso825256137.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Oct 2023 11:36:46 -0700 (PDT)
+ Tue, 03 Oct 2023 18:06:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696358206; x=1696963006;
+ d=linaro.org; s=google; t=1696381564; x=1696986364;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=6gyQNJ2XnyFpWZfsSOVQ7NTvT9jbamCtiO1RkGRSocs=;
- b=KPTKGUkh1hEr85BKnIAtwJNjNjx9TCGBQlVV04qmF4y8vtrktMRqhEbGWk5iZw0GLg
- zZPQrZ6u/aI3BryHnI2+14mGYfQfwZiYPeugZUgMwc9/UF7lGSjCUdpMNPua88jpwuS+
- BdUdBuUG0VHsCwW+7ba6QnacdUsrudvqyNPevP2JL6BjmVkEOfSk9TMkT+G8PsPQhUvc
- ts4qIRPyKidiNFCdeTnaZO5RNVv8x5NbWA/eIl3+e56khHIYap/QAH/rFDrdMwD9DpWc
- 7AQVs4vTy1FPwae88EPV+h+Oawp1TItk+5nZ3Q3FAu1Q07onzif5mhOl/bjqObOcwUFO
- zQqg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FD7N4+ki8yTbIdFjxebxQX9Pl+69rX6n0uIJQxEwL/U=;
+ b=YHV1TGBQFbsVBjwOx9a3T8LGO7z0iEPISXZsWExDQFJOGnzcLVxi3ZtrlTWyg+EmXN
+ xNMy/UEQWPL0XVZjxoXnKB+60sKAsz1j5Bj8behd79IVpiwT8slBCocw/1LI+0y7rJ/n
+ hocXXi+u3pRggidCbinaAChd2cpye3qrtPTWtJa9wHIvWtqGyaiQWUb++Sd0PBpf4oxK
+ l+B/jUPby7OHkfH57Z6EUoLv+7xkg9POK2qW/zkZ1+3qqtq+tNrQXz04HWD3N0G/YDvX
+ eAHv56vGkBY7kwx1bwfqjMadjJAYJOlZ7uBwUCylmydu84qyw1ZY9yALIw6KZVbLwJfP
+ FEpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696358206; x=1696963006;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6gyQNJ2XnyFpWZfsSOVQ7NTvT9jbamCtiO1RkGRSocs=;
- b=v88uZDcJ5ZsShFlIotnAIHYphnJAb+EJ/TfnmRyFnF5lh0FBEQ4Y+jetpF6Hzz+/Ni
- 7KZI+aF/8eZ28UnpBqg5l6VCSRNWh8EmLb5iT9x7ohWSNu3WK3ucuqb/oINRduH2wfA4
- cMraoym+ixrlZZQ5aoTOwP+2aoeqUe137ZmuE8Z0IEN+Se6735GwO9KqVtYalKGIcBp5
- 4zw4knBSY0AmzAHz8Zpq0njynYPuEGOiclPDR/sWKXPUh3+HRXsN7kXthi7d3fS0jYrg
- BsNeV5yzsh2r5jVrKebDojSQfkHwla026T+C5MU0kJHpMcZMY7XL4gCfPT6ef4MQ2yrg
- /Pvg==
-X-Gm-Message-State: AOJu0YwGL4f7H1oAB05mtqaYBBAZW91a+Jb+r2BXuFzy4oxnovoS4OOL
- m4o5roaxjGmscpNEbv6d4kU=
-X-Google-Smtp-Source: AGHT+IEYiqmB3FHX80gX8tQMzI8kEwWFIYbZ3oxXBoRCokmvLgveVRe6BiL4NPRW0r5qNgswYRjDHQ==
-X-Received: by 2002:a05:600c:22ce:b0:405:4c3a:796f with SMTP id
- 14-20020a05600c22ce00b004054c3a796fmr308411wmg.2.1696358205305; 
- Tue, 03 Oct 2023 11:36:45 -0700 (PDT)
-Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
- [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- k15-20020a7bc40f000000b004013797efb6sm10147400wmi.9.2023.10.03.11.36.42
+ d=1e100.net; s=20230601; t=1696381564; x=1696986364;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FD7N4+ki8yTbIdFjxebxQX9Pl+69rX6n0uIJQxEwL/U=;
+ b=B3JSZc/1MDOFFkcgCBreg8KSYlbg9cnseKhQGIAEkzSizbzxyrNh0fl8jo3ika8nKR
+ NOOz+NntQ2BhAo6ptA5LqDLuClA1Dx2i2Y9MUW5qfHa56wKBNyTWGXaq+w49DYrrjNwe
+ hK3DKMBUFEqluQubfj6vBix9KerJGfgCY3Uq9w9byHIiYXmwT+8ZmbT0dsWCqgvzFh42
+ 2R+Ylw9VO7dNP8HHB5Wg5OCv20hsXeilIHpuf66Tv/GpD0PauoEDmn1cnzVfC8Z+CCfa
+ usAETUYdqbDDnn10E6fccQas9+YbknGnysryVuMR0HafOqzJF7mfdg5rWr27K+El7IoJ
+ tJrw==
+X-Gm-Message-State: AOJu0Yw4ipI1hDNoGMInW7PsgLSWRikE+8ZJ3vV8EbGZytsnlsDJUOih
+ fwQGJk9JUcUkaxmCyoZIuDQ/lw==
+X-Google-Smtp-Source: AGHT+IGYmIVwKRybktecfaCThlChpL8Li43s8SGPeblCnhS/dSopbmKh5eEzTeCOe+/o6Pgb7hDS5g==
+X-Received: by 2002:a67:f65a:0:b0:44d:3f96:6c61 with SMTP id
+ u26-20020a67f65a000000b0044d3f966c61mr895407vso.30.1696381563938; 
+ Tue, 03 Oct 2023 18:06:03 -0700 (PDT)
+Received: from fedora (072-189-067-006.res.spectrum.com. [72.189.67.6])
+ by smtp.gmail.com with ESMTPSA id
+ h1-20020ab04701000000b007aba00406a4sm369973uac.7.2023.10.03.18.06.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Oct 2023 11:36:45 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Chris Snook <chris.snook@gmail.com>,
- Raju Rangoju <rajur@chelsio.com>, Jeroen de Borst <jeroendb@google.com>,
- Praveen Kaligineedi <pkaligineedi@google.com>,
- Shailend Chand <shailend@google.com>,
- Douglas Miller <dougmill@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Nick Child <nnac123@linux.ibm.com>, Haren Myneni <haren@linux.ibm.com>,
- Rick Lindsley <ricklind@linux.ibm.com>,
- Dany Madden <danymadden@us.ibm.com>,
- Thomas Falcon <tlfalcon@linux.ibm.com>, Tariq Toukan <tariqt@nvidia.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Halasa <khalasa@piap.pl>, Kalle Valo <kvalo@kernel.org>,
- Jeff Johnson <quic_jjohnson@quicinc.com>,
- Gregory Greenman <gregory.greenman@intel.com>,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Intel Corporation <linuxwwan@intel.com>,
- Chiranjeevi Rapolu <chiranjeevi.rapolu@linux.intel.com>,
- Liu Haijun <haijun.liu@mediatek.com>,
- M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
- Ricardo Martinez <ricardo.martinez@linux.intel.com>,
- Loic Poulain <loic.poulain@linaro.org>,
- Sergey Ryazanov <ryazanov.s.a@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Yuanjun Gong <ruc_gongyuanjun@163.com>, Simon Horman <horms@kernel.org>,
- Rob Herring <robh@kernel.org>, Ziwei Xiao <ziweixiao@google.com>,
- Rushil Gupta <rushilg@google.com>, Coco Li <lixiaoyan@google.com>,
- Thomas Gleixner <tglx@linutronix.de>, Junfeng Guo <junfeng.guo@intel.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Wei Fang <wei.fang@nxp.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Yuri Karpov <YKarpov@ispras.ru>, Zhengchao Shao <shaozhengchao@huawei.com>,
- Andrew Lunn <andrew@lunn.ch>, Zheng Zengkai <zhengzengkai@huawei.com>,
- Lee Jones <lee@kernel.org>, Maximilian Luz <luzmaximilian@gmail.com>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- Dawei Li <set_pte_at@outlook.com>,
- Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
- Benjamin Berg <benjamin.berg@intel.com>, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-can@vger.kernel.org,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, ath10k@lists.infradead.org,
- linux-wireless@vger.kernel.org
-Date: Tue,  3 Oct 2023 16:51:50 +0200
-Message-Id: <20231003145150.2498-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231003145150.2498-1-ansuelsmth@gmail.com>
-References: <20231003145150.2498-1-ansuelsmth@gmail.com>
+ Tue, 03 Oct 2023 18:06:03 -0700 (PDT)
+Date: Tue, 3 Oct 2023 21:06:00 -0400
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ZRy6eCSE7PhTTyvN@fedora>
+References: <20230829134029.2402868-1-fabrice.gasnier@foss.st.com>
+ <20230829134029.2402868-4-fabrice.gasnier@foss.st.com>
+ <ZQdOcDQR6qONmmnR@fedora>
+ <7aa66ac8-eceb-2f6e-960b-2c4dac9f595e@foss.st.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [net-next PATCH v2 4/4] netdev: use napi_schedule
-	bool instead of napi_schedule_prep/__napi_schedule
+In-Reply-To: <7aa66ac8-eceb-2f6e-960b-2c4dac9f595e@foss.st.com>
+Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 3/8] tools/counter: add a flexible watch
+	events tool
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,77 +78,127 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5812359609123100650=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace if condition of napi_schedule_prep/__napi_schedule and use bool
-from napi_schedule directly where possible.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/ethernet/atheros/atlx/atl1.c     | 4 +---
- drivers/net/ethernet/toshiba/tc35815.c       | 4 +---
- drivers/net/wireless/intel/iwlwifi/pcie/rx.c | 4 +---
- 3 files changed, 3 insertions(+), 9 deletions(-)
+--===============5812359609123100650==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jZtSijHBWetMsQRX"
+Content-Disposition: inline
 
-diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-index 02aa6fd8ebc2..a9014d7932db 100644
---- a/drivers/net/ethernet/atheros/atlx/atl1.c
-+++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-@@ -2446,7 +2446,7 @@ static int atl1_rings_clean(struct napi_struct *napi, int budget)
- 
- static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
- {
--	if (!napi_schedule_prep(&adapter->napi))
-+	if (!napi_schedule(&adapter->napi))
- 		/* It is possible in case even the RX/TX ints are disabled via IMR
- 		 * register the ISR bits are set anyway (but do not produce IRQ).
- 		 * To handle such situation the napi functions used to check is
-@@ -2454,8 +2454,6 @@ static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
- 		 */
- 		return 0;
- 
--	__napi_schedule(&adapter->napi);
--
- 	/*
- 	 * Disable RX/TX ints via IMR register if it is
- 	 * allowed. NAPI handler must reenable them in same
-diff --git a/drivers/net/ethernet/toshiba/tc35815.c b/drivers/net/ethernet/toshiba/tc35815.c
-index 14cf6ecf6d0d..a8b8a0e13f9a 100644
---- a/drivers/net/ethernet/toshiba/tc35815.c
-+++ b/drivers/net/ethernet/toshiba/tc35815.c
-@@ -1436,9 +1436,7 @@ static irqreturn_t tc35815_interrupt(int irq, void *dev_id)
- 	if (!(dmactl & DMA_IntMask)) {
- 		/* disable interrupts */
- 		tc_writel(dmactl | DMA_IntMask, &tr->DMA_Ctl);
--		if (napi_schedule_prep(&lp->napi))
--			__napi_schedule(&lp->napi);
--		else {
-+		if (!napi_schedule(&lp->napi)) {
- 			printk(KERN_ERR "%s: interrupt taken in poll\n",
- 			       dev->name);
- 			BUG();
-diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
-index 23b5a0adcbd6..146bc7bd14fb 100644
---- a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
-+++ b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
-@@ -1660,9 +1660,7 @@ irqreturn_t iwl_pcie_irq_rx_msix_handler(int irq, void *dev_id)
- 	IWL_DEBUG_ISR(trans, "[%d] Got interrupt\n", entry->entry);
- 
- 	local_bh_disable();
--	if (napi_schedule_prep(&rxq->napi))
--		__napi_schedule(&rxq->napi);
--	else
-+	if (!napi_schedule(&rxq->napi))
- 		iwl_pcie_clear_irq(trans, entry->entry);
- 	local_bh_enable();
- 
--- 
-2.40.1
+
+--jZtSijHBWetMsQRX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Sep 19, 2023 at 05:37:34PM +0200, Fabrice Gasnier wrote:
+> On 9/17/23 21:07, William Breathitt Gray wrote:
+> > On Tue, Aug 29, 2023 at 03:40:24PM +0200, Fabrice Gasnier wrote:
+> >> This adds a new counter tool to be able to test various watch events.
+> >> A flexible watch array can be populated from command line, each field
+> >> may be tuned with a dedicated command line argument.
+> >> Each argument can be repeated several times: each time it gets repeate=
+d,
+> >> a corresponding new watch element is allocated.
+> >>
+> >> It also comes with a simple default watch (to monitor overflows), used
+> >> when no watch parameters are provided.
+> >>
+> >> The print_usage() routine proposes another example, from the command l=
+ine,
+> >> which generates a 2 elements watch array, to monitor:
+> >> - overflow events
+> >> - capture events, on channel 3, that reads read captured data by
+> >>   specifying the component id (capture3_component_id being 7 here).
+> >>
+> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Fabrice,
+
+Sorry for the delay, I'm currently working through my backlog. I see you
+have already submitted a version 2 of this patchset, so I'll continue my
+review there but I do want to make some direct replys here below as
+well.
+
+> > This is a new tool, so would you add a MAINTAINERS entry for the
+> > counter_watch_events.c file?
+>=20
+> I haven't thought about it.
+> I can add a MAINTAINERS entry, yes!
+> Who would you suggest ?
+
+Typically the author of the initial patch will also maintain what they
+are introducing, but an alternative person is acceptable to serve as
+maintainer if that's the plan that's agreed upon. I assume you're
+introducing this tool because you're using it internally at ST for
+testing, so I suppose the intention is not to get this merged upstream
+just to abandon it (i.e. you intend to keep using and improving it). Is
+the plan for you to maintain this utility, or is someone else at ST
+interested in it?
+
+> >> +	}
+> >> +
+> >> +	/* fallback to number */
+> >=20
+> > I'm not sure it makes sense to support numbers. Although it's true that
+> > the component type, component scope, and event type are passed as __u8
+> > values, users are expected to treat those values are opaque and pass
+> > them via the respective enum constants. Since we don't guarantee that
+> > the specific enum constant values will remain consistent between kernel
+> > versions, I don't think it's a good idea to give to users that sort of
+> > implication by allowing them to use raw numbers for configuration
+> > selection.
+>=20
+> Ack, I can remove this.
+>=20
+> I'm a bit surprised by this statement. I may be wrong... I'd expect a
+> userland binary to be compatible when updating to a newer kernel: e.g.
+> user API (ABI?) definitions to be stable (including enum constants) ?
+
+I was wrong in my previous reply. You're absolutely correct[^1] that
+userspace ABI must be consistent ("Breaking user programs simply isn't
+acceptable"[^2]) so the specific values must remain the same between
+kernel versions.
+
+Regardless, I don't think raw numbers provide much benefit for the
+use-case of this particular utility; users are testing watch
+configurations for a particular device, not the specific constant values
+in the data structures. So in the end I still think the raw numbers
+code path should be removed.
+
+[^1] Well technically Linux kernel ABI README documentation file
+     (Documentation/ABI/README) states that backwards compatibility for
+     stable interfaces is only guaranteed for at least 2 years, but in
+     practice we strive to never change the user-facing ABI.
+[^2] https://yarchive.net/comp/linux/gcc_vs_kernel_stability.html
+
+William Breathitt Gray
+
+--jZtSijHBWetMsQRX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZRy6eAAKCRC1SFbKvhIj
+K9STAP95tTRE+0GzRVXB8MfYNUgv5OwuwuDTLlkR6iV5UAPp3gEA1+ZCNsosBzzF
+Lbr/PCTCJRifx7T+S4h36fLilUjYaAE=
+=C8xr
+-----END PGP SIGNATURE-----
+
+--jZtSijHBWetMsQRX--
+
+--===============5812359609123100650==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5812359609123100650==--
