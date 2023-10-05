@@ -2,76 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83277B9B78
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 09:45:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4E9F7B9BD1
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 10:30:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97C38C6C832;
-	Thu,  5 Oct 2023 07:45:10 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F293C6C831;
+	Thu,  5 Oct 2023 08:30:35 +0000 (UTC)
+Received: from gofer.mess.org (gofer.mess.org [88.97.38.141])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC0F5C6C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D1AFC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Oct 2023 07:45:09 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 394NxwVc016445; Thu, 5 Oct 2023 09:44:50 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=uPeJe/ujiHjKK9NWuZX2rXwLdsc4nIHY6JTK7vpJxH4=; b=pX
- q0UHCc1ado2QV7WtnmdeB804HXe3FijBSoA9psMDkYnF0uIh0WKNYRPoWZIB+rsh
- gReFnz5YcLFnD6seqZ1iaNsRJsypo6VayiyWgAw49j0rMEOz/lF7ws/vAag7QQYd
- oT68cFTQ8EQPTpkb14dR3TU1g4bS9zRIwJYYUE1EFMJPI+pUDhIH88dUyHiSC2TZ
- EJUsOHYuDlLMspH1Fx3gkPDTAWzvCcXJNwlmGf6n21I7hwX4CR+mMO3/djlZZ9ad
- OC7oVV1Fujd0O48ZVoWOidNBEDF1cHl6v6l1y4F93HSueEETu7Uon+Oud4tChzC7
- mJiJhrVj2VzEZI1GnBPg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3thj7e9ehw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Oct 2023 09:44:50 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4D859100053;
- Thu,  5 Oct 2023 09:44:49 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 406DD21ED32;
- Thu,  5 Oct 2023 09:44:49 +0200 (CEST)
-Received: from [10.201.20.120] (10.201.20.120) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 09:44:48 +0200
-Message-ID: <866fd143-a290-63ec-103c-b49368d9dc03@foss.st.com>
-Date: Thu, 5 Oct 2023 09:44:47 +0200
+ Thu,  5 Oct 2023 08:30:34 +0000 (UTC)
+Received: by gofer.mess.org (Postfix, from userid 1000)
+ id EFC201007F6; Thu,  5 Oct 2023 09:30:32 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+ t=1696494632; bh=yTqM0lOviMpVtY3gEC2fnjg+lpnZmaa/xqOOO1oFjzg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hM4/6PU/BVCUmsjcFfLAZHOdsLJZBPi+IERfvAziz3nfnEK4C7KS4IvaOhQF74oUa
+ pm/jySTmFQfMxdTKCSDifYiz+6AUgqHrAipeZA/gPtdfM+zALHVTx2Zc3etj0F8Uvj
+ Z+6+P3UfUXB4S+dg6826xd+d4QJrSOPKQf4pOCA+1cpbIPfgjobt3K8v8W29gu2XFf
+ EozsFhCZzdMkmYxxlZzWuHs3+awRG8hRctGYRXzu5lggSBZ9V8y5NfKjZIp5utFREo
+ m8TSihVOCaoYFaigu8xqW/v53d8h8T2slqaY2mkHTgDaQkYnFk+bb6M8VNQI8mAzW8
+ t0IV4IH911NYA==
+Date: Thu, 5 Oct 2023 09:30:32 +0100
+From: Sean Young <sean@mess.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZR50KCVNzhlLooLW@gofer.mess.org>
+References: <cover.1696156485.git.sean@mess.org>
+ <1bd5241d584ceb4d6b731c4dc3203fb9686ee1d1.1696156485.git.sean@mess.org>
+ <20231004095920.ne7yrrthow6tnuvg@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Adam Ford <aford173@gmail.com>
-References: <20231004091552.3531659-1-hugues.fruchet@foss.st.com>
- <20231004091552.3531659-4-hugues.fruchet@foss.st.com>
- <CAHCN7xKrriTPaRMJ-r86cSgFDUUP1At08imLBr_zEP0g3fga_g@mail.gmail.com>
-From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-In-Reply-To: <CAHCN7xKrriTPaRMJ-r86cSgFDUUP1At08imLBr_zEP0g3fga_g@mail.gmail.com>
-X-Originating-IP: [10.201.20.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-05_04,2023-10-02_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
- Rob Herring <robh+dt@kernel.org>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+Content-Disposition: inline
+In-Reply-To: <20231004095920.ne7yrrthow6tnuvg@pengutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-pwm@vger.kernel.org,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 3/7] dt-bindings: media: Document
- STM32MP25 VENC video encoder
+ Daire McNamara <daire.mcnamara@microchip.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Paul Walmsley <paul.walmsley@sifive.com>, linux-riscv@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] pwm: make it possible to apply pwm
+ changes in atomic context
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,64 +59,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgQWRhbSwKClRoYW5rcyBmb3IgcmV2aWV3LAoKT24gMTAvNS8yMyAwMTo0MSwgQWRhbSBGb3Jk
-IHdyb3RlOgo+IE9uIFdlZCwgT2N0IDQsIDIwMjMgYXQgNDoxNuKAr0FNIEh1Z3VlcyBGcnVjaGV0
-Cj4gPGh1Z3Vlcy5mcnVjaGV0QGZvc3Muc3QuY29tPiB3cm90ZToKPj4KPj4gQWRkIFNUTTMyTVAy
-NSBWRU5DIHZpZGVvIGVuY29kZXIgYmluZGluZ3MuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEh1Z3Vl
-cyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPj4gLS0tCj4+ICAgLi4uL2Jp
-bmRpbmdzL21lZGlhL3N0LHN0bTMybXAyNS12ZW5jLnlhbWwgICAgIHwgNTYgKysrKysrKysrKysr
-KysrKysrKwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA1NiBpbnNlcnRpb25zKCspCj4+ICAgY3JlYXRl
-IG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxz
-dG0zMm1wMjUtdmVuYy55YW1sCj4+Cj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbWVkaWEvc3Qsc3RtMzJtcDI1LXZlbmMueWFtbCBiL0RvY3VtZW50YXRp
-b24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxzdG0zMm1wMjUtdmVuYy55YW1sCj4+IG5l
-dyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMDAwMC4uYzY5ZTBhMzRmNjc1Cj4+
-IC0tLSAvZGV2L251bGwKPj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
-L21lZGlhL3N0LHN0bTMybXAyNS12ZW5jLnlhbWwKPj4gQEAgLTAsMCArMSw1NiBAQAo+PiArIyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAgT1IgQlNELTItQ2xhdXNlKQo+PiArCj4+
-ICslWUFNTCAxLjIKPj4gKy0tLQo+PiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1h
-cy9tZWRpYS9zdCxzdG0zMm1wMjUtdmVuYy55YW1sIwo+IAo+IENhbiB0aGlzIGR0LWJpbmRpbmcg
-YmUgbWFkZSBtb3JlIGdlbmVyaWMsIGxpa2Ugc29tZXRoaW5nIGxpa2UKPiBoYW50cm8taDEgb3Ig
-VkM4MDAwTmFub0U/Cj4gCj4gSSB0aGluayB0aGVyZSB3aWxsIGJlIG1vcmUgYm9hcmRzIHRoYXQg
-bWF5IGluY29ycG9yYXRlIHRoZSBIYW50cm8tSDEKPiBvciBhIFZDODAwMCBpbiB0aGUgZnV0dXJl
-LCBiZWNhdXNlIEkgZG9uJ3QgdGhpbmsgdGhpcyBJUCBpcyB1bmlxdWUgdG8KPiB0aGUgU1RNMzJN
-UDI1LgoKVGhpcyBpcyBhbHJlYWR5IHRoZSBjYXNlLCBjaGVjayB2YXJpYW50cyBpbiBoYW50cm9f
-ZHJ2LmMuClNldmVyYWwgU29DcyBhcmUgc2hhcmluZyB0aGlzIElQIGJ1dCBlYWNoIElQIHNsaWdo
-dGx5IGRpZmZlcnMgYmVjYXVzZSBvZgpzdXBwb3J0ZWQgcmVzb2x1dGlvbiwgY29kZWMsIHByZXBy
-b2Nlc3NpbmcgZmVhdHVyZXMsIC4uLgpUaGVyZSBhcmUgYWxzbyBzb21lIGRpZmZlcmVuY2VzIG9u
-IGhvdyBjbG9jaywgaW50ZXJydXB0LCByZXNldCBhcmUgCmhhcmR3YXJlIG1hcHBlZDogc2hhcmVk
-IG9yIG5vdCBieSBkZWNvZGVyIGFuZCBlbmNvZGVyIGZvciBleC4KCj4gCj4gYWRhbQo+IAo+PiAr
-JHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlhbWwjCj4+
-ICsKPj4gK3RpdGxlOiBTVE1pY3JvZWxlY3Ryb25pY3MgU1RNMzJNUDI1IFZFTkMgdmlkZW8gZW5j
-b2Rlcgo+PiArCj4+ICttYWludGFpbmVyczoKPj4gKyAgLSBIdWd1ZXMgRnJ1Y2hldCA8aHVndWVz
-LmZydWNoZXRAZm9zcy5zdC5jb20+Cj4+ICsKPj4gK2Rlc2NyaXB0aW9uOgo+PiArICBUaGUgU1RN
-aWNyb2VsZWN0cm9uaWNzIFNUTTMyTVAyNSBTT0NzIGVtYmVkcyBhIFZFTkMgdmlkZW8gaGFyZHdh
-cmUgZW5jb2Rlcgo+PiArICBwZXJpcGhlcmFsIGJhc2VkIG9uIFZlcmlzaWxpY29uIFZDODAwME5h
-bm9FIElQIChmb3JtZXIgSGFudHJvIEgxKS4KPj4gKwo+PiArcHJvcGVydGllczoKPj4gKyAgY29t
-cGF0aWJsZToKPj4gKyAgICBjb25zdDogc3Qsc3RtMzJtcDI1LXZlbmMKPj4gKwo+PiArICByZWc6
-Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArICBpbnRlcnJ1cHRzOgo+PiArICAgIG1heEl0
-ZW1zOiAxCj4+ICsKPj4gKyAgaW50ZXJydXB0LW5hbWVzOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+
-ICsKPj4gKyAgY2xvY2tzOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+ICsKPj4gKyAgY2xvY2stbmFt
-ZXM6Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArcmVxdWlyZWQ6Cj4+ICsgIC0gY29tcGF0
-aWJsZQo+PiArICAtIHJlZwo+PiArICAtIGludGVycnVwdHMKPj4gKyAgLSBpbnRlcnJ1cHQtbmFt
-ZXMKPj4gKyAgLSBjbG9ja3MKPj4gKyAgLSBjbG9jay1uYW1lcwo+PiArCj4+ICthZGRpdGlvbmFs
-UHJvcGVydGllczogZmFsc2UKPj4gKwo+PiArZXhhbXBsZXM6Cj4+ICsgIC0gfAo+PiArICAgICNp
-bmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2ljLmg+Cj4+ICsg
-ICAgdmVuYzogdmVuY0A1ODBlMDAwMCB7Cj4+ICsgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3Rt
-MzJtcDI1LXZlbmMiOwo+PiArICAgICAgICByZWcgPSA8MHg1ODBlMDAwMCAweDgwMD47Cj4+ICsg
-ICAgICAgIGludGVycnVwdHMgPSA8R0lDX1NQSSAxNjcgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4+
-ICsgICAgICAgIGludGVycnVwdC1uYW1lcyA9ICJ2ZW5jIjsKPiAKPiAKPiBJcyB0aGUgaW50ZXJy
-dXB0LW5hbWVzIG5lZWRlZCBpZiB0aGVyZSBpcyBvbmx5IG9uZT8KPiAKCk5vdCByZWFsbHksIGNv
-dWxkIGJlIGRyb3BwZWQuCgo+PiArICAgICAgICBjbG9ja3MgPSA8JmNrX2ljbl9wX3ZlbmM+Owo+
-PiArICAgICAgICBjbG9jay1uYW1lcyA9ICJ2ZW5jLWNsayI7Cj4gCj4gU2FtZSB0aGluZyBmb3Ig
-dGhlIGNsb2NrLiAgaWYgdGhlcmUgaXMgb25seSBvbmUgY2xvY2ssIGRvZSB0aGV5IG5lZWQgbmFt
-ZXM/Cj4gCk5vdCByZWFsbHksIGNvdWxkIGJlIGRyb3BwZWQuCgo+IGFkYW0KPj4gKyAgICB9Owo+
-PiAtLQo+PiAyLjI1LjEKPj4KCkJSLApIdWd1ZXMuCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello Uwe,
+
+On Wed, Oct 04, 2023 at 11:59:20AM +0200, Uwe Kleine-K=F6nig wrote:
+> On Sun, Oct 01, 2023 at 11:40:29AM +0100, Sean Young wrote:
+> > diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
+> > index dc66e3405bf5..d9679ae5b2be 100644
+> > --- a/drivers/pwm/core.c
+> > +++ b/drivers/pwm/core.c
+> > @@ -505,7 +505,7 @@ int pwm_apply_state(struct pwm_device *pwm, const s=
+truct pwm_state *state)
+> >  	 * is a bad idea. So make it explicit that calling this function might
+> >  	 * sleep.
+> >  	 */
+> > -	might_sleep();
+> > +	might_sleep_if(pwm_can_sleep(pwm));
+> >  =
+
+> >  	if (!pwm || !state || !state->period ||
+> >  	    state->duty_cycle > state->period)
+> =
+
+> I'd like to have a mechanism to catch drivers that missed to set
+> .can_sleep. The best idea I currently have for that is to disable
+> preemption if IS_ENABLED(CONFIG_PWM_DEBUG) && !pwm_can_sleep(pwm) while
+> .apply() is running.
+
+If we have pwm_apply_state_atomic(), then CONFIG_DEBUG_ATOMIC_SLEEP will
+catch them, but only in that code path of course.
+
+How about using non_block_start() and non_block_end() if can_sleep is
+not set?
+
+> > diff --git a/drivers/pwm/pwm-fsl-ftm.c b/drivers/pwm/pwm-fsl-ftm.c
+> > index b7c6045c5d08..b8b9392844e9 100644
+> > --- a/drivers/pwm/pwm-fsl-ftm.c
+> > +++ b/drivers/pwm/pwm-fsl-ftm.c
+> > @@ -405,6 +405,7 @@ static int fsl_pwm_probe(struct platform_device *pd=
+ev)
+> >  =
+
+> >  	fpc->soc =3D of_device_get_match_data(&pdev->dev);
+> >  	fpc->chip.dev =3D &pdev->dev;
+> > +	fpc->chip.can_sleep =3D true;
+> =
+
+> As .apply() being callable in non-sleepable context only depends on
+> .apply() I think a better place for this property is in struct pwm_ops.
+
+That makes sense.
+
+> Also I wonder if the distinction between atomic and sleeping
+> pwm_state_apply() should be more explicit. For GPIOs you have a sleeping
+> variant gpiod_set_value_cansleep() that allows to immediately determine
+> the intended context in the caller. This would allow that programming
+> a PWM stays a preemption point (if possible/desired) even if the
+> underlying hardware/driver is atomic. To not have to touch all consumer
+> drivers, maybe the pair for pwm should better be
+> =
+
+> 	pwm_apply_state()
+> 	pwm_apply_state_atomic()
+
+Do we need pwm_config_atomic(), pwm_enable_atomic(), and pwm_disable_atomic=
+()
+too? These are just convenience functions, so we can probably do without th=
+em.
+
+> instead of a "cansleep" suffix for the sleeping variant? Or maybe it's
+> better to accept touching all consumer drivers to get semantics similar
+> to gpio? I couldn't decide quickly what I really like better here, so
+> that's your chance to comment and influence the outcome :-)
+
+If you expect to have more parameters for pwm_apply_state() then a flags
+argument makes sense.
+
+TBH I like the pwm_apply_state_atomic() option.
+
+
+Sean
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
