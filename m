@@ -2,57 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 844157B9CA4
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 12:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4F37B9CB7
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 13:22:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 163A4C6C835;
-	Thu,  5 Oct 2023 10:59:52 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68359C6C835;
+	Thu,  5 Oct 2023 11:22:15 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E303C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C327CC6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Oct 2023 10:59:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 0A34EB823ED;
- Thu,  5 Oct 2023 10:59:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FBAFC32784;
- Thu,  5 Oct 2023 10:59:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696503589;
- bh=UBDFLeY+PPEBJKSf7kZcYghS/Q9ycdJpp2P0dOU7MX0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bHf+IaimHmjzXHj+umSI5gqnp+F5ATSlb291+Lg68bU6aTrVR2AOORQde80aTEtaj
- DxbB+OjPUgEzFbqtjtWt8O+Q8m+28sjEc2VsvYAEWUN/0n6JNnT8Gmfw6H3cOy8ter
- MFJkBgRiZSqwdEI8xdfvB64npda56x4HenxGybY7I3Sh/fPinivGTb92LMM8Hk3eUE
- CVvK7Z3DgIosM8SU24Vz90u4w1esQa8sBKSEgzvheHNhQ6Q1LGaNcsccTBcb3cAZ8T
- Aq9bP2eMUu4vzk+GAjF3lMmXaSw7w8/gfTkEq2o2FT2T1YvJyUZInuQ8fjVXUVlPeV
- 4cbNyH7WOsLYQ==
-Date: Thu, 5 Oct 2023 11:59:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>
-Message-ID: <20231005-bleach-unknotted-9b11443959b1@spud>
-References: <20231004103720.3540436-1-hugues.fruchet@foss.st.com>
+ Thu,  5 Oct 2023 11:22:14 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3959P2ic025839; Thu, 5 Oct 2023 13:21:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=oOAMUa8QHt1EayBhxponDpCbVvi1SUCV24Wc/HHeOKY=; b=0f
+ cywv3obWAgJQBYEXI4/dgQLqEjH1oy533VfjoI+gYBgTLtAf6qFRJVxNNKjFKepR
+ 8zzC8g/Y9YI/KFHVM5G6vxtuYZz4V4S1Q8t6GRCzrtvc0nK5XTR4giRrvrsqHR7I
+ EI3F+rNwk1bq353Ky6z4CkrgW0h8eWolja6fQm4hQ+ABqyXKw+MJwLj4JihHcGKx
+ KrG+2lVhytLQNUjcpZT1Eg4n6FkpEv0tH1OoLvMDEVig9Up2v+fKZejUBs30BABs
+ a7/KYwl4PqvPl7fvK4DvTu9mp5TipcT9JuOIPYDZz3YsYl8cYvMwullXtOyEEyrQ
+ G9TgL9qXzaRhvIALSGLg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3thtg7gg7j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Oct 2023 13:21:43 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 21D3510005C;
+ Thu,  5 Oct 2023 13:21:41 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBA6423C695;
+ Thu,  5 Oct 2023 13:21:41 +0200 (CEST)
+Received: from [10.252.31.76] (10.252.31.76) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
+ 2023 13:21:38 +0200
+Message-ID: <c8bc893c-cb86-6de5-4346-fe48be6ebe86@foss.st.com>
+Date: Thu, 5 Oct 2023 13:21:38 +0200
 MIME-Version: 1.0
-In-Reply-To: <20231004103720.3540436-1-hugues.fruchet@foss.st.com>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Hans Verkuil <hverkuil@xs4all.nl>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Andrew Lunn <andrew@lunn.ch>
+References: <20230928122427.313271-1-christophe.roullier@foss.st.com>
+ <20230928122427.313271-9-christophe.roullier@foss.st.com>
+ <12332a87-e8c3-4cf3-849a-080e4e3f4521@lunn.ch>
+From: Christophe ROULLIER <christophe.roullier@foss.st.com>
+In-Reply-To: <12332a87-e8c3-4cf3-849a-080e4e3f4521@lunn.ch>
+X-Originating-IP: [10.252.31.76]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-05_08,2023-10-05_01,2023-05-22_02
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- linux-rockchip@lists.infradead.org,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Marco Felsch <m.felsch@pengutronix.de>,
- Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [Linux-stm32] [RFC 0/6] VP8 H1 stateless encoding
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 08/12] net: ethernet: stmmac: stm32:
+ support the phy-supply regulator binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,121 +82,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1247261396933468905=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1247261396933468905==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Ia4S0Q4OBDpOeXiU"
-Content-Disposition: inline
+On 9/28/23 19:53, Andrew Lunn wrote:
+>> +static int phy_power_on(struct stm32_dwmac *bsp_priv, bool enable)
+> I find this function name confusing, since 50% of the time it does not
+> actually power the PHY on. You never call it with anything other than
+> a static true/false value. So it might was well be two functions,
+> phy_power_on() and phy_power_off().
 
+Hi,
 
---Ia4S0Q4OBDpOeXiU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I wanted to keep same implementation of all others Ethernet glues 
+(dwmac-rk.c ...) to be consistent.
 
-On Wed, Oct 04, 2023 at 12:37:14PM +0200, Hugues Fruchet wrote:
-> Hi all,
->=20
-> Here is an RFC to support VP8 encoding using Hantro H1 hardware
-> of STM32MP25 SoCs (Verisilicon VC8000NanoE IP).
-> This work is derived from work done to support Rockchip RK3399
-> VPU2 in RFC [1] with a reshuffling of registers to match H1
-> register set.
->=20
-> This has been tested on STM32MP257F-EV1 evaluation board using
-> GStreamer userspace [2]:
-> gst-launch-1.0 videotestsrc num-buffers=3D500 ! video/x-raw,width=3D640,h=
-eight=3D480 \
-> ! v4l2slvp8enc ! queue ! matroskamux ! filesink location=3Dtest_vp8.mkv
->=20
-> For the sake of simplicity I have embedded here the RFC [1] before the
-> changes related to this exact RFC, all rebased on v6.6 + STM32MP25
-> hardware codecs support [3].
+>> +{
+>> +	int ret;
+>> +	struct device *dev = bsp_priv->dev;
+>> +
+>> +	if (!bsp_priv->regulator)
+>> +		return 0;
+>> +
+>> +	if (enable) {
+>> +		ret = regulator_enable(bsp_priv->regulator);
+>> +		if (ret)
+>> +			dev_err(dev, "fail to enable phy-supply\n");
+> Not all PHYs are usable in 0 picoseconds. You probably want a delay
+> here. Otherwise the first few accesses to it might not work.
+>
+>        Andrew
 
-I don't see any bindings etc here, what is it that you think I would
-care about looking at in this RFC series?
+You're right I will add a delay.
 
-Thanks,
-Conor.
+Thanks
 
->=20
-> [1] https://lwn.net/ml/linux-media/20230309125651.23911-1-andrzej.p@colla=
-bora.com/
-> [2] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/3=
-736
-> [3] https://patchwork.kernel.org/project/linux-media/list/?series=3D789861
->=20
-> Best regards,
-> Hugues.
->=20
->=20
-> Andrzej Pietrasiewicz (2):
->   media: uapi: Add VP8 stateless encoder controls
->   media: hantro: add VP8 encode support for Rockchip RK3399 VPU2
->=20
-> Hugues Fruchet (4):
->   media: hantro: add h1 vp8 encode support
->   media: hantro: add VP8 encode support for STM32MP25 VENC
->   media: hantro: h1: NV12 single-plane support
->   media: hantro: add NV12 single-plane support for STM32MP25 VENC
->=20
->  drivers/media/platform/verisilicon/Makefile   |    3 +
->  drivers/media/platform/verisilicon/hantro.h   |   10 +
->  .../platform/verisilicon/hantro_boolenc.c     |   69 +
->  .../platform/verisilicon/hantro_boolenc.h     |   21 +
->  .../media/platform/verisilicon/hantro_drv.c   |   15 +-
->  .../platform/verisilicon/hantro_h1_jpeg_enc.c |   42 +-
->  .../platform/verisilicon/hantro_h1_regs.h     |   71 +-
->  .../platform/verisilicon/hantro_h1_vp8_enc.c  | 1589 +++++++++++++++++
->  .../media/platform/verisilicon/hantro_hw.h    |   93 +
->  .../media/platform/verisilicon/hantro_v4l2.c  |    5 +-
->  .../media/platform/verisilicon/hantro_vp8.c   |  118 ++
->  .../verisilicon/rockchip_vpu2_hw_vp8_enc.c    | 1574 ++++++++++++++++
->  .../platform/verisilicon/rockchip_vpu2_regs.h |    1 +
->  .../platform/verisilicon/rockchip_vpu_hw.c    |   23 +-
->  .../platform/verisilicon/stm32mp25_venc_hw.c  |   35 +-
->  drivers/media/v4l2-core/v4l2-ctrls-core.c     |   13 +
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |    5 +
->  include/media/v4l2-ctrls.h                    |    2 +
->  include/uapi/linux/v4l2-controls.h            |   91 +
->  include/uapi/linux/videodev2.h                |    3 +
->  20 files changed, 3755 insertions(+), 28 deletions(-)
->  create mode 100644 drivers/media/platform/verisilicon/hantro_boolenc.c
->  create mode 100644 drivers/media/platform/verisilicon/hantro_boolenc.h
->  create mode 100644 drivers/media/platform/verisilicon/hantro_h1_vp8_enc.c
->  create mode 100644 drivers/media/platform/verisilicon/rockchip_vpu2_hw_v=
-p8_enc.c
->=20
-> --=20
-> 2.25.1
->=20
-
---Ia4S0Q4OBDpOeXiU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZR6XHgAKCRB4tDGHoIJi
-0sjvAP0ZC5KOCGnycz1ccSYrmARfxdHqtXmmmQJpUOyX3kDeCwD/Q0VKIfCKL28d
-bB3btsN54UkoHILpiUtId0zm3X7Q6gU=
-=90H2
------END PGP SIGNATURE-----
-
---Ia4S0Q4OBDpOeXiU--
-
---===============1247261396933468905==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Christophe
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1247261396933468905==--
