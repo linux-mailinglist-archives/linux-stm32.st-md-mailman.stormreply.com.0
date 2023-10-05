@@ -2,74 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB7D07B9D6A
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 15:39:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21B8F7B9E39
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 16:02:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74FE4C6C837;
-	Thu,  5 Oct 2023 13:39:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCA19C6C835;
+	Thu,  5 Oct 2023 14:02:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 273FBC6C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B758CC6C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Oct 2023 13:38:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 395Bswiw002759; Thu, 5 Oct 2023 15:38:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=fjq+jjfSImcfRAA7FzJY437jVyVi0XlHt5CTjFzYrtw=; b=ho
- VIh7PUxONpr3zjZu8GPx7BhlUyUGVD0ptlu8813T6KWB6ryiutNDhq4wzC8iolpV
- GOWm5vvKt74kk4qyHgt7qxj72QHAY33YR1BNuSzEEc9IvySv4iZj5GQDTrx5xbH9
- l194XIe10ohCjv1AlWftK/9xj+em4bd+eRSbWBqhmWo1v7bGIXJp7oOJuIPgIxNW
- 0d/gxtvmW0yyvy0UUssOi5e2iVnPLpVh8Dw3WiCQ1lWO7h/CHexz+fxxXXOjWCPO
- url5siOAj23iqJD6VT8jdYuJRIG2qcc7ItIoUxMxqeukiZnme1JInMcaYUFyGa1C
- 12F1feWmPS8BpXJKNxPg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3thvpjgdrx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Oct 2023 15:38:38 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 38DFF10005D;
- Thu,  5 Oct 2023 15:38:36 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 301D722FA2D;
- Thu,  5 Oct 2023 15:38:36 +0200 (CEST)
-Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 15:38:35 +0200
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Benjamin Mugnier
- <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
- Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>
-Date: Thu, 5 Oct 2023 15:37:10 +0200
-Message-ID: <20231005133710.3589080-7-hugues.fruchet@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231005133710.3589080-1-hugues.fruchet@foss.st.com>
-References: <20231005133710.3589080-1-hugues.fruchet@foss.st.com>
+ Thu,  5 Oct 2023 14:02:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8C7B76197F;
+ Thu,  5 Oct 2023 14:02:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5BDEC43215;
+ Thu,  5 Oct 2023 14:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696514554;
+ bh=Yym/0Ckebdzm9KAQ3LjZwwE9ndHEvxXkPTtFfyHgzvE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=ER3vAkdFfURm/ku44XkFaBj8mcSYJLYFIYPR8MrjZrUJHY3tihb1iK/Bz/mNn5mJX
+ nqafOXXXRV/PZt8t2NgzI/Kdq3BZIsN9QCNi5Gdy+6eXj0uTql3Cn6PLdrt8hky8md
+ ozSiQcR+qZRxEJWWYd1Baedcigz67LabOdu7W4mm0UQV5M6dhp111qJ4M7y3fODTfk
+ V4sR7fedFXtIjsCvaM5S+R9s7HSQthyB8cVFHA48Jyg1elyf9RoT4FQOca2mibPYdt
+ SN4tvojfOQ4tWW81z9o1Ues63Mc8ksEvPQjebNgHEicof6x7R3Iiir30sCJ6gwaD+7
+ 5ps5SdnvV4MhQ==
+Date: Thu, 5 Oct 2023 15:02:38 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <20231005150238.0f5ff100@jic23-huawei>
+In-Reply-To: <202309301056.5A21C37D5@keescook>
+References: <20230921-strncpy-drivers-iio-adc-stm32-adc-c-v1-1-c50eca098597@google.com>
+ <202309232006.690F89A@keescook>
+ <20230930184118.73d7465a@jic23-huawei>
+ <202309301056.5A21C37D5@keescook>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-05_08,2023-10-05_01,2023-05-22_02
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
- Marco Felsch <m.felsch@pengutronix.de>
-Subject: [Linux-stm32] [RFC v2 6/6] media: hantro: add NV12 single-plane
-	support for STM32MP25 VENC
+Cc: Lars-Peter Clausen <lars@metafoo.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Justin Stitt <justinstitt@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: adc: stm32-adc: replace deprecated
+	strncpy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,39 +62,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support of encoding from NV12 single-plane frame.
+On Sat, 30 Sep 2023 10:57:03 -0700
+Kees Cook <keescook@chromium.org> wrote:
 
-Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
----
- .../media/platform/verisilicon/stm32mp25_venc_hw.c  | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> On Sat, Sep 30, 2023 at 06:41:18PM +0100, Jonathan Cameron wrote:
+> > On Sat, 23 Sep 2023 20:15:09 -0700
+> > Kees Cook <keescook@chromium.org> wrote:
+> >   
+> > > On Thu, Sep 21, 2023 at 04:54:00AM +0000, Justin Stitt wrote:  
+> > > > `strncpy` is deprecated for use on NUL-terminated destination strings [1].
+> > > > 
+> > > > We should prefer more robust and less ambiguous string interfaces.
+> > > > 
+> > > > We expect adc->chan_name[val] to be NUL-terminated based on ch_name's
+> > > > use within functions that expect NUL-terminated strings like strncmp and
+> > > > printf-likes:
+> > > > | 	if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
+> > > > | 		/* Check internal channel availability */
+> > > > | 		switch (i) {
+> > > > | 		case STM32_ADC_INT_CH_VDDCORE:
+> > > > | 			if (!adc->cfg->regs->or_vddcore.reg)
+> > > > | 				dev_warn(&indio_dev->dev,
+> > > > | 					 "%s channel not available\n", ch_name);
+> > > > ...
+> > > > 
+> > > > There is no evidence that NUL-padding is needed either.    
+> > > 
+> > > Agreed -- it's used as a C string everywhere I can see.
+> > >   
+> > > > 
+> > > > Considering the above, a suitable replacement is `strscpy` [2] due to
+> > > > the fact that it guarantees NUL-termination on the destination buffer
+> > > > without unnecessarily NUL-padding. If, for any reason, NUL-padding _is_
+> > > > required we should go for `strscpy_pad`.
+> > > > 
+> > > > Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings [1]
+> > > > Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
+> > > > Link: https://github.com/KSPP/linux/issues/90
+> > > > Cc: linux-hardening@vger.kernel.org
+> > > > Signed-off-by: Justin Stitt <justinstitt@google.com>
+> > > > ---
+> > > > Note: build-tested
+> > > > ---
+> > > >  drivers/iio/adc/stm32-adc.c | 2 +-
+> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> > > > index f7613efb870d..9cdcf396d901 100644
+> > > > --- a/drivers/iio/adc/stm32-adc.c
+> > > > +++ b/drivers/iio/adc/stm32-adc.c
+> > > > @@ -2209,7 +2209,7 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+> > > >  				ret = -EINVAL;
+> > > >  				goto err;
+> > > >  			}
+> > > > -			strncpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);
+> > > > +			strscpy(adc->chan_name[val], name, STM32_ADC_CH_SZ);    
+> > > 
+> > > I still prefer sizeof($dst), but yes, these are the same:
+> > > 
+> > >         char chan_name[STM32_ADC_CH_MAX][STM32_ADC_CH_SZ];
+> > > 
+> > > If this needs a v2, please improve the Subject, but it is technically
+> > > correct, so:  
+> > 
+> > Hi Kees,
+> > 
+> > I can tweak the subject whilst applying.  What did you have in mind
+> > as a better one?  
+> 
+> I would use "iio: adc: stm32-adc: Replace deprecated strncpy() with strscpy()"
+Makes sense. I also used the () approach to identify functions in the
+text of the patch description instead of `funcname`
 
-diff --git a/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c b/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
-index 2176eccd1f79..d66f20bee9eb 100644
---- a/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
-+++ b/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
-@@ -21,6 +21,19 @@
-  */
- 
- static const struct hantro_fmt stm32mp25_venc_fmts[] = {
-+	{
-+		.fourcc = V4L2_PIX_FMT_NV12,
-+		.codec_mode = HANTRO_MODE_NONE,
-+		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420SP,
-+		.frmsize = {
-+			.min_width = 96,
-+			.max_width = 8176,
-+			.step_width = MB_DIM,
-+			.min_height = 32,
-+			.max_height = 8176,
-+			.step_height = MB_DIM,
-+		},
-+	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_YUV420M,
- 		.codec_mode = HANTRO_MODE_NONE,
--- 
-2.25.1
+Applied with those tweaks to the togreg branch of iio.git but initially
+just pushed out as testing to let 0-day take a look at it.
+
+Thanks,
+
+Jonathan
+
+> 
+> Thanks!
+> 
+> -Kees
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
