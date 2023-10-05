@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DBC7BAA91
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 21:45:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C6597BAA9C
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 21:47:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3155C6C835;
-	Thu,  5 Oct 2023 19:45:58 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21945C6C835;
+	Thu,  5 Oct 2023 19:47:01 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF198C6C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79AF4C6C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Oct 2023 19:45:57 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-9b2cee55056so257255666b.3
+ Thu,  5 Oct 2023 19:46:59 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-9ad810be221so241940866b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 05 Oct 2023 12:45:57 -0700 (PDT)
+ Thu, 05 Oct 2023 12:46:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696535157; x=1697139957;
+ d=linaro.org; s=google; t=1696535219; x=1697140019;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Ik9YL8VnNpg1lJ/vbd7jFsLiLi0RhkEzGwr++CWAbHQ=;
- b=aeMrmCMLwoHJvp1+R8XQrrzsqy2uKP7DlSpPi6RYLIi9gxWb2cd4ZjLzx3tR7q/Zf0
- SEyPUgdoGf1KkfE/BCDAjQ1ZUCEIZJOSxHSxe+qPc+P9kVRqBERgPfOD8jlmolXowomD
- oHveAK1aJfsekC3Whu2KcytvbKELMnTIT3D9GAZ8zC7JHpjxvT04TxpXI6KvuzSqZq5s
- m+uaHpvHpiAX8BTE5xI9mVjJvuqFDOSdrKWwlhsS7psdr8HK6wyFhdqbj8SSf8HW+MpB
- jmdj0QiETOEsqD0wX4F1JlcYdyXYqv7KZgLo2UFOpqb+G55nyF4oxN6dA9wbaZ+RTqLM
- M1Xw==
+ bh=3Dt9k8PRGqt54iiTeBVK6B2nTooRkAx1cay9o3WY25Q=;
+ b=Zh8x/SrFTZFciwkmgXWhnRx8mryiFhpeVzTNvdGqu+atVE1qxam6HSl031lC25ATA8
+ rOeY8jGRRpQYxmWs1GWDHuV/LrFba/6vMboD0+o9GMygAMNRbetfALEhVHD/L0z3kaMo
+ bfTpBNQHrztYBGSoOAg82SBc6Udrx7iehxbDcxP0UcrUcFKoNtRJK2L5aEvtEnZViHTK
+ JTBhB4qiDP6TkF/HC3LUdeNRo4/TZ4z9/YCuLH20i0QyQo1Z2Ene/AUicxVamibyQI2R
+ HKTofiTOH8RZ86uusoEaSi4IklwUyrOhD0eJwFxDxTEg6EJ1Nl1PZ1HaILmZd4+MGbOT
+ prNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696535157; x=1697139957;
+ d=1e100.net; s=20230601; t=1696535219; x=1697140019;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ik9YL8VnNpg1lJ/vbd7jFsLiLi0RhkEzGwr++CWAbHQ=;
- b=aCSN4CymHhMKbcOmTkugOAlD3+8srXUenZVnhXbhDx/UwKnlNgkeMBGRZfDMPRG9Mr
- rfxg7sxy4YRKiU1vudorSoAdUOybiE8UqYVJMBYg7HQYI43ZNm04/G4X6GmUIl8bVoom
- 1kzZAuB2d+Ohyy5x78vphTW96402K/MTCtz6/XkFv1My2qhwMZJAjsZfEJSxERmSFz/j
- dZmPLg9wE6nMr+i1rkHfe/uZ2pPRjR9tpp7C4kq1xBhEL6QGQfF3dzeNKd/Airdnf/bD
- GlXGdLINir0LNl/LeWnqo61RhF1rCmkSfSYb1UPB8TOnPiNunU6VvtqbnYLnxUm46A/7
- PlFw==
-X-Gm-Message-State: AOJu0YyTvhMWJZ78EhyebDkX9nP9Nov6CWhxX9WSaZMIpn720a2dXrsV
- QHJVbdyXO15KB83tVxQ+Pn/4/g==
-X-Google-Smtp-Source: AGHT+IHMWpBKneJvc9b9ZE30LKT+kjlsnIAA831v7xOsC61FcEvROazvXapZ3Yh/FlOK+oT/ZEZzUg==
-X-Received: by 2002:a17:906:844a:b0:9ae:73ca:bbae with SMTP id
- e10-20020a170906844a00b009ae73cabbaemr4882997ejy.62.1696535157416; 
- Thu, 05 Oct 2023 12:45:57 -0700 (PDT)
+ bh=3Dt9k8PRGqt54iiTeBVK6B2nTooRkAx1cay9o3WY25Q=;
+ b=rwCdxyyW6vofJhrfYFpZh+PiQZmcxyvObQjaF3AOSanh+ae0eejJe8WdV0PiZ/KtcU
+ hDl0Xq14+ADE9pLtfJCM8w89kZUx8XFFFs9frPhsfouK3cYvR9WGz5O+/OBz0QR9Dmk1
+ iFJX/BQMni3cxYnpI7Ff9P0cZtGNsL8n05oStt7Q4nIERzuqpsvlpzlWKBFD7UrIhyiA
+ FyPINAcNZDFg+8FQSmILtnEyAygpXqGqN3nBYKCotMpT910E4kxB7Gr/eUby4QMKDBXC
+ 8kPEZTrFCv9q/HBWz0WgWDFsPH26pYKY3uFL94ZNvbjLI03z00ZnLwHgpkTgtXRFS7Dj
+ Mi2A==
+X-Gm-Message-State: AOJu0YyTGuz5/nqGYeRrOqWEUmQ/t9B9TOjRWck4lhkU2vTnW6QpYstX
+ Ohs9qZ50XVHp8nxPQdia8/pHLw==
+X-Google-Smtp-Source: AGHT+IExuH8kOzj/dTZpci/l66+zbVuI1Q4ansN6TEuNcT5VkMIxS+P4Zhp6GYS72DXTGfUPCsQq5A==
+X-Received: by 2002:a17:907:780d:b0:9b6:4df9:e5b5 with SMTP id
+ la13-20020a170907780d00b009b64df9e5b5mr5792518ejc.61.1696535218928; 
+ Thu, 05 Oct 2023 12:46:58 -0700 (PDT)
 Received: from [192.168.1.197] (5-157-101-10.dyn.eolo.it. [5.157.101.10])
  by smtp.gmail.com with ESMTPSA id
- jw5-20020a170906e94500b009ae6a6451fdsm1651578ejb.35.2023.10.05.12.45.55
+ jw5-20020a170906e94500b009ae6a6451fdsm1651578ejb.35.2023.10.05.12.46.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Oct 2023 12:45:56 -0700 (PDT)
-Message-ID: <6bc60e4a-ddf1-4125-ba27-53ab55a553d2@linaro.org>
-Date: Thu, 5 Oct 2023 21:45:55 +0200
+ Thu, 05 Oct 2023 12:46:58 -0700 (PDT)
+Message-ID: <86886ecb-dd39-49fb-a575-9e9bf303a8b1@linaro.org>
+Date: Thu, 5 Oct 2023 21:46:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -72,7 +72,7 @@ To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rockchip@lists.infradead.org
 References: <20231004091552.3531659-1-hugues.fruchet@foss.st.com>
- <20231004091552.3531659-4-hugues.fruchet@foss.st.com>
+ <20231004091552.3531659-6-hugues.fruchet@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -118,10 +118,10 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231004091552.3531659-4-hugues.fruchet@foss.st.com>
+In-Reply-To: <20231004091552.3531659-6-hugues.fruchet@foss.st.com>
 Cc: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH 3/7] dt-bindings: media: Document
- STM32MP25 VENC video encoder
+Subject: Re: [Linux-stm32] [PATCH 5/7] arm64: dts: st: add soc & rifsc
+ structure to stm32mp255
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,11 +139,28 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 04/10/2023 11:15, Hugues Fruchet wrote:
-> Add STM32MP25 VENC video encoder bindings.
+> Add soc & rifsc structure to stm32mp255.
 > 
+> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> ---
+>  arch/arm64/boot/dts/st/stm32mp255.dtsi | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+> index e6fa596211f5..4f2b224fe077 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
+> @@ -6,4 +6,8 @@
+>  #include "stm32mp253.dtsi"
+>  
+>  / {
+> +	soc@0 {
+> +		rifsc: rifsc-bus@42080000 {
 
-I don't understand why this binding is separate from video decoder.
-Merge them.
+
+This change on its own makes little sense. We do not add empty
+placeholders...
+
 
 Best regards,
 Krzysztof
