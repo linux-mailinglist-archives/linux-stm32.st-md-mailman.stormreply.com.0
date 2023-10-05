@@ -2,76 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3947B9B49
-	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 09:19:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E83277B9B78
+	for <lists+linux-stm32@lfdr.de>; Thu,  5 Oct 2023 09:45:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5118C6C832;
-	Thu,  5 Oct 2023 07:19:53 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97C38C6C832;
+	Thu,  5 Oct 2023 07:45:10 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D402DC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC0F5C6C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Oct 2023 07:19:52 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ Thu,  5 Oct 2023 07:45:09 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3955F1Eb014545; Thu, 5 Oct 2023 09:19:39 +0200
+ 394NxwVc016445; Thu, 5 Oct 2023 09:44:50 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=UELHM3+btlr1tLsVkeUaq
- pciYdarLBdmCA0OkNzAXRs=; b=jUlsFwuSfJMzmlsawbWienb/4c0cCH3wUY4C7
- sZwnGNaJLzGc+3HlE1GJFHKr1wFHxIRttM4DeJQbZM0Yk+sDFk377PUdSGMdzVZ6
- PVN3Lzw7bRgilrcVH1WQ62KiEIJGGmkjJ7kKQpHduHX0NDw+X2ncUv0y9uxcQODB
- MfVkVf9QSoicH7epvhwTJCV5j8K7i+gTDP6eHJvZV7pvRL2xaJyE1aHW7bUYJrf8
- QH2JAx7svAxmaoNSD6S4zzCMCrJc50hioroFRa6P1jL5jpo7cWtXnNnFugoFwnig
- qdPOcv69K0TUBejk7Kyio3+lt5jQeBo71HH5f05umnp+YArAA==
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=uPeJe/ujiHjKK9NWuZX2rXwLdsc4nIHY6JTK7vpJxH4=; b=pX
+ q0UHCc1ado2QV7WtnmdeB804HXe3FijBSoA9psMDkYnF0uIh0WKNYRPoWZIB+rsh
+ gReFnz5YcLFnD6seqZ1iaNsRJsypo6VayiyWgAw49j0rMEOz/lF7ws/vAag7QQYd
+ oT68cFTQ8EQPTpkb14dR3TU1g4bS9zRIwJYYUE1EFMJPI+pUDhIH88dUyHiSC2TZ
+ EJUsOHYuDlLMspH1Fx3gkPDTAWzvCcXJNwlmGf6n21I7hwX4CR+mMO3/djlZZ9ad
+ OC7oVV1Fujd0O48ZVoWOidNBEDF1cHl6v6l1y4F93HSueEETu7Uon+Oud4tChzC7
+ mJiJhrVj2VzEZI1GnBPg==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3thpu0rfdv-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3thj7e9ehw-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Oct 2023 09:19:39 +0200 (MEST)
+ Thu, 05 Oct 2023 09:44:50 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4202E10005D;
- Thu,  5 Oct 2023 09:19:38 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4D859100053;
+ Thu,  5 Oct 2023 09:44:49 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 39FEA21C2FC;
- Thu,  5 Oct 2023 09:19:38 +0200 (CEST)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 406DD21ED32;
+ Thu,  5 Oct 2023 09:44:49 +0200 (CEST)
+Received: from [10.201.20.120] (10.201.20.120) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 5 Oct
- 2023 09:19:37 +0200
-Date: Thu, 5 Oct 2023 09:19:22 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-Message-ID: <20231005071922.GA1372701@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Andi Shyti <andi.shyti@kernel.org>,
- Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
- Wolfram Sang <wsa@kernel.org>,
- Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20231002084211.1108940-1-alain.volmat@foss.st.com>
- <20231003174246.vdazyls3c7kykd63@zenone.zhora.eu>
+ 2023 09:44:48 +0200
+Message-ID: <866fd143-a290-63ec-103c-b49368d9dc03@foss.st.com>
+Date: Thu, 5 Oct 2023 09:44:47 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231003174246.vdazyls3c7kykd63@zenone.zhora.eu>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Adam Ford <aford173@gmail.com>
+References: <20231004091552.3531659-1-hugues.fruchet@foss.st.com>
+ <20231004091552.3531659-4-hugues.fruchet@foss.st.com>
+ <CAHCN7xKrriTPaRMJ-r86cSgFDUUP1At08imLBr_zEP0g3fga_g@mail.gmail.com>
+From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
+In-Reply-To: <CAHCN7xKrriTPaRMJ-r86cSgFDUUP1At08imLBr_zEP0g3fga_g@mail.gmail.com>
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-05_04,2023-10-02_01,2023-05-22_02
-Cc: Pierre-Yves MORDRET <pierre-yves.mordret@st.com>,
- linux-kernel@vger.kernel.org, Wolfram Sang <wsa@kernel.org>,
- linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- M'boumba Cedric Madianga <cedric.madianga@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Fix PEC handling in case of
-	SMBUS transfers
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, linux-kernel@vger.kernel.org,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
+ Rob Herring <robh+dt@kernel.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 3/7] dt-bindings: media: Document
+ STM32MP25 VENC video encoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,102 +83,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andi,
-
-Thanks for the review.
-
-On Tue, Oct 03, 2023 at 07:42:46PM +0200, Andi Shyti wrote:
-> Hi Alain,
-> 
-> On Mon, Oct 02, 2023 at 10:42:10AM +0200, Alain Volmat wrote:
-> > The PECBYTE bit allows to generate (in case of write) or
-> > compute/compare the PEC byte (in case of read).  In case
-> > of reading a value (performed by first sending a write
-> > command, then followed by a read command) the PECBYTE should
-> > only be set before starting the read command and not before
-> > the first write command.
-> 
-> What is this patch fixing?
-> 
-> Can you please point this detail in the documentation, I haven't
-> found it[*]
-
-This is about the handling of the PECBYTE bit of the I2C_CR2 register
-(cf page 1010 of the spec you pointed).  There were no issue in case
-of performing SMBUS write (with PEC), however read was not working.
-PECBYTE was set from the very beginning of the transaction, but since
-SMBUS read is first made of a write transfer, followed by a read transfer,
-the PECBYTE was appended to the end of the write transfer (instead of the read
-transfer), leading to lose of the last byte of the write transfer.
-(in addition to the fact that the PEC byte should NOT be placed at the
-end of the write transfer).
-(cf Figure 30 of SMBUS specification [1]).
-
-I could add more information within the commit log if you prefer.
-
-[1] http://www.smbus.org/specs/SMBus_3_2_20220112.pdf
-
-> 
-> > Fixes: 9e48155f6bfe ("i2c: i2c-stm32f7: Add initial SMBus protocols support")
-> > 
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> 
-> please, don't leave blank lines between tags.
-
-Ok,  will remove this blank line within a v2.
-
-Thanks,
-Alain
-
-> 
-> Thanks,
-> Andi
-> 
-> [*] Hope this is the correct one:
-> https://www.st.com/resource/en/reference_manual/rm0385-stm32f75xxx-and-stm32f74xxx-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
-> 
-> > ---
-> >  drivers/i2c/busses/i2c-stm32f7.c | 9 ++++++---
-> >  1 file changed, 6 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> > index 579b30581725..0d3c9a041b56 100644
-> > --- a/drivers/i2c/busses/i2c-stm32f7.c
-> > +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> > @@ -1059,9 +1059,10 @@ static int stm32f7_i2c_smbus_xfer_msg(struct stm32f7_i2c_dev *i2c_dev,
-> >  	/* Configure PEC */
-> >  	if ((flags & I2C_CLIENT_PEC) && f7_msg->size != I2C_SMBUS_QUICK) {
-> >  		cr1 |= STM32F7_I2C_CR1_PECEN;
-> > -		cr2 |= STM32F7_I2C_CR2_PECBYTE;
-> > -		if (!f7_msg->read_write)
-> > +		if (!f7_msg->read_write) {
-> > +			cr2 |= STM32F7_I2C_CR2_PECBYTE;
-> >  			f7_msg->count++;
-> > +		}
-> >  	} else {
-> >  		cr1 &= ~STM32F7_I2C_CR1_PECEN;
-> >  		cr2 &= ~STM32F7_I2C_CR2_PECBYTE;
-> > @@ -1149,8 +1150,10 @@ static void stm32f7_i2c_smbus_rep_start(struct stm32f7_i2c_dev *i2c_dev)
-> >  	f7_msg->stop = true;
-> >  
-> >  	/* Add one byte for PEC if needed */
-> > -	if (cr1 & STM32F7_I2C_CR1_PECEN)
-> > +	if (cr1 & STM32F7_I2C_CR1_PECEN) {
-> > +		cr2 |= STM32F7_I2C_CR2_PECBYTE;
-> >  		f7_msg->count++;
-> > +	}
-> >  
-> >  	/* Set number of bytes to be transferred */
-> >  	cr2 &= ~(STM32F7_I2C_CR2_NBYTES_MASK);
-> > -- 
-> > 2.25.1
-> > 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQWRhbSwKClRoYW5rcyBmb3IgcmV2aWV3LAoKT24gMTAvNS8yMyAwMTo0MSwgQWRhbSBGb3Jk
+IHdyb3RlOgo+IE9uIFdlZCwgT2N0IDQsIDIwMjMgYXQgNDoxNuKAr0FNIEh1Z3VlcyBGcnVjaGV0
+Cj4gPGh1Z3Vlcy5mcnVjaGV0QGZvc3Muc3QuY29tPiB3cm90ZToKPj4KPj4gQWRkIFNUTTMyTVAy
+NSBWRU5DIHZpZGVvIGVuY29kZXIgYmluZGluZ3MuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEh1Z3Vl
+cyBGcnVjaGV0IDxodWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPj4gLS0tCj4+ICAgLi4uL2Jp
+bmRpbmdzL21lZGlhL3N0LHN0bTMybXAyNS12ZW5jLnlhbWwgICAgIHwgNTYgKysrKysrKysrKysr
+KysrKysrKwo+PiAgIDEgZmlsZSBjaGFuZ2VkLCA1NiBpbnNlcnRpb25zKCspCj4+ICAgY3JlYXRl
+IG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxz
+dG0zMm1wMjUtdmVuYy55YW1sCj4+Cj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbWVkaWEvc3Qsc3RtMzJtcDI1LXZlbmMueWFtbCBiL0RvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxzdG0zMm1wMjUtdmVuYy55YW1sCj4+IG5l
+dyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMDAwMC4uYzY5ZTBhMzRmNjc1Cj4+
+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdz
+L21lZGlhL3N0LHN0bTMybXAyNS12ZW5jLnlhbWwKPj4gQEAgLTAsMCArMSw1NiBAQAo+PiArIyBT
+UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0yLjAgT1IgQlNELTItQ2xhdXNlKQo+PiArCj4+
+ICslWUFNTCAxLjIKPj4gKy0tLQo+PiArJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1h
+cy9tZWRpYS9zdCxzdG0zMm1wMjUtdmVuYy55YW1sIwo+IAo+IENhbiB0aGlzIGR0LWJpbmRpbmcg
+YmUgbWFkZSBtb3JlIGdlbmVyaWMsIGxpa2Ugc29tZXRoaW5nIGxpa2UKPiBoYW50cm8taDEgb3Ig
+VkM4MDAwTmFub0U/Cj4gCj4gSSB0aGluayB0aGVyZSB3aWxsIGJlIG1vcmUgYm9hcmRzIHRoYXQg
+bWF5IGluY29ycG9yYXRlIHRoZSBIYW50cm8tSDEKPiBvciBhIFZDODAwMCBpbiB0aGUgZnV0dXJl
+LCBiZWNhdXNlIEkgZG9uJ3QgdGhpbmsgdGhpcyBJUCBpcyB1bmlxdWUgdG8KPiB0aGUgU1RNMzJN
+UDI1LgoKVGhpcyBpcyBhbHJlYWR5IHRoZSBjYXNlLCBjaGVjayB2YXJpYW50cyBpbiBoYW50cm9f
+ZHJ2LmMuClNldmVyYWwgU29DcyBhcmUgc2hhcmluZyB0aGlzIElQIGJ1dCBlYWNoIElQIHNsaWdo
+dGx5IGRpZmZlcnMgYmVjYXVzZSBvZgpzdXBwb3J0ZWQgcmVzb2x1dGlvbiwgY29kZWMsIHByZXBy
+b2Nlc3NpbmcgZmVhdHVyZXMsIC4uLgpUaGVyZSBhcmUgYWxzbyBzb21lIGRpZmZlcmVuY2VzIG9u
+IGhvdyBjbG9jaywgaW50ZXJydXB0LCByZXNldCBhcmUgCmhhcmR3YXJlIG1hcHBlZDogc2hhcmVk
+IG9yIG5vdCBieSBkZWNvZGVyIGFuZCBlbmNvZGVyIGZvciBleC4KCj4gCj4gYWRhbQo+IAo+PiAr
+JHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlhbWwjCj4+
+ICsKPj4gK3RpdGxlOiBTVE1pY3JvZWxlY3Ryb25pY3MgU1RNMzJNUDI1IFZFTkMgdmlkZW8gZW5j
+b2Rlcgo+PiArCj4+ICttYWludGFpbmVyczoKPj4gKyAgLSBIdWd1ZXMgRnJ1Y2hldCA8aHVndWVz
+LmZydWNoZXRAZm9zcy5zdC5jb20+Cj4+ICsKPj4gK2Rlc2NyaXB0aW9uOgo+PiArICBUaGUgU1RN
+aWNyb2VsZWN0cm9uaWNzIFNUTTMyTVAyNSBTT0NzIGVtYmVkcyBhIFZFTkMgdmlkZW8gaGFyZHdh
+cmUgZW5jb2Rlcgo+PiArICBwZXJpcGhlcmFsIGJhc2VkIG9uIFZlcmlzaWxpY29uIFZDODAwME5h
+bm9FIElQIChmb3JtZXIgSGFudHJvIEgxKS4KPj4gKwo+PiArcHJvcGVydGllczoKPj4gKyAgY29t
+cGF0aWJsZToKPj4gKyAgICBjb25zdDogc3Qsc3RtMzJtcDI1LXZlbmMKPj4gKwo+PiArICByZWc6
+Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArICBpbnRlcnJ1cHRzOgo+PiArICAgIG1heEl0
+ZW1zOiAxCj4+ICsKPj4gKyAgaW50ZXJydXB0LW5hbWVzOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+
+ICsKPj4gKyAgY2xvY2tzOgo+PiArICAgIG1heEl0ZW1zOiAxCj4+ICsKPj4gKyAgY2xvY2stbmFt
+ZXM6Cj4+ICsgICAgbWF4SXRlbXM6IDEKPj4gKwo+PiArcmVxdWlyZWQ6Cj4+ICsgIC0gY29tcGF0
+aWJsZQo+PiArICAtIHJlZwo+PiArICAtIGludGVycnVwdHMKPj4gKyAgLSBpbnRlcnJ1cHQtbmFt
+ZXMKPj4gKyAgLSBjbG9ja3MKPj4gKyAgLSBjbG9jay1uYW1lcwo+PiArCj4+ICthZGRpdGlvbmFs
+UHJvcGVydGllczogZmFsc2UKPj4gKwo+PiArZXhhbXBsZXM6Cj4+ICsgIC0gfAo+PiArICAgICNp
+bmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcm0tZ2ljLmg+Cj4+ICsg
+ICAgdmVuYzogdmVuY0A1ODBlMDAwMCB7Cj4+ICsgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3Rt
+MzJtcDI1LXZlbmMiOwo+PiArICAgICAgICByZWcgPSA8MHg1ODBlMDAwMCAweDgwMD47Cj4+ICsg
+ICAgICAgIGludGVycnVwdHMgPSA8R0lDX1NQSSAxNjcgSVJRX1RZUEVfTEVWRUxfSElHSD47Cj4+
+ICsgICAgICAgIGludGVycnVwdC1uYW1lcyA9ICJ2ZW5jIjsKPiAKPiAKPiBJcyB0aGUgaW50ZXJy
+dXB0LW5hbWVzIG5lZWRlZCBpZiB0aGVyZSBpcyBvbmx5IG9uZT8KPiAKCk5vdCByZWFsbHksIGNv
+dWxkIGJlIGRyb3BwZWQuCgo+PiArICAgICAgICBjbG9ja3MgPSA8JmNrX2ljbl9wX3ZlbmM+Owo+
+PiArICAgICAgICBjbG9jay1uYW1lcyA9ICJ2ZW5jLWNsayI7Cj4gCj4gU2FtZSB0aGluZyBmb3Ig
+dGhlIGNsb2NrLiAgaWYgdGhlcmUgaXMgb25seSBvbmUgY2xvY2ssIGRvZSB0aGV5IG5lZWQgbmFt
+ZXM/Cj4gCk5vdCByZWFsbHksIGNvdWxkIGJlIGRyb3BwZWQuCgo+IGFkYW0KPj4gKyAgICB9Owo+
+PiAtLQo+PiAyLjI1LjEKPj4KCkJSLApIdWd1ZXMuCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
