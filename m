@@ -2,47 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04AE7BB564
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Oct 2023 12:39:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B14097BB6EC
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Oct 2023 13:48:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58402C6C838;
-	Fri,  6 Oct 2023 10:39:23 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64462C6C838;
+	Fri,  6 Oct 2023 11:48:38 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADE39C6B478
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53A5BC6C835
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Oct 2023 10:39:22 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 1185DB827ED;
- Fri,  6 Oct 2023 10:39:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88CDEC433C8;
- Fri,  6 Oct 2023 10:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1696588761;
- bh=31fUj/22FScFXvKh4mUa0QxeM51SdMhxUNNZAjaUauk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bqPXZnCrTGyT2v7qQp2gS6VXtnU5oalgXNi+9bHcnJbC70fEfHNR1e7YdSfszZt65
- cRjdkHtQU55If4mUBCykU7iE3sOC6QdK+ose9SZXuYRfQhWGehkjBANgye7SS8Q5/f
- rz5PjtLfOVr+5OkIsRGOHMxACuOceh28dn83JgOrWSJzH+WuvCaNv93Mvnd80EeoCK
- Lux7DuE+H22JMTr5GhmA9b26mqNONwcmk/iETEUf4vlCsQqqvsTaV1iuiqlFPJXy29
- kLe5vuM0e4TPUpJv2wgn2XX3i+EYoykyJS6aqqzXLbzRM77F972x+GkTzNvIHz2vnt
- +R2uF3xq5a0cQ==
-Date: Fri, 6 Oct 2023 11:39:17 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Message-ID: <20231006-sandworm-provided-217161692e54@spud>
-References: <20230919083553.35981-1-eagle.alexander923@gmail.com>
- <20230919-98b276afdbc85d62815da0b9@fedora>
- <CAP1tNvS8KsEjs_KhimD6X4CPe7vQ3LKikoz3yU3w2z7pKE9G0A@mail.gmail.com>
+ Fri,  6 Oct 2023 11:48:37 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3965k6oa010374; Fri, 6 Oct 2023 13:47:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=7hUXSm4cUGROzEvTuYhVzV1bsIonYgdPmxDalGuj81U=; b=qt
+ PvJLLDWgY5DKSI1hBa48qvYC54KaUafXbotwH1wYfiazDiLH8cO5DTg0xMQJxcKB
+ AP8zc2noF7+c8K3GxJXp72WWTpKVX+fzBjUSthCGEryaQzmGdLgCw6uMMa9z6b6V
+ OQjyD6T1Pjb8/QoUyVdhyBZTYy+K6gOQ6EPkSB5JIMAIlsveHtepF5nsE8Z+ghTt
+ ZZcOnS0W1qGZvk5mwLIUxz4ls/xIA4ipVRfeCS1p3W/0gFZ6lnaRnJdfoCQEWHxe
+ dFviJrbPhy48sR5G6t9sSZW6H/Ubr4wzBHHpqkXFQIlAlWw8i7uU7032XU5wW1K6
+ 9G/CFE2XCTLzPWpJWVhQ==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tj09gbe3d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Oct 2023 13:47:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 54DA8100053;
+ Fri,  6 Oct 2023 13:47:27 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2071722A6EE;
+ Fri,  6 Oct 2023 13:47:27 +0200 (CEST)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 6 Oct
+ 2023 13:47:26 +0200
+Message-ID: <ac2e9a54-e232-698f-7c60-ebf669a886f2@foss.st.com>
+Date: Fri, 6 Oct 2023 13:47:25 +0200
 MIME-Version: 1.0
-In-Reply-To: <CAP1tNvS8KsEjs_KhimD6X4CPe7vQ3LKikoz3yU3w2z7pKE9G0A@mail.gmail.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: stm32: document
- MYD-YA151C-T development board
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Ben Wolsieffer <ben.wolsieffer@hefring.com>, Jacob Keller
+ <jacob.e.keller@intel.com>
+References: <20230927175749.1419774-1-ben.wolsieffer@hefring.com>
+ <681cc4ca-9fd7-9436-6c7d-d7da95026ce3@intel.com>
+ <ZRrLmjxoIIx7pIcs@dell-precision-5540>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <ZRrLmjxoIIx7pIcs@dell-precision-5540>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-06_09,2023-10-06_01,2023-05-22_02
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S.
+ Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-stm32: fix resume
+	on STM32 MCU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,79 +79,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8948407472798114867=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 10/2/23 15:54, Ben Wolsieffer wrote:
+> Hi Jacob,
+> 
+> On Fri, Sep 29, 2023 at 10:48:47AM -0700, Jacob Keller wrote:
+>>
+>>
+>> On 9/27/2023 10:57 AM, Ben Wolsieffer wrote:
+>>> The STM32MP1 keeps clk_rx enabled during suspend, and therefore the
+>>> driver does not enable the clock in stm32_dwmac_init() if the device was
+>>> suspended. The problem is that this same code runs on STM32 MCUs, which
+>>> do disable clk_rx during suspend, causing the clock to never be
+>>> re-enabled on resume.
+>>>
+>>> This patch adds a variant flag to indicate that clk_rx remains enabled
+>>> during suspend, and uses this to decide whether to enable the clock in
+>>> stm32_dwmac_init() if the device was suspended.
+>>>
+>>
+>> Why not just keep clk_rx enabled unconditionally or unconditionally stop
+>> it during suspend? I guess that might be part of a larger cleanup and
+>> has more side effects?
+> 
+> Ideally, you want to turn off as many clocks as possible in suspend to
+> save power. I'm assuming there is some hardware reason the STM32MP1
+> needs the RX clock on during suspend, but it was not explained in the
+> original patch. Without more information, I'm trying to maintain the
+> existing behavior.
+> 
 
---===============8948407472798114867==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="wwlCXlw5mobA6jp8"
-Content-Disposition: inline
+Sorry for this late answer. We could need RX clock for WOL support.
 
-
---wwlCXlw5mobA6jp8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Fri, Oct 06, 2023 at 10:18:30AM +0300, Alexander Shiyan wrote:
-> Hello.
-
-> > On Tue, Sep 19, 2023 at 11:35:52AM +0300, Alexander Shiyan wrote:
-> > > Add new entry for MYD-YA151C-T development board.
-> ...
-> > > diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > > index 4bf28e717a56..5252b9108ddc 100644
-> > > --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > > +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > > @@ -140,6 +140,11 @@ properties:
-> > >            - const: engicam,microgea-stm32mp1
-> > >            - const: st,stm32mp157
-> > >
-> > > +      - description: MyirTech MYD-YA15XC-T SoM based Boards
-> > > +        items:
-> > > +          - const: myir,myd-ya151c-t   # MYIR MYD-YA151C-T STM32MP151C
-> > > +          - const: st,stm32mp151
-> >
-> > It appears that this file is sorted by soc part number, which would put
-> > this entry now in the wrong location.
-> > With that changed,
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
-> I looked through the entire file and saw that the entries were
-> sorted by board name and by SOC part number within the board option.
-
-I must not be reading the same file you are. The one I looked a is
-sorted by the SoC compatibles
-...mp135
-...mp151
-...mp153
-...mp157
-and thereafter by boards.
-
-
---wwlCXlw5mobA6jp8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZR/j1QAKCRB4tDGHoIJi
-0sLTAQDtR2jnnMWZG3LDrgIV8xVxdyUuLXDYQMA5frcsa2B1twEAg67TS87Ig9PA
-ibukTzNzhnBhbC6EImDas0MADZX2bA8=
-=R6l+
------END PGP SIGNATURE-----
-
---wwlCXlw5mobA6jp8--
-
---===============8948407472798114867==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+>>
+>>> This approach fixes this specific bug with limited opportunity for
+>>> unintended side-effects, but I have a follow up patch that will refactor
+>>> the clock configuration and hopefully make it less error prone.
+>>>
+>>
+>> I'd guess the follow-up refactor would target next?
+>>
+>>> Fixes: 6528e02cc9ff ("net: ethernet: stmmac: add adaptation for stm32mp157c.")
+>>> Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+>>> ---
+>>
+>> This seems pretty small and targeted so it does make sense to me as a
+>> net fix, but it definitely feels like a workaround.
+>>
+>> I look forward to reading the cleanup patch mentioned.
+> 
+> Sorry, I should have linked this when I re-posted this patch for
+> net, but I previously submitted this patch as part of a series with
+> the cleanup but was asked to split them up for net and net-next.
+> Personally, I would be fine with them going into net-next together (or
+> squashed).
+> 
+> The original series can be found here:
+> https://lore.kernel.org/linux-arm-kernel/20230919164535.128125-3-ben.wolsieffer@hefring.com/T/
+> 
+> Thanks, Ben
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8948407472798114867==--
