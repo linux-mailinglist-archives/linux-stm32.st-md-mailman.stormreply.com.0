@@ -2,66 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E42EC7BB20F
-	for <lists+linux-stm32@lfdr.de>; Fri,  6 Oct 2023 09:18:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27AD07BB214
+	for <lists+linux-stm32@lfdr.de>; Fri,  6 Oct 2023 09:23:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87EFFC6C836;
-	Fri,  6 Oct 2023 07:18:44 +0000 (UTC)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7DACC6C836;
+	Fri,  6 Oct 2023 07:23:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EBABC6B478
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C843FC6B478
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Oct 2023 07:18:43 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-2777a5e22b5so1432394a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Oct 2023 00:18:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696576721; x=1697181521;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=EKpCyHWOeoDq3mhuWwEc3nzpzJID0E8GreD4OlWUF7Y=;
- b=j7ioWSZs3XxN7cmrtP5hhRs4SilD768nJI6egulWFPWNSC0VGYTinguVtyy+onuqm4
- ttRn1n+/YlXR+dWWfD95XtoACIPXaMgsduVlN7CPupA9UnU5kHv3a3ZN/xyT39BCF3wr
- H3qOhLKk6ev7T+zSmAuPEyp6QY4WxlhUb236ck0BkimHwRQiZUzxK7aiT65HVYCadKec
- nI+OmDLRIPtDYxkcvyze3T1Yavb8GfkmCCWYWmbzVWDXLDOJDOJFWsqNnNzMpwSK0vY1
- 5QRVqkiZKlEMf7YVYkWSCp4FqjrHWT7do1aTr1nk3C8M0uHfEVAsNYsqNhXqh+hiXKgF
- Y0Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696576721; x=1697181521;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=EKpCyHWOeoDq3mhuWwEc3nzpzJID0E8GreD4OlWUF7Y=;
- b=wzsWm6GIiovRvdZa1U4505bnBklDwrDVwWvggmdDi9tWoXIUJptJgcsihAZrYvo1Za
- 8qf69H2VuJQg1zYyxKeqebJxolT9DQnoSil1tqMUStP/XcVkVRmYKlAa0whgzCmZI40R
- JREuF+YdzmP3OzQc37+MEc/uIMXMsyc4BpQF3mbWbVIzw2xMYhxSUJL+p1TBRZd+5ssL
- CftXzAtWNZ3+MSZpA49j8HU0htsjnemF/P+JYT13kAffxo/+5tV8shDiOysLqV3ONiB2
- wRbtO4Ur+C+JpTDFYRoW1oUSH9lyJuUF4DAugFWV87SA4DkCISB1CfdGGS2Y60rbcDhF
- SMSA==
-X-Gm-Message-State: AOJu0Yw3Z6SYwuUsrvKUKuKAiux6Icx6L8FRUkg+isGpHeaeNZDGIxVh
- +ywfWDzl2Kfo5Vu2I97K77beQSocllFlL3xPdN4=
-X-Google-Smtp-Source: AGHT+IFKDAahXWKqY7tYZ0QihyHM/jksHYk53NNXue6zODq0zpstVmqGE3sjOong6uwzQRE15B2DebyDFq1LsPtCQ1c=
-X-Received: by 2002:a17:90a:ce83:b0:26b:c3f:1503 with SMTP id
- g3-20020a17090ace8300b0026b0c3f1503mr7580409pju.17.1696576721568; Fri, 06 Oct
- 2023 00:18:41 -0700 (PDT)
+ Fri,  6 Oct 2023 07:23:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1696577009; x=1728113009;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=mWHcdTvH6aYA57g0fq1YlCnr+8VV/+w6xGLIONT5Tg4=;
+ b=NfDzRLyl76bd+xy9LhEMqpsSRa41DO48mZKICR2jEQfm8hMaeAt3crLq
+ v6mQ01UgrB6h6bD0Rbmj8Uu9EkFZ9/lWITTu3sE6LxXzS5njZNY4yKBtN
+ bFNbhmcpm2UCE+xOUJIcJhIPSUKyJYCRGEMZwVHSlcupJO0l7Yz4G0DO8
+ WoMhHXSHoHUdDTAqtLr0jdOxZRd5D730hH/AvtH0M/JR1LJGxwr7LxUxK
+ 6sBV5uHsD0wQ3oAxkq7bvtKljEcfxr6d0tf5AdQ30nF6cqq9h3DrsnvU4
+ MfI62Blb/PA+0HAwe1rcun02JA0il5f3MfcEN/I2bprOjOPVS7llYI386 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="374046254"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200"; d="scan'208";a="374046254"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 00:23:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10854"; a="781543497"
+X-IronPort-AV: E=Sophos;i="6.03,203,1694761200"; d="scan'208";a="781543497"
+Received: from pglc0394.png.intel.com ([10.221.87.72])
+ by orsmga008.jf.intel.com with ESMTP; 06 Oct 2023 00:23:22 -0700
+From: Rohan G Thomas <rohan.g.thomas@intel.com>
+To: kuba@kernel.org
+Date: Fri,  6 Oct 2023 15:23:19 +0800
+Message-Id: <20231006072319.22441-1-rohan.g.thomas@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231005070538.0826bf9d@kernel.org>
+References: <20231005070538.0826bf9d@kernel.org>
 MIME-Version: 1.0
-References: <20230919083553.35981-1-eagle.alexander923@gmail.com>
- <20230919-98b276afdbc85d62815da0b9@fedora>
-In-Reply-To: <20230919-98b276afdbc85d62815da0b9@fedora>
-From: Alexander Shiyan <eagle.alexander923@gmail.com>
-Date: Fri, 6 Oct 2023 10:18:30 +0300
-Message-ID: <CAP1tNvS8KsEjs_KhimD6X4CPe7vQ3LKikoz3yU3w2z7pKE9G0A@mail.gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/2] dt-bindings: stm32: document
- MYD-YA151C-T development board
+Cc: devicetree@vger.kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, fancer.lancer@gmail.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, rohan.g.thomas@intel.com,
+ andriy.shevchenko@linux.intel.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: xgmac: EST
+	interrupts handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,31 +67,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello.
-
-I looked through the entire file and saw that the entries were
-sorted by board name and by SOC part number within the board option.
-
-> On Tue, Sep 19, 2023 at 11:35:52AM +0300, Alexander Shiyan wrote:
-> > Add new entry for MYD-YA151C-T development board.
-...
-> > diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > index 4bf28e717a56..5252b9108ddc 100644
-> > --- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-> > @@ -140,6 +140,11 @@ properties:
-> >            - const: engicam,microgea-stm32mp1
-> >            - const: st,stm32mp157
+On Thu, 5 Oct 2023 07:05:38 -0700 Jakub Kicinski wrote:
+> On Thu, 5 Oct 2023 20:14:41 +0800 Rohan G Thomas wrote:
+> > > So the question now is whether we want Rohan to do this conversion
+> > > _first_, in DW QoS 5, and then add xgmac part. Or the patch should
+> > > go in as is and you'll follow up with the conversion?
 > >
-> > +      - description: MyirTech MYD-YA15XC-T SoM based Boards
-> > +        items:
-> > +          - const: myir,myd-ya151c-t   # MYIR MYD-YA151C-T STM32MP151C
-> > +          - const: st,stm32mp151
->
-> It appears that this file is sorted by soc part number, which would put
-> this entry now in the wrong location.
-> With that changed,
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > If agreed, this commit can go in. I can submit another patch with the
+> > refactoring suggested by Serge.
+> 
+> Did you miss the emphasis I put on the word "first" in my reply?
+> Cleanup first, nobody will be keeping track whether your fulfilled your
+> promises or not :|
+
+Hi Jakub,
+
+Agreed. I'll do the cleanup first.
+
+Best Regards,
+Rohan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
