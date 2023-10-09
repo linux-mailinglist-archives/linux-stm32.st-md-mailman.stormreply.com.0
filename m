@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D117BE031
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 15:38:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99DEE7BE033
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 15:38:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42295C6A61D;
-	Mon,  9 Oct 2023 13:38:14 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A924C6B463;
+	Mon,  9 Oct 2023 13:38:16 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AF0BC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0057C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Oct 2023 13:38:13 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-406618d080eso43527115e9.2
+ Mon,  9 Oct 2023 13:38:15 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-313e742a787so2688558f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 09 Oct 2023 06:38:13 -0700 (PDT)
+ Mon, 09 Oct 2023 06:38:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696858692; x=1697463492;
+ d=gmail.com; s=20230601; t=1696858695; x=1697463495;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=EzAWHH01VVS9IgkvFldWVDddj9E+l4PxhyRk8MwG584=;
- b=OYnP8Z+q0S+DbK/rdMH+QWW/NgZaAwCorZ8uCAR3fmEDE7LXZxjikw3tcmaEgYYUUU
- i1eAFj/LSHBq3jMs25EQHp7qxG+sEPkDqyQKKb+l1W6RKQYS+nJqANJdBmeyllGyyECe
- aMdaY6nEL4J/r+7X1/ZrUageLppyZ9Kw9Xsd607LGFa/QEqyIITnC/lW1qO9bBIMTZ2z
- 6cWQKe6xAeMSyv3MLU+TGds5jD/oJ+APOD6DiOqvfdQAihen7V8AHo4vfaWDBN2+roWd
- QD7/0DjeqrWZauiDQ7io368lPa0luapYw+ukO1/jHPtTgHdKDsczbVnwwBir9NRIDBKe
- 9vPQ==
+ :reply-to; bh=6V3Yp/K15xx7ev3Qhf5+/0w5en07kzL7Wskfo0+HBPw=;
+ b=CcWAmP84KOCY8b4+5pcZtCY8YLvRVvjb4C6mRhAxSt0dvwVHCd7Q34mzQRX3AXUYGz
+ EoRQbV5tjP/5/yFaC1JEGODMF+vQBXSnzKq46P/SsWibc4cYdy7P/I5c37zMU5D2wqUt
+ PLgSvzL6rCWqOrZzqGpuZncfA9almRgUvY/qIHfK0cJ4G8N1HMy0VQLgdG+xq1DyA3DE
+ MfTyZNF/wbIobyYUd67P1ICi5BZDZbn7MttbZoWV+zYFFfsSkcZ518bDBZUUd8lzz7BG
+ fgLJU7gSWCGJAoeIkR22W7pMXtFdCGbOmkD3dhKvaqZ6adFIbpKBG7CkQiO+ph6msFgK
+ y4ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696858692; x=1697463492;
+ d=1e100.net; s=20230601; t=1696858695; x=1697463495;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EzAWHH01VVS9IgkvFldWVDddj9E+l4PxhyRk8MwG584=;
- b=vW7/4bIRwhzD19LqDfVtBEg2/Hc3DTnHbEts29lmef2skQ2G5s/EQS9ImGXZpQoVGq
- nEC9HwqF2KQguSkWzmzhcLDm6/7ReJY3STdrWuJMdpGrwRnG2qKe/GZh9bC9+g2mEXCI
- iSkIjJG4YygCZIu8J7+xm6MpGZufVdW6GbDFA+QUU1RKkqQJJxLHNHGEz6aNuWTmO/HG
- xJf9Fv2jl/OMv8+vRVfS2ZY89q9+CrdC74jMvCOKHvumT4sUNLlwHV3kAkyblwt93dS/
- X2+vme/tBJKtxdRUpbrdoOcG5ZI5NDaoOFJ3nnmyw9YepqYl8ol4Zy6DN4qYti9kr6SZ
- /RZg==
-X-Gm-Message-State: AOJu0YxjLqLy1DwPm9vUO1g1JRpYpwlVrkJFlADUTH6t02aT0mk9c857
- v4uBIm2MMyU+dIwwfnn2qUk=
-X-Google-Smtp-Source: AGHT+IHsAsFvK5zcfvpEHNpBjlrUZf2mmc5SciLA+pPQWufHQKhdvJk6OO5q7vOl9k3p/vj4f/tuWw==
-X-Received: by 2002:adf:e9d0:0:b0:31f:f432:b541 with SMTP id
- l16-20020adfe9d0000000b0031ff432b541mr13440190wrn.69.1696858692458; 
- Mon, 09 Oct 2023 06:38:12 -0700 (PDT)
+ bh=6V3Yp/K15xx7ev3Qhf5+/0w5en07kzL7Wskfo0+HBPw=;
+ b=mvTw8/Ae2Byn0eIqO6/z/pnSk16GSYN45MGMzpuz58G6+Z3Wt+KSnupk4aIqHYwFsd
+ VHNjaZKGAauRMgBn+S+amvEgWdqTENWv1FQDnWHObdo9HKtVezyF23W2ES5cvTe4BQWr
+ Ixq/Tlk5VYr6beyywPa4VOaX809dLbIM8UfXzJ8+Bmvb3ZqKaOnbLZTTEbpgQ6Oi2q2v
+ qy+zTsvbjcnzCOPKuvgnx7kE+KlOTAMTfFP63VyLiENa0+HSgQNkLae446UwuHLLRuQb
+ ZvDuSqRX8sQYfQwtNyx+E2WaKHbBsBtZaMJPAL0gzQJWkbjm7fQLZo3pTtdnp31uNXOR
+ 4i/Q==
+X-Gm-Message-State: AOJu0YzBknsURgGs/bR7GBERrELeKR2bOBIYSEXtKENAzP74ytDAJv3T
+ /gXaFJ1n2EOBPBxGNJX38+E=
+X-Google-Smtp-Source: AGHT+IEg5HTR+xDE3IzwD0pbfXpmjGlWQO4VcUmgAYjzp1NHs11O05PimyYF9rp+Ru7+he92h2hBgA==
+X-Received: by 2002:a05:6000:1112:b0:317:6734:c2ae with SMTP id
+ z18-20020a056000111200b003176734c2aemr9423512wrw.11.1696858695077; 
+ Mon, 09 Oct 2023 06:38:15 -0700 (PDT)
 Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
  [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- t4-20020a0560001a4400b0032763287473sm9746160wry.75.2023.10.09.06.38.09
+ t4-20020a0560001a4400b0032763287473sm9746160wry.75.2023.10.09.06.38.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 06:38:11 -0700 (PDT)
+ Mon, 09 Oct 2023 06:38:14 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  Wolfgang Grandegger <wg@grandegger.com>,
@@ -104,14 +104,14 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, ath10k@lists.infradead.org,
  linux-wireless@vger.kernel.org
-Date: Mon,  9 Oct 2023 15:37:53 +0200
-Message-Id: <20231009133754.9834-4-ansuelsmth@gmail.com>
+Date: Mon,  9 Oct 2023 15:37:54 +0200
+Message-Id: <20231009133754.9834-5-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20231009133754.9834-1-ansuelsmth@gmail.com>
 References: <20231009133754.9834-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [net-next v3 4/5] net: tc35815: rework network
-	interface interrupt logic
+Subject: [Linux-stm32] [net-next v3 5/5] netdev: use napi_schedule bool
+	instead of napi_schedule_prep/__napi_schedule
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,50 +128,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Rework network interface logic. Before this change, the code flow was:
-1. Disable interrupt
-2. Try to schedule a NAPI
-3. Check if it was possible (NAPI is not already scheduled)
-4. emit BUG() if we receive interrupt while a NAPI is scheduled
+Replace if condition of napi_schedule_prep/__napi_schedule and use bool
+from napi_schedule directly where possible.
 
-If some application busy poll or set gro_flush_timeout low enough, it's
-possible to reach the BUG() condition. Given that the condition may
-happen and it wouldn't be a bug, rework the logic to permit such case
-and prevent stall with interrupt never enabled again.
-
-Disable the interrupt only if the NAPI can be scheduled (aka it's not
-already scheduled) and drop the printk and BUG() call. With these
-change, in the event of a NAPI already scheduled, the interrupt is
-simply ignored with nothing done.
-
-Suggested-by: Eric Dumazet <edumazet@google.com>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/ethernet/toshiba/tc35815.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+Changes v3:
+- Drop toshiba change and rework in separate patch
+---
+ drivers/net/ethernet/atheros/atlx/atl1.c     | 4 +---
+ drivers/net/wireless/intel/iwlwifi/pcie/rx.c | 4 +---
+ 2 files changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/toshiba/tc35815.c b/drivers/net/ethernet/toshiba/tc35815.c
-index 14cf6ecf6d0d..6e3758dfbdbd 100644
---- a/drivers/net/ethernet/toshiba/tc35815.c
-+++ b/drivers/net/ethernet/toshiba/tc35815.c
-@@ -1434,14 +1434,10 @@ static irqreturn_t tc35815_interrupt(int irq, void *dev_id)
- 	u32 dmactl = tc_readl(&tr->DMA_Ctl);
+diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
+index 02aa6fd8ebc2..a9014d7932db 100644
+--- a/drivers/net/ethernet/atheros/atlx/atl1.c
++++ b/drivers/net/ethernet/atheros/atlx/atl1.c
+@@ -2446,7 +2446,7 @@ static int atl1_rings_clean(struct napi_struct *napi, int budget)
  
- 	if (!(dmactl & DMA_IntMask)) {
--		/* disable interrupts */
--		tc_writel(dmactl | DMA_IntMask, &tr->DMA_Ctl);
--		if (napi_schedule_prep(&lp->napi))
-+		if (napi_schedule_prep(&lp->napi)) {
-+			/* disable interrupts */
-+			tc_writel(dmactl | DMA_IntMask, &tr->DMA_Ctl);
- 			__napi_schedule(&lp->napi);
--		else {
--			printk(KERN_ERR "%s: interrupt taken in poll\n",
--			       dev->name);
--			BUG();
- 		}
- 		(void)tc_readl(&tr->Int_Src);	/* flush */
- 		return IRQ_HANDLED;
+ static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
+ {
+-	if (!napi_schedule_prep(&adapter->napi))
++	if (!napi_schedule(&adapter->napi))
+ 		/* It is possible in case even the RX/TX ints are disabled via IMR
+ 		 * register the ISR bits are set anyway (but do not produce IRQ).
+ 		 * To handle such situation the napi functions used to check is
+@@ -2454,8 +2454,6 @@ static inline int atl1_sched_rings_clean(struct atl1_adapter* adapter)
+ 		 */
+ 		return 0;
+ 
+-	__napi_schedule(&adapter->napi);
+-
+ 	/*
+ 	 * Disable RX/TX ints via IMR register if it is
+ 	 * allowed. NAPI handler must reenable them in same
+diff --git a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
+index 23b5a0adcbd6..146bc7bd14fb 100644
+--- a/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
++++ b/drivers/net/wireless/intel/iwlwifi/pcie/rx.c
+@@ -1660,9 +1660,7 @@ irqreturn_t iwl_pcie_irq_rx_msix_handler(int irq, void *dev_id)
+ 	IWL_DEBUG_ISR(trans, "[%d] Got interrupt\n", entry->entry);
+ 
+ 	local_bh_disable();
+-	if (napi_schedule_prep(&rxq->napi))
+-		__napi_schedule(&rxq->napi);
+-	else
++	if (!napi_schedule(&rxq->napi))
+ 		iwl_pcie_clear_irq(trans, entry->entry);
+ 	local_bh_enable();
+ 
 -- 
 2.40.1
 
