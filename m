@@ -2,72 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C833F7BE457
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 17:15:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21EE87BE5A4
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 17:56:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D039C6A61D;
-	Mon,  9 Oct 2023 15:15:26 +0000 (UTC)
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C52AFC6A61D;
+	Mon,  9 Oct 2023 15:56:23 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DC27C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 49C0DC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Oct 2023 14:59:27 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-3af65455e7cso3390663b6e.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 09 Oct 2023 07:59:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1696863565; x=1697468365;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=gremNSB3d9SyFHcL1LlmJRtVUMpoQGmg6IJzbQmBl54=;
- b=vqJhuCW9YpTMCLsDMdIzBUfpLPb6BhXzZzD896fvsYomUgL1ZQkpgGbDQRjl+bmnwg
- QU2A6aonlN9oj4kzu/g6C31RT/86C092CJujrA/mbLvzPWZp2dHfEPg8Bw3n1j+HHyQ9
- /A5/E1ziGNkDu2YquiLUbOuwDgFiu14bb+t8NVqInryVcc4JvEHYAZSLsZl9FjPtEpCD
- lG1qX3fF7g9g1BoE/DB+I/uiE5/eB+WCCGBxU/Zc7SvWYBBZQV0OS3O2AZRx9ghz02MR
- wmjTzZvATdZrNF8j3OHYmI4SFlg80NGBHa7lyTerx5hSLi0I5GascGR5wumP3HV7bCPP
- ntcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696863565; x=1697468365;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gremNSB3d9SyFHcL1LlmJRtVUMpoQGmg6IJzbQmBl54=;
- b=Ns8yq74spQtgJbFrHRG0OibnQ73QhE8ba76p6iz6WO8tMCsG5+9PLx9e1OKoqZ66DM
- DcR7q52UPsX8zRiKxVpLFQv4C7qcGCrMxoZL/m1PlaUW73jdvjn8q5bMBB7rQ87ghkLX
- TnlHXm0OSIZbYMDGgB7i2DTT3JguBLQc/MCsLgVPnBfE0FiPFrFpXZpNNGZ+fIZJjKBA
- W7SgbBXgOLXy+F6C+Js4Qp8zbZ8NDPjFpjWn7IMdmkggwRLslO8S8fhzJe+QTJ8GiOKS
- PWnYpyINXtqa2aGZ658dLJzaF12bFa6NHTWGbVkTTKaPQfnIdaXKszwQea7POWLGhJ7k
- u7mg==
-X-Gm-Message-State: AOJu0YxjFMRFlY5SE6L/d7qYVfPwj91/3u07BjVxJeDWnxb4P9WtLflD
- 51xp6MDHJQywzCRHEdNM5PSupiL9d+kkoGXAlBo=
-X-Google-Smtp-Source: AGHT+IFYy9l29dEpiDaimL5a3XAFRuyoA772ghfVXLzJSXypiGc/Ts/jVpBhpkvrQjwoxhJ+y8jQfA==
-X-Received: by 2002:a05:6870:d187:b0:1b0:60ff:b73f with SMTP id
- a7-20020a056870d18700b001b060ffb73fmr19038396oac.8.1696863565494; 
- Mon, 09 Oct 2023 07:59:25 -0700 (PDT)
-Received: from localhost.localdomain ([50.212.55.89])
- by smtp.gmail.com with ESMTPSA id
- u21-20020ae9c015000000b0076ef29f3429sm3559275qkk.120.2023.10.09.07.59.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 07:59:25 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Mon,  9 Oct 2023 10:59:04 -0400
-Message-ID: <20231009145904.3776703-1-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.42.0
+ Mon,  9 Oct 2023 15:56:22 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 399D7P9l030790; Mon, 9 Oct 2023 17:56:03 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=72yN/PJtKSRJXmtVA+yut3IcjcusVBV+3vh9OJ6jXMI=; b=0U
+ F6OFshRICcuO2W9xvyThnUicqt2zch1ApwS7VOhnC0+fo2Fs2nvIi9c88XwJ0MMC
+ MVd7MoC2faveq64tHhqp0uCamd0Br6OAirAngFphh6rkAyPVWzq2DKJv08JhLCNf
+ /b6+sY8NVBg8/AQOBNu4/FyisRSpyO4TGSz1ulfB0U43Gz47llPtU08vkJ4WDcQU
+ 82GSjJ/bEJR8MUOpOlGc1WOys9OpnQNl5/3XTwzqTNZjULVoYO/+ANEitNZyyn5p
+ bk1HjRWc8UBig5Ie848l+czpH1eHzj6cO92Q/YYCdwQO4lU8BxhsBwbZWQ9c4ne6
+ SdT8CmVtj/+SJGH+samQ==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tkhfdx0sx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Oct 2023 17:56:03 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C4DB710005E;
+ Mon,  9 Oct 2023 17:56:01 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B7DED26DDAC;
+ Mon,  9 Oct 2023 17:56:01 +0200 (CEST)
+Received: from [10.201.20.120] (10.201.20.120) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 9 Oct
+ 2023 17:56:00 +0200
+Message-ID: <13aa532e-5fbe-b8d4-d005-1973f589cef3@foss.st.com>
+Date: Mon, 9 Oct 2023 17:56:00 +0200
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 09 Oct 2023 15:15:25 +0000
-Cc: Ben Wolsieffer <ben.wolsieffer@hefring.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-stm32: refactor
-	clock config
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+ <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>
+References: <20231004091552.3531659-1-hugues.fruchet@foss.st.com>
+ <20231004091552.3531659-4-hugues.fruchet@foss.st.com>
+ <6bc60e4a-ddf1-4125-ba27-53ab55a553d2@linaro.org>
+ <0de2ae74-2ba1-0e8d-aa7b-77806ac8b252@foss.st.com>
+ <1e2a4d87-5478-4655-993d-7f404d507c82@linaro.org>
+ <fa0e6187-ab7d-bc23-299c-a491c8ff1d8f@foss.st.com>
+ <d3f56d51-beb0-4f7a-a1f6-3ae03bbc9826@linaro.org>
+From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
+In-Reply-To: <d3f56d51-beb0-4f7a-a1f6-3ae03bbc9826@linaro.org>
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-09_14,2023-10-09_01,2023-05-22_02
+Cc: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH 3/7] dt-bindings: media: Document
+ STM32MP25 VENC video encoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,256 +88,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently, clock configuration is spread throughout the driver and
-partially duplicated for the STM32MP1 and STM32 MCU variants. This makes
-it difficult to keep track of which clocks need to be enabled or disabled
-in various scenarios.
+Hi Krzysztof,
 
-This patch adds symmetric stm32_dwmac_clk_enable/disable() functions
-that handle all clock configuration, including quirks required while
-suspending or resuming. syscfg_clk and clk_eth_ck are not present on
-STM32 MCUs, but it is fine to try to configure them anyway since NULL
-clocks are ignored.
+On 10/9/23 16:28, Krzysztof Kozlowski wrote:
+> On 09/10/2023 16:24, Hugues FRUCHET wrote:
+>> Hi Krzysztof,
+>>
+>> On 10/9/23 15:56, Krzysztof Kozlowski wrote:
+>>> On 09/10/2023 15:49, Hugues FRUCHET wrote:
+>>>> Hi Krzysztof,
+>>>>
+>>>> On 10/5/23 21:45, Krzysztof Kozlowski wrote:
+>>>>> On 04/10/2023 11:15, Hugues Fruchet wrote:
+>>>>>> Add STM32MP25 VENC video encoder bindings.
+>>>>>>
+>>>>>
+>>>>> I don't understand why this binding is separate from video decoder.
+>>>>> Merge them.
+>>>> VDEC and VENC are two independent IPs with their own clock, reset,
+>>>> interrupt & register set, they have their own access to APB/AXI bus.
+>>>> Moreover future chipsets may embed only VENC or VDEC.
+>>>>
+>>>> Hoping that this clarifies the reason of two different bindings.
+>>>
+>>> No, it does not. These are no reasons to have independent bindings,
+>>> except when having actual impact on the bindings. The bindings look
+>>> identical. What are the differences?
+>> I'm sorry but I really don't understand your point, these are two
+>> different IPs with very different registers in it, so why should
+>> I share that in a single binding ?
+> 
+> Because the binding is identical. If not, maybe I missed something, so
+> please point me to differences in the binding.
 
-Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
----
-This is a followup to my recent STM32 ethernet resume bug fix [1] that
-tries to address the underlying issues that led to that bug.
+OK, currently they are identical so I will merge into a single one
+even if I disagree on that.
+I hope that in future this will not change otherwise I'll need to 
+revisit that and make separate bindings as initially proposed...
+I'll so push a v2 with merged version proposal.
 
-[1] https://lore.kernel.org/all/20230927175749.1419774-1-ben.wolsieffer@hefring.com/ 
+> 
+> Best regards,
+> Krzysztof
+> 
 
- .../net/ethernet/stmicro/stmmac/dwmac-stm32.c | 113 +++++++-----------
- 1 file changed, 45 insertions(+), 68 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-index d8d3c729f219..c92dfc4ecf57 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
-@@ -98,7 +98,6 @@ struct stm32_dwmac {
- 
- struct stm32_ops {
- 	int (*set_mode)(struct plat_stmmacenet_data *plat_dat);
--	int (*clk_prepare)(struct stm32_dwmac *dwmac, bool prepare);
- 	int (*suspend)(struct stm32_dwmac *dwmac);
- 	void (*resume)(struct stm32_dwmac *dwmac);
- 	int (*parse_data)(struct stm32_dwmac *dwmac,
-@@ -107,62 +106,55 @@ struct stm32_ops {
- 	bool clk_rx_enable_in_suspend;
- };
- 
--static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat)
-+static int stm32_dwmac_clk_enable(struct stm32_dwmac *dwmac, bool resume)
- {
--	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
- 	int ret;
- 
--	if (dwmac->ops->set_mode) {
--		ret = dwmac->ops->set_mode(plat_dat);
--		if (ret)
--			return ret;
--	}
--
- 	ret = clk_prepare_enable(dwmac->clk_tx);
- 	if (ret)
--		return ret;
-+		goto err_clk_tx;
- 
--	if (!dwmac->ops->clk_rx_enable_in_suspend ||
--	    !dwmac->dev->power.is_suspended) {
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !resume) {
- 		ret = clk_prepare_enable(dwmac->clk_rx);
--		if (ret) {
--			clk_disable_unprepare(dwmac->clk_tx);
--			return ret;
--		}
-+		if (ret)
-+			goto err_clk_rx;
- 	}
- 
--	if (dwmac->ops->clk_prepare) {
--		ret = dwmac->ops->clk_prepare(dwmac, true);
--		if (ret) {
--			clk_disable_unprepare(dwmac->clk_rx);
--			clk_disable_unprepare(dwmac->clk_tx);
--		}
-+	ret = clk_prepare_enable(dwmac->syscfg_clk);
-+	if (ret)
-+		goto err_syscfg_clk;
-+
-+	if (dwmac->enable_eth_ck) {
-+		ret = clk_prepare_enable(dwmac->clk_eth_ck);
-+		if (ret)
-+			goto err_clk_eth_ck;
- 	}
- 
- 	return ret;
-+
-+err_clk_eth_ck:
-+	clk_disable_unprepare(dwmac->syscfg_clk);
-+err_syscfg_clk:
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !resume)
-+		clk_disable_unprepare(dwmac->clk_rx);
-+err_clk_rx:
-+	clk_disable_unprepare(dwmac->clk_tx);
-+err_clk_tx:
-+	return ret;
- }
- 
--static int stm32mp1_clk_prepare(struct stm32_dwmac *dwmac, bool prepare)
-+static int stm32_dwmac_init(struct plat_stmmacenet_data *plat_dat, bool resume)
- {
--	int ret = 0;
-+	struct stm32_dwmac *dwmac = plat_dat->bsp_priv;
-+	int ret;
- 
--	if (prepare) {
--		ret = clk_prepare_enable(dwmac->syscfg_clk);
-+	if (dwmac->ops->set_mode) {
-+		ret = dwmac->ops->set_mode(plat_dat);
- 		if (ret)
- 			return ret;
--		if (dwmac->enable_eth_ck) {
--			ret = clk_prepare_enable(dwmac->clk_eth_ck);
--			if (ret) {
--				clk_disable_unprepare(dwmac->syscfg_clk);
--				return ret;
--			}
--		}
--	} else {
--		clk_disable_unprepare(dwmac->syscfg_clk);
--		if (dwmac->enable_eth_ck)
--			clk_disable_unprepare(dwmac->clk_eth_ck);
- 	}
--	return ret;
-+
-+	return stm32_dwmac_clk_enable(dwmac, resume);
- }
- 
- static int stm32mp1_set_mode(struct plat_stmmacenet_data *plat_dat)
-@@ -252,13 +244,15 @@ static int stm32mcu_set_mode(struct plat_stmmacenet_data *plat_dat)
- 				 dwmac->ops->syscfg_eth_mask, val << 23);
- }
- 
--static void stm32_dwmac_clk_disable(struct stm32_dwmac *dwmac)
-+static void stm32_dwmac_clk_disable(struct stm32_dwmac *dwmac, bool suspend)
- {
- 	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->clk_rx);
-+	if (!dwmac->ops->clk_rx_enable_in_suspend || !suspend)
-+		clk_disable_unprepare(dwmac->clk_rx);
- 
--	if (dwmac->ops->clk_prepare)
--		dwmac->ops->clk_prepare(dwmac, false);
-+	clk_disable_unprepare(dwmac->syscfg_clk);
-+	if (dwmac->enable_eth_ck)
-+		clk_disable_unprepare(dwmac->clk_eth_ck);
- }
- 
- static int stm32_dwmac_parse_data(struct stm32_dwmac *dwmac,
-@@ -397,7 +391,7 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
- 
- 	plat_dat->bsp_priv = dwmac;
- 
--	ret = stm32_dwmac_init(plat_dat);
-+	ret = stm32_dwmac_init(plat_dat, false);
- 	if (ret)
- 		return ret;
- 
-@@ -408,7 +402,7 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_clk_disable:
--	stm32_dwmac_clk_disable(dwmac);
-+	stm32_dwmac_clk_disable(dwmac, false);
- 
- 	return ret;
- }
-@@ -421,7 +415,7 @@ static void stm32_dwmac_remove(struct platform_device *pdev)
- 
- 	stmmac_dvr_remove(&pdev->dev);
- 
--	stm32_dwmac_clk_disable(priv->plat->bsp_priv);
-+	stm32_dwmac_clk_disable(dwmac, false);
- 
- 	if (dwmac->irq_pwr_wakeup >= 0) {
- 		dev_pm_clear_wake_irq(&pdev->dev);
-@@ -431,18 +425,7 @@ static void stm32_dwmac_remove(struct platform_device *pdev)
- 
- static int stm32mp1_suspend(struct stm32_dwmac *dwmac)
- {
--	int ret = 0;
--
--	ret = clk_prepare_enable(dwmac->clk_ethstp);
--	if (ret)
--		return ret;
--
--	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->syscfg_clk);
--	if (dwmac->enable_eth_ck)
--		clk_disable_unprepare(dwmac->clk_eth_ck);
--
--	return ret;
-+	return clk_prepare_enable(dwmac->clk_ethstp);
- }
- 
- static void stm32mp1_resume(struct stm32_dwmac *dwmac)
-@@ -450,14 +433,6 @@ static void stm32mp1_resume(struct stm32_dwmac *dwmac)
- 	clk_disable_unprepare(dwmac->clk_ethstp);
- }
- 
--static int stm32mcu_suspend(struct stm32_dwmac *dwmac)
--{
--	clk_disable_unprepare(dwmac->clk_tx);
--	clk_disable_unprepare(dwmac->clk_rx);
--
--	return 0;
--}
--
- #ifdef CONFIG_PM_SLEEP
- static int stm32_dwmac_suspend(struct device *dev)
- {
-@@ -468,6 +443,10 @@ static int stm32_dwmac_suspend(struct device *dev)
- 	int ret;
- 
- 	ret = stmmac_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	stm32_dwmac_clk_disable(dwmac, true);
- 
- 	if (dwmac->ops->suspend)
- 		ret = dwmac->ops->suspend(dwmac);
-@@ -485,7 +464,7 @@ static int stm32_dwmac_resume(struct device *dev)
- 	if (dwmac->ops->resume)
- 		dwmac->ops->resume(dwmac);
- 
--	ret = stm32_dwmac_init(priv->plat);
-+	ret = stm32_dwmac_init(priv->plat, true);
- 	if (ret)
- 		return ret;
- 
-@@ -500,13 +479,11 @@ static SIMPLE_DEV_PM_OPS(stm32_dwmac_pm_ops,
- 
- static struct stm32_ops stm32mcu_dwmac_data = {
- 	.set_mode = stm32mcu_set_mode,
--	.suspend = stm32mcu_suspend,
- 	.syscfg_eth_mask = SYSCFG_MCU_ETH_MASK
- };
- 
- static struct stm32_ops stm32mp1_dwmac_data = {
- 	.set_mode = stm32mp1_set_mode,
--	.clk_prepare = stm32mp1_clk_prepare,
- 	.suspend = stm32mp1_suspend,
- 	.resume = stm32mp1_resume,
- 	.parse_data = stm32mp1_parse_data,
--- 
-2.42.0
-
+BR,
+Hugues.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
