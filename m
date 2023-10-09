@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6134D7BE026
-	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 15:38:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 608537BE029
+	for <lists+linux-stm32@lfdr.de>; Mon,  9 Oct 2023 15:38:08 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FBE3C6A61D;
-	Mon,  9 Oct 2023 13:38:05 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A52DC6B44B;
+	Mon,  9 Oct 2023 13:38:08 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0B02C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0215FC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Oct 2023 13:38:04 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-406618d0992so44273825e9.0
+ Mon,  9 Oct 2023 13:38:07 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-406650da82bso41731815e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 09 Oct 2023 06:38:04 -0700 (PDT)
+ Mon, 09 Oct 2023 06:38:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696858684; x=1697463484;
+ d=gmail.com; s=20230601; t=1696858686; x=1697463486;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=u6KCxFngvX9I/hwQrj7ymkXhwkpFmhe1Y7OW2VCan1I=;
- b=fGB+dwdUu7u+fsIjXg2AGYUuh0UkXJwbrOjhlIme7NH5GePYKA3HTzuFklqUWbMHtf
- xCX5c0GzInSNpq7V2466x9wm3iSLYNWvaRAm94+mFQUV1MkCWptMtWjS4Ggsy93V2Aks
- f3O8L3WUNayZ0nAQVSFvluc/4ta6kPWcJ/bsVJl8Y2crQ+8Bm8zdQnoMgsepuG0KYhJJ
- 5ovAVqUt20cT41N8981z/0NpmKU6wYEXHaZcslYmghX205Yq6PJq3PrbmYX10Ixhwg6B
- Qz6o+apLmVCXKx7DF+Vfp+iC0I5ghqCPO4PLsxDVhZ3GzUbUEIepNrnkVUiz5/dYqQB8
- Qkyg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=m01pIjBrpccmB+UTqpe3DsPW+GxNRr1hhJrCHjJ41h8=;
+ b=lnGGt/XS/Tfd6+1TRYvEW4BzYxiYW+dCf6vCKv3NM3I0Ag0V+TgLQtR3ANbywSjboE
+ wCTv237vABMZE/ex95dxayN1iZ7rvtcQpdt/Bf+m0vyC0yuw4CQtqHmdWplXZB827Lj2
+ fB17P5av6EdFMlj17hcXZl9cGnttjSJlD1IZsX9SZB3x0Tr1lbLNQmEjFFWt9NRycYSF
+ VKvkKmhky9Lu4NysHEy3k++LsBYcVDis1lhoW2QtEzN/8udnKwWyEyVpY6UOJvR4kbwQ
+ MSPRxWgOd2Bzr3csUYvLAGk5KfKHzdMExfaE9o0mGGsbn7SEPJP1T2xedsjM2tPKFN5r
+ avnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696858684; x=1697463484;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=u6KCxFngvX9I/hwQrj7ymkXhwkpFmhe1Y7OW2VCan1I=;
- b=uA1vgs2rglBaEAlASPg8/BwG21ELzcpPF5rfSTQozwLBWdaPZe5p1A/g6dHyfH7SKy
- CEHWsd7xmtr2CeOSqniK/X4rZKykf0qhbGtwH8tXsMAPWVxu8UbdcJf1ed92M6MFoxVZ
- 3AAPkbAnKtlD2Jqd+X46kMjccNs2ynthgRYhD5istkl1kxeuZCwWLYemhDLCwr/sKgM7
- whoXBUgAE+J2QVbZuQFmxErj9nGVNnz93Yhz/VwsmTlAdNrkG94IzttvLQ4eTvatfFy1
- DIfRbJSkn0NJ2YFPcpLiC2ijNPdeUL4jlzR4HF51t+1LLJU6ebls2pvkaljFDH6pzXYA
- tjEw==
-X-Gm-Message-State: AOJu0Yzd5TK4azOiUUxRbpR7T0aG8q32fhRKgWCc2t1s5dEnWc9sEOpW
- KP9xGv0IgMqYi0modWkUkSM=
-X-Google-Smtp-Source: AGHT+IEMzVE5102E/rR+PKbFb4Y1qJpv3S+lyAIEK40sgvEz//IRItxHur9Z7ZsOHs5xcO/iYCxqbg==
-X-Received: by 2002:adf:f78d:0:b0:320:926:26d5 with SMTP id
- q13-20020adff78d000000b00320092626d5mr13881386wrp.30.1696858683739; 
- Mon, 09 Oct 2023 06:38:03 -0700 (PDT)
+ d=1e100.net; s=20230601; t=1696858686; x=1697463486;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=m01pIjBrpccmB+UTqpe3DsPW+GxNRr1hhJrCHjJ41h8=;
+ b=Y4pkIaENE+tQnwovmsabsVHmE2jLybiarHKEN0phAVnvlyBx/9g4rkvQXSn32W9W+Q
+ 7hmkeqpqqO0QQLGO2/9dN7Oi+Vn57bdWoAkZelqLIn3GjYdv+pkmb8Yjqx1I0dYhJ3zn
+ d8elL1ARGOsywZK/QuCWhdrv+B6O4GNPwCMayTTz1gCpiv7Gy/+JDlYPXi5zmmMJtxfR
+ K9NHSuqzsk9J1lNpC24YN63gip/HZbPtsClOsUafN9deX+mJaeXJHP0VvdNX4jIn92/0
+ iYiT8BDutP3QQsz2IlRDo1dteDx4uXK388zNYUp3doY1ZqRQJjZ61NBO+xAg9O+AeOMv
+ OkqA==
+X-Gm-Message-State: AOJu0Yyj+YlflW+ahjsGfIgVZOkeKAKfuMYF8+pRdgcP4+3lnYP0VSs0
+ J90BQzcZMHIGfk5ieRzQD4E=
+X-Google-Smtp-Source: AGHT+IEMX7bz877y1sqkSBBwiuVDPwmUPP6Boy0DbKerTwIWpVX1/W8TSbdVp2MIATN2+AWYZ0P7bg==
+X-Received: by 2002:a05:6000:128a:b0:31a:d9bc:47a2 with SMTP id
+ f10-20020a056000128a00b0031ad9bc47a2mr15005335wrx.53.1696858686330; 
+ Mon, 09 Oct 2023 06:38:06 -0700 (PDT)
 Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
  [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- t4-20020a0560001a4400b0032763287473sm9746160wry.75.2023.10.09.06.38.00
+ t4-20020a0560001a4400b0032763287473sm9746160wry.75.2023.10.09.06.38.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 06:38:03 -0700 (PDT)
+ Mon, 09 Oct 2023 06:38:06 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  Wolfgang Grandegger <wg@grandegger.com>,
@@ -103,12 +104,14 @@ To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, ath10k@lists.infradead.org,
  linux-wireless@vger.kernel.org
-Date: Mon,  9 Oct 2023 15:37:50 +0200
-Message-Id: <20231009133754.9834-1-ansuelsmth@gmail.com>
+Date: Mon,  9 Oct 2023 15:37:51 +0200
+Message-Id: <20231009133754.9834-2-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20231009133754.9834-1-ansuelsmth@gmail.com>
+References: <20231009133754.9834-1-ansuelsmth@gmail.com>
 MIME-Version: 1.0
-Subject: [Linux-stm32] [net-next v3 1/5] netdev: replace simple
-	napi_schedule_prep/__napi_schedule to napi_schedule
+Subject: [Linux-stm32] [net-next v3 2/5] netdev: make napi_schedule return
+	bool on NAPI successful schedule
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,50 +128,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Replace drivers that still use napi_schedule_prep/__napi_schedule
-with napi_schedule helper as it does the same exact check and call.
+Change napi_schedule to return a bool on NAPI successful schedule.
+This might be useful for some driver to do additional steps after a
+NAPI has been scheduled.
 
+Suggested-by: Eric Dumazet <edumazet@google.com>
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 Reviewed-by: Eric Dumazet <edumazet@google.com>
 ---
-Changes v3:
-- Add Reviewed-by tag
 Changes v2:
-- Add missing semicolon
+- Add Suggested-by tag
+- Add Reviewed-by tag
 ---
- drivers/net/ethernet/ni/nixge.c     | 3 +--
- drivers/net/ethernet/wiznet/w5100.c | 4 ++--
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ include/linux/netdevice.h | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/ni/nixge.c b/drivers/net/ethernet/ni/nixge.c
-index 97f4798f4b42..f71a4f8bbb89 100644
---- a/drivers/net/ethernet/ni/nixge.c
-+++ b/drivers/net/ethernet/ni/nixge.c
-@@ -755,8 +755,7 @@ static irqreturn_t nixge_rx_irq(int irq, void *_ndev)
- 		cr &= ~(XAXIDMA_IRQ_IOC_MASK | XAXIDMA_IRQ_DELAY_MASK);
- 		nixge_dma_write_reg(priv, XAXIDMA_RX_CR_OFFSET, cr);
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 7e520c14eb8c..2bead8e2a14d 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -490,11 +490,18 @@ bool napi_schedule_prep(struct napi_struct *n);
+  *
+  * Schedule NAPI poll routine to be called if it is not already
+  * running.
++ * Return true if we schedule a NAPI or false if not.
++ * Refer to napi_schedule_prep() for additional reason on why
++ * a NAPI might not be scheduled.
+  */
+-static inline void napi_schedule(struct napi_struct *n)
++static inline bool napi_schedule(struct napi_struct *n)
+ {
+-	if (napi_schedule_prep(n))
++	if (napi_schedule_prep(n)) {
+ 		__napi_schedule(n);
++		return true;
++	}
++
++	return false;
+ }
  
--		if (napi_schedule_prep(&priv->napi))
--			__napi_schedule(&priv->napi);
-+		napi_schedule(&priv->napi);
- 		goto out;
- 	}
- 	if (!(status & XAXIDMA_IRQ_ALL_MASK)) {
-diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-index 341ee2f249fd..b26fd15c25ae 100644
---- a/drivers/net/ethernet/wiznet/w5100.c
-+++ b/drivers/net/ethernet/wiznet/w5100.c
-@@ -930,8 +930,8 @@ static irqreturn_t w5100_interrupt(int irq, void *ndev_instance)
- 
- 		if (priv->ops->may_sleep)
- 			queue_work(priv->xfer_wq, &priv->rx_work);
--		else if (napi_schedule_prep(&priv->napi))
--			__napi_schedule(&priv->napi);
-+		else
-+			napi_schedule(&priv->napi);
- 	}
- 
- 	return IRQ_HANDLED;
+ /**
 -- 
 2.40.1
 
