@@ -2,60 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D954D7BF51C
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 09:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 119A47BF52F
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 10:01:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85BECC6B442;
-	Tue, 10 Oct 2023 07:59:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5021C6B442;
+	Tue, 10 Oct 2023 08:01:49 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3E17C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B08AAC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Oct 2023 07:59:30 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39A0nQgY016238; Tue, 10 Oct 2023 09:59:17 +0200
+ Tue, 10 Oct 2023 08:01:48 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39A0b5TZ030795; Tue, 10 Oct 2023 10:01:40 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=t6FqgqlXllmqDpAuOcl6Z
- MCWgd2QVrsE+XreUWApzA8=; b=8WG6ldG0V+qYvxZh225ReFUd/uM46ZswXZSpm
- 0OWAdpoqq1PV/zkX/pS9te9Sd5ryP+EX8SkQtAcCwPSFOzWuQmAf8JIriXW/VDfY
- X/RH8FwK3Zo1EdvJOAhVCl+p051ADyShFwGrIBjkqKJsDlW6/AJ/WiLvhVo/tnQu
- BSjoko3UbmDljHPTjwtl7e3L6yk/KmRxB9cpB7XOawDqSe1H65vaVIjpauBnz8X4
- FWsq2nJlrWf7RwwWdckkGXTbjmr0VTBZoHpIPkTN4v9eGcUNREUMH8VueQBrSYWd
- ef8WFNLN5lO2sKu2Q+aVAuymUo7yDHuTLHfWmJGm+Yp+uqcDA==
+ :content-type:in-reply-to; s=selector1; bh=G3WoMo1Ib1kWip9jXbcH6
+ UT8dmupoMe6GFmXNwrMs0w=; b=4UBklmMLZio+KP8okXCZaaVSbP7e1hsjZtUDf
+ wCCalYD5joyc06o2QkX1PvOYLGgZsTEinzQ5WVWoWrhh66qkeXHb4CPxxDJO3zwn
+ gpTAmPlnGYfHwY8an8th4aGPYBgFFQhVMOFrcl/6uctPZeVG5Z5GnCvDfc09WE6U
+ edSD/NcC2sYLMA1pfKzel8VxPzMqhULjWNPi95QCPwl5wdUDdIMuG1XTs34SYGiz
+ 0Hc9NLtKLNN68FIntXFzpXAbrKwM5gTZKys1cjeu9tJO/8rhv2q/CTH4KUexJ6om
+ 8Q+B6zVNpqbm8oVqaB5wHgwrBI4fIUSyovPoGdp0lUSV8q8vw==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tkhf7grvu-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tkhfe0sd0-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 10 Oct 2023 09:59:17 +0200 (MEST)
+ Tue, 10 Oct 2023 10:01:40 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 67756100058;
- Tue, 10 Oct 2023 09:59:16 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B9C05100058;
+ Tue, 10 Oct 2023 10:01:39 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 57A842128B1;
- Tue, 10 Oct 2023 09:59:16 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B0E492171E1;
+ Tue, 10 Oct 2023 10:01:39 +0200 (CEST)
 Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 10 Oct
- 2023 09:59:16 +0200
-Date: Tue, 10 Oct 2023 09:59:07 +0200
+ 2023 10:01:39 +0200
+Date: Tue, 10 Oct 2023 10:01:38 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: Rob Herring <robh@kernel.org>
-Message-ID: <20231010075907.GA1642294@gnbcxd0016.gnb.st.com>
+Message-ID: <20231010080138.GB1642294@gnbcxd0016.gnb.st.com>
 Mail-Followup-To: Rob Herring <robh@kernel.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-References: <20231009211356.3242037-2-robh@kernel.org>
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20231009211356.3242037-14-robh@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231009211356.3242037-2-robh@kernel.org>
+In-Reply-To: <20231009211356.3242037-14-robh@kernel.org>
 X-Disclaimer: ce message est personnel / this message is private
 X-Originating-IP: [10.129.178.213]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
@@ -63,13 +61,11 @@ X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-10_04,2023-10-09_01,2023-05-22_02
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] media: stm32-dcmi: Drop unnecessary
- of_match_device() call
+Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32: Explicitly include correct DT
+	includes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,56 +91,38 @@ Acked-by: Alain Volmat <alain.volmat@foss.st.com>
 Regards,
 Alain
 
-On Mon, Oct 09, 2023 at 04:13:32PM -0500, Rob Herring wrote:
-> If probe is reached, we've already matched the device and in the case of
-> DT matching, the struct device_node pointer will be set. Therefore, there
-> is no need to call of_match_device() in probe.
+On Mon, Oct 09, 2023 at 04:13:44PM -0500, Rob Herring wrote:
+> The DT of_device.h and of_platform.h date back to the separate
+> of_platform_bus_type before it as merged into the regular platform bus.
+> As part of that merge prepping Arm DT support 13 years ago, they
+> "temporarily" include each other. They also include platform_device.h
+> and of.h. As a result, there's a pretty much random mix of those include
+> files used throughout the tree. In order to detangle these headers and
+> replace the implicit includes with struct declarations, users need to
+> explicitly include the correct includes.
 > 
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
->  drivers/media/platform/st/stm32/stm32-dcmi.c | 8 --------
->  1 file changed, 8 deletions(-)
+>  drivers/spi/spi-stm32.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-> index 8cb4fdcae137..48140fdf40bb 100644
-> --- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-> +++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-> @@ -20,7 +20,6 @@
->  #include <linux/kernel.h>
+> diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
+> index ef665f470c5b..e6e3e4ea29f9 100644
+> --- a/drivers/spi/spi-stm32.c
+> +++ b/drivers/spi/spi-stm32.c
+> @@ -13,7 +13,8 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/iopoll.h>
 >  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_device.h>
->  #include <linux/of_graph.h>
+> -#include <linux/of_platform.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
 >  #include <linux/pinctrl/consumer.h>
->  #include <linux/platform_device.h>
-> @@ -1890,7 +1889,6 @@ static int dcmi_graph_init(struct stm32_dcmi *dcmi)
->  static int dcmi_probe(struct platform_device *pdev)
->  {
->  	struct device_node *np = pdev->dev.of_node;
-> -	const struct of_device_id *match = NULL;
->  	struct v4l2_fwnode_endpoint ep = { .bus_type = 0 };
->  	struct stm32_dcmi *dcmi;
->  	struct vb2_queue *q;
-> @@ -1899,12 +1897,6 @@ static int dcmi_probe(struct platform_device *pdev)
->  	struct clk *mclk;
->  	int ret = 0;
->  
-> -	match = of_match_device(of_match_ptr(stm32_dcmi_of_match), &pdev->dev);
-> -	if (!match) {
-> -		dev_err(&pdev->dev, "Could not find a match in devicetree\n");
-> -		return -ENODEV;
-> -	}
-> -
->  	dcmi = devm_kzalloc(&pdev->dev, sizeof(struct stm32_dcmi), GFP_KERNEL);
->  	if (!dcmi)
->  		return -ENOMEM;
+>  #include <linux/pm_runtime.h>
+>  #include <linux/reset.h>
 > -- 
 > 2.42.0
 > 
-> _______________________________________________
-> Linux-stm32 mailing list
-> Linux-stm32@st-md-mailman.stormreply.com
-> https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
