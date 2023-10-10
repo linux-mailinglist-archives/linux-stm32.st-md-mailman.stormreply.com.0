@@ -2,50 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55997C0285
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 19:24:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 366087C039F
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 20:42:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 774E5C6B442;
-	Tue, 10 Oct 2023 17:24:40 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6A36C6A61D;
+	Tue, 10 Oct 2023 18:42:21 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 166EEC65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA6EEC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Oct 2023 17:24:39 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <j.zink@pengutronix.de>)
- id 1qqGT4-0003ji-Fo; Tue, 10 Oct 2023 19:24:26 +0200
-Received: from [2a0a:edc0:0:1101:1d::39] (helo=dude03.red.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <j.zink@pengutronix.de>)
- id 1qqGT1-000iHu-Uy; Tue, 10 Oct 2023 19:24:23 +0200
-Received: from localhost ([::1] helo=dude03.red.stw.pengutronix.de)
- by dude03.red.stw.pengutronix.de with esmtp (Exim 4.94.2)
- (envelope-from <j.zink@pengutronix.de>)
- id 1qqGT1-002Jna-Hq; Tue, 10 Oct 2023 19:24:23 +0200
-From: Johannes Zink <j.zink@pengutronix.de>
-To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, richardcochran@gmail.com
-Date: Tue, 10 Oct 2023 19:24:15 +0200
-Message-Id: <20231010172415.552748-1-j.zink@pengutronix.de>
-X-Mailer: git-send-email 2.39.2
+ Tue, 10 Oct 2023 18:42:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id C43AECE1DF1;
+ Tue, 10 Oct 2023 18:42:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754C9C433CC;
+ Tue, 10 Oct 2023 18:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696963337;
+ bh=ldKKDLNL5IeRM0a07A6s6AJub50EGR8AJO6LTn0Obwg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LqzM4D1MlLdeXjle0S/VafEl40lMghLhLKm+9gJtf+ozhX1rdh7dMp9TxumYlErj6
+ hfFl58cakIJNbknsQMdeOerVRiHoWTUZimBOIaMG2Er7wDuh+ofNCrIildBOEkgcyF
+ iHst+Szlw1LPgbq0idM4X1NB53u3zx2lyIXz6XM9scQtjG/o0kAoQJz5cALTiLeS4h
+ P6O/43fv9eqa2gfm+cl9uXuK8WPOBWHa+gVOYYWs0n9289SeXGnWrjjm8Uyv2M2J41
+ MyzucIxozLIO/j0LhciFjLR46qrcTuYTics1mybYkX073932KlLSdDEBL0ov4kHqG8
+ 2tXMZTrLHMb7w==
+Received: (nullmailer pid 1358279 invoked by uid 1000);
+ Tue, 10 Oct 2023 18:42:12 -0000
+Date: Tue, 10 Oct 2023 13:42:12 -0500
+From: Rob Herring <robh@kernel.org>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <20231010184212.GA1221641-robh@kernel.org>
+References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
+ <20231010125719.784627-11-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: j.zink@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Johannes Zink <j.zink@pengutronix.de>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: fix typo in comment
+Content-Disposition: inline
+In-Reply-To: <20231010125719.784627-11-gatien.chevallier@foss.st.com>
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
+ will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ peng.fan@oss.nxp.com, herbert@gondor.apana.org.au,
+ Frank Rowand <frowand.list@gmail.com>, hugues.fruchet@foss.st.com,
+ lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ andi.shyti@kernel.org, alsa-devel@alsa-project.org, richardcochran@gmail.com,
+ linux-serial@vger.kernel.org, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
+ jic23@kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a
+ system bus for STM32MP15x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,30 +73,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is just a trivial fix for a typo in a comment, no functional
-changes.
+On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
+> ETZPC is a firewall controller. Put all peripherals filtered by the
+> ETZPC as ETZPC subnodes and reference ETZPC as an
+> access-control-provider.
+> 
+> For more information on which peripheral is securable or supports MCU
+> isolation, please read the STM32MP15 reference manual.
+> 
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+> 
+> Changes in V6:
+>     	- Renamed access-controller to access-controllers
+>     	- Removal of access-control-provider property
+> 
+> Changes in V5:
+>     	- Renamed feature-domain* to access-control*
+> 
+>  arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
+>  arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
+>  arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
+>  3 files changed, 1450 insertions(+), 1377 deletions(-)
 
-Signed-off-by: Johannes Zink <j.zink@pengutronix.de>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is not reviewable. Change the indentation and any non-functional 
+change in one patch and then actual changes in another.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 60b6b4a180d7..a5320c9556b5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -81,7 +81,7 @@ static int stmmac_adjust_time(struct ptp_clock_info *ptp, s64 delta)
- 	stmmac_adjust_systime(priv, priv->ptpaddr, sec, nsec, neg_adj, xmac);
- 	write_unlock_irqrestore(&priv->ptp_lock, flags);
- 
--	/* Caculate new basetime and re-configured EST after PTP time adjust. */
-+	/* Calculate new basetime and re-configured EST after PTP time adjust. */
- 	if (est_rst) {
- 		struct timespec64 current_time, time;
- 		ktime_t current_time_ns, basetime;
--- 
-2.39.2
+This is also an ABI break. Though I'm not sure it's avoidable. All the 
+devices below the ETZPC node won't probe on existing kernel. A 
+simple-bus fallback for ETZPC node should solve that. 
 
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
