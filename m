@@ -2,68 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7715B7BFD97
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 15:35:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691547BFD9C
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 15:35:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27B40C6B442;
-	Tue, 10 Oct 2023 13:35:33 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35886C6B442;
+	Tue, 10 Oct 2023 13:35:55 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2355C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB21EC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Oct 2023 13:35:31 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-3296b3f03e5so3719972f8f.2
+ Tue, 10 Oct 2023 13:35:53 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-5a7afd45199so15349507b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Oct 2023 06:35:31 -0700 (PDT)
+ Tue, 10 Oct 2023 06:35:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1696944931; x=1697549731;
+ d=linaro.org; s=google; t=1696944953; x=1697549753;
  darn=st-md-mailman.stormreply.com; 
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Aw6UgjAaJ8qgdoYorSKFrZHMQyZGneinKTuRi4ShVJM=;
- b=Hr7XQ0/7XlwdFAev+qjYgvgcVIOF0jE7+fh9ePfBu+wxoK5oSWSGyyVfdltua5fXun
- x/X36bROPO3d2GaPQhRm4e+kWyUsixXfkGEA02NRlm4PF3wJiCtSWXqUDwTiFRjpETO0
- u3HgVZSBri1n2azTtD+moeNCWhGXpnogSkeft0gLWQ3mYhS/GhyB/sBSPAf878Xr+6wD
- ksWZasos+q1gYqtpMgmefRjRJ7OLoxqXa1DhBoOey5vmVBOICW3FOaRKY08xTm6x2VXm
- FFC+JTMgqjajk/M0xtSv1XlzhgzQgp9EK7ezGhsxkE58p/huUsGVvhD94REwQn/JWSzD
- mjfQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lwaODl/6SngYIesq4fd26Zf7cKEGOc6/vuChneskjdc=;
+ b=t5QpoxPP2FOBz+zihShpDCOahqBvHKCn3toyqHtzcSa/byM1fOrOl7DgLnOXzaKpnf
+ x52wfv3L4kWfek3Z/2ZcEXMAIIka0AuUAFltyqOnJNkyg/rLaeq5qfgbxl8IWl3nlOLD
+ vSJPGP2gFTnREC5ieby+NU/PUIakgeo4xcx41qDcOh1H8FvloJyhq8SgBIPA9UVO14nS
+ 4ADtUIg3codMcVzsX3MLdraDEn/8dzR6siuxZTQ72vr4MmopDvLq5sbMLa2By/+fcvT6
+ Sq73iu/BFO6D3BA3pnsZ+SuhKKFlo2IZDIjqD7ZUfGMBhSQrmZ3vJCj01lfaBxEROot2
+ OB4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696944931; x=1697549731;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Aw6UgjAaJ8qgdoYorSKFrZHMQyZGneinKTuRi4ShVJM=;
- b=ljMHOJNUhXe0cy+Le7rFywvmVqh7YEYZ5Su5kcDYGOKKp3eHshPZmbWmb8T7H9a48Y
- 5jAOt2TlrRtP4jhuYNTqJdOgVW98Ej927RQ4WxFaC6tDG6ubc4x+ONvMO8hID6KhK78a
- 0HCBUPb0aYfcgYJJ1899CM03EzSSwmJKfauZHb6fq73VUMDcfx2oBBr3pGes+3IGnxsD
- e8fTsn8anSSsbTwNFZIyZGbuR5/UqV+VR3jeK0ni2vKbz5hPf1iCuIiILYAu/fWxU9zV
- YxOr1TDsHWoszKQUOKIoUU/k9DzF83Jx69XtM6DEUO4A/8KA8nuWjFIJ0Hl5Dz/t1ADH
- 4g2w==
-X-Gm-Message-State: AOJu0YxZDvOY0bjuYjLFU6xfryyOR7PI+rI9QjnUInQvENoy5vcujlpM
- zP4B7aYyCzTivBeXRIBSlCAeBQ==
-X-Google-Smtp-Source: AGHT+IFw0S6b8g/kvtjWSB5E2ensCP7thl7P6ePtjXo8nKPhrToH5H95gZBpPNqgpHUyhd5SXj2FaQ==
-X-Received: by 2002:a05:6000:1f87:b0:32d:24c7:a268 with SMTP id
- bw7-20020a0560001f8700b0032d24c7a268mr1899178wrb.4.1696944931382; 
- Tue, 10 Oct 2023 06:35:31 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- q9-20020adfcd89000000b00317f70240afsm12596738wrj.27.2023.10.10.06.35.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Oct 2023 06:35:31 -0700 (PDT)
-Date: Tue, 10 Oct 2023 16:35:28 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Maxime Ripard <mripard@kernel.org>
-Message-ID: <d9a78453-9b40-48c1-830e-00751ba3ecb8@kili.mountain>
+ d=1e100.net; s=20230601; t=1696944953; x=1697549753;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lwaODl/6SngYIesq4fd26Zf7cKEGOc6/vuChneskjdc=;
+ b=QUF1/3wiGNi/PSQaVjRt/WXwQGpsSf4Jlc2Livp9SfY4/dpILqjklqvMHZynJJ0cY9
+ nAAMW6HnirGl/uU638ZePPN8i53AvOtBou6ehDG037/0rlNi0fxJ+I+YtDCytVd7fgLT
+ 3EqhSQYolSAY0JsFpn1GFKkMt+1SRpBpHDqwgW4+RKBDG7zYyIEdIPq/MbSqsyS1f74F
+ 9oiu/MgzrPI+Z32LibNt+FXgywMo9VmucPJ7c6QTmyLM5m6q6by/XAO8teQr7JBNUSsc
+ r1Pz/ldNrGjEN3XVcOHL89e+atumpZWwMP0uwGuJaTMfNGgWNUUWw3QwTLuUO8f5/DUe
+ YNWA==
+X-Gm-Message-State: AOJu0Yz2xAW4vl/LPS4+DFUFp06AhGgxR7JmN5XSZwDwN9s6cjIZgyEZ
+ 6wN45refK1mW6THF546oZWkJQJSD4jbG22XYNLj7dQ==
+X-Google-Smtp-Source: AGHT+IGG3gi8s+Fcz5VP7yTY/DRWNo6Zujz9HnOJaU190QxNyFwVrfyV42NA8H4la4b2WLErva3zQYndcUdDa01huh4=
+X-Received: by 2002:a81:5cd5:0:b0:595:2094:f87 with SMTP id
+ q204-20020a815cd5000000b0059520940f87mr19266136ywb.47.1696944952747; Tue, 10
+ Oct 2023 06:35:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-Cc: Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, kernel-janitors@vger.kernel.org,
- linux-clk@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] clk: stm32: Fix a signedness issue in
- clk_stm32_composite_determine_rate()
+References: <20231009083856.222030-1-u.kleine-koenig@pengutronix.de>
+ <20231009083856.222030-2-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20231009083856.222030-2-u.kleine-koenig@pengutronix.de>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 10 Oct 2023 15:35:41 +0200
+Message-ID: <CACRpkdYoqxP89nC=e8Yrt+Jxs1je4jnBBGtaUQfkKpjcR5vQ6Q@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 01/20] pinctrl: stmfx: Improve error
+ message in .remove()'s error path
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,38 +73,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The divider_ro_round_rate() function could potentially return -EINVAL on
-error but the error handling doesn't work because "rate" is unsigned.
-It should be a type long.
-
-Fixes: 06ed0fc0fbac ("clk: stm32: composite: Switch to determine_rate")
-Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
----
- drivers/clk/stm32/clk-stm32-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/clk/stm32/clk-stm32-core.c b/drivers/clk/stm32/clk-stm32-core.c
-index d5aa09e9fce4..067b918a8894 100644
---- a/drivers/clk/stm32/clk-stm32-core.c
-+++ b/drivers/clk/stm32/clk-stm32-core.c
-@@ -431,7 +431,7 @@ static int clk_stm32_composite_determine_rate(struct clk_hw *hw,
- {
- 	struct clk_stm32_composite *composite = to_clk_stm32_composite(hw);
- 	const struct stm32_div_cfg *divider;
--	unsigned long rate;
-+	long rate;
- 
- 	if (composite->div_id == NO_STM32_DIV)
- 		return 0;
--- 
-2.39.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBPY3QgOSwgMjAyMyBhdCAxMToyMuKAr0FNIFV3ZSBLbGVpbmUtS8O2bmlnCjx1Lmts
+ZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+IHdyb3RlOgoKCj4gVGhlIGRyaXZlciBjb3JlIGhh
+cyBubyBoYW5kbGluZyBmb3IgZXJyb3JzIHJldHVybmVkIGJ5IHRoZSAucmVtb3ZlKCkKPiBjYWxs
+YmFjay4gVGhlIG9ubHkgYWN0aW9uIG9uIGVycm9yIGlzIGEgZGV2X3dhcm4oKSB3aXRoIGdlbmVy
+aWMgZXJyb3IKPiBtZXNzYWdlIHRoYXQgdGhlIHJldHVybmVkIHZhbHVlIGlzIHJldHVybmVkLgo+
+Cj4gUmVwbGFjZSBpdCBieSBhIG1vcmUgc3BlY2lmaWMgYW5kIHVzZWZ1bCBtZXNzYWdlLiBUaGVu
+IHJldHVybmluZyB6ZXJvIGlzCj4gdGhlIHJpZ2h0IHRoaW5nIHRvIGRvLCB0aGUgb25seSBlZmZl
+Y3QgaXMgdG8gc3VwcHJlc3MgdGhlIGNvcmUncwo+IHdhcm5pbmcuCj4KPiBUaGlzIHByZXBhcmVz
+IHRoZSBkcml2ZXIgZm9yIHRoZSBjb252ZXJzaW9uIHRvIC5yZW1vdmVfbmV3KCkuCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4
+LmRlPgoKUGF0Y2ggYXBwbGllZC4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
