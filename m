@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80ABA7BF6F7
+	by mail.lfdr.de (Postfix) with ESMTPS id 928F47BF6F9
 	for <lists+linux-stm32@lfdr.de>; Tue, 10 Oct 2023 11:17:16 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33A9FC6B442;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DBF0C6B463;
 	Tue, 10 Oct 2023 09:17:16 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 146C9C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89B49C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Oct 2023 09:17:14 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39A86UJj026211; Tue, 10 Oct 2023 11:16:48 +0200
+ Tue, 10 Oct 2023 09:17:15 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39A8CLSL030787; Tue, 10 Oct 2023 11:16:48 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=bQ+mwMv
- 2GMXDQf764N7qmXyJrCQeTnM9Hg+Q5Uk+ITA=; b=fncGbiBcXl7cajFxjY1ruYt
- /LXieHxa9Q0iv/zqnr4BVrQg5kgegreoqT/L+sgqXLb/y9ybVhIaydBIp6u642lk
- Dtfcv5U4ChtnTf7GmitNHh+5H4EWYzG+0zG8m1SKDLFSaxAa+sg5Cu50bRO3S77k
- h+IRMHWJjcigmH+COIP1CEBxo2h1X5PRvkV5WHLbzaBQb070qp5RJK6pELEE+yaR
- sYthF9lqZINrTEk/jbhcE3nPdm9iUjTJSNEI7OpMmk56CwUb0HQC+5+abYMPwTW1
- SzEDRyJHSKOpK7yTNLUGlZAWGGqqKXzCM/yYq5U5iJzCw1yBQmGTW17OPywtODg=
- =
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding:content-type; s=
+ selector1; bh=LFAa4Jn4tiEfEImWcrbUI//FcIw/xnpf/WL80D9ScuQ=; b=fu
+ UOP3wTOpnnoj3auZA7Q7ZJO6nLqBnLclg3GtjTb0cpQsaAct+tpjpR5bJaKu2hH8
+ w54YxZBXYv2g8Ab62qHvVDhYfp0lGFAPUsoWYtGxiVQTxI6cXojYk4zfchRyxxYW
+ 2p0YaAFHzts2gknBB0iwtd1sjZWTWDa00wyZDveO5asYtxxgUQXKDALjeoS0JnXB
+ PcObO3mnmLbdz3T17QhOiB0ajWL7Nh032oNqT3TSk1zvbI+QtLUgJzDdcahQ0BJ/
+ PFIIrqivWtEIRda+LLl5fQ2ngJ9cajZyG027sMqB9HIjZqlMcK6rTXdRHXpDLFk5
+ hnfQhERgBa9Fe4GlsKiA==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tkj9gs37j-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tkhfe16c5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Tue, 10 Oct 2023 11:16:48 +0200 (MEST)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D1B6C100058;
- Tue, 10 Oct 2023 11:16:46 +0200 (CEST)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id A451210005E;
+ Tue, 10 Oct 2023 11:16:47 +0200 (CEST)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id BE4F621BF69;
- Tue, 10 Oct 2023 11:16:46 +0200 (CEST)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9B94121BF6A;
+ Tue, 10 Oct 2023 11:16:47 +0200 (CEST)
 Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 10 Oct
- 2023 11:16:46 +0200
+ 2023 11:16:47 +0200
 From: Hugues Fruchet <hugues.fruchet@foss.st.com>
 To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
  <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
@@ -60,20 +60,22 @@ To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
  <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
  <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
  <linux-rockchip@lists.infradead.org>
-Date: Tue, 10 Oct 2023 11:16:38 +0200
-Message-ID: <20231010091643.3666290-1-hugues.fruchet@foss.st.com>
+Date: Tue, 10 Oct 2023 11:16:39 +0200
+Message-ID: <20231010091643.3666290-2-hugues.fruchet@foss.st.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231010091643.3666290-1-hugues.fruchet@foss.st.com>
+References: <20231010091643.3666290-1-hugues.fruchet@foss.st.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.201.20.120]
 X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-10-10_04,2023-10-09_01,2023-05-22_02
 Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
  Marco Felsch <m.felsch@pengutronix.de>
-Subject: [Linux-stm32] [PATCH v2 0/5] Add support for video hardware codec
-	of STMicroelectronics STM32 SoC series
+Subject: [Linux-stm32] [PATCH v2 1/5] dt-bindings: media: Document STM32MP25
+	VDEC & VENC video codecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,48 +92,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patchset introduces support for VDEC video hardware decoder
-and VENC video hardware encoder of STMicroelectronics STM32MP25
-SoC series.
+Add STM32MP25 VDEC video decoder & VENC video encoder bindings.
 
-This initial support implements H264 decoding, VP8 decoding and
-JPEG encoding.
-
-This has been tested on STM32MP257F-EV1 evaluation board.
-
-===========
-= history =
-===========
-version 2:
-   - Fix remarks from Krzysztof Kozlowski on v1:
-    - single video-codec binding for both VDEC/VENC
-    - get rid of "-names"
-    - use of generic node name "video-codec"
-
-version 1:
-  - Initial submission
-
-Hugues Fruchet (5):
-  dt-bindings: media: Document STM32MP25 VDEC & VENC video codecs
-  media: hantro: add support for STM32MP25 VDEC
-  media: hantro: add support for STM32MP25 VENC
-  arm64: dts: st: add video decoder support to stm32mp255
-  arm64: dts: st: add video encoder support to stm32mp255
-
- .../media/st,stm32mp25-video-codec.yaml       |  58 +++++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi        |  12 ++
- arch/arm64/boot/dts/st/stm32mp255.dtsi        |  17 ++
- drivers/media/platform/verisilicon/Kconfig    |  14 +-
- drivers/media/platform/verisilicon/Makefile   |   4 +
- .../media/platform/verisilicon/hantro_drv.c   |   4 +
- .../media/platform/verisilicon/hantro_hw.h    |   2 +
- .../platform/verisilicon/stm32mp25_vdec_hw.c  |  92 +++++++++++
- .../platform/verisilicon/stm32mp25_venc_hw.c  | 147 ++++++++++++++++++
- 9 files changed, 347 insertions(+), 3 deletions(-)
+Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+---
+ .../media/st,stm32mp25-video-codec.yaml       | 58 +++++++++++++++++++
+ 1 file changed, 58 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
- create mode 100644 drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
- create mode 100644 drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
 
+diff --git a/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
+new file mode 100644
+index 000000000000..479566171568
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/st,stm32mp25-video-codec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32MP25 VDEC video decoder & VENC video encoder
++
++maintainers:
++  - Hugues Fruchet <hugues.fruchet@foss.st.com>
++
++description:
++  The STMicroelectronics STM32MP25 SOCs embeds a VDEC video hardware
++  decoder peripheral based on Verisilicon VC8000NanoD IP (former Hantro G1)
++  and a VENC video hardware encoder peripheral based on Verisilicon
++  VC8000NanoE IP (former Hantro H1).
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - st,stm32mp25-vdec
++          - st,stm32mp25-venc
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    vdec: video-codec@580d0000 {
++        compatible = "st,stm32mp25-vdec";
++        reg = <0x580d0000 0x3c8>;
++        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&ck_icn_p_vdec>;
++    };
++  - |
++    venc: video-codec@580e0000 {
++        compatible = "st,stm32mp25-venc";
++        reg = <0x580e0000 0x800>;
++        interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&ck_icn_p_venc>;
++    };
 -- 
 2.25.1
 
