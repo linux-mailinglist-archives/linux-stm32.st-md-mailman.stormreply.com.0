@@ -2,68 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0EF7C61E9
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Oct 2023 02:40:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C21D97C6324
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Oct 2023 04:57:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3018AC6B45E;
-	Thu, 12 Oct 2023 00:40:33 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ED82C6B45E;
+	Thu, 12 Oct 2023 02:57:58 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com [45.249.212.255])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7AAC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EBE9C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Oct 2023 00:40:31 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id EC18DCE26A1;
- Thu, 12 Oct 2023 00:40:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 83BDBC433CD;
- Thu, 12 Oct 2023 00:40:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697071229;
- bh=wGHJyiALp3GFYTvWaoHxyso+f2Vuj4QGs+ejJHlDf/k=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=VE5CUTDPsvYyqkldEDqOEXMVmFtYsTPZSIVSOrPhdqUiu+qC0gTSFu6e4mo37ejhQ
- /nJHSRLR/5Uq37Vk7V8G+nOXlNvk8vH6E7h/jFJuVqHPRQONGS0TzuyWGyPhojUAH7
- Y4urAQ4NY7DQHqZIv7DL90hwQTF8/SrBLn8tcK2EKIaO4+tESHK8SoJsiMlOStfslk
- O/7RUIjozO0FXUzHR0diff2R+Z5LRSigjR9sS4lydG4rj6L1lOXawWzS/iyDrc3/8u
- ubZ2+bqVueHFdmEqJE9Vi1b+9kyKU6EIaNcULLSEz66GZICCGoNPjSU3dE+Xj/HwlZ
- 8gXY0TDIzUzzA==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 5A538E21ED9; Thu, 12 Oct 2023 00:40:29 +0000 (UTC)
+ Thu, 12 Oct 2023 02:57:56 +0000 (UTC)
+Received: from kwepemm000013.china.huawei.com (unknown [172.30.72.54])
+ by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4S5Z4l2Jlpz1M98b;
+ Thu, 12 Oct 2023 10:55:19 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ kwepemm000013.china.huawei.com (7.193.23.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.31; Thu, 12 Oct 2023 10:57:52 +0800
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+To: <richard@nod.at>, <miquel.raynal@bootlin.com>, <vigneshr@ti.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@foss.st.com>
+References: <20230828063845.3142561-1-chengzhihao1@huawei.com>
+Message-ID: <ee01780b-f5ef-26c8-f632-3bc56cd46b96@huawei.com>
+Date: Thu, 12 Oct 2023 10:57:52 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169707122936.23011.6924255297609142862.git-patchwork-notify@kernel.org>
-Date: Thu, 12 Oct 2023 00:40:29 +0000
-References: <20231009133754.9834-1-ansuelsmth@gmail.com>
-In-Reply-To: <20231009133754.9834-1-ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: andrew@lunn.ch, ryazanov.s.a@gmail.com, ziweixiao@google.com,
- chris.snook@gmail.com, ricklind@linux.ibm.com, linux-kernel@vger.kernel.org,
- khalasa@piap.pl, edumazet@google.com, ath10k@lists.infradead.org,
- danymadden@us.ibm.com, gregory.greenman@intel.com, set_pte_at@outlook.com,
- chiranjeevi.rapolu@linux.intel.com, linux-stm32@st-md-mailman.stormreply.com,
- linuxwwan@intel.com, robh@kernel.org, jeroendb@google.com, leon@kernel.org,
- linux-rdma@vger.kernel.org, mpe@ellerman.id.au, haren@linux.ibm.com,
- christophe.leroy@csgroup.eu, rushilg@google.com, jgg@ziepe.ca,
- tlfalcon@linux.ibm.com, joabreu@synopsys.com, elder@linaro.org,
- linux-wireless@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
- wg@grandegger.com, nnac123@linux.ibm.com, bhupesh.sharma@linaro.org,
- haijun.liu@mediatek.com, kvalo@kernel.org, u.kleine-koenig@pengutronix.de,
- bcf@google.com, npiggin@gmail.com, linux-can@vger.kernel.org,
- ruc_gongyuanjun@163.com, shailend@google.com, mkl@pengutronix.de,
- benjamin.berg@intel.com, m.chetan.kumar@linux.intel.com, tglx@linutronix.de,
- YKarpov@ispras.ru, linux-arm-kernel@lists.infradead.org,
- chandrashekar.devegowda@intel.com, ricardo.martinez@linux.intel.com,
- loic.poulain@linaro.org, zhengzengkai@huawei.com, netdev@vger.kernel.org,
- pagadala.yesu.anjaneyulu@intel.com, linuxppc-dev@lists.ozlabs.org,
- dougmill@linux.ibm.com, gustavoars@kernel.org, tariqt@nvidia.com,
- horms@kernel.org, krzysztof.kozlowski@linaro.org, junfeng.guo@intel.com,
- mcoquelin.stm32@gmail.com, rajur@chelsio.com, pkaligineedi@google.com,
- johannes@sipsolutions.net, quic_jjohnson@quicinc.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [net-next v3 1/5] netdev: replace simple
- napi_schedule_prep/__napi_schedule to napi_schedule
+In-Reply-To: <20230828063845.3142561-1-chengzhihao1@huawei.com>
+X-Originating-IP: [10.174.178.46]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ kwepemm000013.china.huawei.com (7.193.23.81)
+X-CFilter-Loop: Reflected
+Cc: bagasdotme@gmail.com, linux-mtd@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 00/12] ubi: fastmap: Fix a series of
+ wear leveling problems
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,49 +49,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon,  9 Oct 2023 15:37:50 +0200 you wrote:
-> Replace drivers that still use napi_schedule_prep/__napi_schedule
-> with napi_schedule helper as it does the same exact check and call.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> Reviewed-by: Eric Dumazet <edumazet@google.com>
-> ---
-> Changes v3:
-> - Add Reviewed-by tag
-> Changes v2:
-> - Add missing semicolon
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v3,1/5] netdev: replace simple napi_schedule_prep/__napi_schedule to napi_schedule
-    https://git.kernel.org/netdev/net-next/c/ef724517b596
-  - [net-next,v3,2/5] netdev: make napi_schedule return bool on NAPI successful schedule
-    https://git.kernel.org/netdev/net-next/c/0a779003213b
-  - [net-next,v3,3/5] netdev: replace napi_reschedule with napi_schedule
-    https://git.kernel.org/netdev/net-next/c/73382e919f3d
-  - [net-next,v3,4/5] net: tc35815: rework network interface interrupt logic
-    https://git.kernel.org/netdev/net-next/c/be176234d0a8
-  - [net-next,v3,5/5] netdev: use napi_schedule bool instead of napi_schedule_prep/__napi_schedule
-    https://git.kernel.org/netdev/net-next/c/d1fea38f01ac
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+1NogMjAyMy84LzI4IDE0OjM4LCBaaGloYW8gQ2hlbmcg0LS1wDoKPiBUaGlzIHNlcmllcyBvZiBw
+YXRjaGVzIGZpeCB0aHJlZSBwcm9ibGVtczoKPiAxLiBJbmNvbnNpc3RlbnQgZXJhc2UgY291bnRl
+ciBmcm9tIHdsIGVudHJ5IGFuZCBkaXNrLCBmb3IgcGF0Y2hlcyAxfjQuCj4gMi4gU2FtZSBQRUIg
+aXMgYWx3YXlzIHJlc3VlZCBmb3IgZmFzdG1hcCBkYXRhLCBmb3IgcGF0Y2hlcyA1fjkuCj4gMy4g
+Rmlyc3QgNjQgUEVCcyBoYXZlIGxhcmdlIGVyYXNlIGNvdW50ZXIgdGhhbiBvdGhlcnMsIGZvciBw
+YXRjaGVzIDEwfjEyLgo+IAo+IEJlc2lkZXMsIHBhdGNoZXMgNC81IGJyaW5nIGFuIGltcHJvdmVt
+ZW50IG9mIHRoZSBVQkkgc2VydmljZSBsaWZlLgo+IAo+IFJlZ3Jlc3Npb24gdGVzdHMgYXJlIGlu
+IFtMaW5rXS4KPiAKPiBMaW5rOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcvc2hvd19idWcu
+Y2dpP2lkPTIxNzc4Ny4KPiAKPiB2MS0+djI6Cj4gICAgUGF0Y2ggNjogQ2hhbmdlIHdhaXQgY29u
+ZGl0aW9uIGluIHdhaXRfZnJlZV9wZWJzX2Zvcl9wb29sKCksIHRoZXJlIGFyZQo+IAkgICB0d28g
+c2l0dWF0aW9ucyB0aGF0IGNhdXNlIHdhaXRpbmcgaW5maW5hdGVseToKPiAJICAgMS4gX19lcmFz
+ZV93b3JrZXIgc2NoZWR1bGVzIGl0c2VsZiBpZiAtRUJVU1kgcmV0dXJuZWQgd2hlbgo+IAkgICAg
+ICBzaHV0dGluZyBkb3duIHN5c3RlbS4KPiAJICAgMi4gVGhlICdtaW5fZXhwZWN0X2ZyZWUnIGNh
+bm5vdCBiZSBzYXRpc2ZpZWQgd2hlbiBiYWQgYmxvY2sKPiAJICAgICAgb2NjdXJzIGFuZCB1Ymkg
+YmVjb21lcyBybyhUaGUgZXJhc2VkIFBFQiBzaG91bGQgYmUgdGhlCj4gICAgICAgICAgICAgICAg
+bGFzdCBvbmUgb2YgJ21pbl9leHBlY3RfZnJlZScsIGJ1dCBpdCBiZWNvbWVzIGJhZCBpbgo+IAkg
+ICAgICBfX2VyYXNlX3dvcmtlcikuCj4gICBQUzogQWZ0ZXIgcmUtdGVzdGluZywgdGhlIHRlc3Rp
+bmcgcmVzdWx0cyBpbiBbTGlua10gaXMgbm90IGFmZmVjdGVkLgo+IAoKSGksIFJpY2hhcmQuIEkg
+aG9wZSB5b3UgY2FuIHRha2Ugc29tZSB0aW1lKHdoZW4geW91IGhhdmUgZnJlZSB0aW1lKSB0byAK
+aGF2ZSBhIGdsYW5jZSBvZiB0aGlzIHNlcmllcyBvZiBwYXRjaGVzLCBJIGhhdmUgbWFkZSBzb21l
+IHRlc3RzIG9uIAp2aXJ0dWFsIG1hY2hpbmUgZm9yIDIrIG1vbnRocyhhbmQgaGFsZiBtb250aCBm
+b3IgcGh5c2ljYWwgbmFuZCBmbGFzaCksIApzbyBmYXIgdWJpIHdvcmtzIGZpbmUgd2l0aCBwYXRj
+aGVzIGFwcGxpZWQuCgo+IAo+IFpoaWhhbyBDaGVuZyAoMTIpOgo+ICAgIHViaTogZmFzdG1hcDog
+Rml4IG1pc3NlZCBlYyB1cGRhdGluZyBhZnRlciBlcmFzaW5nIG9sZCBmYXN0bWFwIGRhdGEKPiAg
+ICAgIGJsb2NrCj4gICAgdWJpOiBmYXN0bWFwOiBlcmFzZV9ibG9jazogR2V0IGVyYXNlIGNvdW50
+ZXIgZnJvbSB3bF9lbnRyeSByYXRoZXIgdGhhbgo+ICAgICAgZmxhc2gKPiAgICB1Ymk6IGZhc3Rt
+YXA6IEFsbG9jYXRlIG1lbW9yeSB3aXRoIEdGUF9OT0ZTIGluIHViaV91cGRhdGVfZmFzdG1hcAo+
+ICAgIHViaTogUmVwbGFjZSBlcmFzZV9ibG9jaygpIHdpdGggc3luY19lcmFzZSgpCj4gICAgdWJp
+OiBmYXN0bWFwOiBVc2UgZnJlZSBwZWJzIHJlc2VydmVkIGZvciBiYWQgYmxvY2sgaGFuZGxpbmcK
+PiAgICB1Ymk6IGZhc3RtYXA6IFdhaXQgdW50aWwgdGhlcmUgYXJlIGVub3VnaCBmcmVlIFBFQnMg
+YmVmb3JlIGZpbGxpbmcKPiAgICAgIHBvb2xzCj4gICAgdWJpOiBmYXN0bWFwOiBSZW1vdmUgdW5u
+ZWVkZWQgYnJlYWsgY29uZGl0aW9uIHdoaWxlIGZpbGxpbmcgcG9vbHMKPiAgICB1Ymk6IGZhc3Rt
+YXA6IG1heV9yZXNlcnZlX2Zvcl9mbTogRG9uJ3QgcmVzZXJ2ZSBQRUIgaWYgZm1fYW5jaG9yCj4g
+ICAgICBleGlzdHMKPiAgICB1Ymk6IGZhc3RtYXA6IEdldCB3bCBQRUIgZXZlbiBlYyBiZXlvbmRz
+IHRoZSAnbWF4JyBpZiBmcmVlIFBFQnMgYXJlCj4gICAgICBydW4gb3V0Cj4gICAgdWJpOiBmYXN0
+bWFwOiBGaXggbGFwc2VkIHdlYXIgbGV2ZWxpbmcgZm9yIGZpcnN0IDY0IFBFQnMKPiAgICB1Ymk6
+IGZhc3RtYXA6IEFkZCBtb2R1bGUgcGFyYW1ldGVyIHRvIGNvbnRyb2wgcmVzZXJ2aW5nIGZpbGxp
+bmcgcG9vbAo+ICAgICAgUEVCcwo+ICAgIHViaTogZmFzdG1hcDogQWRkIGNvbnRyb2wgaW4gJ1VC
+SV9JT0NBVFQnIGlvY3RsIHRvIHJlc2VydmUgUEVCcyBmb3IKPiAgICAgIGZpbGxpbmcgcG9vbHMK
+PiAKPiAgIGRyaXZlcnMvbXRkL3ViaS9idWlsZC5jICAgICAgfCAgMjUgKysrKysrKy0KPiAgIGRy
+aXZlcnMvbXRkL3ViaS9jZGV2LmMgICAgICAgfCAgIDMgKy0KPiAgIGRyaXZlcnMvbXRkL3ViaS9l
+YmEuYyAgICAgICAgfCAgIDMgLQo+ICAgZHJpdmVycy9tdGQvdWJpL2Zhc3RtYXAtd2wuYyB8IDEx
+MiArKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLQo+ICAgZHJpdmVycy9tdGQvdWJp
+L2Zhc3RtYXAuYyAgICB8ICA2NiArKystLS0tLS0tLS0tLS0tLS0tLS0KPiAgIGRyaXZlcnMvbXRk
+L3ViaS91YmkuaCAgICAgICAgfCAgMTAgKysrLQo+ICAgZHJpdmVycy9tdGQvdWJpL3dsLmMgICAg
+ICAgICB8ICA0OCArKysrKysrKystLS0tLS0KPiAgIGRyaXZlcnMvbXRkL3ViaS93bC5oICAgICAg
+ICAgfCAgIDYgKy0KPiAgIGluY2x1ZGUvdWFwaS9tdGQvdWJpLXVzZXIuaCAgfCAgIDQgKy0KPiAg
+IDkgZmlsZXMgY2hhbmdlZCwgMTY0IGluc2VydGlvbnMoKyksIDExMyBkZWxldGlvbnMoLSkKPiAK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
