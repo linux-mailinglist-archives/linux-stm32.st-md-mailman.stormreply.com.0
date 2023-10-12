@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEA797C71C4
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Oct 2023 17:44:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A5E7C7A94
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Oct 2023 01:47:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69A7BC6A5EA;
-	Thu, 12 Oct 2023 15:44:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE932C6A613;
+	Thu, 12 Oct 2023 23:47:34 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 282F6C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78332C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Oct 2023 15:44:30 +0000 (UTC)
+ Thu, 12 Oct 2023 23:47:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DC02261E45;
- Thu, 12 Oct 2023 15:44:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2CAC433C9;
- Thu, 12 Oct 2023 15:44:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 37AF261F8F;
+ Thu, 12 Oct 2023 23:47:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1C4C433C8;
+ Thu, 12 Oct 2023 23:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697125468;
- bh=GICrSG2Yr7cyuandvlnQB4wtkQU/ONqfvxNpkn64C6c=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=urSiZTDhcxBtHJPTvqtBC4cbLtC9OIQZFQf/8DnE7ETAiwuqDBbUXRQuEm41SaASc
- QIW6lXY9WRyLn50Pu+zz9QzE+yC+dw5RwAzE4LdRW9RHA+84bytQo5AbqNAJyDSkzP
- CoH1XRfilCg0doAuE8Yd4JdRbcCsQ6KRsIbJHkX/MKZPafuH6b8f7LPWmztVh3X9z5
- 9Cyy+vzf8G5cPYYhDnnTFtZW5uHUt4Yolt7eqNWMfq6bNdAE9ciEgZlRXCYiakemly
- aPm3MhhdFqCQhK/TM4FNWQimBRHYFA5UoIuBnHCjbN9RkeL8lluk7L1aDOjP0oeLbx
- KpcJdVuuX7PMA==
-Date: Thu, 12 Oct 2023 17:44:22 +0200
-From: Simon Horman <horms@kernel.org>
-To: Johannes Zink <j.zink@pengutronix.de>
-Message-ID: <20231012154422.GE1178137@kernel.org>
-References: <20231010172415.552748-1-j.zink@pengutronix.de>
+ s=k20201202; t=1697154451;
+ bh=g0j0ntI7cDursByucgnzG9BJl82/ZPQ8pgpkva55nnE=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=dK8W5ZmTFp+nRPaYMnqtSLj8r06kz2uUeV6PikgHxVbIdah6Kn6Bb8WNEMyUylTYZ
+ Uk2ugUn8P3sbz0Lv2tZK8HV508ta0OnNSRN8KpXu4MHjrdvzQEeBNLaJIUZax3VzFW
+ P7NkX8xDZn2tT/H03E+bhTHSS8YUpmmzJheYBfigCbRjHtbOCzQOx14pCXb5kxneiN
+ 1CIjSW1fib+3wFN+OI54384AqtxoUeowMXkcNxjMNc4ut+fgEheSjQWrmTpRcQjpe7
+ n5KfSVpAWgKv49p9PdExdzMSmS+hAv7hJI2JO+Q6OmZ+07CAl7VdcEcqfemKF5XUbE
+ anlVynjdKNAKA==
+Message-ID: <8ec3d2c6458d6979d780936d3521cf1d.sboyd@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231010172415.552748-1-j.zink@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, netdev@vger.kernel.org,
- richardcochran@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix typo in comment
+In-Reply-To: <d9a78453-9b40-48c1-830e-00751ba3ecb8@kili.mountain>
+References: <d9a78453-9b40-48c1-830e-00751ba3ecb8@kili.mountain>
+From: Stephen Boyd <sboyd@kernel.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Maxime Ripard <mripard@kernel.org>
+Date: Thu, 12 Oct 2023 16:47:29 -0700
+User-Agent: alot/0.10
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ kernel-janitors@vger.kernel.org, linux-clk@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] clk: stm32: Fix a signedness issue in
+	clk_stm32_composite_determine_rate()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,17 +59,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 10, 2023 at 07:24:15PM +0200, Johannes Zink wrote:
-> This is just a trivial fix for a typo in a comment, no functional
-> changes.
+Quoting Dan Carpenter (2023-10-10 06:35:28)
+> The divider_ro_round_rate() function could potentially return -EINVAL on
+> error but the error handling doesn't work because "rate" is unsigned.
+> It should be a type long.
 > 
-> Signed-off-by: Johannes Zink <j.zink@pengutronix.de>
+> Fixes: 06ed0fc0fbac ("clk: stm32: composite: Switch to determine_rate")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+> ---
 
-Thanks,
-
-I checked and codespell doesn't flag any other spelling errors in this file.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
+Applied to clk-fixes
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
