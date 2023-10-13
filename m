@@ -2,68 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B757C9113
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Oct 2023 00:57:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BD857C9123
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Oct 2023 01:03:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4E31C6B442;
-	Fri, 13 Oct 2023 22:57:21 +0000 (UTC)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
- [209.85.217.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3632BC6B442;
+	Fri, 13 Oct 2023 23:03:33 +0000 (UTC)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+ [209.85.217.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC6C5C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB935C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Oct 2023 22:57:19 +0000 (UTC)
-Received: by mail-vs1-f54.google.com with SMTP id
- ada2fe7eead31-457cba20cb7so360387137.1
+ Fri, 13 Oct 2023 23:03:31 +0000 (UTC)
+Received: by mail-vs1-f48.google.com with SMTP id
+ ada2fe7eead31-4577c1ae94fso1162447137.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Oct 2023 15:57:19 -0700 (PDT)
+ Fri, 13 Oct 2023 16:03:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1697237839; x=1697842639;
+ d=linaro.org; s=google; t=1697238210; x=1697843010;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6wPwnmETenw6MmBk8K6nY/876otg8xGa1r8lksqWFBc=;
- b=CYbnTezjSs0rCP/TSGYm9TQigs9hLqofaQnpHNEDcI7DKgGbmKC5lDLmgWrihMwo5t
- 7D2D4sSE+o03hUDja2Od+UoRdb2sHVDqYs1nPEqJFcFYi010Zfg3JMyB0EzEYXvboEle
- m2AZOAAhgw5+E+AEKbDoWov0bhEqR16Ke8JsWfePKGCYv2F89RBkqNHRuu1R64zWeumA
- EYCK4iYGtjB2OqisCkcZA9Pgchc9o1mEMm9r8Y0D9yK4J5cdfnXyVWzTmaQCpG0BkaLW
- IAjQ5LiTJJJltQziw5+4wbOTX3sOEjB9Wy9dIGkjFqfJAACpQnbIgmOgKoO9E2x8CtwX
- pUYA==
+ bh=rcn85z62MW6ga0naGLzuTjsyYsLiQwr0ThT4Anw3LQg=;
+ b=F/DvPp6eGVA6S6BkZ+Bm2L1JsetAZR3FVoe8tjCVtBrhOQqGD9jFlLyb6kOX0KTnJB
+ b4u8UqD8pbFMitu3VxDXuUKQAhZffUU8l+iE/CtmAk3R3a+UX7x2AmcBwpboiwRR/UBp
+ L1t5aIrTaCTWCO+bKZ9CmSEQ4d5fPklbII2G/3XjtilWsU685JWLDUsp8h3enHXGgvOv
+ W2/SAt9HpwiIQcFa4dLopPHbU2ZMlkRGINCBJtKQs1bWf6QYCvz0EsRZ6KnEveonCh9z
+ cn416o8cWQ+VSWlFFxRQHibl1WTEtoRRNtjPkGynDbt/6O311O99G4HSQnTJLD2kqqV1
+ XuXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237839; x=1697842639;
+ d=1e100.net; s=20230601; t=1697238210; x=1697843010;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6wPwnmETenw6MmBk8K6nY/876otg8xGa1r8lksqWFBc=;
- b=U2twrQMiAJwI06LUbFrFuGZK3350EE9tp1jN6wYQvZFmOBn5QXpIrOrx+YeTv8KbUE
- 5ls2rM2+Kq7TR/ZncUsSekZ33f9z81G7Tpk/Krkwkhwa8MFMgW6UQArXIqyZz98WKYeu
- 4P8LgTfmoMWFDGivQ/p3U3QbTEMafo5H4emAvXnAJ8APIbxQPKEQJwIECBD4LWJUQF/g
- bkcNwjixoxI3hCL01vpUbMxaaCvyDXvIEYijFhK9I4T24Jvk4EFFRjs7r5ml660Pk72N
- HXUgogg9P+gDxeVDEcpROlfbNuP3EtoLgwZ2G5lzV0mWwv0Iavf5v9xpp2jQxTvLe/r7
- B9Zg==
-X-Gm-Message-State: AOJu0YxELwOpfFZzb7FaF9za5bB8ZRhofqPahH4fdPN6zpgkbkKeqtk/
- uuuvs4pR5BtwJor/htiCO1O55w==
-X-Google-Smtp-Source: AGHT+IEm521axeEFcZNtZSTDXsrzq0pBe+Wjc+fnqpTA3yy2QUWHpG+Ba3EbnGKWa7HD0w1qKfSdyg==
-X-Received: by 2002:a67:ce81:0:b0:454:607d:196f with SMTP id
- c1-20020a67ce81000000b00454607d196fmr29124394vse.20.1697237838405; 
- Fri, 13 Oct 2023 15:57:18 -0700 (PDT)
+ bh=rcn85z62MW6ga0naGLzuTjsyYsLiQwr0ThT4Anw3LQg=;
+ b=J2kjw3Swv2+5/fR4xcof+phu6PBBB+9k67TZzWnAF4Ge4iqFgv5zNM9U1gE605PnkL
+ P0rAXl/oPlmykHLEecSNSXxcS26H2q19JOvf/FMPe1ZHRjFqFsM1uQKpp5XPQZ9kRIXO
+ aipk80Y0jeREsxW5Dr6OWflL9PpHMWJ2Wvw8r2N6tbHxOpnmDhzh6n9w8BqW33if9H5g
+ 7cf5yYsPzDRUnO6AK/v1bna/0HcRclbzGwg6k1wKYvYHIvduBzmWjQ9LSuGzMAVInHWU
+ hHajqRZCLEa9lQ3dpuqIfoxcSPtBCxECGupLNOxYpHzzAjgvUlXt26C/OFdr0QbGmCzp
+ KRmw==
+X-Gm-Message-State: AOJu0YzfhVZlpnHTMC53NLEQop5iVjmN8/2DXkReAonsjz3YjNmvxIvO
+ v931mI7w9+jv9r0GJni7dsav2Q==
+X-Google-Smtp-Source: AGHT+IESShPQpD+fP8oD44dOFdRAXvUyePnVcWCuKhsxWqQa7Q51s71AiV0cNscNwQFJMSB6GIsyvA==
+X-Received: by 2002:a67:ec53:0:b0:452:7617:a757 with SMTP id
+ z19-20020a67ec53000000b004527617a757mr27797924vso.26.1697238210704; 
+ Fri, 13 Oct 2023 16:03:30 -0700 (PDT)
 Received: from fedora (072-189-067-006.res.spectrum.com. [72.189.67.6])
  by smtp.gmail.com with ESMTPSA id
- g13-20020a056102244d00b00450fc8d2c76sm540643vss.28.2023.10.13.15.57.17
+ c12-20020ab0694c000000b0078cc4e0d7e3sm551678uas.27.2023.10.13.16.03.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:57:17 -0700 (PDT)
-Date: Fri, 13 Oct 2023 18:57:15 -0400
+ Fri, 13 Oct 2023 16:03:30 -0700 (PDT)
+Date: Fri, 13 Oct 2023 19:03:06 -0400
 From: William Breathitt Gray <william.gray@linaro.org>
 To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <ZSnLSwsr7RxLdPie@fedora>
+Message-ID: <ZSnMqienA28Phx6b@fedora>
 References: <20230922143920.3144249-1-fabrice.gasnier@foss.st.com>
+ <20230922143920.3144249-7-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <20230922143920.3144249-1-fabrice.gasnier@foss.st.com>
+In-Reply-To: <20230922143920.3144249-7-fabrice.gasnier@foss.st.com>
 Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 0/6] counter: fix,
- improvements and stm32 timer events support
+Subject: Re: [Linux-stm32] [PATCH v2 6/6] counter: stm32-timer-cnt: add
+	support for events
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,96 +76,54 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6784042451785347341=="
+Content-Type: multipart/mixed; boundary="===============0880221747740796995=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============6784042451785347341==
+--===============0880221747740796995==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fFNMSGoF3fO7Sh+E"
+	protocol="application/pgp-signature"; boundary="pxeJ7ygJWhyBF1Hz"
 Content-Disposition: inline
 
 
---fFNMSGoF3fO7Sh+E
+--pxeJ7ygJWhyBF1Hz
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 22, 2023 at 04:39:14PM +0200, Fabrice Gasnier wrote:
-> This series combines some fix and improvements to the counter interface,
-> found while stm32 timer counter driver developements.
-> It also introduces a new tool that can be used for testing.
+On Fri, Sep 22, 2023 at 04:39:20PM +0200, Fabrice Gasnier wrote:
+> Add support for capture and overflow events. Also add the related
+> validation and configuration. Captured counter value can be retrieved
+> through CCRx register. Register and enable interrupts to push events.
 >=20
-> Then, it improves the stm32 timer counter driver by introducing new signa=
-ls,
-> e.g. counting frequency, and missing channels.
-> It also adds support for interrupt based events using the chrdev interfac=
-e.
-> Two event types are added in this series: overflows and capture.
->=20
-> Up to now, stm32 timer counter driver focused mainly on quadrature
-> encoder feature. With this series, all timer instances can be enabled
-> for simple counting (with overflow and capture events).
+> Acked-by: Lee Jones <lee@kernel.org>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
 Hi Fabrice,
 
-Would you give a brief summary of the possible configurations we can
-have for these devices. For example, the existing driver supports a
-quadrature counting mode where Channel 1 and Channel 2 serve as A and B
-inputs; I also see that another mode is a simple tally counter with the
-internal clock serving as the input. How do Channel 3 and Channel 4 fit
-in here?
+Please split the capture and overflow events code to their own patches.
 
-If you list out all the possible arrangements, I think it'll help me
-understand how the signals match up with each particular mode.
-
-Thanks,
+I think there will be some changes to this patch anyway due to the
+changes you'll make in the precursor patches, so I'll hold off until v3
+to review.
 
 William Breathitt Gray
 
->=20
-> Changes in v2:
-> - counter fix and improvement patch applied, hence dropped in v2 series
-> - mfd patch applied, hence dropped in v2 series
-> - revisit watch events tool (mainly command line interface)
-> - add one patch to rename STM32 Timer counter
-> - various review comments from v1
->=20
-> Fabrice Gasnier (6):
->   tools/counter: add a flexible watch events tool
->   counter: stm32-timer-cnt: rename quadrature signal
->   counter: stm32-timer-cnt: rename counter
->   counter: stm32-timer-cnt: introduce clock signal
->   counter: stm32-timer-cnt: populate capture channels and check encoder
->   counter: stm32-timer-cnt: add support for events
->=20
->  drivers/counter/stm32-timer-cnt.c    | 558 ++++++++++++++++++++++++++-
->  include/linux/mfd/stm32-timers.h     |  15 +
->  tools/counter/Build                  |   1 +
->  tools/counter/Makefile               |  12 +-
->  tools/counter/counter_watch_events.c | 368 ++++++++++++++++++
->  5 files changed, 934 insertions(+), 20 deletions(-)
->  create mode 100644 tools/counter/counter_watch_events.c
->=20
-> --=20
-> 2.25.1
->=20
-
---fFNMSGoF3fO7Sh+E
+--pxeJ7ygJWhyBF1Hz
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZSnLSwAKCRC1SFbKvhIj
-KzirAQDCyH9zW+B+KquLIfRNSk5vcmFjucDHtM60OcOVpFTebgEAxPZD+Cu+RmK1
-WYaD1a0bSMAQ1xu3JYrlOIxW+sxb5QM=
-=QW5W
+iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZSnMqgAKCRC1SFbKvhIj
+K6CGAP9OtP4qcJ/aIPKgrEecjHFXVX6zX1mOr8ftEiECf8/tVAD/cjbV86RlHwaQ
+f/v03XJrz5ibiBFz53tKPk1+KnZ76AQ=
+=cWtK
 -----END PGP SIGNATURE-----
 
---fFNMSGoF3fO7Sh+E--
+--pxeJ7ygJWhyBF1Hz--
 
---===============6784042451785347341==
+--===============0880221747740796995==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -175,4 +134,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============6784042451785347341==--
+--===============0880221747740796995==--
