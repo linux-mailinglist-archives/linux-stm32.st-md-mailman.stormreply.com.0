@@ -2,47 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADE77CD0F4
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 01:41:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48D287CD10C
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 01:50:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EEB6C6C837;
-	Tue, 17 Oct 2023 23:41:44 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB1DBC6C837;
+	Tue, 17 Oct 2023 23:50:48 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50504C6C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50E4BC6C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Oct 2023 23:41:42 +0000 (UTC)
+ Tue, 17 Oct 2023 23:50:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id B1552B82113;
- Tue, 17 Oct 2023 23:41:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF443C433C8;
- Tue, 17 Oct 2023 23:41:39 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id D2659CE2255;
+ Tue, 17 Oct 2023 23:50:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104ADC433C7;
+ Tue, 17 Oct 2023 23:50:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697586101;
- bh=cosGpqTPBP8SyGB5H3DKe/jNOoJkAxcsVXoEDGMqP/M=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Q7nuLFDt00WV1OayCAu2PTX6zT0gcHiWi6Rbc92RpYMc7tzlRkm196nRGWk2m177n
- qQOfJj/YaIwe656Gqv/l6WaX0hpyvsCjYZCE8+sD75vr3HHC8KgRdsM/+WVI0Lci8o
- MEUdmpO9uHLnV6loWfgwk1KHPEQE23PFxPxD/cGOTSiwMaay7U8gqSo9/gvMwtn8Nh
- 5SuCB9MCMiTRa6WR21Nm3c5MXvP4Cn/F4ob2gk+o+e1BwXsoZ0IGyAJa2rIJW3zgAe
- dO1JI29+yBS2HJqz1f6Fqf1wpId8c4Ry0JtM50zHc8cPcBWGAtEpIaLkRgDlF8Pxcg
- nLOk6lWqh7+Ig==
-From: Mark Brown <broonie@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Rob Herring <robh@kernel.org>
-In-Reply-To: <20231017203352.2698326-1-robh@kernel.org>
-References: <20231017203352.2698326-1-robh@kernel.org>
-Message-Id: <169758609942.3230802.8032777106804469822.b4-ty@kernel.org>
-Date: Wed, 18 Oct 2023 00:41:39 +0100
+ s=k20201202; t=1697586643;
+ bh=DX4eQLbDH4WkaayNMxaAdYWcxQIc3Jkh/CQPfojaQEU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OCbx8CfjXQDmgOK+IJZIpXLto/5Ledwx9z5n0guSGwzj4YeTet2MByosXF+VEl/wp
+ qmzX/92ZHeZ7aX3X3PuDjXgoLqgaj36J1sVU5ESBfbRxfhb99DTacmhIG/E4YYmRQG
+ IZ64NtUjRYNYda1jZo1oz1iRGrgia7TtQ8yBw4Rzo8o+UYZfeHdrymVvZuSuXbOOkU
+ EKcYUfpWl4HbuRg/Y4DWEx+5IUqF98ANbnRmz0G8zEcIs82xvoQ8IZZhcgd14ILbXd
+ Mg/lEa2uAginD05ObCUe9yLe7v8eHWpzhr63VADWExW27TmJ5PGz1j8CtaiRV++fJQ
+ KNnsfUF2hZNxQ==
+Date: Tue, 17 Oct 2023 16:50:42 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Message-ID: <20231017165042.30fa9061@kernel.org>
+In-Reply-To: <20231017-transfer-refurbish-5cfaf12a524c-mkl@pengutronix.de>
+References: <20231010-stmmac_fix_auxiliary_event_capture-v1-0-3eeca9e844fa@pengutronix.de>
+ <20231010-stmmac_fix_auxiliary_event_capture-v1-2-3eeca9e844fa@pengutronix.de>
+ <20231014144428.GA1386676@kernel.org>
+ <004d6ce9-7d15-4944-b31c-c9e628e7483a@pengutronix.de>
+ <20231017082618.4558ad06@kernel.org>
+ <20231017-transfer-refurbish-5cfaf12a524c-mkl@pengutronix.de>
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-0438c
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [RESEND PATCH] spi: stm32: Explicitly include
- correct DT includes
+Cc: Johannes Zink <j.zink@pengutronix.de>, kernel@pengutronix.de, "David S.
+ Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ Kurt Kanzenbach <kurt@linutronix.de>, linux-kernel@vger.kernel.org,
+ Simon Horman <horms@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: fix PPS capture
+	input index
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,46 +66,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 17 Oct 2023 15:33:51 -0500, Rob Herring wrote:
-> The DT of_device.h and of_platform.h date back to the separate
-> of_platform_bus_type before it was merged into the regular platform bus.
-> As part of that merge prepping Arm DT support 13 years ago, they
-> "temporarily" include each other. They also include platform_device.h
-> and of.h. As a result, there's a pretty much random mix of those include
-> files used throughout the tree. In order to detangle these headers and
-> replace the implicit includes with struct declarations, users need to
-> explicitly include the correct includes.
+On Tue, 17 Oct 2023 22:27:41 +0200 Marc Kleine-Budde wrote:
+> > Would be good to clarify what impact on device operation the problem
+> > has. How would end user notice the problem?
+> > Does it mean snapshots were always or never enabled, previously?  
 > 
-> [...]
+> On all dwmac devices not covered by dwmac-intel.c (INTEL 10/100/1000
+> Ethernet PCI driver), PPS capture can be requested from user-space, but
+> is not enabled in HW. There is no error message or other feedback to the
+> user space. The user space will not get any PPS events.
+> 
+> As this change also affects the Intel driver, and we don't have any
+> hardware to test, I think it's better that this goes via net-next to
+> give it a bit more time of testing.
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[1/1] spi: stm32: Explicitly include correct DT includes
-      commit: 692225015c82d3eece55a07d16cd24c4dc63a6a5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+SGTM, we can chalk it up to "never worked, doesn't hurt anyone"
+and put it in net-next. But then the Fixes tag must go.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
