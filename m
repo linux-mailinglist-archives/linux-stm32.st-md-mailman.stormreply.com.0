@@ -2,84 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2123A7CE5D2
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 20:04:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ADBB7CE901
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 22:32:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDBA9C6C838;
-	Wed, 18 Oct 2023 18:04:29 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 147EAC65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35039C6C838;
+	Wed, 18 Oct 2023 20:32:12 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92FF1C6C831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 18:04:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1697652268;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=dNX9ozbgtkYe/902nvplA8K4eAYG6mgmEEowb1wlWxM=;
- b=ccn/f5GYzHK3l3plpy8J7oRAqQEM5Vx4IrKEcYDliacufV7OGcV8rWu7swIqnbaj4gO594
- Z7whkrQMJxgPJH9plqpPhP5wwv6VNaVXQULU/G0oM6/32uksg0rL0yBRNt1ttrsA2PY2rZ
- HBBfHkOjt2/3vn4r+jEyqH0aMub6+tc=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-91-SGpcOUW4NKGBb7_sBws1-A-1; Wed, 18 Oct 2023 14:04:26 -0400
-X-MC-Unique: SGpcOUW4NKGBb7_sBws1-A-1
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-66d1e755077so77554666d6.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697652266; x=1698257066;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dNX9ozbgtkYe/902nvplA8K4eAYG6mgmEEowb1wlWxM=;
- b=IFU7V+sKYw5qxCY2rHNvYJJNBkZlK68OWpts+pAez+yWFezWaZ0fbVZO0i5F5c2K/E
- mPU8032WlMK8FKy66Ke+sXFwPtb+yEaY+g3qk6wdqc9PCb7Do8Yeot9gRh/Rzx+mhH0t
- TBtPiIs1upRUyZUA3uEtyGi1siL64P5KnAzBwMwQ0qPIfiHEb8/mgrdCaNuDFkTA6OPJ
- r9D1Iz813n4+X025Vg61tqOmpCF6lgc3e0Mi4Wxzi6NqL1tyh5+0cq+pTi7cnkoik4BU
- lZBY3X2A63APMmHjtNwEIGw81kagGRa4gsWURZMaMIoiwerqRVAZXmmKfML0zD3AijUz
- Z/Sg==
-X-Gm-Message-State: AOJu0YzxWx6P0VhZyPZG5or10GOPG43BakxNxfRJdmpaxSmD4BCHAt1c
- BF+zh+adz2/Qzti1OE/oJsvcwrzP2YZvO462leLWJpvcDj55ueJrZhPyDdi/2GMqR/xaHqrPN8o
- JgYtomAvwHidtdOAXekvjqNnT7pJPIYr5mBPk4bd8
-X-Received: by 2002:a05:6214:d6f:b0:66d:2eb6:f3f6 with SMTP id
- 15-20020a0562140d6f00b0066d2eb6f3f6mr6947755qvs.32.1697652266304; 
- Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IG7r9g/qf8M8D2pt4ix0jigNXIfJ7i7p7JdUBou8gXLcKPUUtGgDEa3SJxF8BWKbyqCqnVUHw==
-X-Received: by 2002:a05:6214:d6f:b0:66d:2eb6:f3f6 with SMTP id
- 15-20020a0562140d6f00b0066d2eb6f3f6mr6947734qvs.32.1697652266044; 
- Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
-Received: from fedora ([2600:1700:1ff0:d0e0::37])
- by smtp.gmail.com with ESMTPSA id
- p5-20020a0cfd85000000b0065b2f4dd300sm127154qvr.90.2023.10.18.11.04.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Oct 2023 11:04:25 -0700 (PDT)
-Date: Wed, 18 Oct 2023 13:04:23 -0500
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Johannes Zink <j.zink@pengutronix.de>
-Message-ID: <vkf6xerp5o7owkvvlbxvd6hkzaj7mml6yutrpaxyowcryh3nlu@qeourmcxk5x3>
-References: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
- <20231010-stmmac_fix_auxiliary_event_capture-v2-1-51d5f56542d7@pengutronix.de>
+ Wed, 18 Oct 2023 20:32:11 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtDD1-0005Tl-TF; Wed, 18 Oct 2023 22:32:03 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtDD0-002dOC-Mr; Wed, 18 Oct 2023 22:32:02 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtDD0-001EZa-DB; Wed, 18 Oct 2023 22:32:02 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 18 Oct 2023 22:31:55 +0200
+Message-ID: <20231018203154.1681457-2-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-In-Reply-To: <20231010-stmmac_fix_auxiliary_event_capture-v2-1-51d5f56542d7@pengutronix.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: vee.khee.wong@linux.intel.com, linux-kernel@vger.kernel.org,
- kernel@pengutronix.de, bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- horms@kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- tee.min.tan@intel.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, rmk+kernel@armlinux.org.uk,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/5] net: stmmac: simplify
- debug message on stmmac_enable()
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1581;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=bXJUo/z+u9bBLY/DopIaV2gKwAAC4QUnYIlb8+3X6ZM=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlMEC6mjP3aOiWQlYYkVs8185sPrHHRxRV+WacH
+ LXgAKdjbvuJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZTBAugAKCRCPgPtYfRL+
+ Tt+qCACjOC3q/D8r3OPxiaPFQOU37yCyq6KNUzn+eR5RuNkHMpvJ0yqrXZEDib+3tLVJjNw0rx8
+ XnRQu7OvZ56gWCMIoCScjRf2A+JArgBMJdZ0+0Z4EEOHAA8qMbNiKpTkyrlOESTgHicoa7OzgVk
+ UUKE7QOy10emOheXcaqlzWlop1/i8O8gkZrWsT5SzCfGEwXyfElP2sQRVfl96+J+x5yNO8/9xA8
+ BRCe64NPvJTVz2VFZkxL3+n6V/i3yFrhW7EOWtrVkGPt3OmdHMRHhJvnchtU2uV9T61T7mJwuy5
+ iAoYrpHKpXF5e1sSV9a+kKlzMrAVcuKmuScPp3RvCqpYVWwS
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, devicetree@vger.kernel.org,
+ =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: lxa-tac: drive powerboard
+	lines as open-drain
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,56 +70,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Oct 18, 2023 at 09:09:53AM +0200, Johannes Zink wrote:
-> Simplify the netdev_dbg() call in stmmac_enable() in order to reduce code
-> duplication. No functional change.
-> 
-> Signed-off-by: Johannes Zink <j.zink@pengutronix.de>
-
-Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
-> 
-> ---
-> 
-> Changelog:
-> 
-> v1 -> v2: no changes
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> index 1be06b96c35f..f110b91af9bd 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-> @@ -203,14 +203,10 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
->  			/* Enable External snapshot trigger */
->  			acr_value |= priv->plat->ext_snapshot_num;
->  			acr_value |= PTP_ACR_ATSFC;
-> -			netdev_dbg(priv->dev, "Auxiliary Snapshot %d enabled.\n",
-> -				   priv->plat->ext_snapshot_num >>
-> -				   PTP_ACR_ATSEN_SHIFT);
-> -		} else {
-> -			netdev_dbg(priv->dev, "Auxiliary Snapshot %d disabled.\n",
-> -				   priv->plat->ext_snapshot_num >>
-> -				   PTP_ACR_ATSEN_SHIFT);
->  		}
-> +		netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
-> +			   priv->plat->ext_snapshot_num >> PTP_ACR_ATSEN_SHIFT,
-> +			   on ? "enabled" : "disabled");
->  		writel(acr_value, ptpaddr + PTP_ACR);
->  		mutex_unlock(&priv->aux_ts_lock);
->  		/* wait for auxts fifo clear to finish */
-> 
-> -- 
-> 2.39.2
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogTGVvbmFyZCBHw7ZocnMgPGwuZ29laHJzQHBlbmd1dHJvbml4LmRlPgoKVGhpcyByZXN1
+bHRzIGluIGEgc2xpZ2h0IGltcHJvdmVtZW50IGluIEVNSSBwZXJmb3JtYW5jZSBkdWUgdG8gdGhl
+IGxpbmVzCm5vIGxvbmdlciBiZWluZyBkcml2ZW4gYnkgdGhlIHNvbWV3aGF0IG5vaXN5IFZERF9J
+TyBzdXBwbHkgb2YgdGhlIFNvTS4KClNpZ25lZC1vZmYtYnk6IExlb25hcmQgR8O2aHJzIDxsLmdv
+ZWhyc0BwZW5ndXRyb25peC5kZT4KU2lnbmVkLW9mZi1ieTogVXdlIEtsZWluZS1Lw7ZuaWcgPHUu
+a2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KLS0tCiBhcmNoL2FybS9ib290L2R0cy9zdC9z
+dG0zMm1wMTU3Yy1seGEtdGFjLWdlbjIuZHRzIHwgMiArLQogYXJjaC9hcm0vYm9vdC9kdHMvc3Qv
+c3RtMzJtcDE1eGMtbHhhLXRhYy5kdHNpICAgICB8IDIgKy0KIDIgZmlsZXMgY2hhbmdlZCwgMiBp
+bnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3Qv
+ZHRzL3N0L3N0bTMybXAxNTdjLWx4YS10YWMtZ2VuMi5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9z
+dC9zdG0zMm1wMTU3Yy1seGEtdGFjLWdlbjIuZHRzCmluZGV4IDhhMzRkMTVlOTAwNS4uNGNjMTc3
+MDMxNjYxIDEwMDY0NAotLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1seGEt
+dGFjLWdlbjIuZHRzCisrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTdjLWx4YS10
+YWMtZ2VuMi5kdHMKQEAgLTE0OCw3ICsxNDgsNyBAQCBhZGNAMCB7CiAJCWNvbXBhdGlibGUgPSAi
+dGksbG1wOTIwNjQiOwogCQlyZWcgPSA8MD47CiAKLQkJcmVzZXQtZ3Bpb3MgPSA8JmdwaW9hIDQg
+R1BJT19BQ1RJVkVfSElHSD47CisJCXJlc2V0LWdwaW9zID0gPCZncGlvYSA0IChHUElPX0FDVElW
+RV9ISUdIIHwgR1BJT19PUEVOX0RSQUlOKT47CiAJCXNodW50LXJlc2lzdG9yLW1pY3JvLW9obXMg
+PSA8MTUwMDA+OwogCQlzcGktbWF4LWZyZXF1ZW5jeSA9IDw1MDAwMDAwPjsKIAkJdmRkLXN1cHBs
+eSA9IDwmcmVnX3BiXzN2Mz47CmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0z
+Mm1wMTV4Yy1seGEtdGFjLmR0c2kgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4Yy1s
+eGEtdGFjLmR0c2kKaW5kZXggZjA5YjdjMzg0YmQ5Li4xODhjOWNmYzcxMDIgMTAwNjQ0Ci0tLSBh
+L2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNXhjLWx4YS10YWMuZHRzaQorKysgYi9hcmNo
+L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4Yy1seGEtdGFjLmR0c2kKQEAgLTQwOSw3ICs0MDks
+NyBAQCAmc2RtbWMyIHsKICZzcGkyIHsKIAlwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOwogCXBp
+bmN0cmwtMCA9IDwmc3BpMl9waW5zX2M+OwotCWNzLWdwaW9zID0gPCZncGlvZiAxMiBHUElPX0FD
+VElWRV9MT1c+OworCWNzLWdwaW9zID0gPCZncGlvZiAxMiAoR1BJT19BQ1RJVkVfTE9XIHwgR1BJ
+T19PUEVOX0RSQUlOKT47CiAJc3RhdHVzID0gIm9rYXkiOwogfTsKIAoKYmFzZS1jb21taXQ6IDRk
+NWFiMjM3NmVjNTc2YWYxNzNlNWVhYzM4ODdlZDBiNTFiZDg1NjYKLS0gCjIuNDIuMAoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
+bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
+Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
+MzIK
