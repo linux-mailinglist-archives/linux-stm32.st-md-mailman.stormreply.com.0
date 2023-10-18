@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9AD07CDF03
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 16:15:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E674B7CDF0D
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 16:16:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0EF9C6C831;
-	Wed, 18 Oct 2023 14:15:59 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF586C6C831;
+	Wed, 18 Oct 2023 14:16:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B622FC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9851C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 14:15:58 +0000 (UTC)
+ Wed, 18 Oct 2023 14:16:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 11319CE258F;
- Wed, 18 Oct 2023 14:15:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A0DC43142;
- Wed, 18 Oct 2023 14:15:55 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A5FAE61800;
+ Wed, 18 Oct 2023 14:16:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69571C433B7;
+ Wed, 18 Oct 2023 14:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697638556;
- bh=fzqVTdzzHqVHHNS01FZwgiprtR5zd9hgbp3BjdCfIVs=;
+ s=k20201202; t=1697638581;
+ bh=qjvN2bnmMbmAA4PUT4YieRCvJ+HkSdtm5o9amMQbses=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XTBf5v89LAIHIALCKYHK0RGXDcht9U0RNRAMpMey/e2ddGH1t5Glt8adhyeK43L2B
- LQviZF12GjlNXBcYHCnGqV8kWWmRCKbCruk3bMBCktsWgy19zA9eWMNLk4B/h0yHm6
- a3tG5cBkVsMlpU1LkXllyK5KpS6jwWXm2oPyfXplZbXyp4ZiyGJV9aaLZElwXqguZe
- 1w8FwT9bR04nsb0h8lv9zCKmDhRdckF7uDZzZYlQoJ3To+Bnjx+IFBu90KgUb+PJQP
- oDznToGSej8CfoVuwRp1w63QAhEgauujVHeykKYmtjvlMq2XnhXM04Z762DDXwpgmw
- C7lg9xwSLvRvA==
+ b=nF8s0tnlyPu8FIXF6K3xHUMI2TbVfJ97XVohcpPzkD+wn8sGabqW65T/N31X/3pDm
+ sI8Yb+OspWfFWIvjyYFT0kurQloFYxK1XyYI9T1NgQv0VtGYIKmcPyCfyMeB9yDG99
+ b9Esde6Wglakih1JcL7bzi461zHNsMPUEIXCWkUemjNO2qQDTxPbmTq7TkIB0pgKvv
+ eLDjvODkxwMQRwVWDOAf8/GoF0IwJ4u06PBauXywf+3Xp86Mgn64HvXrhCw+He47c/
+ hjd2Mv7arVIO9DXJ8YP0ZKgxE6DlpHnpROa8WcTatYGMYKT9tPrI4LOnWB8faoP9Ov
+ 9V1w4PRQM2jCw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Wed, 18 Oct 2023 10:15:42 -0400
-Message-Id: <20231018141548.1335665-3-sashal@kernel.org>
+Date: Wed, 18 Oct 2023 10:16:08 -0400
+Message-Id: <20231018141613.1335848-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231018141548.1335665-1-sashal@kernel.org>
-References: <20231018141548.1335665-1-sashal@kernel.org>
+In-Reply-To: <20231018141613.1335848-1-sashal@kernel.org>
+References: <20231018141613.1335848-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.296
+X-stable-base: Linux 4.14.327
 Cc: Sasha Levin <sashal@kernel.org>, Marc Zyngier <maz@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
  tglx@linutronix.de, Ben Wolsieffer <ben.wolsieffer@hefring.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 3/7] irqchip/stm32-exti: add
+Subject: [Linux-stm32] [PATCH AUTOSEL 4.14 3/7] irqchip/stm32-exti: add
 	missing DT IRQ flag translation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -80,17 +80,17 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index f605470855f19..ed7346fb687bf 100644
+index 45363ff8d06f0..1b55199ea1b4a 100644
 --- a/drivers/irqchip/irq-stm32-exti.c
 +++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -365,6 +365,7 @@ static const struct irq_domain_ops irq_exti_domain_ops = {
- 	.map	= irq_map_generic_chip,
+@@ -127,6 +127,7 @@ struct irq_domain_ops irq_exti_domain_ops = {
+ 	.xlate	= irq_domain_xlate_onetwocell,
  	.alloc  = stm32_exti_alloc,
  	.free	= stm32_exti_free,
 +	.xlate	= irq_domain_xlate_twocell,
  };
  
- static void stm32_irq_ack(struct irq_data *d)
+ static int __init stm32_exti_init(struct device_node *node,
 -- 
 2.40.1
 
