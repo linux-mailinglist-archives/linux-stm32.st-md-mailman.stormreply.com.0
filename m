@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE137CD541
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 09:10:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EFFF7CD53E
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 09:10:29 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20FA1C6C840;
-	Wed, 18 Oct 2023 07:10:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF690C6C838;
+	Wed, 18 Oct 2023 07:10:28 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DD01C6C842
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C294C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 07:10:29 +0000 (UTC)
+ Wed, 18 Oct 2023 07:10:28 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <j.zink@pengutronix.de>)
- id 1qt0h1-0007Yt-S9; Wed, 18 Oct 2023 09:10:11 +0200
+ id 1qt0h1-0007Yu-S9; Wed, 18 Oct 2023 09:10:11 +0200
 Received: from [2a0a:edc0:0:1101:1d::39] (helo=dude03.red.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <j.zink@pengutronix.de>)
- id 1qt0gz-002V9c-41; Wed, 18 Oct 2023 09:10:09 +0200
+ id 1qt0gz-002V9d-4t; Wed, 18 Oct 2023 09:10:09 +0200
 Received: from localhost ([::1] helo=dude03.red.stw.pengutronix.de)
  by dude03.red.stw.pengutronix.de with esmtp (Exim 4.96)
- (envelope-from <j.zink@pengutronix.de>) id 1qt0gz-003JoA-07;
+ (envelope-from <j.zink@pengutronix.de>) id 1qt0gz-003JoA-09;
  Wed, 18 Oct 2023 09:10:09 +0200
 From: Johannes Zink <j.zink@pengutronix.de>
-Date: Wed, 18 Oct 2023 09:09:56 +0200
+Date: Wed, 18 Oct 2023 09:09:57 +0200
 MIME-Version: 1.0
-Message-Id: <20231010-stmmac_fix_auxiliary_event_capture-v2-4-51d5f56542d7@pengutronix.de>
+Message-Id: <20231010-stmmac_fix_auxiliary_event_capture-v2-5-51d5f56542d7@pengutronix.de>
 References: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
 In-Reply-To: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
@@ -53,8 +53,8 @@ Cc: Johannes Zink <j.zink@pengutronix.de>, vee.khee.wong@linux.intel.com,
  kernel@pengutronix.de, tee.min.tan@intel.com, ahalaney@redhat.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  patchwork-jzi@pengutronix.de
-Subject: [Linux-stm32] [PATCH net-next v2 4/5] net: stmmac: ptp:
- stmmac_enable(): move change of plat->flags into mutex
+Subject: [Linux-stm32] [PATCH net-next v2 5/5] net: stmmac: do not silently
+ change auxiliary snapshot capture channel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,13 +71,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is a preparation patch. The next patch will check if an external TS
-is active and return with an error. So we have to move the change of the
-plat->flags that tracks if external timestamping is enabled after that
-check.
+Even though the hardware theoretically supports up to 4 simultaneous
+auxiliary snapshot capture channels, the stmmac driver does support only
+a single channel to be active at a time.
 
-Prepare for this change and move the plat->flags change into the mutex
-and the if (on).
+Previously in case of a PTP_CLK_REQ_EXTTS request, previously active
+auxiliary snapshot capture channels were silently dropped and the new
+channel was activated.
+
+Instead of silently changing the state for all consumers, log an error
+and return -EBUSY if a channel is already in use in order to signal to
+userspace to disable the currently active channel before enabling another one.
 
 Signed-off-by: Johannes Zink <j.zink@pengutronix.de>
 
@@ -87,35 +91,46 @@ Changelog:
 
 v1 -> v2: no changes
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-index 300e673d2a36..6b639b62f778 100644
+index 6b639b62f778..bffa5c017032 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
-@@ -192,17 +192,17 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+@@ -191,11 +191,23 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+ 					     priv->systime_flags);
  		write_unlock_irqrestore(&priv->ptp_lock, flags);
  		break;
- 	case PTP_CLK_REQ_EXTTS:
--		if (on)
--			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
--		else
--			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
+-	case PTP_CLK_REQ_EXTTS:
++	case PTP_CLK_REQ_EXTTS: {
++		u8 channel;
++
  		mutex_lock(&priv->aux_ts_lock);
  		acr_value = readl(ptpaddr + PTP_ACR);
++		channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
  		acr_value &= ~PTP_ACR_MASK;
- 		if (on) {
-+			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
 +
+ 		if (on) {
++			if (FIELD_GET(PTP_ACR_MASK, acr_value)) {
++				netdev_err(priv->dev,
++					   "Cannot enable auxiliary snapshot %d as auxiliary snapshot %d is already enabled",
++					rq->extts.index, channel);
++				mutex_unlock(&priv->aux_ts_lock);
++				return -EBUSY;
++			}
++
+ 			priv->plat->flags |= STMMAC_FLAG_EXT_SNAPSHOT_EN;
+ 
  			/* Enable External snapshot trigger */
- 			acr_value |= PTP_ACR_ATSEN(rq->extts.index);
- 			acr_value |= PTP_ACR_ATSFC;
-+		} else {
-+			priv->plat->flags &= ~STMMAC_FLAG_EXT_SNAPSHOT_EN;
- 		}
- 		netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
- 			   rq->extts.index, on ? "enabled" : "disabled");
+@@ -213,6 +225,7 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+ 					 !(acr_value & PTP_ACR_ATSFC),
+ 					 10, 10000);
+ 		break;
++	}
+ 
+ 	default:
+ 		break;
 
 -- 
 2.39.2
