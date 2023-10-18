@@ -2,81 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 280E27CE219
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 18:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2123A7CE5D2
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Oct 2023 20:04:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE62BC6C838;
-	Wed, 18 Oct 2023 16:03:56 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B7BBC6C838
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDBA9C6C838;
+	Wed, 18 Oct 2023 18:04:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 147EAC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 12:35:59 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4083cd39188so4660245e9.2
+ Wed, 18 Oct 2023 18:04:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1697652268;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=dNX9ozbgtkYe/902nvplA8K4eAYG6mgmEEowb1wlWxM=;
+ b=ccn/f5GYzHK3l3plpy8J7oRAqQEM5Vx4IrKEcYDliacufV7OGcV8rWu7swIqnbaj4gO594
+ Z7whkrQMJxgPJH9plqpPhP5wwv6VNaVXQULU/G0oM6/32uksg0rL0yBRNt1ttrsA2PY2rZ
+ HBBfHkOjt2/3vn4r+jEyqH0aMub6+tc=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-91-SGpcOUW4NKGBb7_sBws1-A-1; Wed, 18 Oct 2023 14:04:26 -0400
+X-MC-Unique: SGpcOUW4NKGBb7_sBws1-A-1
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-66d1e755077so77554666d6.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Oct 2023 05:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697632558; x=1698237358;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0v0ZmldTmEHElH0nzfPoImpxhHxc/jfxnYXGlHkEaSw=;
- b=dfJxSEJyVEYS+7savJQSvwHJV1XYrhT7ydJNpIj1LIG6yxMEvhO1WagNQAELC1VJTT
- AcUhNR3b0KF4HiftwEbwdPSAtLVg4c/v0PsRTpX7HenbAuMjFY+3hfntnrMO0dfGmIsP
- xE83m0pBzkiilzI0yA1Bv4z6RL4iK8yvnfUSILwjd1cRTBkxDtlJpDJTFw/VOb2i6ww3
- GP2kdEX9nIoES3xuhitXPCcpikkFZlovpOopQ7671uf5SVfhy13TvvkD89eNEylIP7Zb
- 2TnLZ0khpKlz8LwRGXQGiG3oUdDQ2lbmqiLAEn8rpV60g1vlRz0OK3HQhY2KHhPV/Q+K
- yHxg==
+ Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697632558; x=1698237358;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=0v0ZmldTmEHElH0nzfPoImpxhHxc/jfxnYXGlHkEaSw=;
- b=tHFuW/aB2HsohL/xuqnAzb0l4Za0+BJ8wNaUk/T0d7Nl4XoR3Th4co11ehRN7oFXkH
- 2/1AqdmOSRxhDHEiIt6x6XPwhOTtZiG/xSwMFNIV7IlGPx5qvn57As5upSJGUyug1ePn
- kEvG8s6gB2yR627MOM+xiDAnAu+0VMbbCFkApsoE+p9fq111jl72J4ZiO/JsJezONL5R
- IdELd0ebGONJZbkxCeiMyVpMv6vlhRXOIHpxMe3w8cKlCzYIy4rG76DCTuoof4PM+Mvr
- faFJs3ZnT4kbR0rFOxNnJ2tzmLCoHhMCZiINMzYAycFj9Fr22K3PGSqYzqsGwTfDUNS9
- EgZQ==
-X-Gm-Message-State: AOJu0YzRvbBxQCOdWy6DSfbmfVgBikhuGH5/21r6STQPkxXLBpFnuIyO
- YcfL8SR93H9rPkMW0Ehdn7A=
-X-Google-Smtp-Source: AGHT+IHYxeHjCIR/FT2JDqNfUwmEd2G8A/49wx/hETYLT6M/03g9TnduO1+10bkcfRpmv5Wp7ErFMw==
-X-Received: by 2002:a05:600c:3511:b0:404:72fe:ed5c with SMTP id
- h17-20020a05600c351100b0040472feed5cmr4380670wmq.29.1697632558280; 
- Wed, 18 Oct 2023 05:35:58 -0700 (PDT)
-Received: from localhost.localdomain (93-34-89-13.ip49.fastwebnet.it.
- [93.34.89.13]) by smtp.googlemail.com with ESMTPSA id
- q28-20020adfab1c000000b003248a490e3asm2048211wrc.39.2023.10.18.05.35.56
+ d=1e100.net; s=20230601; t=1697652266; x=1698257066;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dNX9ozbgtkYe/902nvplA8K4eAYG6mgmEEowb1wlWxM=;
+ b=IFU7V+sKYw5qxCY2rHNvYJJNBkZlK68OWpts+pAez+yWFezWaZ0fbVZO0i5F5c2K/E
+ mPU8032WlMK8FKy66Ke+sXFwPtb+yEaY+g3qk6wdqc9PCb7Do8Yeot9gRh/Rzx+mhH0t
+ TBtPiIs1upRUyZUA3uEtyGi1siL64P5KnAzBwMwQ0qPIfiHEb8/mgrdCaNuDFkTA6OPJ
+ r9D1Iz813n4+X025Vg61tqOmpCF6lgc3e0Mi4Wxzi6NqL1tyh5+0cq+pTi7cnkoik4BU
+ lZBY3X2A63APMmHjtNwEIGw81kagGRa4gsWURZMaMIoiwerqRVAZXmmKfML0zD3AijUz
+ Z/Sg==
+X-Gm-Message-State: AOJu0YzxWx6P0VhZyPZG5or10GOPG43BakxNxfRJdmpaxSmD4BCHAt1c
+ BF+zh+adz2/Qzti1OE/oJsvcwrzP2YZvO462leLWJpvcDj55ueJrZhPyDdi/2GMqR/xaHqrPN8o
+ JgYtomAvwHidtdOAXekvjqNnT7pJPIYr5mBPk4bd8
+X-Received: by 2002:a05:6214:d6f:b0:66d:2eb6:f3f6 with SMTP id
+ 15-20020a0562140d6f00b0066d2eb6f3f6mr6947755qvs.32.1697652266304; 
+ Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IG7r9g/qf8M8D2pt4ix0jigNXIfJ7i7p7JdUBou8gXLcKPUUtGgDEa3SJxF8BWKbyqCqnVUHw==
+X-Received: by 2002:a05:6214:d6f:b0:66d:2eb6:f3f6 with SMTP id
+ 15-20020a0562140d6f00b0066d2eb6f3f6mr6947734qvs.32.1697652266044; 
+ Wed, 18 Oct 2023 11:04:26 -0700 (PDT)
+Received: from fedora ([2600:1700:1ff0:d0e0::37])
+ by smtp.gmail.com with ESMTPSA id
+ p5-20020a0cfd85000000b0065b2f4dd300sm127154qvr.90.2023.10.18.11.04.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Oct 2023 05:35:57 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Raju Rangoju <rajur@chelsio.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>,
- Simon Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jiri Pirko <jiri@resnulli.us>, Hangbin Liu <liuhangbin@gmail.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org
-Date: Wed, 18 Oct 2023 14:35:47 +0200
-Message-Id: <20231018123550.27110-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231018123550.27110-1-ansuelsmth@gmail.com>
-References: <20231018123550.27110-1-ansuelsmth@gmail.com>
+ Wed, 18 Oct 2023 11:04:25 -0700 (PDT)
+Date: Wed, 18 Oct 2023 13:04:23 -0500
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Johannes Zink <j.zink@pengutronix.de>
+Message-ID: <vkf6xerp5o7owkvvlbxvd6hkzaj7mml6yutrpaxyowcryh3nlu@qeourmcxk5x3>
+References: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
+ <20231010-stmmac_fix_auxiliary_event_capture-v2-1-51d5f56542d7@pengutronix.de>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 18 Oct 2023 16:03:55 +0000
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [Linux-stm32] [net-next PATCH v4 1/4] net: introduce
-	napi_is_scheduled helper
+In-Reply-To: <20231010-stmmac_fix_auxiliary_event_capture-v2-1-51d5f56542d7@pengutronix.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: vee.khee.wong@linux.intel.com, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ horms@kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ tee.min.tan@intel.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, rmk+kernel@armlinux.org.uk,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/5] net: stmmac: simplify
+ debug message on stmmac_enable()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,106 +96,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-We currently have napi_if_scheduled_mark_missed that can be used to
-check if napi is scheduled but that does more thing than simply checking
-it and return a bool. Some driver already implement custom function to
-check if napi is scheduled.
+On Wed, Oct 18, 2023 at 09:09:53AM +0200, Johannes Zink wrote:
+> Simplify the netdev_dbg() call in stmmac_enable() in order to reduce code
+> duplication. No functional change.
+> 
+> Signed-off-by: Johannes Zink <j.zink@pengutronix.de>
 
-Drop these custom function and introduce napi_is_scheduled that simply
-check if napi is scheduled atomically.
-
-Update any driver and code that implement a similar check and instead
-use this new helper.
-
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/net/ethernet/chelsio/cxgb3/sge.c  |  8 --------
- drivers/net/wireless/realtek/rtw89/core.c |  2 +-
- include/linux/netdevice.h                 | 23 +++++++++++++++++++++++
- net/core/dev.c                            |  2 +-
- 4 files changed, 25 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/chelsio/cxgb3/sge.c b/drivers/net/ethernet/chelsio/cxgb3/sge.c
-index 2e9a74fe0970..71fa2dc19034 100644
---- a/drivers/net/ethernet/chelsio/cxgb3/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb3/sge.c
-@@ -2501,14 +2501,6 @@ static int napi_rx_handler(struct napi_struct *napi, int budget)
- 	return work_done;
- }
- 
--/*
-- * Returns true if the device is already scheduled for polling.
-- */
--static inline int napi_is_scheduled(struct napi_struct *napi)
--{
--	return test_bit(NAPI_STATE_SCHED, &napi->state);
--}
--
- /**
-  *	process_pure_responses - process pure responses from a response queue
-  *	@adap: the adapter
-diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index cca18d7ea1dd..6faf4dcf007c 100644
---- a/drivers/net/wireless/realtek/rtw89/core.c
-+++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -1919,7 +1919,7 @@ static void rtw89_core_rx_to_mac80211(struct rtw89_dev *rtwdev,
- 	struct napi_struct *napi = &rtwdev->napi;
- 
- 	/* In low power mode, napi isn't scheduled. Receive it to netif. */
--	if (unlikely(!test_bit(NAPI_STATE_SCHED, &napi->state)))
-+	if (unlikely(!napi_is_scheduled(napi)))
- 		napi = NULL;
- 
- 	rtw89_core_hw_to_sband_rate(rx_status);
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 1c7681263d30..b8bf669212cc 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -482,6 +482,29 @@ static inline bool napi_prefer_busy_poll(struct napi_struct *n)
- 	return test_bit(NAPI_STATE_PREFER_BUSY_POLL, &n->state);
- }
- 
-+/**
-+ * napi_is_scheduled - test if NAPI is scheduled
-+ * @n: NAPI context
-+ *
-+ * This check is "best-effort". With no locking implemented,
-+ * a NAPI can be scheduled or terminate right after this check
-+ * and produce not precise results.
-+ *
-+ * NAPI_STATE_SCHED is an internal state, napi_is_scheduled
-+ * should not be used normally and napi_schedule should be
-+ * used instead.
-+ *
-+ * Use only if the driver really needs to check if a NAPI
-+ * is scheduled for example in the context of delayed timer
-+ * that can be skipped if a NAPI is already scheduled.
-+ *
-+ * Return True if NAPI is scheduled, False otherwise.
-+ */
-+static inline bool napi_is_scheduled(struct napi_struct *n)
-+{
-+	return test_bit(NAPI_STATE_SCHED, &n->state);
-+}
-+
- bool napi_schedule_prep(struct napi_struct *n);
- 
- /**
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 3ca746a5f0ad..8d267fc0b988 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6527,7 +6527,7 @@ static int __napi_poll(struct napi_struct *n, bool *repoll)
- 	 * accidentally calling ->poll() when NAPI is not scheduled.
- 	 */
- 	work = 0;
--	if (test_bit(NAPI_STATE_SCHED, &n->state)) {
-+	if (napi_is_scheduled(n)) {
- 		work = n->poll(n, weight);
- 		trace_napi_poll(n, work, weight);
- 	}
--- 
-2.40.1
+Reviewed-by: Andrew Halaney <ahalaney@redhat.com>
+> 
+> ---
+> 
+> Changelog:
+> 
+> v1 -> v2: no changes
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> index 1be06b96c35f..f110b91af9bd 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c
+> @@ -203,14 +203,10 @@ static int stmmac_enable(struct ptp_clock_info *ptp,
+>  			/* Enable External snapshot trigger */
+>  			acr_value |= priv->plat->ext_snapshot_num;
+>  			acr_value |= PTP_ACR_ATSFC;
+> -			netdev_dbg(priv->dev, "Auxiliary Snapshot %d enabled.\n",
+> -				   priv->plat->ext_snapshot_num >>
+> -				   PTP_ACR_ATSEN_SHIFT);
+> -		} else {
+> -			netdev_dbg(priv->dev, "Auxiliary Snapshot %d disabled.\n",
+> -				   priv->plat->ext_snapshot_num >>
+> -				   PTP_ACR_ATSEN_SHIFT);
+>  		}
+> +		netdev_dbg(priv->dev, "Auxiliary Snapshot %d %s.\n",
+> +			   priv->plat->ext_snapshot_num >> PTP_ACR_ATSEN_SHIFT,
+> +			   on ? "enabled" : "disabled");
+>  		writel(acr_value, ptpaddr + PTP_ACR);
+>  		mutex_unlock(&priv->aux_ts_lock);
+>  		/* wait for auxts fifo clear to finish */
+> 
+> -- 
+> 2.39.2
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
