@@ -2,51 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3883E7CF558
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 12:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8D17CF63A
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 13:10:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D4640C6B44D;
-	Thu, 19 Oct 2023 10:30:27 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25710C6B44D;
+	Thu, 19 Oct 2023 11:10:26 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 751BEC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF13FC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Oct 2023 10:30:26 +0000 (UTC)
+ Thu, 19 Oct 2023 11:10:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 351F7CE2AFE;
- Thu, 19 Oct 2023 10:30:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C948C433CB;
- Thu, 19 Oct 2023 10:30:23 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 513DBB827F8;
+ Thu, 19 Oct 2023 11:10:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D1E5C433C9;
+ Thu, 19 Oct 2023 11:10:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697711423;
- bh=ISlzwNBz4S/jH+y76V1s9eoZT46G5gS6n3EopdgQWHA=;
+ s=k20201202; t=1697713823;
+ bh=x7Vilo7RVB7QrsjGzn3PXT/f0rYR4arJfWxCuscoZPg=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=MS7usoPGfOXtFgpfdTA4GpSCDCKwDC2R+9mnJT0e3cISZPXFPK8kFSxrbYKmZDQJy
- x1t4PYCaUCYoh1mdWlO2za66uoHDtV0qEkYR+h5ynkiCbVv8HHgB7DBIe6tKs5TUP5
- Or6bJeHYQ+fEZuUjC1iNcEN+huiuJcmH9j0R6NcxcyDNCbLQfuwXwsUTFS3NZhQCW1
- TJWyV6/FhXtxRP0rfhTqdVhSH9IQTE1YJ97Hz1yqyGtM5I0RPSBwDIEablfKGrQZB9
- TlJnDwH8ZaS4efuYH+BuXpr5F/3D4h7m00/3Mux7Bv0SjxXVAg8ufvMzr2V+4mKdzF
- 4rRqsIp945Ivw==
+ b=YUHwUD67GFqAZErgK2PsBHJHYFywVrz/3RhS5IEsXOBhnpObUjzKkvLNaOtp5U8PH
+ 5qV3dkDsiIpjPosl+ExsOGjAv02lBzl4rktcyBzrsmY1Dl5kJxigayP0/hAT9RWXi7
+ +TlrgPH+Esr+o2otftIZx/jLKIHWDA1SrvmBGIHJ4mXfsjRxjSnkjhDOdHV20U/0mp
+ J1YqNXbDq9DlnhU/kJ5cgBZHJyDbQKjvQzUeenAlUsM49LAXf+23EbAJZQ1CbMiA5f
+ HY2r6vjAYmxKQUa80Lf+8GBRqZqYErF5gH/DG16bghgwzikGuY0d1bPVQdd4dgvLK+
+ Wvt7h5lnXul0g==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 51100C73FE1; Thu, 19 Oct 2023 10:30:23 +0000 (UTC)
+ 7E8FAC595CE; Thu, 19 Oct 2023 11:10:23 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169771142332.4277.11760009172331855104.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Oct 2023 10:30:23 +0000
-References: <20231018030802.741923-1-yi.fang.gan@intel.com>
-In-Reply-To: <20231018030802.741923-1-yi.fang.gan@intel.com>
-To: Gan@ci.codeaurora.org, Yi Fang <yi.fang.gan@intel.com>
-Cc: linux-kernel@vger.kernel.org, yoong.siang.song@intel.com,
- weifeng.voon@intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- hong.aun.looi@intel.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Remove
- redundant checking for rx_coalesce_usecs
+Message-Id: <169771382351.28433.15969551932352859252.git-patchwork-notify@kernel.org>
+Date: Thu, 19 Oct 2023 11:10:23 +0000
+References: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
+In-Reply-To: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
+To: Johannes Zink <j.zink@pengutronix.de>
+Cc: ahalaney@redhat.com, vee.khee.wong@linux.intel.com,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de,
+ bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
+ richardcochran@gmail.com, kurt@linutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, horms@kernel.org,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ tee.min.tan@intel.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH net-next v2 0/5] net: stmmac: use correct
+ PPS input indexing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,23 +68,30 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This series was applied to netdev/net-next.git (main)
 by Paolo Abeni <pabeni@redhat.com>:
 
-On Wed, 18 Oct 2023 11:08:02 +0800 you wrote:
-> From: Gan Yi Fang <yi.fang.gan@intel.com>
+On Wed, 18 Oct 2023 09:09:52 +0200 you wrote:
+> The stmmac can have 0 to 4 auxiliary snapshot in channels, which can be
+> used for capturing external triggers with respect to the eqos PTP timer.
 > 
-> The datatype of rx_coalesce_usecs is u32, always larger or equal to zero.
-> Previous checking does not include value 0, this patch removes the
-> checking to handle the value 0. This change in behaviour making the
-> value of 0 cause an error is not a problem because 0 is out of
-> range of rx_coalesce_usecs.
+> Previously when enabling the auxiliary snapshot, an invalid request was
+> written to the hardware register, except for the Intel variant of this
+> driver, where the only snapshot available was hardcoded.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v2,1/1] net: stmmac: Remove redundant checking for rx_coalesce_usecs
-    https://git.kernel.org/netdev/net-next/c/392c226cda94
+  - [net-next,v2,1/5] net: stmmac: simplify debug message on stmmac_enable()
+    https://git.kernel.org/netdev/net-next/c/3fba82343955
+  - [net-next,v2,2/5] net: stmmac: use correct PPS capture input index
+    https://git.kernel.org/netdev/net-next/c/7e62ac24b57a
+  - [net-next,v2,3/5] net: stmmac: intel: remove unnecessary field struct plat_stmmacenet_data::ext_snapshot_num
+    https://git.kernel.org/netdev/net-next/c/1dbfe73bd648
+  - [net-next,v2,4/5] net: stmmac: ptp: stmmac_enable(): move change of plat->flags into mutex
+    https://git.kernel.org/netdev/net-next/c/7d3077482578
+  - [net-next,v2,5/5] net: stmmac: do not silently change auxiliary snapshot capture channel
+    https://git.kernel.org/netdev/net-next/c/2ddd05d1d5ed
 
 You are awesome, thank you!
 -- 
