@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C8D17CF63A
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 13:10:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6737CFBA4
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 15:50:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 25710C6B44D;
-	Thu, 19 Oct 2023 11:10:26 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94AE9C6C838;
+	Thu, 19 Oct 2023 13:50:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF13FC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9E4CC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Oct 2023 11:10:24 +0000 (UTC)
+ Thu, 19 Oct 2023 13:50:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 513DBB827F8;
- Thu, 19 Oct 2023 11:10:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D1E5C433C9;
- Thu, 19 Oct 2023 11:10:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A2FC061458;
+ Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 49C7AC433CA;
+ Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697713823;
- bh=x7Vilo7RVB7QrsjGzn3PXT/f0rYR4arJfWxCuscoZPg=;
+ s=k20201202; t=1697723424;
+ bh=KGkjy3SWE/bKA0U7i+Yr3cNTc5UcUvO6Rcal+ZDSr/c=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=YUHwUD67GFqAZErgK2PsBHJHYFywVrz/3RhS5IEsXOBhnpObUjzKkvLNaOtp5U8PH
- 5qV3dkDsiIpjPosl+ExsOGjAv02lBzl4rktcyBzrsmY1Dl5kJxigayP0/hAT9RWXi7
- +TlrgPH+Esr+o2otftIZx/jLKIHWDA1SrvmBGIHJ4mXfsjRxjSnkjhDOdHV20U/0mp
- J1YqNXbDq9DlnhU/kJ5cgBZHJyDbQKjvQzUeenAlUsM49LAXf+23EbAJZQ1CbMiA5f
- HY2r6vjAYmxKQUa80Lf+8GBRqZqYErF5gH/DG16bghgwzikGuY0d1bPVQdd4dgvLK+
- Wvt7h5lnXul0g==
+ b=Fkn9QIdXC75u7o2BeSQnw8oriqaVsbkdmn8v7q3Y4UoyL+L4MJZ6h9ik/lLagxydE
+ DiwqkqGxNnBtwxyWLLVyiJQXVHd4QfSCRXI47MpLNXPHoB3UeMqiBqVYOCVgwVxpuz
+ WGVUQeHGqcB31bycdXPE+CMA2FBzGfJVQCcYtQy1Mw+XRXhVFzDmvemnA03138jiaX
+ QRTCN/gxN/c9idAg16/UIMcJsg98IMHOjg3hZ1pBKVuKkgMb6hcxP+4shcAWE0G4tv
+ WHlcF8N2+AfteiNJsG2Qabz7gH0V/Ge5Ytg+YR2AF6mqMRIBmoaNbdKTdVpPzoJveJ
+ 8FBb2rjRTJuwA==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 7E8FAC595CE; Thu, 19 Oct 2023 11:10:23 +0000 (UTC)
+ 2C8F1C595CE; Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169771382351.28433.15969551932352859252.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Oct 2023 11:10:23 +0000
-References: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
-In-Reply-To: <20231010-stmmac_fix_auxiliary_event_capture-v2-0-51d5f56542d7@pengutronix.de>
-To: Johannes Zink <j.zink@pengutronix.de>
-Cc: ahalaney@redhat.com, vee.khee.wong@linux.intel.com,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- bartosz.golaszewski@linaro.org, netdev@vger.kernel.org,
- richardcochran@gmail.com, kurt@linutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, horms@kernel.org,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- tee.min.tan@intel.com, kuba@kernel.org, pabeni@redhat.com,
- rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, patchwork-jzi@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/5] net: stmmac: use correct
- PPS input indexing
+Message-Id: <169772342417.4360.7732259077441281905.git-patchwork-notify@kernel.org>
+Date: Thu, 19 Oct 2023 13:50:24 +0000
+References: <20231018123550.27110-1-ansuelsmth@gmail.com>
+In-Reply-To: <20231018123550.27110-1-ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: linux-wireless@vger.kernel.org, pkshih@realtek.com, jiri@resnulli.us,
+ horms@kernel.org, daniel@iogearbox.net, netdev@vger.kernel.org,
+ kvalo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, liuhangbin@gmail.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, rajur@chelsio.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next PATCH v4 0/4] net: stmmac: improve tx
+	timer logic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,27 +69,25 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Paolo Abeni <pabeni@redhat.com>:
 
-On Wed, 18 Oct 2023 09:09:52 +0200 you wrote:
-> The stmmac can have 0 to 4 auxiliary snapshot in channels, which can be
-> used for capturing external triggers with respect to the eqos PTP timer.
+On Wed, 18 Oct 2023 14:35:46 +0200 you wrote:
+> This series comes with the intention of restoring original performance
+> of stmmac on some router/device that used the stmmac driver to handle
+> gigabit traffic.
 > 
-> Previously when enabling the auxiliary snapshot, an invalid request was
-> written to the hardware register, except for the Intel variant of this
-> driver, where the only snapshot available was hardcoded.
+> More info are present in patch 3. This cover letter is to show results
+> and improvements of the following change.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v2,1/5] net: stmmac: simplify debug message on stmmac_enable()
-    https://git.kernel.org/netdev/net-next/c/3fba82343955
-  - [net-next,v2,2/5] net: stmmac: use correct PPS capture input index
-    https://git.kernel.org/netdev/net-next/c/7e62ac24b57a
-  - [net-next,v2,3/5] net: stmmac: intel: remove unnecessary field struct plat_stmmacenet_data::ext_snapshot_num
-    https://git.kernel.org/netdev/net-next/c/1dbfe73bd648
-  - [net-next,v2,4/5] net: stmmac: ptp: stmmac_enable(): move change of plat->flags into mutex
-    https://git.kernel.org/netdev/net-next/c/7d3077482578
-  - [net-next,v2,5/5] net: stmmac: do not silently change auxiliary snapshot capture channel
-    https://git.kernel.org/netdev/net-next/c/2ddd05d1d5ed
+  - [net-next,v4,1/4] net: introduce napi_is_scheduled helper
+    https://git.kernel.org/netdev/net-next/c/7f3eb2174512
+  - [net-next,v4,2/4] net: stmmac: improve TX timer arm logic
+    https://git.kernel.org/netdev/net-next/c/2d1a42cf7f77
+  - [net-next,v4,3/4] net: stmmac: move TX timer arm after DMA enable
+    https://git.kernel.org/netdev/net-next/c/a594166387fe
+  - [net-next,v4,4/4] net: stmmac: increase TX coalesce timer to 5ms
+    https://git.kernel.org/netdev/net-next/c/039550960a22
 
 You are awesome, thank you!
 -- 
