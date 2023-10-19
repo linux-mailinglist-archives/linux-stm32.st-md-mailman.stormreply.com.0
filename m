@@ -2,52 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E6737CFBA4
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 15:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD75F7D0301
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Oct 2023 22:07:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94AE9C6C838;
-	Thu, 19 Oct 2023 13:50:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F0B6C6C844;
+	Thu, 19 Oct 2023 20:07:53 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9E4CC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10CE0C6C83E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Oct 2023 13:50:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A2FC061458;
- Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 49C7AC433CA;
- Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1697723424;
- bh=KGkjy3SWE/bKA0U7i+Yr3cNTc5UcUvO6Rcal+ZDSr/c=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Fkn9QIdXC75u7o2BeSQnw8oriqaVsbkdmn8v7q3Y4UoyL+L4MJZ6h9ik/lLagxydE
- DiwqkqGxNnBtwxyWLLVyiJQXVHd4QfSCRXI47MpLNXPHoB3UeMqiBqVYOCVgwVxpuz
- WGVUQeHGqcB31bycdXPE+CMA2FBzGfJVQCcYtQy1Mw+XRXhVFzDmvemnA03138jiaX
- QRTCN/gxN/c9idAg16/UIMcJsg98IMHOjg3hZ1pBKVuKkgMb6hcxP+4shcAWE0G4tv
- WHlcF8N2+AfteiNJsG2Qabz7gH0V/Ge5Ytg+YR2AF6mqMRIBmoaNbdKTdVpPzoJveJ
- 8FBb2rjRTJuwA==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 2C8F1C595CE; Thu, 19 Oct 2023 13:50:24 +0000 (UTC)
+ Thu, 19 Oct 2023 20:07:52 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtZJ6-0000Af-V6; Thu, 19 Oct 2023 22:07:48 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtZJ5-002rfp-9F; Thu, 19 Oct 2023 22:07:47 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qtZJ4-001ve0-W0; Thu, 19 Oct 2023 22:07:47 +0200
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Date: Thu, 19 Oct 2023 22:06:59 +0200
+Message-ID: <20231019200658.1754190-7-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <169772342417.4360.7732259077441281905.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Oct 2023 13:50:24 +0000
-References: <20231018123550.27110-1-ansuelsmth@gmail.com>
-In-Reply-To: <20231018123550.27110-1-ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: linux-wireless@vger.kernel.org, pkshih@realtek.com, jiri@resnulli.us,
- horms@kernel.org, daniel@iogearbox.net, netdev@vger.kernel.org,
- kvalo@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, liuhangbin@gmail.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, rajur@chelsio.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next PATCH v4 0/4] net: stmmac: improve tx
-	timer logic
+X-Developer-Signature: v=1; a=openpgp-sha256; l=962;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=SfkOOu4xgfaM/hozY/FdeBH1secC/s7CyzGx/50FQpc=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlMYxioDQkrC8dFLuY+p314hq7oHwBjo2vCmYsU
+ hq+LOuoHwCJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZTGMYgAKCRCPgPtYfRL+
+ TnEVCACrZ8wLtZBRX2W64BhKcFJbJ1JMRPVmUvkOB6ZU0RKLsXYyHsbm2fbrwohmIZe3En93F2C
+ RTvFMa3MOPQLddOjaUG7WaF+iYBXyN5opMn2Xb9uYTxRpzpbQVeH9qzVuShb/1j7ZoAg3kpwNlA
+ fqUMGj3ZkNSNR2HRaYBPhTMTp8CknsK3Ig2il8hZY/wmK/qFxjcM7ZCupUo4hO1d+WOOVfn3x4y
+ 7GSvLyfNhMjbAwEe9+R+YXnn5NFIccznZWHTlvd8Hc10CVfO+v0uHtrTZbfTFDjIWFlh9hhf3ix
+ AIrfkUJDGvYCQpOT5DXp0lSaWjK4kYBnB0PPYJIiJ1vhHxrz
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, kernel@pengutronix.de,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/5] pwm: stm32: Cleanups,
+	get_state() and proper hw take over
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,36 +71,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hello,
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+some time ago Philipp already sent an implementation of .get_state() for
+the stm32 PWM driver. He created this series from the feedback but
+didn't come around to send it out. The goal of this series is to allow
+to take over a pwm-backlight from the bootloader without flickering on
+an stm32mp157 based machine.
 
-On Wed, 18 Oct 2023 14:35:46 +0200 you wrote:
-> This series comes with the intention of restoring original performance
-> of stmmac on some router/device that used the stmmac driver to handle
-> gigabit traffic.
-> 
-> More info are present in patch 3. This cover letter is to show results
-> and improvements of the following change.
-> 
-> [...]
+The only thing I did here to Philipp's series was to split one of the
+patches in two. Philipp had the contents of patches 4 and 5 in a single
+patch.
 
-Here is the summary with links:
-  - [net-next,v4,1/4] net: introduce napi_is_scheduled helper
-    https://git.kernel.org/netdev/net-next/c/7f3eb2174512
-  - [net-next,v4,2/4] net: stmmac: improve TX timer arm logic
-    https://git.kernel.org/netdev/net-next/c/2d1a42cf7f77
-  - [net-next,v4,3/4] net: stmmac: move TX timer arm after DMA enable
-    https://git.kernel.org/netdev/net-next/c/a594166387fe
-  - [net-next,v4,4/4] net: stmmac: increase TX coalesce timer to 5ms
-    https://git.kernel.org/netdev/net-next/c/039550960a22
+Best regards
+Uwe
 
-You are awesome, thank you!
+Philipp Zabel (5):
+  pwm: stm32: Replace write_ccrx with regmap_write
+  pwm: stm32: Make ch parameter unsigned
+  pwm: stm32: Use hweight32 in stm32_pwm_detect_channels
+  pwm: stm32: Implement .get_state()
+  pwm: stm32: Fix enable count for clk in .probe()
+
+ drivers/pwm/pwm-stm32.c | 98 +++++++++++++++++++++++++----------------
+ 1 file changed, 61 insertions(+), 37 deletions(-)
+
+base-commit: 4bb36d126cb3147d6bbfd00242a5b846dacad595
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.42.0
 
 _______________________________________________
 Linux-stm32 mailing list
