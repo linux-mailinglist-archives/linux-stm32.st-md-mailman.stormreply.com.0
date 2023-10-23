@@ -2,64 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B81A7D2D28
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Oct 2023 10:50:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B17987D30AA
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Oct 2023 13:01:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C91CC6B47F;
-	Mon, 23 Oct 2023 08:50:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F040C6C857;
+	Mon, 23 Oct 2023 11:01:06 +0000 (UTC)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA54C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08940C6B47C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Oct 2023 08:50:42 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39N1aoaO031544; Mon, 23 Oct 2023 10:50:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=nTRWhu8
- z1NgyglIHAYCNkANWtovivkFITmf+G8oHblM=; b=bHxyXT82XkW7NxHdmOXgamD
- GOL93KIRHV1Lrap8ZkgrVa1bO7QzgtyAk+cUjgm279yXOrNpR/Sfo3A40CssCKni
- bfdA8KsSIiyTrg8i7g+VYilreKEPIDR+AGSbrQk0Bnsr+IgEheh1CysEMhuRzDyq
- 6YCcbj4jjyhMo75OX7pu90bLbQyptO6MkTIGQ5KxGRKoGe4P8E0F536WL72vG6E1
- 2rJ+gAXG6ko/8nRuJ4JbL55mJSMQL7Ep+fPc8CztYtm3SPuVyIU0SAfianDFlVTV
- bUnPInCHeZUBv4h5rCoTIXt6h/qwgJpr5cL9QLw6SgzmLydgX74Y3n4SENty6mw=
- =
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tv42fpx4q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 23 Oct 2023 10:50:29 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3AF0A100058;
- Mon, 23 Oct 2023 10:50:29 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 347A9215148;
- Mon, 23 Oct 2023 10:50:29 +0200 (CEST)
-Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 23 Oct
- 2023 10:50:29 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Andi Shyti <andi.shyti@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Mon, 23 Oct 2023 10:50:15 +0200
-Message-ID: <20231023085015.2557849-1-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Mon, 23 Oct 2023 11:01:04 +0000 (UTC)
+Received: by mail-yb1-f179.google.com with SMTP id
+ 3f1490d57ef6-d852b28ec3bso3021570276.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 23 Oct 2023 04:01:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1698058864; x=1698663664;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CQnyw3MjdCXKTfyQSa/jGUuKdoEycBcWTe0sh3zaKAg=;
+ b=g1tn8NfGXQRAyLl8Ezi6houtHWf1qecITufVRXBza3XLI7ZUn4y54dTYnj85XoyPIE
+ YC+zxlcp9xjCAKKsnlrmeLGkymFK1MMgqh+gYYSz1a3uRXO2URwR2UbQgEFU5KxGd3K5
+ 9MW7BM7SeSKyIGxO9LEhGfYKwzblFL2JqYfZk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698058864; x=1698663664;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CQnyw3MjdCXKTfyQSa/jGUuKdoEycBcWTe0sh3zaKAg=;
+ b=tqyy/AjIFXAtzWtNNnrpyWDeA+6P4pSrh7MW+G9M3amVS9wDWWkSlr/RiGA7QF319F
+ spZdAMXCnt7MGstEUo+hRphhM8S0ItUShUWEREYrreu+6Z6N0nlUrkRd+BoQr4vnhCFL
+ 8KqrUGs7JEdrBIHS7EYxadb2bD4PAOKpUUdLj/LbCuKaofrT/f2jkIbUiZHh8An+lfPM
+ Ku1KUaci3fizv97gayEytjY7Ds14bRAYpD3r9PAzQ1MFXcYvR+tmLmz4NFKko7f5/0Ik
+ jLuewXDzKSscvdfhbiuaNrdtvs7ytgAXjQ7TTUTLZQ9hNjfzEU9aIe/dCZXpeuvPLWAY
+ q8vQ==
+X-Gm-Message-State: AOJu0YwWy7kGkRXyHpYx+afDPWk/LClpE3wNgvtjfBZywvZsdyXTwslq
+ NI64aGa/K+v1ni5rS7QBjOmahAbGk79xE0MtztUSRg==
+X-Google-Smtp-Source: AGHT+IHsgGGa2skrDGr96nwbMOiC55O2cCdp4sM8NTs6qixH/wFcZIQVI1iSePRLMK2nXAYF5AkwHSE0OOXJHQbWoxA=
+X-Received: by 2002:a25:4217:0:b0:d9b:3b3e:5a07 with SMTP id
+ p23-20020a254217000000b00d9b3b3e5a07mr7276609yba.5.1698058863818; Mon, 23 Oct
+ 2023 04:01:03 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-23_06,2023-10-19_01,2023-05-22_02
-Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] i2c: stm32f7: add description of atomic in
-	struct stm32f7_i2c_dev
+References: <20230904180635.923506-1-dario.binacchi@amarulasolutions.com>
+ <5e75b5fd-c351-1f42-94ed-b6dc1d3f030e@foss.st.com>
+In-Reply-To: <5e75b5fd-c351-1f42-94ed-b6dc1d3f030e@foss.st.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Mon, 23 Oct 2023 13:00:48 +0200
+Message-ID: <CABGWkvquib1WEKGR-DFiNN62gLcYF3Y==K29_w-=9pV0gnjEqg@mail.gmail.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH] ARM: dts: stm32f469-disco: use the
+ same 3v3 for SD and DSI nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,34 +73,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add missing description of the atomic boolean in struct stm32f7_i2c_dev.
-
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/i2c/busses/i2c-stm32f7.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 87b9abcc42d8..983509936727 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -325,6 +325,7 @@ struct stm32f7_i2c_alert {
-  * @dnf_dt: value of digital filter requested via dt
-  * @dnf: value of digital filter to apply
-  * @alert: SMBus alert specific data
-+ * @atomic: boolean indicating that current transfer is atomic
-  */
- struct stm32f7_i2c_dev {
- 	struct i2c_adapter adap;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gQWxleGFuZHJlLAoKT24gVGh1LCBTZXAgMTQsIDIwMjMgYXQgMTA6NTfigK9BTSBBbGV4
+YW5kcmUgVE9SR1VFCjxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPiB3cm90ZToKPgo+IE9u
+IDkvNC8yMyAyMDowNiwgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4gPiBJbiB0aGUgYm9hcmQgc2No
+ZW1hdGljLCB0aGUgcG93ZXIgc3VwcGx5IGZvciB0aGUgU0QgY2FyZCBpcyB0aGUgc2FtZSAzLjMK
+PiA+IHZvbHRzIHVzZWQgdG8gcG93ZXIgdGhlIExDRCBwYW5lbCBhbmQgb3RoZXIgcGVyaXBoZXJh
+bHMuIEJ5IGdlbmVyYWxpemluZwo+ID4gdGhlIG5hbWUgb2YgdGhlIHZvbHRhZ2UgcmVndWxhdG9y
+LCBpdCBzaW1wbGlmaWVzIHRoZSBkZXZpY2UgdHJlZSBhbmQgbWFrZXMKPiA+IGl0IG1vcmUgcmVh
+ZGFibGUuCj4gPgo+Cj4gSXQgbWFrZXMgc2VucyBhcyBpdCBpcyB0aGUgc2FtZSBkaXNjcmV0IHJl
+Z3VsYXRvciAobm8gcG1pYyBpbnZvbHZlZCkuCj4KCkkgZG9uJ3Qgc2VlIGl0IGFwcGxpZWQgdG8g
+bGludXgtc3RtMzIvbmV4dC4gSXMgc29tZXRoaW5nIG1pc3Npbmc/CgpUaGFua3MgYW5kIHJlZ2Fy
+ZHMsCkRhcmlvCgo+IHJlZ2FyZHMKPiBBbGV4Cj4KPiA+IExpbms6IGh0dHBzOi8vd3d3LnN0LmNv
+bS9lbi9ldmFsdWF0aW9uLXRvb2xzLzMyZjQ2OWlkaXNjb3ZlcnkuaHRtbCNjYWQtcmVzb3VyY2Vz
+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBEYXJpbyBCaW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVs
+YXNvbHV0aW9ucy5jb20+Cj4gPgo+ID4gLS0tCj4gPgo+ID4gICBhcmNoL2FybS9ib290L2R0cy9z
+dC9zdG0zMmY0NjktZGlzY28uZHRzIHwgMTUgKysrKy0tLS0tLS0tLS0tCj4gPiAgIDEgZmlsZSBj
+aGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1n
+aXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmY0NjktZGlzY28uZHRzIGIvYXJjaC9hcm0v
+Ym9vdC9kdHMvc3Qvc3RtMzJmNDY5LWRpc2NvLmR0cwo+ID4gaW5kZXggY2JiZDUyMWJmMDEwLi44
+YTRmOGRkZDA4M2QgMTAwNjQ0Cj4gPiAtLS0gYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmY0
+NjktZGlzY28uZHRzCj4gPiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmY0NjktZGlz
+Y28uZHRzCj4gPiBAQCAtNjksMTYgKzY5LDkgQEAgYWxpYXNlcyB7Cj4gPiAgICAgICAgICAgICAg
+IHNlcmlhbDAgPSAmdXNhcnQzOwo+ID4gICAgICAgfTsKPiA+Cj4gPiAtICAgICBtbWNfdmNhcmQ6
+IG1tY192Y2FyZCB7Cj4gPiArICAgICB2Y2NfM3YzOiB2Y2MtM3YzIHsKPiA+ICAgICAgICAgICAg
+ICAgY29tcGF0aWJsZSA9ICJyZWd1bGF0b3ItZml4ZWQiOwo+ID4gLSAgICAgICAgICAgICByZWd1
+bGF0b3ItbmFtZSA9ICJtbWNfdmNhcmQiOwo+ID4gLSAgICAgICAgICAgICByZWd1bGF0b3ItbWlu
+LW1pY3Jvdm9sdCA9IDwzMzAwMDAwPjsKPiA+IC0gICAgICAgICAgICAgcmVndWxhdG9yLW1heC1t
+aWNyb3ZvbHQgPSA8MzMwMDAwMD47Cj4gPiAtICAgICB9Owo+ID4gLQo+ID4gLSAgICAgdmRkX2Rz
+aTogdmRkLWRzaSB7Cj4gPiAtICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVndWxhdG9yLWZp
+eGVkIjsKPiA+IC0gICAgICAgICAgICAgcmVndWxhdG9yLW5hbWUgPSAidmRkX2RzaSI7Cj4gPiAr
+ICAgICAgICAgICAgIHJlZ3VsYXRvci1uYW1lID0gInZjY18zdjMiOwo+ID4gICAgICAgICAgICAg
+ICByZWd1bGF0b3ItbWluLW1pY3Jvdm9sdCA9IDwzMzAwMDAwPjsKPiA+ICAgICAgICAgICAgICAg
+cmVndWxhdG9yLW1heC1taWNyb3ZvbHQgPSA8MzMwMDAwMD47Cj4gPiAgICAgICB9Owo+ID4gQEAg
+LTE2NCw3ICsxNTcsNyBAQCBwYW5lbEAwIHsKPiA+ICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9
+ICJvcmlzZXRlY2gsb3RtODAwOWEiOwo+ID4gICAgICAgICAgICAgICByZWcgPSA8MD47IC8qIGRz
+aSB2aXJ0dWFsIGNoYW5uZWwgKDAuLjMpICovCj4gPiAgICAgICAgICAgICAgIHJlc2V0LWdwaW9z
+ID0gPCZncGlvaCA3IEdQSU9fQUNUSVZFX0xPVz47Cj4gPiAtICAgICAgICAgICAgIHBvd2VyLXN1
+cHBseSA9IDwmdmRkX2RzaT47Cj4gPiArICAgICAgICAgICAgIHBvd2VyLXN1cHBseSA9IDwmdmNj
+XzN2Mz47Cj4gPiAgICAgICAgICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiA+Cj4gPiAgICAgICAg
+ICAgICAgIHBvcnQgewo+ID4gQEAgLTIxOSw3ICsyMTIsNyBAQCB0aW1lckAyIHsKPiA+Cj4gPiAg
+ICZzZGlvIHsKPiA+ICAgICAgIHN0YXR1cyA9ICJva2F5IjsKPiA+IC0gICAgIHZtbWMtc3VwcGx5
+ID0gPCZtbWNfdmNhcmQ+Owo+ID4gKyAgICAgdm1tYy1zdXBwbHkgPSA8JnZjY18zdjM+Owo+ID4g
+ICAgICAgY2QtZ3Bpb3MgPSA8JmdwaW9nIDIgR1BJT19BQ1RJVkVfTE9XPjsKPiA+ICAgICAgIGJy
+b2tlbi1jZDsKPiA+ICAgICAgIHBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIsICJvcGVuZHJhaW4i
+Owo+CgoKLS0gCgpEYXJpbyBCaW5hY2NoaQoKU2VuaW9yIEVtYmVkZGVkIExpbnV4IERldmVsb3Bl
+cgoKZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5jb20KCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KCgpBbWFydWxhIFNvbHV0aW9ucyBTUkwKClZpYSBMZSBDYW5ldmFy
+ZSAzMCwgMzExMDAgVHJldmlzbywgVmVuZXRvLCBJVAoKVC4gKzM5IDA0MiAyNDMgNTMxMAppbmZv
+QGFtYXJ1bGFzb2x1dGlvbnMuY29tCgp3d3cuYW1hcnVsYXNvbHV0aW9ucy5jb20KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
