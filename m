@@ -2,71 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4797D4B4F
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Oct 2023 10:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B227D52BD
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Oct 2023 15:49:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FC28C6C837;
-	Tue, 24 Oct 2023 08:57:10 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0188BC6C841;
+	Tue, 24 Oct 2023 13:49:03 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37385C6B44F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6C75C6B44F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Oct 2023 08:57:09 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso34965175e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Oct 2023 01:57:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698137828; x=1698742628;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=o1HAmH70/geFTRqCb9RHZrirH+PCMEWAn0+VgVFuR2A=;
- b=tnuT042vpdK2uS9xa2nhvK1Y7q3UqZxxcHhZQlOPYzMOorAR+OeYd/tjTOPaw9rJL3
- hdMSVBKDbaMRJSUXWM47cFaiNagKT8xExIwt42mYsjJ9W5Tt3CCdBL2VfPdQC2D01m4P
- KvG9I1FyU1zJ0SBD8E3qQFoTxlSORqxymF7OMWqZ64y+H4KHltD6p6Mb8Sp9N9mnyQSZ
- xkAOpgwmnTPGR+EK3ycsJu7DM5hKF27q7MHQ15badBWWjeoXwKUQbkQPe3UVr6QV1mOY
- GJn43ZLTaO85s7qwMXEFEXC/sWwKMnWInE+NYo5EsjvnZl6yWXCae02+kzHdqsuoMC8K
- 04Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698137828; x=1698742628;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o1HAmH70/geFTRqCb9RHZrirH+PCMEWAn0+VgVFuR2A=;
- b=wHNKMi/8I7ei01KvrVAx1O4RBEV+GloVLxtqcwWbGD4CdbVJklKYPONYVKGwqVHJCj
- ejPxekUhMVyCfPypYqZlccfRHx2A3NEGsVxrGtCDW2PI3O5NrChkpH0cy5MsVWFeLt0N
- ViwtPRgT4+yzYsz2XuwhuoFutdh3uayHUosIDb2U6UWJ86s70cNv/9pEwYjUJpQDTgtk
- 8KeuH2v3eGbmtikFrEccNTLGN6zYAB/HE6i6H1rLHRa6Ea+8QSLEAf3AbK7Dyq/JF1pc
- iQqaC7pR82OK2X6cBFDHde7iUMsxo9XqrgC7QynuZn2YSIPfiW4MhwKBGVs/gXbKyhlM
- 7ynQ==
-X-Gm-Message-State: AOJu0Yxk8d+fRRdl9/xIdY2z4bu0RGfUGKckUz2YqcMG6x5GqMlw0Avg
- DiVIirc6TJo0lMUZL2xFqd8U4Q==
-X-Google-Smtp-Source: AGHT+IGkAYsKA/HUn8pYOLHaNca+xO7jujkOy2wG6M5LZmaseReMixb0RQFxXNhSsQmm6lKk+pZupQ==
-X-Received: by 2002:a05:600c:4f94:b0:408:404b:dc2d with SMTP id
- n20-20020a05600c4f9400b00408404bdc2dmr9617797wmq.30.1698137828566; 
- Tue, 24 Oct 2023 01:57:08 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- x10-20020a05600c21ca00b003feea62440bsm11218241wmj.43.2023.10.24.01.57.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Oct 2023 01:57:08 -0700 (PDT)
-Date: Tue, 24 Oct 2023 11:57:05 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <a06a7839-8ce4-4f7e-9018-eaa03e40b8ee@kadam.mountain>
-References: <ddaf5742-931b-4cdd-820b-72808ddf4fdf@moroto.mountain>
- <d2ea6034-738d-4161-a9fb-b2d2b1b134ae@foss.st.com>
+ Tue, 24 Oct 2023 13:49:01 +0000 (UTC)
+Received: from ptz.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::77]
+ helo=[127.0.0.1])
+ by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <j.zink@pengutronix.de>)
+ id 1qvHm2-0007R6-1x; Tue, 24 Oct 2023 15:48:46 +0200
+Message-ID: <9c1c9408-88ac-4ade-b8ec-2ae5d8922cac@pengutronix.de>
+Date: Tue, 24 Oct 2023 15:48:40 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d2ea6034-738d-4161-a9fb-b2d2b1b134ae@foss.st.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Laurent Fert <laurent.fert@intel.com>, kernel-janitors@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] stm class: Fix a double free in
- stm_register_device()
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, de-DE
+To: Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, "netdev@vger.kernel.org"
+ <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Johannes Zink <j.zink@pengutronix.de>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:900:1d::77
+X-SA-Exim-Mail-From: j.zink@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: [Linux-stm32] BUG: stmmac: Timeout accessing MAC_VLAN_Tag_Filter
+ when EEE is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,47 +55,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 24, 2023 at 10:42:48AM +0200, Amelie Delaunay wrote:
-> Hi Dan,
-> 
-> On 10/24/23 07:01, Dan Carpenter wrote:
-> > The put_device(&stm->dev) call will trigger stm_device_release() which
-> > frees "stm" so the vfree(stm) on the next line is a double free.
-> > 
-> > Fixes: 389b6699a2aa ("stm class: Fix stm device initialization order")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> > ---
-> >   drivers/hwtracing/stm/core.c | 10 +++++-----
-> >   1 file changed, 5 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> > index 534fbefc7f6a..7315f7d3910d 100644
-> > --- a/drivers/hwtracing/stm/core.c
-> > +++ b/drivers/hwtracing/stm/core.c
-> > @@ -868,8 +868,10 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
-> >   		return -ENOMEM;
-> >   	stm->major = register_chrdev(0, stm_data->name, &stm_fops);
-> > -	if (stm->major < 0)
-> > -		goto err_free;
-> > +	if (stm->major < 0) {
-> > +		vfree(stm);
-> > +		return stm->major;
-> 
-> isn't there a use-after-free of stm here?
-> 
+Hi everyone,
 
-Oh crap.  How did I not catch that before sending...  :(  Sorry!
-Thanks for catching this.  I will investigate my QC process and resend.
+for a vanilla kernel version 6.5.2 I observed the following behaviour on an 
+i.MX8MP-EVK:
 
-regards,
-dan carpenter
+root@<redacted>:~# ethtool -s eth1 autoneg on speed 100 duplex full
+root@<redacted>:~# ethtool --show-eee eth1
+EEE settings for eth1:
+         EEE status: enabled - inactive
+         Tx LPI: disabled
+         Supported EEE link modes:  100baseT/Full
+                                    1000baseT/Full
+         Advertised EEE link modes:  100baseT/Full
+         Link partner advertised EEE link modes:  Not reported
+root@<redacted>:~# ip link add link eth1 name eqos.5 type vlan id 5
+RTNETLINK answers: Device or resource busy
+root@<redacted>:~# dmesg | tail -n 1
+[  819.085069] imx-dwmac 30bf0000.ethernet eth1: Timeout accessing 
+MAC_VLAN_Tag_Filter
+root@<redacted>:~# ip link show dev eqos.5@eth1
+Device "eqos.5@eth1" does not exist.
+root@<redacted>:~# ethtool --set-eee eth1 eee off
+root@<redacted>:~# ethtool --show-eee eth1
+EEE settings for eth1:
+         EEE status: disabled
+         Tx LPI: disabled
+         Supported EEE link modes:  100baseT/Full
+                                    1000baseT/Full
+         Advertised EEE link modes:  Not reported
+         Link partner advertised EEE link modes:  Not reported
+root@<redacted>:~# ip link add link eth1 name eqos.5 type vlan id 5
+root@<redacted>:~# ip link show dev eqos.5 
 
+5: eqos.5@eth1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode 
+DEFAULT group default qlen 1000
+     link/ether 00:04:9f:07:9c:42 brd ff:ff:ff:ff:ff:ff
 
+The same holds for removing VLANs when EEE is enabled:
+
+(after reboot)
+root@<redacted>:~# ethtool --set-eee eth1 eee off
+root@<redacted>:~# ip link add link eth1 name eqos.5 type vlan id 5
+root@<redacted>:~# ethtool --set-eee eth1 eee on
+root@<redacted>:~# ip link del link eth1 name eqos.5 type vlan id 5
+root@beluga-1311a8001168e9dc:~# dmesg | tail -n2
+[  240.918085] imx-dwmac 30bf0000.ethernet eth1: Timeout accessing 
+MAC_VLAN_Tag_Filter
+[  240.925827] imx-dwmac 30bf0000.ethernet eth1: failed to kill vid 0081/5
+
+Which is even a bit more concerning, because there is no error reported to 
+userspace, only a netdev_err print to the kernel log
+
+In my debugging session I found that this behaviour is only linked to EEE being 
+enabled or disabled.
+On 1Gbps links, the eee-broken-1000t property is set for the ethphy node, which 
+is why the behaviour usually does not occur for 1GBps (which is probably the 
+most common usecase).
+
+Maybe someone on this list has more insight in the inner workings of the 
+dwmac/stmmac/eqos and could point out how to fix this issue, I'd be happy to 
+send patches and fix it. Also, maybe someone has other implementations at hand 
+and can check if this can be reproduced
+
+Do you deem disabling EEE while setting the VLAN up a valid workaround or 
+should we rather add a warning when the timeout occurs and EEE is still enabled?
+
+Best regards
+Johannes
+
+-- 
+Pengutronix e.K.                | Johannes Zink                  |
+Steuerwalder Str. 21            | https://www.pengutronix.de/    |
+31137 Hildesheim, Germany       | Phone: +49-5121-206917-0       |
+Amtsgericht Hildesheim, HRA 2686| Fax:   +49-5121-206917-5555    |
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
