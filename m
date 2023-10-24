@@ -2,65 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C79967D57C8
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Oct 2023 18:17:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14EB27D58C1
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Oct 2023 18:40:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E8BFC6C841;
-	Tue, 24 Oct 2023 16:17:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7939C6C841;
+	Tue, 24 Oct 2023 16:40:02 +0000 (UTC)
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
+ [209.85.161.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F36E4C6B44F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2775C6C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Oct 2023 16:17:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698164238; x=1729700238;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=vU6NUxn0dSy8CYFpKW21RatM/5zlQn8ad7r9qtdb8U4=;
- b=Bs7z11bsEiXG6E6Fof6/+HggLDoFiFbJTlresHwM5q8hDctplVeJmJnW
- CSX1vPtjjvUo/6U3tUQv/u3aVNawTWLC09ecczRpAQSKr09N8HHpgbQk+
- ACZSRheUR73Zfn6QTB71S+YofZ/PhAAEOJnrlw0PbGVSi3SRw8COHlxyI
- BG3HDPuqfMGs5NXyCTynvciMKhipp7ugNALN1gmAdn5XrQDeh/U62bGav
- zvxXo7AwugLfFtJxS0FLWKEZNbuY5U6MbZEYlS9V6TtnY2XDZLtLml3KK
- sUB7lEabQOncGRsIbz3cc7xUQxMbzoFy8Y3koI9rOyPfqImEqRqbewNaA Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="5725478"
-X-IronPort-AV: E=Sophos;i="6.03,248,1694761200"; 
-   d="scan'208";a="5725478"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 09:17:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="735081789"
-X-IronPort-AV: E=Sophos;i="6.03,248,1694761200"; d="scan'208";a="735081789"
-Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
- by orsmga006.jf.intel.com with ESMTP; 24 Oct 2023 09:17:10 -0700
-Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qvK5b-00081n-38;
- Tue, 24 Oct 2023 16:17:07 +0000
-Date: Wed, 25 Oct 2023 00:16:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shenwei Wang <shenwei.wang@nxp.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Message-ID: <202310250045.xYg3qn6G-lkp@intel.com>
-References: <20231004195442.414766-1-shenwei.wang@nxp.com>
+ Tue, 24 Oct 2023 16:40:00 +0000 (UTC)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-581e92f615fso2715194eaf.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 24 Oct 2023 09:40:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698165599; x=1698770399;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4dgLAi1M/nR9fJIQpQVSn3gxY5AOxSN1+8PQWp2ZK3E=;
+ b=erKsV6NaODa92q6pcDDWye0GiJA7cuRty3djZ0Rv0SmThtx/t0kmepNewF/oRDD3MR
+ uKzkSKUGRCFUrOrshDoeJZ0NIO8ZHtaU9EL8+ZNQk3W7oTZXNmVJvPXc2GusOWQi/vWW
+ 96u0BAcQoWW00KFBjjzVnBpV7faDnhaYyfQQrseTLuDRt+yJNbUhvii/J1cpMPspUst/
+ Edbh8ZMpdqGoYwYyQ11j+7WOEWbv2d7Y4O71S85K3PdTEyPS9QEMWIx9aMXkVrjj6Eqw
+ gN/yg78oAYXdq/8EbyqIuJbNlF6Delq3IJHWLbIecKXVFcGHvx6mQ6vxglmvAnWNLsct
+ 1Hpg==
+X-Gm-Message-State: AOJu0YxV3AGdUntKAvRXum64ucq5f+KJPOqX6JeKYbv2c21RdKQ73Uyp
+ A4sqE8EG+a5tshCWrt3nWQ==
+X-Google-Smtp-Source: AGHT+IH7r1RypTRYYRKdrh1wNi7leTTNBWI9FBY2oTxpLiREvX3LYW7p4YgROHwYcoRP/a6v+9+WQw==
+X-Received: by 2002:a4a:df11:0:b0:582:28e:93a8 with SMTP id
+ i17-20020a4adf11000000b00582028e93a8mr12468463oou.3.1698165599325; 
+ Tue, 24 Oct 2023 09:39:59 -0700 (PDT)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ f22-20020a4ad816000000b0057aef3cab33sm2002659oov.21.2023.10.24.09.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Oct 2023 09:39:58 -0700 (PDT)
+Received: (nullmailer pid 4062523 invoked by uid 1000);
+ Tue, 24 Oct 2023 16:39:56 -0000
+Date: Tue, 24 Oct 2023 11:39:56 -0500
+From: Rob Herring <robh@kernel.org>
+To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+Message-ID: <20231024163956.GA4049342-robh@kernel.org>
+References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
+ <20231010125719.784627-11-gatien.chevallier@foss.st.com>
+ <20231010184212.GA1221641-robh@kernel.org>
+ <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
+ <20231012153012.GA698406-robh@kernel.org>
+ <b16ed06f-66fd-457b-9610-a67ad07deb60@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231004195442.414766-1-shenwei.wang@nxp.com>
-Cc: imx@lists.linux.dev, netdev@vger.kernel.org, llvm@lists.linux.dev,
- Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, oe-kbuild-all@lists.linux.dev,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Mario Castaneda <mario.ignacio.castaneda.lopez@nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-imx: request high
-	frequency mode
+In-Reply-To: <b16ed06f-66fd-457b-9610-a67ad07deb60@foss.st.com>
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, peng.fan@oss.nxp.com,
+ herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
+ hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ andi.shyti@kernel.org, alsa-devel@alsa-project.org,
+ linux-p.hy@lists.infradead.org, richardcochran@gmail.com,
+ linux-serial@vger.kernel.org, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
+ jic23@kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a
+ system bus for STM32MP15x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,54 +90,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Shenwei,
+On Mon, Oct 16, 2023 at 02:02:39PM +0200, Gatien CHEVALLIER wrote:
+> Hi Rob,
+> 
+> On 10/12/23 17:30, Rob Herring wrote:
+> > On Wed, Oct 11, 2023 at 10:49:58AM +0200, Gatien CHEVALLIER wrote:
+> > > Hi Rob,
+> > > 
+> > > On 10/10/23 20:42, Rob Herring wrote:
+> > > > On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
+> > > > > ETZPC is a firewall controller. Put all peripherals filtered by the
+> > > > > ETZPC as ETZPC subnodes and reference ETZPC as an
+> > > > > access-control-provider.
+> > > > > 
+> > > > > For more information on which peripheral is securable or supports MCU
+> > > > > isolation, please read the STM32MP15 reference manual.
+> > > > > 
+> > > > > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> > > > > ---
+> > > > > 
+> > > > > Changes in V6:
+> > > > >       	- Renamed access-controller to access-controllers
+> > > > >       	- Removal of access-control-provider property
+> > > > > 
+> > > > > Changes in V5:
+> > > > >       	- Renamed feature-domain* to access-control*
+> > > > > 
+> > > > >    arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
+> > > > >    arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
+> > > > >    arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
+> > > > >    3 files changed, 1450 insertions(+), 1377 deletions(-)
+> > > > 
+> > > > This is not reviewable. Change the indentation and any non-functional
+> > > > change in one patch and then actual changes in another.
+> > > 
+> > > Ok, I'll make it easier to read.
+> > > 
+> > > > 
+> > > > This is also an ABI break. Though I'm not sure it's avoidable. All the
+> > > > devices below the ETZPC node won't probe on existing kernel. A
+> > > > simple-bus fallback for ETZPC node should solve that.
+> > > > 
+> > > 
+> > > I had one issue when trying with a simple-bus fallback that was the
+> > > drivers were probing even though the access rights aren't correct.
+> > > Hence the removal of the simple-bus compatible in the STM32MP25 patch.
+> > 
+> > But it worked before, right? So the difference is you have either added
+> > new devices which need setup or your firmware changed how devices are
+> > setup (or not setup). Certainly can't fix the latter case. You just need
+> > to be explicit about what you are doing to users.
+> > 
+> 
+> I should've specified it was during a test where I deliberately set
+> incorrect rights on a peripheral and enabled its node to see if the
+> firewall would allow the creation of the device.
+> 
+> > 
+> > > Even though a node is tagged with the OF_POPULATED flag when checking
+> > > the access rights with the firewall controller, it seems that when
+> > > simple-bus is probing, there's no check of this flag.
+> > 
+> > It shouldn't. Those flags are for creating the devices (or not) and
+> > removing only devices of_platform_populate() created.
+> > 
+> 
+> About the "simple-bus" being a fallback, I think I understood why I saw
+> that the devices were created.
+> 
+> All devices under a node whose compatible is "simple-bus" are created
+> in of_platform_device_create_pdata(), called by
+> of_platform_default_populate_init() at arch_initcall level. This
+> before the firewall-controller has a chance to populate it's bus.
+> 
+> Therefore, when I flag nodes when populating the firewall-bus, the
+> devices are already created. The "simple-bus" mechanism is not a
+> fallback here as it precedes the driver probe.
+> 
+> Is there a safe way to safely remove/disable a device created this way?
 
-kernel test robot noticed the following build errors:
+There's 2 ways to handle this. Either controlling creating the device or 
+controlling probing the device. The latter should just work with 
+fw_devlink dependency. The former probably needs some adjustment to 
+simple-pm-bus driver if you have 'simple-bus' compatible. You want it to 
+probe on old kernels and not probe on new kernels with your firewall 
+driver. Look at the commit history for simple-pm-bus. There was some 
+discussion on it as well.
 
-[auto build test ERROR on net/main]
+> Devices that are under the firewall controller (simple-bus) node
+> should not be probed before it as they're child of it.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shenwei-Wang/net-stmmac-dwmac-imx-request-high-frequency-mode/20231005-035606
-base:   net/main
-patch link:    https://lore.kernel.org/r/20231004195442.414766-1-shenwei.wang%40nxp.com
-patch subject: [PATCH net] net: stmmac: dwmac-imx: request high frequency mode
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20231025/202310250045.xYg3qn6G-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231025/202310250045.xYg3qn6G-lkp@intel.com/reproduce)
+fw_devlink should take care of parent/child dependencies without any 
+explicit handling of the access ctrl binding.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202310250045.xYg3qn6G-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c:9:10: fatal error: 'linux/busfreq-imx.h' file not found
-   #include <linux/busfreq-imx.h>
-            ^~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
-
-
-vim +9 drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-
-   > 9	#include <linux/busfreq-imx.h>
-    10	#include <linux/clk.h>
-    11	#include <linux/gpio/consumer.h>
-    12	#include <linux/kernel.h>
-    13	#include <linux/mfd/syscon.h>
-    14	#include <linux/module.h>
-    15	#include <linux/of.h>
-    16	#include <linux/of_net.h>
-    17	#include <linux/phy.h>
-    18	#include <linux/platform_device.h>
-    19	#include <linux/pm_wakeirq.h>
-    20	#include <linux/regmap.h>
-    21	#include <linux/slab.h>
-    22	#include <linux/stmmac.h>
-    23	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
