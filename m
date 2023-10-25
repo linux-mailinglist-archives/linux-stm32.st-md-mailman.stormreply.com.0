@@ -2,72 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BED77D6252
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Oct 2023 09:22:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5337C7D626D
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Oct 2023 09:25:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6305C6C85B;
-	Wed, 25 Oct 2023 07:22:30 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1733DC6C85B;
+	Wed, 25 Oct 2023 07:25:42 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88338C6C857
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C1D1C6C857
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Oct 2023 07:22:29 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-40839652b97so41431095e9.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Oct 2023 00:22:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698218549; x=1698823349;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=hdORY/llP69sRSlv9NhobOQ3dEsflNMyYLviK4glBbA=;
- b=ov5RnJo5TTE1/RcSpSfc5KCctDQRbd7Gq4pF7BaW4fHHhShupyEQL6zK1gQFdgBOgj
- KwEeA73tQrtU7J8AzDy1Fga1ubMNfRcDBbMNaO9mDWdFdrZq6C2z7frx6cIg1HjB5jg6
- iOr2Dg8CuI8+8aBGN/H/L1KSBy2obV+3es4kcsWS7HRt7XrTu9oeYr1TKwR/APuSWXBS
- Pj3uX/drWeMAu8tCThKtwv9ZoeL5PDUKnmX24JyTHkVvR+1lZPvrUUTowS6f6GDiWlVe
- bSQAQ6/3FWu18KwRmGLPMcMJ0Op/FBja3Q7eFR+1KA9tdsseyHmLfTxZMDM82lcTJ1m4
- C74A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698218549; x=1698823349;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hdORY/llP69sRSlv9NhobOQ3dEsflNMyYLviK4glBbA=;
- b=Dtn4e5K6LjRxqtZp3/frqB5WieX8DYL0/EQWQmZ5mFikfWkmyqX/CU2AGlKjR8dx0k
- LhuAAAz7jR+na2IplwTVPREMi2hUm4tew92CrqjkCJbDbednuz8P/WkmnZVF6AeAssSn
- auxFAAjFqFW/19Eww5uYcSBjXR4MetOAEQoBgjUogBimMJa4L81tybpfFa+uR1TZuTnP
- CpOi/9Mth4wkyQwVB77ldNSrcjvsxtS8ViG5T1jDpvRJC1FEAobbanQQp5VjazF5Mukv
- TAmCCzgrzfF1JYXnRAC7kjDiDZSktB3ZLRonTKjloTMUVaqx6bR1V63/nyervd8Em176
- OZRw==
-X-Gm-Message-State: AOJu0YydCAMm7hg3S1M7XcJmiQ7r41l5oEOAjSyTtaIXv1PRbBTEG715
- C5vV20ngdue0/TOeIEGNKthZ6Q==
-X-Google-Smtp-Source: AGHT+IFDYUU9ARNOvmmMv+jUZ9P8USEqwoez5YQ/5UKtUgW6SbWLflZhKazIkdHQzq+NamCRR1EWUg==
-X-Received: by 2002:a05:600c:3b90:b0:408:37aa:4766 with SMTP id
- n16-20020a05600c3b9000b0040837aa4766mr10826498wms.5.1698218548924; 
- Wed, 25 Oct 2023 00:22:28 -0700 (PDT)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- r7-20020a05600c158700b00405718cbeadsm465073wmf.1.2023.10.25.00.22.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Oct 2023 00:22:28 -0700 (PDT)
-Date: Wed, 25 Oct 2023 10:22:24 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Message-ID: <966465d8-2eef-4292-82b4-58d18f84285e@kadam.mountain>
-References: <ddaf5742-931b-4cdd-820b-72808ddf4fdf@moroto.mountain>
- <d2ea6034-738d-4161-a9fb-b2d2b1b134ae@foss.st.com>
- <a06a7839-8ce4-4f7e-9018-eaa03e40b8ee@kadam.mountain>
+ Wed, 25 Oct 2023 07:25:40 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 39P0b9i9024280; Wed, 25 Oct 2023 09:25:31 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=eZcf6Nex+okGCYfnBvOvvvKf/hhzIGIVLGg4l49To5k=; b=ha
+ YMvPB/HcnM1eXeV6Iq4vJ0i3NHynFlPYJBgImJu5+pBTsGvBTPgkEzMkl09H1ysO
+ eXJezuSB9Zk6YT+LnVJzslO23FbmjyUd9P7A/2XtykRpGJTHBh0vA1cpbhmZfPKB
+ EUcFGvm6rJhXT9H8GNDX/Y4dMIjkcaE+98oXfGaFtTxNBfh8NDGt+b6gWgSA/VMH
+ DMQyQMH7KXO2VJFOYsgPzDa74lsLQoAJMLtvRSWuGLP2nsYODP6eSPaJgt398ZbR
+ zzxz5504QmQHBf+ozJ89xEFzvLJKIjKWHPEUVGUA6KI7UPgP4/qEQ6TLvWxFYXh/
+ kWaLpxZp+a/KGvi4a3wg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tv3s4se32-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 25 Oct 2023 09:25:31 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D64B8100059;
+ Wed, 25 Oct 2023 09:25:28 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CEB67216EF8;
+ Wed, 25 Oct 2023 09:25:28 +0200 (CEST)
+Received: from [10.201.20.208] (10.201.20.208) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 25 Oct
+ 2023 09:25:28 +0200
+Message-ID: <4b4a339d-3da4-472a-885c-745465f34d6e@foss.st.com>
+Date: Wed, 25 Oct 2023 09:25:27 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a06a7839-8ce4-4f7e-9018-eaa03e40b8ee@kadam.mountain>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Laurent Fert <laurent.fert@intel.com>, kernel-janitors@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH] stm class: Fix a double free in
- stm_register_device()
+User-Agent: Mozilla Thunderbird
+To: Dan Carpenter <dan.carpenter@linaro.org>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>
+References: <143baf7a-9d8c-471a-893a-fd827bbc7d05@moroto.mountain>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <143baf7a-9d8c-471a-893a-fd827bbc7d05@moroto.mountain>
+X-Originating-IP: [10.201.20.208]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-25_01,2023-10-24_01,2023-05-22_02
+Cc: Laurent Fert <laurent.fert@intel.com>, kernel-janitors@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2] stm class: Fix a double free in
+	stm_register_device()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,52 +73,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 24, 2023 at 11:57:05AM +0300, Dan Carpenter wrote:
-> On Tue, Oct 24, 2023 at 10:42:48AM +0200, Amelie Delaunay wrote:
-> > Hi Dan,
-> > 
-> > On 10/24/23 07:01, Dan Carpenter wrote:
-> > > The put_device(&stm->dev) call will trigger stm_device_release() which
-> > > frees "stm" so the vfree(stm) on the next line is a double free.
-> > > 
-> > > Fixes: 389b6699a2aa ("stm class: Fix stm device initialization order")
-> > > Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
-> > > ---
-> > >   drivers/hwtracing/stm/core.c | 10 +++++-----
-> > >   1 file changed, 5 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> > > index 534fbefc7f6a..7315f7d3910d 100644
-> > > --- a/drivers/hwtracing/stm/core.c
-> > > +++ b/drivers/hwtracing/stm/core.c
-> > > @@ -868,8 +868,10 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
-> > >   		return -ENOMEM;
-> > >   	stm->major = register_chrdev(0, stm_data->name, &stm_fops);
-> > > -	if (stm->major < 0)
-> > > -		goto err_free;
-> > > +	if (stm->major < 0) {
-> > > +		vfree(stm);
-> > > +		return stm->major;
-> > 
-> > isn't there a use-after-free of stm here?
-> > 
+Hi Dan,
+
+On 10/25/23 09:20, Dan Carpenter wrote:
+> The put_device(&stm->dev) call will trigger stm_device_release() which
+> frees "stm" so the vfree(stm) on the next line is a double free.
 > 
-> Oh crap.  How did I not catch that before sending...  :(  Sorry!
-> Thanks for catching this.  I will investigate my QC process and resend.
+> Fixes: 389b6699a2aa ("stm class: Fix stm device initialization order")
+> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
 
-The problem is that I run my devel version of Smatch which just prints
-and overwhelming amount of nonsense so I missed the bug in the noise.
-This isn't the first time this has been an issue.  :(  I've changed my
-QC scripts to run the devel version and the released version.
+Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 
-regards,
-dan carpenter
+> ---
+> v2:  My first version introduced a use after free bug.  Thanks Amelie,
+>       for catching this.
+> 
+>   drivers/hwtracing/stm/core.c | 11 ++++++-----
+>   1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+> index 534fbefc7f6a..20895d391562 100644
+> --- a/drivers/hwtracing/stm/core.c
+> +++ b/drivers/hwtracing/stm/core.c
+> @@ -868,8 +868,11 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+>   		return -ENOMEM;
+>   
+>   	stm->major = register_chrdev(0, stm_data->name, &stm_fops);
+> -	if (stm->major < 0)
+> -		goto err_free;
+> +	if (stm->major < 0) {
+> +		err = stm->major;
+> +		vfree(stm);
+> +		return err;
+> +	}
+>   
+>   	device_initialize(&stm->dev);
+>   	stm->dev.devt = MKDEV(stm->major, 0);
+> @@ -913,10 +916,8 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
+>   err_device:
+>   	unregister_chrdev(stm->major, stm_data->name);
+>   
+> -	/* matches device_initialize() above */
+> +	/* calls stm_device_release() */
+>   	put_device(&stm->dev);
+> -err_free:
+> -	vfree(stm);
+>   
+>   	return err;
+>   }
 
+Regards,
+Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
