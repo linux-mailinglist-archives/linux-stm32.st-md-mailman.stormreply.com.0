@@ -2,66 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5337C7D626D
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Oct 2023 09:25:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E6E57D7FF5
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Oct 2023 11:49:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1733DC6C85B;
-	Wed, 25 Oct 2023 07:25:42 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C36E9C6C857;
+	Thu, 26 Oct 2023 09:49:14 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C1D1C6C857
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4634EC6C83F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Oct 2023 07:25:40 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 39P0b9i9024280; Wed, 25 Oct 2023 09:25:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=eZcf6Nex+okGCYfnBvOvvvKf/hhzIGIVLGg4l49To5k=; b=ha
- YMvPB/HcnM1eXeV6Iq4vJ0i3NHynFlPYJBgImJu5+pBTsGvBTPgkEzMkl09H1ysO
- eXJezuSB9Zk6YT+LnVJzslO23FbmjyUd9P7A/2XtykRpGJTHBh0vA1cpbhmZfPKB
- EUcFGvm6rJhXT9H8GNDX/Y4dMIjkcaE+98oXfGaFtTxNBfh8NDGt+b6gWgSA/VMH
- DMQyQMH7KXO2VJFOYsgPzDa74lsLQoAJMLtvRSWuGLP2nsYODP6eSPaJgt398ZbR
- zzxz5504QmQHBf+ozJ89xEFzvLJKIjKWHPEUVGUA6KI7UPgP4/qEQ6TLvWxFYXh/
- kWaLpxZp+a/KGvi4a3wg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tv3s4se32-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Oct 2023 09:25:31 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D64B8100059;
- Wed, 25 Oct 2023 09:25:28 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CEB67216EF8;
- Wed, 25 Oct 2023 09:25:28 +0200 (CEST)
-Received: from [10.201.20.208] (10.201.20.208) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 25 Oct
- 2023 09:25:28 +0200
-Message-ID: <4b4a339d-3da4-472a-885c-745465f34d6e@foss.st.com>
-Date: Wed, 25 Oct 2023 09:25:27 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dan Carpenter <dan.carpenter@linaro.org>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>
-References: <143baf7a-9d8c-471a-893a-fd827bbc7d05@moroto.mountain>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <143baf7a-9d8c-471a-893a-fd827bbc7d05@moroto.mountain>
-X-Originating-IP: [10.201.20.208]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-25_01,2023-10-24_01,2023-05-22_02
-Cc: Laurent Fert <laurent.fert@intel.com>, kernel-janitors@vger.kernel.org,
+ Thu, 26 Oct 2023 09:49:13 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1cacde97002so4977755ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 26 Oct 2023 02:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698313752; x=1698918552;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=trQmZAbaoRQLYbgSGHo4E3o4LgBwFck38x5wYn9EorM=;
+ b=JHczQMaVQbQfxpa0EZ02yx3Zb5AT1ExPS++BBjJ5+X3fKcckFP+UvGbPTHPVuuqBLG
+ +FT8DJKwTKwiKalsBhe/ipnuxeglST0Vzt2vC5usRbv/ocgUtbNFbTBgeGqJ+EAhwbL2
+ WU1ymFZN4v8sXZPeZ4NgD+xnL9r+ylMNLmJsIryy6Rs3mjCwCJsM5qhmz79wjOJZzIWI
+ GKbdvvsKqCkMRLeTp2srWvhA0ny/EPkA6BFzmZyxYgmyn5TsZEQelWm7jG2s14oOyboM
+ k4Qu6APLgdOGMIIP50tSutMI7WZtp8dQOUciEPMQLkpg708FQqTQhRaivZ/Hu66Bz3bg
+ Ci2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698313752; x=1698918552;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=trQmZAbaoRQLYbgSGHo4E3o4LgBwFck38x5wYn9EorM=;
+ b=eUwy0Fj61Gi6GOuIJJroM/vd2mBv78RVsjG5CLQLLedNhEnfgSSIRjkyMp2OzqmGVv
+ M+b8xT/LAn/McMA5GaLiVQkSZVJSJkEzaEw5uVtia7OtkhY1GyQMwKcVf4SxUJu6BIFg
+ Ni+GTVAh/n8B25S931w+HbGagp5o7kK7PZD4qmEBtQMJ4zvZw7GfPPdymIIkg5kw9tVc
+ 72R84KsSkkAFfCv7qrxKCCIZGdnkXRZaZzuDjO1NEWho+xwbVEh+rkOP2DWxXl1C4scU
+ 6kdj23HThOwJ3cJPwZ9hZFLuR+u7bWHAjJTZW+xoc50mkq0ooB7giBaDM0S7J3q/dWvC
+ WNIQ==
+X-Gm-Message-State: AOJu0YzoFNTEI9s+G+PXolExYGWjwHn8lmauSva+lLFFSBO2l7x11Zh9
+ kQAuSo6tKVv9izygjGF1b3I=
+X-Google-Smtp-Source: AGHT+IEY6OtenDK7uCoSvT5qxvLDxbjXEYrpn2zBZno+Rv6P5yQzWR32ht2pgfIh/xPY2jg4eMpn8A==
+X-Received: by 2002:a17:903:41c7:b0:1ca:b26a:9724 with SMTP id
+ u7-20020a17090341c700b001cab26a9724mr17622651ple.12.1698313751680; 
+ Thu, 26 Oct 2023 02:49:11 -0700 (PDT)
+Received: from localhost.localdomain ([74.48.130.204])
+ by smtp.googlemail.com with ESMTPSA id
+ ji5-20020a170903324500b001b06c106844sm10674264plb.151.2023.10.26.02.49.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Oct 2023 02:49:11 -0700 (PDT)
+From: Furong Xu <0x1207@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2] stm class: Fix a double free in
-	stm_register_device()
+ Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>
+Date: Thu, 26 Oct 2023 17:48:56 +0800
+Message-Id: <20231026094856.986796-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: xgmac: Enable
+	support for multiple Flexible PPS outputs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,62 +80,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Dan,
+From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
+to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
+in Fixed PPS mode by default.
+XGMAC Core prior 3.20, corresponding PPSEN bits are read-only reserved,
+always set PPSEN do not make things worse ;)
 
-On 10/25/23 09:20, Dan Carpenter wrote:
-> The put_device(&stm->dev) call will trigger stm_device_release() which
-> frees "stm" so the vfree(stm) on the next line is a double free.
-> 
-> Fixes: 389b6699a2aa ("stm class: Fix stm device initialization order")
-> Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Furong Xu <0x1207@gmail.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h      | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index 7a8f47e7b728..a4e8b498dea9 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -259,7 +259,7 @@
+ 	((val) << XGMAC_PPS_MINIDX(x))
+ #define XGMAC_PPSCMD_START		0x2
+ #define XGMAC_PPSCMD_STOP		0x5
+-#define XGMAC_PPSEN0			BIT(4)
++#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
+ #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
+ #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
+ #define XGMAC_TRGTBUSY0			BIT(31)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index f352be269deb..53bb8f16c481 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1178,7 +1178,7 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
+ 
+ 	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
+ 	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
+-	val |= XGMAC_PPSEN0;
++	val |= XGMAC_PPSENx(index);
+ 
+ 	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
+ 
+-- 
+2.34.1
 
-> ---
-> v2:  My first version introduced a use after free bug.  Thanks Amelie,
->       for catching this.
-> 
->   drivers/hwtracing/stm/core.c | 11 ++++++-----
->   1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> index 534fbefc7f6a..20895d391562 100644
-> --- a/drivers/hwtracing/stm/core.c
-> +++ b/drivers/hwtracing/stm/core.c
-> @@ -868,8 +868,11 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
->   		return -ENOMEM;
->   
->   	stm->major = register_chrdev(0, stm_data->name, &stm_fops);
-> -	if (stm->major < 0)
-> -		goto err_free;
-> +	if (stm->major < 0) {
-> +		err = stm->major;
-> +		vfree(stm);
-> +		return err;
-> +	}
->   
->   	device_initialize(&stm->dev);
->   	stm->dev.devt = MKDEV(stm->major, 0);
-> @@ -913,10 +916,8 @@ int stm_register_device(struct device *parent, struct stm_data *stm_data,
->   err_device:
->   	unregister_chrdev(stm->major, stm_data->name);
->   
-> -	/* matches device_initialize() above */
-> +	/* calls stm_device_release() */
->   	put_device(&stm->dev);
-> -err_free:
-> -	vfree(stm);
->   
->   	return err;
->   }
-
-Regards,
-Amelie
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
