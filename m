@@ -2,157 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6157D96AC
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 13:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A74BB7D95B3
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 12:55:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D15BC6DD68;
-	Fri, 27 Oct 2023 11:31:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B2C1C6C855;
+	Fri, 27 Oct 2023 10:55:26 +0000 (UTC)
+Received: from abb.hmeau.com (abb.hmeau.com [144.6.53.87])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D416C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A630FC6C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Oct 2023 10:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698401280; x=1729937280;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=LxUytc961084NW3nAi+dwfOhkpq0rGxyzW3LMGEOj+Q=;
- b=TqKqZtTuvJA2fgyxKAyBCGp+gAmpaeKT0AVnfGembo1lnP/38b5PxxiI
- Xsymhb0uItuaul3Xn/yfZR3MYgUG7pBrImsn9VfHN/Z1EcZ6GmHme1dqm
- L3U5IFhnb2/kfDw3nskpYqx/CU/5yWA0ezdTU2MDkfcplmpcpkZXVuXOu
- WGF5bwZZRzul/9rsNEIQHwtnmW/rtLSl0Kb/Ih792Vrig/D+EFEIdgWwD
- 0L506zpx1Qjpot2ZTvO5NpUNdifEeRm9yOP4lojAzh1xwMpKYrnf4FcXx
- 3PfMRdanUP8FxEbRA5ROMxEdOvrDXGtyQFps8eFtK2beot81S7Kb+Ea4H g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="387561385"
-X-IronPort-AV: E=Sophos;i="6.03,255,1694761200"; d="scan'208";a="387561385"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2023 03:07:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="933024900"
-X-IronPort-AV: E=Sophos;i="6.03,255,1694761200"; d="scan'208";a="933024900"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga005.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 27 Oct 2023 03:07:57 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Fri, 27 Oct 2023 03:07:57 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Frontend Transport; Fri, 27 Oct 2023 03:07:57 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.168)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.34; Fri, 27 Oct 2023 03:07:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UdAc2q6tvS3G6ijGt9MlKdtPI5Vq+TffmVx3mntI5cs7JTOf6WxDN3VcKumfe8wlNVCOJGwilBZfh/6MiC1894yF5hgKgSCl5RqqJjSkm1SUAgXFo3wSvBsQbNBdT11vFLgSlXcWxNLHk5E0HMIjb+C+ndDbvpnEQVLG3PnILpyIxavXMSwIt0LoD+yrxWjy37963YoHrNn5O6rhoiRyA1Xsrg8mTpH2gjbUvTuf23YBwRqj4uPHMTM4k+Huybld9IUgQeSjGwa/Folj/Aew/sVxPkygTCtyzgZA8tGQXloFbyy+iz7snT9gQ2MPS2BCliQPq+1RqaWrgyUNVyF4ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OkMD2/Nb5FPb+qUAzdiAPdO21I31HcNPp3a6iS6ilbE=;
- b=XHQN9/v/s9jGTooSX8aKKOrvM/brT7GiD/qDLTUQEoViapE18FQWR1T2RLfLtxKlLLxS/m3sPJamS+7n/zFEg/god/ghPInOMFuWXnc8n8R3wOKKcYy5uJe6M+4HFYTN/s0dLgHhFpB0qf/+IQxyZXoI5iJE7C6YXudOto/CzdIiXjSPp4aH3p2xoeQOd9liOLWaYGtm1jBWBvlh6WMNGor72eeEZ6nnHCKMX0rdtglzEpgVSxqINa8WstnkGKFUjdmCf0ii0CaP0ZCLh+LjkZX1N9RyIeGWlB+vPiEhhFauxGsi7F/xxVct07kmNqiMqUrqkOQ7xziGvuMuBIrRQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW4PR11MB5776.namprd11.prod.outlook.com (2603:10b6:303:183::9)
- by MW4PR11MB6667.namprd11.prod.outlook.com (2603:10b6:303:1ea::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.24; Fri, 27 Oct
- 2023 10:07:50 +0000
-Received: from MW4PR11MB5776.namprd11.prod.outlook.com
- ([fe80::71a7:70c4:9046:9b8a]) by MW4PR11MB5776.namprd11.prod.outlook.com
- ([fe80::71a7:70c4:9046:9b8a%4]) with mapi id 15.20.6907.032; Fri, 27 Oct 2023
- 10:07:50 +0000
-Message-ID: <99233115-89ca-4ae8-8679-a16e1f959727@intel.com>
-Date: Fri, 27 Oct 2023 12:07:43 +0200
-User-Agent: Mozilla Thunderbird
-To: Gan Yi Fang <yi.fang.gan@intel.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20231027061114.3792619-1-yi.fang.gan@intel.com>
-Content-Language: en-US
-From: Wojciech Drewek <wojciech.drewek@intel.com>
-In-Reply-To: <20231027061114.3792619-1-yi.fang.gan@intel.com>
-X-ClientProxiedBy: WA0P291CA0022.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1::22) To MW4PR11MB5776.namprd11.prod.outlook.com
- (2603:10b6:303:183::9)
+ Fri, 27 Oct 2023 10:55:24 +0000 (UTC)
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
+ id 1qwKTD-00BeWq-N9; Fri, 27 Oct 2023 18:53:40 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 27 Oct 2023 18:53:45 +0800
+Date: Fri, 27 Oct 2023 18:53:45 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <ZTuWuZuNIE28O+4+@gondor.apana.org.au>
+References: <20231020075521.2121571-44-u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR11MB5776:EE_|MW4PR11MB6667:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6d75ddf-66a2-4700-01ef-08dbd6d493d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Bl4RuclLSlfauec+pTtSkaB3D0FZcUcT3OsgL0+dULFhwQp2XYdixapJxTj2Vq1qm2FTVL/jF5+RgdWQX364rbeZvX/hTlM0M1HEgVgHnZ2wSyLobjLFkxH5aqExIGp6dWj51vHZxNj64VzcZWGiNxvXRBZFIGwdIPYXNPbj0lnXm3kpysprGoTG9NcLIha+LNTgFAHJ+fs62l2rluP7wqpZ52FC1w5x9p363SKg14ejdA38ksFMi4z5ucjlyki4KFxf1g/jFO6ja6UkmBFiZTHQrdDPq6jCLCAc/iqg+OqkTLhiinVwnb1zvnu7B7ztLrCk5JcIJ3WrO8qCoMAOUPyTCrgtQ673l77D9wWQsBj7LyEkSdSJmbFQ4Y2s8aGqHjd6ITcUA+11LtNDW4dpcOdUem1idKu0Ktf6MjdrkLG2zKmqynmY1nBhELRKUj4m74uzskg+XHLJX4VMCSDGpVh9lEDy7fdFYeune0aGY1jM8fL3uHhqyseI0VvD8+KdzJhJ3Evs9J1cV9RalyspDUWcPCvtagZ3LcoScUolQ1jMj/jmHWRHIHJE0fVmBoVEOxqzsAVAwkKHCBehZVIFMftZLz37ZS8G1EDzfvwTRg5GyQ00L4rEc88AlIlAD8LJL8kH68tBfTTO/D7JgpEwR9VH7V/IH2bJzDNWoJ+iv+w=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB5776.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(376002)(366004)(39860400002)(136003)(230922051799003)(1800799009)(64100799003)(451199024)(186009)(36756003)(86362001)(31696002)(921008)(31686004)(6486002)(2906002)(478600001)(6512007)(8676002)(8936002)(41300700001)(6666004)(4326008)(6506007)(53546011)(44832011)(83380400001)(107886003)(2616005)(26005)(66556008)(110136005)(7416002)(5660300002)(54906003)(316002)(66946007)(66476007)(38100700002)(82960400001)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z3NkSnladDJPckQ1blZ4YzEyUHpoWnpMT2FrRDc2U0JRVVI3UWJmeHdmOUxX?=
- =?utf-8?B?ZndmMVNqZXBVd0ZaemFORTQ1OVROdE5JeXpIT2N1SUNEZWo5ck9nZlVPTWhB?=
- =?utf-8?B?a0s4WmJKSGpKVVlxb0VHNFo4dkRsekR4TXJRS0MrcGx3Tkt1VyticWlVYndP?=
- =?utf-8?B?aWQyNGpIdnNDL0Rxa0RlZ0hCZ2tnNXZXa2NuTWtjcHI1akc5MGRTa3lOSFZa?=
- =?utf-8?B?ZDRoRnduSmJ5QlRXRXVXeHEzRzh3bk85d0tFam04T2ZOblRGUTVuV0t5dUlx?=
- =?utf-8?B?VmRVNFVVcDJuNnpKRk9RZ00yNkkwVlFGY1QzcmxCRm9BbVA3bXFINjdIQjZk?=
- =?utf-8?B?SitURXc3NHpvUVZtUnF5SFZ6eEZ4VzViWGR4THhYR1NzblFDbENvazRhczZG?=
- =?utf-8?B?TGpXV2FibHZxeXRZWHhicFZGQ2J3Q0w5S25iV1JBMm5TS090WjRSQ08vOUJ3?=
- =?utf-8?B?aThXbXAwYzNuWmtjTUlaV1Y0aDFaTW54QTJnWlpsRlN1UURtaGpxakh3NklK?=
- =?utf-8?B?UTU0OTFxYmk2WWo0QkY0QVh4MzV2c0d3UFRCdDV5aUhSdytkdDk5S2RpRFNV?=
- =?utf-8?B?aWx5SzVkSHYxa3dFVG05NGdEMEM2SnRpM1dFdTg1NHk0ZFFhTTVnVG1Gc0sy?=
- =?utf-8?B?MHFHM05sanZxajBiQ3AwTjlCVFZGNjNIQ3gyWEhHa1lTa0d1UmE1Q3dxTFFS?=
- =?utf-8?B?TW0wSEhHMWZ4UUg3UDhQUitzckQ3OXhjUzNsN2VsNkEzMmJyZTZoM1hBTHB0?=
- =?utf-8?B?aW9FTmdncW4zTitEK3JOUXM3clJhVTZFQjlzLzhsRUxwZzNBd1FSN0dSa2hM?=
- =?utf-8?B?ejVYMFVrVzVHUWhXdERETElLcXVpeFYvK3NXZXhKLzBjNmN6UjA0WW96dlhw?=
- =?utf-8?B?K3JDTkpueUJTZ2x1WHM0S1Z6Y2l3aFBUaG9EbnVzWFZSODZpaWdZc0xSR2hm?=
- =?utf-8?B?NE52dlEvdjMvczNNUFVCeGVIQk9BUjlqZ3pQazg5ditGUkVSalVUTHhsSHQ3?=
- =?utf-8?B?RmpFRS9QSVdCNTlGcmxjMHhtbnFlNkp2d3FvSnZzaTBacnVxVStLRWxMYmtt?=
- =?utf-8?B?eUFDSEc0N2V0T1Y4anltZzlML3hSWDlmS1EyZkpSVDJ4cUpMd0pZMGFOemkr?=
- =?utf-8?B?SmtjN2pjZ2hNQUFTc21IbFhFSWdROEM0YkNFTExBNVZZNEpWdXZTYXFKdURu?=
- =?utf-8?B?Zm9LR3hFZ2xMV1kyN3cyOFpXK1JZVW9qMzdPV2R2UEpPSnNaQ1FGR3M3SnYx?=
- =?utf-8?B?Zk1ZL1ZVQS9sMlNxU255MVhydE5TZzdYU2o1RXFrekIzZnVObTFvMFBJcEZE?=
- =?utf-8?B?VGZybTZhNTFDaW9URG1uNDZmSU40cUZROVZkMnlyZ09mLzFsQXV2ZGVXejlB?=
- =?utf-8?B?anN2dkppbkx3M0RBMjZkUGl3S3dSUlE3TExjZ0E4Ny81Vmd3WWF5RFNjclB6?=
- =?utf-8?B?YzBWdXJlVDhVMGpPT09ZSjRGUmJ1czB3Y0hyN0NEZlA4amZ1Y2ZFbTVLV3pB?=
- =?utf-8?B?ZjA5d2ZZWE5zUUt5QjBmUnVjNnRUb3E3VkUyR21hZzU5WXpGT0R6MHJ0Q2Jq?=
- =?utf-8?B?RitDVklDdUl2eUFJelZYaUdydE0xdW9xY3JsYjNyVFpMdThrUDlQQXlZd2Zo?=
- =?utf-8?B?MUVDTnYwanpXT01zMXF4czdzbjY5aXlZWG5NQUZmdW9UeVdGb2dWTEpjZnVF?=
- =?utf-8?B?M3MveHF6eUtYNEcwT2hCdmtFNnJ5aG0va2NFNzl6UGp2VWtuMGhDektxZ3lL?=
- =?utf-8?B?VmRLZ2FFQVN1bG5iLy9aTFhQK0JudGFJOTVxZ3VCQzlRUS9RYm9nSzZkcGdS?=
- =?utf-8?B?STBWZTVZRFl6M0wyN2JXKzhlc0hjeVNZU2RFQnVIZFBJZTYwemg5RmJIVUlN?=
- =?utf-8?B?dWtKSnNPVDR6cWlLYmRHeEdYVmlKZFFrcE53dkRZc1IyWDVGblprb0I2bWNL?=
- =?utf-8?B?OERrV1Nqd0RxVmF2VlNnbGVRRXFwei9OQmw3YStJdjkzWnJlZXRBTzdjNWxt?=
- =?utf-8?B?azh2a0NyY2xrRHhEK0VETUc3SWw2Vk1KZHJkNE0vWFljV3VsVlRKc3diQzl5?=
- =?utf-8?B?M2t3U1hGU3FGV1B0dUVtK29PeENETmo1eEIwUVhGVDR4UzJ4TnJKQ29HVThU?=
- =?utf-8?B?QXptdzhEbHB2TXcvN0RHanZIZ0YweGJyTmJ1OFR0R1dqUUxIOTB1WG14L1Fo?=
- =?utf-8?B?UXc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6d75ddf-66a2-4700-01ef-08dbd6d493d8
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB5776.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2023 10:07:50.7429 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xwf2eNJ1QjNDh1PPLg5YjifOXereS4kAMWRQ+egCnwWGQ9C/gT3djtArvbRCxRpT0myvSviwko+gSMMZWQ442Ych+5cGxk5/VnNBBJZ3JJE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6667
-X-OriginatorOrg: intel.com
-X-Mailman-Approved-At: Fri, 27 Oct 2023 11:31:33 +0000
-Cc: Looi Hong Aun <hong.aun.looi@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: check CBS input
- values before configuration
+Content-Disposition: inline
+In-Reply-To: <20231020075521.2121571-44-u.kleine-koenig@pengutronix.de>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-aspeed@lists.ozlabs.org,
+	Gaurav Jain <gaurav.jain@nxp.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Corentin Labbe <clabbe.montjoie@gmail.com>,
+	linux-arm-kernel@axis.com, Alim Akhtar <alim.akhtar@samsung.com>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Jesper Nilsson <jesper.nilsson@axis.com>,
+	linux-samsung-soc@vger.kernel.org,
+	Mark Gross <mgross@linux.intel.com>,
+	Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Ruan Jinjie <ruanjinjie@huawei.com>,
+	Srujana Challa <schalla@marvell.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Chen-Yu Tsai <wens@csie.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-sunxi@lists.linux.dev, Declan Murphy <declan.murphy@intel.com>,
+	Corentin Labbe <clabbe@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Arnd Bergmann <arnd@arndb.de>, Weili Qian <qianweili@huawei.com>,
+	Yu Zhe <yuzhe@nfschina.com>,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Arnaud Ebalard <arno@natisbad.org>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Gilad Ben-Yossef <gilad@benyossef.com>,
+	Lars Persson <lars.persson@axis.com>,
+	linux-amlogic@lists.infradead.org,
+	Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
+	linux-arm-kernel@lists.infradead.org,
+	John Allen <john.allen@amd.com>,
+	Prabhjot Khurana <prabhjot.khurana@intel.com>,
+	NXP@stm-ict-prod-mailman-01.stormreply.prv,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Neal Liu <neal_liu@aspeedtech.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	linux-crypto@vger.kernel.org, kernel@pengutronix.de,
+	Imre Kaloz <kaloz@openwrt.org>, Shawn Guo <shawnguo@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH 00/42] crypto: Convert to platform remove
+ callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,51 +83,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Fri, Oct 20, 2023 at 09:55:22AM +0200, Uwe Kleine-K=F6nig wrote:
+> Hello,
+> =
 
+> this series converts all platform drivers below drivers/crypto to use
+> .remove_new(). Compared to the traditional .remove() callback
+> .remove_new() returns no value. This is a good thing because the driver
+> core doesn't (and cannot) cope for errors during remove. The only effect
+> of a non-zero return value in .remove() is that the driver core emits a
+> warning. The device is removed anyhow and an early return from .remove()
+> usually yields resource leaks and/or use-after-free bugs.
+> =
 
-On 27.10.2023 08:11, Gan Yi Fang wrote:
-> From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> 
-> Add check for below conditions before proceeding to configuration.
-> A message will be prompted if the input value is invalid.
-> 
-> Idleslope minus sendslope should equal speed_div.
-> Idleslope is always a positive value.
-> Sendslope is always a negative value.
-> Hicredit is always a positive value.
-> Locredit is always a negative value.
+> There are three drivers that got that wrong and potentially returned an
+> error code (caam/jr.c, stm32/stm32-crc32.c, stm32/stm32-cryp.c). These
+> are fixed accordingly. The other drivers could be transformed trivially.
+> =
 
-Can those values be equal to 0? The code allows it but the commit msg doesn't mention that.
-Some drivers does not allow 0, lan966x_cbs_add e.g. Would be good to double check that.
+> See commit 5c5a7680e67b ("platform: Provide a remove callback that
+> returns no value") for an extended explanation and the eventual goal.
+> =
 
-> 
-> Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> index ac41ef4cbd2f..e8a079946f84 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> @@ -381,6 +381,11 @@ static int tc_setup_cbs(struct stmmac_priv *priv,
->  		return -EOPNOTSUPP;
->  	}
->  
-> +	if ((qopt->idleslope - qopt->sendslope != speed_div) ||
-> +	    qopt->idleslope < 0 || qopt->sendslope > 0 ||
-> +	    qopt->hicredit < 0 || qopt->locredit > 0)
-> +		return -EINVAL;
-> +
->  	mode_to_use = priv->plat->tx_queues_cfg[queue].mode_to_use;
->  	if (mode_to_use == MTL_QUEUE_DCB && qopt->enable) {
->  		ret = stmmac_dma_qmode(priv, priv->ioaddr, queue, MTL_QUEUE_AVB);
+> There are no interdependencies in this series. As there are still quite
+> a few drivers to convert, I'm happy about every patch that makes it in.
+> So even if there is a merge conflict with one patch until you apply (or
+> a different concern that doesn't apply to all patches), please apply the
+> remainder of this series anyhow. I'll come back to the part that you
+> (maybe) skipped at a later point.
+> =
+
+> Best regards and thanks
+> Uwe
+> =
+
+> Uwe Kleine-K=F6nig (42):
+>   crypto: sun4i-ss - Convert to platform remove callback returning void
+>   crypto: sun8i-ce - Convert to platform remove callback returning void
+>   crypto: sun8i-ss - Convert to platform remove callback returning void
+>   crypto: amcc/crypto4xx - Convert to platform remove callback returning =
+void
+>   crypto: amlogic-gxl-core - Convert to platform remove callback returnin=
+g void
+>   crypto: aspeed-acry - Convert to platform remove callback returning void
+>   crypto: aspeed-hace - Convert to platform remove callback returning void
+>   crypto: atmel-aes - Convert to platform remove callback returning void
+>   crypto: atmel-sha - Convert to platform remove callback returning void
+>   crypto: atmel-tdes - Convert to platform remove callback returning void
+>   crypto: axis/artpec6 - Convert to platform remove callback returning vo=
+id
+>   crypto: bcm/cipher - Convert to platform remove callback returning void
+>   crypto: caam/jr - Convert to platform remove callback returning void
+>   crypto: ccp/sp - Convert to platform remove callback returning void
+>   crypto: ccree/cc - Convert to platform remove callback returning void
+>   crypto: exynos-rng - Convert to platform remove callback returning void
+>   crypto: gemini/sl3516-ce - Convert to platform remove callback returnin=
+g void
+>   crypto: hisilicon/sec - Convert to platform remove callback returning v=
+oid
+>   crypto: hisilicon/trng - Convert to platform remove callback returning =
+void
+>   crypto: img-hash - Convert to platform remove callback returning void
+>   crypto: inside-secure/safexcel - Convert to platform remove callback re=
+turning void
+>   crypto: intel/ixp4xx-crypto - Convert to platform remove callback retur=
+ning void
+>   crypto: intel/keembay-ocs-aes - Convert to platform remove callback ret=
+urning void
+>   crypto: intel/keembay-ocs-ecc - Convert to platform remove callback ret=
+urning void
+>   crypto: intel/keembay-ocs-hcu - Convert to platform remove callback ret=
+urning void
+>   crypto: marvell/cesa - Convert to platform remove callback returning vo=
+id
+>   crypto: mxs-dcp - Convert to platform remove callback returning void
+>   crypto: n2_core - Convert to platform remove callback returning void
+>   crypto: omap-aes - Convert to platform remove callback returning void
+>   crypto: omap-des - Convert to platform remove callback returning void
+>   crypto: omap-sham - Convert to platform remove callback returning void
+>   crypto: qce - Convert to platform remove callback returning void
+>   crypto: qcom-rng - Convert to platform remove callback returning void
+>   crypto: rockchip/rk3288 - Convert to platform remove callback returning=
+ void
+>   crypto: s5p-sss - Convert to platform remove callback returning void
+>   crypto: sa2ul - Convert to platform remove callback returning void
+>   crypto: sahara - Convert to platform remove callback returning void
+>   crypto: stm32/crc32 - Convert to platform remove callback returning void
+>   crypto: stm32/cryp - Convert to platform remove callback returning void
+>   crypto: talitos - Convert to platform remove callback returning void
+>   crypto: xilinx/zynqmp-aes-gcm - Convert to platform remove callback ret=
+urning void
+>   crypto: xilinx/zynqmp-sha - Convert to platform remove callback returni=
+ng void
+> =
+
+>  .../crypto/allwinner/sun4i-ss/sun4i-ss-core.c |  5 ++---
+>  .../crypto/allwinner/sun8i-ce/sun8i-ce-core.c |  5 ++---
+>  .../crypto/allwinner/sun8i-ss/sun8i-ss-core.c |  6 ++---
+>  drivers/crypto/amcc/crypto4xx_core.c          |  6 ++---
+>  drivers/crypto/amlogic/amlogic-gxl-core.c     |  5 ++---
+>  drivers/crypto/aspeed/aspeed-acry.c           |  6 ++---
+>  drivers/crypto/aspeed/aspeed-hace.c           |  6 ++---
+>  drivers/crypto/atmel-aes.c                    |  6 ++---
+>  drivers/crypto/atmel-sha.c                    |  6 ++---
+>  drivers/crypto/atmel-tdes.c                   |  6 ++---
+>  drivers/crypto/axis/artpec6_crypto.c          |  5 ++---
+>  drivers/crypto/bcm/cipher.c                   |  5 ++---
+>  drivers/crypto/caam/jr.c                      | 22 ++++++++-----------
+>  drivers/crypto/ccp/sp-platform.c              |  6 ++---
+>  drivers/crypto/ccree/cc_driver.c              |  6 ++---
+>  drivers/crypto/exynos-rng.c                   |  6 ++---
+>  drivers/crypto/gemini/sl3516-ce-core.c        |  6 ++---
+>  drivers/crypto/hisilicon/sec/sec_drv.c        |  6 ++---
+>  drivers/crypto/hisilicon/trng/trng.c          |  6 ++---
+>  drivers/crypto/img-hash.c                     |  6 ++---
+>  drivers/crypto/inside-secure/safexcel.c       |  6 ++---
+>  drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c   |  6 ++---
+>  .../intel/keembay/keembay-ocs-aes-core.c      |  6 ++---
+>  .../crypto/intel/keembay/keembay-ocs-ecc.c    |  6 ++---
+>  .../intel/keembay/keembay-ocs-hcu-core.c      |  6 ++---
+>  drivers/crypto/marvell/cesa/cesa.c            |  6 ++---
+>  drivers/crypto/mxs-dcp.c                      |  6 ++---
+>  drivers/crypto/n2_core.c                      | 12 ++++------
+>  drivers/crypto/omap-aes.c                     |  6 ++---
+>  drivers/crypto/omap-des.c                     |  6 ++---
+>  drivers/crypto/omap-sham.c                    |  6 ++---
+>  drivers/crypto/qce/core.c                     |  5 ++---
+>  drivers/crypto/qcom-rng.c                     |  6 ++---
+>  drivers/crypto/rockchip/rk3288_crypto.c       |  5 ++---
+>  drivers/crypto/s5p-sss.c                      |  6 ++---
+>  drivers/crypto/sa2ul.c                        |  6 ++---
+>  drivers/crypto/sahara.c                       |  6 ++---
+>  drivers/crypto/stm32/stm32-crc32.c            | 15 +++++--------
+>  drivers/crypto/stm32/stm32-cryp.c             | 16 +++++---------
+>  drivers/crypto/talitos.c                      |  6 ++---
+>  drivers/crypto/xilinx/zynqmp-aes-gcm.c        |  6 ++---
+>  drivers/crypto/xilinx/zynqmp-sha.c            |  6 ++---
+>  42 files changed, 99 insertions(+), 187 deletions(-)
+> =
+
+> base-commit: 4230ea146b1e64628f11e44290bb4008e391bc24
+> -- =
+
+> 2.42.0
+
+All applied.  Thanks.
+-- =
+
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
