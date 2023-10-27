@@ -2,76 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74BB7D95B3
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 12:55:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BEA27D96D6
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 13:43:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B2C1C6C855;
-	Fri, 27 Oct 2023 10:55:26 +0000 (UTC)
-Received: from abb.hmeau.com (abb.hmeau.com [144.6.53.87])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B17FC6C841;
+	Fri, 27 Oct 2023 11:43:42 +0000 (UTC)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A630FC6C837
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11131C6C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Oct 2023 10:55:24 +0000 (UTC)
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1qwKTD-00BeWq-N9; Fri, 27 Oct 2023 18:53:40 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 27 Oct 2023 18:53:45 +0800
-Date: Fri, 27 Oct 2023 18:53:45 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <ZTuWuZuNIE28O+4+@gondor.apana.org.au>
-References: <20231020075521.2121571-44-u.kleine-koenig@pengutronix.de>
+ Fri, 27 Oct 2023 11:43:40 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2c5720a321aso26167471fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Oct 2023 04:43:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1698407020; x=1699011820;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6FxTvodzs+sXyw4G+vyKIEx0C/eMaA77aXx03U9uf0M=;
+ b=VnALdHpnmIMb+Ztu411Bh2NzHOZzy1zb8qkMvkaFz1T3XkuYvGrcOPRRzIS0tak7+L
+ oYHfXU7RnxIT7hCbcCDNMN3Uw2vDzFvZzyVOvxbwtDuNOIABDH6Mxs5tyOLTcbOcH809
+ oOW2g5bKCPb0jI5X440W3FNu4KTIeuLgjjRBSUMrE7I9MFpOasptRt9GTpRc4PphfLaC
+ qhRY2sdDXLgh4WWkD85ylTytTijq2vkG9+K5RYkrml8K33o1+YTBcczy1H9+9aK9d7LA
+ 7v9iJfALE7oumnofrlK8TSyL0vz/K2Uva5Egyc3GHUZme17piMjKHxxRO+zgSx/40ex+
+ X0gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698407020; x=1699011820;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6FxTvodzs+sXyw4G+vyKIEx0C/eMaA77aXx03U9uf0M=;
+ b=aD8/+uEHf7xhcZjpa8kAK9MNb8y8bX4s0O0ntk48HrhHFdkPfMTaRr1cgoPrBVnEez
+ V44gJFmjOls9M6e5bMt8q5TtnuCRfhJYt7G1Mw2b8igi2ctiCh7OT4rrA0OGxuVuebhy
+ RQ72nXwJ0ADt8FoV2Pwg9buBB7td9yyoFJJKCPu5Rd7LeCh8cHOfTbjAUqr5mExZmHcj
+ drIG6VxJPS0/3zei0RyXeDVGDzpXCIZdJlpXJj5yCJJmqZ8cu9uWURK5ei6oMNqQHVd0
+ l6PQGyimSfZkhTyg1bKa5yFxE9dIMLv3w6VCwGopqgb3rNE7ihzYGbukVbr/k7bzly0z
+ bfIg==
+X-Gm-Message-State: AOJu0YyLImxCy8siOugwZcAu/2/kGLcfNKKDty27qpGNG5C4WNbHKYuY
+ bp5IBUbmoR5bN3yhEa6Zu5Q=
+X-Google-Smtp-Source: AGHT+IEKGBDUbCDFRGX1kdv/8N+AISeFx74HIk/UjgqrccXfV5jnOCN8ZLdnx0Gcf7r1wAxUT8Mhwg==
+X-Received: by 2002:a2e:7c15:0:b0:2c5:5926:de52 with SMTP id
+ x21-20020a2e7c15000000b002c55926de52mr1804330ljc.53.1698407019812; 
+ Fri, 27 Oct 2023 04:43:39 -0700 (PDT)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ s7-20020a05651c200700b002c09602150asm255875ljo.27.2023.10.27.04.43.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Oct 2023 04:43:39 -0700 (PDT)
+Date: Fri, 27 Oct 2023 14:43:34 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <gz5iglkftvoisrpmp2wtglctiddnfwopjo2ozedtlas3yg5vnp@bdgsrbzmmeud>
+References: <20231026094856.986796-1-0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231020075521.2121571-44-u.kleine-koenig@pengutronix.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-aspeed@lists.ozlabs.org,
-	Gaurav Jain <gaurav.jain@nxp.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Corentin Labbe <clabbe.montjoie@gmail.com>,
-	linux-arm-kernel@axis.com, Alim Akhtar <alim.akhtar@samsung.com>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	linux-samsung-soc@vger.kernel.org,
-	Mark Gross <mgross@linux.intel.com>,
-	Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Ruan Jinjie <ruanjinjie@huawei.com>,
-	Srujana Challa <schalla@marvell.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Chen-Yu Tsai <wens@csie.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-sunxi@lists.linux.dev, Declan Murphy <declan.murphy@intel.com>,
-	Corentin Labbe <clabbe@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Arnd Bergmann <arnd@arndb.de>, Weili Qian <qianweili@huawei.com>,
-	Yu Zhe <yuzhe@nfschina.com>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Arnaud Ebalard <arno@natisbad.org>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Gilad Ben-Yossef <gilad@benyossef.com>,
-	Lars Persson <lars.persson@axis.com>,
-	linux-amlogic@lists.infradead.org,
-	Daniele Alessandrelli <daniele.alessandrelli@intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	John Allen <john.allen@amd.com>,
-	Prabhjot Khurana <prabhjot.khurana@intel.com>,
-	NXP@stm-ict-prod-mailman-01.stormreply.prv,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Neal Liu <neal_liu@aspeedtech.com>,
-	Antoine Tenart <atenart@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	linux-crypto@vger.kernel.org, kernel@pengutronix.de,
-	Imre Kaloz <kaloz@openwrt.org>, Shawn Guo <shawnguo@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 00/42] crypto: Convert to platform remove
- callback returning void
+In-Reply-To: <20231026094856.986796-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/1] net: stmmac: xgmac:
+ Enable support for multiple Flexible PPS outputs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,161 +81,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 20, 2023 at 09:55:22AM +0200, Uwe Kleine-K=F6nig wrote:
-> Hello,
-> =
+On Thu, Oct 26, 2023 at 05:48:56PM +0800, Furong Xu wrote:
+> From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
+> to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
+> in Fixed PPS mode by default.
 
-> this series converts all platform drivers below drivers/crypto to use
-> .remove_new(). Compared to the traditional .remove() callback
-> .remove_new() returns no value. This is a good thing because the driver
-> core doesn't (and cannot) cope for errors during remove. The only effect
-> of a non-zero return value in .remove() is that the driver core emits a
-> warning. The device is removed anyhow and an early return from .remove()
-> usually yields resource leaks and/or use-after-free bugs.
-> =
+Are you sure 3.10a don't have the PPSEN flag available for all
+outputs too?
 
-> There are three drivers that got that wrong and potentially returned an
-> error code (caam/jr.c, stm32/stm32-crc32.c, stm32/stm32-cryp.c). These
-> are fixed accordingly. The other drivers could be transformed trivially.
-> =
+> XGMAC Core prior 3.20, corresponding PPSEN bits are read-only reserved,
+> always set PPSEN do not make things worse ;)
+> 
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h      | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 7a8f47e7b728..a4e8b498dea9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -259,7 +259,7 @@
+>  	((val) << XGMAC_PPS_MINIDX(x))
+>  #define XGMAC_PPSCMD_START		0x2
+>  #define XGMAC_PPSCMD_STOP		0x5
+> -#define XGMAC_PPSEN0			BIT(4)
+> +#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
+>  #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
+>  #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
+>  #define XGMAC_TRGTBUSY0			BIT(31)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index f352be269deb..53bb8f16c481 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -1178,7 +1178,7 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
+>  
+>  	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
+>  	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
+> -	val |= XGMAC_PPSEN0;
 
-> See commit 5c5a7680e67b ("platform: Provide a remove callback that
-> returns no value") for an extended explanation and the eventual goal.
-> =
+> +	val |= XGMAC_PPSENx(index);
 
-> There are no interdependencies in this series. As there are still quite
-> a few drivers to convert, I'm happy about every patch that makes it in.
-> So even if there is a merge conflict with one patch until you apply (or
-> a different concern that doesn't apply to all patches), please apply the
-> remainder of this series anyhow. I'll come back to the part that you
-> (maybe) skipped at a later point.
-> =
+At the very least it would be nice to have a comment here that the
+mode selection was available for the output #0 only in the IP-cores
+prior v3.20a with the outputs 1-3 always working as flexible PPS
+outputs.
 
-> Best regards and thanks
-> Uwe
-> =
+Other than that no more comments:
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
-> Uwe Kleine-K=F6nig (42):
->   crypto: sun4i-ss - Convert to platform remove callback returning void
->   crypto: sun8i-ce - Convert to platform remove callback returning void
->   crypto: sun8i-ss - Convert to platform remove callback returning void
->   crypto: amcc/crypto4xx - Convert to platform remove callback returning =
-void
->   crypto: amlogic-gxl-core - Convert to platform remove callback returnin=
-g void
->   crypto: aspeed-acry - Convert to platform remove callback returning void
->   crypto: aspeed-hace - Convert to platform remove callback returning void
->   crypto: atmel-aes - Convert to platform remove callback returning void
->   crypto: atmel-sha - Convert to platform remove callback returning void
->   crypto: atmel-tdes - Convert to platform remove callback returning void
->   crypto: axis/artpec6 - Convert to platform remove callback returning vo=
-id
->   crypto: bcm/cipher - Convert to platform remove callback returning void
->   crypto: caam/jr - Convert to platform remove callback returning void
->   crypto: ccp/sp - Convert to platform remove callback returning void
->   crypto: ccree/cc - Convert to platform remove callback returning void
->   crypto: exynos-rng - Convert to platform remove callback returning void
->   crypto: gemini/sl3516-ce - Convert to platform remove callback returnin=
-g void
->   crypto: hisilicon/sec - Convert to platform remove callback returning v=
-oid
->   crypto: hisilicon/trng - Convert to platform remove callback returning =
-void
->   crypto: img-hash - Convert to platform remove callback returning void
->   crypto: inside-secure/safexcel - Convert to platform remove callback re=
-turning void
->   crypto: intel/ixp4xx-crypto - Convert to platform remove callback retur=
-ning void
->   crypto: intel/keembay-ocs-aes - Convert to platform remove callback ret=
-urning void
->   crypto: intel/keembay-ocs-ecc - Convert to platform remove callback ret=
-urning void
->   crypto: intel/keembay-ocs-hcu - Convert to platform remove callback ret=
-urning void
->   crypto: marvell/cesa - Convert to platform remove callback returning vo=
-id
->   crypto: mxs-dcp - Convert to platform remove callback returning void
->   crypto: n2_core - Convert to platform remove callback returning void
->   crypto: omap-aes - Convert to platform remove callback returning void
->   crypto: omap-des - Convert to platform remove callback returning void
->   crypto: omap-sham - Convert to platform remove callback returning void
->   crypto: qce - Convert to platform remove callback returning void
->   crypto: qcom-rng - Convert to platform remove callback returning void
->   crypto: rockchip/rk3288 - Convert to platform remove callback returning=
- void
->   crypto: s5p-sss - Convert to platform remove callback returning void
->   crypto: sa2ul - Convert to platform remove callback returning void
->   crypto: sahara - Convert to platform remove callback returning void
->   crypto: stm32/crc32 - Convert to platform remove callback returning void
->   crypto: stm32/cryp - Convert to platform remove callback returning void
->   crypto: talitos - Convert to platform remove callback returning void
->   crypto: xilinx/zynqmp-aes-gcm - Convert to platform remove callback ret=
-urning void
->   crypto: xilinx/zynqmp-sha - Convert to platform remove callback returni=
-ng void
-> =
+-Serge(y)
 
->  .../crypto/allwinner/sun4i-ss/sun4i-ss-core.c |  5 ++---
->  .../crypto/allwinner/sun8i-ce/sun8i-ce-core.c |  5 ++---
->  .../crypto/allwinner/sun8i-ss/sun8i-ss-core.c |  6 ++---
->  drivers/crypto/amcc/crypto4xx_core.c          |  6 ++---
->  drivers/crypto/amlogic/amlogic-gxl-core.c     |  5 ++---
->  drivers/crypto/aspeed/aspeed-acry.c           |  6 ++---
->  drivers/crypto/aspeed/aspeed-hace.c           |  6 ++---
->  drivers/crypto/atmel-aes.c                    |  6 ++---
->  drivers/crypto/atmel-sha.c                    |  6 ++---
->  drivers/crypto/atmel-tdes.c                   |  6 ++---
->  drivers/crypto/axis/artpec6_crypto.c          |  5 ++---
->  drivers/crypto/bcm/cipher.c                   |  5 ++---
->  drivers/crypto/caam/jr.c                      | 22 ++++++++-----------
->  drivers/crypto/ccp/sp-platform.c              |  6 ++---
->  drivers/crypto/ccree/cc_driver.c              |  6 ++---
->  drivers/crypto/exynos-rng.c                   |  6 ++---
->  drivers/crypto/gemini/sl3516-ce-core.c        |  6 ++---
->  drivers/crypto/hisilicon/sec/sec_drv.c        |  6 ++---
->  drivers/crypto/hisilicon/trng/trng.c          |  6 ++---
->  drivers/crypto/img-hash.c                     |  6 ++---
->  drivers/crypto/inside-secure/safexcel.c       |  6 ++---
->  drivers/crypto/intel/ixp4xx/ixp4xx_crypto.c   |  6 ++---
->  .../intel/keembay/keembay-ocs-aes-core.c      |  6 ++---
->  .../crypto/intel/keembay/keembay-ocs-ecc.c    |  6 ++---
->  .../intel/keembay/keembay-ocs-hcu-core.c      |  6 ++---
->  drivers/crypto/marvell/cesa/cesa.c            |  6 ++---
->  drivers/crypto/mxs-dcp.c                      |  6 ++---
->  drivers/crypto/n2_core.c                      | 12 ++++------
->  drivers/crypto/omap-aes.c                     |  6 ++---
->  drivers/crypto/omap-des.c                     |  6 ++---
->  drivers/crypto/omap-sham.c                    |  6 ++---
->  drivers/crypto/qce/core.c                     |  5 ++---
->  drivers/crypto/qcom-rng.c                     |  6 ++---
->  drivers/crypto/rockchip/rk3288_crypto.c       |  5 ++---
->  drivers/crypto/s5p-sss.c                      |  6 ++---
->  drivers/crypto/sa2ul.c                        |  6 ++---
->  drivers/crypto/sahara.c                       |  6 ++---
->  drivers/crypto/stm32/stm32-crc32.c            | 15 +++++--------
->  drivers/crypto/stm32/stm32-cryp.c             | 16 +++++---------
->  drivers/crypto/talitos.c                      |  6 ++---
->  drivers/crypto/xilinx/zynqmp-aes-gcm.c        |  6 ++---
->  drivers/crypto/xilinx/zynqmp-sha.c            |  6 ++---
->  42 files changed, 99 insertions(+), 187 deletions(-)
-> =
-
-> base-commit: 4230ea146b1e64628f11e44290bb4008e391bc24
-> -- =
-
-> 2.42.0
-
-All applied.  Thanks.
--- =
-
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+>  
+>  	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
+>  
+> -- 
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
