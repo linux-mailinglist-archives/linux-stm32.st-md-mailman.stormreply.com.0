@@ -2,56 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AFFF7D9007
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 09:39:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2A817D96A4
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 13:31:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F9ACC6C855;
-	Fri, 27 Oct 2023 07:39:02 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 599DDC6C841
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79544C6C841;
+	Fri, 27 Oct 2023 11:31:34 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A977CC6C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Oct 2023 07:39:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UrVb0RxnFRlTxNQClfI8ZHdeowM3uhiJ9mxX6SCrB/s=; b=bWNuWJQCcEuejHP845AFX2lFJC
- WQ+R+JY4/YiK21y5U0P/rQQ1K7AFgsItJU5KzHDh+DOfSS/APHTQLRVLFrynNOJZCgRVmm4eeNIQl
- mMNAPZguvQAV5JKkzY5whERVVfBI4zbRH/+nOlOjxXo/c+6y64IgXOZaELBJ5OaUP2WSyF316S29G
- P3KuAgnUBW9oktobYODQnCqyr0vqoITHSJq5Uka2xGpsMWPPujC/ZIH9xpfVFNG/e8CDhglqU7usB
- 5/joRs1HV9raMiXpmfcjQuyXYxPVgU6rnduQRDlk2E5TIYqudckCMYJvbbmu4qveqh7zY8hOt75iO
- 46BsoR6g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56172)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1qwHQc-0007Yi-0Y;
- Fri, 27 Oct 2023 08:38:46 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1qwHQa-0000Zo-5S; Fri, 27 Oct 2023 08:38:44 +0100
-Date: Fri, 27 Oct 2023 08:38:44 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Gan Yi Fang <yi.fang.gan@intel.com>
-Message-ID: <ZTtpBCZuB+bjVt9D@shell.armlinux.org.uk>
-References: <20231027065054.3808352-1-yi.fang.gan@intel.com>
+ Fri, 27 Oct 2023 07:29:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4608F143D;
+ Fri, 27 Oct 2023 00:30:37 -0700 (PDT)
+Received: from a077893.arm.com (unknown [10.163.32.209])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2D9E03F762;
+ Fri, 27 Oct 2023 00:29:50 -0700 (PDT)
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	suzuki.poulose@arm.com
+Date: Fri, 27 Oct 2023 12:59:36 +0530
+Message-Id: <20231027072943.3418997-1-anshuman.khandual@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231027065054.3808352-1-yi.fang.gan@intel.com>
-Cc: linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ahmad Tarmizi Noor Azura <noor.azura.ahmad.tarmizi@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Looi Hong Aun <hong.aun.looi@intel.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: add check for
- advertising linkmode request for set-eee
+X-Mailman-Approved-At: Fri, 27 Oct 2023 11:31:33 +0000
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: [Linux-stm32] [PATCH 0/7] Subject: coresight: Move remaining AMBA
+	ACPI devices into platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,28 +50,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Oct 27, 2023 at 02:50:54PM +0800, Gan Yi Fang wrote:
-> From: Noor Azura Ahmad Tarmizi <noor.azura.ahmad.tarmizi@intel.com>
-> 
-> Add check for advertising linkmode set request with what is currently
-> being supported by PHY before configuring the EEE. Unsupported setting
-> will be rejected and a message will be prompted. No checking is
-> required while setting the EEE to off.
+This moves remaining AMBA ACPI devices into respective platform drivers for
+enabling ACPI based power management support. This series applies on latest
+coresight/next branch. This series has been built, and boot tested on a DT
+based coresight platform. Although this still requires some more testing on
+ACPI based coresight platforms.
 
-Why should this functionality be specific to stmmac?
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Mike Leach <mike.leach@linaro.org>
+Cc: James Clark <james.clark@arm.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-acpi@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: coresight@lists.linaro.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
 
-Why do we need this?
+Changes in V1:
 
-What is wrong with the checking and masking that phylib is doing?
+- Replaced all IS_ERR() instances with IS_ERR_OR_NULL() as per Suzuki
 
-Why should we trust the value in edata->supported provided by the user?
+Changes in RFC:
 
-Sorry, but no. I see no reason that this should be done, especially
-not in the stmmac driver.
+https://lore.kernel.org/all/20230921042040.1334641-1-anshuman.khandual@arm.com/
+
+Anshuman Khandual (7):
+  coresight: replicator: Move ACPI support from AMBA driver to platform driver
+  coresight: funnel: Move ACPI support from AMBA driver to platform driver
+  coresight: catu: Move ACPI support from AMBA driver to platform driver
+  coresight: tpiu: Move ACPI support from AMBA driver to platform driver
+  coresight: tmc: Move ACPI support from AMBA driver to platform driver
+  coresight: stm: Move ACPI support from AMBA driver to platform driver
+  coresight: debug: Move ACPI support from AMBA driver to platform driver
+
+ drivers/acpi/arm64/amba.c                     |   8 --
+ drivers/hwtracing/coresight/coresight-catu.c  | 136 ++++++++++++++++--
+ drivers/hwtracing/coresight/coresight-catu.h  |   1 +
+ .../hwtracing/coresight/coresight-cpu-debug.c | 130 +++++++++++++++--
+ .../hwtracing/coresight/coresight-funnel.c    |  49 ++++---
+ .../coresight/coresight-replicator.c          |  44 +++---
+ drivers/hwtracing/coresight/coresight-stm.c   |  80 +++++++++--
+ .../hwtracing/coresight/coresight-tmc-core.c  | 127 ++++++++++++++--
+ drivers/hwtracing/coresight/coresight-tmc.h   |   1 +
+ drivers/hwtracing/coresight/coresight-tpiu.c  |  76 +++++++++-
+ 10 files changed, 549 insertions(+), 103 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
