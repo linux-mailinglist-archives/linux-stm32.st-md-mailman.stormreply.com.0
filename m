@@ -2,69 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C227D9C47
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 16:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2C27D9D17
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 17:38:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50161C6C841;
-	Fri, 27 Oct 2023 14:55:58 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFCA1C6C841;
+	Fri, 27 Oct 2023 15:38:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F1DC6B44F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0C9C6C837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Oct 2023 14:55:56 +0000 (UTC)
-Received: from [192.168.1.90] (unknown [188.24.143.101])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 2DF43660732A;
- Fri, 27 Oct 2023 15:55:54 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1698418555;
- bh=pC/2ckA4eIWbV5Hbrpc+VBynF0iUF/+d8KlgFpe55xM=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=WjuUPCwE1Gcpq9PFx2gnR501PN6fY7fzv2/6mj25FJztfY1Z5J7kyJ4e/nNUqjIy1
- uO/ysTkxYiMaLCVl1XL3eK5jy15uni5zBxT3UqwsgPYz2xxLRvJQ5QRScJEPIaA8Ll
- 44lkQ5GoWzJEYt6jyickaJfc8VqSgUJOXLGCoKnNy8nlY0V18RATa1ZfQN2ZOjBxdv
- drnGacZUnH3+E+HN9iwkp72SN41/AnYxiNsnFaDFHN2lCA6xKajSDEuVUABwhkNIkl
- jmkbd3StyhrBWPng+/Q0PdUm3rO/WC+PgtgjSrLfgbxeAFhkbLCpg8ybkW2rVd/yUo
- NFU+44OB0VAIg==
-Message-ID: <d8ebed94-fd1b-4ee5-ae04-f8b6f66cd5a6@collabora.com>
-Date: Fri, 27 Oct 2023 17:55:51 +0300
+ Fri, 27 Oct 2023 15:38:24 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39RCc60x010675; Fri, 27 Oct 2023 17:37:17 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:from:subject:to:cc:references
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=137N9qL9i5h4t8Cbod1j95elUvUuNi+rOMR+/nkEcGo=; b=EX
+ /VSOoOTnYBW0p53Tuy8tkZXHrE9TCpRNA/bI48SzdaVOLcAioGGb2rDjfu4AwA5k
+ v32rhDVol8dtT3+OOAzKYell3XeaqdcateC0Ht5f5f44AtAT8RLKlj4pjSRODpXr
+ C0G+tE9HPuhvxq3nm5EGbDWsx+uMm9et8AnfTgvKf1VjaRyB+OoZrlta+QCeusS4
+ DtxnglJxdX6gQPW+fzfVM9T+lLDdVWAiWn4tSE7mlX17rCSRm6jWnka0+g6Fhf8e
+ vNoBtK5Ifbj7KqtJXykvIpXKvK2oehCiK/hsOAlK4WYKA3vfmSNeg4DV8PILG2Rh
+ 7NAyCWbRDCK0IX4FDaoA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tywqq4fmr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Oct 2023 17:37:17 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 023E9100062;
+ Fri, 27 Oct 2023 17:37:14 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6CD2C27DB5D;
+ Fri, 27 Oct 2023 17:37:14 +0200 (CEST)
+Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 27 Oct
+ 2023 17:37:12 +0200
+Message-ID: <8fa014c3-c0e9-4183-b4fb-90962f71295a@foss.st.com>
+Date: Fri, 27 Oct 2023 17:37:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+To: Rob Herring <robh@kernel.org>
+References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
+ <20231010125719.784627-11-gatien.chevallier@foss.st.com>
+ <20231010184212.GA1221641-robh@kernel.org>
+ <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
+ <20231012153012.GA698406-robh@kernel.org>
+ <b16ed06f-66fd-457b-9610-a67ad07deb60@foss.st.com>
+ <20231024163956.GA4049342-robh@kernel.org>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Andrew Lunn <andrew@lunn.ch>
-References: <20230211031821.976408-1-cristian.ciocaltea@collabora.com>
- <20230211031821.976408-8-cristian.ciocaltea@collabora.com>
- <Y+e74UIV/Td91lKB@lunn.ch>
- <586971af-2d78-456d-a605-6c7b2aefda91@collabora.com>
- <Y+zXv90rGfQupjPP@lunn.ch>
- <cfa0f980-4bb6-4419-909c-3fce697cf8f9@collabora.com>
- <Y+5t4Jlb0ytw40pu@lunn.ch>
- <a824a7f6-0a62-7cab-180b-f20297311a2b@collabora.com>
- <Y++BZWhJm1LpdrA9@lunn.ch>
- <350b400f-210a-a2cf-0828-25beb1b93a43@collabora.com>
-In-Reply-To: <350b400f-210a-a2cf-0828-25beb1b93a43@collabora.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
- Sagar Kadam <sagar.kadam@sifive.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-riscv@lists.infradead.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com,
- Yanhong Wang <yanhong.wang@starfivetech.com>, Lee Jones <lee@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH 07/12] dt-bindings: net: Add StarFive
-	JH7100 SoC
+In-Reply-To: <20231024163956.GA4049342-robh@kernel.org>
+X-Originating-IP: [10.201.20.32]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-27_14,2023-10-27_01,2023-05-22_02
+Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
+ edumazet@google.com, Oleksii_Moisieiev@epam.com,
+ krzysztof.kozlowski+dt@linaro.org, will@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, peng.fan@oss.nxp.com,
+ herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
+ hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ andi.shyti@kernel.org, alsa-devel@alsa-project.org,
+ linux-p.hy@lists.infradead.org, richardcochran@gmail.com,
+ linux-serial@vger.kernel.org, mchehab@kernel.org,
+ linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
+ gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
+ netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
+ jic23@kernel.org, linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a
+ system bus for STM32MP15x boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,54 +91,157 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMi8xNy8yMyAxNzoyNSwgQ3Jpc3RpYW4gQ2lvY2FsdGVhIHdyb3RlOgo+IE9uIDIvMTcvMjMg
-MTU6MzAsIEFuZHJldyBMdW5uIHdyb3RlOgo+Pj4+IEkgd291bGQgYWN0dWFsbHkgc2F5IGl0IHNo
-b3dzIHdlIGRvbid0IHVuZGVyc3RhbmQgd2hhdCBpcyBnb2luZyBvbgo+Pj4+IHdpdGggZGVsYXlz
-LiAicmdtaWkiIGlzIG5vdCBldmVyeSBvZnRlbiB0aGUgY29ycmVjdCB2YWx1ZS4gVGhlIGZhY3Qg
-aXQKPj4+PiB3b3JrcyBzdWdnZXN0cyB0aGUgTUFDIGlzIGFkZGluZyBkZWxheXMuCj4+Pj4KPj4+
-PiBXaGF0IHZhbHVlIGFyZSB5b3UgdXNpbmcgZm9yIHN0YXJmaXZlLGd0eGNsay1kbHljaGFpbiA/
-Cj4+Pgo+Pj4gVGhpcyBpcyBzZXQgdG8gJzQnIGluIHBhdGNoIDEyLzEyLgo+Pj4KPj4+PiBUcnkg
-MCBhbmQgdGhlbiAicmdtaWktaWQiCj4+Pgo+Pj4gSSBtYWRlIHNvbWUgbW9yZSB0ZXN0cyBhbmQg
-aXQgc2VlbXMgdGhlIG9ubHkgc3RhYmxlIGNvbmZpZ3VyYXRpb24gaXMKPj4+ICJyZ21paSIKPj4+
-IHdpdGggInN0YXJmaXZlLGd0eGNsay1kbHljaGFpbiIgc2V0IHRvIDQ6Cj4+Pgo+Pj4gcGh5LW1v
-ZGUgfCBkbHljaGFpbiB8IHN0YXR1cwo+Pj4gLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4+IHJnbWlpwqDCoMKgIHzCoMKg
-wqDCoMKgwqDCoCA0IHwgT0sgKG5vIGlzc3VlcyBvYnNlcnZlZCkKPj4+IHJnbWlpLWlkIHzCoMKg
-wqDCoMKgwqDCoCA0IHwgQlJPS0VOIChlcnJvcnMgcmVwb3J0ZWQgWzFdKQo+Pj4gcmdtaWnCoMKg
-wqAgfMKgwqDCoMKgwqDCoMKgIDAgfCBVTlJFTElBQkxFIChubyBlcnJvcnMsIGJ1dCBmcmVxdWVu
-dCBzdGFsbHMpCj4+PiByZ21paS1pZCB8wqDCoMKgwqDCoMKgwqAgMCB8IEJST0tFTiAoZXJyb3Jz
-IHJlcG9ydGVkKQo+Pj4KPj4+IFsxXSBSZXBvcnRlZCBlcnJvcnMgaW4gY2FzZSBvZiBCUk9LRU4g
-c3RhdHVzOgo+Pj4gJCBncmVwICcnIC9zeXMvY2xhc3MvbmV0L2V0aDAvc3RhdGlzdGljcy8qIHwg
-Z3JlcCAtdiAnOjAkJwo+Pgo+PiBUaGFua3MgZm9yIHRoZSB0ZXN0aW5nLgo+Pgo+PiBTbyBpdCBz
-ZWVtcyBsaWtlIHNvbWV0aGluZyBpcyBhZGRpbmcgZGVsYXlzIHdoZW4gaXQgcHJvYmFibHkgc2hv
-dWxkCj4+IG5vdC4gSWRlYWxseSB3ZSB3YW50IHRvIGtub3cgd2hhdC4KPj4KPj4gVGhlcmUgaXMg
-YSBkYW5nZXIgaGVyZSwgc29tZXRoaW5nIHdoaWNoIGhhcyBoYXBwZW5lZCBpbiB0aGUgcGFzdC4g
-QQo+PiBQSFkgd2hpY2ggaWdub3JlZCAicmdtaWkiIGFuZCBhY3R1YWxseSBkaWQgcG93ZXIgb24g
-ZGVmYXVsdHMgd2hpY2ggd2FzCj4+ICJyZ21paS1pZCIuIEFzIGEgcmVzdWx0LCBsb3RzIG9mIGJv
-YXJkcyBwdXQgInJtZ2lpIiBpbiB0aGVyZSBEVCBibG9iLAo+PiB3aGljaCAnd29ya2VkJy4gVW50
-aWwgYSBib2FyZCBjYW1lIGFsb25nIHdoaWNoIHJlYWxseSBkaWQgbmVlZAo+PiAicmdtaWkiLiBU
-aGUgZGV2ZWxvcGVyIGJyaW5naW5nIHRoYXQgYm9hcmQgdXAgZGVidWdnZWQgdGhlIFBIWSwgZm91
-bmQKPj4gdGhlIHByb2JsZW0gYW5kIG1hZGUgaXQgcmVzcGVjdCAicmdtaWkiIHNvIHRoZWlyIGJv
-YXJkIHdvcmtlZC4gQW5kIHRoZQo+PiBmaXggYnJva2UgYSBudW1iZXIgb2YgJ3dvcmtpbmcnIGJv
-YXJkcyB3aGljaCBoYWQgdGhlIHdyb25nICJyZ21paSIKPj4gaW5zdGVhZCBvZiAicmdtaWktaWQi
-Lgo+IAo+IFRoYW5rcyBmb3IgdGhlIGhlYWRzLXVwLgo+IAo+PiBTbyB5b3UgaGF2ZSBhIGNob2lj
-ZS4gR28gd2l0aCA0IGFuZCAicmdtaWkiLCBidXQgcHV0IGluIGEgYmlnIGZhdAo+PiB3YXJuaW5n
-LCAiV29ya3Mgc29tZWhvdyBidXQgaXMgdGVjaG5pY2FsbHkgd3JvbmcgYW5kIHdpbGwgcHJvYmFi
-bHkKPj4gYnJlYWsgc29tZXRpbWUgaW4gdGhlIGZ1dHVyZSIuIE9yIHRyeSB0byB1bmRlcnN0YW5k
-IHdoYXQgaXMgcmVhbGx5Cj4+IGdvaW5nIG9uIGhlcmUsIHdlcmUgYXJlIHRoZSBkZWxheXMgY29t
-aW5nIGZyb20sIGFuZCBmaXggdGhlIGlzc3VlLgo+Pgo+PiDCoMKgwqDCoMKgwqAgQW5kcmV3Cj4g
-Cj4gSSB3aWxsIHRyeSB0byBhbmFseXplIHRoaXMgZnVydGhlci4KCkFzIHRoZSBub24tY29oZXJl
-bnQgRE1BIHdvcmsgdGhpcyBzZXJpZXMgZGVwZW5kZWQgb24gaGFzIGJlZW4gY29tcGxldGVkLApJ
-IHN0YXJ0ZWQgdG8gaW52ZXN0aWdhdGUgZnVydGhlciB0aGUgInJnbWlpLWlkIiBpc3N1ZS4KSSBj
-b3VsZG4ndCBzcG90IGFueXRoaW5nIHdyb25nIGluIHRoZSBNb3RvcmNvbW0gUEhZIGRyaXZlciwg
-YnV0CmV2ZW50dWFsbHkgZ290IHRoaXMgd29ya2luZyBieSBhZGp1c3RpbmcgcngtaW50ZXJuYWwt
-ZGVsYXktcHMuCgpXaWxsIGRvIHNvbWUgbW9yZSB0ZXN0aW5nIGJlZm9yZSBzdWJtaXR0aW5nIHYy
-LgoKVGhhbmtzLApDcmlzdGlhbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 10/24/23 18:39, Rob Herring wrote:
+> On Mon, Oct 16, 2023 at 02:02:39PM +0200, Gatien CHEVALLIER wrote:
+>> Hi Rob,
+>>
+>> On 10/12/23 17:30, Rob Herring wrote:
+>>> On Wed, Oct 11, 2023 at 10:49:58AM +0200, Gatien CHEVALLIER wrote:
+>>>> Hi Rob,
+>>>>
+>>>> On 10/10/23 20:42, Rob Herring wrote:
+>>>>> On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
+>>>>>> ETZPC is a firewall controller. Put all peripherals filtered by the
+>>>>>> ETZPC as ETZPC subnodes and reference ETZPC as an
+>>>>>> access-control-provider.
+>>>>>>
+>>>>>> For more information on which peripheral is securable or supports MCU
+>>>>>> isolation, please read the STM32MP15 reference manual.
+>>>>>>
+>>>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+>>>>>> ---
+>>>>>>
+>>>>>> Changes in V6:
+>>>>>>        	- Renamed access-controller to access-controllers
+>>>>>>        	- Removal of access-control-provider property
+>>>>>>
+>>>>>> Changes in V5:
+>>>>>>        	- Renamed feature-domain* to access-control*
+>>>>>>
+>>>>>>     arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
+>>>>>>     arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
+>>>>>>     arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
+>>>>>>     3 files changed, 1450 insertions(+), 1377 deletions(-)
+>>>>>
+>>>>> This is not reviewable. Change the indentation and any non-functional
+>>>>> change in one patch and then actual changes in another.
+>>>>
+>>>> Ok, I'll make it easier to read.
+>>>>
+>>>>>
+>>>>> This is also an ABI break. Though I'm not sure it's avoidable. All the
+>>>>> devices below the ETZPC node won't probe on existing kernel. A
+>>>>> simple-bus fallback for ETZPC node should solve that.
+>>>>>
+>>>>
+>>>> I had one issue when trying with a simple-bus fallback that was the
+>>>> drivers were probing even though the access rights aren't correct.
+>>>> Hence the removal of the simple-bus compatible in the STM32MP25 patch.
+>>>
+>>> But it worked before, right? So the difference is you have either added
+>>> new devices which need setup or your firmware changed how devices are
+>>> setup (or not setup). Certainly can't fix the latter case. You just need
+>>> to be explicit about what you are doing to users.
+>>>
+>>
+>> I should've specified it was during a test where I deliberately set
+>> incorrect rights on a peripheral and enabled its node to see if the
+>> firewall would allow the creation of the device.
+>>
+>>>
+>>>> Even though a node is tagged with the OF_POPULATED flag when checking
+>>>> the access rights with the firewall controller, it seems that when
+>>>> simple-bus is probing, there's no check of this flag.
+>>>
+>>> It shouldn't. Those flags are for creating the devices (or not) and
+>>> removing only devices of_platform_populate() created.
+>>>
+>>
+>> About the "simple-bus" being a fallback, I think I understood why I saw
+>> that the devices were created.
+>>
+>> All devices under a node whose compatible is "simple-bus" are created
+>> in of_platform_device_create_pdata(), called by
+>> of_platform_default_populate_init() at arch_initcall level. This
+>> before the firewall-controller has a chance to populate it's bus.
+>>
+>> Therefore, when I flag nodes when populating the firewall-bus, the
+>> devices are already created. The "simple-bus" mechanism is not a
+>> fallback here as it precedes the driver probe.
+>>
+>> Is there a safe way to safely remove/disable a device created this way?
+> 
+> There's 2 ways to handle this. Either controlling creating the device or
+> controlling probing the device. The latter should just work with
+> fw_devlink dependency. The former probably needs some adjustment to
+> simple-pm-bus driver if you have 'simple-bus' compatible. You want it to
+> probe on old kernels and not probe on new kernels with your firewall
+> driver. Look at the commit history for simple-pm-bus. There was some
+> discussion on it as well.
+> 
+
+Hi Rob,
+
+First, thank you for your suggestions.
+
+Regarding controlling probing the device: the philosophy of the firewall
+controller was to check a device secure configuration to determine if
+its associated driver should be probed (+handle some firewall
+resources). I'd rather avoid it so that the device isn't created at all.
+
+I took a look on the simple-bus driver side. I don't see an obvious way
+on how to do it as the firewall controller driver is a module while the
+devices being populated is done at arch initcall level.
+
+I ended up with two propositions:
+
+1)I took a shot at implementing a new flag "OF_ACCESS_GRANTED" that
+should be set in the first call of the of_platform_bus_create()
+function for every child node of a "default bus" (simple-bus,
+simple-pm-bus, ...) having the access-controllers property.
+This flag should be unset by the access controller if the access is
+not granted. This covers the particular case where the access controller
+has a simple-bus fallback whilst not creating the devices on the first
+try for the bus' childs.
+
+This way, the first round of of_platform_populate() done at arch init
+call level won't create the devices of an access controller child
+nodes. Then, the firewall controller has a chance to clear the flag
+before the second call to this function by the simple-pm-bus driver.
+
+If the controller module isn't present, then it's a simple-bus
+behavior to extent of the child devices not being all created in the
+first place. This shouldn't be an issue as in only concerns childs
+of such bus that aren't probed before the bus driver.
+
+I have a patch that I can send as RFC on top of my series if my
+explanation isn't clear enough.
+
+2)Make the STM32_FIREWALL configuration switch select the OF_DYNAMIC
+one. This way I can use of_detach_node() function to remove the node
+from the device tree. The cons of this is the device tree is now
+used at runtime.
+
+Are you considering one of these two proposition as a viable solution?
+
+Best regards,
+Gatien
+
+>> Devices that are under the firewall controller (simple-bus) node
+>> should not be probed before it as they're child of it.
+> 
+> fw_devlink should take care of parent/child dependencies without any
+> explicit handling of the access ctrl binding.
+> 
+> Rob
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
