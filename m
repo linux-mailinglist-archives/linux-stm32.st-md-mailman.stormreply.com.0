@@ -2,84 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F2C27D9D17
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Oct 2023 17:38:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42B57DA736
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Oct 2023 15:22:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFCA1C6C841;
-	Fri, 27 Oct 2023 15:38:25 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B065C6B47F;
+	Sat, 28 Oct 2023 13:22:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0C9C6C837
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D733EC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Oct 2023 15:38:24 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 39RCc60x010675; Fri, 27 Oct 2023 17:37:17 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:from:subject:to:cc:references
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=137N9qL9i5h4t8Cbod1j95elUvUuNi+rOMR+/nkEcGo=; b=EX
- /VSOoOTnYBW0p53Tuy8tkZXHrE9TCpRNA/bI48SzdaVOLcAioGGb2rDjfu4AwA5k
- v32rhDVol8dtT3+OOAzKYell3XeaqdcateC0Ht5f5f44AtAT8RLKlj4pjSRODpXr
- C0G+tE9HPuhvxq3nm5EGbDWsx+uMm9et8AnfTgvKf1VjaRyB+OoZrlta+QCeusS4
- DtxnglJxdX6gQPW+fzfVM9T+lLDdVWAiWn4tSE7mlX17rCSRm6jWnka0+g6Fhf8e
- vNoBtK5Ifbj7KqtJXykvIpXKvK2oehCiK/hsOAlK4WYKA3vfmSNeg4DV8PILG2Rh
- 7NAyCWbRDCK0IX4FDaoA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3tywqq4fmr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 27 Oct 2023 17:37:17 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 023E9100062;
- Fri, 27 Oct 2023 17:37:14 +0200 (CEST)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6CD2C27DB5D;
- Fri, 27 Oct 2023 17:37:14 +0200 (CEST)
-Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 27 Oct
- 2023 17:37:12 +0200
-Message-ID: <8fa014c3-c0e9-4183-b4fb-90962f71295a@foss.st.com>
-Date: Fri, 27 Oct 2023 17:37:11 +0200
+ Sat, 28 Oct 2023 13:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698499350; x=1730035350;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=AfsX+28wvpVYVI/uJyU0Y1wu5/EAzRfsS6SGbjeDVSE=;
+ b=NnJaSrmWCyfRvaUnEF578XglT4HOGDxFybakuNneNVaMxdJ9AnLBhFmd
+ RcW5QE1w/Ecb8RTn8h3pb8jalcLFz3XoOxoAo1VjnyaQA2ofZ9KDilCoK
+ satAW9yWVjaxumCVHMi+zoKt6oSe//k8jaY7Hp+rYK7nud2ajGV1K6mfL
+ JgL8aeMBc+d48Z81/zQ5GB5T90Gl0fqlNDAcBzv7anG6Pa9xmvQdUbXgB
+ 1AHW9mIeio6Ck91B5NF9KiKsIe+ytAysWAdhbRso/qgvBkfbpjY3F0Hq8
+ zQgSC4q7hhkXhh3/LZw14gZWCW5yvrliN4cI1gLuxpk7iqPZ/evGTqbcv A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10876"; a="368112761"
+X-IronPort-AV: E=Sophos;i="6.03,259,1694761200"; d="scan'208";a="368112761"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2023 06:22:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10876"; a="850512765"
+X-IronPort-AV: E=Sophos;i="6.03,259,1694761200"; d="scan'208";a="850512765"
+Received: from lkp-server01.sh.intel.com (HELO 8917679a5d3e) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 28 Oct 2023 06:22:23 -0700
+Received: from kbuild by 8917679a5d3e with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qwjGf-000Blf-0j;
+ Sat, 28 Oct 2023 13:22:21 +0000
+Date: Sat, 28 Oct 2023 21:22:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org, suzuki.poulose@arm.com
+Message-ID: <202310282130.HCHZyX0e-lkp@intel.com>
+References: <20231027072943.3418997-7-anshuman.khandual@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-To: Rob Herring <robh@kernel.org>
-References: <20231010125719.784627-1-gatien.chevallier@foss.st.com>
- <20231010125719.784627-11-gatien.chevallier@foss.st.com>
- <20231010184212.GA1221641-robh@kernel.org>
- <8f1b6915-68be-a525-c5d5-37f0983c14de@foss.st.com>
- <20231012153012.GA698406-robh@kernel.org>
- <b16ed06f-66fd-457b-9610-a67ad07deb60@foss.st.com>
- <20231024163956.GA4049342-robh@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20231024163956.GA4049342-robh@kernel.org>
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-10-27_14,2023-10-27_01,2023-05-22_02
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, will@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, peng.fan@oss.nxp.com,
- herbert@gondor.apana.org.au, Frank Rowand <frowand.list@gmail.com>,
- hugues.fruchet@foss.st.com, lee@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
- andi.shyti@kernel.org, alsa-devel@alsa-project.org,
- linux-p.hy@lists.infradead.org, richardcochran@gmail.com,
- linux-serial@vger.kernel.org, mchehab@kernel.org,
- linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
- gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v6 10/11] ARM: dts: stm32: add ETZPC as a
- system bus for STM32MP15x boards
+Content-Disposition: inline
+In-Reply-To: <20231027072943.3418997-7-anshuman.khandual@arm.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 6/7] coresight: stm: Move ACPI support
+ from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,156 +67,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Anshuman,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on rafael-pm/linux-next]
+[also build test WARNING on rafael-pm/acpi-bus soc/for-next atorgue-stm32/stm32-next linus/master v6.6-rc7 next-20231027]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Anshuman-Khandual/coresight-replicator-Move-ACPI-support-from-AMBA-driver-to-platform-driver/20231027-153540
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
+patch link:    https://lore.kernel.org/r/20231027072943.3418997-7-anshuman.khandual%40arm.com
+patch subject: [PATCH 6/7] coresight: stm: Move ACPI support from AMBA driver to platform driver
+config: arm-randconfig-003-20231028 (https://download.01.org/0day-ci/archive/20231028/202310282130.HCHZyX0e-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231028/202310282130.HCHZyX0e-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202310282130.HCHZyX0e-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/hwtracing/coresight/coresight-stm.c:151: warning: Function parameter or member 'pclk' not described in 'stm_drvdata'
 
 
-On 10/24/23 18:39, Rob Herring wrote:
-> On Mon, Oct 16, 2023 at 02:02:39PM +0200, Gatien CHEVALLIER wrote:
->> Hi Rob,
->>
->> On 10/12/23 17:30, Rob Herring wrote:
->>> On Wed, Oct 11, 2023 at 10:49:58AM +0200, Gatien CHEVALLIER wrote:
->>>> Hi Rob,
->>>>
->>>> On 10/10/23 20:42, Rob Herring wrote:
->>>>> On Tue, Oct 10, 2023 at 02:57:18PM +0200, Gatien Chevallier wrote:
->>>>>> ETZPC is a firewall controller. Put all peripherals filtered by the
->>>>>> ETZPC as ETZPC subnodes and reference ETZPC as an
->>>>>> access-control-provider.
->>>>>>
->>>>>> For more information on which peripheral is securable or supports MCU
->>>>>> isolation, please read the STM32MP15 reference manual.
->>>>>>
->>>>>> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->>>>>> ---
->>>>>>
->>>>>> Changes in V6:
->>>>>>        	- Renamed access-controller to access-controllers
->>>>>>        	- Removal of access-control-provider property
->>>>>>
->>>>>> Changes in V5:
->>>>>>        	- Renamed feature-domain* to access-control*
->>>>>>
->>>>>>     arch/arm/boot/dts/st/stm32mp151.dtsi  | 2756 +++++++++++++------------
->>>>>>     arch/arm/boot/dts/st/stm32mp153.dtsi  |   52 +-
->>>>>>     arch/arm/boot/dts/st/stm32mp15xc.dtsi |   19 +-
->>>>>>     3 files changed, 1450 insertions(+), 1377 deletions(-)
->>>>>
->>>>> This is not reviewable. Change the indentation and any non-functional
->>>>> change in one patch and then actual changes in another.
->>>>
->>>> Ok, I'll make it easier to read.
->>>>
->>>>>
->>>>> This is also an ABI break. Though I'm not sure it's avoidable. All the
->>>>> devices below the ETZPC node won't probe on existing kernel. A
->>>>> simple-bus fallback for ETZPC node should solve that.
->>>>>
->>>>
->>>> I had one issue when trying with a simple-bus fallback that was the
->>>> drivers were probing even though the access rights aren't correct.
->>>> Hence the removal of the simple-bus compatible in the STM32MP25 patch.
->>>
->>> But it worked before, right? So the difference is you have either added
->>> new devices which need setup or your firmware changed how devices are
->>> setup (or not setup). Certainly can't fix the latter case. You just need
->>> to be explicit about what you are doing to users.
->>>
->>
->> I should've specified it was during a test where I deliberately set
->> incorrect rights on a peripheral and enabled its node to see if the
->> firewall would allow the creation of the device.
->>
->>>
->>>> Even though a node is tagged with the OF_POPULATED flag when checking
->>>> the access rights with the firewall controller, it seems that when
->>>> simple-bus is probing, there's no check of this flag.
->>>
->>> It shouldn't. Those flags are for creating the devices (or not) and
->>> removing only devices of_platform_populate() created.
->>>
->>
->> About the "simple-bus" being a fallback, I think I understood why I saw
->> that the devices were created.
->>
->> All devices under a node whose compatible is "simple-bus" are created
->> in of_platform_device_create_pdata(), called by
->> of_platform_default_populate_init() at arch_initcall level. This
->> before the firewall-controller has a chance to populate it's bus.
->>
->> Therefore, when I flag nodes when populating the firewall-bus, the
->> devices are already created. The "simple-bus" mechanism is not a
->> fallback here as it precedes the driver probe.
->>
->> Is there a safe way to safely remove/disable a device created this way?
-> 
-> There's 2 ways to handle this. Either controlling creating the device or
-> controlling probing the device. The latter should just work with
-> fw_devlink dependency. The former probably needs some adjustment to
-> simple-pm-bus driver if you have 'simple-bus' compatible. You want it to
-> probe on old kernels and not probe on new kernels with your firewall
-> driver. Look at the commit history for simple-pm-bus. There was some
-> discussion on it as well.
-> 
+vim +151 drivers/hwtracing/coresight/coresight-stm.c
 
-Hi Rob,
+0f5f9b6ba9e1a7 Suzuki K Poulose  2019-06-19  115  
+237483aa5cf431 Pratik Patel      2016-05-03  116  /**
+237483aa5cf431 Pratik Patel      2016-05-03  117   * struct stm_drvdata - specifics associated to an STM component
+237483aa5cf431 Pratik Patel      2016-05-03  118   * @base:		memory mapped base address for this component.
+237483aa5cf431 Pratik Patel      2016-05-03  119   * @atclk:		optional clock for the core parts of the STM.
+237483aa5cf431 Pratik Patel      2016-05-03  120   * @csdev:		component vitals needed by the framework.
+237483aa5cf431 Pratik Patel      2016-05-03  121   * @spinlock:		only one at a time pls.
+237483aa5cf431 Pratik Patel      2016-05-03  122   * @chs:		the channels accociated to this STM.
+237483aa5cf431 Pratik Patel      2016-05-03  123   * @stm:		structure associated to the generic STM interface.
+9fa3682869d4e1 James Clark       2023-04-25  124   * @mode:		this tracer's mode (enum cs_mode), i.e sysFS, or disabled.
+237483aa5cf431 Pratik Patel      2016-05-03  125   * @traceid:		value of the current ID for this component.
+237483aa5cf431 Pratik Patel      2016-05-03  126   * @write_bytes:	Maximus bytes this STM can write at a time.
+237483aa5cf431 Pratik Patel      2016-05-03  127   * @stmsper:		settings for register STMSPER.
+237483aa5cf431 Pratik Patel      2016-05-03  128   * @stmspscr:		settings for register STMSPSCR.
+237483aa5cf431 Pratik Patel      2016-05-03  129   * @numsp:		the total number of stimulus port support by this STM.
+237483aa5cf431 Pratik Patel      2016-05-03  130   * @stmheer:		settings for register STMHEER.
+237483aa5cf431 Pratik Patel      2016-05-03  131   * @stmheter:		settings for register STMHETER.
+237483aa5cf431 Pratik Patel      2016-05-03  132   * @stmhebsr:		settings for register STMHEBSR.
+237483aa5cf431 Pratik Patel      2016-05-03  133   */
+237483aa5cf431 Pratik Patel      2016-05-03  134  struct stm_drvdata {
+237483aa5cf431 Pratik Patel      2016-05-03  135  	void __iomem		*base;
+237483aa5cf431 Pratik Patel      2016-05-03  136  	struct clk		*atclk;
+ec77ffb6c05951 Anshuman Khandual 2023-10-27  137  	struct clk		*pclk;
+237483aa5cf431 Pratik Patel      2016-05-03  138  	struct coresight_device	*csdev;
+237483aa5cf431 Pratik Patel      2016-05-03  139  	spinlock_t		spinlock;
+237483aa5cf431 Pratik Patel      2016-05-03  140  	struct channel_space	chs;
+237483aa5cf431 Pratik Patel      2016-05-03  141  	struct stm_data		stm;
+237483aa5cf431 Pratik Patel      2016-05-03  142  	local_t			mode;
+237483aa5cf431 Pratik Patel      2016-05-03  143  	u8			traceid;
+237483aa5cf431 Pratik Patel      2016-05-03  144  	u32			write_bytes;
+237483aa5cf431 Pratik Patel      2016-05-03  145  	u32			stmsper;
+237483aa5cf431 Pratik Patel      2016-05-03  146  	u32			stmspscr;
+237483aa5cf431 Pratik Patel      2016-05-03  147  	u32			numsp;
+237483aa5cf431 Pratik Patel      2016-05-03  148  	u32			stmheer;
+237483aa5cf431 Pratik Patel      2016-05-03  149  	u32			stmheter;
+237483aa5cf431 Pratik Patel      2016-05-03  150  	u32			stmhebsr;
+237483aa5cf431 Pratik Patel      2016-05-03 @151  };
+237483aa5cf431 Pratik Patel      2016-05-03  152  
 
-First, thank you for your suggestions.
-
-Regarding controlling probing the device: the philosophy of the firewall
-controller was to check a device secure configuration to determine if
-its associated driver should be probed (+handle some firewall
-resources). I'd rather avoid it so that the device isn't created at all.
-
-I took a look on the simple-bus driver side. I don't see an obvious way
-on how to do it as the firewall controller driver is a module while the
-devices being populated is done at arch initcall level.
-
-I ended up with two propositions:
-
-1)I took a shot at implementing a new flag "OF_ACCESS_GRANTED" that
-should be set in the first call of the of_platform_bus_create()
-function for every child node of a "default bus" (simple-bus,
-simple-pm-bus, ...) having the access-controllers property.
-This flag should be unset by the access controller if the access is
-not granted. This covers the particular case where the access controller
-has a simple-bus fallback whilst not creating the devices on the first
-try for the bus' childs.
-
-This way, the first round of of_platform_populate() done at arch init
-call level won't create the devices of an access controller child
-nodes. Then, the firewall controller has a chance to clear the flag
-before the second call to this function by the simple-pm-bus driver.
-
-If the controller module isn't present, then it's a simple-bus
-behavior to extent of the child devices not being all created in the
-first place. This shouldn't be an issue as in only concerns childs
-of such bus that aren't probed before the bus driver.
-
-I have a patch that I can send as RFC on top of my series if my
-explanation isn't clear enough.
-
-2)Make the STM32_FIREWALL configuration switch select the OF_DYNAMIC
-one. This way I can use of_detach_node() function to remove the node
-from the device tree. The cons of this is the device tree is now
-used at runtime.
-
-Are you considering one of these two proposition as a viable solution?
-
-Best regards,
-Gatien
-
->> Devices that are under the firewall controller (simple-bus) node
->> should not be probed before it as they're child of it.
-> 
-> fw_devlink should take care of parent/child dependencies without any
-> explicit handling of the access ctrl binding.
-> 
-> Rob
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
