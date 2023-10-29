@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C0E7DAC2C
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 12:21:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1917DAC30
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 12:24:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FD32C6B45D;
-	Sun, 29 Oct 2023 11:21:06 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AF60C6B45D;
+	Sun, 29 Oct 2023 11:24:36 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47286C6B44C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E6C3C6B44C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 11:21:04 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5082a874098so2896959e87.3
+ Sun, 29 Oct 2023 11:24:34 +0000 (UTC)
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-507962561adso5183042e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 04:21:04 -0700 (PDT)
+ Sun, 29 Oct 2023 04:24:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698578463; x=1699183263;
+ d=linaro.org; s=google; t=1698578673; x=1699183473;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=7gCSp+8NLEPOALl1dnKjmwXpESp91tchBC5/hV+oFRE=;
- b=FZ6RvPA23b7bQhyjPq74wyPwWHRSoRNbAbQGqdtgG3lZrW+VWp76j6UyHfUi17Jmzz
- Ymcp79tasACrv4qd1U5K0hZKpgjz2PoK/4XV3g59c3aUKy7kTeHsIyWLHjKu1wJm7cas
- jQjVp50NOPwe4ZLJJXnP7681nJPktkAdIcMG0+32fWszFJooPkwto9aiXPP6aavQkaiN
- zgTj1AtpZqMP1mE3aipzFGq1ppAYMQa90EyGffqv5jM5rRgg4OavXzroAoeMZlzAF4SG
- Vj7yo/wUWX5vqfX8cbJ700vRg7RuOYUy0WDTxK3U33meOiZVdWaFO2UT7oe7E7a8mlsW
- pidg==
+ bh=MTIkZctT4uAZB76Pd6oAyakzgKdJFWnyc22HdELfBlw=;
+ b=KYtCQiNHhZyzLBVKT7FQfA/g52kwqCUHMHVeKXiMhtw7LPosWIOQ8vGggsCE6Gi8fH
+ zBSAoADaVW9cikVStq9of4iDPl5qfQ9lkRoEUx4W7oRb5cx4P9hQ0ZuWIi58l4ITrYBi
+ w15Dh06OLdixQV2JHNsLzSSl2oyO7Wy+r6Rx1Xbcn9rpuPnfU1iwZ5seAJc2iI+xt85f
+ RghE+928wtJII3xZ/6QSxmXp4BAua2NOLjHsl2WgrBuX6ecUPU7fzHQj015umEPXqKUn
+ qtjDrOV2HzGcQL1WaOo6P4ayjzzb9Tqg4ZX0gb9GFvjjotvRVIY/pgBcSwlusIUrfQAW
+ Yb1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698578463; x=1699183263;
+ d=1e100.net; s=20230601; t=1698578673; x=1699183473;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7gCSp+8NLEPOALl1dnKjmwXpESp91tchBC5/hV+oFRE=;
- b=dhXI416LgJFguXiPbj3lulHjzZv1SrEwZcNMbW2K3IV9Ccktgl6jLFXbnYE2Vfcgj2
- b/q8Cny03ZbKnIecKiDoQaF9BnAHOkdJq7Ml0G3XdI9hY29nGXLg/o75lhgCwytjWKrR
- +h06bTQB2WytvSNMtd2drLu43jvTwahnvxaOD9JUBJzWU3jx8OjxtjqMvVg1wBJ/PlyK
- jpOqNcC5En8StMGG29uY23X1dTTHsHNGn5pMKMHppn0OSIe5a2DvsA4IdEgwf7QwvEqQ
- 3v8WINm9GRdWvdigVrhUx/I73tN0DIPSJIlquezhR0AnzBEByZnDTPwH7Qli1n5LgmVT
- kUxQ==
-X-Gm-Message-State: AOJu0Yxbt3H+5yaSPcd8XHk4q0VjBoT8QlvpmtpoBjSj4SPt8h93riFU
- IgzZp2Bsh7hsHAz+JaTage3U+A==
-X-Google-Smtp-Source: AGHT+IHsOt3lQewB+MPcmXIfI+AvblsWnE22ZR+HTrXWrIcYDTUSh0FjvmNnc8EoX9hyPx8ZVez2xA==
-X-Received: by 2002:a05:6512:401b:b0:509:e5e:232a with SMTP id
- br27-20020a056512401b00b005090e5e232amr2984098lfb.42.1698578463531; 
- Sun, 29 Oct 2023 04:21:03 -0700 (PDT)
+ bh=MTIkZctT4uAZB76Pd6oAyakzgKdJFWnyc22HdELfBlw=;
+ b=ZL8h8t64Ee3uBsNhkcYtOr0dNc6kx6k67qLfuc+HkYPhKOWNIbVQt+wMeLs29obTko
+ hVDwT0jV89i8ICWKxV5aJsOd7wF0JUNhJ5JA4HJxjXiH67qfxgVZnyvUyPz/HcjsTQot
+ TbaIphbBWfW8a17VklJ0towRQFznGlY7pszwtObPi++3emDU1wK3SBddDJua4B/66Ycs
+ sMhJSlI3t8DbO3PTerIprtzKmBNdhOWpXSQ8h+K2QH8JyApQ6b/ZNtDKp7zWNjckCU72
+ 7Az9FJ5oCLv+Zqlsh7NxC1Mrl0Pi/BvT5NyHxymIvklkFBkWProg4s7iW88nVGy/Jafp
+ QxWQ==
+X-Gm-Message-State: AOJu0Yyu9p+7smIKZVQfiq9uGj0leVRA+e1k8wZsFqIP/bQrStYjfZBZ
+ Kni+rD2913JPY68gBR0qoi2DMA==
+X-Google-Smtp-Source: AGHT+IGLY/QCsu0vAjpXSYUgmgOOP8jToRbIdVg3HsJits4bqAozOOTa33SPShi5xJsyS/AHSv24Xg==
+X-Received: by 2002:a05:6512:3d17:b0:500:cb2b:8678 with SMTP id
+ d23-20020a0565123d1700b00500cb2b8678mr6368062lfv.40.1698578673542; 
+ Sun, 29 Oct 2023 04:24:33 -0700 (PDT)
 Received: from [192.168.0.22] ([78.10.206.168])
  by smtp.gmail.com with ESMTPSA id
- q9-20020a0565123a8900b0050916c6903dsm373343lfu.18.2023.10.29.04.21.02
+ h2-20020a0565123c8200b005030b642ec8sm1000453lfv.157.2023.10.29.04.24.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 Oct 2023 04:21:03 -0700 (PDT)
-Message-ID: <e2c65d01-3498-4287-a6dc-b926135df762@linaro.org>
-Date: Sun, 29 Oct 2023 12:21:01 +0100
+ Sun, 29 Oct 2023 04:24:33 -0700 (PDT)
+Message-ID: <e8f18634-7187-4e5a-a494-329c7c602fd2@linaro.org>
+Date: Sun, 29 Oct 2023 12:24:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -74,7 +74,7 @@ To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-2-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-5-cristian.ciocaltea@collabora.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -120,13 +120,13 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231029042712.520010-2-cristian.ciocaltea@collabora.com>
+In-Reply-To: <20231029042712.520010-5-cristian.ciocaltea@collabora.com>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 01/12] dt-bindings: net: snps,
- dwmac: Allow exclusive usage of ahb reset
+Subject: Re: [Linux-stm32] [PATCH v2 04/12] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JH7100 SoC compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,30 +144,73 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 29/10/2023 05:27, Cristian Ciocaltea wrote:
-> The Synopsys DesignWare MAC found on the StarFive JH7100 SoC requires
-> just the 'ahb' reset name, but the binding allows selecting it only in
-> conjunction with 'stmmaceth'.
-> 
-> Fix the issue by permitting exclusive usage of the 'ahb' reset name.
+> The Synopsys DesignWare MAC found on StarFive JH7100 SoC is quite
+> similar to the newer JH7110, but it requires only two interrupts and a
+> single reset line.
 > 
 > Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+>  .../bindings/net/starfive,jh7110-dwmac.yaml   | 74 +++++++++++++------
+>  2 files changed, 54 insertions(+), 21 deletions(-)
 > 
 > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 5c2769dc689a..a4d7172ea701 100644
+> index a4d7172ea701..c1380ff1c054 100644
 > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
 > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -146,7 +146,7 @@ properties:
->    reset-names:
->      minItems: 1
->      items:
-> -      - const: stmmaceth
-> +      - enum: [stmmaceth, ahb]
+> @@ -95,6 +95,7 @@ properties:
+>          - snps,dwmac-5.20
+>          - snps,dwxgmac
+>          - snps,dwxgmac-2.10
+> +        - starfive,jh7100-dwmac
+>          - starfive,jh7110-dwmac
+>  
+>    reg:
+> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> index 44e58755a5a2..70e35a3401f4 100644
+> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> @@ -13,10 +13,14 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    items:
+> -      - enum:
+> -          - starfive,jh7110-dwmac
+> -      - const: snps,dwmac-5.20
+> +    oneOf:
+> +      - items:
+> +          - const: starfive,jh7100-dwmac
+> +          - const: snps,dwmac
+> +      - items:
+> +          - enum:
+> +              - starfive,jh7110-dwmac
+> +          - const: snps,dwmac-5.20
 
-Your patch #3 says you have minimum two items. Here you claim you have
-only one reset. It's confusing.
+Why do you use different fallback?
+
+>  
+>    reg:
+>      maxItems: 1
+> @@ -37,23 +41,6 @@ properties:
+>        - const: tx
+>        - const: gtx
+>  
+> -  interrupts:
+> -    minItems: 3
+> -    maxItems: 3
+> -
+> -  interrupt-names:
+> -    minItems: 3
+> -    maxItems: 3
+> -
+> -  resets:
+> -    minItems: 2
+> -    maxItems: 2
+
+You just changed it in previous patches... So the previous code allowing
+one item was correct?
+
 
 Best regards,
 Krzysztof
