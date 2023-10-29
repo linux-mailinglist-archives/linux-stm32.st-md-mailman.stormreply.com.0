@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B377DAAB3
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 05:27:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21E4D7DAAB6
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 05:27:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB746C6C837;
-	Sun, 29 Oct 2023 04:27:41 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA38DC6C837;
+	Sun, 29 Oct 2023 04:27:44 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D11FC6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C73EC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 04:27:40 +0000 (UTC)
+ Sun, 29 Oct 2023 04:27:43 +0000 (UTC)
 Received: from localhost (unknown [188.24.143.101])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0F09A6607389;
- Sun, 29 Oct 2023 04:27:40 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id E02A8660738A;
+ Sun, 29 Oct 2023 04:27:42 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1698553660;
- bh=fo6HEuz5sJOg727sDFQWk+LeppJl81dX/k1wa7xON88=;
+ s=mail; t=1698553663;
+ bh=xvv/tFFVtJp+rbBYtKgTLulVc7HdAalSk1KKPFjFju0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iMRgCpF7osoY3RVkpyYj8QNWRMXBGY/WK2XOrfNGUB2rnbJ5DORbiCiVbz75ThenZ
- 0gd0ey2nhUgbNaIDL6JN9zxl+EJq+zzj7jjUu0WM4ThiSSFg1RPmiRiF5QICSCVL1X
- 93/RCaEjL1WPlh/878jE0q31pz1EzjkdGJmLQgj1bMQWl7k7HGPhsFpD5AALGntsIx
- Qa6JS6V+No2AqxeS7ukWyOzsI/aE6w6854hukMPWAIwr6zHjPARTWusEixiOdUmaqB
- lIoWcsAbE4XmlWCWSe6W+gl6HIctXYNqD7C6ZtDcSBetdlOzHJpf0OWzbyflu+nlOp
- QWorF+FdL9wnw==
+ b=D5SzQHKMiq3FRLM4nvNNRyGURYA4qwkqxN8c1LO85/vBDaS5eKZEaYgpC85M8rdsF
+ BiP7aAnwvRU+Hdd9LkVsID0hco3/F7Ub/R7TGvAiW8jxFeviRk0xsMqgvIeKjTdIxf
+ b15Pjhm8JHpsZe2xV0oLnhIEV6lxUJxzl5gTzyt9Mx4nD+J04epuaQ/6tg+20yRcd/
+ qHrjt1Rldo9Q+S31pa3H4FHLrviNVlJr0asKrsRHkU+MAmdj5jS4TWDR1JjQYnnFKi
+ nPgn6c1IrSE23vp/S/A7lEN01u3A0aXWS364hzBX6UKky7Ca2lMdHTXnmeFlhdF46e
+ JnCP10NVUj6TA==
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -44,18 +44,19 @@ To: "David S. Miller" <davem@davemloft.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Sun, 29 Oct 2023 06:27:07 +0200
-Message-ID: <20231029042712.520010-8-cristian.ciocaltea@collabora.com>
+Date: Sun, 29 Oct 2023 06:27:08 +0200
+Message-ID: <20231029042712.520010-9-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
 References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 07/12] riscv: dts: starfive: jh7100: Add
-	ccache DT node
+Cc: devicetree@vger.kernel.org,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 08/12] riscv: dts: starfive: Add pool for
+	coherent DMA memory on JH7100 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,56 +73,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Provide a DT node for the SiFive Composable Cache controller found on
-the StarFive JH7100 SoC.
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 
-Note this is also used to support non-coherent DMA, via the
-sifive,cache-ops cache flushing operations.
+The StarFive JH7100 SoC has non-coherent device DMAs, but most drivers
+expect to be able to allocate coherent memory for DMA descriptors and
+such. However on the JH7100 DDR memory appears twice in the physical
+memory map, once cached and once uncached:
 
+  0x00_8000_0000 - 0x08_7fff_ffff : Off chip DDR memory, cached
+  0x10_0000_0000 - 0x17_ffff_ffff : Off chip DDR memory, uncached
+
+To use this uncached region we create a global DMA memory pool there and
+reserve the corresponding area in the cached region.
+
+However the uncached region is fully above the 32bit address limit, so add
+a dma-ranges map so the DMA address used for peripherals is still in the
+regular cached region below the limit.
+
+Link: https://github.com/starfive-tech/JH7100_Docs/blob/main/JH7100%20Data%20Sheet%20V01.01.04-EN%20(4-21-2021).pdf
+Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- arch/riscv/boot/dts/starfive/jh7100.dtsi | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ .../boot/dts/starfive/jh7100-common.dtsi      | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7100.dtsi b/arch/riscv/boot/dts/starfive/jh7100.dtsi
-index 06bb157ce111..a8a5bb00b0d8 100644
---- a/arch/riscv/boot/dts/starfive/jh7100.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jh7100.dtsi
-@@ -32,6 +32,7 @@ U74_0: cpu@0 {
- 			i-tlb-sets = <1>;
- 			i-tlb-size = <32>;
- 			mmu-type = "riscv,sv39";
-+			next-level-cache = <&ccache>;
- 			riscv,isa = "rv64imafdc";
- 			riscv,isa-base = "rv64i";
- 			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "zicntr", "zicsr",
-@@ -60,6 +61,7 @@ U74_1: cpu@1 {
- 			i-tlb-sets = <1>;
- 			i-tlb-size = <32>;
- 			mmu-type = "riscv,sv39";
-+			next-level-cache = <&ccache>;
- 			riscv,isa = "rv64imafdc";
- 			riscv,isa-base = "rv64i";
- 			riscv,isa-extensions = "i", "m", "a", "f", "d", "c", "zicntr", "zicsr",
-@@ -147,6 +149,18 @@ soc {
- 		dma-noncoherent;
- 		ranges;
- 
-+		ccache: cache-controller@2010000 {
-+			compatible = "starfive,jh7100-ccache", "sifive,ccache0", "cache";
-+			reg = <0x0 0x2010000 0x0 0x1000>;
-+			interrupts = <128>, <130>, <131>, <129>;
-+			cache-block-size = <64>;
-+			cache-level = <2>;
-+			cache-sets = <2048>;
-+			cache-size = <2097152>;
-+			cache-unified;
-+			sifive,cache-ops;
+diff --git a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
+index b93ce351a90f..504c73f01f14 100644
+--- a/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
++++ b/arch/riscv/boot/dts/starfive/jh7100-common.dtsi
+@@ -39,6 +39,30 @@ led-ack {
+ 			label = "ack";
+ 		};
+ 	};
++
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		dma-reserved {
++			reg = <0x0 0xfa000000 0x0 0x1000000>;
++			no-map;
 +		};
 +
- 		clint: clint@2000000 {
- 			compatible = "starfive,jh7100-clint", "sifive,clint0";
- 			reg = <0x0 0x2000000 0x0 0x10000>;
++		linux,dma {
++			compatible = "shared-dma-pool";
++			reg = <0x10 0x7a000000 0x0 0x1000000>;
++			no-map;
++			linux,dma-default;
++		};
++	};
++
++	soc {
++		dma-ranges = <0x00 0x80000000 0x00 0x80000000 0x00 0x7a000000>,
++			     <0x00 0xfa000000 0x10 0x7a000000 0x00 0x01000000>,
++			     <0x00 0xfb000000 0x00 0xfb000000 0x07 0x85000000>;
++	};
+ };
+ 
+ &gpio {
 -- 
 2.42.0
 
