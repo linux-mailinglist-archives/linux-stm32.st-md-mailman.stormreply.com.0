@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89607DAE60
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 22:08:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63417DAE82
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Oct 2023 22:23:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E48AC6B444;
-	Sun, 29 Oct 2023 21:08:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60442C6B444;
+	Sun, 29 Oct 2023 21:23:54 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B118AC6A5F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F6EBC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 21:08:22 +0000 (UTC)
+ Sun, 29 Oct 2023 21:23:52 +0000 (UTC)
 Received: from [192.168.1.90] (unknown [188.24.143.101])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id DF7DD66072BB;
- Sun, 29 Oct 2023 21:08:20 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 679A566072BB;
+ Sun, 29 Oct 2023 21:23:50 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1698613702;
- bh=GoWKvXVCI2rJHZaaMlrQGK5PE/qto64zo6wfdhb04jw=;
+ s=mail; t=1698614631;
+ bh=SGq6QPRGIBNn7gbJ2EgKHoDNWHX9rvAA0k7+HWJtVnc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=dT0wlb9v/BSZdRvWw2CB4dPGTr65xipwdJ1ig9xIKIAkNUTEUjjERuC4H1MnIlY7L
- YHVqnak1wmwv0EXm0xnTWi6h/oWfJWDY9vPtUIdO/y35OgL539uSZKuLgBtMtu9rTk
- 4cVIDn1O4skrL+tY/cy51u/S7uRJicQ3YklzkLXhl/E4nYfPvmEK70+ZlVyidteCH2
- JVAbU2ipAXoL76QnyMj1A+SF3e/bwJXaouX2NNzCnpSd7zCjZGoNEaJ/T62NU5EvA/
- 5WI6l6YnPrfxwo3Y8GIsGmZhcTKDsddwcdCeFdiFLUzhh8y8MSrAunK7jm3x1cVhQU
- AyaCOohAvr+6A==
-Message-ID: <77ea127f-1040-489c-8ee3-d27df16fb995@collabora.com>
-Date: Sun, 29 Oct 2023 23:08:18 +0200
+ b=abdE6pR/zA982y8K9cNxgC1xlpp75ZzB8caxA2ixKDYqj+NQC6wKEfhwy4PQfUYyY
+ j7WDCREK3Wzhi4Ti+raoR5XlLz7rgd52QgBzcnc0FcTl4IXNxPMCtbx+FoFLPGFche
+ bHGVyDAabwMjuh+DsixN6oiDYSjCYYzF46mgU7MGiViIPrNQ9QzlwdPvR2AAZXOuxj
+ BJsXPR/uB7cYb23tyMWk9rCrtc2ulZZUWUTaa7ZBHQDpjpXap2Q7DPhDaSYOZlZTLt
+ eo+eLURddzhlIk5zq1l7hsnLgH1veVvb72E9mbnnvTfqFS41c1xEExhuYJwsOSWKIW
+ LVkKtidAvTyrg==
+Message-ID: <0ff7a905-d8f2-401b-a0ff-47947d12ce05@collabora.com>
+Date: Sun, 29 Oct 2023 23:23:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -49,16 +49,16 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Richard Cochran <richardcochran@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-3-cristian.ciocaltea@collabora.com>
- <9c9120d6-dd28-4b6d-be8d-46c0cab8f26a@linaro.org>
+ <20231029042712.520010-4-cristian.ciocaltea@collabora.com>
+ <ad023e4d-51d2-4fba-bf85-0c8ba358ab39@linaro.org>
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <9c9120d6-dd28-4b6d-be8d-46c0cab8f26a@linaro.org>
+In-Reply-To: <ad023e4d-51d2-4fba-bf85-0c8ba358ab39@linaro.org>
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 02/12] dt-bindings: net: starfive,
- jh7110-dwmac: Drop superfluous select
+Subject: Re: [Linux-stm32] [PATCH v2 03/12] dt-bindings: net: starfive,
+ jh7110-dwmac: Drop redundant reset description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +75,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/29/23 13:18, Krzysztof Kozlowski wrote:
+On 10/29/23 13:19, Krzysztof Kozlowski wrote:
 > On 29/10/2023 05:27, Cristian Ciocaltea wrote:
->> The usage of 'select' doesn't seem to have any influence on how this
->> binding schema is applied to the nodes, hence remove it.
+>> The reset description items are already provided by the referenced
+>> snps,dwmac.yaml schema, hence replace them with the necessary
+>> {min,max}Items.
 >>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  .../devicetree/bindings/net/starfive,jh7110-dwmac.yaml       | 5 ++---
+>>  1 file changed, 2 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> index cc3e1c6fc135..44e58755a5a2 100644
+>> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> @@ -46,9 +46,8 @@ properties:
+>>      maxItems: 3
+>>  
+>>    resets:
+>> -    items:
+>> -      - description: MAC Reset signal.
+>> -      - description: AHB Reset signal.
+>> +    minItems: 2
+>> +    maxItems: 2
 > 
-> It has. Why do you think it doesn't? You should see new errors from
-> dwmac schema.
+> You must also update reset-names. They must have same constraints.
 
-This patch came as a result of testing both variants (w/ and w/o
-'select') with several different compatible strings and seeing
-consistent output:
+reset-names explicitly lists the items and we need to keep them as such
+because the order is not fixed, i.e. PATCH 1 allows using 'ahb' instead
+of 'stmmaceth' as the first (and only) item.
 
-- "starfive,jh7110-dwmac", "invalid";
-- "starfive,jh7110-dwmac";
-- "invalid", "snps,dwmac-5.20";
-- "invalid"
+        reset-names:
+          items:
+            - const: stmmaceth
+            - const: ahb
 
-Did I miss something?
-
-Thanks for the review,
+Thanks,
 Cristian
 _______________________________________________
 Linux-stm32 mailing list
