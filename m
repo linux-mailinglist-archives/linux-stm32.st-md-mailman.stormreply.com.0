@@ -2,75 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E9A87DB259
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 04:56:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D9B7E1CF1
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:08:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2122C6B44B;
-	Mon, 30 Oct 2023 03:56:16 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DB31C6A61D;
+	Mon,  6 Nov 2023 09:08:30 +0000 (UTC)
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02olkn2034.outbound.protection.outlook.com [40.92.50.34])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7B8DC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4360EC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 03:56:14 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-1c9d407bb15so36051385ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 20:56:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698638173; x=1699242973;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=y2LKPRDN6GCfDpHNmFLj1e87YJK73PiRp76sihBNMTM=;
- b=PEu49BsYcLlX2n+xAKfi7BlTZQDJLE6mnPOEI2hn5W8nRQT7f4v7CoXaFtuUOL8NGJ
- js0cu5N7hN1MX8tlIVJsBf8a6xGnTziQ2EKbLOQVALKYeX5JU54gKOxEoMcvhAFxvzrC
- hYkLDp1onZAxKnDI1uYkFSboAy1nOMb7NSfVcugKmeh4dpyR9btMfaQvYTY+ylRLxPir
- sxFVXpK4cSnprKAuWHlSLwAHTx+/a8PU8f2HaG1zM5z0X8sFa9ttol3gzZIfOjsVlsOO
- lHsm4k/dtMzivbtAPWUfWgaUrMQq/F1hSk1WkMDdEAEq0+DARmGimvPqP5Zyn1VcN428
- qHRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698638173; x=1699242973;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=y2LKPRDN6GCfDpHNmFLj1e87YJK73PiRp76sihBNMTM=;
- b=ghT2xGUF0xBZmUFBXWOMd6DUe6/d3JdPI8vt+5ag+x4b8ZSisVqtoCfw6szwsZMluZ
- aQ0ygVwhy4uEXJeAh/1faXcx1qsG1bkKA3YaP2pvXzKr9NFCcqAr/HW0V1n9V9LARs3R
- efNt6/7pviOJObiZUppOVLXVCZ8A1X4ziVGTjRswetX+y/AnPorX5kPEfIq0xkTSorI9
- t8j6EJjxWg7g/6NVT/vwBqNInuZIfd0FAiKylp4408kSoeWSHpUW+gO4c0Wui0pQu52S
- FHfw8cFzHZgC3eMs8btt6HkQuKQmw4bbTde28JmQ+xeMvM3Qu7xYG3N//5w0VaPtWI3L
- 65Qw==
-X-Gm-Message-State: AOJu0Yy+7uy3kOIaSsQJ4NMlGYkbQuOWc5dH8qkc6YmecUW1oAL8d5Dt
- GXopYE5LhIiYcZO63+GTS+U=
-X-Google-Smtp-Source: AGHT+IFtziW0YEt+qaY773vj4t1QmwQ2WxPAPa4J4C8WbaX4O7OoKTqUrQZRKxurTVOpf3PHJN/cmQ==
-X-Received: by 2002:a17:903:2054:b0:1cc:4146:9ecb with SMTP id
- q20-20020a170903205400b001cc41469ecbmr2679315pla.47.1698638173229; 
- Sun, 29 Oct 2023 20:56:13 -0700 (PDT)
-Received: from localhost.localdomain ([74.48.130.204])
- by smtp.googlemail.com with ESMTPSA id
- f7-20020a170902860700b001ca773d674bsm5159445plo.278.2023.10.29.20.56.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Oct 2023 20:56:12 -0700 (PDT)
-From: Furong Xu <0x1207@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>,
- Jacob Keller <jacob.e.keller@intel.com>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Mon, 30 Oct 2023 11:55:50 +0800
-Message-Id: <20231030035550.2340514-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Mon, 30 Oct 2023 06:01:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kjl2l2yvYvZrf05hK7LgvgXiMiqdNzifmrsOk9N1gU1BWB2YmIQ8CLfswryMiX6i8Ao4l5FShobU9bheenHqSmGoRQU0XjDyUUj6s/MWQjeAit0RTFOjvtjAsKe508IBzC0oHdEX+uRxWubpK7yMHoCrBKhA2aAQbnU7utcqj5Ytks/WZiakzJsYw+/c7vfepG+Gt+Mjn6Dd68ltPUNK24BxAXcnOA69smNsflITrN7SKskDSn0SuLwRToAKjjawrS0dRgahKb+NF87MiyLpNLmEsd6n45Vlzzztyib82dBgsZBLIZl0pnV8sF4ejP2IUVeK+Mv9uvr5ihoXDOj9GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t5DZNpf+qOfjj3gM57iNET/DMzd/j0XUj1yxtK5Cykk=;
+ b=Q6Jc1YnHs3KDuzvtoGIBGri4E/xsO6f1PgNGrUqdLkg0QLENkKsgZZDeC1KUQ3LaKObdLBCPOa4aXNitWfReZMwXWa9C7aEOQOfX9CiY+LZNNQKzXGcJFD1PXGYj/NQUDWEZoz7ZzA4x4+/CHngBQcMLSBrkIK8HqFaE1H0ZYdogkWsAEiUPdUrShoNI6v2UAy0EihM+SbauALHsTnl2WhjKM2dp4sgvYkCdRDyoVGsOrWd5pSCALE33XY2Gq6zVZ4kMPdsDRHwvEddTuwB/JZNgLn0r5RcTPpg6mqVYh+mHbTZdqgBKGCeFnlnV6a6SfzY5A8zh3vxwIac+kpZ+ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:333::21)
+ by DB8P193MB0695.EURP193.PROD.OUTLOOK.COM (2603:10a6:10:147::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28; Mon, 30 Oct
+ 2023 06:01:00 +0000
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::b89e:5e18:1a08:409d]) by AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::b89e:5e18:1a08:409d%6]) with mapi id 15.20.6933.027; Mon, 30 Oct 2023
+ 06:01:00 +0000
+Message-ID: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+Date: Mon, 30 Oct 2023 07:01:11 +0100
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Bernd Edlinger <bernd.edlinger@hotmail.de>
+X-TMN: [5TayCGdesDPDyQeQVdMawVO0/gmh2YV/Su02BQrexM/V2tY3DQ/87gEVr2nSsLjQ]
+X-ClientProxiedBy: BE1P281CA0320.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:87::10) To AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:333::21)
+X-Microsoft-Original-Message-ID: <72fb07eb-137d-4b8b-b930-a568788de591@hotmail.de>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: xgmac: Enable
-	support for multiple Flexible PPS outputs
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P193MB1285:EE_|DB8P193MB0695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 54336de4-b497-45c6-a0f5-08dbd90d9725
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Qo8HgyfwVdmtID+Zz0bi8HE2SyFhbyzFDTgJIimm6pEL86oJEHmJ03ZMYBsZbEVs9gQjmB6quqvZnhrpKk9CW7Yda8twt1xOxs6h+48ZDBjVOiHtVnkhQGt+NwKmIWWoq9BzuXwk+40BG8AyVvxmxsNweEN0apXkCXpluH39YrkFb0PDcJPGMXKIUJnW6tnsfs3zw72fs7NCNmv0WX6dCQWChHfZeARZNyoyrocLhZSWeWmzkd/SDDgAiXpKi4Y5vtiB23ckT/yAUSk3xbZWw5FE5+91GVnX36fMJWcceRMjLHdepW14L3+qhAve+PRyzrdlAExCH+hNv3FSDYRb/IWato9SUDRPGO2gcrCvQJhk06tiSiUUj7RHDGenrJ9WN8vjiqmF1lI/pu2lWOZO+o5HGVewtOI9Gj1CkzUbMwjd0akf9DzIGmXZJQfnCSTZhpqXB7XprW4jqIbq+/HQ1JSa9gqN8eY3MV9gMOkJaQZQuyk8GxyVq34haR2Q+GrXKX2Wc/gPW4zO3icBz5PpYDGG4LIZV+4IpKZIg4ecwx7wUB+/iJ7pzqBqG9MtBSp9
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjV3Zk1EMkxSdS9GSlhlZDBsTS9mcmkvQ2NGRzdiem15NVJyOUY5amp3ZkhP?=
+ =?utf-8?B?UFRtZGNBdnhhUE11YUpTVU1KL0RQc1UyNCt6YU1INElSMTkySkZmR1VSNHJs?=
+ =?utf-8?B?VzJWKzhmcytUVUhQaGhVRjZ4UFlLa3B6QytiOU10RjEvSG83ZXE2aEl5cjlI?=
+ =?utf-8?B?b3dGUHhQYWdGRVFZNGNrM240aXdyRkxrblZvbTl1VUZOc1N0WlJySDcxSFZ4?=
+ =?utf-8?B?MzlTc1NZSFJOaUlwdVRBajRxMXVHT05Wd0NmcGdPeWNZTitKKzNNanFxSk5W?=
+ =?utf-8?B?QWZtODVsc3REZnFTclhzQkR0TW8zSlJYZnp6M2czc29sS3dSRG1pbUJEZEFa?=
+ =?utf-8?B?L2tSM0VpWFhxZGZYelhlVTh6bGYwNnh0UXVEdm9qQjloNHBQdURnY3EzMDc4?=
+ =?utf-8?B?V2Vna2RMeEtrc2k1Ymx5NjZkdGRMSnFRMHkreDBIWksvdkpiV0FkVFJudksy?=
+ =?utf-8?B?QVg1NTBMUU1NekJWRWFobGVrbUhTN1IxR3Arc2tzUTNoYW5iSjJuTmZBM0Ny?=
+ =?utf-8?B?c080Q056NWZwSHBJMTZOaDBhTUNNUjNKNGpzQVZrbkZYUjBIRlNkUmdCL3Ux?=
+ =?utf-8?B?TDhZdHRJL1R5QTlzQTN0dkEyTXBPTjFKYWt6NDlma0FSSE1yVHprWnA0c0RB?=
+ =?utf-8?B?ZjVxOFhXZ3ZBR1BBR0Q4SDUwNzVtRENISXJNTnhaY2ozS0xpaWFtTDg0aFpS?=
+ =?utf-8?B?bkNNaEZyT3R2QzhHMTRhT0ZZTmVUNDlZTitYY0E5ZDlTUytuUmdHMUF2cm9Y?=
+ =?utf-8?B?RWRiZWZFNWtwRFF1VVBERTlmZlRXZnZ0cXlsZS9BRnNaUXZUM0IybW90aTAz?=
+ =?utf-8?B?d0dQbEZRdTk1aTJKdXJOSWJjV29nUnp1bk9NNHZEMmltS3ZXQWpaZjF3a2Ex?=
+ =?utf-8?B?SXFHbFd0Z2RxT01mZVBvZWtXM0VLa0t6TTRUU3B6KzB4NC94Nmk5MlVURGF4?=
+ =?utf-8?B?QWlUeFRNTU1QQ3I2cDdHZG9KUnhmRjdmeXBpVUhhaEppUjEyV1VmWEdiMWF0?=
+ =?utf-8?B?SHZIM2VxS3R0Nk51ZnpUWlJYSEVualhEYnAvcEFEbUVhM0dqVG8rYVlqemwx?=
+ =?utf-8?B?eXZWanJleXFWZk9iSSt2dFVxNUlQOG1MMFRhMUp0cWdnSWt1UURPWmdzVUYz?=
+ =?utf-8?B?ME1oM2lmd080ay83SE5SbnFYRGdHeE9ia28xQkhJcFVGRlBJdTU1YmZGbHJR?=
+ =?utf-8?B?M21YSUQ5YXUrVjBkMGJOUmdCcHIwZ2hxNHZKV3Q4S3lYSVdPL3duL0NSeWhy?=
+ =?utf-8?B?Q2QrNnB3bVE1d2RTYjlHditxUkdDUktqS1hZM0ZWMUZMSjNzejBkVTkrZE9K?=
+ =?utf-8?B?TGJNeHhFMC91RkEzai9JVjk0eW5SK3REUXZYdjEvMUFoQUJhQnVQNHMrU3hi?=
+ =?utf-8?B?b2NkN09tZmxaa1lOUXluaEUwdEY0a2xneksyMUROV29OdXlPZDJ3MTREdUtQ?=
+ =?utf-8?B?b1ptSHF4NXBiYTBneDYzRGdjYkZZOXBnR2R0UzJ4M0h4cmE5Tm9PQlZVekVp?=
+ =?utf-8?B?bkpHMlgyR0pCNE5PUEw1ejNhUVV5R2g4RG1VMXJZMVZ0Mlp6S0pIZkNmVjFI?=
+ =?utf-8?B?Ry9PQzlEckVaY0htbm00M3FTRlpDTlBSbU5SOEJwekRnTFI5cU5vQ2ZJMmor?=
+ =?utf-8?B?VzNPVDZGZThJd29VUytIVTUxTXI3VVY1bzlPUWRGVnU2STZhV1NWeWtyYSt3?=
+ =?utf-8?B?L05HNXlDNHdQQXg2azJkZUVaSWFJWnk4eDByMFc5c3VQRlZLSkZlYUo2cFRu?=
+ =?utf-8?Q?iBOfTnF2H+4/bqPEmk=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-80ceb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54336de4-b497-45c6-a0f5-08dbd90d9725
+X-MS-Exchange-CrossTenant-AuthSource: AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 06:01:00.0699 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P193MB0695
+X-Mailman-Approved-At: Mon, 06 Nov 2023 09:08:29 +0000
+Subject: [Linux-stm32] [PATCH] net: stmmac: Wait a bit for the reset to take
+	effect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,63 +116,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
-to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
-in Fixed PPS mode by default.
-XGMAC Core prior 3.20, only PPSEN0(bit 4) is writable. PPSEN{1,2,3} are
-read-only reserved, and they are already in Flexible mode by default, our
-new code always set PPSEN{1,2,3} do not make things worse ;-)
+otherwise the synopsys_id value may be read out wrong,
+because the GMAC_VERSION register might still be in reset
+state, for at least 1 us after the reset is de-asserted.
 
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
-Changes in v2:
-  - Add comment for XGMAC_PPSEN description among different XGMAC core versions.
-  - Update commit message, thanks Serge Semin and Jacob Keller for your advices.
----
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  2 +-
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 14 +++++++++++++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
+Add a wait for 10 us before continuing to be on the safe side.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 7a8f47e7b728..a4e8b498dea9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -259,7 +259,7 @@
- 	((val) << XGMAC_PPS_MINIDX(x))
- #define XGMAC_PPSCMD_START		0x2
- #define XGMAC_PPSCMD_STOP		0x5
--#define XGMAC_PPSEN0			BIT(4)
-+#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
- #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
- #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
- #define XGMAC_TRGTBUSY0			BIT(31)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index f352be269deb..453e88b75be0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -1178,7 +1178,19 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
+Signed-off-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 5801f4d50f95..e485f4db3605 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7398,6 +7398,9 @@ int stmmac_dvr_probe(struct device *device,
+ 		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n",
+ 			ERR_PTR(ret));
  
- 	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
- 	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
--	val |= XGMAC_PPSEN0;
++	/* Wait a bit for the reset to take effect */
++	udelay(10);
 +
-+	/* XGMAC Core has 4 PPS outputs at most.
-+	 *
-+	 * Prior XGMAC Core 3.20, Fixed mode or Flexible mode are selectable for
-+	 * PPS0 only via PPSEN0. PPS{1,2,3} are in Flexible mode by default,
-+	 * and can not be switched to Fixed mode, since PPSEN{1,2,3} are
-+	 * read-only reserved to 0.
-+	 * But we always set PPSEN{1,2,3} do not make things worse ;-)
-+	 *
-+	 * From XGMAC Core 3.20 and later, PPSEN{0,1,2,3} are writable and must
-+	 * be set, or the PPS outputs stay in Fixed PPS mode by default.
-+	 */
-+	val |= XGMAC_PPSENx(index);
- 
- 	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
- 
+ 	/* Init MAC and get the capabilities */
+ 	ret = stmmac_hw_init(priv);
+ 	if (ret)
 -- 
-2.34.1
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
