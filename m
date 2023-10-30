@@ -2,104 +2,134 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D9B7E1CF1
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:08:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 839667DB434
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 08:26:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8DB31C6A61D;
-	Mon,  6 Nov 2023 09:08:30 +0000 (UTC)
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02olkn2034.outbound.protection.outlook.com [40.92.50.34])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ADB1C6B444;
+	Mon, 30 Oct 2023 07:26:08 +0000 (UTC)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4360EC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEFFCC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 06:01:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kjl2l2yvYvZrf05hK7LgvgXiMiqdNzifmrsOk9N1gU1BWB2YmIQ8CLfswryMiX6i8Ao4l5FShobU9bheenHqSmGoRQU0XjDyUUj6s/MWQjeAit0RTFOjvtjAsKe508IBzC0oHdEX+uRxWubpK7yMHoCrBKhA2aAQbnU7utcqj5Ytks/WZiakzJsYw+/c7vfepG+Gt+Mjn6Dd68ltPUNK24BxAXcnOA69smNsflITrN7SKskDSn0SuLwRToAKjjawrS0dRgahKb+NF87MiyLpNLmEsd6n45Vlzzztyib82dBgsZBLIZl0pnV8sF4ejP2IUVeK+Mv9uvr5ihoXDOj9GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t5DZNpf+qOfjj3gM57iNET/DMzd/j0XUj1yxtK5Cykk=;
- b=Q6Jc1YnHs3KDuzvtoGIBGri4E/xsO6f1PgNGrUqdLkg0QLENkKsgZZDeC1KUQ3LaKObdLBCPOa4aXNitWfReZMwXWa9C7aEOQOfX9CiY+LZNNQKzXGcJFD1PXGYj/NQUDWEZoz7ZzA4x4+/CHngBQcMLSBrkIK8HqFaE1H0ZYdogkWsAEiUPdUrShoNI6v2UAy0EihM+SbauALHsTnl2WhjKM2dp4sgvYkCdRDyoVGsOrWd5pSCALE33XY2Gq6zVZ4kMPdsDRHwvEddTuwB/JZNgLn0r5RcTPpg6mqVYh+mHbTZdqgBKGCeFnlnV6a6SfzY5A8zh3vxwIac+kpZ+ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:333::21)
- by DB8P193MB0695.EURP193.PROD.OUTLOOK.COM (2603:10a6:10:147::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6933.28; Mon, 30 Oct
- 2023 06:01:00 +0000
-Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
- ([fe80::b89e:5e18:1a08:409d]) by AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
- ([fe80::b89e:5e18:1a08:409d%6]) with mapi id 15.20.6933.027; Mon, 30 Oct 2023
- 06:01:00 +0000
-Message-ID: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
-Date: Mon, 30 Oct 2023 07:01:11 +0100
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-From: Bernd Edlinger <bernd.edlinger@hotmail.de>
-X-TMN: [5TayCGdesDPDyQeQVdMawVO0/gmh2YV/Su02BQrexM/V2tY3DQ/87gEVr2nSsLjQ]
-X-ClientProxiedBy: BE1P281CA0320.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:87::10) To AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:20b:333::21)
-X-Microsoft-Original-Message-ID: <72fb07eb-137d-4b8b-b930-a568788de591@hotmail.de>
+ Mon, 30 Oct 2023 07:26:06 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-98377c5d53eso615627866b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 30 Oct 2023 00:26:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1698650766; x=1699255566;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=dyWNxsxWlzhvm6Y0dpEhCS1H0rqtMD6v8Hr+ql8Uylo=;
+ b=Ycfq2LXzZ3/SMFzHIJlD6SaceZrlCWDboNkxLC8/eJQiLQoGN/gNFisPXZ7CbHwaDC
+ 69Bq4FcA2YzPfNr/pOAWLeh/G8z4jNKbKF1uVSUNVa5DRnc8th8adiB5HYgeTasmVuUy
+ mbNcGV8UUk2dxY6Ie1Rx2rA/5x5K+Jh5/la7haLSP7khoQxW+oFyAD6RgmMgF6f/x19I
+ JwSyVkuIWPzXbUNJI7qJILtcZoBmiGOWdCiLy/8h+eUoZXBr5wNbTmLz+g1UvmiAh4J0
+ ns+6T+SHHyIlbDRLzpixPBsXNhm/IQlCQdbUKW3npm/rVF62qMxfomlgFLhOP0bSO6U2
+ MnDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698650766; x=1699255566;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dyWNxsxWlzhvm6Y0dpEhCS1H0rqtMD6v8Hr+ql8Uylo=;
+ b=ZG1nbkA+jlizQm51Na8sSBfUUgw7GxIeaCmPAP1vDy467eFQ7x43wLumgIUecUmXgc
+ w2V6eMbPEp2sVIzy7U7mQxVYYiIAPH+0afxwbViRsPrNYC96PPr5Qu7ygPsdv3eh6/U5
+ bu4xVJBUn3cPJoXAAT1xNg06klLOju8MZbZyjBEthfBOEQGxDrBlO2dTH9sezlHpLkbD
+ WrT8KjEpU8H4HlfMhS3d3JoqFGp2yRjdTcuFfxq3KDw/oOwUwJ8QLDlMmN3IMfUmDmpz
+ zHA8tpMfckNK+nFjPDXwrpTGGqqCDi3ujE3MDGA+YFqBjDSnwVL9inovgUUPmAwBUjIS
+ j9Rw==
+X-Gm-Message-State: AOJu0YySdMLH8G8u/2IoNZTpWFxOkyTB4e0SrW8INY2Y7KOA0v9ZusHf
+ SA4pTtahjECYTsTCymxeth6PHw==
+X-Google-Smtp-Source: AGHT+IEEnkoYr0z3ZrRlQJXw6yqyZE3YgCn2Zf1pdAfOPbw1Jsi9yH4GW3+dTznibP9OSsHPUL6omA==
+X-Received: by 2002:a17:906:6aca:b0:9d3:65fd:feea with SMTP id
+ q10-20020a1709066aca00b009d365fdfeeamr1751781ejs.35.1698650766317; 
+ Mon, 30 Oct 2023 00:26:06 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.218.126])
+ by smtp.gmail.com with ESMTPSA id
+ l25-20020a1709060e1900b009c65e13c33dsm5386794eji.122.2023.10.30.00.26.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Oct 2023 00:26:05 -0700 (PDT)
+Message-ID: <98d90ba9-7e69-4b54-830d-bdbc0e6c54fe@linaro.org>
+Date: Mon, 30 Oct 2023 08:26:03 +0100
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P193MB1285:EE_|DB8P193MB0695:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54336de4-b497-45c6-a0f5-08dbd90d9725
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Qo8HgyfwVdmtID+Zz0bi8HE2SyFhbyzFDTgJIimm6pEL86oJEHmJ03ZMYBsZbEVs9gQjmB6quqvZnhrpKk9CW7Yda8twt1xOxs6h+48ZDBjVOiHtVnkhQGt+NwKmIWWoq9BzuXwk+40BG8AyVvxmxsNweEN0apXkCXpluH39YrkFb0PDcJPGMXKIUJnW6tnsfs3zw72fs7NCNmv0WX6dCQWChHfZeARZNyoyrocLhZSWeWmzkd/SDDgAiXpKi4Y5vtiB23ckT/yAUSk3xbZWw5FE5+91GVnX36fMJWcceRMjLHdepW14L3+qhAve+PRyzrdlAExCH+hNv3FSDYRb/IWato9SUDRPGO2gcrCvQJhk06tiSiUUj7RHDGenrJ9WN8vjiqmF1lI/pu2lWOZO+o5HGVewtOI9Gj1CkzUbMwjd0akf9DzIGmXZJQfnCSTZhpqXB7XprW4jqIbq+/HQ1JSa9gqN8eY3MV9gMOkJaQZQuyk8GxyVq34haR2Q+GrXKX2Wc/gPW4zO3icBz5PpYDGG4LIZV+4IpKZIg4ecwx7wUB+/iJ7pzqBqG9MtBSp9
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjV3Zk1EMkxSdS9GSlhlZDBsTS9mcmkvQ2NGRzdiem15NVJyOUY5amp3ZkhP?=
- =?utf-8?B?UFRtZGNBdnhhUE11YUpTVU1KL0RQc1UyNCt6YU1INElSMTkySkZmR1VSNHJs?=
- =?utf-8?B?VzJWKzhmcytUVUhQaGhVRjZ4UFlLa3B6QytiOU10RjEvSG83ZXE2aEl5cjlI?=
- =?utf-8?B?b3dGUHhQYWdGRVFZNGNrM240aXdyRkxrblZvbTl1VUZOc1N0WlJySDcxSFZ4?=
- =?utf-8?B?MzlTc1NZSFJOaUlwdVRBajRxMXVHT05Wd0NmcGdPeWNZTitKKzNNanFxSk5W?=
- =?utf-8?B?QWZtODVsc3REZnFTclhzQkR0TW8zSlJYZnp6M2czc29sS3dSRG1pbUJEZEFa?=
- =?utf-8?B?L2tSM0VpWFhxZGZYelhlVTh6bGYwNnh0UXVEdm9qQjloNHBQdURnY3EzMDc4?=
- =?utf-8?B?V2Vna2RMeEtrc2k1Ymx5NjZkdGRMSnFRMHkreDBIWksvdkpiV0FkVFJudksy?=
- =?utf-8?B?QVg1NTBMUU1NekJWRWFobGVrbUhTN1IxR3Arc2tzUTNoYW5iSjJuTmZBM0Ny?=
- =?utf-8?B?c080Q056NWZwSHBJMTZOaDBhTUNNUjNKNGpzQVZrbkZYUjBIRlNkUmdCL3Ux?=
- =?utf-8?B?TDhZdHRJL1R5QTlzQTN0dkEyTXBPTjFKYWt6NDlma0FSSE1yVHprWnA0c0RB?=
- =?utf-8?B?ZjVxOFhXZ3ZBR1BBR0Q4SDUwNzVtRENISXJNTnhaY2ozS0xpaWFtTDg0aFpS?=
- =?utf-8?B?bkNNaEZyT3R2QzhHMTRhT0ZZTmVUNDlZTitYY0E5ZDlTUytuUmdHMUF2cm9Y?=
- =?utf-8?B?RWRiZWZFNWtwRFF1VVBERTlmZlRXZnZ0cXlsZS9BRnNaUXZUM0IybW90aTAz?=
- =?utf-8?B?d0dQbEZRdTk1aTJKdXJOSWJjV29nUnp1bk9NNHZEMmltS3ZXQWpaZjF3a2Ex?=
- =?utf-8?B?SXFHbFd0Z2RxT01mZVBvZWtXM0VLa0t6TTRUU3B6KzB4NC94Nmk5MlVURGF4?=
- =?utf-8?B?QWlUeFRNTU1QQ3I2cDdHZG9KUnhmRjdmeXBpVUhhaEppUjEyV1VmWEdiMWF0?=
- =?utf-8?B?SHZIM2VxS3R0Nk51ZnpUWlJYSEVualhEYnAvcEFEbUVhM0dqVG8rYVlqemwx?=
- =?utf-8?B?eXZWanJleXFWZk9iSSt2dFVxNUlQOG1MMFRhMUp0cWdnSWt1UURPWmdzVUYz?=
- =?utf-8?B?ME1oM2lmd080ay83SE5SbnFYRGdHeE9ia28xQkhJcFVGRlBJdTU1YmZGbHJR?=
- =?utf-8?B?M21YSUQ5YXUrVjBkMGJOUmdCcHIwZ2hxNHZKV3Q4S3lYSVdPL3duL0NSeWhy?=
- =?utf-8?B?Q2QrNnB3bVE1d2RTYjlHditxUkdDUktqS1hZM0ZWMUZMSjNzejBkVTkrZE9K?=
- =?utf-8?B?TGJNeHhFMC91RkEzai9JVjk0eW5SK3REUXZYdjEvMUFoQUJhQnVQNHMrU3hi?=
- =?utf-8?B?b2NkN09tZmxaa1lOUXluaEUwdEY0a2xneksyMUROV29OdXlPZDJ3MTREdUtQ?=
- =?utf-8?B?b1ptSHF4NXBiYTBneDYzRGdjYkZZOXBnR2R0UzJ4M0h4cmE5Tm9PQlZVekVp?=
- =?utf-8?B?bkpHMlgyR0pCNE5PUEw1ejNhUVV5R2g4RG1VMXJZMVZ0Mlp6S0pIZkNmVjFI?=
- =?utf-8?B?Ry9PQzlEckVaY0htbm00M3FTRlpDTlBSbU5SOEJwekRnTFI5cU5vQ2ZJMmor?=
- =?utf-8?B?VzNPVDZGZThJd29VUytIVTUxTXI3VVY1bzlPUWRGVnU2STZhV1NWeWtyYSt3?=
- =?utf-8?B?L05HNXlDNHdQQXg2azJkZUVaSWFJWnk4eDByMFc5c3VQRlZLSkZlYUo2cFRu?=
- =?utf-8?Q?iBOfTnF2H+4/bqPEmk=3D?=
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-80ceb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54336de4-b497-45c6-a0f5-08dbd90d9725
-X-MS-Exchange-CrossTenant-AuthSource: AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2023 06:01:00.0699 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P193MB0695
-X-Mailman-Approved-At: Mon, 06 Nov 2023 09:08:29 +0000
-Subject: [Linux-stm32] [PATCH] net: stmmac: Wait a bit for the reset to take
-	effect
+User-Agent: Mozilla Thunderbird
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-2-cristian.ciocaltea@collabora.com>
+ <3016eff2-fce5-4b5e-bbb2-d56cbb45df85@linaro.org>
+ <05186c62-fcad-4d56-8ae8-d802f87a39e2@collabora.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <05186c62-fcad-4d56-8ae8-d802f87a39e2@collabora.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 01/12] dt-bindings: net: snps,
+ dwmac: Allow exclusive usage of ahb reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,33 +146,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-otherwise the synopsys_id value may be read out wrong,
-because the GMAC_VERSION register might still be in reset
-state, for at least 1 us after the reset is de-asserted.
+On 29/10/2023 23:24, Cristian Ciocaltea wrote:
+> On 10/29/23 13:25, Krzysztof Kozlowski wrote:
+>> On 29/10/2023 05:27, Cristian Ciocaltea wrote:
+>>> The Synopsys DesignWare MAC found on the StarFive JH7100 SoC requires
+>>> just the 'ahb' reset name, but the binding allows selecting it only in
+>>> conjunction with 'stmmaceth'.
+>>>
+>>> Fix the issue by permitting exclusive usage of the 'ahb' reset name.
+>>>
+>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>> index 5c2769dc689a..a4d7172ea701 100644
+>>> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>> @@ -146,7 +146,7 @@ properties:
+>>>    reset-names:
+>>>      minItems: 1
+>>>      items:
+>>> -      - const: stmmaceth
+>>> +      - enum: [stmmaceth, ahb]
+>>
+>> Also, this makes sense only with patch #4, so this should be squashed there.
+> 
+> I added this as a separate patch since it changes the generic schema
+> which is included by many other bindings.  JH7100 just happens to be the
+> first use-case requiring this update.  But I can squash the patch if
+> that's not a good enough reason to keep it separately.
 
-Add a wait for 10 us before continuing to be on the safe side.
+If there is no single user of this, why changing this? I would even
+argue that it is not correct from existing bindings point of view -
+nothing allows and uses ahb as the only reset. Even the commit msg
+mentions your hardware from patch 4.
 
-Signed-off-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 5801f4d50f95..e485f4db3605 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7398,6 +7398,9 @@ int stmmac_dvr_probe(struct device *device,
- 		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n",
- 			ERR_PTR(ret));
- 
-+	/* Wait a bit for the reset to take effect */
-+	udelay(10);
-+
- 	/* Init MAC and get the capabilities */
- 	ret = stmmac_hw_init(priv);
- 	if (ret)
--- 
-2.39.2
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
