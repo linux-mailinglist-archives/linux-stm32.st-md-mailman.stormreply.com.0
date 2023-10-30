@@ -2,81 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D59EC7DB444
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 08:29:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAA87DB449
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 08:30:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94A8FC6B444;
-	Mon, 30 Oct 2023 07:29:22 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B140DC6B44B;
+	Mon, 30 Oct 2023 07:30:02 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5219CC6A5F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2876FC6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 07:29:21 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-5230a22cfd1so6986496a12.1
+ Mon, 30 Oct 2023 07:30:01 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-53d9f001b35so6530927a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 00:29:21 -0700 (PDT)
+ Mon, 30 Oct 2023 00:30:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1698650961; x=1699255761;
+ d=linaro.org; s=google; t=1698651000; x=1699255800;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=tn01LCdYn8+UbmnQT0NKoT/4Q8FRzOTlyr4vKIlzQIU=;
- b=A0idUJkKqvb3n8pxXkhNyBUdy8+2e8m8hOTW1m+kA5cgJqEKcnLZXCJV0R21fcoqab
- g+lJLfYglB8wW57r6xByhpUMvS+j1Qa7ATSo6F+P+qAUKe2EanSRMMaxILCXgwq1hG19
- 4dHZu+6gsK+cFQcRiGn4vp8nUsEvoCf69F8dMUmPmtdrfvFdXnRFgbROrV+aVS/b9Uvr
- doASNzcc81IOsJ2g10H8TIfCSlkYvGy9n/Gll38rLhzK0+blZnjA7OBE/FHMaJz3lgS0
- h5raipgw7ra35mORxhAvtDTEDe3qkRbb+nTc4OaC0OKShql4ZTBIL8zwKojTGPjL9aU5
- NlJw==
+ bh=l0feCms/EDi7R1DqNzbL7482+wMadoUcvT7iBFk8IeE=;
+ b=II/1GFIN86X/Rlo6nl27DfVcEJVKbZFJJSDBoqvcudP03Q3JFm3DE4aCStCz13TveU
+ +aBW1HoExhh5uLUOXbHH59qd4qpvGs6Gvkw3RdZhUkx82nif/TtaIfQFrjAFNvv8i21s
+ JG1/MUSahispuuNmPhLXp57AncAmhg0t0xvgP7fYPRLxAsVoDoChXkzj0np9UfXeXyPc
+ erYuCyYtokeobspeO8ixNdTrxJyLjiD1R/5MY4+JY47iezYMUIeMrqTeiiUlWAVtIbn0
+ V3hUPmm0nj5Pifk2YhK/jWP0RK8e0kVisENbVAcvIjySLO7HULDcaKOtWI8Q4v+I4Y/W
+ 4KJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698650961; x=1699255761;
+ d=1e100.net; s=20230601; t=1698651000; x=1699255800;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=tn01LCdYn8+UbmnQT0NKoT/4Q8FRzOTlyr4vKIlzQIU=;
- b=G5+LpKxtTrARqQBS+dFcexmldiEdWZtQv0H6LL3ERN38ePzGTKwVzYBmfLCZ06F/x3
- lPGemJbF8wM7sENg95Jre0d7onH7KFHh8FFa4prlppITotQPD/OVonAUtnxlv42QO1KE
- vNpQk6OcMPpTrk9zp7IY5xGK0ubJDKDArAjl5ws7R2mtAfc/HDJh2zQEHwqJIy61WC/f
- 4tFSwSMm+HMJt8jV/7hlG61IJ6ZurpNEX3rOdJwYuDT2C4KNuLprsXZfQ8ptelgVqRzM
- CxJ9EOiESYW/WvXBpIQPCFX2odlFB9lcB78pijCOhPkmE9zMfOccx+5A1VQirN1ncYLn
- D7fA==
-X-Gm-Message-State: AOJu0Yy9yMjbegR6mCKqZmN8GcuLGZQUKBQRXvD6YyJmC2pgc+Hd7qdX
- +rs5LcH6r9a2+BvrOGE3tpr9WQ==
-X-Google-Smtp-Source: AGHT+IFX54PJtbr1texVRATggUHP3Q5VsMXTgbeoQ63iUrduEf28MuJSRcH14YnhqN2x1IgTtheBww==
-X-Received: by 2002:a05:6402:5214:b0:540:caed:3619 with SMTP id
- s20-20020a056402521400b00540caed3619mr9130704edd.24.1698650960335; 
- Mon, 30 Oct 2023 00:29:20 -0700 (PDT)
+ bh=l0feCms/EDi7R1DqNzbL7482+wMadoUcvT7iBFk8IeE=;
+ b=uJZVb1B/B20mUz5TsoM5dCzO9w8SuUxcPn6cy4jS7dkawJKEieyUCewBHKqKp/VUGG
+ bzv0fO6ZSMqD3YWV0TurNAK1emOfrTsIa4uxABUTByINI3CdkJBH+C+1Et4dcIQxH2cz
+ NOu96KcVUKnL+WM4xF7oGdk+VNc74jl5mw/IF0J3ljK2WS9FvJtHIxncZJpkVCk8DJST
+ GwfW/hYiHCuW9SLkAwwogX//ULYTUUNty8BH/gKmcmVdJegC9K3pmsGNJcreCUDDOA9H
+ 4MYiMmhh4jGWK0jKXfxrodF6z1WmiwNisqpZHrQwnvyY9bEWfeDUKGdpSiqVYDQ4z/1F
+ ssOw==
+X-Gm-Message-State: AOJu0YwvNv1eY/7MnloQSAE+YmbOhOljjJt9rK/qcQwfIE5eHw7MLYFw
+ kRebGT87eegxHL7sgdZ5PSY9Ug==
+X-Google-Smtp-Source: AGHT+IE0xLb42GJJlZEUa4vYkClgT4ZgKMIxUYBEvkx+D5ONPnLMohl+Bwjq8RSDRupWFMersp95hA==
+X-Received: by 2002:a50:cd48:0:b0:540:31ef:80b6 with SMTP id
+ d8-20020a50cd48000000b0054031ef80b6mr7469137edj.0.1698651000709; 
+ Mon, 30 Oct 2023 00:30:00 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.218.126])
  by smtp.gmail.com with ESMTPSA id
- eg25-20020a056402289900b0053dab756073sm5579901edb.84.2023.10.30.00.29.18
+ eg25-20020a056402289900b0053dab756073sm5579901edb.84.2023.10.30.00.29.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Oct 2023 00:29:19 -0700 (PDT)
-Message-ID: <fa413fc8-f882-471d-aea8-39f83767a46d@linaro.org>
-Date: Mon, 30 Oct 2023 08:29:17 +0100
+ Mon, 30 Oct 2023 00:30:00 -0700 (PDT)
+Message-ID: <88930d12-3a55-46e6-a7a2-4abcfccfb6c3@linaro.org>
+Date: Mon, 30 Oct 2023 08:29:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
+To: Rob Herring <robh@kernel.org>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-4-cristian.ciocaltea@collabora.com>
- <ad023e4d-51d2-4fba-bf85-0c8ba358ab39@linaro.org>
- <0ff7a905-d8f2-401b-a0ff-47947d12ce05@collabora.com>
+ <20231029042712.520010-5-cristian.ciocaltea@collabora.com>
+ <169855920979.2226136.3264200658228005554.robh@kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -122,13 +109,23 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <0ff7a905-d8f2-401b-a0ff-47947d12ce05@collabora.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 03/12] dt-bindings: net: starfive,
- jh7110-dwmac: Drop redundant reset description
+In-Reply-To: <169855920979.2226136.3264200658228005554.robh@kernel.org>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Samin Guo <samin.guo@starfivetech.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 04/12] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JH7100 SoC compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,49 +142,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 29/10/2023 22:23, Cristian Ciocaltea wrote:
-> On 10/29/23 13:19, Krzysztof Kozlowski wrote:
->> On 29/10/2023 05:27, Cristian Ciocaltea wrote:
->>> The reset description items are already provided by the referenced
->>> snps,dwmac.yaml schema, hence replace them with the necessary
->>> {min,max}Items.
->>>
->>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->>> ---
->>>  .../devicetree/bindings/net/starfive,jh7110-dwmac.yaml       | 5 ++---
->>>  1 file changed, 2 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
->>> index cc3e1c6fc135..44e58755a5a2 100644
->>> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
->>> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
->>> @@ -46,9 +46,8 @@ properties:
->>>      maxItems: 3
->>>  
->>>    resets:
->>> -    items:
->>> -      - description: MAC Reset signal.
->>> -      - description: AHB Reset signal.
->>> +    minItems: 2
->>> +    maxItems: 2
+On 30/10/2023 02:37, Rob Herring wrote:
+> 
+> On Sun, 29 Oct 2023 06:27:04 +0200, Cristian Ciocaltea wrote:
+>> The Synopsys DesignWare MAC found on StarFive JH7100 SoC is quite
+>> similar to the newer JH7110, but it requires only two interrupts and a
+>> single reset line.
 >>
->> You must also update reset-names. They must have same constraints.
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+>>  .../bindings/net/starfive,jh7110-dwmac.yaml   | 74 +++++++++++++------
+>>  2 files changed, 54 insertions(+), 21 deletions(-)
+>>
 > 
-> reset-names explicitly lists the items and we need to keep them as such
-> because the order is not fixed, i.e. PATCH 1 allows using 'ahb' instead
-> of 'stmmaceth' as the first (and only) item.
+> My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+> on your patch (DT_CHECKER_FLAGS is new in v5.13):
 > 
->         reset-names:
->           items:
->             - const: stmmaceth
->             - const: ahb
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: compatible: 'oneOf' conditional failed, one must be fixed:
+> 	'starfive,jh7100-dwmac' was expected
+> 	'amlogic,meson-gxbb-dwmac' is not one of ['starfive,jh7110-dwmac']
+> 	'snps,dwmac-5.20' was expected
+> 	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
 
-OK. Anyway this patch is no-op because next one removes this code.
-Adding cleanup which is immediately removed does not make much sense.
-Drop it.
-> 
-> Thanks,
-> Cristian
+And here you have proof of missing testing of patch #2.
 
 Best regards,
 Krzysztof
