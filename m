@@ -2,46 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D976C7DB164
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 00:35:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF7F7DB1D4
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 02:37:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BE92C6B44B;
-	Sun, 29 Oct 2023 23:35:20 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B18EC6B44B;
+	Mon, 30 Oct 2023 01:37:39 +0000 (UTC)
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
+ [209.85.160.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6AFEC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4477AC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Oct 2023 23:35:19 +0000 (UTC)
-Received: from [192.168.1.90] (unknown [188.24.143.101])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id AE1E86606F9A;
- Sun, 29 Oct 2023 23:35:17 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1698622519;
- bh=MTCi2I9f4ISCBGs2/Fbga3HK8s3ZEp9YzqbtdDcEFuA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E8YqVXFqTKOb1b7+V+LvVodpgloKNhOi/cvEi6BPPS05bV806a0qSmpHGA//N3snW
- h99teObkzlP/UFwAKAFDk9Nk8YCnqRNsEwoz2CN5Rsz/xZx7qxxDU+MnPU99ernPYA
- qEGXl+IYNDpATcKw1tbJeqffsMuMAd6omfTp3+MCNL7mmmkWf1/A/3L9JRX5eVfdTQ
- JonkmqtldtU5gK/6FKezwzsNBda3DWs0J0gxEoBAJDXLwyo1vO6ZcNftj1XXfll6PA
- kW+TEy+Z0LEQweOfGiqxPYeyOUsDCnTxbFLxy+5EnLQV/skyhiNO95EHGcV8RU1FUG
- yDP1+OLtXJmdg==
-Message-ID: <7eab89f4-bfd0-441c-8b02-aa9d0f0cdace@collabora.com>
-Date: Mon, 30 Oct 2023 01:35:14 +0200
+ Mon, 30 Oct 2023 01:37:38 +0000 (UTC)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-1e98e97c824so2581080fac.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 29 Oct 2023 18:37:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698629857; x=1699234657;
+ h=date:subject:message-id:references:in-reply-to:cc:to:from
+ :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=xlMGuUk+qnsLF+L/nJQTBfbm1MmfORWq7xKQHDc9EXw=;
+ b=BbrZ/ypaKZh9qjLrGcC8difODBQu6WFsmnAnN0Qdkqs/IJsVN1ziZ/iCQejkbakbO1
+ 82dgitIUyBhEnNJp9Ic7HKmdEYvJanx/91I3W72lOPlj/RRbO5Ga2+K4YCUL3h2U/oOu
+ 2E+CzV2c6fhAfmCxs1QrdyJYS5femTJ9lQKfa/CqW/+Z67aDVbXLGy5AiI8qAIP2G5TZ
+ qV/ACfAOcO8ihJdR2TX5vcq+BhaoLdjjIxFdiYvsbNRpp172J+smKGaFMwuJkmKfF2bR
+ vHPpn/eao1AahgDAYYagHi+PLWYcIsvDjJo/yKPD/EFtzUpq1OQBmxzl82axCkOXsIPc
+ ZnnQ==
+X-Gm-Message-State: AOJu0Yyox/W5PdvB2HIYpeMy5ySRD3wC6FzpwAF5WsWfj4xi6AQBvVU6
+ jknm6/loiVGDiPekWmaLcA==
+X-Google-Smtp-Source: AGHT+IEZOFMr5EN0MHiSMfj7O+mvk+nZJRx3Z3xGz3bf8eovU7M0pK4cWM0M+2uMsKvCWYSf9lROTw==
+X-Received: by 2002:a05:6871:5a9a:b0:1e9:ae60:de68 with SMTP id
+ oo26-20020a0568715a9a00b001e9ae60de68mr6512318oac.26.1698629856926; 
+ Sun, 29 Oct 2023 18:37:36 -0700 (PDT)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ n3-20020a056870e40300b001ea17894928sm1372256oag.21.2023.10.29.18.37.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 29 Oct 2023 18:37:36 -0700 (PDT)
+Received: (nullmailer pid 3840493 invoked by uid 1000);
+ Mon, 30 Oct 2023 01:37:34 -0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Andrew Lunn <andrew@lunn.ch>
+From: Rob Herring <robh@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20231029042712.520010-5-cristian.ciocaltea@collabora.com>
 References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-12-cristian.ciocaltea@collabora.com>
- <f379a507-c3c1-4872-9e4f-f521b86f44d4@lunn.ch>
- <f05839c0-7a78-4616-bedc-6a876b7f4bb3@collabora.com>
- <e837e707-5b01-4b7b-8362-0dc62883fdba@lunn.ch>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <e837e707-5b01-4b7b-8362-0dc62883fdba@lunn.ch>
+ <20231029042712.520010-5-cristian.ciocaltea@collabora.com>
+Message-Id: <169855920979.2226136.3264200658228005554.robh@kernel.org>
+Date: Sun, 29 Oct 2023 20:37:34 -0500
 Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  linux-riscv@lists.infradead.org, kernel@collabora.com,
@@ -56,8 +65,8 @@ Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
  linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v2 11/12] riscv: dts: starfive:
- visionfive-v1: Enable gmac and setup phy
+Subject: Re: [Linux-stm32] [PATCH v2 04/12] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JH7100 SoC compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,39 +83,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/30/23 00:50, Andrew Lunn wrote:
-> On Mon, Oct 30, 2023 at 12:41:23AM +0200, Cristian Ciocaltea wrote:
->> On 10/29/23 20:45, Andrew Lunn wrote:
->>> On Sun, Oct 29, 2023 at 06:27:11AM +0200, Cristian Ciocaltea wrote:
->>>> The StarFive VisionFive V1 SBC has a Motorcomm YT8521 PHY supporting
->>>> RGMII-ID, but requires manual adjustment of the RX internal delay to
->>>> work properly.
->>>>
->>>> The default RX delay provided by the driver is 1.95 ns, which proves to
->>>> be too high. Applying a 50% reduction seems to mitigate the issue.
->>>
->>> I'm not so happy this cannot be explained. You are potentially heading
->>> into horrible backwards compatibility problems with old DT blobs and
->>> new kernels once this is explained and fixed.
->>
->> It seems the visionfive-v2 board also required setting some delays, but
->> unfortunately no details were provided:
->>
->> 0104340a67b1 ("riscv: dts: starfive: visionfive 2: Add configuration of
->> mac and phy")
+
+On Sun, 29 Oct 2023 06:27:04 +0200, Cristian Ciocaltea wrote:
+> The Synopsys DesignWare MAC found on StarFive JH7100 SoC is quite
+> similar to the newer JH7110, but it requires only two interrupts and a
+> single reset line.
 > 
-> That board also uses a YT8531 PHY. Its possible this is somehow to do
-> with the PHY. Which is why testing with the Microchip PHY is
-> important. That should answer the question is it a SoC or a PHY
-> problem.
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
+>  .../bindings/net/starfive,jh7110-dwmac.yaml   | 74 +++++++++++++------
+>  2 files changed, 54 insertions(+), 21 deletions(-)
+> 
 
-There is also YT8531S, which looks compatible with YT8521, but YT8531
-seems to be a bit different. Regardless of what VisionFive v2 is using,
-it would be indeed interesting to find out how the Microchip PHY behaves
-in this context.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-Regards,
-Cristian
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: compatible: 'oneOf' conditional failed, one must be fixed:
+	'starfive,jh7100-dwmac' was expected
+	'amlogic,meson-gxbb-dwmac' is not one of ['starfive,jh7110-dwmac']
+	'snps,dwmac-5.20' was expected
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: reg: [[3376480256, 65536], [3364046144, 8]] is too long
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: clocks: [[4294967295], [4294967295], [4294967295], [4294967295]] is too short
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: clock-names:1: 'pclk' was expected
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: clock-names:2: 'ptp_ref' was expected
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: clock-names:3: 'tx' was expected
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: clock-names: ['stmmaceth', 'clkin0', 'clkin1', 'timing-adjustment'] is too short
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: 'resets' is a required property
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.example.dtb: ethernet@c9410000: 'reset-names' is a required property
+	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231029042712.520010-5-cristian.ciocaltea@collabora.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
