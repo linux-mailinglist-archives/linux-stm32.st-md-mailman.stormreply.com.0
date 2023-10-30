@@ -2,82 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A977E1D82
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:52:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B8067DB95B
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 12:55:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53494C6B460;
-	Mon,  6 Nov 2023 09:52:28 +0000 (UTC)
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [81.169.146.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3161AC6B44B;
+	Mon, 30 Oct 2023 11:55:28 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E5D6C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07A33C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 11:20:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1698664832; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=Mm02NCKuU0Thm9w5RBoDg+s36tDjuHMXpViOFYEEnGCOpTftapCaakSlLKpu83Xxhr
- mYOzDqE5zt/r6082tAE92YVJu+eghIPrviwt2Mczeqg0rjlMYQMUgPBpsCPRBnvQ5RdN
- eAsFN/hm/zIT2sgSIvtro+2eC7tpGk6sKoYzLOgLYieeXb8B4xUQgzfRC0ggy86DuYy8
- Z3GYxkbTbxtJfCR9Oz5gS3E9u7CF5PDSYRyofJEA6fN1uBl8GF/MYVQs7jexFlAEL8nm
- C84QZiWoyS5dEiJ6neRHjBWsnqa4/U/PzV7S8x5oARyubab2bh+Y5gBlcnR9z7wjEZ0b
- Tq9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1698664832;
- s=strato-dkim-0002; d=strato.com;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=RKJ07SNymskf0t+1fsv83/i0WSlIOVRZ9TdRpl1TvZY=;
- b=DCDF92/V2tLnAz5TorpoD/eng/Xwnfh9tsDU6lRbY4WwY+qEyeK6R/Vl3/tcYpCBzg
- Z1trDiD+w87dglsoHHnPhp9lCU+qp3DdCUIk+77solrc1T+y+F45d6/2atj4iK+QGjvg
- CMT/+nBW1IdSqV3NLKqf3hwZaiw1Fx1LA8HUzlJ0Vx63wEfu9ryFnQxfYGVdiqBBWOBa
- QkWHVq5k2KOBppxTbW6lRw7hHPYUjUHqhhE50q6eMaZhS5p7HjvmegwULt6Km/U+pBT1
- OyWiBs18L8mFXogn2ZFtao9tuwaKQPiPRJYuiTpy+vxOtX7Sa0Crb0QbT5zJMMjYicrh
- hGLQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1698664832;
- s=strato-dkim-0002; d=chronox.de;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=RKJ07SNymskf0t+1fsv83/i0WSlIOVRZ9TdRpl1TvZY=;
- b=KV5VGEJLUr5+xTYo2wk/3Cm84I6My52WBVF+CFrwwc+4GfCSxpB1zpx2vxUn66Y2Cr
- MbJxG44lVzELkNCP/j4oVyLYBhDn4tJH+rsQBpgZNc5ivaKBN4nyRHx9DGWtZBOzUfHS
- XhJ0AZ8ZAgHu05cTqKOs8WIQnBciBJXe7704bNkiA5G9CQFHcl1WrE9IRlaSV7enO+X4
- 3q7kSnBhIHV7SyTqGjf98zSI8iUTi6dNd00xckeVUflVAnh0eFxSlabb7n+15GE4MfGH
- V2LcT6kHj6IxYXm5pLnp2nMtvPt4EKcgeF4wYtA4wZEuqUdLQv4mMZa7oZegUBySr/BZ
- qfBA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1698664832;
- s=strato-dkim-0003; d=chronox.de;
- h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
- From:Subject:Sender;
- bh=RKJ07SNymskf0t+1fsv83/i0WSlIOVRZ9TdRpl1TvZY=;
- b=GCLMbwHESCbjm7mtI/4BeY6JHr+BAU7Zs5PZ8pHhZTIFJyifQg79xCgjuev7V/Ry57
- 2N1UyTl2wFbxUL+UfOBg==
-X-RZG-AUTH: ":P2ERcEykfu11Y98lp/T7+hdri+uKZK8TKWEqNyiHySGSa9k9yWsdNeEDyFXR1lg3JD8="
-Received: from tauon.chronox.de by smtp.strato.de (RZmta 49.9.1 AUTH)
- with ESMTPSA id 6b1cadz9UBKSU4Q
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Mon, 30 Oct 2023 12:20:28 +0100 (CET)
-From: Stephan Mueller <smueller@chronox.de>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Dimitri John Ledkov <dimitri.ledkov@canonical.com>
-Date: Mon, 30 Oct 2023 12:20:27 +0100
-Message-ID: <5821221.9qqs2JS0CK@tauon.chronox.de>
-In-Reply-To: <20231029204823.663930-4-dimitri.ledkov@canonical.com>
-References: <20231029204823.663930-1-dimitri.ledkov@canonical.com>
- <20231029204823.663930-4-dimitri.ledkov@canonical.com>
+ Mon, 30 Oct 2023 11:55:25 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-53db360294fso7331463a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 30 Oct 2023 04:55:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1698666925; x=1699271725;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Q31c8fnQHD+W10kmomcQ4zTSAMbkT+bVtaWYEa58nas=;
+ b=Tfn0AHWX8zU0tO3yci31zUe64LaiyMfOf3z1d/47sxVoKlNkkuvROYvi45b9PJ1JXj
+ kVp5EfbIlNFxzCTrJuz+EySOp7mXbiBMRdZbQBL2OYbejluifGQn0AFOgsCHGc7TEj5R
+ lAHhohAlCJWvoR0MZSvhnBnyXTfc71JLBxF7d3m0W1B3W8l7FRo/33QSZ+ThC2CPJxbo
+ SF04hMijU/BwddV3EFHpTpj49L0QVOphkJcd/PEL3Bw0hxd5f+GD/ja36j3Wxbgvpzjl
+ 4uEQDMVjGqXct/a+g6vIUBbF9uxUy9AonZr6stRPR9ncU9Tux4BiGyAfxymHCWnAqd2x
+ imsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698666925; x=1699271725;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q31c8fnQHD+W10kmomcQ4zTSAMbkT+bVtaWYEa58nas=;
+ b=Of1Cvnn2kGo3xHsrYZyXHoVz+NBB39IS6XmGOBcVLZS5HJJ5KpIS8hpwWNVUoex6mS
+ lZQInvIEUwe3nhP4us28PuHDRZmcMplEKgkatHg0fOvXEDPbWyjqi9a3Zsqzl0n/x1z+
+ wGxdr/6PvBeRaciJLAZV4/zXnqbokP/xxf+EEaUd/4ZGmp+Jb33eQQpSxJNBZSRGGama
+ m0gv+b8yKEVbMVKZTcyygN1/iocSIxjpnZAI+cyjJ197+h5sL/8+shQ6uYrJwBMFmJtb
+ IHOMTSxk+WCu7j6Ol1RFNm61920Iq4lHkLe2mjBEsvUH2hl9fFvjbZ2EQsMeskEVfvx5
+ w9Fg==
+X-Gm-Message-State: AOJu0YyC8XnjbQm4VcFm2qimlbXWw759jb9fkzlai5uMXwk4v0sPAT3X
+ Qhd/wq808vGgfL1mp2OYjxx3LQ==
+X-Google-Smtp-Source: AGHT+IEK0FVzrhD+/lsg/GFhSKbE3HoxQjpfS+HOYJ/lF5CE71Yh2/i3l6Z4QGe2FLuRhkkWz0rUHA==
+X-Received: by 2002:a17:906:c14b:b0:9be:ab38:a362 with SMTP id
+ dp11-20020a170906c14b00b009beab38a362mr8139316ejc.46.1698666925439; 
+ Mon, 30 Oct 2023 04:55:25 -0700 (PDT)
+Received: from localhost (host-213-179-129-39.customer.m-online.net.
+ [213.179.129.39]) by smtp.gmail.com with ESMTPSA id
+ lf19-20020a170906ae5300b009ad89697c86sm5944350ejb.144.2023.10.30.04.55.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Oct 2023 04:55:24 -0700 (PDT)
+Date: Mon, 30 Oct 2023 12:55:23 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Bernd Edlinger <bernd.edlinger@hotmail.de>
+Message-ID: <ZT+Zq4j9iQj1+Xai@nanopsycho>
+References: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 06 Nov 2023 09:52:27 +0000
-Cc: linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
- simo@redhat.com, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 4/4] crypto: drbg - Remove SHA1 from drbg
+Content-Disposition: inline
+In-Reply-To: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Wait a bit for the reset to
+	take effect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,24 +85,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Sonntag, 29. Oktober 2023, 21:48:23 CET schrieb Dimitri John Ledkov:
+Mon, Oct 30, 2023 at 07:01:11AM CET, bernd.edlinger@hotmail.de wrote:
+>otherwise the synopsys_id value may be read out wrong,
+>because the GMAC_VERSION register might still be in reset
+>state, for at least 1 us after the reset is de-asserted.
+>
+>Add a wait for 10 us before continuing to be on the safe side.
+>
+>Signed-off-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
 
-Hi Dimitri,
-
-> SP800-90C 3rd draft states that SHA-1 will be removed from all
-> specifications, including drbg by end of 2030. Given kernels built
-> today will be operating past that date, start complying with upcoming
-> requirements.
-> 
-> No functional change, as SHA-256 / SHA-512 based DRBG have always been
-> the preferred ones.
-
-Reviewed-by: Stephan Mueller <smueller@chronox.de>
-
-Ciao
-Stephan
-
-
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
