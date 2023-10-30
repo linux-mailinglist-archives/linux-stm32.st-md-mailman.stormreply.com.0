@@ -2,75 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC88A7DB9E7
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 13:26:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C4A77DBDB0
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 17:22:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74396C6B44B;
-	Mon, 30 Oct 2023 12:26:25 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13D70C6B44B;
+	Mon, 30 Oct 2023 16:22:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E8B0C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 495EDC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 12:26:24 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-507c91582fdso6333510e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 05:26:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698668784; x=1699273584;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=T8RFmRMPaCavpWEVO+hqLK8PHwyFGH3KHrLeyNssBXM=;
- b=CKg2KW1nwvByrKR3YpAXFtyP7nlKZ39KsqkwXIYBXQzvyhXzX8rJJCrtGGwVAUoeGy
- MEUudWK0O4iXt6W7mC2tPDPIgtSMDNhI+mlxWmhXbe4+/BIqrRhz4i+RycylN9npGTtY
- TyT26Uh3vjUVXOeOgtZxBXXgLUIai4Kciatu9Egt/lO/FSFgctgdWztI61u2r8gS+hT5
- xBV6o8K52AL5kr4zvPT2vjvL2xrhcBie6VBtTKmfeh6AntKbcHIeep66XVDAhJ4xm92m
- hWshOhDCT37TBOX0U+n+8fxLbzw7UDr9r+N8r3qs3s6xo6jyUwZrGKfM2supH6qFce0I
- 1IDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698668784; x=1699273584;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T8RFmRMPaCavpWEVO+hqLK8PHwyFGH3KHrLeyNssBXM=;
- b=u4IbmhS5CC8UOLGyJGPz63FWJbGuKJ5olN+FsTr4I8jIiz9EB8CHPlcBhr/6TJdfSQ
- Bg9erW1JqSKpZb2LHJAmihJKQ5Z1G8vd7W44FJW/guJODYM7jLUzche+6RGqHJVnxTgb
- Db6f0cKbf5SCYYliNZgct2tV6nG1ZlEhRrLjLqwBOColpypl7WPM4Dts1X2a8WNAc6KO
- Jr/lTsxfBNAe52hLBNUnuQBuuePu8JXbgY2ydZXxgB0W6eKA9r7JCfvFe0JgBob+h2kH
- kEjod9tNF/6K1xiIGvuSTq1wDzXJWol8hnIGjCWKW7140X6Ge+VJ6pdois2QZkIgx7b6
- JBTg==
-X-Gm-Message-State: AOJu0Yw2kc/jCRjBdQyRRzUY6LP3BO6GmhmUC9KOuTNi/S5tkfbUgteC
- PB9MrcuNDOF25zhirRWvG0w=
-X-Google-Smtp-Source: AGHT+IFg9cpzQXCYcHL4V6vW7U7XlYIDrLSpu4W2WLWjccR6BSlhTXw8Kl384Nxe+59YUTZpJQER+A==
-X-Received: by 2002:a05:6512:10d6:b0:4fb:9168:1fce with SMTP id
- k22-20020a05651210d600b004fb91681fcemr8970346lfg.59.1698668783553; 
- Mon, 30 Oct 2023 05:26:23 -0700 (PDT)
-Received: from mobilestation (srv1.baikalchip.ru. [87.245.175.227])
- by smtp.gmail.com with ESMTPSA id
- w10-20020ac254aa000000b00507a387c4c4sm1421843lfk.229.2023.10.30.05.26.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Oct 2023 05:26:23 -0700 (PDT)
-Date: Mon, 30 Oct 2023 15:26:21 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <ayttoykypfn6obrysve6ivdom7it3wdyexeawoucekeivx236t@o7rljbjrofiz>
-References: <20231030035550.2340514-1-0x1207@gmail.com>
+ Mon, 30 Oct 2023 16:22:34 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 39UF3Wru012001; Mon, 30 Oct 2023 17:22:07 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=WWjvixk
+ x1+sUJudPBiinwlW6wYpb+vSAYAex868zvkg=; b=KHUFHvzdpvB9wB8g7w2XTRG
+ Yzoq/mVxTwda2uxkNZ7zx4As5TV6cwA8r1yLgoHbak1dX8GUcm6p64pIudqwuGeB
+ fSsX1zIs2ON9mRvFyThxiPYcqC7gJYrCNzWVJMyK/grkRpdKePRm/0rk5r7kPh5l
+ fhjSKjtVwjmTdX26bZq1nFYxdHIWoE7cK8j9t4h5qdKTajGPaZjJTMyikv6vEJde
+ bBOb7m38xJ4NctwH6V65vGkfA2aU7VolwigG6ERzD4wPOtMOuxzptVDLSGlB5TKe
+ ACDosYaHira/AflfM4v0CWUt37YUjjA1AFww8V0O6QItPHjB3/6fLVRVf0iLBIg=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3u0ttvh0bb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 30 Oct 2023 17:22:07 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BF16110005B;
+ Mon, 30 Oct 2023 17:22:05 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B116D25C61C;
+ Mon, 30 Oct 2023 17:22:05 +0100 (CET)
+Received: from localhost (10.252.13.136) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 30 Oct
+ 2023 17:22:02 +0100
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 30 Oct 2023 17:21:54 +0100
+Message-ID: <20231030162157.218901-1-raphael.gallais-pou@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231030035550.2340514-1-0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: xgmac: Enable
- support for multiple Flexible PPS outputs
+X-Originating-IP: [10.252.13.136]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-10-30_10,2023-10-27_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 0/3] Update STM DSI PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,93 +81,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 30, 2023 at 11:55:50AM +0800, Furong Xu wrote:
-> From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
-> to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
-> in Fixed PPS mode by default.
-> XGMAC Core prior 3.20, only PPSEN0(bit 4) is writable. PPSEN{1,2,3} are
-> read-only reserved, and they are already in Flexible mode by default, our
-> new code always set PPSEN{1,2,3} do not make things worse ;-)
-> 
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
+This patch series aims to add several features of the dw-mipi-dsi phy
+driver that are missing or need to be updated.
 
-Please don't forget to add the already got tags shall you need more
-patch revisions.
+First patch adds runtime PM functionality to the driver.
 
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+Second patch adds a clock provider generated by the PHY itself.  As
+explained in the commit log of the second patch, a clock declaration is
+missing.  Since this clock is parent of 'dsi_k', it leads to an orphan
+clock.  Most importantly this patch is an anticipation for future
+versions of the DSI PHY, and its inclusion within the display subsystem
+and the DRM framework.
 
-> ---
-> Changes in v2:
->   - Add comment for XGMAC_PPSEN description among different XGMAC core versions.
->   - Update commit message, thanks Serge Semin and Jacob Keller for your advices.
+Last patch fixes a corner effect introduced previously.  Since 'dsi' and
+'dsi_k' are gated by the same bit on the same register, both reference
+work as peripheral clock in the device-tree.
 
-BTW Why have you dropped the Fixes tag? Moreover you didn't address
-Jacob' comment regarding the actual problematic commit. This isn't the
-way the review process normally goes. I'll copy what Jacob said in v1
-so to restore the discussion here:
+Raphael Gallais-Pou (2):
+  drm/stm: dsi: expose DSI PHY internal clock
+  arm: dts: st: fix DSI peripheral clock on stm32mp15 boards
 
-On Mon, Oct 27, 2023 at 2:15:50AM +0800, Jacob Keller  wrote:
-> The original code was added in 95eaf3cd0a90 ("net: stmmac: dwxgmac: Add
-> Flexible PPS support"), which landed in v5.4
-> 
-> It looks like XGMAC Core 3.20 support was not added until possibly
-> commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
-> Core 3.20") which appears to be new enough that its not in any official
-> Linux release, though it looks like it was already in net.
-> 
-> Perhaps this should be tagged Fixes: and sent through net, hopefully to
-> try and hit 6.6 or at least a stable release shortly after?
-> 
+Yannick Fertre (1):
+  drm/stm: dsi: add pm runtime ops
 
-Regards
--Serge(y)
+ arch/arm/boot/dts/st/stm32mp157.dtsi          |   2 +-
+ arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts |   2 +-
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         | 274 +++++++++++++++---
+ 6 files changed, 240 insertions(+), 44 deletions(-)
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  2 +-
->  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 14 +++++++++++++-
->  2 files changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> index 7a8f47e7b728..a4e8b498dea9 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> @@ -259,7 +259,7 @@
->  	((val) << XGMAC_PPS_MINIDX(x))
->  #define XGMAC_PPSCMD_START		0x2
->  #define XGMAC_PPSCMD_STOP		0x5
-> -#define XGMAC_PPSEN0			BIT(4)
-> +#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
->  #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
->  #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
->  #define XGMAC_TRGTBUSY0			BIT(31)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> index f352be269deb..453e88b75be0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> @@ -1178,7 +1178,19 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
->  
->  	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
->  	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
-> -	val |= XGMAC_PPSEN0;
-> +
-> +	/* XGMAC Core has 4 PPS outputs at most.
-> +	 *
-> +	 * Prior XGMAC Core 3.20, Fixed mode or Flexible mode are selectable for
-> +	 * PPS0 only via PPSEN0. PPS{1,2,3} are in Flexible mode by default,
-> +	 * and can not be switched to Fixed mode, since PPSEN{1,2,3} are
-> +	 * read-only reserved to 0.
-> +	 * But we always set PPSEN{1,2,3} do not make things worse ;-)
-> +	 *
-> +	 * From XGMAC Core 3.20 and later, PPSEN{0,1,2,3} are writable and must
-> +	 * be set, or the PPS outputs stay in Fixed PPS mode by default.
-> +	 */
-> +	val |= XGMAC_PPSENx(index);
->  
->  	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
->  
-> -- 
-> 2.34.1
-> 
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
