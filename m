@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248A47DB9B2
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 13:16:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC88A7DB9E7
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Oct 2023 13:26:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D376FC6B44B;
-	Mon, 30 Oct 2023 12:16:52 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74396C6B44B;
+	Mon, 30 Oct 2023 12:26:25 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE349C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E8B0C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 12:16:51 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5079f6efd64so6111000e87.2
+ Mon, 30 Oct 2023 12:26:24 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-507c91582fdso6333510e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Oct 2023 05:16:51 -0700 (PDT)
+ Mon, 30 Oct 2023 05:26:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698668211; x=1699273011;
+ d=gmail.com; s=20230601; t=1698668784; x=1699273584;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Cbm5lTXBFVIsSs+1ANa7wn2CrqJ6D0ati494gyw8FFM=;
- b=bIUppnkCy+cVkkPRyvXhYwAwwSxjeJtzs/z7p++DfGnY3bwe+7E1E5YbGQS3ENcZq0
- fhnFpdKtVwwQgpU14MQu2aDoICfa8hROqoJbvYVLhFHhAZcCdto/E0vHluAZPsBgN2OZ
- Y1Lk4L/yzIguaWHxB/SKdZ8CACCuKbAswzNdpQSLQ3+QoKBUpjEyyrRhW0kQI0toSh1B
- jisErxXnMrs870UrN+qdZmUoLblPwMJGmOVmpQLCp02cAXv17dC1fz7fOydcMLJe7NOY
- 9LVJYGFW+qMwNC5pX6V8K643pkSVqm7rM0C3S3JezLAgWIM9mHP6en9n5XThStnEuy1x
- o+hQ==
+ bh=T8RFmRMPaCavpWEVO+hqLK8PHwyFGH3KHrLeyNssBXM=;
+ b=CKg2KW1nwvByrKR3YpAXFtyP7nlKZ39KsqkwXIYBXQzvyhXzX8rJJCrtGGwVAUoeGy
+ MEUudWK0O4iXt6W7mC2tPDPIgtSMDNhI+mlxWmhXbe4+/BIqrRhz4i+RycylN9npGTtY
+ TyT26Uh3vjUVXOeOgtZxBXXgLUIai4Kciatu9Egt/lO/FSFgctgdWztI61u2r8gS+hT5
+ xBV6o8K52AL5kr4zvPT2vjvL2xrhcBie6VBtTKmfeh6AntKbcHIeep66XVDAhJ4xm92m
+ hWshOhDCT37TBOX0U+n+8fxLbzw7UDr9r+N8r3qs3s6xo6jyUwZrGKfM2supH6qFce0I
+ 1IDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698668211; x=1699273011;
+ d=1e100.net; s=20230601; t=1698668784; x=1699273584;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Cbm5lTXBFVIsSs+1ANa7wn2CrqJ6D0ati494gyw8FFM=;
- b=g2RtuvzR9bz+NWhw2LcNfiNluIx1RMYzXYSRUZEoLdWHlG4qI+EpRKldd811a8KDN0
- IMzFySEpRWnxAJlxFjv5I7FH0kxedWOxvnibYNDg9G3gKvV2zkxT5h/lHYrpgGYb0ozh
- UQz8F4rHitfEt3a6QH5B/3IsrrFp91PC0i2RKmx+n4hX/xjCnDZ/Mh13tuJU8AiL0FSr
- 0Av1QwXHVQaJ6om6IePoAYISNUHoWI2Y5/hGUDUhhrsTwTWV/cYPJSR925XS2Kbf2HXM
- aHZsmfu/J/urHTPtVr3qnnYJpQPYJZ5zUVA2XF8Wyu3IPM45gDPAd7EyKDO2ZUo0ukJ4
- Qtww==
-X-Gm-Message-State: AOJu0Yymi3EpEVhAV/V+FVFIExnwCKluF3+GvyPxzT1NIcbfjluklYUF
- Nj68t2zcEXLiOMlal3cYu50=
-X-Google-Smtp-Source: AGHT+IEOLthbp7Tfp6EdgCrBQvhiY+rzXkU8whMbq+0zowLUHkcytR2z5F8TiLx8t1G9VqSpCIIewg==
-X-Received: by 2002:ac2:43bc:0:b0:508:1a4c:b9b8 with SMTP id
- t28-20020ac243bc000000b005081a4cb9b8mr5907776lfl.36.1698668210756; 
- Mon, 30 Oct 2023 05:16:50 -0700 (PDT)
+ bh=T8RFmRMPaCavpWEVO+hqLK8PHwyFGH3KHrLeyNssBXM=;
+ b=u4IbmhS5CC8UOLGyJGPz63FWJbGuKJ5olN+FsTr4I8jIiz9EB8CHPlcBhr/6TJdfSQ
+ Bg9erW1JqSKpZb2LHJAmihJKQ5Z1G8vd7W44FJW/guJODYM7jLUzche+6RGqHJVnxTgb
+ Db6f0cKbf5SCYYliNZgct2tV6nG1ZlEhRrLjLqwBOColpypl7WPM4Dts1X2a8WNAc6KO
+ Jr/lTsxfBNAe52hLBNUnuQBuuePu8JXbgY2ydZXxgB0W6eKA9r7JCfvFe0JgBob+h2kH
+ kEjod9tNF/6K1xiIGvuSTq1wDzXJWol8hnIGjCWKW7140X6Ge+VJ6pdois2QZkIgx7b6
+ JBTg==
+X-Gm-Message-State: AOJu0Yw2kc/jCRjBdQyRRzUY6LP3BO6GmhmUC9KOuTNi/S5tkfbUgteC
+ PB9MrcuNDOF25zhirRWvG0w=
+X-Google-Smtp-Source: AGHT+IFg9cpzQXCYcHL4V6vW7U7XlYIDrLSpu4W2WLWjccR6BSlhTXw8Kl384Nxe+59YUTZpJQER+A==
+X-Received: by 2002:a05:6512:10d6:b0:4fb:9168:1fce with SMTP id
+ k22-20020a05651210d600b004fb91681fcemr8970346lfg.59.1698668783553; 
+ Mon, 30 Oct 2023 05:26:23 -0700 (PDT)
 Received: from mobilestation (srv1.baikalchip.ru. [87.245.175.227])
  by smtp.gmail.com with ESMTPSA id
- f22-20020ac251b6000000b005007e7211f7sm1432686lfk.21.2023.10.30.05.16.49
+ w10-20020ac254aa000000b00507a387c4c4sm1421843lfk.229.2023.10.30.05.26.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Oct 2023 05:16:50 -0700 (PDT)
-Date: Mon, 30 Oct 2023 15:16:48 +0300
+ Mon, 30 Oct 2023 05:26:23 -0700 (PDT)
+Date: Mon, 30 Oct 2023 15:26:21 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Furong Xu <0x1207@gmail.com>
-Message-ID: <ek3edupo2ve2puzee7376ugjwpuimz3pipf5m2naulmi4ghefr@qgz5g6vitblx>
-References: <20231027025603.1035668-1-0x1207@gmail.com>
- <bayygz3wn6toglzzfdy7ygzs3bhenlrs2y4jjkat54tr3pvxbt@gligw4c4umbe>
+Message-ID: <ayttoykypfn6obrysve6ivdom7it3wdyexeawoucekeivx236t@o7rljbjrofiz>
+References: <20231030035550.2340514-1-0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <bayygz3wn6toglzzfdy7ygzs3bhenlrs2y4jjkat54tr3pvxbt@gligw4c4umbe>
+In-Reply-To: <20231030035550.2340514-1-0x1207@gmail.com>
 Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
  Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
@@ -70,8 +69,8 @@ Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
  rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: Fix support for
- multiple Flexible PPS outputs
+Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: xgmac: Enable
+ support for multiple Flexible PPS outputs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,64 +87,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Oct 30, 2023 at 02:03:50PM +0300, Serge Semin wrote:
-> On Fri, Oct 27, 2023 at 10:56:03AM +0800, Furong Xu wrote:
-> > From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
-> > to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
-> > in Fixed PPS mode by default.
-> > XGMAC Core prior 3.20, corresponding PPSEN bits are read-only reserved,
-> > always set PPSEN do not make things worse ;)
-> > 
-> > Fixes: 95eaf3cd0a90 ("net: stmmac: dwxgmac: Add Flexible PPS support")
-> > Signed-off-by: Furong Xu <0x1207@gmail.com>
+On Mon, Oct 30, 2023 at 11:55:50AM +0800, Furong Xu wrote:
+> From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
+> to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
+> in Fixed PPS mode by default.
+> XGMAC Core prior 3.20, only PPSEN0(bit 4) is writable. PPSEN{1,2,3} are
+> read-only reserved, and they are already in Flexible mode by default, our
+> new code always set PPSEN{1,2,3} do not make things worse ;-)
 > 
-> Please don't forget to add the already got tags shall you need more
-> patch revisions.
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+
+Please don't forget to add the already got tags shall you need more
+patch revisions.
+
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+
+> ---
+> Changes in v2:
+>   - Add comment for XGMAC_PPSEN description among different XGMAC core versions.
+>   - Update commit message, thanks Serge Semin and Jacob Keller for your advices.
+
+BTW Why have you dropped the Fixes tag? Moreover you didn't address
+Jacob' comment regarding the actual problematic commit. This isn't the
+way the review process normally goes. I'll copy what Jacob said in v1
+so to restore the discussion here:
+
+On Mon, Oct 27, 2023 at 2:15:50AM +0800, Jacob Keller  wrote:
+> The original code was added in 95eaf3cd0a90 ("net: stmmac: dwxgmac: Add
+> Flexible PPS support"), which landed in v5.4
 > 
-> Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+> It looks like XGMAC Core 3.20 support was not added until possibly
+> commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
+> Core 3.20") which appears to be new enough that its not in any official
+> Linux release, though it looks like it was already in net.
+> 
+> Perhaps this should be tagged Fixes: and sent through net, hopefully to
+> try and hit 6.6 or at least a stable release shortly after?
+> 
 
-Ops, this was intended to be sent for v2... I'll send a copy there.
-
+Regards
 -Serge(y)
 
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  2 +-
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 14 +++++++++++++-
+>  2 files changed, 14 insertions(+), 2 deletions(-)
 > 
-> -Serge(y)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 7a8f47e7b728..a4e8b498dea9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -259,7 +259,7 @@
+>  	((val) << XGMAC_PPS_MINIDX(x))
+>  #define XGMAC_PPSCMD_START		0x2
+>  #define XGMAC_PPSCMD_STOP		0x5
+> -#define XGMAC_PPSEN0			BIT(4)
+> +#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
+>  #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
+>  #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
+>  #define XGMAC_TRGTBUSY0			BIT(31)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index f352be269deb..453e88b75be0 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -1178,7 +1178,19 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
+>  
+>  	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
+>  	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
+> -	val |= XGMAC_PPSEN0;
+> +
+> +	/* XGMAC Core has 4 PPS outputs at most.
+> +	 *
+> +	 * Prior XGMAC Core 3.20, Fixed mode or Flexible mode are selectable for
+> +	 * PPS0 only via PPSEN0. PPS{1,2,3} are in Flexible mode by default,
+> +	 * and can not be switched to Fixed mode, since PPSEN{1,2,3} are
+> +	 * read-only reserved to 0.
+> +	 * But we always set PPSEN{1,2,3} do not make things worse ;-)
+> +	 *
+> +	 * From XGMAC Core 3.20 and later, PPSEN{0,1,2,3} are writable and must
+> +	 * be set, or the PPS outputs stay in Fixed PPS mode by default.
+> +	 */
+> +	val |= XGMAC_PPSENx(index);
+>  
+>  	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
+>  
+> -- 
+> 2.34.1
 > 
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h      | 2 +-
-> >  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > index 7a8f47e7b728..a4e8b498dea9 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-> > @@ -259,7 +259,7 @@
-> >  	((val) << XGMAC_PPS_MINIDX(x))
-> >  #define XGMAC_PPSCMD_START		0x2
-> >  #define XGMAC_PPSCMD_STOP		0x5
-> > -#define XGMAC_PPSEN0			BIT(4)
-> > +#define XGMAC_PPSENx(x)			BIT(4 + (x) * 8)
-> >  #define XGMAC_PPSx_TARGET_TIME_SEC(x)	(0x00000d80 + (x) * 0x10)
-> >  #define XGMAC_PPSx_TARGET_TIME_NSEC(x)	(0x00000d84 + (x) * 0x10)
-> >  #define XGMAC_TRGTBUSY0			BIT(31)
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > index f352be269deb..53bb8f16c481 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > @@ -1178,7 +1178,7 @@ static int dwxgmac2_flex_pps_config(void __iomem *ioaddr, int index,
-> >  
-> >  	val |= XGMAC_PPSCMDx(index, XGMAC_PPSCMD_START);
-> >  	val |= XGMAC_TRGTMODSELx(index, XGMAC_PPSCMD_START);
-> > -	val |= XGMAC_PPSEN0;
-> > +	val |= XGMAC_PPSENx(index);
-> >  
-> >  	writel(cfg->start.tv_sec, ioaddr + XGMAC_PPSx_TARGET_TIME_SEC(index));
-> >  
-> > -- 
-> > 2.34.1
-> > 
-> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
