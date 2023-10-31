@@ -2,165 +2,135 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C71B7DC4C0
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Oct 2023 04:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA6457DC616
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Oct 2023 06:48:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D017DC6B44B;
-	Tue, 31 Oct 2023 03:11:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8936EC6B44B;
+	Tue, 31 Oct 2023 05:48:39 +0000 (UTC)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D3A8C6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB4AFC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Oct 2023 03:11:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698721883; x=1730257883;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=FyWJ6RB0ywCmqvPSLSgs/2QhWwJnlGYUN1BYC20v9uA=;
- b=Vk1vob6lWr0B6cxWu/GEV2+UJkeN4xZn1X0z4/A9wKjmx2vBu9/rbNSe
- knCy/FAmQK7UIiuFUM5/jcQuCSePoea/ph3b791M9iZJA+6xI051r2Faq
- zPvw/P3r28MOzZ+4uetWLcxWVxhpeZM7aKAZRoMA15nuE6LGs2uFDGgXH
- 3ErSU/tt60jBunSHeHLlvvIIwbWnJkEVO85bcyXyqJfYIvQHc8x31a1+q
- K1/IAdqD3Ix4auVQ1cNojc0WnV4VU344pSlVGqrmy2bro7iCSrRpjHt54
- M2RjCN+2r44z40zfpaL5+Xc22Tc3hSmTPjpVL6W9IyRJw0EO7PNoCTwR7 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="391080436"
-X-IronPort-AV: E=Sophos;i="6.03,264,1694761200"; d="scan'208";a="391080436"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 20:11:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="754008546"
-X-IronPort-AV: E=Sophos;i="6.03,264,1694761200"; d="scan'208";a="754008546"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 30 Oct 2023 20:11:20 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Mon, 30 Oct 2023 20:11:20 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Mon, 30 Oct 2023 20:11:20 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Frontend Transport; Mon, 30 Oct 2023 20:11:19 -0700
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.168)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.34; Mon, 30 Oct 2023 20:11:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Iv9GcpUMZQ6OP7NBr2cS/uaTuhLvnl+IsV/Ho2EEbObR4lhehRpOiQ6L9d20ie5hxpmvu7kJjvXrcPjGTuWZ48ddvIqDonPMG1jUfsQbqt0MYRmeVpLUJbLay+ysgFOk3q8QQy1/LJk97udGwZHRPq+6Jo0strY4qaGrNVMtEOX6+3Q+77VQwACwQ4AtLQ7JwrjioRBSb8aXFWqy+U2S+hLdtdzYll1IePo0SHJE6eqzCsyDMprzxgQaQHYOQ0IIYzCyQJOW4h1ezOJICsFSv67eBTQZxx/Da1g3PXruX8YvhPFQgVwYD9MF4PCPIJSlPBycwGzTrLq7dAWz/21UBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FyWJ6RB0ywCmqvPSLSgs/2QhWwJnlGYUN1BYC20v9uA=;
- b=JCL9+h91g9zzwVg/IBp9Vukb5Nv2NkYRlR+/0ws1MwEhBfDaRhsFLzqzbrb0Uod6Xn3aTs7InyaUotbIXWoZgiRJ22Yeh/8EvetaSXaX3yljU1yqJXrzXHT0q37R1/w59zat8p4g9VXS+9APAvFIEjZCChUzoU7W/Gp3276OVGY+QYpJ5Yuud15v16SxXY6uJCLz2MpODrHEowGj9bc0dmZwKKdnd2HUdkFNDlzWlMcbGPikRsPjTNjTdu0MTQ0oD+dSOjdxJ2qeqqj/12MnubaP7AL/zge/YMFtdLZty4RlYq2pIyfOxyoPJyqQgD809ayHt4ku6kASKYze5ubsHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB3306.namprd11.prod.outlook.com (2603:10b6:5:5c::18) by
- BL3PR11MB6411.namprd11.prod.outlook.com (2603:10b6:208:3ba::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6933.29; Tue, 31 Oct 2023 03:11:12 +0000
-Received: from DM6PR11MB3306.namprd11.prod.outlook.com
- ([fe80::2126:3b64:585d:7da9]) by DM6PR11MB3306.namprd11.prod.outlook.com
- ([fe80::2126:3b64:585d:7da9%7]) with mapi id 15.20.6933.029; Tue, 31 Oct 2023
- 03:11:10 +0000
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-To: "Drewek, Wojciech" <wojciech.drewek@intel.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Thread-Topic: [PATCH net-next 1/1] net: stmmac: check CBS input values before
- configuration
-Thread-Index: AQHaCJzakEPiAidBQUW5oe8eW8MjxrBdaaCAgAXUTvA=
-Date: Tue, 31 Oct 2023 03:11:10 +0000
-Message-ID: <DM6PR11MB330631ACFA1BC5FCA1318D03B9A0A@DM6PR11MB3306.namprd11.prod.outlook.com>
-References: <20231027061114.3792619-1-yi.fang.gan@intel.com>
- <99233115-89ca-4ae8-8679-a16e1f959727@intel.com>
-In-Reply-To: <99233115-89ca-4ae8-8679-a16e1f959727@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB3306:EE_|BL3PR11MB6411:EE_
-x-ms-office365-filtering-correlation-id: 1c0b7579-2f11-484e-1b18-08dbd9bf082c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: aipRBJQhDwABdS9lcC563xqR7M+m60q/+5IFtUDIoz2B7hTAg7Ll6CZTNqI9ExOyO08ZBi6bhg6hWRvC6Dv5woQofGvFplflLb0uNBcG1EOWSP9084M4wWcybHY0wdvauBUoZhocZ21R/HpT3ln4OKe2G3T6z8X5N1JT8ENqQr27+vL7VoO7cZc8TqZjrzzMUAVMyxGEbzs0q76SX1XpKoN6wMI3Wy1e53GV1ZfG/AiZGd+GhNydTkJpS2eezIM4W5xhcKH2EkNlzTk5JeYL7w7tpR8NqRGurix0vtkq53mFjLnrIz0/N7QDlYZqkRWy0FPYbJcSkAIvJl/sWRchh/CxoWEfudnLT9GDZkH+HiMPPh0DhSpAO9wXScgq37zAY6h4dYWauYiE1wEL1a1ZzrrZQD2//jFH2d1hshZPAAVWZI5QoxqNKKZXHLtfxkDgfPqLKGpOTiwWaguwG7Ec+614mENcCqoLxJIy7lkgVitziqZ0maRidVcIkKjYJvmCaJs+0z8HHJggCPiOZnVmYDo26P09ke609EIAMqzkC2m8j+QDuHR/NamHonR126AYnU+Z7X3lUgkRsifZyDdwA/dxSQ7OdmG5WlXIv1SEBzd9LI5Bfza0n7FocLJMKxfPDSpmqiUM2C0HEwq50Yc7iA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3306.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(346002)(39860400002)(136003)(376002)(230922051799003)(451199024)(186009)(64100799003)(1800799009)(55016003)(66946007)(76116006)(66446008)(66556008)(66476007)(64756008)(54906003)(110136005)(316002)(26005)(8936002)(8676002)(4326008)(52536014)(83380400001)(5660300002)(38100700002)(53546011)(478600001)(122000001)(82960400001)(33656002)(7696005)(6506007)(2906002)(9686003)(86362001)(71200400001)(921008)(38070700009)(41300700001)(107886003)(7416002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NDU3REtXSHlkK3NZTExFc3F6QThabnpNRzFNNUVsQVRFQ2Y0V3R3SHVPWVYv?=
- =?utf-8?B?bnJzamJFbWtYaGJub3B3V3FOUUY0dGp3bktCSGZ0SEFsTFFOd3REUHJ5TEtt?=
- =?utf-8?B?V2hueUN4bmRNRzBQNEZhMkhocVdteGdrZ3daaU40UjZFMzJWeitZNjNsSWtS?=
- =?utf-8?B?ajVscG5US0YvOUNHNkFoUzkwZEJMaWlkT2ovZ0p0NTE0THBQeXlKN3hxQnRu?=
- =?utf-8?B?WGlHeWo0QVovOW8weEpFN3hxRDN0bXAxT0ZPSWkxMWM3aGpBcmd2WDdWVmdp?=
- =?utf-8?B?THZUeXp5eDVXc0YvY09IOERHWW5RdUxrUjVOVXpqYkJBK2M0eklDMWptRmh1?=
- =?utf-8?B?YTBPNFNuMUhOeFoxUGtyYXRPWTNPcUp5RWZPNi9qN002c0Vla2g4aVFrOXdM?=
- =?utf-8?B?bnpMdWZXaW1mWHZNUFpzUm9XRHdoRmdVUS91dHZPRENocTBxOTNZWnVIV2g4?=
- =?utf-8?B?TXFsL3JMWEJoekFzOGpzOWZrNVlWT3hrUTBsVTI5VEowS3JHc3ZwczBncTNw?=
- =?utf-8?B?N3NTSGZQditVRWxKL1I2ZmdkL3lIdHpWT05EQzV0TzdURlpuNlZVZ2xlbFcr?=
- =?utf-8?B?aHpVMWN4V1BYejQ3K3QzOGQremhuanpzQ205TGQ0UkFzdVA1OFF1NUV0dnhX?=
- =?utf-8?B?bUNoZWxFdlRhdGlWSTM4blNzWDZsUnNMNlpXajdGYk9qNVRhdDJmUUFOU1JM?=
- =?utf-8?B?Q3FPL2U4TDRJQmJSVXRKWDRHYUtoVS9STEx3U1UybmY3ZDU2Y0FzSVk3OVJY?=
- =?utf-8?B?UXVkR3FtTGRIWWZTK2gxVmw2SkxULzZoRVJIcktrL2ZWeWR0VGlxcFRabHFU?=
- =?utf-8?B?Y1Brc29pTEpCekVWMWFJcm5zSjR1eHlqNTQwOUpyb1pXcjZlcUI1MjhQeWtT?=
- =?utf-8?B?czFsSjlMRXlVa0tZYUVLQ29lTU9SeGFvNzNRTFNNMjBlMGR5R0czSTEvKzVJ?=
- =?utf-8?B?OTJjQzZHd1pNbzZIS0VoeG95d1JsTHNiVHVVdmVaN0gzYU1RSHY0cUtvM2hP?=
- =?utf-8?B?TW1wclFGMEcyM0lFUXhQbEk3RjFwZks1RDR2UUhUUk83L1V6ZmF1VkN0MHFW?=
- =?utf-8?B?Q3A2VmpnQmRHV090bytrcnlGN2dMeGtpWFdNRkJPWHdneDVqdjVVTjdGWDBy?=
- =?utf-8?B?dWF3dkhUOG1oYlV2NjhGQ0NDTWpFOGlyNlVtaVBqcElsVE5ON2dNU0kzc0hL?=
- =?utf-8?B?M3ZoaVFmYUx5MHlxMllISW1xcldQT3VOSDJaNkFyYTQ3cW56V3N0ZG9ZV2JZ?=
- =?utf-8?B?b3lhOVVKa3hTNzRYZDJNWFlCc212dkQ5aEFtdnI5dzFNQk5iTUxJVmZXT3ZL?=
- =?utf-8?B?NVpjQXN5THh3eTVBcVlRdFhOQ1NyMGRUbXZYS0VSRnlwT3lYOUwyZUlhNHJN?=
- =?utf-8?B?SEtjSUpqUmZ3VVhVTmJWMTVSR2lCeko5aTg3cXUyMSt5cjNHS04vZ0grYS9i?=
- =?utf-8?B?NzgyeFZ6RUZ0QWlWVDJ4UTdjcWJ5SURORWl2eUlETTlmSEZXVnpiRVFMYWcz?=
- =?utf-8?B?eVVqTDBzOUJNRk5zRWMvYlBSY2lkaFlEOHBIMXFrVVZiZWkrdkVaUlBhc2Fw?=
- =?utf-8?B?SzFjWXloRWl6bGt5M0xYS2hNOW5palJtZllJVFNjUHNMSEx4NWUwbGN6bERl?=
- =?utf-8?B?TTRKMkVvY29TcDFZVG9LMWlzWkpzaElDMDUwS1ZGY2ZJbG5VbzRXMlFHNXNM?=
- =?utf-8?B?MjYwRkcxYVA5ZUkrYnhRc0RSQnQ5aFBnRDE2cmo2RVVqRGRaWlZ5eVpHc1VR?=
- =?utf-8?B?VGhjSVlrUk4reXgvRDRzZ0ZMZGxoVE1oSlM4VUsxNkZ3M3JWMzRieFFOUkRU?=
- =?utf-8?B?WjZXSVpIUzNwWjdCMHJsa01uU1lsYjloOTlBMnhXdS94elpsVks2anplOXJR?=
- =?utf-8?B?Q21jNHBSNFp3K3JBKzNhbzh1K016aHdycVF4ZlN2eEo3eTh2RlRlTFlOR0Ns?=
- =?utf-8?B?QVY2bldtRW5FWFQxTzk1M0Q2dGFaYmR1WmtJb0Z2V3dZUnBSbEQrZFc4cE1K?=
- =?utf-8?B?MTAxbHNXVXZRYWM3L2F4N0xWOVdkNnJXUDUrQmdqaGhxaUVoMEJnNGJTcWhu?=
- =?utf-8?B?MG42SXl0bVhiUXNLaHJKZGcvVE9kOURqNkw5eCs2NnppdmtSemoyYnhjYW16?=
- =?utf-8?Q?HUowgy0Ose+BKY0cR4ReYN1Ct?=
+ Tue, 31 Oct 2023 05:48:37 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-53e07db272cso8295252a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 30 Oct 2023 22:48:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1698731317; x=1699336117;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=d8tsL5oB87Rx8sJrlG5ElUtswTptcOb5Z68cZ32EAsY=;
+ b=Tt2qTyIhda8uOS3k1Lh/FwKaLNEH+WB2UJuT+0JxuGNmZEZgny6vvJ3+/lOFZ31nW2
+ 8XlsR2GpvPAUSNyQAi93tvQwaXkoO/Aa18Vjt8NSU3K8QmNCSCnIlCZLHwtPt/8AJ5Cq
+ boWrIDSfzo3VV6wjXlpjmDCEG4r5V3Q+kfvSN8SDDeQLNuZ8Frcj6R52VE5NwGBNpTfR
+ sDj1ZGBh+tbP53VmmWQEYIhthqBbfAziLW2v85HHTZBVL3yDFRFZ/nhrax2drvVFhA3O
+ tfFzvR8+/Hf7L4WHwVxrw1ubMzvOIbjTKc++cCaUS6u0TqpyC5n6PhcR79cjOnuEKP6B
+ CshA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698731317; x=1699336117;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=d8tsL5oB87Rx8sJrlG5ElUtswTptcOb5Z68cZ32EAsY=;
+ b=Qxf0sJaC0hzgDJVjzWMBe2ol8QbJjgYdw0LAbt0CtKvHtCOsalhVVH4d4X8j2UmJCq
+ lLkSsMimTsy8e0UBgEP312O89xu3DnPvHofbbkSclCmrV9KORvQYCydxN+07AhzTDggf
+ tRyudZ9B1OQo4E1u5ZX1n8m0I+CeJ2DRmXrVuP3YyrtdfA4GbjbI459wRDMM8taMZyjF
+ eSA8e9MsO6Yl/fxEZI5CQHTJH6I4Xq0+fvdTwQ01qFqOzoLosmXPSQ/9uiCJTuk/dP87
+ bVSosywhRPpKIwNXzmMpmc2Zs80RJ06WFHTL7uZKvleHaKUZ9rJKt42sDBTOTxzsPE8p
+ 3B+w==
+X-Gm-Message-State: AOJu0YwZNz5sbMmKuz6x+coGS+1ZwNplJOxpAztqkSxIWB4R56Ks6O1D
+ 1HsuG66lMvpryHlc6LpnxHekqw==
+X-Google-Smtp-Source: AGHT+IH7TmlrhHtGaYMSqpY2i7vK1vgWIGw5a4YiJB8UtrNg8R8oC1mb+KBwD5+C5OPY2DzZOFMUxQ==
+X-Received: by 2002:a05:6402:379:b0:540:9b47:4f70 with SMTP id
+ s25-20020a056402037900b005409b474f70mr9028247edw.26.1698731317311; 
+ Mon, 30 Oct 2023 22:48:37 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.218.126])
+ by smtp.gmail.com with ESMTPSA id
+ ks24-20020a170906f85800b009ad8acac02asm361918ejb.172.2023.10.30.22.48.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Oct 2023 22:48:36 -0700 (PDT)
+Message-ID: <b67ee496-397b-42f1-8109-542878934385@linaro.org>
+Date: Tue, 31 Oct 2023 06:48:34 +0100
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3306.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c0b7579-2f11-484e-1b18-08dbd9bf082c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2023 03:11:10.1775 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CGH4vCvWF2McafFTtgIVrCBFra+BHKY7Ns9zJ0Jzd0H77MxYjo9a9X5aFMmMSpo9JBPbpy8BV2piSAhehi3E9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6411
-X-OriginatorOrg: intel.com
-Cc: "Looi, Hong Aun" <hong.aun.looi@intel.com>, "Song,
- Yoong Siang" <yoong.siang.song@intel.com>, "Voon,
- Weifeng" <weifeng.voon@intel.com>, "Sit,
- Michael Wei Hong" <michael.wei.hong.sit@intel.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: check CBS input
- values before configuration
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-2-cristian.ciocaltea@collabora.com>
+ <3016eff2-fce5-4b5e-bbb2-d56cbb45df85@linaro.org>
+ <05186c62-fcad-4d56-8ae8-d802f87a39e2@collabora.com>
+ <98d90ba9-7e69-4b54-830d-bdbc0e6c54fe@linaro.org>
+ <d532514a-524c-4607-b97b-2f89bc563406@collabora.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
+ m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
+ HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
+ XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
+ mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
+ v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
+ cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
+ rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
+ qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
+ aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
+ gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
+ dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
+ NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
+ hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
+ oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
+ H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
+ yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
+ 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
+ 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
+ +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
+ FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
+ 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
+ DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
+ oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
+ 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
+ Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
+ qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
+ /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
+ qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
+ EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
+ KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
+ fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <d532514a-524c-4607-b97b-2f89bc563406@collabora.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 01/12] dt-bindings: net: snps,
+ dwmac: Allow exclusive usage of ahb reset
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -177,74 +147,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On 30/10/2023 20:07, Cristian Ciocaltea wrote:
+> On 10/30/23 09:26, Krzysztof Kozlowski wrote:
+>> On 29/10/2023 23:24, Cristian Ciocaltea wrote:
+>>> On 10/29/23 13:25, Krzysztof Kozlowski wrote:
+>>>> On 29/10/2023 05:27, Cristian Ciocaltea wrote:
+>>>>> The Synopsys DesignWare MAC found on the StarFive JH7100 SoC requires
+>>>>> just the 'ahb' reset name, but the binding allows selecting it only in
+>>>>> conjunction with 'stmmaceth'.
+>>>>>
+>>>>> Fix the issue by permitting exclusive usage of the 'ahb' reset name.
+>>>>>
+>>>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>>>>> ---
+>>>>>  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 2 +-
+>>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>>>> index 5c2769dc689a..a4d7172ea701 100644
+>>>>> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>>>> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+>>>>> @@ -146,7 +146,7 @@ properties:
+>>>>>    reset-names:
+>>>>>      minItems: 1
+>>>>>      items:
+>>>>> -      - const: stmmaceth
+>>>>> +      - enum: [stmmaceth, ahb]
+>>>>
+>>>> Also, this makes sense only with patch #4, so this should be squashed there.
+>>>
+>>> I added this as a separate patch since it changes the generic schema
+>>> which is included by many other bindings.  JH7100 just happens to be the
+>>> first use-case requiring this update.  But I can squash the patch if
+>>> that's not a good enough reason to keep it separately.
+>>
+>> If there is no single user of this, why changing this? I would even
+>> argue that it is not correct from existing bindings point of view -
+>> nothing allows and uses ahb as the only reset. Even the commit msg
+>> mentions your hardware from patch 4.
+> 
+> Sorry, I'm not sure I follow. JH7100 is (or will be) the user of it and,
+> as a matter of fact, something similar has been done recently while
+> adding support for JH7110.
 
-Value zero is allowed. I will update V2 with the commit msg updated.
+Every patch should stand on its own and at this point nothing uses it.
+We apply this patch #1 and we add dead code, unused case.
+
+> 
+> In particular, commit [1] changed this binding before the JH7110
+> compatible was introduced in a subsequent patch. On a closer look that
+> commit made a statement which is not entirely correct:
+> 
+> "dwmac controller may require one (stmmaceth) or two (stmmaceth+ahb)
+> reset signals"
+> 
+> That's because stmmaceth is also optional in dwmac's driver, hence the
+> correct message would have been:
+> 
+> "[...] may require one (stmmaceth OR ahb) [...]"
+
+Driver does not describe the hardware. The bindings do, so according to
+that description all supported hardware required MAC reset (stmmaceth).
+Otherwise please point me to any hardware which skips MAC reset and
+requires AHB reset instead (not future hardware, but current).
+
+> 
+> Hence, I think it makes sense to keep this patch, after adding the above
+> details in the commit message.
+> 
+> [1] 843f603762a5 ("dt-bindings: net: snps,dwmac: Add 'ahb'
+> reset/reset-name")
+> 
+> Thanks,
+> Cristian
 
 Best regards,
-Gan Yi Fang
+Krzysztof
 
-> -----Original Message-----
-> From: Drewek, Wojciech <wojciech.drewek@intel.com>
-> Sent: Friday, October 27, 2023 6:08 PM
-> To: Gan, Yi Fang <yi.fang.gan@intel.com>; Alexandre Torgue
-> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
-> David S . Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
-> arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org
-> Cc: Looi, Hong Aun <hong.aun.looi@intel.com>; Voon, Weifeng
-> <weifeng.voon@intel.com>; Song, Yoong Siang
-> <yoong.siang.song@intel.com>; Sit, Michael Wei Hong
-> <michael.wei.hong.sit@intel.com>
-> Subject: Re: [PATCH net-next 1/1] net: stmmac: check CBS input values before
-> configuration
-> 
-> 
-> 
-> On 27.10.2023 08:11, Gan Yi Fang wrote:
-> > From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> >
-> > Add check for below conditions before proceeding to configuration.
-> > A message will be prompted if the input value is invalid.
-> >
-> > Idleslope minus sendslope should equal speed_div.
-> > Idleslope is always a positive value.
-> > Sendslope is always a negative value.
-> > Hicredit is always a positive value.
-> > Locredit is always a negative value.
-> 
-> Can those values be equal to 0? The code allows it but the commit msg
-> doesn't mention that.
-> Some drivers does not allow 0, lan966x_cbs_add e.g. Would be good to
-> double check that.
-> 
-> >
-> > Signed-off-by: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> > Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> > index ac41ef4cbd2f..e8a079946f84 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-> > @@ -381,6 +381,11 @@ static int tc_setup_cbs(struct stmmac_priv *priv,
-> >  		return -EOPNOTSUPP;
-> >  	}
-> >
-> > +	if ((qopt->idleslope - qopt->sendslope != speed_div) ||
-> > +	    qopt->idleslope < 0 || qopt->sendslope > 0 ||
-> > +	    qopt->hicredit < 0 || qopt->locredit > 0)
-> > +		return -EINVAL;
-> > +
-> >  	mode_to_use = priv->plat->tx_queues_cfg[queue].mode_to_use;
-> >  	if (mode_to_use == MTL_QUEUE_DCB && qopt->enable) {
-> >  		ret = stmmac_dma_qmode(priv, priv->ioaddr, queue,
-> MTL_QUEUE_AVB);
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
