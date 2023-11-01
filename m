@@ -2,46 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 917957DE0E0
-	for <lists+linux-stm32@lfdr.de>; Wed,  1 Nov 2023 13:36:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 111927E1CF3
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3385FC6B44C;
-	Wed,  1 Nov 2023 12:36:22 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC5FCC6B477;
+	Mon,  6 Nov 2023 09:08:30 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED0F5C6A5F2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF8F3C6A5F2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Nov 2023 12:36:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=imo3wNryrEjYThOqsNLqw4AyRV1m29tXBY8uvJUJe6w=; b=DxrT5asDfblt1OyyS/zzam+PD3
- D5aoWqH1tLGYiTe47iJnJBaDXJw83wsO1x6Y8YHwGMrBrWr+3x2LDY36vZdNAmC7SjaSbfNtJfSIm
- kXbeG3zmSqDLJlmcYIrydnonpkY7JYLNfnYWUS1alkhrCuVzYUgfg/SOsP5RFnbw1B7k=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1qyAS3-000gT4-Ul; Wed, 01 Nov 2023 13:36:03 +0100
-Date: Wed, 1 Nov 2023 13:36:03 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Gan Yi Fang <yi.fang.gan@intel.com>
-Message-ID: <58132260-81d0-4f0c-90b6-0c97c7a6a2f5@lunn.ch>
-References: <20231101061920.401582-1-yi.fang.gan@intel.com>
+ Wed,  1 Nov 2023 15:15:47 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-41cc7b67419so49383401cf.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 01 Nov 2023 08:15:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1698851746; x=1699456546;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=scSvTq12ck6hKrL81KpyijuxTwLdmUzADFiheIKoCgU=;
+ b=XEbnairtUyv24uVriXrhjiSEJ3UQpoACE7pCsoOEK4DgPOTzwycEXegfxa7xO3ADUw
+ otYsASOYQA3+Q+rF1oElaiIu5HH46N8GxBAP98LhDO6ozK8OnibbjjN1wn3jDZkI9jZr
+ 284+6LjO3T+v44boAKMb26xhE0qbIKxF65pZpMftzx/j4iHSb66LU0YUsGZYWhaZy8bK
+ MM3WQwUm08+dlA8H92p8TnbwSN2BqvNSfDyFsG4aBhrA0omvetAlssewc4ckwKAjyEZJ
+ 7624zV+gPtlmLGglrZNCsXcw+nz1WqoT4vAGxNp+4h0+q+2M1kqtib1xoWl85bXvu42F
+ ENfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1698851746; x=1699456546;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=scSvTq12ck6hKrL81KpyijuxTwLdmUzADFiheIKoCgU=;
+ b=O6aW4ysbE4qzywF9eB9sATjcVaFZgKpglUdZ2zqNVflNKmLYWxfohUV6kzjLwbf6/+
+ esuM9I2xo7Y95wxRe+asa9igWo5pTMhG2DJI3riwQI/pI92AcCUOlUmA1XCJkj9ZN10l
+ xAhKPyqwiNZv+VVyZKF6NxTcNUibWy1DdO8iQFNBloY6s7B6omTJUI3zjNB1H+kADyjm
+ 18GNmoeq/0boyTyne0Qc4fDLg4X/f8SXr/QT93jo62bkKhPuapi0vAkh4ZkWBGsfcwOb
+ ZtpGUPdEDkGHaS4sxETtibIUUXl7/yA4gwYZx336EuGfAvg62DjgP6LIN0WfDuHl9rwQ
+ NW+A==
+X-Gm-Message-State: AOJu0YyW4KFdBxplOEZYKVnsu78zbaSCp3ybffPtFsll6QoaS2DGdKHt
+ guhLho32YISjoDvKCvKHrCkSEw==
+X-Google-Smtp-Source: AGHT+IGG1RpnEwK+BTs6NWrgE9D/51hktrLMdXeYOhyejbjS26AScKHpDDXPsTpMZl3VpU8YIWQ/lA==
+X-Received: by 2002:a05:622a:1aa8:b0:41e:20b5:fc58 with SMTP id
+ s40-20020a05622a1aa800b0041e20b5fc58mr18826579qtc.47.1698851746656; 
+ Wed, 01 Nov 2023 08:15:46 -0700 (PDT)
+Received: from localhost.localdomain ([50.212.55.89])
+ by smtp.gmail.com with ESMTPSA id
+ dn5-20020a05622a470500b004181a8a3e2dsm1477165qtb.41.2023.11.01.08.15.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Nov 2023 08:15:46 -0700 (PDT)
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed,  1 Nov 2023 11:08:05 -0400
+Message-ID: <20231101150811.2747455-1-ben.wolsieffer@hefring.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231101061920.401582-1-yi.fang.gan@intel.com>
-Cc: linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Looi Hong Aun <hong.aun.looi@intel.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: check CBS
- input values before configuration
+X-Mailman-Approved-At: Mon, 06 Nov 2023 09:08:29 +0000
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ben Wolsieffer <ben.wolsieffer@hefring.com>
+Subject: [Linux-stm32] [PATCH 0/5] Add STM32F7 SPI support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,24 +84,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 01, 2023 at 02:19:20PM +0800, Gan Yi Fang wrote:
-> From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> 
-> Add check for below conditions before proceeding to configuration.
-> A message will be prompted if the input value is invalid.
-> 
-> Idleslope minus sendslope should equal speed_div.
-> Idleslope is always a positive value including zero.
-> Sendslope is always a negative value including zero.
-> Hicredit is always a positive value including zero.
-> Locredit is always a negative value including zero.
+This series adds support for SPI on STM32F7 processors. The STM32F7 SPI
+peripheral is nearly identical to the STM32F4, with the only significant
+differences being that it supports a wider range of word sizes, and the
+addition of 32-bit transmit and receive FIFOs.
 
-Which of these conditional are specific to stmmac, and which are
-generic to CBS? Anything which is generic to CBS i would expect to be
-checked at a higher level, rather than in every driver implementing
-CBS.
+Ben Wolsieffer (5):
+  spi: stm32: rename stm32f4_* to stm32fx_*
+  spi: stm32: use callbacks for read_rx and write_tx
+  dt-bindings: spi: add stm32f7-spi compatible
+  spi: stm32: add STM32F7 support
+  ARM: dts: stm32: add SPI support on STM32F746
 
-	Andrew
+ .../devicetree/bindings/spi/st,stm32-spi.yaml |   1 +
+ arch/arm/boot/dts/st/stm32f746.dtsi           |  60 +++
+ drivers/spi/spi-stm32.c                       | 455 ++++++++++++------
+ 3 files changed, 367 insertions(+), 149 deletions(-)
+
+-- 
+2.42.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
