@@ -2,75 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17487DF1EE
-	for <lists+linux-stm32@lfdr.de>; Thu,  2 Nov 2023 13:03:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E8CF7E1CFA
+	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7979CC6B452;
-	Thu,  2 Nov 2023 12:03:30 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41E9EC6C85C;
+	Mon,  6 Nov 2023 09:08:31 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5EE33C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C7F1C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Nov 2023 12:03:27 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2c50fbc218bso10555151fa.3
+ Thu,  2 Nov 2023 19:37:58 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-5a7c011e113so16186337b3.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Nov 2023 05:03:27 -0700 (PDT)
+ Thu, 02 Nov 2023 12:37:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698926606; x=1699531406;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1698953877; x=1699558677;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=SZgopjRBSehJcywZRSRRjwXmQo1kSprJEg6i4E+ED6Q=;
- b=Z6Imyl/fIV5RzTzKCIY/rhGGyQeWO/0kU63C3wZ+W9qOeTF/Qdl6PSqfMGWXV4O/pu
- OfV8F4kkqEKmE+fjn2J6NG4iH/lDxHDimP7NF6rKLFmErCJsQ+QCWun+cGvXk9/nPWex
- IuvHBQHke8q51supi8kTdONU33iUfF+kW5MFQLLLvNtkwvtph/ssL4aiLuRkQQqNrPNz
- xP74Xl8lv+SXa9wG+oyxjNvuxxw2XjfBTr7KT+bmQ0j5/SLHiqU4kv4FAQI9vveBQn21
- V4OTA3ocwFMEt3/wd0aft2j4t0+kDrabhSxKTsca3vklpYb5xPLu4GwvhdkH27vJr+Ik
- w0Ig==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uogr7zU4t34ibaqbgxGWB9r8NXGxVylxADwS2sMjoTc=;
+ b=ch0spQQ/zMQbeJsIyH1VcOPKCFp7bJulDRcaoNBquIV1AvJ09dZ+uqWrFESTUPQC3p
+ fpoBpNIG2A9a50TA+PqLMjNqpuYJzDmN9zLDWbdrWyPgKa+LYBXNDcbgryVirBT9mG8D
+ ZLwXT0988roWB8nS0EEHBk2ML0HwIvJd4WQO6R1gfy2MOIB49gRb9VA5DPKIPyPBuzWC
+ cNtaB19ISfwdJvfw6UoUwPnHw8pz40lbefy2XXg4sDEyrtK5qLdFO1Jy5Au81lTCD5aT
+ wjIDzXDVY+ecxGrn57TbyPF1QG4mXFCU2VrcUfmsm7srrxuakHxeuaPXdMHPSO1MdsZc
+ FdAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698926606; x=1699531406;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SZgopjRBSehJcywZRSRRjwXmQo1kSprJEg6i4E+ED6Q=;
- b=LdYXuhXq7fAn02k7sq7myt6ezGyadgXBywAWKYydYrbkp9OSxC5VHvenE3KAUYjbtO
- aGQhZ482oKyWPfTKT258KT4Kx8qZXhqeTphIagmjfbrDwtGdB+kh6YY0fQGRL94c1joB
- cmrONzQIlUnnCPw8wUuDMtsvikxOY/wDa+nmzkyqPSC1smbxSvRFvCLc7ofrhhlkznbq
- XXkOKyh9fKo2Onv2m79Wb+aEzYr216xTmCTTSsa2zBhkcUWilAXRioxZL+6DjDXhRX96
- srD1rXpeXV7Y7IqyBb8ksFxfHUMBiHy3TUeYRD8edvJIK/vCLAu0K+EXP6isSOh1JJm6
- D+/g==
-X-Gm-Message-State: AOJu0YwexEQZNMDhKrCpqhWzhs2L5K7b3v9NgL8DriVcu93x1xsvIZB7
- bD2O+iTfuUmRrgv9LpKl/mU=
-X-Google-Smtp-Source: AGHT+IFMKQuxZDDL7Ub8z/ytNkVS7YNsxF9774I/AhaWO33gRuWb1DDnfHgznfOcdXVqK50Pb+6MQw==
-X-Received: by 2002:a05:651c:c97:b0:2bc:e330:660b with SMTP id
- bz23-20020a05651c0c9700b002bce330660bmr20292141ljb.9.1698926605812; 
- Thu, 02 Nov 2023 05:03:25 -0700 (PDT)
-Received: from mobilestation.baikal.int (srv1.baikalchip.ru. [87.245.175.227])
+ d=1e100.net; s=20230601; t=1698953877; x=1699558677;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=uogr7zU4t34ibaqbgxGWB9r8NXGxVylxADwS2sMjoTc=;
+ b=CIrh33Uk7c4FQTJIo/bjvXiXX5QBUZtvrXjhQeENOuTTIDCtX3dLd08Iy3uqgQOSt3
+ V7+924Ck9gw7IsPWp3jDH0lNvg46fGmhFZaRQfbDAgYKwnwf8/+iI8LfW6gmI1cgojR4
+ tWFMkCteYsGrI4Lq50TF40XDu8lUaHNZC7B/NVQR8z1anHFRAgaj5yu+NKLwy8epBGnM
+ yEAn9E8qfnOQ91gBsL7/fzGbYpb7Nyrsmx7ZJjB0vxdUsYw63VyjbXEhzhAog/1mF2/z
+ l7e1f1jC5v8HL4htSZxsps+8ujgqh1jL6eigC22U2fPE/DgpuCoNY7SnuLhwPVyugJ8p
+ zkaw==
+X-Gm-Message-State: AOJu0Yx9lLdzhtwgMMBOWWxFHgpK+R4fjpDKoUfivrkLYaulZ7wrUDTF
+ i4oAXvHaj2U8Bd6hapYc6aKwSA==
+X-Google-Smtp-Source: AGHT+IEGxFcOOrtvJ6cU9BZ2CGnOOPvIjlvXGVkgaylmcuyrz36fI4KJRg2FJQTlw2ceemhfetI4zA==
+X-Received: by 2002:a81:4a02:0:b0:5a4:3e67:35a3 with SMTP id
+ x2-20020a814a02000000b005a43e6735a3mr664848ywa.49.1698953876935; 
+ Thu, 02 Nov 2023 12:37:56 -0700 (PDT)
+Received: from localhost.localdomain ([50.212.55.89])
  by smtp.gmail.com with ESMTPSA id
- e13-20020a05651c038d00b002b9e0d19644sm455838ljp.106.2023.11.02.05.03.24
+ a10-20020a0ce90a000000b0065b260eafd9sm30654qvo.87.2023.11.02.12.37.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Nov 2023 05:03:25 -0700 (PDT)
-Date: Thu, 2 Nov 2023 15:03:23 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Bernd Edlinger <bernd.edlinger@hotmail.de>
-Message-ID: <b4mpa62b2juln47374x6xxnbozb7fcfgztrc5ounk4tvscs3wg@mixnvsoqno7j>
-References: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
- <j37ktiug7vwbb7h7s44zmng5a2bjzbd663p7pfowbehapjv3by@vrxfmapscaln>
- <AS8P193MB1285473EE92FEDB65C08C131E4A0A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ Thu, 02 Nov 2023 12:37:56 -0700 (PDT)
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu,  2 Nov 2023 15:37:17 -0400
+Message-ID: <20231102193722.3042245-1-ben.wolsieffer@hefring.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <AS8P193MB1285473EE92FEDB65C08C131E4A0A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Wait a bit for the reset to
-	take effect
+X-Mailman-Approved-At: Mon, 06 Nov 2023 09:08:29 +0000
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ben Wolsieffer <ben.wolsieffer@hefring.com>
+Subject: [Linux-stm32] [PATCH v2 0/5] Add STM32F7 SPI support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,86 +84,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Oct 31, 2023 at 05:10:24PM +0100, Bernd Edlinger wrote:
-> 
-> 
-> On 10/31/23 11:32, Serge Semin wrote:
-> > On Mon, Oct 30, 2023 at 07:01:11AM +0100, Bernd Edlinger wrote:
-> >> otherwise the synopsys_id value may be read out wrong,
-> >> because the GMAC_VERSION register might still be in reset
-> >> state, for at least 1 us after the reset is de-asserted.
-> > 
-> > From what have you got that delay value?
-> > 
-> 
-> Just try and error, with very old linux versions and old gcc versions
-> the synopsys_id was read out correctly most of the time (but not always),
-> with recent linux versions and recnet gcc versions it was read out
-> wrongly most of the time, but again not always.
-> I don't have access to the VHDL code in question, so I cannot
-> tell why it takes so long to get the correct values, I also do not
-> have more than a few hardware samples, so I cannot tell how long
-> this timeout must be in worst case.
-> Experimentally I can tell that the register is read several times
-> as zero immediately after the reset is de-asserted, also adding several
-> no-ops is not enough, adding a printk is enough, also udelay(1) seems to
-> be enough but I tried that not very often, and I have not access to many
-> hardware samples to be 100% sure about the necessary delay.
-> And since the udelay here is only executed once per device instance,
-> it seems acceptable to delay the boot for 10 us.
-> 
-> BTW: my hardware's synopsys id is 0x37.
+This series adds support for SPI on STM32F7 processors. The STM32F7 SPI
+peripheral is nearly identical to the STM32F4, with the only significant
+differences being that it supports a wider range of word sizes, and the
+addition of 32-bit transmit and receive FIFOs.
 
-Well, the delay value is highly hardware-dependent depending on the
-IP-core version, generation (MAC1000, GMAC, QoS Eth, XGMAC, XLGMAC,
-etc), IP-core synthesize parameters and finally the platform-specific
-ref clocks implementation and their rates. So no matter how many you
-try to figure out a safest value I guess you won't be able to find out
-the common value for all the devices. Though seeing nobody has
-reported so far any problem with that then it seems rare among the DW
-*MAC* devices. So since you get to a add a very small delay in just a
-perf non-critical path it won't hurt for the rest of the platforms.
-But please very thoroughly define the problem in the commit message:
-what hardware you have (SoC, platform, etc), in what conditions you
-see the problem (what you already described in your reply to me), how
-you've got to the 10us value, etc. It will be useful in case if
-somebody would want for instance make the delay platform-dependent or
-whatever.
+v2:
+  - Add missing commit body
 
--Serge(y)
+Ben Wolsieffer (5):
+  spi: stm32: rename stm32f4_* to stm32fx_*
+  spi: stm32: use callbacks for read_rx and write_tx
+  dt-bindings: spi: add stm32f7-spi compatible
+  spi: stm32: add STM32F7 support
+  ARM: dts: stm32: add SPI support on STM32F746
 
-> 
-> 
-> Bernd.
-> 
-> > -Serge(y)
-> > 
-> >>
-> >> Add a wait for 10 us before continuing to be on the safe side.
-> >>
-> >> Signed-off-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
-> >> ---
-> >>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
-> >>  1 file changed, 3 insertions(+)
-> >>
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> index 5801f4d50f95..e485f4db3605 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> @@ -7398,6 +7398,9 @@ int stmmac_dvr_probe(struct device *device,
-> >>  		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n",
-> >>  			ERR_PTR(ret));
-> >>  
-> >> +	/* Wait a bit for the reset to take effect */
-> >> +	udelay(10);
-> >> +
-> >>  	/* Init MAC and get the capabilities */
-> >>  	ret = stmmac_hw_init(priv);
-> >>  	if (ret)
-> >> -- 
-> >> 2.39.2
-> >>
-> >>
+ .../devicetree/bindings/spi/st,stm32-spi.yaml |   1 +
+ arch/arm/boot/dts/st/stm32f746.dtsi           |  60 +++
+ drivers/spi/spi-stm32.c                       | 455 ++++++++++++------
+ 3 files changed, 367 insertions(+), 149 deletions(-)
+
+-- 
+2.42.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
