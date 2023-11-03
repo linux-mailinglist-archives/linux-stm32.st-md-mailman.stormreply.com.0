@@ -2,76 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C0F7E1CFF
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 10:08:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384387DFFF5
+	for <lists+linux-stm32@lfdr.de>; Fri,  3 Nov 2023 10:20:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A09CBC6DD66;
-	Mon,  6 Nov 2023 09:08:31 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD3B3C6B44D;
+	Fri,  3 Nov 2023 09:20:29 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 320DBC6B457
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03A91C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Nov 2023 19:38:05 +0000 (UTC)
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-779f2718accso81704685a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Nov 2023 12:38:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1698953884; x=1699558684;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6aaUx3IM/nYfDKWStA9Ff2X3zBWfKwgpoaBzpBVRw5U=;
- b=geqf1PPwjGbMJMdlOMnycaLs5lqRF9bx4oJWhk3Sy6ZMuqwWa5SveMBKbsYwNGwMBB
- Ra/ihE8FsX/UdaU40hqcOc3sKlun2OmFkHS1Wr+qpF4uhASMma2GCH6EnIjp3bbZdjLU
- BNWehwfVyiEfV6i2RI5cNXZKq0WG3ZTgK0yZWlQ+9Pi5kVOS3Pdr0uSMed9cxUml0Sza
- y2DOpDY4XKRVHBUSt3lkSBiboXpYd50rvcJtRrjz4S/iJEvHMXdeRQIEgKBq3uiaiQeC
- 0cpzYOrAmycHzkNgP3EWNv84leH20R69CDJt0e+0Toxr8KEzU2L8f94ewAdI0MjQm3EZ
- 2RJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698953884; x=1699558684;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=6aaUx3IM/nYfDKWStA9Ff2X3zBWfKwgpoaBzpBVRw5U=;
- b=bFlbXaGHtLSPn9IA51hSalHwU4Bzc9Vx7o8mDmcu93fza8ujPgdflsZT/vJIv2fTIG
- gNxZZoQvgN4NtRHlUf61pjNK5apIB0ZWMUTg7uSdgvVV4D3unPecDBeIk7YutJLxxjFd
- Yd9D6m7rib7K33DMVKeBcCTV7sMgRDom88RzKSNgTgtVu8MiCZh4iNoMw6cV//wGbr86
- G1lQ0jXL2R7HVlxAjtBNoPZy3I2zkhN+DYFeg/iwhrvlsAS0ui4R5hqLhxLm2vT6jJ+V
- LslpuA02YvkZQcpAAOfOLXvAMMRhwqGUzeOnIvy0S26LHmKshNafzGIP7vuDY8rKRE+K
- nnEA==
-X-Gm-Message-State: AOJu0Yz7m6T+KoPcG371BivC/Z/ujNPcui1XEgBpYQ8p42kAu7YfZzf+
- 6WvVYwOV2oJuZxwFMqhWcjA0foZVcLHTKpLkIXo=
-X-Google-Smtp-Source: AGHT+IGl1n2G2oeUX/4FgvKTLXfhf+P6aEP1OM//x0r4Ln54rPG+Aie8qOEQgGDLVsNuD/9Gag0UxA==
-X-Received: by 2002:a05:6214:2688:b0:66d:9f40:4792 with SMTP id
- gm8-20020a056214268800b0066d9f404792mr26366649qvb.26.1698953884213; 
- Thu, 02 Nov 2023 12:38:04 -0700 (PDT)
-Received: from localhost.localdomain ([50.212.55.89])
- by smtp.gmail.com with ESMTPSA id
- a10-20020a0ce90a000000b0065b260eafd9sm30654qvo.87.2023.11.02.12.38.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Nov 2023 12:38:03 -0700 (PDT)
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu,  2 Nov 2023 15:37:22 -0400
-Message-ID: <20231102193722.3042245-6-ben.wolsieffer@hefring.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231102193722.3042245-1-ben.wolsieffer@hefring.com>
-References: <20231102193722.3042245-1-ben.wolsieffer@hefring.com>
+ Fri,  3 Nov 2023 09:20:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id C01DBCE225E;
+ Fri,  3 Nov 2023 09:20:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AD109C433CB;
+ Fri,  3 Nov 2023 09:20:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699003223;
+ bh=89TbsSiluHz4CNriX3OAzekwzCM5uTxxSUvf2oTXa34=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=sqB2O09bxp2xTGfqpa2Q9qJPPULBI/7K6WKuSLhdxJKrPxI31or3SZlsGvKoJo/gj
+ 5xxu5L76j/JxVLRDC2phsoGH5WQeNGwAYjkA3KHOvEWB5ie4mRAdl1PiPSXNWuReGr
+ Pp4uZzL8vDEKgRJbbjhKyG2phH2YCeR+Lw1587PYYnsT8e0/+5SEMjabOuoE0jEwLn
+ n1n4iufPu78h20j1ZCLQ9U/s7q8YxgK6khG7P+jyXlMyEMJwtdkAytRyCi9gFa47RP
+ B9aCBFs9OuaVFRNlDz2FfrbUddqh3x23kgPKNlE16sKufO0FTYi/D685q3khINa0v1
+ ZZaH7/HlwjBtw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 89DC0E00088; Fri,  3 Nov 2023 09:20:23 +0000 (UTC)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 06 Nov 2023 09:08:29 +0000
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ben Wolsieffer <ben.wolsieffer@hefring.com>
-Subject: [Linux-stm32] [PATCH v2 5/5] ARM: dts: stm32: add SPI support on
-	STM32F746
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <169900322356.11636.3563922436510557327.git-patchwork-notify@kernel.org>
+Date: Fri, 03 Nov 2023 09:20:23 +0000
+References: <20231031022729.2347871-1-0x1207@gmail.com>
+In-Reply-To: <20231031022729.2347871-1-0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, horms@kernel.org, jpinto@synopsys.com,
+ netdev@vger.kernel.org, fancer.lancer@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, xfr@outlook.com,
+ jacob.e.keller@intel.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: xgmac: Enable support
+ for multiple Flexible PPS outputs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,100 +63,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add device tree nodes for the STM32F746 SPI controllers.
+Hello:
 
-Signed-off-by: Ben Wolsieffer <ben.wolsieffer@hefring.com>
----
- arch/arm/boot/dts/st/stm32f746.dtsi | 60 +++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
 
-diff --git a/arch/arm/boot/dts/st/stm32f746.dtsi b/arch/arm/boot/dts/st/stm32f746.dtsi
-index 53a8e2dec9a4..14ba51f2a13d 100644
---- a/arch/arm/boot/dts/st/stm32f746.dtsi
-+++ b/arch/arm/boot/dts/st/stm32f746.dtsi
-@@ -274,6 +274,26 @@ gcan3: gcan@40003600 {
- 			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
- 		};
- 
-+		spi2: spi@40003800 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40003800 0x400>;
-+			interrupts = <36>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(SPI2)>;
-+			status = "disabled";
-+		};
-+
-+		spi3: spi@40003c00 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40003c00 0x400>;
-+			interrupts = <51>;
-+			clocks = <&rcc 0 STM32F7_APB1_CLOCK(SPI3)>;
-+			status = "disabled";
-+		};
-+
- 		usart2: serial@40004400 {
- 			compatible = "st,stm32f7-uart";
- 			reg = <0x40004400 0x400>;
-@@ -491,6 +511,26 @@ sdio1: mmc@40012c00 {
- 			status = "disabled";
- 		};
- 
-+		spi1: spi@40013000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40013000 0x400>;
-+			interrupts = <35>;
-+			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI1)>;
-+			status = "disabled";
-+		};
-+
-+		spi4: spi@40013400 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40013400 0x400>;
-+			interrupts = <84>;
-+			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI4)>;
-+			status = "disabled";
-+		};
-+
- 		syscfg: syscon@40013800 {
- 			compatible = "st,stm32-syscfg", "syscon";
- 			reg = <0x40013800 0x400>;
-@@ -554,6 +594,26 @@ pwm {
- 			};
- 		};
- 
-+		spi5: spi@40015000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40015000 0x400>;
-+			interrupts = <85>;
-+			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI5)>;
-+			status = "disabled";
-+		};
-+
-+		spi6: spi@40015400 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "st,stm32f7-spi";
-+			reg = <0x40015400 0x400>;
-+			interrupts = <86>;
-+			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI6)>;
-+			status = "disabled";
-+		};
-+
- 		ltdc: display-controller@40016800 {
- 			compatible = "st,stm32-ltdc";
- 			reg = <0x40016800 0x200>;
+On Tue, 31 Oct 2023 10:27:29 +0800 you wrote:
+> From XGMAC Core 3.20 and later, each Flexible PPS has individual PPSEN bit
+> to select Fixed mode or Flexible mode. The PPSEN must be set, or it stays
+> in Fixed PPS mode by default.
+> XGMAC Core prior 3.20, only PPSEN0(bit 4) is writable. PPSEN{1,2,3} are
+> read-only reserved, and they are already in Flexible mode by default, our
+> new code always set PPSEN{1,2,3} do not make things worse ;-)
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v3] net: stmmac: xgmac: Enable support for multiple Flexible PPS outputs
+    https://git.kernel.org/netdev/net/c/db456d90a4c1
+
+You are awesome, thank you!
 -- 
-2.42.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
