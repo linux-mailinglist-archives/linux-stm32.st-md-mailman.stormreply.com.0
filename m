@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C11017E4CA7
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Nov 2023 00:22:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB5C97E4CCB
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Nov 2023 00:23:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 692BBC6B44B;
-	Tue,  7 Nov 2023 23:22:41 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82DD0C6B44B;
+	Tue,  7 Nov 2023 23:23:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 354ABC6A615
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAFD8C6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Nov 2023 23:22:39 +0000 (UTC)
+ Tue,  7 Nov 2023 23:23:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7CB11CE0219;
- Tue,  7 Nov 2023 23:22:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5B1C433C7;
- Tue,  7 Nov 2023 23:22:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id AB66F6142D;
+ Tue,  7 Nov 2023 23:23:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6C8C433C9;
+ Tue,  7 Nov 2023 23:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699399355;
- bh=+CbiV6rpXCNM6vhS/PR5+TmIMmNSjDz1OXp5IClnHWY=;
+ s=k20201202; t=1699399414;
+ bh=FX4s6gcUad54H7+HzmsvJ3/83m9wCEUkO0xbZpoE/O0=;
  h=From:To:Cc:Subject:Date:From;
- b=ppLF/uAX6TCx6i0kRXOW+epaJ/1C9INp1UglbkanA6RtlUloLywiBg0Iuxtawgg9H
- 2Tt6BPxkT3Xb6NOuIExSc5dNX8bGVDlRb6FPL/S4AFl+yPFcADIpPyfDxkahI4tXVf
- b4z9nprXsiifyxHq5/Rwp/WZRnvsyZkeKuYMJnCil0pZ5LpN7SD0WOTHG5zBDcKxJl
- F3HCFnaw+S/dsyKhL9Iy3iyN0rofoydLK2RWH91oIppExdX8QVTXMozO2C1LLeTHB8
- JUQz3VJSxq5HMHDyf3dF2nVDSal8c4xN4uXS9cUWfSjMm6jycqmkjJYP+KJ+RoQ4Ja
- pYMW8Wyk4aQSg==
+ b=SuvoM/wkacOPyG+OD5Dh7x0NKdfRDaMji67tYzyIees8iZk4tfl6eDAEa57GOQakW
+ AsGivnB+nM+mmjJAL8UaFzvN44bqKTjAg8zloHPFAle/Rvh9bap4nKwe4Pve4btdzB
+ gyURNfhNVIt1RWdgextf+A8MFETf1FN4XoC03+ejbf827I9vugwMFve5iXsEgSk7Md
+ DxE0kdIdc6406Wg1I7vNB+3XgYgMZ0PoIqcwZukIyOG/I/gbNto9Ugbm2EdS5wG7be
+ jf6BXOl80YIcK3kcJFXmXMYWE1Oo4hm5fPYdmyOrkE+mog/NBxolcL0KgXU1cPjdXm
+ BxMTovHUdVHJA==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue,  7 Nov 2023 18:21:55 -0500
-Message-ID: <20231107232231.3775605-1-sashal@kernel.org>
+Date: Tue,  7 Nov 2023 18:22:56 -0500
+Message-ID: <20231107232330.3776001-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6
-Cc: Sasha Levin <sashal@kernel.org>, robh@kernel.org, heiko@sntech.de,
- frank.li@vivo.com, linux-iio@vger.kernel.org, u.kleine-koenig@pengutronix.de,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+X-stable-base: Linux 6.5.10
+Cc: Sasha Levin <sashal@kernel.org>, robh@kernel.org, frank.li@vivo.com,
+ linux-iio@vger.kernel.org, u.kleine-koenig@pengutronix.de,
+ andy.shevchenko@gmail.com, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, Jonathan Cameron <Jonathan.Cameron@huawei.com>,
  linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org,
  Zhang Shurong <zhang_shurong@foxmail.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 01/18] iio: adc: stm32-adc: harden
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.5 01/18] iio: adc: stm32-adc: harden
 	against NULL pointer deref in stm32_adc_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -80,10 +80,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 2f082006550fd..bbd5bdd732f01 100644
+index 48f02dcc81c1b..70011fdbf5f63 100644
 --- a/drivers/iio/adc/stm32-adc-core.c
 +++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -708,6 +708,8 @@ static int stm32_adc_probe(struct platform_device *pdev)
+@@ -706,6 +706,8 @@ static int stm32_adc_probe(struct platform_device *pdev)
  	struct stm32_adc_priv *priv;
  	struct device *dev = &pdev->dev;
  	struct device_node *np = pdev->dev.of_node;
@@ -92,7 +92,7 @@ index 2f082006550fd..bbd5bdd732f01 100644
  	struct resource *res;
  	u32 max_rate;
  	int ret;
-@@ -720,8 +722,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
+@@ -718,8 +720,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
  		return -ENOMEM;
  	platform_set_drvdata(pdev, &priv->common);
  
