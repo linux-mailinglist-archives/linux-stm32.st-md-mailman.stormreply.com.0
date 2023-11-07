@@ -2,60 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FBBB7E2ACD
-	for <lists+linux-stm32@lfdr.de>; Mon,  6 Nov 2023 18:17:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9497F7E348E
+	for <lists+linux-stm32@lfdr.de>; Tue,  7 Nov 2023 05:37:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F413FC6B460;
-	Mon,  6 Nov 2023 17:17:56 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48A53C6B461;
+	Tue,  7 Nov 2023 04:37:08 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B29DCC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 76C01C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Nov 2023 17:17:55 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1r03EV-0005au-7B; Mon, 06 Nov 2023 18:17:51 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1r03EU-0075z9-AJ; Mon, 06 Nov 2023 18:17:50 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1r03EU-00DrJf-0y; Mon, 06 Nov 2023 18:17:50 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Lee Jones <lee@kernel.org>
-Date: Mon,  6 Nov 2023 18:17:24 +0100
-Message-ID: <20231106171708.3892347-16-u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.42.0.586.gbc5204569f7d.dirty
-In-Reply-To: <20231106171708.3892347-1-u.kleine-koenig@pengutronix.de>
-References: <20231106171708.3892347-1-u.kleine-koenig@pengutronix.de>
+ Tue,  7 Nov 2023 04:37:06 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-2800f7c8125so4952166a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Nov 2023 20:37:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1699331825; x=1699936625;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=WGCkBY5WRLeayy3l30tNZQ/lx6Qo6qQvQDwDMwFQ+1I=;
+ b=E3Ztft2bYDGPI+dE1H3/eNGqQaaTbcncODgFqccKr848q0FC2Z5d7vHkOvfDlM37H0
+ 74hiFZ56QvpaMNb5N25sK/jf/h2BCZmZln9SunQo9c3ql463s4NRLBQOgmNvO/XmbVwJ
+ qdRoo/UGtMkR6BiVDig0qXLn28lclYaXFFRpaNjRa8r8DTg58/OLbG9Xxl+RH4+Blxbh
+ 1ZwOPa1hNEOhH6LTErzxc9D9zL8rFj942oIUqqUNFHkDo329bUYeYYuDwBahhVj3QOOH
+ 6Sd6vI0iH3+Twxe5lzJvMLQ9xriMfH15CxRez+ZDJuug2LJXUJ/u9MVckK6cUG+RxZmk
+ VIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699331825; x=1699936625;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=WGCkBY5WRLeayy3l30tNZQ/lx6Qo6qQvQDwDMwFQ+1I=;
+ b=bmaNuQm2GMobXnkkoFUgYcyGNfVAIwSysqJDCmFixGGZWkWVGUzThgfiUiyAUWGaJc
+ Pdw/lwYme5R8Nr2i6YD6nZ9yEn7KhhBRhCSq/AfM6N3N/YAY6owNbte0+NPGdr91qfHO
+ hb2lHjlqaM9RjwCyRgYjk25M4ktpVjs76m3MQw5UYklX41tAHDRkglJWP3xUnz1hsSKb
+ qLOLO51ik5OUcvLmHqTNramCVVIZ5YM7P/qfnOQki2Z9ylk8UXvtrZczX068WDGJ1Dnj
+ rBh4GlGP7XhTCqq/EzkWjo6ninv0p0lkFrYTRcYf44EXJJQ8qQeJcVsu+bAaQgrVzfq9
+ txlw==
+X-Gm-Message-State: AOJu0Yz5cLRnELtNzUUR6nyWbf6qpBFgW/7uHODDAbQcjhmkrghaj1ZW
+ c7ZLRmpGsWh9HPBLT9QBd4Aczj28Js1XE1KV6cQkUw==
+X-Google-Smtp-Source: AGHT+IGg4IOO6iwAswJi2mx9of/jHYKlPfVVgAfZJKHgBHD1eD+l0sMvC0aW2GnKG+Lb8F2pQhN8cJmgPngMWzUV98w=
+X-Received: by 2002:a17:90b:1d06:b0:268:808:8e82 with SMTP id
+ on6-20020a17090b1d0600b0026808088e82mr2056098pjb.1.1699331824947; Mon, 06 Nov
+ 2023 20:37:04 -0800 (PST)
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1913;
- i=u.kleine-koenig@pengutronix.de; h=from:subject;
- bh=jVkK8Ke5hsybq+hJya3Qt2KaRP0LWkU08638E+yF+OA=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlSR+mWnS+kDacKKlH4v2Liesd5r6OzwvKBRTf0
- 42Nudp3EaOJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZUkfpgAKCRCPgPtYfRL+
- Th4jCAChOnRByVuDoEEgRtaZ29TE4Wyd0c8x3Im/5GBUKAIQ6n5P2tWhAKBAbGN1hSisGBWGpSj
- OH4X2zfWLdJmyI3/emIZsuKOPr/GWj0XchRPJcEXyzLwkDX1ycZcHW9x8kbo96llWzEIwj/jNTf
- 9dNl0tD5lkD1QFA43/9XFjutwadfXB3uL7LbQ10QcGg32fGNxQTn/xSPehNpBlahbqNfJpyUGGN
- 2eBJaY3AXqtrimgG3lZlJTxq0aa8uMG2kqlKnNUooWmrdLG1G4MCdam4HoZ5CJu5LIlHKs7ukL3
- AeIhRKQvvT5W5Jbaj06qCZSkpeiqMpFJkbxTaejZcq44NTok
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, kernel@pengutronix.de,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 15/18] mfd: stm32-timers: Convert to platform
-	remove callback returning void
+References: <20231013074540.8980-1-masahisa.kojima@linaro.org>
+ <20231013074540.8980-7-masahisa.kojima@linaro.org>
+ <CAFA6WYMoWn6MgoRp8hD89PwmLeHaO+X1sGB0QOMQDLJtuseP3g@mail.gmail.com>
+In-Reply-To: <CAFA6WYMoWn6MgoRp8hD89PwmLeHaO+X1sGB0QOMQDLJtuseP3g@mail.gmail.com>
+From: Masahisa Kojima <masahisa.kojima@linaro.org>
+Date: Tue, 7 Nov 2023 13:36:53 +0900
+Message-ID: <CADQ0-X99y_q+3L+dRWr39uV63YX6_9HrNQzFpZW5_SvmDn1vqQ@mail.gmail.com>
+To: Sumit Garg <sumit.garg@linaro.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
+ Randy Dunlap <rdunlap@infradead.org>, Jan Kiszka <jan.kiszka@siemens.com>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Jens Wiklander <jens.wiklander@linaro.org>, op-tee@lists.trustedfirmware.org,
+ Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Ard Biesheuvel <ardb@kernel.org>, Johan Hovold <johan+linaro@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v9 6/6] tee: optee: restore efivars ops
+ when tee-supplicant stops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,44 +79,110 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIC5yZW1vdmUoKSBjYWxsYmFjayBmb3IgYSBwbGF0Zm9ybSBkcml2ZXIgcmV0dXJucyBhbiBp
-bnQgd2hpY2ggbWFrZXMKbWFueSBkcml2ZXIgYXV0aG9ycyB3cm9uZ2x5IGFzc3VtZSBpdCdzIHBv
-c3NpYmxlIHRvIGRvIGVycm9yIGhhbmRsaW5nIGJ5CnJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyBpZ25vcmVkIChhcGFydApmcm9tIGVtaXR0aW5n
-IGEgd2FybmluZykgYW5kIHRoaXMgdHlwaWNhbGx5IHJlc3VsdHMgaW4gcmVzb3VyY2UgbGVha3Mu
-CgpUbyBpbXByb3ZlIGhlcmUgdGhlcmUgaXMgYSBxdWVzdCB0byBtYWtlIHRoZSByZW1vdmUgY2Fs
-bGJhY2sgcmV0dXJuCnZvaWQuIEluIHRoZSBmaXJzdCBzdGVwIG9mIHRoaXMgcXVlc3QgYWxsIGRy
-aXZlcnMgYXJlIGNvbnZlcnRlZCB0bwoucmVtb3ZlX25ldygpLCB3aGljaCBhbHJlYWR5IHJldHVy
-bnMgdm9pZC4gRXZlbnR1YWxseSBhZnRlciBhbGwgZHJpdmVycwphcmUgY29udmVydGVkLCAucmVt
-b3ZlX25ldygpIHdpbGwgYmUgcmVuYW1lZCB0byAucmVtb3ZlKCkuCgpUcml2aWFsbHkgY29udmVy
-dCB0aGlzIGRyaXZlciBmcm9tIGFsd2F5cyByZXR1cm5pbmcgemVybyBpbiB0aGUgcmVtb3ZlCmNh
-bGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2YXJpYW50LgoKU2lnbmVkLW9mZi1ieTogVXdl
-IEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KLS0tCiBkcml2
-ZXJzL21mZC9zdG0zMi10aW1lcnMuYyB8IDYgKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
-cnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWZkL3N0bTMy
-LXRpbWVycy5jIGIvZHJpdmVycy9tZmQvc3RtMzItdGltZXJzLmMKaW5kZXggYTY1NmExYzE4NmE4
-Li45ZmQxM2Q4ODk1MGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbWZkL3N0bTMyLXRpbWVycy5jCisr
-KyBiL2RyaXZlcnMvbWZkL3N0bTMyLXRpbWVycy5jCkBAIC0zMDYsNyArMzA2LDcgQEAgc3RhdGlj
-IGludCBzdG0zMl90aW1lcnNfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIAly
-ZXR1cm4gcmV0OwogfQogCi1zdGF0aWMgaW50IHN0bTMyX3RpbWVyc19yZW1vdmUoc3RydWN0IHBs
-YXRmb3JtX2RldmljZSAqcGRldikKK3N0YXRpYyB2b2lkIHN0bTMyX3RpbWVyc19yZW1vdmUoc3Ry
-dWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIHsKIAlzdHJ1Y3Qgc3RtMzJfdGltZXJzICpkZGF0
-YSA9IHBsYXRmb3JtX2dldF9kcnZkYXRhKHBkZXYpOwogCkBAIC0zMTYsOCArMzE2LDYgQEAgc3Rh
-dGljIGludCBzdG0zMl90aW1lcnNfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYp
-CiAJICovCiAJb2ZfcGxhdGZvcm1fZGVwb3B1bGF0ZSgmcGRldi0+ZGV2KTsKIAlzdG0zMl90aW1l
-cnNfZG1hX3JlbW92ZSgmcGRldi0+ZGV2LCBkZGF0YSk7Ci0KLQlyZXR1cm4gMDsKIH0KIAogc3Rh
-dGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgc3RtMzJfdGltZXJzX29mX21hdGNoW10gPSB7
-CkBAIC0zMjgsNyArMzI2LDcgQEAgTU9EVUxFX0RFVklDRV9UQUJMRShvZiwgc3RtMzJfdGltZXJz
-X29mX21hdGNoKTsKIAogc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgc3RtMzJfdGltZXJz
-X2RyaXZlciA9IHsKIAkucHJvYmUgPSBzdG0zMl90aW1lcnNfcHJvYmUsCi0JLnJlbW92ZSA9IHN0
-bTMyX3RpbWVyc19yZW1vdmUsCisJLnJlbW92ZV9uZXcgPSBzdG0zMl90aW1lcnNfcmVtb3ZlLAog
-CS5kcml2ZXIJPSB7CiAJCS5uYW1lID0gInN0bTMyLXRpbWVycyIsCiAJCS5vZl9tYXRjaF90YWJs
-ZSA9IHN0bTMyX3RpbWVyc19vZl9tYXRjaCwKLS0gCjIuNDIuMAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
-bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Hi Sumit,
+
+On Fri, 13 Oct 2023 at 16:59, Sumit Garg <sumit.garg@linaro.org> wrote:
+>
+> Hi Kojima-san,
+>
+> On Fri, 13 Oct 2023 at 13:18, Masahisa Kojima
+> <masahisa.kojima@linaro.org> wrote:
+> >
+> > When tee-supplicant stops, tee-based EFI variable service
+> > is no longer available. Restore the efivars generic ops at the
+> > moment when tee-supplicant stops.
+>
+> This is a layering violation as evident from below linking error. The
+> tee-supplicant is internal to how OP-TEE is implemented. I have
+> already shared a unified way to handle shutdown of supplicant
+> dependent devices here [1].
+
+I will drop this patch, and send the next version.
+
+Thanks,
+Masahisa Kojima
+
+>
+> [1] https://lore.kernel.org/all/20230728134832.326467-1-sumit.garg@linaro.org/
+>
+> -Sumit
+>
+> >
+> > Linking error occurs if we set CONFIG_OPTEE=y and
+> > CONFIG_TEE_STMM_EFI=m. Use IS_REACHABLE() guard to call
+> > tee_stmm_restore_efivars_generic_ops() function.
+> >
+> > Signed-off-by: Masahisa Kojima <masahisa.kojima@linaro.org>
+> > ---
+> >  drivers/firmware/efi/stmm/tee_stmm_efi.c | 8 +++++++-
+> >  drivers/tee/optee/supp.c                 | 4 ++++
+> >  include/linux/efi.h                      | 1 +
+> >  3 files changed, 12 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/firmware/efi/stmm/tee_stmm_efi.c b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+> > index edc165bc1bb0..e804b260edaa 100644
+> > --- a/drivers/firmware/efi/stmm/tee_stmm_efi.c
+> > +++ b/drivers/firmware/efi/stmm/tee_stmm_efi.c
+> > @@ -572,10 +572,16 @@ static int tee_stmm_efi_probe(struct device *dev)
+> >         return 0;
+> >  }
+> >
+> > -static int tee_stmm_efi_remove(struct device *dev)
+> > +void tee_stmm_restore_efivars_generic_ops(void)
+> >  {
+> >         efivars_unregister(&tee_efivars);
+> >         efivars_generic_ops_register();
+> > +}
+> > +EXPORT_SYMBOL_GPL(tee_stmm_restore_efivars_generic_ops);
+> > +
+> > +static int tee_stmm_efi_remove(struct device *dev)
+> > +{
+> > +       tee_stmm_restore_efivars_generic_ops();
+> >
+> >         return 0;
+> >  }
+> > diff --git a/drivers/tee/optee/supp.c b/drivers/tee/optee/supp.c
+> > index 322a543b8c27..d07d4fc4e72e 100644
+> > --- a/drivers/tee/optee/supp.c
+> > +++ b/drivers/tee/optee/supp.c
+> > @@ -3,6 +3,7 @@
+> >   * Copyright (c) 2015, Linaro Limited
+> >   */
+> >  #include <linux/device.h>
+> > +#include <linux/efi.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/uaccess.h>
+> >  #include "optee_private.h"
+> > @@ -58,6 +59,9 @@ void optee_supp_release(struct optee_supp *supp)
+> >                 complete(&req->c);
+> >         }
+> >
+> > +       if (IS_REACHABLE(CONFIG_TEE_STMM_EFI))
+> > +               tee_stmm_restore_efivars_generic_ops();
+> > +
+> >         supp->ctx = NULL;
+> >         supp->req_id = -1;
+> >
+> > diff --git a/include/linux/efi.h b/include/linux/efi.h
+> > index 489707b9b0b0..9b60893d6299 100644
+> > --- a/include/linux/efi.h
+> > +++ b/include/linux/efi.h
+> > @@ -1365,5 +1365,6 @@ extern struct blocking_notifier_head efivar_ops_nh;
+> >
+> >  void efivars_generic_ops_register(void);
+> >  void efivars_generic_ops_unregister(void);
+> > +void tee_stmm_restore_efivars_generic_ops(void);
+> >
+> >  #endif /* _LINUX_EFI_H */
+> > --
+> > 2.30.2
+> >
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
