@@ -2,68 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30917E3ABF
-	for <lists+linux-stm32@lfdr.de>; Tue,  7 Nov 2023 12:06:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C11017E4CA7
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Nov 2023 00:22:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EB31C6B463;
-	Tue,  7 Nov 2023 11:06:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 692BBC6B44B;
+	Tue,  7 Nov 2023 23:22:41 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B95CCC6B461
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 354ABC6A615
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Nov 2023 11:06:18 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3A7Ab30n023702; Tue, 7 Nov 2023 12:06:00 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=GsZbf1O
- usFrNfhIV1CDJxzRVyg3nK7nEux7A+R3rSug=; b=C94JsqqU67pqRk8zLjuDXnx
- DwAMqHuToFm3IR1gYqfTMzGtQvaWcmM7E8rnXvRCG5X7pmSHb9v4j+LzeNkTl5DA
- +2tl6wKCXhrk1oWV6cWL0z/2pxyAab/Yb/pNpq3UvQhx4iUhW6Y2Wzwr3t25B8CD
- Q+dWHcnGgxe0LLkRuc+guJLuctCoM/L1NhWgYhrsBfuPKPVozaolzDhN7/MS/uSp
- eZiqIv3afNqQp/xfKESkXtxwNjI8+JpEL2RMMx7SyJDlT1fb4c+Vey+HpJ/hsDYJ
- F++jJrm9Cd8Pj+Hrf74xu/kwmMYeDZK482St4Vj629/FLFLnhDZnPzMC6zSKiqA=
- =
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3u5ehtks2f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 07 Nov 2023 12:06:00 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E012D100059;
- Tue,  7 Nov 2023 12:05:58 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D2FB121ADBC;
- Tue,  7 Nov 2023 12:05:58 +0100 (CET)
-Received: from localhost (10.201.20.114) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 7 Nov
- 2023 12:05:58 +0100
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Linus Walleij <linus.walleij@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>, Valentin Caron
- <valentin.caron@foss.st.com>, Dario Binacchi
- <dario.binacchi@amarulasolutions.com>,
- =?UTF-8?q?Bernhard=20Rosenkr=C3=A4nzer?= <bero@baylibre.com>
-Date: Tue, 7 Nov 2023 12:05:20 +0100
-Message-ID: <20231107110520.4449-1-antonio.borneo@foss.st.com>
+ Tue,  7 Nov 2023 23:22:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 7CB11CE0219;
+ Tue,  7 Nov 2023 23:22:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5B1C433C7;
+ Tue,  7 Nov 2023 23:22:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1699399355;
+ bh=+CbiV6rpXCNM6vhS/PR5+TmIMmNSjDz1OXp5IClnHWY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ppLF/uAX6TCx6i0kRXOW+epaJ/1C9INp1UglbkanA6RtlUloLywiBg0Iuxtawgg9H
+ 2Tt6BPxkT3Xb6NOuIExSc5dNX8bGVDlRb6FPL/S4AFl+yPFcADIpPyfDxkahI4tXVf
+ b4z9nprXsiifyxHq5/Rwp/WZRnvsyZkeKuYMJnCil0pZ5LpN7SD0WOTHG5zBDcKxJl
+ F3HCFnaw+S/dsyKhL9Iy3iyN0rofoydLK2RWH91oIppExdX8QVTXMozO2C1LLeTHB8
+ JUQz3VJSxq5HMHDyf3dF2nVDSal8c4xN4uXS9cUWfSjMm6jycqmkjJYP+KJ+RoQ4Ja
+ pYMW8Wyk4aQSg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Tue,  7 Nov 2023 18:21:55 -0500
+Message-ID: <20231107232231.3775605-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.114]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-07_01,2023-11-07_01,2023-05-22_02
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: fix array read out of bound
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.6
+Cc: Sasha Levin <sashal@kernel.org>, robh@kernel.org, heiko@sntech.de,
+ frank.li@vivo.com, linux-iio@vger.kernel.org, u.kleine-koenig@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ linux-stm32@st-md-mailman.stormreply.com, jic23@kernel.org,
+ Zhang Shurong <zhang_shurong@foxmail.com>
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 01/18] iio: adc: stm32-adc: harden
+	against NULL pointer deref in stm32_adc_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,39 +62,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The existing code does not verify if the "tentative" index exceeds
-the size of the array, causing out of bound read.
-Issue identified with kasan.
+From: Zhang Shurong <zhang_shurong@foxmail.com>
 
-Check the index before using it.
+[ Upstream commit 3a23b384e7e3d64d5587ad10729a34d4f761517e ]
 
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Fixes: 32c170ff15b0 ("pinctrl: stm32: set default gpio line names using pin names")
+of_match_device() may fail and returns a NULL pointer.
+
+In practice there is no known reasonable way to trigger this, but
+in case one is added in future, harden the code by adding the check
+
+Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
+Link: https://lore.kernel.org/r/tencent_994DA85912C937E3B5405BA960B31ED90A08@qq.com
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pinctrl/stm32/pinctrl-stm32.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/iio/adc/stm32-adc-core.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index a73385a431de..56677bad10f7 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -1283,9 +1283,11 @@ static struct stm32_desc_pin *stm32_pctrl_get_desc_pin_from_gpio(struct stm32_pi
- 	int i;
+diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+index 2f082006550fd..bbd5bdd732f01 100644
+--- a/drivers/iio/adc/stm32-adc-core.c
++++ b/drivers/iio/adc/stm32-adc-core.c
+@@ -708,6 +708,8 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 	struct stm32_adc_priv *priv;
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *np = pdev->dev.of_node;
++	const struct of_device_id *of_id;
++
+ 	struct resource *res;
+ 	u32 max_rate;
+ 	int ret;
+@@ -720,8 +722,11 @@ static int stm32_adc_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 	platform_set_drvdata(pdev, &priv->common);
  
- 	/* With few exceptions (e.g. bank 'Z'), pin number matches with pin index in array */
--	pin_desc = pctl->pins + stm32_pin_nb;
--	if (pin_desc->pin.number == stm32_pin_nb)
--		return pin_desc;
-+	if (stm32_pin_nb < pctl->npins) {
-+		pin_desc = pctl->pins + stm32_pin_nb;
-+		if (pin_desc->pin.number == stm32_pin_nb)
-+			return pin_desc;
-+	}
+-	priv->cfg = (const struct stm32_adc_priv_cfg *)
+-		of_match_device(dev->driver->of_match_table, dev)->data;
++	of_id = of_match_device(dev->driver->of_match_table, dev);
++	if (!of_id)
++		return -ENODEV;
++
++	priv->cfg = (const struct stm32_adc_priv_cfg *)of_id->data;
+ 	priv->nb_adc_max = priv->cfg->num_adcs;
+ 	spin_lock_init(&priv->common.lock);
  
- 	/* Otherwise, loop all array to find the pin with the right number */
- 	for (i = 0; i < pctl->npins; i++) {
-
-base-commit: ffc253263a1375a65fa6c9f62a893e9767fbebfa
 -- 
 2.42.0
 
