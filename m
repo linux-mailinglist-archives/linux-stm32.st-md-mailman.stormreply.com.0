@@ -2,64 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462D17E5880
-	for <lists+linux-stm32@lfdr.de>; Wed,  8 Nov 2023 15:18:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7179F7E5948
+	for <lists+linux-stm32@lfdr.de>; Wed,  8 Nov 2023 15:39:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C902DC6B44D;
-	Wed,  8 Nov 2023 14:18:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22EC5C6B44D;
+	Wed,  8 Nov 2023 14:39:15 +0000 (UTC)
+Received: from mail-yb1-f182.google.com (mail-yb1-f182.google.com
+ [209.85.219.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3C09C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91381C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Nov 2023 14:18:38 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3A8CPNBh030956; Wed, 8 Nov 2023 15:16:42 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=NspPtzR
- PilZb1+CGUuexq7s4WpKeTVApUDMwx70RC58=; b=JrWqmV1xZZJFuJI2sjGftax
- lY4JkdRsW8PzKNHlSSdmIn9U5aCs44nCz9/0liP4e5b0DZDS2AG+pPLy0lMPH3ZQ
- C/GRXSCH7w1XrwRfxLLVq9Nden40wyDsd5kaihwCcfsI3eO4YPa8YfKZl3riNWWF
- 5zbNle5aTV81uh1xJfG+/c8f/gNdizu4FmYHQzvll8RP1DGbqGq4KbzlJDxphM0U
- lMQQ1mfEkBbC0A6tB+JXoFwEZkorNeoZqGP7H1UUqPkD/2Zmf4CjKmHrB6DcBZ55
- WNJ+RynN2Bc1/gcRqbc/yagHWrbS+/kpym9Vp3lklXmQ1t07s2rgIrKjBJ0n8kQ=
- =
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3u7w26bsmc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Nov 2023 15:16:42 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 53D22100051;
- Wed,  8 Nov 2023 15:16:40 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6F6F4237D97;
- Wed,  8 Nov 2023 15:16:40 +0100 (CET)
-Received: from localhost (10.252.14.202) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 8 Nov
- 2023 15:16:39 +0100
-From: Yann Gautier <yann.gautier@foss.st.com>
-To: Ulf Hansson <ulf.hansson@linaro.org>, Linus Walleij
- <linus.walleij@linaro.org>,
- Russell King <linux@armlinux.org.uk>, <linux-mmc@vger.kernel.org>
-Date: Wed, 8 Nov 2023 15:16:37 +0100
-Message-ID: <20231108141637.119497-1-yann.gautier@foss.st.com>
-X-Mailer: git-send-email 2.34.1
+ Wed,  8 Nov 2023 14:39:13 +0000 (UTC)
+Received: by mail-yb1-f182.google.com with SMTP id
+ 3f1490d57ef6-da0359751dbso833196276.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Nov 2023 06:39:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1699454352; x=1700059152;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PQU3hqMMYcYs/SCmGDlKPzxbDtOph1I+oD4U8+UogTs=;
+ b=y8NQcTh4MGqt+OnGTCsnPDxPGI04njNNmhy/hm+IAxRuyDmzul1zs7YMZ2zAa7vKsp
+ FLlC5HQyvSPjzxg6aR9SdB4N3qoVrop7UVPy2cko47ZErLrbxcqWi+OaqWzdD8qm35YP
+ xDDOiMWaQGiyI22UQhZ2mLkMOQXql9cbxXonq645p+IlI/D1Su3t6IkBnVG85Zwq0bL/
+ w+efvzYnsY/zBGS0QXz3/370uJwmjMQpo2wcGPy1It++DH215mzLUVznzENGDfwE+BbE
+ m1dnvjaUe6lRbL/AiLXPp6ENHz79bX80QvG4izSaJgJl6BAvzMfhTVBO2XUpAtYb8a9W
+ x7nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1699454352; x=1700059152;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=PQU3hqMMYcYs/SCmGDlKPzxbDtOph1I+oD4U8+UogTs=;
+ b=hBoFk61AR5UYgEoSiEo7W9lWOF0p69Vzbu8Wl3mViiV51EtkFmBwiyUmVKVMUpztTH
+ nyNDxWSA/lzO6fQemGccJ2UsnWPl8DVXcNUdwUMSL3cScYLrt9TXg46aH2cfiwttOuTc
+ mgngoXdqwFBM4VfdsgsjX+bjj499LRyFGj9Hisbw3TcUHKwpLysYWmjOUJpamXPFgjMI
+ 1qvb1xpEtKTiLYRAJYrfr5HdoB/68xml09kAn2n9BORa+JZSCj6Lw0PnrUKHQqcmatfQ
+ crPpeBPaWciJDKp9cOX/stPncjyF+JIY55EdL81PntQ3E4mv0s/tVGms61ujfQY8ZBzh
+ C2Wg==
+X-Gm-Message-State: AOJu0YxTXtYbQSW2uRAgwmGtkz7tyTLBRmYJLrTj56ySNFlEc5JGlzen
+ Pc7ihwuBlK6Wow+J38g6pPn62kJ+knXYU/eWbBvC3Q==
+X-Google-Smtp-Source: AGHT+IFTCIwDBjEMYpwNJ8pCD6O9DyvdbbX4a7hqAkZOe5VRqRtPaWWQozp69ojbFtC4cQ7kVpXUNe0BHNJc/LPtYy4=
+X-Received: by 2002:a25:aa73:0:b0:da3:f2c0:dcd4 with SMTP id
+ s106-20020a25aa73000000b00da3f2c0dcd4mr1399160ybi.9.1699454352307; Wed, 08
+ Nov 2023 06:39:12 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.252.14.202]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-08_02,2023-11-08_01,2023-05-22_02
-Cc: Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org,
- Ben Wolsieffer <Ben.Wolsieffer@hefring.com>,
+References: <20231108141637.119497-1-yann.gautier@foss.st.com>
+In-Reply-To: <20231108141637.119497-1-yann.gautier@foss.st.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 8 Nov 2023 15:39:00 +0100
+Message-ID: <CACRpkda+JjXKO-HS4XHciiTm6GfViCV1vLQ8T1VNtNzK=qe3hA@mail.gmail.com>
+To: Yann Gautier <yann.gautier@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Ulf Hansson <ulf.hansson@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mmc@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org,
  Yang Yingliang <yangyingliang@huawei.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3] mmc: mmci: stm32: add SDIO in-band
+ Ben Wolsieffer <Ben.Wolsieffer@hefring.com>
+Subject: Re: [Linux-stm32] [PATCH v3] mmc: mmci: stm32: add SDIO in-band
 	interrupt mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -72,190 +74,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-
-Add the support of SDIO in-band interrupt mode for STM32 and Ux500
-variants.
-It allows the SD I/O card to interrupt the host on SDMMC_D1 data line.
-It is not enabled by default on Ux500 variant as this is unstable and
-Ux500 users should use out-of-band IRQs.
-
-Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-Signed-off-by: Yann Gautier <yann.gautier@foss.st.com>
----
-Updates on v3:
-* remove variant ops enable_sdio_irq & sdio_irq and use common
-functions (mmci_write_sdio_irq_bit() & mmci_signal_sdio_irq())
-* enable datactrl_mask_sdio during probe if relevant and keep it
-enabled in mmci_write_datactrlreg().
-
-Updates on v2:
-* rename use_sdio_irq to supports_sdio_irq and change it to bool
-* use common code for ux500 and stm32 variants
-
----
- drivers/mmc/host/mmci.c | 69 +++++++++++++++++++++++++++++++++++++++--
- drivers/mmc/host/mmci.h |  2 ++
- 2 files changed, 69 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index e967cca7a16f..b790c3c3c8f9 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -273,6 +273,7 @@ static struct variant_data variant_stm32_sdmmc = {
- 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
- 	.stm32_idmabsize_mask	= GENMASK(12, 5),
- 	.stm32_idmabsize_align	= BIT(5),
-+	.supports_sdio_irq	= true,
- 	.busy_timeout		= true,
- 	.busy_detect		= true,
- 	.busy_detect_flag	= MCI_STM32_BUSYD0,
-@@ -300,6 +301,7 @@ static struct variant_data variant_stm32_sdmmcv2 = {
- 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
- 	.stm32_idmabsize_mask	= GENMASK(16, 5),
- 	.stm32_idmabsize_align	= BIT(5),
-+	.supports_sdio_irq	= true,
- 	.dma_lli		= true,
- 	.busy_timeout		= true,
- 	.busy_detect		= true,
-@@ -328,6 +330,7 @@ static struct variant_data variant_stm32_sdmmcv3 = {
- 	.datactrl_mask_sdio	= MCI_DPSM_ST_SDIOEN,
- 	.stm32_idmabsize_mask	= GENMASK(16, 6),
- 	.stm32_idmabsize_align	= BIT(6),
-+	.supports_sdio_irq	= true,
- 	.dma_lli		= true,
- 	.busy_timeout		= true,
- 	.busy_detect		= true,
-@@ -421,8 +424,9 @@ void mmci_write_pwrreg(struct mmci_host *host, u32 pwr)
-  */
- static void mmci_write_datactrlreg(struct mmci_host *host, u32 datactrl)
- {
--	/* Keep busy mode in DPSM if enabled */
--	datactrl |= host->datactrl_reg & host->variant->busy_dpsm_flag;
-+	/* Keep busy mode in DPSM and SDIO mask if enabled */
-+	datactrl |= host->datactrl_reg & (host->variant->busy_dpsm_flag |
-+					  host->variant->datactrl_mask_sdio);
- 
- 	if (host->datactrl_reg != datactrl) {
- 		host->datactrl_reg = datactrl;
-@@ -1762,6 +1766,25 @@ static irqreturn_t mmci_pio_irq(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
-+static void mmci_write_sdio_irq_bit(struct mmci_host *host, int enable)
-+{
-+	void __iomem *base = host->base;
-+	u32 mask = readl_relaxed(base + MMCIMASK0);
-+
-+	if (enable)
-+		writel_relaxed(mask | MCI_ST_SDIOITMASK, base + MMCIMASK0);
-+	else
-+		writel_relaxed(mask & ~MCI_ST_SDIOITMASK, base + MMCIMASK0);
-+}
-+
-+static void mmci_signal_sdio_irq(struct mmci_host *host, u32 status)
-+{
-+	if (status & MCI_ST_SDIOIT) {
-+		mmci_write_sdio_irq_bit(host, 0);
-+		sdio_signal_irq(host->mmc);
-+	}
-+}
-+
- /*
-  * Handle completion of command and data transfers.
-  */
-@@ -1806,6 +1829,9 @@ static irqreturn_t mmci_irq(int irq, void *dev_id)
- 			mmci_data_irq(host, host->data, status);
- 		}
- 
-+		if (host->variant->supports_sdio_irq)
-+			mmci_signal_sdio_irq(host, status);
-+
- 		/*
- 		 * Busy detection has been handled by mmci_cmd_irq() above.
- 		 * Clear the status bit to prevent polling in IRQ context.
-@@ -2042,6 +2068,35 @@ static int mmci_sig_volt_switch(struct mmc_host *mmc, struct mmc_ios *ios)
- 	return ret;
- }
- 
-+static void mmci_enable_sdio_irq(struct mmc_host *mmc, int enable)
-+{
-+	struct mmci_host *host = mmc_priv(mmc);
-+	unsigned long flags;
-+
-+	if (enable)
-+		/* Keep the SDIO mode bit if SDIO irqs are enabled */
-+		pm_runtime_get_sync(mmc_dev(mmc));
-+
-+	spin_lock_irqsave(&host->lock, flags);
-+	mmci_write_sdio_irq_bit(host, enable);
-+	spin_unlock_irqrestore(&host->lock, flags);
-+
-+	if (!enable) {
-+		pm_runtime_mark_last_busy(mmc_dev(mmc));
-+		pm_runtime_put_autosuspend(mmc_dev(mmc));
-+	}
-+}
-+
-+static void mmci_ack_sdio_irq(struct mmc_host *mmc)
-+{
-+	struct mmci_host *host = mmc_priv(mmc);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&host->lock, flags);
-+	mmci_write_sdio_irq_bit(host, 1);
-+	spin_unlock_irqrestore(&host->lock, flags);
-+}
-+
- static struct mmc_host_ops mmci_ops = {
- 	.request	= mmci_request,
- 	.pre_req	= mmci_pre_request,
-@@ -2317,6 +2372,16 @@ static int mmci_probe(struct amba_device *dev,
- 		mmc->caps |= MMC_CAP_WAIT_WHILE_BUSY;
- 	}
- 
-+	if (variant->supports_sdio_irq && host->mmc->caps & MMC_CAP_SDIO_IRQ) {
-+		mmc->caps2 |= MMC_CAP2_SDIO_IRQ_NOTHREAD;
-+
-+		mmci_ops.enable_sdio_irq = mmci_enable_sdio_irq;
-+		mmci_ops.ack_sdio_irq	= mmci_ack_sdio_irq;
-+
-+		mmci_write_datactrlreg(host,
-+				       host->variant->datactrl_mask_sdio);
-+	}
-+
- 	/* Variants with mandatory busy timeout in HW needs R1B responses. */
- 	if (variant->busy_timeout)
- 		mmc->caps |= MMC_CAP_NEED_RSP_BUSY;
-diff --git a/drivers/mmc/host/mmci.h b/drivers/mmc/host/mmci.h
-index 34d9897c289b..a5eb4ced4d5d 100644
---- a/drivers/mmc/host/mmci.h
-+++ b/drivers/mmc/host/mmci.h
-@@ -331,6 +331,7 @@ enum mmci_busy_state {
-  *	       register.
-  * @opendrain: bitmask identifying the OPENDRAIN bit inside MMCIPOWER register
-  * @dma_lli: true if variant has dma link list feature.
-+ * @supports_sdio_irq: allow SD I/O card to interrupt the host
-  * @stm32_idmabsize_mask: stm32 sdmmc idma buffer size.
-  * @dma_flow_controller: use peripheral as flow controller for DMA.
-  */
-@@ -377,6 +378,7 @@ struct variant_data {
- 	u32			start_err;
- 	u32			opendrain;
- 	u8			dma_lli:1;
-+	bool			supports_sdio_irq;
- 	u32			stm32_idmabsize_mask;
- 	u32			stm32_idmabsize_align;
- 	bool			dma_flow_controller;
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBOb3YgOCwgMjAyMyBhdCAzOjE44oCvUE0gWWFubiBHYXV0aWVyIDx5YW5uLmdhdXRp
+ZXJAZm9zcy5zdC5jb20+IHdyb3RlOgoKPiBGcm9tOiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlz
+dG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbT4KPgo+IEFkZCB0aGUgc3VwcG9ydCBvZiBTRElPIGlu
+LWJhbmQgaW50ZXJydXB0IG1vZGUgZm9yIFNUTTMyIGFuZCBVeDUwMAo+IHZhcmlhbnRzLgo+IEl0
+IGFsbG93cyB0aGUgU0QgSS9PIGNhcmQgdG8gaW50ZXJydXB0IHRoZSBob3N0IG9uIFNETU1DX0Qx
+IGRhdGEgbGluZS4KPiBJdCBpcyBub3QgZW5hYmxlZCBieSBkZWZhdWx0IG9uIFV4NTAwIHZhcmlh
+bnQgYXMgdGhpcyBpcyB1bnN0YWJsZSBhbmQKPiBVeDUwMCB1c2VycyBzaG91bGQgdXNlIG91dC1v
+Zi1iYW5kIElSUXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEtlcmVsbG8gPGNocmlz
+dG9waGUua2VyZWxsb0Bmb3NzLnN0LmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBZYW5uIEdhdXRpZXIg
+PHlhbm4uZ2F1dGllckBmb3NzLnN0LmNvbT4KClN0aWxsIGxvb2tzIGdvb2QgdG8gbWUhClJldmll
+d2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywK
+TGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
+bi9saXN0aW5mby9saW51eC1zdG0zMgo=
