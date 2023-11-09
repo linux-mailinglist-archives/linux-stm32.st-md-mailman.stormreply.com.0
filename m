@@ -2,65 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04C807E634C
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Nov 2023 06:42:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C21B37E666A
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Nov 2023 10:15:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93697C6B479;
-	Thu,  9 Nov 2023 05:42:03 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89B5CC6B47A;
+	Thu,  9 Nov 2023 09:15:57 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A42ACC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 516E8C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Nov 2023 05:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699508523; x=1731044523;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=z51dALqJnDsmc80RwaJAZ6Svb33+i7AdIgXz9Zfhm74=;
- b=j/s33tD3NVN0kf2aqLcXJyFB73WuhXNcVgkNHWNknV6D0RwiWVMmU7X7
- KVDXV4ox66/wkYAl2iDYTiFmmOGCISj/IRF4nQzlrhGHzteNrKdnbpLO4
- DgPhZ29gAGtlCkKBUUDSUM7dTLSaNJOrs0fR11qHiDMt6SVF6gUT4+sTa
- meVo318xm9SGqIuratPzEjtYKVTdEOOvzQAx2NP++1Br7+8cwO/G9w+TR
- nEXwYUcwqBucIwVJnk6TZXnANpjMf0QRnqWr/x6u+HMxCAmNOZY3tlwMK
- K4Zm7xVrgEfxs6MC5YsVEt3FAlEuBke9epZQ+UD+tm90WoHSD1yavsF6X Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="369254047"
-X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="369254047"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2023 21:42:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="756788547"
-X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="756788547"
-Received: from ssid-ilbpg3-teeminta.png.intel.com ([10.88.227.74])
- by orsmga007.jf.intel.com with ESMTP; 08 Nov 2023 21:41:53 -0800
-From: Gan Yi Fang <yi.fang.gan@intel.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Halaney <ahalaney@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Shenwei Wang <shenwei.wang@nxp.com>,
- Russell King <rmk+kernel@armlinux.org.uk>,
- Johannes Zink <j.zink@pengutronix.de>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu,  9 Nov 2023 13:38:31 +0800
-Message-Id: <20231109053831.2572699-1-yi.fang.gan@intel.com>
-X-Mailer: git-send-email 2.34.1
+ Thu,  9 Nov 2023 09:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QrvJkzyPb5eXMLbw/U/qM6wbTs8u3y089/0QYgihCZc=; b=e1cnhHhbRfJJONN+GNW4kdjpqt
+ MEOj/OKISubVwkr4/XNFHD0LiTKr/DCcuIUu6DAjQmFIrjsy8VM0M1myuxsuU4OLbczvHSlTN1bZf
+ vUldxONBLp1fpzsyeMeziawnQL6EZQnpRZ/49W2NhQkE0OWZUvTvSIr6OfOngPu6IUazc9J4Wt2eZ
+ U/0B6VqdrF7nxM7gwc/rL6SB/+Rx8CjDgUnlEfpC+Dk4q0OOu0eMEtSOKll8rRtr9HPYaQSWvIcx7
+ owQgd0W1doctv4yyEu/yIG7anYV8vFVj/qkYFkWf+oC5BTHHcc86was5sLFu+4vmT+bkFAmabYeJt
+ GXESwD8Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45130)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <linux@armlinux.org.uk>) id 1r118V-0002B9-2p;
+ Thu, 09 Nov 2023 09:15:39 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1r118S-0000Qi-UQ; Thu, 09 Nov 2023 09:15:36 +0000
+Date: Thu, 9 Nov 2023 09:15:36 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Gan Yi Fang <yi.fang.gan@intel.com>
+Message-ID: <ZUyjOEQHHnnbzwrV@shell.armlinux.org.uk>
+References: <20231109050027.2545000-1-yi.fang.gan@intel.com>
 MIME-Version: 1.0
-Cc: Gan Yi Fang <yi.fang.gan@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>
-Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add support for
-	HW-accelerated VLAN stripping
+Content-Disposition: inline
+In-Reply-To: <20231109050027.2545000-1-yi.fang.gan@intel.com>
+Cc: linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Joakim Zhang <qiangqing.zhang@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Looi Hong Aun <hong.aun.looi@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: fix MAC and phylink
+ mismatch issue after resume with STMMAC_FLAG_USE_PHY_WOL enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,280 +68,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+On Thu, Nov 09, 2023 at 01:00:27PM +0800, Gan Yi Fang wrote:
+> From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+> 
+> The issue happened when flag STMMAC_FLAG_USE_PHY_WOL is enabled.
+> It can be reproduced with steps below:
+> 1. Advertise only one speed on the host
+> 2. Enable the WoL on the host
+> 3. Suspend the host
+> 4. Wake up the host
+> 
+> When the WoL is disabled, both the PHY and MAC will suspend and wake up
+> with everything configured well. When WoL is enabled, the PHY needs to be
+> stay awake to receive the signal from remote client but MAC will enter
+> suspend mode.
+> 
+> When the MAC resumes from suspend, phylink_resume() will call
+> phylink_start() to start the phylink instance which will trigger the
+> phylink machine to invoke the mac_link_up callback function. The
+> stmmac_mac_link_up() will configure the MAC_CTRL_REG based on the current
+> link state. Then the stmmac_hw_setup() will be called to configure the MAC.
+> 
+> This sequence might cause mismatch of the link state between MAC and
+> phylink. This patch moves the phylink_resume() after stmamc_hw_setup() to
+> ensure the MAC is initialized before phylink is being configured.
 
-Current implementation supports driver level VLAN tag stripping only.
-The features is always on if CONFIG_VLAN_8021Q is enabled in kernel
-config and is not user configurable.
+Isn't this going to cause problems?
 
-This patch add support to MAC level VLAN tag stripping and can be
-configured through ethtool. If the rx-vlan-offload is off, the VLAN tag
-will be stripped by driver. If the rx-vlan-offload is on, the VLAN tag
-will be stripped by MAC.
+stmamc_hw_setup() calls stmmac_init_dma_engine(), which then calls
+stmmac_reset() - and stmmac_reset() can fail if the PHY clock isn't
+running, which is why phylink_resume() gets called before this.
 
-Command: ethtool -K enp0s30f4 rx-vlan-offload off | on
-
-Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
-Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  3 +-
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 35 +++++++++++++++++++
- .../ethernet/stmicro/stmmac/dwmac4_descs.c    | 13 +++++++
- drivers/net/ethernet/stmicro/stmmac/hwif.h    | 15 ++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 ++++++++++++-
- include/linux/stmmac.h                        |  1 +
- 7 files changed, 90 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index e3f650e88f82..6b935922054d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -580,6 +580,7 @@ struct mac_device_info {
- 	u32 vlan_filter[32];
- 	bool vlan_fail_q_en;
- 	u8 vlan_fail_q;
-+	bool hw_vlan_en;
- };
- 
- struct stmmac_rx_routing {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 60283543ffc8..651fee867aac 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -457,7 +457,8 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	plat->has_gmac = 0;
- 	plat->has_gmac4 = 1;
- 	plat->force_sf_dma_mode = 0;
--	plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
-+	plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE |
-+			STMMAC_FLAG_HW_VLAN_EN);
- 
- 	/* Multiplying factor to the clk_eee_i clock time
- 	 * period to make it closer to 100 ns. This value
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index c6ff1fa0e04d..6a8d7873b456 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -1134,6 +1134,35 @@ static int dwmac4_config_l4_filter(struct mac_device_info *hw, u32 filter_no,
- 	return 0;
- }
- 
-+static void dwmac4_rx_hw_vlan(struct mac_device_info *hw,
-+			      struct dma_desc *rx_desc, struct sk_buff *skb)
-+{
-+	if (hw->desc->get_rx_vlan_valid(rx_desc)) {
-+		u16 vid = (u16)hw->desc->get_rx_vlan_tci(rx_desc);
-+
-+		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vid);
-+	}
-+}
-+
-+static void dwmac4_set_hw_vlan_mode(struct mac_device_info *hw)
-+{
-+	void __iomem *ioaddr = hw->pcsr;
-+	u32 value = readl(ioaddr + GMAC_VLAN_TAG);
-+
-+	value &= ~GMAC_VLAN_TAG_CTRL_EVLS_MASK;
-+
-+	if (hw->hw_vlan_en)
-+		/* Always strip VLAN on Receive */
-+		value |= GMAC_VLAN_TAG_STRIP_ALL;
-+	else
-+		/* Do not strip VLAN on Receive */
-+		value |= GMAC_VLAN_TAG_STRIP_NONE;
-+
-+	/* Enable outer VLAN Tag in Rx DMA descriptor */
-+	value |= GMAC_VLAN_TAG_CTRL_EVLRXS;
-+	writel(value, ioaddr + GMAC_VLAN_TAG);
-+}
-+
- const struct stmmac_ops dwmac4_ops = {
- 	.core_init = dwmac4_core_init,
- 	.phylink_get_caps = dwmac4_phylink_get_caps,
-@@ -1175,6 +1204,8 @@ const struct stmmac_ops dwmac4_ops = {
- 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
- 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
- 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-+	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-+	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
- };
- 
- const struct stmmac_ops dwmac410_ops = {
-@@ -1224,6 +1255,8 @@ const struct stmmac_ops dwmac410_ops = {
- 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
- 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
- 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-+	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-+	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
- };
- 
- const struct stmmac_ops dwmac510_ops = {
-@@ -1277,6 +1310,8 @@ const struct stmmac_ops dwmac510_ops = {
- 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
- 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
- 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-+	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-+	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
- };
- 
- static u32 dwmac4_get_num_vlan(void __iomem *ioaddr)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-index 89a14084c611..a01d71dfed6c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-@@ -198,6 +198,17 @@ static int dwmac4_get_tx_ls(struct dma_desc *p)
- 		>> TDES3_LAST_DESCRIPTOR_SHIFT;
- }
- 
-+static inline int dwmac4_wrback_get_rx_vlan_tci(struct dma_desc *p)
-+{
-+	return (le32_to_cpu(p->des0) & RDES0_VLAN_TAG_MASK);
-+}
-+
-+static inline bool dwmac4_wrback_get_rx_vlan_valid(struct dma_desc *p)
-+{
-+	return ((le32_to_cpu(p->des3) & RDES3_LAST_DESCRIPTOR) &&
-+		(le32_to_cpu(p->des3) & RDES3_RDES0_VALID));
-+}
-+
- static int dwmac4_wrback_get_rx_frame_len(struct dma_desc *p, int rx_coe)
- {
- 	return (le32_to_cpu(p->des3) & RDES3_PACKET_SIZE_MASK);
-@@ -551,6 +562,8 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
- 	.set_tx_owner = dwmac4_set_tx_owner,
- 	.set_rx_owner = dwmac4_set_rx_owner,
- 	.get_tx_ls = dwmac4_get_tx_ls,
-+	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
-+	.get_rx_vlan_valid = dwmac4_wrback_get_rx_vlan_valid,
- 	.get_rx_frame_len = dwmac4_wrback_get_rx_frame_len,
- 	.enable_tx_timestamp = dwmac4_rd_enable_tx_timestamp,
- 	.get_tx_timestamp_status = dwmac4_wrback_get_tx_timestamp_status,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index b95d3e137813..5a079dae1380 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -56,6 +56,10 @@ struct stmmac_desc_ops {
- 	void (*set_tx_ic)(struct dma_desc *p);
- 	/* Last tx segment reports the transmit status */
- 	int (*get_tx_ls)(struct dma_desc *p);
-+	/* Get the tag of the descriptor */
-+	int (*get_rx_vlan_tci)(struct dma_desc *p);
-+	/* Get the valid status of descriptor */
-+	bool (*get_rx_vlan_valid)(struct dma_desc *p);
- 	/* Return the transmit status looking at the TDES1 */
- 	int (*tx_status)(struct stmmac_extra_stats *x,
- 			 struct dma_desc *p, void __iomem *ioaddr);
-@@ -117,6 +121,10 @@ struct stmmac_desc_ops {
- 	stmmac_do_void_callback(__priv, desc, set_tx_ic, __args)
- #define stmmac_get_tx_ls(__priv, __args...) \
- 	stmmac_do_callback(__priv, desc, get_tx_ls, __args)
-+#define stmmac_get_rx_vlan_tci(__priv, __args...) \
-+	stmmac_do_callback(__priv, desc, get_rx_vlan_tci, __args)
-+#define stmmac_get_rx_vlan_valid(__priv, __args...) \
-+	stmmac_do_callback(__priv, desc, get_rx_vlan_valid, __args)
- #define stmmac_tx_status(__priv, __args...) \
- 	stmmac_do_callback(__priv, desc, tx_status, __args)
- #define stmmac_get_tx_len(__priv, __args...) \
-@@ -388,6 +396,9 @@ struct stmmac_ops {
- 	void (*update_vlan_hash)(struct mac_device_info *hw, u32 hash,
- 				 __le16 perfect_match, bool is_double);
- 	void (*enable_vlan)(struct mac_device_info *hw, u32 type);
-+	void (*rx_hw_vlan)(struct mac_device_info *hw, struct dma_desc *rx_desc,
-+			   struct sk_buff *skb);
-+	void (*set_hw_vlan_mode)(struct mac_device_info *hw);
- 	int (*add_hw_vlan_rx_fltr)(struct net_device *dev,
- 				   struct mac_device_info *hw,
- 				   __be16 proto, u16 vid);
-@@ -497,6 +508,10 @@ struct stmmac_ops {
- 	stmmac_do_void_callback(__priv, mac, update_vlan_hash, __args)
- #define stmmac_enable_vlan(__priv, __args...) \
- 	stmmac_do_void_callback(__priv, mac, enable_vlan, __args)
-+#define stmmac_rx_hw_vlan(__priv, __args...) \
-+	stmmac_do_void_callback(__priv, mac, rx_hw_vlan, __args)
-+#define stmmac_set_hw_vlan_mode(__priv, __args...) \
-+	stmmac_do_void_callback(__priv, mac, set_hw_vlan_mode, __args)
- #define stmmac_add_hw_vlan_rx_fltr(__priv, __args...) \
- 	stmmac_do_callback(__priv, mac, add_hw_vlan_rx_fltr, __args)
- #define stmmac_del_hw_vlan_rx_fltr(__priv, __args...) \
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3e50fd53a617..62299ec5179f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3469,6 +3469,9 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
- 	/* Start the ball rolling... */
- 	stmmac_start_all_dma(priv);
- 
-+	if (priv->hw->hw_vlan_en)
-+		stmmac_set_hw_vlan_mode(priv, priv->hw);
-+
- 	if (priv->dma_cap.fpesel) {
- 		stmmac_fpe_start_wq(priv);
- 
-@@ -5508,7 +5511,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 		/* Got entire packet into SKB. Finish it. */
- 
- 		stmmac_get_rx_hwtstamp(priv, p, np, skb);
--		stmmac_rx_vlan(priv->dev, skb);
-+
-+		if (priv->hw->hw_vlan_en)
-+			/* MAC level stripping. */
-+			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
-+		else
-+			/* Driver level stripping. */
-+			stmmac_rx_vlan(priv->dev, skb);
-+
- 		skb->protocol = eth_type_trans(skb, priv->dev);
- 
- 		if (unlikely(!coe))
-@@ -5817,6 +5827,14 @@ static int stmmac_set_features(struct net_device *netdev,
- 			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
- 	}
- 
-+	if ((features & NETIF_F_HW_VLAN_CTAG_RX) &&
-+	    (priv->plat->flags & STMMAC_FLAG_HW_VLAN_EN))
-+		priv->hw->hw_vlan_en = true;
-+	else
-+		priv->hw->hw_vlan_en = false;
-+
-+	stmmac_set_hw_vlan_mode(priv, priv->hw);
-+
- 	return 0;
- }
- 
-@@ -7146,6 +7164,8 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 			 "Enable RX Mitigation via HW Watchdog Timer\n");
- 	}
- 
-+	priv->hw->hw_vlan_en = (priv->plat->flags & STMMAC_FLAG_HW_VLAN_EN);
-+
- 	return 0;
- }
- 
-@@ -7515,6 +7535,8 @@ int stmmac_dvr_probe(struct device *device,
- #ifdef STMMAC_VLAN_TAG_USED
- 	/* Both mac100 and gmac support receive VLAN tag detection */
- 	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
-+	ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
-+
- 	if (priv->dma_cap.vlhash) {
- 		ndev->features |= NETIF_F_HW_VLAN_CTAG_FILTER;
- 		ndev->features |= NETIF_F_HW_VLAN_STAG_FILTER;
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 0b4658a7eceb..1cf78e6bca5e 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -220,6 +220,7 @@ struct dwmac4_addrs {
- #define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(10)
- #define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(11)
- #define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(12)
-+#define STMMAC_FLAG_HW_VLAN_EN			BIT(13)
- 
- struct plat_stmmacenet_data {
- 	int bus_id;
 -- 
-2.34.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
