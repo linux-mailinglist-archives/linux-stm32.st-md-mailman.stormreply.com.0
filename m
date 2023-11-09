@@ -2,151 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F49C7E6309
-	for <lists+linux-stm32@lfdr.de>; Thu,  9 Nov 2023 06:08:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04C807E634C
+	for <lists+linux-stm32@lfdr.de>; Thu,  9 Nov 2023 06:42:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E737BC6B479;
-	Thu,  9 Nov 2023 05:08:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93697C6B479;
+	Thu,  9 Nov 2023 05:42:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60B79C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A42ACC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Nov 2023 05:08:34 +0000 (UTC)
+ Thu,  9 Nov 2023 05:42:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699506514; x=1731042514;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=aYziC9OV0CoYzTtQYnYOxWglKYNSGFP0iZsUI6hjSeg=;
- b=Bbhw6wZUJ5Esc7ZAYDlrOp0cf0K8Ppxn/qEqzv6d3+JI6gcFBo9Cn+ax
- QXFXRiSz0bhnqv5bl9QX4Y0hv52jd9hlPZ8sITMReDj0I7czyize7IpFf
- zVw4AHlrpmdFPr0z5uNnyyPDR3wzh4oZarhudo/m/o5+lRCC0mitzjGla
- 9wr3tyJLXCtcLUuEzSWokz0+MXzGQPsFhKUayacFMny97Zhs/aco7GIbf
- CuWwwrYJqrPgbGDSTqr3f95oyPp/B6UuzzgmEfTVRCHaSWECPzLMcD+IP
- mJwm4uwpcPFpX0nBIUOT8Qm3/7MnIh5W1do57iO2UpfZqcK+LXk2FsL1N Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="374957408"
-X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="374957408"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Nov 2023 21:08:32 -0800
+ t=1699508523; x=1731044523;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=z51dALqJnDsmc80RwaJAZ6Svb33+i7AdIgXz9Zfhm74=;
+ b=j/s33tD3NVN0kf2aqLcXJyFB73WuhXNcVgkNHWNknV6D0RwiWVMmU7X7
+ KVDXV4ox66/wkYAl2iDYTiFmmOGCISj/IRF4nQzlrhGHzteNrKdnbpLO4
+ DgPhZ29gAGtlCkKBUUDSUM7dTLSaNJOrs0fR11qHiDMt6SVF6gUT4+sTa
+ meVo318xm9SGqIuratPzEjtYKVTdEOOvzQAx2NP++1Br7+8cwO/G9w+TR
+ nEXwYUcwqBucIwVJnk6TZXnANpjMf0QRnqWr/x6u+HMxCAmNOZY3tlwMK
+ K4Zm7xVrgEfxs6MC5YsVEt3FAlEuBke9epZQ+UD+tm90WoHSD1yavsF6X Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="369254047"
+X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="369254047"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Nov 2023 21:42:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="739738491"
-X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="739738491"
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by orsmga006.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 08 Nov 2023 21:08:32 -0800
-Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Wed, 8 Nov 2023 21:08:31 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Frontend Transport; Wed, 8 Nov 2023 21:08:31 -0800
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.168)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.34; Wed, 8 Nov 2023 21:08:31 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=efS0fH/zCFnBotTZvMDnv00bClfc4JjBOPCvaCx1uJGvD8kWoHHtMTIdS4DrbpKT7feM8wDUz318IwHFzRymznMyTmxxO1AG56hgi2oyRt2U4xlkeHQc7BLJCuk1XBQsX8gxjzAy9C5e7K8VIQTI22pb+hTrA0hKMa4BBhy9FF7c3FbWuKW9LyC69QW5lfqxeHJsO6bpRAIlJBvI4vTyGmxU9F0ieNDqOI4sqfPmp5YWQup6gTfC/Ovzw79oXTI9bbUEhEhIIBtRArxvXn86LqE2wRqhdRrUKQpXBeqOOGkQ62/aGI/6VtbQl79VuUxv9mYaWmsHQSKoBinozniyww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RKB9TTTM5RT8VNQcKXIFvyXIvPLIdp4cISJU6qZBlTo=;
- b=JI6pOUsm9D29J8sdOHxyDF6T2TokWNcWGaDpftx2oJCxS0IaFBrTd3qMQDqDHScymUrVMR4aEMRWYUzrfP3Bbftqb93St8dqp2SZwAl/i2f+ESyihrusOYyloZve//mkOXyaN7iti/A5jMtq902+aYIQ30tdGIrc/Jiv2e88PT16F5S3KBdcQLOoBx1p5FHTYJ2x2JoEGbzgoBsYzLj0/NdP5yaPctrSUmKj9H1uMINx7hM7qcoRl1r1OHpZgbVXwmXHZftJlFFm9OFge814noXUJFWi3Z3pYqyL0m4PU47s3YblGROOvSH6D9kq0XGSaCkKMMRxpdJIUwZG60jy2A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM6PR11MB3306.namprd11.prod.outlook.com (2603:10b6:5:5c::18) by
- SA1PR11MB8522.namprd11.prod.outlook.com (2603:10b6:806:3b1::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6977.18; Thu, 9 Nov
- 2023 05:08:30 +0000
-Received: from DM6PR11MB3306.namprd11.prod.outlook.com
- ([fe80::4245:c7d1:e22a:d879]) by DM6PR11MB3306.namprd11.prod.outlook.com
- ([fe80::4245:c7d1:e22a:d879%4]) with mapi id 15.20.6977.018; Thu, 9 Nov 2023
- 05:08:29 +0000
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [PATCH net-next v2 1/1] net: stmmac: check CBS input values
- before configuration
-Thread-Index: AQHaDIvZ4rD8CSZwXkif+5bCBd+iWbBlZtuAgAwU6fA=
-Date: Thu, 9 Nov 2023 05:08:29 +0000
-Message-ID: <DM6PR11MB3306336C961366FF79799959B9AFA@DM6PR11MB3306.namprd11.prod.outlook.com>
-References: <20231101061920.401582-1-yi.fang.gan@intel.com>
- <58132260-81d0-4f0c-90b6-0c97c7a6a2f5@lunn.ch>
-In-Reply-To: <58132260-81d0-4f0c-90b6-0c97c7a6a2f5@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR11MB3306:EE_|SA1PR11MB8522:EE_
-x-ms-office365-filtering-correlation-id: c77eb180-78f3-4ec6-86f9-08dbe0e1e9d5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: trFqQbsATDe0bmvLvp3qQATW03UxDNwq0R42YASAn2DoKI54YyCVgEeosjbxAVK5tOVPo8wZd7N8MMF+LuvaH4Y6NBJ/dGj515cbc2rGgA+K+LYT3ek5wsu4VLCEh9IarqsNt55qFTJf9VQ/2QiPQ0m5HJvu+PuCyG9QA0l/H1mRsUKxWhstZr6YI2ZTLPOj98845QLM0YN29iP6hUAF09bFKq6pwCHZKKg8I+AXZqoNzOkLWIGrXCkwfL5W8j+pefMw7pXhVZeiBifJhzooFE9FKjarf+EWT7YJPg6SUhfVjOe+Mji9oY6mjLmo+oaFQ+qMotuwzLjz+TNpURoqCIEmDsKso/3idKmC6uqJ6jAcSZDOWoueHYsU5gC/TJbWQsdir+iGI6YwN+Pk5q82M4npcI0H4/j3qH9ZTbfROzoEAxhMmtvMMl54Xne4n9zd3ut+QVi2gbJ79W/88Xg9/kTvz8w7d3oQopVWP+lTgvatqSrDMAZajmQFQl2t9aR8gY4XVR0Xh87Kkunz/RIcIW9JUPzpjWj90naFmF9137ckVE19Hgdlnz/LS2+ur3uBH2RmfRCSd+JDH2B/1a7DT/j9UpawlHLzH51RH7LEZDYJv4ltqU9aWJw23GS4MdxW
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB3306.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(366004)(376002)(346002)(39860400002)(136003)(230922051799003)(64100799003)(451199024)(1800799009)(186009)(478600001)(6506007)(7696005)(9686003)(71200400001)(53546011)(83380400001)(26005)(107886003)(2906002)(41300700001)(7416002)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(54906003)(52536014)(6916009)(8936002)(4326008)(38070700009)(8676002)(316002)(33656002)(38100700002)(122000001)(82960400001)(86362001)(5660300002)(55016003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?r9JC16dVneUCKkZq0zdgFUt5d36a3vdl0Jp9DnCRksjbBvVcOq2GE+IYYnbm?=
- =?us-ascii?Q?pr5pdOTT+lb9dpcswRGEXTZyNDQC+pN0J8gNz2xoGUQAUZEPn7ZyA5KOOkLI?=
- =?us-ascii?Q?n+rfX9G11iCVu9RB85+vmsayXPQuw8uGwzh8aKCOOYoPCN4SSdXF67hKZT0k?=
- =?us-ascii?Q?aGm8qWfkEItsRVWyUz2njX30bPcJl5jfVmeizNm8pAadyISwjgd3o147Lf85?=
- =?us-ascii?Q?inUoCLmjpQi3x5DqwQxkXPzi8wJG6byN0KChpuUwhbDNMqquN8+z86JvO3FL?=
- =?us-ascii?Q?/Fs1S/XZlrPdj6IvVLqTPgbIJfZZ9AiXGbjS1oopJ4zYMZY/uyohSZTR7wsH?=
- =?us-ascii?Q?xwidUwBCUUXPbK7j+dHmirtxuA9WwFwaBldtmOy0+WhXneBltwQPHzARHRNI?=
- =?us-ascii?Q?oUrmdYUMmzBAlQVChXC+D0ej6DbsPkkwmjHvjpCwdf46r3lbhbt3/acZqog3?=
- =?us-ascii?Q?ZBCeGuHzLOzwTdBQzNtn9+1FL+qXUeprz68SZQqogGKY9kbO4f5YiUb4HFjG?=
- =?us-ascii?Q?nWM6WemLX/j/niDYyw4XxBLgA2HwdC4uoRONlyizHDnak/8+3Fh27TXEgmt/?=
- =?us-ascii?Q?bWTAsDMK8HyabBjS3m39DC/HE9z7/Vtocpab7fin08nOq2Y/xt8ww3s1tvNB?=
- =?us-ascii?Q?jmBIjklOmM7jfBYVLAIJac4ei5ii7GVxlvAu55MbqrX22CxnD00EY+3aNn6a?=
- =?us-ascii?Q?YM+TGO4n2Q9htdDZacHfssdXOkAV+oR+/zwwHRvk2VdqOk+r/2cJMIfqdHL2?=
- =?us-ascii?Q?XdmJVy+skWXw2LgF9c5negTsd26GvS7G4pcYHh5orwfBUe5NPtTOb3I9FdIx?=
- =?us-ascii?Q?8Au4LVttOV+nXbznMallpzOAOz82CpKRLkv2S5aJBDD7U7McF8rU3w7Y/WST?=
- =?us-ascii?Q?hynp4WsDwx75iPp+ejL5L3OAm6eRIiA2bNpQyE+8NwzxDRNb4aFiYw7pKGcl?=
- =?us-ascii?Q?nz27RX3b6ypGVd5Y93vmtzgKdYTUED6fJ2fuAzrbgzuDrDuckDuiQwK31pNg?=
- =?us-ascii?Q?tu944/4cmmD2LpUlfAIf8h/xdsPsU5LCyLLKSOyPoV4UItLS9YCV8hIgQhLz?=
- =?us-ascii?Q?6OW4JOvZohCV7wCCQA0k6mbsr2chisVGgxPQZaEq5+tRqwixbiJid91qPlU7?=
- =?us-ascii?Q?QEQIXSudzeKgWCE8tgl/mD0apBL60eVNXaBhP8itgzzmg/hBTUtAv7aLXyHO?=
- =?us-ascii?Q?DptpyUhcMd+SdJqHc4S9wh02UgJnRrdB9lXAScD2sVEeg5w6KG+47vcdNTBS?=
- =?us-ascii?Q?J3n+NcZKVU7tj6qp6/b6lIUgDoWllMGbV9c3/mrMuu72E+gAKaGeFrJvwrlV?=
- =?us-ascii?Q?u0iO4f4stTAVI+joBofFwAnUYTODOMKBRFm8ccmQD22/qROHxilR6AL4hsW6?=
- =?us-ascii?Q?y4jxW10CiyAR71n3fDjjewke2e73VHERD2r4FxMEooSpOmAtfDGWJamKRIie?=
- =?us-ascii?Q?y79gEl+1aBh1YKNvAFXF1Xfyqq0r0sQqS/B3n9vmyawSSeXH9c6Z3ebWTIkG?=
- =?us-ascii?Q?7a4h2LmfKE9R0rTlJoRoxYUs+vPRyi8AqzE92lMXW5THxvQE2WJejD03ENuV?=
- =?us-ascii?Q?bNu8Hn0lhdNPWyr2PseKVqDh0mPwptRFQYuF4H17?=
+X-IronPort-AV: E=McAfee;i="6600,9927,10888"; a="756788547"
+X-IronPort-AV: E=Sophos;i="6.03,288,1694761200"; d="scan'208";a="756788547"
+Received: from ssid-ilbpg3-teeminta.png.intel.com ([10.88.227.74])
+ by orsmga007.jf.intel.com with ESMTP; 08 Nov 2023 21:41:53 -0800
+From: Gan Yi Fang <yi.fang.gan@intel.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Halaney <ahalaney@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Johannes Zink <j.zink@pengutronix.de>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu,  9 Nov 2023 13:38:31 +0800
+Message-Id: <20231109053831.2572699-1-yi.fang.gan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3306.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c77eb180-78f3-4ec6-86f9-08dbe0e1e9d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2023 05:08:29.8340 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xnam9TFr7/p53ya1JufrCDiYEnW3MijjhgIy6u6c2Ts8IqcTZ8LdKje0NtKIxs45G6ZefWLC6x3TDyxQALsvng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB8522
-X-OriginatorOrg: intel.com
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Song,
- Yoong Siang" <yoong.siang.song@intel.com>, "Voon,
- Weifeng" <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Sit,
- Michael Wei Hong" <michael.wei.hong.sit@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, "Looi, Hong Aun" <hong.aun.looi@intel.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: check CBS
- input values before configuration
+Cc: Gan Yi Fang <yi.fang.gan@intel.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>
+Subject: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: Add support for
+	HW-accelerated VLAN stripping
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,50 +77,280 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew,
+From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
 
-The values are not specific to stmmac driver.
-It is more making sense to implement the checking at higher level.
-Let's close the review for this patch.
+Current implementation supports driver level VLAN tag stripping only.
+The features is always on if CONFIG_VLAN_8021Q is enabled in kernel
+config and is not user configurable.
 
+This patch add support to MAC level VLAN tag stripping and can be
+configured through ethtool. If the rx-vlan-offload is off, the VLAN tag
+will be stripped by driver. If the rx-vlan-offload is on, the VLAN tag
+will be stripped by MAC.
 
-Best Regards,
-Fang
+Command: ethtool -K enp0s30f4 rx-vlan-offload off | on
 
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: Wednesday, November 1, 2023 8:36 PM
-> To: Gan, Yi Fang <yi.fang.gan@intel.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu
-> <joabreu@synopsys.com>; David S . Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; Maxime Coquelin
-> <mcoquelin.stm32@gmail.com>; netdev@vger.kernel.org; linux-stm32@st-md-
-> mailman.stormreply.com; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; Looi, Hong Aun <hong.aun.looi@intel.com>; Voon,
-> Weifeng <weifeng.voon@intel.com>; Song, Yoong Siang
-> <yoong.siang.song@intel.com>; Sit, Michael Wei Hong
-> <michael.wei.hong.sit@intel.com>
-> Subject: Re: [PATCH net-next v2 1/1] net: stmmac: check CBS input values
-> before configuration
-> 
-> On Wed, Nov 01, 2023 at 02:19:20PM +0800, Gan Yi Fang wrote:
-> > From: Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>
-> >
-> > Add check for below conditions before proceeding to configuration.
-> > A message will be prompted if the input value is invalid.
-> >
-> > Idleslope minus sendslope should equal speed_div.
-> > Idleslope is always a positive value including zero.
-> > Sendslope is always a negative value including zero.
-> > Hicredit is always a positive value including zero.
-> > Locredit is always a negative value including zero.
-> 
-> Which of these conditional are specific to stmmac, and which are generic to
-> CBS? Anything which is generic to CBS i would expect to be checked at a higher
-> level, rather than in every driver implementing CBS.
-> 
-> 	Andrew
+Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
+Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  3 +-
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 35 +++++++++++++++++++
+ .../ethernet/stmicro/stmmac/dwmac4_descs.c    | 13 +++++++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    | 15 ++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 ++++++++++++-
+ include/linux/stmmac.h                        |  1 +
+ 7 files changed, 90 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index e3f650e88f82..6b935922054d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -580,6 +580,7 @@ struct mac_device_info {
+ 	u32 vlan_filter[32];
+ 	bool vlan_fail_q_en;
+ 	u8 vlan_fail_q;
++	bool hw_vlan_en;
+ };
+ 
+ struct stmmac_rx_routing {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 60283543ffc8..651fee867aac 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -457,7 +457,8 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	plat->has_gmac = 0;
+ 	plat->has_gmac4 = 1;
+ 	plat->force_sf_dma_mode = 0;
+-	plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
++	plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE |
++			STMMAC_FLAG_HW_VLAN_EN);
+ 
+ 	/* Multiplying factor to the clk_eee_i clock time
+ 	 * period to make it closer to 100 ns. This value
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index c6ff1fa0e04d..6a8d7873b456 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -1134,6 +1134,35 @@ static int dwmac4_config_l4_filter(struct mac_device_info *hw, u32 filter_no,
+ 	return 0;
+ }
+ 
++static void dwmac4_rx_hw_vlan(struct mac_device_info *hw,
++			      struct dma_desc *rx_desc, struct sk_buff *skb)
++{
++	if (hw->desc->get_rx_vlan_valid(rx_desc)) {
++		u16 vid = (u16)hw->desc->get_rx_vlan_tci(rx_desc);
++
++		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vid);
++	}
++}
++
++static void dwmac4_set_hw_vlan_mode(struct mac_device_info *hw)
++{
++	void __iomem *ioaddr = hw->pcsr;
++	u32 value = readl(ioaddr + GMAC_VLAN_TAG);
++
++	value &= ~GMAC_VLAN_TAG_CTRL_EVLS_MASK;
++
++	if (hw->hw_vlan_en)
++		/* Always strip VLAN on Receive */
++		value |= GMAC_VLAN_TAG_STRIP_ALL;
++	else
++		/* Do not strip VLAN on Receive */
++		value |= GMAC_VLAN_TAG_STRIP_NONE;
++
++	/* Enable outer VLAN Tag in Rx DMA descriptor */
++	value |= GMAC_VLAN_TAG_CTRL_EVLRXS;
++	writel(value, ioaddr + GMAC_VLAN_TAG);
++}
++
+ const struct stmmac_ops dwmac4_ops = {
+ 	.core_init = dwmac4_core_init,
+ 	.phylink_get_caps = dwmac4_phylink_get_caps,
+@@ -1175,6 +1204,8 @@ const struct stmmac_ops dwmac4_ops = {
+ 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
+ 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
+ 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
++	.rx_hw_vlan = dwmac4_rx_hw_vlan,
++	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
+ };
+ 
+ const struct stmmac_ops dwmac410_ops = {
+@@ -1224,6 +1255,8 @@ const struct stmmac_ops dwmac410_ops = {
+ 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
+ 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
+ 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
++	.rx_hw_vlan = dwmac4_rx_hw_vlan,
++	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
+ };
+ 
+ const struct stmmac_ops dwmac510_ops = {
+@@ -1277,6 +1310,8 @@ const struct stmmac_ops dwmac510_ops = {
+ 	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
+ 	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
+ 	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
++	.rx_hw_vlan = dwmac4_rx_hw_vlan,
++	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
+ };
+ 
+ static u32 dwmac4_get_num_vlan(void __iomem *ioaddr)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index 89a14084c611..a01d71dfed6c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -198,6 +198,17 @@ static int dwmac4_get_tx_ls(struct dma_desc *p)
+ 		>> TDES3_LAST_DESCRIPTOR_SHIFT;
+ }
+ 
++static inline int dwmac4_wrback_get_rx_vlan_tci(struct dma_desc *p)
++{
++	return (le32_to_cpu(p->des0) & RDES0_VLAN_TAG_MASK);
++}
++
++static inline bool dwmac4_wrback_get_rx_vlan_valid(struct dma_desc *p)
++{
++	return ((le32_to_cpu(p->des3) & RDES3_LAST_DESCRIPTOR) &&
++		(le32_to_cpu(p->des3) & RDES3_RDES0_VALID));
++}
++
+ static int dwmac4_wrback_get_rx_frame_len(struct dma_desc *p, int rx_coe)
+ {
+ 	return (le32_to_cpu(p->des3) & RDES3_PACKET_SIZE_MASK);
+@@ -551,6 +562,8 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
+ 	.set_tx_owner = dwmac4_set_tx_owner,
+ 	.set_rx_owner = dwmac4_set_rx_owner,
+ 	.get_tx_ls = dwmac4_get_tx_ls,
++	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
++	.get_rx_vlan_valid = dwmac4_wrback_get_rx_vlan_valid,
+ 	.get_rx_frame_len = dwmac4_wrback_get_rx_frame_len,
+ 	.enable_tx_timestamp = dwmac4_rd_enable_tx_timestamp,
+ 	.get_tx_timestamp_status = dwmac4_wrback_get_tx_timestamp_status,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index b95d3e137813..5a079dae1380 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -56,6 +56,10 @@ struct stmmac_desc_ops {
+ 	void (*set_tx_ic)(struct dma_desc *p);
+ 	/* Last tx segment reports the transmit status */
+ 	int (*get_tx_ls)(struct dma_desc *p);
++	/* Get the tag of the descriptor */
++	int (*get_rx_vlan_tci)(struct dma_desc *p);
++	/* Get the valid status of descriptor */
++	bool (*get_rx_vlan_valid)(struct dma_desc *p);
+ 	/* Return the transmit status looking at the TDES1 */
+ 	int (*tx_status)(struct stmmac_extra_stats *x,
+ 			 struct dma_desc *p, void __iomem *ioaddr);
+@@ -117,6 +121,10 @@ struct stmmac_desc_ops {
+ 	stmmac_do_void_callback(__priv, desc, set_tx_ic, __args)
+ #define stmmac_get_tx_ls(__priv, __args...) \
+ 	stmmac_do_callback(__priv, desc, get_tx_ls, __args)
++#define stmmac_get_rx_vlan_tci(__priv, __args...) \
++	stmmac_do_callback(__priv, desc, get_rx_vlan_tci, __args)
++#define stmmac_get_rx_vlan_valid(__priv, __args...) \
++	stmmac_do_callback(__priv, desc, get_rx_vlan_valid, __args)
+ #define stmmac_tx_status(__priv, __args...) \
+ 	stmmac_do_callback(__priv, desc, tx_status, __args)
+ #define stmmac_get_tx_len(__priv, __args...) \
+@@ -388,6 +396,9 @@ struct stmmac_ops {
+ 	void (*update_vlan_hash)(struct mac_device_info *hw, u32 hash,
+ 				 __le16 perfect_match, bool is_double);
+ 	void (*enable_vlan)(struct mac_device_info *hw, u32 type);
++	void (*rx_hw_vlan)(struct mac_device_info *hw, struct dma_desc *rx_desc,
++			   struct sk_buff *skb);
++	void (*set_hw_vlan_mode)(struct mac_device_info *hw);
+ 	int (*add_hw_vlan_rx_fltr)(struct net_device *dev,
+ 				   struct mac_device_info *hw,
+ 				   __be16 proto, u16 vid);
+@@ -497,6 +508,10 @@ struct stmmac_ops {
+ 	stmmac_do_void_callback(__priv, mac, update_vlan_hash, __args)
+ #define stmmac_enable_vlan(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, mac, enable_vlan, __args)
++#define stmmac_rx_hw_vlan(__priv, __args...) \
++	stmmac_do_void_callback(__priv, mac, rx_hw_vlan, __args)
++#define stmmac_set_hw_vlan_mode(__priv, __args...) \
++	stmmac_do_void_callback(__priv, mac, set_hw_vlan_mode, __args)
+ #define stmmac_add_hw_vlan_rx_fltr(__priv, __args...) \
+ 	stmmac_do_callback(__priv, mac, add_hw_vlan_rx_fltr, __args)
+ #define stmmac_del_hw_vlan_rx_fltr(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3e50fd53a617..62299ec5179f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3469,6 +3469,9 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
+ 	/* Start the ball rolling... */
+ 	stmmac_start_all_dma(priv);
+ 
++	if (priv->hw->hw_vlan_en)
++		stmmac_set_hw_vlan_mode(priv, priv->hw);
++
+ 	if (priv->dma_cap.fpesel) {
+ 		stmmac_fpe_start_wq(priv);
+ 
+@@ -5508,7 +5511,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 		/* Got entire packet into SKB. Finish it. */
+ 
+ 		stmmac_get_rx_hwtstamp(priv, p, np, skb);
+-		stmmac_rx_vlan(priv->dev, skb);
++
++		if (priv->hw->hw_vlan_en)
++			/* MAC level stripping. */
++			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
++		else
++			/* Driver level stripping. */
++			stmmac_rx_vlan(priv->dev, skb);
++
+ 		skb->protocol = eth_type_trans(skb, priv->dev);
+ 
+ 		if (unlikely(!coe))
+@@ -5817,6 +5827,14 @@ static int stmmac_set_features(struct net_device *netdev,
+ 			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
+ 	}
+ 
++	if ((features & NETIF_F_HW_VLAN_CTAG_RX) &&
++	    (priv->plat->flags & STMMAC_FLAG_HW_VLAN_EN))
++		priv->hw->hw_vlan_en = true;
++	else
++		priv->hw->hw_vlan_en = false;
++
++	stmmac_set_hw_vlan_mode(priv, priv->hw);
++
+ 	return 0;
+ }
+ 
+@@ -7146,6 +7164,8 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 			 "Enable RX Mitigation via HW Watchdog Timer\n");
+ 	}
+ 
++	priv->hw->hw_vlan_en = (priv->plat->flags & STMMAC_FLAG_HW_VLAN_EN);
++
+ 	return 0;
+ }
+ 
+@@ -7515,6 +7535,8 @@ int stmmac_dvr_probe(struct device *device,
+ #ifdef STMMAC_VLAN_TAG_USED
+ 	/* Both mac100 and gmac support receive VLAN tag detection */
+ 	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
++	ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
++
+ 	if (priv->dma_cap.vlhash) {
+ 		ndev->features |= NETIF_F_HW_VLAN_CTAG_FILTER;
+ 		ndev->features |= NETIF_F_HW_VLAN_STAG_FILTER;
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 0b4658a7eceb..1cf78e6bca5e 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -220,6 +220,7 @@ struct dwmac4_addrs {
+ #define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(10)
+ #define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(11)
+ #define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(12)
++#define STMMAC_FLAG_HW_VLAN_EN			BIT(13)
+ 
+ struct plat_stmmacenet_data {
+ 	int bus_id;
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
