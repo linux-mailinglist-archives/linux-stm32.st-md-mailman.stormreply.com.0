@@ -2,65 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A03E7E9599
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E177E9598
 	for <lists+linux-stm32@lfdr.de>; Mon, 13 Nov 2023 04:42:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27D03C6C839;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B301C6C831;
 	Mon, 13 Nov 2023 03:42:45 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06437C6C831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC3CFC6B47F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Nov 2023 03:42:43 +0000 (UTC)
+ Mon, 13 Nov 2023 03:42:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B8C91CE0FFA;
- Mon, 13 Nov 2023 03:42:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3BFD9C43397;
+ by sin.source.kernel.org (Postfix) with ESMTP id EEEEACE0FE8;
+ Mon, 13 Nov 2023 03:42:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30071C43391;
  Mon, 13 Nov 2023 03:42:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1699846957;
- bh=cJyTsg2/ykeyXvrK54v0p7rMm498zi6eFEDrVxQoqHU=;
+ bh=jdxeDVtgM5/V3SaVfri5ZhvhnazvM3zMI/UV31SAZgM=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=XlxhlH2Ky0/ppr6cbSjHHpmiaiAVtSAxgBo4szAffgNq3Vw2d4mxasFwD8OxzJ9Zc
- f4QvUyLxBzdsORjYJ/jIA3bMgB6rFLhgu9WGPPq6txPrGEpYMonIfKKyLZFKV9Ikgr
- i46ejT5aoIaDrxYme/xKHKediCRPVMl04Gq+WxbwWhon8SoJXo7GvqFTX7QGYoTGuv
- Q+xiS2gFfR3PcLmP2/s/s4W4dBHixX8YysXwO7Btaoc8ufZji2Kt6zGcmxlXEjGfeS
- Tys2pX5hYdkuhdMzwFp19SMxgYZGEqpYnLIzX7HltYLcLL+0OAkYB96UQAAEngliA1
- T3cWunvqmrg/g==
+ b=Ea8hxNwisz1LC/1DzBtjKwF55VCjbDAlXbgbnY45zFxU2WoW0zsWunTZmPaVRAsLA
+ QJVKUKpitKTbZgtNrsWEeapO9yD0BLH5nWZdygQvmoxqWjiYDi7mXbWyFQGnPY9uFm
+ ysOFDGLvKa8Ut01D53wuNH/MjQMgT0U9BJUKXrFQZZkE5os7Kqj5v8hQIXF6x8Y7Ik
+ DPFvCHxRDQK4+Mc2QMy7IBUSf5HjkTjEQPSMjV/VpAcEmMtnjuPqXNCloVYyAK6fqU
+ qErzOeo2HHErGox/8maRe/4DiNSlfXMO/woseQri91k++DciByjTKNswmtOUiirZWt
+ EpeJnWQEJISpw==
 Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
  (localhost.localdomain [127.0.0.1])
  by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 2142AE32714; Mon, 13 Nov 2023 03:42:37 +0000 (UTC)
+ 0AB63E32712; Mon, 13 Nov 2023 03:42:37 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+chrome-platform@kernel.org
-Message-Id: <169984695713.27851.5146160260731495399.git-patchwork-notify@kernel.org>
+Message-Id: <169984695702.27851.17182787496510678882.git-patchwork-notify@kernel.org>
 Date: Mon, 13 Nov 2023 03:42:37 +0000
-References: <20230920125829.1478827-1-u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20230920125829.1478827-1-u.kleine-koenig@pengutronix.de>
+References: <20230919174931.1417681-1-u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230919174931.1417681-1-u.kleine-koenig@pengutronix.de>
 To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=3Cu=2Ekleine-koenig=40pengutronix=2Ede=3E?=@ci.codeaurora.org
-Cc: lee@kernel.org, linus.walleij@linaro.org, rafael.j.wysocki@intel.com,
- pavel@ucw.cz, groeck@chromium.org, windhl@126.com,
- linux-stm32@st-md-mailman.stormreply.com, daniel.lezcano@linaro.org,
- chrome-platform@lists.linux.dev, arnd@arndb.de, samuel@sholland.org,
- o2g.org.ru@gmail.com, michal.simek@amd.com, ruanjinjie@huawei.com,
- frank.li@vivo.com, jernej.skrabec@gmail.com, joewu@msi.com, mitr@volny.cz,
- robert.jarzmik@free.fr, wens@csie.org, agross@kernel.org,
- linux-input@vger.kernel.org, jeff@labundy.com, linux-sunxi@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, mcoquelin.stm32@gmail.com,
- michael.hennerich@analog.com, robh@kernel.org, ye.xingchen@zte.com.cn,
- kvalo@kernel.org, rostedt@goodmis.org, hdegoede@redhat.com, lis8215@gmail.com,
- christophe.jaillet@wanadoo.fr, Jonathan.Cameron@huawei.com,
- andriy.shevchenko@linux.intel.com, bleung@chromium.org,
- linux-arm-kernel@lists.infradead.org, pabeni@redhat.com,
- support.opensource@diasemi.com, chenjun102@huawei.com,
- gregkh@linuxfoundation.org, mkorpershoek@baylibre.com,
- dmitry.torokhov@gmail.com, konrad.dybcio@linaro.org,
- krzysztof.kozlowski@linaro.org, kernel@pengutronix.de,
- patches@opensource.cirrus.com, dmitry.baryshkov@linaro.org, corbet@lwn.net,
- andersson@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/52] input: Convert to platform remove
- callback returning void
+Cc: alexandre.belloni@bootlin.com, jernej.skrabec@gmail.com, heiko@sntech.de,
+ groeck@chromium.org, linux-iio@vger.kernel.org, trix@redhat.com,
+ linus.walleij@linaro.org, claudiu.beznea@tuxon.dev, sean@geanix.com,
+ idosch@nvidia.com, chrome-platform@lists.linux.dev, dmitry.torokhov@gmail.com,
+ alim.akhtar@samsung.com, srinivas.pandruvada@linux.intel.com,
+ gnstark@sberdevices.ru, andreas@kemnade.info, sravanhome@gmail.com,
+ damien.lemoal@opensource.wdc.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, jbrunet@baylibre.com,
+ robh@kernel.org, lars@metafoo.de, benjaminfair@google.com,
+ marek.vasut@gmail.com, khilman@baylibre.com, ruanjinjie@huawei.com,
+ rafael.j.wysocki@intel.com, tmaimon77@gmail.com, andy.shevchenko@gmail.com,
+ haibo.chen@nxp.com, daniel.lezcano@linaro.org, yuenn@google.com, wens@csie.org,
+ agross@kernel.org, bcm-kernel-feedback-list@broadcom.com, linux-imx@nxp.com,
+ yangyingliang@huawei.com, konrad.dybcio@linaro.org, zhang_shurong@foxmail.com,
+ linux-sunxi@lists.linux.dev, mcoquelin.stm32@gmail.com,
+ linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
+ tali.perry1@gmail.com, aidanmacdonald.0x0@gmail.com, frank.li@vivo.com,
+ martin.blumenstingl@googlemail.com, rjui@broadcom.com, s.hauer@pengutronix.de,
+ jikos@kernel.org, eugen.hristev@collabora.com, vz@mleia.com,
+ bleung@chromium.org, linux-samsung-soc@vger.kernel.org, cai.huoqing@linux.dev,
+ ak@it-klinger.de, linux-amlogic@lists.infradead.org,
+ andriy.shevchenko@linux.intel.com, alexander.sverdlin@gmail.com,
+ linux-arm-kernel@lists.infradead.org, neil.armstrong@linaro.org,
+ jkluo@hust.edu.cn, sbranden@broadcom.com, avifishman70@gmail.com,
+ venture@google.com, andersson@kernel.org, samuel@sholland.org,
+ nicolas.ferre@microchip.com, peda@axentia.se, nuno.sa@analog.com,
+ hsweeten@visionengravers.com, krzysztof.kozlowski@linaro.org,
+ dzm91@hust.edu.cn, broonie@kernel.org, kernel@pengutronix.de,
+ ktsai@capellamicro.com, shawnguo@kernel.org, openbmc@lists.ozlabs.org,
+ jic23@kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/49] iio: Convert to platform remove
+	callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,21 +90,23 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Hello:
 
 This patch was applied to chrome-platform/linux.git (for-next)
-by Dmitry Torokhov <dmitry.torokhov@gmail.com>:
+by Jonathan Cameron <Jonathan.Cameron@huawei.com>:
 
-On Wed, 20 Sep 2023 14:57:37 +0200 you wrote:
-> Hello,
-> 
-> this series converts all platform drivers below drivers/input to use
-> remove_new. The motivation is to get rid of an integer return code
+On Tue, 19 Sep 2023 19:48:42 +0200 you wrote:
+> this series converts all platform drivers below drivers/iio to use
+> .remove_new(). The motivation is to get rid of an integer return code
 > that is (mostly) ignored by the platform driver core and error prone on
-> the driver side.
+> the driver side. As all platform drivers return zero unconditionally in their
+> remove callback up to now, the conversions are "trivial".
+> 
+> See commit 5c5a7680e67b ("platform: Provide a remove callback that
+> returns no value") for an extended explanation and the eventual goal.
 > 
 > [...]
 
 Here is the summary with links:
-  - [02/52] input: cros_ec_keyb - Convert to platform remove callback returning void
-    https://git.kernel.org/chrome-platform/c/63ef64cb6453
+  - [45/49] iio: proximity: cros_ec_mkbp: Convert to platform remove callback returning void
+    https://git.kernel.org/chrome-platform/c/2df694f710d2
 
 You are awesome, thank you!
 -- 
