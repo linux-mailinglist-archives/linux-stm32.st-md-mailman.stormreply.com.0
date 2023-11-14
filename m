@@ -2,78 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE707EAF8F
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Nov 2023 13:00:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDADF7EB0CD
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Nov 2023 14:26:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E663C6B44B;
-	Tue, 14 Nov 2023 12:00:02 +0000 (UTC)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com
- [209.85.208.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96697C6B44B;
+	Tue, 14 Nov 2023 13:26:41 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DD9CC65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F190DC6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Nov 2023 12:00:01 +0000 (UTC)
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-2c83d37a492so36119191fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Nov 2023 04:00:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699963200; x=1700568000;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+6KJAeM0fgwzrataiQJvaJXR0VKO4m2xUhSp/qxzWEU=;
- b=cTTmg8S0rCNj1PfDD/S55o4JT5tJBCQN9f/snsNvBwsYv96aGtdCzUzV9nR4n02594
- cSaxLZBrhkdjGRlf7Z5WNX6wwOiZ8NxkAhTwF6d7mW7Vyaawh903OcrP6i7/nhK3IEgA
- F5Yz8pxYMAVYRGV3uedZnrSwm+SteYgMwafIlEycwywQKnQLCraKu3M2ZAgM/0vHC2ye
- Vnd9LO96qlNU7364vmVxZtZPMP5fs4vareWy6IlOaP5pYh3eg8/AK9GSgYRwj+bE6zly
- mZu2x0+sJa3yUtdDyiSJpQIawAbZtX+KvcKRhS9muCzW5vXW4uiQkUzjlmz6fKAuGQYb
- tnPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699963200; x=1700568000;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+6KJAeM0fgwzrataiQJvaJXR0VKO4m2xUhSp/qxzWEU=;
- b=ZHN0sP72h71hhhbe8cG8P0t3W1Ps4BLI+X4YQoAirTy/BHk06nNrNJzOf5zCnz9LZ1
- trQNhtRs+Fb5Qy0AG3mhCkWTSwBtULtdOYQ+IdguYIyuWzvUuMDJnvG1F2MfJ1TsiKFF
- wB/NnE0q3PyQuvuw3RcGtzR9qAqsyaz254qPniYNWZJaoYOtx04v5Ax23LVpOwf2uvKL
- 85Si0/Wi9Hp2Akc5oSS0LEOVmjJHXFtAGo3+I7j5aSnEL+Ja7rHQPuDWyS6iCEDzz18s
- xbXGYFJ72pK5rQ+omG43Kq7qhZWORi7zbTCAprIhVOt8tE7IhhJ4YZMo9eTgvJ98iByT
- ksZw==
-X-Gm-Message-State: AOJu0YwqYjBQwt76qchqTxYk89yK0LWTD4kYdC2ucc5roLyiCr0ffmd7
- kRY3hd9dOjnWwvSJ4HNLNJg=
-X-Google-Smtp-Source: AGHT+IGkg/dZ2j3ZhRtPnnWF3nQd6Z1yanz+Og6hQVCouER01/X1PxmY2rEi6+qInKZZQyQytLevyw==
-X-Received: by 2002:a05:651c:1055:b0:2c5:3139:2d04 with SMTP id
- x21-20020a05651c105500b002c531392d04mr1494405ljm.47.1699963200069; 
- Tue, 14 Nov 2023 04:00:00 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- w21-20020a05651c119500b002c847782e14sm590774ljo.95.2023.11.14.03.59.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Nov 2023 03:59:59 -0800 (PST)
-Date: Tue, 14 Nov 2023 14:59:57 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-Message-ID: <xo4cbvc35zewabg4ite73trijy6fvbsaxsy6hag5qsr3dyharm@predjydxblsf>
-References: <CY5PR12MB6372857133451464780FD6B7BFB2A@CY5PR12MB6372.namprd12.prod.outlook.com>
+ Tue, 14 Nov 2023 13:26:39 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3AE9EmRn031609; Tue, 14 Nov 2023 14:26:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=v6RHVxwutJkSi6Qco+qNtL7rvalniuJSr5bDH69HBw4=; b=Ja
+ luzfrziUTgr5pbj04et5GPvMTssLHZgSX+oPmD48AIaNpxFPGdij8ZNcqIUyWd3Y
+ G7x7dN2fKSwM4h2mreekTFLV/GpwA4eF2DwwlSXYQvFm6WiZWPzJC0q0goMsP5kY
+ +8cbyGuDUk9yF8fuXM1vVIFL8+eKY8fGGZSZZfp16znrRd0Yvd633x/57P64kSbL
+ aawFKASX3ca07xu8fIh3kIqLnNXY64y4DmhLnGPuy4YIfntvtJpGdRc1VysA5T7Y
+ CP9jkZHmpEGdMQXeqNRcQ5OpwwqhHlBAfKVwCV6WdKNRMZ1E/pGrqmZoo1d32f7n
+ c/F8MBRGIe6aosBI35Xg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ua1u1uv72-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 14 Nov 2023 14:26:29 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8A861100038;
+ Tue, 14 Nov 2023 14:26:28 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 822642122E3;
+ Tue, 14 Nov 2023 14:26:28 +0100 (CET)
+Received: from [10.201.20.59] (10.201.20.59) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 14 Nov
+ 2023 14:26:27 +0100
+Message-ID: <77d75b3e-f9b7-4360-9e92-223befc9b57b@foss.st.com>
+Date: Tue, 14 Nov 2023 14:26:26 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CY5PR12MB6372857133451464780FD6B7BFB2A@CY5PR12MB6372.namprd12.prod.outlook.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Voon Weifeng <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+User-Agent: Mozilla Thunderbird
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ Thierry Reding <thierry.reding@gmail.com>
+References: <20231019200658.1754190-7-u.kleine-koenig@pengutronix.de>
+ <20231019200658.1754190-8-u.kleine-koenig@pengutronix.de>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20231019200658.1754190-8-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.201.20.59]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-14_13,2023-11-09_01,2023-05-22_02
+Cc: kernel@pengutronix.de, linux-pwm@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix FPE events losing
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/5] pwm: stm32: Replace write_ccrx with
+	regmap_write
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,104 +75,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 14, 2023 at 11:07:34AM +0000, Jianheng Zhang wrote:
-> The 32-bit access of register MAC_FPE_CTRL_STS may clear the FPE status
-> bits unexpectedly. Use 8-bit access for MAC_FPE_CTRL_STS control bits to
-> avoid unexpected access of MAC_FPE_CTRL_STS status bits that can reduce
-> the FPE handshake retries.
-> 
-> The bit[19:17] of register MAC_FPE_CTRL_STS are status register bits.
-> Those bits are clear on read (or write of 1 when RCWE bit in
-> MAC_CSR_SW_Ctrl register is set). Using 32-bit access for
-> MAC_FPE_CTRL_STS control bits makes side effects that clear the status
-> bits. Then the stmmac interrupt handler missing FPE event status and
-> leads to FPE handshake failure and retries.
-> 
-> The bit[7:0] of register MAC_FPE_CTRL_STS are control bits or reserved
-> that have no access side effects, so can use 8-bit access for
-> MAC_FPE_CTRL_STS control bits.
-> 
-> Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
-> Signed-off-by: jianheng <jianheng@synopsys.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> index e95d35f..7333995 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> @@ -716,11 +716,11 @@ void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
->  	u32 value;
->  
->  	if (!enable) {
-
-> -		value = readl(ioaddr + MAC_FPE_CTRL_STS);
-> +		value = readb(ioaddr + MAC_FPE_CTRL_STS);
-
-Note this may break the platforms which don't support non-32 MMIOs for
-some devices. None of the currently supported glue-drivers explicitly
-state they have such peculiarity, but at the same time the STMMAC-core
-driver at the present state uses the dword IO ops only. For instance
-the PCIe subsystem has the special accessors for such cases:
-pci_generic_config_read32()
-pci_generic_config_write32()
-which at the very least are utilized on the Tegra and Loongson
-platforms to access the host CSR spaces. These platforms are also
-equipped with the DW MACs. The problem might be irrelevant for all the
-currently supported DW MAC controllers implementations though, but
-still it worth to draw an attention to the problem possibility and in
-order to prevent it before ahead it would be better to just avoid
-using the byte-/word- IOs if it's possible.
-
--Serge(y)
-
->  
->  		value &= ~EFPE;
->  
-> -		writel(value, ioaddr + MAC_FPE_CTRL_STS);
-> +		writeb(value, ioaddr + MAC_FPE_CTRL_STS);
->  		return;
->  	}
->  
-> @@ -729,9 +729,9 @@ void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
->  	value |= (num_rxq - 1) << GMAC_RXQCTRL_FPRQ_SHIFT;
->  	writel(value, ioaddr + GMAC_RXQ_CTRL1);
->  
-> -	value = readl(ioaddr + MAC_FPE_CTRL_STS);
-> +	value = readb(ioaddr + MAC_FPE_CTRL_STS);
->  	value |= EFPE;
-> -	writel(value, ioaddr + MAC_FPE_CTRL_STS);
-> +	writeb(value, ioaddr + MAC_FPE_CTRL_STS);
->  }
->  
->  int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
-> @@ -770,7 +770,7 @@ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr, enum stmmac_mpacket_type type
->  {
->  	u32 value;
->  
-> -	value = readl(ioaddr + MAC_FPE_CTRL_STS);
-> +	value = readb(ioaddr + MAC_FPE_CTRL_STS);
->  
->  	if (type == MPACKET_VERIFY) {
->  		value &= ~SRSP;
-> @@ -780,5 +780,5 @@ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr, enum stmmac_mpacket_type type
->  		value |= SRSP;
->  	}
->  
-> -	writel(value, ioaddr + MAC_FPE_CTRL_STS);
-> +	writeb(value, ioaddr + MAC_FPE_CTRL_STS);
->  }
-> -- 
-> 1.8.3.1
-> 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTAvMTkvMjMgMjI6MDcsIFV3ZSBLbGVpbmUtS8O2bmlnIHdyb3RlOgo+IEZyb206IFBoaWxp
+cHAgWmFiZWwgPHAuemFiZWxAcGVuZ3V0cm9uaXguZGU+Cj4gCj4gVGhlIFRJTV9DQ1IxLi4uNCBy
+ZWdpc3RlcnMgYXJlIGNvbnNlY3V0aXZlLCBzbyByZXBsYWNlIHRoZSBzd2l0Y2gKPiBjYXNlIHdp
+dGggYSBzaW1wbGUgY2FsY3VsYXRpb24uIFNpbmNlIGNoIGlzIGtub3duIHRvIGJlIGluIHRoZSAw
+Li4uMwo+IHJhbmdlIChpdCBpcyBzZXQgdG8gaHdwd20gPCBucHdtIDw9IDQpLCBkcm9wIHRoZSB1
+bm5lY2Vzc2FyeSBlcnJvcgo+IGhhbmRsaW5nLiBUaGUgcmV0dXJuIHZhbHVlIHdhcyBub3QgY2hl
+Y2tlZCBhbnl3YXkuIFdoYXQgcmVtYWlucyBkb2VzCj4gbm90IHdhcnJhbnQga2VlcGluZyB0aGUg
+d3JpdGVfY2NyeCgpIGZ1bmN0aW9uIGFyb3VuZCwgc28gaW5zdGVhZCBjYWxsCj4gcmVnbWFwX3dy
+aXRlKCkgZGlyZWN0bHkgYXQgdGhlIHNpbmd1bGFyIGNhbGwgc2l0ZS4KPiAKPiBTaWduZWQtb2Zm
+LWJ5OiBQaGlsaXBwIFphYmVsIDxwLnphYmVsQHBlbmd1dHJvbml4LmRlPgo+IFNpZ25lZC1vZmYt
+Ynk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+Cj4g
+LS0tCj4gIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jIHwgMTcgKy0tLS0tLS0tLS0tLS0tLS0KPiAg
+MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxNiBkZWxldGlvbnMoLSkKCkhpIFV3ZSwK
+ClNvcnJ5IGZvciB0aGUgbGF0ZSByZXBseSwKWW91IGNhbiBhZGQgbXk6ClJldmlld2VkLWJ5OiBG
+YWJyaWNlIEdhc25pZXIgPGZhYnJpY2UuZ2FzbmllckBmb3NzLnN0LmNvbT4KClRoYW5rcywKRmFi
+cmljZQoKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9wd20vcHdtLXN0bTMyLmMgYi9kcml2ZXJz
+L3B3bS9wd20tc3RtMzIuYwo+IGluZGV4IDMzMDNhNzU0ZWEwMi4uNWU0ODU4NGUzYmQ0IDEwMDY0
+NAo+IC0tLSBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCj4gKysrIGIvZHJpdmVycy9wd20vcHdt
+LXN0bTMyLmMKPiBAQCAtNTIsMjEgKzUyLDYgQEAgc3RhdGljIHUzMiBhY3RpdmVfY2hhbm5lbHMo
+c3RydWN0IHN0bTMyX3B3bSAqZGV2KQo+ICAJcmV0dXJuIGNjZXIgJiBUSU1fQ0NFUl9DQ1hFOwo+
+ICB9Cj4gIAo+IC1zdGF0aWMgaW50IHdyaXRlX2Njcngoc3RydWN0IHN0bTMyX3B3bSAqZGV2LCBp
+bnQgY2gsIHUzMiB2YWx1ZSkKPiAtewo+IC0Jc3dpdGNoIChjaCkgewo+IC0JY2FzZSAwOgo+IC0J
+CXJldHVybiByZWdtYXBfd3JpdGUoZGV2LT5yZWdtYXAsIFRJTV9DQ1IxLCB2YWx1ZSk7Cj4gLQlj
+YXNlIDE6Cj4gLQkJcmV0dXJuIHJlZ21hcF93cml0ZShkZXYtPnJlZ21hcCwgVElNX0NDUjIsIHZh
+bHVlKTsKPiAtCWNhc2UgMjoKPiAtCQlyZXR1cm4gcmVnbWFwX3dyaXRlKGRldi0+cmVnbWFwLCBU
+SU1fQ0NSMywgdmFsdWUpOwo+IC0JY2FzZSAzOgo+IC0JCXJldHVybiByZWdtYXBfd3JpdGUoZGV2
+LT5yZWdtYXAsIFRJTV9DQ1I0LCB2YWx1ZSk7Cj4gLQl9Cj4gLQlyZXR1cm4gLUVJTlZBTDsKPiAt
+fQo+IC0KPiAgI2RlZmluZSBUSU1fQ0NFUl9DQzEyUCAoVElNX0NDRVJfQ0MxUCB8IFRJTV9DQ0VS
+X0NDMlApCj4gICNkZWZpbmUgVElNX0NDRVJfQ0MxMkUgKFRJTV9DQ0VSX0NDMUUgfCBUSU1fQ0NF
+Ul9DQzJFKQo+ICAjZGVmaW5lIFRJTV9DQ0VSX0NDMzRQIChUSU1fQ0NFUl9DQzNQIHwgVElNX0ND
+RVJfQ0M0UCkKPiBAQCAtMzY5LDcgKzM1NCw3IEBAIHN0YXRpYyBpbnQgc3RtMzJfcHdtX2NvbmZp
+ZyhzdHJ1Y3Qgc3RtMzJfcHdtICpwcml2LCBpbnQgY2gsCj4gIAlkdHkgPSBwcmQgKiBkdXR5X25z
+Owo+ICAJZG9fZGl2KGR0eSwgcGVyaW9kX25zKTsKPiAgCj4gLQl3cml0ZV9jY3J4KHByaXYsIGNo
+LCBkdHkpOwo+ICsJcmVnbWFwX3dyaXRlKHByaXYtPnJlZ21hcCwgVElNX0NDUjEgKyA0ICogY2gs
+IGR0eSk7Cj4gIAo+ICAJLyogQ29uZmlndXJlIG91dHB1dCBtb2RlICovCj4gIAlzaGlmdCA9IChj
+aCAmIDB4MSkgKiBDQ01SX0NIQU5ORUxfU0hJRlQ7Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
