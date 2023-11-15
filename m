@@ -2,210 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E817EC810
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Nov 2023 17:01:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D86A7EC822
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Nov 2023 17:06:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C0F6C6C837;
-	Wed, 15 Nov 2023 16:01:46 +0000 (UTC)
-Received: from mx0a-00230701.pphosted.com (mx0a-00230701.pphosted.com
- [148.163.156.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 542A8C6B47E
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8C14C6C837;
+	Wed, 15 Nov 2023 16:06:21 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FC21C6B47E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Nov 2023 16:01:44 +0000 (UTC)
-Received: from pps.filterd (m0098571.ppops.net [127.0.0.1])
- by mx0a-00230701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AFEn7DL019179; Wed, 15 Nov 2023 08:01:08 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pfptdkimsnps;
- bh=CqRioOeArEGAm7CBrnX5VwhXxtH0BwSS2x+zXb4iTqs=;
- b=o80DqNhwH7Gt/3Tpmu4FAQKLSHRYI1DI7ivscHRT/te4Iup9kGoCGhB8+4ZyAeEB6kOt
- 0aiL9P/SxAH9w0NHz/wLxl5KMvVdQBV00t2FGWlal5ccaJv6kl6HelaRpdj+0r3WZh5M
- MHrxLi4z9y+oerJWyuU7qcU2H/4FQQFFZnB2PgzD8DeSiFxFq40ehwIIroXGKqhh/C/a
- PEWs8NsnfLbz7NiSMvXrgv7IffkZ0vf4YB6lgtixU3exBS3YLox7QsL19A9uvcPxQxEl
- iC36jTuaksCKn2o+jg2nc9uCOqSUHbQVk9h/b7n8ltzmsFFt6X34dd1Gf9vlCv2HKkfQ oA== 
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
- [149.117.87.133])
- by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 3ua9gs9y1p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Nov 2023 08:01:06 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1700064065; bh=4T6hlBdHKNTi/4ItNKrpU1JHBC8NteoHzh1QKrFzW7E=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=KYoGF2JQmIUjTHoYaW5E/BRBVebxzSdoXtaFT5kee6UZ3xGki/X1Tb5eQBnCxtVGx
- kF4ieeEou5XJfCwe9Hh2FNstyIxJLzStEe2SaBjuwJ1rqhBZEmW5BycqU9j3R9lH68
- enpIgKh/g5hblL7N0bvqkgtE6gGAIgJ7j3mHzdb82qxoxgkLvMzD9rlACVRLjyZtR3
- vw8f9GKJ7NiYKb7StEYZ4s2JNz1sXY2SCN/0/AycN0/9rvDYEMdOOGv0uKJcp5SwUd
- R8RmKqMT6QjX9vP0Aauj5sAoC9hWDFfC6fZNz8a0h1QYddkVSeCdA+dtKg9xLyby+6
- DDWyQZqy8DyJA==
-Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com
- [10.192.0.81])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits)
- client-signature RSA-PSS (2048 bits))
- (Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 9FB4640087;
- Wed, 15 Nov 2023 16:01:02 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com
- [10.4.161.139])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (Client CN "o365relay-in.synopsys.com",
- Issuer "Entrust Certification Authority - L1K" (verified OK))
- by mailhost.synopsys.com (Postfix) with ESMTPS id 6A458A00BD;
- Wed, 15 Nov 2023 16:01:01 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com;
- dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
- spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; dkim=pass (1024-bit key;
- unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256
- header.s=selector1 header.b=TGRvVwU4; 
- dkim-atps=neutral
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04lp2041.outbound.protection.outlook.com [104.47.74.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client CN "mail.protection.outlook.com",
- Issuer "DigiCert Cloud Services CA-1" (verified OK))
- by o365relay-in.synopsys.com (Postfix) with ESMTPS id 4749A40078;
- Wed, 15 Nov 2023 16:00:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eiqNHi9TFfEFC/saQ5Uwr7A4GBtj6jO5FCCKelVgD56rmjax85SKnkX7LAfrGuDVKwFRPENk/+yU3OnKdRRrfU1rL/TW5pBZi5RQCMgj6l+Sb8lgtQeLcCCMfxxb3VcpROrr7gk15zCigmIXSOybJdT2hUcci6YwIGh0+QfDFqAENQMlYkBBhT0+2X1OMVqg0Ez0mbMp0brQUYh3qA3b0l9nbvTdZdmHZOKdNsfYDuAVURT+ydyIPtaIlzgORwWP6r5pugYkOAta4Pf2HJ3phifYc6WNFAegPlREA9Gz/NScjj004HB7iucsgO0ZVx6QizwrW751ln9aVmBEgCc9Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CqRioOeArEGAm7CBrnX5VwhXxtH0BwSS2x+zXb4iTqs=;
- b=gC6bDE0YLsO1BKjnao3EnuvHysfCODnScuZV6rKXOjDv6paqfFP4TnjMzHW5PFM3O8Hd03iFhvOgmiSMBtbGU7+D0u9CJFZdHLOeIvmdSIgUOv2N98wHho4JncS21ETrQzO8aqHBig6ESG3rbUjSuLBzmnxwfLffkAuj/1xkCJ1RLwMB1jea9ymCK0aPXObraE34IE0tGA1sJle3Q69AyTaJ6swn9Ai0T4BPQ35xEN1lAj6Q2jg4Sx8qnww0bidiQb0jgKfvmCaLPIjD+MlLt3H1jQnA6YjrLSYmKhkBoNS1eW2UwOY1y1yVGdHz3sjENuJIReYe3H1pO0s9/xN1Rw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CqRioOeArEGAm7CBrnX5VwhXxtH0BwSS2x+zXb4iTqs=;
- b=TGRvVwU4uXDNSh3adgPKKNO7wt8uJsCWogQeaTGSdSg+9fRQrVfuoXesDX2H/7XyHvfhOagm500nzDHbWgdsoyQIiKmI+1zKHN37iz9bypPly2sOwFlNNumVRlZADlCObMhK7cE/Z8uxOBvyEbjH0XFekRCU6vnyGQBo5JnIyb4=
-Received: from CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) by
- CY5PR12MB6299.namprd12.prod.outlook.com (2603:10b6:930:20::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6977.31; Wed, 15 Nov 2023 16:00:43 +0000
-Received: from CY5PR12MB6372.namprd12.prod.outlook.com
- ([fe80::45da:22ed:5900:420c]) by CY5PR12MB6372.namprd12.prod.outlook.com
- ([fe80::45da:22ed:5900:420c%4]) with mapi id 15.20.6977.029; Wed, 15 Nov 2023
- 16:00:42 +0000
-X-SNPS-Relay: synopsys.com
-From: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-To: Russell King <linux@armlinux.org.uk>, Serge Semin <fancer.lancer@gmail.com>
-Thread-Topic: [PATCH] net: stmmac: fix FPE events losing
-Thread-Index: AdoW3Xfb3QHiuCaqTA2ROZ4444S4MgAFJ5GAADdg94AAAqmPIA==
-Date: Wed, 15 Nov 2023 16:00:42 +0000
-Message-ID: <CY5PR12MB63727BAD92930CB04DE4DB52BFB1A@CY5PR12MB6372.namprd12.prod.outlook.com>
-References: <CY5PR12MB6372857133451464780FD6B7BFB2A@CY5PR12MB6372.namprd12.prod.outlook.com>
- <xo4cbvc35zewabg4ite73trijy6fvbsaxsy6hag5qsr3dyharm@predjydxblsf>
- <ZVTU4TTFYSMLswTs@shell.armlinux.org.uk>
-In-Reply-To: <ZVTU4TTFYSMLswTs@shell.armlinux.org.uk>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6372:EE_|CY5PR12MB6299:EE_
-x-ms-office365-filtering-correlation-id: 9adf4928-1b2f-40a0-e01d-08dbe5f40555
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PB/Y24vsftZM+Pa9PyuBJuembcrbH1YVWOStnxsJsD7pmT1qYgHVF4qTsNnUSJl3CSyrb+cl/03puVEPNR8JcGUCHNofuUOm2Xa7YTCo8z8ibograanT7olzqwj6mqx3ZF6UXX9LyrbVYcuUOQwjyOpL2zKZyBAQsMEpt97LQIdXorWYra1R8GEhQNOi4Q0AUoGgNjp54Y5xAnyjD/hf522XEvVDHLBWdXXKbOeBX96m9S79ocY+3nAPORzdWQBEN1Kba6aqdScNhvMzoTjSfQeZ0i7fJEZ1kbBzxtZeZDQ4bIG7s9cchGp6Q6hcN/aqoozHpiAkZypKUDOeFBhwdz7mmyeoeE38AM6Vjnta92QgtAF8ak1lkCU3JMUOIc+oT6sCuV9lAaETXxmOKVie5afj3yAMyFIwdNAUzPSdEspGpPXGYAvxYtYWlw1PO0cFp7DCQEThKPX6moiDUBkFq/G5oMnEFjY0xidZDmgzR8XMiHyaSJF+aui0A8js2I7u0XKofSP7s8+QvzqCYNDe89aQ5Cvt8nGozEAIyBsxGxHXpdfTDeugtLkA8Te1UOj2vla2GLkpISYbfyLRl9Xk1hOBkb2KltRr3mJWOZNrqps=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(346002)(136003)(39860400002)(366004)(376002)(230922051799003)(186009)(451199024)(64100799003)(1800799009)(38070700009)(55016003)(86362001)(38100700002)(7416002)(53546011)(2906002)(33656002)(9686003)(83380400001)(122000001)(7696005)(6506007)(5660300002)(26005)(41300700001)(316002)(966005)(66446008)(71200400001)(54906003)(8676002)(110136005)(4326008)(66476007)(52536014)(478600001)(64756008)(66946007)(8936002)(76116006)(66556008);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?E7VvxtUeALaCxIusTPcL0wSfWXpoZQ9zbGXcrvRLqIq3bvWXyr6Lej+RBs4g?=
- =?us-ascii?Q?mPv563ldab1qwJJGS1mk32j/cu0QPUBm4P5uAUdZGnoKZRFcVBEWUrg7fZ7E?=
- =?us-ascii?Q?L3t47M6LdRdQEeLL/jK91dAnOd4pv8sqyj6OlAkJaJ3eal/LyXhrsG6jXlA2?=
- =?us-ascii?Q?3V6JXU8W2ratCjKbbd9A42V3eoraiwSWpX0ZigUob6dMT+yRmz7G6KZbxTpg?=
- =?us-ascii?Q?5NpqcEB86PIBFR1R+9fCLdHlTwJTS95oMbo5OOtw7wECo2O1Mtvclz7Tw0vb?=
- =?us-ascii?Q?FSrG4vhhDeqPePNDBXLuInt0+goJLLi56vYYw4YhPGC0j91BPZqS7GBZorJm?=
- =?us-ascii?Q?u7onUGU484xGdHXYwzVREQ2xhyKmwHgj4vQ5xj73BwgXok6yIrVUHyKOT+p9?=
- =?us-ascii?Q?+EZSDT485jXJb/ryFq+l/XEXHwsMZaOrNEBOqTw3hCaYaPPUFpo2NE26begc?=
- =?us-ascii?Q?7E1/z3+R6IP0+ZzVs63G7X0t3OPvLWQTsodssE5N51zws84+6mx7D3ostOOj?=
- =?us-ascii?Q?mwHkiLnjJZtmPurE5FZllR8EMoPHx9DzlchpSPYpB697n8kYjS2hif2VpNJI?=
- =?us-ascii?Q?j/kwxW2F8RabNXPv/U3XJO71mxn1tv4Dq2veu8PRlT2/SbZASY3L+7yPtX0w?=
- =?us-ascii?Q?jO3IAGn2/iye72Q7pfcKjkdyFUijTUTdK2B5pzWQifaeldZSvTWOyZvqMhld?=
- =?us-ascii?Q?C9nRs8sWHpS5r+wYb6qCQHKP8G8Y57aflp4eB4zA/rJ7WVKgQULlVyviuZoe?=
- =?us-ascii?Q?eZSJX7wlL4ra4iDF1pV5R2Y4Sdgs+zshHFqTKCHQDpRT1Wqsq/k7x1pTFirV?=
- =?us-ascii?Q?woSKA7XE7aPwtV7LDRasZpDRUgiyTOW31SOwOx+J5CXbMJRIYmRXTcLH/7Dz?=
- =?us-ascii?Q?GEMXwKNXJR4lQgTYXWQ1P/+TFhklRGU98PpL111LZgFbHCvokucOeCzS4G/1?=
- =?us-ascii?Q?lrFvKN8CEtMm8JMRHoM8HJm47EhY6K8KIoZoBL5tzTihOK2A3m3PGhvQ3eBI?=
- =?us-ascii?Q?BFpG9bR3DbC0x0VkkhSVcJE90RlXAB8nEdObfZXk81CZPQy2Sfkv/oVj8DaQ?=
- =?us-ascii?Q?Ycw1Opp7mAwAEtjmLpLPW0QOGDtIz+gdKUdp7oMK+pNdkeA2YPFOjNSTANKX?=
- =?us-ascii?Q?geuZxi+W9JE00QmhuVIapwIjuUzMgynzIxae42yoXgTzuwQYwQMZHkhBI1aE?=
- =?us-ascii?Q?p+6kxf5nLPT+H1DfC50AhnkQXTbTfvieRTJAvkx+og17QjXhQbZ2qcu/K+11?=
- =?us-ascii?Q?MoDbvFatxQ0RbZzB0PS62QlvEblDAi94dMdypLl7trMXwxnsDXns6LuwE7lA?=
- =?us-ascii?Q?U2LMpHMRlf0x1nVj/XFJlSwTbHnAqz1ZJhW97/BoPKUN3vDMycIDUc3xRAtD?=
- =?us-ascii?Q?YYyP7dmEshvpRSP3r6YlHT2karz6KkIj/7YJSQCtG9y/SMxNUVQMn1SMa0qj?=
- =?us-ascii?Q?j41ECydlOwUlbcqaIhEqdIUgV0eR62x/LlliozE/D8VAjpeOsCSDNXiEgRwH?=
- =?us-ascii?Q?fLTVf0xGO7WlGq+RoOyf3017DiL2LdPSOhigScnbcYlpDu9+RyHEY1t7WzSE?=
- =?us-ascii?Q?dkjZX9rTOVKx2YgDuGUT0uKbxiDIlEAxmCu12Kgm?=
+ Wed, 15 Nov 2023 16:06:20 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B1F8DA7;
+ Wed, 15 Nov 2023 08:07:05 -0800 (PST)
+Received: from e127643.broadband (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4E1BA3F641;
+ Wed, 15 Nov 2023 08:06:18 -0800 (PST)
+From: James Clark <james.clark@arm.com>
+To: coresight@lists.linaro.org,
+	suzuki.poulose@arm.com
+Date: Wed, 15 Nov 2023 16:06:06 +0000
+Message-Id: <20231115160609.230977-1-james.clark@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?TQODgumNoHHQpAxtiYY6l2LvCO5tVsQW13aAyS5ky6ciymMejTsKSWsnoIDm?=
- =?us-ascii?Q?1GvKPMYpxV90ov/c5GsPR6dQorPZcECFKaJTzo0KZuDugSvwnHu3siL1OdIY?=
- =?us-ascii?Q?ElcW4gbOWCFcHDUtJ8H7kcAxKoPJ6AjLoW0GZX4XcLvEZ06Ec4V9ep+zSbKQ?=
- =?us-ascii?Q?nGrFDy8maj1rC0ODcGKBZo3mZuBLIgOj00BHCuj0yTiE4dMjjMOf6qbmjF67?=
- =?us-ascii?Q?QijKlfSqwVa7ZpSamV5GmW+5zRVbJvC62h4w1RvFuIzbfp1uJZwU8f3yCrcE?=
- =?us-ascii?Q?IyVWtEXQ08dYjv1CkgxXq9rgZQlTYLGd/jdxdo1ejn1i6//Y/gt2rodaG/xt?=
- =?us-ascii?Q?rq4S9x6qQg+HOyx9QtDS+8KMNcr9PGCq5xMtDl0Mk/pSzRZ2p5W5aDYVx+aB?=
- =?us-ascii?Q?ao7Z1l8c8Pp3+s2Co2nX3NmostcP5TiuINQKKMFqnWhXKRDY8S4R3THJOtj/?=
- =?us-ascii?Q?hjbmIMl9VDTitoRslZmBSq3X8om42tTMng2md8OR53DSw94XXkRlMf94CXQI?=
- =?us-ascii?Q?15g1/PJ1kEHAutTnAgj1djZ8CnZeXPSpjjPbFvMdKouTCOsR784msyQxgPyG?=
- =?us-ascii?Q?8G24O5LiMaT1wFU6m9jbAdScsTKbnlbJPp3/vZEvv6Hdi6VSRlr9/+ndQlp1?=
- =?us-ascii?Q?21wcpq70I76rw+A4uEajADQrBK2q6l4PU6hMowPj1se4pQYgubf6+G8TbMoS?=
- =?us-ascii?Q?lXjM6HC8pTX/bP4TAYa91rvKkfbsbhYz3kgMskQ1ApjEauThrFs2CJ0EFmI9?=
- =?us-ascii?Q?FfBx44+LSO+yKSuScICa/ymWJuqV/ikBVD8xqUmNul9kKQzdCHssrtz4vDNa?=
- =?us-ascii?Q?f2ChOMNzq4so1/lB6t2aCW2DeNtDUdym2lk0NWqSHb2GjMYAS6viqFZbe1Mw?=
- =?us-ascii?Q?yLEU0lps5I+C/pJ2LKwv9ym+PXb94KE66wb2AWvxesn4LQvnkU1w4GZsE6h6?=
- =?us-ascii?Q?n3PbnfeT2GUtQEDdm8Q2UvHsJjCtK6s61pPqsZ5sGEV2NoWSI3US1IZY47Lo?=
- =?us-ascii?Q?wieRmiLiyQThEaF/kx6GzDVqiTz81XNBdHU0cm9RMqUIlZtZFUUUDqug9Rk1?=
- =?us-ascii?Q?GPZ10S6e/9Jur+/VFR89OkRA7dbBpXHvFCwdeH3xrB/pB1ctr0pfaXcvMPiX?=
- =?us-ascii?Q?Ih4xNZr04ahWLQjOb1eJhJp8iXZ44CNf1p/mqpNHNOawDrG6ZM/ILTyWcIeo?=
- =?us-ascii?Q?PxC/EeI7E2FTMtTe?=
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9adf4928-1b2f-40a0-e01d-08dbe5f40555
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2023 16:00:42.6799 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ipTOJ/xVUyhdWax3on4FCuBqOp1WBgwcv1SiuvMMbK22KJI4xbm6UgccNvSMyBTsQA5pfIco6+x1ZYF/AiB7Vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6299
-X-Proofpoint-GUID: gwkuafP5yrBfNW-kGVJp3B-9IOvO4sp0
-X-Proofpoint-ORIG-GUID: gwkuafP5yrBfNW-kGVJp3B-9IOvO4sp0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-15_15,2023-11-15_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0
- mlxlogscore=999 lowpriorityscore=0 phishscore=0 spamscore=0 adultscore=0
- bulkscore=0 mlxscore=0 suspectscore=0 malwarescore=0 classifier=spam
- adjust=0 reason=mlx scancount=1 engine=8.12.0-2311060000
- definitions=main-2311150122
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Voon Weifeng <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, James Clark <james.clark@arm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Tan Tee Min <tee.min.tan@intel.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix FPE events losing
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: [Linux-stm32] [PATCH] coresight: Make current W=1 warnings default
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -222,90 +46,223 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Similarly to drivers/gpu/drm/amd/amdgpu/Makefile and
+fs/btrfs/Makefile, copy the current set of W=1 warnings from
+Makefile.extrawarn to the coresight makefile to make them default.
+Unfortunately there is no easy way to do this without copying.
 
-> -----Original Message-----
-> From: Russell King <linux@armlinux.org.uk>
-> Sent: Wednesday, November 15, 2023 10:26 PM
-> To: Serge Semin <fancer.lancer@gmail.com>
-> Cc: Jianheng Zhang <jianheng@synopsys.com>; Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose
-> Abreu <joabreu@synopsys.com>; David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>;
-> Maxime Coquelin <mcoquelin.stm32@gmail.com>; Tan Tee Min <tee.min.tan@intel.com>; Ong Boon
-> Leong <boon.leong.ong@intel.com>; Voon Weifeng <weifeng.voon@intel.com>; Mohammad Athari Bin
-> Ismail <mohammad.athari.ismail@intel.com>; netdev@vger.kernel.org;
-> linux-stm32@st-md-mailman.stormreply.com; linux-arm-kernel@lists.infradead.org;
-> linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH] net: stmmac: fix FPE events losing
-> 
-> On Tue, Nov 14, 2023 at 02:59:57PM +0300, Serge Semin wrote:
-> > On Tue, Nov 14, 2023 at 11:07:34AM +0000, Jianheng Zhang wrote:
-> > > The 32-bit access of register MAC_FPE_CTRL_STS may clear the FPE status
-> > > bits unexpectedly. Use 8-bit access for MAC_FPE_CTRL_STS control bits to
-> > > avoid unexpected access of MAC_FPE_CTRL_STS status bits that can reduce
-> > > the FPE handshake retries.
-> > >
-> > > The bit[19:17] of register MAC_FPE_CTRL_STS are status register bits.
-> > > Those bits are clear on read (or write of 1 when RCWE bit in
-> > > MAC_CSR_SW_Ctrl register is set). Using 32-bit access for
-> > > MAC_FPE_CTRL_STS control bits makes side effects that clear the status
-> > > bits. Then the stmmac interrupt handler missing FPE event status and
-> > > leads to FPE handshake failure and retries.
-> > >
-> > > The bit[7:0] of register MAC_FPE_CTRL_STS are control bits or reserved
-> > > that have no access side effects, so can use 8-bit access for
-> > > MAC_FPE_CTRL_STS control bits.
-> > >
-> > > Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
-> > > Signed-off-by: jianheng <jianheng@synopsys.com>
-> > > ---
-> > >  drivers/net/ethernet/stmicro/stmmac/dwmac5.c | 12 ++++++------
-> > >  1 file changed, 6 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> > > index e95d35f..7333995 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
-> > > @@ -716,11 +716,11 @@ void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32
-> num_rxq,
-> > >  	u32 value;
-> > >
-> > >  	if (!enable) {
-> >
-> > > -		value = readl(ioaddr + MAC_FPE_CTRL_STS);
-> > > +		value = readb(ioaddr + MAC_FPE_CTRL_STS);
-> >
-> > Note this may break the platforms which don't support non-32 MMIOs for
-> > some devices. None of the currently supported glue-drivers explicitly
-> > state they have such peculiarity, but at the same time the STMMAC-core
-> > driver at the present state uses the dword IO ops only. For instance
-> > the PCIe subsystem has the special accessors for such cases:
-> > pci_generic_config_read32()
-> > pci_generic_config_write32()
-> > which at the very least are utilized on the Tegra and Loongson
-> > platforms to access the host CSR spaces. These platforms are also
-> > equipped with the DW MACs. The problem might be irrelevant for all the
-> > currently supported DW MAC controllers implementations though, but
-> > still it worth to draw an attention to the problem possibility and in
-> > order to prevent it before ahead it would be better to just avoid
-> > using the byte-/word- IOs if it's possible.
-> 
-> Yes, this exists for configuration accesses, and is damn annoying
-> because the read-modify-write of these can end up clearing PCI
-> status register bits that are W1C.
-> 
-> I've never heard of that problem with MMIO though.
-> 
-> --
-> RMK's Patch system:
-> https://urldefense.com/v3/__https://www.armlinux.org.uk/developer/patches/__;!!A4F2R9G_pg!ZnsQc
-> 7LKbdCiIj_nLBkt44MRSL8W8YD4WvMmPNkHFlDMrjrVqEVOVA1-P-9BVE3Oa5bC1ymKXLNV5C9mJ_rfFtLW
-> Fg$
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-Thanks for all your mention about the potential risks of using readb and suggestions, I'll consider a new solution and update the patch.
+In addition to the default set of warnings, add -Wno-sign-compare to
+disable that warning. That's because Makefile.extrawarn does some extra
+steps to disable some -Wextra warnings unless W=2 or W=3 are used.
+That's the only one that's needed for Coresight, so disable it.
 
-Best Regards,
-Jianheng
+Although a W=1 currently works for Coresight, because we're not
+disabling all of the -Wextra warnings that Makefile.extrawarn does, a
+few struct initialiser warnings need to be fixed, so fix those in the
+code rather than disabling even more warnings.
+
+Signed-off-by: James Clark <james.clark@arm.com>
+---
+ drivers/hwtracing/coresight/Makefile          | 20 +++++++++++++++++++
+ .../hwtracing/coresight/coresight-cti-core.c  |  2 +-
+ drivers/hwtracing/coresight/coresight-etb10.c |  2 +-
+ .../coresight/coresight-etm4x-core.c          |  2 +-
+ .../hwtracing/coresight/coresight-funnel.c    |  4 ++--
+ .../coresight/coresight-replicator.c          |  2 +-
+ drivers/hwtracing/coresight/coresight-stm.c   |  2 +-
+ .../hwtracing/coresight/coresight-tmc-core.c  |  2 +-
+ drivers/hwtracing/coresight/coresight-tpda.c  |  2 +-
+ drivers/hwtracing/coresight/coresight-tpdm.c  |  2 +-
+ drivers/hwtracing/coresight/coresight-tpiu.c  |  2 +-
+ drivers/hwtracing/coresight/ultrasoc-smb.c    |  2 +-
+ 12 files changed, 32 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/hwtracing/coresight/Makefile b/drivers/hwtracing/coresight/Makefile
+index 995d3b2c76df..4ba478211b31 100644
+--- a/drivers/hwtracing/coresight/Makefile
++++ b/drivers/hwtracing/coresight/Makefile
+@@ -2,6 +2,26 @@
+ #
+ # Makefile for CoreSight drivers.
+ #
++
++# Current W=1 warnings
++subdir-ccflags-y += -Wextra -Wunused -Wno-unused-parameter
++subdir-ccflags-y += -Wmissing-declarations
++subdir-ccflags-y += -Wmissing-format-attribute
++subdir-ccflags-y += -Wmissing-prototypes
++subdir-ccflags-y += -Wold-style-definition
++subdir-ccflags-y += -Wmissing-include-dirs
++subdir-ccflags-y += -Wno-sign-compare
++condflags := \
++	$(call cc-option, -Wrestrict)				\
++	$(call cc-option, -Wunused-but-set-variable)		\
++	$(call cc-option, -Wunused-const-variable)		\
++	$(call cc-option, -Wpacked-not-aligned)			\
++	$(call cc-option, -Wformat-overflow)			\
++	$(call cc-option, -Wformat-truncation)			\
++	$(call cc-option, -Wstringop-overflow)			\
++	$(call cc-option, -Wstringop-truncation)
++subdir-ccflags-y += $(condflags)
++
+ obj-$(CONFIG_CORESIGHT) += coresight.o
+ coresight-y := coresight-core.o  coresight-etm-perf.o coresight-platform.o \
+ 		coresight-sysfs.o coresight-syscfg.o coresight-config.o \
+diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/hwtracing/coresight/coresight-cti-core.c
+index 3999d0a2cb60..e805617020d0 100644
+--- a/drivers/hwtracing/coresight/coresight-cti-core.c
++++ b/drivers/hwtracing/coresight/coresight-cti-core.c
+@@ -974,7 +974,7 @@ static const struct amba_id cti_ids[] = {
+ 	CS_AMBA_ID(0x000bb9aa), /* CTI - C-A73 */
+ 	CS_AMBA_UCI_ID(0x000bb9da, uci_id_cti), /* CTI - C-A35 */
+ 	CS_AMBA_UCI_ID(0x000bb9ed, uci_id_cti), /* Coresight CTI (SoC 600) */
+-	{ 0, 0},
++	{ 0, 0, NULL },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, cti_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
+index fa80039e0821..3ae42c5a29eb 100644
+--- a/drivers/hwtracing/coresight/coresight-etb10.c
++++ b/drivers/hwtracing/coresight/coresight-etb10.c
+@@ -837,7 +837,7 @@ static const struct amba_id etb_ids[] = {
+ 		.id	= 0x000bb907,
+ 		.mask	= 0x000fffff,
+ 	},
+-	{ 0, 0},
++	{ 0, 0, 0 },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, etb_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+index 285539104bcc..5faa9c85c272 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+@@ -2392,7 +2392,7 @@ static const struct of_device_id etm4_sysreg_match[] = {
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id etm4x_acpi_ids[] = {
+-	{"ARMHC500", 0}, /* ARM CoreSight ETM4x */
++	{"ARMHC500", 0, 0, 0}, /* ARM CoreSight ETM4x */
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(acpi, etm4x_acpi_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
+index b8e150e45b27..24cee5408b86 100644
+--- a/drivers/hwtracing/coresight/coresight-funnel.c
++++ b/drivers/hwtracing/coresight/coresight-funnel.c
+@@ -351,7 +351,7 @@ MODULE_DEVICE_TABLE(of, static_funnel_match);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id static_funnel_ids[] = {
+-	{"ARMHC9FE", 0},
++	{"ARMHC9FE", 0, 0, 0},
+ 	{},
+ };
+ 
+@@ -392,7 +392,7 @@ static const struct amba_id dynamic_funnel_ids[] = {
+ 		.id     = 0x000bb9eb,
+ 		.mask   = 0x000fffff,
+ 	},
+-	{ 0, 0},
++	{ 0, 0, 0 },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, dynamic_funnel_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
+index b6be73034996..33e3ba4f97fa 100644
+--- a/drivers/hwtracing/coresight/coresight-replicator.c
++++ b/drivers/hwtracing/coresight/coresight-replicator.c
+@@ -364,7 +364,7 @@ MODULE_DEVICE_TABLE(of, static_replicator_match);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id static_replicator_acpi_ids[] = {
+-	{"ARMHC985", 0}, /* ARM CoreSight Static Replicator */
++	{"ARMHC985", 0, 0, 0}, /* ARM CoreSight Static Replicator */
+ 	{}
+ };
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
+index a1c27c901ad1..891ee64efed8 100644
+--- a/drivers/hwtracing/coresight/coresight-stm.c
++++ b/drivers/hwtracing/coresight/coresight-stm.c
+@@ -950,7 +950,7 @@ static const struct dev_pm_ops stm_dev_pm_ops = {
+ static const struct amba_id stm_ids[] = {
+ 	CS_AMBA_ID_DATA(0x000bb962, "STM32"),
+ 	CS_AMBA_ID_DATA(0x000bb963, "STM500"),
+-	{ 0, 0},
++	{ 0, 0, NULL },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, stm_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+index 7ec5365e2b64..39bae35d4ffd 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-core.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+@@ -594,7 +594,7 @@ static const struct amba_id tmc_ids[] = {
+ 	CS_AMBA_ID(0x000bb9e9),
+ 	/* Coresight SoC 600 TMC-ETF */
+ 	CS_AMBA_ID(0x000bb9ea),
+-	{ 0, 0},
++	{ 0, 0, NULL },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, tmc_ids);
+diff --git a/drivers/hwtracing/coresight/coresight-tpda.c b/drivers/hwtracing/coresight/coresight-tpda.c
+index 5f82737c37bb..4ac954f4bc13 100644
+--- a/drivers/hwtracing/coresight/coresight-tpda.c
++++ b/drivers/hwtracing/coresight/coresight-tpda.c
+@@ -300,7 +300,7 @@ static struct amba_id tpda_ids[] = {
+ 		.id     = 0x000f0f00,
+ 		.mask   = 0x000fff00,
+ 	},
+-	{ 0, 0},
++	{ 0, 0, NULL },
+ };
+ 
+ static struct amba_driver tpda_driver = {
+diff --git a/drivers/hwtracing/coresight/coresight-tpdm.c b/drivers/hwtracing/coresight/coresight-tpdm.c
+index 97654aa4b772..1a8735fa0a19 100644
+--- a/drivers/hwtracing/coresight/coresight-tpdm.c
++++ b/drivers/hwtracing/coresight/coresight-tpdm.c
+@@ -933,7 +933,7 @@ static struct amba_id tpdm_ids[] = {
+ 		.id = 0x000f0e00,
+ 		.mask = 0x000fff00,
+ 	},
+-	{ 0, 0},
++	{ 0, 0, 0 },
+ };
+ 
+ static struct amba_driver tpdm_driver = {
+diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
+index 59eac93fd6bb..7e69048ac944 100644
+--- a/drivers/hwtracing/coresight/coresight-tpiu.c
++++ b/drivers/hwtracing/coresight/coresight-tpiu.c
+@@ -218,7 +218,7 @@ static const struct amba_id tpiu_ids[] = {
+ 		.id	= 0x000bb9e7,
+ 		.mask	= 0x000fffff,
+ 	},
+-	{ 0, 0},
++	{ 0, 0, NULL },
+ };
+ 
+ MODULE_DEVICE_TABLE(amba, tpiu_ids);
+diff --git a/drivers/hwtracing/coresight/ultrasoc-smb.c b/drivers/hwtracing/coresight/ultrasoc-smb.c
+index e9a32a97fbee..83f5eea1302f 100644
+--- a/drivers/hwtracing/coresight/ultrasoc-smb.c
++++ b/drivers/hwtracing/coresight/ultrasoc-smb.c
+@@ -626,7 +626,7 @@ static int smb_remove(struct platform_device *pdev)
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id ultrasoc_smb_acpi_match[] = {
+-	{"HISI03A1", 0},
++	{"HISI03A1", 0, 0, 0},
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(acpi, ultrasoc_smb_acpi_match);
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
