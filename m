@@ -2,68 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF1D7ED230
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Nov 2023 21:34:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56EE07ED525
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Nov 2023 22:01:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DEC9C6C837;
-	Wed, 15 Nov 2023 20:34:58 +0000 (UTC)
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC319C6C837;
+	Wed, 15 Nov 2023 21:01:13 +0000 (UTC)
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com
+ [209.85.160.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59FD2C6B47D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA550C6B47D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Nov 2023 20:34:56 +0000 (UTC)
-Received: from [192.168.1.103] (31.173.82.108) by msexch01.omp.ru
- (10.188.4.12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Wed, 15 Nov
- 2023 23:34:54 +0300
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-To: Linus Walleij <linus.walleij@linaro.org>, <linux-gpio@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, <linux-stm32@st-md-mailman.stormreply.com>
-Organization: Open Mobile Platform
-Message-ID: <5ce023a8-db0c-13a9-be42-09e3348ca44d@omp.ru>
-Date: Wed, 15 Nov 2023 23:34:53 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+ Wed, 15 Nov 2023 21:01:11 +0000 (UTC)
+Received: by mail-oa1-f52.google.com with SMTP id
+ 586e51a60fabf-1f060e059a3so25860fac.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 15 Nov 2023 13:01:11 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700082070; x=1700686870;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yeu2Yqk+1W7JwaGj7n+VfzHpUfLi9VX9pa9cQ1fxjWY=;
+ b=KAIbo3sNbX3UniYS7Lc9R2VYjDjlstuPr4sLzbMPnNSvhXm2uiHd8lEnec62ay1x/u
+ 7olYlJ+pkDw6Gv3yccqNlUcTj9iUGDGt0Ak8HVV1ITKXp/QZToTc73VDyQumyTJSU+FV
+ cWJoPdh8AhPZLqbT3C/bbHgRFVluL0sY8LxTsIXgGTwYy29M0ArrvdowJcR+uOKCv+SW
+ K7LNYI5/eI4oHh6l85xfm9yprclnY2n0ZJlGoGGFaSTPqlXpgpe8TDedu1DwO3ZYIHV7
+ 7WPWo3Phf7VTTmggn1Td9ivzro7oZ30g+V8wgc68C3R6cywh7FaPufAyHan9azhPO3DI
+ n9mA==
+X-Gm-Message-State: AOJu0Yxqf98f0b9d03njCXOLUAnrOG84UCr2AMEZvabKb7be5LzymZIh
+ 2QDDIRuWTTk+A8UDqWQBkA==
+X-Google-Smtp-Source: AGHT+IEVvxd3MCaCvVBahCTroW9oJyYWp33cFwoR5qhRxQiQVxo5B8PsmQhF/yPdTGut1NK8vIwcew==
+X-Received: by 2002:a05:6870:c1d1:b0:1e9:c18b:b2da with SMTP id
+ i17-20020a056870c1d100b001e9c18bb2damr18542152oad.18.1700082070487; 
+ Wed, 15 Nov 2023 13:01:10 -0800 (PST)
+Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
+ [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
+ bs14-20020a056830398e00b006ce1f9c62a1sm692803otb.39.2023.11.15.13.01.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Nov 2023 13:01:09 -0800 (PST)
+Received: (nullmailer pid 3738084 invoked by uid 1000);
+ Wed, 15 Nov 2023 21:01:08 -0000
+From: Rob Herring <robh@kernel.org>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Wed, 15 Nov 2023 14:59:04 -0600
+Message-ID: <20231115205904.3732985-1-robh@kernel.org>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Language: en-US
-X-Originating-IP: [31.173.82.108]
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.0.0, Database issued on: 11/15/2023 20:12:00
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 181389 [Nov 15 2023]
-X-KSE-AntiSpam-Info: Version: 6.0.0.2
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 543 543 1e3516af5cdd92079dfeb0e292c8747a62cb1ee4
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info: {Tracking_interpol, subj}
-X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2;
- d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
-X-KSE-AntiSpam-Info: ApMailHostAddress: 31.173.82.108
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 11/15/2023 20:18:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 11/15/2023 6:00:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
-Cc: linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: return errors from
- stm32_gpio_direction_output()
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [RESEND PATCH] media: stm32-dcmi: Drop unnecessary
+	of_match_device() call
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,36 +72,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the STMicroelectronics STM32 driver, stm32_gpio_direction_output()
-ignores the result of pinctrl_gpio_direction_output() for no good reason.
-Let's propagate errors from pinctrl_gpio_direction_output() upstream...
+If probe is reached, we've already matched the device and in the case of
+DT matching, the struct device_node pointer will be set. Therefore, there
+is no need to call of_match_device() in probe.
 
-Found by Linux Verification Center (linuxtesting.org) with the Svace static
-analysis tool.
-
-Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
-
+Signed-off-by: Rob Herring <robh@kernel.org>
 ---
-The patch is against the 'devel' branch of Linus W.'s 'linux-pinctrl.git' repo.
+ drivers/media/platform/st/stm32/stm32-dcmi.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
- drivers/pinctrl/stm32/pinctrl-stm32.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
+index 8cb4fdcae137..48140fdf40bb 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmi.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
+@@ -20,7 +20,6 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+-#include <linux/of_device.h>
+ #include <linux/of_graph.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/platform_device.h>
+@@ -1890,7 +1889,6 @@ static int dcmi_graph_init(struct stm32_dcmi *dcmi)
+ static int dcmi_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+-	const struct of_device_id *match = NULL;
+ 	struct v4l2_fwnode_endpoint ep = { .bus_type = 0 };
+ 	struct stm32_dcmi *dcmi;
+ 	struct vb2_queue *q;
+@@ -1899,12 +1897,6 @@ static int dcmi_probe(struct platform_device *pdev)
+ 	struct clk *mclk;
+ 	int ret = 0;
+ 
+-	match = of_match_device(of_match_ptr(stm32_dcmi_of_match), &pdev->dev);
+-	if (!match) {
+-		dev_err(&pdev->dev, "Could not find a match in devicetree\n");
+-		return -ENODEV;
+-	}
+-
+ 	dcmi = devm_kzalloc(&pdev->dev, sizeof(struct stm32_dcmi), GFP_KERNEL);
+ 	if (!dcmi)
+ 		return -ENOMEM;
+-- 
+2.42.0
 
-Index: linux-pinctrl/drivers/pinctrl/stm32/pinctrl-stm32.c
-===================================================================
---- linux-pinctrl.orig/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ linux-pinctrl/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -240,9 +240,8 @@ static int stm32_gpio_direction_output(s
- 	struct stm32_gpio_bank *bank = gpiochip_get_data(chip);
- 
- 	__stm32_gpio_set(bank, offset, value);
--	pinctrl_gpio_direction_output(chip, offset);
- 
--	return 0;
-+	return pinctrl_gpio_direction_output(chip, offset);
- }
- 
- 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
