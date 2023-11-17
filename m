@@ -2,59 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC1217EEC25
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Nov 2023 07:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4998C7EED9C
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Nov 2023 09:37:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D8CAC6C83C;
-	Fri, 17 Nov 2023 06:12:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1A9DC6C83C;
+	Fri, 17 Nov 2023 08:37:48 +0000 (UTC)
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
+ [209.85.128.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84E1CC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0FA0C6B47B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Nov 2023 06:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700201561; x=1731737561;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=DvXoqFM83uD5kxQP4b0P+XrRJa+MlMnQ027GekKL+Kk=;
- b=MYOmJQEbtw0A3cpDS8IYBXU4ax/olgWojixqB4pwQ3cOpqBUVkw64UAD
- EViwapxsQP8O11UXhcKLh+FJqjFZoKeBHs2kv5A3I9++bBi5ecCn44M3x
- W+3tTnwQJF916JvAaT7Sk80d6tlf21gnJqwmldHPI0KQFnCiisvXWFZmQ
- P8xNtCNzWAP1i4VXvznmb+90wZ0hOcof7VfwoyE9ItocKcmw3K1igIq2B
- k83LPRp9I8NRdOYgIaoa0PwZk550ruDAuSaOuaBhDoshbgDn1IQPUFycp
- OdSu2dVjdkbCfRwdzv19sCmoDqJ+x++u49naTB8XdtGJxFzMEplvyAs1L Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="4325709"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; 
-   d="scan'208";a="4325709"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2023 22:12:39 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10896"; a="765540335"
-X-IronPort-AV: E=Sophos;i="6.04,206,1695711600"; d="scan'208";a="765540335"
-Received: from lkp-server02.sh.intel.com (HELO b8de5498638e) ([10.239.97.151])
- by orsmga002.jf.intel.com with ESMTP; 16 Nov 2023 22:12:36 -0800
-Received: from kbuild by b8de5498638e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1r3s5h-0002PH-2h;
- Fri, 17 Nov 2023 06:12:33 +0000
-Date: Fri, 17 Nov 2023 14:11:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
- suzuki.poulose@arm.com
-Message-ID: <202311171330.P05f0cCp-lkp@intel.com>
-References: <20231115162834.355598-1-james.clark@arm.com>
+ Fri, 17 Nov 2023 08:37:47 +0000 (UTC)
+Received: by mail-yw1-f181.google.com with SMTP id
+ 00721157ae682-5afbdbf3a19so18894367b3.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Nov 2023 00:37:47 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700210266; x=1700815066;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=0FErukS7Dcy9cf2fW7KGbLMbSCHkVNHNOi0sTCVmhEY=;
+ b=eYxFaNhr7zetW0iRtbodPntiEEYdbdkPEfu86yExyb4j4NHlqL8qP9cpzMxBxdtrak
+ yEYAwJlhjFNBMHQojXdTOO0+18M9hGUXhOzVcp/RdgG1VSQ98vnlinIi90H9eMVg6bkT
+ rrjVeqEO09jsWZsxFN/SNXM5A1T0h95SwtRN9mfp32ej1rFveDP4AHhmJX+7KTvzij3H
+ wn+VySNnX5l3WV+Q81PfLsT/7mo63wJ27eh7qksDbq6b7X7Q738tK1y0K3H9Q5X2ZsVd
+ 5jCR++JnunqnbxqCtu15401cgfK7fz3CNrxqhuk5nz1CYdgQbJZSSS6bNzrKiwRPq2q1
+ keAw==
+X-Gm-Message-State: AOJu0YzgEYcMJ7hRv6HsJiYAjHitmAUsmn59aczYB6pGmedMWApaSJLM
+ T7b4XkRjD49ehlHpBOumcD2C+jGpJQ26Mw==
+X-Google-Smtp-Source: AGHT+IGprMAn1Hv1Ns4pJrf5qq0BF4zoPfBMDaDDBpWqXod1axoraI0ijpsC4ouyFOwQa9bgLiKp3Q==
+X-Received: by 2002:a81:8a41:0:b0:5a8:3f0a:618e with SMTP id
+ a62-20020a818a41000000b005a83f0a618emr19398491ywg.37.1700210266211; 
+ Fri, 17 Nov 2023 00:37:46 -0800 (PST)
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com.
+ [209.85.128.175]) by smtp.gmail.com with ESMTPSA id
+ u5-20020a0deb05000000b0059bd8447721sm374067ywe.21.2023.11.17.00.37.42
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Nov 2023 00:37:43 -0800 (PST)
+Received: by mail-yw1-f175.google.com with SMTP id
+ 00721157ae682-5afbdbf3a19so18893847b3.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 17 Nov 2023 00:37:42 -0800 (PST)
+X-Received: by 2002:a81:84c2:0:b0:5ae:c35a:807a with SMTP id
+ u185-20020a8184c2000000b005aec35a807amr19425956ywf.48.1700210262650; Fri, 17
+ Nov 2023 00:37:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231115162834.355598-1-james.clark@arm.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v2] coresight: Make current W=1 warnings
-	default
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-13-cristian.ciocaltea@collabora.com>
+ <f253b50a-a0ac-40c6-b13d-013de7bac407@lunn.ch>
+ <233a45e1-15ac-40da-badf-dee2d3d60777@collabora.com>
+ <cb6597be-2185-45ad-aa47-c6804ff68c85@collabora.com>
+ <20231116-stellar-anguished-7cf06eb5634a@squawk>
+In-Reply-To: <20231116-stellar-anguished-7cf06eb5634a@squawk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 17 Nov 2023 09:37:30 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXdeW9SRN8hq-0722CiLvXDFVwpJxjFTGgdc2mhT=ppYw@mail.gmail.com>
+Message-ID: <CAMuHMdXdeW9SRN8hq-0722CiLvXDFVwpJxjFTGgdc2mhT=ppYw@mail.gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, Emil Renner Berthing <kernel@esmil.dk>,
+ Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
+ Samin Guo <samin.guo@starfivetech.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@dabbelt.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2 12/12] [UNTESTED] riscv: dts: starfive:
+ beaglev-starlight: Enable gmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,67 +91,162 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi James,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on atorgue-stm32/stm32-next]
-[also build test WARNING on soc/for-next linus/master v6.7-rc1 next-20231117]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/James-Clark/coresight-Make-current-W-1-warnings-default/20231116-004818
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
-patch link:    https://lore.kernel.org/r/20231115162834.355598-1-james.clark%40arm.com
-patch subject: [PATCH v2] coresight: Make current W=1 warnings default
-config: arm-randconfig-r131-20231117 (https://download.01.org/0day-ci/archive/20231117/202311171330.P05f0cCp-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20231117/202311171330.P05f0cCp-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311171330.P05f0cCp-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/hwtracing/coresight/coresight-tpdm.c:242:17: sparse: sparse: Using plain integer as NULL pointer
-   drivers/hwtracing/coresight/coresight-tpdm.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/xarray.h, ...):
-   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
---
->> drivers/hwtracing/coresight/coresight-funnel.c:395:17: sparse: sparse: Using plain integer as NULL pointer
-   drivers/hwtracing/coresight/coresight-funnel.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/slab.h, ...):
-   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
---
->> drivers/hwtracing/coresight/coresight-etb10.c:840:17: sparse: sparse: Using plain integer as NULL pointer
-   drivers/hwtracing/coresight/coresight-etb10.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/xarray.h, ...):
-   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
-
-vim +242 drivers/hwtracing/coresight/coresight-tpdm.c
-
-   232	
-   233	/*
-   234	 * Different TPDM has different periph id.
-   235	 * The difference is 0-7 bits' value. So ignore 0-7 bits.
-   236	 */
-   237	static struct amba_id tpdm_ids[] = {
-   238		{
-   239			.id = 0x000f0e00,
-   240			.mask = 0x000fff00,
-   241		},
- > 242		{ 0, 0, 0 },
-   243	};
-   244	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBOb3YgMTYsIDIwMjMgYXQgNjo1NeKAr1BNIENvbm9yIERvb2xleSA8Y29ub3JAa2Vy
+bmVsLm9yZz4gd3JvdGU6Cj4gT24gVGh1LCBOb3YgMTYsIDIwMjMgYXQgMDM6MTU6NDZQTSArMDIw
+MCwgQ3Jpc3RpYW4gQ2lvY2FsdGVhIHdyb3RlOgo+ID4gT24gMTAvMzAvMjMgMDA6NTMsIENyaXN0
+aWFuIENpb2NhbHRlYSB3cm90ZToKPiA+ID4gT24gMTAvMjkvMjMgMjA6NDYsIEFuZHJldyBMdW5u
+IHdyb3RlOgo+ID4gPj4gT24gU3VuLCBPY3QgMjksIDIwMjMgYXQgMDY6Mjc6MTJBTSArMDIwMCwg
+Q3Jpc3RpYW4gQ2lvY2FsdGVhIHdyb3RlOgo+ID4gPj4+IFRoZSBCZWFnbGVWIFN0YXJsaWdodCBT
+QkMgdXNlcyBhIE1pY3JvY2hpcCBLU1o5MDMxUk5YQ0EgUEhZIHN1cHBvcnRpbmcKPiA+ID4+PiBS
+R01JSS1JRC4KPiA+ID4+Pgo+ID4gPj4+IFRPRE86IFZlcmlmeSBpZiBtYW51YWwgYWRqdXN0bWVu
+dCBvZiB0aGUgUlggaW50ZXJuYWwgZGVsYXkgaXMgbmVlZGVkLiBJZgo+ID4gPj4+IHllcywgYWRk
+IHRoZSBtZGlvICYgcGh5IHN1Yi1ub2Rlcy4KPiA+ID4+Cj4gPiA+PiBQbGVhc2UgY291bGQgeW91
+IHRyeSB0byBnZXQgdGhpcyB0ZXN0ZWQuIEl0IG1pZ2h0IHNoZWQgc29tZSBsaWdodCBvbgo+ID4g
+Pj4gd2hhdCBpcyBnb2luZyBvbiBoZXJlLCBzaW5jZSBpdCBpcyBhIGRpZmZlcmVudCBQSFkuCj4g
+PiA+Cj4gPiA+IEFjdHVhbGx5LCB0aGlzIGlzIHRoZSBtYWluIHJlYXNvbiBJIGFkZGVkIHRoZSBw
+YXRjaC4gSSBkb24ndCBoYXZlIGFjY2Vzcwo+ID4gPiB0byB0aGlzIGJvYXJkLCBzbyBpdCB3b3Vs
+ZCBiZSBncmVhdCBpZiB3ZSBjb3VsZCBnZXQgc29tZSBoZWxwIHdpdGggdGVzdGluZy4KPiA+Cj4g
+PiBARW1pbCwgQENvbm9yOiBBbnkgaWRlYSB3aG8gbWlnaHQgaGVscCB1cyB3aXRoIGEgcXVpY2sg
+dGVzdCBvbiB0aGUKPiA+IEJlYWdsZVYgU3RhcmxpZ2h0IGJvYXJkPwo+Cj4gSSBkb24ndCBoYXZl
+IG9uZSAmIEkgYW0gbm90IHN1cmUgaWYgRW1pbCBkb2VzLiBHZWVydCAoQ0NlZCkgc2hvdWxkIGhh
+dmUKCkkgYmVsaWV2ZSBFc21pbCBoYXMuCgo+IG9uZSB0aG91Z2guIElzIHRoZXJlIGEgc3BlY2lm
+aWMgdGVzdCB5b3UgbmVlZCB0byBoYXZlIGRvbmU/CgpJIGdhdmUgaXQgYSB0cnksIG9uIHRvcCBv
+ZiBsYXRlc3QgcmVuZXNhcy1kcml2ZXJzWzFdLgoKLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0t
+LS0tLS0tLS0tCnNpbXBsZS1wbS1idXMgc29jOiBkZXZpY2Ugbm9uLWNvaGVyZW50IGJ1dCBubyBu
+b24tY29oZXJlbnQgb3BlcmF0aW9ucyBzdXBwb3J0ZWQKV0FSTklORzogQ1BVOiAwIFBJRDogMSBh
+dCBhcmNoL3Jpc2N2L21tL2RtYS1ub25jb2hlcmVudC5jOjE0MAphcmNoX3NldHVwX2RtYV9vcHMr
+MHg3ZS8weGEyCk1vZHVsZXMgbGlua2VkIGluOgpDUFU6IDAgUElEOiAxIENvbW06IHN3YXBwZXIv
+MCBOb3QgdGFpbnRlZAo2LjcuMC1yYzEtc3RhcmxpZ2h0LTAxNDg5LWc5OTVjMmYwYjhiN2UgIzI1
+OQpIYXJkd2FyZSBuYW1lOiBCZWFnbGVWIFN0YXJsaWdodCBCZXRhIChEVCkKZXBjIDogYXJjaF9z
+ZXR1cF9kbWFfb3BzKzB4N2UvMHhhMgogcmEgOiBhcmNoX3NldHVwX2RtYV9vcHMrMHg3ZS8weGEy
+CmVwYyA6IGZmZmZmZmZmODAwMGQ0NjIgcmEgOiBmZmZmZmZmZjgwMDBkNDYyIHNwIDogZmZmZmZm
+YzgwMDAxM2I5MAogZ3AgOiBmZmZmZmZmZjgxMmQ2NDYwIHRwIDogZmZmZmZmZDg4MDEzMDAwMCB0
+MCA6IGZmZmZmZmZmODEyMTcyMzgKIHQxIDogMDAwMDAwMDAwMDAwMDAyZCB0MiA6IDJkMmQyZDJk
+MmQyZDJkMmQgczAgOiBmZmZmZmZjODAwMDEzYmMwCiBzMSA6IDAwMDAwMDAwMDAwMDAwMDAgYTAg
+OiAwMDAwMDAwMDAwMDAwMDRmIGExIDogMDAwMDAwMDIwMDAwMDAyMAogYTIgOiAwMDAwMDAwMDAw
+MDAwMDAwIGEzIDogMDAwMDAwMDAwMDAwMDAwMSBhNCA6IDAwMDAwMDAwMDAwMDAwMDAKIGE1IDog
+MDAwMDAwMDAwMDAwMDAwMCBhNiA6IDAwMDAwMDAwMDAwMDAwMDAgYTcgOiAwMDAwMDAwMDAwMDAw
+MDMwCiBzMiA6IGZmZmZmZmQ4ODAxMTE0MTAgczMgOiBmZmZmZmZmZjgxMmQ3MTJjIHM0IDogMDAw
+MDAwMDBmZmZmZmZmZgogczUgOiBmZmZmZmZmZmZmZmZmZmVkIHM2IDogZmZmZmZmZDlmZmZlYjUz
+MCBzNyA6IGZmZmZmZmZmODBhMDBkNzAKIHM4IDogZmZmZmZmZmY4MGUzZjJjMCBzOSA6IDAwMDAw
+MDAwMDAwMDAwMDggczEwOiBmZmZmZmZmZjgwODAwMGJhCiBzMTE6IDAwMDAwMDAwMDAwMDAwMDAg
+dDMgOiBmZmZmZmZmZjgxMmViYjVjIHQ0IDogZmZmZmZmZmY4MTJlYmI1YwogdDUgOiBmZmZmZmZm
+ZjgxMmViYjM4IHQ2IDogZmZmZmZmZmY4MTJlYmJiNwpzdGF0dXM6IDAwMDAwMDAyMDAwMDAxMjAg
+YmFkYWRkcjogZmZmZmZmZmY4MTJkNzEyYyBjYXVzZTogMDAwMDAwMDAwMDAwMDAwMwpbPGZmZmZm
+ZmZmODAwMGQ0NjI+XSBhcmNoX3NldHVwX2RtYV9vcHMrMHg3ZS8weGEyCls8ZmZmZmZmZmY4MDUx
+OGNiMj5dIG9mX2RtYV9jb25maWd1cmVfaWQrMHhjNC8weDIyMgpbPGZmZmZmZmZmODAzZWU3NmU+
+XSBwbGF0Zm9ybV9kbWFfY29uZmlndXJlKzB4NDQvMHg0ZQpbPGZmZmZmZmZmODAzZWMzODI+XSBy
+ZWFsbHlfcHJvYmUrMHg1NC8weDIwYwpbPGZmZmZmZmZmODAzZWM1OTY+XSBfX2RyaXZlcl9wcm9i
+ZV9kZXZpY2UrMHg1Yy8weGQwCls8ZmZmZmZmZmY4MDNlYzYzNj5dIGRyaXZlcl9wcm9iZV9kZXZp
+Y2UrMHgyYy8weGIwCls8ZmZmZmZmZmY4MDNlYzdiNj5dIF9fZHJpdmVyX2F0dGFjaCsweDZlLzB4
+MTA0Cls8ZmZmZmZmZmY4MDNlYTY1Mj5dIGJ1c19mb3JfZWFjaF9kZXYrMHg1OC8weGE0Cls8ZmZm
+ZmZmZmY4MDNlYmRjOD5dIGRyaXZlcl9hdHRhY2grMHgxYS8weDIyCls8ZmZmZmZmZmY4MDNlYjdi
+YT5dIGJ1c19hZGRfZHJpdmVyKzB4ZDQvMHgxOWUKWzxmZmZmZmZmZjgwM2VkNDc2Pl0gZHJpdmVy
+X3JlZ2lzdGVyKzB4M2UvMHhkOApbPGZmZmZmZmZmODAzZWU1OTA+XSBfX3BsYXRmb3JtX2RyaXZl
+cl9yZWdpc3RlcisweDFjLzB4MjQKWzxmZmZmZmZmZjgwODFkYjMyPl0gc2ltcGxlX3BtX2J1c19k
+cml2ZXJfaW5pdCsweDFhLzB4MjIKWzxmZmZmZmZmZjgwMDAyMGYwPl0gZG9fb25lX2luaXRjYWxs
+KzB4MzgvMHgxN2MKWzxmZmZmZmZmZjgwODAxMzU0Pl0ga2VybmVsX2luaXRfZnJlZWFibGUrMHgx
+YTgvMHgyMGMKWzxmZmZmZmZmZjgwNmIxMzI4Pl0ga2VybmVsX2luaXQrMHgxZS8weDExMgpbPGZm
+ZmZmZmZmODA2Yjg5MWU+XSByZXRfZnJvbV9mb3JrKzB4ZS8weDFjCi0tLVsgZW5kIHRyYWNlIDAw
+MDAwMDAwMDAwMDAwMDAgXS0tLQotLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0K
+Y2xrLXN0YXJmaXZlLWpoNzEwMCAxMTgwMDAwMC5jbG9jay1jb250cm9sbGVyOiBkZXZpY2Ugbm9u
+LWNvaGVyZW50IGJ1dApubyBub24tY29oZXJlbnQgb3BlcmF0aW9ucyBzdXBwb3J0ZWQKV0FSTklO
+RzogQ1BVOiAwIFBJRDogMSBhdCBhcmNoL3Jpc2N2L21tL2RtYS1ub25jb2hlcmVudC5jOjE0MAph
+cmNoX3NldHVwX2RtYV9vcHMrMHg3ZS8weGEyCk1vZHVsZXMgbGlua2VkIGluOgpDUFU6IDAgUElE
+OiAxIENvbW06IHN3YXBwZXIvMCBUYWludGVkOiBHIFMKNi43LjAtcmMxLXN0YXJsaWdodC0wMTQ4
+OS1nOTk1YzJmMGI4YjdlICMyNTkKSGFyZHdhcmUgbmFtZTogQmVhZ2xlViBTdGFybGlnaHQgQmV0
+YSAoRFQpCmVwYyA6IGFyY2hfc2V0dXBfZG1hX29wcysweDdlLzB4YTIKIHJhIDogYXJjaF9zZXR1
+cF9kbWFfb3BzKzB4N2UvMHhhMgplcGMgOiBmZmZmZmZmZjgwMDBkNDYyIHJhIDogZmZmZmZmZmY4
+MDAwZDQ2MiBzcCA6IGZmZmZmZmM4MDAwMTNiNzAKIGdwIDogZmZmZmZmZmY4MTJkNjQ2MCB0cCA6
+IGZmZmZmZmQ4ODAxMzAwMDAgdDAgOiBmZmZmZmZmZjgxMjE3ZjQ4CiB0MSA6IDAwMDAwMDAwMDAw
+MDAwMmQgdDIgOiAyZDJkMmQyZDJkMmQyZDJkIHMwIDogZmZmZmZmYzgwMDAxM2JhMAogczEgOiAw
+MDAwMDAwMDAwMDAwMDAwIGEwIDogMDAwMDAwMDAwMDAwMDA2YiBhMSA6IDAwMDAwMDAyMDAwMDAw
+MjAKIGEyIDogMDAwMDAwMDAwMDAwMDAwMCBhMyA6IDAwMDAwMDAwMDAwMDAwMDEgYTQgOiAwMDAw
+MDAwMDAwMDAwMDAwCiBhNSA6IDAwMDAwMDAwMDAwMDAwMDAgYTYgOiAwMDAwMDAwMDAwMDAwMDAw
+IGE3IDogMDAwMDAwMDAwMDAwMDAzMAogczIgOiBmZmZmZmZkODgwMTEyNDEwIHMzIDogZmZmZmZm
+ZmY4MTJkNzEyYyBzNCA6IDAwMDAwMDBmZmZmZmZmZmYKIHM1IDogMDAwMDAwMDAwMDAwMDAwMCBz
+NiA6IGZmZmZmZmQ5ZmZmZWQzYzggczcgOiBmZmZmZmZmZjgwYTAwZDcwCiBzOCA6IGZmZmZmZmZm
+ODBlM2YyYzAgczkgOiAwMDAwMDAwMDAwMDAwMDA4IHMxMDogZmZmZmZmZmY4MDgwMDBiYQogczEx
+OiAwMDAwMDAwMDAwMDAwMDAwIHQzIDogZmZmZmZmZmY4MTJlYzU2NCB0NCA6IGZmZmZmZmZmODEy
+ZWM1NjQKIHQ1IDogZmZmZmZmZmY4MTJlYzU0MCB0NiA6IGZmZmZmZmZmODEyZWM1ZGIKc3RhdHVz
+OiAwMDAwMDAwMjAwMDAwMTIwIGJhZGFkZHI6IGZmZmZmZmQ4ODAxMzAwMDggY2F1c2U6IDAwMDAw
+MDAwMDAwMDAwMDMKWzxmZmZmZmZmZjgwMDBkNDYyPl0gYXJjaF9zZXR1cF9kbWFfb3BzKzB4N2Uv
+MHhhMgpbPGZmZmZmZmZmODA1MThjYjI+XSBvZl9kbWFfY29uZmlndXJlX2lkKzB4YzQvMHgyMjIK
+WzxmZmZmZmZmZjgwM2VlNzZlPl0gcGxhdGZvcm1fZG1hX2NvbmZpZ3VyZSsweDQ0LzB4NGUKWzxm
+ZmZmZmZmZjgwM2VjMzgyPl0gcmVhbGx5X3Byb2JlKzB4NTQvMHgyMGMKWzxmZmZmZmZmZjgwM2Vj
+NTk2Pl0gX19kcml2ZXJfcHJvYmVfZGV2aWNlKzB4NWMvMHhkMApbPGZmZmZmZmZmODAzZWM2MzY+
+XSBkcml2ZXJfcHJvYmVfZGV2aWNlKzB4MmMvMHhiMApbPGZmZmZmZmZmODAzZWM3YjY+XSBfX2Ry
+aXZlcl9hdHRhY2grMHg2ZS8weDEwNApbPGZmZmZmZmZmODAzZWE2NTI+XSBidXNfZm9yX2VhY2hf
+ZGV2KzB4NTgvMHhhNApbPGZmZmZmZmZmODAzZWJkYzg+XSBkcml2ZXJfYXR0YWNoKzB4MWEvMHgy
+MgpbPGZmZmZmZmZmODAzZWI3YmE+XSBidXNfYWRkX2RyaXZlcisweGQ0LzB4MTllCls8ZmZmZmZm
+ZmY4MDNlZDQ3Nj5dIGRyaXZlcl9yZWdpc3RlcisweDNlLzB4ZDgKWzxmZmZmZmZmZjgwM2VlNmNl
+Pl0gX19wbGF0Zm9ybV9kcml2ZXJfcHJvYmUrMHg0MC8weDljCls8ZmZmZmZmZmY4MDgxZWI4MD5d
+IGNsa19zdGFyZml2ZV9qaDcxMDBfZHJpdmVyX2luaXQrMHgyMi8weDJhCls8ZmZmZmZmZmY4MDAw
+MjBmMD5dIGRvX29uZV9pbml0Y2FsbCsweDM4LzB4MTdjCls8ZmZmZmZmZmY4MDgwMTM1ND5dIGtl
+cm5lbF9pbml0X2ZyZWVhYmxlKzB4MWE4LzB4MjBjCls8ZmZmZmZmZmY4MDZiMTMyOD5dIGtlcm5l
+bF9pbml0KzB4MWUvMHgxMTIKWzxmZmZmZmZmZjgwNmI4OTFlPl0gcmV0X2Zyb21fZm9yaysweGUv
+MHgxYwotLS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0KQ0NBQ0hFOiBEYXRhRmFp
+bCBAIDB4MDAwMDAwMDAuN0ZFQjg5MzAKQ0NBQ0hFOiAyIGJhbmtzLCAxNiB3YXlzLCBzZXRzL2Jh
+bms9MTAyNCwgYnl0ZXMvYmxvY2s9NjQKQ0NBQ0hFOiBJbmRleCBvZiB0aGUgbGFyZ2VzdCB3YXkg
+ZW5hYmxlZDogMAotLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0Kamg3MTAwLXJl
+c2V0IDExODQwMDAwLnJlc2V0LWNvbnRyb2xsZXI6IGRldmljZSBub24tY29oZXJlbnQgYnV0IG5v
+Cm5vbi1jb2hlcmVudCBvcGVyYXRpb25zIHN1cHBvcnRlZApXQVJOSU5HOiBDUFU6IDAgUElEOiAx
+IGF0IGFyY2gvcmlzY3YvbW0vZG1hLW5vbmNvaGVyZW50LmM6MTQwCmFyY2hfc2V0dXBfZG1hX29w
+cysweDdlLzB4YTIKTW9kdWxlcyBsaW5rZWQgaW46CkNQVTogMCBQSUQ6IDEgQ29tbTogc3dhcHBl
+ci8wIFRhaW50ZWQ6IEcgUwo2LjcuMC1yYzEtc3RhcmxpZ2h0LTAxNDg5LWc5OTVjMmYwYjhiN2Ug
+IzI1OQpIYXJkd2FyZSBuYW1lOiBCZWFnbGVWIFN0YXJsaWdodCBCZXRhIChEVCkKZXBjIDogYXJj
+aF9zZXR1cF9kbWFfb3BzKzB4N2UvMHhhMgogcmEgOiBhcmNoX3NldHVwX2RtYV9vcHMrMHg3ZS8w
+eGEyCmVwYyA6IGZmZmZmZmZmODAwMGQ0NjIgcmEgOiBmZmZmZmZmZjgwMDBkNDYyIHNwIDogZmZm
+ZmZmYzgwMDAxM2I3MAogZ3AgOiBmZmZmZmZmZjgxMmQ2NDYwIHRwIDogZmZmZmZmZDg4MDEzMDAw
+MCB0MCA6IGZmZmZmZmZmODEyMThkNjAKIHQxIDogMDAwMDAwMDAwMDAwMDAyZCB0MiA6IDJkMmQy
+ZDJkMmQyZDJkMmQgczAgOiBmZmZmZmZjODAwMDEzYmEwCiBzMSA6IDAwMDAwMDAwMDAwMDAwMDAg
+YTAgOiAwMDAwMDAwMDAwMDAwMDY0IGExIDogMDAwMDAwMDIwMDAwMDAyMAogYTIgOiAwMDAwMDAw
+MDAwMDAwMDAwIGEzIDogMDAwMDAwMDAwMDAwMDAwMSBhNCA6IDAwMDAwMDAwMDAwMDAwMDAKIGE1
+IDogMDAwMDAwMDAwMDAwMDAwMCBhNiA6IDAwMDAwMDAwMDAwMDAwMDAgYTcgOiAwMDAwMDAwMDAw
+MDAwMDMwCiBzMiA6IGZmZmZmZmQ4ODAxMTJjMTAgczMgOiBmZmZmZmZmZjgxMmQ3MTJjIHM0IDog
+MDAwMDAwMGZmZmZmZmZmZgogczUgOiAwMDAwMDAwMDAwMDAwMDAwIHM2IDogZmZmZmZmZDlmZmZl
+ZDdhOCBzNyA6IGZmZmZmZmZmODBhMDBkNzAKIHM4IDogZmZmZmZmZmY4MGUzZjJjMCBzOSA6IDAw
+MDAwMDAwMDAwMDAwMDggczEwOiBmZmZmZmZmZjgwODAwMGJhCiBzMTE6IDAwMDAwMDAwMDAwMDAw
+MDAgdDMgOiBmZmZmZmZmZjgxMmVkMDU0IHQ0IDogZmZmZmZmZmY4MTJlZDA1NAogdDUgOiBmZmZm
+ZmZmZjgxMmVkMDMwIHQ2IDogZmZmZmZmZmY4MTJlZDBjNApzdGF0dXM6IDAwMDAwMDAyMDAwMDAx
+MjAgYmFkYWRkcjogZmZmZmZmZDg4MDEzMDAwOCBjYXVzZTogMDAwMDAwMDAwMDAwMDAwMwpbPGZm
+ZmZmZmZmODAwMGQ0NjI+XSBhcmNoX3NldHVwX2RtYV9vcHMrMHg3ZS8weGEyCls8ZmZmZmZmZmY4
+MDUxOGNiMj5dIG9mX2RtYV9jb25maWd1cmVfaWQrMHhjNC8weDIyMgpbPGZmZmZmZmZmODAzZWU3
+NmU+XSBwbGF0Zm9ybV9kbWFfY29uZmlndXJlKzB4NDQvMHg0ZQpbPGZmZmZmZmZmODAzZWMzODI+
+XSByZWFsbHlfcHJvYmUrMHg1NC8weDIwYwpbPGZmZmZmZmZmODAzZWM1OTY+XSBfX2RyaXZlcl9w
+cm9iZV9kZXZpY2UrMHg1Yy8weGQwCls8ZmZmZmZmZmY4MDNlYzYzNj5dIGRyaXZlcl9wcm9iZV9k
+ZXZpY2UrMHgyYy8weGIwCls8ZmZmZmZmZmY4MDNlYzdiNj5dIF9fZHJpdmVyX2F0dGFjaCsweDZl
+LzB4MTA0Cls8ZmZmZmZmZmY4MDNlYTY1Mj5dIGJ1c19mb3JfZWFjaF9kZXYrMHg1OC8weGE0Cls8
+ZmZmZmZmZmY4MDNlYmRjOD5dIGRyaXZlcl9hdHRhY2grMHgxYS8weDIyCls8ZmZmZmZmZmY4MDNl
+YjdiYT5dIGJ1c19hZGRfZHJpdmVyKzB4ZDQvMHgxOWUKWzxmZmZmZmZmZjgwM2VkNDc2Pl0gZHJp
+dmVyX3JlZ2lzdGVyKzB4M2UvMHhkOApbPGZmZmZmZmZmODAzZWU2Y2U+XSBfX3BsYXRmb3JtX2Ry
+aXZlcl9wcm9iZSsweDQwLzB4OWMKWzxmZmZmZmZmZjgwODFmMjg0Pl0gamg3MTAwX3Jlc2V0X2Ry
+aXZlcl9pbml0KzB4MjIvMHgyYQpbPGZmZmZmZmZmODAwMDIwZjA+XSBkb19vbmVfaW5pdGNhbGwr
+MHgzOC8weDE3YwpbPGZmZmZmZmZmODA4MDEzNTQ+XSBrZXJuZWxfaW5pdF9mcmVlYWJsZSsweDFh
+OC8weDIwYwpbPGZmZmZmZmZmODA2YjEzMjg+XSBrZXJuZWxfaW5pdCsweDFlLzB4MTEyCls8ZmZm
+ZmZmZmY4MDZiODkxZT5dIHJldF9mcm9tX2ZvcmsrMHhlLzB4MWMKLS0tWyBlbmQgdHJhY2UgMDAw
+MDAwMDAwMDAwMDAwMCBdLS0tCkNDQUNIRTogRGF0YUZhaWwgQCAweDAwMDAwMDAwLjdGRUIwODMw
+CkNDQUNIRTogRGF0YUZhaWwgQCAweDAwMDAwMDAwLjdGRUIwN0YwCkNDQUNIRTogRGF0YUZhaWwg
+QCAweDAwMDAwMDAwLjdGRUIwN0YwCkNDQUNIRTogRGF0YUZhaWwgQCAweDAwMDAwMDAwLjdGRUIw
+N0YwCkNDQUNIRTogRGF0YUZhaWwgQCAweDAwMDAwMDAwLjdGRUIwODMwCkNDQUNIRTogRGF0YUZh
+aWwgQCAweDAwMDAwMDAwLjdGRUIwN0YwCgpbLi4uXQoKTG9va3MgbGlrZSBpdCBuZWVkcyBtb3Jl
+IG5vbi1jb2hlcmVudCBzdXBwb3J0IGJlZm9yZSB3ZSBjYW4gdGVzdApFdGhlcm5ldC4KCk5vdGUg
+dGhhdCBpdCBib290cyBmaW5lIGludG8gRGViaWFuIG5mc3Jvb3Qgd2hlbiBtZXJnaW5nIEVtaWwn
+c1syXQp2aXNpb25maXZlIGJyYW5jaCBpbnN0ZWFkLgoKWzFdIGh0dHBzOi8vZ2l0Lmtlcm5lbC5v
+cmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2dlZXJ0L3JlbmVzYXMtZHJpdmVycy5naXQvdGFn
+Lz9oPXJlbmVzYXMtZHJpdmVycy0yMDIzLTExLTE0LXY2LjctcmMxClsyXSBodHRwczovL2dpdGh1
+Yi5jb20vZXNtaWwvbGludXgKCkdye29ldGplLGVldGluZ31zLAoKICAgICAgICAgICAgICAgICAg
+ICAgICAgR2VlcnQKCi0tIApHZWVydCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExp
+bnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4LW02OGsub3JnCgpJbiBwZXJzb25hbCBjb252
+ZXJzYXRpb25zIHdpdGggdGVjaG5pY2FsIHBlb3BsZSwgSSBjYWxsIG15c2VsZiBhIGhhY2tlci4g
+QnV0CndoZW4gSSdtIHRhbGtpbmcgdG8gam91cm5hbGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1l
+ciIgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAtLSBMaW51cyBUb3J2YWxkcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
