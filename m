@@ -2,73 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C14C7F038E
-	for <lists+linux-stm32@lfdr.de>; Sun, 19 Nov 2023 00:20:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B897F067E
+	for <lists+linux-stm32@lfdr.de>; Sun, 19 Nov 2023 14:42:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19BB0C6C83D;
-	Sat, 18 Nov 2023 23:20:08 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20F69C6B475;
+	Sun, 19 Nov 2023 13:42:35 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A9DFC6C83C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0AE98C6B46B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 Nov 2023 23:20:06 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-1ccbb7f79cdso25044635ad.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 18 Nov 2023 15:20:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700349605; x=1700954405;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EeXUxQajKzhtg/3R4Bjp7L/NCc3uEZORLSqU/Ox/kzk=;
- b=KUgR1vcROBzqfKVsaBCVsdvel9zVDXWd+Zi2QMG9Rj7SEOMQ4pSEkZPmVD6lOevqSE
- 56nvEtUE4IQ9Xy923+w6Zo2VnfjSHXsgr7woAJsgu00CQUMdeQWiz3IXvUMCq1AlMGo9
- ltEl6sIl0Is4dwESa+C1H/R1oFaraTb6IeTCqIa/bAan4Zazjs/liAILEs3xILcjPpvQ
- pvVcPYQD2bLxMPCrWE00w9VgVm7Ayve8h01it0QkgQw5U8inlbuk645y7l3ph0qAMpt8
- aNE+S+k/MP/NVu38kxCLsVXuZUOJaxrpm+8qtHO4JGVHhYYpHEaMygORnrgVbcDbHJbk
- TkXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700349605; x=1700954405;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=EeXUxQajKzhtg/3R4Bjp7L/NCc3uEZORLSqU/Ox/kzk=;
- b=iXiknxEFhqhTVBgZH2/gcMLXY9dtJAiLlII+n+cRUT2TUG0zPZh4P111Q751pFZTnb
- x2brSh9ulZDI2zYJbG5IYRAZ9WO13HEkeU8cQEA7AQspJiyB7wDbRp5JXfcbS9eFrG3O
- iZJmHdvEzObhCjll0wzeHsM85ZbITgsbn+fqpu7Gv6kEFA03e+5e+3kt4YTWdAwbG+n3
- dgZs993PDulOLN8c4YDOUewngQWj4aR9DBfWB5VnLqtvRKMg/NCf/3Thv7rZx3rzJxy0
- 4Co/05qPmijSVR7AETzoMMFujI+QlRYUPibvkeydym+XL33RYapWDkoMEsqPnZJUYTQI
- wluA==
-X-Gm-Message-State: AOJu0YyIu4uRo2GFIaOuXhRHe5LtF8MoGz7BleiA4pVrh00wE40r0zPb
- qWZcOU/2yW96kG58AHg4IZiWgfX20UpL0qERRIA=
-X-Google-Smtp-Source: AGHT+IG9EFxZSVyVvL+P3Uqatu2MGbvVpVxdQLWRtHotx8YOUssp+KvNe9mCYPwDBcSga+yC7vRn7f5+wtLBR8s2kMU=
-X-Received: by 2002:a17:90b:1bca:b0:27f:fcc8:9196 with SMTP id
- oa10-20020a17090b1bca00b0027ffcc89196mr2689140pjb.32.1700349604660; Sat, 18
- Nov 2023 15:20:04 -0800 (PST)
+ Sun, 19 Nov 2023 13:42:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id D8E97CE0B74;
+ Sun, 19 Nov 2023 13:42:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1AAC433C8;
+ Sun, 19 Nov 2023 13:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1700401351;
+ bh=ivH/7a0rtuqIcC1N4qUHjlirk04W9i7zLpx25t7awaw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D9glATJ0gYLuYUOP72CaUWTQcNh7jgQeDfWy/0PxArKf+yDJa3EDf1zEQ6UBcPRhR
+ 7o6kwvQS++aXZOm/lYMhhW2fqM7RrGqCazyFCDw+TbZk6tViEVzqIZ2EEzv4TmuL6u
+ V0O0B62UOPsCZe4Qamkg9azLa7Ueg+pRTqQI61BMFP+hWXmDPPlt5G9Q2J4GfBnSLb
+ fjRHFfk+s5zwuHll7BEfSLIYBIn2tAnZU9t3bzGVQIvH7J3Wp1zz1VAoPPnZH+fXFG
+ jJCmPHAQaStwAWPLNh7psTo1OtpcvyrFySgzq1h7VMG3cCZts5PL7jixC2tquF/17g
+ Q95KzKua8JX3A==
+Date: Sun, 19 Nov 2023 13:42:26 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Patrick Delaunay <patrick.delaunay@foss.st.com>
+Message-ID: <20231119-tree-improper-b031c2527128@spud>
+References: <20231117143338.1173475-1-patrick.delaunay@foss.st.com>
+ <20231117153310.1.I1784fc7f33cc928e9007d85354707d6382b48b72@changeid>
 MIME-Version: 1.0
-References: <20231116154816.70959-1-andrzej.p@collabora.com>
-In-Reply-To: <20231116154816.70959-1-andrzej.p@collabora.com>
-From: Adam Ford <aford173@gmail.com>
-Date: Sat, 18 Nov 2023 17:19:53 -0600
-Message-ID: <CAHCN7xK1kS4771rRH=mBoT4VO=cUNX7AmJu6hrraHSNa-ur=kA@mail.gmail.com>
-To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, kernel@collabora.com,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+In-Reply-To: <20231117153310.1.I1784fc7f33cc928e9007d85354707d6382b48b72@changeid>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [RFC 0/6] H.264 stateless encoder RFC 0/6
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] dt-bindings: nvmem: add new stm32mp25
+ compatible for stm32-romem
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,97 +55,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7105542917227787979=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBOb3YgMTYsIDIwMjMgYXQgOTo0OOKAr0FNIEFuZHJ6ZWogUGlldHJhc2lld2ljego8
-YW5kcnplai5wQGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+Cj4gRGVhciBBbGwsCj4KPiBUaGlzIHNl
-cmllcyBhZGRzIHVBUEkgZm9yIHN0YXRlbGVzcyBILjI2NCBlbmNvZGluZyBhbmQgYW4KPiBhY2Nv
-bXBhbnlpbmcgZHJpdmVyIHVzaW5nIGl0Lgo+Cj4gSXQgaGFzIGJlZW4gdGVzdGVkIG9uIGFuIHN0
-bTMybXAyNSBhbmQgdGhlcmUgZXhpc3RzCj4gYSBnc3RyZWFtZXIgdXNlcjoKPgo+IGh0dHBzOi8v
-Z2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9nc3RyZWFtZXIvZ3N0cmVhbWVyLy0vbWVyZ2VfcmVxdWVz
-dHMvNTY3Ngo+Cj4gZXhhbXBsZSBwaXBlbGluZToKPgo+IGdzdC1sYXVuY2gtMS4wIHZpZGVvdGVz
-dHNyYyBudW0tYnVmZmVycz0zMCAhIHZpZGVvL3gtcmF3LCBmb3JtYXQ9WVVZMiAhCj4gdjRsMnNs
-aDI2NGVuYyAhIGZpbGVzaW5rIGxvY2F0aW9uPXRlc3QuaDI2NAo+Cj4gUmViYXNlZCBvbnRvIHY2
-LjYgd2l0aDoKPgo+IC0gc29tZSBwYXRjaGVzIGZyb20gU1QgdG8gYWN0dWFsbHkgcnVuIHRoZSBo
-YXJkd2FyZQo+IC0gbXkgcHJldmlvdXMgVlA4IHN0YXRsZXNzIGVuY29kaW5nIHNlcmllcwo+IC0g
-VlA4IHN1cHBvcnQgZm9yIEgxIGZyb20gSHVndWVzIEZydWNoZXQKPgo+IEluIHBhcnRpY3VsYXIs
-IHRoaXMgc2VyaWVzIGRlcGVuZHMgb24gdGhlIGxhdHRlciwgd2hpY2ggY2FuIGJlCj4gZm91bmQg
-aGVyZToKPgo+IGh0dHBzOi8vcGF0Y2h3b3JrLmxpbnV4dHYub3JnL3Byb2plY3QvbGludXgtbWVk
-aWEvbGlzdC8/c2VyaWVzPTExMzU4Cj4KPiBIZXJlJ3MgYSBicmFuY2ggd2hpY2ggY29udGFpbnMg
-ZXZlcnl0aGluZyBuZWVkZWQgdG8gYWN0dWFsbHkgcnVuOgo+Cj4gaHR0cHM6Ly9naXRsYWIuY29s
-bGFib3JhLmNvbS9saW51eC9mb3ItdXBzdHJlYW0vLS90cmVlL2gyNjQtZW5jLXJmYy02LjYKPgo+
-IEkga2luZGx5IGFzayBmb3IgY29tbWVudHMuCgpJIGF0dGVtcHRlZCB0byBwb3J0IHRoaXMgdG8g
-YW4gaS5NWDhNIE1pbmkgd2l0aG91dCBtdWNoIHN1Y2Nlc3MuICBJCmdldCB0aGUgZHJpdmVyIHRv
-IGVudW1lcmF0ZSwgYW5kIHRoZSBnc3QtaW5zcGVjdCBvZiB0aGUgdjRsMmNvZGVjcwpkZXRlY3Rz
-IHRoZSBkZXZpY2UgZm9yIHRoZSBlbmNvZGVyLCBidXQgSSBnZXQgdCBhIGJ1bmNoIG9mIGVycm9y
-cy4KClBpcGVsaW5lIGlzIFBSRVJPTExJTkcgLi4uClsgIDE0MS45NDY2MDhdIGYtPnR5cGUgPSAx
-MApbICAxNDEuOTUxNTk1XSBmLT50eXBlID0gMTAKWyAgMTQxLjk1NDMzMV0gZi0+dHlwZSA9IDEw
-ClsgIDE0MS45NTcwMjddIGYtPnR5cGUgPSA5ClsgIDE0MS45NTk1MTJdIHRyeWluZyBmb3JtYXQg
-UzI2NApbICAxNDEuOTYyNTgzXSB0cnlpbmcgZm9ybWF0IE5WMTIKWyAgMTQxLjk2NTYzOV0gT1VU
-UFVUIGNvZGVjIG1vZGU6IC0xClsgIDE0MS45Njg5NjJdIGZtdCAtIHc6IDY0MCwgaDogNDgwClsg
-IDE0MS45NzIyMDJdIENBUFRVUkUgY29kZWMgbW9kZTogOApbICAxNDEuOTc1NTI5XSBmbXQgLSB3
-OiA2NDAsIGg6IDQ4MApbICAxNDEuOTc4Nzc4XSBmLT50eXBlID0gMTAKWyAgMTQxLjk4MTMxNl0g
-dHJ5aW5nIGZvcm1hdCBZVVlWClsgIDE0MS45ODQzODRdIE9VVFBVVCBjb2RlYyBtb2RlOiAtMQpb
-ICAxNDEuOTg3NzA3XSBmbXQgLSB3OiA2NDAsIGg6IDQ4MApbICAxNDEuOTk4NTAwXSBDb2RlYyBt
-b2RlID0gOApbICAxNDIuMDE4ODc2XSBwbGFuZSAwIHNpemU6IDQxOTQzMDQsIHNpemVpbWFnZTog
-NDE5NDMwNApbICAxNDIuMDIzOTg2XSBwbGFuZSAwIHNpemU6IDYxNDQwMCwgc2l6ZWltYWdlOiA2
-MTQ0MDAKUGlwZWxpbmUgaXMgUFJFUk9MTEVEIC4uLgpTZXR0aW5nIHBpcGVsaW5lIHRvIFBMQVlJ
-TkcgLi4uWyAgMTQyLjAzNTY5N10gcGxhbmUgMCBzaXplOiA0MTk0MzA0LApzaXplaW1hZ2U6IDQx
-OTQzMDQKClJlZGlzdHJpYnV0ZSBsYXRlbmN5Li4uCk5ldyBjbFsgIDE0Mi4wNDIxNDZdIHBsYW5l
-IDAgc2l6ZTogNjE0NDAwLCBzaXplaW1hZ2U6IDYxNDQwMApvY2s6IEdzdFN5c3RlbUNsb2NrCkVS
-Uk9SOiBmcm9tIGVsZW1lbnQKL0dzdFBpcGVsaW5lOnBpcGVsaW5lMC92NGwyc2xoMjY0ZW5jOnY0
-bDJzbGgyNjRlbmMwOiBEcml2ZXIgZGlkIG5vdAphY2sgdGhlIHJlcXVlc3QuCkFkZGl0aW9uYWwg
-ZGVidWcgaW5mbzoKLi4vc3VicHJvamVjdHMvZ3N0LXBsdWdpbnMtYmFkL3N5cy92NGwyY29kZWNz
-L2dzdHY0bDJjb2RlY2gyNjRlbmMuYygxMDAyKToKZ3N0X3Y0bDJfY29kZWNfaDI2NF9lbmNfZW5j
-b2RlX2ZyYW1lICgpOgovR3N0UGlwZWxpbmU6cGlwZWxpbmUwL3Y0bDJzbGgyNjRlbmM6djRsMnNs
-aDI2NGVuYzAKRXhlY3V0aW9uIGVuZGVkIGFmdGVyIDA6MDA6MDEuMDE5OTkwMTE0ClNldHRpbmcg
-cGlwZWxpbmUgdG8gTlVMTCAuLi4KRVJST1I6IGZyb20gZWxlbWVudAovR3N0UGlwZWxpbmU6cGlw
-ZWxpbmUwL0dzdFZpZGVvVGVzdFNyYzp2aWRlb3Rlc3RzcmMwOiBJbnRlcm5hbCBkYXRhCnN0cmVh
-bSBlcnJvci4KQWRkaXRpb25hbCBkZWJ1ZyBpbmZvOgouLi9zdWJwcm9qZWN0cy9nc3RyZWFtZXIv
-bGlicy9nc3QvYmFzZS9nc3RiYXNlc3JjLmMoMzE1Myk6CmdzdF9iYXNlX3NyY19sb29wICgpOgov
-R3N0UGlwZWxpbmU6cGlwZWxpbmUwL0dzdFZpZGVvVGVzdFNyYzp2aWRlb3Rlc3RzcmMwOgpzdHJl
-YW1pbmcgc3RvcHBlZCwgcmVhc29uIGVycm9yICgtNSkKRVJST1I6IGZyb20gZWxlbWVudCAvR3N0
-UGlwZWxpbmU6cGlwZWxpbmUwL0dzdEZpbGVTaW5rOmZpbGVzaW5rMDoKRXJyb3Igd2hpbGUgd3Jp
-dGluZyB0byBmaWxlICJ0ZXN0LmgyNjQiLgpBZGRpdGlvbmFsIGRlYnVnIGluZm86Ci4uL3N1YnBy
-b2plY3RzL2dzdHJlYW1lci9wbHVnaW5zL2VsZW1lbnRzL2dzdGZpbGVzaW5rLmMoNzE2KToKZ3N0
-X2ZpbGVfc2lua19ldmVudCAoKTogL0dzdFBpcGVsaW5lOnBpcGVsaW5lMC9Hc3RGaWxlU2luazpm
-aWxlc2luazAKWyAgMTQ0LjA1ODM4OV0gaGFudHJvX3dhdGNoZG9nOjEyNzogZnJhbWUgcHJvY2Vz
-c2luZyB0aW1lZCBvdXQhCkZyZWVpbmcgcGlwZWxpbmUgLi4uCltoMjY0LWVuYy1zdC1kZXZdIHJv
-b3RAbG9jYWxob3N0On4vZ3N0cmVhbWVyIwoKCklmIEkgY2FuIGdldCB0aGlzIHdvcmtpbmcsIEkg
-Y2FuIGRvIG1vcmUgdGVzdGluZy4gIEkgZG9uJ3Qga25vdyBob3cKc2ltaWxhciB0aGUgSDEgaXMg
-b24gdGhlIFNUTTMyIHZzIHRoZSBpLk1YOE0gTWluaS4gIEkgZG9uJ3QgaGF2ZSBhCmRhdGFzaGVl
-dCBmb3IgdGhlIFNUTTMyLCBidXQgdGhlIHJlZ2lzdGVycyB0aGF0IEkgY2hlY2tlZCBzZWVtZWQg
-bGlrZQp0aGV5IG1hdGNoZWQsIGJ1dCBJIGRvbid0IGtub3cgZW5vdWdoIGFib3V0IGhvdyB0aGlz
-IGFsbCB3b3Jrcywgc28gSSdtCmEgYml0IGF0IGEgbG9zcy4gIEkgY2FuIHBvc3QgbXkgb3duIFJG
-QyBpZiBwZW9wbGUgYXJlIG9wZW4gdG8KcmV2aWV3aW5nIGl0IHRvby4gIEknbGwgZ28gdGhyb3Vn
-aCBhbmQgcmV2aWV3IHdoYXQgSSBjYW4uCgoKCmFkYW0KPgo+IFJlZ2FyZHMsCj4KPiBBbmRyemVq
-IFBpZXRyYXNpZXdpY3ogKDYpOgo+ICAgbWVkaWE6IHZlcmlzaWxpY29uIENvcnJlY3QgYSB0eXBv
-IGluCj4gICAgIEgxX1JFR19FTkNfQ1RSTDJfREVCTE9DS0lOR19GSUxURVJfTU9ERQo+ICAgbWVk
-aWE6IHZlcmlzaWxpY29uOiBDb3JyZWN0IGEgdHlwbyBpbiBIMV9SRUdfTUFEX0NUUkxfTUFEX1RI
-UkVTSE9MRAo+ICAgbWVkaWE6IHZlcmlzaWxpY29uOiBJbXByb3ZlIGNvbnN0YW50J3MgbmFtZQo+
-ICAgbWVkaWE6IHZlcmlzaWxpY29uOiBVcGRhdGUgSDEgcmVnaXN0ZXIgZGVmaW5pdGlvbnMKPiAg
-IG1lZGlhOiB1YXBpOiBBZGQgSC4yNjQgc3RhdGVsZXNzIGVuY29kaW5nIHVBUEkKPiAgIG1lZGlh
-OiB2ZXJpc2lsaWNvbjogQWRkIEguMjY0IHN0YXRlbGVzcyBlbmNvZGVyCj4KPiAgZHJpdmVycy9t
-ZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9NYWtlZmlsZSAgIHwgICAxICsKPiAgZHJpdmVycy9t
-ZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm8uaCAgIHwgICAzICsKPiAgLi4uL21lZGlh
-L3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19kcnYuYyAgIHwgIDEwICsKPiAgLi4uL3BsYXRm
-b3JtL3ZlcmlzaWxpY29uL2hhbnRyb19oMV9oMjY0X2VuYy5jIHwgNDkzICsrKysrKysrKysrCj4g
-IC4uLi9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9faDFfcmVncy5oICAgICB8ICAyMCArLQo+
-ICAuLi4vcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2gxX3ZwOF9lbmMuYyAgfCAgIDIgKy0K
-PiAgLi4uL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19oMjY0LmMgIHwgNzc3ICsr
-KysrKysrKysrKysrKysrKwo+ICAuLi4vbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJv
-X2h3LmggICAgfCAgMjMgKwo+ICAuLi4vcGxhdGZvcm0vdmVyaXNpbGljb24vc3RtMzJtcDI1X3Zl
-bmNfaHcuYyAgfCAgMjIgKy0KPiAgZHJpdmVycy9tZWRpYS92NGwyLWNvcmUvdjRsMi1jdHJscy1j
-b3JlLmMgICAgIHwgIDU0ICsrCj4gIGRyaXZlcnMvbWVkaWEvdjRsMi1jb3JlL3Y0bDItY3RybHMt
-ZGVmcy5jICAgICB8ICAgOSArCj4gIGluY2x1ZGUvdWFwaS9saW51eC92NGwyLWNvbnRyb2xzLmgg
-ICAgICAgICAgICB8ICA4NSArKwo+ICBpbmNsdWRlL3VhcGkvbGludXgvdmlkZW9kZXYyLmggICAg
-ICAgICAgICAgICAgfCAgIDIgKwo+ICAxMyBmaWxlcyBjaGFuZ2VkLCAxNDk2IGluc2VydGlvbnMo
-KyksIDUgZGVsZXRpb25zKC0pCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL21lZGlhL3Bs
-YXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19oMV9oMjY0X2VuYy5jCj4KPiAtLQo+IDIuMjUuMQo+
-Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+
+--===============7105542917227787979==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ZoXxyyywsf/pWmKt"
+Content-Disposition: inline
+
+
+--ZoXxyyywsf/pWmKt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Nov 17, 2023 at 03:33:34PM +0100, Patrick Delaunay wrote:
+> Add a new compatible for stm32mp25 support.
+>=20
+> Signed-off-by: Patrick Delaunay <patrick.delaunay@foss.st.com>
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+
+--ZoXxyyywsf/pWmKt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZVoQwgAKCRB4tDGHoIJi
+0tbrAQCyo2zim4XR1mSVguxU651KwBRSpJJNI10F0CMpk1jK0QD+PFecoGEbntYE
+vyEZHgbChgX0fsQEChjuX5OZQb/CCg8=
+=gFZr
+-----END PGP SIGNATURE-----
+
+--ZoXxyyywsf/pWmKt--
+
+--===============7105542917227787979==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7105542917227787979==--
