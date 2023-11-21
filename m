@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D543B7F3EBB
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 08:16:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C2C57F3EBD
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 08:16:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89B9FC6B47A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4FF7C6B47D;
 	Wed, 22 Nov 2023 07:16:20 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2864C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B2FEC6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 20:06:59 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-421ae866bc2so56491cf.0
+ Tue, 21 Nov 2023 20:25:37 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-41cb7720579so61311cf.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 12:06:59 -0800 (PST)
+ Tue, 21 Nov 2023 12:25:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1700597218; x=1701202018;
+ d=google.com; s=20230601; t=1700598336; x=1701203136;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=XIb8BuhBmyqJwIKZLXCVv+0WiKsmg3mB+S79PdqKDeM=;
- b=3mta7QX0xOi/v3f9s19AhDnWUtrOKtDKaE5ufYuxmx/j/dD3hmdCzXywNLpZnJPaMX
- Cmwg+BxCi7bhKOrb2eGNXvqpQxRUtuIO+xkDNh5XJdaT00Fpu8tyuyG6rzJaOb6TPit9
- YypPynB6LETyKANJJbEwuCBKyt8GztQca4lum4QOU3saoz7gOxGmB8TwawydgDV5sc3g
- zXBFt1WzWnLpZDdEALWIJH0DdWa9AAq7PhoR+g3sITfDRfvd6enge3Cx64emZMZ5Twn7
- IxJ5ITmOHXaTy+iPPF/WvBtFKLKALEu7V6w2SxmFLAPgLxhqmVQqENab7gC38oMlf2/K
- UHxA==
+ bh=iCMzoRfb4a3/ugx1ekrNo7I7m5M5cti/B9DKAeOZo/A=;
+ b=RGT1xkbzBMcZwaqpfdSWtCKpsMwl8wy42iTNFeExOzl0KFiBKYcfzMBuJ5BL3FUKAF
+ +Qg9zXZaS2hWyrLnph+Enr01FSMEwbHHNEyDRn/QzGyheK9pER6KKrEA0H07yk0f/iTt
+ tQgAMCzY9gRsiQmz9KqD7sEpTiowapU8mOscY3nrkrPpfmFyHUY2KeEb4C/LAHQb1WYZ
+ /Krv2XdvECEvii1uprRNNYpDbvwaxfEiYqJjJ+ukYmD16eyyUZaLJSU2r3yF/jT9eF2n
+ bhZ1yv87mjlNQA+sbJoei8vXMmWf7jEUWQ+bLWmvKIm3mfbEmiGDC4MwEGkoHhWNdino
+ 2NwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700597218; x=1701202018;
+ d=1e100.net; s=20230601; t=1700598336; x=1701203136;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=XIb8BuhBmyqJwIKZLXCVv+0WiKsmg3mB+S79PdqKDeM=;
- b=IYeXMcdIj3xabPrsxMzsZV8AgrENiHuULejI5pZiCzc+a744XbFzV4kJehfeBL5l/5
- 56yCfkXDDo4wEA5gtaVXdVv28vKvPZnl/UIFA6Vl6aPbuKl4Dtbkk5Ac9Kpwi95+x0M3
- w9coijmV5xwjpWz6y4WUa4TJWDKDC36oeg9pBP8p3GMdAjvvpw/yFDr6ofH/qu48TsPY
- zUD2df6fvBIWiY1XqBFWkhmqiu1WAheky1zhk+v5z6Fg2V5XB6WiFUhvulEuTIdTv6Tk
- uQGHcvIlFOae4ppYnBFL1DjgmjcUZFKnOOhgSkA2D9WuIpbDiaT6Wr8h9/I47of/dwGI
- YBAw==
-X-Gm-Message-State: AOJu0YwLUtGDiUR1TJdo5wTIjXFg3G9ymZmE0euDk9OxrTCrStRyOrnR
- rpUX/3ck1GH3GmwFhO+N9UJrgGyNCm4eGNbnuWdvYw==
-X-Google-Smtp-Source: AGHT+IH/5kecXHge5TpGuY4wTtmRNC2VobRyT+WRC9ElD0BnkfTdt/DeYMG8Sf7IRtwJ1zwh+8QsOPgog6zORNabwnc=
-X-Received: by 2002:a05:622a:1a18:b0:421:1c15:a8fd with SMTP id
- f24-20020a05622a1a1800b004211c15a8fdmr52040qtb.14.1700597218532; Tue, 21 Nov
- 2023 12:06:58 -0800 (PST)
+ bh=iCMzoRfb4a3/ugx1ekrNo7I7m5M5cti/B9DKAeOZo/A=;
+ b=p9AKeLnTTVm8wOALQsBew4AazNVL84ZBejG89hCD99aAMoVDfPcSKm4KmQRXJoR0zK
+ A6aqR3IxtAjpn4pfkHmMeOGYMRcKU00C/9hjGuEruyMnqWQYgn4Jgy8a/Ipgo4VrE970
+ 1YZD2BpJI/NREfkwfjAoboa8e5VRp6nhjXvu1Tx9BzzZC2ImlLYvOz+dd2YeceKHxR3c
+ 2WRjn/A7dkNViJGAt63GVhgZc8mOyQ+M7yIBUhA2PARkjrnlbxQuzdmNbCbgrwej0lp5
+ hXzchGmKTu8rOjHG/81UIX1PUIRZYjcxSCezxr65+ZlzlGSdapeV0mO3uSaMvi1NGnLe
+ aoKA==
+X-Gm-Message-State: AOJu0YzDkqSdwgmxVuURJNaAuXBrKb7Yzopcg1wV2YmO1VVHdXs45ur3
+ jlYLJQe/FOixwDN4o7oraHQuD+yjVhQzLjB3KV5Z1Q==
+X-Google-Smtp-Source: AGHT+IEXOgEnuQYmOo/j6jGdP7uaNjQGfB0xDc6+hio8YQgV8gwZcFjbdbKJsHiGfuzgy6VpoOGKycSBvEODSFw0dNA=
+X-Received: by 2002:a05:622a:13ca:b0:421:bc7d:dc84 with SMTP id
+ p10-20020a05622a13ca00b00421bc7ddc84mr38799qtk.2.1700598336078; Tue, 21 Nov
+ 2023 12:25:36 -0800 (PST)
 MIME-Version: 1.0
 References: <20231121184543.3433940-1-sgzhang@google.com>
  <84be10f3-0880-4ccd-b6d3-b5feecea75ef@lunn.ch>
 In-Reply-To: <84be10f3-0880-4ccd-b6d3-b5feecea75ef@lunn.ch>
 From: Ray Zhang <sgzhang@google.com>
-Date: Tue, 21 Nov 2023 12:06:47 -0800
-Message-ID: <CAPqVEODWZ5suy7MEc_QXz_mx5uryypz1zAi9M9re-xqhs3urSA@mail.gmail.com>
+Date: Tue, 21 Nov 2023 12:25:25 -0800
+Message-ID: <CAPqVEOAGCtneC1kzER1=o-NwRR_eh5vEk_66BEM6+cYkrdJdVg@mail.gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>
 X-Mailman-Approved-At: Wed, 22 Nov 2023 07:16:18 +0000
 Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
@@ -75,19 +75,16 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2214170412220010690=="
+Content-Type: multipart/mixed; boundary="===============0923739798731714706=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============2214170412220010690==
-Content-Type: multipart/alternative; boundary="0000000000001e29d6060aaf2505"
+--===============0923739798731714706==
+Content-Type: multipart/alternative; boundary="000000000000baae0d060aaf67b3"
 
---0000000000001e29d6060aaf2505
+--000000000000baae0d060aaf67b3
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-
-Hi Andrew,
-Thanks for reviewing, please see inline.
 
 On Tue, Nov 21, 2023 at 11:46=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
 :
@@ -346,11 +343,10 @@ On Tue, Nov 21, 2023 at 11:46=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
 > What useful information does this list of statistics bring in the
 > commit message?
 >
-Each output line of "ethtool -S" is from the modified code: It shows the
+> Each output line of "ethtool -S" is from the modified code: It shows the
 command still yields normal output results as expected.
 
 
->
 > >                               if (!stmmac_safety_feat_dump(priv,
 > >                                                       &priv->sstats, i,
 > >                                                       NULL, &desc)) {
@@ -359,7 +355,7 @@ command still yields normal output results as expected.
 ;
 >
 > Did you consider ethtool_puts() ?
->
+
 No, since strscpy does the job already. Also I could not find ethtool_puts:
 where is it defined? Or do you mean ethtool_put_stat, which is
 inappropriate to use here since it requires a skb parameter?
@@ -371,20 +367,20 @@ inappropriate to use here since it requires a skb parameter?
 > pw-bot: cr
 >
 
+Hi Andrew, Thanks for reviewing, please see inline.
+
 Ray
 
---0000000000001e29d6060aaf2505
+--000000000000baae0d060aaf67b3
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><pre style=3D"color:rgb(0,0,0)"></pre></d=
-iv><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Hi Andr=
-ew, <br>Thanks for reviewing, please see inline.<br><br>On Tue, Nov 21, 202=
-3 at 11:46=E2=80=AFAM Andrew Lunn &lt;<a href=3D"mailto:andrew@lunn.ch" tar=
-get=3D"_blank">andrew@lunn.ch</a>&gt; wrote:<br></div><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">On Tue, Nov 21, 2023 at 06:45:43PM +0000, Ray =
-Zhang wrote:<br>
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 21, 2023 at 11:46=E2=80=AFAM =
+Andrew Lunn &lt;<a href=3D"mailto:andrew@lunn.ch" target=3D"_blank">andrew@=
+lunn.ch</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
+t:1ex">On Tue, Nov 21, 2023 at 06:45:43PM +0000, Ray Zhang wrote:<br>
 &gt; CONFIG_KASAN detected out-of-bounds read via memcpy in stmmac_get_stri=
 ngs.<br>
 &gt; The fix is to change memcpy to strscpy.<br>
@@ -638,12 +634,12 @@ br>
 &gt;=C2=A0 =C2=A0 =C2=A0 q0_rx_irq_n: 58<br>
 <br>
 What useful information does this list of statistics bring in the<br>
-commit message?<br></blockquote><div>Each output line of &quot;ethtool -S&q=
-uot; is from the modified code: It shows the command still yields normal ou=
-tput results as expected.<br>=C2=A0</div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">
-<br>
+commit message?<br>
+<br></blockquote><div>Each output line of &quot;ethtool -S&quot; is from th=
+e modified code: It shows the command still yields normal output results as=
+ expected.<br>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>
 &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!stmmac_safety_feat_dump(priv,=
 <br>
@@ -661,21 +657,22 @@ sc, ETH_GSTRING_LEN);<br>
  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0strscpy(p, d=
 esc, ETH_GSTRING_LEN);<br>
 <br>
-Did you consider ethtool_puts() ?<br></blockquote><div>No, since strscpy=C2=
-=A0does the job already. Also I could not find ethtool_puts: where is it de=
-fined? Or do you mean ethtool_put_stat, which is inappropriate to use here =
-since it requires a skb parameter?</div><div><br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">
-<br>
+Did you consider ethtool_puts() ?</blockquote><div>No, since strscpy=C2=A0d=
+oes the job already. Also I could not find ethtool_puts: where is it define=
+d? Or do you mean ethtool_put_stat, which is inappropriate to use here sinc=
+e it requires a skb parameter?=C2=A0<br><br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex"><br>
 =C2=A0 =C2=A0 Andrew<br>
 <br>
 ---<br>
-pw-bot: cr<br></blockquote><div><br>Ray=C2=A0</div></div></div>
+pw-bot: cr<br></blockquote><div><br><font color=3D"#555555"><span>Hi Andrew=
+, Thanks for reviewing, please see inline.<br><br></span></font></div><div>=
+Ray=C2=A0</div></div></div>
 
---0000000000001e29d6060aaf2505--
+--000000000000baae0d060aaf67b3--
 
---===============2214170412220010690==
+--===============0923739798731714706==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -686,4 +683,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============2214170412220010690==--
+--===============0923739798731714706==--
