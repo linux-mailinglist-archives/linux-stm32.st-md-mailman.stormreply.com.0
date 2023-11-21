@@ -2,59 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C2C57F3EBD
+	by mail.lfdr.de (Postfix) with ESMTPS id 20B917F3EBE
 	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 08:16:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4FF7C6B47D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B63C0C6C83B;
 	Wed, 22 Nov 2023 07:16:20 +0000 (UTC)
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
- [209.85.160.179])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B2FEC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBC52C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 20:25:37 +0000 (UTC)
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-41cb7720579so61311cf.1
+ Tue, 21 Nov 2023 20:55:39 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-41cdc669c5eso3471cf.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 12:25:37 -0800 (PST)
+ Tue, 21 Nov 2023 12:55:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1700598336; x=1701203136;
+ d=google.com; s=20230601; t=1700600139; x=1701204939;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=iCMzoRfb4a3/ugx1ekrNo7I7m5M5cti/B9DKAeOZo/A=;
- b=RGT1xkbzBMcZwaqpfdSWtCKpsMwl8wy42iTNFeExOzl0KFiBKYcfzMBuJ5BL3FUKAF
- +Qg9zXZaS2hWyrLnph+Enr01FSMEwbHHNEyDRn/QzGyheK9pER6KKrEA0H07yk0f/iTt
- tQgAMCzY9gRsiQmz9KqD7sEpTiowapU8mOscY3nrkrPpfmFyHUY2KeEb4C/LAHQb1WYZ
- /Krv2XdvECEvii1uprRNNYpDbvwaxfEiYqJjJ+ukYmD16eyyUZaLJSU2r3yF/jT9eF2n
- bhZ1yv87mjlNQA+sbJoei8vXMmWf7jEUWQ+bLWmvKIm3mfbEmiGDC4MwEGkoHhWNdino
- 2NwQ==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3zIQA6Czlju2Y4hDlDvlKgz09FWuac93G5qYfLJq5Zs=;
+ b=FGZGaZr7ShS1WOqTVJzEMWsKaMOF3KxQpp4Kkk/KEhBgHeYXRhod3OJPasBH/XjYo/
+ FG5EjOQpVDoS06QkEYbmBc8k1Mwd+6Emp8gx+3gq7NsR+NbQpZkEfs/MAJJaPRFr97zE
+ 6ryHMWCQyHB/mcggposcuc1JssmkSrfxnJs2z7BGGpcdU0e/WjsfEx2TXJ39y9CZkrA1
+ zkxMYN3Z1yMzbBxG7AQ7qDDjoVhl79Si9cVaYUCzfRIVLZhR+18JavaeBx47SoDdBWMP
+ FR3x/UAPHJ1km9qWY2skXDRZiZEi4k8GWXqPW3KwIkqh4Eg7iOydh2/WjPrty+YEP+Z9
+ z8Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700598336; x=1701203136;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=iCMzoRfb4a3/ugx1ekrNo7I7m5M5cti/B9DKAeOZo/A=;
- b=p9AKeLnTTVm8wOALQsBew4AazNVL84ZBejG89hCD99aAMoVDfPcSKm4KmQRXJoR0zK
- A6aqR3IxtAjpn4pfkHmMeOGYMRcKU00C/9hjGuEruyMnqWQYgn4Jgy8a/Ipgo4VrE970
- 1YZD2BpJI/NREfkwfjAoboa8e5VRp6nhjXvu1Tx9BzzZC2ImlLYvOz+dd2YeceKHxR3c
- 2WRjn/A7dkNViJGAt63GVhgZc8mOyQ+M7yIBUhA2PARkjrnlbxQuzdmNbCbgrwej0lp5
- hXzchGmKTu8rOjHG/81UIX1PUIRZYjcxSCezxr65+ZlzlGSdapeV0mO3uSaMvi1NGnLe
- aoKA==
-X-Gm-Message-State: AOJu0YzDkqSdwgmxVuURJNaAuXBrKb7Yzopcg1wV2YmO1VVHdXs45ur3
- jlYLJQe/FOixwDN4o7oraHQuD+yjVhQzLjB3KV5Z1Q==
-X-Google-Smtp-Source: AGHT+IEXOgEnuQYmOo/j6jGdP7uaNjQGfB0xDc6+hio8YQgV8gwZcFjbdbKJsHiGfuzgy6VpoOGKycSBvEODSFw0dNA=
-X-Received: by 2002:a05:622a:13ca:b0:421:bc7d:dc84 with SMTP id
- p10-20020a05622a13ca00b00421bc7ddc84mr38799qtk.2.1700598336078; Tue, 21 Nov
- 2023 12:25:36 -0800 (PST)
+ d=1e100.net; s=20230601; t=1700600139; x=1701204939;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3zIQA6Czlju2Y4hDlDvlKgz09FWuac93G5qYfLJq5Zs=;
+ b=Qb0gY3CwAQARcbd1FXWS6+Lehz3JNlnGJhZEFuziT5C0RbFAJoKoHQ06wcOzpxwDpg
+ Iw3etjkA/xG9OvtALoNUoLvofaZA0+2hju7L6MKFHe5otK/3ORl10vI6JTB2kKud16up
+ AK38Dsr4yXki7rs+GNetQfsn9ihMRLOfeRvxTwk3fNiph0y1H3L1Ynd4oSEtdlvRz1FC
+ a6xixlG7AE64AaRTdv87Bu7c6PYeatip3PlRl4G7XP3Hft0ivo5BYzHslAiXsNalmjMi
+ yfI5Oa3bDEoQ4l5VJSTGoopYOv/JigsKcOaYdFnTVUDszubMokoSrM1gRlnn7zK9MpGZ
+ eeVg==
+X-Gm-Message-State: AOJu0Yx7ETyRQN7QE60OWAhEcLrtQSv+AtWmQxmFY00+hNAGOrnk6Ope
+ Hm4l4LvxrMkYBJ75PNh5g1cu/oK+lg4ZkgFsnU7lGg==
+X-Google-Smtp-Source: AGHT+IEvxOmwr5QH1oBTjvmPWMa36flcea+AoPT2HJGfTJnkYtMV+vgtgkV9ftPQlul7dk1JwFC/gzyDE5kcmPl4hYU=
+X-Received: by 2002:ac8:58d5:0:b0:421:56ae:e761 with SMTP id
+ u21-20020ac858d5000000b0042156aee761mr59846qta.6.1700600138654; Tue, 21 Nov
+ 2023 12:55:38 -0800 (PST)
 MIME-Version: 1.0
 References: <20231121184543.3433940-1-sgzhang@google.com>
  <84be10f3-0880-4ccd-b6d3-b5feecea75ef@lunn.ch>
-In-Reply-To: <84be10f3-0880-4ccd-b6d3-b5feecea75ef@lunn.ch>
+ <CAPqVEODWZ5suy7MEc_QXz_mx5uryypz1zAi9M9re-xqhs3urSA@mail.gmail.com>
+ <ebbdf786-54d4-491c-ab81-de03006ec727@lunn.ch>
+In-Reply-To: <ebbdf786-54d4-491c-ab81-de03006ec727@lunn.ch>
 From: Ray Zhang <sgzhang@google.com>
-Date: Tue, 21 Nov 2023 12:25:25 -0800
-Message-ID: <CAPqVEOAGCtneC1kzER1=o-NwRR_eh5vEk_66BEM6+cYkrdJdVg@mail.gmail.com>
+Date: Tue, 21 Nov 2023 12:55:27 -0800
+Message-ID: <CAPqVEOBeuFMAFEyiDEWg39yJ33M8U1okkJ32keOyARcXqLJW9Q@mail.gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>
 X-Mailman-Approved-At: Wed, 22 Nov 2023 07:16:18 +0000
 Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
@@ -75,612 +78,335 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0923739798731714706=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============0923739798731714706==
-Content-Type: multipart/alternative; boundary="000000000000baae0d060aaf67b3"
-
---000000000000baae0d060aaf67b3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Nov 21, 2023 at 11:46=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
-:
-
-> On Tue, Nov 21, 2023 at 06:45:43PM +0000, Ray Zhang wrote:
-> > CONFIG_KASAN detected out-of-bounds read via memcpy in
-> stmmac_get_strings.
-> > The fix is to change memcpy to strscpy.
-> >
-> > Tested:
-> > <machine_obfuscated>:~# ethtool -i <interface_obfuscated>
-> > driver: st_gmac
-> > <machine_obfuscated>:~# ethtool -S <interface_obfuscated>
-> > NIC statistics:
-> >      ATPES: 0
-> >      TPES: 0
-> >      RDPES: 0
-> >      MPES: 0
-> >      MTSPES: 0
-> >      ARPES: 0
-> >      CWPES: 0
-> >      ASRPES: 0
-> >      TTES: 0
-> >      RTES: 0
-> >      CTES: 0
-> >      ATES: 0
-> >      PTES: 0
-> >      T125ES: 0
-> >      R125ES: 0
-> >      RVCTES: 0
-> >      MSTTES: 0
-> >      SLVTES: 0
-> >      ATITES: 0
-> >      ARITES: 0
-> >      FSMPES: 0
-> >      TXCES: 0
-> >      TXAMS: 0
-> >      TXUES: 0
-> >      RXCES: 0
-> >      RXAMS: 0
-> >      RXUES: 0
-> >      ECES: 0
-> >      EAMS: 0
-> >      EUES: 0
-> >      RPCES: 0
-> >      RPAMS: 0
-> >      RPUES: 0
-> >      TCES: 0
-> >      TAMS: 0
-> >      TUES: 0
-> >      mmc_tx_octetcount_gb: 11612
-> >      mmc_tx_framecount_gb: 100
-> >      mmc_tx_broadcastframe_g: 0
-> >      mmc_tx_multicastframe_g: 42
-> >      mmc_tx_64_octets_gb: 0
-> >      mmc_tx_65_to_127_octets_gb: 62
-> >      mmc_tx_128_to_255_octets_gb: 38
-> >      mmc_tx_256_to_511_octets_gb: 0
-> >      mmc_tx_512_to_1023_octets_gb: 0
-> >      mmc_tx_1024_to_max_octets_gb: 0
-> >      mmc_tx_unicast_gb: 58
-> >      mmc_tx_multicast_gb: 42
-> >      mmc_tx_broadcast_gb: 0
-> >      mmc_tx_underflow_error: 0
-> >      mmc_tx_singlecol_g: 0
-> >      mmc_tx_multicol_g: 0
-> >      mmc_tx_deferred: 0
-> >      mmc_tx_latecol: 0
-> >      mmc_tx_exesscol: 0
-> >      mmc_tx_carrier_error: 0
-> >      mmc_tx_octetcount_g: 11612
-> >      mmc_tx_framecount_g: 100
-> >      mmc_tx_excessdef: 0
-> >      mmc_tx_pause_frame: 0
-> >      mmc_tx_vlan_frame_g: 0
-> >      mmc_rx_framecount_gb: 64
-> >      mmc_rx_octetcount_gb: 30235
-> >      mmc_rx_octetcount_g: 30235
-> >      mmc_rx_broadcastframe_g: 0
-> >      mmc_rx_multicastframe_g: 0
-> >      mmc_rx_crc_error: 0
-> >      mmc_rx_align_error: 0
-> >      mmc_rx_run_error: 0
-> >      mmc_rx_jabber_error: 0
-> >      mmc_rx_undersize_g: 0
-> >      mmc_rx_oversize_g: 0
-> >      mmc_rx_64_octets_gb: 0
-> >      mmc_rx_65_to_127_octets_gb: 9
-> >      mmc_rx_128_to_255_octets_gb: 22
-> >      mmc_rx_256_to_511_octets_gb: 21
-> >      mmc_rx_512_to_1023_octets_gb: 2
-> >      mmc_rx_1024_to_max_octets_gb: 10
-> >      mmc_rx_unicast_g: 64
-> >      mmc_rx_length_error: 0
-> >      mmc_rx_autofrangetype: 0
-> >      mmc_rx_pause_frames: 0
-> >      mmc_rx_fifo_overflow: 0
-> >      mmc_rx_vlan_frames_gb: 0
-> >      mmc_rx_watchdog_error: 0
-> >      mmc_rx_ipc_intr_mask: 0
-> >      mmc_rx_ipc_intr: 0
-> >      mmc_rx_ipv4_gd: 0
-> >      mmc_rx_ipv4_hderr: 0
-> >      mmc_rx_ipv4_nopay: 0
-> >      mmc_rx_ipv4_frag: 0
-> >      mmc_rx_ipv4_udsbl: 0
-> >      mmc_rx_ipv4_gd_octets: 0
-> >      mmc_rx_ipv4_hderr_octets: 0
-> >      mmc_rx_ipv4_nopay_octets: 0
-> >      mmc_rx_ipv4_frag_octets: 0
-> >      mmc_rx_ipv4_udsbl_octets: 0
-> >      mmc_rx_ipv6_gd_octets: 0
-> >      mmc_rx_ipv6_hderr_octets: 0
-> >      mmc_rx_ipv6_nopay_octets: 0
-> >      mmc_rx_ipv6_gd: 0
-> >      mmc_rx_ipv6_hderr: 0
-> >      mmc_rx_ipv6_nopay: 0
-> >      mmc_rx_udp_gd: 0
-> >      mmc_rx_udp_err: 0
-> >      mmc_rx_tcp_gd: 0
-> >      mmc_rx_tcp_err: 0
-> >      mmc_rx_icmp_gd: 0
-> >      mmc_rx_icmp_err: 0
-> >      mmc_rx_udp_gd_octets: 0
-> >      mmc_rx_udp_err_octets: 0
-> >      mmc_rx_tcp_gd_octets: 0
-> >      mmc_rx_tcp_err_octets: 0
-> >      mmc_rx_icmp_gd_octets: 0
-> >      mmc_rx_icmp_err_octets: 0
-> >      mmc_tx_fpe_fragment_cntr: 0
-> >      mmc_tx_hold_req_cntr: 0
-> >      mmc_rx_packet_assembly_err_cntr: 0
-> >      mmc_rx_packet_smd_err_cntr: 0
-> >      mmc_rx_packet_assembly_ok_cntr: 0
-> >      mmc_rx_fpe_fragment_cntr: 0
-> >      tx_underflow: 0
-> >      tx_carrier: 0
-> >      tx_losscarrier: 0
-> >      vlan_tag: 0
-> >      tx_deferred: 0
-> >      tx_vlan: 0
-> >      tx_jabber: 0
-> >      tx_frame_flushed: 0
-> >      tx_payload_error: 0
-> >      tx_ip_header_error: 0
-> >      rx_desc: 0
-> >      sa_filter_fail: 0
-> >      overflow_error: 0
-> >      ipc_csum_error: 0
-> >      rx_collision: 0
-> >      rx_crc_errors: 0
-> >      dribbling_bit: 0
-> >      rx_length: 0
-> >      rx_mii: 0
-> >      rx_multicast: 0
-> >      rx_gmac_overflow: 0
-> >      rx_watchdog: 0
-> >      da_rx_filter_fail: 0
-> >      sa_rx_filter_fail: 0
-> >      rx_missed_cntr: 0
-> >      rx_overflow_cntr: 0
-> >      rx_vlan: 0
-> >      rx_split_hdr_pkt_n: 0
-> >      tx_undeflow_irq: 0
-> >      tx_process_stopped_irq: 0
-> >      tx_jabber_irq: 0
-> >      rx_overflow_irq: 0
-> >      rx_buf_unav_irq: 0
-> >      rx_process_stopped_irq: 0
-> >      rx_watchdog_irq: 0
-> >      tx_early_irq: 0
-> >      fatal_bus_error_irq: 0
-> >      rx_early_irq: 0
-> >      threshold: 64
-> >      tx_pkt_n: 100
-> >      rx_pkt_n: 64
-> >      normal_irq_n: 62
-> >      rx_normal_irq_n: 58
-> >      napi_poll: 215
-> >      tx_normal_irq_n: 4
-> >      tx_clean: 157
-> >      tx_set_ic_bit: 4
-> >      irq_receive_pmt_irq_n: 0
-> >      mmc_tx_irq_n: 0
-> >      mmc_rx_irq_n: 0
-> >      mmc_rx_csum_offload_irq_n: 0
-> >      irq_tx_path_in_lpi_mode_n: 0
-> >      irq_tx_path_exit_lpi_mode_n: 0
-> >      irq_rx_path_in_lpi_mode_n: 0
-> >      irq_rx_path_exit_lpi_mode_n: 0
-> >      phy_eee_wakeup_error_n: 0
-> >      ip_hdr_err: 0
-> >      ip_payload_err: 0
-> >      ip_csum_bypassed: 0
-> >      ipv4_pkt_rcvd: 0
-> >      ipv6_pkt_rcvd: 64
-> >      no_ptp_rx_msg_type_ext: 64
-> >      ptp_rx_msg_type_sync: 0
-> >      ptp_rx_msg_type_follow_up: 0
-> >      ptp_rx_msg_type_delay_req: 0
-> >      ptp_rx_msg_type_delay_resp: 0
-> >      ptp_rx_msg_type_pdelay_req: 0
-> >      ptp_rx_msg_type_pdelay_resp: 0
-> >      ptp_rx_msg_type_pdelay_follow_up: 0
-> >      ptp_rx_msg_type_announce: 0
-> >      ptp_rx_msg_type_management: 0
-> >      ptp_rx_msg_pkt_reserved_type: 0
-> >      ptp_frame_type: 0
-> >      ptp_ver: 0
-> >      timestamp_dropped: 0
-> >      av_pkt_rcvd: 0
-> >      av_tagged_pkt_rcvd: 0
-> >      vlan_tag_priority_val: 0
-> >      l3_filter_match: 0
-> >      l4_filter_match: 0
-> >      l3_l4_filter_no_match: 0
-> >      irq_pcs_ane_n: 0
-> >      irq_pcs_link_n: 0
-> >      irq_rgmii_n: 0
-> >      mtl_tx_status_fifo_full: 0
-> >      mtl_tx_fifo_not_empty: 0
-> >      mmtl_fifo_ctrl: 0
-> >      mtl_tx_fifo_read_ctrl_write: 0
-> >      mtl_tx_fifo_read_ctrl_wait: 0
-> >      mtl_tx_fifo_read_ctrl_read: 0
-> >      mtl_tx_fifo_read_ctrl_idle: 0
-> >      mac_tx_in_pause: 0
-> >      mac_tx_frame_ctrl_xfer: 0
-> >      mac_tx_frame_ctrl_idle: 0
-> >      mac_tx_frame_ctrl_wait: 0
-> >      mac_tx_frame_ctrl_pause: 0
-> >      mac_gmii_tx_proto_engine: 0
-> >      mtl_rx_fifo_fill_level_full: 0
-> >      mtl_rx_fifo_fill_above_thresh: 0
-> >      mtl_rx_fifo_fill_below_thresh: 0
-> >      mtl_rx_fifo_fill_level_empty: 0
-> >      mtl_rx_fifo_read_ctrl_flush: 0
-> >      mtl_rx_fifo_read_ctrl_read_data: 0
-> >      mtl_rx_fifo_read_ctrl_status: 0
-> >      mtl_rx_fifo_read_ctrl_idle: 0
-> >      mtl_rx_fifo_ctrl_active: 0
-> >      mac_rx_frame_ctrl_fifo: 0
-> >      mac_gmii_rx_proto_engine: 0
-> >      tx_tso_frames: 0
-> >      tx_tso_nfrags: 0
-> >      mtl_est_cgce: 0
-> >      mtl_est_hlbs: 0
-> >      mtl_est_hlbf: 0
-> >      mtl_est_btre: 0
-> >      mtl_est_btrlm: 0
-> >      q0_tx_pkt_n: 100
-> >      q0_tx_irq_n: 4
-> >      q0_rx_pkt_n: 64
-> >      q0_rx_irq_n: 58
->
-> What useful information does this list of statistics bring in the
-> commit message?
->
-> Each output line of "ethtool -S" is from the modified code: It shows the
-command still yields normal output results as expected.
-
-
-> >                               if (!stmmac_safety_feat_dump(priv,
-> >                                                       &priv->sstats, i,
-> >                                                       NULL, &desc)) {
-> > -                                     memcpy(p, desc, ETH_GSTRING_LEN);
-> > +                                     strscpy(p, desc, ETH_GSTRING_LEN)=
-;
->
-> Did you consider ethtool_puts() ?
-
-No, since strscpy does the job already. Also I could not find ethtool_puts:
-where is it defined? Or do you mean ethtool_put_stat, which is
-inappropriate to use here since it requires a skb parameter?
-
-
->     Andrew
->
-> ---
-> pw-bot: cr
->
-
-Hi Andrew, Thanks for reviewing, please see inline.
-
-Ray
-
---000000000000baae0d060aaf67b3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Tue, Nov 21, 2023 at 11:46=E2=80=AFAM =
-Andrew Lunn &lt;<a href=3D"mailto:andrew@lunn.ch" target=3D"_blank">andrew@=
-lunn.ch</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
-margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-lef=
-t:1ex">On Tue, Nov 21, 2023 at 06:45:43PM +0000, Ray Zhang wrote:<br>
-&gt; CONFIG_KASAN detected out-of-bounds read via memcpy in stmmac_get_stri=
-ngs.<br>
-&gt; The fix is to change memcpy to strscpy.<br>
-&gt; <br>
-&gt; Tested:<br>
-&gt; &lt;machine_obfuscated&gt;:~# ethtool -i &lt;interface_obfuscated&gt;<=
-br>
-&gt; driver: st_gmac<br>
-&gt; &lt;machine_obfuscated&gt;:~# ethtool -S &lt;interface_obfuscated&gt;<=
-br>
-&gt; NIC statistics:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ATPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RDPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 MPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 MTSPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ARPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 CWPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ASRPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 CTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ATES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 PTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 T125ES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 R125ES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RVCTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 MSTTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 SLVTES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ATITES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ARITES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 FSMPES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TXCES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TXAMS: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TXUES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RXCES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RXAMS: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RXUES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ECES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 EAMS: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 EUES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RPCES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RPAMS: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 RPUES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TCES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TAMS: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 TUES: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_octetcount_gb: 11612<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_framecount_gb: 100<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_broadcastframe_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_multicastframe_g: 42<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_64_octets_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_65_to_127_octets_gb: 62<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_128_to_255_octets_gb: 38<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_256_to_511_octets_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_512_to_1023_octets_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_1024_to_max_octets_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_unicast_gb: 58<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_multicast_gb: 42<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_broadcast_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_underflow_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_singlecol_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_multicol_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_deferred: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_latecol: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_exesscol: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_carrier_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_octetcount_g: 11612<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_framecount_g: 100<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_excessdef: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_pause_frame: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_vlan_frame_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_framecount_gb: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_octetcount_gb: 30235<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_octetcount_g: 30235<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_broadcastframe_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_multicastframe_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_crc_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_align_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_run_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_jabber_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_undersize_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_oversize_g: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_64_octets_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_65_to_127_octets_gb: 9<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_128_to_255_octets_gb: 22<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_256_to_511_octets_gb: 21<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_512_to_1023_octets_gb: 2<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_1024_to_max_octets_gb: 10<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_unicast_g: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_length_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_autofrangetype: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_pause_frames: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_fifo_overflow: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_vlan_frames_gb: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_watchdog_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipc_intr_mask: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipc_intr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_gd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_hderr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_nopay: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_frag: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_udsbl: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_gd_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_hderr_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_nopay_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_frag_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv4_udsbl_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_gd_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_hderr_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_nopay_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_gd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_hderr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_ipv6_nopay: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_udp_gd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_udp_err: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_tcp_gd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_tcp_err: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_icmp_gd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_icmp_err: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_udp_gd_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_udp_err_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_tcp_gd_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_tcp_err_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_icmp_gd_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_icmp_err_octets: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_fpe_fragment_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_hold_req_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_packet_assembly_err_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_packet_smd_err_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_packet_assembly_ok_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_fpe_fragment_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_underflow: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_carrier: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_losscarrier: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 vlan_tag: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_deferred: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_vlan: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_jabber: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_frame_flushed: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_payload_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_ip_header_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_desc: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 sa_filter_fail: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 overflow_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ipc_csum_error: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_collision: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_crc_errors: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 dribbling_bit: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_length: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_mii: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_multicast: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_gmac_overflow: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_watchdog: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 da_rx_filter_fail: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 sa_rx_filter_fail: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_missed_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_overflow_cntr: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_vlan: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_split_hdr_pkt_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_undeflow_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_process_stopped_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_jabber_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_overflow_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_buf_unav_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_process_stopped_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_watchdog_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_early_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 fatal_bus_error_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_early_irq: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 threshold: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_pkt_n: 100<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_pkt_n: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 normal_irq_n: 62<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 rx_normal_irq_n: 58<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 napi_poll: 215<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_normal_irq_n: 4<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_clean: 157<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_set_ic_bit: 4<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_receive_pmt_irq_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_tx_irq_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_irq_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmc_rx_csum_offload_irq_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_tx_path_in_lpi_mode_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_tx_path_exit_lpi_mode_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_rx_path_in_lpi_mode_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_rx_path_exit_lpi_mode_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 phy_eee_wakeup_error_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ip_hdr_err: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ip_payload_err: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ip_csum_bypassed: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ipv4_pkt_rcvd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ipv6_pkt_rcvd: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 no_ptp_rx_msg_type_ext: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_sync: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_follow_up: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_delay_req: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_delay_resp: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_pdelay_req: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_pdelay_resp: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_pdelay_follow_up: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_announce: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_type_management: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_rx_msg_pkt_reserved_type: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_frame_type: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 ptp_ver: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 timestamp_dropped: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 av_pkt_rcvd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 av_tagged_pkt_rcvd: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 vlan_tag_priority_val: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 l3_filter_match: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 l4_filter_match: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 l3_l4_filter_no_match: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_pcs_ane_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_pcs_link_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 irq_rgmii_n: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_status_fifo_full: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_fifo_not_empty: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mmtl_fifo_ctrl: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_fifo_read_ctrl_write: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_fifo_read_ctrl_wait: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_fifo_read_ctrl_read: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_tx_fifo_read_ctrl_idle: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_tx_in_pause: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_tx_frame_ctrl_xfer: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_tx_frame_ctrl_idle: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_tx_frame_ctrl_wait: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_tx_frame_ctrl_pause: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_gmii_tx_proto_engine: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_fill_level_full: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_fill_above_thresh: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_fill_below_thresh: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_fill_level_empty: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_read_ctrl_flush: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_read_ctrl_read_data: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_read_ctrl_status: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_read_ctrl_idle: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_rx_fifo_ctrl_active: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_rx_frame_ctrl_fifo: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mac_gmii_rx_proto_engine: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_tso_frames: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 tx_tso_nfrags: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_est_cgce: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_est_hlbs: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_est_hlbf: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_est_btre: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 mtl_est_btrlm: 0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 q0_tx_pkt_n: 100<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 q0_tx_irq_n: 4<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 q0_rx_pkt_n: 64<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 q0_rx_irq_n: 58<br>
-<br>
-What useful information does this list of statistics bring in the<br>
-commit message?<br>
-<br></blockquote><div>Each output line of &quot;ethtool -S&quot; is from th=
-e modified code: It shows the command still yields normal output results as=
- expected.<br>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!stmmac_safety_feat_dump(priv,=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;priv-&gt;sstats, i=
-,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NULL, &amp;desc)) {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memcpy(p, de=
-sc, ETH_GSTRING_LEN);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0strscpy(p, d=
-esc, ETH_GSTRING_LEN);<br>
-<br>
-Did you consider ethtool_puts() ?</blockquote><div>No, since strscpy=C2=A0d=
-oes the job already. Also I could not find ethtool_puts: where is it define=
-d? Or do you mean ethtool_put_stat, which is inappropriate to use here sinc=
-e it requires a skb parameter?=C2=A0<br><br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex"><br>
-=C2=A0 =C2=A0 Andrew<br>
-<br>
----<br>
-pw-bot: cr<br></blockquote><div><br><font color=3D"#555555"><span>Hi Andrew=
-, Thanks for reviewing, please see inline.<br><br></span></font></div><div>=
-Ray=C2=A0</div></div></div>
-
---000000000000baae0d060aaf67b3--
-
---===============0923739798731714706==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============0923739798731714706==--
+T24gVHVlLCBOb3YgMjEsIDIwMjMgYXQgMTI6MzbigK9QTSBBbmRyZXcgTHVubiA8YW5kcmV3QGx1
+bm4uY2g+IHdyb3RlOgo+Cj4gPiAgICAgPiAgICAgIHEwX3R4X2lycV9uOiA0Cj4gPiAgICAgPiAg
+ICAgIHEwX3J4X3BrdF9uOiA2NAo+ID4gICAgID4gICAgICBxMF9yeF9pcnFfbjogNTgKPiA+Cj4g
+PiAgICAgV2hhdCB1c2VmdWwgaW5mb3JtYXRpb24gZG9lcyB0aGlzIGxpc3Qgb2Ygc3RhdGlzdGlj
+cyBicmluZyBpbiB0aGUKPiA+ICAgICBjb21taXQgbWVzc2FnZT8KPiA+Cj4gPiBFYWNoIG91dHB1
+dCBsaW5lIG9mICJldGh0b29sIC1TIiBpcyBmcm9tIHRoZSBtb2RpZmllZCBjb2RlOiBJdCBzaG93
+cyB0aGUKPiA+IGNvbW1hbmQgc3RpbGwgeWllbGRzIG5vcm1hbCBvdXRwdXQgcmVzdWx0cyBhcyBl
+eHBlY3RlZC4KPgo+IERvZXMgaXQ/IENhbiB5b3UgYWN0dWFsbHkgc2F5IHRoYXQgbG9va2luZyBh
+dCBpdD8KPgpZZXMsIEkgaGFkIGRlYnVnZ2luZyBwcl9lcnIgb3V0cHV0OgoKWyAgNDc4Ljg5NDM5
+Ml0gU1RNTUFDX1NBRkVUWV9GRUFUIGk9MCwgZGVzYz1BVFBFUyAobGVuIDYpClsgIDQ3OC44OTk3
+MDldIFNUTU1BQ19TQUZFVFlfRkVBVCBpPTEsIGRlc2M9VFBFUyAobGVuIDUpClsgIDQ3OC45MDUw
+MzFdIFNUTU1BQ19TQUZFVFlfRkVBVCBpPTIsIGRlc2M9UkRQRVMgKGxlbiA2KQpbICA0NzguOTEw
+ODcxXSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0zLCBkZXNjPU1QRVMgKGxlbiA1KQpbICA0NzguOTE2
+MDk1XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT00LCBkZXNjPU1UU1BFUyAobGVuIDcpClsgIDQ3OC45
+MjEzNzldIFNUTU1BQ19TQUZFVFlfRkVBVCBpPTUsIGRlc2M9QVJQRVMgKGxlbiA2KQpbICA0Nzgu
+OTI2NTE3XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT02LCBkZXNjPUNXUEVTIChsZW4gNikKWyAgNDc4
+LjkzMTY0NV0gU1RNTUFDX1NBRkVUWV9GRUFUIGk9NywgZGVzYz1BU1JQRVMgKGxlbiA3KQpbICA0
+NzguOTM2ODU4XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT04LCBkZXNjPVRURVMgKGxlbiA1KQpbICA0
+NzguOTQyMzkzXSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT05LCBkZXNjPVJURVMgKGxlbiA1KQpbICA0
+NzguOTQ3ODQ1XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xMCwgZGVzYz1DVEVTIChsZW4gNSkKWyAg
+NDc4Ljk1MzIyMF0gU1RNTUFDX1NBRkVUWV9GRUFUIGk9MTEsIGRlc2M9QVRFUyAobGVuIDUpClsg
+IDQ3OC45NTg1MjRdIFNUTU1BQ19TQUZFVFlfRkVBVCBpPTEyLCBkZXNjPVBURVMgKGxlbiA1KQpb
+ICA0NzguOTYzODI4XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xMywgZGVzYz1UMTI1RVMgKGxlbiA3
+KQpbICA0NzguOTY5MjI0XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xNCwgZGVzYz1SMTI1RVMgKGxl
+biA3KQpbICA0NzguOTc1ODE0XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xNSwgZGVzYz1SVkNURVMg
+KGxlbiA3KQpbICA0NzguOTgxMjE1XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xNiwgZGVzYz1NU1RU
+RVMgKGxlbiA3KQpbICA0NzguOTg2NTk5XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xNywgZGVzYz1T
+TFZURVMgKGxlbiA3KQpbICA0NzguOTkyMDE0XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xOCwgZGVz
+Yz1BVElURVMgKGxlbiA3KQpbICA0NzguOTk3NDM1XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0xOSwg
+ZGVzYz1BUklURVMgKGxlbiA3KQpbICA0NzkuMDAzMzIyXSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT0y
+NCwgZGVzYz1GU01QRVMgKGxlbiA3KQpbICA0NzkuMDA5MzI3XSBTVE1NQUNfU0FGRVRZX0ZFQVQg
+aT0zMiwgZGVzYz1UWENFUyAobGVuIDYpClsgIDQ3OS4wMTQ2MzddIFNUTU1BQ19TQUZFVFlfRkVB
+VCBpPTMzLCBkZXNjPVRYQU1TIChsZW4gNikKWyAgNDc5LjAxOTkyMV0gU1RNTUFDX1NBRkVUWV9G
+RUFUIGk9MzQsIGRlc2M9VFhVRVMgKGxlbiA2KQpbICA0NzkuMDI1MjIzXSBTVE1NQUNfU0FGRVRZ
+X0ZFQVQgaT0zNiwgZGVzYz1SWENFUyAobGVuIDYpClsgIDQ3OS4wMzA1MDBdIFNUTU1BQ19TQUZF
+VFlfRkVBVCBpPTM3LCBkZXNjPVJYQU1TIChsZW4gNikKWyAgNDc5LjAzNTc5Ml0gU1RNTUFDX1NB
+RkVUWV9GRUFUIGk9MzgsIGRlc2M9UlhVRVMgKGxlbiA2KQpbICA0NzkuMDQxNjY5XSBTVE1NQUNf
+U0FGRVRZX0ZFQVQgaT00MCwgZGVzYz1FQ0VTIChsZW4gNSkKWyAgNDc5LjA0NzQ1N10gU1RNTUFD
+X1NBRkVUWV9GRUFUIGk9NDEsIGRlc2M9RUFNUyAobGVuIDUpClsgIDQ3OS4wNTMxNDNdIFNUTU1B
+Q19TQUZFVFlfRkVBVCBpPTQyLCBkZXNjPUVVRVMgKGxlbiA1KQpbICA0NzkuMDU4NDQzXSBTVE1N
+QUNfU0FGRVRZX0ZFQVQgaT00NCwgZGVzYz1SUENFUyAobGVuIDYpClsgIDQ3OS4wNjM3MzldIFNU
+TU1BQ19TQUZFVFlfRkVBVCBpPTQ1LCBkZXNjPVJQQU1TIChsZW4gNikKWyAgNDc5LjA2OTMzMV0g
+U1RNTUFDX1NBRkVUWV9GRUFUIGk9NDYsIGRlc2M9UlBVRVMgKGxlbiA2KQpbICA0NzkuMDc1NDk5
+XSBTVE1NQUNfU0FGRVRZX0ZFQVQgaT02NCwgZGVzYz1UQ0VTIChsZW4gNSkKWyAgNDc5LjA4MDcx
+MV0gU1RNTUFDX1NBRkVUWV9GRUFUIGk9NjUsIGRlc2M9VEFNUyAobGVuIDUpClsgIDQ3OS4wODYz
+NDhdIFNUTU1BQ19TQUZFVFlfRkVBVCBpPTY2LCBkZXNjPVRVRVMgKGxlbiA1KQpbICA0NzkuMDkx
+NTczXSBTVE1NQUNfTU1DX1NUQVRTIGk9MCwgc3RhdF9zdHJpbmc9bW1jX3R4X29jdGV0Y291bnRf
+Z2IgKGxlbiAyMSkKWyAgNDc5LjA5ODg1Ml0gU1RNTUFDX01NQ19TVEFUUyBpPTEsIHN0YXRfc3Ry
+aW5nPW1tY190eF9mcmFtZWNvdW50X2diIChsZW4gMjEpClsgIDQ3OS4xMDY1ODFdIFNUTU1BQ19N
+TUNfU1RBVFMgaT0yLApzdGF0X3N0cmluZz1tbWNfdHhfYnJvYWRjYXN0ZnJhbWVfZyAobGVuIDI0
+KQpbICA0NzkuMTEzOTg4XSBTVE1NQUNfTU1DX1NUQVRTIGk9MywKc3RhdF9zdHJpbmc9bW1jX3R4
+X211bHRpY2FzdGZyYW1lX2cgKGxlbiAyNCkKWyAgNDc5LjEyMTIyMV0gU1RNTUFDX01NQ19TVEFU
+UyBpPTQsIHN0YXRfc3RyaW5nPW1tY190eF82NF9vY3RldHNfZ2IgKGxlbiAyMCkKWyAgNDc5LjEy
+ODU1OF0gU1RNTUFDX01NQ19TVEFUUyBpPTUsCnN0YXRfc3RyaW5nPW1tY190eF82NV90b18xMjdf
+b2N0ZXRzX2diIChsZW4gMjcpClsgIDQ3OS4xMzY0MThdIFNUTU1BQ19NTUNfU1RBVFMgaT02LApz
+dGF0X3N0cmluZz1tbWNfdHhfMTI4X3RvXzI1NV9vY3RldHNfZ2IgKGxlbiAyOCkKWyAgNDc5LjE0
+NDA0MV0gU1RNTUFDX01NQ19TVEFUUyBpPTcsCnN0YXRfc3RyaW5nPW1tY190eF8yNTZfdG9fNTEx
+X29jdGV0c19nYiAobGVuIDI4KQpbICA0NzkuMTUxNjYzXSBTVE1NQUNfTU1DX1NUQVRTIGk9OCwK
+c3RhdF9zdHJpbmc9bW1jX3R4XzUxMl90b18xMDIzX29jdGV0c19nYiAobGVuIDI5KQpbICA0Nzku
+MTU5NDk1XSBTVE1NQUNfTU1DX1NUQVRTIGk9OSwKc3RhdF9zdHJpbmc9bW1jX3R4XzEwMjRfdG9f
+bWF4X29jdGV0c19nYiAobGVuIDI5KQpbICA0NzkuMTY3MjU1XSBTVE1NQUNfTU1DX1NUQVRTIGk9
+MTAsIHN0YXRfc3RyaW5nPW1tY190eF91bmljYXN0X2diIChsZW4gMTgpClsgIDQ3OS4xNzQ3NTVd
+IFNUTU1BQ19NTUNfU1RBVFMgaT0xMSwgc3RhdF9zdHJpbmc9bW1jX3R4X211bHRpY2FzdF9nYiAo
+bGVuIDIwKQpbICA0NzkuMTgxODI2XSBTVE1NQUNfTU1DX1NUQVRTIGk9MTIsIHN0YXRfc3RyaW5n
+PW1tY190eF9icm9hZGNhc3RfZ2IgKGxlbiAyMCkKWyAgNDc5LjE4ODg5Ml0gU1RNTUFDX01NQ19T
+VEFUUyBpPTEzLApzdGF0X3N0cmluZz1tbWNfdHhfdW5kZXJmbG93X2Vycm9yIChsZW4gMjMpClsg
+IDQ3OS4xOTYyMTFdIFNUTU1BQ19NTUNfU1RBVFMgaT0xNCwgc3RhdF9zdHJpbmc9bW1jX3R4X3Np
+bmdsZWNvbF9nIChsZW4gMTkpClsgIDQ3OS4yMDM3ODNdIFNUTU1BQ19NTUNfU1RBVFMgaT0xNSwg
+c3RhdF9zdHJpbmc9bW1jX3R4X211bHRpY29sX2cgKGxlbiAxOCkKWyAgNDc5LjIxMTEwNl0gU1RN
+TUFDX01NQ19TVEFUUyBpPTE2LCBzdGF0X3N0cmluZz1tbWNfdHhfZGVmZXJyZWQgKGxlbiAxNikK
+WyAgNDc5LjIxNzgyNl0gU1RNTUFDX01NQ19TVEFUUyBpPTE3LCBzdGF0X3N0cmluZz1tbWNfdHhf
+bGF0ZWNvbCAobGVuIDE1KQpbICA0NzkuMjI0NDM4XSBTVE1NQUNfTU1DX1NUQVRTIGk9MTgsIHN0
+YXRfc3RyaW5nPW1tY190eF9leGVzc2NvbCAobGVuIDE2KQpbICA0NzkuMjMxNTIzXSBTVE1NQUNf
+TU1DX1NUQVRTIGk9MTksIHN0YXRfc3RyaW5nPW1tY190eF9jYXJyaWVyX2Vycm9yIChsZW4gMjEp
+ClsgIDQ3OS4yMzkwOTVdIFNUTU1BQ19NTUNfU1RBVFMgaT0yMCwgc3RhdF9zdHJpbmc9bW1jX3R4
+X29jdGV0Y291bnRfZyAobGVuIDIwKQpbICA0NzkuMjQ2MTc4XSBTVE1NQUNfTU1DX1NUQVRTIGk9
+MjEsIHN0YXRfc3RyaW5nPW1tY190eF9mcmFtZWNvdW50X2cgKGxlbiAyMCkKWyAgNDc5LjI1MzIx
+NV0gU1RNTUFDX01NQ19TVEFUUyBpPTIyLCBzdGF0X3N0cmluZz1tbWNfdHhfZXhjZXNzZGVmIChs
+ZW4gMTcpClsgIDQ3OS4yNjAwMzJdIFNUTU1BQ19NTUNfU1RBVFMgaT0yMywgc3RhdF9zdHJpbmc9
+bW1jX3R4X3BhdXNlX2ZyYW1lIChsZW4gMTkpClsgIDQ3OS4yNjc0ODZdIFNUTU1BQ19NTUNfU1RB
+VFMgaT0yNCwgc3RhdF9zdHJpbmc9bW1jX3R4X3ZsYW5fZnJhbWVfZyAobGVuIDIwKQpbICA0Nzku
+Mjc0ODQ2XSBTVE1NQUNfTU1DX1NUQVRTIGk9MjUsIHN0YXRfc3RyaW5nPW1tY19yeF9mcmFtZWNv
+dW50X2diIChsZW4gMjEpClsgIDQ3OS4yODIwMDVdIFNUTU1BQ19NTUNfU1RBVFMgaT0yNiwgc3Rh
+dF9zdHJpbmc9bW1jX3J4X29jdGV0Y291bnRfZ2IgKGxlbiAyMSkKWyAgNDc5LjI4OTE4Nl0gU1RN
+TUFDX01NQ19TVEFUUyBpPTI3LCBzdGF0X3N0cmluZz1tbWNfcnhfb2N0ZXRjb3VudF9nIChsZW4g
+MjApClsgIDQ3OS4yOTY3MzRdIFNUTU1BQ19NTUNfU1RBVFMgaT0yOCwKc3RhdF9zdHJpbmc9bW1j
+X3J4X2Jyb2FkY2FzdGZyYW1lX2cgKGxlbiAyNCkKWyAgNDc5LjMwNDQ5M10gU1RNTUFDX01NQ19T
+VEFUUyBpPTI5LApzdGF0X3N0cmluZz1tbWNfcnhfbXVsdGljYXN0ZnJhbWVfZyAobGVuIDI0KQpb
+ICA0NzkuMzEyMjUzXSBTVE1NQUNfTU1DX1NUQVRTIGk9MzAsIHN0YXRfc3RyaW5nPW1tY19yeF9j
+cmNfZXJyb3IgKGxlbiAxNykKWyAgNDc5LjMxOTA5NV0gU1RNTUFDX01NQ19TVEFUUyBpPTMxLCBz
+dGF0X3N0cmluZz1tbWNfcnhfYWxpZ25fZXJyb3IgKGxlbiAxOSkKWyAgNDc5LjMyNjE2NV0gU1RN
+TUFDX01NQ19TVEFUUyBpPTMyLCBzdGF0X3N0cmluZz1tbWNfcnhfcnVuX2Vycm9yIChsZW4gMTcp
+ClsgIDQ3OS4zMzM2NjBdIFNUTU1BQ19NTUNfU1RBVFMgaT0zMywgc3RhdF9zdHJpbmc9bW1jX3J4
+X2phYmJlcl9lcnJvciAobGVuIDIwKQpbICA0NzkuMzQwNzcxXSBTVE1NQUNfTU1DX1NUQVRTIGk9
+MzQsIHN0YXRfc3RyaW5nPW1tY19yeF91bmRlcnNpemVfZyAobGVuIDE5KQpbICA0NzkuMzQ4MDY4
+XSBTVE1NQUNfTU1DX1NUQVRTIGk9MzUsIHN0YXRfc3RyaW5nPW1tY19yeF9vdmVyc2l6ZV9nIChs
+ZW4gMTgpClsgIDQ3OS4zNTQ5OTFdIFNUTU1BQ19NTUNfU1RBVFMgaT0zNiwgc3RhdF9zdHJpbmc9
+bW1jX3J4XzY0X29jdGV0c19nYiAobGVuIDIwKQpbICA0NzkuMzYyNjAzXSBTVE1NQUNfTU1DX1NU
+QVRTIGk9MzcsCnN0YXRfc3RyaW5nPW1tY19yeF82NV90b18xMjdfb2N0ZXRzX2diIChsZW4gMjcp
+ClsgIDQ3OS4zNzAyNzBdIFNUTU1BQ19NTUNfU1RBVFMgaT0zOCwKc3RhdF9zdHJpbmc9bW1jX3J4
+XzEyOF90b18yNTVfb2N0ZXRzX2diIChsZW4gMjgpClsgIDQ3OS4zNzgyOTZdIFNUTU1BQ19NTUNf
+U1RBVFMgaT0zOSwKc3RhdF9zdHJpbmc9bW1jX3J4XzI1Nl90b181MTFfb2N0ZXRzX2diIChsZW4g
+MjgpClsgIDQ3OS4zODYwNzNdIFNUTU1BQ19NTUNfU1RBVFMgaT00MCwKc3RhdF9zdHJpbmc9bW1j
+X3J4XzUxMl90b18xMDIzX29jdGV0c19nYiAobGVuIDI5KQpbICA0NzkuMzk0Mjg4XSBTVE1NQUNf
+TU1DX1NUQVRTIGk9NDEsCnN0YXRfc3RyaW5nPW1tY19yeF8xMDI0X3RvX21heF9vY3RldHNfZ2Ig
+KGxlbiAyOSkKWyAgNDc5LjQwMjY4NF0gU1RNTUFDX01NQ19TVEFUUyBpPTQyLCBzdGF0X3N0cmlu
+Zz1tbWNfcnhfdW5pY2FzdF9nIChsZW4gMTcpClsgIDQ3OS40MDk4MTRdIFNUTU1BQ19NTUNfU1RB
+VFMgaT00Mywgc3RhdF9zdHJpbmc9bW1jX3J4X2xlbmd0aF9lcnJvciAobGVuIDIwKQpbICA0Nzku
+NDE2OTE4XSBTVE1NQUNfTU1DX1NUQVRTIGk9NDQsIHN0YXRfc3RyaW5nPW1tY19yeF9hdXRvZnJh
+bmdldHlwZSAobGVuIDIyKQpbICA0NzkuNDI0NDQyXSBTVE1NQUNfTU1DX1NUQVRTIGk9NDUsIHN0
+YXRfc3RyaW5nPW1tY19yeF9wYXVzZV9mcmFtZXMgKGxlbiAyMCkKWyAgNDc5LjQzMTQ5Nl0gU1RN
+TUFDX01NQ19TVEFUUyBpPTQ2LCBzdGF0X3N0cmluZz1tbWNfcnhfZmlmb19vdmVyZmxvdyAobGVu
+IDIxKQpbICA0NzkuNDM5MDI3XSBTVE1NQUNfTU1DX1NUQVRTIGk9NDcsIHN0YXRfc3RyaW5nPW1t
+Y19yeF92bGFuX2ZyYW1lc19nYiAobGVuIDIyKQpbICA0NzkuNDQ2MjkxXSBTVE1NQUNfTU1DX1NU
+QVRTIGk9NDgsIHN0YXRfc3RyaW5nPW1tY19yeF93YXRjaGRvZ19lcnJvciAobGVuIDIyKQpbICA0
+NzkuNDU0MTQyXSBTVE1NQUNfTU1DX1NUQVRTIGk9NDksIHN0YXRfc3RyaW5nPW1tY19yeF9pcGNf
+aW50cl9tYXNrIChsZW4gMjEpClsgIDQ3OS40NjEyOTZdIFNUTU1BQ19NTUNfU1RBVFMgaT01MCwg
+c3RhdF9zdHJpbmc9bW1jX3J4X2lwY19pbnRyIChsZW4gMTYpClsgIDQ3OS40NjgwMDBdIFNUTU1B
+Q19NTUNfU1RBVFMgaT01MSwgc3RhdF9zdHJpbmc9bW1jX3J4X2lwdjRfZ2QgKGxlbiAxNSkKWyAg
+NDc5LjQ3NDU3N10gU1RNTUFDX01NQ19TVEFUUyBpPTUyLCBzdGF0X3N0cmluZz1tbWNfcnhfaXB2
+NF9oZGVyciAobGVuIDE4KQpbICA0NzkuNDgxNzE2XSBTVE1NQUNfTU1DX1NUQVRTIGk9NTMsIHN0
+YXRfc3RyaW5nPW1tY19yeF9pcHY0X25vcGF5IChsZW4gMTgpClsgIDQ3OS40ODkxNDNdIFNUTU1B
+Q19NTUNfU1RBVFMgaT01NCwgc3RhdF9zdHJpbmc9bW1jX3J4X2lwdjRfZnJhZyAobGVuIDE3KQpb
+ICA0NzkuNDk1OTI2XSBTVE1NQUNfTU1DX1NUQVRTIGk9NTUsIHN0YXRfc3RyaW5nPW1tY19yeF9p
+cHY0X3Vkc2JsIChsZW4gMTgpClsgIDQ3OS41MDMyNTFdIFNUTU1BQ19NTUNfU1RBVFMgaT01Niwg
+c3RhdF9zdHJpbmc9bW1jX3J4X2lwdjRfZ2Rfb2N0ZXRzIChsZW4gMjIpClsgIDQ3OS41MTEyMDdd
+IFNUTU1BQ19NTUNfU1RBVFMgaT01NywKc3RhdF9zdHJpbmc9bW1jX3J4X2lwdjRfaGRlcnJfb2N0
+ZXRzIChsZW4gMjUpClsgIDQ3OS41MTkyNzRdIFNUTU1BQ19NTUNfU1RBVFMgaT01OCwKc3RhdF9z
+dHJpbmc9bW1jX3J4X2lwdjRfbm9wYXlfb2N0ZXRzIChsZW4gMjUpClsgIDQ3OS41MjcxMDZdIFNU
+TU1BQ19NTUNfU1RBVFMgaT01OSwKc3RhdF9zdHJpbmc9bW1jX3J4X2lwdjRfZnJhZ19vY3RldHMg
+KGxlbiAyNCkKWyAgNDc5LjUzNDgzOV0gU1RNTUFDX01NQ19TVEFUUyBpPTYwLApzdGF0X3N0cmlu
+Zz1tbWNfcnhfaXB2NF91ZHNibF9vY3RldHMgKGxlbiAyNSkKWyAgNDc5LjU0MzEwOF0gU1RNTUFD
+X01NQ19TVEFUUyBpPTYxLCBzdGF0X3N0cmluZz1tbWNfcnhfaXB2Nl9nZF9vY3RldHMgKGxlbiAy
+MikKWyAgNDc5LjU1MTE4OV0gU1RNTUFDX01NQ19TVEFUUyBpPTYyLApzdGF0X3N0cmluZz1tbWNf
+cnhfaXB2Nl9oZGVycl9vY3RldHMgKGxlbiAyNSkKWyAgNDc5LjU1ODk0OF0gU1RNTUFDX01NQ19T
+VEFUUyBpPTYzLApzdGF0X3N0cmluZz1tbWNfcnhfaXB2Nl9ub3BheV9vY3RldHMgKGxlbiAyNSkK
+WyAgNDc5LjU2NjQ4Ml0gU1RNTUFDX01NQ19TVEFUUyBpPTY0LCBzdGF0X3N0cmluZz1tbWNfcnhf
+aXB2Nl9nZCAobGVuIDE1KQpbICA0NzkuNTczMzU5XSBTVE1NQUNfTU1DX1NUQVRTIGk9NjUsIHN0
+YXRfc3RyaW5nPW1tY19yeF9pcHY2X2hkZXJyIChsZW4gMTgpClsgIDQ3OS41ODAyOTVdIFNUTU1B
+Q19NTUNfU1RBVFMgaT02Niwgc3RhdF9zdHJpbmc9bW1jX3J4X2lwdjZfbm9wYXkgKGxlbiAxOCkK
+WyAgNDc5LjU4NzkxOV0gU1RNTUFDX01NQ19TVEFUUyBpPTY3LCBzdGF0X3N0cmluZz1tbWNfcnhf
+dWRwX2dkIChsZW4gMTQpClsgIDQ3OS41OTQ1ODBdIFNUTU1BQ19NTUNfU1RBVFMgaT02OCwgc3Rh
+dF9zdHJpbmc9bW1jX3J4X3VkcF9lcnIgKGxlbiAxNSkKWyAgNDc5LjYwMTE1OV0gU1RNTUFDX01N
+Q19TVEFUUyBpPTY5LCBzdGF0X3N0cmluZz1tbWNfcnhfdGNwX2dkIChsZW4gMTQpClsgIDQ3OS42
+MDg2MDhdIFNUTU1BQ19NTUNfU1RBVFMgaT03MCwgc3RhdF9zdHJpbmc9bW1jX3J4X3RjcF9lcnIg
+KGxlbiAxNSkKWyAgNDc5LjYxNTIxOV0gU1RNTUFDX01NQ19TVEFUUyBpPTcxLCBzdGF0X3N0cmlu
+Zz1tbWNfcnhfaWNtcF9nZCAobGVuIDE1KQpbICA0NzkuNjIzMjgzXSBTVE1NQUNfTU1DX1NUQVRT
+IGk9NzIsIHN0YXRfc3RyaW5nPW1tY19yeF9pY21wX2VyciAobGVuIDE2KQpbICA0NzkuNjMwMzY4
+XSBTVE1NQUNfTU1DX1NUQVRTIGk9NzMsIHN0YXRfc3RyaW5nPW1tY19yeF91ZHBfZ2Rfb2N0ZXRz
+IChsZW4gMjEpClsgIDQ3OS42Mzc1MzZdIFNUTU1BQ19NTUNfU1RBVFMgaT03NCwgc3RhdF9zdHJp
+bmc9bW1jX3J4X3VkcF9lcnJfb2N0ZXRzIChsZW4gMjIpClsgIDQ3OS42NDQ4MDVdIFNUTU1BQ19N
+TUNfU1RBVFMgaT03NSwgc3RhdF9zdHJpbmc9bW1jX3J4X3RjcF9nZF9vY3RldHMgKGxlbiAyMSkK
+WyAgNDc5LjY1MjY0Nl0gU1RNTUFDX01NQ19TVEFUUyBpPTc2LCBzdGF0X3N0cmluZz1tbWNfcnhf
+dGNwX2Vycl9vY3RldHMgKGxlbiAyMikKWyAgNDc5LjY1OTkwMV0gU1RNTUFDX01NQ19TVEFUUyBp
+PTc3LCBzdGF0X3N0cmluZz1tbWNfcnhfaWNtcF9nZF9vY3RldHMgKGxlbiAyMikKWyAgNDc5LjY2
+NzExN10gU1RNTUFDX01NQ19TVEFUUyBpPTc4LApzdGF0X3N0cmluZz1tbWNfcnhfaWNtcF9lcnJf
+b2N0ZXRzIChsZW4gMjMpClsgIDQ3OS42NzQ0MzRdIFNUTU1BQ19NTUNfU1RBVFMgaT03OSwKc3Rh
+dF9zdHJpbmc9bW1jX3R4X2ZwZV9mcmFnbWVudF9jbnRyIChsZW4gMjUpClsgIDQ3OS42ODI0NjNd
+IFNUTU1BQ19NTUNfU1RBVFMgaT04MCwgc3RhdF9zdHJpbmc9bW1jX3R4X2hvbGRfcmVxX2NudHIg
+KGxlbiAyMSkKWyAgNDc5LjY4OTU4OV0gU1RNTUFDX01NQ19TVEFUUyBpPTgxLApzdGF0X3N0cmlu
+Zz1tbWNfcnhfcGFja2V0X2Fzc2VtYmx5X2Vycl9jbnRyIChsZW4gMzIpClsgIDQ3OS42OTgwNjVd
+IFNUTU1BQ19NTUNfU1RBVFMgaT04MiwKc3RhdF9zdHJpbmc9bW1jX3J4X3BhY2tldF9zbWRfZXJy
+X2NudHIgKGxlbiAyNykKWyAgNDc5LjcwNTcwM10gU1RNTUFDX01NQ19TVEFUUyBpPTgzLApzdGF0
+X3N0cmluZz1tbWNfcnhfcGFja2V0X2Fzc2VtYmx5X29rX2NudHIgKGxlbiAzMSkKWyAgNDc5Ljcx
+NDcwN10gU1RNTUFDX01NQ19TVEFUUyBpPTg0LApzdGF0X3N0cmluZz1tbWNfcnhfZnBlX2ZyYWdt
+ZW50X2NudHIgKGxlbiAyNSkKWyAgNDc5LjcyMjE4OF0gU1RNTUFDX1NUQVRTIGk9MCwgc3RhdF9z
+dHJpbmc9dHhfdW5kZXJmbG93IChsZW4gMTMpClsgIDQ3OS43MjgxODNdIFNUTU1BQ19TVEFUUyBp
+PTEsIHN0YXRfc3RyaW5nPXR4X2NhcnJpZXIgKGxlbiAxMSkKWyAgNDc5LjczNDA1MF0gU1RNTUFD
+X1NUQVRTIGk9Miwgc3RhdF9zdHJpbmc9dHhfbG9zc2NhcnJpZXIgKGxlbiAxNSkKWyAgNDc5Ljc0
+MDE5N10gU1RNTUFDX1NUQVRTIGk9Mywgc3RhdF9zdHJpbmc9dmxhbl90YWcgKGxlbiA5KQpbICA0
+NzkuNzQ2MjE1XSBTVE1NQUNfU1RBVFMgaT00LCBzdGF0X3N0cmluZz10eF9kZWZlcnJlZCAobGVu
+IDEyKQpbICA0NzkuNzUyMTE5XSBTVE1NQUNfU1RBVFMgaT01LCBzdGF0X3N0cmluZz10eF92bGFu
+IChsZW4gOCkKWyAgNDc5Ljc1NzU5NF0gU1RNTUFDX1NUQVRTIGk9Niwgc3RhdF9zdHJpbmc9dHhf
+amFiYmVyIChsZW4gMTApClsgIDQ3OS43NjMzMTldIFNUTU1BQ19TVEFUUyBpPTcsIHN0YXRfc3Ry
+aW5nPXR4X2ZyYW1lX2ZsdXNoZWQgKGxlbiAxNykKWyAgNDc5Ljc2OTYyOV0gU1RNTUFDX1NUQVRT
+IGk9OCwgc3RhdF9zdHJpbmc9dHhfcGF5bG9hZF9lcnJvciAobGVuIDE3KQpbICA0NzkuNzc2NDc5
+XSBTVE1NQUNfU1RBVFMgaT05LCBzdGF0X3N0cmluZz10eF9pcF9oZWFkZXJfZXJyb3IgKGxlbiAx
+OSkKWyAgNDc5Ljc4MzM5Ml0gU1RNTUFDX1NUQVRTIGk9MTAsIHN0YXRfc3RyaW5nPXJ4X2Rlc2Mg
+KGxlbiA4KQpbICA0NzkuNzg4OTcwXSBTVE1NQUNfU1RBVFMgaT0xMSwgc3RhdF9zdHJpbmc9c2Ff
+ZmlsdGVyX2ZhaWwgKGxlbiAxNSkKWyAgNDc5Ljc5NTIxNF0gU1RNTUFDX1NUQVRTIGk9MTIsIHN0
+YXRfc3RyaW5nPW92ZXJmbG93X2Vycm9yIChsZW4gMTUpClsgIDQ3OS44MDE3MDNdIFNUTU1BQ19T
+VEFUUyBpPTEzLCBzdGF0X3N0cmluZz1pcGNfY3N1bV9lcnJvciAobGVuIDE1KQpbICA0NzkuODA3
+OTgzXSBTVE1NQUNfU1RBVFMgaT0xNCwgc3RhdF9zdHJpbmc9cnhfY29sbGlzaW9uIChsZW4gMTMp
+ClsgIDQ3OS44MTQ0NjBdIFNUTU1BQ19TVEFUUyBpPTE1LCBzdGF0X3N0cmluZz1yeF9jcmNfZXJy
+b3JzIChsZW4gMTQpClsgIDQ3OS44MjA5MzhdIFNUTU1BQ19TVEFUUyBpPTE2LCBzdGF0X3N0cmlu
+Zz1kcmliYmxpbmdfYml0IChsZW4gMTQpClsgIDQ3OS44MjcxMzZdIFNUTU1BQ19TVEFUUyBpPTE3
+LCBzdGF0X3N0cmluZz1yeF9sZW5ndGggKGxlbiAxMCkKWyAgNDc5LjgzMzYwNF0gU1RNTUFDX1NU
+QVRTIGk9MTgsIHN0YXRfc3RyaW5nPXJ4X21paSAobGVuIDcpClsgIDQ3OS44Mzk2MTldIFNUTU1B
+Q19TVEFUUyBpPTE5LCBzdGF0X3N0cmluZz1yeF9tdWx0aWNhc3QgKGxlbiAxMykKWyAgNDc5Ljg0
+NjQ4MF0gU1RNTUFDX1NUQVRTIGk9MjAsIHN0YXRfc3RyaW5nPXJ4X2dtYWNfb3ZlcmZsb3cgKGxl
+biAxNykKWyAgNDc5Ljg1MjkxM10gU1RNTUFDX1NUQVRTIGk9MjEsIHN0YXRfc3RyaW5nPXJ4X3dh
+dGNoZG9nIChsZW4gMTIpClsgIDQ3OS44NTkyNDBdIFNUTU1BQ19TVEFUUyBpPTIyLCBzdGF0X3N0
+cmluZz1kYV9yeF9maWx0ZXJfZmFpbCAobGVuIDE4KQpbICA0NzkuODY1NzYwXSBTVE1NQUNfU1RB
+VFMgaT0yMywgc3RhdF9zdHJpbmc9c2FfcnhfZmlsdGVyX2ZhaWwgKGxlbiAxOCkKWyAgNDc5Ljg3
+MjY4N10gU1RNTUFDX1NUQVRTIGk9MjQsIHN0YXRfc3RyaW5nPXJ4X21pc3NlZF9jbnRyIChsZW4g
+MTUpClsgIDQ3OS44NzkwNzVdIFNUTU1BQ19TVEFUUyBpPTI1LCBzdGF0X3N0cmluZz1yeF9vdmVy
+Zmxvd19jbnRyIChsZW4gMTcpClsgIDQ3OS44ODU1NzNdIFNUTU1BQ19TVEFUUyBpPTI2LCBzdGF0
+X3N0cmluZz1yeF92bGFuIChsZW4gOCkKWyAgNDc5Ljg5MTEyMl0gU1RNTUFDX1NUQVRTIGk9Mjcs
+IHN0YXRfc3RyaW5nPXJ4X3NwbGl0X2hkcl9wa3RfbiAobGVuIDE5KQpbICA0NzkuODk3NzA1XSBT
+VE1NQUNfU1RBVFMgaT0yOCwgc3RhdF9zdHJpbmc9dHhfdW5kZWZsb3dfaXJxIChsZW4gMTYpClsg
+IDQ3OS45MDQ0OTldIFNUTU1BQ19TVEFUUyBpPTI5LCBzdGF0X3N0cmluZz10eF9wcm9jZXNzX3N0
+b3BwZWRfaXJxIChsZW4gMjMpClsgIDQ3OS45MTE0NTddIFNUTU1BQ19TVEFUUyBpPTMwLCBzdGF0
+X3N0cmluZz10eF9qYWJiZXJfaXJxIChsZW4gMTQpClsgIDQ3OS45MTc4OTddIFNUTU1BQ19TVEFU
+UyBpPTMxLCBzdGF0X3N0cmluZz1yeF9vdmVyZmxvd19pcnEgKGxlbiAxNikKWyAgNDc5LjkyNDI2
+OF0gU1RNTUFDX1NUQVRTIGk9MzIsIHN0YXRfc3RyaW5nPXJ4X2J1Zl91bmF2X2lycSAobGVuIDE2
+KQpbICA0NzkuOTMwNzIyXSBTVE1NQUNfU1RBVFMgaT0zMywgc3RhdF9zdHJpbmc9cnhfcHJvY2Vz
+c19zdG9wcGVkX2lycSAobGVuIDIzKQpbICA0NzkuOTM4MTA4XSBTVE1NQUNfU1RBVFMgaT0zNCwg
+c3RhdF9zdHJpbmc9cnhfd2F0Y2hkb2dfaXJxIChsZW4gMTYpClsgIDQ3OS45NDQ1MThdIFNUTU1B
+Q19TVEFUUyBpPTM1LCBzdGF0X3N0cmluZz10eF9lYXJseV9pcnEgKGxlbiAxMykKWyAgNDc5Ljk1
+MDg5NV0gU1RNTUFDX1NUQVRTIGk9MzYsIHN0YXRfc3RyaW5nPWZhdGFsX2J1c19lcnJvcl9pcnEg
+KGxlbiAyMCkKWyAgNDc5Ljk1NzYyMl0gU1RNTUFDX1NUQVRTIGk9MzcsIHN0YXRfc3RyaW5nPXJ4
+X2Vhcmx5X2lycSAobGVuIDEzKQpbICA0NzkuOTY0MDgyXSBTVE1NQUNfU1RBVFMgaT0zOCwgc3Rh
+dF9zdHJpbmc9dGhyZXNob2xkIChsZW4gMTApClsgIDQ3OS45NzA1MDldIFNUTU1BQ19TVEFUUyBp
+PTM5LCBzdGF0X3N0cmluZz10eF9wa3RfbiAobGVuIDkpClsgIDQ3OS45NzYxNTldIFNUTU1BQ19T
+VEFUUyBpPTQwLCBzdGF0X3N0cmluZz1yeF9wa3RfbiAobGVuIDkpClsgIDQ3OS45ODE3OTldIFNU
+TU1BQ19TVEFUUyBpPTQxLCBzdGF0X3N0cmluZz1ub3JtYWxfaXJxX24gKGxlbiAxMykKWyAgNDc5
+Ljk4NzkxN10gU1RNTUFDX1NUQVRTIGk9NDIsIHN0YXRfc3RyaW5nPXJ4X25vcm1hbF9pcnFfbiAo
+bGVuIDE2KQpbICA0NzkuOTk0MjgzXSBTVE1NQUNfU1RBVFMgaT00Mywgc3RhdF9zdHJpbmc9bmFw
+aV9wb2xsIChsZW4gMTApClsgIDQ4MC4wMDAzOTVdIFNUTU1BQ19TVEFUUyBpPTQ0LCBzdGF0X3N0
+cmluZz10eF9ub3JtYWxfaXJxX24gKGxlbiAxNikKWyAgNDgwLjAwNjgwN10gU1RNTUFDX1NUQVRT
+IGk9NDUsIHN0YXRfc3RyaW5nPXR4X2NsZWFuIChsZW4gOSkKWyAgNDgwLjAxMjg2NV0gU1RNTUFD
+X1NUQVRTIGk9NDYsIHN0YXRfc3RyaW5nPXR4X3NldF9pY19iaXQgKGxlbiAxNCkKWyAgNDgwLjAx
+OTA0M10gU1RNTUFDX1NUQVRTIGk9NDcsIHN0YXRfc3RyaW5nPWlycV9yZWNlaXZlX3BtdF9pcnFf
+biAobGVuIDIyKQpbICA0ODAuMDI2MTU1XSBTVE1NQUNfU1RBVFMgaT00OCwgc3RhdF9zdHJpbmc9
+bW1jX3R4X2lycV9uIChsZW4gMTMpClsgIDQ4MC4wMzI4MzNdIFNUTU1BQ19TVEFUUyBpPTQ5LCBz
+dGF0X3N0cmluZz1tbWNfcnhfaXJxX24gKGxlbiAxMykKWyAgNDgwLjAzODk5NF0gU1RNTUFDX1NU
+QVRTIGk9NTAsIHN0YXRfc3RyaW5nPW1tY19yeF9jc3VtX29mZmxvYWRfaXJxX24gKGxlbiAyNikK
+WyAgNDgwLjA0NjUwMF0gU1RNTUFDX1NUQVRTIGk9NTEsIHN0YXRfc3RyaW5nPWlycV90eF9wYXRo
+X2luX2xwaV9tb2RlX24gKGxlbiAyNikKWyAgNDgwLjA1MzcxMF0gU1RNTUFDX1NUQVRTIGk9NTIs
+CnN0YXRfc3RyaW5nPWlycV90eF9wYXRoX2V4aXRfbHBpX21vZGVfbiAobGVuIDI4KQpbICA0ODAu
+MDYxMDc0XSBTVE1NQUNfU1RBVFMgaT01Mywgc3RhdF9zdHJpbmc9aXJxX3J4X3BhdGhfaW5fbHBp
+X21vZGVfbiAobGVuIDI2KQpbICA0ODAuMDY4ODMwXSBTVE1NQUNfU1RBVFMgaT01NCwKc3RhdF9z
+dHJpbmc9aXJxX3J4X3BhdGhfZXhpdF9scGlfbW9kZV9uIChsZW4gMjgpClsgIDQ4MC4wNzY5MTNd
+IFNUTU1BQ19TVEFUUyBpPTU1LCBzdGF0X3N0cmluZz1waHlfZWVlX3dha2V1cF9lcnJvcl9uIChs
+ZW4gMjMpClsgIDQ4MC4wODM5MDZdIFNUTU1BQ19TVEFUUyBpPTU2LCBzdGF0X3N0cmluZz1pcF9o
+ZHJfZXJyIChsZW4gMTEpClsgIDQ4MC4wODk4MDNdIFNUTU1BQ19TVEFUUyBpPTU3LCBzdGF0X3N0
+cmluZz1pcF9wYXlsb2FkX2VyciAobGVuIDE1KQpbICA0ODAuMDk2NjM0XSBTVE1NQUNfU1RBVFMg
+aT01OCwgc3RhdF9zdHJpbmc9aXBfY3N1bV9ieXBhc3NlZCAobGVuIDE3KQpbICA0ODAuMTAzMDg3
+XSBTVE1NQUNfU1RBVFMgaT01OSwgc3RhdF9zdHJpbmc9aXB2NF9wa3RfcmN2ZCAobGVuIDE0KQpb
+ICA0ODAuMTA5NDk5XSBTVE1NQUNfU1RBVFMgaT02MCwgc3RhdF9zdHJpbmc9aXB2Nl9wa3RfcmN2
+ZCAobGVuIDE0KQpbICA0ODAuMTE1Njc5XSBTVE1NQUNfU1RBVFMgaT02MSwgc3RhdF9zdHJpbmc9
+bm9fcHRwX3J4X21zZ190eXBlX2V4dCAobGVuIDIzKQpbICA0ODAuMTIzMDY2XSBTVE1NQUNfU1RB
+VFMgaT02Miwgc3RhdF9zdHJpbmc9cHRwX3J4X21zZ190eXBlX3N5bmMgKGxlbiAyMSkKWyAgNDgw
+LjEzMDQ3MV0gU1RNTUFDX1NUQVRTIGk9NjMsIHN0YXRfc3RyaW5nPXB0cF9yeF9tc2dfdHlwZV9m
+b2xsb3dfdXAgKGxlbiAyNikKWyAgNDgwLjEzNzY4NV0gU1RNTUFDX1NUQVRTIGk9NjQsIHN0YXRf
+c3RyaW5nPXB0cF9yeF9tc2dfdHlwZV9kZWxheV9yZXEgKGxlbiAyNikKWyAgNDgwLjE0NTA4OF0g
+U1RNTUFDX1NUQVRTIGk9NjUsCnN0YXRfc3RyaW5nPXB0cF9yeF9tc2dfdHlwZV9kZWxheV9yZXNw
+IChsZW4gMjcpClsgIDQ4MC4xNTIzODVdIFNUTU1BQ19TVEFUUyBpPTY2LApzdGF0X3N0cmluZz1w
+dHBfcnhfbXNnX3R5cGVfcGRlbGF5X3JlcSAobGVuIDI3KQpbICA0ODAuMTYwMjAwXSBTVE1NQUNf
+U1RBVFMgaT02NywKc3RhdF9zdHJpbmc9cHRwX3J4X21zZ190eXBlX3BkZWxheV9yZXNwIChsZW4g
+MjgpClsgIDQ4MC4xNjc1ODFdIFNUTU1BQ19TVEFUUyBpPTY4LApzdGF0X3N0cmluZz1wdHBfcnhf
+bXNnX3R5cGVfcGRlbGF5X2ZvbGxvd191IChsZW4gMzIpClsgIDQ4MC4xNzU0NjldIFNUTU1BQ19T
+VEFUUyBpPTY5LCBzdGF0X3N0cmluZz1wdHBfcnhfbXNnX3R5cGVfYW5ub3VuY2UgKGxlbiAyNSkK
+WyAgNDgwLjE4MjYzMl0gU1RNTUFDX1NUQVRTIGk9NzAsCnN0YXRfc3RyaW5nPXB0cF9yeF9tc2df
+dHlwZV9tYW5hZ2VtZW50IChsZW4gMjcpClsgIDQ4MC4xOTAzNjldIFNUTU1BQ19TVEFUUyBpPTcx
+LApzdGF0X3N0cmluZz1wdHBfcnhfbXNnX3BrdF9yZXNlcnZlZF90eXBlIChsZW4gMjkpClsgIDQ4
+MC4xOTc4NDJdIFNUTU1BQ19TVEFUUyBpPTcyLCBzdGF0X3N0cmluZz1wdHBfZnJhbWVfdHlwZSAo
+bGVuIDE1KQpbICA0ODAuMjA0MDY1XSBTVE1NQUNfU1RBVFMgaT03Mywgc3RhdF9zdHJpbmc9cHRw
+X3ZlciAobGVuIDgpClsgIDQ4MC4yMDk2MTRdIFNUTU1BQ19TVEFUUyBpPTc0LCBzdGF0X3N0cmlu
+Zz10aW1lc3RhbXBfZHJvcHBlZCAobGVuIDE4KQpbICA0ODAuMjE2MDkyXSBTVE1NQUNfU1RBVFMg
+aT03NSwgc3RhdF9zdHJpbmc9YXZfcGt0X3JjdmQgKGxlbiAxMikKWyAgNDgwLjIyMjczMV0gU1RN
+TUFDX1NUQVRTIGk9NzYsIHN0YXRfc3RyaW5nPWF2X3RhZ2dlZF9wa3RfcmN2ZCAobGVuIDE5KQpb
+ICA0ODAuMjI5MzUzXSBTVE1NQUNfU1RBVFMgaT03Nywgc3RhdF9zdHJpbmc9dmxhbl90YWdfcHJp
+b3JpdHlfdmFsIChsZW4gMjIpClsgIDQ4MC4yMzY0OTFdIFNUTU1BQ19TVEFUUyBpPTc4LCBzdGF0
+X3N0cmluZz1sM19maWx0ZXJfbWF0Y2ggKGxlbiAxNikKWyAgNDgwLjI0Mjg5NV0gU1RNTUFDX1NU
+QVRTIGk9NzksIHN0YXRfc3RyaW5nPWw0X2ZpbHRlcl9tYXRjaCAobGVuIDE2KQpbICA0ODAuMjQ5
+NjE2XSBTVE1NQUNfU1RBVFMgaT04MCwgc3RhdF9zdHJpbmc9bDNfbDRfZmlsdGVyX25vX21hdGNo
+IChsZW4gMjIpClsgIDQ4MC4yNTY5MzFdIFNUTU1BQ19TVEFUUyBpPTgxLCBzdGF0X3N0cmluZz1p
+cnFfcGNzX2FuZV9uIChsZW4gMTQpClsgIDQ4MC4yNjQzMjBdIFNUTU1BQ19TVEFUUyBpPTgyLCBz
+dGF0X3N0cmluZz1pcnFfcGNzX2xpbmtfbiAobGVuIDE1KQpbICA0ODAuMjcwOTAxXSBTVE1NQUNf
+U1RBVFMgaT04Mywgc3RhdF9zdHJpbmc9aXJxX3JnbWlpX24gKGxlbiAxMikKWyAgNDgwLjI3Njky
+MV0gU1RNTUFDX1NUQVRTIGk9ODQsIHN0YXRfc3RyaW5nPW10bF90eF9zdGF0dXNfZmlmb19mdWxs
+IChsZW4gMjQpClsgIDQ4MC4yODM5NzNdIFNUTU1BQ19TVEFUUyBpPTg1LCBzdGF0X3N0cmluZz1t
+dGxfdHhfZmlmb19ub3RfZW1wdHkgKGxlbiAyMikKWyAgNDgwLjI5MTM5NV0gU1RNTUFDX1NUQVRT
+IGk9ODYsIHN0YXRfc3RyaW5nPW1tdGxfZmlmb19jdHJsIChsZW4gMTUpClsgIDQ4MC4yOTgyMjVd
+IFNUTU1BQ19TVEFUUyBpPTg3LApzdGF0X3N0cmluZz1tdGxfdHhfZmlmb19yZWFkX2N0cmxfd3Jp
+dGUgKGxlbiAyOCkKWyAgNDgwLjMwNTYwOF0gU1RNTUFDX1NUQVRTIGk9ODgsCnN0YXRfc3RyaW5n
+PW10bF90eF9maWZvX3JlYWRfY3RybF93YWl0IChsZW4gMjcpClsgIDQ4MC4zMTMyOTldIFNUTU1B
+Q19TVEFUUyBpPTg5LApzdGF0X3N0cmluZz1tdGxfdHhfZmlmb19yZWFkX2N0cmxfcmVhZCAobGVu
+IDI3KQpbICA0ODAuMzIwNjQxXSBTVE1NQUNfU1RBVFMgaT05MCwKc3RhdF9zdHJpbmc9bXRsX3R4
+X2ZpZm9fcmVhZF9jdHJsX2lkbGUgKGxlbiAyNykKWyAgNDgwLjMyODQ1OV0gU1RNTUFDX1NUQVRT
+IGk9OTEsIHN0YXRfc3RyaW5nPW1hY190eF9pbl9wYXVzZSAobGVuIDE2KQpbICA0ODAuMzM0ODEw
+XSBTVE1NQUNfU1RBVFMgaT05Miwgc3RhdF9zdHJpbmc9bWFjX3R4X2ZyYW1lX2N0cmxfeGZlciAo
+bGVuIDIzKQpbICA0ODAuMzQxNzc3XSBTVE1NQUNfU1RBVFMgaT05Mywgc3RhdF9zdHJpbmc9bWFj
+X3R4X2ZyYW1lX2N0cmxfaWRsZSAobGVuIDIzKQpbICA0ODAuMzQ5MzExXSBTVE1NQUNfU1RBVFMg
+aT05NCwgc3RhdF9zdHJpbmc9bWFjX3R4X2ZyYW1lX2N0cmxfd2FpdCAobGVuIDIzKQpbICA0ODAu
+MzU2Njg4XSBTVE1NQUNfU1RBVFMgaT05NSwgc3RhdF9zdHJpbmc9bWFjX3R4X2ZyYW1lX2N0cmxf
+cGF1c2UgKGxlbiAyNCkKWyAgNDgwLjM2MzcyOF0gU1RNTUFDX1NUQVRTIGk9OTYsIHN0YXRfc3Ry
+aW5nPW1hY19nbWlpX3R4X3Byb3RvX2VuZ2luZSAobGVuIDI1KQpbICA0ODAuMzcwODI4XSBTVE1N
+QUNfU1RBVFMgaT05NywKc3RhdF9zdHJpbmc9bXRsX3J4X2ZpZm9fZmlsbF9sZXZlbF9mdWxsIChs
+ZW4gMjgpClsgIDQ4MC4zNzgyNTZdIFNUTU1BQ19TVEFUUyBpPTk4LApzdGF0X3N0cmluZz1tdGxf
+cnhfZmlmb19maWxsX2Fib3ZlX3RocmVzaCAobGVuIDMwKQpbICA0ODAuMzg2NDEyXSBTVE1NQUNf
+U1RBVFMgaT05OSwKc3RhdF9zdHJpbmc9bXRsX3J4X2ZpZm9fZmlsbF9iZWxvd190aHJlc2ggKGxl
+biAzMCkKWyAgNDgwLjM5Mzk5M10gU1RNTUFDX1NUQVRTIGk9MTAwLApzdGF0X3N0cmluZz1tdGxf
+cnhfZmlmb19maWxsX2xldmVsX2VtcHR5IChsZW4gMjkpClsgIDQ4MC40MDI1MTJdIFNUTU1BQ19T
+VEFUUyBpPTEwMSwKc3RhdF9zdHJpbmc9bXRsX3J4X2ZpZm9fcmVhZF9jdHJsX2ZsdXNoIChsZW4g
+MjgpClsgIDQ4MC40MTAwMTRdIFNUTU1BQ19TVEFUUyBpPTEwMiwKc3RhdF9zdHJpbmc9bXRsX3J4
+X2ZpZm9fcmVhZF9jdHJsX3JlYWRfZGF0YSAobGVuIDMyKQpbICA0ODAuNDE4Mzg4XSBTVE1NQUNf
+U1RBVFMgaT0xMDMsCnN0YXRfc3RyaW5nPW10bF9yeF9maWZvX3JlYWRfY3RybF9zdGF0dXMgKGxl
+biAyOSkKWyAgNDgwLjQyNTk2NV0gU1RNTUFDX1NUQVRTIGk9MTA0LApzdGF0X3N0cmluZz1tdGxf
+cnhfZmlmb19yZWFkX2N0cmxfaWRsZSAobGVuIDI3KQpbICA0ODAuNDMzMzI0XSBTVE1NQUNfU1RB
+VFMgaT0xMDUsIHN0YXRfc3RyaW5nPW10bF9yeF9maWZvX2N0cmxfYWN0aXZlIChsZW4gMjQpClsg
+IDQ4MC40NDA0MzFdIFNUTU1BQ19TVEFUUyBpPTEwNiwgc3RhdF9zdHJpbmc9bWFjX3J4X2ZyYW1l
+X2N0cmxfZmlmbyAobGVuIDIzKQpbICA0ODAuNDQ4MDIzXSBTVE1NQUNfU1RBVFMgaT0xMDcsIHN0
+YXRfc3RyaW5nPW1hY19nbWlpX3J4X3Byb3RvX2VuZ2luZSAobGVuIDI1KQpbICA0ODAuNDU1MjI2
+XSBTVE1NQUNfU1RBVFMgaT0xMDgsIHN0YXRfc3RyaW5nPXR4X3Rzb19mcmFtZXMgKGxlbiAxNCkK
+WyAgNDgwLjQ2MTQ1OF0gU1RNTUFDX1NUQVRTIGk9MTA5LCBzdGF0X3N0cmluZz10eF90c29fbmZy
+YWdzIChsZW4gMTQpClsgIDQ4MC40Njc3MTRdIFNUTU1BQ19TVEFUUyBpPTExMCwgc3RhdF9zdHJp
+bmc9bXRsX2VzdF9jZ2NlIChsZW4gMTMpClsgIDQ4MC40NzM4NDhdIFNUTU1BQ19TVEFUUyBpPTEx
+MSwgc3RhdF9zdHJpbmc9bXRsX2VzdF9obGJzIChsZW4gMTMpClsgIDQ4MC40ODA0ODldIFNUTU1B
+Q19TVEFUUyBpPTExMiwgc3RhdF9zdHJpbmc9bXRsX2VzdF9obGJmIChsZW4gMTMpClsgIDQ4MC40
+ODY2NjVdIFNUTU1BQ19TVEFUUyBpPTExMywgc3RhdF9zdHJpbmc9bXRsX2VzdF9idHJlIChsZW4g
+MTMpClsgIDQ4MC40OTMyMDZdIFNUTU1BQ19TVEFUUyBpPTExNCwgc3RhdF9zdHJpbmc9bXRsX2Vz
+dF9idHJsbSAobGVuIDE0KQoKCj4gPiBObywgc2luY2Ugc3Ryc2NweSBkb2VzIHRoZSBqb2IgYWxy
+ZWFkeS4gQWxzbyBJIGNvdWxkIG5vdCBmaW5kIGV0aHRvb2xfcHV0czoKPiA+IHdoZXJlIGlzIGl0
+IGRlZmluZWQ/IE9yIGRvIHlvdSBtZWFuIGV0aHRvb2xfcHV0X3N0YXQsIHdoaWNoIGlzIGluYXBw
+cm9wcmlhdGUgdG8KPiA+IHVzZSBoZXJlIHNpbmNlIGl0IHJlcXVpcmVzIGEgc2tiIHBhcmFtZXRl
+cj8KPgo+IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcHJvamVjdC9uZXRkZXZicGYvcGF0
+Y2gvMjAyMzExMDItZXRodG9vbF9wdXRzX2ltcGwtdjQtMy0xNGUxZTkyNzg0OTZAZ29vZ2xlLmNv
+bS8KPgo+IE1heWJlIGNoZWNrIHdpdGggSnVzdGluIHdoZW4gd2Ugd2lsbCByZXNlbmQgdGhhdCBw
+YXRjaC4KVGhhbmtzIGZvciB0aGUgbGluayB0byBldGh0b29sX3B1dHMgcGF0Y2g6IENoYW5naW5n
+IHRvIHVzZQpldGh0b29sX3B1dHMgaW4gc3RtbWFjIHNob3VsZCBiZSBpbiBhIHNlcGFyYXRlIHBh
+dGNoLCBhbmQgbm90IHJlbGF0ZWQKaGVyZS4KCj4KPiAgICAgICAgIEFuZHJldwoKUmF5Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
