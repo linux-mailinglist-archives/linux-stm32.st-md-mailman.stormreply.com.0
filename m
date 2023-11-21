@@ -2,122 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7B07F34D6
-	for <lists+linux-stm32@lfdr.de>; Tue, 21 Nov 2023 18:21:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02DE07F36E6
+	for <lists+linux-stm32@lfdr.de>; Tue, 21 Nov 2023 20:46:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D2FAC6B475;
-	Tue, 21 Nov 2023 17:21:32 +0000 (UTC)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ACBAFC6B475;
+	Tue, 21 Nov 2023 19:46:08 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFD2AC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ABB4C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 17:21:30 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2c87adce180so36200981fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 21 Nov 2023 09:21:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700587290; x=1701192090;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=T9KhpseVCRqnVPX/aL5q95RXoXkoLm71yAXQWJbIK+o=;
- b=jOD5aKTY5baRts6XkW28o9q/8DC9JhZyrodsWmSCDzVYYsYkKgJm+CUcmHakyXG+z2
- YCT+ddfCcxpRen0BNgCb1R3rG333pCCIlMyEOai8PEBqbExDdOmDlX2kPe5PRnOzHajm
- aC2FdiDRRkRF22ovKvp1XZYX8MnmBdYRVUP0eilc9ts7nCZiNBLcx0gSg2ZWotkv7NFC
- ms3irHUuXBm1FBNm6Nd403sMIKTG4fLdJD+Bzok25w/MSLMmob/1tSd1cEMeV0pR9Lp2
- SRggv7GLyEMgPYCyDfU1GZvenIIaxjwjTHmfndYcaSrkuuV2Aje3I0Q8zsn0W22KSrOF
- eY/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700587290; x=1701192090;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T9KhpseVCRqnVPX/aL5q95RXoXkoLm71yAXQWJbIK+o=;
- b=tkhEwElmHGHNelJdcL61b5NtkVEzE95aJR0RIG6u1jN4aVqDcg7AfBZa7Ky1Xeno3K
- Z53hJN24cvVNyvDwrh4iN5LcrLMd2wknwZFMjhbvna/M5dSx/AKuBpAxC7+JVNpHCtn0
- oq6W0d0y+icDoB3IopbHW9qbtjo4Zfs2F3jQAhyM9jKQoJxoD+l0Zo7/GDkhbQVUMNJR
- uIS4rUmttlvcrxSinH9900bPeLsN77xf8+eVfJ+2v7w/5M0K1RwiprZp4sNdEJW0We0e
- B0yautX1iaEH2JlWtqZPfcw011SVEafaaHzKsC8HUa6rrhJVswjCU/gWkz65EWPEzlBq
- PlIQ==
-X-Gm-Message-State: AOJu0YwexFFWzMoYRa0n4+yaya1t/qg1OFG9Ducb0ZMD971iOpK3lObn
- 9Ucpl3vOZyiWfCuwTZ+NM/rmOQ==
-X-Google-Smtp-Source: AGHT+IF9rKdg29KmvbGoiol8+DcDTD5EhEIhgWEZouPowfRE16GQ2s4RCdQ19p304MnGowgbD3jCTw==
-X-Received: by 2002:a2e:2a83:0:b0:2c8:2e3a:e974 with SMTP id
- q125-20020a2e2a83000000b002c82e3ae974mr7647015ljq.44.1700587289886; 
- Tue, 21 Nov 2023 09:21:29 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.222.11])
- by smtp.gmail.com with ESMTPSA id
- x18-20020a05600c421200b00406443c8b4fsm21518854wmh.19.2023.11.21.09.21.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Nov 2023 09:21:29 -0800 (PST)
-Message-ID: <8c1649b6-a9c8-4262-aa0d-5f073897ed0f@linaro.org>
-Date: Tue, 21 Nov 2023 18:21:27 +0100
+ Tue, 21 Nov 2023 19:46:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=6lVVvsX4TW6cmK7X9bRQGh61/JFC6/rfXLUW3tJB28c=; b=tUuf19A/Ci/eV1mi8rq2qC64ni
+ 2xp8NuQuM5R2IPgCorBYM8HBaNIjZpKOHWW5S6tiY5zdLleP5+ImCxjG7RuLb4HO/eYIM2Z06ehwd
+ tgnmxZ4mR6cYFKXy289pV3wTh0Cq4GbPLO+SDNQmbMH/v5kGi9sSvjQNj6QmA2JxIfEo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1r5Wh0-000n9F-Nj; Tue, 21 Nov 2023 20:45:54 +0100
+Date: Tue, 21 Nov 2023 20:45:54 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ray Zhang <sgzhang@google.com>
+Message-ID: <84be10f3-0880-4ccd-b6d3-b5feecea75ef@lunn.ch>
+References: <20231121184543.3433940-1-sgzhang@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Tomer Maimon <tmaimon77@gmail.com>, davem@davemloft.net,
- edumazet@google.com, robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org,
- alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, avifishman70@gmail.com, tali.perry1@gmail.com,
- joel@jms.id.au, andrew@codeconstruct.com.au, venture@google.com,
- yuenn@google.com, benjaminfair@google.com, j.neuschaefer@gmx.net
-References: <20231121151733.2015384-1-tmaimon77@gmail.com>
- <20231121151733.2015384-2-tmaimon77@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
- m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
- HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
- XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
- mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
- v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
- cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
- rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
- qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
- aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
- gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
- dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
- NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
- hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
- oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
- H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
- yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
- 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
- 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
- +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
- FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
- 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
- DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
- oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
- 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
- Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
- qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
- /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
- qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
- EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
- KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
- fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231121151733.2015384-2-tmaimon77@gmail.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: net: Add support NPCM
-	dwmac
+Content-Disposition: inline
+In-Reply-To: <20231121184543.3433940-1-sgzhang@google.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix out-of-bounds read via
+ memcpy detected by KASAN
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,105 +55,271 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/11/2023 16:17, Tomer Maimon wrote:
-> Add documentation to describe Nuvoton BMC NPCM dwmac driver(sgmii).
+On Tue, Nov 21, 2023 at 06:45:43PM +0000, Ray Zhang wrote:
+> CONFIG_KASAN detected out-of-bounds read via memcpy in stmmac_get_strings.
+> The fix is to change memcpy to strscpy.
 > 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../bindings/net/nuvoton,npcm8xx-sgmii.yaml   | 72 +++++++++++++++++++
->  .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
->  2 files changed, 73 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml b/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
-> new file mode 100644
-> index 000000000000..6a5f2cade7c9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/nuvoton,npcm8xx-sgmii.yaml
-> @@ -0,0 +1,72 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/nuvoton,npcm8xx-sgmii.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton NPCM DWMAC SGMII Ethernet controller
-> +
-> +maintainers:
-> +  - Tomer Maimon <tmaimon77@gmail.com>
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        enum:
-> +          - nuvoton,npcm8xx-sgmii
+> Tested:
+> <machine_obfuscated>:~# ethtool -i <interface_obfuscated>
+> driver: st_gmac
+> <machine_obfuscated>:~# ethtool -S <interface_obfuscated>
+> NIC statistics:
+>      ATPES: 0
+>      TPES: 0
+>      RDPES: 0
+>      MPES: 0
+>      MTSPES: 0
+>      ARPES: 0
+>      CWPES: 0
+>      ASRPES: 0
+>      TTES: 0
+>      RTES: 0
+>      CTES: 0
+>      ATES: 0
+>      PTES: 0
+>      T125ES: 0
+>      R125ES: 0
+>      RVCTES: 0
+>      MSTTES: 0
+>      SLVTES: 0
+>      ATITES: 0
+>      ARITES: 0
+>      FSMPES: 0
+>      TXCES: 0
+>      TXAMS: 0
+>      TXUES: 0
+>      RXCES: 0
+>      RXAMS: 0
+>      RXUES: 0
+>      ECES: 0
+>      EAMS: 0
+>      EUES: 0
+>      RPCES: 0
+>      RPAMS: 0
+>      RPUES: 0
+>      TCES: 0
+>      TAMS: 0
+>      TUES: 0
+>      mmc_tx_octetcount_gb: 11612
+>      mmc_tx_framecount_gb: 100
+>      mmc_tx_broadcastframe_g: 0
+>      mmc_tx_multicastframe_g: 42
+>      mmc_tx_64_octets_gb: 0
+>      mmc_tx_65_to_127_octets_gb: 62
+>      mmc_tx_128_to_255_octets_gb: 38
+>      mmc_tx_256_to_511_octets_gb: 0
+>      mmc_tx_512_to_1023_octets_gb: 0
+>      mmc_tx_1024_to_max_octets_gb: 0
+>      mmc_tx_unicast_gb: 58
+>      mmc_tx_multicast_gb: 42
+>      mmc_tx_broadcast_gb: 0
+>      mmc_tx_underflow_error: 0
+>      mmc_tx_singlecol_g: 0
+>      mmc_tx_multicol_g: 0
+>      mmc_tx_deferred: 0
+>      mmc_tx_latecol: 0
+>      mmc_tx_exesscol: 0
+>      mmc_tx_carrier_error: 0
+>      mmc_tx_octetcount_g: 11612
+>      mmc_tx_framecount_g: 100
+>      mmc_tx_excessdef: 0
+>      mmc_tx_pause_frame: 0
+>      mmc_tx_vlan_frame_g: 0
+>      mmc_rx_framecount_gb: 64
+>      mmc_rx_octetcount_gb: 30235
+>      mmc_rx_octetcount_g: 30235
+>      mmc_rx_broadcastframe_g: 0
+>      mmc_rx_multicastframe_g: 0
+>      mmc_rx_crc_error: 0
+>      mmc_rx_align_error: 0
+>      mmc_rx_run_error: 0
+>      mmc_rx_jabber_error: 0
+>      mmc_rx_undersize_g: 0
+>      mmc_rx_oversize_g: 0
+>      mmc_rx_64_octets_gb: 0
+>      mmc_rx_65_to_127_octets_gb: 9
+>      mmc_rx_128_to_255_octets_gb: 22
+>      mmc_rx_256_to_511_octets_gb: 21
+>      mmc_rx_512_to_1023_octets_gb: 2
+>      mmc_rx_1024_to_max_octets_gb: 10
+>      mmc_rx_unicast_g: 64
+>      mmc_rx_length_error: 0
+>      mmc_rx_autofrangetype: 0
+>      mmc_rx_pause_frames: 0
+>      mmc_rx_fifo_overflow: 0
+>      mmc_rx_vlan_frames_gb: 0
+>      mmc_rx_watchdog_error: 0
+>      mmc_rx_ipc_intr_mask: 0
+>      mmc_rx_ipc_intr: 0
+>      mmc_rx_ipv4_gd: 0
+>      mmc_rx_ipv4_hderr: 0
+>      mmc_rx_ipv4_nopay: 0
+>      mmc_rx_ipv4_frag: 0
+>      mmc_rx_ipv4_udsbl: 0
+>      mmc_rx_ipv4_gd_octets: 0
+>      mmc_rx_ipv4_hderr_octets: 0
+>      mmc_rx_ipv4_nopay_octets: 0
+>      mmc_rx_ipv4_frag_octets: 0
+>      mmc_rx_ipv4_udsbl_octets: 0
+>      mmc_rx_ipv6_gd_octets: 0
+>      mmc_rx_ipv6_hderr_octets: 0
+>      mmc_rx_ipv6_nopay_octets: 0
+>      mmc_rx_ipv6_gd: 0
+>      mmc_rx_ipv6_hderr: 0
+>      mmc_rx_ipv6_nopay: 0
+>      mmc_rx_udp_gd: 0
+>      mmc_rx_udp_err: 0
+>      mmc_rx_tcp_gd: 0
+>      mmc_rx_tcp_err: 0
+>      mmc_rx_icmp_gd: 0
+>      mmc_rx_icmp_err: 0
+>      mmc_rx_udp_gd_octets: 0
+>      mmc_rx_udp_err_octets: 0
+>      mmc_rx_tcp_gd_octets: 0
+>      mmc_rx_tcp_err_octets: 0
+>      mmc_rx_icmp_gd_octets: 0
+>      mmc_rx_icmp_err_octets: 0
+>      mmc_tx_fpe_fragment_cntr: 0
+>      mmc_tx_hold_req_cntr: 0
+>      mmc_rx_packet_assembly_err_cntr: 0
+>      mmc_rx_packet_smd_err_cntr: 0
+>      mmc_rx_packet_assembly_ok_cntr: 0
+>      mmc_rx_fpe_fragment_cntr: 0
+>      tx_underflow: 0
+>      tx_carrier: 0
+>      tx_losscarrier: 0
+>      vlan_tag: 0
+>      tx_deferred: 0
+>      tx_vlan: 0
+>      tx_jabber: 0
+>      tx_frame_flushed: 0
+>      tx_payload_error: 0
+>      tx_ip_header_error: 0
+>      rx_desc: 0
+>      sa_filter_fail: 0
+>      overflow_error: 0
+>      ipc_csum_error: 0
+>      rx_collision: 0
+>      rx_crc_errors: 0
+>      dribbling_bit: 0
+>      rx_length: 0
+>      rx_mii: 0
+>      rx_multicast: 0
+>      rx_gmac_overflow: 0
+>      rx_watchdog: 0
+>      da_rx_filter_fail: 0
+>      sa_rx_filter_fail: 0
+>      rx_missed_cntr: 0
+>      rx_overflow_cntr: 0
+>      rx_vlan: 0
+>      rx_split_hdr_pkt_n: 0
+>      tx_undeflow_irq: 0
+>      tx_process_stopped_irq: 0
+>      tx_jabber_irq: 0
+>      rx_overflow_irq: 0
+>      rx_buf_unav_irq: 0
+>      rx_process_stopped_irq: 0
+>      rx_watchdog_irq: 0
+>      tx_early_irq: 0
+>      fatal_bus_error_irq: 0
+>      rx_early_irq: 0
+>      threshold: 64
+>      tx_pkt_n: 100
+>      rx_pkt_n: 64
+>      normal_irq_n: 62
+>      rx_normal_irq_n: 58
+>      napi_poll: 215
+>      tx_normal_irq_n: 4
+>      tx_clean: 157
+>      tx_set_ic_bit: 4
+>      irq_receive_pmt_irq_n: 0
+>      mmc_tx_irq_n: 0
+>      mmc_rx_irq_n: 0
+>      mmc_rx_csum_offload_irq_n: 0
+>      irq_tx_path_in_lpi_mode_n: 0
+>      irq_tx_path_exit_lpi_mode_n: 0
+>      irq_rx_path_in_lpi_mode_n: 0
+>      irq_rx_path_exit_lpi_mode_n: 0
+>      phy_eee_wakeup_error_n: 0
+>      ip_hdr_err: 0
+>      ip_payload_err: 0
+>      ip_csum_bypassed: 0
+>      ipv4_pkt_rcvd: 0
+>      ipv6_pkt_rcvd: 64
+>      no_ptp_rx_msg_type_ext: 64
+>      ptp_rx_msg_type_sync: 0
+>      ptp_rx_msg_type_follow_up: 0
+>      ptp_rx_msg_type_delay_req: 0
+>      ptp_rx_msg_type_delay_resp: 0
+>      ptp_rx_msg_type_pdelay_req: 0
+>      ptp_rx_msg_type_pdelay_resp: 0
+>      ptp_rx_msg_type_pdelay_follow_up: 0
+>      ptp_rx_msg_type_announce: 0
+>      ptp_rx_msg_type_management: 0
+>      ptp_rx_msg_pkt_reserved_type: 0
+>      ptp_frame_type: 0
+>      ptp_ver: 0
+>      timestamp_dropped: 0
+>      av_pkt_rcvd: 0
+>      av_tagged_pkt_rcvd: 0
+>      vlan_tag_priority_val: 0
+>      l3_filter_match: 0
+>      l4_filter_match: 0
+>      l3_l4_filter_no_match: 0
+>      irq_pcs_ane_n: 0
+>      irq_pcs_link_n: 0
+>      irq_rgmii_n: 0
+>      mtl_tx_status_fifo_full: 0
+>      mtl_tx_fifo_not_empty: 0
+>      mmtl_fifo_ctrl: 0
+>      mtl_tx_fifo_read_ctrl_write: 0
+>      mtl_tx_fifo_read_ctrl_wait: 0
+>      mtl_tx_fifo_read_ctrl_read: 0
+>      mtl_tx_fifo_read_ctrl_idle: 0
+>      mac_tx_in_pause: 0
+>      mac_tx_frame_ctrl_xfer: 0
+>      mac_tx_frame_ctrl_idle: 0
+>      mac_tx_frame_ctrl_wait: 0
+>      mac_tx_frame_ctrl_pause: 0
+>      mac_gmii_tx_proto_engine: 0
+>      mtl_rx_fifo_fill_level_full: 0
+>      mtl_rx_fifo_fill_above_thresh: 0
+>      mtl_rx_fifo_fill_below_thresh: 0
+>      mtl_rx_fifo_fill_level_empty: 0
+>      mtl_rx_fifo_read_ctrl_flush: 0
+>      mtl_rx_fifo_read_ctrl_read_data: 0
+>      mtl_rx_fifo_read_ctrl_status: 0
+>      mtl_rx_fifo_read_ctrl_idle: 0
+>      mtl_rx_fifo_ctrl_active: 0
+>      mac_rx_frame_ctrl_fifo: 0
+>      mac_gmii_rx_proto_engine: 0
+>      tx_tso_frames: 0
+>      tx_tso_nfrags: 0
+>      mtl_est_cgce: 0
+>      mtl_est_hlbs: 0
+>      mtl_est_hlbf: 0
+>      mtl_est_btre: 0
+>      mtl_est_btrlm: 0
+>      q0_tx_pkt_n: 100
+>      q0_tx_irq_n: 4
+>      q0_rx_pkt_n: 64
+>      q0_rx_irq_n: 58
 
-This must be specific compatible, no wildcards. Then use the same for
-filename.
+What useful information does this list of statistics bring in the
+commit message?
 
-> +  required:
-> +    - compatible
-> +
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - nuvoton,npcm8xx-sgmii
-> +          - const: snps,dwmac-3.50a
+>  				if (!stmmac_safety_feat_dump(priv,
+>  							&priv->sstats, i,
+>  							NULL, &desc)) {
+> -					memcpy(p, desc, ETH_GSTRING_LEN);
+> +					strscpy(p, desc, ETH_GSTRING_LEN);
 
-Blank line
+Did you consider ethtool_puts() ?
 
-> +  reg:
-> +    items:
-> +      - description:
-> +          The first range represent DWMAC controller registers.
+    Andrew
 
-Keep it in one line and drop redundant "The first range represent".
-
-> +      - description:
-> +          The second range represent PCS configuration registers.
-> +
-> +  clocks:
-> +    items:
-> +      - description: GMAC main clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: stmmaceth
-> +
-
-Constrain also interrupts and resets.
-
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/nuvoton,npcm845-clk.h>
-> +
-> +    ahb {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-
-Your indentation is mixed. Use 4 spaces for example indentation.
-
-> +
-> +      gmac0: ethernet@f0802000 {
-
-Best regards,
-Krzysztof
-
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
