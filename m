@@ -2,43 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53AA87F3BA2
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 03:13:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B6D17F3CFB
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 05:45:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEB93C6B475;
-	Wed, 22 Nov 2023 02:13:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28F23C6B475;
+	Wed, 22 Nov 2023 04:45:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36B87C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1999DC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Nov 2023 02:12:59 +0000 (UTC)
+ Wed, 22 Nov 2023 04:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700619179; x=1732155179;
+ t=1700628349; x=1732164349;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=vGgCVJZAzwFeJ/BnDdyLhuK1uu1PtrJEymLox/XM/rA=;
- b=BOv8Ml07/qZycrA5e1lVjD/JNVWLZvorSuFJJdAxK87CEjuzS60D/pak
- 7h4t74SmusjDhYJ8zKLRDsdyOi/3rlJTHcAJog9ZxnDjVLOzRfOTSJdlm
- C5ROdqU1+NT4kdXYW74ZS9H1WZD/JMa35TcEp344Rg9w91iQAsjcolh+a
- uL1/0KNDnhpsA52ya5Gd5kATSGvLkGLPvxAKPzDA+sAM/Ay0AwGaxxnPq
- PwC/qs5gupYB+IqMr3Hts7w5kkQ3HEmllbJbmu3IX//wnZVHeYf/cCpnY
- pxXh4L5g2WbovP7cYCLfwq8vAzyRmGB7DyXeQpn97yrD2YhV1ZoV3wNXB A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="423054760"
-X-IronPort-AV: E=Sophos;i="6.04,217,1695711600"; d="scan'208";a="423054760"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2023 18:12:56 -0800
+ bh=HLMmaO5eRFcQjJshfZEl2KySYxKXTveeGm/s8aORDZk=;
+ b=Fk/PhkhZ3yaZzxVdkCPjRsyNt1whIQnvce+7rgcfNrD+o5SU2Vjst1hP
+ /913nlzWYk6cPYZz830pGTwl1WlGTVg+Z+Lv1EcXNaB5lyusj+yu6r3OI
+ rGQhJIXHQKEmVk8hH2ZNgA0cCLAHHZD2Cz8TQBjYQmrthEqzEDrGjHPL0
+ 09e2YHWJQthx+uVKvpuNh+f6hmSoe5V6rFkvZxAmUZxt6GVZb7So+7KKw
+ UrrfhcVfhZq192UcZ07GkNkWjFfqDQb1A4TPT+dkdradliqdS4MEaICUb
+ Cut9gVOdwtH8pzBxUag6Oajgfp1Yo9ZKE6uGS3Wdnkz0TX0rgmS3dehDe Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="5116613"
+X-IronPort-AV: E=Sophos;i="6.04,217,1695711600"; 
+   d="scan'208";a="5116613"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Nov 2023 20:45:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="940275900"
-X-IronPort-AV: E=Sophos;i="6.04,217,1695711600"; d="scan'208";a="940275900"
+X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="801780556"
+X-IronPort-AV: E=Sophos;i="6.04,217,1695711600"; d="scan'208";a="801780556"
 Received: from lkp-server02.sh.intel.com (HELO b8de5498638e) ([10.239.97.151])
- by orsmga005.jf.intel.com with ESMTP; 21 Nov 2023 18:12:50 -0800
+ by orsmga001.jf.intel.com with ESMTP; 21 Nov 2023 20:45:40 -0800
 Received: from kbuild by b8de5498638e with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1r5cj6-0008XB-1W;
- Wed, 22 Nov 2023 02:12:39 +0000
-Date: Wed, 22 Nov 2023 10:11:01 +0800
+ (envelope-from <lkp@intel.com>) id 1r5f7K-0008f4-1R;
+ Wed, 22 Nov 2023 04:45:38 +0000
+Date: Wed, 22 Nov 2023 12:45:02 +0800
 From: kernel test robot <lkp@intel.com>
 To: Tomer Maimon <tmaimon77@gmail.com>, davem@davemloft.net,
  edumazet@google.com, robh+dt@kernel.org,
@@ -48,15 +49,15 @@ To: Tomer Maimon <tmaimon77@gmail.com>, davem@davemloft.net,
  tali.perry1@gmail.com, joel@jms.id.au, andrew@codeconstruct.com.au,
  venture@google.com, yuenn@google.com, benjaminfair@google.com,
  j.neuschaefer@gmx.net
-Message-ID: <202311221011.bsAmeQ6v-lkp@intel.com>
+Message-ID: <202311221228.eaAlsztJ-lkp@intel.com>
 References: <20231121151733.2015384-3-tmaimon77@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20231121151733.2015384-3-tmaimon77@gmail.com>
 Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: Add NPCM support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -88,25 +89,20 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Tomer-Maimon/dt-bindings-
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
 patch link:    https://lore.kernel.org/r/20231121151733.2015384-3-tmaimon77%40gmail.com
 patch subject: [PATCH v1 2/2] net: stmmac: Add NPCM support
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20231122/202311221011.bsAmeQ6v-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231122/202311221011.bsAmeQ6v-lkp@intel.com/reproduce)
+config: arc-allmodconfig (https://download.01.org/0day-ci/archive/20231122/202311221228.eaAlsztJ-lkp@intel.com/config)
+compiler: arceb-elf-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231122/202311221228.eaAlsztJ-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311221011.bsAmeQ6v-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311221228.eaAlsztJ-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
->> drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c:53:6: warning: no previous prototype for function 'npcm_dwmac_pcs_init' [-Wmissing-prototypes]
-   void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
-        ^
-   drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c:53:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
-   ^
-   static 
-   1 warning generated.
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c:53:6: warning: no previous prototype for 'npcm_dwmac_pcs_init' [-Wmissing-prototypes]
+      53 | void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
+         |      ^~~~~~~~~~~~~~~~~~~
 
 
 vim +/npcm_dwmac_pcs_init +53 drivers/net/ethernet/stmicro/stmmac/dwmac-npcm.c
