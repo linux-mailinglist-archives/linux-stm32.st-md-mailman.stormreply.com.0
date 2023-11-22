@@ -2,144 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E367F4F2B
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 19:18:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A14F7F4DB8
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 18:04:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B4E4C6B479;
-	Wed, 22 Nov 2023 18:18:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17B79C6B476
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D10D4C6B479;
+	Wed, 22 Nov 2023 17:04:15 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5356DC6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Nov 2023 18:18:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700677122; x=1732213122;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=svTDrfhedEEO4cS0JxYCtXk8st2z98h4kZKY2KNo7V4=;
- b=IWfwwl4R2sWSMkOCblVM5kkD8IjhCAVQn+ai38TDyR3uNUrvoAxDX85i
- de01BuUtz/Yr9V3kzql2GmxKffPC+UBgnhxieZJ/7S1sp4dXdwr0OWt9k
- VtUr747xrn4/ibWHc1M9nmJZbH2XUEPOo4v/rZWM4CjrzOhJt07EvOO/B
- m/JDuC2rIeNg8yh4Eb8guPbuG5e2d15NJOIKPtemCJ/58C1Un6L1xCMln
- UTVavi8w8zt6gbLgMQyRwgMvJOfzQ4dXvTK8VFTW9S4OGP7NulJTfRk2l
- f622k2oTOdoRR2oCer7MTmAVDC0haE18y7U/S8AyK0L6BfjJz3reHWUjU w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="423209533"
-X-IronPort-AV: E=Sophos;i="6.04,219,1695711600"; d="scan'208";a="423209533"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2023 10:14:51 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10901"; a="760383292"
-X-IronPort-AV: E=Sophos;i="6.04,218,1695711600"; d="scan'208";a="760383292"
-Received: from unknown (HELO ORSMSX602.amr.corp.intel.com) ([10.22.229.15])
- by orsmga007.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 22 Nov 2023 02:00:36 -0800
-Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34; Wed, 22 Nov 2023 02:00:06 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.34 via Frontend Transport; Wed, 22 Nov 2023 02:00:06 -0800
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.101)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.34; Wed, 22 Nov 2023 02:00:05 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X2BlqVKSzSetQr/Z8LEbUMG8rgxoRfNOwvU7tA9q9YF/H3trBk0DZd/h7z7fgoU0han6TahRo2W+sKd0VDTccDIRB7VXQrJh9F7E52qOXpaHAYbwC5/OMHdJ+hLPJ9tv9AlA8Ghg0X8HBYGtXbyt9FUXbWa2rG8qXhgXVYiHpnvc6A/Bt7uY26c14HsTMzbrBMNrezZIdDpiJvfm2vE3pQvUFL6rEZ2slHzatYsVQHN2NYWbJYDAn5TkOohiR6c2solDYDK9WcT2e1VR4nxblocg3mun3kFyzX+D0qcD979bQagko/RF3EsNEEdY3Rqh2XY+QXbFCG1agk0g9n9pcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mPVanqrzgo1b4Znoo4RVkcMQ3ATyqa1SVIXuOlNdHx8=;
- b=iuI4zihdrgRwxBYplGhwopsfqP/59ZPMlEUq/kIR0/PNrmkCoqse5vTLsAURmoU7SLL6b3tw4mqVL8CiMC/Cn/faEm9hsL8U99TsUAk7qwHnwJ1+dBCY1YBLFU4ycHctOgJDHUWo+WWvZg7G8q1mfu5AsTIZrH5+2/lhEnZQUVZtGIn9Fl5+Y8DGdYHQWlDCyO6aQEhzleYUK2N2OYpwuzZNIMp/BC34jUnsnHNLGPgysuQ5dXJ2QfgRCfohJtffTx+blrMTLyXLwjs1O6kGFdgoA/lgWpZi0aClrCo8cVP2CO8XAZ2MpxARl7LMZDQQjuPoCUM/r6r5gSb+4wKF5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SN7PR11MB7540.namprd11.prod.outlook.com (2603:10b6:806:340::7)
- by DS0PR11MB6541.namprd11.prod.outlook.com (2603:10b6:8:d3::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Wed, 22 Nov
- 2023 10:00:03 +0000
-Received: from SN7PR11MB7540.namprd11.prod.outlook.com
- ([fe80::f37d:cbd6:9df8:d06d]) by SN7PR11MB7540.namprd11.prod.outlook.com
- ([fe80::f37d:cbd6:9df8:d06d%7]) with mapi id 15.20.7002.028; Wed, 22 Nov 2023
- 10:00:03 +0000
-Date: Wed, 22 Nov 2023 10:59:53 +0100
-From: Larysa Zaremba <larysa.zaremba@intel.com>
-To: Gan Yi Fang <yi.fang.gan@intel.com>
-Message-ID: <ZV3RGbALTGA+R9FZ@lzaremba-mobl.ger.corp.intel.com>
-References: <20231121053842.719531-1-yi.fang.gan@intel.com>
-Content-Disposition: inline
-In-Reply-To: <20231121053842.719531-1-yi.fang.gan@intel.com>
-X-ClientProxiedBy: WA1P291CA0024.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:19::18) To SN7PR11MB7540.namprd11.prod.outlook.com
- (2603:10b6:806:340::7)
+ Wed, 22 Nov 2023 17:04:15 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3199CFEC;
+ Wed, 22 Nov 2023 09:05:01 -0800 (PST)
+Received: from bogus (e103737-lin.cambridge.arm.com [10.1.197.49])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AF95E3F73F;
+ Wed, 22 Nov 2023 09:04:12 -0800 (PST)
+Date: Wed, 22 Nov 2023 17:04:10 +0000
+From: Sudeep Holla <sudeep.holla@arm.com>
+To: Anshuman Khandual <anshuman.khandual@arm.com>
+Message-ID: <ZV40itsgT5OSJmdC@bogus>
+References: <20231027072943.3418997-1-anshuman.khandual@arm.com>
+ <20231027072943.3418997-6-anshuman.khandual@arm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR11MB7540:EE_|DS0PR11MB6541:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfbcbebe-5890-4f19-45e9-08dbeb41cbae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jJgQ5pEnVI11jfG3tCyAkgv7NtkQiSReyfVZHpkylBDPGhTpLX0UEUQ9dpOOSIvJfvRNUJv6HPQRGW+6nfSqWXagmo4Jnq2pg2sEVd/HXLeDl7B+8ypJ7JB/mOZ2B41dFqAasfyHJuxJPelAMIm3j1RXtdb277hj9Ni9Vf0siAZQQpAatE/NUsajZ9cCjwmfAScuG/C/iPD2kq2SjMk/hAlJ5yga3NGzS+t8B6cAzY9lUMqXg89p6pcnXTahX3AKXySzLeoljNtzm6OZFFotomITK2yhEvArqU9HXj+Q6jYC5IFsydZNNVoQb+4dDEBzBwac+9etSRSpFm3x7OtdgP4RdGCbwwTTO3qZwaidbvCKbrR6dI/Axd4obaUl4M6nd5G48tV4KRjxEMVNUqCcd+8SnyCZ5aI5LjO8XvZbCz6CpcT1E3Id6VbgEzVk1dtHOqpqlKufEKPHxiUd1aK0gTNiXWy97RC9TEU/DAdxGvkkQtzz3yfgwC5qhejaclEDT4RYWRn4O42XmjPQChWjLT7fuhpPknmZungJ6GhYIYgoj+It7/vnmyrZdKox0k/racOMLhc/a5HUi9N+zaoD/twxZ9GGdc8IaTAiCqESVDoub+v+IflbnUbtpuK8qHibiR4GB8qlZOyzuXAfAIhQTQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR11MB7540.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(346002)(396003)(366004)(136003)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(41300700001)(30864003)(6666004)(86362001)(2906002)(7416002)(5660300002)(83380400001)(44832011)(8676002)(6636002)(66946007)(54906003)(66476007)(66556008)(6486002)(6506007)(478600001)(316002)(107886003)(6512007)(26005)(8936002)(38100700002)(4326008)(82960400001)(6862004)(168613001)(67856001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/qwDT62DG8+gYpo4uG/zEjm1hbDxc2v/eTLeGMSzZl5zm3806JpnIwhG3vq1?=
- =?us-ascii?Q?Jt1GYsp00e6P+Kx4m9S7qPfMBc/vlIGtEVV4d/qHcMoppKe16NyJ1wwzXw2a?=
- =?us-ascii?Q?wHqtEiWYIb3M0jHzNT3t3UphmyndfzL5Mzv5pjsMHDoGPyq4bL/Pw200iVxE?=
- =?us-ascii?Q?rRHTEVw2A9C61edYF83ldKjrhTnoawW/imA/EjyjsZjCc8IV6N6PwenDChmr?=
- =?us-ascii?Q?uCMsQT0CreS7fjSMcVicE0Wbqnv4SDvGX1ZNV0fHsho9rawNLLKGBWLc558i?=
- =?us-ascii?Q?Ga/K1GVGWQY6qWNUykbkPtOtsBu/hpQDCDDlKzIy0AO13iKq/TF7R7rtxi4y?=
- =?us-ascii?Q?0lVZcdhW0n6PiZYEf+YcAgI4EI7MGG+rBGyMZvAiSzEilpQ6mbipbJ9F6pR5?=
- =?us-ascii?Q?i0TkbwjQ+umDR8WehwD00WF7s5txoXzdhcXRCZHnoDf7Vqu48FVM7dbOS2ZY?=
- =?us-ascii?Q?sXa1jaafQX4a5tmNAOt9WbfzJ+0P29gUk7CGycVSQoacol27w/PZ7QVFqTZ7?=
- =?us-ascii?Q?NiB8tbI29j2V3e/nr4Zhk3MjafDhJlakwunL+/kc1f3HeqePA7fe3V1gOXHg?=
- =?us-ascii?Q?qHlwV3tgCBQz/6P1dnQxmwhjClgt+1PTbTpgsmWxdaKM0VlwYOmr6J7CU0Xr?=
- =?us-ascii?Q?B7cjMQUE92MWZy8syV/2k7TE1sjO71kIajnqxZeCcBuvLUatA440HDbUb1Oc?=
- =?us-ascii?Q?IFDNfJql69KfCwkxK5WhI5kQdBH+oVhm1rjryWcIBpa/2odQ6ksHO+CqMRa4?=
- =?us-ascii?Q?Mafs5Ie6RqID3SD4ruB3Z9K9DvX4wnRQJQz+ptlP7/ze39HdMB7j1ttP6XLv?=
- =?us-ascii?Q?zTMeyT5tnRwvgUbs6SqGlBuv6CGQId8+NAlNs3mt6wxDuMnncSoq0qII0zem?=
- =?us-ascii?Q?5YYTscwJUYkCBhRv4EnY6PGxyHc6NjcoCSfHFwQZqqIDw9Y42m0HfB4o08G4?=
- =?us-ascii?Q?TWXKwN/oqk/QTT6tJJPgLjBZSZWUjk1ppcnQtlUotxPuOMVTfy0LPDC0tEFD?=
- =?us-ascii?Q?ZdHzmfAy1OAsxYdXv9t6A0ayIyJm2PDiwrH7ezLeM4V3oVx1eSZW4W/eoqkH?=
- =?us-ascii?Q?OtgfaUnOZ4cURNV/jMYYAB5fcSeJasbbO7AmFl10XpYWoi9/HQjxziuctT2a?=
- =?us-ascii?Q?aeyK07O7bxgRKBn7tIagOb9JF0nJDiCk8tEJEFydVgMdSFXzo+e7HJA7oSxc?=
- =?us-ascii?Q?dkruU4g9Ky+3LBCFUIQekK/JLqab53OkZB6K2847b/s7sWBDqwBq8PAn5SKu?=
- =?us-ascii?Q?7hs5sXuRmiMjGK2enqRSkYJxWA3sr97+pr1gsdDFWgchglrNWdO8P/tPfT56?=
- =?us-ascii?Q?ihLuh2s8B0sMnh68RkKGN3i9vbPDJ183L+pCSZ8ew0ZZU8KV9ahFxn0krjS5?=
- =?us-ascii?Q?fJth/SdnMgyjYaxNMJh+XHGbU/YPLWFFbdE8QWA/ZcRwRkBUazLMSc8pW0vm?=
- =?us-ascii?Q?D9HsqK/eTUJCfE72dVP9/5f/kDGAfNRnFq2jwnUrWHh1h/ztc0iKg9KZVtpd?=
- =?us-ascii?Q?2LQkrIAsP5H6s1cMHp0NQlqbaFOlNZLH5FDRaHD5mQWtVCN4V7KjmMHviQsU?=
- =?us-ascii?Q?hiqfNs/2CFubVEnXa2uJeQqrugyDsl5bIRkAw0ldIYFdjgaMuBNzzlVQRIl2?=
- =?us-ascii?Q?CA=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfbcbebe-5890-4f19-45e9-08dbeb41cbae
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR11MB7540.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2023 10:00:02.6846 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kcEk2hq7wlxfCCwuQC5CSkBsjxGIsU3s0e1Dd+I1bn4LjStqcgRbdYZyzEo8txitRA6qlih0BzthRkT3akH9wVZpDuvMA/QuSVnBa+3laLk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6541
-X-OriginatorOrg: intel.com
-Cc: linux-kernel@vger.kernel.org, Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Russell
- King <linux@armlinux.org.uk>, Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Looi Hong Aun <hong.aun.looi@intel.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Add support
- for HW-accelerated VLAN stripping
+Content-Disposition: inline
+In-Reply-To: <20231027072943.3418997-6-anshuman.khandual@arm.com>
+Cc: suzuki.poulose@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 5/7] coresight: tmc: Move ACPI support
+ from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,265 +50,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Nov 21, 2023 at 01:38:42PM +0800, Gan Yi Fang wrote:
-> From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+On Fri, Oct 27, 2023 at 12:59:41PM +0530, Anshuman Khandual wrote:
+> Add support for the tmc devices in the platform driver, which can then be
+> used on ACPI based platforms. This change would now allow runtime power
+> management for ACPI based systems. The driver would try to enable the APB
+> clock if available.
 > 
-> Current implementation supports driver level VLAN tag stripping only.
-> The features is always on if CONFIG_VLAN_8021Q is enabled in kernel
-> config and is not user configurable.
-> 
-> This patch add support to MAC level VLAN tag stripping and can be
-> configured through ethtool. If the rx-vlan-offload is off, the VLAN tag
-> will be stripped by driver. If the rx-vlan-offload is on, the VLAN tag
-> will be stripped by MAC.
-
-if rxvlan is off, tag should not be stripped at all. Code itself follows this 
-rule - stmmac_rx_vlan() checks features, but the commit message is confusing. 
-
-> 
-> Command: ethtool -K <interface> rx-vlan-offload off | on
-> 
-> Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
-> Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Sudeep Holla <sudeep.holla@arm.com>
+> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Cc: Mike Leach <mike.leach@linaro.org>
+> Cc: James Clark <james.clark@arm.com>
+> Cc: linux-acpi@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: coresight@lists.linaro.org
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 > ---
+>  drivers/acpi/arm64/amba.c                     |   2 -
+>  .../hwtracing/coresight/coresight-tmc-core.c  | 127 +++++++++++++++---
+>  drivers/hwtracing/coresight/coresight-tmc.h   |   1 +
+>  3 files changed, 113 insertions(+), 17 deletions(-)
 
-No info, what has changed since v1.
+[...]
 
->  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 35 +++++++++++++++++++
->  .../ethernet/stmicro/stmmac/dwmac4_descs.c    | 13 +++++++
->  drivers/net/ethernet/stmicro/stmmac/hwif.h    | 15 ++++++++
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 +++++++++++++--
->  5 files changed, 90 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index e3f650e88f82..6b935922054d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -580,6 +580,7 @@ struct mac_device_info {
->  	u32 vlan_filter[32];
->  	bool vlan_fail_q_en;
->  	u8 vlan_fail_q;
-> +	bool hw_vlan_en;
->  };
->  
->  struct stmmac_rx_routing {
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> index c6ff1fa0e04d..5f35faf90963 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> @@ -1134,6 +1134,35 @@ static int dwmac4_config_l4_filter(struct mac_device_info *hw, u32 filter_no,
->  	return 0;
+> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+> index 7ec5365e2b64..618bc0b7a1a5 100644
+> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
+> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+
+[...]
+
+> @@ -573,9 +579,9 @@ static void tmc_shutdown(struct amba_device *adev)
+>  	spin_unlock_irqrestore(&drvdata->spinlock, flags);
 >  }
 >  
-> +static void dwmac4_rx_hw_vlan(struct mac_device_info *hw,
-> +			      struct dma_desc *rx_desc, struct sk_buff *skb)
-> +{
-> +	if (hw->desc->get_rx_vlan_valid(rx_desc)) {
-> +		u16 vid = hw->desc->get_rx_vlan_tci(rx_desc);
-> +
-> +		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vid);
-> +	}
-> +}
-> +
-> +static void dwmac4_set_hw_vlan_mode(struct mac_device_info *hw)
-> +{
-> +	void __iomem *ioaddr = hw->pcsr;
-> +	u32 value = readl(ioaddr + GMAC_VLAN_TAG);
-> +
-> +	value &= ~GMAC_VLAN_TAG_CTRL_EVLS_MASK;
-> +
-> +	if (hw->hw_vlan_en)
-> +		/* Always strip VLAN on Receive */
-> +		value |= GMAC_VLAN_TAG_STRIP_ALL;
-> +	else
-> +		/* Do not strip VLAN on Receive */
-> +		value |= GMAC_VLAN_TAG_STRIP_NONE;
-> +
-> +	/* Enable outer VLAN Tag in Rx DMA descriptor */
-> +	value |= GMAC_VLAN_TAG_CTRL_EVLRXS;
-> +	writel(value, ioaddr + GMAC_VLAN_TAG);
-> +}
-> +
->  const struct stmmac_ops dwmac4_ops = {
->  	.core_init = dwmac4_core_init,
->  	.phylink_get_caps = dwmac4_phylink_get_caps,
-> @@ -1175,6 +1204,8 @@ const struct stmmac_ops dwmac4_ops = {
->  	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
->  	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
->  	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-> +	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-> +	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
->  };
->  
->  const struct stmmac_ops dwmac410_ops = {
-> @@ -1224,6 +1255,8 @@ const struct stmmac_ops dwmac410_ops = {
->  	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
->  	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
->  	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-> +	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-> +	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
->  };
->  
->  const struct stmmac_ops dwmac510_ops = {
-> @@ -1277,6 +1310,8 @@ const struct stmmac_ops dwmac510_ops = {
->  	.add_hw_vlan_rx_fltr = dwmac4_add_hw_vlan_rx_fltr,
->  	.del_hw_vlan_rx_fltr = dwmac4_del_hw_vlan_rx_fltr,
->  	.restore_hw_vlan_rx_fltr = dwmac4_restore_hw_vlan_rx_fltr,
-> +	.rx_hw_vlan = dwmac4_rx_hw_vlan,
-> +	.set_hw_vlan_mode = dwmac4_set_hw_vlan_mode,
->  };
->  
->  static u32 dwmac4_get_num_vlan(void __iomem *ioaddr)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> index 89a14084c611..1c5802e0d7f4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-> @@ -198,6 +198,17 @@ static int dwmac4_get_tx_ls(struct dma_desc *p)
->  		>> TDES3_LAST_DESCRIPTOR_SHIFT;
->  }
->  
-> +static u16 dwmac4_wrback_get_rx_vlan_tci(struct dma_desc *p)
-> +{
-> +	return (le32_to_cpu(p->des0) & RDES0_VLAN_TAG_MASK);
-> +}
-> +
-> +static bool dwmac4_wrback_get_rx_vlan_valid(struct dma_desc *p)
-> +{
-> +	return ((le32_to_cpu(p->des3) & RDES3_LAST_DESCRIPTOR) &&
-> +		(le32_to_cpu(p->des3) & RDES3_RDES0_VALID));
-> +}
-> +
->  static int dwmac4_wrback_get_rx_frame_len(struct dma_desc *p, int rx_coe)
+> -static void tmc_remove(struct amba_device *adev)
+> +static void __tmc_remove(struct device *dev)
 >  {
->  	return (le32_to_cpu(p->des3) & RDES3_PACKET_SIZE_MASK);
-> @@ -551,6 +562,8 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
->  	.set_tx_owner = dwmac4_set_tx_owner,
->  	.set_rx_owner = dwmac4_set_rx_owner,
->  	.get_tx_ls = dwmac4_get_tx_ls,
-> +	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
-> +	.get_rx_vlan_valid = dwmac4_wrback_get_rx_vlan_valid,
->  	.get_rx_frame_len = dwmac4_wrback_get_rx_frame_len,
->  	.enable_tx_timestamp = dwmac4_rd_enable_tx_timestamp,
->  	.get_tx_timestamp_status = dwmac4_wrback_get_tx_timestamp_status,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> index b95d3e137813..1d424c9bf037 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-> @@ -56,6 +56,10 @@ struct stmmac_desc_ops {
->  	void (*set_tx_ic)(struct dma_desc *p);
->  	/* Last tx segment reports the transmit status */
->  	int (*get_tx_ls)(struct dma_desc *p);
-> +	/* Get the tag of the descriptor */
-> +	u16 (*get_rx_vlan_tci)(struct dma_desc *p);
-> +	/* Get the valid status of descriptor */
-> +	bool (*get_rx_vlan_valid)(struct dma_desc *p);
->  	/* Return the transmit status looking at the TDES1 */
->  	int (*tx_status)(struct stmmac_extra_stats *x,
->  			 struct dma_desc *p, void __iomem *ioaddr);
-> @@ -117,6 +121,10 @@ struct stmmac_desc_ops {
->  	stmmac_do_void_callback(__priv, desc, set_tx_ic, __args)
->  #define stmmac_get_tx_ls(__priv, __args...) \
->  	stmmac_do_callback(__priv, desc, get_tx_ls, __args)
-> +#define stmmac_get_rx_vlan_tci(__priv, __args...) \
-> +	stmmac_do_callback(__priv, desc, get_rx_vlan_tci, __args)
-> +#define stmmac_get_rx_vlan_valid(__priv, __args...) \
-> +	stmmac_do_callback(__priv, desc, get_rx_vlan_valid, __args)
->  #define stmmac_tx_status(__priv, __args...) \
->  	stmmac_do_callback(__priv, desc, tx_status, __args)
->  #define stmmac_get_tx_len(__priv, __args...) \
-> @@ -388,6 +396,9 @@ struct stmmac_ops {
->  	void (*update_vlan_hash)(struct mac_device_info *hw, u32 hash,
->  				 __le16 perfect_match, bool is_double);
->  	void (*enable_vlan)(struct mac_device_info *hw, u32 type);
-> +	void (*rx_hw_vlan)(struct mac_device_info *hw, struct dma_desc *rx_desc,
-> +			   struct sk_buff *skb);
-> +	void (*set_hw_vlan_mode)(struct mac_device_info *hw);
->  	int (*add_hw_vlan_rx_fltr)(struct net_device *dev,
->  				   struct mac_device_info *hw,
->  				   __be16 proto, u16 vid);
-> @@ -497,6 +508,10 @@ struct stmmac_ops {
->  	stmmac_do_void_callback(__priv, mac, update_vlan_hash, __args)
->  #define stmmac_enable_vlan(__priv, __args...) \
->  	stmmac_do_void_callback(__priv, mac, enable_vlan, __args)
-> +#define stmmac_rx_hw_vlan(__priv, __args...) \
-> +	stmmac_do_void_callback(__priv, mac, rx_hw_vlan, __args)
-> +#define stmmac_set_hw_vlan_mode(__priv, __args...) \
-> +	stmmac_do_void_callback(__priv, mac, set_hw_vlan_mode, __args)
->  #define stmmac_add_hw_vlan_rx_fltr(__priv, __args...) \
->  	stmmac_do_callback(__priv, mac, add_hw_vlan_rx_fltr, __args)
->  #define stmmac_del_hw_vlan_rx_fltr(__priv, __args...) \
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 2afb2bd25977..0323d5ac20f5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3469,6 +3469,8 @@ static int stmmac_hw_setup(struct net_device *dev, bool ptp_register)
->  	/* Start the ball rolling... */
->  	stmmac_start_all_dma(priv);
+> -	struct tmc_drvdata *drvdata = dev_get_drvdata(&adev->dev);
+> +	struct tmc_drvdata *drvdata = dev_get_drvdata(dev);
 >  
-> +	stmmac_set_hw_vlan_mode(priv, priv->hw);
-> +
->  	if (priv->dma_cap.fpesel) {
->  		stmmac_fpe_start_wq(priv);
->  
-> @@ -4993,7 +4995,12 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
->  	}
->  
->  	stmmac_get_rx_hwtstamp(priv, p, np, skb);
-> -	stmmac_rx_vlan(priv->dev, skb);
-> +	if (priv->hw->hw_vlan_en)
-> +		/* MAC level stripping. */
-> +		stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
-> +	else
-> +		/* Driver level stripping. */
-> +		stmmac_rx_vlan(priv->dev, skb);
->  	skb->protocol = eth_type_trans(skb, priv->dev);
->  
->  	if (unlikely(!coe))
-> @@ -5509,7 +5516,14 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  		/* Got entire packet into SKB. Finish it. */
->  
->  		stmmac_get_rx_hwtstamp(priv, p, np, skb);
-> -		stmmac_rx_vlan(priv->dev, skb);
-> +
-> +		if (priv->hw->hw_vlan_en)
-> +			/* MAC level stripping. */
-> +			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
-> +		else
-> +			/* Driver level stripping. */
-> +			stmmac_rx_vlan(priv->dev, skb);
-> +
->  		skb->protocol = eth_type_trans(skb, priv->dev);
->  
->  		if (unlikely(!coe))
-> @@ -5818,6 +5832,13 @@ static int stmmac_set_features(struct net_device *netdev,
->  			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
->  	}
->  
-> +	if (features & NETIF_F_HW_VLAN_CTAG_RX)
-> +		priv->hw->hw_vlan_en = true;
-> +	else
-> +		priv->hw->hw_vlan_en = false;
-> +
-> +	stmmac_set_hw_vlan_mode(priv, priv->hw);
-> +
->  	return 0;
+>  	/*
+>  	 * Since misc_open() holds a refcount on the f_ops, which is
+> @@ -586,6 +592,11 @@ static void tmc_remove(struct amba_device *adev)
+>  	coresight_unregister(drvdata->csdev);
 >  }
 >  
-> @@ -7516,6 +7537,9 @@ int stmmac_dvr_probe(struct device *device,
->  #ifdef STMMAC_VLAN_TAG_USED
->  	/* Both mac100 and gmac support receive VLAN tag detection */
->  	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
-> +	ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
-> +	priv->hw->hw_vlan_en = true;
+> +static void tmc_remove(struct amba_device *adev)
+> +{
+> +	__tmc_remove(&adev->dev);
+> +}
 > +
->  	if (priv->dma_cap.vlhash) {
->  		ndev->features |= NETIF_F_HW_VLAN_CTAG_FILTER;
->  		ndev->features |= NETIF_F_HW_VLAN_STAG_FILTER;
-> -- 
-> 2.34.1
-> 
-> 
+>  static const struct amba_id tmc_ids[] = {
+>  	CS_AMBA_ID(0x000bb961),
+>  	/* Coresight SoC 600 TMC-ETR/ETS */
+> @@ -613,6 +624,92 @@ static struct amba_driver tmc_driver = {
+>  
+>  module_amba_driver(tmc_driver);
+>  
+> +static int tmc_platform_probe(struct platform_device *pdev)
+> +{
+> +	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	struct tmc_drvdata *drvdata;
+> +	int ret = 0;
+> +
+> +	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
+> +	if (!drvdata)
+> +		return -ENOMEM;
+> +
+> +	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
+> +	if (IS_ERR(drvdata->pclk))
+> +		return -ENODEV;
+> +
+
+--->8
+> +	if (res) {
+> +		drvdata->base = devm_ioremap_resource(&pdev->dev, res);
+> +		if (IS_ERR(drvdata->base)) {
+> +			clk_put(drvdata->pclk);
+> +			return PTR_ERR(drvdata->base);
+> +		}
+> +	}
+> +
+---
+
+You need drop the above hunk as _tmc_probe() already takes care of that.
+This is the root cause for the issue I reported in the other thread. Also
+sorry for the confusion, I had to refer to coresight-tmc-core.c and post
+the patch to unify module_init/exit but completely mixed up the file/patch
+and referred coresight-tpiu-core.c instead as that patch was dealing with
+it.
+
+-- 
+Regards,
+Sudeep
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
