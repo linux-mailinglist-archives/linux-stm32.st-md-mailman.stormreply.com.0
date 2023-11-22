@@ -2,51 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F8E7F4481
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 12:00:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58B777F44D0
+	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 12:22:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3DF8C6B475;
-	Wed, 22 Nov 2023 11:00:27 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2EF8C6A61D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F31FBC6B475;
+	Wed, 22 Nov 2023 11:22:04 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1B7EC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Nov 2023 11:00:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 57A5AB80FA7;
- Wed, 22 Nov 2023 11:00:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 54F11C433CD;
- Wed, 22 Nov 2023 11:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1700650824;
- bh=6rDBMi5vgLk/ikFlm2Flmd2RJXRdkqlpNTaFELNVkxA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=lgJpHh0BBZoQxh5EBJJitx62aSBpmxszlWFaNBqG7sPgKJTuHZxRZXwSnmgXM7wwz
- GrxBiJBRM3ynio2/WZ2hebqMPbBlgLedkmOLPHOdKnVS0lXBTh5SA7/HBK2PCcd/2O
- 7N4nc4sYo119ckB1y/i58vJU0FMBgM9AaADWKjpxLH6jteiV12u5zfn34slxz8V4G2
- d8p1hu7L2S9KkpWqBf2Gp4V1+mpj65JQMV7gx/qR44rBt5a/r6xuKLp/YbZW6wW+wD
- stQo6bH8mMg0sME1TJW10vw6fLtfigpxDmWENwhOviB5vEy5V+aa2OI/vygphV12Ze
- 4T/3dUzPUns9g==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 38CC5EAA958; Wed, 22 Nov 2023 11:00:24 +0000 (UTC)
+ Wed, 22 Nov 2023 11:22:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B8CC11595;
+ Wed, 22 Nov 2023 03:22:49 -0800 (PST)
+Received: from bogus (e103737-lin.cambridge.arm.com [10.1.197.49])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E01E3F7A6;
+ Wed, 22 Nov 2023 03:22:01 -0800 (PST)
+Date: Wed, 22 Nov 2023 11:21:58 +0000
+From: Sudeep Holla <sudeep.holla@arm.com>
+To: Anshuman Khandual <anshuman.khandual@arm.com>
+Message-ID: <ZV3kVhZYBHwSaPr9@bogus>
+References: <20231027072943.3418997-1-anshuman.khandual@arm.com>
+ <20231027072943.3418997-5-anshuman.khandual@arm.com>
+ <92d6a66d-3270-3378-2ab9-9214c004d5c7@arm.com>
+ <268e1605-fe3f-4aa0-92e3-36ddfc8aacb3@arm.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170065082422.4259.15356814369119039927.git-patchwork-notify@kernel.org>
-Date: Wed, 22 Nov 2023 11:00:24 +0000
-References: <20231121053842.719531-1-yi.fang.gan@intel.com>
-In-Reply-To: <20231121053842.719531-1-yi.fang.gan@intel.com>
-To: Gan Yi Fang <yi.fang.gan@intel.com>
-Cc: linux-kernel@vger.kernel.org, yoong.siang.song@intel.com,
- weifeng.voon@intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk,
- jun.ann.lai@intel.com, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, hong.aun.looi@intel.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/1] net: stmmac: Add support
- for HW-accelerated VLAN stripping
+Content-Disposition: inline
+In-Reply-To: <268e1605-fe3f-4aa0-92e3-36ddfc8aacb3@arm.com>
+Cc: suzuki.poulose@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 4/7] coresight: tpiu: Move ACPI support
+ from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,35 +52,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Tue, 21 Nov 2023 13:38:42 +0800 you wrote:
-> From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+On Wed, Nov 22, 2023 at 12:32:33PM +0530, Anshuman Khandual wrote:
+> On 11/15/23 19:23, James Clark wrote:
+> > On 27/10/2023 08:29, Anshuman Khandual wrote:
+> >> Add support for the tpiu device in the platform driver, which can then be
+> >> used on ACPI based platforms. This change would now allow runtime power
+> >> management for ACPI based systems. The driver would try to enable the APB
+> >> clock if available.
+> >>
+> > [...]
+> >> +#ifdef CONFIG_ACPI
+> >> +static const struct acpi_device_id tpiu_acpi_ids[] = {
+> >> +	{"ARMHC979", 0}, /* ARM CoreSight TPIU */
+> >> +	{}
+> >> +};
+> >> +MODULE_DEVICE_TABLE(acpi, tpiu_acpi_ids);
+> >> +#endif
+> >> +
+> >> +static struct platform_driver tpiu_platform_driver = {
+> >> +	.probe	= tpiu_platform_probe,
+> >> +	.remove	= tpiu_platform_remove,
+> >> +	.driver = {
+> >> +		.name			= "coresight-tpiu-platform",
+> >> +		.acpi_match_table	= ACPI_PTR(tpiu_acpi_ids),
+> >> +		.suppress_bind_attrs	= true,
+> >> +		.pm			= &tpiu_dev_pm_ops,
+> >> +	},
+> >> +};
+> >> +module_platform_driver(tpiu_platform_driver);
+> >> +
+> > 
+> > Is there a special build config where this works? I get an error here
 > 
-> Current implementation supports driver level VLAN tag stripping only.
-> The features is always on if CONFIG_VLAN_8021Q is enabled in kernel
-> config and is not user configurable.
+> I have been testing this with a config known to work on RB5 board.
 > 
-> This patch add support to MAC level VLAN tag stripping and can be
-> configured through ethtool. If the rx-vlan-offload is off, the VLAN tag
-> will be stripped by driver. If the rx-vlan-offload is on, the VLAN tag
-> will be stripped by MAC.
+> > because module_platform_driver() redefines things that are in
+> > module_amba_driver() which is defined above:
+> > 
+> >   module_amba_driver(tpiu_driver);
+> > 
+> > This isn't a W=1 build or anything, just a normal one. And it applies to
+> > most of the patches in this set.
 > 
-> [...]
+> You are right, I am able to recreate this problem with defconfig on
+> 6.7-rc2 as well. The problem here seems to be caused by having both
+> module_amba_driver() and module_platform_driver() in the same file.
+> 
+> #define module_amba_driver(__amba_drv) \
+>         module_driver(__amba_drv, amba_driver_register, amba_driver_unregister)
+> 
+> #define module_platform_driver(__platform_driver) \
+>         module_driver(__platform_driver, platform_driver_register, \
+>                         platform_driver_unregister)
+> 
+> Although, AFAICT, have not seen these before - even on the defconfig.
+> Just to work around this problem, there can be a common module_init()
+> /module_exit() to register/unregister both AMBA and platform drivers,
+> similar to etm4x_init()/etm4x_exit() setup in coresight-etm4x-core.c.
 
-Here is the summary with links:
-  - [net-next,v2,1/1] net: stmmac: Add support for HW-accelerated VLAN stripping
-    https://git.kernel.org/netdev/net-next/c/750011e239a5
+Could this be the reason why I am seeing the below error why booting with
+ACPI ? I wanted to check the tables before I comment but this discussion
+made me think it could be the reason, hence posting this before I got time
+to analyse it.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+  |  coresight-tmc-platform ARMHC97C:00: can't request region for resource [mem 0x20010000-0x20010fff]
+  |  coresight-tmc-platform: probe of ARMHC97C:00 failed with error -16
+  |  coresight-tmc-platform ARMHC501:00: can't request region for resource [mem 0x20070000-0x20070fff]
+  |  coresight-tmc-platform: probe of ARMHC501:00 failed with error -16
 
-
+--
+Regards,
+Sudeep
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
