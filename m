@@ -2,43 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C853A7F562A
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 02:55:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C71727F56F5
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 04:17:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 781D0C6B476;
-	Thu, 23 Nov 2023 01:55:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71256C6B476;
+	Thu, 23 Nov 2023 03:17:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37196C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79247C6B442
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 01:55:15 +0000 (UTC)
+ Thu, 23 Nov 2023 03:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700704516; x=1732240516;
+ t=1700709442; x=1732245442;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=VHehZwpNIdPmTUBaWqya7f7B1A3v9vGc+DstRouPofo=;
- b=csI8sMzDmkLl3dQOJQVRDHAi02NonMro+FBFPIjV1Wvf+Q8QZy/ZexL9
- 5/7y65eygnGYxul4YDAMXPiJ5yRKi+CH/UFCsvIHyMQMt14P3rLFL85qm
- zw8uxrahO9OsGzX4IYlRHWmaiwpX7HeR73348MF/R7r0O9OYmn4xRod7m
- 8SWevykWlBepJlcYF4dwuNNiOyBuzGe1Pr9IcSpAWAu9pZSNEabVVMxB7
- dt6d00HHrmmUh6WMuo+kxamtWn+VPNCgI7Wa5kpQWUDEUCy6ecwNfHjAJ
- O1j9OBhpLPVIt2hPt52zLkqPeGvhwUm8FOvUmXn0XynHCETdDlcDJ3tEJ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="458674165"
-X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="458674165"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Nov 2023 17:55:14 -0800
+ bh=7ehTNtyUZhQFTHzTWUvmGh28De2Y35+pTZbKu0dEQwY=;
+ b=nQ4AmkpVwKN3EiKfNRQB+tQGGEYAoSK0nM7eqQX/dR6CPXxwJAO43tGt
+ 2fcm6KzVX3PQyxkfmTEvscpbWJ+QwW3yQr0QA0cuSgK9Mq5MX6aGRJA2Q
+ kfYZqr+DNvuNh/0vg5TBVDU4rQl04fDHumExaEtKL8cUjfHXvFAaa8iLA
+ cEHqY2VXRqpMgcZ/c0w5vGlVWVA4GZdNd8cMUvtTRNtC/Ce5QIune5RJ8
+ xZERpQyBgmvMCH+e7dNVF9fu6ycm23Oa2e5TQaQNyOkdmnzTE3qPlSnpD
+ HR24ajOcHuUgJDttpIChQ4X90kI5W1k/s9tW1pZQK2of/K4DTWsWenr79 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="5380220"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; 
+   d="scan'208";a="5380220"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2023 19:17:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="884821106"
-X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="884821106"
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="767083294"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="767083294"
 Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2023 17:55:09 -0800
+ by orsmga002.jf.intel.com with ESMTP; 22 Nov 2023 19:17:14 -0800
 Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1r5yvq-00016C-38;
- Thu, 23 Nov 2023 01:55:06 +0000
-Date: Thu, 23 Nov 2023 09:54:36 +0800
+ (envelope-from <lkp@intel.com>) id 1r60DI-0001Az-11;
+ Thu, 23 Nov 2023 03:17:12 +0000
+Date: Thu, 23 Nov 2023 11:16:49 +0800
 From: kernel test robot <lkp@intel.com>
 To: Alain Volmat <alain.volmat@foss.st.com>,
  Hugues Fruchet <hugues.fruchet@foss.st.com>,
@@ -49,13 +50,13 @@ To: Alain Volmat <alain.volmat@foss.st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Russell King <linux@armlinux.org.uk>,
  Philipp Zabel <p.zabel@pengutronix.de>
-Message-ID: <202311230551.R2sCXDEC-lkp@intel.com>
+Message-ID: <202311231015.CDjoMVIV-lkp@intel.com>
 References: <20231122073927.788810-4-alain.volmat@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <20231122073927.788810-4-alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, Dan Scally <dan.scally@ideasonboard.com>,
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dan Scally <dan.scally@ideasonboard.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Sakari Ailus <sakari.ailus@linux.intel.com>, oe-kbuild-all@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
@@ -92,163 +93,127 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Alain-Volmat/dt-bindings-
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
 patch link:    https://lore.kernel.org/r/20231122073927.788810-4-alain.volmat%40foss.st.com
 patch subject: [PATCH v8 3/5] media: stm32-dcmipp: STM32 DCMIPP camera interface driver
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20231123/202311230551.R2sCXDEC-lkp@intel.com/config)
-compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231123/202311230551.R2sCXDEC-lkp@intel.com/reproduce)
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20231123/202311231015.CDjoMVIV-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231123/202311231015.CDjoMVIV-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311230551.R2sCXDEC-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311231015.CDjoMVIV-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   mf = v4l2_subdev_state_get_format(sd_state, i);
-                        ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, i);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:236:7: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-                ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:236:5: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:256:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, 1);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:311:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           sink_fmt = v4l2_subdev_state_get_format(state, 0);
-                      ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:311:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           sink_fmt = v4l2_subdev_state_get_format(state, 0);
-                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:312:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           src_fmt = v4l2_subdev_state_get_format(state, 1);
-                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   5 warnings and 3 errors generated.
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c: In function 'dcmipp_par_init_cfg':
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:22: error: implicit declaration of function 'v4l2_subdev_state_get_format'; did you mean 'v4l2_subdev_state_get_stream_format'? [-Werror=implicit-function-declaration]
+     154 |                 mf = v4l2_subdev_state_get_format(sd_state, i);
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                      v4l2_subdev_state_get_stream_format
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     154 |                 mf = v4l2_subdev_state_get_format(sd_state, i);
+         |                    ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c: In function 'dcmipp_par_set_fmt':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:236:12: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     236 |         mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+         |            ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:256:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     256 |                 mf = v4l2_subdev_state_get_format(sd_state, 1);
+         |                    ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c: In function 'dcmipp_par_configure':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:311:18: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     311 |         sink_fmt = v4l2_subdev_state_get_format(state, 0);
+         |                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:312:17: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     312 |         src_fmt = v4l2_subdev_state_get_format(state, 1);
+         |                 ^
+   cc1: some warnings being treated as errors
 --
->> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   mf = v4l2_subdev_state_get_format(sd_state, i);
-                        ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, i);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:8: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                           r = v4l2_subdev_state_get_compose(sd_state, i);
-                               ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:8: note: did you mean 'v4l2_subdev_state_get_format'?
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:8: note: 'v4l2_subdev_state_get_format' declared here
-                   mf = v4l2_subdev_state_get_format(sd_state, i);
-                        ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-                           r = v4l2_subdev_state_get_compose(sd_state, i);
-                             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:8: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                           r = v4l2_subdev_state_get_crop(sd_state, i);
-                               ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-                           r = v4l2_subdev_state_get_crop(sd_state, i);
-                             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:206:14: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
-                              ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:206:12: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
-                            ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:230:13: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                             ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:230:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-                   compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                           ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:249:7: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-                ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:249:5: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:251:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                  ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:251:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:252:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                     ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:252:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:255:17: error: indirection requires pointer operand ('int' invalid)
-                   fmt->format = *v4l2_subdev_state_get_format(sd_state, 0);
-                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:266:3: error: indirection requires pointer operand ('int' invalid)
-                   *v4l2_subdev_state_get_format(sd_state, 1) = fmt->format;
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:297:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
-                      ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:297:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
-                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:298:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                  ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:298:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:299:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                     ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:299:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:349:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                  ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:349:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           crop = v4l2_subdev_state_get_crop(sd_state, 1);
-                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:350:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                     ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:350:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           compose = v4l2_subdev_state_get_compose(sd_state, 0);
-                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:357:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-                   mf = v4l2_subdev_state_get_format(sd_state, 1);
-                        ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:357:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, 1);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:365:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, 0);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:370:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-                   mf = v4l2_subdev_state_get_format(sd_state, 1);
-                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:406:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           sink_fmt = v4l2_subdev_state_get_format(state, 0);
-                      ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:406:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
-           sink_fmt = v4l2_subdev_state_get_format(state, 0);
-                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:407:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           compose = v4l2_subdev_state_get_compose(state, 0);
-                     ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:407:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           compose = v4l2_subdev_state_get_compose(state, 0);
-                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:408:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
-           crop = v4l2_subdev_state_get_crop(state, 1);
-                  ^
-   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:408:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
-           crop = v4l2_subdev_state_get_crop(state, 1);
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_init_cfg':
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:22: error: implicit declaration of function 'v4l2_subdev_state_get_format'; did you mean 'v4l2_subdev_state_get_stream_format'? [-Werror=implicit-function-declaration]
+     171 |                 mf = v4l2_subdev_state_get_format(sd_state, i);
+         |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                      v4l2_subdev_state_get_stream_format
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     171 |                 mf = v4l2_subdev_state_get_format(sd_state, i);
+         |                    ^
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:29: error: implicit declaration of function 'v4l2_subdev_state_get_compose'; did you mean 'v4l2_subdev_state_get_stream_compose'? [-Werror=implicit-function-declaration]
+     175 |                         r = v4l2_subdev_state_get_compose(sd_state, i);
+         |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                             v4l2_subdev_state_get_stream_compose
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:27: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     175 |                         r = v4l2_subdev_state_get_compose(sd_state, i);
+         |                           ^
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:29: error: implicit declaration of function 'v4l2_subdev_state_get_crop'; did you mean 'v4l2_subdev_state_get_stream_crop'? [-Werror=implicit-function-declaration]
+     177 |                         r = v4l2_subdev_state_get_crop(sd_state, i);
+         |                             ^~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                             v4l2_subdev_state_get_stream_crop
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:27: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     177 |                         r = v4l2_subdev_state_get_crop(sd_state, i);
+         |                           ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_enum_mbus_code':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:206:26: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     206 |                 sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+         |                          ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_enum_frame_size':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:230:25: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     230 |                 compose = v4l2_subdev_state_get_compose(sd_state, 0);
+         |                         ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_set_fmt':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:249:12: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     249 |         mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+         |            ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:251:14: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     251 |         crop = v4l2_subdev_state_get_crop(sd_state, 1);
+         |              ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:252:17: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     252 |         compose = v4l2_subdev_state_get_compose(sd_state, 0);
+         |                 ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:255:31: error: invalid type argument of unary '*' (have 'int')
+     255 |                 fmt->format = *v4l2_subdev_state_get_format(sd_state, 0);
+         |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:266:17: error: invalid type argument of unary '*' (have 'int')
+     266 |                 *v4l2_subdev_state_get_format(sd_state, 1) = fmt->format;
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_get_selection':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:297:18: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     297 |         sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+         |                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:298:14: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     298 |         crop = v4l2_subdev_state_get_crop(sd_state, 1);
+         |              ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:299:17: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     299 |         compose = v4l2_subdev_state_get_compose(sd_state, 0);
+         |                 ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_set_selection':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:349:14: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     349 |         crop = v4l2_subdev_state_get_crop(sd_state, 1);
+         |              ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:350:17: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     350 |         compose = v4l2_subdev_state_get_compose(sd_state, 0);
+         |                 ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:357:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     357 |                 mf = v4l2_subdev_state_get_format(sd_state, 1);
+         |                    ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:365:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     365 |                 mf = v4l2_subdev_state_get_format(sd_state, 0);
+         |                    ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:370:20: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     370 |                 mf = v4l2_subdev_state_get_format(sd_state, 1);
+         |                    ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c: In function 'dcmipp_byteproc_configure_scale_crop':
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:406:18: warning: assignment to 'struct v4l2_mbus_framefmt *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     406 |         sink_fmt = v4l2_subdev_state_get_format(state, 0);
+         |                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:407:17: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     407 |         compose = v4l2_subdev_state_get_compose(state, 0);
+         |                 ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:408:14: warning: assignment to 'struct v4l2_rect *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     408 |         crop = v4l2_subdev_state_get_crop(state, 1);
+         |              ^
+   cc1: some warnings being treated as errors
 
 
-vim +/v4l2_subdev_state_get_format +154 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
+vim +154 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
 
    145	
    146	static int dcmipp_par_init_cfg(struct v4l2_subdev *sd,
