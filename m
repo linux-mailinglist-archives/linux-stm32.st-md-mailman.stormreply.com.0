@@ -2,87 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2527F5E32
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 12:49:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 979F57F5E1C
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 12:44:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFC67C6C85A;
-	Thu, 23 Nov 2023 11:49:37 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51105C6B476;
+	Thu, 23 Nov 2023 11:44:43 +0000 (UTC)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5B65C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2D71C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 11:39:15 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AN8fLHM007773; Thu, 23 Nov 2023 11:39:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=6juClkUBmcBTBsnEjdDc22tc/uO5kD0o1qqxtbwZTZM=;
- b=S4oW4wKRm2I3ppiPge+nPl+LYaNLjOrkEwx64EfTssDd5PypbUkDpZT1WtRhI1heA7zs
- NjXf+98H2zhe2q8yLI+f8BmhU29bOZTWppPXJy+85Ri/Tv/RbSdb9ex6EXq5CDI5lpAa
- qA8y3ZbngPWjhkD78+7ALREWCss0JZslNc0ciQP8xUygAGUhAKugZVDzzFfFgWMAf9uQ
- QZcJ2NYWNHI8L9AABa8YyzgqZ3NTS2A11BbNRk2F7nBYO3MZLUrNvvoAfRw4feP6ZXUm
- 6M0CcI+OTppAERi4g0OWl/zeHek+zCnYW1H4Ehg1qZN+lW6Cz6zJeGR9yHLZSZARGLkg vw== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uj3ec0b67-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Nov 2023 11:39:06 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3ANBd59P005976
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Nov 2023 11:39:05 GMT
-Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 23 Nov 2023 03:38:55 -0800
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
- <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Jose Abreu" <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- Andrew Halaney <ahalaney@redhat.com>
-Date: Thu, 23 Nov 2023 17:08:15 +0530
-Message-ID: <62eaaace3713751cb1ecac3163e857737107ca0e.1700737841.git.quic_jsuraj@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1700737841.git.quic_jsuraj@quicinc.com>
-References: <cover.1700737841.git.quic_jsuraj@quicinc.com>
+ Thu, 23 Nov 2023 11:44:41 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-2c5071165d5so10081441fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Nov 2023 03:44:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1700739881; x=1701344681;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=KVW8XA5bzUo8eqk22K5VEvjyNNkbbnblzFQyRhQLgRc=;
+ b=OnQ1CmZWtubD3EqmP7z9+t5a2YuqJnfFdz62c7rGwzjgWjtJrGZCHE7v65q9ACK2d2
+ 7tcNnOTG+bhbfq7lClv5oYNm8C+3NoDnilRNW1QysqjPvb+f+cvIaufe55mtyPECFXt2
+ diNYJgjHURANLOS+YtqRSDN94nMiGZ2lM3XMdoSbhXUrvzOZfbFykwowto2DyMfAtGbL
+ Mi4wRTQ9F4AlHN0SQOoAO+A8RRJDe3yUUJG3uKAzJkh2hFtlyhCCGnMRA7XuMZbPsahJ
+ KU8juwnkvqxwLJmw6gb1TcVhbqGFXElrlbMQ2X74ZfXgmHQdTI81rIunR1QXwME7/TWJ
+ LoTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700739881; x=1701344681;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=KVW8XA5bzUo8eqk22K5VEvjyNNkbbnblzFQyRhQLgRc=;
+ b=DqnKW82LtWIhxBkV0B0TVyo5yewGtP946jP5GwCra0QRR9poM/QUr9R4k8iE444nr4
+ 61h3i+81by+k4pKaJFk9KGvCWa9InjIe7r3qcFdhyg0+c2zluS6ujq0VgNv7cZhhCFr/
+ dWfxUe3XohbBssd2e6Y7nDc8vEr2jZk1sWDBk2Fg1jStBsUtJ7nrC3ODPuI/RvnK021B
+ 22nIZYhq6Ah9rnkjYsttCT447sFEw+LzdkpxfChRIdDa71WFEbSo4P0pZNbQZTIA5+q6
+ rnHROAN0Ve+oDPXyGpka2tUO8POdsWQmZc65y/VtcB4JLmfSIBY5JTqspRRJa3gv0/4b
+ NaaA==
+X-Gm-Message-State: AOJu0YyqjHyKibwVw07kLi/vlWp95IlYKpMWws/eXXtMOZYYeRPgaMdi
+ dXDn4erQ33QzMJ2mCaIIo9iJ2g==
+X-Google-Smtp-Source: AGHT+IH0pakFkfqc+E3mM99GckC/gqD782WjMYSnP3CbEroBmmgrEWC9XGMB9xC1wTLYk8jGpNMxhg==
+X-Received: by 2002:a05:651c:11cd:b0:2c8:33fd:ca8c with SMTP id
+ z13-20020a05651c11cd00b002c833fdca8cmr3290024ljo.45.1700739881118; 
+ Thu, 23 Nov 2023 03:44:41 -0800 (PST)
+Received: from [172.30.204.221] (UNUSED.212-182-62-129.lubman.net.pl.
+ [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
+ t18-20020a2e9d12000000b002c884919bdfsm171902lji.10.2023.11.23.03.44.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Nov 2023 03:44:40 -0800 (PST)
+Message-ID: <8c43228b-43bc-419b-8620-b8f8401fa59a@linaro.org>
+Date: Thu, 23 Nov 2023 12:44:38 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: inTtRkS7Bsh4eRNmB_EsvVggQ51OqJNb
-X-Proofpoint-GUID: inTtRkS7Bsh4eRNmB_EsvVggQ51OqJNb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-23_09,2023-11-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0
- clxscore=1015 mlxlogscore=999 phishscore=0 impostorscore=0
- priorityscore=1501 mlxscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311230083
-X-Mailman-Approved-At: Thu, 23 Nov 2023 11:49:36 +0000
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>
+References: <cover.1700737841.git.quic_jsuraj@quicinc.com>
+ <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
+From: Konrad Dybcio <konrad.dybcio@linaro.org>
+In-Reply-To: <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
 Cc: kernel@quicinc.com
-Subject: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Add driver
-	support for DWMAC5 fault IRQ Support
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: qcom,
+ ethqos: add binding doc for fault IRQ for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,142 +90,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add IRQ support to listen HW fault like ECC,DPP,FSM
-fault and print the fault information in the kernel
-log.
 
-Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 18 +++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c | 20 +++++++++++++++++++
- 4 files changed, 41 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 6b935922054d..c4821c7ab674 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -347,6 +347,7 @@ enum request_irq_err {
- 	REQ_IRQ_ERR_SFTY_UE,
- 	REQ_IRQ_ERR_SFTY_CE,
- 	REQ_IRQ_ERR_LPI,
-+	REQ_IRQ_ERR_SAFETY,
- 	REQ_IRQ_ERR_WOL,
- 	REQ_IRQ_ERR_MAC,
- 	REQ_IRQ_ERR_NO,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index cd7a9768de5f..8893d4b7fa38 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -33,6 +33,7 @@ struct stmmac_resources {
- 	int irq;
- 	int sfty_ce_irq;
- 	int sfty_ue_irq;
-+	int safety_common_intr;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
- 	int tx_irq[MTL_MAX_TX_QUEUES];
- };
-@@ -331,6 +332,7 @@ struct stmmac_priv {
- 	/* XDP BPF Program */
- 	unsigned long *af_xdp_zc_qps;
- 	struct bpf_prog *xdp_prog;
-+	int safety_common_intr;
- };
- 
- enum stmmac_state {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 8964fc8a955f..2ae4f34444de 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3530,6 +3530,10 @@ static void stmmac_free_irq(struct net_device *dev,
- 		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
- 			free_irq(priv->wol_irq, dev);
- 		fallthrough;
-+	case REQ_IRQ_ERR_SAFETY:
-+		if (priv->safety_common_intr > 0 && priv->safety_common_intr != dev->irq)
-+			free_irq(priv->safety_common_intr, dev);
-+		fallthrough;
- 	case REQ_IRQ_ERR_WOL:
- 		free_irq(dev->irq, dev);
- 		fallthrough;
-@@ -3736,6 +3740,18 @@ static int stmmac_request_irq_single(struct net_device *dev)
- 		}
- 	}
- 
-+	if (priv->safety_common_intr > 0 && priv->safety_common_intr != dev->irq) {
-+		ret = request_irq(priv->safety_common_intr, stmmac_safety_interrupt,
-+				  0, "safety", dev);
-+		if (unlikely(ret < 0)) {
-+			netdev_err(priv->dev,
-+				   "%s: alloc safety failed %d (error: %d)\n",
-+				   __func__, priv->safety_common_intr, ret);
-+			irq_err = REQ_IRQ_ERR_SAFETY;
-+			goto irq_error;
-+		}
-+	}
-+
- 	return 0;
- 
- irq_error:
-@@ -7398,6 +7414,8 @@ int stmmac_dvr_probe(struct device *device,
- 	priv->lpi_irq = res->lpi_irq;
- 	priv->sfty_ce_irq = res->sfty_ce_irq;
- 	priv->sfty_ue_irq = res->sfty_ue_irq;
-+	priv->safety_common_intr = res->safety_common_intr;
-+
- 	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
- 		priv->rx_irq[i] = res->rx_irq[i];
- 	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 1ffde555da47..bae1704d5f4b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -690,9 +690,25 @@ devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
- #endif /* CONFIG_OF */
- EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
- 
-+int stmmac_get_fault_intr_config(struct platform_device *pdev, struct stmmac_resources *res)
-+{
-+	int ret = 0;
-+
-+	res->safety_common_intr = platform_get_irq_byname(pdev, "safety");
-+
-+	if (res->safety_common_intr < 0) {
-+		if (res->safety_common_intr != -EPROBE_DEFER)
-+			dev_err(&pdev->dev, "safety IRQ configuration information not found\n");
-+		ret = 1;
-+	}
-+
-+	return ret;
-+}
-+
- int stmmac_get_platform_resources(struct platform_device *pdev,
- 				  struct stmmac_resources *stmmac_res)
- {
-+	int ret = 0;
- 	memset(stmmac_res, 0, sizeof(*stmmac_res));
- 
- 	/* Get IRQ information early to have an ability to ask for deferred
-@@ -702,6 +718,10 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 	if (stmmac_res->irq < 0)
- 		return stmmac_res->irq;
- 
-+	ret = stmmac_get_fault_intr_config(pdev, stmmac_res);
-+	if (ret)
-+		dev_err(&pdev->dev, "Fault interrupt not present\n");
-+
- 	/* On some platforms e.g. SPEAr the wake up irq differs from the mac irq
- 	 * The external wake up irq can be passed through the platform code
- 	 * named as "eth_wake_irq"
--- 
-2.25.1
+On 11/23/23 12:38, Suraj Jaiswal wrote:
+> Add binding doc for fault IRQ. The fault IRQ will be
+> trigger for ECC,DPP,FSM error.
+trigerred
 
+spaces after commas
+
+> 
+> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+> ---
+You refer to the IRQ as "fault" in the commit messages, but call
+it "safety" in dt.. Any reason to that?
+
+Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
