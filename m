@@ -2,56 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B5DD7F64FC
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 18:14:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 619C17F6539
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 18:20:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B1E1C6B476;
-	Thu, 23 Nov 2023 17:14:32 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16A28C6B476;
+	Thu, 23 Nov 2023 17:20:57 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10FC1C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE1A0C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 17:14:30 +0000 (UTC)
+ Thu, 23 Nov 2023 17:20:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9482B62357;
- Thu, 23 Nov 2023 17:14:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B13C433CC;
- Thu, 23 Nov 2023 17:14:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 38886B82EB1;
+ Thu, 23 Nov 2023 17:20:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC74C433C8;
+ Thu, 23 Nov 2023 17:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1700759669;
- bh=trQue5vt4vNug0lKdIifZG1U/sc0mMPLn521Cnxbi8A=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=NOdAwhwfhaybbj5HEJr6Qhi+fejV93baYjH8jDhcjY3Nh2+cG5MNdp+wOq8pG0A5k
- ZwOATpEZ3Wy4bBea/ZwdMcxFWdtfm3LRS923s+zCT8yQtAJyYDBc+hBuUhwv3H2P8e
- H9UBVlNTtcfEWppuxCz1hHHrZbY350a2m94KnF/QzWsNnQdvtcoueMnqd5a3nOebPc
- 91RDbDBj47fJdqzt1CXk3pha1EJmoujk/gcj8buNYkCmtGGiAPe+8u2NnqwHoyn+0A
- fsb0dLmm42ew0AnhAvgXCvL3Ir82fNE/RItduAYxSOLm3jwSTy2XC4/H2ZvnyRXlAT
- 8RkgBnCtoX2mg==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-In-Reply-To: <20231123165627.492259-1-u.kleine-koenig@pengutronix.de>
-References: <20231123165627.492259-1-u.kleine-koenig@pengutronix.de>
-Message-Id: <170075966425.1458093.5482638425880756985.b4-ty@kernel.org>
-Date: Thu, 23 Nov 2023 17:14:24 +0000
+ s=k20201202; t=1700760054;
+ bh=HZ2it2SDpc8JXOsPY263SXF+iKCLC0kpnH0sDhz3fiU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=TauTI7yXz/EXK19sGpqXQIgeQSXWk/7tN1aZXr8i97YqI4fGEAFMoL4QD4jgJgLoO
+ BDUnxt6Ty380NwBjw6btK2JI8oU/fWfEX1mIDN9xTa1IPdYpmJ0BEVFJfSZEb+Szsz
+ sDhkyR8NQ+YMweQNFJrrr+0qSqt6YT5eU43vEWKLq/Dh10SFwUCLj4vuBn10U8gCAV
+ lWPwy2WeOTnTOTGnz+33/XXlDlx7vLbna1/0ygieyz62GwgVJWnST9zalRgrdKMkXR
+ RN0+I4MdzkOTOVf8sO+xANqjUk0MqpAGi98RRZrv5bWgbwRZwJh4dB2XXDjfaNOgIq
+ KWjPCPfKAm2jw==
+Date: Thu, 23 Nov 2023 17:20:48 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Javier Carrasco <javier.carrasco@wolfvision.net>
+Message-ID: <20231123-operable-frustrate-6c71ab0dafbf@spud>
+References: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
+ <20231123-dwmac-rk_phy_wol-v1-1-bf4e718081b9@wolfvision.net>
 MIME-Version: 1.0
-X-Mailer: b4 0.12.3
-Cc: Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Guenter Roeck <groeck@chromium.org>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-omap@vger.kernel.org,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 00/18] mfd: Convert to platform remove
- callback returning void
+In-Reply-To: <20231123-dwmac-rk_phy_wol-v1-1-bf4e718081b9@wolfvision.net>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC WIP 1/2] dt-bindings: net:
+ rockchip-dwmac: add rockchip, phy-wol property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,65 +59,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7092841783231784412=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCAyMyBOb3YgMjAyMyAxNzo1NjoyOCArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
-dGU6Cj4gdGhpcyBzZXJpZXMgY29udmVydHMgYWxsIHBsYXRmb3JtIGRyaXZlcnMgYmVsb3cgZHJp
-dmVycy9tZmQgdG8gdXNlCj4gLnJlbW92ZV9uZXcoKS4gQ29tcGFyZWQgdG8gdGhlIHRyYWRpdGlv
-bmFsIC5yZW1vdmUoKSBjYWxsYmFjawo+IC5yZW1vdmVfbmV3KCkgcmV0dXJucyBubyB2YWx1ZS4g
-VGhpcyBpcyBhIGdvb2QgdGhpbmcgYmVjYXVzZSB0aGUgZHJpdmVyCj4gY29yZSBkb2Vzbid0IChh
-bmQgY2Fubm90KSBjb3BlIGZvciBlcnJvcnMgZHVyaW5nIHJlbW92ZS4gVGhlIG9ubHkgZWZmZWN0
-Cj4gb2YgYSBub24temVybyByZXR1cm4gdmFsdWUgaW4gLnJlbW92ZSgpIGlzIHRoYXQgdGhlIGRy
-aXZlciBjb3JlIGVtaXRzIGEKPiB3YXJuaW5nLiBUaGUgZGV2aWNlIGlzIHJlbW92ZWQgYW55aG93
-IGFuZCBhbiBlYXJseSByZXR1cm4gZnJvbSAucmVtb3ZlKCkKPiB1c3VhbGx5IHlpZWxkcyByZXNv
-dXJjZSBsZWFrcyBhbmQvb3IgdXNlLWFmdGVyLWZyZWUgYnVncy4KPiAKPiBbLi4uXQoKQXBwbGll
-ZCwgdGhhbmtzIQoKWzAxLzE4XSBtZmQ6IGFiODUwMC1zeXNjdHJsOiBDb252ZXJ0IHRvIHBsYXRm
-b3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAgIGNvbW1pdDogMDVjZTE2
-YzEzMDNhY2FmMjA5NGY1NWVhMjQ4ZmQwZDE0MTE5ZWQ4ZgpbMDIvMThdIG1mZDogY3Jvc19lY19k
-ZXY6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAg
-ICAgICAgY29tbWl0OiBjODZlMDgxODE3NGY1MDZlNzdkY2I3Y2EwMjUxZjE4MjY5ZDc5MjE5Clsw
-My8xOF0gbWZkOiBleHlub3MtbHBhc3M6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxi
-YWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiBlMzQ2OGUwM2E2M2U4YzI0YThiMmY5
-Zjg0ZWQ4NDQzMjY4ZGNjY2Y0ClswNC8xOF0gbWZkOiBmc2wtaW14MjUtdHNhZGM6IENvbnZlcnQg
-dG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0
-OiAwNWQ3OGRhNTMyZWRlZGJjMTE4ODljYTVhMjJiMzAyYWFhOGI5ZTFlClswNS8xOF0gbWZkOiBo
-aTY1NXgtcG1pYzogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5n
-IHZvaWQKICAgICAgICBjb21taXQ6IDMwNDQxYzQ1NjE3MTcyM2Q0ZDQwZWE4NmZkYzc2NzVhNjMw
-Y2I1ZjgKWzA2LzE4XSBtZmQ6IGludGVsLWxwc3MtYWNwaTogQ29udmVydCB0byBwbGF0Zm9ybSBy
-ZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nIHZvaWQKICAgICAgICBjb21taXQ6IDhiN2ZmZTE4ZWIw
-YmY4NmIyMWQ1NThjNzM5Mjc5YTljYjM0OWI3OGQKWzA3LzE4XSBtZmQ6IGtlbXBsZC1jb3JlOiBD
-b252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAg
-IGNvbW1pdDogNWM5ZDUyMjIzOTIwYTcwYmVjYmJkZjY3Y2NlMTkyOTE3Zjk5NzMxOQpbMDgvMThd
-IG1mZDogbWNwLXNhMTF4MDogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0
-dXJuaW5nIHZvaWQKICAgICAgICBjb21taXQ6IDAwODJlMTQ1MTYzODAxMDAyYTI1N2MyY2JhZjI5
-ODIxOTJhYjc2MWUKWzA5LzE4XSBtZmQ6IG14cy1scmFkYzogQ29udmVydCB0byBwbGF0Zm9ybSBy
-ZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nIHZvaWQKICAgICAgICBjb21taXQ6IGY5NzE0YWQyMWI4
-YzAxZTY5NjRlMDYzODg1OGQzN2Y5NDFkYzE5YmEKWzEwLzE4XSBtZmQ6IG9tYXAtdXNiLWhvc3Q6
-IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAg
-ICAgY29tbWl0OiA3ZTVlODI4ZTFmZWY2MDY3M2MyMGI0NzU3MzA1NGVhYTAzNmQxOTgwClsxMS8x
-OF0gbWZkOiBvbWFwLXVzYi10bGw6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNr
-IHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiA2ZWUwZTE4NDRjOTE3ZmI0ZTVmMzE0YWVj
-MmI3ODBmMTY0MTM3NWYwClsxMi8xOF0gbWZkOiBwY2Y1MDYzMy1hZGM6IENvbnZlcnQgdG8gcGxh
-dGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiAzZTZl
-Y2NhY2E2OTIzZThkMWFjNGEwOTEzYjMzNjdiNWFiOTRmOTVjClsxMy8xOF0gbWZkOiBxY29tLXBt
-OHh4eDogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nIHZvaWQK
-ICAgICAgICBjb21taXQ6IDMxYjg5NWYyNTI4YmRhNGRiNTI2ZGVlMTk0MmY5MTVmOGYzNDA5MWIK
-WzE0LzE4XSBtZmQ6IHNtNTAxOiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayBy
-ZXR1cm5pbmcgdm9pZAogICAgICAgIGNvbW1pdDogNjlmYmFkMjIyYzVjYWFkMzRmNzc3ZGEzMzI3
-MWNjZGFkM2Q5NTA0YwpbMTUvMThdIG1mZDogc3RtMzItdGltZXJzOiBDb252ZXJ0IHRvIHBsYXRm
-b3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAgIGNvbW1pdDogNTk1Njli
-YzM2ZmNlYzFjZDYyYmQyZjYzOTc4NDEyNmM4N2M2ZmQxZQpbMTYvMThdIG1mZDogdGlfYW0zMzV4
-X3RzY2FkYzogQ29udmVydCB0byBwbGF0Zm9ybSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuaW5nIHZv
-aWQKICAgICAgICBjb21taXQ6IDFkYmUxM2JhY2EzMzg1MDJiZjc0MWJiZTNiMTk5YzA3YzdkMWM1
-YmMKWzE3LzE4XSBtZmQ6IHRwczY1OTExLWNvbXBhcmF0b3I6IENvbnZlcnQgdG8gcGxhdGZvcm0g
-cmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiA0YWE3MmM4NTE1
-NzM0YzJlZGY0YzZjMjY0YWVlNDkyNWVmZDk3MzY2ClsxOC8xOF0gbWZkOiB0d2w0MDMwLWF1ZGlv
-OiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAg
-ICAgIGNvbW1pdDogZGIxZTBiMDcyZGExODlkYjk5ZjkwNWI3NTg2NzZhODFiYjc5NmExYQoKLS0K
-TGVlIEpvbmVzIFvmnY7nkLzmlq9dCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+
+--===============7092841783231784412==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bTHzhB7hdNw7bvKU"
+Content-Disposition: inline
+
+
+--bTHzhB7hdNw7bvKU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Nov 23, 2023 at 01:14:13PM +0100, Javier Carrasco wrote:
+> This property defines if PHY WOL is preferred. If it is not defined, MAC
+> WOL will be preferred instead.
+>=20
+> Signed-off-by: Javier Carrasco <javier.carrasco@wolfvision.net>
+> ---
+>  Documentation/devicetree/bindings/net/rockchip-dwmac.yaml | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/=
+Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> index 70bbc4220e2a..fc4b02a5a375 100644
+> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+> @@ -91,6 +91,12 @@ properties:
+>        The phandle of the syscon node for the peripheral general register=
+ file.
+>      $ref: /schemas/types.yaml#/definitions/phandle
+> =20
+> +  rockchip,phy-wol:
+> +    type: boolean
+> +    description:
+> +      If present, indicates that PHY WOL is preferred. MAC WOL is prefer=
+red
+> +      otherwise.
+
+Although I suspect this isn't, it sounds like software policy. What
+attribute of the hardware determines which is preferred?
+
+--bTHzhB7hdNw7bvKU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZV+J8AAKCRB4tDGHoIJi
+0myVAQCJk+QzYHl+/O3ThabjS9+O5WSkS3WxXLaSPMYQlO5sSAEA4U1Db0x5jGIy
+glMeVXSf9fk0MYLSsWmvHvpZkUexmwI=
+=CSe+
+-----END PGP SIGNATURE-----
+
+--bTHzhB7hdNw7bvKU--
+
+--===============7092841783231784412==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7092841783231784412==--
