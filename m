@@ -2,45 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29E037F66BE
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 19:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA6257F66DD
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 20:04:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD9FDC6B479;
-	Thu, 23 Nov 2023 18:57:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CCBEC6B479;
+	Thu, 23 Nov 2023 19:04:36 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBB8DC64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E889C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 18:57:32 +0000 (UTC)
+ Thu, 23 Nov 2023 19:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=5vDWv3+Vdh2C5jUQTfnkwEb2P2xKkS0YYp9hl8KNogA=; b=okzPD7pF3pX0HtAh0a91/IV1ch
- J+YSpnJliSZC9AcfeEH3PVD+WQaFZOx9wcgMx0TuAavOW8b3OtZFg2PfnOyKnP2A+/elri5Scewdk
- h1UYqKEyG1o95yovTg5hLwHHsQlvR6KCVl4wvqvDFnPS0YgCisOZZJg/c4zcH82apVkU=;
+ bh=/SDYqZIXsdOyj0vjbWI2ClkLE18Ka/bdOsdj54i7Dpw=; b=k73At0T74i/QGx6XSEriGiSqoX
+ CilR8xNuoSc2MzKB3RIYMR10jhHrPgI7P72TWzf6UC+JcW1g798XIbibFF9pmGYzY4dEp7FAdsllE
+ ruQfBOaBDtPtrqQRf7xn1+mCuZrwuHPbqPo5mxFkSBQ8poR9wzcOtGWJ97qwxsCDI6lg=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1r6Et5-0011Wu-6z; Thu, 23 Nov 2023 19:57:19 +0100
-Date: Thu, 23 Nov 2023 19:57:19 +0100
+ id 1r6Ezp-0011Zk-3s; Thu, 23 Nov 2023 20:04:17 +0100
+Date: Thu, 23 Nov 2023 20:04:17 +0100
 From: Andrew Lunn <andrew@lunn.ch>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <338001dd-f4d2-46d8-b247-fca1684a0f3e@lunn.ch>
-References: <20231123093538.2216633-1-0x1207@gmail.com>
+To: Javier Carrasco <javier.carrasco@wolfvision.net>
+Message-ID: <f023fbf0-3669-4617-bb60-77fde3255dc0@lunn.ch>
+References: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231123093538.2216633-1-0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+In-Reply-To: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net v1] net: stmmac: xgmac: Disable FPE
-	MMC interrupts
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC WIP 0/2] net: stmmac: dwmac-rk: add
+ support for PHY wake on LAN
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,17 +60,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Nov 23, 2023 at 05:35:38PM +0800, Furong Xu wrote:
-> Commit aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts
-> by default") leaves the FPE(Frame Preemption) MMC interrupts enabled.
-> Now we disable FPE TX and RX interrupts too.
+> Setting the USE_PHY_WOL flag configures the PHY as expected (its driver
+> writes the MAC address and the interrupt configuration into the PHY
+> registers) and an interrupt is generated with every magic packet,
+> but only during normal operation i.e. there is no interrupt generation
+> in suspend-to-RAM.
 
-Just adding to Wojciech reply. We should be able to see 'What' a patch
-does by reading the actual change. What is not always obvious is
-'Why?' The commit message should be about the 'Why?", and less about
-the 'What'.
+Do you have a logic analyser connected? Can you see if the PHY is
+toggling its output pin? We then know if its a PHY problem, or a SoC
+problem.
 
-    Andrew
+> A (probably naive) wakeup-source property in the dt node does not help.
+> So now I am trying to find out why the PHY does not react in suspend and
+> why its interrupt is ignored in freeze mode, but I might be overlooking
+> some other important point to consider.
+
+What is the clock setup? Sometimes the MAC gives a clock to the
+PHY. Sometimes the PHY gives a lock to the MAC. If its MAC->PHY, and
+this clock is getting turned off, that might cause a problem.
+
+     Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
