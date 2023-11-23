@@ -2,71 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 110697F60C8
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 14:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6975A7F6130
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 15:13:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2254C6B476;
-	Thu, 23 Nov 2023 13:50:28 +0000 (UTC)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C58CC6B476;
+	Thu, 23 Nov 2023 14:13:52 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42A2BC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42CF1C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 13:50:27 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-da37522a363so891790276.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 05:50:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1700747426; x=1701352226;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6HDmUWHoV/d+5kwt+BMpRMCcQ4EU+NPmBrVnqKEpBkk=;
- b=DsJfeVS+J7q27HJcUtmW50Mld4MONFIfPlidwnlScALlljSwRx04c4qt8oxUeBx7Is
- gW4p545I8ycbZqAMVGoxPcF9Bu/V3E5Yghxy3DNY4AVLaT2rrCzaC8zKd1sf81dyPv11
- IDAOi8hokpL6Ede9BEd/wQ/EDoBmmVhDrUJo2ZDG3ykVZQpgeTvoh+ipgnRTjobC26qr
- zKh9CfzJqgR083qzjH12t2VToQjgzk7Df3Bqb0cn0hzhXH10wCdBhqWT5XPQYZ1RKMNO
- /oND1C071PddSp3PPfiSjqfeUgEjM/Hq4/AyMsWTQ3o9/Hm1XZ53hpyGdyrnkE4oA8ZZ
- A08A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700747426; x=1701352226;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=6HDmUWHoV/d+5kwt+BMpRMCcQ4EU+NPmBrVnqKEpBkk=;
- b=vyovd8ugoWkjz9ugQvIswX8K2jyLYQHSTc4RG3QaC4lYKEEjCU7UJ+cGEBX7zk+AX/
- k/n9YzuuYwFE60r9jv8LCmKZud4/CO7sC4C3eIpGkIUu/DM7vzCqZzaaaL0Wa5DRGz4o
- 7/zjreRzMVT2MXxSnG6Y2GD/A97EgXPAUGf4hta2Rd7mQ2ADI85EDFZ2ENC6rClaXSBw
- YOLI8t6w8Fmn346ruV20+TaSIS2s9HnL3t+jOuk168cnu2+5C51nb57J1icwpZLDGsf4
- JKTlEJ9AcNAbvdDR0/ANJZ+yLPZBAysuTn87LVkyAngRvOJl8gpYKKJ42scRntF8Y3PH
- qdyA==
-X-Gm-Message-State: AOJu0YzZtG9VuFYFmpCG1H2k0U6Mg1Xhlh/Eubjrh3OZADCFbr1dgU/c
- IvuOyCjKKwc3q+kp3XzXP3eZP6m6PYx33FStbiU=
-X-Google-Smtp-Source: AGHT+IGZwjwRkgSJ7EnlxLUgRSgKWDT8jC/rPzRQg0Kq3WiN+CVcYva0UFJf/nOdcGZASDUiq8QSYhmkdlzne0lzNs4=
-X-Received: by 2002:a25:3409:0:b0:da0:3535:41f4 with SMTP id
- b9-20020a253409000000b00da0353541f4mr5712007yba.7.1700747426043; Thu, 23 Nov
- 2023 05:50:26 -0800 (PST)
+ Thu, 23 Nov 2023 14:13:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 8DD36B82CDF;
+ Thu, 23 Nov 2023 14:13:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D3AC433CA;
+ Thu, 23 Nov 2023 14:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1700748828;
+ bh=AGcHXRfH/rMMp6hJ33VbDXNVCM278y+An/5lGPmz0s0=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=ZyD0Tn94bo2vGeCq3N2ptlQvcAkslri04FYrRMwqbePwZ+mrHfj44rJe0x8L7Fwce
+ nM70shIvtFAyssZZAbSm2yjkuolfpX77ONc+iFzORXqg6uf2+diIauo4Dp2dpWdFxM
+ ZsFDThS7tkHIQHJaEDHKac4rgQkJbk8zm2KknhNQIMt0dk7iTD4FpPyFr4fcGnvYoq
+ X10nmPcEwialBwZ3BDmP2Rt3cXsLBgf17igT9eEH9QEmw2wx4BRe5epvm4wuSoUyQu
+ MxupRq4LoE4MP56WgzXG1SgKmztvRgpQgIi2+nTIqHFDsXcGurZph1gmaFL2siUG7X
+ 0R8Dzf1MUawjA==
+From: Lee Jones <lee@kernel.org>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20231106171708.3892347-1-u.kleine-koenig@pengutronix.de>
+References: <20231106171708.3892347-1-u.kleine-koenig@pengutronix.de>
+Message-Id: <170074882434.1350828.3000645128153974049.b4-ty@kernel.org>
+Date: Thu, 23 Nov 2023 14:13:44 +0000
 MIME-Version: 1.0
-References: <20231121151733.2015384-1-tmaimon77@gmail.com>
- <20231121151733.2015384-3-tmaimon77@gmail.com>
- <6aeb28f5-04c2-4723-9da2-d168025c307c@lunn.ch>
- <CAP6Zq1j0kyrg+uxkXH-HYqHz0Z4NwWRUGzprius=BPC9+WfKFQ@mail.gmail.com>
- <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
-In-Reply-To: <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Thu, 23 Nov 2023 15:50:14 +0200
-Message-ID: <CAP6Zq1jw9uLP_FQGR8=p3Y2NTP6XcNtzkJQ0dm3+xVNE1SpsVg@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- benjaminfair@google.com, davem@davemloft.net, avifishman70@gmail.com,
- venture@google.com, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
- tali.perry1@gmail.com, mcoquelin.stm32@gmail.com, edumazet@google.com,
- joabreu@synopsys.com, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, j.neuschaefer@gmx.net, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: Add NPCM support
+X-Mailer: b4 0.12.3
+Cc: Tony Lindgren <tony@atomide.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Guenter Roeck <groeck@chromium.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
+ Andy Gross <agross@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ kernel@pengutronix.de, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-omap@vger.kernel.org,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 00/18] mfd: Convert to platform remove
+ callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,65 +61,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andrew,
-
-On Wed, 22 Nov 2023 at 20:45, Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Wed, Nov 22, 2023 at 07:50:57PM +0200, Tomer Maimon wrote:
-> > Hi Andrew,
-> >
-> > Thanks for your comments
-> >
-> > On Tue, 21 Nov 2023 at 18:42, Andrew Lunn <andrew@lunn.ch> wrote:
-> > >
-> > > > +void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
-> > > > +                      struct plat_stmmacenet_data *plat_dat)
-> > > > +{
-> > > > +     u16 val;
-> > > > +
-> > > > +     iowrite16((u16)(SR_MII_CTRL >> 9), dwmac->reg + IND_AC_BA_REG);
-> > > > +     val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
-> > > > +     val |= PCS_RST;
-> > > > +     iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
-> > > > +
-> > > > +     while (val & PCS_RST)
-> > > > +             val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
-> > > > +
-> > > > +     val &= ~(PCS_AN_ENABLE);
-> > > > +     iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
-> > > > +}
-> > >
-> > > Is this a licensed PCS implementation? Or home grown? If its been
-> > > licensed from somebody, it maybe should live in driver/net/pcs, so
-> > > others can reuse it when they license the same core.
->
-> > we are using DWC PCS, I don't see support for DWC PCS and I am not
-> > sure it is supposed to be supported at /drivers/net/pcs
->
-> I've not followed the naming used by Synopsys. Is DWC PCS the same as
-> XPCS? Does Synopsys have multiple PCS implementations?
->
-> > I do see a patch set to support DWC PCS but I don't think it answers my needs
-> > https://patchwork.ozlabs.org/project/netdev/patch/1559674736-2190-3-git-send-email-weifeng.voon@intel.com/
->
-> I _think_ this patch eventually got turned into
-> driver/net/pcs/pcs-xpcs.c
->
-> What exactly does it not do for you?
-Thanks for pointing me to Synopsys (DWC) PCS in pcs-xpcs.c I need to
-check if the driver follows all our SGMII needs
->
->      Andrew
-
-Best regards,
-
-Tomer
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAwNiBOb3YgMjAyMyAxODoxNzowOSArMDEwMCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3Jv
+dGU6Cj4gdGhpcyBzZXJpZXMgY29udmVydHMgYWxsIHBsYXRmb3JtIGRyaXZlcnMgYmVsb3cgZHJp
+dmVycy9tZmQgdG8gdXNlCj4gLnJlbW92ZV9uZXcoKS4gQ29tcGFyZWQgdG8gdGhlIHRyYWRpdGlv
+bmFsIC5yZW1vdmUoKSBjYWxsYmFjawo+IC5yZW1vdmVfbmV3KCkgcmV0dXJucyBubyB2YWx1ZS4g
+VGhpcyBpcyBhIGdvb2QgdGhpbmcgYmVjYXVzZSB0aGUgZHJpdmVyCj4gY29yZSBkb2Vzbid0IChh
+bmQgY2Fubm90KSBjb3BlIGZvciBlcnJvcnMgZHVyaW5nIHJlbW92ZS4gVGhlIG9ubHkgZWZmZWN0
+Cj4gb2YgYSBub24temVybyByZXR1cm4gdmFsdWUgaW4gLnJlbW92ZSgpIGlzIHRoYXQgdGhlIGRy
+aXZlciBjb3JlIGVtaXRzIGEKPiB3YXJuaW5nLiBUaGUgZGV2aWNlIGlzIHJlbW92ZWQgYW55aG93
+IGFuZCBhbiBlYXJseSByZXR1cm4gZnJvbSAucmVtb3ZlKCkKPiB1c3VhbGx5IHlpZWxkcyByZXNv
+dXJjZSBsZWFrcyBhbmQvb3IgdXNlLWFmdGVyLWZyZWUgYnVncy4KPiAKPiBbLi4uXQoKQXBwbGll
+ZCwgdGhhbmtzIQoKWzAxLzE4XSBtZmQ6IGFiODUwMC1zeXNjdHJsOiBDb252ZXJ0IHRvIHBsYXRm
+b3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAgIGNvbW1pdDogMzVjZjM0
+NmY5ZmE5MmNlYjE5YzVkMmVkYzQ0MDlhN2QzODRkYThlZQpbMDIvMThdIG1mZDogY3Jvc19lY19k
+ZXY6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAg
+ICAgICAgY29tbWl0OiA5ODFjOTJhMWQ2NWE3Y2NjZTJkODE0YzY2ZmYyZGVlY2NhMzA0NjcyClsw
+My8xOF0gbWZkOiBleHlub3MtbHBhc3M6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxi
+YWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiAyZDg1OWFhOGUwODE4ODRjMGMwMmQ3
+Mzg5MjVjYmEyM2E4Y2ZiMWI4ClswNC8xOF0gbWZkOiBmc2wtaW14MjUtdHNhZGM6IENvbnZlcnQg
+dG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0
+OiBmMjE1Yjc1YWNjODUyNTRhMjk0MDRiMzJjODcxYjdmZjJlYThkYTJhClswOS8xOF0gbWZkOiBt
+eHMtbHJhZGM6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2
+b2lkCiAgICAgICAgY29tbWl0OiBiZWIxZjllNjM4MmY1OTMzOWUxMTg1OTRjOTRlZTZiNWFjOTZm
+M2VjClsxMC8xOF0gbWZkOiBvbWFwLXVzYi1ob3N0OiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92
+ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAgIGNvbW1pdDogMjMxOTI3ODk4YWU5MTA0
+OWFhMzVkMjM3YzU1NmNjMjE2ZDgwZThmNwpbMTEvMThdIG1mZDogb21hcC11c2ItdGxsOiBDb252
+ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAgICAgIGNv
+bW1pdDogODNkNGUzNTUyNDAxNDdkYjc1OTdlYTFjZTY0NjI0ZmNkYWFlZTZhZQpbMTMvMThdIG1m
+ZDogcWNvbS1wbTh4eHg6IENvbnZlcnQgdG8gcGxhdGZvcm0gcmVtb3ZlIGNhbGxiYWNrIHJldHVy
+bmluZyB2b2lkCiAgICAgICAgY29tbWl0OiBhZTNiY2Q1YjA5ZTM1ZjM2M2FhMTc0NGQzOGY5MGZk
+YTJiNDBlOWNhClsxNS8xOF0gbWZkOiBzdG0zMi10aW1lcnM6IENvbnZlcnQgdG8gcGxhdGZvcm0g
+cmVtb3ZlIGNhbGxiYWNrIHJldHVybmluZyB2b2lkCiAgICAgICAgY29tbWl0OiBhZWViYzQ3Zjhk
+NDc5YzM2M2UyNGZiYTAyMDFlZjhkY2E0MTdmZTZlClsxOC8xOF0gbWZkOiB0d2w0MDMwLWF1ZGlv
+OiBDb252ZXJ0IHRvIHBsYXRmb3JtIHJlbW92ZSBjYWxsYmFjayByZXR1cm5pbmcgdm9pZAogICAg
+ICAgIGNvbW1pdDogMzcxNjk3OGI1ODRhOGJhYWJhMTZkNjRjOTNlYjBmZWQwZWRjYmMzYgoKLS0K
+TGVlIEpvbmVzIFvmnY7nkLzmlq9dCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
