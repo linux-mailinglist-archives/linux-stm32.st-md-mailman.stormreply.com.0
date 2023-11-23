@@ -2,136 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2764E7F614F
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 15:23:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 110697F60C8
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 14:50:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD822C6B476;
-	Thu, 23 Nov 2023 14:23:52 +0000 (UTC)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2052.outbound.protection.outlook.com [40.107.7.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2254C6B476;
+	Thu, 23 Nov 2023 13:50:28 +0000 (UTC)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F680C6B476
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42A2BC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 12:15:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hKlLEQX04e4A+LKyJFrzVX7xpiN+al4REMJSjyG3w5n35L6wJSFRbp/LgN6XU0robopm77ppT/tGRHN3Qhw9gcd1pC6EIGa9CSEFgIsvhvWLAN4pdGuhKGHBDk7pfBrE0ijoxX/Py8S9t3XVwd9YIj3ZDXfMcK2V/Mrvua+7GsXm0P9dpkzfF/Pmd0gDpg6/Deu4bRJV67FXxzJZKp/EPdzLXWts4u7ue3j9S8tiI3ibJiYCUNdrljUxbWd1uQwtUF/ByCg2yar5lEr+If7J58s2l93RzZ/uj4m0gqSGtAw2MTYDnFNbCxWf0gnvo68d1XxNNyInOiWiBFlZq2cfKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AIfnaEo4N2Z/UP01LfKx32JgwuHl3fG1jrAMsr9MbfE=;
- b=NRfK34uDBnCE97LlboktJe5Vo4n+3a+OpZkyuo9SF7h3G4rFKOu8Mru8nimghunslYfJUcORCp2w+y9RsY9pY8Q2iLNxBOERaFv9LB8Rr5DESIIpz0smWDIde30bU86M0WM6OGTPYa6guZIR8zBx4+HlhVZYHrZv6zqVDZk2VQP46DjMecJv5cMxxa+hx040GFowydu56pL18hWmU7Sa2KQ1Oq3trL9pVrTGJ2A9yLfNHRRGTC/J9f5hXU8e82Lt+oD1pEPdocc/0XcH9Y0G+B7ykFJhOSyaUFpV70Qd81Ea7EvE6HTvdERZ9a1pHhY2SFuBkoacv7LB6Kw3Jitq8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wolfvision.net; dmarc=pass action=none
- header.from=wolfvision.net; dkim=pass header.d=wolfvision.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolfvision.net;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AIfnaEo4N2Z/UP01LfKx32JgwuHl3fG1jrAMsr9MbfE=;
- b=1ggO+kOlnsXUHOAovCCunEaUvCrn3b7mZgqtPe1bFkLatzZPqZbWscKJqZ+c8/khv/vILkc3NDQFoCsbAeTJUbjsjCfkMo3OHY0bAGA5T8hKkAuayWVeN2tyGAcheaRIdxwXKzXBCnYVME1+I24zg/nWjuAFnx9HCZo2H6novIo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wolfvision.net;
-Received: from VE1PR08MB4974.eurprd08.prod.outlook.com (2603:10a6:803:111::15)
- by DU0PR08MB8423.eurprd08.prod.outlook.com (2603:10a6:10:405::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.18; Thu, 23 Nov
- 2023 12:15:17 +0000
-Received: from VE1PR08MB4974.eurprd08.prod.outlook.com
- ([fe80::6b40:1e6f:7c94:71dc]) by VE1PR08MB4974.eurprd08.prod.outlook.com
- ([fe80::6b40:1e6f:7c94:71dc%4]) with mapi id 15.20.7025.020; Thu, 23 Nov 2023
- 12:15:17 +0000
-From: Javier Carrasco <javier.carrasco@wolfvision.net>
-Date: Thu, 23 Nov 2023 13:14:14 +0100
-Message-Id: <20231123-dwmac-rk_phy_wol-v1-2-bf4e718081b9@wolfvision.net>
-References: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
-In-Reply-To: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- David Wu <david.wu@rock-chips.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-X-Mailer: b4 0.12.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1700741701; l=948;
- i=javier.carrasco@wolfvision.net; s=20230509; h=from:subject:message-id;
- bh=L+4DG9qvsMLMaPm6QeM3H7V9nATvHLre3SHjaPYMid8=;
- b=pgp8Dm0BP4blHZcJ6r6YuxjSY6KhK5aZmtXcCHc46Fomuu2r6XJc9kJp3akfP8aSSdfvCmes1
- 2MhbndH2oPCBVdU65liKUO8KJv5AeKbDvzTMGMEHvtavryS0STVmNvJ
-X-Developer-Key: i=javier.carrasco@wolfvision.net; a=ed25519;
- pk=tIGJV7M+tCizagNijF0eGMBGcOsPD+0cWGfKjl4h6K8=
-X-ClientProxiedBy: VI1PR06CA0227.eurprd06.prod.outlook.com
- (2603:10a6:802:2c::48) To VE1PR08MB4974.eurprd08.prod.outlook.com
- (2603:10a6:803:111::15)
+ Thu, 23 Nov 2023 13:50:27 +0000 (UTC)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-da37522a363so891790276.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Nov 2023 05:50:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700747426; x=1701352226;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=6HDmUWHoV/d+5kwt+BMpRMCcQ4EU+NPmBrVnqKEpBkk=;
+ b=DsJfeVS+J7q27HJcUtmW50Mld4MONFIfPlidwnlScALlljSwRx04c4qt8oxUeBx7Is
+ gW4p545I8ycbZqAMVGoxPcF9Bu/V3E5Yghxy3DNY4AVLaT2rrCzaC8zKd1sf81dyPv11
+ IDAOi8hokpL6Ede9BEd/wQ/EDoBmmVhDrUJo2ZDG3ykVZQpgeTvoh+ipgnRTjobC26qr
+ zKh9CfzJqgR083qzjH12t2VToQjgzk7Df3Bqb0cn0hzhXH10wCdBhqWT5XPQYZ1RKMNO
+ /oND1C071PddSp3PPfiSjqfeUgEjM/Hq4/AyMsWTQ3o9/Hm1XZ53hpyGdyrnkE4oA8ZZ
+ A08A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700747426; x=1701352226;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6HDmUWHoV/d+5kwt+BMpRMCcQ4EU+NPmBrVnqKEpBkk=;
+ b=vyovd8ugoWkjz9ugQvIswX8K2jyLYQHSTc4RG3QaC4lYKEEjCU7UJ+cGEBX7zk+AX/
+ k/n9YzuuYwFE60r9jv8LCmKZud4/CO7sC4C3eIpGkIUu/DM7vzCqZzaaaL0Wa5DRGz4o
+ 7/zjreRzMVT2MXxSnG6Y2GD/A97EgXPAUGf4hta2Rd7mQ2ADI85EDFZ2ENC6rClaXSBw
+ YOLI8t6w8Fmn346ruV20+TaSIS2s9HnL3t+jOuk168cnu2+5C51nb57J1icwpZLDGsf4
+ JKTlEJ9AcNAbvdDR0/ANJZ+yLPZBAysuTn87LVkyAngRvOJl8gpYKKJ42scRntF8Y3PH
+ qdyA==
+X-Gm-Message-State: AOJu0YzZtG9VuFYFmpCG1H2k0U6Mg1Xhlh/Eubjrh3OZADCFbr1dgU/c
+ IvuOyCjKKwc3q+kp3XzXP3eZP6m6PYx33FStbiU=
+X-Google-Smtp-Source: AGHT+IGZwjwRkgSJ7EnlxLUgRSgKWDT8jC/rPzRQg0Kq3WiN+CVcYva0UFJf/nOdcGZASDUiq8QSYhmkdlzne0lzNs4=
+X-Received: by 2002:a25:3409:0:b0:da0:3535:41f4 with SMTP id
+ b9-20020a253409000000b00da0353541f4mr5712007yba.7.1700747426043; Thu, 23 Nov
+ 2023 05:50:26 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR08MB4974:EE_|DU0PR08MB8423:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea339c67-63f0-46ae-1854-08dbec1dd37b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QUl1IOReLpf3dxNKBZ5HHm+HQLAXmOxuNx598HnUiyXD9dJWACLU86hvaQ0BbY1KZ5yDFv9S+sp1SXSLGmr03LQfRoJXsvuaGgD/h6ymjrV99dhcgvyuvHKEPq/s4GdPKRylyZ3Oeqr1ip3ZmuT233nS88DED/zfzCX1UGXPXQ6u+xMebMLakToFFy7cYI5k+UQebNCzW7aH7kQQK7qnTHovyC/hc/Bu5exnw5jvH3kOREz9aLdy0BPtsp/o9JHaJIKV45IXPYJPwD5ZEvnbEKJrN+ganF9TXHRgIIAibxj9gfZeU7/4o5IgZDxVC+mn/bHwho1keOfu7YWyQP1bh3puQs4eqZcWnrLaRt31CgldGlFhfhe3HgFvVfd/iJ0dSGJ9uBFUqnR33poOW5YDV0GSGJN0eELnJ7NGBwSCIZ1/NHbillvNtJVq/UfPurHrDYX4hnTMbizBtnop/OQyT4FSxo7dAZSG/Mt9K+shypOpO0ETAx5b6xYmwYZepvo9gYe1zR+Qix/II2RjRcDClegtjO9SZfmb2QAMpm2dC7kEWk2Loai4yhUAPh/9zSfB/QHimdXSIV5+KzWCVzcWE3W0skX2mhLbZw2dT6B6FeP3qz1b66poPwBlt1764Ea9K69UbR2CO4FxqLxGcpLWWg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VE1PR08MB4974.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(136003)(376002)(346002)(366004)(39850400004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(921008)(26005)(2906002)(7416002)(4744005)(38100700002)(66556008)(66946007)(2616005)(107886003)(44832011)(5660300002)(41300700001)(8936002)(4326008)(8676002)(6486002)(86362001)(38350700005)(478600001)(66476007)(36756003)(110136005)(316002)(6512007)(6666004)(52116002)(6506007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZVg3QkhHOTl2MlJEbDVvSW5DQ0NmZStVWDdJeTU1bUpYcFNQWUQzazIyQlpZ?=
- =?utf-8?B?ckNwbWdpdEd5UVgwcGlYM2dmSENsTmNmdS8xMlNTQnliY1NsRFI0enJLZ054?=
- =?utf-8?B?MUhzQWpBMzNFbjJhSXM2aGpPczdEUm5hMFJ3UjNhLzN2OFFaSmd2WUFlbEgy?=
- =?utf-8?B?RG5sKzltanN2d1o0ZVY4ZHJKZTRDTmxWS2U1QXRyK3I3VkdOOXpKL3JVUjJz?=
- =?utf-8?B?T1huWDkzMENjYUV3OHlRcDRQQVFlbzFXRVZBVWt6RmJNRFVVSHpJeFFrc2Zm?=
- =?utf-8?B?ZDhMZHhWR1d2TGRtdnQ2NXhibUFPRmViSktvUHVNZzlOdkJRV3Z5Z3FzLzFD?=
- =?utf-8?B?NGx2aUkxd1crekNLbHpvMGczTkN0elpHcWVKMW14MWFhUlA0RTZyYzdGN09O?=
- =?utf-8?B?K1A2Zmx1Zm5HTy9jRnVUejM2SlVrclBwVTZ4UW5IZXNxTnVGRzJVeG1qdFpn?=
- =?utf-8?B?WEdFWnlTdlVJaktSbzI4czRKL1JWeWVJWW9rQWhkRE0zSEhGYnNsWjBwQ01y?=
- =?utf-8?B?WktYUlJ0UFc3S3FSN3ZWSUxFQy94cjRLZnU5eUNKcnYrTk5HbU1BMmtCUUVq?=
- =?utf-8?B?QkRMdnQydURiNkJaNmxFSUpDRU5Fb2MvMVFYMHM1b3VGQW5UVm9EdVhFM3Js?=
- =?utf-8?B?ZlZ1S0VyT2gwS2Y0Vkd6VVRUWXRGdjY3SjZmWXRUSDEwNWJ0UHV4NmlJa3Rr?=
- =?utf-8?B?dHlvd3I2S2JkM3ZZQ3VZakxSbWU1SE92SGZwUDdPYjduZm5Qd2luaXlFQmhm?=
- =?utf-8?B?bWtCSDhGUXEwNjhUM2xLZUFlSGplVFJ3TFJUNXYxS05KRTRrbnpYeTdaWERt?=
- =?utf-8?B?Y0VmMEdaUitwZ3BUWW40OEI0Y21rRjV3N095OHVSVUU5RlhpdGNWdFRnQkJi?=
- =?utf-8?B?Z2FxWjdkOTNoQkZ4VFR1cm1rVE1DQlJFNDNYSE1kZGYzZlIvYS8zR0VoemNL?=
- =?utf-8?B?UEJzeW9QUjhySzNaOWQzYnVmQVNvOStXYm45bnRJN05BNTIrQWxRMld1a2w3?=
- =?utf-8?B?UE8zOFVEcVNjOGVnVXhvUUpKQkVIQjJqSlpSbDN2bHpsc2dlS0FQbW0wdmZG?=
- =?utf-8?B?RTNIWUVRcnBZUVhmak80RURCblE5RTd6RENaQ3NjenhlK0ZxZm05bWgvSjl2?=
- =?utf-8?B?dXFwRVl0OU85SVFZOFU5NWRkWVQwMFVXNVhWeWtkTmd0aXZqMHBTZWVLVVhn?=
- =?utf-8?B?R1FpQjJQZEJTU0VYR1FLcFJCK0xHTEFXOUZncStRMzFuTUFWSFljUDR6NlZo?=
- =?utf-8?B?ZVd2UTQxRE1sTU45bklIaEVqTHFpM0FFdUU2OS9IVHZidm1Qc0JuSmlTQ3dE?=
- =?utf-8?B?SG00cnp5Tm5hOU05aDUrUE9QMGFRL0QzNWZucTZSZWdUcHluc3Q3ZnJBUjgv?=
- =?utf-8?B?UGdPUmFMWkE0SU1DNFhVQWpnZHJqaklxTGlGakgraGkzM1Y4d21lZldjOFNX?=
- =?utf-8?B?L2pOa3U1TXNHVGdEa041WXdaYzJ6R25pdVBPVWdHOUZZUGxXNllrREhSbGJG?=
- =?utf-8?B?NUhIOXpSR3hlT21uWTRRUWd1NWgxMStWSGVONW1nK3pGUFZyNWFuQjlJWnVC?=
- =?utf-8?B?WGR5Y29MUngyd1JNbTRYbmhPeFFmTzk5cGFYYy80RUhVK3NDWDhDVTZWZmNQ?=
- =?utf-8?B?VzRmQkhWd3I0NUpLdXhyN1lLcm84QmlEQXVMTXRsNHVueHpkR01nK3c1UVpq?=
- =?utf-8?B?WFQva0RHRDFoVUhRZUJQUEJ3Z2lUNVNtU00xVWZpVW96Z3B1Mk83Qm1RS3lK?=
- =?utf-8?B?QUJlUkxpbWFQOGk2d3plZVBsc0dWMEN6WkR4SVBPRms5R1pmeXZCQ2I0ZlZD?=
- =?utf-8?B?M0dQYXE3V0N4NjV2a2kxb3hkd1BXNUJIckV2NUIxRWYxUVBPbTBpVjBrWUFS?=
- =?utf-8?B?QnBBY3FsNGxQQXBOM2xvM0E2UUNpSnhhZzROYldEMnZSWXdzY0pnWG1QU0pw?=
- =?utf-8?B?alV4UWs5bWI4YTMyTmR2eDZoVktiTXIwMjdxSWNvOU9YaGFLYzU3VHFsNENP?=
- =?utf-8?B?cU5VT1o4NUJtNTZLQ0FFTnphOGhENWpNU1lBZlBmcFVqeGpBTUl5SHc0cG9Z?=
- =?utf-8?B?VDFFTCtrdVBjZnM0bkV6UE9TaGVTSjNCMUk1aDljZmZhczZ6c2E5dCswZFNl?=
- =?utf-8?B?WVhrYWo0RjJGZ01mY2J4MEtmdy9uRXo2Y2ZBQStkWHdFNzlTRWJ3b3paRTlY?=
- =?utf-8?Q?HPHj2SW+E48yzhJbWxFXIng=3D?=
-X-OriginatorOrg: wolfvision.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea339c67-63f0-46ae-1854-08dbec1dd37b
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR08MB4974.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2023 12:15:05.0661 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e94ec9da-9183-471e-83b3-51baa8eb804f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yUT45QtFPuoIXKLDaGmqkWphvweITQZnFmd5deET9wEJWYAqcagJZi4Lf/zlqisvzRQEjwPye9xGGPrjKAPchKnDlyOa06HkqAuptN3Mfeg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8423
-X-Mailman-Approved-At: Thu, 23 Nov 2023 14:23:51 +0000
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Javier Carrasco <javier.carrasco@wolfvision.net>,
+References: <20231121151733.2015384-1-tmaimon77@gmail.com>
+ <20231121151733.2015384-3-tmaimon77@gmail.com>
+ <6aeb28f5-04c2-4723-9da2-d168025c307c@lunn.ch>
+ <CAP6Zq1j0kyrg+uxkXH-HYqHz0Z4NwWRUGzprius=BPC9+WfKFQ@mail.gmail.com>
+ <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
+In-Reply-To: <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Thu, 23 Nov 2023 15:50:14 +0200
+Message-ID: <CAP6Zq1jw9uLP_FQGR8=p3Y2NTP6XcNtzkJQ0dm3+xVNE1SpsVg@mail.gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ benjaminfair@google.com, davem@davemloft.net, avifishman70@gmail.com,
+ venture@google.com, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
+ tali.perry1@gmail.com, mcoquelin.stm32@gmail.com, edumazet@google.com,
+ joabreu@synopsys.com, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org,
+ peppe.cavallaro@st.com, j.neuschaefer@gmx.net, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC WIP 2/2] net: stmmac: dwmac-rk: add
- support for PHY wake on LAN
+Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: Add NPCM support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,34 +83,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-PHY WOL will be used if the rockhip,phy-wol property is defined. MAC WOL
-will be preferred otherwise.
+Hi Andrew,
 
-Signed-off-by: Javier Carrasco <javier.carrasco@wolfvision.net>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 5 +++++
- 1 file changed, 5 insertions(+)
+On Wed, 22 Nov 2023 at 20:45, Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Wed, Nov 22, 2023 at 07:50:57PM +0200, Tomer Maimon wrote:
+> > Hi Andrew,
+> >
+> > Thanks for your comments
+> >
+> > On Tue, 21 Nov 2023 at 18:42, Andrew Lunn <andrew@lunn.ch> wrote:
+> > >
+> > > > +void npcm_dwmac_pcs_init(struct npcm_dwmac *dwmac, struct device *dev,
+> > > > +                      struct plat_stmmacenet_data *plat_dat)
+> > > > +{
+> > > > +     u16 val;
+> > > > +
+> > > > +     iowrite16((u16)(SR_MII_CTRL >> 9), dwmac->reg + IND_AC_BA_REG);
+> > > > +     val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
+> > > > +     val |= PCS_RST;
+> > > > +     iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
+> > > > +
+> > > > +     while (val & PCS_RST)
+> > > > +             val = ioread16(dwmac->reg + PCS_SR_MII_CTRL_REG);
+> > > > +
+> > > > +     val &= ~(PCS_AN_ENABLE);
+> > > > +     iowrite16(val, dwmac->reg + PCS_SR_MII_CTRL_REG);
+> > > > +}
+> > >
+> > > Is this a licensed PCS implementation? Or home grown? If its been
+> > > licensed from somebody, it maybe should live in driver/net/pcs, so
+> > > others can reuse it when they license the same core.
+>
+> > we are using DWC PCS, I don't see support for DWC PCS and I am not
+> > sure it is supposed to be supported at /drivers/net/pcs
+>
+> I've not followed the naming used by Synopsys. Is DWC PCS the same as
+> XPCS? Does Synopsys have multiple PCS implementations?
+>
+> > I do see a patch set to support DWC PCS but I don't think it answers my needs
+> > https://patchwork.ozlabs.org/project/netdev/patch/1559674736-2190-3-git-send-email-weifeng.voon@intel.com/
+>
+> I _think_ this patch eventually got turned into
+> driver/net/pcs/pcs-xpcs.c
+>
+> What exactly does it not do for you?
+Thanks for pointing me to Synopsys (DWC) PCS in pcs-xpcs.c I need to
+check if the driver follows all our SGMII needs
+>
+>      Andrew
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 382e8de1255d..c543566b4f90 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -1694,6 +1694,11 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
- 	dev_info(dev, "integrated PHY? (%s).\n",
- 		 bsp_priv->integrated_phy ? "yes" : "no");
- 
-+	if (of_property_read_bool(dev->of_node, "rockchip,phy-wol"))
-+		plat->flags |= STMMAC_FLAG_USE_PHY_WOL;
-+	else
-+		plat->flags &= ~STMMAC_FLAG_USE_PHY_WOL;
-+
- 	bsp_priv->pdev = pdev;
- 
- 	return bsp_priv;
+Best regards,
 
--- 
-2.39.2
-
+Tomer
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
