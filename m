@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AB7F7F5E7C
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 12:57:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A1437F5E82
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 12:57:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CDB05C6B476;
-	Thu, 23 Nov 2023 11:57:49 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A4CDC6B476;
+	Thu, 23 Nov 2023 11:57:58 +0000 (UTC)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92043C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FA60C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 11:57:48 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-507a5f2193bso833148e87.1
+ Thu, 23 Nov 2023 11:57:56 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-507ad511315so1055254e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 03:57:48 -0800 (PST)
+ Thu, 23 Nov 2023 03:57:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700740668; x=1701345468;
+ d=linaro.org; s=google; t=1700740675; x=1701345475;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=GQKfSQzvl6n50M4875CnD5xT+T/rNm01RbmwONA33QU=;
- b=iApPfr/MowJ2rxsnkvGa/Jw75r3TEVz1dCmXoOt521bK2bGvr65v0VHtslnjJD1H8a
- FcXNlSt4nsvD870PZjCLEU7PtCrB2qLbOa7iJfshB/R83Z4SVpR8uCvq6BK6gVacyBeh
- k7PnqmZBpxYOVLGtBVMa1lEJvUpUeBPw41ZPL7DRq/gFo/hc7rpF7Gh+f/we7nUkoejz
- cEFCymXpTFm7i9iYr6DWpeUpfF9JIWyKxi4py7miYKLqc9MKAwoblOwW1zvY7YT2o6wz
- /XosCvXqk4ePSjFHKF7F1ghAXbYSkEJjqeCHybUcncaHEPrmb+Wj6mDXCPJlghgLU4Ex
- 6E2w==
+ bh=1PIIYPDZcaUUtbo5ldUSpIo3Jpbx+2SXqPzhdvBEuU0=;
+ b=p3drBN+Q0YiBtdfLGIYp7wpZ4V/m5uXnHJP6gg4usI15loLxgYFzm+qzTN/e2vbLmo
+ PiCFkxiBiXZWWT24nczwBMuRIk7bkVpPCj4zW5L1bv+242WE/781M3KgeddZ1AmAfKWs
+ e7kh+2V3q6eCREe0r6OrDIwSsDxg1mNO2ZvHvw9wWZBq6qCAODW2EVe8PGqLstVV3VyE
+ NpWQX6gXk1qWi1+0iQG04jy9+MuGs/+M6SaIqkdu9DO3GImY6q9Xvu5fUMPF4oXUOK9o
+ +8BQkWz3IrWsJykoziobdn8bD6JOYVU2SZwE5IUiM4V1JjnpVIMsAC30O8GLUoB0UOTj
+ iAHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700740668; x=1701345468;
+ d=1e100.net; s=20230601; t=1700740675; x=1701345475;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=GQKfSQzvl6n50M4875CnD5xT+T/rNm01RbmwONA33QU=;
- b=ZQ0eCKlUACZZhH1XEm7hPCw61W3a7jxNCX+qWmdp5o2Knsbyp+rDe0AbnJ+LqCLlOu
- w9TIo/cLNdhcUtutc8aKc3d9NGd6VsLCfLcAoEk34uGKtEhao5LcuSSK8np1h+h7bbmw
- We2A4OIBxPiYr0gBkgpy2c34PMyOyiNtGY8efB6wBs1wNyajJ/mh1nEviLihfT3jQ/fC
- lUCOByg6qhEmdfFqWSHsliajWogjT3U5JA7Me4/6+49w4Q3WCE8Zyamr6kJDpWu0d/Sy
- /XmAQjwfEZ2zmvWB6reRPsrv2rQnzYMamFIHp4oFpBLNqRiNEo/9yFX895j9HA1uLoeH
- uL0A==
-X-Gm-Message-State: AOJu0YwMge77GSCzENEOPRLo8WvSVm6BMxl+tKPPFBcJMGPc/GQ98TFy
- j/A7jj9SCzW491ul/kuQZ224vw==
-X-Google-Smtp-Source: AGHT+IE+19JiYtimOS/PBEDLWjSlimik3++amKqAhSSo37eVU9RxdRbmAlBsZzwdcxUkAGtJ0DjG8g==
-X-Received: by 2002:a05:6512:3710:b0:507:9b69:6028 with SMTP id
- z16-20020a056512371000b005079b696028mr738559lfr.24.1700740667712; 
- Thu, 23 Nov 2023 03:57:47 -0800 (PST)
+ bh=1PIIYPDZcaUUtbo5ldUSpIo3Jpbx+2SXqPzhdvBEuU0=;
+ b=cnqrbvdfHg3MOxA3FQ0DzvuhSx612+xHHLDbfawklgagAH5OoRbJA75ac7BjLYFurx
+ Umb2aAyEBtLyDufa4UB12zDpBkiPGzezHaTJ/VhfbZUiBBOt8cL+BR2RtXBPVbslTv2W
+ 3Xnagd3ABhGPDCr4KWjeXpKBV1bjg8nGMvtEtcbpBWCfXCuf+TIdOM1IKdz+CmMkEDET
+ 1UhoiLoQ9cvx1PCjQbgrwdKEmTG2edkGRKSf056vjYfZA8RtyzI4L2wYtZrHiKZpVKmk
+ yTXR48X3499lgmQVtfMbpk+6eATzo9oMuwBKSV5qrhtoTDSfWwJ+KkcvXKkc4h+Iflbp
+ CgQQ==
+X-Gm-Message-State: AOJu0YzAEEyVrh5Ii3FjSAdUZnIljjsoLm9gXRBUdTEzbwKe5EdUYQEe
+ l2Rwi4B+HvGbBNaqOnAYVN3FnA==
+X-Google-Smtp-Source: AGHT+IHEzwFsSiUrHxerkzp2AE6ef97hiVMKuGwN8td7j6ph1CSPFLbE8yWNAIQwxbq6Fe3tMk0EHw==
+X-Received: by 2002:a05:6512:3d0a:b0:50a:aa30:f9d7 with SMTP id
+ d10-20020a0565123d0a00b0050aaa30f9d7mr4942548lfv.67.1700740675512; 
+ Thu, 23 Nov 2023 03:57:55 -0800 (PST)
 Received: from [172.30.204.221] (UNUSED.212-182-62-129.lubman.net.pl.
  [212.182.62.129]) by smtp.gmail.com with ESMTPSA id
- w28-20020a05651204dc00b0050a71f99960sm167359lfq.197.2023.11.23.03.57.46
+ w28-20020a05651204dc00b0050a71f99960sm167359lfq.197.2023.11.23.03.57.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 03:57:47 -0800 (PST)
-Message-ID: <1846a5c7-da25-4cc8-992a-3898bbf403d5@linaro.org>
-Date: Thu, 23 Nov 2023 12:57:45 +0100
+ Thu, 23 Nov 2023 03:57:55 -0800 (PST)
+Message-ID: <3cb4834f-18c0-43d6-8c81-5689df7b1d60@linaro.org>
+Date: Thu, 23 Nov 2023 12:57:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -96,19 +96,13 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 11/23/23 12:53, Suraj Jaiswal wrote:
+On 11/23/23 12:38, Suraj Jaiswal wrote:
 > Suraj Jaiswal (3):
 >    dt-bindings: net: qcom,ethqos: add binding doc for fault IRQ for
 >      sa8775p
 >    arm64: dts: qcom: sa8775p: enable Fault IRQ
 >    net: stmmac: Add driver support for DWMAC5 fault IRQ Support
-You resent this series 15 minutes after the last submission,
-with no changelog, with no increased revision number and no explanations.
-
-Please refer to the following documents:
-
-[1] https://www.kernel.org/doc/html/latest/process/submitting-patches.html
-[2] https://b4.docs.kernel.org/
+Missing cover letter with explanations/an abstract
 
 Konrad
 _______________________________________________
