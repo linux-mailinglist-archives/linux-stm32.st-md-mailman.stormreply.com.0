@@ -2,124 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1DBD7F501F
-	for <lists+linux-stm32@lfdr.de>; Wed, 22 Nov 2023 20:04:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C853A7F562A
+	for <lists+linux-stm32@lfdr.de>; Thu, 23 Nov 2023 02:55:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 827A3C6B479;
-	Wed, 22 Nov 2023 19:04:02 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
- [209.85.167.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 781D0C6B476;
+	Thu, 23 Nov 2023 01:55:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53AE7C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37196C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Nov 2023 19:04:01 +0000 (UTC)
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-50aaaf6e58fso42726e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 22 Nov 2023 11:04:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700679840; x=1701284640;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WeaG+b0rbUYhFaZ2y1herszVpRL6n64GLbmKdxYaZQc=;
- b=YUmogD3z1gONegtJp25nFx3sw9QDFKGwOaC5MLxEcN2KzzdXr/gRMaIqL4sscB3IM3
- vmu4otW4vtOB6O8hVJXK90jNAD/z6UNe4IWuTtDT6SFAyWOLEApXQXMhrOQ5F0GAu6M5
- g5Va4/8cVYkybMsOXJRdd8bx24EGUscSsgPP5dx8DIVfyEoQp8iPArHf3hDXZGdfwTY2
- WzkuKyDYdWnFx5gZheG62IVKgIkr9yrGpQYMjUm6/lhf01NzI0/Xmgii0uo12LMqWiYV
- Ceuxbxke8neIAcGU+GmUb0EeNHQDwgyI9hWlRMXxINzITbssCpjbg4MgNDKPMvs73cYI
- BjZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700679840; x=1701284640;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WeaG+b0rbUYhFaZ2y1herszVpRL6n64GLbmKdxYaZQc=;
- b=e32Axzk59+CSPPL6aas4sCZSCCvOVi5UT+j/GG1DV5pSAnzI7Cr5Gr1VCgkxDyxAxR
- VYrLlzBSnY6n3MQzEhOGoF844ATjaX60UQqk1rIcRAS9ogp3jvY9sHeR20VxjUwUbJ7O
- ohO6z5+RwipXfAQcAd9jrdsThWt61OXw6+NEwLzgIMDCiTO3GLPGQP55xijXbjHRLYBy
- WI36FZQSpgYrTp9suGnB5BcqlNr3E3psL/fmoPajBjgAFyd0kJ0lX827B0RTwyW28wb+
- utMnxp1IdYhWcEV7P0uw++TJoxh0avuFg8eWH2d5U53hzh7lAaGnFsBKWJbMEqicBRtS
- iutA==
-X-Gm-Message-State: AOJu0YxRWtt/t485WrmeZX2JSenivTMxm9X4x+V7lX7mMmqZ6XI2XbeQ
- O5zIO/w3y6e6Vx4jcXIAUM1mew==
-X-Google-Smtp-Source: AGHT+IF2aiLf0V6Jf13fm8pmWCHPn+SuYJBa3V5ieUq0HJBLwZQ6muJeRey0PrWdsVPVaUCWIJr8GQ==
-X-Received: by 2002:a05:6512:3083:b0:508:1470:6168 with SMTP id
- z3-20020a056512308300b0050814706168mr1188821lfd.57.1700679840507; 
- Wed, 22 Nov 2023 11:04:00 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.218.100])
- by smtp.gmail.com with ESMTPSA id
- d3-20020a170906174300b009fc3f347109sm89309eje.156.2023.11.22.11.03.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Nov 2023 11:04:00 -0800 (PST)
-Message-ID: <90664758-9273-4ed7-b711-0abe45b4efed@linaro.org>
-Date: Wed, 22 Nov 2023 20:03:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: gabriel.fernandez@foss.st.com, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Thu, 23 Nov 2023 01:55:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700704516; x=1732240516;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=VHehZwpNIdPmTUBaWqya7f7B1A3v9vGc+DstRouPofo=;
+ b=csI8sMzDmkLl3dQOJQVRDHAi02NonMro+FBFPIjV1Wvf+Q8QZy/ZexL9
+ 5/7y65eygnGYxul4YDAMXPiJ5yRKi+CH/UFCsvIHyMQMt14P3rLFL85qm
+ zw8uxrahO9OsGzX4IYlRHWmaiwpX7HeR73348MF/R7r0O9OYmn4xRod7m
+ 8SWevykWlBepJlcYF4dwuNNiOyBuzGe1Pr9IcSpAWAu9pZSNEabVVMxB7
+ dt6d00HHrmmUh6WMuo+kxamtWn+VPNCgI7Wa5kpQWUDEUCy6ecwNfHjAJ
+ O1j9OBhpLPVIt2hPt52zLkqPeGvhwUm8FOvUmXn0XynHCETdDlcDJ3tEJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="458674165"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="458674165"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Nov 2023 17:55:14 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10902"; a="884821106"
+X-IronPort-AV: E=Sophos;i="6.04,220,1695711600"; d="scan'208";a="884821106"
+Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 22 Nov 2023 17:55:09 -0800
+Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1r5yvq-00016C-38;
+ Thu, 23 Nov 2023 01:55:06 +0000
+Date: Thu, 23 Nov 2023 09:54:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alain Volmat <alain.volmat@foss.st.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>,
  Philipp Zabel <p.zabel@pengutronix.de>
-References: <20231122132156.158103-1-gabriel.fernandez@foss.st.com>
- <20231122132156.158103-4-gabriel.fernandez@foss.st.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
- m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
- HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
- XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
- mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
- v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
- cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
- rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
- qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
- aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
- gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
- dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
- NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
- hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
- oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
- H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
- yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
- 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
- 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
- +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
- FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
- 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
- DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
- oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
- 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
- Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
- qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
- /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
- qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
- EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
- KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
- fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231122132156.158103-4-gabriel.fernandez@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v3 3/5] dt-bindings: stm32: add clocks and
- reset binding for stm32mp25 platform
+Message-ID: <202311230551.R2sCXDEC-lkp@intel.com>
+References: <20231122073927.788810-4-alain.volmat@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231122073927.788810-4-alain.volmat@foss.st.com>
+Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Dan Scally <dan.scally@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v8 3/5] media: stm32-dcmipp: STM32 DCMIPP
+ camera interface driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,103 +78,198 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 22/11/2023 14:21, gabriel.fernandez@foss.st.com wrote:
-> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> 
-> Adds clock and reset binding entries for STM32MP25 SoC family
-> 
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  .../bindings/clock/st,stm32mp25-rcc.yaml      |  76 +++
->  include/dt-bindings/clock/st,stm32mp25-rcc.h  | 492 ++++++++++++++++++
->  include/dt-bindings/reset/st,stm32mp25-rcc.h  | 165 ++++++
->  3 files changed, 733 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
->  create mode 100644 include/dt-bindings/clock/st,stm32mp25-rcc.h
->  create mode 100644 include/dt-bindings/reset/st,stm32mp25-rcc.h
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
-> new file mode 100644
-> index 000000000000..8697ab6bc22c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
-> @@ -0,0 +1,76 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/st,stm32mp25-rcc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32MP25 Reset Clock Controller
-> +
-> +maintainers:
-> +  - Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> +
-> +description: |
-> +  The RCC hardware block is both a reset and a clock controller.
-> +  RCC makes also power management (resume/supend).
-> +
-> +  See also::
-> +    include/dt-bindings/clock/st,stm32mp25-rcc.h
-> +    include/dt-bindings/reset/st,stm32mp25-rcc.h
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32mp25-rcc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  '#clock-cells':
-> +    const: 1
-> +
-> +  '#reset-cells':
-> +    const: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: CK_SCMI_HSE High Speed External oscillator (8 to 48 MHz)
-> +      - description: CK_SCMI_HSI High Speed Internal oscillator (~ 64 MHz)
-> +      - description: CK_SCMI_MSI Low Power Internal oscillator (~ 4 MHz or ~ 16 MHz)
-> +      - description: CK_SCMI_LSE Low Speed External oscillator (32 KHz)
-> +      - description: CK_SCMI_LSI Low Speed Internal oscillator (~ 32 KHz)
-> +
-> +  clock-names:
-> +    items:
-> +      - const: hse
-> +      - const: hsi
-> +      - const: msi
-> +      - const: lse
-> +      - const: lsi
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#clock-cells"
-> +  - "#reset-cells"
+Hi Alain,
 
-If there is going to be respin, please use consistent quotes: either '
-or ", in each place. No need to respin only for this.
+kernel test robot noticed the following build errors:
 
-...
+[auto build test ERROR on atorgue-stm32/stm32-next]
+[also build test ERROR on media-tree/master linuxtv-media-stage/master linus/master v6.7-rc2 next-20231122]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> diff --git a/include/dt-bindings/clock/st,stm32mp25-rcc.h b/include/dt-bindings/clock/st,stm32mp25-rcc.h
-> new file mode 100644
-> index 000000000000..9876ee0dd1e4
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/st,stm32mp25-rcc.h
-> @@ -0,0 +1,492 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only OR BSD-3-Clause */
+url:    https://github.com/intel-lab-lkp/linux/commits/Alain-Volmat/dt-bindings-media-add-bindings-for-stm32-dcmipp/20231122-154327
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20231122073927.788810-4-alain.volmat%40foss.st.com
+patch subject: [PATCH v8 3/5] media: stm32-dcmipp: STM32 DCMIPP camera interface driver
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20231123/202311230551.R2sCXDEC-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231123/202311230551.R2sCXDEC-lkp@intel.com/reproduce)
 
-Any particular reason why do you need 3-clause BSD? Checkpatch asks for
-different one, because that one clause is just annoying.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311230551.R2sCXDEC-lkp@intel.com/
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+All errors (new ones prefixed by >>):
 
-Best regards,
-Krzysztof
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   mf = v4l2_subdev_state_get_format(sd_state, i);
+                        ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:154:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, i);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:236:7: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+                ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:236:5: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:256:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, 1);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:311:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           sink_fmt = v4l2_subdev_state_get_format(state, 0);
+                      ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:311:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           sink_fmt = v4l2_subdev_state_get_format(state, 0);
+                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c:312:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           src_fmt = v4l2_subdev_state_get_format(state, 1);
+                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   5 warnings and 3 errors generated.
+--
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   mf = v4l2_subdev_state_get_format(sd_state, i);
+                        ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, i);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:8: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                           r = v4l2_subdev_state_get_compose(sd_state, i);
+                               ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:8: note: did you mean 'v4l2_subdev_state_get_format'?
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:171:8: note: 'v4l2_subdev_state_get_format' declared here
+                   mf = v4l2_subdev_state_get_format(sd_state, i);
+                        ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:175:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+                           r = v4l2_subdev_state_get_compose(sd_state, i);
+                             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:8: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                           r = v4l2_subdev_state_get_crop(sd_state, i);
+                               ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:177:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+                           r = v4l2_subdev_state_get_crop(sd_state, i);
+                             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:206:14: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+                              ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:206:12: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+                            ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:230:13: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                             ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:230:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+                   compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                           ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:249:7: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+                ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:249:5: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           mf = v4l2_subdev_state_get_format(sd_state, fmt->pad);
+              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:251:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:251:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:252:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                     ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:252:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:255:17: error: indirection requires pointer operand ('int' invalid)
+                   fmt->format = *v4l2_subdev_state_get_format(sd_state, 0);
+                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:266:3: error: indirection requires pointer operand ('int' invalid)
+                   *v4l2_subdev_state_get_format(sd_state, 1) = fmt->format;
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:297:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+                      ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:297:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           sink_fmt = v4l2_subdev_state_get_format(sd_state, 0);
+                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:298:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:298:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:299:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                     ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:299:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:349:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:349:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           crop = v4l2_subdev_state_get_crop(sd_state, 1);
+                ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:350:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                     ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:350:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           compose = v4l2_subdev_state_get_compose(sd_state, 0);
+                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:357:8: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+                   mf = v4l2_subdev_state_get_format(sd_state, 1);
+                        ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:357:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, 1);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:365:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, 0);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:370:6: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+                   mf = v4l2_subdev_state_get_format(sd_state, 1);
+                      ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:406:13: error: implicit declaration of function 'v4l2_subdev_state_get_format' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           sink_fmt = v4l2_subdev_state_get_format(state, 0);
+                      ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:406:11: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_mbus_framefmt *' from 'int' [-Wint-conversion]
+           sink_fmt = v4l2_subdev_state_get_format(state, 0);
+                    ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:407:12: error: implicit declaration of function 'v4l2_subdev_state_get_compose' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           compose = v4l2_subdev_state_get_compose(state, 0);
+                     ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:407:10: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           compose = v4l2_subdev_state_get_compose(state, 0);
+                   ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:408:9: error: implicit declaration of function 'v4l2_subdev_state_get_crop' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           crop = v4l2_subdev_state_get_crop(state, 1);
+                  ^
+   drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c:408:7: warning: incompatible integer to pointer conversion assigning to 'struct v4l2_rect *' from 'int' [-Wint-conversion]
+           crop = v4l2_subdev_state_get_crop(state, 1);
 
+
+vim +/v4l2_subdev_state_get_format +154 drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-parallel.c
+
+   145	
+   146	static int dcmipp_par_init_cfg(struct v4l2_subdev *sd,
+   147				       struct v4l2_subdev_state *sd_state)
+   148	{
+   149		unsigned int i;
+   150	
+   151		for (i = 0; i < sd->entity.num_pads; i++) {
+   152			struct v4l2_mbus_framefmt *mf;
+   153	
+ > 154			mf = v4l2_subdev_state_get_format(sd_state, i);
+   155			*mf = fmt_default;
+   156		}
+   157	
+   158		return 0;
+   159	}
+   160	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
