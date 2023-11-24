@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B356D7F6DEB
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 09:19:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41947F6DF4
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 09:20:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7334EC6B47C;
-	Fri, 24 Nov 2023 08:19:05 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C51CC6B47C;
+	Fri, 24 Nov 2023 08:20:07 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCF0EC6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56BE2C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 08:19:03 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a03a900956dso313684966b.1
+ Fri, 24 Nov 2023 08:20:06 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-9fa45e75ed9so228801766b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 00:19:03 -0800 (PST)
+ Fri, 24 Nov 2023 00:20:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700813943; x=1701418743;
+ d=linaro.org; s=google; t=1700814006; x=1701418806;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=xWF0p87fg9Xzl+qFxziESoCjvKijQziJcZDzMVVq7xk=;
- b=X/FGiRSL69aRmZAHSUT8AArCSMP69ILg+LdbZl8TfKvDCHKV4R+59A3rH74C8zbArr
- oNPFtoekmqy7sNMtF6jCw08oXtFq5hu1oWhLKk117OIg1dhDnHFvEtaOCT13gg3m9P5N
- nXqFB8uID2Lvc/CzRCJOKTxtoaJm8QCc6gYHkRguNFabnkwuDti0uHU4kZO7Or+37u+7
- M1s/E0FG1Rx8UUYpA8oO7kKALuL3+lpdPMe5Q2UVYBySq0yIjFvfOKfr1kqWbuPficO3
- ZSbBqFDYzz4J2zbdZVIz1o4mxk4LUIgrMlESYDi1KqKTpSh+/LU6J9oz1bQVcHz09sME
- h9zA==
+ bh=LkVn7M+eAmMguDWpgjWJriPty1JjutndIswZF8OoUS4=;
+ b=TUgR/jjjTM6jHgf4j4IV8qAm4x61gCtPjmSTapPLWJqYkA1ikonnb+dkvJ6p4KrdZo
+ b090qVXadYgyu+KQ4hPMygSgfzLRJm14E8GIqm5GmjqmPwugtoKZLRVbGC60fbudMVtW
+ VgVI0OubGHk/MS/xcjnxaO6Ik+4CMhCunjYeKw/hJQlcystiPohUIhfpU4JikQl+g+Nf
+ LCdFdnvYehWe/PjDi3aj9ow0KnLtrpFZeW5rxePNtrlgZyXOhkMbxN3l+ZPYGliSNRdZ
+ ZZkjR+VX4GhBJ7413jGRafZ6dUTjoT4hzqPD/o2z+N61g2wlOa+Z1SQB9uw1jZxCOHc8
+ DOCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700813943; x=1701418743;
+ d=1e100.net; s=20230601; t=1700814006; x=1701418806;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=xWF0p87fg9Xzl+qFxziESoCjvKijQziJcZDzMVVq7xk=;
- b=tWfeL3PTD0vd6n4CLcS2BRvn9DRYY96CTlzI7EclEP2NOA2hyafMyhrhVZycPg7kex
- P/RQpaaoLYNHrlOvMfxBGvGpC8zIjNsPjANIgYTvyampvmQ9pPgbiHKCOJIg42C7JdLv
- YG+6GUaXAX/ENqbvuDHwi+4SQ+/urGiXs0ilQBDhphD0wISgH2QMxJMMtm25HIh+JJQl
- eoXLMlsn6wEas2HPy7Dmm6n2tuZOLf64zjTjPKgdUmN7W+WPsMhMU4CY+rh1btX8euo2
- Ln/mLivFa1iz4Bs3Jj0/tNfio5gUHvEHuSs4HQElpGvgFdGQkYvYi8+W1y0V4xIjj4xO
- X7rg==
-X-Gm-Message-State: AOJu0YzO/HJP3iDzUbX3LQiatFuNdzrks4NHi7+QD0I49AQIj0PJIwfj
- XeSk/j2uBpr2tWcwRc/aWrdQVA==
-X-Google-Smtp-Source: AGHT+IHdokJoETEHvRt5CKNPcyBmp9aF9mNnTLEO7gdmk07wLtr8uj7OlyWt+80DjIu0GwuZ/2FtTA==
-X-Received: by 2002:a17:906:d513:b0:a04:a66b:1ad with SMTP id
- cq19-20020a170906d51300b00a04a66b01admr3784559ejc.17.1700813943400; 
- Fri, 24 Nov 2023 00:19:03 -0800 (PST)
+ bh=LkVn7M+eAmMguDWpgjWJriPty1JjutndIswZF8OoUS4=;
+ b=vrGwxrjn3V2TWpvqkkEd8sMlY2+OzylT/ruQt4H4sUUN73n8WhzqbWvDH6NKMEzySK
+ ZbQpS4vWEQsIqfkeqyvWE3Sx0QfdzZ2pK6k+woOSQmNLDfRtm/9pxmNkAKKra+qnCA7J
+ PFOBs99UBxqg5FnbNFhNti/hMk13zUAeLbFlbXFs9sEqGMiB31uJYNktrPQwMM/Qz/VY
+ YikCM1Llbn/lRa6vBSi24b6XIf0zcftV41VtfTAN/aaY7dZd0O2dGED0fpVZvNRtFkwH
+ lCGC9oFe4I7I8lgz80/mvDAHEmhLXR4n6ChVns1yKdOSHukGQ6NhGKPuBXCM5Tlyymsv
+ wLqw==
+X-Gm-Message-State: AOJu0Yxl6nx33B+ppRfuK1J5FJGswt+6Az18QwCE7rwspuercn6NYzJh
+ Qc4JNzH/gfeVLrh3VpIXVvOg2GIfnSlNk0A9LA8=
+X-Google-Smtp-Source: AGHT+IHYTXuH5CEbAHeUCGEkj7ANC7TqgHM9TiqlhjcBuMnOJ4FT8HzQouom2k5x36GuHFG/BnO2LA==
+X-Received: by 2002:a17:906:5299:b0:a00:8706:c82e with SMTP id
+ c25-20020a170906529900b00a008706c82emr1555608ejm.18.1700814005818; 
+ Fri, 24 Nov 2023 00:20:05 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.100])
  by smtp.gmail.com with ESMTPSA id
- cf16-20020a170906b2d000b0099bd7b26639sm1761699ejb.6.2023.11.24.00.19.01
+ cf16-20020a170906b2d000b0099bd7b26639sm1761699ejb.6.2023.11.24.00.20.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 00:19:03 -0800 (PST)
-Message-ID: <3ebc54ae-4af4-428c-8dc0-06e836891311@linaro.org>
-Date: Fri, 24 Nov 2023 09:19:01 +0100
+ Fri, 24 Nov 2023 00:20:05 -0800 (PST)
+Message-ID: <e416ab6b-af0a-46d4-ac1f-f78b449e8071@linaro.org>
+Date: Fri, 24 Nov 2023 09:20:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -140,30 +140,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/11/2023 12:38, Suraj Jaiswal wrote:
+On 23/11/2023 12:53, Suraj Jaiswal wrote:
 > Add changes to support fault IRQ Handling
 > Support for ethernet.
 > 
-> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-> ---
->  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> index 13dd44dd9ed1..15155adcd200 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
-> @@ -2394,8 +2394,9 @@ ethernet1: ethernet@23000000 {
->  			      <0x0 0x23016000 0x0 0x100>;
->  			reg-names = "stmmaceth", "rgmii";
->  
-> -			interrupts = <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "macirq";
-> +			interrupts = <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>
-> +				     <GIC_SPI 781 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq", "safety";
+You duplicated all the patches. I already responded to previous
+duplicates set, so also here:
 
-This was not tested... so as I expected - you do introduce new warnings. :/
+NAK, you did not test your patchset.
 
 Best regards,
 Krzysztof
