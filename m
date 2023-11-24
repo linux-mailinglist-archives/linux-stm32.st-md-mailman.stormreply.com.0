@@ -2,67 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9D277F77A1
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 16:24:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBA77F7A00
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 18:03:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6804CC6B47A;
-	Fri, 24 Nov 2023 15:24:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54953C6B47A;
+	Fri, 24 Nov 2023 17:03:49 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A7A5C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1904C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 15:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1700839438; x=1732375438;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=hjHUasbUvdZyid1X5HvgmpQL0hPNRyInjUAbKjnNwBA=;
- b=gd6Xc/HAC54llMsVBFQWJ0EH27j23mx6utLS23gRFIXJKsBB/P8AxIav
- jCtt7a2rR8f5wUK+jCHqAO1+NXT4dobv9KHs3BRESk6sk0KGHFfFo2sP2
- j1jciGkuBWK/1VAeWrG7EZspW2A5Jm36nHQu/D68rLYIRBh+uhU2pI7FX
- ZZioriW9ItCSf6OwG4a1duOf4a22K4MJ2V/N+vGUtEIc92O4ukb8W8DSt
- /vTuSRZ3QBVJlShwdUrTB14vti9z9Qt88g3NjXppAOZrXVANwSm8FAMON
- 6oRu5mQrVmHQchkmw/CfA37AL5FER9zfnSXpWjO3lZlYIzYp/kHjFblwY g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="456781786"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="456781786"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2023 07:23:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="1014935597"
-X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="1014935597"
-Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
- by fmsmga006.fm.intel.com with ESMTP; 24 Nov 2023 07:23:50 -0800
-Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1r6Y20-0002wK-0N;
- Fri, 24 Nov 2023 15:23:48 +0000
-Date: Fri, 24 Nov 2023 23:23:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Prasad Sodagudi <psodagud@quicinc.com>,
- Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <202311241629.yh1clHno-lkp@intel.com>
-References: <66690488f08912698301a2c203d7c562798806a2.1700737841.git.quic_jsuraj@quicinc.com>
+ Fri, 24 Nov 2023 17:03:47 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-507cd62472dso3291344e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 24 Nov 2023 09:03:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1700845427; x=1701450227;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=EKb6+bJzwF1yVBhWWW80XyJQx4h4KUg59OSYpW9sau0=;
+ b=N913Vmx3ipcB1u24mEfxiT3ijAhRRRzHh0rKpCdYHjOuv6rKxhBefj5a3HYx2fuzyi
+ 9CoaFOgrulUtLFl3fKF3SFiPqNA1g/LNHi9dbB55B/GQe48V6Bol8cfKkeEK4hwlpbuy
+ EpK85GsyMDD9jUPgOpVEQWnL5z1PcDOFhJfWpFJqmx9k+YhIwQNSLNms4OujtG7ynyZJ
+ /TuW3T1LZVOpi4EKTfz7Z4aDTkuZXKZxLafltKJEVZjVPFrpEtMMz1tJ+bfIFXBiUPU0
+ TG/KbkQUWYCjVxRcsRhTJ2WjWWYFY/D30rCwIql8I2UChToaYli+FPidMYTHqPidQLRF
+ kVmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1700845427; x=1701450227;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=EKb6+bJzwF1yVBhWWW80XyJQx4h4KUg59OSYpW9sau0=;
+ b=KJia6s61Fy/L3R7ul5JuK3Df1eA/fs/OIMReu7AgXC2juEh3MhoqzwljwYBPo3A8vx
+ 3GSxQa6Tg1uZRWSjj4UIERn9r0J9oT8xjZwsNN8VhZRVBg26tH8/jHKIoEjl0wnlb7QY
+ XEwZ7y/AXajN1WSInjJK6zgCwxSGDhrSP2B9NdrAfHtqp6kDIDaBy5jf04PTw9P1fsIA
+ oSlp6eU8xJ5SJvmVEYvgTne//2j9B+b8vc6hdHGYfsoiJ85ywSrMuXnj5bfu/o/722tC
+ e+kp0pUxzwbE9AYL/b1j7qfOqY8GArqls4ZUyT0P0GeVSk5p7zhnX7yLGO936TlgYLgl
+ EjvA==
+X-Gm-Message-State: AOJu0YznJFtE1AMwzvWcwsYFyte/wSZv+GfYGcuBUy04A0N52cKA3KtL
+ 8IewVwcLgEtV/Vr3MGB6vSM=
+X-Google-Smtp-Source: AGHT+IEtnKziwkAifA6Pi4ayVnqNFBNuXRhrHhPsgP/A1MkmG9je86T4pW16Mqx5OkVnvjGwh+QKVQ==
+X-Received: by 2002:ac2:43a6:0:b0:50a:a8d4:25f9 with SMTP id
+ t6-20020ac243a6000000b0050aa8d425f9mr2118002lfl.12.1700845426591; 
+ Fri, 24 Nov 2023 09:03:46 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ be7-20020a056512250700b005094928cf75sm556137lfb.142.2023.11.24.09.03.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Nov 2023 09:03:46 -0800 (PST)
+Date: Fri, 24 Nov 2023 20:03:43 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <b5f6l7oovk67efxeo4pyxg5kx3we4jcemmrakat5dypec4rav2@l3bvlos5rred>
+References: <20231124015433.2223696-1-0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <66690488f08912698301a2c203d7c562798806a2.1700737841.git.quic_jsuraj@quicinc.com>
-Cc: netdev@vger.kernel.org, kernel@quicinc.com, oe-kbuild-all@lists.linux.dev
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] arm64: dts: qcom:
- sa8775p: enable Fault IRQ
+In-Reply-To: <20231124015433.2223696-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: xgmac: Disable
+	FPE MMC interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,33 +86,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Suraj,
+On Fri, Nov 24, 2023 at 09:54:33AM +0800, Furong Xu wrote:
+> Commit aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts
+> by default") tries to disable MMC interrupts to avoid a storm of
+> unhandled interrupts, but leaves the FPE(Frame Preemption) MMC
+> interrupts enabled.
+> Now we mask FPE TX and RX interrupts to disable all MMC interrupts.
+> 
+> Fixes: aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts by default")
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> ---
+> Changes in v2:
+>   - Update commit message, thanks Wojciech and Andrew.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/mmc_core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> index ea4910ae0921..cdd7fbde2bfa 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> @@ -177,8 +177,10 @@
+>  #define MMC_XGMAC_RX_DISCARD_OCT_GB	0x1b4
+>  #define MMC_XGMAC_RX_ALIGN_ERR_PKT	0x1bc
+>  
 
-kernel test robot noticed the following build errors:
+> +#define MMC_XGMAC_FPE_TX_INTR_MASK	0x204
+>  #define MMC_XGMAC_TX_FPE_FRAG		0x208
+>  #define MMC_XGMAC_TX_HOLD_REQ		0x20c
+> +#define MMC_XGMAC_FPE_RX_INTR_MASK	0x224
 
-[auto build test ERROR on net-next/main]
+Could you please preserve the local implicit naming convention of
+having the Tx_ and RX_ prefixes being placed before the rest of
+CSR-specific name part:
+#define MMC_XGMAC_TX_FPE_INTR_MASK
+instead of
+#define MMC_XGMAC_FPE_TX_INTR_MASK
+and
+#define MMC_XGMAC_RX_FPE_INTR_MASK
+instead of
+#define MMC_XGMAC_FPE_RX_INTR_MASK
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Suraj-Jaiswal/dt-bindings-net-qcom-ethqos-add-binding-doc-for-fault-IRQ-for-sa8775p/20231123-202252
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/66690488f08912698301a2c203d7c562798806a2.1700737841.git.quic_jsuraj%40quicinc.com
-patch subject: [PATCH net-next v3 2/3] arm64: dts: qcom: sa8775p: enable Fault IRQ
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20231124/202311241629.yh1clHno-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231124/202311241629.yh1clHno-lkp@intel.com/reproduce)
+Your macros will then look similar to MMC_XGMAC_TX_*, MMC_XGMAC_RX_*
+and finally MMC_XGMAC_RX_IPC_INTR_MASK macros.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202311241629.yh1clHno-lkp@intel.com/
+-Serge(y)
 
-All errors (new ones prefixed by >>):
-
->> Error: arch/arm64/boot/dts/qcom/sa8775p.dtsi:2344.10-11 syntax error
-   FATAL ERROR: Unable to parse input tree
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>  #define MMC_XGMAC_RX_PKT_ASSEMBLY_ERR	0x228
+>  #define MMC_XGMAC_RX_PKT_SMD_ERR	0x22c
+>  #define MMC_XGMAC_RX_PKT_ASSEMBLY_OK	0x230
+> @@ -352,6 +354,8 @@ static void dwxgmac_mmc_intr_all_mask(void __iomem *mmcaddr)
+>  {
+>  	writel(0x0, mmcaddr + MMC_RX_INTR_MASK);
+>  	writel(0x0, mmcaddr + MMC_TX_INTR_MASK);
+> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_FPE_TX_INTR_MASK);
+> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_FPE_RX_INTR_MASK);
+>  	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_RX_IPC_INTR_MASK);
+>  }
+>  
+> -- 
+> 2.34.1
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
