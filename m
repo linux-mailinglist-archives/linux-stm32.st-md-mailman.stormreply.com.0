@@ -2,90 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344E97F72E6
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 12:40:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2317F74BD
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 14:20:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E11C9C6B47C;
-	Fri, 24 Nov 2023 11:40:15 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3586C6B47A;
+	Fri, 24 Nov 2023 13:20:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED917C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43CA8C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 11:40:13 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AOB7X0R022990; Fri, 24 Nov 2023 11:39:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=tDHSeIF8klwS9UwzqRebuF+OKf98KYwg7r/Vh86pzKk=;
- b=ET9l9D+iljpGXhn9t0Umx3d8FRi1HmXdgtnd+/5qwTmCHh6UgBujmAvi1r+Yu954kl0/
- jGqGldIXSPNxFxXoEwOiNj4Cf7Bp9jSLEGD571XrvGIXdP1u/tPe43tC34/jUUZ7OrF1
- qJNi9wckmKNHUClJsFgxKnlfkcgVPk64qLaGjVwiNia6Tn2hogIsqLsGWbvXrUp+/qQy
- H/kVEZZkEsr7uaBU1zg1tpga9vHLgS9xBe9qIIkvmA0NcqsucvyV1ENu+W8nKHN5xkxA
- mKKT6Qw201rFzGvAH1gDrtfjACzao5X8k+dY66Y7xwSyAYRz7wXMvgi/swwHzfjEpqLS NA== 
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uj4hwjqyh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 11:39:50 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AOBdnr3020020
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Nov 2023 11:39:49 GMT
-Received: from [10.216.4.251] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Fri, 24 Nov
- 2023 03:39:38 -0800
-Message-ID: <735075ee-1145-471e-9dac-9968b02ad35a@quicinc.com>
-Date: Fri, 24 Nov 2023 17:09:34 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross
- <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konrad.dybcio@linaro.org>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>,
+ Fri, 24 Nov 2023 13:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1700832026; x=1732368026;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/5khxxfaWaDrp+7xzbywroUSqPLt6PgF7RJxWSypS1M=;
+ b=bO8WJXsdaDGPpXR0rhzHbvaDF1WjBt2s+zVyJM8LNwnwW/IYGGt9RCBL
+ fVOkP9Sr06lB+mTQQiPXPQ2KStySJT0NxMSnwB8N8t9P7Dnqoiu0h+Bak
+ GbgWQSfcujQYqfENZgka+zgJR99XkeD7ekOKxn9MFXvXwkQACf63Znb44
+ 8e8spR/u82effalvsLkrtueSt/iuE0xjRUewYHco2n3Kze1ezxRH7wph6
+ kM/Zm4CZ2WzPiVTuJwjIhtp2apLdwumk8rKGRnlLfsPDQPSdn7REeRqpQ
+ GW2/5gcg/Ijx5HPs2NORlqFJwrl4Q7gUPmCGQsNpwdeQihdvpFrmjNxQk A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="382823497"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="382823497"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2023 05:20:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10904"; a="885274546"
+X-IronPort-AV: E=Sophos;i="6.04,224,1695711600"; d="scan'208";a="885274546"
+Received: from lkp-server01.sh.intel.com (HELO d584ee6ebdcc) ([10.239.97.150])
+ by fmsmga002.fm.intel.com with ESMTP; 24 Nov 2023 05:20:19 -0800
+Received: from kbuild by d584ee6ebdcc with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1r6W6T-0002nk-2M;
+ Fri, 24 Nov 2023 13:20:17 +0000
+Date: Fri, 24 Nov 2023 21:19:36 +0800
+From: kernel test robot <lkp@intel.com>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
- <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Prasad Sodagudi <psodagud@quicinc.com>,
  Andrew Halaney <ahalaney@redhat.com>
-References: <cover.1700737841.git.quic_jsuraj@quicinc.com>
- <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
- <7c9135e0-da6e-4e1a-b673-af6c73d8ee45@linaro.org>
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-In-Reply-To: <7c9135e0-da6e-4e1a-b673-af6c73d8ee45@linaro.org>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: FZYAK8yh1-fNezYLdyWhoJUEJupZisCK
-X-Proofpoint-ORIG-GUID: FZYAK8yh1-fNezYLdyWhoJUEJupZisCK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-23_15,2023-11-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 mlxscore=0 mlxlogscore=814
- suspectscore=0 phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1011
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311060000 definitions=main-2311240090
-Cc: kernel@quicinc.com
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: qcom,
- ethqos: add binding doc for fault IRQ for sa8775p
+Message-ID: <202311241444.wkNnpI5Q-lkp@intel.com>
+References: <62eaaace3713751cb1ecac3163e857737107ca0e.1700737841.git.quic_jsuraj@quicinc.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <62eaaace3713751cb1ecac3163e857737107ca0e.1700737841.git.quic_jsuraj@quicinc.com>
+Cc: netdev@vger.kernel.org, kernel@quicinc.com, oe-kbuild-all@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Add driver
+ support for DWMAC5 fault IRQ Support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,42 +79,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hi Krzysztof,
-Sure . Will take care of dtbs_check warnings in the next patch .
+Hi Suraj,
 
-Thanks
-Suraj
+kernel test robot noticed the following build warnings:
 
-On 11/24/2023 1:48 PM, Krzysztof Kozlowski wrote:
-> On 23/11/2023 12:38, Suraj Jaiswal wrote:
->> Add binding doc for fault IRQ. The fault IRQ will be
->> trigger for ECC,DPP,FSM error.
->>
->> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
->> ---
->>  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 7 +++++--
->>  1 file changed, 5 insertions(+), 2 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
->> index 7bdb412a0185..e013cb51fb07 100644
->> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
->> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
->> @@ -37,12 +37,14 @@ properties:
->>      items:
->>        - description: Combined signal for various interrupt events
->>        - description: The interrupt that occurs when Rx exits the LPI state
->> +      - description: The interrupt that occurs when HW fault occurs
-> 
-> Adding required items is breaking the ABI and introducing new dtbs_check
-> warnings. I don't see rationale for this in the commit msg.
-> 
-> I don't see any fixes for the warnings, either. I am quite picky on this
-> part, so to avoid wasting my time - are you 100% sure you do not
-> introduce any new warning?
-> 
-> Best regards,
-> Krzysztof
-> 
+[auto build test WARNING on net-next/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Suraj-Jaiswal/dt-bindings-net-qcom-ethqos-add-binding-doc-for-fault-IRQ-for-sa8775p/20231123-202252
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/62eaaace3713751cb1ecac3163e857737107ca0e.1700737841.git.quic_jsuraj%40quicinc.com
+patch subject: [PATCH net-next v3 3/3] net: stmmac: Add driver support for DWMAC5 fault IRQ Support
+config: csky-randconfig-r081-20231124 (https://download.01.org/0day-ci/archive/20231124/202311241444.wkNnpI5Q-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231124/202311241444.wkNnpI5Q-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311241444.wkNnpI5Q-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:693:5: warning: no previous prototype for 'stmmac_get_fault_intr_config' [-Wmissing-prototypes]
+     693 | int stmmac_get_fault_intr_config(struct platform_device *pdev, struct stmmac_resources *res)
+         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/stmmac_get_fault_intr_config +693 drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+
+   692	
+ > 693	int stmmac_get_fault_intr_config(struct platform_device *pdev, struct stmmac_resources *res)
+   694	{
+   695		int ret = 0;
+   696	
+   697		res->safety_common_intr = platform_get_irq_byname(pdev, "safety");
+   698	
+   699		if (res->safety_common_intr < 0) {
+   700			if (res->safety_common_intr != -EPROBE_DEFER)
+   701				dev_err(&pdev->dev, "safety IRQ configuration information not found\n");
+   702			ret = 1;
+   703		}
+   704	
+   705		return ret;
+   706	}
+   707	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
