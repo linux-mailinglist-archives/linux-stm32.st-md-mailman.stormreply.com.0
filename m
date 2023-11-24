@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A57177F6DE5
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 09:18:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B356D7F6DEB
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 09:19:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B572C6B47C;
-	Fri, 24 Nov 2023 08:18:24 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7334EC6B47C;
+	Fri, 24 Nov 2023 08:19:05 +0000 (UTC)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07D36C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCF0EC6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 08:18:22 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-9fcfd2a069aso226520866b.1
+ Fri, 24 Nov 2023 08:19:03 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-a03a900956dso313684966b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 00:18:22 -0800 (PST)
+ Fri, 24 Nov 2023 00:19:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700813902; x=1701418702;
+ d=linaro.org; s=google; t=1700813943; x=1701418743;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=RXYsI3U3Cf5rOwPR0MYwUlHIIqZZ1jITVSihrQ3lNMg=;
- b=yjhSbLhcQUv54n0vfMAUdEKAq+aXRRash7BfKzgD3O57Nt8oysE/ni5QbsVhx02pJp
- eqNa/2iz4tfszNxeVD3gM63QEaji5mivHjuVzy/sr9F2pqr0zuffLyVHxquNWJXGGmCo
- aO82vVTW3ixVnNzWBhZiOTTBONdRsHD7svd0nAmeXbql5626ElYmXvD5rdY3wtWDZJkf
- KcNnv4RFFVm1Y77XF5IVXcu1aqFzksQTyri2WV2W50i9aQ3UQ6MVG/v8dDUnzgCLV78G
- JIgDtyofTUymrw4w3CP9zNphix9uY2EFKiRVfHlV6+S3Ttd4KL/6XCqX76UpZ8O6kYZz
- vcPQ==
+ bh=xWF0p87fg9Xzl+qFxziESoCjvKijQziJcZDzMVVq7xk=;
+ b=X/FGiRSL69aRmZAHSUT8AArCSMP69ILg+LdbZl8TfKvDCHKV4R+59A3rH74C8zbArr
+ oNPFtoekmqy7sNMtF6jCw08oXtFq5hu1oWhLKk117OIg1dhDnHFvEtaOCT13gg3m9P5N
+ nXqFB8uID2Lvc/CzRCJOKTxtoaJm8QCc6gYHkRguNFabnkwuDti0uHU4kZO7Or+37u+7
+ M1s/E0FG1Rx8UUYpA8oO7kKALuL3+lpdPMe5Q2UVYBySq0yIjFvfOKfr1kqWbuPficO3
+ ZSbBqFDYzz4J2zbdZVIz1o4mxk4LUIgrMlESYDi1KqKTpSh+/LU6J9oz1bQVcHz09sME
+ h9zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700813902; x=1701418702;
+ d=1e100.net; s=20230601; t=1700813943; x=1701418743;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RXYsI3U3Cf5rOwPR0MYwUlHIIqZZ1jITVSihrQ3lNMg=;
- b=MdmyqOZwWcCPDLDrKvy81RelGpj0XAmw9K90b8346fqEJ7wvZXGyswRi1UxMSgTKmx
- QwqcLHT8gGhePOGgicUYQTqzVFVyOfvXM6bU++ilJO+3PFjuZj/h+yj4sHs2ykDoCHWC
- mhSyzO5uqd25Etf1HP91BiTw+ZjL+Hhh4Hh8qRGKZ2Suv/L1bu85m9SqDYLED0TTD6wU
- 03hNFLd//BRADh5yxKViBTVHpTtBmFQIORQn+7qjuARKg8t8sualFeDNPrcNtvQexZd6
- BdUzSDDVHZ2PrP1xzZDhUSpZk1BXl4+CdJLD2GG5cPmfLm7aLgi0/LYw4BdRXXLUjVfe
- aeqw==
-X-Gm-Message-State: AOJu0YyYnUl2r2AtGUKCQ0NoWiKv9GZEaP9K1JGOsbNtAmGEtHixed9Q
- QzjHeNLZmTJuPkQDrp6E1x0oiw==
-X-Google-Smtp-Source: AGHT+IGi4yefRTEuIbnEmqG6dM6wTx+vJA+iEtdev0YV97uzl13vTqwoGOjEmHrWZnWIvheKEYrdFA==
-X-Received: by 2002:a17:906:c411:b0:a04:e1e7:cce4 with SMTP id
- u17-20020a170906c41100b00a04e1e7cce4mr1288174ejz.51.1700813902283; 
- Fri, 24 Nov 2023 00:18:22 -0800 (PST)
+ bh=xWF0p87fg9Xzl+qFxziESoCjvKijQziJcZDzMVVq7xk=;
+ b=tWfeL3PTD0vd6n4CLcS2BRvn9DRYY96CTlzI7EclEP2NOA2hyafMyhrhVZycPg7kex
+ P/RQpaaoLYNHrlOvMfxBGvGpC8zIjNsPjANIgYTvyampvmQ9pPgbiHKCOJIg42C7JdLv
+ YG+6GUaXAX/ENqbvuDHwi+4SQ+/urGiXs0ilQBDhphD0wISgH2QMxJMMtm25HIh+JJQl
+ eoXLMlsn6wEas2HPy7Dmm6n2tuZOLf64zjTjPKgdUmN7W+WPsMhMU4CY+rh1btX8euo2
+ Ln/mLivFa1iz4Bs3Jj0/tNfio5gUHvEHuSs4HQElpGvgFdGQkYvYi8+W1y0V4xIjj4xO
+ X7rg==
+X-Gm-Message-State: AOJu0YzO/HJP3iDzUbX3LQiatFuNdzrks4NHi7+QD0I49AQIj0PJIwfj
+ XeSk/j2uBpr2tWcwRc/aWrdQVA==
+X-Google-Smtp-Source: AGHT+IHdokJoETEHvRt5CKNPcyBmp9aF9mNnTLEO7gdmk07wLtr8uj7OlyWt+80DjIu0GwuZ/2FtTA==
+X-Received: by 2002:a17:906:d513:b0:a04:a66b:1ad with SMTP id
+ cq19-20020a170906d51300b00a04a66b01admr3784559ejc.17.1700813943400; 
+ Fri, 24 Nov 2023 00:19:03 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.100])
  by smtp.gmail.com with ESMTPSA id
- cf16-20020a170906b2d000b0099bd7b26639sm1761699ejb.6.2023.11.24.00.18.19
+ cf16-20020a170906b2d000b0099bd7b26639sm1761699ejb.6.2023.11.24.00.19.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Nov 2023 00:18:21 -0800 (PST)
-Message-ID: <7c9135e0-da6e-4e1a-b673-af6c73d8ee45@linaro.org>
-Date: Fri, 24 Nov 2023 09:18:18 +0100
+ Fri, 24 Nov 2023 00:19:03 -0800 (PST)
+Message-ID: <3ebc54ae-4af4-428c-8dc0-06e836891311@linaro.org>
+Date: Fri, 24 Nov 2023 09:19:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -74,7 +74,7 @@ To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>
 References: <cover.1700737841.git.quic_jsuraj@quicinc.com>
- <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
+ <66690488f08912698301a2c203d7c562798806a2.1700737841.git.quic_jsuraj@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -120,10 +120,10 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
+In-Reply-To: <66690488f08912698301a2c203d7c562798806a2.1700737841.git.quic_jsuraj@quicinc.com>
 Cc: kernel@quicinc.com
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: qcom,
- ethqos: add binding doc for fault IRQ for sa8775p
+Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] arm64: dts: qcom:
+ sa8775p: enable Fault IRQ
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,30 +141,29 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 23/11/2023 12:38, Suraj Jaiswal wrote:
-> Add binding doc for fault IRQ. The fault IRQ will be
-> trigger for ECC,DPP,FSM error.
+> Add changes to support fault IRQ Handling
+> Support for ethernet.
 > 
 > Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
 > ---
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> index 7bdb412a0185..e013cb51fb07 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> @@ -37,12 +37,14 @@ properties:
->      items:
->        - description: Combined signal for various interrupt events
->        - description: The interrupt that occurs when Rx exits the LPI state
-> +      - description: The interrupt that occurs when HW fault occurs
+> diff --git a/arch/arm64/boot/dts/qcom/sa8775p.dtsi b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> index 13dd44dd9ed1..15155adcd200 100644
+> --- a/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sa8775p.dtsi
+> @@ -2394,8 +2394,9 @@ ethernet1: ethernet@23000000 {
+>  			      <0x0 0x23016000 0x0 0x100>;
+>  			reg-names = "stmmaceth", "rgmii";
+>  
+> -			interrupts = <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>;
+> -			interrupt-names = "macirq";
+> +			interrupts = <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>
+> +				     <GIC_SPI 781 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "macirq", "safety";
 
-Adding required items is breaking the ABI and introducing new dtbs_check
-warnings. I don't see rationale for this in the commit msg.
-
-I don't see any fixes for the warnings, either. I am quite picky on this
-part, so to avoid wasting my time - are you 100% sure you do not
-introduce any new warning?
+This was not tested... so as I expected - you do introduce new warnings. :/
 
 Best regards,
 Krzysztof
