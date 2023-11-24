@@ -2,69 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C1A57F6D4B
-	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 08:58:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A57177F6DE5
+	for <lists+linux-stm32@lfdr.de>; Fri, 24 Nov 2023 09:18:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5E12C6B47C;
-	Fri, 24 Nov 2023 07:57:49 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B572C6B47C;
+	Fri, 24 Nov 2023 08:18:24 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2302C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07D36C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 24 Nov 2023 07:57:48 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a02d91ab199so218117566b.0
+ Fri, 24 Nov 2023 08:18:22 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-9fcfd2a069aso226520866b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Nov 2023 23:57:48 -0800 (PST)
+ Fri, 24 Nov 2023 00:18:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1700812668; x=1701417468;
+ d=linaro.org; s=google; t=1700813902; x=1701418702;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=FzE7mRENdLHC52cj5OrLy4S5FuvRYLj1lRgGEqKnTVc=;
- b=voFd/wFumnlfYae8r1NgUl2up6zMwcpoM+vd5tLwJC+JyF7jesmYCZ9I0NqVTGLZnT
- XET2S01VteYBMnRVoq4p4sZjtztdEqRpFvfdCIPOo1BXvnbebqXr4ltJhG4aveEHKIQv
- TgTf2iVpVe5l5EGdSB5wLa9rDrAK/694DDq6C8L193E2wwfoTkQ4HsYSVUBUwNllZeBB
- hKGXADLcuhlluTBBTdRhCCeAXLP1V/GQcAVobGGn6iQVt1Tz2vTgrnhEQzKm6ByEC7ju
- 55xRgo4hT/rjmCzpYnJFX/ELGWU0MmmNkYKug4z48eLPjNj90xRDbPScI9q4EOsPC+gx
- oGUQ==
+ bh=RXYsI3U3Cf5rOwPR0MYwUlHIIqZZ1jITVSihrQ3lNMg=;
+ b=yjhSbLhcQUv54n0vfMAUdEKAq+aXRRash7BfKzgD3O57Nt8oysE/ni5QbsVhx02pJp
+ eqNa/2iz4tfszNxeVD3gM63QEaji5mivHjuVzy/sr9F2pqr0zuffLyVHxquNWJXGGmCo
+ aO82vVTW3ixVnNzWBhZiOTTBONdRsHD7svd0nAmeXbql5626ElYmXvD5rdY3wtWDZJkf
+ KcNnv4RFFVm1Y77XF5IVXcu1aqFzksQTyri2WV2W50i9aQ3UQ6MVG/v8dDUnzgCLV78G
+ JIgDtyofTUymrw4w3CP9zNphix9uY2EFKiRVfHlV6+S3Ttd4KL/6XCqX76UpZ8O6kYZz
+ vcPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1700812668; x=1701417468;
+ d=1e100.net; s=20230601; t=1700813902; x=1701418702;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=FzE7mRENdLHC52cj5OrLy4S5FuvRYLj1lRgGEqKnTVc=;
- b=vcrqeYi3kM39Pp1tugS5kq7BRXUUCTINMTsWi0liV1DwsdXmkR6jJohtnCW4ELjbKU
- pCW31qA9Yb04/lr+ptEXVJ7F8Ljub4GMI9eS1DlgeNjh8grZcc+jNGoSwQazkzd7M39M
- Mt3/3wjqqW6g2XCD09UGtv+jGkdXZMerCBUpfzWqFi51Eim60hUTXFE40yOm1mYvGQAu
- Sz+RXIRD+kmIRv+w4qBVleRSGrwwTwbruWU8fegJ+SbIchG6IdFqNKBmxj7Vf+fEd/c7
- rjhJAQNfNyVY53HPt52RnKfFMFVWMT5DM+U7THQEiA2dH8SOrnCAb9A/jKTKSu8LhRaP
- UUUA==
-X-Gm-Message-State: AOJu0Yx2dmerkmXQ6hUZd5epqXT6bOQqc0QLUirTzDPXmTqi3cWP3TqV
- tLhddS/gMRTgIPyjydVBkt96qQ==
-X-Google-Smtp-Source: AGHT+IEpswcRtTdhGch0exVvPbOgk2/rQmWFgtyQ6i4JRwkukMiiz2c0xDe8cFnI3Lme54QcHHtg2Q==
-X-Received: by 2002:a17:907:bc7:b0:9e1:a5eb:8cb4 with SMTP id
- ez7-20020a1709070bc700b009e1a5eb8cb4mr1091023ejc.58.1700812668352; 
- Thu, 23 Nov 2023 23:57:48 -0800 (PST)
+ bh=RXYsI3U3Cf5rOwPR0MYwUlHIIqZZ1jITVSihrQ3lNMg=;
+ b=MdmyqOZwWcCPDLDrKvy81RelGpj0XAmw9K90b8346fqEJ7wvZXGyswRi1UxMSgTKmx
+ QwqcLHT8gGhePOGgicUYQTqzVFVyOfvXM6bU++ilJO+3PFjuZj/h+yj4sHs2ykDoCHWC
+ mhSyzO5uqd25Etf1HP91BiTw+ZjL+Hhh4Hh8qRGKZ2Suv/L1bu85m9SqDYLED0TTD6wU
+ 03hNFLd//BRADh5yxKViBTVHpTtBmFQIORQn+7qjuARKg8t8sualFeDNPrcNtvQexZd6
+ BdUzSDDVHZ2PrP1xzZDhUSpZk1BXl4+CdJLD2GG5cPmfLm7aLgi0/LYw4BdRXXLUjVfe
+ aeqw==
+X-Gm-Message-State: AOJu0YyYnUl2r2AtGUKCQ0NoWiKv9GZEaP9K1JGOsbNtAmGEtHixed9Q
+ QzjHeNLZmTJuPkQDrp6E1x0oiw==
+X-Google-Smtp-Source: AGHT+IGi4yefRTEuIbnEmqG6dM6wTx+vJA+iEtdev0YV97uzl13vTqwoGOjEmHrWZnWIvheKEYrdFA==
+X-Received: by 2002:a17:906:c411:b0:a04:e1e7:cce4 with SMTP id
+ u17-20020a170906c41100b00a04e1e7cce4mr1288174ejz.51.1700813902283; 
+ Fri, 24 Nov 2023 00:18:22 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.218.100])
  by smtp.gmail.com with ESMTPSA id
- hg12-20020a1709072ccc00b009fe1dd221a3sm1761600ejc.92.2023.11.23.23.57.46
+ cf16-20020a170906b2d000b0099bd7b26639sm1761699ejb.6.2023.11.24.00.18.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Nov 2023 23:57:47 -0800 (PST)
-Message-ID: <b7a11c77-94ac-445c-a513-5bc58e1dfdd1@linaro.org>
-Date: Fri, 24 Nov 2023 08:57:45 +0100
+ Fri, 24 Nov 2023 00:18:21 -0800 (PST)
+Message-ID: <7c9135e0-da6e-4e1a-b673-af6c73d8ee45@linaro.org>
+Date: Fri, 24 Nov 2023 09:18:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Javier Carrasco <javier.carrasco@wolfvision.net>,
- Conor Dooley <conor@kernel.org>
-References: <20231123-dwmac-rk_phy_wol-v1-0-bf4e718081b9@wolfvision.net>
- <20231123-dwmac-rk_phy_wol-v1-1-bf4e718081b9@wolfvision.net>
- <20231123-operable-frustrate-6c71ab0dafbf@spud>
- <73080fc7-d655-48f2-bd59-a5e171d12e19@wolfvision.net>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>
+References: <cover.1700737841.git.quic_jsuraj@quicinc.com>
+ <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -110,19 +120,10 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <73080fc7-d655-48f2-bd59-a5e171d12e19@wolfvision.net>
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH RFC WIP 1/2] dt-bindings: net:
- rockchip-dwmac: add rockchip, phy-wol property
+In-Reply-To: <ff458955a24c0cb4ba41158b8b53fbef00c8237d.1700737841.git.quic_jsuraj@quicinc.com>
+Cc: kernel@quicinc.com
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: qcom,
+ ethqos: add binding doc for fault IRQ for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,47 +140,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 23/11/2023 20:36, Javier Carrasco wrote:
-> On 23.11.23 18:20, Conor Dooley wrote:
->> On Thu, Nov 23, 2023 at 01:14:13PM +0100, Javier Carrasco wrote:
->>> This property defines if PHY WOL is preferred. If it is not defined, MAC
->>> WOL will be preferred instead.
->>>
->>> Signed-off-by: Javier Carrasco <javier.carrasco@wolfvision.net>
->>> ---
->>>  Documentation/devicetree/bindings/net/rockchip-dwmac.yaml | 6 ++++++
->>>  1 file changed, 6 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
->>> index 70bbc4220e2a..fc4b02a5a375 100644
->>> --- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
->>> +++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
->>> @@ -91,6 +91,12 @@ properties:
->>>        The phandle of the syscon node for the peripheral general register file.
->>>      $ref: /schemas/types.yaml#/definitions/phandle
->>>  
->>> +  rockchip,phy-wol:
->>> +    type: boolean
->>> +    description:
->>> +      If present, indicates that PHY WOL is preferred. MAC WOL is preferred
->>> +      otherwise.
->>
->> Although I suspect this isn't, it sounds like software policy. What
->> attribute of the hardware determines which is preferred?
+On 23/11/2023 12:38, Suraj Jaiswal wrote:
+> Add binding doc for fault IRQ. The fault IRQ will be
+> trigger for ECC,DPP,FSM error.
 > 
-> Maybe the word "preferred" set off a red flag. The description is taken
-> from the mediatek,mac-wol, which is used to set the same flag with
-> inverted logic (I could invert my logic to call mine rockchip,mac-wol
-> and use a description without "preferences").
+> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+> ---
+>  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> This property is used to enable the PHY WOL in case the MAC is powered
-> off in suspend mode, so it cannot provide WOL. This is done by a PMIC as
-> defined in the device tree and that should not be something the software
-> could tweak.
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index 7bdb412a0185..e013cb51fb07 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> @@ -37,12 +37,14 @@ properties:
+>      items:
+>        - description: Combined signal for various interrupt events
+>        - description: The interrupt that occurs when Rx exits the LPI state
+> +      - description: The interrupt that occurs when HW fault occurs
 
-I wonder if generic wakeup-source property could not be used. WOL is a
-bit different because it allows to actually turn on the computer, but
-otherwise it is also a wake-up.
+Adding required items is breaking the ABI and introducing new dtbs_check
+warnings. I don't see rationale for this in the commit msg.
+
+I don't see any fixes for the warnings, either. I am quite picky on this
+part, so to avoid wasting my time - are you 100% sure you do not
+introduce any new warning?
 
 Best regards,
 Krzysztof
