@@ -2,75 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 800377F9D8F
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 11:32:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DA087F9D93
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 11:32:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32254C6B457;
-	Mon, 27 Nov 2023 10:32:16 +0000 (UTC)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46933C6B457;
+	Mon, 27 Nov 2023 10:32:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C6ABC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6B01C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 10:32:14 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-50aab0ca90aso5771195e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 02:32:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701081133; x=1701685933;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=6EkO/+jvJxUqXrykI1sSA6OiaE4jGEfZVrMxpcuLqiw=;
- b=NvgTIkzCQ47Z21gEl9CLuy6oysAPOz6aHWuyWQ0Ek5T+xltrLLYN6AIQDVOZ4JVLUF
- 9TTOihC4akiC7SDaBCsikEwTmyrIspZPUBib0PanXOEPJn/ryz8nguHMrUaUpc9DyH22
- BUCht6BrTO2LOCIozNdIq3dGkvV11YUcEcdxz66xaWof0l3SFB8zS19YYd0XS3vHbX6i
- STIgY+H8DUq2HY9D/HGU02ouI//uLRY+XpMWROOqDQ+Ka2oVnp274M6x49PRlEDFRXsw
- z2ul45okjfWFLb9v4RPXN5SYNIJhpqCeUJ2RkYy4S77wXElBpBzheQqCMZILY2FUTSkn
- CuUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701081133; x=1701685933;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6EkO/+jvJxUqXrykI1sSA6OiaE4jGEfZVrMxpcuLqiw=;
- b=GYjPWcoks2NumcBkWl0aepryDSb12XG89SbwmMon88IV7npFUSMyR1gI6M1fYLUdh8
- n3RPoL5+Ln82BcO8TiTm1LP/PdiA+b/QoGUej/TlUScZySK0pFGj0skB6zQK5wAiJiQ+
- GmajIzXGw2nitbDMZLSQNKxVrtWOMGfPgNKD5O0vLn3cPUzq4EgEcSo9Is0vKWvV8EHn
- CzJHCKjm+smf8pkfTsUlxO94QDrZR+6G4WGWt3fSUkTJkRB7FHVX7bxWOVeQn/GjATzW
- VG9vGYbjwWMbWtShb4++azY8PnKPZ7qDA3B33aA/9V4Pmun14s0Tobw9NY06ZR4PfkZd
- YuMQ==
-X-Gm-Message-State: AOJu0YznLsUp6ps9nZ2WwSkX/HFh1Pk3i8CjIDaffsNQGn5yZBJ48wmo
- nUcZasY6iuHNhwqnU8RCyYg=
-X-Google-Smtp-Source: AGHT+IE3b9c6E7V+MSu9Q2L64S7DO8nOwRZHa34LOV/mGICVyRrnTHJnOY2V9EscGgi3JRfPWtGEdw==
-X-Received: by 2002:a05:6512:2343:b0:509:455c:9e3d with SMTP id
- p3-20020a056512234300b00509455c9e3dmr5108404lfu.18.1701081133118; 
- Mon, 27 Nov 2023 02:32:13 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- z20-20020a056512309400b0050aa9cfc238sm1438739lfd.89.2023.11.27.02.32.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Nov 2023 02:32:12 -0800 (PST)
-Date: Mon, 27 Nov 2023 13:32:10 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <4zucnqqunr6rb6k2g4737ksma4r6q5eizopvmvnmeyrhd4pio2@cism5prdsxmq>
-References: <20231125060126.2328690-1-0x1207@gmail.com>
+ Mon, 27 Nov 2023 10:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701081157; x=1732617157;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6ZsD2/0d829tjp3/J12DPotTKkJoMGcOkrsxN0arhzI=;
+ b=GO47Tq/49HUgcEb2DDdwI/IXsylQWbxXG+IH5xC+KKrLU/HJ7jEPLLpW
+ EOdL3j6dOjqLl/DAx5mNNL/MEeBJgSf5WDGWW/SqMsWJV8/fSfE3OtZry
+ HmpcufxQN7DuwaJBAr2Htn5XTXOXefABz8trgMoz/EQp3wK62i2A3ajyt
+ 0EVUGHq3quJbKeLDyHfAD0WcFdyO9nAsoGtLhMn7aTKweZaQepbIJg7Uu
+ ETgXMHCWNhnRIrVECXO7q0WjO0Q+tknIwXbrYz1aSLK+LJK07C64T7MFq
+ PmATZ4nhm4A1ZLUa1ojb7orBXCd0JjcLZawxmmgbXfwUbC21MZbVfvyMT w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10906"; a="377710261"
+X-IronPort-AV: E=Sophos;i="6.04,230,1695711600"; d="scan'208";a="377710261"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2023 02:32:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10906"; a="891693461"
+X-IronPort-AV: E=Sophos;i="6.04,230,1695711600"; d="scan'208";a="891693461"
+Received: from turnipsi.fi.intel.com (HELO kekkonen.fi.intel.com)
+ ([10.237.72.44])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2023 02:32:31 -0800
+Received: from kekkonen.localdomain (localhost [127.0.0.1])
+ by kekkonen.fi.intel.com (Postfix) with SMTP id C8A9711FCD0;
+ Mon, 27 Nov 2023 12:32:28 +0200 (EET)
+Date: Mon, 27 Nov 2023 10:32:28 +0000
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <ZWRwPJQA_wNEVD8Y@kekkonen.localdomain>
+References: <20231122073927.788810-1-alain.volmat@foss.st.com>
+ <20231122073927.788810-4-alain.volmat@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231125060126.2328690-1-0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Larysa Zaremba <larysa.zaremba@intel.com>, Joao Pinto <jpinto@synopsys.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: xgmac: Disable FPE
-	MMC interrupts
+In-Reply-To: <20231122073927.788810-4-alain.volmat@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v8 3/5] media: stm32-dcmipp: STM32 DCMIPP
+ camera interface driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,61 +79,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat, Nov 25, 2023 at 02:01:26PM +0800, Furong Xu wrote:
-> Commit aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts
-> by default") tries to disable MMC interrupts to avoid a storm of
-> unhandled interrupts, but leaves the FPE(Frame Preemption) MMC
-> interrupts enabled, FPE MMC interrupts can cause the same problem.
-> Now we mask FPE TX and RX interrupts to disable all MMC interrupts.
-> 
-> Fixes: aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts by default")
-> Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
-> ---
-> Changes in v3:
->   - Update commit message, thanks Larysa.
->   - Rename register defines, thanks Serge.
+Hi Alain,
 
-The fix looking good now. Thanks!
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+On Wed, Nov 22, 2023 at 08:39:17AM +0100, Alain Volmat wrote:
+> From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> 
+> This V4L2 subdev driver enables Digital Camera Memory Interface
+> Pixel Processor(DCMIPP) of STMicroelectronics STM32 SoC series.
+> 
+> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 
--Serge(y)
+One more thing. I think you're missing all the link_validate ops, meaning
+it's possible to start the hardware with invalid configuration.
 
-> 
-> Changes in v2:
->   - Update commit message, thanks Wojciech and Andrew.
-> ---
->  drivers/net/ethernet/stmicro/stmmac/mmc_core.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-> index ea4910ae0921..6a7c1d325c46 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-> @@ -177,8 +177,10 @@
->  #define MMC_XGMAC_RX_DISCARD_OCT_GB	0x1b4
->  #define MMC_XGMAC_RX_ALIGN_ERR_PKT	0x1bc
->  
-> +#define MMC_XGMAC_TX_FPE_INTR_MASK	0x204
->  #define MMC_XGMAC_TX_FPE_FRAG		0x208
->  #define MMC_XGMAC_TX_HOLD_REQ		0x20c
-> +#define MMC_XGMAC_RX_FPE_INTR_MASK	0x224
->  #define MMC_XGMAC_RX_PKT_ASSEMBLY_ERR	0x228
->  #define MMC_XGMAC_RX_PKT_SMD_ERR	0x22c
->  #define MMC_XGMAC_RX_PKT_ASSEMBLY_OK	0x230
-> @@ -352,6 +354,8 @@ static void dwxgmac_mmc_intr_all_mask(void __iomem *mmcaddr)
->  {
->  	writel(0x0, mmcaddr + MMC_RX_INTR_MASK);
->  	writel(0x0, mmcaddr + MMC_TX_INTR_MASK);
-> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_TX_FPE_INTR_MASK);
-> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_RX_FPE_INTR_MASK);
->  	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_RX_IPC_INTR_MASK);
->  }
->  
-> -- 
-> 2.34.1
-> 
-> 
+Could you add them? It can be a separate patch. I'll postpone these until
+that.
+
+-- 
+Regards,
+
+Sakari Ailus
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
