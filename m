@@ -2,90 +2,157 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18AF7FA19C
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 14:55:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21F7A7FA421
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 16:10:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 512B4C6B469;
-	Mon, 27 Nov 2023 13:55:33 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA64BC6B469;
+	Mon, 27 Nov 2023 15:10:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FDBDC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07A96C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 13:55:32 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3AR8W491020325; Mon, 27 Nov 2023 14:55:09 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=c7sVCLbdbIsSSVXrD1aEo
- LgXUO8xa7qqmhRYF03VJgc=; b=1XjDfyKOELRTgDd6RM601zZBHKa4C6eUWK7Tj
- Ml4RnWHCCSMR8PjBTOkvJqqUvJ4/3XZycnRSif74GQKGsp5JsyyT7sOCLRGl7Bud
- +JkYOozYc2E81/a81bSylEIkSoM6A4qe+wgrsfhyCWxaXCTroo3+8E06iowGGTdx
- OouPXrukmWxNgndazEobvaFEbF5jjPvJ14E1GuWAZMgKF6OTNM3SIeHaHUfrBq/A
- lX6jbm7BxMmA3YQCBdqe650rbxtN73bdvs9SssGs/5AfdE4i/7hP120VxQIhd/fM
- gs6ka3dMgkBzhNNbg28xc0JwqNrijwS63dHQA4YbT7QUzWVEA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uk8pjqq1k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Nov 2023 14:55:09 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id DAF7610002A;
- Mon, 27 Nov 2023 14:55:08 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D189A2291C4;
- Mon, 27 Nov 2023 14:55:08 +0100 (CET)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 27 Nov
- 2023 14:55:08 +0100
-Date: Mon, 27 Nov 2023 14:55:03 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Message-ID: <20231127135503.GA1423796@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Philipp Zabel <p.zabel@pengutronix.de>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Dan Scally <dan.scally@ideasonboard.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20231122073927.788810-1-alain.volmat@foss.st.com>
- <20231122073927.788810-4-alain.volmat@foss.st.com>
- <ba856a09de62a6ddbf1c19d5fd502de1cbc3e273.camel@pengutronix.de>
+ Mon, 27 Nov 2023 15:10:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701097826; x=1732633826;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=DGdp7w0gIbejeN8ECYBsv8RnfSYwOV+B5SqqJH1ySrI=;
+ b=eOpvoPZe/borrzu0j2Ej2/5m2KaLWZCQy0k1/VtKYP/kTLX4/2DSi10D
+ CWluFsC88t6ZM5owr+Aq7rL9DplvOzXKzI+ib4s7rj2EP8m1z4o5UBpIY
+ AXOtG7X8Q9pJgTw1OyHLbqgWWQolWRKxmvvNXJ6Q6OD2kq5Uv6CQ6Sbhj
+ o1b+Hy8SkH0tIO7Eh+zVDFBB7qcaQ8UW4dj65bEkFrFPuVE5H93mdbYMJ
+ MXGRvQl+k2jHOMaFiiehEFD1CVEB8RI4vBcH25b7bgPgKBEZuSasQ19Zn
+ xGcJvMZmc9TsQTD0xCBLYuxSlZ+4/HhaTMZzxt0hP+lrgFYcdfiYRel/q Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10907"; a="372084042"
+X-IronPort-AV: E=Sophos;i="6.04,231,1695711600"; d="scan'208";a="372084042"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2023 06:36:54 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,231,1695711600"; d="scan'208";a="16596450"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 27 Nov 2023 06:36:54 -0800
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Mon, 27 Nov 2023 06:36:54 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34; Mon, 27 Nov 2023 06:36:53 -0800
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.34 via Frontend Transport; Mon, 27 Nov 2023 06:36:53 -0800
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.169)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Mon, 27 Nov 2023 06:36:48 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G0/jIA9pnzR4fSxOB/j2e4QTMAxtcym8Gqgk+zwTQx1bJxlj0mBs4CUytT/e+VbDyHLFN6T0rgMnZqKHnTUHJ3ewj3pcjXhBl3XGYD9PwnFVqoMq0G9DKUQ4EuWfzCJ8vcfIJMtBK8NQ2J5jTLvctwg43hm13AZSAcuihoctFFjfTBxo7vkz7CtzBM5DP0oGfb5sBUFVbybtMBnKhldYzQo160epNHVwM7gA3wuW0zZRIG+8qcX5kOMnSSDJA2AH99+5qThZbKmo3WTBO1KzKahCeAJeSJkvEw5nubPJ2/zM7wW0NZPXgn6rj5RAjYy9+/7ZfDyDZiVgTplE1VVTYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QgeyYNAE1QbCXQjcfWiN0LRBhH9uBIQ4TiPt3w7s6Pg=;
+ b=cyUcgEgS0nhIuei+jjWfnzCDsU/YSaY0E++r0M26Mm8FZee7TO4zDcrvpQj5bxrzuGy4577VtzsI+jo7aaZdRfVQhFY0NIV9xIG5ULdIGos3dGVMt9Hv73USu8+jf4uJhIoOEWMkx+p1mDUZ3YTj+SOEtC5uRcRhiKPUWB46v1KT1RmLXwp7HNGbqm1Y0zxfCa7owB/oUsCw4yIQkSYlrs1dsQn4q7CfIftQ+r4mp3vQPNVxhpljEdMhGmt7BPjz4p5SnzW1lmmqC1tCO95aAidDXVHfIIn9bh0tBKuKFpcW1WqjUL9dnRNkbwI1kUWo6SV+iZoCU1W7cQUsBenEvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW4PR11MB5776.namprd11.prod.outlook.com (2603:10b6:303:183::9)
+ by PH8PR11MB6681.namprd11.prod.outlook.com (2603:10b6:510:1c4::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7025.27; Mon, 27 Nov
+ 2023 14:36:45 +0000
+Received: from MW4PR11MB5776.namprd11.prod.outlook.com
+ ([fe80::49fc:ba56:787e:1fb3]) by MW4PR11MB5776.namprd11.prod.outlook.com
+ ([fe80::49fc:ba56:787e:1fb3%7]) with mapi id 15.20.7025.022; Mon, 27 Nov 2023
+ 14:36:45 +0000
+Message-ID: <c09a9005-bce9-40c7-888d-d7276f434bcc@intel.com>
+Date: Mon, 27 Nov 2023 15:36:38 +0100
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Furong Xu <0x1207@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Joao Pinto <jpinto@synopsys.com>, Simon Horman
+ <horms@kernel.org>
+References: <20231125060126.2328690-1-0x1207@gmail.com>
+From: Wojciech Drewek <wojciech.drewek@intel.com>
+In-Reply-To: <20231125060126.2328690-1-0x1207@gmail.com>
+X-ClientProxiedBy: WA2P291CA0028.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::23) To MW4PR11MB5776.namprd11.prod.outlook.com
+ (2603:10b6:303:183::9)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ba856a09de62a6ddbf1c19d5fd502de1cbc3e273.camel@pengutronix.de>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-27_11,2023-11-27_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
- Dan Scally <dan.scally@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v8 3/5] media: stm32-dcmipp: STM32 DCMIPP
- camera interface driver
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR11MB5776:EE_|PH8PR11MB6681:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c3846b9-c6f1-4440-673e-08dbef5647ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5sjZXVz8BV0b2Xg3KAq/xSfrpsaYtwWTbqII5DWXoGI1PvG2Nk+JywtPZaVBby60VAtRetwMqkwdgSkTvzC5PK7EwBLYXht1BgfkOg0PlI5VA7AOdPPIK0d0TnXxF8FzWHWZZXklT3pGaQEgCNpDj3neziz2zmLWNwhxAiXAL05U5ct701yzHQ7BRFwhvJDAZf9p0hJDOR07epmhC+Rh0VclT6wwru4/6jIaXeee7e49qmlKP5BeLtzTgZb/Z/CfpYSlZsPT1dikWPFcItsuzXQxwAGQ9RVppDxYObmvymnA52pYWkNpXMEektetSZTfrBH0R/hYEO+wJHe175f/YAZu7v/F3OqNSlK23SFPpZj+4nPJ+904tiHGkrNTAZfKcWJTKwLASZesUB4dRJI9EHFuxLESFnnmWoW3CFb04tx7f78duIGQSAvfsUXH4TLbmt2UxoP3oc4xVA5k2GjGJDZQ25bWqUJrIcXyGuV/etx/ksjgOHh/RhjIIswNotDWyP47xlJZCQLTjQjI7T1dP5UkmOfJQ7Y8nPz0o1EoVeHw3vXX9uf2jWj19y0WFok0z2PDmmTJG2j2EqZASuPi6UVnuih/VNYAIRoH/Pc/Bj4Pf3tO+lVfH3uwkxkRV1rMpfe3DCkW95UzdCdlbGbJkrNvf9ormxx8dbvBQuRova4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR11MB5776.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(366004)(396003)(346002)(136003)(376002)(230922051799003)(186009)(64100799003)(451199024)(1800799012)(107886003)(2616005)(26005)(6506007)(6666004)(6512007)(4326008)(8936002)(82960400001)(8676002)(7416002)(44832011)(31696002)(5660300002)(86362001)(478600001)(6486002)(110136005)(66946007)(66556008)(316002)(66476007)(38100700002)(83380400001)(31686004)(53546011)(921008)(41300700001)(2906002)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUZCV2pSeGdPTEJrcVM0NS9YMzNxVVI5dm1FU0FYait3bnpTQnJmSDc5eGt0?=
+ =?utf-8?B?TzcvRGUwd0lmQTJpNnF5dlpBOWlTamdGbnJVcnpRL096TklUNGozRi9BNGR0?=
+ =?utf-8?B?VmdMVTV4RDRCSmFqTE1jYVZRTHhJdWVTNUpieE1lWGF4dCtucUFzb3UwOUNw?=
+ =?utf-8?B?dC9sclpWV3JJUHpndzBaRXJVZGtmNTBZakg1R0pFTEcrWHdMTmZCQklCYVo5?=
+ =?utf-8?B?MURhSUJVVzhMZlVBRE9raXFFVWJUM0tkQ3NZdUFhRUdXdE1GUGEvNFQwUDFL?=
+ =?utf-8?B?WjVKL3ZPYkU0amVFNU90b2RLTzhtelMzejBhcWJ5eWFhSkFlbkdUUkwzcEk1?=
+ =?utf-8?B?SnBFejl4bUZhYy9uT0kwOFQ3TkdoRlowcFE1QWFVRWV5eWdhRnZDaTdJellE?=
+ =?utf-8?B?ZTB3dEhrWjVyWmdGSU1CMkdCL1ZZSmNxNFhnYndlUVJ0KzRDbnlibWttNXhp?=
+ =?utf-8?B?L0pqWHNmT01pQ0VpZXNlL3NxWFJVQVdVZlV4akFlcDhpNlBzVXhEOUlpRkFQ?=
+ =?utf-8?B?aytlM2xmSUcwRHZ1MEYzWjEzWGlROUNKUXEzcDArNUE5UkJITXlPTExlZTJ1?=
+ =?utf-8?B?ZUlRWW5nWUJnZzROYVdGS1M2TU42RUtJbnpWY29DTXpWY1lpRFMzT3RTVFNi?=
+ =?utf-8?B?dzR0dVdqOFdXZVBmckdva0xGTjhHZld5ZG15SFY5WUQzVzFpMlJYV1RHNDE1?=
+ =?utf-8?B?S2kvRVB4WDFZQ01zSVdLUmNRUnV5L2xvNjJQc3dUWGN0MDlHcmJuaVpMdmFu?=
+ =?utf-8?B?em5LckNrU05rNmhUSzFOV3NCd1dScks0MHBEZUh4eXdPTW9rTmlvd3FPaTVV?=
+ =?utf-8?B?eDJ1R2dOZHh6ZjNSYUlDOVk2VXRTcDFnS2c0REV1c3QybXlnZnpJK3hJYW8w?=
+ =?utf-8?B?anErekUreDdKbUJlQjRCajVZVloxdDZsamEvcWh2V1V6azlwTzBBUW5FSFgv?=
+ =?utf-8?B?cTY0Nmg4bUlTNE5WRlRYUVhYczFXeGw4eDN1RCtZSG93WGRHK3VjSVkvak05?=
+ =?utf-8?B?RUErYUJ5VFpuemtQYlAvK3kyODkvZTcvaFdaVWxVVFMyb3k3S09rRTMwTXY2?=
+ =?utf-8?B?ZzJibFFqTTdldDlvZWoyMGxIRllmV0dwVUtDZjRGZ1hPSFpSVUJLeHkyT04r?=
+ =?utf-8?B?NVVaODh1WFJnV3RvQlRVSFAzYUNiek4wTGJ2NUtXQm9YencxdkxYb3BaaWxo?=
+ =?utf-8?B?VDRRWjdoZ3R0TVNXZHd6dE9pYlo3R0M5TFVrN2Y0R1pSS2RVaDFlYk15bElU?=
+ =?utf-8?B?YW9XVnAzenE2blJzencvemRWMWdRUkdPVkN1SjBCRHU2UUUyRTZFODA2c0M0?=
+ =?utf-8?B?M0lVTUUzRTNTejJmZ0ljNU13Y3BBSHI1S1R4cmltMjA4aFIxV2FFK0o4T0Nk?=
+ =?utf-8?B?Zi9zd0llTWdERHNyS3BmV0RhcDZveU1XenhrUFlKNEpYbkQ5L0hiUXpmMm5K?=
+ =?utf-8?B?OVhzdmNYVXJzcDdxd29wNS9HNHJHRzZ4d0hxTHFpZFFhNnVyT1krajNUYUtV?=
+ =?utf-8?B?elZsMHJYSnpCZDVhSXB1QllnTmxrQTlzbWJQaHRVN1hpc0dtZkVUUHRRTjBp?=
+ =?utf-8?B?NXl1bk45Yk9Rem1FYTgrZ2dhTTNORDlqRXh4cnEzaE1JeThXWXNIZkNYaHQy?=
+ =?utf-8?B?bW5YbVdhZjg5c1gwMUUzMnRVZmNsbXhHQjVpU3VtcTJ6cEgrWjRNdVVpMGEw?=
+ =?utf-8?B?V1ptYmZlQ1d1Q3UyOWg5R0M0T1BVczQ5Y3YzYWcvWlZXVkZ4UlFoOVNtRHdQ?=
+ =?utf-8?B?YjV3NFBjeGdMMlM2U29nbTNCMGphOHhLMEYrVGNqdFJKR2FJOVNhT2RIQXp0?=
+ =?utf-8?B?ZE9xZFRpTWdMeE5YNThsME1qaDhIZ2hZRFQrTEpKQXVCT1RUNE4xdFRIWjBB?=
+ =?utf-8?B?WXJBNjdRancxMmp3aDhCY3piK251bHhDckh5U1UzeHhleDVXS0kxRkpXNENZ?=
+ =?utf-8?B?QkYwMStsRGFQd2xvNGF2U25PYkhaSVRlOWkybllFRXRtOUJwUlNRZkU1V0JU?=
+ =?utf-8?B?U0J3VkV1K0hlZ3FoK3ArV01wOVk2ek5EeW5BamZkWE04WFRwMTdZRzFBMnNr?=
+ =?utf-8?B?NDFsa0ZUazQ5MWNGSU1zZGNjc3ZSbjFOSmdmYWsxMHl4L1I3UGlObkFWNjVY?=
+ =?utf-8?B?SC94SWRLalFqWnNHeW9MSDdsU2p5MXlxL3p3eFRId3dxWDJQbEcycTdvTnFp?=
+ =?utf-8?B?cVE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c3846b9-c6f1-4440-673e-08dbef5647ed
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB5776.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2023 14:36:45.8641 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HDgO31Hj2lbhfFUWvJnUuXTo4x/uiyDxhdEXONQKUa/xGsRFqioWkIv3kc7q7fdvsGpiTVqRy/yDab8EgnypFKfADSTGieUYLUdS5/Hb0uo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6681
+X-OriginatorOrg: intel.com
+Cc: Larysa Zaremba <larysa.zaremba@intel.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, rock.xu@nio.com, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: xgmac: Disable FPE
+	MMC interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,78 +169,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Philipp,
 
-On Mon, Nov 27, 2023 at 12:38:21PM +0100, Philipp Zabel wrote:
-> On Mi, 2023-11-22 at 08:39 +0100, Alain Volmat wrote:
-> > From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > 
-> > This V4L2 subdev driver enables Digital Camera Memory Interface
-> > Pixel Processor(DCMIPP) of STMicroelectronics STM32 SoC series.
-> > 
-> > Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > ---
-> [...]
-> > diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > new file mode 100644
-> > index 000000000000..28ddb26314c3
-> > --- /dev/null
-> > +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> > @@ -0,0 +1,604 @@
-> [...]
-> > +struct dcmipp_device {
-> > +	/* The platform device */
-> > +	struct platform_device		pdev;
-> > +	struct device			*dev;
-> > +
-> > +	/* Hardware resources */
-> > +	struct reset_control		*rstc;
-> 
-> As long as rstc is only used in dcmipp_probe(), there is no need to
-> carry it around in struct dcmipp_device.
 
-Oups, thanks.  Indeed, in first series reset was being used in another
-place but this is no longer necessary now.  Thanks.
+On 25.11.2023 07:01, Furong Xu wrote:
+> Commit aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts
+> by default") tries to disable MMC interrupts to avoid a storm of
+> unhandled interrupts, but leaves the FPE(Frame Preemption) MMC
+> interrupts enabled, FPE MMC interrupts can cause the same problem.
+> Now we mask FPE TX and RX interrupts to disable all MMC interrupts.
+> 
+> Fixes: aeb18dd07692 ("net: stmmac: xgmac: Disable MMC interrupts by default")
+> Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> ---
+> Changes in v3:
+>   - Update commit message, thanks Larysa.
+>   - Rename register defines, thanks Serge.
+> 
+> Changes in v2:
+>   - Update commit message, thanks Wojciech and Andrew.
+> ---
 
-I fixed this and will push it into the v9.
+Reviewed-by: Wojciech Drewek <wojciech.drewek@intel.com>
 
-Regards,
-Alain
+>  drivers/net/ethernet/stmicro/stmmac/mmc_core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> [...]
-> > +static int dcmipp_probe(struct platform_device *pdev)
-> > +{
-> > +	struct dcmipp_device *dcmipp;
-> > +	struct clk *kclk;
-> 
-> rstc could be a local variable here.
-> 
-> [...]
-> 
-> > +	/* Get hardware resources from devicetree */
-> > +	dcmipp->rstc = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> > +	if (IS_ERR(dcmipp->rstc))
-> > +		return dev_err_probe(&pdev->dev, PTR_ERR(dcmipp->rstc),
-> > +				     "Could not get reset control\n");
-> [...]
-> > +	/* Reset device */
-> > +	ret = reset_control_assert(dcmipp->rstc);
-> > +	if (ret) {
-> > +		dev_err(&pdev->dev, "Failed to assert the reset line\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	usleep_range(3000, 5000);
-> > +
-> > +	ret = reset_control_deassert(dcmipp->rstc);
-> > +	if (ret) {
-> > +		dev_err(&pdev->dev, "Failed to deassert the reset line\n");
-> > +		return ret;
-> > +	}
-> 
-> regards
-> Philipp
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> index ea4910ae0921..6a7c1d325c46 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+> @@ -177,8 +177,10 @@
+>  #define MMC_XGMAC_RX_DISCARD_OCT_GB	0x1b4
+>  #define MMC_XGMAC_RX_ALIGN_ERR_PKT	0x1bc
+>  
+> +#define MMC_XGMAC_TX_FPE_INTR_MASK	0x204
+>  #define MMC_XGMAC_TX_FPE_FRAG		0x208
+>  #define MMC_XGMAC_TX_HOLD_REQ		0x20c
+> +#define MMC_XGMAC_RX_FPE_INTR_MASK	0x224
+>  #define MMC_XGMAC_RX_PKT_ASSEMBLY_ERR	0x228
+>  #define MMC_XGMAC_RX_PKT_SMD_ERR	0x22c
+>  #define MMC_XGMAC_RX_PKT_ASSEMBLY_OK	0x230
+> @@ -352,6 +354,8 @@ static void dwxgmac_mmc_intr_all_mask(void __iomem *mmcaddr)
+>  {
+>  	writel(0x0, mmcaddr + MMC_RX_INTR_MASK);
+>  	writel(0x0, mmcaddr + MMC_TX_INTR_MASK);
+> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_TX_FPE_INTR_MASK);
+> +	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_RX_FPE_INTR_MASK);
+>  	writel(MMC_DEFAULT_MASK, mmcaddr + MMC_XGMAC_RX_IPC_INTR_MASK);
+>  }
+>  
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
