@@ -2,71 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E152F7F9CB4
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 10:34:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC6F17F9CE4
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 10:47:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 908D8C6B457;
-	Mon, 27 Nov 2023 09:34:24 +0000 (UTC)
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6948AC6B457;
+	Mon, 27 Nov 2023 09:47:57 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 721FBC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CE5DC6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 09:34:23 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-54a95657df3so5664640a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 01:34:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1701077663; x=1701682463;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=xxjZg22ov6gQx8JLukqacT0gU0Tul8TKlesYhtgUQmM=;
- b=OcmIOZ4tEaFSFvWnTwGoSwmBJbPnLqrkOjAnN1PP7x/xS5W8pIerxIYIkQ5wQMPovo
- xZgpKrzYHnojxGD84YnhvDfSdpQKURxzVyHNYdjsXyx9IUoPwUehMGveY009vJmr8RTA
- Sn/1nU9NvJiAxpjJdf+DbEqhQ3m4wEi0cJVi32EZE/n+Qe0mk/P/9LXqfhsz0GjdWFAh
- 7edp2Td5GFxp+VD/88ZX12tZmuMM4odK5sNs6CvP+1uA7CU67aWfSw+9njlfnJqrxa7x
- Sty2pYbalilJgXsJ1p+tZaPD/LfWthPehE5SiZQdZ5GhqN7d1D9TwIcziYOXSvOPjMpZ
- D42A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701077663; x=1701682463;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=xxjZg22ov6gQx8JLukqacT0gU0Tul8TKlesYhtgUQmM=;
- b=oYqrHbW5qF93wa/80BfMAC2Yt3/WlQ0JVbody7HF1D/BFsUSjHI53Aj2y8Q6ZXzcMa
- B2xb7bV28emCofC3ttydRsUkl6DpEI6N2Is3obw4y/TgF2ElD4NMt0zikq6f2Bp1JACv
- 9vA6WfTAIz3Aj7hDWA0PHnFz9W5RAkJD12VmMyitcUhYOGZfkqbSTg/kvnUkQpplLz+X
- Gzm7omGzlGauIs3JnykfdzYOzCFTa51VcC1nj4n96GRSeuAct9UW0wIYuZJ8a8NjfSDn
- llrUxnZHv9R0FzSDSqVqEQ3ZGtNnrTiPq+jR1MFMIUyVZ00h6liPojSzCj/sSSegovHg
- ttSA==
-X-Gm-Message-State: AOJu0YyZTwRCTpwKFKBz5PGfmd7SJGaWPImJkrqVAgwqg3hQXFAU5ivY
- +qLaRPXcGSsry3o4hHD4ay+cTQ==
-X-Google-Smtp-Source: AGHT+IHwjo3iCYneHAx17+3mDf/thozieQyTXj1EWQg79jKTCz1jo/XMchH7SbSIGHpMDbSOO2DORA==
-X-Received: by 2002:a17:906:109b:b0:a0c:fe2f:c445 with SMTP id
- u27-20020a170906109b00b00a0cfe2fc445mr3149996eju.69.1701077662724; 
- Mon, 27 Nov 2023 01:34:22 -0800 (PST)
-Received: from krzk-bin.. ([178.197.223.109]) by smtp.gmail.com with ESMTPSA id
- s20-20020a1709066c9400b009fd585a2155sm5452587ejr.0.2023.11.27.01.34.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Nov 2023 01:34:22 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 27 Nov 2023 10:34:20 +0100
-Message-Id: <20231127093420.20473-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+ Mon, 27 Nov 2023 09:47:56 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3AR8o8fq005308; Mon, 27 Nov 2023 09:47:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=DLa4Kp7HxsKcXRRks8BDl3egQFGnE2LXNIlaMAyxw7Q=;
+ b=XqzAJ2zSnv7DTXF7VGACBJakjb64vYAAxtY1ccJwONLVIm1Lh4u84yqqnj8TX/RNCKXV
+ obWKJMiYlUsp9NRZ0dfCo/vg57XOV6waAHO3QSybB+dixrgHrot77clBli+ZukL2z8wA
+ UDN+Opqdf4YObRBCMYtPL5UbSpKok6oWkEib0Uhr9/e1bjZBhFP4If+emQWDR8R1kMZ8
+ hDStzZyXIyLxnw73Mw/zW0DGpWodWwP0cMp192Wt09x+5VygI0CAuFlR5anY0+LLbY7H
+ pm8nbnrGoHJToHtCTNB6k32OkD4QjuqFJ/vnKJBL9E/Zb/bUqKJxNAALxiLRY3EGMZlH Ow== 
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3umqxh03w0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Nov 2023 09:47:32 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3AR9lV48000578
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Nov 2023 09:47:31 GMT
+Received: from [10.216.36.194] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 27 Nov
+ 2023 01:47:23 -0800
+Message-ID: <3bf6f666-b58a-460f-88f5-ad8ec08bfbbc@quicinc.com>
+Date: Mon, 27 Nov 2023 15:17:20 +0530
 MIME-Version: 1.0
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [Linux-stm32] [PATCH v2] ARM: dts: stm32: minor whitespace cleanup
-	around '='
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+References: <20231124050818.1221-1-quic_snehshah@quicinc.com>
+ <ZWBo5EKjkffNOqkQ@shell.armlinux.org.uk>
+ <47c9eb95-ff6a-4432-a7ef-1f3ebf6f593f@quicinc.com>
+ <ZWRVz05Gb4oALDnf@shell.armlinux.org.uk>
+From: Sneh Shah <quic_snehshah@quicinc.com>
+In-Reply-To: <ZWRVz05Gb4oALDnf@shell.armlinux.org.uk>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: nrvAYn8HSf4OGhf24CFSTQKueIP7r0Ph
+X-Proofpoint-ORIG-GUID: nrvAYn8HSf4OGhf24CFSTQKueIP7r0Ph
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-27_08,2023-11-22_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 malwarescore=0
+ clxscore=1015 phishscore=0 mlxlogscore=620 spamscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 impostorscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311060000 definitions=main-2311270067
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: update Rx clk divider
+	for 10M SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,77 +96,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DTS code coding style expects exactly one space before and after '='
-sign.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
----
+On 11/27/2023 2:09 PM, Russell King (Oracle) wrote:
+> Please reply _inline_ rather than at the top of the message, just like
+> every other email that is sent in the Linux community. It is actually
+> the _Internet_ standard way of replying, before people like Microsoft
+> encouraged your broken style.
+> 
+> Also wrapping the text of your message makes it easier.
 
-Changes in v2:
-1. Split previous commit touching entire 'st' directory.
----
- arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 2 +-
- arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts | 2 +-
- arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 2 +-
- arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+Noted. Going forward will make sure to reply inline.
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-index afcd6285890c..69d693ae26dd 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-@@ -59,7 +59,7 @@ &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
- 		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
--	reset-names =  "mcu_rst", "hold_boot";
-+	reset-names = "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-index 39358d902000..89bfb4143ba7 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-@@ -65,7 +65,7 @@ &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
- 		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
--	reset-names =  "mcu_rst", "hold_boot";
-+	reset-names = "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-index 07ea765a4553..ca7a3a0f16af 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-@@ -64,7 +64,7 @@ &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
- 		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
--	reset-names =  "mcu_rst", "hold_boot";
-+	reset-names = "mcu_rst", "hold_boot";
- };
- 
- &rcc {
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-index 813086ec2489..f6510b93f912 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-@@ -70,7 +70,7 @@ &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
- 		 <&scmi_reset RST_SCMI_MCU_HOLD_BOOT>;
--	reset-names =  "mcu_rst", "hold_boot";
-+	reset-names = "mcu_rst", "hold_boot";
- };
- 
- &rcc {
--- 
-2.34.1
-
+> 
+> On Mon, Nov 27, 2023 at 11:25:34AM +0530, Sneh Shah wrote:
+>> On 11/24/2023 2:42 PM, Russell King (Oracle) wrote:
+>>> On Fri, Nov 24, 2023 at 10:38:18AM +0530, Sneh Shah wrote:
+>>>>  #define RGMII_CONFIG_LOOPBACK_EN		BIT(2)
+>>>>  #define RGMII_CONFIG_PROG_SWAP			BIT(1)
+>>>>  #define RGMII_CONFIG_DDR_MODE			BIT(0)
+>>>> +#define RGMII_CONFIG_SGMII_CLK_DVDR		GENMASK(18, 10)
+>>>
+>>> So you're saying here that this is a 9 bit field...
+>>>
+>>>> @@ -617,6 +618,8 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+>>>>  	case SPEED_10:
+>>>>  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+>>>>  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
+>>>> +		rgmii_updatel(ethqos, RGMII_CONFIG_SGMII_CLK_DVDR, BIT(10) |
+>>>> +			      GENMASK(15, 14), RGMII_IO_MACRO_CONFIG);
+>>>
+>>> ... and then you use GENMASK(15,14) | BIT(10) here to set bits in that
+>>> bitfield. If there are multiple bitfields, then these should be defined
+>>> separately and the mask built up.
+>>>
+>>> I suspect that they aren't, and you're using this to generate a _value_
+>>> that has bits 5, 4, and 0 set for something that really takes a _value_.
+>>> So, FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR, 0x31) or
+>>> FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR, 49) would be entirely correct
+>>> here.
+>>
+>> You are right here for GENMASK(15,14) | BIT(10). I am using this to create a field value.I will switch to FIELD_PREP as that seems like a better way to do this.
+> 
+> So this is a "nice" example of taking the use of GENMASK() and BIT() to
+> an inappropriate case.
+> 
+>>> The next concern I have is that you're only doing this for SPEED_10.
+>>> If it needs to be programmed for SPEED_10 to work, and not any of the
+>>> other speeds, isn't this something that can be done at initialisation
+>>> time? If it has to be done depending on the speed, then don't you need
+>>> to do this for each speed with an appropriate value?
+>>
+>> This field programming is required only for 10M speed in for SGMII mode. other speeds are agnostic to this field. Hence we are programming it always when SGMII link comes up in 10M mode. init driver data for ethqos is common for sgmii and rgmii. As this fix is specific to SGMII we can't add this to init driver data.
+> 
+> I wasn't referring to adding it to driver data. I was asking whether it
+> could be done in the initialisation path.
+> 
+No, IOMACRO block is configured post phylink up regardless of RGMII or SGMII mode. We are not updating them at driver initialization time itself.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
