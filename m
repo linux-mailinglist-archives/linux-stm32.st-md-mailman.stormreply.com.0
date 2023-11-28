@@ -2,65 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92AE57FC513
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 21:14:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B95A77FC6B8
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 22:06:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4858FC6B44B;
-	Tue, 28 Nov 2023 20:14:55 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 639D7C6B44B;
+	Tue, 28 Nov 2023 21:06:29 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E2C2C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6CF7C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 20:14:54 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3ASEWoYk025952; Tue, 28 Nov 2023 21:14:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=3wum3M3
- uGkwBSpakL3jJmsR2FXWJMQzhEHn2WaGllZI=; b=6thw0lQMM3/jSHUykSdUmg5
- g60wNRp1znWXHe3w2Qdf1vqk9mqXAtsWRmJ64nfh+ovGcSocDzPeRsbcJHGs4d0D
- fxv0T9cvtVacdgGw/eRFDFWBOJEzZQqmhISZtPiTgxzHk5PBKnTAAIdr4yWbLP5U
- TvBZUWcPEMXIrS+5BI9rfNgBJzsV27q2ldmLmc61UQ1YNwtsQnEKyqODEgL6sxys
- 42mb6HBUuJ897KMObaTym+vAR/c/x5pAtZauXIKe0absnsJTUGEAgQP+oVsq0X5M
- 9vxtzMoZLNwCn69MuOXg39xWh63IzIDCvLTuKNvLDPPRgRBgcHd8G6u0ItIVKXA=
- =
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uk8pjwn91-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 28 Nov 2023 21:14:36 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5547310002A;
- Tue, 28 Nov 2023 21:14:34 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4A135276D9F;
- Tue, 28 Nov 2023 21:14:34 +0100 (CET)
-Received: from localhost (10.252.11.142) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 28 Nov
- 2023 21:14:34 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Tue, 28 Nov 2023 21:14:03 +0100
-Message-ID: <20231128201404.237856-1-alain.volmat@foss.st.com>
-X-Mailer: git-send-email 2.34.1
+ Tue, 28 Nov 2023 21:06:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5160F616A2;
+ Tue, 28 Nov 2023 21:06:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B19C433CD;
+ Tue, 28 Nov 2023 21:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1701205586;
+ bh=vLFsNC7dpPSO8f8oiEfVpudpoqwivq/thFRlPPqdOww=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SS1I4qTvQcvzlNu8qc4QAJTT/tAGkRZyY+a6QfRcudKQVXicM9tduPp8G5g63T/H+
+ M+fOULb/WwaNJau+3h8G+CAfDtyeMoDMwZY3EkakyBHBTtrSDoxac/LMGhkuMNSRRX
+ W7PPSVnxn5ia5w0Lv3T+Fs/XkTnG2UuYE2ilrFHyrEc9yliqW3RbPCnKmtExc6Jc3d
+ uAP3YA/Vxooyl3ep0Y/KATbTxbO4k4aZeUDnAoukTRZkW/6Y1usbc0/f47PprO4iag
+ YU8keqLkxQO7du00AzgT2Apys0/PLNDgEBIGpX0U/KWQdGMC+z+pGiJdteq0GwW7Qd
+ Wyp5s8CeWXyIg==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Tue, 28 Nov 2023 16:05:09 -0500
+Message-ID: <20231128210615.875085-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231128210615.875085-1-sashal@kernel.org>
+References: <20231128210615.875085-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.252.11.142]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-28_23,2023-11-27_01,2023-05-22_02
-Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Sakari Ailus <sakari.ailus@iki.fi>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: stm32-dcmipp: correct kerneldoc issues
-	in dcmipp-common
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.6.3
+Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, joabreu@synopsys.com,
+ linux-arm-kernel@lists.infradead.org, Simon Horman <horms@kernel.org>,
+ kuba@kernel.org, pabeni@redhat.com, Keguang Zhang <keguang.zhang@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>, Jean Delvare <jdelvare@suse.de>
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 03/40] stmmac: dwmac-loongson: Add
+	architecture dependency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,74 +64,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Correct kerneldoc issues regarding:
-  - dcmipp_ent_sd_register
-  - dcmipp_pads_init
-  - dcmipp_colorimetry_clamp
+From: Jean Delvare <jdelvare@suse.de>
 
-Rename as well dcmipp_pads_init parameter from pads_flag to pads_flags.
+[ Upstream commit 7fbd5fc2b35a8f559a6b380dfa9bcd964a758186 ]
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+Only present the DWMAC_LOONGSON option on architectures where it can
+actually be used.
+
+This follows the same logic as the DWMAC_INTEL option.
+
+Signed-off-by: Jean Delvare <jdelvare@suse.de>
+Cc: Keguang Zhang <keguang.zhang@gmail.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c    | 4 ++--
- .../media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h    | 6 ++++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
-index d4f149f7e1b7..562933e08d62 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
-@@ -14,7 +14,7 @@
- #include "dcmipp-common.h"
- 
- /* Helper function to allocate and initialize pads */
--struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flag)
-+struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flags)
- {
- 	struct media_pad *pads;
- 	unsigned int i;
-@@ -27,7 +27,7 @@ struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flag)
- 	/* Initialize the pads */
- 	for (i = 0; i < num_pads; i++) {
- 		pads[i].index = i;
--		pads[i].flags = pads_flag[i];
-+		pads[i].flags = pads_flags[i];
- 	}
- 
- 	return pads;
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-index 5fd26d6f857a..69cfa67ffeeb 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-@@ -33,7 +33,7 @@
- #define DCMIPP_XFER_FUNC_DEFAULT	V4L2_XFER_FUNC_DEFAULT
- 
- /**
-- * struct dcmipp_colorimetry_clamp - Adjust colorimetry parameters
-+ * dcmipp_colorimetry_clamp() - Adjust colorimetry parameters
-  *
-  * @fmt:		the pointer to struct v4l2_pix_format or
-  *			struct v4l2_mbus_framefmt
-@@ -103,7 +103,7 @@ struct dcmipp_ent_device {
-  * Helper functions to allocate/initialize pads
-  */
- struct media_pad *dcmipp_pads_init(u16 num_pads,
--				   const unsigned long *pads_flag);
-+				   const unsigned long *pads_flags);
- 
- /**
-  * dcmipp_pads_cleanup - free pads
-@@ -130,6 +130,8 @@ static inline void dcmipp_pads_cleanup(struct media_pad *pads)
-  * @pads_flag:	flags to use in each pad
-  * @sd_int_ops:	pointer to &struct v4l2_subdev_internal_ops
-  * @sd_ops:	pointer to &struct v4l2_subdev_ops.
-+ * @handler:	func pointer of the irq handler
-+ * @thread_fn:	func pointer of the threaded irq handler
-  *
-  * Helper function initialize and register the struct dcmipp_ent_device and
-  * struct v4l2_subdev which represents a subdev node in the topology
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 06c6871f87886..25f2d42de406d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -269,7 +269,7 @@ config DWMAC_INTEL
+ config DWMAC_LOONGSON
+ 	tristate "Loongson PCI DWMAC support"
+ 	default MACH_LOONGSON64
+-	depends on STMMAC_ETH && PCI
++	depends on (MACH_LOONGSON64 || COMPILE_TEST) && STMMAC_ETH && PCI
+ 	depends on COMMON_CLK
+ 	help
+ 	  This selects the LOONGSON PCI bus support for the stmmac driver,
 -- 
-2.34.1
+2.42.0
 
 _______________________________________________
 Linux-stm32 mailing list
