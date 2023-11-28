@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B95A77FC6B8
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 22:06:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C39937FC701
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 22:08:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 639D7C6B44B;
-	Tue, 28 Nov 2023 21:06:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88242C6B44B;
+	Tue, 28 Nov 2023 21:08:02 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6CF7C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88285C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 21:06:27 +0000 (UTC)
+ Tue, 28 Nov 2023 21:08:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5160F616A2;
- Tue, 28 Nov 2023 21:06:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B19C433CD;
- Tue, 28 Nov 2023 21:06:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 6E0136167F;
+ Tue, 28 Nov 2023 21:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92ECBC433C9;
+ Tue, 28 Nov 2023 21:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701205586;
- bh=vLFsNC7dpPSO8f8oiEfVpudpoqwivq/thFRlPPqdOww=;
+ s=k20201202; t=1701205680;
+ bh=yALPx1clsSjw3MvJ0Uiu/tLK0uzvuU1ZwBeCGgp4gq0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SS1I4qTvQcvzlNu8qc4QAJTT/tAGkRZyY+a6QfRcudKQVXicM9tduPp8G5g63T/H+
- M+fOULb/WwaNJau+3h8G+CAfDtyeMoDMwZY3EkakyBHBTtrSDoxac/LMGhkuMNSRRX
- W7PPSVnxn5ia5w0Lv3T+Fs/XkTnG2UuYE2ilrFHyrEc9yliqW3RbPCnKmtExc6Jc3d
- uAP3YA/Vxooyl3ep0Y/KATbTxbO4k4aZeUDnAoukTRZkW/6Y1usbc0/f47PprO4iag
- YU8keqLkxQO7du00AzgT2Apys0/PLNDgEBIGpX0U/KWQdGMC+z+pGiJdteq0GwW7Qd
- Wyp5s8CeWXyIg==
+ b=DW17IbtxPtEfvv8lb1Zftvafdptlb18d7LMe2R2HothpRI+fNnWDBz3iH2DAbRpcV
+ sVKu9JIzfUTy2Fml3GcvITQG2O5C4myOmIFNGZwJHiQFfysRyppaQY22T34be2HElE
+ wSeQ2VA4gNIKJYGoa+FSYbmbSwPkL9A/NyVmiklFK7+JW2WfvTzgRg4AxlegLyE44G
+ xMPgMcG/sdC3nyU72HdDLm0wVAT9fLK0K9r3eeIKPrOMjJ6Yofe9MrE3/4g903bFoe
+ 1OAmCji1g6xk6iNFYDERKzb3taPzjR5UZ9cuX1Ocr0yGFj4Pm6EGyEzBDg08I4ahdZ
+ iMCwBBwBTmQEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 28 Nov 2023 16:05:09 -0500
-Message-ID: <20231128210615.875085-3-sashal@kernel.org>
+Date: Tue, 28 Nov 2023 16:07:19 -0500
+Message-ID: <20231128210750.875945-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231128210615.875085-1-sashal@kernel.org>
-References: <20231128210615.875085-1-sashal@kernel.org>
+In-Reply-To: <20231128210750.875945-1-sashal@kernel.org>
+References: <20231128210750.875945-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.3
+X-stable-base: Linux 6.1.64
 Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  edumazet@google.com, joabreu@synopsys.com,
  linux-arm-kernel@lists.infradead.org, Simon Horman <horms@kernel.org>,
  kuba@kernel.org, pabeni@redhat.com, Keguang Zhang <keguang.zhang@gmail.com>,
  "David S . Miller" <davem@davemloft.net>, Jean Delvare <jdelvare@suse.de>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 03/40] stmmac: dwmac-loongson: Add
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 03/25] stmmac: dwmac-loongson: Add
 	architecture dependency
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -83,10 +83,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 06c6871f87886..25f2d42de406d 100644
+index 31ff351740342..58091ee2bfe60 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
 +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -269,7 +269,7 @@ config DWMAC_INTEL
+@@ -256,7 +256,7 @@ config DWMAC_INTEL
  config DWMAC_LOONGSON
  	tristate "Loongson PCI DWMAC support"
  	default MACH_LOONGSON64
