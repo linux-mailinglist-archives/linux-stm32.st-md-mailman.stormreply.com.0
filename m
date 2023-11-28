@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819047FABA6
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Nov 2023 21:36:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC6EC7FAF2B
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 01:40:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 310FDC6B469;
-	Mon, 27 Nov 2023 20:36:54 +0000 (UTC)
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com
- [209.85.161.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98EE5C6B44B;
+	Tue, 28 Nov 2023 00:40:51 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47615C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57346C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 20:36:52 +0000 (UTC)
-Received: by mail-oo1-f45.google.com with SMTP id
- 006d021491bc7-58d12b53293so2705664eaf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 27 Nov 2023 12:36:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701117411; x=1701722211;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FC+FugQldxH8ozFUppzyiz48ydYS76ZkBSAy4uUEC3I=;
- b=UPioYKkUvz0GZegdvilGriNyboA+RY3EdBRddo256eUaTLWuznQvVHVBLwCYPefzu/
- C44y/qQ6Ks4pLvWsUFzc9aVdlp3IegVB2H3fXINQ5X4Ff7zJwrPYJuN0+UnF4veMJxOd
- KlnlW4/FHU8BJqfkSl2yDrQsnKPyh5QVWT7wvZ/EbPC/itjZ+EwWSMcgHbfiGVtdrNfq
- 7XqkiltUZTFE3E+B5Ov8UkWg/TVZi+PsuR8p2noL1LbUeaTGaM8KROrmelt6sT94KpED
- 3xd30bRKF2bt08xg0fLvGMJchzMGMIIkpYDCO0Aj45+rP6h35x4tnHjIgpP6uGDPCFdc
- mWaQ==
-X-Gm-Message-State: AOJu0YxnhAGgeTc/dURtya7uIO94yNghEwkgBglaOm8Uo10pBtnGC18N
- Q/SCZLZN99vcPvJCFoQCkw==
-X-Google-Smtp-Source: AGHT+IHZRrQ6avLBuDCqee8jWm6NVmmBIMYAZVCC1trSeLZ24qZkYvVy9lfibseNEz8WUf5rtqrYbw==
-X-Received: by 2002:a05:6820:2225:b0:58d:5c9e:ebe3 with SMTP id
- cj37-20020a056820222500b0058d5c9eebe3mr9420861oob.0.1701117411030; 
- Mon, 27 Nov 2023 12:36:51 -0800 (PST)
-Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- 62-20020a4a0041000000b00587aaf6add7sm1695922ooh.9.2023.11.27.12.36.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Nov 2023 12:36:50 -0800 (PST)
-Received: (nullmailer pid 3226763 invoked by uid 1000);
- Mon, 27 Nov 2023 20:36:49 -0000
-Date: Mon, 27 Nov 2023 14:36:49 -0600
-From: Rob Herring <robh@kernel.org>
-To: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Message-ID: <170111740896.3226593.5878779539402327826.robh@kernel.org>
-References: <20231122185235.2017642-1-a.fatoum@pengutronix.de>
+ Tue, 28 Nov 2023 00:40:50 +0000 (UTC)
+Received: from [100.116.17.117] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id EBEE06602F33;
+ Tue, 28 Nov 2023 00:40:46 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1701132049;
+ bh=h7YSTfO06hlkQSwOKq0bWn+ONs0St86lF+pU8MQKvuI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VmzBZg6CWKaixb4KhvHQgi7BX64H30ILpSwJn84YmYWZ/X9EQUVAtEmmGPbQpqjCJ
+ HlT7k94u4qqZtBcttWVg+gCoMWQfTU58LRK9PgNINlDI92FYyfON2ZP2c7zMhbFGUq
+ VtsKwOMjNIUtJW6ZTM6LsA6pmm6EnetWS5jxDZ6wPURQsBAzHiCw+prW9MpZHFbbgx
+ D2IA6oWvtQXonHcb96Ec7wfwr49e/9EQCZ1huEjNJI0s2tbgruvzMtdY8cO8/g5kRd
+ IUJOvu14Vz0cBTusg/X8G9ZIeIgdyGUPNFETVGWOlhz5XnDIp9Z88xnPCahH5UHD8F
+ DW51oTFSIXKvQ==
+Message-ID: <2f06ce36-0dc1-495e-b6a6-318951a53e8d@collabora.com>
+Date: Tue, 28 Nov 2023 02:40:43 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231122185235.2017642-1-a.fatoum@pengutronix.de>
-Cc: kernel@pengutronix.de, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
+User-Agent: Mozilla Thunderbird
+To: Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: arm: stm32: don't mix
- SCMI and non-SCMI board compatibles
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-13-cristian.ciocaltea@collabora.com>
+ <CAJM55Z9e=vjGKNnmURN15mvXo2bVd3igBA-3puF9q7eh5hiP+A@mail.gmail.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <CAJM55Z9e=vjGKNnmURN15mvXo2bVd3igBA-3puF9q7eh5hiP+A@mail.gmail.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 12/12] [UNTESTED] riscv: dts: starfive:
+ beaglev-starlight: Enable gmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,38 +75,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On 11/26/23 23:10, Emil Renner Berthing wrote:
+> Cristian Ciocaltea wrote:
+>> The BeagleV Starlight SBC uses a Microchip KSZ9031RNXCA PHY supporting
+>> RGMII-ID.
+>>
+>> TODO: Verify if manual adjustment of the RX internal delay is needed. If
+>> yes, add the mdio & phy sub-nodes.
+> 
+> Sorry for being late here. I've tested that removing the mdio and phy nodes on
+> the the Starlight board works fine, but the rx-internal-delay-ps = <900>
+> property not needed on any of my VisionFive V1 boards either. 
 
-On Wed, 22 Nov 2023 19:52:33 +0100, Ahmad Fatoum wrote:
-> SCMI-enabled boards may restrict access to resources like clocks, resets
-> and regulators to the secure world.
-> 
-> A normal world bootloader or kernel compatible with the non-SCMI-enabled
-> board is thus not guaranteed to be able to deal with the SCMI variant.
-> 
-> It follows, that the SCMI-enabled board is not compatible with the
-> non-SCMI enabled board, so drop that compatible.
-> 
-> This change is motivated by the barebox' bootloader's use of bootloader
-> specification files[1][2]: barebox for non-SCMI DK2 will compare its
-> own top-level "stm32mp157c-dk2" compatible with all compatibles
-> listed in the device tree referenced by each bootloader spec file.
-> If the boot medium contains a configuration with
-> compatible = "st,stm32mp157c-dk2-scmi", "st,stm32mp157c-dk2", "st,stm32mp157";
-> it will match, because of the second compatible and boot a kernel with
-> SCMI enabled, although no SCMI may exist on the platform.
-> 
-> [1]: https://uapi-group.org/specifications/specs/boot_loader_specification/
-> [2]: https://www.barebox.org/doc/latest/user/booting-linux.html#boot-loader-specification
-> 
-> Fixes: 8e14ebb1f08f ("dt-bindings: arm: stm32: Add SCMI version of STM32 boards (DK1/DK2/ED1/EV1)")
-> Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-> ---
->  .../devicetree/bindings/arm/stm32/stm32.yaml     | 16 +++-------------
->  1 file changed, 3 insertions(+), 13 deletions(-)
-> 
+No problem, thanks a lot for taking the time to help with the testing!
 
-Acked-by: Rob Herring <robh@kernel.org>
+> So I wonder why you need that on your board
 
+I noticed you have a patch 70ca054e82b5 ("net: phy: motorcomm: Disable
+rgmii rx delay") in your tree, hence I you please confirm the tests were
+done with that commit reverted?
+
+> Also in the driver patch you add support for phy-mode = "rgmii-txid", but here
+> you still set it to "rgmii-id", so which is it?
+
+Please try with "rgmii-id" first. I added "rgmii-txid" to have a
+fallback solution in case the former cannot be used.
+
+> You've alse removed the phy reset gpio on the Starlight board:
+> 
+>   snps,reset-gpios = <&gpio 63 GPIO_ACTIVE_LOW>
+> 
+> Why?
+
+I missed this in v1 as the gmac handling was done exclusively in
+jh7100-common. Thanks for noticing!
+
+>>
+>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+>> ---
+>>  arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
+>> index 7cda3a89020a..d3f4c99d98da 100644
+>> --- a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
+>> +++ b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
+>> @@ -11,3 +11,8 @@ / {
+>>  	model = "BeagleV Starlight Beta";
+>>  	compatible = "beagle,beaglev-starlight-jh7100-r0", "starfive,jh7100";
+>>  };
+>> +
+>> +&gmac {
+>> +	phy-mode = "rgmii-id";
+>> +	status = "okay";
+>> +};
+> 
+> Lastly the phy-mode and status are the same for the VF1 and Starlight boards,
+> so why can't these be set in the jh7100-common.dtsi?
+
+I wasn't sure "rgmii-id" can be used for both boards and I didn't want
+to unconditionally enable gmac on Starlight before getting a
+confirmation that this actually works.
+
+If there is no way to make it working with "rgmii-id" (w/ or w/o
+adjusting rx-internal-delay-ps), than we should switch to "rgmii-txid".
+
+Thanks,
+Cristian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
