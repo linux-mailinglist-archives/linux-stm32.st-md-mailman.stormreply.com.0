@@ -2,218 +2,215 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB9C7FB0B0
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 04:49:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5687FB1AB
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 06:57:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3258C6B469;
-	Tue, 28 Nov 2023 03:49:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19AAFC6B469;
+	Tue, 28 Nov 2023 05:57:47 +0000 (UTC)
 Received: from mx0a-00230701.pphosted.com (mx0a-00230701.pphosted.com
  [148.163.156.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C804FC6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D803C6B44B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 03:49:44 +0000 (UTC)
+ Tue, 28 Nov 2023 05:57:45 +0000 (UTC)
 Received: from pps.filterd (m0098571.ppops.net [127.0.0.1])
  by mx0a-00230701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3AS1MmNj002863; Mon, 27 Nov 2023 19:48:49 -0800
+ 3AS0rpqU002556; Mon, 27 Nov 2023 21:57:03 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
  h=from : to : cc :
- subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pfptdkimsnps;
- bh=rcgKfJdETh892fQ/ljCiVYDofaMoMAPX0Cc85BYWidM=;
- b=XpGIK+LVw+G3c50e9ibQBsjkf0pQ8KJI7dxwJFRoQ2uqVCrcvUyhPPR9tpPw2iAaFcKw
- IXTunrY7H4dts53JiLanoWQPpcSNUGztzsRW7u4WZA558/bbEw1QfMYoi1zhh2BA0pEX
- R1uDZA651PxxjI7OKOKJaKnW3I3X6bbClL9S7U8YpsOevCwIoSkPVNOtAvnyIsFbGOiw
- hyrwdte8vU7fxaVN7EqajJPJ9ye+I0ILUoCfmsFGh+io8Mhf6ui7o5Vt3CXTgr2GUY31
- RA3s97YwlCk8BPoPloE4UYRofdVj7k0gHEDFY9zd181jvVRXEfYuWGgtICKroOXjAYL8 hw== 
+ subject : date : message-id : content-type : content-transfer-encoding :
+ mime-version; s=pfptdkimsnps;
+ bh=gjdGiDOHd3iCirswDrV0wpbzHHP33BBR3KOOa41r3Z8=;
+ b=et9E1za2IjxpAxH2rpcnVLdU+x/Pzhm6JTu9XyCatFF7+MNYSVWN1h1f9wAau/0D0THE
+ SRgeiFX4zX7geYcIer+k/ZwWzKpcTINdTiQOd9RT3tnPXCiJccR/nvtroTB/xl3O6jXP
+ D7/cliBInWyxFWYDn+ZJqasu1YF3w9cYsfsolaQifBJPnQCMRnPSGu6iqY80+5Hg2Xdy
+ YV/SulfFeNAoDiumLkYgEkmCox9dzRs8Pei/qbKW/PwPh1aoHTQygrd3fEhtcQMKdljF
+ h3VDCy8Q6QP9j6VlFbronps+18c/vPUFBveyoT790+BfSrD7tDRR9mCzJAKR3d8mnaCw /w== 
 Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com
  [149.117.87.133])
- by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 3ukgtugk1s-1
+ by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 3ukgtugy9w-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Nov 2023 19:48:49 -0800
+ Mon, 27 Nov 2023 21:57:02 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
- t=1701143329; bh=rcgKfJdETh892fQ/ljCiVYDofaMoMAPX0Cc85BYWidM=;
- h=From:To:CC:Subject:Date:References:In-Reply-To:From;
- b=bqj4LEjEfjsQQ/dkUY4txXQVd7rongRId2B3ID2yT/CoheTZhyt3xE6QppbLHr3mi
- lmoLFCtW9cdPOPEltWO8UdDMmxVp5OyLtjIcfK+PP11sWKC4LosxzuLHH84+oKrmnO
- OIA4ooJc6CKPp/qj1UClF3tfJfGg3lr90/nCiVkW0p2UZPEJbF2qPtj1Uwgb/oLxLh
- 4F0jscGnKVqQ5I/nMGTTwObA3gZk8Q97D/edJTiVXy29lLhb1YK7utDuTC2YEgtL4v
- 5NTIA/KNvdOvaIgKpvwdAl+vwrLly5czh4ZS/6PiPYZyOKAKlO7rkkzS7JmdVQr/RY
- +X9h3v2sWOxvQ==
-Received: from mailhost.synopsys.com (badc-mailhost3.synopsys.com
- [10.192.0.81])
+ t=1701151020; bh=L6tXkYwe9F2GPyQLMay6soRAnBhzrOYNVPe8kLlFxGk=;
+ h=From:To:CC:Subject:Date:From;
+ b=TwdExHZUORxDopdRLH/dQqtdrXv5I3ooXgrae1zVxWJ9VWHQoK2RpgeIB1YIxKEWF
+ S3JPxaCXGlgU+GiPL5z7NNFYARX+pv7Hq2hhcpvd5X9iF65qAjyPtERsFrLDANUedv
+ HhuTohl5GjImJ3wV1aBxcVQmodSY7JocLs+gEbt5+52bGxneXMOlBG4bv3fTABr1/f
+ bEw9DKWiv9neM9GlDqW0DWUtTlciIiQ60CsiLeh7oMjfY0aBrTKvczUlW6G+QlucP+
+ TWkhPB3cZhVsnsKlWFg1xEwBmZQ1L8kwI6w0m88xqJOKZK9A1DHDdeYQ5iLuHVVQAE
+ 27QUuhbFuzl6A==
+Received: from mailhost.synopsys.com (us03-mailhost2.synopsys.com [10.4.17.18])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits)
- client-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256
+ client-signature RSA-PSS (2048 bits) client-digest SHA256)
  (Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
- by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id A74CE401C2;
- Tue, 28 Nov 2023 03:48:45 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com
- [10.4.161.137])
+ by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id E0D6F4041E;
+ Tue, 28 Nov 2023 05:56:58 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (sv2-o365relay3.synopsys.com
+ [10.202.1.139])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
  (Client CN "o365relay-in.synopsys.com",
  Issuer "Entrust Certification Authority - L1K" (verified OK))
- by mailhost.synopsys.com (Postfix) with ESMTPS id EE85DA0082;
- Tue, 28 Nov 2023 03:48:44 +0000 (UTC)
+ by mailhost.synopsys.com (Postfix) with ESMTPS id EADB0A0084;
+ Tue, 28 Nov 2023 05:56:56 +0000 (UTC)
 Authentication-Results: o365relay-in.synopsys.com;
  dmarc=pass (p=reject dis=none) header.from=synopsys.com
 Authentication-Results: o365relay-in.synopsys.com;
  spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: o365relay-in.synopsys.com; dkim=pass (1024-bit key;
  unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256
- header.s=selector1 header.b=DEbZzE7W; 
+ header.s=selector1 header.b=B8aIyI3+; 
  dkim-atps=neutral
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12lp2040.outbound.protection.outlook.com [104.47.66.40])
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2168.outbound.protection.outlook.com [104.47.56.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client CN "mail.protection.outlook.com",
  Issuer "DigiCert Cloud Services CA-1" (verified OK))
- by o365relay-in.synopsys.com (Postfix) with ESMTPS id AD6624041D;
- Tue, 28 Nov 2023 03:48:42 +0000 (UTC)
+ by o365relay-in.synopsys.com (Postfix) with ESMTPS id 4718640408;
+ Tue, 28 Nov 2023 05:56:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AxrhIqZusOI2QL9dTcV2gd5MlTdeKuCWq2sY1KrIMVACgKJmkLKz08H6JQJlCavyqs9YMsQ/dStIhgFQcTct3a32OowIY+91dHYozvGB2uM6rAUvCFoEwVeEOP5ZZmrf91omTUF35NTCmG5prVj6Ny6N2cjgjGHta8taNmmOoLHibGb/z5xkqJEN28jmUyHURvzLthsjG148mRhfrg8ssu0KpVqposgMxgRF9JOqTS5g9CkBmOgKMahzGBrlMD5JhT9d/e6bK+MqzszfSufWD2CqrbMbkVMHKbF+OjxEx7U8d5K2cDkrMWr/RIPfcLYbCu+U8WmLgRYofs6OJMKmcw==
+ b=eeTyByTzf5Hp+f9kY/mI4LhYiVbc1LQsG4eq5D7ewTw+BK6ZZlLtspJ4AeSPI8WEWzYK7cR/ynkARD6OpkvgHF8MkHnEX3+39T3kFBvdowkpvgEuV6pXkhFroer3YlUWnEmrlHdEEl1SDM+ZBciGaw4ozil/s2r+ozPNDu0lm6m5ftpFYt96/ySJFKC1rFD2pTk8Y5pRVStb+kDByqyDNOxoKRafcerOiIaWqn3i23RK/8yib7n5W5X6gjbh2uTs0KbEmrjSUUREUUFwIq1zZS69ToHidnIHf+oGZ2GO5sczaT2rC8wSYifl3eb8cVTIl6AJuheJ0+mgd4mBCA2w6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rcgKfJdETh892fQ/ljCiVYDofaMoMAPX0Cc85BYWidM=;
- b=lHylKJMRl44fOO6GzALkULdtWT6T5YxLTzU8thss68P0FGoa5mkJ332wm1Jr3tYe5JBFMRfB5uqwDUXrlYtcK7glpoY/d4Bo2GTxKA672oNRvnh9GigsQa5mvkq7muj42RypMgtMkTaHvl2o91JFyKlJ2pCELuTI0A7zv1JZQFB+kqE8ZZUKA0qIwKIiyyR8mETTRS3rPJoSkKJZCCJW2ieS/JDemHXQnLYR+RYQ2LzTIU3hQH28E09QhaM3AFE7M7YPpnyzREEsnUeJV2EYkEWBJPDcMIyH+wSBDWHX0r3YNLoVIEwHPLz1sSTR3yHF8w9ypHCcrIy1dPwhjshW2w==
+ bh=gjdGiDOHd3iCirswDrV0wpbzHHP33BBR3KOOa41r3Z8=;
+ b=f/BmeOs0vNmFw/HleUTYNfKaGGiYh39AmY/DhoYpY5itR/wEbcsPegpKDaU9uGwurQ2xpqRnC+Crc+NfcqJ7jLW6PtW2j9UQkz8qAofCJ9FhqbWv/2O7Ns9Lv2KZIxoIh3JLNWCb+25IpZHiOXumTDfHSGemQiY+d14v05pBvPIC/eZNd/a6X+sOak16GRM58S1nVzJIEpOdzXpicGjkA3vZRApP6iQCkH4eBujiV74gteDwsk6bMMnkkqYIfy5+wi/xAUHvw/LHWZWURrtYpzqRNdNPYlJld3wUKLENUGVwIC/7AEHwNkf0l/BszSMCF4oxSsUpeoPJ814EvXWwGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
  dkim=pass header.d=synopsys.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rcgKfJdETh892fQ/ljCiVYDofaMoMAPX0Cc85BYWidM=;
- b=DEbZzE7WAxgjbVqu1qVQRw5/uuK0bqsZlPIbIbvPXTAuzmlhWjCisEAcuf4j1Qw0Ft0EKJKugd9m9f+59PPwo+pOpkaGrL4Wz6mGe1SZ20W1T4xN0GRNueqlKuNfrLFe3K3+IPri6o/weHLovMMSrQR/7ChYY9EosrKnmQ65Fl4=
+ bh=gjdGiDOHd3iCirswDrV0wpbzHHP33BBR3KOOa41r3Z8=;
+ b=B8aIyI3+O8SuAwZc5AL6b9hlccLVXlrpb7I+IfwAJQUOQKWgfVUAExlp9GvygSHXnJMuKh3RK+oVLRuJ3lGNOYQmkyU/HA7m/OXuMdx4/Qj73DthGHdnSoKZPG0sfJNb1uzODQOPM9nVaRt1e8OuspG1b2y30NUhXmMifz728Tc=
 Received: from CY5PR12MB6372.namprd12.prod.outlook.com (2603:10b6:930:e::5) by
- CY8PR12MB7635.namprd12.prod.outlook.com (2603:10b6:930:9e::6) with
+ IA1PR12MB8261.namprd12.prod.outlook.com (2603:10b6:208:3f7::7) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7025.29; Tue, 28 Nov 2023 03:48:39 +0000
+ 15.20.7025.27; Tue, 28 Nov 2023 05:56:49 +0000
 Received: from CY5PR12MB6372.namprd12.prod.outlook.com
  ([fe80::dd25:e93d:e181:929a]) by CY5PR12MB6372.namprd12.prod.outlook.com
  ([fe80::dd25:e93d:e181:929a%3]) with mapi id 15.20.7025.022; Tue, 28 Nov 2023
- 03:48:39 +0000
+ 05:56:49 +0000
 X-SNPS-Relay: synopsys.com
 From: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Thread-Topic: [PATCH v2] net: stmmac: fix FPE events losing
-Thread-Index: AdohAAc1mE7NHpFkT9GQaksVD24B5AAp50MAAAFe6FA=
-Date: Tue, 28 Nov 2023 03:48:39 +0000
-Message-ID: <CY5PR12MB63727F5A7C65FFCBF05D3328BFBCA@CY5PR12MB6372.namprd12.prod.outlook.com>
-References: <CY5PR12MB637218C74342CCAF7AFCB85FBFBDA@CY5PR12MB6372.namprd12.prod.outlook.com>
- <20231127190446.58f14db6@kernel.org>
-In-Reply-To: <20231127190446.58f14db6@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Simon Horman <horms@kernel.org>, Andrew Halaney <ahalaney@redhat.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Shenwei Wang <shenwei.wang@nxp.com>, Johannes Zink <j.zink@pengutronix.de>,
+ "Russell King  (Oracle" <rmk+kernel@armlinux.org.uk>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Voon Weifeng <weifeng.voon@intel.com>,
+ Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>,
+ Tan Tee Min <tee.min.tan@intel.com>
+Thread-Topic: [PATCH v3] net: stmmac: fix FPE events losing
+Thread-Index: AdohvweHzQycQ8B4Tb64fZ2hsahwgw==
+Date: Tue, 28 Nov 2023 05:56:49 +0000
+Message-ID: <CY5PR12MB6372BF02C49FC9E628D0EC02BFBCA@CY5PR12MB6372.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6372:EE_|CY8PR12MB7635:EE_
-x-ms-office365-filtering-correlation-id: 3dfa0a84-357f-4219-513a-08dbefc4e85b
+x-ms-traffictypediagnostic: CY5PR12MB6372:EE_|IA1PR12MB8261:EE_
+x-ms-office365-filtering-correlation-id: a617cade-243b-4e31-3d04-08dbefd6d017
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dmn6OiYqFpwBEJhT4AnyxHmEvAjl/ZXFeua+OMQ2Sbas+f1uzDN6CELmskm9mYMVb/hax0IVhEGvQbN220gDThnj4FAXaIKBcr/JvyuIuXmL1CI30x+Nmv/FzkSKVgxln1M5zG2jEXVBkqjbLdthVpbjiTjFoWcBjZKBuKkp3VV7nOdQF1+BQIFm3OdAeca0uH5S2fnFuHiG4wjKv4/P977fZH8eZKsuKy4C8U1ynS7Z5le4gJXqRUAFZI/NKn+My6IQi8QW/kJd5XlU3LZyPYVQL/gdOQo6rujWCrRl1d6sRN4dhountqejvrOjZ3IqImcVLSUXji4whpVegfWyEX2/x2yXiS9kWf1jYNbRHP1A78Msjs/eBVPmnp0Jy+/ZWnn9rTRbCfGX1FXemNYHDVD+6U12PhYsomaJjqy04CNkV9wUqanR4+p5gQRjeBA4rqiWfQGfLle8Bm6meyHVOxntTsfO/uWTdTyWfMJ6BnA0TOtDd0k94InRGEQPdSFxhAidV/NNOJ3ShD8OjR4gBFeoSu1nnvsmcE31PBrCtJGRoLjdnoph8MKADJZz1kzg4haYyTekf8aaJvZ4BxrJ09j9vIz8mnc+Bdt86jyd4L2qd9C9CPURssLq01oD3c47
+x-microsoft-antispam-message-info: KP9JjXXZgfmovZdE6f0Zs4NzYlhzOHScm3UgASK1qW/TIeD8Aer3LUZFFs4tFp3/Da0lHfdIxgUd43196w4Ua+qISaS/6j33qTis8NZNydR62RMNTQIxPa/5px3cKjUkVEKwMVnZfW6OcT4vJuziR1vGBcPP9x2f6X4VMdWEQ9xuduEs+ItuNE8IbPk9wb7mOaTEkr7YTGdwh+wKKma0N5YohRdaVUxxY4TQgZ95Y6HRiDX/aGivyE6BSlH7nDbsS3XoDg1RHHOQUkHaaQ+PmD65rB/4tjUuwcJM0+I2/53P9R2HaTG8BlLbIn6JSyjED3bmoaQu0duaq02I1TmoJMM7aTnFFIx3Obnivilf1sDnSjhFx3viLXmzU+Qi0H4tNN4cp70s/xs/9aw2Q+boYVeP6UwQHcaW/RkIHhsHQIkO6ZIiegFIy8ou6QzX08tbrLXCgxOFPoH//v2BAyMuf+L6PcCXqx+xkr6ZPwRyzrqBK3Fmwyp5HM0baUD+N+Rr1sy62P5FasVMKYWkujs5XEt1uUdlNIiW+6PtHE/lpYS5KyU7TwoCP2nk0ioOLiECtCJbQKn/zSO1ROzitv4ioEV15+nBOD58mnnYlxcKzV+snrC/F9Ci1ppsm5PxXfoONDNA8ehDdXWMLAlWTRxZ0g==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CY5PR12MB6372.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(376002)(136003)(366004)(396003)(346002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(38100700002)(33656002)(38070700009)(122000001)(86362001)(6916009)(64756008)(54906003)(8936002)(316002)(66556008)(66476007)(66446008)(8676002)(76116006)(66946007)(41300700001)(9686003)(55016003)(53546011)(71200400001)(6506007)(7696005)(478600001)(4326008)(5660300002)(7416002)(2906002)(4744005)(52536014)(26005)(107886003)(83380400001);
+ SFS:(13230031)(346002)(136003)(366004)(376002)(396003)(39860400002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(107886003)(26005)(71200400001)(52536014)(8676002)(55016003)(7416002)(8936002)(66476007)(4326008)(86362001)(478600001)(110136005)(66446008)(316002)(76116006)(54906003)(66946007)(64756008)(66556008)(38100700002)(83380400001)(122000001)(5660300002)(6506007)(7696005)(921008)(38070700009)(2906002)(41300700001)(33656002)(9686003);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?loCIC1QOPClVEyTHyNYQC4Rssf6D1Xml35dsuuMjM/dsOdUl54cDYcE9ZLjJ?=
- =?us-ascii?Q?iCvZpMDWd56nvaxo1hYpPgaRi2tvOM17KZR+OrroNQDGkxqXnUZQfc4R85y8?=
- =?us-ascii?Q?nyLhJ5Q/rk6hYvfJe2MSaL/g1H2zZtxYDoFMw4+amgSCWMW0pAse4xKHhbhq?=
- =?us-ascii?Q?61QKDFYh7nnGZP6Ud8eoP/0FBXPEpfd6MspR1OVj6m2lPysh3FDYO7u1JaHm?=
- =?us-ascii?Q?PCQubf0jZx5Bfhn0Qr4Xw3TY+ofv08uBE7sOY2q9qXniDuhG3HkCxl9VJ5WV?=
- =?us-ascii?Q?ltl6uac5JbyQ+shLmBM3ljgbwHfYJCvuz46NFnoTGUMXR1cU+zo6rA4t3iyI?=
- =?us-ascii?Q?tAOwwrM4vlfPUV/7AIssOoul5rRcu3RyhBDlWqmrch/a5dl3N8/Rb2z4iJdv?=
- =?us-ascii?Q?2tbpDtYqp7Q9yYwMXbrDaZRUrHT6oexe0t5DK9iKcSyiDBkHd7rbUFN2njxY?=
- =?us-ascii?Q?c/V8+EyjbnyR9iQyx21HrYVe8hJi6BQMk9gAhP4kWJESyXs1WOtPb1HZUqxB?=
- =?us-ascii?Q?YNP0DQesf9glrowNXq5qfOZtCQWdR03SSSfMMbM9cDO5PXYLECHr84Nu82n6?=
- =?us-ascii?Q?HLX42ceg+KznHU3jCPhfg3d5qfAgZyiFHUAiC6vUue24Zc+JG3hEWrQKPsZm?=
- =?us-ascii?Q?83gFSlgTYBQRe0nLw5z9otHTFaO8BU5Awr157abtCuaCtKfwDhev9cWMeiMC?=
- =?us-ascii?Q?4L+lmjxDnhFgJG4Uyc+5IpQU4+jznDlvrkSazxPHK22+BzWrd0zQ9PsUaM4m?=
- =?us-ascii?Q?Kb1k7/5+TRiRwWCAQS8qWHxS4nJQwQoDL2Lahkq83qo3u7VTo4FjyZlRwvKB?=
- =?us-ascii?Q?8jo5k76wf/stFCaaz0IOyh8MFaWZ6xclWIkJTxC29oFNn12FlDtAr/kEf1Du?=
- =?us-ascii?Q?vd37PAzW9t1NHlQm/aCBPX0mNmQYdNeHJnj/h4zqv0aN164G3tSOiksolgCq?=
- =?us-ascii?Q?NTot111LnFPqZdYsHJcbYFbga+C5fR1Jzz2UHIHrqpNrn2jXVOmGUqmUH5jE?=
- =?us-ascii?Q?zAwiXstjGSGjF9YLIjr4Fhmv3YIDMqJ9GlDRDclSJKQt/Fm/eHEPtTyeZZXh?=
- =?us-ascii?Q?gi1ODqzxBu9X5Vt8X4VepYzesHkr19k4bvy955lEzY6QT2Gs212bHOpfp7Mc?=
- =?us-ascii?Q?n+15IOiU2fdDSVxzLxfo14RCM1rD9EmjZRnRSWPqapVNIfnUMzAB3WquHoS+?=
- =?us-ascii?Q?lpNfoZeDTX0v6c4G4q8ryLpBYRcb76hzXCdU8cGjXLv6amZ2E5muehcHOPyr?=
- =?us-ascii?Q?2CF1MoFKBvIIt25EYLd6k1j0SGuSPQV3sD6CIzGgNbczVcnwOjO9z4LHshm5?=
- =?us-ascii?Q?ZQCc1MiKTIvhVqlTH7VazSCpTeXOVpdOX9BhmQfQrLHGucx+Teggqn1IukUB?=
- =?us-ascii?Q?ZJ+Ljn4SbAXTrbQ6D71Hz0wRbUaS+MoYzOCGoDXLpHf9i2blzZTBoXD80RdG?=
- =?us-ascii?Q?uqsUX8oZMs0bxV+qfW2Mb1sQ7ZC6CQpNLhlTJ0ZdoR7s8hpxV+x+gF79KQ1e?=
- =?us-ascii?Q?dA2ajvzzAMRBepJrKs2M4yBqJFs49SWF0NALWuxFLpHIj8Us7PN8+xF5qN3C?=
- =?us-ascii?Q?ms8Q8rnZI0i4DLL53/H6wZZPVfHOuK3cMqoabFd1?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FeVbMzCrCXKsNeqLpcLdh1nN9enNiwLPXyUXpuBjyICgRgoga5e+stUYWTHw?=
+ =?us-ascii?Q?lx2yFMZBKK02AOd5Kqj+8e7a71c/JzWmI7qVUY0bZZAqKqbZz3yvgmMkKGTa?=
+ =?us-ascii?Q?tVTW4Uru3pjeLZSTU1/3PPwBfcHcPkKDkbe8Noc9zEk5CxSgRot/UMe/JdEP?=
+ =?us-ascii?Q?iNRMTmMt9wX2sFhReHXHWJw+t5QvzSVnwkuB+7FHLhydf6owyJrqLvXD34N0?=
+ =?us-ascii?Q?tguWia+FqZiyoIjdVy2e43Wsk5Xwvk6jlueLf+pA8bokEiY1jZgHQUGpqYn0?=
+ =?us-ascii?Q?T8LBFyqEHJj2pCNn8V7cVJvNSD1lLJTsqdtcw+vb4+Nfj0EBmxgd6QZ6mJaW?=
+ =?us-ascii?Q?/ce4J31k90zTwm5rjq6HHzuhbHm37QY3qaGpttGwEyp1oXmcunUMRJmJEXxi?=
+ =?us-ascii?Q?/hITo0DfOPPF2tmGjBk2Sl1JPMeahMrSlVeVTyV56BOvxwRhhXwuBnuZ0rZn?=
+ =?us-ascii?Q?AhaVs2ZxdsTiOC/B38HcX6KQ95Qj/6YprFztcsE8DbooDc6jytWXv+Bkhe+E?=
+ =?us-ascii?Q?xMF3bVkfDeLt5bNs4s0LCF51ZO4TK1fB9MhKr0ibEfrud98hURxvibVdAWj/?=
+ =?us-ascii?Q?5r+3+W7qoyVLh8HUaDrUEX5T7/PZBcz8QBQ7BepLz3E1laa5A9j3FDil4XMF?=
+ =?us-ascii?Q?44MNrJyCCUH2oBZ0kjBmoyIaNdJbxg5aPiDQ84KAeK6jc6kB5l7ZPL22jvuZ?=
+ =?us-ascii?Q?ONTn6njr5z/zLF6MUuqI+RhjxRfY3D3CPWu+2dcIlNBvgZeozXa8Wpf6vY1x?=
+ =?us-ascii?Q?0dY7HYgeH9czJU81iEiuXLPmmJZmrilzNIpksbQhwEn6KVu84KmJNPwAoS5b?=
+ =?us-ascii?Q?uYbH38us2Zm2XnTluWeVNLZeWuUWjGWcupm0NHHkI3EKbtnttCc/YcFnLVnN?=
+ =?us-ascii?Q?iZaPI00LQod0XCq+CHgopNzfDpXYjARBN1Y499lbvsS3CXW8IEF30/DwECAz?=
+ =?us-ascii?Q?r4xRSIeEJI9KOhH6u8MoufQqbp+c4PyIGRnVtbfrw3mhDDrCTq2TvYA1eLqi?=
+ =?us-ascii?Q?qbk40l1eBHLovP2NgeSoRCkV5X5hflQ1PaS4JwAL/P62Ej31Caqn9zGmMCO3?=
+ =?us-ascii?Q?pyJYSbIaKpZoRuV/hkjg9lBOnDfmIS7XicqDET2DV1WfOyix7Cf3u11pKylt?=
+ =?us-ascii?Q?/aQOBXFU5hnooAiAEnDChTd8e3VTqmRyxkuLhTalkJHO8fmlAEVb30ksWTGt?=
+ =?us-ascii?Q?fOraibsKwVpPH5TEI+mFUzZdopj6E5Y4u7nzPKuUl3yKNObMokUKd/2jmbls?=
+ =?us-ascii?Q?m0qXKjkUaTVg1BEZUbq9RWVrowwqthkw3qMNWfQRTUPJIk613kbOoNo8UddX?=
+ =?us-ascii?Q?Gap8jjV1GlTJv6btSk6BNMlz6M8xaip7SeTB6MF+lUnRkGbNllClF8CA8Zee?=
+ =?us-ascii?Q?sFmINZCBnsA9EETtfUS3f96pHPyty7WootvBHfDqJWs/XRBdArZMIUSTlhHe?=
+ =?us-ascii?Q?kzfv/NTbT9km550RL8t+IjxtRAjIq2Ia76q28ds4pX5040XtCkipv5ld+KLu?=
+ =?us-ascii?Q?z1gXHf0nq1SjFaq4VtMzozEtglxb0kC6YYLo51U08pDaWlbRQ/pOjhoPJ4wL?=
+ =?us-ascii?Q?fv0VygRb1KFDLGUsbuwRNOd5LUjQnPSWFq7H0tKj?=
 MIME-Version: 1.0
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?dF81Q9D2p52ZCwzp9buO4HDr2i61eQD+gNxQifZi8icTyrpvkQgEQ5E/zPvu?=
- =?us-ascii?Q?km2AlnW0PZP13cUS/6vA9V0W6TlF3qengAm3tv/UsWkJNSecXoR1OFrLnJXh?=
- =?us-ascii?Q?cXQCJeYrtJ8r3t7R3Y9Q4mfUeFRjB9zEoX+TK1YtdF99wW9xMOk8h7453yE6?=
- =?us-ascii?Q?YgSnAgxpfadUeyt3Xg4/SEnrU3aQxxgGrnULxF6qNGfAO/ysobPBpS6UwiX2?=
- =?us-ascii?Q?FXmzQv6Y3zryhiQqDpu0vk0tVn2QJ6KWzqQ77eajQAsJd8RID+8jU3cv4X0I?=
- =?us-ascii?Q?B0oP1k3+M3ry1EzVRvptu5ahm5jee0twgL6B68yy7jvQSuc6yMs/ND44MLRu?=
- =?us-ascii?Q?qhc5wQ438mR5CGr+QLVxYUJK61f7TKQPnsQxuKSTTQupP2EOyVHuK3ybXfWx?=
- =?us-ascii?Q?wzF+f0zfiSh24qMSlsTaH7++9AjQOrMKqy0BxNtyUfmwK6BdpXoapDsxIDLq?=
- =?us-ascii?Q?nu4sSwj9n+d51ZYkZtlTXZsow3Mu0vff2f45Z4DdMqfHw0Cblgz1ubi2KsZ7?=
- =?us-ascii?Q?LTejFPKqJI70BL57wG6QOrYX8Nq/05nZiDRKOtHXQ1ThFrOyi9r4rdAlFEAl?=
- =?us-ascii?Q?/T5Np+7YaVrT3rrqk8qPJpsIB2cwAj/+IOuzOWXvKTEstajn6tD/CESxy21a?=
- =?us-ascii?Q?LLcnkGZmz6QnaFG1xvbHu6JC41QXIT7BrI9AFZ7YmxcFxWsuI2ePTFD0k7Bm?=
- =?us-ascii?Q?Pt44UoKomPUWiAKdqkBA6TdUgnN4ia6YvkpVzZmQXlSyrmhqIVLPL+q7QYN4?=
- =?us-ascii?Q?BF+7ybGty5PgSVRg4+YQc/IxRVS5riC+FNrrOtxDztMBpbriQB5r4VfW5XP0?=
- =?us-ascii?Q?csF28qpXxmxAe+8Yv53Mp63KfCz7j3i9oznPiT0AGZeq4ruHNx+1Qc8kK+FS?=
- =?us-ascii?Q?YmITCkRPONlJPYFvS7BnK3KshNdSx/7SCQUz6/DF5IVMtiqF69nek7UXL8sW?=
- =?us-ascii?Q?GSveTeaTSXkzI8PJJBLifUGrVJgH72s/OE8C3O/2GxfkQ/2tzI61ejLtQBc/?=
- =?us-ascii?Q?+0/J+MPldDiUmslRH8YlTC8moFqgIyTTzhqh/Ov5dQUHxsSClzpWbFtUMBT6?=
- =?us-ascii?Q?YcnFreEQ9u/nlKNpuSmM5W7pvecYv5Ci9ljbttZ/TiQidpOAWBzz7HbstLdC?=
- =?us-ascii?Q?iEe9DmW+TVE8M06Z7SkWLKmG7MspcDQ5KpcpyJvN4vCkW7ElXvXcKUHGg9e0?=
- =?us-ascii?Q?0EsCDTVtszj1QTsAne1p8UiU+UHCYqeCna5/A0XvbBRYXubyWxdURvLRxhPn?=
- =?us-ascii?Q?5u6+NGMbpfvl+b/KwH/Cr7awzO1mLx6fZExRAiENSJmm1aj3ZB5HaqkPPqtD?=
- =?us-ascii?Q?I2CSdShTyxJBUZXEXuHxXLU7hoj/ArMQ6RRFNo6vlo4GxQ=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?GK25wEIWBqlDEprqHD+iRrhZW8DitZg26A7gcptjFGsaC1agGDU446FT2Kok?=
+ =?us-ascii?Q?APeQrCEgK0ZgwawbyhQKerTGKpSBWKYzqNw6bX+bqz8gwkmB+tnuqI91uZ2d?=
+ =?us-ascii?Q?5UNhWmd+NNn82NN/ry63vBZ7YwqjOx+bCqQzT/jHb+e/a+R8W76hfVs0Yuqv?=
+ =?us-ascii?Q?3xwklsx2Fijz8gu0Av9vPXmJjTF3zEX5ceO3ZCrlwGpghlZv0DeihtR/JEKr?=
+ =?us-ascii?Q?YaI9itWxHvIXeEfKvVz1lot4Y6YF2+FYFi0oMKEhEGSm8JTAkbz7H4Yyd2Rp?=
+ =?us-ascii?Q?kQiCRWazFzHoIuRwMsAXiB/JpDLRo8FiaNzM33ylOGCD2SB1imHkSnqir+Gr?=
+ =?us-ascii?Q?DF8YWSfFo9KgB7zIqT66TghofZOcIBncqQUx1Rk7OThI7s6ev5uMrPKNdw7L?=
+ =?us-ascii?Q?gtMMTxrnlPypdZWm9fmk7+GLYn+ZodfvJ8jP4fAWfKOh5i9Dzwt58ybNMOIk?=
+ =?us-ascii?Q?r5OFKo08M69NOHyosU8oAcbZfAXqRx6Uc+rtU95c1R1wRj2IbvytqVU9QOrq?=
+ =?us-ascii?Q?1jqxzwGqYtHpyoNb5fGtt6NX27IjtZYrGG2/YPFZsrkmO7AbOwQiS+14/DKA?=
+ =?us-ascii?Q?NNc7GFTd/12DpiWyCpTx0U2Y13hTOTuHxuHLropDQXESdD8AZAVnBX+RBdg9?=
+ =?us-ascii?Q?r1MOrcL0Yj0tgLPnYfPFU6rKm0At+rARO5bh4YjGZO1esoNWIVLgnEwnBSSK?=
+ =?us-ascii?Q?j3w5QBoFSqi9YvT6kf/CM1DRtwCqpEwQyJAiY5bU/yICpsdkubABtYR9r+ut?=
+ =?us-ascii?Q?debc4xHyMl00OS4PtpXpDGrnL1olgZHT7qVUuig8W2Dqcrz31QDwZRc1XhW5?=
+ =?us-ascii?Q?T4P1aW89vzKSyyGAh+LoVGG+5UIt25N2bnYKzr1kMib/mC2LnKWm1hOktQhV?=
+ =?us-ascii?Q?6wSAjPr1ZGpmHEKR1bT01HemjY3g2jXYzIf63la62lfZgcmZS1oyhn6wi+Sr?=
+ =?us-ascii?Q?V/YhxRS5X2KdR3hxH6YqOcQxZTCP4q2LJo8Rl+J4sRF3cVv5CABPg0tvi9CO?=
+ =?us-ascii?Q?bYTkQJVSzkRkG8JNbzMUY4N+TeFxxWjYpSEWxpYy2jFKYfQrpmSYAwdiv7KU?=
+ =?us-ascii?Q?SilQCy68iNS2Z1UG+PFms0/8eV6puaeXkuZHFDoK5XiePNuZXKNNP83i5Frq?=
+ =?us-ascii?Q?ohahDZ944djJsV2KM3iLUBK6j1i8IZbRRay4ED6DC8Os0/wQ7MlwpzlDqOv9?=
+ =?us-ascii?Q?vg+6aNhR2lRCJhdKZLpYV/tb+1yrZNLRWQq7iawErrUc2Yb3BbBZMBopDlcg?=
+ =?us-ascii?Q?mAGJhNrl3tZe8ZzIhhDrL1H+gptXy54HdDpBZGBM6eolCzYs1BgPAPFWuer4?=
+ =?us-ascii?Q?QRZsXqHOnKUdnreeMqms90MKy/ZyLPoEUdTgjGNOnBg+gw=3D=3D?=
 X-OriginatorOrg: synopsys.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6372.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dfa0a84-357f-4219-513a-08dbefc4e85b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Nov 2023 03:48:39.3883 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a617cade-243b-4e31-3d04-08dbefd6d017
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Nov 2023 05:56:49.5751 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nVx/hff6QGpd0K4kl1qMfqdF5Vqpw8qJCvlbjL/dXmfvniQOkJosF0V/6EDS/lsorwiXwOcZtH4iFrbvJX68Vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7635
-X-Proofpoint-ORIG-GUID: poKpclch8l_SeJxG5ZUyz18hJphASsAg
-X-Proofpoint-GUID: poKpclch8l_SeJxG5ZUyz18hJphASsAg
+X-MS-Exchange-CrossTenant-userprincipalname: 14zhNYtGdGMK8mFJnUryiD/p71uJxjY8qmaXgzlGFNociUTM9tTrgI9asKgt1LmlS10lnrnDfQLoOkW3lf0VaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8261
+X-Proofpoint-ORIG-GUID: TKGZzOUKiCex8eAuKfb9lObv6N5OPEiT
+X-Proofpoint-GUID: TKGZzOUKiCex8eAuKfb9lObv6N5OPEiT
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-11-28_01,2023-11-27_01,2023-05-22_02
+ definitions=2023-11-28_04,2023-11-27_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
  policy=outbound_active_cloned score=0
- adultscore=0 mlxscore=0 mlxlogscore=971 impostorscore=0 bulkscore=0
+ adultscore=0 mlxscore=0 mlxlogscore=868 impostorscore=0 bulkscore=0
  suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0
  malwarescore=0 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2311060000 definitions=main-2311280029
-Cc: Voon Weifeng <weifeng.voon@intel.com>, James Li <James.Li1@synopsys.com>,
- Eric Dumazet <edumazet@google.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
- Shenwei Wang <shenwei.wang@nxp.com>,
+ scancount=1 engine=8.12.0-2311060000 definitions=main-2311280045
+Cc: "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ James Li <James.Li1@synopsys.com>, open list <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
  "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>,
- Johannes Zink <j.zink@pengutronix.de>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Russell King  \(Oracle" <rmk+kernel@armlinux.org.uk>,
- Jochen Henneberg <jh@henneberg-systemdesign.com>,
- Tan Tee Min <tee.min.tan@intel.com>,
- Martin McKenny <Martin.McKenny@synopsys.com>,
- "open  list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, Simon Horman <horms@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: fix FPE events losing
+ Martin McKenny <Martin.McKenny@synopsys.com>
+Subject: [Linux-stm32] [PATCH v3] net: stmmac: fix FPE events losing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -230,39 +227,237 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The status bits of register MAC_FPE_CTRL_STS are clear on read. Using
+32-bit read for MAC_FPE_CTRL_STS in dwmac5_fpe_configure() and
+dwmac5_fpe_send_mpacket() clear the status bits. Then the stmmac interrupt
+handler missing FPE event status and leads to FPE handshaking failure and
+retries.
+To avoid clear status bits of MAC_FPE_CTRL_STS in dwmac5_fpe_configure()
+and dwmac5_fpe_send_mpacket(), add fpe_csr to stmmac_fpe_cfg structure to
+cache the control bits of MAC_FPE_CTRL_STS and to avoid reading
+MAC_FPE_CTRL_STS in those methods.
 
-> -----Original Message-----
-> From: Jakub Kicinski <kuba@kernel.org>
-> Sent: Tuesday, November 28, 2023 11:05 AM
-> To: Jianheng Zhang <jianheng@synopsys.com>
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>; David S.
-> Miller <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Paolo Abeni
-> <pabeni@redhat.com>; Maxime Coquelin <mcoquelin.stm32@gmail.com>; Simon Horman
-> <horms@kernel.org>; Andrew Halaney <ahalaney@redhat.com>; Bartosz Golaszewski
-> <bartosz.golaszewski@linaro.org>; Shenwei Wang <shenwei.wang@nxp.com>; Johannes Zink
-> <j.zink@pengutronix.de>; Russell King (Oracle <rmk+kernel@armlinux.org.uk>; Jochen Henneberg
-> <jh@henneberg-systemdesign.com>; Voon Weifeng <weifeng.voon@intel.com>; Mohammad Athari Bin
-> Ismail <mohammad.athari.ismail@intel.com>; Ong Boon Leong <boon.leong.ong@intel.com>; Tan Tee
-> Min <tee.min.tan@intel.com>; open list:STMMAC ETHERNET DRIVER <netdev@vger.kernel.org>;
-> moderated list:ARM/STM32 ARCHITECTURE <linux-stm32@st-md-mailman.stormreply.com>;
-> moderated list:ARM/STM32 ARCHITECTURE <linux-arm-kernel@lists.infradead.org>; open list
-> <linux-kernel@vger.kernel.org>; Martin McKenny <mmckenny@synopsys.com>; James Li
-> <lijames@synopsys.com>
-> Subject: Re: [PATCH v2] net: stmmac: fix FPE events losing
-> 
-> On Mon, 27 Nov 2023 07:08:17 +0000 Jianheng Zhang wrote:
-> > Signed-off-by: jianheng <jianheng@synopsys.com>
-> 
-> Your name and email addr in From are both different than the form used
-> in the Signed-off-by tag. Please fix that and repost (keep Serge's
-> review tag).
+Fixes: 5a5586112b92 ("net: stmmac: support FPE link partner hand-shaking procedure")
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+Signed-off-by: Jianheng Zhang <jianheng@synopsys.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.c       | 45 +++++++++-------------
+ drivers/net/ethernet/stmicro/stmmac/dwmac5.h       |  4 +-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  3 +-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |  4 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  8 +++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c    |  1 +
+ include/linux/stmmac.h                             |  1 +
+ 7 files changed, 36 insertions(+), 30 deletions(-)
 
-Sorry, I will correct it and resend the patch.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+index e95d35f..8fd1675 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.c
+@@ -710,28 +710,22 @@ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+ 	}
+ }
+ 
+-void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
++void dwmac5_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++			  u32 num_txq, u32 num_rxq,
+ 			  bool enable)
+ {
+ 	u32 value;
+ 
+-	if (!enable) {
+-		value = readl(ioaddr + MAC_FPE_CTRL_STS);
+-
+-		value &= ~EFPE;
+-
+-		writel(value, ioaddr + MAC_FPE_CTRL_STS);
+-		return;
++	if (enable) {
++		cfg->fpe_csr = EFPE;
++		value = readl(ioaddr + GMAC_RXQ_CTRL1);
++		value &= ~GMAC_RXQCTRL_FPRQ;
++		value |= (num_rxq - 1) << GMAC_RXQCTRL_FPRQ_SHIFT;
++		writel(value, ioaddr + GMAC_RXQ_CTRL1);
++	} else {
++		cfg->fpe_csr = 0;
+ 	}
+-
+-	value = readl(ioaddr + GMAC_RXQ_CTRL1);
+-	value &= ~GMAC_RXQCTRL_FPRQ;
+-	value |= (num_rxq - 1) << GMAC_RXQCTRL_FPRQ_SHIFT;
+-	writel(value, ioaddr + GMAC_RXQ_CTRL1);
+-
+-	value = readl(ioaddr + MAC_FPE_CTRL_STS);
+-	value |= EFPE;
+-	writel(value, ioaddr + MAC_FPE_CTRL_STS);
++	writel(cfg->fpe_csr, ioaddr + MAC_FPE_CTRL_STS);
+ }
+ 
+ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
+@@ -741,6 +735,9 @@ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
+ 
+ 	status = FPE_EVENT_UNKNOWN;
+ 
++	/* Reads from the MAC_FPE_CTRL_STS register should only be performed
++	 * here, since the status flags of MAC_FPE_CTRL_STS are "clear on read"
++	 */
+ 	value = readl(ioaddr + MAC_FPE_CTRL_STS);
+ 
+ 	if (value & TRSP) {
+@@ -766,19 +763,15 @@ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
+ 	return status;
+ }
+ 
+-void dwmac5_fpe_send_mpacket(void __iomem *ioaddr, enum stmmac_mpacket_type type)
++void dwmac5_fpe_send_mpacket(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++			     enum stmmac_mpacket_type type)
+ {
+-	u32 value;
++	u32 value = cfg->fpe_csr;
+ 
+-	value = readl(ioaddr + MAC_FPE_CTRL_STS);
+-
+-	if (type == MPACKET_VERIFY) {
+-		value &= ~SRSP;
++	if (type == MPACKET_VERIFY)
+ 		value |= SVER;
+-	} else {
+-		value &= ~SVER;
++	else if (type == MPACKET_RESPONSE)
+ 		value |= SRSP;
+-	}
+ 
+ 	writel(value, ioaddr + MAC_FPE_CTRL_STS);
+ }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+index 53c138d..34e6207 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac5.h
+@@ -153,9 +153,11 @@ int dwmac5_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
+ 			 unsigned int ptp_rate);
+ void dwmac5_est_irq_status(void __iomem *ioaddr, struct net_device *dev,
+ 			   struct stmmac_extra_stats *x, u32 txqcnt);
+-void dwmac5_fpe_configure(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
++void dwmac5_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++			  u32 num_txq, u32 num_rxq,
+ 			  bool enable);
+ void dwmac5_fpe_send_mpacket(void __iomem *ioaddr,
++			     struct stmmac_fpe_cfg *cfg,
+ 			     enum stmmac_mpacket_type type);
+ int dwmac5_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 453e88b..a74e71d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1484,7 +1484,8 @@ static int dwxgmac3_est_configure(void __iomem *ioaddr, struct stmmac_est *cfg,
+ 	return 0;
+ }
+ 
+-static void dwxgmac3_fpe_configure(void __iomem *ioaddr, u32 num_txq,
++static void dwxgmac3_fpe_configure(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++				   u32 num_txq,
+ 				   u32 num_rxq, bool enable)
+ {
+ 	u32 value;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index b95d3e1..68aa2d5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -412,9 +412,11 @@ struct stmmac_ops {
+ 			     unsigned int ptp_rate);
+ 	void (*est_irq_status)(void __iomem *ioaddr, struct net_device *dev,
+ 			       struct stmmac_extra_stats *x, u32 txqcnt);
+-	void (*fpe_configure)(void __iomem *ioaddr, u32 num_txq, u32 num_rxq,
++	void (*fpe_configure)(void __iomem *ioaddr, struct stmmac_fpe_cfg *cfg,
++			      u32 num_txq, u32 num_rxq,
+ 			      bool enable);
+ 	void (*fpe_send_mpacket)(void __iomem *ioaddr,
++				 struct stmmac_fpe_cfg *cfg,
+ 				 enum stmmac_mpacket_type type);
+ 	int (*fpe_irq_status)(void __iomem *ioaddr, struct net_device *dev);
+ };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3e50fd5..7791e9b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -964,7 +964,8 @@ static void stmmac_fpe_link_state_handle(struct stmmac_priv *priv, bool is_up)
+ 	bool *hs_enable = &fpe_cfg->hs_enable;
+ 
+ 	if (is_up && *hs_enable) {
+-		stmmac_fpe_send_mpacket(priv, priv->ioaddr, MPACKET_VERIFY);
++		stmmac_fpe_send_mpacket(priv, priv->ioaddr, fpe_cfg,
++					MPACKET_VERIFY);
+ 	} else {
+ 		*lo_state = FPE_STATE_OFF;
+ 		*lp_state = FPE_STATE_OFF;
+@@ -5838,6 +5839,7 @@ static void stmmac_fpe_event_status(struct stmmac_priv *priv, int status)
+ 		/* If user has requested FPE enable, quickly response */
+ 		if (*hs_enable)
+ 			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
++						fpe_cfg,
+ 						MPACKET_RESPONSE);
+ 	}
+ 
+@@ -7262,6 +7264,7 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+ 		if (*lo_state == FPE_STATE_ENTERING_ON &&
+ 		    *lp_state == FPE_STATE_ENTERING_ON) {
+ 			stmmac_fpe_configure(priv, priv->ioaddr,
++					     fpe_cfg,
+ 					     priv->plat->tx_queues_to_use,
+ 					     priv->plat->rx_queues_to_use,
+ 					     *enable);
+@@ -7280,6 +7283,7 @@ static void stmmac_fpe_lp_task(struct work_struct *work)
+ 			netdev_info(priv->dev, SEND_VERIFY_MPAKCET_FMT,
+ 				    *lo_state, *lp_state);
+ 			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
++						fpe_cfg,
+ 						MPACKET_VERIFY);
+ 		}
+ 		/* Sleep then retry */
+@@ -7294,6 +7298,7 @@ void stmmac_fpe_handshake(struct stmmac_priv *priv, bool enable)
+ 	if (priv->plat->fpe_cfg->hs_enable != enable) {
+ 		if (enable) {
+ 			stmmac_fpe_send_mpacket(priv, priv->ioaddr,
++						priv->plat->fpe_cfg,
+ 						MPACKET_VERIFY);
+ 		} else {
+ 			priv->plat->fpe_cfg->lo_fpe_state = FPE_STATE_OFF;
+@@ -7754,6 +7759,7 @@ int stmmac_suspend(struct device *dev)
+ 	if (priv->dma_cap.fpesel) {
+ 		/* Disable FPE */
+ 		stmmac_fpe_configure(priv, priv->ioaddr,
++				     priv->plat->fpe_cfg,
+ 				     priv->plat->tx_queues_to_use,
+ 				     priv->plat->rx_queues_to_use, false);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+index ac41ef4..6ad3e0a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
+@@ -1079,6 +1079,7 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
+ 
+ 	priv->plat->fpe_cfg->enable = false;
+ 	stmmac_fpe_configure(priv, priv->ioaddr,
++			     priv->plat->fpe_cfg,
+ 			     priv->plat->tx_queues_to_use,
+ 			     priv->plat->rx_queues_to_use,
+ 			     false);
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 0b4658a..dee5ad6 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -175,6 +175,7 @@ struct stmmac_fpe_cfg {
+ 	bool hs_enable;				/* FPE handshake enable */
+ 	enum stmmac_fpe_state lp_fpe_state;	/* Link Partner FPE state */
+ 	enum stmmac_fpe_state lo_fpe_state;	/* Local station FPE state */
++	u32 fpe_csr;				/* MAC_FPE_CTRL_STS reg cache */
+ };
+ 
+ struct stmmac_safety_feature_cfg {
+-- 
+1.8.3.1
 
-Best Regards,
-Jianheng
-> --
-> pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
