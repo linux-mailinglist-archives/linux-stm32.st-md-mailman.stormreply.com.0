@@ -2,38 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85A5D7FB25D
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 08:09:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDEC7FB4C1
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 09:50:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37522C6B469;
-	Tue, 28 Nov 2023 07:09:49 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9149BC65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1B10C6B469;
+	Tue, 28 Nov 2023 08:50:09 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D71CC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 07:09:48 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F9F5C15;
- Mon, 27 Nov 2023 23:10:35 -0800 (PST)
-Received: from [10.163.33.60] (unknown [10.163.33.60])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5221B3F5A1;
- Mon, 27 Nov 2023 23:09:44 -0800 (PST)
-Message-ID: <8305dee1-6668-4011-aaf7-68d072a1251c@arm.com>
-Date: Tue, 28 Nov 2023 12:39:42 +0530
+ Tue, 28 Nov 2023 08:50:08 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2A138C0011;
+ Tue, 28 Nov 2023 08:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1701161408;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=qYJnE4Z1r7jKRPOrGAwXhHc797bbl+1US3cszB9aa9E=;
+ b=Biez3ElIDFQtKoAoSEC77AQXzKbt7Ch1XeZiVYhh0NXtG9v9GlfxXJMHUGbOSfb77LUOcn
+ 3R+0msBidXWkzyP/oA03LjO59JoGEB8nwVxWQhzryO7/3lBgdfOGe+ccmpFTRzo+6Hyh/S
+ GD+Y3ayQHKYfSpqkoEeBAFW7jASzaG7FBLQy3BcrLGsrxmfREYLffgYMaUk3magZpde8IY
+ Jpkm3fVUL0fUT7BMlooYuZIqQDCRhLrK/p3fM+xSrJ+AkeIXExE94qMn2452ctDbzk7VWP
+ 2n/LDss+hsxqQFoi5sfx/ccHyQ5hgvuoH436OaEzpLi2b4pI+5FaKvrDAG795Q==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net
+Date: Tue, 28 Nov 2023 10:45:37 +0100
+Message-ID: <20231128094538.228039-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Sudeep Holla <sudeep.holla@arm.com>
-References: <20231027072943.3418997-1-anshuman.khandual@arm.com>
- <20231027072943.3418997-6-anshuman.khandual@arm.com> <ZV40itsgT5OSJmdC@bogus>
-Content-Language: en-US
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <ZV40itsgT5OSJmdC@bogus>
-Cc: suzuki.poulose@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 5/7] coresight: tmc: Move ACPI support
- from AMBA driver to platform driver
+X-GND-Sasl: maxime.chevallier@bootlin.com
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ alexis.lothore@bootlin.com, thomas.petazzoni@bootlin.com,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: dwmac-socfpga: Don't access
+	SGMII adapter when not available
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -50,104 +58,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+The SGMII adapter isn't present on all dwmac-socfpga implementations.
+Make sure we don't try to configure it if we don't have this adapter.
 
+Fixes: 5d1f3fe7d2d5 ("net: stmmac: dwmac-sogfpga: use the lynx pcs driver")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On 11/22/23 22:34, Sudeep Holla wrote:
-> On Fri, Oct 27, 2023 at 12:59:41PM +0530, Anshuman Khandual wrote:
->> Add support for the tmc devices in the platform driver, which can then be
->> used on ACPI based platforms. This change would now allow runtime power
->> management for ACPI based systems. The driver would try to enable the APB
->> clock if available.
->>
->> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->> Cc: Sudeep Holla <sudeep.holla@arm.com>
->> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Cc: Mike Leach <mike.leach@linaro.org>
->> Cc: James Clark <james.clark@arm.com>
->> Cc: linux-acpi@vger.kernel.org
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: coresight@lists.linaro.org
->> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
->> ---
->>  drivers/acpi/arm64/amba.c                     |   2 -
->>  .../hwtracing/coresight/coresight-tmc-core.c  | 127 +++++++++++++++---
->>  drivers/hwtracing/coresight/coresight-tmc.h   |   1 +
->>  3 files changed, 113 insertions(+), 17 deletions(-)
-> 
-> [...]
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
->> index 7ec5365e2b64..618bc0b7a1a5 100644
->> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
->> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-> 
-> [...]
-> 
->> @@ -573,9 +579,9 @@ static void tmc_shutdown(struct amba_device *adev)
->>  	spin_unlock_irqrestore(&drvdata->spinlock, flags);
->>  }
->>  
->> -static void tmc_remove(struct amba_device *adev)
->> +static void __tmc_remove(struct device *dev)
->>  {
->> -	struct tmc_drvdata *drvdata = dev_get_drvdata(&adev->dev);
->> +	struct tmc_drvdata *drvdata = dev_get_drvdata(dev);
->>  
->>  	/*
->>  	 * Since misc_open() holds a refcount on the f_ops, which is
->> @@ -586,6 +592,11 @@ static void tmc_remove(struct amba_device *adev)
->>  	coresight_unregister(drvdata->csdev);
->>  }
->>  
->> +static void tmc_remove(struct amba_device *adev)
->> +{
->> +	__tmc_remove(&adev->dev);
->> +}
->> +
->>  static const struct amba_id tmc_ids[] = {
->>  	CS_AMBA_ID(0x000bb961),
->>  	/* Coresight SoC 600 TMC-ETR/ETS */
->> @@ -613,6 +624,92 @@ static struct amba_driver tmc_driver = {
->>  
->>  module_amba_driver(tmc_driver);
->>  
->> +static int tmc_platform_probe(struct platform_device *pdev)
->> +{
->> +	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->> +	struct tmc_drvdata *drvdata;
->> +	int ret = 0;
->> +
->> +	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
->> +	if (!drvdata)
->> +		return -ENOMEM;
->> +
->> +	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
->> +	if (IS_ERR(drvdata->pclk))
->> +		return -ENODEV;
->> +
-> 
-> --->8
->> +	if (res) {
->> +		drvdata->base = devm_ioremap_resource(&pdev->dev, res);
->> +		if (IS_ERR(drvdata->base)) {
->> +			clk_put(drvdata->pclk);
->> +			return PTR_ERR(drvdata->base);
->> +		}
->> +	}
->> +
-> ---
-> 
-> You need drop the above hunk as _tmc_probe() already takes care of that.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index ba2ce776bd4d..ae120792e1b6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -243,7 +243,8 @@ static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
+ {
+ 	u16 val = enable ? SGMII_ADAPTER_ENABLE : SGMII_ADAPTER_DISABLE;
+ 
+-	writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
++	if (dwmac->sgmii_adapter_base)
++		writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
+ }
+ 
+ static int socfpga_set_phy_mode_common(int phymode, u32 *val)
+-- 
+2.42.0
 
-Dropped.
-
-> This is the root cause for the issue I reported in the other thread. Also
-> sorry for the confusion, I had to refer to coresight-tmc-core.c and post
-> the patch to unify module_init/exit but completely mixed up the file/patch
-> and referred coresight-tpiu-core.c instead as that patch was dealing with
-> it.
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
