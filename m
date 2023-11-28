@@ -2,73 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F697FC087
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 18:49:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92AE57FC513
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 21:14:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88BE7C6B46B;
-	Tue, 28 Nov 2023 17:49:37 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4858FC6B44B;
+	Tue, 28 Nov 2023 20:14:55 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6F56C6B44B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E2C2C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 17:49:36 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5098e423ba2so8352425e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 09:49:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701193776; x=1701798576;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fIAezfU5V4i15X+137zRs84aJguIecETApsweAHYW1A=;
- b=RiyIgTQQj4H6zGF3ci3fVAtb23iKVK1JFExkIMNjenQMhYDs9gNl3culgXtAPw6UAP
- kX3QGFqXmR7N/UPuYfLj5m8QJweF3uia+508N8nD8XKmwnBxlChXiGC0u/E/j9UyS39K
- psDYDTTmQHQCH8W6Csg/dthuyv51Nl3HstjK/uTORk9i3lBf7Zy9H2ZWtnep291adkxn
- q+BAf0Q9moS3KuPpnwwRRSmC5+7SnxEKOJ3v1Z2pncTOTCrjrUyjNMYcphcsOtje3cdO
- YMeDbiy5bfWEBn/unsjc62G5evwodm2tKMacGzQ5BjU9sgSAB6suMLXZIvgSnvTPzL2/
- 1klA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701193776; x=1701798576;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fIAezfU5V4i15X+137zRs84aJguIecETApsweAHYW1A=;
- b=CSVqdX1kez3NEeL5Y8d4bgiHzz+b9GHI5wzma+wT7ktB2Go3n9wb+RBCKW6pCXL7Ld
- sNuGt/zy6EtE7pDaOvXllFVDYbGUiyh0h5NhEUij+rUe6FTUtMJbAntuAHEC8LJvttx6
- XsxbUHg+0wqjzVsnHjaSwbK8kN0e3NJTuNc8fPovASLyk0tRI3JxY8ZzeMqvZspXnWLS
- aoVkMquKc5jbwaCRbMwHGZqvX8sLluHzwh7dgFjTDPD5CSm7ftoQwXeBncBgB9sBZwYr
- Feb3m0oMtk7+8eeUcUZax4iK+Ire1DMsrTRjR8Fga/0911YvWqJgaMeaarnfcddnyI0J
- Xo0A==
-X-Gm-Message-State: AOJu0Yx3KRGE+qJVOaurxgfEyqTv6cmESscQaEf2Q+kwzwzqLKM6Qsh4
- oPayrIX70NArWFQ6p85gGGg=
-X-Google-Smtp-Source: AGHT+IGLx/ajG7Ro6+7rSHhh7RvluDw3EeEXY0NVHO2nCh63CWI85nTxBO+CeSFb9SEEBbxEeZUTXA==
-X-Received: by 2002:a05:6512:3d8a:b0:50a:756d:40fd with SMTP id
- k10-20020a0565123d8a00b0050a756d40fdmr13593292lfv.11.1701193775613; 
- Tue, 28 Nov 2023 09:49:35 -0800 (PST)
-Received: from localhost
- (p200300e41f0fa600f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f0f:a600:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- lw5-20020a170906bcc500b00a13f7286209sm971010ejb.8.2023.11.28.09.49.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Nov 2023 09:49:34 -0800 (PST)
-From: Thierry Reding <thierry.reding@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Date: Tue, 28 Nov 2023 18:49:25 +0100
-Message-ID: <170119374433.445690.3475637524078126762.b4-ty@gmail.com>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231019200658.1754190-7-u.kleine-koenig@pengutronix.de>
-References: <20231019200658.1754190-7-u.kleine-koenig@pengutronix.de>
+ Tue, 28 Nov 2023 20:14:54 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3ASEWoYk025952; Tue, 28 Nov 2023 21:14:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=3wum3M3
+ uGkwBSpakL3jJmsR2FXWJMQzhEHn2WaGllZI=; b=6thw0lQMM3/jSHUykSdUmg5
+ g60wNRp1znWXHe3w2Qdf1vqk9mqXAtsWRmJ64nfh+ovGcSocDzPeRsbcJHGs4d0D
+ fxv0T9cvtVacdgGw/eRFDFWBOJEzZQqmhISZtPiTgxzHk5PBKnTAAIdr4yWbLP5U
+ TvBZUWcPEMXIrS+5BI9rfNgBJzsV27q2ldmLmc61UQ1YNwtsQnEKyqODEgL6sxys
+ 42mb6HBUuJ897KMObaTym+vAR/c/x5pAtZauXIKe0absnsJTUGEAgQP+oVsq0X5M
+ 9vxtzMoZLNwCn69MuOXg39xWh63IzIDCvLTuKNvLDPPRgRBgcHd8G6u0ItIVKXA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uk8pjwn91-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 28 Nov 2023 21:14:36 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5547310002A;
+ Tue, 28 Nov 2023 21:14:34 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4A135276D9F;
+ Tue, 28 Nov 2023 21:14:34 +0100 (CET)
+Received: from localhost (10.252.11.142) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 28 Nov
+ 2023 21:14:34 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
+ <alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>
+Date: Tue, 28 Nov 2023 21:14:03 +0100
+Message-ID: <20231128201404.237856-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Cc: linux-pwm@vger.kernel.org, kernel@pengutronix.de,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/5] pwm: stm32: Cleanups,
-	get_state() and proper hw take over
+X-Originating-IP: [10.252.11.142]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-28_23,2023-11-27_01,2023-05-22_02
+Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Sakari Ailus <sakari.ailus@iki.fi>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] media: stm32-dcmipp: correct kerneldoc issues
+	in dcmipp-common
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,32 +72,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIFRodSwgMTkgT2N0IDIwMjMgMjI6MDY6NTkgKzAyMDAsIFV3ZSBLbGVpbmUtS8O2bmlnIHdy
-b3RlOgo+IHNvbWUgdGltZSBhZ28gUGhpbGlwcCBhbHJlYWR5IHNlbnQgYW4gaW1wbGVtZW50YXRp
-b24gb2YgLmdldF9zdGF0ZSgpIGZvcgo+IHRoZSBzdG0zMiBQV00gZHJpdmVyLiBIZSBjcmVhdGVk
-IHRoaXMgc2VyaWVzIGZyb20gdGhlIGZlZWRiYWNrIGJ1dAo+IGRpZG4ndCBjb21lIGFyb3VuZCB0
-byBzZW5kIGl0IG91dC4gVGhlIGdvYWwgb2YgdGhpcyBzZXJpZXMgaXMgdG8gYWxsb3cKPiB0byB0
-YWtlIG92ZXIgYSBwd20tYmFja2xpZ2h0IGZyb20gdGhlIGJvb3Rsb2FkZXIgd2l0aG91dCBmbGlj
-a2VyaW5nIG9uCj4gYW4gc3RtMzJtcDE1NyBiYXNlZCBtYWNoaW5lLgo+IAo+IFRoZSBvbmx5IHRo
-aW5nIEkgZGlkIGhlcmUgdG8gUGhpbGlwcCdzIHNlcmllcyB3YXMgdG8gc3BsaXQgb25lIG9mIHRo
-ZQo+IHBhdGNoZXMgaW4gdHdvLiBQaGlsaXBwIGhhZCB0aGUgY29udGVudHMgb2YgcGF0Y2hlcyA0
-IGFuZCA1IGluIGEgc2luZ2xlCj4gcGF0Y2guCj4gCj4gWy4uLl0KCkFwcGxpZWQsIHRoYW5rcyEK
-ClsxLzVdIHB3bTogc3RtMzI6IFJlcGxhY2Ugd3JpdGVfY2NyeCB3aXRoIHJlZ21hcF93cml0ZQog
-ICAgICBjb21taXQ6IGY5OGVmNmJlYzQ4M2I5MjFhZTQzNDFjNzcxOWMyZmUyNmQ1ZGQ2ZWUKWzIv
-NV0gcHdtOiBzdG0zMjogTWFrZSBjaCBwYXJhbWV0ZXIgdW5zaWduZWQKICAgICAgY29tbWl0OiA0
-Y2YwMzEyMGMzYTk2ZTg5ZWYyZWMyOGY3NTJlNDdkMTFiZTZiMDM2ClszLzVdIHB3bTogc3RtMzI6
-IFVzZSBod2VpZ2h0MzIgaW4gc3RtMzJfcHdtX2RldGVjdF9jaGFubmVscwogICAgICBjb21taXQ6
-IDQwNmEyYWU5NTMzNTJkODhmMjRjYTFkNTY0Yzg5OGY0ZDg5NmZhZjAKWzQvNV0gcHdtOiBzdG0z
-MjogSW1wbGVtZW50IC5nZXRfc3RhdGUoKQogICAgICBjb21taXQ6IDY5MTJiNjdjNjU1ZjUwMmRm
-MmQzYzgwMDAyNTYyZmFjODc4MDFhZGEKWzUvNV0gcHdtOiBzdG0zMjogRml4IGVuYWJsZSBjb3Vu
-dCBmb3IgY2xrIGluIC5wcm9iZSgpCiAgICAgIGNvbW1pdDogYzAwMzFjYmE0NDJjYzEzYmVmMjM4
-NWU1M2MyOWE5ODMwOGEyMDk2MQoKQmVzdCByZWdhcmRzLAotLSAKVGhpZXJyeSBSZWRpbmcgPHRo
-aWVycnkucmVkaW5nQGdtYWlsLmNvbT4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Correct kerneldoc issues regarding:
+  - dcmipp_ent_sd_register
+  - dcmipp_pads_init
+  - dcmipp_colorimetry_clamp
+
+Rename as well dcmipp_pads_init parameter from pads_flag to pads_flags.
+
+Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+---
+ .../media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c    | 4 ++--
+ .../media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h    | 6 ++++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
+index d4f149f7e1b7..562933e08d62 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.c
+@@ -14,7 +14,7 @@
+ #include "dcmipp-common.h"
+ 
+ /* Helper function to allocate and initialize pads */
+-struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flag)
++struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flags)
+ {
+ 	struct media_pad *pads;
+ 	unsigned int i;
+@@ -27,7 +27,7 @@ struct media_pad *dcmipp_pads_init(u16 num_pads, const unsigned long *pads_flag)
+ 	/* Initialize the pads */
+ 	for (i = 0; i < num_pads; i++) {
+ 		pads[i].index = i;
+-		pads[i].flags = pads_flag[i];
++		pads[i].flags = pads_flags[i];
+ 	}
+ 
+ 	return pads;
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
+index 5fd26d6f857a..69cfa67ffeeb 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
+@@ -33,7 +33,7 @@
+ #define DCMIPP_XFER_FUNC_DEFAULT	V4L2_XFER_FUNC_DEFAULT
+ 
+ /**
+- * struct dcmipp_colorimetry_clamp - Adjust colorimetry parameters
++ * dcmipp_colorimetry_clamp() - Adjust colorimetry parameters
+  *
+  * @fmt:		the pointer to struct v4l2_pix_format or
+  *			struct v4l2_mbus_framefmt
+@@ -103,7 +103,7 @@ struct dcmipp_ent_device {
+  * Helper functions to allocate/initialize pads
+  */
+ struct media_pad *dcmipp_pads_init(u16 num_pads,
+-				   const unsigned long *pads_flag);
++				   const unsigned long *pads_flags);
+ 
+ /**
+  * dcmipp_pads_cleanup - free pads
+@@ -130,6 +130,8 @@ static inline void dcmipp_pads_cleanup(struct media_pad *pads)
+  * @pads_flag:	flags to use in each pad
+  * @sd_int_ops:	pointer to &struct v4l2_subdev_internal_ops
+  * @sd_ops:	pointer to &struct v4l2_subdev_ops.
++ * @handler:	func pointer of the irq handler
++ * @thread_fn:	func pointer of the threaded irq handler
+  *
+  * Helper function initialize and register the struct dcmipp_ent_device and
+  * struct v4l2_subdev which represents a subdev node in the topology
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
