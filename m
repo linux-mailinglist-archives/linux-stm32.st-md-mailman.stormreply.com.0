@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE967FC725
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 22:08:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59F787FCAD8
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Nov 2023 00:31:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0F2DC6B44B;
-	Tue, 28 Nov 2023 21:08:51 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0875AC6B44B;
+	Tue, 28 Nov 2023 23:31:28 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1636FC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD88AC64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 21:08:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id F3AA561939;
- Tue, 28 Nov 2023 21:08:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2A9C433AB;
- Tue, 28 Nov 2023 21:08:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701205728;
- bh=zcdYStEUpmRxbAcMjYM+CYDwsomQ5pvUQxhpmLyKi/A=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jB2EN7BiKX3jWtIjfcH6DqztJl1+RMoeyE2wDBB3MAeqmVD86dOWWH2ZYUMlFqUoh
- big41RJq7zhRUplGx4bSf9UkBOSPoi0x4ljTVyhSkMxLcpJnZ5bOJNa/VNwdmLKhqL
- yGuMYM5gdpTzBFK01nO3xCPsWo+krzFj5gLnSGlZ+UUxJxBZEpuv1yKGMxLTYRAv4a
- uCUkmZccd1fyZ8gZFFB+Q7fQoRPmlkLhQDo1afd3xS9x+z3nwuccAkGtXI2c4a+aTl
- 4/v6tFT4tIrehYAsfs/50+HzozLPiBj2b0hTHyh1q71GuMSLbP/q6CiUTMKldrWSrS
- 5AupO/rkChWvg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 28 Nov 2023 16:08:23 -0500
-Message-ID: <20231128210843.876493-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20231128210843.876493-1-sashal@kernel.org>
-References: <20231128210843.876493-1-sashal@kernel.org>
+ Tue, 28 Nov 2023 23:31:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=lFBU8IhjZL/WEnPoZ4ruJNwwW8kAAIaljT/PQim0kSI=; b=NQzUHNNU2uQcmDwAFa9P8JXdwa
+ KNs/FBr7pBpV7mPRdpVrUqxZCBMEyFoOseyV8MTcUfSUhveQNlolMDdvVLSvC8bBzEDReKfzyD/0j
+ Hu0XLDi+Ya19v1nH1zbhS3I0Qtqxkz7nXdL2x5xZEqdENrxvAEB79yCS74JHy16q+anU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1r87Y1-001VRR-9G; Wed, 29 Nov 2023 00:31:21 +0100
+Date: Wed, 29 Nov 2023 00:31:21 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Message-ID: <a551aefa-777d-4fd3-b1a5-086dc3e62646@lunn.ch>
+References: <20231121151733.2015384-1-tmaimon77@gmail.com>
+ <20231121151733.2015384-3-tmaimon77@gmail.com>
+ <6aeb28f5-04c2-4723-9da2-d168025c307c@lunn.ch>
+ <CAP6Zq1j0kyrg+uxkXH-HYqHz0Z4NwWRUGzprius=BPC9+WfKFQ@mail.gmail.com>
+ <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
+ <CAP6Zq1jw9uLP_FQGR8=p3Y2NTP6XcNtzkJQ0dm3+xVNE1SpsVg@mail.gmail.com>
+ <CAP6Zq1ijfMSPjk1vPwDM2B+r_vAH3DShhSu_jr8xJyUkTQY89w@mail.gmail.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.140
-Cc: Sasha Levin <sashal@kernel.org>, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com,
- linux-arm-kernel@lists.infradead.org, Simon Horman <horms@kernel.org>,
- kuba@kernel.org, pabeni@redhat.com, Keguang Zhang <keguang.zhang@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, Jean Delvare <jdelvare@suse.de>
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 02/15] stmmac: dwmac-loongson:
-	Add architecture dependency
+Content-Disposition: inline
+In-Reply-To: <CAP6Zq1ijfMSPjk1vPwDM2B+r_vAH3DShhSu_jr8xJyUkTQY89w@mail.gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ benjaminfair@google.com, davem@davemloft.net, avifishman70@gmail.com,
+ venture@google.com, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
+ tali.perry1@gmail.com, mcoquelin.stm32@gmail.com, edumazet@google.com,
+ joabreu@synopsys.com, joel@jms.id.au, krzysztof.kozlowski+dt@linaro.org,
+ peppe.cavallaro@st.com, j.neuschaefer@gmx.net, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: Add NPCM support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,40 +62,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Jean Delvare <jdelvare@suse.de>
+On Mon, Nov 27, 2023 at 05:19:15PM +0200, Tomer Maimon wrote:
+> Hi Andrew,
+> 
+> I took a look at the xpcs driver and the stmmac driver and it doesn't
+> cover NPCM use.
+> 
+> in the NPCM case the stmmac ID=0x37 therefore the driver is linked to DWMAC1000
+> https://elixir.bootlin.com/linux/v6.7-rc2/source/drivers/net/ethernet/stmicro/stmmac/hwif.c#L139
+> 
+> to enable the xpcs, the stmmac should support xgmac or gmac4 and in
+> the NPCM is support only gmac.
+> https://elixir.bootlin.com/linux/v6.7-rc2/source/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c#L555
+> https://elixir.bootlin.com/linux/v6.7-rc2/source/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c#L573
+> 
+> and the most important thing is that the XPCS is handled through an
+> indirect register access and not through MDIO. the MDIO is connected
+> to the external PHY and not to the XPCS.
 
-[ Upstream commit 7fbd5fc2b35a8f559a6b380dfa9bcd964a758186 ]
+What really matters here is, is the PCS hardware block you have an
+XPCS? We don't want two drivers for the same block of hardware. 
 
-Only present the DWMAC_LOONGSON option on architectures where it can
-actually be used.
+MDIO vs indirect register access can be solved with a bit of
+layering. That is not a reason to write a second driver.
 
-This follows the same logic as the DWMAC_INTEL option.
-
-Signed-off-by: Jean Delvare <jdelvare@suse.de>
-Cc: Keguang Zhang <keguang.zhang@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 929cfc22cd0cf..d19844be9fe50 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -253,7 +253,7 @@ config DWMAC_INTEL
- config DWMAC_LOONGSON
- 	tristate "Loongson PCI DWMAC support"
- 	default MACH_LOONGSON64
--	depends on STMMAC_ETH && PCI
-+	depends on (MACH_LOONGSON64 || COMPILE_TEST) && STMMAC_ETH && PCI
- 	depends on COMMON_CLK
- 	help
- 	  This selects the LOONGSON PCI bus support for the stmmac driver,
--- 
-2.42.0
-
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
