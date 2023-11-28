@@ -2,63 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 671A47FAF3A
-	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 01:46:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 532697FB050
+	for <lists+linux-stm32@lfdr.de>; Tue, 28 Nov 2023 04:04:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D02AC6B44B;
-	Tue, 28 Nov 2023 00:46:34 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00034C6B469;
+	Tue, 28 Nov 2023 03:04:50 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8148DC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72312C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 28 Nov 2023 00:46:33 +0000 (UTC)
-Received: from [100.116.17.117] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 0C40D66071EF;
- Tue, 28 Nov 2023 00:46:29 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1701132392;
- bh=Eeg9oUDddZqUuX6q/CcF6TKjx0iJq9WHFuJnt6xhc90=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=U8U9yFo0ZWD4RxBlvSJgRHnNu3XlZJvZGIFX020I0AgT9pcnbHCOkqCX+s2miUHw/
- cyPtbMGx+BPEMM1AfbCPwAup6OtyUArfgQTsCTS3I+UYnulTfVrXnZkVjbU+Yejw3J
- XWPbz4JoNJwZmOqutwxoAM48bboHVXYPgUe98v+wGHLU7aPrPDrm7USoAh9g5TJyeK
- VJaLUaTMniAgs3MbcZ2d2+xlXql/Im1fR/xQ7WC3IT9At/ZC3cvHb98twErBAJl9el
- flJUuEVRI/kN5NndmVC5xItOsyooC1q1dpCS9hve7KN9+XHEbBJA4ULDvawOkDtX4b
- VSXLnSkIfF4QA==
-Message-ID: <2c8b044f-dc17-4f71-89bb-7d50d02bb4cc@collabora.com>
-Date: Tue, 28 Nov 2023 02:46:27 +0200
+ Tue, 28 Nov 2023 03:04:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id D2737B83947;
+ Tue, 28 Nov 2023 03:04:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19AC4C433C8;
+ Tue, 28 Nov 2023 03:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1701140688;
+ bh=0vxwWk/VtiJW0Rl/IFPmfADKzDSf/OCJueWE5wdyi8I=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=I/5Y4FwXlHyjodxNo0IyDpBLKOgRgfNrb/EIB6ikSZmOTkmzdUneCtLpBvckwvno0
+ sqHJ9px9v6GOF6B1V+jUwkkSi60XoCAeNE/8yQoH5TsAmyuBp12pmZYTKU4BZs5iQ5
+ ODgbqb5yh33cUJxuyPnWZFuSLT3sQFfdf4ieZrs+rr0fDSHw0Gc6W/FwCPdIUt2vqm
+ 4cFSdenddOGYWtg2Yvze9OHaawUlbZ1c36aG2bD+PA3FE4f4SVlZMLVGrmUXtt+c9p
+ UDjbYPSFslp9SvhPEiw7ZS7RYL9bp3zRn2AsDirTKt7daJDPscV4P1hDPWboXlHH9F
+ /N7A9M4FD0hyw==
+Date: Mon, 27 Nov 2023 19:04:46 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
+Message-ID: <20231127190446.58f14db6@kernel.org>
+In-Reply-To: <CY5PR12MB637218C74342CCAF7AFCB85FBFBDA@CY5PR12MB6372.namprd12.prod.outlook.com>
+References: <CY5PR12MB637218C74342CCAF7AFCB85FBFBDA@CY5PR12MB6372.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
+Cc: Voon Weifeng <weifeng.voon@intel.com>, James Li <James.Li1@synopsys.com>,
+ Eric Dumazet <edumazet@google.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>, "moderated 
+ list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+ Johannes Zink <j.zink@pengutronix.de>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Mohammad Athari Bin Ismail <mohammad.athari.ismail@intel.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-10-cristian.ciocaltea@collabora.com>
- <CAJM55Z-1ibownJG-pEuUx5VvPfnuV0+kT-6Fo3VnVs2YycNEEg@mail.gmail.com>
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAJM55Z-1ibownJG-pEuUx5VvPfnuV0+kT-6Fo3VnVs2YycNEEg@mail.gmail.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 09/12] riscv: dts: starfive: jh7100:
- Add sysmain and gmac DT nodes
+ "Russell King  \(Oracle" <rmk+kernel@armlinux.org.uk>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Tan Tee Min <tee.min.tan@intel.com>,
+ Martin McKenny <Martin.McKenny@synopsys.com>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, Simon Horman <horms@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: fix FPE events losing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,80 +70,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/26/23 23:15, Emil Renner Berthing wrote:
-> Cristian Ciocaltea wrote:
->> Provide the sysmain and gmac DT nodes supporting the DWMAC found on the
->> StarFive JH7100 SoC.
->>
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>  arch/riscv/boot/dts/starfive/jh7100.dtsi | 36 ++++++++++++++++++++++++
->>  1 file changed, 36 insertions(+)
->>
->> diff --git a/arch/riscv/boot/dts/starfive/jh7100.dtsi b/arch/riscv/boot/dts/starfive/jh7100.dtsi
->> index a8a5bb00b0d8..e8228e96d350 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7100.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7100.dtsi
->> @@ -179,6 +179,37 @@ plic: interrupt-controller@c000000 {
->>  			riscv,ndev = <133>;
->>  		};
->>
->> +		gmac: ethernet@10020000 {
->> +			compatible = "starfive,jh7100-dwmac", "snps,dwmac";
->> +			reg = <0x0 0x10020000 0x0 0x10000>;
->> +			clocks = <&clkgen JH7100_CLK_GMAC_ROOT_DIV>,
->> +				 <&clkgen JH7100_CLK_GMAC_AHB>,
->> +				 <&clkgen JH7100_CLK_GMAC_PTP_REF>,
->> +				 <&clkgen JH7100_CLK_GMAC_TX_INV>,
->> +				 <&clkgen JH7100_CLK_GMAC_GTX>;
->> +			clock-names = "stmmaceth", "pclk", "ptp_ref", "tx", "gtx";
->> +			resets = <&rstgen JH7100_RSTN_GMAC_AHB>;
->> +			reset-names = "ahb";
->> +			interrupts = <6>, <7>;
->> +			interrupt-names = "macirq", "eth_wake_irq";
->> +			max-frame-size = <9000>;
->> +			snps,multicast-filter-bins = <32>;
->> +			snps,perfect-filter-entries = <128>;
->> +			starfive,syscon = <&sysmain 0x70 0>;
->> +			rx-fifo-depth = <32768>;
->> +			tx-fifo-depth = <16384>;
->> +			snps,axi-config = <&stmmac_axi_setup>;
->> +			snps,fixed-burst;
->> +			snps,force_thresh_dma_mode;
->> +			status = "disabled";
->> +
->> +			stmmac_axi_setup: stmmac-axi-config {
->> +				snps,wr_osr_lmt = <0xf>;
->> +				snps,rd_osr_lmt = <0xf>;
-> 
-> As I also noted on the JH7110 patches these are not addresses or offsets but
-> limits eg. counting things, which makes a lot more sense in decimal for most
-> humans. But here you've changed them back to 0xf, why?
+On Mon, 27 Nov 2023 07:08:17 +0000 Jianheng Zhang wrote:
+> Signed-off-by: jianheng <jianheng@synopsys.com>
 
-That's a left over from v1. Will fix, thanks!
-
->> +				snps,blen = <256 128 64 32 0 0 0>;
->> +			};
->> +		};
->> +
->>  		clkgen: clock-controller@11800000 {
->>  			compatible = "starfive,jh7100-clkgen";
->>  			reg = <0x0 0x11800000 0x0 0x10000>;
->> @@ -193,6 +224,11 @@ rstgen: reset-controller@11840000 {
->>  			#reset-cells = <1>;
->>  		};
->>
->> +		sysmain: syscon@11850000 {
->> +			compatible = "starfive,jh7100-sysmain", "syscon";
->> +			reg = <0x0 0x11850000 0x0 0x10000>;
->> +		};
->> +
->>  		i2c0: i2c@118b0000 {
->>  			compatible = "snps,designware-i2c";
->>  			reg = <0x0 0x118b0000 0x0 0x10000>;
->> --
->> 2.42.0
->>
+Your name and email addr in From are both different than the form used
+in the Signed-off-by tag. Please fix that and repost (keep Serge's
+review tag).
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
