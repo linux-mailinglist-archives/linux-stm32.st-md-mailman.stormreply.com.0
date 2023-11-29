@@ -2,69 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEAF17FDAA6
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Nov 2023 15:59:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B38187FE406
+	for <lists+linux-stm32@lfdr.de>; Thu, 30 Nov 2023 00:10:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72BB9C6A613;
-	Wed, 29 Nov 2023 14:59:54 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63183C6B475;
+	Wed, 29 Nov 2023 23:10:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13C05C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A90C4C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Nov 2023 14:59:53 +0000 (UTC)
-Received: from [100.116.17.117] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EA15366022D0;
- Wed, 29 Nov 2023 14:59:50 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1701269992;
- bh=6x7B3dSj+YnwWLnuQcvnmhm/T6O7NBwYRGfJTFvwlZQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=GLivWpS4p2yMUcVGwYVDTweCueIhIn7lydOJhLs+sjtNNlOHnqZreuAkt3ve4IOq8
- yEO249dGpHflSCaYCz2791a56S5tkI0soi8G5dhpnhjA63T5TYQnLNMb1DBWc25tJl
- YKxCeC4pl3DaDXJt5JbM+aaJMdw6ncGR6hf/gQiu3Tn1VXd1k4HexlwR/icp9YjrXC
- L+1lO3wnZQxQFeeTdnoT+jJiYIXnRanr+MBw7F4MljYXv8iS7yV22Q7ruyiFFdxayQ
- hlo37VEkmlqaGZL9eszkPUOWZP96SlHfbvmefa9xYaFXSIIf6FMSSPpxL06N9ElqeO
- PLgzG30knpzHg==
-Message-ID: <ea6f1313-95fd-4cb4-864d-84b92f0e5672@collabora.com>
-Date: Wed, 29 Nov 2023 16:59:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
+ Wed, 29 Nov 2023 23:10:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1701299426; x=1732835426;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=wAisHvcC6UE6L2dy6Apps3oV2ZTlJuG1aYg+w33NB3A=;
+ b=g93M/FEo12SSjFqr5MEX02OU59WWIDO2+KAaGZhNR1kN81UqQY2y74MN
+ k7fHJZ/YeItCx9HciB/N8abf/CubTxaRUx5JnNHk8TVHWhFmyb6z6z8x1
+ k8iiVwIS1QAZW+iEeiR5vnlIkNwe7/cpvsHNxVeYoNFChCqaR4jSkJUoM
+ 1csqLsdVAclWDzmpJRO1GKxqofziQjApWPG+j+aRPErpdKRGqZE7gsJ9k
+ K6boGNAAfQebnXw4RRLPwYHjAgj19w9c8w3ovwUCeRFfgaA74Sb5khzkt
+ Uqa/Bt6a00pVoIDmFz0i/XBKktmFRK4nqOR7qWDr0TxRsA0c1riaUKEhz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="383637556"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="383637556"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Nov 2023 15:10:24 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10909"; a="892609109"
+X-IronPort-AV: E=Sophos;i="6.04,237,1695711600"; d="scan'208";a="892609109"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by orsmga004.jf.intel.com with ESMTP; 29 Nov 2023 15:10:20 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1r8ThB-00013u-33;
+ Wed, 29 Nov 2023 23:10:17 +0000
+Date: Thu, 30 Nov 2023 07:09:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alain Volmat <alain.volmat@foss.st.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
- <20231029042712.520010-13-cristian.ciocaltea@collabora.com>
- <CAJM55Z9e=vjGKNnmURN15mvXo2bVd3igBA-3puF9q7eh5hiP+A@mail.gmail.com>
- <2f06ce36-0dc1-495e-b6a6-318951a53e8d@collabora.com>
- <CAJM55Z8vkMbqXY5sS2o4cLi8ow-JQTcXU9=uYMBSykwd4ppExw@mail.gmail.com>
- <054bbf2a-e7ba-40bf-8f8b-f0e0e9b396c6@collabora.com>
- <CAJM55Z9+j6CmfjNkPLCk1DR3EBuEMspsRtNvygDbPWJDCytQpw@mail.gmail.com>
- <5395f3ce-f9ec-474b-b145-5f62a3b7c4fc@collabora.com>
- <CAJM55Z-ff8btSQwJcWViUKLTJ8F2C_b70AaKJMwxgxZurUyGBA@mail.gmail.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <CAJM55Z-ff8btSQwJcWViUKLTJ8F2C_b70AaKJMwxgxZurUyGBA@mail.gmail.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>
+Message-ID: <202311300357.qiYAoEvz-lkp@intel.com>
+References: <20231129125920.1702497-5-alain.volmat@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231129125920.1702497-5-alain.volmat@foss.st.com>
+Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 12/12] [UNTESTED] riscv: dts: starfive:
- beaglev-starlight: Enable gmac
+Subject: Re: [Linux-stm32] [PATCH 4/7] i2c: stm32f7: add support for
+	stm32mp25 soc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,154 +73,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 11/29/23 16:28, Emil Renner Berthing wrote:
-> Cristian Ciocaltea wrote:
->> On 11/28/23 18:09, Emil Renner Berthing wrote:
->>> Cristian Ciocaltea wrote:
->>>> On 11/28/23 14:08, Emil Renner Berthing wrote:
->>>>> Cristian Ciocaltea wrote:
->>>>>> On 11/26/23 23:10, Emil Renner Berthing wrote:
->>>>>>> Cristian Ciocaltea wrote:
->>>>>>>> The BeagleV Starlight SBC uses a Microchip KSZ9031RNXCA PHY supporting
->>>>>>>> RGMII-ID.
->>>>>>>>
->>>>>>>> TODO: Verify if manual adjustment of the RX internal delay is needed. If
->>>>>>>> yes, add the mdio & phy sub-nodes.
->>>>>>>
->>>>>>> Sorry for being late here. I've tested that removing the mdio and phy nodes on
->>>>>>> the the Starlight board works fine, but the rx-internal-delay-ps = <900>
->>>>>>> property not needed on any of my VisionFive V1 boards either.
->>>>>>
->>>>>> No problem, thanks a lot for taking the time to help with the testing!
->>>>>>
->>>>>>> So I wonder why you need that on your board
->>>>>>
->>>>>> I noticed you have a patch 70ca054e82b5 ("net: phy: motorcomm: Disable
->>>>>> rgmii rx delay") in your tree, hence I you please confirm the tests were
->>>>>> done with that commit reverted?
->>>>>>
->>>>>>> Also in the driver patch you add support for phy-mode = "rgmii-txid", but here
->>>>>>> you still set it to "rgmii-id", so which is it?
->>>>>>
->>>>>> Please try with "rgmii-id" first. I added "rgmii-txid" to have a
->>>>>> fallback solution in case the former cannot be used.
->>>>>
->>>>> Ah, I see. Sorry I should have read up on the whole thread. Yes, the Starlight
->>>>> board with the Microchip phy works with "rgmii-id" as is. And you're right,
->>>>> with "rgmii-id" my VF1 needs the rx-internal-delay-ps = <900> property too.
->>>>
->>>> That's great, we have now a pretty clear indication that this uncommon behavior
->>>> stems from the Motorcomm PHY, and *not* from GMAC.
->>>>
->>>>>>
->>>>>>> You've alse removed the phy reset gpio on the Starlight board:
->>>>>>>
->>>>>>>   snps,reset-gpios = <&gpio 63 GPIO_ACTIVE_LOW>
->>>>>>>
->>>>>>> Why?
->>>>>>
->>>>>> I missed this in v1 as the gmac handling was done exclusively in
->>>>>> jh7100-common. Thanks for noticing!
->>>>>>
->>>>>>>>
->>>>>>>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->>>>>>>> ---
->>>>>>>>  arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts | 5 +++++
->>>>>>>>  1 file changed, 5 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
->>>>>>>> index 7cda3a89020a..d3f4c99d98da 100644
->>>>>>>> --- a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
->>>>>>>> +++ b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
->>>>>>>> @@ -11,3 +11,8 @@ / {
->>>>>>>>  	model = "BeagleV Starlight Beta";
->>>>>>>>  	compatible = "beagle,beaglev-starlight-jh7100-r0", "starfive,jh7100";
->>>>>>>>  };
->>>>>>>> +
->>>>>>>> +&gmac {
->>>>>>>> +	phy-mode = "rgmii-id";
->>>>>>>> +	status = "okay";
->>>>>>>> +};
->>>>>>>
->>>>>>> Lastly the phy-mode and status are the same for the VF1 and Starlight boards,
->>>>>>> so why can't these be set in the jh7100-common.dtsi?
->>>>>>
->>>>>> I wasn't sure "rgmii-id" can be used for both boards and I didn't want
->>>>>> to unconditionally enable gmac on Starlight before getting a
->>>>>> confirmation that this actually works.
->>>>>>
->>>>>> If there is no way to make it working with "rgmii-id" (w/ or w/o
->>>>>> adjusting rx-internal-delay-ps), than we should switch to "rgmii-txid".
->>>>>
->>>>> Yeah, I don't exactly know the difference, but both boards seem to work fine
->>>>> with "rgmii-id", so if that is somehow better and/or more correct let's just go
->>>>> with that.
->>>>
->>>> As Andrew already pointed out, going with "rgmii-id" would be the recommended
->>>> approach, as this passes the responsibility of adding both TX and RX delays to
->>>> the PHY.  "rgmii-txid" requires the MAC to handle the RX delay, which might
->>>> break the boards having a conformant (aka well-behaving) PHY.  For some reason
->>>> the Microchip PHY seems to work fine in both cases, but that's most likely an
->>>> exception, as other PHYs might expose a totally different and undesired
->>>> behavior.
->>>>
->>>> I will prepare a v3 soon, and will drop the patches you have already submitted
->>>> as part of [1].
->>>
->>> Sounds good. Then what's missing for ethernet to work is just the clock patches:
->>> https://github.com/esmil/linux/commit/b5abe1cb3815765739aff7949deed6f65b952c4a
->>> https://github.com/esmil/linux/commit/3a7a423b15a9f796586cbbdc37010d2b83ff2367
->>>
->>> You can either include those as part of your patch series enabling ethernet, or
->>> they can be submitted separately with the audio clocks. Either way is
->>> fine by me.
->>
->> I can cherry-pick them, but so far I couldn't identify any networking
->> related issues if those patches are not applied. Could it be something
->> specific to Starlight board only?
-> 
-> No, it's the same for both boards. The dwmac-starfive driver adjusts
-> the tx clock:
-> 
-> 1000Mbit -> 125MHz
->  100Mbit ->  25MHz
->   10Mbit -> 2.5MHz
-> 
-> The tx clock is given in the device tree as the gmac_tx_inv clock which derives
-> from either the gmac_root_div or gmac_rmii_ref external clock like this:
-> 
-> gmac_rmii_ref (external) -> gmac_rmii_txclk     \
-> gmac_root_div  (500MHz)  -> gmac_gtxclk (div N) -> gmac_tx (mux) -> gmac_tx_inv
-> 
-> ..where N defaults to 4 and the gmac_tx mux defaults to the gmac_gtxclk, so
-> the gmac_tx_inv clock defaults to 125MHz suitable for 1000Mbit connections.
-> See /sys/kernel/debug/clk/clk_summary for another overview.
-> 
-> When the dwmac_starfive driver request to change gmac_tx_inv to 25MHz the clock
-> framework will that it has the CLK_SET_RATE_PARENT flag set, so it will try
-> the gmac_tx clock next. This is a mux that can choose either the
-> 125MHz gmac_gtxclk
-> or the external gmac_rmii_txclk which defaults to 0MHz in the current
-> device trees,
-> so the request cannot be met.
-> 
-> That's why we need to set the CLK_SET_RATE_PARENT (and CLK_SET_RATE_NO_REPARENT)
-> flags on the gmac_tx clock so the clock framework again goes to try setting the
-> gmac_gtxclk to 25MHz, which it can because it's a divider and setting N=20
-> does the trick.
-> 
-> On your board you can manually force a 100Mbit connection with
-> ethtool -s eth0 speed 100
-> 
-> That fails on my boards without those two patches.
-> /Emil
+Hi Alain,
 
-Thanks for the detailed explanation! I've been only verified with
-gigabit connectivity, that would explain why I didn't notice the issue.
-I will make sure to properly test this before sending v3.
+kernel test robot noticed the following build warnings:
 
-Regards,
-Cristian
+[auto build test WARNING on wsa/i2c/for-next]
+[also build test WARNING on atorgue-stm32/stm32-next robh/for-next linus/master v6.7-rc3 next-20231129]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alain-Volmat/i2c-stm32f7-perform-most-of-irq-job-in-threaded-handler/20231129-210806
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git i2c/for-next
+patch link:    https://lore.kernel.org/r/20231129125920.1702497-5-alain.volmat%40foss.st.com
+patch subject: [PATCH 4/7] i2c: stm32f7: add support for stm32mp25 soc
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20231130/202311300357.qiYAoEvz-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231130/202311300357.qiYAoEvz-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202311300357.qiYAoEvz-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/i2c/busses/i2c-stm32f7.c:2029:6: warning: variable 'ret' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+           if (i2c_dev->setup.fmp_cr1_bit) {
+               ^~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/i2c/busses/i2c-stm32f7.c:2044:9: note: uninitialized use occurs here
+           return ret;
+                  ^~~
+   drivers/i2c/busses/i2c-stm32f7.c:2029:2: note: remove the 'if' if its condition is always false
+           if (i2c_dev->setup.fmp_cr1_bit) {
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/i2c/busses/i2c-stm32f7.c:2022:9: note: initialize the variable 'ret' to silence this warning
+           int ret;
+                  ^
+                   = 0
+   1 warning generated.
+
+
+vim +2029 drivers/i2c/busses/i2c-stm32f7.c
+
+  2018	
+  2019	static int stm32f7_i2c_write_fm_plus_bits(struct stm32f7_i2c_dev *i2c_dev,
+  2020						  bool enable)
+  2021	{
+  2022		int ret;
+  2023	
+  2024		if (i2c_dev->bus_rate <= I2C_MAX_FAST_MODE_FREQ ||
+  2025		    (!i2c_dev->setup.fmp_cr1_bit && IS_ERR_OR_NULL(i2c_dev->regmap)))
+  2026			/* Optional */
+  2027			return 0;
+  2028	
+> 2029		if (i2c_dev->setup.fmp_cr1_bit) {
+  2030			if (enable)
+  2031				stm32f7_i2c_set_bits(i2c_dev->base + STM32F7_I2C_CR1, STM32_I2C_CR1_FMP);
+  2032			else
+  2033				stm32f7_i2c_clr_bits(i2c_dev->base + STM32F7_I2C_CR1, STM32_I2C_CR1_FMP);
+  2034		} else {
+  2035			if (i2c_dev->fmp_sreg == i2c_dev->fmp_creg)
+  2036				ret = regmap_update_bits(i2c_dev->regmap, i2c_dev->fmp_sreg,
+  2037							 i2c_dev->fmp_mask, enable ? i2c_dev->fmp_mask : 0);
+  2038			else
+  2039				ret = regmap_write(i2c_dev->regmap,
+  2040						   enable ? i2c_dev->fmp_sreg : i2c_dev->fmp_creg,
+  2041						   i2c_dev->fmp_mask);
+  2042		}
+  2043	
+  2044		return ret;
+  2045	}
+  2046	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
