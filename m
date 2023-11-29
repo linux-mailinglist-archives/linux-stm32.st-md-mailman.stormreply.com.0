@@ -2,62 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECA8E7FD5D3
-	for <lists+linux-stm32@lfdr.de>; Wed, 29 Nov 2023 12:35:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1231E7FD74A
+	for <lists+linux-stm32@lfdr.de>; Wed, 29 Nov 2023 13:59:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75821C6B475;
-	Wed, 29 Nov 2023 11:35:20 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCF90C6A613;
+	Wed, 29 Nov 2023 12:59:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1ABEC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C3F0C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Nov 2023 11:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rqS+h/QhB+l3YOA1zOKZSiEXB38gEHQM7lW0MLULbqg=; b=vuzdJXagBK8d7m5cAmLL0Boojc
- QyyhacdZgGAZS2j6Hit5ht9BRy5aUqNw+7TaK/yQcKNNG4Gm5VsmU2C6r5zrPk/c/RODcxSIfcXY9
- t2CNXc8fL009N6jI30245Z1FtuxIezXE7Y6p60LWcBLeq4wP+NwYmJ7Hshxq4tJkyfufrqe0mCr5D
- 3v1TfYbAfnmkZ8Q413fHNagFsWg0usjA/RDbJ23DsP0gt9j6dwHVt5sdiS/xpwfY+e+pSi48774LV
- HmanbcFoR+0rnLz7cQaWEEbQDX7fTJYYbgwCY+ru11YjTTU9idzi1TTVscPzF8L3jBz5lFphvE34g
- Gy9+ohPw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48210)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1r8IqR-0000Iz-2l;
- Wed, 29 Nov 2023 11:35:08 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1r8IqS-0003xO-Ap; Wed, 29 Nov 2023 11:35:08 +0000
-Date: Wed, 29 Nov 2023 11:35:08 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Sneh Shah <quic_snehshah@quicinc.com>
-Message-ID: <ZWch7LIqbMEaLRLW@shell.armlinux.org.uk>
-References: <20231124050818.1221-1-quic_snehshah@quicinc.com>
- <ZWBo5EKjkffNOqkQ@shell.armlinux.org.uk>
- <47c9eb95-ff6a-4432-a7ef-1f3ebf6f593f@quicinc.com>
- <ZWRVz05Gb4oALDnf@shell.armlinux.org.uk>
- <3bf6f666-b58a-460f-88f5-ad8ec08bfbbc@quicinc.com>
- <ZWRp3pVv0DNsPMT7@shell.armlinux.org.uk>
- <474a8942-e22f-4899-acb9-f794d01fdfe9@quicinc.com>
+ Wed, 29 Nov 2023 12:59:53 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3ATAIMa3005577; Wed, 29 Nov 2023 13:59:37 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=Dsc+9GR
+ NBqoX2xM/+cUi2k9N29c+u17aO3+kBjb/00A=; b=c5OPaNy1YGyH5IUu0NTi8bk
+ UX5zL86rlRA8hZ5gJttIBhIzvpdrqyUu9AC3bZj1LM7QnaUOJinm+by4Ldu3T3O5
+ gJsY8L/w3uuPWi3RzTvIIJcocJL0gc+rRIZR+5YSPQVxbGh8vu3mKIWhe3wFNsAU
+ nItYSBvKjFWyNMPW64YFfK+NPWtmp/rmWjY3VPg1jDdJSZqpLWcU2RHQA9ErBY6+
+ yu4/CAnYZ8RSSra5wMs0Wzwmt7Dp2yUnVSbIM8aJ3Dpr8RcT3ytbyxKkhhY0gPSP
+ FHD3cXVyrsXxYu974OqNWL2vhR1IiU5tRyMi4IX7y7uiC3UeMRe7eUBKM4FewUA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3unxcj22cw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Nov 2023 13:59:37 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 238B310002A;
+ Wed, 29 Nov 2023 13:59:36 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A372B21BF60;
+ Wed, 29 Nov 2023 13:59:36 +0100 (CET)
+Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 29 Nov
+ 2023 13:59:36 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Pierre-Yves MORDRET
+ <pierre-yves.mordret@foss.st.com>, Alain Volmat <alain.volmat@foss.st.com>
+Date: Wed, 29 Nov 2023 13:59:09 +0100
+Message-ID: <20231129125920.1702497-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <474a8942-e22f-4899-acb9-f794d01fdfe9@quicinc.com>
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: update Rx clk divider
-	for 10M SGMII
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-29_09,2023-11-29_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/7] i2c: stm32f7: enhancements and support
+	for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,42 +78,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 29, 2023 at 04:56:53PM +0530, Sneh Shah wrote:
-> 
-> 
-> On 11/27/2023 3:35 PM, Russell King (Oracle) wrote:
-> > On Mon, Nov 27, 2023 at 03:17:20PM +0530, Sneh Shah wrote:
-> >> On 11/27/2023 2:09 PM, Russell King (Oracle) wrote:
-> >>> On Mon, Nov 27, 2023 at 11:25:34AM +0530, Sneh Shah wrote:
-> >>>> On 11/24/2023 2:42 PM, Russell King (Oracle) wrote:
-> >>>>> The next concern I have is that you're only doing this for SPEED_10.
-> >>>>> If it needs to be programmed for SPEED_10 to work, and not any of the
-> >>>>> other speeds, isn't this something that can be done at initialisation
-> >>>>> time? If it has to be done depending on the speed, then don't you need
-> >>>>> to do this for each speed with an appropriate value?
-> >>>>
-> >>>> This field programming is required only for 10M speed in for SGMII mode. other speeds are agnostic to this field. Hence we are programming it always when SGMII link comes up in 10M mode. init driver data for ethqos is common for sgmii and rgmii. As this fix is specific to SGMII we can't add this to init driver data.
-> >>>
-> >>> I wasn't referring to adding it to driver data. I was asking whether it
-> >>> could be done in the initialisation path.
-> >>>
-> >> No, IOMACRO block is configured post phylink up regardless of RGMII or SGMII mode. We are not updating them at driver initialization time itself.
-> > 
-> > What reason (in terms of the hardware) requires you to do this every
-> > time you select 10M speed? Does the hardware change the value in the
-> > register?
-> > 
-> Yes, the hardware changes the value in register every time the interface is toggled. That is the reason we have ethqos_configure_sgmii function to configure registers whenever there is link activity.
+This series first perform enhancements in the way interrupt are handled
+and cleanup in messages.
+Then it adds support for the stm32mp25 which differs in that
+it only has a single irq line for both event/error and has a
+different handling of the FastModePlus.
+Support is then enabled within the stm32mp25 related device-trees.
 
-That is sufficient reason to write it each time - and it would be good
-to mention this in a comment above the write in
-ethqos_configure_sgmii().
+Alain Volmat (7):
+  i2c: stm32f7: perform most of irq job in threaded handler
+  i2c: stm32f7: simplify status messages in case of errors
+  dt-bindings: i2c: document st,stm32mp25-i2c compatible
+  i2c: stm32f7: add support for stm32mp25 soc
+  arm64: dts: st: add all 8 i2c nodes on stm32mp251
+  arm64: dts: st: add i2c2/i2c8 pins for stm32mp25
+  arm64: dts: st: add i2c2 / i2c8 properties on stm32mp257f-ev1
 
-Thanks.
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml |  49 ++-
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  36 ++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  96 +++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  20 ++
+ drivers/i2c/busses/i2c-stm32f7.c              | 334 ++++++++++--------
+ 5 files changed, 369 insertions(+), 166 deletions(-)
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
