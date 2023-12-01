@@ -2,75 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0278800EB0
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 16:39:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65EF180100E
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 17:25:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D241C6B47D;
-	Fri,  1 Dec 2023 15:39:43 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 196B9C6A61A;
+	Fri,  1 Dec 2023 16:25:25 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D017C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4D0CC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Dec 2023 15:39:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id C280DB82252;
- Fri,  1 Dec 2023 15:39:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EBDDC433C7;
- Fri,  1 Dec 2023 15:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701445181;
- bh=V7WtW43roNI+kWQ1jgxoaFh9ZbnjwKeONNImrea0QOQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TRASJF6OIlc3u7XXuhbDaK4viFQJH7E7P4b0J4LqnZBm3T4XlnR3wBJcRPM9GJJO4
- 4Y3WNVYM4egNGn7EKS+XOf7HsyIWWI1Ehnm+UycZlQSrC7GkVbPj/7oh4rYBe9Ht/3
- Q8rfJDaPym3mbS1oRuUcd7Vy4vu8MUT7Jlq0QsMl1UPCi5URZ2uu+0dCnh7/NJHdvr
- AOgvp6+9g5MBccZC9x5e2TXU8Eg2bC9bCY7IiiWlMjj1jU3MkU2p5RjuMLWiXpjfxN
- KoK0WQEMGg98VWuozPV8zRgNgzyxLI3luIXEVYj89SJnBDR6Vm0nnbrxcaIOf+rl7s
- FVxTlyu/GUKTA==
-Message-ID: <179a4581-f7df-4eb1-ab67-8d65f856a2fe@kernel.org>
-Date: Fri, 1 Dec 2023 16:39:32 +0100
+ Fri,  1 Dec 2023 16:25:23 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-50bbb4de875so3221272e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 01 Dec 2023 08:25:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701447923; x=1702052723;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=1Fe9LinVeEIS31sVu9a8Ip9icgC4gCnScZC9xWW4pX4=;
+ b=QX29W6DH+uhX8TTFEMV9avQr2QgRZgJEjXgTNul6QfaI9V3I/HCqw3Y3MyfZ8eQK02
+ fMA95LVOUzYcGtwLjwqaCc3t3yVpyB7KfdaJz5OcAUzqgrgEctZ2WN/vXS6C8NUs9uvr
+ NLhU3mfkBDNJLguv9ecoRo7hnpc2wi7alf6CxFQmPljUF8K7FdknutYqF20UjYLnXV1w
+ 66rDWq1EOM/NsZ6f6mhtnBZwaisNjwE6gDRIPNEBrIw+Ij3TQs+wqdMYwURfftl4Q874
+ BLRNIX+eivhhviR4S4IvfG+mT+Kn7I8ZxGuRXjXELVuofNSYo8PLPkAjTUqux1dvYTkq
+ QcYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701447923; x=1702052723;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1Fe9LinVeEIS31sVu9a8Ip9icgC4gCnScZC9xWW4pX4=;
+ b=Oql+WChOtBpzHvrXQmr5p7yj3gwZ/l+a7Nt4LRA3ewaOcrd2QTmLrYsYX6JD1Hc3Mw
+ roe0SRto6yXpPKKoYVE8tO5ehZO2cjQAEwdmG0PWE9cT930yRVNcdTQhvbYt0sn6z/oE
+ W5c/f2Ad6Yb5yRX5Xpr1DDmDc67yjFzMnSGHQS79YZl3FDJoOXZ5k/LMGyWxL++BStY5
+ GAq1FviVzDmQEe+ELOrBkaozevuljErHBdzDeWhnHf0G0D9SMMyVxGP/VK7AgovTT3U/
+ rLTxK2BXRWKgPWDpm7FHdh888M+EOr554mZmQddK39cga+4TUsQGyMqofZjjzbcZb4bR
+ +iuA==
+X-Gm-Message-State: AOJu0YxVwuWABtW8rb46X9lL2kJ/RWyXKTLEgNabflC7b3kmBkZtxOff
+ CItDHT/yXZH+ZW16HZvksL8=
+X-Google-Smtp-Source: AGHT+IED2w+hujxue7bm9bOGpjjCdvrKzr90/3i7E5Xd7uj7qqmqvOaSeS01ayw0GAygOWScKCMiaA==
+X-Received: by 2002:a05:6512:280b:b0:50b:d764:64c0 with SMTP id
+ cf11-20020a056512280b00b0050bd76464c0mr1188134lfb.117.1701447922712; 
+ Fri, 01 Dec 2023 08:25:22 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ i15-20020a056512340f00b0050bc303f3cbsm232121lfr.173.2023.12.01.08.25.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Dec 2023 08:25:22 -0800 (PST)
+Date: Fri, 1 Dec 2023 19:25:19 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <dfbwvsvefbkj6lodj5nmj2up32vnai32u3qk667mpfjytvmp4z@uvny7nhaykzi>
+References: <6aeb28f5-04c2-4723-9da2-d168025c307c@lunn.ch>
+ <CAP6Zq1j0kyrg+uxkXH-HYqHz0Z4NwWRUGzprius=BPC9+WfKFQ@mail.gmail.com>
+ <9ad42fef-b210-496a-aafc-eb2a7416c4df@lunn.ch>
+ <CAP6Zq1jw9uLP_FQGR8=p3Y2NTP6XcNtzkJQ0dm3+xVNE1SpsVg@mail.gmail.com>
+ <CAP6Zq1ijfMSPjk1vPwDM2B+r_vAH3DShhSu_jr8xJyUkTQY89w@mail.gmail.com>
+ <a551aefa-777d-4fd3-b1a5-086dc3e62646@lunn.ch>
+ <CAP6Zq1jVO5y3ySeGNE5-=XWV6Djay5MhGxXCZb9y91q=EA71Vg@mail.gmail.com>
+ <25d0c091-3dce-4d62-a112-c82106809c65@lunn.ch>
+ <xvy2coamb6cl3wcbkl32f6w7kksoxfocyd63t7k7bz4pne2gyx@lktivhqovy7p>
+ <20231130213441.032a661c@device.home>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- "Song, Yoong Siang" <yoong.siang.song@intel.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
- Bjorn Topel <bjorn@kernel.org>, "Karlsson, Magnus"
- <magnus.karlsson@intel.com>,
- "Fijalkowski, Maciej" <maciej.fijalkowski@intel.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@google.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Willem de Bruijn <willemb@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Shuah Khan <shuah@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Andre Fredette <afredette@redhat.com>
-References: <20231201062421.1074768-1-yoong.siang.song@intel.com>
- <d4f99931-442c-4cd7-b3cf-80d8681a2986@kernel.org>
- <PH0PR11MB58306C2E50009A6E22F9DAD3D881A@PH0PR11MB5830.namprd11.prod.outlook.com>
- <6569f71bad00d_138af5294d@willemb.c.googlers.com.notmuch>
-From: Jesper Dangaard Brouer <hawk@kernel.org>
-In-Reply-To: <6569f71bad00d_138af5294d@willemb.c.googlers.com.notmuch>
-Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 0/3] xsk: TX metadata txtime
-	support
+Content-Disposition: inline
+In-Reply-To: <20231130213441.032a661c@device.home>
+Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
+ krzysztof.kozlowski+dt@linaro.org, devicetree@vger.kernel.org,
+ avifishman70@gmail.com, venture@google.com, openbmc@lists.ozlabs.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ joabreu@synopsys.com, tali.perry1@gmail.com, edumazet@google.com,
+ robh+dt@kernel.org, joel@jms.id.au, mcoquelin.stm32@gmail.com,
+ j.neuschaefer@gmx.net, peppe.cavallaro@st.com, netdev@vger.kernel.org,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ benjaminfair@google.com
+Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: Add NPCM support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,88 +91,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Maxime
 
-
-On 12/1/23 16:09, Willem de Bruijn wrote:
-> Song, Yoong Siang wrote:
->> On Friday, December 1, 2023 6:46 PM, Jesper Dangaard Brouer <hawk@kernel.org> wrote:
->>> On 12/1/23 07:24, Song Yoong Siang wrote:
->>>> This series expands XDP TX metadata framework to include ETF HW offload.
->>>>
->>>> Changes since v1:
->>>> - rename Time-Based Scheduling (TBS) to Earliest TxTime First (ETF)
->>>> - rename launch-time to txtime
->>>>
->>>
->>> I strongly disagree with this renaming (sorry to disagree with Willem).
->>>
->>> The i210 and i225 chips call this LaunchTime in their programmers
->>> datasheets, and even in the driver code[1].
->>>
->>> Using this "txtime" name in the code is also confusing, because how can
->>> people reading the code know the difference between:
->>>   - tmo_request_timestamp and tmo_request_txtime
->>>
->>
->> Hi Jesper and Willem,
->>
->> How about using "launch_time" for the flag/variable and
->> "Earliest TxTime First" for the description/comments?
+On Thu, Nov 30, 2023 at 09:34:41PM +0100, Maxime Chevallier wrote:
+> Hello,
+> 
+> On Thu, 30 Nov 2023 22:59:32 +0300
+> Serge Semin <fancer.lancer@gmail.com> wrote:
+> 
+> > On Thu, Nov 30, 2023 at 06:26:13PM +0100, Andrew Lunn wrote:
+> > > > I will check with the xpcs maintainer how can we add indirect access
+> > > > to the xpcs module.  
+> > > 
+> > > https://elixir.bootlin.com/linux/latest/source/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c#L449
+> > > 
+> > > It creates a regmap for the memory range. On top of that it creates an
+> > > MDIO bus. You can then access the PCS in the normal way.  
+> > 
+> > Actually Synopsys DW XPCS can be synthesized with two types of the CSR
+> > interfaces:
+> > 1. MDIO: device looks as a normal MDIO device. This option is currently
+> >    supported by the STMMAC MDIO driver.
+> > 2. MCI/APB3: device MMD CSRs are directly (all CSRs are visible) or
+> >    indirectly (paged-base access) accessible over the system memory bus.
+> > 
+> > In addition to the above XPCS device can be equipped with separate
+> > clock sources (at least to feed the MCI or APB3 interface) and may
+> > have dedicated IRQ line to signal various events like link
+> > establishing, failures, etc. From that perspective XPCS in both cases
+> > looks as a normal platform device for which would be better to have a
+> > special DT-node defined with all those resources supplied. Then the
+> > XPCS DT-node could be passed to the DW MAC DT-node via the already
+> > standardized "pcs-handle" DT-property.
 > 
 
-I don't follow why you are calling the feature:
-  - "Earliest TxTime First" (ETF).
-  - AFAIK this just reference an qdisc name (that most don't know exists)
+> To my understanding, this should work, there's another PCS that works
+> this way : 
+> https://elixir.bootlin.com/linux/v6.7-rc3/source/drivers/net/pcs/pcs-rzn1-miic.c
 
+It is similar to that, but since DW XPCS can reside on the normal MDIO
+bus and in the system memory I took a liberty to implement the DW XPCS
+MCI/APB3 interface support in the framework of the MDIO subsystem,
+especially seeing Synopsys call them just "Management Interfaces", the
+MMD CSRs can be indirectly accessible and since potentially there can
+be more than one XPCS device on the same MCI/APB3 bus.
 
-> I don't particularly care which term we use, as long as we're
-> consistent. Especially, don't keep introducing new synonyms.
 > 
-> The fact that one happens to be one vendor's marketing term does not
-> make it preferable, IMHO. On the contrary.
->
+> Are you still able to use the mdio-regmap glue that Andrew mentioned,
+> to avoid the duplication between the mdio and mmio register accesses ?
 
-These kind of hardware features are defined as part of Time Sensitive
-Networking (TSN).
-I believe these TSN features are defined as part of IEEE 802.1Qbv (2015)
-and according to Wikipedia[2] incorporated into IEEE 802.1Q.
+Andrew cited the glue code using the Lynx PCS driver. In my case it's
+DW XPCS driver. In anycase my patchset is designed in a way so not to
+break (hopefully) the current DW XPCS driver users (STMMAC Eth for
+sure, WangSun XGBE, SJA1105 DSA). So it will be still possible to create a
+dedicated MDIO bus (using mdio-regmap API too) with the XPCS device
+being detectable on it.
 
-[2] https://en.wikipedia.org/wiki/Time-Sensitive_Networking
+-Serge(y)
 
-
-> SO_TXTIME is in the ABI, and EDT has been used publicly in kernel
-> patches and conference talks, e.g., Van Jacobson's Netdev 0x12
-> keynote. Those are vendor agnostic commonly used terms.
 > 
-
-I agree that EDT (Earliest Departure Time) have become a thing and term
-in our community.
-We could associate this feature with this.
-I do fear what hardware behavior will be it if I e.g. ask it to send a
-packet 2 sec in the future on i225 which max support 1 sec.
-Will hardware send it at 1 sec?
-Because then I'm violating the *Earliest* Departure Time.
-
-
-> But as long as Launch Time is not an Intel only trademark, fine to
-> select that.
-
-The IEEE 802.1Qbv is sometimes called Time-Aware Shaper (TAS), but I
-don't like to for us to name this after this.  This features is simply
-taking advantage of exposing one of the hardware building blocks
-(controlling/setting packet "launch time") that can be used for
-implementing a TAS.
-
-I like the name "launch time" because it doesn't get easily confused
-with other timestamps, and intuitively describes packet will be send at
-a specific time (likely in future).
-
---Jesper
+> Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
