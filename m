@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE67800B17
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 13:38:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D936800B19
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 13:38:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4A0FC6B479;
-	Fri,  1 Dec 2023 12:38:14 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00939C6B47D;
+	Fri,  1 Dec 2023 12:38:39 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A6A63C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 510AAC6B479
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Dec 2023 12:38:13 +0000 (UTC)
+ Fri,  1 Dec 2023 12:38:37 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DE221007;
- Fri,  1 Dec 2023 04:38:59 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 399621007;
+ Fri,  1 Dec 2023 04:39:23 -0800 (PST)
 Received: from bogus (unknown [10.57.42.162])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F0F083F5A1;
- Fri,  1 Dec 2023 04:38:10 -0800 (PST)
-Date: Fri, 1 Dec 2023 12:36:10 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06ECA3F5A1;
+ Fri,  1 Dec 2023 04:38:33 -0800 (PST)
+Date: Fri, 1 Dec 2023 12:36:32 +0000
 From: Sudeep Holla <sudeep.holla@arm.com>
 To: Anshuman Khandual <anshuman.khandual@arm.com>
-Message-ID: <20231201123610.gezaklgir2mvmfps@bogus>
+Message-ID: <20231201123632.phwgxjzgz4hhivv4@bogus>
 References: <20231201062053.1268492-1-anshuman.khandual@arm.com>
- <20231201062053.1268492-5-anshuman.khandual@arm.com>
+ <20231201062053.1268492-6-anshuman.khandual@arm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231201062053.1268492-5-anshuman.khandual@arm.com>
+In-Reply-To: <20231201062053.1268492-6-anshuman.khandual@arm.com>
 Cc: suzuki.poulose@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
  linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
  linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V2 4/7] coresight: tpiu: Move ACPI support
+Subject: Re: [Linux-stm32] [PATCH V2 5/7] coresight: tmc: Move ACPI support
  from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -50,8 +50,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 01, 2023 at 11:50:50AM +0530, Anshuman Khandual wrote:
-> Add support for the tpiu device in the platform driver, which can then be
+On Fri, Dec 01, 2023 at 11:50:51AM +0530, Anshuman Khandual wrote:
+> Add support for the tmc devices in the platform driver, which can then be
 > used on ACPI based platforms. This change would now allow runtime power
 > management for ACPI based systems. The driver would try to enable the APB
 > clock if available.
