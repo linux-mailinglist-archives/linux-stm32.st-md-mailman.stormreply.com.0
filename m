@@ -2,96 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9815800637
+	by mail.lfdr.de (Postfix) with ESMTPS id F08CF800638
 	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 09:51:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 817D8C6B47D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91BAEC6C856;
 	Fri,  1 Dec 2023 08:51:12 +0000 (UTC)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0217C6B479
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB851C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Nov 2023 20:28:37 +0000 (UTC)
-Received: by mail-yb1-f179.google.com with SMTP id
- 3f1490d57ef6-db4050e68f3so1465034276.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Nov 2023 12:28:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701376117; x=1701980917;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YYgokxpdXnom83isGSeLIiEWyDvQWuc8uahFIcEFCiU=;
- b=LFowGhImbHKh65G8VmbzSPJraaHHsW+GqbkJ44C2k5DvOl0jEnsEMd/qn0FUUY3M2I
- Nw2jJuSO3/zyVqmn7LbS1fvclwcHCTZgq7AtHvOpC7PFjkKLZRqAZUAvbF/qS72KzHJI
- WwNe8l7l9yccgVv+Rgv+Vndgv2UWrtjmdMz8cjbArXv+1mlUB7abyPcaAFsFzTDPZi7x
- /khdNcgpNiXO+Wb9zlk7udiMy4ktmP9RCy9uAcMkkWQHAdbAI7AVIWv7O38vj2o5HWp5
- LOnOqNDwNieBKP87Kjbp/Co7Mye8dHAjanjGcTeQWtkKF+/ylIOSdV029yOGpbldPmfd
- rHoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701376117; x=1701980917;
- h=content-transfer-encoding:mime-version:subject:references
- :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=YYgokxpdXnom83isGSeLIiEWyDvQWuc8uahFIcEFCiU=;
- b=e99CtaLpRhYtI5C29lWn9sXcFbNiKCpJcZd0Z0Fk8iCX1fkCbNFZVh8GqaUrvKHedi
- VWUwwRBh7X0Bn9vWgJbz1GJ9lU/lp0aDoXo06cx1xjWKyfb90hyQH8b+H1tRnnxpjGy5
- CScNWh+jCqUHaQAysQLOZ/yJE2MCM3fzuuKSGvOaFbD/6LNorLX24LdruNyRSvSUERnC
- 1d3lN8/MYtc+d9LBr2BWEMnKzDKVzPqqEaXgNj0E5AH7ctsKjfiA9IiSbI332/m6gqcq
- FP6JEwoa59B2v84Ly1VJk1+RcxrL5cJOSCcZuAkVdQPyYVsoioBV4Jt3zILtCGVoK9Ma
- YCWA==
-X-Gm-Message-State: AOJu0YzpKWPxzyHI1ntUdCGMK1PXEnoKKhISe3T9Tf/t8RUJELpQnHpw
- rsTmifr6ha/nk7q9zn9PF+c=
-X-Google-Smtp-Source: AGHT+IHYZiQbkBLJ008rJXlLXZbrmVVGfJZyhDvQvrE7IAhJuIYy3iC3ruuDLfNDxv8+R4e1qKgz3Q==
-X-Received: by 2002:a25:268f:0:b0:db5:4938:483 with SMTP id
- m137-20020a25268f000000b00db549380483mr975627ybm.32.1701376116773; 
- Thu, 30 Nov 2023 12:28:36 -0800 (PST)
-Received: from localhost (114.66.194.35.bc.googleusercontent.com.
- [35.194.66.114]) by smtp.gmail.com with ESMTPSA id
- q2-20020a0c9a42000000b00679d7e76b64sm800622qvd.126.2023.11.30.12.28.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Nov 2023 12:28:36 -0800 (PST)
-Date: Thu, 30 Nov 2023 15:28:36 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Song Yoong Siang <yoong.siang.song@intel.com>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
- Bjorn Topel <bjorn@kernel.org>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Jonathan Lemon <jonathan.lemon@gmail.com>, 
- Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@google.com>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, 
- Willem de Bruijn <willemb@google.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Andrii Nakryiko <andrii@kernel.org>, Mykola Lysenko <mykolal@fb.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>
-Message-ID: <6568f07418508_fbb8229478@willemb.c.googlers.com.notmuch>
-In-Reply-To: <20231130162028.852006-2-yoong.siang.song@intel.com>
-References: <20231130162028.852006-1-yoong.siang.song@intel.com>
- <20231130162028.852006-2-yoong.siang.song@intel.com>
-Mime-Version: 1.0
+ Fri,  1 Dec 2023 01:23:08 +0000 (UTC)
+Received: from localhost (ec2-34-240-57-77.eu-west-1.compute.amazonaws.com
+ [34.240.57.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: dbrouwer)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id DAC95660737B;
+ Fri,  1 Dec 2023 01:23:07 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1701393788;
+ bh=1i2HnnQfTypOiRtiRcffrhQrlquEpEU4UmvedzEbSdA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MwKnWsLg32TfCrl6Fo2v9eJfCNALX6BBP3YhHRumF2m9ZXNNJ0RL1HX8hu6OR7quK
+ W/B/j1faiMh9tKK4YTkB8HbYwoQW5L54B4J3RcA8/inUaHbefzMtyU4uRq6eGYCu6M
+ PvuaZoNj5rEs51Ap6y2NclaSMA4rNUwAPU89wQGHObZwyJAl+iBy3phT0nYvcGqdmA
+ 2T6NxYXrVzMJl2zCENJ6ESN0a8lr5YbwBmabTl3jBYAJkdLz3h8MSaX5Dr8WAUIa7G
+ fB6bqOQEYZT8qxRnY6QWI5v4zzBNAuzhhOrVB2MMdUFp1a+1Bw1qdJWzv5usSJI7CR
+ b2diYpd5VqbnA==
+Date: Thu, 30 Nov 2023 17:23:04 -0800
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>
+Message-ID: <ZWk1eBN3Ri0P9EHS@mz550>
+References: <20231004103720.3540436-1-hugues.fruchet@foss.st.com>
+ <20231004103720.3540436-2-hugues.fruchet@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231004103720.3540436-2-hugues.fruchet@foss.st.com>
 X-Mailman-Approved-At: Fri, 01 Dec 2023 08:51:11 +0000
-Cc: xdp-hints@xdp-project.net, Song Yoong Siang <yoong.siang.song@intel.com>,
- linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next 1/3] xsk: add launch time support
- to XDP Tx metadata
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ linux-rockchip@lists.infradead.org,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Marco Felsch <m.felsch@pengutronix.de>,
+ Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [Linux-stm32] [RFC 1/6] media: uapi: Add VP8 stateless encoder
+	controls
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,47 +75,244 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Song Yoong Siang wrote:
-> This patch extends the XDP Tx metadata framework to include Time-Based
-> Scheduling (TBS) support where the NIC will schedule a packet for
-> transmission at a pre-determined time called launch time. The value of
-> launch time is communicated from user space to Ethernet driver via
-> launch_time field of struct xsk_tx_metadata.
+On Wed, Oct 04, 2023 at 12:37:15PM +0200, Hugues Fruchet wrote:
+> From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
 > 
-> Suggested-by: Stanislav Fomichev <sdf@google.com>
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+> Add uAPI for stateless VP8 encoders.
+> 
+> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
 > ---
->  Documentation/netlink/specs/netdev.yaml      |  4 ++++
->  Documentation/networking/xsk-tx-metadata.rst |  5 +++++
->  include/net/xdp_sock.h                       | 10 ++++++++++
->  include/net/xdp_sock_drv.h                   |  1 +
->  include/uapi/linux/if_xdp.h                  |  9 +++++++++
->  include/uapi/linux/netdev.h                  |  3 +++
->  net/core/netdev-genl.c                       |  2 ++
->  net/xdp/xsk.c                                |  3 +++
->  tools/include/uapi/linux/if_xdp.h            |  9 +++++++++
->  tools/include/uapi/linux/netdev.h            |  3 +++
->  tools/net/ynl/generated/netdev-user.c        |  1 +
->  11 files changed, 50 insertions(+)
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c | 13 ++++
+>  drivers/media/v4l2-core/v4l2-ctrls-defs.c |  5 ++
+>  include/media/v4l2-ctrls.h                |  2 +
+>  include/uapi/linux/v4l2-controls.h        | 91 +++++++++++++++++++++++
+>  include/uapi/linux/videodev2.h            |  3 +
+>  5 files changed, 114 insertions(+)
 > 
-> diff --git a/Documentation/netlink/specs/netdev.yaml b/Documentation/netlink/specs/netdev.yaml
-> index 00439bcbd2e3..a602776bbfb4 100644
-> --- a/Documentation/netlink/specs/netdev.yaml
-> +++ b/Documentation/netlink/specs/netdev.yaml
-> @@ -66,6 +66,10 @@ definitions:
->          name: tx-checksum
->          doc:
->            L3 checksum HW offload is supported by the driver.
-> +      -
-> +        name: launch-time
-> +        doc:
-> +          HW Time-Based Scheduling (TBS) is supported by the driver.
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> index a662fb60f73f..c7799ceb3d6d 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+> @@ -811,6 +811,7 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+>  	struct v4l2_ctrl_hevc_pps *p_hevc_pps;
+>  	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
+>  	struct v4l2_ctrl_hevc_decode_params *p_hevc_decode_params;
+> +	struct v4l2_ctrl_vp8_encode_params *p_vp8_encode_params;
+>  	struct v4l2_area *area;
+>  	void *p = ptr.p + idx * ctrl->elem_size;
+>  	unsigned int i;
+> @@ -1047,6 +1048,15 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+>  		zero_padding(p_vp8_frame->coder_state);
+>  		break;
+>  
+> +	case V4L2_CTRL_TYPE_VP8_ENCODE_PARAMS:
+> +		p_vp8_encode_params = p;
+> +		if (p_vp8_encode_params->loop_filter_level > 63)
+> +			return -EINVAL;
+> +
+> +		if (p_vp8_encode_params->sharpness_level > 7)
+> +			return -EINVAL;
+> +		break;
+> +
+>  	case V4L2_CTRL_TYPE_HEVC_SPS:
+>  		p_hevc_sps = p;
+>  
+> @@ -1868,6 +1878,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+>  	case V4L2_CTRL_TYPE_AREA:
+>  		elem_size = sizeof(struct v4l2_area);
+>  		break;
+> +	case V4L2_CTRL_TYPE_VP8_ENCODE_PARAMS:
+> +		elem_size = sizeof(struct v4l2_ctrl_vp8_encode_params);
+> +		break;
+>  	default:
+>  		if (type < V4L2_CTRL_COMPOUND_TYPES)
+>  			elem_size = sizeof(s32);
+> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> index 8696eb1cdd61..bd26f1d89bd5 100644
+> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+> @@ -1236,6 +1236,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+>  	case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:		return "AV1 Tile Group Entry";
+>  	case V4L2_CID_STATELESS_AV1_FRAME:			return "AV1 Frame Parameters";
+>  	case V4L2_CID_STATELESS_AV1_FILM_GRAIN:			return "AV1 Film Grain";
+> +	case V4L2_CID_STATELESS_VP8_ENCODE_PARAMS:		return "VP8 Encode Parameters";
+> +	case V4L2_CID_STATELESS_VP8_ENCODE_QP:			return "VP8 Encode QP";
+>  
+>  	/* Colorimetry controls */
+>  	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+> @@ -1592,6 +1594,9 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+>  	case V4L2_CID_STATELESS_AV1_FILM_GRAIN:
+>  		*type = V4L2_CTRL_TYPE_AV1_FILM_GRAIN;
+>  		break;
+> +	case V4L2_CID_STATELESS_VP8_ENCODE_PARAMS:
+> +		*type = V4L2_CTRL_TYPE_VP8_ENCODE_PARAMS;
+> +		break;
+>  	case V4L2_CID_UNIT_CELL_SIZE:
+>  		*type = V4L2_CTRL_TYPE_AREA;
+>  		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+> index 59679a42b3e7..a165719e1139 100644
+> --- a/include/media/v4l2-ctrls.h
+> +++ b/include/media/v4l2-ctrls.h
+> @@ -56,6 +56,7 @@ struct video_device;
+>   * @p_av1_tile_group_entry:	Pointer to an AV1 tile group entry structure.
+>   * @p_av1_frame:		Pointer to an AV1 frame structure.
+>   * @p_av1_film_grain:		Pointer to an AV1 film grain structure.
+> + * @p_vp8_encode_params:	Pointer to a VP8 encode parameter structure.
+>   * @p:				Pointer to a compound value.
+>   * @p_const:			Pointer to a constant compound value.
+>   */
+> @@ -89,6 +90,7 @@ union v4l2_ctrl_ptr {
+>  	struct v4l2_ctrl_av1_tile_group_entry *p_av1_tile_group_entry;
+>  	struct v4l2_ctrl_av1_frame *p_av1_frame;
+>  	struct v4l2_ctrl_av1_film_grain *p_av1_film_grain;
+> +	struct v4l2_ctrl_vp8_encode_params *p_vp8_encode_params;
+>  	void *p;
+>  	const void *p_const;
+>  };
+> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+> index c3604a0a3e30..fdec5764e09c 100644
+> --- a/include/uapi/linux/v4l2-controls.h
+> +++ b/include/uapi/linux/v4l2-controls.h
+> @@ -3479,6 +3479,97 @@ struct v4l2_ctrl_av1_film_grain {
+>  	__u8 reserved[4];
+>  };
+>  
+> +#define V4L2_CID_STATELESS_VP8_ENCODE_PARAMS	(V4L2_CID_CODEC_STATELESS_BASE + 601)
+> +
+> +#define V4L2_VP8_FRAME_FLAG_SHOWFRAME			0x1
+> +#define V4L2_VP8_FRAME_FLAG_GOLDEN_REFRESH		0x2
+> +#define V4L2_VP8_FRAME_FLAG_ALTREF_REFRESH		0x4
+> +#define V4L2_VP8_FRAME_FLAG_SEGMENT_ENABLED		0x8
+> +#define V4L2_VP8_FRAME_FLAG_LOOP_FILTER_ADJ_ENABLED	0x10
+> +#define V4L2_VP8_FRAME_FLAG_REFRESH_ENTROPY_PROBS	0x20
 
-Can we avoid introducing another term? We already have too many:
-launchtime, earliest delivery time (EDT), SO_TXTIME,
-pacing offload, earliest txtime first (ETF).  
+Hi Andrzej,
 
+Would you be able to add "ENCODE" to these FLAG names e.g. 
+something like this:
 
+V4L2_VP8_FRAME_ENCODE_FLAG_SHOWFRAME
+
+Just to disguish these flag names from the ones that are used in
+the stateless vp8 decoder struct v4l2_ctrl_vp8_frame.
+
+If it makes no difference otherwise, it would be helpful for someone
+who might be trying to parse this future uAPI with a perl script :)
+
+thanks,
+Deborah
+
+> +
+> +#define V4L2_VP8_FRAME_TYPE_KEYFRAME	0
+> +#define V4L2_VP8_FRAME_TYPE_INTER	1
+> +
+> +#define V4L2_VP8_FRAME_COLOR_SPACE_YUV		0
+> +#define V4L2_VP8_FRAME_COLOR_SPACE_RESERVED	1
+> +
+> +#define V4L2_VP8_FRAME_CLAMPING_REQUIRED	0
+> +#define V4L2_VP8_FRAME_CLAMPING_NO		1
+> +
+> +#define V4L2_VP8_FRAME_FILTER_TYPE_NORMAL	0
+> +#define V4L2_VP8_FRAME_FILTER_TYPE_SIMPLE	1
+> +
+> +#define V4L2_VP8_FRAME_NBR_DCT_PARTITIONS_1	0
+> +#define V4L2_VP8_FRAME_NBR_DCT_PARTITIONS_2	1
+> +#define V4L2_VP8_FRAME_NBR_DCT_PARTITIONS_4	2
+> +#define V4L2_VP8_FRAME_NBR_DCT_PARTITIONS_8	3
+> +
+> +#define V4L2_VP8_FRAME_GOLDEN_KEEP		0
+> +#define V4L2_VP8_FRAME_GOLDEN_LASTFRAME		1
+> +#define V4L2_VP8_FRAME_GOLDEN_ALTREF		2
+> +
+> +#define V4L2_VP8_FRAME_ALTREF_KEEP		0
+> +#define V4L2_VP8_FRAME_ALTREF_LASTFRAME		1
+> +#define V4L2_VP8_FRAME_ALTREF_GOLDEN		2
+> +
+> +#define V4L2_VP8_FRAME_REF_LAST		0
+> +#define V4L2_VP8_FRAME_REF_GOLDEN	1
+> +#define V4L2_VP8_FRAME_REF_ALT		2
+> +
+> +/**
+> + * struct v4l2_ctrl_vp8_encode_params - VP8 encode parameters
+> + * @flags: combination of V4L2_VP8_FRAME_FLAG_{} flags.
+> + * @frame_type: specifies the frame type (key or inter).
+> + *		Set to one of V4L2_VP8_FRAME_TYPE_{}.
+> + * @color_space: defines the YUV color space of the sequence.
+> + *		 V4L2_VP8_FRAME_TYPE_INTER frames shall set this field to zero.
+> + *		 Set to one of V4L2_VP8_FRAME_COLOR_SPACE_{}.
+> + * @clamping_type: defines pixel value clamping type.
+> + *		   V4L2_VP8_FRAME_TYPE_INTER frames shall set this field to zero.
+> + *		   Set to one of V4L2_VP8_FRAME_CLAMPING_{}.
+> + * @loop_filter_type: selects the type of loop filter applied.
+> + *		      Set to one of V4L2_VP8_FRAME_FILTER_TYPE_{}.
+> + * @loop_filter_level: sets the strength of the applied loop filter.
+> + *		       Set to a value from the rage 0..63.
+> + * @sharpness_level: sets the sharpness of the applied loop filter.
+> + *		     Set to a value from the range 0..7.
+> + * @log2_nbr_of_dct_partitions: determines the number of separate partitions
+> + *				containing the DCT coefficients of macroblocks.
+> + *				Set to one of V4L2_VP8_FRAME_NBR_DCT_PARTITIONS_{}.
+> + * @prob_intra: indicates the probability of an intra macroblock.
+> + *		Set to a value from the range 0..255.
+> + * @prob_last: indicates the probability that the last reference frame is used for inter-prediction.
+> + *	       Set to a value from the range 0..255.
+> + * @prob_gf: indicates the probability that the golden reference frame is used for inter-prediction.
+> + *	     Set to a value from the range 0..255.
+> + * @copy_buffer_to_golden: specifies the golden frame refresh strategy.
+> + *			   Set to one of V4L2_VP8_FRAME_FLAG_GOLDEN_{}.
+> + * @copy_buffer_to_alternate: specifies the atlref frame refresh strategy.
+> + *			      Set to one of V4L2_VP8_FRAME_FLAG_ALTREF_{}.
+> + * @reference_type: specifies what kind of reference to use for current inter frame.
+> + *		    V4L2_VP8_FRAME_TYPE_KEYFRAME shall set this field to zero.
+> + *		    Set to one of V4L2_VP8_FRAME_REF_{}.
+> + */
+> +struct v4l2_ctrl_vp8_encode_params {
+> +	__u32 flags;
+> +	__u8 frame_type;
+> +	__u8 color_space;
+> +	__u8 clamping_type;
+> +	__u8 loop_filter_type;
+> +	__u8 loop_filter_level;
+> +	__u8 sharpness_level;
+> +	__u8 log2_nbr_of_dct_partitions;
+> +	__u8 prob_intra;
+> +	__u8 prob_last;
+> +	__u8 prob_gf;
+> +	__u8 copy_buffer_to_golden;
+> +	__u8 copy_buffer_to_alternate;
+> +	__u8 reference_type;
+> +};
+> +
+> +#define V4L2_CID_STATELESS_VP8_ENCODE_QP	(V4L2_CID_CODEC_STATELESS_BASE + 602)
+> +
+>  /* MPEG-compression definitions kept for backwards compatibility */
+>  #ifndef __KERNEL__
+>  #define V4L2_CTRL_CLASS_MPEG            V4L2_CTRL_CLASS_CODEC
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+> index 78260e5d9985..b3cbdc60b82c 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -1836,6 +1836,7 @@ struct v4l2_ext_control {
+>  		struct v4l2_ctrl_av1_tile_group_entry __user *p_av1_tile_group_entry;
+>  		struct v4l2_ctrl_av1_frame __user *p_av1_frame;
+>  		struct v4l2_ctrl_av1_film_grain __user *p_av1_film_grain;
+> +		struct v4l2_ctrl_vp8_encode_params __user *p_vp8_encode_params;
+>  		void __user *ptr;
+>  	};
+>  } __attribute__ ((packed));
+> @@ -1914,6 +1915,8 @@ enum v4l2_ctrl_type {
+>  	V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY = 0x281,
+>  	V4L2_CTRL_TYPE_AV1_FRAME	    = 0x282,
+>  	V4L2_CTRL_TYPE_AV1_FILM_GRAIN	    = 0x283,
+> +
+> +	V4L2_CTRL_TYPE_VP8_ENCODE_PARAMS	= 0x0290,
+>  };
+>  
+>  /*  Used in the VIDIOC_QUERYCTRL ioctl for querying controls */
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
