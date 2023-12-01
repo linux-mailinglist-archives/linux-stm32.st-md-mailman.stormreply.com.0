@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18D6800815
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 11:20:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403B18008CD
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 11:46:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 556B3C6B479;
-	Fri,  1 Dec 2023 10:20:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9EF1C6B479;
+	Fri,  1 Dec 2023 10:46:33 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD667C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70B65C64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Dec 2023 10:20:38 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3B19RQ37024616; Fri, 1 Dec 2023 11:20:17 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=eH7QCL/HgO5fMZ7eXd5hJkyiBFa7hbWuKmQuQSf7qKI=; b=TE
- z1kNwKlDmzJP+OwK1OHW9tZaQ0/A8j84HNEgR3hFEhHgxnCYQ05z83TJvwgPygdD
- zxt0CU6ijgVu9qS2FGaDKs5tbu6NSyX6rzejYv+JyWB+tCsmXPuC14B55b1qOLMt
- MXUaz5t0UgKnb8y1Yfe9HQEYJAKawaeVUWrV7HzuYpLZVyf8ybRIqpxeFlQaMAav
- dm4W1NGngQJJ+SNCxneAXlssVU0MmbC34Do0ptkFARoQTP8VfoCj6NYANK1H3sIC
- my8PYYwLXAa9uOUqJwvzf5nJF/JmMAU+sGUiNttWQnCx53rNv+sgCuPR3WdkrvcF
- i/OykepDz6X3S74RhYfg==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uk8pkakfb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 01 Dec 2023 11:20:17 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7E33C100079;
- Fri,  1 Dec 2023 11:20:15 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7622E215152;
- Fri,  1 Dec 2023 11:20:15 +0100 (CET)
-Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 1 Dec
- 2023 11:20:14 +0100
-Message-ID: <94981d84-52c4-4c9a-8042-c622d73d1e0e@foss.st.com>
-Date: Fri, 1 Dec 2023 11:18:59 +0100
+ Fri,  1 Dec 2023 10:46:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 96CBECE268A;
+ Fri,  1 Dec 2023 10:46:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6A3C433C7;
+ Fri,  1 Dec 2023 10:46:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1701427589;
+ bh=5zjayL88soz+UgJbryPsfFfFuCruLUpe7CIqCl/SLV8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=SWPKPFHsSk8v67r+wzTQi1CO6hcbjUUpZE3vnilfgHHfZwu4IJFOQ5+rwbUdgPmLc
+ yWtMqvr0cxc2sdZrbCSHK568MaEExBRSfpDet74hIw2pKTCMegAO8qkO+wBD57U//9
+ 730HNIMRIxuWCCJFQNjzcbx58JHzDGYi6owXtMvfOhgcSIwgOpoBgzUhFTnyt4XCDN
+ e7Syzbndkz/v/VLblq4L9o8kSEXECELQ08REb4v+RuY+aRar9yp//iKZVGMv256t73
+ o71Zp0tFHEerRmrytXpPlbRTZhyt+4VDNMgczQDGar2JHc9H5WbBlArbEMH4DACuda
+ pFCJdIzQ48ioA==
+Message-ID: <d4f99931-442c-4cd7-b3cf-80d8681a2986@kernel.org>
+Date: Fri, 1 Dec 2023 11:46:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Yang Yingliang <yangyingliang@huaweicloud.com>,
- <linux-crypto@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
-References: <20231201082048.1975940-1-yangyingliang@huaweicloud.com>
 Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20231201082048.1975940-1-yangyingliang@huaweicloud.com>
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-01_08,2023-11-30_01,2023-05-22_02
-Cc: yangyingliang@huawei.com, herbert@gondor.apana.org.au,
- mcoquelin.stm32@gmail.com
-Subject: Re: [Linux-stm32] [PATCH] hwrng: stm32 - add missing
- clk_disable_unprepare() in stm32_rng_init()
+To: Song Yoong Siang <yoong.siang.song@intel.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Bjorn Topel <bjorn@kernel.org>, Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@google.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Tariq Toukan <tariqt@nvidia.com>, Willem de Bruijn <willemb@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>,
+ Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
+ Shuah Khan <shuah@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+References: <20231201062421.1074768-1-yoong.siang.song@intel.com>
+From: Jesper Dangaard Brouer <hawk@kernel.org>
+In-Reply-To: <20231201062421.1074768-1-yoong.siang.song@intel.com>
+Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v2 0/3] xsk: TX metadata txtime
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,38 +77,52 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Yang,
 
-Good spot, thank you.
 
-Reviewed-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-
-Best regards,
-Gatien
-
-On 12/1/23 09:20, Yang Yingliang wrote:
-> From: Yang Yingliang <yangyingliang@huawei.com>
+On 12/1/23 07:24, Song Yoong Siang wrote:
+> This series expands XDP TX metadata framework to include ETF HW offload.
 > 
-> Add clk_disable_unprepare() in the error path in stm32_rng_init().
+> Changes since v1:
+> - rename Time-Based Scheduling (TBS) to Earliest TxTime First (ETF)
+> - rename launch-time to txtime
 > 
-> Fixes: 6b85a7e141cb ("hwrng: stm32 - implement STM32MP13x support")
-> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
-> ---
->   drivers/char/hw_random/stm32-rng.c | 1 +
->   1 file changed, 1 insertion(+)
+
+I strongly disagree with this renaming (sorry to disagree with Willem).
+
+The i210 and i225 chips call this LaunchTime in their programmers 
+datasheets, and even in the driver code[1].
+
+Using this "txtime" name in the code is also confusing, because how can 
+people reading the code know the difference between:
+  - tmo_request_timestamp and tmo_request_txtime
+
+
+[1] 
+https://github.com/xdp-project/xdp-project/blob/master/areas/tsn/code01_follow_qdisc_TSN_offload.org
+
+> v1: https://patchwork.kernel.org/project/netdevbpf/cover/20231130162028.852006-1-yoong.siang.song@intel.com/
 > 
-> diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
-> index 41e1dbea5d2e..efd6edcd7066 100644
-> --- a/drivers/char/hw_random/stm32-rng.c
-> +++ b/drivers/char/hw_random/stm32-rng.c
-> @@ -325,6 +325,7 @@ static int stm32_rng_init(struct hwrng *rng)
->   							(!(reg & RNG_CR_CONDRST)),
->   							10, 50000);
->   		if (err) {
-> +			clk_disable_unprepare(priv->clk);
->   			dev_err((struct device *)priv->rng.priv,
->   				"%s: timeout %x!\n", __func__, reg);
->   			return -EINVAL;
+> Song Yoong Siang (3):
+>    xsk: add ETF support to XDP Tx metadata
+>    net: stmmac: Add txtime support to XDP ZC
+>    selftests/bpf: Add txtime to xdp_hw_metadata
+> 
+>   Documentation/netlink/specs/netdev.yaml        |  4 ++++
+>   Documentation/networking/xsk-tx-metadata.rst   |  5 +++++
+>   drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
+>   .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 13 +++++++++++++
+>   include/net/xdp_sock.h                         |  9 +++++++++
+>   include/net/xdp_sock_drv.h                     |  1 +
+>   include/uapi/linux/if_xdp.h                    |  9 +++++++++
+>   include/uapi/linux/netdev.h                    |  3 +++
+>   net/core/netdev-genl.c                         |  2 ++
+>   net/xdp/xsk.c                                  |  3 +++
+>   tools/include/uapi/linux/if_xdp.h              |  9 +++++++++
+>   tools/include/uapi/linux/netdev.h              |  3 +++
+>   tools/net/ynl/generated/netdev-user.c          |  1 +
+>   tools/testing/selftests/bpf/xdp_hw_metadata.c  | 18 +++++++++++++++++-
+>   14 files changed, 81 insertions(+), 1 deletion(-)
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
