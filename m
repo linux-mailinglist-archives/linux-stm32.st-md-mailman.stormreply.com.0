@@ -2,75 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E47298003CC
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 07:25:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E3BA800420
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Dec 2023 07:49:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9290C6C85A;
-	Fri,  1 Dec 2023 06:25:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D01AC6B479;
+	Fri,  1 Dec 2023 06:49:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0CCEC6C856
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA1BEC64110
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 Dec 2023 06:25:36 +0000 (UTC)
+ Fri,  1 Dec 2023 06:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701411937; x=1732947937;
+ t=1701413359; x=1732949359;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aQNULAQatHgdOb4jEBZidX81obMEZZpL3p3O+o5FSf0=;
- b=nA+wANlNKOuGtVYHQadrFvLNP6NGLwax8pX2OZlftRT40OpxqS5YK2Ga
- NtoOxeIPHdB6YA/XDqPLWiGnNrWTJQ/nVl3wLsYRmf1k5DjEpDDu4m698
- mjaf3NRk2/ha3B2EdvaPHsvhkmZhObS20IzLB3iPR5FMspC1ZuvUx5WnV
- RRTv6AJ7G4mwLRqjzNpLPZan9tVrJeIHXI3LpM47Hc3fcAH6nL12taOEA
- Zi3tun2+LMT+aoLbzxab60mVWF7FDHfjdXgPaHOQjU7DJTwtur7XhP12k
- ny3GFEngoox86bgfh5fQ9ZYa4xZ9Ga0vI0Bmy9VZis9R1CrsaAaOiuhks g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="6722964"
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; 
-   d="scan'208";a="6722964"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Nov 2023 22:25:35 -0800
+ bh=zgA9er2TieuKbZ/sO/TlArv1h+YGFZzAROMCbrfkuck=;
+ b=MTFsC0g1DjozCxDEThNoIlNPrB5Gk5xbRGfRHiHkLKzE9YOOh1ynjoTq
+ Id405T6ZaZgW6Nc3Dh1640HFuqJuuq3RyaBERG0CfHehjA7ZbPoR8inSp
+ oLfRtHvnVjtwvCtKkOOnJaGeWXLc/CBtMlNRQHytaAz4L/2htzWZqtHkO
+ fDx1kbuL+nOtEGufohfeZvLI8eDeZegYucGQaoGLGWy81M4LLHJdvIa6s
+ t6QzMpjAITi4ph6Jtqx9tTr65NX9qQDaTE/F+4umvZ21SaAzgRfuV/UoN
+ uyEWGxBEu4ZLcwZQu7W5TuKut9qGxwALdIcYRKt0YHopt5O3Y8xoWL7y4 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="372835333"
+X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; d="scan'208";a="372835333"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Nov 2023 22:49:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="803945141"
-X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; d="scan'208";a="803945141"
-Received: from p12ill20yoongsia.png.intel.com ([10.88.227.28])
- by orsmga001.jf.intel.com with ESMTP; 30 Nov 2023 22:25:23 -0800
-From: Song Yoong Siang <yoong.siang.song@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
- Bjorn Topel <bjorn@kernel.org>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@google.com>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Willem de Bruijn <willemb@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>,
- Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Shuah Khan <shuah@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Date: Fri,  1 Dec 2023 14:24:21 +0800
-Message-Id: <20231201062421.1074768-4-yoong.siang.song@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231201062421.1074768-1-yoong.siang.song@intel.com>
-References: <20231201062421.1074768-1-yoong.siang.song@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10910"; a="835678296"
+X-IronPort-AV: E=Sophos;i="6.04,241,1695711600"; d="scan'208";a="835678296"
+Received: from ppgyli0104.png.intel.com ([10.126.160.64])
+ by fmsmga008.fm.intel.com with ESMTP; 30 Nov 2023 22:49:12 -0800
+From: Rohan G Thomas <rohan.g.thomas@intel.com>
+To: fancer.lancer@gmail.com
+Date: Fri,  1 Dec 2023 14:49:09 +0800
+Message-Id: <20231201064909.28399-1-rohan.g.thomas@intel.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <cjgx6e3agc6gpvs75nhkf6wlztk73epmct6tcuooyqvk2nx2o2@vr5buyk637t3>
+References: <cjgx6e3agc6gpvs75nhkf6wlztk73epmct6tcuooyqvk2nx2o2@vr5buyk637t3>
 MIME-Version: 1.0
-Cc: xdp-hints@xdp-project.net, Song Yoong Siang <yoong.siang.song@intel.com>,
- linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH bpf-next v2 3/3] selftests/bpf: Add txtime to
-	xdp_hw_metadata
+Cc: pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, rohan.g.thomas@intel.com, andriy.shevchenko@linux.intel.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/1] net: stmmac: xgmac: EST
+	interrupts handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,125 +66,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This patch adds txtime support to xdp_hw_metadata. User can configure the
-delta of HW txtime to HW RX-time by using "-l" argument. The default delta
-is set to 1 second.
+On Fri, 6 Oct 2023 13:08:33 +0300 Serge Semin wrote:
+> Hi Rohan, Jakub
+> ...
+> Interesting thing. My DW QoS Eth _v5.10a_ HW manual explicitly states that
+> it's multiplied by _6_ in nanoseconds (just rechecked). So either there is a
+> difference between the minor DW QoS Eth IP-core releases or the older HW-
+> manuals have had a typo in the MTL_EST_CONTROL.PTOV field description.
+> Synopsys normally describes such changes (whether it was a mistake or a
+> functional change) in the IP-core release notes. The release notes document
+> is supplied as a separate pdf file. Alas I don't have one.( Even if I had it it
+> would have been useless since the change was introduced in the newer QoS
+> IP-cores. Rohan, do you happen to have the release notes for DW QoS Eth IP-
+> core v5.30 at hands?
+> Something like DWC_ether_qos_rc_relnotes.pdf?
 
-This patch is tested with stmmac on Intel Tiger Lake platform. Refer to
-result below, the delta between pre-determined ETF txtime and actual HW
-transmit complete time is around 24 us.
+Hi Serge,
 
-$ sudo ./xdp_hw_metadata eth0
-...
-xsk_ring_cons__peek: 1
-0x55fcb80ce7a8: rx_desc[0]->addr=80100 addr=80100 comp_addr=80100 EoP
-No rx_hash err=-95
-HW RX-time:   1677764507059055964 (sec:1677764507.0591) delta to User RX-time sec:0.0002 (237.548 usec)
-XDP RX-time:   1677764507059280741 (sec:1677764507.0593) delta to User RX-time sec:0.0000 (12.771 usec)
-0x55fcb80ce7a8: ping-pong with csum=5619 (want 8626) csum_start=34 csum_offset=6
-HW RX-time:   1677764507059055964 (sec:1677764507.0591) delta to HW Txtime sec:1.0000 (1000000.000 usec)
-0x55fcb80ce7a8: complete tx idx=0 addr=18
-HW Txtime:   1677764508059055964 (sec:1677764508.0591) delta to HW TX-complete-time sec:0.0000 (24.235 usec)
-HW TX-complete-time:   1677764508059080199 (sec:1677764508.0591) delta to User TX-complete-time sec:0.0054 (5423.263 usec)
-XDP RX-time:   1677764507059280741 (sec:1677764507.0593) delta to User TX-complete-time sec:1.0052 (1005222.721 usec)
-HW RX-time:   1677764507059055964 (sec:1677764507.0591) delta to HW TX-complete-time sec:1.0000 (1000024.235 usec)
-0x55fcb80ce7a8: complete rx idx=128 addr=80100
+Sorry for the delay. Sends out another version with the suggested changes.
 
-$ sudo ./xdp_hw_metadata eth0 -l 10000000
-...
-xsk_ring_cons__peek: 1
-0x5626d54de7a8: rx_desc[0]->addr=80100 addr=80100 comp_addr=80100 EoP
-No rx_hash err=-95
-HW RX-time:   1677764655807717783 (sec:1677764655.8077) delta to User RX-time sec:0.0002 (240.571 usec)
-XDP RX-time:   1677764655807942983 (sec:1677764655.8079) delta to User RX-time sec:0.0000 (15.371 usec)
-0x5626d54de7a8: ping-pong with csum=5619 (want 8626) csum_start=34 csum_offset=6
-HW RX-time:   1677764655807717783 (sec:1677764655.8077) delta to HW Txtime sec:0.0100 (10000.000 usec)
-0x5626d54de7a8: complete tx idx=0 addr=18
-HW Txtime:   1677764655817717783 (sec:1677764655.8177) delta to HW TX-complete-time sec:0.0000 (23.965 usec)
-HW TX-complete-time:   1677764655817741748 (sec:1677764655.8177) delta to User TX-complete-time sec:0.0003 (291.792 usec)
-XDP RX-time:   1677764655807942983 (sec:1677764655.8079) delta to User TX-complete-time sec:0.0101 (10090.557 usec)
-HW RX-time:   1677764655807717783 (sec:1677764655.8077) delta to HW TX-complete-time sec:0.0100 (10023.965 usec)
-0x5626d54de7a8: complete rx idx=128 addr=80100
+Managed to get DWC_ether_qos_relnotes.pdf for v5.20a and v5.30a. But I couldn't
+find anything related to this. So for refactoring, I'm keeping the logic as in
+the upstream code to avoid any regression.
 
-Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
----
- tools/testing/selftests/bpf/xdp_hw_metadata.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> Also please double check that your DW QoS Eth v5.30a for sure states that
+> MTL_EST_CONTROL.PTOV contains value multiplied by _6_. So we wouldn't
+> be wasting time trying to workaround a more complex problem than we
+> already have.
 
-diff --git a/tools/testing/selftests/bpf/xdp_hw_metadata.c b/tools/testing/selftests/bpf/xdp_hw_metadata.c
-index 3291625ba4fb..e9c3e29dc538 100644
---- a/tools/testing/selftests/bpf/xdp_hw_metadata.c
-+++ b/tools/testing/selftests/bpf/xdp_hw_metadata.c
-@@ -13,6 +13,7 @@
-  * - UDP 9091 packets trigger TX reply
-  * - TX HW timestamp is requested and reported back upon completion
-  * - TX checksum is requested
-+ * - HW txtime is set for transmission
-  */
- 
- #include <test_progs.h>
-@@ -61,6 +62,8 @@ int rxq;
- bool skip_tx;
- __u64 last_hw_rx_timestamp;
- __u64 last_xdp_rx_timestamp;
-+__u64 last_txtime;
-+__u64 txtime_delta_to_hw_rx_timestamp = 1000000000; /* 1 second */
- 
- void test__fail(void) { /* for network_helpers.c */ }
- 
-@@ -274,6 +277,8 @@ static bool complete_tx(struct xsk *xsk, clockid_t clock_id)
- 	if (meta->completion.tx_timestamp) {
- 		__u64 ref_tstamp = gettime(clock_id);
- 
-+		print_tstamp_delta("HW Txtime", "HW TX-complete-time",
-+				   last_txtime, meta->completion.tx_timestamp);
- 		print_tstamp_delta("HW TX-complete-time", "User TX-complete-time",
- 				   meta->completion.tx_timestamp, ref_tstamp);
- 		print_tstamp_delta("XDP RX-time", "User TX-complete-time",
-@@ -371,6 +376,13 @@ static void ping_pong(struct xsk *xsk, void *rx_packet, clockid_t clock_id)
- 	       xsk, ntohs(udph->check), ntohs(want_csum),
- 	       meta->request.csum_start, meta->request.csum_offset);
- 
-+	/* Set txtime for Earliest TxTime First (ETF) */
-+	meta->flags |= XDP_TXMD_FLAGS_TXTIME;
-+	meta->request.txtime = last_hw_rx_timestamp + txtime_delta_to_hw_rx_timestamp;
-+	last_txtime = meta->request.txtime;
-+	print_tstamp_delta("HW RX-time", "HW Txtime", last_hw_rx_timestamp,
-+			   meta->request.txtime);
-+
- 	memcpy(data, rx_packet, len); /* don't share umem chunk for simplicity */
- 	tx_desc->options |= XDP_TX_METADATA;
- 	tx_desc->len = len;
-@@ -595,6 +607,7 @@ static void print_usage(void)
- 		"  -h    Display this help and exit\n\n"
- 		"  -m    Enable multi-buffer XDP for larger MTU\n"
- 		"  -r    Don't generate AF_XDP reply (rx metadata only)\n"
-+		"  -l    Delta of HW Txtime to HW RX-time in ns (default: 1s)\n"
- 		"Generate test packets on the other machine with:\n"
- 		"  echo -n xdp | nc -u -q1 <dst_ip> 9091\n";
- 
-@@ -605,7 +618,7 @@ static void read_args(int argc, char *argv[])
- {
- 	int opt;
- 
--	while ((opt = getopt(argc, argv, "chmr")) != -1) {
-+	while ((opt = getopt(argc, argv, "chmrl:")) != -1) {
- 		switch (opt) {
- 		case 'c':
- 			bind_flags &= ~XDP_USE_NEED_WAKEUP;
-@@ -621,6 +634,9 @@ static void read_args(int argc, char *argv[])
- 		case 'r':
- 			skip_tx = true;
- 			break;
-+		case 'l':
-+			txtime_delta_to_hw_rx_timestamp = atoll(optarg);
-+			break;
- 		case '?':
- 			if (isprint(optopt))
- 				fprintf(stderr, "Unknown option: -%c\n", optopt);
--- 
-2.34.1
+Yes, I checked this again. For DW QoS Eth v5.30a the multiplier for 
+MTL_EST_CONTROL.PTOV is _9_ as per the databook.
 
+Also noticed a similar difference for MTL_EST_Status.BTRL field length. As per
+the upstream code and DW QoS Eth v5.10a databook this field covers bit 8 to bit
+11. But for the xgmac IP and DW QoS Eth v5.30a databook this field covers bit 8
+to bit 15. Again nothing mentioned in the release notes. Here also I'm keeping
+the logic as in the upstream code to avoid any regression.
+
+> 
+> -Serge(y)
+> 
+
+Best Regards,
+Rohan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
