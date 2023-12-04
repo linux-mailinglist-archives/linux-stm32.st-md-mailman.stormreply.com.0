@@ -2,73 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A281803ED5
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 20:54:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BFE9803F1E
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 21:16:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7F5AC6C855;
-	Mon,  4 Dec 2023 19:54:55 +0000 (UTC)
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3BFC9C6C841
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 081C3C6C855;
+	Mon,  4 Dec 2023 20:16:21 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F685C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Dec 2023 19:54:54 +0000 (UTC)
-Received: by mail-qt1-f173.google.com with SMTP id
- d75a77b69052e-423dccefb68so49638911cf.0
+ Mon,  4 Dec 2023 20:16:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1701720977;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=scE6uJE/gsl0ExlvPlw1tvZXL0nwbCHoC6Ch9ngDrG8=;
+ b=KQds8Gu9MN9fs665098G4bgXmbejxlRdEzdisgH4g/5hRlycImVcD7QdJRe6HH9qFxKPQh
+ tT+WMUy6oLyLhdwSqMOsiZPd8pTjTgrd/cxUoVuI1qAvhYh+CuC5pnOpKHEpuC+X7YTUwJ
+ +5+VB8QOJl9jI33hcWDrbOqyp+No5zs=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-447-LQBA4nCEOWmAtJBpsgep4g-1; Mon, 04 Dec 2023 15:16:15 -0500
+X-MC-Unique: LQBA4nCEOWmAtJBpsgep4g-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-67aa5d15846so19510756d6.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Dec 2023 11:54:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1701719693; x=1702324493;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=JGHpcniqj4N4OVIiCaIFNQVtHMVvgMth5+0aM+Fp7ss=;
- b=1uxjVZWrLynehFLwMq3M3lW08XCmEgDUt4VQ34YQ1B8D5x0HuuAK2lbPlB9qw1Vmzv
- TRRcl3Bj3HlHGGRH7nRsK2LhSBuMFEfdp8bBRWgAM23nnCIQF8nHoP0f553tSVLsAxni
- MEptvFw3kJKPk4b95wKsL14StdLrynBVpQ7fCZEEXxEvjReDbciEFTe7ztbN9mlayafS
- OJ3YJurLw/sq4R2zpRy5E7gI1kywhpZqSXb17RGgKwYHvWXgblAC9g5xzr3R/K2tmlha
- vUUQFs5rT2d49VkH139OGrkhc1fxnelmsMKH/eSlFh9PKNjEkypYMO/PAm9hShEUhVLH
- p4tw==
+ Mon, 04 Dec 2023 12:16:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701719693; x=1702324493;
+ d=1e100.net; s=20230601; t=1701720975; x=1702325775;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=JGHpcniqj4N4OVIiCaIFNQVtHMVvgMth5+0aM+Fp7ss=;
- b=uWoqepdL98CD9hWThU+BoEqnsyiAsX6SFzdUb2u+4nHYamp0X13yHMc0Ic6pWyrkuM
- +kQ3AyCfz8bXssr1PtXV3fmIHHCiltScLXUlXKpq/rPOn4Kd8B2bVrYW4+6BAbJncJm6
- W9yBULmHOoZnSp3c2NaFvsFKfnUVIq2WkVS63L082TqKHfcCMA6QAvlgCnZchYYWSI7T
- 5g85hgSTSWXxRYZEQ2bV0pGNwleSbThfi7xkoS1/ocxfizvWWOStH/rH/ZX/1/zh2Z34
- cL8hDGzLIvGzH25eOC1fWoI/xze2HRmPRh4+24vHQUu6B7ji74EicwmNru0vN0H36MQZ
- trtg==
-X-Gm-Message-State: AOJu0YzCtprwA063qNyx9nKHRf5YT9s9VOTI4XDGJJzcqX+kOQND4ZPF
- 5xJqdAolmVvLx/dvEMOJwQB8/g==
-X-Google-Smtp-Source: AGHT+IGpQzkoEjzpqYLjRrG6QQOYQ6WgA8JZOQ7QLOJykpYca9iIy4BV9JC0iVY98WV8uaPFAB+4KA==
-X-Received: by 2002:ad4:58e5:0:b0:67a:c4d9:dc15 with SMTP id
- di5-20020ad458e5000000b0067ac4d9dc15mr18233qvb.43.1701719693130; 
- Mon, 04 Dec 2023 11:54:53 -0800 (PST)
-Received: from dell-precision-5540 ([50.212.55.89])
+ bh=scE6uJE/gsl0ExlvPlw1tvZXL0nwbCHoC6Ch9ngDrG8=;
+ b=E3G8Ua10LCKwXeAn2uyxp9xVyWgouGTbV/0FEH1lKmtCsyuALvcPfKDWMCbwWhVRNQ
+ HzVQEcI4UOmGvxmPCxOKzbVtmkfjL63l/lYFHoyYjfveP5ee41YHQpAaWbYG9G8J6d+u
+ 4jBn7yiXeAi27bH1p9ADZWREhzcCSkG8Ln1Z5wMSSa9+RHkKWtjmwLfCjEQtz++O98C6
+ 7SpIkjkajJQnkm6xdajgRa1F/fwDyTtJJWde3oBRC9uWlehXI1iUD//4yVrG8AZaNwnj
+ guISVDg7e3vvRyiccPRoG8895fhhsJVuGbj0HLgfuz7L9VCWWyd0LWAkSio6icm58jsZ
+ ci8Q==
+X-Gm-Message-State: AOJu0YwbwvYv1z7cEub0zbHJN6IyKBqxd1bhUvSebxkGB1StTJORzn1D
+ 3QfQPEHBFfMFOeJwy+eDiaUrYmiR/um7MJmspXhP7R4yo3YMnku+5XrLrtXIcPNHAu16dDU/SRW
+ 5CXLicacmHqITJjGkOJ6QZoZxakP6LXeZ7J1KsyNb
+X-Received: by 2002:ad4:4481:0:b0:67a:a721:ec1a with SMTP id
+ m1-20020ad44481000000b0067aa721ec1amr127130qvt.94.1701720975323; 
+ Mon, 04 Dec 2023 12:16:15 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGgoVrFG6EC//oL2uzFysj4twtnTf+9h/+HjOZVaxTJrf07QpXYwOj+ja1iSEQZGrynxBr/Ig==
+X-Received: by 2002:ad4:4481:0:b0:67a:a721:ec1a with SMTP id
+ m1-20020ad44481000000b0067aa721ec1amr127121qvt.94.1701720975037; 
+ Mon, 04 Dec 2023 12:16:15 -0800 (PST)
+Received: from fedora ([2600:1700:1ff0:d0e0::47])
  by smtp.gmail.com with ESMTPSA id
- v11-20020a0cdd8b000000b0067ac1c30e80sm1459715qvk.120.2023.12.04.11.54.52
+ r3-20020a0cb283000000b00677fb735738sm4618230qve.34.2023.12.04.12.16.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Dec 2023 11:54:52 -0800 (PST)
-Date: Mon, 4 Dec 2023 14:54:00 -0500
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <ZW4uWBpEc2_4JR2b@dell-precision-5540>
-References: <20231201214014.2539031-1-ben.wolsieffer@hefring.com>
- <b070eb2a-05d7-4e6a-8de9-15179045d192@sirena.org.uk>
- <ZWpoKEcM0ZeYAsBa@dell-precision-5540>
- <9aa5e049-bd1c-41a6-b9b8-037ebb4f54b8@sirena.org.uk>
+ Mon, 04 Dec 2023 12:16:14 -0800 (PST)
+Date: Mon, 4 Dec 2023 14:16:12 -0600
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Message-ID: <rw5vfdvre5rt4rwytfsp3qy6sgsdr3dm6oefr4sap2aqbvpw42@c2dxz42tucby>
+References: <cover.1701695218.git.quic_jsuraj@quicinc.com>
 MIME-Version: 1.0
+In-Reply-To: <cover.1701695218.git.quic_jsuraj@quicinc.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-In-Reply-To: <9aa5e049-bd1c-41a6-b9b8-037ebb4f54b8@sirena.org.uk>
-Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: enable controller before
-	asserting CS
+Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
+ kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Andy Gross <agross@kernel.org>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] Ethernet DWMAC5 fault IRQ
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,40 +97,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 04, 2023 at 12:43:42PM +0000, Mark Brown wrote:
-> On Fri, Dec 01, 2023 at 06:11:36PM -0500, Ben Wolsieffer wrote:
-> > On Fri, Dec 01, 2023 at 09:50:33PM +0000, Mark Brown wrote:
-> > > On Fri, Dec 01, 2023 at 04:40:14PM -0500, Ben Wolsieffer wrote:
-> 
-> > > This feels like it'd be a good fit for moving to runtime PM - that way
-> > > we avoid bouncing the controller on and off between messages which is
-> > > probably better anyway.  The driver already does pinctrl management for
-> > > the device there.
-> 
-> > Yes, that probably makes sense. There are a few bits that can only be
-> > configured while the controller is disabled, but it doesn't look like
-> > that applies to any of the ones set in stm32_spi_prepare_msg().
-> 
-> > I'm a little hesitant to make big changes to the driver since I can only
-> > test them on an STM32F7 though.
-> 
-> It doesn't seem much more complex than what you're already proposing.
+On Mon, Dec 04, 2023 at 06:56:14PM +0530, Suraj Jaiswal wrote:
+> Add support to listen Ethernet HW safery IRQ. The safety IRQ will be
 
-I'm working on a new patch that uses runtime PM and will submit it soon.
+s/safery/safety/
 
-> > > It also occurs to me that this isn't going to work for devices which
-> > > chip select inverted - for them we can't stop driving chip select at all
-> > > since they need it held high when idle.  There aren't that many such
-> > > devices and it'd loose us the PM which is rather awkward...  I guess
-> > > that's an incremental issue with a more invasive fix though.
+> triggered for ECC, DPP, FSM error.
 > 
-> > The driver only supports GPIO chip select rather than native, so I don't
-> > think this is a problem. Also, I don't think there's any difference
-> 
-> So mentioning the drive seems a bit confusing then?
+> Changes since v3:
 
-Yes, I should have been more specific in the patch that only MOSI and
-CLK float when the controller is disabled and that CS remains driven.
+This is listed as v3 in the subject, but it should now be v4 since the
+last version was v3.
+
+> - Fix DT_CHECKER warning
+> - use name safety for the IRQ.
+>  
+> 
+> Suraj Jaiswal (3):
+>   dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
+>     sa8775p
+>   arm64: dts: qcom: sa8775p: enable safety IRQ
+>   net: stmmac: Add driver support for DWMAC5 safety IRQ Support
+> 
+>  .../devicetree/bindings/net/qcom,ethqos.yaml   |  9 ++++++---
+>  .../devicetree/bindings/net/snps,dwmac.yaml    |  5 +++--
+>  arch/arm64/boot/dts/qcom/sa8775p.dtsi          | 10 ++++++----
+>  drivers/net/ethernet/stmicro/stmmac/common.h   |  1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++++++
+>  .../ethernet/stmicro/stmmac/stmmac_platform.c  |  9 +++++++++
+>  7 files changed, 45 insertions(+), 9 deletions(-)
+> 
+> -- 
+> 2.25.1
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
