@@ -2,43 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42EBF802F6D
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 10:57:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22329802FCF
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 11:12:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4272C6B46B;
-	Mon,  4 Dec 2023 09:57:34 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1BDFC6A5EA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6F6EC6C855;
+	Mon,  4 Dec 2023 10:12:34 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0EA5C6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Dec 2023 09:57:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FF87FEC;
- Mon,  4 Dec 2023 01:58:20 -0800 (PST)
-Received: from [192.168.1.3] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BEA293F6C4;
- Mon,  4 Dec 2023 01:57:31 -0800 (PST)
-Message-ID: <2aec13e9-4ae3-676f-1ba8-c9e9a9241063@arm.com>
-Date: Mon, 4 Dec 2023 09:57:31 +0000
+ Mon,  4 Dec 2023 10:12:32 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3B4815Qm008037; Mon, 4 Dec 2023 11:11:49 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=nQnyC3l
+ sx0aVrbg7MvvuUyjEbRMAbRgqkdEPvR+/ZvI=; b=f0QirGigY05O6nytCchuzif
+ gv9t66Hmttc9XqtGRwziHBpd9qf2yGK0Q3YzfNVCv15FSue1Sg9GNS0JhhhLucHj
+ OXugUCQfATGuDG0qj9UdpJBZ3bkMeZ/TdytGxb8eFgUl/bdSv1fOgcJiB5ldbUZq
+ V1U/VcsCX4zFucniCqgpRZKfv57IXBKb8hXctAIbW7ec1dRLm/MoFy72F7PZh/b4
+ R0i2gNERrzYu5F64IF/KRuGFRwV94RHNh1OVr8slDQ9xckwNlhSYTkZl74IVRo25
+ LWFwLBmpUd/i2NwfBnUN2BGKy2PSz/digzsRfSTYvD16b88MJ8OBlx8Vxqx7Ocw=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3urf14vm5u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Dec 2023 11:11:49 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7FB95100089;
+ Mon,  4 Dec 2023 11:11:46 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6FFFA21ADAD;
+ Mon,  4 Dec 2023 11:11:46 +0100 (CET)
+Received: from localhost (10.252.13.105) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 4 Dec
+ 2023 11:11:45 +0100
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Richard Cochran <richardcochran@gmail.com>
+Date: Mon, 4 Dec 2023 11:11:09 +0100
+Message-ID: <20231204101113.276368-1-raphael.gallais-pou@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- Sudeep Holla <sudeep.holla@arm.com>
-References: <20231201062053.1268492-1-anshuman.khandual@arm.com>
- <20231201062053.1268492-2-anshuman.khandual@arm.com>
- <20231201123515.gntwvhsxd5nzojn7@bogus>
- <58882cab-89ce-4554-aee4-24e70d82fc09@arm.com>
- <b9f407c7-62af-47e1-bea9-c494cdfed1e9@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@arm.com>
-In-Reply-To: <b9f407c7-62af-47e1-bea9-c494cdfed1e9@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V2 1/7] coresight: replicator: Move ACPI
- support from AMBA driver to platform driver
+X-Originating-IP: [10.252.13.105]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-04_06,2023-11-30_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] Update STM DSI PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,75 +82,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This patch series aims to add several features of the dw-mipi-dsi phy
+driver that are missing or need to be updated.
 
+First patch update a PM macro.
 
-On 04/12/2023 04:48, Anshuman Khandual wrote:
-> 
-> 
-> On 12/4/23 09:56, Anshuman Khandual wrote:
->>
->>
->> On 12/1/23 18:05, Sudeep Holla wrote:
->>> On Fri, Dec 01, 2023 at 11:50:47AM +0530, Anshuman Khandual wrote:
->>>> Add support for the dynamic replicator device in the platform driver, which
->>>> can then be used on ACPI based platforms. This change would now allow
->>>> runtime power management for repliacator devices on ACPI based systems.
->>>>
->>>> The driver would try to enable the APB clock if available. Also, rename the
->>>> code to reflect the fact that it now handles both static and dynamic
->>>> replicators.
->>>>
->>>> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->>>> Cc: Sudeep Holla <sudeep.holla@arm.com>
->>>
->>> Except the minor nit below which may apply also for few other patches
->>> in the series
->>>
->>> Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
->>> Tested-by: Sudeep Holla <sudeep.holla@arm.com> # Boot and driver probe only
->>>
->>> [...]
->>>
->>>> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
->>>> index b6be73034996..64de0bee02ec 100644
->>>> --- a/drivers/hwtracing/coresight/coresight-replicator.c
->>>> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
->>>> @@ -38,6 +38,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
->>>>  struct replicator_drvdata {
->>>>  	void __iomem		*base;
->>>>  	struct clk		*atclk;
->>>> +	struct clk		*pclk;
->>>
->>> [minor nit] Perhaps can be documented as well ?
->>
->> Sure, will add the following comment above the structure.
->>
->> @pclk:    optional clock for the core parts of the replicator.
-> 
-> My bad, this will be the following instead.
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-> index 64de0bee02ec..44b9a77ec8aa 100644
-> --- a/drivers/hwtracing/coresight/coresight-replicator.c
-> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
-> @@ -31,6 +31,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
->   * @base:      memory mapped base address for this component. Also indicates
->   *             whether this one is programmable or not.
->   * @atclk:     optional clock for the core parts of the replicator.
-> + * @pclk:      APB clock if present, otherwise NULL
->   * @csdev:     component vitals needed by the framework
->   * @spinlock:  serialize enable/disable operations.
->   * @check_idfilter_val: check if the context is lost upon clock removal.
-> 
-> I will update replicator, tpiu, tmc, and stm devices.
-> 
+Second patch adds runtime PM functionality to the driver.
 
-funnel is missing it as well. If you build with W=1 it shows up.
+Third patch adds a clock provider generated by the PHY itself.  As
+explained in the commit log of the second patch, a clock declaration is
+missing.  Since this clock is parent of 'dsi_k', it leads to an orphan
+clock.  Most importantly this patch is an anticipation for future
+versions of the DSI PHY, and its inclusion within the display subsystem
+and the DRM framework.
 
-> struct catu_drvdata and debug_drvdata do not have the comment section itself.
-> _______________________________________________
-> CoreSight mailing list -- coresight@lists.linaro.org
-> To unsubscribe send an email to coresight-leave@lists.linaro.org
+Last patch fixes a corner effect introduced previously.  Since 'dsi' and
+'dsi_k' are gated by the same bit on the same register, both reference
+work as peripheral clock in the device-tree.
+
+---
+Changes in v2:
+	- Added patch 1/4 to use SYSTEM_SLEEP_PM_OPS instead of old macro
+	  and removed __maybe_used for accordingly
+	- Changed SET_RUNTIME_PM_OPS to RUNTIME_PM_OPS
+
+Raphael Gallais-Pou (3):
+  drm/stm: dsi: use new SYSTEM_SLEEP_PM_OPS() macro
+  drm/stm: dsi: expose DSI PHY internal clock
+  arm: dts: st: fix DSI peripheral clock on stm32mp15 boards
+
+Yannick Fertre (1):
+  drm/stm: dsi: add pm runtime ops
+
+ arch/arm/boot/dts/st/stm32mp157.dtsi          |   2 +-
+ arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts |   2 +-
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         | 278 +++++++++++++++---
+ 6 files changed, 242 insertions(+), 46 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
