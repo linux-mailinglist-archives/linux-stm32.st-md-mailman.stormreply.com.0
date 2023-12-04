@@ -2,69 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F479803750
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 15:45:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C88A48037A0
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Dec 2023 15:54:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFA56C6B46B;
-	Mon,  4 Dec 2023 14:45:27 +0000 (UTC)
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AF18C6B46B;
+	Mon,  4 Dec 2023 14:54:44 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D691C6B469
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E400BC6B469
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Dec 2023 14:45:26 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-3b8b0ced0f4so965452b6e.0
+ Mon,  4 Dec 2023 14:54:42 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-77dccb3e4baso303389985a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 04 Dec 2023 06:45:26 -0800 (PST)
+ Mon, 04 Dec 2023 06:54:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701701682; x=1702306482;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:subject:references
+ :in-reply-to:message-id:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Bg3OAjxlhkHVroLExkyXrSp7hB9PGqxL9CSH3f9aKos=;
+ b=lhAtLdZC8NHHR+DmLoAB4ZPsR1fDxJJwjJNlgKGplD6di6YLMNG5Ubh/qMNEpaQPQw
+ DwSd8R5EolykPS4gT9eBQNzadTsKjKLTrCbsfFA9v/KUgIusIPseaLNE4+fvxzlvAW0G
+ 1vkJVq1zs4lBt+8j8BwNZijB+E7YZopbC0ov6yeDzdyDtcc2FQYXkBrfoSbefSQrsle0
+ 2o/B22807o8GUoywrU2buFQzEOhl55SnMYyDJ+MzBCHOG/ThK49HQkRpG90AeHTyW5x8
+ 8Sxm+m8JLptn5qQNT9C8EotWJHbRkGGQKqal+odVUKZAhzsy6rb0cY/n/tlM506AS0QK
+ vm5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701701125; x=1702305925;
- h=date:subject:message-id:references:in-reply-to:cc:to:from
- :mime-version:content-transfer-encoding:x-gm-message-state:from:to
+ d=1e100.net; s=20230601; t=1701701682; x=1702306482;
+ h=content-transfer-encoding:mime-version:subject:references
+ :in-reply-to:message-id:cc:to:from:date:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=IStlrL3AAA++ujnW7Gs80LO4c80fIgknoPnSy4FHWTY=;
- b=UogT/qajpRq7T4lW7tfX43vKwFX5cfNkTM7CCd8uuX3a9wGomJhvfLetRn5hRz7hMS
- 9sCi611D9tHw7iyWtsf2Z9FmGmpsm3MYiC5lWtarkyiSCoTifhozK1EBWnP97xVj1djE
- sLK+QMp5ewkeF6u94Ye2cqyad32muvMvchWymsRLVgu84uE9s7RYxSXDL5Bd8o3HATyg
- TEtbjmZLfLFHEQkMNOrU9naU8AOloYFPCF3FAIn0Mmi6lNNzIBksAWXdxAbeyZlXA6UF
- FfwiQEmbHYpQQ+egG/c/BCzrylWQMdrZ1TGNJ2Fdqz+U9+2fMWeDG21JeCtRQLW/5sTX
- vltw==
-X-Gm-Message-State: AOJu0YyDCBM8V/TzTfZNrjAzSb+hmjK+PaEUQsk+28DIkR4BQtU/I5me
- 2n4/+rhWGyVcGegxeJto9w==
-X-Google-Smtp-Source: AGHT+IGP/nC2C30emuK8+P2XIGBs/Pp0+yyMdPBFSIlSkDXIrMUGupMhp1AlWT6VkWwdCJoaeK1dQg==
-X-Received: by 2002:a54:4414:0:b0:3b8:b06b:9807 with SMTP id
- k20-20020a544414000000b003b8b06b9807mr1684905oiw.55.1701701125334; 
- Mon, 04 Dec 2023 06:45:25 -0800 (PST)
-Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- z3-20020a056808048300b003b83c516e62sm1847817oid.51.2023.12.04.06.45.23
+ bh=Bg3OAjxlhkHVroLExkyXrSp7hB9PGqxL9CSH3f9aKos=;
+ b=eGATw9AT5HKf9XXXULMApCBJ+EdOGhTKPLJcf/b4ZDvw4/xjimUhru/U9Emhl8hNoZ
+ MVBosKky8Upx5GmDEx2sjlylc7q9xZBxesjKiopelemodOLTCtveTE1PjJzQYducZxdj
+ zDRGEsoScEZRCI09+4gtyfPzWoPe88DJiKy93NlvFpVJ1NiiCJWwdxbhPHcWYmTmJi51
+ iuZeBmsVZEM9g/tUVfsfolSYuVklYTZSpLmUi4kIQOvstgMGbw2TrvBBwXITdPDjOICY
+ gntnq4x8n+JcWmlgbQzZ1v87dAW9hnNAnD4kVrKwQIjd8WXif+WpntbOonTBA8U51WMc
+ 6iKg==
+X-Gm-Message-State: AOJu0Yz0qtP66vxVzO0ak1PfSO1q0T4KFUSV5hQacozxu6p/8X1eHWgF
+ XEERElRLChTIUeki/5WAom8=
+X-Google-Smtp-Source: AGHT+IHmGk8EW1nYxUJzot/wHNOP9alDTyqyX08Vu4COc7aS8T/1IoLrhxMpc+DSC3CEsmazSLPpyg==
+X-Received: by 2002:a05:6214:11a4:b0:67a:ad71:ce63 with SMTP id
+ u4-20020a05621411a400b0067aad71ce63mr4980388qvv.90.1701701681739; 
+ Mon, 04 Dec 2023 06:54:41 -0800 (PST)
+Received: from localhost (114.66.194.35.bc.googleusercontent.com.
+ [35.194.66.114]) by smtp.gmail.com with ESMTPSA id
+ l4-20020ac84584000000b00421b14f7e7csm4356420qtn.48.2023.12.04.06.54.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Dec 2023 06:45:24 -0800 (PST)
-Received: (nullmailer pid 1246097 invoked by uid 1000);
- Mon, 04 Dec 2023 14:45:23 -0000
-MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-In-Reply-To: <2f215e2dabec345ec7f28e759c9463854959cced.1701695218.git.quic_jsuraj@quicinc.com>
-References: <cover.1701695218.git.quic_jsuraj@quicinc.com>
- <2f215e2dabec345ec7f28e759c9463854959cced.1701695218.git.quic_jsuraj@quicinc.com>
-Message-Id: <170170112344.1246081.15695671179356012271.robh@kernel.org>
-Date: Mon, 04 Dec 2023 08:45:23 -0600
-Cc: Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, kernel@quicinc.com,
- Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Prasad Sodagudi <psodagud@quicinc.com>,
- Andrew Halaney <ahalaney@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
- linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: net: qcom,
- ethqos: add binding doc for safety IRQ for sa8775p
+ Mon, 04 Dec 2023 06:54:41 -0800 (PST)
+Date: Mon, 04 Dec 2023 09:54:40 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Jesper Dangaard Brouer <hawk@kernel.org>, 
+ Song Yoong Siang <yoong.siang.song@intel.com>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Bjorn Topel <bjorn@kernel.org>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Jonathan Lemon <jonathan.lemon@gmail.com>, 
+ Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@google.com>, 
+ Lorenzo Bianconi <lorenzo@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Andrii Nakryiko <andrii@kernel.org>, Mykola Lysenko <mykolal@fb.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, KP Singh <kpsingh@kernel.org>, 
+ Hao Luo <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>
+Message-ID: <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
+In-Reply-To: <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
+References: <20231203165129.1740512-1-yoong.siang.song@intel.com>
+ <20231203165129.1740512-3-yoong.siang.song@intel.com>
+ <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
+Mime-Version: 1.0
+Cc: xdp-hints@xdp-project.net, linux-doc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v3 2/3] net: stmmac: add Launch
+ Time support to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,50 +107,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Mon, 04 Dec 2023 18:56:15 +0530, Suraj Jaiswal wrote:
-> Add binding doc for safety IRQ. The safety IRQ will be
-> triggered for ECC, DPP, FSM error.
+Jesper Dangaard Brouer wrote:
 > 
-> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-> ---
->  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 9 ++++++---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 5 +++--
->  2 files changed, 9 insertions(+), 5 deletions(-)
 > 
+> On 12/3/23 17:51, Song Yoong Siang wrote:
+> > This patch enables Launch Time (Time-Based Scheduling) support to XDP zero
+> > copy via XDP Tx metadata framework.
+> > 
+> > Signed-off-by: Song Yoong Siang<yoong.siang.song@intel.com>
+> > ---
+> >   drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
+> 
+> As requested before, I think we need to see another driver implementing 
+> this.
+> 
+> I propose driver igc and chip i225.
+> 
+> The interesting thing for me is to see how the LaunchTime max 1 second
+> into the future[1] is handled code wise. One suggestion is to add a 
+> section to Documentation/networking/xsk-tx-metadata.rst per driver that 
+> mentions/documents these different hardware limitations.  It is natural 
+> that different types of hardware have limitations.  This is a close-to 
+> hardware-level abstraction/API, and IMHO as long as we document the 
+> limitations we can expose this API without too many limitations for more 
+> capable hardware.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+I would assume that the kfunc will fail when a value is passed that
+cannot be programmed.
 
-yamllint warnings/errors:
+What is being implemented here already exists for qdiscs. The FQ
+qdisc takes a horizon attribute and
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/snps,dwmac.example.dtb: ethernet@e0800000: interrupt-names:2: 'eth_lpi' is not one of ['eth_wake_irq', 'safety']
-	from schema $id: http://devicetree.org/schemas/net/snps,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.example.dtb: ethernet@16030000: interrupt-names:2: 'eth_lpi' is not one of ['eth_wake_irq', 'safety']
-	from schema $id: http://devicetree.org/schemas/net/snps,dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.example.dtb: ethernet@16030000: interrupt-names:2: 'eth_lpi' is not one of ['eth_wake_irq', 'safety']
-	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.example.dtb: ethernet@16030000: Unevaluated properties are not allowed ('mdio', 'phy-handle', 'phy-mode', 'rx-fifo-depth', 'snps,axi-config', 'snps,en-tx-lpi-clockgating', 'snps,fixed-burst', 'snps,force_thresh_dma_mode', 'snps,multicast-filter-bins', 'snps,no-pbl-x8', 'snps,perfect-filter-entries', 'snps,rxpbl', 'snps,tso', 'snps,txpbl', 'stmmac-axi-config', 'tx-fifo-depth' were unexpected)
-	from schema $id: http://devicetree.org/schemas/net/starfive,jh7110-dwmac.yaml#
+    "
+    when a packet is beyond the horizon
+        at enqueue() time:
+        - either drop the packet (default policy)
+        - or cap its delivery time to the horizon.
+    "
+    commit 39d010504e6b ("net_sched: sch_fq: add horizon attribute")
 
-doc reference errors (make refcheckdocs):
+Having the admin manually configure this on the qdisc based on
+off-line knowledge of the device is more fragile than if the device
+would somehow signal its limit to the stack.
 
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/2f215e2dabec345ec7f28e759c9463854959cced.1701695218.git.quic_jsuraj@quicinc.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+But I don't think we should add enforcement of that as a requirement
+for this xdp extension of pacing.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
