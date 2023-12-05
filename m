@@ -2,87 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49F1E805A43
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 17:48:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D746B805AEF
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 18:13:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EADF2C6C841;
-	Tue,  5 Dec 2023 16:48:39 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 888A4C6C841;
+	Tue,  5 Dec 2023 17:13:54 +0000 (UTC)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com
+ [209.85.222.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1E75C65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2927C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 16:48:38 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B5Gipsl004962; Tue, 5 Dec 2023 16:48:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=iEELI+drcZPd+0r9PZ1l4RJXQNt1AAeJOMaHk8xqoaQ=;
- b=cSB2ioMhjUkt5CVbO/r5UP6ym6H0xNR5QdF9NtBk4Oj9U1xrDegMDl0DetCW2ezumX91
- ovnlc70/iJNqKzkiyOF1MQ2F6b8Z2+VOrBLJplp00Po5BZQWXGeYTkpCdY952hL2Z8b+
- Za+bowDZEuHLXpnJiFGgZzc9Qa+SBF60mTGKNP8ginz5SST1xatVv+oRy3OQYJ4EO5a1
- DnyT71Ti07fmEKogvb+VB2SVoO9Sg3wNokvXH/BL9WvM2Ug/hARuFTmakHUnlGlfCvfM
- b2/1fK8RofeIort3k/V3oLPDL75Var10/xYoC2GXfKDXm2UT71mXv77wxPdcmV517Pso oA== 
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3usghcu6s4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 05 Dec 2023 16:48:22 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B5GmLwG011521
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 5 Dec 2023 16:48:21 GMT
-Received: from [10.216.48.31] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 5 Dec
- 2023 08:48:11 -0800
-Message-ID: <0a5f769e-a474-40c6-a886-135716e90dd2@quicinc.com>
-Date: Tue, 5 Dec 2023 22:18:07 +0530
+ Tue,  5 Dec 2023 17:13:53 +0000 (UTC)
+Received: by mail-ua1-f54.google.com with SMTP id
+ a1e0cc1a2514c-7c45bee5fdaso1262291241.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 05 Dec 2023 09:13:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1701796432; x=1702401232;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Jhl4VBonzlc3pWBsupBzGj3hbqoDxmUEBnI+4/Xqy5c=;
+ b=MHnf4ARGp5+6f8a2azZMvReDOqqbXtKPprJGmwwsjtCDs56fnl8pkD3OhrP0BTZu95
+ UOV/bBY1hq3m5bWkdlWwloQ/LhupBXvvZU2JVTOxnXrRN9NWUyx1sOlN9RvTV0izXJnK
+ cqvMtWwmMjSXptUH0E2kiNGFXK2Nafcqq7/GZswhF0tf0uhqX8iACdEr+/i+GdV2O41o
+ NLpPxTQ6VLAhsHGSqMe0qpXhjicY2aFUveLGjPaG+29RWuYulWJi0XqqaXCp2bm8aCnY
+ IL7tHWFHM1K3r1zpG3KM0ScF4dBR9NkqF+Tgo3A2Me/5aN+7I5bOqQMWOsOJcP0Ja6p+
+ DTtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701796432; x=1702401232;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Jhl4VBonzlc3pWBsupBzGj3hbqoDxmUEBnI+4/Xqy5c=;
+ b=DX8DvuaKJ2lQY4h5lJkR/nEcYaAasNTy5wFTOWEh0kMw8Mjkwo+OiPQlYup9FJ2JTH
+ Q9ezwTdkSQDEnUzH3QDgEno/F3XhPzsKpIqB75qjMHGnPr18FFT8U+yoeAi/ZbjVgvTc
+ N2BSEuq78Pe+rlCuvWH9AcyzwWgdEXUDp+VZQiREKTTI8KSCcfBZ5F6wTmDBb6sx2UYO
+ tjCOsjjBYkZPQSKOBAvLnNP8WAt3Th3fDKS01DVdps+pAeQJ6BOOm0wf9wOjWzfqRCj5
+ Pxa8yCt5cpglch+ZVHO5fT3OuiiMe9quUv0xUG/ci8ZKFKGb3BQtOty/mxB5rvP+NbfV
+ Q6fQ==
+X-Gm-Message-State: AOJu0YwjX7QVA03dyzdBhqKWVu0QxoT98jMeWHcjwpnkOO2ag2IkwkH/
+ HuHC+1/sPuQ7yAzlvEqrmRxTIabZU4QW0y0bn/fggw==
+X-Google-Smtp-Source: AGHT+IGZ2g2oFmmMcDVzmGa+ZZi/Dz9EWTryACUv6KZTkY8C1ML9of935relBOPEXVeT256piz2KyEWvu0yNMvy9fmw=
+X-Received: by 2002:a1f:fc83:0:b0:4b2:7fa3:a965 with SMTP id
+ a125-20020a1ffc83000000b004b27fa3a965mr4904643vki.11.1701796432618; Tue, 05
+ Dec 2023 09:13:52 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Serge Semin <fancer.lancer@gmail.com>, Andrew Halaney <ahalaney@redhat.com>
-References: <cover.1701695218.git.quic_jsuraj@quicinc.com>
- <rw5vfdvre5rt4rwytfsp3qy6sgsdr3dm6oefr4sap2aqbvpw42@c2dxz42tucby>
- <zzkw5obc3z5fndowmrycy77gtjf6wscvkj7klnn34f3ycs3her@hmh5aebpbi3s>
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-In-Reply-To: <zzkw5obc3z5fndowmrycy77gtjf6wscvkj7klnn34f3ycs3her@hmh5aebpbi3s>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: Mc9QZcB1-hKsYyPl6PdhGgV2kxS2dhsL
-X-Proofpoint-GUID: Mc9QZcB1-hKsYyPl6PdhGgV2kxS2dhsL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-05_12,2023-12-05_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 phishscore=0
- adultscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1011 mlxscore=0 malwarescore=0 impostorscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2311060000
- definitions=main-2312050132
-Cc: Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor+dt@kernel.org>,
- kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Rob Herring <robh+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Andy Gross <agross@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] Ethernet DWMAC5 fault IRQ
-	support
+References: <20231203165129.1740512-1-yoong.siang.song@intel.com>
+ <20231203165129.1740512-3-yoong.siang.song@intel.com>
+ <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
+ <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
+ <PH0PR11MB583000826591093B98BA841DD885A@PH0PR11MB5830.namprd11.prod.outlook.com>
+ <5a0faf8cc9ec3ab0d5082c66b909c582c8f1eae6.camel@siemens.com>
+In-Reply-To: <5a0faf8cc9ec3ab0d5082c66b909c582c8f1eae6.camel@siemens.com>
+From: Stanislav Fomichev <sdf@google.com>
+Date: Tue, 5 Dec 2023 09:13:39 -0800
+Message-ID: <CAKH8qBuXL8bOYtfKKPS8y=KJqouDptyciCjr0wNKVHtNj6BmqA@mail.gmail.com>
+To: Florian Bezdeka <florian.bezdeka@siemens.com>
+Cc: "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Song Liu <song@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Yonghong Song <yonghong.song@linux.dev>,
+ Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+ "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, "Fijalkowski,
+ Maciej" <maciej.fijalkowski@intel.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
+ KP Singh <kpsingh@kernel.org>, "Karlsson, Magnus" <magnus.karlsson@intel.com>,
+ Hao Luo <haoluo@google.com>, Willem de Bruijn <willemb@google.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Tariq Toukan <tariqt@nvidia.com>, Bjorn Topel <bjorn@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jonathan Lemon <jonathan.lemon@gmail.com>,
+ "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [xdp-hints] Re: [PATCH bpf-next v3 2/3] net:
+ stmmac: add Launch Time support to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,68 +101,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi @serge,
-there is some more DT_CHECKER warning & need to fix that before uploading the new patch .
-Will fix the warning & then will update the version ,
-
-Thanks
-Suraj
-
-On 12/5/2023 3:35 PM, Serge Semin wrote:
-> Hi Suraj
-> 
-> On Mon, Dec 04, 2023 at 02:16:12PM -0600, Andrew Halaney wrote:
->> On Mon, Dec 04, 2023 at 06:56:14PM +0530, Suraj Jaiswal wrote:
->>> Add support to listen Ethernet HW safery IRQ. The safety IRQ will be
->>
->> s/safery/safety/
->>
->>> triggered for ECC, DPP, FSM error.
->>>
->>> Changes since v3:
->>
->> This is listed as v3 in the subject, but it should now be v4 since the
->> last version was v3.
-> 
-> There are several style-type problems I would like to share. But as
-> Andrew correctly noted the series version was incorrectly left
-> unchanged. Please resubmit the series with the version incremented.
-> I'll send my comments to that new thread so the discussion history and
-> the lore archive would look cleaner. Thanks.
-> 
-> -Serge(y)
-> 
->>
->>> - Fix DT_CHECKER warning
->>> - use name safety for the IRQ.
->>>  
->>>
->>> Suraj Jaiswal (3):
->>>   dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
->>>     sa8775p
->>>   arm64: dts: qcom: sa8775p: enable safety IRQ
->>>   net: stmmac: Add driver support for DWMAC5 safety IRQ Support
->>>
->>>  .../devicetree/bindings/net/qcom,ethqos.yaml   |  9 ++++++---
->>>  .../devicetree/bindings/net/snps,dwmac.yaml    |  5 +++--
->>>  arch/arm64/boot/dts/qcom/sa8775p.dtsi          | 10 ++++++----
->>>  drivers/net/ethernet/stmicro/stmmac/common.h   |  1 +
->>>  drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
->>>  .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++++++
->>>  .../ethernet/stmicro/stmmac/stmmac_platform.c  |  9 +++++++++
->>>  7 files changed, 45 insertions(+), 9 deletions(-)
->>>
->>> -- 
->>> 2.25.1
->>>
->>
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBEZWMgNSwgMjAyMyBhdCA3OjM04oCvQU0gRmxvcmlhbiBCZXpkZWthCjxmbG9yaWFu
+LmJlemRla2FAc2llbWVucy5jb20+IHdyb3RlOgo+Cj4gT24gVHVlLCAyMDIzLTEyLTA1IGF0IDE1
+OjI1ICswMDAwLCBTb25nLCBZb29uZyBTaWFuZyB3cm90ZToKPiA+IE9uIE1vbmRheSwgRGVjZW1i
+ZXIgNCwgMjAyMyAxMDo1NSBQTSwgV2lsbGVtIGRlIEJydWlqbiB3cm90ZToKPiA+ID4gSmVzcGVy
+IERhbmdhYXJkIEJyb3VlciB3cm90ZToKPiA+ID4gPgo+ID4gPiA+Cj4gPiA+ID4gT24gMTIvMy8y
+MyAxNzo1MSwgU29uZyBZb29uZyBTaWFuZyB3cm90ZToKPiA+ID4gPiA+IFRoaXMgcGF0Y2ggZW5h
+YmxlcyBMYXVuY2ggVGltZSAoVGltZS1CYXNlZCBTY2hlZHVsaW5nKSBzdXBwb3J0IHRvIFhEUCB6
+ZXJvCj4gPiA+ID4gPiBjb3B5IHZpYSBYRFAgVHggbWV0YWRhdGEgZnJhbWV3b3JrLgo+ID4gPiA+
+ID4KPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFNvbmcgWW9vbmcgU2lhbmc8eW9vbmcuc2lhbmcu
+c29uZ0BpbnRlbC5jb20+Cj4gPiA+ID4gPiAtLS0KPiA+ID4gPiA+ICAgZHJpdmVycy9uZXQvZXRo
+ZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjLmggICAgICB8ICAyICsrCj4gPiA+ID4KPiA+ID4g
+PiBBcyByZXF1ZXN0ZWQgYmVmb3JlLCBJIHRoaW5rIHdlIG5lZWQgdG8gc2VlIGFub3RoZXIgZHJp
+dmVyIGltcGxlbWVudGluZwo+ID4gPiA+IHRoaXMuCj4gPiA+ID4KPiA+ID4gPiBJIHByb3Bvc2Ug
+ZHJpdmVyIGlnYyBhbmQgY2hpcCBpMjI1Lgo+ID4KPiA+IFN1cmUuIEkgd2lsbCBpbmNsdWRlIGln
+YyBwYXRjaGVzIGluIG5leHQgdmVyc2lvbi4KPiA+Cj4gPiA+ID4KPiA+ID4gPiBUaGUgaW50ZXJl
+c3RpbmcgdGhpbmcgZm9yIG1lIGlzIHRvIHNlZSBob3cgdGhlIExhdW5jaFRpbWUgbWF4IDEgc2Vj
+b25kCj4gPiA+ID4gaW50byB0aGUgZnV0dXJlWzFdIGlzIGhhbmRsZWQgY29kZSB3aXNlLiBPbmUg
+c3VnZ2VzdGlvbiBpcyB0byBhZGQgYQo+ID4gPiA+IHNlY3Rpb24gdG8gRG9jdW1lbnRhdGlvbi9u
+ZXR3b3JraW5nL3hzay10eC1tZXRhZGF0YS5yc3QgcGVyIGRyaXZlciB0aGF0Cj4gPiA+ID4gbWVu
+dGlvbnMvZG9jdW1lbnRzIHRoZXNlIGRpZmZlcmVudCBoYXJkd2FyZSBsaW1pdGF0aW9ucy4gIEl0
+IGlzIG5hdHVyYWwKPiA+ID4gPiB0aGF0IGRpZmZlcmVudCB0eXBlcyBvZiBoYXJkd2FyZSBoYXZl
+IGxpbWl0YXRpb25zLiAgVGhpcyBpcyBhIGNsb3NlLXRvCj4gPiA+ID4gaGFyZHdhcmUtbGV2ZWwg
+YWJzdHJhY3Rpb24vQVBJLCBhbmQgSU1ITyBhcyBsb25nIGFzIHdlIGRvY3VtZW50IHRoZQo+ID4g
+PiA+IGxpbWl0YXRpb25zIHdlIGNhbiBleHBvc2UgdGhpcyBBUEkgd2l0aG91dCB0b28gbWFueSBs
+aW1pdGF0aW9ucyBmb3IgbW9yZQo+ID4gPiA+IGNhcGFibGUgaGFyZHdhcmUuCj4gPgo+ID4gU3Vy
+ZS4gSSB3aWxsIHRyeSB0byBhZGQgaGFyZHdhcmUgbGltaXRhdGlvbnMgaW4gZG9jdW1lbnRhdGlv
+bi4KPiA+Cj4gPiA+Cj4gPiA+IEkgd291bGQgYXNzdW1lIHRoYXQgdGhlIGtmdW5jIHdpbGwgZmFp
+bCB3aGVuIGEgdmFsdWUgaXMgcGFzc2VkIHRoYXQKPiA+ID4gY2Fubm90IGJlIHByb2dyYW1tZWQu
+Cj4gPiA+Cj4gPgo+ID4gSW4gY3VycmVudCBkZXNpZ24sIHRoZSB4c2tfdHhfbWV0YWRhdGFfcmVx
+dWVzdCgpIGRpbnQgZ290IHJldHVybiB2YWx1ZS4KPiA+IFNvIHVzZXIgd29uJ3Qga25vdyBpZiB0
+aGVpciByZXF1ZXN0IGlzIGZhaWwuCj4gPiBJdCBpcyBjb21wbGV4IHRvIGluZm9ybSB1c2VyIHdo
+aWNoIHJlcXVlc3QgaXMgZmFpbGluZy4KPiA+IFRoZXJlZm9yZSwgSU1ITywgaXQgaXMgZ29vZCB0
+aGF0IHdlIGxldCBkcml2ZXIgaGFuZGxlIHRoZSBlcnJvciBzaWxlbnRseS4KPiA+Cj4KPiBJZiB0
+aGUgcHJvZ3JhbW1lZCB2YWx1ZSBpcyBpbnZhbGlkLCB0aGUgcGFja2V0IHdpbGwgYmUgImRyb3Bw
+ZWQiIC8gd2lsbAo+IG5ldmVyIG1ha2UgaXQgdG8gdGhlIHdpcmUsIHJpZ2h0Pwo+Cj4gVGhhdCBp
+cyBjbGVhcmx5IGEgc2l0dWF0aW9uIHRoYXQgdGhlIHVzZXIgc2hvdWxkIGJlIGluZm9ybWVkIGFi
+b3V0LiBGb3IKPiBSVCBzeXN0ZW1zIHRoaXMgbm9ybWFsbHkgbWVhbnMgdGhhdCBzb21ldGhpbmcg
+aXMgcmVhbGx5IHdyb25nIHJlZ2FyZGluZwo+IHRpbWluZyAvIGN5Y2xlIG92ZXJmbG93LiBTdWNo
+IHN5c3RlbXMgaGF2ZSB0byByZWFjdCBvbiB0aGF0IHNpdHVhdGlvbi4KCkluIGdlbmVyYWwsIGFm
+X3hkcCBpcyBhIGJpdCBsYWNraW5nIGluIHRoaXMgJ25vdGlmeSB0aGUgdXNlciB0aGF0IHRoZXkK
+c29tZWhvdyBtZXNzZWQgdXAnIGFyZWEgOi0oCkZvciBleGFtcGxlLCBwdXNoaW5nIGEgdHggZGVz
+Y3JpcHRvciB3aXRoIGEgd3JvbmcgYWRkci9sZW4gaW4gemMgbW9kZQp3aWxsIG5vdCBnaXZlIGFu
+eSB2aXNpYmxlIHNpZ25hbCBiYWNrIChiZXNpZGVzIGRyaXZlciBwb3RlbnRpYWxseQpzcGlsbGlu
+ZyBzb21ldGhpbmcgaW50byBkbWVzZyBhcyBpdCB3YXMgaW4gdGhlIG1seCBjYXNlKS4KV2UgY2Fu
+IHByb2JhYmx5IHN0YXJ0IHdpdGggaGF2aW5nIHNvbWUgY291bnRlcnMgZm9yIHRoZXNlIGV2ZW50
+cz8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
