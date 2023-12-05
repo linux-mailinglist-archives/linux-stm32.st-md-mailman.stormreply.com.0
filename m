@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109C880504E
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 11:36:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2D4805052
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 11:36:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8556C6C841;
-	Tue,  5 Dec 2023 10:36:24 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C44F0C6C841;
+	Tue,  5 Dec 2023 10:36:27 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1678C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F33EAC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 10:36:23 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-50bf26b677dso2283383e87.2
+ Tue,  5 Dec 2023 10:36:26 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-50bfd8d5c77so1856242e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Dec 2023 02:36:23 -0800 (PST)
+ Tue, 05 Dec 2023 02:36:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701772583; x=1702377383;
+ d=gmail.com; s=20230601; t=1701772586; x=1702377386;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=WIQUz6kTrVuZdOXLZo+ge/Lp9pWSfj/oMDcXilwbtBU=;
- b=lAeGoar1sVhEns+YQtpFlmfZGoclGcTHkRNJWeATajV6oMi6RrqOBfKmxxrTLUu0mh
- SVacAPseZGZUVwAIj4WeqokHDjv5IoGWx0meaNZktCgnH1j0QLDbp37L93k2BvM5/YPU
- BeTfY+BowpEiJJoZvuy08ACyOUFCEKZpMK3GC19vE+6nX6KY/03rgy6sTRxYrbj5Qe3k
- V6ophLwb08wsT/wCr9vE0ZvpmzkeBPb/2t+nFPUdjCrA8w9MCNJSYuhPvPp8fOTPH4vu
- r7qj67ZwgvpGmfprH9hwSL72Bd34fGZrGCEbqH0FAHfc4fhg4+rca78qm1I6xS4hJn4y
- KNnQ==
+ bh=9/W7bRr2FIytmHTP+ve4vRfpj/k8/yIBrLP2P8LnNEk=;
+ b=M17upfYM9rXGTz0Gv1e0ekuwLM3k4ernR2mI7uxOhczqQ3t4DQhlbyeettV697k9S7
+ ygNx6gfLRXe0npEjkTTI6pGl9jac4tgQsn41yhqF5ZASeaJRENzv0VELsi2zj0ggAjwa
+ c5DFSjmLeVzkO7XHnMbKoLkKWzj2uGVZnYhmmcX5ca1PKCzv1crEyPKQDpn1EPIfp9GZ
+ fdEs7woq+f21/012IySj2VK3gfRhcrfiPCKYsE4LT7LbYJj+C7M/l7hptNxkI+/pHpLu
+ rmmu8bD4Z6vvveVpm2RVGvuM4WeOYY8OvX1Vkue2yxvscbUnd9VGutj2l1mJu6YZ50v2
+ nBLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701772583; x=1702377383;
+ d=1e100.net; s=20230601; t=1701772586; x=1702377386;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=WIQUz6kTrVuZdOXLZo+ge/Lp9pWSfj/oMDcXilwbtBU=;
- b=VoEt+3KYwEBMORwtdbaenYsEvOcHBjFis6c5N4yyb+YjqVjcj5KX7IcYxIabNhr/Ap
- 2t9uV8X8d4/BCiah686CdVHOxbkvjFD8OEvnOXEM1iZbVtPpapzS9XYGb/I2dACPZVhX
- pN5Phgn6Wt/PYGcJWNUKgDlXwx5jp9cbyzTDvHMIGVKAGnVeSYwNCpfHeu51P1kV9JkG
- 9SXmkNUZhIfrMCaHwj+JYJE1SlvxSLl86t+vQLmeOCOi1z8Xh0nkoQHSJ1MP6Wrwq8Lh
- Q5VMqTPXrhEv2Sn++sDzvvGAUSzYNckvHtVi+SQjlvme3DWL4rtVw3YqHcmszx/4/RKV
- Wcwg==
-X-Gm-Message-State: AOJu0YwTTBuY0DMTaILR0/h1+o0wn7HpnCOixjzlczuf8js0f2OlOgiG
- Nmicor4H/uqADL4XqQ89hH8=
-X-Google-Smtp-Source: AGHT+IGX6hxolloUWCXauP85aEGl4KFj8FADRPvac0Qo990dFIzZotJOwEw2Nm39AzLMj98ISD+EcQ==
-X-Received: by 2002:ac2:5a50:0:b0:50b:fea2:4cdc with SMTP id
- r16-20020ac25a50000000b0050bfea24cdcmr583327lfn.172.1701772582731; 
- Tue, 05 Dec 2023 02:36:22 -0800 (PST)
+ bh=9/W7bRr2FIytmHTP+ve4vRfpj/k8/yIBrLP2P8LnNEk=;
+ b=iZJwAljuwhdkXYzg8wiB5DvOQA73wfRSR3LH6SUjBexU3bbzDnBVx2z2b+bjy/m1F2
+ 0C/9ZG76zCnk5xYC2riWahMO0oEbVvZSvb6fv5Atu6v6TSQCqfHNaP0NQBLF4Uo2PJQ2
+ N8G3Auzr4/Gwsy+vo41y5sapIcaWzEVZLgMm5D85FPSJs20hXoaLrLClq669XNKQBXh5
+ MuxDEk/UH5oLYPsJrpBPXViJkB2fNZCCBLbJVPlVdrY5vvidyxGChujQv2fQKj1MJ06b
+ iXb4vP+9k1wz5xwflCIfELIblR+bgBAqDOEyJwi2bT1r6tkB153AKHkxNMvcnZE363nJ
+ 0AYw==
+X-Gm-Message-State: AOJu0YzAOoNV7/XVIyECskTOQaZmTm5dJQWgVV3dUDtuh4ds+QqrpIRk
+ /l32ZzuR0dMKKttR2hswEyc=
+X-Google-Smtp-Source: AGHT+IES81scnB9OAc2hliG1AqfHqUzn12268APbl0b9mr/HfSY9+lceF3Al8CkH/xAT+wtxcOc+8g==
+X-Received: by 2002:a19:3848:0:b0:50c:4e7:87b8 with SMTP id
+ d8-20020a193848000000b0050c04e787b8mr175943lfj.23.1701772586273; 
+ Tue, 05 Dec 2023 02:36:26 -0800 (PST)
 Received: from localhost ([178.176.56.174]) by smtp.gmail.com with ESMTPSA id
- c10-20020ac25f6a000000b0050c0514fdf4sm146106lfc.127.2023.12.05.02.36.22
+ v8-20020ac25928000000b0050bf7a9c4adsm567335lfi.225.2023.12.05.02.36.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Dec 2023 02:36:22 -0800 (PST)
+ Tue, 05 Dec 2023 02:36:25 -0800 (PST)
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
  Russell King <linux@armlinux.org.uk>,
@@ -61,14 +61,13 @@ To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
  Maxime Chevallier <maxime.chevallier@bootlin.com>,
  Tomer Maimon <tmaimon77@gmail.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>,
  "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue,  5 Dec 2023 13:35:32 +0300
-Message-ID: <20231205103559.9605-12-fancer.lancer@gmail.com>
+Date: Tue,  5 Dec 2023 13:35:34 +0300
+Message-ID: <20231205103559.9605-14-fancer.lancer@gmail.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <20231205103559.9605-1-fancer.lancer@gmail.com>
 References: <20231205103559.9605-1-fancer.lancer@gmail.com>
@@ -77,8 +76,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 11/16] net: pcs: xpcs: Change
-	xpcs_create_mdiodev() suffix to "byaddr"
+Subject: [Linux-stm32] [PATCH net-next 13/16] net: stmmac: intel: Register
+	generic MDIO device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,85 +94,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The fwnode-based way of creating XPCS descriptor is about to be added. In
-order to have a function name distinguishable from the already implemented
-xpcs_create_mdiodev() method convert the later name to be
-xpcs_create_byaddr() which BTW better describes the method semantic in
-anyway.
+The DW XPCS driver has been updated to being bindable with the respective
+MDIO device registered during the MDIO bus probe procedure. As an example
+of using that feature let's convert the Intel mGBE low-level driver to
+registering the MDIO-device board info. Thus the registered DW XPCS device
+will be a subject of the fine-tunings performed during the MDIO-device
+probe procedures.
 
 Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 ---
- drivers/net/dsa/sja1105/sja1105_mdio.c            | 2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 2 +-
- drivers/net/pcs/pcs-xpcs.c                        | 6 +++---
- include/linux/pcs/pcs-xpcs.h                      | 4 ++--
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 31 ++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/dsa/sja1105/sja1105_mdio.c b/drivers/net/dsa/sja1105/sja1105_mdio.c
-index 833e55e4b961..9101079e365d 100644
---- a/drivers/net/dsa/sja1105/sja1105_mdio.c
-+++ b/drivers/net/dsa/sja1105/sja1105_mdio.c
-@@ -409,7 +409,7 @@ static int sja1105_mdiobus_pcs_register(struct sja1105_private *priv)
- 		    priv->phy_mode[port] != PHY_INTERFACE_MODE_2500BASEX)
- 			continue;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 60283543ffc8..7642c11abc59 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -4,6 +4,7 @@
  
--		xpcs = xpcs_create_mdiodev(bus, port, priv->phy_mode[port]);
-+		xpcs = xpcs_create_byaddr(bus, port, priv->phy_mode[port]);
- 		if (IS_ERR(xpcs)) {
- 			rc = PTR_ERR(xpcs);
- 			goto out_pcs_free;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index fa9e7e7040b9..aa75e4f1e212 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -507,7 +507,7 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+ #include <linux/clk-provider.h>
+ #include <linux/pci.h>
++#include <linux/phy.h>
+ #include <linux/dmi.h>
+ #include "dwmac-intel.h"
+ #include "dwmac4.h"
+@@ -585,6 +586,28 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	/* Intel mgbe SGMII interface uses pcs-xcps */
+ 	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
+ 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
++		struct mdio_board_info *xpcs_info;
++
++		xpcs_info = devm_kzalloc(&pdev->dev,
++					 sizeof(*xpcs_info) + MII_BUS_ID_SIZE,
++					 GFP_KERNEL);
++		if (!xpcs_info) {
++			ret = -ENOMEM;
++			goto err_alloc_info;
++		}
++
++		xpcs_info->bus_id = (void *)xpcs_info + sizeof(*xpcs_info);
++		snprintf((char *)xpcs_info->bus_id, MII_BUS_ID_SIZE,
++			 "stmmac-%x", plat->bus_id);
++
++		snprintf(xpcs_info->modalias, MDIO_NAME_SIZE, "dwxpcs");
++
++		xpcs_info->mdio_addr = INTEL_MGBE_XPCS_ADDR;
++
++		ret = mdiobus_register_board_info(xpcs_info, 1);
++		if (ret)
++			goto err_alloc_info;
++
+ 		plat->mdio_bus_data->has_xpcs = true;
+ 		plat->mdio_bus_data->xpcs_an_inband = true;
+ 	}
+@@ -600,7 +623,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 		fwnode_handle_put(fixed_node);
+ 	}
  
- 	/* Try to probe the XPCS by scanning all addresses. */
- 	for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
--		xpcs = xpcs_create_mdiodev(bus, addr, mode);
-+		xpcs = xpcs_create_byaddr(bus, addr, mode);
- 		if (IS_ERR(xpcs))
- 			continue;
+-	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
++	/* Ensure mdio bus PHY-scan skips intel serdes and pcs-xpcs */
+ 	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
+ 	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
  
-diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index 183a37929b60..e376e255f1d3 100644
---- a/drivers/net/pcs/pcs-xpcs.c
-+++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -1511,8 +1511,8 @@ static struct dw_xpcs *xpcs_create(struct mdio_device *mdiodev,
- 	return ERR_PTR(ret);
+@@ -618,6 +641,12 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	plat->msi_tx_base_vec = 1;
+ 
+ 	return 0;
++
++err_alloc_info:
++	clk_disable_unprepare(clk);
++	clk_unregister_fixed_rate(clk);
++
++	return ret;
  }
  
--struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr,
--				    phy_interface_t interface)
-+struct dw_xpcs *xpcs_create_byaddr(struct mii_bus *bus, int addr,
-+				   phy_interface_t interface)
- {
- 	struct mdio_device *mdiodev;
- 	struct dw_xpcs *xpcs;
-@@ -1535,7 +1535,7 @@ struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr,
- 
- 	return xpcs;
- }
--EXPORT_SYMBOL_GPL(xpcs_create_mdiodev);
-+EXPORT_SYMBOL_GPL(xpcs_create_byaddr);
- 
- void xpcs_destroy(struct dw_xpcs *xpcs)
- {
-diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
-index 53adbffb4c0a..b11bbb5e820a 100644
---- a/include/linux/pcs/pcs-xpcs.h
-+++ b/include/linux/pcs/pcs-xpcs.h
-@@ -73,8 +73,8 @@ int xpcs_do_config(struct dw_xpcs *xpcs, phy_interface_t interface,
- void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces);
- int xpcs_config_eee(struct dw_xpcs *xpcs, int mult_fact_100ns,
- 		    int enable);
--struct dw_xpcs *xpcs_create_mdiodev(struct mii_bus *bus, int addr,
--				    phy_interface_t interface);
-+struct dw_xpcs *xpcs_create_byaddr(struct mii_bus *bus, int addr,
-+				   phy_interface_t interface);
- void xpcs_destroy(struct dw_xpcs *xpcs);
- 
- #endif /* __LINUX_PCS_XPCS_H */
+ static int ehl_common_data(struct pci_dev *pdev,
 -- 
 2.42.1
 
