@@ -2,52 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0061E804558
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 03:50:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D3A804858
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 04:56:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F5A4C6C855;
-	Tue,  5 Dec 2023 02:50:29 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CABD4C65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50E0FC6C855;
+	Tue,  5 Dec 2023 03:56:43 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE99BC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 02:50:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DB541CE1621;
- Tue,  5 Dec 2023 02:50:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2114DC433C7;
- Tue,  5 Dec 2023 02:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1701744625;
- bh=0bZHE1UC4zNYDt6+dzC6pa74YJUhHbXyySy8ouGxeeQ=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=O/ZZ+2A4/LzMqjFfdifSg7FmWp8IuaJaF5goYRtggUZr2FxlhxL74HAHQHvY678k+
- cErMQHndtAXNRr69OrECzH8FLEX42TWGVIxNmCdxX23HlzvVrhJPmiSRInNBLcAtzC
- XFQVTzPjrooMd4Cvv8gQf5FfjwDpvT+sBgMBSnY+MhHvSneX5FFOF9ZMjbqt7MLaC1
- Q6at5rKPopJg7k0LyhKzPB+KsiPDe0SzVo+fs+b8ZWCeEyEue1TQW3NrI9qdqbfIed
- SL9wX5hjlJ8Ru6xYi7A//WGIuLpw5//1iNses7v5B6WynAw4jVcDW4Q5/movhACe7G
- kh/SQ0yNRWvFw==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 08101C41677; Tue,  5 Dec 2023 02:50:25 +0000 (UTC)
+ Tue,  5 Dec 2023 03:56:41 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C30B31474;
+ Mon,  4 Dec 2023 19:57:27 -0800 (PST)
+Received: from [10.163.35.139] (unknown [10.163.35.139])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 890513F5A1;
+ Mon,  4 Dec 2023 19:56:35 -0800 (PST)
+Message-ID: <604b5b56-9f48-434e-b328-0b9616b47ec8@arm.com>
+Date: Tue, 5 Dec 2023 09:26:30 +0530
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170174462502.4521.5357100428466208009.git-patchwork-notify@kernel.org>
-Date: Tue, 05 Dec 2023 02:50:25 +0000
-References: <20231201055252.1302-1-rohan.g.thomas@intel.com>
-In-Reply-To: <20231201055252.1302-1-rohan.g.thomas@intel.com>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Cc: ast@kernel.org, hawk@kernel.org, daniel@iogearbox.net,
- netdev@vger.kernel.org, richardcochran@gmail.com, bpf@vger.kernel.org,
- john.fastabend@gmail.com, fancer.lancer@gmail.com, linux@armlinux.org.uk,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- kuba@kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/3] net: stmmac: EST
-	implementation
+User-Agent: Mozilla Thunderbird
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: James Clark <james.clark@arm.com>, linux-arm-kernel@lists.infradead.org,
+ suzuki.poulose@arm.com
+References: <20231201062053.1268492-1-anshuman.khandual@arm.com>
+ <20231201062053.1268492-6-anshuman.khandual@arm.com>
+ <fe5c82d1-8b7d-6701-4e19-9019f23d9c7b@arm.com>
+Content-Language: en-US
+In-Reply-To: <fe5c82d1-8b7d-6701-4e19-9019f23d9c7b@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH V2 5/7] coresight: tmc: Move ACPI support
+ from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,35 +52,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Fri,  1 Dec 2023 13:52:49 +0800 you wrote:
-> Hi,
-> This patchset extends EST interrupt handling support to DWXGMAC IP
-> followed by refactoring of EST implementation. Added a separate
-> module for EST and moved all EST related functions to the new module.
+On 12/4/23 16:24, James Clark wrote:
 > 
-> Also added support for EST cycle-time-extension.
 > 
+> On 01/12/2023 06:20, Anshuman Khandual wrote:
+>> Add support for the tmc devices in the platform driver, which can then be
+>> used on ACPI based platforms. This change would now allow runtime power
+>> management for ACPI based systems. The driver would try to enable the APB
+>> clock if available.
+>>
 > [...]
+>> -module_amba_driver(tmc_driver);
+>> +static int tmc_platform_probe(struct platform_device *pdev)
+>> +{
+>> +	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +	struct tmc_drvdata *drvdata;
+>> +	int ret = 0;
+>> +
+>> +	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
+>> +	if (!drvdata)
+>> +		return -ENOMEM;
+>> +
+>> +	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
+>> +	if (IS_ERR(drvdata->pclk))
+>> +		return -ENODEV;
+>> +
+>> +	dev_set_drvdata(&pdev->dev, drvdata);
+>> +	pm_runtime_get_noresume(&pdev->dev);
+>> +	pm_runtime_set_active(&pdev->dev);
+>> +	pm_runtime_enable(&pdev->dev);
+>> +
+>> +	ret = __tmc_probe(&pdev->dev, res, NULL);
+>> +	if (ret) {
+>> +		pm_runtime_put_noidle(&pdev->dev);
+>> +		pm_runtime_disable(&pdev->dev);
+>> +	}
+> 
+> I'm not sure if these pm_runtime()s are right because there is already a
+> put inside of __tmc_probe() if it fails. If you unload and then reload
 
-Here is the summary with links:
-  - [net-next,v2,1/3] net: stmmac: xgmac: EST interrupts handling
-    https://git.kernel.org/netdev/net-next/c/58f3240b3b93
-  - [net-next,v2,2/3] net: stmmac: Refactor EST implementation
-    https://git.kernel.org/netdev/net-next/c/c3f3b97238f6
-  - [net-next,v2,3/3] net: stmmac: Add support for EST cycle-time-extension
-    https://git.kernel.org/netdev/net-next/c/9e95505fecb6
+Actually there is a pm_runtime_put() on the success path, not when it
+fails. So pm_runtime_put() gets called when __tmc_probe() returns 0.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+__tmc_probe()
+{
+	....
+        ret = misc_register(&drvdata->miscdev);
+        if (ret)
+                coresight_unregister(drvdata->csdev);
+        else
+                pm_runtime_put(dev);
+out:
+        return ret;
+}
 
+tmc_platform_probe()
+{
+	....
+        pm_runtime_get_noresume(&pdev->dev);
+        pm_runtime_set_active(&pdev->dev);
+        pm_runtime_enable(&pdev->dev);
 
+        ret = __tmc_probe(&pdev->dev, res, NULL);
+        if (ret) {
+                pm_runtime_put_noidle(&pdev->dev);
+                pm_runtime_disable(&pdev->dev);
+        }
+        return ret;
+}
+
+tmc_probe()
+{
+	....
+	return __tmc_probe(&adev->dev, &adev->res, coresight_get_uci_data(id));
+}
+
+Currently pm_runtime_put() gets called
+
+- In success path both for AMBA and platform drivers
+- In error path only for platform driver
+
+Although the problem might be with pm_runtime_disable() instead
+
+- pm_runtime_disable() is not required in the platform driver probe() path
+- But might be required in tmc_platform_remove() along with a clk_put()
+
+> all the coresight modules with these patches you get these errors which
+> are new:
+> 
+>   coresight-tpiu-platform ARMHC979:00: Unbalanced pm_runtime_enable!
+
+The code is similar in TPIU platform driver as well.
+
+>   CSCFG registered etm0
+>   coresight etm0: CPU0: etm v4.2 initialized
+>   CSCFG registered etm1
+>   coresight etm1: CPU1: etm v4.2 initialized
+>   CSCFG registered etm2
+>   coresight etm2: CPU2: etm v4.2 initialized
+>   CSCFG registered etm3
+>   coresight etm3: CPU3: etm v4.2 initialized
+>   coresight-tmc-platform ARMHC97C:00: Unbalanced pm_runtime_enable!
+>   coresight-tmc-platform ARMHC97C:01: Unbalanced pm_runtime_enable!
+>   coresight-tmc-platform ARMHC97C:02: Unbalanced pm_runtime_enable!
+>   coresight-tmc-platform ARMHC97C:03: Unbalanced pm_runtime_enable!
+> 
+> It might be worth testing all of these pm_runtime()s, including the
+> error case ones, because loading and unloading the modules doesn't even
+> include the error scenarios, so there are probably more bad ones in
+> there too.
+The code is very similar in CATU, STM as well but debug_platform_remove()
+seems to be doing this right.
+
+I am not very familiar with all the power management aspects in coresight,
+please do let me know if I missing something here.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
