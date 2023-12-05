@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2D4805052
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 11:36:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2711F805054
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 11:36:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C44F0C6C841;
-	Tue,  5 Dec 2023 10:36:27 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0672C6C85F;
+	Tue,  5 Dec 2023 10:36:29 +0000 (UTC)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
+ [209.85.167.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F33EAC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28F11C6C85F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 10:36:26 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-50bfd8d5c77so1856242e87.1
+ Tue,  5 Dec 2023 10:36:29 +0000 (UTC)
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-50be10acaf9so3449263e87.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 05 Dec 2023 02:36:26 -0800 (PST)
+ Tue, 05 Dec 2023 02:36:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701772586; x=1702377386;
+ d=gmail.com; s=20230601; t=1701772588; x=1702377388;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9/W7bRr2FIytmHTP+ve4vRfpj/k8/yIBrLP2P8LnNEk=;
- b=M17upfYM9rXGTz0Gv1e0ekuwLM3k4ernR2mI7uxOhczqQ3t4DQhlbyeettV697k9S7
- ygNx6gfLRXe0npEjkTTI6pGl9jac4tgQsn41yhqF5ZASeaJRENzv0VELsi2zj0ggAjwa
- c5DFSjmLeVzkO7XHnMbKoLkKWzj2uGVZnYhmmcX5ca1PKCzv1crEyPKQDpn1EPIfp9GZ
- fdEs7woq+f21/012IySj2VK3gfRhcrfiPCKYsE4LT7LbYJj+C7M/l7hptNxkI+/pHpLu
- rmmu8bD4Z6vvveVpm2RVGvuM4WeOYY8OvX1Vkue2yxvscbUnd9VGutj2l1mJu6YZ50v2
- nBLw==
+ bh=eSce1rQ1um+oY77DdZG8yrBJ6NEyKdJwNZU1ix0Nv7k=;
+ b=V9TpoRMFYYYpF4xcgmWtpbOd9QGJB2uUeO4KwPv5S7FYPnMvNtdZBbHsUrfac0huOL
+ gNysrClgzmwxWBu2QzS+t2GBu6mtDntfci/syxa2miUPwWBNZpggtonmMhnv/ktDnh1H
+ jzLkkXcTpP3Ik/36v5aQF6nLcVkp4DtO/SJjpYv5QGeNhYs4/QF2uCMj2wf3nLDx9dZL
+ sjLDDfTIv3brbnpGTwMzZpertC7Qf3p0ZclMk12h+onoIF9Pwf6esGGdTH0o/a10A4V4
+ VLQSTCqLDy0tftFkcOEwImj+7aiqRZKwFegqiGGTZsNTABK6imlg37lpWhm1zGQzJ7g+
+ uoVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701772586; x=1702377386;
+ d=1e100.net; s=20230601; t=1701772588; x=1702377388;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9/W7bRr2FIytmHTP+ve4vRfpj/k8/yIBrLP2P8LnNEk=;
- b=iZJwAljuwhdkXYzg8wiB5DvOQA73wfRSR3LH6SUjBexU3bbzDnBVx2z2b+bjy/m1F2
- 0C/9ZG76zCnk5xYC2riWahMO0oEbVvZSvb6fv5Atu6v6TSQCqfHNaP0NQBLF4Uo2PJQ2
- N8G3Auzr4/Gwsy+vo41y5sapIcaWzEVZLgMm5D85FPSJs20hXoaLrLClq669XNKQBXh5
- MuxDEk/UH5oLYPsJrpBPXViJkB2fNZCCBLbJVPlVdrY5vvidyxGChujQv2fQKj1MJ06b
- iXb4vP+9k1wz5xwflCIfELIblR+bgBAqDOEyJwi2bT1r6tkB153AKHkxNMvcnZE363nJ
- 0AYw==
-X-Gm-Message-State: AOJu0YzAOoNV7/XVIyECskTOQaZmTm5dJQWgVV3dUDtuh4ds+QqrpIRk
- /l32ZzuR0dMKKttR2hswEyc=
-X-Google-Smtp-Source: AGHT+IES81scnB9OAc2hliG1AqfHqUzn12268APbl0b9mr/HfSY9+lceF3Al8CkH/xAT+wtxcOc+8g==
-X-Received: by 2002:a19:3848:0:b0:50c:4e7:87b8 with SMTP id
- d8-20020a193848000000b0050c04e787b8mr175943lfj.23.1701772586273; 
- Tue, 05 Dec 2023 02:36:26 -0800 (PST)
+ bh=eSce1rQ1um+oY77DdZG8yrBJ6NEyKdJwNZU1ix0Nv7k=;
+ b=Zwbb2vo+5VaEnTuu4RuiGf+vg/br+O5b/+r8mjueFUwO+bzxZkK7h9j6W7a3mTn9Ap
+ kUrc96URX3QwTrJwNnmMZmFTzSNe6xfCg0SULfZgZ9P51usVJ1Rdi8r53OegFpv44z3Z
+ TF0vFjnNGlfPTXGprV1/2CGs2AGMuSIrDFkPSCQKkTdJVvaTkwR+gIQd9cb1r4z9PAhb
+ xjSB3+b3oHkRBwzztUDCIlENlS7A5nNJlauCwVk027icbWDCR++TdphHkw4HZ8v0i/Dt
+ pPcVwvtENT1ftsOC3C/bM9WcbmTlooDVs2+Xn44Dwv9ecN4vZ8oRlq7GhaPQezFf3iN6
+ e1JQ==
+X-Gm-Message-State: AOJu0Yy2KObXnrDEq3MekqRprRwJj8qK9Dlj7Magxzg0KuP89okEtUGE
+ mMnlVTKoFQGb8R6W0Ti5rng=
+X-Google-Smtp-Source: AGHT+IHCPdpPY0zKceA3SRi5ga/xIyMFSxmCiObH9MLWtgGsZTqmrUo8sVBhomQ2MmR96xpeV6v2vw==
+X-Received: by 2002:a05:6512:2809:b0:50b:f0a9:1e3e with SMTP id
+ cf9-20020a056512280900b0050bf0a91e3emr834935lfb.3.1701772588437; 
+ Tue, 05 Dec 2023 02:36:28 -0800 (PST)
 Received: from localhost ([178.176.56.174]) by smtp.gmail.com with ESMTPSA id
- v8-20020ac25928000000b0050bf7a9c4adsm567335lfi.225.2023.12.05.02.36.25
+ x3-20020a056512046300b0050c0215a806sm185275lfd.83.2023.12.05.02.36.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Dec 2023 02:36:25 -0800 (PST)
+ Tue, 05 Dec 2023 02:36:27 -0800 (PST)
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
  Russell King <linux@armlinux.org.uk>,
@@ -66,8 +66,8 @@ To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Date: Tue,  5 Dec 2023 13:35:34 +0300
-Message-ID: <20231205103559.9605-14-fancer.lancer@gmail.com>
+Date: Tue,  5 Dec 2023 13:35:35 +0300
+Message-ID: <20231205103559.9605-15-fancer.lancer@gmail.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <20231205103559.9605-1-fancer.lancer@gmail.com>
 References: <20231205103559.9605-1-fancer.lancer@gmail.com>
@@ -76,8 +76,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  Serge Semin <fancer.lancer@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 13/16] net: stmmac: intel: Register
-	generic MDIO device
+Subject: [Linux-stm32] [PATCH net-next 14/16] net: stmmac: Pass netdev to
+	XPCS setup function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,81 +94,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The DW XPCS driver has been updated to being bindable with the respective
-MDIO device registered during the MDIO bus probe procedure. As an example
-of using that feature let's convert the Intel mGBE low-level driver to
-registering the MDIO-device board info. Thus the registered DW XPCS device
-will be a subject of the fine-tunings performed during the MDIO-device
-probe procedures.
+It's possible to have the XPCS device accessible over a dedicated
+management interface which makes the XPCS device available over the MMIO
+space. In that case the management interface will be registered as a
+separate MDIO bus and the DW xGMAC device will be equipped with the
+"pcs-handle" property pointing to the XPCS device instead of
+auto-detecting it on the internal MDIO bus. In such configurations the SMA
+interface (embedded into the DW xGMAC MDIO interface) might be absent.
+Thus passing the MII bus interface handler to the stmmac_xpcs_setup()
+method won't let us reach the externally supplied XPCS device especially
+if the SMA bus isn't configured. Let's fix it by converting the
+stmmac_xpcs_setup(struct mii_bus *bus) prototype to
+stmmac_xpcs_setup(struct net_device *ndev).
+
+Note this is a preparation patch before adding the support of the XPCS
+devices specified via the "pcs-handle" property.
 
 Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 31 ++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 5 ++---
+ 3 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index 60283543ffc8..7642c11abc59 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -4,6 +4,7 @@
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index cd7a9768de5f..d8a1c84880c5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -343,7 +343,7 @@ enum stmmac_state {
+ int stmmac_mdio_unregister(struct net_device *ndev);
+ int stmmac_mdio_register(struct net_device *ndev);
+ int stmmac_mdio_reset(struct mii_bus *mii);
+-int stmmac_xpcs_setup(struct mii_bus *mii);
++int stmmac_xpcs_setup(struct net_device *ndev);
+ void stmmac_set_ethtool_ops(struct net_device *netdev);
  
- #include <linux/clk-provider.h>
- #include <linux/pci.h>
-+#include <linux/phy.h>
- #include <linux/dmi.h>
- #include "dwmac-intel.h"
- #include "dwmac4.h"
-@@ -585,6 +586,28 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	/* Intel mgbe SGMII interface uses pcs-xcps */
- 	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
- 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
-+		struct mdio_board_info *xpcs_info;
-+
-+		xpcs_info = devm_kzalloc(&pdev->dev,
-+					 sizeof(*xpcs_info) + MII_BUS_ID_SIZE,
-+					 GFP_KERNEL);
-+		if (!xpcs_info) {
-+			ret = -ENOMEM;
-+			goto err_alloc_info;
-+		}
-+
-+		xpcs_info->bus_id = (void *)xpcs_info + sizeof(*xpcs_info);
-+		snprintf((char *)xpcs_info->bus_id, MII_BUS_ID_SIZE,
-+			 "stmmac-%x", plat->bus_id);
-+
-+		snprintf(xpcs_info->modalias, MDIO_NAME_SIZE, "dwxpcs");
-+
-+		xpcs_info->mdio_addr = INTEL_MGBE_XPCS_ADDR;
-+
-+		ret = mdiobus_register_board_info(xpcs_info, 1);
-+		if (ret)
-+			goto err_alloc_info;
-+
- 		plat->mdio_bus_data->has_xpcs = true;
- 		plat->mdio_bus_data->xpcs_an_inband = true;
+ int stmmac_init_tstamp_counter(struct stmmac_priv *priv, u32 systime_flags);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3e50fd53a617..c3641db00f96 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7605,7 +7605,7 @@ int stmmac_dvr_probe(struct device *device,
+ 		priv->plat->speed_mode_2500(ndev, priv->plat->bsp_priv);
+ 
+ 	if (priv->plat->mdio_bus_data && priv->plat->mdio_bus_data->has_xpcs) {
+-		ret = stmmac_xpcs_setup(priv->mii);
++		ret = stmmac_xpcs_setup(ndev);
+ 		if (ret)
+ 			goto error_xpcs_setup;
  	}
-@@ -600,7 +623,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 		fwnode_handle_put(fixed_node);
- 	}
- 
--	/* Ensure mdio bus scan skips intel serdes and pcs-xpcs */
-+	/* Ensure mdio bus PHY-scan skips intel serdes and pcs-xpcs */
- 	plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
- 	plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
- 
-@@ -618,6 +641,12 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	plat->msi_tx_base_vec = 1;
- 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index aa75e4f1e212..e6133510e28d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -495,9 +495,8 @@ int stmmac_mdio_reset(struct mii_bus *bus)
  	return 0;
-+
-+err_alloc_info:
-+	clk_disable_unprepare(clk);
-+	clk_unregister_fixed_rate(clk);
-+
-+	return ret;
  }
  
- static int ehl_common_data(struct pci_dev *pdev,
+-int stmmac_xpcs_setup(struct mii_bus *bus)
++int stmmac_xpcs_setup(struct net_device *ndev)
+ {
+-	struct net_device *ndev = bus->priv;
+ 	struct stmmac_priv *priv;
+ 	struct dw_xpcs *xpcs;
+ 	int mode, addr;
+@@ -507,7 +506,7 @@ int stmmac_xpcs_setup(struct mii_bus *bus)
+ 
+ 	/* Try to probe the XPCS by scanning all addresses. */
+ 	for (addr = 0; addr < PHY_MAX_ADDR; addr++) {
+-		xpcs = xpcs_create_byaddr(bus, addr, mode);
++		xpcs = xpcs_create_byaddr(priv->mii, addr, mode);
+ 		if (IS_ERR(xpcs))
+ 			continue;
+ 
 -- 
 2.42.1
 
