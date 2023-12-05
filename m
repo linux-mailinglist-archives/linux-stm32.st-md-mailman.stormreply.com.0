@@ -2,42 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B129804DFB
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 10:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52756804FBF
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 11:05:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E506EC6C855;
-	Tue,  5 Dec 2023 09:35:14 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 444E0C6C841
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA1D3C6C855;
+	Tue,  5 Dec 2023 10:05:05 +0000 (UTC)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBAE0C6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 09:35:13 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 139CEC15;
- Tue,  5 Dec 2023 01:35:59 -0800 (PST)
-Received: from bogus (e103737-lin.cambridge.arm.com [10.1.197.49])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CB5E33F6C4;
- Tue,  5 Dec 2023 01:35:10 -0800 (PST)
-Date: Tue, 5 Dec 2023 09:35:08 +0000
-From: Sudeep Holla <sudeep.holla@arm.com>
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-Message-ID: <ZW7uzBS2diyEKldn@bogus>
-References: <20231201062053.1268492-1-anshuman.khandual@arm.com>
- <20231201062053.1268492-7-anshuman.khandual@arm.com>
- <0adc3a16-0fc4-2a25-cd48-4667881b9490@arm.com>
- <e53cec31-9452-4c2a-a3a1-b6ef33be8e22@arm.com>
- <7825dcd4-94e1-7a5f-b388-90e748dfc47f@arm.com>
- <81cad3a6-a080-424c-ad0b-0f08c4fe51a2@arm.com>
+ Tue,  5 Dec 2023 10:05:04 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-2c9f099cf3aso42690411fa.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 05 Dec 2023 02:05:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1701770704; x=1702375504;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ceYdxCZagZpSeCFLYFzxnNcJXtK8XBSjVUScbGg+gCE=;
+ b=BqBLdGg/eegubMkxdaImrC8e0zDP30KP87Gx0sZMvvjuIpd+quIrtF0IHSlNIxKqZ4
+ 8zXU1OFGw7kYwXHtNVmo+QgQvRchqVItSY0jhAZUQaF+mgsTviUGfPBwYM+Jc7xbXGWX
+ 4fZ6o2J2P4I99z8Qo/RyKb6cPWcG0FTd806UGkq3V48UAt1u/NWmzOWF3DMhVuHssiKC
+ AYXcMJbjieO/bbY4Ys0sCv3qG4S0SDh29HdiFf+v/lXxfuaxQNN5QtqxlrrSgkkqtjVy
+ lWxzTshf1BmrfUlIV1qT7SVWf/1JptwtkA6zsbX+f5iR6olWgjtO6MRtkB0s2cEANmU3
+ X6DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701770704; x=1702375504;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ceYdxCZagZpSeCFLYFzxnNcJXtK8XBSjVUScbGg+gCE=;
+ b=HWXJROdjkl3Du2PXcyk2NDmchBgd1h06Y5Ppm5XqOtdI7BBSTgMhaPRYv5EvY0Vn+7
+ XxsZiGrO1dS/Wpy48E5vNkbqRNObthZnZRBrcwePm9/yxRRqNo2ojKVywlhT4TFXieOH
+ 0jfYyIVwRmhN0xPdq6vlXU4owoWDTAGGa8aNwlgX+tu006EnIAa8EswBiAHWIxIEJrHZ
+ 4rHqqsP8MM4NYCImhL+zopC/VIriqd0B79KX1+cPXBzU/oMMLXipX4V3Zw01Ha6I5lO2
+ s8DjKQ158vnj0xOnmLesoNdH1l0WK8m3d7Ucga2XQDJxCX/7/ohrNpPu63mTuSqI9FZf
+ ylxg==
+X-Gm-Message-State: AOJu0YzLs5G5jB+cvj/f/o6w8AclMi+e5E7vNVUDCCAy2SMtRFwPmK2w
+ CK+jjd+HI6m42ZqlVwBiB8w=
+X-Google-Smtp-Source: AGHT+IFsxWxor1w8WHtWV1o0i+23KJ3Nkjh3BSrlVrP0/buct3ZAchb106gkjeHNqo3qrVKMznHGsQ==
+X-Received: by 2002:a05:6512:3189:b0:50b:e6f4:666c with SMTP id
+ i9-20020a056512318900b0050be6f4666cmr2752238lfe.123.1701770703549; 
+ Tue, 05 Dec 2023 02:05:03 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ o12-20020ac2494c000000b0050bf0320718sm781130lfi.95.2023.12.05.02.05.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Dec 2023 02:05:03 -0800 (PST)
+Date: Tue, 5 Dec 2023 13:05:00 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andrew Halaney <ahalaney@redhat.com>, 
+ Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Message-ID: <zzkw5obc3z5fndowmrycy77gtjf6wscvkj7klnn34f3ycs3her@hmh5aebpbi3s>
+References: <cover.1701695218.git.quic_jsuraj@quicinc.com>
+ <rw5vfdvre5rt4rwytfsp3qy6sgsdr3dm6oefr4sap2aqbvpw42@c2dxz42tucby>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <81cad3a6-a080-424c-ad0b-0f08c4fe51a2@arm.com>
-Cc: suzuki.poulose@arm.com, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+In-Reply-To: <rw5vfdvre5rt4rwytfsp3qy6sgsdr3dm6oefr4sap2aqbvpw42@c2dxz42tucby>
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, kernel@quicinc.com,
+ Jose Abreu <joabreu@synopsys.com>, Andy Gross <agross@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Prasad Sodagudi <psodagud@quicinc.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V2 6/7] coresight: stm: Move ACPI support
- from AMBA driver to platform driver
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v3 0/3] Ethernet DWMAC5 fault IRQ
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,28 +93,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 05, 2023 at 10:50:19AM +0530, Anshuman Khandual wrote:
-> Something like this works ?
+Hi Suraj
+
+On Mon, Dec 04, 2023 at 02:16:12PM -0600, Andrew Halaney wrote:
+> On Mon, Dec 04, 2023 at 06:56:14PM +0530, Suraj Jaiswal wrote:
+> > Add support to listen Ethernet HW safery IRQ. The safety IRQ will be
 > 
-> diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-> index 3387ebc9d8ab..2b6834c4cac6 100644
-> --- a/drivers/hwtracing/coresight/coresight-stm.c
-> +++ b/drivers/hwtracing/coresight/coresight-stm.c
-> @@ -906,7 +906,7 @@ static int __stm_probe(struct device *dev, struct resource *res, void *dev_caps)
->         pm_runtime_put(dev);
->  
->         dev_info(&drvdata->csdev->dev, "%s initialized\n",
-> -                (char *)dev_caps);
-> +                dev_caps ? (char *)dev_caps: "STM");
->         return 0;
->  
->  cs_unregister:
+> s/safery/safety/
+> 
+> > triggered for ECC, DPP, FSM error.
+> > 
+> > Changes since v3:
+> 
+> This is listed as v3 in the subject, but it should now be v4 since the
+> last version was v3.
 
-Yes, looks good to me.
+There are several style-type problems I would like to share. But as
+Andrew correctly noted the series version was incorrectly left
+unchanged. Please resubmit the series with the version incremented.
+I'll send my comments to that new thread so the discussion history and
+the lore archive would look cleaner. Thanks.
 
--- 
-Regards,
-Sudeep
+-Serge(y)
+
+> 
+> > - Fix DT_CHECKER warning
+> > - use name safety for the IRQ.
+> >  
+> > 
+> > Suraj Jaiswal (3):
+> >   dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
+> >     sa8775p
+> >   arm64: dts: qcom: sa8775p: enable safety IRQ
+> >   net: stmmac: Add driver support for DWMAC5 safety IRQ Support
+> > 
+> >  .../devicetree/bindings/net/qcom,ethqos.yaml   |  9 ++++++---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml    |  5 +++--
+> >  arch/arm64/boot/dts/qcom/sa8775p.dtsi          | 10 ++++++----
+> >  drivers/net/ethernet/stmicro/stmmac/common.h   |  1 +
+> >  drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
+> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++++++
+> >  .../ethernet/stmicro/stmmac/stmmac_platform.c  |  9 +++++++++
+> >  7 files changed, 45 insertions(+), 9 deletions(-)
+> > 
+> > -- 
+> > 2.25.1
+> > 
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
