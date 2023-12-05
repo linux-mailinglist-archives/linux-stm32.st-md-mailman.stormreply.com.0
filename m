@@ -2,75 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9BE080588D
-	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 16:25:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DCA98058A7
+	for <lists+linux-stm32@lfdr.de>; Tue,  5 Dec 2023 16:28:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 94FB0C6A61D;
-	Tue,  5 Dec 2023 15:25:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7C3AC6A61D;
+	Tue,  5 Dec 2023 15:28:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00D9DC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23F37C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  5 Dec 2023 15:25:10 +0000 (UTC)
+ Tue,  5 Dec 2023 15:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701789911; x=1733325911;
+ t=1701790115; x=1733326115;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=DhRtKpPiz+QZ1ZlkCbU59C6V5uUHVGpOk+nwuwgwKOc=;
- b=oKu2o8gZQXYA4Agg5zth6PY6HVAOn0h0YJCAJGg93OYZEgq2maDQq6LG
- C3KbzMy02YybEI+OLQkNzmYu3gSvvrYDd49EuwK1bpkAPg0qLxF6pFBFq
- zK8tByMQjD+vS93bv/1AcJN/m8vZqolhTjXJWizMGJd0QJtNPx8h/jcOT
- dND9UvSo70X3qQp7pumPP/s4D4qk9qL/qlqXCjGpo4enhH8NHdDCZKuYT
- FkOXjq3BKzTCj0ug+hGPVrJLaK6IjWd+rWLuv1m03jzymEN402G9raFDh
- mXknyAknLjnVnFJHSSMlM/IlgXHzrQvDtfFeP5XktlsulmmzHhlShg98u Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="460394667"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="460394667"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 07:25:08 -0800
+ bh=PN0ZliOTVA6XSn5K8PWFra8kcRkgHxVuDL7nqBV8yW0=;
+ b=Dd8xdHmNDK8hwxhfEHdAMlJc4OKrzXGQAc5bX4f1WlgGmRV/df2GMS1e
+ snx6EinPYjGsd4SGJ3h4b8Vi+a0UkzCPdeGWwF1IZ01GrsP8wUn2aXuUC
+ J94OvgksBHOcGQ6lpV9bacVz6euL/hu/QeV00Tz57IdO0Vpr3mkyQbsIg
+ mXnvGvstHQ0yvXdg9QQHNeX/L9m3SlMddmEWOLIaK4hOrErs2YJVem+qL
+ S4lpNDSn3kPfSBfQ3q+i9ZyqFSzxHA9x1fZ9dn21QBdf3DZ7nYZXMlZYQ
+ 0jZMM3rupPUzivfSHHVdhsKjsVqSt7n32+yukUYiqWma8YxR6SeJCgmdn Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="384312589"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="384312589"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 07:28:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="774662715"
-X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="774662715"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by fmsmga007.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 05 Dec 2023 07:25:07 -0800
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="944294166"
+X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; d="scan'208";a="944294166"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga005.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 05 Dec 2023 07:28:19 -0800
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 5 Dec 2023 07:25:06 -0800
-Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
- ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ 15.1.2507.35; Tue, 5 Dec 2023 07:28:18 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 5 Dec 2023 07:25:06 -0800
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Tue, 5 Dec 2023 07:25:06 -0800
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
- by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ 15.1.2507.35 via Frontend Transport; Tue, 5 Dec 2023 07:28:18 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.34; Tue, 5 Dec 2023 07:25:05 -0800
+ 15.1.2507.34; Tue, 5 Dec 2023 07:28:18 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UFlg1c6B0jCXPxcS0ynU8M6BXO0gJTdNrBngqCr2jDPy1Sa3bgA3vTH1oXuk+yn4Ey1mtKzHiWAtz+KmzFogExO5Ep1shp5iphxPjY0yuBCzenxs3Zx1uh0cBf8T6DcnSNw5rokHoOy1Ue6dTXMhl+in0R+5ZIq8ZUmCWiU6dKoZ3y+PL8Ij1c6PruKpAFBjcyX3kOm86lIA+k3VqpWvI17RGuUt/8oH/qzfKMdPRfXb4V4eAF9ZtR2hel/2btLKqlo3fw2AvU0L3aaLPWx5zJo9furP2vNt+B29jvugrh4JqGSAe0PnwPEtDlbVhlAXPiMwHe4bcBYTi3FkG8hF4w==
+ b=aNOb6z6SLNGbcDj1MiNFTl+EF58ecwAoj5hj/p4SfHAJDMDFQT9StXw25wnJMvxy8eFI4O7pc73F42HAnnEVPNTP92+dqvYgQK8J7yACwczSkfcoklavdhb5F6Ncvmw3pxjrN76wN5/Oxfjz0cjPjI+Y8VwtW8SYEXukB+vR0Dhyj4uGlVjlyQTQu3blGk2u14EyIsiwg3kcgWJX7i9LSq5gXViVx+4S0Waqsj/K7lv0BeFKTNBof7q0qm9oCm4y4rABiEN9mjDAdvMxZhiRZVZ+jLH8X5xXeRYaT1kWSqMIHuWQnVG6R5c07F/CuKtM6vRh5yeHFSDfW3Rf6kDWbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DhRtKpPiz+QZ1ZlkCbU59C6V5uUHVGpOk+nwuwgwKOc=;
- b=g/3LulbvcWlZxnakpXr5RBSY2ZrOekHM/qm45YQQ8wv2CBYq93PJ6yCL6Yss7v1DU7E4y+ojVsJ95bON5SL2P38A4T5nKZ9zZxAGCj4knk9FZyPXMMNuKETTVqkKuhzAZ9ey4jTiLlCL67UvW76vCLKMpHIjGZiUQuZ8t6fz1uJYag9GHTxDhViqgZXrx0S0KqT/ZAa2GVvOWwq6m2MOINRkmhE8hTKBvj/gXwBo10G3aCvbfgY6wh2fvkLq+fDVMaoG19u6aQwVycJZLh+Hdbf6Exb2bPDj+WfBgYxOR8bNtwFWnqyN5xeK+KKUlA0stGhar/4HkpSzOf0TunM4pg==
+ bh=PN0ZliOTVA6XSn5K8PWFra8kcRkgHxVuDL7nqBV8yW0=;
+ b=ZSuUS2P0YJcbjT9tJg5m1Ul/Si1oWZqphNJvry8muAfRmWV6SNTpVzO0umLkvfW3M1T0kVZJ1bzIqLsFJUmKZfIuY/QAo9tqMRqfySG71nP6x+mLGFwIpKbHA/yWBB3iWYiBwhAUZUngcVf6G+qyVAz/AsYYxvmARC1cUCGApo5fyht1dWAff9s32+0anURCSD6ASnAcepT5lpglWiM5IIW6R7vrahpBSKudq3R0TLXyRmHSpTmFJro0abNKuJEgpE3XL5lIK372Gr4RjJP+Ouqxu7Jt9wzNlG0RUaaIfq5/lK4Z+8vnsi3qzRONOaKrwQ+ooMrLRAwWlXLGHpHZkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Received: from PH0PR11MB5830.namprd11.prod.outlook.com (2603:10b6:510:129::20)
- by DM8PR11MB5608.namprd11.prod.outlook.com (2603:10b6:8:35::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7046.34; Tue, 5 Dec 2023 15:25:02 +0000
+ by MN6PR11MB8145.namprd11.prod.outlook.com (2603:10b6:208:474::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Tue, 5 Dec
+ 2023 15:28:15 +0000
 Received: from PH0PR11MB5830.namprd11.prod.outlook.com
  ([fe80::6ffc:93a3:6d7f:383c]) by PH0PR11MB5830.namprd11.prod.outlook.com
  ([fe80::6ffc:93a3:6d7f:383c%6]) with mapi id 15.20.7046.034; Tue, 5 Dec 2023
- 15:25:02 +0000
+ 15:28:14 +0000
 From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
 To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jesper Dangaard Brouer
  <hawk@kernel.org>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
@@ -89,16 +85,18 @@ To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, Jesper Dangaard Brouer
  <haoluo@google.com>, Jiri Olsa <jolsa@kernel.org>, Shuah Khan
  <shuah@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, "Jose
  Abreu" <joabreu@synopsys.com>
-Thread-Topic: [PATCH bpf-next v3 2/3] net: stmmac: add Launch Time support to
- XDP ZC
-Thread-Index: AQHaJgkYSPZeueih5k2aEmsHgya5rrCY72kAgABIIgCAAZaQsA==
-Date: Tue, 5 Dec 2023 15:25:02 +0000
-Message-ID: <PH0PR11MB583000826591093B98BA841DD885A@PH0PR11MB5830.namprd11.prod.outlook.com>
-References: <20231203165129.1740512-1-yoong.siang.song@intel.com>
- <20231203165129.1740512-3-yoong.siang.song@intel.com>
- <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
- <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
-In-Reply-To: <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
+Thread-Topic: [PATCH bpf-next v2 2/3] net: stmmac: Add txtime support to XDP ZC
+Thread-Index: AQHaJB8y3IJpv0o6sk+7VcjRfinq5bCUhocAgALJsHCAAewHgIABi3dQgAAGLACAAAhW8A==
+Date: Tue, 5 Dec 2023 15:28:14 +0000
+Message-ID: <PH0PR11MB5830AF989CBE622085C2175ED885A@PH0PR11MB5830.namprd11.prod.outlook.com>
+References: <20231201062421.1074768-1-yoong.siang.song@intel.com>
+ <20231201062421.1074768-3-yoong.siang.song@intel.com>
+ <5a660c0f-d3ed-47a2-b9be-098a224b8a12@kernel.org>
+ <PH0PR11MB5830F08AC202C42501D986C0D887A@PH0PR11MB5830.namprd11.prod.outlook.com>
+ <656de8eb14c24_2e983e29435@willemb.c.googlers.com.notmuch>
+ <PH0PR11MB58305C7D394FD264F1634819D885A@PH0PR11MB5830.namprd11.prod.outlook.com>
+ <656f39d668439_3dd6422949e@willemb.c.googlers.com.notmuch>
+In-Reply-To: <656f39d668439_3dd6422949e@willemb.c.googlers.com.notmuch>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -106,64 +104,64 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|DM8PR11MB5608:EE_
-x-ms-office365-filtering-correlation-id: 6fa6148a-bbaf-476b-e725-08dbf5a65a15
+x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|MN6PR11MB8145:EE_
+x-ms-office365-filtering-correlation-id: 518a0103-2e22-41a8-2b08-08dbf5a6cc55
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: x7/GOPvnqE9KM4qR4xJVcVy2arIPs5gU1tKF9goT0AzjzvbfutcDAy7vBM6G/RYeEOe5LJtDesnq8qUrczdwFT+B9tTJDSemYdphoFtWotnCGjsIApdgxEycbzIx0MRRLOyw8cVz/Ty30sz7a2tu0HCU4hZAuq6aBfZTdrG+oM7ElcelfF8N6GYVtF+Qstp+7S/EdIR9p0Eq9NBGUnhKmUknp+ZYNWFPJU757YIg6bnL13k2OHpAEbxlshLQ26mWqpwAf5n7jtUA9mfvM1BdrzWaJMuTbbUvwwTRF1fMp9nhc/niLu0qIKlRfzttBm6qfHscBpYMhkI51lXpLieJbNyZ0yXWPraFr61u7oUcA/BslHKWShBqW+lwUHp7Drz+Ap5r+HuKBHXBxdH36WbdnJVyeQ5XeNCYrTSQmU2cNpYEkWonbk4ObpVLD2z38Dgqt4lD6H9t0kh/qYBWL3RMXoYiYJ0okD0WK70ZZBrWoCsYHWywnfn0Ala39o2YJkS3YEthXZfDiDG4Z98Twuw4Lb3hEntEDwa+Bnf2JQx/vkW1gYnDUBWBhBHRgOaZeQ3f1IRQ8iMmOlEMkr8WqSymFtIDyR8wofDG6O5amga6UWQV7C/SinZJ4p+6wTSwb1wz
+x-microsoft-antispam-message-info: zH9SupDpJ+6WLHstF69PMKZLzohPKjOYZNlgc/MISG+5bt2T3279hCz/31ktCk7FA8Wp/V0lH5WhUROkuZafq+A3TROCw+UTRAsd3kehS0YyAk2Rzb0F7hdzvtTvjVr/B1S8VBsKNxo1t0SsldLIiW/VvxSvYSFeQPssYjlQqGKAAGetoCtm4wHhO1xJGIP6U2vYIDcsyEon3hP4SZjNcyCVH6LOpFGHgdK7+h6859esolfINgzOJR9vZ+Vq0tYCDLo/vvFYnQChwLxDzh82jRfPJUzjm/HpNGzkArZ8AWLaO9lNWren0rmNp2OGWAXbcy+GTUGv/xDA/21LWBOwBcucOsl5GfcqYVpDyE/4XwtGGcavfFtjn++uW2v6uiADt4n4LzuKHqrAvfroMcvFha2UMuFaNTZef8mdZSh2hLCCiY13QKpdwqczFQCCZYzIR9BpP/ogBOMv/lSZaX0QyvA1Ejm8p0fDtJBI3+p94J1N/NnqMMfFQoBmXiFi499mD8/RQEIbyDip0xskkilxClTCePvolzQxJ653iKPmCcIzje73wRlaujPTGCpbvKHOVdALmAtKu8ko7YBHoUjJQxoN4fe0yjfVxT1TX6aecuduN/r6jYxuGVLdsghLqs1e
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR11MB5830.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(376002)(39860400002)(136003)(396003)(366004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(55016003)(71200400001)(7696005)(478600001)(38100700002)(122000001)(82960400001)(83380400001)(53546011)(9686003)(6506007)(33656002)(7406005)(8676002)(4326008)(2906002)(921008)(5660300002)(7416002)(8936002)(41300700001)(52536014)(86362001)(38070700009)(64756008)(54906003)(66446008)(66476007)(66556008)(76116006)(66946007)(110136005)(316002)(26005);
+ SFS:(13230031)(396003)(346002)(376002)(136003)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(478600001)(5660300002)(71200400001)(53546011)(52536014)(54906003)(64756008)(66446008)(66476007)(66556008)(316002)(66946007)(8936002)(4326008)(8676002)(6506007)(7696005)(76116006)(110136005)(86362001)(921008)(55016003)(38070700009)(82960400001)(83380400001)(122000001)(38100700002)(41300700001)(33656002)(7416002)(7406005)(2906002)(26005)(9686003);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dnk5RmtYQTdNMEJxcU9pSUxhclZuRXpFMzdXRVVtQ3REOVVFWStNZWM5M3Zn?=
- =?utf-8?B?czUzQkxkOVpVdjduazFWek4vNjZxU29IWUxsLzBaUm9pdUFwSFR5YWp3NDlq?=
- =?utf-8?B?MlZXbVlRd0Z1VUliRkpacVFGeU50bHYvM2ZTajhaZVYyQm1xZDNkejRJNHFZ?=
- =?utf-8?B?ZGkyblZRY1duRzhHcUJoMWdMb0YzVlpwVHZvNTd5MUlhSUw0Mms2VEpQK1hq?=
- =?utf-8?B?Snh4QlMwZnpmaE53VExMZVpXQWpJTnJ3WXRFM2N2TjM5cU56eTAwT08yQXBm?=
- =?utf-8?B?aWI0YStIZnViL0xZb281cUhvZit4aU1GbFl5TEVid08yM2xDNmVtaWNPQVRZ?=
- =?utf-8?B?UnpuckE3V1JVNU8xN1JVUG9ydGRyK3BEQlFyRzRsMzZBam1QMFhMZHg5RklN?=
- =?utf-8?B?elkwdktmL2E0WXlDdGdwYTJ6WkVKNGVodWU2YytmdXp2Y0NlZmlmQlhJQjVK?=
- =?utf-8?B?cFBWOWd4K0Vxd1lueVJyU2kwV2NOOFNSdjZ1azVlV2xVMzJkSlJiU1RldFhS?=
- =?utf-8?B?M01VVnpsVThLYlZrVXBCOTBTTHloZy9BQ21NNVY4ZDV6NFRUWWN5M1JZbU1O?=
- =?utf-8?B?d3pEYXJSNGJLbDdRdTJob1dLUVBpckhFUnVRZ1ltQXFSdHZueEdaU21aTVpk?=
- =?utf-8?B?Y25PQU9qOWR2RzNzVGZ3UllsNG5Cd2NDSmxnZ3RlSG0vR3BYcThLc3FmL3RP?=
- =?utf-8?B?dzBmQnVHdzNEdTZhUHdBdHVIL291TmdmaW1DcUgvVW5HVmZobklEdkVtTVJ4?=
- =?utf-8?B?WkUrUUZKN21TR0x0NXpKZmpuaFFaeE4zZjlCSEJWTWkzcEZDdFBvQ3doekJW?=
- =?utf-8?B?bkw2WkZ5UzRpNXVud1Ztc0ZzZGJqVURaNGJoQUpualREU0J6cHVTRXFPdDZl?=
- =?utf-8?B?a3pldG1yS0x0b2V1OG5qTm9pcUNqaktmWFd2V01TY3NBVksxcHlxblZtaERz?=
- =?utf-8?B?dEJ3NXd3dVVLOFJadzR4RTFhMkIzTm4vZlFFU3M3NDc1bEhLTDRnWjBLbVJz?=
- =?utf-8?B?N0dxQXdBa24rVDdBSHpqbWRJaCtUV2YxMWJRbVR5NW5TKzJzTlZ2cE8wcTJl?=
- =?utf-8?B?OXdyWVlDSk5UWG01UnhCSU1RNW5ieWo1b3lYMEdYRDNZUEdKdW5uakhaY3Ev?=
- =?utf-8?B?S0x5QjJXd1dQd3FrRnZqQ0pYUTc0Y0R2RkhjSnpOZHBRL05lZzd6YTJ0aGpp?=
- =?utf-8?B?dHlWWitFemdBR2k5VWZNMUFxYWpUQU0rWm5BTU44bkRCeG81TThZdFRBU0Zk?=
- =?utf-8?B?NVlRei9GWmVnWGFSeUlITG8wOVdXdjQ0a1JmcTlwTHY2cnJheDVudno1RGg4?=
- =?utf-8?B?R0puYmRJMS9hVSt5SzdRK2F3dFBibWNFUzUzK3NtUTVEeVp6WGRteUwwelpU?=
- =?utf-8?B?WWFpSUJMQk0zZ1UzWmVPMmN2K3pWeUJobktUSHdJcmE1RnJZOTVPL2J6WFJa?=
- =?utf-8?B?ZlRUbWhQN3p1ZFBDMmtZeUdrVG9TMXoyM2c1NTFEV1BBekhxTGxlZnNIaFFw?=
- =?utf-8?B?Rk5USzlYNDg1OFk5c0xJTXdEWkhSYWlzNnFFSzMrdWxYVlFPaXJUZFBJbW9P?=
- =?utf-8?B?dDJOUStMZC83OGU3c2h3K1htOTdtZFB2L2w3Ym1lc0Q0SG10eXo2cUc2bXZE?=
- =?utf-8?B?SmFhZUI0bUFHRk1oVkFxbmFUZVMwbnlXL0RCN3VvdVlmVHVvUjRJSVJoaVhO?=
- =?utf-8?B?aTNCME9uWkVza29Bdk5jbFMxUm5uNmRrUC9EWHNmSU9oalF5WkpzTWdKSXBp?=
- =?utf-8?B?TVhZdC9PdFhLNHJ4N3VVNU5VVmlHU0tjSEE2aUo2am9uRWNIaHB4amtHT0sr?=
- =?utf-8?B?ZXdad1ZvRlMrSEdPczI4cVRpZHBmdTkwWTdpNy9vRWQyamhrYytydmVhOFda?=
- =?utf-8?B?ZGllOXArbXNVZ25wZHpTU29XMkZ5K2g0bmZTaWNFZjAvS25MSTZ2NmpYZzds?=
- =?utf-8?B?OFlBdWQrMnhUZStBaUNYUFViOGtVMUhZVm1jSnNqeDlzbE0yM3JidjFKcWMv?=
- =?utf-8?B?RHkvMmNmbDJQZlVPN0wrL0dyem9Ma3FkZ0FnaS9mSGo3TFV4NnNnbUhrUmhn?=
- =?utf-8?B?VmdBZTIrWHZwalgyY3ZkN0Q0RHVEaElDRHNqVEdka0pubU82OUNQZHFzcmhJ?=
- =?utf-8?B?cTBCTmJycHdvNXlLNldTTGwrcitaRm1QRmZvNHppZGlXcU9OWThzMkhzS21s?=
- =?utf-8?B?a0E9PQ==?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UTVXbnh2dkZLWnRHaXdicVpaSVdiZzZ4SEFZSXpKTEFVNjgwZ1hQdis2R1NI?=
+ =?utf-8?B?dWIvWGJ0YnZpWE9MbzZDR1YzaGVKZFhvMXkzSDZrOHc3L25UZFFBUHNzQXVO?=
+ =?utf-8?B?VGNSQ0V3WGM4UmtkUmhpdlJLM3Z5MXN2a0k0M25ybk5WL3hhWk5ySGtXZEdp?=
+ =?utf-8?B?dkNvUzcvaTEvdU0wcWl1aHRyU056cWZpUEhOUVR5amFYSnpMbmVKWG5TRnp0?=
+ =?utf-8?B?YjdZTHZpUXN6S2ZFbExBbTltNDFhRm9qcjFCaGNQS3JpQlRIWHJ3WjFkV08v?=
+ =?utf-8?B?dWYxNTdNMFo3UW5RMXIrVTRTWTV5Lzl4YzIzMG5BS2REY2RNTVZFL0lQYXh3?=
+ =?utf-8?B?UVkvaEo2WlNNTDRaczkxL1RVMXJFUHRzTmpYakVmMXd2UEhlQTNtOFZrRi84?=
+ =?utf-8?B?ZDV2NmQrSmJ6V2JhYmo3ZHpqQVJlM1Joc0M5cEdWb2lqT01XUFNIMFlKNzFJ?=
+ =?utf-8?B?cktSWmZXZWcxY3BCQnpxNFJPVm5udkhiS1hYNkoyeGpncDVFVVVGcTUrTWxh?=
+ =?utf-8?B?Nm9YOHlHV3ZnbTd5ZVZKdVpnOWJMR2JpaUVGMFgyRXZMSjBZdGE2TVlid1gr?=
+ =?utf-8?B?Y1VRSmt2VENwbDhUK1hkOWxMYVNSTldqZ2RRWjhSTU40azhjTmNrbkphN0Na?=
+ =?utf-8?B?akdxVVBPUGtRc2NqV3JNUHJGTGtWR1d4RVcwdDlvcU9nV001OVFkc2Jud1pp?=
+ =?utf-8?B?b2hESkttZGVNMVJQd2tqSFJjSjRFbjh0NFR1MW1Xakx4TDdRaEJjcS9GMmF6?=
+ =?utf-8?B?cGpuK0RJUENZUU5zbFE2bmd2eFVhTGJLbWlPd0RiNTdQTnlpakFKeUtqdmpo?=
+ =?utf-8?B?WG5jZE8vN3gyMUpFMDV3dEtVY3dVUStaYURjZmNDMG1SN0x4dHk4NElmSTda?=
+ =?utf-8?B?Rkd2OGZRUUhaaHhXYTZZdlcyOGNiVTRwUVV5MVFDS2R3ajBBcXJKNnJueTl6?=
+ =?utf-8?B?bVFCeHdUR1RhdXhuV1B4VmxJeHNBczJ6eVYxV01kc0E4Y0VnQUpFUlVoK3ph?=
+ =?utf-8?B?bWRaR2Rqbk1ZNk01emhoL2JYUlduUHZxOHYyWnBJeUpMUGIxVVdsajFJejBW?=
+ =?utf-8?B?N0c3M2JKRXFwc1pnZWJ4enFtQld1NDhXSGM2UHhuNHFZckpmbWtlMmIyZWNR?=
+ =?utf-8?B?NXZOZmlNWHpUNEQ3ajFBYTNtM2lBVFREZEZEaXk4aUFBUmQrYkVROHl5R1JD?=
+ =?utf-8?B?cDZtbEtnNms3TFlmRFRHWm53bVRLV1dDcW1UaUNqZkY3OVBaOHNmUE1vZnlt?=
+ =?utf-8?B?UjJ1a1pzZUgzV09IQzg4QUdjeTlVS3Nxb0xMQ2xib1dQOTlkTytvMnRaN3Vi?=
+ =?utf-8?B?d3VVMU5FbjBnVTczNzFMWnVJTk5Xa1VDOHk5dTJOalFmekRSekdET24yajdU?=
+ =?utf-8?B?ZmhTWHRkQXZoWktDMllOUjV0RVBIeWpDRDQwY1krWnplN1RPWlliMWppanJG?=
+ =?utf-8?B?SGNMNGtxSE02bXZKaEZ6YUZMbmVCelp2REl5WVg3WGRZU1h5SGdoQUVwdDFh?=
+ =?utf-8?B?cmVoNHBmanhpQUlFL2RIdVFLN25reE1uSTQra25mcldvWjdENW1HanZQdjBh?=
+ =?utf-8?B?eG11YitCL3JqdzNSV1gzdTJ3Q09VSlkveHI0NHZ3UWxraEQwVmJtS2xNNHA2?=
+ =?utf-8?B?aGt1MDRoalNwdnI2azFGTHFvVXRhQk1QdHZBdWxFYThDQkhGQ25ja256Z0d5?=
+ =?utf-8?B?RTM1emVleFp0ckF5V1JpUWVvVGxVcGJBMTNuMW1OUlVGK1Bqa0MrbmtoLzFz?=
+ =?utf-8?B?UmMxbG1BQUFORFFYdWJiQmVJWEljSFhuKy9pcEF6MDRpanplTUNacFFFeEtG?=
+ =?utf-8?B?c1dJbzNKUzRCQytZN3pRMHRLZm4vanpMcEFvd2ZqUFJYWHl3RXFLeG1YMkxS?=
+ =?utf-8?B?Z2dzeXdvUmUySU5PSW9DanBmbzc0bVB0VWh6Wk9zTU5TaDlyb0w5UVR4TVhL?=
+ =?utf-8?B?WHhWNzdQUnpoa1JmWkdibXhyZ0taaEFTaDBiSUlIMUI3Nlc4SThkVHJzY3l3?=
+ =?utf-8?B?NW9rQVVmeDhWRXFEb0pybStyVWlhUjU5RUxuK1dGQ2d6TXJaVTlKVU9ua3N0?=
+ =?utf-8?B?VWVXQWlzQ3k2QWJDN1pUNlFmaHpWTndvUzBRdU9wNTFnTUpRMXlEWnlIRVpu?=
+ =?utf-8?B?bjhIblh6dDhGT0pZZTNFVWJMbHZ6bXN1L3BtQWVSU1UweTdXb3hCcFVDTDU5?=
+ =?utf-8?B?V2c9PQ==?=
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5830.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fa6148a-bbaf-476b-e725-08dbf5a65a15
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2023 15:25:02.7385 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 518a0103-2e22-41a8-2b08-08dbf5a6cc55
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2023 15:28:14.4033 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Eu2b6BJWBKIcaru4ChO6wWAgB6L9G+2DWMOkME+YpKesjcISmL7nmBWNkk2lqe5E3iGli8I9QA/pIVTR2RdZnwgtYX4DtaDKYcoCG+ih9gI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR11MB5608
+X-MS-Exchange-CrossTenant-userprincipalname: Pfq3B3uXGUXdIvOrsGBozksAg3Z8MNgjRBut77Rb150qVrhA+SFURRSw/RrJSefCWvYdPH/cxMmJktnIox4hXHQrtAp4dBRV8d0rgJJv7CE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR11MB8145
 X-OriginatorOrg: intel.com
 Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
  "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
@@ -174,8 +172,8 @@ Cc: "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH bpf-next v3 2/3] net: stmmac: add Launch
- Time support to XDP ZC
+Subject: Re: [Linux-stm32] [PATCH bpf-next v2 2/3] net: stmmac: Add txtime
+	support to XDP ZC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -192,64 +190,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Monday, December 4, 2023 10:55 PM, Willem de Bruijn wrote:
->Jesper Dangaard Brouer wrote:
->>
->>
->> On 12/3/23 17:51, Song Yoong Siang wrote:
->> > This patch enables Launch Time (Time-Based Scheduling) support to XDP zero
->> > copy via XDP Tx metadata framework.
+On Tuesday, December 5, 2023 10:55 PM, Willem de Bruijn wrote:
+>Song, Yoong Siang wrote:
+>> On Monday, December 4, 2023 10:58 PM, Willem de Bruijn wrote:
+>> >Song, Yoong Siang wrote:
+>> >> On Friday, December 1, 2023 11:02 PM, Jesper Dangaard Brouer wrote:
+>> >> >On 12/1/23 07:24, Song Yoong Siang wrote:
+>> >> >> This patch enables txtime support to XDP zero copy via XDP Tx
+>> >> >> metadata framework.
+>> >> >>
+>> >> >> Signed-off-by: Song Yoong Siang<yoong.siang.song@intel.com>
+>> >> >> ---
+>> >> >>   drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
+>> >> >>   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++++++++++
+>> >> >>   2 files changed, 15 insertions(+)
+>> >> >
+>> >> >I think we need to see other drivers using this new feature to evaluate
+>> >> >if API is sane.
+>> >> >
+>> >> >I suggest implementing this for igc driver (chip i225) and also for igb
+>> >> >(i210 chip) that both support this kind of LaunchTime feature in HW.
+>> >> >
+>> >> >The API and stmmac driver takes a u64 as time.
+>> >> >I'm wondering how this applies to i210 that[1] have 25-bit for
+>> >> >LaunchTime (with 32 nanosec granularity) limiting LaunchTime max 0.5
+>> >> >second into the future.
+>> >> >And i225 that [1] have 30-bit max 1 second into the future.
+>> >> >
+>> >> >
+>> >> >[1]
+>> >> >https://github.com/xdp-project/xdp-
+>> >> >project/blob/master/areas/tsn/code01_follow_qdisc_TSN_offload.org
+>> >>
+>> >> I am using u64 for launch time because existing EDT framework is using it.
+>> >> Refer to struct sk_buff below. Both u64 and ktime_t can be used as launch time.
+>> >> I choose u64 because ktime_t often requires additional type conversion and
+>> >> we didn't expect negative value of time.
+>> >>
+>> >> include/linux/skbuff.h-744- *   @tstamp: Time we arrived/left
+>> >> include/linux/skbuff.h:745- *   @skb_mstamp_ns: (aka @tstamp) earliest
+>departure
+>> >time; start point
+>> >> include/linux/skbuff.h-746- *           for retransmit timer
+>> >> --
+>> >> include/linux/skbuff.h-880-     union {
+>> >> include/linux/skbuff.h-881-             ktime_t         tstamp;
+>> >> include/linux/skbuff.h:882-             u64             skb_mstamp_ns; /* earliest
+>departure
+>> >time */
+>> >> include/linux/skbuff.h-883-     };
+>> >>
+>> >> tstamp/skb_mstamp_ns are used by various drivers for launch time support
+>> >> on normal packet, so I think u64 should be "friendly" to all the drivers. For an
+>> >> example, igc driver will take launch time from tstamp and recalculate it
+>> >> accordingly (i225 expect user to program "delta time" instead of "time" into
+>> >> HW register).
+>> >>
+>> >> drivers/net/ethernet/intel/igc/igc_main.c-1602- txtime = skb->tstamp;
+>> >> drivers/net/ethernet/intel/igc/igc_main.c-1603- skb->tstamp = ktime_set(0, 0);
+>> >> drivers/net/ethernet/intel/igc/igc_main.c:1604- launch_time =
+>> >igc_tx_launchtime(tx_ring, txtime, &first_flag, &insert_empty);
+>> >>
+>> >> Do you think this is enough to say the API is sane?
 >> >
->> > Signed-off-by: Song Yoong Siang<yoong.siang.song@intel.com>
->> > ---
->> >   drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
+>> >u64 nsec sounds sane to be. It must be made explicit with clock source
+>> >it is against.
+>> >
 >>
->> As requested before, I think we need to see another driver implementing
->> this.
+>> The u64 launch time should base on NIC PTP hardware clock (PHC).
+>> I will add documentation saying which clock source it is against
+>
+>It's not that obvious to me that that is the right and only choice.
+>See below.
+>
+>> >Some applications could want to do the conversion from a clock source
+>> >to raw NIC cycle counter in userspace or BPF and program the raw
+>> >value. So it may be worthwhile to add an clock source argument -- even
+>> >if initially only CLOCK_MONOTONIC is supported.
 >>
->> I propose driver igc and chip i225.
-
-Sure. I will include igc patches in next version.
-
->>
->> The interesting thing for me is to see how the LaunchTime max 1 second
->> into the future[1] is handled code wise. One suggestion is to add a
->> section to Documentation/networking/xsk-tx-metadata.rst per driver that
->> mentions/documents these different hardware limitations.  It is natural
->> that different types of hardware have limitations.  This is a close-to
->> hardware-level abstraction/API, and IMHO as long as we document the
->> limitations we can expose this API without too many limitations for more
->> capable hardware.
-
-Sure. I will try to add hardware limitations in documentation. 
-
+>> Sorry, not so understand your suggestion on adding clock source argument.
+>> Are you suggesting to add clock source for the selftest xdp_hw_metadata apps?
+>> IMHO, no need to add clock source as the clock source for launch time
+>> should always base on NIC PHC.
 >
->I would assume that the kfunc will fail when a value is passed that
->cannot be programmed.
+>This is not how FQ and ETF qdiscs pass timestamps to drivers today.
 >
+>Those are in CLOCK_MONOTONIC or CLOCK_TAI. The driver is expected to
+>convert from that to its descriptor format, both to the reduced bit
+>width and the NIC PHC.
+>
+>See also for instance how sch_etf has an explicit q->clock_id match,
+>and SO_TXTIME added an sk_clock_id for the same purpose: to agree on
+>which clock source is being used.
 
-In current design, the xsk_tx_metadata_request() dint got return value. 
-So user won't know if their request is fail. 
-It is complex to inform user which request is failing. 
-Therefore, IMHO, it is good that we let driver handle the error silently. 
-
->What is being implemented here already exists for qdiscs. The FQ
->qdisc takes a horizon attribute and
->
->    "
->    when a packet is beyond the horizon
->        at enqueue() time:
->        - either drop the packet (default policy)
->        - or cap its delivery time to the horizon.
->    "
->    commit 39d010504e6b ("net_sched: sch_fq: add horizon attribute")
->
->Having the admin manually configure this on the qdisc based on
->off-line knowledge of the device is more fragile than if the device
->would somehow signal its limit to the stack.
->
->But I don't think we should add enforcement of that as a requirement
->for this xdp extension of pacing.
+I see. Thank for the explanation. I will try to add clock source arguments
+In next version.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
