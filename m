@@ -2,64 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151C3807321
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Dec 2023 15:56:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 206EE80769C
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Dec 2023 18:30:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC91BC6DD6A;
-	Wed,  6 Dec 2023 14:56:48 +0000 (UTC)
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2090C6DD6A;
+	Wed,  6 Dec 2023 17:30:54 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F038C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AD60C6C85F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Dec 2023 14:56:47 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- 46e09a7af769-6d9a1dd6fdcso467570a34.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 Dec 2023 06:56:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701874606; x=1702479406;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dMFxTkt+APt9VkSo60/Rj4cKZLAsbnVIJIMVqJP/nRI=;
- b=wwXW4KHrxgc9TOqpFCscWIUu+36OTW5ie3Eq+mUyuUAanTB5sAiZL9Xfj+J5PbQY3d
- WaG/mvF2zWcuWbrZg/o898KqSw+CCGoS4t2tv+ZI+8gyPf+ZhIeP69ze8c0peom87iYG
- gAMmKwTHrfG6UbH8aeuoSWL7/0gR4vW9VrFD8CbcMmT2TKlKWDQLhFEaVwQpLZXqgKEN
- W24SBCAe3czm/P6YZv7jUew5oFLZB1tUXRnI2q+XiWG4FglaxTI3q0JIaMzddqn2QKCa
- ZrI64oasOufS8bzsINQH/MLTflhtQj8fKz9r2JB3iLCGYRCu7IFfkgjJLUioeQC94Yfo
- an3w==
-X-Gm-Message-State: AOJu0Yw53VDJMtOpc4xIB5ERff57b2zUs2jrRP6wBHmVot3vg5DSJ+Xp
- nv84n9BYXVkTpkYAlfk+Hw==
-X-Google-Smtp-Source: AGHT+IGo7Nw4yr8MZn9UYM3es1DB4fV7+KFr86PkrLstPfPuNnxjgC+QKtK0LxxDfWXey61y9+S+nQ==
-X-Received: by 2002:a05:6830:c89:b0:6d8:74f0:30d3 with SMTP id
- bn9-20020a0568300c8900b006d874f030d3mr1429643otb.29.1701874606223; 
- Wed, 06 Dec 2023 06:56:46 -0800 (PST)
-Received: from herring.priv (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- m2-20020a9d4c82000000b006d879b8e68csm1880241otf.69.2023.12.06.06.56.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Dec 2023 06:56:45 -0800 (PST)
-Received: (nullmailer pid 2138604 invoked by uid 1000);
- Wed, 06 Dec 2023 14:56:44 -0000
-Date: Wed, 6 Dec 2023 08:56:44 -0600
-From: Rob Herring <robh@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <20231206145644.GA2133904-robh@kernel.org>
-References: <20231129125920.1702497-1-alain.volmat@foss.st.com>
- <20231129125920.1702497-4-alain.volmat@foss.st.com>
+ Wed,  6 Dec 2023 17:30:53 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1rAvjX-0000Ul-92; Wed, 06 Dec 2023 18:30:51 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1rAvjW-00E0iy-B0; Wed, 06 Dec 2023 18:30:50 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1rAvjW-00FdcZ-1R; Wed, 06 Dec 2023 18:30:50 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Date: Wed,  6 Dec 2023 18:30:43 +0100
+Message-ID: <20231206173042.1762233-2-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231129125920.1702497-4-alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 3/7] dt-bindings: i2c: document st,
- stm32mp25-i2c compatible
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2911;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=vC1n9UqzjYgVwvtpQ0rpTKRf0oBlyHd84psPO2kGVTk=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBlcK/D0emr33wY8gr0c3fyro3jDAZFmdv96BWgl
+ TNDQr8HafSJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZXCvwwAKCRCPgPtYfRL+
+ Tq15B/9QFXtj60VmNUyFVM7whafg5aew9JZVK9JerSltr/zMHPfIKyTojZHE3Fu6QCbbsKKtYVR
+ aebHIOj6j6rgI+sE6VgGnor8G5JaNd5+xkyvGWXgdWhJ9WuyTat4MKzz35/Nmx1S7BDbYeLVQwY
+ VG7sF7FUJ1zS6Sn52qcHty51Vs6zpk5fSgIpJ7mORpb2PdXxrx1SEBLlzXQs+QJzZutMKJ64Jqi
+ n41e+XE9dsNxNg+LJemSA1GSlKux9P2JqG0c4hoB6KA/tTMqKCWX0LpVc6iiS5qqwXlayQ6OUJI
+ OzSndfXqCpB4gIYfcn7cdyQ+b+7bzbExaIDsMKtqEPci0T61
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-pwm@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ kernel@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] pwm: stmpe: Silence duplicate error messages
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,102 +65,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Nov 29, 2023 at 01:59:12PM +0100, Alain Volmat wrote:
-> Add a new compatible st,stm32mp25-i2c for the STM32MP25 series which
-> has only one interrupt line for both events and errors and differs in
-> term of handling of FastModePlus.
-> 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> ---
->  .../devicetree/bindings/i2c/st,stm32-i2c.yaml | 49 +++++++++++++++----
->  1 file changed, 39 insertions(+), 10 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> index 94b75d9f66cd..6a69bb6de23e 100644
-> --- a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
-> @@ -19,6 +19,7 @@ allOf:
->                - st,stm32f7-i2c
->                - st,stm32mp13-i2c
->                - st,stm32mp15-i2c
-> +              - st,stm32mp25-i2c
->      then:
->        properties:
->          i2c-scl-rising-time-ns:
-> @@ -41,6 +42,43 @@ allOf:
->          clock-frequency:
->            enum: [100000, 400000]
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - st,stm32f4-i2c
-> +              - st,stm32f7-i2c
-> +              - st,stm32mp13-i2c
-> +              - st,stm32mp15-i2c
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: interrupt ID for I2C event
-> +            - description: interrupt ID for I2C error
-> +
-> +        interrupt-names:
-> +          items:
-> +            - const: event
-> +            - const: error
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - st,stm32mp25-i2c
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          items:
-> +            - description: common interrupt for events and errors
-> +
-> +        interrupt-names:
-> +          items:
-> +            - const: event
-> +
->  properties:
->    compatible:
->      enum:
-> @@ -48,20 +86,11 @@ properties:
->        - st,stm32f7-i2c
->        - st,stm32mp13-i2c
->        - st,stm32mp15-i2c
-> +      - st,stm32mp25-i2c
->  
->    reg:
->      maxItems: 1
->  
-> -  interrupts:
-> -    items:
-> -      - description: interrupt ID for I2C event
-> -      - description: interrupt ID for I2C error
-> -
-> -  interrupt-names:
-> -    items:
-> -      - const: event
-> -      - const: error
-
-No this should remain. You are duplicating defining the names otherwise. 
-Add 'minItems: 1' here. Then the if/then schemas should just have 
-'maxItems: 1' or 'minItems: 2'.
-
-Rob
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+c3RtcGVfcmVnX3JlYWQoKSBhbmQgc3RtcGVfcmVnX3dyaXRlKCkgYWxyZWFkeSBlbWl0IGVycm9y
+IG1lc3NhZ2VzIHdoZW4KdGhleSBmYWlsLiBTbyB0aGUgZXh0cmEgZXJyb3IgbWVzc2FnZXMgaW4g
+dGhlIHB3bSBkcml2ZXIgYXJlIG9ubHkgbGl0dGxlCnVzZWZ1bC4gVGhleSBhcmUgdXNlZnVsIGlu
+IHNvbWUgc2l0dWF0aW9uLCBhcyB0aGV5IGdpdmUgYSBiaXQgb2YgY29udGV4dAp0byB0aGUgZmFp
+bGluZyByZWdpc3RlciB3cml0ZS4gU28gZG9uJ3QgcmVtb3ZlIHRoZW0gYnV0IGRlZ3JhZGUgdGhl
+bSB0bwpkZXZfZGJnKCkuCgpTaWduZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVp
+bmUta29lbmlnQHBlbmd1dHJvbml4LmRlPgotLS0KSGVsbG8sCgpzb21lIHRpbWUgYWdvIEkgc3Vn
+Z2VzdGVkIHRvIHJlbW92ZSB0aGUgZXJyb3IgbWVzc2FnZXMuIFRoaWVycnkKc3VnZ2VzdGVkIGlu
+c3RlYWQgdG8gdHVybiB0aGVtIGludG8gZGV2X2RiZyBpbnN0ZWFkLgoKU2VlCmh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2xpbnV4LXB3bS8yMDIzMDcyODA4MTgwMy5hc3diejRzbHZycXFpNWhjQHBl
+bmd1dHJvbml4LmRlCmZvciB0aGUgdGhyZWFkIHdoZXJlIHRoYXQgaGFwcGVuZC4KCkJlc3QgcmVn
+YXJkcwpVd2UKCiBkcml2ZXJzL3B3bS9wd20tc3RtcGUuYyB8IDEyICsrKysrKy0tLS0tLQogMSBm
+aWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL3B3bS9wd20tc3RtcGUuYyBiL2RyaXZlcnMvcHdtL3B3bS1zdG1wZS5jCmluZGV4
+IGQ3MzA2MzFjNjU4My4uMTljMGMwZjM5Njc1IDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20t
+c3RtcGUuYworKysgYi9kcml2ZXJzL3B3bS9wd20tc3RtcGUuYwpAQCAtNDQsNyArNDQsNyBAQCBz
+dGF0aWMgaW50IHN0bXBlXzI0eHhfcHdtX2VuYWJsZShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0
+cnVjdCBwd21fZGV2aWNlICpwd20pCiAKIAlyZXQgPSBzdG1wZV9yZWdfcmVhZChzdG1wZV9wd20t
+PnN0bXBlLCBTVE1QRTI0WFhfUFdNQ1MpOwogCWlmIChyZXQgPCAwKSB7Ci0JCWRldl9lcnIoY2hp
+cC0+ZGV2LCAiZXJyb3IgcmVhZGluZyBQV00jJXUgY29udHJvbFxuIiwKKwkJZGV2X2RiZyhjaGlw
+LT5kZXYsICJlcnJvciByZWFkaW5nIFBXTSMldSBjb250cm9sXG4iLAogCQkJcHdtLT5od3B3bSk7
+CiAJCXJldHVybiByZXQ7CiAJfQpAQCAtNTMsNyArNTMsNyBAQCBzdGF0aWMgaW50IHN0bXBlXzI0
+eHhfcHdtX2VuYWJsZShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsIHN0cnVjdCBwd21fZGV2aWNlICpw
+d20pCiAKIAlyZXQgPSBzdG1wZV9yZWdfd3JpdGUoc3RtcGVfcHdtLT5zdG1wZSwgU1RNUEUyNFhY
+X1BXTUNTLCB2YWx1ZSk7CiAJaWYgKHJldCkgewotCQlkZXZfZXJyKGNoaXAtPmRldiwgImVycm9y
+IHdyaXRpbmcgUFdNIyV1IGNvbnRyb2xcbiIsCisJCWRldl9kYmcoY2hpcC0+ZGV2LCAiZXJyb3Ig
+d3JpdGluZyBQV00jJXUgY29udHJvbFxuIiwKIAkJCXB3bS0+aHdwd20pOwogCQlyZXR1cm4gcmV0
+OwogCX0KQEAgLTcwLDcgKzcwLDcgQEAgc3RhdGljIGludCBzdG1wZV8yNHh4X3B3bV9kaXNhYmxl
+KHN0cnVjdCBwd21fY2hpcCAqY2hpcCwKIAogCXJldCA9IHN0bXBlX3JlZ19yZWFkKHN0bXBlX3B3
+bS0+c3RtcGUsIFNUTVBFMjRYWF9QV01DUyk7CiAJaWYgKHJldCA8IDApIHsKLQkJZGV2X2Vycihj
+aGlwLT5kZXYsICJlcnJvciByZWFkaW5nIFBXTSMldSBjb250cm9sXG4iLAorCQlkZXZfZGJnKGNo
+aXAtPmRldiwgImVycm9yIHJlYWRpbmcgUFdNIyV1IGNvbnRyb2xcbiIsCiAJCQlwd20tPmh3cHdt
+KTsKIAkJcmV0dXJuIHJldDsKIAl9CkBAIC03OSw3ICs3OSw3IEBAIHN0YXRpYyBpbnQgc3RtcGVf
+MjR4eF9wd21fZGlzYWJsZShzdHJ1Y3QgcHdtX2NoaXAgKmNoaXAsCiAKIAlyZXQgPSBzdG1wZV9y
+ZWdfd3JpdGUoc3RtcGVfcHdtLT5zdG1wZSwgU1RNUEUyNFhYX1BXTUNTLCB2YWx1ZSk7CiAJaWYg
+KHJldCkKLQkJZGV2X2VycihjaGlwLT5kZXYsICJlcnJvciB3cml0aW5nIFBXTSMldSBjb250cm9s
+XG4iLAorCQlkZXZfZGJnKGNoaXAtPmRldiwgImVycm9yIHdyaXRpbmcgUFdNIyV1IGNvbnRyb2xc
+biIsCiAJCQlwd20tPmh3cHdtKTsKIAlyZXR1cm4gcmV0OwogfQpAQCAtMjMzLDcgKzIzMyw3IEBA
+IHN0YXRpYyBpbnQgc3RtcGVfMjR4eF9wd21fY29uZmlnKHN0cnVjdCBwd21fY2hpcCAqY2hpcCwg
+c3RydWN0IHB3bV9kZXZpY2UgKnB3bSwKIAogCQlyZXQgPSBzdG1wZV9yZWdfd3JpdGUoc3RtcGVf
+cHdtLT5zdG1wZSwgb2Zmc2V0LCB2YWx1ZSk7CiAJCWlmIChyZXQpIHsKLQkJCWRldl9lcnIoY2hp
+cC0+ZGV2LCAiZXJyb3Igd3JpdGluZyByZWdpc3RlciAlMDJ4OiAlZFxuIiwKKwkJCWRldl9kYmco
+Y2hpcC0+ZGV2LCAiZXJyb3Igd3JpdGluZyByZWdpc3RlciAlMDJ4OiAlZFxuIiwKIAkJCQlvZmZz
+ZXQsIHJldCk7CiAJCQlyZXR1cm4gcmV0OwogCQl9CkBAIC0yNDIsNyArMjQyLDcgQEAgc3RhdGlj
+IGludCBzdG1wZV8yNHh4X3B3bV9jb25maWcoc3RydWN0IHB3bV9jaGlwICpjaGlwLCBzdHJ1Y3Qg
+cHdtX2RldmljZSAqcHdtLAogCiAJCXJldCA9IHN0bXBlX3JlZ193cml0ZShzdG1wZV9wd20tPnN0
+bXBlLCBvZmZzZXQsIHZhbHVlKTsKIAkJaWYgKHJldCkgewotCQkJZGV2X2VycihjaGlwLT5kZXYs
+ICJlcnJvciB3cml0aW5nIHJlZ2lzdGVyICUwMng6ICVkXG4iLAorCQkJZGV2X2RiZyhjaGlwLT5k
+ZXYsICJlcnJvciB3cml0aW5nIHJlZ2lzdGVyICUwMng6ICVkXG4iLAogCQkJCW9mZnNldCwgcmV0
+KTsKIAkJCXJldHVybiByZXQ7CiAJCX0KLS0gCjIuNDIuMAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
