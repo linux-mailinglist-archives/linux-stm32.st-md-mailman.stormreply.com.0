@@ -2,61 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73A7E8070E1
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Dec 2023 14:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAA54807146
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Dec 2023 14:53:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C8D6C6C85F;
-	Wed,  6 Dec 2023 13:27:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BA77C6DD6A;
+	Wed,  6 Dec 2023 13:53:10 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7FF9C64110
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7640CC6C85F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Dec 2023 13:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1701869264; x=1733405264;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=XUkNikLFxkRI2x0E4jzYEYV2cFpsJJkbcOTQSt8BVn8=;
- b=aclm0dluExDFJZQoCs9EeS0EL8+kvu3K0L9xey4msiXrnttNEPupDsaz
- mcUtaNWixmu2YiBss22zaYf+hzpefBCaOP4IZmorQdKEd9bv8aRj3CTR1
- aVb0lEeonTCzbCz/XP8WbLyoOz3nMU5p/CLK6ArEHZtHeFGALOR9l3owv
- XzpL3Pz0d5JFNJT1FhFM95WEGeIU8g1J22hn6oTNaHYmJxFtzP38eC+n0
- HE/P400VeOuJPPM+UgvfzbeXLh8b9TqFEslsei2FsjZbpe7EOB13i7VTM
- t65E5vVFmIxAxpIDoN4fwqMhs14y7B66+LUMqLqNY3wLORSqEI2xB1Sd4 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10916"; a="930981"
-X-IronPort-AV: E=Sophos;i="6.04,255,1695711600"; 
-   d="scan'208";a="930981"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Dec 2023 05:27:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10916"; a="721084909"
-X-IronPort-AV: E=Sophos;i="6.04,255,1695711600"; d="scan'208";a="721084909"
-Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 06 Dec 2023 05:27:39 -0800
-Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rArw8-000Apo-2W;
- Wed, 06 Dec 2023 13:27:36 +0000
-Date: Wed, 6 Dec 2023 21:27:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: gabriel.fernandez@foss.st.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Message-ID: <202312062107.FZNn2b0i-lkp@intel.com>
-References: <20231128164851.588315-5-gabriel.fernandez@foss.st.com>
+ Wed,  6 Dec 2023 13:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=ZMxTBdEVgr5LReWJcDBdaRxFXxTwHu3OEqZQ7L+jIbM=; b=do5UeC6QVxG1xmzolqXjm+3JpY
+ GmBPI2dyYiXm60UrnGOB1kz1kAjIJunZLfwJvNbSi24xsWBjTaNZE9wDwhmqhLA0r/6dj2eYb48QS
+ mlyiwn4scZdJXBHokrPHA/spCX6H+04UoP226065WLKdi86tYQ4RV62a6ibl/zAwNHGM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rAsKh-002DA0-Os; Wed, 06 Dec 2023 14:52:59 +0100
+Date: Wed, 6 Dec 2023 14:52:59 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Sneh Shah <quic_snehshah@quicinc.com>
+Message-ID: <0c966845-2bbc-4196-806d-6a33e435bf7d@lunn.ch>
+References: <20231204084854.31543-1-quic_snehshah@quicinc.com>
+ <3e4a1b9c-ed0f-466e-ba11-fc5b7ef308a1@lunn.ch>
+ <5d5f3955-fc30-428c-99f4-42f9b7580a84@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231128164851.588315-5-gabriel.fernandez@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 4/5] clk: stm32: introduce clocks for
- STM32MP257 platform
+In-Reply-To: <5d5f3955-fc30-428c-99f4-42f9b7580a84@quicinc.com>
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
+ andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: Add
+ sysfs nodes for qcom ethqos
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,54 +60,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On Wed, Dec 06, 2023 at 05:17:25PM +0530, Sneh Shah wrote:
+> 
+> 
+> On 12/5/2023 8:38 PM, Andrew Lunn wrote:
+> > On Mon, Dec 04, 2023 at 02:18:54PM +0530, Sneh Shah wrote:
+> >> Add sysfs nodes to conifigure routing of specific vlan id to GVM queue.
+> >> GVM queue is not exposed to PVM stmmac, so TC ops can't configure routing.
+> > 
+> > Adding files in /sysfs has ~0 chance of being accepted.
+> > 
+> > As requested, please explain what all these different hardware blocks
+> > are, and what you are trying to achieve. We can then recommend the
+> > correct interface.
+> > 
+> >     Andrew
+> > 
+> > ---
+> > pw-bot: cr
+> 
 
-kernel test robot noticed the following build warnings:
+> We have multiVM Architecture here. PVM will have stmmac running with
+> 4 Rx Tx queues. stmmac in PVM is responsible to configure whole
+> ethernet HW MAC/DMA/MTL ( including clocks, regulators and other
+> core bsp elements).
 
-[auto build test WARNING on atorgue-stm32/stm32-next]
-[also build test WARNING on clk/clk-next robh/for-next linus/master v6.7-rc4 next-20231206]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Please remember that stmmac is mostly used in embedded systems. People
+used to embedded systems generally don't know virtual machine
+terminology. So please spell out what PBM, GVM, etc mean.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/gabriel-fernandez-foss-st-com/clk-stm32mp1-move-stm32mp1-clock-driver-into-stm32-directory/20231129-005157
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
-patch link:    https://lore.kernel.org/r/20231128164851.588315-5-gabriel.fernandez%40foss.st.com
-patch subject: [PATCH v4 4/5] clk: stm32: introduce clocks for STM32MP257 platform
-config: arm-randconfig-r132-20231201 (https://download.01.org/0day-ci/archive/20231206/202312062107.FZNn2b0i-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
-reproduce: (https://download.01.org/0day-ci/archive/20231206/202312062107.FZNn2b0i-lkp@intel.com/reproduce)
+> In GVM we have thin Ethernet driver, which is responsible to
+> configure and manage only 1 Rx/TX queue, i.e 5th Rx/Tx ethernet
+> queue. GVM can't access any other resisters apart from this 5th
+> queue specific MTL and DMA registers.
+ 
+> We need to route vlan traffic of a specific Priority to GVM Queue
+> (Ethernet queue 5) via programming a MAC register. The MAC register
+> is not accessible in GVM and has to be programmed from PVM. stmmac
+> already has TC OPS to program this routing via vlan
+> priority. However, as PVM has only 4 queues enabled, TC tool will
+> not take 5th queue as input. Hence, these nodes were added to
+> conifure the MAC register to route specific vlan packets to 5th
+> queue in GVM.
+ 
+> Note: The queues mentioned above are HW MTL Queues and DMA
+> Channels. The routing can be done in the HW itself based on vlan pcp
+> before the packets reach to driver.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202312062107.FZNn2b0i-lkp@intel.com/
+Is the normal way you would do this is like this:
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/clk/stm32/clk-stm32mp25.c:1003:5: sparse: sparse: symbol 'stm32mp25_cpt_gate' was not declared. Should it be static?
->> drivers/clk/stm32/clk-stm32mp25.c:1005:29: sparse: sparse: symbol 'stm32mp25_clock_data' was not declared. Should it be static?
->> drivers/clk/stm32/clk-stm32mp25.c:1011:29: sparse: sparse: symbol 'stm32mp25_reset_data' was not declared. Should it be static?
+tc qdisc add dev eth1 parent root handle 100 \
+mqprio num_tc 4 \
+map 0 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 \
+queues 1@0 1@1 1@2 1@3 \
+hw 1
 
-vim +/stm32mp25_cpt_gate +1003 drivers/clk/stm32/clk-stm32mp25.c
+But you are saying that you cannot extend this to 5 queues?
 
-  1002	
-> 1003	u16 stm32mp25_cpt_gate[GATE_NB];
-  1004	
-> 1005	struct clk_stm32_clock_data stm32mp25_clock_data = {
-  1006		.gate_cpt	= stm32mp25_cpt_gate,
-  1007		.gates		= stm32mp25_gates,
-  1008		.muxes		= stm32mp25_muxes,
-  1009	};
-  1010	
-> 1011	struct clk_stm32_reset_data stm32mp25_reset_data = {
-  1012		.reset_lines	= stm32mp25_reset_cfg,
-  1013		.nr_lines	= ARRAY_SIZE(stm32mp25_reset_cfg),
-  1014	};
-  1015	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
