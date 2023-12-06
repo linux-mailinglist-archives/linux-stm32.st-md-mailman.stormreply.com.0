@@ -2,97 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F75A807857
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Dec 2023 20:06:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E35B807C8B
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Dec 2023 00:46:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41B0AC6A613;
-	Wed,  6 Dec 2023 19:06:10 +0000 (UTC)
-Received: from mail-pg1-f201.google.com (mail-pg1-f201.google.com
- [209.85.215.201])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 196EBC64110
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C37CC6C85F;
+	Wed,  6 Dec 2023 23:46:23 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5C11C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Dec 2023 19:06:09 +0000 (UTC)
-Received: by mail-pg1-f201.google.com with SMTP id
- 41be03b00d2f7-5c17cff57f9so65186a12.0
+ Wed,  6 Dec 2023 23:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1701906380;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=8esKVkgkdO38qfOOlPF2GDuWhXzWAxbw0J892C+UC7Y=;
+ b=gTZVBEzA7eNmgI4iUx3i5yXgZYBlR6AQa1CCVSAJX1XXwQMTnhFHngolz8mg7rKv2G28pL
+ /hCPLquzeSMY7fCeeTJcjtlGcZSVi0KopQxWyoMaWZEHMC6W/cv1WRwQotvn25Bxk2Fz/Y
+ OcBRm9ADIU2MULWQwKQ6BBZ8fsYxG6E=
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
+ [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-377-UuQpsIFMN42KJ5qZVTHHOQ-1; Wed, 06 Dec 2023 18:46:19 -0500
+X-MC-Unique: UuQpsIFMN42KJ5qZVTHHOQ-1
+Received: by mail-oo1-f71.google.com with SMTP id
+ 006d021491bc7-58d53348a03so88025eaf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 Dec 2023 11:06:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1701889567; x=1702494367;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
- :reply-to; bh=I409PBeV0vI0BSi/sNEko+BMZt4s00+VHGZ9Cxi/uGs=;
- b=X4CEKOikTFKYPDUmWyaGQLEcHcPi/D9Zx2mP4C2+RY7I1Rw+bh6gLsuSF/0Z0mnWrq
- 7DLm+FxBCMV1F1oNCslIEctIM88gJqPHT6HwZ9jVgltcsH6b69NZKHns4lDgPLhJlm1j
- 5BvuWes9ckwOAKb/JwID+pEw5f2zVe2JTHEMpS/UvD+OsS33eyGACw94FHbYOSFyeySq
- /JEhol1m4r5mP8a/gCseFRwCrP1KPf/dwbiQnLhRUTXJjZ+k5YgJITPDCtaQ033lzwBU
- 91Uddb5rzA6gZAjCqbLGOPw1bJXAOMh8U8GKNwQ/tsdKb88Ktko9ARSTEEu2BNR/niI6
- JkRw==
+ Wed, 06 Dec 2023 15:46:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701889567; x=1702494367;
- h=content-transfer-encoding:cc:to:from:subject:message-id:references
- :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=I409PBeV0vI0BSi/sNEko+BMZt4s00+VHGZ9Cxi/uGs=;
- b=V2c0XAfEGXpcwJ7b+lWSc4re9cq0u0IRIsL+edgwRtxW1U2dp2kLXP0lTzCckUyuW+
- 1G3/l0SD5CJeoFrNmoXCsbZLZlhj4uTHQBW9rdDHB7yQW3wrT3xo1/6IwW5aOA7ebyoz
- Vn7me1YtJxhevMTCYmYFniSacOVMbwNPuSW+JBcV3hqSbap9utV+cqPJakHeMz0xsYwa
- WymEBIaTbyPPTFHnujsOTITjMT4tMfaL2lPs7DQi7eLJC+eIsfqXv14qyxUyU7JgOgqW
- qf9MUD3xFLiU3avKfnTUxLheveBIt2rWEbcASEiaHIIRqmxV2Ux8/Vadic4wneoWPIa6
- +euQ==
-X-Gm-Message-State: AOJu0YyTsE8NzfDMrjKf7HMmrfmdp5Fvsgepuo58F7lN62rn14T6ZqIm
- 6tRNyUVjd2lrcLTvK7frFJe3zqk=
-X-Google-Smtp-Source: AGHT+IEqS0IGgMlSKmdLV1hbJusVKwZ8hKL8byL5eF/gGsSa+b+3KizaW4xrrV9KIs8i0M+jEvdFFF0=
-X-Received: from sdf.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5935])
- (user=sdf job=sendgmr) by 2002:a65:67d2:0:b0:5c6:a4e5:2d6a with SMTP id
- b18-20020a6567d2000000b005c6a4e52d6amr14804pgs.7.1701889567399; Wed, 06 Dec
- 2023 11:06:07 -0800 (PST)
-Date: Wed, 6 Dec 2023 11:06:05 -0800
-In-Reply-To: <CAJ8uoz3_XqavGt1DyFoQAuKS8Faa1Lc85b2t+whc-f6GN1Pvzw@mail.gmail.com>
-Mime-Version: 1.0
-References: <20231203165129.1740512-1-yoong.siang.song@intel.com>
- <20231203165129.1740512-3-yoong.siang.song@intel.com>
- <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
- <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
- <PH0PR11MB583000826591093B98BA841DD885A@PH0PR11MB5830.namprd11.prod.outlook.com>
- <5a0faf8cc9ec3ab0d5082c66b909c582c8f1eae6.camel@siemens.com>
- <CAKH8qBuXL8bOYtfKKPS8y=KJqouDptyciCjr0wNKVHtNj6BmqA@mail.gmail.com>
- <656f66023f7bd_3dd6422942a@willemb.c.googlers.com.notmuch>
- <ZW98UW033wCy9vI-@google.com>
- <CAJ8uoz3_XqavGt1DyFoQAuKS8Faa1Lc85b2t+whc-f6GN1Pvzw@mail.gmail.com>
-Message-ID: <ZXDGHThTynXbSTJG@google.com>
-From: Stanislav Fomichev <sdf@google.com>
-To: Magnus Karlsson <magnus.karlsson@gmail.com>
-Cc: yoong.siang.song@intel.com,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- Florian Bezdeka <florian.bezdeka@siemens.com>,
- Alexei Starovoitov <ast@kernel.org>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Yonghong Song <yonghong.song@linux.dev>,
- Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>,
- Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>, maciej.fijalkowski@intel.com,
- Jesper Dangaard Brouer <hawk@kernel.org>, Mykola Lysenko <mykolal@fb.com>,
- KP Singh <kpsingh@kernel.org>, magnus.karlsson@intel.com,
- Hao Luo <haoluo@google.com>, Willem de Bruijn <willemb@google.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Bjorn Topel <bjorn@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>, davem@davemloft.net
-Subject: Re: [Linux-stm32] [xdp-hints] Re: [PATCH bpf-next v3 2/3] net:
- stmmac: add Launch Time support to XDP ZC
+ d=1e100.net; s=20230601; t=1701906378; x=1702511178;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8esKVkgkdO38qfOOlPF2GDuWhXzWAxbw0J892C+UC7Y=;
+ b=FXSbcwO4YH7I8GXjZDXAMIcy3DaV+CkjazYT1VXzGF+b7GSCxbKibmj5LbV0y+qW+g
+ eknaA8kUSJSsgf2Qo1x8mnczX9WSDN/Gs35xZFoNp1fyayafkdMuxJ19bxngWim6MK7V
+ IZ0LLt4RcMDdsqpiJ74glALbWH8DXNxxCjMfI+VM/DGFWsbjheK8FMqp+WWsfyobjLwg
+ nm+27GVY2jI0imAw0HgQViQ8rm0YgU4hP8Hi0zvcvGVPynODL167UuohIMuAV2enMne8
+ u+HOIwB+EO3ZPLtmlZ70K5sgOEaYuFetnN7qjIzYLORoIFAxTgjnYB9vnlyCQWoDtyHL
+ LFdA==
+X-Gm-Message-State: AOJu0Ywyg3jD5zOmKid+12IdoA5ZqDpCqax4XiZQR8TJIu8xEizkZpX4
+ Kli89DTwv8eVHbj03EF0TVz9GNcUGTcGdCE/dYxOBNm3noQv+YoSPx0/YjZxge2vlTfujSsZ3Kb
+ wVKs5IOs/HnxAoqtaBiuJ+fdRSdfHoIVEuBj1gYACtVh4o+6BTOYUTCk+g0KpF+c99uwtScxoKO
+ YBjU5Ixe+LM/dlImSh3Mdop+D0
+X-Received: by 2002:a05:6358:2910:b0:16d:bbb3:69c6 with SMTP id
+ y16-20020a056358291000b0016dbbb369c6mr2398885rwb.13.1701906377986; 
+ Wed, 06 Dec 2023 15:46:17 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEAsIygwOoQKZlum7cq8klqlJozHBJy1wvtOxVzB6Tfsb98hdv5DwTkASEhC5ZBOAlTAOdQBA==
+X-Received: by 2002:a05:6358:2910:b0:16d:bbb3:69c6 with SMTP id
+ y16-20020a056358291000b0016dbbb369c6mr2398863rwb.13.1701906377591; 
+ Wed, 06 Dec 2023 15:46:17 -0800 (PST)
+Received: from [192.168.1.164] ([2600:1700:1ff0:d0e0::47])
+ by smtp.gmail.com with ESMTPSA id
+ lg21-20020a056214549500b0067a14238fa9sm11568qvb.94.2023.12.06.15.46.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Dec 2023 15:46:17 -0800 (PST)
+From: Andrew Halaney <ahalaney@redhat.com>
+Date: Wed, 06 Dec 2023 17:46:09 -0600
+MIME-Version: 1.0
+Message-Id: <20231206-stmmac-no-mdio-node-v2-1-333cae49b1ca@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAMAHcWUC/z2MwQqDMBBEf0X23BU31lY99T9KD9FdNWASSYII4
+ r839NDTzGOYd0KUYCRCX5wQZDfReJdB3QoYF+1mQcOZQVWqJlJPjMlaPaLzaNn4nCxIPHSsW60
+ a7iA/tyCTOX7WNzhJ6ORI8MnLFLzFtATRf2vVVi3l0txLokdTI+EQ5vU1zCx7ua1wXV/b0uTPp
+ gAAAA==
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+X-Mailer: b4 0.12.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: don't create a MDIO
+ bus if unnecessary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,143 +91,250 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTIvMDYsIE1hZ251cyBLYXJsc3NvbiB3cm90ZToKPiBPbiBUdWUsIDUgRGVjIDIwMjMgYXQg
-MjA6MzksIFN0YW5pc2xhdiBGb21pY2hldiA8c2RmQGdvb2dsZS5jb20+IHdyb3RlOgo+ID4KPiA+
-IE9uIDEyLzA1LCBXaWxsZW0gZGUgQnJ1aWpuIHdyb3RlOgo+ID4gPiBTdGFuaXNsYXYgRm9taWNo
-ZXYgd3JvdGU6Cj4gPiA+ID4gT24gVHVlLCBEZWMgNSwgMjAyMyBhdCA3OjM04oCvQU0gRmxvcmlh
-biBCZXpkZWthCj4gPiA+ID4gPGZsb3JpYW4uYmV6ZGVrYUBzaWVtZW5zLmNvbT4gd3JvdGU6Cj4g
-PiA+ID4gPgo+ID4gPiA+ID4gT24gVHVlLCAyMDIzLTEyLTA1IGF0IDE1OjI1ICswMDAwLCBTb25n
-LCBZb29uZyBTaWFuZyB3cm90ZToKPiA+ID4gPiA+ID4gT24gTW9uZGF5LCBEZWNlbWJlciA0LCAy
-MDIzIDEwOjU1IFBNLCBXaWxsZW0gZGUgQnJ1aWpuIHdyb3RlOgo+ID4gPiA+ID4gPiA+IEplc3Bl
-ciBEYW5nYWFyZCBCcm91ZXIgd3JvdGU6Cj4gPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+ID4K
-PiA+ID4gPiA+ID4gPiA+IE9uIDEyLzMvMjMgMTc6NTEsIFNvbmcgWW9vbmcgU2lhbmcgd3JvdGU6
-Cj4gPiA+ID4gPiA+ID4gPiA+IFRoaXMgcGF0Y2ggZW5hYmxlcyBMYXVuY2ggVGltZSAoVGltZS1C
-YXNlZCBTY2hlZHVsaW5nKSBzdXBwb3J0IHRvIFhEUCB6ZXJvCj4gPiA+ID4gPiA+ID4gPiA+IGNv
-cHkgdmlhIFhEUCBUeCBtZXRhZGF0YSBmcmFtZXdvcmsuCj4gPiA+ID4gPiA+ID4gPiA+Cj4gPiA+
-ID4gPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFNvbmcgWW9vbmcgU2lhbmc8eW9vbmcuc2lhbmcu
-c29uZ0BpbnRlbC5jb20+Cj4gPiA+ID4gPiA+ID4gPiA+IC0tLQo+ID4gPiA+ID4gPiA+ID4gPiAg
-IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hYy5oICAgICAgfCAgMiAr
-Kwo+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+IEFzIHJlcXVlc3RlZCBiZWZvcmUsIEkg
-dGhpbmsgd2UgbmVlZCB0byBzZWUgYW5vdGhlciBkcml2ZXIgaW1wbGVtZW50aW5nCj4gPiA+ID4g
-PiA+ID4gPiB0aGlzLgo+ID4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiA+IEkgcHJvcG9zZSBk
-cml2ZXIgaWdjIGFuZCBjaGlwIGkyMjUuCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IFN1cmUuIEkg
-d2lsbCBpbmNsdWRlIGlnYyBwYXRjaGVzIGluIG5leHQgdmVyc2lvbi4KPiA+ID4gPiA+ID4KPiA+
-ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiBUaGUgaW50ZXJlc3RpbmcgdGhpbmcgZm9yIG1l
-IGlzIHRvIHNlZSBob3cgdGhlIExhdW5jaFRpbWUgbWF4IDEgc2Vjb25kCj4gPiA+ID4gPiA+ID4g
-PiBpbnRvIHRoZSBmdXR1cmVbMV0gaXMgaGFuZGxlZCBjb2RlIHdpc2UuIE9uZSBzdWdnZXN0aW9u
-IGlzIHRvIGFkZCBhCj4gPiA+ID4gPiA+ID4gPiBzZWN0aW9uIHRvIERvY3VtZW50YXRpb24vbmV0
-d29ya2luZy94c2stdHgtbWV0YWRhdGEucnN0IHBlciBkcml2ZXIgdGhhdAo+ID4gPiA+ID4gPiA+
-ID4gbWVudGlvbnMvZG9jdW1lbnRzIHRoZXNlIGRpZmZlcmVudCBoYXJkd2FyZSBsaW1pdGF0aW9u
-cy4gIEl0IGlzIG5hdHVyYWwKPiA+ID4gPiA+ID4gPiA+IHRoYXQgZGlmZmVyZW50IHR5cGVzIG9m
-IGhhcmR3YXJlIGhhdmUgbGltaXRhdGlvbnMuICBUaGlzIGlzIGEgY2xvc2UtdG8KPiA+ID4gPiA+
-ID4gPiA+IGhhcmR3YXJlLWxldmVsIGFic3RyYWN0aW9uL0FQSSwgYW5kIElNSE8gYXMgbG9uZyBh
-cyB3ZSBkb2N1bWVudCB0aGUKPiA+ID4gPiA+ID4gPiA+IGxpbWl0YXRpb25zIHdlIGNhbiBleHBv
-c2UgdGhpcyBBUEkgd2l0aG91dCB0b28gbWFueSBsaW1pdGF0aW9ucyBmb3IgbW9yZQo+ID4gPiA+
-ID4gPiA+ID4gY2FwYWJsZSBoYXJkd2FyZS4KPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gU3VyZS4g
-SSB3aWxsIHRyeSB0byBhZGQgaGFyZHdhcmUgbGltaXRhdGlvbnMgaW4gZG9jdW1lbnRhdGlvbi4K
-PiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IEkgd291bGQgYXNzdW1lIHRo
-YXQgdGhlIGtmdW5jIHdpbGwgZmFpbCB3aGVuIGEgdmFsdWUgaXMgcGFzc2VkIHRoYXQKPiA+ID4g
-PiA+ID4gPiBjYW5ub3QgYmUgcHJvZ3JhbW1lZC4KPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPgo+
-ID4gPiA+ID4gPiBJbiBjdXJyZW50IGRlc2lnbiwgdGhlIHhza190eF9tZXRhZGF0YV9yZXF1ZXN0
-KCkgZGludCBnb3QgcmV0dXJuIHZhbHVlLgo+ID4gPiA+ID4gPiBTbyB1c2VyIHdvbid0IGtub3cg
-aWYgdGhlaXIgcmVxdWVzdCBpcyBmYWlsLgo+ID4gPiA+ID4gPiBJdCBpcyBjb21wbGV4IHRvIGlu
-Zm9ybSB1c2VyIHdoaWNoIHJlcXVlc3QgaXMgZmFpbGluZy4KPiA+ID4gPiA+ID4gVGhlcmVmb3Jl
-LCBJTUhPLCBpdCBpcyBnb29kIHRoYXQgd2UgbGV0IGRyaXZlciBoYW5kbGUgdGhlIGVycm9yIHNp
-bGVudGx5Lgo+ID4gPiA+ID4gPgo+ID4gPiA+ID4KPiA+ID4gPiA+IElmIHRoZSBwcm9ncmFtbWVk
-IHZhbHVlIGlzIGludmFsaWQsIHRoZSBwYWNrZXQgd2lsbCBiZSAiZHJvcHBlZCIgLyB3aWxsCj4g
-PiA+ID4gPiBuZXZlciBtYWtlIGl0IHRvIHRoZSB3aXJlLCByaWdodD8KPiA+ID4KPiA+ID4gUHJv
-Z3JhbW1hYmxlIGJlaGF2aW9yIGlzIHRvIGVpdGhlciBkcm9wIG9yIGNhcCB0byBzb21lIGJvdW5k
-YXJ5Cj4gPiA+IHZhbHVlLCBzdWNoIGFzIHRoZSBmYXJ0aGVzdCBwcm9ncmFtbWFibGUgdGltZSBp
-biB0aGUgZnV0dXJlOiB0aGUKPiA+ID4gaG9yaXpvbi4gSW4gZnE6Cj4gPiA+Cj4gPiA+ICAgICAg
-ICAgICAgICAgICAvKiBDaGVjayBpZiBwYWNrZXQgdGltZXN0YW1wIGlzIHRvbyBmYXIgaW4gdGhl
-IGZ1dHVyZS4gKi8KPiA+ID4gICAgICAgICAgICAgICAgIGlmIChmcV9wYWNrZXRfYmV5b25kX2hv
-cml6b24oc2tiLCBxLCBub3cpKSB7Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChx
-LT5ob3Jpem9uX2Ryb3ApIHsKPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHEtPnN0YXRfaG9yaXpvbl9kcm9wcysrOwo+ID4gPiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHFkaXNjX2Ryb3Aoc2tiLCBzY2gsIHRvX2ZyZWUp
-Owo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICB9Cj4gPiA+ICAgICAgICAgICAgICAgICAg
-ICAgICAgIHEtPnN0YXRfaG9yaXpvbl9jYXBzKys7Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAg
-ICAgIHNrYi0+dHN0YW1wID0gbm93ICsgcS0+aG9yaXpvbjsKPiA+ID4gICAgICAgICAgICAgICAg
-IH0KPiA+ID4gICAgICAgICAgICAgICAgIGZxX3NrYl9jYihza2IpLT50aW1lX3RvX3NlbmQgPSBz
-a2ItPnRzdGFtcDsKPiA+ID4KPiA+ID4gRHJvcCBpcyB0aGUgbW9yZSBvYnZpb3VzbHkgY29ycmVj
-dCBtb2RlLgo+ID4gPgo+ID4gPiBQcm9ncmFtbWluZyB3aXRoIGEgY2xvY2sgc291cmNlIHRoYXQg
-dGhlIGRyaXZlciBkb2VzIG5vdCBzdXBwb3J0IHdpbGwKPiA+ID4gdGhlbiBiZSBhIHBlcnNpc3Rl
-bnQgZmFpbHVyZS4KPiA+ID4KPiA+ID4gUHJlZmVyYWJseSwgdGhpcyBkcml2ZXIgY2FwYWJpbGl0
-eSBjYW4gYmUgcXVlcmllZCBiZWZvcmVoYW5kIChyYXRoZXIKPiA+ID4gdGhhbiBvbmx5IHRocm91
-Z2ggcmVhZGluZyBlcnJvciBjb3VudGVycyBhZnRlcndhcmRzKS4KPiA+ID4KPiA+ID4gUGVyaGFw
-cyBpdCBzaG91bGQgbm90IGJlIGEgZHJpdmVyIHRhc2sgdG8gY29udmVydCBmcm9tIHBvc3NpYmx5
-Cj4gPiA+IG11bHRpcGxlIGNsb2NrIHNvdXJjZXMgdG8gdGhlIGRldmljZSBuYXRpdmUgY2xvY2su
-IFJpZ2h0IG5vdywgd2UgZG8KPiA+ID4gdXNlIHBlci1kZXZpY2UgdGltZWNvdW50ZXJzIGZvciB0
-aGlzLCBpbXBsZW1lbnRlZCBpbiB0aGUgZHJpdmVyLgo+ID4gPgo+ID4gPiBBcyBmb3Igd2hpY2gg
-Y2xvY2tzIGFyZSByZWxldmFudC4gRm9yIFBUUCwgSSBzdXBwb3NlIHRoZSBkZXZpY2UgUEhDLAo+
-ID4gPiBjb252ZXJ0ZWQgdG8gbnNlYy4gRm9yIHBhY2luZyBvZmZsb2FkLCBUQ1AgdXNlcyBDTE9D
-S19NT05PVE9OSUMuCj4gPgo+ID4gRG8gd2UgbmVlZCB0byBleHBvc2Ugc29tZSBnZW5lcmljIG5l
-dGRldiBuZXRsaW5rIGFwaXMgdG8gcXVlcnkvYWRqdXN0Cj4gPiBuaWMgY2xvY2sgc291cmNlcyAo
-b3IgbWF5YmUgdGhlcmUgaXMgc29tZXRoaW5nIGV4aXN0aW5nIGFscmVhZHkpPwo+ID4gVGhlbiB0
-aGUgdXNlcnNwYWNlIGNhbiBiZSByZXNwb25zaWJsZSBmb3Igc3luY2luZy9jb252ZXJ0aW5nIHRo
-ZQo+ID4gdGltZXN0YW1wcyB0byB0aGUgaW50ZXJuYWwgbmljIGNsb2Nrcy4gKzEgdG8gdHJ5aW5n
-IHRvIGF2b2lkIGRvaW5nCj4gPiB0aGlzIGluIHRoZSBkcml2ZXJzLgo+ID4KPiA+ID4gPiA+IFRo
-YXQgaXMgY2xlYXJseSBhIHNpdHVhdGlvbiB0aGF0IHRoZSB1c2VyIHNob3VsZCBiZSBpbmZvcm1l
-ZCBhYm91dC4gRm9yCj4gPiA+ID4gPiBSVCBzeXN0ZW1zIHRoaXMgbm9ybWFsbHkgbWVhbnMgdGhh
-dCBzb21ldGhpbmcgaXMgcmVhbGx5IHdyb25nIHJlZ2FyZGluZwo+ID4gPiA+ID4gdGltaW5nIC8g
-Y3ljbGUgb3ZlcmZsb3cuIFN1Y2ggc3lzdGVtcyBoYXZlIHRvIHJlYWN0IG9uIHRoYXQgc2l0dWF0
-aW9uLgo+ID4gPiA+Cj4gPiA+ID4gSW4gZ2VuZXJhbCwgYWZfeGRwIGlzIGEgYml0IGxhY2tpbmcg
-aW4gdGhpcyAnbm90aWZ5IHRoZSB1c2VyIHRoYXQgdGhleQo+ID4gPiA+IHNvbWVob3cgbWVzc2Vk
-IHVwJyBhcmVhIDotKAo+ID4gPiA+IEZvciBleGFtcGxlLCBwdXNoaW5nIGEgdHggZGVzY3JpcHRv
-ciB3aXRoIGEgd3JvbmcgYWRkci9sZW4gaW4gemMgbW9kZQo+ID4gPiA+IHdpbGwgbm90IGdpdmUg
-YW55IHZpc2libGUgc2lnbmFsIGJhY2sgKGJlc2lkZXMgZHJpdmVyIHBvdGVudGlhbGx5Cj4gPiA+
-ID4gc3BpbGxpbmcgc29tZXRoaW5nIGludG8gZG1lc2cgYXMgaXQgd2FzIGluIHRoZSBtbHggY2Fz
-ZSkuCj4gPiA+ID4gV2UgY2FuIHByb2JhYmx5IHN0YXJ0IHdpdGggaGF2aW5nIHNvbWUgY291bnRl
-cnMgZm9yIHRoZXNlIGV2ZW50cz8KPiA+ID4KPiA+ID4gVGhpcyBpcyBiZWNhdXNlIHRoZSBBRl9Y
-RFAgY29tcGxldGlvbiBxdWV1ZSBkZXNjcmlwdG9yIGZvcm1hdCBpcyBvbmx5Cj4gPiA+IGEgdTY0
-IGFkZHJlc3M/Cj4gPgo+ID4gWWVhaC4gWERQX0NPUFkgbW9kZSBoYXMgdGhlIGRlc2NyaXB0b3Ig
-dmFsaWRhdGlvbiB3aGljaCBpcyBleHBvcnRlZCB2aWEKPiA+IHJlY3Ztc2cgZXJybm8sIGJ1dCB6
-ZXJvY29weSBwYXRoIHNlZW1zIHRvIGJlIHRvbyBkZWVwIGluIHRoZSBzdGFjawo+ID4gdG8gcmVw
-b3J0IHNvbWV0aGluZyBiYWNrLiBBbmQgdGhlcmUgaXMgbm8gcGxhY2UsIGFzIHlvdSBtZW50aW9u
-LAo+ID4gaW4gdGhlIGNvbXBsZXRpb24gcmluZyB0byByZXBvcnQgdGhlIHN0YXR1cy4KPiA+Cj4g
-PiA+IENvdWxkIGVycm9yIGNvbmRpdGlvbnMgYmUgcmVwb3J0ZWQgb24gdHggY29tcGxldGlvbiBp
-biB0aGUgbWV0YWRhdGEsCj4gPiA+IHVzaW5nIHhza190eF9tZXRhZGF0YV9jb21wbGV0ZT8KPiA+
-Cj4gPiBUaGF0IHdvdWxkIGJlIG9uZSB3YXkgdG8gZG8gaXQsIHllcy4gQnV0IHRoZW4gdGhlIGVy
-cm9yIHJlcG9ydGluZyBkZXBlbmRzCj4gPiBvbiB0aGUgbWV0YWRhdGEgb3B0LWluLiBIYXZpbmcg
-YSBzZXBhcmF0ZSByaW5nIHRvIGV4cG9ydCB0aGUgZXJyb3JzLAo+ID4gb3IgaGF2aW5nIGEgdjIg
-dHgtY29tcGxldGlvbnMgbGF5b3V0IHdpdGggZXh0cmEgJ3N0YXR1cycgZmllbGQgd291bGQgYWxz
-bwo+ID4gd29yay4KPiAKPiBUaGVyZSBhcmUgZXJyb3IgY291bnRlcnMgZm9yIHRoZSBub24tbWV0
-YWRhdGEgYW5kIG9mZmxvYWRpbmcgY2FzZXMKPiBhYm92ZSB0aGF0IGNhbiBiZSByZXRyaWV2ZWQg
-d2l0aCB0aGUgWERQX1NUQVRJU1RJQ1MgZ2V0c29ja29wdCgpLiBGcm9tCj4gaWZfeGRwLmg6Cj4g
-Cj4gc3RydWN0IHhkcF9zdGF0aXN0aWNzIHsKPiAgICAgICAgIF9fdTY0IHJ4X2Ryb3BwZWQ7IC8q
-IERyb3BwZWQgZm9yIG90aGVyIHJlYXNvbnMgKi8KPiAgICAgICAgIF9fdTY0IHJ4X2ludmFsaWRf
-ZGVzY3M7IC8qIERyb3BwZWQgZHVlIHRvIGludmFsaWQgZGVzY3JpcHRvciAqLwo+ICAgICAgICAg
-X191NjQgdHhfaW52YWxpZF9kZXNjczsgLyogRHJvcHBlZCBkdWUgdG8gaW52YWxpZCBkZXNjcmlw
-dG9yICovCj4gICAgICAgICBfX3U2NCByeF9yaW5nX2Z1bGw7IC8qIERyb3BwZWQgZHVlIHRvIHJ4
-IHJpbmcgYmVpbmcgZnVsbCAqLwo+ICAgICAgICAgX191NjQgcnhfZmlsbF9yaW5nX2VtcHR5X2Rl
-c2NzOyAvKiBGYWlsZWQgdG8gcmV0cmlldmUgaXRlbQo+IGZyb20gZmlsbCByaW5nICovCj4gICAg
-ICAgICBfX3U2NCB0eF9yaW5nX2VtcHR5X2Rlc2NzOyAvKiBGYWlsZWQgdG8gcmV0cmlldmUgaXRl
-bSBmcm9tIHR4IHJpbmcgKi8KPiB9Owo+IAo+IEFsYmVpdCwgdGhlc2UgYXJlIGFnZ3JlZ2F0ZSBz
-dGF0aXN0aWNzIGFuZCBkbyBub3Qgc2F5IGFueXRoaW5nIGFib3V0Cj4gd2hpY2ggcGFja2V0IHRo
-YXQgY2F1c2VkIGl0LiBXb3JrcyB3ZWxsIGZvciB0aGluZ3MgdGhhdCBhcmUKPiBwcm9ncmFtbWlu
-ZyBidWdzIHRoYXQgc2hvdWxkIG5vdCBvY2N1ciAoc3VjaCBhcyByeF9pbnZhbGlkX2Rlc2NzIGFu
-ZAo+IHR4X2ludmFsaWRfZGVzY3MpIGFuZCByZXF1aXJlcyB0aGUgcHJvZ3JhbW1lciB0byBkZWJ1
-ZyBhbmQgZml4IGhpcyBvcgo+IGhlciBwcm9ncmFtLCBidXQgaXQgZG9lcyBub3Qgd29yayBmb3Ig
-cmVxdWVzdHMgdGhhdCBtaWdodCBmYWlsIGV2ZW4KPiB0aG91Z2ggdGhlIHByb2dyYW0gaXMgY29y
-cmVjdCBhbmQgbmVlZCB0byBiZSBoYW5kbGVkIG9uIGEgcGFja2V0IGJ5Cj4gcGFja2V0IGJhc2lz
-LiBTbyBzb21ldGhpbmcgbmVlZHMgdG8gYmUgYWRkZWQgZm9yIHRoYXQgYXMgeW91IGJvdGggc2F5
-Lgo+IAo+IFdvdWxkIHByZWZlciBpZiB3ZSBjb3VsZCBhdm9pZCBhIHYyIGNvbXBsZXRpb24gZGVz
-Y3JpcHRvciBmb3JtYXQgb3IKPiBhbm90aGVyIHJpbmcgdGhhdCBuZWVkcyB0byBiZSBjaGVja2Vk
-IGFsbCB0aGUgdGltZSwgc28gaWYgd2UgY291bGQKPiBsaXZlIHdpdGggcHJvdmlkaW5nIHRoZSBl
-cnJvciBzdGF0dXMgaW4gdGhlIG1ldGFkYXRhIGZpZWxkIG9mIHRoZQo+IHBhY2tldCBhdCBjb21w
-bGV0aW9uIHRpbWUsIHRoYXQgd291bGQgYmUgZ29vZC4gVGhvdWdoIGhhdmluZyB0aGUgZXJyb3IK
-PiBzdGF0dXMgaW4gdGhlIGNvbXBsZXRpb24gcmluZyB3b3VsZCBiZSBmYXN0ZXIgYXMgdGhhdCBj
-YWNoZSBsaW5lIGlzCj4gaG90LCB3aGlsZSB0aGUgbWV0YWRhdGEgc2VjdGlvbiBvZiB0aGUgcGFj
-a2V0IGlzIGxpa2VseSBub3QgYXQKPiBjb21wbGV0aW9uIHRpbWUuIFNvIHRoYXQgc3BlYWtzIGZv
-ciBhIHYyIGNvbXBsZXRpb24gcmluZyBmb3JtYXQuIEp1c3QKPiB0aGlua2luZyBvdXQgbG91ZCBo
-ZXJlLgoKSW4gdGhpcyBjYXNlLCBtYXliZSBhZGRpbmcgdHhfb3Zlcl9ob3Jpem9uX2Ryb3BwZWQg
-dG8gWERQX1NUQVRJU1RJQ1MKaXMgYWxsIHdlIG5lZWQgaGVyZT8gV2UgY2FuIGhhdmUgc29tZSBu
-ZXcgYXBpIHRvIHF1ZXJ5IHRoaXMgaG9yaXpvbgpwZXIgbmV0ZGV2LgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+The stmmac_dt_phy() function, which parses the devicetree node of the
+MAC and ultimately causes MDIO bus allocation, misinterprets what
+fixed-link means in relation to the MAC's MDIO bus. This results in
+a MDIO bus being created in situations it need not be.
+
+Currently a MDIO bus is created if the description is either:
+
+    1. Not fixed-link
+    2. fixed-link but contains a MDIO bus as well
+
+The "1" case above isn't always accurate. If there's a phy-handle,
+it could be referencing a phy on another MDIO controller's bus[1]. In
+this case currently the MAC will make a MDIO bus and scan it all
+anyways unnecessarily.
+
+There's also a lot of upstream devicetrees[2] that expect a MDIO bus to
+be created and scanned for a phy. This case can also be inferred from
+the platform description by not having a phy-handle && not being
+fixed-link. This hits case "1" in the current driver's logic.
+
+Let's improve the logic to create a MDIO bus if either:
+
+    - Devicetree contains a MDIO bus
+    - !fixed-link && !phy-handle (legacy handling)
+
+Below upstream devicetree snippets can be found that explain some of
+the cases above more concretely.
+
+Here's[0] a devicetree example where the MAC is both fixed-link and
+driving a switch on MDIO (case "2" above). This needs a MDIO bus to
+be created:
+
+    &fec1 {
+            phy-mode = "rmii";
+
+            fixed-link {
+                    speed = <100>;
+                    full-duplex;
+            };
+
+            mdio1: mdio {
+                    switch0: switch0@0 {
+                            compatible = "marvell,mv88e6190";
+                            pinctrl-0 = <&pinctrl_gpio_switch0>;
+                    };
+            };
+    };
+
+Here's[1] an example where there is no MDIO bus or fixed-link for
+the ethernet1 MAC, so no MDIO bus should be created since ethernet0
+is the MDIO master for ethernet1's phy:
+
+    &ethernet0 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy0>;
+
+            mdio {
+                    compatible = "snps,dwmac-mdio";
+                    sgmii_phy0: phy@8 {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0x8>;
+                            device_type = "ethernet-phy";
+                    };
+
+                    sgmii_phy1: phy@a {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0xa>;
+                            device_type = "ethernet-phy";
+                    };
+            };
+    };
+
+    &ethernet1 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy1>;
+    };
+
+Finally there's descriptions like this[2] which don't describe the
+MDIO bus but expect it to be created and the whole address space
+scanned for a phy since there's no phy-handle or fixed-link described:
+
+    &gmac {
+            phy-supply = <&vcc_lan>;
+            phy-mode = "rmii";
+            snps,reset-gpio = <&gpio3 RK_PB4 GPIO_ACTIVE_HIGH>;
+            snps,reset-active-low;
+            snps,reset-delays-us = <0 10000 1000000>;
+    };
+
+[0] https://elixir.bootlin.com/linux/v6.5-rc5/source/arch/arm/boot/dts/nxp/vf/vf610-zii-ssmb-dtu.dts
+[1] https://elixir.bootlin.com/linux/v6.6-rc5/source/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+[2] https://elixir.bootlin.com/linux/v6.6-rc5/source/arch/arm64/boot/dts/rockchip/rk3368-r88.dts#L164
+
+Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 85 ++++++++++------------
+ 1 file changed, 37 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 1ffde555da47..7da461fe93f6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -296,69 +296,39 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ }
+ 
+ /**
+- * stmmac_dt_phy - parse device-tree driver parameters to allocate PHY resources
+- * @plat: driver data platform structure
+- * @np: device tree node
+- * @dev: device pointer
+- * Description:
+- * The mdio bus will be allocated in case of a phy transceiver is on board;
+- * it will be NULL if the fixed-link is configured.
+- * If there is the "snps,dwmac-mdio" sub-node the mdio will be allocated
+- * in any case (for DSA, mdio must be registered even if fixed-link).
+- * The table below sums the supported configurations:
+- *	-------------------------------
+- *	snps,phy-addr	|     Y
+- *	-------------------------------
+- *	phy-handle	|     Y
+- *	-------------------------------
+- *	fixed-link	|     N
+- *	-------------------------------
+- *	snps,dwmac-mdio	|
+- *	  even if	|     Y
+- *	fixed-link	|
+- *	-------------------------------
++ * stmmac_of_get_mdio() - Gets the MDIO bus from the devicetree
++ * @np: devicetree node
+  *
+- * It returns 0 in case of success otherwise -ENODEV.
++ * The MDIO bus will be searched for in the following ways:
++ * 1. The compatible is "snps,dwc-qos-ethernet-4.10" && a "mdio" named
++ *    child node exists
++ * 2. A child node with the "snps,dwmac-mdio" compatible is present
++ *
++ * Return: The MDIO node if present otherwise NULL
+  */
+-static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+-			 struct device_node *np, struct device *dev)
++static struct device_node *stmmac_of_get_mdio(struct device_node *np)
+ {
+-	bool mdio = !of_phy_is_fixed_link(np);
+ 	static const struct of_device_id need_mdio_ids[] = {
+ 		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+ 		{},
+ 	};
++	struct device_node *mdio_node = NULL;
+ 
+ 	if (of_match_node(need_mdio_ids, np)) {
+-		plat->mdio_node = of_get_child_by_name(np, "mdio");
++		mdio_node = of_get_child_by_name(np, "mdio");
+ 	} else {
+ 		/**
+ 		 * If snps,dwmac-mdio is passed from DT, always register
+ 		 * the MDIO
+ 		 */
+-		for_each_child_of_node(np, plat->mdio_node) {
+-			if (of_device_is_compatible(plat->mdio_node,
++		for_each_child_of_node(np, mdio_node) {
++			if (of_device_is_compatible(mdio_node,
+ 						    "snps,dwmac-mdio"))
+ 				break;
+ 		}
+ 	}
+ 
+-	if (plat->mdio_node) {
+-		dev_dbg(dev, "Found MDIO subnode\n");
+-		mdio = true;
+-	}
+-
+-	if (mdio) {
+-		plat->mdio_bus_data =
+-			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
+-				     GFP_KERNEL);
+-		if (!plat->mdio_bus_data)
+-			return -ENOMEM;
+-
+-		plat->mdio_bus_data->needs_reset = true;
+-	}
+-
+-	return 0;
++	return mdio_node;
+ }
+ 
+ /**
+@@ -417,6 +387,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct plat_stmmacenet_data *plat;
+ 	struct stmmac_dma_cfg *dma_cfg;
++	bool legacy_mdio;
+ 	int phy_mode;
+ 	void *ret;
+ 	int rc;
+@@ -471,10 +442,28 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	if (of_property_read_u32(np, "snps,phy-addr", &plat->phy_addr) == 0)
+ 		dev_warn(&pdev->dev, "snps,phy-addr property is deprecated\n");
+ 
+-	/* To Configure PHY by using all device-tree supported properties */
+-	rc = stmmac_dt_phy(plat, np, &pdev->dev);
+-	if (rc)
+-		return ERR_PTR(rc);
++	plat->mdio_node = stmmac_of_get_mdio(np);
++	if (plat->mdio_node)
++		dev_dbg(&pdev->dev, "Found MDIO subnode\n");
++
++	/* Legacy devicetrees allowed for no MDIO bus description and expect
++	 * the bus to be scanned for devices. If there's no phy or fixed-link
++	 * described assume this is the case since there must be something
++	 * connected to the MAC.
++	 */
++	legacy_mdio = !of_phy_is_fixed_link(np) && !plat->phy_node;
++	if (legacy_mdio)
++		dev_info(&pdev->dev, "Deprecated MDIO bus assumption used\n");
++
++	if (plat->mdio_node || legacy_mdio) {
++		plat->mdio_bus_data = devm_kzalloc(&pdev->dev,
++						   sizeof(struct stmmac_mdio_bus_data),
++						   GFP_KERNEL);
++		if (!plat->mdio_bus_data)
++			return ERR_PTR(-ENOMEM);
++
++		plat->mdio_bus_data->needs_reset = true;
++	}
+ 
+ 	of_property_read_u32(np, "tx-fifo-depth", &plat->tx_fifo_size);
+ 
+
+---
+base-commit: fd8a79b63710acb84321be3ce74be23c876873fb
+change-id: 20231127-stmmac-no-mdio-node-1db9da8a25d9
+
+Best regards,
+-- 
+Andrew Halaney <ahalaney@redhat.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
