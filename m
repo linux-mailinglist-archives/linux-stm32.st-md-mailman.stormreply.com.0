@@ -2,79 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FDA1808AF6
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Dec 2023 15:47:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A1E1809329
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Dec 2023 22:12:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA561C6907A;
-	Thu,  7 Dec 2023 14:47:16 +0000 (UTC)
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06E4BC65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C0E7C65E42;
+	Thu,  7 Dec 2023 21:12:52 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2879C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Dec 2023 14:47:15 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-50be10acaf9so788352e87.1
+ Thu,  7 Dec 2023 21:12:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1701983569;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=m0tm0lsXPlnCiFdUXwz3yeCYNRe8/nR8iqlVxg/Ese8=;
+ b=Qn2NIJp27vDfEPZ9jPXoaU+8GMHtp5ke+sU/M0M7XiwB+x+Rh73y6RtqejnR/qtDJOlzgJ
+ DU926hlL4Xvl9qhSJkW6u+qL14TEbwAlxCjH7UmHoEQxH85QfTcGbO1eoxycXoKiCvjrsH
+ c76lswIQoNZMn8ncQgInw4Dlh6PcxAU=
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-161-svd6vXeAPyCIZrEC9HuokA-1; Thu, 07 Dec 2023 16:12:48 -0500
+X-MC-Unique: svd6vXeAPyCIZrEC9HuokA-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-77f10001de7so130703185a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 07 Dec 2023 06:47:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1701960435; x=1702565235;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=cqlaAjyYoTX21n2s5cfjq7OlbuSAPm9lzmylNhTuY6I=;
- b=QKxZmv4W6GKX8l+15l4xQzaxOtI/Z8aQbMtXHWIMdWu1U0ocGsmZ6l++N0rm5ai2vV
- 0wy6R87RSrbqUvPzOZJwUu/5hjBL7OUIaj38k7ANYPttMiHGzOy4d+wMK4sdktLQQjVV
- YlQyoAEJ7/+//017VJ2R7MVW03jGGr3x30ZN7Tf5AzLfone3S88IJKG+IfHr48Yur3oX
- 122kdrPGQ874dB1T3XxXZYaNWKaBHs8SDcHeH7Hr3rHkF1Djim/1QULBAcbJ0kei9aMN
- rss2IPyr/UnBJoG5mU/osrHKgFcG/vSIX7OmLlq1M20T9FNqSuH30Ma35nryAOHNdoE4
- ULvQ==
+ Thu, 07 Dec 2023 13:12:48 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1701960435; x=1702565235;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cqlaAjyYoTX21n2s5cfjq7OlbuSAPm9lzmylNhTuY6I=;
- b=KkyJ6f07ewCfoChR4kJkg87kRG5BKcvHIpaP4l2s03AuEk+QJxV2yyXPoyBqfxsthH
- 31zzmItYnIR8deRHqOlI14cgkxzvORWyJDpF30ojiiwFw8tOBULKe3bvhxZ00cc7ysjo
- olSCRuqrcrvKiudnL4UL+Pel1fXMdfJOBVFzPtbo78rT9ri5BvzRYcAeKtPr8O6ph8wV
- 5f5Zs7SomaF0Xa1AEO2xmSWlLUPSXBCN2iOyw5CxCjWHac/IQlDvqZj2yJPB4Nkn3Gb+
- GqeSNkgfYAh4OFwKxzStkPu2VdyVz3rJB5tIOLhbUScDjpvR7bkwMr8p0d5+0VYFjODQ
- qxNg==
-X-Gm-Message-State: AOJu0YwSSwLPkmDwjfuf9Rm3XpaOx2IHCxdutz3EUuPlkjK+SEJx6AdV
- rIBifZ+MInWydU/0pc3W1/E=
-X-Google-Smtp-Source: AGHT+IHt6jmaJ4Kw2i2qQNJQx0ETtzVu6UphNSpRZpwIAZmDoKS9ekjWRCFIkH2tj1BtTLNIyKFnFw==
-X-Received: by 2002:a05:6512:3e27:b0:50b:c0f1:f532 with SMTP id
- i39-20020a0565123e2700b0050bc0f1f532mr4043138lfv.26.1701960434989; 
- Thu, 07 Dec 2023 06:47:14 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
+ d=1e100.net; s=20230601; t=1701983568; x=1702588368;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=m0tm0lsXPlnCiFdUXwz3yeCYNRe8/nR8iqlVxg/Ese8=;
+ b=YdltTazJz+4FvV/W3KGhYJcNK6ksxm9/o3SuWrkVRJEAWADCJgmSMFlbYAnSOuD6c0
+ 5CpUn2uXcLktiOUFy/9aSsn9s1TlZYRXvqPHDiccLy4wAWYCCKQtQIErHh5dHyPgIOwP
+ DTkPyhiVF7doL1ee6MydraFUSd+u2h4lM8Rvqinm/2c+QsIzZqAJnlNFeXUrhfdjVfZt
+ Yd/cM+AG7X8Eeg4alcrsUG3JCxZqlASBu0CkNsGoCVxiMYpvGkk89CgaFHK/KRtt1IOj
+ sjm6Ry15aZPU5Z5un4/2Yq29QK12fDa8OMcOLQjAd9B00v8c+68F7YQroberWPIuoEof
+ 6vXA==
+X-Gm-Message-State: AOJu0Yw1aDxgko6Y25s3kdAga7Gtv3IOSXK8gmt7VnWENwdxYFxqseqR
+ Ao6tPJ9gdbxeLfTpOz9GwxqLyw534kX15LnByIYT2stYT9Ae+LH5Z/ck4P1ifxjjbnA1yHEUM0A
+ RKl8Q0drLCvNzPkW8VYr/sbEMoAKS7OcNBCSD9IFf
+X-Received: by 2002:a05:620a:12d9:b0:77e:fba3:8206 with SMTP id
+ e25-20020a05620a12d900b0077efba38206mr1847338qkl.156.1701983567822; 
+ Thu, 07 Dec 2023 13:12:47 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IF7z86zXmymay8jxRxW4MSE3B+0PAsE8XNJYAsWbEq3pdPF6yTm8ycxXKBFDbgo28pcWyd13w==
+X-Received: by 2002:a05:620a:12d9:b0:77e:fba3:8206 with SMTP id
+ e25-20020a05620a12d900b0077efba38206mr1847324qkl.156.1701983567552; 
+ Thu, 07 Dec 2023 13:12:47 -0800 (PST)
+Received: from [192.168.1.164] ([2600:1700:1ff0:d0e0::47])
  by smtp.gmail.com with ESMTPSA id
- e10-20020ac24e0a000000b0050c0215a806sm189601lfr.83.2023.12.07.06.47.13
+ rb3-20020a05620a8d0300b00774350813ccsm180707qkn.118.2023.12.07.13.12.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Dec 2023 06:47:14 -0800 (PST)
-Date: Thu, 7 Dec 2023 17:47:11 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: kernel test robot <lkp@intel.com>
-Message-ID: <ohhgcfdvbxo3sffjpf7nedti3gujcwti4cysgim47jgcsum5ay@rrtsfnwktbqb>
-References: <20231205103559.9605-14-fancer.lancer@gmail.com>
- <202312060845.lDDRDWET-lkp@intel.com>
+ Thu, 07 Dec 2023 13:12:47 -0800 (PST)
+From: Andrew Halaney <ahalaney@redhat.com>
+Date: Thu, 07 Dec 2023 15:12:40 -0600
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <202312060845.lDDRDWET-lkp@intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Tomer Maimon <tmaimon77@gmail.com>,
- Eric Dumazet <edumazet@google.com>, linux-stm32@st-md-mailman.stormreply.com,
- openbmc@lists.ozlabs.org, Russell King <linux@armlinux.org.uk>,
- Krzysztof Kozlowski <krzk@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, oe-kbuild-all@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 13/16] net: stmmac: intel:
- Register generic MDIO device
+Message-Id: <20231207-stmmac-no-mdio-node-v3-1-34b870f2bafb@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAEc1cmUC/22OQQ6DIBBFr2Jm3TEC1WpXvUfjAmGqJAUMENLGe
+ PdSF1119f/PZF7eBpGCoQjXaoNA2UTjXRniVIFapJsJjS4beMMFY/yCMVkrFTqPVhtfUhMyPQ1
+ a9pK3eoDyuQZ6mNdBvYOjhI5eCcZyeQRvMS2B5I/a9E3PSmnPNWNdK5DhFObnbZo15Xp9foGLi
+ cmH92GZ+YE9hHjT/RXKvFCEEErSeZiYkrdAepGpVt7CuO/7BxyLB074AAAA
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+X-Mailer: b4 0.12.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: don't create a MDIO
+ bus if unnecessary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,254 +95,257 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 06, 2023 at 08:19:07AM +0800, kernel test robot wrote:
-> Hi Serge,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on net-next/main]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Serge-Semin/net-pcs-xpcs-Drop-sentinel-entry-from-2500basex-ifaces-list/20231205-183808
-> base:   net-next/main
-> patch link:    https://lore.kernel.org/r/20231205103559.9605-14-fancer.lancer%40gmail.com
-> patch subject: [PATCH net-next 13/16] net: stmmac: intel: Register generic MDIO device
-> config: x86_64-kexec (https://download.01.org/0day-ci/archive/20231206/202312060845.lDDRDWET-lkp@intel.com/config)
-> compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20231206/202312060845.lDDRDWET-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202312060845.lDDRDWET-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
->    drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c: In function 'intel_mgbe_common_data':
-> >> drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:646:31: error: 'clk' undeclared (first use in this function)
->      646 |         clk_disable_unprepare(clk);
->          |                               ^~~
->    drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c:646:31: note: each undeclared identifier is reported only once for each function it appears in
-> 
-> 
-> vim +/clk +646 drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+The stmmac_dt_phy() function, which parses the devicetree node of the
+MAC and ultimately causes MDIO bus allocation, misinterprets what
+fixed-link means in relation to the MAC's MDIO bus. This results in
+a MDIO bus being created in situations it need not be.
 
-Right, my series had been originally based on a branch which had some
-of this driver parts fixed. I should have more thoroughly performed
-the re-base process. I'll make sure it's fixed on v2.
+Currently a MDIO bus is created if the description is either:
 
--Serge(y)
+    1. Not fixed-link
+    2. fixed-link but contains a MDIO bus as well
 
-> 
->    446	
->    447	static int intel_mgbe_common_data(struct pci_dev *pdev,
->    448					  struct plat_stmmacenet_data *plat)
->    449	{
->    450		struct fwnode_handle *fwnode;
->    451		char clk_name[20];
->    452		int ret;
->    453		int i;
->    454	
->    455		plat->pdev = pdev;
->    456		plat->phy_addr = -1;
->    457		plat->clk_csr = 5;
->    458		plat->has_gmac = 0;
->    459		plat->has_gmac4 = 1;
->    460		plat->force_sf_dma_mode = 0;
->    461		plat->flags |= (STMMAC_FLAG_TSO_EN | STMMAC_FLAG_SPH_DISABLE);
->    462	
->    463		/* Multiplying factor to the clk_eee_i clock time
->    464		 * period to make it closer to 100 ns. This value
->    465		 * should be programmed such that the clk_eee_time_period *
->    466		 * (MULT_FACT_100NS + 1) should be within 80 ns to 120 ns
->    467		 * clk_eee frequency is 19.2Mhz
->    468		 * clk_eee_time_period is 52ns
->    469		 * 52ns * (1 + 1) = 104ns
->    470		 * MULT_FACT_100NS = 1
->    471		 */
->    472		plat->mult_fact_100ns = 1;
->    473	
->    474		plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
->    475	
->    476		for (i = 0; i < plat->rx_queues_to_use; i++) {
->    477			plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
->    478			plat->rx_queues_cfg[i].chan = i;
->    479	
->    480			/* Disable Priority config by default */
->    481			plat->rx_queues_cfg[i].use_prio = false;
->    482	
->    483			/* Disable RX queues routing by default */
->    484			plat->rx_queues_cfg[i].pkt_route = 0x0;
->    485		}
->    486	
->    487		for (i = 0; i < plat->tx_queues_to_use; i++) {
->    488			plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_DCB;
->    489	
->    490			/* Disable Priority config by default */
->    491			plat->tx_queues_cfg[i].use_prio = false;
->    492			/* Default TX Q0 to use TSO and rest TXQ for TBS */
->    493			if (i > 0)
->    494				plat->tx_queues_cfg[i].tbs_en = 1;
->    495		}
->    496	
->    497		/* FIFO size is 4096 bytes for 1 tx/rx queue */
->    498		plat->tx_fifo_size = plat->tx_queues_to_use * 4096;
->    499		plat->rx_fifo_size = plat->rx_queues_to_use * 4096;
->    500	
->    501		plat->tx_sched_algorithm = MTL_TX_ALGORITHM_WRR;
->    502		plat->tx_queues_cfg[0].weight = 0x09;
->    503		plat->tx_queues_cfg[1].weight = 0x0A;
->    504		plat->tx_queues_cfg[2].weight = 0x0B;
->    505		plat->tx_queues_cfg[3].weight = 0x0C;
->    506		plat->tx_queues_cfg[4].weight = 0x0D;
->    507		plat->tx_queues_cfg[5].weight = 0x0E;
->    508		plat->tx_queues_cfg[6].weight = 0x0F;
->    509		plat->tx_queues_cfg[7].weight = 0x10;
->    510	
->    511		plat->dma_cfg->pbl = 32;
->    512		plat->dma_cfg->pblx8 = true;
->    513		plat->dma_cfg->fixed_burst = 0;
->    514		plat->dma_cfg->mixed_burst = 0;
->    515		plat->dma_cfg->aal = 0;
->    516		plat->dma_cfg->dche = true;
->    517	
->    518		plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi),
->    519					 GFP_KERNEL);
->    520		if (!plat->axi)
->    521			return -ENOMEM;
->    522	
->    523		plat->axi->axi_lpi_en = 0;
->    524		plat->axi->axi_xit_frm = 0;
->    525		plat->axi->axi_wr_osr_lmt = 1;
->    526		plat->axi->axi_rd_osr_lmt = 1;
->    527		plat->axi->axi_blen[0] = 4;
->    528		plat->axi->axi_blen[1] = 8;
->    529		plat->axi->axi_blen[2] = 16;
->    530	
->    531		plat->ptp_max_adj = plat->clk_ptp_rate;
->    532		plat->eee_usecs_rate = plat->clk_ptp_rate;
->    533	
->    534		/* Set system clock */
->    535		sprintf(clk_name, "%s-%s", "stmmac", pci_name(pdev));
->    536	
->    537		plat->stmmac_clk = clk_register_fixed_rate(&pdev->dev,
->    538							   clk_name, NULL, 0,
->    539							   plat->clk_ptp_rate);
->    540	
->    541		if (IS_ERR(plat->stmmac_clk)) {
->    542			dev_warn(&pdev->dev, "Fail to register stmmac-clk\n");
->    543			plat->stmmac_clk = NULL;
->    544		}
->    545	
->    546		ret = clk_prepare_enable(plat->stmmac_clk);
->    547		if (ret) {
->    548			clk_unregister_fixed_rate(plat->stmmac_clk);
->    549			return ret;
->    550		}
->    551	
->    552		plat->ptp_clk_freq_config = intel_mgbe_ptp_clk_freq_config;
->    553	
->    554		/* Set default value for multicast hash bins */
->    555		plat->multicast_filter_bins = HASH_TABLE_SIZE;
->    556	
->    557		/* Set default value for unicast filter entries */
->    558		plat->unicast_filter_entries = 1;
->    559	
->    560		/* Set the maxmtu to a default of JUMBO_LEN */
->    561		plat->maxmtu = JUMBO_LEN;
->    562	
->    563		plat->flags |= STMMAC_FLAG_VLAN_FAIL_Q_EN;
->    564	
->    565		/* Use the last Rx queue */
->    566		plat->vlan_fail_q = plat->rx_queues_to_use - 1;
->    567	
->    568		/* For fixed-link setup, we allow phy-mode setting */
->    569		fwnode = dev_fwnode(&pdev->dev);
->    570		if (fwnode) {
->    571			int phy_mode;
->    572	
->    573			/* "phy-mode" setting is optional. If it is set,
->    574			 *  we allow either sgmii or 1000base-x for now.
->    575			 */
->    576			phy_mode = fwnode_get_phy_mode(fwnode);
->    577			if (phy_mode >= 0) {
->    578				if (phy_mode == PHY_INTERFACE_MODE_SGMII ||
->    579				    phy_mode == PHY_INTERFACE_MODE_1000BASEX)
->    580					plat->phy_interface = phy_mode;
->    581				else
->    582					dev_warn(&pdev->dev, "Invalid phy-mode\n");
->    583			}
->    584		}
->    585	
->    586		/* Intel mgbe SGMII interface uses pcs-xcps */
->    587		if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
->    588		    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
->    589			struct mdio_board_info *xpcs_info;
->    590	
->    591			xpcs_info = devm_kzalloc(&pdev->dev,
->    592						 sizeof(*xpcs_info) + MII_BUS_ID_SIZE,
->    593						 GFP_KERNEL);
->    594			if (!xpcs_info) {
->    595				ret = -ENOMEM;
->    596				goto err_alloc_info;
->    597			}
->    598	
->    599			xpcs_info->bus_id = (void *)xpcs_info + sizeof(*xpcs_info);
->    600			snprintf((char *)xpcs_info->bus_id, MII_BUS_ID_SIZE,
->    601				 "stmmac-%x", plat->bus_id);
->    602	
->    603			snprintf(xpcs_info->modalias, MDIO_NAME_SIZE, "dwxpcs");
->    604	
->    605			xpcs_info->mdio_addr = INTEL_MGBE_XPCS_ADDR;
->    606	
->    607			ret = mdiobus_register_board_info(xpcs_info, 1);
->    608			if (ret)
->    609				goto err_alloc_info;
->    610	
->    611			plat->mdio_bus_data->has_xpcs = true;
->    612			plat->mdio_bus_data->xpcs_an_inband = true;
->    613		}
->    614	
->    615		/* For fixed-link setup, we clear xpcs_an_inband */
->    616		if (fwnode) {
->    617			struct fwnode_handle *fixed_node;
->    618	
->    619			fixed_node = fwnode_get_named_child_node(fwnode, "fixed-link");
->    620			if (fixed_node)
->    621				plat->mdio_bus_data->xpcs_an_inband = false;
->    622	
->    623			fwnode_handle_put(fixed_node);
->    624		}
->    625	
->    626		/* Ensure mdio bus PHY-scan skips intel serdes and pcs-xpcs */
->    627		plat->mdio_bus_data->phy_mask = 1 << INTEL_MGBE_ADHOC_ADDR;
->    628		plat->mdio_bus_data->phy_mask |= 1 << INTEL_MGBE_XPCS_ADDR;
->    629	
->    630		plat->int_snapshot_num = AUX_SNAPSHOT1;
->    631	
->    632		plat->crosststamp = intel_crosststamp;
->    633		plat->flags &= ~STMMAC_FLAG_INT_SNAPSHOT_EN;
->    634	
->    635		/* Setup MSI vector offset specific to Intel mGbE controller */
->    636		plat->msi_mac_vec = 29;
->    637		plat->msi_lpi_vec = 28;
->    638		plat->msi_sfty_ce_vec = 27;
->    639		plat->msi_sfty_ue_vec = 26;
->    640		plat->msi_rx_base_vec = 0;
->    641		plat->msi_tx_base_vec = 1;
->    642	
->    643		return 0;
->    644	
->    645	err_alloc_info:
->  > 646		clk_disable_unprepare(clk);
->    647		clk_unregister_fixed_rate(clk);
->    648	
->    649		return ret;
->    650	}
->    651	
-> 
-> -- 
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+The "1" case above isn't always accurate. If there's a phy-handle,
+it could be referencing a phy on another MDIO controller's bus[1]. In
+this case currently the MAC will make a MDIO bus and scan it all
+anyways unnecessarily.
+
+There's also a lot of upstream devicetrees[2] that expect a MDIO bus to
+be created and scanned for a phy. This case can also be inferred from
+the platform description by not having a phy-handle && not being
+fixed-link. This hits case "1" in the current driver's logic.
+
+Let's improve the logic to create a MDIO bus if either:
+
+    - Devicetree contains a MDIO bus
+    - !fixed-link && !phy-handle (legacy handling)
+
+Below upstream devicetree snippets can be found that explain some of
+the cases above more concretely.
+
+Here's[0] a devicetree example where the MAC is both fixed-link and
+driving a switch on MDIO (case "2" above). This needs a MDIO bus to
+be created:
+
+    &fec1 {
+            phy-mode = "rmii";
+
+            fixed-link {
+                    speed = <100>;
+                    full-duplex;
+            };
+
+            mdio1: mdio {
+                    switch0: switch0@0 {
+                            compatible = "marvell,mv88e6190";
+                            pinctrl-0 = <&pinctrl_gpio_switch0>;
+                    };
+            };
+    };
+
+Here's[1] an example where there is no MDIO bus or fixed-link for
+the ethernet1 MAC, so no MDIO bus should be created since ethernet0
+is the MDIO master for ethernet1's phy:
+
+    &ethernet0 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy0>;
+
+            mdio {
+                    compatible = "snps,dwmac-mdio";
+                    sgmii_phy0: phy@8 {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0x8>;
+                            device_type = "ethernet-phy";
+                    };
+
+                    sgmii_phy1: phy@a {
+                            compatible = "ethernet-phy-id0141.0dd4";
+                            reg = <0xa>;
+                            device_type = "ethernet-phy";
+                    };
+            };
+    };
+
+    &ethernet1 {
+            phy-mode = "sgmii";
+            phy-handle = <&sgmii_phy1>;
+    };
+
+Finally there's descriptions like this[2] which don't describe the
+MDIO bus but expect it to be created and the whole address space
+scanned for a phy since there's no phy-handle or fixed-link described:
+
+    &gmac {
+            phy-supply = <&vcc_lan>;
+            phy-mode = "rmii";
+            snps,reset-gpio = <&gpio3 RK_PB4 GPIO_ACTIVE_HIGH>;
+            snps,reset-active-low;
+            snps,reset-delays-us = <0 10000 1000000>;
+    };
+
+[0] https://elixir.bootlin.com/linux/v6.5-rc5/source/arch/arm/boot/dts/nxp/vf/vf610-zii-ssmb-dtu.dts
+[1] https://elixir.bootlin.com/linux/v6.6-rc5/source/arch/arm64/boot/dts/qcom/sa8775p-ride.dts
+[2] https://elixir.bootlin.com/linux/v6.6-rc5/source/arch/arm64/boot/dts/rockchip/rk3368-r88.dts#L164
+
+Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+---
+Changes in v3:
+    - Keep logic out of stmmac_probe_config_dt() since it's already massive (Serge)
+
+Changes in v2:
+    - Handle the fixed-link + mdio case (Andrew Lunn)
+    - Reworded commit message
+    - Still handle the "legacy" case mentioned in the commit
+    - Bit further refactoring of the function for readability
+
+- Link to v2: https://lore.kernel.org/r/20231206-stmmac-no-mdio-node-v2-1-333cae49b1ca@redhat.com
+- Link to v1: https://lore.kernel.org/netdev/20230808120254.11653-1-brgl@bgdev.pl/
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 91 +++++++++++++---------
+ 1 file changed, 54 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 1ffde555da47..d6079c1432c7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -296,62 +296,80 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+ }
+ 
+ /**
+- * stmmac_dt_phy - parse device-tree driver parameters to allocate PHY resources
+- * @plat: driver data platform structure
+- * @np: device tree node
+- * @dev: device pointer
+- * Description:
+- * The mdio bus will be allocated in case of a phy transceiver is on board;
+- * it will be NULL if the fixed-link is configured.
+- * If there is the "snps,dwmac-mdio" sub-node the mdio will be allocated
+- * in any case (for DSA, mdio must be registered even if fixed-link).
+- * The table below sums the supported configurations:
+- *	-------------------------------
+- *	snps,phy-addr	|     Y
+- *	-------------------------------
+- *	phy-handle	|     Y
+- *	-------------------------------
+- *	fixed-link	|     N
+- *	-------------------------------
+- *	snps,dwmac-mdio	|
+- *	  even if	|     Y
+- *	fixed-link	|
+- *	-------------------------------
++ * stmmac_of_get_mdio() - Gets the MDIO bus from the devicetree.
++ * @np: devicetree node
+  *
+- * It returns 0 in case of success otherwise -ENODEV.
++ * The MDIO bus will be searched for in the following ways:
++ * 1. The compatible is "snps,dwc-qos-ethernet-4.10" && a "mdio" named
++ *    child node exists
++ * 2. A child node with the "snps,dwmac-mdio" compatible is present
++ *
++ * Return: The MDIO node if present otherwise NULL
+  */
+-static int stmmac_dt_phy(struct plat_stmmacenet_data *plat,
+-			 struct device_node *np, struct device *dev)
++static struct device_node *stmmac_of_get_mdio(struct device_node *np)
+ {
+-	bool mdio = !of_phy_is_fixed_link(np);
+ 	static const struct of_device_id need_mdio_ids[] = {
+ 		{ .compatible = "snps,dwc-qos-ethernet-4.10" },
+ 		{},
+ 	};
++	struct device_node *mdio_node = NULL;
+ 
+ 	if (of_match_node(need_mdio_ids, np)) {
+-		plat->mdio_node = of_get_child_by_name(np, "mdio");
++		mdio_node = of_get_child_by_name(np, "mdio");
+ 	} else {
+ 		/**
+ 		 * If snps,dwmac-mdio is passed from DT, always register
+ 		 * the MDIO
+ 		 */
+-		for_each_child_of_node(np, plat->mdio_node) {
+-			if (of_device_is_compatible(plat->mdio_node,
++		for_each_child_of_node(np, mdio_node) {
++			if (of_device_is_compatible(mdio_node,
+ 						    "snps,dwmac-mdio"))
+ 				break;
+ 		}
+ 	}
+ 
+-	if (plat->mdio_node) {
++	return mdio_node;
++}
++
++/**
++ * stmmac_mdio_setup() - Populate platform related MDIO structures.
++ * @plat: driver data platform structure
++ * @np: devicetree node
++ * @dev: device pointer
++ *
++ * This searches for MDIO information from the devicetree.
++ * If an MDIO node is found, it's assigned to plat->mdio_node and
++ * plat->mdio_bus_data is allocated.
++ * If no connection can be determined, just plat->mdio_bus_data is allocated
++ * to indicate a bus should be created and scanned for a phy.
++ * If it's determined there's no MDIO bus needed, both are left NULL.
++ *
++ * This expects that plat->phy_node has already been searched for.
++ *
++ * Return: 0 on success, errno otherwise.
++ */
++static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
++			     struct device_node *np, struct device *dev)
++{
++	bool legacy_mdio;
++
++	plat->mdio_node = stmmac_of_get_mdio(np);
++	if (plat->mdio_node)
+ 		dev_dbg(dev, "Found MDIO subnode\n");
+-		mdio = true;
+-	}
+ 
+-	if (mdio) {
+-		plat->mdio_bus_data =
+-			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
+-				     GFP_KERNEL);
++	/* Legacy devicetrees allowed for no MDIO bus description and expect
++	 * the bus to be scanned for devices. If there's no phy or fixed-link
++	 * described assume this is the case since there must be something
++	 * connected to the MAC.
++	 */
++	legacy_mdio = !of_phy_is_fixed_link(np) && !plat->phy_node;
++	if (legacy_mdio)
++		dev_info(dev, "Deprecated MDIO bus assumption used\n");
++
++	if (plat->mdio_node || legacy_mdio) {
++		plat->mdio_bus_data = devm_kzalloc(dev,
++						   sizeof(struct stmmac_mdio_bus_data),
++						   GFP_KERNEL);
+ 		if (!plat->mdio_bus_data)
+ 			return -ENOMEM;
+ 
+@@ -471,8 +489,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	if (of_property_read_u32(np, "snps,phy-addr", &plat->phy_addr) == 0)
+ 		dev_warn(&pdev->dev, "snps,phy-addr property is deprecated\n");
+ 
+-	/* To Configure PHY by using all device-tree supported properties */
+-	rc = stmmac_dt_phy(plat, np, &pdev->dev);
++	rc = stmmac_mdio_setup(plat, np, &pdev->dev);
+ 	if (rc)
+ 		return ERR_PTR(rc);
+ 
+
+---
+base-commit: fd8a79b63710acb84321be3ce74be23c876873fb
+change-id: 20231127-stmmac-no-mdio-node-1db9da8a25d9
+
+Best regards,
+-- 
+Andrew Halaney <ahalaney@redhat.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
