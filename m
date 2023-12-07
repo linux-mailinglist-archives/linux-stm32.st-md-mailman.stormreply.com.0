@@ -2,86 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92458808493
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Dec 2023 10:27:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E41A808505
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Dec 2023 10:56:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57712C6B475;
-	Thu,  7 Dec 2023 09:27:20 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F27F0C6C85F;
+	Thu,  7 Dec 2023 09:56:42 +0000 (UTC)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6918BC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 242AAC6B475
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Dec 2023 09:27:18 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 3B78o16n013248; Thu, 7 Dec 2023 09:27:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding : content-type; s=qcppdkim1;
- bh=5s+XJup/qfsjEaVoEpyuVSOCEB1HvAHAnjOVB/KlAME=;
- b=DzD81Jgm5LZUpjqzNY9O88NHE5mVu4IK9WVP3pKxMKYw3T0dN56Qkn1bDZ+9uqZ2HOoK
- La1hglBI6V3FyRcQhAZVoHQcJy/is12KhlFxVlMl9ZZkQV/YLDlOYTjB5r2LWIwUBoOG
- xS3ximo+Q2Yb6+CynZWxFwcyETP0m0SmTdfuzpB90SZx9YvuVlQ10CY2fOnyOvTa+naG
- cPFhpfuMrXenszi3idfUUOkwJ84JyVcVp5dDuCG79Ti0Svy59hQPBkIXimPwdAWe8sKL
- gnqDMv3wQrNdUpALV3C8fPpvTPzzBeEvhpNingua5c7BT7PdL1q/FESTKCbasSiM2Jj1 3g== 
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uu6qr0jxr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Dec 2023 09:27:06 +0000
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3B79R5Bo030191
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 7 Dec 2023 09:27:05 GMT
-Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 7 Dec 2023 01:26:55 -0800
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
- <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Jose Abreu" <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- Andrew Halaney <ahalaney@redhat.com>
-Date: Thu, 7 Dec 2023 14:51:27 +0530
-Message-ID: <64edc073307ef9cb1bebf2c999cf2b5f56f3d906.1701939695.git.quic_jsuraj@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1701939695.git.quic_jsuraj@quicinc.com>
-References: <cover.1701939695.git.quic_jsuraj@quicinc.com>
+ Thu,  7 Dec 2023 09:56:41 +0000 (UTC)
+Received: by mail-yb1-f179.google.com with SMTP id
+ 3f1490d57ef6-dafe04717baso776706276.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 07 Dec 2023 01:56:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1701943000; x=1702547800;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TJnq125j0YdWG47h8sgeSrpDhVFiAnTytxHlskk2EhY=;
+ b=dW9yYP02H6azWWtQb0Wu1vdZIOXPS2gBLd5CqRiC6RF//Hkh8m1Qz6uGMsMU7RXrt7
+ DkaIUJVTo1AfTgb4v2gRdnoNK9YI5m/6kX7+KKXQ9HAaVdvTYJ3kIllreD+fB7uhnIiO
+ EAS7MLlNMuHcZV8nYXN7FhNtp60Lv1HYvlnviuhZy9CUhnzbyXgkPdW+lMe7TTYjnXQo
+ DrUAUiZHNqCYllZX+tAiaq8Xv75C/lmaJ+48aRs/O8sXFbhAOXFk2Y/0d9TBA6tkPGTv
+ gBmONSL9PSr1+Q3xGRYifm/thl7jg23gFgLHIW4bYUjVs2kKX9dJvXrsYG5g2XQXOecv
+ p8BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1701943000; x=1702547800;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=TJnq125j0YdWG47h8sgeSrpDhVFiAnTytxHlskk2EhY=;
+ b=gkhRldqE3iiKHCBDuZclK0PtyoUZgxhKHHcxuG3DbWZAG/pVXpupkpIZLohKwM1+F2
+ DSpFhIrTvA8br3lg4ipGJT/0ItmoocJhbeNJpLYIxwfFk35a3eyetGm2phbn/4+TBQqG
+ GWdk4Jxv4lX1YpkLSSFZXw3CVe8RWUxs3bQSb9/I7jaJPZrPn+bq8/yj/x1HNV8LVRJ3
+ nWBkBSHRP9b2NU2UWcLasnHDfxKKxMmQ2IE1jfCRcIkJPrnUzD8IgAGgVKDcqXm1P071
+ qUdeAp/ayBXe1r+7zj6bRBFVEYx5QAc+KtwNYv9F45ZDBjqA07ASFFlCJ5YPwbhKwbVX
+ +Agg==
+X-Gm-Message-State: AOJu0YwukWcBWP3a6ABbRQ03VffRufZyQpY+Sr0X9M+xCVbueNUHyzLz
+ OrewwnGATWVfb14atyOQHYDgQ5a0cDeZv/vVzBPCHw==
+X-Google-Smtp-Source: AGHT+IFmG5Eix/w4QK05D8maIWu4NoSnt+3uvdJ7TmBB3MpQnzAeGZpXme98S/yULZnvsP6j+GPexkcwj6QKWJI6sGg=
+X-Received: by 2002:a25:190a:0:b0:da3:76d3:e4fb with SMTP id
+ 10-20020a25190a000000b00da376d3e4fbmr1627701ybz.26.1701942999893; Thu, 07 Dec
+ 2023 01:56:39 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: rU9UePHy3ejFvtd4S07eZgUR7XuRX_Eb
-X-Proofpoint-ORIG-GUID: rU9UePHy3ejFvtd4S07eZgUR7XuRX_Eb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-07_07,2023-12-06_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- lowpriorityscore=0 adultscore=0 mlxscore=0 bulkscore=0 mlxlogscore=999
- priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
- clxscore=1015 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2311290000 definitions=main-2312070076
-Cc: kernel@quicinc.com
-Subject: [Linux-stm32] [PATCH net-next v4 3/3] net: stmmac: Add driver
-	support for DWMAC5 safety IRQ Support
+References: <20231204203357.2897008-1-ben.wolsieffer@hefring.com>
+ <20231204203357.2897008-3-ben.wolsieffer@hefring.com>
+In-Reply-To: <20231204203357.2897008-3-ben.wolsieffer@hefring.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 7 Dec 2023 10:56:50 +0100
+Message-ID: <CACRpkdZKjcE5yMF0=E+4BRTEmrShSqFzCcyH8Rug7u7kOotUQQ@mail.gmail.com>
+To: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] pinctrl: stm32: fix GPIO level
+	interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,122 +74,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add IRQ support to listen HW safety IRQ like ECC,DPP,FSM
-fault and print the fault information in the kernel
-log.
-
-Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h   |  1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h   |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++++++
- .../ethernet/stmicro/stmmac/stmmac_platform.c  |  9 +++++++++
- 4 files changed, 30 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 721c1f8e892f..cb9645fe16d8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -347,6 +347,7 @@ enum request_irq_err {
- 	REQ_IRQ_ERR_SFTY_UE,
- 	REQ_IRQ_ERR_SFTY_CE,
- 	REQ_IRQ_ERR_LPI,
-+	REQ_IRQ_ERR_SAFETY,
- 	REQ_IRQ_ERR_WOL,
- 	REQ_IRQ_ERR_MAC,
- 	REQ_IRQ_ERR_NO,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 9f89acf31050..aa2eda6fb927 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -33,6 +33,7 @@ struct stmmac_resources {
- 	int irq;
- 	int sfty_ce_irq;
- 	int sfty_ue_irq;
-+	int safety_common_irq;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
- 	int tx_irq[MTL_MAX_TX_QUEUES];
- };
-@@ -299,6 +300,7 @@ struct stmmac_priv {
- 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
- 	int sfty_ce_irq;
- 	int sfty_ue_irq;
-+	int safety_common_irq;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
- 	int tx_irq[MTL_MAX_TX_QUEUES];
- 	/*irq name */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 47de466e432c..e4a0d9ec8b3f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
- 		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
- 			free_irq(priv->wol_irq, dev);
- 		fallthrough;
-+	case REQ_IRQ_ERR_SAFETY:
-+		if (priv->safety_common_irq > 0 && priv->safety_common_irq != dev->irq)
-+			free_irq(priv->safety_common_irq, dev);
-+		fallthrough;
- 	case REQ_IRQ_ERR_WOL:
- 		free_irq(dev->irq, dev);
- 		fallthrough;
-@@ -3798,6 +3802,18 @@ static int stmmac_request_irq_single(struct net_device *dev)
- 		}
- 	}
- 
-+	if (priv->safety_common_irq > 0 && priv->safety_common_irq != dev->irq) {
-+		ret = request_irq(priv->safety_common_irq, stmmac_safety_interrupt,
-+				  0, "safety", dev);
-+		if (unlikely(ret < 0)) {
-+			netdev_err(priv->dev,
-+				   "%s: alloc safety failed %d (error: %d)\n",
-+				   __func__, priv->safety_common_irq, ret);
-+			irq_err = REQ_IRQ_ERR_SAFETY;
-+			goto irq_error;
-+		}
-+	}
-+
- 	return 0;
- 
- irq_error:
-@@ -7464,6 +7480,8 @@ int stmmac_dvr_probe(struct device *device,
- 	priv->lpi_irq = res->lpi_irq;
- 	priv->sfty_ce_irq = res->sfty_ce_irq;
- 	priv->sfty_ue_irq = res->sfty_ue_irq;
-+	priv->safety_common_irq = res->safety_common_irq;
-+
- 	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
- 		priv->rx_irq[i] = res->rx_irq[i];
- 	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 1ffde555da47..41a4a253d75b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -726,6 +726,15 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
- 	}
- 
-+	stmmac_res->safety_common_irq =
-+		platform_get_irq_byname_optional(pdev, "safety");
-+
-+	if (stmmac_res->safety_common_irq < 0) {
-+		if (stmmac_res->safety_common_irq == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
-+	}
-+
- 	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
- 
- 	return PTR_ERR_OR_ZERO(stmmac_res->addr);
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBEZWMgNCwgMjAyMyBhdCA5OjM14oCvUE0gQmVuIFdvbHNpZWZmZXIKPGJlbi53b2xz
+aWVmZmVyQGhlZnJpbmcuY29tPiB3cm90ZToKCj4gVGhlIFNUTTMyIGRvZXNuJ3Qgc3VwcG9ydCBH
+UElPIGxldmVsIGludGVycnVwdHMgaW4gaGFyZHdhcmUsIHNvIHRoZQo+IGRyaXZlciB0cmllcyB0
+byBlbXVsYXRlIHRoZW0gdXNpbmcgZWRnZSBpbnRlcnJ1cHRzLCBieSByZXRyaWdnZXJpbmcgdGhl
+Cj4gaW50ZXJydXB0IGlmIG5lY2Vzc2FyeSBiYXNlZCBvbiB0aGUgcGluIHN0YXRlIGFmdGVyIHRo
+ZSBoYW5kbGVyCj4gZmluaXNoZXMuCj4KPiBDdXJyZW50bHksIHRoaXMgZnVuY3Rpb25hbGl0eSBk
+b2VzIG5vdCB3b3JrIGJlY2F1c2UgdGhlIGlycWNoaXAgdXNlcwo+IGhhbmRsZV9lZGdlX2lycSgp
+LCB3aGljaCBkb2Vzbid0IHJ1biB0aGUgaXJxX2VvaSgpIG9yIGlycV91bm1hc2soKQo+IGNhbGxi
+YWNrcyBhZnRlciBoYW5kbGluZyB0aGUgaW50ZXJydXB0LiBUaGlzIHBhdGNoIGZpeGVzIHRoaXMg
+YnkgdXNpbmcKPiBoYW5kbGVfbGV2ZWxfaXJxKCkgZm9yIGxldmVsIGludGVycnVwdHMsIHdoaWNo
+IGNhdXNlcyBpcnFfdW5tYXNrKCkgdG8gYmUKPiBjYWxsZWQgdG8gcmV0cmlnZ2VyIHRoZSBpbnRl
+cnJ1cHQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBCZW4gV29sc2llZmZlciA8YmVuLndvbHNpZWZmZXJA
+aGVmcmluZy5jb20+CgpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBs
+aW5hcm8ub3JnPgoKTWFyYyBaIGNhbiBhcHBseSBhbGwgdGhlIHBhdGNoZXMgdG8gdGhlIGlycSB0
+cmVlIG9uY2UgaGUncyBoYXBweQp3aXRoIHRoZSBzb2x1dGlvbi4KCllvdXJzLApMaW51cyBXYWxs
+ZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4
+LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2xpbnV4LXN0bTMyCg==
