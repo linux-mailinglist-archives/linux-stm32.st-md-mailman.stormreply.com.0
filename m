@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEFEC80A9A0
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 17:48:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C9D80A9A9
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 17:48:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9102AC6907A;
-	Fri,  8 Dec 2023 16:48:06 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFD00C6907A;
+	Fri,  8 Dec 2023 16:48:27 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18471C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C14F3C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 16:48:05 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3B8GBAPi008023; Fri, 8 Dec 2023 17:47:56 +0100
+ Fri,  8 Dec 2023 16:48:25 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3B8FsHCm017750; Fri, 8 Dec 2023 17:48:07 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=5dNPirvASkdcY7pOymXDVq0mD0jqbY8yDoyX0nISUyg=; b=ut
- fM1lWd/LM2IYHP0BS3cKcqWQ2Caqg1LOiW6ZpuI4XqE/I8EU7M5SvGhzvpK43YtY
- r2YeUT7LxCVghDJC+jB/+1DYE+ZrQvoZi8iwioFw66NbeZfl+Sei4UOTSao6R7ru
- QYPDHR8BXqMmhgLpc+lFZt46MEfhk4ROwm+Fm+GB7C5aZdN21evCUyzzYDj/gbdk
- z8oZ/ynWSbA1EkDYlfQMAzvcs3OBSf7p6eReQqSjKdRhbmFX2XcltG0Z0tDnP1QY
- gUi661tmaZIYevfrTwYwaCHUilbiWmzKUaXn+ngHe+tS0MldR5fRnvVoexH9W+lx
- 7673DnQY3Wi98lNNrv6g==
+ selector1; bh=LWgjN+j7PnQ7YW9swGp/1XIDBLTWuTaWnDZT+t9ESfU=; b=hz
+ 2oungCjICBbsTcQnfHsr4xA2OyWstVJ39D/xmEvDx6cn8wf3kC7j8L4gBxFEc03a
+ gfap2fIFF+4OHvKSjDdagI1ONfFLCCk4qCyh1sEA2Qd1voLoOAo0TpvPa0LJgHTj
+ xGrVFu1WSEBgOIn4XQXZbj1lsHpr5NlBUCwG5antXpnfyOIlIcEDfHl6WdAoAcWX
+ QReNrbqgNpIyvPwhIWIEeTdqxz7Ze5wjFFH0ABkr1WB53O1YjkXr+PbugMkWYHYh
+ Z/MZrfxMbtM0nYtqeDa5qGkQtcnJTyQbmbuzEyihDn1c50IdJJEdphWGvhW2b53b
+ 6HGDl5fryEWLYIIphsRg==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3utd2pnf16-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3utd2jn915-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Dec 2023 17:47:56 +0100 (CET)
+ Fri, 08 Dec 2023 17:48:06 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 55985100056;
- Fri,  8 Dec 2023 17:47:56 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 67EA4100059;
+ Fri,  8 Dec 2023 17:48:06 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 4B851236932;
- Fri,  8 Dec 2023 17:47:56 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5F9DF236936;
+ Fri,  8 Dec 2023 17:48:06 +0100 (CET)
 Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 8 Dec
- 2023 17:47:56 +0100
+ 2023 17:48:06 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
 To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Pierre-Yves MORDRET
  <pierre-yves.mordret@foss.st.com>, Alain Volmat <alain.volmat@foss.st.com>
-Date: Fri, 8 Dec 2023 17:47:11 +0100
-Message-ID: <20231208164719.3584028-3-alain.volmat@foss.st.com>
+Date: Fri, 8 Dec 2023 17:47:12 +0100
+Message-ID: <20231208164719.3584028-4-alain.volmat@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231208164719.3584028-1-alain.volmat@foss.st.com>
 References: <20231208164719.3584028-1-alain.volmat@foss.st.com>
@@ -63,8 +63,8 @@ Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Conor Dooley <conor@kernel.org>,
  linux-i2c@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/7] i2c: stm32f7: simplify status messages
-	in case of errors
+Subject: [Linux-stm32] [PATCH v2 3/7] dt-bindings: i2c: document st,
+	stm32mp25-i2c compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,62 +81,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Avoid usage of __func__ when reporting an error message
-since dev_err/dev_dbg are already providing enough details
-to identify the source of the message.
+Add a new compatible st,stm32mp25-i2c for the STM32MP25 series which
+has only one interrupt line for both events and errors and differs in
+term of handling of FastModePlus.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 34dcc370e615..2a011deec3c5 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -1602,6 +1602,7 @@ static irqreturn_t stm32f7_i2c_isr_error_thread(int irq, void *data)
- {
- 	struct stm32f7_i2c_dev *i2c_dev = data;
- 	struct stm32f7_i2c_msg *f7_msg = &i2c_dev->f7_msg;
-+	u16 addr = f7_msg->addr;
- 	void __iomem *base = i2c_dev->base;
- 	struct device *dev = i2c_dev->dev;
- 	struct stm32_i2c_dma *dma = i2c_dev->dma;
-@@ -1611,8 +1612,7 @@ static irqreturn_t stm32f7_i2c_isr_error_thread(int irq, void *data)
+diff --git a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+index 94b75d9f66cd..1b31b87c1800 100644
+--- a/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/st,stm32-i2c.yaml
+@@ -19,6 +19,7 @@ allOf:
+               - st,stm32f7-i2c
+               - st,stm32mp13-i2c
+               - st,stm32mp15-i2c
++              - st,stm32mp25-i2c
+     then:
+       properties:
+         i2c-scl-rising-time-ns:
+@@ -41,6 +42,30 @@ allOf:
+         clock-frequency:
+           enum: [100000, 400000]
  
- 	/* Bus error */
- 	if (status & STM32F7_I2C_ISR_BERR) {
--		dev_err(dev, "<%s>: Bus error accessing addr 0x%x\n",
--			__func__, f7_msg->addr);
-+		dev_err(dev, "Bus error accessing addr 0x%x\n", addr);
- 		writel_relaxed(STM32F7_I2C_ICR_BERRCF, base + STM32F7_I2C_ICR);
- 		stm32f7_i2c_release_bus(&i2c_dev->adap);
- 		f7_msg->result = -EIO;
-@@ -1620,21 +1620,19 @@ static irqreturn_t stm32f7_i2c_isr_error_thread(int irq, void *data)
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - st,stm32f4-i2c
++              - st,stm32f7-i2c
++              - st,stm32mp13-i2c
++              - st,stm32mp15-i2c
++    then:
++      properties:
++        interrupts:
++          minItems: 2
++
++        interrupt-names:
++          minItems: 2
++    else:
++      properties:
++        interrupts:
++          maxItems: 1
++
++        interrupt-names:
++          maxItems: 1
++
+ properties:
+   compatible:
+     enum:
+@@ -48,6 +73,7 @@ properties:
+       - st,stm32f7-i2c
+       - st,stm32mp13-i2c
+       - st,stm32mp15-i2c
++      - st,stm32mp25-i2c
  
- 	/* Arbitration loss */
- 	if (status & STM32F7_I2C_ISR_ARLO) {
--		dev_dbg(dev, "<%s>: Arbitration loss accessing addr 0x%x\n",
--			__func__, f7_msg->addr);
-+		dev_dbg(dev, "Arbitration loss accessing addr 0x%x\n", addr);
- 		writel_relaxed(STM32F7_I2C_ICR_ARLOCF, base + STM32F7_I2C_ICR);
- 		f7_msg->result = -EAGAIN;
- 	}
+   reg:
+     maxItems: 1
+@@ -56,11 +82,13 @@ properties:
+     items:
+       - description: interrupt ID for I2C event
+       - description: interrupt ID for I2C error
++    minItems: 1
  
- 	if (status & STM32F7_I2C_ISR_PECERR) {
--		dev_err(dev, "<%s>: PEC error in reception accessing addr 0x%x\n",
--			__func__, f7_msg->addr);
-+		dev_err(dev, "PEC error in reception accessing addr 0x%x\n", addr);
- 		writel_relaxed(STM32F7_I2C_ICR_PECCF, base + STM32F7_I2C_ICR);
- 		f7_msg->result = -EINVAL;
- 	}
+   interrupt-names:
+     items:
+       - const: event
+       - const: error
++    minItems: 1
  
- 	if (status & STM32F7_I2C_ISR_ALERT) {
--		dev_dbg(dev, "<%s>: SMBus alert received\n", __func__);
-+		dev_dbg(dev, "SMBus alert received\n");
- 		writel_relaxed(STM32F7_I2C_ICR_ALERTCF, base + STM32F7_I2C_ICR);
- 		i2c_handle_smbus_alert(i2c_dev->alert->ara);
- 		return IRQ_HANDLED;
+   resets:
+     maxItems: 1
 -- 
 2.25.1
 
