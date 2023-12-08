@@ -2,85 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2BFA80A1B8
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 12:03:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A8D280A3DE
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 13:50:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BCD9C6907A;
-	Fri,  8 Dec 2023 11:03:10 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38A6EC6A613;
+	Fri,  8 Dec 2023 12:50:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACCF7C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44360C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 11:03:09 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a1caddd6d28so257669166b.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 08 Dec 2023 03:03:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1702033389; x=1702638189;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bEwLnBOC/qdcYM4M+jPElLEilL4x4aw3f3zZi3BYaWQ=;
- b=CJ68EBXMJbyuUsMtUDXqhmsmDECITqcM76g1QVtVFPwF+QYK5NdRVc0F7HFUxcmLO/
- Q+aSdDRaMFLa88cvUcE5SwHa2zEzx7s/IwGcluo25zCyYN+xBSRO4vNtaYe8DueIguid
- kcqClvEK+GXnEFtULUVW29Da5tYDaVZkCRwVlD5Fp7z8+Ffmqc6O0kQzZzZphg2NImZ8
- yb1uYcVBFBZ3bWvZo0DnOTy78WWhbQDRrsGMwNFFRwMjc6fkY4qIjBUL9h9/Ej3vyA38
- gXRQB9gUA+BtNrM9B21RqEzyMG/bWMWz+mPCDWpnqAHQ7/HIh9wMg9Jq31BnVMfVU0IV
- AunA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702033389; x=1702638189;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bEwLnBOC/qdcYM4M+jPElLEilL4x4aw3f3zZi3BYaWQ=;
- b=H0ecH3WtGAnKUwRrXdRgZZ80QxJEJgO11C4LGCfuBMkEQl85jf2GK0mxmyz3EefgHJ
- ytpftsFGNWC7oErAk3CxC/DKlYV9XNBsIjn+uxI9venpIv8GEnW3X6uC2Kj4RS3Lm7Rl
- UKXyqgHK0aCMcCgmwlkx0Hgezi5XHqSvf8AzbBttomypxsCWZYKfX7PgfB38FLhg5iwW
- gIAoMp2NQUVs5cZcFPTvqfb5eOiVHJhf4QcOmeiHXa4JENFEM5SxjUyYhhFwLUtgD15L
- wBkNOSsVfspIUWmYvyc9HdQroHJL8kdBF1Mvb7pCfzQil/ejYg7R7zQrum7mCOr01aaj
- Gz8w==
-X-Gm-Message-State: AOJu0Yx2hK4MaYh5ot9N8Ltb10Ggl0Qu8OOflJyugjyeRsu+dT8ioKt1
- fojd98YBLLyvOKoobo6JSotmgw==
-X-Google-Smtp-Source: AGHT+IEUCMIetzDx1rq/yfoOzbKLkqMRhi9m4z8qeP/XugdovkyE4akMeKajgqnm0Gd5Eej4Ijodhw==
-X-Received: by 2002:a17:906:81c4:b0:a19:a19b:4254 with SMTP id
- e4-20020a17090681c400b00a19a19b4254mr1634063ejx.191.1702033389036; 
- Fri, 08 Dec 2023 03:03:09 -0800 (PST)
-Received: from [192.168.1.195] ([5.133.47.210])
- by smtp.gmail.com with ESMTPSA id
- tm6-20020a170907c38600b00a1db955c809sm862184ejc.73.2023.12.08.03.03.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 Dec 2023 03:03:08 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>, 
- Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-In-Reply-To: <20231117143338.1173475-1-patrick.delaunay@foss.st.com>
-References: <20231117143338.1173475-1-patrick.delaunay@foss.st.com>
-Message-Id: <170203338747.19730.10941929995611139048.b4-ty@linaro.org>
-Date: Fri, 08 Dec 2023 11:03:07 +0000
+ Fri,  8 Dec 2023 12:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1702039845; x=1733575845;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=UGoPSX9gu3BQBbTuzfM3M80+dAInuUmZwML4XJudxgY=;
+ b=dWHQdmDzkJWD0e8MuaFk0ZscyEqcskNuoSOvVHXFj4Ukh6vBL0Kchd1Y
+ YSnlAPSviwnOaty4+qVeNCRNbgI9SI/Q+shuoM09plciLlbBXKEaFoydF
+ CGGg7nkXl3zsrMCeoHp+omMH9SUYgMq5qOdTE4RWTWNG2LnAAllB9wchW
+ tfYszrTcoH+WrQDZgcs+8cigwJD4is43DxO2lE0p5Pi4ysZJjm5a/GX4g
+ 9CHU7cXDEE/WZ3zMFwunKd+1XzV6JdNS6ANq8iHjwMIsJIPsb8igaH/Zw
+ 6mdsg09CWrWRezrCyd5wIuOdH3vM4zXtDOhgzv5xg4HdH9QhHe87Yza6J g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="460877614"
+X-IronPort-AV: E=Sophos;i="6.04,260,1695711600"; d="scan'208";a="460877614"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Dec 2023 04:50:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10917"; a="801108362"
+X-IronPort-AV: E=Sophos;i="6.04,260,1695711600"; d="scan'208";a="801108362"
+Received: from lkp-server02.sh.intel.com (HELO b07ab15da5fe) ([10.239.97.151])
+ by orsmga008.jf.intel.com with ESMTP; 08 Dec 2023 04:50:32 -0800
+Received: from kbuild by b07ab15da5fe with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rBaJK-000Djb-1K;
+ Fri, 08 Dec 2023 12:50:30 +0000
+Date: Fri, 8 Dec 2023 20:49:59 +0800
+From: kernel test robot <lkp@intel.com>
+To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org,
+ suzuki.poulose@arm.com
+Message-ID: <202312082029.j4D5rwSe-lkp@intel.com>
+References: <20231115162834.355598-1-james.clark@arm.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.12.2
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- =?utf-8?q?N=C3=ADcolas_F=2E_R=2E_A=2E_Prado?= <nfraprado@collabora.com>,
- Udit Kumar <u-kumar1@ti.com>, Bjorn Andersson <quic_bjorande@quicinc.com>,
- Arnd Bergmann <arnd@arndb.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- devicetree@vger.kernel.org, Peng Fan <peng.fan@nxp.com>,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+Content-Disposition: inline
+In-Reply-To: <20231115162834.355598-1-james.clark@arm.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/4] stm32: add support for
- STM32MP25 BSEC to control OTP data
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v2] coresight: Make current W=1 warnings
+	default
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,33 +70,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi James,
 
-On Fri, 17 Nov 2023 15:33:33 +0100, Patrick Delaunay wrote:
-> Non volatile memory area is available on STM32MP25 with OTP in BSEC.
-> 
-> The 12 Kbits of OTP (effective) for STM32MP25x SoC Family
-> are organized into the following regions:
-> - lower OTP (OTP0 to OTP127) = 4096 lower OTP bits,
->   bitwise (1-bit) programmable
-> - mid OTP (OTP128 to OTP255) = 4096 middle OTP bits,
->   bulk (32-bit) programmable
-> - upper OTP (OTP256 to OTP383) = 4096 upper OTP bits,
->   bulk (32-bit) programmable,
->   only accessible when BSEC is in closed state.
-> 
-> [...]
+kernel test robot noticed the following build warnings:
 
-Applied, thanks!
+[auto build test WARNING on atorgue-stm32/stm32-next]
+[also build test WARNING on soc/for-next linus/master v6.7-rc4 next-20231208]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-[1/4] dt-bindings: nvmem: add new stm32mp25 compatible for stm32-romem
-      commit: d062d18d0e30e46e88a3b0f9fb2549393b7d7adf
-[2/4] nvmem: stm32: add support for STM32MP25 BSEC to control OTP data
-      commit: 2015e5f4d01fb76fca69047f870035e214d6d2d0
+url:    https://github.com/intel-lab-lkp/linux/commits/James-Clark/coresight-Make-current-W-1-warnings-default/20231116-004818
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git stm32-next
+patch link:    https://lore.kernel.org/r/20231115162834.355598-1-james.clark%40arm.com
+patch subject: [PATCH v2] coresight: Make current W=1 warnings default
+config: arm-randconfig-r131-20231117 (https://download.01.org/0day-ci/archive/20231208/202312082029.j4D5rwSe-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.2.0
+reproduce: (https://download.01.org/0day-ci/archive/20231208/202312082029.j4D5rwSe-lkp@intel.com/reproduce)
 
-Best regards,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202312082029.j4D5rwSe-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+>> drivers/hwtracing/coresight/coresight-tpdm.c:242:17: sparse: sparse: Using plain integer as NULL pointer
+   drivers/hwtracing/coresight/coresight-tpdm.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/xarray.h, ...):
+   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
+--
+>> drivers/hwtracing/coresight/coresight-etb10.c:840:17: sparse: sparse: Using plain integer as NULL pointer
+   drivers/hwtracing/coresight/coresight-etb10.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/xarray.h, ...):
+   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
+--
+>> drivers/hwtracing/coresight/coresight-funnel.c:395:17: sparse: sparse: Using plain integer as NULL pointer
+   drivers/hwtracing/coresight/coresight-funnel.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/slab.h, ...):
+   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
+
+vim +242 drivers/hwtracing/coresight/coresight-tpdm.c
+
+   232	
+   233	/*
+   234	 * Different TPDM has different periph id.
+   235	 * The difference is 0-7 bits' value. So ignore 0-7 bits.
+   236	 */
+   237	static struct amba_id tpdm_ids[] = {
+   238		{
+   239			.id = 0x000f0e00,
+   240			.mask = 0x000fff00,
+   241		},
+ > 242		{ 0, 0, 0 },
+   243	};
+   244	
+
 -- 
-Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
