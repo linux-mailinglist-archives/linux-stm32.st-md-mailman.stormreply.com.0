@@ -2,39 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D9E8809BCB
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 06:40:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B07D809C52
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 07:25:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1394EC6B475;
-	Fri,  8 Dec 2023 05:40:42 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BD06C6B457
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC20BC65E4F;
+	Fri,  8 Dec 2023 06:25:27 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4213FC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 05:40:41 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E66D1063;
- Thu,  7 Dec 2023 21:41:26 -0800 (PST)
-Received: from a077893.blr.arm.com (a077893.blr.arm.com [10.162.41.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 557923F5A1;
- Thu,  7 Dec 2023 21:40:36 -0800 (PST)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	suzuki.poulose@arm.com
-Date: Fri,  8 Dec 2023 11:09:39 +0530
-Message-Id: <20231208053939.42901-11-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231208053939.42901-1-anshuman.khandual@arm.com>
-References: <20231208053939.42901-1-anshuman.khandual@arm.com>
-MIME-Version: 1.0
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V3 10/10] coresight: debug: Move ACPI support
-	from AMBA driver to platform driver
+ Fri,  8 Dec 2023 06:25:26 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3B85rbG6020850; Fri, 8 Dec 2023 06:25:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=from : to : cc : subject : date : message-id; s=qcppdkim1;
+ bh=kHS3iDkjfDGySwPowkkkoMU4rcVuWKrEPEnZpFHvaHU=;
+ b=XLqX4/W20VM42GYeHY6LoRLFShRcgXKBswjf7CoWd57+2gr+tm7Swruv2BKGnXDgA0E0
+ WG8Ygg08wPkbBJL7X/GoQ/I7f9IT1Yn4HqvPUW6KEWvuxa+VZuPAWdBEZ/E7Bk0+1leB
+ wIDVrceVi1368gNnZiVAS7bvypT80A1DNEKTZ8e2EcTRj9wagQzaOBFFQy3xzHaZ0yvr
+ o8Hwg0nOySE8DKGnjdTKXk79zyBW1U7DaW20ShiyySUtr7h7bsfN/4CNe+5KFMo4CATv
+ 7pUCRXFOwMY8uBMJqOQIvzlW8i4v+24ZX5qiMU2zYkpqLmRdZSTUC3W/wO5F3Ki8+SgJ dw== 
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uu2trkpa9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 08 Dec 2023 06:25:09 +0000
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 3B86P4BP025384; 
+ Fri, 8 Dec 2023 06:25:04 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 3uqwnm042e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Fri, 08 Dec 2023 06:25:04 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 3B86P4ca025377;
+ Fri, 8 Dec 2023 06:25:04 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
+ [10.147.246.35])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3B86P4ZX025376;
+ Fri, 08 Dec 2023 06:25:04 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
+ id 9E89F5001C6; Fri,  8 Dec 2023 11:55:03 +0530 (+0530)
+From: Sneh Shah <quic_snehshah@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri,  8 Dec 2023 11:55:02 +0530
+Message-Id: <20231208062502.13124-1-quic_snehshah@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 7SyVwrW3062--thdidHXDeUqdsxn5TST
+X-Proofpoint-ORIG-GUID: 7SyVwrW3062--thdidHXDeUqdsxn5TST
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-08_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 mlxscore=0 adultscore=0 priorityscore=1501 mlxlogscore=844
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2311290000 definitions=main-2312080049
+Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net v3] net: stmmac: update Rx clk divider for
+	10M SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,249 +91,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the cpu debug devices in a new platform driver, which can
-then be used on ACPI based platforms. This change would now allow runtime
-power management for ACPI based systems. The driver would try to enable
-the APB clock if available.
+SGMII 10MBPS mode needs RX clock divider to avoid drops in Rx.
+Update configure SGMII function with rx clk divider programming.
 
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Mike Leach <mike.leach@linaro.org>
-Cc: James Clark <james.clark@arm.com>
-Cc: linux-acpi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: coresight@lists.linaro.org
-Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Fixes: 463120c31c58 ("net: stmmac: dwmac-qcom-ethqos: add support for SGMII")
+Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
 ---
-Changes in V3:
+v3 changelog:
+- Added comment to explain why MAC needs to be reconfigured for SGMII
+v2 changelog:
+- Use FIELD_PREP to prepare bifield values in place of GENMASK
+- Add fixes tag
+---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-- Check for drvdata instead of drvdata->pclk in suspend and resume paths
-
- drivers/acpi/arm64/amba.c                     |   1 -
- .../hwtracing/coresight/coresight-cpu-debug.c | 141 ++++++++++++++++--
- 2 files changed, 127 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
-index bec0976541da..e1f0bbb8f393 100644
---- a/drivers/acpi/arm64/amba.c
-+++ b/drivers/acpi/arm64/amba.c
-@@ -22,7 +22,6 @@
- static const struct acpi_device_id amba_id_list[] = {
- 	{"ARMH0061", 0}, /* PL061 GPIO Device */
- 	{"ARMH0330", 0}, /* ARM DMA Controller DMA-330 */
--	{"ARMHC503", 0}, /* ARM CoreSight Debug */
- 	{"", 0},
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index d3bf42d0fceb..ab2245995bc6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -34,6 +34,7 @@
+ #define RGMII_CONFIG_LOOPBACK_EN		BIT(2)
+ #define RGMII_CONFIG_PROG_SWAP			BIT(1)
+ #define RGMII_CONFIG_DDR_MODE			BIT(0)
++#define RGMII_CONFIG_SGMII_CLK_DVDR		GENMASK(18, 10)
  
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 1874df7c6a73..9a0978f3c5b3 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -23,6 +23,8 @@
- #include <linux/smp.h>
- #include <linux/types.h>
- #include <linux/uaccess.h>
-+#include <linux/platform_device.h>
-+#include <linux/acpi.h>
- 
- #include "coresight-priv.h"
- 
-@@ -84,6 +86,7 @@
- #define DEBUG_WAIT_TIMEOUT		32000
- 
- struct debug_drvdata {
-+	struct clk	*pclk;
- 	void __iomem	*base;
- 	struct device	*dev;
- 	int		cpu;
-@@ -557,18 +560,12 @@ static void debug_func_exit(void)
- 	debugfs_remove_recursive(debug_debugfs_dir);
+ /* SDCC_HC_REG_DLL_CONFIG fields */
+ #define SDCC_DLL_CONFIG_DLL_RST			BIT(30)
+@@ -598,6 +599,9 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
+ 	return 0;
  }
  
--static int debug_probe(struct amba_device *adev, const struct amba_id *id)
-+static int __debug_probe(struct device *dev, struct resource *res)
++/* On interface toggle MAC registetrs gets reset.
++ * Configure MAC block for SGMII on ethernet phy link up
++ */
+ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
  {
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 	void __iomem *base;
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata;
--	struct resource *res = &adev->res;
- 	int ret;
- 
--	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
--	if (!drvdata)
--		return -ENOMEM;
--
- 	drvdata->cpu = coresight_get_cpu(dev);
- 	if (drvdata->cpu < 0)
- 		return drvdata->cpu;
-@@ -579,8 +576,7 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 		return -EBUSY;
+ 	int val;
+@@ -617,6 +621,9 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 	case SPEED_10:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+ 		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
++		rgmii_updatel(ethqos, RGMII_CONFIG_SGMII_CLK_DVDR,
++			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR, 0x31),
++			      RGMII_IO_MACRO_CONFIG);
+ 		break;
  	}
  
--	drvdata->dev = &adev->dev;
--	amba_set_drvdata(adev, drvdata);
-+	drvdata->dev = dev;
- 
- 	/* Validity for the resource is already checked by the AMBA core */
- 	base = devm_ioremap_resource(dev, res);
-@@ -629,10 +625,21 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 	return ret;
- }
- 
--static void debug_remove(struct amba_device *adev)
-+static int debug_probe(struct amba_device *adev, const struct amba_id *id)
-+{
-+	struct debug_drvdata *drvdata;
-+
-+	drvdata = devm_kzalloc(&adev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	amba_set_drvdata(adev, drvdata);
-+	return __debug_probe(&adev->dev, &adev->res);
-+}
-+
-+static void __debug_remove(struct device *dev)
- {
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata = amba_get_drvdata(adev);
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 
- 	per_cpu(debug_drvdata, drvdata->cpu) = NULL;
- 
-@@ -646,6 +653,11 @@ static void debug_remove(struct amba_device *adev)
- 		debug_func_exit();
- }
- 
-+static void debug_remove(struct amba_device *adev)
-+{
-+	__debug_remove(&adev->dev);
-+}
-+
- static const struct amba_cs_uci_id uci_id_debug[] = {
- 	{
- 		/*  CPU Debug UCI data */
-@@ -677,7 +689,108 @@ static struct amba_driver debug_driver = {
- 	.id_table	= debug_ids,
- };
- 
--module_amba_driver(debug_driver);
-+static int debug_platform_probe(struct platform_device *pdev)
-+{
-+	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	struct debug_drvdata *drvdata;
-+	int ret = 0;
-+
-+	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
-+	if (IS_ERR(drvdata->pclk))
-+		return -ENODEV;
-+
-+	if (res) {
-+		drvdata->base = devm_ioremap_resource(&pdev->dev, res);
-+		if (IS_ERR(drvdata->base)) {
-+			clk_put(drvdata->pclk);
-+			return PTR_ERR(drvdata->base);
-+		}
-+	}
-+
-+	dev_set_drvdata(&pdev->dev, drvdata);
-+	pm_runtime_get_noresume(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = __debug_probe(&pdev->dev, res);
-+	if (ret) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		pm_runtime_disable(&pdev->dev);
-+	}
-+	return ret;
-+}
-+
-+static int debug_platform_remove(struct platform_device *pdev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(&pdev->dev);
-+
-+	if (drvdata)
-+		__debug_remove(&pdev->dev);
-+
-+	pm_runtime_disable(&pdev->dev);
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_put(drvdata->pclk);
-+	return 0;
-+}
-+
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id debug_platform_ids[] = {
-+	{"ARMHC503", 0}, /* ARM CoreSight Debug */
-+	{},
-+};
-+MODULE_DEVICE_TABLE(acpi, debug_platform_ids);
-+#endif
-+
-+#ifdef CONFIG_PM
-+static int debug_runtime_suspend(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_disable_unprepare(drvdata->pclk);
-+	return 0;
-+}
-+
-+static int debug_runtime_resume(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_prepare_enable(drvdata->pclk);
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops debug_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(debug_runtime_suspend, debug_runtime_resume, NULL)
-+};
-+
-+static struct platform_driver debug_platform_driver = {
-+	.probe	= debug_platform_probe,
-+	.remove	= debug_platform_remove,
-+	.driver	= {
-+		.name			= "coresight-debug-platform",
-+		.acpi_match_table	= ACPI_PTR(debug_platform_ids),
-+		.suppress_bind_attrs	= true,
-+		.pm			= &debug_dev_pm_ops,
-+	},
-+};
-+
-+static int __init debug_init(void)
-+{
-+	return coresight_init_driver("tmc", &debug_driver, &debug_platform_driver);
-+}
-+
-+static void __exit debug_exit(void)
-+{
-+	coresight_remove_driver(&debug_driver, &debug_platform_driver);
-+}
-+module_init(debug_init);
-+module_exit(debug_exit);
- 
- MODULE_AUTHOR("Leo Yan <leo.yan@linaro.org>");
- MODULE_DESCRIPTION("ARM Coresight CPU Debug Driver");
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
