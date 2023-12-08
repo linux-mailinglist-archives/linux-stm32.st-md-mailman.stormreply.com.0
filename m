@@ -2,47 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0008C80A43D
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 14:14:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F9F780A574
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 15:28:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9339C6A613;
-	Fri,  8 Dec 2023 13:14:54 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 227FCC6907A;
+	Fri,  8 Dec 2023 14:28:26 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2A82C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BC38C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 13:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=ZyIwn9UadV4oPIAt3Iw42rESNqNPVByooLrrQQomUoM=; b=ger+sbf5lz0mDcCnoWzUZY5VJZ
- 331/0+XOXQ3TDJx6pxgjZkvNXuIOKiSXl0bnfVoKevRgfS8+oOwPYLaOzzBF9oSFaSCUI4q7beqp6
- xaWGCzgV5R4wM4L4ANuvF+WoOTV6mxqDlrWxirqTZbivw+YSflI8rsYmr9IKKRdU3oKw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rBagj-002PvD-33; Fri, 08 Dec 2023 14:14:41 +0100
-Date: Fri, 8 Dec 2023 14:14:41 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <9eddb32d-c798-4e1b-b0ea-c44d31cc29bf@lunn.ch>
-References: <20231206-stmmac-no-mdio-node-v2-1-333cae49b1ca@redhat.com>
- <e64b14c3-4b80-4120-8cc4-9baa40cdcb75@lunn.ch>
- <nx2qggr3aget4t57qbosj6ya5ocq47t6w33ve5ycabs5mzvo7c@vctjvc5gip5d>
+ Fri,  8 Dec 2023 14:28:24 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-2c9f559b82cso24109961fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 08 Dec 2023 06:28:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702045703; x=1702650503;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Do5YXZvpx1oH456IeLehOp7UBGB2jGfxbiAhA8fLLOw=;
+ b=Vs+RYHPcvzqAjY0MUhCj9PsVxXbYrXFz17loShNH9U37PBklTGdKPyTK4ppBlxetBS
+ a1v2H6O84pFXoLFjLWSyznaQiDsT68WNFQfJbVMvLy6PTpN+BIWD1GOPN0BBZpKFI+uk
+ mvxsBvCO3IRpKkfgBzFxJ2hL2XIaxZWmsav2h1PbGPuFa4jaiNuUiz2pmgq5RQjOfYJk
+ GT126NbonAlYqZFbB7ctFrA11/nsTL6B6thDqvV5vmw38iw0mep8rAdJ0E6pc1fZ2ign
+ Vmv27umgLVSUGNmq3ghW5PH2+EfOoI5TnB9m40Znp79AoEVwNEJlJqQhJQYYx3CEu3UT
+ B5hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702045703; x=1702650503;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Do5YXZvpx1oH456IeLehOp7UBGB2jGfxbiAhA8fLLOw=;
+ b=cJznO5O5Z2X/Hi8JhI6gV9VmusTDLC9kd2NW91feBrkBHDHgNLm03Jo6FskLBnOZro
+ pGgGZBwX3sHlDtKyPk1sw8zKhbIgV9PSkkWYKt08X1YAf3OlDvSeXHJ/lYTgvkwtSyAO
+ eUH0nJWvDXLoP/X33bQKfOBoqrsgIU9e+kxtChhOBO21n4TvccISQqa/Au3CULlFgEbF
+ TVBLnU+cqiPJ9SbV196AJchT3436xOh2/EEiky1+ur4tt9Kz+9KBuR39DISP3fXUSmM2
+ UOa4hvTnwZl+CtpVVYeQXjGeAgxmmzjzuDEGVDVfqFl7XZlTAyBrf/ZRr6ah41YeRCpp
+ ZdjQ==
+X-Gm-Message-State: AOJu0YwyC+rEXiFTMCZgp0ItjVaGRDBD2MXeVorCohrDnLgTdwrYsvCu
+ wO8rg4oiOj3XD8eeyt2EsxQ=
+X-Google-Smtp-Source: AGHT+IE50woDjg19iA4GldfyfOAv1dTTmjwQ/EliunHTPN8NwGhroGYmf7AQov1vmNIbRe4tOPrYww==
+X-Received: by 2002:a2e:97d3:0:b0:2ca:30a:838c with SMTP id
+ m19-20020a2e97d3000000b002ca030a838cmr2470312ljj.99.1702045703253; 
+ Fri, 08 Dec 2023 06:28:23 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ j16-20020a2e3c10000000b002c9ff0457f8sm241983lja.11.2023.12.08.06.28.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Dec 2023 06:28:22 -0800 (PST)
+Date: Fri, 8 Dec 2023 17:28:20 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Jiangfeng Ma <Jiangfeng.Ma@synopsys.com>
+Message-ID: <uzss3af2cklc5bx5apszoegafeaaiv7o7iwgrgrml4grkyev6p@6tme4hdb4mkn>
+References: <SA0PR12MB44138E48A245378CF54D2F9ED98AA@SA0PR12MB4413.namprd12.prod.outlook.com>
+ <20231208091408.071680db@device.home>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <nx2qggr3aget4t57qbosj6ya5ocq47t6w33ve5ycabs5mzvo7c@vctjvc5gip5d>
-Cc: linux-kernel@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+In-Reply-To: <20231208091408.071680db@device.home>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Johannes Zink <j.zink@pengutronix.de>,
+ Jochen Henneberg <jh@henneberg-systemdesign.com>,
+ Simon Horman <horms@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Jiangfeng Ma <Jiangfeng.Ma@synopsys.com>, James Li <James.Li1@synopsys.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>,
+ Martin McKenny <Martin.McKenny@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: don't create a
- MDIO bus if unnecessary
+ "Russell King \(Oracle" <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH] net:stmmac:stmmac_platform:Add snps,
+ xpcs devicetree parsing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,23 +98,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> I know you said the standard is to make the MDIO bus unconditionally, but
-> to me that feels like a waste, and describing say an empty MDIO bus
-> (which would set the phy_mask for us eventually and not scan a
-> bunch of phys, untested but I think that would work) seems like a bad
-> description in the devicetree (I could definitely see describing an
-> empty MDIO bus getting NACKed, but that's a guess).
+Hi Maxime, Jiangfeng
 
-DT describes the hardware. The MDIO bus master exists. So typically
-the SoC .dtsi file would include it in the Ethernet node. At the SoC
-level it is empty, unless there is an integrated PHY in the SoC. The
-board .dts file then adds any PHYs to the node which the board
-actually has.
+On Fri, Dec 08, 2023 at 09:14:08AM +0100, Maxime Chevallier wrote:
+> Hello,
+> 
+> On Fri, 8 Dec 2023 07:02:19 +0000
+> Jiangfeng Ma <Jiangfeng.Ma@synopsys.com> wrote:
+> 
+> > In order to setup xpcs, has_xpcs must be set to a non-zero value.
+> > Add new optional devicetree properties representing this.
+> > 
+> > If has_xpcs is set to true, then xpcs_an_inband should preferably be
+> > consistent with it, Otherwise, some errors may occur when starting
+> > the network, For example, the phy interface that xpcs already supports,
+> > but link up fails.
+> 
+> Can you elaborate on why you need this, and on which platform
+> especially ? Usually drivers for the various stmmac variants know if
+> they have XPCS or not, or can guess it based on some info such as the
+> configured PHY mode (dwmac-intel).
+> 
+> Besides that, there are a few issues with your submission. If DT is the
+> way to go (and I don't say it is), you would also need to update the
+> bindings to document that property.
+> 
+> > The types of has_xpcs and xpcs_an_inband are unsigned int,
+> > and generally used as flags. So it may be more reasonable to set them to
+> > bool type. This can also be confirmed from the type of @ovr_an_inband.
+> 
+> And this part would go into a separate patch.
 
-So i doubt adding an empty MDIO node to the SoC .dtsi file will get
-NACKed, it correctly describes the hardware.
+In addition to what Maxime already said having DT-bindings adjusted to
+fit to the pattern implemented in the software part is a wrong way to
+go. The best choice in this case is to add the DW XPCS DT-node to the
+DW MAC MDIO/MI bus and then use the "pcs-handle" to inform the MAC
+(mainly it's driver) of what PCS-device is actually attached to it.
+The series I submitted on this week is exactly about that:
+https://lore.kernel.org/netdev/20231205103559.9605-1-fancer.lancer@gmail.com/
+I guess I'll need about a month or so to settle all the comments, but
+the solution implemented there will be better than this one really.
 
-	Andrew
+-Serge(y)
+
+> 
+> Thanks,
+> 
+> Maxime
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
