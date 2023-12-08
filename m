@@ -2,69 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6094380A5C3
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 15:38:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A48580A692
+	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 16:07:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 255D1C6A613;
-	Fri,  8 Dec 2023 14:38:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19A5BC6A613;
+	Fri,  8 Dec 2023 15:07:12 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DA5A8C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD956C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 14:38:16 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3B886V1g015617; Fri, 8 Dec 2023 15:38:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=e5JQ/h42L5uhpTPt24TWXUIHpp+cXePsoRZw+56u2lo=; b=6+
- Y6/zBLLTDeb9FPZ/PaNDhiubCn23NbV8apdhatVKfplUkMoE/ZdZV8LD79os9s2F
- 8Fwv3xHu56WtoifEEW7nOK7qz+mbr/B5n86YeCi3NhaPyCJ2N48snCr+CtadSdAl
- YuUgfiJPTfLdaOytI7fG4O2/6jrbZTG+FQuqjDqfzlRkVy3lWgn79mREB2d3YraU
- 80g0IAMvgkjjkUd4L0x2ZA4ZApmHxWhkIQj8hldnh0xDwy9ZygI2qsuYuAfhJOCn
- q8GTTHlV1V6dAWFzFhg+NVrNQzoxJXn3GoYsA0E7/+ev1XGMxVZ/6AKV85Qz3DVf
- pUqMQw2YtNHt+44cEliw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3utd2gn3a6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 08 Dec 2023 15:38:06 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6F722100058;
- Fri,  8 Dec 2023 15:38:06 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 67466229A79;
- Fri,  8 Dec 2023 15:38:06 +0100 (CET)
-Received: from localhost (10.252.31.8) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 8 Dec
- 2023 15:38:06 +0100
-From: <gabriel.fernandez@foss.st.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Fri, 8 Dec 2023 15:37:00 +0100
-Message-ID: <20231208143700.354785-6-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231208143700.354785-1-gabriel.fernandez@foss.st.com>
-References: <20231208143700.354785-1-gabriel.fernandez@foss.st.com>
+ Fri,  8 Dec 2023 15:07:10 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-50c05ea5805so2576860e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 08 Dec 2023 07:07:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702048030; x=1702652830;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=WF5RVyq6ckUd8DU+aeAoDbJFrmMEuJFqK2TUAQspTEA=;
+ b=JpjZM8oZ9NGTY7t8LjzOF9EAsHCOnTSdire4iPbr6FDplmd8nb30CyXwkfm48i2/j0
+ 40FlrfsgWVh817RwI9DuxKmVKrdOgTSmHgM0Bbtae7y2Lqm6eLmmjoRsr8G3FxvfBAmZ
+ H51rZOVgFkGuhei6o0LKsYuWfp8IogHzTyaFpOH5mD4ghKSIpo3z4mg0Eo8EyRKxOJeo
+ n6Bw/mJSjLCfujuJLjtJWA1qbitdPQkvpjAMBqCRY2kwOGqpRcjwDcvq6OXwO3IOikEB
+ WDqh/MpWl4ofdSBBOBgWJpYoX1/EvuOVtcl4A+Au7NzTYMbIO9FdUM4FIbzK3tL5WjbH
+ I6Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702048030; x=1702652830;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WF5RVyq6ckUd8DU+aeAoDbJFrmMEuJFqK2TUAQspTEA=;
+ b=RQOmAiHP2tbxWAQ+NpJ8TQ9SZ+xzk3zQafrmsMqq4VVut3oIeaKRL1UgszCQ/xMqVO
+ VzYQWEhL+gjGSxhLn9MWsG7DPAZOVulBGNGpTpjSEjUz+UD67KlJrHo603Hh22Gi6jQJ
+ Yon4Q8xuFE2jeygxIxiNbep0RnhBqvgcGFWOuKxdYKPcm9GzinF+EdwSfsHvuDqmRpMs
+ 76gkDawNPx2W6qIskqtMYwKqdzCSRdpGMEl842e9QCgND4g8V86AcgNbSFxbmfPONHac
+ 5T8Cmd4Xe5Je7L4jO1QVTFz/OnIv0jg03CWvgOEo+zKQnM7NGJUnOH/1g/A00E1N5K0r
+ UJlA==
+X-Gm-Message-State: AOJu0Yzywo8qwsmaW0iE4k2Xk/cDEqQ+1yVJcJLsljHADJbOXbEWnD9J
+ U5kTAm/3gg9wSNMYkG6bZ6A=
+X-Google-Smtp-Source: AGHT+IFn0DWLpA9c912lqdnIDk2jEvmPjcyf++uanjHB3XBJDgftEUxNxH3LEfqMKNi2fs+m3cHW3A==
+X-Received: by 2002:ac2:5d31:0:b0:50b:f547:82ba with SMTP id
+ i17-20020ac25d31000000b0050bf54782bamr17911lfb.130.1702048029635; 
+ Fri, 08 Dec 2023 07:07:09 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ 5-20020ac25f45000000b0050bf06c8098sm241291lfz.116.2023.12.08.07.07.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 Dec 2023 07:07:09 -0800 (PST)
+Date: Fri, 8 Dec 2023 18:07:06 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Message-ID: <hgz3pt625kggix6kzincohw7kr2okcumrwfkmjgiauw2yvhrzt@ekeygo4b7k3b>
+References: <20231207-stmmac-no-mdio-node-v3-1-34b870f2bafb@redhat.com>
+ <jz6ot44fjkbmwcezi3fkgqd54nurglblbemrchfgxgq6udlhqz@ntepnnzzelta>
+ <hxds75erxqcfkufxnfbyo2up4b4jeicmi3f5xr6qlb3yf7fe76@4byeq62jhu4o>
 MIME-Version: 1.0
-X-Originating-IP: [10.252.31.8]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-08_09,2023-12-07_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v6 5/5] arm64: dts: st: add rcc support in
-	stm32mp251
+Content-Disposition: inline
+In-Reply-To: <hxds75erxqcfkufxnfbyo2up4b4jeicmi3f5xr6qlb3yf7fe76@4byeq62jhu4o>
+Cc: linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: stmmac: don't create a
+ MDIO bus if unnecessary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,203 +87,138 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+On Thu, Dec 07, 2023 at 05:07:24PM -0600, Andrew Halaney wrote:
+> On Fri, Dec 08, 2023 at 01:16:12AM +0300, Serge Semin wrote:
+> > On Thu, Dec 07, 2023 at 03:12:40PM -0600, Andrew Halaney wrote:
+> > > The stmmac_dt_phy() function, which parses the devicetree node of the
+> > > MAC and ultimately causes MDIO bus allocation, misinterprets what
+> > > fixed-link means in relation to the MAC's MDIO bus. This results in
+> > > a MDIO bus being created in situations it need not be.
+> > > 
+> > > Currently a MDIO bus is created if the description is either:
+> > > 
+> > >     1. Not fixed-link
+> > >     2. fixed-link but contains a MDIO bus as well
+> > > 
+> > > The "1" case above isn't always accurate. If there's a phy-handle,
+> > > it could be referencing a phy on another MDIO controller's bus[1]. In
+> > > this case currently the MAC will make a MDIO bus and scan it all
+> > > anyways unnecessarily.
+> > > 
+> > > There's also a lot of upstream devicetrees[2] that expect a MDIO bus to
+> > > be created and scanned for a phy. This case can also be inferred from
+> > > the platform description by not having a phy-handle && not being
+> > > fixed-link. This hits case "1" in the current driver's logic.
+> > > 
+> > > Let's improve the logic to create a MDIO bus if either:
+> > > 
+> > 
+> > >     - Devicetree contains a MDIO bus
+> > >     - !fixed-link && !phy-handle (legacy handling)
+> > 
+> > If what you suggest here is a free from regressions semantics change
+> > (really hope it is) I will be with both my hands for it. This will
+> > solve the problem we have with one of our device which doesn't have
+> > SMA interface (hardware designers decided to save ~4K gates of the
+> > chip area) but has a PHY externally attached to the DW XGMAC<->XPCS
+> > interface. PHY is accessible via a GPIO-based MDIO bus. BTW having no
+> > SMA interface available on a DW *MAC device but creating the MDIO-bus
+> > on top of the non-existent SMA CSRs anyway causes having _32_ dummy
+> > PHYs created with zero IDs.
+> 
 
-Add RCC support to manage clocks and resets on the STM32MP251.
+> I hope it is regression free! I have tested both the [1] and [2] cases
+> (I hacked up the devicetree for [1] to make it look like [2]) without
+> any issue.
+> 
 
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 59 ++++++++++++++------------
- 1 file changed, 31 insertions(+), 28 deletions(-)
+I doubt you could have tested it on all the possible hardware the
+STMMAC driver supports. The problem is that the DT-bindings thing is a
+kind of contract which can't be changed that easily. It's like ABI but
+for the hardware description so the kernel would bootup correctly on
+the platforms with the old DT blobs. But if the change isn't that
+critical, if the device-tree sources in the kernel fit to the updated
+semantics, if the networking subsystem maintainers aren't against it
+and I guess with the Rob, Krzysztof or Conor blessing (at least it
+won't hurt to add them to the Cc-list together with the devicetree
+mailing-list), then it will likely be accepted.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 124403f5f1f4..dfbdb3a773e4 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -3,7 +3,9 @@
-  * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
-+#include <dt-bindings/clock/st,stm32mp25-rcc.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/st,stm32mp25-rcc.h>
- 
- / {
- 	#address-cells = <2>;
-@@ -35,22 +37,10 @@ arm_wdt: watchdog {
- 	};
- 
- 	clocks {
--		ck_flexgen_08: ck-flexgen-08 {
-+		clk_rcbsec: clk-rcbsec {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
--			clock-frequency = <100000000>;
--		};
--
--		ck_flexgen_51: ck-flexgen-51 {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_ls_mcu: ck-icn-ls-mcu {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
-+			clock-frequency = <64000000>;
- 		};
- 	};
- 
-@@ -122,7 +112,7 @@ usart2: serial@400e0000 {
- 				compatible = "st,stm32h7-uart";
- 				reg = <0x400e0000 0x400>;
- 				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_08>;
-+				clocks = <&rcc CK_KER_USART2>;
- 				status = "disabled";
- 			};
- 
-@@ -131,7 +121,7 @@ sdmmc1: mmc@48220000 {
- 				arm,primecell-periphid = <0x00353180>;
- 				reg = <0x48220000 0x400>, <0x44230400 0x8>;
- 				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_51>;
-+				clocks = <&rcc CK_KER_SDMMC1 >;
- 				clock-names = "apb_pclk";
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
-@@ -140,6 +130,19 @@ sdmmc1: mmc@48220000 {
- 			};
- 		};
- 
-+		rcc: clock-controller@44200000 {
-+			compatible = "st,stm32mp25-rcc";
-+			reg = <0x44200000 0x10000>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			clock-names = "hse", "hsi", "msi", "lse", "lsi";
-+			clocks = <&scmi_clk CK_SCMI_HSE>,
-+				<&scmi_clk CK_SCMI_HSI>,
-+				<&scmi_clk CK_SCMI_MSI>,
-+				<&scmi_clk CK_SCMI_LSE>,
-+				<&scmi_clk CK_SCMI_LSI>;
-+		};
-+
- 		syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp25-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
-@@ -158,7 +161,7 @@ gpioa: gpio@44240000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOA>;
- 				st,bank-name = "GPIOA";
- 				status = "disabled";
- 			};
-@@ -169,7 +172,7 @@ gpiob: gpio@44250000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x10000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOB>;
- 				st,bank-name = "GPIOB";
- 				status = "disabled";
- 			};
-@@ -180,7 +183,7 @@ gpioc: gpio@44260000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x20000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOC>;
- 				st,bank-name = "GPIOC";
- 				status = "disabled";
- 			};
-@@ -191,7 +194,7 @@ gpiod: gpio@44270000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x30000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOD>;
- 				st,bank-name = "GPIOD";
- 				status = "disabled";
- 			};
-@@ -202,7 +205,7 @@ gpioe: gpio@44280000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x40000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOE>;
- 				st,bank-name = "GPIOE";
- 				status = "disabled";
- 			};
-@@ -213,7 +216,7 @@ gpiof: gpio@44290000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x50000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOF>;
- 				st,bank-name = "GPIOF";
- 				status = "disabled";
- 			};
-@@ -224,7 +227,7 @@ gpiog: gpio@442a0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x60000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOG>;
- 				st,bank-name = "GPIOG";
- 				status = "disabled";
- 			};
-@@ -235,7 +238,7 @@ gpioh: gpio@442b0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x70000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOH>;
- 				st,bank-name = "GPIOH";
- 				status = "disabled";
- 			};
-@@ -246,7 +249,7 @@ gpioi: gpio@442c0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x80000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOI>;
- 				st,bank-name = "GPIOI";
- 				status = "disabled";
- 			};
-@@ -257,7 +260,7 @@ gpioj: gpio@442d0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x90000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOJ>;
- 				st,bank-name = "GPIOJ";
- 				status = "disabled";
- 			};
-@@ -268,7 +271,7 @@ gpiok: gpio@442e0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0xa0000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOK>;
- 				st,bank-name = "GPIOK";
- 				status = "disabled";
- 			};
-@@ -287,7 +290,7 @@ gpioz: gpio@46200000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
- 				st,bank-name = "GPIOZ";
- 				st,bank-ioport = <11>;
- 				status = "disabled";
--- 
-2.25.1
+> Sorry, I don't have any docs for stmmac hardware so this might be
+> answered in there (or just common net knowledge that I can't find
+> online)... what's SMA stand for? I assume it's the MDIO interface.
 
+Right. Synopsys names the MDIO-bus interface as Station Management
+Agent MDIO module.
+
+> 
+> I agree though, if you have a phy-handle and no mdio node in your
+> devicetree this patch series should bail out without registering a bus
+> in stmmac_mdio_register().
+
+On the other hand why would the MDIO-bus needed in such case? If the
+phy-handle property is specified with no MDIO-bus DT-subnode, then it
+will point out to a PHY residing an external bus. The only case I can
+imagine though is that the DW XPCS device could be still auto-detected
+on the internal SMA-MDIO-bus. But the only driver which currently has
+XPCS auto-detection activated is the Intel glue layer (see
+dwmac-intel.c and has_xpcs flag), but it doesn't use DT interface
+since it handles a PCIe-based device.  So this case is out of
+brackets.
+
+> 
+> > 
+> > > 
+> > > Below upstream devicetree snippets can be found that explain some of
+> > > the cases above more concretely.
+> 
+> <snip>
+> 
+> > > -	if (mdio) {
+> > > -		plat->mdio_bus_data =
+> > > -			devm_kzalloc(dev, sizeof(struct stmmac_mdio_bus_data),
+> > > -				     GFP_KERNEL);
+> > 
+> > > +	/* Legacy devicetrees allowed for no MDIO bus description and expect
+> > > +	 * the bus to be scanned for devices. If there's no phy or fixed-link
+> > > +	 * described assume this is the case since there must be something
+> > > +	 * connected to the MAC.
+> > > +	 */
+> > > +	legacy_mdio = !of_phy_is_fixed_link(np) && !plat->phy_node;
+> > > +	if (legacy_mdio)
+> > > +		dev_info(dev, "Deprecated MDIO bus assumption used\n");
+> > > +
+> > > +	if (plat->mdio_node || legacy_mdio) {
+> > > +		plat->mdio_bus_data = devm_kzalloc(dev,
+> > 
+> > Special thanks for adding the comment above this code. It will really
+> > save time of figuring out why MDIO-bus needs to be created anyway.
+> > 
+> > > +						   sizeof(struct stmmac_mdio_bus_data),
+> > 
+> > Should v4 is required I would suggest to change this to
+> > sizeof(*plat->mdio_bus_data).
+> > 
+> > Anyway feel free to add:
+> > Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+> > 
+> > -Serge(y)
+> 
+
+> Sure I will spin v4 to pick that up, thanks for catching it. I'll also
+> improve the motivation in the commit message a hair more per Andrew
+> Lunn's request over here on v2 (and will hold off a little bit just to
+> make sure reviews come in before a respin):
+> 
+>     https://lore.kernel.org/netdev/e64b14c3-4b80-4120-8cc4-9baa40cdcb75@lunn.ch/
+
+Ok. Thanks.
+
+-Serge(y)
+
+> 
+> Thanks,
+> Andrew
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
