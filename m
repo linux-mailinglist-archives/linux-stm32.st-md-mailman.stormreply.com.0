@@ -2,51 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7AC980AE20
-	for <lists+linux-stm32@lfdr.de>; Fri,  8 Dec 2023 21:43:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0416B80B0C7
+	for <lists+linux-stm32@lfdr.de>; Sat,  9 Dec 2023 01:07:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61002C6A613;
-	Fri,  8 Dec 2023 20:43:25 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BD04C6907A;
+	Sat,  9 Dec 2023 00:07:58 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5666DC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30082C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  8 Dec 2023 20:43:24 +0000 (UTC)
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1702068203;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FhWMGItMyMopaoZ9JYHTOAW7DtcvRQ4SKNAg4c9vMrk=;
- b=z/kpVp+xnVyaxaBZ8E7KDP422Tc0/FU5nU/clN/dKP5WKNzobsdK6+a1sh2Cvxy11eSlLU
- ZZc3KAeOxzZeo2tT98q92AT6JOpDOb36UU7qi/V8VHy7VR5kSf6HfHFn1F26YXIqLpy44x
- KmzNODXvLx+WCdqN3EAnck4K2N61fyDgW5gNXVqdznzi2ck5/q52wFJ/OXm1ZNL+XocXyK
- OwWVw4lCbdSYl/Tf7BYZZz+6PshSeuFzDT1tEN7Yq0Iq/oyPN057Rpz7M1ELbFnzZMgLph
- XMajUp8xWLkyv5z427R4q+YOYrtKY8/iy4PTncU9i0Vr/RjHNy2/1SOAdBg5zw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1702068203;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FhWMGItMyMopaoZ9JYHTOAW7DtcvRQ4SKNAg4c9vMrk=;
- b=G09GrqqGjLqCD+0vATnk1ceFRWhbzIUYKuO+FvHcAywKkmU9f6GOnGnk1Q/z4BQ2BFLjjv
- IUlfWrlOkslaKBCg==
-To: Ben Wolsieffer <ben.wolsieffer@hefring.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-In-Reply-To: <20231204203357.2897008-3-ben.wolsieffer@hefring.com>
-References: <20231204203357.2897008-1-ben.wolsieffer@hefring.com>
- <20231204203357.2897008-3-ben.wolsieffer@hefring.com>
-Date: Fri, 08 Dec 2023 21:43:21 +0100
-Message-ID: <87ttosqvbq.ffs@tglx>
+ Sat,  9 Dec 2023 00:07:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 547A4CE2A77;
+ Sat,  9 Dec 2023 00:07:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 101BEC433C7;
+ Sat,  9 Dec 2023 00:07:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1702080473;
+ bh=0lDWjZhcpsj5eDD+T3hZ5cTAQQFykaGs0qkCTg3+7Gk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ntoBUAsDFYQIe/0ThhuUrrClxY/6XTFJ3ttIK7D0kCoxzlrPg7XRYTqNlhNe5SmtZ
+ S2yKACJsl4idJTQ7L2eM6ADk958nQDtnL850qlg8YFPmR6a2XdkfYTeJmK18i51v/q
+ 5GD3fPm6zeZMOfcElkERh74Xn6Lz2dESFx0cRsPtpck5igqTUlBtTzRVc+kk0g2+Xb
+ gDWsQajUAb7a+r3W5tgjFGcI29ZyybtNQdmZnckY3bKgOE701cJvcSznVHkNBJJb3f
+ CpIJRj75d9tLrlobYZmQkxfI/rgJ2ITmgUHOSozppyT6NQR3b366Z9z/cFA6LZnAuC
+ 5JfMDuUAhFq+A==
+Date: Sat, 9 Dec 2023 01:07:47 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Message-ID: <20231209000747.4l6462nlzj3po3sf@zenone.zhora.eu>
+References: <20231208164719.3584028-1-alain.volmat@foss.st.com>
+ <20231208164719.3584028-5-alain.volmat@foss.st.com>
 MIME-Version: 1.0
-Cc: Linus Walleij <linus.walleij@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Ben Wolsieffer <ben.wolsieffer@hefring.com>
-Subject: Re: [Linux-stm32] [PATCH 2/2] pinctrl: stm32: fix GPIO level
-	interrupts
+Content-Disposition: inline
+In-Reply-To: <20231208164719.3584028-5-alain.volmat@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Conor Dooley <conor@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/7] i2c: stm32f7: add support for
+	stm32mp25 soc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,186 +61,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ben!
+Hi Alain,
 
-On Mon, Dec 04 2023 at 15:33, Ben Wolsieffer wrote:
-> The STM32 doesn't support GPIO level interrupts in hardware, so the
-> driver tries to emulate them using edge interrupts, by retriggering the
-> interrupt if necessary based on the pin state after the handler
-> finishes.
->
-> Currently, this functionality does not work because the irqchip uses
-> handle_edge_irq(), which doesn't run the irq_eoi() or irq_unmask()
-> callbacks after handling the interrupt. This patch fixes this by using
-> handle_level_irq() for level interrupts, which causes irq_unmask() to be
-> called to retrigger the interrupt.
+On Fri, Dec 08, 2023 at 05:47:13PM +0100, Alain Volmat wrote:
+> The stm32mp25 has only a single interrupt line used for both
+> events and errors. In order to cope with that, reorganise the
+> error handling code so that it can be called either from the
+> common handler (used in case of SoC having only a single IT line)
+> and the error handler for others.
+> The CR1 register also embeds a new FMP bit, necessary when running
+> at Fast Mode Plus frequency. This bit should be used instead of
+> the SYSCFG bit used on other platforms.
+> Add a new compatible to distinguish between the SoCs and two
+> boolean within the setup structure in order to know if the
+> platform has a single/multiple IT lines and if the FMP bit
+> within CR1 is available or not.
+> 
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
 
-This does not make any sense at all. irq_unmask() does not retrigger
-anything. It sets the corresponding bit in the mask register, not more
-not less.
+your SoB here should come last because you are the one sending
+the patch.
 
-Switching to handle_level_irq() makes the following difference
-vs. handle_edge_irq() when an interrupt is handled (ignoring the inner
-loop):
+> ---
+>  drivers/i2c/busses/i2c-stm32f7.c | 230 ++++++++++++++++++-------------
+>  1 file changed, 133 insertions(+), 97 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
+> index 2a011deec3c5..5634332900fb 100644
+> --- a/drivers/i2c/busses/i2c-stm32f7.c
+> +++ b/drivers/i2c/busses/i2c-stm32f7.c
+> @@ -50,6 +50,7 @@
+>  #define STM32F7_I2C_TXDR			0x28
+>  
+>  /* STM32F7 I2C control 1 */
+> +#define STM32_I2C_CR1_FMP			BIT(24)
+>  #define STM32F7_I2C_CR1_PECEN			BIT(23)
+>  #define STM32F7_I2C_CR1_ALERTEN			BIT(22)
+>  #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
+> @@ -226,6 +227,8 @@ struct stm32f7_i2c_spec {
+>   * @rise_time: Rise time (ns)
+>   * @fall_time: Fall time (ns)
+>   * @fmp_clr_offset: Fast Mode Plus clear register offset from set register
+> + * @single_it_line: Only a single IT line is used for both events/errors
+> + * @fmp_cr1_bit: Fast Mode Plus control is done via a bit in CR1
 
-      + irq_mask();
-        irq_ack();
-        ....
-        handle();
-        ....
-      + irq_unmask();
+Is the Fast Mode Plus an optional feature?
 
-So in both cases irq_ack() clears the interrupt in the Pending register,
-right?
+>   */
+>  struct stm32f7_i2c_setup {
+>  	u32 speed_freq;
+> @@ -233,6 +236,8 @@ struct stm32f7_i2c_setup {
+>  	u32 rise_time;
+>  	u32 fall_time;
+>  	u32 fmp_clr_offset;
+> +	bool single_it_line;
+> +	bool fmp_cr1_bit;
+>  };
 
-Now comes the interesting difference.
+[...]
 
-When the interrupt is raised again after irq_ack() while the handler is
-running, i.e. a full toggle from active to inactive and back to active
-where the back to active transition causes the edge detector to trigger,
-then:
+> -static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev)
+> +static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev, u32 status)
+>  {
+>  	void __iomem *base = i2c_dev->base;
+> -	u32 cr2, status, mask;
+> +	u32 cr2, mask;
+>  	u8 val;
+>  	int ret;
+>  
+> -	status = readl_relaxed(i2c_dev->base + STM32F7_I2C_ISR);
+> -
 
-  1) in case of handle_edge_irq() this should immediately set it in the
-     pending register again and raise another CPU interrupt, which
-     should be handled once the interrupt service routine returned.
+good to see this change here, relates to my comment in patch 1.
+But I think this should go on a different patch.
 
-  2) in case of handle_level_irq() this does not set it in the pending
-     register because it's masked. The unmask will set the pending
-     register bit _if_ and only _if_ the edge detector has latched the
-     detection. No idea whether that's the case. The manual is
-     exceptionally blury about this.
+>  	/* Slave transmitter mode */
+>  	if (status & STM32F7_I2C_ISR_TXIS) {
+>  		i2c_slave_event(i2c_dev->slave_running,
+> @@ -1494,17 +1504,81 @@ static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev)
+>  	return IRQ_HANDLED;
+>  }
 
-So in theory both #1 and #2 should work. But the explanation in the
-changelog is fairy tale material.
+[...]
 
-As I couldn't figure out why #1 would not work, I looked at the driver
-in more detail and also at the STM32 manual. That tells me that the
-irqchip driver is at least suboptimal. Why?
+> -	setup = of_device_get_match_data(&pdev->dev);
+> -	if (!setup) {
+> -		dev_err(&pdev->dev, "Can't get device data\n");
+> -		return -ENODEV;
+> +		ret = devm_request_threaded_irq(&pdev->dev, irq_error,
+> +						NULL,
+> +						stm32f7_i2c_isr_error_thread,
+> +						IRQF_ONESHOT,
+> +						pdev->name, i2c_dev);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "Failed to request irq error %i\n",
+> +				irq_error);
 
-The EXTI controller is just an intermediate between the peripheral
-(including GPIO pins) and the NVIC:
+please use dev_err_probe();
 
-         |--------------|
-         | Edge config  |   |-----------------|
- Source -|              |---| Int. Mask logic |---> Dedicated NVIC interrupt
-         | Edge detect  | | |-----------------|
-         |--------------| |
-                          | |-----------------|   
-                          |-| Evt. Mask logic |---> CPU event input
-                          | |-----------------|   
-                          |
-                          | |-----------------|   
-                          |-| Wakeup logic    |--->....
-                            |-----------------|   
+> +			return ret;
+> +		}
 
-So there are two classes of sources conntect to EXTI:
+out of the scope of the patch and just for curiosity: does the
+driver work without being able to signal on the error interrupt
+line?
 
-   1) Direct events
+Overall the patch looks good to me, though.
 
-      - Have a fixed edge
-      - Can be masked for Interrupt and Event generation
-      - No software trigger
-      - Not tracked in the Pending register
-      - Can evtl. wakeup the CPUs or from D3
-
-   2) Configurable events
-
-      - Have a configurable edge
-      - Can be masked for Interrupt and Event generation
-      - Software trigger
-      - Tracked in the Pending register
-      - Can evtl. wakeup the CPUs or from D3
-
-The CPU event is a single input to the CPU which can be triggered by any
-source which has the Event mask enabled.
-
-For both classes there are sources which have no connection to the NVIC,
-they can only be used to generate CPU events or trigger the wakeup
-logic.
-
-For direct events there is a category where the peripherial interrupt is
-routed to both the EXTI and the NVIC directly. The EXTI does not provide
-a connection to the NVIC and the event cannot be masked in EXTI to
-prevent CPU interrupts. Only the CPU event masking works.
-
-GPIO pins are configurable events which are connected to the NVIC via
-the EXTI.
-
-But the EXTI driver implements a chained interrupt handler which listens
-on a ton of NVIC interrupts. I.e. for the STM32H7 on:
-
-  <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <62>, <76>
-
-NVIC   1: PVD_PVM           EXTI-SRC 16
-NVIC   2: RTC_TAMP_STAMP    EXTI-SRC 18
-NVIC   3: RTC_WAKEUP        EXTI-SRC 19
-NVIC   6: EXTI0             EXTI-SRC  0
-NVIC   7: EXTI1             EXTI-SRC  1
-NVIC   8: EXTI2             EXTI-SRC  2
-NVIC   9: EXTI3             EXTI-SRC  3
-NVIC  10: EXTI4             EXTI-SRC  4
-NVIC  23: EXTI5-9           EXTI-SRC  5-9
-NVIC  40: EXTI10-15         EXTI-SRC 10-15
-NVIC  41: RTC_ALARM         EXTI-SRC 17
-NVIC  62: ETH_WKUP          EXTI-SRC 86
-NVIC  76: OTG_HS_WKUP       EXTI-SRC 43
-
-Each of these chained interrupts handles the full EXTI interrupt domain
-with all three banks. This does not make any sense at all especially not
-on a SMP machine.
-
-Though it _should_ work, but it might cause interrupts handlers to be
-invoked when nothing is pending when the edge handler is active. Which
-in turn can confuse the underlying device driver depending on the
-quality...
-
-CPU0					CPU1
-
-NVIC int X                      	NVIC int Y
-
- // read_pending() is serialized by a lock, but both read the same state
- pend = read_pending()			pend = read_pending()
- 
- for_each_bit(bit, pend)	 	for_each_bit(bit, pend)	
-    handle_irq(domain, base + bit)         handle_irq(domain, base + bit)
-      lock(desc);                            lock(desc);
-      ack();
-      do {
-         clear(PENDING);
-         set(IN_PROGRESS);
-         unlock(desc);
-         handle();                           if (IN_PROGRESS) {
-         lock(desc);                           ack();
-                                               set(PENDING);
-         				       unlock(desc);
-         clear(IN_PROGRESS);                   return;
-                                             }
-      } while (PENDING); <- Will loop
-
-See?
-
-In fact the only NVIC interrupts which actually need demultiplexing are
-NVIC #23 and NVIC #40 and those should only care about the EXTI
-interrupts which are actually multiplexed on them. This let's randomly
-run whatever is pending on any demux handler is far from correct.
-
-All others are direct NVIC interrupts which just have the extra EXTI
-interrupt masking, event masking and the wakeup magic. The indirection
-via the chained handler is just pointless overhead and not necessarily
-correct.
-
-The exti_h variant of that driver does the right thing and installs a
-hierarchical interrupt domain which acts as man in the middle between
-the source and the NVIC. Though granted they don't have the odd problem
-of multiplexing several GPIO interrupts to a single NVIC interrupt.
-
-But in fact the regular exti driver could do the same and just handle
-the two NVIC interrupts which need demultiplexing separately and let
-everything else go through the hierarchy without bells and whistles.
-
-Thanks,
-
-        tglx
+Andi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
