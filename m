@@ -2,62 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08C4380BD8D
-	for <lists+linux-stm32@lfdr.de>; Sun, 10 Dec 2023 23:12:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1640780C0A7
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 06:24:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1DD6C6B46B;
-	Sun, 10 Dec 2023 22:12:56 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6623C6B46B;
+	Mon, 11 Dec 2023 05:24:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C5A0C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78F58C65E56
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 10 Dec 2023 22:12:55 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1rCS2a-0006P0-BC; Sun, 10 Dec 2023 23:12:48 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1rCS2U-00ExYI-U3; Sun, 10 Dec 2023 23:12:42 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1rCS2U-000RWY-Ks; Sun, 10 Dec 2023 23:12:42 +0100
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Date: Sun, 10 Dec 2023 23:12:25 +0100
-Message-ID: <855e8e89de0c0e2a82e181b883275754f8c16a38.1702245873.git.u.kleine-koenig@pengutronix.de>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <cover.1702245873.git.u.kleine-koenig@pengutronix.de>
-References: <cover.1702245873.git.u.kleine-koenig@pengutronix.de>
+ Mon, 11 Dec 2023 05:24:20 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BB3T42R013989; Mon, 11 Dec 2023 05:24:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=BSoh5DNo4RPdGyiQXkB5TaMxmdd0nuO8yq4OLyw7zZc=; b=Gv
+ FI3s8/04Wgx5X2sQ/cRny7rUx9fJebDdVCWf/HXNZUOHRQ1U6fc6nmgDbr1CezRX
+ NL4/QrddtNjJfBEecbPYMHJLttgjV2gPTb16loRrwe2xGy30ftuBn1OrX0EHoAwp
+ xbS7/8n58eZqp9QPXOsiAW352wzKngMnpdMokLXFbvDpTCSbP9yF8VfJ4696XjpZ
+ zYvHeVAMq1tjpliY5rwoTM3Qxryjihv3Nzgl95QuUXRt35xMekzplYgbIXXFbrSA
+ WJi0PdJbMeCjBCDcV6PHDAldeg8KPgKA6iMW4ijkiUXlgagjJAs82GX3FpmT3OXz
+ evx06I+3ulw7JjGqXnbA==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uvnk5tb5c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Dec 2023 05:24:06 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BB5O58C017881
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Dec 2023 05:24:05 GMT
+Received: from [10.216.5.30] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Sun, 10 Dec
+ 2023 21:23:54 -0800
+Message-ID: <ff71793b-eab1-4dc2-b58a-fc2d34b2d0d9@quicinc.com>
+Date: Mon, 11 Dec 2023 10:53:49 +0530
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1686;
- i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
- bh=tJ2yKb21/v8dgfuhgALzaxDexLMP8sgVYPpXDzQrTKs=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBldjfKeIvGJORSVKGHwwwyFKf7y9MUJlfleH1Jl
- DiYf7f3Vr+JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZXY3ygAKCRCPgPtYfRL+
- TtbwCACuhFqANg8WSx60uhQJSpr0JdPEteh6pcmqE2mfzI4AetRrLIKWj1F8o/MM6mj3cU8M+4S
- hcitsrZA76q3cL4RTQFzPX8JkrSwm4OjxGDEQFOrAa/l69INUglpYKYPEFBrrLks8D/HDJ2Ift7
- rKB3lNgzJ7lTJe+SpojQGsoe5gLsxivIIcc4XsVJ0iuoDVp57EN5iyVZoA+mGSTvkQwi44SaX8Q
- VUbOiHSuksPBkyd8R06N588Wo369O08Ff6WCrv/QbArB+eI+pjwBKaW7YNTIA9cVbfxX+/qKx+z
- 99S4hJ0pj3y0TEfK3h400SL6iP3K9C10AE+L30YTDOrqLhro
-X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Rob Herring <robh@kernel.org>, kernel@pengutronix.de,
- linux-crypto@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 10/12] hwrng: stm32 - Convert to platform
-	remove callback returning void
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>
+References: <cover.1701939695.git.quic_jsuraj@quicinc.com>
+ <87bdedf3c752d339bf7f45a631aa8d5bf5d07763.1701939695.git.quic_jsuraj@quicinc.com>
+ <0af91794-69d6-459a-8566-c8c408489f2b@linaro.org>
+From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+In-Reply-To: <0af91794-69d6-459a-8566-c8c408489f2b@linaro.org>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: Os34XW_GzOcrfJPdr_qXjunD5rB5DdhM
+X-Proofpoint-GUID: Os34XW_GzOcrfJPdr_qXjunD5rB5DdhM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=731
+ priorityscore=1501 malwarescore=0 spamscore=0 mlxscore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0 impostorscore=0
+ suspectscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2312110042
+Cc: kernel@quicinc.com
+Subject: Re: [Linux-stm32] [PATCH net-next v4 1/3] dt-bindings: net: qcom,
+ ethqos: add binding doc for safety IRQ for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,40 +96,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIC5yZW1vdmUoKSBjYWxsYmFjayBmb3IgYSBwbGF0Zm9ybSBkcml2ZXIgcmV0dXJucyBhbiBp
-bnQgd2hpY2ggbWFrZXMKbWFueSBkcml2ZXIgYXV0aG9ycyB3cm9uZ2x5IGFzc3VtZSBpdCdzIHBv
-c3NpYmxlIHRvIGRvIGVycm9yIGhhbmRsaW5nIGJ5CnJldHVybmluZyBhbiBlcnJvciBjb2RlLiBI
-b3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyBpZ25vcmVkIChhcGFydApmcm9tIGVtaXR0aW5n
-IGEgd2FybmluZykgYW5kIHRoaXMgdHlwaWNhbGx5IHJlc3VsdHMgaW4gcmVzb3VyY2UgbGVha3Mu
-CgpUbyBpbXByb3ZlIGhlcmUgdGhlcmUgaXMgYSBxdWVzdCB0byBtYWtlIHRoZSByZW1vdmUgY2Fs
-bGJhY2sgcmV0dXJuCnZvaWQuIEluIHRoZSBmaXJzdCBzdGVwIG9mIHRoaXMgcXVlc3QgYWxsIGRy
-aXZlcnMgYXJlIGNvbnZlcnRlZCB0bwoucmVtb3ZlX25ldygpLCB3aGljaCBhbHJlYWR5IHJldHVy
-bnMgdm9pZC4gRXZlbnR1YWxseSBhZnRlciBhbGwgZHJpdmVycwphcmUgY29udmVydGVkLCAucmVt
-b3ZlX25ldygpIHdpbGwgYmUgcmVuYW1lZCB0byAucmVtb3ZlKCkuCgpUcml2aWFsbHkgY29udmVy
-dCB0aGlzIGRyaXZlciBmcm9tIGFsd2F5cyByZXR1cm5pbmcgemVybyBpbiB0aGUgcmVtb3ZlCmNh
-bGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2YXJpYW50LgoKU2lnbmVkLW9mZi1ieTogVXdl
-IEtsZWluZS1Lw7ZuaWcgPHUua2xlaW5lLWtvZW5pZ0BwZW5ndXRyb25peC5kZT4KLS0tCiBkcml2
-ZXJzL2NoYXIvaHdfcmFuZG9tL3N0bTMyLXJuZy5jIHwgNiArKy0tLS0KIDEgZmlsZSBjaGFuZ2Vk
-LCAyIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9j
-aGFyL2h3X3JhbmRvbS9zdG0zMi1ybmcuYyBiL2RyaXZlcnMvY2hhci9od19yYW5kb20vc3RtMzIt
-cm5nLmMKaW5kZXggNDFlMWRiZWE1ZDJlLi45OGM5MmI5MTRjZmQgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvY2hhci9od19yYW5kb20vc3RtMzItcm5nLmMKKysrIGIvZHJpdmVycy9jaGFyL2h3X3JhbmRv
-bS9zdG0zMi1ybmcuYwpAQCAtMzYyLDExICszNjIsOSBAQCBzdGF0aWMgaW50IHN0bTMyX3JuZ19p
-bml0KHN0cnVjdCBod3JuZyAqcm5nKQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgaW50IHN0bTMy
-X3JuZ19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqb2ZkZXYpCitzdGF0aWMgdm9pZCBz
-dG0zMl9ybmdfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKm9mZGV2KQogewogCXBtX3J1
-bnRpbWVfZGlzYWJsZSgmb2ZkZXYtPmRldik7Ci0KLQlyZXR1cm4gMDsKIH0KIAogc3RhdGljIGlu
-dCBfX21heWJlX3VudXNlZCBzdG0zMl9ybmdfcnVudGltZV9zdXNwZW5kKHN0cnVjdCBkZXZpY2Ug
-KmRldikKQEAgLTU1Nyw3ICs1NTUsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBz
-dG0zMl9ybmdfZHJpdmVyID0gewogCQkub2ZfbWF0Y2hfdGFibGUgPSBzdG0zMl9ybmdfbWF0Y2gs
-CiAJfSwKIAkucHJvYmUgPSBzdG0zMl9ybmdfcHJvYmUsCi0JLnJlbW92ZSA9IHN0bTMyX3JuZ19y
-ZW1vdmUsCisJLnJlbW92ZV9uZXcgPSBzdG0zMl9ybmdfcmVtb3ZlLAogfTsKIAogbW9kdWxlX3Bs
-YXRmb3JtX2RyaXZlcihzdG0zMl9ybmdfZHJpdmVyKTsKLS0gCjIuNDIuMAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Sure . will expand below .
+
+
+On 12/9/2023 11:17 PM, Konrad Dybcio wrote:
+> On 7.12.2023 10:21, Suraj Jaiswal wrote:
+>> Add binding doc for safety IRQ. The safety IRQ will be
+>> triggered for ECC, DPP, FSM error.
+> ECC is widely understood, but the DPP and FSM acronyms could be
+> expanded..
+> 
+> Konrad
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
