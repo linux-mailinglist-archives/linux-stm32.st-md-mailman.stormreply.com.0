@@ -2,82 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC14A80D8D5
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 19:49:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E19E80DB15
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 20:48:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B169C6B458;
-	Mon, 11 Dec 2023 18:49:19 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05FE0C6A61D
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C850C6B458;
+	Mon, 11 Dec 2023 19:48:55 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF9FDC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Dec 2023 18:49:17 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BBBp5DM026654; Mon, 11 Dec 2023 19:48:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=y0BmSNYVc0wIoHagTE06vyC2a0PPdmZEKhzR/LzDmMc=; b=NU
- 6LdAuryyO6Ga1iwo5fQKJ4qt9KbKn770wj6T3gOQHQH8X5YbAp1+UV3/jhMHhLrs
- cf5mSXZ+UTzH0IXqI3h/LIIq5QIYYW0JPDmAqjQUc1aPNF0Ma3JyG/rrVmHw4NIS
- i641bFyjuG8jMIKmysY4F/IOKWvTkxue2uVsKSDu9/se3G4zEsNkFwInrwuVGRTj
- cwRV24hHks2klsL1XGlPPhAQIeOHuwrnpM9F9zvKVUUCKQjmj+FFHa1Y5jCuEL1K
- 15E0I2+Dq2va+7kSS2LAGto2F1rUuEr4bHq8oJ+8C739i5sAghX5YEM2SwfrphHm
- 4ltMRuMz9SbyWhuVmt6A==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvgf1g1sr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Dec 2023 19:48:12 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 70B9010005C;
- Mon, 11 Dec 2023 19:48:09 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 34D44252238;
- Mon, 11 Dec 2023 19:48:09 +0100 (CET)
-Received: from [10.252.9.5] (10.252.9.5) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Dec
- 2023 19:48:07 +0100
-Message-ID: <719399bd-273d-40b5-b512-59a2e09ddbf8@foss.st.com>
-Date: Mon, 11 Dec 2023 19:48:02 +0100
+ Mon, 11 Dec 2023 19:48:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1702324131;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=tEGu5Pqve0aT3zGM/NWkBL3jW0pZ4kUH+m9rr+P8JqA=;
+ b=Lo0u61BEqgydzEsSpICJF0Nf7vhvj3jy4gZQ3BBUl1Wwcqy9D9zqfJOW8AArmHE1fPUvk9
+ K7U3Q5kaE/Eml5v7fVqCo9i8TRjUlKwt/ezqnlMWjVe0t8TmqWXCg01TzwMWYzp9xUxSSq
+ OtDKm+/oz1APuZcojyFn28yzk0JXndo=
+Received: from mail-yb1-f199.google.com (mail-yb1-f199.google.com
+ [209.85.219.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-584-cLA3XzMTNZuXidkJ__frPg-1; Mon, 11 Dec 2023 14:48:50 -0500
+X-MC-Unique: cLA3XzMTNZuXidkJ__frPg-1
+Received: by mail-yb1-f199.google.com with SMTP id
+ 3f1490d57ef6-db410931c23so5047549276.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 Dec 2023 11:48:50 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702324130; x=1702928930;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tEGu5Pqve0aT3zGM/NWkBL3jW0pZ4kUH+m9rr+P8JqA=;
+ b=poEA68aikNDdhZJAAW6JP+s2x4TXIuInKDv3BLjYJiIKlBFDjN3gI4vXdkYdPNv4JK
+ HwAN4mfkIE8PUd5cDWyH/GAWKwkEe+Z+gFufrH9NIetcSZjq+zRpgU9emgRZl33OVDM3
+ tvMagkfwYY02aypfx+JaezCepByzdo+d1Ryp9XtflfugVShFsxIU8/+LcmXjoIj59mR+
+ 9Rz9FrxoRumSJPtdKl8MNXh9oGR7C1BO0ib6hgLU1Gr8N/lbTxZ/2ROIQlojyzdaEXdE
+ dKnPrFUNpRUzOOvktrgvAZ/jNFpO00PIyIrPspOktckMuX1uSMzH6408ppQd46IMMODn
+ h0/w==
+X-Gm-Message-State: AOJu0Yz68At1lVDk93htYfubeZwW3HiSWhrhwZOrpCv3ccsqExJl/fHh
+ h9Xd+mF5hasTK/feqx2IcHxNSatVwrVb7/f+QrDOZ3QxkQW12iQ8/x4qxkdsDoBroSdZzobYqHd
+ gA8KTeyqmqmuTuiJANr8MTsaGkf6RMNFyo6AVO4bC
+X-Received: by 2002:a05:6902:248:b0:db5:4669:fdb1 with SMTP id
+ k8-20020a056902024800b00db54669fdb1mr2857474ybs.39.1702324130043; 
+ Mon, 11 Dec 2023 11:48:50 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFMzXiz7DxmAMKunWzpipPJqY65gNgsQH47Q99/oPZT0u0DHwZNoplAe6V+UQ1a5fGUPA4YiQ==
+X-Received: by 2002:a05:6902:248:b0:db5:4669:fdb1 with SMTP id
+ k8-20020a056902024800b00db54669fdb1mr2857455ybs.39.1702324129663; 
+ Mon, 11 Dec 2023 11:48:49 -0800 (PST)
+Received: from fedora ([2600:1700:1ff0:d0e0::37])
+ by smtp.gmail.com with ESMTPSA id
+ p5-20020a05621415c500b0067ac2df0199sm3527653qvz.128.2023.12.11.11.48.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 Dec 2023 11:48:49 -0800 (PST)
+Date: Mon, 11 Dec 2023 13:48:47 -0600
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <slq3uvpe424lxksgc2ho4q5apon6yqyvmq3ubpmx3z5ln5yhqf@klnkglqb6o6r>
+References: <20231207-stmmac-no-mdio-node-v3-1-34b870f2bafb@redhat.com>
+ <jz6ot44fjkbmwcezi3fkgqd54nurglblbemrchfgxgq6udlhqz@ntepnnzzelta>
+ <hxds75erxqcfkufxnfbyo2up4b4jeicmi3f5xr6qlb3yf7fe76@4byeq62jhu4o>
+ <hgz3pt625kggix6kzincohw7kr2okcumrwfkmjgiauw2yvhrzt@ekeygo4b7k3b>
+ <h5ucipgjtsesrz3jyul5xohu4pqom56v6ayx7aonnfesret3ht@wmblmndj6zir>
+ <hpqssnt7odmuuyhsljuqovmwatdjz4s6kix6abq7lrvyciawy5@5ypscmmivnmh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
- <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
- <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
- <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
- <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
- <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
- <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
- <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
- <peng.fan@oss.nxp.com>, <lars@metafoo.de>, <rcsekar@samsung.com>,
- <wg@grandegger.com>, <mkl@pengutronix.de>
-References: <20231211183044.808204-1-gatien.chevallier@foss.st.com>
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20231211183044.808204-1-gatien.chevallier@foss.st.com>
-X-Originating-IP: [10.252.9.5]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-11_08,2023-12-07_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v7 00/13] Introduce STM32 Firewall
-	framework
+In-Reply-To: <hpqssnt7odmuuyhsljuqovmwatdjz4s6kix6abq7lrvyciawy5@5ypscmmivnmh>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v3] net: stmmac: don't create a
+ MDIO bus if unnecessary
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,243 +91,169 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+On Mon, Dec 11, 2023 at 08:27:46PM +0300, Serge Semin wrote:
+> On Fri, Dec 08, 2023 at 10:50:29AM -0600, Andrew Halaney wrote:
+> > On Fri, Dec 08, 2023 at 06:07:06PM +0300, Serge Semin wrote:
+> > > On Thu, Dec 07, 2023 at 05:07:24PM -0600, Andrew Halaney wrote:
+> > > > On Fri, Dec 08, 2023 at 01:16:12AM +0300, Serge Semin wrote:
+> > > > > On Thu, Dec 07, 2023 at 03:12:40PM -0600, Andrew Halaney wrote:
+> > > > > > The stmmac_dt_phy() function, which parses the devicetree node of the
+> > > > > > MAC and ultimately causes MDIO bus allocation, misinterprets what
+> > > > > > fixed-link means in relation to the MAC's MDIO bus. This results in
+> > > > > > a MDIO bus being created in situations it need not be.
+> > > > > > 
+> > > > > > Currently a MDIO bus is created if the description is either:
+> > > > > > 
+> > > > > >     1. Not fixed-link
+> > > > > >     2. fixed-link but contains a MDIO bus as well
+> > > > > > 
+> > > > > > The "1" case above isn't always accurate. If there's a phy-handle,
+> > > > > > it could be referencing a phy on another MDIO controller's bus[1]. In
+> > > > > > this case currently the MAC will make a MDIO bus and scan it all
+> > > > > > anyways unnecessarily.
+> > > > > > 
+> > > > > > There's also a lot of upstream devicetrees[2] that expect a MDIO bus to
+> > > > > > be created and scanned for a phy. This case can also be inferred from
+> > > > > > the platform description by not having a phy-handle && not being
+> > > > > > fixed-link. This hits case "1" in the current driver's logic.
+> > > > > > 
+> > > > > > Let's improve the logic to create a MDIO bus if either:
+> > > > > > 
+> > > > > 
+> > > > > >     - Devicetree contains a MDIO bus
+> > > > > >     - !fixed-link && !phy-handle (legacy handling)
+> > > > > 
+> > > > > If what you suggest here is a free from regressions semantics change
+> > > > > (really hope it is) I will be with both my hands for it. This will
+> > > > > solve the problem we have with one of our device which doesn't have
+> > > > > SMA interface (hardware designers decided to save ~4K gates of the
+> > > > > chip area) but has a PHY externally attached to the DW XGMAC<->XPCS
+> > > > > interface. PHY is accessible via a GPIO-based MDIO bus. BTW having no
+> > > > > SMA interface available on a DW *MAC device but creating the MDIO-bus
+> > > > > on top of the non-existent SMA CSRs anyway causes having _32_ dummy
+> > > > > PHYs created with zero IDs.
+> > > > 
+> > > 
+> > > > I hope it is regression free! I have tested both the [1] and [2] cases
+> > > > (I hacked up the devicetree for [1] to make it look like [2]) without
+> > > > any issue.
+> > > > 
+> > > 
+> > > I doubt you could have tested it on all the possible hardware the
+> > > STMMAC driver supports. The problem is that the DT-bindings thing is a
+> > > kind of contract which can't be changed that easily. It's like ABI but
+> > > for the hardware description so the kernel would bootup correctly on
+> > > the platforms with the old DT blobs. But if the change isn't that
+> > > critical, if the device-tree sources in the kernel fit to the updated
+> > > semantics, if the networking subsystem maintainers aren't against it
+> > > and I guess with the Rob, Krzysztof or Conor blessing (at least it
+> > > won't hurt to add them to the Cc-list together with the devicetree
+> > > mailing-list), then it will likely be accepted.
+> > 
+> 
+> > To be clear, I don't think we're violating the dt-binding ABI contract
+> > here. My intention is that all the existing use cases continue to work,
+> > and this just improves one use case. I did a write up
+> > over on v2 about the use cases I see and the current logic vs what
+> > changes with this patch series:
+> > 
+> >     https://lore.kernel.org/netdev/plvbqgi2bwlv5quvpiwplq7cxx6m5rl3ghnfhuxfx4bpuhyihl@zmydwrtwdeg6/
+> > 
+> > Please comment if you think I have broken some backwards
+> > compatibility.
+> 
+> To shortly sum up so I didn't miss something. Current semantics of the
+> MDIO-bus registration is:
+> if !fixed-link || mdio_node_present
+>     create MDIO-bus
+> and the semantics of the PHY auto-probe (legacy) is:
+> if !(fixed-link || mdio_node_present || phy_node_present)
+>     auto-probe PHY
 
-I messed up when squashing.
+I think phy_node_present doesn't belong in the current view of the
+semantics for PHY auto-probe (legacy). This devicetree would trigger a
+PHY auto-probe/scan on ethernet0's MAC's MDIO bus:
 
-I did not restore the ETZPC/RIFSC "simple-bus" compatible for stm32mp15
-and stm32mp25 SoC device trees.
+	random-mdio-bus {
+		rgmii_phy: phy@0 {
+		};
+	};
 
-I apologize for this inconvenience and will resend the patchset with
-this compatible correctly restored.
+	ethernet0 {
+		phy-handle = <&rgmii_phy>;
+	};
 
-Best regards,
-Gatien
+The assumption I make in this patch is that nothing useful could be on
+ethernet0's MDIO bus, it certainly at least is not the phy the MAC uses.
 
-On 12/11/23 19:30, Gatien Chevallier wrote:
-> Introduce STM32 Firewall framework for STM32MP1x and STM32MP2x
-> platforms. STM32MP1x(ETZPC) and STM32MP2x(RIFSC) Firewall controllers
-> register to the framework to offer firewall services such as access
-> granting.
 > 
-> This series of patches is a new approach on the previous STM32 system
-> bus, history is available here:
-> https://lore.kernel.org/lkml/20230127164040.1047583/
+> You are changing the MDIO-bus creation semantics to:
+> if !(fixed-link || phy_node_present) || mdio_node_present
+>     create MDIO-bus
+> with no change in the PHY auto-probe semantics:
+> if !(fixed-link || mdio_node_present || phy_node_present)
+>     auto-probe PHY
+
+Unfortunately as I highlighted above this logic (while accurate to the
+patch under review) is a change from the prior logic for the "auto-probe
+PHY" case.
+
 > 
-> The need for such framework arises from the fact that there are now
-> multiple hardware firewalls implemented across multiple products.
-> Drivers are shared between different products, using the same code.
-> When it comes to firewalls, the purpose mostly stays the same: Protect
-> hardware resources. But the implementation differs, and there are
-> multiple types of firewalls: peripheral, memory, ...
+> So the change is that if a PHY-handle is specified the MDIO-bus won't
+> be created with the rest conditions being the same.
 > 
-> Some hardware firewall controllers such as the RIFSC implemented on
-> STM32MP2x platforms may require to take ownership of a resource before
-> being able to use it, hence the requirement for firewall services to
-> take/release the ownership of such resources.
+> The only concern I had was the so called legacy case and a possibility
+> to have MDIO-bus with other than PHY devices. Based on the pseudo-code
+> above the former case won't be affected since having PHY-node
+> specified didn't triggered MDIO-bus auto-probe even before your
+> change. The later case concerns for instance the DW XPCS devices which
+
+As I've realized in your response here, there is the possibility that
+something is on the MDIO bus in the ethernet0 exmpale bus above, and would
+probe, in the before handling. So I guess this isn't totally backwards
+compatible. Gah, thanks for highlighting.
+
+I'm not sure in practice if anyone out there is really relying on that
+or not. I can get away with the "no auto-probe/scan of bus" optimization I
+really desire by describing my MDIO bus as disabled in the devicetree
+(need to send patches to do that in the dts and handle it gracefully in
+stmmac). I'm wondering if I should keep forth with this patch as is, or
+if I should keep the same logic but clean it up a bit as is done in the
+current patch... I guess probably the latter.
+
+> on some platforms could be found on the DW MAC MDIO bus with not
+> having PHY living on that bus. But DW XPCS auto-probing currently is
+> only supported by the non-OF platforms (it's Intel). Thus your change
+> is supposed to be safe here too.
 > 
-> On the other hand, hardware firewall configurations are becoming
-> more and more complex. These mecanisms prevent platform crashes
-> or other firewall-related incoveniences by denying access to some
-> resources.
+> So to speak AFAICS from the STMMAC MDIO OF stuff your solution isn't
+> supposed to cause regressions and break the current DTs backward
+> compatibility indeed.
 > 
-> The stm32 firewall framework offers an API that is defined in
-> firewall controllers drivers to best fit the specificity of each
-> firewall.
+> Regarding the ideal implementation. What could be much better is to
+> implement the next semantics:
+> if SMA-capability-detected &&
+>    (!mdio_node_present || (mdio_node_present && mdio_node_enabled))
+>     create MDIO-bus
+> and preserve the PHY auto-probe semantics for backwards compatibility.
+> Regarding the SMA-capability flag, it has been presented since DW GMAC
+> v3.50, so since very much early DW MAC releases. But even for the
+> early devices I think it could be auto-detected by checking the SMA
+> CSRs writability. At least DW XGMAC AFAICS has the command CSR not
+> writable if SMA is unavailable.
 > 
-> For every peripherals protected by either the ETZPC or the RIFSC, the
-> firewall framework checks the firewall controlelr registers to see if
-> the peripheral's access is granted to the Linux kernel. If not, the
-> peripheral is configured as secure, the node is marked populated,
-> so that the driver is not probed for that device.
+> But I guess it's a matter of another patch.
 > 
-> The firewall framework relies on the access-controller device tree
-> binding. It is used by peripherals to reference a domain access
-> controller. In this case a firewall controller. The bus uses the ID
-> referenced by the access-controller property to know where to look
-> in the firewall to get the security configuration for the peripheral.
-> This allows a device tree description rather than a hardcoded peripheral
-> table in the bus driver.
-> 
-> The STM32 ETZPC device is responsible for filtering accesses based on
-> security level, or co-processor isolation for any resource connected
-> to it.
-> 
-> The RIFSC is responsible for filtering accesses based on Compartment
-> ID / security level / privilege level for any resource connected to
-> it.
-> 
-> STM32MP13/15/25 SoC device tree files are updated in this series to
-> implement this mecanism.
-> 
-> Changes in V7:
-> 	- Separate indentation changes from access-controllers changes
-> 	  in the device tree file commits
-> 	- Select OF_DYNAMIC when STM32_FIREWALL is set in order to use
-> 	  of_detach_node() in the firewall framework
-> 	- Handle previously non-present RNG and HASH nodes in the
-> 	  STM32MP13 device tree file
-> 
-> Changes in V6:
-> 	- Rename access-controller to access-controllers
-> 	- Remove access-controller-provider
-> 	- Update device trees and other bindings accordingly
-> 	- Rework ETZPC/RIFSC bindings to define what access-controllers
-> 	  cells contain inside #access-controller-cells
-> 	- Some other minor fixes
-> 
-> Changes in V5:
-> 	- Integrate and rework the "feature-domains" binding patch in
-> 	  this patchset. The binding is renamed to "access-controller"
-> 	- Rename every feature-domain* reference to access-control*
-> 	  ones
-> 	- Correct loop bug and missing select STM32_FIREWALL in 32-bit
-> 	  platform Kconfig
-> 	
-> 
-> Changes in V4:
-> 	- Fix typo in commit message and YAML check errors in
-> 	  "dt-bindings: Document common device controller bindings"
-> 	  Note: This patch should be ignored as stated in the cover
-> 	  letter. I've done this to avoid errors on this series of
-> 	  patch
-> 	- Correct code syntax/style issues reported by Simon Horman
-> 	- Added Jonathan's tag for IIO on the treewide patch
-> 
-> Changes in V3:
-> 
-> 	Change incorrect ordering for bindings commits leading
-> 	to an error while running
-> 	"make DT_CHECKER_FLAGS=-m dt_binding_check"
-> 
-> Changes in V2:
-> 
-> 	generic:
-> 		- Add fw_devlink dependency for "feature-domains"
-> 		  property.
-> 
-> 	bindings:
-> 		- Corrected YAMLS errors highlighted by Rob's robot
-> 		- Firewall controllers YAMLs no longer define the
-> 		  maxItems for the "feature-domains" property
-> 		- Renamed st,stm32-rifsc.yaml to
-> 		  st,stm32mp25-rifsc.yaml
-> 		- Fix examples in YAML files
-> 		- Change feature-domains maxItems to 2 in firewall
-> 		  consumer files as there should not be more than
-> 		  2 entries for now
-> 		- Declare "feature-domain-names" as an optional
-> 		  property for firewall controllers child nodes.
-> 		- Add missing "feature-domains" property declaration
-> 		  in bosch,m_can.yaml and st,stm32-cryp.yaml files
-> 
-> 	firewall framework:
-> 		- Support multiple entries for "feature-domains"
-> 		  property
-> 		- Better handle the device-tree parsing using
-> 		  phandle+args APIs
-> 		- Remove "resource firewall" type
-> 		- Add a field for the name of the firewall entry
-> 		- Fix licenses
-> 	
-> 	RIFSC:
-> 		- Add controller name
-> 		- Driver is now a module_platform_driver
-> 		- Fix license
-> 
-> 	ETZPC:
-> 		- Add controller name
-> 		- Driver is now a module_platform_driver
-> 		- Fix license
-> 
-> 	Device trees:
-> 		- Fix rifsc node name
-> 		- Move the "ranges" property under the
-> 		  "feature-domains" one
-> 
-> Gatien Chevallier (12):
->    dt-bindings: treewide: add access-controllers description
->    dt-bindings: bus: document RIFSC
->    dt-bindings: bus: document ETZPC
->    firewall: introduce stm32_firewall framework
->    of: property: fw_devlink: Add support for "access-controller"
->    bus: rifsc: introduce RIFSC firewall controller driver
->    arm64: dts: st: add RIFSC as an access controller for STM32MP25x
->      boards
->    bus: etzpc: introduce ETZPC firewall controller driver
->    ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
->    ARM: dts: stm32: put ETZPC as an access controller for STM32MP15x
->      boards
->    ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
->    ARM: dts: stm32: put ETZPC as an access controller for STM32MP13x
->      boards
-> 
-> Oleksii Moisieiev (1):
->    dt-bindings: document generic access controllers
-> 
->   .../access-controllers.yaml                   |   84 +
->   .../bindings/bus/st,stm32-etzpc.yaml          |   87 +
->   .../bindings/bus/st,stm32mp25-rifsc.yaml      |   96 +
->   .../bindings/crypto/st,stm32-cryp.yaml        |    4 +
->   .../bindings/crypto/st,stm32-hash.yaml        |    4 +
->   .../devicetree/bindings/dma/st,stm32-dma.yaml |    4 +
->   .../bindings/dma/st,stm32-dmamux.yaml         |    4 +
->   .../devicetree/bindings/i2c/st,stm32-i2c.yaml |    4 +
->   .../bindings/iio/adc/st,stm32-adc.yaml        |    4 +
->   .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |    4 +
->   .../bindings/iio/dac/st,stm32-dac.yaml        |    4 +
->   .../bindings/media/cec/st,stm32-cec.yaml      |    4 +
->   .../bindings/media/st,stm32-dcmi.yaml         |    4 +
->   .../memory-controllers/st,stm32-fmc2-ebi.yaml |    4 +
->   .../bindings/mfd/st,stm32-lptimer.yaml        |    4 +
->   .../bindings/mfd/st,stm32-timers.yaml         |    4 +
->   .../devicetree/bindings/mmc/arm,pl18x.yaml    |    4 +
->   .../bindings/net/can/bosch,m_can.yaml         |    4 +
->   .../devicetree/bindings/net/stm32-dwmac.yaml  |    4 +
->   .../bindings/phy/phy-stm32-usbphyc.yaml       |    4 +
->   .../bindings/regulator/st,stm32-vrefbuf.yaml  |    4 +
->   .../devicetree/bindings/rng/st,stm32-rng.yaml |    4 +
->   .../bindings/serial/st,stm32-uart.yaml        |    4 +
->   .../bindings/sound/st,stm32-i2s.yaml          |    4 +
->   .../bindings/sound/st,stm32-sai.yaml          |    4 +
->   .../bindings/sound/st,stm32-spdifrx.yaml      |    4 +
->   .../bindings/spi/st,stm32-qspi.yaml           |    4 +
->   .../devicetree/bindings/spi/st,stm32-spi.yaml |    4 +
->   .../devicetree/bindings/usb/dwc2.yaml         |    4 +
->   MAINTAINERS                                   |    7 +
->   arch/arm/boot/dts/st/stm32mp131.dtsi          | 1063 ++++---
->   arch/arm/boot/dts/st/stm32mp133.dtsi          |   51 +-
->   arch/arm/boot/dts/st/stm32mp13xc.dtsi         |   19 +-
->   arch/arm/boot/dts/st/stm32mp13xf.dtsi         |   19 +-
->   arch/arm/boot/dts/st/stm32mp151.dtsi          | 2756 +++++++++--------
->   arch/arm/boot/dts/st/stm32mp153.dtsi          |   52 +-
->   arch/arm/boot/dts/st/stm32mp15xc.dtsi         |   19 +-
->   arch/arm/mach-stm32/Kconfig                   |    1 +
->   arch/arm64/Kconfig.platforms                  |    1 +
->   arch/arm64/boot/dts/st/stm32mp251.dtsi        |    6 +-
->   drivers/bus/Kconfig                           |   10 +
->   drivers/bus/Makefile                          |    1 +
->   drivers/bus/stm32_etzpc.c                     |  141 +
->   drivers/bus/stm32_firewall.c                  |  294 ++
->   drivers/bus/stm32_firewall.h                  |   83 +
->   drivers/bus/stm32_rifsc.c                     |  252 ++
->   drivers/of/property.c                         |    2 +
->   include/linux/bus/stm32_firewall_device.h     |  141 +
->   48 files changed, 3351 insertions(+), 1938 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
->   create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
->   create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
->   create mode 100644 drivers/bus/stm32_etzpc.c
->   create mode 100644 drivers/bus/stm32_firewall.c
->   create mode 100644 drivers/bus/stm32_firewall.h
->   create mode 100644 drivers/bus/stm32_rifsc.c
->   create mode 100644 include/linux/bus/stm32_firewall_device.h
-> 
+
+I like that logic for what it is worth, although would be unsure of
+verifying the SMA-capability-detected part of it. But I wouldn't mind
+seeing that patch :)
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
