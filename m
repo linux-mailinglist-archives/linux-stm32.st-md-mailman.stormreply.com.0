@@ -2,77 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 301AD80CB3C
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 14:40:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0064E80CB79
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 14:52:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D23B9C6B458;
-	Mon, 11 Dec 2023 13:40:13 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5DC9C65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A74CCC6B458;
+	Mon, 11 Dec 2023 13:52:47 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [216.145.221.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B83ECC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Dec 2023 13:40:11 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-a1ca24776c3so1131501166b.0
+ Mon, 11 Dec 2023 13:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1702302764;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=rAKJhgDZFjppnOq8yVAY97GiR5RWWlY/Hz8yw7/jdJE=;
+ b=J5rmR3tQi2M13PXqVKbiu0qKRCqPDiYfxjNKcfnUPTBk6hL8rfYQdW6oug3Y4mKq+TqNtZ
+ zlbZOcwzDCVecUh7VvJAzh+N/Z/jzCfv1LvO+yIWnKtAKOuZBwmhdZ4fMrc02uBal82WrF
+ vdLbXexObBBurpDn7dTHIIKE3TvnAw4=
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-2-k2imMlt8OVKc81dY7R-Fag-1; Mon, 11 Dec 2023 08:52:41 -0500
+X-MC-Unique: k2imMlt8OVKc81dY7R-Fag-1
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-67ee1ca3b05so1808236d6.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Dec 2023 05:40:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702302011; x=1702906811;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1DOYBiSnMBUZpB8aPlwqoVslXzDkYwM7n0lC23HDZjU=;
- b=acXmH+w7ylDLRXpL9VApgd8Tpt+p0oGKvG8N/RDc3EZLYE4sz9i8DnJX941o9rolrs
- valRy3H1I3wDQpdXcDLjcAEvQFiC8t6QECrleJphpRgfS2vSBHNeZAIeezpb23a6OesS
- BknKxk2wtRi0J5bI/uDNU09ZAwpjXTAbCVbtiXeHUbzgdZTC9EImNy3+ueCVbSaHao//
- w7lnQ4K5fk8Lftu8UMGzBQsjx8GZSNtfetDazd0eqIg/L9J3nyy0n5KOoWMEOpsWy8sp
- ytVjNYSr+K5UNirS2igV3SV059OMIixO3VjqWCpul7qYlSx62pwIqvcDdF8+fnJkByKz
- a6/g==
+ Mon, 11 Dec 2023 05:52:41 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702302011; x=1702906811;
+ d=1e100.net; s=20230601; t=1702302761; x=1702907561;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1DOYBiSnMBUZpB8aPlwqoVslXzDkYwM7n0lC23HDZjU=;
- b=SS7XsKlnDQxSxzgwEIVFm44M6Z9aQKk1jgwDCb+Xlvt1vB7Vz4BldebA43Vh537+Gq
- Ofgza/CaOJ6nwBNE155MGkQk0V8AkciU27G9PGFcl0V4FMFI5dpFs+6UNjrdCVD1Wq8R
- t+dW7O3FERADv2z52AEb8SQC8bCnG7+NPl2rWuTWhhj7UC2TyHsSl8YYj3BQwu3yvmQ3
- zMLvVOtvboNLo5KEeKDYb7+JEwaQs+Z4HvlFUo+kDzcMGxtmGjTYaj7kM0PMFQReil31
- SYszNvzlCwgseOWFpQj5KufAzxbXCvSs5CayfAWuHL5/jl2/iKKH9Y2qqnADOg3MvVxU
- 5Wjg==
-X-Gm-Message-State: AOJu0YyPu6IPQmPPL41nBfAkdSQ+EoKCWruW2ttjfrp3F8jqCe7P7dWz
- m4ICJO9hFbLLVy5N7awR/DE=
-X-Google-Smtp-Source: AGHT+IG1DcEeU91kg6P+z6Hh0pDv+PfBGoLPpOL7Q7t0PdRFfZLow75jSesZQXYB3JHKVwCeNnRYBQ==
-X-Received: by 2002:a17:906:241:b0:a1e:842d:ccd5 with SMTP id
- 1-20020a170906024100b00a1e842dccd5mr3960239ejl.48.1702302010984; 
- Mon, 11 Dec 2023 05:40:10 -0800 (PST)
-Received: from skbuf ([188.27.185.68]) by smtp.gmail.com with ESMTPSA id
- vx6-20020a170907a78600b00a1e852ab3f0sm4911417ejc.15.2023.12.11.05.40.09
+ bh=rAKJhgDZFjppnOq8yVAY97GiR5RWWlY/Hz8yw7/jdJE=;
+ b=KX7E+nNLCNDgeRLAV7Lftue/2Y9aAm5z/jq9NEGMP7LV/1A7HFKd7Om9nbJvkXP+6G
+ IuWdOdf2bThP7nowtVhjHiOZctErQRPcut1ORdb41RmsKE1O0o5l9b+sKyn1tSq5Jr/a
+ b3QxDMn4HkKU0HtkJH6gIKHJo9caUssVNP4HwvD7sTWykpSoyaIooQl4DWG/Q/s/jyJy
+ tdVTPB85hJieQJoCCgAbtVDr7BDsutZ/wglbycoQCHsxSveklY0I6JG02gizv2VVYfZT
+ yvJvEqkZBq+rqwGRjgTTubLU0lbry/vLuJNGqybouZpwcjIsoc1dLAJn4gHADW4Itlp+
+ cAJg==
+X-Gm-Message-State: AOJu0Yx3Mizp5zC16HDqFfR/NWLJsGeXpMMor5gkfKxh6V8EkyxpVmIL
+ /eCdPr/OTHS/BQlTf7WJdsTRbh67RivgwU+3jTlLIdgbyTDD8937ctc13V2piYNMLp67ddqGaWP
+ kplJtk6K8Xc8o1MCKpc+Hzo1UGi9G1E/9DHH6Vi/R
+X-Received: by 2002:ad4:452a:0:b0:67a:5887:b55d with SMTP id
+ l10-20020ad4452a000000b0067a5887b55dmr4932147qvu.49.1702302760914; 
+ Mon, 11 Dec 2023 05:52:40 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGzx/nt6T6DLUCU49cSJD+NhxTBsGn6eVt/zPBsL7ZgqtW6sJsBZ5K+Q5WGQkXV6vBLIadoeg==
+X-Received: by 2002:ad4:452a:0:b0:67a:5887:b55d with SMTP id
+ l10-20020ad4452a000000b0067a5887b55dmr4932121qvu.49.1702302760605; 
+ Mon, 11 Dec 2023 05:52:40 -0800 (PST)
+Received: from fedora ([2600:1700:1ff0:d0e0::37])
+ by smtp.gmail.com with ESMTPSA id
+ tc6-20020a05620a2cc600b0077db614cb7fsm2936968qkn.8.2023.12.11.05.52.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Dec 2023 05:40:10 -0800 (PST)
-Date: Mon, 11 Dec 2023 15:40:08 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-Message-ID: <20231211134008.lbtm6pjtufkhtvfj@skbuf>
-References: <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
- <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
+ Mon, 11 Dec 2023 05:52:40 -0800 (PST)
+Date: Mon, 11 Dec 2023 07:52:37 -0600
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Message-ID: <2ihncgvnfxgzj5kfm3eedvj3jvru7fokpno5pdzgtnuuy2mpqf@sfuzuugeuxzh>
+References: <20231211080153.3005122-1-quic_jsuraj@quicinc.com>
+ <20231211080153.3005122-2-quic_jsuraj@quicinc.com>
 MIME-Version: 1.0
+In-Reply-To: <20231211080153.3005122-2-quic_jsuraj@quicinc.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-In-Reply-To: <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
- <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
- open list <linux-kernel@vger.kernel.org>, James Li <James.Li1@synopsys.com>,
- "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Martin McKenny <Martin.McKenny@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: xgmac3+: add FPE
- handshaking support
+Cc: Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
+ Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Prasad Sodagudi <psodagud@quicinc.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v5 1/3] dt-bindings: net: qcom,
+ ethqos: add binding doc for safety IRQ for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,27 +98,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Jianheng,
-
-On Mon, Dec 11, 2023 at 06:13:21AM +0000, Jianheng Zhang wrote:
-> Adds the HW specific support for Frame Preemption handshaking on XGMAC3+
-> cores.
+On Mon, Dec 11, 2023 at 01:31:51PM +0530, Suraj Jaiswal wrote:
+> Add binding doc for safety IRQ. The safety IRQ will be
+> triggered for ECC(error correction code), DPP(data path
+> parity), FSM(finite state machine) error.
 > 
-> Signed-off-by: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
+> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+
+Rob gave you his Reviewed-by over here on the last revision:
+
+    https://lore.kernel.org/netdev/170206782161.2661547.16311911491075108498.robh@kernel.org/
+
+in the future if someone gives you a tag you should add it to the patch
+for the next revision you send out (assuming you have to send out
+another version, otherwise the maintainers will collect the tags when
+they merge that version of the series). If the patches change a lot then
+it makes sense to remove the tag since it wasn't what they reviewed, but
+in this case you've only expanded a comment in the commit message so it is
+appropriate to be present.
+
 > ---
+>  Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 9 ++++++---
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 6 ++++--
+>  2 files changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index 7bdb412a0185..93d21389e518 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> @@ -37,12 +37,14 @@ properties:
+>      items:
+>        - description: Combined signal for various interrupt events
+>        - description: The interrupt that occurs when Rx exits the LPI state
+> +      - description: The interrupt that occurs when HW safety error triggered
+>  
+>    interrupt-names:
+>      minItems: 1
+>      items:
+>        - const: macirq
+> -      - const: eth_lpi
+> +      - enum: [eth_lpi, safety]
+> +      - const: safety
+>  
+>    clocks:
+>      maxItems: 4
+> @@ -89,8 +91,9 @@ examples:
+>                 <&gcc GCC_ETH_PTP_CLK>,
+>                 <&gcc GCC_ETH_RGMII_CLK>;
+>        interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
+> -                   <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
+> -      interrupt-names = "macirq", "eth_lpi";
+> +                   <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
+> +                   <GIC_SPI 782 IRQ_TYPE_LEVEL_HIGH>;
+> +      interrupt-names = "macirq", "eth_lpi", "safety";
+>  
+>        rx-fifo-depth = <4096>;
+>        tx-fifo-depth = <4096>;
+> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> index 5c2769dc689a..3b46d69ea97d 100644
+> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> @@ -107,13 +107,15 @@ properties:
+>        - description: Combined signal for various interrupt events
+>        - description: The interrupt to manage the remote wake-up packet detection
+>        - description: The interrupt that occurs when Rx exits the LPI state
+> +      - description: The interrupt that occurs when HW safety error triggered
+>  
+>    interrupt-names:
+>      minItems: 1
+>      items:
+>        - const: macirq
+> -      - enum: [eth_wake_irq, eth_lpi]
+> -      - const: eth_lpi
+> +      - enum: [eth_wake_irq, eth_lpi, safety]
+> +      - enum: [eth_wake_irq, eth_lpi, safety]
+> +      - enum: [eth_wake_irq, eth_lpi, safety]
+>  
+>    clocks:
+>      minItems: 1
+> -- 
+> 2.25.1
+> 
 
-It's nice to see contributions from Synopsys!
-
-Have you seen the (relatively newly introduced) common framework for
-Frame Preemption and the MAC Merge layer?
-https://docs.kernel.org/networking/ethtool-netlink.html#mm-get
-https://man7.org/linux/man-pages/man8/ethtool.8.html
-https://man7.org/linux/man-pages/man8/tc-mqprio.8.html # "fp" option
-https://man7.org/linux/man-pages/man8/tc-taprio.8.html # "fp" option
-
-I think it would be valuable if the stmmac driver would also use it, so
-it could support openlldp and pass the selftest at
-https://github.com/torvalds/linux/blob/master/tools/testing/selftests/net/forwarding/ethtool_mm.sh
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
