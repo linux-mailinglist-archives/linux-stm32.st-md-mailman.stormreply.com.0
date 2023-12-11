@@ -2,39 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E3AD80C217
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 08:39:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB6880C262
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Dec 2023 08:51:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A6B5C6B475;
-	Mon, 11 Dec 2023 07:39:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3FF6C6B475;
+	Mon, 11 Dec 2023 07:51:47 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DDF0C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4F777C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Dec 2023 07:39:15 +0000 (UTC)
+ Mon, 11 Dec 2023 07:51:47 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC7FD1007;
- Sun, 10 Dec 2023 23:40:00 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 170881007;
+ Sun, 10 Dec 2023 23:52:33 -0800 (PST)
 Received: from [10.162.41.8] (a077893.blr.arm.com [10.162.41.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DCB9A3F762;
- Sun, 10 Dec 2023 23:39:10 -0800 (PST)
-Message-ID: <5c9371bd-9f29-408f-9419-df2209e55f7e@arm.com>
-Date: Mon, 11 Dec 2023 13:09:08 +0530
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2E31B3F7C5;
+ Sun, 10 Dec 2023 23:51:42 -0800 (PST)
+Message-ID: <862afccb-e9c5-4fcb-abdf-45a5eb9aa6d8@arm.com>
+Date: Mon, 11 Dec 2023 13:21:40 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: James Clark <james.clark@arm.com>, linux-arm-kernel@lists.infradead.org,
- suzuki.poulose@arm.com
+To: linux-arm-kernel@lists.infradead.org, suzuki.poulose@arm.com
 References: <20231208053939.42901-1-anshuman.khandual@arm.com>
- <20231208053939.42901-9-anshuman.khandual@arm.com>
- <22cfb197-b8bd-46c5-f3cb-ea04b95c0792@arm.com>
+ <20231208053939.42901-5-anshuman.khandual@arm.com>
 From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <22cfb197-b8bd-46c5-f3cb-ea04b95c0792@arm.com>
+In-Reply-To: <20231208053939.42901-5-anshuman.khandual@arm.com>
 Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
  Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V3 08/10] coresight: tmc: Move ACPI
+Subject: Re: [Linux-stm32] [PATCH V3 04/10] coresight: replicator: Move ACPI
  support from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -54,78 +53,134 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 12/8/23 21:01, James Clark wrote:
+On 12/8/23 11:09, Anshuman Khandual wrote:
+> Add support for the dynamic replicator device in the platform driver, which
+> can then be used on ACPI based platforms. This change would now allow
+> runtime power management for repliacator devices on ACPI based systems.
 > 
-> On 08/12/2023 05:39, Anshuman Khandual wrote:
->> Add support for the tmc devices in the platform driver, which can then be
->> used on ACPI based platforms. This change would now allow runtime power
->> management for ACPI based systems. The driver would try to enable the APB
->> clock if available.
->>
->> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->> Cc: Sudeep Holla <sudeep.holla@arm.com>
->> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
->> Cc: Mike Leach <mike.leach@linaro.org>
->> Cc: James Clark <james.clark@arm.com>
->> Cc: linux-acpi@vger.kernel.org
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: coresight@lists.linaro.org
->> Tested-by: Sudeep Holla <sudeep.holla@arm.com> # Boot and driver probe only
->> Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
->> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
->> ---
->> Changes in V3:
->>
->> - Added commnets for 'drvdata->pclk'
->> - Used coresight_init_driver()/coresight_remove_driver() helpers instead
->> - Dropped pm_runtime_put() from __tmc_probe()
->> - Added pm_runtime_put() on success path in tmc_probe()
->> - Added pm_runtime_put() on success/error paths in tmc_platform_probe()
->> - Check for drvdata instead of drvdata->pclk in suspend and resume paths
->>
->>  drivers/acpi/arm64/amba.c                     |   2 -
->>  .../hwtracing/coresight/coresight-tmc-core.c  | 137 ++++++++++++++++--
->>  drivers/hwtracing/coresight/coresight-tmc.h   |   2 +
->>  3 files changed, 124 insertions(+), 17 deletions(-)
->>
->> diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
->> index 6d24a8f7914b..d3c1defa7bc8 100644
->> --- a/drivers/acpi/arm64/amba.c
->> +++ b/drivers/acpi/arm64/amba.c
->> @@ -22,10 +22,8 @@
->>  static const struct acpi_device_id amba_id_list[] = {
->>  	{"ARMH0061", 0}, /* PL061 GPIO Device */
->>  	{"ARMH0330", 0}, /* ARM DMA Controller DMA-330 */
->> -	{"ARMHC501", 0}, /* ARM CoreSight ETR */
->>  	{"ARMHC502", 0}, /* ARM CoreSight STM */
->>  	{"ARMHC503", 0}, /* ARM CoreSight Debug */
->> -	{"ARMHC97C", 0}, /* ARM CoreSight SoC-400 TMC, SoC-600 ETF/ETB */
->>  	{"", 0},
->>  };
->>  
->> diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
->> index ad61d02f5f75..8482830d73ef 100644
->> --- a/drivers/hwtracing/coresight/coresight-tmc-core.c
->> +++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
->> @@ -23,6 +23,8 @@
->>  #include <linux/of.h>
->>  #include <linux/coresight.h>
->>  #include <linux/amba/bus.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/acpi.h>
->>  
->>  #include "coresight-priv.h"
->>  #include "coresight-tmc.h"
->> @@ -437,24 +439,17 @@ static u32 tmc_etr_get_max_burst_size(struct device *dev)
->>  	return burst_size;
->>  }
->>  
->> -static int tmc_probe(struct amba_device *adev, const struct amba_id *id)
->> +static int __tmc_probe(struct device *dev, struct resource *res, void *dev_caps)
-> I don't think the dev_caps argument is used anymore since the v3 changes.
+> The driver would try to enable the APB clock if available. Also, rename the
+> code to reflect the fact that it now handles both static and dynamic
+> replicators.
+> 
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Sudeep Holla <sudeep.holla@arm.com>
+> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Cc: Mike Leach <mike.leach@linaro.org>
+> Cc: James Clark <james.clark@arm.com>
+> Cc: linux-acpi@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: coresight@lists.linaro.org
+> Tested-by: Sudeep Holla <sudeep.holla@arm.com> # Boot and driver probe only
+> Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> ---
+> Changes in V3:
+> 
+> - Added commnets for 'drvdata->pclk'
+> - Used coresight_init_driver()/coresight_remove_driver() helpers instead
+> - Dropped pm_runtime_put() from replicator_probe()
+> - Added pm_runtime_put() on success path in dynamic_replicator_probe()
+> - Added pm_runtime_put() on success/error paths in
+>   replicator_platform_probe()
+> 
+>  drivers/acpi/arm64/amba.c                     |  1 -
+>  .../coresight/coresight-replicator.c          | 81 ++++++++++---------
+>  2 files changed, 42 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
+> index 171b5c2c7edd..270f4e3819a2 100644
+> --- a/drivers/acpi/arm64/amba.c
+> +++ b/drivers/acpi/arm64/amba.c
+> @@ -27,7 +27,6 @@ static const struct acpi_device_id amba_id_list[] = {
+>  	{"ARMHC503", 0}, /* ARM CoreSight Debug */
+>  	{"ARMHC979", 0}, /* ARM CoreSight TPIU */
+>  	{"ARMHC97C", 0}, /* ARM CoreSight SoC-400 TMC, SoC-600 ETF/ETB */
+> -	{"ARMHC98D", 0}, /* ARM CoreSight Dynamic Replicator */
+>  	{"ARMHC9CA", 0}, /* ARM CoreSight CATU */
+>  	{"ARMHC9FF", 0}, /* ARM CoreSight Dynamic Funnel */
+>  	{"", 0},
+> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
+> index b6be73034996..125b256cb8db 100644
+> --- a/drivers/hwtracing/coresight/coresight-replicator.c
+> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
+> @@ -31,6 +31,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
+>   * @base:	memory mapped base address for this component. Also indicates
+>   *		whether this one is programmable or not.
+>   * @atclk:	optional clock for the core parts of the replicator.
+> + * @pclk:	APB clock if present, otherwise NULL
+>   * @csdev:	component vitals needed by the framework
+>   * @spinlock:	serialize enable/disable operations.
+>   * @check_idfilter_val: check if the context is lost upon clock removal.
+> @@ -38,6 +39,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
+>  struct replicator_drvdata {
+>  	void __iomem		*base;
+>  	struct clk		*atclk;
+> +	struct clk		*pclk;
+>  	struct coresight_device	*csdev;
+>  	spinlock_t		spinlock;
+>  	bool			check_idfilter_val;
+> @@ -243,6 +245,10 @@ static int replicator_probe(struct device *dev, struct resource *res)
+>  			return ret;
+>  	}
+>  
+> +	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
+> +	if (IS_ERR(drvdata->pclk))
+> +		return -ENODEV;
+> +
+>  	/*
+>  	 * Map the device base for dynamic-replicator, which has been
+>  	 * validated by AMBA core
+> @@ -285,7 +291,6 @@ static int replicator_probe(struct device *dev, struct resource *res)
+>  	}
+>  
+>  	replicator_reset(drvdata);
+> -	pm_runtime_put(dev);
+>  
+>  out_disable_clk:
+>  	if (ret && !IS_ERR_OR_NULL(drvdata->atclk))
+> @@ -301,29 +306,31 @@ static int replicator_remove(struct device *dev)
+>  	return 0;
+>  }
+>  
+> -static int static_replicator_probe(struct platform_device *pdev)
+> +static int replicator_platform_probe(struct platform_device *pdev)
+>  {
+> +	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>  	int ret;
+>  
+>  	pm_runtime_get_noresume(&pdev->dev);
+>  	pm_runtime_set_active(&pdev->dev);
+>  	pm_runtime_enable(&pdev->dev);
+>  
+> -	/* Static replicators do not have programming base */
+> -	ret = replicator_probe(&pdev->dev, NULL);
+> -
+> -	if (ret) {
+> -		pm_runtime_put_noidle(&pdev->dev);
+> -		pm_runtime_disable(&pdev->dev);
+> -	}
+> +	ret = replicator_probe(&pdev->dev, res);
+> +	pm_runtime_put(&pdev->dev);
 
-Sure, will drop the argument.
+I believe pm_runtime_disable() would still be needed on the error path. Otherwise
+pm_runtime_enable() will remain unbalanced on this error path when the replicator
+module could not be loaded.
+
+--- a/drivers/hwtracing/coresight/coresight-replicator.c
++++ b/drivers/hwtracing/coresight/coresight-replicator.c
+@@ -317,6 +317,8 @@ static int replicator_platform_probe(struct platform_device *pdev)
+ 
+        ret = replicator_probe(&pdev->dev, res);
+        pm_runtime_put(&pdev->dev);
++       if (ret)
++               pm_runtime_disable(&pdev->dev);
+ 
+        return ret;
+ }
+
+Similar constructs in this error path are also required in all other drivers (except
+cpu debug) as well.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
