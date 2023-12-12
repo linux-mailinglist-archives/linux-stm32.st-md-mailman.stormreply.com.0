@@ -2,41 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F4A80E4D8
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 08:31:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C62A380E710
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 10:08:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90182C6B45B;
-	Tue, 12 Dec 2023 07:31:34 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01789C6B458
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76FBAC6B45B;
+	Tue, 12 Dec 2023 09:08:13 +0000 (UTC)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DCFFC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 07:31:33 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF112143D;
- Mon, 11 Dec 2023 23:32:18 -0800 (PST)
-Received: from [10.163.33.206] (unknown [10.163.33.206])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B056B3F5A1;
- Mon, 11 Dec 2023 23:31:28 -0800 (PST)
-Message-ID: <ffdd8a78-6cb2-4cfa-856b-6045b3084790@arm.com>
-Date: Tue, 12 Dec 2023 13:01:26 +0530
+ Tue, 12 Dec 2023 09:08:12 +0000 (UTC)
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-50be24167efso6214745e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 12 Dec 2023 01:08:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1702372091; x=1702976891;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QIjPBVeqkpjJISDqusXw3EmS1YdMB1wPejTAPOdPhFM=;
+ b=QXq14XEc6F/KLnPkj9jTGJgciCseupDhT+9DrpmgHV8ojXrLQ+lbP7fZgMyrgQsFDa
+ f09B5Q++4Fu72Ip5saafOU7cVEZH6+6zxaADWDLkB1fKB3Xn46lOKTfjde+BY07qARHx
+ RHdRvmRnIcyiE0CleE3QyQoIHX1WpuSlTMxPMCDWyavcNc/a8/rln4XQq1PlaVE4j/PE
+ UHHpX3ho5AdNwthSRBWcn5mBcXWNacdDpipI4lGUjCdZcrGfp6CwOuO3DJAPotshzXGu
+ 9jlxcXCaxSKAYqew9R3LIVw81eD/lAkSMvbtVJSecakpSSLJNlUZ6TYVVpM7nGSY48wy
+ pDtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702372091; x=1702976891;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QIjPBVeqkpjJISDqusXw3EmS1YdMB1wPejTAPOdPhFM=;
+ b=rktqHqdNM+1TstDCGytvipKl/FDsPsKikT679NmDTsub3SNd0Nld/EgSH1nW7y18uC
+ RpgGTrzIyc0j+Ambj6pSrF6Oc5JN4WnkCa/Fki0c/YTSCJlXLUC1o3aOFItl9sWl/A5Y
+ 6qXc0AW65kfQRzKJ2WbQBMwS1h75WxuWPDHz02/lTujIldtLj8Q3jF8e0xMPs6tgPNQc
+ Q2TofHWrfzn0dZfZkPsK1Xwi0fbpMacjbevfBvFQhHlL9Vz+N3uTQPkqcSqHjuCbZ6/K
+ i+rCzSQ4nJxj+vBDnL1M2hrYKe+tPmNNwKnoLRBC2le7WC7DG9/HcwlDV2quv8o7q1Ph
+ lBNw==
+X-Gm-Message-State: AOJu0YzCdcD27nKfNtqi3NJDXXt2HHBnze2nqhRBAkfUtPMfKr09M9nL
+ JrT6iJM8+M16OZKylGOdnSw=
+X-Google-Smtp-Source: AGHT+IHt99lcd5IUKs49PKtCTF0cKUj5I2Ik89wnLq7Asjoik1V8IuHwNphFLryPGu803yiXf3w+fw==
+X-Received: by 2002:a05:6512:46f:b0:50b:ed48:247a with SMTP id
+ x15-20020a056512046f00b0050bed48247amr1240510lfd.246.1702372091059; 
+ Tue, 12 Dec 2023 01:08:11 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
+ by smtp.gmail.com with ESMTPSA id
+ t8-20020a19ad08000000b0050c0f5ce8c2sm1290876lfc.124.2023.12.12.01.08.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 01:08:10 -0800 (PST)
+Date: Tue, 12 Dec 2023 12:08:07 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
+Message-ID: <ulsdbn3iqzyokqbfejp5krrpbkzz3rqpxfw53m2rfm2ouzs2bz@ys4ynwqwewjo>
+References: <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
+ <d202770a-3a3a-4ee2-b0de-b86e2f3e83ce@lunn.ch>
+ <CY5PR12MB6372C8770900AFF821325400BF8EA@CY5PR12MB6372.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: James Clark <james.clark@arm.com>, linux-arm-kernel@lists.infradead.org,
- suzuki.poulose@arm.com
-References: <20231208053939.42901-1-anshuman.khandual@arm.com>
- <20231208053939.42901-5-anshuman.khandual@arm.com>
- <862afccb-e9c5-4fcb-abdf-45a5eb9aa6d8@arm.com>
- <6c3d9c5c-8185-bcdf-2897-0db13c00a843@arm.com>
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <6c3d9c5c-8185-bcdf-2897-0db13c00a843@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V3 04/10] coresight: replicator: Move ACPI
- support from AMBA driver to platform driver
+Content-Disposition: inline
+In-Reply-To: <CY5PR12MB6372C8770900AFF821325400BF8EA@CY5PR12MB6372.namprd12.prod.outlook.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+ open list <linux-kernel@vger.kernel.org>, James Li <James.Li1@synopsys.com>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Martin McKenny <Martin.McKenny@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: xgmac3+: add FPE
+ handshaking support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,180 +90,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 12/11/23 15:42, James Clark wrote:
+On Tue, Dec 12, 2023 at 07:22:24AM +0000, Jianheng Zhang wrote:
+> Hi Andrew,  
 > 
+> > > +static int dwxgmac3_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
+> > > +{
+> > > +	u32 value;
+> > > +	int status;
+> > >
+> > > -		writel(value, ioaddr + XGMAC_FPE_CTRL_STS);
+> > > -		return;
+> > > +	status = FPE_EVENT_UNKNOWN;
+> > > +
+> > > +	/* Reads from the XGMAC_FPE_CTRL_STS register should only be performed
+> > > +	 * here, since the status flags of MAC_FPE_CTRL_STS are "clear on read"
+> > > +	 */
+> > > +	value = readl(ioaddr + XGMAC_FPE_CTRL_STS);
+> > > +
+> > > +	if (value & XGMAC_TRSP) {
+> > > +		status |= FPE_EVENT_TRSP;
+> > > +		netdev_info(dev, "FPE: Respond mPacket is transmitted\n");
+> > 
+> > netdev_info()?  Is this going to spam the logs? Should it be netdev_dbg()
 > 
-> On 11/12/2023 07:51, Anshuman Khandual wrote:
->>
->>
->> On 12/8/23 11:09, Anshuman Khandual wrote:
->>> Add support for the dynamic replicator device in the platform driver, which
->>> can then be used on ACPI based platforms. This change would now allow
->>> runtime power management for repliacator devices on ACPI based systems.
->>>
->>> The driver would try to enable the APB clock if available. Also, rename the
->>> code to reflect the fact that it now handles both static and dynamic
->>> replicators.
->>>
->>> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
->>> Cc: Sudeep Holla <sudeep.holla@arm.com>
->>> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> Cc: Mike Leach <mike.leach@linaro.org>
->>> Cc: James Clark <james.clark@arm.com>
->>> Cc: linux-acpi@vger.kernel.org
->>> Cc: linux-arm-kernel@lists.infradead.org
->>> Cc: linux-kernel@vger.kernel.org
->>> Cc: coresight@lists.linaro.org
->>> Tested-by: Sudeep Holla <sudeep.holla@arm.com> # Boot and driver probe only
->>> Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
->>> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
->>> ---
->>> Changes in V3:
->>>
->>> - Added commnets for 'drvdata->pclk'
->>> - Used coresight_init_driver()/coresight_remove_driver() helpers instead
->>> - Dropped pm_runtime_put() from replicator_probe()
->>> - Added pm_runtime_put() on success path in dynamic_replicator_probe()
->>> - Added pm_runtime_put() on success/error paths in
->>>   replicator_platform_probe()
->>>
->>>  drivers/acpi/arm64/amba.c                     |  1 -
->>>  .../coresight/coresight-replicator.c          | 81 ++++++++++---------
->>>  2 files changed, 42 insertions(+), 40 deletions(-)
->>>
->>> diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
->>> index 171b5c2c7edd..270f4e3819a2 100644
->>> --- a/drivers/acpi/arm64/amba.c
->>> +++ b/drivers/acpi/arm64/amba.c
->>> @@ -27,7 +27,6 @@ static const struct acpi_device_id amba_id_list[] = {
->>>  	{"ARMHC503", 0}, /* ARM CoreSight Debug */
->>>  	{"ARMHC979", 0}, /* ARM CoreSight TPIU */
->>>  	{"ARMHC97C", 0}, /* ARM CoreSight SoC-400 TMC, SoC-600 ETF/ETB */
->>> -	{"ARMHC98D", 0}, /* ARM CoreSight Dynamic Replicator */
->>>  	{"ARMHC9CA", 0}, /* ARM CoreSight CATU */
->>>  	{"ARMHC9FF", 0}, /* ARM CoreSight Dynamic Funnel */
->>>  	{"", 0},
->>> diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
->>> index b6be73034996..125b256cb8db 100644
->>> --- a/drivers/hwtracing/coresight/coresight-replicator.c
->>> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
->>> @@ -31,6 +31,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
->>>   * @base:	memory mapped base address for this component. Also indicates
->>>   *		whether this one is programmable or not.
->>>   * @atclk:	optional clock for the core parts of the replicator.
->>> + * @pclk:	APB clock if present, otherwise NULL
->>>   * @csdev:	component vitals needed by the framework
->>>   * @spinlock:	serialize enable/disable operations.
->>>   * @check_idfilter_val: check if the context is lost upon clock removal.
->>> @@ -38,6 +39,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
->>>  struct replicator_drvdata {
->>>  	void __iomem		*base;
->>>  	struct clk		*atclk;
->>> +	struct clk		*pclk;
->>>  	struct coresight_device	*csdev;
->>>  	spinlock_t		spinlock;
->>>  	bool			check_idfilter_val;
->>> @@ -243,6 +245,10 @@ static int replicator_probe(struct device *dev, struct resource *res)
->>>  			return ret;
->>>  	}
->>>  
->>> +	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
->>> +	if (IS_ERR(drvdata->pclk))
->>> +		return -ENODEV;
->>> +
->>>  	/*
->>>  	 * Map the device base for dynamic-replicator, which has been
->>>  	 * validated by AMBA core
->>> @@ -285,7 +291,6 @@ static int replicator_probe(struct device *dev, struct resource *res)
->>>  	}
->>>  
->>>  	replicator_reset(drvdata);
->>> -	pm_runtime_put(dev);
->>>  
->>>  out_disable_clk:
->>>  	if (ret && !IS_ERR_OR_NULL(drvdata->atclk))
->>> @@ -301,29 +306,31 @@ static int replicator_remove(struct device *dev)
->>>  	return 0;
->>>  }
->>>  
->>> -static int static_replicator_probe(struct platform_device *pdev)
->>> +static int replicator_platform_probe(struct platform_device *pdev)
->>>  {
->>> +	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->>>  	int ret;
->>>  
->>>  	pm_runtime_get_noresume(&pdev->dev);
->>>  	pm_runtime_set_active(&pdev->dev);
->>>  	pm_runtime_enable(&pdev->dev);
->>>  
->>> -	/* Static replicators do not have programming base */
->>> -	ret = replicator_probe(&pdev->dev, NULL);
->>> -
->>> -	if (ret) {
->>> -		pm_runtime_put_noidle(&pdev->dev);
->>> -		pm_runtime_disable(&pdev->dev);
->>> -	}
->>> +	ret = replicator_probe(&pdev->dev, res);
->>> +	pm_runtime_put(&pdev->dev);
->>
->> I believe pm_runtime_disable() would still be needed on the error path. Otherwise
->> pm_runtime_enable() will remain unbalanced on this error path when the replicator
->> module could not be loaded.
->>
->> --- a/drivers/hwtracing/coresight/coresight-replicator.c
->> +++ b/drivers/hwtracing/coresight/coresight-replicator.c
->> @@ -317,6 +317,8 @@ static int replicator_platform_probe(struct platform_device *pdev)
->>  
->>         ret = replicator_probe(&pdev->dev, res);
->>         pm_runtime_put(&pdev->dev);
->> +       if (ret)
->> +               pm_runtime_disable(&pdev->dev);
->>  
->>         return ret;
->>  }
->>
->> Similar constructs in this error path are also required in all other drivers (except
->> cpu debug) as well.
-> 
-> Would that not need to be done as a fixes commit first with more detail
-> about the issue if that's true? Maybe simulate the error and paste any
-> error logs. For example etm4 already has this:
+> Yes, netdev_dbg() should be better, let me fix it in the next patch.
 
-There are existing inconsistencies e.g between etm4 and replicator regarding
-whether pm_runtime_disable() is called or not. So the idea here was to get
-all remaining devices in line with replicator and debug devices method.
+Please do not forget to keep this change in the refactoring patch (if
+one will be introduced). So instead of preserving the DW QoS Eth FPE
+code snipped with netdev_info() utilized, the common FPE
+implementation would have the netdev_dbg() calls.
 
-I don't have continuous access to an ACPI based coresight platform, creating
-some challenges - although still trying to get access to such a system. But
-wondering - it might be possible to simulate these success and error paths,
-without having real ACPI based coresight platform devices.
+-Serge(y)
 
 > 
->   	pm_runtime_get_noresume(&pdev->dev);
-> 	pm_runtime_set_active(&pdev->dev);
-> 	pm_runtime_enable(&pdev->dev);
+> Jianheng
+> > 
+> > 	Andrew
 > 
-> 	ret = etm4_probe(&pdev->dev);
-> 
-> 	pm_runtime_put(&pdev->dev);
-> 
-> I'm wondering if the disable is already covered by the platform code if
-> the probe fails so no change is required?
-
-AFAICT pm_runtime_enable()/pm_runtime_disable() goes in a pair for them to
-remain balanced, there is a increasing/decreasing counter to ensure such a
-balance is established and so without a corresponding pm_runtime_disable()
-above etm4 path looks problematic. I guess this might just need fixing, as
-a pre-requisite.
-
-> 
-> 	if (drv->probe) {
-> 		ret = drv->probe(dev);
-> 		if (ret)
-> 			dev_pm_domain_detach(_dev, true);
-> 	}
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
