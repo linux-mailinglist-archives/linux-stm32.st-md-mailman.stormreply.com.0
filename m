@@ -2,75 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C62A380E710
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 10:08:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88CCF80E74E
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 10:20:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76FBAC6B45B;
-	Tue, 12 Dec 2023 09:08:13 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 357AEC6B45B;
+	Tue, 12 Dec 2023 09:20:21 +0000 (UTC)
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
+ [209.85.208.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DCFFC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38C25C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 09:08:12 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-50be24167efso6214745e87.3
+ Tue, 12 Dec 2023 09:20:19 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2c9ea37ac87so74850511fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 01:08:12 -0800 (PST)
+ Tue, 12 Dec 2023 01:20:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702372091; x=1702976891;
+ d=gmail.com; s=20230601; t=1702372818; x=1702977618;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=QIjPBVeqkpjJISDqusXw3EmS1YdMB1wPejTAPOdPhFM=;
- b=QXq14XEc6F/KLnPkj9jTGJgciCseupDhT+9DrpmgHV8ojXrLQ+lbP7fZgMyrgQsFDa
- f09B5Q++4Fu72Ip5saafOU7cVEZH6+6zxaADWDLkB1fKB3Xn46lOKTfjde+BY07qARHx
- RHdRvmRnIcyiE0CleE3QyQoIHX1WpuSlTMxPMCDWyavcNc/a8/rln4XQq1PlaVE4j/PE
- UHHpX3ho5AdNwthSRBWcn5mBcXWNacdDpipI4lGUjCdZcrGfp6CwOuO3DJAPotshzXGu
- 9jlxcXCaxSKAYqew9R3LIVw81eD/lAkSMvbtVJSecakpSSLJNlUZ6TYVVpM7nGSY48wy
- pDtw==
+ bh=rksCD0YvwRVPdr9cALicJG1jtcdwoAy/N1wXuToJ/sU=;
+ b=grNKgxBv2aY9UHJ4l9NZJ99j9yzJPTbNBMqktfwgA59Z+/7id08LHb4YHWAxWSBa//
+ TXNWi46wEtEATeLbGT4jul4sj4yaQ1NFxHlQ6k4Lj62d6Bfb4d7k4PE2XxIAmz14BkDv
+ C0yNMd/Pcyqla+N0s+9/BNIOrnv2PGnr3vgWmdJhlZgAoL7xvgKUgzvLKgb2mjsTHdvH
+ mYhJb8xbKhH+6WYz/1i/FqZimj9VQ1BXQC/BNu5nunEVYzqGp8uKSvgblRtIL/y/3lMz
+ Q6zZZFrKC0Y5x08zZnf3kms28zzFlHGqdCM7a4JNswSjvn+1f9EoR3VywkNJY1k75ePI
+ yjuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702372091; x=1702976891;
+ d=1e100.net; s=20230601; t=1702372818; x=1702977618;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QIjPBVeqkpjJISDqusXw3EmS1YdMB1wPejTAPOdPhFM=;
- b=rktqHqdNM+1TstDCGytvipKl/FDsPsKikT679NmDTsub3SNd0Nld/EgSH1nW7y18uC
- RpgGTrzIyc0j+Ambj6pSrF6Oc5JN4WnkCa/Fki0c/YTSCJlXLUC1o3aOFItl9sWl/A5Y
- 6qXc0AW65kfQRzKJ2WbQBMwS1h75WxuWPDHz02/lTujIldtLj8Q3jF8e0xMPs6tgPNQc
- Q2TofHWrfzn0dZfZkPsK1Xwi0fbpMacjbevfBvFQhHlL9Vz+N3uTQPkqcSqHjuCbZ6/K
- i+rCzSQ4nJxj+vBDnL1M2hrYKe+tPmNNwKnoLRBC2le7WC7DG9/HcwlDV2quv8o7q1Ph
- lBNw==
-X-Gm-Message-State: AOJu0YzCdcD27nKfNtqi3NJDXXt2HHBnze2nqhRBAkfUtPMfKr09M9nL
- JrT6iJM8+M16OZKylGOdnSw=
-X-Google-Smtp-Source: AGHT+IHt99lcd5IUKs49PKtCTF0cKUj5I2Ik89wnLq7Asjoik1V8IuHwNphFLryPGu803yiXf3w+fw==
-X-Received: by 2002:a05:6512:46f:b0:50b:ed48:247a with SMTP id
- x15-20020a056512046f00b0050bed48247amr1240510lfd.246.1702372091059; 
- Tue, 12 Dec 2023 01:08:11 -0800 (PST)
+ bh=rksCD0YvwRVPdr9cALicJG1jtcdwoAy/N1wXuToJ/sU=;
+ b=irg9Iuujo66L5AQLGVKraum7sEeYZWENxivXkWiY0sSFCqrupJWtbQIB94n/m/zyRc
+ AxHsT8tI/FafAMR+a/qFo9++UpJDvrs89s3usqvV8DS1T9DvL41xXgqe1KFXFFazXbcL
+ y8+7aSPRBPxXnjxCS57XNMKFBobz7YYdQC8xsIHkTDMFg6nEBMuXc2hHRDfiiy2t6NI9
+ 0IceXQ4wrtO1vqupb8AsNdHuCE04rBTeB6SMAlH5q8iBlHZTds+MSR+irk3zw1vhr4KM
+ B5E9SZbt3U5IaRl2qACVeX3w9p7czQuvclyvMJNbl4D0bsQkGzpn96h4xjTXfCrcfUOM
+ F4Eg==
+X-Gm-Message-State: AOJu0YyQdcHUO3abS0yYgISzqIvC2vQi2AlzUYojq4DPscRsOWuXxSS5
+ v9SuJkkYIFCP+sw9oZrFL7s=
+X-Google-Smtp-Source: AGHT+IFBfXFN9YMbampOxy4UlOpmDcj+w/s3WuIJrPWhqFQHlOAYZA7vdH0HKg760a+7o1+41h3Taw==
+X-Received: by 2002:a2e:711:0:b0:2cc:1dc8:af0b with SMTP id
+ 17-20020a2e0711000000b002cc1dc8af0bmr1600707ljh.36.1702372818014; 
+ Tue, 12 Dec 2023 01:20:18 -0800 (PST)
 Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- t8-20020a19ad08000000b0050c0f5ce8c2sm1290876lfc.124.2023.12.12.01.08.09
+ ce26-20020a2eab1a000000b002ca00b027ccsm1447690ljb.123.2023.12.12.01.20.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Dec 2023 01:08:10 -0800 (PST)
-Date: Tue, 12 Dec 2023 12:08:07 +0300
+ Tue, 12 Dec 2023 01:20:17 -0800 (PST)
+Date: Tue, 12 Dec 2023 12:20:15 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
-To: Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-Message-ID: <ulsdbn3iqzyokqbfejp5krrpbkzz3rqpxfw53m2rfm2ouzs2bz@ys4ynwqwewjo>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <edfg5hbcysvah5lnxoeygjn3qz2243c6o5ilt4uyeggegu5wzd@t2ngy4xikpio>
 References: <CY5PR12MB63726FED738099761A9B81E7BF8FA@CY5PR12MB6372.namprd12.prod.outlook.com>
- <d202770a-3a3a-4ee2-b0de-b86e2f3e83ce@lunn.ch>
- <CY5PR12MB6372C8770900AFF821325400BF8EA@CY5PR12MB6372.namprd12.prod.outlook.com>
+ <zx7tfojtnzuhcpglkeiwg6ep265xpcb5lmz6fgjjugc2tue6qe@cmuqtneujsvb>
+ <20231211145944.0be51404@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CY5PR12MB6372C8770900AFF821325400BF8EA@CY5PR12MB6372.namprd12.prod.outlook.com>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
+In-Reply-To: <20231211145944.0be51404@kernel.org>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>,
  open list <linux-kernel@vger.kernel.org>, James Li <James.Li1@synopsys.com>,
  "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ Jianheng Zhang <Jianheng.Zhang@synopsys.com>,
  "moderated list:ARM/STM32 ARCHITECTURE"
  <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
  Martin McKenny <Martin.McKenny@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
  "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: xgmac3+: add FPE
  handshaking support
@@ -90,43 +91,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 12, 2023 at 07:22:24AM +0000, Jianheng Zhang wrote:
-> Hi Andrew,  
-> 
-> > > +static int dwxgmac3_fpe_irq_status(void __iomem *ioaddr, struct net_device *dev)
-> > > +{
-> > > +	u32 value;
-> > > +	int status;
-> > >
-> > > -		writel(value, ioaddr + XGMAC_FPE_CTRL_STS);
-> > > -		return;
-> > > +	status = FPE_EVENT_UNKNOWN;
-> > > +
-> > > +	/* Reads from the XGMAC_FPE_CTRL_STS register should only be performed
-> > > +	 * here, since the status flags of MAC_FPE_CTRL_STS are "clear on read"
-> > > +	 */
-> > > +	value = readl(ioaddr + XGMAC_FPE_CTRL_STS);
-> > > +
-> > > +	if (value & XGMAC_TRSP) {
-> > > +		status |= FPE_EVENT_TRSP;
-> > > +		netdev_info(dev, "FPE: Respond mPacket is transmitted\n");
+On Mon, Dec 11, 2023 at 02:59:44PM -0800, Jakub Kicinski wrote:
+> On Mon, 11 Dec 2023 14:14:00 +0300 Serge Semin wrote:
+> > Although in this case AFAICS the implementation is simpler and the
+> > only difference is in the CSR offset and the frame preemption residue
+> > queue ID setting. All of that can be easily solved in the same way as
+> > it was done for EST (see the link above).
 > > 
-> > netdev_info()?  Is this going to spam the logs? Should it be netdev_dbg()
+> > Jakub, what do you think?
 > 
-> Yes, netdev_dbg() should be better, let me fix it in the next patch.
+> Yup, less code duplication would be great. Highest prio, tho, is to
+> focus on Vladimir's comment around this driver seemingly implementing
+> FPE but not using the common ethtool APIs to configure it, yet :(
 
-Please do not forget to keep this change in the refactoring patch (if
-one will be introduced). So instead of preserving the DW QoS Eth FPE
-code snipped with netdev_info() utilized, the common FPE
-implementation would have the netdev_dbg() calls.
+Fully agree. If that required to refactor the currently implemented
+handshaking algo (looking not that safe and clumsy a bit), it would
+have been even better. Although I guess refactoring the code
+duplication could be done as a preparation patch anyway or as a patch
+which would convert the feature-specific callbacks to be suitable for
+the 802.3 MAC Merge layer.
 
 -Serge(y)
-
-> 
-> Jianheng
-> > 
-> > 	Andrew
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
