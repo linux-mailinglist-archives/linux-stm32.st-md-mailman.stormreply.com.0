@@ -2,81 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADB980EEBE
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 15:28:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04E0380F016
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 Dec 2023 16:25:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E737C6C856;
-	Tue, 12 Dec 2023 14:28:42 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96AB6C6B47F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE78CC6C85D;
+	Tue, 12 Dec 2023 15:25:03 +0000 (UTC)
+Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C15C2C6C85C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 14:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1702391320;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Sic7JgTbCqXENzuaXidvmcJDkf8Pxtwv2IpV4/8llXA=;
- b=hrXg1Qz2qMriIzzDLT0EsESX/OqA3/o0ZhbZiH+ntnvNebIQpWuf+gcjg2eJqbBBcMFl9H
- QXPoWaF1XEncqvDNQfo6GZ9wlfwTrsERE8O3LQVgkSYZr1rj/VtkCc21Z6bT7TIDnmHGrE
- Z0O1H4aPEs4cgbupVw2TpWYf/XH0j+0=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-486-Z01eGIkfMnOew6VFkhbiRQ-1; Tue, 12 Dec 2023 09:28:39 -0500
-X-MC-Unique: Z01eGIkfMnOew6VFkhbiRQ-1
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-67ab0fa577fso78794026d6.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 06:28:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702391319; x=1702996119;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Sic7JgTbCqXENzuaXidvmcJDkf8Pxtwv2IpV4/8llXA=;
- b=uwjHhxEZyaunl/yCwnm4iCx+eesJjfM4lwQgOmq1qLdkfAsYo6cO2nyeHYIeNt/kiJ
- FZ/vy5cTIOMT3jRTTychT9rb7YtIULEXmKrpEK0BZTlCFvLh7lmLNmEg+cnbK+UQmLvI
- RiNqlQZSZK/ucjPJ1BbNhhnZaGmWPFCaO3wfxSMwCrFwMviQk+0uUTDheb6gNrLMULO6
- 4WFSxbyUmf6B5lWFlrZQHa/GmgDe5n3/B2YUga3iKoA1p7nqMKQ9Ud7tkImOJruLzqaK
- ydz8K80hFsYV8q0vDixmE/AQyN6DvKgu3r5FPuXz+DhVyiohcIVXQQK4QOXs3QGFvKvg
- /xVA==
-X-Gm-Message-State: AOJu0YwbEM2AgQMpPuSVPI9t8E2Y6HRg5BA7ZFMc6yrtNEPIqp/d7tNy
- cUh0Dr7MiKDCuvfUVnSOaxKmVZfTNqMM1z3Ty+Nr5MZPWC7AvJLkuGRQK04GNtyzlrXE4n7ZCIC
- JfhiZs6ao11B5gZM9E3gJLGGdLiBopMUF+XMtNZno
-X-Received: by 2002:a05:6214:c25:b0:67a:a721:830b with SMTP id
- a5-20020a0562140c2500b0067aa721830bmr7837488qvd.101.1702391318792; 
- Tue, 12 Dec 2023 06:28:38 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFHOEPNqyZdk9QNuyLbwX1ImY1txSg6BBuVoLWOx94ej3ijMZxTQS0qC/sSDGxEP2PvMWaFUg==
-X-Received: by 2002:a05:6214:c25:b0:67a:a721:830b with SMTP id
- a5-20020a0562140c2500b0067aa721830bmr7837469qvd.101.1702391318451; 
- Tue, 12 Dec 2023 06:28:38 -0800 (PST)
-Received: from fedora ([2600:1700:1ff0:d0e0::37])
- by smtp.gmail.com with ESMTPSA id
- jr12-20020a0562142a8c00b0067a14d996e9sm4231045qvb.1.2023.12.12.06.28.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 12 Dec 2023 06:28:37 -0800 (PST)
-Date: Tue, 12 Dec 2023 08:28:35 -0600
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <d7vwj7p55ig7fjste3ctqwpccuoowh2ryqnmcxq3qqrn6exzjd@z5mbsitxbupk>
-References: <20231211-b4-stmmac-handle-mdio-enodev-v1-1-73c20c44f8d6@redhat.com>
- <ggbqvhdhgl6wmuewqtwtgud7ubx2ypmnb3p6p6w7cy37mnnyxn@2eqd63s2t5ii>
+ Tue, 12 Dec 2023 15:25:02 +0000 (UTC)
+Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BCE3S83028254; Tue, 12 Dec 2023 16:24:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=zZC4kVj
+ UyP47s2vZbG8LISNvKRdLLG8zJkMgXXbJ01U=; b=f8BmK2OoVQvHV0XPvmLcXBM
+ CvTloENjsDAnQpYrx7lyWadytkkFlrPSDc+h+CMs6ADt7t/65jw409FvM/EyFrCk
+ SF09jDhVYkMW+ZdKaAN6kh5Bu67uNSnMNVQr28xd8+NNZLDHnoIkh5RVrAkJEUYH
+ 6xQRe5T+tdn6+s3itfp1oxUZPIzuMMSqjhQ+otgKd+k4TXrhIZvCbuANL1LezbEU
+ Gd1LKLRnBT0h785dtNOl6qyx0+yILA5vYZQZp2fEuYchIdeqmvUr7TgVrYkkAjvs
+ XTfLg8UKsw12y82Z6lFmTcTI/5iVAf3peF7Kb6qRjJTTnPGAWbg9mbddjT/wYcA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uw42nhsmw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 12 Dec 2023 16:24:06 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3EF3410005A;
+ Tue, 12 Dec 2023 16:24:03 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D874122F7B1;
+ Tue, 12 Dec 2023 16:24:03 +0100 (CET)
+Received: from localhost (10.252.7.20) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 12 Dec
+ 2023 16:24:03 +0100
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+ <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+ <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
+ <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
+ <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
+ <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
+ <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
+ <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
+ <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+ <peng.fan@oss.nxp.com>, <lars@metafoo.de>, <rcsekar@samsung.com>,
+ <wg@grandegger.com>, <mkl@pengutronix.de>
+Date: Tue, 12 Dec 2023 16:23:43 +0100
+Message-ID: <20231212152356.345703-1-gatien.chevallier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <ggbqvhdhgl6wmuewqtwtgud7ubx2ypmnb3p6p6w7cy37mnnyxn@2eqd63s2t5ii>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Handle disabled MDIO
- busses from devicetree
+X-Originating-IP: [10.252.7.20]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-12_09,2023-12-12_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v8 00/13] Introduce STM32 Firewall framework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,71 +90,232 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 12, 2023 at 01:59:25PM +0300, Serge Semin wrote:
-> On Mon, Dec 11, 2023 at 03:31:17PM -0600, Andrew Halaney wrote:
-> > Many hardware configurations have the MDIO bus disabled, and are instead
-> > using some other MDIO bus to talk to the MAC's phy.
-> > 
-> > of_mdiobus_register() returns -ENODEV in this case. Let's handle it
-> > gracefully instead of failing to probe the MAC.
-> > 
-> > Fixes: 47dd7a540b8a (net: add support for STMicroelectronics Ethernet controllers.")
-> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> > index fa9e7e7040b9..a39be15d41a8 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> > @@ -591,7 +591,13 @@ int stmmac_mdio_register(struct net_device *ndev)
-> >  	new_bus->parent = priv->device;
-> >  
-> >  	err = of_mdiobus_register(new_bus, mdio_node);
-> > -	if (err != 0) {
-> > +	if (err) {
-> > +		if (err == -ENODEV) {
-> > +			/* The bus is disabled in the devicetree, that's ok */
-> > +			mdiobus_free(new_bus);
-> > +			return 0;
-> > +		}
-> > +
-> >  		dev_err_probe(dev, err, "Cannot register the MDIO bus\n");
-> >  		goto bus_register_fail;
-> >  	}
-> 
-> This can be implemented a bit simpler, more maintainable and saving
-> one indentations level:
-> 
-> 	err = of_mdiobus_register(new_bus, mdio_node);
-> 	if (err == -ENODEV) {
-> 		err = 0;
-> 		dev_warn(dev, "MDIO bus is disabled\n");
+Introduce STM32 Firewall framework for STM32MP1x and STM32MP2x
+platforms. STM32MP1x(ETZPC) and STM32MP2x(RIFSC) Firewall controllers
+register to the framework to offer firewall services such as access
+granting.
 
-Thanks for all your reviews, I agree this is cleaner!
+This series of patches is a new approach on the previous STM32 system
+bus, history is available here:
+https://lore.kernel.org/lkml/20230127164040.1047583/
 
-I'm going to opt to use dev_info() here as this isn't something that's
-wrong, just worth noting.
+The need for such framework arises from the fact that there are now
+multiple hardware firewalls implemented across multiple products.
+Drivers are shared between different products, using the same code.
+When it comes to firewalls, the purpose mostly stays the same: Protect
+hardware resources. But the implementation differs, and there are
+multiple types of firewalls: peripheral, memory, ... 
 
-> 		goto bus_register_fail;
-> 	} else if (err) {
->   		dev_err_probe(dev, err, "Cannot register the MDIO bus\n");
->   		goto bus_register_fail;
-> 	}
-> 
-> -Serge(y)
-> 
-> > 
-> > ---
-> > base-commit: bbd220ce4e29ed55ab079007cff0b550895258eb
-> > change-id: 20231211-b4-stmmac-handle-mdio-enodev-82168de68c6a
-> > 
-> > Best regards,
-> > -- 
-> > Andrew Halaney <ahalaney@redhat.com>
-> > 
-> 
+Some hardware firewall controllers such as the RIFSC implemented on
+STM32MP2x platforms may require to take ownership of a resource before
+being able to use it, hence the requirement for firewall services to
+take/release the ownership of such resources.
+
+On the other hand, hardware firewall configurations are becoming
+more and more complex. These mecanisms prevent platform crashes
+or other firewall-related incoveniences by denying access to some
+resources.
+
+The stm32 firewall framework offers an API that is defined in
+firewall controllers drivers to best fit the specificity of each
+firewall.
+
+For every peripherals protected by either the ETZPC or the RIFSC, the
+firewall framework checks the firewall controlelr registers to see if
+the peripheral's access is granted to the Linux kernel. If not, the
+peripheral is configured as secure, the node is marked populated,
+so that the driver is not probed for that device.
+
+The firewall framework relies on the access-controller device tree
+binding. It is used by peripherals to reference a domain access
+controller. In this case a firewall controller. The bus uses the ID
+referenced by the access-controller property to know where to look
+in the firewall to get the security configuration for the peripheral.
+This allows a device tree description rather than a hardcoded peripheral
+table in the bus driver.
+
+The STM32 ETZPC device is responsible for filtering accesses based on
+security level, or co-processor isolation for any resource connected
+to it.
+
+The RIFSC is responsible for filtering accesses based on Compartment
+ID / security level / privilege level for any resource connected to
+it.
+
+STM32MP13/15/25 SoC device tree files are updated in this series to
+implement this mecanism.
+
+Changes in V8:
+	- Add missing "simple-bus" compatible in STM32MP13/25 SoC
+	  device tree files for the ETZPC/RIFSC nodes
+	- Add missing dependency on OF for OF_DYNAMIC that is selected
+	  by STM32_FIREWALL
+
+Changes in V7:
+	- Separate indentation changes from access-controllers changes
+	  in the device tree file commits
+	- Select OF_DYNAMIC when STM32_FIREWALL is set in order to use
+	  of_detach_node() in the firewall framework
+	- Handle previously non-present RNG and HASH nodes in the
+	  STM32MP13 device tree file
+
+Changes in V6:
+	- Rename access-controller to access-controllers
+	- Remove access-controller-provider
+	- Update device trees and other bindings accordingly
+	- Rework ETZPC/RIFSC bindings to define what access-controllers
+	  cells contain inside #access-controller-cells
+	- Some other minor fixes
+
+Changes in V5:
+	- Integrate and rework the "feature-domains" binding patch in
+	  this patchset. The binding is renamed to "access-controller"
+	- Rename every feature-domain* reference to access-control*
+	  ones
+	- Correct loop bug and missing select STM32_FIREWALL in 32-bit
+	  platform Kconfig
+	
+
+Changes in V4:
+	- Fix typo in commit message and YAML check errors in
+	  "dt-bindings: Document common device controller bindings"
+	  Note: This patch should be ignored as stated in the cover
+	  letter. I've done this to avoid errors on this series of
+	  patch
+	- Correct code syntax/style issues reported by Simon Horman
+	- Added Jonathan's tag for IIO on the treewide patch
+
+Changes in V3:
+
+	Change incorrect ordering for bindings commits leading
+	to an error while running
+	"make DT_CHECKER_FLAGS=-m dt_binding_check"
+
+Changes in V2:
+
+	generic:
+		- Add fw_devlink dependency for "feature-domains"
+		  property.
+
+	bindings:
+		- Corrected YAMLS errors highlighted by Rob's robot
+		- Firewall controllers YAMLs no longer define the
+		  maxItems for the "feature-domains" property
+		- Renamed st,stm32-rifsc.yaml to
+		  st,stm32mp25-rifsc.yaml
+		- Fix examples in YAML files
+		- Change feature-domains maxItems to 2 in firewall
+		  consumer files as there should not be more than
+		  2 entries for now
+		- Declare "feature-domain-names" as an optional
+		  property for firewall controllers child nodes.
+		- Add missing "feature-domains" property declaration
+		  in bosch,m_can.yaml and st,stm32-cryp.yaml files
+
+	firewall framework:
+		- Support multiple entries for "feature-domains"
+		  property
+		- Better handle the device-tree parsing using
+		  phandle+args APIs
+		- Remove "resource firewall" type
+		- Add a field for the name of the firewall entry
+		- Fix licenses
+	
+	RIFSC:
+		- Add controller name
+		- Driver is now a module_platform_driver
+		- Fix license
+
+	ETZPC:
+		- Add controller name
+		- Driver is now a module_platform_driver
+		- Fix license
+
+	Device trees:
+		- Fix rifsc node name
+		- Move the "ranges" property under the
+		  "feature-domains" one
+
+Gatien Chevallier (12):
+  dt-bindings: treewide: add access-controllers description
+  dt-bindings: bus: document RIFSC
+  dt-bindings: bus: document ETZPC
+  firewall: introduce stm32_firewall framework
+  of: property: fw_devlink: Add support for "access-controller"
+  bus: rifsc: introduce RIFSC firewall controller driver
+  arm64: dts: st: add RIFSC as an access controller for STM32MP25x
+    boards
+  bus: etzpc: introduce ETZPC firewall controller driver
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP15x boards
+  ARM: dts: stm32: put ETZPC as an access controller for STM32MP15x
+    boards
+  ARM: dts: stm32: add ETZPC as a system bus for STM32MP13x boards
+  ARM: dts: stm32: put ETZPC as an access controller for STM32MP13x
+    boards
+
+Oleksii Moisieiev (1):
+  dt-bindings: document generic access controllers
+
+ .../access-controllers.yaml                   |   84 +
+ .../bindings/bus/st,stm32-etzpc.yaml          |   87 +
+ .../bindings/bus/st,stm32mp25-rifsc.yaml      |   96 +
+ .../bindings/crypto/st,stm32-cryp.yaml        |    4 +
+ .../bindings/crypto/st,stm32-hash.yaml        |    4 +
+ .../devicetree/bindings/dma/st,stm32-dma.yaml |    4 +
+ .../bindings/dma/st,stm32-dmamux.yaml         |    4 +
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml |    4 +
+ .../bindings/iio/adc/st,stm32-adc.yaml        |    4 +
+ .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  |    4 +
+ .../bindings/iio/dac/st,stm32-dac.yaml        |    4 +
+ .../bindings/media/cec/st,stm32-cec.yaml      |    4 +
+ .../bindings/media/st,stm32-dcmi.yaml         |    4 +
+ .../memory-controllers/st,stm32-fmc2-ebi.yaml |    4 +
+ .../bindings/mfd/st,stm32-lptimer.yaml        |    4 +
+ .../bindings/mfd/st,stm32-timers.yaml         |    4 +
+ .../devicetree/bindings/mmc/arm,pl18x.yaml    |    4 +
+ .../bindings/net/can/bosch,m_can.yaml         |    4 +
+ .../devicetree/bindings/net/stm32-dwmac.yaml  |    4 +
+ .../bindings/phy/phy-stm32-usbphyc.yaml       |    4 +
+ .../bindings/regulator/st,stm32-vrefbuf.yaml  |    4 +
+ .../devicetree/bindings/rng/st,stm32-rng.yaml |    4 +
+ .../bindings/serial/st,stm32-uart.yaml        |    4 +
+ .../bindings/sound/st,stm32-i2s.yaml          |    4 +
+ .../bindings/sound/st,stm32-sai.yaml          |    4 +
+ .../bindings/sound/st,stm32-spdifrx.yaml      |    4 +
+ .../bindings/spi/st,stm32-qspi.yaml           |    4 +
+ .../devicetree/bindings/spi/st,stm32-spi.yaml |    4 +
+ .../devicetree/bindings/usb/dwc2.yaml         |    4 +
+ MAINTAINERS                                   |    7 +
+ arch/arm/boot/dts/st/stm32mp131.dtsi          | 1063 ++++---
+ arch/arm/boot/dts/st/stm32mp133.dtsi          |   51 +-
+ arch/arm/boot/dts/st/stm32mp13xc.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp13xf.dtsi         |   19 +-
+ arch/arm/boot/dts/st/stm32mp151.dtsi          | 2756 +++++++++--------
+ arch/arm/boot/dts/st/stm32mp153.dtsi          |   52 +-
+ arch/arm/boot/dts/st/stm32mp15xc.dtsi         |   19 +-
+ arch/arm/mach-stm32/Kconfig                   |    1 +
+ arch/arm64/Kconfig.platforms                  |    1 +
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |    7 +-
+ drivers/bus/Kconfig                           |   10 +
+ drivers/bus/Makefile                          |    1 +
+ drivers/bus/stm32_etzpc.c                     |  141 +
+ drivers/bus/stm32_firewall.c                  |  294 ++
+ drivers/bus/stm32_firewall.h                  |   83 +
+ drivers/bus/stm32_rifsc.c                     |  252 ++
+ drivers/of/property.c                         |    2 +
+ include/linux/bus/stm32_firewall_device.h     |  141 +
+ 48 files changed, 3352 insertions(+), 1938 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32-etzpc.yaml
+ create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
+ create mode 100644 drivers/bus/stm32_etzpc.c
+ create mode 100644 drivers/bus/stm32_firewall.c
+ create mode 100644 drivers/bus/stm32_firewall.h
+ create mode 100644 drivers/bus/stm32_rifsc.c
+ create mode 100644 include/linux/bus/stm32_firewall_device.h
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
