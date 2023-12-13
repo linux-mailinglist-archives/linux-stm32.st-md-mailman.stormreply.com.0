@@ -2,62 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12D58811B5F
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Dec 2023 18:40:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D88978128B6
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Dec 2023 08:06:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD380C6B45D;
-	Wed, 13 Dec 2023 17:40:56 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6CFCC6B45B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82581C6DD6A;
+	Thu, 14 Dec 2023 07:06:37 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74E40C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Dec 2023 17:40:55 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BDEgvjv018470; Wed, 13 Dec 2023 18:40:23 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=yDONe2A
- lkohl+m5aYdxHuWkVZNkm6meJRO4aFoEOgaU=; b=8MOjHk5YLzIMALgn8F6f2c/
- onkNpZ1Oi3WlnG/fhp+9ywgOBE4d4PvjclIHl4PEEdgqQ3L7tbRNNb5TQ1aaiebq
- eEOmqyrpFU61C4F9AxlSvjx+ATS5Zob2EAoF8P++LCj8G8xH+/9LxLI8G9aoddjU
- Otkj5/tU2srm7h1obJ+JXiexM/c1gJzHrK4jSH0PYW8YJvvVd2SSjIzz+I+o/d/H
- Y1hDQIQcgQR3WPKB63+cqxApaNparvE3Ndkazd37285zRjInsrXi5m2rgoFBYmQd
- rWoJpt662vbSIozKaCEzNWkCDj1JDsqS34tZvBMWFwHolEX9GfUZsyRbojLRXYQ=
- =
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvehmhyym-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Dec 2023 18:40:23 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AB804100057;
- Wed, 13 Dec 2023 18:40:22 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7631A2680BE;
- Wed, 13 Dec 2023 18:40:22 +0100 (CET)
-Received: from localhost (10.252.16.151) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Dec
- 2023 18:40:22 +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-To: Vinod Koul <vkoul@kernel.org>, Fenghua Yu <fenghua.yu@intel.com>, Dave
- Jiang <dave.jiang@intel.com>
-Date: Wed, 13 Dec 2023 18:40:21 +0100
-Message-ID: <20231213174021.3074759-1-amelie.delaunay@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Wed, 13 Dec 2023 13:54:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D486BC15;
+ Wed, 13 Dec 2023 05:55:17 -0800 (PST)
+Received: from [192.168.1.3] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A66F73F738;
+ Wed, 13 Dec 2023 05:54:30 -0800 (PST)
+Message-ID: <3c7665ff-b2e2-f10d-a78a-4ddc1791926f@arm.com>
+Date: Wed, 13 Dec 2023 13:54:26 +0000
 MIME-Version: 1.0
-X-Originating-IP: [10.252.16.151]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-13_11,2023-12-13_01,2023-05-22_02
-Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] dmaengine: add channel device name to channel
-	registration
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org
+References: <20231212155407.1429121-1-james.clark@arm.com>
+ <20231212155407.1429121-2-james.clark@arm.com>
+ <a1ab2481-0ec0-4e29-b6af-bcce4cf0b57d@arm.com>
+From: James Clark <james.clark@arm.com>
+In-Reply-To: <a1ab2481-0ec0-4e29-b6af-bcce4cf0b57d@arm.com>
+X-Mailman-Approved-At: Thu, 14 Dec 2023 07:06:35 +0000
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 1/8] coresight: Fix issue where a source
+ device's helpers aren't disabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,108 +47,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Channel device name is used for sysfs, but also by dmatest filter function.
-
-With dynamic channel registration, channels can be registered after dma
-controller registration. Users may want to have specific channel names.
-
-If name is NULL, the channel name relies on previous implementation,
-dma<controller_device_id>chan<channel_device_id>.
-
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/dma/dmaengine.c   | 16 ++++++++++------
- drivers/dma/idxd/dma.c    |  2 +-
- include/linux/dmaengine.h |  3 ++-
- 3 files changed, 13 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index b7388ae62d7f..7848428da2d6 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -1037,7 +1037,8 @@ static int get_dma_id(struct dma_device *device)
- }
- 
- static int __dma_async_device_channel_register(struct dma_device *device,
--					       struct dma_chan *chan)
-+					       struct dma_chan *chan,
-+					       const char *name)
- {
- 	int rc;
- 
-@@ -1066,8 +1067,10 @@ static int __dma_async_device_channel_register(struct dma_device *device,
- 	chan->dev->device.parent = device->dev;
- 	chan->dev->chan = chan;
- 	chan->dev->dev_id = device->dev_id;
--	dev_set_name(&chan->dev->device, "dma%dchan%d",
--		     device->dev_id, chan->chan_id);
-+	if (!name)
-+		dev_set_name(&chan->dev->device, "dma%dchan%d", device->dev_id, chan->chan_id);
-+	else
-+		dev_set_name(&chan->dev->device, name);
- 	rc = device_register(&chan->dev->device);
- 	if (rc)
- 		goto err_out_ida;
-@@ -1087,11 +1090,12 @@ static int __dma_async_device_channel_register(struct dma_device *device,
- }
- 
- int dma_async_device_channel_register(struct dma_device *device,
--				      struct dma_chan *chan)
-+				      struct dma_chan *chan,
-+				      const char *name)
- {
- 	int rc;
- 
--	rc = __dma_async_device_channel_register(device, chan);
-+	rc = __dma_async_device_channel_register(device, chan, name);
- 	if (rc < 0)
- 		return rc;
- 
-@@ -1200,7 +1204,7 @@ int dma_async_device_register(struct dma_device *device)
- 
- 	/* represent channels in sysfs. Probably want devs too */
- 	list_for_each_entry(chan, &device->channels, device_node) {
--		rc = __dma_async_device_channel_register(device, chan);
-+		rc = __dma_async_device_channel_register(device, chan, NULL);
- 		if (rc < 0)
- 			goto err_out;
- 	}
-diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
-index 47a01893cfdb..101a265567a9 100644
---- a/drivers/dma/idxd/dma.c
-+++ b/drivers/dma/idxd/dma.c
-@@ -269,7 +269,7 @@ static int idxd_register_dma_channel(struct idxd_wq *wq)
- 		desc->txd.tx_submit = idxd_dma_tx_submit;
- 	}
- 
--	rc = dma_async_device_channel_register(dma, chan);
-+	rc = dma_async_device_channel_register(dma, chan, NULL);
- 	if (rc < 0) {
- 		kfree(idxd_chan);
- 		return rc;
-diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
-index 3df70d6131c8..cbad92cc3e0b 100644
---- a/include/linux/dmaengine.h
-+++ b/include/linux/dmaengine.h
-@@ -1574,7 +1574,8 @@ int dma_async_device_register(struct dma_device *device);
- int dmaenginem_async_device_register(struct dma_device *device);
- void dma_async_device_unregister(struct dma_device *device);
- int dma_async_device_channel_register(struct dma_device *device,
--				      struct dma_chan *chan);
-+				      struct dma_chan *chan,
-+				      const char *name);
- void dma_async_device_channel_unregister(struct dma_device *device,
- 					 struct dma_chan *chan);
- void dma_run_dependencies(struct dma_async_tx_descriptor *tx);
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAxMi8xMi8yMDIzIDE3OjQ0LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IEhpIEphbWVz
+Cj4gCj4gT24gMTIvMTIvMjAyMyAxNTo1MywgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+IFRoZSBsaW5r
+ZWQgY29tbWl0IHJldmVydHMgdGhlIGNoYW5nZSB0aGF0IGFjY2lkZW50YWxseSB1c2VkIHNvbWUg
+c3lzZnMKPj4gZW5hYmxlL2Rpc2FibGUgZnVuY3Rpb25zIGZyb20gUGVyZiB3aGljaCBicm9rZSB0
+aGUgcmVmY291bnRpbmcsIGJ1dCBpdAo+PiBhbHNvIHJlbW92ZXMgdGhlIGZhY3QgdGhhdCB0aGUg
+c3lzZnMgZGlzYWJsZSBmdW5jdGlvbiBkaXNhYmxlZCB0aGUKPj4gaGVscGVycy4KPiAKPiAKPj4K
+Pj4gQWRkIGEgbmV3IHdyYXBwZXIgZnVuY3Rpb24gdGhhdCBkb2VzIGJvdGggd2hpY2ggaXMgdXNl
+ZCBieSBib3RoIFBlcmYgYW5kCj4+IHN5c2ZzLCBhbmQgbGFiZWwgdGhlIHN5c2ZzIGRpc2FibGUg
+ZnVuY3Rpb24gYXBwcm9wcmlhdGVseS4gVGhlIG5hbWluZyBvZgo+PiBhbGwgb2YgdGhlIGZ1bmN0
+aW9ucyB3aWxsIGJlIHRpZGllZCB1cCBsYXRlciB0byBhdm9pZCB0aGlzIGhhcHBlbmluZwo+PiBh
+Z2Fpbi4KPj4KPj4gRml4ZXM6IDI4N2U4MmNmNjlhYSAoImNvcmVzaWdodDogRml4IGNyYXNoIHdo
+ZW4gUGVyZiBhbmQgc3lzZnMgbW9kZXMKPj4gYXJlIHVzZWQgY29uY3VycmVudGx5IikKPiAKPiBC
+dXQgd2Ugc3RpbGwgZG9uJ3QgImVuYWJsZSIgdGhlIGhlbHBlcnMgZnJvbSBwZXJmIG1vZGUgd2l0
+aCB0aGlzIHBhdGNoLgo+IGkuZS4sIHdlIHVzZSBzb3VyY2Vfb3BzKCktPmVuYWJsZSBkaXJlY3Rs
+eS4gU28sIEkgZ3Vlc3MgdGhpcyBwYXRjaAo+IGRvZXNuJ3QgZml4IGEgYnVnIGFzIHN1Y2guIEJ1
+dCB0aGF0IHNhaWQsIGl0IHdvdWxkIGJlIGdvb2QgdG8KPiBlbmFibGUvZGlzYWJsZSBoZWxwZXJz
+IGZvciBzb3VyY2VzLCBpbiBwZXJmIG1vZGUuCj4gCj4gU3V6dWtpCgpXZSBkbywgaXQgaGFwcGVu
+cyBpbiBjb3Jlc2lnaHRfZW5hYmxlX3BhdGgoKSB3aGljaCBQZXJmIHVzZXMuIEkgYWRkZWQKdGhl
+IGNvbW1lbnQgYmVsb3cgYWJvdXQgdGhhdC4KCiBbLi4uXQoKPj4gwqAgKy8qCj4+ICsgKiBIZWxw
+ZXIgZnVuY3Rpb24gdG8gY2FsbCBzb3VyY2Vfb3BzKGNzZGV2KS0+ZGlzYWJsZSBhbmQgYWxzbwo+
+PiBkaXNhYmxlIHRoZQo+PiArICogaGVscGVycy4KPj4gKyAqCj4+ICsgKiBUaGVyZSBpcyBhbiBp
+bWJhbGFuY2UgYmV0d2VlbiBjb3Jlc2lnaHRfZW5hYmxlX3BhdGgoKSBhbmQKPj4gKyAqIGNvcmVz
+aWdodF9kaXNhYmxlX3BhdGgoKS4gRW5hYmxpbmcgYWxzbyBlbmFibGVzIHRoZSBzb3VyY2Uncwo+
+PiBoZWxwZXJzIGFzIHBhcnQKPj4gKyAqIG9mIHRoZSBwYXRoLCBidXQgZGlzYWJsaW5nIGFsd2F5
+cyBza2lwcyB0aGUgZmlyc3QgaXRlbSBpbiB0aGUgcGF0aAo+PiAod2hpY2ggaXMKPj4gKyAqIHRo
+ZSBzb3VyY2UpLCBzbyBzb3VyY2VzIGFuZCB0aGVpciBoZWxwZXJzIGRvbid0IGdldCBkaXNhYmxl
+ZCBhcwo+PiBwYXJ0IG9mIHRoYXQKPj4gKyAqIGZ1bmN0aW9uIGFuZCB3ZSBuZWVkIHRoZSBleHRy
+YSBzdGVwIGhlcmUuCj4+ICsgKi8KClRoZSByZWFzb24gY29yZXNpZ2h0X2Rpc2FibGVfcGF0aCgp
+IHNraXBzIHRoZSBmaXJzdCBpdGVtIGlzIGJlY2F1c2UgaXQncwp1c2VkIGFmdGVyIGVycm9ycyB3
+aGVyZSBhIHBhdGggaXMgb25seSBwYXJ0aWFsbHkgZW5hYmxlZCBhbmQgaXQgdW53aW5kcywKc2tp
+cHBpbmcgdGhlIGxhc3QgaXRlbSwgYmVjYXVzZSB0aGUgbGFzdCBpdGVtIGRpZG4ndCBlbmFibGUu
+CgpJdCBzZWVtZWQgYSBiaXQgbW9yZSBpbnRydXNpdmUgdG8gY2hhbmdlIHRoYXQsIGFuZCBpdCdz
+IGFscmVhZHkgd29ya2luZy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
