@@ -2,74 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAE1081128B
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Dec 2023 14:09:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 442818118A0
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Dec 2023 17:05:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F4C0C6B45D;
-	Wed, 13 Dec 2023 13:09:19 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D78D7C6B45D;
+	Wed, 13 Dec 2023 16:05:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C93C4C6B458
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B16F1C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Dec 2023 13:09:17 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2c9fdf53abcso66421901fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Dec 2023 05:09:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702472957; x=1703077757;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2HJoRFEHz30zB0ZJf+EKks3Tvo/kzW6L5hkkeuaBBCU=;
- b=hjWC8rycdG7nnLoRgAbN+Ho/H75ql7YR+i/L6panSwB6zQEU7zNDrYHd9j0+ElDliF
- 4Hhln4pb1aPDoH9A94g6p3IOHcmvWmvQCADE8XPKS5NIdJkXeJtysWWrkL7bG4K51c0f
- eKq+RgdPLHd1hSDg2LqgGjG2/Feweqkk0ktCqW5pzBxd3KbQY8BqZ3fDHHwMhNPZhzqK
- FBiORbnJ+7g70nSo5Nh4HASQk6cU+smBWpgSL4VD+AIchbifSYnmOgBkDE/c6GhibSt+
- sT70ZxqTCK0axCz8R+h7lIYMZfX43oBjEM8q6sGF5SZLm5n3sb5bbOmWCkidqoSxn5HJ
- E1VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702472957; x=1703077757;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2HJoRFEHz30zB0ZJf+EKks3Tvo/kzW6L5hkkeuaBBCU=;
- b=r5IPcq7C/L/TcLJkZ8TL5NDsFSbQ2trr1tZZ67Uj+owqP4aacyI19/q/ixF98by5nf
- 50TxJHZjQV84UXkp1Nk9XNglpZ8n+0j08LyY/BJuOF0gdyf05xVQP7ALwulxu3XQZY9P
- os4diRANowr1+Pqnn33hlPP5ZK1pU215kTT1C2995Ts0EbsuLkOPmMxhk9XvbnB4IeU5
- Jw4aP4ixbdIgYrYgQ9l6LOjP8ZAld0D0+2Vz4An69thq1htimyLj/c/g+PsBPnRp6IH6
- hcuzEC/QSwY7zljR8+aCwai+CtriaoEd6TvNdLTsusuQnTMLUM9tFWZ11DHycPeUoqAp
- 8P1g==
-X-Gm-Message-State: AOJu0YxbR3bT1vYvMPpwSeaubnlOwQ+oLRONFOxu9XPPWPf+q+G2iHj/
- YkNHHyiMXA4XeoQpHmuC/V4=
-X-Google-Smtp-Source: AGHT+IEx1G2Ak0WCyDZGOhaHfa9iY3nMhLay3pfRJFLfsPi8CVj+jZd2gK+mqCcnf4++8bfHmYBixg==
-X-Received: by 2002:a2e:b742:0:b0:2c9:e940:6780 with SMTP id
- k2-20020a2eb742000000b002c9e9406780mr3993926ljo.22.1702472956648; 
- Wed, 13 Dec 2023 05:09:16 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- m24-20020a2e9118000000b002ca02e43f40sm1840200ljg.74.2023.12.13.05.09.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 Dec 2023 05:09:16 -0800 (PST)
-Date: Wed, 13 Dec 2023 16:09:12 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <f2pf2g23ln4qcoqxidy55plysn735qtfspj6nuu6f7isqxotp2@rj6ejru5eon7>
-References: <20231212-b4-stmmac-handle-mdio-enodev-v2-1-600171acf79f@redhat.com>
+ Wed, 13 Dec 2023 16:05:08 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3BDAeIhK020074; Wed, 13 Dec 2023 17:04:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=vP0Cuvt
+ nE+r/ntZNTtv47/xL+GFWmIspcly1Iqw0j54=; b=54WpcFRkZY3+P0q8YGNKJ1L
+ 3/vcUxpmMxvEPoMd4eASPOSK4gswANmkfFk33VIp8PBPN1flMJ8cdpNRDhpjtuKm
+ MeXMSIwMUVzwo3n8p+c19CSPDDqMMr9N36CiyFD0chWuCK8opJx8aQvAemes3DvG
+ Wms6WMBRrPT9EE5ENnb50SPvNhU5mfUKnkWkvEQ67Px/szRmrTJl0kYAzXh8R/ma
+ zirqhNkc4ef3bniaAVjesfFFiLEWAiT3I5WwGQMcLdXj2Mf16RtD20L2WdtpRKak
+ iQoNF0LJQEXSW/kE3pkNpkdW5KAicYTP2o2ZO6ZN8JAvRuqfGPUVs6QcLcLaGVQ=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uyb2k1by1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 13 Dec 2023 17:04:54 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 5BF0B100057;
+ Wed, 13 Dec 2023 17:04:53 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 28F7A24B88D;
+ Wed, 13 Dec 2023 17:04:53 +0100 (CET)
+Received: from localhost (10.252.16.151) by SHFDAG1NODE3.st.com (10.75.129.71)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Dec
+ 2023 17:04:52 +0100
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+To: Vinod Koul <vkoul@kernel.org>, Dave Jiang <dave.jiang@intel.com>
+Date: Wed, 13 Dec 2023 17:04:52 +0100
+Message-ID: <20231213160452.2598073-1-amelie.delaunay@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231212-b4-stmmac-handle-mdio-enodev-v2-1-600171acf79f@redhat.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Handle disabled MDIO
- busses from devicetree
+X-Originating-IP: [10.252.16.151]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-13_09,2023-12-13_01,2023-05-22_02
+Cc: dmaengine@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] dmaengine: fix NULL pointer in channel
+	unregistration function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,56 +73,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 12, 2023 at 04:18:33PM -0600, Andrew Halaney wrote:
-> Many hardware configurations have the MDIO bus disabled, and are instead
-> using some other MDIO bus to talk to the MAC's phy.
-> 
-> of_mdiobus_register() returns -ENODEV in this case. Let's handle it
-> gracefully instead of failing to probe the MAC.
-> 
-> Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet controllers.")
-> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
-> ---
-> Changes in v2:
-> - Improve error handling code (Serge)
-> - Fix malformed Fixes tag (Simon)
-> - Link to v1: https://lore.kernel.org/r/20231211-b4-stmmac-handle-mdio-enodev-v1-1-73c20c44f8d6@redhat.com
+__dma_async_device_channel_register() can fail. In case of failure,
+chan->local is freed (with free_percpu()), and chan->local is nullified.
+When dma_async_device_unregister() is called (because of managed API or
+intentionally by DMA controller driver), channels are unconditionally
+unregistered, leading to this NULL pointer:
+[    1.318693] Unable to handle kernel NULL pointer dereference at virtual address 00000000000000d0
+[...]
+[    1.484499] Call trace:
+[    1.486930]  device_del+0x40/0x394
+[    1.490314]  device_unregister+0x20/0x7c
+[    1.494220]  __dma_async_device_channel_unregister+0x68/0xc0
 
-Looking good. Thanks!
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+Look at dma_async_device_register() function error path, channel device
+unregistration is done only if chan->local is not NULL.
 
--Serge(y)
+Then add the same condition at the beginning of
+__dma_async_device_channel_unregister() function, to avoid NULL pointer
+issue whatever the API used to reach this function.
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index fa9e7e7040b9..0542cfd1817e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -591,7 +591,11 @@ int stmmac_mdio_register(struct net_device *ndev)
->  	new_bus->parent = priv->device;
->  
->  	err = of_mdiobus_register(new_bus, mdio_node);
-> -	if (err != 0) {
-> +	if (err == -ENODEV) {
-> +		err = 0;
-> +		dev_info(dev, "MDIO bus is disabled\n");
-> +		goto bus_register_fail;
-> +	} else if (err) {
->  		dev_err_probe(dev, err, "Cannot register the MDIO bus\n");
->  		goto bus_register_fail;
->  	}
-> 
-> ---
-> base-commit: bbd220ce4e29ed55ab079007cff0b550895258eb
-> change-id: 20231211-b4-stmmac-handle-mdio-enodev-82168de68c6a
-> 
-> Best regards,
-> -- 
-> Andrew Halaney <ahalaney@redhat.com>
-> 
+Fixes: d2fb0a043838 ("dmaengine: break out channel registration")
+Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
+---
+ drivers/dma/dmaengine.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+index b7388ae62d7f..491b22240221 100644
+--- a/drivers/dma/dmaengine.c
++++ b/drivers/dma/dmaengine.c
+@@ -1103,6 +1103,9 @@ EXPORT_SYMBOL_GPL(dma_async_device_channel_register);
+ static void __dma_async_device_channel_unregister(struct dma_device *device,
+ 						  struct dma_chan *chan)
+ {
++	if (chan->local == NULL)
++		return;
++
+ 	WARN_ONCE(!device->device_release && chan->client_count,
+ 		  "%s called while %d clients hold a reference\n",
+ 		  __func__, chan->client_count);
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
