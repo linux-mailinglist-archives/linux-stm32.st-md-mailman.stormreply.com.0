@@ -2,80 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B7EF810B57
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Dec 2023 08:17:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55BFD810DB8
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Dec 2023 10:54:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC11FC6DD67;
-	Wed, 13 Dec 2023 07:17:49 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07947C6B47F;
+	Wed, 13 Dec 2023 09:54:14 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07392C6C856
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D356C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 Dec 2023 22:27:05 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BCLF2QX017447; Tue, 12 Dec 2023 22:26:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=qcppdkim1; bh=yurFKjLq7+bIUjRG15ojt
- gITIwSZr74Zdau5UeQsB4g=; b=XY6jxhGs8it9aWZgklDQAdVsJRv3tHKys36i9
- oL2kgFXU2ZKR1RUvq0DWmRkQoBI+8W5Gmrrk6p6qGqWta5TmlBhKkq3/urWdrpWF
- 8Yw8gwBbW9gu/EHLfaH/B9NuRJpCqDuC3M4Md5nxNVAY0zoPQ1tvoR2fpzDNphTy
- CGVazSsSPng4bDG7bxQYXbyStm7WtlF5Bc3+2XN58E06x2QPDQUHJpXblWOH9al/
- AQN2VyeOpsbvLRcRgDOoso1g7VsOK7nXKoLPwA7z4nxVaayAo4lApZ9E4qiHLaQC
- nP8wP7ERsm8ogBO+6Hqvbn5HtEzGsP9dYGwUo5eihvIQPalXQ==
-Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3uxru2h5bw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Dec 2023 22:26:48 +0000 (GMT)
-Received: from nalasex01c.na.qualcomm.com (nalasex01c.na.qualcomm.com
- [10.47.97.35])
- by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BCMQllE004339
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 12 Dec 2023 22:26:47 GMT
-Received: from hu-bjorande-lv.qualcomm.com (10.49.16.6) by
- nalasex01c.na.qualcomm.com (10.47.97.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 12 Dec 2023 14:26:44 -0800
-Date: Tue, 12 Dec 2023 14:26:43 -0800
-From: Bjorn Andersson <quic_bjorande@quicinc.com>
+ Wed, 13 Dec 2023 09:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=7F13S8FLoutiZ3CalADES9Ypom9LrrGw6pCO4/ixxqw=; b=RuvoDMyVMMqqs1yxb8x0Hv1lR0
+ MgvpCopZwbFbh/IJm/HmhiDSH5+was538qxsXbKTUCGvI1RgOdw3EukXbMtf4pwwf9A84COngxvsk
+ 1BE9R0UJ0+69oMZogGPSJ6B9j/7kgyya2bTz0TOfJerchu+fUph//fKvnOTIkCtIR4sQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rDLwI-002nrP-E7; Wed, 13 Dec 2023 10:54:02 +0100
+Date: Wed, 13 Dec 2023 10:54:02 +0100
+From: Andrew Lunn <andrew@lunn.ch>
 To: Sneh Shah <quic_snehshah@quicinc.com>
-Message-ID: <20231212222643.GP1766637@hu-bjorande-lv.qualcomm.com>
-References: <20231212092208.22393-1-quic_snehshah@quicinc.com>
+Message-ID: <428bba44-c0b9-48b2-b4fc-feba3e2245ae@lunn.ch>
+References: <20231204084854.31543-1-quic_snehshah@quicinc.com>
+ <3e4a1b9c-ed0f-466e-ba11-fc5b7ef308a1@lunn.ch>
+ <5d5f3955-fc30-428c-99f4-42f9b7580a84@quicinc.com>
+ <0c966845-2bbc-4196-806d-6a33e435bf7d@lunn.ch>
+ <dd585977-50c4-40a4-a664-0ecb5a84807a@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231212092208.22393-1-quic_snehshah@quicinc.com>
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
- nalasex01c.na.qualcomm.com (10.47.97.35)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: dHxn2cy1gxmYT5OduOK80qziNe_XFr8K
-X-Proofpoint-ORIG-GUID: dHxn2cy1gxmYT5OduOK80qziNe_XFr8K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 mlxscore=0
- clxscore=1011 priorityscore=1501 suspectscore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 mlxlogscore=999 adultscore=0 phishscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312120174
-X-Mailman-Approved-At: Wed, 13 Dec 2023 07:17:48 +0000
+In-Reply-To: <dd585977-50c4-40a4-a664-0ecb5a84807a@quicinc.com>
 Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
  Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net v4] net: stmmac: dwmac-qcom-ethqos:
- Fix drops in 10M SGMII RX
+ andersson@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-arm-msm@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Andrew Halaney <ahalaney@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: Add
+ sysfs nodes for qcom ethqos
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,85 +62,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Dec 12, 2023 at 02:52:08PM +0530, Sneh Shah wrote:
-> In 10M SGMII mode all the packets are being dropped due to wrong Rx clock.
-> SGMII 10MBPS mode needs RX clock divider programmed to avoid drops in Rx.
-> Update configure SGMII function with Rx clk divider programming.
+> >> We need to route vlan traffic of a specific Priority to GVM Queue
+> >> (Ethernet queue 5) via programming a MAC register. The MAC register
+> >> is not accessible in GVM and has to be programmed from PVM. stmmac
+> >> already has TC OPS to program this routing via vlan
+> >> priority. However, as PVM has only 4 queues enabled, TC tool will
+> >> not take 5th queue as input. Hence, these nodes were added to
+> >> conifure the MAC register to route specific vlan packets to 5th
+> >> queue in GVM.
+> >  
+> >> Note: The queues mentioned above are HW MTL Queues and DMA
+> >> Channels. The routing can be done in the HW itself based on vlan pcp
+> >> before the packets reach to driver.
+> > 
+> > Is the normal way you would do this is like this:
+> > 
+> > tc qdisc add dev eth1 parent root handle 100 \
+> > mqprio num_tc 4 \
+> > map 0 1 2 3 0 0 0 0 0 0 0 0 0 0 0 0 \
+> > queues 1@0 1@1 1@2 1@3 \
+> > hw 1
+> > 
+> > But you are saying that you cannot extend this to 5 queues?
+> > 
+> >     Andrew
 > 
 
-Thanks you for the updates!
+> Yes this can't extend to 5 queues. Because, stmmac in primary
+> virtual machine will only have 4 netdev queues. So TC won't take
+> input for 5th queue.
 
-Reviewed-by: Bjorn Andersson <quic_bjorande@quicinc.com>
+I still don't understand your architecture. How can you have 5 queues
+if the physical hardware only has 4?
 
-> Fixes: 463120c31c58 ("net: stmmac: dwmac-qcom-ethqos: add support for SGMII")
-> Tested-by: Andrew Halaney <ahalaney@redhat.com>
-> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
-> ---
-> v4 changelog:
-> - Updated commit message to add more details on why 10M SGMII Rx is failing
-> - Added a macro for Rx clock divider value
-> v3 changelog:
-> - Added comment to explain why MAC needs to be reconfigured for SGMII
-> v2 changelog:
-> - Use FIELD_PREP to prepare bifield values in place of GENMASK
-> - Add fixes tag
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index d3bf42d0fceb..31631e3f89d0 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -34,6 +34,7 @@
->  #define RGMII_CONFIG_LOOPBACK_EN		BIT(2)
->  #define RGMII_CONFIG_PROG_SWAP			BIT(1)
->  #define RGMII_CONFIG_DDR_MODE			BIT(0)
-> +#define RGMII_CONFIG_SGMII_CLK_DVDR		GENMASK(18, 10)
+Is there any documentation for all this? Any datasheet?
 
-Thank you for the clarification of rgmii vs sgmii. Perhaps this could be
-made clearer by renaming the rgmii ones as well? In a separate patch
-series, of course.
-
-Regards,
-Bjorn
-
->  
->  /* SDCC_HC_REG_DLL_CONFIG fields */
->  #define SDCC_DLL_CONFIG_DLL_RST			BIT(30)
-> @@ -78,6 +79,8 @@
->  #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
->  #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
->  
-> +#define SGMII_10M_RX_CLK_DVDR			0x31
-> +
->  struct ethqos_emac_por {
->  	unsigned int offset;
->  	unsigned int value;
-> @@ -598,6 +601,9 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
->  	return 0;
->  }
->  
-> +/* On interface toggle MAC registers gets reset.
-> + * Configure MAC block for SGMII on ethernet phy link up
-> + */
->  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
->  {
->  	int val;
-> @@ -617,6 +623,10 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
->  	case SPEED_10:
->  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
->  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
-> +		rgmii_updatel(ethqos, RGMII_CONFIG_SGMII_CLK_DVDR,
-> +			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
-> +					 SGMII_10M_RX_CLK_DVDR),
-> +			      RGMII_IO_MACRO_CONFIG);
->  		break;
->  	}
->  
-> -- 
-> 2.17.1
-> 
+   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
