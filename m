@@ -2,81 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424348147C1
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 13:12:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98ACE814DC6
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 18:03:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3D93C6DD6D;
-	Fri, 15 Dec 2023 12:12:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48C97C6DD6D;
+	Fri, 15 Dec 2023 17:03:07 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36DC3C6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6046C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 12:12:57 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ Fri, 15 Dec 2023 17:03:05 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BF9dxop002855; Fri, 15 Dec 2023 13:12:42 +0100
+ 3BFDLSlT017503; Fri, 15 Dec 2023 18:02:48 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=selector1; bh=kvE5XBu2+Fd93UaI428vG
- WnjnWCMDEpyRUaHUxWJrW0=; b=I7ZtUIBX3AT99QeCJLaVB0aVgc10L3IImwTqj
- 1gafLIseHZqpj2t5QQep7K8ZyoOJNIThwKPcGQ3PZzdo8e2xZSQ+IPGHNDNYTSOo
- x/ZA1ofwp59DpNn5HVtHi3WK7YrlvEi3i+aMt4iksblgxFC6ZaYZ5xgS7+weZSXM
- lnmFXMK5RtheNLKpvT+zKH3kZNWimdDf0QIbWeBqUC8XgeNhjPpvFiO7jNMBFido
- 0pHT/95P0Dfh5Wm+zq8LoKsxrcyuaUNFYgqjjmf+55q6WwiEhXuP/cqwvCZp8I6D
- Xn6RM1foPk9+pmkuox3wfy6eo++A3wGNp8rJ0gSpStx8SvpzA==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=vD6h9pH
+ zJnmCBjscGPQb18sMsLi5KfISG29RwhbGxYI=; b=QbLIf5BmFBOSkCIpMkerL7K
+ 93jFOZqTkajmC9EvJt+jWRyOqE+oj6zCuny5JcWWdvIviwGMcfh0f1ziVqck8DVk
+ OuuoujyjkcyA0I5zNJV32aCKMjsy6afNBIjV2bVnqDBa3g23KEu6LBbft6tACNRV
+ xiUEQQqGJg+gU+kpJE4npqDlJlyQBKVpui92RsAipq3P+a8WRS3XE1qjPYFE9uqE
+ 3nHZP3QCxrjHqti6o53BojNaMP+T6nyNI6MjqVwLqLuXpsO3Dm4PsAvZgWUHPo9E
+ +IRlLR0YERGrr3PuVduuKROcboPQYK+XRIL2hPbRK/CK1FcCvcyyo0lYfbEmgsw=
+ =
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uxvh9n7pj-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v0cbtuhhn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Dec 2023 13:12:42 +0100 (CET)
+ Fri, 15 Dec 2023 18:02:47 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4E9B3100052;
- Fri, 15 Dec 2023 13:12:41 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 64E4C100052;
+ Fri, 15 Dec 2023 18:02:46 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 3D041217B7B;
- Fri, 15 Dec 2023 13:12:41 +0100 (CET)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 585F4237D9B;
+ Fri, 15 Dec 2023 18:02:46 +0100 (CET)
+Received: from localhost (10.129.178.213) by SHFDAG1NODE1.st.com
  (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Dec
- 2023 13:12:40 +0100
-Date: Fri, 15 Dec 2023 13:12:31 +0100
+ 2023 18:02:46 +0100
 From: Alain Volmat <alain.volmat@foss.st.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-Message-ID: <20231215121231.GA3866676@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Conor Dooley <conor@kernel.org>, Rob Herring <robh@kernel.org>,
- Valentin Caron <valentin.caron@foss.st.com>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20231208164719.3584028-1-alain.volmat@foss.st.com>
- <20231208164719.3584028-5-alain.volmat@foss.st.com>
- <20231209000747.4l6462nlzj3po3sf@zenone.zhora.eu>
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Pierre-Yves MORDRET
+ <pierre-yves.mordret@foss.st.com>, Alain Volmat <alain.volmat@foss.st.com>
+Date: Fri, 15 Dec 2023 18:02:10 +0100
+Message-ID: <20231215170223.95549-1-alain.volmat@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231209000747.4l6462nlzj3po3sf@zenone.zhora.eu>
-X-Disclaimer: ce message est personnel / this message is private
 X-Originating-IP: [10.129.178.213]
 X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
  (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-15_06,2023-12-14_01,2023-05-22_02
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Conor Dooley <conor@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ definitions=2023-12-15_10,2023-12-14_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor@kernel.org>, linux-i2c@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 4/7] i2c: stm32f7: add support for
-	stm32mp25 soc
+Subject: [Linux-stm32] [PATCH v3 0/7] i2c: stm32f7: enhancements and support
+	for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,146 +78,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Andi,
+This series first perform enhancements in the way interrupt are handled
+and cleanup in messages.
+Then it adds support for the stm32mp25 which differs in that
+it only has a single irq line for both event/error and has a
+different handling of the FastModePlus.
+Support is then enabled within the stm32mp25 related device-trees.
 
-thanks for your review.
+Changelog:
+v3: - addition of 2 commits dealing with readl_relaxed(I2C_ISR) in
+      isr handler and a second one to use dev_err_probe during probe
+    - correction of SOB in commit
 
-I'll shortly post a v3 to correct all your comments.
+v2: - correct st,stm32-i2c.yaml.  Use if then else scheme to indicate
+      number of interrupts / interrupt-names depending on the
+      compatible while keeping the description within the common part
 
-On Sat, Dec 09, 2023 at 01:07:47AM +0100, Andi Shyti wrote:
-> Hi Alain,
-> 
-> On Fri, Dec 08, 2023 at 05:47:13PM +0100, Alain Volmat wrote:
-> > The stm32mp25 has only a single interrupt line used for both
-> > events and errors. In order to cope with that, reorganise the
-> > error handling code so that it can be called either from the
-> > common handler (used in case of SoC having only a single IT line)
-> > and the error handler for others.
-> > The CR1 register also embeds a new FMP bit, necessary when running
-> > at Fast Mode Plus frequency. This bit should be used instead of
-> > the SYSCFG bit used on other platforms.
-> > Add a new compatible to distinguish between the SoCs and two
-> > boolean within the setup structure in order to know if the
-> > platform has a single/multiple IT lines and if the FMP bit
-> > within CR1 is available or not.
-> > 
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
-> 
-> your SoB here should come last because you are the one sending
-> the patch.
+    - correct 2 maybe-uninitialized warnings
+          * ret in stm32f7_i2c_write_fm_plus_bits
+          * irq_error in stm32f7_i2c_probe, move the platform_get_irq
+            within the same if block as devm_request_threaded_irq
 
-Fixed.
+Alain Volmat (9):
+  i2c: stm32f7: use dev_err_probe upon calls of devm_request_irq
+  i2c: stm32f7: perform most of irq job in threaded handler
+  i2c: stm32f7: simplify status messages in case of errors
+  dt-bindings: i2c: document st,stm32mp25-i2c compatible
+  i2c: stm32f7: perform I2C_ISR read once at beginning of event isr
+  i2c: stm32f7: add support for stm32mp25 soc
+  arm64: dts: st: add all 8 i2c nodes on stm32mp251
+  arm64: dts: st: add i2c2/i2c8 pins for stm32mp25
+  arm64: dts: st: add i2c2 / i2c8 properties on stm32mp257f-ev1
 
-> 
-> > ---
-> >  drivers/i2c/busses/i2c-stm32f7.c | 230 ++++++++++++++++++-------------
-> >  1 file changed, 133 insertions(+), 97 deletions(-)
-> > 
-> > diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-> > index 2a011deec3c5..5634332900fb 100644
-> > --- a/drivers/i2c/busses/i2c-stm32f7.c
-> > +++ b/drivers/i2c/busses/i2c-stm32f7.c
-> > @@ -50,6 +50,7 @@
-> >  #define STM32F7_I2C_TXDR			0x28
-> >  
-> >  /* STM32F7 I2C control 1 */
-> > +#define STM32_I2C_CR1_FMP			BIT(24)
-> >  #define STM32F7_I2C_CR1_PECEN			BIT(23)
-> >  #define STM32F7_I2C_CR1_ALERTEN			BIT(22)
-> >  #define STM32F7_I2C_CR1_SMBHEN			BIT(20)
-> > @@ -226,6 +227,8 @@ struct stm32f7_i2c_spec {
-> >   * @rise_time: Rise time (ns)
-> >   * @fall_time: Fall time (ns)
-> >   * @fmp_clr_offset: Fast Mode Plus clear register offset from set register
-> > + * @single_it_line: Only a single IT line is used for both events/errors
-> > + * @fmp_cr1_bit: Fast Mode Plus control is done via a bit in CR1
-> 
-> Is the Fast Mode Plus an optional feature?
+ .../devicetree/bindings/i2c/st,stm32-i2c.yaml |  28 ++
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi |  36 ++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  96 +++++
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  20 +
+ drivers/i2c/busses/i2c-stm32f7.c              | 342 +++++++++---------
+ 5 files changed, 358 insertions(+), 164 deletions(-)
 
-Yes, from what I've seen, it seems an optional feature on some versions
-of stm32f7.
+-- 
+2.25.1
 
-> 
-> >   */
-> >  struct stm32f7_i2c_setup {
-> >  	u32 speed_freq;
-> > @@ -233,6 +236,8 @@ struct stm32f7_i2c_setup {
-> >  	u32 rise_time;
-> >  	u32 fall_time;
-> >  	u32 fmp_clr_offset;
-> > +	bool single_it_line;
-> > +	bool fmp_cr1_bit;
-> >  };
-> 
-> [...]
-> 
-> > -static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev)
-> > +static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev, u32 status)
-> >  {
-> >  	void __iomem *base = i2c_dev->base;
-> > -	u32 cr2, status, mask;
-> > +	u32 cr2, mask;
-> >  	u8 val;
-> >  	int ret;
-> >  
-> > -	status = readl_relaxed(i2c_dev->base + STM32F7_I2C_ISR);
-> > -
-> 
-> good to see this change here, relates to my comment in patch 1.
-> But I think this should go on a different patch.
-
-Agreed. I've split this small change into a dedicated commit done before
-this patch.
-
-> 
-> >  	/* Slave transmitter mode */
-> >  	if (status & STM32F7_I2C_ISR_TXIS) {
-> >  		i2c_slave_event(i2c_dev->slave_running,
-> > @@ -1494,17 +1504,81 @@ static irqreturn_t stm32f7_i2c_slave_isr_event(struct stm32f7_i2c_dev *i2c_dev)
-> >  	return IRQ_HANDLED;
-> >  }
-> 
-> [...]
-> 
-> > -	setup = of_device_get_match_data(&pdev->dev);
-> > -	if (!setup) {
-> > -		dev_err(&pdev->dev, "Can't get device data\n");
-> > -		return -ENODEV;
-> > +		ret = devm_request_threaded_irq(&pdev->dev, irq_error,
-> > +						NULL,
-> > +						stm32f7_i2c_isr_error_thread,
-> > +						IRQF_ONESHOT,
-> > +						pdev->name, i2c_dev);
-> > +		if (ret) {
-> > +			dev_err(&pdev->dev, "Failed to request irq error %i\n",
-> > +				irq_error);
-> 
-> please use dev_err_probe();
-
-Done as well in a dedicated commit at the very beginning of the serie.
-
-> 
-> > +			return ret;
-> > +		}
-> 
-> out of the scope of the patch and just for curiosity: does the
-> driver work without being able to signal on the error interrupt
-> line?
-
-Sorry, not sure to understand the question.  Just for clarification,
-on the MP25 not having a dedicated error line doesn't mean we are not
-signaled for errors.  It is simply they just come via the same
-interrupt line, hence we need to check for both event and error
-within the same handler.
-On systems using two interrupts line, the error interrupt irq line
-should be handled in order to tackle those errors cases.
-Sorry, does this answer your question ?
-
-> 
-> Overall the patch looks good to me, though.
-> 
-> Andi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
