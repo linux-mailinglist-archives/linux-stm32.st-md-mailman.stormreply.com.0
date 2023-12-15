@@ -2,189 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44BE6816519
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 03:54:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94C878167C1
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 08:53:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E38C9C6DD6F;
-	Mon, 18 Dec 2023 02:54:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C2BBC6DD71;
+	Mon, 18 Dec 2023 07:53:03 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7DA1C6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BB82C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 02:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702868062; x=1734404062;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=tSR/AvoVEdj2XZLdhCdg5j6TmxnAOcDrrM/4y8eltVc=;
- b=VH1a1UrNdlZRZWyYRNgZntdF/Bl0+nthg/zJB+Qh0ei2ZkktFmQfuLAH
- TmuX5hdb7d6V2H4B8u3t5JtzaWkqfdg43KJw4v7s246w1jaJ8KoSWZTNC
- EkOge2Ae0XF4gHbK9lFUaZpSo8KB0SRqZ0qbzPsBIWppy6OkiX5TjBaFl
- CSZH1o79orZKN/VApaPVikC5z7KS9RvvafR9oc+qtvWO4+6lPMwu5ww1V
- coCZSdX0t77p7oTUz76v9lcbMHiZ6T+SYkZ2m8fNrBhSC4kfIXSeULj+n
- //M2xRiN79K8JBMXfbUDiuAkG5cP6nnGzanYAMsQuopwopUCplLoeedng A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="2656569"
-X-IronPort-AV: E=Sophos;i="6.04,284,1695711600"; 
-   d="scan'208";a="2656569"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2023 18:54:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10927"; a="809657323"
-X-IronPort-AV: E=Sophos;i="6.04,284,1695711600"; d="scan'208";a="809657323"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by orsmga001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 17 Dec 2023 18:54:20 -0800
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Sun, 17 Dec 2023 18:54:20 -0800
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Sun, 17 Dec 2023 18:54:20 -0800
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (104.47.57.40) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Sun, 17 Dec 2023 18:54:18 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hHyHI7uj/hWq/7oTif2L3xzZYtaqyofmqyDLB7IHRoowwi3p6rA5Pt3QA1KCMfl1DObse/rmGeBQqgQqiOie+S9Fz95obA3CKePvG72XdHgDGlX24+NCrGBVsLiw3HJhIhiNcGmvQLdVFuq/Ni32CnZ6Xs763hCuiKFjVbCVSXIMtJo+ypVRmcvU2YWmzvvmXAeQQtpHvueZfRNJrutPSKfyNjy9DLOuEz5xA1KHKUdMuZp6yDMYzlDcxJU+j6D6txM9821DMdCJo3VvK7XcoontDwl3gDRSvpXTCQDuO/4AdcxMIDz1ArKZeIWqcyuNRvcKSWUTWEQHQYRNWvu3mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tSR/AvoVEdj2XZLdhCdg5j6TmxnAOcDrrM/4y8eltVc=;
- b=P6OHwTi4BxnhC8I9kfEjME813Ocrec8hyBZxAiZhoxmHZXW6zq7+eWgDLUeOydu2q+hkQXYvwvG8IVLtm9D9PwUnPvzkAO/Z5pL1GJBLZERplEAd9LqZYGHQIk3FHje1N2OFill3pkmn+KUW2UqTYvlKTi81EzF6/ntFz3nIX+Mk7tjAhB3peCHJsWPAWaG32t5Px6Aj2v9pZPPgUaa4yxCPM/SSTupnMkvht4DWMCGESBcruyXKULvL4BGFVmuWWGB5CJgX/BYg3IA4h9FNw8+NsEl/aHf0Yycpb8957wYBwXGjyOblO2p3cbqzFYnW3hjaIEuVYGZcMCvayiDW9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB5830.namprd11.prod.outlook.com (2603:10b6:510:129::20)
- by BL1PR11MB5528.namprd11.prod.outlook.com (2603:10b6:208:314::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.37; Mon, 18 Dec
- 2023 02:54:11 +0000
-Received: from PH0PR11MB5830.namprd11.prod.outlook.com
- ([fe80::6ffc:93a3:6d7f:383c]) by PH0PR11MB5830.namprd11.prod.outlook.com
- ([fe80::6ffc:93a3:6d7f:383c%6]) with mapi id 15.20.7091.034; Mon, 18 Dec 2023
- 02:54:11 +0000
-From: "Song, Yoong Siang" <yoong.siang.song@intel.com>
-To: Stanislav Fomichev <sdf@google.com>, Magnus Karlsson
- <magnus.karlsson@gmail.com>
-Thread-Topic: [xdp-hints] Re: [PATCH bpf-next v3 2/3] net: stmmac: add Launch
- Time support to XDP ZC
-Thread-Index: AQHaJgkYSPZeueih5k2aEmsHgya5rrCY72kAgABIIgCAAZaQsIAABuWAgAAbtICAAA4BAIAAGr0AgADyX4CAAJaigIARxG9A
-Date: Mon, 18 Dec 2023 02:54:11 +0000
-Message-ID: <PH0PR11MB58304128E1F6FCE3A2F0D0C2D890A@PH0PR11MB5830.namprd11.prod.outlook.com>
-References: <20231203165129.1740512-1-yoong.siang.song@intel.com>
- <20231203165129.1740512-3-yoong.siang.song@intel.com>
- <43b01013-e78b-417e-b169-91909c7309b1@kernel.org>
- <656de830e8d70_2e983e294ca@willemb.c.googlers.com.notmuch>
- <PH0PR11MB583000826591093B98BA841DD885A@PH0PR11MB5830.namprd11.prod.outlook.com>
- <5a0faf8cc9ec3ab0d5082c66b909c582c8f1eae6.camel@siemens.com>
- <CAKH8qBuXL8bOYtfKKPS8y=KJqouDptyciCjr0wNKVHtNj6BmqA@mail.gmail.com>
- <656f66023f7bd_3dd6422942a@willemb.c.googlers.com.notmuch>
- <ZW98UW033wCy9vI-@google.com>
- <CAJ8uoz3_XqavGt1DyFoQAuKS8Faa1Lc85b2t+whc-f6GN1Pvzw@mail.gmail.com>
- <ZXDGHThTynXbSTJG@google.com>
-In-Reply-To: <ZXDGHThTynXbSTJG@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB5830:EE_|BL1PR11MB5528:EE_
-x-ms-office365-filtering-correlation-id: 2dc24c3e-3f04-4476-5ae2-08dbff749ced
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: msQ9AkAvZ4o9AjqMN+K20FY56YKiuccYBpY5I5ye+l4g/k+EvdaLIjfN3Txg2EWUYdRHoqRijpLsIjFywhw0ceR9RkwgdHgm9cxF1ywD3kCBCLnqo+CH7UCccEWeKRI0rXnQdgtdOwmNaLnYgDm18B8byRdWMlGbZaGpN1XjsW+BNOxVYeXQozDOrL1a0S+kvjxsA5n3SQr/sPw575AGeZjywdAGB1ssy/kWk72/YVGxYCj4HU3DtzZFfqxvosWr1IV6R1iFcYlxzOR/3m4QSvtatU5auRy13htGw0MDgK/68RszBxehx6OtTi0c9FAQsxb7YqLFyinJQSTqs8wRDIK3kUSvRjI7b70ZEsfCvYpXObCQDR7Q7x9HS2pnBq0FA4VrrVWAfjQd0Fh6JgZNX3LhGwhkppgXbMXLMlgk/PyIVna9/NNZiKyEwXu6mr+VSFYaLRyl/gKQVmhaUdLLUcGEApbI7Fuo2sX5WScr7pmXhpQQ0J8rLkJ8KKRbqTI1GV7WWSCQU7V4iqd1CMr2dyqzoJZX0eTqNr82rO37LWUBRun+oD05Mj41PCZb41Bkbs/Iq1LDs9GNXuDXaxppX3AcT0klaJSKGIgZO1iutn8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB5830.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(39860400002)(396003)(136003)(376002)(366004)(346002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(71200400001)(26005)(122000001)(38100700002)(8676002)(5660300002)(316002)(66946007)(4326008)(52536014)(41300700001)(4744005)(7406005)(7416002)(2906002)(478600001)(966005)(6506007)(7696005)(9686003)(8936002)(54906003)(64756008)(66446008)(66476007)(66556008)(76116006)(110136005)(33656002)(86362001)(82960400001)(38070700009)(55016003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b1E4cGRIcC9XSzBHbFdob0ZIdTZXWkN4Njdod1ZLeCt3NGFLZDJIbVIwN1BF?=
- =?utf-8?B?a09mY0QrT0srZXMwUExZTjV0UTdCbUNSc2V5bnRmMTRzWFNqQjBDS3lpL1Bz?=
- =?utf-8?B?TUQvODNUT2VJWG5mRzZsMUh0aWxhOURZaVpyeGVDVEFGbmJQUkZOWFA5bFd4?=
- =?utf-8?B?VDhSc3JGK25LdTZXNjIxKzRkODFDbkR4eDBvMFpqbnBFcytEYXV0NVdaMllY?=
- =?utf-8?B?NEQ5Mm0vaFhDeXRDcEJESndRaFFTa1F4c2FvV2kzTXlhY21jbERPbGxpUjV0?=
- =?utf-8?B?MFo1bW11NFVtUHIzTkdDbjk1d0JNS2pNYkRsQjZIS3JpK1A4V1hQRlZBWGc3?=
- =?utf-8?B?QlFQKzQxeW1oWHJ6MVdLVTFGZXNLOEV1WDZYOEY4WUoyVVBxMUlMRldWRm95?=
- =?utf-8?B?RDE5MVBWc3Q2NlR4dkdhNVIxMHFlcWJCWGE2by9nWHhVN0ZNVTFVNE5qRUhu?=
- =?utf-8?B?b21DV0RBMjQ4T0tOM0NHY3RNcS9TOU10cStOMlNuTkx5RGljT2xSNE1MMTFh?=
- =?utf-8?B?dnl1YjRGd2lkcWdRL3VOY3ZxSnFpQklTYjdyVnVseGJ2cnpZN2RYeTFwOHBC?=
- =?utf-8?B?dDN4enlWZHBjdGphWEJWUVo5WCtKd2UxNFY0bnJ2bkVVK0lydXoxelVyZXB3?=
- =?utf-8?B?aC92ZnV4Z1hqdUN4ajF1cXlPZ2pZSm1JbFVxWnROQ0lCQS9xdVpHZnFxMnpL?=
- =?utf-8?B?MkFYV3R0ZXhnOUtvaXYxVjAzTDRSWmFmUmJqdzlIRURhUzhnOXo4cm5jSHlX?=
- =?utf-8?B?REpFTUdJMDhPeXVaUTcwSUxZZXFjU0lvdGxCL2M4QTYzaEFwaWkzNG0zZDlJ?=
- =?utf-8?B?ejQ5dkV6S3p2RmUrbFQwMnVVRHpUSVlIWit5bW9iUFZRSCswY2ptazVwYUQw?=
- =?utf-8?B?dUFLZ1FIaVV0YW1PN05GclhzRGV3WHVpNDRoK0FtemhyU0NwSWJhMnBEZ1c1?=
- =?utf-8?B?cWExL2lYUk9ydTU1WHFtcHFzbXF4UmJWM0MzcEtSN0d1ZkV6M0xNQ1N2YTlR?=
- =?utf-8?B?eFMvWEdBQUZ3bzJtQkp2c0xOc2ZjR1ZaWVNCVUpMMTRSZEkyRWt4OFVFTXB4?=
- =?utf-8?B?NC9zb1MrRXhtZ1VxODZNNnFzOWlSZUJ5dVJmdjB5aW9HdWN4S2x3MEoyUnJI?=
- =?utf-8?B?K0QxNG5YeEUvcTV2R0JWWGhMSXpSNkQxbStKMi80MDlqN1V0WFBIYUlOL2dl?=
- =?utf-8?B?bmF0cEZhZ3hlb2VEbkpHWUpJSUwrNEdHZ0ZORXJud1l6ZHNkNGVjNDArWlFI?=
- =?utf-8?B?WW5ld05WSDloVlBiMVpDbTFmWlJBbnVUS3E4S0dnaFhpbENtYTlKVTIwTWE1?=
- =?utf-8?B?WnBmOHdrSmJlMzBpNkJzQVF0Q1cxem5CUkZ0T0FEMDFFZGsvbncwTXRzMXQ1?=
- =?utf-8?B?TUFzWkRRSm56dG1VYndBUEVNZFdtblNVUWczZ1JFRXJaT2NxUldiZUc3eENv?=
- =?utf-8?B?MVZtS0c2VW1RWkdpOEJIc0ROd1NmNlhscWFzekYxSzBUSVRtR2tNMnJEY0o4?=
- =?utf-8?B?V0pxZ09QZlJKa0U0WDVDclA2TjJucVlDblB6dmJCVGtNRkRDcnBmOC8zaGdx?=
- =?utf-8?B?S0JqbTVxR0lCbldBV21MMFdERG10K2Zob2lEdWdHZkNUUXJwNGl6NGRqQ1Vi?=
- =?utf-8?B?eERYazZXc3ZXKy9ZWTlTTG1Wamt0WUdKcWkyVy9pUlNUczZhOEs3TElVTXNM?=
- =?utf-8?B?WDRYMW5kR3lXSjNWTDNKQy9TTzZaR3Vqemp3eWNNQ21PUi9WRkN6MWVRaDFE?=
- =?utf-8?B?ck1tbU94c1VLQ084dHArclEyWUc1UWJsRkcwa3NUb2N2SGlSQ01CSEZvRlpv?=
- =?utf-8?B?dWsvcUcrSjU3eUR2TTVkbzhjZDRKQWhvY0JlWlY2bG1lSTg5YkVRYklhTm9H?=
- =?utf-8?B?RHBkSlpHR2NNM3dScFk4YnZKR2RKZmxlSlpYZFVrTDJ5c2U4VUR6T3pmUUMz?=
- =?utf-8?B?R0lWOUQvWjdOMzNnQytOU1ovYnVtNDRGTERXdUNwMFRWQ05VUWhnb1J3MS9L?=
- =?utf-8?B?Q3VCOUVjMENUQW00Y0Rha0dwS2VVeEJXeXV0QnBvUFNCeEYyVnExNzBrYis5?=
- =?utf-8?B?K1hlT3M2a1FMTGdhT1pLNG1sb3owNlRmeFhyV0hLMlJFWm5uQjFsWElCZFRh?=
- =?utf-8?B?SGxyWExoZ2xxZE4wODNVcXFiVU5WcXgyTzRwYWdpaFd4eUhjS29OUFBHRHdx?=
- =?utf-8?B?dmc9PQ==?=
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB5830.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2dc24c3e-3f04-4476-5ae2-08dbff749ced
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Dec 2023 02:54:11.6780 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CAZ1gjs/f3qvlP+T5hjsBukXGP+z5cBuzDkmyLQ9ZT2AFZRSP5H09gNds8E4u/+djERgWtlpSVVadDWstjwCpY58PLnj1z0mIT+w+/TcnNg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5528
-X-OriginatorOrg: intel.com
-Cc: "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "Bezdeka, Florian" <florian.bezdeka@siemens.com>,
- Alexei Starovoitov <ast@kernel.org>, Song Liu <song@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Yonghong Song <yonghong.song@linux.dev>,
- Shuah Khan <shuah@kernel.org>, Jiri Olsa <jolsa@kernel.org>, Mykola
- Lysenko <mykolal@fb.com>,
- "xdp-hints@xdp-project.net" <xdp-hints@xdp-project.net>, Daniel
- Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Jose Abreu <joabreu@synopsys.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Fri, 15 Dec 2023 20:48:11 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-40c6736d10fso13220185e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 15 Dec 2023 12:48:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=jrtc27.com; s=gmail.jrtc27.user; t=1702673290; x=1703278090;
+ darn=st-md-mailman.stormreply.com; 
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XkbA3FPlNo1r+U6O6Ao4SqV6N3qGQHbqxTmiKmAK7ww=;
+ b=i+8QfayZKBHD/jIagGntaBp2X76rMc8OE/rJPX72+uhKgls+XQlK6brYWly1mOEqxE
+ ZuWKtBp9m6hMWiuSzB5owFLmJkoYS2xaHBghQdsoH9uWrbUF6cJLqN7cxyOtpgS/Tni+
+ UUOjgrhsb2OsbGRH3gKyvhT3oTz9RTTDD9YtRIKx5yMFqYv4RMdUlNP6ECFVQmux1zEM
+ qKh18fsY11aOEPZm6GYHNRJ3twLy6LMZaBPhPX7J/eSvARaM6iiguU/HoZqTKHowiNjs
+ DyPb6B6ny+fo/JfkTB7Cus8K70XahFR/4fZk/IBb6ivoLargsVI07O3cWfjS9fajea+T
+ 514Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1702673290; x=1703278090;
+ h=to:references:message-id:content-transfer-encoding:cc:date
+ :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XkbA3FPlNo1r+U6O6Ao4SqV6N3qGQHbqxTmiKmAK7ww=;
+ b=Od9WmnWVnG/0F+tiJ2pnwF8Rn9wWVnxr5EJRpzUi+m6Sf8xJ2Ol//4xzLaKPLHEMfK
+ Wmf9/Nttd7A7CnnoZdH2QlGouwUZx/2IPX/Q+ZxV4GCNm+Od6TYrjbejR5JeOz7UcQoy
+ hz1209IxhMu0wubWznr1Ht8LcSsm5lg18Yh7D9LfZd+Rymmw8PmELA3imd7GOQNUHpMH
+ F4lswcMEj1ftJb+ohTKBZnDAbpp2E92HSJ4V/TqFgdhcXPAnSfHOCjDHVkQyEnZI7XO0
+ Foq9600dYrg3V3LLitSQaixSmlgbfbr8k4QdyDgfeNM2r84eh0Eaw1k3prFx7jIiqUtt
+ uxMA==
+X-Gm-Message-State: AOJu0YxCqn+Ckt2Qp4ffqDl4G/VHyMND0yJEF6Vaf/iSFbUmvM+g4euP
+ xFLvtt55lm2xtA4wPveZM3sm5g==
+X-Google-Smtp-Source: AGHT+IHmyxYXA7TlsEHSBZ2x2Q3ZtE6ks/hZmTMZ9YZV6t1R+oDgMn/QNCqxM1cqDO/CM4Y9PqXh7w==
+X-Received: by 2002:a05:600c:808b:b0:40b:5e21:dd24 with SMTP id
+ ew11-20020a05600c808b00b0040b5e21dd24mr6411929wmb.82.1702673290406; 
+ Fri, 15 Dec 2023 12:48:10 -0800 (PST)
+Received: from smtpclient.apple ([131.111.5.246])
+ by smtp.gmail.com with ESMTPSA id
+ p8-20020a05600c358800b0040b40468c98sm31891322wmq.10.2023.12.15.12.48.09
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 15 Dec 2023 12:48:09 -0800 (PST)
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.200.91.1.1\))
+From: Jessica Clarke <jrtc27@jrtc27.com>
+In-Reply-To: <20231215204050.2296404-3-cristian.ciocaltea@collabora.com>
+Date: Fri, 15 Dec 2023 20:47:58 +0000
+Message-Id: <A7C96942-07CB-40FD-AAAA-4A8947DEE7CA@jrtc27.com>
+References: <20231215204050.2296404-1-cristian.ciocaltea@collabora.com>
+ <20231215204050.2296404-3-cristian.ciocaltea@collabora.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+X-Mailer: Apple Mail (2.3774.200.91.1.1)
+X-Mailman-Approved-At: Mon, 18 Dec 2023 07:52:59 +0000
+Cc: Emil Renner Berthing <kernel@esmil.dk>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-riscv <linux-riscv@lists.infradead.org>, kernel@collabora.com,
+ linux-clk@vger.kernel.org, Hal Feng <hal.feng@starfivetech.com>,
+ Jose Abreu <joabreu@synopsys.com>, Samin Guo <samin.guo@starfivetech.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>, "Fijalkowski,
- Maciej" <maciej.fijalkowski@intel.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
- KP Singh <kpsingh@kernel.org>, "Karlsson, Magnus" <magnus.karlsson@intel.com>,
- Hao Luo <haoluo@google.com>, Willem de Bruijn <willemb@google.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Tariq Toukan <tariqt@nvidia.com>, Bjorn Topel <bjorn@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Richard Cochran <richardcochran@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ LKML <linux-kernel@vger.kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "davem@davemloft.net" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [xdp-hints] Re: [PATCH bpf-next v3 2/3] net:
- stmmac: add Launch Time support to XDP ZC
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 2/9] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JH7100 SoC compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -196,21 +95,43 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi all,
-
-Fyi, I submitted a patch [1] to enable tx metadata for igc driver as a preparation to add launch time to it.
-After the patch is accepted, I will include igc driver in next version of launch time patch set.
-
-[1] https://patchwork.kernel.org/project/netdevbpf/patch/20231215162158.951925-1-yoong.siang.song@intel.com/
-
-Thanks & Regards
-Siang
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTUgRGVjIDIwMjMsIGF0IDIwOjQwLCBDcmlzdGlhbiBDaW9jYWx0ZWEgPGNyaXN0aWFuLmNp
+b2NhbHRlYUBjb2xsYWJvcmEuY29tPiB3cm90ZToKPiAKPiBUaGUgU3lub3BzeXMgRGVzaWduV2Fy
+ZSBNQUMgZm91bmQgb24gU3RhckZpdmUgSkg3MTAwIFNvQyBpcyBtb3N0bHkKPiBzaW1pbGFyIHRv
+IHRoZSBuZXdlciBKSDcxMTAsIGJ1dCBpdCByZXF1aXJlcyBvbmx5IHR3byBpbnRlcnJ1cHRzIGFu
+ZCBhCj4gc2luZ2xlIHJlc2V0IGxpbmUsIHdoaWNoIGlzICdhaGInIGluc3RlYWQgb2YgdGhlIGNv
+bW1vbmx5IHVzZWQKPiAnc3RtbWFjZXRoJy4KPiAKPiBTaW5jZSB0aGUgY29tbW9uIGJpbmRpbmcg
+J3NucHMsZHdtYWMnIGFsbG93cyBzZWxlY3RpbmcgJ2FoYicgb25seSBpbgo+IGNvbmp1bmN0aW9u
+IHdpdGggJ3N0bW1hY2V0aCcsIGV4dGVuZCB0aGUgbG9naWMgdG8gYWxzbyBwZXJtaXQgZXhjbHVz
+aXZlCj4gdXNhZ2Ugb2YgdGhlICdhaGInIHJlc2V0IG5hbWUuICBUaGlzIGVuc3VyZXMgdGhlIGZv
+bGxvd2luZyB1c2UgY2FzZXMgYXJlCj4gc3VwcG9ydGVkOgo+IAo+ICBKSDcxMTA6IHJlc2V0LW5h
+bWVzID0gInN0bW1hY2V0aCIsICJhaGIiOwo+ICBKSDcxMDA6IHJlc2V0LW5hbWVzID0gImFoYiI7
+Cj4gIG90aGVyOiAgcmVzZXQtbmFtZXMgPSAic3RtbWFjZXRoIjsKPiAKPiBBbHNvIG5vdGUgdGhl
+IG5lZWQgdG8gdXNlIGEgZGlmZmVyZW50IGR3bWFjIGZhbGxiYWNrLCBhcyB2NS4yMCBhcHBsaWVz
+Cj4gdG8gSkg3MTEwIG9ubHksIHdoaWxlIEpINzEwMCByZWxpZXMgb24gdjMuN3guCj4gCj4gU2ln
+bmVkLW9mZi1ieTogQ3Jpc3RpYW4gQ2lvY2FsdGVhIDxjcmlzdGlhbi5jaW9jYWx0ZWFAY29sbGFi
+b3JhLmNvbT4KPiAtLS0KPiAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc25wcyxkd21hYy55
+YW1sICAgfCAgMyArLQo+IC4uLi9iaW5kaW5ncy9uZXQvc3RhcmZpdmUsamg3MTEwLWR3bWFjLnlh
+bWwgICB8IDc0ICsrKysrKysrKysrKystLS0tLS0KPiAyIGZpbGVzIGNoYW5nZWQsIDU1IGluc2Vy
+dGlvbnMoKyksIDIyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9u
+L2RldmljZXRyZWUvYmluZGluZ3MvbmV0L3NucHMsZHdtYWMueWFtbCBiL0RvY3VtZW50YXRpb24v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvc25wcyxkd21hYy55YW1sCj4gaW5kZXggNWMyNzY5ZGM2
+ODlhLi5jMTM4MGZmMWMwNTQgMTAwNjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL25ldC9zbnBzLGR3bWFjLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbmV0L3NucHMsZHdtYWMueWFtbAo+IEBAIC05NSw2ICs5NSw3IEBAIHBy
+b3BlcnRpZXM6Cj4gICAgICAgICAtIHNucHMsZHdtYWMtNS4yMAo+ICAgICAgICAgLSBzbnBzLGR3
+eGdtYWMKPiAgICAgICAgIC0gc25wcyxkd3hnbWFjLTIuMTAKPiArICAgICAgICAtIHN0YXJmaXZl
+LGpoNzEwMC1kd21hYwo+ICAgICAgICAgLSBzdGFyZml2ZSxqaDcxMTAtZHdtYWMKPiAKPiAgIHJl
+ZzoKPiBAQCAtMTQ2LDcgKzE0Nyw3IEBAIHByb3BlcnRpZXM6Cj4gICByZXNldC1uYW1lczoKPiAg
+ICAgbWluSXRlbXM6IDEKPiAgICAgaXRlbXM6Cj4gLSAgICAgIC0gY29uc3Q6IHN0bW1hY2V0aAo+
+ICsgICAgICAtIGVudW06IFtzdG1tYWNldGgsIGFoYl0KPiAgICAgICAtIGNvbnN0OiBhaGIKCkni
+gJltIG5vdCBzbyB3ZWxsLXZlcnNlZCBpbiB0aGUgWUFNTCBiaW5kaW5ncywgYnV0IHdvdWxkIHRo
+aXMgbm90IGFsbG93CnJlc2V0LW5hbWVzID0gImFoYiIsICJhaGIiPwoKSmVzcwoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
