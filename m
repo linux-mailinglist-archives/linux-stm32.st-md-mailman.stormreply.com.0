@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D597814E02
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 18:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08256814E29
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 18:14:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37AC5C6DD6E;
-	Fri, 15 Dec 2023 17:10:45 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4509C6DD6D;
+	Fri, 15 Dec 2023 17:14:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4178C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECA0EC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 17:10:43 +0000 (UTC)
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1702660243;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Recusd+7IXvA5TirXIVteFQz/CPKIdbiblHLxPiaZxI=;
- b=aUResC8P3BrfQM2X1JaMPOmerJ/fL+xFTgQ0h+PlYjy/+qzzA8IU4zA12Gt2DftI4dwg90
- vDVGZp90lgsRPLWIJaLqvlEIAu3kxfLymGyseqWwuXB9632aXbrkR38hpACqjJj1/riXUX
- 0A/iuTlDhmkjhXwe1/7n280Ofy2fi2ViRE/SW5jv94TBqf6cioyCWs5oOhSTXAtqekLn/b
- bTWJbtbdM79zG5ankAAQEbXwm0xwcIXGQ/y6S8d8nP3PKyPNn0u2aoQVKwjPX3nep3lcjd
- dwFzEnrDiJye3KkRP9dGlHYEWCA71AVfUu/NFmTSzaFF4Y417CqofwsVhqnbXA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1702660243;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Recusd+7IXvA5TirXIVteFQz/CPKIdbiblHLxPiaZxI=;
- b=FII+fmLCYFU6/PJPm9PIVesU9ltySEE2RUfVan+2Gga/GlGuHcVIKzoQbPaWAZ6rho2K+9
- cvS7J2jl2aks+ACw==
-To: linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Date: Fri, 15 Dec 2023 18:07:42 +0100
-Message-ID: <20231215171020.687342-24-bigeasy@linutronix.de>
-In-Reply-To: <20231215171020.687342-1-bigeasy@linutronix.de>
-References: <20231215171020.687342-1-bigeasy@linutronix.de>
+ Fri, 15 Dec 2023 17:14:06 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BFEfQZm028431; Fri, 15 Dec 2023 18:13:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=EmFNRv3LoVGaci59g9h+fN2FkreeIA99LXaRAwQkDis=; b=fw
+ WY7QMm9y2J9BqlZgw1Gjtb+o+dYxNk+k6LUcHD2rb6emZrVf8VKPuuCVpdYheO7e
+ +Am366SCNznJJ8AwW84KBgnd4IU9J9KAF5FS99iPkqDXveQo5MYzy4j1aUdhu0oJ
+ C+Fl5TncBsTXJRrK3pB+IEbsLL+RtNC7/oaxlrLZZcL4omd1Rh8GXoojLht/6mgH
+ r1r4wcZDi7HNxj5dWKNJcMyIsIjEqZFFZl30vdCluRgPvlf/C3HaB0q8I8cVyEEW
+ iEGG7j9eftlHB5c3kqLKpJyd8VhCTmjGArGaqp1Hp7wcSXLZPzJ32rquIgHKyfzk
+ x/0DMfPfilFvHpq9eBZg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvehmu8pg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 15 Dec 2023 18:13:53 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1BE69100052;
+ Fri, 15 Dec 2023 18:13:53 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 11CD823BE1E;
+ Fri, 15 Dec 2023 18:13:53 +0100 (CET)
+Received: from [10.201.20.59] (10.201.20.59) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Dec
+ 2023 18:13:52 +0100
+Message-ID: <997c056e-c4e1-4bd8-9fcd-9f1b4bd45929@foss.st.com>
+Date: Fri, 15 Dec 2023 18:13:51 +0100
 MIME-Version: 1.0
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Alexei Starovoitov <ast@kernel.org>, Eric Dumazet <edumazet@google.com>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Jose Abreu <joabreu@synopsys.com>,
- Waiman Long <longman@redhat.com>, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Paolo Abeni <pabeni@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
- Ariel Elior <aelior@marvell.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>, Roger Quadros <rogerq@kernel.org>,
- Jassi Brar <jaswinder.singh@linaro.org>, Jakub Kicinski <kuba@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-omap@vger.kernel.org,
- Ravi Gunasekaran <r-gunasekaran@ti.com>, Ingo Molnar <mingo@redhat.com>,
- Manish Chopra <manishc@marvell.com>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, bpf@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 23/24] net: qlogic, socionext, stmmac,
-	cpsw: Use nested-BH locking for XDP redirect.
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: William Breathitt Gray <william.gray@linaro.org>
+References: <20230922143920.3144249-1-fabrice.gasnier@foss.st.com>
+ <20230922143920.3144249-6-fabrice.gasnier@foss.st.com>
+ <ZSnJR2yfYsBNHu/4@fedora>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <ZSnJR2yfYsBNHu/4@fedora>
+X-Originating-IP: [10.201.20.59]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-15_10,2023-12-14_01,2023-05-22_02
+Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 5/6] counter: stm32-timer-cnt: populate
+ capture channels and check encoder
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,97 +73,154 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlIHBlci1DUFUgdmFyaWFibGVzIHVzZWQgZHVyaW5nIGJwZl9wcm9nX3J1bl94ZHAoKSBpbnZv
-Y2F0aW9uIGFuZApsYXRlciBkdXJpbmcgeGRwX2RvX3JlZGlyZWN0KCkgcmVseSBvbiBkaXNhYmxl
-ZCBCSCBmb3IgdGhlaXIgcHJvdGVjdGlvbi4KV2l0aG91dCBsb2NraW5nIGluIGxvY2FsX2JoX2Rp
-c2FibGUoKSBvbiBQUkVFTVBUX1JUIHRoZXNlIGRhdGEgc3RydWN0dXJlCnJlcXVpcmUgZXhwbGlj
-aXQgbG9ja2luZy4KClRoaXMgaXMgYSBmb2xsb3ctdXAgb24gdGhlIHByZXZpb3VzIGNoYW5nZSB3
-aGljaCBpbnRyb2R1Y2VkCmJwZl9ydW5fbG9jay5yZWRpcmVjdF9sb2NrIGFuZCB1c2VzIGl0IG5v
-dyB3aXRoaW4gZHJpdmVycy4KClRoZSBzaW1wbGUgd2F5IGlzIHRvIGFjcXVpcmUgdGhlIGxvY2sg
-YmVmb3JlIGJwZl9wcm9nX3J1bl94ZHAoKSBpcwppbnZva2VkIGFuZCBob2xkIGl0IHVudGlsIHRo
-ZSBlbmQgb2YgZnVuY3Rpb24uClRoaXMgZG9lcyBub3QgYWx3YXlzIHdvcmsgYmVjYXVzZSBzb21l
-IGRyaXZlcnMgKGNwc3csIGF0bGFudGljKSBpbnZva2UKeGRwX2RvX2ZsdXNoKCkgaW4gdGhlIHNh
-bWUgY29udGV4dC4KQWNxdWlyaW5nIHRoZSBsb2NrIGluIGJwZl9wcm9nX3J1bl94ZHAoKSBhbmQg
-ZHJvcHBpbmcgaW4KeGRwX2RvX3JlZGlyZWN0KCkgKHdpdGhvdXQgdG91Y2hpbmcgZHJpdmVycykg
-ZG9lcyBub3Qgd29yayBiZWNhdXNlIG5vdAphbGwgZHJpdmVyLCB3aGljaCB1c2UgYnBmX3Byb2df
-cnVuX3hkcCgpLCBkbyBzdXBwb3J0IFhEUF9SRURJUkVDVCAoYW5kCmludm9rZSB4ZHBfZG9fcmVk
-aXJlY3QoKSkuCgpJZGVhbGx5IHRoZSBtaW5pbWFsIGxvY2tpbmcgc2NvcGUgd291bGQgYmUgYnBm
-X3Byb2dfcnVuX3hkcCgpICsKeGRwX2RvX3JlZGlyZWN0KCkgYW5kIGV2ZXJ5dGhpbmcgZWxzZSAo
-ZXJyb3IgcmVjb3ZlcnksIERNQSB1bm1hcHBpbmcsCmZyZWUvIGFsbG9jIG9mIG1lbW9yeSwg4oCm
-KSB3b3VsZCBoYXBwZW4gb3V0c2lkZSBvZiB0aGUgbG9ja2VkIHNlY3Rpb24uCgpDYzogQWxleGFu
-ZHJlIFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KQ2M6IEFsZXhlaSBTdGFy
-b3ZvaXRvdiA8YXN0QGtlcm5lbC5vcmc+CkNjOiBBcmllbCBFbGlvciA8YWVsaW9yQG1hcnZlbGwu
-Y29tPgpDYzogSWxpYXMgQXBhbG9kaW1hcyA8aWxpYXMuYXBhbG9kaW1hc0BsaW5hcm8ub3JnPgpD
-YzogSmFzc2kgQnJhciA8amFzd2luZGVyLnNpbmdoQGxpbmFyby5vcmc+CkNjOiBKZXNwZXIgRGFu
-Z2FhcmQgQnJvdWVyIDxoYXdrQGtlcm5lbC5vcmc+CkNjOiBKb2huIEZhc3RhYmVuZCA8am9obi5m
-YXN0YWJlbmRAZ21haWwuY29tPgpDYzogSm9zZSBBYnJldSA8am9hYnJldUBzeW5vcHN5cy5jb20+
-CkNjOiBNYW5pc2ggQ2hvcHJhIDxtYW5pc2hjQG1hcnZlbGwuY29tPgpDYzogTWF4aW1lIENvcXVl
-bGluIDxtY29xdWVsaW4uc3RtMzJAZ21haWwuY29tPgpDYzogUmF2aSBHdW5hc2VrYXJhbiA8ci1n
-dW5hc2VrYXJhbkB0aS5jb20+CkNjOiBSb2dlciBRdWFkcm9zIDxyb2dlcnFAa2VybmVsLm9yZz4K
-Q2M6IFNpZGRoYXJ0aCBWYWRhcGFsbGkgPHMtdmFkYXBhbGxpQHRpLmNvbT4KQ2M6IGJwZkB2Z2Vy
-Lmtlcm5lbC5vcmcKQ2M6IGxpbnV4LW9tYXBAdmdlci5rZXJuZWwub3JnCkNjOiBsaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tClNpZ25lZC1vZmYtYnk6IFNlYmFzdGlhbiBB
-bmRyemVqIFNpZXdpb3IgPGJpZ2Vhc3lAbGludXRyb25peC5kZT4KLS0tCiBkcml2ZXJzL25ldC9l
-dGhlcm5ldC9xbG9naWMvcWVkZS9xZWRlX2ZwLmMgICAgICAgIHwgIDEgKwogZHJpdmVycy9uZXQv
-ZXRoZXJuZXQvc29jaW9uZXh0L25ldHNlYy5jICAgICAgICAgICB8ICAxICsKIGRyaXZlcnMvbmV0
-L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMgfCAgMSArCiBkcml2ZXJzL25l
-dC9ldGhlcm5ldC90aS9jcHN3X3ByaXYuYyAgICAgICAgICAgICAgIHwgMTUgKysrKysrKysrLS0t
-LS0tCiA0IGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvcWxvZ2ljL3FlZGUvcWVkZV9mcC5jIGIv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvcWxvZ2ljL3FlZGUvcWVkZV9mcC5jCmluZGV4IGNiMTc0NmJj
-MGUwYzUuLmNlNWFmMDk0ZmI4MTcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3Fs
-b2dpYy9xZWRlL3FlZGVfZnAuYworKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9xbG9naWMvcWVk
-ZS9xZWRlX2ZwLmMKQEAgLTEwOTEsNiArMTA5MSw3IEBAIHN0YXRpYyBib29sIHFlZGVfcnhfeGRw
-KHN0cnVjdCBxZWRlX2RldiAqZWRldiwKIAl4ZHBfcHJlcGFyZV9idWZmKCZ4ZHAsIHBhZ2VfYWRk
-cmVzcyhiZC0+ZGF0YSksICpkYXRhX29mZnNldCwKIAkJCSAqbGVuLCBmYWxzZSk7CiAKKwlndWFy
-ZChsb2NhbF9sb2NrX25lc3RlZF9iaCkoJmJwZl9ydW5fbG9jay5yZWRpcmVjdF9sb2NrKTsKIAlh
-Y3QgPSBicGZfcHJvZ19ydW5feGRwKHByb2csICZ4ZHApOwogCiAJLyogUmVjYWxjdWxhdGUsIGFz
-IFhEUCBtaWdodCBoYXZlIGNoYW5nZWQgdGhlIGhlYWRlcnMgKi8KZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvbmV0L2V0aGVybmV0L3NvY2lvbmV4dC9uZXRzZWMuYyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3NvY2lvbmV4dC9uZXRzZWMuYwppbmRleCAwODkxZTllNDllY2I1Li40N2UzMTQzMzhmM2YzIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zb2Npb25leHQvbmV0c2VjLmMKKysrIGIv
-ZHJpdmVycy9uZXQvZXRoZXJuZXQvc29jaW9uZXh0L25ldHNlYy5jCkBAIC05MDUsNiArOTA1LDcg
-QEAgc3RhdGljIHUzMiBuZXRzZWNfcnVuX3hkcChzdHJ1Y3QgbmV0c2VjX3ByaXYgKnByaXYsIHN0
-cnVjdCBicGZfcHJvZyAqcHJvZywKIAlpbnQgZXJyOwogCXUzMiBhY3Q7CiAKKwlndWFyZChsb2Nh
-bF9sb2NrX25lc3RlZF9iaCkoJmJwZl9ydW5fbG9jay5yZWRpcmVjdF9sb2NrKTsKIAlhY3QgPSBi
-cGZfcHJvZ19ydW5feGRwKHByb2csIHhkcCk7CiAKIAkvKiBEdWUgeGRwX2FkanVzdF90YWlsOiBE
-TUEgc3luYyBmb3JfZGV2aWNlIGNvdmVyIG1heCBsZW4gQ1BVIHRvdWNoICovCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jIGIvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwppbmRleCAzN2U2
-NDI4M2Y5MTA3Li45ZTkyYWZmYzhjMjJjIDEwMDY0NAotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0
-L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKQEAgLTQ4OTMsNiArNDg5Myw3IEBAIHN0YXRp
-YyBpbnQgX19zdG1tYWNfeGRwX3J1bl9wcm9nKHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiwKIAl1
-MzIgYWN0OwogCWludCByZXM7CiAKKwlndWFyZChsb2NhbF9sb2NrX25lc3RlZF9iaCkoJmJwZl9y
-dW5fbG9jay5yZWRpcmVjdF9sb2NrKTsKIAlhY3QgPSBicGZfcHJvZ19ydW5feGRwKHByb2csIHhk
-cCk7CiAJc3dpdGNoIChhY3QpIHsKIAljYXNlIFhEUF9QQVNTOgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9uZXQvZXRoZXJuZXQvdGkvY3Bzd19wcml2LmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC90aS9j
-cHN3X3ByaXYuYwppbmRleCA3NjRlZDI5OGI1NzA4Li5mMzhjNDlmOWZhYjM1IDEwMDY0NAotLS0g
-YS9kcml2ZXJzL25ldC9ldGhlcm5ldC90aS9jcHN3X3ByaXYuYworKysgYi9kcml2ZXJzL25ldC9l
-dGhlcm5ldC90aS9jcHN3X3ByaXYuYwpAQCAtMTMzNSw5ICsxMzM1LDE1IEBAIGludCBjcHN3X3J1
-bl94ZHAoc3RydWN0IGNwc3dfcHJpdiAqcHJpdiwgaW50IGNoLCBzdHJ1Y3QgeGRwX2J1ZmYgKnhk
-cCwKIAlpZiAoIXByb2cpCiAJCXJldHVybiBDUFNXX1hEUF9QQVNTOwogCi0JYWN0ID0gYnBmX3By
-b2dfcnVuX3hkcChwcm9nLCB4ZHApOwotCS8qIFhEUCBwcm9nIG1pZ2h0IGhhdmUgY2hhbmdlZCBw
-YWNrZXQgZGF0YSBhbmQgYm91bmRhcmllcyAqLwotCSpsZW4gPSB4ZHAtPmRhdGFfZW5kIC0geGRw
-LT5kYXRhOworCXNjb3BlZF9ndWFyZChsb2NhbF9sb2NrX25lc3RlZF9iaCwgJmJwZl9ydW5fbG9j
-ay5yZWRpcmVjdF9sb2NrKSB7CisJCWFjdCA9IGJwZl9wcm9nX3J1bl94ZHAocHJvZywgeGRwKTsK
-KwkJLyogWERQIHByb2cgbWlnaHQgaGF2ZSBjaGFuZ2VkIHBhY2tldCBkYXRhIGFuZCBib3VuZGFy
-aWVzICovCisJCSpsZW4gPSB4ZHAtPmRhdGFfZW5kIC0geGRwLT5kYXRhOworCQlpZiAoYWN0ID09
-IFhEUF9SRURJUkVDVCkgeworCQkJaWYgKHhkcF9kb19yZWRpcmVjdChuZGV2LCB4ZHAsIHByb2cp
-KQorCQkJCWdvdG8gZHJvcDsKKwkJfQorCX0KIAogCXN3aXRjaCAoYWN0KSB7CiAJY2FzZSBYRFBf
-UEFTUzoKQEAgLTEzNTIsOSArMTM1OCw2IEBAIGludCBjcHN3X3J1bl94ZHAoc3RydWN0IGNwc3df
-cHJpdiAqcHJpdiwgaW50IGNoLCBzdHJ1Y3QgeGRwX2J1ZmYgKnhkcCwKIAkJCXhkcF9yZXR1cm5f
-ZnJhbWVfcnhfbmFwaSh4ZHBmKTsKIAkJYnJlYWs7CiAJY2FzZSBYRFBfUkVESVJFQ1Q6Ci0JCWlm
-ICh4ZHBfZG9fcmVkaXJlY3QobmRldiwgeGRwLCBwcm9nKSkKLQkJCWdvdG8gZHJvcDsKLQogCQkv
-KiAgSGF2ZSB0byBmbHVzaCBoZXJlLCBwZXIgcGFja2V0LCBpbnN0ZWFkIG9mIGRvaW5nIGl0IGlu
-IGJ1bGsKIAkJICogIGF0IHRoZSBlbmQgb2YgdGhlIG5hcGkgaGFuZGxlci4gVGhlIFJYIGRldmlj
-ZXMgb24gdGhpcwogCQkgKiAgcGFydGljdWxhciBoYXJkd2FyZSBpcyBzaGFyaW5nIGEgY29tbW9u
-IHF1ZXVlLCBzbyB0aGUKLS0gCjIuNDMuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 10/14/23 00:48, William Breathitt Gray wrote:
+> On Fri, Sep 22, 2023 at 04:39:19PM +0200, Fabrice Gasnier wrote:
+>> This is a precursor patch to support capture channels on all possible
+>> channels and stm32 timer types. Original driver was intended to be used
+>> only as quadrature encoder and simple counter on internal clock.
+>>
+>> So, add ch3 and ch4 definition. Also add a check on encoder capability,
+>> so the driver may be probed for timer instances without encoder feature.
+>> This way, all timers may be used as simple counter on internal clock,
+>> starting from here.
+> 
+> Hi Fabrice,
+> 
+> Let's split the encoder capability probing code, detect number of
+> channels code, and channel introduction code to their own patches in
+> order to simplify things.
+> 
+>> Encoder capability is retrieved by using the timer index (originally in
+>> stm32-timer-trigger driver and dt-bindings). The need to keep backward
+>> compatibility with existing device tree lead to parse aside trigger node.
+>> Add diversity as STM32 timers with capture feature may have either 4, 2,
+>> 1 or no cc (capture/compare) channels.
+>>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> 
+> I think this patch is more complicated than it needs to be.
+> 
+>> @@ -400,13 +558,47 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
+>>  	priv->clk = ddata->clk;
+>>  	priv->max_arr = ddata->max_arr;
+>>  
+>> +	ret = stm32_timer_cnt_probe_encoder(pdev, priv);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	stm32_timer_cnt_detect_channels(pdev, priv);
+>> +
+>>  	counter->name = dev_name(dev);
+>>  	counter->parent = dev;
+>>  	counter->ops = &stm32_timer_cnt_ops;
+>> -	counter->counts = &stm32_counts;
+>>  	counter->num_counts = 1;
+>> -	counter->signals = stm32_signals;
+>> -	counter->num_signals = ARRAY_SIZE(stm32_signals);
+> 
+> Keep this the same.
+> 
+>> +
+>> +	/*
+>> +	 * Handle diversity for stm32 timers features. For now encoder is found with
+>> +	 * advanced timers or gp timers with 4 channels. Timers with less channels
+>> +	 * doesn't support encoder.
+>> +	 */
+>> +	switch (priv->nchannels) {
+>> +	case 4:
+>> +		if (priv->has_encoder)
+>> +			counter->counts = &stm32_counts_enc_4ch;
+>> +		else
+>> +			counter->counts = &stm32_counts_4ch;
+>> +		counter->signals = stm32_signals;
+>> +		counter->num_signals = ARRAY_SIZE(stm32_signals);
+>> +		break;
+>> +	case 2:
+>> +		counter->counts = &stm32_counts_2ch;
+>> +		counter->signals = stm32_signals;
+>> +		counter->num_signals = 3; /* clock, ch1 and ch2 */
+>> +		break;
+>> +	case 1:
+>> +		counter->counts = &stm32_counts_1ch;
+>> +		counter->signals = stm32_signals;
+>> +		counter->num_signals = 2; /* clock, ch1 */
+>> +		break;
+>> +	default:
+>> +		counter->counts = &stm32_counts;
+>> +		counter->signals = stm32_signals;
+>> +		counter->num_signals = 1; /* clock */
+>> +		break;
+>> +	}
+> 
+> Rather than adjusting the number of counts and signals, keep the
+> configuration static and use a single stm32_counts array. The reason is
+> that in the Counter subsystem paradigm Signals do not necessary
+> correlate to specific hardware signals but are rather an abstract
+> representation of the device behavior at a high level. In other words, a
+> Synapse with an action mode set to COUNTER_SYNAPSE_ACTION_NONE can be
+> viewed as representing a Signal that does not affect the Count (i.e. in
+> this case equivalent to an unconnected line).
+> 
+> What you'll need to do instead is check priv->nchannels during
+> stm32_action_read and stm32_count_function_read calls in order to return
+> the correct synapse action and count function for the particular
+> channels configuration you have. In stm32_count_function_write you would
+> return an -EINVAL (maybe -EOPNOTSUPP would be better?) when the channels
+> configuration does not support a particular count function.
+
+Hi William,
+
+Sorry for the long delay to address your comments here. Many thanks for
+these guidelines.
+
+I'm preparing a v3, to address these. I'll probably send it soon, so we
+can start to review also the capture part of it. Still there are few
+things here I'm wondering about (as an anticipation task).
+
+Basically, removing all the diversity here means the most featured timer
+model will be represented here (with all possible signals).
+When I wrote the various configuration arrays, I'd have been tempted to
+allocate them dynamically upon probing to avoid having all these
+variants described as const arrays. This may have eased other signals
+additions later. But that's not the direction. So, this simplifies the
+description here, clearly, to describe the full-featured timer/counter,
+and handle the ("unconnected") variants by returning errors.
+
+I still have in mind the replacement of the last IIO_COUNT device [1]
+(not addressed in this series), e.g. in
+drivers/iio/trigger/stm32-timer-trigger.c. Here, there are
+"valids_table" that are used to cascade two timers (one timer output
+being the input to another timer). With this table currently, an IIO
+user knows the name of the signal it selects (then the driver looks up
+the 'valids' table to set SMCR / TS bits, e.g. trigger select). Each
+individual timer has a different input mapping, so called peripheral
+interconnect in STM32.
+What bothers me here is: with an abstracted full-featured timer, without
+any diversity on the signal names, I fear the userland has no clue on
+which signal would be used. Abstracting the timer this way would mean
+the user only knows it selects "Internal Trigger 0" for example, without
+knowing which internal signal in the SoC it has selected.
+
+Even if this is out of scope for this series, would you have some clue
+so I can anticipate it ? Or if we stick with abstract names? In which
+case the userland may need to be aware of the signals mapping (where
+currently in IIO_COUNT driver, the signal names are privided). I'd be
+glad to get some direction here.
+
+Please advise,
+Best Regards,
+Fabrice
+
+[1] https://lore.kernel.org/linux-arm-kernel/Y0vzlOmFrVCQVXMq@fedora/
+
+> 
+> William Breathitt Gray
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
