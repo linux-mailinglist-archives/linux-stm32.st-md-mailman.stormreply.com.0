@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4BFB81517B
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 22:00:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 032D281518B
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 22:03:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6445BC6DD6D;
-	Fri, 15 Dec 2023 21:00:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4C57C6DD6D;
+	Fri, 15 Dec 2023 21:03:28 +0000 (UTC)
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3D71C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD83CC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 21:00:02 +0000 (UTC)
+ Fri, 15 Dec 2023 21:03:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1702674002;
- bh=XmjdsnypmM0sVMOODNg7bU4x4gIm/6EultPACYo535g=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=STVO7dLPIsVi6rpyepTxq9ZaRTHmDDoUxqtPx0GKDDsoI6kKYuT5kVY9Ej1rdZ31z
- 7skxZyTGnWDhXRx3ivcTrWcTn9pS4jn15bf5IuuHF7TKOhf7CjaCQAsFLUqgG+OQw3
- TmbB7SYbpCKErLSC8pj0EX7CX9QLnILzsRBE/ohiUJbIFE1IMg/cjGBGPtPajrXG4f
- sNECYsMCQOlfv1P7YiowMjwE7S+4WEgZ3Ta/BBENvi3lzY5/pUGpbmzJcRRt17LLTu
- pvJjE5GpakAoU7lTRzhh1ydC3vC2/ToA4s4IC0aoo60dOSNzUN2jT4plhHgrw2rMwr
- McF7U6Ymc8nDQ==
+ s=mail; t=1702674207;
+ bh=fWUcyTSvl9HkzhbEm2R9p6yElA555rA8toz5mjYvtR8=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Fs/HaoOn6SjZTGGcdUHfgvof1ag/gLuno1cJmOXOX8v2Mr/oGxLTYh8xd4Ju11DlS
+ 07D2Y6ZaCj9MasIAmOM5lRGp7y1k1osx5lCBzcihDN0lI0oD6WYloE6Ah132R2CDwN
+ ExwWYzVW6REs3ogTVC7ys8oxbR+B8Wq5LhBmWRqHVdkU29ZkHwm6U1JwIkIwZEFiDB
+ 0mHdZeUJsAv5xtXJO89pm1Xu3lRCb8332T86FidfU/XlTkDU/jcVul2g9PScZVabG8
+ xL3yhH+JzwcZOxVKRCi+CDz1pkSzJxElChYxhgcaPDo4hO/LLydHjz0sPzX3gEc7mk
+ P4XKIW1PNHMlQ==
 Received: from [100.115.223.179] (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: cristicc)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 6EFBA3781FD5;
- Fri, 15 Dec 2023 21:00:00 +0000 (UTC)
-Message-ID: <a9a3a7c5-7ee9-4b28-9abb-f1194054dfef@collabora.com>
-Date: Fri, 15 Dec 2023 23:00:00 +0200
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 354E83781FD5;
+ Fri, 15 Dec 2023 21:03:25 +0000 (UTC)
+Message-ID: <6c62e3b2-acde-4580-9b67-56683289e45e@collabora.com>
+Date: Fri, 15 Dec 2023 23:03:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Jessica Clarke <jrtc27@jrtc27.com>
+To: Samuel Holland <samuel.holland@sifive.com>,
+ Jessica Clarke <jrtc27@jrtc27.com>
 References: <20231215204050.2296404-1-cristian.ciocaltea@collabora.com>
  <20231215204050.2296404-3-cristian.ciocaltea@collabora.com>
  <A7C96942-07CB-40FD-AAAA-4A8947DEE7CA@jrtc27.com>
- <491f1a89-aabd-4c38-b33a-a298add1bdb3@collabora.com>
-In-Reply-To: <491f1a89-aabd-4c38-b33a-a298add1bdb3@collabora.com>
+ <65fd52f1-6861-42b0-9148-266766d054b1@sifive.com>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <65fd52f1-6861-42b0-9148-266766d054b1@sifive.com>
 Cc: Emil Renner Berthing <kernel@esmil.dk>,
  Michael Turquette <mturquette@baylibre.com>,
  Eric Dumazet <edumazet@google.com>,
@@ -78,8 +79,8 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTIvMTUvMjMgMjI6NTYsIENyaXN0aWFuIENpb2NhbHRlYSB3cm90ZToKPiBPbiAxMi8xNS8y
-MyAyMjo0NywgSmVzc2ljYSBDbGFya2Ugd3JvdGU6Cj4+IE9uIDE1IERlYyAyMDIzLCBhdCAyMDo0
+T24gMTIvMTUvMjMgMjI6NTksIFNhbXVlbCBIb2xsYW5kIHdyb3RlOgo+IE9uIDIwMjMtMTItMTUg
+Mjo0NyBQTSwgSmVzc2ljYSBDbGFya2Ugd3JvdGU6Cj4+IE9uIDE1IERlYyAyMDIzLCBhdCAyMDo0
 MCwgQ3Jpc3RpYW4gQ2lvY2FsdGVhIDxjcmlzdGlhbi5jaW9jYWx0ZWFAY29sbGFib3JhLmNvbT4g
 d3JvdGU6Cj4+Pgo+Pj4gVGhlIFN5bm9wc3lzIERlc2lnbldhcmUgTUFDIGZvdW5kIG9uIFN0YXJG
 aXZlIEpINzEwMCBTb0MgaXMgbW9zdGx5Cj4+PiBzaW1pbGFyIHRvIHRoZSBuZXdlciBKSDcxMTAs
@@ -113,14 +114,11 @@ bXM6IDEKPj4+ICAgICBpdGVtczoKPj4+IC0gICAgICAtIGNvbnN0OiBzdG1tYWNldGgKPj4+ICsg
 ICAgICAtIGVudW06IFtzdG1tYWNldGgsIGFoYl0KPj4+ICAgICAgIC0gY29uc3Q6IGFoYgo+Pgo+
 PiBJ4oCZbSBub3Qgc28gd2VsbC12ZXJzZWQgaW4gdGhlIFlBTUwgYmluZGluZ3MsIGJ1dCB3b3Vs
 ZCB0aGlzIG5vdCBhbGxvdwo+PiByZXNldC1uYW1lcyA9ICJhaGIiLCAiYWhiIj8KPiAKPiBZZXMs
-IGFzIEkgYWxyZWFkeSBwb2ludGVkIG91dCBpbiBbMV0sIEkgd2Fzbid0IGFibGUgdG8gY29tZSB1
-cCB3aXRoIGEKPiBwcm9wZXIgc29sdXRpb24gdG8gYXZvaWQgdGhhdC4KClNvcnJ5LCBJJ3ZlIHNl
-bnQgdGhlIHByZXZpb3VzIGVtYWlsIHRvbyBlYXJseS4uCgpbMV06IGh0dHBzOi8vbG9yZS5rZXJu
-ZWwub3JnL2xrbWwvNTY0NTAzZGQtYjc3OS00ZTlmLTg1MWQtZjM0ZDllYTVmYTY1QGNvbGxhYm9y
-YS5jb20vCgo+IFRoYW5rcywKPiBDcmlzdGlhbgo+IAo+PiBKZXNzCj4+Cj4gCj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBsaW51eC1yaXNjdiBtYWls
-aW5nIGxpc3QKPiBsaW51eC1yaXNjdkBsaXN0cy5pbmZyYWRlYWQub3JnCj4gaHR0cDovL2xpc3Rz
-LmluZnJhZGVhZC5vcmcvbWFpbG1hbi9saXN0aW5mby9saW51eC1yaXNjdgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+IGl0IHdvdWxkLiBZb3UgbmVlZCBzb21ldGhpbmcgbGlrZToKPiAKPiByZXNldC1uYW1lczoKPiAg
+IG9uZU9mOgo+ICAgICAtIGVudW06IFtzdG1tYWNldGgsIGFoYl0KPiAgICAgLSBpdGVtczoKPiAg
+ICAgICAgIC0gY29uc3Q6IHN0bW1hY2V0aAo+ICAgICAgICAgLSBjb25zdDogYWhiCgpPaCB5ZXMs
+IEkgYWx3YXlzIGZvcmdldCBhYm91dCB0aGUgIm9uZU9mIiB0aGluZy4gVGhhbmtzIQoKPiBSZWdh
+cmRzLAo+IFNhbXVlbAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
