@@ -2,66 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08256814E29
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 18:14:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F190814FB1
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 19:28:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4509C6DD6D;
-	Fri, 15 Dec 2023 17:14:07 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB6C0C6DD6D;
+	Fri, 15 Dec 2023 18:27:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECA0EC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 452FAC6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 17:14:06 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ Fri, 15 Dec 2023 18:27:59 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BFEfQZm028431; Fri, 15 Dec 2023 18:13:53 +0100
+ 3BFFOjxN006697; Fri, 15 Dec 2023 19:27:46 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=EmFNRv3LoVGaci59g9h+fN2FkreeIA99LXaRAwQkDis=; b=fw
- WY7QMm9y2J9BqlZgw1Gjtb+o+dYxNk+k6LUcHD2rb6emZrVf8VKPuuCVpdYheO7e
- +Am366SCNznJJ8AwW84KBgnd4IU9J9KAF5FS99iPkqDXveQo5MYzy4j1aUdhu0oJ
- C+Fl5TncBsTXJRrK3pB+IEbsLL+RtNC7/oaxlrLZZcL4omd1Rh8GXoojLht/6mgH
- r1r4wcZDi7HNxj5dWKNJcMyIsIjEqZFFZl30vdCluRgPvlf/C3HaB0q8I8cVyEEW
- iEGG7j9eftlHB5c3kqLKpJyd8VhCTmjGArGaqp1Hp7wcSXLZPzJ32rquIgHKyfzk
- x/0DMfPfilFvHpq9eBZg==
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=selector1; bh=BjOqj4pPwqHC177zwB45U
+ ceMHy2woG5K27cvATFEIgQ=; b=xVG+9PPMP/NNfvHzLlg8bFX0nUwQRQagg6eHK
+ EymLJP1VCsqopbltlFV9CW89DE9+PN0LQyuUIBrgxYUe/5y/CCIm5Z3a+4OrKd42
+ uhy4bOUH3+/MzhXqUvF+GEpfUaP0fMaIkuOeUnSG+jUk5I/75fpc3+qMlkb3hZn3
+ EXAQoAhjalrA+V86WAV7vCKCkJoYCR2nH/g+lhBQDjCZ1v6ozi9VXkhi94PuLjFT
+ eUgb4pmOG0xrbxYzun2xw2fUZcPAPkYpz0j114FdGbZJmwkVQdjR1Q2MWPxJx/Qu
+ ++NcfFYImtxked1Z++nhgr2Fr2lif4O/I8xlAjwlJvaT7o2sg==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvehmu8pg-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3uvg0hapcu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Dec 2023 18:13:53 +0100 (CET)
+ Fri, 15 Dec 2023 19:27:46 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1BE69100052;
- Fri, 15 Dec 2023 18:13:53 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 11CD823BE1E;
- Fri, 15 Dec 2023 18:13:53 +0100 (CET)
-Received: from [10.201.20.59] (10.201.20.59) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 624B0100052;
+ Fri, 15 Dec 2023 19:27:45 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5928424C433;
+ Fri, 15 Dec 2023 19:27:45 +0100 (CET)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Dec
- 2023 18:13:52 +0100
-Message-ID: <997c056e-c4e1-4bd8-9fcd-9f1b4bd45929@foss.st.com>
-Date: Fri, 15 Dec 2023 18:13:51 +0100
+ 2023 19:27:45 +0100
+Date: Fri, 15 Dec 2023 19:27:39 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20231215182739.GA96945@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Mark Brown <broonie@kernel.org>,
+ Ben Wolsieffer <ben.wolsieffer@hefring.com>,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20231204202055.2895125-1-ben.wolsieffer@hefring.com>
+ <58897511-3187-4583-bf29-11871dd4d136@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: William Breathitt Gray <william.gray@linaro.org>
-References: <20230922143920.3144249-1-fabrice.gasnier@foss.st.com>
- <20230922143920.3144249-6-fabrice.gasnier@foss.st.com>
- <ZSnJR2yfYsBNHu/4@fedora>
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <ZSnJR2yfYsBNHu/4@fedora>
-X-Originating-IP: [10.201.20.59]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+Content-Disposition: inline
+In-Reply-To: <58897511-3187-4583-bf29-11871dd4d136@sirena.org.uk>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-12-15_10,2023-12-14_01,2023-05-22_02
-Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+Cc: linux-kernel@vger.kernel.org, Ben Wolsieffer <ben.wolsieffer@hefring.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 5/6] counter: stm32-timer-cnt: populate
- capture channels and check encoder
+Subject: Re: [Linux-stm32] [PATCH] spi: stm32: use runtime PM to
+	enable/disable controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,148 +83,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/14/23 00:48, William Breathitt Gray wrote:
-> On Fri, Sep 22, 2023 at 04:39:19PM +0200, Fabrice Gasnier wrote:
->> This is a precursor patch to support capture channels on all possible
->> channels and stm32 timer types. Original driver was intended to be used
->> only as quadrature encoder and simple counter on internal clock.
->>
->> So, add ch3 and ch4 definition. Also add a check on encoder capability,
->> so the driver may be probed for timer instances without encoder feature.
->> This way, all timers may be used as simple counter on internal clock,
->> starting from here.
-> 
-> Hi Fabrice,
-> 
-> Let's split the encoder capability probing code, detect number of
-> channels code, and channel introduction code to their own patches in
-> order to simplify things.
-> 
->> Encoder capability is retrieved by using the timer index (originally in
->> stm32-timer-trigger driver and dt-bindings). The need to keep backward
->> compatibility with existing device tree lead to parse aside trigger node.
->> Add diversity as STM32 timers with capture feature may have either 4, 2,
->> 1 or no cc (capture/compare) channels.
->>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> 
-> I think this patch is more complicated than it needs to be.
-> 
->> @@ -400,13 +558,47 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
->>  	priv->clk = ddata->clk;
->>  	priv->max_arr = ddata->max_arr;
->>  
->> +	ret = stm32_timer_cnt_probe_encoder(pdev, priv);
->> +	if (ret)
->> +		return ret;
->> +
->> +	stm32_timer_cnt_detect_channels(pdev, priv);
->> +
->>  	counter->name = dev_name(dev);
->>  	counter->parent = dev;
->>  	counter->ops = &stm32_timer_cnt_ops;
->> -	counter->counts = &stm32_counts;
->>  	counter->num_counts = 1;
->> -	counter->signals = stm32_signals;
->> -	counter->num_signals = ARRAY_SIZE(stm32_signals);
-> 
-> Keep this the same.
-> 
->> +
->> +	/*
->> +	 * Handle diversity for stm32 timers features. For now encoder is found with
->> +	 * advanced timers or gp timers with 4 channels. Timers with less channels
->> +	 * doesn't support encoder.
->> +	 */
->> +	switch (priv->nchannels) {
->> +	case 4:
->> +		if (priv->has_encoder)
->> +			counter->counts = &stm32_counts_enc_4ch;
->> +		else
->> +			counter->counts = &stm32_counts_4ch;
->> +		counter->signals = stm32_signals;
->> +		counter->num_signals = ARRAY_SIZE(stm32_signals);
->> +		break;
->> +	case 2:
->> +		counter->counts = &stm32_counts_2ch;
->> +		counter->signals = stm32_signals;
->> +		counter->num_signals = 3; /* clock, ch1 and ch2 */
->> +		break;
->> +	case 1:
->> +		counter->counts = &stm32_counts_1ch;
->> +		counter->signals = stm32_signals;
->> +		counter->num_signals = 2; /* clock, ch1 */
->> +		break;
->> +	default:
->> +		counter->counts = &stm32_counts;
->> +		counter->signals = stm32_signals;
->> +		counter->num_signals = 1; /* clock */
->> +		break;
->> +	}
-> 
-> Rather than adjusting the number of counts and signals, keep the
-> configuration static and use a single stm32_counts array. The reason is
-> that in the Counter subsystem paradigm Signals do not necessary
-> correlate to specific hardware signals but are rather an abstract
-> representation of the device behavior at a high level. In other words, a
-> Synapse with an action mode set to COUNTER_SYNAPSE_ACTION_NONE can be
-> viewed as representing a Signal that does not affect the Count (i.e. in
-> this case equivalent to an unconnected line).
-> 
-> What you'll need to do instead is check priv->nchannels during
-> stm32_action_read and stm32_count_function_read calls in order to return
-> the correct synapse action and count function for the particular
-> channels configuration you have. In stm32_count_function_write you would
-> return an -EINVAL (maybe -EOPNOTSUPP would be better?) when the channels
-> configuration does not support a particular count function.
+Hi,
 
-Hi William,
+sorry for the delay.
 
-Sorry for the long delay to address your comments here. Many thanks for
-these guidelines.
-
-I'm preparing a v3, to address these. I'll probably send it soon, so we
-can start to review also the capture part of it. Still there are few
-things here I'm wondering about (as an anticipation task).
-
-Basically, removing all the diversity here means the most featured timer
-model will be represented here (with all possible signals).
-When I wrote the various configuration arrays, I'd have been tempted to
-allocate them dynamically upon probing to avoid having all these
-variants described as const arrays. This may have eased other signals
-additions later. But that's not the direction. So, this simplifies the
-description here, clearly, to describe the full-featured timer/counter,
-and handle the ("unconnected") variants by returning errors.
-
-I still have in mind the replacement of the last IIO_COUNT device [1]
-(not addressed in this series), e.g. in
-drivers/iio/trigger/stm32-timer-trigger.c. Here, there are
-"valids_table" that are used to cascade two timers (one timer output
-being the input to another timer). With this table currently, an IIO
-user knows the name of the signal it selects (then the driver looks up
-the 'valids' table to set SMCR / TS bits, e.g. trigger select). Each
-individual timer has a different input mapping, so called peripheral
-interconnect in STM32.
-What bothers me here is: with an abstracted full-featured timer, without
-any diversity on the signal names, I fear the userland has no clue on
-which signal would be used. Abstracting the timer this way would mean
-the user only knows it selects "Internal Trigger 0" for example, without
-knowing which internal signal in the SoC it has selected.
-
-Even if this is out of scope for this series, would you have some clue
-so I can anticipate it ? Or if we stick with abstract names? In which
-case the userland may need to be aware of the signals mapping (where
-currently in IIO_COUNT driver, the signal names are privided). I'd be
-glad to get some direction here.
-
-Please advise,
-Best Regards,
-Fabrice
-
-[1] https://lore.kernel.org/linux-arm-kernel/Y0vzlOmFrVCQVXMq@fedora/
-
+On Thu, Dec 14, 2023 at 10:58:54AM +0000, Mark Brown wrote:
+> On Mon, Dec 04, 2023 at 03:20:55PM -0500, Ben Wolsieffer wrote:
+> > Instead of disabling the SPI controller between each message, do it
+> > as part of runtime PM.
 > 
-> William Breathitt Gray
+> This doesn't apply against current code, please check and resend.
+
+I rapidly gave a try on this patch on top of the spi/for-next branch
+(manually fixing the conflict due to the MASTER->HOST renaming).
+It turns out that with that applied, transfers on the MP13
+(compatible: st,stm32h7-spi) are not working anymore while simply
+removing it back it works again.
+(test is simply doing loopback spidev_test)
+
+spi mode: 0x0
+bits per word: 8
+max speed: 500000 Hz (500 kHz)
+TX | 8D D6 73 8B 9D 8B 1C 7D 8D 80 EC 32 F9 0D BA AD 9F 88 A5 9B 3F AA 48 8C 21 35 0D C1 C8 E5 6A 81  |..s....}...2........?.H.!5....j.|
+RX | 8D 00 00 00 D6 00 73 00 8B 00 00 00 9D 00 00 8B 1C 00 00 00 7D 00 00 8D F9 00 00 00 BA 00 00 00  |......s.............}...........|
+
+The RX data contains lots of 00 between each byte.  Moreover it seems
+that with this patch applied non-dma transfer (when there is no dmas
+properties within the node) are now failing.
+
+I'll check that and give more details but could you avoid applying this
+patch for the time being ?
+
+Thanks.
+Alain
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
