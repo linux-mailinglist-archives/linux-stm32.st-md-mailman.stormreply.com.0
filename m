@@ -2,73 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8098E815380
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Dec 2023 23:22:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834E5815B47
+	for <lists+linux-stm32@lfdr.de>; Sat, 16 Dec 2023 20:24:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38E65C6DD6D;
-	Fri, 15 Dec 2023 22:22:56 +0000 (UTC)
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18E98C6DD6B;
+	Sat, 16 Dec 2023 19:24:44 +0000 (UTC)
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6BCCC6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 630FEC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 22:22:54 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-77fbab92df6so27974085a.0
+ Sat, 16 Dec 2023 19:24:43 +0000 (UTC)
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id B17173F2C1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Dec 2023 14:22:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1702678973; x=1703283773;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=7TFw7xg7w2M+8qc28EqEusL4T4Plz+lf2upO0JPQgw0=;
- b=hsos7eDlkUI+vY/W2o5YCOfioCMGN52JoMrJ1I8CD5WyOGIHkEHv52qReb+shWQ7wp
- wl8FFHbye1OzxnLGu1JbLHBZFrlTicL8XDnYmevXM5XIkMG+xQHdNJjXM2NBXKMwvJrn
- jwkYaGyanZPXc9Yrjnq9Z23Ey+lbmsxlAi4m4LhH8aaZ4/bU7dR/57B//AMwyppY5I3M
- MRmrGdvlynrthhu9fMwPCHBx9KjWpOtCvdbJQNbg7tf12BmefhFq73rChuR9ha18Ad+S
- q09PXGn0RbFsw25RaZZW5L3E8Ab0mHsNsJ4a7OwywYVTD0FDDFPKQQ6lMTve6MtMpSTS
- qFSg==
+ Sat, 16 Dec 2023 19:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20210705; t=1702754682;
+ bh=arp4KgnNalvlcscGqi/VgrS8JYrKrYTVbwSx1z/f2Zk=;
+ h=From:In-Reply-To:References:Mime-Version:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=iscJyetlYx/Qnbmo/VkOHDYJiCr4Rk8y/rSSWRPM/rY61Og3jIV6/7uBwigcl8MsO
+ nEh1GHEqwlbBs9B+EMeRoFZiGLe/23dIWe0Bt2o0mReBGGkHQYap0cNVByxdnc+34T
+ h+EQOsZLiewz3AMDlS0z8NoYPv+MQTVijewBcp4PzNDh0HHueJkQssF8moXHX8o5eC
+ 8C711SnZsGtXNF7Wy8UR1dZ8YDwUp3X1QYK+Eyvb/xZ2E25GE2Hj3Bq5sfVVgZ1xQ3
+ JzKqk2z4sTzvWQl/s7n/Wp8SsYk1vGvyI+zOUTjy5iif0RoJDF9iodY/x3Jn+B5/Mm
+ HhCVXkepkTWPg==
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-425a6272642so33186651cf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 16 Dec 2023 11:24:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702678973; x=1703283773;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7TFw7xg7w2M+8qc28EqEusL4T4Plz+lf2upO0JPQgw0=;
- b=RD3xiPOoLLFsXOIqcS5OLsbomrxU1QUvaHo8cQO9ZwBdejq7zDgX3WgRUC1e5IdyDa
- 1fimIlYGSnYNcilDIkHlGUeL3PVA4q5RZBL9G63TqyzgU4H+025BP0tFNbAbDfP0vc0N
- Bqu0cG6E38H/xtJjYPYquYKWpgmlfoyhL2QQyfKyVj9N31/1tXMJJ9YnAS3vVC69mQsO
- 3v3UgZFVdBH58p0rld+Iy0b2vpYTuaM5SCBOyNLAPkJLOYEF9w2o26dduJdOsca9qM6j
- MAUvwvp86hLNlnniESx47W9wG8eP6/QyKgLUzS5ifEk735vtsWVaFCjgeENq5vTBCSOw
- znmw==
-X-Gm-Message-State: AOJu0YySmvSxvjcS5Jp9HW0vXYwIDCoeeBEaVY4wy4odvSSiWoc1BitL
- cZGVY++mYPExZZ8QgBdYPKTA4A==
-X-Google-Smtp-Source: AGHT+IEJekFwo4r+H8PtOrZH0hYzvRpj9POtATtBQr7tyBiNEDTS/FAF2UzeUfuDf/WaBoIwrOUJ3A==
-X-Received: by 2002:a05:620a:146d:b0:77f:878:b58 with SMTP id
- j13-20020a05620a146d00b0077f08780b58mr14261801qkl.153.1702678973632; 
- Fri, 15 Dec 2023 14:22:53 -0800 (PST)
-Received: from dell-precision-5540 ([50.212.55.89])
- by smtp.gmail.com with ESMTPSA id
- m1-20020ae9e701000000b007759a81d88esm6333130qka.50.2023.12.15.14.22.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Dec 2023 14:22:53 -0800 (PST)
-Date: Fri, 15 Dec 2023 17:22:03 -0500
-From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
-To: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <ZXzRi_h2AMqEhMVw@dell-precision-5540>
-References: <20231204202055.2895125-1-ben.wolsieffer@hefring.com>
- <58897511-3187-4583-bf29-11871dd4d136@sirena.org.uk>
- <20231215182739.GA96945@gnbcxd0016.gnb.st.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231215182739.GA96945@gnbcxd0016.gnb.st.com>
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: use runtime PM to
-	enable/disable controller
+ d=1e100.net; s=20230601; t=1702754681; x=1703359481;
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=arp4KgnNalvlcscGqi/VgrS8JYrKrYTVbwSx1z/f2Zk=;
+ b=posELCvjJ5NvpdgFg83Cud7eS42boxF2oEbAnSW2x4/XSd7BjDKWR54tbkMKRlLrrj
+ lDGgS3AsqVYSrRrxdJFbyJYjTY0YlFMvrsVFARkwPXXtTYxAmmEuOR9qdZ5FuRe7jB5H
+ SXYlsLOS+04jU7vK6KQcJtso9sMkLmukTX8TthVErS8Ugnlb7rw/xOPds28963mqL9BD
+ rgDYgmQ8SFVNqAE4sEFVNCChFWTy1p6dwegP1F+xTbDV2PJpwPH0q2ELd2WRGUkL7Uom
+ bwGmPNK5rSgY6SF8ElqupOgs2EJDAJwhwHvKaZq5ET/MmrvvFbxvt0h58jyA/nIdNUeT
+ 3khA==
+X-Gm-Message-State: AOJu0YzdX4at1MBXD0FVabuVTBpflkDFnTPJsTvKkJ4B3rkcR2OnHb21
+ dtDHR6akWHpgGyG9WVrojitdbOu5ZY1aWbskMjKLXAS/lULMy8L2WefvFS4JDYRB6w01fllJUEg
+ nJzUUNEkHHjB643RD6Dk724UGRzH1SZGB1Hp1PgVUFFHCvo/8Shrnbr63WRkbw8n3JzR+q6BvYw
+ ==
+X-Received: by 2002:a05:622a:1cf:b0:418:1565:ed50 with SMTP id
+ t15-20020a05622a01cf00b004181565ed50mr17632942qtw.66.1702754681674; 
+ Sat, 16 Dec 2023 11:24:41 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHh1FB45qk7mcuI2qHGO1vj4JgeCLK0ZvhpRnKj5MhPIcHzu1iD+2wJffax6hiqvMJOiTseak4ew2mkMkdlIE8=
+X-Received: by 2002:a05:622a:1cf:b0:418:1565:ed50 with SMTP id
+ t15-20020a05622a01cf00b004181565ed50mr17632917qtw.66.1702754681432; Sat, 16
+ Dec 2023 11:24:41 -0800 (PST)
+Received: from 348282803490 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 16 Dec 2023 11:24:40 -0800
+From: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+In-Reply-To: <698fbb5d-0750-4f2a-857f-5429e5f589f9@collabora.com>
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-13-cristian.ciocaltea@collabora.com>
+ <CAJM55Z9e=vjGKNnmURN15mvXo2bVd3igBA-3puF9q7eh5hiP+A@mail.gmail.com>
+ <2f06ce36-0dc1-495e-b6a6-318951a53e8d@collabora.com>
+ <698fbb5d-0750-4f2a-857f-5429e5f589f9@collabora.com>
+Mime-Version: 1.0
+Date: Sat, 16 Dec 2023 11:24:40 -0800
+Message-ID: <CAJM55Z-e8mkjac-nCF9_w6EmMVbL9ued0mAcjwTMF=pKDLkMsA@mail.gmail.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, 
+ Emil Renner Berthing <kernel@esmil.dk>, Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 12/12] [UNTESTED] riscv: dts: starfive:
+ beaglev-starlight: Enable gmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +107,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Dec 15, 2023 at 07:27:39PM +0100, Alain Volmat wrote:
-> Hi,
-> 
-> sorry for the delay.
-> 
-> On Thu, Dec 14, 2023 at 10:58:54AM +0000, Mark Brown wrote:
-> > On Mon, Dec 04, 2023 at 03:20:55PM -0500, Ben Wolsieffer wrote:
-> > > Instead of disabling the SPI controller between each message, do it
-> > > as part of runtime PM.
-> > 
-> > This doesn't apply against current code, please check and resend.
-> 
-> I rapidly gave a try on this patch on top of the spi/for-next branch
-> (manually fixing the conflict due to the MASTER->HOST renaming).
-> It turns out that with that applied, transfers on the MP13
-> (compatible: st,stm32h7-spi) are not working anymore while simply
-> removing it back it works again.
-> (test is simply doing loopback spidev_test)
+Cristian Ciocaltea wrote:
+> On 11/28/23 02:40, Cristian Ciocaltea wrote:
+> > On 11/26/23 23:10, Emil Renner Berthing wrote:
+> >> Cristian Ciocaltea wrote:
+> >>> The BeagleV Starlight SBC uses a Microchip KSZ9031RNXCA PHY supporting
+> >>> RGMII-ID.
+> >>>
+>
+> [...]
+>
+> >> You've alse removed the phy reset gpio on the Starlight board:
+> >>
+> >>   snps,reset-gpios = <&gpio 63 GPIO_ACTIVE_LOW>
+> >>
+> >> Why?
+> >
+> > I missed this in v1 as the gmac handling was done exclusively in
+> > jh7100-common. Thanks for noticing!
+>
+> Hi Emil,
+>
+> I think the reset doesn't actually trigger because "snps,reset-gpios" is
+> not a valid property, it should have been "snps,reset-gpio" (without the
+> trailing "s").
+>
+> However, this seems to be deprecated now, and the recommended approach
+> would be to define the reset gpio in the phy node, which I did in [1].
+>
+> Hopefully this won't cause any unexpected behaviour. Otherwise we should
+> probably simply drop it.
+>
+> [1]: https://lore.kernel.org/lkml/20231215204050.2296404-8-cristian.ciocaltea@collabora.com/
 
-That's unfortunate; I was worried about something like this because I
-only have an STM32F7 to test. If you can't easily determine what's going
-wrong, it would be interesting to know if the original version of this
-patch has the same problem:
-https://lore.kernel.org/lkml/ZWpoKEcM0ZeYAsBa@dell-precision-5540/T/
+Oh, nice catch! With your v3 patches the Starlight board still works fine and
+GPIO63 is correctly grabbed and used for "PHY reset".
 
-> 
-> spi mode: 0x0
-> bits per word: 8
-> max speed: 500000 Hz (500 kHz)
-> TX | 8D D6 73 8B 9D 8B 1C 7D 8D 80 EC 32 F9 0D BA AD 9F 88 A5 9B 3F AA 48 8C 21 35 0D C1 C8 E5 6A 81  |..s....}...2........?.H.!5....j.|
-> RX | 8D 00 00 00 D6 00 73 00 8B 00 00 00 9D 00 00 8B 1C 00 00 00 7D 00 00 8D F9 00 00 00 BA 00 00 00  |......s.............}...........|
-> 
-> The RX data contains lots of 00 between each byte.  Moreover it seems
-> that with this patch applied non-dma transfer (when there is no dmas
-> properties within the node) are now failing.
-> 
-> I'll check that and give more details but could you avoid applying this
-> patch for the time being ?
-> 
-> Thanks.
-> Alain
+/Emil
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
