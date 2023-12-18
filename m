@@ -2,45 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14C168177BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 17:42:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 308018177FD
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 17:59:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BEB1CC6DD70;
-	Mon, 18 Dec 2023 16:42:00 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D095EC6DD70;
+	Mon, 18 Dec 2023 16:59:04 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC0F5C6DD6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2FBAC6DD6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 16:41:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=050EqGmVCVUNmEMi4n09ihXv28lZpEFwZCiQLfcsttA=; b=qme3P9fJPXSo+DXDdDUMS5iZsK
- nqWHie2/Fpb1X00Bf+9009jmjkLFAWlXCt5v0QRUzCUXE9B4aK8yFdYTKvGsX9DsxLoEpcuaW7ctl
- +KqYMVh98MsgNopKqzPaC8CXC62GMhewOZJsCPK22m3CSB3nD+YBp5ihEV8uqaR6QMQo=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rFGgS-003GXN-7B; Mon, 18 Dec 2023 17:41:36 +0100
-Date: Mon, 18 Dec 2023 17:41:36 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <f4166144-4874-4b10-96f8-fc3e03f94904@lunn.ch>
-References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ Mon, 18 Dec 2023 16:59:03 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BIBVg9Y013320; Mon, 18 Dec 2023 17:58:37 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=2LbVD48cs9SSVdEVF6CGBiY28dgdHPu6RAlKrCsGHvc=; b=FE
+ MLD3Ak4teHPbI6Xwmixwvt1711SnapOzLBJPaPaM6624+zpH5+YWl2XfqFNzewIZ
+ w+35RSS/Uo3m9NXyvNDVl4Na4gUFdyT3AfIeH/3Vt//5qFiCwW4i06M7B5lTQqyj
+ texq/5p3BUdH1T3nII+sCUwgv20eZpGs5baKWtY0lkuemCz2Q9DIU+JSbCcsjmZT
+ nnXAKEAn9L2jlQhPypRp8EWMM4YA5/gG2IDFZ3OyYiwx3uSAP3YH/clUFQy+gzbd
+ BEmMAmB47/k4xxR2xRTk7iZOcVei1HKItH3fqIsL89oVBP8s25H126qZrIP+Fx9Y
+ py4hnheNXyxIjppjnPyw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v13nh8w9d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 17:58:37 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0B72510005E;
+ Mon, 18 Dec 2023 17:58:36 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0168B26A472;
+ Mon, 18 Dec 2023 17:58:36 +0100 (CET)
+Received: from [10.201.20.59] (10.201.20.59) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 18 Dec
+ 2023 17:58:33 +0100
+Message-ID: <abf4725b-8569-47f8-a06d-c06285595625@foss.st.com>
+Date: Mon, 18 Dec 2023 17:58:32 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231218162326.173127-1-romain.gantois@bootlin.com>
-Cc: Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
- Sylvain Girard <sylvain.girard@se.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Alain Volmat <alain.volmat@foss.st.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Erwan Leray <erwan.leray@foss.st.com>
+References: <20231218155721.359198-1-alain.volmat@foss.st.com>
+ <20231218155721.359198-3-alain.volmat@foss.st.com>
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20231218155721.359198-3-alain.volmat@foss.st.com>
+X-Originating-IP: [10.201.20.59]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-18_11,2023-12-14_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
+Subject: Re: [Linux-stm32] [PATCH 2/6] dt-bindings: spi: stm32: add st,
+ stm32mp25-spi compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,27 +82,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 18, 2023 at 05:23:22PM +0100, Romain Gantois wrote:
-> Hello everyone,
+On 12/18/23 16:57, Alain Volmat wrote:
+> From: Valentin Caron <valentin.caron@foss.st.com>
 > 
-> This is a bugfix for an issue that was recently brought up in two
-> reports:
+> Add st,stm32mp25-spi compatible in dt-bindings.  STM32MP25 spi is similar
+
+Hi Alain,
+In case you re-submit,
+Nitpicking, extra space here could be removed    ^
+Capital letters for SPI could also be used here             ^
+
+Appart from that, you can add my:
+Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+
+Best Regards,
+Fabrice
+
+> to the STM32H7 except for the following two points:
+>   - Burst should not be enabled with the new DMA used on STM32MP25.
+>   - STM32MP25 SPI8 has a limited feature set, it can only send words of
+>     8 or 16 bits and with a maximum words number of 1024.
 > 
-> https://lore.kernel.org/netdev/c57283ed-6b9b-b0e6-ee12-5655c1c54495@bootlin.com/
-> https://lore.kernel.org/netdev/e5c6c75f-2dfa-4e50-a1fb-6bf4cdb617c2@electromag.com.au/
+> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
+> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> The Checksum Offloading Engine of some stmmac cores (e.g. DWMAC1000)
-> computes an incorrect checksum when presented with DSA-tagged packets. This
-> causes all TCP/UDP transfers to break when the stmmac device is connected
-> to the CPU port of a DSA switch.
-
-Probably a dumb question.... Does this COE also perform checksum
-validation on receive? Is it also getting confused by the DSA header?
-
-You must of tested receive, so it works somehow, but i just wounder if
-something needs to be done to be on the safe side?
-
-	  Andrew
+> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> index 5754d603f34f..4bd9aeb81208 100644
+> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
+> @@ -25,6 +25,7 @@ properties:
+>        - st,stm32f4-spi
+>        - st,stm32f7-spi
+>        - st,stm32h7-spi
+> +      - st,stm32mp25-spi
+>  
+>    reg:
+>      maxItems: 1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
