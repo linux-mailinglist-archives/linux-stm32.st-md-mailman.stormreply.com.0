@@ -2,83 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07060816B81
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 11:48:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1009A816C6C
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 12:38:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1E23C6DD70;
-	Mon, 18 Dec 2023 10:48:41 +0000 (UTC)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91D6EC6DD70;
+	Mon, 18 Dec 2023 11:38:14 +0000 (UTC)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88B8AC6DD6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F1EEC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 10:48:39 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-50e2ce4fb22so1801595e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 02:48:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702896518; x=1703501318;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=X0FxkANAsWxXn4JqOH6OcdoIIxUODMIylOKEJNE6vU0=;
- b=dnQxDyoLc+nThLfmN6CuHiEInA1qKLgine2Z50AaWxIfDFsInZ1pqsbv8PR3UZKQsL
- 88IkNOODKwMYw57R0Dmg7v3AaYpXEOuW0DqbPH/CtPVgCA9FJZEKBSL2AbmOVC1jQ6Ni
- Y5b8u1NE8+++85wZyFbxR116EjC5H3s70xWGkbNScUhHelfzt7GLxdLVPJj0NQDouEm3
- +1IL5faUgb6uWbakh+NTj8qzy+Z68Kvd4XEQFkU/xa3jX1l19fsUr5GofB58sQB+wUyX
- Pi3kc8olDrP1N692R681QgD5PWE5RwPzsUZ/+Rc77hZMUboLnLno03RJI/c2FqxVLYvq
- zG8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702896518; x=1703501318;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=X0FxkANAsWxXn4JqOH6OcdoIIxUODMIylOKEJNE6vU0=;
- b=mtBpL40S2YzQCV8kEs/EBY8VGnTeiVEClqCSSUaE8bMHyM1SZD1ZW67hjz9fAYS1hr
- zxIXqkk893WSSk0y4Z6OHCncZWW6qjNb+Z73pcCVH/bfbfPdyAH5MpG0KjkQLRUIP+OS
- TiLldDDmlGGmssRNWNsZlaoz6ccppulWMSzdROpOhcOZCZMGvD4NpaqEAUYRjP6NnrDZ
- U/lx51jWKzVB25pQqMxtNG4z2kf8BGXjNiJzGFV4ddvmxseMtfDl5gTK2+YByTHbd3Lw
- 7DhvqNcNa//foh1+Ir2KYKNNHWJQwT6dNWdPLGRsYBragVcfCgAk84mQjb0eKOgG72yg
- grcg==
-X-Gm-Message-State: AOJu0Yxnlrj2DgtbvSePbsjJpCerJkPzeiBm40qAcnjsdikF5qoIgphe
- l73IoKBA0v2dwv4ryqhNE7I=
-X-Google-Smtp-Source: AGHT+IF5xAt1eGGjZAku9gvUTmA2tsFOiyrw+nozZiKQBxt7yzutRw6Iv0stYKhTcA5AUfIM3BxTzQ==
-X-Received: by 2002:ac2:44ba:0:b0:50e:15df:5462 with SMTP id
- c26-20020ac244ba000000b0050e15df5462mr3452829lfm.94.1702896518303; 
- Mon, 18 Dec 2023 02:48:38 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- y2-20020a197502000000b0050c0ae9553csm472413lfe.65.2023.12.18.02.48.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Dec 2023 02:48:37 -0800 (PST)
-Date: Mon, 18 Dec 2023 13:48:34 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-Message-ID: <5mcon3irbtcvrtwwl46bh66qkixddqtbotswmt4usdbkilatzi@c63klwlos4kf>
-References: <20231212115841.3800241-1-quic_jsuraj@quicinc.com>
- <20231212115841.3800241-4-quic_jsuraj@quicinc.com>
- <bcppwdnscrebqtsap2fyfd6ltpi4al3ojm5dqytzp37h7y7rdy@zqy6bncdhzl2>
- <8ed8450f-a9c7-4e9d-97b8-3d26668c7eb4@quicinc.com>
+ Mon, 18 Dec 2023 11:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1702899493;
+ bh=V5PA5oyxCd5DFK291fOQmsy6Q17j3UOvBS6drZZobsg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=lFn6oaU5/zBXfw/lfDzsQZdCaZFrqBfttjH8fN5pBpC+x9ugq0uF/v0dGZEiFXRc6
+ +7oyXTScJk0y2/u+13P+FgCN9xo9hOk0ujzwxI2YY2XRVgOAS3UHZbgaQf3b/Nyyn8
+ x9KWS4ulLJGO2JJ/FNGyadTdjybGHs7OxL+L7IeijvJf5RQvh9tMcINNbnZ5A9aGYP
+ 0tQfFgU/lZk8ls4dofDxlacunvvIR+6USPl7W0C7WeZQ9UPXms/MR1v5xiZfdnFQWA
+ UXhwYOJolTHy+09ThqcCCwO1/J2c1p0e6rjcTtFXobbHcUK49iLD+meFAW+xXeGU3F
+ nALQ2xfxXz1Rg==
+Received: from [100.115.223.179] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 8A206378149C;
+ Mon, 18 Dec 2023 11:38:11 +0000 (UTC)
+Message-ID: <a06aaab5-b433-44a6-89a4-bdf713d5e1a9@collabora.com>
+Date: Mon, 18 Dec 2023 13:38:10 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8ed8450f-a9c7-4e9d-97b8-3d26668c7eb4@quicinc.com>
-Cc: Eric Dumazet <edumazet@google.com>,
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v6 3/3] net: stmmac: Add driver
- support for DWMAC5 common safety IRQ
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20231029042712.520010-1-cristian.ciocaltea@collabora.com>
+ <20231029042712.520010-13-cristian.ciocaltea@collabora.com>
+ <CAJM55Z9e=vjGKNnmURN15mvXo2bVd3igBA-3puF9q7eh5hiP+A@mail.gmail.com>
+ <2f06ce36-0dc1-495e-b6a6-318951a53e8d@collabora.com>
+ <698fbb5d-0750-4f2a-857f-5429e5f589f9@collabora.com>
+ <CAJM55Z-e8mkjac-nCF9_w6EmMVbL9ued0mAcjwTMF=pKDLkMsA@mail.gmail.com>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <CAJM55Z-e8mkjac-nCF9_w6EmMVbL9ued0mAcjwTMF=pKDLkMsA@mail.gmail.com>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 12/12] [UNTESTED] riscv: dts: starfive:
+ beaglev-starlight: Enable gmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,240 +79,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 18, 2023 at 03:27:54PM +0530, Suraj Jaiswal wrote:
+On 12/16/23 21:24, Emil Renner Berthing wrote:
+> Cristian Ciocaltea wrote:
+>> On 11/28/23 02:40, Cristian Ciocaltea wrote:
+>>> On 11/26/23 23:10, Emil Renner Berthing wrote:
+>>>> Cristian Ciocaltea wrote:
+>>>>> The BeagleV Starlight SBC uses a Microchip KSZ9031RNXCA PHY supporting
+>>>>> RGMII-ID.
+>>>>>
+>>
+>> [...]
+>>
+>>>> You've alse removed the phy reset gpio on the Starlight board:
+>>>>
+>>>>   snps,reset-gpios = <&gpio 63 GPIO_ACTIVE_LOW>
+>>>>
+>>>> Why?
+>>>
+>>> I missed this in v1 as the gmac handling was done exclusively in
+>>> jh7100-common. Thanks for noticing!
+>>
+>> Hi Emil,
+>>
+>> I think the reset doesn't actually trigger because "snps,reset-gpios" is
+>> not a valid property, it should have been "snps,reset-gpio" (without the
+>> trailing "s").
+>>
+>> However, this seems to be deprecated now, and the recommended approach
+>> would be to define the reset gpio in the phy node, which I did in [1].
+>>
+>> Hopefully this won't cause any unexpected behaviour. Otherwise we should
+>> probably simply drop it.
+>>
+>> [1]: https://lore.kernel.org/lkml/20231215204050.2296404-8-cristian.ciocaltea@collabora.com/
 > 
-> Hi Serge,
-> Please find commnet inline & let me know if any further action needed
-> 
-> Thanks
-> Suraj
-> 
-> On 12/14/2023 8:42 PM, Serge Semin wrote:
-> > Hi Suraj
-> > 
-> > On Tue, Dec 12, 2023 at 05:28:41PM +0530, Suraj Jaiswal wrote:
-> >> Add support to listen HW safety IRQ like ECC(error
-> >> correction code), DPP(data path parity), FSM(finite state
-> >> machine) fault in common IRQ line.
-> >>
-> >> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-> >> ---
-> >>  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
-> >>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 +++
-> >>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 21 +++++++++++++++++++
-> >>  .../ethernet/stmicro/stmmac/stmmac_platform.c |  9 ++++++++
-> >>  4 files changed, 34 insertions(+)
-> >>
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> >> index 721c1f8e892f..b9233b09b80f 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> >> @@ -344,6 +344,7 @@ enum request_irq_err {
-> >>  	REQ_IRQ_ERR_ALL,
-> >>  	REQ_IRQ_ERR_TX,
-> >>  	REQ_IRQ_ERR_RX,
-> >> +	REQ_IRQ_ERR_SFTY,
-> >>  	REQ_IRQ_ERR_SFTY_UE,
-> >>  	REQ_IRQ_ERR_SFTY_CE,
-> >>  	REQ_IRQ_ERR_LPI,
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> >> index 9f89acf31050..ca3d93851bed 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> >> @@ -31,6 +31,7 @@ struct stmmac_resources {
-> >>  	int wol_irq;
-> >>  	int lpi_irq;
-> >>  	int irq;
-> >> +	int sfty_irq;
-> >>  	int sfty_ce_irq;
-> >>  	int sfty_ue_irq;
-> >>  	int rx_irq[MTL_MAX_RX_QUEUES];
-> >> @@ -297,6 +298,7 @@ struct stmmac_priv {
-> >>  	void __iomem *ptpaddr;
-> >>  	void __iomem *estaddr;
-> >>  	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
-> >> +	int sfty_irq;
-> >>  	int sfty_ce_irq;
-> >>  	int sfty_ue_irq;
-> >>  	int rx_irq[MTL_MAX_RX_QUEUES];
-> >> @@ -305,6 +307,7 @@ struct stmmac_priv {
-> >>  	char int_name_mac[IFNAMSIZ + 9];
-> >>  	char int_name_wol[IFNAMSIZ + 9];
-> >>  	char int_name_lpi[IFNAMSIZ + 9];
-> >> +	char int_name_sfty[IFNAMSIZ + 10];
-> >>  	char int_name_sfty_ce[IFNAMSIZ + 10];
-> >>  	char int_name_sfty_ue[IFNAMSIZ + 10];
-> >>  	char int_name_rx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 14];
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> index 47de466e432c..6cf289f192a7 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> @@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
-> >>  		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
-> >>  			free_irq(priv->wol_irq, dev);
-> >>  		fallthrough;
-> >> +	case REQ_IRQ_ERR_SFTY:
-> >> +		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
-> >> +			free_irq(priv->sfty_irq, dev);
-> >> +		fallthrough;
-> >>  	case REQ_IRQ_ERR_WOL:
-> >>  		free_irq(dev->irq, dev);
-> >>  		fallthrough;
-> >> @@ -3759,6 +3763,7 @@ static int stmmac_request_irq_single(struct net_device *dev)
-> >>  	struct stmmac_priv *priv = netdev_priv(dev);
-> >>  	enum request_irq_err irq_err;
-> >>  	int ret;
-> > 
-> >> +	char *int_name;
-> > 
-> > See my comment below.
-> > 
-> >>  
-> >>  	ret = request_irq(dev->irq, stmmac_interrupt,
-> >>  			  IRQF_SHARED, dev->name, dev);
-> >> @@ -3798,6 +3803,20 @@ static int stmmac_request_irq_single(struct net_device *dev)
-> >>  		}
-> >>  	}
-> >>  
-> > 
-> >> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> >> +		int_name = priv->int_name_sfty;
-> >> +		sprintf(int_name, "%s:%s", dev->name, "safety");
-> >> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> >> +				  0, int_name, dev);
-> >> +		if (unlikely(ret < 0)) {
-> >> +			netdev_err(priv->dev,
-> >> +				   "%s: alloc safety failed %d (error: %d)\n",
-> >> +				   __func__, priv->sfty_irq, ret);
-> >> +			irq_err = REQ_IRQ_ERR_SFTY;
-> >> +			goto irq_error;
-> >> +		}
-> >> +	}
-> >> +
-> > 
+> Oh, nice catch! With your v3 patches the Starlight board still works fine and
+> GPIO63 is correctly grabbed and used for "PHY reset".
 
-> > Omg, I thought this change belonged to stmmac_request_irq_multi_msi().
-> > My bad, sorry. Please move the code above to
-> > stmmac_request_irq_multi_msi() and get back the part in
-> > stmmac_request_irq_single() as it was in v5,
-
-Please note my comment regarding the common safety IRQ being supported
-in both stmmac_request_irq_single() and stmmac_request_irq_multi_msi()
-methods.
-
-> but instead of specifying
-> > "safety" IRQ name use "dev->name" as the rest of similar code snippets
-> > in here have:
-> > 
-> > +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> > +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> > +				  0, dev->name, dev);
-> > +		if (unlikely(ret < 0)) {
-> > +			netdev_err(priv->dev,
-> > +				   "%s: alloc safety failed %d (error: %d)\n",
-> > +				   __func__, priv->sfty_irq, ret);
-> > +			irq_err = REQ_IRQ_ERR_SFTY;
-> > +			goto irq_error;
-> > +		}
-> > +	}
-> 
-
-> <Suraj> We can not use "dev->name" as this is name already used by "stmmac_interrupt" @ https://elixir.bootlin.com/linux/v6.1.68/source/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c#L3655.
-
-It's not that much of the problem. The main idea is to convert your
-solution to following the _local_ coding convention. See, the rest of
-the IRQs in stmmac_request_irq_single() are requested with "dev->name"
-being specified as the IRQ name (irrespective to having such solution
-being not that correct). That's what I was talking about. If you want
-the safety IRQ to have an unique name, then please submit this patch
-as I suggested above and _then_, on top of it, add a new patch which
-would convert the entire stmmac_request_irq_single() method to
-creating all IRQ names as it's, for instance, done in
-stmmac_request_irq_multi_msi().
-
-> <
-> ret = request_irq(dev->irq, stmmac_interrupt,
-> 			  IRQF_SHARED, dev->name, dev);
-> >
-
-> if we are using same "dev->name" while requesting safety IRQ as well then  "/proc/interrupt" will show same name eth0/eth1 for  both "stmmac_interrupt" & "safety interrupt" and by looking at "/proc/interrupt" output we can not say which IRQ is for safety and which is for stmmac_interrupt.
-
-Thanks. I am perfectly aware of that. Please see my comment above.
-
-> > 
-> > I guess at some point afterwards we'll need to refactor the IRQs
-> > request part of this driver: replace stmmac_request_irq_single() body
-> > with the upper part of the stmmac_request_irq_multi_msi() method and
-> > then just make the former method being called from the later one...
-> > 
-> >>  	return 0;
-> >>  
-> >>  irq_error:
-> >> @@ -7462,8 +7481,10 @@ int stmmac_dvr_probe(struct device *device,
-> >>  	priv->dev->irq = res->irq;
-> >>  	priv->wol_irq = res->wol_irq;
-> >>  	priv->lpi_irq = res->lpi_irq;
-> >> +	priv->sfty_irq = res->sfty_irq;
-> >>  	priv->sfty_ce_irq = res->sfty_ce_irq;
-> >>  	priv->sfty_ue_irq = res->sfty_ue_irq;
-> > 
-> >> +
-> > 
-> > Please drop this change. The code below is attached to the code above
-> > because it basically does the same but in the loop.
-
-> <Suraj> below loop code "for (i = 0; i < MTL_MAX_RX_QUEUES; i++) priv->rx_irq[i] = res->rx_irq[i];" is not for rx_irq array and will not help for safety irq.
-> Let me know if I got your commnet properly .
-
-Sorry, you didn't. My comment concerned the _empty_ line you placed
-between the code above and below. You shouldn't have done that.
-
-> > 
-> >>  	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-> >>  		priv->rx_irq[i] = res->rx_irq[i];
-> >>  	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> >> index 1ffde555da47..3808a3225a7d 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> >> @@ -726,6 +726,15 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
-> >>  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-> >>  	}
-> >>  
-> >> +	stmmac_res->sfty_irq =
-> >> +		platform_get_irq_byname_optional(pdev, "sfty");
-> > 
-> >> +
-> > 
-> > Please drop this change too. It's normal to have a method call
-> > attached to the error check statement especially seeing the rest of
-> > the similar code snippets are designed that way in this function.
-
-> <Suraj> Do you means to remove all below code where we are printing the dev_info() message ?
-
-No. I was referring to the _empty_ line between the method above and
-the error check code below. It's pointless and at the very least
-breaks the local coding convention.
-
--Serge(y)
-
-> We added this code similar to LPM code.
-> > 
-> > -Serge(y)
-> > 
-> >> +	if (stmmac_res->sfty_irq < 0) {
-> >> +		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
-> >> +			return -EPROBE_DEFER;
-> >> +		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
-> >> +	}
-> >> +
-> >>  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
-> >>  
-> >>  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
-> >> -- 
-> >> 2.25.1
-> >>
-> >>
+Great, thanks a lot for retesting this!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
