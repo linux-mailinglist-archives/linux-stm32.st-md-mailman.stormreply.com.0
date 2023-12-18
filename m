@@ -2,36 +2,154 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3A7081794C
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 18:58:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45D6817C35
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 21:48:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A483CC6DD70;
-	Mon, 18 Dec 2023 17:58:35 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85CCFC6DD70;
+	Mon, 18 Dec 2023 20:48:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 532CFC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 917F0C6DD6F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 17:58:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0D91A6114E;
- Mon, 18 Dec 2023 17:58:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8B8C433C7;
- Mon, 18 Dec 2023 17:58:31 +0000 (UTC)
-Date: Mon, 18 Dec 2023 12:58:28 -0500
-From: William Breathitt Gray <william.gray@linaro.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <ZYCIRHVVTDD_k0Wk@ishi>
-References: <20230922143920.3144249-1-fabrice.gasnier@foss.st.com>
- <20230922143920.3144249-6-fabrice.gasnier@foss.st.com>
- <ZSnJR2yfYsBNHu/4@fedora>
- <997c056e-c4e1-4bd8-9fcd-9f1b4bd45929@foss.st.com>
+ Mon, 18 Dec 2023 20:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1702932509; x=1734468509;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=W2Hs96AqQiGDi2exTUitBAzOrbDezSDZ9jpmjOMwKAU=;
+ b=Y0QybKUp7+0BgrRfQrz8/bOAPhji1jmLDxx86uMZBOVJgJWhdUBB4Au9
+ 7/yE+Xp+pUQe+yvZBeNtvCB6jLVwWnk9DjU+VWxc5wOqZokodxweNAwOV
+ 0qIOG9BhjvdS7tFVvsldomRNEDH3JeeGR0obHX2kEj2CA7ViLnOzbNwH2
+ IJgbhQ4UIEud1v6x8ndCNXhek0nRhi/VNw7TZD2PCdaszhqPa6ZDhzkc5
+ VmdeIzs65/deZnjJZBXhqQPOw7bOecOi5jt3Ma2M5yOMQzxyfv6SSWOSA
+ /ID62bL3tlbDWoFx7hacvW3TJoXGztJu1VcuQSWf6Vcrs9IrmNbNo3wo3 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="2774771"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; 
+   d="scan'208";a="2774771"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2023 12:48:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="1107088611"
+X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="1107088611"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmsmga005.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 18 Dec 2023 12:48:25 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Mon, 18 Dec 2023 12:48:25 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Mon, 18 Dec 2023 12:48:25 -0800
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.41) by
+ edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Mon, 18 Dec 2023 12:48:24 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oPS1kHNTPLCW57Vxt9Ccfc5j8270z+wWPKOAKZPP4r5sC0yEPRLj/XfYPJqwjY+cwX+PKFx+56LmaZB91hiALqhvJbzmzjCGAoejTXpKQtNoCsrJEqVJXe2zLpd8kxMQyGw5bv6LkhaAnTHVRoImiwL9kSwSI0AGpbQaubMqib/tGKnY6ofmKxHFjN3WTEKq4Z9QOwCzguly7vxo2eFLE1QP7GVmgNAZFrpgXvWbW1w4j+Ow1v14vnPZQlMkgmm0xBf9pzdnKEI3Q2GO9hwA28PMoQN+f8eXXij0JOPp2pAmEqQXmWRqpuSPliS2rDL01k5UiI+cJ7HryhqqPljxnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BasrHyiLqQ00kDQPrUV/fst0YIPII3j/7mDUPH0MDQI=;
+ b=iyknWckRiGt063XygDreEHkKicK+l0oMMwamWNAyYcoYziIFTyCy6VINJMLdOcsQek9JfCxvhl49dLzhJ18X8wjvXUShK2SdtgGxKlvpiqtM2pyHYg3pi737stcNrILW0edn7sIUXX/RKJHbnmxoE33eii+GE5aQ2orVIgH/b10HDkbKY0utfE/QCX6Y9W0LZJST7bV/Kh8j58LaBNklih4RhfInoxSz+l6Axg3nY07fnm6tYgeq1qhgMnyFGaHv+UGVLEZxBqJgQTB2JTyGF7Azhq1g6BWSkBW7AZLYCga3alRu3qf2jmo9y+GT4f0dxs3g5okekWb3ZjELKj3AlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
+ by SJ0PR11MB5677.namprd11.prod.outlook.com (2603:10b6:a03:37e::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Mon, 18 Dec
+ 2023 20:48:22 +0000
+Received: from CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::dbee:4787:6eeb:57f5]) by CO1PR11MB5089.namprd11.prod.outlook.com
+ ([fe80::dbee:4787:6eeb:57f5%4]) with mapi id 15.20.7091.034; Mon, 18 Dec 2023
+ 20:48:22 +0000
+Message-ID: <159702bf-3bc8-482e-b4f5-65799d330d7f@intel.com>
+Date: Mon, 18 Dec 2023 12:48:20 -0800
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Lai Peter Jun Ann <jun.ann.lai@intel.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+References: <1702885892-30369-1-git-send-email-jun.ann.lai@intel.com>
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <1702885892-30369-1-git-send-email-jun.ann.lai@intel.com>
+X-ClientProxiedBy: MW4PR03CA0320.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::25) To CO1PR11MB5089.namprd11.prod.outlook.com
+ (2603:10b6:303:9b::16)
 MIME-Version: 1.0
-In-Reply-To: <997c056e-c4e1-4bd8-9fcd-9f1b4bd45929@foss.st.com>
-Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 5/6] counter: stm32-timer-cnt: populate
- capture channels and check encoder
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|SJ0PR11MB5677:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f1f1182-8f48-4447-b84d-08dc000aac75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: O3m95ZCmdt59Fa7I9CA6YwccbcM6hC6v+pbOsjThwGQ7G57NSkM5MD+Lt5Sk7qeMCn6iH7xzql/nz03alEpq5OXllEd+YqqNsPBK65PXDOpxi3K9nOFf3Ui0cGlj8+1lh+IakhhW1VWfmt35cW/ulJ7dVAQkRLAkEU3/HaU/G53ne0CBWqvT1PFhn9pKTUeSF1NsoFREq2zqFRVrWM7/TtRtHEdhHJCui+FZmfH5IiXeTJ5GW7a710g1PoGyUGTuCxvvDHxC7HESZNbn+GjgRxqGxXTCbh5C0wZrAolIklX6E/xVObEUdk7V72kzRoM4qQN54gVrnr46u9ZcJo3F0KgmiIR72+lauzG9VnmO203hcUE71sAEUdytrW9RBipXyyS3c1f97ffzIrqsJ8c4HsrbnzzJCdyObE5j2idBSokyXV0l5BZxqbHqMshCegTticgH1DS4N88jjTASdqEJwWoQu4oDu/ktu9kUJO4FnL9+UMQVgghMvTyKS0iqnwr8+8Tb8UCpYvtPp3A/6uY8x4dYJtWt2nLLoRSJ0MPg0u7cONw07xqrbwuzCo+tEI/vDv6vpFDFUXXWSsbF1ybOWqFTNxAISDTSVZEK7PiMM8QoeVezthYC2LXuJnJBn0ahfSurgUar9dnGHrGqrrZHpQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(396003)(136003)(39860400002)(366004)(346002)(376002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(26005)(83380400001)(107886003)(6506007)(2616005)(53546011)(6512007)(5660300002)(4326008)(41300700001)(7416002)(316002)(110136005)(2906002)(478600001)(6486002)(8676002)(8936002)(66556008)(66476007)(66946007)(86362001)(31696002)(36756003)(82960400001)(38100700002)(31686004)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkxHbWdNeGdHNndsOVhOMjlNZXpsa0hLZ09lTU5xdDhLSmROMisxZU5GNDZL?=
+ =?utf-8?B?Q0JqdlJ3V0lJVkt3ZllSVE5ZUWdkSWJ0TmpFNU9KN1RTcnFadGhLRFVwalQ2?=
+ =?utf-8?B?bHZWT3pUb0VwS3k0TUx6TzJmNHJiWVY5L0RUdVhPQTVIK0REYlV4QzM5WWFa?=
+ =?utf-8?B?QWpVdXJRQ1FLNTV6dGtJREpMMTdCd3gvcjdmbnpYYy9vMFphVlpxa3JoZ0hC?=
+ =?utf-8?B?NHJ6dCs0S0lQb05UL3JRZlpKdThMNENIMDl5QVVoUmZPZFN0d0FiakdrYVBm?=
+ =?utf-8?B?K0ZVYjk3MWxxb3Z0VVJydmdPclo4c01WL01mVHE5eGdxSElweDF5cm52K003?=
+ =?utf-8?B?eUY3UmVLZWJ6Z1A5ZUY0eUpIeGUzN3hUZE5WbjluU1NndmdGejlhdjZ1eitH?=
+ =?utf-8?B?Y3RobmRKMUExTTIwY2F1UGMwaExOVmpSazNyTHdyeWRMQUhLcEh2WmtTQzNo?=
+ =?utf-8?B?ZmpDWFg2eERub0RDWnplazVJUWRUUFpxS053cXNoakFFVkpEOXJocW5aWnow?=
+ =?utf-8?B?VStROWJaNVc0RWJMNXR2WU1LNVQrYUZCdXFLSFNEUlpZL3FhRVVaMXg4U204?=
+ =?utf-8?B?UzEvR05iWlQ2ZUtGeGNKV2QraTYrYzBSSEpzTHlxSEs2SXhBeDN4cE1FVnlG?=
+ =?utf-8?B?RDRFOHB2N0dkbjQrR1pWcFJQQVcxY1pLdkNwZGhsdjNwemRMQ1JxRnNhN2to?=
+ =?utf-8?B?YlB1YmVWUTE3SllGQzErYjczL1BlZUZYaU1GbHdlQXVML255c3VuWjd4blJQ?=
+ =?utf-8?B?QzVienNzN3pJMWlpM1lkWlN2eEp2a21zYzB1RXhxeVBoaXl1WjNSU01qc0gz?=
+ =?utf-8?B?TVBLOEhZdm1wRVlKZW9uaGR4d1JaSjgrTTZCY214dUJQZ1pOV2ZKWmtNUER3?=
+ =?utf-8?B?Y3RPcXhyOVdDeVdGb3h3Y3doMFFOaDBVWGtKMVFkZEx2YzhiY1Bnb2VqSWdP?=
+ =?utf-8?B?TDR6elNsc0UxK291RDRBN3JNMTQwQ3RUb2tUU0k0ZFlmVDdWS2U0bXJoT0No?=
+ =?utf-8?B?aSs5cnZ2b0Q0SG1rVURwdlBqQkducmFURGVhSUhWUHdUQlJ2U0NVYUh3OWpi?=
+ =?utf-8?B?VDNkOW5MeGRVSmFFY1krM0MxeFhRRTF3NlAzVEpHVEVWZWs5WWVjdVN4RnIz?=
+ =?utf-8?B?OE0rQmNFS1NraTlTQ0lmRTJNbHY0d1Y3RXRYU2xUZEE3Tkp1bGdzK2xFYW1y?=
+ =?utf-8?B?UWxXeXBldVQ1L3Y0U0YzYWYrK0F5cXdCTU4rV0hTNVFnTytuY2NGWTMxL2xN?=
+ =?utf-8?B?QjRNUlV3OTNaVDhQNUxmdFNUVDhMdndyZFUrd1hIKzl3Vy9vRlRlcUxHcTlk?=
+ =?utf-8?B?UFU0QUlwQkd6VXhWK1dSVUdUSDIwS2ZETm51c2YramJpMnJkbHpUcW1qUUtN?=
+ =?utf-8?B?aDQyWU9lMHFqTDRjMUZnTk9YMU0rUi93WUtXZzl5MmpaQWs0ek5kVWx5dmd4?=
+ =?utf-8?B?eDBSYWwyUFQyNkRQOE15TXF0aWJ4emhKWlJOdDhsZUJ2aE9reFBjVTVtV1VM?=
+ =?utf-8?B?dnBucTdWb056Q0ZkNEVyK1RvM1UwZERHN05wVmFqeUNNRDIzZS9SSTY5L1NL?=
+ =?utf-8?B?UnhhQlJLZWNlbjJPbGZiNkd0blhvbWNydGZJSUZFaEh4TjV4NktnVW9xTGpw?=
+ =?utf-8?B?K0c0L3BlR0tEOVVnL1ZlcEtORmJrOS9ocldBaWlSd2RwazAzcTNpcGMwL0ls?=
+ =?utf-8?B?NEwzdld3ZWlRZzdBOXBaZTUwSk5QejFhYjg3QUV6NDBKTHFBZzBtM1NRTUp5?=
+ =?utf-8?B?YlhIVTFyRllNeUZ2ajZIdmNILzVWOFFib1pLckxrWWJULzlvekZ5b0xiVVJn?=
+ =?utf-8?B?ZmtKSmUwdXpKV3pVeFVFQStNOXNZc3RaR2VQSVNtQmQ1cWNhUmRqS3RVVGJy?=
+ =?utf-8?B?ZVZoUW9VQ282Q0hXckZyZGJVekI0MjZDeU41Y3dtL2ZBQ3E4cU5ORE1KNEVJ?=
+ =?utf-8?B?enNWYUltSm9QNDl6M0RSN2xSODhpTnRWV0VsTndsQnBPdnlrdDhHNE5CWXkv?=
+ =?utf-8?B?UElXcjVxeFhVRGFXTmR5aGx5NVBnQzA1d0ltZlhhcU1JQ3UzMG4xNnpqNUpl?=
+ =?utf-8?B?cDJtVTVNMGVYR1pkNXB6VW5NY25ad1BLdU5pZUZoWWdDODJtMHhVVXZqZlBl?=
+ =?utf-8?B?dmFBSTladitsaDJaZEhLQWd2d0RTeU92dlh6V2s3YXNaMkVRbEZTdlhBa2Fu?=
+ =?utf-8?B?VEE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1f1182-8f48-4447-b84d-08dc000aac75
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2023 20:48:22.4013 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: K3PVOsAtSLyWv+3/W2SQCkA/pqKU0XRVtHHW3BlNkK9ZrzMB+lc6iJd/P5Eq0V+trzyuxl7H9r6Y0YFNE0038xd+hQ5ovKXiVgxJL2wuL4w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5677
+X-OriginatorOrg: intel.com
+Cc: Song Yoong Siang <yoong.siang.song@intel.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix incorrect
+ flag check in timestamp interrupt
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -43,161 +161,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3738272515766697476=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============3738272515766697476==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6hNcEl+RZUM6gQNw"
-Content-Disposition: inline
 
+On 12/17/2023 11:51 PM, Lai Peter Jun Ann wrote:
+> The driver should continue get the timestamp if STMMAC_FLAG_EXT_SNAPSHOT_EN
+> flag is set.
+> 
 
---6hNcEl+RZUM6gQNw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 
-On Fri, Dec 15, 2023 at 06:13:51PM +0100, Fabrice Gasnier wrote:
-> >> +	/*
-> >> +	 * Handle diversity for stm32 timers features. For now encoder is fo=
-und with
-> >> +	 * advanced timers or gp timers with 4 channels. Timers with less ch=
-annels
-> >> +	 * doesn't support encoder.
-> >> +	 */
-> >> +	switch (priv->nchannels) {
-> >> +	case 4:
-> >> +		if (priv->has_encoder)
-> >> +			counter->counts =3D &stm32_counts_enc_4ch;
-> >> +		else
-> >> +			counter->counts =3D &stm32_counts_4ch;
-> >> +		counter->signals =3D stm32_signals;
-> >> +		counter->num_signals =3D ARRAY_SIZE(stm32_signals);
-> >> +		break;
-> >> +	case 2:
-> >> +		counter->counts =3D &stm32_counts_2ch;
-> >> +		counter->signals =3D stm32_signals;
-> >> +		counter->num_signals =3D 3; /* clock, ch1 and ch2 */
-> >> +		break;
-> >> +	case 1:
-> >> +		counter->counts =3D &stm32_counts_1ch;
-> >> +		counter->signals =3D stm32_signals;
-> >> +		counter->num_signals =3D 2; /* clock, ch1 */
-> >> +		break;
-> >> +	default:
-> >> +		counter->counts =3D &stm32_counts;
-> >> +		counter->signals =3D stm32_signals;
-> >> +		counter->num_signals =3D 1; /* clock */
-> >> +		break;
-> >> +	}
-> >=20
-> > Rather than adjusting the number of counts and signals, keep the
-> > configuration static and use a single stm32_counts array. The reason is
-> > that in the Counter subsystem paradigm Signals do not necessary
-> > correlate to specific hardware signals but are rather an abstract
-> > representation of the device behavior at a high level. In other words, a
-> > Synapse with an action mode set to COUNTER_SYNAPSE_ACTION_NONE can be
-> > viewed as representing a Signal that does not affect the Count (i.e. in
-> > this case equivalent to an unconnected line).
-> >=20
-> > What you'll need to do instead is check priv->nchannels during
-> > stm32_action_read and stm32_count_function_read calls in order to return
-> > the correct synapse action and count function for the particular
-> > channels configuration you have. In stm32_count_function_write you would
-> > return an -EINVAL (maybe -EOPNOTSUPP would be better?) when the channels
-> > configuration does not support a particular count function.
->=20
-> Hi William,
->=20
-> Sorry for the long delay to address your comments here. Many thanks for
-> these guidelines.
->=20
-> I'm preparing a v3, to address these. I'll probably send it soon, so we
-> can start to review also the capture part of it. Still there are few
-> things here I'm wondering about (as an anticipation task).
->=20
-> Basically, removing all the diversity here means the most featured timer
-> model will be represented here (with all possible signals).
-> When I wrote the various configuration arrays, I'd have been tempted to
-> allocate them dynamically upon probing to avoid having all these
-> variants described as const arrays. This may have eased other signals
-> additions later. But that's not the direction. So, this simplifies the
-> description here, clearly, to describe the full-featured timer/counter,
-> and handle the ("unconnected") variants by returning errors.
->=20
-> I still have in mind the replacement of the last IIO_COUNT device [1]
-> (not addressed in this series), e.g. in
-> drivers/iio/trigger/stm32-timer-trigger.c. Here, there are
-> "valids_table" that are used to cascade two timers (one timer output
-> being the input to another timer). With this table currently, an IIO
-> user knows the name of the signal it selects (then the driver looks up
-> the 'valids' table to set SMCR / TS bits, e.g. trigger select). Each
-> individual timer has a different input mapping, so called peripheral
-> interconnect in STM32.
-> What bothers me here is: with an abstracted full-featured timer, without
-> any diversity on the signal names, I fear the userland has no clue on
-> which signal would be used. Abstracting the timer this way would mean
-> the user only knows it selects "Internal Trigger 0" for example, without
-> knowing which internal signal in the SoC it has selected.
->=20
-> Even if this is out of scope for this series, would you have some clue
-> so I can anticipate it ? Or if we stick with abstract names? In which
-> case the userland may need to be aware of the signals mapping (where
-> currently in IIO_COUNT driver, the signal names are privided). I'd be
-> glad to get some direction here.
->=20
-> Please advise,
-> Best Regards,
-> Fabrice
->=20
-> [1] https://lore.kernel.org/linux-arm-kernel/Y0vzlOmFrVCQVXMq@fedora/
-
-Hi Fabrice,
-
-I took a look the stm32-timer-trigger.c file, but I'm having trouble
-understanding it well (probably the cascading is confusing me). If I
-understand the logic correctly, the user selects the trigger they want
-by the attribute's name which is compared via strncmp() against the
-'valids' table. It's possible we could dynamically configure the signal
-names, but keep the signal id static so the driver code won't need some
-many variations; alternatively, we could introduce a new signal
-extension attribute that could display the trigger name.
-
-Would you walk me through an example of using the stm32-timer-trigger
-IIO sysfs interface? I think that would help me understand how users
-currently interact with the triggers for that driver, and then maybe I
-can figure out an appropriate equivalent in the Counter paradigm for
-the migration. Right now, the timer cascade is confusing me so if I can
-grok it well, the right solution for this may come to me more easily.
-
-Thanks,
-
-William Breathitt Gray
-
---6hNcEl+RZUM6gQNw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZYCIRAAKCRC1SFbKvhIj
-KzL0AQCBGPqG8kOluqjB/Yzuc6T3oT6VwNPErfSyZN8uvziqDQD9EI31uZSzpDLU
-hHMJkRMkV+Is306UT0QLqo+nFChRtgo=
-=wI3r
------END PGP SIGNATURE-----
-
---6hNcEl+RZUM6gQNw--
-
---===============3738272515766697476==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Fixes: aa5513f5d95f ("net: stmmac: replace the ext_snapshot_en field with a flag")
+> Cc: <stable@vger.kernel.org> # 6.6
+> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
+> Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
+> ---
+> v2 changelog:
+>  - Add fix tag and stable@vger.kernel.org in email cc list.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> index 540f6a4..f05bd75 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
+> @@ -237,7 +237,7 @@ static void timestamp_interrupt(struct stmmac_priv *priv)
+>  	 */
+>  	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
+>  
+> -	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
+> +	if (!(priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN))
+>  		return;
+>  
+>  	num_snapshot = (ts_status & GMAC_TIMESTAMP_ATSNS_MASK) >>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3738272515766697476==--
