@@ -2,154 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45D6817C35
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 21:48:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A0A9817CB8
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 22:44:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85CCFC6DD70;
-	Mon, 18 Dec 2023 20:48:30 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFDD8C6DD72;
+	Mon, 18 Dec 2023 21:44:55 +0000 (UTC)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 917F0C6DD6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F3B3C6DD70
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 20:48:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1702932509; x=1734468509;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=W2Hs96AqQiGDi2exTUitBAzOrbDezSDZ9jpmjOMwKAU=;
- b=Y0QybKUp7+0BgrRfQrz8/bOAPhji1jmLDxx86uMZBOVJgJWhdUBB4Au9
- 7/yE+Xp+pUQe+yvZBeNtvCB6jLVwWnk9DjU+VWxc5wOqZokodxweNAwOV
- 0qIOG9BhjvdS7tFVvsldomRNEDH3JeeGR0obHX2kEj2CA7ViLnOzbNwH2
- IJgbhQ4UIEud1v6x8ndCNXhek0nRhi/VNw7TZD2PCdaszhqPa6ZDhzkc5
- VmdeIzs65/deZnjJZBXhqQPOw7bOecOi5jt3Ma2M5yOMQzxyfv6SSWOSA
- /ID62bL3tlbDWoFx7hacvW3TJoXGztJu1VcuQSWf6Vcrs9IrmNbNo3wo3 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="2774771"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; 
-   d="scan'208";a="2774771"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2023 12:48:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10928"; a="1107088611"
-X-IronPort-AV: E=Sophos;i="6.04,286,1695711600"; d="scan'208";a="1107088611"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by fmsmga005.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 18 Dec 2023 12:48:25 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Mon, 18 Dec 2023 12:48:25 -0800
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Mon, 18 Dec 2023 12:48:25 -0800
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.41) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Mon, 18 Dec 2023 12:48:24 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oPS1kHNTPLCW57Vxt9Ccfc5j8270z+wWPKOAKZPP4r5sC0yEPRLj/XfYPJqwjY+cwX+PKFx+56LmaZB91hiALqhvJbzmzjCGAoejTXpKQtNoCsrJEqVJXe2zLpd8kxMQyGw5bv6LkhaAnTHVRoImiwL9kSwSI0AGpbQaubMqib/tGKnY6ofmKxHFjN3WTEKq4Z9QOwCzguly7vxo2eFLE1QP7GVmgNAZFrpgXvWbW1w4j+Ow1v14vnPZQlMkgmm0xBf9pzdnKEI3Q2GO9hwA28PMoQN+f8eXXij0JOPp2pAmEqQXmWRqpuSPliS2rDL01k5UiI+cJ7HryhqqPljxnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BasrHyiLqQ00kDQPrUV/fst0YIPII3j/7mDUPH0MDQI=;
- b=iyknWckRiGt063XygDreEHkKicK+l0oMMwamWNAyYcoYziIFTyCy6VINJMLdOcsQek9JfCxvhl49dLzhJ18X8wjvXUShK2SdtgGxKlvpiqtM2pyHYg3pi737stcNrILW0edn7sIUXX/RKJHbnmxoE33eii+GE5aQ2orVIgH/b10HDkbKY0utfE/QCX6Y9W0LZJST7bV/Kh8j58LaBNklih4RhfInoxSz+l6Axg3nY07fnm6tYgeq1qhgMnyFGaHv+UGVLEZxBqJgQTB2JTyGF7Azhq1g6BWSkBW7AZLYCga3alRu3qf2jmo9y+GT4f0dxs3g5okekWb3ZjELKj3AlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com (2603:10b6:303:9b::16)
- by SJ0PR11MB5677.namprd11.prod.outlook.com (2603:10b6:a03:37e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Mon, 18 Dec
- 2023 20:48:22 +0000
-Received: from CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::dbee:4787:6eeb:57f5]) by CO1PR11MB5089.namprd11.prod.outlook.com
- ([fe80::dbee:4787:6eeb:57f5%4]) with mapi id 15.20.7091.034; Mon, 18 Dec 2023
- 20:48:22 +0000
-Message-ID: <159702bf-3bc8-482e-b4f5-65799d330d7f@intel.com>
-Date: Mon, 18 Dec 2023 12:48:20 -0800
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Lai Peter Jun Ann <jun.ann.lai@intel.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-References: <1702885892-30369-1-git-send-email-jun.ann.lai@intel.com>
-From: Jacob Keller <jacob.e.keller@intel.com>
-In-Reply-To: <1702885892-30369-1-git-send-email-jun.ann.lai@intel.com>
-X-ClientProxiedBy: MW4PR03CA0320.namprd03.prod.outlook.com
- (2603:10b6:303:dd::25) To CO1PR11MB5089.namprd11.prod.outlook.com
- (2603:10b6:303:9b::16)
+ Mon, 18 Dec 2023 21:44:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1702935893;
+ bh=NQEqY143VYksNlhopFxm06zXb51908qalsqGZ+XLVDk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=p+aImHeEY5V+Cbui7K8BYs+kBMnVl/sTXwGrZhOyJw/mgNK5ZiNtbwSu+qD7D9UAh
+ px9Kcdbgbf8dJYAsr7m7zd2EVGz7SkIDQ9ybOoXUwBRApdhZcgzMNhKe3BXV9t8Wck
+ QqbQy0EMV5SQqjcxyDSp99ThORRlsJvCSTMhDwAx92Wb/AJT0cmOznPYxc950ka3MC
+ zyGHQO/MgXYP2X8Mu2jeVUDYwAPwBrgf0Yp8Ow81JwXD3REjenpYlk+Rh7g3SKTMNp
+ h4Ayn9b3uNQyWrOtll2uO/5kXeLBkiOZVNBMjmKfb6I97vNeKnsi+9D64R7594USvT
+ SRXDoE83XhsFA==
+Received: from localhost (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: cristicc)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 2F6A8378146E;
+ Mon, 18 Dec 2023 21:44:53 +0000 (UTC)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Date: Mon, 18 Dec 2023 23:44:40 +0200
+Message-ID: <20231218214451.2345691-1-cristian.ciocaltea@collabora.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5089:EE_|SJ0PR11MB5677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f1f1182-8f48-4447-b84d-08dc000aac75
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: O3m95ZCmdt59Fa7I9CA6YwccbcM6hC6v+pbOsjThwGQ7G57NSkM5MD+Lt5Sk7qeMCn6iH7xzql/nz03alEpq5OXllEd+YqqNsPBK65PXDOpxi3K9nOFf3Ui0cGlj8+1lh+IakhhW1VWfmt35cW/ulJ7dVAQkRLAkEU3/HaU/G53ne0CBWqvT1PFhn9pKTUeSF1NsoFREq2zqFRVrWM7/TtRtHEdhHJCui+FZmfH5IiXeTJ5GW7a710g1PoGyUGTuCxvvDHxC7HESZNbn+GjgRxqGxXTCbh5C0wZrAolIklX6E/xVObEUdk7V72kzRoM4qQN54gVrnr46u9ZcJo3F0KgmiIR72+lauzG9VnmO203hcUE71sAEUdytrW9RBipXyyS3c1f97ffzIrqsJ8c4HsrbnzzJCdyObE5j2idBSokyXV0l5BZxqbHqMshCegTticgH1DS4N88jjTASdqEJwWoQu4oDu/ktu9kUJO4FnL9+UMQVgghMvTyKS0iqnwr8+8Tb8UCpYvtPp3A/6uY8x4dYJtWt2nLLoRSJ0MPg0u7cONw07xqrbwuzCo+tEI/vDv6vpFDFUXXWSsbF1ybOWqFTNxAISDTSVZEK7PiMM8QoeVezthYC2LXuJnJBn0ahfSurgUar9dnGHrGqrrZHpQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5089.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(396003)(136003)(39860400002)(366004)(346002)(376002)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(26005)(83380400001)(107886003)(6506007)(2616005)(53546011)(6512007)(5660300002)(4326008)(41300700001)(7416002)(316002)(110136005)(2906002)(478600001)(6486002)(8676002)(8936002)(66556008)(66476007)(66946007)(86362001)(31696002)(36756003)(82960400001)(38100700002)(31686004)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QkxHbWdNeGdHNndsOVhOMjlNZXpsa0hLZ09lTU5xdDhLSmROMisxZU5GNDZL?=
- =?utf-8?B?Q0JqdlJ3V0lJVkt3ZllSVE5ZUWdkSWJ0TmpFNU9KN1RTcnFadGhLRFVwalQ2?=
- =?utf-8?B?bHZWT3pUb0VwS3k0TUx6TzJmNHJiWVY5L0RUdVhPQTVIK0REYlV4QzM5WWFa?=
- =?utf-8?B?QWpVdXJRQ1FLNTV6dGtJREpMMTdCd3gvcjdmbnpYYy9vMFphVlpxa3JoZ0hC?=
- =?utf-8?B?NHJ6dCs0S0lQb05UL3JRZlpKdThMNENIMDl5QVVoUmZPZFN0d0FiakdrYVBm?=
- =?utf-8?B?K0ZVYjk3MWxxb3Z0VVJydmdPclo4c01WL01mVHE5eGdxSElweDF5cm52K003?=
- =?utf-8?B?eUY3UmVLZWJ6Z1A5ZUY0eUpIeGUzN3hUZE5WbjluU1NndmdGejlhdjZ1eitH?=
- =?utf-8?B?Y3RobmRKMUExTTIwY2F1UGMwaExOVmpSazNyTHdyeWRMQUhLcEh2WmtTQzNo?=
- =?utf-8?B?ZmpDWFg2eERub0RDWnplazVJUWRUUFpxS053cXNoakFFVkpEOXJocW5aWnow?=
- =?utf-8?B?VStROWJaNVc0RWJMNXR2WU1LNVQrYUZCdXFLSFNEUlpZL3FhRVVaMXg4U204?=
- =?utf-8?B?UzEvR05iWlQ2ZUtGeGNKV2QraTYrYzBSSEpzTHlxSEs2SXhBeDN4cE1FVnlG?=
- =?utf-8?B?RDRFOHB2N0dkbjQrR1pWcFJQQVcxY1pLdkNwZGhsdjNwemRMQ1JxRnNhN2to?=
- =?utf-8?B?YlB1YmVWUTE3SllGQzErYjczL1BlZUZYaU1GbHdlQXVML255c3VuWjd4blJQ?=
- =?utf-8?B?QzVienNzN3pJMWlpM1lkWlN2eEp2a21zYzB1RXhxeVBoaXl1WjNSU01qc0gz?=
- =?utf-8?B?TVBLOEhZdm1wRVlKZW9uaGR4d1JaSjgrTTZCY214dUJQZ1pOV2ZKWmtNUER3?=
- =?utf-8?B?Y3RPcXhyOVdDeVdGb3h3Y3doMFFOaDBVWGtKMVFkZEx2YzhiY1Bnb2VqSWdP?=
- =?utf-8?B?TDR6elNsc0UxK291RDRBN3JNMTQwQ3RUb2tUU0k0ZFlmVDdWS2U0bXJoT0No?=
- =?utf-8?B?aSs5cnZ2b0Q0SG1rVURwdlBqQkducmFURGVhSUhWUHdUQlJ2U0NVYUh3OWpi?=
- =?utf-8?B?VDNkOW5MeGRVSmFFY1krM0MxeFhRRTF3NlAzVEpHVEVWZWs5WWVjdVN4RnIz?=
- =?utf-8?B?OE0rQmNFS1NraTlTQ0lmRTJNbHY0d1Y3RXRYU2xUZEE3Tkp1bGdzK2xFYW1y?=
- =?utf-8?B?UWxXeXBldVQ1L3Y0U0YzYWYrK0F5cXdCTU4rV0hTNVFnTytuY2NGWTMxL2xN?=
- =?utf-8?B?QjRNUlV3OTNaVDhQNUxmdFNUVDhMdndyZFUrd1hIKzl3Vy9vRlRlcUxHcTlk?=
- =?utf-8?B?UFU0QUlwQkd6VXhWK1dSVUdUSDIwS2ZETm51c2YramJpMnJkbHpUcW1qUUtN?=
- =?utf-8?B?aDQyWU9lMHFqTDRjMUZnTk9YMU0rUi93WUtXZzl5MmpaQWs0ek5kVWx5dmd4?=
- =?utf-8?B?eDBSYWwyUFQyNkRQOE15TXF0aWJ4emhKWlJOdDhsZUJ2aE9reFBjVTVtV1VM?=
- =?utf-8?B?dnBucTdWb056Q0ZkNEVyK1RvM1UwZERHN05wVmFqeUNNRDIzZS9SSTY5L1NL?=
- =?utf-8?B?UnhhQlJLZWNlbjJPbGZiNkd0blhvbWNydGZJSUZFaEh4TjV4NktnVW9xTGpw?=
- =?utf-8?B?K0c0L3BlR0tEOVVnL1ZlcEtORmJrOS9ocldBaWlSd2RwazAzcTNpcGMwL0ls?=
- =?utf-8?B?NEwzdld3ZWlRZzdBOXBaZTUwSk5QejFhYjg3QUV6NDBKTHFBZzBtM1NRTUp5?=
- =?utf-8?B?YlhIVTFyRllNeUZ2ajZIdmNILzVWOFFib1pLckxrWWJULzlvekZ5b0xiVVJn?=
- =?utf-8?B?ZmtKSmUwdXpKV3pVeFVFQStNOXNZc3RaR2VQSVNtQmQ1cWNhUmRqS3RVVGJy?=
- =?utf-8?B?ZVZoUW9VQ282Q0hXckZyZGJVekI0MjZDeU41Y3dtL2ZBQ3E4cU5ORE1KNEVJ?=
- =?utf-8?B?enNWYUltSm9QNDl6M0RSN2xSODhpTnRWV0VsTndsQnBPdnlrdDhHNE5CWXkv?=
- =?utf-8?B?UElXcjVxeFhVRGFXTmR5aGx5NVBnQzA1d0ltZlhhcU1JQ3UzMG4xNnpqNUpl?=
- =?utf-8?B?cDJtVTVNMGVYR1pkNXB6VW5NY25ad1BLdU5pZUZoWWdDODJtMHhVVXZqZlBl?=
- =?utf-8?B?dmFBSTladitsaDJaZEhLQWd2d0RTeU92dlh6V2s3YXNaMkVRbEZTdlhBa2Fu?=
- =?utf-8?B?VEE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1f1182-8f48-4447-b84d-08dc000aac75
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5089.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2023 20:48:22.4013 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K3PVOsAtSLyWv+3/W2SQCkA/pqKU0XRVtHHW3BlNkK9ZrzMB+lc6iJd/P5Eq0V+trzyuxl7H9r6Y0YFNE0038xd+hQ5ovKXiVgxJL2wuL4w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5677
-X-OriginatorOrg: intel.com
-Cc: Song Yoong Siang <yoong.siang.song@intel.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: fix incorrect
- flag check in timestamp interrupt
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v4 0/9] Enable networking support for StarFive
+	JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,39 +74,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This patch series adds ethernet support for the StarFive JH7100 SoC and makes it
+available for the StarFive VisionFive V1 and BeagleV Starlight boards, although
+I could only validate on the former SBC.  Thank you Emil and Geert for helping
+with tests on BeagleV!
 
+The work is heavily based on the reference implementation [1] and depends on the
+SiFive Composable Cache controller and non-coherent DMA support provided by Emil
+via [2] and [3].
 
-On 12/17/2023 11:51 PM, Lai Peter Jun Ann wrote:
-> The driver should continue get the timestamp if STMMAC_FLAG_EXT_SNAPSHOT_EN
-> flag is set.
-> 
+*Update*: as of next-20231214, all dependencies have been merged.
 
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+[1] https://github.com/starfive-tech/linux/commits/visionfive
+[2] https://lore.kernel.org/all/CAJM55Z_pdoGxRXbmBgJ5GbVWyeM1N6+LHihbNdT26Oo_qA5VYA@mail.gmail.com/
+[3] https://lore.kernel.org/all/20231130151932.729708-1-emil.renner.berthing@canonical.com/
 
-> Fixes: aa5513f5d95f ("net: stmmac: replace the ext_snapshot_en field with a flag")
-> Cc: <stable@vger.kernel.org> # 6.6
-> Signed-off-by: Song Yoong Siang <yoong.siang.song@intel.com>
-> Signed-off-by: Lai Peter Jun Ann <jun.ann.lai@intel.com>
-> ---
-> v2 changelog:
->  - Add fix tag and stable@vger.kernel.org in email cc list.
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> index 540f6a4..f05bd75 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-> @@ -237,7 +237,7 @@ static void timestamp_interrupt(struct stmmac_priv *priv)
->  	 */
->  	ts_status = readl(priv->ioaddr + GMAC_TIMESTAMP_STATUS);
->  
-> -	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
-> +	if (!(priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN))
->  		return;
->  
->  	num_snapshot = (ts_status & GMAC_TIMESTAMP_ATSNS_MASK) >>
+Changes in v4:
+ - Restricted double usage of 'ahb' reset name in PATCH 2 (Jessica, Samuel)
+ - Moved phy reference from PATCH 5 to both PATCH 6 & 7 where the node is
+   actually defined (Emil, Conor)
+ - Drop unnecessary gpio include in PATCH 6; also added a DTS comment describing
+   the rational behind RX internal delay adjustment (Andrew)
+ - v3:
+   https://lore.kernel.org/lkml/20231215204050.2296404-1-cristian.ciocaltea@collabora.com/
+
+Changes in v3:
+ - Rebased series onto next-20231214 and dropped the ccache & DMA coherency
+   related patches (v2 06-08/12) handled by Emil via [3]
+ - Squashed PATCH v2 01/12 into PATCH v3 2/9, per Krzysztof's review
+ - Dropped incorrect PATCH v2 02/12
+ - Incorporated Emil's feedback; also added his Co-developed-by on all dts
+   patches
+ - Documented the need of adjusting RX internal delay in PATCH v3 8/9, per
+   Andrew's request
+ - Added clock fixes from Emil (PATCH v3 8-9/9) required to support 10/100Mb
+   link speeds
+ - v2:
+   https://lore.kernel.org/lkml/20231029042712.520010-1-cristian.ciocaltea@collabora.com/
+
+Changes in v2:
+ - Dropped ccache PATCH 01-05 reworked by Emil via [2]
+ - Dropped already applied PATCH 06/12
+ - Added PATCH v2 01 to prepare snps-dwmac binding for JH7100 support
+ - Added PATCH v2 02-03 to provide some jh7110-dwmac binding optimizations
+ - Handled JH7110 conflicting work in PATCH 07 via PATCH v2 04
+ - Reworked PATCH 8 via PATCH v2 05, adding JH7100 quirk and dropped
+   starfive,gtxclk-dlychain DT property; also fixed register naming
+ - Added PATCH v2 08 providing DMA coherency related DT changes
+ - Updated PATCH 9 commit msg:
+   s/OF_DMA_DEFAULT_COHERENT/ARCH_DMA_DEFAULT_COHERENT/
+ - Replaced 'uncached-offset' property with 'sifive,cache-ops' in PATCH 10/12
+   and dropped 'sideband' reg
+ - Add new patch providing coherent DMA memory pool (PATCH v2 10)
+ - Updated PATCH 11/12 according to the stmmac glue layer changes in upstream
+ - Split PATCH 12/12 into PATCH v2 10-12 to handle individual gmac setup of
+   VisionFive v1 and BeagleV boards as they use different PHYs; also switched
+   phy-mode from "rgmii-tx" to "rgmii-id" (requires a reduction of
+   rx-internal-delay-ps by ~50%)
+ - Rebased series onto next-20231024
+ - v1:
+   https://lore.kernel.org/lkml/20230211031821.976408-1-cristian.ciocaltea@collabora.com/
+
+Cristian Ciocaltea (7):
+  dt-bindings: net: starfive,jh7110-dwmac: Drop redundant reset
+    description
+  dt-bindings: net: starfive,jh7110-dwmac: Add JH7100 SoC compatible
+  net: stmmac: dwmac-starfive: Add support for JH7100 SoC
+  riscv: dts: starfive: jh7100: Add sysmain and gmac DT nodes
+  riscv: dts: starfive: jh7100-common: Setup pinmux and enable gmac
+  riscv: dts: starfive: visionfive-v1: Setup ethernet phy
+  riscv: dts: starfive: beaglev-starlight: Setup phy reset gpio
+
+Emil Renner Berthing (2):
+  clk: starfive: Add flags argument to JH71X0__MUX macro
+  clk: starfive: jh7100: Add CLK_SET_RATE_PARENT to gmac_tx
+
+ .../devicetree/bindings/net/snps,dwmac.yaml   | 11 ++-
+ .../bindings/net/starfive,jh7110-dwmac.yaml   | 75 ++++++++++++-----
+ .../dts/starfive/jh7100-beaglev-starlight.dts | 11 +++
+ .../boot/dts/starfive/jh7100-common.dtsi      | 84 +++++++++++++++++++
+ .../jh7100-starfive-visionfive-v1.dts         | 22 ++++-
+ arch/riscv/boot/dts/starfive/jh7100.dtsi      | 36 ++++++++
+ .../clk/starfive/clk-starfive-jh7100-audio.c  |  2 +-
+ drivers/clk/starfive/clk-starfive-jh7100.c    | 32 +++----
+ .../clk/starfive/clk-starfive-jh7110-aon.c    |  6 +-
+ .../clk/starfive/clk-starfive-jh7110-isp.c    |  2 +-
+ .../clk/starfive/clk-starfive-jh7110-sys.c    | 26 +++---
+ drivers/clk/starfive/clk-starfive-jh71x0.h    |  4 +-
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  6 +-
+ .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 32 ++++++-
+ 14 files changed, 280 insertions(+), 69 deletions(-)
+
+-- 
+2.43.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
