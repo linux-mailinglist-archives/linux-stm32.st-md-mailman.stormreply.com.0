@@ -2,54 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A98816E47
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 13:46:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FCD48170D3
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 14:50:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58C73C6DD70;
-	Mon, 18 Dec 2023 12:46:23 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19B25C6DD70;
+	Mon, 18 Dec 2023 13:50:58 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71799C6DD6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1155BC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 12:46:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DDAEBCE10B6;
- Mon, 18 Dec 2023 12:46:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62590C433CA;
- Mon, 18 Dec 2023 12:46:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1702903579;
- bh=9NRGY183+ZrKjPWWEIE9GxstvsmhrLSKBsJzvLGYfcw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SrBBiWsOQB57cbGiUk3SFIcF1SRqZ4eMDASObSG5rJtZUwTCOhA01zkn5ABf0Hcox
- XP6PBvUGGmI+Bo9zIdPBadwGAJ8TYQaKPVSBo9Riv1QS3vslpDGJCpP5jnkObo+xZE
- S3bWGkrwhZx9Gdc0YMpNTSvH0yrtPFIO87VlTjhqZcXF3bI1CMCrkMk9BfXwuIjI6N
- tp5L3CtYNec+jOg9OKS6PLLusvNig0f7WYkKodgxU9nb+CcijSvjT9j8kPRbVRWYZl
- 87MOoMWpAm9skSskojSLE52gshg6mROiWfMC+zWpDOqdhH+CmvQNeA0IvygxVUpKTI
- aIzYclVUA883A==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon, 18 Dec 2023 07:45:43 -0500
-Message-ID: <20231218124557.1380724-10-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231218124557.1380724-1-sashal@kernel.org>
-References: <20231218124557.1380724-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 5.15.143
-Cc: Sasha Levin <sashal@kernel.org>, Yanteng Si <siyanteng@loongson.cn>,
- edumazet@google.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Conor Dooley <conor.dooley@microchip.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 5.15 10/13] stmmac: dwmac-loongson:
-	drop useless check for compatible fallback
+ Mon, 18 Dec 2023 13:50:56 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BIAsVWW017332; Mon, 18 Dec 2023 13:50:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id; s=qcppdkim1; bh=nUdOg7e/uqM8
+ fAT/uL8XeBHHGJeylXDTsQX179ijxSk=; b=RxMEhI0NwhaB8DgcapUyRgMHCN/n
+ zk6Pivg5MSY+vm24um1dVW2c+hxXhFP9ETICnsUGFxQ4oqmg2LfbksgnakeayWjo
+ hI21iB9FuXMVuALz31K+kvN87u1/4mlEmyvzAUusGz8lsb4MnAglB90RoJeZ3eo2
+ vlOhsdBDVarMUE3WhAIE+DwJ4+e7LN8W9UEs2+ymvoXoJpSJQe/aK/+erWx1LVDg
+ OZiQ9RkkgtONSfrxVQFUrc7N2oflGFjs1bXbZ/kLzNuA/uMkJNFlpb2cMCNEPXSD
+ lkorj2AdpJVZBuFQNtu87uO0CDqjdLeJVUbkMtvyUoagVzKYWbW/wRynUA==
+Received: from apblrppmta01.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v2j2dgr4p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 18 Dec 2023 13:50:41 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 3BIDoblo013928; 
+ Mon, 18 Dec 2023 13:50:37 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 3v14ym0na4-1;
+ Mon, 18 Dec 2023 13:50:37 +0000
+Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 3BIDoa0d013922;
+ Mon, 18 Dec 2023 13:50:36 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
+ [10.147.246.35])
+ by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 3BIDoa8n013918;
+ Mon, 18 Dec 2023 13:50:36 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
+ id 9DB1D5001DB; Mon, 18 Dec 2023 19:20:35 +0530 (+0530)
+From: Sneh Shah <quic_snehshah@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Date: Mon, 18 Dec 2023 19:20:32 +0530
+Message-Id: <20231218135032.27209-1-quic_snehshah@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: MsEGX18yZSJR_NepSVO8KsNU-e5xjiMl
+X-Proofpoint-GUID: MsEGX18yZSJR_NepSVO8KsNU-e5xjiMl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxlogscore=999
+ mlxscore=0 bulkscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ adultscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
+ definitions=main-2312180100
+Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: Fix ethool link
+	settings ops for integrated PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,49 +90,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Currently get/set_link_ksettings ethtool ops are dependent on PCS.
+When PCS is integrated in MAC, it will not have separate link config.
+Bypass cofiguring and checking PCS link config for integrated PCS.
 
-[ Upstream commit 31fea092c6f9f8fb2c40a08137907f5fbeae55dd ]
-
-Device binds to proper PCI ID (LOONGSON, 0x7a03), already listed in DTS,
-so checking for some other compatible does not make sense.  It cannot be
-bound to unsupported platform.
-
-Drop useless, incorrect (space in between) and undocumented compatible.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Yanteng Si <siyanteng@loongson.cn>
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Acked-by: Jiaxun Yang <jiaxun.yang@flygoat.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index 2ae59f94afe1d..a896fadb96b0e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -59,11 +59,6 @@ static int loongson_dwmac_probe(struct pci_dev *pdev, const struct pci_device_id
- 		return -ENODEV;
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index f628411ae4ae..e3ba4cd47b8d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -311,8 +311,9 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
  
--	if (!of_device_is_compatible(np, "loongson, pci-gmac")) {
--		pr_info("dwmac_loongson_pci: Incompatible OF node\n");
--		return -ENODEV;
--	}
--
- 	plat = devm_kzalloc(&pdev->dev, sizeof(*plat), GFP_KERNEL);
- 	if (!plat)
- 		return -ENOMEM;
+-	if (priv->hw->pcs & STMMAC_PCS_RGMII ||
+-	    priv->hw->pcs & STMMAC_PCS_SGMII) {
++	if (!(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS) &&
++	    (priv->hw->pcs & STMMAC_PCS_RGMII ||
++	     priv->hw->pcs & STMMAC_PCS_SGMII)) {
+ 		struct rgmii_adv adv;
+ 		u32 supported, advertising, lp_advertising;
+ 
+@@ -397,8 +398,9 @@ stmmac_ethtool_set_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
+-	if (priv->hw->pcs & STMMAC_PCS_RGMII ||
+-	    priv->hw->pcs & STMMAC_PCS_SGMII) {
++	if (!(priv->plat->flags & STMMAC_FLAG_HAS_INTEGRATED_PCS) &&
++	    (priv->hw->pcs & STMMAC_PCS_RGMII ||
++	     priv->hw->pcs & STMMAC_PCS_SGMII)) {
+ 		/* Only support ANE */
+ 		if (cmd->base.autoneg != AUTONEG_ENABLE)
+ 			return -EINVAL;
 -- 
-2.43.0
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
