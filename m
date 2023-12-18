@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACEDC817CBF
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 22:45:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EB5817CC0
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Dec 2023 22:45:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C7FDC6DD75;
-	Mon, 18 Dec 2023 21:45:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87064C6DD73;
+	Mon, 18 Dec 2023 21:45:03 +0000 (UTC)
 Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
  [46.235.227.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67692C6DD73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A093C6DD77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Dec 2023 21:45:00 +0000 (UTC)
+ Mon, 18 Dec 2023 21:45:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1702935900;
- bh=HuOM7ECyvIemfEAWs07YUa5GDYXFtppCMkeuXbHE3H8=;
+ s=mail; t=1702935901;
+ bh=l+eWaUkr0QWL7sDgPsO2uU1ihAKDwVmDeuD26D7VS5M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xMRMTnkWmjm5My4aEyYxW2P25j5XCxD36o4zB4JmSkNduJ7Fynp9bbcMP8KQ8iCXR
- 3YzK8ubA/jcfwOIXRBxgdLb2FjxEEVdpess4KdwQyFN/BymURC/BiFryKL/+z7IGsy
- cRpq5UTqONLl8aXg37G0lyk9l8q5yvQUYt9N502yeLT8e17Tuw+LYu9z7FbP4tatJr
- bdtCTd9VjsCMc7K/CMDNgIFALdbTsEQ47nx1Eg5bF+UmSMyYZQLTnNZ46tEowi6Efh
- xpiW0LgL5v+HNgbkvbqqQ6HgmxAC7l9lG21r+HOMf7THqPEEwMUhTJywRpYBu6Pr9n
- wouRy+uMbBwig==
+ b=xvBHSpbIGeINNhcUZF4yZ4Au6Jp+FlBHac8FRRgRFQjOSdqggtFkjilcTU6IoW1ET
+ wlMZfXEII8Lh5npVJ/ssGW9OkURbQ5U5x29RgsJCfLyJbGaKz21CXm4n1xNInwEqB9
+ T4SQXyIyl+IBoyAD2VXIye/egruOGMrCCX3U6GvemAmknA5fe26MXDJMFqp6Z1/aZ2
+ UEdjEv2kg8ZFIBRfO1ZBm+FkE8eSh9VtGz4PTgIAQoqXFNrVdayBGofkseoLDYzoa0
+ sd5nty0KQlnQwgjpi0Yb/L4zbsE37EN1JrITw4KajtLiqgPN9Vuf8QlR+neczF5AdD
+ CAgKIWngoNOJA==
 Received: from localhost (cola.collaboradmins.com [195.201.22.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id D81DD37814AF;
- Mon, 18 Dec 2023 21:44:59 +0000 (UTC)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 1ABEF37814B0;
+ Mon, 18 Dec 2023 21:45:01 +0000 (UTC)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 To: "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -48,8 +48,8 @@ To: "David S. Miller" <davem@davemloft.net>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Richard Cochran <richardcochran@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Mon, 18 Dec 2023 23:44:46 +0200
-Message-ID: <20231218214451.2345691-7-cristian.ciocaltea@collabora.com>
+Date: Mon, 18 Dec 2023 23:44:47 +0200
+Message-ID: <20231218214451.2345691-8-cristian.ciocaltea@collabora.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231218214451.2345691-1-cristian.ciocaltea@collabora.com>
 References: <20231218214451.2345691-1-cristian.ciocaltea@collabora.com>
@@ -60,8 +60,8 @@ Cc: devicetree@vger.kernel.org,
  linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
  kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 6/9] riscv: dts: starfive: visionfive-v1:
-	Setup ethernet phy
+Subject: [Linux-stm32] [PATCH v4 7/9] riscv: dts: starfive:
+	beaglev-starlight: Setup phy reset gpio
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,59 +78,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The StarFive VisionFive V1 SBC uses a Motorcomm YT8521 PHY supporting
-RGMII-ID, but requires manual adjustment of the RX internal delay to
-work properly.
-
-The default RX delay provided by the driver is 1.95 ns, which proves to
-be too high. Applying a 50% reduction seems to mitigate the issue.
-
-Also note this adjustment is not necessary on BeagleV Starlight SBC,
-which uses a Microchip PHY.  Hence, there is no indication of a
-misbehaviour on the GMAC side, but most likely the issue stems from
-the Motorcomm PHY.
-
-While at it, drop the redundant gpio include, which is already provided
-by jh7100-common.dtsi.
+The BeagleV Starlight SBC uses a Microchip KSZ9031RNXCA PHY supporting
+RGMII-ID which doesn't require any particular setup, other than defining
+a reset gpio, as opposed to VisionFive V1 for which the RX internal
+delay had to be adjusted.
 
 Co-developed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 Signed-off-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- .../jh7100-starfive-visionfive-v1.dts         | 22 ++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ .../boot/dts/starfive/jh7100-beaglev-starlight.dts    | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/starfive/jh7100-starfive-visionfive-v1.dts b/arch/riscv/boot/dts/starfive/jh7100-starfive-visionfive-v1.dts
-index e82af72f1aaf..4e396f820660 100644
---- a/arch/riscv/boot/dts/starfive/jh7100-starfive-visionfive-v1.dts
-+++ b/arch/riscv/boot/dts/starfive/jh7100-starfive-visionfive-v1.dts
-@@ -6,7 +6,6 @@
- 
- /dts-v1/;
- #include "jh7100-common.dtsi"
--#include <dt-bindings/gpio/gpio.h>
- 
- / {
- 	model = "StarFive VisionFive V1";
-@@ -18,3 +17,24 @@ gpio-restart {
- 		priority = <224>;
- 	};
+diff --git a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
+index 7cda3a89020a..b79426935bfd 100644
+--- a/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
++++ b/arch/riscv/boot/dts/starfive/jh7100-beaglev-starlight.dts
+@@ -11,3 +11,14 @@ / {
+ 	model = "BeagleV Starlight Beta";
+ 	compatible = "beagle,beaglev-starlight-jh7100-r0", "starfive,jh7100";
  };
 +
-+/*
-+ * The board uses a Motorcomm YT8521 PHY supporting RGMII-ID, but requires
-+ * manual adjustment of the RX internal delay to work properly.  The default
-+ * RX delay provided by the driver (1.95ns) is too high, but applying a 50%
-+ * reduction seems to mitigate the issue.
-+ *
-+ * It is worth noting the adjustment is not necessary on BeagleV Starlight SBC,
-+ * which uses a Microchip PHY.  Hence, most likely the Motorcomm PHY is the one
-+ * responsible for the misbehaviour, not the GMAC.
-+ */
 +&mdio {
-+	phy: ethernet-phy@0 {
-+		reg = <0>;
-+		rx-internal-delay-ps = <900>;
++	phy: ethernet-phy@7 {
++		reg = <7>;
++		reset-gpios = <&gpio 63 GPIO_ACTIVE_LOW>;
 +	};
 +};
 +
