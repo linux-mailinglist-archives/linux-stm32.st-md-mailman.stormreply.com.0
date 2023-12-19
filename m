@@ -2,73 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5ACB81877F
-	for <lists+linux-stm32@lfdr.de>; Tue, 19 Dec 2023 13:30:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FD1A8187E3
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Dec 2023 13:49:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D6FAC6B461;
-	Tue, 19 Dec 2023 12:30:20 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC2F5C6B461;
+	Tue, 19 Dec 2023 12:49:13 +0000 (UTC)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F456C6B44D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC917C6B44D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Dec 2023 12:30:19 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5532b45c286so3491866a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Dec 2023 04:30:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1702989019; x=1703593819;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=uAE5oZxuQF7vsLFo157rr7pOuH+fIC0h765Im6IICOg=;
- b=VYxRjS6IaoYE/btCGpEIm7MSva+FFnshr3VGq/JfOwrVyxQ3kqMnZGE96nm7bXQVxw
- LaXHpooVzLcrgUVqKS09cjykSPfgxwDTMxEMRExW4Su5mcYcIopeW+obg1dwae94Ak+x
- 9CUvMVu0oUdVGv+xxhrs5iypSqlHm2h+FSYNS/aqxIPPNWxVjkqeTIxRzFjnop021cXQ
- 4BUs2LWXX10PSj/2kt2hDtsKtankbOLGsDU9NVYElVXiPluvxaC0E4CExRu8qS3yjMC4
- erDVRhIYd+VAtgs1Gj5ukDy/AFXE52hfNP3mBnFOcBVlf+Wz8tbgTblA7xi18IxOSrrC
- 2OkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1702989019; x=1703593819;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uAE5oZxuQF7vsLFo157rr7pOuH+fIC0h765Im6IICOg=;
- b=GoSF9GOro0nz3E3/q5r7SaJ5nGxlecoCAjG7p2ldvPI7Jgl3+poMdSdNUzac7XBHEz
- KuqYgradj4CV2jCE7ZHLgfFgVMwcyhXtdqPIwYt5UcedsNQFh0xZUlzigRQBFLn31E4N
- F956FBweQZLsT6FWkeBq5eLlUM5D1vzOspXVwK7C7vcghgsM4B7or0MZ8pNeI9KBOANR
- N2C11s5wi8Z6YSYYpt0imh3DpU+8ikfNm27nUo0Tj35ZhsPFnSrYcx6mo+sSbYTIHZJD
- mNQ9gUHMSE+qOFUVQpnBsyf29nTztgveBTJ8kICrVxMZoIp8A7CgpB2F0O+UoeoF1VkI
- D2UA==
-X-Gm-Message-State: AOJu0YyoNOGi1d84i1iOvLL9TN8UWTQVesYidWquwBNnHvtVWwhFplh8
- n+UgPhlb7T0sapDiQL4/ZZ8=
-X-Google-Smtp-Source: AGHT+IFc5N71mVk34rjjafqWNqN0PdEd8VSeSvwch2jdpbByer+h2AyqIB/ZBY2FIKsYDc2IkcIZIQ==
-X-Received: by 2002:a17:906:493:b0:a23:5f76:3467 with SMTP id
- f19-20020a170906049300b00a235f763467mr639744eja.100.1702989018649; 
- Tue, 19 Dec 2023 04:30:18 -0800 (PST)
-Received: from skbuf ([188.27.185.68]) by smtp.gmail.com with ESMTPSA id
- x24-20020a170906135800b00a25501f4160sm492406ejb.1.2023.12.19.04.30.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Dec 2023 04:30:18 -0800 (PST)
-Date: Tue, 19 Dec 2023 14:30:16 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <20231219123016.6xy3gamz4lkr5fdz@skbuf>
-References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ Tue, 19 Dec 2023 12:49:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1702990151;
+ bh=7c9DrFu1ZPG35MYcFGxt231G+iS6qoQmOYU2uV067uQ=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=JT3RSC2lfVBE6Q7Yc6yECbidmsqSt8wv21FHq8IqeElYu7eoJt6pu3SOLiUnWNgfM
+ nLdU6Atb2ypBuVzamOh0RuSPDqskOJpHPFlb0r4Eyd1f4W+4ofj+Zostqz8r83UpkE
+ H89CazU5ezRWmR4nhfDV4fozczu+cpW6+uqRGoTgUJ0pmUtT0EFwSwHjezODsw9YbK
+ KvqYz3xQZf8/e3YCLuHWrVr6MZKldCWplJ04NGFAfexrbOKBQrpmpdAvOYqyExoDTh
+ Xb43sr8KuHd1zzrFmBJXl+4BorJa246m4a030YTSG724eoufc5Dydjy+75zGVQ9Pbg
+ 027k9msweKWkA==
+Received: from [100.115.223.179] (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 7278F37813EB;
+ Tue, 19 Dec 2023 12:49:09 +0000 (UTC)
+Message-ID: <d030f5b7-8d32-4a80-a3c0-98cfa1c0fe4f@collabora.com>
+Date: Tue, 19 Dec 2023 14:49:08 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231218162326.173127-1-romain.gantois@bootlin.com>
-Cc: Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
- Sylvain Girard <sylvain.girard@se.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>
+References: <20231218214451.2345691-1-cristian.ciocaltea@collabora.com>
+ <20231218214451.2345691-3-cristian.ciocaltea@collabora.com>
+ <c9225053-78f8-40b7-9453-dc3dabe44500@linaro.org>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <c9225053-78f8-40b7-9453-dc3dabe44500@linaro.org>
+Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-riscv@lists.infradead.org, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 2/9] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JH7100 SoC compatible
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,35 +78,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Dec 18, 2023 at 05:23:22PM +0100, Romain Gantois wrote:
-> I've run some iperf3 tests and the TX hotpath performance doesn't seem
-> to be degraded by the field added to dma_features.
+On 12/19/23 09:27, Krzysztof Kozlowski wrote:
+> On 18/12/2023 22:44, Cristian Ciocaltea wrote:
+>> The Synopsys DesignWare MAC found on StarFive JH7100 SoC is mostly
+>> similar to the newer JH7110, but it requires only two interrupts and a
+>> single reset line, which is 'ahb' instead of the commonly used
+>> 'stmmaceth'.
+>>
+> 
+>>    reg:
+>> @@ -145,9 +146,13 @@ properties:
+>>  
+>>    reset-names:
+>>      minItems: 1
+>> -    items:
+>> -      - const: stmmaceth
+>> -      - const: ahb
+>> +    maxItems: 2
+> 
+> min and maxItems should not be needed here.
 
-I don't know what CPU cores you are using, but if the iperf3 performance
-was line rate at gigabit before and is line rate at gigabit now, you
-haven't effectively measured the impact of the change (and "doesn't seem
-to be degraded" is a false conclusion). You need something more CPU
-intensive to see the difference, like IP forwarding of 64 byte packets.
+Indeed, I will drop them.
 
-A very simplistic way to set up IP forwarding between 2 DSA user ports
-is to do this on the router board (DUT):
+>> +    oneOf:
+>> +      - items:
+>> +          - enum: [stmmaceth, ahb]
+>> +      - items:
+>> +          - const: stmmaceth
+>> +          - const: ahb
+>>  
+>>    power-domains:
+>>      maxItems: 1
+>> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> index d90cb82c1424..f5f0bff5be0f 100644
+>> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+>> @@ -16,16 +16,20 @@ select:
+>>      compatible:
+>>        contains:
+>>          enum:
+>> +          - starfive,jh7100-dwmac
+>>            - starfive,jh7110-dwmac
+>>    required:
+>>      - compatible
+>>  
+>>  properties:
+>>    compatible:
+>> -    items:
+>> -      - enum:
+>> -          - starfive,jh7110-dwmac
+>> -      - const: snps,dwmac-5.20
+>> +    oneOf:
+>> +      - items:
+>> +          - const: starfive,jh7100-dwmac
+>> +          - const: snps,dwmac
+>> +      - items:
+>> +          - const: starfive,jh7110-dwmac
+>> +          - const: snps,dwmac-5.20
+>>  
+>>    reg:
+>>      maxItems: 1
+>> @@ -46,23 +50,6 @@ properties:
+>>        - const: tx
+>>        - const: gtx
+>>  
+>> -  interrupts:
+>> -    minItems: 3
+>> -    maxItems: 3
+>> -
+>> -  interrupt-names:
+>> -    minItems: 3
+>> -    maxItems: 3
+>> -
+>> -  resets:
+>> -    minItems: 2
+>> -    maxItems: 2
+> 
+> What is the point of your previous patch if you immediately remove it?
+> It is a no-op. Just mention in this commit msg, that both resets and
+> reset-names are coming from snps,dwmac so they can be removed from
+> top-level entirely.
 
-echo 1 > /proc/sys/net/ipv4/ip_forward
-ip link set swp0 up && ip addr add 192.168.100.2/24 dev swp0
-ip link set swp1 up && ip addr add 192.168.101.2/24 dev swp1
+This has been discussed during v2 review [1], where I also provided the
+rational behind not updating reset-names. So the code was not deleted,
+but moved under an if clause.
 
-and this on the system with 2 endpoints:
+Thanks for reviewing,
+Cristian
 
-ip netns add ns0
-ip link set $ETH1 netns ns0
-ip link set $ETH0 up && ip addr add 192.168.100.1/24 dev $ETH0
-ip -n ns0 link set $ETH1 up && ip -n ns0 addr add 192.168.101.1/24 dev $ETH1
-ip route add 192.168.101.0/24 via 192.168.100.2
-ip -n ns0 route add 192.168.100.0/24 via 192.168.101.2
-./net-next/samples/pktgen/pktgen_sample03_burst_single_flow.sh -i $ETH0 -s 64 -m 00:04:9f:05:de:0a -d 192.168.101.1 -t 2 -f 13 -c 0 -p 400 -n 0 -b 4
-
-I compiled the commands from some notes I had lying around, I didn't
-retest them.
+[1]: https://lore.kernel.org/lkml/f4d0b216-5bdc-4559-aabb-8af638d33721@collabora.com/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
