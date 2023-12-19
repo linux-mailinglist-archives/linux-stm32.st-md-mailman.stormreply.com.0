@@ -2,55 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F063B81945A
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 00:10:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38F898194BE
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 00:48:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6BEEC6B44D;
-	Tue, 19 Dec 2023 23:10:47 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DEBF8C6B44D;
+	Tue, 19 Dec 2023 23:48:58 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8AE71C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6926CC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 19 Dec 2023 23:10:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1703027444;
- bh=WQe4wDwRNT0S65UeCvFunjCWa8R+Rf3G+Co3wYKG0EU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=LIJXWKgUayG6RS6B71Z+IwOwFcbGiCyQ0HCJA9fSi0YlCy5VvDHlXRGRgm3y1WOEi
- bidRCS6PZ7x3XH+RGZvjY7qtE3RczeoemTEX0w49bCPeuSyazX68YJWK/lv2xZMXrK
- EFy6MmdXtDl5rJeDR6jsXgARTLBEZyyaFVugiY2VURFuYxtensv+/WULYK2eGNjuFx
- /aIhbsIMazsHTsct4MFNpg61WCQDKvecC11u2eGIwX5ss4AnqTbKwcHWGtGY6TZOtC
- twTaW/WGGpGdxu5A7Pedw7a3vexU98Lv2VBbZT3dCVVlJMLi1i6xSCJLlwEJ6yPOyq
- komt87BGO/TtA==
-Received: from localhost (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id DC4F03781495;
- Tue, 19 Dec 2023 23:10:43 +0000 (UTC)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>
-Date: Wed, 20 Dec 2023 01:10:39 +0200
-Message-ID: <20231219231040.2459358-2-cristian.ciocaltea@collabora.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231219231040.2459358-1-cristian.ciocaltea@collabora.com>
+ Tue, 19 Dec 2023 23:48:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id BAECACE1B02;
+ Tue, 19 Dec 2023 23:48:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17142C433C7;
+ Tue, 19 Dec 2023 23:48:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1703029735;
+ bh=6Awxn5V8AF848/sL+nni2y6BxV7vYA7baRCKnw14y/w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=X1BE4kY9mKQ+gismCY/LJfkXQmNsCT6872ehEHdX++U0c1AgqKeDNv2A97UOnMu3m
+ 6nixw/ZlAgr08kVBigelDw6ZCQHHhBXywVX/aSdNOQmSz8dUOxPsVRQxC+eIEUExMb
+ efywyJg0/FkooDguWnKhF55ooRvX13ghr7mTplfw9K81OxwSPUTMpeej27ux245DWB
+ vaD7KlF99H+rILYxj/ZzcHBrHXm3YMUheb06bVcETyQ3D0kkTK3N7A1AhnF2yodeAU
+ RfavRNEeiWIkOW56sRLWvf0F47gLdGFmRjXu7cN/R4uLWgfOV8NPtl6cGsWwC1H4L1
+ GMe+D68ejKvrQ==
+Date: Tue, 19 Dec 2023 23:48:49 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Message-ID: <20231219-green-footwear-e81d37f9c63c@spud>
 References: <20231219231040.2459358-1-cristian.ciocaltea@collabora.com>
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
- kernel@collabora.com, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <20231219231040.2459358-1-cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
+ Emil Renner Berthing <kernel@esmil.dk>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Samin Guo <samin.guo@starfivetech.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/1] net: stmmac: dwmac-starfive: Add support
-	for JH7100 SoC
+Subject: Re: [Linux-stm32] [PATCH 0/1] StarFive DWMAC support for JH7100
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,123 +54,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6325049190974580062=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a missing quirk to enable support for the StarFive JH7100 SoC.
 
-Additionally, for greater flexibility in operation, allow using the
-rgmii-rxid and rgmii-txid phy modes.
+--===============6325049190974580062==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="oh06CCJkLIxcVNXN"
+Content-Disposition: inline
 
-Co-developed-by: Emil Renner Berthing <kernel@esmil.dk>
-Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  6 ++--
- .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 32 ++++++++++++++++---
- 2 files changed, 31 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 85dcda51df05..4ec61f1ee71a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -165,9 +165,9 @@ config DWMAC_STARFIVE
- 	help
- 	  Support for ethernet controllers on StarFive RISC-V SoCs
- 
--	  This selects the StarFive platform specific glue layer support for
--	  the stmmac device driver. This driver is used for StarFive JH7110
--	  ethernet controller.
-+	  This selects the StarFive platform specific glue layer support
-+	  for the stmmac device driver. This driver is used for the
-+	  StarFive JH7100 and JH7110 ethernet controllers.
- 
- config DWMAC_STI
- 	tristate "STi GMAC support"
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-index 5d630affb4d1..4e1076faee0c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-@@ -15,13 +15,20 @@
- 
- #include "stmmac_platform.h"
- 
--#define STARFIVE_DWMAC_PHY_INFT_RGMII	0x1
--#define STARFIVE_DWMAC_PHY_INFT_RMII	0x4
--#define STARFIVE_DWMAC_PHY_INFT_FIELD	0x7U
-+#define STARFIVE_DWMAC_PHY_INFT_RGMII		0x1
-+#define STARFIVE_DWMAC_PHY_INFT_RMII		0x4
-+#define STARFIVE_DWMAC_PHY_INFT_FIELD		0x7U
-+
-+#define JH7100_SYSMAIN_REGISTER49_DLYCHAIN	0xc8
-+
-+struct starfive_dwmac_data {
-+	unsigned int gtxclk_dlychain;
-+};
- 
- struct starfive_dwmac {
- 	struct device *dev;
- 	struct clk *clk_tx;
-+	const struct starfive_dwmac_data *data;
- };
- 
- static void starfive_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
-@@ -67,6 +74,8 @@ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
- 
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		mode = STARFIVE_DWMAC_PHY_INFT_RGMII;
- 		break;
- 
-@@ -89,6 +98,14 @@ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	if (err)
- 		return dev_err_probe(dwmac->dev, err, "error setting phy mode\n");
- 
-+	if (dwmac->data) {
-+		err = regmap_write(regmap, JH7100_SYSMAIN_REGISTER49_DLYCHAIN,
-+				   dwmac->data->gtxclk_dlychain);
-+		if (err)
-+			return dev_err_probe(dwmac->dev, err,
-+					     "error selecting gtxclk delay chain\n");
-+	}
-+
- 	return 0;
- }
- 
-@@ -114,6 +131,8 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 	if (!dwmac)
- 		return -ENOMEM;
- 
-+	dwmac->data = device_get_match_data(&pdev->dev);
-+
- 	dwmac->clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
- 	if (IS_ERR(dwmac->clk_tx))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->clk_tx),
-@@ -144,8 +163,13 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- }
- 
-+static const struct starfive_dwmac_data jh7100_data = {
-+	.gtxclk_dlychain = 4,
-+};
-+
- static const struct of_device_id starfive_dwmac_match[] = {
--	{ .compatible = "starfive,jh7110-dwmac"	},
-+	{ .compatible = "starfive,jh7100-dwmac", .data = &jh7100_data },
-+	{ .compatible = "starfive,jh7110-dwmac" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, starfive_dwmac_match);
--- 
-2.43.0
+--oh06CCJkLIxcVNXN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Dec 20, 2023 at 01:10:38AM +0200, Cristian Ciocaltea wrote:
+> This is just a subset of the initial patch series [1] adding networking
+> support for StarFive JH7100 SoC.
+>=20
+> [1]: https://lore.kernel.org/lkml/20231218214451.2345691-1-cristian.cioca=
+ltea@collabora.com/
+
+You need to send the binding patch alongside the driver, unless that has
+been applied already.
+
+Cheers,
+Conor.
+
+--oh06CCJkLIxcVNXN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZYIr4QAKCRB4tDGHoIJi
+0h8IAQCS86wYpq5Hrwpt9eYpD/kbb3OmnLoYFWKbzhsIywOcwgD+NDOhb/Qneu3B
+kkjU++IJXvuRpPCfETXRhcCGaxFrXQ8=
+=7Klu
+-----END PGP SIGNATURE-----
+
+--oh06CCJkLIxcVNXN--
+
+--===============6325049190974580062==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6325049190974580062==--
