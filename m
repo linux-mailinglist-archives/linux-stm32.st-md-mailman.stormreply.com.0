@@ -2,58 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C454581953E
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 01:28:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C81048195CF
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 01:44:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 89E9FC6B477;
-	Wed, 20 Dec 2023 00:28:38 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78183C6B477;
+	Wed, 20 Dec 2023 00:44:09 +0000 (UTC)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7FC77C6DD70
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35A58C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 00:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1703032116;
- bh=WQe4wDwRNT0S65UeCvFunjCWa8R+Rf3G+Co3wYKG0EU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JEAjOBwhre7GBxk43PM3eaHR7M2NlD7/vSMlSu4yrsOxbCCsA71khRXFF7he8TgaD
- OwSKDv8It492YA4iyBVFBuKq5waFlMFYhE+ohxQis15HOv40c0yYUtNjlolzAzlysw
- RTbyizjKl8LPjg+PLX/6uRuWd+RejUE1ueBlI+HWY9xRP3Y+Y8yPRXCyyIijObDjTg
- u5AeD5py4tHSMb9gBxrX2C/c74ByoPtR38nCMg/VeOKP47Ot5xbjBBcytictKX4TmE
- gQbV6Kxcyh0HmKq/kZlg1Sze3q4C3r3EuOxMZYYD1IWDnL0Ibfo7F2DvLSa3H8O/63
- LrafI3Ta0yOhQ==
-Received: from localhost (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id ECC783781F8C;
- Wed, 20 Dec 2023 00:28:35 +0000 (UTC)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Andrew Lunn <andrew@lunn.ch>,
- Jacob Keller <jacob.e.keller@intel.com>
-Date: Wed, 20 Dec 2023 02:28:23 +0200
-Message-ID: <20231220002824.2462655-3-cristian.ciocaltea@collabora.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231220002824.2462655-1-cristian.ciocaltea@collabora.com>
-References: <20231220002824.2462655-1-cristian.ciocaltea@collabora.com>
+ Wed, 20 Dec 2023 00:44:08 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-5e266e8d39eso42251527b3.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 19 Dec 2023 16:44:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1703033047; x=1703637847;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fHFIJdfC1F3WiR/Vnayo6aNrm4aYziDKRtE7fbhaxaQ=;
+ b=rwPgl2532qE8ADt/W1wprZmxTyC8HFjZukRjvGlNp/XPT1UApT8dVq1kjTjM8sTAHS
+ 1pK382lU2DnfJP9JFwFMOack8h7qLp9wOB/1gm63putjMEH1X4cZ/k7XOfrbsLSXEGzK
+ r0ORu9E+BggJbBBCCc+SZQyqxoaATFJUMIB0sM+fBtDCYf9uRDGVHp68eqFjyg/AmMlt
+ snctP6hC0a5pT68WLRzYtJmnrexWWlmKhd5btUE41zP1YBoje67IfHdBjwpiNbZI+0mv
+ DiO4bh0WvK4RMf1ut1za0oqbRQHmuD+ww/LPkJ5ffkFHC36aw0ix4QNVF1uLgXt9LYxg
+ 8QfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703033047; x=1703637847;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=fHFIJdfC1F3WiR/Vnayo6aNrm4aYziDKRtE7fbhaxaQ=;
+ b=EFWuQH46+isgs6YS5gyhbmyR0JNnf69K6LfNM+mmOPD4S4rNguOscR9DQgGz91C4No
+ grvioahmLM/LEVSNhRaF01BxyGCjPI/mOamt8JiPr+uv1c7ABk5sa5d0Y/B4YiFfN/0e
+ Sp/WcPnQkZLjVhpTDApw6+HKTahFyWd9frVXqHgV+qGPQ9ybCU4g18pHPeVPrukyTPOP
+ 4tLsnKCXPEGEvyWlk2gAiXUFRfby8Nydf98lQKdd5iIpNO63EzlqRKhp/YeDqTzYEieD
+ fN1OLRPKD4by4MuwudjaD5gTDcZSnyV1r2oQdAW5vsC4o7HsTiwWUKtqofXyoV9r9AyD
+ rLQg==
+X-Gm-Message-State: AOJu0YznhUXPrft8ieQZw2hzSm5QQaYYOUoh1ZBXPwxoxW/wkl+IE/8G
+ C1+4AWvOqcee3FjJsPHaQ8lNnE6vi1Q/icZoYg8cAQ==
+X-Google-Smtp-Source: AGHT+IG+ixtxewnu1cb68kdIkUKSdsH/iLjkp1nBvDHO9fUtWQsDe9ljgkei76vM2wkLx5Q5IraaBDWc0qx7qL1caz8=
+X-Received: by 2002:a0d:d646:0:b0:5e7:ea97:5bdc with SMTP id
+ y67-20020a0dd646000000b005e7ea975bdcmr1416662ywd.79.1703033046955; Tue, 19
+ Dec 2023 16:44:06 -0800 (PST)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] net: stmmac: dwmac-starfive: Add
-	support for JH7100 SoC
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ <20231218162326.173127-2-romain.gantois@bootlin.com>
+ <20231219122034.pg2djgrosa4irubh@skbuf>
+ <20231219140754.7a7a8dbd@device-28.home>
+ <CACRpkdaxy9u=1-rQ+f+1tb8xyV-GYOuq52xhb4_SRPk9-LpnUA@mail.gmail.com>
+ <20231219172932.13f4b0c3@device-28.home>
+ <20231219224616.pw32w5eq2dbuja5i@skbuf>
+In-Reply-To: <20231219224616.pw32w5eq2dbuja5i@skbuf>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Wed, 20 Dec 2023 01:43:55 +0100
+Message-ID: <CACRpkdbo=Oem4PCOtSV6iWJoojRetTgZhx7J91uecTa-DQA8iQ@mail.gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Prevent DSA tags
+	from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,123 +85,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add a missing quirk to enable support for the StarFive JH7100 SoC.
-
-Additionally, for greater flexibility in operation, allow using the
-rgmii-rxid and rgmii-txid phy modes.
-
-Co-developed-by: Emil Renner Berthing <kernel@esmil.dk>
-Signed-off-by: Emil Renner Berthing <kernel@esmil.dk>
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  6 ++--
- .../ethernet/stmicro/stmmac/dwmac-starfive.c  | 32 ++++++++++++++++---
- 2 files changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 85dcda51df05..4ec61f1ee71a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -165,9 +165,9 @@ config DWMAC_STARFIVE
- 	help
- 	  Support for ethernet controllers on StarFive RISC-V SoCs
- 
--	  This selects the StarFive platform specific glue layer support for
--	  the stmmac device driver. This driver is used for StarFive JH7110
--	  ethernet controller.
-+	  This selects the StarFive platform specific glue layer support
-+	  for the stmmac device driver. This driver is used for the
-+	  StarFive JH7100 and JH7110 ethernet controllers.
- 
- config DWMAC_STI
- 	tristate "STi GMAC support"
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-index 5d630affb4d1..4e1076faee0c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-@@ -15,13 +15,20 @@
- 
- #include "stmmac_platform.h"
- 
--#define STARFIVE_DWMAC_PHY_INFT_RGMII	0x1
--#define STARFIVE_DWMAC_PHY_INFT_RMII	0x4
--#define STARFIVE_DWMAC_PHY_INFT_FIELD	0x7U
-+#define STARFIVE_DWMAC_PHY_INFT_RGMII		0x1
-+#define STARFIVE_DWMAC_PHY_INFT_RMII		0x4
-+#define STARFIVE_DWMAC_PHY_INFT_FIELD		0x7U
-+
-+#define JH7100_SYSMAIN_REGISTER49_DLYCHAIN	0xc8
-+
-+struct starfive_dwmac_data {
-+	unsigned int gtxclk_dlychain;
-+};
- 
- struct starfive_dwmac {
- 	struct device *dev;
- 	struct clk *clk_tx;
-+	const struct starfive_dwmac_data *data;
- };
- 
- static void starfive_dwmac_fix_mac_speed(void *priv, unsigned int speed, unsigned int mode)
-@@ -67,6 +74,8 @@ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
- 
- 	case PHY_INTERFACE_MODE_RGMII:
- 	case PHY_INTERFACE_MODE_RGMII_ID:
-+	case PHY_INTERFACE_MODE_RGMII_RXID:
-+	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		mode = STARFIVE_DWMAC_PHY_INFT_RGMII;
- 		break;
- 
-@@ -89,6 +98,14 @@ static int starfive_dwmac_set_mode(struct plat_stmmacenet_data *plat_dat)
- 	if (err)
- 		return dev_err_probe(dwmac->dev, err, "error setting phy mode\n");
- 
-+	if (dwmac->data) {
-+		err = regmap_write(regmap, JH7100_SYSMAIN_REGISTER49_DLYCHAIN,
-+				   dwmac->data->gtxclk_dlychain);
-+		if (err)
-+			return dev_err_probe(dwmac->dev, err,
-+					     "error selecting gtxclk delay chain\n");
-+	}
-+
- 	return 0;
- }
- 
-@@ -114,6 +131,8 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 	if (!dwmac)
- 		return -ENOMEM;
- 
-+	dwmac->data = device_get_match_data(&pdev->dev);
-+
- 	dwmac->clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
- 	if (IS_ERR(dwmac->clk_tx))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->clk_tx),
-@@ -144,8 +163,13 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- }
- 
-+static const struct starfive_dwmac_data jh7100_data = {
-+	.gtxclk_dlychain = 4,
-+};
-+
- static const struct of_device_id starfive_dwmac_match[] = {
--	{ .compatible = "starfive,jh7110-dwmac"	},
-+	{ .compatible = "starfive,jh7100-dwmac", .data = &jh7100_data },
-+	{ .compatible = "starfive,jh7110-dwmac" },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, starfive_dwmac_match);
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBEZWMgMTksIDIwMjMgYXQgMTE6NDbigK9QTSBWbGFkaW1pciBPbHRlYW4gPG9sdGVh
+bnZAZ21haWwuY29tPiB3cm90ZToKPiBPbiBUdWUsIERlYyAxOSwgMjAyMyBhdCAwNToyOTozMlBN
+ICswMTAwLCBNYXhpbWUgQ2hldmFsbGllciB3cm90ZToKCj4gPiA+IEkgY2FuIGNlcnRhaW5seSBh
+ZGQgYSBoZWxwZXIgc3VjaCBhcyBza2JfZXRoX3Jhd19ldGhlcnR5cGUoKQo+ID4gPiB0byA8bGlu
+dXgvaWZfZXRoZXIuaD4gdGhhdCB3aWxsIGluc3BlY3QgdGhlIGFjdHVhbCBldGhlcnR5cGUgaW4K
+PiA+ID4gc2tiLT5kYXRhLgo+ID4gPgo+ID4gPiBJdCdzIHRoZSBtb3N0IHN0cmFpZ2h0LWZvcndh
+cmQgYXBwcm9hY2guCj4gPgo+ID4gQWdyZWVkIDopCj4KPiBJZiB5b3UgcmV3cml0ZSB0aGF0IHBh
+dGNoIHRvIHVzZSBza2Jfdmxhbl9ldGhfaGRyKCkgdG8gZ2V0IGEgc3RydWN0Cj4gdmxhbl9ldGho
+ZHIgcG9pbnRlciB0aHJvdWdoIHdoaWNoIGhfdmxhbl9wcm90byBhbmQgaF92bGFuX2VuY2Fwc3Vs
+YXRlZF9wcm90bwo+IGFyZSBhY2Nlc3NpYmxlLCBJIGRvbid0IHNlZSBtdWNoIHZhbHVlIGluIHdy
+aXRpbmcgdGhhdCBoZWxwZXIuIEl0IGlzCj4gZ29pbmcgdG8gYmVnIHRoZSBxdWVzdGlvbiBob3cg
+Z2VuZXJpYyBzaG91bGQgaXQgYmUgLSBzaG91bGQgaXQgYWxzbwo+IHRyZWF0IEVUSF9QXzgwMjFB
+RCwgc2hvdWxkIGl0IHRyZWF0IG5lc3RlZCBWTEFOcz8KCkkgZ3Vlc3MgSSBzaG91bGQganVzdCBw
+b3N0IHRoZSBwYXRjaGVzIGlubGluZS4gKEl0IGNhbWUgZnJvbSBib3RoCkVyaWNzIGFuZCBNYXhp
+bWVzIHN1Z2dlc3Rpb24gcmVhbGx5LikKCkFjdHVhbGx5IEkgd3JvdGUgdHdvIGhlbHBlcnMsIG9u
+ZSB0byBnZXQgdGhlIGV0aGVydHlwZSBmcm9tIHRoZQpldGhlcm5ldCBmcmFtZSB3aGljaCBpcyBw
+cmV0dHkgc3RyYWlnaHQtZm9yd2FyZC4KCmluY2x1ZGUvbGludXgvaWZfZXRoZXIuaAoKKy8qIFRo
+aXMgZGV0ZXJtaW5lcyB0aGUgZXRoZXJ0eXBlIGluY29kZWQgaW50byB0aGUgc2tiIGRhdGEgd2l0
+aG91dAorICogcmVseWluZyBvbiBza2ItPnByb3RvY29sIHdoaWNoIGlzIG5vdCBhbHdheXMgaWRl
+bnRpY2FsLgorICovCitzdGF0aWMgaW5saW5lIHUxNiBza2JfZXRoX3Jhd19ldGhlcnR5cGUoY29u
+c3Qgc3RydWN0IHNrX2J1ZmYgKnNrYikKK3sKKyAgICAgICBzdHJ1Y3QgZXRoaGRyICpoZHI7CisK
+KyAgICAgICAvKiBJZiB3ZSBjYW4ndCBleHRyYWN0IGEgaGVhZGVyLCByZXR1cm4gaW52YWxpZCB0
+eXBlICovCisgICAgICAgaWYgKCFza2JfcG9pbnRlcl9pZl9saW5lYXIoc2tiLCAwLCBFVEhfSExF
+TikpCisgICAgICAgICAgICAgICByZXR1cm4gMHgwMDAwVTsKKworICAgICAgIGhkciA9IHNrYl9l
+dGhfaGRyKHNrYik7CisKKyAgICAgICByZXR1cm4gbnRvaHMoaGRyLT5oX3Byb3RvKTsKK30KClRo
+ZW4gZm9yICp0aGlzKiBkcml2ZXIgSSBuZWVkIHRvIGNoZWNrIGZvciB0aGUgZXRoZXJ0eXBlCkVU
+SF9QXzgwMjFRIHdoYXQgaXMgaW5zaWRlIGl0LCBvbmUgbGV2ZWwgZG93biwgYW5kIHRoYXQgaXMg
+YQpzZXBhcmF0ZSBoZWxwZXIuIEFuZCBJIG5hbWVkIGl0IHNrYl92bGFuX3Jhd19pbm5lcl9ldGhl
+cnR5cGUoKQpJdCB3aWxsIHJldHJpZXZlIHRoZSBpbm5lciB0eXBlIG5vIG1hdHRlcgoKaW5jbHVk
+ZS9saW51eC9pZl92bGFuLmgKCisvKiBUaGlzIGRldGVybWluZXMgdGhlIGlubmVyIGV0aGVydHlw
+ZSBpbmNvZGVkIGludG8gdGhlIHNrYiBkYXRhIHdpdGhvdXQKKyAqIHJlbHlpbmcgb24gc2tiLT5w
+cm90b2NvbCB3aGljaCBpcyBub3QgYWx3YXlzIGlkZW50aWNhbC4KKyAqLworc3RhdGljIGlubGlu
+ZSB1MTYgc2tiX3ZsYW5fcmF3X2lubmVyX2V0aGVydHlwZShjb25zdCBzdHJ1Y3Qgc2tfYnVmZiAq
+c2tiKQoreworICAgICAgIHN0cnVjdCB2bGFuX2V0aGhkciAqdmhkcjsKKworICAgICAgIGlmICgh
+c2tiX3BvaW50ZXJfaWZfbGluZWFyKHNrYiwgMCwgVkxBTl9FVEhfSExFTikpCisgICAgICAgICAg
+ICAgICByZXR1cm4gMHgwMDAwVTsKKworICAgICAgIHZoZHIgPSB2bGFuX2V0aF9oZHIoc2tiKTsK
+KyAgICAgICByZXR1cm4gbnRvaHModmhkci0+aF92bGFuX2VuY2Fwc3VsYXRlZF9wcm90byk7Cit9
+CgooV2UgY2FuIGJpa2VzaGVkIHRoZSBuYW1lIG9mIHRoZSBmdW5jdGlvbi4gKl9pbm5lcl9wcm90
+b2NvbCBtYXliZS4pCgpJdCBkb2VzIG5vdCBoYW5kbGUgbmVzdGVkIFZMQU5zIGFuZCBJIGRvbid0
+IHNlZSB3aHkgaXQgc2hvdWxkIHNpbmNlCnRoZSBpbW1lZGlhdGUgc2libGluZ3MgaW4gaWZfdmxh
+bi5oIGRvZXMgbm90LCBpLmUuCnZsYW5fZXRoX2hkcigpLCBza2Jfdmxhbl9ldGhfaGRyKCkuIEl0
+J3MgcHJldHR5IGNsZWFyIHRoZXNlIGhlbHBlcnMKYWxsIGdvIGp1c3Qgb25lIGxldmVsIGRvd24u
+IChXZSBjYW4gYWRkIGEgKl9kZXNjZW5kXyooKQpoZWxwZXIgdGhlIGRheSBzb21lb25lIG5lZWRz
+IHRoYXQuKQoKPiBBdCB0aGUgZW5kIG9mIHRoZSBkYXksIHlvdSBhcmUgdHJ5aW5nIHRvIGNvdmVy
+IGluIHNvZnR3YXJlIHRoZSBjYXNlcyBmb3IKPiB3aGljaCB0aGUgaGFyZHdhcmUgZW5naW5lIGNh
+biBwZXJmb3JtIFRYIGNoZWNrc3VtIG9mZmxvYWRpbmcuIFRoYXQgaXMKPiBnb2luZyB0byBiZSBo
+YXJkd2FyZSBzcGVjaWZpYy4KClllcHMgYW5kIEkgYW0gaGFwcHkgdG8gZm9sZCB0aGVzZSBoZWxw
+ZXJzIGluc2lkZSBvZiBteSBkcml2ZXIgaWYKdGhleSBhcmUgbm90IGhlbHBmdWwgdG8gYW55b25l
+IGVsc2UsIG9yIGlmIHRoYXQgaXMgdGhlIGJlc3QgaWRlYSBmb3Igc29tZXRoaW5nCmludGVuZGVk
+IGZvciBhIGZpeCwgaS5lLiBhbiAtcmMga2VybmVsLgoKPiBJIGd1ZXNzIHdlIHNob3VsZCBmaXJz
+dCB0cnkgdG8gYW5zd2VyIHRoZSBxdWVzdGlvbnMgIndoYXQgZG9lcwo+IHNrYi0+cHJvdG9jb2wg
+cmVwcmVzZW50PyIgYW5kICJkb2VzIERTQSB1c2UgaXQgY29ycmVjdGx5PyIgYmVmb3JlCj4gZXZl
+biB0aGlua2luZyBhYm91dCBhZGRpbmcgeWV0IGFub3RoZXIgZnV6enkgbGF5ZXIgb24gdG9wIGl0
+LgoKRmFpciBwb2ludCEgTGV0J3MgdGFrZSBhIHN0ZXAgYmFjay4gVGhlIGtlcm5lbGRvYyBzYXlz
+OgoKICogICAgICBAcHJvdG9jb2w6IFBhY2tldCBwcm90b2NvbCBmcm9tIGRyaXZlcgoKVGhhdCdz
+IGEgYml0IHZhZ3VlIGFuZCBpdCB3YXMgaW4gdGhlIGZpcnN0IGNvbW1pdCBpbiBnaXQgaGlzdG9y
+eSA6LwoKQnV0IEVyaWMgcHJvYmFibHkga25vd3MgdGhlIHJpZ2h0IHdheSB0byB1c2UgcHJvdG9j
+b2wuCgpCdXQgd2Uga25vdyBmb3Igc3VyZSB0aGF0IFZMQU4gdXNlcyB0aGlzIGZvciB0aGUgb3V0
+ZXJtb3N0IHByb3RvY29sCkVUSF9QXzgwMjFRIChldGMpLgoKSSB3b25kZXIgaG93IHRoZSBuZXR3
+b3JrIHN0YWNrIHJlYWN0cyBpZiB3ZSBzZXQgdGhlIHNrYi0+cHJvdG9jb2wKdG8gd2hhdGV2ZXIg
+RFNBIHRhZ2dlcnMgcHV0IGF0IHRoZSBwb3NpdGlvbiBvZiB0aGUgZXRoZXJ0eXBlLgoKRm9yIFJU
+TCB0YWdnZXJzIHByb2JhYmx5IHRoaXMgd29ya3MgYmVjYXVzZSB0aGV5IHVzZSBhbiBlbGFib3Jh
+dGUKY3VzdG9tIGV0aGVydHlwZSwgYnV0IGUuZy4gbmV0L2RzYS90YWdfbXRrLmMgd2lsbCBqdXN0
+IHB1dCBpbgoiZXRoZXJ0eXBlIiAweDAwMDAsIDB4MDAwMSBvciAweDAwMDIsIHRoZSB0d28gbGF0
+dGVyIHdoaWNoIGFyZQpmb3JtYWxseSBFVEhfUF84MDJfMyBhbmQgRVRIX1BfQVgyNSB3aGljaCBJ
+IHRoaW5rIGlzIG1heWJlCm5vdCBzbyBnb29kIHRvIHB1dCBpbnRvIHNrYi0+cHJvdG9jb2wuCgpB
+bm90aGVyIG9wdGlvbiBpcyB0byBzZXQgaXQgdG8gdGhlIEVUSF9QX0RTQSBldGhlcnR5cGUsIGN1
+cnJlbnRseQp1bnVzZWQgaW4gdGhlIGtlcm5lbC4KCk5vdyB0aGlzIGtpbmQgb2YgdGhpbmtpbmcg
+bWFrZXMgbWUgaW5zZWN1cmUgYmVjYXVzZToKZ2l0IGdyZXAgJ1wtPnByb3RvY29sJyBuZXQvCgpU
+aGVyZSBpcyBqdXN0IHNvb29vbyBtdWNoIGNvZGUgaW5zcGVjdGluZyAtPnByb3RvY29sIGluIHRo
+ZSBnZW5lcmljCm5ldHdvcmsgc3RhY2sgdGhhdCB0aGlzIHNlZW1zIGxpa2UgaW52aXRpbmcgZGlz
+YXN0ZXIuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
