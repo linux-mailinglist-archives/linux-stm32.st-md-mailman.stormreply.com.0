@@ -2,82 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C2AD81A367
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 16:59:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B51FC81A564
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 17:37:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48C4AC6B477;
-	Wed, 20 Dec 2023 15:59:28 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0964BC6A5EA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FFB9C6B45E;
+	Wed, 20 Dec 2023 16:37:24 +0000 (UTC)
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2D77C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 15:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1703087966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=QFekkLOHfS9CYH1irDgUqE2noE0/6vpj/TYA4n1czRU=;
- b=Dtk5bSUS+X+Ghj4YEu5m/2Qf6J+knKGVrwEWAxr5Z1FO75ZuHuzSH53VGWgvS6V8yjv7zf
- Q+SMdfo6JcsAAw+W4qnbr5NUn6Ld6xPc5tnNxRx2EaX4oTnwqxeXK6c0AsdojX2VkwgODL
- UKVFwfy2zMU5MtJNJ7aEF9pu63cqluY=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-541-mE7NjvPaNoK-rwg0CDnHsw-1; Wed, 20 Dec 2023 10:59:24 -0500
-X-MC-Unique: mE7NjvPaNoK-rwg0CDnHsw-1
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-3b9f21d7872so3454406b6e.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 07:59:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703087964; x=1703692764;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QFekkLOHfS9CYH1irDgUqE2noE0/6vpj/TYA4n1czRU=;
- b=AF3VP2yEEM1gFF8x9eHWyvRGL0rRccRIOi7aj5zmEnVi+r7VdsJEUffRV+uxbpzc3b
- zrTSluQobL36eZeJsv9sPOAdAFMA056W+fCOKDujD4LrURTxeAZ1o4YhQogEHJGbZzCO
- BHsC3pV23S1F/QdXhtQzSmr4vWXo2iyEPIiuYvdwdr1+nM4itwSVYW0I8VIOOeJYk7l9
- 6nFML01FSl1+wiKAwykofsZmes9DSqojeAMCocmrYpAR1e2qVne+LT70gF9cUnj3bg26
- 99Hl72h382MSq3YaL+UH2fmvcEdkRq74DFmtETy65YfcFAaWzOHiL2k8iqD09WQWR+OI
- ywfA==
-X-Gm-Message-State: AOJu0YxqrhePUCgqn+MTRZ1Bz2CjO/QYxzoa8pElX+hhri96ma3tcX85
- N8D8BpZabkzbu2yeUs35sINUFUOXQpMrapMwutxT85bIp1MElcKkMNiUQfoUabPp3CaPhpayqTy
- viDF71NZ+F1S6Sn1q6maQM80UDlO1W8lfVuMsiBt2
-X-Received: by 2002:a05:6808:3a09:b0:3a7:6213:6897 with SMTP id
- gr9-20020a0568083a0900b003a762136897mr18486022oib.11.1703087963855; 
- Wed, 20 Dec 2023 07:59:23 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHyXE0D9wJpfoVdm7QRffLwuE2S8IrTtR9VN2B+Knu+scUActUZX4vewE4I3XtDRyBzU1hqag==
-X-Received: by 2002:a05:6808:3a09:b0:3a7:6213:6897 with SMTP id
- gr9-20020a0568083a0900b003a762136897mr18486005oib.11.1703087963567; 
- Wed, 20 Dec 2023 07:59:23 -0800 (PST)
-Received: from fedora ([2600:1700:1ff0:d0e0::37])
- by smtp.gmail.com with ESMTPSA id
- y8-20020ad45308000000b0067f032cf59bsm6251098qvr.27.2023.12.20.07.59.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Dec 2023 07:59:23 -0800 (PST)
-Date: Wed, 20 Dec 2023 09:59:20 -0600
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Sneh Shah <quic_snehshah@quicinc.com>
-Message-ID: <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
-References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
- <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
- <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
+ Wed, 20 Dec 2023 16:37:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1703090242;
+ bh=pvibR0nQA9GDkxI5bQPaqCc+AIH4+2nJTGzFe8u/X/U=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=GMlIvPixQSMHnq7CFgBfdPCbWcFBg9f4pftaiB69SPkKYKZOaPRo4Pdt1LyTHSqrD
+ 8M7WsdN3jDfpS87hNjDXzNmRDG3xcAWYpt9IAfMkbo2lLnISVNI58j2wdEQRQJ0yLb
+ m3/5FCt1RQXxVBdmvVCtsHUasZaQVzU/OMGGqA/8RAxbYaRC7e6KRyJfZsjNLCm6hL
+ OHjC0V+0ZB9b0qcr0lNTyE7W8p8iGzRLLHxocP0by40jfoxPYFQZkNTFUlzFmVO+YE
+ GoqTifXTDbW3kBW9+cJ05cD3P+xXDRZY0BIZhfoLc6wEiOiyJnxD7G3oknzolWKpEr
+ mKJRHIoThHdng==
+Received: from nicolas-tpx395.localdomain (cola.collaboradmins.com
+ [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: nicolas)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 04A4737814A9;
+ Wed, 20 Dec 2023 16:37:18 +0000 (UTC)
+Message-ID: <f8205a1ba599b354032d88dc16b0b6b88f8c2cf8.camel@collabora.com>
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Benjamin Mugnier
+ <benjamin.mugnier@foss.st.com>,  Heiko Stuebner <heiko@sntech.de>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>,
+ linux-media@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org
+Date: Wed, 20 Dec 2023 11:37:14 -0500
+In-Reply-To: <20231220152732.2138260-1-hugues.fruchet@foss.st.com>
+References: <20231220152732.2138260-1-hugues.fruchet@foss.st.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=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
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-In-Reply-To: <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
- Add support for 2.5G SGMII
+Cc: Adam Ford <aford173@gmail.com>, Marco Felsch <m.felsch@pengutronix.de>
+Subject: Re: [Linux-stm32] [PATCH v4 0/5] Add support for video hardware
+ codec of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,152 +72,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Dec 20, 2023 at 01:02:45PM +0530, Sneh Shah wrote:
-> 
-> 
-> On 12/18/2023 9:50 PM, Andrew Halaney wrote:
-> > On Mon, Dec 18, 2023 at 12:41:18PM +0530, Sneh Shah wrote:
-> >> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
-> >> mode for 1G/100M/10M speed.
-> >> Added changes to configure serdes phy and mac based on link speed.
-> >>
-> >> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
-> >> ---
-> >>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 31 +++++++++++++++++--
-> >>  1 file changed, 29 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> >> index d3bf42d0fceb..b3a28dc19161 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> >> @@ -21,6 +21,7 @@
-> >>  #define RGMII_IO_MACRO_CONFIG2		0x1C
-> >>  #define RGMII_IO_MACRO_DEBUG1		0x20
-> >>  #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
-> >> +#define ETHQOS_MAC_AN_CTRL		0xE0
-> >>  
-> >>  /* RGMII_IO_MACRO_CONFIG fields */
-> >>  #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
-> >> @@ -78,6 +79,10 @@
-> >>  #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
-> >>  #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
-> >>  
-> >> +/*ETHQOS_MAC_AN_CTRL bits */
-> >> +#define ETHQOS_MAC_AN_CTRL_RAN			BIT(9)
-> >> +#define ETHQOS_MAC_AN_CTRL_ANE			BIT(12)
-> >> +
-> > 
-> > nit: space please add a space before ETHQOS_MAC_AN_CTRL
-> > 
-> will take care of this in next patch
-> 
-> >>  struct ethqos_emac_por {
-> >>  	unsigned int offset;
-> >>  	unsigned int value;
-> >> @@ -109,6 +114,7 @@ struct qcom_ethqos {
-> >>  	unsigned int num_por;
-> >>  	bool rgmii_config_loopback_en;
-> >>  	bool has_emac_ge_3;
-> >> +	unsigned int serdes_speed;
-
-Another nit as I look closer: I think this should be grouped by phy_mode
-etc just for readability.
-
-> >>  };
-> >>  
-> >>  static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-> >> @@ -600,27 +606,47 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
-> >>  
-> >>  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
-> >>  {
-> >> -	int val;
-> >> -
-> >> +	int val, mac_an_value;
-> >>  	val = readl(ethqos->mac_base + MAC_CTRL_REG);
-> >> +	mac_an_value = readl(ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
-> >>  
-> >>  	switch (ethqos->speed) {
-> >> +	case SPEED_2500:
-> >> +		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
-> >> +		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> >> +			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> >> +			      RGMII_IO_MACRO_CONFIG2);
-> >> +		if (ethqos->serdes_speed != SPEED_2500)
-> >> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-> >> +		mac_an_value &= ~ETHQOS_MAC_AN_CTRL_ANE;
-> >> +		break;
-> >>  	case SPEED_1000:
-> >>  		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
-> >>  		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> >>  			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> >>  			      RGMII_IO_MACRO_CONFIG2);
-> >> +		if (ethqos->serdes_speed != SPEED_1000)
-> >> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-> >> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
-> >>  		break;
-> >>  	case SPEED_100:
-> >>  		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
-> >> +		if (ethqos->serdes_speed != SPEED_1000)
-> >> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-> >> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
-> >>  		break;
-> >>  	case SPEED_10:
-> >>  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
-> >>  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
-> >> +		if (ethqos->serdes_speed != SPEED_1000)
-> >> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-> >> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
-> >>  		break;
-> >>  	}
-> >>  
-> >>  	writel(val, ethqos->mac_base + MAC_CTRL_REG);
-> >> +	writel(mac_an_value, ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
-> >> +	ethqos->serdes_speed = ethqos->speed;
-> > 
-> > I see these bits are generic and there's some functions in stmmac_pcs.h
-> > that muck with these...
-> > 
-> > Could you help me understand if this really should be Qualcomm specific,
-> > or if this is something that should be considered for the more core bits
-> > of the driver? I feel in either case we should take advantage of the
-> > common definitions in that file if possible.
-> > 
-> we do have function dwmac_ctrl_ane in core driver which updates same registers. However, it does not have the option to reset ANE bit, it can only set bits. For SPEED_2500 we need to reset ANE bit. Hence I am adding it here. Not sure if we can extend dwmac_ctrl_ane function to reset bits as well.
-
-I'd evaluate if you can update that function to clear the ANE bit when
-the ane boolean is false. From the usage I see I feel that makes sense,
-but correct me if you think I'm wrong.
-At the very least let's use the defines from there, and possibly add a
-new function if clearing is not acceptable in dwmac_ctrl_ane().
-
-Stepping back, I was asking in general is the need to muck with ANE here
-is a Qualcomm specific problem, or is that a generic thing that should be
-handled in the core (and the phy_set_speed() bit stay here)? i.e. would
-any dwmac5 based IP need to do something like this for SPEED_2500?
-
-> >>  
-> >>  	return val;
-> >>  }
-> >> @@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
-> >>  				     "Failed to get serdes phy\n");
-> >>  
-> >>  	ethqos->speed = SPEED_1000;
-> >> +	ethqos->serdes_speed = SPEED_1000;
-> >>  	ethqos_update_link_clk(ethqos, SPEED_1000);
-> >>  	ethqos_set_func_clk_en(ethqos);
-> >>  
-> >> -- 
-> >> 2.17.1
-> >>
-> > 
-> 
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TGUgbWVyY3JlZGkgMjAgZMOpY2VtYnJlIDIwMjMgw6AgMTY6MjcgKzAxMDAsIEh1Z3VlcyBGcnVj
+aGV0IGEgw6ljcml0wqA6Cj4gVGhpcyBwYXRjaHNldCBpbnRyb2R1Y2VzIHN1cHBvcnQgZm9yIFZE
+RUMgdmlkZW8gaGFyZHdhcmUgZGVjb2Rlcgo+IGFuZCBWRU5DIHZpZGVvIGhhcmR3YXJlIGVuY29k
+ZXIgb2YgU1RNaWNyb2VsZWN0cm9uaWNzIFNUTTMyTVAyNQo+IFNvQyBzZXJpZXMuCj4gCj4gVGhp
+cyBpbml0aWFsIHN1cHBvcnQgaW1wbGVtZW50cyBIMjY0IGRlY29kaW5nLCBWUDggZGVjb2Rpbmcg
+YW5kCj4gSlBFRyBlbmNvZGluZy4KPiAKPiBUaGlzIGhhcyBiZWVuIHRlc3RlZCBvbiBTVE0zMk1Q
+MjU3Ri1FVjEgZXZhbHVhdGlvbiBib2FyZC4KPiAKPiA9PT09PT09PT09PQo+ID0gaGlzdG9yeSA9
+Cj4gPT09PT09PT09PT0KPiB2ZXJzaW9uIDQ6Cj4gICAgLSBGaXggY29tbWVudHMgZnJvbSBOaWNv
+bGFzIGFib3V0IGRyb3BwaW5nIGVuY29kZXIgcmF3IHN0ZXBzCgpBcyBkaXNjdXNzZWQgaW4gY2hh
+dCwgVGhlIDRLIHJlc29sdXRpb24gZGlkbid0IHdvcmsgY29ycmVjdGx5LCBzbyBhbGwgdGhlCnJl
+c29sdXRpb24gaGF2ZSBiZWVuIHNldCBiYWNrIHRvIDEwODBwLgoKPiAKPiB2ZXJzaW9uIDM6Cj4g
+ICAgLSBGaXggcmVtYXJrcyBmcm9tIEtyenlzenRvZiBLb3psb3dza2k6Cj4gICAgIC0gZHJvcCAi
+aXRlbXMiLCB3ZSBrZWVwIHNpbXBsZSBlbnVtIGluIHN1Y2ggY2FzZQo+ICAgICAtIGRyb3Agc2Vj
+b25kIGV4YW1wbGUgLSBpdCBpcyB0aGUgc2FtZSBhcyB0aGUgZmlyc3QKPiAgICAtIERyb3AgdW51
+c2VkIG5vZGUgbGFiZWxzIGFzIHN1Z2dlc3RlZCBieSBDb25vciBEb29sZXkKPiAgICAtIFJldmlz
+aXQgbWluL21heCByZXNvbHV0aW9ucyBhcyBzdWdnZXN0ZWQgYnkgTmljb2xhcyBEdWZyZXNuZQo+
+IAo+IHZlcnNpb24gMjoKPiAgICAtIEZpeCByZW1hcmtzIGZyb20gS3J6eXN6dG9mIEtvemxvd3Nr
+aSBvbiB2MToKPiAgICAgLSBzaW5nbGUgdmlkZW8tY29kZWMgYmluZGluZyBmb3IgYm90aCBWREVD
+L1ZFTkMKPiAgICAgLSBnZXQgcmlkIG9mICItbmFtZXMiCj4gICAgIC0gdXNlIG9mIGdlbmVyaWMg
+bm9kZSBuYW1lICJ2aWRlby1jb2RlYyIKPiAKPiB2ZXJzaW9uIDE6Cj4gICAtIEluaXRpYWwgc3Vi
+bWlzc2lvbgo+IAo+IEh1Z3VlcyBGcnVjaGV0ICg1KToKPiAgIGR0LWJpbmRpbmdzOiBtZWRpYTog
+RG9jdW1lbnQgU1RNMzJNUDI1IFZERUMgJiBWRU5DIHZpZGVvIGNvZGVjcwo+ICAgbWVkaWE6IGhh
+bnRybzogYWRkIHN1cHBvcnQgZm9yIFNUTTMyTVAyNSBWREVDCj4gICBtZWRpYTogaGFudHJvOiBh
+ZGQgc3VwcG9ydCBmb3IgU1RNMzJNUDI1IFZFTkMKPiAgIGFybTY0OiBkdHM6IHN0OiBhZGQgdmlk
+ZW8gZGVjb2RlciBzdXBwb3J0IHRvIHN0bTMybXAyNTUKPiAgIGFybTY0OiBkdHM6IHN0OiBhZGQg
+dmlkZW8gZW5jb2RlciBzdXBwb3J0IHRvIHN0bTMybXAyNTUKPiAKPiAgLi4uL21lZGlhL3N0LHN0
+bTMybXAyNS12aWRlby1jb2RlYy55YW1sICAgICAgIHwgIDUwICsrKysrKysrCj4gIGFyY2gvYXJt
+NjQvYm9vdC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpICAgICAgICB8ICAxMiArKwo+ICBhcmNoL2Fy
+bTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTUuZHRzaSAgICAgICAgfCAgMTcgKysrCj4gIGRyaXZl
+cnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vS2NvbmZpZyAgICB8ICAxNCArKy0KPiAgZHJp
+dmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9NYWtlZmlsZSAgIHwgICA0ICsKPiAgLi4u
+L21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19kcnYuYyAgIHwgICA0ICsKPiAgLi4u
+L21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19ody5oICAgIHwgICAyICsKPiAgLi4u
+L3BsYXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92ZGVjX2h3LmMgIHwgIDkyICsrKysrKysr
+KysrKysrCj4gIC4uLi9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdmVuY19ody5jICB8
+IDExNSArKysrKysrKysrKysrKysrKysKPiAgOSBmaWxlcyBjaGFuZ2VkLCAzMDcgaW5zZXJ0aW9u
+cygrKSwgMyBkZWxldGlvbnMoLSkKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24v
+ZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9zdCxzdG0zMm1wMjUtdmlkZW8tY29kZWMueWFtbAo+
+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9z
+dG0zMm1wMjVfdmRlY19ody5jCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL21lZGlhL3Bs
+YXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92ZW5jX2h3LmMKPiAKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
+dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
