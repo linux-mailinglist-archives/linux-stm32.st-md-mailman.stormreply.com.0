@@ -2,63 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD94281A1B7
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 16:00:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6FE881A265
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 16:27:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DB16C6B477;
-	Wed, 20 Dec 2023 15:00:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C870C6DD6F;
+	Wed, 20 Dec 2023 15:27:54 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30C93C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBB9AC6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 15:00:33 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ Wed, 20 Dec 2023 15:27:52 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BKA44JO026222; Wed, 20 Dec 2023 16:00:23 +0100
+ 3BKAmY9i020525; Wed, 20 Dec 2023 16:27:35 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=VX1e1MqWUsqC3HC2njjApU0jyW7yAkL6duCodzEeM5Q=; b=eP
- cAbV5xk+x3Qo7PibNPS/EaLbPsy+ycxKxli2tbC2A2N05VXoSMvsH577BvcGHBVw
- WmKTJpAAvFE7m8wPJXpNNlR0RWJDwbdjwXXOFXpAsQEtUMB7XM7VXF67ylO5USG6
- jR2Nr77V6kBeSxri7RlTLM7I/aR06+CQ2es6myuIDap8kXmneZVSLTNKcTf32mh6
- jm3P6fBRzzSkGEKWH9wao+gUnnosz2SJ28qYNok3mUDcezVW8pVJ+48cMgisXYiw
- 8TbA9UStW4rqxxVahkvAH+eHmjBKJ5FZuY3p5c2Oi/Iixk13lFvZTtH1CULAZC9u
- fW87KI2+LKPlL9FMrTyQ==
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=tEuXmaN
+ aHen/qbXE+5QeVHvI7f5gS6OM2PXMf9c90iY=; b=h9KTP9l85hp14tkMNtiJs6M
+ KSL37hMKUUp9sg1JGR6OiGPHF0OCLnR31DocKfOKk453z7U8kncgOrb4EaS4m5jy
+ M6i6ref4wh/SU4UqR9slsStIASRy99AGL8EMiMttJHazYvmbUj4FN0yK7sVw+9hR
+ k5OSJUmHeoVxpKemWu78g3AIZxHAl/0EevAD7ZZyEGLoxpWekjD7mYh731/P/Fyb
+ 6YnXxPXi5OAciYeHa42HQ3ZwZbSfEGLT0LcNiTVDiAmke2Wcm7CstKdE8+iPHexR
+ c6Z2Jkwa5GzEvcS3JYWDNO54gUpuCeQVF72ZBHyHSmpDxvjqpYvoRgKWrGIDqDw=
+ =
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v126m2j86-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v14422ac4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Dec 2023 16:00:23 +0100 (CET)
+ Wed, 20 Dec 2023 16:27:35 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C5C85100057;
- Wed, 20 Dec 2023 16:00:22 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id B804321ADA0;
- Wed, 20 Dec 2023 16:00:22 +0100 (CET)
-Received: from localhost (10.201.20.59) by SHFDAG1NODE2.st.com (10.75.129.70)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 67E32100057;
+ Wed, 20 Dec 2023 16:27:34 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 577A721ED29;
+ Wed, 20 Dec 2023 16:27:34 +0100 (CET)
+Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 20 Dec
- 2023 16:00:21 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <william.gray@linaro.org>
-Date: Wed, 20 Dec 2023 15:57:26 +0100
-Message-ID: <20231220145726.640627-11-fabrice.gasnier@foss.st.com>
+ 2023 16:27:34 +0100
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Benjamin Mugnier
+ <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>
+Date: Wed, 20 Dec 2023 16:27:27 +0100
+Message-ID: <20231220152732.2138260-1-hugues.fruchet@foss.st.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231220145726.640627-1-fabrice.gasnier@foss.st.com>
-References: <20231220145726.640627-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.59]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2023-12-20_09,2023-12-20_01,2023-05-22_02
-Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 10/10] counter: stm32-timer-cnt: add
-	support for capture events
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
+ Marco Felsch <m.felsch@pengutronix.de>
+Subject: [Linux-stm32] [PATCH v4 0/5] Add support for video hardware codec
+	of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,245 +90,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for capture events. Captured counter value for each channel
-can be retrieved through CCRx register.
-STM32 timers can have up to 4 capture channels (on input channel 1 to
-channel 4), hence need to check the number of channels before reading
-the capture data.
-The capture configuration is hard-coded to capture signals on both edges
-(non-inverted). Interrupts are used to report events independently for
-each channel.
+This patchset introduces support for VDEC video hardware decoder
+and VENC video hardware encoder of STMicroelectronics STM32MP25
+SoC series.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v3:
-- patch split from: "counter: stm32-timer-cnt: add support for events", to
-  focus on the capture events only here.
-- only get relevant interrupt line
----
- drivers/counter/stm32-timer-cnt.c | 134 +++++++++++++++++++++++++++++-
- 1 file changed, 131 insertions(+), 3 deletions(-)
+This initial support implements H264 decoding, VP8 decoding and
+JPEG encoding.
 
-diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index d13e4c427965..0b131ca71de6 100644
---- a/drivers/counter/stm32-timer-cnt.c
-+++ b/drivers/counter/stm32-timer-cnt.c
-@@ -263,6 +263,40 @@ static int stm32_count_prescaler_write(struct counter_device *counter,
- 	return regmap_write(priv->regmap, TIM_PSC, psc);
- }
- 
-+static int stm32_count_cap_read(struct counter_device *counter,
-+				struct counter_count *count,
-+				size_t ch, u64 *cap)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 ccrx;
-+
-+	if (ch >= priv->nchannels)
-+		return -EOPNOTSUPP;
-+
-+	switch (ch) {
-+	case 0:
-+		regmap_read(priv->regmap, TIM_CCR1, &ccrx);
-+		break;
-+	case 1:
-+		regmap_read(priv->regmap, TIM_CCR2, &ccrx);
-+		break;
-+	case 2:
-+		regmap_read(priv->regmap, TIM_CCR3, &ccrx);
-+		break;
-+	case 3:
-+		regmap_read(priv->regmap, TIM_CCR4, &ccrx);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(counter->parent, "CCR%zu: 0x%08x\n", ch + 1, ccrx);
-+
-+	*cap = ccrx;
-+
-+	return 0;
-+}
-+
- static int stm32_count_nb_ovf_read(struct counter_device *counter,
- 				   struct counter_count *count, u64 *val)
- {
-@@ -286,6 +320,8 @@ static int stm32_count_nb_ovf_write(struct counter_device *counter,
- 	return 0;
- }
- 
-+static DEFINE_COUNTER_ARRAY_CAPTURE(stm32_count_cap_array, 4);
-+
- static struct counter_comp stm32_count_ext[] = {
- 	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
- 	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
-@@ -293,6 +329,7 @@ static struct counter_comp stm32_count_ext[] = {
- 			     stm32_count_ceiling_write),
- 	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
- 			       stm32_count_prescaler_write),
-+	COUNTER_COMP_ARRAY_CAPTURE(stm32_count_cap_read, NULL, stm32_count_cap_array),
- 	COUNTER_COMP_COUNT_U64("num_overflows", stm32_count_nb_ovf_read, stm32_count_nb_ovf_write),
- };
- 
-@@ -351,11 +388,68 @@ static int stm32_action_read(struct counter_device *counter,
- 	}
- }
- 
-+struct stm32_count_cc_regs {
-+	u32 ccmr_reg;
-+	u32 ccmr_mask;
-+	u32 ccmr_bits;
-+	u32 ccer_bits;
-+};
-+
-+static const struct stm32_count_cc_regs stm32_cc[] = {
-+	{ TIM_CCMR1, TIM_CCMR_CC1S, TIM_CCMR_CC1S_TI1,
-+		TIM_CCER_CC1E | TIM_CCER_CC1P | TIM_CCER_CC1NP },
-+	{ TIM_CCMR1, TIM_CCMR_CC2S, TIM_CCMR_CC2S_TI2,
-+		TIM_CCER_CC2E | TIM_CCER_CC2P | TIM_CCER_CC2NP },
-+	{ TIM_CCMR2, TIM_CCMR_CC3S, TIM_CCMR_CC3S_TI3,
-+		TIM_CCER_CC3E | TIM_CCER_CC3P | TIM_CCER_CC3NP },
-+	{ TIM_CCMR2, TIM_CCMR_CC4S, TIM_CCMR_CC4S_TI4,
-+		TIM_CCER_CC4E | TIM_CCER_CC4P | TIM_CCER_CC4NP },
-+};
-+
-+static int stm32_count_capture_configure(struct counter_device *counter, unsigned int ch,
-+					 bool enable)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 ccmr, ccer, sr;
-+
-+	if (ch >= ARRAY_SIZE(stm32_cc) || ch >= priv->nchannels) {
-+		dev_err(counter->parent, "invalid ch: %d\n", ch);
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * configure channel in input capture mode, map channel 1 on TI1, channel2 on TI2...
-+	 * Select both edges / non-inverted to trigger a capture.
-+	 */
-+	if (enable) {
-+		/* first clear possibly latched capture flag upon enabling */
-+		regmap_read(priv->regmap, TIM_CCER, &ccer);
-+		if (!(ccer & stm32_cc[ch].ccer_bits)) {
-+			sr = ~TIM_SR_CC_IF(ch);
-+			regmap_write(priv->regmap, TIM_SR, sr);
-+		}
-+		regmap_update_bits(priv->regmap, stm32_cc[ch].ccmr_reg, stm32_cc[ch].ccmr_mask,
-+				   stm32_cc[ch].ccmr_bits);
-+		regmap_set_bits(priv->regmap, TIM_CCER, stm32_cc[ch].ccer_bits);
-+	} else {
-+		regmap_clear_bits(priv->regmap, TIM_CCER, stm32_cc[ch].ccer_bits);
-+		regmap_clear_bits(priv->regmap, stm32_cc[ch].ccmr_reg, stm32_cc[ch].ccmr_mask);
-+	}
-+
-+	regmap_read(priv->regmap, stm32_cc[ch].ccmr_reg, &ccmr);
-+	regmap_read(priv->regmap, TIM_CCER, &ccer);
-+	dev_dbg(counter->parent, "%s(%s) ch%d 0x%08x 0x%08x\n", __func__, enable ? "ena" : "dis",
-+		ch, ccmr, ccer);
-+
-+	return 0;
-+}
-+
- static int stm32_count_events_configure(struct counter_device *counter)
- {
- 	struct stm32_timer_cnt *const priv = counter_priv(counter);
- 	struct counter_event_node *event_node;
- 	u32 val, dier = 0;
-+	int i, ret;
- 
- 	list_for_each_entry(event_node, &counter->events_list, l) {
- 		switch (event_node->event) {
-@@ -366,6 +460,12 @@ static int stm32_count_events_configure(struct counter_device *counter)
- 				regmap_write(priv->regmap, TIM_SR, (u32)~TIM_SR_UIF);
- 			dier |= TIM_DIER_UIE;
- 			break;
-+		case COUNTER_EVENT_CAPTURE:
-+			ret = stm32_count_capture_configure(counter, event_node->channel, true);
-+			if (ret)
-+				return ret;
-+			dier |= TIM_DIER_CC_IE(event_node->channel);
-+			break;
- 		default:
- 			/* should never reach this path */
- 			return -EINVAL;
-@@ -374,6 +474,15 @@ static int stm32_count_events_configure(struct counter_device *counter)
- 
- 	regmap_write(priv->regmap, TIM_DIER, dier);
- 
-+	/* check for disabled capture events */
-+	for (i = 0 ; i < priv->nchannels; i++) {
-+		if (!(dier & TIM_DIER_CC_IE(i))) {
-+			ret = stm32_count_capture_configure(counter, i, false);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
- 	return 0;
- }
- 
-@@ -387,6 +496,12 @@ static int stm32_count_watch_validate(struct counter_device *counter,
- 		return -EOPNOTSUPP;
- 
- 	switch (watch->event) {
-+	case COUNTER_EVENT_CAPTURE:
-+		if (watch->channel >= priv->nchannels) {
-+			dev_err(counter->parent, "Invalid channel %d\n", watch->channel);
-+			return -EINVAL;
-+		}
-+		return 0;
- 	case COUNTER_EVENT_OVERFLOW_UNDERFLOW:
- 		return 0;
- 	default:
-@@ -497,6 +612,7 @@ static irqreturn_t stm32_timer_cnt_isr(int irq, void *ptr)
- 	struct stm32_timer_cnt *const priv = counter_priv(counter);
- 	u32 clr = GENMASK(31, 0); /* SR flags can be cleared by writing 0 (wr 1 has no effect) */
- 	u32 sr, dier;
-+	int i;
- 
- 	regmap_read(priv->regmap, TIM_SR, &sr);
- 	regmap_read(priv->regmap, TIM_DIER, &dier);
-@@ -504,7 +620,7 @@ static irqreturn_t stm32_timer_cnt_isr(int irq, void *ptr)
- 	 * Some status bits in SR don't match with the enable bits in DIER. Only take care of
- 	 * the possibly enabled bits in DIER (that matches in between SR and DIER).
- 	 */
--	dier &= TIM_DIER_UIE;
-+	dier &= (TIM_DIER_UIE | TIM_DIER_CC1IE | TIM_DIER_CC2IE | TIM_DIER_CC3IE | TIM_DIER_CC4IE);
- 	sr &= dier;
- 
- 	if (sr & TIM_SR_UIF) {
-@@ -515,6 +631,15 @@ static irqreturn_t stm32_timer_cnt_isr(int irq, void *ptr)
- 		clr &= ~TIM_SR_UIF;
- 	}
- 
-+	/* Check capture events */
-+	for (i = 0 ; i < priv->nchannels; i++) {
-+		if (sr & TIM_SR_CC_IF(i)) {
-+			counter_push_event(counter, COUNTER_EVENT_CAPTURE, i);
-+			clr &= ~TIM_SR_CC_IF(i);
-+			dev_dbg(counter->parent, "COUNTER_EVENT_CAPTURE, %d\n", i);
-+		}
-+	}
-+
- 	regmap_write(priv->regmap, TIM_SR, clr);
- 
- 	return IRQ_HANDLED;
-@@ -627,8 +752,11 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
- 		}
- 	} else {
- 		for (i = 0; i < priv->nr_irqs; i++) {
--			/* Only take care of update IRQ for overflow events */
--			if (i != STM32_TIMERS_IRQ_UP)
-+			/*
-+			 * Only take care of update IRQ for overflow events, and cc for
-+			 * capture events.
-+			 */
-+			if (i != STM32_TIMERS_IRQ_UP && i != STM32_TIMERS_IRQ_CC)
- 				continue;
- 
- 			ret = devm_request_irq(&pdev->dev, priv->irq[i], stm32_timer_cnt_isr,
+This has been tested on STM32MP257F-EV1 evaluation board.
+
+===========
+= history =
+===========
+version 4:
+   - Fix comments from Nicolas about dropping encoder raw steps
+
+version 3:
+   - Fix remarks from Krzysztof Kozlowski:
+    - drop "items", we keep simple enum in such case
+    - drop second example - it is the same as the first
+   - Drop unused node labels as suggested by Conor Dooley
+   - Revisit min/max resolutions as suggested by Nicolas Dufresne
+
+version 2:
+   - Fix remarks from Krzysztof Kozlowski on v1:
+    - single video-codec binding for both VDEC/VENC
+    - get rid of "-names"
+    - use of generic node name "video-codec"
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (5):
+  dt-bindings: media: Document STM32MP25 VDEC & VENC video codecs
+  media: hantro: add support for STM32MP25 VDEC
+  media: hantro: add support for STM32MP25 VENC
+  arm64: dts: st: add video decoder support to stm32mp255
+  arm64: dts: st: add video encoder support to stm32mp255
+
+ .../media/st,stm32mp25-video-codec.yaml       |  50 ++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  12 ++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi        |  17 +++
+ drivers/media/platform/verisilicon/Kconfig    |  14 ++-
+ drivers/media/platform/verisilicon/Makefile   |   4 +
+ .../media/platform/verisilicon/hantro_drv.c   |   4 +
+ .../media/platform/verisilicon/hantro_hw.h    |   2 +
+ .../platform/verisilicon/stm32mp25_vdec_hw.c  |  92 ++++++++++++++
+ .../platform/verisilicon/stm32mp25_venc_hw.c  | 115 ++++++++++++++++++
+ 9 files changed, 307 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
+
 -- 
 2.25.1
 
