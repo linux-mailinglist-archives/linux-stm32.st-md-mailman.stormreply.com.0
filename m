@@ -2,81 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA15D819992
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 08:33:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85687819AC3
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 09:47:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F0FCC6B477;
-	Wed, 20 Dec 2023 07:33:19 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4703EC6DD6F;
+	Wed, 20 Dec 2023 08:47:20 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9B5FC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E589C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 07:33:17 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BK4Dlpo022880; Wed, 20 Dec 2023 07:32:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=BnD/wIZiRU3uaH33fmoB/ksRaZee7RDastjX3GeqY2c=; b=ea
- I1ixBTee++GRkUQVKLhYJsx12ZZpiVVAQXk3lz3yC3r6YihSdPMhg3Me8xiMPu/j
- gcAJL1QLfdk4Hn7F/YSy0xc2oE2UNySI6fIxf0hUEPYVYPBQcJ2qVDBHHssbAqNC
- Kuiskpx0r3CCCusQWIWLvy6wuR5nyUm5pTq5sCnybROR/0sAOSeCC1NyL+eZ6F0o
- flZ6Dayj2edj154r6tP1bEBZKLUuktBAADJ0g0En12Wvr/m5waeLy6dGZAyaQv3i
- HSDNODvRmoYlI8KLlATygcMJ7lZLdyMta7m/R6j19Vcl1t8CEvn74rwhPzn/yWRl
- 9W0FgdZIDYS1IazDGgaw==
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v3fa3hj2t-1
+ Wed, 20 Dec 2023 08:47:18 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3BK6A9w9026700; Wed, 20 Dec 2023 09:46:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=cyfd0rf
+ aAV6O1iXqR5snIedqjSoG4Q/E7ZuiVTF+bro=; b=RV9+YWPZNrjlUyUfwrjs6dp
+ tC9o55EJlpBvVDrJ2j5X4D5E6W04WKwX4S9ArqGU3Yb5Vk+ecXG+X3M7OyB3CGCL
+ 0G1pH4I40LTQMyn++6U4xWoomvJZe54POIw+id0elZ4w/79ucC4DO5bg2ZEX9H1Y
+ jEkD/T92ZAW+8606u+2YonNrnQ5aSIf+Ib1Fz9UBqz4QFSTvZxv3Tffc7xvqkebr
+ CiLKUVMj/6XXMlJlQTFJkrh2OMvzoCn1BivqcYFhn+2DeR+TZqmmAaIlT0S9BLLl
+ LUv7rm8XTTTnhzgJGlSgXQtyxZG5zP0ygAbsO9eSGhFxdoZ5lt/QngxMDd20xyA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v11w901xb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Dec 2023 07:32:58 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BK7WvM4019047
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 20 Dec 2023 07:32:57 GMT
-Received: from [10.216.10.102] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 19 Dec
- 2023 23:32:48 -0800
-Message-ID: <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
-Date: Wed, 20 Dec 2023 13:02:45 +0530
+ Wed, 20 Dec 2023 09:46:46 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2C7BE100057;
+ Wed, 20 Dec 2023 09:46:45 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0BF3E20A75C;
+ Wed, 20 Dec 2023 09:46:45 +0100 (CET)
+Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 20 Dec
+ 2023 09:46:44 +0100
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Benjamin Mugnier
+ <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>
+Date: Wed, 20 Dec 2023 09:46:36 +0100
+Message-ID: <20231220084641.2076428-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Andrew Halaney <ahalaney@redhat.com>
-References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
- <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
-From: Sneh Shah <quic_snehshah@quicinc.com>
-In-Reply-To: <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 7Ut7UXyS2eIOhFoqn7Ux1zDtvLQ-HMcx
-X-Proofpoint-ORIG-GUID: 7Ut7UXyS2eIOhFoqn7Ux1zDtvLQ-HMcx
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0
- phishscore=0 spamscore=0 suspectscore=0 mlxlogscore=999 impostorscore=0
- clxscore=1015 adultscore=0 mlxscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312200050
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
- Add support for 2.5G SGMII
+ definitions=2023-12-20_02,2023-12-14_01,2023-05-22_02
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
+ Marco Felsch <m.felsch@pengutronix.de>
+Subject: [Linux-stm32] [PATCH v3 0/4] Add support for video hardware codec
+	of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,127 +90,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This patchset introduces support for VDEC video hardware decoder
+and VENC video hardware encoder of STMicroelectronics STM32MP25
+SoC series.
 
+This initial support implements H264 decoding, VP8 decoding and
+JPEG encoding.
 
-On 12/18/2023 9:50 PM, Andrew Halaney wrote:
-> On Mon, Dec 18, 2023 at 12:41:18PM +0530, Sneh Shah wrote:
->> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
->> mode for 1G/100M/10M speed.
->> Added changes to configure serdes phy and mac based on link speed.
->>
->> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
->> ---
->>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 31 +++++++++++++++++--
->>  1 file changed, 29 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
->> index d3bf42d0fceb..b3a28dc19161 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
->> @@ -21,6 +21,7 @@
->>  #define RGMII_IO_MACRO_CONFIG2		0x1C
->>  #define RGMII_IO_MACRO_DEBUG1		0x20
->>  #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
->> +#define ETHQOS_MAC_AN_CTRL		0xE0
->>  
->>  /* RGMII_IO_MACRO_CONFIG fields */
->>  #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
->> @@ -78,6 +79,10 @@
->>  #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
->>  #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
->>  
->> +/*ETHQOS_MAC_AN_CTRL bits */
->> +#define ETHQOS_MAC_AN_CTRL_RAN			BIT(9)
->> +#define ETHQOS_MAC_AN_CTRL_ANE			BIT(12)
->> +
-> 
-> nit: space please add a space before ETHQOS_MAC_AN_CTRL
-> 
-will take care of this in next patch
+This has been tested on STM32MP257F-EV1 evaluation board.
 
->>  struct ethqos_emac_por {
->>  	unsigned int offset;
->>  	unsigned int value;
->> @@ -109,6 +114,7 @@ struct qcom_ethqos {
->>  	unsigned int num_por;
->>  	bool rgmii_config_loopback_en;
->>  	bool has_emac_ge_3;
->> +	unsigned int serdes_speed;
->>  };
->>  
->>  static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
->> @@ -600,27 +606,47 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
->>  
->>  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
->>  {
->> -	int val;
->> -
->> +	int val, mac_an_value;
->>  	val = readl(ethqos->mac_base + MAC_CTRL_REG);
->> +	mac_an_value = readl(ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
->>  
->>  	switch (ethqos->speed) {
->> +	case SPEED_2500:
->> +		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
->> +		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->> +			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->> +			      RGMII_IO_MACRO_CONFIG2);
->> +		if (ethqos->serdes_speed != SPEED_2500)
->> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
->> +		mac_an_value &= ~ETHQOS_MAC_AN_CTRL_ANE;
->> +		break;
->>  	case SPEED_1000:
->>  		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
->>  		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->>  			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->>  			      RGMII_IO_MACRO_CONFIG2);
->> +		if (ethqos->serdes_speed != SPEED_1000)
->> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
->> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
->>  		break;
->>  	case SPEED_100:
->>  		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
->> +		if (ethqos->serdes_speed != SPEED_1000)
->> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
->> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
->>  		break;
->>  	case SPEED_10:
->>  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
->>  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
->> +		if (ethqos->serdes_speed != SPEED_1000)
->> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
->> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
->>  		break;
->>  	}
->>  
->>  	writel(val, ethqos->mac_base + MAC_CTRL_REG);
->> +	writel(mac_an_value, ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
->> +	ethqos->serdes_speed = ethqos->speed;
-> 
-> I see these bits are generic and there's some functions in stmmac_pcs.h
-> that muck with these...
-> 
-> Could you help me understand if this really should be Qualcomm specific,
-> or if this is something that should be considered for the more core bits
-> of the driver? I feel in either case we should take advantage of the
-> common definitions in that file if possible.
-> 
-we do have function dwmac_ctrl_ane in core driver which updates same registers. However, it does not have the option to reset ANE bit, it can only set bits. For SPEED_2500 we need to reset ANE bit. Hence I am adding it here. Not sure if we can extend dwmac_ctrl_ane function to reset bits as well.
->>  
->>  	return val;
->>  }
->> @@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->>  				     "Failed to get serdes phy\n");
->>  
->>  	ethqos->speed = SPEED_1000;
->> +	ethqos->serdes_speed = SPEED_1000;
->>  	ethqos_update_link_clk(ethqos, SPEED_1000);
->>  	ethqos_set_func_clk_en(ethqos);
->>  
->> -- 
->> 2.17.1
->>
-> 
+===========
+= history =
+===========
+version 3:
+   - Fix remarks from Krzysztof Kozlowski:
+    - drop "items", we keep simple enum in such case
+    - drop second example - it is the same as the first
+   - Drop unused node labels as suggested by Conor Dooley
+   - Revisit min/max resolutions as suggested by Nicolas Dufresne
+
+version 2:
+   - Fix remarks from Krzysztof Kozlowski on v1:
+    - single video-codec binding for both VDEC/VENC
+    - get rid of "-names"
+    - use of generic node name "video-codec"
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (5):
+  dt-bindings: media: Document STM32MP25 VDEC & VENC video codecs
+  media: hantro: add support for STM32MP25 VDEC
+  media: hantro: add support for STM32MP25 VENC
+  arm64: dts: st: add video decoder support to stm32mp255
+  arm64: dts: st: add video encoder support to stm32mp255
+
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  12 ++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi        |  17 ++
+ drivers/media/platform/verisilicon/Kconfig    |  14 +-
+ drivers/media/platform/verisilicon/Makefile   |   4 +
+ .../media/platform/verisilicon/hantro_drv.c   |   4 +
+ .../media/platform/verisilicon/hantro_hw.h    |   2 +
+ .../platform/verisilicon/stm32mp25_vdec_hw.c  |  92 +++++++++++
+ .../platform/verisilicon/stm32mp25_venc_hw.c  | 147 ++++++++++++++++++
+ 8 files changed, 289 insertions(+), 3 deletions(-)
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
