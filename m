@@ -2,52 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4023A81A8ED
-	for <lists+linux-stm32@lfdr.de>; Wed, 20 Dec 2023 23:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC2C81AA99
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 00:01:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA610C6B477;
-	Wed, 20 Dec 2023 22:16:51 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82B1CC6B477;
+	Wed, 20 Dec 2023 23:01:06 +0000 (UTC)
+Received: from mail-yb1-f178.google.com (mail-yb1-f178.google.com
+ [209.85.219.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBF73C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26FC7C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 Dec 2023 22:16:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 609B5B81CE0;
- Wed, 20 Dec 2023 22:16:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A132C433C8;
- Wed, 20 Dec 2023 22:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703110609;
- bh=EYuAHLFAu52JNqdpI9RE6CjobCj8plhFfDlK2x+vg4g=;
- h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
- b=s/b1Ax841wkTMn/VP+5NRp8THggUZTYTKKns1K2yPYtcF8+nZ154CP8JzyCW0rbwE
- qTiFBMa1gjuru+k4XPM/5Qb1Zwwx44HHWTpO2I+mG6lBY7uvx0U3nMVlhuaIIPJXSm
- aF5Zyj5xgOpJUK+lEIl10FBFsA0N++OyUpakjkYltY2ih5wjPBpR4vHhuXN0HBc2gg
- NMK/NFN5l+gy5zOSbJl4yb7bY3L/k5viKx4NToRSxuXk5wWJfCjlUbCOt0xJMDj5lI
- uOf5Olc5gcU5pIE4PpmVoFDg7GelklhmU9diq/hp1CA5NSgOdjkuKW8s4xeUteAe/E
- XQE9p9Fo/1XTw==
-Message-ID: <c98539f99030f174583d7ee36802b4b9.sboyd@kernel.org>
+ Wed, 20 Dec 2023 23:01:05 +0000 (UTC)
+Received: by mail-yb1-f178.google.com with SMTP id
+ 3f1490d57ef6-dbd5b96b12eso202635276.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 20 Dec 2023 15:01:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1703113264; x=1703718064;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Kndbi6UPJxN6+T5jqZZQ14R7CnrzIl8QsQoFB2iMQDE=;
+ b=CKkQWgTNWgW9B9VRMejGhkdBYSDA7MeesBCf/kt7Vg7e+SYqYioCg8sASnOwObsWc6
+ +3SOi3xG2kNzo61mKiG2k71VZbBkq/ifADAXKTDgTn/8C47fWnlUk5aTFSfbawqSKEDX
+ hIwgfIY6n2xCgjQDHI1fRi3pmsy0JkhYyIGmdaTvgF90OKtMcwmbwCg3Jen9kWq1eHtu
+ z0FH7DMP4b/d8/BCLfV9wIoOvLlGKWDQZ5h7KNsfDcU12pKj5drOZcWouRO1tkwc6xKx
+ Fv6qkYuRGbqSF37uPRhtVQNnBIAnQVzpVWW4VO0C1mT+NTTgKZdM/bc093zAO97I6a4i
+ 3HIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703113264; x=1703718064;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Kndbi6UPJxN6+T5jqZZQ14R7CnrzIl8QsQoFB2iMQDE=;
+ b=uduJtIrjQrwq5eDPG3xJXlDfRC77MLqSL+aH95JhhWhLAYErKZIOhUNKS7ZtWDwhmE
+ ClBsbQy/uY0iF8tshczMD+xJef7CQSrT3/T9RX3U9YZRTFBms728U5Ikmi8IF8J5GHcN
+ H0/TM7aPsmkOd6WtPIwlpwPnGqR6U0FQOB9vYLI83hvznLYEp/l9/4/ueU17y5m1H5wh
+ unYgcPjpRdkYfoBiHTxVsmJrtYRsv+v5EdnbG9etnP/t1k+a249U30fISISV6H4whDOh
+ a9MA9XcZXdcTf7tQzbsrDQuCY31qVoihGa546roVh7wrYgERoYpSKyuXcUKO/TfD2X6d
+ fmXA==
+X-Gm-Message-State: AOJu0Yw55GNW8SWFMV8g9xhXc//py0dccwuIZ4qIHwruxye8FO9HxMKy
+ azgmGBPNU9a9hCtQB+czpFuIMgk1yDi/7bPe9t+fOg==
+X-Google-Smtp-Source: AGHT+IEKvmNUg9bRCaiTBW2ffBMNHNVTN+PuEE8H2zvBjctHE6yEmrhyKhMQv1uFbhEhkvf1gN/e/9FOCU9KjjJHZtc=
+X-Received: by 2002:a25:aab4:0:b0:dbd:739c:48ef with SMTP id
+ t49-20020a25aab4000000b00dbd739c48efmr495214ybi.19.1703113263987; Wed, 20 Dec
+ 2023 15:01:03 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20231219130909.265091-2-gabriel.fernandez@foss.st.com>
-References: <20231219130909.265091-1-gabriel.fernandez@foss.st.com>
- <20231219130909.265091-2-gabriel.fernandez@foss.st.com>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ <20231218162326.173127-2-romain.gantois@bootlin.com>
+ <20231219122034.pg2djgrosa4irubh@skbuf>
+ <20231219140754.7a7a8dbd@device-28.home>
+ <CACRpkdaxy9u=1-rQ+f+1tb8xyV-GYOuq52xhb4_SRPk9-LpnUA@mail.gmail.com>
+ <20231219172932.13f4b0c3@device-28.home>
+ <20231219224616.pw32w5eq2dbuja5i@skbuf>
+ <CACRpkdbo=Oem4PCOtSV6iWJoojRetTgZhx7J91uecTa-DQA8iQ@mail.gmail.com>
+In-Reply-To: <CACRpkdbo=Oem4PCOtSV6iWJoojRetTgZhx7J91uecTa-DQA8iQ@mail.gmail.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 21 Dec 2023 00:00:52 +0100
+Message-ID: <CACRpkdY2U-SmNZ=52qTFBcYtqe63MHdBY=FUFitfBfjb3aYeBQ@mail.gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>
-Date: Wed, 20 Dec 2023 14:16:46 -0800
-User-Agent: alot/0.10
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v7 1/2] clk: stm32: introduce clocks for
-	STM32MP257 platform
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Prevent DSA tags
+	from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,210 +86,36 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting gabriel.fernandez@foss.st.com (2023-12-19 05:09:08)
-> diff --git a/drivers/clk/stm32/clk-stm32mp25.c b/drivers/clk/stm32/clk-stm32mp25.c
-> new file mode 100644
-> index 000000000000..313e022c6142
-> --- /dev/null
-> +++ b/drivers/clk/stm32/clk-stm32mp25.c
-> @@ -0,0 +1,1826 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-> + * Author: Gabriel Fernandez <gabriel.fernandez@foss.st.com> for STMicroelectronics.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/of_address.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include "clk-stm32-core.h"
-> +#include "reset-stm32.h"
-> +#include "stm32mp25_rcc.h"
-> +
-> +#include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +#include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> +
-> +static const struct clk_parent_data adc12_src[] = {
-> +       { .name = "ck_flexgen_46" },
-
-This is a new driver. Don't use .name here. Instead use .index or .hw
-and if that can't work then use .fw_name.
-
-> +       { .name = "ck_icn_ls_mcu" },
-> +};
-> +
-> +static const struct clk_parent_data adc3_src[] = {
-> +       { .name = "ck_flexgen_47" },
-> +       { .name = "ck_icn_ls_mcu" },
-> +       { .name = "ck_flexgen_46" },
-> +};
-[...]
-> +static struct clk_stm32_composite ck_ker_usb3pciephy = {
-> +       .gate_id = GATE_USB3PCIEPHY,
-> +       .mux_id = MUX_USB3PCIEPHY,
-> +       .div_id = NO_STM32_DIV,
-> +       .hw.init = CLK_HW_INIT_PARENTS_DATA("ck_ker_usb3pciephy", usb3pciphy_src,
-> +                                           &clk_stm32_composite_ops, 0),
-> +};
-> +
-> +/* USB3 DRD */
-> +static struct clk_stm32_gate ck_icn_m_usb3dr = {
-> +       .gate_id = GATE_USB3DR,
-> +       .hw.init = CLK_HW_INIT("ck_icn_m_usb3dr", "ck_icn_hsl", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +static struct clk_stm32_gate ck_ker_usb2phy2 = {
-> +       .gate_id = GATE_USB3DR,
-> +       .hw.init = CLK_HW_INIT("ck_ker_usb2phy2", "ck_flexgen_58", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +/* USBTC */
-> +static struct clk_stm32_gate ck_icn_p_usbtc = {
-> +       .gate_id = GATE_USBTC,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_usbtc", "ck_icn_apb4", &clk_stm32_gate_ops, 0),
-
-Please stop using strings to match parents, i.e. don't use CLK_HW_INIT.
-
-> +};
-> +
-> +static struct clk_stm32_gate ck_ker_usbtc = {
-> +       .gate_id = GATE_USBTC,
-> +       .hw.init = CLK_HW_INIT("ck_ker_usbtc", "ck_flexgen_35", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +/* VDEC / VENC */
-> +static struct clk_stm32_gate ck_icn_p_vdec = {
-> +       .gate_id = GATE_VDEC,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_vdec", "ck_icn_apb4", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +static struct clk_stm32_gate ck_icn_p_venc = {
-> +       .gate_id = GATE_VENC,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_venc", "ck_icn_apb4", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +/* VREF */
-> +static struct clk_stm32_gate ck_icn_p_vref = {
-> +       .gate_id = GATE_VREF,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_vref", "ck_icn_apb3", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +/* WWDG */
-> +static struct clk_stm32_gate ck_icn_p_wwdg1 = {
-> +       .gate_id = GATE_WWDG1,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_wwdg1", "ck_icn_apb3", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +static struct clk_stm32_gate ck_icn_p_wwdg2 = {
-> +       .gate_id = GATE_WWDG2,
-> +       .hw.init = CLK_HW_INIT("ck_icn_p_wwdg2", "ck_icn_ls_mcu", &clk_stm32_gate_ops, 0),
-> +};
-> +
-> +enum security_clk {
-> +       SECF_NONE,
-
-What is the use of this single value enum?
-
-> +};
-> +
-> +static const struct clock_config stm32mp25_clock_cfg[] = {
-> +       STM32_GATE_CFG(CK_BUS_ETH1,             ck_icn_p_eth1,          SECF_NONE),
-> +       STM32_GATE_CFG(CK_BUS_ETH2,             ck_icn_p_eth2,          SECF_NONE),
-[....]
-> +
-> +static const struct of_device_id stm32mp25_match_data[] = {
-> +       {
-> +               .compatible = "st,stm32mp25-rcc",
-> +               .data = &stm32mp25_data,
-> +       },
-
-One line please:
-
- 	{ .compatible = "st,stm32mp25-rcc", .data = &stm32mp25_data, },
-
-> +       { }
-> +};
-> +MODULE_DEVICE_TABLE(of, stm32mp25_match_data);
-> +
-> +static int get_clock_deps(struct device *dev)
-
-What is the explanation for this function?
-
-> +{
-> +       static const char * const clock_deps_name[] = {
-> +               "hsi", "hse", "msi", "lsi", "lse",
-> +       };
-> +       int i;
-> +
-> +       for (i = 0; i < ARRAY_SIZE(clock_deps_name); i++) {
-> +               struct clk *clk;
-> +
-> +               clk = of_clk_get_by_name(dev_of_node(dev), clock_deps_name[i]);
-> +               if (IS_ERR(clk))
-> +                       return PTR_ERR(clk);
-> +
-> +               clk_put(clk);
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int stm32mp25_rcc_clocks_probe(struct platform_device *pdev)
-> +{
-> +       struct device *dev = &pdev->dev;
-> +       void __iomem *base;
-> +       int ret;
-> +
-> +       ret = get_clock_deps(dev);
-> +       if (ret)
-> +               return ret;
-> +
-> +       base = devm_of_iomap(dev, dev->of_node, 0, NULL);
-
-Use platform device APIs.
-
-> +       if (WARN_ON(IS_ERR(base)))
-> +               return PTR_ERR(base);
-> +
-> +       return stm32_rcc_init(dev, stm32mp25_match_data, base);
-> +}
-> +
-> +static int stm32mp25_rcc_clocks_remove(struct platform_device *pdev)
-> +{
-> +       struct device *dev = &pdev->dev;
-> +       struct device_node *child, *np = dev_of_node(dev);
-> +
-> +       for_each_available_child_of_node(np, child)
-> +               of_clk_del_provider(child);
-
-Add the providers with devm?
-
-> +
-> +       return 0;
-> +}
-> +
-> +static struct platform_driver stm32mp25_rcc_clocks_driver = {
-> +       .driver = {
-> +               .name = "stm32mp25_rcc",
-> +               .of_match_table = stm32mp25_match_data,
-> +       },
-> +       .probe = stm32mp25_rcc_clocks_probe,
-> +       .remove = stm32mp25_rcc_clocks_remove,
-> +};
-> +
-> +static int __init stm32mp25_clocks_init(void)
-> +{
-> +       return platform_driver_register(&stm32mp25_rcc_clocks_driver);
-> +}
-> +
-> +core_initcall(stm32mp25_clocks_init);
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBEZWMgMjAsIDIwMjMgYXQgMTo0M+KAr0FNIExpbnVzIFdhbGxlaWogPGxpbnVzLndh
+bGxlaWpAbGluYXJvLm9yZz4gd3JvdGU6Cgo+IFRoZW4gZm9yICp0aGlzKiBkcml2ZXIgSSBuZWVk
+IHRvIGNoZWNrIGZvciB0aGUgZXRoZXJ0eXBlCj4gRVRIX1BfODAyMVEgd2hhdCBpcyBpbnNpZGUg
+aXQsIG9uZSBsZXZlbCBkb3duLCBhbmQgdGhhdCBpcyBhCj4gc2VwYXJhdGUgaGVscGVyLiBBbmQg
+SSBuYW1lZCBpdCBza2Jfdmxhbl9yYXdfaW5uZXJfZXRoZXJ0eXBlKCkKPiBJdCB3aWxsIHJldHJp
+ZXZlIHRoZSBpbm5lciB0eXBlIG5vIG1hdHRlcgo+Cj4gaW5jbHVkZS9saW51eC9pZl92bGFuLmgK
+Pgo+ICsvKiBUaGlzIGRldGVybWluZXMgdGhlIGlubmVyIGV0aGVydHlwZSBpbmNvZGVkIGludG8g
+dGhlIHNrYiBkYXRhIHdpdGhvdXQKPiArICogcmVseWluZyBvbiBza2ItPnByb3RvY29sIHdoaWNo
+IGlzIG5vdCBhbHdheXMgaWRlbnRpY2FsLgo+ICsgKi8KPiArc3RhdGljIGlubGluZSB1MTYgc2ti
+X3ZsYW5fcmF3X2lubmVyX2V0aGVydHlwZShjb25zdCBzdHJ1Y3Qgc2tfYnVmZiAqc2tiKQo+ICt7
+Cj4gKyAgICAgICBzdHJ1Y3Qgdmxhbl9ldGhoZHIgKnZoZHI7Cj4gKwo+ICsgICAgICAgaWYgKCFz
+a2JfcG9pbnRlcl9pZl9saW5lYXIoc2tiLCAwLCBWTEFOX0VUSF9ITEVOKSkKPiArICAgICAgICAg
+ICAgICAgcmV0dXJuIDB4MDAwMFU7Cj4gKwo+ICsgICAgICAgdmhkciA9IHZsYW5fZXRoX2hkcihz
+a2IpOwo+ICsgICAgICAgcmV0dXJuIG50b2hzKHZoZHItPmhfdmxhbl9lbmNhcHN1bGF0ZWRfcHJv
+dG8pOwo+ICt9Cj4KPiAoV2UgY2FuIGJpa2VzaGVkIHRoZSBuYW1lIG9mIHRoZSBmdW5jdGlvbi4g
+Kl9pbm5lcl9wcm90b2NvbCBtYXliZS4pCj4KPiBJdCBkb2VzIG5vdCBoYW5kbGUgbmVzdGVkIFZM
+QU5zIGFuZCBJIGRvbid0IHNlZSB3aHkgaXQgc2hvdWxkIHNpbmNlCj4gdGhlIGltbWVkaWF0ZSBz
+aWJsaW5ncyBpbiBpZl92bGFuLmggZG9lcyBub3QsIGkuZS4KPiB2bGFuX2V0aF9oZHIoKSwgc2ti
+X3ZsYW5fZXRoX2hkcigpLiBJdCdzIHByZXR0eSBjbGVhciB0aGVzZSBoZWxwZXJzCj4gYWxsIGdv
+IGp1c3Qgb25lIGxldmVsIGRvd24uIChXZSBjYW4gYWRkIGEgKl9kZXNjZW5kXyooKQo+IGhlbHBl
+ciB0aGUgZGF5IHNvbWVvbmUgbmVlZHMgdGhhdC4pCgpGb3JnZXQgdGhpcyB3aG9sZSBkaXNjdXNz
+aW9uIGJlY2F1c2UgaW4gPGxpbnV4L2lmX3ZsYW4uaD4KdGhlcmUgaXMgYWxyZWFkeSB2bGFuX2dl
+dF9wcm90b2NvbCgpIGFuZCB2bGFuX2dldF9wcm90b2NvbF9hbmRfZGVwdGgoKQpzbyB0aGlzIHBy
+b2JsZW0gaXMgYWxyZWFkeSBzb2x2ZWQsIGp1c3QgYmV0dGVyLgoKWW91cnMsCkxpbnVzIFdhbGxl
+aWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
