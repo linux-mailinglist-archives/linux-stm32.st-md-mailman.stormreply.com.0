@@ -2,88 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD6381AF87
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 08:37:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EABCD81B02D
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 09:20:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3C36C6B477;
-	Thu, 21 Dec 2023 07:37:51 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3D26C6C841;
+	Thu, 21 Dec 2023 08:20:21 +0000 (UTC)
+Received: from sonic315-8.consmr.mail.gq1.yahoo.com
+ (sonic315-8.consmr.mail.gq1.yahoo.com [98.137.65.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A08FC6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07488C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 07:37:50 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 3BL62uDC026618; Thu, 21 Dec 2023 07:37:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=xM8x3CylIQFdiJ4PeOPo6wWJ3ARCdFJr+MWgDcH0lo0=; b=He
- BijgvrCSezFSZFryb1/RN59NCpOTXVnuodwomoBKFBIH9/OLlhKQ9UJeA5cr1blF
- d9EGap/7OzQpRRRQSZZzgc1N2KVAn6rWl05DoXJXB/fsjtrharAvb3ys3JoxgkD/
- 9EXhbNwAnnZrK9sbcZ2NHyXHm8MOdU0/iT9nhGBWf5vcIEMzNj8l+cStNMTh8VgQ
- 5OcT63fX3SPwW5tz+7xCdiGOzvFfyeuJRF7QMvrzmgLVXeJCVbce/udqRL+y/fWw
- FilcdxU1OtloPWr04oF5JJT5pUTxLOTDvmPmOHi6ua/FL7HIc73PlHNi5Ba3jojD
- mo7W3CbOleCTCkJCMgng==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v4ea0grus-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Dec 2023 07:37:38 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BL7bb1L013516
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Dec 2023 07:37:37 GMT
-Received: from [10.216.1.141] (10.80.80.8) by nalasex01b.na.qualcomm.com
- (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 20 Dec
- 2023 23:37:26 -0800
-Message-ID: <351eb4d2-4d14-4a4d-ac14-a0189e6614cc@quicinc.com>
-Date: Thu, 21 Dec 2023 13:07:22 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Serge Semin <fancer.lancer@gmail.com>
-References: <20231219104815.3443231-1-quic_jsuraj@quicinc.com>
- <20231219104815.3443231-4-quic_jsuraj@quicinc.com>
- <irmn42brbxjwz45gh7hoay4aeollnq7gnzkuyuzjxjyh3syrst@mvgm7vecrhna>
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-In-Reply-To: <irmn42brbxjwz45gh7hoay4aeollnq7gnzkuyuzjxjyh3syrst@mvgm7vecrhna>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: lx4C50JPc6BOYOsGVW5TobU25mo2GVb8
-X-Proofpoint-ORIG-GUID: lx4C50JPc6BOYOsGVW5TobU25mo2GVb8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- adultscore=0 phishscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- mlxlogscore=999 mlxscore=0 malwarescore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2312210055
-Cc: Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v7 3/3] net: stmmac: Add driver
- support for DWMAC5 common safety IRQ
+ Thu, 21 Dec 2023 07:40:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
+ t=1703144440; bh=mg05y36DE7RxqcYS0Yg08PxNcX+uHQSyP8myVr6Z9SY=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To:From:Subject:Reply-To;
+ b=P89LqL97iPvqOEygAP8jIsPZdMngoRwqUSc4npUBOQFiFGY3luRHEQLl7zdnk60r5eiAkuJ65HxLHV/QvjEjzQiKQ3YR09pxtJzu0S/SqVe62irq8ZQYCFWqnznCIJuUPA1X+4c35mBE8sCvrAETDIYEshAq+q3UkeUvmkOUuIKM7vVpiTP1C9SVA8OWKyjgZgkWzy/+rHCjt76FtOm1i1AKH1GtDhWYEiA5eSKc1fa46ZFd8ZYJHXC3xFw3LCwVEYeMxOhU+v5ut9eKZ7pvG05vPj2k+oidC2oCvz0s0gy4DaoPWs3UHiffdb1IXGSIHk6/rP7e6hpFP0/Ys+UMaw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1703144440; bh=bn6pI1tRgeo5pd9kjkdssNA1BveJ0C1MagLRtvwF3nw=;
+ h=X-Sonic-MF:Subject:From:Date:To:From:Subject;
+ b=It7cosj99/AVXTgXJhVRhXu147j60qbQD5XJY8Nvh6G+KfcRpgxmKIEtv7ECwUMiAHQTU+/f1jBvIppa9R6YbvRRN9mOo+4FQux/JbnxtajMtfYc9/zLarYVmGTWkqK2DV2t08v7p0+LI/w8qntcq28Yd8BxMbDGvQGRxFE+ntMLYE7h0P9RKJkrRjp62zxiciqdlOUPFZIIVbC0RK72cu84YGbcD0j5oA4P9Pd6EeoNB+UqJcd0IHJY9q4VUmk/3Yd2qVLZ2Ug+xlfvjKMVGBfORJTkj86rA1q6zu4MPGt1PXFl1Gavc2oQohIKqu1xTICEkuOSMBjcHIcxeIHsSA==
+X-YMail-OSG: PAG3T28VM1nGfuDPV9.TECwvTjInXgMvQwaCMPmPJ6iCva9T.Qf6FVuEwvGMZlO
+ 1LKiVvCM0cFMgG6DpWTcDDwIwiL9n4Tjpa._Y_ThBXIaSY0NiVa12eObw.QLfjgSiq06lKsX6KNi
+ maaeiGMStPqcCHcQddh4gQjOWoetAPU_sWocQBtnkLVkHgqs5Z94MuCqqBENEgF4TInKuOLFrEVl
+ rPPPoL70dwUg_b_.PkKgFOi4iuzv__AfdpXJx_lopJSgqCGYJ.7SQVE3BOH9EtHKY1YS3fNSlKOZ
+ hHZ9pQ9LCM_fxzEMYPNF8ZUdiLzohzy08SP09C3TXcCndhaPj3TLlEZAVJwF711gcWV1ODUzl3Nt
+ vqbPw_2KDfGqyqX7IOkMvIaymI7lwv2ratRaM.98.DUqqXpJdApQUHPVVu.wPXyU4D6HG1YeoIJO
+ 6WNygVkskfCLdIhtljBwtObCNvdFJTCCitTZN7YXj0ebaI_5tMsvVYljObgmGv19.Y3yTbMBWBM9
+ qjsddAZEQLLYc8p_v8J4lLuMzev8C8sWhyW6nmNGmOuDSc9KV23UbH.hh8ojlGapl5xmKdIF.t51
+ Zat_pTSV1F8xUD7rZQk1hYz.s34Lew0zQq0B_9r5DSdBkuk7bLRINtZMgGjFP5yEUfXyUM5cdH7D
+ 7xIHIafIxwxwZZLmLArt3OvugYHs390oTJHkTK2Vrqqg_52F6f7pLlNnAEK.mOm0NS8RoGq5L56A
+ .ApNen.PanGlzxMt266bki4ehmX1PdYkwdi4irJA62Op2SVpkKvNg2Gb2ca2kuloxqRyTQ2ikBtL
+ 2PqYA3iPYhUDl1GbH.2ooohO81oPedsFIHfJmAGqzJqifi5MXT2z6NRnJXaI1mo0074lvb3LBtQi
+ Ymjh6rxUDSUv0yWzOjjhYgftNUNjwmarxw_0KQf312rs42WwP5l3qgWKZiUK50_btIGblokF_K1g
+ abxK9Ye52MChv8i_o5oMpeQckiuWh.1gWGOHlJDFNewOzX8hO.fRTq1TA4U8hvLjuESFUG3JCoJ_
+ CeowDJOGOz1oVp3Fwy4yvW.08p9uOCllPU6YJV1kcwsbIlFwfBSWa.kbSO5s3mcOhnmwLXUuHfsL
+ nIsDs6yT7zFObHsKa5fdYmRZQH3QeWPd3UucXC8lVRkSQGdrP7RF0SAlaCV273JBGPWDyLgPuHXy
+ cdVZD.vIm_7MQB8E3oHKXRW7ZrtvSxK33sjtJTY5.wdyjUD0vjpuxPjbNZrzwbBrRgUgvj.dvkQR
+ RYnwNi4_YXGgqI8cPxjObzyC0X7irgVp.627SX6ur_.IuMmr7vtyYslKak0RIZcl03STKKl2W_BX
+ u0KQGXNnSnaEI_xLGQIbnPud3Iyu_qx_qvmAM46.EAaWoeQgwioqOBzP5ZPmtEw4SlxITEANTpgy
+ p4j8xbLseErASQV.Y7Cjs21lNtDe5o9nXskmdUTfwIb.4kqmv8G5GNQDgA.GmxooXSpIKzNOzWYs
+ qdNTKL2aWTEAtsePcme6OSw1BbE5IHnfj51jRfL0BIQYjBFuqI92XawWuJ2XlbBT0q1Cxk6zf77O
+ tuS5Zv5bzttZPzasW7WJ5YpSiBNa0_5_FKXN7Znnavcni0ERXlJ0pLTDxn9IapPFkow2wFZE8tEA
+ YY.VIRaAolSK4qQJQp8PMb6y7YKpuF0_ZdNbsxnSX51AypLLD.RSMXX36CL3ufVWMQYiPrrilf_M
+ McuF8mXKzQ2Z1fFS0sH5TOhrvWXEPDd8T7mdZYUVCy6Lo_OwIQFXJOFXYRv8P4.alp531gAO9LjD
+ LCenYdGhB8ZQYx7KNEx6.RL0I6z5WRhOBxHX9A8g9LbeqSY3nRErv.h30Wh4Hfk9mcxm8RlIrwnr
+ KTKzwgYOjOeVHHjZ9.9I9ew20FlZyWT4Mwx3jKf0I4eBYvw.x.1UY9V_KMuQ3CMWovvZHx6ykSjQ
+ i1xnpfibWjkrjleteksmdWBumA3M9bRuzn6R7lc.Znt7eW0T8mdg7Gdw6ezJEWqG8NshDf3xkGe9
+ ypJV09J5wM5U34SvPUL1XFrBzoR__JuAMS.o1F_2HcqOE50RToEUo6x0Jnd0AH_XswN3fV4VBpOn
+ sCPs5wssfw_ozaD0DMTKhj7uw2DaN9mCGvoCPEfHavWbqFsFUt80I80Hb3wUP.wOZVq.sP_G3r0o
+ 8YnUxTAtLWoRDKs5D9ggAI_NB.j6wqqiI5xRtloQlk7tbP_Oulq7oIuAd3hgRYPnrOCX_y2GUUth
+ XrAs0MsKHUHEkEepsxkgDBTzspTeOnCCC7jb1nSI-
+X-Sonic-MF: <canghousehold@aol.com>
+X-Sonic-ID: 74a468d9-748d-4e1e-91f8-922279871ff2
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic315.consmr.mail.gq1.yahoo.com with HTTP; Thu, 21 Dec 2023 07:40:40 +0000
+Received: by hermes--production-bf1-6745f7c55c-6hpmf (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 8eb59427d9a6f70ecffbb8b97d4ba1ed; 
+ Thu, 21 Dec 2023 07:40:36 +0000 (UTC)
+Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
+From: Household Cang <canghousehold@aol.com>
+In-Reply-To: <20231218162326.173127-1-romain.gantois@bootlin.com>
+Date: Thu, 21 Dec 2023 02:40:34 -0500
+Message-Id: <0351C5C2-FEE2-4AED-84C8-9DCACCE4ED0A@aol.com>
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
+X-Mailman-Approved-At: Thu, 21 Dec 2023 08:20:21 +0000
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,181 +89,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-hi Serge,
-taken care of comments please review.
-
-Thanks
-Suraj
-
-On 12/20/2023 8:20 PM, Serge Semin wrote:
-> Hi Suraj
-> 
-> On Tue, Dec 19, 2023 at 04:18:15PM +0530, Suraj Jaiswal wrote:
->> Add support to listen HW safety IRQ like ECC(error
->> correction code), DPP(data path parity), FSM(finite state
->> machine) fault in common IRQ line.
->>
->> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
->> ---
->>  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
->>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
->>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 35 +++++++++++++++++++
->>  .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 +++++
->>  4 files changed, 46 insertions(+)
->>
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
->> index 721c1f8e892f..b9233b09b80f 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
->> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
->> @@ -344,6 +344,7 @@ enum request_irq_err {
->>  	REQ_IRQ_ERR_ALL,
->>  	REQ_IRQ_ERR_TX,
->>  	REQ_IRQ_ERR_RX,
->> +	REQ_IRQ_ERR_SFTY,
->>  	REQ_IRQ_ERR_SFTY_UE,
->>  	REQ_IRQ_ERR_SFTY_CE,
->>  	REQ_IRQ_ERR_LPI,
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> index 9f89acf31050..9aeaca01cace 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
->> @@ -31,6 +31,7 @@ struct stmmac_resources {
->>  	int wol_irq;
->>  	int lpi_irq;
->>  	int irq;
->> +	int sfty_irq;
->>  	int sfty_ce_irq;
->>  	int sfty_ue_irq;
->>  	int rx_irq[MTL_MAX_RX_QUEUES];
->> @@ -297,6 +298,7 @@ struct stmmac_priv {
->>  	void __iomem *ptpaddr;
->>  	void __iomem *estaddr;
->>  	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
->> +	int sfty_irq;
->>  	int sfty_ce_irq;
->>  	int sfty_ue_irq;
->>  	int rx_irq[MTL_MAX_RX_QUEUES];
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> index 47de466e432c..f6639ffb017e 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> @@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
->>  		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
->>  			free_irq(priv->wol_irq, dev);
->>  		fallthrough;
->> +	case REQ_IRQ_ERR_SFTY:
->> +		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
->> +			free_irq(priv->sfty_irq, dev);
->> +		fallthrough;
->>  	case REQ_IRQ_ERR_WOL:
->>  		free_irq(dev->irq, dev);
->>  		fallthrough;
->> @@ -3661,6 +3665,21 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
->>  		}
->>  	}
->>  
->> +	/* Request the common Safety Feature Correctible/Uncorrectible
->> +	 * Error line in case of another line is used
->> +	 */
-> 
->> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
->> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
->> +				  0, dev->name, dev);
-> 
-> Not entirely what I asked. What I asked was to make the code unified in
-> the respective IRQ-request methods. You just copy-and-pasted the same
-> code snippet in both functions. To see what I meant please find the
-> diff attached to this message. It's applicable on top of this patch.
-> 
->> +		if (unlikely(ret < 0)) {
->> +			netdev_err(priv->dev,
-> 
->> +				   "%s: alloc safety failed %d (error: %d)\n",
->> +				   __func__, priv->sfty_irq, ret);
-> 
-> This looks different than the rest of the error messages in this
-> method (see the attached diff).
-> 
->> +			irq_err = REQ_IRQ_ERR_SFTY;
->> +			goto irq_error;
->> +		}
->> +	}
->> +
->>  	/* Request the Safety Feature Correctible Error line in
->>  	 * case of another line is used
->>  	 */
->> @@ -3798,6 +3817,21 @@ static int stmmac_request_irq_single(struct net_device *dev)
->>  		}
->>  	}
->>  
->> +	/* Request the common Safety Feature Correctible/Uncorrectible
->> +	 * Error line in case of another line is used
->> +	 */
->> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> 
->> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
->> +				  0, dev->name, dev);
-> 
-> IRQF_SHARED?
-> 
->> +		if (unlikely(ret < 0)) {
-> 
->> +			netdev_err(priv->dev,
->> +				   "%s: alloc safety failed %d (error: %d)\n",
->> +				   __func__, priv->sfty_irq, ret);
-> 
-> This also looks different than the rest of the error messages in this 
-> method (see the attached diff).
-> 
-> Some other comments I'll send to v8 after all the above finally fixed.
-> 
-> -Serge(y)
-> 
->> +			irq_err = REQ_IRQ_ERR_SFTY;
->> +			goto irq_error;
->> +		}
->> +	}
->> +
->>  	return 0;
->>  
->>  irq_error:
->> @@ -7462,6 +7496,7 @@ int stmmac_dvr_probe(struct device *device,
->>  	priv->dev->irq = res->irq;
->>  	priv->wol_irq = res->wol_irq;
->>  	priv->lpi_irq = res->lpi_irq;
->> +	priv->sfty_irq = res->sfty_irq;
->>  	priv->sfty_ce_irq = res->sfty_ce_irq;
->>  	priv->sfty_ue_irq = res->sfty_ue_irq;
->>  	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
->> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> index 70eadc83ca68..ab250161fd79 100644
->> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
->> @@ -743,6 +743,14 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
->>  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
->>  	}
->>  
->> +	stmmac_res->sfty_irq =
->> +		platform_get_irq_byname_optional(pdev, "sfty");
->> +	if (stmmac_res->sfty_irq < 0) {
->> +		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
->> +			return -EPROBE_DEFER;
->> +		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
->> +	}
->> +
->>  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
->>  
->>  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
->> -- 
->> 2.25.1
->>
->>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Cgo+IE9uIERlYyAxOCwgMjAyMywgYXQgMTE6MjMgQU0sIFJvbWFpbiBHYW50b2lzIDxyb21haW4u
+Z2FudG9pc0Bib290bGluLmNvbT4gd3JvdGU6Cj4gCj4gVGhpcyBpcyBhIGJ1Z2ZpeCBmb3IgYW4g
+aXNzdWUgdGhhdCB3YXMgcmVjZW50bHkgYnJvdWdodCB1cCBpbiB0d28KPiByZXBvcnRzOgo+IAo+
+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi9jNTcyODNlZC02YjliLWIwZTYtZWUxMi01
+NjU1YzFjNTQ0OTVAYm9vdGxpbi5jb20vCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2
+L2U1YzZjNzVmLTJkZmEtNGU1MC1hMWZiLTZiZjRjZGI2MTdjMkBlbGVjdHJvbWFnLmNvbS5hdS8K
+PiAKQWRkIG1lIGluIHRvIGJlIHRoZSAzcmQgcmVwb3J0Li4uClJLMzU2OCBHTUFDMCAoZXRoMSkg
+dG8gTVQ3NTMxQkUgKENQVSBwb3J0KQpDdXJyZW50IHdvcmthcm91bmQgZm9yIG1lIGlzIGV0aHRv
+b2wgLUsgZXRoMSByeCBvZmYgdHggb2ZmCgpodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYv
+bTNjbGZ0Mms3dW1qdG55NTQ2b3QzYXllYmF0dGtzaWJ0eTN5eXR0cGZmdmRpeGw2NXBAN2RwcXNy
+NW5pc2JrL1QvI3QKClF1ZXN0aW9uIG9uIHRoZSBwYXRjaCB0byBiZSBidWlsdDogaG93IHdvdWxk
+IEkga25vdyBpZiBteSBzZXR1cCBjb3VsZCB0YWtlIGFkdmFudGFnZSBvZiB0aGUgSFcgY2hlY2tz
+dW0gb2ZmbG9hZD8gUkszNjU44oCZcyBldGgwIG9uIHN0bW1hYyBpcyBkb2luZyBmaW5lLCBhbmQg
+ZXRoMCBpcyBub3Qgb24gYSBEU0Egc3dpdGNoLiBEb2VzIHRoaXMgbWVhbiBldGgxIHNob3VsZCBi
+ZSBhYmxlIHRvIGRvIGh3IGNoZWNrc3VtIG9mZmxvYWQgb25jZSB0aGUgc3RtbWFjIGRyaXZlciBp
+cyBmaXhlZD8K4oCUTHVjYXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
