@@ -2,71 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 831F881B398
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 11:32:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F2A81B61A
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 13:42:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36532C6C820;
-	Thu, 21 Dec 2023 10:32:17 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72BC5C6C841;
+	Thu, 21 Dec 2023 12:42:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05EA7C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF63C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 10:32:15 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 3BLAIA5j023361; Thu, 21 Dec 2023 11:31:56 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=99YJf+8k0EOTgNd7hulokQbW66/Zhks58YSOFbxIzr4=; b=Z1
- imS8EF3InYuxiSY/kECbMDOBUaFdAj9OnLX08a45a+Davt7scl4IJKmjKDxnESQK
- kRuRGydvWcZEnY5rIIOqdRhkJEZUAQJrHAOakmLO/dXGHApOtasrpse71OlUG70a
- GriChM/6p+fL4svvq/cvDCssFRKUxBQWwAy4a2mUXyrV0qu7N8pdaEo4M2MtEsZb
- 1B2XZutX4AyWnmTItSFp/dVyJZ7nbM7iySTJxEcQiwZBsYSbpuWnQ1JMcoC1eNR4
- Q2xLPgj5Edq8ZbJ1kJLAAp/RxYEi066K57jPTQf2tJIbRflC4kLt2aY0MrSEJGhX
- hl6lOeknqyk2/LU5k0UQ==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v3q8104mr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 21 Dec 2023 11:31:56 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 0FEFD100053;
- Thu, 21 Dec 2023 11:31:55 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EDF9524551B;
- Thu, 21 Dec 2023 11:31:54 +0100 (CET)
-Received: from [10.201.21.240] (10.201.21.240) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Dec
- 2023 11:31:54 +0100
-Message-ID: <21f758cb-ae25-4d74-905c-0d4820f00070@foss.st.com>
-Date: Thu, 21 Dec 2023 11:31:53 +0100
+ Thu, 21 Dec 2023 08:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1703148880; x=1734684880;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=1ba7Ldspb0L81io7WDsMQs1X2A/thFBlYyfgOhF/Vgg=;
+ b=bU8WhUZXFXcrZ7QKudbOl8ogiCDuxllBsvd0UGABqFoRua4dowG4F1XN
+ WnOm/qRTvedOoKxcPuw7VoocykCKicqyZtDr3odWKpSZoYPUDqa5FXYwj
+ q+G2isCLbi0imEqdJ4gpb0Su5gs0ULvgElJbjV2DE8bfkDUVeHX8sfRer
+ hVG4sokt/05dg9UZRuJw1xJX+WXmsAYFfCG7/m1unn71j/EUQUdzrp3E+
+ kRXsns18VyOVU/btaaElEzaTThEQlOK7Swn8iWlmglkTJV5PNZ+NMb2eD
+ yMmlWPb8onGBreOe+N3KQiqp0kTtLfj2kP3nJ0xIunvyiTMXnYYVAekbp g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="2793695"
+X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; 
+   d="scan'208";a="2793695"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2023 00:54:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="842568329"
+X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; d="scan'208";a="842568329"
+Received: from ssid-ilbpg3-teeminta.png.intel.com (HELO localhost.localdomain)
+ ([10.88.227.74])
+ by fmsmga008.fm.intel.com with ESMTP; 21 Dec 2023 00:54:32 -0800
+From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrew Halaney <ahalaney@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ John Stultz <jstultz@google.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Gan Yi Fang <yi.fang.gan@intel.com>, Jens Axboe <axboe@kernel.dk>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 21 Dec 2023 16:51:08 +0800
+Message-Id: <20231221085109.2830794-2-yi.fang.gan@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231221085109.2830794-1-yi.fang.gan@intel.com>
+References: <20231221085109.2830794-1-yi.fang.gan@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Stephen Boyd <sboyd@kernel.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Michael Turquette <mturquette@baylibre.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh+dt@kernel.org>
-References: <20231219130909.265091-1-gabriel.fernandez@foss.st.com>
- <20231219130909.265091-2-gabriel.fernandez@foss.st.com>
- <c98539f99030f174583d7ee36802b4b9.sboyd@kernel.org>
-From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
-In-Reply-To: <c98539f99030f174583d7ee36802b4b9.sboyd@kernel.org>
-X-Originating-IP: [10.201.21.240]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-21_04,2023-12-20_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v7 1/2] clk: stm32: introduce clocks for
- STM32MP257 platform
+X-Mailman-Approved-At: Thu, 21 Dec 2023 12:42:22 +0000
+Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
+ Looi Hong Aun <hong.aun.looi@intel.com>,
+ Song Yoong Siang <yoong.siang.song@intel.com>,
+ Voon Weifeng <weifeng.voon@intel.com>,
+ Choong Yong Liang <yong.liang.choong@intel.com>
+Subject: [Linux-stm32] [PATCH net v2 1/2] driver.h: add helper macro for
+	module_exit() boilerplate
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,133 +76,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDEyLzIwLzIzIDIzOjE2LCBTdGVwaGVuIEJveWQgd3JvdGU6Cj4gUXVvdGluZyBnYWJyaWVs
-LmZlcm5hbmRlekBmb3NzLnN0LmNvbSAoMjAyMy0xMi0xOSAwNTowOTowOCkKPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvY2xrL3N0bTMyL2Nsay1zdG0zMm1wMjUuYyBiL2RyaXZlcnMvY2xrL3N0bTMy
-L2Nsay1zdG0zMm1wMjUuYwo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAw
-MDAwMDAuLjMxM2UwMjJjNjE0Mgo+PiAtLS0gL2Rldi9udWxsCj4+ICsrKyBiL2RyaXZlcnMvY2xr
-L3N0bTMyL2Nsay1zdG0zMm1wMjUuYwo+PiBAQCAtMCwwICsxLDE4MjYgQEAKPj4gKy8vIFNQRFgt
-TGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkKPj4gKy8qCj4+ICsgKiBDb3B5cmlnaHQg
-KEMpIFNUTWljcm9lbGVjdHJvbmljcyAyMDIzIC0gQWxsIFJpZ2h0cyBSZXNlcnZlZAo+PiArICog
-QXV0aG9yOiBHYWJyaWVsIEZlcm5hbmRleiA8Z2FicmllbC5mZXJuYW5kZXpAZm9zcy5zdC5jb20+
-IGZvciBTVE1pY3JvZWxlY3Ryb25pY3MuCj4+ICsgKi8KPj4gKwo+PiArI2luY2x1ZGUgPGxpbnV4
-L2Nsay5oPgo+PiArI2luY2x1ZGUgPGxpbnV4L29mX2FkZHJlc3MuaD4KPj4gKyNpbmNsdWRlIDxs
-aW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KPj4gKwo+PiArI2luY2x1ZGUgImNsay1zdG0zMi1jb3Jl
-LmgiCj4+ICsjaW5jbHVkZSAicmVzZXQtc3RtMzIuaCIKPj4gKyNpbmNsdWRlICJzdG0zMm1wMjVf
-cmNjLmgiCj4+ICsKPj4gKyNpbmNsdWRlIDxkdC1iaW5kaW5ncy9jbG9jay9zdCxzdG0zMm1wMjUt
-cmNjLmg+Cj4+ICsjaW5jbHVkZSA8ZHQtYmluZGluZ3MvcmVzZXQvc3Qsc3RtMzJtcDI1LXJjYy5o
-Pgo+PiArCj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGNsa19wYXJlbnRfZGF0YSBhZGMxMl9zcmNb
-XSA9IHsKPj4gKyAgICAgICB7IC5uYW1lID0gImNrX2ZsZXhnZW5fNDYiIH0sCj4gVGhpcyBpcyBh
-IG5ldyBkcml2ZXIuIERvbid0IHVzZSAubmFtZSBoZXJlLiBJbnN0ZWFkIHVzZSAuaW5kZXggb3Ig
-Lmh3Cj4gYW5kIGlmIHRoYXQgY2FuJ3Qgd29yayB0aGVuIHVzZSAuZndfbmFtZS4KClRoZXNlIHBh
-cmVudCBjbG9ja3MgYXJlIG1hbmFnZWQgYnkgYSBzZWN1cmUgd29ybGQgYW5kIGV4cG9zZWQgdGhy
-b3VnaCBTQ01JLgoKSWYgSSB1c2UgLmluZGV4IG9yIC5md19uYW1lLCBkbyBJIGhhdmUgdG8gZXhw
-b3NlIDEyMiBjbG9ja3MgaW4gbXkgRFQgbm9kZSA/CgpUaGlzIHdpbGwgc2lnbmlmaWNhbnRseSBp
-bmNyZWFzZSB0aGUgc2l6ZSBvZiB0aGUgRFQgZmlsZQoKIMKgwqDCoCDCoMKgwqAgwqDCoMKgIGNs
-b2NrLW5hbWVzID0gImhzZSIsICJoc2kiLCAuLi4sICJja19zY21pX3N0bTUwMCI7CiDCoMKgIMKg
-wqDCoMKgIMKgwqDCoCBjbG9ja3MgPSA8JnNjbWlfY2xrIENLX1NDTUlfSFNFPiwgPCZzY21pX2Ns
-ayBDS19TQ01JX0hTST4swqAgCi4uLiAsIMKgIDwmc2NtaV9jbGsgQ0tfU0NNSV9TVE01MDA+OwoK
-Pgo+PiArICAgICAgIHsgLm5hbWUgPSAiY2tfaWNuX2xzX21jdSIgfSwKPj4gK307Cj4+ICsKPj4g
-K3N0YXRpYyBjb25zdCBzdHJ1Y3QgY2xrX3BhcmVudF9kYXRhIGFkYzNfc3JjW10gPSB7Cj4+ICsg
-ICAgICAgeyAubmFtZSA9ICJja19mbGV4Z2VuXzQ3IiB9LAo+PiArICAgICAgIHsgLm5hbWUgPSAi
-Y2tfaWNuX2xzX21jdSIgfSwKPj4gKyAgICAgICB7IC5uYW1lID0gImNrX2ZsZXhnZW5fNDYiIH0s
-Cj4+ICt9Owo+IFsuLi5dCj4+ICtzdGF0aWMgc3RydWN0IGNsa19zdG0zMl9jb21wb3NpdGUgY2tf
-a2VyX3VzYjNwY2llcGh5ID0gewo+PiArICAgICAgIC5nYXRlX2lkID0gR0FURV9VU0IzUENJRVBI
-WSwKPj4gKyAgICAgICAubXV4X2lkID0gTVVYX1VTQjNQQ0lFUEhZLAo+PiArICAgICAgIC5kaXZf
-aWQgPSBOT19TVE0zMl9ESVYsCj4+ICsgICAgICAgLmh3LmluaXQgPSBDTEtfSFdfSU5JVF9QQVJF
-TlRTX0RBVEEoImNrX2tlcl91c2IzcGNpZXBoeSIsIHVzYjNwY2lwaHlfc3JjLAo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZjbGtfc3RtMzJfY29tcG9zaXRl
-X29wcywgMCksCj4+ICt9Owo+PiArCj4+ICsvKiBVU0IzIERSRCAqLwo+PiArc3RhdGljIHN0cnVj
-dCBjbGtfc3RtMzJfZ2F0ZSBja19pY25fbV91c2IzZHIgPSB7Cj4+ICsgICAgICAgLmdhdGVfaWQg
-PSBHQVRFX1VTQjNEUiwKPj4gKyAgICAgICAuaHcuaW5pdCA9IENMS19IV19JTklUKCJja19pY25f
-bV91c2IzZHIiLCAiY2tfaWNuX2hzbCIsICZjbGtfc3RtMzJfZ2F0ZV9vcHMsIDApLAo+PiArfTsK
-Pj4gKwo+PiArc3RhdGljIHN0cnVjdCBjbGtfc3RtMzJfZ2F0ZSBja19rZXJfdXNiMnBoeTIgPSB7
-Cj4+ICsgICAgICAgLmdhdGVfaWQgPSBHQVRFX1VTQjNEUiwKPj4gKyAgICAgICAuaHcuaW5pdCA9
-IENMS19IV19JTklUKCJja19rZXJfdXNiMnBoeTIiLCAiY2tfZmxleGdlbl81OCIsICZjbGtfc3Rt
-MzJfZ2F0ZV9vcHMsIDApLAo+PiArfTsKPj4gKwo+PiArLyogVVNCVEMgKi8KPj4gK3N0YXRpYyBz
-dHJ1Y3QgY2xrX3N0bTMyX2dhdGUgY2tfaWNuX3BfdXNidGMgPSB7Cj4+ICsgICAgICAgLmdhdGVf
-aWQgPSBHQVRFX1VTQlRDLAo+PiArICAgICAgIC5ody5pbml0ID0gQ0xLX0hXX0lOSVQoImNrX2lj
-bl9wX3VzYnRjIiwgImNrX2ljbl9hcGI0IiwgJmNsa19zdG0zMl9nYXRlX29wcywgMCksCj4gUGxl
-YXNlIHN0b3AgdXNpbmcgc3RyaW5ncyB0byBtYXRjaCBwYXJlbnRzLCBpLmUuIGRvbid0IHVzZSBD
-TEtfSFdfSU5JVC4KPgo+PiArfTsKPj4gKwo+PiArc3RhdGljIHN0cnVjdCBjbGtfc3RtMzJfZ2F0
-ZSBja19rZXJfdXNidGMgPSB7Cj4+ICsgICAgICAgLmdhdGVfaWQgPSBHQVRFX1VTQlRDLAo+PiAr
-ICAgICAgIC5ody5pbml0ID0gQ0xLX0hXX0lOSVQoImNrX2tlcl91c2J0YyIsICJja19mbGV4Z2Vu
-XzM1IiwgJmNsa19zdG0zMl9nYXRlX29wcywgMCksCj4+ICt9Owo+PiArCj4+ICsvKiBWREVDIC8g
-VkVOQyAqLwo+PiArc3RhdGljIHN0cnVjdCBjbGtfc3RtMzJfZ2F0ZSBja19pY25fcF92ZGVjID0g
-ewo+PiArICAgICAgIC5nYXRlX2lkID0gR0FURV9WREVDLAo+PiArICAgICAgIC5ody5pbml0ID0g
-Q0xLX0hXX0lOSVQoImNrX2ljbl9wX3ZkZWMiLCAiY2tfaWNuX2FwYjQiLCAmY2xrX3N0bTMyX2dh
-dGVfb3BzLCAwKSwKPj4gK307Cj4+ICsKPj4gK3N0YXRpYyBzdHJ1Y3QgY2xrX3N0bTMyX2dhdGUg
-Y2tfaWNuX3BfdmVuYyA9IHsKPj4gKyAgICAgICAuZ2F0ZV9pZCA9IEdBVEVfVkVOQywKPj4gKyAg
-ICAgICAuaHcuaW5pdCA9IENMS19IV19JTklUKCJja19pY25fcF92ZW5jIiwgImNrX2ljbl9hcGI0
-IiwgJmNsa19zdG0zMl9nYXRlX29wcywgMCksCj4+ICt9Owo+PiArCj4+ICsvKiBWUkVGICovCj4+
-ICtzdGF0aWMgc3RydWN0IGNsa19zdG0zMl9nYXRlIGNrX2ljbl9wX3ZyZWYgPSB7Cj4+ICsgICAg
-ICAgLmdhdGVfaWQgPSBHQVRFX1ZSRUYsCj4+ICsgICAgICAgLmh3LmluaXQgPSBDTEtfSFdfSU5J
-VCgiY2tfaWNuX3BfdnJlZiIsICJja19pY25fYXBiMyIsICZjbGtfc3RtMzJfZ2F0ZV9vcHMsIDAp
-LAo+PiArfTsKPj4gKwo+PiArLyogV1dERyAqLwo+PiArc3RhdGljIHN0cnVjdCBjbGtfc3RtMzJf
-Z2F0ZSBja19pY25fcF93d2RnMSA9IHsKPj4gKyAgICAgICAuZ2F0ZV9pZCA9IEdBVEVfV1dERzEs
-Cj4+ICsgICAgICAgLmh3LmluaXQgPSBDTEtfSFdfSU5JVCgiY2tfaWNuX3Bfd3dkZzEiLCAiY2tf
-aWNuX2FwYjMiLCAmY2xrX3N0bTMyX2dhdGVfb3BzLCAwKSwKPj4gK307Cj4+ICsKPj4gK3N0YXRp
-YyBzdHJ1Y3QgY2xrX3N0bTMyX2dhdGUgY2tfaWNuX3Bfd3dkZzIgPSB7Cj4+ICsgICAgICAgLmdh
-dGVfaWQgPSBHQVRFX1dXREcyLAo+PiArICAgICAgIC5ody5pbml0ID0gQ0xLX0hXX0lOSVQoImNr
-X2ljbl9wX3d3ZGcyIiwgImNrX2ljbl9sc19tY3UiLCAmY2xrX3N0bTMyX2dhdGVfb3BzLCAwKSwK
-Pj4gK307Cj4+ICsKPj4gK2VudW0gc2VjdXJpdHlfY2xrIHsKPj4gKyAgICAgICBTRUNGX05PTkUs
-Cj4gV2hhdCBpcyB0aGUgdXNlIG9mIHRoaXMgc2luZ2xlIHZhbHVlIGVudW0/CgpZZXMsIGp1c3Qg
-YSBkZWZpbmUgaXMgZW5vdWdoIGZvciB0aGUgbW9tZW50LiBJIHdpbGwgaGF2ZSBtb3JlIApkZWZp
-bml0aW9ucyBpbiBteSBuZXh0IHNlcmllcyB0byBpbnRyb2R1Y2UKCnNlY3VyaXR5IChjbG9ja3Mg
-Y291bGQgYmUgbWFuYWdlZCBieSBhIHNlY3VyZSB3b3JsZCBvciBub3QpLgoKPj4gK307Cj4+ICsK
-Pj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgY2xvY2tfY29uZmlnIHN0bTMybXAyNV9jbG9ja19jZmdb
-XSA9IHsKPj4gKyAgICAgICBTVE0zMl9HQVRFX0NGRyhDS19CVVNfRVRIMSwgICAgICAgICAgICAg
-Y2tfaWNuX3BfZXRoMSwgICAgICAgICAgU0VDRl9OT05FKSwKPj4gKyAgICAgICBTVE0zMl9HQVRF
-X0NGRyhDS19CVVNfRVRIMiwgICAgICAgICAgICAgY2tfaWNuX3BfZXRoMiwgICAgICAgICAgU0VD
-Rl9OT05FKSwKPiBbLi4uLl0KPj4gKwo+PiArc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2Vf
-aWQgc3RtMzJtcDI1X21hdGNoX2RhdGFbXSA9IHsKPj4gKyAgICAgICB7Cj4+ICsgICAgICAgICAg
-ICAgICAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMjUtcmNjIiwKPj4gKyAgICAgICAgICAgICAg
-IC5kYXRhID0gJnN0bTMybXAyNV9kYXRhLAo+PiArICAgICAgIH0sCj4gT25lIGxpbmUgcGxlYXNl
-Ogo+Cj4gICAJeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMjUtcmNjIiwgLmRhdGEgPSAmc3Rt
-MzJtcDI1X2RhdGEsIH0sCgpvawoKPgo+PiArICAgICAgIHsgfQo+PiArfTsKPj4gK01PRFVMRV9E
-RVZJQ0VfVEFCTEUob2YsIHN0bTMybXAyNV9tYXRjaF9kYXRhKTsKPj4gKwo+PiArc3RhdGljIGlu
-dCBnZXRfY2xvY2tfZGVwcyhzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gV2hhdCBpcyB0aGUgZXhwbGFu
-YXRpb24gZm9yIHRoaXMgZnVuY3Rpb24/CgpJdCAncyB0byBtYW5hZ2UgdGhlIGRlcGVuZGVuY3kg
-d2l0aCB0aGUgU0NNSSBjbG9jayBkcml2ZXIuCgoKPj4gK3sKPj4gKyAgICAgICBzdGF0aWMgY29u
-c3QgY2hhciAqIGNvbnN0IGNsb2NrX2RlcHNfbmFtZVtdID0gewo+PiArICAgICAgICAgICAgICAg
-ImhzaSIsICJoc2UiLCAibXNpIiwgImxzaSIsICJsc2UiLAo+PiArICAgICAgIH07Cj4+ICsgICAg
-ICAgaW50IGk7Cj4+ICsKPj4gKyAgICAgICBmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0laRShjbG9j
-a19kZXBzX25hbWUpOyBpKyspIHsKPj4gKyAgICAgICAgICAgICAgIHN0cnVjdCBjbGsgKmNsazsK
-Pj4gKwo+PiArICAgICAgICAgICAgICAgY2xrID0gb2ZfY2xrX2dldF9ieV9uYW1lKGRldl9vZl9u
-b2RlKGRldiksIGNsb2NrX2RlcHNfbmFtZVtpXSk7Cj4+ICsgICAgICAgICAgICAgICBpZiAoSVNf
-RVJSKGNsaykpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBQVFJfRVJSKGNsayk7
-Cj4+ICsKPj4gKyAgICAgICAgICAgICAgIGNsa19wdXQoY2xrKTsKPj4gKyAgICAgICB9Cj4+ICsK
-Pj4gKyAgICAgICByZXR1cm4gMDsKPj4gK30KPj4gKwo+PiArc3RhdGljIGludCBzdG0zMm1wMjVf
-cmNjX2Nsb2Nrc19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiArewo+PiAr
-ICAgICAgIHN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4+ICsgICAgICAgdm9pZCBf
-X2lvbWVtICpiYXNlOwo+PiArICAgICAgIGludCByZXQ7Cj4+ICsKPj4gKyAgICAgICByZXQgPSBn
-ZXRfY2xvY2tfZGVwcyhkZXYpOwo+PiArICAgICAgIGlmIChyZXQpCj4+ICsgICAgICAgICAgICAg
-ICByZXR1cm4gcmV0Owo+PiArCj4+ICsgICAgICAgYmFzZSA9IGRldm1fb2ZfaW9tYXAoZGV2LCBk
-ZXYtPm9mX25vZGUsIDAsIE5VTEwpOwo+IFVzZSBwbGF0Zm9ybSBkZXZpY2UgQVBJcy4KPgo+PiAr
-ICAgICAgIGlmIChXQVJOX09OKElTX0VSUihiYXNlKSkpCj4+ICsgICAgICAgICAgICAgICByZXR1
-cm4gUFRSX0VSUihiYXNlKTsKPj4gKwo+PiArICAgICAgIHJldHVybiBzdG0zMl9yY2NfaW5pdChk
-ZXYsIHN0bTMybXAyNV9tYXRjaF9kYXRhLCBiYXNlKTsKPj4gK30KPj4gKwo+PiArc3RhdGljIGlu
-dCBzdG0zMm1wMjVfcmNjX2Nsb2Nrc19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRl
-dikKPj4gK3sKPj4gKyAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2Owo+PiAr
-ICAgICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqY2hpbGQsICpucCA9IGRldl9vZl9ub2RlKGRldik7
-Cj4+ICsKPj4gKyAgICAgICBmb3JfZWFjaF9hdmFpbGFibGVfY2hpbGRfb2Zfbm9kZShucCwgY2hp
-bGQpCj4+ICsgICAgICAgICAgICAgICBvZl9jbGtfZGVsX3Byb3ZpZGVyKGNoaWxkKTsKPiBBZGQg
-dGhlIHByb3ZpZGVycyB3aXRoIGRldm0/CgpvawoKCj4KPj4gKwo+PiArICAgICAgIHJldHVybiAw
-Owo+PiArfQo+PiArCj4+ICtzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBzdG0zMm1wMjVf
-cmNjX2Nsb2Nrc19kcml2ZXIgPSB7Cj4+ICsgICAgICAgLmRyaXZlciA9IHsKPj4gKyAgICAgICAg
-ICAgICAgIC5uYW1lID0gInN0bTMybXAyNV9yY2MiLAo+PiArICAgICAgICAgICAgICAgLm9mX21h
-dGNoX3RhYmxlID0gc3RtMzJtcDI1X21hdGNoX2RhdGEsCj4+ICsgICAgICAgfSwKPj4gKyAgICAg
-ICAucHJvYmUgPSBzdG0zMm1wMjVfcmNjX2Nsb2Nrc19wcm9iZSwKPj4gKyAgICAgICAucmVtb3Zl
-ID0gc3RtMzJtcDI1X3JjY19jbG9ja3NfcmVtb3ZlLAo+PiArfTsKPj4gKwo+PiArc3RhdGljIGlu
-dCBfX2luaXQgc3RtMzJtcDI1X2Nsb2Nrc19pbml0KHZvaWQpCj4+ICt7Cj4+ICsgICAgICAgcmV0
-dXJuIHBsYXRmb3JtX2RyaXZlcl9yZWdpc3Rlcigmc3RtMzJtcDI1X3JjY19jbG9ja3NfZHJpdmVy
-KTsKPj4gK30KPj4gKwo+PiArY29yZV9pbml0Y2FsbChzdG0zMm1wMjVfY2xvY2tzX2luaXQpOwpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
-MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
-dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
-eC1zdG0zMgo=
+For the modules need a module_init() but don't need to do
+anything special in module_exit() might need to have an empty
+module_exit(). This patch add a new macro module_exit_stub() to
+replace the empty module_exit(). The macro is useful to remove
+the module_exit() boilerplate.
+
+Cc: <stable@vger.kernel.org> # 6.1+
+Suggested-by: Lobakin, Aleksander <aleksander.lobakin@intel.com>
+Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
+---
+ include/linux/device/driver.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
+index 7738f458995f..7d322eef501e 100644
+--- a/include/linux/device/driver.h
++++ b/include/linux/device/driver.h
+@@ -288,4 +288,18 @@ static int __init __driver##_init(void) \
+ } \
+ device_initcall(__driver##_init);
+ 
++/**
++ * module_exit_stub() - Helper macro for drivers that have init but don't
++ * do anything in exit. This eliminates some boilerplate.
++ * Each module may only use this macro once, and calling it replaces
++ * module_exit().
++ *
++ * @__driver: driver name
++ */
++#define module_exit_stub(__driver) \
++static void __exit __driver##_exit(void) \
++{ \
++} \
++module_exit(__driver##_exit)
++
+ #endif	/* _DEVICE_DRIVER_H_ */
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
