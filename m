@@ -2,82 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EABCD81B02D
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 09:20:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D58C881B096
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 09:48:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3D26C6C841;
-	Thu, 21 Dec 2023 08:20:21 +0000 (UTC)
-Received: from sonic315-8.consmr.mail.gq1.yahoo.com
- (sonic315-8.consmr.mail.gq1.yahoo.com [98.137.65.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C066C6C820;
+	Thu, 21 Dec 2023 08:48:05 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07488C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 684B1C6DD60
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 07:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048;
- t=1703144440; bh=mg05y36DE7RxqcYS0Yg08PxNcX+uHQSyP8myVr6Z9SY=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To:From:Subject:Reply-To;
- b=P89LqL97iPvqOEygAP8jIsPZdMngoRwqUSc4npUBOQFiFGY3luRHEQLl7zdnk60r5eiAkuJ65HxLHV/QvjEjzQiKQ3YR09pxtJzu0S/SqVe62irq8ZQYCFWqnznCIJuUPA1X+4c35mBE8sCvrAETDIYEshAq+q3UkeUvmkOUuIKM7vVpiTP1C9SVA8OWKyjgZgkWzy/+rHCjt76FtOm1i1AKH1GtDhWYEiA5eSKc1fa46ZFd8ZYJHXC3xFw3LCwVEYeMxOhU+v5ut9eKZ7pvG05vPj2k+oidC2oCvz0s0gy4DaoPWs3UHiffdb1IXGSIHk6/rP7e6hpFP0/Ys+UMaw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1703144440; bh=bn6pI1tRgeo5pd9kjkdssNA1BveJ0C1MagLRtvwF3nw=;
- h=X-Sonic-MF:Subject:From:Date:To:From:Subject;
- b=It7cosj99/AVXTgXJhVRhXu147j60qbQD5XJY8Nvh6G+KfcRpgxmKIEtv7ECwUMiAHQTU+/f1jBvIppa9R6YbvRRN9mOo+4FQux/JbnxtajMtfYc9/zLarYVmGTWkqK2DV2t08v7p0+LI/w8qntcq28Yd8BxMbDGvQGRxFE+ntMLYE7h0P9RKJkrRjp62zxiciqdlOUPFZIIVbC0RK72cu84YGbcD0j5oA4P9Pd6EeoNB+UqJcd0IHJY9q4VUmk/3Yd2qVLZ2Ug+xlfvjKMVGBfORJTkj86rA1q6zu4MPGt1PXFl1Gavc2oQohIKqu1xTICEkuOSMBjcHIcxeIHsSA==
-X-YMail-OSG: PAG3T28VM1nGfuDPV9.TECwvTjInXgMvQwaCMPmPJ6iCva9T.Qf6FVuEwvGMZlO
- 1LKiVvCM0cFMgG6DpWTcDDwIwiL9n4Tjpa._Y_ThBXIaSY0NiVa12eObw.QLfjgSiq06lKsX6KNi
- maaeiGMStPqcCHcQddh4gQjOWoetAPU_sWocQBtnkLVkHgqs5Z94MuCqqBENEgF4TInKuOLFrEVl
- rPPPoL70dwUg_b_.PkKgFOi4iuzv__AfdpXJx_lopJSgqCGYJ.7SQVE3BOH9EtHKY1YS3fNSlKOZ
- hHZ9pQ9LCM_fxzEMYPNF8ZUdiLzohzy08SP09C3TXcCndhaPj3TLlEZAVJwF711gcWV1ODUzl3Nt
- vqbPw_2KDfGqyqX7IOkMvIaymI7lwv2ratRaM.98.DUqqXpJdApQUHPVVu.wPXyU4D6HG1YeoIJO
- 6WNygVkskfCLdIhtljBwtObCNvdFJTCCitTZN7YXj0ebaI_5tMsvVYljObgmGv19.Y3yTbMBWBM9
- qjsddAZEQLLYc8p_v8J4lLuMzev8C8sWhyW6nmNGmOuDSc9KV23UbH.hh8ojlGapl5xmKdIF.t51
- Zat_pTSV1F8xUD7rZQk1hYz.s34Lew0zQq0B_9r5DSdBkuk7bLRINtZMgGjFP5yEUfXyUM5cdH7D
- 7xIHIafIxwxwZZLmLArt3OvugYHs390oTJHkTK2Vrqqg_52F6f7pLlNnAEK.mOm0NS8RoGq5L56A
- .ApNen.PanGlzxMt266bki4ehmX1PdYkwdi4irJA62Op2SVpkKvNg2Gb2ca2kuloxqRyTQ2ikBtL
- 2PqYA3iPYhUDl1GbH.2ooohO81oPedsFIHfJmAGqzJqifi5MXT2z6NRnJXaI1mo0074lvb3LBtQi
- Ymjh6rxUDSUv0yWzOjjhYgftNUNjwmarxw_0KQf312rs42WwP5l3qgWKZiUK50_btIGblokF_K1g
- abxK9Ye52MChv8i_o5oMpeQckiuWh.1gWGOHlJDFNewOzX8hO.fRTq1TA4U8hvLjuESFUG3JCoJ_
- CeowDJOGOz1oVp3Fwy4yvW.08p9uOCllPU6YJV1kcwsbIlFwfBSWa.kbSO5s3mcOhnmwLXUuHfsL
- nIsDs6yT7zFObHsKa5fdYmRZQH3QeWPd3UucXC8lVRkSQGdrP7RF0SAlaCV273JBGPWDyLgPuHXy
- cdVZD.vIm_7MQB8E3oHKXRW7ZrtvSxK33sjtJTY5.wdyjUD0vjpuxPjbNZrzwbBrRgUgvj.dvkQR
- RYnwNi4_YXGgqI8cPxjObzyC0X7irgVp.627SX6ur_.IuMmr7vtyYslKak0RIZcl03STKKl2W_BX
- u0KQGXNnSnaEI_xLGQIbnPud3Iyu_qx_qvmAM46.EAaWoeQgwioqOBzP5ZPmtEw4SlxITEANTpgy
- p4j8xbLseErASQV.Y7Cjs21lNtDe5o9nXskmdUTfwIb.4kqmv8G5GNQDgA.GmxooXSpIKzNOzWYs
- qdNTKL2aWTEAtsePcme6OSw1BbE5IHnfj51jRfL0BIQYjBFuqI92XawWuJ2XlbBT0q1Cxk6zf77O
- tuS5Zv5bzttZPzasW7WJ5YpSiBNa0_5_FKXN7Znnavcni0ERXlJ0pLTDxn9IapPFkow2wFZE8tEA
- YY.VIRaAolSK4qQJQp8PMb6y7YKpuF0_ZdNbsxnSX51AypLLD.RSMXX36CL3ufVWMQYiPrrilf_M
- McuF8mXKzQ2Z1fFS0sH5TOhrvWXEPDd8T7mdZYUVCy6Lo_OwIQFXJOFXYRv8P4.alp531gAO9LjD
- LCenYdGhB8ZQYx7KNEx6.RL0I6z5WRhOBxHX9A8g9LbeqSY3nRErv.h30Wh4Hfk9mcxm8RlIrwnr
- KTKzwgYOjOeVHHjZ9.9I9ew20FlZyWT4Mwx3jKf0I4eBYvw.x.1UY9V_KMuQ3CMWovvZHx6ykSjQ
- i1xnpfibWjkrjleteksmdWBumA3M9bRuzn6R7lc.Znt7eW0T8mdg7Gdw6ezJEWqG8NshDf3xkGe9
- ypJV09J5wM5U34SvPUL1XFrBzoR__JuAMS.o1F_2HcqOE50RToEUo6x0Jnd0AH_XswN3fV4VBpOn
- sCPs5wssfw_ozaD0DMTKhj7uw2DaN9mCGvoCPEfHavWbqFsFUt80I80Hb3wUP.wOZVq.sP_G3r0o
- 8YnUxTAtLWoRDKs5D9ggAI_NB.j6wqqiI5xRtloQlk7tbP_Oulq7oIuAd3hgRYPnrOCX_y2GUUth
- XrAs0MsKHUHEkEepsxkgDBTzspTeOnCCC7jb1nSI-
-X-Sonic-MF: <canghousehold@aol.com>
-X-Sonic-ID: 74a468d9-748d-4e1e-91f8-922279871ff2
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic315.consmr.mail.gq1.yahoo.com with HTTP; Thu, 21 Dec 2023 07:40:40 +0000
-Received: by hermes--production-bf1-6745f7c55c-6hpmf (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 8eb59427d9a6f70ecffbb8b97d4ba1ed; 
- Thu, 21 Dec 2023 07:40:36 +0000 (UTC)
-Mime-Version: 1.0 (Mac OS X Mail 15.0 \(3693.60.0.1.1\))
-From: Household Cang <canghousehold@aol.com>
-In-Reply-To: <20231218162326.173127-1-romain.gantois@bootlin.com>
-Date: Thu, 21 Dec 2023 02:40:34 -0500
-Message-Id: <0351C5C2-FEE2-4AED-84C8-9DCACCE4ED0A@aol.com>
-References: <20231218162326.173127-1-romain.gantois@bootlin.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-X-Mailer: Apple Mail (2.3693.60.0.1.1)
-X-Mailman-Approved-At: Thu, 21 Dec 2023 08:20:21 +0000
-Cc: Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
- Sylvain Girard <sylvain.girard@se.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
+ Thu, 21 Dec 2023 08:48:02 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BL24G1s012155; Thu, 21 Dec 2023 09:47:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=jeRT+eK
+ 7Vhl0LiS2NYUaPuSsz9Ja8QWgixI33nTKj3w=; b=cxN0BXhC6kFkwbBZlqXoMQG
+ AMpG8S781Rpd6LlI084zqO6s9DQLxjy3ttzt/j9GgY48m8+ATwmJZIPSOj+vcwyw
+ FhCuS3s+J3FK8DAvXPraZdQdY7aY/0sWMagGXXWK0fjmezQiakF7ha+iUIK5DRrT
+ J9TJQlaEoQauvcUA5d8pybCEFfxBWdq17iCI/YrZ4IOauHi7G5ofHQ/y+AN6LwAu
+ AHs3pDHp1WcX2QRe6Y9KLQ2M1bh559xNIIvg4+J4B77nPAk/DPn57JCBa1nxPy/V
+ 4LbeRIgnTxqT47Uw6jTfdPD+8I4qIyLaH1DMoAkTZAJzLXZFJzkwuv/ogPmIKJQ=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v13nhnxu6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Dec 2023 09:47:28 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 82424100066;
+ Thu, 21 Dec 2023 09:47:25 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 72D1B22A6D2;
+ Thu, 21 Dec 2023 09:47:25 +0100 (CET)
+Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Dec
+ 2023 09:47:25 +0100
+From: Hugues Fruchet <hugues.fruchet@foss.st.com>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Laurent Pinchart
+ <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Benjamin Mugnier
+ <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>
+Date: Thu, 21 Dec 2023 09:47:18 +0100
+Message-ID: <20231221084723.2152034-1-hugues.fruchet@foss.st.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-21_04,2023-12-20_01,2023-05-22_02
+Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
+ Marco Felsch <m.felsch@pengutronix.de>
+Subject: [Linux-stm32] [PATCH v5 0/5] Add support for video hardware codec
+	of STMicroelectronics STM32 SoC series
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,27 +85,71 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Cgo+IE9uIERlYyAxOCwgMjAyMywgYXQgMTE6MjMgQU0sIFJvbWFpbiBHYW50b2lzIDxyb21haW4u
-Z2FudG9pc0Bib290bGluLmNvbT4gd3JvdGU6Cj4gCj4gVGhpcyBpcyBhIGJ1Z2ZpeCBmb3IgYW4g
-aXNzdWUgdGhhdCB3YXMgcmVjZW50bHkgYnJvdWdodCB1cCBpbiB0d28KPiByZXBvcnRzOgo+IAo+
-IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi9jNTcyODNlZC02YjliLWIwZTYtZWUxMi01
-NjU1YzFjNTQ0OTVAYm9vdGxpbi5jb20vCj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2
-L2U1YzZjNzVmLTJkZmEtNGU1MC1hMWZiLTZiZjRjZGI2MTdjMkBlbGVjdHJvbWFnLmNvbS5hdS8K
-PiAKQWRkIG1lIGluIHRvIGJlIHRoZSAzcmQgcmVwb3J0Li4uClJLMzU2OCBHTUFDMCAoZXRoMSkg
-dG8gTVQ3NTMxQkUgKENQVSBwb3J0KQpDdXJyZW50IHdvcmthcm91bmQgZm9yIG1lIGlzIGV0aHRv
-b2wgLUsgZXRoMSByeCBvZmYgdHggb2ZmCgpodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYv
-bTNjbGZ0Mms3dW1qdG55NTQ2b3QzYXllYmF0dGtzaWJ0eTN5eXR0cGZmdmRpeGw2NXBAN2RwcXNy
-NW5pc2JrL1QvI3QKClF1ZXN0aW9uIG9uIHRoZSBwYXRjaCB0byBiZSBidWlsdDogaG93IHdvdWxk
-IEkga25vdyBpZiBteSBzZXR1cCBjb3VsZCB0YWtlIGFkdmFudGFnZSBvZiB0aGUgSFcgY2hlY2tz
-dW0gb2ZmbG9hZD8gUkszNjU44oCZcyBldGgwIG9uIHN0bW1hYyBpcyBkb2luZyBmaW5lLCBhbmQg
-ZXRoMCBpcyBub3Qgb24gYSBEU0Egc3dpdGNoLiBEb2VzIHRoaXMgbWVhbiBldGgxIHNob3VsZCBi
-ZSBhYmxlIHRvIGRvIGh3IGNoZWNrc3VtIG9mZmxvYWQgb25jZSB0aGUgc3RtbWFjIGRyaXZlciBp
-cyBmaXhlZD8K4oCUTHVjYXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
-aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This patchset introduces support for VDEC video hardware decoder
+and VENC video hardware encoder of STMicroelectronics STM32MP25
+SoC series.
+
+This initial support implements H264 decoding, VP8 decoding and
+JPEG encoding.
+
+This has been tested on STM32MP257F-EV1 evaluation board.
+
+===========
+= history =
+===========
+version 5:
+   - Precise that video decoding as been successfully tested up to full HD
+   - Add Nicolas Dufresne reviewed-by
+
+version 4:
+   - Fix comments from Nicolas about dropping encoder raw steps
+
+version 3:
+   - Fix remarks from Krzysztof Kozlowski:
+    - drop "items", we keep simple enum in such case
+    - drop second example - it is the same as the first
+   - Drop unused node labels as suggested by Conor Dooley
+   - Revisit min/max resolutions as suggested by Nicolas Dufresne
+
+version 2:
+   - Fix remarks from Krzysztof Kozlowski on v1:
+    - single video-codec binding for both VDEC/VENC
+    - get rid of "-names"
+    - use of generic node name "video-codec"
+
+version 1:
+  - Initial submission
+
+Hugues Fruchet (5):
+  dt-bindings: media: Document STM32MP25 VDEC & VENC video codecs
+  media: hantro: add support for STM32MP25 VDEC
+  media: hantro: add support for STM32MP25 VENC
+  arm64: dts: st: add video decoder support to stm32mp255
+  arm64: dts: st: add video encoder support to stm32mp255
+
+ .../media/st,stm32mp25-video-codec.yaml       |  50 ++++++++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  12 ++
+ arch/arm64/boot/dts/st/stm32mp255.dtsi        |  17 +++
+ drivers/media/platform/verisilicon/Kconfig    |  14 ++-
+ drivers/media/platform/verisilicon/Makefile   |   4 +
+ .../media/platform/verisilicon/hantro_drv.c   |   4 +
+ .../media/platform/verisilicon/hantro_hw.h    |   2 +
+ .../platform/verisilicon/stm32mp25_vdec_hw.c  |  92 ++++++++++++++
+ .../platform/verisilicon/stm32mp25_venc_hw.c  | 115 ++++++++++++++++++
+ 9 files changed, 307 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+ create mode 100644 drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
