@@ -2,69 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F2A81B61A
+	by mail.lfdr.de (Postfix) with ESMTPS id D436481B61B
 	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 13:42:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72BC5C6C841;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 805FDC6DD60;
 	Thu, 21 Dec 2023 12:42:23 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
+ [46.235.227.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF63C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42694C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 08:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1703148880; x=1734684880;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1ba7Ldspb0L81io7WDsMQs1X2A/thFBlYyfgOhF/Vgg=;
- b=bU8WhUZXFXcrZ7QKudbOl8ogiCDuxllBsvd0UGABqFoRua4dowG4F1XN
- WnOm/qRTvedOoKxcPuw7VoocykCKicqyZtDr3odWKpSZoYPUDqa5FXYwj
- q+G2isCLbi0imEqdJ4gpb0Su5gs0ULvgElJbjV2DE8bfkDUVeHX8sfRer
- hVG4sokt/05dg9UZRuJw1xJX+WXmsAYFfCG7/m1unn71j/EUQUdzrp3E+
- kRXsns18VyOVU/btaaElEzaTThEQlOK7Swn8iWlmglkTJV5PNZ+NMb2eD
- yMmlWPb8onGBreOe+N3KQiqp0kTtLfj2kP3nJ0xIunvyiTMXnYYVAekbp g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="2793695"
-X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; 
-   d="scan'208";a="2793695"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2023 00:54:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="842568329"
-X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; d="scan'208";a="842568329"
-Received: from ssid-ilbpg3-teeminta.png.intel.com (HELO localhost.localdomain)
- ([10.88.227.74])
- by fmsmga008.fm.intel.com with ESMTP; 21 Dec 2023 00:54:32 -0800
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Halaney <ahalaney@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- John Stultz <jstultz@google.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Gan Yi Fang <yi.fang.gan@intel.com>, Jens Axboe <axboe@kernel.dk>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 21 Dec 2023 16:51:08 +0800
-Message-Id: <20231221085109.2830794-2-yi.fang.gan@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231221085109.2830794-1-yi.fang.gan@intel.com>
-References: <20231221085109.2830794-1-yi.fang.gan@intel.com>
+ Thu, 21 Dec 2023 11:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1703157512;
+ bh=VbjptPM4GNcY1DYymE21BbuCBDKKRsn1bAZk8aP0EFU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=W/twjhG6hdcXLT17GsMAlQxf+w/IsTnzbef+pKYtZoHB+hDusovHT9D5J59Vvs6o2
+ YY+iErQzgHIS4MCIDao25dRyF5yavoh5Mo2CWSCJljNg0OjsDW0eXvQ3mAxKkNYKtQ
+ 8QmOKWWDsJLwEl5ZDikfTtCUwfUviRpLHwyvFWXosPaIDlIgH65I1w967CyjwE/a2d
+ MOo+RHAiVAnGRrqGgzx96vL2YY8xrVzXsOLTIhN8FipK+ZfighpnLkINSb9ijEtRKX
+ BzivqxO8akS9PR64jvVF47kyDogxlNHlS2vqYo1URzhia9YRTFdU1Xf+FmYHY4WvJJ
+ umq90AEAwUiXA==
+Received: from localhost (cola.collaboradmins.com [195.201.22.229])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: sebastianfricke)
+ by madrid.collaboradmins.com (Postfix) with ESMTPSA id 2FBCC3781FC9;
+ Thu, 21 Dec 2023 11:18:32 +0000 (UTC)
+Date: Thu, 21 Dec 2023 12:18:30 +0100
+From: Sebastian Fricke <sebastian.fricke@collabora.com>
+To: Hugues Fruchet <hugues.fruchet@foss.st.com>
+Message-ID: <20231221111830.gx23e6t354jadujk@basti-XPS-13-9310>
+References: <20231221084723.2152034-1-hugues.fruchet@foss.st.com>
+ <20231221084723.2152034-3-hugues.fruchet@foss.st.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20231221084723.2152034-3-hugues.fruchet@foss.st.com>
 X-Mailman-Approved-At: Thu, 21 Dec 2023 12:42:22 +0000
-Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- Choong Yong Liang <yong.liang.choong@intel.com>
-Subject: [Linux-stm32] [PATCH net v2 1/2] driver.h: add helper macro for
-	module_exit() boilerplate
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ linux-rockchip@lists.infradead.org,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Marco Felsch <m.felsch@pengutronix.de>,
+ Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v5 2/5] media: hantro: add support for
+	STM32MP25 VDEC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,50 +71,216 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-For the modules need a module_init() but don't need to do
-anything special in module_exit() might need to have an empty
-module_exit(). This patch add a new macro module_exit_stub() to
-replace the empty module_exit(). The macro is useful to remove
-the module_exit() boilerplate.
+Hey Hugues,
 
-Cc: <stable@vger.kernel.org> # 6.1+
-Suggested-by: Lobakin, Aleksander <aleksander.lobakin@intel.com>
-Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
----
- include/linux/device/driver.h | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+On 21.12.2023 09:47, Hugues Fruchet wrote:
+>Add support for STM32MP25 VDEC video hardware decoder.
+>Support of H264/VP8 decoding.
+>No post-processor support.
+>VDEC has its own reset/clock/irq.
+>
+>Sucessfully tested up to full HD.
 
-diff --git a/include/linux/device/driver.h b/include/linux/device/driver.h
-index 7738f458995f..7d322eef501e 100644
---- a/include/linux/device/driver.h
-+++ b/include/linux/device/driver.h
-@@ -288,4 +288,18 @@ static int __init __driver##_init(void) \
- } \
- device_initcall(__driver##_init);
- 
-+/**
-+ * module_exit_stub() - Helper macro for drivers that have init but don't
-+ * do anything in exit. This eliminates some boilerplate.
-+ * Each module may only use this macro once, and calling it replaces
-+ * module_exit().
-+ *
-+ * @__driver: driver name
-+ */
-+#define module_exit_stub(__driver) \
-+static void __exit __driver##_exit(void) \
-+{ \
-+} \
-+module_exit(__driver##_exit)
-+
- #endif	/* _DEVICE_DRIVER_H_ */
--- 
-2.34.1
+s/Sucessfully/Successfully/
 
+if this turns out to be the only problem, then I can fix it up for the
+PR.
+
+Greetings,
+Sebastian
+
+>
+>Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+>Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+>---
+> drivers/media/platform/verisilicon/Kconfig    | 14 ++-
+> drivers/media/platform/verisilicon/Makefile   |  3 +
+> .../media/platform/verisilicon/hantro_drv.c   |  3 +
+> .../media/platform/verisilicon/hantro_hw.h    |  1 +
+> .../platform/verisilicon/stm32mp25_vdec_hw.c  | 92 +++++++++++++++++++
+> 5 files changed, 110 insertions(+), 3 deletions(-)
+> create mode 100644 drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+>
+>diff --git a/drivers/media/platform/verisilicon/Kconfig b/drivers/media/platform/verisilicon/Kconfig
+>index e65b836b9d78..7642ff9cf96c 100644
+>--- a/drivers/media/platform/verisilicon/Kconfig
+>+++ b/drivers/media/platform/verisilicon/Kconfig
+>@@ -4,7 +4,7 @@ comment "Verisilicon media platform drivers"
+>
+> config VIDEO_HANTRO
+> 	tristate "Hantro VPU driver"
+>-	depends on ARCH_MXC || ARCH_ROCKCHIP || ARCH_AT91 || ARCH_SUNXI || COMPILE_TEST
+>+	depends on ARCH_MXC || ARCH_ROCKCHIP || ARCH_AT91 || ARCH_SUNXI || ARCH_STM32 || COMPILE_TEST
+> 	depends on V4L_MEM2MEM_DRIVERS
+> 	depends on VIDEO_DEV
+> 	select MEDIA_CONTROLLER
+>@@ -16,8 +16,8 @@ config VIDEO_HANTRO
+> 	select V4L2_VP9
+> 	help
+> 	  Support for the Hantro IP based Video Processing Units present on
+>-	  Rockchip and NXP i.MX8M SoCs, which accelerate video and image
+>-	  encoding and decoding.
+>+	  Rockchip, NXP i.MX8M and STM32MP25 SoCs, which accelerate video
+>+	  and image encoding and decoding.
+> 	  To compile this driver as a module, choose M here: the module
+> 	  will be called hantro-vpu.
+>
+>@@ -52,3 +52,11 @@ config VIDEO_HANTRO_SUNXI
+> 	default y
+> 	help
+> 	  Enable support for H6 SoC.
+>+
+>+config VIDEO_HANTRO_STM32MP25
+>+	bool "Hantro STM32MP25 support"
+>+	depends on VIDEO_HANTRO
+>+	depends on ARCH_STM32 || COMPILE_TEST
+>+	default y
+>+	help
+>+	  Enable support for STM32MP25 SoCs.
+>diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
+>index 6ad2ef885920..5854e0f0dd32 100644
+>--- a/drivers/media/platform/verisilicon/Makefile
+>+++ b/drivers/media/platform/verisilicon/Makefile
+>@@ -39,3 +39,6 @@ hantro-vpu-$(CONFIG_VIDEO_HANTRO_ROCKCHIP) += \
+>
+> hantro-vpu-$(CONFIG_VIDEO_HANTRO_SUNXI) += \
+> 		sunxi_vpu_hw.o
+>+
+>+hantro-vpu-$(CONFIG_VIDEO_HANTRO_STM32MP25) += \
+>+		stm32mp25_vdec_hw.o
+>diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+>index a9fa05ac56a9..2db27c333924 100644
+>--- a/drivers/media/platform/verisilicon/hantro_drv.c
+>+++ b/drivers/media/platform/verisilicon/hantro_drv.c
+>@@ -733,6 +733,9 @@ static const struct of_device_id of_hantro_match[] = {
+> #endif
+> #ifdef CONFIG_VIDEO_HANTRO_SUNXI
+> 	{ .compatible = "allwinner,sun50i-h6-vpu-g2", .data = &sunxi_vpu_variant, },
+>+#endif
+>+#ifdef CONFIG_VIDEO_HANTRO_STM32MP25
+>+	{ .compatible = "st,stm32mp25-vdec", .data = &stm32mp25_vdec_variant, },
+> #endif
+> 	{ /* sentinel */ }
+> };
+>diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
+>index 7f33f7b07ce4..b7eccc1a96fc 100644
+>--- a/drivers/media/platform/verisilicon/hantro_hw.h
+>+++ b/drivers/media/platform/verisilicon/hantro_hw.h
+>@@ -406,6 +406,7 @@ extern const struct hantro_variant rk3568_vpu_variant;
+> extern const struct hantro_variant rk3588_vpu981_variant;
+> extern const struct hantro_variant sama5d4_vdec_variant;
+> extern const struct hantro_variant sunxi_vpu_variant;
+>+extern const struct hantro_variant stm32mp25_vdec_variant;
+>
+> extern const struct hantro_postproc_ops hantro_g1_postproc_ops;
+> extern const struct hantro_postproc_ops hantro_g2_postproc_ops;
+>diff --git a/drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c b/drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+>new file mode 100644
+>index 000000000000..aa8b0f751390
+>--- /dev/null
+>+++ b/drivers/media/platform/verisilicon/stm32mp25_vdec_hw.c
+>@@ -0,0 +1,92 @@
+>+// SPDX-License-Identifier: GPL-2.0
+>+/*
+>+ * STM32MP25 VDEC video decoder driver
+>+ *
+>+ * Copyright (C) STMicroelectronics SA 2022
+>+ * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
+>+ *          for STMicroelectronics.
+>+ *
+>+ */
+>+
+>+#include "hantro.h"
+>+
+>+/*
+>+ * Supported formats.
+>+ */
+>+
+>+static const struct hantro_fmt stm32mp25_vdec_fmts[] = {
+>+	{
+>+		.fourcc = V4L2_PIX_FMT_NV12,
+>+		.codec_mode = HANTRO_MODE_NONE,
+>+		.frmsize = {
+>+			.min_width = FMT_MIN_WIDTH,
+>+			.max_width = FMT_FHD_WIDTH,
+>+			.step_width = MB_DIM,
+>+			.min_height = FMT_MIN_HEIGHT,
+>+			.max_height = FMT_FHD_HEIGHT,
+>+			.step_height = MB_DIM,
+>+		},
+>+	},
+>+	{
+>+		.fourcc = V4L2_PIX_FMT_VP8_FRAME,
+>+		.codec_mode = HANTRO_MODE_VP8_DEC,
+>+		.max_depth = 2,
+>+		.frmsize = {
+>+			.min_width = FMT_MIN_WIDTH,
+>+			.max_width = FMT_FHD_WIDTH,
+>+			.step_width = MB_DIM,
+>+			.min_height = FMT_MIN_HEIGHT,
+>+			.max_height = FMT_FHD_HEIGHT,
+>+			.step_height = MB_DIM,
+>+		},
+>+	},
+>+	{
+>+		.fourcc = V4L2_PIX_FMT_H264_SLICE,
+>+		.codec_mode = HANTRO_MODE_H264_DEC,
+>+		.max_depth = 2,
+>+		.frmsize = {
+>+			.min_width = FMT_MIN_WIDTH,
+>+			.max_width = FMT_FHD_WIDTH,
+>+			.step_width = MB_DIM,
+>+			.min_height = FMT_MIN_HEIGHT,
+>+			.max_height = FMT_FHD_HEIGHT,
+>+			.step_height = MB_DIM,
+>+		},
+>+	},
+>+};
+>+
+>+/*
+>+ * Supported codec ops.
+>+ */
+>+
+>+static const struct hantro_codec_ops stm32mp25_vdec_codec_ops[] = {
+>+	[HANTRO_MODE_VP8_DEC] = {
+>+		.run = hantro_g1_vp8_dec_run,
+>+		.reset = hantro_g1_reset,
+>+		.init = hantro_vp8_dec_init,
+>+		.exit = hantro_vp8_dec_exit,
+>+	},
+>+	[HANTRO_MODE_H264_DEC] = {
+>+		.run = hantro_g1_h264_dec_run,
+>+		.reset = hantro_g1_reset,
+>+		.init = hantro_h264_dec_init,
+>+		.exit = hantro_h264_dec_exit,
+>+	},
+>+};
+>+
+>+static const struct hantro_irq stm32mp25_irqs[] = {
+>+	{ "vdec", hantro_g1_irq },
+>+};
+>+
+>+static const char * const stm32mp25_clk_names[] = { "vdec-clk" };
+>+
+>+const struct hantro_variant stm32mp25_vdec_variant = {
+>+	.dec_fmts = stm32mp25_vdec_fmts,
+>+	.num_dec_fmts = ARRAY_SIZE(stm32mp25_vdec_fmts),
+>+	.codec = HANTRO_VP8_DECODER | HANTRO_H264_DECODER,
+>+	.codec_ops = stm32mp25_vdec_codec_ops,
+>+	.irqs = stm32mp25_irqs,
+>+	.num_irqs = ARRAY_SIZE(stm32mp25_irqs),
+>+	.clk_names = stm32mp25_clk_names,
+>+	.num_clocks = ARRAY_SIZE(stm32mp25_clk_names),
+>+};
+>-- 
+>2.25.1
+>
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
