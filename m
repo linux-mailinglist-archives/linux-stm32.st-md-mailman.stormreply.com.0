@@ -2,68 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B105481B0C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 09:54:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864CC81B0BB
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 09:54:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7801BC6C820;
-	Thu, 21 Dec 2023 08:54:49 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3BB79C6C820;
+	Thu, 21 Dec 2023 08:54:26 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C47AC6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 321EBC6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 08:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1703148889; x=1734684889;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1JsXbGf0ei8NX9i8T+iRqjYzH4+nfdAl4Vq6Pu5B8C0=;
- b=D1FXlxIYvxJq5oSQfz17qD/F3OjNtBOHuJxob7E/vO+I8p59EeVuWrQS
- wRdBt4wfL/N7HOyJaRYbu7bP4jpNYO1n6RzJeaV+SG35K36O7uIbMyvcy
- 4xVXFMqUO+cl6oanKS0zsYphCD6zmaM3jv0BlXquq+vKF3WalkI0opDF2
- Y7VvvNvBEBsX4wfaE43kIlwrIaagFP75lFp9k8cHL2oot5I2ko/6y9l73
- HvcCalECvwjmxow6qN+qY97z+viHWFLAXG5GztSr/pNFq4C1u1sMLhXa6
- v78v6EGlcivrKw3bQ5nDGZz8kYZkhetBeMPgzNGNysytwhFQb2QYheIbW g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="2793717"
-X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; 
-   d="scan'208";a="2793717"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2023 00:54:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10930"; a="842568348"
-X-IronPort-AV: E=Sophos;i="6.04,293,1695711600"; d="scan'208";a="842568348"
-Received: from ssid-ilbpg3-teeminta.png.intel.com (HELO localhost.localdomain)
- ([10.88.227.74])
- by fmsmga008.fm.intel.com with ESMTP; 21 Dec 2023 00:54:41 -0800
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrew Halaney <ahalaney@redhat.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- John Stultz <jstultz@google.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Gan Yi Fang <yi.fang.gan@intel.com>, Jens Axboe <axboe@kernel.dk>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 21 Dec 2023 16:51:09 +0800
-Message-Id: <20231221085109.2830794-3-yi.fang.gan@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231221085109.2830794-1-yi.fang.gan@intel.com>
-References: <20231221085109.2830794-1-yi.fang.gan@intel.com>
+ Thu, 21 Dec 2023 08:54:25 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 3BL63Ncl000354; Thu, 21 Dec 2023 08:54:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=Ah///7Ew/pVHtSqFFyxdVQ5+uk4DukkXZr7lLzP9CTw=; b=Ht
+ 3Y1/n3MRlbCV8W/qIcHpxgoHom9WZ3mFHN/x0Gc+t+EkiWHlh4TxzFpocK2C2IBQ
+ dsuqFhIS9R/By6fxfRXP5WpnMYKRNNkaUYdPpV2UYphCloydlzzkC7OmArero18q
+ 2+Cj6rZG5xi4ZSZlm5AfYiXGgCbSxRrWAqYJQ4SnAWrqWOXhjSKzwIC9rHtZs6oa
+ 9tw8POnfTKr/SifWgONj9MuqvUf1Z6BZ5btUwFulbW21JmWKFQQAUiaBudFphPfs
+ NVoSnBPUvjhPsMXpKJM5H5IfB7KrzksBJThacMMIclnnaFlqLHpJRKJmEhYusdGc
+ C49AF6PD+y8AizEh3BcQ==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3v4837hxdr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Dec 2023 08:54:09 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 3BL8s80K005148
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Dec 2023 08:54:08 GMT
+Received: from [10.218.17.183] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 21 Dec
+ 2023 00:54:00 -0800
+Message-ID: <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
+Date: Thu, 21 Dec 2023 14:23:57 +0530
 MIME-Version: 1.0
-Cc: Lai Peter Jun Ann <peter.jun.ann.lai@intel.com>,
- Looi Hong Aun <hong.aun.looi@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>,
- Choong Yong Liang <yong.liang.choong@intel.com>
-Subject: [Linux-stm32] [PATCH net v2 2/2] net: phylink: Add
-	module_exit_stub()
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Andrew Halaney <ahalaney@redhat.com>
+References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
+ <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
+ <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
+ <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
+From: Sneh Shah <quic_snehshah@quicinc.com>
+In-Reply-To: <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: t5O3yU5HJCjlLeZ_rtOcJrwHtYJOLrkg
+X-Proofpoint-ORIG-GUID: t5O3yU5HJCjlLeZ_rtOcJrwHtYJOLrkg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ suspectscore=0 mlxscore=0 malwarescore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2311290000 definitions=main-2312210065
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
+ Add support for 2.5G SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +95,152 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In delete_module(), if mod->init callback is defined but mod->exit
-callback is not defined, it will assume the module cannot be removed
-and return EBUSY. The module_exit() is missing from current phylink
-module drive causing failure while unloading it.
-Add module_exit_stub() in phylink for the module to be unloadable.
 
-Fixes: eca68a3c7d05 ("net: phylink: pass supported host PHY interface modes to phylib for SFP's PHYs")
-Cc: <stable@vger.kernel.org> # 6.1+
-Signed-off-by: Gan, Yi Fang <yi.fang.gan@intel.com>
----
- drivers/net/phy/phylink.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 25c19496a336..823c9b43cd92 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -3725,6 +3725,7 @@ static int __init phylink_init(void)
- }
- 
- module_init(phylink_init);
-+module_exit_stub(phylink);
- 
- MODULE_LICENSE("GPL v2");
- MODULE_DESCRIPTION("phylink models the MAC to optional PHY connection");
--- 
-2.34.1
+On 12/20/2023 9:29 PM, Andrew Halaney wrote:
+> On Wed, Dec 20, 2023 at 01:02:45PM +0530, Sneh Shah wrote:
+>>
+>>
+>> On 12/18/2023 9:50 PM, Andrew Halaney wrote:
+>>> On Mon, Dec 18, 2023 at 12:41:18PM +0530, Sneh Shah wrote:
+>>>> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
+>>>> mode for 1G/100M/10M speed.
+>>>> Added changes to configure serdes phy and mac based on link speed.
+>>>>
+>>>> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
+>>>> ---
+>>>>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 31 +++++++++++++++++--
+>>>>  1 file changed, 29 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> index d3bf42d0fceb..b3a28dc19161 100644
+>>>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+>>>> @@ -21,6 +21,7 @@
+>>>>  #define RGMII_IO_MACRO_CONFIG2		0x1C
+>>>>  #define RGMII_IO_MACRO_DEBUG1		0x20
+>>>>  #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
+>>>> +#define ETHQOS_MAC_AN_CTRL		0xE0
+>>>>  
+>>>>  /* RGMII_IO_MACRO_CONFIG fields */
+>>>>  #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
+>>>> @@ -78,6 +79,10 @@
+>>>>  #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
+>>>>  #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
+>>>>  
+>>>> +/*ETHQOS_MAC_AN_CTRL bits */
+>>>> +#define ETHQOS_MAC_AN_CTRL_RAN			BIT(9)
+>>>> +#define ETHQOS_MAC_AN_CTRL_ANE			BIT(12)
+>>>> +
+>>>
+>>> nit: space please add a space before ETHQOS_MAC_AN_CTRL
+>>>
+>> will take care of this in next patch
+>>
+>>>>  struct ethqos_emac_por {
+>>>>  	unsigned int offset;
+>>>>  	unsigned int value;
+>>>> @@ -109,6 +114,7 @@ struct qcom_ethqos {
+>>>>  	unsigned int num_por;
+>>>>  	bool rgmii_config_loopback_en;
+>>>>  	bool has_emac_ge_3;
+>>>> +	unsigned int serdes_speed;
+> 
+> Another nit as I look closer: I think this should be grouped by phy_mode
+> etc just for readability.
+Didn't get this. can you please elaborate more?
+> 
+>>>>  };
+>>>>  
+>>>>  static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
+>>>> @@ -600,27 +606,47 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
+>>>>  
+>>>>  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+>>>>  {
+>>>> -	int val;
+>>>> -
+>>>> +	int val, mac_an_value;
+>>>>  	val = readl(ethqos->mac_base + MAC_CTRL_REG);
+>>>> +	mac_an_value = readl(ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
+>>>>  
+>>>>  	switch (ethqos->speed) {
+>>>> +	case SPEED_2500:
+>>>> +		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+>>>> +		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+>>>> +			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+>>>> +			      RGMII_IO_MACRO_CONFIG2);
+>>>> +		if (ethqos->serdes_speed != SPEED_2500)
+>>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+>>>> +		mac_an_value &= ~ETHQOS_MAC_AN_CTRL_ANE;
+>>>> +		break;
+>>>>  	case SPEED_1000:
+>>>>  		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+>>>>  		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+>>>>  			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+>>>>  			      RGMII_IO_MACRO_CONFIG2);
+>>>> +		if (ethqos->serdes_speed != SPEED_1000)
+>>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+>>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+>>>>  		break;
+>>>>  	case SPEED_100:
+>>>>  		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
+>>>> +		if (ethqos->serdes_speed != SPEED_1000)
+>>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+>>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+>>>>  		break;
+>>>>  	case SPEED_10:
+>>>>  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+>>>>  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
+>>>> +		if (ethqos->serdes_speed != SPEED_1000)
+>>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+>>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+>>>>  		break;
+>>>>  	}
+>>>>  
+>>>>  	writel(val, ethqos->mac_base + MAC_CTRL_REG);
+>>>> +	writel(mac_an_value, ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
+>>>> +	ethqos->serdes_speed = ethqos->speed;
+>>>
+>>> I see these bits are generic and there's some functions in stmmac_pcs.h
+>>> that muck with these...
+>>>
+>>> Could you help me understand if this really should be Qualcomm specific,
+>>> or if this is something that should be considered for the more core bits
+>>> of the driver? I feel in either case we should take advantage of the
+>>> common definitions in that file if possible.
+>>>
+>> we do have function dwmac_ctrl_ane in core driver which updates same registers. However, it does not have the option to reset ANE bit, it can only set bits. For SPEED_2500 we need to reset ANE bit. Hence I am adding it here. Not sure if we can extend dwmac_ctrl_ane function to reset bits as well.
+> 
+> I'd evaluate if you can update that function to clear the ANE bit when
+> the ane boolean is false. From the usage I see I feel that makes sense,
+> but correct me if you think I'm wrong.
+> At the very least let's use the defines from there, and possibly add a
+> new function if clearing is not acceptable in dwmac_ctrl_ane().
+> 
+> Stepping back, I was asking in general is the need to muck with ANE here
+> is a Qualcomm specific problem, or is that a generic thing that should be
+> handled in the core (and the phy_set_speed() bit stay here)? i.e. would
+> any dwmac5 based IP need to do something like this for SPEED_2500?
+I think disabling ANE for SPEED_2500 is generic not specific to qualcomm. Even in dwxgmac2 versions also we need to disable ANE for SPEED_2500. Autoneg clause 37 stadard doesn't support 2500 speed. So we need to disable autoneg for speed 2500
 
+> 
+>>>>  
+>>>>  	return val;
+>>>>  }
+>>>> @@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>>>>  				     "Failed to get serdes phy\n");
+>>>>  
+>>>>  	ethqos->speed = SPEED_1000;
+>>>> +	ethqos->serdes_speed = SPEED_1000;
+>>>>  	ethqos_update_link_clk(ethqos, SPEED_1000);
+>>>>  	ethqos_set_func_clk_en(ethqos);
+>>>>  
+>>>> -- 
+>>>> 2.17.1
+>>>>
+>>>
+>>
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
