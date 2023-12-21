@@ -2,64 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E439E81B61C
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 13:42:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8934681B5DC
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 13:30:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FAF9C6DD69;
-	Thu, 21 Dec 2023 12:42:23 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A559C6C855;
+	Thu, 21 Dec 2023 12:30:17 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77360C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBB75C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 11:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1703157518;
- bh=2y+AFJ2E2tAlzXWqVd2TVOftiClzXpdJZMYw206QFqQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=s7Ia43BtOPNb4MY5rahsKjZbOfPa3c8NWWpc+GotYFgxQEoLvwpQ8ciCH/wx95l6L
- a4MXtzWvRoe+q0XNes5Dh8rS25on3HW+5EaL8rUW7LP/8ewIz21013N108kFdzlBSA
- ZHm0GE3k1vRuti69qaeiwpHhZub8HR6xkGPXD+pf+lexmRcymwzUoFvNFS65c5wOik
- EHBJ0+79hWVy4FBekWMrTHY/r1eEkJYwXtxo3BPm0EywChSCl3mWzyTJfn24G2DgrU
- Bhp8fh/V1MvJYRoFLLGtAxqYVtAKCIZzOKc0ERSOye2DpJ0wZ8H74YmjVfSXO+RL4C
- 3a8Heq6g5PIlw==
-Received: from localhost (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: sebastianfricke)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id F379B3782001;
- Thu, 21 Dec 2023 11:18:37 +0000 (UTC)
-Date: Thu, 21 Dec 2023 12:18:37 +0100
-From: Sebastian Fricke <sebastian.fricke@collabora.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>
-Message-ID: <20231221111837.4u22pmba7jd3hinj@basti-XPS-13-9310>
-References: <20231221084723.2152034-1-hugues.fruchet@foss.st.com>
- <20231221084723.2152034-4-hugues.fruchet@foss.st.com>
+ Thu, 21 Dec 2023 12:30:14 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BL8jmp8012041; Thu, 21 Dec 2023 13:29:41 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=uRYfWrQ
+ hXzw+M+0seKB6CQA/JwDHEIQuybIPuZL1Ego=; b=IxtmiNBZvyI+0vjIfaXpEWv
+ NiKFuUNm8Sy2Pd/YUC+2QD0olf6MyA1SFF49i183CFOoIA086srUC/4WxS60GZGR
+ Hoc1/WaX8elLo/h9sMTFmEjetk3dbihIfFlizI6vbGvhGxWfdcR1jlPqYf6qLZKb
+ htqeCzDzs/AFr+2D/VZsW/d+c0tI9njDFTl7NLAiVWElYy4MB7zIjzT16gfR32xF
+ BeFWG/G9NRZB/LGBeTjvb5crhWO9+nRyBKvotKOSmydevygTQwpF7sQN8J//VRNB
+ vTPmnVGoLeIqAnhGG6loks11ovaoaTynKBmLuT5c3bzrf5LB9EOzqNfziofONPg=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v13nhq559-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Dec 2023 13:29:41 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 88FBA100053;
+ Thu, 21 Dec 2023 13:29:38 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 36BBB2747B8;
+ Thu, 21 Dec 2023 13:29:38 +0100 (CET)
+Received: from localhost (10.252.25.159) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Dec
+ 2023 13:29:37 +0100
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jessica Zhang <quic_jesszhan@quicinc.com>, Sam
+ Ravnborg <sam@ravnborg.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, Lad
+ Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Thierry Reding
+ <thierry.reding@gmail.com>
+Date: Thu, 21 Dec 2023 13:28:35 +0100
+Message-ID: <20231221122843.418650-1-raphael.gallais-pou@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231221084723.2152034-4-hugues.fruchet@foss.st.com>
-X-Mailman-Approved-At: Thu, 21 Dec 2023 12:42:22 +0000
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- linux-rockchip@lists.infradead.org,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Marco Felsch <m.felsch@pengutronix.de>,
- Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v5 3/5] media: hantro: add support for
-	STM32MP25 VENC
+X-Originating-IP: [10.252.25.159]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-21_05,2023-12-20_01,2023-05-22_02
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v1 0/8] Introduce STM32 LVDS driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,197 +82,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hey Hugues,
+This serie introduces a new DRM bridge driver for STM32MP257 platforms
+based on Arm Cortex-35. It also adds an instance in the device-tree and
+handle the inclusion of the driver within the DRM framework. First patch
+adds a new panel compatible in the panel-lvds driver, which is used by
+default on the STM32MP257.
 
-one small comment below, if it should turn out to be the only problem I
-can fix it myself for the pull request.
+Raphael Gallais-Pou (7):
+  dt-bindings: panel: lvds: Append edt,etml0700z9ndha in panel-lvds
+  dt-bindings: display: add dt-bindings for STM32 LVDS device
+  drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver
+  drm/stm: ltdc: add lvds pixel clock
+  arm64: dts: st: add ltdc support on stm32mp251
+  arm64: dts: st: add lvds support on stm32mp253
+  arm64: dts: st: add display support on stm32mp257f-ev
 
-On 21.12.2023 09:47, Hugues Fruchet wrote:
->Add support for STM32MP25 VENC video hardware encoder.
->Support of JPEG encoding.
->VENC has its own reset/clock/irq.
->
->Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
->Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->---
-> drivers/media/platform/verisilicon/Makefile   |   3 +-
-> .../media/platform/verisilicon/hantro_drv.c   |   1 +
-> .../media/platform/verisilicon/hantro_hw.h    |   1 +
-> .../platform/verisilicon/stm32mp25_venc_hw.c  | 115 ++++++++++++++++++
-> 4 files changed, 119 insertions(+), 1 deletion(-)
-> create mode 100644 drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
->
->diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
->index 5854e0f0dd32..3bf43fdbedc1 100644
->--- a/drivers/media/platform/verisilicon/Makefile
->+++ b/drivers/media/platform/verisilicon/Makefile
->@@ -41,4 +41,5 @@ hantro-vpu-$(CONFIG_VIDEO_HANTRO_SUNXI) += \
-> 		sunxi_vpu_hw.o
->
-> hantro-vpu-$(CONFIG_VIDEO_HANTRO_STM32MP25) += \
->-		stm32mp25_vdec_hw.o
->+		stm32mp25_vdec_hw.o \
->+		stm32mp25_venc_hw.o
->diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
->index 2db27c333924..4d97a8ac03de 100644
->--- a/drivers/media/platform/verisilicon/hantro_drv.c
->+++ b/drivers/media/platform/verisilicon/hantro_drv.c
->@@ -736,6 +736,7 @@ static const struct of_device_id of_hantro_match[] = {
-> #endif
-> #ifdef CONFIG_VIDEO_HANTRO_STM32MP25
-> 	{ .compatible = "st,stm32mp25-vdec", .data = &stm32mp25_vdec_variant, },
->+	{ .compatible = "st,stm32mp25-venc", .data = &stm32mp25_venc_variant, },
-> #endif
-> 	{ /* sentinel */ }
-> };
->diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
->index b7eccc1a96fc..70c72e9d11d5 100644
->--- a/drivers/media/platform/verisilicon/hantro_hw.h
->+++ b/drivers/media/platform/verisilicon/hantro_hw.h
->@@ -407,6 +407,7 @@ extern const struct hantro_variant rk3588_vpu981_variant;
-> extern const struct hantro_variant sama5d4_vdec_variant;
-> extern const struct hantro_variant sunxi_vpu_variant;
-> extern const struct hantro_variant stm32mp25_vdec_variant;
->+extern const struct hantro_variant stm32mp25_venc_variant;
->
-> extern const struct hantro_postproc_ops hantro_g1_postproc_ops;
-> extern const struct hantro_postproc_ops hantro_g2_postproc_ops;
->diff --git a/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c b/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
->new file mode 100644
->index 000000000000..0ff0f073b922
->--- /dev/null
->+++ b/drivers/media/platform/verisilicon/stm32mp25_venc_hw.c
->@@ -0,0 +1,115 @@
->+// SPDX-License-Identifier: GPL-2.0
->+/*
->+ * STM32MP25 VENC video encoder driver
->+ *
->+ * Copyright (C) STMicroelectronics SA 2022
->+ * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
->+ *          for STMicroelectronics.
->+ *
->+ */
->+
->+#include <linux/clk.h>
->+#include <linux/delay.h>
->+#include <linux/reset.h>
->+
->+#include "hantro.h"
->+#include "hantro_jpeg.h"
->+#include "hantro_h1_regs.h"
->+
->+/*
->+ * Supported formats.
->+ */
->+
->+static const struct hantro_fmt stm32mp25_venc_fmts[] = {
->+	{
->+		.fourcc = V4L2_PIX_FMT_YUV420M,
->+		.codec_mode = HANTRO_MODE_NONE,
->+		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420P,
->+	},
->+	{
->+		.fourcc = V4L2_PIX_FMT_NV12M,
->+		.codec_mode = HANTRO_MODE_NONE,
->+		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUV420SP,
->+	},
->+	{
->+		.fourcc = V4L2_PIX_FMT_YUYV,
->+		.codec_mode = HANTRO_MODE_NONE,
->+		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_YUYV422,
->+	},
->+	{
->+		.fourcc = V4L2_PIX_FMT_UYVY,
->+		.codec_mode = HANTRO_MODE_NONE,
->+		.enc_fmt = ROCKCHIP_VPU_ENC_FMT_UYVY422,
->+	},
->+	{
->+		.fourcc = V4L2_PIX_FMT_JPEG,
->+		.codec_mode = HANTRO_MODE_JPEG_ENC,
->+		.max_depth = 2,
->+		.header_size = JPEG_HEADER_SIZE,
->+		.frmsize = {
->+			.min_width = 96,
->+			.max_width = FMT_4K_WIDTH,
->+			.step_width = MB_DIM,
->+			.min_height = 96,
->+			.max_height = FMT_4K_HEIGHT,
->+			.step_height = MB_DIM,
->+		},
->+	},
->+};
->+
->+static irqreturn_t stm32mp25_venc_irq(int irq, void *dev_id)
->+{
->+	struct hantro_dev *vpu = dev_id;
->+	enum vb2_buffer_state state;
->+	u32 status;
->+
->+	status = vepu_read(vpu, H1_REG_INTERRUPT);
->+	state = (status & H1_REG_INTERRUPT_FRAME_RDY) ?
->+		VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
->+
->+	vepu_write(vpu, H1_REG_INTERRUPT_BIT, H1_REG_INTERRUPT);
->+
->+	hantro_irq_done(vpu, state);
->+
->+	return IRQ_HANDLED;
->+}
->+
->+static void stm32mp25_venc_reset(struct hantro_ctx *ctx)
->+{
->+}
->+
->+/*
->+ * Supported codec ops.
->+ */
->+
->+static const struct hantro_codec_ops stm32mp25_venc_codec_ops[] = {
->+	[HANTRO_MODE_JPEG_ENC] = {
->+		.run = hantro_h1_jpeg_enc_run,
->+		.reset = stm32mp25_venc_reset,
->+		.done = hantro_h1_jpeg_enc_done,
->+	},
->+};
->+
->+/*
->+ * Variants.
->+ */
->+
->+static const struct hantro_irq stm32mp25_venc_irqs[] = {
->+	{ "venc", stm32mp25_venc_irq },
->+};
->+
->+static const char * const stm32mp25_venc_clk_names[] = {
->+	"venc-clk"
->+};
->+
->+const struct hantro_variant stm32mp25_venc_variant = {
->+	.enc_fmts = stm32mp25_venc_fmts,
->+	.num_enc_fmts = ARRAY_SIZE(stm32mp25_venc_fmts),
->+	.codec = HANTRO_JPEG_ENCODER,
->+	.codec_ops = stm32mp25_venc_codec_ops,
->+	.irqs = stm32mp25_venc_irqs,
->+	.num_irqs = ARRAY_SIZE(stm32mp25_venc_irqs),
->+	.clk_names = stm32mp25_venc_clk_names,
->+	.num_clocks = ARRAY_SIZE(stm32mp25_venc_clk_names)
->+};
->+
+Yannick Fertre (1):
+  drm/stm: ltdc: implement bus clock
 
-There is an superfluous new line here.
+ .../bindings/display/panel/panel-lvds.yaml    |    2 +
+ .../bindings/display/st,stm32-lvds.yaml       |  114 ++
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |   12 +
+ arch/arm64/boot/dts/st/stm32mp253.dtsi        |   17 +
+ arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |   79 ++
+ drivers/gpu/drm/stm/Kconfig                   |   11 +
+ drivers/gpu/drm/stm/Makefile                  |    2 +
+ drivers/gpu/drm/stm/ltdc.c                    |   26 +
+ drivers/gpu/drm/stm/ltdc.h                    |    2 +
+ drivers/gpu/drm/stm/lvds.c                    | 1226 +++++++++++++++++
+ 10 files changed, 1491 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
+ create mode 100644 drivers/gpu/drm/stm/lvds.c
 
-Greetings,
-Sebastian
+-- 
+2.25.1
 
->-- 
->2.25.1
->
->
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
