@@ -2,81 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62BF681B656
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 13:49:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7016581B6EE
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 14:05:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 169A8C6C841;
-	Thu, 21 Dec 2023 12:49:30 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2175AC6B477;
+	Thu, 21 Dec 2023 13:05:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 117D0C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1421C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 12:49:28 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-50e34a72660so981184e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 04:49:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703162968; x=1703767768;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=g/mzU2hT9PSnrGwqsNWl+y1l0fBpKuzZ5AOH7TNPFbk=;
- b=eRGS98WgLu79e7DN5nEVKBsl76AQg+vddumkZw3UhQ9FW2p220knlWMMtdKlqeNvBB
- gHH/+ByT3LlwGRN8DUnKxrgLFxR1VVA97Eq6czRMXb8d+BuqkGipNtPM/RVqEOyJxZUd
- E6auyMhnV6OGov1CnXAGUCtqjrP+XMm2+LHtFy29or21CL0kZcl2BwpeIZ3cJxD3HZY/
- XCHdGdyqz2LTxYZftY+sdHGLZLZ9fFAb+wvpn6ZE2cCVf2Z6iCtOHlNNwYeo5XccLpop
- S/IyCXgj99whYQfIgF24gh4HDQvZwm50nSC+E86PLpkgwXSy7mg1COjdmrdpzF0Ksxou
- Q2+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703162968; x=1703767768;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=g/mzU2hT9PSnrGwqsNWl+y1l0fBpKuzZ5AOH7TNPFbk=;
- b=W6g6ePz/6r0hYG/3DxcLHJaliZ4Qw5n6bEmZG9sD40fbeVvORhK5yool0R+RFU/VNj
- Nvbunc9hzWoG+xRFsjKggXnVtu3o6ZKPYENp5HkU2wFMp0Lmw2nog7WrWQmLOYGhVSKq
- xmjenvSo0OY9h300ffPiDSyuaFtqr8/ZFnavbsSeKLPpmb5Y2M3aS8LzysD0Iq96zhBj
- I2uB6P/8nE6BtlSsvsgQa/He4OFCxAGfJJhLZHZteFmdU6f/w/G513Ggfs6AMGYN2wtB
- DUfjxyKVlNiCR/8gKfX1NKzkjsqqan9Aj229s+eh9/BtJoehV0oj4HeghX+S1H6J7YxL
- Iy5Q==
-X-Gm-Message-State: AOJu0Yywxm2ZUSzw/bqu6bpZ1SfPAYjWbVPrtkqqj/lB7fNCXfoPOg+h
- 9uhxAyf1MjJNdXwPeNNe+3U=
-X-Google-Smtp-Source: AGHT+IGyV6f8UBheAjNEECK8PtWI9VmNULPlJgekTe+vJCU+PbbS1a1JmkG5ZHVdEmvAloCVKJ4sGA==
-X-Received: by 2002:ac2:596d:0:b0:50d:179b:b38d with SMTP id
- h13-20020ac2596d000000b0050d179bb38dmr8710227lfp.45.1703162967896; 
- Thu, 21 Dec 2023 04:49:27 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- d19-20020a193853000000b0050bf16efc9csm266216lfj.308.2023.12.21.04.49.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Dec 2023 04:49:27 -0800 (PST)
-Date: Thu, 21 Dec 2023 15:49:23 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Message-ID: <yromhtr73rwsr6hizr4tq37vfvyzfue7wzpmufqyscwspzffza@uhfcrn573acd>
-References: <20231221073620.232619-1-quic_jsuraj@quicinc.com>
- <20231221073620.232619-4-quic_jsuraj@quicinc.com>
+ Thu, 21 Dec 2023 13:05:24 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 3BL93V38026783; Thu, 21 Dec 2023 14:05:05 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=qKB5MFFD1Jhsz7q6UhIrZ8SdYwmTMombWQWBCfbDjMA=; b=U7
+ VLTATdz5V+RXI86ihxwUPSOQX1CT/3D6FGYvhvOiT2Zwra2HHLVSwWXtCABUu469
+ JONexw9XjyaiI9WtYT2zqUStBD4+ktYm7gdGcoXnb7K0auDO9xiHnZEx4Ow74zON
+ GFZM7oX0Y7Hi5hfVQax1zYhxsk24j1RGPJW7fkpHoBFeZHUbPxHBUQEUbWAInZkL
+ 5bbX9bolyrFiosOMeUjKZltNfqIkRjyxb8UrdEw9IYwvESHWii7/HVtQ7pnaP986
+ i68sQmYZJrdRwuY1dpsW5zGKinpv285ADwX/jDdIBMIH45uFN5rTnZVoZ4bUFCWU
+ QL30ajLV8cj68tU8t3AA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v11w97htr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 21 Dec 2023 14:05:05 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1B898100066;
+ Thu, 21 Dec 2023 14:05:04 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0992D2C38A1;
+ Thu, 21 Dec 2023 14:05:04 +0100 (CET)
+Received: from [10.201.20.120] (10.201.20.120) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 21 Dec
+ 2023 14:05:02 +0100
+Message-ID: <70ed583e-af57-43e5-91a4-daa0568e83ab@foss.st.com>
+Date: Thu, 21 Dec 2023 14:05:01 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20231221073620.232619-4-quic_jsuraj@quicinc.com>
-Cc: Rob Herring <robh@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Conor Dooley <conor+dt@kernel.org>, kernel@quicinc.com,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Andy Gross <agross@kernel.org>, Prasad Sodagudi <psodagud@quicinc.com>,
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Sebastian Fricke <sebastian.fricke@collabora.com>
+References: <20231221084723.2152034-1-hugues.fruchet@foss.st.com>
+ <20231221084723.2152034-4-hugues.fruchet@foss.st.com>
+ <20231221111837.4u22pmba7jd3hinj@basti-XPS-13-9310>
+From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
+In-Reply-To: <20231221111837.4u22pmba7jd3hinj@basti-XPS-13-9310>
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-21_06,2023-12-20_01,2023-05-22_02
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ linux-rockchip@lists.infradead.org,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Marco Felsch <m.felsch@pengutronix.de>,
+ Rob Herring <robh+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Adam Ford <aford173@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v8 3/3] net: stmmac: Add driver
- support for DWMAC5 common safety IRQ
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Subject: Re: [Linux-stm32] [PATCH v5 3/5] media: hantro: add support for
+	STM32MP25 VENC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,187 +88,131 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Suraj
-
-On Thu, Dec 21, 2023 at 01:06:20PM +0530, Suraj Jaiswal wrote:
-> Add support to listen HW safety IRQ like ECC(error
-> correction code), DPP(data path parity), FSM(finite state
-> machine) fault in common IRQ line.
-> 
-> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-
-Thanks for taking my notes into account. One more comment is further
-below.
-
-> ---
->  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 37 +++++++++++++++++++
->  .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
->  4 files changed, 49 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index 721c1f8e892f..b9233b09b80f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -344,6 +344,7 @@ enum request_irq_err {
->  	REQ_IRQ_ERR_ALL,
->  	REQ_IRQ_ERR_TX,
->  	REQ_IRQ_ERR_RX,
-> +	REQ_IRQ_ERR_SFTY,
->  	REQ_IRQ_ERR_SFTY_UE,
->  	REQ_IRQ_ERR_SFTY_CE,
->  	REQ_IRQ_ERR_LPI,
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index 9f89acf31050..ca3d93851bed 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -31,6 +31,7 @@ struct stmmac_resources {
->  	int wol_irq;
->  	int lpi_irq;
->  	int irq;
-> +	int sfty_irq;
->  	int sfty_ce_irq;
->  	int sfty_ue_irq;
->  	int rx_irq[MTL_MAX_RX_QUEUES];
-> @@ -297,6 +298,7 @@ struct stmmac_priv {
->  	void __iomem *ptpaddr;
->  	void __iomem *estaddr;
->  	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
-> +	int sfty_irq;
->  	int sfty_ce_irq;
->  	int sfty_ue_irq;
->  	int rx_irq[MTL_MAX_RX_QUEUES];
-> @@ -305,6 +307,7 @@ struct stmmac_priv {
->  	char int_name_mac[IFNAMSIZ + 9];
->  	char int_name_wol[IFNAMSIZ + 9];
->  	char int_name_lpi[IFNAMSIZ + 9];
-> +	char int_name_sfty[IFNAMSIZ + 10];
->  	char int_name_sfty_ce[IFNAMSIZ + 10];
->  	char int_name_sfty_ue[IFNAMSIZ + 10];
->  	char int_name_rx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 14];
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 47de466e432c..7d4e827dfeab 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
->  		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
->  			free_irq(priv->wol_irq, dev);
->  		fallthrough;
-> +	case REQ_IRQ_ERR_SFTY:
-> +		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
-> +			free_irq(priv->sfty_irq, dev);
-> +		fallthrough;
->  	case REQ_IRQ_ERR_WOL:
->  		free_irq(dev->irq, dev);
->  		fallthrough;
-> @@ -3661,6 +3665,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
->  		}
->  	}
->  
-> +	/* Request the common Safety Feature Correctible/Uncorrectible
-> +	 * Error line in case of another line is used
-> +	 */
-> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> +		int_name = priv->int_name_sfty;
-> +		sprintf(int_name, "%s:%s", dev->name, "safety");
-> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> +				  0, int_name, dev);
-> +		if (unlikely(ret < 0)) {
-> +			netdev_err(priv->dev,
-> +				   "%s: alloc sfty MSI %d (error: %d)\n",
-> +				   __func__, priv->sfty_irq, ret);
-> +			irq_err = REQ_IRQ_ERR_SFTY;
-> +			goto irq_error;
-> +		}
-> +	}
-> +
->  	/* Request the Safety Feature Correctible Error line in
->  	 * case of another line is used
->  	 */
-> @@ -3798,6 +3819,21 @@ static int stmmac_request_irq_single(struct net_device *dev)
->  		}
->  	}
->  
-> +	/* Request the common Safety Feature Correctible/Uncorrectible
-> +	 * Error line in case of another line is used
-> +	 */
-> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-
-> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> +				  IRQF_SHARED, dev->name, dev);
-
-Just noticed yesterday that stmmac_safety_interrupt() is also called
-from the stmmac_interrupt() handler which is supposed to be registered
-on the generic "mac" IRQ. Won't it cause races around the CSRs
-(doubtfully but still worth to note) and the errors handling
-(stmmac_global_err()) in case if both IRQs are raised simultaneously?
-At the very least it looks suspicious and worth double-checking.
-
-I also found out that nobody seemed to care that the same handler is
-registered on MAC, WoL and LPI IRQ lines. Hmm, no race-related
-problems have been reported so far for the platforms with separate
-WoL/LPI IRQs. It's either a lucky coincident or the IRQs are always
-assigned to the same CPU or the IRQs handle is indeed free of races.
-In anyway it looks suspicious too. At the very least AFAICS the DMA
-IRQ-handler is indeed racy on the status CSR access. It isn't
-cleared-on-read, but write-one-to-clear. So the statistics might be
-calculated more than once for the same CSR state. There might be some
-other problems I failed to spot on the first glance.
-
-David, Eric, Jacub, Paolo, your opinion about the note above?
-
--Serge(y)
-
-> +		if (unlikely(ret < 0)) {
-> +			netdev_err(priv->dev,
-> +				   "%s: ERROR: allocating the sfty IRQ %d (%d)\n",
-> +				   __func__, priv->sfty_irq, ret);
-> +			irq_err = REQ_IRQ_ERR_SFTY;
-> +			goto irq_error;
-> +		}
-> +	}
-> +
->  	return 0;
->  
->  irq_error:
-> @@ -7462,6 +7498,7 @@ int stmmac_dvr_probe(struct device *device,
->  	priv->dev->irq = res->irq;
->  	priv->wol_irq = res->wol_irq;
->  	priv->lpi_irq = res->lpi_irq;
-> +	priv->sfty_irq = res->sfty_irq;
->  	priv->sfty_ce_irq = res->sfty_ce_irq;
->  	priv->sfty_ue_irq = res->sfty_ue_irq;
->  	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 70eadc83ca68..ab250161fd79 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -743,6 +743,14 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
->  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
->  	}
->  
-> +	stmmac_res->sfty_irq =
-> +		platform_get_irq_byname_optional(pdev, "sfty");
-> +	if (stmmac_res->sfty_irq < 0) {
-> +		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
-> +			return -EPROBE_DEFER;
-> +		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
-> +	}
-> +
->  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
->  
->  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
-> -- 
-> 2.25.1
-> 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgU2ViYXN0aWFuLAoKWWVzLCBmZWVsIGZyZWUgdG8gZml4IHRoZSB0d28gY29tbWVudHMgIQoK
+QlIsCkh1Z3Vlcy4KCk9uIDEyLzIxLzIzIDEyOjE4LCBTZWJhc3RpYW4gRnJpY2tlIHdyb3RlOgo+
+IEhleSBIdWd1ZXMsCj4gCj4gb25lIHNtYWxsIGNvbW1lbnQgYmVsb3csIGlmIGl0IHNob3VsZCB0
+dXJuIG91dCB0byBiZSB0aGUgb25seSBwcm9ibGVtIEkKPiBjYW4gZml4IGl0IG15c2VsZiBmb3Ig
+dGhlIHB1bGwgcmVxdWVzdC4KPiAKPiBPbiAyMS4xMi4yMDIzIDA5OjQ3LCBIdWd1ZXMgRnJ1Y2hl
+dCB3cm90ZToKPj4gQWRkIHN1cHBvcnQgZm9yIFNUTTMyTVAyNSBWRU5DIHZpZGVvIGhhcmR3YXJl
+IGVuY29kZXIuCj4+IFN1cHBvcnQgb2YgSlBFRyBlbmNvZGluZy4KPj4gVkVOQyBoYXMgaXRzIG93
+biByZXNldC9jbG9jay9pcnEuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEh1Z3VlcyBGcnVjaGV0IDxo
+dWd1ZXMuZnJ1Y2hldEBmb3NzLnN0LmNvbT4KPj4gUmV2aWV3ZWQtYnk6IE5pY29sYXMgRHVmcmVz
+bmUgPG5pY29sYXMuZHVmcmVzbmVAY29sbGFib3JhLmNvbT4KPj4gLS0tCj4+IGRyaXZlcnMvbWVk
+aWEvcGxhdGZvcm0vdmVyaXNpbGljb24vTWFrZWZpbGXCoMKgIHzCoMKgIDMgKy0KPj4gLi4uL21l
+ZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRyb19kcnYuY8KgwqAgfMKgwqAgMSArCj4+IC4u
+Li9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9faHcuaMKgwqDCoCB8wqDCoCAxICsK
+Pj4gLi4uL3BsYXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92ZW5jX2h3LmPCoCB8IDExNSAr
+KysrKysrKysrKysrKysrKysKPj4gNCBmaWxlcyBjaGFuZ2VkLCAxMTkgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQo+PiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9tZWRpYS9wbGF0Zm9y
+bS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdmVuY19ody5jCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL01ha2VmaWxlIAo+PiBiL2RyaXZlcnMvbWVk
+aWEvcGxhdGZvcm0vdmVyaXNpbGljb24vTWFrZWZpbGUKPj4gaW5kZXggNTg1NGUwZjBkZDMyLi4z
+YmY0M2ZkYmVkYzEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNp
+bGljb24vTWFrZWZpbGUKPj4gKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNv
+bi9NYWtlZmlsZQo+PiBAQCAtNDEsNCArNDEsNSBAQCBoYW50cm8tdnB1LSQoQ09ORklHX1ZJREVP
+X0hBTlRST19TVU5YSSkgKz0gXAo+PiDCoMKgwqDCoMKgwqDCoCBzdW54aV92cHVfaHcubwo+Pgo+
+PiBoYW50cm8tdnB1LSQoQ09ORklHX1ZJREVPX0hBTlRST19TVE0zMk1QMjUpICs9IFwKPj4gLcKg
+wqDCoMKgwqDCoMKgIHN0bTMybXAyNV92ZGVjX2h3Lm8KPj4gK8KgwqDCoMKgwqDCoMKgIHN0bTMy
+bXAyNV92ZGVjX2h3Lm8gXAo+PiArwqDCoMKgwqDCoMKgwqAgc3RtMzJtcDI1X3ZlbmNfaHcubwo+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9f
+ZHJ2LmMgCj4+IGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9fZHJ2
+LmMKPj4gaW5kZXggMmRiMjdjMzMzOTI0Li40ZDk3YThhYzAzZGUgMTAwNjQ0Cj4+IC0tLSBhL2Ry
+aXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2Rydi5jCj4+ICsrKyBiL2Ry
+aXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2Rydi5jCj4+IEBAIC03MzYs
+NiArNzM2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgb2ZfaGFudHJvX21h
+dGNoW10gCj4+ID0gewo+PiAjZW5kaWYKPj4gI2lmZGVmIENPTkZJR19WSURFT19IQU5UUk9fU1RN
+MzJNUDI1Cj4+IMKgwqDCoMKgeyAuY29tcGF0aWJsZSA9ICJzdCxzdG0zMm1wMjUtdmRlYyIsIC5k
+YXRhID0gCj4+ICZzdG0zMm1wMjVfdmRlY192YXJpYW50LCB9LAo+PiArwqDCoMKgIHsgLmNvbXBh
+dGlibGUgPSAic3Qsc3RtMzJtcDI1LXZlbmMiLCAuZGF0YSA9IAo+PiAmc3RtMzJtcDI1X3ZlbmNf
+dmFyaWFudCwgfSwKPj4gI2VuZGlmCj4+IMKgwqDCoMKgeyAvKiBzZW50aW5lbCAqLyB9Cj4+IH07
+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL2hhbnRy
+b19ody5oIAo+PiBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2h3
+LmgKPj4gaW5kZXggYjdlY2NjMWE5NmZjLi43MGM3MmU5ZDExZDUgMTAwNjQ0Cj4+IC0tLSBhL2Ry
+aXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2h3LmgKPj4gKysrIGIvZHJp
+dmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9oYW50cm9faHcuaAo+PiBAQCAtNDA3LDYg
+KzQwNyw3IEBAIGV4dGVybiBjb25zdCBzdHJ1Y3QgaGFudHJvX3ZhcmlhbnQgCj4+IHJrMzU4OF92
+cHU5ODFfdmFyaWFudDsKPj4gZXh0ZXJuIGNvbnN0IHN0cnVjdCBoYW50cm9fdmFyaWFudCBzYW1h
+NWQ0X3ZkZWNfdmFyaWFudDsKPj4gZXh0ZXJuIGNvbnN0IHN0cnVjdCBoYW50cm9fdmFyaWFudCBz
+dW54aV92cHVfdmFyaWFudDsKPj4gZXh0ZXJuIGNvbnN0IHN0cnVjdCBoYW50cm9fdmFyaWFudCBz
+dG0zMm1wMjVfdmRlY192YXJpYW50Owo+PiArZXh0ZXJuIGNvbnN0IHN0cnVjdCBoYW50cm9fdmFy
+aWFudCBzdG0zMm1wMjVfdmVuY192YXJpYW50Owo+Pgo+PiBleHRlcm4gY29uc3Qgc3RydWN0IGhh
+bnRyb19wb3N0cHJvY19vcHMgaGFudHJvX2cxX3Bvc3Rwcm9jX29wczsKPj4gZXh0ZXJuIGNvbnN0
+IHN0cnVjdCBoYW50cm9fcG9zdHByb2Nfb3BzIGhhbnRyb19nMl9wb3N0cHJvY19vcHM7Cj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92
+ZW5jX2h3LmMgCj4+IGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1w
+MjVfdmVuY19ody5jCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwMDAw
+MC4uMGZmMGYwNzNiOTIyCj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvZHJpdmVycy9tZWRpYS9w
+bGF0Zm9ybS92ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdmVuY19ody5jCj4+IEBAIC0wLDAgKzEsMTE1
+IEBACj4+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+PiArLyoKPj4gKyAq
+IFNUTTMyTVAyNSBWRU5DIHZpZGVvIGVuY29kZXIgZHJpdmVyCj4+ICsgKgo+PiArICogQ29weXJp
+Z2h0IChDKSBTVE1pY3JvZWxlY3Ryb25pY3MgU0EgMjAyMgo+PiArICogQXV0aG9yczogSHVndWVz
+IEZydWNoZXQgPGh1Z3Vlcy5mcnVjaGV0QGZvc3Muc3QuY29tPgo+PiArICrCoMKgwqDCoMKgwqDC
+oMKgwqAgZm9yIFNUTWljcm9lbGVjdHJvbmljcy4KPj4gKyAqCj4+ICsgKi8KPj4gKwo+PiArI2lu
+Y2x1ZGUgPGxpbnV4L2Nsay5oPgo+PiArI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4+ICsjaW5j
+bHVkZSA8bGludXgvcmVzZXQuaD4KPj4gKwo+PiArI2luY2x1ZGUgImhhbnRyby5oIgo+PiArI2lu
+Y2x1ZGUgImhhbnRyb19qcGVnLmgiCj4+ICsjaW5jbHVkZSAiaGFudHJvX2gxX3JlZ3MuaCIKPj4g
+Kwo+PiArLyoKPj4gKyAqIFN1cHBvcnRlZCBmb3JtYXRzLgo+PiArICovCj4+ICsKPj4gK3N0YXRp
+YyBjb25zdCBzdHJ1Y3QgaGFudHJvX2ZtdCBzdG0zMm1wMjVfdmVuY19mbXRzW10gPSB7Cj4+ICvC
+oMKgwqAgewo+PiArwqDCoMKgwqDCoMKgwqAgLmZvdXJjYyA9IFY0TDJfUElYX0ZNVF9ZVVY0MjBN
+LAo+PiArwqDCoMKgwqDCoMKgwqAgLmNvZGVjX21vZGUgPSBIQU5UUk9fTU9ERV9OT05FLAo+PiAr
+wqDCoMKgwqDCoMKgwqAgLmVuY19mbXQgPSBST0NLQ0hJUF9WUFVfRU5DX0ZNVF9ZVVY0MjBQLAo+
+PiArwqDCoMKgIH0sCj4+ICvCoMKgwqAgewo+PiArwqDCoMKgwqDCoMKgwqAgLmZvdXJjYyA9IFY0
+TDJfUElYX0ZNVF9OVjEyTSwKPj4gK8KgwqDCoMKgwqDCoMKgIC5jb2RlY19tb2RlID0gSEFOVFJP
+X01PREVfTk9ORSwKPj4gK8KgwqDCoMKgwqDCoMKgIC5lbmNfZm10ID0gUk9DS0NISVBfVlBVX0VO
+Q19GTVRfWVVWNDIwU1AsCj4+ICvCoMKgwqAgfSwKPj4gK8KgwqDCoCB7Cj4+ICvCoMKgwqDCoMKg
+wqDCoCAuZm91cmNjID0gVjRMMl9QSVhfRk1UX1lVWVYsCj4+ICvCoMKgwqDCoMKgwqDCoCAuY29k
+ZWNfbW9kZSA9IEhBTlRST19NT0RFX05PTkUsCj4+ICvCoMKgwqDCoMKgwqDCoCAuZW5jX2ZtdCA9
+IFJPQ0tDSElQX1ZQVV9FTkNfRk1UX1lVWVY0MjIsCj4+ICvCoMKgwqAgfSwKPj4gK8KgwqDCoCB7
+Cj4+ICvCoMKgwqDCoMKgwqDCoCAuZm91cmNjID0gVjRMMl9QSVhfRk1UX1VZVlksCj4+ICvCoMKg
+wqDCoMKgwqDCoCAuY29kZWNfbW9kZSA9IEhBTlRST19NT0RFX05PTkUsCj4+ICvCoMKgwqDCoMKg
+wqDCoCAuZW5jX2ZtdCA9IFJPQ0tDSElQX1ZQVV9FTkNfRk1UX1VZVlk0MjIsCj4+ICvCoMKgwqAg
+fSwKPj4gK8KgwqDCoCB7Cj4+ICvCoMKgwqDCoMKgwqDCoCAuZm91cmNjID0gVjRMMl9QSVhfRk1U
+X0pQRUcsCj4+ICvCoMKgwqDCoMKgwqDCoCAuY29kZWNfbW9kZSA9IEhBTlRST19NT0RFX0pQRUdf
+RU5DLAo+PiArwqDCoMKgwqDCoMKgwqAgLm1heF9kZXB0aCA9IDIsCj4+ICvCoMKgwqDCoMKgwqDC
+oCAuaGVhZGVyX3NpemUgPSBKUEVHX0hFQURFUl9TSVpFLAo+PiArwqDCoMKgwqDCoMKgwqAgLmZy
+bXNpemUgPSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC5taW5fd2lkdGggPSA5NiwKPj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLm1heF93aWR0aCA9IEZNVF80S19XSURUSCwKPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgLnN0ZXBfd2lkdGggPSBNQl9ESU0sCj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIC5taW5faGVpZ2h0ID0gOTYsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IC5tYXhfaGVpZ2h0ID0gRk1UXzRLX0hFSUdIVCwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+LnN0ZXBfaGVpZ2h0ID0gTUJfRElNLAo+PiArwqDCoMKgwqDCoMKgwqAgfSwKPj4gK8KgwqDCoCB9
+LAo+PiArfTsKPj4gKwo+PiArc3RhdGljIGlycXJldHVybl90IHN0bTMybXAyNV92ZW5jX2lycShp
+bnQgaXJxLCB2b2lkICpkZXZfaWQpCj4+ICt7Cj4+ICvCoMKgwqAgc3RydWN0IGhhbnRyb19kZXYg
+KnZwdSA9IGRldl9pZDsKPj4gK8KgwqDCoCBlbnVtIHZiMl9idWZmZXJfc3RhdGUgc3RhdGU7Cj4+
+ICvCoMKgwqAgdTMyIHN0YXR1czsKPj4gKwo+PiArwqDCoMKgIHN0YXR1cyA9IHZlcHVfcmVhZCh2
+cHUsIEgxX1JFR19JTlRFUlJVUFQpOwo+PiArwqDCoMKgIHN0YXRlID0gKHN0YXR1cyAmIEgxX1JF
+R19JTlRFUlJVUFRfRlJBTUVfUkRZKSA/Cj4+ICvCoMKgwqDCoMKgwqDCoCBWQjJfQlVGX1NUQVRF
+X0RPTkUgOiBWQjJfQlVGX1NUQVRFX0VSUk9SOwo+PiArCj4+ICvCoMKgwqAgdmVwdV93cml0ZSh2
+cHUsIEgxX1JFR19JTlRFUlJVUFRfQklULCBIMV9SRUdfSU5URVJSVVBUKTsKPj4gKwo+PiArwqDC
+oMKgIGhhbnRyb19pcnFfZG9uZSh2cHUsIHN0YXRlKTsKPj4gKwo+PiArwqDCoMKgIHJldHVybiBJ
+UlFfSEFORExFRDsKPj4gK30KPj4gKwo+PiArc3RhdGljIHZvaWQgc3RtMzJtcDI1X3ZlbmNfcmVz
+ZXQoc3RydWN0IGhhbnRyb19jdHggKmN0eCkKPj4gK3sKPj4gK30KPj4gKwo+PiArLyoKPj4gKyAq
+IFN1cHBvcnRlZCBjb2RlYyBvcHMuCj4+ICsgKi8KPj4gKwo+PiArc3RhdGljIGNvbnN0IHN0cnVj
+dCBoYW50cm9fY29kZWNfb3BzIHN0bTMybXAyNV92ZW5jX2NvZGVjX29wc1tdID0gewo+PiArwqDC
+oMKgIFtIQU5UUk9fTU9ERV9KUEVHX0VOQ10gPSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCAucnVuID0g
+aGFudHJvX2gxX2pwZWdfZW5jX3J1biwKPj4gK8KgwqDCoMKgwqDCoMKgIC5yZXNldCA9IHN0bTMy
+bXAyNV92ZW5jX3Jlc2V0LAo+PiArwqDCoMKgwqDCoMKgwqAgLmRvbmUgPSBoYW50cm9faDFfanBl
+Z19lbmNfZG9uZSwKPj4gK8KgwqDCoCB9LAo+PiArfTsKPj4gKwo+PiArLyoKPj4gKyAqIFZhcmlh
+bnRzLgo+PiArICovCj4+ICsKPj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgaGFudHJvX2lycSBzdG0z
+Mm1wMjVfdmVuY19pcnFzW10gPSB7Cj4+ICvCoMKgwqAgeyAidmVuYyIsIHN0bTMybXAyNV92ZW5j
+X2lycSB9LAo+PiArfTsKPj4gKwo+PiArc3RhdGljIGNvbnN0IGNoYXIgKiBjb25zdCBzdG0zMm1w
+MjVfdmVuY19jbGtfbmFtZXNbXSA9IHsKPj4gK8KgwqDCoCAidmVuYy1jbGsiCj4+ICt9Owo+PiAr
+Cj4+ICtjb25zdCBzdHJ1Y3QgaGFudHJvX3ZhcmlhbnQgc3RtMzJtcDI1X3ZlbmNfdmFyaWFudCA9
+IHsKPj4gK8KgwqDCoCAuZW5jX2ZtdHMgPSBzdG0zMm1wMjVfdmVuY19mbXRzLAo+PiArwqDCoMKg
+IC5udW1fZW5jX2ZtdHMgPSBBUlJBWV9TSVpFKHN0bTMybXAyNV92ZW5jX2ZtdHMpLAo+PiArwqDC
+oMKgIC5jb2RlYyA9IEhBTlRST19KUEVHX0VOQ09ERVIsCj4+ICvCoMKgwqAgLmNvZGVjX29wcyA9
+IHN0bTMybXAyNV92ZW5jX2NvZGVjX29wcywKPj4gK8KgwqDCoCAuaXJxcyA9IHN0bTMybXAyNV92
+ZW5jX2lycXMsCj4+ICvCoMKgwqAgLm51bV9pcnFzID0gQVJSQVlfU0laRShzdG0zMm1wMjVfdmVu
+Y19pcnFzKSwKPj4gK8KgwqDCoCAuY2xrX25hbWVzID0gc3RtMzJtcDI1X3ZlbmNfY2xrX25hbWVz
+LAo+PiArwqDCoMKgIC5udW1fY2xvY2tzID0gQVJSQVlfU0laRShzdG0zMm1wMjVfdmVuY19jbGtf
+bmFtZXMpCj4+ICt9Owo+PiArCj4gCj4gVGhlcmUgaXMgYW4gc3VwZXJmbHVvdXMgbmV3IGxpbmUg
+aGVyZS4KPiAKPiBHcmVldGluZ3MsCj4gU2ViYXN0aWFuCj4gCj4+IC0tIAo+PiAyLjI1LjEKPj4K
+Pj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
