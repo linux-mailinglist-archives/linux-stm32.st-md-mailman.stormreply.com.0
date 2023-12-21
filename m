@@ -2,59 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D61981B9CC
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 15:46:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42CF981BB96
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 17:13:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFEC1C6B477;
-	Thu, 21 Dec 2023 14:46:04 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E80A8C6B477;
+	Thu, 21 Dec 2023 16:13:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5021C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A44A4C6B46B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 14:46:03 +0000 (UTC)
+ Thu, 21 Dec 2023 16:13:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 22AC4B82073;
- Thu, 21 Dec 2023 14:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCFFC433C7;
- Thu, 21 Dec 2023 14:45:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 65F3B619C0;
+ Thu, 21 Dec 2023 16:13:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67F58C433C7;
+ Thu, 21 Dec 2023 16:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703169962;
- bh=thWZKn3LobCE6e6aQM2Yre45Naiy5TVPR/p07htNFWs=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=h/CjY5L+a5dEjJqvVIGFMZj2f59MlKhsq9pFWymGuLHkq4VT2WmdJWnHPm/D7mvgD
- SYGt/ajHFVTDkxhUgq+0orV0jRDbHAdKrlq853JzqVVHOX86FgDMJENp2EarMFvEnV
- T5RwD6M+XWbM+lqeNVyOSORS9+0LPaUB1Z+rUkhx4m6/BUvAoWcJCtaVw3ykP3Jh7C
- Ea1QAE21miY5PmyynsJeuvYK6zb7KSd/ufObGbLwTWd0ztaty0I2qZ29b8+DmGIoJ8
- vPtoSwsjmenOl4QweCo4nveV/Mo1mNb2U9+6KJOsqTaBNeHzc4mlio6SzFZe97DEiM
- dsp0/UzakXuIw==
-Received: (nullmailer pid 3869255 invoked by uid 1000);
- Thu, 21 Dec 2023 14:45:59 -0000
+ s=k20201202; t=1703175236;
+ bh=n2/uLWpjh2wZRMXJuKHDXAa3gaxHUDqxFQmjrE23LiQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=THy9I8gu3LEqHP46W6i8JJ2kcs3okxkg/u6YwaNdGX27WJg2fX3jQkRMCiCSCVJW/
+ FUDio7aZg+gnXb3yWkktt+KDUTylPLHEROk+DyW806DspK8fu+KfYMc70x8awwnOce
+ cba8cRIMJh7DJTfgBTRH35gzFCu2aR1gckJljCpRJUqEuhYXIeTPx9CNSQHd5oxU7v
+ rdt0SLDB+D+OS2TEdTWj5WGk3D8fdUDWWLxpP19puvs8bONpJQbeEt7/QHarOgqWDI
+ NO8zBCMtUQCsWGwPWWQ+Se4RQVOKzRo9ct9pomRwoGerVtf8LJuapH9N5gz+exdOn+
+ jF8bkMQjKhZbw==
+Date: Thu, 21 Dec 2023 21:43:51 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>
+Message-ID: <ZYRkP-m_sra8qUNZ@matsya>
+References: <20231213174021.3074759-1-amelie.delaunay@foss.st.com>
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20231221124339.420119-3-raphael.gallais-pou@foss.st.com>
-References: <20231221124339.420119-1-raphael.gallais-pou@foss.st.com>
- <20231221124339.420119-3-raphael.gallais-pou@foss.st.com>
-Message-Id: <170316995910.3869238.14321525013510097521.robh@kernel.org>
-Date: Thu, 21 Dec 2023 08:45:59 -0600
-Cc: dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- David Airlie <airlied@gmail.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH RESEND v1 2/8] dt-bindings: display: add
- dt-bindings for STM32 LVDS device
+Content-Disposition: inline
+In-Reply-To: <20231213174021.3074759-1-amelie.delaunay@foss.st.com>
+Cc: dmaengine@vger.kernel.org, Fenghua Yu <fenghua.yu@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH] dmaengine: add channel device name to
+ channel registration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,49 +57,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Thu, 21 Dec 2023 13:43:33 +0100, Raphael Gallais-Pou wrote:
-> Add dt-binding file for "st,stm32-lvds" compatible.
+On 13-12-23, 18:40, Amelie Delaunay wrote:
+> Channel device name is used for sysfs, but also by dmatest filter function.
 > 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> With dynamic channel registration, channels can be registered after dma
+> controller registration. Users may want to have specific channel names.
+> 
+> If name is NULL, the channel name relies on previous implementation,
+> dma<controller_device_id>chan<channel_device_id>.
+
+lgtm, where is the user for this..?
+
+> 
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 > ---
->  .../bindings/display/st,stm32-lvds.yaml       | 114 ++++++++++++++++++
->  1 file changed, 114 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
+>  drivers/dma/dmaengine.c   | 16 ++++++++++------
+>  drivers/dma/idxd/dma.c    |  2 +-
+>  include/linux/dmaengine.h |  3 ++-
+>  3 files changed, 13 insertions(+), 8 deletions(-)
 > 
+> diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
+> index b7388ae62d7f..7848428da2d6 100644
+> --- a/drivers/dma/dmaengine.c
+> +++ b/drivers/dma/dmaengine.c
+> @@ -1037,7 +1037,8 @@ static int get_dma_id(struct dma_device *device)
+>  }
+>  
+>  static int __dma_async_device_channel_register(struct dma_device *device,
+> -					       struct dma_chan *chan)
+> +					       struct dma_chan *chan,
+> +					       const char *name)
+>  {
+>  	int rc;
+>  
+> @@ -1066,8 +1067,10 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+>  	chan->dev->device.parent = device->dev;
+>  	chan->dev->chan = chan;
+>  	chan->dev->dev_id = device->dev_id;
+> -	dev_set_name(&chan->dev->device, "dma%dchan%d",
+> -		     device->dev_id, chan->chan_id);
+> +	if (!name)
+> +		dev_set_name(&chan->dev->device, "dma%dchan%d", device->dev_id, chan->chan_id);
+> +	else
+> +		dev_set_name(&chan->dev->device, name);
+>  	rc = device_register(&chan->dev->device);
+>  	if (rc)
+>  		goto err_out_ida;
+> @@ -1087,11 +1090,12 @@ static int __dma_async_device_channel_register(struct dma_device *device,
+>  }
+>  
+>  int dma_async_device_channel_register(struct dma_device *device,
+> -				      struct dma_chan *chan)
+> +				      struct dma_chan *chan,
+> +				      const char *name)
+>  {
+>  	int rc;
+>  
+> -	rc = __dma_async_device_channel_register(device, chan);
+> +	rc = __dma_async_device_channel_register(device, chan, name);
+>  	if (rc < 0)
+>  		return rc;
+>  
+> @@ -1200,7 +1204,7 @@ int dma_async_device_register(struct dma_device *device)
+>  
+>  	/* represent channels in sysfs. Probably want devs too */
+>  	list_for_each_entry(chan, &device->channels, device_node) {
+> -		rc = __dma_async_device_channel_register(device, chan);
+> +		rc = __dma_async_device_channel_register(device, chan, NULL);
+>  		if (rc < 0)
+>  			goto err_out;
+>  	}
+> diff --git a/drivers/dma/idxd/dma.c b/drivers/dma/idxd/dma.c
+> index 47a01893cfdb..101a265567a9 100644
+> --- a/drivers/dma/idxd/dma.c
+> +++ b/drivers/dma/idxd/dma.c
+> @@ -269,7 +269,7 @@ static int idxd_register_dma_channel(struct idxd_wq *wq)
+>  		desc->txd.tx_submit = idxd_dma_tx_submit;
+>  	}
+>  
+> -	rc = dma_async_device_channel_register(dma, chan);
+> +	rc = dma_async_device_channel_register(dma, chan, NULL);
+>  	if (rc < 0) {
+>  		kfree(idxd_chan);
+>  		return rc;
+> diff --git a/include/linux/dmaengine.h b/include/linux/dmaengine.h
+> index 3df70d6131c8..cbad92cc3e0b 100644
+> --- a/include/linux/dmaengine.h
+> +++ b/include/linux/dmaengine.h
+> @@ -1574,7 +1574,8 @@ int dma_async_device_register(struct dma_device *device);
+>  int dmaenginem_async_device_register(struct dma_device *device);
+>  void dma_async_device_unregister(struct dma_device *device);
+>  int dma_async_device_channel_register(struct dma_device *device,
+> -				      struct dma_chan *chan);
+> +				      struct dma_chan *chan,
+> +				      const char *name);
+>  void dma_async_device_channel_unregister(struct dma_device *device,
+>  					 struct dma_chan *chan);
+>  void dma_run_dependencies(struct dma_async_tx_descriptor *tx);
+> -- 
+> 2.25.1
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/st,stm32-lvds.example.dts:18:18: fatal error: dt-bindings/bus/stm32mp25_sys_bus.h: No such file or directory
-   18 |         #include <dt-bindings/bus/stm32mp25_sys_bus.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/st,stm32-lvds.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1424: dt_binding_check] Error 2
-make: *** [Makefile:234: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20231221124339.420119-3-raphael.gallais-pou@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+~Vinod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
