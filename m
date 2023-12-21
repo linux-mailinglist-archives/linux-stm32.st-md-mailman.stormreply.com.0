@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8D3381BFE4
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 22:10:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FF081C07A
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 22:51:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77F74C6B46B;
-	Thu, 21 Dec 2023 21:10:00 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA05C6B477;
+	Thu, 21 Dec 2023 21:51:46 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68901C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA14CC6B46B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 21:09:59 +0000 (UTC)
+ Thu, 21 Dec 2023 21:51:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E9DED619E8;
- Thu, 21 Dec 2023 21:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3008C433C7;
- Thu, 21 Dec 2023 21:09:55 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 0D95ACE210F;
+ Thu, 21 Dec 2023 21:51:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29B9C433C9;
+ Thu, 21 Dec 2023 21:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703192997;
- bh=MOv2Ps6cE6dmQApM5Rwy2jg3rccLNITICS9IRnMhXiw=;
+ s=k20201202; t=1703195502;
+ bh=wVhTpALcMiNCntelNMpcmyS353uCxC0tr69XZxUeP7w=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=u3z+8wD2mqTIkYTCtx608pczUdMSijGLS9F+KeWgjLDVZMfQMcFcYrOae2STvxjk0
- HC4DSuqXpyk0LAHxlS/YjGIBqM//J9GNOIZeAo7SuEm3wxokvThk6ezw6vIc+IWOq9
- BKMkhyRTTZZqjTrhbzfO2psZGghVzz4DHCIClhnNZUVKtJ497UKJSuM155QP/rUBna
- ntpmZ4cWXusPyJrN+jvsV/Z+6bF6aHziDSEHVZS29rQzKWAV7CUSTSkRCK7J5i9C6L
- vxtWSK4XgYEypvadURNqgTzwga2DJsAWB0MJmdGzWzrCvGUbzAaCZwDuBCpQf8g5qw
- ugthze1lpuTBA==
-Received: (nullmailer pid 98899 invoked by uid 1000);
- Thu, 21 Dec 2023 21:09:54 -0000
-Date: Thu, 21 Dec 2023 15:09:54 -0600
+ b=grvlhMPdSPsEsMrM435z6Ee777r4kKrlEfU5VJO4IHAn4V7pnANe2YaPn9yqlGBHg
+ U7IjIExcXlK1D9VjptD8QyQ+42pMJbqVtaZr9Lh6/W9NcKiHa/4Pi1lg/vqCN4EdnL
+ 6kO0lUSi+dNbPKTQgm7u7+8N5icMjEm+Xx0mdV8DwQ4PENu1D0ga/Kb1YDb+J4XM0f
+ ANsuXOYE3cY800vWiRTMZq07yWnLPeaBKYK201IO8zMr9PmgVqaDHP5agM0fLCgIzx
+ SLr/TsqKDLJRLArQCYcVOAdjwxzBrLiXnruS1js2v2YjfWlxH3LNi3VupaDmJHLxBr
+ igbLYfklcAyjA==
+Received: (nullmailer pid 153686 invoked by uid 1000);
+ Thu, 21 Dec 2023 21:51:38 -0000
+Date: Thu, 21 Dec 2023 15:51:38 -0600
 From: Rob Herring <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <170319299428.98837.13859133240448825226.robh@kernel.org>
-References: <20231221124339.420119-1-raphael.gallais-pou@foss.st.com>
- <20231221124339.420119-2-raphael.gallais-pou@foss.st.com>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Message-ID: <170319549389.153568.1692332156021513651.robh@kernel.org>
+References: <20231212152356.345703-1-gatien.chevallier@foss.st.com>
+ <20231212152356.345703-2-gatien.chevallier@foss.st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20231221124339.420119-2-raphael.gallais-pou@foss.st.com>
-Cc: dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- David Airlie <airlied@gmail.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH RESEND v1 1/8] dt-bindings: panel: lvds:
- Append edt, etml0700z9ndha in panel-lvds
+In-Reply-To: <20231212152356.345703-2-gatien.chevallier@foss.st.com>
+Cc: alsa-devel@alsa-project.org, linux-iio@vger.kernel.org,
+	catalin.marinas@arm.com, edumazet@google.com,
+	linux-i2c@vger.kernel.org, krzysztof.kozlowski+dt@linaro.org,
+	linux-phy@lists.infradead.org, Frank Rowand <frowand.list@gmail.com>,
+	linux-stm32@st-md-mailman.stormreply.com, andi.shyti@kernel.org,
+	lars@metafoo.de, herbert@gondor.apana.org.au,
+	hugues.fruchet@foss.st.com, lee@kernel.org,
+	linux-arm-kernel@lists.infradea, linux-serial@vger.kernel.org,
+	d.org@stm-ict-prod-mailman-01.stormreply.prv, pabeni@redhat.com,
+	wg@grandegger.com, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org,
+	peng.fan@oss.nxp.com, will@kernel.org, richardcochran@gmail.com,
+	robh+dt@kernel.org, mkl@pengutronix.de, kuba@kernel.org,
+	mchehab@kernel.org, arnd@kernel.org, rcsekar@samsung.com,
+	netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ulf.hansson@linaro.org, linux-spi@vger.kernel.org, vkoul@kernel.org,
+	linux-crypto@vger.kernel.org, gregkh@linuxfoundation.org,
+	dmaengine@vger.kernel.org, davem@davemloft.net, jic23@kernel.org,
+	Oleksii_Moisieiev@epam.com
+Subject: Re: [Linux-stm32] [PATCH v8 01/13] dt-bindings: document generic
+	access controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,16 +78,46 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Thu, 21 Dec 2023 13:43:32 +0100, Raphael Gallais-Pou wrote:
-> List EDT ETML0700Z9NDHA in the LVDS panel enumeration.
+On Tue, 12 Dec 2023 16:23:44 +0100, Gatien Chevallier wrote:
+> From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 > 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Introducing of the generic access controllers bindings for the
+> access controller provider and consumer devices. Those bindings are
+> intended to allow a better handling of accesses to resources in a
+> hardware architecture supporting several compartments.
+> 
+> This patch is based on [1]. It is integrated in this patchset as it
+> provides a use-case for it.
+> 
+> Diffs with [1]:
+> 	- Rename feature-domain* properties to access-control* to narrow
+> 	  down the scope of the binding
+> 	- YAML errors and typos corrected.
+> 	- Example updated
+> 	- Some rephrasing in the binding description
+> 
+> [1]: https://lore.kernel.org/lkml/0c0a82bb-18ae-d057-562b
+> 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 > ---
->  Documentation/devicetree/bindings/display/panel/panel-lvds.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> 
+> Changes in V6:
+> 	- Renamed access-controller to access-controllers
+> 	- Example updated
+> 	- Removal of access-control-provider property
+> 
+> Changes in V5:
+> 	- Diffs with [1]
+> 	- Discarded the [IGNORE] tag as the patch is now part of the
+> 	  patchset
+> 
+>  .../access-controllers.yaml                   | 84 +++++++++++++++++++
+>  1 file changed, 84 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/access-controllers/access-controllers.yaml
 > 
 
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 
 _______________________________________________
 Linux-stm32 mailing list
