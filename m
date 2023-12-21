@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBDFC81BD32
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 18:27:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAA8481BF9E
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 21:36:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7C161C6B477;
-	Thu, 21 Dec 2023 17:27:16 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 704FCC6B46B;
+	Thu, 21 Dec 2023 20:36:40 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D5ACC6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B20D5C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 17:27:16 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-a2335d81693so192892966b.0
+ Thu, 21 Dec 2023 20:36:39 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-2cc63b3ed71so16015221fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 09:27:16 -0800 (PST)
+ Thu, 21 Dec 2023 12:36:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1703179635; x=1703784435;
+ d=linaro.org; s=google; t=1703190999; x=1703795799;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=E9fZnvcr17iWEnEDx/jO4bNozX7Sbo2SKEDCBqZmguQ=;
- b=ey53FZlpAcZFCISFtGohNejlCZZYOPVI6qeKb4Gs+r4/23pzL+iHTRJq4nJe6M73wS
- KacPdYbRDfn6zKNZn9s/V0fjgoEryBlpbKwiwuoiOMH1LcWfZvaipIWryWmTRaXvpR8s
- P9IKgrvn5qvHou/NrllX8Wl7ZQLJxNx0JJxt3zyUTBje9dHF5sDXe7BCAXz0z5hGFVwz
- CMq3ODfIBmtMRO6jYPSLe723i+6rvC/6mC8h5ECtR5nbdrKwcp3J1EQ3/5N25W1IH4pJ
- yPXCFUr687Vu8nvwSrpO/67de1S4fxWKwGYWb3bLq4csIATe0i9GnzWdeHkrnKubxs0U
- Bdww==
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=QNpfDCJAonGBMBz8546mnqWdYnvp44SklWS+RUeJXKo=;
+ b=ZhTESkoB3VIunBDrce7g0IoC87trA4Y06T4PQQAFlO3EQoDRwe4iTVDU7Ff3ctb4cr
+ 17Q8NB6Ra81mzw9exAlb5I6BYlKwiksc8EoW08TpxxrnURP0xE38E1XA9Au+79Wg8Xdc
+ Sfos0wW6U2qm5mb1eWyLQAM3pUEVyFIJvxlmXmKXvvfMQWh8BcvAiaqJlIhNd4glA14U
+ zQA30NnT9L65QzpIyIbRsdMBHC6KNtmAB/sdskxaCMYEKXdsx22+BhDlRQuJQyWs6PIm
+ OpaVX8BRgUGH5tl2k45eOOco+YhObZM8t6hwi9jFkL+6MpCwhkkLLzrCNeqqichw9xus
+ wzgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703179635; x=1703784435;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E9fZnvcr17iWEnEDx/jO4bNozX7Sbo2SKEDCBqZmguQ=;
- b=CAai2JrekCvZUujsILB6XRiQyzU7E4f3Up2xeeUlDVNs6CMOmhwZEKeMXShaIbFI3s
- blroL1ZqXacd16NwnElUBerfvobOqvjM7CSaku89qMdw1+1ai8JRJUoDovXbkmYyyjuS
- UuK4x0IdyZrSiKBMvrgBaCPc+LDEWyPLUcxol7yfas/zzrspUfD16gdjQGMpvzN4YpAT
- elbYgGVjjUFyV72s4kbSa/IBR+CtikGF0ty4neDH7NImhiGcqk40a1fgjANoLaK1nCAo
- yc3wG4bHrGGaSLVQKSspmKZLqOc/5y3iADog3OheritvN7OfQQk+cDaiIYF8ZzYw4dUB
- bzpA==
-X-Gm-Message-State: AOJu0YxlrZ0qtNtpbystLrFBLBO+NvfwDyY2XqWbkqL2eu55g3oL7BDL
- wa2VZ6cz3zeRCgCHUWzhJuBFUwdwfwZTBg==
-X-Google-Smtp-Source: AGHT+IH2vTxRhlOEolIghnp/12hUc4XPl/V+sTUI3T7RdIIuDCcBJV7zVip8AxYZZVVY/HQzwWMGrA==
-X-Received: by 2002:a17:906:df52:b0:a19:a409:37dc with SMTP id
- if18-20020a170906df5200b00a19a40937dcmr23369ejc.53.1703179635603; 
- Thu, 21 Dec 2023 09:27:15 -0800 (PST)
+ d=1e100.net; s=20230601; t=1703190999; x=1703795799;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=QNpfDCJAonGBMBz8546mnqWdYnvp44SklWS+RUeJXKo=;
+ b=pngPp7hP0fRXwLLck4rH4GHgVOMpe7kBTA5QOaELdzIRrUjfO0Qzlo7EITEGH62WJY
+ /cfraGOFoglIPDEMNQjwfc3qiA6GJwHIIU2kk+PKvJwgCYu53i8bAxV5UUHYFYCC4DsJ
+ yFSA8hDNVaB3CMwJjyxCdhG7RvKDb28+K2MD7yL2MbMV2tpSj2mElDBgKDvMjojEvFhx
+ 1S6lmr8x390m8h6K6a+5aOE1V7LDjbGzsXvQcKaUKUR/MKQda53hA3binlfufuSu1Ihv
+ aMHASfIdkSq8XYDhy7APiMmRn+6TLqqZVisgqvTEFmk18H2L3OLY6/vkM8a22LJFodKV
+ hqDA==
+X-Gm-Message-State: AOJu0Yy3HSaDpcQF+dKZ1kPuU9086j8vT9GiFmQ7J9vI8g4k7LQ/n4j3
+ ntldLppapZ2kVday0pqpriMUvtLZySgnaQ==
+X-Google-Smtp-Source: AGHT+IFdKq0z8t9OmsOH9m9Fc1RpF9FK++78Vnv7chqqUzLDHlCJ9asogU5EEARo69ApJqYNOI5LKw==
+X-Received: by 2002:a05:651c:10:b0:2cc:9f68:e552 with SMTP id
+ n16-20020a05651c001000b002cc9f68e552mr82026lja.10.1703190998877; 
+ Thu, 21 Dec 2023 12:36:38 -0800 (PST)
 Received: from [192.168.0.22] ([78.10.206.178])
  by smtp.gmail.com with ESMTPSA id
- mf8-20020a1709071a4800b00a26a4b935b0sm919298ejc.166.2023.12.21.09.27.13
+ bf25-20020a0564021a5900b0055286b1bfc2sm1620741edb.25.2023.12.21.12.36.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 09:27:15 -0800 (PST)
-Message-ID: <fcd68fbe-c543-4b6d-9b7f-bcea09918fb9@linaro.org>
-Date: Thu, 21 Dec 2023 18:27:12 +0100
+ Thu, 21 Dec 2023 12:36:38 -0800 (PST)
+Message-ID: <88834783-5aea-46d2-82cc-dd22cb4473f5@linaro.org>
+Date: Thu, 21 Dec 2023 21:36:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Content-Language: en-US
 To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
@@ -76,9 +76,8 @@ To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
  Thierry Reding <thierry.reding@gmail.com>
-References: <20231221122843.418650-1-raphael.gallais-pou@foss.st.com>
- <20231221122843.418650-3-raphael.gallais-pou@foss.st.com>
-Content-Language: en-US
+References: <20231221124339.420119-1-raphael.gallais-pou@foss.st.com>
+ <20231221124339.420119-3-raphael.gallais-pou@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -124,11 +123,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20231221122843.418650-3-raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20231221124339.420119-3-raphael.gallais-pou@foss.st.com>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v1 2/8] dt-bindings: display: add
+Subject: Re: [Linux-stm32] [PATCH RESEND v1 2/8] dt-bindings: display: add
  dt-bindings for STM32 LVDS device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -146,99 +145,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/12/2023 13:28, Raphael Gallais-Pou wrote:
+On 21/12/2023 13:43, Raphael Gallais-Pou wrote:
 > Add dt-binding file for "st,stm32-lvds" compatible.
 > 
-
-A nit, subject: drop second/last, redundant "dt-bindings for". The
-"dt-bindings" prefix is already stating that these are bindings.
-
 > Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 > ---
->  .../bindings/display/st,stm32-lvds.yaml       | 114 ++++++++++++++++++
->  1 file changed, 114 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
-> 
 
-...
+I don't know why this was resend, nothing explains it, but I already
+commented on other version.
 
-> +properties:
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  compatible:
-> +    const: st,stm32-lvds
+Please respond to comments there.
 
-Please put compatible as first.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: APB peripheral clock
-> +      - description: Reference clock for the internal PLL
-> +
-> +  clock-names:
-> +    items:
-> +      - const: pclk
-> +      - const: ref
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-> +          LVDS input port node, connected to the LTDC RGB output port.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-> +          LVDS output port node, connected to a panel or bridge input port.
-
-Ports are not required? I would assume it won't work without input and
-output.
-
-> +
-> +required:
-> +  - "#clock-cells"
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - ports
-> +
-> +unevaluatedProperties: false
-
-additionalProperties instead... or did I miss some $ref anywhere?
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/bus/stm32mp25_sys_bus.h>
-> +    #include <dt-bindings/clock/stm32mp25-clks.h>
-> +    #include <dt-bindings/reset/stm32mp25-resets.h>
-> +
-> +    lvds: lvds@48060000 {
-> +        #clock-cells = <0>;
-> +        compatible = "st,stm32-lvds";
-
-compatible is always the first property.
-
-> +        reg = <0x48060000 0x2000>;
-
-put clock-cells here
-
-> +        clocks = <&rcc CK_BUS_LVDS>, <&rcc CK_KER_LVDSPHY>;
-> +        clock-names = "pclk", "ref";
-> +        resets = <&rcc LVDS_R>;
+In the future, unless it is obvious resend over 2 weeks, say why you are
+doing it and what changed.
 
 Best regards,
 Krzysztof
