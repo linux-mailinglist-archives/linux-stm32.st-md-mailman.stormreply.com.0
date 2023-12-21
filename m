@@ -2,93 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A0D81B96D
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 15:19:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C58381B98A
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Dec 2023 15:30:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38CF6C6B477;
-	Thu, 21 Dec 2023 14:19:00 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC492C6B46B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F178AC6B477;
+	Thu, 21 Dec 2023 14:30:56 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BA4C2C6B460
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 14:18:58 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-5542106d393so708288a12.1
+ Thu, 21 Dec 2023 14:30:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1703169054;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Zig8qc3IDsKkD4ExqdB1/amOsrM6X3FD08f8jHvUYWI=;
+ b=huh96UwLLUW16q3IxdjGT2jnsBKDv0CsLsIuL8prFrNLL70SwOPH4qNcHRD90JtDHDwB01
+ pdtZAuEXAQdbAGeNAAnGrMxAURI83HtMzc7b0kK+eewHOjIszudD059xeQJWe3tzXUCqc+
+ dx+bKoWySnEcBSUtmpZO7UfDE1g//Uw=
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-84-3JQV2g3kMmmSHK2xAw05dw-1; Thu, 21 Dec 2023 09:30:53 -0500
+X-MC-Unique: 3JQV2g3kMmmSHK2xAw05dw-1
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-3b88ac1f09cso786954b6e.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Dec 2023 06:18:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1703168338; x=1703773138;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ZgRxVc3b/cXQXk1FRUsZmIntq3x5skTt1E+0eRMTOto=;
- b=c9PhNxzYUeCMi+nLNmDhEq2I/ZNXhgXhD7HyIAFgnMuE6mdmVC0i6v++xMwbW/CLcP
- Al76oML+xN0+0AyJIjewE9NETQQHpi/Csr1j/NkaPWbCfzhcUsNsipqyv1q1D53iEkfh
- VtjpRpJP0R6BvMCF+MGFuBxv48hj370JLsjQv16Q3QTLz1iMIKOoyHEugAuJoKbNGnH3
- rPTOEEQIG9Kv6jBAF1ejyHww0/8qa4MF/NV0wXreul3p7WHsF+K9bGUlGFGTDoYfYO/a
- eVFC+lI3Oe7Fpk3myym2lRWukmTYGssIRON+j2jLYTRK9BK++NfvDkDr/Rh/SkdB1jsx
- 2m5A==
+ Thu, 21 Dec 2023 06:30:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703168338; x=1703773138;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZgRxVc3b/cXQXk1FRUsZmIntq3x5skTt1E+0eRMTOto=;
- b=HZHxo59pRqola6zx3roOoIgEkr75pub9DnqQey9wzPv8TnTJ9sl96xBMNk8LApk9tW
- vikIrqqd4PDhjDBDxxaOx3p5Uy+vJLHbM9w4aLIY/LDMfZcqoPnZyaNcgpJJvYer5fgx
- KQ/ZMN2Fi3m08gvxx3C0FzxMQXGPVHWf1QiJhDbm+0WMzHWHbsiDsAoliINOxVeBMy0U
- P2bC81SyjXIWIkFyoKc1v8xnyThcTfi7U3vRw2AWdBHLMTyDZWecfGNhVxbRI67/1czB
- zUm4Yby//zW7rflUh97QhDh/I0DI1qHZvM7/xhcmCrJEstXbtLlibSRqwrqJslL7fSpP
- mRWQ==
-X-Gm-Message-State: AOJu0Yz8/ymcYoz/bHEN1muWIHEDQ3oZbEm1NMmjsvMkmr+OcTyl8/Ts
- vRYwH4iDb1XhsC7Ss0SPbg==
-X-Google-Smtp-Source: AGHT+IGEcbQ20zL8VfJo7vaJHeSnFBDczuJI73eIk9D6ghdxribg8KJUIIU6DKKNnhyLuCnYwDPQYg==
-X-Received: by 2002:a50:a45e:0:b0:553:354a:9a81 with SMTP id
- v30-20020a50a45e000000b00553354a9a81mr4529475edb.26.1703168338069; 
- Thu, 21 Dec 2023 06:18:58 -0800 (PST)
-Received: from ?IPV6:2a02:810b:f40:4300:1c49:5d1e:f6f3:77a0?
- ([2a02:810b:f40:4300:1c49:5d1e:f6f3:77a0])
+ d=1e100.net; s=20230601; t=1703169052; x=1703773852;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Zig8qc3IDsKkD4ExqdB1/amOsrM6X3FD08f8jHvUYWI=;
+ b=RSkRHxAnepQEW/JPSuCmr+/NQOLAwh5McISJQ1/h5ilISx04eNod0QVTVBjBcEif69
+ H71G70ZXFkngmHsUGmPUAMRT2TszygY/hpAxcNYhokX5NARu+cRGl6XL5yQvj8AlkZVz
+ JCQAREFlYa1AbCL50wj3agG9F/nNfovnKeZW14Sj9Ydu6Fp6TD9RwB7qya191A3BzPoY
+ s0eTNe4WlNj3gqSCRBcnqEEd9vfWs+YhCu6jZBy9WeaDjnT32jqEXHoP5jzbz0cTvNXu
+ +WhIQCPlS6t2MBDs+oJallrJTUCwA6KNJBRoCsQcnKzy0RQuuY2pF9FlHFrzpS9YthMt
+ 0Q3g==
+X-Gm-Message-State: AOJu0YxSFT32Jvt8sHIZ5EsLaGQATb/sAC4C/8iD4ORAaDs+owAjjg5C
+ wPZnowEokaGf9fl1c28zM+H+uq56uOEhzNnqypucrP618U/xTbQs04DdhQ8ixs7soPwKhgEvTVx
+ GFibJ9MxshvknHcMxLKpawgQVcW1ZnKyNc7/02Wr4
+X-Received: by 2002:a05:6808:3a13:b0:3b9:e779:8a0e with SMTP id
+ gr19-20020a0568083a1300b003b9e7798a0emr24604045oib.1.1703169052140; 
+ Thu, 21 Dec 2023 06:30:52 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGh5JWE7xwkRuEZs5f8huoPHHsEpTlNPmCqmNG9XaohXtJYkwK7dgrejxTjPDpZalyNe4H8Tw==
+X-Received: by 2002:a05:6808:3a13:b0:3b9:e779:8a0e with SMTP id
+ gr19-20020a0568083a1300b003b9e7798a0emr24604029oib.1.1703169051803; 
+ Thu, 21 Dec 2023 06:30:51 -0800 (PST)
+Received: from fedora ([2600:1700:1ff0:d0e0::37])
  by smtp.gmail.com with ESMTPSA id
- dj25-20020a05640231b900b00552743342c8sm1232410edb.59.2023.12.21.06.18.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 06:18:57 -0800 (PST)
-Message-ID: <5095f695-6dad-45e2-9cff-1b79003355c9@gmail.com>
-Date: Thu, 21 Dec 2023 15:18:56 +0100
+ d11-20020a0cfe8b000000b0067f14259eb7sm658817qvs.76.2023.12.21.06.30.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Dec 2023 06:30:51 -0800 (PST)
+Date: Thu, 21 Dec 2023 08:30:49 -0600
+From: Andrew Halaney <ahalaney@redhat.com>
+To: Sneh Shah <quic_snehshah@quicinc.com>
+Message-ID: <vvlnwiobrgcwuam6lkud2np5xqocj6asjf627j3gekkhm4hfp5@vhdd47fyortm>
+References: <20231218071118.21879-1-quic_snehshah@quicinc.com>
+ <4zbf5fmijxnajk7kygcjrcusf6tdnuzsqqboh23nr6f3rb3c4g@qkfofhq7jmv6>
+ <8b80ab09-8444-4c3d-83b0-c7dbf5e58658@quicinc.com>
+ <wvzhz4fmtheculsiag4t2pn2kaggyle2mzhvawbs4m5isvqjto@lmaonvq3c3e7>
+ <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, de-DE
-To: Hugues FRUCHET <hugues.fruchet@foss.st.com>
-References: <20231221084723.2152034-1-hugues.fruchet@foss.st.com>
- <769a1510-f8d2-4095-9879-42f413141dee@gmail.com>
- <a240d2ac-db0e-481b-8d13-3ae76cfd2fe7@foss.st.com>
- <e5ba1e14-4bbf-43e3-933a-fee6d4b90641@gmail.com>
- <CAHCN7xJ3Ktn+TnoOYdnNvKTddGCfLp4OQ+gM0WonWj-aqnsGuA@mail.gmail.com>
- <b03a7ddc-65c5-44c3-a563-d52ee938148a@gmail.com>
- <6d26d307-eb7a-43ad-b4f3-57f8ac7ce8f0@foss.st.com>
-From: Alex Bee <knaerzche@gmail.com>
-In-Reply-To: <6d26d307-eb7a-43ad-b4f3-57f8ac7ce8f0@foss.st.com>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Marco Felsch <m.felsch@pengutronix.de>, Hans Verkuil <hverkuil@xs4all.nl>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Heiko Stuebner <heiko@sntech.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- linux-rockchip@lists.infradead.org,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Adam Ford <aford173@gmail.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [Linux-stm32] [PATCH v5 0/5] Add support for video hardware
- codec of STMicroelectronics STM32 SoC series
+In-Reply-To: <8f94489d-5f0e-4166-a14e-4959098a5c80@quicinc.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
+ Add support for 2.5G SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,121 +91,230 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgSHVndWVzLAoKQW0gMjEuMTIuMjMgdW0gMTQ6NTUgc2NocmllYiBIdWd1ZXMgRlJVQ0hFVDoK
-PiBIaSBBbGV4LAo+Cj4gT24gMTIvMjEvMjMgMTQ6NDYsIEFsZXggQmVlIHdyb3RlOgo+Pgo+PiBB
-bSAyMS4xMi4yMyB1bSAxNDozOCBzY2hyaWViIEFkYW0gRm9yZDoKPj4+IE9uIFRodSwgRGVjIDIx
-LCAyMDIzIGF0IDc6MzHigK9BTSBBbGV4IEJlZSA8a25hZXJ6Y2hlQGdtYWlsLmNvbT4gd3JvdGU6
-Cj4+Pj4gSGkgSHVndWVzLAo+Pj4+Cj4+Pj4gQW0gMjEuMTIuMjMgdW0gMTQ6MDggc2NocmllYiBI
-dWd1ZXMgRlJVQ0hFVDoKPj4+Pj4gSGkgQWxleCwKPj4+Pj4KPj4+Pj4gVGhpcyBpcyBiZWNhdXNl
-IFZERUMgYW5kIFZFTkMgYXJlIHR3byBzZXBhcmF0ZWQgSVBzIHdpdGggdGhlaXIgb3duCj4+Pj4+
-IGhhcmR3YXJlIHJlc291cmNlcyBhbmQgbm8gbGlua3MgYmV0d2VlbiBib3RoLgo+Pj4+PiBPbiBm
-dXR1cmUgU29DcywgVkRFQyBjYW4gc2hpcCBvbiBpdHMgb3duLCBzYW1lIGZvciBWRU5DLgo+Pj4+
-Pgo+Pj4+IEkgdGhpbmsgdGhhdCdzIHdoYXQgdGhlIGRyaXZlciBpcy93YXMgZGVzaWduZWQgZm9y
-IDopCj4+Pj4KPj4+PiBJIGRvbid0wqAgdGhpbmsgdGhlcmUgX2hhc18gdG8gYmUgYSBsaW5rIGJl
-dHdlZW4gdmFyaWFudHMgaW4gdGhlIAo+Pj4+IHNhbWUgZmlsZS4KPj4+PiBGb3IgUm9ja2NoaXAg
-d2Ugb25seSBoYWQgdGhlIGlzc3VlIHRoYXQgdGhlcmUgX2lzXyBhIGxpbmsgKHNoYXJlZAo+Pj4+
-IHJlc291cmNlcykgYmV0d2VlbiBlbmNvZGVyIGFuZCBkZWNvZGVyIGFuZCB0aGV5IGhhZCAoZm9y
-IHRoYXQgCj4+Pj4gcmVhc29uKSB0byBiZQo+Pj4+IGRlZmluZWQgaGFzIGEgX3NpbmdsZV8gdmFy
-aWFudC4gQW5kIHRoZXJlIGlzIG5vIHJlYXNvbiB5b3UgY2FuIHNoaXAgCj4+Pj4gZGVjb2Rlcgo+
-Pj4+IGFuZCBlbmNvZGVyIHNlcGVyYXRlZCB3aGVuIHlvdSBoYXZlIHR3byB2YXJpYW50cyAod2l0
-aCBkaWZmZXJlbnQKPj4+PiBjb21wYXRpYmxlcykuCj4+Pj4gRm9yIFJvY2tjaGlwIGFuZCBpTVgg
-dGhvc2UgZmlsZXMgYXJlIGV2ZW4gY29udGFpbmluZyB2YXJpYW50cyBmb3IgCj4+Pj4gY29tcGxl
-dGx5Cj4+Pj4gZGlmZmVyZW50IGdlbmVyYXRpb25zIC8gZGlmZmVyZW50IFNvQ3MuIEkgaGFkIHRv
-IGNsZWFudXAgdGhpcyBtZXNzIGZvcgo+Pj4gVGhlIGkuTVg4TSBNaW5pIGFuZCBQbHVzIGhhdmUg
-ZGlmZmVyZW50IHBvd2VyIGRvbWFpbnMgZm9yIGVuY29kZXIgYW5kCj4+PiBkZWNvZGVycyBhcyB3
-ZWxsIGFzIGRpZmZlcmVudCBjbG9ja3MuwqAgS2VlcGluZyB0aGVtIHNlcGFyYXRlIHdvdWxkCj4+
-PiBhbG1vc3QgYmUgbmVjZXNzYXJ5Lgo+PiBJIGd1ZXNzIHRoZXJlIGlzIG1pc3N1bmRlcnN0YW5k
-aW5nOiBJIGRpZG4ndCBzYXkgdGhlIHR3byBTVE0gdmFyaWFudHMKPj4gc2hvdWxkIGJlIG1lcmdl
-ZCBpbiBvbmUgdmFyaWFudCwgYnV0IHRoZSB0d28gdmFyaWFudHMgc2hvdWxkIGJlIAo+PiB3aXRo
-aW4gdGhlCj4+IHNhbWUgX2ZpbGVfLCBsaWtlIHRoZSBvdGhlciBwbGF0Zm9ybXMgYXJlIGRvaW5n
-IDopCj4KPiBJIGhhdmUgdHdvIHNlcGFyYXRlZCBoYXJkd2FyZTogVkRFQyBhbmQgVkVOQywgbm90
-IGEgc2luZ2xlIGJsb2NrIGxpa2UgCj4gIlZQVSIgZm9yIGV4YW1wbGUuIFNvIHdoYXQgbmFtZSBz
-aG91bGQgaGF2ZSB0aGlzIGZpbGUgPwo+IE90aGVyIHBsYXRmb3JtcyBoYWQgYSBjb21tb24gZmls
-ZSBiZWNhdXNlIHRoZXJlIHdhcyBhIGNvbW1vbiBibG9jayAKPiBlbWJlZGRpbmcgYm90aCBkZWNv
-ZGVyIGFuZCBlbmNvZGVyLCBzb21ldGltZXMgd2l0aCBsaW5rcy9kZXBlbmRlbmNpZXMgCj4gYmV0
-d2VlbiBib3RoLgo+IFNBTUE1RDQgaGFzIG9ubHkgYSBkZWNvZGVyLCBvbmx5IGEgc2luZ2xlIGZp
-bGUgY2FsbGVkICJfdmRlY19ody5jIi4uLgo+IHNvIGl0IGlzIHF1aXRlIGxvZ2ljYWwgZm9yIG1l
-IHRvIGhhdmUgb25lIGZpbGUgcGVyIGluZGVwZW5kZW50IElQLgo+Ck1heWJlIC0gYnV0IHRoYXQn
-cyBub3Qgd2F5IHRoZSBkcml2ZXIgaXMgY3VycmVudGx5IG9yZ2FuemllZC4Kcm9ja2NoaXBfdnB1
-X2h3LmMgYWxzbyBob2xkcyB2YXJpYW50cyB3aGljaCBoYXZlIG9ubHkgaGF2ZSBhIGRlY29kZXIg
-YW5kCmFsc28gc29tZSB3aGljaCBvbmx5IGhhdmUgYSBlbmNvZGVyLiBTbyAidnB1IiBpcyBxdWl0
-ZSBuZXV0cmFsLCBJIGd1ZXNzLiBJdApkb2Vzbid0IHNheSBhbnl0aGluZyBpZiBpdCBiZWxvbmdz
-IHRvIGVuY29kZXIgb3IgZGVjb2Rlci4KV2hlbiBJIHdhcyBhZGRpbmcgdGhlIFJLMzA2NiB2YXJp
-YW50IGEgSSB3YXMgZXZlbiBhc2tlZCB0byBhZGQgYSBleHBsaWNpdApjb21tZW50LCB3aHkgdGhp
-cyBpbnRlZ3JhdGlvbiBjYW4ndCBiZSBzcGxpdHRlZCBpbiBlbmNvZGVyIGFuZCBkZWNvZGVyCnZh
-cmlhbnQuCgpXZSB3ZXJlIGhhdmluZyBhIGEgbG90IG9mIHRoZXNlIHNwbGl0LXVwcyBpbiB0aGUg
-ZWFybHkgZGF5cyBvZiBoYW50cm8KZHJpdmVyIGFuZCBpdCB3YXMgbm8gZnVuIHRvIGNsZWFuIHRo
-ZW0gdXAuCgpBbGV4Cgo+Pj4gYWRhbQo+Pj4KPj4+PiBSb2NrY2hpcCBvbmNlIC0gYW5kIGl0IHdh
-cyBubyBmdW4gOikgQW55d2F5czogSXQncyB1cCB0byB0aGUgCj4+Pj4gbWFpbnRhaW5lcnMgSQo+
-Pj4+IGd1ZXNzIC0gSSBqdXN0IHdhbnRlZCB0byBhc2sgaWYgSSBtaXNzdW5kZXJzdGFuZCBzb21l
-dGhpbmcgaGVyZS4KPj4+Pgo+Pj4+IEdyZWV0aW5ncywKPj4+Pgo+Pj4+IEFsZXgKPj4+Pgo+Pj4+
-PiBIb3BpbmcgdGhhdCB0aGlzIGNsYXJpZnkuCj4+Pj4+Cj4+Pj4+IEJlc3QgcmVnYXJkcywKPj4+
-Pj4gSHVndWVzLgo+Pj4+Pgo+Pj4+PiBPbiAxMi8yMS8yMyAxMzo0MCwgQWxleCBCZWUgd3JvdGU6
-Cj4+Pj4+PiBIaSBIdWd1ZXMsIEhpIE5pY29sYXMsCj4+Pj4+Pgo+Pj4+Pj4gaXMgdGhlcmUgYW55
-IHNwZWNpZmljIHJlYXNvbiBJJ20gbm90IHVuZGVyc3RhbmRpbmcgLyBzZWVpbmcgd2h5IHRoaXMK
-Pj4+Pj4+IGlzIGFkZGVkIGluIHR3byBzZXBlcmF0ZSB2ZGVjKiAvIHZlbmMqIGZpbGVzIGFuZCBu
-b3QgYSBzaW5nbGUgdnB1Kgo+Pj4+Pj4gZmlsZT8gSXMgaXQgb25seSBmb3IgdGhlIHNlcGVyYXRl
-IGNsb2NrcyAoLW5hbWVzKSAvIGlycXMgKC1uYW1lcykgLwo+Pj4+Pj4gY2FsbGJhY2tzPyBUaG9z
-ZSBhcmUgZGVmaW5lZCBwZXIgdmFyaWFudCBhbmQgcGVyZmVjdGx5IGZpdCBpbiBhCj4+Pj4+PiBz
-aW5nbGUgZmlsZSBob2xkaW5nIG9uZSB2ZGVjIGFuZCBvbmUgdmVuYyB2YXJpYW50Lgo+Pj4+Pj4K
-Pj4+Pj4+IEFsZXgKPj4+Pj4+Cj4+Pj4+PiBBbSAyMS4xMi4yMyB1bSAwOTo0NyBzY2hyaWViIEh1
-Z3VlcyBGcnVjaGV0Ogo+Pj4+Pj4+IFRoaXMgcGF0Y2hzZXQgaW50cm9kdWNlcyBzdXBwb3J0IGZv
-ciBWREVDIHZpZGVvIGhhcmR3YXJlIGRlY29kZXIKPj4+Pj4+PiBhbmQgVkVOQyB2aWRlbyBoYXJk
-d2FyZSBlbmNvZGVyIG9mIFNUTWljcm9lbGVjdHJvbmljcyBTVE0zMk1QMjUKPj4+Pj4+PiBTb0Mg
-c2VyaWVzLgo+Pj4+Pj4+Cj4+Pj4+Pj4gVGhpcyBpbml0aWFsIHN1cHBvcnQgaW1wbGVtZW50cyBI
-MjY0IGRlY29kaW5nLCBWUDggZGVjb2RpbmcgYW5kCj4+Pj4+Pj4gSlBFRyBlbmNvZGluZy4KPj4+
-Pj4+Pgo+Pj4+Pj4+IFRoaXMgaGFzIGJlZW4gdGVzdGVkIG9uIFNUTTMyTVAyNTdGLUVWMSBldmFs
-dWF0aW9uIGJvYXJkLgo+Pj4+Pj4+Cj4+Pj4+Pj4gPT09PT09PT09PT0KPj4+Pj4+PiA9IGhpc3Rv
-cnkgPQo+Pj4+Pj4+ID09PT09PT09PT09Cj4+Pj4+Pj4gdmVyc2lvbiA1Ogo+Pj4+Pj4+IMKgwqDC
-oMKgIC0gUHJlY2lzZSB0aGF0IHZpZGVvIGRlY29kaW5nIGFzIGJlZW4gc3VjY2Vzc2Z1bGx5IHRl
-c3RlZCAKPj4+Pj4+PiB1cCB0bwo+Pj4+Pj4+IGZ1bGwgSEQKPj4+Pj4+PiDCoMKgwqDCoCAtIEFk
-ZCBOaWNvbGFzIER1ZnJlc25lIHJldmlld2VkLWJ5Cj4+Pj4+Pj4KPj4+Pj4+PiB2ZXJzaW9uIDQ6
-Cj4+Pj4+Pj4gwqDCoMKgwqAgLSBGaXggY29tbWVudHMgZnJvbSBOaWNvbGFzIGFib3V0IGRyb3Bw
-aW5nIGVuY29kZXIgcmF3IHN0ZXBzCj4+Pj4+Pj4KPj4+Pj4+PiB2ZXJzaW9uIDM6Cj4+Pj4+Pj4g
-wqDCoMKgwqAgLSBGaXggcmVtYXJrcyBmcm9tIEtyenlzenRvZiBLb3psb3dza2k6Cj4+Pj4+Pj4g
-wqDCoMKgwqDCoCAtIGRyb3AgIml0ZW1zIiwgd2Uga2VlcCBzaW1wbGUgZW51bSBpbiBzdWNoIGNh
-c2UKPj4+Pj4+PiDCoMKgwqDCoMKgIC0gZHJvcCBzZWNvbmQgZXhhbXBsZSAtIGl0IGlzIHRoZSBz
-YW1lIGFzIHRoZSBmaXJzdAo+Pj4+Pj4+IMKgwqDCoMKgIC0gRHJvcCB1bnVzZWQgbm9kZSBsYWJl
-bHMgYXMgc3VnZ2VzdGVkIGJ5IENvbm9yIERvb2xleQo+Pj4+Pj4+IMKgwqDCoMKgIC0gUmV2aXNp
-dCBtaW4vbWF4IHJlc29sdXRpb25zIGFzIHN1Z2dlc3RlZCBieSBOaWNvbGFzIER1ZnJlc25lCj4+
-Pj4+Pj4KPj4+Pj4+PiB2ZXJzaW9uIDI6Cj4+Pj4+Pj4gwqDCoMKgwqAgLSBGaXggcmVtYXJrcyBm
-cm9tIEtyenlzenRvZiBLb3psb3dza2kgb24gdjE6Cj4+Pj4+Pj4gwqDCoMKgwqDCoCAtIHNpbmds
-ZSB2aWRlby1jb2RlYyBiaW5kaW5nIGZvciBib3RoIFZERUMvVkVOQwo+Pj4+Pj4+IMKgwqDCoMKg
-wqAgLSBnZXQgcmlkIG9mICItbmFtZXMiCj4+Pj4+Pj4gwqDCoMKgwqDCoCAtIHVzZSBvZiBnZW5l
-cmljIG5vZGUgbmFtZSAidmlkZW8tY29kZWMiCj4+Pj4+Pj4KPj4+Pj4+PiB2ZXJzaW9uIDE6Cj4+
-Pj4+Pj4gwqDCoMKgIC0gSW5pdGlhbCBzdWJtaXNzaW9uCj4+Pj4+Pj4KPj4+Pj4+PiBIdWd1ZXMg
-RnJ1Y2hldCAoNSk6Cj4+Pj4+Pj4gwqDCoMKgIGR0LWJpbmRpbmdzOiBtZWRpYTogRG9jdW1lbnQg
-U1RNMzJNUDI1IFZERUMgJiBWRU5DIHZpZGVvIGNvZGVjcwo+Pj4+Pj4+IMKgwqDCoCBtZWRpYTog
-aGFudHJvOiBhZGQgc3VwcG9ydCBmb3IgU1RNMzJNUDI1IFZERUMKPj4+Pj4+PiDCoMKgwqAgbWVk
-aWE6IGhhbnRybzogYWRkIHN1cHBvcnQgZm9yIFNUTTMyTVAyNSBWRU5DCj4+Pj4+Pj4gwqDCoMKg
-IGFybTY0OiBkdHM6IHN0OiBhZGQgdmlkZW8gZGVjb2RlciBzdXBwb3J0IHRvIHN0bTMybXAyNTUK
-Pj4+Pj4+PiDCoMKgwqAgYXJtNjQ6IGR0czogc3Q6IGFkZCB2aWRlbyBlbmNvZGVyIHN1cHBvcnQg
-dG8gc3RtMzJtcDI1NQo+Pj4+Pj4+Cj4+Pj4+Pj4gwqDCoCAuLi4vbWVkaWEvc3Qsc3RtMzJtcDI1
-LXZpZGVvLWNvZGVjLnlhbWzCoMKgwqDCoMKgwqAgfMKgIDUwICsrKysrKysrCj4+Pj4+Pj4gwqDC
-oCBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0L3N0bTMybXAyNTEuZHRzacKgwqDCoMKgwqDCoMKgIHzC
-oCAxMiArKwo+Pj4+Pj4+IMKgwqAgYXJjaC9hcm02NC9ib290L2R0cy9zdC9zdG0zMm1wMjU1LmR0
-c2nCoMKgwqDCoMKgwqDCoCB8wqAgMTcgKysrCj4+Pj4+Pj4gwqDCoCBkcml2ZXJzL21lZGlhL3Bs
-YXRmb3JtL3ZlcmlzaWxpY29uL0tjb25maWfCoMKgwqAgfMKgIDE0ICsrLQo+Pj4+Pj4+IMKgwqAg
-ZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNvbi9NYWtlZmlsZcKgwqAgfMKgwqAgNCAr
-Cj4+Pj4+Pj4gwqDCoCAuLi4vbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vaGFudHJvX2Rydi5j
-wqDCoCB8wqDCoCA0ICsKPj4+Pj4+PiDCoMKgIC4uLi9tZWRpYS9wbGF0Zm9ybS92ZXJpc2lsaWNv
-bi9oYW50cm9faHcuaMKgwqDCoCB8wqDCoCAyICsKPj4+Pj4+PiDCoMKgIC4uLi9wbGF0Zm9ybS92
-ZXJpc2lsaWNvbi9zdG0zMm1wMjVfdmRlY19ody5jwqAgfMKgIDkyIAo+Pj4+Pj4+ICsrKysrKysr
-KysrKysrCj4+Pj4+Pj4gwqDCoCAuLi4vcGxhdGZvcm0vdmVyaXNpbGljb24vc3RtMzJtcDI1X3Zl
-bmNfaHcuY8KgIHwgMTE1Cj4+Pj4+Pj4gKysrKysrKysrKysrKysrKysrCj4+Pj4+Pj4gwqDCoCA5
-IGZpbGVzIGNoYW5nZWQsIDMwNyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pj4+Pj4+
-IMKgwqAgY3JlYXRlIG1vZGUgMTAwNjQ0Cj4+Pj4+Pj4gRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL21lZGlhL3N0LHN0bTMybXAyNS12aWRlby1jb2RlYy55YW1sIAo+Pj4+Pj4+Cj4+
-Pj4+Pj4gwqDCoCBjcmVhdGUgbW9kZSAxMDA2NDQKPj4+Pj4+PiBkcml2ZXJzL21lZGlhL3BsYXRm
-b3JtL3ZlcmlzaWxpY29uL3N0bTMybXAyNV92ZGVjX2h3LmMKPj4+Pj4+PiDCoMKgIGNyZWF0ZSBt
-b2RlIDEwMDY0NAo+Pj4+Pj4+IGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vdmVyaXNpbGljb24vc3Rt
-MzJtcDI1X3ZlbmNfaHcuYwo+Pj4+Pj4+Cj4KPiBCZXN0IHJlZ2FyZHMsCj4gSHVndWVzLgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
-YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
-czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
-dG0zMgo=
+On Thu, Dec 21, 2023 at 02:23:57PM +0530, Sneh Shah wrote:
+> 
+> 
+> On 12/20/2023 9:29 PM, Andrew Halaney wrote:
+> > On Wed, Dec 20, 2023 at 01:02:45PM +0530, Sneh Shah wrote:
+> >>
+> >>
+> >> On 12/18/2023 9:50 PM, Andrew Halaney wrote:
+> >>> On Mon, Dec 18, 2023 at 12:41:18PM +0530, Sneh Shah wrote:
+> >>>> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
+> >>>> mode for 1G/100M/10M speed.
+> >>>> Added changes to configure serdes phy and mac based on link speed.
+> >>>>
+> >>>> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
+> >>>> ---
+> >>>>  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 31 +++++++++++++++++--
+> >>>>  1 file changed, 29 insertions(+), 2 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> >>>> index d3bf42d0fceb..b3a28dc19161 100644
+> >>>> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> >>>> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> >>>> @@ -21,6 +21,7 @@
+> >>>>  #define RGMII_IO_MACRO_CONFIG2		0x1C
+> >>>>  #define RGMII_IO_MACRO_DEBUG1		0x20
+> >>>>  #define EMAC_SYSTEM_LOW_POWER_DEBUG	0x28
+> >>>> +#define ETHQOS_MAC_AN_CTRL		0xE0
+> >>>>  
+> >>>>  /* RGMII_IO_MACRO_CONFIG fields */
+> >>>>  #define RGMII_CONFIG_FUNC_CLK_EN		BIT(30)
+> >>>> @@ -78,6 +79,10 @@
+> >>>>  #define ETHQOS_MAC_CTRL_SPEED_MODE		BIT(14)
+> >>>>  #define ETHQOS_MAC_CTRL_PORT_SEL		BIT(15)
+> >>>>  
+> >>>> +/*ETHQOS_MAC_AN_CTRL bits */
+> >>>> +#define ETHQOS_MAC_AN_CTRL_RAN			BIT(9)
+> >>>> +#define ETHQOS_MAC_AN_CTRL_ANE			BIT(12)
+> >>>> +
+> >>>
+> >>> nit: space please add a space before ETHQOS_MAC_AN_CTRL
+> >>>
+> >> will take care of this in next patch
+> >>
+> >>>>  struct ethqos_emac_por {
+> >>>>  	unsigned int offset;
+> >>>>  	unsigned int value;
+> >>>> @@ -109,6 +114,7 @@ struct qcom_ethqos {
+> >>>>  	unsigned int num_por;
+> >>>>  	bool rgmii_config_loopback_en;
+> >>>>  	bool has_emac_ge_3;
+> >>>> +	unsigned int serdes_speed;
+> > 
+> > Another nit as I look closer: I think this should be grouped by phy_mode
+> > etc just for readability.
+> Didn't get this. can you please elaborate more?
+
+I meant instead of this:
+
+    struct qcom_ethqos {
+	    struct platform_device *pdev;
+	    void __iomem *rgmii_base;
+	    void __iomem *mac_base;
+	    int (*configure_func)(struct qcom_ethqos *ethqos);
+
+	    unsigned int link_clk_rate;
+	    struct clk *link_clk;
+	    struct phy *serdes_phy;
+	    unsigned int speed;
+	    phy_interface_t phy_mode;
+
+	    const struct ethqos_emac_por *por;
+	    unsigned int num_por;
+	    bool rgmii_config_loopback_en;
+	    bool has_emac_ge_3;
+	    unsigned int serdes_speed;
+    };
+
+I think this would make more logical sense:
+
+    struct qcom_ethqos {
+	    struct platform_device *pdev;
+	    void __iomem *rgmii_base;
+	    void __iomem *mac_base;
+	    int (*configure_func)(struct qcom_ethqos *ethqos);
+
+	    unsigned int link_clk_rate;
+	    struct clk *link_clk;
+	    struct phy *serdes_phy;
+	    unsigned int serdes_speed;
+	    unsigned int speed;
+	    phy_interface_t phy_mode;
+
+	    const struct ethqos_emac_por *por;
+	    unsigned int num_por;
+	    bool rgmii_config_loopback_en;
+	    bool has_emac_ge_3;
+    };
+
+It is definitely nit picking though :)
+> > 
+> >>>>  };
+> >>>>  
+> >>>>  static int rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
+> >>>> @@ -600,27 +606,47 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
+> >>>>  
+> >>>>  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+> >>>>  {
+> >>>> -	int val;
+> >>>> -
+> >>>> +	int val, mac_an_value;
+> >>>>  	val = readl(ethqos->mac_base + MAC_CTRL_REG);
+> >>>> +	mac_an_value = readl(ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
+> >>>>  
+> >>>>  	switch (ethqos->speed) {
+> >>>> +	case SPEED_2500:
+> >>>> +		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+> >>>> +		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+> >>>> +			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+> >>>> +			      RGMII_IO_MACRO_CONFIG2);
+> >>>> +		if (ethqos->serdes_speed != SPEED_2500)
+> >>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+> >>>> +		mac_an_value &= ~ETHQOS_MAC_AN_CTRL_ANE;
+> >>>> +		break;
+> >>>>  	case SPEED_1000:
+> >>>>  		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+> >>>>  		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+> >>>>  			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+> >>>>  			      RGMII_IO_MACRO_CONFIG2);
+> >>>> +		if (ethqos->serdes_speed != SPEED_1000)
+> >>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+> >>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+> >>>>  		break;
+> >>>>  	case SPEED_100:
+> >>>>  		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
+> >>>> +		if (ethqos->serdes_speed != SPEED_1000)
+> >>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+> >>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+> >>>>  		break;
+> >>>>  	case SPEED_10:
+> >>>>  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+> >>>>  		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
+> >>>> +		if (ethqos->serdes_speed != SPEED_1000)
+> >>>> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
+> >>>> +		mac_an_value |= ETHQOS_MAC_AN_CTRL_RAN | ETHQOS_MAC_AN_CTRL_ANE;
+> >>>>  		break;
+> >>>>  	}
+> >>>>  
+> >>>>  	writel(val, ethqos->mac_base + MAC_CTRL_REG);
+> >>>> +	writel(mac_an_value, ethqos->mac_base + ETHQOS_MAC_AN_CTRL);
+> >>>> +	ethqos->serdes_speed = ethqos->speed;
+> >>>
+> >>> I see these bits are generic and there's some functions in stmmac_pcs.h
+> >>> that muck with these...
+> >>>
+> >>> Could you help me understand if this really should be Qualcomm specific,
+> >>> or if this is something that should be considered for the more core bits
+> >>> of the driver? I feel in either case we should take advantage of the
+> >>> common definitions in that file if possible.
+> >>>
+> >> we do have function dwmac_ctrl_ane in core driver which updates same registers. However, it does not have the option to reset ANE bit, it can only set bits. For SPEED_2500 we need to reset ANE bit. Hence I am adding it here. Not sure if we can extend dwmac_ctrl_ane function to reset bits as well.
+> > 
+> > I'd evaluate if you can update that function to clear the ANE bit when
+> > the ane boolean is false. From the usage I see I feel that makes sense,
+> > but correct me if you think I'm wrong.
+> > At the very least let's use the defines from there, and possibly add a
+> > new function if clearing is not acceptable in dwmac_ctrl_ane().
+> > 
+> > Stepping back, I was asking in general is the need to muck with ANE here
+> > is a Qualcomm specific problem, or is that a generic thing that should be
+> > handled in the core (and the phy_set_speed() bit stay here)? i.e. would
+> > any dwmac5 based IP need to do something like this for SPEED_2500?
+> I think disabling ANE for SPEED_2500 is generic not specific to qualcomm. Even in dwxgmac2 versions also we need to disable ANE for SPEED_2500. Autoneg clause 37 stadard doesn't support 2500 speed. So we need to disable autoneg for speed 2500
+
+Another nit, sorry for being so picky. Can you please wrap your emails
+to around 80 characters? That's the general etiquette when replying
+on-list, makes it easier to read (similar to say a commit message).
+
+Thanks for explaining that. Then in my opinion based on what you've said
+I think the disabling of ANE for SPEED_2500 should be done outside of
+the Qualcomm platform code.
+
+Note, I'm struggling to keep up with the standards at play here, so if
+someone else who's a bit more wise on these topics has an opinion I'd
+listen to them. I find myself rewatching this presentation from
+Maxime/Antoine as a primer on all of this:
+
+    https://www.youtube.com/watch?v=K962S9gTBVM
+
+If anyone's got any recommended resources for me to read in particular I
+am all ears.
+
+I'll be out the next 2-3 weeks, so don't wait for any responses from me
+:)
+
+Thanks,
+Andrew
+
+> 
+> > 
+> >>>>  
+> >>>>  	return val;
+> >>>>  }
+> >>>> @@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+> >>>>  				     "Failed to get serdes phy\n");
+> >>>>  
+> >>>>  	ethqos->speed = SPEED_1000;
+> >>>> +	ethqos->serdes_speed = SPEED_1000;
+> >>>>  	ethqos_update_link_clk(ethqos, SPEED_1000);
+> >>>>  	ethqos_set_func_clk_en(ethqos);
+> >>>>  
+> >>>> -- 
+> >>>> 2.17.1
+> >>>>
+> >>>
+> >>
+> > 
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
