@@ -2,63 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2723D81C876
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Dec 2023 11:45:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D554381CA02
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Dec 2023 13:30:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2D28C6C841;
-	Fri, 22 Dec 2023 10:45:42 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A15FC6C841;
+	Fri, 22 Dec 2023 12:30:28 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8305BC6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 614D8C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Dec 2023 10:45:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 800F861BAC;
- Fri, 22 Dec 2023 10:45:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B0FC433C9;
- Fri, 22 Dec 2023 10:45:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703241940;
- bh=QjenKszVnxW19P9qm+vCaf2vsR+u42Hmz70A3f7Ircw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=plZeel0CDn+GDpO7sYmPmXPFRcCxjWtyRlYZ3Pf/LXJxiv/ZpZRg4UnGIFMoByY8L
- m3N6NUI5rR3RxA/s6wygvE3Nb93NlCsuSLaX7g8JPWVhFvTWH0jDFWP5KfxXes3W7b
- nUBQP881GyHXJWCbN5xK9r5Ray/EqPIrsyJkyp9mlZS/5/5SecSCORlbuPw+ExIoWq
- Wy+pgZoXCEze7vvn04k5vhV2Wh32RXis9o+Jftyc+QNuXmgSFOX9wnuWwU43q8kBpd
- 7h+MY88ZhTKPejo8SKVSbniJjky42mbfQTQynN4fuGseJioFxwtechsHx8AcIZhCmV
- Pce3IOsmyUv1g==
-Date: Fri, 22 Dec 2023 11:45:37 +0100
-From: Wolfram Sang <wsa@kernel.org>
-To: Alain Volmat <alain.volmat@foss.st.com>
-Message-ID: <ZYVo0X1q9w19qTwg@shikoro>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Pierre-Yves MORDRET <pierre-yves.mordret@foss.st.com>,
- Conor Dooley <conor@kernel.org>,
- Valentin Caron <valentin.caron@foss.st.com>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20231215170617.95868-1-alain.volmat@foss.st.com>
- <20231215170617.95868-7-alain.volmat@foss.st.com>
+ Fri, 22 Dec 2023 12:30:27 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-40d3dfcc240so16800515e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Dec 2023 04:30:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1703248227; x=1703853027;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=VShQOkDyOQUhX9HywN+ltueUtPe5q/n3T/gBT1xnywc=;
+ b=NR2lwAGPw+J24+TM+c1v8ES5BeJrQWRbO6s5e3bMEP7++TzOC1O4KZ9CPzfUKmCTbx
+ eldnZTOC6HsQDZ5+o2nVp+knOJIEf6BXbWzGMR1HxWhcdZOYnNPuxmZfs4dIvCNwewYS
+ lBQd/DeecRvmeCBGRAwB6iCNTE57/BNZuFZ1UsLejUSlwuChPK5v0BhdtOZ/GlvxLRBK
+ 6c8CMb3+XpfPWnHnGgICXY1Zmdjtq1ZdIbC03yvJ/C4TL0AxAEDC8i81XxWfm3aQTd3J
+ rZ6PLHBVqLEZSqJo8y/LkCR7FQE50G4jHLiGKhFX4dlMDD9ZPXh4pTDH0/Q/p93wWv2o
+ vinQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703248227; x=1703853027;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VShQOkDyOQUhX9HywN+ltueUtPe5q/n3T/gBT1xnywc=;
+ b=SyuFqtlr+hcsimfjcOanm5l1dWKYehzhZZ69CpwA1PhOLJxcXHPvidsnls0H13PcMM
+ Yu7v4TwBhh2jlHIwV0XesqE5r+JWbuwAx5II/2+qj8MfcbEabWn2bds4JdmEFSjI0hE0
+ UMYVWSLs3viMN5bekKIemopsIDhqZ7R/bzCGtXXTOKiu7+cOhe3PfNyClbDw6cfDSyen
+ A9Vl5ovJJV4pcJgRHRDPNfSXMpN4s+aiNNpt8tiJQvRUFJfh43pEH3MGefj01Cl06ppg
+ bTd+jkGI9v4KConuCsYBwiK2eKrRjuZC6fp8kNQOjwEzxK/XRjhn/8xtmsy0INqePsFd
+ OXXQ==
+X-Gm-Message-State: AOJu0Yz0WwFSjkzc+03Q8bkLQ3026u32cDQ8aKcusHYvtOSvXcUO4ocV
+ iqUgcss/fH8H7TSROdLborY=
+X-Google-Smtp-Source: AGHT+IE1qW2PmxwR5LLvX3JkKUeu9J9/6IFecg5/0CNK/lN7Qlx51PGBrMaoetarR8ExXxA+mGJZZg==
+X-Received: by 2002:a05:600c:2493:b0:40c:a11:19e2 with SMTP id
+ 19-20020a05600c249300b0040c0a1119e2mr515749wms.114.1703248226392; 
+ Fri, 22 Dec 2023 04:30:26 -0800 (PST)
+Received: from skbuf ([188.27.185.68]) by smtp.gmail.com with ESMTPSA id
+ h1-20020a05600c350100b0040d3f4b1c8esm5292849wmq.36.2023.12.22.04.30.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Dec 2023 04:30:26 -0800 (PST)
+Date: Fri, 22 Dec 2023 14:30:23 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Household Cang <canghousehold@aol.com>
+Message-ID: <20231222123023.voxoxfcckxsz2vce@skbuf>
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ <0351C5C2-FEE2-4AED-84C8-9DCACCE4ED0A@aol.com>
 MIME-Version: 1.0
-In-Reply-To: <20231215170617.95868-7-alain.volmat@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-i2c@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 6/9] i2c: stm32f7: add support for
-	stm32mp25 soc
+Content-Disposition: inline
+In-Reply-To: <0351C5C2-FEE2-4AED-84C8-9DCACCE4ED0A@aol.com>
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,73 +83,60 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8008910757623483502=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============8008910757623483502==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gW2s4LrwYHnx5p2E"
-Content-Disposition: inline
-
-
---gW2s4LrwYHnx5p2E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Dec 15, 2023 at 06:06:10PM +0100, Alain Volmat wrote:
-> The stm32mp25 has only a single interrupt line used for both
-> events and errors. In order to cope with that, reorganise the
-> error handling code so that it can be called either from the
-> common handler (used in case of SoC having only a single IT line)
-> and the error handler for others.
-> The CR1 register also embeds a new FMP bit, necessary when running
-> at Fast Mode Plus frequency. This bit should be used instead of
-> the SYSCFG bit used on other platforms.
-> Add a new compatible to distinguish between the SoCs and two
-> boolean within the setup structure in order to know if the
-> platform has a single/multiple IT lines and if the FMP bit
-> within CR1 is available or not.
->=20
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-
-Applied to for-next, thanks!
-
-
---gW2s4LrwYHnx5p2E
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmWFaNEACgkQFA3kzBSg
-KbaoKg//cIf0sRmkSwiPwi3Vba09BJKXqrH9/uMfduP0Rr0B4WnUp6EnVNsKCrji
-2ZWMtbXr5PobpUeKSIg7J0J46gCwYujIGu8uhpw4EaO9JcNZoYWjtdrdeJTXM8fN
-c9zdIHe2FzMWVFqQKK8EymudivlSoKWJQq3zkrzjKkUKFU7f0fG1PQx6DS+isXVD
-Zmnf0sUrKq2xCT5c/B06EuXawzkulolf2iymqFaU/WSGHY0vK6lj+JDlZrrm4ta3
-r/chFdDGNdRQvoqdv+IBjGDhPnxrRlsBXdBOHUJbZCz8Gf9ROx8HZ5yOMc9AjVO4
-kvJrmXiUEnwnCzd94hU3geEutPsQLdGBwMsywHXwBXuzMOYEg9yLBHJJJSbsI3kK
-n1OF55sI26F4nReHHVCT03AiHrpyyLZvmCJu2Xa6V1gYWKUxNOncWFFFkee40Qcg
-il4HUkRpCTjl+wFHvATVjj6/M8qvNaQQfiDY68Mk2t694CR7eDEvbiRKskukPitM
-wHJgMP8o7jCSPxGgjdaR1ZUuGCcKf9tXtX/3WCV3FRg45aAKveZJ9BH6uOBuWJfN
-JrnJzft9qzvUs6rmIBwrXcmcRFlEZxp173oQHJjnnkDN5ULUpJKJw9+zZFEofqdm
-i1JySSKElQsjzSKPPR6dejvhn1nMayRlC8f0gOrvRprRLM4wAAo=
-=vmW5
------END PGP SIGNATURE-----
-
---gW2s4LrwYHnx5p2E--
-
---===============8008910757623483502==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8008910757623483502==--
+SGkgTHVjYXMsCgpPbiBUaHUsIERlYyAyMSwgMjAyMyBhdCAwMjo0MDozNEFNIC0wNTAwLCBIb3Vz
+ZWhvbGQgQ2FuZyB3cm90ZToKPiA+IE9uIERlYyAxOCwgMjAyMywgYXQgMTE6MjMgQU0sIFJvbWFp
+biBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4gd3JvdGU6Cj4gPiAKPiA+IFRo
+aXMgaXMgYSBidWdmaXggZm9yIGFuIGlzc3VlIHRoYXQgd2FzIHJlY2VudGx5IGJyb3VnaHQgdXAg
+aW4gdHdvCj4gPiByZXBvcnRzOgo+ID4gCj4gPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRk
+ZXYvYzU3MjgzZWQtNmI5Yi1iMGU2LWVlMTItNTY1NWMxYzU0NDk1QGJvb3RsaW4uY29tLwo+ID4g
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2L2U1YzZjNzVmLTJkZmEtNGU1MC1hMWZiLTZi
+ZjRjZGI2MTdjMkBlbGVjdHJvbWFnLmNvbS5hdS8KPiA+IAo+IEFkZCBtZSBpbiB0byBiZSB0aGUg
+M3JkIHJlcG9ydC4uLgo+IFJLMzU2OCBHTUFDMCAoZXRoMSkgdG8gTVQ3NTMxQkUgKENQVSBwb3J0
+KQo+IEN1cnJlbnQgd29ya2Fyb3VuZCBmb3IgbWUgaXMgZXRodG9vbCAtSyBldGgxIHJ4IG9mZiB0
+eCBvZmYKCklzICJyeCBvZmYiIGFjdHVhbGx5IHJlcXVpcmVkLCBvciBqdXN0ICJ0eCBvZmYiPwoK
+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvbTNjbGZ0Mms3dW1qdG55NTQ2b3QzYXll
+YmF0dGtzaWJ0eTN5eXR0cGZmdmRpeGw2NXBAN2RwcXNyNW5pc2JrL1QvI3QKPiAKPiBRdWVzdGlv
+biBvbiB0aGUgcGF0Y2ggdG8gYmUgYnVpbHQ6IGhvdyB3b3VsZCBJIGtub3cgaWYgbXkgc2V0dXAg
+Y291bGQKPiB0YWtlIGFkdmFudGFnZSBvZiB0aGUgSFcgY2hlY2tzdW0gb2ZmbG9hZD8gUkszNjU4
+4oCZcyBldGgwIG9uIHN0bW1hYyBpcwo+IGRvaW5nIGZpbmUsIGFuZCBldGgwIGlzIG5vdCBvbiBh
+IERTQSBzd2l0Y2guIERvZXMgdGhpcyBtZWFuIGV0aDEKPiBzaG91bGQgYmUgYWJsZSB0byBkbyBo
+dyBjaGVja3N1bSBvZmZsb2FkIG9uY2UgdGhlIHN0bW1hYyBkcml2ZXIgaXMKPiBmaXhlZD8KClRo
+ZSBNVDc1MzFCRSBzd2l0Y2ggcmVxdWlyZXMgdHJhbnNtaXR0ZWQgcGFja2V0cyB0byBoYXZlIGFu
+IGFkZGl0aW9uYWwKaGVhZGVyIHdoaWNoIGluZGljYXRlcyB3aGF0IHN3aXRjaCBwb3J0IGlzIHRh
+cmdldGVkLiBTbyB0aGUgcGFja2V0CnN0cnVjdHVyZSBpcyBub3QgdGhlIHNhbWUgYXMgd2hhdCBl
+dGgwIHRyYW5zbWl0cy4KCllvdXIgR01BQyBkYXRhc2hlZXQgc2hvdWxkIGV4cGxhaW4gd2hhdCBw
+YWNrZXRzIGl0IGlzIGFibGUgdG8gb2ZmbG9hZApMNCBjaGVja3N1bW1pbmcgZm9yLCBxdWl0ZSBw
+bGFpbmx5LiBQcm9iYWJseSBNQUMgKyBJUCArIFRDUCB5ZXMsIGJ1dApNQUMgKyBNVEsgRFNBICsg
+SVAgKyBUQ1Agbm8uCgpUaGUgYnVnIGlzIHRoYXQgdGhlIG5ldHdvcmsgc3RhY2sgdGhpbmtzIHRo
+YXQgdGhlIEdNQUMgaXMgYWJsZSB0bwpvZmZsb2FkIFRYIGNoZWNrc3VtcyBmb3IgdGhlc2UgTVRL
+IERTQSB0YWdnZWQgcGFja2V0cywgc28gaXQgZG9lcyBub3QKY2FsY3VsYXRlIHRoZSBjaGVja3N1
+bSBpbiBzb2Z0d2FyZSwgbGVhdmluZyB0aGUgdGFzayB1cCB0byB0aGUgaGFyZHdhcmUuCk15IGd1
+ZXNzIGlzIHRoYXQgdGhlIGhhcmR3YXJlIGRvZXNuJ3QgcmVjb2duaXplIHRoZSBwYWNrZXRzIGFz
+IHNvbWV0aGluZwp0aGF0IGlzIG9mZmxvYWRhYmxlLCBzbyBpdCBkb2Vzbid0IGNhbGN1bGF0ZSB0
+aGUgY2hlY2tzdW0gZWl0aGVyLCBhbmQKdGhhdCdzIHRoZSBzdG9yeSBvZiBob3cgeW91IGVuZCB1
+cCB3aXRoIHBhY2tldHMgd2l0aCBiYWQgY2hlY2tzdW1zLgoKVGhlIHBhdGNoIHRvIGJlIGJ1aWx0
+IHNob3VsZCBhbmFseXplIHRoZSBwYWNrZXQgYmVmb3JlIHBhc3NpbmcgaXQgdG8gYQpoYXJkd2Fy
+ZSBvZmZsb2FkIGVuZ2luZSB3aGljaCB3aWxsIGRvIG5vdGhpbmcuIFRoZSBkcml2ZXIgc3RpbGwg
+ZGVjbGFyZXMKdGhlIE5FVElGX0ZfSVBfQ1NVTSB8IE5FVElGX0ZfSVBWNl9DU1VNIGZlYXR1cmVz
+IGJlY2F1c2UgaXQgaXMgYWJsZSB0bwpvZmZsb2FkIGNoZWNrc3VtbWluZyBmb3IgX3NvbWVfIHBh
+Y2tldHMsIGJ1dCBpdCBmYWxscyBiYWNrIHRvIHRoZQpzb2Z0d2FyZSBjaGVja3N1bSBoZWxwZXIg
+Zm9yIHRoZSByZXN0LiBUaGlzIGluY2x1ZGVzIHlvdXIgTVRLIERTQSB0YWdnZWQKcGFja2V0cy4g
+VGhleSBjYW4gYmUgY2hlY2tzdW1tZWQgaW4gc29mdHdhcmUgZXZlbiB3aXRoIHRoZSBEU0EgdGFn
+IGFkZGVkLApiZWNhdXNlIHRoYXQgdXNlcyB0aGUgbW9yZSBnZW5lcmljIG1lY2hhbmlzbSB3aXRo
+IHNrYi0+Y3N1bV9zdGFydCBhbmQKc2tiLT5jc3VtX29mZnNldCwgd2hpY2ggRFNBIGlzIGNvbXBh
+dGlibGUgd2l0aCwganVzdCBmaW5lLiBUaGUgR01BQwpkcml2ZXIsIG1vc3QgbGlrZWx5IGJlY2F1
+c2Ugb2YgdGhlIGxhY2sgb2YgaGFyZHdhcmUgc3VwcG9ydCwgZG9lcyBub3QKbG9vayBhdCBza2It
+PmNzdW1fc3RhcnQgYW5kIHNrYi0+Y3N1bV9vZmZzZXQgKGFrYSBpdCBkb2VzIG5vdCBkZWNsYXJl
+CnRoZSBORVRJRl9GX0hXX0NTVU0gZmVhdHVyZSksIHNvIGl0IGNhbm5vdCBvZmZsb2FkIGNoZWNr
+c3VtbWluZyBmb3IgeW91cgpzd2l0Y2ggdHJhZmZpYyB1bmxlc3MgdGhhdCB3YXMgc3BlY2lmaWNh
+bGx5IGJha2VkIGludG8gdGhlIFJUTC4KCk1vcmUgZGV0YWlscyBpbiB0aGUgIlN3aXRjaCB0YWdn
+aW5nIHByb3RvY29scyIgc2VjdGlvbiBvZgpEb2N1bWVudGF0aW9uL25ldHdvcmtpbmcvZHNhL2Rz
+YS5yc3QuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
+bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
+bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2xpbnV4LXN0bTMyCg==
