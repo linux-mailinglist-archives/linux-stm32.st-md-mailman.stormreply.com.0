@@ -2,52 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B644E81CAB9
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 Dec 2023 14:30:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B72E81CADB
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Dec 2023 14:46:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 407ECC6C820;
-	Fri, 22 Dec 2023 13:30:06 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 358D0C6C820;
+	Fri, 22 Dec 2023 13:46:48 +0000 (UTC)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD653C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DDB8C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 Dec 2023 13:30:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7AEB461BF5;
- Fri, 22 Dec 2023 13:30:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A28C433C7;
- Fri, 22 Dec 2023 13:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1703251803;
- bh=bm2zdXzlwGhq/KyWBU7GXObLreLaJq6XaJzWB5qnCeM=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=u+yssT+AWXSrzdr6x+7JTVYh/Pf4NMd00s/NNGQsTvOD/k6WwYN3RNiUp77ZcXxaA
- lKrOLIV/vypCjwo77Q/4+9aXFAvhVv0cRwSM4Wlj558V+XL7uQe/nbBKsXsyvHuqqf
- mTHf8FjsP9HWRNFNsLTkqxpGLOPnGXVsT6veudvN2enl1Caa6sqQtBOCub2YkTC0MF
- FQxe+dNLrhSqd8CMFMsMjUZQUXvTuheWwTW23mT+1f3henKNrtLykC1cYgd2CvlDGV
- Z8pUkDgV3uo5YYteGcfrbfaZLLSXAWUYQKr4wOQgDnKpeJZqPIiNZtHoDiXlrPbXJL
- m4mSKlznupMIw==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Erwan Leray <erwan.leray@foss.st.com>, 
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
- Alain Volmat <alain.volmat@foss.st.com>
-In-Reply-To: <20231218155721.359198-1-alain.volmat@foss.st.com>
-References: <20231218155721.359198-1-alain.volmat@foss.st.com>
-Message-Id: <170325180035.61341.901936375661515103.b4-ty@kernel.org>
-Date: Fri, 22 Dec 2023 13:30:00 +0000
+ Fri, 22 Dec 2023 13:46:46 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-552d39ac3ccso5367491a12.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 22 Dec 2023 05:46:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1703252806; x=1703857606;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=JOK6D504CLxxdHQASJ1VcjUbwJSzejSUsInCLwhpoRo=;
+ b=fTJwAYUBctkRuu6JoUULXi4pnzSg8jtgWnaUOOSQPCukdwKBhK75xSnZ2NTJvphAc8
+ wdHZzEas/wG5NzI8T0PgER2tjxykldelNtbvueZULaB0C2ahmqEdJlzEZSd5EykoqmAi
+ vn1jIjw8a7wggjjWnuaqAqc0QwfwhZoftbkQw97AUgEvZBJVOAtRSzGX9Iuqkw8d8i5A
+ I/aQVdURc258IU4acGsFpxDt6ZuPruc/o/3JWM8+16CS7mzasqhf75Kboj0mIb7KZioV
+ IVzVMJG11hXux3S6FEXrgPpAn+y1ImsKr5j8gHJVCbyvHbHZXufIXLGJE2L0sGdIaQBA
+ 4QIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1703252806; x=1703857606;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JOK6D504CLxxdHQASJ1VcjUbwJSzejSUsInCLwhpoRo=;
+ b=H+ohWsemYJ1BYIJeACHoBAPfgcPoIOumslCFkiVmZP6olrKqhcyi1PqrhOW83mHwOh
+ J1Br8iDfLmk3Tj2IxLb9Hd3qESec6ltwPwAbp+fYf1TRtsqIPxpDN2Xw8B2Rxdk+z4Zl
+ D2DLGmU7PmXaOQ6SwJJvzq4RbsoXuUZns37kYgACb/bzpNB0Etnz3gATU0eie8wjZnUj
+ mJdYP7rlsawlTAYND81LRextsR/+dZphYDIH0q3S/ZoXB+qBVo9I6xk2WadFjoHkh6Vj
+ ymBEJrPCMuWk+o6r7Aeu7t6m+DNSkJH2mfEdBrdGfQi3c6YUv/sPGn0ZvbcvDnH+SCEs
+ vXlw==
+X-Gm-Message-State: AOJu0YwjJSfpAtYTBsI50/mOquaGnzT9AT9vRc5lvCjZkHIElGyouaU7
+ g9BQzHKeM+NlCOBm9hr8cM4=
+X-Google-Smtp-Source: AGHT+IHpGwliTuOmKdzZmqiC/pmk0MykrWoYkUFYiUXU7Q5g5tSTsl17ntCzLp3eQVTtMPr2eTDZ6w==
+X-Received: by 2002:a17:907:91ce:b0:a23:8a32:466e with SMTP id
+ h14-20020a17090791ce00b00a238a32466emr1572653ejz.0.1703252805816; 
+ Fri, 22 Dec 2023 05:46:45 -0800 (PST)
+Received: from skbuf ([188.27.185.68]) by smtp.gmail.com with ESMTPSA id
+ ez11-20020a056402450b00b005532f5abaedsm2589708edb.72.2023.12.22.05.46.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Dec 2023 05:46:45 -0800 (PST)
+Date: Fri, 22 Dec 2023 15:46:43 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Lucas Pereira <lucasvp@gmail.com>
+Message-ID: <20231222134643.undeg7ruu6ptqisq@skbuf>
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ <0351C5C2-FEE2-4AED-84C8-9DCACCE4ED0A@aol.com>
+ <20231222123023.voxoxfcckxsz2vce@skbuf>
+ <CAG7fG-bDdtTxWkv8690+LHE5DVMKUn_+pQGsFVHxjXYPrLnN_w@mail.gmail.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-5c066
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/6] spi: stm32: add support for
-	stm32mp25
+Content-Disposition: inline
+In-Reply-To: <CAG7fG-bDdtTxWkv8690+LHE5DVMKUn_+pQGsFVHxjXYPrLnN_w@mail.gmail.com>
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Sylvain Girard <sylvain.girard@se.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Household Cang <canghousehold@aol.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net 0/1] Prevent DSA tags from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,50 +92,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 18 Dec 2023 16:57:12 +0100, Alain Volmat wrote:
-> This series adds support for spi bus found on the stm32mp25 and add
-> all instances within device-trees.
+On Fri, Dec 22, 2023 at 10:22:21AM -0300, Lucas Pereira wrote:
+> Dear community collaborators,
 > 
-> Alain Volmat (4):
->   spi: stm32: use dma_get_slave_caps prior to configuring dma channel
->   arm64: dts: st: add all 8 spi nodes on stm32mp251
->   arm64: dts: st: add spi3/spi8 pins for stm32mp25
->   arm64: dts: st: add spi3 / spi8 properties on stm32mp257f-ev1
+> First of all, I would like to thank you for the prompt response and
+> the suggestions provided.
 > 
-> [...]
+> We conducted the tests as indicated, but unfortunately, the problem
+> persists. It seems to me that if it were a Checksum-related issue, the
+> behavior would be different, as the VPN and communication work
+> normally for several days before failing suddenly.
+> 
+> We have observed that the only effective ways to reestablish
+> communication, so far, are through a system reboot or by changing the
+> authentication cipher, such as switching from MD5 to SHA1.
+> Interestingly, when switching back to the MD5 cipher, the
+> communication fails to function again.
+> 
+> I am immensely grateful for the help received so far and would greatly
+> appreciate any further suggestions or recommendations that you might
+> offer to resolve this challenge.
+> 
+> Sincerely,
+> Lucas
 
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[1/6] spi: stm32: use dma_get_slave_caps prior to configuring dma channel
-      commit: 6f98f25247b7ef03fb89030a3af6c0eb08132104
-[2/6] dt-bindings: spi: stm32: add st,stm32mp25-spi compatible
-      commit: f034a151059a84cecaae68f5a72ee5d815e94625
-[3/6] spi: stm32: add st,stm32mp25-spi compatible supporting STM32MP25 soc
-      commit: f6cd66231aa58599526584ff4df1bdde8d86eac8
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Are you responding to the right thread? This is about on-board Ethernet
+switch chips attached to Synopsys MAC hardware IPs.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
