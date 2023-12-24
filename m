@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C543181D867
-	for <lists+linux-stm32@lfdr.de>; Sun, 24 Dec 2023 09:52:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A47281D906
+	for <lists+linux-stm32@lfdr.de>; Sun, 24 Dec 2023 13:00:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C233C6C83D;
-	Sun, 24 Dec 2023 08:52:38 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 101F1C6C83D;
+	Sun, 24 Dec 2023 12:00:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFC44C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6628C6B46B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 Dec 2023 08:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1703407953; x=1704012753; i=markus.elfring@web.de;
- bh=J9AFeaTjFODuXC5t8p5hISXXnz0jr5F1tAmJ6A9HIGs=;
- h=X-UI-Sender-Class:Date:To:Cc:From:Subject;
- b=Fa1v4kYUxSqv14A0oAQxXZCYXk6urYxYo20TODS9WM4UOtT7nT27ZLodhs8sikXh
- eS0Qn4v3zusco8tMXEM2Tg200p+MmErQ3ogtjQJbZVhruPJRSllytA/Lx6r0GJTUt
- guS9jXQTz9r0ZahW+M0vz6Vr4qj/DYaEq2HGdMoN+CibrX3FKcLVDaOEJAc7tUV0j
- YnJVSHT7aWtpxt3ouQ88Mp9obbSxr22yXQDfYLxw0O0dWfn3sVY11oo8AUsh/V5T2
- DOCMqW1oaub1IxsZOyubj4lhWqqNZ1Ho/Xt0BZ4qdm9vyqkISp2AqW6XuLBjQYu4u
- 2FuzL3WGVSJeZ0YbEQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from [192.168.178.21] ([94.31.85.95]) by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1Ma0PY-1rkuIf2nqe-00WMuB; Sun, 24
- Dec 2023 09:52:33 +0100
-Message-ID: <89708781-f34a-47af-8aab-025136507da0@web.de>
-Date: Sun, 24 Dec 2023 09:52:21 +0100
+ Sun, 24 Dec 2023 12:00:27 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
+ 3BO4cBcU030250; Sun, 24 Dec 2023 13:00:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:subject:from:to:cc:date:in-reply-to:references
+ :content-type:content-transfer-encoding:mime-version; s=
+ selector1; bh=ChpdCsWyAay6RJb9rD1FHOJqQQuXIx6a0mUEUWYCSc4=; b=3n
+ 1vTJijvATirIJj/YvlTEu8pERihJ9tKDj70qI5dZQbBE3475jlurmUYE2PWVUQFU
+ onBfe3+pZTmhNQMHXjXl0O0C7rH0F9zWSOQxbxo9AMsv3Zi4nGb/FpHe68Y4816U
+ VIQFD3RJIU8snQdbmLH/pKu3k123i4x5a7r/xs6z0ZiIMmQ04GnvGpUFGMnDCGD+
+ c0B6UMly0/WOFNQhP0BoOuBRjadY49rcONaP9TWl47o28gNL4OXz03+yCpUZeqZv
+ 95OBgk3oYlvOf3LXC8D4QkDgL5972QLFuJb0QNp2f9rAfSt8J7GsqKNfqesuYs7N
+ 11N8+6dZBb3PLYi/TccA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3v5nukk3pb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 24 Dec 2023 13:00:03 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1BB0A10005C;
+ Sun, 24 Dec 2023 13:00:01 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 10D042138EC;
+ Sun, 24 Dec 2023 13:00:01 +0100 (CET)
+Received: from [192.168.8.15] (10.252.24.226) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sun, 24 Dec
+ 2023 13:00:00 +0100
+Message-ID: <0e586f3d05a03bd5d9a8bfead55162e14a6aa4de.camel@foss.st.com>
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>
+Date: Sun, 24 Dec 2023 12:59:58 +0100
+In-Reply-To: <ac551b89025bafadce05102b94596f8cd3564a32.1703284359.git.u.kleine-koenig@pengutronix.de>
+References: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
+ <ac551b89025bafadce05102b94596f8cd3564a32.1703284359.git.u.kleine-koenig@pengutronix.de>
+User-Agent: Evolution 3.48.4 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: linux-clk@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, kernel-janitors@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>
-Content-Language: en-GB
-From: Markus Elfring <Markus.Elfring@web.de>
-X-Provags-ID: V03:K1:B9yYikbLk2Rc1omAIk7V1I4TYkgY3SUAvNpijGraxc4PWGwWolc
- TDonYPQmNJkx+EONlIBJ5/9iuPRSHNUupsbJ31paWQp3ZdY25VE38Or3BDMAJSfyqmeKZvC
- jaxSusEoTz7PAmx62x5SHyQ2eHCnhFhqNmbuCf5ROQJRglUKPwcUbyopWjXGk685cbSS+9E
- V0xvNAC3t01QCbVdjiDjg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:cPzjS5EdR30=;8kzncu32jgClyJqfnSC/jFyGbPI
- chw/MI99G76gULkuV2Sgp0TBFmIG6ucPK7HZw62RNlHS8p0GDERWe3GXDl01mncMkykxjkfDR
- xuoMWgd+x1uIbA47j84raF36RnLtSLZ6lBT/LOUOSZVzIBOCOhck5N73mVJkA7jJFYJ15b0eA
- IcipaI0dPXU4NJOYDTM/NCmfWfc27yK7NEewAmCPMdViZc/ts7byidJI7Bgl8l9i2TCstjpWC
- Ew064FDTEku5YNzMvCLwvk8kREzvDt69+95Gegacaiv+aQbR68wNlSEDBwe9HhOPbnpJbvrwm
- EZDpk95XROIP7TZ9i3gTRtIByw9VbJg7EbGwAv6+Ns3GZkEzYjyJOvc2DYKNVuBxnXuvEa4o1
- SCGC8HYRrR+N2MHh4Joc47kAr4YzGajea56ls84e3yN2jvTSqrWUB4Ss58wdmGy50bik0p+0E
- 1BWnjNKG85DGHET2Mq+ZS/Y3a+O1tyV+xHpsSYFZc+leMtj3w7GPJ1JFiW/Qi/stv5V6zmN7g
- O/U30JpBaq3CGNAPBPStlsGX9tJMKn2FgNmF9EGLnYThSKFJG5G5v8gkG7f/sdUDgf/Y8yiIl
- FjHff+Otg8P2jkKDyDcRyvPLgb134darF2BJ/O7LFOL3w15kDOwMAfNZ5DWyGLXJod7INyV+0
- gNW/Mqvkk8xTe3YrSx8RVlmkstg2Cn7J9Ik8DfUw177MsbiQMSsjwHaGr7GNyMspGZ/0Y/dKz
- E55S2gyJ5+KFCR6ti+3+TQ3SDJj88/0edzbk4UI7oWIE7aT/HGD/inPr6JVOhpN2fYRXjNdJJ
- n6KzJlHj5HuySKuC4iKk3EsxCkm09Jo8rrplq+NcOkRMPSgB5LonlT/hQxKc9lYJOLsRzB5tj
- dPDqEhcozv1b+sacdz10EzKRWo6XnK4JqC2uCeIh2QtAvQGkGf79A4LHrnZctriXqa3hjMI9K
- GovnztI+5W68AwMDxI+eqz3hqFk=
-Cc: LKML <linux-kernel@vger.kernel.org>, cocci@inria.fr
-Subject: [Linux-stm32] [PATCH] clk: stm32f4: One function call less in
- stm32f4_rcc_init() after error detection
+X-Originating-IP: [10.252.24.226]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-24_06,2023-12-22_01,2023-05-22_02
+Cc: kernel@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 12/13] irqchip/stm32-exti: Convert to
+ platform remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,51 +73,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Sun, 24 Dec 2023 09:40:10 +0100
-
-The kfree() function was called in one case by the
-stm32f4_rcc_init() function during error handling
-even if the passed variable contained a null pointer.
-This issue was detected by using the Coccinelle software.
-
-Thus use another label.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
----
- drivers/clk/clk-stm32f4.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/clk/clk-stm32f4.c b/drivers/clk/clk-stm32f4.c
-index 07c13ebe327d..c7690a1594eb 100644
---- a/drivers/clk/clk-stm32f4.c
-+++ b/drivers/clk/clk-stm32f4.c
-@@ -1714,7 +1714,7 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	clks = kmalloc_array(data->gates_num + stm32fx_end_primary_clk,
- 			sizeof(*clks), GFP_KERNEL);
- 	if (!clks)
--		goto fail;
-+		goto unmap_io;
-
- 	stm32f4_gate_map = data->gates_map;
-
-@@ -1897,6 +1897,7 @@ static void __init stm32f4_rcc_init(struct device_node *np)
- 	return;
- fail:
- 	kfree(clks);
-+unmap_io:
- 	iounmap(base);
- }
- CLK_OF_DECLARE_DRIVER(stm32f42xx_rcc, "st,stm32f42xx-rcc", stm32f4_rcc_init);
---
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCAyMDIzLTEyLTIyIGF0IDIzOjUwICswMTAwLCBVd2UgS2xlaW5lLUvDtm5pZyB3cm90
+ZToKPiBUaGUgLnJlbW92ZSgpIGNhbGxiYWNrIGZvciBhIHBsYXRmb3JtIGRyaXZlciByZXR1cm5z
+IGFuIGludCB3aGljaCBtYWtlcwo+IG1hbnkgZHJpdmVyIGF1dGhvcnMgd3JvbmdseSBhc3N1bWUg
+aXQncyBwb3NzaWJsZSB0byBkbyBlcnJvciBoYW5kbGluZyBieQo+IHJldHVybmluZyBhbiBlcnJv
+ciBjb2RlLiBIb3dldmVyIHRoZSB2YWx1ZSByZXR1cm5lZCBpcyBpZ25vcmVkIChhcGFydAo+IGZy
+b20gZW1pdHRpbmcgYSB3YXJuaW5nKSBhbmQgdGhpcyB0eXBpY2FsbHkgcmVzdWx0cyBpbiByZXNv
+dXJjZSBsZWFrcy4KPiAKPiBUbyBpbXByb3ZlIGhlcmUgdGhlcmUgaXMgYSBxdWVzdCB0byBtYWtl
+IHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0dXJuCj4gdm9pZC4gSW4gdGhlIGZpcnN0IHN0ZXAgb2Yg
+dGhpcyBxdWVzdCBhbGwgZHJpdmVycyBhcmUgY29udmVydGVkIHRvCj4gLnJlbW92ZV9uZXcoKSwg
+d2hpY2ggYWxyZWFkeSByZXR1cm5zIHZvaWQuIEV2ZW50dWFsbHkgYWZ0ZXIgYWxsIGRyaXZlcnMK
+PiBhcmUgY29udmVydGVkLCAucmVtb3ZlX25ldygpIHdpbGwgYmUgcmVuYW1lZCB0byAucmVtb3Zl
+KCkuCj4gCj4gVHJpdmlhbGx5IGNvbnZlcnQgdGhpcyBkcml2ZXIgZnJvbSBhbHdheXMgcmV0dXJu
+aW5nIHplcm8gaW4gdGhlIHJlbW92ZQo+IGNhbGxiYWNrIHRvIHRoZSB2b2lkIHJldHVybmluZyB2
+YXJpYW50Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWluZS1r
+b2VuaWdAcGVuZ3V0cm9uaXguZGU+CgpSZXZpZXdlZC1ieTogQW50b25pbyBCb3JuZW8gPGFudG9u
+aW8uYm9ybmVvQGZvc3Muc3QuY29tPgoKUmVnYXJkcywKQW50b25pbwoKPiAtLS0KPiDCoGRyaXZl
+cnMvaXJxY2hpcC9pcnEtc3RtMzItZXh0aS5jIHwgNSArKy0tLQo+IMKgMSBmaWxlIGNoYW5nZWQs
+IDIgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9pcnFjaGlwL2lycS1zdG0zMi1leHRpLmMgYi9kcml2ZXJzL2lycWNoaXAvaXJxLXN0bTMyLWV4
+dGkuYwo+IGluZGV4IDk3MTI0MGUyZTMxYi4uYzYxYTk3Y2FhZmM5IDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvaXJxY2hpcC9pcnEtc3RtMzItZXh0aS5jCj4gKysrIGIvZHJpdmVycy9pcnFjaGlwL2ly
+cS1zdG0zMi1leHRpLmMKPiBAQCAtODk4LDEwICs4OTgsOSBAQCBzdGF0aWMgdm9pZCBzdG0zMl9l
+eHRpX3JlbW92ZV9pcnEodm9pZCAqZGF0YSkKPiDCoMKgwqDCoMKgwqDCoMKgaXJxX2RvbWFpbl9y
+ZW1vdmUoZG9tYWluKTsKPiDCoH0KPiDCoAo+IC1zdGF0aWMgaW50IHN0bTMyX2V4dGlfcmVtb3Zl
+KHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gK3N0YXRpYyB2b2lkIHN0bTMyX2V4dGlf
+cmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gwqB7Cj4gwqDCoMKgwqDCoMKg
+wqDCoHN0bTMyX2V4dGlfaF9zeXNjb3JlX2RlaW5pdCgpOwo+IC3CoMKgwqDCoMKgwqDCoHJldHVy
+biAwOwo+IMKgfQo+IMKgCj4gwqBzdGF0aWMgaW50IHN0bTMyX2V4dGlfcHJvYmUoc3RydWN0IHBs
+YXRmb3JtX2RldmljZSAqcGRldikKPiBAQCAtOTkxLDcgKzk5MCw3IEBAIE1PRFVMRV9ERVZJQ0Vf
+VEFCTEUob2YsIHN0bTMyX2V4dGlfaWRzKTsKPiDCoAo+IMKgc3RhdGljIHN0cnVjdCBwbGF0Zm9y
+bV9kcml2ZXIgc3RtMzJfZXh0aV9kcml2ZXIgPSB7Cj4gwqDCoMKgwqDCoMKgwqDCoC5wcm9iZcKg
+wqDCoMKgwqDCoMKgwqDCoMKgPSBzdG0zMl9leHRpX3Byb2JlLAo+IC3CoMKgwqDCoMKgwqDCoC5y
+ZW1vdmXCoMKgwqDCoMKgwqDCoMKgwqA9IHN0bTMyX2V4dGlfcmVtb3ZlLAo+ICvCoMKgwqDCoMKg
+wqDCoC5yZW1vdmVfbmV3wqDCoMKgwqDCoD0gc3RtMzJfZXh0aV9yZW1vdmUsCj4gwqDCoMKgwqDC
+oMKgwqDCoC5kcml2ZXLCoMKgwqDCoMKgwqDCoMKgwqA9IHsKPiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoC5uYW1lwqDCoMKgPSAic3RtMzJfZXh0aSIsCj4gwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAub2ZfbWF0Y2hfdGFibGUgPSBzdG0zMl9leHRpX2lkcywKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
