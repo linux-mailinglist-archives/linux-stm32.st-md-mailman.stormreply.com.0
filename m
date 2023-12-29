@@ -2,76 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EA6D81FFC9
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Dec 2023 14:52:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8F9820077
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Dec 2023 17:11:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1627C6B460;
-	Fri, 29 Dec 2023 13:52:27 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C654C6B45E;
+	Fri, 29 Dec 2023 16:11:30 +0000 (UTC)
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D42A3C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B69EC6B457
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Dec 2023 13:52:26 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-555144cd330so3945343a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Dec 2023 05:52:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1703857946; x=1704462746;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G2Gi1EmHukIt0jQJzaSt07+yXVEQJCsMbb8bSZVal5c=;
- b=oR7pgfoHq0O0TF9eDs3ISAlHoqm8bF87TrUDReDZ3iJ+ki1TbvyFT9w4svoN8gN07T
- Uh2Vq931uLz47+/LrqVduMGyvTJEYrXSOBKXqwKe+X9rq4HQesdrv1i5BM2DvvsX3I0V
- lZA17SEjt0QZGMi9Ecdz00UywelmsTYcpgIWM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1703857946; x=1704462746;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=G2Gi1EmHukIt0jQJzaSt07+yXVEQJCsMbb8bSZVal5c=;
- b=MiGjYf16HNNfpfuSRBRStNR51ZPZ47B/Ua6uN54NHUuEDAzNB2P9uhFxoxDWvB6wNu
- b+yX3rGPSF3Zoq+lVSo3iYG69lsSySMMN3F6vTiwW4ahMTIH0Rk27LO/VugsKElIHwGb
- EZz6S6iv72BMOWVFxj/MPbbY5OgPsw/8Ebjk2pM6vj0FFGNl+qDfaSJiaNjY3KckW5Cu
- 2lk9gvYZU1ytY9kl7U9CHSgQEcoQswl/X4346G3EPhLAAV9jTDTrXHkkJkvZ++Lj72vH
- zfVgfqWRGr9L+SAtey2JgwIMerHaB8VD22jWwdjQHJ30EIeYRsZRDrRsW5bffxN5s895
- tfuw==
-X-Gm-Message-State: AOJu0YxwPH2jhaMfDTC7yGawUCjYY9lM3ieIMSRRhdzf9zCa/dxaOzzP
- J5H+u9mwI1UMqQvZU4629SSAplsuHWUacQ==
-X-Google-Smtp-Source: AGHT+IEctE0vxDNjGsPYtDGoNP/VOIJMMYfD87twpZ/CDwjvjob6YX2X37wqTrnYlHKSKBRUuJ7xkA==
-X-Received: by 2002:a50:9313:0:b0:54b:25e8:c00b with SMTP id
- m19-20020a509313000000b0054b25e8c00bmr7540199eda.6.1703857946523; 
- Fri, 29 Dec 2023 05:52:26 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-79-49-57-70.retail.telecomitalia.it. [79.49.57.70])
- by smtp.gmail.com with ESMTPSA id
- i16-20020aa7c710000000b00553b243b1a8sm11019160edq.92.2023.12.29.05.52.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 Dec 2023 05:52:26 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 29 Dec 2023 14:51:21 +0100
-Message-ID: <20231229135154.675946-7-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231229135154.675946-1-dario.binacchi@amarulasolutions.com>
-References: <20231229135154.675946-1-dario.binacchi@amarulasolutions.com>
+ Fri, 29 Dec 2023 16:11:28 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id BF78A240002;
+ Fri, 29 Dec 2023 16:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1703866288;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=zqi8dmMeOU3XDtyNyrJLxgovOsvnL1n+HnUCWjiryzI=;
+ b=mzl0h77RyMj6S5QimPrixX8KNRjlHePNB2ZkUiW1I9hnJLejc/VQzGFm8nS326dqZfS/xl
+ bKxX9mx4sqb41UzWjA7WEILOygNJBiY3aF+fLvRNRIRx6piDkxSq6D6QjpfZWfHUaUXoBn
+ EGqUEC7N6KQLY+EEXZVaq4glUhZGUMhpeh2/L3dqd4kzSptktj4f0Xq+V/7sLwXJyw9yrw
+ 8LbIR34NmLppvtiNnUyC1RlZoVp65QhK2CNsUmkWp6d8A1MGIWlQyrzRCrJ3lpFeChxtTS
+ uB/RNEHBgtTq2yrcgaWItC+6TVZK+2vqh7awbOTGv4iN1prJ8kR1js1/I9Mx5g==
+Date: Fri, 29 Dec 2023 17:11:48 +0100 (CET)
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+In-Reply-To: <20231219122034.pg2djgrosa4irubh@skbuf>
+Message-ID: <3b53aa8a-73e9-9260-f05b-05dac80a4276@bootlin.com>
+References: <20231218162326.173127-1-romain.gantois@bootlin.com>
+ <20231218162326.173127-2-romain.gantois@bootlin.com>
+ <20231219122034.pg2djgrosa4irubh@skbuf>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Tony Lindgren <tony@atomide.com>,
- Andre Przywara <andre.przywara@arm.com>,
- Linus Walleij <linus.walleij@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sean Nyekjaer <sean@geanix.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 6/8] ARM: dts: add
-	stm32f769-disco-mb1225-revb03-mb1166-reva09
+Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Prevent DSA tags
+ from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,59 +65,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As reported in the section 8.3 (i. e. Board revision history) of document
-UM2033 (i. e. Discovery kit with STM32F769NI MCU) these are the changes
-related to the board revisions addressed by the patch:
-- Board MB1225 revision B-03:
-  - Memory MICRON MT48LC4M32B2B5-6A replaced by ISSI IS42S32400F-6BL
-- Board MB1166 revision A-09:
-  - LCD FRIDA FRD397B25009-D-CTK replaced by FRIDA FRD400B25025-A-CTK
 
-The patch only adds the DTS support for the new display which belongs to
-to the Novatek NT35510-based panel family.
+On Tue, 19 Dec 2023, Vladimir Oltean wrote:
+> DSA_TAG_PROTO_LAN9303, DSA_TAG_PROTO_SJA1105 and DSA_TAG_PROTO_SJA1110
+> construct tags with ETH_P_8021Q as EtherType. Do you still think it
+> would be correct to say that all DSA tags break COE on the stmmac, as
+> this patch assumes?
+> 
+> The NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM convention is not about
+> statically checking whether the interface using DSA, but about looking
+> at each packet before deciding whether to use the offload engine or to
+> call skb_checksum_help().
+> 
+> You can experiment with any tagging protocol on the stmmac driver, and
+> thus with the controller's response to any kind of traffic, even if the
+> port is not attached to a hardware switch. You need to enable the
+Thanks for telling me about DSA_LOOP, I've tested several DSA tagging protocols 
+with the RZN1 GMAC1 hardware using this method. Here's what I found in a 
+nutshell:
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
----
+For tagging protocols that change the EtherType field in the MAC header (e.g. 
+DSA_TAG_PROTO_(DSA/EDSA/BRCM/MTK/RTL4C_A/SJA1105): On TX the tagged frames are 
+almost always ignored by the checksum offload engine and IP header checker of 
+the MAC device. I say "almost always" because there is an 
+unlikely but nasty corner case where a DSA tag can be identical to an IP 
+EtherType value. In these cases, the frame will likely fail IP header checks 
+and be dropped by the MAC.
 
- arch/arm/boot/dts/st/Makefile                       |  1 +
- .../stm32f769-disco-mb1225-revb03-mb1166-reva09.dts | 13 +++++++++++++
- 2 files changed, 14 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
+Ignoring these corner cases, the DSA frames will egress with a partial 
+checksum and be dropped by the recipient. On RX, these frames will, once again, 
+not be detected as IP frames by the MAC. So they will be transmitted to the CPU. 
+However, the stmmac driver will assume (wrongly in this case) that
+these frames' checksums have been verified by the MAC. So it will set 
+CHECKSUM_UNECESSARY:
 
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index 7892ad69b441..390dbd300a57 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32f469-disco.dtb \
- 	stm32f746-disco.dtb \
- 	stm32f769-disco.dtb \
-+	stm32f769-disco-mb1225-revb03-mb1166-reva09.dts \
- 	stm32429i-eval.dtb \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-new file mode 100644
-index 000000000000..ff7ff32371d0
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-@@ -0,0 +1,13 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
-+
-+#include "stm32f769-disco.dts"
-+
-+&panel0 {
-+	compatible = "frida,frd400b25025", "novatek,nt35510";
-+	vddi-supply = <&vcc_3v3>;
-+	vdd-supply = <&vcc_3v3>;
-+	/delete-property/power-supply;
-+};
+https://elixir.bootlin.com/linux/latest/source/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c#L5493
+ 
+And so the IP/TCP checksums will not be checked at all, 
+which is not ideal.
+
+There are other DSA tagging protocols which cause different issues. For example 
+DSA_TAG_PROTO_BRCM_PREPEND, which seems to offset the whole MAC header, and 
+DSA_TAG_PROTO_LAN9303 which sets ETH_P_8021Q as its EtherType. I haven't dug too 
+deeply on these issues yet, since I'd rather deal with the checksumming issue 
+before getting distracted by VLAN offloading and other stuff.
+
+Among the tagging protocols I tested, the only one that didn't cause any issues 
+was DSA_TAG_PROTO_TRAILER, which only appends stuff to the frame.
+
+TLDR: The simplest solution seems to be to modify the stmmac TX and RX paths to 
+disable checksum offloading for frames that have a non-IP ethertype in 
+their MAC header. This will fix the checksum situation for DSA tagging protocols 
+that set non-IP and non-8021Q EtherTypes. Some edge cases like 
+DSA_TAG_PROTO_BRCM_PREPEND and DSA_TAG_PROTO_LAN9303 will require a completely 
+different solution if we want these MAC devices to handle them properly.
+Please share any thoughts you might have on this suggestion.
+
+Best Regards,
+
 -- 
-2.43.0
-
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
