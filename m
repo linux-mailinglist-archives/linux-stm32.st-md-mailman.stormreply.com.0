@@ -2,76 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34663821456
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Jan 2024 17:16:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13444822AB7
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jan 2024 10:57:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE4D6C6C83D;
-	Mon,  1 Jan 2024 16:16:15 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B10FFC6DD84;
+	Wed,  3 Jan 2024 09:57:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B981C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC45FC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Jan 2024 16:16:15 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-555c82c1e0aso2300869a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Jan 2024 08:16:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704125774; x=1704730574;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gKarHTcTd/SOLcJ/jUKhVwYIwJ9sftrWCAJJN9sfLME=;
- b=lBafTsMvV7THmsP0N3ViA8dQykwAHWxBeBsX+glmT3jZqr8QlA4yEv7afTeYlpoDIj
- 9pkmsPwMROWg12dvgb66WA9J4HiCwn0zfDdkp3OOhyrHm5VK4eV3F1dxDY3TpNnlL/BG
- yCGSFSkEb/QfLwDwPbXyKqYD8O0YDiPbTk2k0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704125774; x=1704730574;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gKarHTcTd/SOLcJ/jUKhVwYIwJ9sftrWCAJJN9sfLME=;
- b=sIdBooE7/cKS6nnZe48gcp7tWMlx6ABnkNdFYbTY0czRmnuXjRM5//K5fw3q8e6WQ6
- gLN2SBDLRDpxs9G156Lo0N2LS9Fr+8S2+FCrjmiTpObGhAM4N3EyAAIN+eq8ynLcGdrE
- uksv5XPUaw00mV+bmCef1w42oKCu/f3IB5VUhSNknzb8cC5h+V12VgYt9JTZtAtNr3ov
- 2k8jChDO+Kld0Eyy76aFatROoUyNJlyyzuXywLO3zfdIP9E8QErzFkTFOFUw20BaBcfj
- /zrxvMxcU/WI7R+I/e60n2hygdW4tYJrf+XdWrUPhp6ANHRZYsI5Fuenkxu/MAN+QxW4
- CP+g==
-X-Gm-Message-State: AOJu0Ywc3aHdUEWeTcMbYE7VoEege8my8HtUQGdx5PeLdWXtMYmpcwdG
- BpasG7nU+iO4SBG/UkO2vAMzzD6zCnSkKA==
-X-Google-Smtp-Source: AGHT+IF3KLyf/gsZvmJ5w9YLaxU7gVC5k3gI0fV4IPIatLF/3MGhfP8WpYWFm9twcl32cSPZVjzzLA==
-X-Received: by 2002:a17:906:48:b0:a19:562d:5a20 with SMTP id
- 8-20020a170906004800b00a19562d5a20mr7580197ejg.28.1704125774750; 
- Mon, 01 Jan 2024 08:16:14 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-82-48-44-179.retail.telecomitalia.it. [82.48.44.179])
- by smtp.gmail.com with ESMTPSA id
- ep16-20020a1709069b5000b00a27d5e9b3ebsm1897857ejc.105.2024.01.01.08.16.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jan 2024 08:16:14 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon,  1 Jan 2024 17:15:49 +0100
-Message-ID: <20240101161601.2232247-7-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240101161601.2232247-1-dario.binacchi@amarulasolutions.com>
-References: <20240101161601.2232247-1-dario.binacchi@amarulasolutions.com>
+ Tue,  2 Jan 2024 08:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704184060; x=1735720060;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=SPnNS4vQJCePUqAGStkYCrcrxz9+lbNYVm9TAu8AqKM=;
+ b=aq7phHJ7Zr/xVZMxCRV7Zt2SSiY6MAmqc3YxHQRRKa3vKA7/7QMgM+tO
+ EaEdiUcPH2sTfFJVvnjdfzxCYC4WEEY2ZmfHZsIWvMD+SGUe1juF5I0Yx
+ DHLBl59nYJ0K9xUXppSJ22t/IK9ecTO2QQRJG7BJ1PnSIzTFNE0OtAwNA
+ 84CJWRpuCt4/VJ7eWpgJdZMUulQ/jMeEMY5CYdNEhIohk9pRuQ4mMXWwD
+ nlXo0LOABG3sZQbjnOPcnc63Kkys6V5jNAD7RV0s03/RysquS/dACujUL
+ xF/mnn1+cf1wCo22W3Isdqy/yk418q0B/IA3VnF6zCmSt2qF+LDJy/JO8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10940"; a="3691637"
+X-IronPort-AV: E=Sophos;i="6.04,324,1695711600"; 
+   d="scan'208";a="3691637"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2024 00:27:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10940"; a="779628231"
+X-IronPort-AV: E=Sophos;i="6.04,324,1695711600"; d="scan'208";a="779628231"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orsmga002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 02 Jan 2024 00:27:32 -0800
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 2 Jan 2024 00:27:32 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 2 Jan 2024 00:27:31 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Tue, 2 Jan 2024 00:27:31 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.100)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Tue, 2 Jan 2024 00:27:25 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M/AUZvmO0ecGvqr8Md9qKqMRzHjJu0SyNoZ6qQThntjpjPOBhIdeejwVhLQ+DPWaeRcr22HEsrG0YrSqjvMduIT1G8OKs0AfZEsxm7eV82RqO5SGOb1Rhpxp65RxKuZAJclqs22sLeMlCcOasgEswNidvO5Vrwz/8Yt6aDT06B26U0vB4nkyR1kN3deWfIg+MnQiQyMey081S4lJ80C519XJzkjlD/7Xvy/ooPLSmULOggFVuvyQ/+nwqXROAwWNnLPx7ZKDjpPSb4/JhgNezPWXOdx2KflH8bk+Pld40umx/wKzGS53cdWKIjPgGCtpmGBI4B+ABZyRKF0xn7PKRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rAawjQt6/7KKWKXLRB0I7MzhxPWDj0aMSYUxdlb8OgM=;
+ b=U7Kb+Ylj/bokmuqdfhdhq/Q/OL3u06lEBf2CfumAmwHd9Ma+hEQfF+riPEMi7dLM1zzoMI1c2vriowomRttCvaWt9xt5ScXQLwGVWwmPd9WlmWpGCZALUtwECEJ0IMat2nik865WjbJMC8oweFt9DEYhK5U6VRS6mBHYZxsXiGsy3xXnvUWIlprqKnvvYWrpgTbddk237m//EslMSXeonvqbyxZ3NTAu/vJRGoCS33Vy4hBaO4iZolPxNFrm5gLc778ex1HDp0MIVX1HQk/xmk9qY02yvy+6sxT06gfBZjq3v1bbHjz1cLgQtTnRogc762/shJgqYcvDYMHTetmPng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH0PR11MB5490.namprd11.prod.outlook.com (2603:10b6:610:d5::6)
+ by DS0PR11MB8069.namprd11.prod.outlook.com (2603:10b6:8:12c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
+ 2024 08:27:22 +0000
+Received: from CH0PR11MB5490.namprd11.prod.outlook.com
+ ([fe80::9afc:fa9d:5f42:8fd7]) by CH0PR11MB5490.namprd11.prod.outlook.com
+ ([fe80::9afc:fa9d:5f42:8fd7%7]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
+ 08:27:22 +0000
+From: "Swee, Leong Ching" <leong.ching.swee@intel.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Thread-Topic: [PATCH net-next v1 1/4] dt-bindings: net: snps,dwmac: per
+ channel irq
+Thread-Index: AQHaNJoqFae4hiA+cUOkbvpEsGd9vrC1Y14AgBDb9qA=
+Date: Tue, 2 Jan 2024 08:27:22 +0000
+Message-ID: <CH0PR11MB54904615B45E521DE6B1A7B3CF61A@CH0PR11MB5490.namprd11.prod.outlook.com>
+References: <20231222054451.2683242-1-leong.ching.swee@intel.com>
+ <20231222054451.2683242-2-leong.ching.swee@intel.com>
+ <tly7rej6uz7r36j3nm2yk6mhrbdxkvwyphj3oosar5xd3ucpey@hv4dro7emw3h>
+In-Reply-To: <tly7rej6uz7r36j3nm2yk6mhrbdxkvwyphj3oosar5xd3ucpey@hv4dro7emw3h>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR11MB5490:EE_|DS0PR11MB8069:EE_
+x-ms-office365-filtering-correlation-id: 77629617-2263-47da-ec42-08dc0b6ca4bf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TGr3dNc4BG3jBGQGs81ZxqyJCe69zOy8NRKg/9spTdUbm2B1sQUOG3dWkwoZIyIq1519jhU8SoVEwrKG2QG3rg465DmSqKrwJrDDpGlwTen4tjFgxLe/qEgVTRNMWJAsNl84HdlKIvVAa2fAkqezGRxFEhjWtIbTbXWwqWSH+Cxp1HVEKwQ39nzNdlbdJI7GVVwIvwzn3PLXuvjPA9VHt7mhMqlp502zrvJnSabB4BCOP2f5Fb7U49F/UhuNDa4J77GYGqlSVUZVoKwEWjFKBX9/1/aRTGPMocVIjxxr84OaFVg3GcbepN8V/WOsAJzeAifJLGg0keWx53KovJaYAh0v2Mk4kN6A7niJODajhIrEvzwW//KbT7N5Q8wKGukWvJhSH2ashVpEAC2r0MAM8fAxBilFcjiwSIRdcW5hQGdtIIGAL2q8iH2e98QLixB63IMgiVjmZ5JtY9i4ffGLY+EopzApyUWV6+ftbW1gf6nLcplMorMz3WeFGKwN91IKPhibKeXXk5uwPoijtxy6BkFE+EyS5Y3VMkrsWmjEHpiI0fwb+76eRc5u+5311hMKtuz6Q69GitU7fmLyCNTxC9mmN2rcw2XKt49LvlP40WqDXiiMRFIf39Ol5WJW+Hxmwgsv0+LzgET6h10n/4Nctw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR11MB5490.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(136003)(396003)(366004)(39860400002)(376002)(346002)(230273577357003)(230173577357003)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(26005)(107886003)(38100700002)(41300700001)(82960400001)(83380400001)(122000001)(52536014)(8936002)(8676002)(54906003)(316002)(4326008)(7416002)(5660300002)(2906002)(478600001)(71200400001)(966005)(6506007)(9686003)(53546011)(66446008)(76116006)(66556008)(66946007)(6916009)(64756008)(7696005)(66476007)(38070700009)(86362001)(33656002)(55016003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GodG9/1oXIRYoZlQ5RfWye2T5fuY3w9A1iTclbM6guQCUdfJ0VPFPzSNcbFU?=
+ =?us-ascii?Q?W/UPExJXJgnMVGGgkQPyMlA1dPJCSSzOzdO4IF5oJAMwx7xe46z//hVCLZG2?=
+ =?us-ascii?Q?IAzaSkewmavzijPNW5Gy5GfhrE4wfzCpPLXhVO83BS+n38hKLEmqBi68Y1NU?=
+ =?us-ascii?Q?zb02+dSnsvGS+NTMGro8SlRSR8QD8e1/g6TxxQOAPyg1ip9YcYQRFXr+nhX0?=
+ =?us-ascii?Q?eA7DtCDC0uCMiUAhwsYzEzZdafycBrHhmUIwo4ZisRjB0JY3o4ldYP6kAV7r?=
+ =?us-ascii?Q?PxVLPZCNw9LqAIithWU+ta1nFu1A7bkQaDSYwcHbhRHl3IJck8p19+HONOyB?=
+ =?us-ascii?Q?qZZ0x6OgkXLeSE5SXzU5RVhqU8YUC9D7yAbYeu2P9hQ2K56GSSoDKnBdxN4/?=
+ =?us-ascii?Q?WXfCemBhOtvvmXutJ64nxI1rNHFNSnExD7exnXgnYvgiz+LYhYaTh370HV0z?=
+ =?us-ascii?Q?dipXtiXsCp2xfoB5zCbdgw+Nx1ZfjXaZcF+uSJxLfbLfL1L0HyZf22DGLPVW?=
+ =?us-ascii?Q?/d4NfIJieaIlAOKr1j1t7qlk9Y69VGfQUCtYc2tHcj3ToolRxVKTiutzk8mB?=
+ =?us-ascii?Q?+9pTEp89gY+fJExYJcuJ0VG1qGWj33CtghGA+H+Iy9knjilCUvakeehVHwgm?=
+ =?us-ascii?Q?J8bLptjo1j/H0VI7qJdXXWZBpOFHSa/DP5O03FcpN+SchvmUaUCvWrru/ckW?=
+ =?us-ascii?Q?MLozRw1Uz+K7lkNu+Y2x4otjf/FXW4NiHAwGrGl3tpeVM+vrnNXhgHb1ug+/?=
+ =?us-ascii?Q?4A3ejL0ahXQo0E8OHVh7PU1m3NE9n7er49YFZdwfB/AwEnAuXPlfGpkV6Zgo?=
+ =?us-ascii?Q?78oYpiH9wCcFmBVbFAUjKjr9zUy7nwZxtqyN7/kIWVA78tF7i0+7/y16fCWI?=
+ =?us-ascii?Q?ODrwKnYrQQDZS6QEzNaGbYitObfYapZ1ON/CrkN6BsiOqq08sqc+mUeGdrvt?=
+ =?us-ascii?Q?g+YoAK2eqZEpztxgmWhM7xripNifU5w6Xmlyuaio+TGb6vlyLbGRlR/0tmiP?=
+ =?us-ascii?Q?0yJ7x3uLEasd+EQQA3k+dd80R6dRygMWDHpku9eHkZkfL6ceIbZG3Tltii9E?=
+ =?us-ascii?Q?rzTco+wHN3klrcSw1SGr6ols/hEEDS0iuE953uTrI6rklT4NZ48hEzeqG/0M?=
+ =?us-ascii?Q?9G4GyVnI4HNy4nACpxC892jiVKmIvAaqVYVwb0XvlRwUkOMSIv+6JuZAxAMT?=
+ =?us-ascii?Q?JX03bnL5JUeQ4/hMilItPQnYMelaJvaEUKLy+n2KiZS2PnTiKmvxy7A6H/Je?=
+ =?us-ascii?Q?Nw9P4pQaSjkm/Q5lcHgw/UytCnxxmUnquOz7ocOPjzrCOhD0yc2YVN6rPEhP?=
+ =?us-ascii?Q?ukS8ptpT9d4eKc/yZmX6SFg1176dqKJLJLDMSpI+tGYSpab5JHFMB6YOWZvV?=
+ =?us-ascii?Q?uw0Gifzx05MFX8LHBq43365haOJ4QXCfjBBL0Drl8403yk9h5MSrPv+0FcMG?=
+ =?us-ascii?Q?tx3OGqcfqWkACmXVcHvsiubYFwtaMX092RLZX+gjH97M7KZwCkpvDjdIZqHS?=
+ =?us-ascii?Q?QmrIZCtGpQbpPWqaYexZqYzSaJLCa5oF3rETY5NkEvPRMrcolo1PRXA+jkF8?=
+ =?us-ascii?Q?VFhUrjGJgr4xN1xccvvhSXAV6/55CmCeGh71Avz4euhrwfPX9YBeVoJ/ttBX?=
+ =?us-ascii?Q?3g=3D=3D?=
 MIME-Version: 1.0
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5490.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77629617-2263-47da-ec42-08dc0b6ca4bf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 08:27:22.7809 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: WrEwB0v20fCx+DS3YPDH/HxnQRBTmVxtSKGK+cnZ7vdVRSWNJYaSxQ1VbVjSLXq38NagTYXobsGfQSmbU66i2jrKPjgRVwlZxkcO8ix9w2I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8069
+X-OriginatorOrg: intel.com
+X-Mailman-Approved-At: Wed, 03 Jan 2024 09:57:54 +0000
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Tony Lindgren <tony@atomide.com>,
- Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh+dt@kernel.org>,
- Jisheng Zhang <jszhang@kernel.org>, Sean Nyekjaer <sean@geanix.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 6/8] ARM: dts: add
-	stm32f769-disco-mb1225-revb03-mb1166-reva09
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "G Thomas,
+ Rohan" <rohan.g.thomas@intel.com>, Rob Herring <robh+dt@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub
+ Kicinski <kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next v1 1/4] dt-bindings: net: snps,
+ dwmac: per channel irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,69 +171,125 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As reported in the section 8.3 (i. e. Board revision history) of document
-UM2033 (i. e. Discovery kit with STM32F769NI MCU) these are the changes
-related to the board revisions addressed by the patch:
-- Board MB1225 revision B-03:
-  - Memory MICRON MT48LC4M32B2B5-6A replaced by ISSI IS42S32400F-6BL
-- Board MB1166 revision A-09:
-  - LCD FRIDA FRD397B25009-D-CTK replaced by FRIDA FRD400B25025-A-CTK
+> -----Original Message-----
+> From: Serge Semin <fancer.lancer@gmail.com>
+> Sent: Friday, December 22, 2023 10:51 PM
+> To: Swee, Leong Ching <leong.ching.swee@intel.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre Torgue
+> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
+> David S . Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Rob Herring <robh+dt@kernel.org>; Krzysztof
+> Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley
+> <conor+dt@kernel.org>; Giuseppe Cavallaro <peppe.cavallaro@st.com>;
+> linux-stm32@st-md-mailman.stormreply.com; linux-arm-
+> kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
+> netdev@vger.kernel.org; devicetree@vger.kernel.org; G Thomas, Rohan
+> <rohan.g.thomas@intel.com>
+> Subject: Re: [PATCH net-next v1 1/4] dt-bindings: net: snps,dwmac: per
+> channel irq
+> 
+> On Fri, Dec 22, 2023 at 01:44:48PM +0800, Leong Ching Swee wrote:
+> > From: Swee Leong Ching <leong.ching.swee@intel.com>
+> >
+> > Add dt-bindings for per channel irq.
+> >
+> > Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
+> > Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
+> > ---
+> >  .../devicetree/bindings/net/snps,dwmac.yaml   | 24 +++++++++++++------
+> >  1 file changed, 17 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 5c2769dc689a..e72dded824f4 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -103,17 +103,27 @@ properties:
+> >
+> >    interrupts:
+> >      minItems: 1
+> > -    items:
+> > -      - description: Combined signal for various interrupt events
+> > -      - description: The interrupt to manage the remote wake-up packet
+> detection
+> > -      - description: The interrupt that occurs when Rx exits the LPI state
+> > +    maxItems: 19
+> >
+> >    interrupt-names:
+> >      minItems: 1
+> > +    maxItems: 19
+> >      items:
+> > -      - const: macirq
+> > -      - enum: [eth_wake_irq, eth_lpi]
+> > -      - const: eth_lpi
+> > +      oneOf:
+> > +        - description: Combined signal for various interrupt events
+> > +          const: macirq
+> > +        - description: The interrupt to manage the remote wake-up packet
+> detection
+> > +          const: eth_wake_irq
+> > +        - description: The interrupt that occurs when Rx exits the LPI state
+> > +          const: eth_lpi
+> > +        - description: DMA Tx per-channel interrupt
+> > +          pattern: '^dma_tx[0-7]?$'
+> > +        - description: DMA Rx per-channel interrupt
+> > +          pattern: '^dma_rx[0-7]?$'
+> > +
+> 
+> > +    allOf:
+> > +      - contains:
+> > +          const: macirq
+> 
+> As Rob correctly noted it's also better to make sure that 'macirq' is placed first
+> in the array. So instead of the constraint above I guess the next one would
+> make sure both the array has 'macirq' name and it's the first item:
+> 
+> allOf:
+>   - maxItems: 34
+>     items:
+>       - const: macirq
+> 
+> -Serge(y)
+> 
+  interrupt-names:
+    minItems: 1
+    maxItems: 19
+    items:
+      oneOf:
+        - description: Combined signal for various interrupt events
+          const: macirq
+        - description: The interrupt to manage the remote wake-up packet detection
+          const: eth_wake_irq
+        - description: The interrupt that occurs when Rx exits the LPI state
+          const: eth_lpi
+        - description: DMA Tx per-channel interrupt
+          pattern: '^dma_tx[0-7]?$'
+        - description: DMA Rx per-channel interrupt
+          pattern: '^dma_rx[0-7]?$'
 
-The patch only adds the DTS support for the new display which belongs to
-to the Novatek NT35510-based panel family.
+    allOf:
+      - maxItems: 19
+        items:
+         - const: macirq
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+I am getting the warning/error below when I tried the changes above (but it does make sure macirq is placed first). 
+Removing maxItems create other error, did I miss anything?
 
----
-
-Changes in v2:
-- Change the status of panel_backlight node to "disabled"
-- Delete backlight property from panel0 node.
-
- arch/arm/boot/dts/st/Makefile                  |  1 +
- ...2f769-disco-mb1225-revb03-mb1166-reva09.dts | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index 7892ad69b441..390dbd300a57 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32f469-disco.dtb \
- 	stm32f746-disco.dtb \
- 	stm32f769-disco.dtb \
-+	stm32f769-disco-mb1225-revb03-mb1166-reva09.dts \
- 	stm32429i-eval.dtb \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-new file mode 100644
-index 000000000000..014cac192375
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
-+
-+#include "stm32f769-disco.dts"
-+
-+&panel_backlight {
-+	status = "disabled";
-+};
-+
-+&panel0 {
-+	compatible = "frida,frd400b25025", "novatek,nt35510";
-+	vddi-supply = <&vcc_3v3>;
-+	vdd-supply = <&vcc_3v3>;
-+	/delete-property/backlight;
-+	/delete-property/power-supply;
-+};
--- 
-2.43.0
-
+/home/swiplab/build/jim/linux/net-next/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:interrupt-names:allOf:0: {'maxItems': 19, 'items': [{'const': 'macirq'}]} should not be 
+valid under {'required': ['maxItems']}
+        hint: "maxItems" is not needed with an "items" list
+        from schema $id: http://devicetree.org/meta-schemas/items.yaml#
+/home/swiplab/build/jim/linux/net-next/Documentation/devicetree/bindings/net/snps,dwmac.yaml: properties:interrupt-names:allOf:0: {'maxItems': 19, 'items': [{'const': 'macirq'}]} should not be 
+valid under {'required': ['maxItems']}
+        hint: "maxItems" is not needed with an "items" list
+> >
+> >    clocks:
+> >      minItems: 1
+> > --
+> > 2.34.1
+> >
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
