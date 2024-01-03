@@ -2,75 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B075F8237EC
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jan 2024 23:25:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F557823CE1
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jan 2024 08:44:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 616BDC6B476;
-	Wed,  3 Jan 2024 22:25:43 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29CB9C6C83C;
+	Thu,  4 Jan 2024 07:44:44 +0000 (UTC)
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07237C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53EEEC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jan 2024 22:25:42 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-dae7cc31151so7074587276.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Jan 2024 14:25:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704320741; x=1704925541;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9kmcqsMX8fQ3sLYeMRmJosc8oLB5bZGg3REIDOYybdk=;
- b=LZXr/Sl5zm9iLWqgnfbYaR8X3uMlUeqRJLN96jy+FypoQW2J6ij5ghaTXl7xnhC4t+
- Pk2uluK7xa+djYCA3jmIpambXPO8gueu7S5xewtlGqHt4S8/JCBLQHs7OS+dMDHBEndN
- msm/ugBz/icRq8pDlKquJoSDP2Ac4aJPmYSMEQw6Pk5cxK+Rks1pyNSBpAeKt9zyLQE7
- 00x5Kb1RhsrvSAdBfvTTFEdx2wx+RLoHs1M3kGYbz6jgjtbUAJUg2NaG/ahNxbuFOdfV
- FGbaq58ZSZFH9idxur8U0STdXppJy0PAq10TTP9I7w7l9Ryu7joKP+BOGPQrZc9AhUvy
- fo2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704320741; x=1704925541;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9kmcqsMX8fQ3sLYeMRmJosc8oLB5bZGg3REIDOYybdk=;
- b=DN0c7NZqhP5crPxTmpJ464MrqCfgZc3dkQaPaLqRTavBiHSEJZOkZjT5DkS3Fw2ZJJ
- 432wsaHr5IynL7T5UmAholGv9eeKe6B6ux9wMJWIRD9carluED94YplnazfTG+Bi5nE/
- Hdb3CVDVHql6EO6cyk0pWHO2p6gghssDD0TSWq1K/N/TkNHkyRuiLuxng8Wt8aK0SIqw
- C1REVz4MGzfVnX++l2ppAbWKLfszVV1If/zaMvCVZNRQq2EnRLTpcshJD+iQwXGQRE+0
- YOh9TGJ5vHsA3auxxRylNcDzo/Ki4Ln7r+eWrOS9aKqdXw8oooaa2VeA2Xlvc/SdFRnW
- UCzw==
-X-Gm-Message-State: AOJu0YyeCx27C7DwnB0Q8Cl1/W2BwPzzzLNA2Am9VWNHVaQowsQF0LHD
- Iu9yghkCMxSnXrrOw8A1Q1CohCNtlv75sWvHdOdmSLGgibQmSg==
-X-Google-Smtp-Source: AGHT+IH3lN5EReu2g0Mi+oxqq6LxDhkZAcXvUANpBIfR+d/23nY/29IleV2lLkmHHtEwUYWNJ3aNAjkw6NRWH1Vyk6A=
-X-Received: by 2002:a5b:ed0:0:b0:dbe:9fe3:9d24 with SMTP id
- a16-20020a5b0ed0000000b00dbe9fe39d24mr1147230ybs.111.1704320740768; Wed, 03
- Jan 2024 14:25:40 -0800 (PST)
+ Wed,  3 Jan 2024 23:32:13 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 127D03200A61;
+ Wed,  3 Jan 2024 18:32:09 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 03 Jan 2024 18:32:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxuuu.xyz; h=cc
+ :content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm1; t=1704324729; x=1704411129; bh=fBlTY1O1StgZyteJRwSj0
+ WOCCgegue7fpMlq4tQR6pE=; b=lJYbtwRpU+dVyyJzJZGCzGN92FAzyXisdOTyA
+ hga+Tz/oNJxJ3/vh/ENWw6VHA+9HerOrPM2yWKDSKa04HVB3afWClfUwTaAtFILW
+ OOVdYMb3RS7WYs0cPfNNo/UZh0rAW6MwxJFDMOxHBIHXACpAM3WNV/bs0rxvDBBj
+ GGHGGty44rb3NCzCrLoYZRXL72lVlXj0gf3g6rWQUy1UjZo3Ifu4q9QhgmHzssry
+ WN/qaTsiffEf1EDV1rHDW/plzF8viJ497gnxWhdrOnnKviF3QxnTaFMD8DHcWi4j
+ +0GbOI3AcpHRe4idSw13HwvflHAZYyOVVWd+rhnaTiuXyjVvg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:date:feedback-id:feedback-id:from:from:in-reply-to
+ :message-id:mime-version:reply-to:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1704324729; x=1704411129; bh=fBlTY1O1StgZyteJRwSj0WOCCgeg
+ ue7fpMlq4tQR6pE=; b=bkEYNB6mF2hRhn3oPBkxEv4MTis76LQX6kxIG4Z0a6O8
+ 23WlTBLrL4m/EbFGIxviTL79olTDxMSHWoK7u5IxthjrQXU02MP8fVR8cEHO+s3z
+ h8von97bCIEtyKs9dVGqsTso2HX2723lGaEJ4DG9E3VuEupuwDZ9ImKTyv6mHiqP
+ wuOuteLGQc8bzh+zQfHLyBvqgY03UkxiOnIeaQST+5haxhjaEnRa2cWZ0ZH2VtaB
+ xJAiTBX7cdldtYW6XK3hKhIJwA2WtWLJps3e0b9RRiYcZfCwinXmUFCGzKY9UGcZ
+ iRKgeAvxv5v7eXLQegka4wpUNzFHNkzVJlpd+Y9hfw==
+X-ME-Sender: <xms:ee6VZb7nVEguWYMYGcsHeDfQzGSOkMaR910F5h5_TmodHTwiD3gTCw>
+ <xme:ee6VZQ58ecOlJDLxO9xUG2RyHUBjmzzDeyXxPFYSsl0hQYEbGH4rsOw9xQlLBnzuT
+ vvXCum2bPsN3CBkhA>
+X-ME-Received: <xmr:ee6VZSe-dtivdRXsviJeY6ng4lQHZMCRz8IWSabTPNAqBqnMe4LBurFOoNG8A-3AhFklujKA1fjO7IkhP1LAuxJY96RzHZw2HFvb1CmYlV_Q4Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdegiedguddtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdljedtmdenucfjughrpefhvf
+ fufffkofgggfestdekredtredttdenucfhrhhomhepffgrnhhivghlucgiuhcuoegugihu
+ segugihuuhhurdighiiiqeenucggtffrrghtthgvrhhnpeeifffgledvffeitdeljedvte
+ effeeivdefheeiveevjeduieeigfetieevieffffenucevlhhushhtvghrufhiiigvpedt
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpegugihusegugihuuhhurdighiii
+X-ME-Proxy: <xmx:ee6VZcJsPTwIypaABAx54mLUiDqR-eW4GzwFx7VZtovUCBL5U1HhmQ>
+ <xmx:ee6VZfJe-ZA9i8lcfVslhcroQyOjo5igaaU6c31UT9YGkk1qQl0hXA>
+ <xmx:ee6VZVx1eanecM8vnOIT199ezlrPTsbYNWWHs1kGu3CorWW_CdOwMg>
+ <xmx:ee6VZQ5hX2kthjEX-X3ufwYaJnC9ulEG6gmoMS1iN5eth7eiyZ1LQQ>
+Feedback-ID: i6a694271:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 3 Jan 2024 18:32:07 -0500 (EST)
+From: Daniel Xu <dxu@dxuuu.xyz>
+To: coreteam@netfilter.org, netdev@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kselftest@vger.kernel.org,
+ fsverity@lists.linux.dev, netfilter-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ bpf@vger.kernel.org, alexei.starovoitov@gmail.com, olsajiri@gmail.com,
+ quentin@isovalent.com, alan.maguire@oracle.com, memxor@gmail.com
+Date: Wed,  3 Jan 2024 16:31:54 -0700
+Message-ID: <cover.1704324602.git.dxu@dxuuu.xyz>
+X-Mailer: git-send-email 2.42.1
 MIME-Version: 1.0
-References: <20240102162718.268271-1-romain.gantois@bootlin.com>
- <20240102162718.268271-2-romain.gantois@bootlin.com>
- <20240103201021.2ixxndfqe622afnf@skbuf>
-In-Reply-To: <20240103201021.2ixxndfqe622afnf@skbuf>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Wed, 3 Jan 2024 23:25:29 +0100
-Message-ID: <CACRpkdYAOReqhoXVc_D6eeW-MvWym3eL2T3KTePqZSx3WWsGEQ@mail.gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- Sylvain Girard <sylvain.girard@se.com>,
- linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 1/1] net: stmmac: Prevent DSA tags
- from breaking COE on stmmac
+X-Mailman-Approved-At: Thu, 04 Jan 2024 07:44:43 +0000
+Subject: [Linux-stm32] [PATCH bpf-next 0/2] Annotate kfuncs in .BTF_ids
+	section
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,28 +85,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBKYW4gMywgMjAyNCBhdCA5OjEw4oCvUE0gVmxhZGltaXIgT2x0ZWFuIDxvbHRlYW52
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4gT24gVHVlLCBKYW4gMDIsIDIwMjQgYXQgMDU6Mjc6MTVQTSAr
-MDEwMCwgUm9tYWluIEdhbnRvaXMgd3JvdGU6Cj4gPiArLyogQ2hlY2sgaWYgZXRoZXJ0eXBlIHdp
-bGwgdHJpZ2dlciBJUAo+ID4gKyAqIGhlYWRlciBjaGVja3MvQ09FIGluIGhhcmR3YXJlCj4gPiAr
-ICovCj4gPiArc3RhdGljIGlubGluZSBib29sIHN0bW1hY19oYXNfaXBfZXRoZXJ0eXBlKHN0cnVj
-dCBza19idWZmICpza2IpCj4gPiArewo+ID4gKyAgICAgX19iZTE2IHByb3RvID0gZXRoX2hlYWRl
-cl9wYXJzZV9wcm90b2NvbChza2IpOwo+ID4gKwo+ID4gKyAgICAgcmV0dXJuIChwcm90byA9PSBo
-dG9ucyhFVEhfUF9JUCkpIHx8IChwcm90byA9PSBodG9ucyhFVEhfUF9JUFY2KSkgfHwKPiA+ICsg
-ICAgICAgICAgICAgKHByb3RvID09IGh0b25zKEVUSF9QXzgwMjFRKSk7Cj4KPiBwcm90byA9PSBo
-dG9ucyhFVEhfUF84MDIxUSkgbWVhbnMgdGhhdCB0aGUgc2tiIGhhcyBhbiBJUCBFdGhlclR5cGU/
-Cj4gV2hhdCBpZiBhbiBJUCBoZWFkZXIgZG9lcyBub3QgZm9sbG93IGFmdGVyIHRoZSBWTEFOIGhl
-YWRlcj8KCkl0J3MgcHJvYmFibHkgYmVzdCB0byBkbyBsaWtlIEkgZG8gaGVyZToKaHR0cHM6Ly9s
-b3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjQwMTAyLW5ldy1nZW1pbmktZXRoZXJuZXQtcmVncmVz
-c2lvbi12NS0yLWNmNjFhYjNhYThjZEBsaW5hcm8ub3JnLwoKKyBpZiAoZXRoZXJ0eXBlID09IEVU
-SF9QXzgwMjFRKQorICAgZXRoZXJ0eXBlID0gbnRvaHMoX192bGFuX2dldF9wcm90b2NvbChza2Is
-IGh0b25zKGV0aGVydHlwZSksIE5VTEwpKTsKCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxp
-bmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8v
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMy
-Cg==
+This is a bpf-treewide change that annotates all kfuncs as such inside
+.BTF_ids. This annotation eventually allows us to automatically generate
+kfunc prototypes from bpftool.
+
+We store this metadata inside a yet-unused flags field inside struct
+btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
+
+More details about the full chain of events are available in commit 2's
+description.
+
+Daniel Xu (2):
+  bpf: btf: Support optional flags for BTF_SET8 sets
+  bpf: treewide: Annotate BPF kfuncs in BTF
+
+ drivers/hid/bpf/hid_bpf_dispatch.c              |  4 ++--
+ fs/verity/measure.c                             |  2 +-
+ include/linux/btf_ids.h                         | 17 ++++++++++++-----
+ kernel/bpf/btf.c                                |  3 +++
+ kernel/bpf/cpumask.c                            |  2 +-
+ kernel/bpf/helpers.c                            |  4 ++--
+ kernel/bpf/map_iter.c                           |  2 +-
+ kernel/cgroup/rstat.c                           |  2 +-
+ kernel/trace/bpf_trace.c                        |  4 ++--
+ net/bpf/test_run.c                              |  4 ++--
+ net/core/filter.c                               |  8 ++++----
+ net/core/xdp.c                                  |  2 +-
+ net/ipv4/bpf_tcp_ca.c                           |  2 +-
+ net/ipv4/fou_bpf.c                              |  2 +-
+ net/ipv4/tcp_bbr.c                              |  2 +-
+ net/ipv4/tcp_cubic.c                            |  2 +-
+ net/ipv4/tcp_dctcp.c                            |  2 +-
+ net/netfilter/nf_conntrack_bpf.c                |  2 +-
+ net/netfilter/nf_nat_bpf.c                      |  2 +-
+ net/xfrm/xfrm_interface_bpf.c                   |  2 +-
+ net/xfrm/xfrm_state_bpf.c                       |  2 +-
+ .../selftests/bpf/bpf_testmod/bpf_testmod.c     |  2 +-
+ 22 files changed, 42 insertions(+), 32 deletions(-)
+
+-- 
+2.42.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
