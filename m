@@ -2,45 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EF4482298D
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jan 2024 09:40:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 308728229F6
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Jan 2024 10:11:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5449C6DD69;
-	Wed,  3 Jan 2024 08:40:20 +0000 (UTC)
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8AF7C6DD69;
+	Wed,  3 Jan 2024 09:11:35 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 094DBC6C838
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A8ACC6C838
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Jan 2024 08:40:19 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7FAA7E000A;
- Wed,  3 Jan 2024 08:40:16 +0000 (UTC)
+ Wed,  3 Jan 2024 09:11:34 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7E39060003;
+ Wed,  3 Jan 2024 09:11:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1704271219;
+ t=1704273094;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=mbyKDE6LxBB4pt4rAudS3Wo2lvqVspXh6sWUjAjOt3o=;
- b=FUWLmozv1lOWyRPl125r4yShizx8ZyjVEHwaVOariUJ7aXLVKDjpme/ubSiIwoqsb3nsdJ
- MtbyWBEq5ox8YUvWRRiRa3icEdGyTgTkPXYPRkyvIgUl96BAAf0KVyMtjC2mWFeqHxrTtD
- TvwTraBrLZvEI27cbHvuio22KdPXODO98rMo90wSFiN1ojp6FTmmhlN2p7B8odtybhjuyK
- ZV1vB3xRuVxiz47x6T+5D9MtRpNpQrzFKa4CsP9E5gO2G6mOdjPkpnsaxzPOfPnvojuO/i
- FvciG0Xd49tOV6gjichyIgNN5LHpMPldNPy09HTevxOnQHYt1tNsPXzUs7yybA==
-Date: Wed, 3 Jan 2024 09:40:40 +0100 (CET)
+ bh=G0d2TPKJzfDkr9YkXLiJF5yuJVu7qTBvfkcRucs3iN8=;
+ b=mLPvaeDJhmpcd4+AQdE8hESe2HAJTBF+SLjydD+IEzfZNIl7pseOiJDieFtN/5sfE16P+Z
+ tf7jLMdlz1IcDyMwzhxgRdltCTHAkj36HY0Zwu83CFIgTf9SXOi0x/iqCB82lj+knRY6zS
+ KtWOmHhHIPLajSqx1jhIXoz8HiSwL5ixUloCCJVgSrcFN/1fq81DHOhpWNJtfodkZAW44i
+ AQQaEHmybha0NE0lEWSLNPkaUz7zcAcZXOTecUIQko8+RVkDKvyjrd6MzWCuASUl6u1IgO
+ QUYutMEEpJ0hgETlQmnwb4/4iRmT323grPCnJZAdGnxzKYu+l52YGp2NlLvYJQ==
+Date: Wed, 3 Jan 2024 10:11:54 +0100 (CET)
 From: Romain Gantois <romain.gantois@bootlin.com>
-To: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <e2250240-db19-4cb6-93ca-2384a382cdd5@gmail.com>
-Message-ID: <753d4eab-5699-91e3-05a4-d0e03f7052e6@bootlin.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+In-Reply-To: <CACRpkdZjOBpD6HoobgMBA27dS+uz5pqb8otL+fGtMvsywYBTPA@mail.gmail.com>
+Message-ID: <d3d73e26-10a9-bd2b-ff44-cbdc72e1f6ee@bootlin.com>
 References: <20240102162718.268271-1-romain.gantois@bootlin.com>
  <20240102162718.268271-2-romain.gantois@bootlin.com>
- <e2250240-db19-4cb6-93ca-2384a382cdd5@gmail.com>
+ <CACRpkdZjOBpD6HoobgMBA27dS+uz5pqb8otL+fGtMvsywYBTPA@mail.gmail.com>
 MIME-Version: 1.0
 X-GND-Sasl: romain.gantois@bootlin.com
 Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
  Pascal EBERHARD <pascal.eberhard@se.com>,
  Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
  Sylvain Girard <sylvain.girard@se.com>,
  linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
  Richard Tresidder <rtresidd@electromag.com.au>,
@@ -67,36 +66,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Florian,
+Hi Linus,
 
-On Tue, 2 Jan 2024, Florian Fainelli wrote:
-
+On Tue, 2 Jan 2024, Linus Walleij wrote:
 ...
-> > Fixes: 6b2c6e4a938f ("net: stmmac: propagate feature flags to vlan")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Richard Tresidder <rtresidd@electromag.com.au>
-> > Closes:
-> > https://lore.kernel.org/netdev/e5c6c75f-2dfa-4e50-a1fb-6bf4cdb617c2@electromag.com.au/
-> > Reported-by: Romain Gantois <romain.gantois@bootlin.com>
-> > Closes:
-> > https://lore.kernel.org/netdev/c57283ed-6b9b-b0e6-ee12-5655c1c54495@bootlin.com/
+> > +static inline bool stmmac_has_ip_ethertype(struct sk_buff *skb)
+> > +{
+> > +       __be16 proto = eth_header_parse_protocol(skb);
 > 
-> Fairly sure those should be Link: and Closes: should be used for bug tracker
-> entries.
-
-ACK
-
-> > +	return (proto == htons(ETH_P_IP)) || (proto == htons(ETH_P_IPV6)) ||
-> > +		(proto == htons(ETH_P_8021Q));
+> I made a new function for this in my patch
+> https://lore.kernel.org/netdev/20231222-new-gemini-ethernet-regression-v4-2-a36e71b0f32b@linaro.org/
 > 
-> Do you need to include ETH_P_8021AD in that list as well or is not stmmac
-> capable of checksuming beyond a single VLAN tag?
+> I was careful to add if (!pskb_may_pull(skb, ETH_HLEN)) because Eric
+> was very specific about this, I suppose you could get fragment frames that
+> are smaller than an ethernet header.
 
-The datasheet for my Ethernet controller doesn't mention 802.1ad tag 
-handling and I ran some loopback tests that showed that this controller doesn't 
-recognize 802.1ad frames as vlan frames. I also haven't seen anything in the 
-stmmac driver that suggests that 802.1ad offloading is supported. Maybe the 
-stmmac maintainers could weigh in on this?
+Okay nice, then I'll rewrite this series to use the new function once your 
+changes make it in.
+
+> Should we add an if (!pskb_may_pull(skb, ETH_HLEN)) to
+> eth_header_parse_protocol()?
+That does sound logical to me but I couldn't tell you what the impact on current 
+callers would be. The net maintainers will probably have a better idea of this.
 
 Best Regards,
 
