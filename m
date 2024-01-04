@@ -2,81 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FD18823C9F
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD9E823CA0
 	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jan 2024 08:24:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AF45C6B476;
-	Thu,  4 Jan 2024 07:24:15 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BE2EC6C83C;
+	Thu,  4 Jan 2024 07:24:16 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 139C9C6B452
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B3F5C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jan 2024 07:24:13 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-555e07761acso266732a12.0
+ Thu,  4 Jan 2024 07:24:15 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-50ea9daac4cso204249e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 03 Jan 2024 23:24:13 -0800 (PST)
+ Wed, 03 Jan 2024 23:24:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704353053; x=1704957853;
+ d=amarulasolutions.com; s=google; t=1704353054; x=1704957854;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PUgVC7JEO7GhUBsHaMMn2sIj/0Ni7LYX/30T12HJpq8=;
- b=XBt71O1l63nKtqLfJQ7FSnKxqEuNPUTzw4oxnF6eVQXtkrxN3lMdZ9LdYFBsw4UXFH
- JQUJsXYiBhXL0b9AmmbCGZFt1nZC8Zm+2aWk2eZGmcXWGMfx5mtxYLulaJCrvho9ZvRb
- LLwKx4B9f+OHW+8o/S7ycpY8LCnCh056ERW5M=
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oZHp7o9P6sSCcRzfgnf9GmPoPPKRvORDv/jTzo46w2U=;
+ b=ovzwkssWhK6qtyvVkpMkmy53kHmrz4du4TNZd7FYTZcS9fw+EAUAkZ3Ahqqru4dGhD
+ pbgNLqJdGchmde2MLEh3vE5tWytGD7HPuDh1KoRXk4w+DHZW4+EgebxGfHZn2mVLT4Jl
+ yYsZ9VxOMU7q8cCNtdVZG6jagaRTVEX4uwo9g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704353053; x=1704957853;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PUgVC7JEO7GhUBsHaMMn2sIj/0Ni7LYX/30T12HJpq8=;
- b=SrCJ5wQBmGPw9PM5u83wOALgc2OnOi0A8qt5kb4GaymBMFAeHx4wjF49ZBVt8+m7FF
- 1pmHO77EstEIDWj46ui95rA/W8HTVSmGlDA/P2JlaEqckp83sx+HLawANxS4g3VYWuMN
- P+7HKQFeLkCGJ0lsOavIdkNYE5Hmc1vp3D1CmzvNYpU3eqQX3rmPpsoYpBqciC++4stQ
- giXpSVFDGkavY3GbH90iODIfbzR6qRrQmoWsnGaiehXtvQB3Q3UZ9BopO7APGeirM6F8
- dSZ2JCZ4/I5MIpnnke6PEZb12vPpgGpnjEnVIu9E6i86z1/ta6E4uHvOcvDZN/bl27I4
- rSIg==
-X-Gm-Message-State: AOJu0Yx0bKWDG0RboLgG5mRJ48ZidAY7HXOK79JwC9tomGGhSH+fU1vs
- jIuw6Nx4YeC36jYZKA4Bj072Lm6NJGBdzQ==
-X-Google-Smtp-Source: AGHT+IGmDyP/2rCvEVge4MJPNpo2+Gj+UXFPX8MUKMMpso0SylDp5k3+gnunyyZSiIr2eHvZUnp0ZQ==
-X-Received: by 2002:a50:8e49:0:b0:553:ad79:b7d7 with SMTP id
- 9-20020a508e49000000b00553ad79b7d7mr54053edx.93.1704353052879; 
- Wed, 03 Jan 2024 23:24:12 -0800 (PST)
+ d=1e100.net; s=20230601; t=1704353054; x=1704957854;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=oZHp7o9P6sSCcRzfgnf9GmPoPPKRvORDv/jTzo46w2U=;
+ b=ALNifIlRu4umngZsvFdKM+bTcnX3v1R6xCMtiHcc9IzTuCz+27/5sNG1fVBO0mFu6M
+ UDSEpQ1wl4GD8yoQl0lGPjPVxGSkYO6lrqoQRuHUz/mGd5ARrDie5e83uxuwgS8mwD1D
+ LHpDxrAmgPbZRrhON3h5r1hzfS3e/av73kbDNgUkNDz7uXioLAVUzpR3Oatxpqakthqh
+ /Tfg9ItoEAn4DjHmKl03E0ErdeqLJ4xoXhCP/awzQnI6UFXMPWpVEyTKtwd59Ubz0Fo9
+ R+fZp6Az3JQ6pNPuHrOsRtknFqK4Uy/ASuXtpcTkg4r1mj0xEWVMer1Dm4FJdgC5n6/l
+ gzLQ==
+X-Gm-Message-State: AOJu0YztYZoSiy8m2FN2BcqxojpFaafSWDvGqbwPoRBJ2Vv3oL7kQRTN
+ WrCePMgOg6uuEyX+Ahqc5dcFxNQ0nghaKw==
+X-Google-Smtp-Source: AGHT+IG4i/97hJ8aDZ8aV7oljAPTtFLXwe5GU9eipdE578f3Arlwv9CTDaie3sHsTnqpOAseTOaxdg==
+X-Received: by 2002:a05:6512:3c81:b0:50e:aa96:73ed with SMTP id
+ h1-20020a0565123c8100b0050eaa9673edmr145525lfv.136.1704353054338; 
+ Wed, 03 Jan 2024 23:24:14 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i..
  (net-93-150-255-34.cust.vodafonedsl.it. [93.150.255.34])
  by smtp.gmail.com with ESMTPSA id
- d3-20020a056402000300b00553772c2968sm18530735edu.82.2024.01.03.23.24.11
+ d3-20020a056402000300b00553772c2968sm18530735edu.82.2024.01.03.23.24.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jan 2024 23:24:12 -0800 (PST)
+ Wed, 03 Jan 2024 23:24:13 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu,  4 Jan 2024 08:23:36 +0100
-Message-ID: <20240104072407.41290-1-dario.binacchi@amarulasolutions.com>
+Date: Thu,  4 Jan 2024 08:23:37 +0100
+Message-ID: <20240104072407.41290-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240104072407.41290-1-dario.binacchi@amarulasolutions.com>
+References: <20240104072407.41290-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee@kernel.org>,
+ Conor Dooley <conor.dooley@microchip.com>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
- David Airlie <airlied@gmail.com>, Lee Jones <lee@kernel.org>,
- Sean Nyekjaer <sean@geanix.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Enric Balletbo i Serra <eballetbo@gmail.com>,
- Andre Przywara <andre.przywara@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-amarula@amarulasolutions.com
-Subject: [Linux-stm32] [PATCH v3 0/8] Add display support for
-	stm32f769-disco board
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 1/8] dt-bindings: mfd: stm32f7: Add binding
+	definition for DSI
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,47 +85,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The series adds display support for the stm32f769-disco board. It has been
-tested on hardware revisions MB1225-B03 and MB1166-A09. This required
-modifications to the nt35510 driver. As I do not have the Hydis HVA40WV1
-display, it would be better if someone tested the driver in that
-configuration.
+Add binding definition for MIPI DSI Host controller.
 
-Changes in v3:
-- Use "enum" to have less code changed
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+---
+
+(no changes since v2)
 
 Changes in v2:
 - Add Acked-by tag of Conor Dooley
-- Add a dash in front of each "items:"
-- Change the status of panel_backlight node to "disabled"
-- Delete backlight property from panel0 node.
-- Re-write the patch [7/8] "drm/panel: nt35510: refactor panel initialization"
-  in the same style as the original driver in order to maintain the same
-  structure.
-- Re-write the patch [8/8] "drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK"
-  in the same style as the original driver.
 
-Dario Binacchi (8):
-  dt-bindings: mfd: stm32f7: Add binding definition for DSI
-  ARM: dts: stm32: add DSI support on stm32f769
-  ARM: dts: stm32: rename mmc_vcard to vcc-3v3 on stm32f769-disco
-  ARM: dts: stm32: add display support on stm32f769-disco
-  dt-bindings: nt35510: add compatible for FRIDA FRD400B25025-A-CTK
-  ARM: dts: add stm32f769-disco-mb1225-revb03-mb1166-reva09
-  drm/panel: nt35510: move hardwired parameters to configuration
-  drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK
+ include/dt-bindings/mfd/stm32f7-rcc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../display/panel/novatek,nt35510.yaml        |   4 +-
- arch/arm/boot/dts/st/Makefile                 |   1 +
- ...f769-disco-mb1225-revb03-mb1166-reva09.dts |  18 +
- arch/arm/boot/dts/st/stm32f769-disco.dts      |  78 +++-
- arch/arm/boot/dts/st/stm32f769.dtsi           |  21 +
- drivers/gpu/drm/panel/panel-novatek-nt35510.c | 422 +++++++++++++++---
- include/dt-bindings/mfd/stm32f7-rcc.h         |   1 +
- 7 files changed, 484 insertions(+), 61 deletions(-)
- create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
- create mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
-
+diff --git a/include/dt-bindings/mfd/stm32f7-rcc.h b/include/dt-bindings/mfd/stm32f7-rcc.h
+index 8d73a9c51e2b..a4e4f9271395 100644
+--- a/include/dt-bindings/mfd/stm32f7-rcc.h
++++ b/include/dt-bindings/mfd/stm32f7-rcc.h
+@@ -108,6 +108,7 @@
+ #define STM32F7_RCC_APB2_SAI1		22
+ #define STM32F7_RCC_APB2_SAI2		23
+ #define STM32F7_RCC_APB2_LTDC		26
++#define STM32F7_RCC_APB2_DSI		27
+ 
+ #define STM32F7_APB2_RESET(bit)	(STM32F7_RCC_APB2_##bit + (0x24 * 8))
+ #define STM32F7_APB2_CLOCK(bit)	(STM32F7_RCC_APB2_##bit + 0xA0)
 -- 
 2.43.0
 
