@@ -2,46 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 867A2824256
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jan 2024 14:05:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E12408242E1
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Jan 2024 14:46:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33CA4C6B452;
-	Thu,  4 Jan 2024 13:05:36 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A735DC6C83D;
+	Thu,  4 Jan 2024 13:46:26 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E617FC65E56
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE725C6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jan 2024 13:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=y1A8fgZsiIjsazqh2xXbSQAE7toMo839MhQ2MSFa1Ik=; b=Y8rRXlepBxDcgCzTA7uGpVud/D
- k6UiLHKLWjtAi60KxLwieZ5dGpeTkkKhx8hLP2gQ1a/2yP/23fNx52Ni9hMfIArOoaCiqHF649NrL
- /UrUYIc+HmCWT7z4WLOR8hICBXldkNSVsH/VEYFjoL7dni5lc4IeWVVdAcWGLZ3GPxfk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rLNPd-004LdL-03; Thu, 04 Jan 2024 14:05:29 +0100
-Date: Thu, 4 Jan 2024 14:05:28 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-Message-ID: <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
-References: <20240104101255.3056090-1-yi.fang.gan@intel.com>
+ Thu,  4 Jan 2024 13:46:24 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 404BG7q8008005; Thu, 4 Jan 2024 14:44:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=4Xb/guP
+ VNffz69iwgR6eg6cVtv2SHDElUbVJtlX0iAw=; b=sZEd0/IpcdQwa8fAKxNW01x
+ 0PsNSAo0aRzKjG8wyz216iXv5FYt+8+usw4gsTXpdNyUAkA3CvEbTqHnWdlLktPZ
+ 2fJ+hSwuGvFOOpk5vWumdNpfEmXGsmhlnyrhjdCIdvhZM8Lh8hFrnCWvH/3TFgqv
+ a2VQ/XYwWV6b1FRhQ4fbovCZq9bUzlYMzmye/BuXy7su3wV5bNQwn75J6/d1rHRL
+ STgoDFkSs5gTyRW8+G/DGEMt3ZALiRDwZwmr8cEYAGDttzF+gdacAMOefHz83pOX
+ V3acnCXqH3snGO8oMrC9Lf62eDq49qHxthlEnE8IqR7BYvwJByZazzVEsSvGCAA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vd9q1m8ey-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 04 Jan 2024 14:44:46 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 65E7410002A;
+ Thu,  4 Jan 2024 14:44:42 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 517BF22FA28;
+ Thu,  4 Jan 2024 14:44:42 +0100 (CET)
+Received: from localhost (10.252.5.254) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 4 Jan
+ 2024 14:44:41 +0100
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Thu, 4 Jan 2024 14:44:30 +0100
+Message-ID: <20240104134434.744497-1-raphael.gallais-pou@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240104101255.3056090-1-yi.fang.gan@intel.com>
-Cc: Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
- linux-kernel@vger.kernel.org, Choong Yong Liang <yong.liang.choong@intel.com>,
- Voon Weifeng <weifeng.voon@intel.com>, netdev@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Looi Hong Aun <hong.aun.looi@intel.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: phylink: Add module_exit()
+X-Originating-IP: [10.252.5.254]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-04_07,2024-01-03_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/4] Update STM DSI PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,19 +82,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 04, 2024 at 06:12:55PM +0800, Gan, Yi Fang wrote:
-65;7401;1c> In delete_module(), if mod->init callback is defined but mod->exit callback
-> is not defined, it will assume the module cannot be removed and return
-> EBUSY. The module_exit() is missing from current phylink module drive
-> causing failure while unloading it.
+This patch series aims to add several features of the dw-mipi-dsi phy
+driver that are missing or need to be updated.
 
-This is still missing the explanation why this is safe.
+First patch update a PM macro.
 
+Second patch adds runtime PM functionality to the driver.
 
-    Andrew
+Third patch adds a clock provider generated by the PHY itself.  As
+explained in the commit log of the second patch, a clock declaration is
+missing.  Since this clock is parent of 'dsi_k', it leads to an orphan
+clock.  Most importantly this patch is an anticipation for future
+versions of the DSI PHY, and its inclusion within the display subsystem
+and the DRM framework.
+
+Last patch fixes a corner effect introduced previously.  Since 'dsi' and
+'dsi_k' are gated by the same bit on the same register, both reference
+work as peripheral clock in the device-tree.
 
 ---
-pw-bot: cr
+Changes in v3:
+	- Fix smatch warning (disable dsi->pclk when clk_register fails)
+
+Changes in v2:
+	- Added patch 1/4 to use SYSTEM_SLEEP_PM_OPS instead of old macro
+	  and removed __maybe_used for accordingly
+	- Changed SET_RUNTIME_PM_OPS to RUNTIME_PM_OPS
+
+Raphael Gallais-Pou (3):
+  drm/stm: dsi: use new SYSTEM_SLEEP_PM_OPS() macro
+  drm/stm: dsi: expose DSI PHY internal clock
+  arm: dts: st: fix DSI peripheral clock on stm32mp15 boards
+
+Yannick Fertre (1):
+  drm/stm: dsi: add pm runtime ops
+
+ arch/arm/boot/dts/st/stm32mp157.dtsi          |   2 +-
+ arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts |   2 +-
+ arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts |   2 +-
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         | 279 +++++++++++++++---
+ 6 files changed, 243 insertions(+), 46 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
