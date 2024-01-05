@@ -2,81 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530DC8253F0
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 14:10:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8122782546E
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 14:27:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15ECEC6DD73;
-	Fri,  5 Jan 2024 13:10:18 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C0BC6C83C;
+	Fri,  5 Jan 2024 13:27:36 +0000 (UTC)
+Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F87CC6DD69
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08D79C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 13:10:17 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 405A5xIQ029634; Fri, 5 Jan 2024 14:08:15 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=pdoLzds6ybOz4DH26I8jBcXVv6K38hVXWpk0gC53suE=; b=1M
- ykyLekQxVB8QeCibzGBFTU+wwbLAaFThGpcG3Uv7SVcH8MRj4Ho8gJ43sRxYxZPb
- vPzYj/z5+v+6p7Ns9TMhn+bCIEAdHVMnHk7KLgRsD808/d2Z6dPnGhFJ9wjI/Dbx
- XkC0qvX9W2hynl7CwPzDudaCEF0STykNcFY+7dHZjkl2d27a2JyCVrsF8yhzHtp1
- pHOsRJBNCG4Q8mB2+SpGFAtZuvH8vTxCX1/Ha0eWpW8DZBNqWptIw47STH88jj7n
- C3g3pqfRik7xFBA7gUNSGu7eJbwHrN5e7hsd6Ik5dvB75DEYq5mkVrIeN1WC/yx+
- hKdTGOBgSBxB7Ck7wvzA==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ve9gfj62u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Jan 2024 14:08:15 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8AE39100038;
- Fri,  5 Jan 2024 14:08:14 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7EE2322A6C9;
- Fri,  5 Jan 2024 14:08:14 +0100 (CET)
-Received: from localhost (10.201.20.32) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 5 Jan
- 2024 14:08:14 +0100
-From: Gatien Chevallier <gatien.chevallier@foss.st.com>
-To: <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
- <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
- <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <conor+dt@kernel.org>, <alexandre.torgue@foss.st.com>,
- <vkoul@kernel.org>, <jic23@kernel.org>, <olivier.moysan@foss.st.com>,
- <arnaud.pouliquen@foss.st.com>, <mchehab@kernel.org>,
- <fabrice.gasnier@foss.st.com>, <andi.shyti@kernel.org>,
- <ulf.hansson@linaro.org>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <hugues.fruchet@foss.st.com>, <lee@kernel.org>,
- <will@kernel.org>, <catalin.marinas@arm.com>, <arnd@kernel.org>,
- <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
- <peng.fan@oss.nxp.com>, <lars@metafoo.de>, <rcsekar@samsung.com>,
- <wg@grandegger.com>, <mkl@pengutronix.de>
-Date: Fri, 5 Jan 2024 14:04:04 +0100
-Message-ID: <20240105130404.301172-14-gatien.chevallier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
-References: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
+ Fri,  5 Jan 2024 13:27:34 +0000 (UTC)
+Received: from meshulam.tesarici.cz
+ (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
+ [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by bee.tesarici.cz (Postfix) with ESMTPSA id E47441A8914;
+ Fri,  5 Jan 2024 14:27:33 +0100 (CET)
+Authentication-Results: mail.tesarici.cz;
+ dmarc=fail (p=none dis=none) header.from=tesarici.cz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
+ t=1704461254; bh=VfEjDVULxnZTjPOjGh9r0e9l+PxMe7It2mzeDxtw0N4=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=sEPs+4UUZk8mTzK4DRkhLElTK+UqBoy3oQbYnzi3VjJSWZJdjyzDHCTh4o2Sdp03O
+ FxzXsEQVC4Kv8HnbjMPXwBQt4d4XdUtqWXwYNw2c+gw4c+WoKjZ/euYz9PJVW6wK2g
+ tjmDJplbWv5/iIKC6yJ9/Tzr9v4a0FOx7eiIccU0sR/4MqzD8HxBOoYnuYgoQJkrpZ
+ j51+gV6nOX+N5no5YemyORVpAW9HHx/jjsFcIMXBtyEPJAgxvj/SiJgy5rxnsnOn8/
+ xwAqkPrzxTPYwmX0B3Vcg2umXnpK4tNOt0N6MLGeSCi0YWXKfMDtA1yCYScBJ1ya5G
+ /MbvYchKUZIoQ==
+Date: Fri, 5 Jan 2024 14:27:32 +0100
+From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
+To: Eric Dumazet <edumazet@google.com>
+Message-ID: <20240105142732.1903bc70@meshulam.tesarici.cz>
+In-Reply-To: <20240105121447.11ae80d1@meshulam.tesarici.cz>
+References: <20240105091556.15516-1-petr@tesarici.cz>
+ <CANn89iLuYZBersxq4aH-9Fg_ojD0fh=0xtdLbRdbMrup=nvrkA@mail.gmail.com>
+ <20240105113402.0f5f1232@meshulam.tesarici.cz>
+ <CANn89iLEvW9ZS=+WPETPC=mKRyu9AKmueGCWZZOrz9oX3Xef=g@mail.gmail.com>
+ <20240105121447.11ae80d1@meshulam.tesarici.cz>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_06,2024-01-05_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-i2c@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v9 13/13] ARM: dts: stm32: put ETZPC as an
-	access controller for STM32MP13x boards
+Cc: Jiri Pirko <jiri@resnulli.us>, open list <linux-kernel@vger.kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, "moderated
+ list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: protect statistics updates
+	with a spinlock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,279 +68,118 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Reference ETZPC as an access-control-provider.
-
-For more information on which peripheral is securable or supports MCU
-isolation, please read the STM32MP13 reference manual
-
-Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
----
-
-Patch not present in V6
-
- arch/arm/boot/dts/st/stm32mp131.dtsi  | 26 ++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp133.dtsi  |  1 +
- arch/arm/boot/dts/st/stm32mp13xc.dtsi |  1 +
- arch/arm/boot/dts/st/stm32mp13xf.dtsi |  1 +
- 4 files changed, 29 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index 6ba8e3fd43b0..74ceece168ce 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -883,6 +883,7 @@ etzpc: bus@5c007000 {
- 			reg = <0x5c007000 0x400>;
- 			#address-cells = <1>;
- 			#size-cells = <1>;
-+			#access-controller-cells = <1>;
- 			ranges;
- 
- 			adc_2: adc@48004000 {
-@@ -895,6 +896,7 @@ adc_2: adc@48004000 {
- 				#interrupt-cells = <1>;
- 				#address-cells = <1>;
- 				#size-cells = <0>;
-+				access-controllers = <&etzpc 33>;
- 				status = "disabled";
- 
- 				adc2: adc@0 {
-@@ -942,6 +944,7 @@ usbotg_hs: usb@49000000 {
- 				dr_mode = "otg";
- 				otg-rev = <0x200>;
- 				usb33d-supply = <&scmi_usb33>;
-+				access-controllers = <&etzpc 34>;
- 				status = "disabled";
- 			};
- 
-@@ -955,6 +958,7 @@ usart1: serial@4c000000 {
- 				dmas = <&dmamux1 41 0x400 0x5>,
- 				<&dmamux1 42 0x400 0x1>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 16>;
- 				status = "disabled";
- 			};
- 
-@@ -968,6 +972,7 @@ usart2: serial@4c001000 {
- 				dmas = <&dmamux1 43 0x400 0x5>,
- 				<&dmamux1 44 0x400 0x1>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 17>;
- 				status = "disabled";
- 			};
- 
-@@ -979,6 +984,7 @@ i2s4: audio-controller@4c002000 {
- 				dmas = <&dmamux1 83 0x400 0x01>,
- 				<&dmamux1 84 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 13>;
- 				status = "disabled";
- 			};
- 
-@@ -993,6 +999,7 @@ spi4: spi@4c002000 {
- 				dmas = <&dmamux1 83 0x400 0x01>,
- 				       <&dmamux1 84 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 18>;
- 				status = "disabled";
- 			};
- 
-@@ -1007,6 +1014,7 @@ spi5: spi@4c003000 {
- 				dmas = <&dmamux1 85 0x400 0x01>,
- 				       <&dmamux1 86 0x400 0x01>;
- 				dma-names = "rx", "tx";
-+				access-controllers = <&etzpc 19>;
- 				status = "disabled";
- 			};
- 
-@@ -1025,6 +1033,7 @@ i2c3: i2c@4c004000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x4>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 20>;
- 				status = "disabled";
- 			};
- 
-@@ -1043,6 +1052,7 @@ i2c4: i2c@4c005000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x8>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 21>;
- 				status = "disabled";
- 			};
- 
-@@ -1061,6 +1071,7 @@ i2c5: i2c@4c006000 {
- 				dma-names = "rx", "tx";
- 				st,syscfg-fmp = <&syscfg 0x4 0x10>;
- 				i2c-analog-filter;
-+				access-controllers = <&etzpc 22>;
- 				status = "disabled";
- 			};
- 
-@@ -1073,6 +1084,7 @@ timers12: timer@4c007000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM12_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 23>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1097,6 +1109,7 @@ timers13: timer@4c008000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM13_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 24>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1121,6 +1134,7 @@ timers14: timer@4c009000 {
- 				interrupt-names = "global";
- 				clocks = <&rcc TIM14_K>;
- 				clock-names = "int";
-+				access-controllers = <&etzpc 25>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1150,6 +1164,7 @@ timers15: timer@4c00a000 {
- 				<&dmamux1 107 0x400 0x1>,
- 				<&dmamux1 108 0x400 0x1>;
- 				dma-names = "ch1", "up", "trig", "com";
-+				access-controllers = <&etzpc 26>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1177,6 +1192,7 @@ timers16: timer@4c00b000 {
- 				dmas = <&dmamux1 109 0x400 0x1>,
- 				<&dmamux1 110 0x400 0x1>;
- 				dma-names = "ch1", "up";
-+				access-controllers = <&etzpc 27>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1204,6 +1220,7 @@ timers17: timer@4c00c000 {
- 				dmas = <&dmamux1 111 0x400 0x1>,
- 				       <&dmamux1 112 0x400 0x1>;
- 				dma-names = "ch1", "up";
-+				access-controllers = <&etzpc 28>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1228,6 +1245,7 @@ lptimer2: timer@50021000 {
- 				clocks = <&rcc LPTIM2_K>;
- 				clock-names = "mux";
- 				wakeup-source;
-+				access-controllers = <&etzpc 1>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1262,6 +1280,7 @@ lptimer3: timer@50022000 {
- 				clocks = <&rcc LPTIM3_K>;
- 				clock-names = "mux";
- 				wakeup-source;
-+				access-controllers = <&etzpc 2>;
- 				status = "disabled";
- 
- 				pwm {
-@@ -1290,6 +1309,7 @@ hash: hash@54003000 {
- 				resets = <&rcc HASH1_R>;
- 				dmas = <&mdma 30 0x2 0x1000a02 0x0 0x0>;
- 				dma-names = "in";
-+				access-controllers = <&etzpc 41>;
- 			};
- 
- 			rng: rng@54004000 {
-@@ -1297,6 +1317,7 @@ rng: rng@54004000 {
- 				reg = <0x54004000 0x400>;
- 				clocks = <&rcc RNG1_K>;
- 				resets = <&rcc RNG1_R>;
-+				access-controllers = <&etzpc 40>;
- 			};
- 
- 			fmc: memory-controller@58002000 {
-@@ -1311,6 +1332,7 @@ fmc: memory-controller@58002000 {
- 				#size-cells = <1>;
- 				clocks = <&rcc FMC_K>;
- 				resets = <&rcc FMC_R>;
-+				access-controllers = <&etzpc 54>;
- 				status = "disabled";
- 
- 				nand-controller@4,0 {
-@@ -1344,6 +1366,7 @@ qspi: spi@58003000 {
- 				dma-names = "tx", "rx";
- 				clocks = <&rcc QSPI_K>;
- 				resets = <&rcc QSPI_R>;
-+				access-controllers = <&etzpc 55>;
- 				status = "disabled";
- 			};
- 
-@@ -1358,6 +1381,7 @@ sdmmc1: mmc@58005000 {
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <130000000>;
-+				access-controllers = <&etzpc 50>;
- 				status = "disabled";
- 			};
- 
-@@ -1372,6 +1396,7 @@ sdmmc2: mmc@58007000 {
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <130000000>;
-+				access-controllers = <&etzpc 51>;
- 				status = "disabled";
- 			};
- 
-@@ -1385,6 +1410,7 @@ usbphyc: usbphyc@5a006000 {
- 				resets = <&rcc USBPHY_R>;
- 				vdda1v1-supply = <&scmi_reg11>;
- 				vdda1v8-supply = <&scmi_reg18>;
-+				access-controllers = <&etzpc 5>;
- 				status = "disabled";
- 
- 				usbphyc_port0: usb-phy@0 {
-diff --git a/arch/arm/boot/dts/st/stm32mp133.dtsi b/arch/arm/boot/dts/st/stm32mp133.dtsi
-index c4d3a520c14b..3e394c8e58b9 100644
---- a/arch/arm/boot/dts/st/stm32mp133.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp133.dtsi
-@@ -47,6 +47,7 @@ adc_1: adc@48003000 {
- 		#interrupt-cells = <1>;
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-+		access-controllers = <&etzpc 32>;
- 		status = "disabled";
- 
- 		adc1: adc@0 {
-diff --git a/arch/arm/boot/dts/st/stm32mp13xc.dtsi b/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-index b9fb071a1471..a8bd5fe6536c 100644
---- a/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13xc.dtsi
-@@ -11,6 +11,7 @@ cryp: crypto@54002000 {
- 		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&rcc CRYP1>;
- 		resets = <&rcc CRYP1_R>;
-+		access-controllers = <&etzpc 42>;
- 		status = "disabled";
- 	};
- };
-diff --git a/arch/arm/boot/dts/st/stm32mp13xf.dtsi b/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-index b9fb071a1471..a8bd5fe6536c 100644
---- a/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13xf.dtsi
-@@ -11,6 +11,7 @@ cryp: crypto@54002000 {
- 		interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 		clocks = <&rcc CRYP1>;
- 		resets = <&rcc CRYP1_R>;
-+		access-controllers = <&etzpc 42>;
- 		status = "disabled";
- 	};
- };
--- 
-2.35.3
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgRXJpYywKCnllYWgsIGl0J3MgbWUgYWdhaW4uLi4KCk9uIEZyaSwgNSBKYW4gMjAyNCAxMjox
+NDo0NyArMDEwMApQZXRyIFRlc2HFmcOtayA8cGV0ckB0ZXNhcmljaS5jej4gd3JvdGU6Cgo+IE9u
+IEZyaSwgNSBKYW4gMjAyNCAxMTo0ODoxOSArMDEwMAo+IEVyaWMgRHVtYXpldCA8ZWR1bWF6ZXRA
+Z29vZ2xlLmNvbT4gd3JvdGU6Cj4gCj4gPiBPbiBGcmksIEphbiA1LCAyMDI0IGF0IDExOjM04oCv
+QU0gUGV0ciBUZXNhxZnDrWsgPHBldHJAdGVzYXJpY2kuY3o+IHdyb3RlOiAgCj4gPiA+Cj4gPiA+
+IE9uIEZyaSwgNSBKYW4gMjAyNCAxMDo1ODo0MiArMDEwMAo+ID4gPiBFcmljIER1bWF6ZXQgPGVk
+dW1hemV0QGdvb2dsZS5jb20+IHdyb3RlOgo+ID4gPiAgICAKPiA+ID4gPiBPbiBGcmksIEphbiA1
+LCAyMDI0IGF0IDEwOjE24oCvQU0gUGV0ciBUZXNhcmlrIDxwZXRyQHRlc2FyaWNpLmN6PiB3cm90
+ZTogICAgCj4gPiA+ID4gPgo+ID4gPiA+ID4gQWRkIGEgc3BpbmxvY2sgdG8gZml4IHJhY2UgY29u
+ZGl0aW9ucyB3aGlsZSB1cGRhdGluZyBUeC9SeCBzdGF0aXN0aWNzLgo+ID4gPiA+ID4KPiA+ID4g
+PiA+IEFzIGV4cGxhaW5lZCBieSBhIGNvbW1lbnQgaW4gPGxpbnV4L3U2NF9zdGF0c19zeW5jLmg+
+LCB3cml0ZSBzaWRlIG9mIHN0cnVjdAo+ID4gPiA+ID4gdTY0X3N0YXRzX3N5bmMgbXVzdCBlbnN1
+cmUgbXV0dWFsIGV4Y2x1c2lvbiwgb3Igb25lIHNlcWNvdW50IHVwZGF0ZSBjb3VsZAo+ID4gPiA+
+ID4gYmUgbG9zdCBvbiAzMi1iaXQgcGxhdGZvcm1zLCB0aHVzIGJsb2NraW5nIHJlYWRlcnMgZm9y
+ZXZlci4KPiA+ID4gPiA+Cj4gPiA+ID4gPiBTdWNoIGxvY2t1cHMgaGF2ZSBiZWVuIGFjdHVhbGx5
+IG9ic2VydmVkIG9uIDMyLWJpdCBBcm0gYWZ0ZXIgc3RtbWFjX3htaXQoKQo+ID4gPiA+ID4gb24g
+b25lIGNvcmUgcmFjZWQgd2l0aCBzdG1tYWNfbmFwaV9wb2xsX3R4KCkgb24gYW5vdGhlciBjb3Jl
+Lgo+ID4gPiA+ID4KPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFBldHIgVGVzYXJpayA8cGV0ckB0
+ZXNhcmljaS5jej4gICAgCj4gPiA+ID4KPiA+ID4gPiBUaGlzIGlzIGdvaW5nIHRvIGFkZCBtb3Jl
+IGNvc3RzIHRvIDY0Yml0IHBsYXRmb3JtcyA/ICAgIAo+ID4gPgo+ID4gPiBZZXMsIGl0IGFkZHMg
+YSAoaG9wZWZ1bGx5IG5vdCB0b28gY29udGVuZGVkKSBzcGlubG9jayBhbmQgaW4gbW9zdAo+ID4g
+PiBwbGFjZXMgYW4gaW50ZXJydXB0IGRpc2FibGUvZW5hYmxlIHBhaXIuCj4gPiA+Cj4gPiA+IEZX
+SVcgdGhlIHJhY2UgY29uZGl0aW9uIGlzIGFsc28gcHJlc2VudCBvbiA2NC1iaXQgcGxhdGZvcm1z
+LCByZXN1bHRpbmcKPiA+ID4gaW4gaW5hY2N1cmF0ZSBzdGF0aXN0aWMgY291bnRlcnMuIEkgY2Fu
+IHVuZGVyc3RhbmQgaWYgeW91IGNvbnNpZGVyIGl0IGEKPiA+ID4gbWlsZCBhbm5veWFuY2UsIG5v
+dCB3b3J0aCBmaXhpbmcuCj4gPiA+ICAgIAo+ID4gPiA+IEl0IHNlZW1zIHRvIG1lIHRoYXQgdGhl
+IHNhbWUgc3luY3AgY2FuIGJlIHVzZWQgZnJvbSB0d28gZGlmZmVyZW50Cj4gPiA+ID4gdGhyZWFk
+cyA6IGhhcmQgaXJxIGFuZCBuYXBpIHBvbGxlci4uLiAgICAKPiA+ID4KPiA+ID4gWWVzLCB0aGF0
+J3MgZXhhY3RseSB0aGUgc2NlbmFyaW8gdGhhdCBsb2NrcyB1cCBteSBzeXN0ZW0uCj4gPiA+ICAg
+IAo+ID4gPiA+IEF0IHRoaXMgcG9pbnQsIEkgZG8gbm90IHNlZSB3aHkgeW91IGtlZXAgbGludXgv
+dTY0X3N0YXRzX3N5bmMuaCBpZiB5b3UKPiA+ID4gPiBkZWNpZGUgdG8gZ28gZm9yIGEgc3Bpbmxv
+Y2suLi4gICAgCj4gPiA+Cj4gPiA+IFRoZSBzcGlubG9jayBkb2VzIG5vdCBoYXZjZSB0byBiZSB0
+YWtlbiBvbiB0aGUgcmVhZGVyIHNpZGUsIHNvIHRoZQo+ID4gPiBzZXFjb3VudGVyIHN0aWxsIGFk
+ZHMgc29tZSB2YWx1ZS4KPiA+ID4gICAgCj4gPiA+ID4gQWx0ZXJuYXRpdmUgd291bGQgdXNlIGF0
+b21pYzY0X3QgZmllbGRzIGZvciB0aGUgb25lcyB3aGVyZSB0aGVyZSBpcyBubwo+ID4gPiA+IG11
+dHVhbCBleGNsdXNpb24uCj4gPiA+ID4KPiA+ID4gPiBSWCA6IG5hcGkgcG9sbCBpcyBkZWZpbml0
+ZWx5IHNhZmUgKHByb3RlY3RlZCBieSBhbiBhdG9taWMgYml0KQo+ID4gPiA+IFRYIDogZWFjaCBU
+WCBxdWV1ZSBpcyBhbHNvIHNhZmUgKHByb3RlY3RlZCBieSBhbiBhdG9taWMgZXhjbHVzaW9uIGZv
+cgo+ID4gPiA+IG5vbiBMTFRYIGRyaXZlcnMpCj4gPiA+ID4KPiA+ID4gPiBUaGlzIGxlYXZlcyB0
+aGUgZmllbGRzIHVwZGF0ZWQgZnJvbSBoYXJkd2FyZSBpbnRlcnJ1cHQgY29udGV4dCA/ICAgIAo+
+ID4gPgo+ID4gPiBJJ20gYWZyYWlkIEkgZG9uJ3QgaGF2ZSBlbm91Z2ggbmV0d29yay1zdGFjay1m
+b28gdG8gZm9sbG93IGhlcmUuCj4gPiA+Cj4gPiA+IE15IGlzc3VlIG9uIDMyIGJpdCBpcyB0aGF0
+IHN0bW1hY194bWl0KCkgbWF5IGJlIGNhbGxlZCBkaXJlY3RseSBmcm9tCj4gPiA+IHByb2Nlc3Mg
+Y29udGV4dCB3aGlsZSBhbm90aGVyIGNvcmUgcnVucyB0aGUgVFggbmFwaSBvbiB0aGUgc2FtZSBj
+aGFubmVsCj4gPiA+IChpbiBpbnRlcnJ1cHQgY29udGV4dCkuIEkgZGlkbid0IG9ic2VydmUgYW55
+IHJhY2Ugb24gdGhlIFJYIHBhdGgsIGJ1dCBJCj4gPiA+IGJlbGlldmUgaXQncyBwb3NzaWJsZSB3
+aXRoIE5BUEkgYnVzeSBwb2xsaW5nLgo+ID4gPgo+ID4gPiBJbiBhbnkgY2FzZSwgSSBkb24ndCBz
+ZWUgdGhlIGNvbm5lY3Rpb24gd2l0aCBMTFRYLiBNYXliZSB5b3Ugd2FudCB0bwo+ID4gPiBzYXkg
+dGhhdCB0aGUgVFggcXVldWUgaXMgc2FmZSBmb3Igc3RtbWFjIChiZWNhdXNlIGl0IGlzIGEgbm9u
+LUxMVFgKPiA+ID4gZHJpdmVyKSwgYnV0IG1pZ2h0IG5vdCBiZSBzYWZlIGZvciBMTFRYIGRyaXZl
+cnM/ICAgIAo+ID4gCj4gPiBMTFRYIGRyaXZlcnMgKG1vc3RseSB2aXJ0dWFsIGRyaXZlcnMgbGlr
+ZSB0dW5uZWxzLi4uKSBjYW4gaGF2ZSBtdWx0aXBsZSBjcHVzCj4gPiBydW5uaW5nIG5kb19zdGFy
+dF94bWl0KCkgY29uY3VycmVudGx5LiBTbyBhbnkgdXNlIG9mIGEgJ3NoYXJlZCBzeW5jcCcKPiA+
+IHdvdWxkIGJlIGEgYnVnLgo+ID4gVGhlc2UgZHJpdmVycyB1c3VhbGx5IHVzZSBwZXItY3B1IHN0
+YXRzLCB0byBhdm9pZCByYWNlcyBhbmQgZmFsc2UKPiA+IHNoYXJpbmcgYW55d2F5Lgo+ID4gCj4g
+PiBJIHRoaW5rIHlvdSBzaG91bGQgc3BsaXQgdGhlIHN0cnVjdHVyZXMgaW50byB0d28gc2VwYXJh
+dGUgZ3JvdXBzLCBlYWNoCj4gPiBndWFyZGVkIHdpdGggaXRzIG93biBzeW5jcC4KPiA+IAo+ID4g
+Tm8gZXh0cmEgc3BpbmxvY2tzLCBubyBleHRyYSBjb3N0cyBvbiA2NGJpdCBhcmNoZXMuLi4KPiA+
+IAo+ID4gSWYgVFggY29tcGxldGlvbiBjYW4gcnVuIGluIHBhcmFsbGVsIHdpdGggbmRvX3N0YXJ0
+X3htaXQoKSwgdGhlbgo+ID4gY2xlYXJseSB3ZSBoYXZlIHRvIHNwbGl0IHN0bW1hY190eHFfc3Rh
+dHMgaW4gdHdvIGhhbHZlczogIAo+IAo+IE9oLCBub3cgSSBnZXQgaXQuIFllcywgdGhhdCdzIG11
+Y2ggYmV0dGVyLCBpbmRlZWQuCj4gCj4gSSBtZWFuLCB0aGUgY291bnRlcnMgaGF2ZSBuZXZlciBi
+ZWVuIGNvbnNpc3RlbnQgKGR1ZSB0byB0aGUgcmFjZSBvbiB0aGUKPiB3cml0ZXIgc2lkZSksIGFu
+ZCBub2JvZHkgaXMgY29uY2VybmVkLiBTbywgdGhlcmUgaXMgbm8gdmFsdWUgaW4gdGFraW5nCj4g
+YSBjb25zaXN0ZW50IHNuYXBzaG90IGluIHN0bW1hY19nZXRfZXRodG9vbF9zdGF0cygpLgo+IAo+
+IEknbSBnb2luZyB0byByZXdvcmsgYW5kIHJldGVzdCBteSBwYXRjaC4gVGhhbmsgeW91IGZvciBw
+b2ludGluZyBtZSBpbgo+IHRoZSByaWdodCBkaXJlY3Rpb24hCj4gCj4gUGV0ciBUCj4gCj4gPiBB
+bHNvIHBsZWFzZSBub3RlIHRoZSBjb252ZXJzaW9uIGZyb20gdTY0IHRvIHU2NF9zdGF0c190ICAK
+PiAKPiBOb3RlZC4gSUlVQyB0aGlzIHdpbGwgaW4gdHVybiBjbG9zZSB0aGUgdXBkYXRlIHJhY2Ug
+b24gNjQtYml0IGJ5IHVzaW5nCj4gYW4gYXRvbWljIHR5cGUgYW5kIG9uIDMyLWJpdCBieSB1c2lu
+ZyBhIHNlcWxvY2suIENsZXZlci4KPiAKPiBQZXRyIFQKPiAKPiA+IFZlcnkgcGFydGlhbCBwYXRj
+aCwgb25seSB0byBzaG93IHRoZSBzcGxpdCBhbmQgbmV3IHN0cnVjdHVyZSA6Cj4gPiAKPiA+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaAo+
+ID4gYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaAo+ID4gaW5k
+ZXggZTNmNjUwZTg4ZjgyZjkyN2YwZGNmOTU3NDhmYmQxMGMxNGMzMGNiZS4uNzAyYmNlZWE1ZGM4
+Yzg3NWE4MGY1ZTNhOTJiN2JiMDU4ZjM3M2VkYQo+ID4gMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJz
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaAo+ID4gKysrIGIvZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmgKPiA+IEBAIC02MCwxNiArNjAsMjIg
+QEAKPiA+ICAvKiAjZGVmaW5lIEZSQU1FX0ZJTFRFUl9ERUJVRyAqLwo+ID4gCj4gPiAgc3RydWN0
+IHN0bW1hY190eHFfc3RhdHMgewo+ID4gLSAgICAgICB1NjQgdHhfYnl0ZXM7Cj4gPiAtICAgICAg
+IHU2NCB0eF9wYWNrZXRzOwo+ID4gLSAgICAgICB1NjQgdHhfcGt0X247Cj4gPiAtICAgICAgIHU2
+NCB0eF9ub3JtYWxfaXJxX247Cj4gPiAtICAgICAgIHU2NCBuYXBpX3BvbGw7Cj4gPiAtICAgICAg
+IHU2NCB0eF9jbGVhbjsKPiA+IC0gICAgICAgdTY0IHR4X3NldF9pY19iaXQ7Cj4gPiAtICAgICAg
+IHU2NCB0eF90c29fZnJhbWVzOwo+ID4gLSAgICAgICB1NjQgdHhfdHNvX25mcmFnczsKPiA+IC0g
+ICAgICAgc3RydWN0IHU2NF9zdGF0c19zeW5jIHN5bmNwOwo+ID4gKy8qIEZpcnN0IHBhcnQsIHVw
+ZGF0ZWQgZnJvbSBuZG9fc3RhcnRfeG1pdCgpLCBwcm90ZWN0ZWQgYnkgdHggcXVldWUgbG9jayAq
+Lwo+ID4gKyAgICAgICBzdHJ1Y3QgdTY0X3N0YXRzX3N5bmMgc3luY3BfdHg7Cj4gPiArICAgICAg
+IHU2NF9zdGF0c190IHR4X2J5dGVzOwo+ID4gKyAgICAgICB1NjRfc3RhdHNfdCB0eF9wYWNrZXRz
+Owo+ID4gKyAgICAgICB1NjRfc3RhdHNfdCB0eF9wa3RfbjsKPiA+ICsgICAgICAgdTY0X3N0YXRz
+X3QgdHhfdHNvX2ZyYW1lczsKPiA+ICsgICAgICAgdTY0X3N0YXRzX3QgdHhfdHNvX25mcmFnczsK
+PiA+ICsKPiA+ICsvKiBTZWNvbmQgcGFydCwgdXBkYXRlZCBmcm9tIFRYIGNvbXBsZXRpb24gKHBy
+b3RlY3RlZCBieSBOQVBJIHBvbGwgbG9naWMpICovCj4gPiArICAgICAgIHN0cnVjdCB1NjRfc3Rh
+dHNfc3luYyBzeW5jcF90eF9jb21wbGV0aW9uOwo+ID4gKyAgICAgICB1NjRfc3RhdHNfdCBuYXBp
+X3BvbGw7Cj4gPiArICAgICAgIHU2NF9zdGF0c190IHR4X2NsZWFuOwo+ID4gKyAgICAgICB1NjRf
+c3RhdHNfdCB0eF9zZXRfaWNfYml0OwoKVW5mb3J0dW5hdGVseSwgdGhpcyBmaWVsZCBpcyBhbHNv
+IHVwZGF0ZWQgZnJvbSBuZG9fc3RhcnRfeG1pdCgpOgoKNDU3MikgICAgIGlmIChzZXRfaWMpCjQ1
+NzMpICAgICAgICAgICAgIHR4cV9zdGF0cy0+dHhfc2V0X2ljX2JpdCsrOwoKSSBmZWVsIGl0IHdv
+dWxkIGJlIGEgc2hhbWUgdG8gaW50cm9kdWNlIGEgc3BpbmxvY2sganVzdCBmb3IgdGhpcyBvbmUK
+dXBkYXRlLiBCdXQgSSB0aGluayB0aGUgZmllbGQgY291bGQgYmUgY29udmVydGVkIHRvIGFuIGF0
+b21pYzY0X3QuCgpXaGljaCByYWlzZXMgYSBxdWVzdGlvbjogV2h5IGFyZW4ndCBhbGwgc3RhdCBj
+b3VudGVycyBzaW1wbHkgYXRvbWljNjRfdD8gVGhlcmUKaXMgbm8gZ3VhcmFudGVlIHRoYXQgdGhl
+IHJlYWRlciBzaWRlIHRha2VzIGEgY29uc2lzdGVudCBzbmFwc2hvdAooZXhjZXB0IG9uIDMyLWJp
+dCkuIFNvLCB3aHkgZG8gd2UgZXZlbiBib3RoZXIgd2l0aCB1NjRfc3RhdHNfc3luYz8KCklzIGl0
+IG1lcmVseSBiZWNhdXNlIHU2NF9zdGF0c19hZGQoKSBzaG91bGQgYmUgY2hlYXBlciB0aGFuCmF0
+b21pYzY0X2FkZCgpPyBPciBpcyB0aGVyZSBhbnl0aGluZyBlbHNlIEknbSBtaXNzaW5nPyBJZiB5
+ZXMsIGRvZXMgaXQKaW52YWxpZGF0ZSBteSBwcm9wb3NhbCB0byBjb252ZXJ0IHR4X3NldF9pY19i
+aXQgdG8gYW4gYXRvbWljNjRfdD8KClBldHIgVApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
