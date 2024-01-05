@@ -2,68 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C39E18250B6
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 10:21:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 441F082511D
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 10:46:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70CDAC6C83D;
-	Fri,  5 Jan 2024 09:21:51 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E38E6C6C83D;
+	Fri,  5 Jan 2024 09:45:59 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4160EC6C83C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30476C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 09:21:50 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 4052xVtj026982; Fri, 5 Jan 2024 10:21:10 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=vW8CYyGIP/vC0L2YTygi0W0H7YOr9Bs1QNabt8ZBU1M=; b=Tv
- qDL3NSqwEnMohCzDKfiJx/4bDSTntsHCmJ93nwH9C+miyfsS9+R9rbUPshYJtqX5
- LPD0N2PGDrqjjg/XxQbBx/BGH5+SfgNjOvlHRAZmSDYKDDD9agRoJxf1WQFWGemP
- bflaXuetxu030U1SxNqX4Wo2V66XtPgnYpiydlRl4UkV41/Jm8b9wDP4pK233w0h
- ySbV4rDlpZsu67A4bp03GO5hR1yCZQe3XjWVm3+sucXT7r6ehFChl+GD5ZgttqCU
- VVuoblEAcqoHXRzLfGDAh8i9APGuDKwjlS5d6QqV5ZTrOLJF5HfI4WIamAX0cp78
- 9Y/TxhvmDDQPmueDN8Iw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ve9fd19g7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Jan 2024 10:21:10 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 978ED10002A;
- Fri,  5 Jan 2024 10:21:09 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 830EE21861F;
- Fri,  5 Jan 2024 10:21:09 +0100 (CET)
-Received: from [10.252.5.254] (10.252.5.254) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 5 Jan
- 2024 10:21:09 +0100
-Message-ID: <76b4dfd8-f8c2-41f1-96df-539b168f9e80@foss.st.com>
-Date: Fri, 5 Jan 2024 10:21:08 +0100
+ Fri,  5 Jan 2024 09:45:58 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-33748c4f33dso1171405f8f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Jan 2024 01:45:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1704447957; x=1705052757;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6dQ2Zcf3LUGtuQQ4BG4OyEdzBvj9Rr7K+Ifz60LIvyE=;
+ b=AVGKPNK8MUE8SjQcXSJwjBamTI7rtoMelGHowVSlpvM4DuIwr1geyGaXCZ7cLQp1ql
+ 2mU6t9qRXZ9bEYKoympVz6IPBGbL+7V1vvJunEDRNjmA+w+goVJMKz2z4Q0f4sbIKe8k
+ o83ST9iUI7aDr1dpiKHxX1ONCMtdZCTpxJTOU+JEE0gmXf/XZ90ejQWLZHHt/IQ90Lgo
+ qVaJbmQEPFO8y1z/5dL2YO2BW5vSsUw18UpTDrDAMutPXsbduokqIRuVi2AaI8DFspdN
+ i4DNBHoVaWci6tGbJg9AWOAtmYDkqaq+khdu49nO+vO8x33KQDfOpskdWfmWlKd07VV/
+ qT5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704447957; x=1705052757;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6dQ2Zcf3LUGtuQQ4BG4OyEdzBvj9Rr7K+Ifz60LIvyE=;
+ b=fuxVc1ItzkBt5NZDzue+VyGzAnUcoxJ+0CNMtK3NfRKVLGIy7nGr35azio9tlpU3yk
+ NIRznUSg0HCVLd4+dlvJu9z9Raon+DbDuCJFp6tj4ezxfgZRwS0w3RiO0gMH9BO2pRch
+ w+Y+pXFscEWxqOF8y2tb7CuQlw8+p4fDAMNXqo+KCeWWOiuPE61kZyLJk2pUB2Ou7Ncs
+ Nfco/6FQS+uF7H2b931OZd8be/BqWvKNLDszQFXd1EFbb7RXOsyTd5T6KBn4At/AHmvC
+ SUr4meUQCEFrPdNM9WVkx7GbSZ02PR7yn71TjJdbl9MP3TKalooPMY3wKpP+GTsw55Ep
+ X34w==
+X-Gm-Message-State: AOJu0YzONvwB2UnlQ9gSADqDq4dYPSrA+CGS4ml2SoTtTiYONblU/WAV
+ AV+TRHJkXnHWR+iKJOuF91COfxuazZbxDA==
+X-Google-Smtp-Source: AGHT+IE7xcKFhc+fZICfgIHf6ynVm6myXKHOu6CaW+r5Tx/ljZlkvJMf+DQE7zJ/0LUT9GlPaykdwg==
+X-Received: by 2002:a5d:4f83:0:b0:337:5a0e:1195 with SMTP id
+ d3-20020a5d4f83000000b003375a0e1195mr292860wru.127.1704447957443; 
+ Fri, 05 Jan 2024 01:45:57 -0800 (PST)
+Received: from localhost (host-213-179-129-39.customer.m-online.net.
+ [213.179.129.39]) by smtp.gmail.com with ESMTPSA id
+ t1-20020adfd001000000b0033672971fabsm1049226wrh.115.2024.01.05.01.45.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jan 2024 01:45:56 -0800 (PST)
+Date: Fri, 5 Jan 2024 10:45:55 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Petr Tesarik <petr@tesarici.cz>
+Message-ID: <ZZfP0_WHWZ8LFqXX@nanopsycho>
+References: <20240105091556.15516-1-petr@tesarici.cz>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Katya Orlova <e.orlova@ispras.ru>
-References: <20231124100415.21713-1-e.orlova@ispras.ru>
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20231124100415.21713-1-e.orlova@ispras.ru>
-X-Originating-IP: [10.252.5.254]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_04,2024-01-05_01,2023-05-22_02
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- lvc-project@linuxtesting.org
-Subject: Re: [Linux-stm32] [PATCH v2] drm/stm: Avoid use-after-free issues
- with crtc and plane
+Content-Disposition: inline
+In-Reply-To: <20240105091556.15516-1-petr@tesarici.cz>
+Cc: open list <linux-kernel@vger.kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: protect statistics updates
+	with a spinlock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,160 +86,365 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDExLzI0LzIzIDExOjA0LCBLYXR5YSBPcmxvdmEgd3JvdGU6Cj4gbHRkY19sb2FkKCkgY2Fs
-bHMgZnVuY3Rpb25zIGRybV9jcnRjX2luaXRfd2l0aF9wbGFuZXMoKSwKPiBkcm1fdW5pdmVyc2Fs
-X3BsYW5lX2luaXQoKSBhbmQgZHJtX2VuY29kZXJfaW5pdCgpLiBUaGVzZSBmdW5jdGlvbnMKPiBz
-aG91bGQgbm90IGJlIGNhbGxlZCB3aXRoIHBhcmFtZXRlcnMgYWxsb2NhdGVkIHdpdGggZGV2bV9r
-emFsbG9jKCkKPiB0byBhdm9pZCB1c2UtYWZ0ZXItZnJlZSBpc3N1ZXMgWzFdLgo+Cj4gVXNlIGFs
-bG9jYXRpb25zIG1hbmFnZWQgYnkgdGhlIERSTSBmcmFtZXdvcmsuCj4KPiBGb3VuZCBieSBMaW51
-eCBWZXJpZmljYXRpb24gQ2VudGVyIChsaW51eHRlc3Rpbmcub3JnKS4KPgo+IFsxXQo+IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvdTM2Nmk3NmUzcWhoM3JhNW94cnRuZ2p0bTJ1NWx0ZXJr
-ZWtjejZ5MmprbmRodXh6bGlAZGl1am9uNGg3cXdiLwo+Cj4gU2lnbmVkLW9mZi1ieTogS2F0eWEg
-T3Jsb3ZhIDxlLm9ybG92YUBpc3ByYXMucnU+Cj4gLS0tCj4gdjI6IHVzZSBhbGxvY2F0aW9ucyBt
-YW5hZ2VkIGJ5IHRoZSBEUk0gYXMKPiBSYXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxh
-aXMtcG91QGZvc3Muc3QuY29tPiBzdWdnZXN0ZWQuCj4gQWxzbyBhZGQgYSBmaXggZm9yIGVuY29k
-ZXIuCj4gIGRyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMgIHwgIDMgKy0KPiAgZHJpdmVycy9ncHUv
-ZHJtL3N0bS9sdGRjLmMgfCA2OCArKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LQo+ICAyIGZpbGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDUzIGRlbGV0aW9ucygtKQo+
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vZHJ2LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vc3RtL2Rydi5jCj4gaW5kZXggZTg1MjNhYmVmMjdhLi4xNTJiZWMyYzAyMzggMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
-dG0vZHJ2LmMKPiBAQCAtMjUsNiArMjUsNyBAQAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9tb2R1bGUu
-aD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJvYmVfaGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0v
-ZHJtX3ZibGFuay5oPgo+ICsjaW5jbHVkZSA8ZHJtL2RybV9tYW5hZ2VkLmg+Cj4gIAo+ICAjaW5j
-bHVkZSAibHRkYy5oIgo+ICAKPiBAQCAtNzUsNyArNzYsNyBAQCBzdGF0aWMgaW50IGRydl9sb2Fk
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+ICAKPiAgCURSTV9ERUJVRygiJXNcbiIsIF9fZnVu
-Y19fKTsKPiAgCj4gLQlsZGV2ID0gZGV2bV9remFsbG9jKGRkZXYtPmRldiwgc2l6ZW9mKCpsZGV2
-KSwgR0ZQX0tFUk5FTCk7Cj4gKwlsZGV2ID0gZHJtbV9remFsbG9jKGRkZXYsIHNpemVvZigqbGRl
-diksIEdGUF9LRVJORUwpOwo+ICAJaWYgKCFsZGV2KQo+ICAJCXJldHVybiAtRU5PTUVNOwo+ICAK
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vc3RtL2x0ZGMuYwo+IGluZGV4IDU1NzZmZGFlNDk2Mi4uMDJhN2M4Mzc1ZjQ0IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L3N0bS9sdGRjLmMKPiBAQCAtMzYsNiArMzYsNyBAQAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9wcm9i
-ZV9oZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fc2ltcGxlX2ttc19oZWxwZXIuaD4KPiAg
-I2luY2x1ZGUgPGRybS9kcm1fdmJsYW5rLmg+Cj4gKyNpbmNsdWRlIDxkcm0vZHJtX21hbmFnZWQu
-aD4KPiAgCj4gICNpbmNsdWRlIDx2aWRlby92aWRlb21vZGUuaD4KPiAgCj4gQEAgLTExOTksNyAr
-MTIwMCw2IEBAIHN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19hdG9taWNfcHJpbnRfc3RhdGUoc3RydWN0
-IGRybV9wcmludGVyICpwLAo+ICB9Cj4gIAo+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRj
-X2Z1bmNzIGx0ZGNfY3J0Y19mdW5jcyA9IHsKPiAtCS5kZXN0cm95ID0gZHJtX2NydGNfY2xlYW51
-cCwKPiAgCS5zZXRfY29uZmlnID0gZHJtX2F0b21pY19oZWxwZXJfc2V0X2NvbmZpZywKPiAgCS5w
-YWdlX2ZsaXAgPSBkcm1fYXRvbWljX2hlbHBlcl9wYWdlX2ZsaXAsCj4gIAkucmVzZXQgPSBkcm1f
-YXRvbWljX2hlbHBlcl9jcnRjX3Jlc2V0LAo+IEBAIC0xMjEyLDcgKzEyMTIsNiBAQCBzdGF0aWMg
-Y29uc3Qgc3RydWN0IGRybV9jcnRjX2Z1bmNzIGx0ZGNfY3J0Y19mdW5jcyA9IHsKPiAgfTsKPiAg
-Cj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2NydGNfZnVuY3MgbHRkY19jcnRjX3dpdGhfY3Jj
-X3N1cHBvcnRfZnVuY3MgPSB7Cj4gLQkuZGVzdHJveSA9IGRybV9jcnRjX2NsZWFudXAsCj4gIAku
-c2V0X2NvbmZpZyA9IGRybV9hdG9taWNfaGVscGVyX3NldF9jb25maWcsCj4gIAkucGFnZV9mbGlw
-ID0gZHJtX2F0b21pY19oZWxwZXJfcGFnZV9mbGlwLAo+ICAJLnJlc2V0ID0gZHJtX2F0b21pY19o
-ZWxwZXJfY3J0Y19yZXNldCwKPiBAQCAtMTU0NSw3ICsxNTQ0LDYgQEAgc3RhdGljIHZvaWQgbHRk
-Y19wbGFuZV9hdG9taWNfcHJpbnRfc3RhdGUoc3RydWN0IGRybV9wcmludGVyICpwLAo+ICBzdGF0
-aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9mdW5jcyBsdGRjX3BsYW5lX2Z1bmNzID0gewo+ICAJ
-LnVwZGF0ZV9wbGFuZSA9IGRybV9hdG9taWNfaGVscGVyX3VwZGF0ZV9wbGFuZSwKPiAgCS5kaXNh
-YmxlX3BsYW5lID0gZHJtX2F0b21pY19oZWxwZXJfZGlzYWJsZV9wbGFuZSwKPiAtCS5kZXN0cm95
-ID0gZHJtX3BsYW5lX2NsZWFudXAsCj4gIAkucmVzZXQgPSBkcm1fYXRvbWljX2hlbHBlcl9wbGFu
-ZV9yZXNldCwKPiAgCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJf
-cGxhbmVfZHVwbGljYXRlX3N0YXRlLAo+ICAJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZHJtX2F0
-b21pY19oZWxwZXJfcGxhbmVfZGVzdHJveV9zdGF0ZSwKPiBAQCAtMTU3Miw3ICsxNTcwLDYgQEAg
-c3RhdGljIHN0cnVjdCBkcm1fcGxhbmUgKmx0ZGNfcGxhbmVfY3JlYXRlKHN0cnVjdCBkcm1fZGV2
-aWNlICpkZGV2LAo+ICAJY29uc3QgdTY0ICptb2RpZmllcnMgPSBsdGRjX2Zvcm1hdF9tb2RpZmll
-cnM7Cj4gIAl1MzIgbG9mcyA9IGluZGV4ICogTEFZX09GUzsKPiAgCXUzMiB2YWw7Cj4gLQlpbnQg
-cmV0Owo+ICAKPiAgCS8qIEFsbG9jYXRlIHRoZSBiaWdnZXN0IHNpemUgYWNjb3JkaW5nIHRvIHN1
-cHBvcnRlZCBjb2xvciBmb3JtYXRzICovCj4gIAlmb3JtYXRzID0gZGV2bV9remFsbG9jKGRldiwg
-KGxkZXYtPmNhcHMucGl4X2ZtdF9uYiArCj4gQEAgLTE2MTMsMTQgKzE2MTAsMTAgQEAgc3RhdGlj
-IHN0cnVjdCBkcm1fcGxhbmUgKmx0ZGNfcGxhbmVfY3JlYXRlKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZGV2LAo+ICAJCX0KPiAgCX0KPiAgCj4gLQlwbGFuZSA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVv
-ZigqcGxhbmUpLCBHRlBfS0VSTkVMKTsKPiAtCWlmICghcGxhbmUpCj4gLQkJcmV0dXJuIE5VTEw7
-Cj4gLQo+IC0JcmV0ID0gZHJtX3VuaXZlcnNhbF9wbGFuZV9pbml0KGRkZXYsIHBsYW5lLCBwb3Nz
-aWJsZV9jcnRjcywKPiAtCQkJCSAgICAgICAmbHRkY19wbGFuZV9mdW5jcywgZm9ybWF0cywgbmJf
-Zm10LAo+IC0JCQkJICAgICAgIG1vZGlmaWVycywgdHlwZSwgTlVMTCk7Cj4gLQlpZiAocmV0IDwg
-MCkKPiArCXBsYW5lID0gZHJtbV91bml2ZXJzYWxfcGxhbmVfYWxsb2MoZGRldiwgc3RydWN0IGRy
-bV9wbGFuZSwgZGV2LAo+ICsJCQkJICAgICAgIHBvc3NpYmxlX2NydGNzLCAmbHRkY19wbGFuZV9m
-dW5jcywgZm9ybWF0cywgbmJfZm10LAo+ICsJCQkJICAgICAgIG1vZGlmaWVycywgdHlwZSwgTlVM
-TCk7CgpIaSBLYXR5YSwKClRoYW5rcyBmb3IgeW91ciBzdWJtaXNzaW9uLCBhbmQgc29ycnkgZm9y
-IHRoZSBkZWxheS4KCgpUaGVyZSBpcyBzZXZlcmFsIGFsaWdubWVudCBzdHlsZSBwcm9ibGVtcywg
-c3VjaCBhcyB0aGUgbGluZXMgYWJvdmUuCgpZb3UgY2FuIHVzZSAiLS1zdHJpY3QiIG9wdGlvbiB3
-aXRoIGNoZWNrcGF0Y2ggc2NyaXB0IHRvIHNob3cgeW91IGFsbCB0aGUgZmF1bHR5CmFsaWdubWVu
-dCBiZWZvcmUgc2VuZGluZyBhIHBhdGNoLgoKCk90aGVyIHRoYW4gdGhhdCB0aGlzIHBhdGNoIGxv
-b2tzIHByZXR0eSBnb29kIHRvIG1lLgoKUmVnYXJkcywKClJhcGhhw6tsCgo+ICsJaWYgKElTX0VS
-UihwbGFuZSkpCj4gIAkJcmV0dXJuIE5VTEw7Cj4gIAo+ICAJaWYgKGxkZXYtPmNhcHMueWNiY3Jf
-aW5wdXQpIHsKPiBAQCAtMTY0MywxNSArMTYzNiw2IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX3BsYW5l
-ICpsdGRjX3BsYW5lX2NyZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwKPiAgCXJldHVybiBw
-bGFuZTsKPiAgfQo+ICAKPiAtc3RhdGljIHZvaWQgbHRkY19wbGFuZV9kZXN0cm95X2FsbChzdHJ1
-Y3QgZHJtX2RldmljZSAqZGRldikKPiAtewo+IC0Jc3RydWN0IGRybV9wbGFuZSAqcGxhbmUsICpw
-bGFuZV90ZW1wOwo+IC0KPiAtCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShwbGFuZSwgcGxhbmVf
-dGVtcCwKPiAtCQkJCSAmZGRldi0+bW9kZV9jb25maWcucGxhbmVfbGlzdCwgaGVhZCkKPiAtCQlk
-cm1fcGxhbmVfY2xlYW51cChwbGFuZSk7Cj4gLX0KPiAtCj4gIHN0YXRpYyBpbnQgbHRkY19jcnRj
-X2luaXQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYsIHN0cnVjdCBkcm1fY3J0YyAqY3J0YykKPiAg
-ewo+ICAJc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7Cj4gQEAg
-LTE2NzcsMTQgKzE2NjEsMTQgQEAgc3RhdGljIGludCBsdGRjX2NydGNfaW5pdChzdHJ1Y3QgZHJt
-X2RldmljZSAqZGRldiwgc3RydWN0IGRybV9jcnRjICpjcnRjKQo+ICAKPiAgCS8qIEluaXQgQ1JU
-QyBhY2NvcmRpbmcgdG8gaXRzIGhhcmR3YXJlIGZlYXR1cmVzICovCj4gIAlpZiAobGRldi0+Y2Fw
-cy5jcmMpCj4gLQkJcmV0ID0gZHJtX2NydGNfaW5pdF93aXRoX3BsYW5lcyhkZGV2LCBjcnRjLCBw
-cmltYXJ5LCBOVUxMLAo+ICsJCXJldCA9IGRybW1fY3J0Y19pbml0X3dpdGhfcGxhbmVzKGRkZXYs
-IGNydGMsIHByaW1hcnksIE5VTEwsCj4gIAkJCQkJCSZsdGRjX2NydGNfd2l0aF9jcmNfc3VwcG9y
-dF9mdW5jcywgTlVMTCk7Cj4gIAllbHNlCj4gLQkJcmV0ID0gZHJtX2NydGNfaW5pdF93aXRoX3Bs
-YW5lcyhkZGV2LCBjcnRjLCBwcmltYXJ5LCBOVUxMLAo+ICsJCXJldCA9IGRybW1fY3J0Y19pbml0
-X3dpdGhfcGxhbmVzKGRkZXYsIGNydGMsIHByaW1hcnksIE5VTEwsCj4gIAkJCQkJCSZsdGRjX2Ny
-dGNfZnVuY3MsIE5VTEwpOwo+ICAJaWYgKHJldCkgewo+ICAJCURSTV9FUlJPUigiQ2FuIG5vdCBp
-bml0aWFsaXplIENSVENcbiIpOwo+IC0JCWdvdG8gY2xlYW51cDsKPiArCQlyZXR1cm4gcmV0Owo+
-ICAJfQo+ICAKPiAgCWRybV9jcnRjX2hlbHBlcl9hZGQoY3J0YywgJmx0ZGNfY3J0Y19oZWxwZXJf
-ZnVuY3MpOwo+IEBAIC0xNjk4LDkgKzE2ODIsOCBAQCBzdGF0aWMgaW50IGx0ZGNfY3J0Y19pbml0
-KHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2LCBzdHJ1Y3QgZHJtX2NydGMgKmNydGMpCj4gIAlmb3Ig
-KGkgPSAxOyBpIDwgbGRldi0+Y2Fwcy5uYl9sYXllcnM7IGkrKykgewo+ICAJCW92ZXJsYXkgPSBs
-dGRjX3BsYW5lX2NyZWF0ZShkZGV2LCBEUk1fUExBTkVfVFlQRV9PVkVSTEFZLCBpKTsKPiAgCQlp
-ZiAoIW92ZXJsYXkpIHsKPiAtCQkJcmV0ID0gLUVOT01FTTsKPiAgCQkJRFJNX0VSUk9SKCJDYW4g
-bm90IGNyZWF0ZSBvdmVybGF5IHBsYW5lICVkXG4iLCBpKTsKPiAtCQkJZ290byBjbGVhbnVwOwo+
-ICsJCQlyZXR1cm4gLUVOT01FTTsKPiAgCQl9Cj4gIAkJaWYgKGxkZXYtPmNhcHMuZHluYW1pY196
-b3JkZXIpCj4gIAkJCWRybV9wbGFuZV9jcmVhdGVfenBvc19wcm9wZXJ0eShvdmVybGF5LCBpLCAw
-LCBsZGV2LT5jYXBzLm5iX2xheWVycyAtIDEpOwo+IEBAIC0xNzEzLDEwICsxNjk2LDYgQEAgc3Rh
-dGljIGludCBsdGRjX2NydGNfaW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwgc3RydWN0IGRy
-bV9jcnRjICpjcnRjKQo+ICAJfQo+ICAKPiAgCXJldHVybiAwOwo+IC0KPiAtY2xlYW51cDoKPiAt
-CWx0ZGNfcGxhbmVfZGVzdHJveV9hbGwoZGRldik7Cj4gLQlyZXR1cm4gcmV0Owo+ICB9Cj4gIAo+
-ICBzdGF0aWMgdm9pZCBsdGRjX2VuY29kZXJfZGlzYWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVu
-Y29kZXIpCj4gQEAgLTE3NzYsMjMgKzE3NTUsMTkgQEAgc3RhdGljIGludCBsdGRjX2VuY29kZXJf
-aW5pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiwgc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSkK
-PiAgCXN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcjsKPiAgCWludCByZXQ7Cj4gIAo+IC0JZW5j
-b2RlciA9IGRldm1fa3phbGxvYyhkZGV2LT5kZXYsIHNpemVvZigqZW5jb2RlciksIEdGUF9LRVJO
-RUwpOwo+IC0JaWYgKCFlbmNvZGVyKQo+IC0JCXJldHVybiAtRU5PTUVNOwo+ICsJZW5jb2RlciA9
-IGRybW1fc2ltcGxlX2VuY29kZXJfYWxsb2MoZGRldiwgc3RydWN0IGRybV9lbmNvZGVyLCBkZXYs
-Cj4gKwkJCQkJCQkJCQlEUk1fTU9ERV9FTkNPREVSX0RQSSk7Ck5pdDogYmFkIGFsaWdubWVudC4K
-PiArCWlmIChJU19FUlIoZW5jb2RlcikpCj4gKwkJcmV0dXJuIFBUUl9FUlIoZW5jb2Rlcik7Cj4g
-IAo+ICAJZW5jb2Rlci0+cG9zc2libGVfY3J0Y3MgPSBDUlRDX01BU0s7Cj4gIAllbmNvZGVyLT5w
-b3NzaWJsZV9jbG9uZXMgPSAwOwkvKiBObyBjbG9uaW5nIHN1cHBvcnQgKi8KPiAgCj4gLQlkcm1f
-c2ltcGxlX2VuY29kZXJfaW5pdChkZGV2LCBlbmNvZGVyLCBEUk1fTU9ERV9FTkNPREVSX0RQSSk7
-Cj4gLQo+ICAJZHJtX2VuY29kZXJfaGVscGVyX2FkZChlbmNvZGVyLCAmbHRkY19lbmNvZGVyX2hl
-bHBlcl9mdW5jcyk7Cj4gIAo+ICAJcmV0ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgYnJp
-ZGdlLCBOVUxMLCAwKTsKPiAtCWlmIChyZXQpIHsKPiAtCQlpZiAocmV0ICE9IC1FUFJPQkVfREVG
-RVIpCj4gLQkJCWRybV9lbmNvZGVyX2NsZWFudXAoZW5jb2Rlcik7Cj4gKwlpZiAocmV0KQo+ICAJ
-CXJldHVybiByZXQ7Cj4gLQl9Cj4gIAo+ICAJRFJNX0RFQlVHX0RSSVZFUigiQnJpZGdlIGVuY29k
-ZXI6JWQgY3JlYXRlZFxuIiwgZW5jb2Rlci0+YmFzZS5pZCk7Cj4gIAo+IEBAIC0xOTYyLDggKzE5
-MzcsNyBAQCBpbnQgbHRkY19sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+ICAJCQlnb3Rv
-IGVycjsKPiAgCj4gIAkJaWYgKHBhbmVsKSB7Cj4gLQkJCWJyaWRnZSA9IGRybV9wYW5lbF9icmlk
-Z2VfYWRkX3R5cGVkKHBhbmVsLAo+IC0JCQkJCQkJICAgIERSTV9NT0RFX0NPTk5FQ1RPUl9EUEkp
-Owo+ICsJCQlicmlkZ2UgPSBkcm1tX3BhbmVsX2JyaWRnZV9hZGQoZGRldiwgcGFuZWwpOwo+ICAJ
-CQlpZiAoSVNfRVJSKGJyaWRnZSkpIHsKPiAgCQkJCURSTV9FUlJPUigicGFuZWwtYnJpZGdlIGVu
-ZHBvaW50ICVkXG4iLCBpKTsKPiAgCQkJCXJldCA9IFBUUl9FUlIoYnJpZGdlKTsKPiBAQCAtMjA0
-NSw3ICsyMDE5LDcgQEAgaW50IGx0ZGNfbG9hZChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldikKPiAg
-CQl9Cj4gIAl9Cj4gIAo+IC0JY3J0YyA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVvZigqY3J0Yyks
-IEdGUF9LRVJORUwpOwo+ICsJY3J0YyA9IGRybW1fa3phbGxvYyhkZGV2LCBzaXplb2YoKmNydGMp
-LCBHRlBfS0VSTkVMKTsKPiAgCWlmICghY3J0Yykgewo+ICAJCURSTV9FUlJPUigiRmFpbGVkIHRv
-IGFsbG9jYXRlIGNydGNcbiIpOwo+ICAJCXJldCA9IC1FTk9NRU07Cj4gQEAgLTIwNzIsOCArMjA0
-Niw2IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYpCj4gIAo+ICAJcmV0
-dXJuIDA7Cj4gIGVycjoKPiAtCWZvciAoaSA9IDA7IGkgPCBuYl9lbmRwb2ludHM7IGkrKykKPiAt
-CQlkcm1fb2ZfcGFuZWxfYnJpZGdlX3JlbW92ZShkZGV2LT5kZXYtPm9mX25vZGUsIDAsIGkpOwo+
-ICAKPiAgCWNsa19kaXNhYmxlX3VucHJlcGFyZShsZGV2LT5waXhlbF9jbGspOwo+ICAKPiBAQCAt
-MjA4MiwxNiArMjA1NCw4IEBAIGludCBsdGRjX2xvYWQoc3RydWN0IGRybV9kZXZpY2UgKmRkZXYp
-Cj4gIAo+ICB2b2lkIGx0ZGNfdW5sb2FkKHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2KQo+ICB7Cj4g
-LQlzdHJ1Y3QgZGV2aWNlICpkZXYgPSBkZGV2LT5kZXY7Cj4gLQlpbnQgbmJfZW5kcG9pbnRzLCBp
-Owo+IC0KPiAgCURSTV9ERUJVR19EUklWRVIoIlxuIik7Cj4gIAo+IC0JbmJfZW5kcG9pbnRzID0g
-b2ZfZ3JhcGhfZ2V0X2VuZHBvaW50X2NvdW50KGRldi0+b2Zfbm9kZSk7Cj4gLQo+IC0JZm9yIChp
-ID0gMDsgaSA8IG5iX2VuZHBvaW50czsgaSsrKQo+IC0JCWRybV9vZl9wYW5lbF9icmlkZ2VfcmVt
-b3ZlKGRkZXYtPmRldi0+b2Zfbm9kZSwgMCwgaSk7Cj4gLQo+ICAJcG1fcnVudGltZV9kaXNhYmxl
-KGRkZXYtPmRldik7Cj4gIH0KPiAgCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Fri, Jan 05, 2024 at 10:15:56AM CET, petr@tesarici.cz wrote:
+>Add a spinlock to fix race conditions while updating Tx/Rx statistics.
+>
+>As explained by a comment in <linux/u64_stats_sync.h>, write side of struct
+>u64_stats_sync must ensure mutual exclusion, or one seqcount update could
+>be lost on 32-bit platforms, thus blocking readers forever.
+>
+>Such lockups have been actually observed on 32-bit Arm after stmmac_xmit()
+>on one core raced with stmmac_napi_poll_tx() on another core.
+>
+>Signed-off-by: Petr Tesarik <petr@tesarici.cz>
+>---
+> drivers/net/ethernet/stmicro/stmmac/common.h  |  2 +
+> .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  4 +
+> .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  4 +
+> .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  4 +
+> .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  4 +
+> .../net/ethernet/stmicro/stmmac/stmmac_main.c | 80 +++++++++++++------
+> 6 files changed, 72 insertions(+), 26 deletions(-)
+>
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+>index e3f650e88f82..9a17dfc1055d 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/common.h
+>+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+>@@ -70,6 +70,7 @@ struct stmmac_txq_stats {
+> 	u64 tx_tso_frames;
+> 	u64 tx_tso_nfrags;
+> 	struct u64_stats_sync syncp;
+>+	spinlock_t lock;	/* mutual writer exclusion */
+> } ____cacheline_aligned_in_smp;
+> 
+> struct stmmac_rxq_stats {
+>@@ -79,6 +80,7 @@ struct stmmac_rxq_stats {
+> 	u64 rx_normal_irq_n;
+> 	u64 napi_poll;
+> 	struct u64_stats_sync syncp;
+>+	spinlock_t lock;	/* mutual writer exclusion */
+> } ____cacheline_aligned_in_smp;
+> 
+> /* Extra statistic and debug information exposed by ethtool */
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>index 137741b94122..9c568996321d 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>@@ -455,9 +455,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+> 
+> 	if (v & EMAC_TX_INT) {
+> 		ret |= handle_tx;
+>+		spin_lock(&txq_stats->lock);
+> 		u64_stats_update_begin(&txq_stats->syncp);
+> 		txq_stats->tx_normal_irq_n++;
+> 		u64_stats_update_end(&txq_stats->syncp);
+>+		spin_unlock(&txq_stats->lock);
+> 	}
+> 
+> 	if (v & EMAC_TX_DMA_STOP_INT)
+>@@ -479,9 +481,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+> 
+> 	if (v & EMAC_RX_INT) {
+> 		ret |= handle_rx;
+>+		spin_lock(&rxq_stats->lock);
+> 		u64_stats_update_begin(&rxq_stats->syncp);
+> 		rxq_stats->rx_normal_irq_n++;
+> 		u64_stats_update_end(&rxq_stats->syncp);
+>+		spin_unlock(&rxq_stats->lock);
+> 	}
+> 
+> 	if (v & EMAC_RX_BUF_UA_INT)
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>index 9470d3fd2ded..e50e8b07724b 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>@@ -201,15 +201,19 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+> 	}
+> 	/* TX/RX NORMAL interrupts */
+> 	if (likely(intr_status & DMA_CHAN_STATUS_RI)) {
+>+		spin_lock(&rxq_stats->lock);
+> 		u64_stats_update_begin(&rxq_stats->syncp);
+> 		rxq_stats->rx_normal_irq_n++;
+> 		u64_stats_update_end(&rxq_stats->syncp);
+>+		spin_unlock(&rxq_stats->lock);
+> 		ret |= handle_rx;
+> 	}
+> 	if (likely(intr_status & DMA_CHAN_STATUS_TI)) {
+>+		spin_lock(&txq_stats->lock);
+> 		u64_stats_update_begin(&txq_stats->syncp);
+> 		txq_stats->tx_normal_irq_n++;
+> 		u64_stats_update_end(&txq_stats->syncp);
+>+		spin_unlock(&txq_stats->lock);
+> 		ret |= handle_tx;
+> 	}
+> 
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>index 7907d62d3437..a43396a7f852 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>@@ -215,16 +215,20 @@ int dwmac_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+> 			u32 value = readl(ioaddr + DMA_INTR_ENA);
+> 			/* to schedule NAPI on real RIE event. */
+> 			if (likely(value & DMA_INTR_ENA_RIE)) {
+>+				spin_lock(&rxq_stats->lock);
+> 				u64_stats_update_begin(&rxq_stats->syncp);
+> 				rxq_stats->rx_normal_irq_n++;
+> 				u64_stats_update_end(&rxq_stats->syncp);
+>+				spin_unlock(&rxq_stats->lock);
+> 				ret |= handle_rx;
+> 			}
+> 		}
+> 		if (likely(intr_status & DMA_STATUS_TI)) {
+>+			spin_lock(&txq_stats->lock);
+> 			u64_stats_update_begin(&txq_stats->syncp);
+> 			txq_stats->tx_normal_irq_n++;
+> 			u64_stats_update_end(&txq_stats->syncp);
+>+			spin_unlock(&txq_stats->lock);
+> 			ret |= handle_tx;
+> 		}
+> 		if (unlikely(intr_status & DMA_STATUS_ERI))
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>index 3cde695fec91..f4e01436d4cc 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>@@ -367,15 +367,19 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+> 	/* TX/RX NORMAL interrupts */
+> 	if (likely(intr_status & XGMAC_NIS)) {
+> 		if (likely(intr_status & XGMAC_RI)) {
+>+			spin_lock(&rxq_stats->lock);
+> 			u64_stats_update_begin(&rxq_stats->syncp);
+> 			rxq_stats->rx_normal_irq_n++;
+> 			u64_stats_update_end(&rxq_stats->syncp);
+>+			spin_unlock(&rxq_stats->lock);
+> 			ret |= handle_rx;
+> 		}
+> 		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+>+			spin_lock(&txq_stats->lock);
+> 			u64_stats_update_begin(&txq_stats->syncp);
+> 			txq_stats->tx_normal_irq_n++;
+> 			u64_stats_update_end(&txq_stats->syncp);
+>+			spin_unlock(&txq_stats->lock);
+> 			ret |= handle_tx;
+> 		}
+> 	}
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>index 37e64283f910..82d8db04d0d1 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>@@ -2515,9 +2515,11 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+> 		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, priv->dma_conf.dma_tx_size);
+> 		entry = tx_q->cur_tx;
+> 	}
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock_irqsave(&txq_stats->lock, flags);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->tx_set_ic_bit += tx_set_ic_bit;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	if (tx_desc) {
+> 		stmmac_flush_tx_descriptors(priv, queue);
+>@@ -2721,11 +2723,13 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue,
+> 	if (tx_q->dirty_tx != tx_q->cur_tx)
+> 		*pending_packets = true;
+> 
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock_irqsave(&txq_stats->lock, flags);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->tx_packets += tx_packets;
+> 	txq_stats->tx_pkt_n += tx_packets;
+> 	txq_stats->tx_clean++;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	priv->xstats.tx_errors += tx_errors;
+> 
+>@@ -4311,13 +4315,15 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+> 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+> 	}
+> 
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock_irqsave(&txq_stats->lock, flags);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->tx_bytes += skb->len;
+> 	txq_stats->tx_tso_frames++;
+> 	txq_stats->tx_tso_nfrags += nfrags;
+> 	if (set_ic)
+> 		txq_stats->tx_set_ic_bit++;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	if (priv->sarc_type)
+> 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+>@@ -4560,11 +4566,13 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+> 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+> 	}
+> 
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock_irqsave(&txq_stats->lock, flags);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->tx_bytes += skb->len;
+> 	if (set_ic)
+> 		txq_stats->tx_set_ic_bit++;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	if (priv->sarc_type)
+> 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+>@@ -4831,9 +4839,11 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+> 		unsigned long flags;
+> 		tx_q->tx_count_frames = 0;
+> 		stmmac_set_tx_ic(priv, tx_desc);
+>-		flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+		spin_lock_irqsave(&txq_stats->lock, flags);
+>+		u64_stats_update_begin(&txq_stats->syncp);
+> 		txq_stats->tx_set_ic_bit++;
+>-		u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+		u64_stats_update_end(&txq_stats->syncp);
+>+		spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 	}
+> 
+> 	stmmac_enable_dma_transmission(priv, priv->ioaddr);
+>@@ -5008,10 +5018,12 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+> 	skb_record_rx_queue(skb, queue);
+> 	napi_gro_receive(&ch->rxtx_napi, skb);
+> 
+>-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>+	u64_stats_update_begin(&rxq_stats->syncp);
+> 	rxq_stats->rx_pkt_n++;
+> 	rxq_stats->rx_bytes += len;
+>-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>+	u64_stats_update_end(&rxq_stats->syncp);
+>+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+> }
+> 
+> static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+>@@ -5248,9 +5260,11 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+> 
+> 	stmmac_finalize_xdp_rx(priv, xdp_status);
+> 
+>-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>+	u64_stats_update_begin(&rxq_stats->syncp);
+> 	rxq_stats->rx_pkt_n += count;
+>-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>+	u64_stats_update_end(&rxq_stats->syncp);
+>+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+> 
+> 	priv->xstats.rx_dropped += rx_dropped;
+> 	priv->xstats.rx_errors += rx_errors;
+>@@ -5541,11 +5555,13 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+> 
+> 	stmmac_rx_refill(priv, queue);
+> 
+>-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>+	u64_stats_update_begin(&rxq_stats->syncp);
+> 	rxq_stats->rx_packets += rx_packets;
+> 	rxq_stats->rx_bytes += rx_bytes;
+> 	rxq_stats->rx_pkt_n += count;
+>-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>+	u64_stats_update_end(&rxq_stats->syncp);
+>+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+> 
+> 	priv->xstats.rx_dropped += rx_dropped;
+> 	priv->xstats.rx_errors += rx_errors;
+>@@ -5564,9 +5580,11 @@ static int stmmac_napi_poll_rx(struct napi_struct *napi, int budget)
+> 	int work_done;
+> 
+> 	rxq_stats = &priv->xstats.rxq_stats[chan];
+>-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>+	u64_stats_update_begin(&rxq_stats->syncp);
+> 	rxq_stats->napi_poll++;
+>-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>+	u64_stats_update_end(&rxq_stats->syncp);
+>+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+> 
+> 	work_done = stmmac_rx(priv, budget, chan);
+> 	if (work_done < budget && napi_complete_done(napi, work_done)) {
+>@@ -5592,9 +5610,11 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
+> 	int work_done;
+> 
+> 	txq_stats = &priv->xstats.txq_stats[chan];
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock_irqsave(&txq_stats->lock, flags);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->napi_poll++;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	work_done = stmmac_tx_clean(priv, budget, chan, &pending_packets);
+> 	work_done = min(work_done, budget);
+>@@ -5627,14 +5647,18 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
+> 	unsigned long flags;
+> 
+> 	rxq_stats = &priv->xstats.rxq_stats[chan];
+>-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>+	u64_stats_update_begin(&rxq_stats->syncp);
+> 	rxq_stats->napi_poll++;
+>-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>+	u64_stats_update_end(&rxq_stats->syncp);
+>+	spin_unlock(&rxq_stats->lock);
+
+Nitpick:
+I know that the original code does that, but any idea why
+u64_stats_update_end_irqrestore() is called here when
+u64_stats_update_begin_irqsave() is called 2 lines below?
+IIUC, this could be one critical section. Could you perhaps merge these
+while at it? Could be a follow-up patch.
+
+Rest of the patch looks fine to me.
+
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+
+
+> 
+> 	txq_stats = &priv->xstats.txq_stats[chan];
+>-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>+	spin_lock(&txq_stats->lock);
+>+	u64_stats_update_begin(&txq_stats->syncp);
+> 	txq_stats->napi_poll++;
+>-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>+	u64_stats_update_end(&txq_stats->syncp);
+>+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+> 
+> 	tx_done = stmmac_tx_clean(priv, budget, chan, &tx_pending_packets);
+> 	tx_done = min(tx_done, budget);
+>@@ -7371,10 +7395,14 @@ int stmmac_dvr_probe(struct device *device,
+> 	priv->device = device;
+> 	priv->dev = ndev;
+> 
+>-	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
+>+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
+> 		u64_stats_init(&priv->xstats.rxq_stats[i].syncp);
+>-	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
+>+		spin_lock_init(&priv->xstats.rxq_stats[i].lock);
+>+	}
+>+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
+> 		u64_stats_init(&priv->xstats.txq_stats[i].syncp);
+>+		spin_lock_init(&priv->xstats.txq_stats[i].lock);
+>+	}
+> 
+> 	stmmac_set_ethtool_ops(ndev);
+> 	priv->pause = pause;
+>-- 
+>2.43.0
+>
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
