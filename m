@@ -2,53 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AC382529A
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 12:14:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 226718252BB
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 12:25:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 251EBC6C83D;
-	Fri,  5 Jan 2024 11:14:51 +0000 (UTC)
-Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7568C6C83D;
+	Fri,  5 Jan 2024 11:25:37 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B635C6C83C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2546C6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 11:14:49 +0000 (UTC)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id 2FCD31A832B;
- Fri,  5 Jan 2024 12:14:48 +0100 (CET)
-Authentication-Results: mail.tesarici.cz;
- dmarc=fail (p=none dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
- t=1704453288; bh=VYNlhjSgg7jLCMMITrN8jeGgl0bBjNZ/pe4B+q8QKeE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=1VfFDQEadUP+XmGIWATJBwq5CBSGsDI0Qs175mZmz6QFcSuNnGXs/ezrOjxbV5tFL
- gVkmv6JF4QNR1xX84ydALHJ8rGjBjKZh+Mhj8KOHkH/dAeEMCD0O8Mzfyu82Z0CDvE
- y/OOHbSbr7MzKGdjZNe8/7dMrzcA1sPqey7H1LH9MD4LeWlvuk93Fw3VgQu7m07/9d
- O+y1vjz3dvc98K0GPU7o9Pvv6LUMdAaWZ+ayb5JvScSowrOASEKArfwMBXRLdm9Ynm
- UVC1SPCpcnWN/hUPQI5PbZdJiegK7gkv+/38qwPiqPxSwG6vqgUSdUsIl7WbqMdbED
- 8S9ghcZ1KmqSg==
-Date: Fri, 5 Jan 2024 12:14:47 +0100
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Eric Dumazet <edumazet@google.com>
-Message-ID: <20240105121447.11ae80d1@meshulam.tesarici.cz>
-In-Reply-To: <CANn89iLEvW9ZS=+WPETPC=mKRyu9AKmueGCWZZOrz9oX3Xef=g@mail.gmail.com>
+ Fri,  5 Jan 2024 11:25:36 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-3367601a301so1150348f8f.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Jan 2024 03:25:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1704453936; x=1705058736;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=9uSeWtY0wnhX9keEMP05THAP/X9456BnCzirYEeQ0zA=;
+ b=dXGhH7Ln2TLXZi2KCDu89AHM4y/voNf0mjPC8ZzOiTTRQ3vbodp9YfD3NC+QeJ1VMg
+ Qi2RfOICX1MPkWN8w6xLLFgUf+2//ZYpkSTtgh9V9eLw+b8UlTxZsjks/sxhDwNkkGlu
+ W/krewQYF1DVhsAHSUZGT1et9yXuxmpq51RhqT7f2JEQqneDLpagst/kUfVV68Wf2Kka
+ xsqUPYiG/u+MvkXiqjvGETjjBycFivFQrXiuz/CzQbVGyYHvSRed1FrjKrQm45S9/Kzv
+ wwwgXRBqxkTFwiqrFD0DLpPVJBqgCIuTaVz71ZTyWrD+Xc+e+O80CBvRXlEUcuZnirl1
+ xgaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704453936; x=1705058736;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9uSeWtY0wnhX9keEMP05THAP/X9456BnCzirYEeQ0zA=;
+ b=RyG2sOV7GDXoRwiPOV34HPyZ7lhR1O5ao+Axd6gy+C8dh8MjCJm5b7n9IOAN8AuJVT
+ opL/xcTg99IHorRsXSI3p9vuAxiPVZdzJEHETOMwYtNNFn0xV0rKXsj8aGUPARcPiMn1
+ bQvkIR/oa9Lcau4YYOm/C8hJOF712w2A/YCceDPqrluqmih+Z/GEy15PFsk/GsTLBkft
+ CcdCh064/jZsytMBr8f1oapRdoNXfvZutwFTihLoHQwwQ6vYSZybzL2mWepNNoK8HhvP
+ nJ/DjguuLC2A/23YBtXy71pxyYuV3LiRhk7t9o/3fyI7uI96JFOiC0kK2bvETYfrAKxx
+ Kudg==
+X-Gm-Message-State: AOJu0YyDBRlTRjBv4bQh2XfbidIvzRSf9BwAqA+5b6RzcPaRpHvkvbpi
+ Tbk+03AxKs2LjDvlT67u2Rdb65aR+6+bPw==
+X-Google-Smtp-Source: AGHT+IHLlmUmzXr2kluK9OzrH9ILjTDJueaA7yDG3ZJ/OUcOWH977e5F1fyfaY2i/If7FjD6BWg00A==
+X-Received: by 2002:a5d:4447:0:b0:337:1612:9938 with SMTP id
+ x7-20020a5d4447000000b0033716129938mr791720wrr.107.1704453935818; 
+ Fri, 05 Jan 2024 03:25:35 -0800 (PST)
+Received: from localhost (host-213-179-129-39.customer.m-online.net.
+ [213.179.129.39]) by smtp.gmail.com with ESMTPSA id
+ b1-20020a5d4d81000000b00337405c06a6sm1214823wru.48.2024.01.05.03.25.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jan 2024 03:25:35 -0800 (PST)
+Date: Fri, 5 Jan 2024 12:25:34 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Petr =?utf-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
+Message-ID: <ZZfnLqvm0TZstOLy@nanopsycho>
 References: <20240105091556.15516-1-petr@tesarici.cz>
- <CANn89iLuYZBersxq4aH-9Fg_ojD0fh=0xtdLbRdbMrup=nvrkA@mail.gmail.com>
- <20240105113402.0f5f1232@meshulam.tesarici.cz>
- <CANn89iLEvW9ZS=+WPETPC=mKRyu9AKmueGCWZZOrz9oX3Xef=g@mail.gmail.com>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
+ <ZZfP0_WHWZ8LFqXX@nanopsycho>
+ <20240105112538.319cd522@meshulam.tesarici.cz>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20240105112538.319cd522@meshulam.tesarici.cz>
 Cc: open list <linux-kernel@vger.kernel.org>,
  Samuel Holland <samuel@sholland.org>,
  "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, "moderated
- list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
- Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
  "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
@@ -67,102 +88,386 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gRnJpLCA1IEphbiAyMDI0IDExOjQ4OjE5ICswMTAwCkVyaWMgRHVtYXpldCA8ZWR1bWF6ZXRA
-Z29vZ2xlLmNvbT4gd3JvdGU6Cgo+IE9uIEZyaSwgSmFuIDUsIDIwMjQgYXQgMTE6MzTigK9BTSBQ
-ZXRyIFRlc2HFmcOtayA8cGV0ckB0ZXNhcmljaS5jej4gd3JvdGU6Cj4gPgo+ID4gT24gRnJpLCA1
-IEphbiAyMDI0IDEwOjU4OjQyICswMTAwCj4gPiBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGdvb2ds
-ZS5jb20+IHdyb3RlOgo+ID4gIAo+ID4gPiBPbiBGcmksIEphbiA1LCAyMDI0IGF0IDEwOjE24oCv
-QU0gUGV0ciBUZXNhcmlrIDxwZXRyQHRlc2FyaWNpLmN6PiB3cm90ZTogIAo+ID4gPiA+Cj4gPiA+
-ID4gQWRkIGEgc3BpbmxvY2sgdG8gZml4IHJhY2UgY29uZGl0aW9ucyB3aGlsZSB1cGRhdGluZyBU
-eC9SeCBzdGF0aXN0aWNzLgo+ID4gPiA+Cj4gPiA+ID4gQXMgZXhwbGFpbmVkIGJ5IGEgY29tbWVu
-dCBpbiA8bGludXgvdTY0X3N0YXRzX3N5bmMuaD4sIHdyaXRlIHNpZGUgb2Ygc3RydWN0Cj4gPiA+
-ID4gdTY0X3N0YXRzX3N5bmMgbXVzdCBlbnN1cmUgbXV0dWFsIGV4Y2x1c2lvbiwgb3Igb25lIHNl
-cWNvdW50IHVwZGF0ZSBjb3VsZAo+ID4gPiA+IGJlIGxvc3Qgb24gMzItYml0IHBsYXRmb3Jtcywg
-dGh1cyBibG9ja2luZyByZWFkZXJzIGZvcmV2ZXIuCj4gPiA+ID4KPiA+ID4gPiBTdWNoIGxvY2t1
-cHMgaGF2ZSBiZWVuIGFjdHVhbGx5IG9ic2VydmVkIG9uIDMyLWJpdCBBcm0gYWZ0ZXIgc3RtbWFj
-X3htaXQoKQo+ID4gPiA+IG9uIG9uZSBjb3JlIHJhY2VkIHdpdGggc3RtbWFjX25hcGlfcG9sbF90
-eCgpIG9uIGFub3RoZXIgY29yZS4KPiA+ID4gPgo+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFBldHIg
-VGVzYXJpayA8cGV0ckB0ZXNhcmljaS5jej4gIAo+ID4gPgo+ID4gPiBUaGlzIGlzIGdvaW5nIHRv
-IGFkZCBtb3JlIGNvc3RzIHRvIDY0Yml0IHBsYXRmb3JtcyA/ICAKPiA+Cj4gPiBZZXMsIGl0IGFk
-ZHMgYSAoaG9wZWZ1bGx5IG5vdCB0b28gY29udGVuZGVkKSBzcGlubG9jayBhbmQgaW4gbW9zdAo+
-ID4gcGxhY2VzIGFuIGludGVycnVwdCBkaXNhYmxlL2VuYWJsZSBwYWlyLgo+ID4KPiA+IEZXSVcg
-dGhlIHJhY2UgY29uZGl0aW9uIGlzIGFsc28gcHJlc2VudCBvbiA2NC1iaXQgcGxhdGZvcm1zLCBy
-ZXN1bHRpbmcKPiA+IGluIGluYWNjdXJhdGUgc3RhdGlzdGljIGNvdW50ZXJzLiBJIGNhbiB1bmRl
-cnN0YW5kIGlmIHlvdSBjb25zaWRlciBpdCBhCj4gPiBtaWxkIGFubm95YW5jZSwgbm90IHdvcnRo
-IGZpeGluZy4KPiA+ICAKPiA+ID4gSXQgc2VlbXMgdG8gbWUgdGhhdCB0aGUgc2FtZSBzeW5jcCBj
-YW4gYmUgdXNlZCBmcm9tIHR3byBkaWZmZXJlbnQKPiA+ID4gdGhyZWFkcyA6IGhhcmQgaXJxIGFu
-ZCBuYXBpIHBvbGxlci4uLiAgCj4gPgo+ID4gWWVzLCB0aGF0J3MgZXhhY3RseSB0aGUgc2NlbmFy
-aW8gdGhhdCBsb2NrcyB1cCBteSBzeXN0ZW0uCj4gPiAgCj4gPiA+IEF0IHRoaXMgcG9pbnQsIEkg
-ZG8gbm90IHNlZSB3aHkgeW91IGtlZXAgbGludXgvdTY0X3N0YXRzX3N5bmMuaCBpZiB5b3UKPiA+
-ID4gZGVjaWRlIHRvIGdvIGZvciBhIHNwaW5sb2NrLi4uICAKPiA+Cj4gPiBUaGUgc3BpbmxvY2sg
-ZG9lcyBub3QgaGF2Y2UgdG8gYmUgdGFrZW4gb24gdGhlIHJlYWRlciBzaWRlLCBzbyB0aGUKPiA+
-IHNlcWNvdW50ZXIgc3RpbGwgYWRkcyBzb21lIHZhbHVlLgo+ID4gIAo+ID4gPiBBbHRlcm5hdGl2
-ZSB3b3VsZCB1c2UgYXRvbWljNjRfdCBmaWVsZHMgZm9yIHRoZSBvbmVzIHdoZXJlIHRoZXJlIGlz
-IG5vCj4gPiA+IG11dHVhbCBleGNsdXNpb24uCj4gPiA+Cj4gPiA+IFJYIDogbmFwaSBwb2xsIGlz
-IGRlZmluaXRlbHkgc2FmZSAocHJvdGVjdGVkIGJ5IGFuIGF0b21pYyBiaXQpCj4gPiA+IFRYIDog
-ZWFjaCBUWCBxdWV1ZSBpcyBhbHNvIHNhZmUgKHByb3RlY3RlZCBieSBhbiBhdG9taWMgZXhjbHVz
-aW9uIGZvcgo+ID4gPiBub24gTExUWCBkcml2ZXJzKQo+ID4gPgo+ID4gPiBUaGlzIGxlYXZlcyB0
-aGUgZmllbGRzIHVwZGF0ZWQgZnJvbSBoYXJkd2FyZSBpbnRlcnJ1cHQgY29udGV4dCA/ICAKPiA+
-Cj4gPiBJJ20gYWZyYWlkIEkgZG9uJ3QgaGF2ZSBlbm91Z2ggbmV0d29yay1zdGFjay1mb28gdG8g
-Zm9sbG93IGhlcmUuCj4gPgo+ID4gTXkgaXNzdWUgb24gMzIgYml0IGlzIHRoYXQgc3RtbWFjX3ht
-aXQoKSBtYXkgYmUgY2FsbGVkIGRpcmVjdGx5IGZyb20KPiA+IHByb2Nlc3MgY29udGV4dCB3aGls
-ZSBhbm90aGVyIGNvcmUgcnVucyB0aGUgVFggbmFwaSBvbiB0aGUgc2FtZSBjaGFubmVsCj4gPiAo
-aW4gaW50ZXJydXB0IGNvbnRleHQpLiBJIGRpZG4ndCBvYnNlcnZlIGFueSByYWNlIG9uIHRoZSBS
-WCBwYXRoLCBidXQgSQo+ID4gYmVsaWV2ZSBpdCdzIHBvc3NpYmxlIHdpdGggTkFQSSBidXN5IHBv
-bGxpbmcuCj4gPgo+ID4gSW4gYW55IGNhc2UsIEkgZG9uJ3Qgc2VlIHRoZSBjb25uZWN0aW9uIHdp
-dGggTExUWC4gTWF5YmUgeW91IHdhbnQgdG8KPiA+IHNheSB0aGF0IHRoZSBUWCBxdWV1ZSBpcyBz
-YWZlIGZvciBzdG1tYWMgKGJlY2F1c2UgaXQgaXMgYSBub24tTExUWAo+ID4gZHJpdmVyKSwgYnV0
-IG1pZ2h0IG5vdCBiZSBzYWZlIGZvciBMTFRYIGRyaXZlcnM/ICAKPiAKPiBMTFRYIGRyaXZlcnMg
-KG1vc3RseSB2aXJ0dWFsIGRyaXZlcnMgbGlrZSB0dW5uZWxzLi4uKSBjYW4gaGF2ZSBtdWx0aXBs
-ZSBjcHVzCj4gcnVubmluZyBuZG9fc3RhcnRfeG1pdCgpIGNvbmN1cnJlbnRseS4gU28gYW55IHVz
-ZSBvZiBhICdzaGFyZWQgc3luY3AnCj4gd291bGQgYmUgYSBidWcuCj4gVGhlc2UgZHJpdmVycyB1
-c3VhbGx5IHVzZSBwZXItY3B1IHN0YXRzLCB0byBhdm9pZCByYWNlcyBhbmQgZmFsc2UKPiBzaGFy
-aW5nIGFueXdheS4KPiAKPiBJIHRoaW5rIHlvdSBzaG91bGQgc3BsaXQgdGhlIHN0cnVjdHVyZXMg
-aW50byB0d28gc2VwYXJhdGUgZ3JvdXBzLCBlYWNoCj4gZ3VhcmRlZCB3aXRoIGl0cyBvd24gc3lu
-Y3AuCj4gCj4gTm8gZXh0cmEgc3BpbmxvY2tzLCBubyBleHRyYSBjb3N0cyBvbiA2NGJpdCBhcmNo
-ZXMuLi4KPiAKPiBJZiBUWCBjb21wbGV0aW9uIGNhbiBydW4gaW4gcGFyYWxsZWwgd2l0aCBuZG9f
-c3RhcnRfeG1pdCgpLCB0aGVuCj4gY2xlYXJseSB3ZSBoYXZlIHRvIHNwbGl0IHN0bW1hY190eHFf
-c3RhdHMgaW4gdHdvIGhhbHZlczoKCk9oLCBub3cgSSBnZXQgaXQuIFllcywgdGhhdCdzIG11Y2gg
-YmV0dGVyLCBpbmRlZWQuCgpJIG1lYW4sIHRoZSBjb3VudGVycyBoYXZlIG5ldmVyIGJlZW4gY29u
-c2lzdGVudCAoZHVlIHRvIHRoZSByYWNlIG9uIHRoZQp3cml0ZXIgc2lkZSksIGFuZCBub2JvZHkg
-aXMgY29uY2VybmVkLiBTbywgdGhlcmUgaXMgbm8gdmFsdWUgaW4gdGFraW5nCmEgY29uc2lzdGVu
-dCBzbmFwc2hvdCBpbiBzdG1tYWNfZ2V0X2V0aHRvb2xfc3RhdHMoKS4KCkknbSBnb2luZyB0byBy
-ZXdvcmsgYW5kIHJldGVzdCBteSBwYXRjaC4gVGhhbmsgeW91IGZvciBwb2ludGluZyBtZSBpbgp0
-aGUgcmlnaHQgZGlyZWN0aW9uIQoKUGV0ciBUCgo+IEFsc28gcGxlYXNlIG5vdGUgdGhlIGNvbnZl
-cnNpb24gZnJvbSB1NjQgdG8gdTY0X3N0YXRzX3QKCk5vdGVkLiBJSVVDIHRoaXMgd2lsbCBpbiB0
-dXJuIGNsb3NlIHRoZSB1cGRhdGUgcmFjZSBvbiA2NC1iaXQgYnkgdXNpbmcKYW4gYXRvbWljIHR5
-cGUgYW5kIG9uIDMyLWJpdCBieSB1c2luZyBhIHNlcWxvY2suIENsZXZlci4KClBldHIgVAoKPiBW
-ZXJ5IHBhcnRpYWwgcGF0Y2gsIG9ubHkgdG8gc2hvdyB0aGUgc3BsaXQgYW5kIG5ldyBzdHJ1Y3R1
-cmUgOgo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1h
-Yy9jb21tb24uaAo+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9u
-LmgKPiBpbmRleCBlM2Y2NTBlODhmODJmOTI3ZjBkY2Y5NTc0OGZiZDEwYzE0YzMwY2JlLi43MDJi
-Y2VlYTVkYzhjODc1YTgwZjVlM2E5MmI3YmIwNThmMzczZWRhCj4gMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmgKPiArKysgYi9kcml2ZXJz
-L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaAo+IEBAIC02MCwxNiArNjAsMjIg
-QEAKPiAgLyogI2RlZmluZSBGUkFNRV9GSUxURVJfREVCVUcgKi8KPiAKPiAgc3RydWN0IHN0bW1h
-Y190eHFfc3RhdHMgewo+IC0gICAgICAgdTY0IHR4X2J5dGVzOwo+IC0gICAgICAgdTY0IHR4X3Bh
-Y2tldHM7Cj4gLSAgICAgICB1NjQgdHhfcGt0X247Cj4gLSAgICAgICB1NjQgdHhfbm9ybWFsX2ly
-cV9uOwo+IC0gICAgICAgdTY0IG5hcGlfcG9sbDsKPiAtICAgICAgIHU2NCB0eF9jbGVhbjsKPiAt
-ICAgICAgIHU2NCB0eF9zZXRfaWNfYml0Owo+IC0gICAgICAgdTY0IHR4X3Rzb19mcmFtZXM7Cj4g
-LSAgICAgICB1NjQgdHhfdHNvX25mcmFnczsKPiAtICAgICAgIHN0cnVjdCB1NjRfc3RhdHNfc3lu
-YyBzeW5jcDsKPiArLyogRmlyc3QgcGFydCwgdXBkYXRlZCBmcm9tIG5kb19zdGFydF94bWl0KCks
-IHByb3RlY3RlZCBieSB0eCBxdWV1ZSBsb2NrICovCj4gKyAgICAgICBzdHJ1Y3QgdTY0X3N0YXRz
-X3N5bmMgc3luY3BfdHg7Cj4gKyAgICAgICB1NjRfc3RhdHNfdCB0eF9ieXRlczsKPiArICAgICAg
-IHU2NF9zdGF0c190IHR4X3BhY2tldHM7Cj4gKyAgICAgICB1NjRfc3RhdHNfdCB0eF9wa3RfbjsK
-PiArICAgICAgIHU2NF9zdGF0c190IHR4X3Rzb19mcmFtZXM7Cj4gKyAgICAgICB1NjRfc3RhdHNf
-dCB0eF90c29fbmZyYWdzOwo+ICsKPiArLyogU2Vjb25kIHBhcnQsIHVwZGF0ZWQgZnJvbSBUWCBj
-b21wbGV0aW9uIChwcm90ZWN0ZWQgYnkgTkFQSSBwb2xsIGxvZ2ljKSAqLwo+ICsgICAgICAgc3Ry
-dWN0IHU2NF9zdGF0c19zeW5jIHN5bmNwX3R4X2NvbXBsZXRpb247Cj4gKyAgICAgICB1NjRfc3Rh
-dHNfdCBuYXBpX3BvbGw7Cj4gKyAgICAgICB1NjRfc3RhdHNfdCB0eF9jbGVhbjsKPiArICAgICAg
-IHU2NF9zdGF0c190IHR4X3NldF9pY19iaXQ7Cj4gKwo+ICsvKiBGb2xsb3dpbmcgZmVsZCBpcyB1
-cGRhdGVkIGZyb20gaGFyZCBpcnEgY29udGV4dC4uLiAqLwo+ICsgICAgICAgYXRvbWljNjRfdCB0
-eF9ub3JtYWxfaXJxX247Cj4gIH0gX19fX2NhY2hlbGluZV9hbGlnbmVkX2luX3NtcDsKPiAKPiAg
-c3RydWN0IHN0bW1hY19yeHFfc3RhdHMgewoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Fri, Jan 05, 2024 at 11:25:38AM CET, petr@tesarici.cz wrote:
+>On Fri, 5 Jan 2024 10:45:55 +0100
+>Jiri Pirko <jiri@resnulli.us> wrote:
+>
+>> Fri, Jan 05, 2024 at 10:15:56AM CET, petr@tesarici.cz wrote:
+>> >Add a spinlock to fix race conditions while updating Tx/Rx statistics.
+>> >
+>> >As explained by a comment in <linux/u64_stats_sync.h>, write side of struct
+>> >u64_stats_sync must ensure mutual exclusion, or one seqcount update could
+>> >be lost on 32-bit platforms, thus blocking readers forever.
+>> >
+>> >Such lockups have been actually observed on 32-bit Arm after stmmac_xmit()
+>> >on one core raced with stmmac_napi_poll_tx() on another core.
+>> >
+>> >Signed-off-by: Petr Tesarik <petr@tesarici.cz>
+>> >---
+>> > drivers/net/ethernet/stmicro/stmmac/common.h  |  2 +
+>> > .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  4 +
+>> > .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  4 +
+>> > .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  4 +
+>> > .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  4 +
+>> > .../net/ethernet/stmicro/stmmac/stmmac_main.c | 80 +++++++++++++------
+>> > 6 files changed, 72 insertions(+), 26 deletions(-)
+>> >
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+>> >index e3f650e88f82..9a17dfc1055d 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/common.h
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+>> >@@ -70,6 +70,7 @@ struct stmmac_txq_stats {
+>> > 	u64 tx_tso_frames;
+>> > 	u64 tx_tso_nfrags;
+>> > 	struct u64_stats_sync syncp;
+>> >+	spinlock_t lock;	/* mutual writer exclusion */
+>> > } ____cacheline_aligned_in_smp;
+>> > 
+>> > struct stmmac_rxq_stats {
+>> >@@ -79,6 +80,7 @@ struct stmmac_rxq_stats {
+>> > 	u64 rx_normal_irq_n;
+>> > 	u64 napi_poll;
+>> > 	struct u64_stats_sync syncp;
+>> >+	spinlock_t lock;	/* mutual writer exclusion */
+>> > } ____cacheline_aligned_in_smp;
+>> > 
+>> > /* Extra statistic and debug information exposed by ethtool */
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>> >index 137741b94122..9c568996321d 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+>> >@@ -455,9 +455,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+>> > 
+>> > 	if (v & EMAC_TX_INT) {
+>> > 		ret |= handle_tx;
+>> >+		spin_lock(&txq_stats->lock);
+>> > 		u64_stats_update_begin(&txq_stats->syncp);
+>> > 		txq_stats->tx_normal_irq_n++;
+>> > 		u64_stats_update_end(&txq_stats->syncp);
+>> >+		spin_unlock(&txq_stats->lock);
+>> > 	}
+>> > 
+>> > 	if (v & EMAC_TX_DMA_STOP_INT)
+>> >@@ -479,9 +481,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+>> > 
+>> > 	if (v & EMAC_RX_INT) {
+>> > 		ret |= handle_rx;
+>> >+		spin_lock(&rxq_stats->lock);
+>> > 		u64_stats_update_begin(&rxq_stats->syncp);
+>> > 		rxq_stats->rx_normal_irq_n++;
+>> > 		u64_stats_update_end(&rxq_stats->syncp);
+>> >+		spin_unlock(&rxq_stats->lock);
+>> > 	}
+>> > 
+>> > 	if (v & EMAC_RX_BUF_UA_INT)
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>> >index 9470d3fd2ded..e50e8b07724b 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+>> >@@ -201,15 +201,19 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+>> > 	}
+>> > 	/* TX/RX NORMAL interrupts */
+>> > 	if (likely(intr_status & DMA_CHAN_STATUS_RI)) {
+>> >+		spin_lock(&rxq_stats->lock);
+>> > 		u64_stats_update_begin(&rxq_stats->syncp);
+>> > 		rxq_stats->rx_normal_irq_n++;
+>> > 		u64_stats_update_end(&rxq_stats->syncp);
+>> >+		spin_unlock(&rxq_stats->lock);
+>> > 		ret |= handle_rx;
+>> > 	}
+>> > 	if (likely(intr_status & DMA_CHAN_STATUS_TI)) {
+>> >+		spin_lock(&txq_stats->lock);
+>> > 		u64_stats_update_begin(&txq_stats->syncp);
+>> > 		txq_stats->tx_normal_irq_n++;
+>> > 		u64_stats_update_end(&txq_stats->syncp);
+>> >+		spin_unlock(&txq_stats->lock);
+>> > 		ret |= handle_tx;
+>> > 	}
+>> > 
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>> >index 7907d62d3437..a43396a7f852 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+>> >@@ -215,16 +215,20 @@ int dwmac_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+>> > 			u32 value = readl(ioaddr + DMA_INTR_ENA);
+>> > 			/* to schedule NAPI on real RIE event. */
+>> > 			if (likely(value & DMA_INTR_ENA_RIE)) {
+>> >+				spin_lock(&rxq_stats->lock);
+>> > 				u64_stats_update_begin(&rxq_stats->syncp);
+>> > 				rxq_stats->rx_normal_irq_n++;
+>> > 				u64_stats_update_end(&rxq_stats->syncp);
+>> >+				spin_unlock(&rxq_stats->lock);
+>> > 				ret |= handle_rx;
+>> > 			}
+>> > 		}
+>> > 		if (likely(intr_status & DMA_STATUS_TI)) {
+>> >+			spin_lock(&txq_stats->lock);
+>> > 			u64_stats_update_begin(&txq_stats->syncp);
+>> > 			txq_stats->tx_normal_irq_n++;
+>> > 			u64_stats_update_end(&txq_stats->syncp);
+>> >+			spin_unlock(&txq_stats->lock);
+>> > 			ret |= handle_tx;
+>> > 		}
+>> > 		if (unlikely(intr_status & DMA_STATUS_ERI))
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>> >index 3cde695fec91..f4e01436d4cc 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+>> >@@ -367,15 +367,19 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+>> > 	/* TX/RX NORMAL interrupts */
+>> > 	if (likely(intr_status & XGMAC_NIS)) {
+>> > 		if (likely(intr_status & XGMAC_RI)) {
+>> >+			spin_lock(&rxq_stats->lock);
+>> > 			u64_stats_update_begin(&rxq_stats->syncp);
+>> > 			rxq_stats->rx_normal_irq_n++;
+>> > 			u64_stats_update_end(&rxq_stats->syncp);
+>> >+			spin_unlock(&rxq_stats->lock);
+>> > 			ret |= handle_rx;
+>> > 		}
+>> > 		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+>> >+			spin_lock(&txq_stats->lock);
+>> > 			u64_stats_update_begin(&txq_stats->syncp);
+>> > 			txq_stats->tx_normal_irq_n++;
+>> > 			u64_stats_update_end(&txq_stats->syncp);
+>> >+			spin_unlock(&txq_stats->lock);
+>> > 			ret |= handle_tx;
+>> > 		}
+>> > 	}
+>> >diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >index 37e64283f910..82d8db04d0d1 100644
+>> >--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >@@ -2515,9 +2515,11 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+>> > 		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, priv->dma_conf.dma_tx_size);
+>> > 		entry = tx_q->cur_tx;
+>> > 	}
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->tx_set_ic_bit += tx_set_ic_bit;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	if (tx_desc) {
+>> > 		stmmac_flush_tx_descriptors(priv, queue);
+>> >@@ -2721,11 +2723,13 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue,
+>> > 	if (tx_q->dirty_tx != tx_q->cur_tx)
+>> > 		*pending_packets = true;
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->tx_packets += tx_packets;
+>> > 	txq_stats->tx_pkt_n += tx_packets;
+>> > 	txq_stats->tx_clean++;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	priv->xstats.tx_errors += tx_errors;
+>> > 
+>> >@@ -4311,13 +4315,15 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>> > 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+>> > 	}
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->tx_bytes += skb->len;
+>> > 	txq_stats->tx_tso_frames++;
+>> > 	txq_stats->tx_tso_nfrags += nfrags;
+>> > 	if (set_ic)
+>> > 		txq_stats->tx_set_ic_bit++;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	if (priv->sarc_type)
+>> > 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+>> >@@ -4560,11 +4566,13 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+>> > 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+>> > 	}
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->tx_bytes += skb->len;
+>> > 	if (set_ic)
+>> > 		txq_stats->tx_set_ic_bit++;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	if (priv->sarc_type)
+>> > 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+>> >@@ -4831,9 +4839,11 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+>> > 		unsigned long flags;
+>> > 		tx_q->tx_count_frames = 0;
+>> > 		stmmac_set_tx_ic(priv, tx_desc);
+>> >-		flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+		spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+		u64_stats_update_begin(&txq_stats->syncp);
+>> > 		txq_stats->tx_set_ic_bit++;
+>> >-		u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+		u64_stats_update_end(&txq_stats->syncp);
+>> >+		spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 	}
+>> > 
+>> > 	stmmac_enable_dma_transmission(priv, priv->ioaddr);
+>> >@@ -5008,10 +5018,12 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+>> > 	skb_record_rx_queue(skb, queue);
+>> > 	napi_gro_receive(&ch->rxtx_napi, skb);
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>> >+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&rxq_stats->syncp);
+>> > 	rxq_stats->rx_pkt_n++;
+>> > 	rxq_stats->rx_bytes += len;
+>> >-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&rxq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+>> > }
+>> > 
+>> > static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+>> >@@ -5248,9 +5260,11 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+>> > 
+>> > 	stmmac_finalize_xdp_rx(priv, xdp_status);
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>> >+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&rxq_stats->syncp);
+>> > 	rxq_stats->rx_pkt_n += count;
+>> >-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&rxq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+>> > 
+>> > 	priv->xstats.rx_dropped += rx_dropped;
+>> > 	priv->xstats.rx_errors += rx_errors;
+>> >@@ -5541,11 +5555,13 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+>> > 
+>> > 	stmmac_rx_refill(priv, queue);
+>> > 
+>> >-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>> >+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&rxq_stats->syncp);
+>> > 	rxq_stats->rx_packets += rx_packets;
+>> > 	rxq_stats->rx_bytes += rx_bytes;
+>> > 	rxq_stats->rx_pkt_n += count;
+>> >-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&rxq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+>> > 
+>> > 	priv->xstats.rx_dropped += rx_dropped;
+>> > 	priv->xstats.rx_errors += rx_errors;
+>> >@@ -5564,9 +5580,11 @@ static int stmmac_napi_poll_rx(struct napi_struct *napi, int budget)
+>> > 	int work_done;
+>> > 
+>> > 	rxq_stats = &priv->xstats.rxq_stats[chan];
+>> >-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>> >+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&rxq_stats->syncp);
+>> > 	rxq_stats->napi_poll++;
+>> >-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&rxq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+>> > 
+>> > 	work_done = stmmac_rx(priv, budget, chan);
+>> > 	if (work_done < budget && napi_complete_done(napi, work_done)) {
+>> >@@ -5592,9 +5610,11 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
+>> > 	int work_done;
+>> > 
+>> > 	txq_stats = &priv->xstats.txq_stats[chan];
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock_irqsave(&txq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->napi_poll++;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	work_done = stmmac_tx_clean(priv, budget, chan, &pending_packets);
+>> > 	work_done = min(work_done, budget);
+>> >@@ -5627,14 +5647,18 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
+>> > 	unsigned long flags;
+>> > 
+>> > 	rxq_stats = &priv->xstats.rxq_stats[chan];
+>> >-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
+>> >+	spin_lock_irqsave(&rxq_stats->lock, flags);
+>> >+	u64_stats_update_begin(&rxq_stats->syncp);
+>> > 	rxq_stats->napi_poll++;
+>> >-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&rxq_stats->syncp);
+>> >+	spin_unlock(&rxq_stats->lock);  
+>> 
+>> Nitpick:
+>> I know that the original code does that, but any idea why
+>> u64_stats_update_end_irqrestore() is called here when
+>> u64_stats_update_begin_irqsave() is called 2 lines below?
+>> IIUC, this could be one critical section. Could you perhaps merge these
+>> while at it? Could be a follow-up patch.
+>
+>I have merged the interrupt disable/enable, but there are two separate
+>spinlocks for rxq_stats (added to struct stmmac_txq_stats) and for
+>txq_stats (added to struct stmmac_rxq_stats), so they cannot be merged.
+
+Ah, that's what I overlooked. Thanks.
+
+>
+>Alternatively, I could use the channel lock to protect stats updates,
+>but that could increase contention of that lock. I believe more
+>granularity is better, especially if it does not cost anything: There
+>is plenty of unused space in struct stmmac_txq_stats and struct
+>stmmac_rxq_stats (they are both cache-aligned).
+>
+>Petr T
+>
+>> 
+>> Rest of the patch looks fine to me.
+>> 
+>> Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+>> 
+>> 
+>> > 
+>> > 	txq_stats = &priv->xstats.txq_stats[chan];
+>> >-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
+>> >+	spin_lock(&txq_stats->lock);
+>> >+	u64_stats_update_begin(&txq_stats->syncp);
+>> > 	txq_stats->napi_poll++;
+>> >-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
+>> >+	u64_stats_update_end(&txq_stats->syncp);
+>> >+	spin_unlock_irqrestore(&txq_stats->lock, flags);
+>> > 
+>> > 	tx_done = stmmac_tx_clean(priv, budget, chan, &tx_pending_packets);
+>> > 	tx_done = min(tx_done, budget);
+>> >@@ -7371,10 +7395,14 @@ int stmmac_dvr_probe(struct device *device,
+>> > 	priv->device = device;
+>> > 	priv->dev = ndev;
+>> > 
+>> >-	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
+>> >+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
+>> > 		u64_stats_init(&priv->xstats.rxq_stats[i].syncp);
+>> >-	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
+>> >+		spin_lock_init(&priv->xstats.rxq_stats[i].lock);
+>> >+	}
+>> >+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
+>> > 		u64_stats_init(&priv->xstats.txq_stats[i].syncp);
+>> >+		spin_lock_init(&priv->xstats.txq_stats[i].lock);
+>> >+	}
+>> > 
+>> > 	stmmac_set_ethtool_ops(ndev);
+>> > 	priv->pause = pause;
+>> >-- 
+>> >2.43.0
+>> >
+>> >  
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
