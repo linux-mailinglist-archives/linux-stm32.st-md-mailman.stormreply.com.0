@@ -2,79 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45048824FA3
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 09:20:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A3A3825124
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 10:48:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6C46C6C83C;
-	Fri,  5 Jan 2024 08:20:48 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DA04C6DD73;
+	Fri,  5 Jan 2024 09:48:05 +0000 (UTC)
+Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53398C6B452
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E31BC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 08:20:47 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.22/8.17.1.22) with ESMTP id
- 4052tkx3028984; Fri, 5 Jan 2024 09:19:56 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=gxrbGKGX0buop+PvuAmG2IkLu4G/QjEo0CpiUPjSvQ4=; b=tT
- 6cNXeGAKaJftgTWYQ4btXPz25NJkoN6rwQ97Z+A70hxVGPC2EACwY9KlFCdwin7x
- T0eGIn7cyZvSTfTKL9FDgLEXwhSfQvbd3x/0RqhDxui/1vUCSEUHuwwZr9vaSZe9
- VdlGf5MOsb+NyVQ6ko42YO9d1nlPanGwO/RF/J4coZ/A/Hk91SlDoU+TcPWpChjc
- VMqXebLXrELMYSyaqHnkwRK2oyoxdP/Ov8ew4yZ4CDuu4GeqUPTeGL0AxMTR94Qn
- lXgr3Z1OrXzqkGP1ijFxHO1uxSOuRA4iapRhe6ZvvoZRpbUBJFP4zW8Cc7oNPSVD
- QPxxMGTmlyF9GBQaTcIw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3ve9dss0v4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 05 Jan 2024 09:19:56 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 086FC10002A;
- Fri,  5 Jan 2024 09:19:52 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C8B17210587;
- Fri,  5 Jan 2024 09:19:52 +0100 (CET)
-Received: from [10.201.20.32] (10.201.20.32) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 5 Jan
- 2024 09:19:50 +0100
-Message-ID: <9b66bc71-08de-43bd-b7e1-4e7c9defd400@foss.st.com>
-Date: Fri, 5 Jan 2024 09:19:47 +0100
+ Fri,  5 Jan 2024 09:16:27 +0000 (UTC)
+Received: from meshulam.tesarici.cz
+ (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
+ [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by bee.tesarici.cz (Postfix) with ESMTPSA id 0FFF11A7E20;
+ Fri,  5 Jan 2024 10:16:26 +0100 (CET)
+Authentication-Results: mail.tesarici.cz;
+ dmarc=fail (p=none dis=none) header.from=tesarici.cz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
+ t=1704446186; bh=IA91l9oQAJG3Cb5MwM8dFH510F/uRqsyWC/CJO98CD0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=OwYEDpLaiBiGi0H646H5Plj3Rkmh0n+//Ibti3ROB2MlL59gthwS/hMSz/hUDKQ61
+ YXuUgBWR1cUuC+NIMgQJM+eJQoFf145fwjkGFUz/0tLOkpahvggmbgE16CjjuRGI1a
+ T3hpmmSzq0gyLHte479TkVcALsG2naqk3CV+ljpWOzNkmQZel0vM3H0dbZuOIrz2Sc
+ UaO9wJtj7VXEKCGwNMmsolNiaPcAWFt1BiJBKZyeeDTGSrTUgn9a1xkkxKtsmKFApj
+ 5T6CyeZ6TQgrqwF4GF0sf95ovRLyUQ2vPcVrqf9mb4/rJ6QG6qfK4GuM17T8V4V68o
+ yibQydKWPEyTg==
+From: Petr Tesarik <petr@tesarici.cz>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
+ linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
+ ARCHITECTURE), 
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE), 
+ linux-kernel@vger.kernel.org (open list),
+ linux-sunxi@lists.linux.dev (open list:ARM/Allwinner sunXi SoC support)
+Date: Fri,  5 Jan 2024 10:15:56 +0100
+Message-ID: <20240105091556.15516-1-petr@tesarici.cz>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>
-References: <20231212152356.345703-1-gatien.chevallier@foss.st.com>
- <20231212152356.345703-4-gatien.chevallier@foss.st.com>
- <20231221215316.GA155023-robh@kernel.org>
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20231221215316.GA155023-robh@kernel.org>
-X-Originating-IP: [10.201.20.32]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_04,2024-01-05_01,2023-05-22_02
-Cc: ulf.hansson@linaro.org, linux-iio@vger.kernel.org, catalin.marinas@arm.com,
- edumazet@google.com, Oleksii_Moisieiev@epam.com,
- krzysztof.kozlowski+dt@linaro.org, linux-phy@lists.infradead.org,
- will@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- peng.fan@oss.nxp.com, lars@metafoo.de, herbert@gondor.apana.org.au,
- Frank Rowand <frowand.list@gmail.com>, hugues.fruchet@foss.st.com,
- lee@kernel.org, kuba@kernel.org, pabeni@redhat.com, wg@grandegger.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, andi.shyti@kernel.org,
- alsa-devel@alsa-project.org, richardcochran@gmail.com,
- linux-medi.a@vger.kernel.org, mkl@pengutronix.de, linux-serial@vger.kernel.org,
- mchehab@kernel.org, linux-arm-kernel@lists.infradead.org, arnd@kernel.org,
- rcsekar@samsung.com, gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, vkoul@kernel.org, linux-crypto@vger.kernel.org,
- netdev@vger.kernel.org, dmaengine@vger.kernel.org, davem@davemloft.net,
- jic23@kernel.org, linux-i2c@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v8 03/13] dt-bindings: bus: document RIFSC
+X-Mailman-Approved-At: Fri, 05 Jan 2024 09:48:03 +0000
+Cc: Petr Tesarik <petr@tesarici.cz>
+Subject: [Linux-stm32] [PATCH] net: stmmac: protect statistics updates with
+	a spinlock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,97 +65,349 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Rob,
+Add a spinlock to fix race conditions while updating Tx/Rx statistics.
 
-On 12/21/23 22:53, Rob Herring wrote:
-> On Tue, Dec 12, 2023 at 04:23:46PM +0100, Gatien Chevallier wrote:
->> Document RIFSC (RIF security controller). RIFSC is a firewall controller
->> composed of different kinds of hardware resources.
->>
->> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
->> ---
->>
->> Changes in V6:
->> 	- Renamed access-controller to access-controllers
->> 	- Removal of access-control-provider property
->> 	- Removal of access-controller and access-controller-names
->> 	  declaration in the patternProperties field. Add
->> 	  additionalProperties: true in this field.
->>
->> Changes in V5:
->> 	- Renamed feature-domain* to access-control*
->>
->> Changes in V2:
->> 	- Corrected errors highlighted by Rob's robot
->> 	- No longer define the maxItems for the "feature-domains"
->> 	  property
->> 	- Fix example (node name, status)
->> 	- Declare "feature-domain-names" as an optional
->> 	  property for child nodes
->> 	- Fix description of "feature-domains" property
->>
->>   .../bindings/bus/st,stm32mp25-rifsc.yaml      | 96 +++++++++++++++++++
->>   1 file changed, 96 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
->> new file mode 100644
->> index 000000000000..95aa7f04c739
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp25-rifsc.yaml
->> @@ -0,0 +1,96 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/bus/st,stm32mp25-rifsc.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: STM32 Resource isolation framework security controller
->> +
->> +maintainers:
->> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
->> +
->> +description: |
->> +  Resource isolation framework (RIF) is a comprehensive set of hardware blocks
->> +  designed to enforce and manage isolation of STM32 hardware resources like
->> +  memory and peripherals.
->> +
->> +  The RIFSC (RIF security controller) is composed of three sets of registers,
->> +  each managing a specific set of hardware resources:
->> +    - RISC registers associated with RISUP logic (resource isolation device unit
->> +      for peripherals), assign all non-RIF aware peripherals to zero, one or
->> +      any security domains (secure, privilege, compartment).
->> +    - RIMC registers: associated with RIMU logic (resource isolation master
->> +      unit), assign all non RIF-aware bus master to one security domain by
->> +      setting secure, privileged and compartment information on the system bus.
->> +      Alternatively, the RISUP logic controlling the device port access to a
->> +      peripheral can assign target bus attributes to this peripheral master port
->> +      (supported attribute: CID).
->> +    - RISC registers associated with RISAL logic (resource isolation device unit
->> +      for address space - Lite version), assign address space subregions to one
->> +      security domains (secure, privilege, compartment).
->> +
->> +properties:
->> +  compatible:
->> +    contains:
->> +      const: st,stm32mp25-rifsc
-> 
-> This needs to be exact and include 'simple-bus'. You'll need a custom
-> 'select' with the above to avoid matching all other 'simple-bus' cases.
-> 
-> With that,
-> 
-> Reviewed-by: Rob Herring <robh@kernel.org>
+As explained by a comment in <linux/u64_stats_sync.h>, write side of struct
+u64_stats_sync must ensure mutual exclusion, or one seqcount update could
+be lost on 32-bit platforms, thus blocking readers forever.
 
-Thank you for the review,
-I'll update this for the next version whilst applying your tag
+Such lockups have been actually observed on 32-bit Arm after stmmac_xmit()
+on one core raced with stmmac_napi_poll_tx() on another core.
 
-Gatien
+Signed-off-by: Petr Tesarik <petr@tesarici.cz>
+---
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  2 +
+ .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  4 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  4 +
+ .../net/ethernet/stmicro/stmmac/dwmac_lib.c   |  4 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  4 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 80 +++++++++++++------
+ 6 files changed, 72 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index e3f650e88f82..9a17dfc1055d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -70,6 +70,7 @@ struct stmmac_txq_stats {
+ 	u64 tx_tso_frames;
+ 	u64 tx_tso_nfrags;
+ 	struct u64_stats_sync syncp;
++	spinlock_t lock;	/* mutual writer exclusion */
+ } ____cacheline_aligned_in_smp;
+ 
+ struct stmmac_rxq_stats {
+@@ -79,6 +80,7 @@ struct stmmac_rxq_stats {
+ 	u64 rx_normal_irq_n;
+ 	u64 napi_poll;
+ 	struct u64_stats_sync syncp;
++	spinlock_t lock;	/* mutual writer exclusion */
+ } ____cacheline_aligned_in_smp;
+ 
+ /* Extra statistic and debug information exposed by ethtool */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 137741b94122..9c568996321d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -455,9 +455,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+ 
+ 	if (v & EMAC_TX_INT) {
+ 		ret |= handle_tx;
++		spin_lock(&txq_stats->lock);
+ 		u64_stats_update_begin(&txq_stats->syncp);
+ 		txq_stats->tx_normal_irq_n++;
+ 		u64_stats_update_end(&txq_stats->syncp);
++		spin_unlock(&txq_stats->lock);
+ 	}
+ 
+ 	if (v & EMAC_TX_DMA_STOP_INT)
+@@ -479,9 +481,11 @@ static int sun8i_dwmac_dma_interrupt(struct stmmac_priv *priv,
+ 
+ 	if (v & EMAC_RX_INT) {
+ 		ret |= handle_rx;
++		spin_lock(&rxq_stats->lock);
+ 		u64_stats_update_begin(&rxq_stats->syncp);
+ 		rxq_stats->rx_normal_irq_n++;
+ 		u64_stats_update_end(&rxq_stats->syncp);
++		spin_unlock(&rxq_stats->lock);
+ 	}
+ 
+ 	if (v & EMAC_RX_BUF_UA_INT)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+index 9470d3fd2ded..e50e8b07724b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
+@@ -201,15 +201,19 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	}
+ 	/* TX/RX NORMAL interrupts */
+ 	if (likely(intr_status & DMA_CHAN_STATUS_RI)) {
++		spin_lock(&rxq_stats->lock);
+ 		u64_stats_update_begin(&rxq_stats->syncp);
+ 		rxq_stats->rx_normal_irq_n++;
+ 		u64_stats_update_end(&rxq_stats->syncp);
++		spin_unlock(&rxq_stats->lock);
+ 		ret |= handle_rx;
+ 	}
+ 	if (likely(intr_status & DMA_CHAN_STATUS_TI)) {
++		spin_lock(&txq_stats->lock);
+ 		u64_stats_update_begin(&txq_stats->syncp);
+ 		txq_stats->tx_normal_irq_n++;
+ 		u64_stats_update_end(&txq_stats->syncp);
++		spin_unlock(&txq_stats->lock);
+ 		ret |= handle_tx;
+ 	}
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+index 7907d62d3437..a43396a7f852 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac_lib.c
+@@ -215,16 +215,20 @@ int dwmac_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			u32 value = readl(ioaddr + DMA_INTR_ENA);
+ 			/* to schedule NAPI on real RIE event. */
+ 			if (likely(value & DMA_INTR_ENA_RIE)) {
++				spin_lock(&rxq_stats->lock);
+ 				u64_stats_update_begin(&rxq_stats->syncp);
+ 				rxq_stats->rx_normal_irq_n++;
+ 				u64_stats_update_end(&rxq_stats->syncp);
++				spin_unlock(&rxq_stats->lock);
+ 				ret |= handle_rx;
+ 			}
+ 		}
+ 		if (likely(intr_status & DMA_STATUS_TI)) {
++			spin_lock(&txq_stats->lock);
+ 			u64_stats_update_begin(&txq_stats->syncp);
+ 			txq_stats->tx_normal_irq_n++;
+ 			u64_stats_update_end(&txq_stats->syncp);
++			spin_unlock(&txq_stats->lock);
+ 			ret |= handle_tx;
+ 		}
+ 		if (unlikely(intr_status & DMA_STATUS_ERI))
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index 3cde695fec91..f4e01436d4cc 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -367,15 +367,19 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+ 	/* TX/RX NORMAL interrupts */
+ 	if (likely(intr_status & XGMAC_NIS)) {
+ 		if (likely(intr_status & XGMAC_RI)) {
++			spin_lock(&rxq_stats->lock);
+ 			u64_stats_update_begin(&rxq_stats->syncp);
+ 			rxq_stats->rx_normal_irq_n++;
+ 			u64_stats_update_end(&rxq_stats->syncp);
++			spin_unlock(&rxq_stats->lock);
+ 			ret |= handle_rx;
+ 		}
+ 		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
++			spin_lock(&txq_stats->lock);
+ 			u64_stats_update_begin(&txq_stats->syncp);
+ 			txq_stats->tx_normal_irq_n++;
+ 			u64_stats_update_end(&txq_stats->syncp);
++			spin_unlock(&txq_stats->lock);
+ 			ret |= handle_tx;
+ 		}
+ 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 37e64283f910..82d8db04d0d1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2515,9 +2515,11 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		tx_q->cur_tx = STMMAC_GET_ENTRY(tx_q->cur_tx, priv->dma_conf.dma_tx_size);
+ 		entry = tx_q->cur_tx;
+ 	}
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock_irqsave(&txq_stats->lock, flags);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->tx_set_ic_bit += tx_set_ic_bit;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	if (tx_desc) {
+ 		stmmac_flush_tx_descriptors(priv, queue);
+@@ -2721,11 +2723,13 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue,
+ 	if (tx_q->dirty_tx != tx_q->cur_tx)
+ 		*pending_packets = true;
+ 
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock_irqsave(&txq_stats->lock, flags);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->tx_packets += tx_packets;
+ 	txq_stats->tx_pkt_n += tx_packets;
+ 	txq_stats->tx_clean++;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	priv->xstats.tx_errors += tx_errors;
+ 
+@@ -4311,13 +4315,15 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+ 	}
+ 
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock_irqsave(&txq_stats->lock, flags);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->tx_bytes += skb->len;
+ 	txq_stats->tx_tso_frames++;
+ 	txq_stats->tx_tso_nfrags += nfrags;
+ 	if (set_ic)
+ 		txq_stats->tx_set_ic_bit++;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	if (priv->sarc_type)
+ 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+@@ -4560,11 +4566,13 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
+ 	}
+ 
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock_irqsave(&txq_stats->lock, flags);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->tx_bytes += skb->len;
+ 	if (set_ic)
+ 		txq_stats->tx_set_ic_bit++;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	if (priv->sarc_type)
+ 		stmmac_set_desc_sarc(priv, first, priv->sarc_type);
+@@ -4831,9 +4839,11 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
+ 		unsigned long flags;
+ 		tx_q->tx_count_frames = 0;
+ 		stmmac_set_tx_ic(priv, tx_desc);
+-		flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++		spin_lock_irqsave(&txq_stats->lock, flags);
++		u64_stats_update_begin(&txq_stats->syncp);
+ 		txq_stats->tx_set_ic_bit++;
+-		u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++		u64_stats_update_end(&txq_stats->syncp);
++		spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 	}
+ 
+ 	stmmac_enable_dma_transmission(priv, priv->ioaddr);
+@@ -5008,10 +5018,12 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+ 	skb_record_rx_queue(skb, queue);
+ 	napi_gro_receive(&ch->rxtx_napi, skb);
+ 
+-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
++	spin_lock_irqsave(&rxq_stats->lock, flags);
++	u64_stats_update_begin(&rxq_stats->syncp);
+ 	rxq_stats->rx_pkt_n++;
+ 	rxq_stats->rx_bytes += len;
+-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
++	u64_stats_update_end(&rxq_stats->syncp);
++	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+ }
+ 
+ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+@@ -5248,9 +5260,11 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 	stmmac_finalize_xdp_rx(priv, xdp_status);
+ 
+-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
++	spin_lock_irqsave(&rxq_stats->lock, flags);
++	u64_stats_update_begin(&rxq_stats->syncp);
+ 	rxq_stats->rx_pkt_n += count;
+-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
++	u64_stats_update_end(&rxq_stats->syncp);
++	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+ 
+ 	priv->xstats.rx_dropped += rx_dropped;
+ 	priv->xstats.rx_errors += rx_errors;
+@@ -5541,11 +5555,13 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 	stmmac_rx_refill(priv, queue);
+ 
+-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
++	spin_lock_irqsave(&rxq_stats->lock, flags);
++	u64_stats_update_begin(&rxq_stats->syncp);
+ 	rxq_stats->rx_packets += rx_packets;
+ 	rxq_stats->rx_bytes += rx_bytes;
+ 	rxq_stats->rx_pkt_n += count;
+-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
++	u64_stats_update_end(&rxq_stats->syncp);
++	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+ 
+ 	priv->xstats.rx_dropped += rx_dropped;
+ 	priv->xstats.rx_errors += rx_errors;
+@@ -5564,9 +5580,11 @@ static int stmmac_napi_poll_rx(struct napi_struct *napi, int budget)
+ 	int work_done;
+ 
+ 	rxq_stats = &priv->xstats.rxq_stats[chan];
+-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
++	spin_lock_irqsave(&rxq_stats->lock, flags);
++	u64_stats_update_begin(&rxq_stats->syncp);
+ 	rxq_stats->napi_poll++;
+-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
++	u64_stats_update_end(&rxq_stats->syncp);
++	spin_unlock_irqrestore(&rxq_stats->lock, flags);
+ 
+ 	work_done = stmmac_rx(priv, budget, chan);
+ 	if (work_done < budget && napi_complete_done(napi, work_done)) {
+@@ -5592,9 +5610,11 @@ static int stmmac_napi_poll_tx(struct napi_struct *napi, int budget)
+ 	int work_done;
+ 
+ 	txq_stats = &priv->xstats.txq_stats[chan];
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock_irqsave(&txq_stats->lock, flags);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->napi_poll++;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	work_done = stmmac_tx_clean(priv, budget, chan, &pending_packets);
+ 	work_done = min(work_done, budget);
+@@ -5627,14 +5647,18 @@ static int stmmac_napi_poll_rxtx(struct napi_struct *napi, int budget)
+ 	unsigned long flags;
+ 
+ 	rxq_stats = &priv->xstats.rxq_stats[chan];
+-	flags = u64_stats_update_begin_irqsave(&rxq_stats->syncp);
++	spin_lock_irqsave(&rxq_stats->lock, flags);
++	u64_stats_update_begin(&rxq_stats->syncp);
+ 	rxq_stats->napi_poll++;
+-	u64_stats_update_end_irqrestore(&rxq_stats->syncp, flags);
++	u64_stats_update_end(&rxq_stats->syncp);
++	spin_unlock(&rxq_stats->lock);
+ 
+ 	txq_stats = &priv->xstats.txq_stats[chan];
+-	flags = u64_stats_update_begin_irqsave(&txq_stats->syncp);
++	spin_lock(&txq_stats->lock);
++	u64_stats_update_begin(&txq_stats->syncp);
+ 	txq_stats->napi_poll++;
+-	u64_stats_update_end_irqrestore(&txq_stats->syncp, flags);
++	u64_stats_update_end(&txq_stats->syncp);
++	spin_unlock_irqrestore(&txq_stats->lock, flags);
+ 
+ 	tx_done = stmmac_tx_clean(priv, budget, chan, &tx_pending_packets);
+ 	tx_done = min(tx_done, budget);
+@@ -7371,10 +7395,14 @@ int stmmac_dvr_probe(struct device *device,
+ 	priv->device = device;
+ 	priv->dev = ndev;
+ 
+-	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
++	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
+ 		u64_stats_init(&priv->xstats.rxq_stats[i].syncp);
+-	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
++		spin_lock_init(&priv->xstats.rxq_stats[i].lock);
++	}
++	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
+ 		u64_stats_init(&priv->xstats.txq_stats[i].syncp);
++		spin_lock_init(&priv->xstats.txq_stats[i].lock);
++	}
+ 
+ 	stmmac_set_ethtool_ops(ndev);
+ 	priv->pause = pause;
+-- 
+2.43.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
