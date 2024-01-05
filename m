@@ -2,76 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D7B582566C
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 16:19:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEDC78258B3
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 17:55:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3ED0C6C83C;
-	Fri,  5 Jan 2024 15:19:10 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84931C6C83C;
+	Fri,  5 Jan 2024 16:55:58 +0000 (UTC)
+Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
+ [64.147.123.17])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9834DC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8140C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 15:19:09 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a28d25253d2so181300866b.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jan 2024 07:19:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704467949; x=1705072749;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cXM8mUu2b7I5NINWgE1xN7lsAgN9ikjmrQenDxvMoYo=;
- b=MjCfRJ5XSU0raINwx7PprJrxnZlDn7jbzeh7v9WUO2f8nG9zMHByaSEdy2IaJVUg/m
- /KC55c/oqet47DZnzahO8IsFHBXeBvKVvR+VywC3K0jw+CmfuZUgemTeQwC0zqemlUcf
- EYHqYYNo4AkHPnyBxxA6ODuzsrPU8LD2s5QpIuuUJnCfHtwOTUbaRlWGBdKbSUuBlt9z
- ak3wAWnn5fXJcP2+//HSCqz851MD3jAIQM9TG7N12XF+Vgacq/si8KEQuc11qEDWAkjT
- Vy0OvujeIfWOT6YQd5uM0VRRz14jdesvJiizLvT/0FRXGR5QTrB6He9zv9NQWOsRuVvC
- qQ1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704467949; x=1705072749;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cXM8mUu2b7I5NINWgE1xN7lsAgN9ikjmrQenDxvMoYo=;
- b=Cx2xELwCV9Cj65JK4RGPx/1N+RHOFBVVbAPwmPSP1+ZqkeITJyaxrf+5Xln9QyNt+u
- hLA5lihRDS5b3d2nWhaNAMGG0PpI30c8NKXv7sxr5g8xjWDTJmTPUy6MrnR7UENQJULp
- ul2jt0f7wnXd1TZoVRwAkfIAry1ICllGNSz/2fjZR0k19UwQHnlOX/mHO1dweZ4W2qhl
- cDLsXEVXtou/odsyqVY21ATchY84uCmyHfkWrHxxrQbTCnApyYZjKXZ1L4V78NIWCKhn
- EFHN2KpAO0zTSY7FG5gtyw6BjPPSAwumbLd6mqRlmQqiDfySQP35G9rvj+lQ4nrtiSY4
- WvUw==
-X-Gm-Message-State: AOJu0YxD3smzvv+wlKg31+wn4U++D3SLgI31ctHQ7UnsC5hlPXAoWXo2
- DGjTrMQQ3M+lX32q0UY3ljM=
-X-Google-Smtp-Source: AGHT+IHMylC1f/uOwiPnE54XyvPyUNJflvpVz3FB0ZLbHNPVoLKw4ML5AEQ2yE/zVzZzRQJG9qQEHw==
-X-Received: by 2002:a17:906:6a82:b0:a23:4c5d:dab4 with SMTP id
- p2-20020a1709066a8200b00a234c5ddab4mr1164549ejr.62.1704467948901; 
- Fri, 05 Jan 2024 07:19:08 -0800 (PST)
-Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz.
- [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
- by smtp.gmail.com with ESMTPSA id
- mj20-20020a170906af9400b00a27a7fa8691sm979246ejb.137.2024.01.05.07.19.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jan 2024 07:19:07 -0800 (PST)
-From: Jiri Olsa <olsajiri@gmail.com>
-X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Fri, 5 Jan 2024 16:19:06 +0100
-To: Daniel Xu <dxu@dxuuu.xyz>
-Message-ID: <ZZgd6vOhpLcZmYp5@krava>
+ Fri,  5 Jan 2024 16:55:56 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailnew.west.internal (Postfix) with ESMTP id 643F82B002FE;
+ Fri,  5 Jan 2024 11:55:50 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Fri, 05 Jan 2024 11:55:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxuuu.xyz; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm1; t=1704473749; x=1704480949; bh=QW7jt9Lu7f
+ ke8mG4lP5bYmPmDvOXPBpGzIUDBHIekTk=; b=Acz4kIcq6y/rMD3GdA7cQZFH/X
+ t+UCDk8kiRTwuEzv4ajq3EDfufkIZkO8rGAkbX3sbhxHt16W2NOVO6gW2gQHxnZr
+ G4znBN6j8ey0yPSzv+AlK6ZSJwteCnfW3d+5qDl/eg2aJTqU9Tgdw3YjZEKbWiiA
+ xDjCkNbH8TatuNfFUavrE+ffldAtLl1v9baWSzFGVpUeiYCRlCeZGSoqIOyzPHvn
+ QzvCgTBrCyaLUW/MlTUJL8Udfek55UMpp0KfgTZyqMYearp0x1HoJW30AG1RainQ
+ 7jUdJb7RD7OtoMFP4EUhEya/MWTwpfUkkKqXxvWzEKPyF0P6ySZ4aWmCm73g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; t=1704473749; x=1704480949; bh=QW7jt9Lu7fke8mG4lP5bYmPmDvOX
+ PBpGzIUDBHIekTk=; b=K9BYb8iThvNsRc3uDbU2A4HF+NqmpozLE145a0RZM6s+
+ HlSs93vsFRPOZ4j+D7yanP8AH1MORLgVIUDI/smsj0tgQHb1QcdzskIXumAkTdaI
+ aYWKtH9GM5E2idjjTXJdHaRlRm+zABDB8nY9iGIO+T3ni/GGWRr3B/rAtlNxTMAa
+ 442AnTkTIKtZDG71QbRbhfRDzlUBII9A+3MGR239UuUry3gcSCza/5J8eBt8YfDp
+ qSaUg0ncHYhXvJ5JLZQ2x+uSxOHpqddfG6B+3/DQ4dtJ8Bvy8Eo4uJ9FwtXpOXbS
+ lAKesJFuhuTY1UEqKamWKqMwsebhP2LexY2pyWEAjQ==
+X-ME-Sender: <xms:kzSYZaaAy3dR9G7HtiXxWg4Zxmeum0A9kFX20liLaKbR07SHFcyxcg>
+ <xme:kzSYZdYGOayfCataHnEAMMKquFtux6p39JzrR3A07WSDo0A-s4okO5JaDREMOkZsI
+ mghom6qS61yd_6_bg>
+X-ME-Received: <xmr:kzSYZU-FFGlFxqtZW9JrU1DfOghSBraArHdWeqKl_bYBn4B9XbhJJcaTjNPSd7Gh34QiYd3oUUZRytJdmx23CPk7Jxq8EIEzMnNLQ-s>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdegledgleduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ gfrhhlucfvnfffucdljedtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdfstddt
+ tddvnecuhfhrohhmpeffrghnihgvlhcuighuuceougiguhesugiguhhuuhdrgiihiieqne
+ cuggftrfgrthhtvghrnhepvdefkeetuddufeeigedtheefffekuedukeehudffudfffffg
+ geeitdetgfdvhfdvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepugiguhesugiguhhuuhdrgiihii
+X-ME-Proxy: <xmx:kzSYZcooOdkX-X1KqvlBh60yFjwUF6ho3KRoF4sCW1I-TfmvCqZcQA>
+ <xmx:kzSYZVqed9r_UIcFbBgVtpyedquDrgSmBEtX74gK0NVzOv-CO9t0Wg>
+ <xmx:kzSYZaTkEQUWNf-X1GtvBv5FK6CVlonQJvKyRbPer6PmkJB9Vt_cTA>
+ <xmx:lTSYZXSsnZAjmPDbBJ3T6sdwqsgrrVfZBsEsu-lv1wIgRfR5oMP26phlS_0>
+Feedback-ID: i6a694271:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 5 Jan 2024 11:55:44 -0500 (EST)
+Date: Fri, 5 Jan 2024 09:55:43 -0700
+From: Daniel Xu <dxu@dxuuu.xyz>
+To: Jiri Olsa <olsajiri@gmail.com>
+Message-ID: <4tsn6x45gh3vgdst3ozzmxori5gzylvpx6btxue6sbsmx7siok@6wajzdgwxfpa>
 References: <cover.1704422454.git.dxu@dxuuu.xyz>
+ <a923e3809955bdfd2bc8d6a103c20e01f1636dbc.1704422454.git.dxu@dxuuu.xyz>
+ <ZZgcJTdwMZHglPtr@krava>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cover.1704422454.git.dxu@dxuuu.xyz>
-Cc: fsverity@lists.linux.dev, alan.maguire@oracle.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com, memxor@gmail.com,
- coreteam@netfilter.org, netfilter-devel@vger.kernel.org, quentin@isovalent.com,
- linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
- cgroups@vger.kernel.org, bpf@vger.kernel.org, olsajiri@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 0/3] Annotate kfuncs in
-	.BTF_ids section
+In-Reply-To: <ZZgcJTdwMZHglPtr@krava>
+Cc: yonghong.song@linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ song@kernel.org, edumazet@google.com, benjamin.tissoires@redhat.com,
+ sdf@google.com, lizefan.x@bytedance.com, netdev@vger.kernel.org,
+ shuah@kernel.org, alexei.starovoitov@gmail.com, steffen.klassert@secunet.com,
+ mykolal@fb.com, Herbert Xu <herbert@gondor.apana.org.au>, daniel@iogearbox.net,
+ john.fastabend@gmail.com, andrii@kernel.org, kadlec@netfilter.org,
+ ebiggers@kernel.org, quentin@isovalent.com, linux-input@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, pablo@netfilter.org,
+ linux-trace-kernel@vger.kernel.org, coreteam@netfilter.org, hawk@kernel.org,
+ jikos@kernel.org, rostedt@goodmis.org, ast@kernel.org,
+ mathieu.desnoyers@efficios.com, memxor@gmail.com, kpsingh@kernel.org,
+ cgroups@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ fsverity@lists.linux.dev, haoluo@google.com, linux-kselftest@vger.kernel.org,
+ tytso@mit.edu, alan.maguire@oracle.com, dsahern@kernel.org, fw@strlen.de,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ mhiramat@kernel.org, mcoquelin.stm32@gmail.com, hannes@cmpxchg.org,
+ tj@kernel.org, bpf@vger.kernel.org, martin.lau@linux.dev, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH bpf-next v2 3/3] bpf: treewide: Annotate
+	BPF kfuncs in BTF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,73 +105,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 04, 2024 at 07:45:46PM -0700, Daniel Xu wrote:
-> === Description ===
+On Fri, Jan 05, 2024 at 04:11:33PM +0100, Jiri Olsa wrote:
+> On Thu, Jan 04, 2024 at 07:45:49PM -0700, Daniel Xu wrote:
 > 
-> This is a bpf-treewide change that annotates all kfuncs as such inside
-> .BTF_ids. This annotation eventually allows us to automatically generate
-> kfunc prototypes from bpftool.
+> SNIP
 > 
-> We store this metadata inside a yet-unused flags field inside struct
-> btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
+> > diff --git a/fs/verity/measure.c b/fs/verity/measure.c
+> > index bf7a5f4cccaf..3969d54158d1 100644
+> > --- a/fs/verity/measure.c
+> > +++ b/fs/verity/measure.c
+> > @@ -159,9 +159,9 @@ __bpf_kfunc int bpf_get_fsverity_digest(struct file *file, struct bpf_dynptr_ker
+> >  
+> >  __bpf_kfunc_end_defs();
+> >  
+> > -BTF_SET8_START(fsverity_set_ids)
+> > +BTF_KFUNCS_START(fsverity_set_ids)
+> >  BTF_ID_FLAGS(func, bpf_get_fsverity_digest, KF_TRUSTED_ARGS)
+> > -BTF_SET8_END(fsverity_set_ids)
+> > +BTF_KFUNCS_END(fsverity_set_ids)
+> >  
+> >  static int bpf_get_fsverity_digest_filter(const struct bpf_prog *prog, u32 kfunc_id)
+> >  {
+> > diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+> > index 51e8b4bee0c8..8cc718f37a9d 100644
+> > --- a/kernel/bpf/btf.c
+> > +++ b/kernel/bpf/btf.c
+> > @@ -7802,6 +7802,10 @@ int register_btf_kfunc_id_set(enum bpf_prog_type prog_type,
+> >  {
+> >  	enum btf_kfunc_hook hook;
+> >  
+> > +	/* All kfuncs need to be tagged as such in BTF */
+> > +	if (WARN_ON(!(kset->set->flags & BTF_SET8_KFUNCS)))
+> > +		return -EINVAL;
 > 
-> More details about the full chain of events are available in commit 3's
-> description.
-> 
-> The accompanying pahole changes (still needs some cleanup) can be viewed
-> here on this "frozen" branch [0].
-> 
-> [0]: https://github.com/danobi/pahole/tree/kfunc_btf-mailed
+> having the warning for module with wrong set8 flags seems wrong to me,
+> I think we should trigger the warn only for kernel calls.. by adding
+> kset->owner check in the condition above
 
-great, lgtm.. seems I've got the tags in right places (128 kfuncs)
+Just checking:
 
-please send it on the list once you're done with that, so we could
-comment on that
+The reasoning is that =m and out-of-tree modules can and should check
+return code, right?
 
-thanks,
-jirka
+And =y modules or vmlinux-based registrations do not check return code,
+so WARN() is necessary?
 
-> 
-> === Changelog ===
-> 
-> Changes from v1:
-> * Move WARN_ON() up a call level
-> * Also return error when kfunc set is not properly tagged
-> * Use BTF_KFUNCS_START/END instead of flags
-> * Rename BTF_SET8_KFUNC to BTF_SET8_KFUNCS
-> 
-> Daniel Xu (3):
->   bpf: btf: Support flags for BTF_SET8 sets
->   bpf: btf: Add BTF_KFUNCS_START/END macro pair
->   bpf: treewide: Annotate BPF kfuncs in BTF
-> 
->  drivers/hid/bpf/hid_bpf_dispatch.c            |  8 +++----
->  fs/verity/measure.c                           |  4 ++--
->  include/linux/btf_ids.h                       | 21 +++++++++++++++----
->  kernel/bpf/btf.c                              |  4 ++++
->  kernel/bpf/cpumask.c                          |  4 ++--
->  kernel/bpf/helpers.c                          |  8 +++----
->  kernel/bpf/map_iter.c                         |  4 ++--
->  kernel/cgroup/rstat.c                         |  4 ++--
->  kernel/trace/bpf_trace.c                      |  8 +++----
->  net/bpf/test_run.c                            |  8 +++----
->  net/core/filter.c                             | 16 +++++++-------
->  net/core/xdp.c                                |  4 ++--
->  net/ipv4/bpf_tcp_ca.c                         |  4 ++--
->  net/ipv4/fou_bpf.c                            |  4 ++--
->  net/ipv4/tcp_bbr.c                            |  4 ++--
->  net/ipv4/tcp_cubic.c                          |  4 ++--
->  net/ipv4/tcp_dctcp.c                          |  4 ++--
->  net/netfilter/nf_conntrack_bpf.c              |  4 ++--
->  net/netfilter/nf_nat_bpf.c                    |  4 ++--
->  net/xfrm/xfrm_interface_bpf.c                 |  4 ++--
->  net/xfrm/xfrm_state_bpf.c                     |  4 ++--
->  .../selftests/bpf/bpf_testmod/bpf_testmod.c   |  8 +++----
->  22 files changed, 77 insertions(+), 60 deletions(-)
-> 
-> -- 
-> 2.42.1
-> 
+If so, I'd agree.
+
+[..]
+
+Thanks,
+Daniel
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
