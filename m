@@ -2,93 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEDC78258B3
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 17:55:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32758825925
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Jan 2024 18:37:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84931C6C83C;
-	Fri,  5 Jan 2024 16:55:58 +0000 (UTC)
-Received: from wnew3-smtp.messagingengine.com (wnew3-smtp.messagingengine.com
- [64.147.123.17])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9ECCC6C83C;
+	Fri,  5 Jan 2024 17:37:06 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8140C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A70FC6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jan 2024 16:55:56 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.west.internal (Postfix) with ESMTP id 643F82B002FE;
- Fri,  5 Jan 2024 11:55:50 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 05 Jan 2024 11:55:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxuuu.xyz; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1704473749; x=1704480949; bh=QW7jt9Lu7f
- ke8mG4lP5bYmPmDvOXPBpGzIUDBHIekTk=; b=Acz4kIcq6y/rMD3GdA7cQZFH/X
- t+UCDk8kiRTwuEzv4ajq3EDfufkIZkO8rGAkbX3sbhxHt16W2NOVO6gW2gQHxnZr
- G4znBN6j8ey0yPSzv+AlK6ZSJwteCnfW3d+5qDl/eg2aJTqU9Tgdw3YjZEKbWiiA
- xDjCkNbH8TatuNfFUavrE+ffldAtLl1v9baWSzFGVpUeiYCRlCeZGSoqIOyzPHvn
- QzvCgTBrCyaLUW/MlTUJL8Udfek55UMpp0KfgTZyqMYearp0x1HoJW30AG1RainQ
- 7jUdJb7RD7OtoMFP4EUhEya/MWTwpfUkkKqXxvWzEKPyF0P6ySZ4aWmCm73g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1704473749; x=1704480949; bh=QW7jt9Lu7fke8mG4lP5bYmPmDvOX
- PBpGzIUDBHIekTk=; b=K9BYb8iThvNsRc3uDbU2A4HF+NqmpozLE145a0RZM6s+
- HlSs93vsFRPOZ4j+D7yanP8AH1MORLgVIUDI/smsj0tgQHb1QcdzskIXumAkTdaI
- aYWKtH9GM5E2idjjTXJdHaRlRm+zABDB8nY9iGIO+T3ni/GGWRr3B/rAtlNxTMAa
- 442AnTkTIKtZDG71QbRbhfRDzlUBII9A+3MGR239UuUry3gcSCza/5J8eBt8YfDp
- qSaUg0ncHYhXvJ5JLZQ2x+uSxOHpqddfG6B+3/DQ4dtJ8Bvy8Eo4uJ9FwtXpOXbS
- lAKesJFuhuTY1UEqKamWKqMwsebhP2LexY2pyWEAjQ==
-X-ME-Sender: <xms:kzSYZaaAy3dR9G7HtiXxWg4Zxmeum0A9kFX20liLaKbR07SHFcyxcg>
- <xme:kzSYZdYGOayfCataHnEAMMKquFtux6p39JzrR3A07WSDo0A-s4okO5JaDREMOkZsI
- mghom6qS61yd_6_bg>
-X-ME-Received: <xmr:kzSYZU-FFGlFxqtZW9JrU1DfOghSBraArHdWeqKl_bYBn4B9XbhJJcaTjNPSd7Gh34QiYd3oUUZRytJdmx23CPk7Jxq8EIEzMnNLQ-s>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdegledgleduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- gfrhhlucfvnfffucdljedtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdfstddt
- tddvnecuhfhrohhmpeffrghnihgvlhcuighuuceougiguhesugiguhhuuhdrgiihiieqne
- cuggftrfgrthhtvghrnhepvdefkeetuddufeeigedtheefffekuedukeehudffudfffffg
- geeitdetgfdvhfdvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepugiguhesugiguhhuuhdrgiihii
-X-ME-Proxy: <xmx:kzSYZcooOdkX-X1KqvlBh60yFjwUF6ho3KRoF4sCW1I-TfmvCqZcQA>
- <xmx:kzSYZVqed9r_UIcFbBgVtpyedquDrgSmBEtX74gK0NVzOv-CO9t0Wg>
- <xmx:kzSYZaTkEQUWNf-X1GtvBv5FK6CVlonQJvKyRbPer6PmkJB9Vt_cTA>
- <xmx:lTSYZXSsnZAjmPDbBJ3T6sdwqsgrrVfZBsEsu-lv1wIgRfR5oMP26phlS_0>
-Feedback-ID: i6a694271:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 5 Jan 2024 11:55:44 -0500 (EST)
-Date: Fri, 5 Jan 2024 09:55:43 -0700
-From: Daniel Xu <dxu@dxuuu.xyz>
-To: Jiri Olsa <olsajiri@gmail.com>
-Message-ID: <4tsn6x45gh3vgdst3ozzmxori5gzylvpx6btxue6sbsmx7siok@6wajzdgwxfpa>
-References: <cover.1704422454.git.dxu@dxuuu.xyz>
- <a923e3809955bdfd2bc8d6a103c20e01f1636dbc.1704422454.git.dxu@dxuuu.xyz>
- <ZZgcJTdwMZHglPtr@krava>
+ Fri,  5 Jan 2024 17:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=qEr1jYijCqIp7tZDUzFDfoa3b/R4ZBz68yiDJpW40qg=; b=5mgkcPg4mKbAYOZMncV/6Qor0W
+ ZIl15YN0vYCQPxlECBy3+2sQmRZ5ACW01M8RPPkHOzpfganoOZ+rSl4xbIdAfrxWFcbKMGDbVeFPr
+ 1NsKUoBh/AVWwE9a2UGTpmLg+s1spccRNsGrFnejxM9Ice+LK5+TB2RuuLRhaZzpnxUU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rLo7i-004TT2-08; Fri, 05 Jan 2024 18:36:46 +0100
+Date: Fri, 5 Jan 2024 18:36:45 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Petr =?utf-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
+Message-ID: <a8bb0eb0-8398-4e7e-8dc5-6ebf2f981ca8@lunn.ch>
+References: <20240105091556.15516-1-petr@tesarici.cz>
+ <CANn89iLuYZBersxq4aH-9Fg_ojD0fh=0xtdLbRdbMrup=nvrkA@mail.gmail.com>
+ <20240105113402.0f5f1232@meshulam.tesarici.cz>
+ <CANn89iLEvW9ZS=+WPETPC=mKRyu9AKmueGCWZZOrz9oX3Xef=g@mail.gmail.com>
+ <20240105121447.11ae80d1@meshulam.tesarici.cz>
+ <20240105142732.1903bc70@meshulam.tesarici.cz>
+ <CANn89iLHLvGFX_JEYU-en0ZoCUpTvjXPBzFECxLFfa_Jhpcjmg@mail.gmail.com>
+ <CANn89iKWSemsKmfsLjupwWBnyeKjtHH+mZjTzYiJT4G=xyUrNQ@mail.gmail.com>
+ <20240105154558.2ca38aca@meshulam.tesarici.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZZgcJTdwMZHglPtr@krava>
-Cc: yonghong.song@linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- song@kernel.org, edumazet@google.com, benjamin.tissoires@redhat.com,
- sdf@google.com, lizefan.x@bytedance.com, netdev@vger.kernel.org,
- shuah@kernel.org, alexei.starovoitov@gmail.com, steffen.klassert@secunet.com,
- mykolal@fb.com, Herbert Xu <herbert@gondor.apana.org.au>, daniel@iogearbox.net,
- john.fastabend@gmail.com, andrii@kernel.org, kadlec@netfilter.org,
- ebiggers@kernel.org, quentin@isovalent.com, linux-input@vger.kernel.org,
- kuba@kernel.org, pabeni@redhat.com, pablo@netfilter.org,
- linux-trace-kernel@vger.kernel.org, coreteam@netfilter.org, hawk@kernel.org,
- jikos@kernel.org, rostedt@goodmis.org, ast@kernel.org,
- mathieu.desnoyers@efficios.com, memxor@gmail.com, kpsingh@kernel.org,
- cgroups@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- fsverity@lists.linux.dev, haoluo@google.com, linux-kselftest@vger.kernel.org,
- tytso@mit.edu, alan.maguire@oracle.com, dsahern@kernel.org, fw@strlen.de,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- mhiramat@kernel.org, mcoquelin.stm32@gmail.com, hannes@cmpxchg.org,
- tj@kernel.org, bpf@vger.kernel.org, martin.lau@linux.dev, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 3/3] bpf: treewide: Annotate
-	BPF kfuncs in BTF
+In-Reply-To: <20240105154558.2ca38aca@meshulam.tesarici.cz>
+Cc: Jiri Pirko <jiri@resnulli.us>, open list <linux-kernel@vger.kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: protect statistics updates
+	with a spinlock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,57 +70,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 05, 2024 at 04:11:33PM +0100, Jiri Olsa wrote:
-> On Thu, Jan 04, 2024 at 07:45:49PM -0700, Daniel Xu wrote:
-> 
-> SNIP
-> 
-> > diff --git a/fs/verity/measure.c b/fs/verity/measure.c
-> > index bf7a5f4cccaf..3969d54158d1 100644
-> > --- a/fs/verity/measure.c
-> > +++ b/fs/verity/measure.c
-> > @@ -159,9 +159,9 @@ __bpf_kfunc int bpf_get_fsverity_digest(struct file *file, struct bpf_dynptr_ker
-> >  
-> >  __bpf_kfunc_end_defs();
-> >  
-> > -BTF_SET8_START(fsverity_set_ids)
-> > +BTF_KFUNCS_START(fsverity_set_ids)
-> >  BTF_ID_FLAGS(func, bpf_get_fsverity_digest, KF_TRUSTED_ARGS)
-> > -BTF_SET8_END(fsverity_set_ids)
-> > +BTF_KFUNCS_END(fsverity_set_ids)
-> >  
-> >  static int bpf_get_fsverity_digest_filter(const struct bpf_prog *prog, u32 kfunc_id)
-> >  {
-> > diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-> > index 51e8b4bee0c8..8cc718f37a9d 100644
-> > --- a/kernel/bpf/btf.c
-> > +++ b/kernel/bpf/btf.c
-> > @@ -7802,6 +7802,10 @@ int register_btf_kfunc_id_set(enum bpf_prog_type prog_type,
-> >  {
-> >  	enum btf_kfunc_hook hook;
-> >  
-> > +	/* All kfuncs need to be tagged as such in BTF */
-> > +	if (WARN_ON(!(kset->set->flags & BTF_SET8_KFUNCS)))
-> > +		return -EINVAL;
-> 
-> having the warning for module with wrong set8 flags seems wrong to me,
-> I think we should trigger the warn only for kernel calls.. by adding
-> kset->owner check in the condition above
+> This only leaves an atomic_t in hard irq context. I have tried to find
+> something that could relax the requirement, but AFAICS at least some
+> setups use several interrupts that can be delivered to different CPUs
+> simultaneously, and all of them will walk over all channels. So we're
+> left with an atomic_t here.
 
-Just checking:
+You might want to consider per CPU statistics. Since each CPU has its
+own structure of statistics, you don't need atomic.
 
-The reasoning is that =m and out-of-tree modules can and should check
-return code, right?
+The code actually using the statistics then needs to sum up the per
+CPU statistics, and using syncp should be sufficient for that.
 
-And =y modules or vmlinux-based registrations do not check return code,
-so WARN() is necessary?
+Maybe look at mvneta.c for inspiration.
 
-If so, I'd agree.
-
-[..]
-
-Thanks,
-Daniel
+      Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
