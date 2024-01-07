@@ -2,122 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB5968265B6
-	for <lists+linux-stm32@lfdr.de>; Sun,  7 Jan 2024 20:07:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A322E8265D9
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 Jan 2024 20:53:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F40FC6B476;
-	Sun,  7 Jan 2024 19:07:00 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48474C6B476;
+	Sun,  7 Jan 2024 19:53:49 +0000 (UTC)
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 101C1C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C10E8C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Jan 2024 19:06:58 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-55719cdc0e1so1229221a12.1
+ Sun,  7 Jan 2024 19:53:47 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-50eaabc36bcso1341008e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 07 Jan 2024 11:06:58 -0800 (PST)
+ Sun, 07 Jan 2024 11:53:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704654418; x=1705259218;
+ d=gmail.com; s=20230601; t=1704657227; x=1705262027;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=aTPNXQpJ4O39KyDd2HkvT42hjkwINb/udJz5Nmlw+kU=;
- b=iNObiuRXnZXwLtM9rEACtu806ZlfOYe6a22S8YQRqdU0ZNlzghU2JCSQPKxHNJn7qF
- sUHgIbP0sCMg/PslkyzN/GPgv5SjCdjSKWPaoolkJnS4daL+3CsRjCWVyODtV8waJU46
- GIlvYGni80R7JVux5j7tnuYX7X0yAA793NkWa1mO/fMUqZD1KRiu4vvrYnW1QMW+gJp0
- GAj1ZhshisNg0Q0F3NuP9RHMlEOp40DuHeyVCA3qBxlGTQJs/1fE29nKFoKffgccs9RM
- Z88lpDN4AZDOUMsXc9AHr2mELqxZgLzrpJHMuNIYOqtw6w9JuHInjQq+B7YZ26sVdHYL
- E1Sg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ylXoSR1ZHIzb3pGZ6LV82DlJNRfOCTzvn1qzuSH2iEQ=;
+ b=fAJHZD4alELfSalvRwWm40Co3eFMS75kmCslxq9Aq69qIB38XLF4gXcnfcDWDsNdet
+ a6jSRl/vwhKJo7tCl1Yynq8E1AW+z5xGPtFvKPWo4LDDNm6qdqQgLnfpPBcZnmcKroQf
+ WKHbePrre/7f5zJ+6Qhw/nECMIE80mkcwyESw8Lsu9Ov5kUkUz060OWjg70jYbBD9aHG
+ Nu323RM/QYG7OkBfbDf2QB0KTp0R1jjSWZG8x7HitRT/cpJDHIDafxAMTmYYe03oFRv8
+ Y26pD+npJLkizrDsxwQa2Uj7aTMurGr2cng/U5Vztat+FcMz2LGpC+punkJ2ve9gse0d
+ sAmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704654418; x=1705259218;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20230601; t=1704657227; x=1705262027;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aTPNXQpJ4O39KyDd2HkvT42hjkwINb/udJz5Nmlw+kU=;
- b=Sfp9K4Vxc0PYOK88F+36G9nSVfkfF1f4YZPhkH5sk3iIf+UGiA4LPJwV1UCCZw8mFc
- 34SZF2rJ7wwJUhdYkqmsGlvoURRIwtT/3YNKGfDzDjhwBjYnb/ZOVlyzEy3BrO5Um1KI
- C3qO28FulSmjmFA/+2E6Md4hyYqZSxT8Aso5fekaZBEaduo/m563CMrDHJ4v64iwRlN/
- e8rQBeiqA7+pwsSfHG9MstYl/YZ827/j55t9YinZIx3ELQS2Q7tRQfZi6agWkRNOdI1O
- L4ITFeuY2UkOxecSr5USR66kKkk12jrRUYDrfeoKtJD6TftN5mUE1mK+BmnBFKNTMJC0
- jSvA==
-X-Gm-Message-State: AOJu0Yx0r3px2PvgamT6PT7zjBRwsb7Ttdr7b5B0NcT2r1uGZMD9CK59
- Sd4TJx8PROne3jPpKA4+L/w3Hvn4yEeX8A==
-X-Google-Smtp-Source: AGHT+IGzR3xBempsgmL7SBQzTLQOMPSwd8z280Em9EHOPwEk56cCkXDNtwAQ4KsVxxWVDU42CK7ysw==
-X-Received: by 2002:a50:950d:0:b0:555:6be0:2f58 with SMTP id
- u13-20020a50950d000000b005556be02f58mr1723870eda.1.1704654418197; 
- Sun, 07 Jan 2024 11:06:58 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.223.112])
+ bh=ylXoSR1ZHIzb3pGZ6LV82DlJNRfOCTzvn1qzuSH2iEQ=;
+ b=F2EBGBlKxYSXzB+pfEhtva1q19gEZKNU2XZ5V2mCLTU7MSfVOszdXicOQJTf+stJYB
+ BSIMAjgtO4D4kAuBLU8IjQtFAg0DtBtOwSFgcWM0rTP0ivGJ+in8XCcvUpjVDTZTZUkU
+ KN/XfWxA6H1tP9C9vX3xPgAI2TySbULj2MhyHKIrn9NY/+liFQ4G++s/6QsHAMEyv1Eu
+ L6nsgmvKqvoyLe7qjcyNWV4o/zNqZi24EW4ArgjYFtmESrzaYxsJh0VGfgXDzY8p0oyr
+ NrKIVHsLAjV5ogZfOIgX922jMZsYLcAWBCz+fHGGcYksI2VzWyudRJgSgsDE24Mvg9aL
+ O6XQ==
+X-Gm-Message-State: AOJu0YxP7aNT3g3IlVkCgszcZkUiXdJaU0ClS7Ta3lnx9fTlPPA88tbJ
+ nHxZ2m1FOkJikeVD222qjqs=
+X-Google-Smtp-Source: AGHT+IHPGC6MAJ4NUiLmzAzWvT7k8a3VrfBzHdHTV3TgqnwaqYB3hcLQCbugLc8xYwn/fI+IPHTrTg==
+X-Received: by 2002:a05:6512:36d2:b0:50e:2551:c8ce with SMTP id
+ e18-20020a05651236d200b0050e2551c8cemr888553lfs.119.1704657226469; 
+ Sun, 07 Jan 2024 11:53:46 -0800 (PST)
+Received: from mobilestation ([95.79.203.166])
  by smtp.gmail.com with ESMTPSA id
- fg12-20020a056402548c00b005579d0f146dsm803483edb.38.2024.01.07.11.06.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Jan 2024 11:06:57 -0800 (PST)
-Message-ID: <2df9fe3e-7971-4aa2-89a9-0e085b3b00d7@linaro.org>
-Date: Sun, 7 Jan 2024 20:06:55 +0100
+ o22-20020ac24bd6000000b0050e76978865sm925011lfq.178.2024.01.07.11.53.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 07 Jan 2024 11:53:45 -0800 (PST)
+Date: Sun, 7 Jan 2024 22:53:43 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Message-ID: <6tog5feuvgsfootirmbidgl7gakort7tax2gponudo3l574dam@jzdavh4wmkc4>
+References: <20231221073620.232619-1-quic_jsuraj@quicinc.com>
+ <20231221073620.232619-4-quic_jsuraj@quicinc.com>
+ <yromhtr73rwsr6hizr4tq37vfvyzfue7wzpmufqyscwspzffza@uhfcrn573acd>
+ <aec2dc6a-ffa4-4753-a764-77dfe1af995a@quicinc.com>
+ <xdcrwxh7e4t2zkgdcfwzjr2z4ouwgv3vr4drwvshadxmpwyqkd@j3kj3p2u7nd7>
+ <2685432c-a086-4730-9dd6-8b8da1070697@quicinc.com>
+ <bb77706b-0685-4992-b49e-49bef0d11800@quicinc.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: patchwork-bot+netdevbpf@kernel.org,
- Leong Ching Swee <leong.ching.swee@intel.com>
-References: <20240105070925.2948871-1-leong.ching.swee@intel.com>
- <170464562363.18664.8264531122295136817.git-patchwork-notify@kernel.org>
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <170464562363.18664.8264531122295136817.git-patchwork-notify@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- krzysztof.kozlowski+dt@linaro.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- peppe.cavallaro@st.com, kuba@kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 0/4] net: stmmac: Enable Per
- DMA Channel interrupt
+Content-Disposition: inline
+In-Reply-To: <bb77706b-0685-4992-b49e-49bef0d11800@quicinc.com>
+Cc: Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
+ Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>,
+ linux-arm-msm@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v8 3/3] net: stmmac: Add driver
+ support for DWMAC5 common safety IRQ
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,35 +98,281 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 07/01/2024 17:40, patchwork-bot+netdevbpf@kernel.org wrote:
-> Hello:
+On Wed, Dec 27, 2023 at 04:33:33PM +0530, Suraj Jaiswal wrote:
+> Hi Seren,
+> please find the updated comment .
 > 
-> This series was applied to netdev/net-next.git (main)
-> by David S. Miller <davem@davemloft.net>:
+> Thanks
+> Suraj
 > 
-> On Fri,  5 Jan 2024 15:09:21 +0800 you wrote:
->> From: Swee Leong Ching <leong.ching.swee@intel.com>
->>
->> Hi,
->> Add Per DMA Channel interrupt feature for DWXGMAC IP.
->>
->> Patchset (link below) contains per DMA channel interrupt, But it was
->> achieved.
->> https://lore.kernel.org/lkml/20230821203328.GA2197059-
->> robh@kernel.org/t/#m849b529a642e1bff89c05a07efc25d6a94c8bfb4
->>
->> [...]
+> On 12/26/2023 4:40 PM, Suraj Jaiswal wrote:
+> > Hi seren
+> > let me check below on test setup once & get back
+> > 
+> > Thanks
+> > Suraj
+> > 
+> > On 12/22/2023 8:05 PM, Serge Semin wrote:
+> >> On Fri, Dec 22, 2023 at 02:13:49PM +0530, Suraj Jaiswal wrote:
+> >>> HI Serge,
+> >>> please find commnet inline.
+> >>>
+> >>> Thanks
+> >>> Suraj
+> >>>
+> >>> On 12/21/2023 6:19 PM, Serge Semin wrote:
+> >>>> Hi Suraj
+> >>>>
+> >>>> On Thu, Dec 21, 2023 at 01:06:20PM +0530, Suraj Jaiswal wrote:
+> >>>>> Add support to listen HW safety IRQ like ECC(error
+> >>>>> correction code), DPP(data path parity), FSM(finite state
+> >>>>> machine) fault in common IRQ line.
+> >>>>>
+> >>>>> Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+> >>>>
+> >>>> Thanks for taking my notes into account. One more comment is further
+> >>>> below.
+> >>>>
+> >>>>> ---
+> >>>>>  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+> >>>>>  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
+> >>>>>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 37 +++++++++++++++++++
+> >>>>>  .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
+> >>>>>  4 files changed, 49 insertions(+)
+> >>>>>
+> >>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+> >>>>> index 721c1f8e892f..b9233b09b80f 100644
+> >>>>> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
+> >>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+> >>>>> @@ -344,6 +344,7 @@ enum request_irq_err {
+> >>>>>  	REQ_IRQ_ERR_ALL,
+> >>>>>  	REQ_IRQ_ERR_TX,
+> >>>>>  	REQ_IRQ_ERR_RX,
+> >>>>> +	REQ_IRQ_ERR_SFTY,
+> >>>>>  	REQ_IRQ_ERR_SFTY_UE,
+> >>>>>  	REQ_IRQ_ERR_SFTY_CE,
+> >>>>>  	REQ_IRQ_ERR_LPI,
+> >>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> >>>>> index 9f89acf31050..ca3d93851bed 100644
+> >>>>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> >>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+> >>>>> @@ -31,6 +31,7 @@ struct stmmac_resources {
+> >>>>>  	int wol_irq;
+> >>>>>  	int lpi_irq;
+> >>>>>  	int irq;
+> >>>>> +	int sfty_irq;
+> >>>>>  	int sfty_ce_irq;
+> >>>>>  	int sfty_ue_irq;
+> >>>>>  	int rx_irq[MTL_MAX_RX_QUEUES];
+> >>>>> @@ -297,6 +298,7 @@ struct stmmac_priv {
+> >>>>>  	void __iomem *ptpaddr;
+> >>>>>  	void __iomem *estaddr;
+> >>>>>  	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
+> >>>>> +	int sfty_irq;
+> >>>>>  	int sfty_ce_irq;
+> >>>>>  	int sfty_ue_irq;
+> >>>>>  	int rx_irq[MTL_MAX_RX_QUEUES];
+> >>>>> @@ -305,6 +307,7 @@ struct stmmac_priv {
+> >>>>>  	char int_name_mac[IFNAMSIZ + 9];
+> >>>>>  	char int_name_wol[IFNAMSIZ + 9];
+> >>>>>  	char int_name_lpi[IFNAMSIZ + 9];
+> >>>>> +	char int_name_sfty[IFNAMSIZ + 10];
+> >>>>>  	char int_name_sfty_ce[IFNAMSIZ + 10];
+> >>>>>  	char int_name_sfty_ue[IFNAMSIZ + 10];
+> >>>>>  	char int_name_rx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 14];
+> >>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> >>>>> index 47de466e432c..7d4e827dfeab 100644
+> >>>>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> >>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> >>>>> @@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
+> >>>>>  		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
+> >>>>>  			free_irq(priv->wol_irq, dev);
+> >>>>>  		fallthrough;
+> >>>>> +	case REQ_IRQ_ERR_SFTY:
+> >>>>> +		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
+> >>>>> +			free_irq(priv->sfty_irq, dev);
+> >>>>> +		fallthrough;
+> >>>>>  	case REQ_IRQ_ERR_WOL:
+> >>>>>  		free_irq(dev->irq, dev);
+> >>>>>  		fallthrough;
+> >>>>> @@ -3661,6 +3665,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+> >>>>>  		}
+> >>>>>  	}
+> >>>>>  
+> >>>>> +	/* Request the common Safety Feature Correctible/Uncorrectible
+> >>>>> +	 * Error line in case of another line is used
+> >>>>> +	 */
+> >>>>> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
+> >>>>> +		int_name = priv->int_name_sfty;
+> >>>>> +		sprintf(int_name, "%s:%s", dev->name, "safety");
+> >>>>> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
+> >>>>> +				  0, int_name, dev);
+> >>>>> +		if (unlikely(ret < 0)) {
+> >>>>> +			netdev_err(priv->dev,
+> >>>>> +				   "%s: alloc sfty MSI %d (error: %d)\n",
+> >>>>> +				   __func__, priv->sfty_irq, ret);
+> >>>>> +			irq_err = REQ_IRQ_ERR_SFTY;
+> >>>>> +			goto irq_error;
+> >>>>> +		}
+> >>>>> +	}
+> >>>>> +
+> >>>>>  	/* Request the Safety Feature Correctible Error line in
+> >>>>>  	 * case of another line is used
+> >>>>>  	 */
+> >>>>> @@ -3798,6 +3819,21 @@ static int stmmac_request_irq_single(struct net_device *dev)
+> >>>>>  		}
+> >>>>>  	}
+> >>>>>  
+> >>>>> +	/* Request the common Safety Feature Correctible/Uncorrectible
+> >>>>> +	 * Error line in case of another line is used
+> >>>>> +	 */
+> >>>>> +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
+> >>>>
+> >>>>> +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
+> >>>>> +				  IRQF_SHARED, dev->name, dev);
+> >>>>
+> >>>> Just noticed yesterday that stmmac_safety_interrupt() is also called
+> >>>> from the stmmac_interrupt() handler which is supposed to be registered
+> >>>> on the generic "mac" IRQ. Won't it cause races around the CSRs
+> >>>> (doubtfully but still worth to note) and the errors handling
+> >>>> (stmmac_global_err()) in case if both IRQs are raised simultaneously?
+> >>>> At the very least it looks suspicious and worth double-checking.
+> >>>>
+> >>>> I also found out that nobody seemed to care that the same handler is
+> >>>> registered on MAC, WoL and LPI IRQ lines. Hmm, no race-related
+> >>>> problems have been reported so far for the platforms with separate
+> >>>> WoL/LPI IRQs. It's either a lucky coincident or the IRQs are always
+> >>>> assigned to the same CPU or the IRQs handle is indeed free of races.
+> >>>> In anyway it looks suspicious too. At the very least AFAICS the DMA
+> >>>> IRQ-handler is indeed racy on the status CSR access. It isn't
+> >>>> cleared-on-read, but write-one-to-clear. So the statistics might be
+> >>>> calculated more than once for the same CSR state. There might be some
+> >>>> other problems I failed to spot on the first glance.
+> >>>>
+> >>>> David, Eric, Jacub, Paolo, your opinion about the note above?
+> >>>>
+> >>>> -Serge(y)
+> >>>>
+> >>
+> >>> <Suraj> We are adding common IRQ similar to already present code for correcteable/uncorrecable https://elixir.bootlin.com/linux/latest/source/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c#L3592.
+> >>
+> >> From that perspective your change in stmmac_request_irq_multi_msi() is
+> >> correct, but stmmac_request_irq_single() is another story. The first
+> >> one method implies assigning the individual IRQ handlers to all
+> >> available lines. The later method assigns the _common_ handler to all
+> >> the lines. The common handler already calls the Safety IRQ handler -
+> >> stmmac_safety_feat_interrupt(). So should the safety IRQ line is
+> >> separately available it's possible to have the Safety IRQ handlers
+> >> executed concurrently - in framework of the common IRQ events handling
+> >> (if safety IRQ is raised during the common IRQ being handled) and
+> >> individual Safety IRQ. It's prune to the race condition I pointed out
+> >> to in my message above. Did you consider that problem?
+> >>
+> >>> Also, we need the sfty IRQ handling as soon as the fault occured & that can only be handled if we have handler attached with sfty IRQ.
+> >>> stmmac_interrupt() will only be triggerd when interrupt triggered for rx/tx packet .
+> >>> while registerting with sfty IRQ will get triggered as soon as emac HW detect the fault. 
+> >>
+> >> Please read my comment more carefully. The safety IRQ can be raised
+> >> during the common IRQ handling, thus the
+> >> stmmac_safety_feat_interrupt() method might get to be concurrently
+> >> executed.
+> >>
+> >> -Serge(y)
+> >>
+> <Suraj> Have testing this on device . We have added print in the both the places stmmac_interrupt() as well as sfty interrupt handler.
+> We can see that sfty interrupt handler is getting triggred first & stmmac_safety_feat_interrupt () code added in stmmac_intterupt() is not getting triggred because looks like interrupt status bit register is already getting cleared as part of sfty interrupt handler. So it looks good . Please let us know if any further comment. 
 > 
-> Here is the summary with links:
->   - [net-next,v2,1/4] dt-bindings: net: snps,dwmac: per channel irq
->     https://git.kernel.org/netdev/net-next/c/67d47c8ada0f
+> Please find the log below .
+> 
+> 
+> / # [ 1505.602173] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1505.607274] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> [ 1505.617395] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1505.622494] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'TXCES: MTL TX Memory Error'
+> [ 1505.888913] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1505.894010] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> [ 1506.605821] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1506.610919] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> [ 1506.621034] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1506.626131] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'TXCES: MTL TX Memory Error'
+> [ 1507.613036] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1507.618133] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> [ 1507.628249] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1507.633346] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'TXCES: MTL TX Memory Error'
+> [ 1508.619034] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1508.624132] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> [ 1508.634245] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1508.639343] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'TXCES: MTL TX Memory Error'
+> [ 1509.631151] sj: stmmac_safety_interrupt from sfty IRQ handler
+> [ 1509.636249] qcom-ethqos 23040000.ethernet eth1: Found correctable error in MTL: 'RXCES: MTL RX Memory Error'
+> 
 
-Please wait for DT bindings review a bit more than one working day (I
-don't count Saturday and Sunday, because we all have some life...).
+The log and the way you were trying to model out the problem don't
+prove that the race condition doesn't exist. They just indicate that
+your test-case doesn't catch the simultaneous MAC and Safety IRQs
+handling.
 
-Best regards,
-Krzysztof
+Moreover AFAICS from the way the stmmac_ops->safety_feat_irq_status()
+callbacks are defined in DW QoS Eth and DW XGMAC modules, the race is
+there. Both
+dwmac5_safety_feat_irq_status()
+and
+dwxgmac3_safety_feat_irq_status()
+get to read the MTL and DMA Safety Interrupts Status register in order
+to check whether the Correctable/Uncorrectable errors have actually
+happened. After that the respective MAC, MTL or DMA error handlers are
+called, which get to clear the IRQs statue by reading and then writing
+the respective MAC DPP FRM, MTL/DMA ECC IRQ status registers. So if
+the stmmac_safety_feat_interrupt() method is concurrently called the
+driver at the very least may end up with printing the errors twice.
 
+-Serge(y)
+
+> >>>    
+> >>>>> +		if (unlikely(ret < 0)) {
+> >>>>> +			netdev_err(priv->dev,
+> >>>>> +				   "%s: ERROR: allocating the sfty IRQ %d (%d)\n",
+> >>>>> +				   __func__, priv->sfty_irq, ret);
+> >>>>> +			irq_err = REQ_IRQ_ERR_SFTY;
+> >>>>> +			goto irq_error;
+> >>>>> +		}
+> >>>>> +	}
+> >>>>> +
+> >>>>>  	return 0;
+> >>>>>  
+> >>>>>  irq_error:
+> >>>>> @@ -7462,6 +7498,7 @@ int stmmac_dvr_probe(struct device *device,
+> >>>>>  	priv->dev->irq = res->irq;
+> >>>>>  	priv->wol_irq = res->wol_irq;
+> >>>>>  	priv->lpi_irq = res->lpi_irq;
+> >>>>> +	priv->sfty_irq = res->sfty_irq;
+> >>>>>  	priv->sfty_ce_irq = res->sfty_ce_irq;
+> >>>>>  	priv->sfty_ue_irq = res->sfty_ue_irq;
+> >>>>>  	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
+> >>>>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> >>>>> index 70eadc83ca68..ab250161fd79 100644
+> >>>>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> >>>>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> >>>>> @@ -743,6 +743,14 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
+> >>>>>  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
+> >>>>>  	}
+> >>>>>  
+> >>>>> +	stmmac_res->sfty_irq =
+> >>>>> +		platform_get_irq_byname_optional(pdev, "sfty");
+> >>>>> +	if (stmmac_res->sfty_irq < 0) {
+> >>>>> +		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
+> >>>>> +			return -EPROBE_DEFER;
+> >>>>> +		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
+> >>>>> +	}
+> >>>>> +
+> >>>>>  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
+> >>>>>  
+> >>>>>  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
+> >>>>> -- 
+> >>>>> 2.25.1
+> >>>>>
+> >>>>>
+> > 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
