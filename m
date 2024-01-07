@@ -2,66 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754008265F3
-	for <lists+linux-stm32@lfdr.de>; Sun,  7 Jan 2024 21:38:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B69D8265F8
+	for <lists+linux-stm32@lfdr.de>; Sun,  7 Jan 2024 21:52:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1879DC6B476;
-	Sun,  7 Jan 2024 20:38:53 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4599C6B476;
+	Sun,  7 Jan 2024 20:52:15 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 323C5C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF80BC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Jan 2024 20:38:51 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-50eaaf2c7deso1079860e87.2
+ Sun,  7 Jan 2024 20:52:14 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-50eac018059so1322197e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 07 Jan 2024 12:38:51 -0800 (PST)
+ Sun, 07 Jan 2024 12:52:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704659930; x=1705264730;
+ d=gmail.com; s=20230601; t=1704660734; x=1705265534;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rWIKvi1hnVUw865j4JFaimjjwkxSfRuC7mbyHpWGOpM=;
- b=Mdo9O0htKxUJchT/4u8RLzpL4TCpg/u0s4LAmiXhqeea40X6xqmpMtk8S7Iq3t3PTG
- kReP0XkCtfIFoZU4wBsE+oTbYoQpSe2fAwJ1BxKmxW8PiJQXyt+/So8PVlAabHp6Ic0h
- 87YtBlmX12b+HThmMmSn49aGdIs9Y2SfcrJylWx7qNEnmjwyzSU9hLOWmRdHVk+U+HnM
- i55rJDR56/qaog68cCmUWUugSyjVhAEfpi+3xRlnSNtpq4ZCDKIyWAXAncvGqGNHiaUA
- wiqYQiikIHxI5uhr45FDIZUqGCk01Inp+LxZ3FrPxU5bR+pDUC4mMK43edG3ZIlVTTnh
- uOZw==
+ bh=e5PMeecEEo3AqtvbhWJChBGMmTa++0S5sl1/vnCPNtk=;
+ b=J8Hpr3l3oMecuStIDXCGrnWUD1M2tOvooUlcfbruzadSkZ4r/aUoGI2rUPNxJcAj9j
+ Yu6Oxsch1rUqG1gmT+2tfwF0OQG2hsu0wWqWEpd8Ww32uJW/+WDCMWlIhw7qrlqTYa7P
+ t34J9bS5ciENKFkiTPIRT+x1JqlgMEFw9TBzFxKd49+Uj+ogTbo2bbfagh7VjTlJ0CGQ
+ Zq4tRdHId2/FkGCSdxRUgBpVPzBEYo+pNjPFSyt+4xvRErZTaMDcdtRSqgG7h4RID42n
+ 66IuGXzljw/eigXFElZcSUD+e3q0isrH8D/C6zebZoXMXXeUfatEMW5iHMorXEeRmg8o
+ qygA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704659930; x=1705264730;
+ d=1e100.net; s=20230601; t=1704660734; x=1705265534;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rWIKvi1hnVUw865j4JFaimjjwkxSfRuC7mbyHpWGOpM=;
- b=vI44FpAM9E4kES0tEII6QKn0/UXLD/R+qJ/VN3NFwhCTxDWdXj2/YIwWkWclj3OChz
- dh6hCVjuHqGNy8oVh6fbSJ60LPe6LagztIFbk6xEvQ7MEeBe6fKYf1oDKJJBTMDkfNwp
- zwUpNVz3ZPdCim8AQdz+16N/o2qUeQPcur1OWO2lRnbV3ylNGcel/99MD8otz+brKNyE
- i9j/spjNM6oqJvcdY2kH9surQrgbqf3UF/rhyS3XLvO6MOKXaUOuGzWlYdnNluBeq7vw
- ahXl9ODLnMXgkP4HQ6YXQc0iIY+1/ag1BpPbtHkc25MW6Mp+o9WXybGeeRfZLcaeZf92
- nv7g==
-X-Gm-Message-State: AOJu0YzYAifjtmi+7MqC9csKynkNx5g2nc+vnMsKmEeQ0bUbrmet0SyE
- wBSyhu9CuZq78QPEdRF78Vo=
-X-Google-Smtp-Source: AGHT+IGf/Yyv7wSMS0i9F/tpUZxtbrw3bOb3lTUoMOnmKCIdtuSDBq6EtPRjB7mAxRnLhJyTVDlImQ==
-X-Received: by 2002:ac2:5fa6:0:b0:50e:698c:2d93 with SMTP id
- s6-20020ac25fa6000000b0050e698c2d93mr685779lfe.57.1704659930101; 
- Sun, 07 Jan 2024 12:38:50 -0800 (PST)
+ bh=e5PMeecEEo3AqtvbhWJChBGMmTa++0S5sl1/vnCPNtk=;
+ b=n2rxgBGr0sdFSNyRIApxzepuabsJ0JkOedy/kYZy0cSRB85V7VqtC2A5JAPWiZ+pKA
+ K2Jn3YwyzTY3XH49YCnP8biUuRLNx28txZGuyIyAGoEBA9fvK7JUQooH0nv6J280ZERp
+ tveGWB4I6yxvt2/rGWnqvqT1XrR1dzijFMT/3Gp9f2UJ5hKwxACLIKiMMvW3/2poyb+H
+ kf+dPSm/raYpm6Xx1i2GvNww7fbgcJXMcmIqhYymEuPEoKQttkzLPmbjaAf5t8Jz6mbU
+ zwwVd5otwqFe030ufgz+IjnmzD/BmqxY8JP7UpQxoofnZLUVbLKOSr1CPkuKPW2IJ7gl
+ WK7g==
+X-Gm-Message-State: AOJu0Yx5H7WtI6zj6P7WaeCCorUa+SpVHseEv5U7GlUvjQoRcesMoBiq
+ 6xb8zFa9zQi0iLUuN831gW8=
+X-Google-Smtp-Source: AGHT+IGJQYWRpMRV/Lg31RH/oBbOsUP/kNiVqW8GI/ctj2lJw+LfzVDraxmhGM4BQagSFwFrbPuZTg==
+X-Received: by 2002:a05:6512:3d05:b0:50e:56b6:593e with SMTP id
+ d5-20020a0565123d0500b0050e56b6593emr1380348lfv.89.1704660733959; 
+ Sun, 07 Jan 2024 12:52:13 -0800 (PST)
 Received: from mobilestation ([95.79.203.166])
  by smtp.gmail.com with ESMTPSA id
- w10-20020ac2598a000000b0050e7e38c9e0sm918192lfn.62.2024.01.07.12.38.48
+ a8-20020a19ca08000000b0050e810689e5sm950590lfg.33.2024.01.07.12.52.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jan 2024 12:38:49 -0800 (PST)
-Date: Sun, 7 Jan 2024 23:38:46 +0300
+ Sun, 07 Jan 2024 12:52:13 -0800 (PST)
+Date: Sun, 7 Jan 2024 23:52:11 +0300
 From: Serge Semin <fancer.lancer@gmail.com>
 To: Leong Ching Swee <leong.ching.swee@intel.com>
-Message-ID: <xybq2523vgod6rbefw4zjs2kb2xtfmizecdwdjzyl6l2iovjqq@o3q4t2qny55o>
+Message-ID: <jvnoq2jo3dzsw3vuqzathjuyox3xipaullzeaur3ppzlmtux5k@v64tckj7pvo2>
 References: <20240105070925.2948871-1-leong.ching.swee@intel.com>
- <20240105070925.2948871-4-leong.ching.swee@intel.com>
+ <20240105070925.2948871-5-leong.ching.swee@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240105070925.2948871-4-leong.ching.swee@intel.com>
+In-Reply-To: <20240105070925.2948871-5-leong.ching.swee@intel.com>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Teoh Ji Sheng <ji.sheng.teoh@intel.com>, linux-kernel@vger.kernel.org,
@@ -71,8 +71,8 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
  netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
  "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 3/4] net: stmmac: Add support
- for TX/RX channel interrupt
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/4] net: stmmac: Use
+ interrupt mode INTM=1 for per channel irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,107 +89,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 05, 2024 at 03:09:24PM +0800, Leong Ching Swee wrote:
+On Fri, Jan 05, 2024 at 03:09:25PM +0800, Leong Ching Swee wrote:
 > From: Swee Leong Ching <leong.ching.swee@intel.com>
 > 
-> Enable TX/RX channel interrupt registration for MAC that interrupts CPU
-> through shared peripheral interrupt (SPI).
-> 
-> Per channel interrupts and interrupt-names are registered through,
-> Eg: 4 tx and 4 rx channels:
-> interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
->              <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
->              <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
->              <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
->              <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
->              <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
->              <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
->              <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>;
-> interrupt-names = "dma_tx0",
->                   "dma_tx1",
->                   "dma_tx2",
->                   "dma_tx3",
->                   "dma_rx0",
->                   "dma_rx1",
->                   "dma_rx2",
->                   "dma_rx3";
+> Enable per DMA channel interrupt that uses shared peripheral
+> interrupt (SPI), so only per channel TX and RX intr (TI/RI)
+> are handled by TX/RX ISR without calling common interrupt ISR.
 > 
 > Signed-off-by: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
 > Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
 > ---
->  .../ethernet/stmicro/stmmac/stmmac_platform.c | 28 +++++++++++++++++++
->  1 file changed, 28 insertions(+)
+>  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
+>  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 32 +++++++++++--------
+>  2 files changed, 22 insertions(+), 13 deletions(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 70eadc83ca68..ae6859153e98 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -710,6 +710,10 @@ EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
->  int stmmac_get_platform_resources(struct platform_device *pdev,
->  				  struct stmmac_resources *stmmac_res)
->  {
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 207ff1799f2c..04bf731cb7ea 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -346,6 +346,9 @@
+>  /* DMA Registers */
+>  #define XGMAC_DMA_MODE			0x00003000
+>  #define XGMAC_SWR			BIT(0)
 
-> +	char irq_name[9];
-> +	int i;
-> +	int irq;
-> +
+> +#define XGMAC_DMA_MODE_INTM_MASK	GENMASK(13, 12)
+> +#define XGMAC_DMA_MODE_INTM_SHIFT	12
+> +#define XGMAC_DMA_MODE_INTM_MODE1	0x1
 
-Reverse xmas tree please. Also what the point in having "i" and "irq"
-defined separately? Wouldn't it be better to merge them into a single
-statement:
-+	char irq_name[9];
-+	int i, irq;
+AFAICS the DW XGMAC module doesn't maintain a convention of having the
+CSR fields macro names prefixed with the CSR name. Let's drop the
+DMA_MODE suffix from the macro name then:
++#define XGMAC_INTM_MASK		GENMASK(13, 12)
++#define XGMAC_INTM_SHIFT		12
++#define XGMAC_INTM_MODE1		0x1
+to have it unified with the rest of the macros in dwxgmac2.h.
 
->  	memset(stmmac_res, 0, sizeof(*stmmac_res));
->  
->  	/* Get IRQ information early to have an ability to ask for deferred
-> @@ -743,6 +747,30 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
->  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
->  	}
->  
-
-> +	/* For RX Channel */
-
-Why haven't you added a more descriptive comment as I suggested on v1:
-
-+	/* Get optional Tx/Rx DMA per-channel IRQs, which otherwise
-+	 * are supposed to be delivered via the common MAC IRQ line
-+	 */
-
-?
-
-> +	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-> +		snprintf(irq_name, sizeof(irq_name), "dma_rx%i", i);
-> +		irq = platform_get_irq_byname_optional(pdev, irq_name);
-> +		if (irq == -EPROBE_DEFER)
-> +			return irq;
-> +		else if (irq < 0)
-> +			break;
-> +
-> +		stmmac_res->rx_irq[i] = irq;
-> +	}
-> +
-
-> +	/* For TX Channel */
-
-* see the comment above
+Other than that the change looks good. Thanks.
 
 -Serge(y)
 
-> +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-> +		snprintf(irq_name, sizeof(irq_name), "dma_tx%i", i);
-> +		irq = platform_get_irq_byname_optional(pdev, irq_name);
-> +		if (irq == -EPROBE_DEFER)
-> +			return irq;
-> +		else if (irq < 0)
-> +			break;
+>  #define XGMAC_DMA_SYSBUS_MODE		0x00003004
+>  #define XGMAC_WR_OSR_LMT		GENMASK(29, 24)
+>  #define XGMAC_WR_OSR_LMT_SHIFT		24
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> index 3cde695fec91..dcb9f094415d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> @@ -31,6 +31,13 @@ static void dwxgmac2_dma_init(void __iomem *ioaddr,
+>  		value |= XGMAC_EAME;
+>  
+>  	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
 > +
-> +		stmmac_res->tx_irq[i] = irq;
+> +	if (dma_cfg->multi_irq_en) {
+> +		value = readl(ioaddr + XGMAC_DMA_MODE);
+> +		value &= ~XGMAC_DMA_MODE_INTM_MASK;
+> +		value |= (XGMAC_DMA_MODE_INTM_MODE1 << XGMAC_DMA_MODE_INTM_SHIFT);
+> +		writel(value, ioaddr + XGMAC_DMA_MODE);
+> +	}
+>  }
+>  
+>  static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv,
+> @@ -365,19 +372,18 @@ static int dwxgmac2_dma_interrupt(struct stmmac_priv *priv,
+>  	}
+>  
+>  	/* TX/RX NORMAL interrupts */
+> -	if (likely(intr_status & XGMAC_NIS)) {
+> -		if (likely(intr_status & XGMAC_RI)) {
+> -			u64_stats_update_begin(&rxq_stats->syncp);
+> -			rxq_stats->rx_normal_irq_n++;
+> -			u64_stats_update_end(&rxq_stats->syncp);
+> -			ret |= handle_rx;
+> -		}
+> -		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+> -			u64_stats_update_begin(&txq_stats->syncp);
+> -			txq_stats->tx_normal_irq_n++;
+> -			u64_stats_update_end(&txq_stats->syncp);
+> -			ret |= handle_tx;
+> -		}
+> +	if (likely(intr_status & XGMAC_RI)) {
+> +		u64_stats_update_begin(&rxq_stats->syncp);
+> +		rxq_stats->rx_normal_irq_n++;
+> +		u64_stats_update_end(&rxq_stats->syncp);
+> +		ret |= handle_rx;
 > +	}
 > +
->  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
+> +	if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+> +		u64_stats_update_begin(&txq_stats->syncp);
+> +		txq_stats->tx_normal_irq_n++;
+> +		u64_stats_update_end(&txq_stats->syncp);
+> +		ret |= handle_tx;
+>  	}
 >  
->  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
+>  	/* Clear interrupts */
 > -- 
 > 2.34.1
 > 
