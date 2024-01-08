@@ -2,114 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ACFA826F21
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 14:02:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99B0826FC8
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 14:29:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E67C0C6DD63;
-	Mon,  8 Jan 2024 13:02:45 +0000 (UTC)
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2085.outbound.protection.outlook.com [40.107.105.85])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F310C6DD63;
+	Mon,  8 Jan 2024 13:29:47 +0000 (UTC)
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57721C6DD62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7184C6DD62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 13:02:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ecq+TfZdS3zn1ZXqoo9P7TQk9EuU5KgkgywCf790Jy7QcMsSbTa/X9gDMl2MUcs3H8mimnrW/7gjacpY8+J1rdxpIerRAB/bn9CfdT68NenOCmSZy+D1r6In9GwRgpYwzq/M2XA6UGzTthzFwfSOIFZ2oHN7OWQTTS4X3/VmHOe0N16P33cLYtsSLajn1ziH1GlxABusM5ukQx2upZOEy5tX3KXNYdn8LaSdQxiC9IahHfrx0KLJVD/5WKTFT/qnjNzJiMHduszOnpvNlRi+hXJ4Wzp++G4iQsteKFhMZgpZVaONna3y56+HwZmMKwuPEL8Pr+9o6aY0TUq9NpZzvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZF75R2+yAB3PeaWuYuc9piI7mmq9LrXnqIs2k6uuze8=;
- b=PrXFbozhZT5TIofOg/UCD2hA44R/9vBhjWNK/rUmamBuSUVb2oTtMGD1wdnI/xaHwYQJ/dNSiVTkMS+R8+Itlg6NYmCYxdScGCCLNB17dH1QPpGK350yvrr6JA79IWCbTb6gIgx3ZmjCvltFnqbhy/1IeExiC0CPBOj/pMRR587/FejS5/aXER+usUipf4F4rudhCmE+k/7ZYasRVCtlwEmE7tp6RX8U2XmryL6N8hLcaYzRtNp+MXJKpnuFFB020YrtWKa9cpRpYtroGCHw+4uKnx7r4+k2zAA8Q9vPL48mbUToIqifvdHSCRTurqk+DJvWbrbmNCGk9kJCk91GiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZF75R2+yAB3PeaWuYuc9piI7mmq9LrXnqIs2k6uuze8=;
- b=WepI4H2AVjMc6Dyv0Cb90zOsOPvfdy5chtnQA1a+HhpuTglDasu3Qc8WrgFhP/1K3zycfa+QkHE3TbVWDYN1AoAgkYoX1tLhztt5ZzwlRWlmwG5VPxXfsU3M8PXAPeBL8tl9xOh83tpS7TlMmBhASxWVFypC5euU27tOxp+aGVk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from VE1PR04MB7374.eurprd04.prod.outlook.com (2603:10a6:800:1ac::11)
- by AM7PR04MB6854.eurprd04.prod.outlook.com (2603:10a6:20b:10c::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Mon, 8 Jan
- 2024 13:02:42 +0000
-Received: from VE1PR04MB7374.eurprd04.prod.outlook.com
- ([fe80::901f:7d8d:f07c:e976]) by VE1PR04MB7374.eurprd04.prod.outlook.com
- ([fe80::901f:7d8d:f07c:e976%3]) with mapi id 15.20.7159.020; Mon, 8 Jan 2024
- 13:02:42 +0000
-Date: Mon, 8 Jan 2024 15:02:38 +0200
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <20240108130238.j2denbdj3ifasbqi@skbuf>
-Content-Disposition: inline
-In-Reply-To: <20240108111747.73872-2-romain.gantois@bootlin.com>
-X-ClientProxiedBy: FR4P281CA0431.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::19) To VE1PR04MB7374.eurprd04.prod.outlook.com
- (2603:10a6:800:1ac::11)
+ Mon,  8 Jan 2024 13:29:46 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 9FFE1240008;
+ Mon,  8 Jan 2024 13:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1704720586;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kfQYkI24IKxSDWmoC0/qvQq6SNd6yUAhqqt111/kkzo=;
+ b=GPEyp9PKlB8UzvwG6GITJdcl1GNaZ4PVmzWbdUEbT4EtUip/7WFDrRpenAfxbGz3P758wq
+ iHKvXGFmmv7luyI5l93cLBqGz24eaSalQz6SebnFOz8AdEdGuMnxyrxXPLlXwotjHigKAM
+ sdYGcN7nEyC57wPUgg/1Y+sQxrHCwqP/VXFABTgv6N9JYFUbQcCj+ii2To20JOFAdrRlS6
+ VkFvpZUJ/4SFMpJ6Gkd248R5nIIEWBxU/Sn8gdFMksSPA9Qp51/R/YnE2GSKdoBQrynOoG
+ sBQC/7iRDL3ZNW5yAtqll8vPm7t1EeLgv7/TQ2juc2RU+jEv7D27z/gCwZIhHw==
+Date: Mon, 8 Jan 2024 14:29:41 +0100
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Message-ID: <20240108142941.2b14f90e@xps-13>
+In-Reply-To: <20240108130238.j2denbdj3ifasbqi@skbuf>
+References: <20240108111747.73872-2-romain.gantois@bootlin.com>
+ <20240108130238.j2denbdj3ifasbqi@skbuf>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7374:EE_|AM7PR04MB6854:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84bbfbf7-7130-4855-feae-08dc104a1969
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aamzKXk4L+uX9wBVV1E093op4Tmv/GT9+9cYhOULgA71xiB/F5NfO2Wx4soLW4PV/Nbn5UzdS6QYwn6VKuD0GDZy49LRwsbIbl2lZf1mYT7B/o57txInuwGmO40x0iXcZ5qKHCowkNEW+N0wQbj6yEQkE3TD5mQoKzOw9fAUl8MJ/pxt1kSd9UfALYOODYbN+oWTnsJKEJEd9a/07NBIGot+Bm9r12RLo8+KS0Kn8GrD06Gd0HbfDZ2wujbTMaQAiKNBXClfA6n6gHvnhJZFhLyXnUCwh3DqaqjCVPwhrnuZch3POnC+9PpjfcUfzw+drTOby5vfdozntgoz42Hz5a+sXA54+3IZh/xzEoA0k+EduMypX/ctMs367n1KUbFTF/310zR/mxBuHqMepZD3tVvwjaggX1gEcdV+smITa7OCPs7OS5B4tLFUhkyrc6+f95uPOnVzGreGSr1hASybjnte+i27BNOXWoy+BduZXPmzHd9N0/cEUIowctYyeT7JA9il+O143/XU5Xu2FGFt5bRXa5h7MXkOB6Da3WepvwM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:VE1PR04MB7374.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(7916004)(376002)(39860400002)(136003)(366004)(396003)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(6666004)(966005)(478600001)(38100700002)(83380400001)(6512007)(6506007)(9686003)(26005)(8936002)(8676002)(316002)(54906003)(7416002)(44832011)(5660300002)(2906002)(86362001)(4326008)(6916009)(66476007)(66556008)(66946007)(1076003)(41300700001)(33716001)(6486002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vCWDF/GjOddrEUuOsa27u4Oqvv3mH9pkcMNbU8peNLcX385DU3/X3KIg6dmJ?=
- =?us-ascii?Q?GDnxyP8WPxvoEhR8o9+pLZzcw1+fIXkpoOxe/zuQMbHEofCeW7qYy80iit30?=
- =?us-ascii?Q?8V/HPiq9GFDAdy7jfphY6RUXFrr+TeuDasDR/6g1avS/HrrRJjHKnRYZVuA1?=
- =?us-ascii?Q?2445M+fsJ9V2PGB3G/01DK3k9aVDJwbCeuSGGaDbBFxpgF2YtMSm0kFLw9zJ?=
- =?us-ascii?Q?68XgC6lgwtUe0FvtwhnztbjwD6yLSLs9c7L0wMCTd8cnc4Nw8PzEKpOAiaub?=
- =?us-ascii?Q?yaOzakcFxcwM6fNLME8jSNLRdnsSDNIYeCv8zBJ95NJ4Dn1FdyLZdc5ZeUIg?=
- =?us-ascii?Q?cA1vnv4ZCGwKIHxSgUn0Dl0uTneTbNCiv80OYU8lYrRJsD81Ux8sxw0xbb/L?=
- =?us-ascii?Q?/a4v9VLIPZ3zfQjX+y6uzKJAY7/kqIwbIbm5fcpnkcCRnrT6M4/Myt4Oxx9Z?=
- =?us-ascii?Q?FmRqtISuDyuEy17qN/MLVO2OIjK7lqMDg4lUNEZ33x8ST5ut03i2W2CUBpag?=
- =?us-ascii?Q?+q5k7xN6M2HGGmqjm4gsyx7xZOHMrUUNX9DHFJY+cEtzuZ4iPSUge2AEdBtp?=
- =?us-ascii?Q?OBqVhnSMXnzoGLCj9zZe4Gw0GPW0L3gfuUrOSgL3yb25JSEU7qZ09BoG8JtF?=
- =?us-ascii?Q?unxmBkSkDKUi5coKUxhoi0mt75D+j7ARZLt7nFnEDx15ZmXdIp2v6n82xavT?=
- =?us-ascii?Q?8qNdrf/mcROKWtlKl4J4wHfVs3hWu/dr2IlGjjWGnTKzIiqjVsPYeFfIgFHx?=
- =?us-ascii?Q?EPOB2Xc5LC7CqUEIG1gO5a5kV7TjruQREypKNdZO18zArtL3IvWTe64BGrXz?=
- =?us-ascii?Q?ciXyUvwVxL8rjIL1HEVRfqRZFlDczXNh/9V7nRtLFZzguXiUgDGzBZOrmQiY?=
- =?us-ascii?Q?3DkqD/J7Afzt+FgddMrzoSjE6GR1KcCOMsthy1dEzuwrIt2EnA9k0z737RFQ?=
- =?us-ascii?Q?EIF8AEQE1WddzetpdGcpV0Ne2di/FylHFWJkcF465RDgKuUI/rHsRuIBKIsN?=
- =?us-ascii?Q?tDb8xUUPRTzZIwTI91qQCKGqviF2rz2nRbI6tFRQiPXOX4YEvymdpUmsVfWf?=
- =?us-ascii?Q?LqXiADQ5TUeoO+wTLZWVolNR+OBJ3ffkR7WV/twrf70ubn/5a0/gIsKtSSYc?=
- =?us-ascii?Q?2/g16P6n0Pm9YfQCfv8HFhX+JE8B1iOJnXJzSGUnSbyNpk7XNxsBcn6i0Gv2?=
- =?us-ascii?Q?+JRWqSOlQSkUx+CjBlyv9GUHmto0MyovD+wy7FoseR3sgZ7au4+sVCntY6ZT?=
- =?us-ascii?Q?KV6Hj+Mo8hL2kG+32irD2T3CH0vDw+XrNskR8Lh3OaGGKb8BXe6qqHYghueJ?=
- =?us-ascii?Q?MIwdtE20CeO6jNXshEHzoTpRiMeZ7yLDY9y/UdOURxJoWnz4BDmzd8yA240F?=
- =?us-ascii?Q?uj9ZmhgqfdWReE0+8uWWDY3bV3K/E/YHxEC7zULFhqH4YRtcwwPHMMaMGMXw?=
- =?us-ascii?Q?t7Y9WPTDrggvVCmRLs6umBzNcIlvXWUu4qoe1lKj6NOi6Op6LZQoVDzzSNnu?=
- =?us-ascii?Q?ys30N1v1ggYWwcvP7Vrqsp6f3bsubN9aW7b++I9TBYENmJlL8nNDG1Gz/jE6?=
- =?us-ascii?Q?klyvR0Q6iRsJw4FTqsnu1CQMEA+fHyIGfsRQCZRAnYkk87/Z0masbdFy83Al?=
- =?us-ascii?Q?dg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84bbfbf7-7130-4855-feae-08dc104a1969
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7374.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 13:02:42.5708 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gi4o4taw4htkv/lv6yUnbNukerHBzWWT3IJ7NQZS/tUo2+JEDZG7vo9Z/kYidKOU8ZDkNCK4vtU3dQV89lNCCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6854
+X-GND-Sasl: miquel.raynal@bootlin.com
 Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
  Linus Walleij <linus.walleij@linaro.org>,
  Sylvain Girard <sylvain.girard@se.com>,
  linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David
+ S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: stmmac: Prevent DSA tags
  from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -123,71 +63,31 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 08, 2024 at 12:17:45PM +0100, Romain Gantois wrote:
-> Some DSA tagging protocols change the EtherType field in the MAC header
-> e.g.  DSA_TAG_PROTO_(DSA/EDSA/BRCM/MTK/RTL4C_A/SJA1105). On TX these tagged
-> frames are ignored by the checksum offload engine and IP header checker of
-> some stmmac cores.
-> 
-> On RX, the stmmac driver wrongly assumes that checksums have been computed
-> for these tagged packets, and sets CHECKSUM_UNNECESSARY.
-> 
-> Add an additional check in the stmmac TX and RX hotpaths so that COE is
-> deactivated for packets with ethertypes that will not trigger the COE and
-> IP header checks.
-> 
-> Fixes: 6b2c6e4a938f ("net: stmmac: propagate feature flags to vlan")
-> Cc: stable@vger.kernel.org
-> Reported-by: Richard Tresidder <rtresidd@electromag.com.au>
-> Link: https://lore.kernel.org/netdev/e5c6c75f-2dfa-4e50-a1fb-6bf4cdb617c2@electromag.com.au/
-> Reported-by: Romain Gantois <romain.gantois@bootlin.com>
-> Link: https://lore.kernel.org/netdev/c57283ed-6b9b-b0e6-ee12-5655c1c54495@bootlin.com/
-> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
-> ---
-
-Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 ++++++++++++++++---
->  1 file changed, 20 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index a9b6b383e863..6797c944a2ac 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4371,6 +4371,19 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
->  	return NETDEV_TX_OK;
->  }
->  
-> +/* Check if ethertype will trigger IP
-> + * header checks/COE in hardware
-> + */
-
-Nitpick: you could render this in kernel-doc format.
-https://docs.kernel.org/doc-guide/kernel-doc.html
-
-> +static inline bool stmmac_has_ip_ethertype(struct sk_buff *skb)
-
-Nitpick: in netdev it is preferred not to use the "inline" keyword at
-all in C files, only "static inline" in headers, and to let the compiler
-decide by itself when it is appropriate to inline the code (which it
-does by itself even without the "inline" keyword). For a bit more
-background why, you can view Documentation/process/4.Coding.rst, section
-"Inline functions".
-
-> +{
-> +	int depth = 0;
-> +	__be16 proto;
-> +
-> +	proto = __vlan_get_protocol(skb, eth_header_parse_protocol(skb), &depth);
-> +
-> +	return depth <= ETH_HLEN && (proto == htons(ETH_P_IP) || proto == htons(ETH_P_IPV6));
-> +}
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUm9tYWluLAoKPiA+ICsvKiBDaGVjayBpZiBldGhlcnR5cGUgd2lsbCB0cmlnZ2VyIElQCj4g
+PiArICogaGVhZGVyIGNoZWNrcy9DT0UgaW4gaGFyZHdhcmUKPiA+ICsgKi8gIAo+IAo+IE5pdHBp
+Y2s6IHlvdSBjb3VsZCByZW5kZXIgdGhpcyBpbiBrZXJuZWwtZG9jIGZvcm1hdC4KPiBodHRwczov
+L2RvY3Mua2VybmVsLm9yZy9kb2MtZ3VpZGUva2VybmVsLWRvYy5odG1sCj4gCj4gPiArc3RhdGlj
+IGlubGluZSBib29sIHN0bW1hY19oYXNfaXBfZXRoZXJ0eXBlKHN0cnVjdCBza19idWZmICpza2Ip
+ICAKPiAKPiBOaXRwaWNrOiBpbiBuZXRkZXYgaXQgaXMgcHJlZmVycmVkIG5vdCB0byB1c2UgdGhl
+ICJpbmxpbmUiIGtleXdvcmQgYXQKPiBhbGwgaW4gQyBmaWxlcywgb25seSAic3RhdGljIGlubGlu
+ZSIgaW4gaGVhZGVycywgYW5kIHRvIGxldCB0aGUgY29tcGlsZXIKPiBkZWNpZGUgYnkgaXRzZWxm
+IHdoZW4gaXQgaXMgYXBwcm9wcmlhdGUgdG8gaW5saW5lIHRoZSBjb2RlICh3aGljaCBpdAo+IGRv
+ZXMgYnkgaXRzZWxmIGV2ZW4gd2l0aG91dCB0aGUgImlubGluZSIga2V5d29yZCkuIEZvciBhIGJp
+dCBtb3JlCj4gYmFja2dyb3VuZCB3aHksIHlvdSBjYW4gdmlldyBEb2N1bWVudGF0aW9uL3Byb2Nl
+c3MvNC5Db2RpbmcucnN0LCBzZWN0aW9uCj4gIklubGluZSBmdW5jdGlvbnMiLgo+IAo+ID4gK3sK
+PiA+ICsJaW50IGRlcHRoID0gMDsKPiA+ICsJX19iZTE2IHByb3RvOwo+ID4gKwo+ID4gKwlwcm90
+byA9IF9fdmxhbl9nZXRfcHJvdG9jb2woc2tiLCBldGhfaGVhZGVyX3BhcnNlX3Byb3RvY29sKHNr
+YiksICZkZXB0aCk7Cj4gPiArCj4gPiArCXJldHVybiBkZXB0aCA8PSBFVEhfSExFTiAmJiAocHJv
+dG8gPT0gaHRvbnMoRVRIX1BfSVApIHx8IHByb3RvID09IGh0b25zKEVUSF9QX0lQVjYpKTsKCkkg
+YWxzbyB3YW50IHRvIG5pdHBpY2sgYSBiaXQgOikgSWYgeW91IGFyZSB0byBzZW5kIGEgdjQsIG1h
+eWJlIHlvdSBjYW4KZW5jbG9zZSB0aGUgZmlyc3QgY29uZGl0aW9uIHdpdGhpbiBwYXJlbnRoZXNp
+cyB0byBmdXJ0aGVyIGNsYXJpZnkgdGhlCnJldHVybiBsb2dpYy4KCkNoZWVycywKTWlxdcOobApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
