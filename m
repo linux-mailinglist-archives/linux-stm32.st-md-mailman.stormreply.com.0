@@ -2,84 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42F2C826D7E
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 13:11:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ACFA826F21
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 14:02:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAB34C6DD62;
-	Mon,  8 Jan 2024 12:11:51 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E67C0C6DD63;
+	Mon,  8 Jan 2024 13:02:45 +0000 (UTC)
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2085.outbound.protection.outlook.com [40.107.105.85])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5905C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57721C6DD62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 12:11:50 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4088i0Ue025355; Mon, 8 Jan 2024 12:11:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id; s=qcppdkim1; bh=Qfop2lxazPPy
- BIEDlWJUle6vjdTRq03EI9G5TNA1quk=; b=B54bK3nIKQCpI3H7/X6M2+y+DNnt
- QFNlCE3QC7kJx1JWhIqocP8mDA9Fd2qoWqE8yopGbKPIDa3yyl0Cayz0OZDlEVdQ
- 2nmKebSfLz4pQDhPy9ymKWDoxo3uOmNfqBDUIXpZVO9v73/dG7AYzn8ywuVK+GgR
- j7ULnWQcdSIYPLrVhS+w880w6TX/wWQD4ufGZd70bc+AnaphVCN/nf8nUZ9zTF+t
- PzrREUIAzv4tDxd29ZmL8inzW8KUhOKImGeE8F5rFJePibkx7EXLAlSVPL7v+AlG
- lQMMYvTfkFK86nLb5ctX2BWk3qADeQDkGFaAh0h1IAioHNB+kMv2ZJr3OQ==
-Received: from apblrppmta01.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vg8mx919g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Jan 2024 12:11:35 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 408CBVgH012004; 
- Mon, 8 Jan 2024 12:11:31 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 3veyxmppft-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 08 Jan 2024 12:11:31 +0000
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 408CBVHY011999;
- Mon, 8 Jan 2024 12:11:31 GMT
-Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
- [10.147.246.35])
- by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 408CBVJc011996;
- Mon, 08 Jan 2024 12:11:31 +0000
-Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
- id 5A94A5001D0; Mon,  8 Jan 2024 17:41:30 +0530 (+0530)
-From: Sneh Shah <quic_snehshah@quicinc.com>
-To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon,  8 Jan 2024 17:41:28 +0530
-Message-Id: <20240108121128.30071-1-quic_snehshah@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: sbuY_wzqfRpihA0fICdVdaQXZKCv-9be
-X-Proofpoint-ORIG-GUID: sbuY_wzqfRpihA0fICdVdaQXZKCv-9be
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
- mlxlogscore=999 adultscore=0 impostorscore=0 mlxscore=0 spamscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2401080103
-Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH v2] net: stmmac: dwmac-qcom-ethqos: Add
-	support for 2.5G SGMII
+ Mon,  8 Jan 2024 13:02:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ecq+TfZdS3zn1ZXqoo9P7TQk9EuU5KgkgywCf790Jy7QcMsSbTa/X9gDMl2MUcs3H8mimnrW/7gjacpY8+J1rdxpIerRAB/bn9CfdT68NenOCmSZy+D1r6In9GwRgpYwzq/M2XA6UGzTthzFwfSOIFZ2oHN7OWQTTS4X3/VmHOe0N16P33cLYtsSLajn1ziH1GlxABusM5ukQx2upZOEy5tX3KXNYdn8LaSdQxiC9IahHfrx0KLJVD/5WKTFT/qnjNzJiMHduszOnpvNlRi+hXJ4Wzp++G4iQsteKFhMZgpZVaONna3y56+HwZmMKwuPEL8Pr+9o6aY0TUq9NpZzvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZF75R2+yAB3PeaWuYuc9piI7mmq9LrXnqIs2k6uuze8=;
+ b=PrXFbozhZT5TIofOg/UCD2hA44R/9vBhjWNK/rUmamBuSUVb2oTtMGD1wdnI/xaHwYQJ/dNSiVTkMS+R8+Itlg6NYmCYxdScGCCLNB17dH1QPpGK350yvrr6JA79IWCbTb6gIgx3ZmjCvltFnqbhy/1IeExiC0CPBOj/pMRR587/FejS5/aXER+usUipf4F4rudhCmE+k/7ZYasRVCtlwEmE7tp6RX8U2XmryL6N8hLcaYzRtNp+MXJKpnuFFB020YrtWKa9cpRpYtroGCHw+4uKnx7r4+k2zAA8Q9vPL48mbUToIqifvdHSCRTurqk+DJvWbrbmNCGk9kJCk91GiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZF75R2+yAB3PeaWuYuc9piI7mmq9LrXnqIs2k6uuze8=;
+ b=WepI4H2AVjMc6Dyv0Cb90zOsOPvfdy5chtnQA1a+HhpuTglDasu3Qc8WrgFhP/1K3zycfa+QkHE3TbVWDYN1AoAgkYoX1tLhztt5ZzwlRWlmwG5VPxXfsU3M8PXAPeBL8tl9xOh83tpS7TlMmBhASxWVFypC5euU27tOxp+aGVk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VE1PR04MB7374.eurprd04.prod.outlook.com (2603:10a6:800:1ac::11)
+ by AM7PR04MB6854.eurprd04.prod.outlook.com (2603:10a6:20b:10c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Mon, 8 Jan
+ 2024 13:02:42 +0000
+Received: from VE1PR04MB7374.eurprd04.prod.outlook.com
+ ([fe80::901f:7d8d:f07c:e976]) by VE1PR04MB7374.eurprd04.prod.outlook.com
+ ([fe80::901f:7d8d:f07c:e976%3]) with mapi id 15.20.7159.020; Mon, 8 Jan 2024
+ 13:02:42 +0000
+Date: Mon, 8 Jan 2024 15:02:38 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Message-ID: <20240108130238.j2denbdj3ifasbqi@skbuf>
+Content-Disposition: inline
+In-Reply-To: <20240108111747.73872-2-romain.gantois@bootlin.com>
+X-ClientProxiedBy: FR4P281CA0431.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::19) To VE1PR04MB7374.eurprd04.prod.outlook.com
+ (2603:10a6:800:1ac::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7374:EE_|AM7PR04MB6854:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84bbfbf7-7130-4855-feae-08dc104a1969
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: aamzKXk4L+uX9wBVV1E093op4Tmv/GT9+9cYhOULgA71xiB/F5NfO2Wx4soLW4PV/Nbn5UzdS6QYwn6VKuD0GDZy49LRwsbIbl2lZf1mYT7B/o57txInuwGmO40x0iXcZ5qKHCowkNEW+N0wQbj6yEQkE3TD5mQoKzOw9fAUl8MJ/pxt1kSd9UfALYOODYbN+oWTnsJKEJEd9a/07NBIGot+Bm9r12RLo8+KS0Kn8GrD06Gd0HbfDZ2wujbTMaQAiKNBXClfA6n6gHvnhJZFhLyXnUCwh3DqaqjCVPwhrnuZch3POnC+9PpjfcUfzw+drTOby5vfdozntgoz42Hz5a+sXA54+3IZh/xzEoA0k+EduMypX/ctMs367n1KUbFTF/310zR/mxBuHqMepZD3tVvwjaggX1gEcdV+smITa7OCPs7OS5B4tLFUhkyrc6+f95uPOnVzGreGSr1hASybjnte+i27BNOXWoy+BduZXPmzHd9N0/cEUIowctYyeT7JA9il+O143/XU5Xu2FGFt5bRXa5h7MXkOB6Da3WepvwM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB7374.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7916004)(376002)(39860400002)(136003)(366004)(396003)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(6666004)(966005)(478600001)(38100700002)(83380400001)(6512007)(6506007)(9686003)(26005)(8936002)(8676002)(316002)(54906003)(7416002)(44832011)(5660300002)(2906002)(86362001)(4326008)(6916009)(66476007)(66556008)(66946007)(1076003)(41300700001)(33716001)(6486002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vCWDF/GjOddrEUuOsa27u4Oqvv3mH9pkcMNbU8peNLcX385DU3/X3KIg6dmJ?=
+ =?us-ascii?Q?GDnxyP8WPxvoEhR8o9+pLZzcw1+fIXkpoOxe/zuQMbHEofCeW7qYy80iit30?=
+ =?us-ascii?Q?8V/HPiq9GFDAdy7jfphY6RUXFrr+TeuDasDR/6g1avS/HrrRJjHKnRYZVuA1?=
+ =?us-ascii?Q?2445M+fsJ9V2PGB3G/01DK3k9aVDJwbCeuSGGaDbBFxpgF2YtMSm0kFLw9zJ?=
+ =?us-ascii?Q?68XgC6lgwtUe0FvtwhnztbjwD6yLSLs9c7L0wMCTd8cnc4Nw8PzEKpOAiaub?=
+ =?us-ascii?Q?yaOzakcFxcwM6fNLME8jSNLRdnsSDNIYeCv8zBJ95NJ4Dn1FdyLZdc5ZeUIg?=
+ =?us-ascii?Q?cA1vnv4ZCGwKIHxSgUn0Dl0uTneTbNCiv80OYU8lYrRJsD81Ux8sxw0xbb/L?=
+ =?us-ascii?Q?/a4v9VLIPZ3zfQjX+y6uzKJAY7/kqIwbIbm5fcpnkcCRnrT6M4/Myt4Oxx9Z?=
+ =?us-ascii?Q?FmRqtISuDyuEy17qN/MLVO2OIjK7lqMDg4lUNEZ33x8ST5ut03i2W2CUBpag?=
+ =?us-ascii?Q?+q5k7xN6M2HGGmqjm4gsyx7xZOHMrUUNX9DHFJY+cEtzuZ4iPSUge2AEdBtp?=
+ =?us-ascii?Q?OBqVhnSMXnzoGLCj9zZe4Gw0GPW0L3gfuUrOSgL3yb25JSEU7qZ09BoG8JtF?=
+ =?us-ascii?Q?unxmBkSkDKUi5coKUxhoi0mt75D+j7ARZLt7nFnEDx15ZmXdIp2v6n82xavT?=
+ =?us-ascii?Q?8qNdrf/mcROKWtlKl4J4wHfVs3hWu/dr2IlGjjWGnTKzIiqjVsPYeFfIgFHx?=
+ =?us-ascii?Q?EPOB2Xc5LC7CqUEIG1gO5a5kV7TjruQREypKNdZO18zArtL3IvWTe64BGrXz?=
+ =?us-ascii?Q?ciXyUvwVxL8rjIL1HEVRfqRZFlDczXNh/9V7nRtLFZzguXiUgDGzBZOrmQiY?=
+ =?us-ascii?Q?3DkqD/J7Afzt+FgddMrzoSjE6GR1KcCOMsthy1dEzuwrIt2EnA9k0z737RFQ?=
+ =?us-ascii?Q?EIF8AEQE1WddzetpdGcpV0Ne2di/FylHFWJkcF465RDgKuUI/rHsRuIBKIsN?=
+ =?us-ascii?Q?tDb8xUUPRTzZIwTI91qQCKGqviF2rz2nRbI6tFRQiPXOX4YEvymdpUmsVfWf?=
+ =?us-ascii?Q?LqXiADQ5TUeoO+wTLZWVolNR+OBJ3ffkR7WV/twrf70ubn/5a0/gIsKtSSYc?=
+ =?us-ascii?Q?2/g16P6n0Pm9YfQCfv8HFhX+JE8B1iOJnXJzSGUnSbyNpk7XNxsBcn6i0Gv2?=
+ =?us-ascii?Q?+JRWqSOlQSkUx+CjBlyv9GUHmto0MyovD+wy7FoseR3sgZ7au4+sVCntY6ZT?=
+ =?us-ascii?Q?KV6Hj+Mo8hL2kG+32irD2T3CH0vDw+XrNskR8Lh3OaGGKb8BXe6qqHYghueJ?=
+ =?us-ascii?Q?MIwdtE20CeO6jNXshEHzoTpRiMeZ7yLDY9y/UdOURxJoWnz4BDmzd8yA240F?=
+ =?us-ascii?Q?uj9ZmhgqfdWReE0+8uWWDY3bV3K/E/YHxEC7zULFhqH4YRtcwwPHMMaMGMXw?=
+ =?us-ascii?Q?t7Y9WPTDrggvVCmRLs6umBzNcIlvXWUu4qoe1lKj6NOi6Op6LZQoVDzzSNnu?=
+ =?us-ascii?Q?ys30N1v1ggYWwcvP7Vrqsp6f3bsubN9aW7b++I9TBYENmJlL8nNDG1Gz/jE6?=
+ =?us-ascii?Q?klyvR0Q6iRsJw4FTqsnu1CQMEA+fHyIGfsRQCZRAnYkk87/Z0masbdFy83Al?=
+ =?us-ascii?Q?dg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84bbfbf7-7130-4855-feae-08dc104a1969
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7374.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 13:02:42.5708 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gi4o4taw4htkv/lv6yUnbNukerHBzWWT3IJ7NQZS/tUo2+JEDZG7vo9Z/kYidKOU8ZDkNCK4vtU3dQV89lNCCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6854
+Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: stmmac: Prevent DSA tags
+ from breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,109 +123,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
-mode for 1G/100M/10M speed.
-Added changes to configure serdes phy and mac based on link speed.
+On Mon, Jan 08, 2024 at 12:17:45PM +0100, Romain Gantois wrote:
+> Some DSA tagging protocols change the EtherType field in the MAC header
+> e.g.  DSA_TAG_PROTO_(DSA/EDSA/BRCM/MTK/RTL4C_A/SJA1105). On TX these tagged
+> frames are ignored by the checksum offload engine and IP header checker of
+> some stmmac cores.
+> 
+> On RX, the stmmac driver wrongly assumes that checksums have been computed
+> for these tagged packets, and sets CHECKSUM_UNNECESSARY.
+> 
+> Add an additional check in the stmmac TX and RX hotpaths so that COE is
+> deactivated for packets with ethertypes that will not trigger the COE and
+> IP header checks.
+> 
+> Fixes: 6b2c6e4a938f ("net: stmmac: propagate feature flags to vlan")
+> Cc: stable@vger.kernel.org
+> Reported-by: Richard Tresidder <rtresidd@electromag.com.au>
+> Link: https://lore.kernel.org/netdev/e5c6c75f-2dfa-4e50-a1fb-6bf4cdb617c2@electromag.com.au/
+> Reported-by: Romain Gantois <romain.gantois@bootlin.com>
+> Link: https://lore.kernel.org/netdev/c57283ed-6b9b-b0e6-ee12-5655c1c54495@bootlin.com/
+> Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+> ---
 
-Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
----
-v2 changelog:
-- updated stmmac_pcs_ane to support autoneg disable
-- Update serdes speed to 1000 for 100M and 10M also
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 27 +++++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  2 ++
- 2 files changed, 29 insertions(+)
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index d3bf42d0fceb..c236c939fbe9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -103,6 +103,7 @@ struct qcom_ethqos {
- 	struct clk *link_clk;
- 	struct phy *serdes_phy;
- 	unsigned int speed;
-+	int serdes_speed;
- 	phy_interface_t phy_mode;
- 
- 	const struct ethqos_emac_por *por;
-@@ -602,21 +603,46 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
- {
- 	int val;
- 
-+	struct platform_device *pdev = ethqos->pdev;
-+	struct net_device *dev = platform_get_drvdata(pdev);
-+	struct stmmac_priv *priv = netdev_priv(dev);
- 	val = readl(ethqos->mac_base + MAC_CTRL_REG);
- 
- 	switch (ethqos->speed) {
-+	case SPEED_2500:
-+		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
-+		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-+			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-+			      RGMII_IO_MACRO_CONFIG2);
-+		if (ethqos->serdes_speed != SPEED_2500)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
-+		ethqos->serdes_speed = SPEED_2500;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
-+		break;
- 	case SPEED_1000:
- 		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
- 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
- 			      RGMII_IO_MACRO_CONFIG2);
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	case SPEED_100:
- 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	case SPEED_10:
- 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
- 		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	}
- 
-@@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 				     "Failed to get serdes phy\n");
- 
- 	ethqos->speed = SPEED_1000;
-+	ethqos->serdes_speed = SPEED_1000;
- 	ethqos_update_link_clk(ethqos, SPEED_1000);
- 	ethqos_set_func_clk_en(ethqos);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-index aefc121464b5..13a30e6df4c1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-@@ -110,6 +110,8 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
- 	/* Enable and restart the Auto-Negotiation */
- 	if (ane)
- 		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-+	else
-+		value &= ~GMAC_AN_CTRL_ANE;
- 
- 	/* In case of MAC-2-MAC connection, block is configured to operate
- 	 * according to MAC conf register.
--- 
-2.17.1
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 ++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index a9b6b383e863..6797c944a2ac 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4371,6 +4371,19 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	return NETDEV_TX_OK;
+>  }
+>  
+> +/* Check if ethertype will trigger IP
+> + * header checks/COE in hardware
+> + */
 
+Nitpick: you could render this in kernel-doc format.
+https://docs.kernel.org/doc-guide/kernel-doc.html
+
+> +static inline bool stmmac_has_ip_ethertype(struct sk_buff *skb)
+
+Nitpick: in netdev it is preferred not to use the "inline" keyword at
+all in C files, only "static inline" in headers, and to let the compiler
+decide by itself when it is appropriate to inline the code (which it
+does by itself even without the "inline" keyword). For a bit more
+background why, you can view Documentation/process/4.Coding.rst, section
+"Inline functions".
+
+> +{
+> +	int depth = 0;
+> +	__be16 proto;
+> +
+> +	proto = __vlan_get_protocol(skb, eth_header_parse_protocol(skb), &depth);
+> +
+> +	return depth <= ETH_HLEN && (proto == htons(ETH_P_IP) || proto == htons(ETH_P_IPV6));
+> +}
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
