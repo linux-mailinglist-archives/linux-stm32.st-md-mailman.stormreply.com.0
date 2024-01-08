@@ -2,69 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ED03827648
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 18:25:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BDE1827698
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 18:52:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C4555C6DD66;
-	Mon,  8 Jan 2024 17:25:53 +0000 (UTC)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 480C4C6DD66;
+	Mon,  8 Jan 2024 17:52:58 +0000 (UTC)
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC6FEC6DD65
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6FEC4C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 17:25:52 +0000 (UTC)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-4b7b28211beso367972e0c.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Jan 2024 09:25:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1704734752; x=1705339552;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=WpCOTIlqbuft57aTYAHETU0NJnJb1485dKEn5DsMcpQ=;
- b=LFdANaQrozXH975/3ehiwTowaoDsXNrVFMrbZZ/2fQofy8xlsrH8VfFUtYbbwCkweK
- b7Xl0dSFYf/iKbnKyzlXrrP8ph0dUK1+vUsZ9GHvXGvUUlRCLv+CHy5WhkuGPVO8+PhL
- 4hnY/BBuJD1BNQlcuPWqgXIkD9htIuTfkzsLV1uKeB4aB1KFpYzHAGL1IeRgzszkxbBJ
- Rlt28dx6NY8CDnS1yvDa08Js5Xbg5Bbxq+pIceMTcYiCLYGjlupdIC/pgkpmzVWIQhb3
- HU2M4HnY+u9UYTC1eD7HYiMCVSOYFw+kzzltXflXjtUD/EXntWA5nMjZoAE9DMBlTBDv
- x1cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704734752; x=1705339552;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WpCOTIlqbuft57aTYAHETU0NJnJb1485dKEn5DsMcpQ=;
- b=CG6ovOGuE/r03EvJehCbD7F3kggfXFcywSqoBgZKwNLjv3Q7zEKP3+ONrz80xwyWUN
- tDTARrJSKpcoC31sLPRhmDLR77fgFp1F1r2vs5FyDap/7q8ZglJv1ARxtjgSzTDTIupc
- 4E17N96ONnjvqCHVgULyWAC6KuFMP9B3cFycvw+2E6dCyxekwXguPnK5oiwCq3pPuoMb
- BAQ/kIldHgoOOOwfnhUaZ47hsBYT6ssLGGDUu4g8psMSWJgRphH52D3MLMkJIeen8iDP
- UKvDt+KAHilBHMEGge4y17BYdTz/neR7PWkmbWKybv0P5bn2Y1P6GDivWu59kQTCjj6q
- CACg==
-X-Gm-Message-State: AOJu0YwwwTe5iiHt+etLt14HYoQmK0l60uP4wQyRMtWKLc6k/lbtjGa9
- xxBl1VrTrYsMDLfJgiB6WUCkW2KEnUIrmQ==
-X-Google-Smtp-Source: AGHT+IG2wN30jsYz+KEWDrzc7NDOQ+4R0TmDVrin5hgMKnBcVP6ilXtqIrxu9UxegoJmUGV8ikZUbQ==
-X-Received: by 2002:ac5:ce15:0:b0:4b7:8196:7715 with SMTP id
- j21-20020ac5ce15000000b004b781967715mr1264348vki.14.1704734751758; 
- Mon, 08 Jan 2024 09:25:51 -0800 (PST)
-Received: from ubuntu-server-vm-macos (072-189-067-006.res.spectrum.com.
- [72.189.67.6]) by smtp.gmail.com with ESMTPSA id
- eo1-20020a056122388100b004b71620a7d5sm32298vkb.28.2024.01.08.09.25.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jan 2024 09:25:51 -0800 (PST)
-Date: Mon, 8 Jan 2024 17:25:48 +0000
-From: William Breathitt Gray <william.gray@linaro.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <ZZwwHBS224JXn2Hf@ubuntu-server-vm-macos>
-References: <20231220145726.640627-1-fabrice.gasnier@foss.st.com>
- <20231220145726.640627-9-fabrice.gasnier@foss.st.com>
+ Mon,  8 Jan 2024 17:52:57 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C2DC53200D00;
+ Mon,  8 Jan 2024 12:52:53 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute6.internal (MEProxy); Mon, 08 Jan 2024 12:52:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxuuu.xyz; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1704736373;
+ x=1704822773; bh=U5vHpLovxHw2jLbFSMwbVDfMhB5fX3K4zCUa0DIZn9Q=; b=
+ QCuiJ8OTr3lnfrzIujxwe/TZfLN1UIxB9lhaB8yim94u+mOcHro7SQ0ObxmjGCj4
+ Tb5u0npdf4GTBeVq7Cz2aFXmNa+QaEhiPOPcYSTHw5bxB+WNwzuSL0IBboyPK2jL
+ RzROivW2MUr5bdEzhDn/fpTjaPkhuKq7Y2O2FlIsGTSQ9/BiKUju+JyX8yMRXGxy
+ 4JPkPMqkebAGZ6X5Oy2CJOJRzQ+gue9Cqa/+eZVCp0qB+sAUPlgY+jxbyGXJVYhe
+ X8V375V1byyUcuQNDBOBnTK7GBHSMhaLYEUU1U0iaoBJMrNlJHxV6qxUG3wMq5B0
+ uH7MPtSQ6xQmfd7oR7iFQQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1704736373; x=
+ 1704822773; bh=U5vHpLovxHw2jLbFSMwbVDfMhB5fX3K4zCUa0DIZn9Q=; b=H
+ W+5pS6p8StQO1iOCpRMUGETWwegLC/itEkr0WC7HcpACh+OG0OM0TAGa2hkvGwaP
+ 5qvYy2mXuiO0tnh4P2u0crfFK96diRxzgDdqyWzqT/FYexQukTZ6mnUCLxYEbIIM
+ 4VlhkzufmFARICF16ChUFz/yOoBP+iZekdv0UswKOkpjR6BNq5VapPZOg1q2qT/C
+ 5PveKLQu44B16jB0rftks3B649wadrnfVLj2ZAxOpu0DO54vzbm8rXKi4m1mMfQ9
+ /eYc+hn5aySPRTAK8Hg9gCA/LLAcGWZE7njvQ556WjGBHBu6qQhslWNzlDUkyO8K
+ iQsL/YuJcDENA1Msf1eVA==
+X-ME-Sender: <xms:dDacZcuDTXN6lIEB8WcOO16Pq_Tb_ovk8QZo9ds7l0Lpb-hT7fKQlg>
+ <xme:dDacZZebg42EFk_Dte7vA-bggeXbFkekpX81XBWPhF---MbikwU4NEQAq_cbaMZyt
+ GDLFMocQhEF5-vUZA>
+X-ME-Received: <xmr:dDacZXxBZ9cQLWYl6jdfdcpCufgtDH1LcuUb3pmhHdXoOlL94QlkfynIuxozVxZlTsp7KYObYheOxk2Q_1uOjqeGruABsR5zL19sbLc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdehjedguddtgecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enfghrlhcuvffnffculdejtddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkefs
+ tddttdejnecuhfhrohhmpeffrghnihgvlhcuighuuceougiguhesugiguhhuuhdrgiihii
+ eqnecuggftrfgrthhtvghrnheptdfgueeuueekieekgfeiueekffelteekkeekgeegffev
+ tddvjeeuheeuueelfeetnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
+ hilhhfrhhomhepugiguhesugiguhhuuhdrgiihii
+X-ME-Proxy: <xmx:dTacZfO1_6ZhFSPZ7zYR_vaSkrh9xyqkFLtjv5fayG8ZpCbkP8Qaxg>
+ <xmx:dTacZc-OoIoBjtWs99QJ3JVhf7MeRx8huVlrpOGlzP4IbiCQjrWwAg>
+ <xmx:dTacZXVkZfDjbk7VxlH_D6LS-Uq5m97mwmnDhWMv7x4tSBRugNGqbw>
+ <xmx:dTacZcOHJTHi1jhIyuq6e13SVSM7x8VZNsMZkqqn0mrcGx9wqqEgzA>
+Feedback-ID: i6a694271:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 8 Jan 2024 12:52:51 -0500 (EST)
+Date: Mon, 8 Jan 2024 10:52:49 -0700
+From: Daniel Xu <dxu@dxuuu.xyz>
+To: Lorenz Bauer <lorenz.bauer@isovalent.com>
+Message-ID: <6t5bei3t2gwhuycu6ewftrgfuuyfhs26euymkysefqyfabgupa@3od5pe6ajybo>
+References: <cover.1704565248.git.dxu@dxuuu.xyz>
+ <CAN+4W8gPeQ2OjoYLKXsNPyhSVTB+vcSaS3Xzw=-M9Rf5MXfKPg@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20231220145726.640627-9-fabrice.gasnier@foss.st.com>
-Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 08/10] counter: stm32-timer-cnt: probe
- number of channels from registers
+Content-Disposition: inline
+In-Reply-To: <CAN+4W8gPeQ2OjoYLKXsNPyhSVTB+vcSaS3Xzw=-M9Rf5MXfKPg@mail.gmail.com>
+Cc: fsverity@lists.linux.dev, alan.maguire@oracle.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com, memxor@gmail.com,
+ coreteam@netfilter.org, netfilter-devel@vger.kernel.org, quentin@isovalent.com,
+ linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
+ cgroups@vger.kernel.org, bpf@vger.kernel.org, olsajiri@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v3 0/3] Annotate kfuncs in
+	.BTF_ids section
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,85 +91,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6109378466032756165=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============6109378466032756165==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="s+ElIGvTpO6OYXT3"
-Content-Disposition: inline
-
-
---s+ElIGvTpO6OYXT3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Dec 20, 2023 at 03:57:24PM +0100, Fabrice Gasnier wrote:
-> Probe the number of capture compare channels, by writing CCER register bi=
-ts
-> and read them back. Take care to restore the register original value.
->=20
-> This is a precursor patch to support capture channels.
->=20
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> ---
-> Changes in v3:
-> - New patch split from:
->   "counter: stm32-timer-cnt: populate capture channels and check encoder"
-> ---
->  drivers/counter/stm32-timer-cnt.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->=20
-> diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-ti=
-mer-cnt.c
-> index 55eb6af34750..b5dc4378fecf 100644
-> --- a/drivers/counter/stm32-timer-cnt.c
-> +++ b/drivers/counter/stm32-timer-cnt.c
-> @@ -43,6 +43,7 @@ struct stm32_timer_cnt {
->  	struct stm32_timer_regs bak;
->  	bool has_encoder;
->  	u32 idx;
-> +	unsigned int nchannels;
->  };
-> =20
->  static const enum counter_function stm32_count_functions[] =3D {
-> @@ -417,6 +418,20 @@ static struct counter_count stm32_counts =3D {
->  	.num_ext =3D ARRAY_SIZE(stm32_count_ext)
->  };
-> =20
-> +static void stm32_timer_cnt_detect_channels(struct platform_device *pdev,
-
-Like stm32_timer_cnt_probe_encoder() in one of the previous patches,
-this function uses 'pdev' only to access 'dev'. Pass a reference to
-'dev' directly instead.
-
-William Breathitt Gray
-
---s+ElIGvTpO6OYXT3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZZwwHAAKCRC1SFbKvhIj
-K+NhAQD7UTpd7xtERic8jhg3U9gZyAlOd7tZl2JFUwCcjokjvgEA9zas8C7NQg1N
-G9mPHn1XtkZXe31uApBNUsx9M6unJQE=
-=3UXx
------END PGP SIGNATURE-----
-
---s+ElIGvTpO6OYXT3--
-
---===============6109378466032756165==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6109378466032756165==--
+SGkgTG9yZW56LAoKT24gTW9uLCBKYW4gMDgsIDIwMjQgYXQgMTA6MTU6NDVBTSArMDEwMCwgTG9y
+ZW56IEJhdWVyIHdyb3RlOgo+IE9uIFNhdCwgSmFuIDYsIDIwMjQgYXQgNzoyNeKAr1BNIERhbmll
+bCBYdSA8ZHh1QGR4dXV1Lnh5ej4gd3JvdGU6Cj4gPgo+ID4gPT09IERlc2NyaXB0aW9uID09PQo+
+ID4KPiA+IFRoaXMgaXMgYSBicGYtdHJlZXdpZGUgY2hhbmdlIHRoYXQgYW5ub3RhdGVzIGFsbCBr
+ZnVuY3MgYXMgc3VjaCBpbnNpZGUKPiA+IC5CVEZfaWRzLiBUaGlzIGFubm90YXRpb24gZXZlbnR1
+YWxseSBhbGxvd3MgdXMgdG8gYXV0b21hdGljYWxseSBnZW5lcmF0ZQo+ID4ga2Z1bmMgcHJvdG90
+eXBlcyBmcm9tIGJwZnRvb2wuCj4gPgo+ID4gV2Ugc3RvcmUgdGhpcyBtZXRhZGF0YSBpbnNpZGUg
+YSB5ZXQtdW51c2VkIGZsYWdzIGZpZWxkIGluc2lkZSBzdHJ1Y3QKPiA+IGJ0Zl9pZF9zZXQ4ICh0
+aGFua3MgS3VtYXIhKS4gcGFob2xlIHdpbGwgYmUgdGF1Z2h0IHdoZXJlIHRvIGxvb2suCj4gCj4g
+VGhpcyBpcyBncmVhdCwgdGhhbmtzIGZvciB0YWNrbGluZyB0aGlzLiBXaXRoIHlvdXQgcGF0Y2hl
+cyB3ZSBjYW4KPiBmaWd1cmUgb3V0IHRoZSBmdWxsIHNldCBvZiBrZnVuY3MuIElzIHRoZXJlIGEg
+d2F5IHRvIGV4dGVuZCBpdCBzbyB0aGF0Cj4gd2UgY2FuIHRlbGwgd2hpY2ggcHJvZ3JhbSBjb250
+ZXh0IGEga2Z1bmMgY2FuIGJlIGNhbGxlZCBmcm9tPwoKSSB0aGluayBhIHBvdGVudGlhbCBhcHBy
+b2FjaCB3b3VsZCBiZSB0byBleHRlbmQgQlRGX0lEX0ZMQUdTKCkgd2l0aCBzb21lCm1vcmUgZmxh
+Z3MgaWYgd2Ugd2FudCB0byBjb250aW51ZSB3aXRoIC5CVEZfaWRzIHBhcnNpbmcgdGVjaG5pcXVl
+LiBCdXQKaXQgaGFzIHNvbWUgaXNzdWVzIHdpdGggcHJvZ3JhbS10eXBlLWxlc3MgaGVscGVycyB0
+aGF0IGFyZSBhc3NvY2lhdGVkIHdpdGgKYXR0YWNocG9pbnRzIGFzIHdlbGwgYXMgc3RydWN0X29w
+cyBoZWxwZXJzLgoKU2luY2UgaXQgbG9va3MgbGlrZSB3ZSdyZSBpbiByYXRoZXIgZWFybHkgc3Rh
+Z2VzIG9mIHByb2dyYW0tdHlwZS1sZXNzCndvcmxkLCBtYXliZSBpdCdkIGJlIGdvb2QgdG8gZGVm
+ZXIgc29sdmluZyB0aGlzIHByb2JsZW0gdW50aWwgbW9yZSB1c2UKY2FzZXMgYXJlIGVzdGFibGlz
+aGVkIGFuZCB3ZSBjYW4gZmluZCBhIGdvb2QgY3V0IHBvaW50IHRvIGRlc2lnbiBhcm91bmQuCkV2
+ZW4gd2l0aCB1YXBpIGhlbHBlcnMgdGhlcmUgd2FzIG5vIHdheSBiZWZvcmUuCgpUaGFua3MsCkRh
+bmllbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
