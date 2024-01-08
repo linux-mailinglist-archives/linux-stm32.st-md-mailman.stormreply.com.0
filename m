@@ -2,43 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A1AF82711F
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 15:23:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDCB7827180
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 15:36:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B23CCC6DD63;
-	Mon,  8 Jan 2024 14:23:20 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 90685C6DD63;
+	Mon,  8 Jan 2024 14:36:21 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2075.outbound.protection.outlook.com [40.107.22.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08054C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C08F6C6DD62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 14:23:18 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 96F241BF20B;
- Mon,  8 Jan 2024 14:23:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1704723798;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=8/7gyP7Ro6EIbSwHo4bXO7Wl4exbJDbw0YZeICc6ouA=;
- b=icnrmGyALvII03k+3GInGbojmaxtepRoQ7+GtXT2w0spXvKR1ks6erFkOAI2x9pIX0BBsc
- MJcD5ANmD/A92ILssF2Da2xZ3qNH8sHiZ28QKKl8Kp8c4BPpaRUagJZtHuDNWMgnVAGDnq
- hJO3W1ZMAJDbgqABnXKC0prKgPjmlcM+tlVXS2aYXWhl1HGZqKNgqDyyxABbjrYfebXu2X
- lq0L96omGzIS6TEXJTBrR+ETUHeUwhT94HYhhVSMyopDtf1aDp1t5HuBBACmaIoWIYTNn7
- fifQ+OACszEyUZ8XKo4P6W3Fs+rzBjyaVpXgx/CT18/mxUNwgMmUmc1z1Y4XEg==
-Date: Mon, 8 Jan 2024 15:23:38 +0100 (CET)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-In-Reply-To: <20240108130238.j2denbdj3ifasbqi@skbuf>
-Message-ID: <3c2f6555-53b6-be1c-3d7b-7a6dc95b46fe@bootlin.com>
+ Mon,  8 Jan 2024 14:36:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YzYHg5r2r9FBG9JAJ+m3cIBIrhX5bwBzjA0zqVQlIy4oLZflKvDCDRcEDt/t6Gy1MU/6GWZwHZVEQP1QUtJmS0j7g8g8t52XcJLIAhMlgCAABEuHVYw9LyzZVNqritijaN7+lvEIvjH9EgDFfUKwec678cuH08D3FzUCjeOgiAvLvGhhJW+Tt69W+NtthnEVLjr8bBKk/R70uTzDxoiUO56janR2ze1YlXb7Ve2DYzZ03ToUJBVHg1B8oF9VsDQCt6jw8FIdmxPE54z6fF+0iz68qJN30M/Mp4NQ7bkrnE+RAFzL4oKKuqoY6zYAzHGw2PM+vTSsdtxPzHgFgcAGKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kl0B91oz0NG6sKsJO57PPLzXhIrKeAFuFL83vdTZPhE=;
+ b=PKCCCnb8Xcx1vd4lFjRaj8tDLWfoJPMZXC3LFqL/cCyyeSpMjtyd20ysi6cxZ7sXCD9IIMa7xoL4/Cui3gXSI2r2DUJmvMEmyBJxrNo9XRkNYI/4mhbbNjBCkQV3AQA+eTWnR+5zLw+0rEVuOtPluD7l3U3zkrKPkyeH3OOXDYIRH0lpAxEv7jkW2/t7rwpVXKad6mOJmRTGQAZX1JqcSjMcGHWqDEBvvRARjeiFD06b6Hedbm0lJRAM28Xu3zUafFbJzOwRAKaqoCos5mIn7jRil/nR05xcHr7K6Kxqu78oquleUhSA1jr6kzb9OsUvfCfo1cTkoFVtE0OcACwMsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kl0B91oz0NG6sKsJO57PPLzXhIrKeAFuFL83vdTZPhE=;
+ b=bD8nXFtjJ++6dPseffyeFUXfSYtHObc4Ew7w5jS7Lg8lGq/Kbcje8W+cNs6grRxOipXFFj+muh5EXLMQ1Ivb1X2XNzaDYm50NW0NfhQoaB0cmdRapJaKHkuiz2fI4JbpT/OQDNVBB6o8BXbYE0iion0We9+jOJZO5hd/bQmcxVg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from VE1PR04MB7374.eurprd04.prod.outlook.com (2603:10a6:800:1ac::11)
+ by AM7PR04MB7062.eurprd04.prod.outlook.com (2603:10a6:20b:122::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.13; Mon, 8 Jan
+ 2024 14:36:18 +0000
+Received: from VE1PR04MB7374.eurprd04.prod.outlook.com
+ ([fe80::901f:7d8d:f07c:e976]) by VE1PR04MB7374.eurprd04.prod.outlook.com
+ ([fe80::901f:7d8d:f07c:e976%3]) with mapi id 15.20.7159.020; Mon, 8 Jan 2024
+ 14:36:17 +0000
+Date: Mon, 8 Jan 2024 16:36:14 +0200
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Message-ID: <20240108143614.ldeizw33o6l7aevi@skbuf>
 References: <20240108130238.j2denbdj3ifasbqi@skbuf>
+ <3c2f6555-53b6-be1c-3d7b-7a6dc95b46fe@bootlin.com>
+Content-Disposition: inline
+In-Reply-To: <3c2f6555-53b6-be1c-3d7b-7a6dc95b46fe@bootlin.com>
+X-ClientProxiedBy: VI1PR0102CA0005.eurprd01.prod.exchangelabs.com
+ (2603:10a6:802::18) To VE1PR04MB7374.eurprd04.prod.outlook.com
+ (2603:10a6:800:1ac::11)
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7374:EE_|AM7PR04MB7062:EE_
+X-MS-Office365-Filtering-Correlation-Id: d98479b3-ee5f-4bf8-8854-08dc10572c39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WK2RC60ueJPPwNa0P3DuXqJ7QBioqkt6D0dkR7wBAqk6+C8M5SAcocVJ6w7f2nlzCd0+kEBkb5fkrkyPMFlrlCZIf9SFJJn2z8zltv6uhSiiowke62SCL03mJmR6Ya88c/XIXB/AEjuYrnABgpeM6GP5lHUx/DdkXHm2l9Kq04v7+HJYt9cbV6ERbOHwZwVVjUOgp15/FU0uZ370ECzum2zue8c1CbSYtcX2fJGf+gKc/4JcoaRog1zSduhiehKSSFloOlQWIqOUc9ZuzEmQ4n84tf33PPZlXJCziMZ7o0Bkk05Rt7B8fZUZka0GnNhAiV0wek/O16tJaWIUlTZiig8UDWWDA7Fwg2PYXCFtvUxiSLAFiZ3WGT5DZrECeL/e67SQVGi/Pixj3pcowBdsnXWs6I+mikSSAlKMZiGawbAICAYSgM2pblwPVvUltcEeR/3Yj+v7NSzCYgkODQxY4GkhRuLhVtXyiyEovxuNjbOx841fd36eoYp1DFEkqw+gcOJ/dVsY91gI/M5i8BAFj+Sy8th4HBkbOPZeKvGblGfyn+QGLviyaYa/H4UYzyKu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR04MB7374.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7916004)(346002)(136003)(39860400002)(366004)(396003)(376002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(7416002)(41300700001)(33716001)(4326008)(1076003)(44832011)(26005)(5660300002)(38100700002)(9686003)(316002)(6512007)(6506007)(54906003)(4744005)(6666004)(66476007)(2906002)(6916009)(86362001)(83380400001)(66556008)(66946007)(8936002)(8676002)(6486002)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?AXxVqdQU3CUwmICrgaVVYlthRV4TKDe+dwSVrk3027HjG8G2Swr1o1Vhp23F?=
+ =?us-ascii?Q?Qqkl96PiAzSdpPDnDdM8Gv26sXu2z0azqTGSRvBfHQ3m4fGKWNUgFFad1/g9?=
+ =?us-ascii?Q?kIbVG0lUhUo2k4p9qJY49S9sNZIqsVjwaUIu99U/9PMRQSZ9LG0LNdLv4Sg1?=
+ =?us-ascii?Q?DKoOwDzi5XL0lN/4z2gbiCbahpZ9CD5aWiH4IZ0hLk9Q0Oo8nOCx+RBWw1ss?=
+ =?us-ascii?Q?B7BmV9aAmIiqUwtfia2N+tap3GlEvrtccLrQM5/dBrUvGhOxfrDKNsVc7Y8f?=
+ =?us-ascii?Q?7GUaJPSx2o3HUwLyNugH/VF8eAedtDBn8VvryIKtV/DID1VNLDydPaalCgLx?=
+ =?us-ascii?Q?c3HbEX360f5bcGoMZ7y5FLsxAczvsXuj9/Y9+EqUdy3Hfj9d2VHzlPxOF34z?=
+ =?us-ascii?Q?aWSCTHDT+iHgD1VxgU2EBdZuA+HxDdWy69oRIznwaCCT7fxMm9pIbHx3BWY5?=
+ =?us-ascii?Q?8/ocZQYDRkrTDrHxXcKM4xUxlZloTxuJFSV3FE5wCNBa3XmJ7oyHN95vXRVO?=
+ =?us-ascii?Q?EYk49xdjzgbOLfvVXN7MzDpO48Wj8mFWw9IaBYeetanOSVoH4lywF69arKxc?=
+ =?us-ascii?Q?BB9S/EdTNcqgZ47OmzATi/o9AlKHgYgmMAVsOyuoG5BgAj1VKY8SJfbFLUJl?=
+ =?us-ascii?Q?eHb5gNpcUnOHXRjqUvPyUtDwIM7jP2KI+vtu63JIeu5qNbs1GIuXlMBPOvmQ?=
+ =?us-ascii?Q?1Y2kGJmrep49+hvk0hKmeMzh69oRZOevgdkEUOIjdUf7eGI4+2m1EWXiaLa4?=
+ =?us-ascii?Q?gWgai6e1LVxTeXtCuzJvS938srjWuDyZ9wIVeZE9MTOzauO8nO/NP+QpZoMr?=
+ =?us-ascii?Q?S5VDkjeazjwnB0va7yybP2w+1Em0vrP8EigrPE8lmPzfex7QRZul1fUWp5io?=
+ =?us-ascii?Q?gXKyaZbrUDKA5GZqSZNzyXm884fVtYqSeQ/SxMokIKlbFmfH1xPeKyax2OMZ?=
+ =?us-ascii?Q?apVGdQXfFjY86/QAK7/IyGQIat8JnL6KVV4eFl1k4owIT9VmwTBoegQeQRZ2?=
+ =?us-ascii?Q?e7oK5DqfvfUT7eE6WfAFTXhDG+T9q2QTNTGCMzHyxft2VqEr96PMSUg4nNgE?=
+ =?us-ascii?Q?SZCA7SJGFc+sSAc+A0zZTx/YudLP6Qgk+++FqX6ZYvDP56MW1kHaC/zK5tFC?=
+ =?us-ascii?Q?cVMu32rKyyFWUJVivaxPfg6t0X5keqF+GwEkzMy5yu0RPs+DU/L/75uZjMIo?=
+ =?us-ascii?Q?JhQFRfxwulCPVXYhCn/MqhSkWXXJzOqPfFvgVRZN3pewCVoqv0w1rEvUQ95U?=
+ =?us-ascii?Q?0TQh5QmZjogjm71IDcGPRr4hM+MUN1OBOPUhdLyEFVycNk9ypsOeOKPKVLyd?=
+ =?us-ascii?Q?SSTrebXwuF/1l84GVKq9vMe2PTc0XuovBrhBOESeAEddp0INot50zC9sEzCj?=
+ =?us-ascii?Q?obQr0QPnt0449AOzmtvS9wBluZVfI5w6hO2sGz8DHJy4N3QHDwXZ9Agt6b/X?=
+ =?us-ascii?Q?TZElwohCD9xDX4O7vS3EEhdJGTwc8WN7JnqIgvdjGnmBcx7XD30VYJgFIVm/?=
+ =?us-ascii?Q?ijOyPR9Afs4ernD1lKfWppXoCZCuHpV7GS50PWaOe46N3Ttl4suF+m2CimrP?=
+ =?us-ascii?Q?QmDzg6OqSdZ33wmqmUrYzamZ8oG4a3YJDg3E4Nwj2PAkS+uhH0NRzUJoUEFz?=
+ =?us-ascii?Q?2g=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d98479b3-ee5f-4bf8-8854-08dc10572c39
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB7374.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 14:36:17.3862 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nmg4PylvcU/QUIi5iyLKJzBupQYfQpFp7WY5mGM68Q5Vf7WwAHG+/ANYadGHEWDYxn/xKxjXLOeL0cvl+2t55Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7062
 Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ Pascal EBERHARD <pascal.eberhard@se.com>, netdev@vger.kernel.org,
  Linus Walleij <linus.walleij@linaro.org>,
  Sylvain Girard <sylvain.girard@se.com>,
  linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
@@ -48,7 +113,7 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: stmmac: Prevent DSA tags
- from breaking C
+	from breaking C
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,38 +130,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 8 Jan 2024, Vladimir Oltean wrote:
-
-...
-
-> Nitpick: you could render this in kernel-doc format.
-> https://docs.kernel.org/doc-guide/kernel-doc.html
+On Mon, Jan 08, 2024 at 03:23:38PM +0100, Romain Gantois wrote:
+> I see, the kernel docs were indeed enlightening on this point. As a side note, 
+> I've just benchmarked both the "with-inline" and "without-inline" versions. 
+> First of all, objdump seems to confirm that GCC does indeed follow this pragma 
+> in this particular case. Also, RX perfs are better with stmmac_has_ip_ethertype 
+> inlined, but TX perfs are actually consistently worse with this function 
+> inlined, which could very well be caused by cache effects.
 > 
-> > +static inline bool stmmac_has_ip_ethertype(struct sk_buff *skb)
-> 
-> Nitpick: in netdev it is preferred not to use the "inline" keyword at
-> all in C files, only "static inline" in headers, and to let the compiler
-> decide by itself when it is appropriate to inline the code (which it
-> does by itself even without the "inline" keyword). For a bit more
-> background why, you can view Documentation/process/4.Coding.rst, section
-> "Inline functions".
+> In any case, I think it is better to remove the "inline" pragma as you said. 
+> I'll do that in v4.
 
-I see, the kernel docs were indeed enlightening on this point. As a side note, 
-I've just benchmarked both the "with-inline" and "without-inline" versions. 
-First of all, objdump seems to confirm that GCC does indeed follow this pragma 
-in this particular case. Also, RX perfs are better with stmmac_has_ip_ethertype 
-inlined, but TX perfs are actually consistently worse with this function 
-inlined, which could very well be caused by cache effects.
+Are you doing any code instrumentation, or just measuring the results
+and deducing what might cause them?
 
-In any case, I think it is better to remove the "inline" pragma as you said. 
-I'll do that in v4.
+It might be worth looking at the perf events and seeing what function
+consumes the most amount of time.
 
-Best Regards,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+CPU_CORE=0
+perf record -e cycles -C $CPU_CORE sleep 10 && perf report
+perf record -e cache-misses -C $CPU_CORE sleep 10 && perf report
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
