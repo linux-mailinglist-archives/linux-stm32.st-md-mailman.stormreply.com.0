@@ -2,76 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAEF8278FD
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 21:16:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B098279D5
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 22:00:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7E54C6DD75;
-	Mon,  8 Jan 2024 20:16:31 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E218C6DD73;
+	Mon,  8 Jan 2024 21:00:45 +0000 (UTC)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
+ [209.85.217.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9ECCEC6DD73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D89AEC6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 20:16:30 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-50ec948ad31so356368e87.2
+ Mon,  8 Jan 2024 21:00:43 +0000 (UTC)
+Received: by mail-vs1-f47.google.com with SMTP id
+ ada2fe7eead31-467e4a04086so58002137.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Jan 2024 12:16:30 -0800 (PST)
+ Mon, 08 Jan 2024 13:00:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704744990; x=1705349790;
+ d=linaro.org; s=google; t=1704747642; x=1705352442;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tEGmlMiozwdCujUlwuswF2ibPRmO4ymakUkp4ma1zKM=;
- b=Qx91tLrIwvr0Kz66j+CdLkWLLe8Z/iUei/SHJ6AzGCnf1Ge4RFtx8eYPD2OiPgb53L
- 69s7CPn7Zp5704xPUv3P4k/SN97IYZmTxE1TjhF/Xscu5jQ2HS6mGj6ALy+u3BzcMh9T
- YwT878LZVnluoAObNMKROqr3hcNE69dnhKZ2A=
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jubS28CdqDpXEIN0KSIdOiEoCQYamsfax2OJPyFTjCs=;
+ b=zdy94o6ksNK/qv+0HYKrWBKJbNF8YM3lSNmql72xd8KFCVEUZdWKr/PFfl9vysgc4P
+ w4FPq2CRsBGpUeK4qZPHugae3jVZfLeQ62pWiwiloh96+01u6x6kVeArhQQZeqylNprd
+ l0eEdG/Wlbgs4+z2vbvaNOxx2qmxFf1sEdpxCDudkO/NQmFh4PGIQ2wDSLb/Qys6f9l+
+ DyPNSl9n8sCihAYs68SsaoH8tmJq4fcmRzxPsXjRS4S+9rr37ZlS0qaACJJ2ogmOilQI
+ vJKIDO3xr5oe7SwmaEV8NOoEZ/d4OdtW2T6k9/v2o/L1VBbYeLV/oauBvoWCFF/BCrUZ
+ S0vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704744990; x=1705349790;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tEGmlMiozwdCujUlwuswF2ibPRmO4ymakUkp4ma1zKM=;
- b=FOPrrwm05suKJN4fizZH7du7X5MSAHF3APB/2QbV13lWovPBCj7S6S43VE4VxZ1Tn0
- MFH/lVx8p2478I0js6pzcBFKKk/jCP8QRCzKxJRyjO/QxmwzP7rHKouJ2QDPGwF5teKL
- AKiVrA5tsy5xiqu10jzq4AARLpBrZmXgq6CYLbGCB9KGoCzrZmY2/3SmxwlmwHccZuJZ
- utZZXeVDIpa5ZdI56UNTUJGKXzLhs6Rguat/4OT+zMn1UNoLyxr4FZbPyGq/EObYDlH+
- JCaUJoFaPIuqds7bAt2cGMQCDj+NACpII8Wa5lDzIZaGsORLE2/iNDiMSy+qfgFeIU2x
- siFg==
-X-Gm-Message-State: AOJu0YwKM06m4Jp06WFFmr2B5zs9olWqCr90dlKonr7l4tD0ceHU17Ae
- wcPq7iTQCdpY/CAt9BQV3rBaTivRckNGpA==
-X-Google-Smtp-Source: AGHT+IGUAZ/MQUcd94fksdYS1966HkP13g0jTc0aXi84yDipWsw07G7eealpviiBZga8chmfm/iZDA==
-X-Received: by 2002:ac2:5627:0:b0:50e:3c2a:fd5e with SMTP id
- b7-20020ac25627000000b0050e3c2afd5emr1595830lff.134.1704744989954; 
- Mon, 08 Jan 2024 12:16:29 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-87-2-38-81.retail.telecomitalia.it. [87.2.38.81])
- by smtp.gmail.com with ESMTPSA id
- by26-20020a0564021b1a00b00555fd008741sm173699edb.95.2024.01.08.12.16.28
+ d=1e100.net; s=20230601; t=1704747642; x=1705352442;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jubS28CdqDpXEIN0KSIdOiEoCQYamsfax2OJPyFTjCs=;
+ b=mExAIGJj8m686eqPc/6rcxeucIHWdrg11OBSKS1o/L1ReEWcE97rB1vPNN6eE9KUVU
+ BJ+TLD+zSnnyFJfb1KI+jTpGHqc/DR+NhJzi0oeVaGFZJBq9RJlnCGGXgpEdAAuWVPn3
+ Ux+bzbOwz3aFYRvKfwDprFGvJZfyzYrb9N7zFT4eNFZZy9SFTp2fTCEh4RC5hjpT5qvH
+ 9iJbe3nsyv4AEcu1dlAA7BUoz79UQo6EV8MY9p8glrPit5bpzdfA69adJYxJ8faEat34
+ bVBCrssYMQjYKIs9/Zu84RUOsQWJy3QzxCwyy61sAN5gkIF/wgfviw6tg12rvi50vJuy
+ CVwQ==
+X-Gm-Message-State: AOJu0Yw3LlJWo7VEj5LYM19+kN8mQJ7vG6RkkWRq/5QGOe3eeQKRPhTR
+ a3SBNNCNRVXgnN63kByzJtsNIgEE5SR0nA==
+X-Google-Smtp-Source: AGHT+IH40dToo2nxI7FwTwedlD2daT9m4ugP9EnbpbNyHmOKPfxnIIPTzx8QU3W0REgYujqbeqGoMw==
+X-Received: by 2002:a05:6102:c89:b0:467:dfed:7c59 with SMTP id
+ f9-20020a0561020c8900b00467dfed7c59mr805426vst.34.1704747642195; 
+ Mon, 08 Jan 2024 13:00:42 -0800 (PST)
+Received: from ubuntu-server-vm-macos (072-189-067-006.res.spectrum.com.
+ [72.189.67.6]) by smtp.gmail.com with ESMTPSA id
+ j12-20020a0561023e0c00b0046705f8336esm83178vsv.21.2024.01.08.13.00.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jan 2024 12:16:29 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon,  8 Jan 2024 21:15:51 +0100
-Message-ID: <20240108201618.2798649-7-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240108201618.2798649-1-dario.binacchi@amarulasolutions.com>
-References: <20240108201618.2798649-1-dario.binacchi@amarulasolutions.com>
+ Mon, 08 Jan 2024 13:00:41 -0800 (PST)
+Date: Mon, 8 Jan 2024 21:00:37 +0000
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ZZxidRueG8H/O7pw@ubuntu-server-vm-macos>
+References: <20231220145726.640627-1-fabrice.gasnier@foss.st.com>
+ <20231220145726.640627-10-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andre Przywara <andre.przywara@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sean Nyekjaer <sean@geanix.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, Peter Rosin <peda@axentia.se>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 6/8] ARM: dts: add
-	stm32f769-disco-mb1225-revb03-mb1166-reva09
+In-Reply-To: <20231220145726.640627-10-fabrice.gasnier@foss.st.com>
+Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 09/10] counter: stm32-timer-cnt: add
+ support for overflow events
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,77 +77,249 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5350976591978742417=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As reported in the section 8.3 (i. e. Board revision history) of document
-UM2033 (i. e. Discovery kit with STM32F769NI MCU) these are the changes
-related to the board revisions addressed by the patch:
-- Board MB1225 revision B-03:
-  - Memory MICRON MT48LC4M32B2B5-6A replaced by ISSI IS42S32400F-6BL
-- Board MB1166 revision A-09:
-  - LCD FRIDA FRD397B25009-D-CTK replaced by FRIDA FRD400B25025-A-CTK
 
-The patch only adds the DTS support for the new display which belongs to
-to the Novatek NT35510-based panel family.
+--===============5350976591978742417==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="y2Szsr92fW5ygJV2"
+Content-Disposition: inline
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
----
+--y2Szsr92fW5ygJV2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-(no changes since v2)
+On Wed, Dec 20, 2023 at 03:57:25PM +0100, Fabrice Gasnier wrote:
+> Add support overflow events. Also add the related validation and
+> configuration routine. Register and enable interrupts to push events.
+> STM32 Timers can have either 1 global interrupt, or 4 dedicated interrupt
+> lines. Request only the necessary interrupt, e.g. either global interrupt
+> that can report all event types, or update interrupt only for overflow
+> event.
+>=20
+> Acked-by: Lee Jones <lee@kernel.org>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Changes in v2:
-- Change the status of panel_backlight node to "disabled"
-- Delete backlight property from panel0 node.
+Hi Fabrice,
 
- arch/arm/boot/dts/st/Makefile                  |  1 +
- ...2f769-disco-mb1225-revb03-mb1166-reva09.dts | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
+I've CC'd Will and Peter in case they can provide some suggestions
+regarding my atomic_t comment inline below.
 
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index 7892ad69b441..390dbd300a57 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32f469-disco.dtb \
- 	stm32f746-disco.dtb \
- 	stm32f769-disco.dtb \
-+	stm32f769-disco-mb1225-revb03-mb1166-reva09.dts \
- 	stm32429i-eval.dtb \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-new file mode 100644
-index 000000000000..014cac192375
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
-+
-+#include "stm32f769-disco.dts"
-+
-+&panel_backlight {
-+	status = "disabled";
-+};
-+
-+&panel0 {
-+	compatible = "frida,frd400b25025", "novatek,nt35510";
-+	vddi-supply = <&vcc_3v3>;
-+	vdd-supply = <&vcc_3v3>;
-+	/delete-property/backlight;
-+	/delete-property/power-supply;
-+};
--- 
-2.43.0
+> @@ -44,6 +45,9 @@ struct stm32_timer_cnt {
+>  	bool has_encoder;
+>  	u32 idx;
+>  	unsigned int nchannels;
+> +	unsigned int nr_irqs;
+> +	u32 *irq;
+
+Looks like we only need this 'irq' array for registering the ISR in
+stm32_timer_cnt_probe(). Since we won't need it anymore after that,
+let's use ddata->irq directly instead of defining priv->irq.
+
+> +	atomic_t nb_ovf;
+>  };
+> =20
+>  static const enum counter_function stm32_count_functions[] =3D {
+> @@ -259,6 +263,29 @@ static int stm32_count_prescaler_write(struct counte=
+r_device *counter,
+>  	return regmap_write(priv->regmap, TIM_PSC, psc);
+>  }
+> =20
+> +static int stm32_count_nb_ovf_read(struct counter_device *counter,
+> +				   struct counter_count *count, u64 *val)
+> +{
+> +	struct stm32_timer_cnt *const priv =3D counter_priv(counter);
+> +
+> +	*val =3D atomic_read(&priv->nb_ovf);
+> +
+> +	return 0;
+> +}
+> +
+> +static int stm32_count_nb_ovf_write(struct counter_device *counter,
+> +				    struct counter_count *count, u64 val)
+> +{
+> +	struct stm32_timer_cnt *const priv =3D counter_priv(counter);
+> +
+> +	if (val !=3D (typeof(priv->nb_ovf.counter))val)
+> +		return -ERANGE;
+> +
+> +	atomic_set(&priv->nb_ovf, val);
+
+So you want to check that the atomic_t 'nb_ovf' is able hold the value
+provided by the u64 'val'. My understanding is that atomic_t should be
+treated as an opaque type, so I don't think we should be accessing the
+'counter' member directly for this test (interrupt-cnt does this but I
+believe it's wrong to do so).
+
+I don't know if we have any existing way to check for the value range of
+an atomic_t (I don't see anything under include/linux/limits.h
+specifically for it). However, you do use atomic_set() which takes an
+int parameter, so perhaps we should compare against INT_MAX instead.
+
+> +static int stm32_count_events_configure(struct counter_device *counter)
+> +{
+> +	struct stm32_timer_cnt *const priv =3D counter_priv(counter);
+> +	struct counter_event_node *event_node;
+> +	u32 val, dier =3D 0;
+> +
+> +	list_for_each_entry(event_node, &counter->events_list, l) {
+> +		switch (event_node->event) {
+> +		case COUNTER_EVENT_OVERFLOW_UNDERFLOW:
+> +			/* first clear possibly latched UIF before enabling */
+> +			regmap_read(priv->regmap, TIM_DIER, &val);
+> +			if (!(val & TIM_DIER_UIE))
+
+You can eliminate 'val' and the regmap_read() line like this:
+
+    if (!regmap_test_bits(priv->regmap, TIM_DIER, TIM_DIER_UIE))
+
+> +				regmap_write(priv->regmap, TIM_SR, (u32)~TIM_SR_UIF);
+> +			dier |=3D TIM_DIER_UIE;
+> +			break;
+> +		default:
+> +			/* should never reach this path */
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	regmap_write(priv->regmap, TIM_DIER, dier);
+
+Do you want to overwrite TIM_DIER completely, or did you mean to set
+only TIM_DIER_UIE and preserve the rest of the register? If the latter,
+you could redefine 'dier' as a bool and do:
+
+    regmap_update_bits(priv->regmap, TIM_DIER, TIM_DIER_UIE, dier);
+
+There is also a regmap_update_bits_check() available if you want to
+combine the UIF latch check with the update; but I don't know if that
+will work in this case because it looks like you want to clear the UIF
+latch before enabling.
+
+>  static int stm32_count_clk_get_freq(struct counter_device *counter,
+> @@ -418,6 +491,35 @@ static struct counter_count stm32_counts =3D {
+>  	.num_ext =3D ARRAY_SIZE(stm32_count_ext)
+>  };
+> =20
+> +static irqreturn_t stm32_timer_cnt_isr(int irq, void *ptr)
+> +{
+> +	struct counter_device *counter =3D ptr;
+> +	struct stm32_timer_cnt *const priv =3D counter_priv(counter);
+> +	u32 clr =3D GENMASK(31, 0); /* SR flags can be cleared by writing 0 (wr=
+ 1 has no effect) */
+> +	u32 sr, dier;
+> +
+> +	regmap_read(priv->regmap, TIM_SR, &sr);
+> +	regmap_read(priv->regmap, TIM_DIER, &dier);
+> +	/*
+> +	 * Some status bits in SR don't match with the enable bits in DIER. Onl=
+y take care of
+> +	 * the possibly enabled bits in DIER (that matches in between SR and DI=
+ER).
+> +	 */
+> +	dier &=3D TIM_DIER_UIE;
+> +	sr &=3D dier;
+> +
+> +	if (sr & TIM_SR_UIF) {
+
+Am I understanding this logic correctly? ANDing TIM_DIER_UIE with 'dier'
+will result in just the state of the TIM_DIER_UIE bit. Next, we AND that
+state with 'sr'; so sr is 0 when TIM_DIER_UIE state is low, but we get
+the respective SR bit when TIM_DIER_UIE state is high. Finally, we check
+the TIM_SR_UIF bit state in 'sr'.
+
+If TIM_SR_UIF bit position is expected to match the TIM_DIER_UIE bit
+position, then (sr & TIM_SR_UIF) will only be true when the state of
+both the TIM_DIER_UIE bit and TIM_SR_UIF bit are high. That means you
+can eliminate 'sr', 'dier', and the two regmap_read() operations with
+this instead:
+
+    if (regmap_test_bits(priv->regmap, TIM_SR, TIM_SR_UIF) &&
+        regmap_test_bits(priv->regmap, TIM_DIER, TIM_DIER_UIE) {
+
+> +		atomic_inc(&priv->nb_ovf);
+
+I wonder what happens when atomic_inc() increments past the atomic_t max
+value. Does atomic_read() report back a negative value? Do we need to
+guard against that scenario somehow?
+
+> +		counter_push_event(counter, COUNTER_EVENT_OVERFLOW_UNDERFLOW, 0);
+> +		dev_dbg(counter->parent, "COUNTER_EVENT_OVERFLOW_UNDERFLOW\n");
+> +		/* SR flags can be cleared by writing 0, only clear relevant flag */
+> +		clr &=3D ~TIM_SR_UIF;
+
+You can use u32p_replace_bits(&clr, 0, TIM_SR_UIF) instead after
+including the include/linux/bitfield.h header.
+
+> @@ -511,6 +615,32 @@ static int stm32_timer_cnt_probe(struct platform_dev=
+ice *pdev)
+> =20
+>  	platform_set_drvdata(pdev, priv);
+> =20
+> +	/* STM32 Timers can have either 1 global, or 4 dedicated interrupts (op=
+tional) */
+> +	if (priv->nr_irqs =3D=3D 1) {
+> +		/* All events reported through the global interrupt */
+> +		ret =3D devm_request_irq(&pdev->dev, priv->irq[0], stm32_timer_cnt_isr,
+> +				       0, dev_name(dev), counter);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to request irq %d (err %d)\n",
+> +				priv->irq[i], ret);
+
+This should be irq[0], right?
+
+I would also recommend using ddata->irq instead so we can get rid of
+priv->irq outside of this probe function.
+
+> +			return ret;
+> +		}
+> +	} else {
+> +		for (i =3D 0; i < priv->nr_irqs; i++) {
+> +			/* Only take care of update IRQ for overflow events */
+> +			if (i !=3D STM32_TIMERS_IRQ_UP)
+> +				continue;
+> +
+> +			ret =3D devm_request_irq(&pdev->dev, priv->irq[i], stm32_timer_cnt_is=
+r,
+> +					       0, dev_name(dev), counter);
+> +			if (ret) {
+> +				dev_err(dev, "Failed to request irq %d (err %d)\n",
+> +					priv->irq[i], ret);
+> +				return ret;
+> +			}
+> +		}
+
+So we only execute the loop body once for this particular
+STM32_TIMERS_IRQ_UP iteration? Why have the loop at all rather than
+hardcode irq[STM32_TIMERS_IRQ_UP] for devm_request_irq()?
+
+William Breathitt Gray
+
+--y2Szsr92fW5ygJV2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZZxidQAKCRC1SFbKvhIj
+K9DfAP9PSngix81Cc5vJimGdV8ajgN0Cw9FphpH3wV59yvvt7gEA2YNr5+TM93PH
+jaNQaey6hNnMEHxefK6M/LZqFLNAzw0=
+=oNUg
+-----END PGP SIGNATURE-----
+
+--y2Szsr92fW5ygJV2--
+
+--===============5350976591978742417==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5350976591978742417==--
