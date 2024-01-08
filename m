@@ -2,67 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17AA182726C
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 16:12:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A770C82753F
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Jan 2024 17:33:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8AA1C6DD63;
-	Mon,  8 Jan 2024 15:12:45 +0000 (UTC)
-Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51B49C6DD66;
+	Mon,  8 Jan 2024 16:33:32 +0000 (UTC)
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
+ [209.85.222.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06772C6DD62
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1F07C6DD62
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jan 2024 15:12:43 +0000 (UTC)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id 63D5F1ABA94;
- Mon,  8 Jan 2024 16:12:42 +0100 (CET)
-Authentication-Results: mail.tesarici.cz;
- dmarc=fail (p=none dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
- t=1704726762; bh=T5GyI4pZHaFZHAhkulFmwZFJg3xQW0QBAO0wRAeQ28g=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=USfx4zi6oqdMofzUxQ/Inw8yxy1wDFQs3waZUpBETRNn00EV71suAAfAm+naH9mzf
- reYcMTEEkgelI63XHhQjAcvWcS0HAdPLCkDYU/VxO8NOl8mAIsm3j0EJwyuLMvMMGP
- VdBPlvTg1bKzLWrooPTmJdYqWbp8+4eBLJZoBS5b5W1eRU8mUoiVlGSoERdNxgDM8y
- 1HLUT2ew2czqCHuuCT1RlsgZLrZ2llTutn7C8YJ5HI3lb8+8G1nqES7JLJImHhO8vY
- zynaYWbheQSQafSRMBJCpwbagkzWIydg+ZahmvqqCB2r9EZl+jUJv9eUL+ReMulBYX
- GB6+1prgC/2+Q==
-Date: Mon, 8 Jan 2024 16:12:41 +0100
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <20240108161241.625df103@meshulam.tesarici.cz>
-In-Reply-To: <32c4095e-ec33-4059-a8d3-f85e18363c77@lunn.ch>
-References: <CANn89iLuYZBersxq4aH-9Fg_ojD0fh=0xtdLbRdbMrup=nvrkA@mail.gmail.com>
- <20240105113402.0f5f1232@meshulam.tesarici.cz>
- <CANn89iLEvW9ZS=+WPETPC=mKRyu9AKmueGCWZZOrz9oX3Xef=g@mail.gmail.com>
- <20240105121447.11ae80d1@meshulam.tesarici.cz>
- <20240105142732.1903bc70@meshulam.tesarici.cz>
- <CANn89iLHLvGFX_JEYU-en0ZoCUpTvjXPBzFECxLFfa_Jhpcjmg@mail.gmail.com>
- <CANn89iKWSemsKmfsLjupwWBnyeKjtHH+mZjTzYiJT4G=xyUrNQ@mail.gmail.com>
- <20240105154558.2ca38aca@meshulam.tesarici.cz>
- <a8bb0eb0-8398-4e7e-8dc5-6ebf2f981ca8@lunn.ch>
- <d05ca29283eb47df9c58838cb87a887c@AcuMS.aculab.com>
- <32c4095e-ec33-4059-a8d3-f85e18363c77@lunn.ch>
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.39; x86_64-suse-linux-gnu)
+ Mon,  8 Jan 2024 16:33:30 +0000 (UTC)
+Received: by mail-ua1-f49.google.com with SMTP id
+ a1e0cc1a2514c-7cd42bc0f1dso527854241.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 08 Jan 2024 08:33:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1704731610; x=1705336410;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=g+fG5v+imY2py3wbXbsm/HP6trxiLASLFZtD6HV2z7k=;
+ b=mcf/nDnjqDvFl8q/0xQbQrYPEDKdx+Y8cM9Rs5LZ1ZTJJlj5iBZyw7izRjr/irI7r/
+ N2BVoLJb+0AF9Uy4AiCEGv+GBUOlHy4AYUyAkeTqmrICjNxDcPxNS87BlxPblx47A50t
+ L2oGaHDZ3xS0hQeIQtTerwkFTichC+VxKsU45TgQAI0zhAJ4993dgt4CJmV0tr4AZUH5
+ isLNoq2XHNPeBg/8DppWRFivuDNc8QHxqTHhaWSivJUuJopYwrEm1wt+hcxREdlwrQBx
+ srpXKitLrSrWM56EpazfhwDMNoqJCnyHz+clqNR6SJHpZ32zDo3Sj6bZ8BIz+CSFNw3p
+ 2prg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704731610; x=1705336410;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g+fG5v+imY2py3wbXbsm/HP6trxiLASLFZtD6HV2z7k=;
+ b=qfy3NWOK6q21bLUVwcCQtwaVsYTk8jv6xL0vSpaRl5ww8xWr0z09G0rr6Ok1BVCv8E
+ 1xMdmzMYwcXXgMpBM7kW/4kOomNOc3nmLIrjDxCi9ypKXv9HY/lLReC8hcHba29tG0tm
+ ybC2mj0mFMThRQ/AvQfl3+fd9iAGU2xtUivPHwZd1wtodC1zfSwk4yj1p281hLkm/IUk
+ 1KQHTTxAQ0dC69D/tqbsVFhiWaV1o3L16rQsRLOJtc7h1JhQu6giDUNSQSUHkVHRFL8r
+ sOx2WDt24nxRcZsazDFyDDsGghf8nufM9gzCl5aYvS7zvi47+oXOEtB3K2WV3rZqPY6B
+ L8QQ==
+X-Gm-Message-State: AOJu0Yz6zprIgv2e3+Gm8Otd95twipBItGSprfpWmITMGY/C0WkC+Dq1
+ fy5S7HrpaQX2yi21H4zuVucKIKVPqfdNVg==
+X-Google-Smtp-Source: AGHT+IGptaavLwH1Dc9wotHLaERV7rmIKx8zwsAeWYcGLjGx5ZQLyvTyr/sBJpR5Y1q/a1+GCbCBqA==
+X-Received: by 2002:a05:6122:2220:b0:4b7:1d58:49b8 with SMTP id
+ bb32-20020a056122222000b004b71d5849b8mr1466875vkb.25.1704731609807; 
+ Mon, 08 Jan 2024 08:33:29 -0800 (PST)
+Received: from ubuntu-server-vm-macos (072-189-067-006.res.spectrum.com.
+ [72.189.67.6]) by smtp.gmail.com with ESMTPSA id
+ eq15-20020a056122398f00b004b7483f6a18sm24661vkb.6.2024.01.08.08.33.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Jan 2024 08:33:29 -0800 (PST)
+Date: Mon, 8 Jan 2024 16:33:27 +0000
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Message-ID: <ZZwj10BnNjMUifPE@ubuntu-server-vm-macos>
+References: <20231220145726.640627-1-fabrice.gasnier@foss.st.com>
+ <20231220145726.640627-2-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-Cc: Jiri Pirko <jiri@resnulli.us>, Paolo Abeni <pabeni@redhat.com>,
- open list <linux-kernel@vger.kernel.org>, Samuel Holland <samuel@sholland.org>,
- "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>, "moderated
- list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- David Laight <David.Laight@aculab.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "David S. Miller" <davem@davemloft.net>,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: protect statistics updates
-	with a spinlock
+In-Reply-To: <20231220145726.640627-2-fabrice.gasnier@foss.st.com>
+Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 01/10] counter: stm32-timer-cnt: rename
+ quadrature signal
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,56 +76,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1592865318596583458=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 8 Jan 2024 14:41:10 +0100
-Andrew Lunn <andrew@lunn.ch> wrote:
 
-> > > You might want to consider per CPU statistics. Since each CPU has its
-> > > own structure of statistics, you don't need atomic.
-> > > 
-> > > The code actually using the statistics then needs to sum up the per
-> > > CPU statistics, and using syncp should be sufficient for that.  
-> > 
-> > Doesn't that consume rather a lot of memory on systems with
-> > 'silly numbers' of cpu?  
-> 
-> Systems with silly number of CPUS tend to also have silly amounts of
-> memory. We are talking about maybe a dozen u64 here. So the memory
-> usage goes from 144 bytes, to 144K for a 1024CPU system.  Is 144K
-> excessive for such a system?
+--===============1592865318596583458==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="rdmwjTK3ghE0dbDW"
+Content-Disposition: inline
 
-I'm not even sure it's worth converting _all_ statistic counters to
-per-CPU variables. Most of them are already guarded by a lock (either
-the queue lock, or NAPI scheduling). Only the hard interrupt counter is
-not protected by anything, so it's more like 8k on a 1024-CPU system....
 
-> > Updating an atomic_t is (pretty much) the same as taking a lock.
-> > unlock() is also likely to also contain an atomic operation.
-> > So if you update more than two atomic_t it is likely that a lock
-> > will be faster.  
-> 
-> True, but all those 1024 CPUs in your silly system get affected by a
-> lock or an atomic. They all need to do something with there L1 and L2
-> cache when using atomics. Spending an extra 144K of RAM means the
-> other 1023 CPUs don't notice anything at all during the increment
-> phase, which could be happening 1M times a second. They only get
-> involved when something in user space wants the statistics, so maybe
-> once per second from the SNMP agent.
-> 
-> Also, stmmac is not used on silly CPU systems. It used in embedded
-> systems. I doubt its integrated into anything with more than 8 CPUs.
+--rdmwjTK3ghE0dbDW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I also doubt it as of today, but hey, it seems that more CPU cores is
-the future of embedded. Ten years ago, who would have imagined putting
-an 8-core CPU into a smartphone? OTOH who would have imagined a
-smartphone with 24G of RAM...
+On Wed, Dec 20, 2023 at 03:57:17PM +0100, Fabrice Gasnier wrote:
+> Drop the Quadrature convention in the signal name. On stm32-timer:
+> - Quadrature A signal corresponds to timer input ch1, hence "Channel 1"
+> - Quadrature B signal corresponds to timer input ch2, hence "Channel 2".
+> So name these signals after their channel. I suspect it referred to the
+> (unique) quadrature counter support earlier, but the physical input
+> really is CH1/CH2. This will be easier to support other counter modes.
+>=20
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Petr T
+Reviewed-by: William Breathitt Gray <william.gray@linaro.org>
+
+--rdmwjTK3ghE0dbDW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZZwj1wAKCRC1SFbKvhIj
+K9TLAP4lcFVt469l32BkPkqH/MtsvPu9cYickkeI10y/yKNoIwD/ZBIK1C6koq4C
+SsQkop/uhdo6JxdLbMJnkDRzlwxqyAA=
+=TSm1
+-----END PGP SIGNATURE-----
+
+--rdmwjTK3ghE0dbDW--
+
+--===============1592865318596583458==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1592865318596583458==--
