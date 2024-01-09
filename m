@@ -2,38 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 635AB828A66
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 17:49:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F238E828E68
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 21:15:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11581C6DD74;
-	Tue,  9 Jan 2024 16:49:02 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61960C6A5EA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D3D4C6DD73;
+	Tue,  9 Jan 2024 20:15:10 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08249C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jan 2024 16:49:00 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF633DA7;
- Tue,  9 Jan 2024 08:49:44 -0800 (PST)
-Received: from [192.168.1.100] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 394023F5A1;
- Tue,  9 Jan 2024 08:48:58 -0800 (PST)
-Message-ID: <ebdc7d87-c0c4-9ee3-83a9-6c93e6fcea78@arm.com>
-Date: Tue, 9 Jan 2024 16:48:57 +0000
+ Tue,  9 Jan 2024 20:15:09 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-33770772136so1334266f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Jan 2024 12:15:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704831309; x=1705436109;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M+B0yD7FjBgqTqLo7b2/IVuy2rnma81MvruhVPGvifo=;
+ b=YVrYro7QMRv6muosfHU5i+Ub7ktii7m3/EuVfcNNdt9oN15jYtML58lDgjmOzItNzF
+ qgbjSdgIXg3lizTuo/j51iHrAJZWwaaaGtlcW7iKwCH8slqliKMdd/GbEV2ZfywmXAEI
+ wvS1JjLRTbA3PiXr0uJIPJmWgRNBmFaiSk8Ws7GoldKYndKaj31uIxG6/+dVR4LRJ1x0
+ 0XXs8WyB3O7o+H1wWCyk45CQYg/FsR++JqNj6q9voMkpKpbneslQ1XLQIXOHE6LIhwd7
+ pvZF4wYP4BFItjTv+kP1DafVLCPL7QEOiqwXKE8TbiXmWFv4YaX03MlRlWkBuXInLu1K
+ HsxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704831309; x=1705436109;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=M+B0yD7FjBgqTqLo7b2/IVuy2rnma81MvruhVPGvifo=;
+ b=YLkDHUCbjvzKK/CklPPsu5CaVKFrxPH2PngKe4Pe6Yx3EfYVSoPxPWc9PVKnBx5AAR
+ 9x9WidwqbuybxNbZ+VCHQPzSoDgwLHsAxa4sfmJgSV6PuKkyfwfbIG3T5akw8dyCzzy4
+ f/3ziKYVVXx5AfSYMb1JE5jNkX2Io4YpQ4CvllEJxT3IeEmlEk636HNVtuzG+0+HsT+e
+ 57S4lEfCnvaxolo/YTkpaXgYwaM0BgqM9mzI+dE5SDd2jjztS4s7XXPlKxYt4oeZXrCS
+ 0wKfvlkQwrVVRx7ulJJDDTE1niafQpTASGLciM1K4Yum3+o3UvwUZrV6ZfpfgtEy1SOR
+ RhTg==
+X-Gm-Message-State: AOJu0Yxg8IPbly4IPkON4T9cAdWdQoMo0qPT3wmZ2C6UG3F/9812KKB6
+ MQ1LbT8TUbku2vFvn+afkH0=
+X-Google-Smtp-Source: AGHT+IHCUv6AIBjSaTr/8HPaqeDyMqGvcLyT6MaYhYhF7PYV0/3Jv2044yKOg30ZXyxDXKOcj8h8FQ==
+X-Received: by 2002:a5d:5406:0:b0:336:5b14:525f with SMTP id
+ g6-20020a5d5406000000b003365b14525fmr1021417wrv.132.1704831309212; 
+ Tue, 09 Jan 2024 12:15:09 -0800 (PST)
+Received: from jernej-laptop.localnet (213-161-3-116.dynamic.telemach.net.
+ [213.161.3.116]) by smtp.gmail.com with ESMTPSA id
+ cg4-20020a5d5cc4000000b003377c5b8a43sm45539wrb.93.2024.01.09.12.15.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jan 2024 12:15:08 -0800 (PST)
+From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: fuyao <fuyao@sjterm.com>, Jakub Kicinski <kuba@kernel.org>
+Date: Tue, 09 Jan 2024 21:15:07 +0100
+Message-ID: <22143664.EfDdHjke4D@jernej-laptop>
+In-Reply-To: <20240102075807.1a4cac92@kernel.org>
+References: <ZYKvCQBD-SY9uVLF@debian.cyg> <ZYPmZj8l01eQsDS5@debian.cyg>
+ <20240102075807.1a4cac92@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org
-References: <20231212155407.1429121-1-james.clark@arm.com>
- <20231212155407.1429121-9-james.clark@arm.com>
- <01c15dbe-57d3-4aa1-9d68-81a01ec2a3a7@arm.com>
-From: James Clark <james.clark@arm.com>
-In-Reply-To: <01c15dbe-57d3-4aa1-9d68-81a01ec2a3a7@arm.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 8/8] coresight: Remove unused stubs
+Cc: linux-kernel@vger.kernel.org,
+ =?utf-8?B?6bqm5YGl5bu6?= <maijianzhang@allwinnertech.com>,
+ Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Chen-Yu Tsai <wens@csie.org>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] gmac: sun8i: r40: add gmac tx_delay
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -45,98 +83,40 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAwOS8wMS8yMDI0IDEwOjM4LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IEhpIEphbWVz
-Cj4gCj4gT24gMTIvMTIvMjAyMyAxNTo1NCwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+IFRoZXNlIGFy
-ZSBhIGJpdCBhbm5veWluZyB0byBrZWVwIHVwIHRvIGRhdGUgd2hlbiB0aGUgZnVuY3Rpb24gc2ln
-bmF0dXJlcwo+PiBjaGFuZ2UuIEJ1dCBpZiBDT05GSUdfQ09SRVNJR0hUIGlzbid0IGVuYWJsZWQs
-IHRoZW4gdGhleSdyZSBub3QgdXNlZAo+PiBhbnl3YXkgc28ganVzdCBkZWxldGUgdGhlbS4KPj4K
-PiAKPiBIYXZlIHlvdSB0cmllZCBidWlsZGluZyBhbiBhcm0zMiBrZXJuZWwgd2l0aCB0aGlzIGNo
-YW5nZSBpbiA/IExvb2tzIGxpa2UKPiBhcmNoL2FybS9rZXJuZWwvaHdfYnJlYWtwb2ludC5jIGlu
-Y2x1ZGVzIGxpbnV4L2NvcmVzaWdodC5oIGFuZCBhIGJ1aWxkCj4gd2l0aCBDT05GSUdfQ09SU0lH
-SFQ9biBtaWdodCBicmVhayB0aGUgYnVpbGQgPyBTbyBpcwoKYXJtMzIgYW5kIENPTkZJR19DT1JF
-U0lHSFQ9biB3b3JrcyBiZWNhdXNlIGh3X2JyZWFrcG9pbnQuYyBkb2Vzbid0IHVzZQphbnkgb2Yg
-dGhvc2Ugc3ltYm9scywgb25seSAjZGVmaW5lcyB0aGF0IHdlcmUgb3V0c2lkZSB0aGUgI2lmCklT
-X0VOQUJMRUQoQ09ORklHX0NPUkVTSUdIVCksIHNwZWNpZmljYWxseSBDT1JFU0lHSFRfVU5MT0NL
-LgoKPiBkcml2ZXJzL2FjY2VsL2hhYmFuYWxhYnMvY29tbW9uL2hhYmFuYWxhYnMuaC4gTm93LCBJ
-IGFtIG5vdCBzdXJlIGlmIHRoZXkKCmhhYmFuYWxhYnMgaXMgaW50ZXJlc3RpbmcsIGl0IGRlcGVu
-ZHMgb24gWDg2XzY0LCBidXQgQ09ORklHX0NPUkVTSUdIVApkZXBlbmRzIG9uIEFSTSB8fCBBUk02
-NCwgc28gSSB0aGluayB3ZSBjYW4gYXNzdW1lIGl0J3MgYWxzbyBvbmx5IGxvb2tpbmcKZm9yICNk
-ZWZpbmVzIGFuZCBpbmxpbmVzLCBhbmQgbm90IGFjdHVhbCBjb2RlLgoKRWl0aGVyIHdheSBJIGNh
-bid0IGZpbmQgYW55IGJ1aWxkIGNvbmZpZyB0aGF0IGFjdHVhbGx5IGV2ZXIgYnVpbHQgdGhpcywK
-bWVhbmluZyBpdCdzIGFsd2F5cyBiZWVuIGRlYWQgY29kZS4gSSB3b3VsZCBoYXZlIGV4cGVjdGVk
-IHNvbWUgYnVpbGQKcm9ib3QgdG8gaGF2ZSBmbGFnZ2VkIGFuIGVycm9yIGJ5IG5vdyBhcyBJJ3Zl
-IHNlZW4gdGhhdCBvbiBvdGhlcgpjb3Jlc2lnaHQgcGF0Y2hlcy4KCj4gcmVhbGx5IG5lZWQgaXQg
-KGV2ZW4gaWYgdGhleSBkbywgd2UgbWF5IGJlIGFibGUgdG8gcmVtb3ZlIHRoZSBkZXBlbmRlbmN5
-Cj4gb24gdGhlIGhlYWRlciBmaWxlLgo+IAoKVGhleSBkbyByZWFsbHkgbmVlZCBpdCwgYWxzbyBm
-b3IgdGhlIENPUkVTSUdIVF9VTkxPQ0sgZGVmaW5pdGlvbiwgYnV0Cm5vdCBhbnkgZnVuY3Rpb25z
-LgoKPiBTdXp1a2kKPiAKPj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgQ2xhcmsgPGphbWVzLmNsYXJr
-QGFybS5jb20+Cj4+IC0tLQo+PiDCoCBpbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oIHwgNzkgLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2Vk
-LCA3OSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvY29yZXNp
-Z2h0LmggYi9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oCj4+IGluZGV4IDQ0MDBkNTU0YTE2Yi4u
-YzViZTQ2ZDdmODVjIDEwMDY0NAo+PiAtLS0gYS9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oCj4+
-ICsrKyBiL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gQEAgLTM5MSw4ICszOTEsNiBAQCBz
-dHJ1Y3QgY29yZXNpZ2h0X29wcyB7Cj4+IMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IGNvcmVzaWdo
-dF9vcHNfaGVscGVyICpoZWxwZXJfb3BzOwo+PiDCoCB9Owo+PiDCoCAtI2lmIElTX0VOQUJMRUQo
-Q09ORklHX0NPUkVTSUdIVCkKPj4gLQo+PiDCoCBzdGF0aWMgaW5saW5lIHUzMiBjc2Rldl9hY2Nl
-c3NfcmVsYXhlZF9yZWFkMzIoc3RydWN0IGNzZGV2X2FjY2VzcyAqY3NhLAo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdTMyIG9mZnNldCkK
-Pj4gwqAgewo+PiBAQCAtNjExLDgzICs2MDksNiBAQCB2b2lkIGNvcmVzaWdodF9yZWxheGVkX3dy
-aXRlNjQoc3RydWN0Cj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHU2NCB2YWwsIHUzMiBvZmZzZXQpOwo+PiDCoCB2
-b2lkIGNvcmVzaWdodF93cml0ZTY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwgdTY0
-IHZhbCwgdTMyCj4+IG9mZnNldCk7Cj4+IMKgIC0jZWxzZQo+PiAtc3RhdGljIGlubGluZSBzdHJ1
-Y3QgY29yZXNpZ2h0X2RldmljZSAqCj4+IC1jb3Jlc2lnaHRfcmVnaXN0ZXIoc3RydWN0IGNvcmVz
-aWdodF9kZXNjICpkZXNjKSB7IHJldHVybiBOVUxMOyB9Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQg
-Y29yZXNpZ2h0X3VucmVnaXN0ZXIoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UKPj4gKmNzZGV2KSB7
-fQo+PiAtc3RhdGljIGlubGluZSBpbnQKPj4gLWNvcmVzaWdodF9lbmFibGVfc3lzZnMoc3RydWN0
-IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2KSB7IHJldHVybgo+PiAtRU5PU1lTOyB9Cj4+IC1zdGF0
-aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X2Rpc2FibGVfc3lzZnMoc3RydWN0IGNvcmVzaWdodF9k
-ZXZpY2UKPj4gKmNzZGV2KSB7fQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIGludCBjb3Jlc2lnaHRf
-dGltZW91dChzdHJ1Y3QgY3NkZXZfYWNjZXNzICpjc2EsIHUzMgo+PiBvZmZzZXQsCj4+IC3CoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgcG9zaXRpb24sIGludCB2YWx1
-ZSkKPj4gLXsKPj4gLcKgwqDCoCByZXR1cm4gMTsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIGlubGlu
-ZSBpbnQgY29yZXNpZ2h0X2NsYWltX2RldmljZV91bmxvY2tlZChzdHJ1Y3QKPj4gY29yZXNpZ2h0
-X2RldmljZSAqY3NkZXYpCj4+IC17Cj4+IC3CoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+IC19Cj4+
-IC0KPj4gLXN0YXRpYyBpbmxpbmUgaW50IGNvcmVzaWdodF9jbGFpbV9kZXZpY2Uoc3RydWN0IGNv
-cmVzaWdodF9kZXZpY2UgKmNzZGV2KQo+PiAtewo+PiAtwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+
-PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X2Rpc2NsYWltX2Rldmlj
-ZShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYpIHt9Cj4+IC1zdGF0aWMgaW5saW5l
-IHZvaWQgY29yZXNpZ2h0X2Rpc2NsYWltX2RldmljZV91bmxvY2tlZChzdHJ1Y3QKPj4gY29yZXNp
-Z2h0X2RldmljZSAqY3NkZXYpIHt9Cj4+IC0KPj4gLXN0YXRpYyBpbmxpbmUgYm9vbCBjb3Jlc2ln
-aHRfbG9zZXNfY29udGV4dF93aXRoX2NwdShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+IC17Cj4+IC3C
-oMKgwqAgcmV0dXJuIGZhbHNlOwo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHUzMiBjb3Jl
-c2lnaHRfcmVsYXhlZF9yZWFkMzIoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UKPj4gKmNzZGV2LCB1
-MzIgb2Zmc2V0KQo+PiAtewo+PiAtwqDCoMKgIFdBUk5fT05fT05DRSgxKTsKPj4gLcKgwqDCoCBy
-ZXR1cm4gMDsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIGlubGluZSB1MzIgY29yZXNpZ2h0X3JlYWQz
-MihzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IHUzMiBvZmZzZXQpCj4+IC17Cj4+
-IC3CoMKgwqAgV0FSTl9PTl9PTkNFKDEpOwo+PiAtwqDCoMKgIHJldHVybiAwOwo+PiAtfQo+PiAt
-Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X3dyaXRlMzIoc3RydWN0IGNvcmVzaWdo
-dF9kZXZpY2UgKmNzZGV2LAo+PiB1MzIgdmFsLCB1MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAt
-Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X3JlbGF4ZWRfd3JpdGUzMihzdHJ1Y3Qg
-Y29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdTMyIHZhbCwgdTMyIG9mZnNldCkKPj4gLXsKPj4gLX0K
-Pj4gLQo+PiAtc3RhdGljIGlubGluZSB1NjQgY29yZXNpZ2h0X3JlbGF4ZWRfcmVhZDY0KHN0cnVj
-dCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2RldiwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHUzMiBvZmZzZXQpCj4+IC17Cj4+IC3CoMKgwqAgV0FSTl9P
-Tl9PTkNFKDEpOwo+PiAtwqDCoMKgIHJldHVybiAwOwo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5s
-aW5lIHU2NCBjb3Jlc2lnaHRfcmVhZDY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwK
-Pj4gdTMyIG9mZnNldCkKPj4gLXsKPj4gLcKgwqDCoCBXQVJOX09OX09OQ0UoMSk7Cj4+IC3CoMKg
-wqAgcmV0dXJuIDA7Cj4+IC19Cj4+IC0KPj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBjb3Jlc2lnaHRf
-cmVsYXhlZF93cml0ZTY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2RldiwKPj4gLcKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1NjQgdmFsLCB1
-MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNp
-Z2h0X3dyaXRlNjQoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiB1NjQgdmFsLCB1
-MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAtCj4+IC0jZW5kaWbCoMKgwqDCoMKgwqDCoCAvKiBJ
-U19FTkFCTEVEKENPTkZJR19DT1JFU0lHSFQpICovCj4+IC0KPj4gwqAgZXh0ZXJuIGludCBjb3Jl
-c2lnaHRfZ2V0X2NwdShzdHJ1Y3QgZGV2aWNlICpkZXYpOwo+PiDCoCDCoCBzdHJ1Y3QgY29yZXNp
-Z2h0X3BsYXRmb3JtX2RhdGEgKmNvcmVzaWdodF9nZXRfcGxhdGZvcm1fZGF0YShzdHJ1Y3QKPj4g
-ZGV2aWNlICpkZXYpOwo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Dne torek, 02. januar 2024 ob 16:58:07 CET je Jakub Kicinski napisal(a):
+> On Thu, 21 Dec 2023 15:16:54 +0800 fuyao wrote:
+> > I don't see it in the user manual also.
+> > 
+> > it works fine in 100M, but it doesn't work good in 1G without tx_delay
+> > in my board.
+> > 
+> > Read the sdk from allwinner I found in:
+> > 
+> > https://sourcegraph.com/github.com/tinalinux/linux-3.10/-/blob/arch/arm/boot/dts/sun8iw11p1.dtsi?L1826
+> > https://sourcegraph.com/github.com/tinalinux/linux-3.10@r40-v1.y/-/blob/drivers/net/ethernet/allwinner/sunxi-gmac.c?L877
+> > 
+> > And I add it to my board, it works fine.
+> > 
+> > So, I think it may be exist register but not documented.
+> 
+> Unless Allwinner can chime in we should at least document the situation
+> clearly in the commit message (incl. what HW+config was tested, exactly)
+> and add a comment in the code?
+> 
+
+I agree. Fuyao, please do that.
+
+Best regards,
+Jernej
+
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
