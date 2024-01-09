@@ -2,55 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E00DB8288CC
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 16:16:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635AB828A66
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 17:49:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96ECDC6DD74;
-	Tue,  9 Jan 2024 15:16:27 +0000 (UTC)
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [217.70.183.200])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 263A7C6A5EA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11581C6DD74;
+	Tue,  9 Jan 2024 16:49:02 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61960C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jan 2024 15:16:27 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 543ED20002;
- Tue,  9 Jan 2024 15:16:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1704813386;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=ssy2NqEQhKlkgPOMZNnArO4w7khdLMgeVZhOT1pVsOI=;
- b=VFu75ftCyPs7Lt9Z8ASUCZLKtzregIBQ7aO1l9XO0o4PxjAaAZodyeAc62v9jOluNfDemu
- k3UYeyXIwZv+40VMTA8dbBJ96HLEz1GcKkRFD7hUZ9YA35syoJI0M3P+LZYGF/08ycxnVc
- hso6sRefCxYy8VW40CxWvbKDZdFfQjw0PJ8q0rbL+a4Y8fcZ+/9tvLsJ8EMPbluacn/FjD
- GP3DbZjfpODWTrs3T/1J0xL2q6FPFmKGhlQBwYim9+vscLOa2A2cgZWrc9LNHdYZO3S+ma
- Oo4Ui811n+ADwLMT6aTcnKnAszkX8zPAtIC2pWRcNjiGy9tWl4KoozOfyOye1Q==
-Date: Tue, 9 Jan 2024 16:16:49 +0100 (CET)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-In-Reply-To: <20240108143614.ldeizw33o6l7aevi@skbuf>
-Message-ID: <7afd8717-4b3a-2104-3581-4cf3440be0f8@bootlin.com>
-References: <20240108130238.j2denbdj3ifasbqi@skbuf>
- <3c2f6555-53b6-be1c-3d7b-7a6dc95b46fe@bootlin.com>
- <20240108143614.ldeizw33o6l7aevi@skbuf>
+ Tue,  9 Jan 2024 16:49:00 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF633DA7;
+ Tue,  9 Jan 2024 08:49:44 -0800 (PST)
+Received: from [192.168.1.100] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 394023F5A1;
+ Tue,  9 Jan 2024 08:48:58 -0800 (PST)
+Message-ID: <ebdc7d87-c0c4-9ee3-83a9-6c93e6fcea78@arm.com>
+Date: Tue, 9 Jan 2024 16:48:57 +0000
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Florian Fainelli <f.fainelli@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Richard Tresidder <rtresidd@electromag.com.au>,
- Pascal EBERHARD <pascal.eberhard@se.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- Linus Walleij <linus.walleij@linaro.org>,
- Sylvain Girard <sylvain.girard@se.com>,
- linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: stmmac: Prevent DSA tags
- from breaking C
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org
+References: <20231212155407.1429121-1-james.clark@arm.com>
+ <20231212155407.1429121-9-james.clark@arm.com>
+ <01c15dbe-57d3-4aa1-9d68-81a01ec2a3a7@arm.com>
+From: James Clark <james.clark@arm.com>
+In-Reply-To: <01c15dbe-57d3-4aa1-9d68-81a01ec2a3a7@arm.com>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH 8/8] coresight: Remove unused stubs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,66 +45,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 8 Jan 2024, Vladimir Oltean wrote:
-
-> On Mon, Jan 08, 2024 at 03:23:38PM +0100, Romain Gantois wrote:
-> > I see, the kernel docs were indeed enlightening on this point. As a side note, 
-> > I've just benchmarked both the "with-inline" and "without-inline" versions. 
-> > First of all, objdump seems to confirm that GCC does indeed follow this pragma 
-> > in this particular case. Also, RX perfs are better with stmmac_has_ip_ethertype 
-> > inlined, but TX perfs are actually consistently worse with this function 
-> > inlined, which could very well be caused by cache effects.
-> > 
-> > In any case, I think it is better to remove the "inline" pragma as you said. 
-> > I'll do that in v4.
-> 
-> Are you doing any code instrumentation, or just measuring the results
-> and deducing what might cause them?
-> 
-> It might be worth looking at the perf events and seeing what function
-> consumes the most amount of time.
-> 
-> CPU_CORE=0
-> perf record -e cycles -C $CPU_CORE sleep 10 && perf report
-> perf record -e cache-misses -C $CPU_CORE sleep 10 && perf report
-> 
-
-Unfortunately my hardware doesn't support these performance metrics, but I did 
-manage to do some instrumentation with the ftrace profiler:
-
-Same test conditions as before, 10 second iperf3 runs with unfragmented UDP 
-packets.
-
-no inline TX
-  average time per call for stmmac_xmit(): 85us
-  average time per call for stmmac_has_ip_ethertype(): 2us
-
-no inline RX
-  average time per call for stmmac_napi_poll_rx(): 8142us
-  average time per call for stmmac_has_ip_ethertype(): 2us
-
-inline TX:
-  average time per call for stmmac_xmit(): 85us
-
-inline RX:
-  average time per call for stmmac_napi_poll_rx(): 8410us
-
-It seems like this time, RX performed slightly worse with the function inline. 
-To be honest, I'm starting to doubt the reproducibility of these tests. In any 
-case it seems better to just remove the "inline" and let gcc do the optimizing.
-
-Best Regards,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAwOS8wMS8yMDI0IDEwOjM4LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IEhpIEphbWVz
+Cj4gCj4gT24gMTIvMTIvMjAyMyAxNTo1NCwgSmFtZXMgQ2xhcmsgd3JvdGU6Cj4+IFRoZXNlIGFy
+ZSBhIGJpdCBhbm5veWluZyB0byBrZWVwIHVwIHRvIGRhdGUgd2hlbiB0aGUgZnVuY3Rpb24gc2ln
+bmF0dXJlcwo+PiBjaGFuZ2UuIEJ1dCBpZiBDT05GSUdfQ09SRVNJR0hUIGlzbid0IGVuYWJsZWQs
+IHRoZW4gdGhleSdyZSBub3QgdXNlZAo+PiBhbnl3YXkgc28ganVzdCBkZWxldGUgdGhlbS4KPj4K
+PiAKPiBIYXZlIHlvdSB0cmllZCBidWlsZGluZyBhbiBhcm0zMiBrZXJuZWwgd2l0aCB0aGlzIGNo
+YW5nZSBpbiA/IExvb2tzIGxpa2UKPiBhcmNoL2FybS9rZXJuZWwvaHdfYnJlYWtwb2ludC5jIGlu
+Y2x1ZGVzIGxpbnV4L2NvcmVzaWdodC5oIGFuZCBhIGJ1aWxkCj4gd2l0aCBDT05GSUdfQ09SU0lH
+SFQ9biBtaWdodCBicmVhayB0aGUgYnVpbGQgPyBTbyBpcwoKYXJtMzIgYW5kIENPTkZJR19DT1JF
+U0lHSFQ9biB3b3JrcyBiZWNhdXNlIGh3X2JyZWFrcG9pbnQuYyBkb2Vzbid0IHVzZQphbnkgb2Yg
+dGhvc2Ugc3ltYm9scywgb25seSAjZGVmaW5lcyB0aGF0IHdlcmUgb3V0c2lkZSB0aGUgI2lmCklT
+X0VOQUJMRUQoQ09ORklHX0NPUkVTSUdIVCksIHNwZWNpZmljYWxseSBDT1JFU0lHSFRfVU5MT0NL
+LgoKPiBkcml2ZXJzL2FjY2VsL2hhYmFuYWxhYnMvY29tbW9uL2hhYmFuYWxhYnMuaC4gTm93LCBJ
+IGFtIG5vdCBzdXJlIGlmIHRoZXkKCmhhYmFuYWxhYnMgaXMgaW50ZXJlc3RpbmcsIGl0IGRlcGVu
+ZHMgb24gWDg2XzY0LCBidXQgQ09ORklHX0NPUkVTSUdIVApkZXBlbmRzIG9uIEFSTSB8fCBBUk02
+NCwgc28gSSB0aGluayB3ZSBjYW4gYXNzdW1lIGl0J3MgYWxzbyBvbmx5IGxvb2tpbmcKZm9yICNk
+ZWZpbmVzIGFuZCBpbmxpbmVzLCBhbmQgbm90IGFjdHVhbCBjb2RlLgoKRWl0aGVyIHdheSBJIGNh
+bid0IGZpbmQgYW55IGJ1aWxkIGNvbmZpZyB0aGF0IGFjdHVhbGx5IGV2ZXIgYnVpbHQgdGhpcywK
+bWVhbmluZyBpdCdzIGFsd2F5cyBiZWVuIGRlYWQgY29kZS4gSSB3b3VsZCBoYXZlIGV4cGVjdGVk
+IHNvbWUgYnVpbGQKcm9ib3QgdG8gaGF2ZSBmbGFnZ2VkIGFuIGVycm9yIGJ5IG5vdyBhcyBJJ3Zl
+IHNlZW4gdGhhdCBvbiBvdGhlcgpjb3Jlc2lnaHQgcGF0Y2hlcy4KCj4gcmVhbGx5IG5lZWQgaXQg
+KGV2ZW4gaWYgdGhleSBkbywgd2UgbWF5IGJlIGFibGUgdG8gcmVtb3ZlIHRoZSBkZXBlbmRlbmN5
+Cj4gb24gdGhlIGhlYWRlciBmaWxlLgo+IAoKVGhleSBkbyByZWFsbHkgbmVlZCBpdCwgYWxzbyBm
+b3IgdGhlIENPUkVTSUdIVF9VTkxPQ0sgZGVmaW5pdGlvbiwgYnV0Cm5vdCBhbnkgZnVuY3Rpb25z
+LgoKPiBTdXp1a2kKPiAKPj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgQ2xhcmsgPGphbWVzLmNsYXJr
+QGFybS5jb20+Cj4+IC0tLQo+PiDCoCBpbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oIHwgNzkgLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2Vk
+LCA3OSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvY29yZXNp
+Z2h0LmggYi9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oCj4+IGluZGV4IDQ0MDBkNTU0YTE2Yi4u
+YzViZTQ2ZDdmODVjIDEwMDY0NAo+PiAtLS0gYS9pbmNsdWRlL2xpbnV4L2NvcmVzaWdodC5oCj4+
+ICsrKyBiL2luY2x1ZGUvbGludXgvY29yZXNpZ2h0LmgKPj4gQEAgLTM5MSw4ICszOTEsNiBAQCBz
+dHJ1Y3QgY29yZXNpZ2h0X29wcyB7Cj4+IMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IGNvcmVzaWdo
+dF9vcHNfaGVscGVyICpoZWxwZXJfb3BzOwo+PiDCoCB9Owo+PiDCoCAtI2lmIElTX0VOQUJMRUQo
+Q09ORklHX0NPUkVTSUdIVCkKPj4gLQo+PiDCoCBzdGF0aWMgaW5saW5lIHUzMiBjc2Rldl9hY2Nl
+c3NfcmVsYXhlZF9yZWFkMzIoc3RydWN0IGNzZGV2X2FjY2VzcyAqY3NhLAo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdTMyIG9mZnNldCkK
+Pj4gwqAgewo+PiBAQCAtNjExLDgzICs2MDksNiBAQCB2b2lkIGNvcmVzaWdodF9yZWxheGVkX3dy
+aXRlNjQoc3RydWN0Cj4+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHU2NCB2YWwsIHUzMiBvZmZzZXQpOwo+PiDCoCB2
+b2lkIGNvcmVzaWdodF93cml0ZTY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwgdTY0
+IHZhbCwgdTMyCj4+IG9mZnNldCk7Cj4+IMKgIC0jZWxzZQo+PiAtc3RhdGljIGlubGluZSBzdHJ1
+Y3QgY29yZXNpZ2h0X2RldmljZSAqCj4+IC1jb3Jlc2lnaHRfcmVnaXN0ZXIoc3RydWN0IGNvcmVz
+aWdodF9kZXNjICpkZXNjKSB7IHJldHVybiBOVUxMOyB9Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQg
+Y29yZXNpZ2h0X3VucmVnaXN0ZXIoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UKPj4gKmNzZGV2KSB7
+fQo+PiAtc3RhdGljIGlubGluZSBpbnQKPj4gLWNvcmVzaWdodF9lbmFibGVfc3lzZnMoc3RydWN0
+IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2KSB7IHJldHVybgo+PiAtRU5PU1lTOyB9Cj4+IC1zdGF0
+aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X2Rpc2FibGVfc3lzZnMoc3RydWN0IGNvcmVzaWdodF9k
+ZXZpY2UKPj4gKmNzZGV2KSB7fQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIGludCBjb3Jlc2lnaHRf
+dGltZW91dChzdHJ1Y3QgY3NkZXZfYWNjZXNzICpjc2EsIHUzMgo+PiBvZmZzZXQsCj4+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgcG9zaXRpb24sIGludCB2YWx1
+ZSkKPj4gLXsKPj4gLcKgwqDCoCByZXR1cm4gMTsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIGlubGlu
+ZSBpbnQgY29yZXNpZ2h0X2NsYWltX2RldmljZV91bmxvY2tlZChzdHJ1Y3QKPj4gY29yZXNpZ2h0
+X2RldmljZSAqY3NkZXYpCj4+IC17Cj4+IC3CoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+IC19Cj4+
+IC0KPj4gLXN0YXRpYyBpbmxpbmUgaW50IGNvcmVzaWdodF9jbGFpbV9kZXZpY2Uoc3RydWN0IGNv
+cmVzaWdodF9kZXZpY2UgKmNzZGV2KQo+PiAtewo+PiAtwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+
+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X2Rpc2NsYWltX2Rldmlj
+ZShzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYpIHt9Cj4+IC1zdGF0aWMgaW5saW5l
+IHZvaWQgY29yZXNpZ2h0X2Rpc2NsYWltX2RldmljZV91bmxvY2tlZChzdHJ1Y3QKPj4gY29yZXNp
+Z2h0X2RldmljZSAqY3NkZXYpIHt9Cj4+IC0KPj4gLXN0YXRpYyBpbmxpbmUgYm9vbCBjb3Jlc2ln
+aHRfbG9zZXNfY29udGV4dF93aXRoX2NwdShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+IC17Cj4+IC3C
+oMKgwqAgcmV0dXJuIGZhbHNlOwo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHUzMiBjb3Jl
+c2lnaHRfcmVsYXhlZF9yZWFkMzIoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UKPj4gKmNzZGV2LCB1
+MzIgb2Zmc2V0KQo+PiAtewo+PiAtwqDCoMKgIFdBUk5fT05fT05DRSgxKTsKPj4gLcKgwqDCoCBy
+ZXR1cm4gMDsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIGlubGluZSB1MzIgY29yZXNpZ2h0X3JlYWQz
+MihzdHJ1Y3QgY29yZXNpZ2h0X2RldmljZSAqY3NkZXYsCj4+IHUzMiBvZmZzZXQpCj4+IC17Cj4+
+IC3CoMKgwqAgV0FSTl9PTl9PTkNFKDEpOwo+PiAtwqDCoMKgIHJldHVybiAwOwo+PiAtfQo+PiAt
+Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X3dyaXRlMzIoc3RydWN0IGNvcmVzaWdo
+dF9kZXZpY2UgKmNzZGV2LAo+PiB1MzIgdmFsLCB1MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAt
+Cj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNpZ2h0X3JlbGF4ZWRfd3JpdGUzMihzdHJ1Y3Qg
+Y29yZXNpZ2h0X2RldmljZQo+PiAqY3NkZXYsCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdTMyIHZhbCwgdTMyIG9mZnNldCkKPj4gLXsKPj4gLX0K
+Pj4gLQo+PiAtc3RhdGljIGlubGluZSB1NjQgY29yZXNpZ2h0X3JlbGF4ZWRfcmVhZDY0KHN0cnVj
+dCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2RldiwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHUzMiBvZmZzZXQpCj4+IC17Cj4+IC3CoMKgwqAgV0FSTl9P
+Tl9PTkNFKDEpOwo+PiAtwqDCoMKgIHJldHVybiAwOwo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5s
+aW5lIHU2NCBjb3Jlc2lnaHRfcmVhZDY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlICpjc2RldiwK
+Pj4gdTMyIG9mZnNldCkKPj4gLXsKPj4gLcKgwqDCoCBXQVJOX09OX09OQ0UoMSk7Cj4+IC3CoMKg
+wqAgcmV0dXJuIDA7Cj4+IC19Cj4+IC0KPj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBjb3Jlc2lnaHRf
+cmVsYXhlZF93cml0ZTY0KHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlCj4+ICpjc2RldiwKPj4gLcKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1NjQgdmFsLCB1
+MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAtCj4+IC1zdGF0aWMgaW5saW5lIHZvaWQgY29yZXNp
+Z2h0X3dyaXRlNjQoc3RydWN0IGNvcmVzaWdodF9kZXZpY2UgKmNzZGV2LAo+PiB1NjQgdmFsLCB1
+MzIgb2Zmc2V0KQo+PiAtewo+PiAtfQo+PiAtCj4+IC0jZW5kaWbCoMKgwqDCoMKgwqDCoCAvKiBJ
+U19FTkFCTEVEKENPTkZJR19DT1JFU0lHSFQpICovCj4+IC0KPj4gwqAgZXh0ZXJuIGludCBjb3Jl
+c2lnaHRfZ2V0X2NwdShzdHJ1Y3QgZGV2aWNlICpkZXYpOwo+PiDCoCDCoCBzdHJ1Y3QgY29yZXNp
+Z2h0X3BsYXRmb3JtX2RhdGEgKmNvcmVzaWdodF9nZXRfcGxhdGZvcm1fZGF0YShzdHJ1Y3QKPj4g
+ZGV2aWNlICpkZXYpOwo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
