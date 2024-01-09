@@ -2,104 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7251F828F29
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 22:49:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F95828FCC
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 23:20:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23A6DC6B452;
-	Tue,  9 Jan 2024 21:49:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9729C6B452;
+	Tue,  9 Jan 2024 22:20:44 +0000 (UTC)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED06DC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9D1BC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jan 2024 21:49:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 4AAA6B81C0C;
- Tue,  9 Jan 2024 21:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50575C43390;
- Tue,  9 Jan 2024 21:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1704836974;
- bh=ceo0NuYdBsYZpF8DB6NrMU04tORgBD0ctjhpwygaZL4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=CHQrJb3GzJI5ydWBowaV7UJ1RfEjlCYZbk7f2I2l+cwhPhe6YCDWG7hbnb+Df8wkH
- tzhssJOvZ4BTPunP83dKALThjX0hEVqj8TU+chMQ100NLKxi3SP2R/8huXKlk7Jx4P
- 4FD273/kxZD4olw6OQSgE72pG719d3IBykjijbc/yDn3+5ztvR3UO9jE72fHpmtmCu
- 7dh1VZF1CspFVPG3nyDN6JXKtshF8Mf0fcfVWkqouXubrLPq5nsx8v9lnCL2FWxFh0
- 7pS4Lqz4ZvidXdGaQlw0UUm8nHop+4xp4eWSwzUxJ7l2ccjaVd5PlGvcsruABRLIfb
- duvcvuxSfe21A==
-Message-ID: <9ecc73a1-7457-45a2-ade1-c91b8e7176da@kernel.org>
-Date: Tue, 9 Jan 2024 22:49:24 +0100
+ Tue,  9 Jan 2024 22:20:43 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-50eabd1c701so4264355e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 09 Jan 2024 14:20:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1704838843; x=1705443643;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=FHficcIIFY7DUie+kBBBxCI5Hfo9wpTnRz3NE6iiBRs=;
+ b=LbATdDLU13Ah4MaoaYjM2bft/koQtcNTkZWqOtYWCIDG1iZil/keL1H/67H/7725kI
+ uC67hX5zlVF1+2k4B+0Yowdj1qhAwl4rpLv+/CsImK0iiRa9cBLSEYIhron+ru/sGJEj
+ AXl5ofDOYgnzkY94wQ7Y2RTHIQpfet2vB/UnSi864mUKOTn3tg1osevhDjfQaE9sFKUp
+ XuKl7Yl/NOVCMw6Zs/Y5FUBlzPAf/a1Z/F8MU5PPK6JLnAeeZqjQkq0ukOCbnu0ByVYb
+ qZpML1WdFlxpZ+opvmQ4b9AK1+PVOmL5F7XRGGkOzDcPBJ0bQRvROJetwDWYz1MZNiU8
+ bFhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704838843; x=1705443643;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FHficcIIFY7DUie+kBBBxCI5Hfo9wpTnRz3NE6iiBRs=;
+ b=HDrdRpcDcgYQNFmASGDnokCnyRmfvR5QKUgKPd+qwz2e7t+cynJP6FXzdb/R6TBhXb
+ inSa95AVXR4HlVkWm83eYvm5kRqjmkKr9L5cKbGyfoydmWr+tgPJA1v3nvKxs8A88mSY
+ ocYAcW9KGXd2N6+EPnBrvTdZo8wetB9pJBaARQ+oN/I7ebl3Tdwt/cO0M2tDQAl470TZ
+ aC0Niz68hEW1QmXngGct/fg0cycSljJra15zQxAR5S2ElvANrWe/PBV0UU3cTufIADu+
+ FofDfNF5PTknFGNhMTs0gvRkOWvAJbOuAMNR2qXsq07qyky0LsYCyseXCFu5ztNRsFgZ
+ iR/g==
+X-Gm-Message-State: AOJu0YwxwX9zvlsImFXVQltYKYwWi3bmjJ3HWbL7Z81L2LA9Rfj6UQ/p
+ RtDwCnLOw1CDbha1wAKyjMg=
+X-Google-Smtp-Source: AGHT+IHzUaf7cXQ3/+rzpIrUR/8dYETycPMk53CfPA2rWOWhUqHeEZ9pITM3KmFaD9xESKzduOK3OQ==
+X-Received: by 2002:a19:645e:0:b0:50e:7479:79da with SMTP id
+ b30-20020a19645e000000b0050e747979damr19306lfj.24.1704838842804; 
+ Tue, 09 Jan 2024 14:20:42 -0800 (PST)
+Received: from mobilestation ([95.79.203.166])
+ by smtp.gmail.com with ESMTPSA id
+ b16-20020a056512305000b0050ea1f2baeasm474292lfb.20.2024.01.09.14.20.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jan 2024 14:20:42 -0800 (PST)
+Date: Wed, 10 Jan 2024 01:20:40 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
+ Leong Ching Swee <leong.ching.swee@intel.com>
+Message-ID: <5y3ed4greqcdz6hsepvpqstyabxupqbw7dc3eilgi64acrbkoc@oy2c7flu33gs>
+References: <20240105070925.2948871-1-leong.ching.swee@intel.com>
+ <20240105070925.2948871-2-leong.ching.swee@intel.com>
+ <ffiewfybqvh66nmri4im4veupwytvlxk5jfgdy3nbj6wldxjl2@2vwvnnu37pt7>
+ <7cc4fa92-27cb-4b0d-8f1b-88091548bdb9@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Heiko Stuebner <heiko@sntech.de>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>,
- linux-media@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org
-References: <20240109085155.252358-1-hugues.fruchet@foss.st.com>
- <20240109085155.252358-2-hugues.fruchet@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 fv0=
-In-Reply-To: <20240109085155.252358-2-hugues.fruchet@foss.st.com>
-Cc: Adam Ford <aford173@gmail.com>, Marco Felsch <m.felsch@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v6 1/5] dt-bindings: media: Document
- STM32MP25 VDEC & VENC video codecs
+Content-Disposition: inline
+In-Reply-To: <7cc4fa92-27cb-4b0d-8f1b-88091548bdb9@linaro.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
+ Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/4] dt-bindings: net: snps,
+ dwmac: per channel irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,28 +92,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 09/01/2024 09:51, Hugues Fruchet wrote:
-> Add STM32MP25 VDEC video decoder & VENC video encoder bindings.
+On Tue, Jan 09, 2024 at 10:10:37AM +0100, Krzysztof Kozlowski wrote:
+> On 07/01/2024 21:10, Serge Semin wrote:
+> > On Fri, Jan 05, 2024 at 03:09:22PM +0800, Leong Ching Swee wrote:
+> >> From: Swee Leong Ching <leong.ching.swee@intel.com>
+> >>
+> >> Add dt-bindings for per channel irq.
+> >>
+> >> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
+> >> Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
+> >> ---
+> >>  .../devicetree/bindings/net/snps,dwmac.yaml   | 24 +++++++++++++------
+> >>  1 file changed, 17 insertions(+), 7 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >> index 5c2769dc689a..e72dded824f4 100644
+> >> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> >> @@ -103,17 +103,27 @@ properties:
+> >>  
+> >>    interrupts:
+> >>      minItems: 1
+> >> -    items:
+> >> -      - description: Combined signal for various interrupt events
+> >> -      - description: The interrupt to manage the remote wake-up packet detection
+> >> -      - description: The interrupt that occurs when Rx exits the LPI state
+> >> +    maxItems: 19
+> >>  
+> >>    interrupt-names:
+> >>      minItems: 1
+> >> +    maxItems: 19
+> >>      items:
+> >> -      - const: macirq
+> >> -      - enum: [eth_wake_irq, eth_lpi]
+> >> -      - const: eth_lpi
+> >> +      oneOf:
+> >> +        - description: Combined signal for various interrupt events
+> >> +          const: macirq
+> >> +        - description: The interrupt to manage the remote wake-up packet detection
+> >> +          const: eth_wake_irq
+> >> +        - description: The interrupt that occurs when Rx exits the LPI state
+> >> +          const: eth_lpi
+> >> +        - description: DMA Tx per-channel interrupt
+> >> +          pattern: '^dma_tx[0-7]?$'
+> >> +        - description: DMA Rx per-channel interrupt
+> >> +          pattern: '^dma_rx[0-7]?$'
+> >> +
+> >> +    allOf:
+> >> +      - contains:
+> >> +          const: macirq
+> > 
+> > In order to restore the v1 discussion around this change, here is my
+> > comment copied from there:
+> > 
+> >> As Rob correctly noted it's also better to make sure that 'macirq' is placed first
+> >> in the array. So instead of the constraint above I guess the next one would
+> >> make sure both the array has 'macirq' name and it's the first item:
+> >>
+> >> allOf:
+> >>   - maxItems: 34
+> >>     items:
+> >>       - const: macirq
+> > 
+> > Leong said it didn't work:
+> > https://lore.kernel.org/netdev/CH0PR11MB54904615B45E521DE6B1A7B3CF61A@CH0PR11MB5490.namprd11.prod.outlook.com/
+> > 
+> > Rob, Krzysztof, Conor could you please clarify whether this change is ok the
+> > way it is or it would be better to preserve the stricter constraint
+> > and fix the DT-schema validation tool somehow?
 > 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
+> First of all this change is not good, because commit msg explains
+> absolutely nothing why this is done and what exactly you want to achieve
+> here. The "what" part often is obvious from the code, but not in this
+> case. Are the per-channel IRQs conflicting with macirq or others? Are
+> they complementary (maxItems: 19 suggests that, though, but could be
+> mistake as well)? Do they affect all snps,dwmac derivatives or only some?
+> 
+> So many questions and zero answers in one liner commit msg!
 
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling.
+Right. The commit message is way too modest =) Leong?
 
-Please kindly resend and include all necessary To/Cc entries.
+> 
+> Now about the problem, I think we should preserve the order, assuming
+> that these are complementary so first three must be defined.
 
-While resending drop redundant blank line after SPDX. See all other
-bindings and example-schema.
+Ok. But please note that "Wake" and "LPI" IRQs are optional. It's
+possible to have a device with the "MAC" and "DMA" IRQs and no
+individual "Wake"/"LPI" IRQ lines. Thus the only mandatory IRQ is
+"MAC" which order (being always first), I agree, should be preserved.
 
-Best regards,
-Krzysztof
+> This
+> however could be done in the device schema referencing snps,dwmac. I
+> think I will repeat myself: I dislike this schema, because it mixes two
+> purposes: defining shared part and defining final device part. The code
+> in this patch is fine for a schema defining the shared part.
+> 
+> Therefore before we start growing this monstrosity into bigger one, I
+> think we should go back to the plans of reworking and cleaning it.
 
+If you are talking about the changes like introduced here (essentially
+it's Patch 4):
+https://www.spinics.net/lists/netdev/msg888079.html
+I can resurrect it (rebase on the latest kernel, fix the notes, run
+dt-validation, etc) and submit for review on the next week or so.
+Then the Leong' patch in subject either won't be necessary or will
+concern the shared schema only. Does it sound acceptable?
+
+-Serge(y)
+
+> 
+> Best regards,
+> Krzysztof
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
