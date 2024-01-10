@@ -2,105 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3DF9829616
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 10:18:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6748296AA
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 10:55:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B818C6DD73;
-	Wed, 10 Jan 2024 09:18:08 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C508C6A5EA;
+	Wed, 10 Jan 2024 09:55:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C34D6C6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72D3FC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 09:18:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 1F65EB81977;
- Wed, 10 Jan 2024 09:18:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93ED8C433C7;
- Wed, 10 Jan 2024 09:17:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1704878285;
- bh=bIJjfJfwgLRTwXnuckVc1nVmrnPvrWOYPCGJ148deRE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=rrWk+5EVIq0IzEjuU8SLdSy8Qix7tbFOjWOJ3Us9bT8KlKZqKeLWqoOZ2TfyzVikh
- j+6iygmyOA4tjQzk/JhdTnbnSPJ61Pp0BFUVMNOO1vDnVMargB0iv5myYIOIXkUtWB
- DZj8nuK3Yo5whQATEcUK9uyM7MgxnkmX0VmIoFRkfrGUkg6zw9rUnVNKXTTjlMT/Vp
- v80H4hPwpVXMsc1Efx6swXO2hW5y/PLskRXbrN224e0wvxkXuuO/T4KIlUn04M7okH
- iMwA7CLlXK223RYcIVO++3IbmZy2MuugoYoy7v/AgcEFzE0TQStkm0aRb3ZSirScv4
- rZQtq/RdQ+q4Q==
-Message-ID: <33073c15-08d8-49c1-9578-9ca0688c405d@kernel.org>
-Date: Wed, 10 Jan 2024 10:17:54 +0100
+ Wed, 10 Jan 2024 09:55:00 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40A9dklx009461; Wed, 10 Jan 2024 10:54:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=SMY/YRkrLa8qTKcLx39OUdusAyLog8eoCTO/ymESOn4=; b=tj
+ iGsheSbWzimarjEDpbU+QobiMrSVJmIgPKAo/DWYJhD7pxYKNE56lMoEUWTRUKO/
+ ba9JdiKknjytZ4Q9iU43t9r38h1O7AvCv12V+D0BTpMZBq3kSI6AQYk2pVCVRKZA
+ 4/wkm1NewSIaeykN1KIFMWFCMl1Fqxi8CINWCZPbSaAkS24NQ3n62pDjCUIAtyBY
+ P1Nk5rDK/ONiOn36/EtndXk3vtmpZ8+B+e3AJyz2uxoXMRa7gB5eWAbfQMc8kbUT
+ BoyfMpxd0Vs/YMDua8YXPo1JegglE/O0SG8S0NVrVThbomT6bRBGzWeZhRnF0pzU
+ 40eFLUw9P1Cn1zNLv2Xw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vexmffm6v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 10:54:31 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id C1DE610002A;
+ Wed, 10 Jan 2024 10:54:29 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9D812257A9B;
+ Wed, 10 Jan 2024 10:54:29 +0100 (CET)
+Received: from [10.252.22.30] (10.252.22.30) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 10 Jan
+ 2024 10:54:26 +0100
+Message-ID: <74a39554-a514-42f3-a2ab-d436d4fee474@foss.st.com>
+Date: Wed, 10 Jan 2024 10:54:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Philippe Cornu <philippe.cornu@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Eric Anholt <eric@anholt.net>, Neil Armstrong <neil.armstrong@linaro.org>
+References: <20fff7f853f20a48a96db8ff186124470ec4d976.1704560028.git.christophe.jaillet@wanadoo.fr>
 Content-Language: en-US
-To: Hugues FRUCHET <hugues.fruchet@foss.st.com>,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20240109085155.252358-1-hugues.fruchet@foss.st.com>
- <20240109085155.252358-2-hugues.fruchet@foss.st.com>
- <9ecc73a1-7457-45a2-ade1-c91b8e7176da@kernel.org>
- <733bee3f-98ae-4f51-a1c5-6c09b38328ce@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJgPO8PBQkUX63hAAoJEBuTQ307
- QWKbBn8P+QFxwl7pDsAKR1InemMAmuykCHl+XgC0LDqrsWhAH5TYeTVXGSyDsuZjHvj+FRP+
- gZaEIYSw2Yf0e91U9HXo3RYhEwSmxUQ4Fjhc9qAwGKVPQf6YuQ5yy6pzI8brcKmHHOGrB3tP
- /MODPt81M1zpograAC2WTDzkICfHKj8LpXp45PylD99J9q0Y+gb04CG5/wXs+1hJy/dz0tYy
- iua4nCuSRbxnSHKBS5vvjosWWjWQXsRKd+zzXp6kfRHHpzJkhRwF6ArXi4XnQ+REnoTfM5Fk
- VmVmSQ3yFKKePEzoIriT1b2sXO0g5QXOAvFqB65LZjXG9jGJoVG6ZJrUV1MVK8vamKoVbUEe
- 0NlLl/tX96HLowHHoKhxEsbFzGzKiFLh7hyboTpy2whdonkDxpnv/H8wE9M3VW/fPgnL2nPe
- xaBLqyHxy9hA9JrZvxg3IQ61x7rtBWBUQPmEaK0azW+l3ysiNpBhISkZrsW3ZUdknWu87nh6
- eTB7mR7xBcVxnomxWwJI4B0wuMwCPdgbV6YDUKCuSgRMUEiVry10xd9KLypR9Vfyn1AhROrq
- AubRPVeJBf9zR5UW1trJNfwVt3XmbHX50HCcHdEdCKiT9O+FiEcahIaWh9lihvO0ci0TtVGZ
- MCEtaCE80Q3Ma9RdHYB3uVF930jwquplFLNF+IBCn5JRzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmA872oFCRRflLYACgkQG5NDfTtBYpvScw/9GrqBrVLuJoJ52qBBKUBDo4E+5fU1bjt0
- Gv0nh/hNJuecuRY6aemU6HOPNc2t8QHMSvwbSF+Vp9ZkOvrM36yUOufctoqON+wXrliEY0J4
- ksR89ZILRRAold9Mh0YDqEJc1HmuxYLJ7lnbLYH1oui8bLbMBM8S2Uo9RKqV2GROLi44enVt
- vdrDvo+CxKj2K+d4cleCNiz5qbTxPUW/cgkwG0lJc4I4sso7l4XMDKn95c7JtNsuzqKvhEVS
- oic5by3fbUnuI0cemeizF4QdtX2uQxrP7RwHFBd+YUia7zCcz0//rv6FZmAxWZGy5arNl6Vm
- lQqNo7/Poh8WWfRS+xegBxc6hBXahpyUKphAKYkah+m+I0QToCfnGKnPqyYIMDEHCS/RfqA5
- t8F+O56+oyLBAeWX7XcmyM6TGeVfb+OZVMJnZzK0s2VYAuI0Rl87FBFYgULdgqKV7R7WHzwD
- uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
- 7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
- 5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <733bee3f-98ae-4f51-a1c5-6c09b38328ce@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>, Marco Felsch <m.felsch@pengutronix.de>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Hans Verkuil <hverkuil@xs4all.nl>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Adam Ford <aford173@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v6 1/5] dt-bindings: media: Document
- STM32MP25 VDEC & VENC video codecs
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20fff7f853f20a48a96db8ff186124470ec4d976.1704560028.git.christophe.jaillet@wanadoo.fr>
+X-Originating-IP: [10.252.22.30]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Yannick Fertre <yannick.fertre@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] drm/stm: Fix an error handling path in
+ stm_drm_platform_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,43 +79,26 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 10/01/2024 10:15, Hugues FRUCHET wrote:
->> You missed at least devicetree list (maybe more), so this won't be
->> tested by automated tooling.
->>
->> Please kindly resend and include all necessary To/Cc entries.
-> 
-> My fault when sending this exact v6, sorry for that.. It was done the 
-> right way for previous versions and no issues raised by automated tools.
-> 
->>
->> While resending drop redundant blank line after SPDX. See all other
->> bindings and example-schema.
-> I have double checked and I don't see any problem related to redundant 
-> blank lines in yaml after SPDX:
-
-I wonder how did you check worked... Open existing other file, open your
-file. Look at yours. Then look at others. Then again look at yours.
-> 
-> +++ b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
-> @@ -0,0 +1,50 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +
-> +%YAML 1.2
-> 
-> Could you point me out what is the exact issue ?
-
-You have a redundant blank line after SPDX.
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQ2hyaXN0b3BoZSwKCk9uIDEvNi8yNCAxNzo1NCwgQ2hyaXN0b3BoZSBKQUlMTEVUIHdyb3Rl
+Ogo+IElmIGRybV9kZXZfcmVnaXN0ZXIoKSBmYWlscywgYSBjYWxsIHRvIGRydl9sb2FkKCkgbXVz
+dCBiZSB1bmRvbmUsIGFzCj4gYWxyZWFkeSBkb25lIGluIHRoZSByZW1vdmUgZnVuY3Rpb24uCj4K
+PiBGaXhlczogYjc1OTAxMmM1ZmE3ICgiZHJtL3N0bTogQWRkIFNUTTMyIExUREMgZHJpdmVyIikK
+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGhlIEpBSUxMRVQgPGNocmlzdG9waGUuamFpbGxldEB3
+YW5hZG9vLmZyPgo+IC0tLQo+IFRoaXMgd2FzIGFscmVhZHkgc2VudCBhIGZldyB5ZWFycyBhZ28g
+aW4gWzFdIGJ1dCBpdCBnb3Qgbm8gcmVzcG9uc2UuCj4gU2luY2UsIHRoZXJlIGhhcyBiZWVuIHNv
+bWUgYWN0aXZpdHkgb24gdGhpcyBkcml2ZXIsIHNvIEkgc2VuZCBpdCBhZ2Fpbi4KPgo+IE5vdGUg
+dGhhdCBpdCBpcyB1bnRlc3RlZC4KPgo+IFsxXTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxs
+LzIwMjAwNTAxMTI1NTExLjEzMjAyOS0xLWNocmlzdG9waGUuamFpbGxldEB3YW5hZG9vLmZyLwo+
+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jIHwgNCArKystCj4gIDEgZmlsZSBjaGFu
+Z2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgpJIHRlc3RlZCBpdCBhZ2FpbnN0
+IHN0bTMybXAxNTdjLWRrMi5kdHMuCgpUaGFua3MgZm9yIHlvdXIgc3VibWlzc2lvbi4KCkFja2Vk
+LWJ5OiBSYXBoYWVsIEdhbGxhaXMtUG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29t
+PgoKClJlZ2FyZHMsCgpSYXBoYcOrbCBHYWxsYWlzLVBvdQoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4
+LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
