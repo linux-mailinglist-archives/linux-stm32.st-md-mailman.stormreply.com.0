@@ -2,79 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B662C8294BD
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 09:07:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBCE1829608
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 10:15:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77866C6DD76;
-	Wed, 10 Jan 2024 08:07:53 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D3A5C6DD73;
+	Wed, 10 Jan 2024 09:15:49 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24807C6DD76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FAEEC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 08:07:52 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-a28b1095064so407352766b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 00:07:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704874071; x=1705478871;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=07GZlbDEPiZyBFQar7cofI0kUTpkas/bOfqyP7AOZqE=;
- b=T4LjER9BG5U27CS3eBL+2ctJAMTdpO3JfqmAVoXhWnHALxg9X+qg2Q/nDg2ODlFcp9
- V5U5ib2p2M5NIJnhIDmAVoBOIWwZ/gROwlEADAsrhWX7hH5aGRiKCJ37OD+W4JXxo68o
- uPnFf8RVkJUD8rv7vHZvVBbdHwcdDFHff7YyY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704874071; x=1705478871;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=07GZlbDEPiZyBFQar7cofI0kUTpkas/bOfqyP7AOZqE=;
- b=m9NTSs8q4MbtssHyEZkK1fyLE8oWPzFG83jxItBTSwfBQtJH4DrJ6AIWIgutkesOdw
- fBK7g3pYWAzgq9fowsqLSsThqjZyOhRMXeiyyC2XggBaFMcYIfUshrF1EYhQnLzflyrN
- 4hCetXLIR4yhFCQPVNCnykzooc85JBTLEJl1Evifu9Rvap3KZrF40oCRVRKKnEZx1SBG
- N7qvw+6H463nGrOCwaYR+hLntaVRNGTLipaGsjoZ7c6IRVEroP4Wjpz9VjUtwKb0xYZX
- JldU0mujz7nAE8gWqad/qEj/RnKZJyjVef506o2bZNPhJVREi9Id+5l89XxJM+eNUwwO
- Theg==
-X-Gm-Message-State: AOJu0YyjMB1jwwFmIqkane/eKaFceNkFCD82d8W/deGGAiziDGaRWVvo
- /Gq9hI0dTu5AY3eDkAa4RLfp6z4QhXUv8w==
-X-Google-Smtp-Source: AGHT+IEFFlg9zphutdwdZcQW4+nCpj3cJCRmln2zt04qEVrAYuLIVYgN9bHEfVgAzm3MZro6KFOzBw==
-X-Received: by 2002:a17:906:590e:b0:a23:3aff:2a05 with SMTP id
- h14-20020a170906590e00b00a233aff2a05mr170486ejq.112.1704874071791; 
- Wed, 10 Jan 2024 00:07:51 -0800 (PST)
-Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
- (host-87-2-38-81.retail.telecomitalia.it. [87.2.38.81])
- by smtp.gmail.com with ESMTPSA id
- v12-20020a1709061dcc00b00a2af672cdd8sm1833341ejh.161.2024.01.10.00.07.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jan 2024 00:07:51 -0800 (PST)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Wed, 10 Jan 2024 09:05:51 +0100
-Message-ID: <20240110080729.3238251-6-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240110080729.3238251-1-dario.binacchi@amarulasolutions.com>
-References: <20240110080729.3238251-1-dario.binacchi@amarulasolutions.com>
+ Wed, 10 Jan 2024 09:15:48 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40A8aGnq018108; Wed, 10 Jan 2024 10:15:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=Oa0IFcQkZD0/owTviDimI7+i56Xf68eQjrWsXc8swwE=; b=7+
+ MoRUnP66xGbpAivfKSxhkbeuHLkaFvGnOXwo91qiWXXUYUkMNdh4MaQuRenc5jW6
+ Nh0r6WirKmHuZKhGBK59bGhD3Pc0lE6Vw3GblB+Wd6eplEGcZFrPFGkMyv+6uaza
+ PeUFWuOdZy7RgjMlZ7OgEdNQCNwxtSyq1B95/3kV6cQjnCVshXC+Xmkb81bMU6gK
+ yAV2QG466tXYNMzD2cS4WN8uu3O2TCtKRUbM8hH7fv3KFMYhh/ICGm80lQkFk4qs
+ 117SSsB5OV18pk4WO/vSdGHcs8y090oNztBm5+nInhuUi/Vc32o8py3pp0L4oNKG
+ 3449v/kVxfbrJmvt5ilA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vey30qrvt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 10:15:08 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 2540610004A;
+ Wed, 10 Jan 2024 10:15:06 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1692B24B892;
+ Wed, 10 Jan 2024 10:15:06 +0100 (CET)
+Received: from [10.201.20.120] (10.201.20.120) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 10 Jan
+ 2024 10:15:04 +0100
+Message-ID: <733bee3f-98ae-4f51-a1c5-6c09b38328ce@foss.st.com>
+Date: Wed, 10 Jan 2024 10:15:04 +0100
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Andre Przywara <andre.przywara@arm.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Sean Nyekjaer <sean@geanix.com>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-amarula@amarulasolutions.com, Peter Rosin <peda@axentia.se>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 5/5] ARM: dts: add
-	stm32f769-disco-mb1225-revb03-mb1166-reva09
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20240109085155.252358-1-hugues.fruchet@foss.st.com>
+ <20240109085155.252358-2-hugues.fruchet@foss.st.com>
+ <9ecc73a1-7457-45a2-ade1-c91b8e7176da@kernel.org>
+From: Hugues FRUCHET <hugues.fruchet@foss.st.com>
+In-Reply-To: <9ecc73a1-7457-45a2-ade1-c91b8e7176da@kernel.org>
+X-Originating-IP: [10.201.20.120]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, Marco Felsch <m.felsch@pengutronix.de>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Adam Ford <aford173@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v6 1/5] dt-bindings: media: Document
+ STM32MP25 VDEC & VENC video codecs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,86 +87,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-As reported in the section 8.3 (i. e. Board revision history) of document
-UM2033 (i. e. Discovery kit with STM32F769NI MCU) these are the changes
-related to the board revisions addressed by the patch:
-- Board MB1225 revision B-03:
-  - Memory MICRON MT48LC4M32B2B5-6A replaced by ISSI IS42S32400F-6BL
-- Board MB1166 revision A-09:
-  - LCD FRIDA FRD397B25009-D-CTK replaced by FRIDA FRD400B25025-A-CTK
+Hi Krzysztof,
 
-The patch only adds the DTS support for the new display which belongs to
-to the Novatek NT35510-based panel family.
+On 1/9/24 22:49, Krzysztof Kozlowski wrote:
+> On 09/01/2024 09:51, Hugues Fruchet wrote:
+>> Add STM32MP25 VDEC video decoder & VENC video encoder bindings.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
+> 
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
+> 
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling.
+> 
+> Please kindly resend and include all necessary To/Cc entries.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+My fault when sending this exact v6, sorry for that.. It was done the 
+right way for previous versions and no issues raised by automated tools.
 
----
+> 
+> While resending drop redundant blank line after SPDX. See all other
+> bindings and example-schema.
+I have double checked and I don't see any problem related to redundant 
+blank lines in yaml after SPDX:
 
-Changes in v6:
-- Drop patches
-  - [5/8] dt-bindings: nt35510: add compatible for FRIDA FRD400B25025-A-CTK
-  - [7/8] drm/panel: nt35510: move hardwired parameters to configuration
-  - [8/8] drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK
-  because applied by the maintainer Linus Walleij
-
-Changes in v5:
-- Replace GPIOD_ASIS with GPIOD_OUT_HIGH in the call to devm_gpiod_get_optional().
-
-Changes in v2:
-- Change the status of panel_backlight node to "disabled"
-- Delete backlight property from panel0 node.
-- Re-write the patch [8/8] "drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK"
-  in the same style as the original driver.
-
- arch/arm/boot/dts/st/Makefile                  |  1 +
- ...2f769-disco-mb1225-revb03-mb1166-reva09.dts | 18 ++++++++++++++++++
- 2 files changed, 19 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-
-diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
-index 7892ad69b441..390dbd300a57 100644
---- a/arch/arm/boot/dts/st/Makefile
-+++ b/arch/arm/boot/dts/st/Makefile
-@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32f469-disco.dtb \
- 	stm32f746-disco.dtb \
- 	stm32f769-disco.dtb \
-+	stm32f769-disco-mb1225-revb03-mb1166-reva09.dts \
- 	stm32429i-eval.dtb \
- 	stm32746g-eval.dtb \
- 	stm32h743i-eval.dtb \
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-new file mode 100644
-index 000000000000..014cac192375
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
++++ b/Documentation/devicetree/bindings/media/st,stm32mp25-video-codec.yaml
+@@ -0,0 +1,50 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
 +
-+#include "stm32f769-disco.dts"
-+
-+&panel_backlight {
-+	status = "disabled";
-+};
-+
-+&panel0 {
-+	compatible = "frida,frd400b25025", "novatek,nt35510";
-+	vddi-supply = <&vcc_3v3>;
-+	vdd-supply = <&vcc_3v3>;
-+	/delete-property/backlight;
-+	/delete-property/power-supply;
-+};
--- 
-2.43.0
++%YAML 1.2
 
+Could you point me out what is the exact issue ?
+
+> 
+> Best regards,
+> Krzysztof
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
