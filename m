@@ -2,151 +2,87 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B327882A7AB
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 07:39:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4DD982A8C1
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 09:08:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5530DC6A5EA;
-	Thu, 11 Jan 2024 06:39:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 782FAC6DD6E;
+	Thu, 11 Jan 2024 08:08:47 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6743C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5F20C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 06:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704955145; x=1736491145;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=mBdSfs0sBfDzJmrhp40t4auxlOvL0pilh6aZ8pfW22c=;
- b=L2fkZ27f0cpdeKlwzi2S3mkqaUfwdgp59yYm7/Ac7vmZroHEwwWQVMSd
- VZxRpUUh8PKeEgtDFGqMHD4FM0Zp6/PwtTf7jHEYOJErLg3roDF662Obf
- RDRJaHCW1c13V7jo1aSOgcpFm13disO4I/ecEiUfhhbnSNHV6k86ONsxk
- tdUsuspJpWtKzAJjLqU6odju4zqNg06hFXkBjvHoYJlxQ8SeSK01xxcFf
- B+stMI9p6iNyrrjEfHbA4LmzJfVDavEokv0+Q3CrHDXB7ZCdkrqRwOh51
- IAcYB39fqIjysfucpdfXDjXP7TWS/c35DpvotU3quXFiipPDHljU3GAfX g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="465145934"
-X-IronPort-AV: E=Sophos;i="6.04,185,1695711600"; d="scan'208";a="465145934"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2024 22:39:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,185,1695711600"; d="scan'208";a="24228487"
-Received: from unknown (HELO ORSMSX601.amr.corp.intel.com) ([10.22.229.14])
- by orviesa002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 10 Jan 2024 22:39:01 -0800
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Wed, 10 Jan 2024 22:39:00 -0800
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Wed, 10 Jan 2024 22:39:00 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Wed, 10 Jan 2024 22:39:00 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yty0QWB+UaNLnvcIu1Ph6ay9D8RK8CKn1XubCwnZ8s8se62qKsBWY9KAMzNG8sp35hny/98Wy7Wqz82f9cKlV/h3R9O2E+BY78Rp6XkQ6WgF8FtvCxkIrezJFdJfwdhwqmYJAojMyVObIjeJcaaenSGump8kD9MyTVJpmqlOWPPCt24iYZ+c+UDRFlgxvVksJ9K/5dysxWAPFuzXsYtDolL/aeOVDB4cu+koZgMEdLIglF5pon+XPCsLhXHiKAS1LOvTC9zIvBTh0kyZvtz/+nuM3smM5t88YDeqNPj82v0jsm5ZyyrQZHxhEZ4j97gk25bjj22XZzhHuWs0zPexWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8hTlBKxwjB68rtNb0uUewIiLx/UqcVzsSSLzWmAKjtc=;
- b=l+Fxf1jWobzPZq0lkYv9m0/xxQpgsm+BjY+ZuToo89i19ZSmlHMiNhGplDk9SjerzbaPKobQXAbfAViKQlhm0hi0jVhpnewQr8JYjMxjPSlUK1Zl9nGcoUyQe7mwimoM/GnrIMzz2zpxfZp0S6fHG5PG5nHxd0s5pnralJmYXCuNb0Vaz8aW79XsW/zA/ojxi02qwyywWfJVH1zjmWoBeyiMO7tooY2F/XbYL4XszcuRUDlheNkbVsLTSLeUUHigdT//EK+XwZCWq6HIdxTGD8k8pWbPpftXngGIexNfQCIyqTdrImTh9D4jig9uRYQTZl2tiTXlFDGzX6VrgRmQzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MW6PR11MB8310.namprd11.prod.outlook.com (2603:10b6:303:249::16)
- by IA1PR11MB6443.namprd11.prod.outlook.com (2603:10b6:208:3a8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Thu, 11 Jan
- 2024 06:38:58 +0000
-Received: from MW6PR11MB8310.namprd11.prod.outlook.com
- ([fe80::a40d:5f37:ee14:6e21]) by MW6PR11MB8310.namprd11.prod.outlook.com
- ([fe80::a40d:5f37:ee14:6e21%4]) with mapi id 15.20.7159.020; Thu, 11 Jan 2024
- 06:38:58 +0000
-From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [PATCH net v3 1/1] net: phylink: Add module_exit()
-Thread-Index: AQHaPvcS48imAJYtYkO0dKGHM8Fni7DJn3IAgAqTrIA=
-Date: Thu, 11 Jan 2024 06:38:58 +0000
-Message-ID: <MW6PR11MB8310698247DD950C5EBF5F2CB9682@MW6PR11MB8310.namprd11.prod.outlook.com>
-References: <20240104101255.3056090-1-yi.fang.gan@intel.com>
- <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
-In-Reply-To: <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW6PR11MB8310:EE_|IA1PR11MB6443:EE_
-x-ms-office365-filtering-correlation-id: 8d99efc0-6366-4bc6-8f28-08dc126ffd67
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kXWvBebkwLYA1AxmOm4SjcIXLNNCLgSBFLTr5BLInuNgEvUpO3kxjL1GIluLWLq0/xEjWL+f7RKhrX394phWjNAP5HEz4IQGZtxwWBJrXhlYeyNPtt5yY8qCjCz1lpTzn4+UmmkuJEHNcg85qjybiyKVX5Iv4iJG7CjQycatXMAQDiuY7gBuDqC/JmsV5z0mfde4dJifh/P4QQto6cALioeJz7TTXDIjzqX2klMhbEFjdyY3H2vbKvhs6zn02S+awx4mUhwqzSp1Px1+dQbF/gDtRj0hlBLxP4O+4ljZolsKAswPCckXmH/H9f8uruIvDHR2tunYgm4Ombhhrro6R6VmGehlyoXXB6bSXEsRJonji7qJKs3f33YDnMORSdtBxyG1uxsiKrAtQ00DgCiMbMxltdBnbGSAy8YBTlacYE/qE+hYh7Urnh05Hu0K1QAmIcpSuoaoNsLOTZWsPBVNQZYJ7VUjbey41V9e0pmiYR9CPg5gMp0KrE2HZZqj579emclslIPRrtGhPjys1pzjnawF+dnHJ/8BfkcdjobiiNLFWsJrcNXxSoHZShMj+SXQXwxv9q2R2QTLv6f7OWXe9GoVnJdlb2ueBu8S8fpeLM6Dnh6/zLOVFuuAsHwRXaKK
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR11MB8310.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(376002)(396003)(136003)(366004)(39860400002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(2906002)(7416002)(5660300002)(38070700009)(41300700001)(478600001)(38100700002)(83380400001)(122000001)(71200400001)(107886003)(26005)(66574015)(6506007)(9686003)(82960400001)(55236004)(86362001)(7696005)(33656002)(64756008)(54906003)(55016003)(4326008)(53546011)(8676002)(8936002)(52536014)(66446008)(66476007)(66556008)(66946007)(316002)(6916009)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?8fd7niZNxha3aiDRWk7guiDpW8q7eQgUznoRlG4Z+ADcCm4o5tmCtRs7Lp?=
- =?iso-8859-1?Q?lQ7FpkWPvzhES/s0e66WlQieCyaQ2foSqHcWAazvPUGARfzCi1pCtj9hmt?=
- =?iso-8859-1?Q?YAqjeSFvaaCgJ6MLgf/BDpz4qSPsRLd+KfUxhctFNE59SiH/pTbnjx3oqy?=
- =?iso-8859-1?Q?Ocrq3i8t2qF5jKsGGiLM4b73MK8HAFyEKKDXU1qtUGwPX46d8+3CSKzdK/?=
- =?iso-8859-1?Q?Se+mZ234O//y1votrEi/FFm7cMRMZRPwY2utkRZ7anRjkfk0DEjb4F7d42?=
- =?iso-8859-1?Q?+8TbfkjbfRGwsPZ2kSEBFhDDS0WxnGYD/AMA1p4C/FiDtyTTi3gFBEOUea?=
- =?iso-8859-1?Q?Rq6vmcNQ7bG8fMC3Z0o9BcJ1WB2y5rV8fSRvY2ESnZ6GYDWgjbPirlyjYN?=
- =?iso-8859-1?Q?uiVPNsjOHsg8yzTwndL0yjox9L++WxO6I48XtttRp8Vqm4IICwiSyA8K2b?=
- =?iso-8859-1?Q?tVfDE2/Y9SMq73/pClVC3o0j/zn+cmzIZFTmMxQ6bZn6wQN2pm4WNUDqnw?=
- =?iso-8859-1?Q?fDHpGcvuVsORUrJwG2KdAXLBTeKOJnExNYcsLbIzrAL1sIG+N2KYBqprwf?=
- =?iso-8859-1?Q?3/W8EtePtbDN30j4UQEGulye+30N8zhbPuljKkHnMUuSq8E9WNHE+Jx0L0?=
- =?iso-8859-1?Q?myNVbJp7WcvUNEtPrkvcnliUQob1SVbPcy5fw5VOdRWe+KD85XM0d4ahQ7?=
- =?iso-8859-1?Q?9dMi9TerRkqmDV+Ryc/+BIvFVeeONYwgWnxvr9wn/19paUOOM9KQ1jSIry?=
- =?iso-8859-1?Q?rTcMnCtCpWtyQsMYWbWmtJJL9c/BnStXIyHtC8X22nBCovd3xLpZQysqSI?=
- =?iso-8859-1?Q?WCWNM04ka3az9Dc0eaaUO6rUyFs2vwZjARtY5peBzmHB0XV1IHWiJLFnUY?=
- =?iso-8859-1?Q?48kWbJlijUuiND/UJ3aPnlHMD03VSGJa6v0r3+XYSkMZvQzGJiy0e4KLVX?=
- =?iso-8859-1?Q?c6TYuzG3U2GuGcZUoBKxIJGxFaw2ZHxlj/vpjrSPCP3oa4YOSHAgDFEH4o?=
- =?iso-8859-1?Q?ATzn3lrT6pU9YWwlhKT8nL7thaZOyYbNp4CzIpim5PuLmwoW57s7+OSOR9?=
- =?iso-8859-1?Q?0w/pRnqkocqxRE9MEvLCKxJMjV8S/WOh/+rjvozORg4fVTVnFpnQ9NyvF9?=
- =?iso-8859-1?Q?36C4Jqjlxh/Q6xUgmWykHMg8YPqefkBzdHC6GK4IL6hDTZN7t4JnKl8E8P?=
- =?iso-8859-1?Q?1hImD5kL7Y23T9msrvmWYTwfl8saqf5oPm1YHE7SyGp6F23WyQBXtRMiiw?=
- =?iso-8859-1?Q?vg253wkNR+NWKZ1YXgES7NFtQc8UWc/8+XCC2Il3N0EzL9tsrJV372Cfed?=
- =?iso-8859-1?Q?vsUhCECvKWWUTyDvBVC7MXpLsKfCZONm1am0yYAgAd7i79D4qUmwTjCWrz?=
- =?iso-8859-1?Q?6+FVcObJFdnIvnOgHKaZE8H8ZWDhwNDns3X6oVdtwt2oDZPx43QjfUGTKl?=
- =?iso-8859-1?Q?fxy60g5FjPbC1zzVLkwKvkwKPQSBulfNu7r65ULfCeL64vecr575GNvwQY?=
- =?iso-8859-1?Q?bCAkHMQy8AbB+dvpj7c9Cm2q6grx+6Zf/gMCOsrgQ9JtpLfhypiJUhUHjT?=
- =?iso-8859-1?Q?V3S/yF7JY7sWf3X8QnT9a5flC93ZYr4nvDMPd/jx+fA71eB0IR6a3c7U5f?=
- =?iso-8859-1?Q?qIQDHnaNznY6b0yqlvfhzMNQ7AVU9cXSEE?=
+ Wed, 10 Jan 2024 20:20:29 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40AK8qBa015886; Wed, 10 Jan 2024 20:19:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=NgCE54sEzeUce6C/KiC9M0zAoiO6fbBzNGjrx8pUiLE=; b=kU
+ EFH0Y134OQMi7pJYBTNbEfdPmPPZm6O4eDm1+ykwDemfQtUjJhSnXu1HuQ0ZABTs
+ YlicfOOsaJIvhGs47dMrSbQZAXTvzs8CltbbPKcWILtqs/mj00Gv2i7Jkstg2/vr
+ xqZNQ5+5prVw+VlaswHXT7APWdnbDvbgzzD3xMailYwlbbSkw7H2+VgievYgR5uD
+ sOXK4WgLXbdiD82daOBH18rYbuF4gXbKtvEa8OvyLY/QRGsPEiKm6s/okOzpiwAE
+ g4IUQIsFICGbCp6KmPRzVd0Dejdin36EMBVWvLuPYrwasUFTTdfrVPmc4LzPe0Zs
+ EQR4EnO4FTUKPIs5qvKA==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vhsb2hf1w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 20:19:56 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40AKJtXW026511
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 20:19:55 GMT
+Received: from [10.110.5.89] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 10 Jan
+ 2024 12:19:53 -0800
+Message-ID: <92892988-bb77-4075-812e-19f6112f436e@quicinc.com>
+Date: Wed, 10 Jan 2024 12:19:29 -0800
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR11MB8310.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d99efc0-6366-4bc6-8f28-08dc126ffd67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2024 06:38:58.1761 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 62o2WE9AWAqFlId9AvjLhImroqlcU7d63YFKd8GijeDZ4xjJCgsrtPzMhCFhRp0iDBAdKkbN5wfWOI1/S1kjrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6443
-X-OriginatorOrg: intel.com
-Cc: =?iso-8859-1?Q?Marek_Beh=FAn?= <kabel@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Choong,
- Yong Liang" <yong.liang.choong@intel.com>, "Voon,
- Weifeng" <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric
- Dumazet <edumazet@google.com>, "Looi, Hong Aun" <hong.aun.looi@intel.com>,
- "Song, Yoong Siang" <yoong.siang.song@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: phylink: Add module_exit()
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rohan G Thomas <rohan.g.thomas@intel.com>, "David S . Miller"
+ <davem@davemloft.net>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Jose Abreu" <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, "Serge
+ Semin" <fancer.lancer@gmail.com>,
+ Andrew Halaney <ahalaney@redhat.com>, <elder@linaro.org>
+References: <20230927130919.25683-1-rohan.g.thomas@intel.com>
+ <20230927130919.25683-3-rohan.g.thomas@intel.com>
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <20230927130919.25683-3-rohan.g.thomas@intel.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: -pA_WXnVrm5JzPP1OM40hLBadBDWBoIa
+X-Proofpoint-GUID: -pA_WXnVrm5JzPP1OM40hLBadBDWBoIa
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ mlxlogscore=999 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1011 mlxscore=0 phishscore=0
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401100161
+X-Mailman-Approved-At: Thu, 11 Jan 2024 08:08:45 +0000
+Cc: kernel.upstream@quicinc.com, devicetree@vger.kernel.org,
+ quic_bhaviks@quicinc.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
+	platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,73 +94,119 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Qualcomm had similar discussions with respect to enabling of TBS for a particular queue. 
+We had similar discussion on these terms yesterday with Redhat. Adding Andrew from Redhat here 
+
+What we discovered as part of the discussions is listed below. 
+
+1. Today upstream stmmac code is designed in such a way that TBS flag is put as
+part of queue configurations(see below snippet) and as well know that stmmac queue 
+configuration comes from the dtsi file. 
+
+//ndo_open => stmmac_open
+int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;(comes from tx_queues_cfg)
+
+/* Setup per-TXQ tbs flag before TX descriptor alloc */
+tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+
+2. There is a no way to do this dynamically from user space because we don't have any 
+API exposed which can do it from user space and also TBS rely on special descriptors 
+aka enhanced desc this cannot be done run time and stmmac has to be aware of it before 
+we do DMA/MAC/MTL start. To do this dynamically would only mean stopping DMA/MAC/MTL 
+realloc resources for enhanced desc and the starting MAC/DMA/MTL. This means we are 
+disrupting other traffic(By stopping MAC block).
+
+3. I dont think there is a way we can enable this dynamically today. I would like upstream 
+community to share your thoughts as well.
+
+4. I agree with Rohan's patch here and want upstream community to accept it. This will allow
+use to configure the queues where TBS needs to be enabled as hardcoding in the code unless upstream
+has better way to this using userspace.
+
+Please let us know if you think otherwise. 
 
 
-> -----Original Message-----
-> From: Andrew Lunn <andrew@lunn.ch>
-> Sent: Thursday, January 4, 2024 9:05 PM
-> To: Gan, Yi Fang <yi.fang.gan@intel.com>
-> Cc: Russell King <linux@armlinux.org.uk>; Heiner Kallweit
-> <hkallweit1@gmail.com>; David S . Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; Marek Beh=FAn <kabel@kernel.org>;
-> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
-> arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org; Looi, Hong =
-Aun
-> <hong.aun.looi@intel.com>; Voon, Weifeng <weifeng.voon@intel.com>; Song,
-> Yoong Siang <yoong.siang.song@intel.com>; Choong, Yong Liang
-> <yong.liang.choong@intel.com>
-> Subject: Re: [PATCH net v3 1/1] net: phylink: Add module_exit()
-> =
-
-> On Thu, Jan 04, 2024 at 06:12:55PM +0800, Gan, Yi Fang wrote:
-> 65;7401;1c> In delete_module(), if mod->init callback is defined but mod-=
->exit
-> callback
-> > is not defined, it will assume the module cannot be removed and return
-> > EBUSY. The module_exit() is missing from current phylink module drive
-> > causing failure while unloading it.
-> =
-
-> This is still missing the explanation why this is safe.
-> =
-
-> =
-
->     Andrew
-> =
-
+On 9/27/2023 6:09 AM, Rohan G Thomas wrote:
+> Enable Time Based Scheduling(TBS) support for Tx queues through the
+> stmmac platform driver. For this a new per-queue tx-config property,
+> tbs-enabled is added to the devicetree.
+> 
+> Commit 7eadf57290ec ("net: stmmac: pci: Enable TBS on GMAC5 IPK PCI
+> entry") enables similar support for the stmmac pci driver.
+> 
+> Also add check whether TBS support is available for a Tx DMA channel
+> before enabling TBS support for that Tx DMA channel.
+> 
+> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
 > ---
-> pw-bot: cr
-
-Hi Andrew,
-
-Regarding the justification on why it is safe to remove phylink, =
-
-we had done some memory leak check when unloading the phylink module.
- =
-
-root@localhost:~# lsmod | grep "phylink"
-phylink               73728  0
-root@localhost:~# rmmod phylink
-root@localhost:~# echo scan > /sys/kernel/debug/kmemleak
-root@localhost:~# cat /sys/kernel/debug/kmemleak
-root@localhost:~#
- =
-
-So far, we didn't observe any memory leaking happened when unloading
-phylink module. Is it sufficient or do you have any other suggestions to ch=
-eck =
-
-on whether the module is safe to remove?
-
-Best Regards,
-Gan Yi Fang
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 +++++++++++++++----
+>  .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 +++
+>  2 files changed, 24 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 81b6f3ecdf92..7333f0640b3d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -3773,12 +3773,18 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
+>  		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
+>  
+>  	/* Earlier check for TBS */
+> -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
+> -		struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
+> -		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
+> +	if (priv->dma_cap.tbssel) {
+> +		/* TBS is available only for tbs_ch_num of Tx DMA channels,
+> +		 * starting from the highest Tx DMA channel.
+> +		 */
+> +		chan = priv->dma_cap.number_tx_channel - priv->dma_cap.tbs_ch_num;
+> +		for (; chan < priv->plat->tx_queues_to_use; chan++) {
+> +			struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
+> +			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
+>  
+> -		/* Setup per-TXQ tbs flag before TX descriptor alloc */
+> -		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+> +			/* Setup per-TXQ tbs flag before TX descriptor alloc */
+> +			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+> +		}
+>  	}
+>  
+>  	ret = alloc_dma_desc_resources(priv, dma_conf);
+> @@ -7505,6 +7511,15 @@ int stmmac_dvr_probe(struct device *device,
+>  		}
+>  	}
+>  
+> +	/* If TBS feature is supported(i.e. tbssel is true), then at least 1 Tx
+> +	 * DMA channel supports TBS. So if tbs_ch_num is 0 and tbssel is true,
+> +	 * assume all Tx DMA channels support TBS. TBS_CH field, which gives
+> +	 * number of Tx DMA channels with TBS support is only available only for
+> +	 * DW xGMAC IP. For other DWMAC IPs all Tx DMA channels can support TBS.
+> +	 */
+> +	if (priv->dma_cap.tbssel && !priv->dma_cap.tbs_ch_num)
+> +		priv->dma_cap.tbs_ch_num = priv->dma_cap.number_tx_channel;
+> +
+>  	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
+>  	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
+>  #ifdef STMMAC_VLAN_TAG_USED
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 843bd8804bfa..6c0191c84071 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -279,6 +279,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
+>  		plat->tx_queues_cfg[queue].coe_unsupported =
+>  			of_property_read_bool(q_node, "snps,coe-unsupported");
+>  
+> +		/* Select TBS for supported queues */
+> +		plat->tx_queues_cfg[queue].tbs_en =
+> +			of_property_read_bool(q_node, "snps,tbs-enabled");
+> +
+>  		queue++;
+>  	}
+>  	if (queue != plat->tx_queues_to_use) {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
