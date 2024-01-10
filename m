@@ -2,62 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36AA882936E
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 06:45:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0647829376
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 06:51:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E530BC6DD73;
-	Wed, 10 Jan 2024 05:45:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5873AC6DD73;
+	Wed, 10 Jan 2024 05:51:50 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F1B1C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9742CC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 05:45:23 +0000 (UTC)
+ Wed, 10 Jan 2024 05:51:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1704865524; x=1736401524;
+ t=1704865908; x=1736401908;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=aKVdjvARZYDTia9ly2nTZADXvqPYQoiIvKnIZeIPTS4=;
- b=UwqnU5OWg/JVEYfmUUcjhgxFS9tA/cA2BmWfNN+Oypz+JFFiN2pPabe3
- UNDd5Z6SbAKvzWp1IG6DS07mDeXKQ3JS5987tQSa2/QbatE0SXx7zcQEm
- oGiLQoVCE/Z/AUcPe3sTGMl0AAj0w5JR5DF/FOx0VsjClfSiHWjhZ3oJx
- sZ7UCXXlyVnJ5UlComGLMyZbdnekRiNN4nkE30YD55jglTAU5UBDVHALS
- EKO3i7TcpchOyziicVb1j52Y55aTegQ8zOxZDBZWXx501lcOwJFvirCHw
- 2Isl7BjjK6agNlVXqbU8cOzKFU/Q3eg6ARWZs+XyoNriBP8IlZl1o/Tqd A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="397271393"
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="397271393"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ bh=HBpCQfx2nLYB6dHcr+44bhKfXXHstQYhciu5iUkdoTs=;
+ b=mnsWksLPtAwgsJYV0W7sSEO7URr/McxCsBYZQDnsutXGWnv6PDu3aBGt
+ BwTHhg8S/fwju+ddTQzEXDN3Dh+7N29oiLL1Ndyf1unTD8nHSIWRnOtGE
+ Sef1LKbPqF+rQB/h7qhkAFGLg4I+Ni5RPIxwG8VV+Bfe4s5zvOR2rks2B
+ ruTp2Wk9N3b5ZIKNOqelDWhCFk+vk2TKbVZvnc1WmmiQC1dCFZVHjNsVH
+ /fzldoFjMr0Ki6jbI+Bzs2tPt9AOGxqi0mR/CzLXHJUD+rAWMY+/hXNfa
+ p8LoikU3/iAe2LneF0m45nlvCgwio6Js6TU5ObLRGLc6jj4bf5YegoaV6 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="397272625"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="397272625"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jan 2024 21:45:22 -0800
+ 09 Jan 2024 21:51:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="24137458"
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="852432581"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="852432581"
 Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by fmviesa001.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 09 Jan 2024 21:45:22 -0800
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ by fmsmga004.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 09 Jan 2024 21:51:46 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
  ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 9 Jan 2024 21:45:21 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Tue, 9 Jan 2024 21:45:20 -0800
+ 15.1.2507.35; Tue, 9 Jan 2024 21:51:45 -0800
 Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
  orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Tue, 9 Jan 2024 21:45:20 -0800
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.40) by
- edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ 15.1.2507.35 via Frontend Transport; Tue, 9 Jan 2024 21:51:45 -0800
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.100)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Tue, 9 Jan 2024 21:45:20 -0800
+ 15.1.2507.35; Tue, 9 Jan 2024 21:51:45 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hfNEDJ/PQQy9QBgvegZLnXWTzT5sspOVYSNjT/skdcRBcBVB4TykThw4+mFyyZRD16eInPwWvDnQXk9Z66DdKBhs278nN0LUA89/MFBn+BLc2sJN6J5T69/rDnNd3i5yvztbee5m2GodF+ChRCTigCRiNNT3Ggdufa6jBtZUmXOfS7xY3xZE/LDVh98jbAQcaEis+Kj31C6AeaWSmvLz19tmdxOr0Ektx3RIBPo+rdiyf4HEPWvQi3NtOrVESpkoTVytFZYg31/niK8BSzi7V094Y6vY91fR/nFABLsWzcTE56zXliNoy1ggpyiy2vSotWioCW/F7ZMYEALmMUAHTw==
+ b=A0oqpOEgXlteF/GBobVrI3albJlksPHHJt+YJ03R5bqgoKlkGeBNY2T9ojWvKFPwbLys2BpSiulaG4IuYflh2UUf43iu0UPFbUsjMVtnHXSOBEreXztGKg9ZKopwNLl0EO78ZVn8IkkUl819DCoYAQiHz4JYunkBcObpd5Gfo/rnz+q92xlc2H83VtfglpTvRLkYQKDnsrDqKtrCz3oTcEHBag0WpHu70dYP4yygV+0tcDrlZs9lJEntxy+V/OEmx1dwJL3aQ+IUe6ycUn6l9rL+J8AXTPektp3H+bBguScfxfE/fzL4Rb+NtzJ2pmskBan19zZF+Lbp13Gu3bhw4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6axTThPtTenSZkTtAWGyuX+sV+HRsY7UOq10pZ/2aHs=;
- b=KaV/fOuer9kqd3gOXLAtyTHBdYuj1CBHA3Nnf4aL/W+tHKI4ou1CV2/e1dd9r2Ia9EPwDgS4j7d8AHjnhMJ3yLKh0GOEKBM3kWX/edRS5NHF4wAfuRBeCGoeD934WJEh+lgK311jhYBGhD7pbCQ7A6pSWEDVvzRW39EYSkVP4jddzM8joDuOoMWH5NLp3p4Ep1uwpc9oZQBVPBEeQ87itnWkAoe2aBGWpnmjLo9ikiuXIE6Tb8JlqHSOcbhUkPfshZA0PrYwXpxxTfuHFSxv67nob4xSPlrW+hNc3P2k9Zzu/GZNHXVloXECd4IQ1zFa+Dbe1NnEsKjIGUEywQMuTg==
+ bh=nRFVS8dZzygfmnweZ5F26tfbafOJ4aATPOcL+EjjeAY=;
+ b=KpNCRtSLQlBdiDwySz+CBmG5d42OnwEHPdjDLwiUMXJuhpntTVzLgoapGfdVCu7WuBcO6I8hL0dmGaUH8pJH4cjIhrYLKug7m/jPWF+EMwNNtVbHXGI+nG2FdBBrvnK317Hrf4NaJraVdwaAsm8+GYFJapjcSSQn5xLYs4Esqr7mhJ2gz+/n1VQUUzVekwfEmp1P01IyBvERZqJJJhw8XVcPgkGbICxU7seO4bTfmD+Z/ayEulJlz+fTcJuyprK93ZG0e7ATDiV3swrsZX2BZAXPSx6OVeMseZ3NA34dA639i5ZOnw+aSHpT03mFZ5AsuZcMy6LdJzTmef3MEwWBvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -65,22 +62,22 @@ Received: from CH0PR11MB5490.namprd11.prod.outlook.com (2603:10b6:610:d5::6)
  by BL1PR11MB5239.namprd11.prod.outlook.com (2603:10b6:208:31a::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
- 2024 05:45:17 +0000
+ 2024 05:51:38 +0000
 Received: from CH0PR11MB5490.namprd11.prod.outlook.com
  ([fe80::9afc:fa9d:5f42:8fd7]) by CH0PR11MB5490.namprd11.prod.outlook.com
  ([fe80::9afc:fa9d:5f42:8fd7%7]) with mapi id 15.20.7159.020; Wed, 10 Jan 2024
- 05:45:17 +0000
+ 05:51:37 +0000
 From: "Swee, Leong Ching" <leong.ching.swee@intel.com>
 To: Serge Semin <fancer.lancer@gmail.com>
-Thread-Topic: [PATCH net-next v2 3/4] net: stmmac: Add support for TX/RX
- channel interrupt
-Thread-Index: AQHaP6Y7sC4xQVBFpEuN3if/vsfTLLDO07kAgAO85HA=
-Date: Wed, 10 Jan 2024 05:45:17 +0000
-Message-ID: <CH0PR11MB549071EAB3017E244DCC2F71CF692@CH0PR11MB5490.namprd11.prod.outlook.com>
+Thread-Topic: [PATCH net-next v2 2/4] net: stmmac: Make MSI interrupt routine
+ generic
+Thread-Index: AQHaP6Y3nBOT49XQoEmBgv/Tuhxh/7DO0J2AgAPApkA=
+Date: Wed, 10 Jan 2024 05:51:37 +0000
+Message-ID: <CH0PR11MB54909CC4F6E791FFF063BA17CF692@CH0PR11MB5490.namprd11.prod.outlook.com>
 References: <20240105070925.2948871-1-leong.ching.swee@intel.com>
- <20240105070925.2948871-4-leong.ching.swee@intel.com>
- <xybq2523vgod6rbefw4zjs2kb2xtfmizecdwdjzyl6l2iovjqq@o3q4t2qny55o>
-In-Reply-To: <xybq2523vgod6rbefw4zjs2kb2xtfmizecdwdjzyl6l2iovjqq@o3q4t2qny55o>
+ <20240105070925.2948871-3-leong.ching.swee@intel.com>
+ <7euscw66rss3iux2cvf7fkvfburmlf6lo4arfx76k42gihspkz@xm3klojs4e26>
+In-Reply-To: <7euscw66rss3iux2cvf7fkvfburmlf6lo4arfx76k42gihspkz@xm3klojs4e26>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -89,53 +86,53 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: CH0PR11MB5490:EE_|BL1PR11MB5239:EE_
-x-ms-office365-filtering-correlation-id: 408e0935-fc0d-4d7e-4c43-08dc119f5319
+x-ms-office365-filtering-correlation-id: cac48e4c-b4dc-42dd-d40d-08dc11a035f7
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8QiX7fHvN9OXYJJ18Lr7q5lFBSbZxCY7ovfNFmVhCR+Vw/SScQAwnmKQq+Rq0XGBvhCWgIaXlUcA9tPBqO1xpmIMVLdu75pgUbG/PhnNPX/fWw6UyEtI2NmFkTr94eqFflT4z8nqsE3SEeP6LunZs3UoXfrWjNDflCK6DP4yBnwPyuMY8kAt6uNffSH2sCnEFpWt3aQwIKD/mxRpey8Re9O7TSdGpl9Uv2MWioWKWvkbrHsawzfNXc90uVBqmjQSYRvhBalvvoDEX0rLMkdzSzeyERZzdpxp3ikYYxh5Y9xga5mL+zeiZyisFBBjLAKR5XMmJE8IHSPwybylBXtQ/f7KQgP5XCUCO1bg1gPPTHMenzrbGdZ5cUB4DNwH7b8ze19WJsm7UhWMp6o76JuqjCP1hsJ/exVaIdOhty52FMw46aGMZ3/I/bXcADkF3Ww3BGfZNAIpuCfqDS/sm3vIZdxriRN60NOgtUpYf8lkCeQQuRSM8xhAe98i4wUGNeANffEIZPprrBvdwzoK14SemAKJVeRBYd+/yrnp6Nu9yFCAZgnC5R5oXOsroK2NfWSLkzoKej5qI4fJX1A/O/kdlTkV22yWo5PyCaH2Iz27G2a9cbfAbDdoh68b1zz7sESd
+x-microsoft-antispam-message-info: HC2GwH0xMu625Dmlbf/N45G0VIgF4Ah9NKIFwpsdPmZEmROst6C6kBgRkwiVhU1nDSk/katq9yVS7yrejNJ34jW7bwAk/gix06IJeuFJIWo3eS0R58hjaJ6l5GorQ8GplB1+jHha7Ziij9bbuAY9lFqnEilCS2P/7c/2ITmuuzFHhW829Bgdv2Kc3Ge54qIqM0bc8LroUf206yUCLjKFkiwkVCVOdUXaffBIMPRzQ1oLmwjRqPP69+Tgwz90PMhbV64Atcuebs8GthB0o2AGtiMOTSIwTG7Rn0ycI2HeWPXPHQGi+DddHHHj02mMs2YG4f5sLITGLSck0ItpDZVmqVbaN5g0tOITjJ/OZ5PjekE9ueks3mJdJo+HQbeNuvUVpDi41LyCtQDlNVrnF8yTRc2KEWdPzFUB5tR8blFqV/ExQLDkT52/n2QoeUPTtbSj6IDHV0TzDn9WkjDsIlUbkTROM4VVnxAFlzamN9g9qhWKHhAmMokf1mv0VydEzC7uY/Gs6NaLSOSHKeRz0J6kj+bVKdsQqP1Qpid2cJZyMsU9ec7t8mYbG4rKFLNsvecLW31OoCtaM2lVqxYyNrj0HxdF9wq4JFWojhGz+wipm0qvSP7h0KHghciw/gpzfR5KZvZNBv59Vq1N8SAE/MM8Eg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH0PR11MB5490.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(136003)(346002)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(83380400001)(26005)(53546011)(6506007)(9686003)(107886003)(122000001)(5660300002)(38100700002)(8936002)(4326008)(8676002)(7416002)(52536014)(2906002)(66446008)(478600001)(7696005)(54906003)(71200400001)(66476007)(66556008)(6916009)(316002)(64756008)(76116006)(66946007)(41300700001)(38070700009)(82960400001)(86362001)(33656002)(55016003);
+ SFS:(13230031)(376002)(396003)(136003)(346002)(39860400002)(366004)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(83380400001)(26005)(53546011)(6506007)(9686003)(107886003)(122000001)(5660300002)(38100700002)(8936002)(4326008)(8676002)(30864003)(7416002)(52536014)(2906002)(66446008)(478600001)(7696005)(54906003)(71200400001)(66476007)(66556008)(6916009)(316002)(64756008)(76116006)(66946007)(41300700001)(38070700009)(82960400001)(86362001)(33656002)(55016003)(41533002);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gMqkq9XBT7KGnjhQUQHxjs2baS+MELtd7kN1VDfkMQN1b6JkZF+++PQ63Afa?=
- =?us-ascii?Q?U0oPusmJ2JurbCiN3dFA0ng4Vj00upQXeBlzAsUd7Aly6Q9cLNsl+g0DcVfR?=
- =?us-ascii?Q?syKYsrIAyFdTLJF61Jd/SXirAhJFttEd0omo6bN9+nSMfXHebqAQf18f+609?=
- =?us-ascii?Q?yVRUPETPOgUhfk3zT6v1Lpy3+zm8T3zJOrcYSbosN6AsXUBHa56hzx1a6BuX?=
- =?us-ascii?Q?3gUtokexmyH24S5A9pROkQHI+zmoyBFGzAbtqAC4W88dbocE91GBRGqRo6kh?=
- =?us-ascii?Q?B63O+PaHXaQizP2lBtctKlTLYaVdt8NET+rr/V+beorHlA6Ok8vOH/kFVeDw?=
- =?us-ascii?Q?jASQSjEMgAbsNy8un3EfF2wAyJUj8n4Xno2PM+u3ZQA8pMClzGoq8LsUrXeC?=
- =?us-ascii?Q?B6qM4YeDAW+M14JrwdBkKBuA74g30G9rPejQr5Ggioaz4R+y7OxF8WOYwuGA?=
- =?us-ascii?Q?f+ilG8msDdNoMpXxQdriyhz7eHuLDNHhJ5rGqs7KwKtuVQ8RO/pUZNh+ml70?=
- =?us-ascii?Q?GVq4Rz4o4hHEw8BbnhH+R2QIwbUW+4gwhmDeAAeeKlo3RSKN0inwPHH2lob6?=
- =?us-ascii?Q?RSERhSaPixsUhS+2fNqwrBRiIVuYSDrw4Vt6BNc+GdDl6oN3v+6xzvH/louH?=
- =?us-ascii?Q?qUOPntaecqUIKrInAAcX1qXXwDasU1x68VOQSwvsjR8HVtTkNIFahWnCyIrz?=
- =?us-ascii?Q?cvPEbuU2A9oi2g3kLvm73XAAc+kn6Dwa9vXOIuv+RG9RSUPcxxjbFOvIUzdy?=
- =?us-ascii?Q?36eGDNJ+NVmZ0rjGie2f/GkG/LUjtPNM2um8KMGxYodLSOCvGa4KWz8yRKPf?=
- =?us-ascii?Q?da3M9heXB5Zxbqwzi+Tt0/18PRmSOEAfv4N9KbVta1BrapMzUS4CKZQsZbrr?=
- =?us-ascii?Q?5/v5jWbdpUwtrZMaphtrAbjuV5kOMDqkwI2NG2UHzd3+Ba19OS+m50mA+XLd?=
- =?us-ascii?Q?5pNxzvx2hKmPdAODviF0IV6V1xJtByp2uGCMJcIOV9ZBmFXpTf6FY7MVEW56?=
- =?us-ascii?Q?YpMpDjSJEwibDPyMrqAQkMI1aiGifv5m1uT7uEBba5EYkACmXPQWr93VHZB+?=
- =?us-ascii?Q?teNyWBDB4aa8V0I5eSrLQkeSsFsVW8N8Ut7lh5Z9YahOXLA+D+m5RCUzcvSj?=
- =?us-ascii?Q?kZZkMzlqy4E97h9YwvDqcVpvyTn77Aw2yEBYwjagvkgZOYslSGJ6jdHmP769?=
- =?us-ascii?Q?cf0r4aUKd9uMqowwDSF15f7TxoC8hyJdFZbOwgqc6tm7vxjwE1uKh0zgUTFD?=
- =?us-ascii?Q?8U3ty2cijjZ6Z3GBMe+BrRxD3EtYTJHxSI/6dM36OeBpQ83T4aX95NdAZv1v?=
- =?us-ascii?Q?ZUJD+bunI7GFaKQROXozLuKOPPLdgDG3ZGgj400G/6ZHG3dub1+N9i62J3PK?=
- =?us-ascii?Q?PIDN6y0x4FdfEzMAV9S3mxi5gBkWWkjU/z6PIK6iDLL43HOEvqWHid91C1B8?=
- =?us-ascii?Q?Pob4pwJ90dBZfk+8KZ2czsNcTZ02XkFA2BGqjuRiPne/47hVLH97wa7eg3eR?=
- =?us-ascii?Q?pCEAdpuA876H8jObNUN+EHP05LRD96/Ru7CiPvzCYL1uJxsnH/Usw5rzOg2R?=
- =?us-ascii?Q?d2BWwT3M+eCz5qyu55GS6J+KUmh+y/2AFDfqnwRvYwylnitzFBr3P2jNp+hZ?=
- =?us-ascii?Q?MA=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TrR3fUcsiAdLqfKjEkJiluWb0HGIBJmhF0JUTZ8QJib57FV0LBoRmAV8fFcH?=
+ =?us-ascii?Q?mgoq1YeAaUZbD/2uj1X6a+lSZQAnkpxAI0Pxum+hq2vBmWCNObUw6Y+Mdk7+?=
+ =?us-ascii?Q?d+I/kfCVersoQimkmgqiagevx4mRmekF3+04rwEH9D5O7oxMGzVkJLVJqIWa?=
+ =?us-ascii?Q?QO+Ot/2RLPqga4OFZ192RtW4jqjRNQvWm6YWXjqYesdQjhFh8hV/kORsgUF4?=
+ =?us-ascii?Q?e6/m9MWUsqSjGC8d0wIyL0BQh8FrXdTWAiLW+sV5p5GRN3/W/u7lW3N4eRWM?=
+ =?us-ascii?Q?U8eSYAkPgTeu/55gCzdxnqoOO60qzCrtIdXF863/WBNTvC/uZ1OOWNYgMsi1?=
+ =?us-ascii?Q?8Xxux+iADlR7q4T1it9l3I9H5bcYD6EWI+u3CuXd7SdT9eg8TFvKjQjKkmdg?=
+ =?us-ascii?Q?QPCOyIH8RTBlWNtVix5BFZ0SMj/xqsO5bQe/efcGAlXeStK9+dpGA1SbLGr5?=
+ =?us-ascii?Q?AeV9r1E1neXIHbWtqIBmziKqOjovHtZLqw6wLpF6hUmyRgEImE0/oaHkxkAS?=
+ =?us-ascii?Q?wxj6qOk7cauKHZIuqvMcpt6E0TvpKDLYovTE/Y4pfI+X4sJeIo3tzettKLJt?=
+ =?us-ascii?Q?LoYUgcTvOExMI07YkS2XglMYcysL6vc+rJDbBoq6tlNqL3ZeOsNKNxzFlwQs?=
+ =?us-ascii?Q?c6YT548A1MgSoHlu7fu8KqnHUPsbq3OWe1r6/tUCrg28oIdFC4fPcM12ok8y?=
+ =?us-ascii?Q?KkYjzTI0QudO/NbwwAllV1LoVrc51447qjT+he0uhWMkw4PosBe0qemfW8Jv?=
+ =?us-ascii?Q?yvVQPrKXlZE17Imc3Ia1zTvRhAjHKd45bqAkiTyk7sAgS8pl1A4LE7K+5Ns1?=
+ =?us-ascii?Q?rQKTMLnsDweoH34bDGQpRJ54rs6/GMJR/UmDnwT7KQlKQnXbz7SXQQwX/K+k?=
+ =?us-ascii?Q?h9Th5S3CdXa3jjwacvT4gNDgXDxk87CN7FlT7/LFfXWvqPzYKvtr4+qkffSK?=
+ =?us-ascii?Q?QcJ1bvccU8dZdmFkeL9arHsC6OznbopQNvdRT5i2O7XwQaCRV6X6HokMBPSA?=
+ =?us-ascii?Q?72tOQofZthCw1yMeAgTHKzAOe2LSA2kteAUX06vIvrAvBMy5DU3fS4/c+dKQ?=
+ =?us-ascii?Q?euzqb7OWtFtVVFo4SxcSmE/7vmleciVUaPPz2Y6zEfHcpGg0LkVc8kCljAT/?=
+ =?us-ascii?Q?QXFNBhUPO34+V0ayGAnlJ+pfb87IehjHMVw6uczTuEYzF5OoAl8BldW71Ivb?=
+ =?us-ascii?Q?hLI674dZ8ss8Fh5HU9gTX7+j6elQzWax2MN3JtV9J7iDcCAzvCWl2QgDbCQb?=
+ =?us-ascii?Q?0pB/s5JFd/CY7OU1DJuDMjdwuhIQ+CRRWUDn4QixHd9r88K3mrmMx601WRo7?=
+ =?us-ascii?Q?wJxPS7brI6prsmwIsFDFwuHqZ8VEjCuj3ncXnUkG24SpDuPc0N+fthbAmxQJ?=
+ =?us-ascii?Q?b0gTv0uqkVGHxe9P+cpMf6kfaTEIEoY5umnJzBpFINdyYSCqyIvkNrIW8HI0?=
+ =?us-ascii?Q?AzB0/hCST18Ks4zAqlsKst3MJSYt3mY/smoo3xAtbVSLJ7ozM9hShMnbFruR?=
+ =?us-ascii?Q?iKo3UnL3AziciW+TMADrrz/25POiiuYFvfmhfnzefAvemeyRII41s+PBlKtj?=
+ =?us-ascii?Q?lzvQ5d5DWut/qXixv/loXjRoCNdF8TSsqTAE2cV3tM/if0jWd3L1CjAoUXqx?=
+ =?us-ascii?Q?gw=3D=3D?=
 MIME-Version: 1.0
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5490.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 408e0935-fc0d-4d7e-4c43-08dc119f5319
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 05:45:17.0823 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cac48e4c-b4dc-42dd-d40d-08dc11a035f7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 05:51:37.7347 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TA5TeHYesHAjLYgeaifiWVatp5P3sq6jpHrkBNnwhYM3PHQNF5EvKPugx4e9IKgUZmQeTiEefaM7UFYql40vBIwEzWYIchv1ar6Mn0FKXgI=
+X-MS-Exchange-CrossTenant-userprincipalname: dtMzcxIj0fDx8VJrcBZDvj7WZNNtaUNBXx0TxPR0p8n1t3w8JrX2bVxp27YoY42zszd2xCialA4Pbj2df6a3vDPEOXSqzywcy1JChiUcfJE=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5239
 X-OriginatorOrg: intel.com
 Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
@@ -151,8 +148,8 @@ Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
  Kicinski <kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 3/4] net: stmmac: Add support
- for TX/RX channel interrupt
+Subject: Re: [Linux-stm32] [PATCH net-next v2 2/4] net: stmmac: Make MSI
+ interrupt routine generic
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -171,7 +168,7 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 > -----Original Message-----
 > From: Serge Semin <fancer.lancer@gmail.com>
-> Sent: Monday, January 8, 2024 4:39 AM
+> Sent: Monday, January 8, 2024 4:28 AM
 > To: Swee, Leong Ching <leong.ching.swee@intel.com>
 > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre Torgue
 > <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
@@ -184,115 +181,277 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 > kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
 > netdev@vger.kernel.org; devicetree@vger.kernel.org; Teoh Ji Sheng
 > <ji.sheng.teoh@intel.com>
-> Subject: Re: [PATCH net-next v2 3/4] net: stmmac: Add support for TX/RX
-> channel interrupt
+> Subject: Re: [PATCH net-next v2 2/4] net: stmmac: Make MSI interrupt
+> routine generic
 > 
-> On Fri, Jan 05, 2024 at 03:09:24PM +0800, Leong Ching Swee wrote:
+> On Fri, Jan 05, 2024 at 03:09:23PM +0800, Leong Ching Swee wrote:
 > > From: Swee Leong Ching <leong.ching.swee@intel.com>
 > >
-> > Enable TX/RX channel interrupt registration for MAC that interrupts
-> > CPU through shared peripheral interrupt (SPI).
+> > There is no support for per DMA channel interrupt for non-MSI
+> > platform, where the MAC's per channel interrupt hooks up to interrupt
+> > controller(GIC) through shared peripheral interrupt(SPI) to handle
+> > interrupt from TX/RX transmit channel.
 > >
-> > Per channel interrupts and interrupt-names are registered through,
-> > Eg: 4 tx and 4 rx channels:
-> > interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
-> >              <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
-> >              <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>,
-> >              <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH>;
-> >              <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH>;
-> >              <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
-> >              <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
-> >              <GIC_SPI 107 IRQ_TYPE_LEVEL_HIGH>; interrupt-names =
-> > "dma_tx0",
-> >                   "dma_tx1",
-> >                   "dma_tx2",
-> >                   "dma_tx3",
-> >                   "dma_rx0",
-> >                   "dma_rx1",
-> >                   "dma_rx2",
-> >                   "dma_rx3";
+> > This patch generalize the existing MSI ISR to also support non-MSI
+> > platform.
+> 
+> Basically this patch just fixes the individual IRQ handling code names.
+>
+Will change the commit log to below, please check if it sounds ok?
+net: stmmac: Fixes individual IRQ handling code names
+
+Individual IRQ can also be used for non-MSI platform, 
+today some of the code name for individual IRQ has
+msi naming, so change msi naming to irq to make it common
+for both platforms.
+ 
 > >
 > > Signed-off-by: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
 > > Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
 > > ---
-> >  .../ethernet/stmicro/stmmac/stmmac_platform.c | 28
-> > +++++++++++++++++++
-> >  1 file changed, 28 insertions(+)
+> >  .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  4 +--
+> >  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  3 ++
+> >  .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +-
+> > .../net/ethernet/stmicro/stmmac/stmmac_main.c | 30 +++++++++----------
+> >  include/linux/stmmac.h                        |  4 +--
+> >  5 files changed, 23 insertions(+), 20 deletions(-)
 > >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > index 70eadc83ca68..ae6859153e98 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > @@ -710,6 +710,10 @@
-> EXPORT_SYMBOL_GPL(devm_stmmac_probe_config_dt);
-> >  int stmmac_get_platform_resources(struct platform_device *pdev,
-> >  				  struct stmmac_resources *stmmac_res)  {
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> > index 60283543ffc8..f0ec69af96c9 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> > @@ -952,7 +952,7 @@ static int stmmac_config_single_msi(struct pci_dev
+> > *pdev,
+> >
+> >  	res->irq = pci_irq_vector(pdev, 0);
+> >  	res->wol_irq = res->irq;
+> > -	plat->flags &= ~STMMAC_FLAG_MULTI_MSI_EN;
+> > +	plat->flags &= ~STMMAC_FLAG_MULTI_IRQ_EN;
+> >  	dev_info(&pdev->dev, "%s: Single IRQ enablement successful\n",
+> >  		 __func__);
+> >
+> > @@ -1004,7 +1004,7 @@ static int stmmac_config_multi_msi(struct
+> pci_dev *pdev,
+> >  	if (plat->msi_sfty_ue_vec < STMMAC_MSI_VEC_MAX)
+> >  		res->sfty_ue_irq = pci_irq_vector(pdev, plat-
+> >msi_sfty_ue_vec);
+> >
+> > -	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
+> > +	plat->flags |= STMMAC_FLAG_MULTI_IRQ_EN;
+> >  	dev_info(&pdev->dev, "%s: multi MSI enablement successful\n",
+> > __func__);
+> >
+> >  	return 0;
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > index ba2ce776bd4d..cf43fb3c6cc5 100644
 > 
-> > +	char irq_name[9];
-> > +	int i;
-> > +	int irq;
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> > @@ -427,6 +427,9 @@ static int socfpga_dwmac_probe(struct
+> platform_device *pdev)
+> >  	plat_dat->bsp_priv = dwmac;
+> >  	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
+> >
+> > +	if (stmmac_res.rx_irq[0] > 0 && stmmac_res.tx_irq[0] > 0)
+> > +		plat_dat->flags |= STMMAC_FLAG_MULTI_IRQ_EN;
 > > +
+> >  	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+> >  	if (ret)
+> >  		return ret;
 > 
-> Reverse xmas tree please. Also what the point in having "i" and "irq"
-> defined separately? Wouldn't it be better to merge them into a single
-> statement:
-> +	char irq_name[9];
-> +	int i, irq;
->
-Will rework this in v3.
-> >  	memset(stmmac_res, 0, sizeof(*stmmac_res));
+> This is unrelated change. It adds the individual DMA IRQs support for the SoC
+> FPGA platform, which AFAICS doesn't have it supported at the moment.
+> Please move this into a separate patch with the commit log describing the
+> change.
+> 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> > index 84d3a8551b03..5f649106ffcd 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> > @@ -175,7 +175,7 @@ static void dwmac4_dma_init(void __iomem
+> *ioaddr,
 > >
-> >  	/* Get IRQ information early to have an ability to ask for deferred
-> > @@ -743,6 +747,30 @@ int stmmac_get_platform_resources(struct
-> platform_device *pdev,
-> >  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
+> >  	value = readl(ioaddr + DMA_BUS_MODE);
+> >
+> > -	if (dma_cfg->multi_msi_en) {
+> > +	if (dma_cfg->multi_irq_en) {
+> >  		value &= ~DMA_BUS_MODE_INTM_MASK;
+> >  		value |= (DMA_BUS_MODE_INTM_MODE1 <<
+> DMA_BUS_MODE_INTM_SHIFT);
+> >  	}
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > index 47de466e432c..57873b879b33 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> > @@ -129,8 +129,8 @@ static irqreturn_t stmmac_interrupt(int irq, void
+> > *dev_id);
+> >  /* For MSI interrupts handling */
+> >  static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id);
+> > static irqreturn_t stmmac_safety_interrupt(int irq, void *dev_id);
+> > -static irqreturn_t stmmac_msi_intr_tx(int irq, void *data); -static
+> > irqreturn_t stmmac_msi_intr_rx(int irq, void *data);
+> > +static irqreturn_t stmmac_dma_tx_interrupt(int irq, void *data);
+> > +static irqreturn_t stmmac_dma_rx_interrupt(int irq, void *data);
+> >  static void stmmac_reset_rx_queue(struct stmmac_priv *priv, u32
+> > queue);  static void stmmac_reset_tx_queue(struct stmmac_priv *priv,
+> > u32 queue);  static void stmmac_reset_queues_param(struct stmmac_priv
+> > *priv); @@ -3602,7 +3602,7 @@ static void stmmac_free_irq(struct
+> net_device *dev,
+> >  	}
+> >  }
+> >
+> > -static int stmmac_request_irq_multi_msi(struct net_device *dev)
+> > +static int stmmac_request_irq_multi(struct net_device *dev)
+> >  {
+> >  	struct stmmac_priv *priv = netdev_priv(dev);
+> >  	enum request_irq_err irq_err;
+> > @@ -3697,7 +3697,7 @@ static int stmmac_request_irq_multi_msi(struct
+> net_device *dev)
+> >  		}
 > >  	}
 > >
+> > -	/* Request Rx MSI irq */
 > 
-> > +	/* For RX Channel */
+> > +	/* Request Rx irq */
 > 
-> Why haven't you added a more descriptive comment as I suggested on v1:
+> s/irq/IRQ
+> (capitalize)
+Sure, rework on v3. 
 > 
-> +	/* Get optional Tx/Rx DMA per-channel IRQs, which otherwise
-> +	 * are supposed to be delivered via the common MAC IRQ line
-> +	 */
+> >  	for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
+> >  		if (i >= MTL_MAX_RX_QUEUES)
+> >  			break;
+> > @@ -3707,11 +3707,11 @@ static int stmmac_request_irq_multi_msi(struct
+> net_device *dev)
+> >  		int_name = priv->int_name_rx_irq[i];
+> >  		sprintf(int_name, "%s:%s-%d", dev->name, "rx", i);
+> >  		ret = request_irq(priv->rx_irq[i],
+> > -				  stmmac_msi_intr_rx,
+> > +				  stmmac_dma_rx_interrupt,
+> >  				  0, int_name, &priv-
+> >dma_conf.rx_queue[i]);
+> >  		if (unlikely(ret < 0)) {
+> >  			netdev_err(priv->dev,
+> > -				   "%s: alloc rx-%d  MSI %d (error: %d)\n",
 > 
-> ?
+> > +				   "%s: alloc rx-%d  dma rx_irq %d (error:
+> %d)\n",
 > 
-Sorry I missed this, will rework this on v3.
-> > +	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-> > +		snprintf(irq_name, sizeof(irq_name), "dma_rx%i", i);
-> > +		irq = platform_get_irq_byname_optional(pdev, irq_name);
-> > +		if (irq == -EPROBE_DEFER)
-> > +			return irq;
-> > +		else if (irq < 0)
-> > +			break;
-> > +
-> > +		stmmac_res->rx_irq[i] = irq;
-> > +	}
-> > +
+> s/ dma/DMA
+> (capitalize and drop extra space)
 > 
-> > +	/* For TX Channel */
+Thanks, rework on v3.
+> >  				   __func__, i, priv->rx_irq[i], ret);
+> >  			irq_err = REQ_IRQ_ERR_RX;
+> >  			irq_idx = i;
+> > @@ -3722,7 +3722,7 @@ static int stmmac_request_irq_multi_msi(struct
+> net_device *dev)
+> >  		irq_set_affinity_hint(priv->rx_irq[i], &cpu_mask);
+> >  	}
+> >
+> > -	/* Request Tx MSI irq */
 > 
-> * see the comment above
+> > +	/* Request Tx irq */
+> 
+> s/irq/IRQ
+> 
+rework on v3.
+> >  	for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
+> >  		if (i >= MTL_MAX_TX_QUEUES)
+> >  			break;
+> > @@ -3732,11 +3732,11 @@ static int stmmac_request_irq_multi_msi(struct
+> net_device *dev)
+> >  		int_name = priv->int_name_tx_irq[i];
+> >  		sprintf(int_name, "%s:%s-%d", dev->name, "tx", i);
+> >  		ret = request_irq(priv->tx_irq[i],
+> > -				  stmmac_msi_intr_tx,
+> > +				  stmmac_dma_tx_interrupt,
+> >  				  0, int_name, &priv-
+> >dma_conf.tx_queue[i]);
+> >  		if (unlikely(ret < 0)) {
+> >  			netdev_err(priv->dev,
+> > -				   "%s: alloc tx-%d  MSI %d (error: %d)\n",
+> 
+> > +				   "%s: alloc tx-%d  dma tx_irq %d (error:
+> %d)\n",
+> 
+> s/ dma/DMA
 > 
 > -Serge(y)
 > 
-> > +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-> > +		snprintf(irq_name, sizeof(irq_name), "dma_tx%i", i);
-> > +		irq = platform_get_irq_byname_optional(pdev, irq_name);
-> > +		if (irq == -EPROBE_DEFER)
-> > +			return irq;
-> > +		else if (irq < 0)
-> > +			break;
-> > +
-> > +		stmmac_res->tx_irq[i] = irq;
-> > +	}
-> > +
-> >  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
+rework on v3.
+> >  				   __func__, i, priv->tx_irq[i], ret);
+> >  			irq_err = REQ_IRQ_ERR_TX;
+> >  			irq_idx = i;
+> > @@ -3811,8 +3811,8 @@ static int stmmac_request_irq(struct net_device
+> *dev)
+> >  	int ret;
 > >
-> >  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
+> >  	/* Request the IRQ lines */
+> > -	if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
+> > -		ret = stmmac_request_irq_multi_msi(dev);
+> > +	if (priv->plat->flags & STMMAC_FLAG_MULTI_IRQ_EN)
+> > +		ret = stmmac_request_irq_multi(dev);
+> >  	else
+> >  		ret = stmmac_request_irq_single(dev);
+> >
+> > @@ -6075,7 +6075,7 @@ static irqreturn_t stmmac_safety_interrupt(int
+> irq, void *dev_id)
+> >  	return IRQ_HANDLED;
+> >  }
+> >
+> > -static irqreturn_t stmmac_msi_intr_tx(int irq, void *data)
+> > +static irqreturn_t stmmac_dma_tx_interrupt(int irq, void *data)
+> >  {
+> >  	struct stmmac_tx_queue *tx_q = (struct stmmac_tx_queue *)data;
+> >  	struct stmmac_dma_conf *dma_conf;
+> > @@ -6107,7 +6107,7 @@ static irqreturn_t stmmac_msi_intr_tx(int irq,
+> void *data)
+> >  	return IRQ_HANDLED;
+> >  }
+> >
+> > -static irqreturn_t stmmac_msi_intr_rx(int irq, void *data)
+> > +static irqreturn_t stmmac_dma_rx_interrupt(int irq, void *data)
+> >  {
+> >  	struct stmmac_rx_queue *rx_q = (struct stmmac_rx_queue *)data;
+> >  	struct stmmac_dma_conf *dma_conf;
+> > @@ -7456,8 +7456,8 @@ int stmmac_dvr_probe(struct device *device,
+> >  	priv->plat = plat_dat;
+> >  	priv->ioaddr = res->addr;
+> >  	priv->dev->base_addr = (unsigned long)res->addr;
+> > -	priv->plat->dma_cfg->multi_msi_en =
+> > -		(priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN);
+> > +	priv->plat->dma_cfg->multi_irq_en =
+> > +		(priv->plat->flags & STMMAC_FLAG_MULTI_IRQ_EN);
+> >
+> >  	priv->dev->irq = res->irq;
+> >  	priv->wol_irq = res->wol_irq;
+> > diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h index
+> > dee5ad6e48c5..b950e6f9761d 100644
+> > --- a/include/linux/stmmac.h
+> > +++ b/include/linux/stmmac.h
+> > @@ -98,7 +98,7 @@ struct stmmac_dma_cfg {
+> >  	int mixed_burst;
+> >  	bool aal;
+> >  	bool eame;
+> > -	bool multi_msi_en;
+> > +	bool multi_irq_en;
+> >  	bool dche;
+> >  };
+> >
+> > @@ -215,7 +215,7 @@ struct dwmac4_addrs {
+> >  #define STMMAC_FLAG_TSO_EN			BIT(4)
+> >  #define STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP	BIT(5)
+> >  #define STMMAC_FLAG_VLAN_FAIL_Q_EN		BIT(6)
+> > -#define STMMAC_FLAG_MULTI_MSI_EN		BIT(7)
+> > +#define STMMAC_FLAG_MULTI_IRQ_EN		BIT(7)
+> >  #define STMMAC_FLAG_EXT_SNAPSHOT_EN		BIT(8)
+> >  #define STMMAC_FLAG_INT_SNAPSHOT_EN		BIT(9)
+> >  #define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(10)
 > > --
 > > 2.34.1
 > >
