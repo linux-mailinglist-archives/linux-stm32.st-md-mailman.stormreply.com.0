@@ -2,80 +2,154 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F95828FCC
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Jan 2024 23:20:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B89829367
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 06:43:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9729C6B452;
-	Tue,  9 Jan 2024 22:20:44 +0000 (UTC)
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
- [209.85.167.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B35B9C6DD73;
+	Wed, 10 Jan 2024 05:43:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9D1BC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB54AC6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jan 2024 22:20:43 +0000 (UTC)
-Received: by mail-lf1-f52.google.com with SMTP id
- 2adb3069b0e04-50eabd1c701so4264355e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Jan 2024 14:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1704838843; x=1705443643;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=FHficcIIFY7DUie+kBBBxCI5Hfo9wpTnRz3NE6iiBRs=;
- b=LbATdDLU13Ah4MaoaYjM2bft/koQtcNTkZWqOtYWCIDG1iZil/keL1H/67H/7725kI
- uC67hX5zlVF1+2k4B+0Yowdj1qhAwl4rpLv+/CsImK0iiRa9cBLSEYIhron+ru/sGJEj
- AXl5ofDOYgnzkY94wQ7Y2RTHIQpfet2vB/UnSi864mUKOTn3tg1osevhDjfQaE9sFKUp
- XuKl7Yl/NOVCMw6Zs/Y5FUBlzPAf/a1Z/F8MU5PPK6JLnAeeZqjQkq0ukOCbnu0ByVYb
- qZpML1WdFlxpZ+opvmQ4b9AK1+PVOmL5F7XRGGkOzDcPBJ0bQRvROJetwDWYz1MZNiU8
- bFhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704838843; x=1705443643;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FHficcIIFY7DUie+kBBBxCI5Hfo9wpTnRz3NE6iiBRs=;
- b=HDrdRpcDcgYQNFmASGDnokCnyRmfvR5QKUgKPd+qwz2e7t+cynJP6FXzdb/R6TBhXb
- inSa95AVXR4HlVkWm83eYvm5kRqjmkKr9L5cKbGyfoydmWr+tgPJA1v3nvKxs8A88mSY
- ocYAcW9KGXd2N6+EPnBrvTdZo8wetB9pJBaARQ+oN/I7ebl3Tdwt/cO0M2tDQAl470TZ
- aC0Niz68hEW1QmXngGct/fg0cycSljJra15zQxAR5S2ElvANrWe/PBV0UU3cTufIADu+
- FofDfNF5PTknFGNhMTs0gvRkOWvAJbOuAMNR2qXsq07qyky0LsYCyseXCFu5ztNRsFgZ
- iR/g==
-X-Gm-Message-State: AOJu0YwxwX9zvlsImFXVQltYKYwWi3bmjJ3HWbL7Z81L2LA9Rfj6UQ/p
- RtDwCnLOw1CDbha1wAKyjMg=
-X-Google-Smtp-Source: AGHT+IHzUaf7cXQ3/+rzpIrUR/8dYETycPMk53CfPA2rWOWhUqHeEZ9pITM3KmFaD9xESKzduOK3OQ==
-X-Received: by 2002:a19:645e:0:b0:50e:7479:79da with SMTP id
- b30-20020a19645e000000b0050e747979damr19306lfj.24.1704838842804; 
- Tue, 09 Jan 2024 14:20:42 -0800 (PST)
-Received: from mobilestation ([95.79.203.166])
- by smtp.gmail.com with ESMTPSA id
- b16-20020a056512305000b0050ea1f2baeasm474292lfb.20.2024.01.09.14.20.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 14:20:42 -0800 (PST)
-Date: Wed, 10 Jan 2024 01:20:40 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, 
- Leong Ching Swee <leong.ching.swee@intel.com>
-Message-ID: <5y3ed4greqcdz6hsepvpqstyabxupqbw7dc3eilgi64acrbkoc@oy2c7flu33gs>
+ Wed, 10 Jan 2024 05:43:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704865413; x=1736401413;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=9LeWQvpjNmTLEaW9nEPRpH/KUL4udXhzr0YhCQPv5Zg=;
+ b=gjCed0gZEmntM7tiVOJou97bft2qoGHxw6KiDm0PouvnUVjf88JG2vir
+ ba9/HjvQo0X1itOLOBa3N6l+wcZKDIz69uTqUMaCkjNt2tZKA0kkYy8MP
+ U+Ggea0D6a/agJ04aa4mKGqy+Ka82TW1SUAHtv3/hjJ42aulpGH7Io+2l
+ DtKjIkdUhPGFtz88ELrI7YoBEM7tmlrGtSatf02qs2LBj1rnu1pSrkDin
+ Sh7brpXxH847iKqhrt0LuJhLP3nXwvqpAFqyfApYvUBLMTnQ4cJYkyID6
+ ckTThue258eIwlxMyce3+WujLH196iXWE8a7o6K5gjyXBdT2u9uieewo5 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="464817954"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="464817954"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2024 21:43:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10947"; a="955253992"
+X-IronPort-AV: E=Sophos;i="6.04,184,1695711600"; d="scan'208";a="955253992"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga005.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 09 Jan 2024 21:43:30 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 9 Jan 2024 21:43:29 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Tue, 9 Jan 2024 21:43:29 -0800
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.101)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Tue, 9 Jan 2024 21:43:29 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OG3wQ/msB5tJrVQuGUscXkx14patpe76hYFbClrIL4F+Eoau7M+pO9+bjOUqhqnxNWRQQTF2ItlsQU+TB0Q3ucpJw17LBrGvspR9cL38MhiTwszmvZaXMPU2mQKPCnkBTDYX6iOOwbpVMB3/DcLcmGo8ME8DwWt5aT4nRFlxRVPTtSqXC4W79xT5Zsqq9riXqYKXq22YX/eO2NaUxG9/FOxnfts+rFuCFdlb3HTz0Z4amd1njs+WmgruySp2Yu+Gs6GH4PboKmds0v1vScDm0Ek7Ji39hwFgP9VSBlx9HXoOrJUbx/UV+GIrQQ/wo988Ooweo3PETe9Jof9Av5gceg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QDbVyoDFLBBmkvkzNA5M4HI080FtJawbx6UOlkQu0es=;
+ b=h/z3YWUIToWuILbeUgDcVIW1IniJ90BSh8/BjQkfDzVwpNzdLad1zHc/I5eO/NdXQeC9w4iFpYbkxmzPXFrqy6t+lmWqjfDy3l8ete9YLCZ4hGfEJ3ZWYaZAE779Nms5iTfm0lvcZqB2h+0qbUHg2TX0Qkxhj92DIxT7t7ZewQihHybLITKxPCB+Q2mYzp7dFHy2x4n3zaGuZbnOG9HFoJ26zzLDoQhDKYCNcreC11ilBKpNb4903z5t1KIW9wZ6THiveDE4Hde5y27zG8EKo6tM2lysOENyqhanUGs5djPejUT3lljK/Rqc5bNrBIo0ehZt5gnuZpt0iqF12zmXWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CH0PR11MB5490.namprd11.prod.outlook.com (2603:10b6:610:d5::6)
+ by DS0PR11MB7406.namprd11.prod.outlook.com (2603:10b6:8:136::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.24; Wed, 10 Jan
+ 2024 05:43:26 +0000
+Received: from CH0PR11MB5490.namprd11.prod.outlook.com
+ ([fe80::9afc:fa9d:5f42:8fd7]) by CH0PR11MB5490.namprd11.prod.outlook.com
+ ([fe80::9afc:fa9d:5f42:8fd7%7]) with mapi id 15.20.7159.020; Wed, 10 Jan 2024
+ 05:43:26 +0000
+From: "Swee, Leong Ching" <leong.ching.swee@intel.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Thread-Topic: [PATCH net-next v2 4/4] net: stmmac: Use interrupt mode INTM=1
+ for per channel irq
+Thread-Index: AQHaP6ZCdgIftjDRek6/+MvG5uqIGLDO13iAgAO41fA=
+Date: Wed, 10 Jan 2024 05:43:26 +0000
+Message-ID: <CH0PR11MB5490793807F66E011A31D1A3CF692@CH0PR11MB5490.namprd11.prod.outlook.com>
 References: <20240105070925.2948871-1-leong.ching.swee@intel.com>
- <20240105070925.2948871-2-leong.ching.swee@intel.com>
- <ffiewfybqvh66nmri4im4veupwytvlxk5jfgdy3nbj6wldxjl2@2vwvnnu37pt7>
- <7cc4fa92-27cb-4b0d-8f1b-88091548bdb9@linaro.org>
+ <20240105070925.2948871-5-leong.ching.swee@intel.com>
+ <jvnoq2jo3dzsw3vuqzathjuyox3xipaullzeaur3ppzlmtux5k@v64tckj7pvo2>
+In-Reply-To: <jvnoq2jo3dzsw3vuqzathjuyox3xipaullzeaur3ppzlmtux5k@v64tckj7pvo2>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR11MB5490:EE_|DS0PR11MB7406:EE_
+x-ms-office365-filtering-correlation-id: d2996251-adc3-49c4-7754-08dc119f115c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5dIxIkO94TVETokFytmW7oo71vqKG8kVOtKMFasZ0ojCFkVtQjP78uMBOZyZjZT1Td0urRNWTjWr7U04vZppUnZ0FhYqnZo5Urm0Y6NOqkEPwCL+KUZ6bd0JmDd4cxZrCw1ddPipfr1jdQJQX7G69ER/Wr9KQtl25FjRE7DYQmPpdwAMuL3SdGBDU09Uzm7/q/5J+4tQaNqsRym03BllxOe/nVDwVeVSfO0/XFN6ZTd3lZlj+UJ2v1LQy8dnVLkLN+ysrZyFEJzlwvGaGYOWeGF/XmWfFfEZ8vRXC9cCvCMCU8o3cwIetARkVvyL9rlGSfToD1hD1xGvW1qyEDeFpGK1VdMkUHTnAGwmW6eTY4nuXpTHko8mcBdmIpV7APsimjkjFgQwkMLHErSrcR6jgrV6gSH+w+hQ/280IBTORyF1o26JdWI1GTil8eWsMMXcQo0mBqQ7yObJ/AFaBC7clIsPKVlhpj1ogjMS2qftIn4Yp6i0TLnuilr6loKjB6ZluAi12s3sRHJpMLl8DuziEVt/m0NYoPZk0aIlm536+ySW5mzsE7TAHx+KEbWPbS2O3Z0k95zyQN/6zVPOB0eOkwqt4uAn0olTrEssncFGzgn60ZCc576RL2zg4NcEDRxR
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH0PR11MB5490.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(39860400002)(136003)(366004)(396003)(376002)(230922051799003)(451199024)(1800799012)(186009)(64100799003)(83380400001)(26005)(9686003)(53546011)(6506007)(107886003)(122000001)(5660300002)(38100700002)(52536014)(8676002)(4326008)(8936002)(7416002)(2906002)(64756008)(6916009)(54906003)(478600001)(71200400001)(66446008)(66476007)(66556008)(316002)(7696005)(66946007)(76116006)(41300700001)(33656002)(38070700009)(82960400001)(86362001)(55016003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?E2VT61W9+Z9rB8VXbHM5dkWDvexNKV1zhsqOwt4q8tD3KwcRJ6OaBbrsnN2q?=
+ =?us-ascii?Q?nrTrQ6iDeOw1vx8kVxAYlg4gk3DPBaC6F4lPb4INF9wjbD2Sra4s8n8XNTZJ?=
+ =?us-ascii?Q?kjWkaSflOw4tJoAxuuWIlwz2bBBHmHwwUSHVoTNaKC4mukQVqN+FZw9/D0oC?=
+ =?us-ascii?Q?lewua/zFVKZWQUCGuHYfwxjBOcGdemkV0q6dU6UIzS82Oj0g4cqhUZ+VXO6r?=
+ =?us-ascii?Q?FiIemqDyr2H73La3sv//G4oStsYoi0e1K/TAKp9JjmdBh9Lzkm3qdPijb+Ud?=
+ =?us-ascii?Q?NBurocIeiYg55ZDYXz68jMcoTh0UXzKZxLNvtgBGycZYG0V6pEcy4zf92LOa?=
+ =?us-ascii?Q?iBTlAqyZKyW2XSvG4bZarHkSpQVzHemx2CLmlqTTZgHMMbCJmwQ5hV/Mso3V?=
+ =?us-ascii?Q?732kH59mpGT/3m27DtY/GmILvDgPU45J2Wimsh/NuBwcBz5Xo/BLH4/Z9QnY?=
+ =?us-ascii?Q?tpxCvsUwoQVwgzAstQZb0Vx3dHzy6mluykxMmiqPbnrTszBB4dyE9jTgdNkz?=
+ =?us-ascii?Q?2Cv/t/1bxF+6ywGhzGw+vnZfDiGHTnBKGtUYSuOjhfBdHSma/SogMQNJRZ5w?=
+ =?us-ascii?Q?kCpLxBkirC69PwdjGyUS5ewZpZKr+/BCvUhqwma5DAQRHYUG4FAmUfd77JN0?=
+ =?us-ascii?Q?Dkx8adM0wAwyD2f8Zy8N6vE9fvnECel8TXOG5+X8VnfHklqz8rGJjsZJqDJ+?=
+ =?us-ascii?Q?MTnfYViSdugIKOA/UuTsAmE5Qwi+1qcclAZX+n+P1i5AOwdvvag05xGqps8N?=
+ =?us-ascii?Q?CsNbgqYQrZqzTU3nuopeBjTRmbFUTjRm7WLMx4m+EmhTYmeqJxhqWxIYeUWm?=
+ =?us-ascii?Q?lafBNPqRYLcUPAx9jVHnajS2pQalfTBc4yTJji+jwkyhyL7mNXG1O619To2H?=
+ =?us-ascii?Q?DJeISgHTki5CwteDZFaRfNpvK718LC9o43bmCYI6o5wjakgS7ZkdIHUH5h8c?=
+ =?us-ascii?Q?jg04o38kHFFOuuXXlviwmPv3Q+rhUxmqX7D4Pco/1MY/0GdxFJTWbxLxa3r+?=
+ =?us-ascii?Q?AsVMK8CZ2l9R/Fgv+EM3AJzSghLSmds4OGAWhlMCZ+ucNyQ0IncocJbLemXM?=
+ =?us-ascii?Q?T8fJgzI0cSDfcrQfWhX2Gpbjln31nzzMW1J5rxqiawe1HjnlckieccqAuSRR?=
+ =?us-ascii?Q?beACYUkJx+N4y3IEWmg7t+dsKGfsU6rxmZf9vc95nSJ4J2epMQo5SN+k4rEr?=
+ =?us-ascii?Q?WyXjWht/DbcFWNz7CRIdr9a/N8ZVYabOclT/lyoiN6MXkNfXtDJN2cvGj+aa?=
+ =?us-ascii?Q?4jwZ3sKYgZXsFYwRkPQCwLW1di040TLqC6FGn8vAQzUtca2JuzPbrSyBoo0g?=
+ =?us-ascii?Q?OKXBPbiQlf5GVk939T+qHekyUwuXmeYrGhMw/rXwunWCDUHEsoghMgzOoLs3?=
+ =?us-ascii?Q?Kfykh78KqeDgyr0uqLYe1SbdRryIQcjU0/x4RVwnraDGLncAucxP9CwDXRSt?=
+ =?us-ascii?Q?/wpddueSdnTyNmnT5KzjeaeRo67A4+/or1Uqd3L8vnT2WNaqL+dpyvXBNVIN?=
+ =?us-ascii?Q?Ii1UQCWPH1jCIv5rFJrRpIKxORPPxd/R4c7BP5i9BoiZDvfZ+LtWNhMd44Gp?=
+ =?us-ascii?Q?EGA03iZY2EI5cdn9epyC2BayybY4vvvDDp5WIQG8N63Kg5snk4piHztHMHoK?=
+ =?us-ascii?Q?uQ=3D=3D?=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7cc4fa92-27cb-4b0d-8f1b-88091548bdb9@linaro.org>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5490.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2996251-adc3-49c4-7754-08dc119f115c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 05:43:26.7994 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YeyWWLfRAPrYwnIFoM8p8rJqh2dr+Q6Nsy1j34x/IuBF4IctSAXBnYsIac3ZzttHeFgL08YcJlyA7GHd/NWXQLDUtRNnBNuHHTPTFfRqpYI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7406
+X-OriginatorOrg: intel.com
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-kernel@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@intel.com>,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 1/4] dt-bindings: net: snps,
- dwmac: per channel irq
+ Teoh Ji Sheng <ji.sheng.teoh@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub
+ Kicinski <kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 4/4] net: stmmac: Use
+ interrupt mode INTM=1 for per channel irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,119 +166,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 09, 2024 at 10:10:37AM +0100, Krzysztof Kozlowski wrote:
-> On 07/01/2024 21:10, Serge Semin wrote:
-> > On Fri, Jan 05, 2024 at 03:09:22PM +0800, Leong Ching Swee wrote:
-> >> From: Swee Leong Ching <leong.ching.swee@intel.com>
-> >>
-> >> Add dt-bindings for per channel irq.
-> >>
-> >> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
-> >> Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
-> >> ---
-> >>  .../devicetree/bindings/net/snps,dwmac.yaml   | 24 +++++++++++++------
-> >>  1 file changed, 17 insertions(+), 7 deletions(-)
-> >>
-> >> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> index 5c2769dc689a..e72dded824f4 100644
-> >> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> >> @@ -103,17 +103,27 @@ properties:
-> >>  
-> >>    interrupts:
-> >>      minItems: 1
-> >> -    items:
-> >> -      - description: Combined signal for various interrupt events
-> >> -      - description: The interrupt to manage the remote wake-up packet detection
-> >> -      - description: The interrupt that occurs when Rx exits the LPI state
-> >> +    maxItems: 19
-> >>  
-> >>    interrupt-names:
-> >>      minItems: 1
-> >> +    maxItems: 19
-> >>      items:
-> >> -      - const: macirq
-> >> -      - enum: [eth_wake_irq, eth_lpi]
-> >> -      - const: eth_lpi
-> >> +      oneOf:
-> >> +        - description: Combined signal for various interrupt events
-> >> +          const: macirq
-> >> +        - description: The interrupt to manage the remote wake-up packet detection
-> >> +          const: eth_wake_irq
-> >> +        - description: The interrupt that occurs when Rx exits the LPI state
-> >> +          const: eth_lpi
-> >> +        - description: DMA Tx per-channel interrupt
-> >> +          pattern: '^dma_tx[0-7]?$'
-> >> +        - description: DMA Rx per-channel interrupt
-> >> +          pattern: '^dma_rx[0-7]?$'
-> >> +
-> >> +    allOf:
-> >> +      - contains:
-> >> +          const: macirq
-> > 
-> > In order to restore the v1 discussion around this change, here is my
-> > comment copied from there:
-> > 
-> >> As Rob correctly noted it's also better to make sure that 'macirq' is placed first
-> >> in the array. So instead of the constraint above I guess the next one would
-> >> make sure both the array has 'macirq' name and it's the first item:
-> >>
-> >> allOf:
-> >>   - maxItems: 34
-> >>     items:
-> >>       - const: macirq
-> > 
-> > Leong said it didn't work:
-> > https://lore.kernel.org/netdev/CH0PR11MB54904615B45E521DE6B1A7B3CF61A@CH0PR11MB5490.namprd11.prod.outlook.com/
-> > 
-> > Rob, Krzysztof, Conor could you please clarify whether this change is ok the
-> > way it is or it would be better to preserve the stricter constraint
-> > and fix the DT-schema validation tool somehow?
+> -----Original Message-----
+> From: Serge Semin <fancer.lancer@gmail.com>
+> Sent: Monday, January 8, 2024 4:52 AM
+> To: Swee, Leong Ching <leong.ching.swee@intel.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>; Alexandre Torgue
+> <alexandre.torgue@foss.st.com>; Jose Abreu <joabreu@synopsys.com>;
+> David S . Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Rob Herring <robh+dt@kernel.org>; Krzysztof
+> Kozlowski <krzysztof.kozlowski+dt@linaro.org>; Conor Dooley
+> <conor+dt@kernel.org>; Giuseppe Cavallaro <peppe.cavallaro@st.com>;
+> linux-stm32@st-md-mailman.stormreply.com; linux-arm-
+> kernel@lists.infradead.org; linux-kernel@vger.kernel.org;
+> netdev@vger.kernel.org; devicetree@vger.kernel.org; Teoh Ji Sheng
+> <ji.sheng.teoh@intel.com>
+> Subject: Re: [PATCH net-next v2 4/4] net: stmmac: Use interrupt mode
+> INTM=1 for per channel irq
 > 
-
-> First of all this change is not good, because commit msg explains
-> absolutely nothing why this is done and what exactly you want to achieve
-> here. The "what" part often is obvious from the code, but not in this
-> case. Are the per-channel IRQs conflicting with macirq or others? Are
-> they complementary (maxItems: 19 suggests that, though, but could be
-> mistake as well)? Do they affect all snps,dwmac derivatives or only some?
+> On Fri, Jan 05, 2024 at 03:09:25PM +0800, Leong Ching Swee wrote:
+> > From: Swee Leong Ching <leong.ching.swee@intel.com>
+> >
+> > Enable per DMA channel interrupt that uses shared peripheral interrupt
+> > (SPI), so only per channel TX and RX intr (TI/RI) are handled by TX/RX
+> > ISR without calling common interrupt ISR.
+> >
+> > Signed-off-by: Teoh Ji Sheng <ji.sheng.teoh@intel.com>
+> > Signed-off-by: Swee Leong Ching <leong.ching.swee@intel.com>
+> > ---
+> >  .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  3 ++
+> >  .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    | 32 +++++++++++-------
+> -
+> >  2 files changed, 22 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> > b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> > index 207ff1799f2c..04bf731cb7ea 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> > @@ -346,6 +346,9 @@
+> >  /* DMA Registers */
+> >  #define XGMAC_DMA_MODE			0x00003000
+> >  #define XGMAC_SWR			BIT(0)
 > 
-> So many questions and zero answers in one liner commit msg!
-
-Right. The commit message is way too modest =) Leong?
-
+> > +#define XGMAC_DMA_MODE_INTM_MASK	GENMASK(13, 12)
+> > +#define XGMAC_DMA_MODE_INTM_SHIFT	12
+> > +#define XGMAC_DMA_MODE_INTM_MODE1	0x1
 > 
-> Now about the problem, I think we should preserve the order, assuming
-> that these are complementary so first three must be defined.
-
-Ok. But please note that "Wake" and "LPI" IRQs are optional. It's
-possible to have a device with the "MAC" and "DMA" IRQs and no
-individual "Wake"/"LPI" IRQ lines. Thus the only mandatory IRQ is
-"MAC" which order (being always first), I agree, should be preserved.
-
-> This
-> however could be done in the device schema referencing snps,dwmac. I
-> think I will repeat myself: I dislike this schema, because it mixes two
-> purposes: defining shared part and defining final device part. The code
-> in this patch is fine for a schema defining the shared part.
+> AFAICS the DW XGMAC module doesn't maintain a convention of having the
+> CSR fields macro names prefixed with the CSR name. Let's drop the
+> DMA_MODE suffix from the macro name then:
+> +#define XGMAC_INTM_MASK		GENMASK(13, 12)
+> +#define XGMAC_INTM_SHIFT		12
+> +#define XGMAC_INTM_MODE1		0x1
+> to have it unified with the rest of the macros in dwxgmac2.h.
 > 
-> Therefore before we start growing this monstrosity into bigger one, I
-> think we should go back to the plans of reworking and cleaning it.
-
-If you are talking about the changes like introduced here (essentially
-it's Patch 4):
-https://www.spinics.net/lists/netdev/msg888079.html
-I can resurrect it (rebase on the latest kernel, fix the notes, run
-dt-validation, etc) and submit for review on the next week or so.
-Then the Leong' patch in subject either won't be necessary or will
-concern the shared schema only. Does it sound acceptable?
-
--Serge(y)
-
+> Other than that the change looks good. Thanks.
 > 
-> Best regards,
-> Krzysztof
+> -Serge(y)
 > 
+Thanks. Will rename the macros in v3.
+> >  #define XGMAC_DMA_SYSBUS_MODE		0x00003004
+> >  #define XGMAC_WR_OSR_LMT		GENMASK(29, 24)
+> >  #define XGMAC_WR_OSR_LMT_SHIFT		24
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> > index 3cde695fec91..dcb9f094415d 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+> > @@ -31,6 +31,13 @@ static void dwxgmac2_dma_init(void __iomem
+> *ioaddr,
+> >  		value |= XGMAC_EAME;
+> >
+> >  	writel(value, ioaddr + XGMAC_DMA_SYSBUS_MODE);
+> > +
+> > +	if (dma_cfg->multi_irq_en) {
+> > +		value = readl(ioaddr + XGMAC_DMA_MODE);
+> > +		value &= ~XGMAC_DMA_MODE_INTM_MASK;
+> > +		value |= (XGMAC_DMA_MODE_INTM_MODE1 <<
+> XGMAC_DMA_MODE_INTM_SHIFT);
+> > +		writel(value, ioaddr + XGMAC_DMA_MODE);
+> > +	}
+> >  }
+> >
+> >  static void dwxgmac2_dma_init_chan(struct stmmac_priv *priv, @@
+> > -365,19 +372,18 @@ static int dwxgmac2_dma_interrupt(struct
+> stmmac_priv *priv,
+> >  	}
+> >
+> >  	/* TX/RX NORMAL interrupts */
+> > -	if (likely(intr_status & XGMAC_NIS)) {
+> > -		if (likely(intr_status & XGMAC_RI)) {
+> > -			u64_stats_update_begin(&rxq_stats->syncp);
+> > -			rxq_stats->rx_normal_irq_n++;
+> > -			u64_stats_update_end(&rxq_stats->syncp);
+> > -			ret |= handle_rx;
+> > -		}
+> > -		if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+> > -			u64_stats_update_begin(&txq_stats->syncp);
+> > -			txq_stats->tx_normal_irq_n++;
+> > -			u64_stats_update_end(&txq_stats->syncp);
+> > -			ret |= handle_tx;
+> > -		}
+> > +	if (likely(intr_status & XGMAC_RI)) {
+> > +		u64_stats_update_begin(&rxq_stats->syncp);
+> > +		rxq_stats->rx_normal_irq_n++;
+> > +		u64_stats_update_end(&rxq_stats->syncp);
+> > +		ret |= handle_rx;
+> > +	}
+> > +
+> > +	if (likely(intr_status & (XGMAC_TI | XGMAC_TBU))) {
+> > +		u64_stats_update_begin(&txq_stats->syncp);
+> > +		txq_stats->tx_normal_irq_n++;
+> > +		u64_stats_update_end(&txq_stats->syncp);
+> > +		ret |= handle_tx;
+> >  	}
+> >
+> >  	/* Clear interrupts */
+> > --
+> > 2.34.1
+> >
+> >
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
