@@ -2,80 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506758297EA
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 11:48:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD83829891
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jan 2024 12:17:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 046A1C6DD73;
-	Wed, 10 Jan 2024 10:48:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC6BBC6A61D;
+	Wed, 10 Jan 2024 11:17:39 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6644EC6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9791C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 10:48:20 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40A9VLDp006375; Wed, 10 Jan 2024 11:48:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=XYFUPkHCquAfdm1z7WpruAcO8XbDhwQU7gWaIj3jlwc=; b=si
- 5w8zvvujTnSCB03AnYmiGORVogLCdq91EPMdw6iymjR5O+ICM/jQyrYMFbz5hbFA
- 66zZ6FoIdsaeUsaDsbjYhbMm+wUQh3TpxgCUcWb//79aPs+XiQrU6JdUCpJvYAzA
- PzIAj/cDC9JRqLZQt7JwTc4vLLIEI3PftTQwYlPsd99f8kkDU2zlejYHNN23nQV8
- jPgDBQOQqo/B1izhWB2UfZ6TRa7ek9A0eptbsMs0Wd8N+5gEGnJrZ/KfXrq3dobl
- eGENXqC6p7NfP5AB5AGolb1ItKRW1SqJrsYIEX04HW8o82EoVwFcdQ3l5heXX2K6
- IOxk4qkB81SEyN2MEdiQ==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vexmffv8v-1
+ Wed, 10 Jan 2024 11:17:37 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40AA3MIm014798; Wed, 10 Jan 2024 11:17:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=AUUZ/+k
+ d9eZ8WvQBLG6Xq/wv7fzjQ0TDRWKKrOV1w/k=; b=W5BixuMh24U+Ht8GkhL/Q4n
+ wAeNCywPA5X5jAf8LLw3c5efN3ruszbUfRMtO+7Yq7loOa4hHX+LEx+AFi1SKs3+
+ NsMSzVjjoYvotVk7djj8Ci3tx9x+drtf1jAPolV2GfQCEH8aC35hoGsfvirK3Mm+
+ rDc99JE7rABL421MRhUyTtKnWsVSFUeqrDAQ8VhvVBm9d8cLErMpCcy6AquBFw+a
+ Go3GCbS5/WZ5VJ/um2NlSxoiwkDWB0cJWcZqfSdHRuo0X92RPAkUUdizZQOXNl1k
+ c7dFgumHWTSHTyJkD1zu5nqZPYpSnjTcW4ctWtWWt/lADHUJJ+l6sOpkF8PxcDg=
+ =
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vhs4mg5mq-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jan 2024 11:48:05 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1020710002A;
- Wed, 10 Jan 2024 11:48:05 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id F132A26C050;
- Wed, 10 Jan 2024 11:48:04 +0100 (CET)
-Received: from localhost (10.201.20.120) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 10 Jan
- 2024 11:48:04 +0100
-From: Hugues Fruchet <hugues.fruchet@foss.st.com>
-To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Philipp Zabel
- <p.zabel@pengutronix.de>, Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Laurent Pinchart
- <laurent.pinchart+renesas@ideasonboard.com>, Daniel Almeida
- <daniel.almeida@collabora.com>, Benjamin Mugnier
- <benjamin.mugnier@foss.st.com>, Heiko Stuebner <heiko@sntech.de>, Mauro
- Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, <linux-media@vger.kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <linux-rockchip@lists.infradead.org>
-Date: Wed, 10 Jan 2024 11:46:42 +0100
-Message-ID: <20240110104642.532011-6-hugues.fruchet@foss.st.com>
+ Wed, 10 Jan 2024 11:17:21 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40ABHKlK015704
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jan 2024 11:17:20 GMT
+Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 10 Jan 2024 03:17:09 -0800
+From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
+ <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Jose Abreu" <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
+Date: Wed, 10 Jan 2024 16:46:46 +0530
+Message-ID: <20240110111649.2256450-1-quic_jsuraj@quicinc.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240110104642.532011-1-hugues.fruchet@foss.st.com>
-References: <20240110104642.532011-1-hugues.fruchet@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.20.120]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: HRWQ1kAbFVWtEIm18v5odwhp3e59BjvA
+X-Proofpoint-ORIG-GUID: HRWQ1kAbFVWtEIm18v5odwhp3e59BjvA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
-Cc: Hugues Fruchet <hugues.fruchet@foss.st.com>, Adam Ford <aford173@gmail.com>,
- Marco Felsch <m.felsch@pengutronix.de>
-Subject: [Linux-stm32] [RESEND PATCH v6 5/5] arm64: dts: st: add video
-	encoder support to stm32mp255
+ definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=851
+ adultscore=0 impostorscore=0 spamscore=0 clxscore=1011 mlxscore=0
+ suspectscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401100092
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net-next v8 0/3] Ethernet DWMAC5 fault IRQ
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,49 +96,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add VENC hardware video encoder support to STM32MP255.
+From: Suraj Jaiswal <jsuraj@qti.qualcomm.com>
 
-Signed-off-by: Hugues Fruchet <hugues.fruchet@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 6 ++++++
- arch/arm64/boot/dts/st/stm32mp255.dtsi | 7 +++++++
- 2 files changed, 13 insertions(+)
+Add support to listen Ethernet HW common safery IRQ for correctable and 
+uncorrectable fault. The safety IRQ will be triggered for ECC(error
+correction code), DPP(data path parity, FSM(finite state machine) error.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index cd6c4f627739..1584debca7f5 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -58,6 +58,12 @@ ck_icn_p_vdec: ck-icn-p-vdec {
- 			compatible = "fixed-clock";
- 			clock-frequency = <200000000>;
- 		};
-+
-+		ck_icn_p_venc: ck-icn-p-venc {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <200000000>;
-+		};
- 	};
- 
- 	firmware {
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index aea5096dac3c..17f197c5b22b 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -14,6 +14,13 @@ vdec: vdec@480d0000 {
- 				interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&ck_icn_p_vdec>;
- 			};
-+
-+			venc: venc@480e0000 {
-+				compatible = "st,stm32mp25-venc";
-+				reg = <0x480e0000 0x800>;
-+				interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&ck_icn_ls_mcu>;
-+			};
- 		};
- 	};
- };
+Changes since v9:
+- prevent race condition of safety IRQ handling
+
+Changes since v8:
+- Use shared IRQ for sfty
+- update error message
+
+Changes since v7:
+- Add support of common sfty irq on stmmac_request_irq_multi_msi.
+- Remove uncecessary blank line.
+
+Changes since v6:
+- use name sfty_irq instead of safety_common_irq.
+
+Changes since v5:
+- Add description of ECC, DPP, FSM
+
+Changes since v4:
+- Fix DT_CHECKER warning
+- use name safety for the IRQ.
+
+Suraj Jaiswal (3):
+  dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
+    sa8775p
+  arm64: dts: qcom: sa8775p: enable safety IRQ
+  net: stmmac: Add driver support for DWMAC5 common safety IRQ
+
+ .../devicetree/bindings/net/qcom,ethqos.yaml  |  9 ++--
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  6 ++-
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi         | 10 +++--
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 41 ++++++++++++++++++-
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
+ 7 files changed, 67 insertions(+), 11 deletions(-)
+
 -- 
 2.25.1
 
