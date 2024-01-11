@@ -2,72 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB3682AD76
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:31:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFABF82AD70
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:31:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76C5CC6DD73;
-	Thu, 11 Jan 2024 11:31:52 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E600C6DD74;
+	Thu, 11 Jan 2024 11:31:53 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9F17C6B452
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9327C6DD6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 11:31:50 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a2c375d2430so92111566b.1
+ Thu, 11 Jan 2024 11:31:51 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a28b0207c1dso412492366b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 03:31:50 -0800 (PST)
+ Thu, 11 Jan 2024 03:31:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704972710; x=1705577510;
+ d=amarulasolutions.com; s=google; t=1704972711; x=1705577511;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=oZHp7o9P6sSCcRzfgnf9GmPoPPKRvORDv/jTzo46w2U=;
- b=dOmgTYzKokp2EWqmKdmliqEZOI3IE8W8alH2sEZYHxa+AyJXUZmqZpU9/yOQcxOUan
- UA9yfn8NFTVVT8/3SjRx5SwLLdWCn2gvpc7U41gr46647ucPHXV1Q7SGTe+9yqaLVPtc
- /R8srEv5B6GBeaBubDdY+VmgJfhPThqPlbdKk=
+ bh=mmQnQzOW0HVCglZmRdERbSkiK/7LfpA/GFNr/QR6hMQ=;
+ b=lJ/Fi+Ls3BOk3sx5Sv5Mbbx6cNBCxkMS6NJZryg2MQWLKOd8Qo7+xEg3yzEXEOF3x3
+ 1NcRrAz6Cs3FAcWIKAItWpyE9E70/eMSX1AKvXNC2adBy0z3+OiUyKYZe5L0KZMvLNCX
+ foYQdEJ5HLnusnmsqJcOfrCoN+brEBw9yb1xs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704972710; x=1705577510;
+ d=1e100.net; s=20230601; t=1704972711; x=1705577511;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oZHp7o9P6sSCcRzfgnf9GmPoPPKRvORDv/jTzo46w2U=;
- b=DagXJwLJ6K2bSoqhM6FiB4C5oW2mTz/D/AroSxAT4TOl5KllcC6uOI8hYpdWQwGMaU
- JqXqU0WtDlZ9PSRujkvoqJ+5YAt3duCVpeOZVtrGFTio/HNqD4worAwMqQAyi9qwrAuR
- zs1ZsjO1hVca3OyccLEwXIh7hkGhLrt/etgM0dlEBUc5TZf5hKDmMKfXbKyajlhWD0re
- SeiFQ960M8NZbcvkxERo9gfDjWWkSdnFYntY6FQhgWdbZbLUvMYuK43yq2OACcGcfjIl
- ZA/rUFiHRkviLWPZwux1qyTY66p/pE45twtlMuSHdXmkW5LNQOFC4Wv+J6L25bfN49hu
- RT2w==
-X-Gm-Message-State: AOJu0YwOn8teZLhQVpfkaFiSp7H81GjZ0vBbrpL+nRUEtVRrsc7kEebr
- IZLXiWgcJsl61xRt5ZPUApfwoYMggCbqZA==
-X-Google-Smtp-Source: AGHT+IHFMFWEo7pT42k2eRPY1duLfQ7lK+uV5su4JJVao6pzorXAy5DdRBaekzjail/qo7w7w92U5g==
-X-Received: by 2002:a17:906:3412:b0:a23:6c99:403a with SMTP id
- c18-20020a170906341200b00a236c99403amr522992ejb.124.1704972710157; 
- Thu, 11 Jan 2024 03:31:50 -0800 (PST)
+ bh=mmQnQzOW0HVCglZmRdERbSkiK/7LfpA/GFNr/QR6hMQ=;
+ b=eiwGzg1fofHplYemciG5Qr//dOcmtmkBlKIZKGehEVZfZZtoC+YE+jKYRhEk6E0x5h
+ 65AN5a937zkDXIzCYz51T4XBPKakSkjvuJKshCttGtkajwKY4aVcfUlVM/Lasq5cuRWq
+ 54VoSizWYybPHwkpDpSL4i3UMg54c49zSaNvZafO36xeBxi6gHgRoc8B28tSZOXhrvU4
+ +lUmeunbCzo4Y1DgDQlazHifcWKsZNGYmFqn4HfSsnH35SY/LrGC9IXFVV2scZMJnAaj
+ 4rpC8K38qfqnZKlP6V4eQkrG9UXjlX+85eCzlVLpvGaXyFMS297x5W3bZ5J/a2m577hg
+ RcLw==
+X-Gm-Message-State: AOJu0YzDWg2BeqOuSRxIwYhxgU82Zto8FJ9sxHKa7AzW3eTJVIKxx7QA
+ l2EJU6fvnVUGb40bb5DqIfPsmqHmpVZSvg==
+X-Google-Smtp-Source: AGHT+IEwxxzXPLLv1VEdqxREzklSYppd5lbaTbwUT+50TBaJimhy6pmMsMZswLS5MIwZB1OhpMORJw==
+X-Received: by 2002:a17:906:a015:b0:a29:906e:b8fa with SMTP id
+ p21-20020a170906a01500b00a29906eb8famr714066ejy.1.1704972711523; 
+ Thu, 11 Jan 2024 03:31:51 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  ([95.236.91.90]) by smtp.gmail.com with ESMTPSA id
- n3-20020a170906688300b00a26aa734349sm461565ejr.39.2024.01.11.03.31.49
+ n3-20020a170906688300b00a26aa734349sm461565ejr.39.2024.01.11.03.31.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jan 2024 03:31:49 -0800 (PST)
+ Thu, 11 Jan 2024 03:31:51 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 11 Jan 2024 12:31:38 +0100
-Message-ID: <20240111113146.16011-2-dario.binacchi@amarulasolutions.com>
+Date: Thu, 11 Jan 2024 12:31:39 +0100
+Message-ID: <20240111113146.16011-3-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
 References: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee@kernel.org>,
- Conor Dooley <conor.dooley@microchip.com>, Rob Herring <robh+dt@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 1/5] dt-bindings: mfd: stm32f7: Add binding
-	definition for DSI
+Subject: [Linux-stm32] [PATCH v7 2/5] ARM: dts: stm32: add DSI support on
+	stm32f769
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +84,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add binding definition for MIPI DSI Host controller.
+Add support for MIPI DSI Host controller. Since MIPI DSI is not
+available on stm32f746, the patch adds the "stm32f769.dtsi" file
+containing the dsi node inside.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
 ---
 
-(no changes since v2)
+(no changes since v1)
 
-Changes in v2:
-- Add Acked-by tag of Conor Dooley
+ arch/arm/boot/dts/st/stm32f769.dtsi | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+ create mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
 
- include/dt-bindings/mfd/stm32f7-rcc.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/include/dt-bindings/mfd/stm32f7-rcc.h b/include/dt-bindings/mfd/stm32f7-rcc.h
-index 8d73a9c51e2b..a4e4f9271395 100644
---- a/include/dt-bindings/mfd/stm32f7-rcc.h
-+++ b/include/dt-bindings/mfd/stm32f7-rcc.h
-@@ -108,6 +108,7 @@
- #define STM32F7_RCC_APB2_SAI1		22
- #define STM32F7_RCC_APB2_SAI2		23
- #define STM32F7_RCC_APB2_LTDC		26
-+#define STM32F7_RCC_APB2_DSI		27
- 
- #define STM32F7_APB2_RESET(bit)	(STM32F7_RCC_APB2_##bit + (0x24 * 8))
- #define STM32F7_APB2_CLOCK(bit)	(STM32F7_RCC_APB2_##bit + 0xA0)
+diff --git a/arch/arm/boot/dts/st/stm32f769.dtsi b/arch/arm/boot/dts/st/stm32f769.dtsi
+new file mode 100644
+index 000000000000..e09184f7079c
+--- /dev/null
++++ b/arch/arm/boot/dts/st/stm32f769.dtsi
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
++ */
++
++#include "stm32f746.dtsi"
++
++/ {
++	soc {
++		dsi: dsi@40016c00 {
++			compatible = "st,stm32-dsi";
++			reg = <0x40016c00 0x800>;
++			interrupts = <98>;
++			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
++			clock-names = "pclk", "ref";
++			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
++			reset-names = "apb";
++			status = "disabled";
++		};
++	};
++};
 -- 
 2.43.0
 
