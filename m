@@ -2,35 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1A7A82AFF9
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 14:52:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF0F82B060
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 15:14:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A5BBC6DD73;
-	Thu, 11 Jan 2024 13:52:53 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB96AC6DD73;
+	Thu, 11 Jan 2024 14:14:05 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com
+ [209.85.128.178])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD287C6B452
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF8D3C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 13:52:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 910D461AC2;
- Thu, 11 Jan 2024 13:52:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F230BC43390;
- Thu, 11 Jan 2024 13:52:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1704981170;
- bh=oqf5JLOymInwHwtg+ilEG0ySqEqtsaLxlVErWKWg6FM=; h=Date:From:From;
- b=u3aJqUoCeL+stGSFheGYRoSJE2kN9pnZIsjeRBUe0wlLt5qRnFuA8dKuk9zpjPT2o
- WhSzzqKzUIb30jV6OuuOc8E+R5uWeCH0YrZjDTvAE3Y9QceWH7jgTdz0VgwA6ORp9L
- IHwSY06yReZjZZbMy8yjYFN/Iqd+wjmz3omPxdJBReMM8hXEbpXMB/qaTUAHMU0Qsw
- hZWeG1A4Jx5zQC0PmFtmmWKMZHTMeqiKslvc4MXx2X9lAf9K9kg3EkO7hCT0PM6uz3
- iRvO0ar6gpcgNivzzKE9qhWjaov6bSERc7vQCO+hlnpWdPfbrwM4GJVfflv+RyQLzi
- OCR4Gx2SV5W1g==
-Date: Thu, 11 Jan 2024 07:52:48 -0600
-Message-Id: <20240111135249.F230BC43390@smtp.kernel.org>
-From: robh@kernel.org
-Subject: [Linux-stm32] (no subject)
+ Thu, 11 Jan 2024 14:14:04 +0000 (UTC)
+Received: by mail-yw1-f178.google.com with SMTP id
+ 00721157ae682-5ec7a5a4b34so59221537b3.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Jan 2024 06:14:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1704982444; x=1705587244;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eQY9zGPEtO1QF2ljEldwAIEPyis1kLrWBuBbYuv032U=;
+ b=qFyKEsz9EeLh1zOAMXAsucCpVyaxRJOpfmrQPNWAcxy82t2wNGVK8pFw13a8544aMM
+ WU+T9CoO5ZNuHK9lU2whsIpebcChJexrXoxws8Pu7AuxfgeZMC2Oibm9j6EoCFApa+Jj
+ 9y9iTydyzbWDWsXelct4z7ehK3aWioYVzupJ+zgiR1PBUJe32wocZ+uSQtW7K8ZRObcU
+ YxS4pcY3BxWFTwGXzv0+BH65by+ErH+HHZqyYf8b17yjR5WdEUvBNumzXSOypC/0D2XN
+ fsLbmpUKYK3uR6kan5xjCX+d4YjFmI6uEoLr5sHakogEThjycLlsuSEHqHPDtlxQq4rm
+ 11Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1704982444; x=1705587244;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=eQY9zGPEtO1QF2ljEldwAIEPyis1kLrWBuBbYuv032U=;
+ b=Bvl57czharWXmKH2k5bFxzrZZMvc5kFTweuUvDDg1eoSOMOca0BkLHxWEg/30aUbn8
+ 9by/jjaQBWu7Ggm/UXCGV6jaxoELSHvoJfaH1SR1Arry2wBTHzAL/sAX9+FVjxdpWGFd
+ RkLxrHfMRxWy7jhhWOfYlGKBoDCwpSprZd2bqCl/ErnT1mDtzEAQeaAW2gizev1OzGBz
+ B0xuqmzqXjEsGQ/bHBcPJZDuFfRhIsG3WGox+Q457lUOK2g4NT4+GSQRDFO9SIfwn8/S
+ ZB3IG+gYXCjQ4puISWoKAYrl5zrQaPCD5f6244ZFgSaKuN5jPRA/3CFUgubX9sLphgxA
+ rsNw==
+X-Gm-Message-State: AOJu0YzAD0GxchxHaxHZFaENqqCQYLr1MAVYQqYLvJCZix4AYI5Mwsdv
+ LFpU4K5dNVdkEwUaDJbNsdGVZEWPNHOULyZWC5c2Ys7G9LosJA==
+X-Google-Smtp-Source: AGHT+IHbjb9WBJNb7mg6Cf0OKedEBHnlOsptBA2sTAMDxR21dqAolwUjCQy13ZKdOjJSxqEUmo0hzT35aqUzxhvj6QM=
+X-Received: by 2002:a81:c60b:0:b0:5d8:5727:80fb with SMTP id
+ l11-20020a81c60b000000b005d8572780fbmr537921ywi.84.1704982443677; Thu, 11 Jan
+ 2024 06:14:03 -0800 (PST)
+MIME-Version: 1.0
+References: <20240109-prevent_dsa_tags-v4-1-f888771fa2f6@bootlin.com>
+In-Reply-To: <20240109-prevent_dsa_tags-v4-1-f888771fa2f6@bootlin.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 11 Jan 2024 15:13:52 +0100
+Message-ID: <CACRpkdYPFBugiM5-TsB0SJ=zE4yvjqCX0XLXE5axxeTp0wVcRQ@mail.gmail.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+Cc: Vladimir Oltean <olteanv@gmail.com>,
+ Richard Tresidder <rtresidd@electromag.com.au>,
+ Pascal EBERHARD <pascal.eberhard@se.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>,
+ netdev@vger.kernel.org, Sylvain Girard <sylvain.girard@se.com>,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4] net: stmmac: Prevent DSA tags from
+	breaking COE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -42,89 +80,34 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From rob Thu Jan  1 00:00:00 1970
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- linux-stm32@st-md-mailman.stormreply.com, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>, 
- devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>
-In-Reply-To: <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
-References: <20240111104049.38695-1-raphael.gallais-pou@foss.st.com>
- <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
-Message-Id: <170498111721.407937.7040925641869885600.robh@kernel.org>
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: add dt-bindings for STM32
- LVDS device
-
-
-On Thu, 11 Jan 2024 11:40:44 +0100, Raphael Gallais-Pou wrote:
-> Add "st,stm32-lvds" compatible.
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
-> Changes in v2:
-> 	- Switch compatible and clock-cells related areas
-> 	- Remove faulty #include in the example.
-> 	- Add entry in MAINTAINERS
-> ---
->  .../bindings/display/st,stm32-lvds.yaml       | 117 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  2 files changed, 118 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
-> 
-
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/st,stm32-lvds.example.dts:18:18: fatal error: dt-bindings/clock/stm32mp25-clks.h: No such file or directory
-   18 |         #include <dt-bindings/clock/stm32mp25-clks.h>
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-compilation terminated.
-make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/st,stm32-lvds.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1424: dt_binding_check] Error 2
-make: *** [Makefile:234: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240111104049.38695-2-raphael.gallais-pou@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBKYW4gOSwgMjAyNCBhdCAzOjQy4oCvUE0gUm9tYWluIEdhbnRvaXMKPHJvbWFpbi5n
+YW50b2lzQGJvb3RsaW4uY29tPiB3cm90ZToKCj4gU29tZSBEU0EgdGFnZ2luZyBwcm90b2NvbHMg
+Y2hhbmdlIHRoZSBFdGhlclR5cGUgZmllbGQgaW4gdGhlIE1BQyBoZWFkZXIKPiBlLmcuICBEU0Ff
+VEFHX1BST1RPXyhEU0EvRURTQS9CUkNNL01USy9SVEw0Q19BL1NKQTExMDUpLiBPbiBUWCB0aGVz
+ZSB0YWdnZWQKPiBmcmFtZXMgYXJlIGlnbm9yZWQgYnkgdGhlIGNoZWNrc3VtIG9mZmxvYWQgZW5n
+aW5lIGFuZCBJUCBoZWFkZXIgY2hlY2tlciBvZgo+IHNvbWUgc3RtbWFjIGNvcmVzLgo+Cj4gT24g
+UlgsIHRoZSBzdG1tYWMgZHJpdmVyIHdyb25nbHkgYXNzdW1lcyB0aGF0IGNoZWNrc3VtcyBoYXZl
+IGJlZW4gY29tcHV0ZWQKPiBmb3IgdGhlc2UgdGFnZ2VkIHBhY2tldHMsIGFuZCBzZXRzIENIRUNL
+U1VNX1VOTkVDRVNTQVJZLgo+Cj4gQWRkIGFuIGFkZGl0aW9uYWwgY2hlY2sgaW4gdGhlIHN0bW1h
+YyBUWCBhbmQgUlggaG90cGF0aHMgc28gdGhhdCBDT0UgaXMKPiBkZWFjdGl2YXRlZCBmb3IgcGFj
+a2V0cyB3aXRoIGV0aGVydHlwZXMgdGhhdCB3aWxsIG5vdCB0cmlnZ2VyIHRoZSBDT0UgYW5kCj4g
+SVAgaGVhZGVyIGNoZWNrcy4KPgo+IEZpeGVzOiA2YjJjNmU0YTkzOGYgKCJuZXQ6IHN0bW1hYzog
+cHJvcGFnYXRlIGZlYXR1cmUgZmxhZ3MgdG8gdmxhbiIpCj4gQ2M6ICA8c3RhYmxlQHZnZXIua2Vy
+bmVsLm9yZz4KPiBSZXBvcnRlZC1ieTogUmljaGFyZCBUcmVzaWRkZXIgPHJ0cmVzaWRkQGVsZWN0
+cm9tYWcuY29tLmF1Pgo+IExpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL25ldGRldi9lNWM2
+Yzc1Zi0yZGZhLTRlNTAtYTFmYi02YmY0Y2RiNjE3YzJAZWxlY3Ryb21hZy5jb20uYXUvCj4gUmVw
+b3J0ZWQtYnk6IFJvbWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4KPiBM
+aW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9uZXRkZXYvYzU3MjgzZWQtNmI5Yi1iMGU2LWVl
+MTItNTY1NWMxYzU0NDk1QGJvb3RsaW4uY29tLwo+IFJldmlld2VkLWJ5OiBWbGFkaW1pciBPbHRl
+YW4gPHZsYWRpbWlyLm9sdGVhbkBueHAuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFJvbWFpbiBHYW50
+b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4KClJldmlld2VkLWJ5OiBMaW51cyBXYWxs
+ZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBt
+YWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRw
+czovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1z
+dG0zMgo=
