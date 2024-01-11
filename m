@@ -2,52 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACFCF82AF54
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 14:17:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A7A82AFF9
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 14:52:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F300C6DD73;
-	Thu, 11 Jan 2024 13:17:20 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A5BBC6DD73;
+	Thu, 11 Jan 2024 13:52:53 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9629CC6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD287C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 13:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=il+w8FtfhJHoKZMk6/3PRsXBylrA/EgWONxoBacvEFk=; b=Mi/7EUkk+96Fu+e4grIj30OKjw
- s9UyrmWftnrF5wN6Wzm7wk3Z+2ni4VbciRb89fFHNdz7XOhm6n6z8y4JbQdPiM695s0KR7w/ilFeA
- XRWAAsLwqU88g7nnIBgdyaaEn9mfjf3/lxxelTjQKnISiOWvECOfxFpBj0eCdTv5gTDI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rNuvm-00506I-0z; Thu, 11 Jan 2024 14:17:10 +0100
-Date: Thu, 11 Jan 2024 14:17:10 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Gan, Yi Fang" <yi.fang.gan@intel.com>
-Message-ID: <3e87a5f7-e637-401c-8fe1-9b0c5e6d8289@lunn.ch>
-References: <20240104101255.3056090-1-yi.fang.gan@intel.com>
- <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
- <MW6PR11MB8310698247DD950C5EBF5F2CB9682@MW6PR11MB8310.namprd11.prod.outlook.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <MW6PR11MB8310698247DD950C5EBF5F2CB9682@MW6PR11MB8310.namprd11.prod.outlook.com>
-Cc: Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Choong,
- Yong Liang" <yong.liang.choong@intel.com>, "Voon,
- Weifeng" <weifeng.voon@intel.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- "Looi, Hong Aun" <hong.aun.looi@intel.com>, "Song,
- Yoong Siang" <yoong.siang.song@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: phylink: Add module_exit()
+ Thu, 11 Jan 2024 13:52:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 910D461AC2;
+ Thu, 11 Jan 2024 13:52:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F230BC43390;
+ Thu, 11 Jan 2024 13:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1704981170;
+ bh=oqf5JLOymInwHwtg+ilEG0ySqEqtsaLxlVErWKWg6FM=; h=Date:From:From;
+ b=u3aJqUoCeL+stGSFheGYRoSJE2kN9pnZIsjeRBUe0wlLt5qRnFuA8dKuk9zpjPT2o
+ WhSzzqKzUIb30jV6OuuOc8E+R5uWeCH0YrZjDTvAE3Y9QceWH7jgTdz0VgwA6ORp9L
+ IHwSY06yReZjZZbMy8yjYFN/Iqd+wjmz3omPxdJBReMM8hXEbpXMB/qaTUAHMU0Qsw
+ hZWeG1A4Jx5zQC0PmFtmmWKMZHTMeqiKslvc4MXx2X9lAf9K9kg3EkO7hCT0PM6uz3
+ iRvO0ar6gpcgNivzzKE9qhWjaov6bSERc7vQCO+hlnpWdPfbrwM4GJVfflv+RyQLzi
+ OCR4Gx2SV5W1g==
+Date: Thu, 11 Jan 2024 07:52:48 -0600
+Message-Id: <20240111135249.F230BC43390@smtp.kernel.org>
+From: robh@kernel.org
+Subject: [Linux-stm32] (no subject)
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,41 +42,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-> Hi Andrew,
+From rob Thu Jan  1 00:00:00 1970
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+From: Rob Herring <robh@kernel.org>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ dri-devel@lists.freedesktop.org, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>, 
+ devicetree@vger.kernel.org, David Airlie <airlied@gmail.com>
+In-Reply-To: <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
+References: <20240111104049.38695-1-raphael.gallais-pou@foss.st.com>
+ <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
+Message-Id: <170498111721.407937.7040925641869885600.robh@kernel.org>
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: add dt-bindings for STM32
+ LVDS device
+
+
+On Thu, 11 Jan 2024 11:40:44 +0100, Raphael Gallais-Pou wrote:
+> Add "st,stm32-lvds" compatible.
 > 
-> Regarding the justification on why it is safe to remove phylink, 
-> we had done some memory leak check when unloading the phylink module.
->  
-> root@localhost:~# lsmod | grep "phylink"
-> phylink               73728  0
-> root@localhost:~# rmmod phylink
-> root@localhost:~# echo scan > /sys/kernel/debug/kmemleak
-> root@localhost:~# cat /sys/kernel/debug/kmemleak
-> root@localhost:~#
->  
-> So far, we didn't observe any memory leaking happened when unloading
-> phylink module. Is it sufficient or do you have any other suggestions to check 
-> on whether the module is safe to remove?
+> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> ---
+> Changes in v2:
+> 	- Switch compatible and clock-cells related areas
+> 	- Remove faulty #include in the example.
+> 	- Add entry in MAINTAINERS
+> ---
+>  .../bindings/display/st,stm32-lvds.yaml       | 117 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 118 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
+> 
 
-In general, leaked memory is safe. Being leaked, nothing is using
-it. If nothing is using it, how can it cause an opps, corrupt a file
-system, etc.
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-What you need to do is review all users of phylink, and determine if
-any of them retains a pointer to anything which phylink manages and
-will not be freed or uninitialized when it is unloaded. Is all polling
-of GPIOs cleanly stopped? Are interrupt handlers disabled and
-removed. Are PCS and MAC drivers cleanly unloaded first? Are hwmon
-entries cleanly removed, taking into account that user space might
-have them open? All ethtool ioctl/netlink calls are out of the code
-before it is removed, etc.
+yamllint warnings/errors:
 
-     Andrew
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/st,stm32-lvds.example.dts:18:18: fatal error: dt-bindings/clock/stm32mp25-clks.h: No such file or directory
+   18 |         #include <dt-bindings/clock/stm32mp25-clks.h>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.lib:419: Documentation/devicetree/bindings/display/st,stm32-lvds.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1424: dt_binding_check] Error 2
+make: *** [Makefile:234: __sub-make] Error 2
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240111104049.38695-2-raphael.gallais-pou@foss.st.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
