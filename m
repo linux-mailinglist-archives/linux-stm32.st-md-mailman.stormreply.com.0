@@ -2,118 +2,151 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A934982A632
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 03:55:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B327882A7AB
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 07:39:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64E90C6DD73;
-	Thu, 11 Jan 2024 02:55:50 +0000 (UTC)
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on2083.outbound.protection.partner.outlook.cn [139.219.17.83])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5530DC6A5EA;
+	Thu, 11 Jan 2024 06:39:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFCF6C6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6743C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 02:55:49 +0000 (UTC)
+ Thu, 11 Jan 2024 06:39:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1704955145; x=1736491145;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=mBdSfs0sBfDzJmrhp40t4auxlOvL0pilh6aZ8pfW22c=;
+ b=L2fkZ27f0cpdeKlwzi2S3mkqaUfwdgp59yYm7/Ac7vmZroHEwwWQVMSd
+ VZxRpUUh8PKeEgtDFGqMHD4FM0Zp6/PwtTf7jHEYOJErLg3roDF662Obf
+ RDRJaHCW1c13V7jo1aSOgcpFm13disO4I/ecEiUfhhbnSNHV6k86ONsxk
+ tdUsuspJpWtKzAJjLqU6odju4zqNg06hFXkBjvHoYJlxQ8SeSK01xxcFf
+ B+stMI9p6iNyrrjEfHbA4LmzJfVDavEokv0+Q3CrHDXB7ZCdkrqRwOh51
+ IAcYB39fqIjysfucpdfXDjXP7TWS/c35DpvotU3quXFiipPDHljU3GAfX g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10949"; a="465145934"
+X-IronPort-AV: E=Sophos;i="6.04,185,1695711600"; d="scan'208";a="465145934"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2024 22:39:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,185,1695711600"; d="scan'208";a="24228487"
+Received: from unknown (HELO ORSMSX601.amr.corp.intel.com) ([10.22.229.14])
+ by orviesa002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 10 Jan 2024 22:39:01 -0800
+Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Wed, 10 Jan 2024 22:39:00 -0800
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Wed, 10 Jan 2024 22:39:00 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Wed, 10 Jan 2024 22:39:00 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Af/+2rkbzCPORC2PLJixD617P/EVsDxV6C+5myuYIbNxZAkuzlI3tcwob0GhLL5HyGlLqDQaAqwu5m/DEIAXyX0s6fLyfBONasA9PIzhEK0VPB0LNSaVLAPMKCsR99kNiLK5v8hgo8RZRlxSnT2pQbu+UDT+kO9JceU5WzN6wWHJcYRgVzAUHU59UMw01Ms4lRmJ1+3KRj0o6cYhBnDaGXEyOym8D+8nuS36eO0ouwswlFeVhH0TY8wQMQSDVFMPTEjgjzJPkXzT3uu/efViN4rjVG4g7S2qQO2KSfmmI89dhj+2yzoVUCy6+J/86hbKbLH4BnmjolutCKz/vwe1wA==
+ b=Yty0QWB+UaNLnvcIu1Ph6ay9D8RK8CKn1XubCwnZ8s8se62qKsBWY9KAMzNG8sp35hny/98Wy7Wqz82f9cKlV/h3R9O2E+BY78Rp6XkQ6WgF8FtvCxkIrezJFdJfwdhwqmYJAojMyVObIjeJcaaenSGump8kD9MyTVJpmqlOWPPCt24iYZ+c+UDRFlgxvVksJ9K/5dysxWAPFuzXsYtDolL/aeOVDB4cu+koZgMEdLIglF5pon+XPCsLhXHiKAS1LOvTC9zIvBTh0kyZvtz/+nuM3smM5t88YDeqNPj82v0jsm5ZyyrQZHxhEZ4j97gk25bjj22XZzhHuWs0zPexWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5C7fXcc5/xoz1o5mDbxfzZ01KRU11HK/v8e/O8SQlBw=;
- b=E2GiiyFWDyecrnm86F4t0bR/52NRyu8USxYW9z1T/PikQgs/giOe9orrpI7fxG28gRrSUu5ZWU9/9TPEXJiSUCM6BbxEvojFmhJY+kz9p2T1xHwikAX8RQCVTMZ9w25JgQAthEO6IbiStee2g+cTigjiSoFgb4jjsYHZQVrd3MJNwXEThMsQ2jYzQBEmLj6eWrQOpDS1XH0hNO4rq0d642VoNSuyXKFUXCFN2GxQS9+92M6TEhdVp+rIG6DFRGLo5EJBDdx8lw7/GVwXdkMJC4rcF7p8ToAYQ6qWH3Rhsx97tEC+8brdAADMRlEH7rFIpoaa6f78SkNKlCL5Qsv2OQ==
+ bh=8hTlBKxwjB68rtNb0uUewIiLx/UqcVzsSSLzWmAKjtc=;
+ b=l+Fxf1jWobzPZq0lkYv9m0/xxQpgsm+BjY+ZuToo89i19ZSmlHMiNhGplDk9SjerzbaPKobQXAbfAViKQlhm0hi0jVhpnewQr8JYjMxjPSlUK1Zl9nGcoUyQe7mwimoM/GnrIMzz2zpxfZp0S6fHG5PG5nHxd0s5pnralJmYXCuNb0Vaz8aW79XsW/zA/ojxi02qwyywWfJVH1zjmWoBeyiMO7tooY2F/XbYL4XszcuRUDlheNkbVsLTSLeUUHigdT//EK+XwZCWq6HIdxTGD8k8pWbPpftXngGIexNfQCIyqTdrImTh9D4jig9uRYQTZl2tiTXlFDGzX6VrgRmQzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:e::20) by BJSPR01MB0561.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:f::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.33; Thu, 11 Jan
- 2024 02:55:47 +0000
-Received: from BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- ([fe80::9fb5:b2ec:ed6f:b0a4]) by
- BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn ([fe80::9fb5:b2ec:ed6f:b0a4%3])
- with mapi id 15.20.7135.032; Thu, 11 Jan 2024 02:55:47 +0000
-From: Tan Chun Hau <chunhau.tan@starfivetech.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Simon Horman <horms@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Andrew Halaney <ahalaney@redhat.com>, Jisheng Zhang <jszhang@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Russell King <rmk+kernel@armlinux.org.uk>
-Date: Wed, 10 Jan 2024 18:55:31 -0800
-Message-Id: <20240111025531.2875-2-chunhau.tan@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240111025531.2875-1-chunhau.tan@starfivetech.com>
-References: <20240111025531.2875-1-chunhau.tan@starfivetech.com>
-X-ClientProxiedBy: BJXPR01CA0064.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:12::31) To BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:e::20)
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from MW6PR11MB8310.namprd11.prod.outlook.com (2603:10b6:303:249::16)
+ by IA1PR11MB6443.namprd11.prod.outlook.com (2603:10b6:208:3a8::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Thu, 11 Jan
+ 2024 06:38:58 +0000
+Received: from MW6PR11MB8310.namprd11.prod.outlook.com
+ ([fe80::a40d:5f37:ee14:6e21]) by MW6PR11MB8310.namprd11.prod.outlook.com
+ ([fe80::a40d:5f37:ee14:6e21%4]) with mapi id 15.20.7159.020; Thu, 11 Jan 2024
+ 06:38:58 +0000
+From: "Gan, Yi Fang" <yi.fang.gan@intel.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Thread-Topic: [PATCH net v3 1/1] net: phylink: Add module_exit()
+Thread-Index: AQHaPvcS48imAJYtYkO0dKGHM8Fni7DJn3IAgAqTrIA=
+Date: Thu, 11 Jan 2024 06:38:58 +0000
+Message-ID: <MW6PR11MB8310698247DD950C5EBF5F2CB9682@MW6PR11MB8310.namprd11.prod.outlook.com>
+References: <20240104101255.3056090-1-yi.fang.gan@intel.com>
+ <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
+In-Reply-To: <fb1cc3a4-8615-4cee-8fe7-29966c4cb7c7@lunn.ch>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW6PR11MB8310:EE_|IA1PR11MB6443:EE_
+x-ms-office365-filtering-correlation-id: 8d99efc0-6366-4bc6-8f28-08dc126ffd67
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: kXWvBebkwLYA1AxmOm4SjcIXLNNCLgSBFLTr5BLInuNgEvUpO3kxjL1GIluLWLq0/xEjWL+f7RKhrX394phWjNAP5HEz4IQGZtxwWBJrXhlYeyNPtt5yY8qCjCz1lpTzn4+UmmkuJEHNcg85qjybiyKVX5Iv4iJG7CjQycatXMAQDiuY7gBuDqC/JmsV5z0mfde4dJifh/P4QQto6cALioeJz7TTXDIjzqX2klMhbEFjdyY3H2vbKvhs6zn02S+awx4mUhwqzSp1Px1+dQbF/gDtRj0hlBLxP4O+4ljZolsKAswPCckXmH/H9f8uruIvDHR2tunYgm4Ombhhrro6R6VmGehlyoXXB6bSXEsRJonji7qJKs3f33YDnMORSdtBxyG1uxsiKrAtQ00DgCiMbMxltdBnbGSAy8YBTlacYE/qE+hYh7Urnh05Hu0K1QAmIcpSuoaoNsLOTZWsPBVNQZYJ7VUjbey41V9e0pmiYR9CPg5gMp0KrE2HZZqj579emclslIPRrtGhPjys1pzjnawF+dnHJ/8BfkcdjobiiNLFWsJrcNXxSoHZShMj+SXQXwxv9q2R2QTLv6f7OWXe9GoVnJdlb2ueBu8S8fpeLM6Dnh6/zLOVFuuAsHwRXaKK
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW6PR11MB8310.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(376002)(396003)(136003)(366004)(39860400002)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(2906002)(7416002)(5660300002)(38070700009)(41300700001)(478600001)(38100700002)(83380400001)(122000001)(71200400001)(107886003)(26005)(66574015)(6506007)(9686003)(82960400001)(55236004)(86362001)(7696005)(33656002)(64756008)(54906003)(55016003)(4326008)(53546011)(8676002)(8936002)(52536014)(66446008)(66476007)(66556008)(66946007)(316002)(6916009)(76116006);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?8fd7niZNxha3aiDRWk7guiDpW8q7eQgUznoRlG4Z+ADcCm4o5tmCtRs7Lp?=
+ =?iso-8859-1?Q?lQ7FpkWPvzhES/s0e66WlQieCyaQ2foSqHcWAazvPUGARfzCi1pCtj9hmt?=
+ =?iso-8859-1?Q?YAqjeSFvaaCgJ6MLgf/BDpz4qSPsRLd+KfUxhctFNE59SiH/pTbnjx3oqy?=
+ =?iso-8859-1?Q?Ocrq3i8t2qF5jKsGGiLM4b73MK8HAFyEKKDXU1qtUGwPX46d8+3CSKzdK/?=
+ =?iso-8859-1?Q?Se+mZ234O//y1votrEi/FFm7cMRMZRPwY2utkRZ7anRjkfk0DEjb4F7d42?=
+ =?iso-8859-1?Q?+8TbfkjbfRGwsPZ2kSEBFhDDS0WxnGYD/AMA1p4C/FiDtyTTi3gFBEOUea?=
+ =?iso-8859-1?Q?Rq6vmcNQ7bG8fMC3Z0o9BcJ1WB2y5rV8fSRvY2ESnZ6GYDWgjbPirlyjYN?=
+ =?iso-8859-1?Q?uiVPNsjOHsg8yzTwndL0yjox9L++WxO6I48XtttRp8Vqm4IICwiSyA8K2b?=
+ =?iso-8859-1?Q?tVfDE2/Y9SMq73/pClVC3o0j/zn+cmzIZFTmMxQ6bZn6wQN2pm4WNUDqnw?=
+ =?iso-8859-1?Q?fDHpGcvuVsORUrJwG2KdAXLBTeKOJnExNYcsLbIzrAL1sIG+N2KYBqprwf?=
+ =?iso-8859-1?Q?3/W8EtePtbDN30j4UQEGulye+30N8zhbPuljKkHnMUuSq8E9WNHE+Jx0L0?=
+ =?iso-8859-1?Q?myNVbJp7WcvUNEtPrkvcnliUQob1SVbPcy5fw5VOdRWe+KD85XM0d4ahQ7?=
+ =?iso-8859-1?Q?9dMi9TerRkqmDV+Ryc/+BIvFVeeONYwgWnxvr9wn/19paUOOM9KQ1jSIry?=
+ =?iso-8859-1?Q?rTcMnCtCpWtyQsMYWbWmtJJL9c/BnStXIyHtC8X22nBCovd3xLpZQysqSI?=
+ =?iso-8859-1?Q?WCWNM04ka3az9Dc0eaaUO6rUyFs2vwZjARtY5peBzmHB0XV1IHWiJLFnUY?=
+ =?iso-8859-1?Q?48kWbJlijUuiND/UJ3aPnlHMD03VSGJa6v0r3+XYSkMZvQzGJiy0e4KLVX?=
+ =?iso-8859-1?Q?c6TYuzG3U2GuGcZUoBKxIJGxFaw2ZHxlj/vpjrSPCP3oa4YOSHAgDFEH4o?=
+ =?iso-8859-1?Q?ATzn3lrT6pU9YWwlhKT8nL7thaZOyYbNp4CzIpim5PuLmwoW57s7+OSOR9?=
+ =?iso-8859-1?Q?0w/pRnqkocqxRE9MEvLCKxJMjV8S/WOh/+rjvozORg4fVTVnFpnQ9NyvF9?=
+ =?iso-8859-1?Q?36C4Jqjlxh/Q6xUgmWykHMg8YPqefkBzdHC6GK4IL6hDTZN7t4JnKl8E8P?=
+ =?iso-8859-1?Q?1hImD5kL7Y23T9msrvmWYTwfl8saqf5oPm1YHE7SyGp6F23WyQBXtRMiiw?=
+ =?iso-8859-1?Q?vg253wkNR+NWKZ1YXgES7NFtQc8UWc/8+XCC2Il3N0EzL9tsrJV372Cfed?=
+ =?iso-8859-1?Q?vsUhCECvKWWUTyDvBVC7MXpLsKfCZONm1am0yYAgAd7i79D4qUmwTjCWrz?=
+ =?iso-8859-1?Q?6+FVcObJFdnIvnOgHKaZE8H8ZWDhwNDns3X6oVdtwt2oDZPx43QjfUGTKl?=
+ =?iso-8859-1?Q?fxy60g5FjPbC1zzVLkwKvkwKPQSBulfNu7r65ULfCeL64vecr575GNvwQY?=
+ =?iso-8859-1?Q?bCAkHMQy8AbB+dvpj7c9Cm2q6grx+6Zf/gMCOsrgQ9JtpLfhypiJUhUHjT?=
+ =?iso-8859-1?Q?V3S/yF7JY7sWf3X8QnT9a5flC93ZYr4nvDMPd/jx+fA71eB0IR6a3c7U5f?=
+ =?iso-8859-1?Q?qIQDHnaNznY6b0yqlvfhzMNQ7AVU9cXSEE?=
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BJSPR01MB0595:EE_|BJSPR01MB0561:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0907861-d30c-47ee-01aa-08dc1250cfaa
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: B55cUnE2eXWZs/M5Le5EYcfM15/IF8/uK1cc5u6ivCcCuIT87XZR42bGBpZhXG19SB/aLvI6L6NalMquhUzAXw3UAP89wN1d2dCEUPJiHQ2DCCpI1QA/Z9DgynXoYKy8DGK/vVDsrhoT67RLQnK/fvZfkrIk1HBZ8HheC4ex/jOKVBM0n1acsy2UU4TKQ1OQpwvNKS3AtOa+YekHnYviHoDDAR/NlqS+vHnsb42cDA/t8ibYQKIMBKaJmylxzGr2nT78Qub3+0/NshHTsXwEkCXx1eeehIIJVyuK7QPpxNkEtA1jq8KCo+S73HC1EdoxCSwCYQ9b8Y2YkUst3Oxyl9mmpqn6XwO68dorCXjN0wJjs+8QAMjwbwivwKzaBT6amsmnFeCoxzSoJFBjvhGMBL95sMpwyWZu3HnpzmLT01L8vQLulwq45rf2HABPw+0Qz485x0gFn1NdYULuMArj0GaMTb3tyNuG/sazuCdydXjA2iikSYCZLPdOR00FLup6X2ZFmtfbBHT4tuGMeKYywFyrVXCBuBlmpXmrFLNDjvtB9+aiPGX8aI5lUg05XQ/Xa2czf0NkNBRILuAFJUplSKwlCeK5IpCGxG6AMvtUWDC0KXdP3haRbOnjB8PKvSK5
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230031)(136003)(366004)(39830400003)(396003)(346002)(230273577357003)(230173577357003)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(921011)(38100700002)(8676002)(8936002)(6666004)(508600001)(4326008)(26005)(2616005)(1076003)(66946007)(66556008)(40160700002)(110136005)(54906003)(66476007)(52116002)(83380400001)(41300700001)(2906002)(86362001)(7416002)(5660300002)(40180700001)(38350700005)(36756003)(41320700001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?hrUqtO2Xv9eLkR7fwzv0InkvfVHufr+C1vpTp3H4tRQ1YqD/gUQ2ykIJZTiC?=
- =?us-ascii?Q?S5vgX8HGVzFMSmpbV/Za8E7NTptGG3rBtiucf3l54QVhuM74/bDgMtKOZ+uB?=
- =?us-ascii?Q?GSU7xesZ8KOXLtpLJ+XhxjuTSOlrXikjwoLBlvW+jTABq5ZHosaYywQcjIz9?=
- =?us-ascii?Q?Aupjv9MRxaDL07SyEY2IYPkkUSwUJC0fknhegIJdnCaP54ZeEF8nyRXFcEmg?=
- =?us-ascii?Q?i9fhRCQkvq79xHIKqqywL248ivGBeUMPufKYM0I5pJFfuGC8gmnsHBZK8AQW?=
- =?us-ascii?Q?8blh0ddVwAvzeXfxb+BgQ6WKkc/b9HD1DDkps83fZf5JP9pk9NUUkNug6JVy?=
- =?us-ascii?Q?w1/Gdy/eR8f4vcamQiJidxCAo9rEssU3Z91uR4M4qNDSygZZbSE+Yvu/+hnR?=
- =?us-ascii?Q?B4kBNj8ufgyC5YpG5SsJWGzyMwgi+65naipYFjwTho7jYq7ez3zJ2LgNcVmJ?=
- =?us-ascii?Q?7SooX8MUAVdW+7BgFHdpwPCpIqixVTWtNi0whRxhgNAWilRvtrA3nJ7UVPiW?=
- =?us-ascii?Q?c+m9Kco5CO9xZSg/uFa/rc2LwTZGsKl7bPc/J+yq1rMTttfthyrT+Nn5Fw8a?=
- =?us-ascii?Q?dIATlteGXH0uTYLVTg66SuTrwI3/vcB2AMEM2PRZvzXqAXsZUektheYvekP2?=
- =?us-ascii?Q?wlVksNdAJG3YlR/C/gFH/7LY9EFTSmpv9rVkI4dbJqqrLmEtVYgvZ/TgPduf?=
- =?us-ascii?Q?UXcw8VOMCvuAECZaBgqMTxb8EFoRMnWZT86x/+eY3ZmWBDw7XLY0VxYNEWEt?=
- =?us-ascii?Q?CQBNpfrG2ytTwvxAdzeiiJww1L8kgaMsNCvT9MuZEHYIXj9uGK39YsTgYuBi?=
- =?us-ascii?Q?Ll73UJMTsxPFqUi3UYaEEkwP+IcMWXHJzIJfC3eSYJKPdje9BJxkx0Ibee16?=
- =?us-ascii?Q?32diJeUINJs9AK6YzZ0ntP8BAk6GdG5P6WeB3d1YU6b5/CYKiZnVh76FweAY?=
- =?us-ascii?Q?7qG9W8g4KEl/itKWhjFAO0CHGUENsxkwIDBpSbPdKCEx7F8XJFS+fdWQoHtV?=
- =?us-ascii?Q?KuEqMG481JKCpEl9XwCNlJ1SuHRI+3rsTZzbZG/pzG6OsJCFutNUeFftQcrV?=
- =?us-ascii?Q?dCdg5OLpQgV3a0SduLQpT4LeWtaabx2v/YastH46kN7ZgRwWw8s6WyFBqYZh?=
- =?us-ascii?Q?GXVJj6gGIITL2EQlAoIKjEo1rF2CDogyJBUgS0b7Aq5/elVLcIUUslP93r22?=
- =?us-ascii?Q?RroGRDYs3uSu1VQLXtUthThN7m0iY81050H0UGYg6j6gkou8Pbj7bYOWwoPX?=
- =?us-ascii?Q?9UkeFBcKH/YieJQwKc7ruttzQTYP9NqKZUWkxMESUkYgsMDmfrTpd7YKit6m?=
- =?us-ascii?Q?JzQ1eLLoFPbhTO6/Ybuoo0XQD72YPGlwPpvbVapvcMppB7zKkLOUwQXcdQSm?=
- =?us-ascii?Q?quKXRviP42GrNG3szuRhVassJ/iRjz4H2QdbHjOpCGi0SIFRGTsTRa/iaaK0?=
- =?us-ascii?Q?3zHosOtBrO901FhOWtyrumqUA2uU/1I0J2lyMJrpNfdu31vs4dTbXFvMHATl?=
- =?us-ascii?Q?PnQrauM/wZ5yB6GXGBMeKbwOIkDSaPu+mfMJ0fI3jX1Uoc3xqQsLwIqMYIJg?=
- =?us-ascii?Q?wGcmYsVNNlkWft879rCmxdF+FKV2faOAGpV6aPYnI2rvabwDddPNUSZcmd+z?=
- =?us-ascii?Q?kQ=3D=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0907861-d30c-47ee-01aa-08dc1250cfaa
-X-MS-Exchange-CrossTenant-AuthSource: BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 02:55:47.2995 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /biaylpyOB4uP/6MCD4kReVjit6/ggXAXLPbt6/8ybyV+sx5gRS8WwBuaPs1QuZD7O5jEpjtyyJLbNL9xhdottVXKGuc4FJ0YI4PvUsuQ1E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJSPR01MB0561
-Cc: devicetree@vger.kernel.org, Ley Foon Tan <leyfoon.tan@starfivetech.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jee Heng Sia <jeeheng.sia@starfivetech.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 1/1] dt-bindings: net: starfive,
-	jh7110-dwmac: Add StarFive JH8100 support
+X-MS-Exchange-CrossTenant-AuthSource: MW6PR11MB8310.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d99efc0-6366-4bc6-8f28-08dc126ffd67
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2024 06:38:58.1761 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 62o2WE9AWAqFlId9AvjLhImroqlcU7d63YFKd8GijeDZ4xjJCgsrtPzMhCFhRp0iDBAdKkbN5wfWOI1/S1kjrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6443
+X-OriginatorOrg: intel.com
+Cc: =?iso-8859-1?Q?Marek_Beh=FAn?= <kabel@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Choong,
+ Yong Liang" <yong.liang.choong@intel.com>, "Voon,
+ Weifeng" <weifeng.voon@intel.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Eric
+ Dumazet <edumazet@google.com>, "Looi, Hong Aun" <hong.aun.looi@intel.com>,
+ "Song, Yoong Siang" <yoong.siang.song@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net v3 1/1] net: phylink: Add module_exit()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,115 +158,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add StarFive JH8100 dwmac support.
-JH8100 dwmac has one reset signal instead of 2 resets as in JH7110.
 
-Signed-off-by: Tan Chun Hau <chunhau.tan@starfivetech.com>
----
- .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
- .../bindings/net/starfive,jh7110-dwmac.yaml   | 50 +++++++++++++------
- 2 files changed, 37 insertions(+), 14 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 5c2769dc689a..350b3d76630f 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -96,6 +96,7 @@ properties:
-         - snps,dwxgmac
-         - snps,dwxgmac-2.10
-         - starfive,jh7110-dwmac
-+        - starfive,jh8100-dwmac
- 
-   reg:
-     minItems: 1
-diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-index 5e7cfbbebce6..7e4547961bab 100644
---- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-@@ -17,15 +17,23 @@ select:
-       contains:
-         enum:
-           - starfive,jh7110-dwmac
-+          - starfive,jh8100-dwmac
-   required:
-     - compatible
- 
- properties:
-   compatible:
--    items:
--      - enum:
--          - starfive,jh7110-dwmac
--      - const: snps,dwmac-5.20
-+    oneOf:
-+      - items:
-+          - enum:
-+              - starfive,jh7110-dwmac
-+          - const: snps,dwmac-5.20
-+
-+      - items:
-+          - enum:
-+              - starfive,jh8100-dwmac
-+          - const: starfive,jh7110-dwmac
-+          - const: snps,dwmac-5.20
- 
-   reg:
-     maxItems: 1
-@@ -54,16 +62,6 @@ properties:
-     minItems: 3
-     maxItems: 3
- 
--  resets:
--    items:
--      - description: MAC Reset signal.
--      - description: AHB Reset signal.
--
--  reset-names:
--    items:
--      - const: stmmaceth
--      - const: ahb
--
-   starfive,tx-use-rgmii-clk:
-     description:
-       Tx clock is provided by external rgmii clock.
-@@ -93,6 +91,30 @@ required:
- 
- allOf:
-   - $ref: snps,dwmac.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - starfive,jh8100-dwmac
-+    then:
-+      properties:
-+        resets:
-+          items:
-+            - description: MAC Reset signal.
-+        resets-names:
-+          items:
-+            - const: stmmaceth
-+    else:
-+      properties:
-+        resets:
-+          items:
-+            - description: MAC Reset signal.
-+            - description: AHB Reset signal.
-+        resets-names:
-+          items:
-+            - const: stmmaceth
-+            - const: ahb
- 
- unevaluatedProperties: false
- 
--- 
-2.25.1
+> -----Original Message-----
+> From: Andrew Lunn <andrew@lunn.ch>
+> Sent: Thursday, January 4, 2024 9:05 PM
+> To: Gan, Yi Fang <yi.fang.gan@intel.com>
+> Cc: Russell King <linux@armlinux.org.uk>; Heiner Kallweit
+> <hkallweit1@gmail.com>; David S . Miller <davem@davemloft.net>; Eric
+> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
+> Abeni <pabeni@redhat.com>; Marek Beh=FAn <kabel@kernel.org>;
+> netdev@vger.kernel.org; linux-stm32@st-md-mailman.stormreply.com; linux-
+> arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org; Looi, Hong =
+Aun
+> <hong.aun.looi@intel.com>; Voon, Weifeng <weifeng.voon@intel.com>; Song,
+> Yoong Siang <yoong.siang.song@intel.com>; Choong, Yong Liang
+> <yong.liang.choong@intel.com>
+> Subject: Re: [PATCH net v3 1/1] net: phylink: Add module_exit()
+> =
 
+> On Thu, Jan 04, 2024 at 06:12:55PM +0800, Gan, Yi Fang wrote:
+> 65;7401;1c> In delete_module(), if mod->init callback is defined but mod-=
+>exit
+> callback
+> > is not defined, it will assume the module cannot be removed and return
+> > EBUSY. The module_exit() is missing from current phylink module drive
+> > causing failure while unloading it.
+> =
+
+> This is still missing the explanation why this is safe.
+> =
+
+> =
+
+>     Andrew
+> =
+
+> ---
+> pw-bot: cr
+
+Hi Andrew,
+
+Regarding the justification on why it is safe to remove phylink, =
+
+we had done some memory leak check when unloading the phylink module.
+ =
+
+root@localhost:~# lsmod | grep "phylink"
+phylink               73728  0
+root@localhost:~# rmmod phylink
+root@localhost:~# echo scan > /sys/kernel/debug/kmemleak
+root@localhost:~# cat /sys/kernel/debug/kmemleak
+root@localhost:~#
+ =
+
+So far, we didn't observe any memory leaking happened when unloading
+phylink module. Is it sufficient or do you have any other suggestions to ch=
+eck =
+
+on whether the module is safe to remove?
+
+Best Regards,
+Gan Yi Fang
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
