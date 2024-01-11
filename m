@@ -2,71 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68A5282AD59
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:27:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B870482AD6F
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:31:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2360DC6DD66;
-	Thu, 11 Jan 2024 11:27:14 +0000 (UTC)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
- [209.85.219.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A335C6DD66;
+	Thu, 11 Jan 2024 11:31:51 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCA15C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A7DEC6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 11:27:12 +0000 (UTC)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-dbed430ef5eso4307806276.1
+ Thu, 11 Jan 2024 11:31:49 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a27cd5850d6so559264366b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 03:27:12 -0800 (PST)
+ Thu, 11 Jan 2024 03:31:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704972432; x=1705577232;
+ d=amarulasolutions.com; s=google; t=1704972709; x=1705577509;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=e7JiucPuK5mIn3VsB07u7y+OPsd0Eht681B5IDggD3Q=;
- b=qoiBKrah0HEqnDCfYl6omR+/eY/Oal82k4dpAloW9CcyzKllLhdYyMYiZEQnfE3WDb
- bouhTbkKP+X7/LFngvbkzu6dogYRoRiExMvHmWxsjhqfajVWg4SAlgqZ3YkWlZ2X1Vyv
- B1LKotOdo4Jg879WnfD3ZEbrUNgsprcWtGJ00=
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=E3RgnmjR61D7s9CNo+AYUolzQugH4TGJWl8/1Xh6+YQ=;
+ b=rTtNwOKAaR3blGL+vLly7QDTQLwfVfkm6l+wOIgRpiXxO3IctcGzgoyX3ieEySq/Nv
+ 4BNenwa2Ls48NiXt2qfmKoJWI8vxNdZQPagpZfYoF/60h8Uivfn545Oiqs4+yO/Lkthz
+ jSeqgjzLLwzt60ePs8wiBm09GMe7MLDJtAZKk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704972432; x=1705577232;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=e7JiucPuK5mIn3VsB07u7y+OPsd0Eht681B5IDggD3Q=;
- b=Qm7pSTlVMa2wXD0OQ3P45/RCEe14kGloKh7DuNG5C/kFFyaDj/rVD8UglG5OPqd6TN
- FhOrOfb4DH94ow2MikCgJNtAayLWipkjvL1ls8EGSA1NknC7uL7CJB2hgmsfjTGu3x+u
- OKk7UaapBowfIelfVdiW9i+FLUxsnWkj8rMjaNu3Wtmrf6XHV8Jp2GNciP+K2iwaFa8G
- /1hsxGwzS5hZQ54nvI2P1dxa206gLDrPvr0KWL2AnfKBZ5srB2tvScEwndHSA34dRNQJ
- 3mT3v7Qh8b24vzP3WWxzyyk3uORthjHBq23Y434B0MbQDqIP4rzebg4nRERsRKNotZO3
- ezLg==
-X-Gm-Message-State: AOJu0YwJpEe0xSZGzNFgEd8+ci71bpL4jtd6/M50A2o8nzDqYYE9VV4W
- QA9S0QomZcEUcY//NEGrKlp+bTq5AGPNsqf4QrJGTlbmBo3Q8A==
-X-Google-Smtp-Source: AGHT+IEJB+Qnxg6nM+JT5HuGkpy4wIhVH7/I5L9g6bPm+oKIAEIYU5M688AvqqnEcIedqWHcdj7tivFvlabNsODp5ng=
-X-Received: by 2002:a25:ad14:0:b0:dbe:a48f:8322 with SMTP id
- y20-20020a25ad14000000b00dbea48f8322mr1087326ybi.71.1704972431668; Thu, 11
- Jan 2024 03:27:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20240110080729.3238251-1-dario.binacchi@amarulasolutions.com>
- <20240110080729.3238251-6-dario.binacchi@amarulasolutions.com>
- <7889dff7-2c38-43c0-b6f7-281a20ae9733@foss.st.com>
-In-Reply-To: <7889dff7-2c38-43c0-b6f7-281a20ae9733@foss.st.com>
+ d=1e100.net; s=20230601; t=1704972709; x=1705577509;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=E3RgnmjR61D7s9CNo+AYUolzQugH4TGJWl8/1Xh6+YQ=;
+ b=hTRh+Lya0ZZ4VEMnsf+O8J1xQ3W06zIvfzGZJsshGRiWWe0PEzzlRDNW2++2otwSNS
+ 1Q3ZcVACGiHa1gEB1JMZ/ru5qM7JrzX5M4ZMMbHJslwmfh7eekCBZi68t50PHHzDHJ0S
+ LK5BTVKjZ04MfPIORzHOGZ8eyFGJbBqjb5PiuYILyVDukrVZ/RLLduyjyqtakz63Wdzu
+ YHiOgZAyzHJ2yzocHQ2UnRVd0pach6geED7gih/kgCjFbC+o9fJaGgSmqKBdaJjnYtd/
+ 8yFc9q026WUhed5lm32D7Uy991HRmtVBIyOlgCEQ4jN3+AXOFOCgk9W25A+0rtKtc/E3
+ gzLQ==
+X-Gm-Message-State: AOJu0Yw4M2nYPKQSX4J8XLSuEJNgKaksSCL72K2z4ZippaNGUvbpA0hA
+ vRXPOWKHD9jwCChQBsBVHCJdutMtx/F/yA==
+X-Google-Smtp-Source: AGHT+IGZ6q2rR+1ieqVBtWSdEMPS5oa96gFPgtNJnNkI/8J4MxZtb83opPPSS+JHqHoOpJzHU8MufA==
+X-Received: by 2002:a17:907:9712:b0:a26:b524:226a with SMTP id
+ jg18-20020a170907971200b00a26b524226amr652836ejc.40.1704972708978; 
+ Thu, 11 Jan 2024 03:31:48 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ ([95.236.91.90]) by smtp.gmail.com with ESMTPSA id
+ n3-20020a170906688300b00a26aa734349sm461565ejr.39.2024.01.11.03.31.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jan 2024 03:31:48 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Date: Thu, 11 Jan 2024 12:27:00 +0100
-Message-ID: <CABGWkvoatqxz2_8_7khHAC8n4gFNyvfDPR3A88fsfuppJxN_5Q@mail.gmail.com>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: linux-kernel@vger.kernel.org
+Date: Thu, 11 Jan 2024 12:31:37 +0100
+Message-ID: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
+ =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Andre Przywara <andre.przywara@arm.com>, linux-kernel@vger.kernel.org,
- Peter Rosin <peda@axentia.se>, Rob Herring <robh+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Sean Nyekjaer <sean@geanix.com>,
- =?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ Sean Nyekjaer <sean@geanix.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 5/5] ARM: dts: add
-	stm32f769-disco-mb1225-revb03-mb1166-reva09
+Subject: [Linux-stm32] [PATCH v7 0/5] Add display support for
+	stm32f769-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,73 +81,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGkgUmFwaGFlbCwKCk9uIFRodSwgSmFuIDExLCAyMDI0IGF0IDEyOjIy4oCvUE0gUmFwaGFlbCBH
-YWxsYWlzLVBvdQo8cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4gd3JvdGU6Cj4KPgo+
-IE9uIDEvMTAvMjQgMDk6MDUsIERhcmlvIEJpbmFjY2hpIHdyb3RlOgo+ID4gQXMgcmVwb3J0ZWQg
-aW4gdGhlIHNlY3Rpb24gOC4zIChpLiBlLiBCb2FyZCByZXZpc2lvbiBoaXN0b3J5KSBvZiBkb2N1
-bWVudAo+ID4gVU0yMDMzIChpLiBlLiBEaXNjb3Zlcnkga2l0IHdpdGggU1RNMzJGNzY5TkkgTUNV
-KSB0aGVzZSBhcmUgdGhlIGNoYW5nZXMKPiA+IHJlbGF0ZWQgdG8gdGhlIGJvYXJkIHJldmlzaW9u
-cyBhZGRyZXNzZWQgYnkgdGhlIHBhdGNoOgo+ID4gLSBCb2FyZCBNQjEyMjUgcmV2aXNpb24gQi0w
-MzoKPiA+ICAgLSBNZW1vcnkgTUlDUk9OIE1UNDhMQzRNMzJCMkI1LTZBIHJlcGxhY2VkIGJ5IElT
-U0kgSVM0MlMzMjQwMEYtNkJMCj4gPiAtIEJvYXJkIE1CMTE2NiByZXZpc2lvbiBBLTA5Ogo+ID4g
-ICAtIExDRCBGUklEQSBGUkQzOTdCMjUwMDktRC1DVEsgcmVwbGFjZWQgYnkgRlJJREEgRlJENDAw
-QjI1MDI1LUEtQ1RLCj4gPgo+ID4gVGhlIHBhdGNoIG9ubHkgYWRkcyB0aGUgRFRTIHN1cHBvcnQg
-Zm9yIHRoZSBuZXcgZGlzcGxheSB3aGljaCBiZWxvbmdzIHRvCj4gPiB0byB0aGUgTm92YXRlayBO
-VDM1NTEwLWJhc2VkIHBhbmVsIGZhbWlseS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBEYXJpbyBC
-aW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5jb20+Cj4gPgo+ID4gLS0t
-Cj4gPgo+ID4gQ2hhbmdlcyBpbiB2NjoKPiA+IC0gRHJvcCBwYXRjaGVzCj4gPiAgIC0gWzUvOF0g
-ZHQtYmluZGluZ3M6IG50MzU1MTA6IGFkZCBjb21wYXRpYmxlIGZvciBGUklEQSBGUkQ0MDBCMjUw
-MjUtQS1DVEsKPiA+ICAgLSBbNy84XSBkcm0vcGFuZWw6IG50MzU1MTA6IG1vdmUgaGFyZHdpcmVk
-IHBhcmFtZXRlcnMgdG8gY29uZmlndXJhdGlvbgo+ID4gICAtIFs4LzhdIGRybS9wYW5lbDogbnQz
-NTUxMDogc3VwcG9ydCBGUklEQSBGUkQ0MDBCMjUwMjUtQS1DVEsKPiA+ICAgYmVjYXVzZSBhcHBs
-aWVkIGJ5IHRoZSBtYWludGFpbmVyIExpbnVzIFdhbGxlaWoKPiA+Cj4gPiBDaGFuZ2VzIGluIHY1
-Ogo+ID4gLSBSZXBsYWNlIEdQSU9EX0FTSVMgd2l0aCBHUElPRF9PVVRfSElHSCBpbiB0aGUgY2Fs
-bCB0byBkZXZtX2dwaW9kX2dldF9vcHRpb25hbCgpLgo+ID4KPiA+IENoYW5nZXMgaW4gdjI6Cj4g
-PiAtIENoYW5nZSB0aGUgc3RhdHVzIG9mIHBhbmVsX2JhY2tsaWdodCBub2RlIHRvICJkaXNhYmxl
-ZCIKPiA+IC0gRGVsZXRlIGJhY2tsaWdodCBwcm9wZXJ0eSBmcm9tIHBhbmVsMCBub2RlLgo+ID4g
-LSBSZS13cml0ZSB0aGUgcGF0Y2ggWzgvOF0gImRybS9wYW5lbDogbnQzNTUxMDogc3VwcG9ydCBG
-UklEQSBGUkQ0MDBCMjUwMjUtQS1DVEsiCj4gPiAgIGluIHRoZSBzYW1lIHN0eWxlIGFzIHRoZSBv
-cmlnaW5hbCBkcml2ZXIuCj4gPgo+ID4gIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlICAg
-ICAgICAgICAgICAgICAgfCAgMSArCj4gPiAgLi4uMmY3NjktZGlzY28tbWIxMjI1LXJldmIwMy1t
-YjExNjYtcmV2YTA5LmR0cyB8IDE4ICsrKysrKysrKysrKysrKysrKwo+ID4gIDIgZmlsZXMgY2hh
-bmdlZCwgMTkgaW5zZXJ0aW9ucygrKQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBhcmNoL2FybS9i
-b290L2R0cy9zdC9zdG0zMmY3NjktZGlzY28tbWIxMjI1LXJldmIwMy1tYjExNjYtcmV2YTA5LmR0
-cwo+ID4KPiA+IGRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9NYWtlZmlsZSBiL2Fy
-Y2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlCj4gPiBpbmRleCA3ODkyYWQ2OWI0NDEuLjM5MGRi
-ZDMwMGE1NyAxMDA2NDQKPiA+IC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlCj4g
-PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9NYWtlZmlsZQo+ID4gQEAgLTIzLDYgKzIzLDcg
-QEAgZHRiLSQoQ09ORklHX0FSQ0hfU1RNMzIpICs9IFwKPiA+ICAgICAgIHN0bTMyZjQ2OS1kaXNj
-by5kdGIgXAo+ID4gICAgICAgc3RtMzJmNzQ2LWRpc2NvLmR0YiBcCj4gPiAgICAgICBzdG0zMmY3
-NjktZGlzY28uZHRiIFwKPgo+IEhpIERhcmlvLAo+Cj4KPiBEaWQgeW91IG1lYW50IGR0YiBoZXJl
-ID8gOykKR29vZCBjYXRjaCEKVGhhbmtzIGZvciB0aGUgcmV2aWV3IQoKUmVnYXJkcywKRGFyaW8K
-Cj4KPgo+IFJlZ2FyZHMsCj4KPiBSYXBoYcOrbAo+Cj4gPiArICAgICBzdG0zMmY3NjktZGlzY28t
-bWIxMjI1LXJldmIwMy1tYjExNjYtcmV2YTA5LmR0cyBcCj4gPiAgICAgICBzdG0zMjQyOWktZXZh
-bC5kdGIgXAo+ID4gICAgICAgc3RtMzI3NDZnLWV2YWwuZHRiIFwKPiA+ICAgICAgIHN0bTMyaDc0
-M2ktZXZhbC5kdGIgXAo+ID4gZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMy
-Zjc2OS1kaXNjby1tYjEyMjUtcmV2YjAzLW1iMTE2Ni1yZXZhMDkuZHRzIGIvYXJjaC9hcm0vYm9v
-dC9kdHMvc3Qvc3RtMzJmNzY5LWRpc2NvLW1iMTIyNS1yZXZiMDMtbWIxMTY2LXJldmEwOS5kdHMK
-PiA+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gPiBpbmRleCAwMDAwMDAwMDAwMDAuLjAxNGNhYzE5
-MjM3NQo+ID4gLS0tIC9kZXYvbnVsbAo+ID4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3Rt
-MzJmNzY5LWRpc2NvLW1iMTIyNS1yZXZiMDMtbWIxMTY2LXJldmEwOS5kdHMKPiA+IEBAIC0wLDAg
-KzEsMTggQEAKPiA+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+ID4gKy8q
-Cj4gPiArICogQ29weXJpZ2h0IChjKSAyMDIzIERhcmlvIEJpbmFjY2hpIDxkYXJpby5iaW5hY2No
-aUBhbWFydWxhc29sdXRpb25zLmNvbT4KPiA+ICsgKi8KPiA+ICsKPiA+ICsjaW5jbHVkZSAic3Rt
-MzJmNzY5LWRpc2NvLmR0cyIKPiA+ICsKPiA+ICsmcGFuZWxfYmFja2xpZ2h0IHsKPiA+ICsgICAg
-IHN0YXR1cyA9ICJkaXNhYmxlZCI7Cj4gPiArfTsKPiA+ICsKPiA+ICsmcGFuZWwwIHsKPiA+ICsg
-ICAgIGNvbXBhdGlibGUgPSAiZnJpZGEsZnJkNDAwYjI1MDI1IiwgIm5vdmF0ZWssbnQzNTUxMCI7
-Cj4gPiArICAgICB2ZGRpLXN1cHBseSA9IDwmdmNjXzN2Mz47Cj4gPiArICAgICB2ZGQtc3VwcGx5
-ID0gPCZ2Y2NfM3YzPjsKPiA+ICsgICAgIC9kZWxldGUtcHJvcGVydHkvYmFja2xpZ2h0Owo+ID4g
-KyAgICAgL2RlbGV0ZS1wcm9wZXJ0eS9wb3dlci1zdXBwbHk7Cj4gPiArfTsKCgoKLS0gCgpEYXJp
-byBCaW5hY2NoaQoKU2VuaW9yIEVtYmVkZGVkIExpbnV4IERldmVsb3BlcgoKZGFyaW8uYmluYWNj
-aGlAYW1hcnVsYXNvbHV0aW9ucy5jb20KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KCgpBbWFydWxhIFNvbHV0aW9ucyBTUkwKClZpYSBMZSBDYW5ldmFyZSAzMCwgMzExMDAgVHJl
-dmlzbywgVmVuZXRvLCBJVAoKVC4gKzM5IDA0MiAyNDMgNTMxMAppbmZvQGFtYXJ1bGFzb2x1dGlv
-bnMuY29tCgp3d3cuYW1hcnVsYXNvbHV0aW9ucy5jb20KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
-bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
-b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+The series adds display support for the stm32f769-disco board. It has been
+tested on hardware revisions MB1225-B03 and MB1166-A09. This required
+modifications to the nt35510 driver that have already been applied.
+
+Changes in v7:
+- Replace .dts with .dtb in the Makefile
+
+Changes in v6:
+- Drop patches
+  - [5/8] dt-bindings: nt35510: add compatible for FRIDA FRD400B25025-A-CTK
+  - [7/8] drm/panel: nt35510: move hardwired parameters to configuration
+  - [8/8] drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK
+  because applied by the maintainer Linus Walleij
+
+Changes in v5:
+- Replace GPIOD_ASIS with GPIOD_OUT_HIGH in the call to devm_gpiod_get_optional().
+
+Changes in v2:
+- Add Acked-by tag of Conor Dooley
+- Change the status of panel_backlight node to "disabled"
+- Delete backlight property from panel0 node.
+- Re-write the patch [8/8] "drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK"
+  in the same style as the original driver.
+
+Dario Binacchi (5):
+  dt-bindings: mfd: stm32f7: Add binding definition for DSI
+  ARM: dts: stm32: add DSI support on stm32f769
+  ARM: dts: stm32: rename mmc_vcard to vcc-3v3 on stm32f769-disco
+  ARM: dts: stm32: add display support on stm32f769-disco
+  ARM: dts: add stm32f769-disco-mb1225-revb03-mb1166-reva09
+
+ arch/arm/boot/dts/st/Makefile                 |  1 +
+ ...f769-disco-mb1225-revb03-mb1166-reva09.dts | 18 +++++
+ arch/arm/boot/dts/st/stm32f769-disco.dts      | 78 ++++++++++++++++++-
+ arch/arm/boot/dts/st/stm32f769.dtsi           | 21 +++++
+ include/dt-bindings/mfd/stm32f7-rcc.h         |  1 +
+ 5 files changed, 115 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1225-revb03-mb1166-reva09.dts
+ create mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
+
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
