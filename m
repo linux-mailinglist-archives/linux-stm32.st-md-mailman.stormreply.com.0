@@ -2,53 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ED7182B0FC
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 15:51:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9039582B108
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 15:54:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A853C6DD74;
-	Thu, 11 Jan 2024 14:51:49 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C2DCC6DD74;
+	Thu, 11 Jan 2024 14:54:36 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E61DCC6DD73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 589B7C6DD73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 14:51:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 45B31B81EDB;
- Thu, 11 Jan 2024 14:51:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723B7C433C7;
- Thu, 11 Jan 2024 14:51:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1704984706;
- bh=i6f1/14PJrdRngdxu4TuN5mOilOfj8PHEW7GGTEZJiE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=F+8o1DrqtUWhBa87fT4v82Wvy/YQVwC1mEqvqUNVDilj/Txs9G4tdBRsIrQneD8aN
- CKv/E+I2mvkAPkag3fPsvsX8JDmZcx6zpOoJB+WcEE6muCUdZTke3oieaNZpyR6sH7
- BsXK0CBkm2FyzL0Eco+F2CVqrs6iyVaWqJi3sx3fQRUU0/A90RefriChN/cHF0J8fh
- 7bAUobB2VfLz7B9dHmcvjj/HVECT7l7CfSy+qMF79VGu+N86iqX34HaPvg9B3rKGqv
- kURYtc5Jj2n9hUkzNztl6Iwn7fuSkutM4o54qYtBWyv9Inr7XhAal9SP5gGRc93s7u
- dakJBS9MpGftQ==
-Date: Thu, 11 Jan 2024 08:51:44 -0600
-From: Rob Herring <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <20240111145144.GA528743-robh@kernel.org>
-References: <20240111104049.38695-1-raphael.gallais-pou@foss.st.com>
- <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
+ Thu, 11 Jan 2024 14:54:35 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40B9T6ox025702; Thu, 11 Jan 2024 15:54:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=H7nacMDmYTQFWcEFfOVo7GeHgZ5bNpycP6h4lcPT5CA=; b=bZ
+ j1tbTVX8q6WE9bFSdKyl9FMmOqENIbFcTlRo+aLUlQKTqNXIe0d5NIh+xZioZcsF
+ 6LGHsux10lwwDTn8X/kfThmXp/MdOI2OCYSzngx577Dtls9ZbSQimLLQL14dF6od
+ myYPVRDPLBASpweYKYFNpjh7nyRPL5IBiazO8+kqqqO2rUdgXbW5AyjLkyX4mXJf
+ 8aUi2MlrtJSMS1AL9wp7fHrhm3O6ungt+COQlmNn4744uqQOuZi5QBHieAsYjtMe
+ G9Ae4rlT510F5Wp/v33HhIUK7KinCHUBsMZ05EzNYcaTOUFSgmmusetnNKL0xeXo
+ zvYkzqFRvi7l5Tv1PwoA==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vfha4uw06-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 11 Jan 2024 15:54:22 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 657FB10002A;
+ Thu, 11 Jan 2024 15:54:22 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5BFF12841E6;
+ Thu, 11 Jan 2024 15:54:22 +0100 (CET)
+Received: from [10.252.29.122] (10.252.29.122) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 11 Jan
+ 2024 15:54:19 +0100
+Message-ID: <f2933f17-bc28-4c9e-b1d9-b64fdce52a15@foss.st.com>
+Date: Thu, 11 Jan 2024 15:54:18 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240111104049.38695-2-raphael.gallais-pou@foss.st.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
+ <20240111113146.16011-4-dario.binacchi@amarulasolutions.com>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20240111113146.16011-4-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.252.29.122]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/6] dt-bindings: display: add
- dt-bindings for STM32 LVDS device
+ Lee Jones <lee@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v7 3/5] ARM: dts: stm32: rename mmc_vcard
+ to vcc-3v3 on stm32f769-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,178 +77,22 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 11, 2024 at 11:40:44AM +0100, Raphael Gallais-Pou wrote:
-> Add "st,stm32-lvds" compatible.
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
-> Changes in v2:
-> 	- Switch compatible and clock-cells related areas
-> 	- Remove faulty #include in the example.
-> 	- Add entry in MAINTAINERS
-> ---
->  .../bindings/display/st,stm32-lvds.yaml       | 117 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  2 files changed, 118 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/st,stm32-lvds.yaml b/Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
-> new file mode 100644
-> index 000000000000..8dfc6e88f260
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
-> @@ -0,0 +1,117 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/st,stm32-lvds.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 LVDS Display Interface Transmitter
-> +
-> +maintainers:
-> +  - Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> +  - Yannick Fertre <yannick.fertre@foss.st.com>
-> +
-> +description: |
-> +  The STMicroelectronics STM32 LVDS Display Interface Transmitter handles the
-> +  LVDS protocol: it maps the pixels received from the upstream Pixel-DMA (LTDC)
-> +  onto the LVDS PHY.
-> +
-> +  It regroups three sub blocks:
-
-regroups means rearranging. Perhaps 'contains' or 'is composed of' 
-instead.
-
-> +    - LVDS host: handles the LVDS protocol (FPD / OpenLDI) and maps its input
-> +      pixels onto the data lanes of the PHY
-> +    - LVDS PHY: parallelize the data and drives the LVDS data lanes
-> +    - LVDS wrapper: handles top-level settings
-> +
-> +  The LVDS controller driver supports the following high-level features:
-> +    - FDP-Link-I and OpenLDI (v0.95) protocols
-> +    - Single-Link or Dual-Link operation
-> +    - Single-Display or Double-Display (with the same content duplicated on both)
-> +    - Flexible Bit-Mapping, including JEIDA and VESA
-> +    - RGB888 or RGB666 output
-> +    - Synchronous design, with one input pixel per clock cycle
-> +
-> +properties:
-> +  compatible:
-> +    const: st,stm32-lvds
-
-SoC specific compatible needed.
-
-> +
-> +  "#clock-cells":
-> +    const: 0
-
-What clock is provided?
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: APB peripheral clock
-> +      - description: Reference clock for the internal PLL
-> +
-> +  clock-names:
-> +    items:
-> +      - const: pclk
-> +      - const: ref
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-
-Don't need '|' if no formatting to preserve.
-
-> +          LVDS input port node, connected to the LTDC RGB output port.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: |
-> +          LVDS output port node, connected to a panel or bridge input port.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - "#clock-cells"
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/stm32mp25-clks.h>
-> +    #include <dt-bindings/reset/stm32mp25-resets.h>
-> +
-> +    lvds: lvds@48060000 {
-> +        compatible = "st,stm32-lvds";
-> +        reg = <0x48060000 0x2000>;
-> +        #clock-cells = <0>;
-> +        clocks = <&rcc CK_BUS_LVDS>, <&rcc CK_KER_LVDSPHY>;
-> +        clock-names = "pclk", "ref";
-> +        resets = <&rcc LVDS_R>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                lvds_in: endpoint {
-> +                   remote-endpoint = <&ltdc_ep1_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                lvds_out0: endpoint {
-> +                   remote-endpoint = <&lvds_panel_in>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 9d959a6881f7..0b6ec5347195 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -7193,6 +7193,7 @@ L:	dri-devel@lists.freedesktop.org
->  S:	Maintained
->  T:	git git://anongit.freedesktop.org/drm/drm-misc
->  F:	Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
-> +F:	Documentation/devicetree/bindings/display/st,stm32-lvds.yaml
->  F:	drivers/gpu/drm/stm
->  
->  DRM DRIVERS FOR TI KEYSTONE
-> -- 
-> 2.25.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDEvMTEvMjQgMTI6MzEsIERhcmlvIEJpbmFjY2hpIHdyb3RlOgo+IEluIHRoZSBzY2hlbWF0
+aWNzIG9mIGRvY3VtZW50IFVNMjAzMywgdGhlIHBvd2VyIHN1cHBseSBmb3IgdGhlIG1pY3JvIFNE
+Cj4gY2FyZCBpcyB0aGUgc2FtZSAzdjMgdm9sdGFnZSB0aGF0IGlzIHVzZWQgdG8gcG93ZXIgb3Ro
+ZXIgZGV2aWNlcyBvbiB0aGUKPiBib2FyZC4gQnkgZ2VuZXJhbGl6aW5nIHRoZSBuYW1lIG9mIHRo
+ZSB2b2x0YWdlIHJlZ3VsYXRvciwgaXQgY2FuIGJlCj4gcmVmZXJlbmNlZCBieSBvdGhlciBub2Rl
+cyBpbiB0aGUgZGV2aWNlIHRyZWUgd2l0aG91dCBjcmVhdGluZwo+IG1pc3VuZGVyc3RhbmRpbmdz
+Lgo+Cj4gVGhpcyBwYXRjaCBpcyBwcmVwYXJhdG9yeSBmb3IgZnV0dXJlIGRldmVsb3BtZW50cy4K
+Pgo+IFNpZ25lZC1vZmYtYnk6IERhcmlvIEJpbmFjY2hpIDxkYXJpby5iaW5hY2NoaUBhbWFydWxh
+c29sdXRpb25zLmNvbT4KCkhpIERhcmlvLAoKClJldmlld2VkLWJ5OiBSYXBoYWVsIEdhbGxhaXMt
+UG91IDxyYXBoYWVsLmdhbGxhaXMtcG91QGZvc3Muc3QuY29tPgoKClJlZ2FyZHMsCgpSYXBoYcOr
+bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
