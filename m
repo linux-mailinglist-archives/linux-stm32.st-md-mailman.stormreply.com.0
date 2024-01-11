@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFABF82AD70
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:31:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA8C382AD72
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 12:31:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E600C6DD74;
-	Thu, 11 Jan 2024 11:31:53 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B8E7C6DD6E;
+	Thu, 11 Jan 2024 11:31:54 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9327C6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C512C6B452
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 11:31:51 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a28b0207c1dso412492366b.3
+ Thu, 11 Jan 2024 11:31:53 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a29058bb2ceso570799266b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jan 2024 03:31:51 -0800 (PST)
+ Thu, 11 Jan 2024 03:31:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1704972711; x=1705577511;
+ d=amarulasolutions.com; s=google; t=1704972713; x=1705577513;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mmQnQzOW0HVCglZmRdERbSkiK/7LfpA/GFNr/QR6hMQ=;
- b=lJ/Fi+Ls3BOk3sx5Sv5Mbbx6cNBCxkMS6NJZryg2MQWLKOd8Qo7+xEg3yzEXEOF3x3
- 1NcRrAz6Cs3FAcWIKAItWpyE9E70/eMSX1AKvXNC2adBy0z3+OiUyKYZe5L0KZMvLNCX
- foYQdEJ5HLnusnmsqJcOfrCoN+brEBw9yb1xs=
+ bh=/mPDNXnb7QOonc0RYCjpM23Kv+HuP4dW7ug+KwP2qeg=;
+ b=dHanJ3SHghIMTlAxKYud8Wcdb7OUuv8O6ha1o65Kgm2dV5Xsfa6d6o5/kYIjGaqhAl
+ iMlNUzL75Zby5g2RyE6n05OwwbOg+L9N1B1zejJWeRCdiQ6w46vOPFHV1k2Mvq8+yU9W
+ 3b4/nLTne1LQZfAugKwT866VXATAeAxnCoa+c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1704972711; x=1705577511;
+ d=1e100.net; s=20230601; t=1704972713; x=1705577513;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mmQnQzOW0HVCglZmRdERbSkiK/7LfpA/GFNr/QR6hMQ=;
- b=eiwGzg1fofHplYemciG5Qr//dOcmtmkBlKIZKGehEVZfZZtoC+YE+jKYRhEk6E0x5h
- 65AN5a937zkDXIzCYz51T4XBPKakSkjvuJKshCttGtkajwKY4aVcfUlVM/Lasq5cuRWq
- 54VoSizWYybPHwkpDpSL4i3UMg54c49zSaNvZafO36xeBxi6gHgRoc8B28tSZOXhrvU4
- +lUmeunbCzo4Y1DgDQlazHifcWKsZNGYmFqn4HfSsnH35SY/LrGC9IXFVV2scZMJnAaj
- 4rpC8K38qfqnZKlP6V4eQkrG9UXjlX+85eCzlVLpvGaXyFMS297x5W3bZ5J/a2m577hg
- RcLw==
-X-Gm-Message-State: AOJu0YzDWg2BeqOuSRxIwYhxgU82Zto8FJ9sxHKa7AzW3eTJVIKxx7QA
- l2EJU6fvnVUGb40bb5DqIfPsmqHmpVZSvg==
-X-Google-Smtp-Source: AGHT+IEwxxzXPLLv1VEdqxREzklSYppd5lbaTbwUT+50TBaJimhy6pmMsMZswLS5MIwZB1OhpMORJw==
-X-Received: by 2002:a17:906:a015:b0:a29:906e:b8fa with SMTP id
- p21-20020a170906a01500b00a29906eb8famr714066ejy.1.1704972711523; 
- Thu, 11 Jan 2024 03:31:51 -0800 (PST)
+ bh=/mPDNXnb7QOonc0RYCjpM23Kv+HuP4dW7ug+KwP2qeg=;
+ b=rB86wV71NUliUaCfEWirsWMxWlBoJkCDrTCwC1m+s4VuyyOgSCyAjhGNZdinu6/0lz
+ P6ZvV8nYUUeYPRVcFqoOOuBtG5VwVHZ44A2+BRN4uyLC40/0bvpmBnsRIErfqJZfRe+L
+ Ldi4iUX7meem6G3NwleST3ELCv0jx61SzApwOeRug+Dhmho15iPoL42wupDgTYFDH/Ge
+ UT2fe5CrfXeHo05cV+7bOBoZ+ZGkavVSzkPLZ7LaJIJqDCcCimzyoNu2x1mSe8NokoTG
+ szMAiFFtf9FySuubAtQEyYcgr2XJvU1InVYITmeq7NuHoPuR/0e9Tga+arQXC5zHFdsi
+ JSbw==
+X-Gm-Message-State: AOJu0YxhHf7JMYDgl///hvJLwAM4ijhWp671xxq7tUd1q9EpKxwO7AES
+ sg2lJsbXK7NP4flq/cp8feCfed6fwgr9NQ==
+X-Google-Smtp-Source: AGHT+IExgDhzuDeqxGjDmiwpb99n3nqj96gSn6Epubdzjzg5wCarqnkfHfFoLElqeJtGHC8ONWe9+A==
+X-Received: by 2002:a17:906:b819:b0:a2b:d12c:ee41 with SMTP id
+ dv25-20020a170906b81900b00a2bd12cee41mr360284ejb.165.1704972713093; 
+ Thu, 11 Jan 2024 03:31:53 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  ([95.236.91.90]) by smtp.gmail.com with ESMTPSA id
- n3-20020a170906688300b00a26aa734349sm461565ejr.39.2024.01.11.03.31.50
+ n3-20020a170906688300b00a26aa734349sm461565ejr.39.2024.01.11.03.31.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jan 2024 03:31:51 -0800 (PST)
+ Thu, 11 Jan 2024 03:31:52 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 11 Jan 2024 12:31:39 +0100
-Message-ID: <20240111113146.16011-3-dario.binacchi@amarulasolutions.com>
+Date: Thu, 11 Jan 2024 12:31:40 +0100
+Message-ID: <20240111113146.16011-4-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
 References: <20240111113146.16011-1-dario.binacchi@amarulasolutions.com>
@@ -66,8 +66,8 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 2/5] ARM: dts: stm32: add DSI support on
-	stm32f769
+Subject: [Linux-stm32] [PATCH v7 3/5] ARM: dts: stm32: rename mmc_vcard to
+	vcc-3v3 on stm32f769-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,46 +84,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for MIPI DSI Host controller. Since MIPI DSI is not
-available on stm32f746, the patch adds the "stm32f769.dtsi" file
-containing the dsi node inside.
+In the schematics of document UM2033, the power supply for the micro SD
+card is the same 3v3 voltage that is used to power other devices on the
+board. By generalizing the name of the voltage regulator, it can be
+referenced by other nodes in the device tree without creating
+misunderstandings.
+
+This patch is preparatory for future developments.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
 
 (no changes since v1)
 
- arch/arm/boot/dts/st/stm32f769.dtsi | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
- create mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
+ arch/arm/boot/dts/st/stm32f769-disco.dts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32f769.dtsi b/arch/arm/boot/dts/st/stm32f769.dtsi
-new file mode 100644
-index 000000000000..e09184f7079c
---- /dev/null
-+++ b/arch/arm/boot/dts/st/stm32f769.dtsi
-@@ -0,0 +1,21 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ */
-+
-+#include "stm32f746.dtsi"
-+
-+/ {
-+	soc {
-+		dsi: dsi@40016c00 {
-+			compatible = "st,stm32-dsi";
-+			reg = <0x40016c00 0x800>;
-+			interrupts = <98>;
-+			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
-+			clock-names = "pclk", "ref";
-+			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
-+			reset-names = "apb";
-+			status = "disabled";
-+		};
-+	};
-+};
+diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
+index 5d12ae25b327..8632bd866272 100644
+--- a/arch/arm/boot/dts/st/stm32f769-disco.dts
++++ b/arch/arm/boot/dts/st/stm32f769-disco.dts
+@@ -92,9 +92,9 @@ usbotg_hs_phy: usb-phy {
+ 		clock-names = "main_clk";
+ 	};
+ 
+-	mmc_vcard: mmc_vcard {
++	vcc_3v3: vcc_3v3 {
+ 		compatible = "regulator-fixed";
+-		regulator-name = "mmc_vcard";
++		regulator-name = "vcc_3v3";
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 	};
+@@ -128,7 +128,7 @@ &rtc {
+ 
+ &sdio2 {
+ 	status = "okay";
+-	vmmc-supply = <&mmc_vcard>;
++	vmmc-supply = <&vcc_3v3>;
+ 	cd-gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
+ 	broken-cd;
+ 	pinctrl-names = "default", "opendrain", "sleep";
 -- 
 2.43.0
 
