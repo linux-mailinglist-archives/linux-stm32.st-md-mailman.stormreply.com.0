@@ -2,87 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DD982A8C1
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 09:08:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F6F282A819
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jan 2024 08:16:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 782FAC6DD6E;
-	Thu, 11 Jan 2024 08:08:47 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8AEDC6DD73;
+	Thu, 11 Jan 2024 07:16:30 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5F20C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7214C6A5EA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jan 2024 20:20:29 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40AK8qBa015886; Wed, 10 Jan 2024 20:19:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=NgCE54sEzeUce6C/KiC9M0zAoiO6fbBzNGjrx8pUiLE=; b=kU
- EFH0Y134OQMi7pJYBTNbEfdPmPPZm6O4eDm1+ykwDemfQtUjJhSnXu1HuQ0ZABTs
- YlicfOOsaJIvhGs47dMrSbQZAXTvzs8CltbbPKcWILtqs/mj00Gv2i7Jkstg2/vr
- xqZNQ5+5prVw+VlaswHXT7APWdnbDvbgzzD3xMailYwlbbSkw7H2+VgievYgR5uD
- sOXK4WgLXbdiD82daOBH18rYbuF4gXbKtvEa8OvyLY/QRGsPEiKm6s/okOzpiwAE
- g4IUQIsFICGbCp6KmPRzVd0Dejdin36EMBVWvLuPYrwasUFTTdfrVPmc4LzPe0Zs
- EQR4EnO4FTUKPIs5qvKA==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vhsb2hf1w-1
+ Thu, 11 Jan 2024 07:16:28 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40B2SaOE030198; Thu, 11 Jan 2024 08:16:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=+X4Cxs8
+ db+Il6tUMjOf6juuuQ6x88rMKAMZWEwcxwR0=; b=zGnNVz9NsQyR7xdOIIJT3jY
+ QyOmnZ9kPd8mEoGkEzGWiYN9ZEBUCac8fartg2KfM5N2qOkmV7fMISht5wm1a2rG
+ coFNpm7NrHlJa0kln+Ew7/i+q7kJoKiwQWK+D2onHNBMIlstCJK6SZ6PGJ6cVSC5
+ ZlckpP7kg+Uw59EvuNypSi5v7ReNsNY8jXm1K5d65VUWcTRRzX1hd5fkVQDMJ2mK
+ wsZyLoX1fl1U+JXjon9tXb7PqEIby6Z4K22dEF3jgvDhRO/YAstvq5HofSqBvTX1
+ RqWJ5adUqqV+NSR76RNKfIxvo+PuGGI2lVsA2XPYHDmAxySyTkkzAax5QamMTsw=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vey30v352-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jan 2024 20:19:56 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40AKJtXW026511
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 10 Jan 2024 20:19:55 GMT
-Received: from [10.110.5.89] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 10 Jan
- 2024 12:19:53 -0800
-Message-ID: <92892988-bb77-4075-812e-19f6112f436e@quicinc.com>
-Date: Wed, 10 Jan 2024 12:19:29 -0800
+ Thu, 11 Jan 2024 08:16:08 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 662CF10002A;
+ Thu, 11 Jan 2024 08:16:07 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 52FC32194E0;
+ Thu, 11 Jan 2024 08:16:07 +0100 (CET)
+Received: from localhost (10.201.21.240) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 11 Jan
+ 2024 08:16:07 +0100
+From: <gabriel.fernandez@foss.st.com>
+To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Date: Thu, 11 Jan 2024 08:15:33 +0100
+Message-ID: <20240111071536.659409-1-gabriel.fernandez@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Rohan G Thomas <rohan.g.thomas@intel.com>, "David S . Miller"
- <davem@davemloft.net>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Jose Abreu" <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- "Jakub Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, "Serge
- Semin" <fancer.lancer@gmail.com>,
- Andrew Halaney <ahalaney@redhat.com>, <elder@linaro.org>
-References: <20230927130919.25683-1-rohan.g.thomas@intel.com>
- <20230927130919.25683-3-rohan.g.thomas@intel.com>
-From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-In-Reply-To: <20230927130919.25683-3-rohan.g.thomas@intel.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: -pA_WXnVrm5JzPP1OM40hLBadBDWBoIa
-X-Proofpoint-GUID: -pA_WXnVrm5JzPP1OM40hLBadBDWBoIa
+X-Originating-IP: [10.201.21.240]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- mlxlogscore=999 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1011 mlxscore=0 phishscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2311290000 definitions=main-2401100161
-X-Mailman-Approved-At: Thu, 11 Jan 2024 08:08:45 +0000
-Cc: kernel.upstream@quicinc.com, devicetree@vger.kernel.org,
- quic_bhaviks@quicinc.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
-	platform driver
+ definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v8 0/3] Introduce STM32MP257 clock driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,114 +78,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Qualcomm had similar discussions with respect to enabling of TBS for a particular queue. 
-We had similar discussion on these terms yesterday with Redhat. Adding Andrew from Redhat here 
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
 
-What we discovered as part of the discussions is listed below. 
+v8:
+  - use .index of clk_parent_data struct to define a parent
+  - remove unnecessary dependency check with SCMI clock driver
+  - convert to platform device APIs
+  - convert to devm_of_clk_add_hw_provider()
+  - convert single value enum to a define
 
-1. Today upstream stmmac code is designed in such a way that TBS flag is put as
-part of queue configurations(see below snippet) and as well know that stmmac queue 
-configuration comes from the dtsi file. 
+v7: base on next-20231219
+  - These patches below are applied to clk-next:
+      clk: stm32mp1: move stm32mp1 clock driver into stm32 directory
+      clk: stm32mp1: use stm32mp13 reset driver
+      dt-bindings: stm32: add clocks and reset binding for stm32mp25
+  - remove unnecessary includes
+  - migrate clock parents to struct clk_parent_data and remove
+    CLK_STM32_XXX() macros  to have a more readble code
+  - use platform device APIs (devm_of_iomap() instead of_iomap())
+  - move content of stm32mp25_rcc_init() to stm32mp25_rcc_clocks_probe()
+  - simply get_clock_deps()
+  - add const to stm32mp25_data struct
+  - remove ck_icn_p_serc clock (will be integrate later with security
+    management)
 
-//ndo_open => stmmac_open
-int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;(comes from tx_queues_cfg)
+v6:
+  - remove useless defines in drivers/clk/stm32/stm32mp25_rcc.h
 
-/* Setup per-TXQ tbs flag before TX descriptor alloc */
-tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+v5:
+  - Fix sparse warnings: was not declared. Should it be static?
+    drivers/clk/stm32/clk-stm32mp13.c:1516:29: symbol 'stm32mp13_reset_data'
+    drivers/clk/stm32/clk-stm32mp1.c:2148:29: symbol 'stm32mp1_reset_data'
+    drivers/clk/stm32/clk-stm32mp25.c:1003:5: symbol 'stm32mp25_cpt_gate'
+    drivers/clk/stm32/clk-stm32mp25.c:1005:29: symbol 'stm32mp25_clock_data'
+    drivers/clk/stm32/clk-stm32mp25.c:1011:29: symbol 'stm32mp25_reset_data'
 
-2. There is a no way to do this dynamically from user space because we don't have any 
-API exposed which can do it from user space and also TBS rely on special descriptors 
-aka enhanced desc this cannot be done run time and stmmac has to be aware of it before 
-we do DMA/MAC/MTL start. To do this dynamically would only mean stopping DMA/MAC/MTL 
-realloc resources for enhanced desc and the starting MAC/DMA/MTL. This means we are 
-disrupting other traffic(By stopping MAC block).
+v4:
+  - use GPL-2.0-only OR BSD-2-Clause for clock and reset binding files
+  - use quotes ' for #clock-cells and #reset-cells in YAML documentation
+  - reset binding start now to 0 instead 1
+  - improve management of reset lines that are not managed
 
-3. I dont think there is a way we can enable this dynamically today. I would like upstream 
-community to share your thoughts as well.
+v3:
+  - from Rob Herring change clock item description in YAML documentation
+v2:
+  - rework reset binding (use ID witch start from 0)
+  - rework reset driver to manage STM32MP13 / STM32MP15 / STM32MP25
+  - rework YAML documentation
 
-4. I agree with Rohan's patch here and want upstream community to accept it. This will allow
-use to configure the queues where TBS needs to be enabled as hardcoding in the code unless upstream
-has better way to this using userspace.
+Gabriel Fernandez (3):
+  clk: stm32mp13: use platform device APIs
+  clk: stm32: introduce clocks for STM32MP257 platform
+  arm64: dts: st: add rcc support in stm32mp251
 
-Please let us know if you think otherwise. 
+ arch/arm64/boot/dts/st/stm32mp251.dtsi |  132 +-
+ drivers/clk/stm32/Kconfig              |    7 +
+ drivers/clk/stm32/Makefile             |    1 +
+ drivers/clk/stm32/clk-stm32-core.c     |   11 +-
+ drivers/clk/stm32/clk-stm32mp13.c      |   72 +-
+ drivers/clk/stm32/clk-stm32mp25.c      | 1876 ++++++++++++++++++++++++
+ drivers/clk/stm32/reset-stm32.c        |   59 +-
+ drivers/clk/stm32/reset-stm32.h        |    7 +
+ drivers/clk/stm32/stm32mp25_rcc.h      |  712 +++++++++
+ 9 files changed, 2765 insertions(+), 112 deletions(-)
+ create mode 100644 drivers/clk/stm32/clk-stm32mp25.c
+ create mode 100644 drivers/clk/stm32/stm32mp25_rcc.h
 
+-- 
+2.25.1
 
-On 9/27/2023 6:09 AM, Rohan G Thomas wrote:
-> Enable Time Based Scheduling(TBS) support for Tx queues through the
-> stmmac platform driver. For this a new per-queue tx-config property,
-> tbs-enabled is added to the devicetree.
-> 
-> Commit 7eadf57290ec ("net: stmmac: pci: Enable TBS on GMAC5 IPK PCI
-> entry") enables similar support for the stmmac pci driver.
-> 
-> Also add check whether TBS support is available for a Tx DMA channel
-> before enabling TBS support for that Tx DMA channel.
-> 
-> Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 +++++++++++++++----
->  .../ethernet/stmicro/stmmac/stmmac_platform.c |  4 +++
->  2 files changed, 24 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 81b6f3ecdf92..7333f0640b3d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -3773,12 +3773,18 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
->  		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
->  
->  	/* Earlier check for TBS */
-> -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
-> -		struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
-> -		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
-> +	if (priv->dma_cap.tbssel) {
-> +		/* TBS is available only for tbs_ch_num of Tx DMA channels,
-> +		 * starting from the highest Tx DMA channel.
-> +		 */
-> +		chan = priv->dma_cap.number_tx_channel - priv->dma_cap.tbs_ch_num;
-> +		for (; chan < priv->plat->tx_queues_to_use; chan++) {
-> +			struct stmmac_tx_queue *tx_q = &dma_conf->tx_queue[chan];
-> +			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
->  
-> -		/* Setup per-TXQ tbs flag before TX descriptor alloc */
-> -		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-> +			/* Setup per-TXQ tbs flag before TX descriptor alloc */
-> +			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
-> +		}
->  	}
->  
->  	ret = alloc_dma_desc_resources(priv, dma_conf);
-> @@ -7505,6 +7511,15 @@ int stmmac_dvr_probe(struct device *device,
->  		}
->  	}
->  
-> +	/* If TBS feature is supported(i.e. tbssel is true), then at least 1 Tx
-> +	 * DMA channel supports TBS. So if tbs_ch_num is 0 and tbssel is true,
-> +	 * assume all Tx DMA channels support TBS. TBS_CH field, which gives
-> +	 * number of Tx DMA channels with TBS support is only available only for
-> +	 * DW xGMAC IP. For other DWMAC IPs all Tx DMA channels can support TBS.
-> +	 */
-> +	if (priv->dma_cap.tbssel && !priv->dma_cap.tbs_ch_num)
-> +		priv->dma_cap.tbs_ch_num = priv->dma_cap.number_tx_channel;
-> +
->  	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
->  	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
->  #ifdef STMMAC_VLAN_TAG_USED
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 843bd8804bfa..6c0191c84071 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -279,6 +279,10 @@ static int stmmac_mtl_setup(struct platform_device *pdev,
->  		plat->tx_queues_cfg[queue].coe_unsupported =
->  			of_property_read_bool(q_node, "snps,coe-unsupported");
->  
-> +		/* Select TBS for supported queues */
-> +		plat->tx_queues_cfg[queue].tbs_en =
-> +			of_property_read_bool(q_node, "snps,tbs-enabled");
-> +
->  		queue++;
->  	}
->  	if (queue != plat->tx_queues_to_use) {
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
