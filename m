@@ -2,82 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A800982C615
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jan 2024 21:04:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A3A82C6EE
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jan 2024 23:00:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 460EAC6DD79;
-	Fri, 12 Jan 2024 20:04:09 +0000 (UTC)
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22407C6DD66;
+	Fri, 12 Jan 2024 22:00:10 +0000 (UTC)
+Received: from mail-yb1-f170.google.com (mail-yb1-f170.google.com
+ [209.85.219.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC154C6DD78
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA9A8C6B458
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jan 2024 20:04:07 +0000 (UTC)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id EAC4E3200AE9;
- Fri, 12 Jan 2024 15:04:03 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Fri, 12 Jan 2024 15:04:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dxuuu.xyz; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm1; t=1705089843; x=1705176243; bh=+8mz4XZguZ
- in9UP/KR7blhH64FTif6Z1M+wN3fDN6dQ=; b=XKtJaWQ5K8ENuQnLrOOFCe9Oqr
- N+oxaTUlyPe1bFrj5Ndq8a9kzF/XPvQX6V/zjvpeJFWrKO4IiAz56Im7dS/5tUrg
- LF9LA2PXRzfpXWbenlCDejl4IS1BT9j3K7syUQeoyl9bti1963hqfi4BGr5C6VIx
- 7/y6K8qb/pQgvRf8Cc1Z1d99CITcCUaqBgQJ/alRxAxlprAawk1pR5QwDr7e5c/b
- ianfPN82FOg+0d3pFTd2bCjoiHFs8krGwgd6f9yRPCSGZwV6KTfPmNpAaLrtgvZi
- YD9Tc+mLGUrXWWGkDNSaLo3Z1GqZdK8IaN4HFZFYb8AxZzOjLh6SgBZS9VNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1705089843; x=1705176243; bh=+8mz4XZguZin9UP/KR7blhH64FTi
- f6Z1M+wN3fDN6dQ=; b=q0MxCTl2AoML2E0BHeGfYNog4xC/sRa8vIfOKKiGddNw
- 0prH+OWyfMFIyJ2II/bw0Acx5uQfHaBhF0KaGnf4l9MeU5DC8wRMphxLi9FFqupn
- mdp2kiq0yiIJlmTTPaIo0RfC9hGgujQs71lq2ft23KL2cJCLIGP0nMoXJN6HySnc
- pHMz5fo0GGhFKXRhBqa1Fw0Rwo/nbPjp3wAVG8IpcYU3ToCvgoUa5JlsPA8dzUN9
- J35/kx7dlxio9pAYIzJj4Z+P1/PFaUZ93JOdvKJqO6haIYJ09PELFGwtjX14fylt
- d8NSFTZNlLWN/+KGSMjW5yQnmel62kXjpV94alsy3w==
-X-ME-Sender: <xms:MpuhZb8duYQSytqWdU77MM6IyqWHqYh050N5HvRxrLHKhlKlkVCRXA>
- <xme:MpuhZXtglSlLhLRZefoYM7vdW83i9wqN1BKWtHjZXQJlCL8hyF8itey3_N2gvsuzB
- NzND2cMU2agHpfTOA>
-X-ME-Received: <xmr:MpuhZZDuDHyUNifp5hPfOoiAEamPCMUJHybPVSKqEB6-EjrFvWPg744nZvo-X_Rbjw0W7SqQRprjTdHRuLTWcd2QbEVrqJ_SXEwR0lo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdeihedgudefudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enfghrlhcuvffnffculdejtddmnecujfgurhepfffhvfevuffkfhggtggujgesthdtsfdt
- tddtvdenucfhrhhomhepffgrnhhivghlucgiuhcuoegugihusegugihuuhhurdighiiiqe
- enucggtffrrghtthgvrhhnpedvfeekteduudefieegtdehfeffkeeuudekheduffduffff
- gfegiedttefgvdfhvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrih
- hlfhhrohhmpegugihusegugihuuhhurdighiii
-X-ME-Proxy: <xmx:MpuhZXdfeoElfiSSF5KdEALU43XdsO3V3q9kxSEDq4zGsYW4hMg2ag>
- <xmx:MpuhZQNU14LzFDa4papP7154zoWDsLRztvp615vN5cZ88HXyqd19ew>
- <xmx:MpuhZZkT1Li4-Lqb_29omSMiU-F0NlfGeKOwvQLHj6BY5T46UmhJEA>
- <xmx:M5uhZVvjD4ejrvco6EgFK3lew0AWY7HU4KijWUhlweUkBmFLK5sPog>
-Feedback-ID: i6a694271:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 12 Jan 2024 15:04:00 -0500 (EST)
-Date: Fri, 12 Jan 2024 13:03:59 -0700
-From: Daniel Xu <dxu@dxuuu.xyz>
-To: Jiri Olsa <olsajiri@gmail.com>
-Message-ID: <2dhmwvfnnqnlrui2qcr5fob54gdsuse5caievct42trvvia6qe@p24nymz3uttv>
-References: <cover.1704565248.git.dxu@dxuuu.xyz>
- <ZaFm13GyXUukcnkm@krava>
+ Fri, 12 Jan 2024 22:00:08 +0000 (UTC)
+Received: by mail-yb1-f170.google.com with SMTP id
+ 3f1490d57ef6-dbedb1ee3e4so6152011276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 12 Jan 2024 14:00:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=hefring-com.20230601.gappssmtp.com; s=20230601; t=1705096807; x=1705701607;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=0hhVOcFdh1HTKD3eGnDrrPjtYobkiYS23JtQg/2eggU=;
+ b=NerCq7E0LR2vCz6utk0Q/yeWUWkCbKgVKcmwgv9jhnm2CbtqoDTC52/4TY+xQhOk0S
+ p5+B279oObvC2DlbsqrljFUny81bGLeVP10bBcgCvW8fFLAqmulY6PsaSnEHmHHNivA5
+ 1EHYrpw4HQzFUPLjiD/Y6+CYgQRv1+oC8wJEYnvXnbOrWtRIqX6f9MdRy3/vTh4f8PsY
+ 7C70ecLTHyfgUY6VYTHm4A6HgxpTsQebXqvHEtcvrQPs0Q9Ojc0bE4B8/hda6UPz8HBA
+ GQJw9E2CC8mr0SE2LQXxbd36XocofKYciTJvuP0P173YadBeS9B//r5I9Vi17aGJn+Mq
+ fSGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705096807; x=1705701607;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0hhVOcFdh1HTKD3eGnDrrPjtYobkiYS23JtQg/2eggU=;
+ b=RJucEM1aHn2ETMwo8AJH1tg93xHmx2VBdpj1YQ7L9PsT/5MbsujEEstqjHCwhbyvrs
+ Cgc2ABcBWzjlGhgkMUMRqqERDysIuir7xkZImSm4QrW0i6H6Ir1ApCwLg/1OIdvo6wOe
+ iprvfKdJvzfRVRLAZSLj4nWi7L+yctD7Pd/BIw10qILT1EnSRbIiNJw/WkyOJzWvTwXr
+ 94kNVQku8FZV/AixQsShqrUWErpoZGvSX6aeFN99qBsVptKavR3OZrkqpbEpTuWIqE9x
+ LG7Hmvm+MfzwpSxj9HYX7qulleaxAxf40P4yhibFQ2Z7fv3JhInZmggMh/IjnJWvYP5Q
+ Ry5Q==
+X-Gm-Message-State: AOJu0YxUhhmsp+cdI2OgyxWlgGZo3dxLJ6sV2wFWGW3ECvb12j9TQ53J
+ e7hzxbr09e80EtvcBLZWwWVrIJcKXkOdrQ==
+X-Google-Smtp-Source: AGHT+IHbrYRi12cOjI23zBiUfiGMMjgGZ1WdMjYT+UYdd79zzlNQgTtNbGfGpkVNdrhDuqR5cHrh/g==
+X-Received: by 2002:a05:6902:2182:b0:dbd:5be1:1768 with SMTP id
+ dl2-20020a056902218200b00dbd5be11768mr1339723ybb.73.1705096807499; 
+ Fri, 12 Jan 2024 14:00:07 -0800 (PST)
+Received: from dell-precision-5540 ([50.212.55.90])
+ by smtp.gmail.com with ESMTPSA id
+ en12-20020a05622a540c00b00427e36e21d9sm1688262qtb.64.2024.01.12.14.00.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jan 2024 14:00:06 -0800 (PST)
+Date: Fri, 12 Jan 2024 17:00:04 -0500
+From: Ben Wolsieffer <ben.wolsieffer@hefring.com>
+To: Stephen Boyd <sboyd@kernel.org>
+Message-ID: <ZaG2ZDCLP34jcI6Y@dell-precision-5540>
+References: <20231002180854.1603452-1-ben.wolsieffer@hefring.com>
+ <20231002180854.1603452-2-ben.wolsieffer@hefring.com>
+ <883a61872f94c972cc410da84eaf7b97.sboyd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZaFm13GyXUukcnkm@krava>
-Cc: fsverity@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com, memxor@gmail.com,
- coreteam@netfilter.org, netfilter-devel@vger.kernel.org, quentin@isovalent.com,
- linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
- cgroups@vger.kernel.org, bpf@vger.kernel.org, alan.maguire@oracle.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v3 0/3] Annotate kfuncs in
-	.BTF_ids section
+In-Reply-To: <883a61872f94c972cc410da84eaf7b97.sboyd@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/2] clk: stm32: initialize syscon after
+ clocks are registered
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,30 +87,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 12, 2024 at 05:20:39PM +0100, Jiri Olsa wrote:
-> On Sat, Jan 06, 2024 at 11:24:07AM -0700, Daniel Xu wrote:
-> > === Description ===
-> > 
-> > This is a bpf-treewide change that annotates all kfuncs as such inside
-> > .BTF_ids. This annotation eventually allows us to automatically generate
-> > kfunc prototypes from bpftool.
-> > 
-> > We store this metadata inside a yet-unused flags field inside struct
-> > btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
-> > 
-> > More details about the full chain of events are available in commit 3's
-> > description.
-> > 
-> > The accompanying pahole changes (still needs some cleanup) can be viewed
-> > here on this "frozen" branch [0].
+On Sun, Dec 17, 2023 at 03:05:01PM -0800, Stephen Boyd wrote:
+> Quoting Ben Wolsieffer (2023-10-02 11:08:53)
+> > The stm32-power-config syscon (PWR peripheral) is used in this driver
+> > and the STM32 RTC driver to enable write access to backup domain
+> > registers. The syscon's clock has a gate controlled by this clock
+> > driver, but this clock is currently not registered in the device tree.
+> > This only happens to work currently because all relevant clock setup and
+> > RTC initialization happens before clk_disabled_unused(). After this
+> > point, all syscon register writes are ignored.
 > 
-> so the plan is to have bpftool support to generate header file
-> with detected kfuncs?
+> Seems like we should mark those clks as CLK_IGNORE_UNUSED and add a
+> comment to that fact.
 
-Yep, that's the major use case. But I see other use cases as well like
-precision probing of kfuncs. Rather than guess and check which progs can
-load (in the event of backwards incompatible kfunc changes), programs
-can look at kfunc type signature thru BTF.
+That seems like a worse solution than specifying the clock dependency in
+the device tree.
+
+> 
+> > 
+> > If we simply add the syscon clock in the device tree, we end up with a
+> > circular dependency because the clock has not been registered at the
+> > point this driver requests the syscon.
+> > 
+> > This patch avoids this circular dependency by moving the syscon lookup
+> > after the clocks are registered. This does appear to create a possible
+> > race condition where someone could attempt to perform an operation on a
+> > backup domain clock before the syscon has been initialized. This would
+> > result in the operation having no effect because backup domain writes
+> > could not be enabled. I'm not sure if this is a problem or if there is
+> > a way to avoid it.
+> 
+> There's no comment in the code that says the regmap must be set there
+> instead of earlier. What's to stop someone from tripping over this
+> problem later? At the least, please add a comment.
+
+Yeah, I'll fix that. Do you have any thoughts on the race condition I
+described? Should I add some kind of locking to block
+enable/disable_power_domain_write_protection() until stm32f4_rcc_init()
+attempts to initialize the syscon?
+
+Thank you, Ben
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
