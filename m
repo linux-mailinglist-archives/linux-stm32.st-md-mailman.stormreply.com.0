@@ -2,51 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4591082CCB7
-	for <lists+linux-stm32@lfdr.de>; Sat, 13 Jan 2024 13:50:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3586F82CCDE
+	for <lists+linux-stm32@lfdr.de>; Sat, 13 Jan 2024 14:57:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2B09C6B460;
-	Sat, 13 Jan 2024 12:50:28 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0432C6B460;
+	Sat, 13 Jan 2024 13:57:44 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7E3AC6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A655DC6B457
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 13 Jan 2024 12:50:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 432CBB82472;
- Sat, 13 Jan 2024 12:50:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BACB9C43390;
- Sat, 13 Jan 2024 12:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705150224;
- bh=yY2rSlGkjZflGrirYZMdUgFNa1m+E+eJl0XsX5awu5Q=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=ZBShBegLwtLPNOhPak1h3TWRx4ILNmarEXhzGj9vxyIaHFHIbTCdZm8naNEKCFG2y
- FWqMxqPNIVID1gOcaHEpjn3hCBME0kDxn6jb3chMBoPD26l+p9/rt65efjy0Rxscsa
- QSkFNpAaIBs2fSOd02lGlNxfEUPBB+yIJFfuE7p0kTstJ+wcT4B2R+3ZvkdAfIxB0A
- cIK0DjDBu5buLBzNccT1JP6cNq8JX0refs41OPWQsV0IP7aEb+O6XcJVaXxcD23Vyi
- 8D2UX0ta/oafo4Q71SJq/mKSmt9JbHPm3f4qFf2I28hqnQx+NvGxvb33y7+qdwg9Ck
- K60u/vPSvtJow==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- A12E4D8C972; Sat, 13 Jan 2024 12:50:24 +0000 (UTC)
+ Sat, 13 Jan 2024 13:57:43 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a26f73732c5so856400866b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 13 Jan 2024 05:57:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705154263; x=1705759063;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PGE1HEJ5ixxTvOXVNxbbYY7sOdvQr1NpAqO6gUYLh08=;
+ b=RD+FB8gZ3dumFZgcO5Qnk71jwhmOATwCZ+VC6dyRRBkcv9iiGRMFSdbPplwKmCw+wh
+ cJng6yJrqhJmGZLGE+WpmRN7ItBeULPRzwFfmi/2kaUdeBAodIbtaH2uG9jUgxSza8sr
+ 7XbpUxI+LEcVlIa8A2fzgs++YO1XTUjEH9q0RdbGEhB0mYTofpAWnAzJG0MQqU+uJjh7
+ McfXyCcuTT7f0trFOmwvXPA+lJSMaseYvuPbCLjMrZu2mPcsBB9nyHyBud+bXxHac1yb
+ w9WW6k4wP99D6igqSFHy327Y+dkDVlIMMeMZTJqOv90T54S/VbbbqkHK3sq7Brr76iGY
+ +2wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705154263; x=1705759063;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PGE1HEJ5ixxTvOXVNxbbYY7sOdvQr1NpAqO6gUYLh08=;
+ b=uKNvbJ9fDtr7CLU6hyPjRp5nWmLuYXKJkVXFQJSpCRIjiY5m0cKOjQrgHa1bJ+6POm
+ CYI2/s9CjvRxw5X7dBnTJO5QxUM/RwS2aHuYZ/1TYiI7GpTqi3ub+OmIOUcVP65tYmf/
+ oO2R+bAeGiP6V8YKFFer8rONK4GZD5sVaJfqByAbEWezlew5C+ILMfe5wZfNd8/MTx0I
+ TrKRoaablyQJ9w8TbsD8OiLyDHeQ+572u2AKdLXMF+npBk41haaZO73dYQ2aw6fEw/nE
+ +E+C9qgysCjH89oaOMa8UyW556gfg+7r2Gukr9p94DLbIhoxk+C6jWVl+9LwqHU6bTcm
+ uTPQ==
+X-Gm-Message-State: AOJu0YwPndN9z7pUyKcRoj+TtqjqIQr+KtOMXdjkK77uaq5sVaJTlMPC
+ 1/K5Uc9E7yJw6175brg7F6E=
+X-Google-Smtp-Source: AGHT+IFMOIYDYiCqRWjRhgVi6B2d5peHDNTF2jXuwvHB8FKts87L7ld0sC7DRk8qiddMgjxRgmPzDw==
+X-Received: by 2002:a17:906:15c3:b0:a2b:1a80:7b72 with SMTP id
+ l3-20020a17090615c300b00a2b1a807b72mr1514786ejd.30.1705154262796; 
+ Sat, 13 Jan 2024 05:57:42 -0800 (PST)
+Received: from krava (ip-94-113-247-30.net.vodafone.cz. [94.113.247.30])
+ by smtp.gmail.com with ESMTPSA id
+ b4-20020a170906150400b00a2a37f63216sm2950887ejd.171.2024.01.13.05.57.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 13 Jan 2024 05:57:42 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Sat, 13 Jan 2024 14:57:40 +0100
+To: Daniel Xu <dxu@dxuuu.xyz>
+Message-ID: <ZaKW1AghwUnVz_c4@krava>
+References: <cover.1704565248.git.dxu@dxuuu.xyz> <ZaFm13GyXUukcnkm@krava>
+ <2dhmwvfnnqnlrui2qcr5fob54gdsuse5caievct42trvvia6qe@p24nymz3uttv>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170515022465.6254.17374650237895775131.git-patchwork-notify@kernel.org>
-Date: Sat, 13 Jan 2024 12:50:24 +0000
-References: <20240109144729.26102-1-quic_snehshah@quicinc.com>
-In-Reply-To: <20240109144729.26102-1-quic_snehshah@quicinc.com>
-To: Sneh Shah <quic_snehshah@quicinc.com>
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org, bhupesh.sharma@linaro.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, vkoul@kernel.org, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, linux-arm-msm@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- ahalaney@redhat.com
-Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: Fix ethool link
- settings ops for integrated PCS
+Content-Disposition: inline
+In-Reply-To: <2dhmwvfnnqnlrui2qcr5fob54gdsuse5caievct42trvvia6qe@p24nymz3uttv>
+Cc: fsverity@lists.linux.dev, alan.maguire@oracle.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com, memxor@gmail.com,
+ coreteam@netfilter.org, netfilter-devel@vger.kernel.org, quentin@isovalent.com,
+ linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
+ cgroups@vger.kernel.org, bpf@vger.kernel.org, Jiri Olsa <olsajiri@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v3 0/3] Annotate kfuncs in
+	.BTF_ids section
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,32 +88,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Tue,  9 Jan 2024 20:17:29 +0530 you wrote:
-> Currently get/set_link_ksettings ethtool ops are dependent on PCS.
-> When PCS is integrated, it will not have separate link config.
-> Bypass configuring and checking PCS for integrated PCS.
+On Fri, Jan 12, 2024 at 01:03:59PM -0700, Daniel Xu wrote:
+> On Fri, Jan 12, 2024 at 05:20:39PM +0100, Jiri Olsa wrote:
+> > On Sat, Jan 06, 2024 at 11:24:07AM -0700, Daniel Xu wrote:
+> > > === Description ===
+> > > 
+> > > This is a bpf-treewide change that annotates all kfuncs as such inside
+> > > .BTF_ids. This annotation eventually allows us to automatically generate
+> > > kfunc prototypes from bpftool.
+> > > 
+> > > We store this metadata inside a yet-unused flags field inside struct
+> > > btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
+> > > 
+> > > More details about the full chain of events are available in commit 3's
+> > > description.
+> > > 
+> > > The accompanying pahole changes (still needs some cleanup) can be viewed
+> > > here on this "frozen" branch [0].
+> > 
+> > so the plan is to have bpftool support to generate header file
+> > with detected kfuncs?
 > 
-> Fixes: aa571b6275fb ("net: stmmac: add new switch to struct plat_stmmacenet_data")
-> Tested-by: Andrew Halaney <ahalaney@redhat.com> # sa8775p-ride
-> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
-> 
-> [...]
+> Yep, that's the major use case. But I see other use cases as well like
 
-Here is the summary with links:
-  - [net,v3] net: stmmac: Fix ethool link settings ops for integrated PCS
-    https://git.kernel.org/netdev/net/c/08300adac3b8
+ok, any chance you could already include it in the patchset?
+would be a great way to test this.. maybe we could change
+selftests to use that
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+thanks,
+jirka
 
 
+> precision probing of kfuncs. Rather than guess and check which progs can
+> load (in the event of backwards incompatible kfunc changes), programs
+> can look at kfunc type signature thru BTF.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
