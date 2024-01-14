@@ -2,74 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D787582DDF7
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 17:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 947FB82DE90
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 18:39:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80B6AC6B457;
-	Mon, 15 Jan 2024 16:52:00 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CAC1C6B457;
+	Mon, 15 Jan 2024 17:39:41 +0000 (UTC)
+Received: from mail.tbssa.com.br (mail.tbssa.com.br [179.127.80.113])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47CA5C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90AA7C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 16:51:59 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40FDrZU1008279; Mon, 15 Jan 2024 17:51:30 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=v/GemSIloeASK3WLJ1Xew5INevRA7DxBKaKXrgp0BrI=; b=yW
- I9NouHDCyq43z3fEbedcH1DBWBHnlGwKnS2NFXi0ofmWWeaCMJLvOFimeL7TiLvv
- 0Rm4EJ2vXjSkSoVbG93Q47Ib0LjVySE0FJVc83GQM3158cyKguQ0YwenISvU75T8
- f3odqvHeu7q26Ic++F5pOUt2H/vQUM917hoP0IiHBHWN/a6+h/dlmUX+NciD0XP5
- 3DpK0ZkYCCBHWuncmuD7WFLnDxGiyliD3bzb0BuQIKszMEPo5/WG4xXrrN9R8/J1
- swRCMM6ZEKiw8y3RVrwDxe+boWapMNCRfB6KaVFEet/6LA3P/crX6rXDVcgJ3iQt
- H1hlwJ5mEXRw1hxKmdGw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vkmddstng-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jan 2024 17:51:30 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1111910002A;
- Mon, 15 Jan 2024 17:51:29 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EE6662EAB7A;
- Mon, 15 Jan 2024 17:51:28 +0100 (CET)
-Received: from [10.129.178.37] (10.129.178.37) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 15 Jan
- 2024 17:51:28 +0100
-Message-ID: <3479c5d7-a9c3-40cf-a415-b8324f160ec7@foss.st.com>
-Date: Mon, 15 Jan 2024 17:51:28 +0100
+ Mon, 15 Jan 2024 13:28:37 +0000 (UTC)
+Received: by tubsanea-netservices (Postfix, from userid 106)
+ id 1896EA254C; Mon, 15 Jan 2024 10:28:01 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tbssa.com.br; s=mail;
+ t=1705325281; bh=sHBPb8N1lZIHk9syHw/c3A6MNHtpG++Tq2m9T0ynZE4=;
+ h=Subject:To:From:Date:Reply-To:From;
+ b=KMOSIBDeSVLjVzFSZfWIk344PmPL44Df1qI/D9rN7UJ7vjKdARFvPtb7kj5g8kMSY
+ oHfHbui7kDR1Oc3BiccLwzkkgDIJwp73IDRdNjKV5g1rE7Og6+0mJzUoR7JvJPrdiW
+ WmmKDTjvw28VRTjexEB1fR++51Wlrzg8ShKmIUetpLDfa0JxdqyJCSnb9IYsSJGXCG
+ /qLW1CXbGEX7fWGm0wu14voEWlQXVyO2CAEkw8cgHyh4PXKZY3vy8RRyqaKbt4aOp6
+ TpMcB57RFs+L+CMYQvxJby01GIpvgS2uhtknzY29Yxqqq4SGUcnQKzF6MHyX0xQGu0
+ jM/Zk/Q/gqvsQ==
+Received: from zimbra.tbssa.com.br (unknown [192.168.190.7])
+ by tubsanea-netservices (Postfix) with ESMTP id DA240A11D7;
+ Mon, 15 Jan 2024 10:18:38 -0300 (-03)
+Received: from localhost (localhost [127.0.0.1])
+ by zimbra.tbssa.com.br (Postfix) with ESMTP id 15B4B144D7E93;
+ Sun, 14 Jan 2024 15:01:01 -0300 (-03)
+Received: from zimbra.tbssa.com.br ([127.0.0.1])
+ by localhost (zimbra.tbssa.com.br [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id vrjObNZZLHz4; Sun, 14 Jan 2024 15:01:01 -0300 (-03)
+Received: from localhost (localhost [127.0.0.1])
+ by zimbra.tbssa.com.br (Postfix) with ESMTP id AFB4D144D7EBB;
+ Sun, 14 Jan 2024 14:56:59 -0300 (-03)
+X-Virus-Scanned: amavisd-new at tbssa.com.br
+Received: from zimbra.tbssa.com.br ([127.0.0.1])
+ by localhost (zimbra.tbssa.com.br [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Daw5UWXa1cqk; Sun, 14 Jan 2024 14:56:59 -0300 (-03)
+Received: from [192.168.1.42] (unknown [177.54.157.16])
+ by zimbra.tbssa.com.br (Postfix) with ESMTPSA id BCDD6145A1E87;
+ Sun, 14 Jan 2024 14:53:20 -0300 (-03)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Rob Herring <robh@kernel.org>
-References: <20240115132009.101718-1-raphael.gallais-pou@foss.st.com>
- <20240115132009.101718-2-raphael.gallais-pou@foss.st.com>
- <20240115154659.GA815331-robh@kernel.org>
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20240115154659.GA815331-robh@kernel.org>
-X-Originating-IP: [10.129.178.37]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
-Cc: dri-devel@lists.freedesktop.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/6] dt-bindings: display: add
- dt-bindings for STM32 LVDS device
+To: Recipients <elizandro.ferreira@tbssa.com.br>
+From: BILL GATES DONATION<elizandro.ferreira@tbssa.com.br>
+Date: Sun, 14 Jan 2024 20:53:10 +0300
+Message-Id: <20240114175321.BCDD6145A1E87@zimbra.tbssa.com.br>
+X-Spam-Result:  - ARC_NA[0.00]: ARC signature absent
+ - FORGED_RECIPIENTS[2.00]: Recipients are not the same as RCPT TO: mail command; elizandro.ferreira@tbssa.com.br; linuxinit@gmail.com ...
+ - FREEMAIL_ENVRCPT[0.00]: Envelope Recipient is a Freemail address; gmail.com; linuxmail.org
+ - FREEMAIL_REPLYTO[0.00]: Reply-To is a Freemail address; outlook.com
+ - FROM_EQ_ENVFROM[0.00]: From address is the same as the envelope
+ - FROM_HAS_DN[0.00]: From header has a display name
+ - HAS_REPLYTO[0.00]: Has Reply-To header; foundation36@outlook.com
+ - LOCAL_DOMAINS[0.00]: tbssa.com.br
+ - MIME_GOOD[-0.10]: Known content-type; multipart/alternative; text/plain
+ - MIME_TRACE[0.00]: 0:+; 1:+; 2:~
+ - RCPT_COUNT_ONE[0.00]: One recipient; 1
+ - RCVD_COUNT_FIVE[0.00]: Message has 5-7 Received headers; 6
+ - RCVD_NO_TLS_LAST[0.10]: Last hop did not use encrypted transports
+ - RCVD_VIA_SMTP_AUTH[0.00]: Authenticated hand-off was seen in Received headers
+ - REPLYTO_DOM_NEQ_FROM_DOM[0.00]: Reply-To domain does not match the From domain
+ - RULES_SENDER_DOMAIN_R0001_1[0.00]: [CUSTOM_RULES_R0001] ; tbssa.com.br
+ - R_NO_SPACE_IN_FROM[1.00]: No space in from header
+ - TO_DN_ALL[0.00]: All the recipients have display names
+ - TO_DN_RECIPIENTS[2.00]: To header display name is \"Recipients\"
+ - TO_EQ_FROM[0.00]: To address matches the From address
+ - TRUSTED_NETWORK[-30.00]: Endereço IP de origem faz parte das redes confiáveis; 192.168.190.7
+X-Spam-Flag: NO
+X-Spam-Scanner: OSTEC Anti-Spam on tubsanea-netservices
+X-Spam-Scan-Time: 0.376 seconds
+X-Spam-Scores: -25.0 / 2.7
+X-Mailman-Approved-At: Mon, 15 Jan 2024 17:39:40 +0000
+Subject: [Linux-stm32] Good day
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,37 +86,55 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: foundation36@outlook.com
+Content-Type: multipart/mixed; boundary="===============6628973206752526795=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Ck9uIDEvMTUvMjQgMTY6NDYsIFJvYiBIZXJyaW5nIHdyb3RlOgo+IE9uIE1vbiwgSmFuIDE1LCAy
-MDI0IGF0IDAyOjIwOjA0UE0gKzAxMDAsIFJhcGhhZWwgR2FsbGFpcy1Qb3Ugd3JvdGU6Cj4+IEFk
-ZCAic3Qsc3RtMzJtcDI1LWx2ZHMiIGNvbXBhdGlibGUuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFJh
-cGhhZWwgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+Cj4+IC0t
-LQo+PiBEZXBlbmRzIG9uOiAiZHQtYmluZGluZ3M6IHN0bTMyOiBhZGQgY2xvY2tzIGFuZCByZXNl
-dCBiaW5kaW5nIGZvcgo+PiAJICAgIHN0bTMybXAyNSBwbGF0Zm9ybSIgYnkgR2FicmllbCBGZXJu
-YW5kZXoKPj4KPj4gQ2hhbmdlcyBpbiB2MzoKPj4gCS0gQ2xhcmlmeSBjb21taXQgZGVwZW5kZW5j
-eQo+PiAJLSBGaXggaW5jbHVkZXMgaW4gdGhlIGV4YW1wbGUKPj4gCS0gRml4IFlBTUwKPj4gCS0g
-QWRkICJjbG9jay1jZWxscyIgZGVzY3JpcHRpb24KPj4gCS0gcy9yZWdyb3Vwcy9pcyBjb21wb3Nl
-ZCBvZi8KPj4gCS0gQ2hhbmdlZCBjb21wYXRpYmxlIHRvIHNob3cgU29DIHNwZWNpZmljaXR5Cj4+
-Cj4+IENoYW5nZXMgaW4gdjI6Cj4+IAktIFN3aXRjaCBjb21wYXRpYmxlIGFuZCBjbG9jay1jZWxs
-cyByZWxhdGVkIGFyZWFzCj4+IAktIFJlbW92ZSBmYXVsdHkgI2luY2x1ZGUgaW4gdGhlIGV4YW1w
-bGUuCj4+IAktIEFkZCBlbnRyeSBpbiBNQUlOVEFJTkVSUwo+PiAtLS0KPj4gIC4uLi9iaW5kaW5n
-cy9kaXNwbGF5L3N0LHN0bTMyLWx2ZHMueWFtbCAgICAgICB8IDExOSArKysrKysrKysrKysrKysr
-KysKPiBGaWxlbmFtZSBtYXRjaGluZyBjb21wYXRpYmxlLgoKSGkgUm9iLAoKCkkgd2FzIHVuc3Vy
-ZSBhYm91dCB0aGlzLgoKVGhlIGRyaXZlciB3aWxsIGV2ZW50dWFsbHkgc3VwcG9ydCBzZXZlcmFs
-IFNvQ3Mgd2l0aCBkaWZmZXJlbnQgY29tcGF0aWJsZXMsCndvdWxkbid0IHRoaXMgYmUgbW9yZSBj
-b25mdXNpbmcgPwoKSSBhbHNvIHdhbnRlZCB0byBrZWVwIHRoZSBzaW1pbGFyaXR5IHdpdGggdGhl
-ICJzdCxzdG0zMi08aXA+LnlhbWwiIG5hbWUgZm9yIHRoZQpEUk0gU1RNIGRyaXZlcnMuIFdvdWxk
-IHRoYXQgYmUgcG9zc2libGUgPwoKClJlZ2FyZHMsCgpSYXBoYcOrbAoKCgo+Cj4+ICtwcm9wZXJ0
-aWVzOgo+PiArICBjb21wYXRpYmxlOgo+PiArICAgIGNvbnN0OiBzdCxzdG0zMm1wMjUtbHZkcwo+
-Cj4+ICtleGFtcGxlczoKPj4gKyAgLSB8Cj4+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2Ns
-b2NrL3N0LHN0bTMybXAyNS1yY2MuaD4KPj4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvcmVz
-ZXQvc3Qsc3RtMzJtcDI1LXJjYy5oPgo+PiArCj4+ICsgICAgbHZkczogbHZkc0A0ODA2MDAwMCB7
-Cj4+ICsgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItbHZkcyI7Cj4gV3JvbmcgY29tcGF0
-aWJsZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+You will not see this in a MIME-aware mail reader.
+--===============6628973206752526795==
+Content-Type: multipart/alternative; boundary="===============1224253348=="
+
+You will not see this in a MIME-aware mail reader.
+--===============1224253348==
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+
+Greetings to you, you have been Donated ($5,000,000.00 USD) CONTACT WIH YOU=
+R DETAILS Your full names................. Your contact address............=
+.... Your personal telephone number............... SEND YOUR ABOVE DETAILS =
+TO my Email: foundation36@outlook.com Remain Blessed Regards Bill Gates Fou=
+ndation.
+--===============1224253348==
+Content-Type: text/html; charset="iso-8859-1"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Diso-8859-1"/></head>Greetings to you, you have been Donated ($5,000,000.=
+00 USD)
+CONTACT WIH YOUR DETAILS
+Your full names.................
+Your contact address................
+Your personal telephone number...............
+SEND YOUR ABOVE DETAILS TO my Email: foundation36@outlook.com
+Remain Blessed
+Regards
+Bill Gates Foundation.</html>
+--===============1224253348==--
+
+--===============6628973206752526795==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6628973206752526795==--
