@@ -2,129 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B69D82E012
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 19:37:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D097C82E08D
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 20:20:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8B78C6B457;
-	Mon, 15 Jan 2024 18:37:54 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7EF81C6B457;
+	Mon, 15 Jan 2024 19:20:48 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05olkn2073.outbound.protection.outlook.com [40.92.89.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EC57C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 13A60C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 18:37:53 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-557a3ce9942so9955720a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 10:37:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1705343873; x=1705948673;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=U1QjET6i1QW2hRa4a1+E2HdjWPAFl1H3P8N6t6/QU2Q=;
- b=ALfK0MkYsRPrERfxPyomTwES0uA/KpGui2XhVwui1ndHVgZ3gWAielbP/1nPEC5dN1
- eKyaqcXdSyZtld/XDZwrOm/w4QU/hXhkWGsRz/xHovtnPv483J9VLh/jSeE1vZ9OBwrc
- xnSz1igFXxsjRQ3QDWFXoM+31YJoFIJTPVE82+8+9vnXgA8i0YCEt1qT8rNZLAntUR20
- vCMwnITt8b3pZromK53Zw115yoyu3uiOwgvz7YaYrY3kgt9QMacVIlc7eaYpdsvyFHXr
- 0LHwG2Invwzo/AS8v6HH4WmPlqqgrFSSt2a3D7REoeZtZ3ifqYOHQr3FnCx0ZQJEo3mv
- APSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705343873; x=1705948673;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=U1QjET6i1QW2hRa4a1+E2HdjWPAFl1H3P8N6t6/QU2Q=;
- b=Qod4LuH7bx400pxYhvmNJctZNdYEvXAKa0LfmNjGtkqU5KUQgqb3SYy7PVeZ9584kX
- VhLH5uqu+7DdakBhEqYT6cavoMBdYX8wHUa5PmsBiNXgkwHlfEi5+aW0pbBHdvAieuPl
- 5CdoZO0zxGjUTdvoLwmRjvv8PQNUGwka0XWsyF8pIAQ86MLg2eRVLiYC5PXVfvHQKgIR
- AE9V910Gv2EOseYm8swy9/zVtvGL00YIN9tYJFHEb5tdzLnwig4fwruKxtwAfNZ+J+uU
- +ZKDPm45FoF1lwbkzxDMPbXSZGWTtcvVdB6AE79R0yaRFtYzFmK36AhDWYJ/4gZVyd5j
- IlhA==
-X-Gm-Message-State: AOJu0Ywr5gxEyfvKMTD0pkhpAx0MBb0Qh+55SnGpbONFvExKDnQYD+Es
- 9lfS7dpN0x1hb+A2RmcVyMInE2+4rQ8WTQ==
-X-Google-Smtp-Source: AGHT+IF0QIiqkGwnAeQBeaDmaEbnbBhtu876Rg7YFItIN0RuVPNbsMh0+Tzr6UWQmXYRvvu8cFSogQ==
-X-Received: by 2002:a17:906:f747:b0:a2e:51ac:20c9 with SMTP id
- jp7-20020a170906f74700b00a2e51ac20c9mr47330ejb.54.1705343872912; 
- Mon, 15 Jan 2024 10:37:52 -0800 (PST)
-Received: from [192.168.1.20] ([178.197.215.66])
- by smtp.gmail.com with ESMTPSA id
- pv18-20020a170907209200b00a26af6131e0sm5563404ejb.7.2024.01.15.10.37.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 10:37:52 -0800 (PST)
-Message-ID: <48683d6b-5f0c-4926-a8b2-2a39a644e3f3@linaro.org>
-Date: Mon, 15 Jan 2024 19:37:50 +0100
-MIME-Version: 1.0
+ Mon, 15 Jan 2024 19:20:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aA9R9IyJcCA8L/e9I7Yq8HzHbTJqqVya+ZFVDT+XK9Q49+60GuI1MBxzf5cIZdAmjXF+MPSmwlZar7DRCCPP2rKab07FGwC9zG4Y8DhekGavVKBv6wVXm7h0LAY/BfFpb9+GiP6nznZP0jllvi1QusoU5ZgXDmlbIG8OdRNw/euRt3pyhV6NLelNqBD9J4FtUuhRB6HD5Dqm7RzYe1nkoIfkIFl1iTahdn7buPph1o8YXB07K8zJ+mK6MSI1mfPUYMkdMQ8lVG+1EJc7Sa7041+xl1Gan3QWiv94u/4nUqWt0O8fd5lYUfurvFI5kkXHIbJ6PNUMCPYQ5hD/0VUPTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6jPTxL5OpRVaxkWWCXA1XtnX6eQpMGzPtpdmv9RgZlE=;
+ b=FkwJJvY3hLmylshszJzoF7PO3aMg8wQjOG+G8eFhHBiBFsxhhOHyH/hFySpGz7P2uSLMGIOVJq3pP4EAJC9QSF/Yrp1AQeePLgQ+j0aQV86Ztvj6E2bp/wRNiejsjPfeW/O/Jjr9z7VN+ChALa7lsHR3ekkjslJywNAVFEA+3Dz75WM2yF23O7ERCyoy880CiCh7eXie+9UucRgPB+t1xxTeyeG8V39UWeAQWVyIVh+bvyY9+wKf0in+IuAo5M4JdziXt7Q0jcCqUvShFCMQPZhDfH5h4dZd0j6Y6gGkUd/SCC/tQN2ZWMxDQcK/4kcdl9/+HFzV3oO65X+dW3CWSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:333::21)
+ by AM0P193MB0769.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:16d::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23; Mon, 15 Jan
+ 2024 19:20:47 +0000
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::897e:cfd5:b29b:c611]) by AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::897e:cfd5:b29b:c611%6]) with mapi id 15.20.7181.019; Mon, 15 Jan 2024
+ 19:20:46 +0000
+Message-ID: <AS8P193MB1285EEAFE30C0DE7B201D33CE46C2@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+Date: Mon, 15 Jan 2024 20:21:42 +0100
 User-Agent: Mozilla Thunderbird
+From: Bernd Edlinger <bernd.edlinger@hotmail.de>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jiri Pirko <jiri@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
+References: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
 Content-Language: en-US
-To: Mao Jinlong <quic_jinlmao@quicinc.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@arm.com>,
- Leo Yan <leo.yan@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20240115164252.26510-1-quic_jinlmao@quicinc.com>
- <20240115164252.26510-3-quic_jinlmao@quicinc.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240115164252.26510-3-quic_jinlmao@quicinc.com>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: arm: Add device-name
- in the coresight components
+In-Reply-To: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+X-TMN: [awWvB8M45afXTdq0zJngE/LO/0atHbZDLwB6sZo2A9pBAuJIjOQOuTWYzCpl2Dq8]
+X-ClientProxiedBy: FR3P281CA0205.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::17) To AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:333::21)
+X-Microsoft-Original-Message-ID: <f6be722e-8265-4eb2-a91f-857e55dcf659@hotmail.de>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P193MB1285:EE_|AM0P193MB0769:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbe21b6d-df57-428c-057b-08dc15ff1340
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FAOybPWN+qdlZCcWoVUxF0Q7xokWhTgkX+1Kdolkck1Q9Dt7P0peyR/WSz/cE73SGgq3Cn0w/RoYKrXjDIHUv5JFQVHeCiOsfffLh0+O29P8wybyco3hyWUGV2dE1X8dtwUju+psuM7DFe+SzbfTy+pAh5dk3cYMEMHACFvH8ISLvX9mMT8Ah5tZIqbR75rT7HRCuASiMhwBz7rAP3uuSSGZP3GrQ9V9Ajw6UAbZyWcjnQ+5iBJ6EEDmps2L2iv944v7zaeAu8vLAPNWpUd0PCR71FY5kTXMAHovK65GL2Uur10/vS0SjYRNXH/Bv0X6zOH1B6YfeolFvbR8l7SGtT8Raj/gBPFHI1JtUdr9vGu7MCHq0u7J8T9MYxMku0YrvnIql8izDV3cHy3u/bdX/Pt/Lix0rN0EES0wIr73kuvbm864qN5zmmnD1lu1z1I85oDIHWNzQuEfGUw9PVK9a00LbfzT6XrE+qAuM1Om6JY1MweRuyDJhadiQBN6J7HK9qGEbuQZTk1pZWBKW6RexNU7joFhG9CvX8nhyMwjLbzPaI36a3olzOWjjPyf+Oxkduo94WBOgg1wzkIDdAcSgAJIZgY9fB1KX5lTCpE2F48=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzVrSmFyK2k3VWRiaUpaNzN4MW1za3RMM0hsT01vajdIVGhzV1k0WjE0M0Nn?=
+ =?utf-8?B?SVp5NlpIZ0x4blBqdjYwSk5la3VoNE1YK3VBWDJRZkl6WWJtRHBIa3FaS3Vj?=
+ =?utf-8?B?bVR5cmtWOGJDajVocERCcTVxVkQ0SFJTYnBIaTdCWDZpQWFpUVFXaDVvM1g4?=
+ =?utf-8?B?dHpkK1lqNmdYRy9ET2xLTjdwUUlzQWhhNlllRjdtNnpqS3ZTLzRjeG5OTWJY?=
+ =?utf-8?B?QkZVYWY5WUlIU3ZyS2VCMHJaL2o3a3JoUXc5a2o5b1ltNjJGK1hYS1h0ejNJ?=
+ =?utf-8?B?dEp0NnY5THVJUk5SNG9Gamo0Z29ISzlGdHllVWM4c0JjUzBsVG82amx1Yk9q?=
+ =?utf-8?B?Q3JKYTRVcDNScWxPTTFWa0wrUkt6MTV2Rm92TGVKU3AzeHhrbkwvT3hVNHNK?=
+ =?utf-8?B?ZlZPQ0JDVVNyRVlCRDBESythOXFHVjFxMmd4dWRHMFpHZVVQcUpZSmhhMnZS?=
+ =?utf-8?B?R3dMZ2J6OUVXSkZRVkZNQ2hSVXdFa0dmWGo4ZTZVVExwZnN2V0QzWWcvQThv?=
+ =?utf-8?B?akJvcmNJWHo2eXl2b1FzMDRqMnBsd2xvWCtYWWw5WExKMVg3TzY1NHJBQU44?=
+ =?utf-8?B?S1dLTUxsMFpFSGp1eXF2b2pRYkFTM1BxUVZNamFxVjd3U3BMUy95YXpHQStx?=
+ =?utf-8?B?TkNDM1haWmx4V3luYjBnTjU0UVRjZjB5dWwrNS9rME44V2hRemNIOGJRSUh4?=
+ =?utf-8?B?dnBBU0xLMVJ3d2hNNFpjVFJ2NUZIeG5IdU9ZdG1rbkZ1Y09DRGZWT1RSNVkv?=
+ =?utf-8?B?NHFzdkx0VnVoSlBwZ3pwM2FvV3Y5ZjBTdndVaFQ5VCs2V2d5ZU1Ta291STB5?=
+ =?utf-8?B?TzVCY1BxZEdBZUFIUTZ0SWhweHphbW5hT3NjZGk0Ky80UHgxS3lZN2NvNENN?=
+ =?utf-8?B?aUh1WVlEQXVBN3pqNXluWTlzNlpIUTNBUzRhbWtBMTVneXJydkJCNGJpT2Qy?=
+ =?utf-8?B?b1N6YW92c1YxYU9ydjNQd21ySXlEUzFvdEtUWDlEbDFxSWJmdkFBMDVVY1A3?=
+ =?utf-8?B?ZDVKRnRPVC9XejIwUnE0NkRsZURnMnpnb2ZkSFZySDBjQStOSnN3eVlJcHhj?=
+ =?utf-8?B?S0ZhTWM5aExubjM2NFBxM2NBR2ZXd05LaE5LSXFOQm5MeDY1eDJjU3E4cUV6?=
+ =?utf-8?B?TUpCeHlGclBLNFlVTVBWSHdEbzBrRG01dEFVOGRLTUpyT3dqSGl6UUEvUmRl?=
+ =?utf-8?B?azExL1NMUG9nUllRaEdmSCt6YUhUTXFkRVZLTWM2Z2VaMHAzSjE3TUI1RXdB?=
+ =?utf-8?B?VzN1eGh3M01WcFo4WjdvaTdKODFkRnVXeVhvS3VFblhyUTNUSzM2VVFUSWo1?=
+ =?utf-8?B?eDV5Mmc4NHpNR0ZORzB2UWtNRG51WVF1REVFU1hhN0V6ZmlheXAyUUVwSitI?=
+ =?utf-8?B?STZEcExBM0VHUjlIUUs0WllFMGg1NVVSYnIxd29WZnZOa3hINjIrWUNhcUdq?=
+ =?utf-8?B?UU5Nc0ZGUkpuOUIvNXFwck5iNUFhaFd1NEZlNnR6bEdpdmczWmxHbUR1SFAr?=
+ =?utf-8?B?aDJvWnN2QUphUXNZWUpMb2JXZ2lyOUF3cEhvNVpZNFl3RW9ld29Hb1IrZm02?=
+ =?utf-8?B?OEVMa0p3aGE3YjBqS05oZlgvYzhuOWlseUxrejc1N1dLdCttVUxnQzJCNUZH?=
+ =?utf-8?B?MzVRaGhVVGQ4dUd1V2FTQjZnR2hrSHZHYUNBSUdNVTRaVHpHSlQ0Wi90N3Nx?=
+ =?utf-8?B?NU9hYlluWGFET2c0blNXaFlPNDJRWStoeTljV0l1N0g3bUFmOE5tWVJQYjRu?=
+ =?utf-8?Q?BFLE/rhKobmfAK5kzM=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-80ceb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbe21b6d-df57-428c-057b-08dc15ff1340
+X-MS-Exchange-CrossTenant-AuthSource: AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 19:20:46.8394 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0P193MB0769
+Subject: [Linux-stm32] [PATCH v2] net: stmmac: Wait a bit for the reset to
+	take effect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,20 +118,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 15/01/2024 17:42, Mao Jinlong wrote:
-> device-name is used to provide a better description of the coresight
-> device. It can provide the info like the system or HW it belongs to.
-> 
+otherwise the synopsys_id value may be read out wrong,
+because the GMAC_VERSION register might still be in reset
+state, for at least 1 us after the reset is de-asserted.
 
-system or HW are defined by top level model, so probably you meant here
-something else. Anyway you need to provide better rationale, because
-above argument can be applied to any device and we do not have generic
-device-name property. Once you have good explanation, then probably you
-want "label" not some new property.
+Add a wait for 10 us before continuing to be on the safe side.
 
-Best regards,
-Krzysztof
+> From what have you got that delay value?
 
+Just try and error, with very old linux versions and old gcc versions
+the synopsys_id was read out correctly most of the time (but not always),
+with recent linux versions and recnet gcc versions it was read out
+wrongly most of the time, but again not always.
+I don't have access to the VHDL code in question, so I cannot
+tell why it takes so long to get the correct values, I also do not
+have more than a few hardware samples, so I cannot tell how long
+this timeout must be in worst case.
+Experimentally I can tell that the register is read several times
+as zero immediately after the reset is de-asserted, also adding several
+no-ops is not enough, adding a printk is enough, also udelay(1) seems to
+be enough but I tried that not very often, and I have not access to many
+hardware samples to be 100% sure about the necessary delay.
+And since the udelay here is only executed once per device instance,
+it seems acceptable to delay the boot for 10 us.
+
+BTW: my hardware's synopsys id is 0x37.
+
+Signed-off-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
+
+Reviewed-by: Jiri Pirko <jiri@nvidia.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+v2: rebased to v6.7, retested and updated the commit message
+as suggested Serge Semins review comment:
+https://lore.kernel.org/lkml/b4mpa62b2juln47374x6xxnbozb7fcfgztrc5ounk4tvscs3wg@mixnvsoqno7j/
+and retained Jiri Pirkos Reviwed-by from:
+https://lore.kernel.org/lkml/ZT+Zq4j9iQj1+Xai@nanopsycho/
+
+
+Thanks
+Bernd.
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 37e64283f910..b8e8f6e963f2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7440,6 +7440,9 @@ int stmmac_dvr_probe(struct device *device,
+ 		dev_err(priv->device, "unable to bring out of ahb reset: %pe\n",
+ 			ERR_PTR(ret));
+ 
++	/* Wait a bit for the reset to take effect */
++	udelay(10);
++
+ 	/* Init MAC and get the capabilities */
+ 	ret = stmmac_hw_init(priv);
+ 	if (ret)
+-- 
+2.39.2
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
