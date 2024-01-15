@@ -2,53 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 919A282DC90
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 16:47:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 228CD82DDBE
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 17:43:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4E052C6B457;
-	Mon, 15 Jan 2024 15:47:04 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC006C6B457;
+	Mon, 15 Jan 2024 16:43:27 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B8F5C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CB8C3C6B457
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 15:47:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 44CD860EDF;
- Mon, 15 Jan 2024 15:47:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87F6C433C7;
- Mon, 15 Jan 2024 15:47:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705333621;
- bh=CKlMsBgiRFguC4EeGf8G4YmTN9XESV+58mgkD1W4SPw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=skFXbUDCV/2M/7goc7hXpkMmxJNhc6isLScK4FQwrlU9+0IKA2Ue7/tEKI/9xiUcl
- QMuMMNeQlAtjNBoBcuqibBIwMirN0OAwrDE89FoCcS/zC8USBomywfB6cY22ZYX/cB
- WfElSbPDp0DqEDhYvF9DjIc/m0jAXJeVo26uom6+1s9eMYAizNjiZ6j6BPOUaCMPps
- A7iUNWfw7taRvEDEbpmWkgyHies6OKZfU9QqJgvDrvRT3onnSi/8H//NLXGRPYyIKg
- ydN83g3LT/GqiV7q21OZUw3K82CE2bJ1mAyVVq/xskSlX+TRtrH7GOYq5x/mPoz7da
- tx48yxQpVT/XA==
-Date: Mon, 15 Jan 2024 09:46:59 -0600
-From: Rob Herring <robh@kernel.org>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Message-ID: <20240115154659.GA815331-robh@kernel.org>
-References: <20240115132009.101718-1-raphael.gallais-pou@foss.st.com>
- <20240115132009.101718-2-raphael.gallais-pou@foss.st.com>
+ Mon, 15 Jan 2024 16:43:26 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40FGh86x002831; Mon, 15 Jan 2024 16:43:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=2GU9LyX
+ r+wNTFXEnIuiIof23UNs/vuTcgPBQP19aeb8=; b=ixuzEPiIZ6OHrO+r6HZdTRk
+ REeTmBSjqTXhb5V0EQL/b308j6a2gCwoZ5AC1rFDTWWxkEvm1E5Ak2ylkic7Ou2v
+ at2Yq/3KDU6T4VvcB2hAtb9prUtgCS7E+9V11Z7zMc71rVOB9xsPQhPljLOm4hmc
+ Hx4OQtopVuSjJYVwV9asXbiOMaYVvEZ+HotNi5dQXGRttAi6OyBOAMMiJMvlGJt7
+ 3q/w1F/FHqbKmbWkgFZMLNVZAAQ2AV4g9HuqGjOPYApQkEn9Vi86qNikOv6+63Wg
+ WdM48Oo10yYTO5N8HCwST4851Ny1VNHZKlnDF4+ZWUGKIRXxZYwDj6pWw64u5zw=
+ =
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vmxdvs666-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Jan 2024 16:43:08 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40FGh7OK016382
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 15 Jan 2024 16:43:07 GMT
+Received: from hu-jinlmao-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Mon, 15 Jan 2024 08:43:06 -0800
+From: Mao Jinlong <quic_jinlmao@quicinc.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@arm.com>, Leo Yan
+ <leo.yan@linaro.org>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>, "Mathieu
+ Poirier" <mathieu.poirier@linaro.org>
+Date: Mon, 15 Jan 2024 08:42:46 -0800
+Message-ID: <20240115164252.26510-1-quic_jinlmao@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240115132009.101718-2-raphael.gallais-pou@foss.st.com>
-Cc: dri-devel@lists.freedesktop.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: ddBTI-DMlorVwJV8JEcDhQHSVay9zIjh
+X-Proofpoint-ORIG-GUID: ddBTI-DMlorVwJV8JEcDhQHSVay9zIjh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-12-09_01,2023-12-07_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 bulkscore=0
+ phishscore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 mlxlogscore=999 impostorscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2401150122
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Mao Jinlong <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
+ coresight@lists.linaro.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 1/6] dt-bindings: display: add
- dt-bindings for STM32 LVDS device
+Subject: [Linux-stm32] [PATCH v2 0/2] coresight: core: Add device name
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,45 +94,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 15, 2024 at 02:20:04PM +0100, Raphael Gallais-Pou wrote:
-> Add "st,stm32mp25-lvds" compatible.
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
-> Depends on: "dt-bindings: stm32: add clocks and reset binding for
-> 	    stm32mp25 platform" by Gabriel Fernandez
-> 
-> Changes in v3:
-> 	- Clarify commit dependency
-> 	- Fix includes in the example
-> 	- Fix YAML
-> 	- Add "clock-cells" description
-> 	- s/regroups/is composed of/
-> 	- Changed compatible to show SoC specificity
-> 
-> Changes in v2:
-> 	- Switch compatible and clock-cells related areas
-> 	- Remove faulty #include in the example.
-> 	- Add entry in MAINTAINERS
-> ---
->  .../bindings/display/st,stm32-lvds.yaml       | 119 ++++++++++++++++++
+With current design, the name of the non-cpu bounded coresight
+component is the device type with the number. And with 'ls' command
+we can get the register address of the component. But from these
+information, we can't know what the HW or system the component belongs
+to. Add device-name in DT to support it.
 
-Filename matching compatible.
+cti_sys0 -> ../../../devices/platform/soc@0/138f0000.cti/cti_sys0
+cti_sys1 -> ../../../devices/platform/soc@0/13900000.cti/cti_sys1
+tpdm0 -> ../../../devices/platform/soc@0/10b0d000.tpdm/tpdm0
+tpdm1 -> ../../../devices/platform/soc@0/10c28000.tpdm/tpdm1
+tpdm2 -> ../../../devices/platform/soc@0/10c29000.tpdm/tpdm2
 
-> +properties:
-> +  compatible:
-> +    const: st,stm32mp25-lvds
+Change since V1:
+1. Change coresight-name to device name.
+2. Add the device-name in coresight dt bindings.
 
+Mao Jinlong (2):
+  coresight: core: Add device name support
+  dt-bindings: arm: Add device-name in the coresight components
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-> +
-> +    lvds: lvds@48060000 {
-> +        compatible = "st,stm32-lvds";
+ .../bindings/arm/arm,coresight-catu.yaml      |  5 +++
+ .../bindings/arm/arm,coresight-cpu-debug.yaml |  5 +++
+ .../bindings/arm/arm,coresight-cti.yaml       |  5 +++
+ .../arm/arm,coresight-dummy-sink.yaml         |  5 +++
+ .../arm/arm,coresight-dummy-source.yaml       |  5 +++
+ .../arm/arm,coresight-dynamic-funnel.yaml     |  5 +++
+ .../arm/arm,coresight-dynamic-replicator.yaml |  5 +++
+ .../bindings/arm/arm,coresight-etb10.yaml     |  5 +++
+ .../bindings/arm/arm,coresight-etm.yaml       |  5 +++
+ .../arm/arm,coresight-static-funnel.yaml      |  5 +++
+ .../arm/arm,coresight-static-replicator.yaml  |  5 +++
+ .../bindings/arm/arm,coresight-stm.yaml       |  5 +++
+ .../bindings/arm/arm,coresight-tmc.yaml       |  5 +++
+ .../bindings/arm/arm,coresight-tpiu.yaml      |  5 +++
+ .../bindings/arm/qcom,coresight-tpda.yaml     |  5 +++
+ .../bindings/arm/qcom,coresight-tpdm.yaml     |  5 +++
+ drivers/hwtracing/coresight/coresight-core.c  | 33 ++++++++++---------
+ .../hwtracing/coresight/coresight-platform.c  | 31 +++++++++++++++++
+ include/linux/coresight.h                     |  1 +
+ 19 files changed, 130 insertions(+), 15 deletions(-)
 
-Wrong compatible.
+-- 
+2.41.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
