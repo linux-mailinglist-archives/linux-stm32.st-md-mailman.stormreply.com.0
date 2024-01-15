@@ -2,44 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E42382D6C7
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 11:08:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9581482D917
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 13:52:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F967C6DD66;
-	Mon, 15 Jan 2024 10:08:12 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AE04C6DD74;
+	Mon, 15 Jan 2024 12:52:32 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88A61C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A88C0C6DD66
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 10:08:11 +0000 (UTC)
-Received: from i5e860cd7.versanet.de ([94.134.12.215] helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1rPJsC-00005J-QB; Mon, 15 Jan 2024 11:07:16 +0100
-From: Heiko =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-To: Farouk Bouabid <farouk.bouabid@theobroma-systems.com>, victor.liu@nxp.com, 
+ Mon, 15 Jan 2024 12:52:30 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-40e7e2e04f0so4322245e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Jan 2024 04:52:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1705323150; x=1705927950;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=CIcQfpzLxtniFRrdqWB9c4Ne8h1A+td17JByQxotsiY=;
+ b=eU4NGFsdg1OHqsnYasujgnKl/JPBrKiiw2D5rwOtRvDpUo5gyh135hX02O127Ktkl7
+ Nxhi5hKthqFXDM+jOqDpXst1SuJIqCCjYkvqkg0oet8X6NXcaDjLxzWpwA90wVai9pha
+ i4xIy2zjrC0XTAO3jXkSLU6hBXeMRTI6+6EwrbtwmGD5PWI2UkJheBLVSRgSbJ/gE5y8
+ ISqxYj2sXmQ5AIhiqSi/8onqaLsSwze8v7UiUTYXKtK6MDmiDzZOetbFk4w/jzDLEYUR
+ 80ffvvWSDQo+8NAOjGogxSO0Xnggp8lunwXcoVgN279qAuowXxD14zCODp8jn+cHtN//
+ xv2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705323150; x=1705927950;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :references:cc:to:content-language:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=CIcQfpzLxtniFRrdqWB9c4Ne8h1A+td17JByQxotsiY=;
+ b=S1aElHeNxoiMiAYSh43Bngp7hyp/2UzYwPETsH85wRRzAvn+gpC9mMia5UH8U10B0Q
+ J/yCW6ZLwpaHGMup0KDyG0/j47w1sVLaMMZwcBsDtyBDrQ7eLE0VjDXnZWrtWObZnduE
+ 4VntZjU4f8mRp6OlhlOcQKS9QRUivr8v48O4Kcw1PNEPNKzyV8ijSokaSgSHiKfMZYQw
+ jHNguCseYurn5HoGqLKpHTtNQ3tA9ifbQGolBCNQ1YxhTirgmW+GibR56Tovt6TtsXCY
+ 3sO0mgpAnACxER3bWJa5wNcCJ1NkgHiWsK1uaZLlgxY0hxRNKsm+8mS8k2RuyIFzfHI8
+ /frg==
+X-Gm-Message-State: AOJu0YyyH6LO7XqvMU6bBIZi/jzxc1KKyCY65iHgBaA8uxZVkLDy/MhI
+ S3b8jVAMILlrdIR7INLKGDJTrMzIOPhapQ==
+X-Google-Smtp-Source: AGHT+IFkde+i/p346tJ1Gllcj11n1VuQ9JNiLDXuEWxSEkgLGelLcwxWVqkv5z7rJaOrwnmXsl/1Vw==
+X-Received: by 2002:a05:600c:3c89:b0:40e:61a6:c639 with SMTP id
+ bg9-20020a05600c3c8900b0040e61a6c639mr3110685wmb.94.1705323149947; 
+ Mon, 15 Jan 2024 04:52:29 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:982:cbb0:af6f:bcbb:3c88:33c2?
+ ([2a01:e0a:982:cbb0:af6f:bcbb:3c88:33c2])
+ by smtp.gmail.com with ESMTPSA id
+ t21-20020a05600c451500b0040e3ac9f4c8sm19539332wmo.28.2024.01.15.04.52.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 04:52:29 -0800 (PST)
+Message-ID: <562a7ab4-2bd0-44e1-92b3-a16bb642ab11@linaro.org>
+Date: Mon, 15 Jan 2024 13:52:27 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: neil.armstrong@linaro.org
+Content-Language: en-US, fr
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Farouk Bouabid <farouk.bouabid@theobroma-systems.com>, victor.liu@nxp.com,
  andrzej.hajda@intel.com, rfoss@kernel.org, jonas@kwiboo.se,
  jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
  shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
  festevam@gmail.com, linux-imx@nxp.com, khilman@baylibre.com,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, hjc@rock-chips.com, 
- yannick.fertre@foss.st.com, raphael.gallais-pou@foss.st.com,
- philippe.cornu@foss.st.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, neil.armstrong@linaro.org
-Date: Mon, 15 Jan 2024 11:07:14 +0100
-Message-ID: <8542394.JRmrKFJ9eK@diego>
-In-Reply-To: <9dd100de-6d33-4872-8619-1df6ee520c5a@linaro.org>
+ jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+ hjc@rock-chips.com, yannick.fertre@foss.st.com,
+ raphael.gallais-pou@foss.st.com, philippe.cornu@foss.st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
 References: <20240112180737.551318-1-farouk.bouabid@theobroma-systems.com>
- <9dd100de-6d33-4872-8619-1df6ee520c5a@linaro.org>
-MIME-Version: 1.0
+ <9dd100de-6d33-4872-8619-1df6ee520c5a@linaro.org> <8542394.JRmrKFJ9eK@diego>
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro Developer Services
+In-Reply-To: <8542394.JRmrKFJ9eK@diego>
 Cc: bouabid.farouk97@gmail.com, quentin.schulz@theobroma-systems.com
-Subject: [Linux-stm32] Re: [PATCH] drm/bridge: synopsys: dw-mipi-dsi: fix
+Subject: Re: [Linux-stm32] [PATCH] drm/bridge: synopsys: dw-mipi-dsi: fix
  deferred dsi host probe breaks dsi device probe
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -52,328 +118,238 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: neil.armstrong@linaro.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Am Montag, 15. Januar 2024, 09:45:10 CET schrieb neil.armstrong@linaro.org:
-> Hi,
-> 
-> On 12/01/2024 19:07, Farouk Bouabid wrote:
-> > dw-mipi-dsi based drivers such as dw-mipi-dsi-rockchip or dw_mipi_dsi-stm
-> > depend on dw_mipi_dsi_probe() to initialize the dw_mipi_dsi driver
-> > structure (dmd pointer). This structure is only initialized once
-> > dw_mipi_dsi_probe() returns, creating the link between the locally created
-> > structure and the actual dmd pointer.
-> > 
-> > Probing the dsi host can be deferred in case of dependency to a dsi
-> > phy-supply (eg. "rockchip,px30-dsi-dphy"). Meanwhile dsi-device drivers
-> > like panels (eg. "ltk050h3146w") can already be registered on the bus.
-> > In that case, when attempting, to register the dsi host from
-> > dw_mipi_dsi_probe() using mipi_dsi_host_register(), the panel probe is
-> > called with a dsi-host pointer that is still locally allocated in
-> > dw_mipi_dsi_probe().
-> > 
-> > While probing, the panel driver tries to attach to a dsi host
-> > (mipi_dsi_attach()) which calls in return for the specific dsi host
-> > attach hook. (e.g. dw_mipi_dsi_rockchip_host_attach()).
-> > dw_mipi_dsi_rockchip uses the component framework.
-> > In the attach hook, the host component is registered which calls in return
-> > for drm_bridge_attach() while trying to bind the component
-> > (dw_mipi_dsi_bind())
-> 
-> In meson_dw_mipi_dsi I simply fixed this by getting rid of components...
-
-If I remember correctly, the component element is there on Rockchip to
-facilitate running dual-dsi displays (1 panel driven by 2 dsi controllers),
-because it allows to wait for both controllers to have probed individually
-before trying to drive the display.
-
-Not sure if there is a better way to do that now.
-
-
-Heiko
-
-
-> > drm_bridge_attach() requires a valid drm bridge parameter. However, the
-> > drm bridge (&dmd->bridge) that will be passed, is not yet initialized since
-> > the dw_mipi_dsi_probe() has not yet returned. This call will fail with a
-> > fatal error (invalid bridge) causing the panel to not be probed again.
-> > 
-> > To simplify the issue: drm_bridge_attach() depends on the result pointer
-> > of dw_mipi_dsi_probe().
-> > While, if the dsi probe is deferred, drm_bridge_attach() is called before
-> > dw_mipi_dsi_probe() returns.
-> > 
-> > drm_bridge_attach+0x14/0x1ac
-> > dw_mipi_dsi_bind+0x24/0x30
-> > dw_mipi_dsi_rockchip_bind+0x258/0x378
-> > component_bind_all+0x118/0x248
-> > rockchip_drm_bind+0xb0/0x1f8
-> > try_to_bring_up_aggregate_device+0x168/0x1d4
-> > __component_add+0xa4/0x170
-> > component_add+0x14/0x20
-> > dw_mipi_dsi_rockchip_host_attach+0x54/0x144
-> > dw_mipi_dsi_host_attach+0x9c/0xcc
-> > mipi_dsi_attach+0x28/0x3c
-> > ltk050h3146w_probe+0x10c/0x1a4
-> > mipi_dsi_drv_probe+0x20/0x2c
-> > really_probe+0x148/0x2ac
-> > __driver_probe_device+0x78/0x12c
-> > driver_probe_device+0xdc/0x160
-> > __device_attach_driver+0xb8/0x134
-> > bus_for_each_drv+0x80/0xdc
-> > __device_attach+0xa8/0x1b0
-> > device_initial_probe+0x14/0x20
-> > bus_probe_device+0xa8/0xac
-> > device_add+0x5cc/0x778
-> > mipi_dsi_device_register_full+0xd8/0x198
-> > mipi_dsi_host_register+0x98/0x18c
-> > __dw_mipi_dsi_probe+0x290/0x35c
-> > dw_mipi_dsi_probe+0x10/0x6c
-> > dw_mipi_dsi_rockchip_probe+0x208/0x3e4
-> > platform_probe+0x68/0xdc
-> > really_probe+0x148/0x2ac
-> > __driver_probe_device+0x78/0x12c
-> > driver_probe_device+0xdc/0x160
-> > __device_attach_driver+0xb8/0x134
-> > bus_for_each_drv+0x80/0xdc
-> > __device_attach+0xa8/0x1b0
-> > device_initial_probe+0x14/0x20
-> > bus_probe_device+0xa8/0xac
-> > deferred_probe_work_func+0x88/0xc0
-> > process_one_work+0x138/0x260
-> > worker_thread+0x32c/0x438
-> > kthread+0x118/0x11c
-> > ret_from_fork+0x10/0x20
-> > ---[ end trace 0000000000000000 ]---
-> > 
-> > Fix this by initializing directly the dmd pointer in dw_mipi_dsi_probe(),
-> > which requires also initializting the dmd->bridge attributes that are
-> > required in drm_bridge_attach() before calling mipi_dsi_host_register().
-> > 
-> > Signed-off-by: Farouk Bouabid <farouk.bouabid@theobroma-systems.com>
-> > ---
-> >   drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c   |  4 +-
-> >   drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c | 42 ++++++++++---------
-> >   drivers/gpu/drm/meson/meson_dw_mipi_dsi.c     |  8 ++--
-> >   .../gpu/drm/rockchip/dw-mipi-dsi-rockchip.c   |  5 +--
-> >   drivers/gpu/drm/stm/dw_mipi_dsi-stm.c         |  5 +--
-> >   include/drm/bridge/dw_mipi_dsi.h              |  5 ++-
-> >   6 files changed, 35 insertions(+), 34 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c b/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
-> > index 3ff30ce80c5b..469976ad3b19 100644
-> > --- a/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
-> > +++ b/drivers/gpu/drm/bridge/imx/imx93-mipi-dsi.c
-> > @@ -881,8 +881,8 @@ static int imx93_dsi_probe(struct platform_device *pdev)
-> >   	dsi->pdata.priv_data = dsi;
-> >   	platform_set_drvdata(pdev, dsi);
-> >   
-> > -	dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-> > -	if (IS_ERR(dsi->dmd))
-> > +	ret = dw_mipi_dsi_probe(pdev, &dsi->pdata, &dsi->dmd);
-> > +	if (ret < 0)
-> >   		return dev_err_probe(dev, PTR_ERR(dsi->dmd),
-> >   				     "failed to probe dw_mipi_dsi\n");
-> >   
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> > index 824fb3c65742..306cba366ba8 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-mipi-dsi.c
-> > @@ -1184,18 +1184,19 @@ static void dw_mipi_dsi_debugfs_remove(struct dw_mipi_dsi *dsi) { }
-> >   
-> >   #endif /* CONFIG_DEBUG_FS */
-> >   
-> > -static struct dw_mipi_dsi *
-> > -__dw_mipi_dsi_probe(struct platform_device *pdev,
-> > -		    const struct dw_mipi_dsi_plat_data *plat_data)
-> > +int __dw_mipi_dsi_probe(struct platform_device *pdev,
-> > +		    const struct dw_mipi_dsi_plat_data *plat_data, struct dw_mipi_dsi **dsi_p)
-> >   {
-> >   	struct device *dev = &pdev->dev;
-> >   	struct reset_control *apb_rst;
-> >   	struct dw_mipi_dsi *dsi;
-> >   	int ret;
-> >   
-> > -	dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-> > -	if (!dsi)
-> > -		return ERR_PTR(-ENOMEM);
-> > +	*dsi_p = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-> > +	if (!*dsi_p)
-> > +		return -ENOMEM;
-> > +
-> > +	dsi = *dsi_p;
-> >   
-> >   	dsi->dev = dev;
-> >   	dsi->plat_data = plat_data;
-> > @@ -1203,13 +1204,13 @@ __dw_mipi_dsi_probe(struct platform_device *pdev,
-> >   	if (!plat_data->phy_ops->init || !plat_data->phy_ops->get_lane_mbps ||
-> >   	    !plat_data->phy_ops->get_timing) {
-> >   		DRM_ERROR("Phy not properly configured\n");
-> > -		return ERR_PTR(-ENODEV);
-> > +		return -ENODEV;
-> >   	}
-> >   
-> >   	if (!plat_data->base) {
-> >   		dsi->base = devm_platform_ioremap_resource(pdev, 0);
-> >   		if (IS_ERR(dsi->base))
-> > -			return ERR_PTR(-ENODEV);
-> > +			return -ENODEV;
-> >   
-> >   	} else {
-> >   		dsi->base = plat_data->base;
-> > @@ -1219,7 +1220,7 @@ __dw_mipi_dsi_probe(struct platform_device *pdev,
-> >   	if (IS_ERR(dsi->pclk)) {
-> >   		ret = PTR_ERR(dsi->pclk);
-> >   		dev_err(dev, "Unable to get pclk: %d\n", ret);
-> > -		return ERR_PTR(ret);
-> > +		return ret;
-> >   	}
-> >   
-> >   	/*
-> > @@ -1233,14 +1234,14 @@ __dw_mipi_dsi_probe(struct platform_device *pdev,
-> >   		if (ret != -EPROBE_DEFER)
-> >   			dev_err(dev, "Unable to get reset control: %d\n", ret);
-> >   
-> > -		return ERR_PTR(ret);
-> > +		return ret;
-> >   	}
-> >   
-> >   	if (apb_rst) {
-> >   		ret = clk_prepare_enable(dsi->pclk);
-> >   		if (ret) {
-> >   			dev_err(dev, "%s: Failed to enable pclk\n", __func__);
-> > -			return ERR_PTR(ret);
-> > +			return ret;
-> >   		}
-> >   
-> >   		reset_control_assert(apb_rst);
-> > @@ -1255,19 +1256,20 @@ __dw_mipi_dsi_probe(struct platform_device *pdev,
-> >   
-> >   	dsi->dsi_host.ops = &dw_mipi_dsi_host_ops;
-> >   	dsi->dsi_host.dev = dev;
-> > +	dsi->bridge.driver_private = dsi;
-> > +	dsi->bridge.funcs = &dw_mipi_dsi_bridge_funcs;
-> > +	dsi->bridge.of_node = pdev->dev.of_node;
-> > +
-> >   	ret = mipi_dsi_host_register(&dsi->dsi_host);
-> >   	if (ret) {
-> >   		dev_err(dev, "Failed to register MIPI host: %d\n", ret);
-> >   		pm_runtime_disable(dev);
-> >   		dw_mipi_dsi_debugfs_remove(dsi);
-> > -		return ERR_PTR(ret);
-> > +		return ret;
-> >   	}
-> >   
-> > -	dsi->bridge.driver_private = dsi;
-> > -	dsi->bridge.funcs = &dw_mipi_dsi_bridge_funcs;
-> > -	dsi->bridge.of_node = pdev->dev.of_node;
-> >   
-> > -	return dsi;
-> > +	return 0;
-> >   }
-> >   
-> >   static void __dw_mipi_dsi_remove(struct dw_mipi_dsi *dsi)
-> > @@ -1301,11 +1303,11 @@ EXPORT_SYMBOL_GPL(dw_mipi_dsi_get_bridge);
-> >   /*
-> >    * Probe/remove API, used from platforms based on the DRM bridge API.
-> >    */
-> > -struct dw_mipi_dsi *
-> > -dw_mipi_dsi_probe(struct platform_device *pdev,
-> > -		  const struct dw_mipi_dsi_plat_data *plat_data)
-> > +int dw_mipi_dsi_probe(struct platform_device *pdev,
-> > +		  const struct dw_mipi_dsi_plat_data *plat_data,
-> > +		  struct dw_mipi_dsi **dsi_p)
-> >   {
-> > -	return __dw_mipi_dsi_probe(pdev, plat_data);
-> > +	return __dw_mipi_dsi_probe(pdev, plat_data, dsi_p);
-> >   }
-> >   EXPORT_SYMBOL_GPL(dw_mipi_dsi_probe);
-> >   
-> > diff --git a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> > index e5fe4e994f43..b103f3e31f2a 100644
-> > --- a/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> > +++ b/drivers/gpu/drm/meson/meson_dw_mipi_dsi.c
-> > @@ -262,6 +262,7 @@ static int meson_dw_mipi_dsi_probe(struct platform_device *pdev)
-> >   {
-> >   	struct meson_dw_mipi_dsi *mipi_dsi;
-> >   	struct device *dev = &pdev->dev;
-> > +	int ret;
-> >   
-> >   	mipi_dsi = devm_kzalloc(dev, sizeof(*mipi_dsi), GFP_KERNEL);
-> >   	if (!mipi_dsi)
-> > @@ -315,10 +316,9 @@ static int meson_dw_mipi_dsi_probe(struct platform_device *pdev)
-> >   	mipi_dsi->pdata.priv_data = mipi_dsi;
-> >   	platform_set_drvdata(pdev, mipi_dsi);
-> >   
-> > -	mipi_dsi->dmd = dw_mipi_dsi_probe(pdev, &mipi_dsi->pdata);
-> > -	if (IS_ERR(mipi_dsi->dmd))
-> > -		return dev_err_probe(dev, PTR_ERR(mipi_dsi->dmd),
-> > -				     "Failed to probe dw_mipi_dsi\n");
-> > +	ret = dw_mipi_dsi_probe(pdev, &mipi_dsi->pdata, &mipi_dsi->dmd);
-> > +	if (ret < 0)
-> > +		return dev_err_probe(dev, ret, "Failed to probe dw_mipi_dsi\n");
-> >   
-> >   	return 0;
-> >   }
-> > diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > index 6396f9324dab..4df32747476c 100644
-> > --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-> > @@ -1457,9 +1457,8 @@ static int dw_mipi_dsi_rockchip_probe(struct platform_device *pdev)
-> >   	if (IS_ERR(phy_provider))
-> >   		return PTR_ERR(phy_provider);
-> >   
-> > -	dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-> > -	if (IS_ERR(dsi->dmd)) {
-> > -		ret = PTR_ERR(dsi->dmd);
-> > +	ret = dw_mipi_dsi_probe(pdev, &dsi->pdata, &dsi->dmd);
-> > +	if (ret < 0) {
-> >   		if (ret != -EPROBE_DEFER)
-> >   			DRM_DEV_ERROR(dev,
-> >   				      "Failed to probe dw_mipi_dsi: %d\n", ret);
-> > diff --git a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > index d5f8c923d7bc..44dbbfc277d8 100644
-> > --- a/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > +++ b/drivers/gpu/drm/stm/dw_mipi_dsi-stm.c
-> > @@ -518,9 +518,8 @@ static int dw_mipi_dsi_stm_probe(struct platform_device *pdev)
-> >   
-> >   	platform_set_drvdata(pdev, dsi);
-> >   
-> > -	dsi->dsi = dw_mipi_dsi_probe(pdev, &dw_mipi_dsi_stm_plat_data);
-> > -	if (IS_ERR(dsi->dsi)) {
-> > -		ret = PTR_ERR(dsi->dsi);
-> > +	ret = dw_mipi_dsi_probe(pdev, &dw_mipi_dsi_stm_plat_data, &dsi->dsi);
-> > +	if (ret < 0) {
-> >   		dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
-> >   		goto err_dsi_probe;
-> >   	}
-> > diff --git a/include/drm/bridge/dw_mipi_dsi.h b/include/drm/bridge/dw_mipi_dsi.h
-> > index 65d5e68065e3..f073e819251e 100644
-> > --- a/include/drm/bridge/dw_mipi_dsi.h
-> > +++ b/include/drm/bridge/dw_mipi_dsi.h
-> > @@ -76,9 +76,10 @@ struct dw_mipi_dsi_plat_data {
-> >   	void *priv_data;
-> >   };
-> >   
-> > -struct dw_mipi_dsi *dw_mipi_dsi_probe(struct platform_device *pdev,
-> > +int dw_mipi_dsi_probe(struct platform_device *pdev,
-> >   				      const struct dw_mipi_dsi_plat_data
-> > -				      *plat_data);
-> > +				      *plat_data,
-> > +					  struct dw_mipi_dsi **dsi_p);
-> >   void dw_mipi_dsi_remove(struct dw_mipi_dsi *dsi);
-> >   int dw_mipi_dsi_bind(struct dw_mipi_dsi *dsi, struct drm_encoder *encoder);
-> >   void dw_mipi_dsi_unbind(struct dw_mipi_dsi *dsi);
-> 
-> 
-
-
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMTUvMDEvMjAyNCAxMTowNywgSGVpa28gU3TDvGJuZXIgd3JvdGU6Cj4gQW0gTW9udGFnLCAx
+NS4gSmFudWFyIDIwMjQsIDA5OjQ1OjEwIENFVCBzY2hyaWViIG5laWwuYXJtc3Ryb25nQGxpbmFy
+by5vcmc6Cj4+IEhpLAo+Pgo+PiBPbiAxMi8wMS8yMDI0IDE5OjA3LCBGYXJvdWsgQm91YWJpZCB3
+cm90ZToKPj4+IGR3LW1pcGktZHNpIGJhc2VkIGRyaXZlcnMgc3VjaCBhcyBkdy1taXBpLWRzaS1y
+b2NrY2hpcCBvciBkd19taXBpX2RzaS1zdG0KPj4+IGRlcGVuZCBvbiBkd19taXBpX2RzaV9wcm9i
+ZSgpIHRvIGluaXRpYWxpemUgdGhlIGR3X21pcGlfZHNpIGRyaXZlcgo+Pj4gc3RydWN0dXJlIChk
+bWQgcG9pbnRlcikuIFRoaXMgc3RydWN0dXJlIGlzIG9ubHkgaW5pdGlhbGl6ZWQgb25jZQo+Pj4g
+ZHdfbWlwaV9kc2lfcHJvYmUoKSByZXR1cm5zLCBjcmVhdGluZyB0aGUgbGluayBiZXR3ZWVuIHRo
+ZSBsb2NhbGx5IGNyZWF0ZWQKPj4+IHN0cnVjdHVyZSBhbmQgdGhlIGFjdHVhbCBkbWQgcG9pbnRl
+ci4KPj4+Cj4+PiBQcm9iaW5nIHRoZSBkc2kgaG9zdCBjYW4gYmUgZGVmZXJyZWQgaW4gY2FzZSBv
+ZiBkZXBlbmRlbmN5IHRvIGEgZHNpCj4+PiBwaHktc3VwcGx5IChlZy4gInJvY2tjaGlwLHB4MzAt
+ZHNpLWRwaHkiKS4gTWVhbndoaWxlIGRzaS1kZXZpY2UgZHJpdmVycwo+Pj4gbGlrZSBwYW5lbHMg
+KGVnLiAibHRrMDUwaDMxNDZ3IikgY2FuIGFscmVhZHkgYmUgcmVnaXN0ZXJlZCBvbiB0aGUgYnVz
+Lgo+Pj4gSW4gdGhhdCBjYXNlLCB3aGVuIGF0dGVtcHRpbmcsIHRvIHJlZ2lzdGVyIHRoZSBkc2kg
+aG9zdCBmcm9tCj4+PiBkd19taXBpX2RzaV9wcm9iZSgpIHVzaW5nIG1pcGlfZHNpX2hvc3RfcmVn
+aXN0ZXIoKSwgdGhlIHBhbmVsIHByb2JlIGlzCj4+PiBjYWxsZWQgd2l0aCBhIGRzaS1ob3N0IHBv
+aW50ZXIgdGhhdCBpcyBzdGlsbCBsb2NhbGx5IGFsbG9jYXRlZCBpbgo+Pj4gZHdfbWlwaV9kc2lf
+cHJvYmUoKS4KPj4+Cj4+PiBXaGlsZSBwcm9iaW5nLCB0aGUgcGFuZWwgZHJpdmVyIHRyaWVzIHRv
+IGF0dGFjaCB0byBhIGRzaSBob3N0Cj4+PiAobWlwaV9kc2lfYXR0YWNoKCkpIHdoaWNoIGNhbGxz
+IGluIHJldHVybiBmb3IgdGhlIHNwZWNpZmljIGRzaSBob3N0Cj4+PiBhdHRhY2ggaG9vay4gKGUu
+Zy4gZHdfbWlwaV9kc2lfcm9ja2NoaXBfaG9zdF9hdHRhY2goKSkuCj4+PiBkd19taXBpX2RzaV9y
+b2NrY2hpcCB1c2VzIHRoZSBjb21wb25lbnQgZnJhbWV3b3JrLgo+Pj4gSW4gdGhlIGF0dGFjaCBo
+b29rLCB0aGUgaG9zdCBjb21wb25lbnQgaXMgcmVnaXN0ZXJlZCB3aGljaCBjYWxscyBpbiByZXR1
+cm4KPj4+IGZvciBkcm1fYnJpZGdlX2F0dGFjaCgpIHdoaWxlIHRyeWluZyB0byBiaW5kIHRoZSBj
+b21wb25lbnQKPj4+IChkd19taXBpX2RzaV9iaW5kKCkpCj4+Cj4+IEluIG1lc29uX2R3X21pcGlf
+ZHNpIEkgc2ltcGx5IGZpeGVkIHRoaXMgYnkgZ2V0dGluZyByaWQgb2YgY29tcG9uZW50cy4uLgo+
+IAo+IElmIEkgcmVtZW1iZXIgY29ycmVjdGx5LCB0aGUgY29tcG9uZW50IGVsZW1lbnQgaXMgdGhl
+cmUgb24gUm9ja2NoaXAgdG8KPiBmYWNpbGl0YXRlIHJ1bm5pbmcgZHVhbC1kc2kgZGlzcGxheXMg
+KDEgcGFuZWwgZHJpdmVuIGJ5IDIgZHNpIGNvbnRyb2xsZXJzKSwKPiBiZWNhdXNlIGl0IGFsbG93
+cyB0byB3YWl0IGZvciBib3RoIGNvbnRyb2xsZXJzIHRvIGhhdmUgcHJvYmVkIGluZGl2aWR1YWxs
+eQo+IGJlZm9yZSB0cnlpbmcgdG8gZHJpdmUgdGhlIGRpc3BsYXkuCj4gCj4gTm90IHN1cmUgaWYg
+dGhlcmUgaXMgYSBiZXR0ZXIgd2F5IHRvIGRvIHRoYXQgbm93LgoKRGV2aWNlIGxpbmtzIHNob3Vs
+ZCBsaW1pdCBwcm9iZSBkZWZlcmFsIHRvIGEgbWluaW11bSwgYXQgbGVhc3QgaXQgd29ya3MgZmlu
+ZQpvbiB0aGUgc3lzdGVtcyBJIHdvcmsgb24KCk5laWwKCj4gCj4gCj4gSGVpa28KPiAKPiAKPj4+
+IGRybV9icmlkZ2VfYXR0YWNoKCkgcmVxdWlyZXMgYSB2YWxpZCBkcm0gYnJpZGdlIHBhcmFtZXRl
+ci4gSG93ZXZlciwgdGhlCj4+PiBkcm0gYnJpZGdlICgmZG1kLT5icmlkZ2UpIHRoYXQgd2lsbCBi
+ZSBwYXNzZWQsIGlzIG5vdCB5ZXQgaW5pdGlhbGl6ZWQgc2luY2UKPj4+IHRoZSBkd19taXBpX2Rz
+aV9wcm9iZSgpIGhhcyBub3QgeWV0IHJldHVybmVkLiBUaGlzIGNhbGwgd2lsbCBmYWlsIHdpdGgg
+YQo+Pj4gZmF0YWwgZXJyb3IgKGludmFsaWQgYnJpZGdlKSBjYXVzaW5nIHRoZSBwYW5lbCB0byBu
+b3QgYmUgcHJvYmVkIGFnYWluLgo+Pj4KPj4+IFRvIHNpbXBsaWZ5IHRoZSBpc3N1ZTogZHJtX2Jy
+aWRnZV9hdHRhY2goKSBkZXBlbmRzIG9uIHRoZSByZXN1bHQgcG9pbnRlcgo+Pj4gb2YgZHdfbWlw
+aV9kc2lfcHJvYmUoKS4KPj4+IFdoaWxlLCBpZiB0aGUgZHNpIHByb2JlIGlzIGRlZmVycmVkLCBk
+cm1fYnJpZGdlX2F0dGFjaCgpIGlzIGNhbGxlZCBiZWZvcmUKPj4+IGR3X21pcGlfZHNpX3Byb2Jl
+KCkgcmV0dXJucy4KPj4+Cj4+PiBkcm1fYnJpZGdlX2F0dGFjaCsweDE0LzB4MWFjCj4+PiBkd19t
+aXBpX2RzaV9iaW5kKzB4MjQvMHgzMAo+Pj4gZHdfbWlwaV9kc2lfcm9ja2NoaXBfYmluZCsweDI1
+OC8weDM3OAo+Pj4gY29tcG9uZW50X2JpbmRfYWxsKzB4MTE4LzB4MjQ4Cj4+PiByb2NrY2hpcF9k
+cm1fYmluZCsweGIwLzB4MWY4Cj4+PiB0cnlfdG9fYnJpbmdfdXBfYWdncmVnYXRlX2RldmljZSsw
+eDE2OC8weDFkNAo+Pj4gX19jb21wb25lbnRfYWRkKzB4YTQvMHgxNzAKPj4+IGNvbXBvbmVudF9h
+ZGQrMHgxNC8weDIwCj4+PiBkd19taXBpX2RzaV9yb2NrY2hpcF9ob3N0X2F0dGFjaCsweDU0LzB4
+MTQ0Cj4+PiBkd19taXBpX2RzaV9ob3N0X2F0dGFjaCsweDljLzB4Y2MKPj4+IG1pcGlfZHNpX2F0
+dGFjaCsweDI4LzB4M2MKPj4+IGx0azA1MGgzMTQ2d19wcm9iZSsweDEwYy8weDFhNAo+Pj4gbWlw
+aV9kc2lfZHJ2X3Byb2JlKzB4MjAvMHgyYwo+Pj4gcmVhbGx5X3Byb2JlKzB4MTQ4LzB4MmFjCj4+
+PiBfX2RyaXZlcl9wcm9iZV9kZXZpY2UrMHg3OC8weDEyYwo+Pj4gZHJpdmVyX3Byb2JlX2Rldmlj
+ZSsweGRjLzB4MTYwCj4+PiBfX2RldmljZV9hdHRhY2hfZHJpdmVyKzB4YjgvMHgxMzQKPj4+IGJ1
+c19mb3JfZWFjaF9kcnYrMHg4MC8weGRjCj4+PiBfX2RldmljZV9hdHRhY2grMHhhOC8weDFiMAo+
+Pj4gZGV2aWNlX2luaXRpYWxfcHJvYmUrMHgxNC8weDIwCj4+PiBidXNfcHJvYmVfZGV2aWNlKzB4
+YTgvMHhhYwo+Pj4gZGV2aWNlX2FkZCsweDVjYy8weDc3OAo+Pj4gbWlwaV9kc2lfZGV2aWNlX3Jl
+Z2lzdGVyX2Z1bGwrMHhkOC8weDE5OAo+Pj4gbWlwaV9kc2lfaG9zdF9yZWdpc3RlcisweDk4LzB4
+MThjCj4+PiBfX2R3X21pcGlfZHNpX3Byb2JlKzB4MjkwLzB4MzVjCj4+PiBkd19taXBpX2RzaV9w
+cm9iZSsweDEwLzB4NmMKPj4+IGR3X21pcGlfZHNpX3JvY2tjaGlwX3Byb2JlKzB4MjA4LzB4M2U0
+Cj4+PiBwbGF0Zm9ybV9wcm9iZSsweDY4LzB4ZGMKPj4+IHJlYWxseV9wcm9iZSsweDE0OC8weDJh
+Ywo+Pj4gX19kcml2ZXJfcHJvYmVfZGV2aWNlKzB4NzgvMHgxMmMKPj4+IGRyaXZlcl9wcm9iZV9k
+ZXZpY2UrMHhkYy8weDE2MAo+Pj4gX19kZXZpY2VfYXR0YWNoX2RyaXZlcisweGI4LzB4MTM0Cj4+
+PiBidXNfZm9yX2VhY2hfZHJ2KzB4ODAvMHhkYwo+Pj4gX19kZXZpY2VfYXR0YWNoKzB4YTgvMHgx
+YjAKPj4+IGRldmljZV9pbml0aWFsX3Byb2JlKzB4MTQvMHgyMAo+Pj4gYnVzX3Byb2JlX2Rldmlj
+ZSsweGE4LzB4YWMKPj4+IGRlZmVycmVkX3Byb2JlX3dvcmtfZnVuYysweDg4LzB4YzAKPj4+IHBy
+b2Nlc3Nfb25lX3dvcmsrMHgxMzgvMHgyNjAKPj4+IHdvcmtlcl90aHJlYWQrMHgzMmMvMHg0MzgK
+Pj4+IGt0aHJlYWQrMHgxMTgvMHgxMWMKPj4+IHJldF9mcm9tX2ZvcmsrMHgxMC8weDIwCj4+PiAt
+LS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0KPj4+Cj4+PiBGaXggdGhpcyBieSBp
+bml0aWFsaXppbmcgZGlyZWN0bHkgdGhlIGRtZCBwb2ludGVyIGluIGR3X21pcGlfZHNpX3Byb2Jl
+KCksCj4+PiB3aGljaCByZXF1aXJlcyBhbHNvIGluaXRpYWxpenRpbmcgdGhlIGRtZC0+YnJpZGdl
+IGF0dHJpYnV0ZXMgdGhhdCBhcmUKPj4+IHJlcXVpcmVkIGluIGRybV9icmlkZ2VfYXR0YWNoKCkg
+YmVmb3JlIGNhbGxpbmcgbWlwaV9kc2lfaG9zdF9yZWdpc3RlcigpLgo+Pj4KPj4+IFNpZ25lZC1v
+ZmYtYnk6IEZhcm91ayBCb3VhYmlkIDxmYXJvdWsuYm91YWJpZEB0aGVvYnJvbWEtc3lzdGVtcy5j
+b20+Cj4+PiAtLS0KPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvaW14L2lteDkzLW1pcGkt
+ZHNpLmMgICB8ICA0ICstCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3
+LW1pcGktZHNpLmMgfCA0MiArKysrKysrKysrLS0tLS0tLS0tCj4+PiAgICBkcml2ZXJzL2dwdS9k
+cm0vbWVzb24vbWVzb25fZHdfbWlwaV9kc2kuYyAgICAgfCAgOCArKy0tCj4+PiAgICAuLi4vZ3B1
+L2RybS9yb2NrY2hpcC9kdy1taXBpLWRzaS1yb2NrY2hpcC5jICAgfCAgNSArLS0KPj4+ICAgIGRy
+aXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMgICAgICAgICB8ICA1ICstLQo+Pj4g
+ICAgaW5jbHVkZS9kcm0vYnJpZGdlL2R3X21pcGlfZHNpLmggICAgICAgICAgICAgIHwgIDUgKyst
+Cj4+PiAgICA2IGZpbGVzIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKyksIDM0IGRlbGV0aW9ucygt
+KQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2lteC9pbXg5My1t
+aXBpLWRzaS5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9pbXgvaW14OTMtbWlwaS1kc2kuYwo+
+Pj4gaW5kZXggM2ZmMzBjZTgwYzViLi40Njk5NzZhZDNiMTkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYnJpZGdlL2lteC9pbXg5My1taXBpLWRzaS5jCj4+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYnJpZGdlL2lteC9pbXg5My1taXBpLWRzaS5jCj4+PiBAQCAtODgxLDggKzg4MSw4
+IEBAIHN0YXRpYyBpbnQgaW14OTNfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
+ZXYpCj4+PiAgICAJZHNpLT5wZGF0YS5wcml2X2RhdGEgPSBkc2k7Cj4+PiAgICAJcGxhdGZvcm1f
+c2V0X2RydmRhdGEocGRldiwgZHNpKTsKPj4+ICAgIAo+Pj4gLQlkc2ktPmRtZCA9IGR3X21pcGlf
+ZHNpX3Byb2JlKHBkZXYsICZkc2ktPnBkYXRhKTsKPj4+IC0JaWYgKElTX0VSUihkc2ktPmRtZCkp
+Cj4+PiArCXJldCA9IGR3X21pcGlfZHNpX3Byb2JlKHBkZXYsICZkc2ktPnBkYXRhLCAmZHNpLT5k
+bWQpOwo+Pj4gKwlpZiAocmV0IDwgMCkKPj4+ICAgIAkJcmV0dXJuIGRldl9lcnJfcHJvYmUoZGV2
+LCBQVFJfRVJSKGRzaS0+ZG1kKSwKPj4+ICAgIAkJCQkgICAgICJmYWlsZWQgdG8gcHJvYmUgZHdf
+bWlwaV9kc2lcbiIpOwo+Pj4gICAgCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Jy
+aWRnZS9zeW5vcHN5cy9kdy1taXBpLWRzaS5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5v
+cHN5cy9kdy1taXBpLWRzaS5jCj4+PiBpbmRleCA4MjRmYjNjNjU3NDIuLjMwNmNiYTM2NmJhOCAx
+MDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctbWlwaS1k
+c2kuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1taXBpLWRz
+aS5jCj4+PiBAQCAtMTE4NCwxOCArMTE4NCwxOSBAQCBzdGF0aWMgdm9pZCBkd19taXBpX2RzaV9k
+ZWJ1Z2ZzX3JlbW92ZShzdHJ1Y3QgZHdfbWlwaV9kc2kgKmRzaSkgeyB9Cj4+PiAgICAKPj4+ICAg
+ICNlbmRpZiAvKiBDT05GSUdfREVCVUdfRlMgKi8KPj4+ICAgIAo+Pj4gLXN0YXRpYyBzdHJ1Y3Qg
+ZHdfbWlwaV9kc2kgKgo+Pj4gLV9fZHdfbWlwaV9kc2lfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2Rl
+dmljZSAqcGRldiwKPj4+IC0JCSAgICBjb25zdCBzdHJ1Y3QgZHdfbWlwaV9kc2lfcGxhdF9kYXRh
+ICpwbGF0X2RhdGEpCj4+PiAraW50IF9fZHdfbWlwaV9kc2lfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
+X2RldmljZSAqcGRldiwKPj4+ICsJCSAgICBjb25zdCBzdHJ1Y3QgZHdfbWlwaV9kc2lfcGxhdF9k
+YXRhICpwbGF0X2RhdGEsIHN0cnVjdCBkd19taXBpX2RzaSAqKmRzaV9wKQo+Pj4gICAgewo+Pj4g
+ICAgCXN0cnVjdCBkZXZpY2UgKmRldiA9ICZwZGV2LT5kZXY7Cj4+PiAgICAJc3RydWN0IHJlc2V0
+X2NvbnRyb2wgKmFwYl9yc3Q7Cj4+PiAgICAJc3RydWN0IGR3X21pcGlfZHNpICpkc2k7Cj4+PiAg
+ICAJaW50IHJldDsKPj4+ICAgIAo+Pj4gLQlkc2kgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXplb2Yo
+KmRzaSksIEdGUF9LRVJORUwpOwo+Pj4gLQlpZiAoIWRzaSkKPj4+IC0JCXJldHVybiBFUlJfUFRS
+KC1FTk9NRU0pOwo+Pj4gKwkqZHNpX3AgPSBkZXZtX2t6YWxsb2MoZGV2LCBzaXplb2YoKmRzaSks
+IEdGUF9LRVJORUwpOwo+Pj4gKwlpZiAoISpkc2lfcCkKPj4+ICsJCXJldHVybiAtRU5PTUVNOwo+
+Pj4gKwo+Pj4gKwlkc2kgPSAqZHNpX3A7Cj4+PiAgICAKPj4+ICAgIAlkc2ktPmRldiA9IGRldjsK
+Pj4+ICAgIAlkc2ktPnBsYXRfZGF0YSA9IHBsYXRfZGF0YTsKPj4+IEBAIC0xMjAzLDEzICsxMjA0
+LDEzIEBAIF9fZHdfbWlwaV9kc2lfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwK
+Pj4+ICAgIAlpZiAoIXBsYXRfZGF0YS0+cGh5X29wcy0+aW5pdCB8fCAhcGxhdF9kYXRhLT5waHlf
+b3BzLT5nZXRfbGFuZV9tYnBzIHx8Cj4+PiAgICAJICAgICFwbGF0X2RhdGEtPnBoeV9vcHMtPmdl
+dF90aW1pbmcpIHsKPj4+ICAgIAkJRFJNX0VSUk9SKCJQaHkgbm90IHByb3Blcmx5IGNvbmZpZ3Vy
+ZWRcbiIpOwo+Pj4gLQkJcmV0dXJuIEVSUl9QVFIoLUVOT0RFVik7Cj4+PiArCQlyZXR1cm4gLUVO
+T0RFVjsKPj4+ICAgIAl9Cj4+PiAgICAKPj4+ICAgIAlpZiAoIXBsYXRfZGF0YS0+YmFzZSkgewo+
+Pj4gICAgCQlkc2ktPmJhc2UgPSBkZXZtX3BsYXRmb3JtX2lvcmVtYXBfcmVzb3VyY2UocGRldiwg
+MCk7Cj4+PiAgICAJCWlmIChJU19FUlIoZHNpLT5iYXNlKSkKPj4+IC0JCQlyZXR1cm4gRVJSX1BU
+UigtRU5PREVWKTsKPj4+ICsJCQlyZXR1cm4gLUVOT0RFVjsKPj4+ICAgIAo+Pj4gICAgCX0gZWxz
+ZSB7Cj4+PiAgICAJCWRzaS0+YmFzZSA9IHBsYXRfZGF0YS0+YmFzZTsKPj4+IEBAIC0xMjE5LDcg
+KzEyMjAsNyBAQCBfX2R3X21pcGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBk
+ZXYsCj4+PiAgICAJaWYgKElTX0VSUihkc2ktPnBjbGspKSB7Cj4+PiAgICAJCXJldCA9IFBUUl9F
+UlIoZHNpLT5wY2xrKTsKPj4+ICAgIAkJZGV2X2VycihkZXYsICJVbmFibGUgdG8gZ2V0IHBjbGs6
+ICVkXG4iLCByZXQpOwo+Pj4gLQkJcmV0dXJuIEVSUl9QVFIocmV0KTsKPj4+ICsJCXJldHVybiBy
+ZXQ7Cj4+PiAgICAJfQo+Pj4gICAgCj4+PiAgICAJLyoKPj4+IEBAIC0xMjMzLDE0ICsxMjM0LDE0
+IEBAIF9fZHdfbWlwaV9kc2lfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldiwKPj4+
+ICAgIAkJaWYgKHJldCAhPSAtRVBST0JFX0RFRkVSKQo+Pj4gICAgCQkJZGV2X2VycihkZXYsICJV
+bmFibGUgdG8gZ2V0IHJlc2V0IGNvbnRyb2w6ICVkXG4iLCByZXQpOwo+Pj4gICAgCj4+PiAtCQly
+ZXR1cm4gRVJSX1BUUihyZXQpOwo+Pj4gKwkJcmV0dXJuIHJldDsKPj4+ICAgIAl9Cj4+PiAgICAK
+Pj4+ICAgIAlpZiAoYXBiX3JzdCkgewo+Pj4gICAgCQlyZXQgPSBjbGtfcHJlcGFyZV9lbmFibGUo
+ZHNpLT5wY2xrKTsKPj4+ICAgIAkJaWYgKHJldCkgewo+Pj4gICAgCQkJZGV2X2VycihkZXYsICIl
+czogRmFpbGVkIHRvIGVuYWJsZSBwY2xrXG4iLCBfX2Z1bmNfXyk7Cj4+PiAtCQkJcmV0dXJuIEVS
+Ul9QVFIocmV0KTsKPj4+ICsJCQlyZXR1cm4gcmV0Owo+Pj4gICAgCQl9Cj4+PiAgICAKPj4+ICAg
+IAkJcmVzZXRfY29udHJvbF9hc3NlcnQoYXBiX3JzdCk7Cj4+PiBAQCAtMTI1NSwxOSArMTI1Niwy
+MCBAQCBfX2R3X21pcGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYsCj4+
+PiAgICAKPj4+ICAgIAlkc2ktPmRzaV9ob3N0Lm9wcyA9ICZkd19taXBpX2RzaV9ob3N0X29wczsK
+Pj4+ICAgIAlkc2ktPmRzaV9ob3N0LmRldiA9IGRldjsKPj4+ICsJZHNpLT5icmlkZ2UuZHJpdmVy
+X3ByaXZhdGUgPSBkc2k7Cj4+PiArCWRzaS0+YnJpZGdlLmZ1bmNzID0gJmR3X21pcGlfZHNpX2Jy
+aWRnZV9mdW5jczsKPj4+ICsJZHNpLT5icmlkZ2Uub2Zfbm9kZSA9IHBkZXYtPmRldi5vZl9ub2Rl
+Owo+Pj4gKwo+Pj4gICAgCXJldCA9IG1pcGlfZHNpX2hvc3RfcmVnaXN0ZXIoJmRzaS0+ZHNpX2hv
+c3QpOwo+Pj4gICAgCWlmIChyZXQpIHsKPj4+ICAgIAkJZGV2X2VycihkZXYsICJGYWlsZWQgdG8g
+cmVnaXN0ZXIgTUlQSSBob3N0OiAlZFxuIiwgcmV0KTsKPj4+ICAgIAkJcG1fcnVudGltZV9kaXNh
+YmxlKGRldik7Cj4+PiAgICAJCWR3X21pcGlfZHNpX2RlYnVnZnNfcmVtb3ZlKGRzaSk7Cj4+PiAt
+CQlyZXR1cm4gRVJSX1BUUihyZXQpOwo+Pj4gKwkJcmV0dXJuIHJldDsKPj4+ICAgIAl9Cj4+PiAg
+ICAKPj4+IC0JZHNpLT5icmlkZ2UuZHJpdmVyX3ByaXZhdGUgPSBkc2k7Cj4+PiAtCWRzaS0+YnJp
+ZGdlLmZ1bmNzID0gJmR3X21pcGlfZHNpX2JyaWRnZV9mdW5jczsKPj4+IC0JZHNpLT5icmlkZ2Uu
+b2Zfbm9kZSA9IHBkZXYtPmRldi5vZl9ub2RlOwo+Pj4gICAgCj4+PiAtCXJldHVybiBkc2k7Cj4+
+PiArCXJldHVybiAwOwo+Pj4gICAgfQo+Pj4gICAgCj4+PiAgICBzdGF0aWMgdm9pZCBfX2R3X21p
+cGlfZHNpX3JlbW92ZShzdHJ1Y3QgZHdfbWlwaV9kc2kgKmRzaSkKPj4+IEBAIC0xMzAxLDExICsx
+MzAzLDExIEBAIEVYUE9SVF9TWU1CT0xfR1BMKGR3X21pcGlfZHNpX2dldF9icmlkZ2UpOwo+Pj4g
+ICAgLyoKPj4+ICAgICAqIFByb2JlL3JlbW92ZSBBUEksIHVzZWQgZnJvbSBwbGF0Zm9ybXMgYmFz
+ZWQgb24gdGhlIERSTSBicmlkZ2UgQVBJLgo+Pj4gICAgICovCj4+PiAtc3RydWN0IGR3X21pcGlf
+ZHNpICoKPj4+IC1kd19taXBpX2RzaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2
+LAo+Pj4gLQkJICBjb25zdCBzdHJ1Y3QgZHdfbWlwaV9kc2lfcGxhdF9kYXRhICpwbGF0X2RhdGEp
+Cj4+PiAraW50IGR3X21pcGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYs
+Cj4+PiArCQkgIGNvbnN0IHN0cnVjdCBkd19taXBpX2RzaV9wbGF0X2RhdGEgKnBsYXRfZGF0YSwK
+Pj4+ICsJCSAgc3RydWN0IGR3X21pcGlfZHNpICoqZHNpX3ApCj4+PiAgICB7Cj4+PiAtCXJldHVy
+biBfX2R3X21pcGlfZHNpX3Byb2JlKHBkZXYsIHBsYXRfZGF0YSk7Cj4+PiArCXJldHVybiBfX2R3
+X21pcGlfZHNpX3Byb2JlKHBkZXYsIHBsYXRfZGF0YSwgZHNpX3ApOwo+Pj4gICAgfQo+Pj4gICAg
+RVhQT1JUX1NZTUJPTF9HUEwoZHdfbWlwaV9kc2lfcHJvYmUpOwo+Pj4gICAgCj4+PiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2R3X21pcGlfZHNpLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vbWVzb24vbWVzb25fZHdfbWlwaV9kc2kuYwo+Pj4gaW5kZXggZTVmZTRlOTk0ZjQz
+Li5iMTAzZjNlMzFmMmEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVzb24vbWVz
+b25fZHdfbWlwaV9kc2kuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21lc29uL21lc29uX2R3
+X21pcGlfZHNpLmMKPj4+IEBAIC0yNjIsNiArMjYyLDcgQEAgc3RhdGljIGludCBtZXNvbl9kd19t
+aXBpX2RzaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gICAgewo+Pj4g
+ICAgCXN0cnVjdCBtZXNvbl9kd19taXBpX2RzaSAqbWlwaV9kc2k7Cj4+PiAgICAJc3RydWN0IGRl
+dmljZSAqZGV2ID0gJnBkZXYtPmRldjsKPj4+ICsJaW50IHJldDsKPj4+ICAgIAo+Pj4gICAgCW1p
+cGlfZHNpID0gZGV2bV9remFsbG9jKGRldiwgc2l6ZW9mKCptaXBpX2RzaSksIEdGUF9LRVJORUwp
+Owo+Pj4gICAgCWlmICghbWlwaV9kc2kpCj4+PiBAQCAtMzE1LDEwICszMTYsOSBAQCBzdGF0aWMg
+aW50IG1lc29uX2R3X21pcGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYp
+Cj4+PiAgICAJbWlwaV9kc2ktPnBkYXRhLnByaXZfZGF0YSA9IG1pcGlfZHNpOwo+Pj4gICAgCXBs
+YXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIG1pcGlfZHNpKTsKPj4+ICAgIAo+Pj4gLQltaXBpX2Rz
+aS0+ZG1kID0gZHdfbWlwaV9kc2lfcHJvYmUocGRldiwgJm1pcGlfZHNpLT5wZGF0YSk7Cj4+PiAt
+CWlmIChJU19FUlIobWlwaV9kc2ktPmRtZCkpCj4+PiAtCQlyZXR1cm4gZGV2X2Vycl9wcm9iZShk
+ZXYsIFBUUl9FUlIobWlwaV9kc2ktPmRtZCksCj4+PiAtCQkJCSAgICAgIkZhaWxlZCB0byBwcm9i
+ZSBkd19taXBpX2RzaVxuIik7Cj4+PiArCXJldCA9IGR3X21pcGlfZHNpX3Byb2JlKHBkZXYsICZt
+aXBpX2RzaS0+cGRhdGEsICZtaXBpX2RzaS0+ZG1kKTsKPj4+ICsJaWYgKHJldCA8IDApCj4+PiAr
+CQlyZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIHJldCwgIkZhaWxlZCB0byBwcm9iZSBkd19taXBp
+X2RzaVxuIik7Cj4+PiAgICAKPj4+ICAgIAlyZXR1cm4gMDsKPj4+ICAgIH0KPj4+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvZHctbWlwaS1kc2ktcm9ja2NoaXAuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kdy1taXBpLWRzaS1yb2NrY2hpcC5jCj4+PiBpbmRleCA2
+Mzk2ZjkzMjRkYWIuLjRkZjMyNzQ3NDc2YyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9yb2NrY2hpcC9kdy1taXBpLWRzaS1yb2NrY2hpcC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vcm9ja2NoaXAvZHctbWlwaS1kc2ktcm9ja2NoaXAuYwo+Pj4gQEAgLTE0NTcsOSArMTQ1Nyw4
+IEBAIHN0YXRpYyBpbnQgZHdfbWlwaV9kc2lfcm9ja2NoaXBfcHJvYmUoc3RydWN0IHBsYXRmb3Jt
+X2RldmljZSAqcGRldikKPj4+ICAgIAlpZiAoSVNfRVJSKHBoeV9wcm92aWRlcikpCj4+PiAgICAJ
+CXJldHVybiBQVFJfRVJSKHBoeV9wcm92aWRlcik7Cj4+PiAgICAKPj4+IC0JZHNpLT5kbWQgPSBk
+d19taXBpX2RzaV9wcm9iZShwZGV2LCAmZHNpLT5wZGF0YSk7Cj4+PiAtCWlmIChJU19FUlIoZHNp
+LT5kbWQpKSB7Cj4+PiAtCQlyZXQgPSBQVFJfRVJSKGRzaS0+ZG1kKTsKPj4+ICsJcmV0ID0gZHdf
+bWlwaV9kc2lfcHJvYmUocGRldiwgJmRzaS0+cGRhdGEsICZkc2ktPmRtZCk7Cj4+PiArCWlmIChy
+ZXQgPCAwKSB7Cj4+PiAgICAJCWlmIChyZXQgIT0gLUVQUk9CRV9ERUZFUikKPj4+ICAgIAkJCURS
+TV9ERVZfRVJST1IoZGV2LAo+Pj4gICAgCQkJCSAgICAgICJGYWlsZWQgdG8gcHJvYmUgZHdfbWlw
+aV9kc2k6ICVkXG4iLCByZXQpOwo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zdG0v
+ZHdfbWlwaV9kc2ktc3RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2R3X21pcGlfZHNpLXN0bS5j
+Cj4+PiBpbmRleCBkNWY4YzkyM2Q3YmMuLjQ0ZGJiZmMyNzdkOCAxMDA2NDQKPj4+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9zdG0vZHdfbWlwaV9kc2ktc3RtLmMKPj4+IEBAIC01MTgsOSArNTE4LDggQEAgc3RhdGlj
+IGludCBkd19taXBpX2RzaV9zdG1fcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikK
+Pj4+ICAgIAo+Pj4gICAgCXBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGRzaSk7Cj4+PiAgICAK
+Pj4+IC0JZHNpLT5kc2kgPSBkd19taXBpX2RzaV9wcm9iZShwZGV2LCAmZHdfbWlwaV9kc2lfc3Rt
+X3BsYXRfZGF0YSk7Cj4+PiAtCWlmIChJU19FUlIoZHNpLT5kc2kpKSB7Cj4+PiAtCQlyZXQgPSBQ
+VFJfRVJSKGRzaS0+ZHNpKTsKPj4+ICsJcmV0ID0gZHdfbWlwaV9kc2lfcHJvYmUocGRldiwgJmR3
+X21pcGlfZHNpX3N0bV9wbGF0X2RhdGEsICZkc2ktPmRzaSk7Cj4+PiArCWlmIChyZXQgPCAwKSB7
+Cj4+PiAgICAJCWRldl9lcnJfcHJvYmUoZGV2LCByZXQsICJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBt
+aXBpIGRzaSBob3N0XG4iKTsKPj4+ICAgIAkJZ290byBlcnJfZHNpX3Byb2JlOwo+Pj4gICAgCX0K
+Pj4+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9icmlkZ2UvZHdfbWlwaV9kc2kuaCBiL2luY2x1
+ZGUvZHJtL2JyaWRnZS9kd19taXBpX2RzaS5oCj4+PiBpbmRleCA2NWQ1ZTY4MDY1ZTMuLmYwNzNl
+ODE5MjUxZSAxMDA2NDQKPj4+IC0tLSBhL2luY2x1ZGUvZHJtL2JyaWRnZS9kd19taXBpX2RzaS5o
+Cj4+PiArKysgYi9pbmNsdWRlL2RybS9icmlkZ2UvZHdfbWlwaV9kc2kuaAo+Pj4gQEAgLTc2LDkg
+Kzc2LDEwIEBAIHN0cnVjdCBkd19taXBpX2RzaV9wbGF0X2RhdGEgewo+Pj4gICAgCXZvaWQgKnBy
+aXZfZGF0YTsKPj4+ICAgIH07Cj4+PiAgICAKPj4+IC1zdHJ1Y3QgZHdfbWlwaV9kc2kgKmR3X21p
+cGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYsCj4+PiAraW50IGR3X21p
+cGlfZHNpX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYsCj4+PiAgICAJCQkJICAg
+ICAgY29uc3Qgc3RydWN0IGR3X21pcGlfZHNpX3BsYXRfZGF0YQo+Pj4gLQkJCQkgICAgICAqcGxh
+dF9kYXRhKTsKPj4+ICsJCQkJICAgICAgKnBsYXRfZGF0YSwKPj4+ICsJCQkJCSAgc3RydWN0IGR3
+X21pcGlfZHNpICoqZHNpX3ApOwo+Pj4gICAgdm9pZCBkd19taXBpX2RzaV9yZW1vdmUoc3RydWN0
+IGR3X21pcGlfZHNpICpkc2kpOwo+Pj4gICAgaW50IGR3X21pcGlfZHNpX2JpbmQoc3RydWN0IGR3
+X21pcGlfZHNpICpkc2ksIHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2Rlcik7Cj4+PiAgICB2b2lk
+IGR3X21pcGlfZHNpX3VuYmluZChzdHJ1Y3QgZHdfbWlwaV9kc2kgKmRzaSk7Cj4+Cj4+Cj4gCj4g
+Cj4gCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpM
+aW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJl
+cGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0
+aW5mby9saW51eC1zdG0zMgo=
