@@ -2,84 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3790282DDC1
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 17:43:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D787582DDF7
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 17:52:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED1E5C6B457;
-	Mon, 15 Jan 2024 16:43:36 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80B6AC6B457;
+	Mon, 15 Jan 2024 16:52:00 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E898AC6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47CA5C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 16:43:34 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40FFEkOI025807; Mon, 15 Jan 2024 16:43:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- qcppdkim1; bh=nhVHwgyt/dROCTwBL3dn+GnFtDNV81LhIY2UEZjZLm0=; b=Mh
- i9FGuodHag3m2cD0q73ZEwLwlN71KJaqkE07jidiBTPkYuQEi9x778qLreqwPbT4
- ZuXfRkqBdNRnWf2ItyfeQt9nnxFjwNiNGLP/89cJEq2bAjSEGfJdi+d8PjlCADPi
- KuPji1dqFy1xNuYD53KmPfNbxDfGZcVml6Bvgv73g82J7x3EASTIcUE9ebR+hmar
- y2wvy8XSoPtsZ5e246nEadQgCjQegpAgKgCAIgmmC3knVn8YrS6igwtH2tofROhv
- OzFX2r93fAp0mlajdom5doaMmV2IGmmuem4yjnI9IvZH28ReQLQDRzYQdgET3qyu
- 8OrcpnmpBXa3LI58PiEw==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vn75t862k-1
+ Mon, 15 Jan 2024 16:51:59 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40FDrZU1008279; Mon, 15 Jan 2024 17:51:30 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=v/GemSIloeASK3WLJ1Xew5INevRA7DxBKaKXrgp0BrI=; b=yW
+ I9NouHDCyq43z3fEbedcH1DBWBHnlGwKnS2NFXi0ofmWWeaCMJLvOFimeL7TiLvv
+ 0Rm4EJ2vXjSkSoVbG93Q47Ib0LjVySE0FJVc83GQM3158cyKguQ0YwenISvU75T8
+ f3odqvHeu7q26Ic++F5pOUt2H/vQUM917hoP0IiHBHWN/a6+h/dlmUX+NciD0XP5
+ 3DpK0ZkYCCBHWuncmuD7WFLnDxGiyliD3bzb0BuQIKszMEPo5/WG4xXrrN9R8/J1
+ swRCMM6ZEKiw8y3RVrwDxe+boWapMNCRfB6KaVFEet/6LA3P/crX6rXDVcgJ3iQt
+ H1hlwJ5mEXRw1hxKmdGw==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vkmddstng-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jan 2024 16:43:08 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40FGh7Tu020790
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 15 Jan 2024 16:43:07 GMT
-Received: from hu-jinlmao-lv.qualcomm.com (10.49.16.6) by
- nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 15 Jan 2024 08:43:07 -0800
-From: Mao Jinlong <quic_jinlmao@quicinc.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@arm.com>, Leo Yan
- <leo.yan@linaro.org>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>, "Mathieu
- Poirier" <mathieu.poirier@linaro.org>
-Date: Mon, 15 Jan 2024 08:42:48 -0800
-Message-ID: <20240115164252.26510-3-quic_jinlmao@quicinc.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20240115164252.26510-1-quic_jinlmao@quicinc.com>
-References: <20240115164252.26510-1-quic_jinlmao@quicinc.com>
+ Mon, 15 Jan 2024 17:51:30 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 1111910002A;
+ Mon, 15 Jan 2024 17:51:29 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EE6662EAB7A;
+ Mon, 15 Jan 2024 17:51:28 +0100 (CET)
+Received: from [10.129.178.37] (10.129.178.37) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 15 Jan
+ 2024 17:51:28 +0100
+Message-ID: <3479c5d7-a9c3-40cf-a415-b8324f160ec7@foss.st.com>
+Date: Mon, 15 Jan 2024 17:51:28 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.49.16.6]
-X-ClientProxiedBy: nalasex01c.na.qualcomm.com (10.47.97.35) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: 4ImuXbad9OGJ2kxOYfBm0jrplxCV8_p7
-X-Proofpoint-ORIG-GUID: 4ImuXbad9OGJ2kxOYfBm0jrplxCV8_p7
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Rob Herring <robh@kernel.org>
+References: <20240115132009.101718-1-raphael.gallais-pou@foss.st.com>
+ <20240115132009.101718-2-raphael.gallais-pou@foss.st.com>
+ <20240115154659.GA815331-robh@kernel.org>
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20240115154659.GA815331-robh@kernel.org>
+X-Originating-IP: [10.129.178.37]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-12-09_02,2023-12-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 lowpriorityscore=0 malwarescore=0 mlxscore=0
- spamscore=0 adultscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2311290000
- definitions=main-2401150122
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Mao Jinlong <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, linux-stm32@st-md-mailman.stormreply.com,
+ definitions=2024-01-05_08,2024-01-05_01,2023-05-22_02
+Cc: dri-devel@lists.freedesktop.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ Daniel Vetter <daniel@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/2] dt-bindings: arm: Add device-name in
-	the coresight components
+Subject: Re: [Linux-stm32] [PATCH v3 1/6] dt-bindings: display: add
+ dt-bindings for STM32 LVDS device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,294 +81,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-device-name is used to provide a better description of the coresight
-device. It can provide the info like the system or HW it belongs to.
-
-Signed-off-by: Mao Jinlong <quic_jinlmao@quicinc.com>
----
- .../devicetree/bindings/arm/arm,coresight-catu.yaml          | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-cpu-debug.yaml     | 5 +++++
- Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-dummy-sink.yaml    | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-dummy-source.yaml  | 5 +++++
- .../bindings/arm/arm,coresight-dynamic-funnel.yaml           | 5 +++++
- .../bindings/arm/arm,coresight-dynamic-replicator.yaml       | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-etb10.yaml         | 5 +++++
- Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-static-funnel.yaml | 5 +++++
- .../bindings/arm/arm,coresight-static-replicator.yaml        | 5 +++++
- Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml | 5 +++++
- Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml | 5 +++++
- .../devicetree/bindings/arm/arm,coresight-tpiu.yaml          | 5 +++++
- .../devicetree/bindings/arm/qcom,coresight-tpda.yaml         | 5 +++++
- .../devicetree/bindings/arm/qcom,coresight-tpdm.yaml         | 5 +++++
- 16 files changed, 80 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-catu.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-catu.yaml
-index 2bae06eed693..313e25d62f0d 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-catu.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-catu.yaml
-@@ -44,6 +44,11 @@ properties:
-       - const: arm,coresight-catu
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-cpu-debug.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-cpu-debug.yaml
-index 0a6bc03ebe00..f7904a7df726 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-cpu-debug.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-cpu-debug.yaml
-@@ -39,6 +39,11 @@ properties:
-       - const: arm,coresight-cpu-debug
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-index 2d5545a2b49c..ba7b4e2db77c 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml
-@@ -88,6 +88,11 @@ properties:
-           - const: arm,coresight-cti
-           - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-dummy-sink.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-dummy-sink.yaml
-index c960c8e0a9a5..f94e08ca91f0 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-dummy-sink.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-dummy-sink.yaml
-@@ -39,6 +39,11 @@ properties:
-     enum:
-       - arm,coresight-dummy-sink
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   in-ports:
-     $ref: /schemas/graph.yaml#/properties/ports
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-dummy-source.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-dummy-source.yaml
-index 6745b4cc8f1c..031c4a1cb199 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-dummy-source.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-dummy-source.yaml
-@@ -38,6 +38,11 @@ properties:
-     enum:
-       - arm,coresight-dummy-source
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   out-ports:
-     $ref: /schemas/graph.yaml#/properties/ports
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-funnel.yaml
-index 44a1041cb0fc..2b4829492218 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-funnel.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-funnel.yaml
-@@ -41,6 +41,11 @@ properties:
-       - const: arm,coresight-dynamic-funnel
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-replicator.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-replicator.yaml
-index 03792e9bd97a..c841db363a87 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-replicator.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-dynamic-replicator.yaml
-@@ -41,6 +41,11 @@ properties:
-       - const: arm,coresight-dynamic-replicator
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-etb10.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-etb10.yaml
-index 90679788e0bf..6605a8097a14 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-etb10.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-etb10.yaml
-@@ -41,6 +41,11 @@ properties:
-       - const: arm,coresight-etb10
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml
-index 01200f67504a..d9ab0fc57f72 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml
-@@ -60,6 +60,11 @@ properties:
-           Embedded Trace Macrocell (version 4.x), with system register access only
-         const: arm,coresight-etm4x-sysreg
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-index cc8c3baa79b4..342dfb303072 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-@@ -27,6 +27,11 @@ properties:
-   compatible:
-     const: arm,coresight-static-funnel
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   power-domains:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
-index 1892a091ac35..eaa828124c58 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-replicator.yaml
-@@ -27,6 +27,11 @@ properties:
-   compatible:
-     const: arm,coresight-static-replicator
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   power-domains:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml
-index 378380c3f5aa..9bc49fed2096 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml
-@@ -43,6 +43,11 @@ properties:
-       - const: arm,coresight-stm
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 2
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml
-index cb8dceaca70e..ba1dec0f580a 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml
-@@ -42,6 +42,11 @@ properties:
-       - const: arm,coresight-tmc
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-tpiu.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-tpiu.yaml
-index 61a0cdc27745..6a5d0c3468f7 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-tpiu.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-tpiu.yaml
-@@ -41,6 +41,11 @@ properties:
-       - const: arm,coresight-tpiu
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     maxItems: 1
- 
-diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpda.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpda.yaml
-index ea3c5db6b52d..31b7d7471a23 100644
---- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpda.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpda.yaml
-@@ -54,6 +54,11 @@ properties:
-       - const: qcom,coresight-tpda
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     minItems: 1
-     maxItems: 2
-diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-index 3bad47b7b02b..3b72ca36636e 100644
---- a/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom,coresight-tpdm.yaml
-@@ -40,6 +40,11 @@ properties:
-       - const: qcom,coresight-tpdm
-       - const: arm,primecell
- 
-+  device-name:
-+    description:
-+      Define the name which can describe what kind of HW or system the
-+      device is for.
-+
-   reg:
-     minItems: 1
-     maxItems: 2
--- 
-2.41.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDEvMTUvMjQgMTY6NDYsIFJvYiBIZXJyaW5nIHdyb3RlOgo+IE9uIE1vbiwgSmFuIDE1LCAy
+MDI0IGF0IDAyOjIwOjA0UE0gKzAxMDAsIFJhcGhhZWwgR2FsbGFpcy1Qb3Ugd3JvdGU6Cj4+IEFk
+ZCAic3Qsc3RtMzJtcDI1LWx2ZHMiIGNvbXBhdGlibGUuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFJh
+cGhhZWwgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFpcy1wb3VAZm9zcy5zdC5jb20+Cj4+IC0t
+LQo+PiBEZXBlbmRzIG9uOiAiZHQtYmluZGluZ3M6IHN0bTMyOiBhZGQgY2xvY2tzIGFuZCByZXNl
+dCBiaW5kaW5nIGZvcgo+PiAJICAgIHN0bTMybXAyNSBwbGF0Zm9ybSIgYnkgR2FicmllbCBGZXJu
+YW5kZXoKPj4KPj4gQ2hhbmdlcyBpbiB2MzoKPj4gCS0gQ2xhcmlmeSBjb21taXQgZGVwZW5kZW5j
+eQo+PiAJLSBGaXggaW5jbHVkZXMgaW4gdGhlIGV4YW1wbGUKPj4gCS0gRml4IFlBTUwKPj4gCS0g
+QWRkICJjbG9jay1jZWxscyIgZGVzY3JpcHRpb24KPj4gCS0gcy9yZWdyb3Vwcy9pcyBjb21wb3Nl
+ZCBvZi8KPj4gCS0gQ2hhbmdlZCBjb21wYXRpYmxlIHRvIHNob3cgU29DIHNwZWNpZmljaXR5Cj4+
+Cj4+IENoYW5nZXMgaW4gdjI6Cj4+IAktIFN3aXRjaCBjb21wYXRpYmxlIGFuZCBjbG9jay1jZWxs
+cyByZWxhdGVkIGFyZWFzCj4+IAktIFJlbW92ZSBmYXVsdHkgI2luY2x1ZGUgaW4gdGhlIGV4YW1w
+bGUuCj4+IAktIEFkZCBlbnRyeSBpbiBNQUlOVEFJTkVSUwo+PiAtLS0KPj4gIC4uLi9iaW5kaW5n
+cy9kaXNwbGF5L3N0LHN0bTMyLWx2ZHMueWFtbCAgICAgICB8IDExOSArKysrKysrKysrKysrKysr
+KysKPiBGaWxlbmFtZSBtYXRjaGluZyBjb21wYXRpYmxlLgoKSGkgUm9iLAoKCkkgd2FzIHVuc3Vy
+ZSBhYm91dCB0aGlzLgoKVGhlIGRyaXZlciB3aWxsIGV2ZW50dWFsbHkgc3VwcG9ydCBzZXZlcmFs
+IFNvQ3Mgd2l0aCBkaWZmZXJlbnQgY29tcGF0aWJsZXMsCndvdWxkbid0IHRoaXMgYmUgbW9yZSBj
+b25mdXNpbmcgPwoKSSBhbHNvIHdhbnRlZCB0byBrZWVwIHRoZSBzaW1pbGFyaXR5IHdpdGggdGhl
+ICJzdCxzdG0zMi08aXA+LnlhbWwiIG5hbWUgZm9yIHRoZQpEUk0gU1RNIGRyaXZlcnMuIFdvdWxk
+IHRoYXQgYmUgcG9zc2libGUgPwoKClJlZ2FyZHMsCgpSYXBoYcOrbAoKCgo+Cj4+ICtwcm9wZXJ0
+aWVzOgo+PiArICBjb21wYXRpYmxlOgo+PiArICAgIGNvbnN0OiBzdCxzdG0zMm1wMjUtbHZkcwo+
+Cj4+ICtleGFtcGxlczoKPj4gKyAgLSB8Cj4+ICsgICAgI2luY2x1ZGUgPGR0LWJpbmRpbmdzL2Ns
+b2NrL3N0LHN0bTMybXAyNS1yY2MuaD4KPj4gKyAgICAjaW5jbHVkZSA8ZHQtYmluZGluZ3MvcmVz
+ZXQvc3Qsc3RtMzJtcDI1LXJjYy5oPgo+PiArCj4+ICsgICAgbHZkczogbHZkc0A0ODA2MDAwMCB7
+Cj4+ICsgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3RtMzItbHZkcyI7Cj4gV3JvbmcgY29tcGF0
+aWJsZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
