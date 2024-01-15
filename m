@@ -2,79 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 947FB82DE90
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 18:39:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F226382E002
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jan 2024 19:35:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CAC1C6B457;
-	Mon, 15 Jan 2024 17:39:41 +0000 (UTC)
-Received: from mail.tbssa.com.br (mail.tbssa.com.br [179.127.80.113])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E786C6B457;
+	Mon, 15 Jan 2024 18:35:14 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90AA7C6DD66
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A92A6C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jan 2024 13:28:37 +0000 (UTC)
-Received: by tubsanea-netservices (Postfix, from userid 106)
- id 1896EA254C; Mon, 15 Jan 2024 10:28:01 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tbssa.com.br; s=mail;
- t=1705325281; bh=sHBPb8N1lZIHk9syHw/c3A6MNHtpG++Tq2m9T0ynZE4=;
- h=Subject:To:From:Date:Reply-To:From;
- b=KMOSIBDeSVLjVzFSZfWIk344PmPL44Df1qI/D9rN7UJ7vjKdARFvPtb7kj5g8kMSY
- oHfHbui7kDR1Oc3BiccLwzkkgDIJwp73IDRdNjKV5g1rE7Og6+0mJzUoR7JvJPrdiW
- WmmKDTjvw28VRTjexEB1fR++51Wlrzg8ShKmIUetpLDfa0JxdqyJCSnb9IYsSJGXCG
- /qLW1CXbGEX7fWGm0wu14voEWlQXVyO2CAEkw8cgHyh4PXKZY3vy8RRyqaKbt4aOp6
- TpMcB57RFs+L+CMYQvxJby01GIpvgS2uhtknzY29Yxqqq4SGUcnQKzF6MHyX0xQGu0
- jM/Zk/Q/gqvsQ==
-Received: from zimbra.tbssa.com.br (unknown [192.168.190.7])
- by tubsanea-netservices (Postfix) with ESMTP id DA240A11D7;
- Mon, 15 Jan 2024 10:18:38 -0300 (-03)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra.tbssa.com.br (Postfix) with ESMTP id 15B4B144D7E93;
- Sun, 14 Jan 2024 15:01:01 -0300 (-03)
-Received: from zimbra.tbssa.com.br ([127.0.0.1])
- by localhost (zimbra.tbssa.com.br [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id vrjObNZZLHz4; Sun, 14 Jan 2024 15:01:01 -0300 (-03)
-Received: from localhost (localhost [127.0.0.1])
- by zimbra.tbssa.com.br (Postfix) with ESMTP id AFB4D144D7EBB;
- Sun, 14 Jan 2024 14:56:59 -0300 (-03)
-X-Virus-Scanned: amavisd-new at tbssa.com.br
-Received: from zimbra.tbssa.com.br ([127.0.0.1])
- by localhost (zimbra.tbssa.com.br [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id Daw5UWXa1cqk; Sun, 14 Jan 2024 14:56:59 -0300 (-03)
-Received: from [192.168.1.42] (unknown [177.54.157.16])
- by zimbra.tbssa.com.br (Postfix) with ESMTPSA id BCDD6145A1E87;
- Sun, 14 Jan 2024 14:53:20 -0300 (-03)
+ Mon, 15 Jan 2024 18:35:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 23D81B80159;
+ Mon, 15 Jan 2024 18:35:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7CFC433C7;
+ Mon, 15 Jan 2024 18:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1705343711;
+ bh=A/NUlrmkYC1Tdahi24UVZlzPpmQ3KRyTa0ARP/oeSNw=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
+ b=d7EoQMaLtJzqBcczk12hENAP5xZuFi6rZJZ5i1dH6Y+LcK8ASjn4Y45PPpIIRR9px
+ EbbbH480qegzsHehZmpjBDsL1RybLAoWYEi0uIcEiDPnjebO3/6DnnyKElVzMXJjb2
+ pNS1kJ3WZPy9PhYDJunN2xkEBw4cSsILBNBiixbekH5xc3L/h89XYN/7i1avFH43dv
+ eq/LgxhJ2QITmcZ2Rc8bfgtNOvHNuJJAHxhMCbIUVYgcIf8xaneYENqApfKBY/Ct71
+ uQEY88damXIcjdfHDkHLlhLPcEWGaK9S/3KOSYaJVuMAiwmp8D22VoGYONNQO2326c
+ n1t/ULLQs+w3g==
+Date: Mon, 15 Jan 2024 12:35:10 -0600
 MIME-Version: 1.0
-To: Recipients <elizandro.ferreira@tbssa.com.br>
-From: BILL GATES DONATION<elizandro.ferreira@tbssa.com.br>
-Date: Sun, 14 Jan 2024 20:53:10 +0300
-Message-Id: <20240114175321.BCDD6145A1E87@zimbra.tbssa.com.br>
-X-Spam-Result:  - ARC_NA[0.00]: ARC signature absent
- - FORGED_RECIPIENTS[2.00]: Recipients are not the same as RCPT TO: mail command; elizandro.ferreira@tbssa.com.br; linuxinit@gmail.com ...
- - FREEMAIL_ENVRCPT[0.00]: Envelope Recipient is a Freemail address; gmail.com; linuxmail.org
- - FREEMAIL_REPLYTO[0.00]: Reply-To is a Freemail address; outlook.com
- - FROM_EQ_ENVFROM[0.00]: From address is the same as the envelope
- - FROM_HAS_DN[0.00]: From header has a display name
- - HAS_REPLYTO[0.00]: Has Reply-To header; foundation36@outlook.com
- - LOCAL_DOMAINS[0.00]: tbssa.com.br
- - MIME_GOOD[-0.10]: Known content-type; multipart/alternative; text/plain
- - MIME_TRACE[0.00]: 0:+; 1:+; 2:~
- - RCPT_COUNT_ONE[0.00]: One recipient; 1
- - RCVD_COUNT_FIVE[0.00]: Message has 5-7 Received headers; 6
- - RCVD_NO_TLS_LAST[0.10]: Last hop did not use encrypted transports
- - RCVD_VIA_SMTP_AUTH[0.00]: Authenticated hand-off was seen in Received headers
- - REPLYTO_DOM_NEQ_FROM_DOM[0.00]: Reply-To domain does not match the From domain
- - RULES_SENDER_DOMAIN_R0001_1[0.00]: [CUSTOM_RULES_R0001] ; tbssa.com.br
- - R_NO_SPACE_IN_FROM[1.00]: No space in from header
- - TO_DN_ALL[0.00]: All the recipients have display names
- - TO_DN_RECIPIENTS[2.00]: To header display name is \"Recipients\"
- - TO_EQ_FROM[0.00]: To address matches the From address
- - TRUSTED_NETWORK[-30.00]: Endereço IP de origem faz parte das redes confiáveis; 192.168.190.7
-X-Spam-Flag: NO
-X-Spam-Scanner: OSTEC Anti-Spam on tubsanea-netservices
-X-Spam-Scan-Time: 0.376 seconds
-X-Spam-Scores: -25.0 / 2.7
-X-Mailman-Approved-At: Mon, 15 Jan 2024 17:39:40 +0000
-Subject: [Linux-stm32] Good day
+From: Rob Herring <robh@kernel.org>
+To: Mao Jinlong <quic_jinlmao@quicinc.com>
+In-Reply-To: <20240115164252.26510-3-quic_jinlmao@quicinc.com>
+References: <20240115164252.26510-1-quic_jinlmao@quicinc.com>
+ <20240115164252.26510-3-quic_jinlmao@quicinc.com>
+Message-Id: <170534370911.1098380.1193154530422251358.robh@kernel.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ James Clark <james.clark@arm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Leo Yan <leo.yan@linaro.org>, coresight@lists.linaro.org,
+ linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: arm: Add device-name
+ in the coresight components
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,55 +61,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: foundation36@outlook.com
-Content-Type: multipart/mixed; boundary="===============6628973206752526795=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-You will not see this in a MIME-aware mail reader.
---===============6628973206752526795==
-Content-Type: multipart/alternative; boundary="===============1224253348=="
 
-You will not see this in a MIME-aware mail reader.
---===============1224253348==
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
+On Mon, 15 Jan 2024 08:42:48 -0800, Mao Jinlong wrote:
+> device-name is used to provide a better description of the coresight
+> device. It can provide the info like the system or HW it belongs to.
+> 
+> Signed-off-by: Mao Jinlong <quic_jinlmao@quicinc.com>
+> ---
+>  .../devicetree/bindings/arm/arm,coresight-catu.yaml          | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-cpu-debug.yaml     | 5 +++++
+>  Documentation/devicetree/bindings/arm/arm,coresight-cti.yaml | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-dummy-sink.yaml    | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-dummy-source.yaml  | 5 +++++
+>  .../bindings/arm/arm,coresight-dynamic-funnel.yaml           | 5 +++++
+>  .../bindings/arm/arm,coresight-dynamic-replicator.yaml       | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-etb10.yaml         | 5 +++++
+>  Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-static-funnel.yaml | 5 +++++
+>  .../bindings/arm/arm,coresight-static-replicator.yaml        | 5 +++++
+>  Documentation/devicetree/bindings/arm/arm,coresight-stm.yaml | 5 +++++
+>  Documentation/devicetree/bindings/arm/arm,coresight-tmc.yaml | 5 +++++
+>  .../devicetree/bindings/arm/arm,coresight-tpiu.yaml          | 5 +++++
+>  .../devicetree/bindings/arm/qcom,coresight-tpda.yaml         | 5 +++++
+>  .../devicetree/bindings/arm/qcom,coresight-tpdm.yaml         | 5 +++++
+>  16 files changed, 80 insertions(+)
+> 
 
-Greetings to you, you have been Donated ($5,000,000.00 USD) CONTACT WIH YOU=
-R DETAILS Your full names................. Your contact address............=
-.... Your personal telephone number............... SEND YOUR ABOVE DETAILS =
-TO my Email: foundation36@outlook.com Remain Blessed Regards Bill Gates Fou=
-ndation.
---===============1224253348==
-Content-Type: text/html; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
+My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
+on your patch (DT_CHECKER_FLAGS is new in v5.13):
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3Diso-8859-1"/></head>Greetings to you, you have been Donated ($5,000,000.=
-00 USD)
-CONTACT WIH YOUR DETAILS
-Your full names.................
-Your contact address................
-Your personal telephone number...............
-SEND YOUR ABOVE DETAILS TO my Email: foundation36@outlook.com
-Remain Blessed
-Regards
-Bill Gates Foundation.</html>
---===============1224253348==--
+yamllint warnings/errors:
 
---===============6628973206752526795==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/arm,coresight-etm.yaml: device-name: missing type definition
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240115164252.26510-3-quic_jinlmao@quicinc.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6628973206752526795==--
