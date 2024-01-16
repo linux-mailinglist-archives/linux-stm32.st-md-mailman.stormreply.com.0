@@ -2,50 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83CBE82E501
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 01:28:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1E0682E978
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 07:22:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 411CAC6B476;
-	Tue, 16 Jan 2024 00:28:42 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D8D1C6B457;
+	Tue, 16 Jan 2024 06:22:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE042C6B457
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3410C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jan 2024 00:28:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 28CA7CE18C8;
- Tue, 16 Jan 2024 00:28:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162A5C433F1;
- Tue, 16 Jan 2024 00:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705364918;
- bh=BGf1PfJAL6tSG+g84pxl6A13Gif8hEgP9PDgNfluJfA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TX40ABdRxDNhp5n1zxzd/+3FjaM999vLzsfVifWaNOvOyJhGXC5JvXCDn1PrGf3ZP
- oepd3AyuXRtJtsE33pjYyVNujRcT/EAtz0FP+xZiF8MuuLfGBNiCgfiVCaGlDeVTS9
- N9MH4njCQY7w6Qt9hsgMvMZOEMyximEUNXudnCnvZAFn6XbpUjw1zxGwaysJb9BeZ1
- otPiZKvbsxb35+AgHcCVMRBqUiEeP8nYM5/a4dW8zPip8h+yeeHXi7VGj6ETHCx7VQ
- 5nhrQG41b3aM0MiiNeYyBBejlJ69l9bvuXXL/KzZE6T2PPJbhBt5eZb/gFZ0MP93EH
- y+0OmHXAgvrzg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Mon, 15 Jan 2024 19:28:01 -0500
-Message-ID: <20240116002817.216837-8-sashal@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240116002817.216837-1-sashal@kernel.org>
-References: <20240116002817.216837-1-sashal@kernel.org>
+ Tue, 16 Jan 2024 06:22:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1705386167; x=1736922167;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=T2HUSRrSF0gl6JOqX4YdcfSMQQjj74IfOdQ2rVoRLys=;
+ b=QM/5AU6b2WLKLeS9U0lskq+zigP94aLkKJ6RDWS6OlDf4eI2bBAZDYDP
+ pKOhpHARO3TBr6aCC0hIn3PcjVt4ho/Dsh9BbEHUrtCtgzY9t12SF1gA5
+ 0jjhaouV5hFUSbtdGmdoxo3ff8QXX8gMEFMaaTTERRRJqzsZX7RqzOnE5
+ EUQfbY3m0o6VfYW5YSQ5d+fyyWxtgR6AkanT2VynVqEP0s8/KvJiO9Cdx
+ JSrzZKEywspi5la7nC5ltOJrVKqN74RxqOrmiU1qp8MAy4nHMJt3qmPhD
+ af2RWWXe8rE/NNFNy0e1/9ykeIWFk1pIueTqTF0Os/FltK+BTOn62aCu9 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="390217878"
+X-IronPort-AV: E=Sophos;i="6.04,198,1695711600"; d="scan'208";a="390217878"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2024 22:22:44 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="733504139"
+X-IronPort-AV: E=Sophos;i="6.04,198,1695711600"; d="scan'208";a="733504139"
+Received: from lkp-server01.sh.intel.com (HELO 961aaaa5b03c) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 15 Jan 2024 22:22:40 -0800
+Received: from kbuild by 961aaaa5b03c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rPcqM-00006u-2E;
+ Tue, 16 Jan 2024 06:22:38 +0000
+Date: Tue, 16 Jan 2024 14:22:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Message-ID: <202401161447.0AQqNEiO-lkp@intel.com>
+References: <20240115135249.296822-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 4.19.305
-Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
- linux-stm32@st-md-mailman.stormreply.com, kernel test robot <lkp@intel.com>,
- linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 4.19 08/12] crypto: stm32/crc32 - fix
-	parsing list of devices
+Content-Disposition: inline
+In-Reply-To: <20240115135249.296822-5-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Paul Gazzillo <paul@pgazz.com>,
+ Necip Fazil Yildiran <fazilyildiran@gmail.com>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, oe-kbuild-all@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/4] remoteproc: stm32: Add support of an
+ OP-TEE TA to load the firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,47 +74,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
+Hi Arnaud,
 
-[ Upstream commit 0eaef675b94c746900dcea7f6c41b9a103ed5d53 ]
+kernel test robot noticed the following build warnings:
 
-smatch warnings:
-drivers/crypto/stm32/stm32-crc32.c:108 stm32_crc_get_next_crc() warn:
-can 'crc' even be NULL?
+[auto build test WARNING on remoteproc/rproc-next]
+[also build test WARNING on robh/for-next linus/master v6.7 next-20240112]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Use list_first_entry_or_null instead of list_first_entry to retrieve
-the first device registered.
-The function list_first_entry always return a non NULL pointer even if
-the list is empty. Hence checking if the pointer returned is NULL does
-not tell if the list is empty or not.
+url:    https://github.com/intel-lab-lkp/linux/commits/Arnaud-Pouliquen/remoteproc-Add-TEE-support/20240115-215613
+base:   git://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
+patch link:    https://lore.kernel.org/r/20240115135249.296822-5-arnaud.pouliquen%40foss.st.com
+patch subject: [PATCH 4/4] remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+config: alpha-kismet-CONFIG_TEE_REMOTEPROC-CONFIG_STM32_RPROC-0-0 (https://download.01.org/0day-ci/archive/20240116/202401161447.0AQqNEiO-lkp@intel.com/config)
+reproduce: (https://download.01.org/0day-ci/archive/20240116/202401161447.0AQqNEiO-lkp@intel.com/reproduce)
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/r/202311281111.ou2oUL2i-lkp@intel.com/
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/202311281111.ou2oUL2i-lkp@intel.com/
-Signed-off-by: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/crypto/stm32/stm32_crc32.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401161447.0AQqNEiO-lkp@intel.com/
 
-diff --git a/drivers/crypto/stm32/stm32_crc32.c b/drivers/crypto/stm32/stm32_crc32.c
-index de645bf84980..04adc84d677c 100644
---- a/drivers/crypto/stm32/stm32_crc32.c
-+++ b/drivers/crypto/stm32/stm32_crc32.c
-@@ -98,7 +98,7 @@ static struct stm32_crc *stm32_crc_get_next_crc(void)
- 	struct stm32_crc *crc;
- 
- 	spin_lock_bh(&crc_list.lock);
--	crc = list_first_entry(&crc_list.dev_list, struct stm32_crc, list);
-+	crc = list_first_entry_or_null(&crc_list.dev_list, struct stm32_crc, list);
- 	if (crc)
- 		list_move_tail(&crc->list, &crc_list.dev_list);
- 	spin_unlock_bh(&crc_list.lock);
+kismet warnings: (new ones prefixed by >>)
+>> kismet: WARNING: unmet direct dependencies detected for TEE_REMOTEPROC when selected by STM32_RPROC
+   
+   WARNING: unmet direct dependencies detected for TEE_REMOTEPROC
+     Depends on [n]: REMOTEPROC [=y] && OPTEE [=n]
+     Selected by [y]:
+     - STM32_RPROC [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && REMOTEPROC [=y]
+
 -- 
-2.43.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
