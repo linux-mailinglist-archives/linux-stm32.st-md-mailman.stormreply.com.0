@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1846182E49F
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 01:23:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DBE82E4B5
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 01:24:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F639C6B457;
-	Tue, 16 Jan 2024 00:23:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCDA9C6B457;
+	Tue, 16 Jan 2024 00:24:52 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5804FC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDD35C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jan 2024 00:23:48 +0000 (UTC)
+ Tue, 16 Jan 2024 00:24:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1E1AFCE18C8;
- Tue, 16 Jan 2024 00:23:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC84C433C7;
- Tue, 16 Jan 2024 00:23:43 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id DE503CE18CA;
+ Tue, 16 Jan 2024 00:24:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9824CC433C7;
+ Tue, 16 Jan 2024 00:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705364625;
- bh=K4xgG6Zt6TW6EJG0eRUViQAzIY/jyHuCmxXtXWtqEng=;
+ s=k20201202; t=1705364688;
+ bh=cgcRAiYk9vNMeMeB7RPaExiqCoReMDxjFFMz4hwr2P0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hL9eZ5PLPijE7Qm3JfMhxQuAH8pL+6JOHT29+CzgGLSlpSNzMeS1bj3CPTn9PEVFX
- GVal0UkQTheWrE1CRCDslZUj1YoT6LS5Fha0WNfr0pA15Ibb5d4vbc+N7pAsYdp5HS
- PkswocltFGLIefhdSK1HeGmfFbMlT85TH68vWLGWzhU1+HL9RnMlZOH9S3Wj+EdW+b
- XcYIKFuNEx5AwxlhPP2yPU/r93D05RHhn5PQJaHEwKNWY/MePe7+A80cJdErGFhgyc
- 0++vZLl5jHSPTtdrayWR3IJAEPOHL2DjlcPjbotpJ94h2zZu2MZmrybYQYulfuaKOP
- w0dEPTv4PAzwA==
+ b=kj82J9x751w7k9cZ+w2kOlVwSL4+Ren9330jSGDsIJgiumJnTjV96L+OnEYjM2sy9
+ KiZHYdBQHRHkKCQotm0Key470sY1LR4mg3ot4WPdWfLi7+r+4Sd+x9WTVNu/vVpgEv
+ o/EWS54GEx4TweqDHHmafRiNVkGzNyJLl1VFBpdiEmb8whUm7A9yWRvtmvIN2SgFMx
+ UqNv76/HtiNYLmhSfxA6SRAxZUqSv+li+u0f54plCWxv08mEFDQHQxix3if0FY8ZEz
+ SoeTvvUgpnoJPxhOCv+uwZJJ7vYRHNOPDEehxp09+7N6P6gs5RdnLMeTiqyh9y2wJL
+ tmR509PozfY/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 15 Jan 2024 19:22:50 -0500
-Message-ID: <20240116002311.214705-14-sashal@kernel.org>
+Date: Mon, 15 Jan 2024 19:23:49 -0500
+Message-ID: <20240116002413.215163-14-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240116002311.214705-1-sashal@kernel.org>
-References: <20240116002311.214705-1-sashal@kernel.org>
+In-Reply-To: <20240116002413.215163-1-sashal@kernel.org>
+References: <20240116002413.215163-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7
+X-stable-base: Linux 6.6.12
 Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
  ebiggers@google.com, linux-stm32@st-md-mailman.stormreply.com,
  kernel test robot <lkp@intel.com>, linux-crypto@vger.kernel.org,
  mcoquelin.stm32@gmail.com, u.kleine-koenig@pengutronix.de, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.7 14/19] crypto: stm32/crc32 - fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 14/19] crypto: stm32/crc32 - fix
 	parsing list of devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -89,7 +89,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/crypto/stm32/stm32-crc32.c b/drivers/crypto/stm32/stm32-crc32.c
-index b2d5c8921ab3..b0cf6d2fd352 100644
+index 90a920e7f664..c439be1650c8 100644
 --- a/drivers/crypto/stm32/stm32-crc32.c
 +++ b/drivers/crypto/stm32/stm32-crc32.c
 @@ -104,7 +104,7 @@ static struct stm32_crc *stm32_crc_get_next_crc(void)
