@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DBE82E4B5
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 01:24:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CC282E4C8
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 01:25:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BCDA9C6B457;
-	Tue, 16 Jan 2024 00:24:52 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D362CC6B457;
+	Tue, 16 Jan 2024 00:25:43 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDD35C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4634C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jan 2024 00:24:50 +0000 (UTC)
+ Tue, 16 Jan 2024 00:25:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id DE503CE18CA;
- Tue, 16 Jan 2024 00:24:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9824CC433C7;
- Tue, 16 Jan 2024 00:24:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id B193860FF9;
+ Tue, 16 Jan 2024 00:25:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4DCBC433C7;
+ Tue, 16 Jan 2024 00:25:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705364688;
+ s=k20201202; t=1705364741;
  bh=cgcRAiYk9vNMeMeB7RPaExiqCoReMDxjFFMz4hwr2P0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kj82J9x751w7k9cZ+w2kOlVwSL4+Ren9330jSGDsIJgiumJnTjV96L+OnEYjM2sy9
- KiZHYdBQHRHkKCQotm0Key470sY1LR4mg3ot4WPdWfLi7+r+4Sd+x9WTVNu/vVpgEv
- o/EWS54GEx4TweqDHHmafRiNVkGzNyJLl1VFBpdiEmb8whUm7A9yWRvtmvIN2SgFMx
- UqNv76/HtiNYLmhSfxA6SRAxZUqSv+li+u0f54plCWxv08mEFDQHQxix3if0FY8ZEz
- SoeTvvUgpnoJPxhOCv+uwZJJ7vYRHNOPDEehxp09+7N6P6gs5RdnLMeTiqyh9y2wJL
- tmR509PozfY/Q==
+ b=lwACQQZmBBoKMD8Rui4ANcqMyTbhzGJK4XK6WHXOacaVbkqvPD3o8uV8a6p2RFgyh
+ bl26BuozpjJsR0UFhfM9RhSPdnm6i4FBk0VRglJXDvoKuz0gR4J8KWyR9lH6PCZg53
+ UmopZN+BdLiBCnKl7UkdaeWPYLbGhIX1UFY1d5M6pIx3dpIXxmEFpyfcABx+Mi1Oq3
+ G8YHL22FAIzKiRG0tXza9uuYQuU9RVN98b8TSwcMA1nsanw26SU/zriVm4QhKYL0k4
+ ZWnnuj/3RkmgbWT5aA/QMVknfoXW2EhxZMBjRoWXw2O1CqNw7wMmrB/NhK+6kQD6/r
+ yaqBBbje6TJLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 15 Jan 2024 19:23:49 -0500
-Message-ID: <20240116002413.215163-14-sashal@kernel.org>
+Date: Mon, 15 Jan 2024 19:24:52 -0500
+Message-ID: <20240116002512.215607-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240116002413.215163-1-sashal@kernel.org>
-References: <20240116002413.215163-1-sashal@kernel.org>
+In-Reply-To: <20240116002512.215607-1-sashal@kernel.org>
+References: <20240116002512.215607-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.6.12
+X-stable-base: Linux 6.1.73
 Cc: Sasha Levin <sashal@kernel.org>, Herbert Xu <herbert@gondor.apana.org.au>,
  ebiggers@google.com, linux-stm32@st-md-mailman.stormreply.com,
  kernel test robot <lkp@intel.com>, linux-crypto@vger.kernel.org,
  mcoquelin.stm32@gmail.com, u.kleine-koenig@pengutronix.de, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, Dan Carpenter <error27@gmail.com>
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 14/19] crypto: stm32/crc32 - fix
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.1 10/14] crypto: stm32/crc32 - fix
 	parsing list of devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
