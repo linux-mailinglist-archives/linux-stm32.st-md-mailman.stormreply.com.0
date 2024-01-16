@@ -2,42 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424B082ECD7
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 11:42:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 678F582EDC8
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jan 2024 12:35:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC511C6B457;
-	Tue, 16 Jan 2024 10:42:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15423C6B457;
+	Tue, 16 Jan 2024 11:35:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 860B0C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E82D2C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jan 2024 10:42:08 +0000 (UTC)
+ Tue, 16 Jan 2024 11:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1705401728; x=1736937728;
+ t=1705404912; x=1736940912;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=2Ww94hOka7bc310crAy9GxymCCMXbFrTe/1MjrnzhhE=;
- b=h7wXhzqoiIH4ZAHAnae3Pkt3oqIGXSrFK3kiZBoXajHUwPFQxhmO3ziV
- 2tqYZVItxwv8CwlijY3D/faZrVsPfJXFe8I32vPU7JFSn2hJhG8LZXNXJ
- QyVnbAO/AwXe2FvNMcAIY67OhyHiLxiS7vFO8V2E4WDVyFpPthghIXh5s
- S770OdakbK078jEKzkZHGNjGZCrpo5fLn6yIi6K7jjesCYcLoqE9ARCPD
- wdIcoswRKgqGMmnufMijxqSqhNmQ2l73SrLkSaizMXISRcaBNkleqo2BG
- 9QmgzTFub5Io93mWVyPEikNwzOSBriK4/unMO1rM8Gm22tVlcX4TZLmnL w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="396980942"
-X-IronPort-AV: E=Sophos;i="6.04,198,1695711600"; d="scan'208";a="396980942"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2024 02:42:06 -0800
+ bh=pDRoozCoSvSnaG9Is1Yrkh4GD9ZgaI1XvL1QIBhfKro=;
+ b=Nmf9Mcirls1O5PDG1OWEZUe4mU+oCHFqOhM5muG62kxCesNTDkUiMW0+
+ izIB+Ui+eoBAFE0FAPTr8RAaZG6UPx2rJm/9o6k+nwF7HCCScWgLdS/CZ
+ +mBTQBcd4P95NqZSQiRviyLCsqjyP63xGQ+pyPGl1SFChDX8krV7N2Zgz
+ rwxXzQS7AHtSKBtTsCOYZhO/b1YsToIaHINmGGOnG+kcrekS32/5mpmS9
+ gOmVU+48lFhxwoMYDcM9SpyXZ4X7jZAfiIRdcYFII0t+/cP1kJOtUbMGe
+ 0cnZcMjKwNPsZyGDdb+ouuw2d8vShoBtPOnLof9Ja0/g8FmBtOxW6K+LN A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="13337833"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="13337833"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2024 03:35:10 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.04,198,1695711600"; d="scan'208";a="32413533"
+X-IronPort-AV: E=McAfee;i="6600,9927,10954"; a="760151374"
+X-IronPort-AV: E=Sophos;i="6.05,199,1701158400"; d="scan'208";a="760151374"
 Received: from lkp-server01.sh.intel.com (HELO 961aaaa5b03c) ([10.239.97.150])
- by orviesa001.jf.intel.com with ESMTP; 16 Jan 2024 02:42:02 -0800
+ by orsmga006.jf.intel.com with ESMTP; 16 Jan 2024 03:35:03 -0800
 Received: from kbuild by 961aaaa5b03c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rPgtK-0000ZY-2i;
- Tue, 16 Jan 2024 10:41:58 +0000
-Date: Tue, 16 Jan 2024 18:41:56 +0800
+ (envelope-from <lkp@intel.com>) id 1rPhif-0000dH-0f;
+ Tue, 16 Jan 2024 11:35:01 +0000
+Date: Tue, 16 Jan 2024 19:34:07 +0800
 From: kernel test robot <lkp@intel.com>
 To: Mao Jinlong <quic_jinlmao@quicinc.com>,
  Suzuki K Poulose <suzuki.poulose@arm.com>,
@@ -51,7 +52,7 @@ To: Mao Jinlong <quic_jinlmao@quicinc.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>
-Message-ID: <202401161834.N4E6YW3K-lkp@intel.com>
+Message-ID: <202401161905.KuRUhKW4-lkp@intel.com>
 References: <20240115164252.26510-2-quic_jinlmao@quicinc.com>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -80,10 +81,10 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi Mao,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on robh/for-next]
-[also build test WARNING on linus/master v6.7 next-20240112]
+[auto build test ERROR on robh/for-next]
+[also build test ERROR on linus/master v6.7 next-20240112]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
@@ -92,24 +93,24 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Mao-Jinlong/coresight-cor
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
 patch link:    https://lore.kernel.org/r/20240115164252.26510-2-quic_jinlmao%40quicinc.com
 patch subject: [PATCH v2 1/2] coresight: core: Add device name support
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20240116/202401161834.N4E6YW3K-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240116/202401161834.N4E6YW3K-lkp@intel.com/reproduce)
+config: arm-randconfig-r081-20240116 (https://download.01.org/0day-ci/archive/20240116/202401161905.KuRUhKW4-lkp@intel.com/config)
+compiler: clang version 18.0.0git (https://github.com/llvm/llvm-project 9bde5becb44ea071f5e1fa1f5d4071dc8788b18c)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240116/202401161905.KuRUhKW4-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401161834.N4E6YW3K-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401161905.KuRUhKW4-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
-   drivers/hwtracing/coresight/coresight-core.c: In function 'coresight_alloc_device_name':
->> drivers/hwtracing/coresight/coresight-core.c:1775:14: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+>> drivers/hwtracing/coresight/coresight-core.c:1775:7: error: assigning to 'char *' from 'const char *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
     1775 |         name = coresight_get_device_name(dev);
-         |              ^
+         |              ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1 error generated.
 
 
-vim +/const +1775 drivers/hwtracing/coresight/coresight-core.c
+vim +1775 drivers/hwtracing/coresight/coresight-core.c
 
   1758	
   1759	/*
