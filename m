@@ -2,52 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E6583034B
-	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jan 2024 11:10:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5F48306D6
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jan 2024 14:18:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD9C2C6B457;
-	Wed, 17 Jan 2024 10:10:29 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D42BC6DD74;
+	Wed, 17 Jan 2024 13:18:35 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44DBFC6B452
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89343C6DD6E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Jan 2024 10:10:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E274DCE1BE3;
- Wed, 17 Jan 2024 10:10:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9FF6CC43390;
- Wed, 17 Jan 2024 10:10:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705486224;
- bh=ltH2gx/NkmeSjFHTVwnNNG4AcsxsBQsX+VOOFImuNsE=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=Gs849v/xnktV+VT6AsLGVXoOWnaF2qjI5b7TxxlXAgEHz8EaiymWV63JIZgG00veL
- Or3IQejwT0l5fRVloJ6WcfCDwSTHHpbILxvnJtXsVxKPZVkFXGl5w5azujol/rWwr1
- GZ6SSB3IAPRl5rEyGNE48bd3q6/e86quWKvVH1WBuMZefts88BC3N+I1B8x+xPjow2
- 7xLN4Tp2BLj1zm2kQulWhyyrxZ7U5yzonjbi1Jy5cmGvwTFQrcQahXhBaCv1n25M8n
- Dta3p4yEKWLEwahuoPnIpoAtQqMUIdbImY+WxULLx/Mr7rz3yOeyezCuUPlPhMyAG+
- 0PmHINHf3DJrQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 8722BD8C971; Wed, 17 Jan 2024 10:10:24 +0000 (UTC)
+ Wed, 17 Jan 2024 13:18:34 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40H8PCbO007691; Wed, 17 Jan 2024 14:18:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=1qNhrPs
+ JgbVSkEdgh8//+X6VT70i4GD3Lsqz0cPBVKE=; b=ZciiCWCV1+3X5S/xCXwHWKh
+ iwqWvSj/bpvuAzFXfoL9VM4GuTeB4vujgtj2cBnzD7KGTUEHkqPgd08nYEhLsDpN
+ YmQe7WMN82/mIF7jhS4YEHRWOCuC7Eas5yApOpbtmm7VK+j20w20ekUo55Pvi5yB
+ RJbwRFwzFN2B305Ip+TCq2gH8Ol58NsTtKX6mwEMJ3qL2hFcbTGlRzYxOqSZFG7Z
+ xwFjUcNOHsXSlNA5jt0k4PSmuJPyNzrvzCT2p6nX1M3Syo+UApvpG+Jc2m9J0oNZ
+ SO6ISVxhUzq2Ljc6+bdySf38/FZJ9X0xkDfwApFo+ooeyqZbBDdk2wZX3ER/65w=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vkmfym2gx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 17 Jan 2024 14:18:28 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CF998100079;
+ Wed, 17 Jan 2024 14:18:27 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6EACB2085C4;
+ Wed, 17 Jan 2024 14:18:27 +0100 (CET)
+Received: from localhost (10.252.22.63) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 17 Jan
+ 2024 14:18:27 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Wed, 17 Jan 2024 14:18:15 +0100
+Message-ID: <20240117131817.3338146-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170548622454.19813.11293177026584189048.git-patchwork-notify@kernel.org>
-Date: Wed, 17 Jan 2024 10:10:24 +0000
-References: <20240116-prevent_dsa_tags-v6-1-ec44ed59744b@bootlin.com>
-In-Reply-To: <20240116-prevent_dsa_tags-v6-1-ec44ed59744b@bootlin.com>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Cc: olteanv@gmail.com, rtresidd@electromag.com.au, pascal.eberhard@se.com,
- thomas.petazzoni@bootlin.com, andrew@lunn.ch, netdev@vger.kernel.org,
- linus.walleij@linaro.org, sylvain.girard@se.com,
- linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
- vladimir.oltean@nxp.com, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, miquel.raynal@bootlin.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v6] net: stmmac: Prevent DSA tags from
-	breaking COE
+X-Originating-IP: [10.252.22.63]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-17_08,2024-01-17_01,2023-05-22_02
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH 0/2] remoteproc: stm32: Fix sparse warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,31 +73,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Fix warnings reported by sparse using make option "C=1"
 
-This patch was applied to netdev/net.git (main)
-by David S. Miller <davem@davemloft.net>:
+Arnaud Pouliquen (2):
+  remoteproc: stm32: Fix incorrect type in assignment for va
+  remoteproc: stm32: Fix incorrect type assignment returned by
+    stm32_rproc_get_loaded_rsc_tablef
 
-On Tue, 16 Jan 2024 13:19:17 +0100 you wrote:
-> Some DSA tagging protocols change the EtherType field in the MAC header
-> e.g.  DSA_TAG_PROTO_(DSA/EDSA/BRCM/MTK/RTL4C_A/SJA1105). On TX these tagged
-> frames are ignored by the checksum offload engine and IP header checker of
-> some stmmac cores.
-> 
-> On RX, the stmmac driver wrongly assumes that checksums have been computed
-> for these tagged packets, and sets CHECKSUM_UNNECESSARY.
-> 
-> [...]
+ drivers/remoteproc/stm32_rproc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Here is the summary with links:
-  - [net,v6] net: stmmac: Prevent DSA tags from breaking COE
-    https://git.kernel.org/netdev/net/c/c2945c435c99
 
-You are awesome, thank you!
+base-commit: 0dd3ee31125508cd67f7e7172247f05b7fd1753a
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
