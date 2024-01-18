@@ -2,65 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4831B831587
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jan 2024 10:12:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 455BF83165E
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jan 2024 11:05:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC6B9C6B457;
-	Thu, 18 Jan 2024 09:12:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E738AC6DD6E;
+	Thu, 18 Jan 2024 10:05:10 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 930C1C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC8ACC6B457
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jan 2024 09:12:09 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ Thu, 18 Jan 2024 10:05:09 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40I8U27e001957; Thu, 18 Jan 2024 10:11:50 +0100
+ 40I9gTqq025691; Thu, 18 Jan 2024 11:04:44 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=LT44wAO
- mjaAsg0tliRvC01UNCZUXx9vWqUxQLz5cG+g=; b=JOxknQumFVqkmGPewGIFhcW
- VgEzl9Eyj6chqTZSrOBSfRA1tK6acLWSJWan3bLlFFCBXhacQiHEZfVZt8UKZ95s
- KC+fwOHOiNMlxOoYrrQGvUH1Cak3Wd8mf4fNNtzX6gDUL/6RSGpebg335Rxyjqyj
- 463STz6RQ5YXkhOKX80Unal+0eFDnRJ0X5jPC/uxB1tfGujMwvBzv2uBZuG5cuoe
- 4VKBb2nuzRPRetVkkUFDYcm2r9dIEm5iYYpZWEtRRT8y5x8qGgbUCQBKmdli4jnn
- UnDr+Vgx3GvpRz7+Sj3McIwGyl0zm9W3yUugwA0G8FE4/VM6MAhpLszbF8WI7yg=
+ :content-transfer-encoding:content-type; s=selector1; bh=GKqS8jq
+ xEEpUNyAQ+GwIQ0fVhoXxiu3PF3g7F74mv1g=; b=Hk4CdXV1ksC+LVQ5sYrNcdj
+ YVW3QTCU1pQ2iylO6ets36E5VeU7HqtdnrL0ILbQypQqR+jPshjDtkW4D5rfyV5q
+ pLq68VhMhJAA2uw+LtZKMHJe3qTRD/uChFIAuk1nb9OUiunnd67lHq5GO9eS6wIc
+ xj+P4c3g4h7s7VHYKqn7K/rgJRlIyhl/382Y8hU0TUZ2H4mrA+vlsQNH2uw4lrp6
+ yT3eFVUqOYSXiaoBMQD13BKgy2GM8gQUdBBk0GoYS7PE3pzAdsL7bg3QfI+sEKqI
+ t20zgGKIx1ag/kdUT3sMTpO37/0J50Zk1DW0yjKKnE8Jkj7okdiMcHdP1bLGvOA=
  =
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vkmde7t9u-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vkmbhg0sp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 18 Jan 2024 10:11:50 +0100 (CET)
+ Thu, 18 Jan 2024 11:04:44 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id BA15310007D;
- Thu, 18 Jan 2024 10:11:48 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 56946217B6B;
- Thu, 18 Jan 2024 10:11:48 +0100 (CET)
-Received: from localhost (10.201.21.102) by SHFDAG1NODE1.st.com (10.75.129.69)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3C8B110007D;
+ Thu, 18 Jan 2024 11:04:44 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2FB2121A223;
+ Thu, 18 Jan 2024 11:04:44 +0100 (CET)
+Received: from localhost (10.201.20.75) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 18 Jan
- 2024 10:11:48 +0100
-From: Valentin Caron <valentin.caron@foss.st.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Thu, 18 Jan 2024 10:11:35 +0100
-Message-ID: <20240118091135.3314330-1-valentin.caron@foss.st.com>
+ 2024 11:04:43 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>
+Date: Thu, 18 Jan 2024 11:04:29 +0100
+Message-ID: <20240118100433.3984196-1-arnaud.pouliquen@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.102]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
+X-Originating-IP: [10.201.20.75]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.997,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-18_04,2024-01-17_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v2] dt-bindings: serial: stm32: add
-	power-domains property
+ definitions=2024-01-18_05,2024-01-17_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2 0/4] Introduction of a remoteproc tee to
+	load signed firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,33 +77,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-STM32 serial may be in a power domain.
-Allow a single 'power-domains' entry for STM32 serial devices.
+Updates from the previous version [1]
+- fix issues reported by kernel test robot,
+- address Rob Herring comment on bindings.
 
-Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
----
-Since v1:
- - Change commit message after Krzysztof review
+[1] https://lore.kernel.org/linux-arm-kernel/20240115135249.296822-1-arnaud.pouliquen@foss.st.com/T/
 
- Documentation/devicetree/bindings/serial/st,stm32-uart.yaml | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-index 1df8ffe95fc61..62f97da1b2fd7 100644
---- a/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-+++ b/Documentation/devicetree/bindings/serial/st,stm32-uart.yaml
-@@ -58,6 +58,9 @@ properties:
- 
-   wakeup-source: true
- 
-+  power-domains:
-+    maxItems: 1
-+
-   rx-threshold:
-     description:
-       If value is set to 1, RX FIFO threshold is disabled.
+This series proposes the implementation of a remoteproc tee driver to
+communicate with a TEE trusted application responsible for authenticating and
+loading the remoteproc firmware image in an Arm secure context.
 
-base-commit: 0c84bea0cabc4e2b98a3de88eeb4ff798931f056
+1) Principle:
+
+The remoteproc tee driver provides services to communicate with the OP-TEE
+trusted application running on the Trusted Execution Context (TEE).
+The trusted application in TEE manages the remote processor lifecycle:
+
+- authenticating and loading firmware images,
+- isolating and securing the remote processor memories,
+- supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
+- managing the start and stop of the firmware by the TEE.
+
+2) Format of the signed image:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/src/remoteproc_core.c#L18-L57
+
+3) OP-TEE trusted application API:
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/ta/remoteproc/include/ta_remoteproc.h
+
+4) OP-TEE signature script
+
+Refer to:
+https://github.com/OP-TEE/optee_os/blob/master/scripts/sign_rproc_fw.py
+
+Example of usage:
+sign_rproc_fw.py --in <fw1.elf> --in <fw2.elf> --out <signed_fw.sign> --key ${OP-TEE_PATH}/keys/default.pem
+
+
+5) Impact on User space Application
+
+No sysfs impact.the user only needs to provide the signed firmware image
+instead of the ELF image.
+
+
+For more information about the implementation, a presentation is available here
+(note that the format of the signed image has evolved between the presentation
+and the integration in OP-TEE).
+
+https://resources.linaro.org/en/resource/6c5bGvZwUAjX56fvxthxds
+
+Arnaud Pouliquen (4):
+  remoteproc: Add TEE support
+  dt-bindings: remoteproc: add compatibility for TEE support
+  remoteproc: stm32: create sub-functions to request shutdown and
+    release
+  remoteproc: stm32: Add support of an OP-TEE TA to load the firmware
+
+ .../bindings/remoteproc/st,stm32-rproc.yaml   |  52 ++-
+ drivers/remoteproc/Kconfig                    |   9 +
+ drivers/remoteproc/Makefile                   |   1 +
+ drivers/remoteproc/stm32_rproc.c              | 233 +++++++++--
+ drivers/remoteproc/tee_remoteproc.c           | 393 ++++++++++++++++++
+ include/linux/tee_remoteproc.h                |  99 +++++
+ 6 files changed, 740 insertions(+), 47 deletions(-)
+ create mode 100644 drivers/remoteproc/tee_remoteproc.c
+ create mode 100644 include/linux/tee_remoteproc.h
+
+
+base-commit: 0dd3ee31125508cd67f7e7172247f05b7fd1753a
 -- 
 2.25.1
 
