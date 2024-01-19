@@ -2,40 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90CA2832748
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jan 2024 11:07:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7BC28327A0
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jan 2024 11:26:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48199C6DD74;
-	Fri, 19 Jan 2024 10:07:51 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DDC9C6DD73
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64627C6DD74;
+	Fri, 19 Jan 2024 10:26:44 +0000 (UTC)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01olkn2061.outbound.protection.outlook.com [40.92.66.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5102C6DD73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jan 2024 10:07:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4F965DA7;
- Fri, 19 Jan 2024 02:08:34 -0800 (PST)
-Received: from [10.1.197.1] (ewhatever.cambridge.arm.com [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 057BD3F73F;
- Fri, 19 Jan 2024 02:07:45 -0800 (PST)
-Message-ID: <52631d2d-a2bb-4e86-af59-ff67bbf0b32a@arm.com>
-Date: Fri, 19 Jan 2024 10:07:43 +0000
-MIME-Version: 1.0
+ Fri, 19 Jan 2024 10:26:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G6cSfNkzg9JThoIC6hcp3ZUWglfmRJnEH+VAVQbKA9kl6HI5Pc1pbGJXPq7ucSh/CAe9oG4wCx1/U8NWUCzj8lUqfITbS8ixNhfvSrb7HyHcKY+WSb7Lytqzw3Rd77+yy0r+fh8WOfxwMygIpBJLY08fWTG3H7CZGjjZBqQPpz4HUatD1tABIgHzhWng9ZeJ30rnDFOY22cy095ug2R0LFfaSVUlooKIYtPfE7oXSJQkdwNIohotn6NaN27pbbgJJJTW0/uSgjACfTmdSxV7yaCeX77rW3U+TXBEQnRsw8SdRp2tCSbXXOotR3oXJTHZjds2pKgKsj7IJbEBNIkYfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iUzY8vMARfevHJNGQZ/iOTXp7aRCBYwfC35ynE4v59g=;
+ b=eo2sjA5I8hPjoPR5Na/NGFJU20C4rXTHh8gP7KlwBsaJbk8gjyBMEmtQFufbJWC5P3Mkrf/u2J3AbbFmkr50tlsX3FCyzgGj1cnhT88v8Azj6saMKxc3jsWvcZRJNL7Xuqz/dCf7dXsDJCfEdaIgbqonqBHyBEVB0endOJVA6vczA+6AW/iwpOtBCcvz56HKTsyWhaNDLF/dH7tAdOXGtkTVMEAWXVBoeNDAtqljg4VvgL9J/BCnAq/EDaVo/a6ASmluEPt37dT3VEfBiFdemyCcIvALQuYYn17eDSPNk0oZ7k9XeThEfQA2Vd9upj5Gc8STjNhee0kYW/LuNoD77g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:333::21)
+ by AM9P193MB0936.EURP193.PROD.OUTLOOK.COM (2603:10a6:20b:1fd::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Fri, 19 Jan
+ 2024 10:26:41 +0000
+Received: from AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::897e:cfd5:b29b:c611]) by AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ ([fe80::897e:cfd5:b29b:c611%6]) with mapi id 15.20.7202.024; Fri, 19 Jan 2024
+ 10:26:40 +0000
+Message-ID: <AS8P193MB1285C2DE6BCCDC8DD40E5A64E4702@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+Date: Fri, 19 Jan 2024 11:27:38 +0100
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: James Clark <james.clark@arm.com>, coresight@lists.linaro.org
-References: <20231212155407.1429121-1-james.clark@arm.com>
- <20231212155407.1429121-6-james.clark@arm.com>
- <82e9dbed-281c-4a87-8c0b-a2b1cb0a2247@arm.com>
- <cb65b58f-5c6a-ad99-095c-70b9f013b3e5@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <cb65b58f-5c6a-ad99-095c-70b9f013b3e5@arm.com>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Mao Jinlong <quic_jinlmao@quicinc.com>, linux-kernel@vger.kernel.org,
- Tao Zhang <quic_taozha@quicinc.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 5/8] coresight: Remove the 'enable' field.
+To: Paolo Abeni <pabeni@redhat.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jiri Pirko <jiri@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
+References: <AS8P193MB1285DECD77863E02EF45828BE4A1A@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <AS8P193MB1285EEAFE30C0DE7B201D33CE46C2@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
+ <f5ddf800df95cdce32637d41bc1539aed0a7b6f3.camel@redhat.com>
+From: Bernd Edlinger <bernd.edlinger@hotmail.de>
+In-Reply-To: <f5ddf800df95cdce32637d41bc1539aed0a7b6f3.camel@redhat.com>
+X-TMN: [H42hYSkfusIgBzAtCP0ZV6/lSomDHaqEx20ukHiAv+PiVAVjSp2KU0KSPiHTY5iT]
+X-ClientProxiedBy: BEXP281CA0016.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10::26)
+ To AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:20b:333::21)
+X-Microsoft-Original-Message-ID: <98a4b2bd-84d8-4fb6-8964-fe3a8eab2fd3@hotmail.de>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P193MB1285:EE_|AM9P193MB0936:EE_
+X-MS-Office365-Filtering-Correlation-Id: 243c6f85-e25d-4aec-647f-08dc18d91ff9
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: rNfKZGVANuS1fqeKkZW4gAHUSEHZqAr0tarbDlOpYvAp+X+sDQitUPo9B7LaBvTv1Sfeb2/hRabiNjvT+C9Ctd6GRqoXH4AYUJ4s2pIFt2FHQMhSVNg/W7IoTliMZ8iDU5r5GewSF1mXt/rGfxWD/KvrtpfrHbeL/IFshhfH1LEx6HDFJx7fBLWEnQbtcllHWE3vqZo14p0ZFr2qCPrQyTUTDUEtqcbyU1KJHbfOVsI0HRoj9BoHiIwEvvwQrpZxsURQXjIbwSrwMC0vSs9pIoQbFnZoITgkJ5Zx07y0q0r4n70wk06aJbzVcNxy0nIW0ZQ6ziEqguxUoX01eA136atXaQzWxxrewm3onvkY0k6PbmDuoANVrCdDNfaoq9W+pw2f6+27qIU2hwmBcmONM4dr6avJNrMey3uelseStlwDRrh0niq9+QNC9jmPTwglKnJYu1UxQly4+1FysGLBtbHD4AGvey9OkmxwyM8pC7oT2ejdFm55vXypd2+7XHVxcwDp2pt3jEHAnAa4xMvNirKT3nZUfiXMWMHggZljBfSFXIqTCHlbMfIhIRttrw0S
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXgwUkFva09ocW9oY0NTcE9FTmhzU3Y5WmgrRkpCc2VoOTgrYkFNNXhZU0FI?=
+ =?utf-8?B?ZGdEejhacUVKWWh0bWl6UkxkSGVNWWZsVlphMDhiVzZqNGdZd3c5LzBGcnRH?=
+ =?utf-8?B?aEM4STYwYnk3MEVYS0hiczZ5dmZmL1dOVkFydWprNnJndjIzV1V0dm9GaWJv?=
+ =?utf-8?B?c3A0REhKY0xIY1R1VFVINGRQamV2Mnl5M1hHY1NEMC9hQ1hCbGtNeC95VUNZ?=
+ =?utf-8?B?RkNLMXpvWkpEQkdXM0V4ajNibGRVQjZkcDBmYnJ2TnZHYTRBNDVnZEJnV2xB?=
+ =?utf-8?B?YTJpakdVOEp6ZHcvK3lQSkdoYzA4THdxeDBDVU02VUlXLzZQejEveU5CSCty?=
+ =?utf-8?B?SnJKUVBCQllWNGJZV01UWEFxd3QvdXBpSjRUY1hIUGdOcWRmWUZQeVBSWlJI?=
+ =?utf-8?B?YVZDR01lSEQ0TE05ekNHTkxEejFsOGRkRDVERmlnVUZFSHBxdlF4Yzdqcm45?=
+ =?utf-8?B?SE5mMDFmVzVpbm93MDc5NFIrTndvdS9oN05TY21FRklUbTZRQk9ydFFZNFo0?=
+ =?utf-8?B?bmIrZkhTZjhrYW1LNlFTSWxWQVg2cnNTWWxHWHpQWEJ2YURnVXZFS2RyaldW?=
+ =?utf-8?B?UHdSOC9BeEVyUWdaN1RFakhpc3VuSU5kUzh4T05NZ1dpNXVnR3JBMjFYTFVJ?=
+ =?utf-8?B?NjdnMUlRN3E5d2szU0FGMTZJMVZBM0JBcGFQcnFYZVRjdHVFZ2NFU3RjL3dJ?=
+ =?utf-8?B?QVJLRTFZSGwvUWQ4NnNFQ1ZMeVlNQUdIeENIcVZYSTB3NkhXVElxeE5XS2da?=
+ =?utf-8?B?QnM5VEJPQmhZVWxTUHRQQld3aXFwcGtCUjcwWDFXR3E5MEswSGw5dmlESDN5?=
+ =?utf-8?B?YTJxSUJZcnZZcjNPNG9qNlZKdXVOS0ZUZGREY1lPZDZDU2FVVVJoNzk1UGV4?=
+ =?utf-8?B?SFVhR2lEeEpZRVhXRWY4K1drK0FyemFXRU1icHNoTVFIVWFhbk9yLy8vZS9h?=
+ =?utf-8?B?dFlOWStmdkJvUWZJbGQwR2U5ZXZjV0lBV0dQRXR2SmQyZGdoczZMbEJOTXJR?=
+ =?utf-8?B?M0MvZXAramd4YVNHdnFXbVZiSUM1Y1FJalM4SmhhOG9mbW1tcGQ1LzczVkVj?=
+ =?utf-8?B?eTNveFY0ZHVjVVh1UnNSL09zODJHR2ZVYnkrS1B6NC80UkdXTXhpNUlYV0tn?=
+ =?utf-8?B?WFBKWi9HdENBRHRMNU9lYmVKYTB0Tk4vSE5Lc3djQ1hheVd5YVRlY2xzNG9q?=
+ =?utf-8?B?ajZLVUNRaDhuZkRaUVJXUEFlcW9Ia2pIMGJqUjIxejVIVkVHT05xQ0labEtJ?=
+ =?utf-8?B?Q3lRNFg3UkM3bnE3MUxtNjdaOWVxSVhncVA5U1JMdDlzc0FGbWNjczFHVGFl?=
+ =?utf-8?B?bkV1c0pId0l2K0l0OXYwU2xSdUphZjdybUdVSWplVEYyL1lYTnpaLzQrc2dh?=
+ =?utf-8?B?UGFrdFIwNElRMVdCejhkS1hzZU9mOEJOcGVsSHhMbEU1WE9QZnhGc2JPOFIx?=
+ =?utf-8?B?TEZuMXoxMUJSVWFPTHJXeXBESjBmS3Zpcm81OTBDL2x1anA5SzdZS3djUWdp?=
+ =?utf-8?B?bE9od0YzQUJkenphYU9LM1BueXBkTGhySGYzM2duSWJIRE1mTXVZOFRPc0ND?=
+ =?utf-8?B?ZlFkNDVrS2k4UVVuSDN3MUxEcU91VDRHbmlrRUMyY3FzQ1VaUUMwa3dUL0oz?=
+ =?utf-8?B?djBlbGdGSzJKRjFTVUl0UllUUG9UQ0JLQkMyQ01IcHpGYWl1bHg2TTdocXFh?=
+ =?utf-8?B?T3A3MkdWdk53S3l6ODFNUUFDaGkrL2tBcmpXclBMOUV0ME9EY1MzdFpLeTFC?=
+ =?utf-8?Q?d30hszZ7jQjAktY4dA=3D?=
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-80ceb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 243c6f85-e25d-4aec-647f-08dc18d91ff9
+X-MS-Exchange-CrossTenant-AuthSource: AS8P193MB1285.EURP193.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2024 10:26:40.6664 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9P193MB0936
+Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: Wait a bit for the reset
+	to take effect
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -47,67 +115,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/01/2024 09:59, James Clark wrote:
+On 1/16/24 13:22, Paolo Abeni wrote:
 > 
+> A fixes tag is requires, something alike:
 > 
-> On 08/01/2024 14:42, Suzuki K Poulose wrote:
->> Hi James
->>
->> +Cc: Tao Zhang <quic_taozha@quicinc.com>
->> +Cc: Mao Jinlong <quic_jinlmao@quicinc.com>
->>
->> On 12/12/2023 15:54, James Clark wrote:
->>> 'enable', which probably should have been 'enabled', is only ever read
->>> in the core code in relation to controlling sources, and specifically
->>> only sources in sysfs mode. Confusingly it's not labelled as such and
->>> relying on it can be a source of bugs like the one fixed by
->>> commit 078dbba3f0c9 ("coresight: Fix crash when Perf and sysfs modes are
->>> used concurrently").
->>>
->>> Most importantly, it can only be used when the coresight_mutex is held
->>> which is only done when enabling and disabling paths in sysfs mode, and
->>> not Perf mode.
->>
->>
->> I think we may be able to relax this a bit for the syfs. The sole reason
->> for holding the mutex is for the "build_path" (and get_enabled_sink)
->> where we need to make sure that no devices are removed/added. We hold
->> necessary refcount on the device and the module (via
->> coresight_grab_device()). After which, we should be able to release the
->> mutex and perform the rest without it in coresight_enable()
->>
+> Fixes: <blamed commit hash> ("<blamed commit title>")
 > 
-> After looking at the per-sink trace ID maps a bit more, I'm not sure if
-> it will be worth the mental effort and risk to relax the sysfs locking
-> right now.
+> A bisection is not strictly required, you just need to be reasonably
+> confident about the the culprit.
 > 
-> We also currently have other things like writing to the global
-> tracer_path which are outside of build_path/get_enabled_sink. But for
-> the per-sink maps change we'll also have some tracking for sysfs mode
-> about which sink map was used for each source and sink. And this state
-> will be accessed across multiple sources, and after building the path,
-> so it makes sense to leave the locking as-is for now IMO.
-> 
-> I also can't see a realistic gain from doing it, most sysfs use cases
-> would be done from a single threaded script. Maybe in the future we
-> could do the change to move the per-device locks into struct
-> coresight_device, and then the core code can use them for things that
-> need to be locked, but don't need the full coresight_mutex. And then
-> that would also work for the per-sink case. But at the moment each
-> device has its own lock so that's difficult.
 
-Ok, we could come back to this after the per-sink trace id pool work.
-My observation was about the inconsistency between the perf vs sysfs 
-mode as you mentioned in the above code.
+Okay, I think finally I found the commit that introduced
+the broken reset logic:
 
-Suzuki
+commit c5e4ddbdfa1134a36589c1466ed4abb85fe6f976
+Author: Chen-Yu Tsai <wens@csie.org>
+Date:   Fri Jan 17 21:24:41 2014 +0800
+
+    net: stmmac: Add support for optional reset control
+    
+    The DWMAC has a reset assert line, which is used on some SoCs. Add an
+    optional reset control to stmmac driver core.
+    
+    To support reset control deferred probing, this patch changes the driver
+    probe function to return the actual error, instead of just -EINVAL.
+    
+    Signed-off-by: Chen-Yu Tsai <wens@csie.org>
+    Signed-off-by: David S. Miller <davem@davemloft.net>
+
+that commit moved the reset de-assert next to the stmmac_hw_init function,
+without any delay in between.
+
+So I think I can now add
+Fixes c5e4ddbdfa11 ("net: stmmac: Add support for optional reset control")
+
+> You need to include the relevant target tree into the subj prefix (in
+> this case 'net').
+
+Will do, but please clarify how exactly I need to change the subject line.
 
 
+Thanks
+Bernd.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
