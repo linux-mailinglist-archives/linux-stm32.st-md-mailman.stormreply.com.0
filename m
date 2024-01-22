@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC787835C10
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 08:54:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E1F835C17
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 08:55:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92181C6B458;
-	Mon, 22 Jan 2024 07:54:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A78CCC6B458;
+	Mon, 22 Jan 2024 07:55:20 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E017C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92625C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jan 2024 07:54:36 +0000 (UTC)
+ Mon, 22 Jan 2024 07:55:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2051CCE2863;
- Mon, 22 Jan 2024 07:54:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50038C433C7;
- Mon, 22 Jan 2024 07:54:30 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 132D2CE2863;
+ Mon, 22 Jan 2024 07:55:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D660EC433F1;
+ Mon, 22 Jan 2024 07:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1705910073;
- bh=2su90Gj5IaJlBWuPLJpwINxwihDs/8h9SYfAyTVMhWA=;
+ s=k20201202; t=1705910117;
+ bh=OlIF/YgaBAY0KyswtUOGGdnsqxNRgTdzZnKd+teQ718=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hTAKZoKLuH2t2yUIgq5LHKfcopj5o9NUM1gYLq++7+wP6PY7JFs6T3gCgeeFtXSik
- T2sVtvlVa4Py4S1IwOwV3L/EUnwe55mlkd1Dx/FKOtd6FJZmLxvFYsCGVKWlAjVZO3
- prHwnb9QzikZhY4Rk6DYAkjKYU2qxnzudtEJHWwk6Mso/i5aWNJgkY7fedEtVDJ9UA
- sRZfgxYEi6KvQTbj5dsoRjtKiaBeA/kjq5drKQ0eLaYUC9DRmeVuDrXPLeQUWejWrX
- ua8LxiATeUmVmJvtnGIK9DvUkXUjPUM4qlamgUk6yuJr3IuchUXLdng4pzxeMojuV0
- M1LXZIH7hd4sQ==
-Message-ID: <3c40c1fb-fafc-47e2-acd0-360d7456e93b@kernel.org>
-Date: Mon, 22 Jan 2024 08:54:27 +0100
+ b=uDyYzwoQ8xCvf7wsWZYBF72Aa+S38tDJDyaj4uJmgonltMWcHGjY/BO/Hy5cGn886
+ uoB70SMEzpuE9X/6YakmQOIYpELnIj9ehkCXV1+WZf50U6VVuTgakTKvseAj7U7QPX
+ arbEXg1qPFoID/WpCszL6c7s8sTHRkAxAAVNV6x0pqoKhZae+KDBeMdLcWRNh6cxf8
+ Qfk8S809uuwjxvUmVu7ZljaalsBEU7KPIMi9oJ5xv4WO8lq7GIl0preIJw/EPsaEyK
+ fL6s1jGVTBqLYrtGiNb7QMJkswWkL+vpPtIIdPmqymVXEV+CK8JtTmZlUP6+WvZ0nx
+ GskgLhvwPsg6A==
+Message-ID: <01c61975-cc78-4045-8c60-bb11045a7c97@kernel.org>
+Date: Mon, 22 Jan 2024 08:55:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Content-Language: en-US
 To: Ziyang Huang <hzyitc@outlook.com>, mcoquelin.stm32@gmail.com
 References: <TYZPR01MB55563BD6A2B78402E4BB44D4C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
- <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
-Content-Language: en-US
+ <TYZPR01MB5556DEA3D4740441EC561414C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -80,14 +80,15 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <TYZPR01MB5556DEA3D4740441EC561414C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Abhishek Sahu <absahu@codeaurora.org>,
+ linux-mediatek@lists.infradead.org, Praveenkumar I <ipkumar@codeaurora.org>,
  p.zabel@pengutronix.de, matthias.bgg@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH 8/8] arm64: dts: qcom: ipq5018-rdp432-c2:
- enable ethernet support
+Subject: Re: [Linux-stm32] [PATCH 5/8] clk: qcom: support for duplicate freq
+ in RCG2 freq table
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,78 +100,45 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 21/01/2024 13:42, Ziyang Huang wrote:
-> Signed-off-by: Ziyang Huang <hzyitc@outlook.com>
-
-Missing commit msg.
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts_getmaintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, use mainline), work on fork of kernel (don't, use
-mainline) or you ignore some maintainers (really don't). Just use b4 and
-all the problems go away.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time, thus I will skip this patch entirely till you follow
-the process allowing the patch to be tested.
-
-Please kindly resend and include all necessary To/Cc entries.
-
-
-> ---
->  .../arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts | 52 +++++++++++++++++++
->  1 file changed, 52 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-> index e636a1cb9b77..074b78d7939c 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-> @@ -15,6 +15,9 @@ / {
->  
->  	aliases {
->  		serial0 = &blsp1_uart1;
-> +
-
-Drop.
-
-> +		ethernet0 = &gmac0;
-> +		ethernet1 = &gmac1;
-
-Keep alphabetical order.
-
->  	};
->  
->  	chosen {
-> @@ -43,6 +46,22 @@ &sleep_clk {
->  };
->  
->  &tlmm {
-> +	mdio1_pins: mdio1_pins {
-
-This wasn't ever tested. NAK.
-
-It does not look like you tested the DTS against bindings. Please run
-`make dtbs_check W=1` (see
-Documentation/devicetree/bindings/writing-schema.rst or
-https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
-for instructions).
-
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjEvMDEvMjAyNCAxMzo0MiwgWml5YW5nIEh1YW5nIHdyb3RlOgo+IEZyb206IFByYXZlZW5r
+dW1hciBJIDxpcGt1bWFyQGNvZGVhdXJvcmEub3JnPgo+IAo+IEN1cnJlbnRseSBSQ0cgY29kZSBs
+b29rcyB1cCB0aGUgZnJlcXVlbmN5IHRhYmxlIGR1cmluZyBzZXQKPiByYXRlIGFuZCByZXR1cm4g
+dGhlIGZpcnN0IGF2YWlsYWJsZSBmcmVxdWVuY3kgZ3JlYXRlciB0aGFuCj4gcmVxdWVzdGVkIHJh
+dGUuIElmIENMS19TRVRfUkFURV9QQVJFTlQgZmxhZyBpcyBzZXQgdGhlbiB0aGUKPiBzZXRfcmF0
+ZSByZXF1ZXN0IHdpbGwgZ28gdG8gaXRzIHBhcmVudCBvdGhlcndpc2UgdGhlIGNsb2NrCj4gZnJh
+bWV3b3JrIHdpbGwgY29uZmlndXJlIHByZS1kaXYsIG0gYW5kIG4gYWNjb3JkaW5nIHRvIHRoZQo+
+IHJldHVybmVkIGZyZXF1ZW5jeSB0YWJsZSBlbnRyeS4gSW4gdGhpcyBjYXNlLCBpdCBpcyBhc3N1
+bWluZwo+IHRoYXQgcGFyZW50IGNsb2NrIHdpbGwgcnVuIGluIHRoZSBzYW1lIGZyZXF1ZW5jeSB3
+aXRoIHdoaWNoCj4gcHJlLWRpdiwgbSBhbmQgbiBoYXMgYmVlbiBkZXJpdmVkLiBCdXQgaXQgbWF5
+IGJlIHBvc3NpYmxlCj4gdGhhdCB0aGUgcGFyZW50IGNsb2NrIHN1cHBvcnRzIG11bHRpcGxlIGZy
+ZXF1ZW5jeSBhbmQgdGhlCj4gc2FtZSBmcmVxdWVuY3kgY2FuIGJlIGRlcml2ZWQgd2l0aCBkaWZm
+ZXJlbnQgcHJlLWRpdiwgbSBhbmQKPiBuIHZhbHVlcyBkZXBlbmRpbmcgdXBvbiBjdXJyZW50IGZy
+ZXF1ZW5jeS4gIEFsc28sIHRoZSBzYW1lCj4gZnJlcXVlbmN5IGNhbiBiZSBkZXJpdmVkIGZyb20g
+ZGlmZmVyZW50IHBhcmVudCBzb3VyY2VzIGFuZAo+IGN1cnJlbnRseSB0aGVyZSBpcyBubyBvcHRp
+b24gZm9yIGhhdmluZyBkdXBsaWNhdGUKPiBmcmVxdWVuY2llcyBpbiBmcmVxdWVuY3kgdGFibGUg
+YW5kIGNob29zaW5nIHRoZSBiZXN0IG9uZQo+IGFjY29yZGluZyB0byBjdXJyZW50IHJhdGUuCj4g
+Cj4gTm93IHRoaXMgcGF0Y2ggYWRkcyB0aGUgc3VwcG9ydCBmb3IgaGF2aW5nIGR1cGxpY2F0ZQo+
+IGZyZXF1ZW5jaWVzIGluIGZyZXF1ZW5jeSB0YWJsZS4gRHVyaW5nIHNldCByYXRlLCBpdCB3aWxs
+Cj4gY29tcGFyZSB0aGUgYWN0dWFsIHJhdGUgZm9yIGVhY2ggZW50cnkgd2l0aCByZXF1ZXN0ZWQg
+cmF0ZQo+IGFuZCB3aWxsIHNlbGVjdCB0aGUgYmVzdCBlbnRyeSBpbiB3aGljaCB0aGUgZGlmZmVy
+ZW5jZSB3aWxsCj4gYmUgbGVzcy4KPiAKPiBUaGUgZXhpc3RpbmcgZnVuY3Rpb25hbGl0eSB3b27i
+gJl0IGJlIGFmZmVjdGVkIHdpdGggdGhpcyBjb2RlCj4gY2hhbmdlIHNpbmNlIHRoaXMgY29kZSBj
+aGFuZ2Ugd2lsbCBoaXQgb25seSBpZiBmcmVxdWVuY3kKPiB0YWJsZSBoYXMgZHVwbGljYXRlIHZh
+bHVlcy4KPiAKPiBDaGFuZ2UtSWQ6IEk5N2Q5ZTFiNTVkOGYzZWUwOTVmNmYwMTcyOWFmNTI3YmE5
+MGU1MGU1Cj4gU2lnbmVkLW9mZi1ieTogQWJoaXNoZWsgU2FodSA8YWJzYWh1QGNvZGVhdXJvcmEu
+b3JnPgo+IChjaGVycnkgcGlja2VkIGZyb20gY29tbWl0IDc3NWU3ZDNiNjlmZmM5N2FmYjViZDVh
+NmM5YzQyM2YyZjRkOGEwYjIpCj4gU2lnbmVkLW9mZi1ieTogUHJhdmVlbmt1bWFyIEkgPGlwa3Vt
+YXJAY29kZWF1cm9yYS5vcmc+Cj4gCj4gQ2hhbmdlLUlkOiBJZjEwMTkzZmM3OWEzYzEzNzVhYjcz
+NTk3ODEzNzQ1ZmYxZjRkZjBhZAoKUGxlYXNlIHJ1biBzY3JpcHRzL2NoZWNrcGF0Y2gucGwgYW5k
+IGZpeCByZXBvcnRlZCB3YXJuaW5ncy4gU29tZQp3YXJuaW5ncyBjYW4gYmUgaWdub3JlZCwgYnV0
+IHRoZSBjb2RlIGhlcmUgbG9va3MgbGlrZSBpdCBuZWVkcyBhIGZpeC4KRmVlbCBmcmVlIHRvIGdl
+dCBpbiB0b3VjaCBpZiB0aGUgd2FybmluZyBpcyBub3QgY2xlYXIuCgpCZXN0IHJlZ2FyZHMsCkty
+enlzenRvZgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+TGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlz
+dGluZm8vbGludXgtc3RtMzIK
