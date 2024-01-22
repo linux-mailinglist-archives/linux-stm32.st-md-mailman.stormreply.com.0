@@ -2,100 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68651835D61
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 09:55:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC787835C10
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 08:54:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26A6DC6DD86;
-	Mon, 22 Jan 2024 08:55:42 +0000 (UTC)
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01olkn2068.outbound.protection.outlook.com [40.92.107.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92181C6B458;
+	Mon, 22 Jan 2024 07:54:37 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55FA0C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E017C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Jan 2024 12:43:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C2/oBJ3Me3CwmzfXNQ+VQBfYXBWHggBcbF+79VgoqRHmFU1jE30bX/xJ0DZEVwUew6eW14u1mzVznkLunhP2Is6iBCCKsG9GXkhHdWgKgYXRcSCGOAiN8fAgYshO9kM7hemWKwNJTN5olvQcLj61icN7S2QIZu0nWNSQrM6wZxVZR/d+EJ5xHgNNh0eWN7HmGG0T7lQ84c3+yktyeMhfrOa/HzaonU7HXzfdVtXIgh8lnkv12O6/e7cU5nJ4Ztamameaap2SyUyxBKfq6KdetCb7urxIlzPm3P23S6wA8xO3CgyDv8Qi+x/arAR4mf4dGR9qjw+B1mVQxF1d31FZoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1CPMIzkdmf50QazUC/wEjqlzQtV064B5Hgfgo7BjzRE=;
- b=obIZjz+m3nPY2iAM9M1S08rlqXalt8AH8A1uu5vYNLF3U6pKB2ydLpE21XqaK41Cxr79zV6iOnQBzn2zci0CHmoe9o42mubQ7v56VlwpnYxioUzoPQtHI9cNNvrqFb6fx49IikKdQAJY2Guz+uqWpCC8iK6EbId79zVry/v8YUWxpBL+znxnJjE6Gg7F+ZufZyiiI4dn6MBxGrlvDtYNbniWtFKdwWxbXrTMsusZ804ThqEeHP2KzlURWJu+xBxJFW4CrEbf7jUIPbpxVkZ9egY+xOJdzIo/8M7AOfP2R0qYvYUPyGGaEbdIMgfq2SQVJbX4m2xkk6A54r3y65SPnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1CPMIzkdmf50QazUC/wEjqlzQtV064B5Hgfgo7BjzRE=;
- b=Dp9QC2hpQNy+7YcGbLx9UHSAlgL1TxZF0yff6u5gO3A8mMnf+QpfYh2qlV8hDpNdz4M5lD+0KBiEQRvNYufqkEo62yMQcx5Fyp+EprwvzDSFJ561Box5tDDze8IECS6DX9Vh4+iH+Su4uSha/YA4mJKZkNK7PVWdKo6YzSa5+UvrPxktfkzArAwqGOZqQ4WwaMno3qViAUMRvux++0zm5vUS+IM1ZSoccMZTi32DaF+kpQnHpHII0tY4iDZlamrDky+7uxvnYNK2YuDnZUv171ZHBVCmeO5aLuOAUv9bCy0FQJsTGctl57WO/fFLW4ZOGALjT6DkaHl3XXhMf4eBIw==
-Received: from TYZPR01MB5556.apcprd01.prod.exchangelabs.com
- (2603:1096:400:363::9) by OSQPR01MB6119.apcprd01.prod.exchangelabs.com
- (2603:1096:604:27b::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.30; Sun, 21 Jan
- 2024 12:43:49 +0000
-Received: from TYZPR01MB5556.apcprd01.prod.exchangelabs.com
- ([fe80::bcb7:50f4:7a16:4ec0]) by TYZPR01MB5556.apcprd01.prod.exchangelabs.com
- ([fe80::bcb7:50f4:7a16:4ec0%7]) with mapi id 15.20.7181.019; Sun, 21 Jan 2024
- 12:43:49 +0000
-From: Ziyang Huang <hzyitc@outlook.com>
-To: mcoquelin.stm32@gmail.com
-Date: Sun, 21 Jan 2024 20:42:37 +0800
-Message-ID: <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <TYZPR01MB55563BD6A2B78402E4BB44D4C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
-References: <TYZPR01MB55563BD6A2B78402E4BB44D4C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
-X-TMN: [2qElDWZdksYkyOHEY7OFc81AJPO6++sP9sL6QwoTbGpWTEt6sYOgLg==]
-X-ClientProxiedBy: PH8PR21CA0009.namprd21.prod.outlook.com
- (2603:10b6:510:2ce::26) To TYZPR01MB5556.apcprd01.prod.exchangelabs.com
- (2603:1096:400:363::9)
-X-Microsoft-Original-Message-ID: <20240121124237.3328702-8-hzyitc@outlook.com>
+ Mon, 22 Jan 2024 07:54:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2051CCE2863;
+ Mon, 22 Jan 2024 07:54:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50038C433C7;
+ Mon, 22 Jan 2024 07:54:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1705910073;
+ bh=2su90Gj5IaJlBWuPLJpwINxwihDs/8h9SYfAyTVMhWA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hTAKZoKLuH2t2yUIgq5LHKfcopj5o9NUM1gYLq++7+wP6PY7JFs6T3gCgeeFtXSik
+ T2sVtvlVa4Py4S1IwOwV3L/EUnwe55mlkd1Dx/FKOtd6FJZmLxvFYsCGVKWlAjVZO3
+ prHwnb9QzikZhY4Rk6DYAkjKYU2qxnzudtEJHWwk6Mso/i5aWNJgkY7fedEtVDJ9UA
+ sRZfgxYEi6KvQTbj5dsoRjtKiaBeA/kjq5drKQ0eLaYUC9DRmeVuDrXPLeQUWejWrX
+ ua8LxiATeUmVmJvtnGIK9DvUkXUjPUM4qlamgUk6yuJr3IuchUXLdng4pzxeMojuV0
+ M1LXZIH7hd4sQ==
+Message-ID: <3c40c1fb-fafc-47e2-acd0-360d7456e93b@kernel.org>
+Date: Mon, 22 Jan 2024 08:54:27 +0100
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR01MB5556:EE_|OSQPR01MB6119:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5de4b3fd-4367-43b9-74b8-08dc1a7e9d42
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 89AleL4TQzsaGy5w+smUi1gHMQ1XHYqcKyQQOF6xsdRI4npKm9i0WOVw2Rrunl0uGmPaKQPxIfUP28rua2ZPQRkd6hcp79p716QP/VtOO62gnivd8wwpEAPQ7jzuTC9Jz9Yjg14FzetKRpWpfo4nU8sptIzgkc53INmprTeQcOw+mBTZjjf0yF5l83RTGzVD+A8tLLcSA1K/vvD0IwYLcpJsL4aGsArBj/dUPMQNfNq4pp8DqQ+6keU3f9Nlt95Qfl0MmbdOKMX4UBBgpUE7j8OP5/UK0UtjN6X2vkIsXQp1BGcBLxhirDCX4IyNAfq9+jqVyrDis41yj0NkOH9W6mP/vm8KDdRIqC1yXJHy55ZbGzur0PvBb42hOZm/nKM63or7OTPUpdQELLhOtyL7oAIA4nyHg974EpTaJ1XlFYy4j9ngvqYF0oeKf/UAPAjd2SzrtLojAeyBp1VMobdlBs4KQ6dzA3j1fLbuzo/DxGgH3rsc12IjITWaOZwbu9mUrlRpMK/8CJrXNWg9WGNmKRIj7xTbEuCRLMSKIXA53Zy7TB5rLJLgB8POYRLMDuNYAxsHWC7qB560DN0zCZjme4XEDvwkjMRrkJyPacSKFPzHGuIqKvCQdrQHnx7hZ4r0
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qBErEdBP8zmN2Hp9yXcLqMGfLEolfkJlkEUDDzL7UNxzYWLD8mNxwbVnULav?=
- =?us-ascii?Q?2xW6oc7Fj7xPnpJu7Q4yFjONwpVjGHkpo/EKf39AV17G1H+MU6494lKG8JM5?=
- =?us-ascii?Q?sTVCeQ+o/q3vim3WT4wAk6YE/QWGDh9fCRzvfo3dDxVcKx31X4ZPaH8Uc2nS?=
- =?us-ascii?Q?W7ydiT17Dedn7FzhAVfFSrYs+HnmE8JfIXlRi8E8PYsKLoSDbJBXlsLVDNKR?=
- =?us-ascii?Q?QwQo5QfXNiqxZw7xhBtES9DbFO9d14HM+QuVwgL2g2UEtjdMz+5wOE1njOnI?=
- =?us-ascii?Q?8XssP8aRopJgbGOq+bsiZe2K7CdxpU4m7do6TravzrLT8g9f5YnyKkCRJUH+?=
- =?us-ascii?Q?FlCcQSQWS/mV4W4R+5ng+0ReJDW0x1X/ooVuXOe7oEwbvGPmtNh8dG8vn6fl?=
- =?us-ascii?Q?Cd7CHpy8CChGigH0DLpsIyp6C1lZTk9239kRT/nGAhmfTamtDilYtbLM5MyN?=
- =?us-ascii?Q?E4/C9WTW18y3lDjLlZkwSmuTaGVoKAbC6x0H9d2zKPawmrveTA/tK6h/sV/i?=
- =?us-ascii?Q?Q1Pc64jhEQUPr0GRTAybKweYXsy1iJTWjo1RPnu3HfXuEzU1xn6aJ4e6HH0H?=
- =?us-ascii?Q?WepI3lRoKsKWdcmmSayn07tamIe563VPjMMS1yYh8UUP55WGFn1dI7eizKBg?=
- =?us-ascii?Q?RlxtkxoL/GevzCOpiRKk6DQmiVZIrkfN1jT+cx0LvNFJIhmkI8kK4kr24mZd?=
- =?us-ascii?Q?nY+XjlvZ2BenGHAELMqtwT2W+oMexFQ/g3ZmhU/ah1zvFH2/e7WeLbOOgGjm?=
- =?us-ascii?Q?uo19PkyrseQ1Q2H3m8N0ROHQ/bCL1Q9zfD9fkkr7ezsus0VV2sGIVRQduwiH?=
- =?us-ascii?Q?fRfxYOIoQHyik14xrptLnNEpwIXaGv35Gd04piQxVw5goac5Yv8FSyegV7/4?=
- =?us-ascii?Q?cqbwAaAlB8uW6z1LNN6LWLUL1OKfg9eYxgyoYrgYIySM2tj2Bcz4vZESr0Gf?=
- =?us-ascii?Q?ofJ9km1fG3be401d2uplU09mYLmpMecsaMGlxOPE2U3vIPgPrrqx9Mg3nrXy?=
- =?us-ascii?Q?DeF2uKywW7et/zkOTHVwDGptNqOkLczedCWkpqM6DAonCjUTnUq5NhHRIg3y?=
- =?us-ascii?Q?OZ5r/1FL/ADeUkC4DYIstIdS4Ft7B37DpZs9swJ/jzgXjCfvSEmYwDswbFVH?=
- =?us-ascii?Q?4g22rqDtV0mOwp4xhvdQRky1iKWNI6a0ta9zXRdjSbFC3hgNJ98H5N+8Ug01?=
- =?us-ascii?Q?7y9I5BpPlqyEpA18Zr2tZH/tkqwJjJRDHs9sKX6q0/C4faIr5xfOHKhfab1w?=
- =?us-ascii?Q?SdWMYAYs18msDN9XtJLN?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5de4b3fd-4367-43b9-74b8-08dc1a7e9d42
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR01MB5556.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2024 12:43:49.0312 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR01MB6119
-X-Mailman-Approved-At: Mon, 22 Jan 2024 08:55:40 +0000
+User-Agent: Mozilla Thunderbird
+To: Ziyang Huang <hzyitc@outlook.com>, mcoquelin.stm32@gmail.com
+References: <TYZPR01MB55563BD6A2B78402E4BB44D4C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+ <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 fv0=
+In-Reply-To: <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
  linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Ziyang Huang <hzyitc@outlook.com>, p.zabel@pengutronix.de,
- matthias.bgg@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com
-Subject: [Linux-stm32] [PATCH 8/8] arm64: dts: qcom: ipq5018-rdp432-c2:
-	enable ethernet support
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH 8/8] arm64: dts: qcom: ipq5018-rdp432-c2:
+ enable ethernet support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,87 +104,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Signed-off-by: Ziyang Huang <hzyitc@outlook.com>
----
- .../arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts | 52 +++++++++++++++++++
- 1 file changed, 52 insertions(+)
+On 21/01/2024 13:42, Ziyang Huang wrote:
+> Signed-off-by: Ziyang Huang <hzyitc@outlook.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-index e636a1cb9b77..074b78d7939c 100644
---- a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-+++ b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
-@@ -15,6 +15,9 @@ / {
- 
- 	aliases {
- 		serial0 = &blsp1_uart1;
-+
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
- 	};
- 
- 	chosen {
-@@ -43,6 +46,22 @@ &sleep_clk {
- };
- 
- &tlmm {
-+	mdio1_pins: mdio1_pins {
-+		mdc {
-+			pins = "gpio36";
-+			function = "mdc";
-+			drive-strength = <8>;
-+			bias-pull-up;
-+		};
-+
-+		mdio {
-+			pins = "gpio37";
-+			function = "mdio";
-+			drive-strength = <8>;
-+			bias-pull-up;
-+		};
-+	};
-+
- 	sdc_default_state: sdc-default-state {
- 		clk-pins {
- 			pins = "gpio9";
-@@ -70,3 +89,36 @@ data-pins {
- &xo_board_clk {
- 	clock-frequency = <24000000>;
- };
-+
-+&mdio0 {
-+	status = "ok";
-+};
-+
-+&mdio1 {
-+	pinctrl-0 = <&mdio1_pins>;
-+	pinctrl-names = "default";
-+	status = "ok";
-+
-+	reset-gpios = <&tlmm 39 GPIO_ACTIVE_LOW>;
-+
-+	qca8081: ethernet-phy@28 {
-+		reg = <28>;
-+	};
-+};
-+
-+&uniphy0 {
-+	mode = <QCOM_ETH_UNIPHY_MODE_SGMII>;
-+	clkout-frequency = <QCOM_ETH_UNIPHY_CLKOUT_FREQ_50M>;
-+	clkout-drive-strength = <QCOM_ETH_UNIPHY_CLKOUT_DS_1_5V>;
-+	status = "ok";
-+};
-+
-+&gmac0 {
-+	status = "ok";
-+};
-+
-+&gmac1 {
-+	phy-handle = <&qca8081>;
-+	phy-mode = "sgmii";
-+	status = "ok";
-+};
--- 
-2.40.1
+Missing commit msg.
+
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
+
+Tools like b4 or scripts_getmaintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, use mainline), work on fork of kernel (don't, use
+mainline) or you ignore some maintainers (really don't). Just use b4 and
+all the problems go away.
+
+You missed at least devicetree list (maybe more), so this won't be
+tested by automated tooling. Performing review on untested code might be
+a waste of time, thus I will skip this patch entirely till you follow
+the process allowing the patch to be tested.
+
+Please kindly resend and include all necessary To/Cc entries.
+
+
+> ---
+>  .../arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts | 52 +++++++++++++++++++
+>  1 file changed, 52 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
+> index e636a1cb9b77..074b78d7939c 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
+> +++ b/arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts
+> @@ -15,6 +15,9 @@ / {
+>  
+>  	aliases {
+>  		serial0 = &blsp1_uart1;
+> +
+
+Drop.
+
+> +		ethernet0 = &gmac0;
+> +		ethernet1 = &gmac1;
+
+Keep alphabetical order.
+
+>  	};
+>  
+>  	chosen {
+> @@ -43,6 +46,22 @@ &sleep_clk {
+>  };
+>  
+>  &tlmm {
+> +	mdio1_pins: mdio1_pins {
+
+This wasn't ever tested. NAK.
+
+It does not look like you tested the DTS against bindings. Please run
+`make dtbs_check W=1` (see
+Documentation/devicetree/bindings/writing-schema.rst or
+https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
+for instructions).
+
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
