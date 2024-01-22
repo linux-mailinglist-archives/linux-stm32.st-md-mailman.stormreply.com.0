@@ -2,83 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B21835EDE
-	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 11:00:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6BEA8360AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jan 2024 12:11:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 173C3C6B457;
-	Mon, 22 Jan 2024 10:00:44 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 747F6C6B442;
+	Mon, 22 Jan 2024 11:11:54 +0000 (UTC)
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABE9BC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B75CC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jan 2024 10:00:42 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-50e72e3d435so2571839e87.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 22 Jan 2024 02:00:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1705917642; x=1706522442;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=XJvUSmFKxVkc/aj2645yUF6Llh0UZojhKj6fnT1VtgE=;
- b=VTy1BXYkK0vepWU6lxjsNzw9ExzfrqgbP93S1JAuTrbBk2jm83gcWiFjaFysQwOUav
- IUm8kC16V5fkKcPXaPzHpPDY/Rz201zy6g1oYgm7Q8n9hUCCWu93pkDQf478eruAdmia
- bvaY1SMECiAio53xb3uANdmGuvRmKOF62QcRQ36JgJ8whruRIsVjd+geeHFmxHG6egPy
- HOnNg/shMxLM3yPtpoKPKkHJy6tiEU9sEE4mrc0aOd9vxeu3XFSbdbL64pJOndJXqkhu
- lt/N1hh8L89EUFnzc3IreSy9pwzq8G+lFSaTgujw/LtVKiJAtWBSe6MN+9/chETdBQeH
- 8NVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1705917642; x=1706522442;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XJvUSmFKxVkc/aj2645yUF6Llh0UZojhKj6fnT1VtgE=;
- b=TPOUcwB++RmKG+5rakSWb08yP3HQI2JFqncfYtM7P19x8YqmK91YiKSoROt9xfMfrt
- i2qyXJyMycL6Nej4AlfkSdjslm8o+2QTtdR6m7uxgJvDTsRuqByC3FylZDwFVVbY9zPR
- zTS3x8Vjh8TO4loCHFvMATlXexZx1f41pCwkrZrT0gPJmUTVEhDfxDH9w38C/q7BLVFZ
- cUQ+KHyL0sTflJ9JYAByFSxEXidODMtKzPRX5YHXqI/IAtlX6ZWHo6epbweOofavdnVw
- vP6Y3ZKa5hZLemiy7TKBqnmUlwIDvk4K/4Li2gM5xF3t1JwuJXj2aomRJj2lTXSet9Su
- gExA==
-X-Gm-Message-State: AOJu0YzxVFeQuunRWu0aqhgr4FnnyjQxNM8cfbrADoimZg1pntBKNSGG
- RxIreAu1Wz6l7Xb8+aL1oaqma+VBm/5ZIcGFWWI7NFrBg9e1x8gC
-X-Google-Smtp-Source: AGHT+IEssD/hfPPeOOMHxQJvdb3GjMChqufvu3VcLm9fhwD+pPdZrTLpsswyzYA4xoIoKlv/ESBQWQ==
-X-Received: by 2002:ac2:42ca:0:b0:50e:3d3b:93fa with SMTP id
- n10-20020ac242ca000000b0050e3d3b93famr737632lfl.12.1705917641364; 
- Mon, 22 Jan 2024 02:00:41 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- k5-20020ac24565000000b0050f0c199448sm1937151lfm.168.2024.01.22.02.00.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Jan 2024 02:00:40 -0800 (PST)
-Date: Mon, 22 Jan 2024 13:00:37 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Denis Kirjanov <dkirjanov@suse.de>, 
- Suraj Jaiswal <quic_jsuraj@quicinc.com>
-Message-ID: <giimpexp3qk3byb725r3ot3aund2bwmi45yrctkydatm73d5af@e36xmjf2ehvu>
-References: <20240110111649.2256450-1-quic_jsuraj@quicinc.com>
- <20240110111649.2256450-4-quic_jsuraj@quicinc.com>
- <633ff61d-f73d-4221-a2fd-79f913880761@suse.de>
+ Mon, 22 Jan 2024 11:11:52 +0000 (UTC)
+Received: from lvc-arm12.ispras.local (unknown [83.149.199.78])
+ by mail.ispras.ru (Postfix) with ESMTPSA id 4A49840F1DE6;
+ Mon, 22 Jan 2024 11:11:51 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 4A49840F1DE6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1705921911;
+ bh=4qafhDsstu+fI2ZE276xbjZ5WzhAT+Anma2zk/rbwu4=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=bKNx41UtGMHF9O/8QysFpjmNL9P43M+0zzrdWvGjzWA+3/CiYC7WPxZNMocobhdp3
+ mL2KG6x5uDjIfZHuwNdXCB5VhWzvfFwoAVAtaH3yclYjsLzKiKMNvmplCbDSIv6A2A
+ CSnv3AEIBi5nHdsuJB0E6JKg62efRkJUgNnldzLA=
+From: Katya Orlova <e.orlova@ispras.ru>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Date: Mon, 22 Jan 2024 14:11:28 +0300
+Message-Id: <20240122111128.10852-1-e.orlova@ispras.ru>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <76b4dfd8-f8c2-41f1-96df-539b168f9e80@foss.st.com>
+References: 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <633ff61d-f73d-4221-a2fd-79f913880761@suse.de>
-Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
- Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 3/3] net: stmmac: Add driver
- support for DWMAC5 common safety IRQ
+Cc: Daniel Vetter <daniel@ffwll.ch>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Katya Orlova <e.orlova@ispras.ru>, Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, lvc-project@linuxtesting.org
+Subject: [Linux-stm32] [PATCH v3] drm/stm: Avoid use-after-free issues with
+	crtc and plane
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,189 +56,246 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 10, 2024 at 03:07:30PM +0300, Denis Kirjanov wrote:
-> 
-> 
-> On 1/10/24 14:16, Suraj Jaiswal wrote:
-> > Add support to listen HW safety IRQ like ECC(error
-> > correction code), DPP(data path parity), FSM(finite state
-> > machine) fault in common IRQ line.
-> 
-> As I see .safety_feat_irq_status available not just in dwmac5 but 
-> in dwxgmac2_core and that means that the subject line is not just about dwmac5
+ltdc_load() calls functions drm_crtc_init_with_planes(),
+drm_universal_plane_init() and drm_encoder_init(). These functions
+should not be called with parameters allocated with devm_kzalloc()
+to avoid use-after-free issues [1].
 
-Right. Suraj, could you please fix the subject to be describing the
-actual change? The commit message body more-or-less describes it
-correctly.
+Use allocations managed by the DRM framework.
 
-> 
-> > 
-> > Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
-> >  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 41 ++++++++++++++++++-
-> >  .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
-> >  4 files changed, 51 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> > index 721c1f8e892f..b9233b09b80f 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> > @@ -344,6 +344,7 @@ enum request_irq_err {
-> >  	REQ_IRQ_ERR_ALL,
-> >  	REQ_IRQ_ERR_TX,
-> >  	REQ_IRQ_ERR_RX,
-> > +	REQ_IRQ_ERR_SFTY,
-> >  	REQ_IRQ_ERR_SFTY_UE,
-> >  	REQ_IRQ_ERR_SFTY_CE,
-> >  	REQ_IRQ_ERR_LPI,
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> > index 9f89acf31050..ca3d93851bed 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> > @@ -31,6 +31,7 @@ struct stmmac_resources {
-> >  	int wol_irq;
-> >  	int lpi_irq;
-> >  	int irq;
-> > +	int sfty_irq;
-> >  	int sfty_ce_irq;
-> >  	int sfty_ue_irq;
-> >  	int rx_irq[MTL_MAX_RX_QUEUES];
-> > @@ -297,6 +298,7 @@ struct stmmac_priv {
-> >  	void __iomem *ptpaddr;
-> >  	void __iomem *estaddr;
-> >  	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
-> > +	int sfty_irq;
-> >  	int sfty_ce_irq;
-> >  	int sfty_ue_irq;
-> >  	int rx_irq[MTL_MAX_RX_QUEUES];
-> > @@ -305,6 +307,7 @@ struct stmmac_priv {
-> >  	char int_name_mac[IFNAMSIZ + 9];
-> >  	char int_name_wol[IFNAMSIZ + 9];
-> >  	char int_name_lpi[IFNAMSIZ + 9];
-> > +	char int_name_sfty[IFNAMSIZ + 10];
-> >  	char int_name_sfty_ce[IFNAMSIZ + 10];
-> >  	char int_name_sfty_ue[IFNAMSIZ + 10];
-> >  	char int_name_rx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 14];
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index 47de466e432c..e0192a282121 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
-> >  		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
-> >  			free_irq(priv->wol_irq, dev);
-> >  		fallthrough;
-> > +	case REQ_IRQ_ERR_SFTY:
-> > +		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
-> > +			free_irq(priv->sfty_irq, dev);
-> > +		fallthrough;
-> >  	case REQ_IRQ_ERR_WOL:
-> >  		free_irq(dev->irq, dev);
-> >  		fallthrough;
-> > @@ -3661,6 +3665,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
-> >  		}
-> >  	}
-> >  
-> > +	/* Request the common Safety Feature Correctible/Uncorrectible
-> > +	 * Error line in case of another line is used
-> > +	 */
-> > +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> > +		int_name = priv->int_name_sfty;
-> > +		sprintf(int_name, "%s:%s", dev->name, "safety");
-> > +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> > +				  0, int_name, dev);
-> > +		if (unlikely(ret < 0)) {
-> > +			netdev_err(priv->dev,
-> > +				   "%s: alloc sfty MSI %d (error: %d)\n",
-> > +				   __func__, priv->sfty_irq, ret);
-> > +			irq_err = REQ_IRQ_ERR_SFTY;
-> > +			goto irq_error;
-> > +		}
-> > +	}
-> > +
-> >  	/* Request the Safety Feature Correctible Error line in
-> >  	 * case of another line is used
-> >  	 */
-> > @@ -3798,6 +3819,21 @@ static int stmmac_request_irq_single(struct net_device *dev)
-> >  		}
-> >  	}
-> >  
-> > +	/* Request the common Safety Feature Correctible/Uncorrectible
-> > +	 * Error line in case of another line is used
-> > +	 */
-> > +	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-> > +		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-> > +				  IRQF_SHARED, dev->name, dev);
-> > +		if (unlikely(ret < 0)) {
-> > +			netdev_err(priv->dev,
-> > +				   "%s: ERROR: allocating the sfty IRQ %d (%d)\n",
-> > +				   __func__, priv->sfty_irq, ret);
-> > +			irq_err = REQ_IRQ_ERR_SFTY;
-> > +			goto irq_error;
-> > +		}
-> > +	}
-> > +
-> >  	return 0;
-> >  
-> >  irq_error:
-> > @@ -6022,8 +6058,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
-> >  	if (test_bit(STMMAC_DOWN, &priv->state))
-> >  		return IRQ_HANDLED;
-> >  
+Found by Linux Verification Center (linuxtesting.org).
 
-> > -	/* Check if a fatal error happened */
-> > -	if (stmmac_safety_feat_interrupt(priv))
-> > +	/* Check ASP error if it isn't delivered via an individual IRQ */
-> > +	if (priv->sfty_irq <= 0 && stmmac_safety_feat_interrupt(priv))
+[1]
+https://lore.kernel.org/lkml/u366i76e3qhh3ra5oxrtngjtm2u5lterkekcz6y2jkndhuxzli@diujon4h7qwb/
 
-Well, I guess this is the best we can do with no IRQs handling part
-refactoring.
+Signed-off-by: Katya Orlova <e.orlova@ispras.ru>
+---
+v3: style problems
+v2: use allocations managed by the DRM as
+Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com> suggested.
+Also add a fix for encoder.
+ drivers/gpu/drm/stm/drv.c  |  3 +-
+ drivers/gpu/drm/stm/ltdc.c | 69 +++++++++-----------------------------
+ 2 files changed, 18 insertions(+), 54 deletions(-)
 
-> >  		return IRQ_HANDLED;
-> >  
-> >  	/* To handle Common interrupts */
-> > @@ -7462,6 +7498,7 @@ int stmmac_dvr_probe(struct device *device,
-> >  	priv->dev->irq = res->irq;
-> >  	priv->wol_irq = res->wol_irq;
-> >  	priv->lpi_irq = res->lpi_irq;
-> > +	priv->sfty_irq = res->sfty_irq;
-> >  	priv->sfty_ce_irq = res->sfty_ce_irq;
-> >  	priv->sfty_ue_irq = res->sfty_ue_irq;
-> >  	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > index 70eadc83ca68..ab250161fd79 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> > @@ -743,6 +743,14 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
-> >  		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
-> >  	}
-> >  
-> > +	stmmac_res->sfty_irq =
-> > +		platform_get_irq_byname_optional(pdev, "sfty");
-> > +	if (stmmac_res->sfty_irq < 0) {
-> > +		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
-> > +			return -EPROBE_DEFER;
-> > +		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index e8523abef27a..152bec2c0238 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_module.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_managed.h>
+ 
+ #include "ltdc.h"
+ 
+@@ -75,7 +76,7 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	DRM_DEBUG("%s\n", __func__);
+ 
+-	ldev = devm_kzalloc(ddev->dev, sizeof(*ldev), GFP_KERNEL);
++	ldev = drmm_kzalloc(ddev, sizeof(*ldev), GFP_KERNEL);
+ 	if (!ldev)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 5576fdae4962..e050b519ad38 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -36,6 +36,7 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_managed.h>
+ 
+ #include <video/videomode.h>
+ 
+@@ -1199,7 +1200,6 @@ static void ltdc_crtc_atomic_print_state(struct drm_printer *p,
+ }
+ 
+ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
+-	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.reset = drm_atomic_helper_crtc_reset,
+@@ -1212,7 +1212,6 @@ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
+ };
+ 
+ static const struct drm_crtc_funcs ltdc_crtc_with_crc_support_funcs = {
+-	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.reset = drm_atomic_helper_crtc_reset,
+@@ -1545,7 +1544,6 @@ static void ltdc_plane_atomic_print_state(struct drm_printer *p,
+ static const struct drm_plane_funcs ltdc_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = drm_plane_cleanup,
+ 	.reset = drm_atomic_helper_plane_reset,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+@@ -1572,7 +1570,6 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	const u64 *modifiers = ltdc_format_modifiers;
+ 	u32 lofs = index * LAY_OFS;
+ 	u32 val;
+-	int ret;
+ 
+ 	/* Allocate the biggest size according to supported color formats */
+ 	formats = devm_kzalloc(dev, (ldev->caps.pix_fmt_nb +
+@@ -1613,14 +1610,10 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 		}
+ 	}
+ 
+-	plane = devm_kzalloc(dev, sizeof(*plane), GFP_KERNEL);
+-	if (!plane)
+-		return NULL;
+-
+-	ret = drm_universal_plane_init(ddev, plane, possible_crtcs,
+-				       &ltdc_plane_funcs, formats, nb_fmt,
+-				       modifiers, type, NULL);
+-	if (ret < 0)
++	plane = drmm_universal_plane_alloc(ddev, struct drm_plane, dev,
++					   possible_crtcs, &ltdc_plane_funcs, formats,
++					   nb_fmt, modifiers, type, NULL);
++	if (IS_ERR(plane))
+ 		return NULL;
+ 
+ 	if (ldev->caps.ycbcr_input) {
+@@ -1643,15 +1636,6 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	return plane;
+ }
+ 
+-static void ltdc_plane_destroy_all(struct drm_device *ddev)
+-{
+-	struct drm_plane *plane, *plane_temp;
+-
+-	list_for_each_entry_safe(plane, plane_temp,
+-				 &ddev->mode_config.plane_list, head)
+-		drm_plane_cleanup(plane);
+-}
+-
+ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ {
+ 	struct ltdc_device *ldev = ddev->dev_private;
+@@ -1677,14 +1661,14 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 
+ 	/* Init CRTC according to its hardware features */
+ 	if (ldev->caps.crc)
+-		ret = drm_crtc_init_with_planes(ddev, crtc, primary, NULL,
++		ret = drmm_crtc_init_with_planes(ddev, crtc, primary, NULL,
+ 						 &ltdc_crtc_with_crc_support_funcs, NULL);
+ 	else
+-		ret = drm_crtc_init_with_planes(ddev, crtc, primary, NULL,
++		ret = drmm_crtc_init_with_planes(ddev, crtc, primary, NULL,
+ 						 &ltdc_crtc_funcs, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Can not initialize CRTC\n");
+-		goto cleanup;
++		return ret;
+ 	}
+ 
+ 	drm_crtc_helper_add(crtc, &ltdc_crtc_helper_funcs);
+@@ -1698,9 +1682,8 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 	for (i = 1; i < ldev->caps.nb_layers; i++) {
+ 		overlay = ltdc_plane_create(ddev, DRM_PLANE_TYPE_OVERLAY, i);
+ 		if (!overlay) {
+-			ret = -ENOMEM;
+ 			DRM_ERROR("Can not create overlay plane %d\n", i);
+-			goto cleanup;
++			return -ENOMEM;
+ 		}
+ 		if (ldev->caps.dynamic_zorder)
+ 			drm_plane_create_zpos_property(overlay, i, 0, ldev->caps.nb_layers - 1);
+@@ -1713,10 +1696,6 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 	}
+ 
+ 	return 0;
+-
+-cleanup:
+-	ltdc_plane_destroy_all(ddev);
+-	return ret;
+ }
+ 
+ static void ltdc_encoder_disable(struct drm_encoder *encoder)
+@@ -1776,23 +1755,19 @@ static int ltdc_encoder_init(struct drm_device *ddev, struct drm_bridge *bridge)
+ 	struct drm_encoder *encoder;
+ 	int ret;
+ 
+-	encoder = devm_kzalloc(ddev->dev, sizeof(*encoder), GFP_KERNEL);
+-	if (!encoder)
+-		return -ENOMEM;
++	encoder = drmm_simple_encoder_alloc(ddev, struct drm_encoder, dev,
++					    DRM_MODE_ENCODER_DPI);
++	if (IS_ERR(encoder))
++		return PTR_ERR(encoder);
+ 
+ 	encoder->possible_crtcs = CRTC_MASK;
+ 	encoder->possible_clones = 0;	/* No cloning support */
+ 
+-	drm_simple_encoder_init(ddev, encoder, DRM_MODE_ENCODER_DPI);
+-
+ 	drm_encoder_helper_add(encoder, &ltdc_encoder_helper_funcs);
+ 
+ 	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+-	if (ret) {
+-		if (ret != -EPROBE_DEFER)
+-			drm_encoder_cleanup(encoder);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	DRM_DEBUG_DRIVER("Bridge encoder:%d created\n", encoder->base.id);
+ 
+@@ -1962,8 +1937,7 @@ int ltdc_load(struct drm_device *ddev)
+ 			goto err;
+ 
+ 		if (panel) {
+-			bridge = drm_panel_bridge_add_typed(panel,
+-							    DRM_MODE_CONNECTOR_DPI);
++			bridge = drmm_panel_bridge_add(ddev, panel);
+ 			if (IS_ERR(bridge)) {
+ 				DRM_ERROR("panel-bridge endpoint %d\n", i);
+ 				ret = PTR_ERR(bridge);
+@@ -2045,7 +2019,7 @@ int ltdc_load(struct drm_device *ddev)
+ 		}
+ 	}
+ 
+-	crtc = devm_kzalloc(dev, sizeof(*crtc), GFP_KERNEL);
++	crtc = drmm_kzalloc(ddev, sizeof(*crtc), GFP_KERNEL);
+ 	if (!crtc) {
+ 		DRM_ERROR("Failed to allocate crtc\n");
+ 		ret = -ENOMEM;
+@@ -2072,9 +2046,6 @@ int ltdc_load(struct drm_device *ddev)
+ 
+ 	return 0;
+ err:
+-	for (i = 0; i < nb_endpoints; i++)
+-		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+-
+ 	clk_disable_unprepare(ldev->pixel_clk);
+ 
+ 	return ret;
+@@ -2082,16 +2053,8 @@ int ltdc_load(struct drm_device *ddev)
+ 
+ void ltdc_unload(struct drm_device *ddev)
+ {
+-	struct device *dev = ddev->dev;
+-	int nb_endpoints, i;
+-
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+-	nb_endpoints = of_graph_get_endpoint_count(dev->of_node);
+-
+-	for (i = 0; i < nb_endpoints; i++)
+-		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+-
+ 	pm_runtime_disable(ddev->dev);
+ }
+ 
+-- 
+2.30.2
 
-s/IRQ safety IRQ/IRQ sfty
-* Although I would have also converted this to just dev_dbg() since
-* the IRQ line is optional and is present on a single platform you
-* have.
-
-
-With the subject and the log-message fixed feel free to add:
-
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-
--Serge(y) 
-
-> > +	}
-> > +
-> >  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
-> >  
-> >  	return PTR_ERR_OR_ZERO(stmmac_res->addr);
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
