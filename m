@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF8538386DD
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 06:46:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0F9A8386DF
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 06:46:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96ABEC6DD6C;
-	Tue, 23 Jan 2024 05:46:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A191FC6DD6C;
+	Tue, 23 Jan 2024 05:46:45 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 51658C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17CB4C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 05:46:39 +0000 (UTC)
+ Tue, 23 Jan 2024 05:46:44 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 350D11FB;
- Mon, 22 Jan 2024 21:47:24 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0FCE41FB;
+ Mon, 22 Jan 2024 21:47:29 -0800 (PST)
 Received: from a077893.arm.com (unknown [10.163.40.228])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6ED173F762;
- Mon, 22 Jan 2024 21:46:34 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5AB8B3F762;
+ Mon, 22 Jan 2024 21:46:39 -0800 (PST)
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org,
 	suzuki.poulose@arm.com
-Date: Tue, 23 Jan 2024 11:15:59 +0530
-Message-Id: <20240123054608.1790189-3-anshuman.khandual@arm.com>
+Date: Tue, 23 Jan 2024 11:16:00 +0530
+Message-Id: <20240123054608.1790189-4-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240123054608.1790189-1-anshuman.khandual@arm.com>
 References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
@@ -33,8 +33,8 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
  Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V4 02/11] coresight: stm: Extract device name
-	from AMBA pid based table lookup
+Subject: [Linux-stm32] [PATCH V4 03/11] coresight: tmc: Extract device
+	properties from AMBA pid based table lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,8 +51,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Instead of using AMBA private data field, extract the device name from AMBA
-pid based table lookup using new coresight_get_uci_data_from_amba() helper.
+This extracts device properties from AMBA pid based table lookup. This also
+defers tmc_etr_setup_caps() after the coresight device has been initialized
+so that PID value can be read.
 
 Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
 Cc: Mike Leach <mike.leach@linaro.org>
@@ -60,66 +61,63 @@ Cc: James Clark <james.clark@arm.com>
 Cc: coresight@lists.linaro.org
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- drivers/hwtracing/coresight/coresight-priv.h | 10 ++++++++++
- drivers/hwtracing/coresight/coresight-stm.c  | 14 +++++++++++++-
- 2 files changed, 23 insertions(+), 1 deletion(-)
+ .../hwtracing/coresight/coresight-tmc-core.c  | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-index 767076e07970..68cbb036cec8 100644
---- a/drivers/hwtracing/coresight/coresight-priv.h
-+++ b/drivers/hwtracing/coresight/coresight-priv.h
-@@ -221,6 +221,16 @@ static inline void *coresight_get_uci_data(const struct amba_id *id)
- 	return uci_id->data;
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+index 7ec5365e2b64..e71db3099a29 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-core.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+@@ -370,16 +370,24 @@ static inline bool tmc_etr_has_non_secure_access(struct tmc_drvdata *drvdata)
+ 	return (auth & TMC_AUTH_NSID_MASK) == 0x3;
  }
  
-+static inline void *coresight_get_uci_data_from_amba(const struct amba_id *table, u32 pid)
-+{
-+	while (table->mask) {
-+		if ((table->id & table->mask) == pid)
-+			return coresight_get_uci_data(table);
-+		table++;
-+	};
-+	return NULL;
-+}
++#define TMC_AMBA_MASK 0xfffff
 +
- void coresight_release_platform_data(struct coresight_device *csdev,
- 				     struct device *dev,
- 				     struct coresight_platform_data *pdata);
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index a1c27c901ad1..9cdca4f86cab 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -804,6 +804,18 @@ static void stm_init_generic_data(struct stm_drvdata *drvdata,
- 	drvdata->stm.set_options = stm_generic_set_options;
- }
- 
-+#define STM_AMBA_MASK 0xfffff
++static const struct amba_id tmc_ids[];
 +
-+static const struct amba_id stm_ids[];
-+
-+static char *stm_csdev_name(struct coresight_device *csdev)
-+{
-+	u32 stm_pid = coresight_get_pid(&csdev->access) & STM_AMBA_MASK;
-+	void *uci_data = coresight_get_uci_data_from_amba(stm_ids, stm_pid);
-+
-+	return uci_data ? (char *)uci_data : "STM";
-+}
-+
- static int stm_probe(struct amba_device *adev, const struct amba_id *id)
+ /* Detect and initialise the capabilities of a TMC ETR */
+-static int tmc_etr_setup_caps(struct device *parent, u32 devid, void *dev_caps)
++static int tmc_etr_setup_caps(struct device *parent, u32 devid)
  {
- 	int ret, trace_id;
-@@ -900,7 +912,7 @@ static int stm_probe(struct amba_device *adev, const struct amba_id *id)
- 	pm_runtime_put(&adev->dev);
+ 	int rc;
+-	u32 dma_mask = 0;
++	u32 tmc_pid, dma_mask = 0;
+ 	struct tmc_drvdata *drvdata = dev_get_drvdata(parent);
++	void *dev_caps;
  
- 	dev_info(&drvdata->csdev->dev, "%s initialized\n",
--		 (char *)coresight_get_uci_data(id));
-+		 stm_csdev_name(drvdata->csdev));
- 	return 0;
+ 	if (!tmc_etr_has_non_secure_access(drvdata))
+ 		return -EACCES;
  
- cs_unregister:
++	tmc_pid = coresight_get_pid(&drvdata->csdev->access) & TMC_AMBA_MASK;
++	dev_caps = coresight_get_uci_data_from_amba(tmc_ids, tmc_pid);
++
+ 	/* Set the unadvertised capabilities */
+ 	tmc_etr_init_caps(drvdata, (u32)(unsigned long)dev_caps);
+ 
+@@ -497,10 +505,6 @@ static int tmc_probe(struct amba_device *adev, const struct amba_id *id)
+ 		desc.type = CORESIGHT_DEV_TYPE_SINK;
+ 		desc.subtype.sink_subtype = CORESIGHT_DEV_SUBTYPE_SINK_SYSMEM;
+ 		desc.ops = &tmc_etr_cs_ops;
+-		ret = tmc_etr_setup_caps(dev, devid,
+-					 coresight_get_uci_data(id));
+-		if (ret)
+-			goto out;
+ 		idr_init(&drvdata->idr);
+ 		mutex_init(&drvdata->idr_mutex);
+ 		dev_list = &etr_devs;
+@@ -539,6 +543,9 @@ static int tmc_probe(struct amba_device *adev, const struct amba_id *id)
+ 		goto out;
+ 	}
+ 
++	if (drvdata->config_type == TMC_CONFIG_TYPE_ETR)
++		ret = tmc_etr_setup_caps(dev, devid);
++
+ 	drvdata->miscdev.name = desc.name;
+ 	drvdata->miscdev.minor = MISC_DYNAMIC_MINOR;
+ 	drvdata->miscdev.fops = &tmc_fops;
 -- 
 2.25.1
 
