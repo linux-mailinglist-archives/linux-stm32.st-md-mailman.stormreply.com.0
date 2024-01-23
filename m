@@ -2,68 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 089008398EF
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 20:01:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA67C8399DB
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 20:50:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1419C6DD6D;
-	Tue, 23 Jan 2024 19:01:40 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D233C6DD6D;
+	Tue, 23 Jan 2024 19:50:57 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45F66C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77C71C6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 19:01:39 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1d51ba18e1bso41741345ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 11:01:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706036498; x=1706641298;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=QftPz4jN6kiEorTzivfoGB9qpSpYd51y/PnesCdYvNE=;
- b=VoSw9P/L+SMlVX9ets3pqAeKIE8tdxRVKMQxkK6cGKzZlBhiv5vxIa9ns7ySlFv+Q7
- k975Q5mQIO7gQyDwAR0X+lAdJxvQRedOtxgA4iRq/7INbYiEALf2AQrBxt0Dg+PM3nTn
- UYsWNoqny2CatRsaYxXqtxUqlHloC7xYknzWxW+1OTRTukLN741pw+tpzUc3OntzAyZp
- aqWwu30k26SMuZbxtbcxbrXNxO+gmfQhCWFbpkDwkyfXz/znzolbvrSZ64ZspSvjlOfv
- mmcEECCf4oEW9IkVdJ6K47nvNDYXDIlMoaXUicuOuB16M6u6in6LeEKXFkRQYn0naxNZ
- Mu/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706036498; x=1706641298;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QftPz4jN6kiEorTzivfoGB9qpSpYd51y/PnesCdYvNE=;
- b=X+DX1gDKA5G6UVH+TDKdwjh2v5RJ6nptUrqxk2sETequgbh6HjZfiSkSsHBx5iDbHh
- DlNKVAJfods4pE6C3NUvee7x3e3BukbjwPkC68a6sNh8Jf9wC7/rvIXWQXMztrv4Erz9
- oc80bqMzXyG4JZUoxWxwtUpzTVgsihH1HMFyMkz1kDpwcoTs6FaMfA1md1Y8WOWTLpj9
- IAZdv8zWG4rWKcog9+Cf9OLwozFJOMPTIaMw3P5+pDZ5E1Et9lJ8H7WaJsY1MRVqLI8e
- vOS/ukJRJeSOFn1APWgML02sjSEA66c6c2RNvxUiEX5m2JWO3aTM2ikCLOOMdO+N1jQu
- q8BQ==
-X-Gm-Message-State: AOJu0YxfqZG8H+f/P3x9BIBoZOBjyPJuiiiNK5JMob65SjmE68qC48vp
- W1goxvLmX3KhiajVG2xbycUq4lXsdh7Fq/rM0mJ8CWc6uyohG5y/2MsXGuaq2p0=
-X-Google-Smtp-Source: AGHT+IGSBclA+Hqx0rOpncJoFhZkG7syO/DKiq9G4IhsfvHgLmfHisQAwDJNkh3QWq8BBP9daPAqKg==
-X-Received: by 2002:a17:902:ebc6:b0:1d7:78ed:4b7e with SMTP id
- p6-20020a170902ebc600b001d778ed4b7emr909437plg.35.1706036497410; 
- Tue, 23 Jan 2024 11:01:37 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:e343:f944:5fc8:eec1])
- by smtp.gmail.com with ESMTPSA id
- m10-20020a170902db0a00b001d7069c0302sm8956884plx.272.2024.01.23.11.01.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jan 2024 11:01:37 -0800 (PST)
-Date: Tue, 23 Jan 2024 12:01:34 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-Message-ID: <ZbANDtaHHY5CkC43@p14s>
-References: <20240117135312.3381936-1-arnaud.pouliquen@foss.st.com>
+ Tue, 23 Jan 2024 19:50:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 9F9E0CE2FAE;
+ Tue, 23 Jan 2024 19:50:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDEEDC433C7;
+ Tue, 23 Jan 2024 19:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706039451;
+ bh=JdM9TTZCWN64d8b7V18qvRomhjSHitoxtF6sWalz8RI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bwKr99PE3PLFylNmMkGyJg3i1edGMRoBYyQsyR4msDUYiyaKA+xo0PT+Ml39I6VCz
+ 5KJzNMIGRbczBN3pyGyY4f2HijZ2uB9vOV0Elu/ityI2QNcsEeQGkNevri9zsn9HSS
+ gORdqLmBQa58bsMPQMyiR2kCiZfserJZUXtRJFgvzXFKQ3X/dMnxzD7iKS7O1edEpW
+ 52h+gTd7u/ldFMhdOpaGqpdravlexlwdaNkLrCZIbThxPgdgATJ4S2FfA6viLqqaOr
+ ogvZG+zNWX8wyKhfsUI8v3yjgWBNgESlASo9SAoJIqviMl/MhG+oH/bBFBWaJwGDqA
+ Vt5yFiXXnLoCw==
+Date: Tue, 23 Jan 2024 19:50:46 +0000
+From: Simon Horman <horms@kernel.org>
+To: Furong Xu <0x1207@gmail.com>
+Message-ID: <20240123195046.GQ254773@kernel.org>
+References: <20240123085037.939471-1-0x1207@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240117135312.3381936-1-arnaud.pouliquen@foss.st.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 0/2] remoteproc: stm32: Fix sparse warnings
+In-Reply-To: <20240123085037.939471-1-0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
+	descriptions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,28 +61,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, Jan 17, 2024 at 02:53:10PM +0100, Arnaud Pouliquen wrote:
-> Fix warnings reported by sparse using make option "C=1"
+On Tue, Jan 23, 2024 at 04:50:37PM +0800, Furong Xu wrote:
+> Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
+> XGMAC core") prints safety error descriptions when safety error assert,
+> but missed some special errors, and mixed correctable errors and
+> uncorrectable errors together.
+> This patch complete the error code list and print the type of errors.
 > 
-> Arnaud Pouliquen (2):
->   remoteproc: stm32: Fix incorrect type in assignment for va
->   remoteproc: stm32: Fix incorrect type assignment returned by
->     stm32_rproc_get_loaded_rsc_tablef
-> 
->  drivers/remoteproc/stm32_rproc.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
+> Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
 
-I have applied this set.
+I'm not entirely sure this is a fix rather than an enhancement.
+But the code change itself looks good to me.
 
-Thanks,
-Mathieu
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-> 
-> base-commit: 0dd3ee31125508cd67f7e7172247f05b7fd1753a
-> -- 
-> 2.25.1
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
