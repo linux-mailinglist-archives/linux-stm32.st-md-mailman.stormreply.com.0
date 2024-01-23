@@ -2,26 +2,26 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0F9A8386DF
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 06:46:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B9C18386E0
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 06:46:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A191FC6DD6C;
-	Tue, 23 Jan 2024 05:46:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C84D3C6DD6C;
+	Tue, 23 Jan 2024 05:46:55 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17CB4C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24EFCC6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 05:46:44 +0000 (UTC)
+ Tue, 23 Jan 2024 05:46:54 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0FCE41FB;
- Mon, 22 Jan 2024 21:47:29 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E8D51FB;
+ Mon, 22 Jan 2024 21:47:39 -0800 (PST)
 Received: from a077893.arm.com (unknown [10.163.40.228])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5AB8B3F762;
- Mon, 22 Jan 2024 21:46:39 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7B9D73F762;
+ Mon, 22 Jan 2024 21:46:49 -0800 (PST)
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org,
 	suzuki.poulose@arm.com
-Date: Tue, 23 Jan 2024 11:16:00 +0530
-Message-Id: <20240123054608.1790189-4-anshuman.khandual@arm.com>
+Date: Tue, 23 Jan 2024 11:16:02 +0530
+Message-Id: <20240123054608.1790189-6-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240123054608.1790189-1-anshuman.khandual@arm.com>
 References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
@@ -33,8 +33,8 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
  Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V4 03/11] coresight: tmc: Extract device
-	properties from AMBA pid based table lookup
+Subject: [Linux-stm32] [PATCH V4 05/11] coresight: replicator: Move ACPI
+	support from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,73 +51,236 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This extracts device properties from AMBA pid based table lookup. This also
-defers tmc_etr_setup_caps() after the coresight device has been initialized
-so that PID value can be read.
+Add support for the dynamic replicator device in the platform driver, which
+can then be used on ACPI based platforms. This change would now allow
+runtime power management for repliacator devices on ACPI based systems.
 
+The driver would try to enable the APB clock if available. Also, rename the
+code to reflect the fact that it now handles both static and dynamic
+replicators.
+
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
 Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
 Cc: Mike Leach <mike.leach@linaro.org>
 Cc: James Clark <james.clark@arm.com>
-Cc: coresight@lists.linaro.org
+Cc: linux-acpi@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
+Cc: coresight@lists.linaro.org
+Tested-by: Sudeep Holla <sudeep.holla@arm.com> # Boot and driver probe only
+Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- .../hwtracing/coresight/coresight-tmc-core.c  | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+Changes in V4:
 
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-index 7ec5365e2b64..e71db3099a29 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-@@ -370,16 +370,24 @@ static inline bool tmc_etr_has_non_secure_access(struct tmc_drvdata *drvdata)
- 	return (auth & TMC_AUTH_NSID_MASK) == 0x3;
- }
- 
-+#define TMC_AMBA_MASK 0xfffff
-+
-+static const struct amba_id tmc_ids[];
-+
- /* Detect and initialise the capabilities of a TMC ETR */
--static int tmc_etr_setup_caps(struct device *parent, u32 devid, void *dev_caps)
-+static int tmc_etr_setup_caps(struct device *parent, u32 devid)
- {
- 	int rc;
--	u32 dma_mask = 0;
-+	u32 tmc_pid, dma_mask = 0;
- 	struct tmc_drvdata *drvdata = dev_get_drvdata(parent);
-+	void *dev_caps;
- 
- 	if (!tmc_etr_has_non_secure_access(drvdata))
- 		return -EACCES;
- 
-+	tmc_pid = coresight_get_pid(&drvdata->csdev->access) & TMC_AMBA_MASK;
-+	dev_caps = coresight_get_uci_data_from_amba(tmc_ids, tmc_pid);
-+
- 	/* Set the unadvertised capabilities */
- 	tmc_etr_init_caps(drvdata, (u32)(unsigned long)dev_caps);
- 
-@@ -497,10 +505,6 @@ static int tmc_probe(struct amba_device *adev, const struct amba_id *id)
- 		desc.type = CORESIGHT_DEV_TYPE_SINK;
- 		desc.subtype.sink_subtype = CORESIGHT_DEV_SUBTYPE_SINK_SYSMEM;
- 		desc.ops = &tmc_etr_cs_ops;
--		ret = tmc_etr_setup_caps(dev, devid,
--					 coresight_get_uci_data(id));
--		if (ret)
--			goto out;
- 		idr_init(&drvdata->idr);
- 		mutex_init(&drvdata->idr_mutex);
- 		dev_list = &etr_devs;
-@@ -539,6 +543,9 @@ static int tmc_probe(struct amba_device *adev, const struct amba_id *id)
- 		goto out;
+- Added pm_runtime_disable() in replicator_platform_probe()
+- Changed replicator_platform_remove() for platform_driver->remove_new()
+
+ drivers/acpi/arm64/amba.c                     |  1 -
+ .../coresight/coresight-replicator.c          | 81 ++++++++++---------
+ 2 files changed, 43 insertions(+), 39 deletions(-)
+
+diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
+index 171b5c2c7edd..270f4e3819a2 100644
+--- a/drivers/acpi/arm64/amba.c
++++ b/drivers/acpi/arm64/amba.c
+@@ -27,7 +27,6 @@ static const struct acpi_device_id amba_id_list[] = {
+ 	{"ARMHC503", 0}, /* ARM CoreSight Debug */
+ 	{"ARMHC979", 0}, /* ARM CoreSight TPIU */
+ 	{"ARMHC97C", 0}, /* ARM CoreSight SoC-400 TMC, SoC-600 ETF/ETB */
+-	{"ARMHC98D", 0}, /* ARM CoreSight Dynamic Replicator */
+ 	{"ARMHC9CA", 0}, /* ARM CoreSight CATU */
+ 	{"ARMHC9FF", 0}, /* ARM CoreSight Dynamic Funnel */
+ 	{"", 0},
+diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
+index 91d93060dda5..9b5f52725f43 100644
+--- a/drivers/hwtracing/coresight/coresight-replicator.c
++++ b/drivers/hwtracing/coresight/coresight-replicator.c
+@@ -31,6 +31,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
+  * @base:	memory mapped base address for this component. Also indicates
+  *		whether this one is programmable or not.
+  * @atclk:	optional clock for the core parts of the replicator.
++ * @pclk:	APB clock if present, otherwise NULL
+  * @csdev:	component vitals needed by the framework
+  * @spinlock:	serialize enable/disable operations.
+  * @check_idfilter_val: check if the context is lost upon clock removal.
+@@ -38,6 +39,7 @@ DEFINE_CORESIGHT_DEVLIST(replicator_devs, "replicator");
+ struct replicator_drvdata {
+ 	void __iomem		*base;
+ 	struct clk		*atclk;
++	struct clk		*pclk;
+ 	struct coresight_device	*csdev;
+ 	spinlock_t		spinlock;
+ 	bool			check_idfilter_val;
+@@ -243,6 +245,10 @@ static int replicator_probe(struct device *dev, struct resource *res)
+ 			return ret;
  	}
  
-+	if (drvdata->config_type == TMC_CONFIG_TYPE_ETR)
-+		ret = tmc_etr_setup_caps(dev, devid);
++	drvdata->pclk = coresight_get_enable_apb_pclk(dev);
++	if (IS_ERR(drvdata->pclk))
++		return -ENODEV;
 +
- 	drvdata->miscdev.name = desc.name;
- 	drvdata->miscdev.minor = MISC_DYNAMIC_MINOR;
- 	drvdata->miscdev.fops = &tmc_fops;
+ 	/*
+ 	 * Map the device base for dynamic-replicator, which has been
+ 	 * validated by AMBA core
+@@ -285,7 +291,6 @@ static int replicator_probe(struct device *dev, struct resource *res)
+ 	}
+ 
+ 	replicator_reset(drvdata);
+-	pm_runtime_put(dev);
+ 
+ out_disable_clk:
+ 	if (ret && !IS_ERR_OR_NULL(drvdata->atclk))
+@@ -301,29 +306,33 @@ static int replicator_remove(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int static_replicator_probe(struct platform_device *pdev)
++static int replicator_platform_probe(struct platform_device *pdev)
+ {
++	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	int ret;
+ 
+ 	pm_runtime_get_noresume(&pdev->dev);
+ 	pm_runtime_set_active(&pdev->dev);
+ 	pm_runtime_enable(&pdev->dev);
+ 
+-	/* Static replicators do not have programming base */
+-	ret = replicator_probe(&pdev->dev, NULL);
+-
+-	if (ret) {
+-		pm_runtime_put_noidle(&pdev->dev);
++	ret = replicator_probe(&pdev->dev, res);
++	pm_runtime_put(&pdev->dev);
++	if (ret)
+ 		pm_runtime_disable(&pdev->dev);
+-	}
+ 
+ 	return ret;
+ }
+ 
+-static void static_replicator_remove(struct platform_device *pdev)
++static void replicator_platform_remove(struct platform_device *pdev)
+ {
+-	replicator_remove(&pdev->dev);
++	struct replicator_drvdata *drvdata = dev_get_drvdata(&pdev->dev);
++
++	if (drvdata)
++		replicator_remove(&pdev->dev);
++
+ 	pm_runtime_disable(&pdev->dev);
++	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
++		clk_put(drvdata->pclk);
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -334,6 +343,8 @@ static int replicator_runtime_suspend(struct device *dev)
+ 	if (drvdata && !IS_ERR(drvdata->atclk))
+ 		clk_disable_unprepare(drvdata->atclk);
+ 
++	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
++		clk_disable_unprepare(drvdata->pclk);
+ 	return 0;
+ }
+ 
+@@ -344,6 +355,8 @@ static int replicator_runtime_resume(struct device *dev)
+ 	if (drvdata && !IS_ERR(drvdata->atclk))
+ 		clk_prepare_enable(drvdata->atclk);
+ 
++	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
++		clk_prepare_enable(drvdata->pclk);
+ 	return 0;
+ }
+ #endif
+@@ -353,31 +366,32 @@ static const struct dev_pm_ops replicator_dev_pm_ops = {
+ 			   replicator_runtime_resume, NULL)
+ };
+ 
+-static const struct of_device_id static_replicator_match[] = {
++static const struct of_device_id replicator_match[] = {
+ 	{.compatible = "arm,coresight-replicator"},
+ 	{.compatible = "arm,coresight-static-replicator"},
+ 	{}
+ };
+ 
+-MODULE_DEVICE_TABLE(of, static_replicator_match);
++MODULE_DEVICE_TABLE(of, replicator_match);
+ 
+ #ifdef CONFIG_ACPI
+-static const struct acpi_device_id static_replicator_acpi_ids[] = {
++static const struct acpi_device_id replicator_acpi_ids[] = {
+ 	{"ARMHC985", 0}, /* ARM CoreSight Static Replicator */
++	{"ARMHC98D", 0}, /* ARM CoreSight Dynamic Replicator */
+ 	{}
+ };
+ 
+-MODULE_DEVICE_TABLE(acpi, static_replicator_acpi_ids);
++MODULE_DEVICE_TABLE(acpi, replicator_acpi_ids);
+ #endif
+ 
+-static struct platform_driver static_replicator_driver = {
+-	.probe          = static_replicator_probe,
+-	.remove_new     = static_replicator_remove,
++static struct platform_driver replicator_driver = {
++	.probe          = replicator_platform_probe,
++	.remove_new     = replicator_platform_remove,
+ 	.driver         = {
+-		.name   = "coresight-static-replicator",
++		.name   = "coresight-replicator",
+ 		/* THIS_MODULE is taken care of by platform_driver_register() */
+-		.of_match_table = of_match_ptr(static_replicator_match),
+-		.acpi_match_table = ACPI_PTR(static_replicator_acpi_ids),
++		.of_match_table = of_match_ptr(replicator_match),
++		.acpi_match_table = ACPI_PTR(replicator_acpi_ids),
+ 		.pm	= &replicator_dev_pm_ops,
+ 		.suppress_bind_attrs = true,
+ 	},
+@@ -386,7 +400,13 @@ static struct platform_driver static_replicator_driver = {
+ static int dynamic_replicator_probe(struct amba_device *adev,
+ 				    const struct amba_id *id)
+ {
+-	return replicator_probe(&adev->dev, &adev->res);
++	int ret;
++
++	ret = replicator_probe(&adev->dev, &adev->res);
++	if (!ret)
++		pm_runtime_put(&adev->dev);
++
++	return ret;
+ }
+ 
+ static void dynamic_replicator_remove(struct amba_device *adev)
+@@ -416,27 +436,12 @@ static struct amba_driver dynamic_replicator_driver = {
+ 
+ static int __init replicator_init(void)
+ {
+-	int ret;
+-
+-	ret = platform_driver_register(&static_replicator_driver);
+-	if (ret) {
+-		pr_info("Error registering platform driver\n");
+-		return ret;
+-	}
+-
+-	ret = amba_driver_register(&dynamic_replicator_driver);
+-	if (ret) {
+-		pr_info("Error registering amba driver\n");
+-		platform_driver_unregister(&static_replicator_driver);
+-	}
+-
+-	return ret;
++	return coresight_init_driver("replicator", &dynamic_replicator_driver, &replicator_driver);
+ }
+ 
+ static void __exit replicator_exit(void)
+ {
+-	platform_driver_unregister(&static_replicator_driver);
+-	amba_driver_unregister(&dynamic_replicator_driver);
++	coresight_remove_driver(&dynamic_replicator_driver, &replicator_driver);
+ }
+ 
+ module_init(replicator_init);
 -- 
 2.25.1
 
