@@ -2,49 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA67C8399DB
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 20:50:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22D33839D1B
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 00:15:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D233C6DD6D;
-	Tue, 23 Jan 2024 19:50:57 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6C78C6DD6D;
+	Tue, 23 Jan 2024 23:15:45 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77C71C6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25D9DC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 19:50:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9F9E0CE2FAE;
- Tue, 23 Jan 2024 19:50:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDEEDC433C7;
- Tue, 23 Jan 2024 19:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706039451;
- bh=JdM9TTZCWN64d8b7V18qvRomhjSHitoxtF6sWalz8RI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=bwKr99PE3PLFylNmMkGyJg3i1edGMRoBYyQsyR4msDUYiyaKA+xo0PT+Ml39I6VCz
- 5KJzNMIGRbczBN3pyGyY4f2HijZ2uB9vOV0Elu/ityI2QNcsEeQGkNevri9zsn9HSS
- gORdqLmBQa58bsMPQMyiR2kCiZfserJZUXtRJFgvzXFKQ3X/dMnxzD7iKS7O1edEpW
- 52h+gTd7u/ldFMhdOpaGqpdravlexlwdaNkLrCZIbThxPgdgATJ4S2FfA6viLqqaOr
- ogvZG+zNWX8wyKhfsUI8v3yjgWBNgESlASo9SAoJIqviMl/MhG+oH/bBFBWaJwGDqA
- Vt5yFiXXnLoCw==
-Date: Tue, 23 Jan 2024 19:50:46 +0000
-From: Simon Horman <horms@kernel.org>
-To: Furong Xu <0x1207@gmail.com>
-Message-ID: <20240123195046.GQ254773@kernel.org>
-References: <20240123085037.939471-1-0x1207@gmail.com>
+ Tue, 23 Jan 2024 23:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=7yX5+XCrARod+VsoOp+tq6jnm8t8QU2YLMp+hsOIWWk=; b=d3OhwnX3Vuxy17BtXJOMDM36JV
+ ooC8IcgtZCGs4yIn/8R2LlAh2pKkLVmTZsRqKetcoqJG3C109ilqxUjwDIQIY0jq9shUqNXbIXS86
+ P/uLuyzEC9ryf7SUfoR71L7HyQZ5b6vhFmTypOlMLhaDQ/zvfn8RZUpVZ7eatF98x2To=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rSPzV-005t58-FR; Wed, 24 Jan 2024 00:15:37 +0100
+Date: Wed, 24 Jan 2024 00:15:37 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ziyang Huang <hzyitc@outlook.com>
+Message-ID: <5ce729ad-549a-48f6-b261-ee8cb91e6474@lunn.ch>
+References: <TYZPR01MB55563BD6A2B78402E4BB44D4C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+ <TYZPR01MB5556D5568546D6DA4313209EC9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+ <2c6c0d72-5d4e-4ec4-beb6-d30852108a67@lunn.ch>
+ <TYZPR01MB5556D035D9A13962844BB553C9752@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+ <e1fd863a-6725-4180-8ad3-faeb44c09238@lunn.ch>
+ <TYZPR01MB55567CE79D7F08C738A81683C9742@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240123085037.939471-1-0x1207@gmail.com>
-Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
-	descriptions
+In-Reply-To: <TYZPR01MB55567CE79D7F08C738A81683C9742@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+Cc: mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ p.zabel@pengutronix.de, matthias.bgg@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH 1/8] net: phy: Introduce Qualcomm IPQ5018
+ internal PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,21 +60,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 23, 2024 at 04:50:37PM +0800, Furong Xu wrote:
-> Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
-> XGMAC core") prints safety error descriptions when safety error assert,
-> but missed some special errors, and mixed correctable errors and
-> uncorrectable errors together.
-> This patch complete the error code list and print the type of errors.
-> 
-> Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
-> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> After rechecking the vendor code, you are right. The only special thing of
+> this device is that it's a combined device of UNIPHY and at803x general phy.
+> So it needs the UNIPHY initialization sequence. But for the PHY part, it's
+> almost same as others, just has some special registers. I will merge it into
+> at803x driver.
 
-I'm not entirely sure this is a fix rather than an enhancement.
-But the code change itself looks good to me.
+The UNIPHY is a separate driver, its a generic PHY driver? Can we keep
+them separate for this internal PHY as well?
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+The initialisation sequence is what is going to be most 'interesting'
+here. How UNIPHY, this PHY and the GCC all come together to make it
+work. But for the moment, i think its best the PHY driver controls its
+own clock input and reset, using standard Linux APIs, once the driver
+has probed via compatible IDs.
 
+       Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
