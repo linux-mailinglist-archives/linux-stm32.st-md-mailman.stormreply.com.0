@@ -2,41 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514758387C7
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 08:04:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95EB783898A
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jan 2024 09:50:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D281EC6DD74;
-	Tue, 23 Jan 2024 07:04:23 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DA75C6DD6B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FE49C6DD6C;
+	Tue, 23 Jan 2024 08:50:50 +0000 (UTC)
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
+ [209.85.210.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1AC19C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jan 2024 05:46:49 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 572691FB;
- Mon, 22 Jan 2024 21:47:34 -0800 (PST)
-Received: from a077893.arm.com (unknown [10.163.40.228])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2D3203F762;
- Mon, 22 Jan 2024 21:46:43 -0800 (PST)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	suzuki.poulose@arm.com
-Date: Tue, 23 Jan 2024 11:16:01 +0530
-Message-Id: <20240123054608.1790189-5-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240123054608.1790189-1-anshuman.khandual@arm.com>
-References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
-MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 23 Jan 2024 07:04:22 +0000
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Leo Yan <leo.yan@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Tue, 23 Jan 2024 08:50:49 +0000 (UTC)
+Received: by mail-ot1-f43.google.com with SMTP id
+ 46e09a7af769-6e0a64d9449so2636849a34.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 23 Jan 2024 00:50:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1705999848; x=1706604648;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FNB6nZlr/06kPBlEqaF8a61wrkKCAoA4BnsL6cXaDrQ=;
+ b=bL/JxmtBydRrxuku2RPKi2fyoiZS5Cj8xyrK4dfUAHuYz6bMafG0H6FAUB+WzPUJTt
+ ViODAF6x0zmuLTDr4ii9hH3BTaYxGxTyJASZIDYXRm7GeB8JyJT+8L0DOjLu9ceh5dXC
+ hGE7/hybK3HtcGmn68KnzPjkty5BCwCS7UO+M4rPe1ITfCbfdfE9wDKYGoMg61GZv1/w
+ G6dW70yXp2iRiHG/ywASEghBDHKKXzxh7szU5C+cCxwUzfeR/hhAXkoF2rvIf5dNaYQV
+ T8Gx9zhnTwLDJRJeXh1lhBOQjN/VVnL+4XCUlzdPiktU6gN8q4aSQ/ZHpso2mcoH6O4W
+ k2nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1705999848; x=1706604648;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FNB6nZlr/06kPBlEqaF8a61wrkKCAoA4BnsL6cXaDrQ=;
+ b=m69sFKzL2cAdQnvw1C7+3aIQsHgWlGcnFROEARsTV3Vkc95BRHvOBNW05WNnE7s31r
+ BUwtlXwkjtrzdHBnlMAqHhs0MzJwq6Z796pK3+Glm388XagtsaES2pPSb8ZuqJIv9Z1z
+ o4F7V5agJSG4FnWdQ8fUhYV0/b6uTr/f9Xd8OYyhSKGGamV0dlBF+Hd+FfaL7JJqb//C
+ sUjipzEIF8/7YUGKx6RWP3+Z6aycpxBXkTwL/H+ZRBjrv0KY8601utTt7SBAKlaFNq6q
+ jjHrIJak26cg6ddSRGLHudDCnB45c7NzBoD2rdXj13WGR4q4t0kzvl2meskAuM5VFzhc
+ SeWQ==
+X-Gm-Message-State: AOJu0YziZ01PyRTEfhz3NbBg9BnewPUnaxkvwucbETzZmeV76Ahwms42
+ 3L0H07WSgQ16hRCfKDKp2Bf4Z3fmjy2ayBFi+WfoCv7pTnpBJ1sj
+X-Google-Smtp-Source: AGHT+IHRKZzHqJsuxlpfoRfWi87C1N58CDPLVDywt+3AVD3QL8TKT2ebBbKukW0im0MhyVmjRuztlw==
+X-Received: by 2002:a05:6830:1e2d:b0:6dc:8dfb:3a86 with SMTP id
+ t13-20020a0568301e2d00b006dc8dfb3a86mr5969046otr.15.1705999847791; 
+ Tue, 23 Jan 2024 00:50:47 -0800 (PST)
+Received: from localhost.localdomain ([112.65.140.130])
+ by smtp.googlemail.com with ESMTPSA id
+ w70-20020a638249000000b005cf88b016cesm9626322pgd.72.2024.01.23.00.50.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jan 2024 00:50:47 -0800 (PST)
+From: Furong Xu <0x1207@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V4 04/11] coresight: Add helpers
-	registering/removing both AMBA and platform drivers
+ Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>
+Date: Tue, 23 Jan 2024 16:50:37 +0800
+Message-Id: <20240123085037.939471-1-0x1207@gmail.com>
+X-Mailer: git-send-email 2.34.1
+MIME-Version: 1.0
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
+	descriptions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -53,90 +85,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This adds two different helpers i.e coresight_init_driver()/remove_driver()
-enabling coresight devices to register or remove AMBA and platform drivers.
+Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
+XGMAC core") prints safety error descriptions when safety error assert,
+but missed some special errors, and mixed correctable errors and
+uncorrectable errors together.
+This patch complete the error code list and print the type of errors.
 
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Mike Leach <mike.leach@linaro.org>
-Cc: James Clark <james.clark@arm.com>
-Cc: Leo Yan <leo.yan@linaro.org>
-Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: coresight@lists.linaro.org
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
+Signed-off-by: Furong Xu <0x1207@gmail.com>
 ---
- drivers/hwtracing/coresight/coresight-core.c | 29 ++++++++++++++++++++
- include/linux/coresight.h                    |  7 +++++
- 2 files changed, 36 insertions(+)
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 36 +++++++++----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-index d7f0e231feb9..4e897cc5da81 100644
---- a/drivers/hwtracing/coresight/coresight-core.c
-+++ b/drivers/hwtracing/coresight/coresight-core.c
-@@ -1836,6 +1836,35 @@ static void __exit coresight_exit(void)
- module_init(coresight_init);
- module_exit(coresight_exit);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index eb48211d9b0e..ad812484059e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -748,29 +748,29 @@ static void dwxgmac3_handle_mac_err(struct net_device *ndev,
+ }
  
-+int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
-+			  struct platform_driver *pdev_drv)
-+{
-+	int ret;
-+
-+	ret = amba_driver_register(amba_drv);
-+	if (ret) {
-+		pr_err("%s: error registering AMBA driver\n", drv);
-+		return ret;
-+	}
-+
-+	ret = platform_driver_register(pdev_drv);
-+	if (!ret)
-+		return 0;
-+
-+	pr_err("%s: error registering platform driver\n", drv);
-+	amba_driver_unregister(amba_drv);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(coresight_init_driver);
-+
-+void coresight_remove_driver(struct amba_driver *amba_drv,
-+			     struct platform_driver *pdev_drv)
-+{
-+	amba_driver_unregister(amba_drv);
-+	platform_driver_unregister(pdev_drv);
-+}
-+EXPORT_SYMBOL_GPL(coresight_remove_driver);
-+
- MODULE_LICENSE("GPL v2");
- MODULE_AUTHOR("Pratik Patel <pratikp@codeaurora.org>");
- MODULE_AUTHOR("Mathieu Poirier <mathieu.poirier@linaro.org>");
-diff --git a/include/linux/coresight.h b/include/linux/coresight.h
-index a4cb7dd6ca23..7e1646d4863c 100644
---- a/include/linux/coresight.h
-+++ b/include/linux/coresight.h
-@@ -12,6 +12,8 @@
- #include <linux/io.h>
- #include <linux/perf_event.h>
- #include <linux/sched.h>
-+#include <linux/amba/bus.h>
-+#include <linux/platform_device.h>
+ static const struct dwxgmac3_error_desc dwxgmac3_mtl_errors[32]= {
+-	{ true, "TXCES", "MTL TX Memory Error" },
++	{ true, "TXCES", "MTL TX Memory Correctable Error" },
+ 	{ true, "TXAMS", "MTL TX Memory Address Mismatch Error" },
+-	{ true, "TXUES", "MTL TX Memory Error" },
++	{ true, "TXUES", "MTL TX Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */
+-	{ true, "RXCES", "MTL RX Memory Error" },
++	{ true, "RXCES", "MTL RX Memory Correctable Error" },
+ 	{ true, "RXAMS", "MTL RX Memory Address Mismatch Error" },
+-	{ true, "RXUES", "MTL RX Memory Error" },
++	{ true, "RXUES", "MTL RX Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */
+-	{ true, "ECES", "MTL EST Memory Error" },
++	{ true, "ECES", "MTL EST Memory Correctable Error" },
+ 	{ true, "EAMS", "MTL EST Memory Address Mismatch Error" },
+-	{ true, "EUES", "MTL EST Memory Error" },
++	{ true, "EUES", "MTL EST Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 11 */
+-	{ true, "RPCES", "MTL RX Parser Memory Error" },
++	{ true, "RPCES", "MTL RX Parser Memory Correctable Error" },
+ 	{ true, "RPAMS", "MTL RX Parser Memory Address Mismatch Error" },
+-	{ true, "RPUES", "MTL RX Parser Memory Error" },
++	{ true, "RPUES", "MTL RX Parser Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 15 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 16 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 17 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 18 */
++	{ true, "SCES", "MTL SGF GCL Memory Correctable Error" },
++	{ true, "SAMS", "MTL SGF GCL Memory Address Mismatch Error" },
++	{ true, "SUES", "MTL SGF GCL Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 19 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 20 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 21 */
+-	{ false, "UNKNOWN", "Unknown Error" }, /* 22 */
++	{ true, "RXFCES", "MTL RXF Memory Correctable Error" },
++	{ true, "RXFAMS", "MTL RXF Memory Address Mismatch Error" },
++	{ true, "RXFUES", "MTL RXF Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 23 */
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 24 */
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 25 */
+@@ -796,13 +796,13 @@ static void dwxgmac3_handle_mtl_err(struct net_device *ndev,
+ }
  
- /* Peripheral id registers (0xFD0-0xFEC) */
- #define CORESIGHT_PERIPHIDR4	0xfd0
-@@ -598,6 +600,11 @@ void coresight_relaxed_write64(struct coresight_device *csdev,
- 			       u64 val, u32 offset);
- void coresight_write64(struct coresight_device *csdev, u64 val, u32 offset);
- 
-+int coresight_init_driver(const char *drv, struct amba_driver *amba_drv,
-+			  struct platform_driver *pdev_drv);
-+
-+void coresight_remove_driver(struct amba_driver *amba_drv,
-+			     struct platform_driver *pdev_drv);
- #else
- static inline struct coresight_device *
- coresight_register(struct coresight_desc *desc) { return NULL; }
+ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+-	{ true, "TCES", "DMA TSO Memory Error" },
++	{ true, "TCES", "DMA TSO Memory Correctable Error" },
+ 	{ true, "TAMS", "DMA TSO Memory Address Mismatch Error" },
+-	{ true, "TUES", "DMA TSO Memory Error" },
++	{ true, "TUES", "DMA TSO Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */
+-	{ true, "DCES", "DMA DCACHE Memory Error" },
++	{ true, "DCES", "DMA DCACHE Memory Correctable Error" },
+ 	{ true, "DAMS", "DMA DCACHE Address Mismatch Error" },
+-	{ true, "DUES", "DMA DCACHE Memory Error" },
++	{ true, "DUES", "DMA DCACHE Memory Uncorrectable Error" },
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 8 */
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 9 */
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
