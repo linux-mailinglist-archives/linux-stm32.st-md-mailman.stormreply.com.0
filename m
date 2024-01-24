@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DEE839DBC
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 01:53:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C4283A195
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 06:55:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29073C6DD6D;
-	Wed, 24 Jan 2024 00:53:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46302C6DD6D;
+	Wed, 24 Jan 2024 05:55:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81E29C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 81721C6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 00:53:46 +0000 (UTC)
+ Wed, 24 Jan 2024 05:55:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706057626; x=1737593626;
+ t=1706075713; x=1737611713;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=yU9VsaBUrWtQtZ+GU86aDxwFo8ytu1/OKjeCrxQZZw8=;
- b=kiqvywg0QEgWWqu1p/pfXkyeu9eQlTZgE/h4TsOGozzNbFoHwJt4FuF+
- Gw6v/tXWnmluV6bErjs5axGyyTLFR+gN8oNJb4tawd6GKvp98y8tv2uor
- GBGvmr7opSmY99PMkjAKZwqa+kNpnC9GPhyOqqSJ08HTyw/Yf01Mef7Cf
- w9349wnp/Gaudjo8ArCSEqxKiC/LuKlW6bvuHSGBaGEJcSEb1SajYWEg0
- a+XsTBUD+TJ2D0fOtvmtAyCuNoTTMuJQgRfa6HbISVjPCuNjQMkgVa4CA
- ggDh9nNweujvcU0B3Ps3vv9Eg018yTqPS6VhEirN7l6yICBUm70gMjoAd Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="405454539"
-X-IronPort-AV: E=Sophos;i="6.05,215,1701158400"; d="scan'208";a="405454539"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2024 16:53:44 -0800
+ bh=npa1m/eGWO2TJ3lJA4sggzZkOD1geiwAWdqHkEt5kO0=;
+ b=CEpObarUq5h6gV+00KSGID6TeXY+MM0szxkjrdrLtbT0iQ+nlqinzmfa
+ Ht7xCyxLoukY7xTgFF8I2BcKh7IwwZpHnIHRmupzhk5AtqOqC2lKgpPz9
+ bfTkgOwqZP+mVBlte3Nv31FzdC+3udEw9R+eC3Kig4PBX6nWnZB1RyVdj
+ uxPCRaCBy5D0YA/1d1DxrE0DJpmAoyFETWo4IhVr5DwDZoG/ZUpyQxqao
+ dWGRTN+fAEfH22EUQZiVJgVsATh5YI6kQN3SoMHNegFXqhvAQMn3s4dNs
+ Af2vXZ9WSPTIK0gNV3gJWc1udzlRDiQGISeI4Q0TiaLimsnVdfD2srqXc A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="466023634"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="466023634"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2024 21:55:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="929509990"
-X-IronPort-AV: E=Sophos;i="6.05,215,1701158400"; d="scan'208";a="929509990"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="20610990"
 Received: from lkp-server01.sh.intel.com (HELO 961aaaa5b03c) ([10.239.97.150])
- by fmsmga001.fm.intel.com with ESMTP; 23 Jan 2024 16:53:40 -0800
+ by fmviesa002.fm.intel.com with ESMTP; 23 Jan 2024 21:54:54 -0800
 Received: from kbuild by 961aaaa5b03c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rSRWM-0007lN-0F;
- Wed, 24 Jan 2024 00:53:38 +0000
-Date: Wed, 24 Jan 2024 08:53:36 +0800
+ (envelope-from <lkp@intel.com>) id 1rSWDr-0007ub-37;
+ Wed, 24 Jan 2024 05:54:51 +0000
+Date: Wed, 24 Jan 2024 13:54:41 +0800
 From: kernel test robot <lkp@intel.com>
 To: Ziyang Huang <hzyitc@outlook.com>, mcoquelin.stm32@gmail.com
-Message-ID: <202401240841.gfbyp3Lz-lkp@intel.com>
-References: <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+Message-ID: <202401241342.SL4CiC8m-lkp@intel.com>
+References: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <TYZPR01MB5556D3E73D7F7242F810F915C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+In-Reply-To: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
 Cc: netdev@vger.kernel.org, richardcochran@gmail.com, llvm@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
  Ziyang Huang <hzyitc@outlook.com>, p.zabel@pengutronix.de,
  oe-kbuild-all@lists.linux.dev, matthias.bgg@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH 8/8] arm64: dts: qcom: ipq5018-rdp432-c2:
- enable ethernet support
+Subject: Re: [Linux-stm32] [PATCH 3/8] net: stmmac: Introduce Qualcomm
+	IPQ50xx DWMAC driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,29 +74,101 @@ Hi Ziyang,
 kernel test robot noticed the following build errors:
 
 [auto build test ERROR on robh/for-next]
-[also build test ERROR on clk/clk-next pza/reset/next]
-[cannot apply to linus/master pza/imx-drm/next v6.8-rc1 next-20240123]
+[also build test ERROR on clk/clk-next pza/reset/next linus/master v6.8-rc1 next-20240123]
+[cannot apply to pza/imx-drm/next]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Ziyang-Huang/net-phy-Introduce-Qualcomm-IPQ5018-internal-PHY-driver/20240121-204840
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-patch link:    https://lore.kernel.org/r/TYZPR01MB5556D3E73D7F7242F810F915C9762%40TYZPR01MB5556.apcprd01.prod.exchangelabs.com
-patch subject: [PATCH 8/8] arm64: dts: qcom: ipq5018-rdp432-c2: enable ethernet support
-config: arm64-randconfig-001-20240124 (https://download.01.org/0day-ci/archive/20240124/202401240841.gfbyp3Lz-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240124/202401240841.gfbyp3Lz-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/TYZPR01MB5556B8833322A83632709631C9762%40TYZPR01MB5556.apcprd01.prod.exchangelabs.com
+patch subject: [PATCH 3/8] net: stmmac: Introduce Qualcomm IPQ50xx DWMAC driver
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20240124/202401241342.SL4CiC8m-lkp@intel.com/config)
+compiler: clang version 18.0.0git (https://github.com/llvm/llvm-project a31a60074717fc40887cfe132b77eec93bedd307)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240124/202401241342.SL4CiC8m-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401240841.gfbyp3Lz-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401241342.SL4CiC8m-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> Error: arch/arm64/boot/dts/qcom/ipq5018-rdp432-c2.dts:102.26-27 syntax error
-   FATAL ERROR: Unable to parse input tree
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:13: error: call to undeclared function 'stmmac_probe_config_dt'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+         |                    ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:13: note: did you mean 'devm_stmmac_probe_config_dt'?
+   drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h:15:1: note: 'devm_stmmac_probe_config_dt' declared here
+      15 | devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac);
+         | ^
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:11: error: incompatible integer to pointer conversion assigning to 'struct plat_stmmacenet_data *' from 'int' [-Wint-conversion]
+      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+         |                  ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
+
+
+vim +/stmmac_probe_config_dt +94 drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c
+
+    80	
+    81	static int ipq50xx_gmac_probe(struct platform_device *pdev)
+    82	{
+    83		struct device *dev = &pdev->dev;
+    84		struct stmmac_resources stmmac_res;
+    85		struct plat_stmmacenet_data *plat_dat;
+    86		struct ipq50xx_gmac *gmac;
+    87		int ret;
+    88	
+    89		ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+    90		if (ret)
+    91			return dev_err_probe(dev, ret,
+    92					     "failed to get stmmac platform resources\n");
+    93	
+  > 94		plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+    95		if (IS_ERR_OR_NULL(plat_dat))
+    96			return dev_err_probe(dev, PTR_ERR(plat_dat),
+    97					     "failed to parse stmmac dt parameters\n");
+    98	
+    99		gmac = devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
+   100		if (!gmac)
+   101			return dev_err_probe(dev, -ENOMEM,
+   102					     "failed to allocate priv\n");
+   103	
+   104		gmac->dev = dev;
+   105	
+   106		memcpy(gmac->clks, ipq50xx_gmac_clks, sizeof(gmac->clks));
+   107		ret = devm_clk_bulk_get_optional(dev, ARRAY_SIZE(gmac->clks), gmac->clks);
+   108		if (ret)
+   109			return dev_err_probe(dev, ret,
+   110					     "failed to acquire clocks\n");
+   111	
+   112		ret = clk_bulk_prepare_enable(ARRAY_SIZE(gmac->clks), gmac->clks);
+   113		if (ret)
+   114			return dev_err_probe(dev, ret,
+   115					     "failed to enable clocks\n");
+   116	
+   117		gmac->rst = devm_reset_control_array_get_exclusive(dev);
+   118		if (IS_ERR_OR_NULL(gmac->rst))
+   119			return dev_err_probe(dev, PTR_ERR(gmac->rst),
+   120					     "failed to acquire reset\n");
+   121	
+   122		ret = reset_control_reset(gmac->rst);
+   123		if (ret)
+   124			return dev_err_probe(dev, ret,
+   125					     "failed to reset\n");
+   126	
+   127		gmac->uniphy = devm_phy_optional_get(dev, "uniphy");
+   128		if (IS_ERR(gmac->uniphy))
+   129			return dev_err_probe(dev, PTR_ERR(gmac->uniphy),
+   130					     "failed to acquire uniphy\n");
+   131	
+   132		plat_dat->bsp_priv = gmac;
+   133		plat_dat->serdes_powerup = ipq50xx_gmac_powerup;
+   134		plat_dat->fix_mac_speed = ipq50xx_gmac_fix_speed;
+   135	
+   136		return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+   137	}
+   138	
 
 -- 
 0-DAY CI Kernel Test Service
