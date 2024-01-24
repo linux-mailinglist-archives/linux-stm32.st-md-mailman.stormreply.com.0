@@ -2,59 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD14783A5B1
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 10:41:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1B5F83A612
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 10:57:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6102EC6DD6C;
-	Wed, 24 Jan 2024 09:41:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59DD7C6DD6C;
+	Wed, 24 Jan 2024 09:57:27 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC671C6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27AE4C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 09:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706089265; x=1737625265;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=+lkuKTCv3wUHbUhaYST2gExklAngKX84H00lKlFUXx4=;
- b=Y3Y5K5pnM0HtIaJLR7C4GBPTCYBbF1WRRTNBY3bB6D6bhH3lyLcUOOeH
- JSqYFoXwquduiz2LThMrif1mRSn//LjUCnpEXyFrQhtvsv+35d97NF/Ia
- jhTr6aZpPvSI1DJCGDczjER6eZ6Y1zc8EctCpDkLAuqktAL67XX+RCBwm
- 15+GSOWry0eTD5E/tRVsQrk8xubRVOnluRjtRaO8mi7bcz13miN532Pzq
- RFhNiB8gwr1ecseZXyuY9XhatNL30Y0m4+2wu4XHel6ExeJmSurik49qL
- bc9adMcPGqtaWNVk5JakqJgB2hWH0CpRJyp7oX9w2B/URI0YBTT5CJnVK g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="693419"
-X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; 
-   d="scan'208";a="693419"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2024 01:41:03 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="735868699"
-X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="735868699"
-Received: from lkp-server01.sh.intel.com (HELO 961aaaa5b03c) ([10.239.97.150])
- by orsmga003.jf.intel.com with ESMTP; 24 Jan 2024 01:40:58 -0800
-Received: from kbuild by 961aaaa5b03c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rSZke-00081p-13;
- Wed, 24 Jan 2024 09:40:56 +0000
-Date: Wed, 24 Jan 2024 17:40:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ziyang Huang <hzyitc@outlook.com>, mcoquelin.stm32@gmail.com
-Message-ID: <202401241733.H4p1Af19-lkp@intel.com>
-References: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+ Wed, 24 Jan 2024 09:57:26 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40O9u4uD008888; Wed, 24 Jan 2024 10:56:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=lRJt8L3dvHJvDPc6wjvSI8AwruI1envw0+LfL3jMd2I=; b=1X
+ 4v4v4RNEHNbep6Jhui7sB461YIYgdIWlliU8UroXzvBbCEgLoqMepD3BRERXZmUr
+ ZHlrOydzyt2SPWrAhN1dPZiTISICMtjOVrNrzwPBVPFLyKCT+Zd8vRSOxJPX83dd
+ CCd74C65u0Bklcd2mmUeL6+YA5dU5eNGkPCFphbFgm+Hcy6tWUNXvMOgJfl60gYM
+ GCf9XSZ5FglAEl7kQa0VQtH1pcrZgdM5W3RLXxPxTc8X27VcaiZMxdvTirJLt8kU
+ HOjMUzlKTADbtEI906XBM+eai8Uyk6UT9K48OqhjKPOZBs8KOJhn9VTbAUtwr5PP
+ j/AgZFXexlKtmH1coEFg==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vtmf9tfjt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 24 Jan 2024 10:56:54 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7B0CC10005B;
+ Wed, 24 Jan 2024 10:56:53 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6D0B6271160;
+ Wed, 24 Jan 2024 10:56:53 +0100 (CET)
+Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 24 Jan
+ 2024 10:56:52 +0100
+Message-ID: <374fabc0-7894-4776-a84a-ae9f3c2f930c@foss.st.com>
+Date: Wed, 24 Jan 2024 10:56:51 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
-Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Ziyang Huang <hzyitc@outlook.com>, p.zabel@pengutronix.de,
- oe-kbuild-all@lists.linux.dev, matthias.bgg@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- angelogioacchino.delregno@collabora.com
-Subject: Re: [Linux-stm32] [PATCH 3/8] net: stmmac: Introduce Qualcomm
-	IPQ50xx DWMAC driver
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+References: <20240112144902.40044-1-dario.binacchi@amarulasolutions.com>
+ <20240112144902.40044-6-dario.binacchi@amarulasolutions.com>
+ <2f3144e2-2438-4ea8-ada0-3fbdd79ee131@foss.st.com>
+ <CABGWkvp=5a58Byd7Kc0rqNbq8HexuR2QTzXWVEMASM=QYVD_NQ@mail.gmail.com>
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <CABGWkvp=5a58Byd7Kc0rqNbq8HexuR2QTzXWVEMASM=QYVD_NQ@mail.gmail.com>
+X-Originating-IP: [10.201.21.122]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-24_04,2024-01-23_02,2023-05-22_02
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Baruch Siach <baruch@tkos.co.il>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Nyekjaer <sean@geanix.com>,
+ =?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ linux-amarula@amarulasolutions.com, Peter Rosin <peda@axentia.se>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v8 5/5] ARM: dts: add
+ stm32f769-disco-mb1225-revb03-mb1166-reva09
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,114 +83,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Ziyang,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on robh/for-next]
-[also build test ERROR on clk/clk-next pza/reset/next linus/master v6.8-rc1 next-20240123]
-[cannot apply to pza/imx-drm/next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Ziyang-Huang/net-phy-Introduce-Qualcomm-IPQ5018-internal-PHY-driver/20240121-204840
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
-patch link:    https://lore.kernel.org/r/TYZPR01MB5556B8833322A83632709631C9762%40TYZPR01MB5556.apcprd01.prod.exchangelabs.com
-patch subject: [PATCH 3/8] net: stmmac: Introduce Qualcomm IPQ50xx DWMAC driver
-config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20240124/202401241733.H4p1Af19-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 13.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240124/202401241733.H4p1Af19-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401241733.H4p1Af19-lkp@intel.com/
-
-All error/warnings (new ones prefixed by >>):
-
-   drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c: In function 'ipq50xx_gmac_probe':
->> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:20: error: implicit declaration of function 'stmmac_probe_config_dt'; did you mean 'devm_stmmac_probe_config_dt'? [-Werror=implicit-function-declaration]
-      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
-         |                    ^~~~~~~~~~~~~~~~~~~~~~
-         |                    devm_stmmac_probe_config_dt
->> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:18: warning: assignment to 'struct plat_stmmacenet_data *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
-         |                  ^
-   cc1: some warnings being treated as errors
-
-
-vim +94 drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c
-
-    80	
-    81	static int ipq50xx_gmac_probe(struct platform_device *pdev)
-    82	{
-    83		struct device *dev = &pdev->dev;
-    84		struct stmmac_resources stmmac_res;
-    85		struct plat_stmmacenet_data *plat_dat;
-    86		struct ipq50xx_gmac *gmac;
-    87		int ret;
-    88	
-    89		ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-    90		if (ret)
-    91			return dev_err_probe(dev, ret,
-    92					     "failed to get stmmac platform resources\n");
-    93	
-  > 94		plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
-    95		if (IS_ERR_OR_NULL(plat_dat))
-    96			return dev_err_probe(dev, PTR_ERR(plat_dat),
-    97					     "failed to parse stmmac dt parameters\n");
-    98	
-    99		gmac = devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
-   100		if (!gmac)
-   101			return dev_err_probe(dev, -ENOMEM,
-   102					     "failed to allocate priv\n");
-   103	
-   104		gmac->dev = dev;
-   105	
-   106		memcpy(gmac->clks, ipq50xx_gmac_clks, sizeof(gmac->clks));
-   107		ret = devm_clk_bulk_get_optional(dev, ARRAY_SIZE(gmac->clks), gmac->clks);
-   108		if (ret)
-   109			return dev_err_probe(dev, ret,
-   110					     "failed to acquire clocks\n");
-   111	
-   112		ret = clk_bulk_prepare_enable(ARRAY_SIZE(gmac->clks), gmac->clks);
-   113		if (ret)
-   114			return dev_err_probe(dev, ret,
-   115					     "failed to enable clocks\n");
-   116	
-   117		gmac->rst = devm_reset_control_array_get_exclusive(dev);
-   118		if (IS_ERR_OR_NULL(gmac->rst))
-   119			return dev_err_probe(dev, PTR_ERR(gmac->rst),
-   120					     "failed to acquire reset\n");
-   121	
-   122		ret = reset_control_reset(gmac->rst);
-   123		if (ret)
-   124			return dev_err_probe(dev, ret,
-   125					     "failed to reset\n");
-   126	
-   127		gmac->uniphy = devm_phy_optional_get(dev, "uniphy");
-   128		if (IS_ERR(gmac->uniphy))
-   129			return dev_err_probe(dev, PTR_ERR(gmac->uniphy),
-   130					     "failed to acquire uniphy\n");
-   131	
-   132		plat_dat->bsp_priv = gmac;
-   133		plat_dat->serdes_powerup = ipq50xx_gmac_powerup;
-   134		plat_dat->fix_mac_speed = ipq50xx_gmac_fix_speed;
-   135	
-   136		return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
-   137	}
-   138	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgRGFyaW8KCk9uIDEvMjMvMjQgMTk6NDgsIERhcmlvIEJpbmFjY2hpIHdyb3RlOgo+IEhpIEFs
+ZXhhbmRyZSwKPiAKPiBPbiBUdWUsIEphbiAyMywgMjAyNCBhdCA1OjM24oCvUE0gQWxleGFuZHJl
+IFRPUkdVRQo+IDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPiB3cm90ZToKPj4KPj4gSGkg
+RGFyaW8KPj4KPj4gT24gMS8xMi8yNCAxNTo0OCwgRGFyaW8gQmluYWNjaGkgd3JvdGU6Cj4+PiBB
+cyByZXBvcnRlZCBpbiB0aGUgc2VjdGlvbiA4LjMgKGkuIGUuIEJvYXJkIHJldmlzaW9uIGhpc3Rv
+cnkpIG9mIGRvY3VtZW50Cj4+PiBVTTIwMzMgKGkuIGUuIERpc2NvdmVyeSBraXQgd2l0aCBTVE0z
+MkY3NjlOSSBNQ1UpIHRoZXNlIGFyZSB0aGUgY2hhbmdlcwo+Pj4gcmVsYXRlZCB0byB0aGUgYm9h
+cmQgcmV2aXNpb25zIGFkZHJlc3NlZCBieSB0aGUgcGF0Y2g6Cj4+PiAtIEJvYXJkIE1CMTIyNSBy
+ZXZpc2lvbiBCLTAzOgo+Pj4gICAgIC0gTWVtb3J5IE1JQ1JPTiBNVDQ4TEM0TTMyQjJCNS02QSBy
+ZXBsYWNlZCBieSBJU1NJIElTNDJTMzI0MDBGLTZCTAo+Pj4gLSBCb2FyZCBNQjExNjYgcmV2aXNp
+b24gQS0wOToKPj4+ICAgICAtIExDRCBGUklEQSBGUkQzOTdCMjUwMDktRC1DVEsgcmVwbGFjZWQg
+YnkgRlJJREEgRlJENDAwQjI1MDI1LUEtQ1RLCj4+Pgo+Pj4gVGhlIHBhdGNoIG9ubHkgYWRkcyB0
+aGUgRFRTIHN1cHBvcnQgZm9yIHRoZSBuZXcgZGlzcGxheSB3aGljaCBiZWxvbmdzIHRvCj4+PiB0
+byB0aGUgTm92YXRlayBOVDM1NTEwLWJhc2VkIHBhbmVsIGZhbWlseS4KPj4+Cj4+PiBTaWduZWQt
+b2ZmLWJ5OiBEYXJpbyBCaW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5j
+b20+Cj4+PiBSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8u
+b3JnPgo+Pj4gUmV2aWV3ZWQtYnk6IFJhcGhhZWwgR2FsbGFpcy1Qb3UgPHJhcGhhZWwuZ2FsbGFp
+cy1wb3VAZm9zcy5zdC5jb20+Cj4+Pgo+Pgo+PiBJIHN0aWxsIGhhdmUgWUFNTCBlcnJvci4gRG8g
+eW91IGhhdmUgc2FtZSBvbiB5b3VyIHNpZGUgb3IgbWF5YmUgSSBtaXNzZWQKPj4gYSBkdC1iaW5k
+aW5nIHBhdGNoIHNvbWV3aGVyZSA/Cj4+Cj4+IC9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMmY3
+NjktZGlzY28tbWIxMjI1LXJldmIwMy1tYjExNjYtcmV2YTA5LmR0YjoKPj4gZHNpQDQwMDE2YzAw
+OiBVbmV2YWx1YXRlZCBwcm9wZXJ0aWVzIGFyZSBub3QgYWxsb3dlZCAoJ2ludGVycnVwdHMnLAo+
+PiAncGFuZWwtZHNpQDAnIHdlcmUgdW5leHBlY3RlZCkKPj4gICAgICAgICAgZnJvbSBzY2hlbWEg
+JGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3N0LHN0bTMyLWRzaS55
+YW1sIwo+PiAvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJmNzY5LWRpc2NvLW1iMTIyNS1yZXZi
+MDMtbWIxMTY2LXJldmEwOS5kdGI6Cj4+IHBhbmVsLWRzaUAwOiAncG9ydCcgZG9lcyBub3QgbWF0
+Y2ggYW55IG9mIHRoZSByZWdleGVzOiAncGluY3RybC1bMC05XSsnCj4+ICAgICAgICAgIGZyb20g
+c2NoZW1hICRpZDoKPj4gaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvZGlzcGxheS9wYW5l
+bC9ub3ZhdGVrLG50MzU1MTAueWFtbCMKPiAKPiBXaGF0IGNvbW1hbmQgZG8geW91IHJ1bj8KPiAK
+Cm1ha2UgLWoxNiBDSEVDS19EVEJTPXkgc3Qvc3RtMzJmNzY5LWRpc2NvLW1iMTIyNS1yZXZiMDMt
+bWIxMTY2LXJldmEwOS5kdGIKCgo+IEFzIHJlcG9ydGVkIGJ5IGNvbW1pdDoKPiBjb21taXQgYjgx
+YzhjM2I4ZTM4NDdhMTRiZDgzZGQxZGU0NjBkZjNlZmNiMzMyOQo+IEF1dGhvcjogQmVuamFtaW4g
+R2FpZ25hcmQgPGJlbmphbWluLmdhaWduYXJkQHN0LmNvbT4KPiBEYXRlOiAgIEZyaSBPY3QgMTEg
+MTU6MDY6NTggMjAxOSArMDIwMAo+IAo+ICAgICAgQVJNOiBkdHM6IHN0bTMyOiByZW1vdmUgdXNl
+bGVzcyBpbnRlcnJ1cHQgZnJvbSBkc2kgbm9kZSBmb3Igc3RtMzJmNDY5Cj4gCj4gICAgICBEU0kg
+ZHJpdmVyIGRvZXNuJ3QgdXNlIGludGVycnVwdCwgcmVtb3ZlIGl0IGZyb20gdGhlIG5vZGUgc2lu
+Y2UgaXQKPiAgICAgIGJyZWFrcyB5YW1sIGNoZWNrLgo+IAo+ICAgICAgU2lnbmVkLW9mZi1ieTog
+QmVuamFtaW4gR2FpZ25hcmQgPGJlbmphbWluLmdhaWduYXJkQHN0LmNvbT4KPiAgICAgIFNpZ25l
+ZC1vZmYtYnk6IEFsZXhhbmRyZSBUb3JndWUgPGFsZXhhbmRyZS50b3JndWVAc3QuY29tCj4gCj4g
+VGhlIGZpeCBjb3VsZCBiZSB0byByZW1vdmUgdGhlICdpbnRlcnJ1cHRzJyBwcm9wZXJ0eSBmcm9t
+IHRoZSBkc2lANDAwMTZjMDAKPiBhZGRlZCBieSB0aGUgcGF0Y2ggWzIvNV0gIkFSTTogZHRzOiBz
+dG0zMjogYWRkIERTSSBzdXBwb3J0IG9uIHN0bTMyZjc2OSIKPiAKPj4KPj4gQXNpZGUgdGhhdCwg
+SSBqdXN0IGhhdmUgYSBjb3NtZXRpYyBxdWVzdGlvbi4gQ2FuIHdlIGZpbmQgYSBzaG9ydGVyIG5h
+bWUKPj4gZm9yIHRoZSBib2FyZCA/IChub3Qgc3VyZSB3ZSBjYW4pLgo+IAo+IEluIHRoZSByZXBv
+IGh0dHBzOi8vZ2l0aHViLmNvbS9TVE1pY3JvZWxlY3Ryb25pY3MvU1RNMzJDdWJlRjcuZ2l0Cj4g
+eW91IGNhbiBmaW5kIHRoaXMgY29kZToKPiAKPiAjaWYgZGVmaW5lZChVU0VfU1RNMzJGNzY5SV9E
+SVNDT19SRVZCMDMpCj4gLyoqKioqKioqKioqKioqKioqKioqKioqTlQzNTUxMAo+IEluaXRpYWxp
+emF0aW9uKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovCj4gCj4gICAgLyogSW5pdGlh
+bGl6ZSB0aGUgTlQzNTUxMCBMQ0QgRGlzcGxheSBJQyBEcml2ZXIgKFRlY2hTaGluZSBMQ0QgSUMg
+RHJpdmVyKQo+ICAgICAqIGRlcGVuZGluZyBvbiBjb25maWd1cmF0aW9uIHNldCBpbiAnaGRzaXZp
+ZGVvX2hhbmRsZScuCj4gICAgICovCj4gICAgTlQzNTUxMF9Jbml0KE5UMzU1MTBfRk9STUFUX1JH
+Qjg4OCwgb3JpZW50YXRpb24pOwo+IC8qKioqKioqKioqKioqKioqKioqKioqKkVuZCBOVDM1NTEw
+IEluaXRpYWxpemF0aW9uKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8KPiAjZWxzZQo+IAo+
+IC8qKioqKioqKioqKioqKioqKioqKioqKk9UTTgwMDlBIEluaXRpYWxpemF0aW9uKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKiovCj4gCj4gICAgLyogSW5pdGlhbGl6ZSB0aGUgT1RNODAw
+OUEgTENEIERpc3BsYXkgSUMgRHJpdmVyIChLb0QgTENEIElDIERyaXZlcikKPiAgICAqICBkZXBl
+bmRpbmcgb24gY29uZmlndXJhdGlvbiBzZXQgaW4gJ2hkc2l2aWRlb19oYW5kbGUnLgo+ICAgICov
+Cj4gICAgT1RNODAwOUFfSW5pdChPVE04MDA5QV9GT1JNQVRfUkdCODg4LCBvcmllbnRhdGlvbik7
+Cj4gCj4gLyoqKioqKioqKioqKioqKioqKioqKioqRW5kIE9UTTgwMDlBIEluaXRpYWxpemF0aW9u
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKi8KPiAjZW5kaWYgLyogVVNFX1NUTTMyRjc2OUlf
+RElTQ09fUkVWQjAzICovCj4gCj4gaW4gZmlsZSBEcml2ZXJzL0JTUC9TVE0zMkY3NjlJLURpc2Nv
+dmVyeS9zdG0zMmY3NjlpX2Rpc2NvdmVyeV9sY2QuYy4KPiAKPiBBbmQgdGhlIGNvbW1lbnQ6Cj4g
+Cj4gLyogVVNFX1NUTTMyRjc2OUlfRElTQ09fUkVWQjAzICovIC8qIEFwcGxpY2FibGUgb25seSBm
+b3IgU1RNMzJGNzY5SQo+IERJU0NPVkVSWSB3LyBNQjExNjYtQTA5IExDRCBkYXVnaHRlciBib2Fy
+ZCBjb25uZWN0ZWQgb24gKi8KPiBpbiBmaWxlIERyaXZlcnMvQlNQL1NUTTMyRjc2OUktRGlzY292
+ZXJ5L3N0bTMyZjc2OWlfZGlzY292ZXJ5LmguCj4gCj4gT25lIHBvc3NpYmxlIGFwcHJvYWNoIG1p
+Z2h0IGJlIHRvIGRyb3AgJ21iMTIyNSwnIGFzc3VtaW5nIHRoYXQKPiAncmV2YjAzJyByZWZlcnMg
+dG8gaXQgaW1wbGljaXRseToKPiBzdG0zMmY3NjktZGlzY28tcmV2YjAzLW1iMTE2Ni1yZXZhMDkK
+PiAKPiBCdXQgYW55IHN1Z2dlc3Rpb24gaXMgd2VsY29tZS4KCkl0IGlzIGFjdHVhbGx5IGEgdHJp
+Y2t5IHBvaW50LiBNeSBwb3NpdGlvbiBmb3IgTVBVIGlzIHRvIG9ubHkgc3VwcG9ydCAKdGhlIGxh
+dGVzdCBib2FyZCByZXZpc2lvbiAodGhlIG9uZSB3aGljaCBpcyByZWFsbHkgc29sZCkuIElkZWEg
+YmVoaW5kIGlzIAp0byBub3QgaGF2ZSBtYW55IGJvYXJkIHJldmlzaW9ucyB0byBzdXBwb3J0LiBC
+dXQgSSBjYW4gdW5kZXJzdGFuZCB0aGF0IApzb21lIHBlb3BsZSB1c2luZyB0aGUgIm9sZCIgYm9h
+cmQgd291bGQgbGlrZSB0byBjb250aW51ZSB0byB3b3JrIG9uIGl0IAp3aXRoIGFuIHVwc3RyZWFt
+IHZlcnNpb24uIEkgJ20ganVzdCBub3Qgc3VyZSB0aGF0IHRoaXMgIm9sZCIgdmVyc2lvbiBoYXMg
+CnRvIGJlIG1haW50YWluZWQuCkNvbmNlcm5pbmcgdGhlIG5hbWUsIHllcyB0aGUgZmlyc3QgdGhp
+bmcgaXMgdG8gZHJvcCBtYjEyMjUgKGFzIGRpc2NvID0gCk1CMTIyNSkuIEkgd291bGQgcHJvcG9z
+ZSBhbHNvIHRvIGRyb3AgcmUgInJldmIwMyIgYXMgdGhlcmUgYXJlIG5vIApjaGFuZ2VzIHJlZ2Fy
+ZGluZyBtZW1vcnkgaW4gdGhpcyBzZXJpZXMuCgpyZWdhcmRzCmFsZXgKCj4gCj4gSSB3aWxsIHdh
+aXQgZm9yIHlvdXIgb3BpbmlvbiBiZWZvcmUgc2VuZGluZyB2ZXJzaW9uIDkuCj4gCj4gVGhhbmtz
+IGFuZCByZWdhcmRzLAo+IERhcmlvCj4+Cj4+IENoZWVycwo+PiBBbGV4Cj4+Cj4+Cj4+Cj4+PiAt
+LS0KPj4+Cj4+PiBDaGFuZ2VzIGluIHY4Ogo+Pj4gLSBBZGQgUmV2aWV3ZWQtYnkgdGFnIG9mIExp
+bnVzIFdhbGxlaWoKPj4+IC0gQWRkIFJldmlld2VkLWJ5IHRhZyBvZiBSYXBoYWVsIEdhbGxhaXMt
+UG91Cj4+Pgo+Pj4gQ2hhbmdlcyBpbiB2NzoKPj4+IC0gUmVwbGFjZSAuZHRzIHdpdGggLmR0YiBp
+biB0aGUgTWFrZWZpbGUKPj4+Cj4+PiBDaGFuZ2VzIGluIHY2Ogo+Pj4gLSBEcm9wIHBhdGNoZXMK
+Pj4+ICAgICAtIFs1LzhdIGR0LWJpbmRpbmdzOiBudDM1NTEwOiBhZGQgY29tcGF0aWJsZSBmb3Ig
+RlJJREEgRlJENDAwQjI1MDI1LUEtQ1RLCj4+PiAgICAgLSBbNy84XSBkcm0vcGFuZWw6IG50MzU1
+MTA6IG1vdmUgaGFyZHdpcmVkIHBhcmFtZXRlcnMgdG8gY29uZmlndXJhdGlvbgo+Pj4gICAgIC0g
+WzgvOF0gZHJtL3BhbmVsOiBudDM1NTEwOiBzdXBwb3J0IEZSSURBIEZSRDQwMEIyNTAyNS1BLUNU
+Swo+Pj4gICAgIGJlY2F1c2UgYXBwbGllZCBieSB0aGUgbWFpbnRhaW5lciBMaW51cyBXYWxsZWlq
+Cj4+Pgo+Pj4gQ2hhbmdlcyBpbiB2NToKPj4+IC0gUmVwbGFjZSBHUElPRF9BU0lTIHdpdGggR1BJ
+T0RfT1VUX0hJR0ggaW4gdGhlIGNhbGwgdG8gZGV2bV9ncGlvZF9nZXRfb3B0aW9uYWwoKS4KPj4+
+Cj4+PiBDaGFuZ2VzIGluIHYyOgo+Pj4gLSBDaGFuZ2UgdGhlIHN0YXR1cyBvZiBwYW5lbF9iYWNr
+bGlnaHQgbm9kZSB0byAiZGlzYWJsZWQiCj4+PiAtIERlbGV0ZSBiYWNrbGlnaHQgcHJvcGVydHkg
+ZnJvbSBwYW5lbDAgbm9kZS4KPj4+IC0gUmUtd3JpdGUgdGhlIHBhdGNoIFs4LzhdICJkcm0vcGFu
+ZWw6IG50MzU1MTA6IHN1cHBvcnQgRlJJREEgRlJENDAwQjI1MDI1LUEtQ1RLIgo+Pj4gICAgIGlu
+IHRoZSBzYW1lIHN0eWxlIGFzIHRoZSBvcmlnaW5hbCBkcml2ZXIuCj4+Pgo+Pj4gICAgYXJjaC9h
+cm0vYm9vdC9kdHMvc3QvTWFrZWZpbGUgICAgICAgICAgICAgICAgICB8ICAxICsKPj4+ICAgIC4u
+LjJmNzY5LWRpc2NvLW1iMTIyNS1yZXZiMDMtbWIxMTY2LXJldmEwOS5kdHMgfCAxOCArKysrKysr
+KysrKysrKysrKysKPj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKQo+Pj4g
+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyZjc2OS1kaXNj
+by1tYjEyMjUtcmV2YjAzLW1iMTE2Ni1yZXZhMDkuZHRzCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2Fy
+Y2gvYXJtL2Jvb3QvZHRzL3N0L01ha2VmaWxlIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3QvTWFrZWZp
+bGUKPj4+IGluZGV4IDc4OTJhZDY5YjQ0MS4uYWE1YjUwZDdhYzYxIDEwMDY0NAo+Pj4gLS0tIGEv
+YXJjaC9hcm0vYm9vdC9kdHMvc3QvTWFrZWZpbGUKPj4+ICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRz
+L3N0L01ha2VmaWxlCj4+PiBAQCAtMjMsNiArMjMsNyBAQCBkdGItJChDT05GSUdfQVJDSF9TVE0z
+MikgKz0gXAo+Pj4gICAgICAgIHN0bTMyZjQ2OS1kaXNjby5kdGIgXAo+Pj4gICAgICAgIHN0bTMy
+Zjc0Ni1kaXNjby5kdGIgXAo+Pj4gICAgICAgIHN0bTMyZjc2OS1kaXNjby5kdGIgXAo+Pj4gKyAg
+ICAgc3RtMzJmNzY5LWRpc2NvLW1iMTIyNS1yZXZiMDMtbWIxMTY2LXJldmEwOS5kdGIgXAo+Pj4g
+ICAgICAgIHN0bTMyNDI5aS1ldmFsLmR0YiBcCj4+PiAgICAgICAgc3RtMzI3NDZnLWV2YWwuZHRi
+IFwKPj4+ICAgICAgICBzdG0zMmg3NDNpLWV2YWwuZHRiIFwKPj4+IGRpZmYgLS1naXQgYS9hcmNo
+L2FybS9ib290L2R0cy9zdC9zdG0zMmY3NjktZGlzY28tbWIxMjI1LXJldmIwMy1tYjExNjYtcmV2
+YTA5LmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyZjc2OS1kaXNjby1tYjEyMjUtcmV2
+YjAzLW1iMTE2Ni1yZXZhMDkuZHRzCj4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+Pj4gaW5kZXgg
+MDAwMDAwMDAwMDAwLi4wMTRjYWMxOTIzNzUKPj4+IC0tLSAvZGV2L251bGwKPj4+ICsrKyBiL2Fy
+Y2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMyZjc2OS1kaXNjby1tYjEyMjUtcmV2YjAzLW1iMTE2Ni1y
+ZXZhMDkuZHRzCj4+PiBAQCAtMCwwICsxLDE4IEBACj4+PiArLy8gU1BEWC1MaWNlbnNlLUlkZW50
+aWZpZXI6IEdQTC0yLjAKPj4+ICsvKgo+Pj4gKyAqIENvcHlyaWdodCAoYykgMjAyMyBEYXJpbyBC
+aW5hY2NoaSA8ZGFyaW8uYmluYWNjaGlAYW1hcnVsYXNvbHV0aW9ucy5jb20+Cj4+PiArICovCj4+
+PiArCj4+PiArI2luY2x1ZGUgInN0bTMyZjc2OS1kaXNjby5kdHMiCj4+PiArCj4+PiArJnBhbmVs
+X2JhY2tsaWdodCB7Cj4+PiArICAgICBzdGF0dXMgPSAiZGlzYWJsZWQiOwo+Pj4gK307Cj4+PiAr
+Cj4+PiArJnBhbmVsMCB7Cj4+PiArICAgICBjb21wYXRpYmxlID0gImZyaWRhLGZyZDQwMGIyNTAy
+NSIsICJub3ZhdGVrLG50MzU1MTAiOwo+Pj4gKyAgICAgdmRkaS1zdXBwbHkgPSA8JnZjY18zdjM+
+Owo+Pj4gKyAgICAgdmRkLXN1cHBseSA9IDwmdmNjXzN2Mz47Cj4+PiArICAgICAvZGVsZXRlLXBy
+b3BlcnR5L2JhY2tsaWdodDsKPj4+ICsgICAgIC9kZWxldGUtcHJvcGVydHkvcG93ZXItc3VwcGx5
+Owo+Pj4gK307Cj4gCj4gCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
