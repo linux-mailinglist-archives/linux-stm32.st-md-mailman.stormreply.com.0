@@ -2,83 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CF283A540
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 10:23:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD14783A5B1
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 10:41:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52A75C6DD6C;
-	Wed, 24 Jan 2024 09:23:31 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6102EC6DD6C;
+	Wed, 24 Jan 2024 09:41:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A154AC65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC671C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 09:23:29 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40O6Pg23018306; Wed, 24 Jan 2024 09:22:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id; s=qcppdkim1; bh=rugATKa4IkJP
- 2vKvemVbUve3N/NxJypJVtd+Rko963k=; b=lfoSjgeSZYpmNSjR5osO7cR+4p8D
- hx5/WSJQAwYXX6aH+eRacL8HsgqKtNPT7t6LMDDzYVlETJF6RIXjLiNNE9vjmQxM
- s2iQ+WSUS7c60U9Pfj7yw5bRTwX0NGw+hEJr3rPlAhk+x7SIFyRKAJralIEaHtMQ
- 97PgJzSvmgdOkHXYg1NBMrFR7MrxXIJhUBib1hhjYneCYoXzndS4fHDKUCVPog48
- uFxaOgFe/JuWtiYYTBbyuJil/Muf7hsFx+2XZ453l3qjOQK1mvWffUyZvTq2RsoN
- gnFodG555VdTqRboPAdE9ZCp80fpjQYkEduAdxxvi3INj/m4mLVEG34sGw==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vtmgwhc7h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Jan 2024 09:22:33 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 40O9MSeN008245; 
- Wed, 24 Jan 2024 09:22:28 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3vr78kqtbh-1;
- Wed, 24 Jan 2024 09:22:28 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 40O9MSwS008239;
- Wed, 24 Jan 2024 09:22:28 GMT
-Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
- [10.147.246.35])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 40O9MSg6008228;
- Wed, 24 Jan 2024 09:22:28 +0000
-Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
- id 98C9D5013A3; Wed, 24 Jan 2024 14:52:27 +0530 (+0530)
-From: Sneh Shah <quic_snehshah@quicinc.com>
-To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 24 Jan 2024 14:52:15 +0530
-Message-Id: <20240124092215.14678-1-quic_snehshah@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: QMmXVuFyVlQNjXVjzbLe2p__f21Lpv1D
-X-Proofpoint-ORIG-GUID: QMmXVuFyVlQNjXVjzbLe2p__f21Lpv1D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-24_04,2024-01-23_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0
- impostorscore=0 spamscore=0 mlxscore=0 bulkscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1011 mlxlogscore=999 phishscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401240066
-Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: dwmac-qcom-ethqos:
-	Add support for 2.5G SGMII
+ Wed, 24 Jan 2024 09:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706089265; x=1737625265;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=+lkuKTCv3wUHbUhaYST2gExklAngKX84H00lKlFUXx4=;
+ b=Y3Y5K5pnM0HtIaJLR7C4GBPTCYBbF1WRRTNBY3bB6D6bhH3lyLcUOOeH
+ JSqYFoXwquduiz2LThMrif1mRSn//LjUCnpEXyFrQhtvsv+35d97NF/Ia
+ jhTr6aZpPvSI1DJCGDczjER6eZ6Y1zc8EctCpDkLAuqktAL67XX+RCBwm
+ 15+GSOWry0eTD5E/tRVsQrk8xubRVOnluRjtRaO8mi7bcz13miN532Pzq
+ RFhNiB8gwr1ecseZXyuY9XhatNL30Y0m4+2wu4XHel6ExeJmSurik49qL
+ bc9adMcPGqtaWNVk5JakqJgB2hWH0CpRJyp7oX9w2B/URI0YBTT5CJnVK g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="693419"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; 
+   d="scan'208";a="693419"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2024 01:41:03 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10962"; a="735868699"
+X-IronPort-AV: E=Sophos;i="6.05,216,1701158400"; d="scan'208";a="735868699"
+Received: from lkp-server01.sh.intel.com (HELO 961aaaa5b03c) ([10.239.97.150])
+ by orsmga003.jf.intel.com with ESMTP; 24 Jan 2024 01:40:58 -0800
+Received: from kbuild by 961aaaa5b03c with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rSZke-00081p-13;
+ Wed, 24 Jan 2024 09:40:56 +0000
+Date: Wed, 24 Jan 2024 17:40:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ziyang Huang <hzyitc@outlook.com>, mcoquelin.stm32@gmail.com
+Message-ID: <202401241733.H4p1Af19-lkp@intel.com>
+References: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <TYZPR01MB5556B8833322A83632709631C9762@TYZPR01MB5556.apcprd01.prod.exchangelabs.com>
+Cc: netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Ziyang Huang <hzyitc@outlook.com>, p.zabel@pengutronix.de,
+ oe-kbuild-all@lists.linux.dev, matthias.bgg@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com
+Subject: Re: [Linux-stm32] [PATCH 3/8] net: stmmac: Introduce Qualcomm
+	IPQ50xx DWMAC driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,115 +66,113 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
-mode for 1G/100M/10M speed.
-Added changes to configure serdes phy and mac based on link speed.
-Changing serdes phy speed involves multiple register writes for
-serdes block. To avoid redundant write opertions only update serdes
-phy when new speed is different.
+Hi Ziyang,
 
-Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
----
-v3 changelog:
-- updated commit message
----
-v2 changelog:
-- updated stmmac_pcs_ane to support autoneg disable
-- Update serdes speed to 1000 for 100M and 10M also
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 27 +++++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  2 ++
- 2 files changed, 29 insertions(+)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index d3bf42d0fceb..c236c939fbe9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -103,6 +103,7 @@ struct qcom_ethqos {
- 	struct clk *link_clk;
- 	struct phy *serdes_phy;
- 	unsigned int speed;
-+	int serdes_speed;
- 	phy_interface_t phy_mode;
- 
- 	const struct ethqos_emac_por *por;
-@@ -602,21 +603,46 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
- {
- 	int val;
- 
-+	struct platform_device *pdev = ethqos->pdev;
-+	struct net_device *dev = platform_get_drvdata(pdev);
-+	struct stmmac_priv *priv = netdev_priv(dev);
- 	val = readl(ethqos->mac_base + MAC_CTRL_REG);
- 
- 	switch (ethqos->speed) {
-+	case SPEED_2500:
-+		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
-+		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-+			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-+			      RGMII_IO_MACRO_CONFIG2);
-+		if (ethqos->serdes_speed != SPEED_2500)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
-+		ethqos->serdes_speed = SPEED_2500;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
-+		break;
- 	case SPEED_1000:
- 		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
- 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
- 			      RGMII_IO_MACRO_CONFIG2);
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	case SPEED_100:
- 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	case SPEED_10:
- 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
- 		val &= ~ETHQOS_MAC_CTRL_SPEED_MODE;
-+		if (ethqos->serdes_speed != SPEED_1000)
-+			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-+		ethqos->serdes_speed = SPEED_1000;
-+		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
- 		break;
- 	}
- 
-@@ -789,6 +815,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 				     "Failed to get serdes phy\n");
- 
- 	ethqos->speed = SPEED_1000;
-+	ethqos->serdes_speed = SPEED_1000;
- 	ethqos_update_link_clk(ethqos, SPEED_1000);
- 	ethqos_set_func_clk_en(ethqos);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-index aefc121464b5..13a30e6df4c1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-@@ -110,6 +110,8 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
- 	/* Enable and restart the Auto-Negotiation */
- 	if (ane)
- 		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-+	else
-+		value &= ~GMAC_AN_CTRL_ANE;
- 
- 	/* In case of MAC-2-MAC connection, block is configured to operate
- 	 * according to MAC conf register.
+[auto build test ERROR on robh/for-next]
+[also build test ERROR on clk/clk-next pza/reset/next linus/master v6.8-rc1 next-20240123]
+[cannot apply to pza/imx-drm/next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Ziyang-Huang/net-phy-Introduce-Qualcomm-IPQ5018-internal-PHY-driver/20240121-204840
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/TYZPR01MB5556B8833322A83632709631C9762%40TYZPR01MB5556.apcprd01.prod.exchangelabs.com
+patch subject: [PATCH 3/8] net: stmmac: Introduce Qualcomm IPQ50xx DWMAC driver
+config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20240124/202401241733.H4p1Af19-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240124/202401241733.H4p1Af19-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202401241733.H4p1Af19-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c: In function 'ipq50xx_gmac_probe':
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:20: error: implicit declaration of function 'stmmac_probe_config_dt'; did you mean 'devm_stmmac_probe_config_dt'? [-Werror=implicit-function-declaration]
+      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+         |                    ^~~~~~~~~~~~~~~~~~~~~~
+         |                    devm_stmmac_probe_config_dt
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c:94:18: warning: assignment to 'struct plat_stmmacenet_data *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+      94 |         plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+         |                  ^
+   cc1: some warnings being treated as errors
+
+
+vim +94 drivers/net/ethernet/stmicro/stmmac/dwmac-ipq50xx.c
+
+    80	
+    81	static int ipq50xx_gmac_probe(struct platform_device *pdev)
+    82	{
+    83		struct device *dev = &pdev->dev;
+    84		struct stmmac_resources stmmac_res;
+    85		struct plat_stmmacenet_data *plat_dat;
+    86		struct ipq50xx_gmac *gmac;
+    87		int ret;
+    88	
+    89		ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+    90		if (ret)
+    91			return dev_err_probe(dev, ret,
+    92					     "failed to get stmmac platform resources\n");
+    93	
+  > 94		plat_dat = stmmac_probe_config_dt(pdev, stmmac_res.mac);
+    95		if (IS_ERR_OR_NULL(plat_dat))
+    96			return dev_err_probe(dev, PTR_ERR(plat_dat),
+    97					     "failed to parse stmmac dt parameters\n");
+    98	
+    99		gmac = devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
+   100		if (!gmac)
+   101			return dev_err_probe(dev, -ENOMEM,
+   102					     "failed to allocate priv\n");
+   103	
+   104		gmac->dev = dev;
+   105	
+   106		memcpy(gmac->clks, ipq50xx_gmac_clks, sizeof(gmac->clks));
+   107		ret = devm_clk_bulk_get_optional(dev, ARRAY_SIZE(gmac->clks), gmac->clks);
+   108		if (ret)
+   109			return dev_err_probe(dev, ret,
+   110					     "failed to acquire clocks\n");
+   111	
+   112		ret = clk_bulk_prepare_enable(ARRAY_SIZE(gmac->clks), gmac->clks);
+   113		if (ret)
+   114			return dev_err_probe(dev, ret,
+   115					     "failed to enable clocks\n");
+   116	
+   117		gmac->rst = devm_reset_control_array_get_exclusive(dev);
+   118		if (IS_ERR_OR_NULL(gmac->rst))
+   119			return dev_err_probe(dev, PTR_ERR(gmac->rst),
+   120					     "failed to acquire reset\n");
+   121	
+   122		ret = reset_control_reset(gmac->rst);
+   123		if (ret)
+   124			return dev_err_probe(dev, ret,
+   125					     "failed to reset\n");
+   126	
+   127		gmac->uniphy = devm_phy_optional_get(dev, "uniphy");
+   128		if (IS_ERR(gmac->uniphy))
+   129			return dev_err_probe(dev, PTR_ERR(gmac->uniphy),
+   130					     "failed to acquire uniphy\n");
+   131	
+   132		plat_dat->bsp_priv = gmac;
+   133		plat_dat->serdes_powerup = ipq50xx_gmac_powerup;
+   134		plat_dat->fix_mac_speed = ipq50xx_gmac_fix_speed;
+   135	
+   136		return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
+   137	}
+   138	
+
 -- 
-2.17.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
