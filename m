@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 800CA83A7EC
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 12:33:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC0783A7EE
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 12:33:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39003C6DD7F;
-	Wed, 24 Jan 2024 11:33:47 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4647EC6DD7F;
+	Wed, 24 Jan 2024 11:33:49 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57C5DC6DD76
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BBEFC6DD80
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 11:33:46 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-40e5afc18f5so58029655e9.3
+ Wed, 24 Jan 2024 11:33:48 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3394bec856fso407893f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 03:33:46 -0800 (PST)
+ Wed, 24 Jan 2024 03:33:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1706096026; x=1706700826;
+ d=amarulasolutions.com; s=google; t=1706096027; x=1706700827;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OkfxdmU0fSILmYYOdSztVqfWXPtR0jIGfNt18pCRO9s=;
- b=GZkC6apQDgUA/zFXvVXEYsdwoOr2Ei+bUXCBdYObcigRwI/2rMaCJtZdpZFymzXBtm
- +ok+HxDPX+NFGfpIChUNOWL/zAENlRTSwvGZXuV9GcsfLnWZZhb+n9k9oDwRz7KV5FhK
- Mvrsui70CqI+r+hvy8fVvVkVJpibZyj3vwgqg=
+ bh=n4WZCMaxTTTK5Kb267g6Dn7+KP5+NrOJpg31LGj1mtM=;
+ b=aXuzW8MuCZjpEeDTRcECYKHN3N8+2cX9TTncYVYWdKgmnfmu09dvm1P5Dy/guTVs+P
+ 1qznNi43yM/4/fR5sGRg8f1pIQN/3cDR+/ttyaQzGXIfYAEGSyIdwRPiJr/SGAI19ZQg
+ MeHu2sU+bnNvDvWyZckyGdvbtQa1KoezOag2M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706096026; x=1706700826;
+ d=1e100.net; s=20230601; t=1706096027; x=1706700827;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=OkfxdmU0fSILmYYOdSztVqfWXPtR0jIGfNt18pCRO9s=;
- b=reOuA67+Y7uQZ6MlHHDVxZkc49cbUQyQnIYzx5rBAhxyknWoippl/Jm8zzi/INLzJt
- GEtRfdHwSTPDweCeF083oIWjtoGhYCODqJfpSPIDrd1l9Ouh84j/7YT8N1+BWpMrq5SH
- BTCJpOe7wzjX+/0wtpxIex/ELGEI79nHBMouhh9D0Bv4+FvYXDVplUw9uTnvoBG2Z+6k
- mPZ1oTl+tkfDiW8ACvKS4X/Mk6Kxk0h8uqYnvqyRySe8izIpSQrh/3V4nXP9eNxeRmrK
- Szyx+0HI24zzv+3z4AhvdrXeaJBN78sYoxmIts1ylHqgUB3KtnVogvebwWnSGL9xbeUa
- ukAQ==
-X-Gm-Message-State: AOJu0YxZ3n3g8jbn4PRZM2W8jFSrdztE8Qs6gHAyw4XgcFhZX72X2keW
- 1W0Zb9BlVZ7Xwt00kGgnwK9aLHvhlb08Sr/lQCMVAtF0MuMqg7nCuknQE3a9L3Q=
-X-Google-Smtp-Source: AGHT+IGr/ZW6/8dj9YoCm1u2xarpFK1RUZV23e2EH6+HlGuITJNl1wXSobD3EeAEcvmo6EUmNmsCSQ==
-X-Received: by 2002:a7b:c4c7:0:b0:40e:47df:3d18 with SMTP id
- g7-20020a7bc4c7000000b0040e47df3d18mr930101wmk.79.1706096026021; 
- Wed, 24 Jan 2024 03:33:46 -0800 (PST)
+ bh=n4WZCMaxTTTK5Kb267g6Dn7+KP5+NrOJpg31LGj1mtM=;
+ b=aeM8e0ONF/tM368wNN0jUwWrAw5/Z2EYjdAJ8YFBD3Kl82xhAVqBobyv3FxLd0dwlZ
+ gedV8InKce0a6CN94bq/wQwhbKP6Np3VkbeyAxuA07E07njBWCuzkKdeFH9H4oFPxscq
+ 0LpQw69pwHmMG6GMiUPYf0yONR0DAx4xlmBK7a1wzSHWbTGyxgBcnIIgHJoB4TnaHuYT
+ i7aJDbsYif8qsbsIL4OGxFZhfSB99o+DT/T8gxs+1p5TENhhbvijoB5GZL+pORAFo46M
+ ObJWvWNFOpyf/vfqxaAAE3OLkCa8TsLwVYCXI6iT6r1LKU0sige3HC88CP/GGR/kwE4g
+ 0fSg==
+X-Gm-Message-State: AOJu0YzEh3M2qIPHDbU1A0Zu5Od07UNWEai/XEc5bJhN6+hzs+WGY6Ds
+ ULinR6vxgOvzU4eaY6q+ftUNHWJpFdzmtGDZ5uHomGxjIPSL/BswPD9h7ZBjY4Q=
+X-Google-Smtp-Source: AGHT+IHURO/tYhzfPC+IgWh67nNUSW55NggO77fT58jLSJX4dJeQmpyxblqNyMGzgHtbUJl5bEXA3A==
+X-Received: by 2002:a5d:4c52:0:b0:339:534e:975f with SMTP id
+ n18-20020a5d4c52000000b00339534e975fmr311120wrt.25.1706096027752; 
+ Wed, 24 Jan 2024 03:33:47 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i.. (mob-5-90-60-192.net.vodafone.it.
  [5.90.60.192]) by smtp.gmail.com with ESMTPSA id
- i18-20020adffdd2000000b003393249d5dbsm8447950wrs.4.2024.01.24.03.33.44
+ i18-20020adffdd2000000b003393249d5dbsm8447950wrs.4.2024.01.24.03.33.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 03:33:45 -0800 (PST)
+ Wed, 24 Jan 2024 03:33:47 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Wed, 24 Jan 2024 12:33:12 +0100
-Message-ID: <20240124113336.658198-4-dario.binacchi@amarulasolutions.com>
+Date: Wed, 24 Jan 2024 12:33:13 +0100
+Message-ID: <20240124113336.658198-5-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240124113336.658198-1-dario.binacchi@amarulasolutions.com>
 References: <20240124113336.658198-1-dario.binacchi@amarulasolutions.com>
@@ -66,8 +66,8 @@ Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v9 3/5] ARM: dts: stm32: rename mmc_vcard to
-	vcc-3v3 on stm32f769-disco
+Subject: [Linux-stm32] [PATCH v9 4/5] ARM: dts: stm32: add display support
+	on stm32f769-disco
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,53 +84,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the schematics of document UM2033, the power supply for the micro SD
-card is the same 3v3 voltage that is used to power other devices on the
-board. By generalizing the name of the voltage regulator, it can be
-referenced by other nodes in the device tree without creating
-misunderstandings.
-
-This patch is preparatory for future developments.
+The patch adds display support on the stm32f769-disco board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Reviewed-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
 ---
 
 Changes in v9:
-- Rename vcc_3v3 to to vcc-3v3
+- Rename panel-dsi@0 to panel@0 to fix yaml warnings
 
 Changes in v8:
-- Add Reviewed-by tag of Raphael Gallais-Pou
+- Remove unit name from 'ltdc/port/endpoint@0' to fix the compiling
+  warning:
+  ../arch/arm/boot/dts/st/stm32f769-disco.dts:189.28-191.5: Warning
+  (unit_address_vs_reg): /soc/display-controller@40016800/port/endpoint@0: node
+  has a unit name, but no reg or ranges property
 
- arch/arm/boot/dts/st/stm32f769-disco.dts | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/st/stm32f769-disco.dts | 72 +++++++++++++++++++++++-
+ 1 file changed, 71 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
-index 5d12ae25b327..660f85984164 100644
+index 660f85984164..43479b0804c2 100644
 --- a/arch/arm/boot/dts/st/stm32f769-disco.dts
 +++ b/arch/arm/boot/dts/st/stm32f769-disco.dts
-@@ -92,9 +92,9 @@ usbotg_hs_phy: usb-phy {
- 		clock-names = "main_clk";
+@@ -41,7 +41,7 @@
+  */
+ 
+ /dts-v1/;
+-#include "stm32f746.dtsi"
++#include "stm32f769.dtsi"
+ #include "stm32f769-pinctrl.dtsi"
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/gpio/gpio.h>
+@@ -60,6 +60,19 @@ memory@c0000000 {
+ 		reg = <0xC0000000 0x1000000>;
  	};
  
--	mmc_vcard: mmc_vcard {
-+	vcc_3v3: vcc-3v3 {
- 		compatible = "regulator-fixed";
--		regulator-name = "mmc_vcard";
-+		regulator-name = "vcc_3v3";
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		linux,dma {
++			compatible = "shared-dma-pool";
++			linux,dma-default;
++			no-map;
++			size = <0x100000>;
++		};
++	};
++
+ 	aliases {
+ 		serial0 = &usart1;
  	};
-@@ -128,7 +128,7 @@ &rtc {
+@@ -85,6 +98,13 @@ button-0 {
+ 		};
+ 	};
  
- &sdio2 {
++	panel_backlight: panel-backlight {
++		compatible = "gpio-backlight";
++		gpios = <&gpioi 14 GPIO_ACTIVE_HIGH>;
++		default-on;
++		status = "okay";
++	};
++
+ 	usbotg_hs_phy: usb-phy {
+ 		#phy-cells = <0>;
+ 		compatible = "usb-nop-xceiv";
+@@ -114,6 +134,46 @@ &clk_hse {
+ 	clock-frequency = <25000000>;
+ };
+ 
++&dsi {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++			dsi_in: endpoint {
++				remote-endpoint = <&ltdc_out_dsi>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++			dsi_out: endpoint {
++				remote-endpoint = <&dsi_panel_in>;
++			};
++		};
++	};
++
++	panel0: panel@0 {
++		compatible = "orisetech,otm8009a";
++		reg = <0>; /* dsi virtual channel (0..3) */
++		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
++		power-supply = <&vcc_3v3>;
++		backlight = <&panel_backlight>;
++		status = "okay";
++
++		port {
++			dsi_panel_in: endpoint {
++				remote-endpoint = <&dsi_out>;
++			};
++		};
++	};
++};
++
+ &i2c1 {
+ 	pinctrl-0 = <&i2c1_pins_b>;
+ 	pinctrl-names = "default";
+@@ -122,6 +182,16 @@ &i2c1 {
  	status = "okay";
--	vmmc-supply = <&mmc_vcard>;
-+	vmmc-supply = <&vcc_3v3>;
- 	cd-gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
- 	broken-cd;
- 	pinctrl-names = "default", "opendrain", "sleep";
+ };
+ 
++&ltdc {
++	status = "okay";
++
++	port {
++		ltdc_out_dsi: endpoint {
++			remote-endpoint = <&dsi_in>;
++		};
++	};
++};
++
+ &rtc {
+ 	status = "okay";
+ };
 -- 
 2.43.0
 
