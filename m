@@ -2,84 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FA6483C47D
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 15:14:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09FD083C55D
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 15:51:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62FB1C6B444;
-	Thu, 25 Jan 2024 14:14:39 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D794C6B476;
+	Thu, 25 Jan 2024 14:51:46 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABA56C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 842BDC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 14:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1706192078;
- bh=xuWotEzSelSVBqWujYKbIOXX960an6aLcCPwqSUkjtM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=nSMrqxBc5B0zoxSh7oM+5Fjyr3Ev/UxHPkW05LIh9tqvVs8PD+gCaNAqlz5QsrhBH
- HbSRK9bawmsg86dsQH2IjMpDCUePRyRF5oM8aEVzAti4uMMz1HRIpPYLi32u2KBQJ+
- AliVBErnUM3jUPU81ZHJPCNYmhPMgUeAyPCVcAL4Hih1LBsQ2CGmIALnpwgLpButSL
- rbFGcAbYC6BY3TnD/ujgbQgo1zc9++xbkTUK6KOdcjliB5wx4T3j9bIncv2DioZft3
- 9ALNYJlMlexd763yE/DkmWdIt93ZLBCvhepEUEmz9UsnHPTMiD95fyECCAAuyLjyhN
- 8xG5LCL5+b38A==
-Received: from [100.113.186.2] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 3B7E43782057;
- Thu, 25 Jan 2024 14:14:35 +0000 (UTC)
-Message-ID: <4079a650-74a6-49bc-87a9-c5729fb6e8d1@collabora.com>
-Date: Thu, 25 Jan 2024 15:14:35 +0100
+ Thu, 25 Jan 2024 14:51:45 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40P9ZLjS032503; Thu, 25 Jan 2024 15:51:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=OdOyBjIbGPWEnFAfgcVDEJsf51RApeBzKhFso3DoU6k=; b=bQ
+ bFZwvsbEkM7FCjI4sthB7EdciMMV72Lznb/wSSFYgg/e0INQ1OxhDOcFb9dH6QGM
+ s4LgUheLLYUU9lKfMF3hsPfjqAq1ezukvwYnmRA6OoKPNXlaV/41cYD6CHBypWpz
+ 6ZnCBqx0La/NMDVO6RGqFlZzBsfxCBDQ44XC4Mgy5ubQMSo5Gml+aIuYy2G4LW62
+ 8V6q05INn86RBrM3/xyQnhXzw+CIGuX5qmMwePg7YX4DQ8cLZ6Ub48Th6A+NvuYz
+ 1QqCu+q0E6rcHbRS8LHdmaZgigWNZmVxmFOo1cswQqZNJhGBAF24fMxh0zXG8Jdx
+ OT3NWWBaLY7urdwM2X3w==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vtmf9gkda-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Jan 2024 15:51:15 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 804E810005D;
+ Thu, 25 Jan 2024 15:51:14 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6829629BBC6;
+ Thu, 25 Jan 2024 15:51:14 +0100 (CET)
+Received: from [10.201.21.240] (10.201.21.240) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 25 Jan
+ 2024 15:51:13 +0100
+Message-ID: <07681e93-6bad-4438-91d6-fa74756c20bd@foss.st.com>
+Date: Thu, 25 Jan 2024 15:51:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
+References: <20240111071536.659409-1-gabriel.fernandez@foss.st.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- linux-pwm@vger.kernel.org, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Benson Leung <bleung@chromium.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Paul Cercueil <paul@crapouillou.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai
- <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
- <1cae6f73264ab313205eaa9483251f7aaf259cb4.1706182805.git.u.kleine-koenig@pengutronix.de>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-In-Reply-To: <1cae6f73264ab313205eaa9483251f7aaf259cb4.1706182805.git.u.kleine-koenig@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Guenter Roeck <groeck@chromium.org>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- linux-staging@lists.linux.dev,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
- Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- greybus-dev@lists.linaro.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Douglas Anderson <dianders@chromium.org>,
- kernel@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v5 003/111] pwm: Provide a macro to get
- the parent device of a given chip
+From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+In-Reply-To: <20240111071536.659409-1-gabriel.fernandez@foss.st.com>
+X-Originating-IP: [10.201.21.240]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-25_08,2024-01-25_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v8 0/3] Introduce STM32MP257 clock driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,32 +75,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SWwgMjUvMDEvMjQgMTM6MDgsIFV3ZSBLbGVpbmUtS8O2bmlnIGhhIHNjcml0dG86Cj4gQ3VycmVu
-dGx5IGEgcHdtX2NoaXAgc3RvcmVzIGluIGl0cyBzdHJ1Y3QgZGV2aWNlICpkZXYgbWVtYmVyIGEg
-cG9pbnRlcgo+IHRvIHRoZSBwYXJlbnQgZGV2aWNlLiBQcmVwYXJpbmcgYSBjaGFuZ2UgdGhhdCBl
-bWJlZHMgYSBmdWxsIHN0cnVjdAo+IGRldmljZSBpbiBzdHJ1Y3QgcHdtX2NoaXAsIHRoaXMgYWNj
-ZXNzb3IgbWFjcm8gc2hvdWxkIGJlIHVzZWQgaW4gYWxsCj4gZHJpdmVycyBkaXJlY3RseSBhY2Nl
-c3NpbmcgY2hpcC0+ZGV2IG5vdy4gVGhpcyB3YXkgc3RydWN0IHB3bV9jaGlwIGFuZAo+IHRoaXMg
-bWFjcm8gY2FuIGJlIGNoYW5nZWQgd2l0aG91dCBoYXZpbmcgdG8gdG91Y2ggYWxsIGRyaXZlcnMg
-aW4gdGhlCj4gc2FtZSBjaGFuZ2Ugc2V0Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUt
-S8O2bmlnIDx1LmtsZWluZS1rb2VuaWdAcGVuZ3V0cm9uaXguZGU+CgpSZXZpZXdlZC1ieTogQW5n
-ZWxvR2lvYWNjaGlubyBEZWwgUmVnbm8gPGFuZ2Vsb2dpb2FjY2hpbm8uZGVscmVnbm9AY29sbGFi
-b3JhLmNvbT4KCj4gLS0tCj4gICBpbmNsdWRlL2xpbnV4L3B3bS5oIHwgNSArKysrKwo+ICAgMSBm
-aWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xp
-bnV4L3B3bS5oIGIvaW5jbHVkZS9saW51eC9wd20uaAo+IGluZGV4IDhmZmU5YWU3YTIzYS4uZDc5
-NjY5MThmMzAxIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvcHdtLmgKPiArKysgYi9pbmNs
-dWRlL2xpbnV4L3B3bS5oCj4gQEAgLTI4OSw2ICsyODksMTEgQEAgc3RydWN0IHB3bV9jaGlwIHsK
-PiAgIAlzdHJ1Y3QgcHdtX2RldmljZSAqcHdtczsKPiAgIH07Cj4gICAKPiArc3RhdGljIGlubGlu
-ZSBzdHJ1Y3QgZGV2aWNlICpwd21jaGlwX3BhcmVudChzdHJ1Y3QgcHdtX2NoaXAgKmNoaXApCj4g
-K3sKPiArCXJldHVybiBjaGlwLT5kZXY7Cj4gK30KPiArCj4gICAjaWYgSVNfRU5BQkxFRChDT05G
-SUdfUFdNKQo+ICAgLyogUFdNIHVzZXIgQVBJcyAqLwo+ICAgaW50IHB3bV9hcHBseV9taWdodF9z
-bGVlcChzdHJ1Y3QgcHdtX2RldmljZSAqcHdtLCBjb25zdCBzdHJ1Y3QgcHdtX3N0YXRlICpzdGF0
-ZSk7CgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxp
-bnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2xpbnV4LXN0bTMyCg==
+Hello Stephen,
+
+Gentle reminder.
+
+Thanks
+
+Gabriel
+
+
+On 1/11/24 08:15, gabriel.fernandez@foss.st.com wrote:
+> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+>
+> v8:
+>    - use .index of clk_parent_data struct to define a parent
+>    - remove unnecessary dependency check with SCMI clock driver
+>    - convert to platform device APIs
+>    - convert to devm_of_clk_add_hw_provider()
+>    - convert single value enum to a define
+>
+> v7: base on next-20231219
+>    - These patches below are applied to clk-next:
+>        clk: stm32mp1: move stm32mp1 clock driver into stm32 directory
+>        clk: stm32mp1: use stm32mp13 reset driver
+>        dt-bindings: stm32: add clocks and reset binding for stm32mp25
+>    - remove unnecessary includes
+>    - migrate clock parents to struct clk_parent_data and remove
+>      CLK_STM32_XXX() macros  to have a more readble code
+>    - use platform device APIs (devm_of_iomap() instead of_iomap())
+>    - move content of stm32mp25_rcc_init() to stm32mp25_rcc_clocks_probe()
+>    - simply get_clock_deps()
+>    - add const to stm32mp25_data struct
+>    - remove ck_icn_p_serc clock (will be integrate later with security
+>      management)
+>
+> v6:
+>    - remove useless defines in drivers/clk/stm32/stm32mp25_rcc.h
+>
+> v5:
+>    - Fix sparse warnings: was not declared. Should it be static?
+>      drivers/clk/stm32/clk-stm32mp13.c:1516:29: symbol 'stm32mp13_reset_data'
+>      drivers/clk/stm32/clk-stm32mp1.c:2148:29: symbol 'stm32mp1_reset_data'
+>      drivers/clk/stm32/clk-stm32mp25.c:1003:5: symbol 'stm32mp25_cpt_gate'
+>      drivers/clk/stm32/clk-stm32mp25.c:1005:29: symbol 'stm32mp25_clock_data'
+>      drivers/clk/stm32/clk-stm32mp25.c:1011:29: symbol 'stm32mp25_reset_data'
+>
+> v4:
+>    - use GPL-2.0-only OR BSD-2-Clause for clock and reset binding files
+>    - use quotes ' for #clock-cells and #reset-cells in YAML documentation
+>    - reset binding start now to 0 instead 1
+>    - improve management of reset lines that are not managed
+>
+> v3:
+>    - from Rob Herring change clock item description in YAML documentation
+> v2:
+>    - rework reset binding (use ID witch start from 0)
+>    - rework reset driver to manage STM32MP13 / STM32MP15 / STM32MP25
+>    - rework YAML documentation
+>
+> Gabriel Fernandez (3):
+>    clk: stm32mp13: use platform device APIs
+>    clk: stm32: introduce clocks for STM32MP257 platform
+>    arm64: dts: st: add rcc support in stm32mp251
+>
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi |  132 +-
+>   drivers/clk/stm32/Kconfig              |    7 +
+>   drivers/clk/stm32/Makefile             |    1 +
+>   drivers/clk/stm32/clk-stm32-core.c     |   11 +-
+>   drivers/clk/stm32/clk-stm32mp13.c      |   72 +-
+>   drivers/clk/stm32/clk-stm32mp25.c      | 1876 ++++++++++++++++++++++++
+>   drivers/clk/stm32/reset-stm32.c        |   59 +-
+>   drivers/clk/stm32/reset-stm32.h        |    7 +
+>   drivers/clk/stm32/stm32mp25_rcc.h      |  712 +++++++++
+>   9 files changed, 2765 insertions(+), 112 deletions(-)
+>   create mode 100644 drivers/clk/stm32/clk-stm32mp25.c
+>   create mode 100644 drivers/clk/stm32/stm32mp25_rcc.h
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
