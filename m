@@ -2,50 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CE5783B306
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jan 2024 21:30:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1303883B72A
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 03:35:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8665C6B444;
-	Wed, 24 Jan 2024 20:30:29 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A2639C6B444;
+	Thu, 25 Jan 2024 02:35:10 +0000 (UTC)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E578C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 822D0C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jan 2024 20:30:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E577E6200D;
- Wed, 24 Jan 2024 20:30:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8C83BC43394;
- Wed, 24 Jan 2024 20:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706128226;
- bh=7E96YLzl01LGs3tIQR8nbla5IaWuZRVsGIuS0bJ9CzU=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=KduiNtAwZIx/I/f6Cbt9YS2wXTbz1SEXUy9R2myM36I5ojYB01E84P16k9FpzjNyn
- s9oLIXWqYk0T+q5fFbiPP2vtmLn4AcULVQ9jTq6U0Fsi8ysZq5s6xaV9/geGfP25xG
- fUtvpsyO2d/nHVv75dl4z0HzirRcLac6hwJjhyvh4AhuwhzLXWubKeTK3+U0vA/+UV
- PksdEG9qJGJFl6YoiFDd8jaL/hpTZajzbixCoNik1O1KNYX3xXu9VPISrvG8z6gid6
- rM7n5i6YoMoertn1+Rihg6O+QQLB0WIDmZ1bN3n6PD20Q1TVUmq5MMIb13WK2+z852
- vPEjBwN48ToGA==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 72213D8C962; Wed, 24 Jan 2024 20:30:26 +0000 (UTC)
+ Thu, 25 Jan 2024 02:35:09 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-290a55f3feaso2922514a91.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 24 Jan 2024 18:35:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1706150108; x=1706754908;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ElI5s79820kPutuntGaxiQesjo2hgbJF7ifEMpPB0Eg=;
+ b=NPzi3EFzpsTGIRzB1gPwnR7bKSkSRgmZRT+qYK1mKSaJZSBbp7q4kV8j4iFnjNHKHh
+ VQ9l7ic3cZ3zfcpmHpdjyglNfsafUC0LtW4owYZSUEIJ98AxyTwBBg/gMkLyAEevgkLj
+ s2CRq3sg+SmnDhqOATqSgylD8RPf8tdULe/m2G9s1bkthLNbMEGIw1hCxey/Otgq3ZdM
+ hwd99k2jSa5+N6tXAp2wVI7CaW6bCdq+Fmr6xcczExzHZZh/dPFb532f2xABZ/FXkJ9f
+ uGEYNj7kvOZj/7RORU/MBfoIPVmc5nwN1ynm6xMH1iSBewXpycYR7+C9ITuipEv6D/mL
+ lxmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706150108; x=1706754908;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ElI5s79820kPutuntGaxiQesjo2hgbJF7ifEMpPB0Eg=;
+ b=hkWV/k8XSvOgLrY6QEGGXA+8Jf/5jhsYw5iWnkPlp67+rfxV7tzNryGRQ/Osh9wLk3
+ 9ENd4AJ7NrlkgWDEqTmjlz2EsQYW2fOR0UPv/fB78+gaKL3qSFccVrZSHwsm9xedvAq5
+ ChRu8YiJ1WDncVXBZdX8QylWO8X8FFDRCwAhJlDvO3zK8agAP12MgRZh6rJUp3QwkYEu
+ Je8MqTCp/m6Q1FtNjP5ZJWhP5sHtZaAsnnxwgDNsSITLw6YJIZjJH26qj1Re5ALS9WKz
+ J46TjM1rPymyU6Zv55zw9LyOosJHJj42/2EHBbNxIAMB7+cVRZCsoqGuUIbaBSVQCKCm
+ dLXg==
+X-Gm-Message-State: AOJu0Yz5hmkHFRLbliFUQmxaF/1up8i6v92Yg/EP9Ev8M++er+PsVnhc
+ UuyI90Pm3PZ+qvQXx6WVmNsLpJRXeFWlKuIH1vsy9IttjAk0ApUQ
+X-Google-Smtp-Source: AGHT+IH0qJiBgXBUOvhArhS7A5BZqdhwGL4PVANneN5oH8MrPA9qqy+6X4q55NX/xqbSsqPnc7Qb7A==
+X-Received: by 2002:a17:90a:e543:b0:28d:dbe8:aa6c with SMTP id
+ ei3-20020a17090ae54300b0028ddbe8aa6cmr255558pjb.36.1706150107884; 
+ Wed, 24 Jan 2024 18:35:07 -0800 (PST)
+Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
+ sx8-20020a17090b2cc800b0028ac1112124sm358775pjb.30.2024.01.24.18.35.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jan 2024 18:35:07 -0800 (PST)
+Date: Thu, 25 Jan 2024 10:34:54 +0800
+From: Furong Xu <0x1207@gmail.com>
+To: Serge Semin <fancer.lancer@gmail.com>
+Message-ID: <20240125103454.0000312a@gmail.com>
+In-Reply-To: <ii3muj3nmhuo6s5hm3g7wuiubtyzr632klrcesubtuaoyifogb@ohmunpxvdtsv>
+References: <20240123085037.939471-1-0x1207@gmail.com>
+ <ii3muj3nmhuo6s5hm3g7wuiubtyzr632klrcesubtuaoyifogb@ohmunpxvdtsv>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-w64-mingw32)
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170612822646.416.13224306306608084186.git-patchwork-notify@kernel.org>
-Date: Wed, 24 Jan 2024 20:30:26 +0000
-References: <AS8P193MB1285A810BD78C111E7F6AA34E4752@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
-In-Reply-To: <AS8P193MB1285A810BD78C111E7F6AA34E4752@AS8P193MB1285.EURP193.PROD.OUTLOOK.COM>
-To: Bernd Edlinger <bernd.edlinger@hotmail.de>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- fancer.lancer@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
- jiri@nvidia.com, kuba@kernel.org, akpm@linux-foundation.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: Wait a bit for the
-	reset to take effect
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
+	descriptions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,31 +87,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+On Wed, 24 Jan 2024 17:25:27 +0300
+Serge Semin <fancer.lancer@gmail.com> wrote:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 22 Jan 2024 19:19:09 +0100 you wrote:
-> otherwise the synopsys_id value may be read out wrong,
-> because the GMAC_VERSION register might still be in reset
-> state, for at least 1 us after the reset is de-asserted.
+> On Tue, Jan 23, 2024 at 04:50:37PM +0800, Furong Xu wrote:
+> > Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
+> > XGMAC core") prints safety error descriptions when safety error assert,
+> > but missed some special errors, and mixed correctable errors and
+> > uncorrectable errors together.
+> > This patch complete the error code list and print the type of errors.  
 > 
-> Add a wait for 10 us before continuing to be on the safe side.
+> The XGMAC ECC Safety code has likely been just copied from the DW GMAC
+> v5 (DW QoS Eth) part. So this change is partly relevant to that code too. I
+> can't confirm that the special errors support is relevant to the DW
+> QoS Eth too (it likely is though), so what about splitting this patch
+> up into two:
+> 1. Elaborate the errors description for DW GMAC v5 and DW XGMAC.
+> 2. Add new ECC safety errors support.
+> ?
 > 
-> > From what have you got that delay value?
+> On the other hand if we were sure that both DW QoS Eth and XGMAC
+> safety features implementation match the ideal solution would be to
+> refactor out the common code into a dedicated module.
 > 
-> [...]
+> -Serge(y)
+> 
 
-Here is the summary with links:
-  - [net,v3] net: stmmac: Wait a bit for the reset to take effect
-    https://git.kernel.org/netdev/net/c/a5f5eee282a0
+Checked XGMAC Version 3.20a and DW QoS Eth Version 5.20a, the safety error
+code definitions are not identical at all, they do have some differences,
+about more than 20 bits of status register are different.
+I think we should just leave them in individual implementations.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+> > 
+> > Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
+> > Signed-off-by: Furong Xu <0x1207@gmail.com>
+> > ---
+> >  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 36 +++++++++----------
+> >  1 file changed, 18 insertions(+), 18 deletions(-)
+> > 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > index eb48211d9b0e..ad812484059e 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > @@ -748,29 +748,29 @@ static void dwxgmac3_handle_mac_err(struct net_device *ndev,
+> >  }
+> >  
+> >  static const struct dwxgmac3_error_desc dwxgmac3_mtl_errors[32]= {
+> > -	{ true, "TXCES", "MTL TX Memory Error" },
+> > +	{ true, "TXCES", "MTL TX Memory Correctable Error" },
+> >  	{ true, "TXAMS", "MTL TX Memory Address Mismatch Error" },
+> > -	{ true, "TXUES", "MTL TX Memory Error" },
+> > +	{ true, "TXUES", "MTL TX Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */
+> > -	{ true, "RXCES", "MTL RX Memory Error" },
+> > +	{ true, "RXCES", "MTL RX Memory Correctable Error" },
+> >  	{ true, "RXAMS", "MTL RX Memory Address Mismatch Error" },
+> > -	{ true, "RXUES", "MTL RX Memory Error" },
+> > +	{ true, "RXUES", "MTL RX Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */
+> > -	{ true, "ECES", "MTL EST Memory Error" },
+> > +	{ true, "ECES", "MTL EST Memory Correctable Error" },
+> >  	{ true, "EAMS", "MTL EST Memory Address Mismatch Error" },
+> > -	{ true, "EUES", "MTL EST Memory Error" },
+> > +	{ true, "EUES", "MTL EST Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 11 */
+> > -	{ true, "RPCES", "MTL RX Parser Memory Error" },
+> > +	{ true, "RPCES", "MTL RX Parser Memory Correctable Error" },
+> >  	{ true, "RPAMS", "MTL RX Parser Memory Address Mismatch Error" },
+> > -	{ true, "RPUES", "MTL RX Parser Memory Error" },
+> > +	{ true, "RPUES", "MTL RX Parser Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 15 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 16 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 17 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 18 */
+> > +	{ true, "SCES", "MTL SGF GCL Memory Correctable Error" },
+> > +	{ true, "SAMS", "MTL SGF GCL Memory Address Mismatch Error" },
+> > +	{ true, "SUES", "MTL SGF GCL Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 19 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 20 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 21 */
+> > -	{ false, "UNKNOWN", "Unknown Error" }, /* 22 */
+> > +	{ true, "RXFCES", "MTL RXF Memory Correctable Error" },
+> > +	{ true, "RXFAMS", "MTL RXF Memory Address Mismatch Error" },
+> > +	{ true, "RXFUES", "MTL RXF Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 23 */
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 24 */
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 25 */
+> > @@ -796,13 +796,13 @@ static void dwxgmac3_handle_mtl_err(struct net_device *ndev,
+> >  }
+> >  
+> >  static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+> > -	{ true, "TCES", "DMA TSO Memory Error" },
+> > +	{ true, "TCES", "DMA TSO Memory Correctable Error" },
+> >  	{ true, "TAMS", "DMA TSO Memory Address Mismatch Error" },
+> > -	{ true, "TUES", "DMA TSO Memory Error" },
+> > +	{ true, "TUES", "DMA TSO Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */
+> > -	{ true, "DCES", "DMA DCACHE Memory Error" },
+> > +	{ true, "DCES", "DMA DCACHE Memory Correctable Error" },
+> >  	{ true, "DAMS", "DMA DCACHE Address Mismatch Error" },
+> > -	{ true, "DUES", "DMA DCACHE Memory Error" },
+> > +	{ true, "DUES", "DMA DCACHE Memory Uncorrectable Error" },
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 8 */
+> >  	{ false, "UNKNOWN", "Unknown Error" }, /* 9 */
+> > -- 
+> > 2.34.1
+> > 
+> >   
 
 _______________________________________________
 Linux-stm32 mailing list
