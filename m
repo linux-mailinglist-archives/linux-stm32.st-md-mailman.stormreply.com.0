@@ -2,77 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C1A83BFF0
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 12:01:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B8C383C000
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 12:03:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CFF9C6B458;
-	Thu, 25 Jan 2024 11:01:52 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2B71C6B477;
+	Thu, 25 Jan 2024 11:03:19 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D63DC6B457
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73AD7C6B457
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 11:01:51 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5100fd7f71dso2386957e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 03:01:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706180510; x=1706785310;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=miuHCVwgH0ReGM1PaYlhcfq7/djqKFtBuYNwdTBB2rs=;
- b=d2p5NEDe516ytA27reJceCKqqvx1V74tE8CdArvaeXUJyVPlEzROdopgoOBHtoFeBh
- Uwq3AKoRPAU1eTu1AAzHaapq26uGXBNpkFdODr++WlSyYY3g7YKIjAYFOKxb5GViIKwg
- 4BGTWzCS4iTd06UawKXAgT6SJRTXbrtrT+PYv/8ZmodJcQ5tQefa3iDD34rlbu6xqEgo
- 5E1/VinnTddW4zCAwvm3K1CZu0dwVEZFTCF6A2ozV9oGO+1KHZWpF6az25kXfi8vV8le
- RKJBYcegqpOcTRv5j2ma5Ts0k2tvkCJQS1zFcWxmoZkvw67YmSa7PIQ9dliNQ7GKSCIP
- NXqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706180510; x=1706785310;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=miuHCVwgH0ReGM1PaYlhcfq7/djqKFtBuYNwdTBB2rs=;
- b=IfIDC7LSd6bBec/eveHaVXDeBX06bcyRFYxjr0AM+L575abKlcPuZhyin7lvDBBdwt
- iDifmL2j1j7+DFEwBOfrusxqSm/j0hQYuo7UA9FSwPYqQsGEx4c84lczRM16MHcX2KAn
- NC695/U/YcRbyfE2FTuOdhtaotScxUL9NmOp/8ogMyppeXeoVPUtgJQMuNkr6zWr+uX7
- k2APAZEsFxWlQvlsh8msNTMT+tE9f9rQB8IU/DT2JkYVK3k5zGdZKQauBUSYg3ddWdzW
- tyQaJ5ch/SCyNIU51Qo7atzJDTr+n+Amtps/d2+nKNpztiHB/bp+KO6ueqWxUiXvwre3
- yCwA==
-X-Gm-Message-State: AOJu0Yx0a5/B1jhj5jAv2AqniEbdCNmtKANruvoHnnpYdtzg98TZkLtd
- GwbshOsGIascEE1CQ0dPmQ+zhZX3sua6wfhJ5cvKH7fF9FfwNFE2
-X-Google-Smtp-Source: AGHT+IFlB2MgGLnpQeRwCJpsgL6fLkk+sNLY3XK5121CEnUBfLxwPC5+nWSbyXBQ20M00lfQUDSEkQ==
-X-Received: by 2002:ac2:57c5:0:b0:50e:6317:54ab with SMTP id
- k5-20020ac257c5000000b0050e631754abmr324729lfo.42.1706180509935; 
- Thu, 25 Jan 2024 03:01:49 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- d14-20020a194f0e000000b0051006813733sm766441lfb.86.2024.01.25.03.01.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 03:01:49 -0800 (PST)
-Date: Thu, 25 Jan 2024 14:01:46 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Message-ID: <3aagjpld4v7u4cfj3lge5rg6v6ro3ehnstjz3jfculx3vdpbvd@4y3hw7v4idhp>
-References: <20240123085037.939471-1-0x1207@gmail.com>
- <ii3muj3nmhuo6s5hm3g7wuiubtyzr632klrcesubtuaoyifogb@ohmunpxvdtsv>
- <20240125103454.0000312a@gmail.com>
- <c37feb621fa3f7867af8d97ffe36f577966ba3ec.camel@redhat.com>
+ Thu, 25 Jan 2024 11:03:18 +0000 (UTC)
+From: Kurt Kanzenbach <kurt.kanzenbach@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1706180597;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UGg3yUqQ314SNJxAbWSQJNKui6kWSnV25W5yvKL41k0=;
+ b=u3SnLV4PZaCoZGJ3bJ25IlxETtood5AIfwRHarpLIu0DQJKJiE320k6VU1EDkPJ7NBI7Ar
+ 0D+Pg9k2f6KMRYV8Lff57+Y5aQzINaDvDVTZIbLkp/YzfM69+BgeTEDKiOmFjfMAyEfcUK
+ Mjs5UgUYahdJtJsYXpdFYuCX42E5hEjliwPuLNVgAc2mcYbV9Hpku24tAB17brXjx7CkKZ
+ MM6c8qD9QNaqQ2gFBcIpNK3Sb8Ti1z0fzUDZ+MM+vwLm+Dp+QEmWLG7lB2YGhHDHvMiepr
+ 1kIG9HCKfZdAtQeuZp8Rsd55fSrq8vA9XaFT76XXuUSivIUjnyCF4PoNYdBKEQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1706180597;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=UGg3yUqQ314SNJxAbWSQJNKui6kWSnV25W5yvKL41k0=;
+ b=jBv6uUoTeqQ7ZIsiv5KNrixbFEaklvqN2Pjq308Ul+wdRoYBuqemFgZS23br5QDL7WfJ/V
+ FloqYx5d/nfnYRDw==
+To: Esben Haabendal <esben@geanix.com>, netdev@vger.kernel.org, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+In-Reply-To: <b807c2a70dba9711376b265b6da5fb5ff14589aa.1706105494.git.esben@geanix.com>
+References: <b365dc6f756a3fad4dfaa2675c98f4078aba8a55.1706105494.git.esben@geanix.com>
+ <b807c2a70dba9711376b265b6da5fb5ff14589aa.1706105494.git.esben@geanix.com>
+Date: Thu, 25 Jan 2024 12:03:16 +0100
+Message-ID: <8734ulekuj.fsf@kurt.kurt.home>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c37feb621fa3f7867af8d97ffe36f577966ba3ec.camel@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Furong Xu <0x1207@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
-	descriptions
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 3/3] net: stmmac: Time Based Scheduling
+ support for OF platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,60 +59,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6511633217303830416=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 25, 2024 at 11:09:06AM +0100, Paolo Abeni wrote:
-> On Thu, 2024-01-25 at 10:34 +0800, Furong Xu wrote:
-> > On Wed, 24 Jan 2024 17:25:27 +0300
-> > Serge Semin <fancer.lancer@gmail.com> wrote:
-> > 
-> > > On Tue, Jan 23, 2024 at 04:50:37PM +0800, Furong Xu wrote:
-> > > > Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
-> > > > XGMAC core") prints safety error descriptions when safety error assert,
-> > > > but missed some special errors, and mixed correctable errors and
-> > > > uncorrectable errors together.
-> > > > This patch complete the error code list and print the type of errors.  
-> > > 
-> > > The XGMAC ECC Safety code has likely been just copied from the DW GMAC
-> > > v5 (DW QoS Eth) part. So this change is partly relevant to that code too. I
-> > > can't confirm that the special errors support is relevant to the DW
-> > > QoS Eth too (it likely is though), so what about splitting this patch
-> > > up into two:
-> > > 1. Elaborate the errors description for DW GMAC v5 and DW XGMAC.
-> > > 2. Add new ECC safety errors support.
-> > > ?
-> > > 
-> > > On the other hand if we were sure that both DW QoS Eth and XGMAC
-> > > safety features implementation match the ideal solution would be to
-> > > refactor out the common code into a dedicated module.
-> > > 
-> > > -Serge(y)
-> > > 
-> > 
-> > Checked XGMAC Version 3.20a and DW QoS Eth Version 5.20a, the safety error
-> > code definitions are not identical at all, they do have some differences,
-> > about more than 20 bits of status register are different.
-> > I think we should just leave them in individual implementations.
-> 
+--===============6511633217303830416==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-> @Serge: given the above, would you still advice for splitting this
-> patch into 2?
+--=-=-=
+Content-Type: text/plain
 
-Preliminary I would still in insist on splitting up. I'll double check
-the patch and the Safety feature implementations in both devices and
-give more detailed response to Furong in an hour or so.
+Hi,
 
--Serge(y)
+On Wed Jan 24 2024, Esben Haabendal wrote:
+> This allows enabling TBS for TX queues by adding the
+> snps,time-based-scheduling property. You should check for support for this
+> on your particular controller before enabling. Typically, TX queue 0 does
+> not support TBS.
 
-> 
-> Thanks,
-> 
-> Paolo
-> 
+More a general question: Do i see that correctly that Launch Time does
+not work for OF platforms (such as an imx93) at the moment, because the
+tbs_en property is not configured? Or why are these patches necessary?
+
+Thanks,
+Kurt
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJSBAEBCgA8FiEEvLm/ssjDfdPf21mSwZPR8qpGc4IFAmWyP/QeHGt1cnQua2Fu
+emVuYmFjaEBsaW51dHJvbml4LmRlAAoJEMGT0fKqRnOCL50QAJcDSvbiM7O1gNCH
+paOkpfL04tCHg41ccGCEEDcDNadgMVtdEupNV1xwikf5sNYd44FDXTm6U0ad1J5H
+Ub8/GbM+rGdz+5fSFRB+C/XX0r9VIhEHZg9QErNO5pTt2syYko2R4LobCvJMiAF7
+sGBskqeV/De7CcOkHwin3pjNYIUxAPluKqUnLKubxK9NEVfn9ZL122+5rqFyUAux
+N8S1KBvFC+QJ2iizSHPmf/99qmeJPbzyWVL10jqXsg5Xs+ZsOes7mVHXUe8x+e6I
+TVhsP5SO9q4XxHAqiuLoC56svb6MPpg0DOGL/adVOAL0y1YSWfgpLqQ8wjNgpniG
+jSDJnRL9rY8+VowQx9EtsExAemH2w8xfD71rjwTISJKSIsJskcc7pDb9wc3ck29D
+xlhhOHgrLgDOfAcHhwM2cQT3ebJD7tQU65yeedjC2hU1rKFXvcT2E7+Ia9cAne+k
+lxse7NTvbN6joDFwFKlJfCKC2Gs616WhK7tvomnzqzFnqle0bS6psW6ybkyLZvRb
+0lDeRdYPcnZj8SpxhV9XFkX1njmNkHNw7gJA5WEMQciLnGE1+IS5aiifXNLlALXA
+JbaEaQ3qSSivqh6Pa4kb87hGvh6gDRSo9LD8Uw7ViK9yXeSyrdsy8lEX07TbTj5t
+dwZF0yXrFem0vJsm9MBfjxTJpRZ+
+=1RFb
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============6511633217303830416==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6511633217303830416==--
