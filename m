@@ -2,56 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AACD83C296
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 13:34:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 546EF83C298
+	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 13:34:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9471C6B476;
-	Thu, 25 Jan 2024 12:34:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 13753C6B476;
+	Thu, 25 Jan 2024 12:34:44 +0000 (UTC)
 Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D553DC6B444
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D902C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 12:34:38 +0000 (UTC)
+ Thu, 25 Jan 2024 12:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
  s=default2211;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:
- Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References;
- bh=sqde1eKqHsDxcHA0c/L4ft5EXdAFyz1gweX/+ObrMwk=; b=C4uh51dX/XlieJ7zgcfHMe5mcN
- D8vNmk2uDCQERTOxpyxoTZHeumltyyRkGjjR1sqbJRFuMD1DHu1xVFiHDeS6PgmREtdVdFqR/x1VO
- NxRlLIBZSLzMBZM1e9ST8I+0fN3dQvMhKFsy7RBt3N3c6h+LuHfEZ9YqTb3Yj3okgSo4Hwnx4XzcM
- ONKCH1hwNpVm8daIJEZ9i/u75L85PdldC+dxMyKofRdn4cUQWfwZqc/gkLLBWRX/aubRFbiFnnWzJ
- BEJQejfpXwO7RTO6vJ52ilUe8WjJb4ag9PKC5sWFa/g7nU32tOWy7A3gC13/LtUohrfcQEz7IY1lF
- k4bnULJA==;
+ h=Content-Transfer-Encoding:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=O99d2OhA5yD9439wbiGDNw8gbQ6j47VNjuChaGpSepE=; b=sGzqxBb73IUlg1OF5UY4xH9Z5F
+ AysdrkIa0xJpoLD8gMXgkc/z5ha1KwdVV70NGn5p3Dh+kUkcO77WgN+qRvnRcxFoMfOXPTHxuSBQH
+ uVZVmh4+4NRKVv4XnENVG4mX0vp7nORlguxiznDauOvXjdY8I5wpV9o5+zwSaA5DBWAqdvHQdX/6E
+ DzlIA7SjLnFbKzdxDh4LfscplRPCKXcbCl6sHBWda0fjBDge9cS4Po29celBW83U+Vy5Dth535GqM
+ c60paXmj8wDQd5j4JcPSLw6by9EabOYS24CdkV3ildwunOpoQvv1rL4gKLgBNoXiSQu3e7SMPI8Je
+ miA9LTbw==;
 Received: from sslproxy02.your-server.de ([78.47.166.47])
  by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
  (Exim 4.94.2) (envelope-from <esben@geanix.com>)
- id 1rSywG-0007Pw-Hb; Thu, 25 Jan 2024 13:34:36 +0100
+ id 1rSywH-0007Q2-4N; Thu, 25 Jan 2024 13:34:37 +0100
 Received: from [185.17.218.86] (helo=localhost)
  by sslproxy02.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92) (envelope-from <esben@geanix.com>)
- id 1rSywF-000258-JO; Thu, 25 Jan 2024 13:34:35 +0100
+ id 1rSywG-00028s-9l; Thu, 25 Jan 2024 13:34:36 +0100
 From: Esben Haabendal <esben@geanix.com>
 To: netdev@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>
-Date: Thu, 25 Jan 2024 13:34:32 +0100
-Message-ID: 
+ Christian Marangi <ansuelsmth@gmail.com>
+Date: Thu, 25 Jan 2024 13:34:33 +0100
+Message-ID: <a1d6f5ca9aad795dfc8e0bbb9bb06d8bb7b46649.1706184304.git.esben@geanix.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1706184304.git.esben@geanix.com>
+References: <cover.1706184304.git.esben@geanix.com>
 MIME-Version: 1.0
 X-Authenticated-Sender: esben@geanix.com
 X-Virus-Scanned: Clear (ClamAV 0.103.10/27165/Thu Jan 25 10:51:15 2024)
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 0/2] net: stmmac: dwmac-imx: Time Based
-	Scheduling support
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH 1/2] net: stmmac: do not clear TBS enable bit
+	on link up/down
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,26 +69,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This small patch series allows using TBS support of the i.MX Ethernet QOS
-controller for etf qdisc offload.
+With the dma conf being reallocated on each call to stmmac_open(), any
+information in there is lost, unless we specifically handle it.
 
-It is a rework of
-https://lore.kernel.org/all/20240124-reptilian-icing-a95b20f123be@spud/T/
+The STMMAC_TBS_EN bit is set when adding an etf qdisc, and the etf qdisc
+therefore would stop working when link was set down and then back up.
 
-Changes since previous series:
-
-- Changed from using a devicetree binding for configuring TBS support to enable
-  it for all TX queues on supported i.MX Ethernet QOS controller. Other stmmac
-  controllers with TBS support will need to be updated with similar changes.
-
-Esben Haabendal (2):
-  net: stmmac: do not clear TBS enable bit on link up/down
-  net: stmmac: dwmac-imx: set TSO/TBS TX queues default settings
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   | 6 ++++++
+Fixes: ba39b344e924 ("net: ethernet: stmicro: stmmac: generate stmmac dma conf before open")
+Cc: stable@vger.kernel.org
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
- 2 files changed, 9 insertions(+)
+ 1 file changed, 3 insertions(+)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b334eb16da23..25519952f754 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3932,6 +3932,9 @@ static int __stmmac_open(struct net_device *dev,
+ 	priv->rx_copybreak = STMMAC_RX_COPYBREAK;
+ 
+ 	buf_sz = dma_conf->dma_buf_sz;
++	for (int i = 0; i < MTL_MAX_TX_QUEUES; i++)
++		if (priv->dma_conf.tx_queue[i].tbs & STMMAC_TBS_EN)
++			dma_conf->tx_queue[i].tbs = priv->dma_conf.tx_queue[i].tbs;
+ 	memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
+ 
+ 	stmmac_reset_queues_param(priv);
 -- 
 2.43.0
 
