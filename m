@@ -2,106 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CAD283DF8E
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 18:12:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E4483DF88
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 18:11:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56EC5C6DD70;
-	Fri, 26 Jan 2024 17:12:12 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39F0EC6DD70;
+	Fri, 26 Jan 2024 17:11:18 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8D73C6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAE89C6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jan 2024 17:12:11 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1rTPjB-0003h4-L9; Fri, 26 Jan 2024 18:10:53 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1rTPiw-002YFi-JY; Fri, 26 Jan 2024 18:10:38 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ukl@pengutronix.de>) id 1rTPiw-008oFN-1F;
- Fri, 26 Jan 2024 18:10:38 +0100
-Date: Fri, 26 Jan 2024 18:10:38 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Alex Elder <elder@ieee.org>
-Message-ID: <zjt3r6z5ilpffh26qidwp3axpnvfkwcrwanrtjjm2kscpdovuz@ppcrdlhmqiqq>
-References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
- <f59b1a4a8d6fba65e4d3e8698310c9cb1d4c43ce.1706182805.git.u.kleine-koenig@pengutronix.de>
- <db05fb6a-2ea5-4e00-ac03-adc1897d96de@ieee.org>
+ Fri, 26 Jan 2024 17:11:16 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1d76671e5a4so5345745ad.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 26 Jan 2024 09:11:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1706289075; x=1706893875;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bcmrpd25Eu3WOVR04Y5OIk5yOCebYwVXK+pO0q0F6mw=;
+ b=NaqSvmd7CGX/5+2+2s+YzHGs8HiyEtmuItuLzcxvOQCQhIXing79zr77YVUKr6M2zP
+ urVR3+JVeHwzhlVQB7420eTQ1l1HHrrO5UhCE7lJnZ+XED3g9bVMqmlWyfXg6u0IgMUM
+ PcRpgd0Vp6jKNpkCqwA7UXXVzL2VdCiEN8o0NIfQzXivl129eHfiilGYkCzBMLqWyCLZ
+ 4x3KXLGBVuneRBGC3ScbdMcjycbpzmhW7jZ1urro1C8xMZLvtn/t1DfqARviygHYo/hq
+ T+fW6R88SwXdgUAmjVaPKMvSgyvEQ/9zQvOVtqL1vvgSg/TpRnlakCEDMKnijuz1+i9X
+ nRUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706289075; x=1706893875;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Bcmrpd25Eu3WOVR04Y5OIk5yOCebYwVXK+pO0q0F6mw=;
+ b=vQ3JbM2xE/DTnVPlZPL1iANvbHZTv0LvVnSm4RC+GoBGklTQHKyKl+UH0V+qc9wu34
+ 74sPhA6tcULnvCJEXHTD6zbGrbCYBoCENi3Nbc30kKA7k2txe+eAzf6gDyKHrSuvl73d
+ TSOgHm/tSbkB1GaViGJOym2wyDJwHf6FKnctEOJxw9IWmYLaj/Hut/SHlbJHAbve539D
+ TVnGUx3167zDQSLZJGoWj3qiOWJgQCX6mb0ZHgDPgTeK3WWn6R96Kn26b3lY9KNVqtKw
+ 3tavQZ/lYOZh6l/XRCEK2bEiCZKuOE7zo47QbfuYGC2y0g/fwwaw4oWB7j3NXttVOVQY
+ ggAw==
+X-Gm-Message-State: AOJu0YxNphA3EPWcoCbzkvDI49Ia2CPrz2CnZ++yuagSd2KetATZHvMr
+ CNMlFC343pFyZgCFGSLTDFtWnIXF81Z8jaaXGjtpDzYt3qiAU/SHZ5RHWksgh+E=
+X-Google-Smtp-Source: AGHT+IH5z9sKSNksJAUu83TwSp/rNEwRd7Og2IHYScnBP9tAbNauGL8Vlp/pDWgaLQsQX0ukE3j7ww==
+X-Received: by 2002:a17:902:e995:b0:1d7:35e0:2b5b with SMTP id
+ f21-20020a170902e99500b001d735e02b5bmr52432plb.125.1706289075281; 
+ Fri, 26 Jan 2024 09:11:15 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:4ad7:9f92:4f45:da3f])
+ by smtp.gmail.com with ESMTPSA id
+ v10-20020a170902d08a00b001d72f145ebdsm1175527plv.35.2024.01.26.09.11.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jan 2024 09:11:14 -0800 (PST)
+Date: Fri, 26 Jan 2024 10:11:12 -0700
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZbPnsJm67G10+HQ3@p14s>
+References: <20240118100433.3984196-1-arnaud.pouliquen@foss.st.com>
+ <20240118100433.3984196-5-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-In-Reply-To: <db05fb6a-2ea5-4e00-ac03-adc1897d96de@ieee.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Heiko Stuebner <heiko@sntech.de>, Linus Walleij <linus.walleij@linaro.org>,
- dri-devel@lists.freedesktop.org, Conor Dooley <conor.dooley@microchip.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Sean Anderson <sean.anderson@seco.com>,
- Kevin Hilman <khilman@baylibre.com>, Hammer Hsieh <hammerh0314@gmail.com>,
- NXP Linux Team <linux-imx@nxp.com>, linux-sunxi@lists.linux.dev,
- Sascha Hauer <s.hauer@pengutronix.de>, Scott Branden <sbranden@broadcom.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@pengutronix.de,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Michael Walle <mwalle@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- linux-doc@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>,
- James Clark <james.clark@arm.com>, Guenter Roeck <groeck@chromium.org>,
- chrome-platform@lists.linux.dev, Bjorn Andersson <quic_bjorande@quicinc.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Bartosz Golaszewski <brgl@bgdev.pl>,
- Lee Jones <lee@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- linux-rockchip@lists.infradead.org, Andi Shyti <andi.shyti@kernel.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Ripard <mripard@kernel.org>, linux-gpio@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, Bjorn Helgaas <bhelgaas@google.com>,
- linux-amlogic@lists.infradead.org, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, greybus-dev@lists.linaro.org,
- Hector Martin <marcan@marcan.st>, Douglas Anderson <dianders@chromium.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- platform-driver-x86@vger.kernel.org, linux-tegra@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- Alyssa Rosenzweig <alyssa@rosenzweig.io>, Alexander Shiyan <shc_work@mail.ru>,
- Jonathan Corbet <corbet@lwn.net>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Weiss <luca@z3ntu.xyz>,
- Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
- linux-pwm@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>,
- Ray Jui <rjui@broadcom.com>,
- Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Vladimir Zapolskiy <vz@mleia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Orson Zhai <orsonzhai@gmail.com>, Benson Leung <bleung@chromium.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
- Shawn Guo <shawnguo@kernel.org>,
- Anjelique Melendez <quic_amelende@quicinc.com>, linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>, linux-riscv@lists.infradead.org,
- David Airlie <airlied@gmail.com>, linux-leds@vger.kernel.org,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Daniel Vetter <daniel@ffwll.ch>, Sven Peter <sven@svenpeter.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Lu Hongfei <luhongfei@vivo.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [Linux-stm32] [PATCH v5 040/111] pwm: Provide
-	devm_pwmchip_alloc() function
+Content-Disposition: inline
+In-Reply-To: <20240118100433.3984196-5-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] remoteproc: stm32: Add support of
+ an OP-TEE TA to load the firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,90 +82,273 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6725413012263972979=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, Jan 18, 2024 at 11:04:33AM +0100, Arnaud Pouliquen wrote:
+> The new TEE remoteproc device is used to manage remote firmware in a
+> secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
+> introduced to delegate the loading of the firmware to the trusted
+> execution context. In such cases, the firmware should be signed and
+> adhere to the image format defined by the TEE.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+> V1 to V2 update:
+> - remove the select "TEE_REMOTEPROC" in STM32_RPROC config as detected by
+>   the kernel test robot:
+>      WARNING: unmet direct dependencies detected for TEE_REMOTEPROC
+>      Depends on [n]: REMOTEPROC [=y] && OPTEE [=n]
+>      Selected by [y]:
+>      - STM32_RPROC [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && REMOTEPROC [=y]
+> - Fix initialized trproc variable in  stm32_rproc_probe
+> ---
+>  drivers/remoteproc/stm32_rproc.c | 149 +++++++++++++++++++++++++++++--
+>  1 file changed, 144 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+> index fcc0001e2657..cf6a21bac945 100644
+> --- a/drivers/remoteproc/stm32_rproc.c
+> +++ b/drivers/remoteproc/stm32_rproc.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/remoteproc.h>
+>  #include <linux/reset.h>
+>  #include <linux/slab.h>
+> +#include <linux/tee_remoteproc.h>
+>  #include <linux/workqueue.h>
+>  
+>  #include "remoteproc_internal.h"
+> @@ -49,6 +50,9 @@
+>  #define M4_STATE_STANDBY	4
+>  #define M4_STATE_CRASH		5
+>  
+> +/* Remote processor unique identifier aligned with the Trusted Execution Environment definitions */
+> +#define STM32_MP1_M4_PROC_ID    0
+> +
+>  struct stm32_syscon {
+>  	struct regmap *map;
+>  	u32 reg;
+> @@ -90,6 +94,8 @@ struct stm32_rproc {
+>  	struct stm32_mbox mb[MBOX_NB_MBX];
+>  	struct workqueue_struct *workqueue;
+>  	bool hold_boot_smc;
+> +	bool fw_loaded;
+> +	struct tee_rproc *trproc;
+>  	void __iomem *rsc_va;
+>  };
+>  
+> @@ -257,6 +263,91 @@ static int stm32_rproc_release(struct rproc *rproc)
+>  	return err;
+>  }
+>  
+> +static int stm32_rproc_tee_elf_sanity_check(struct rproc *rproc,
+> +					    const struct firmware *fw)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	unsigned int ret = 0;
+> +
+> +	if (rproc->state == RPROC_DETACHED)
+> +		return 0;
+> +
+> +	ret = tee_rproc_load_fw(ddata->trproc, fw);
+> +	if (!ret)
+> +		ddata->fw_loaded = true;
+> +
+> +	return ret;
+> +}
+> +
+> +static int stm32_rproc_tee_elf_load(struct rproc *rproc,
+> +				    const struct firmware *fw)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	unsigned int ret;
+> +
+> +	/*
+> +	 * This function can be called by remote proc for recovery
+> +	 * without the sanity check. In this case we need to load the firmware
+> +	 * else nothing done here as the firmware has been preloaded for the
+> +	 * sanity check to be able to parse it for the resource table.
+> +	 */
 
---===============6725413012263972979==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="b26sjadvk3fz44v6"
-Content-Disposition: inline
+This comment is very confusing - please consider refactoring.  
 
+> +	if (ddata->fw_loaded)
+> +		return 0;
+> +
 
---b26sjadvk3fz44v6
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I'm not sure about keeping a flag to indicate the status of the loaded firmware.
+It is not done for the non-secure method, I don't see why it would be needed for
+the secure one.
 
-Hello Alex,
+> +	ret = tee_rproc_load_fw(ddata->trproc, fw);
+> +	if (ret)
+> +		return ret;
+> +	ddata->fw_loaded = true;
+> +
+> +	/* Update the resource table parameters. */
+> +	if (rproc_tee_get_rsc_table(ddata->trproc)) {
+> +		/* No resource table: reset the related fields. */
+> +		rproc->cached_table = NULL;
+> +		rproc->table_ptr = NULL;
+> +		rproc->table_sz = 0;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static struct resource_table *
+> +stm32_rproc_tee_elf_find_loaded_rsc_table(struct rproc *rproc,
+> +					  const struct firmware *fw)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +
+> +	return tee_rproc_get_loaded_rsc_table(ddata->trproc);
+> +}
+> +
+> +static int stm32_rproc_tee_start(struct rproc *rproc)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +
+> +	return tee_rproc_start(ddata->trproc);
+> +}
+> +
+> +static int stm32_rproc_tee_attach(struct rproc *rproc)
+> +{
+> +	/* Nothing to do, remote proc already started by the secured context. */
+> +	return 0;
+> +}
+> +
+> +static int stm32_rproc_tee_stop(struct rproc *rproc)
+> +{
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	int err;
+> +
+> +	stm32_rproc_request_shutdown(rproc);
+> +
+> +	err = tee_rproc_stop(ddata->trproc);
+> +	if (err)
+> +		return err;
+> +
+> +	ddata->fw_loaded = false;
+> +
+> +	return stm32_rproc_release(rproc);
+> +}
+> +
+>  static int stm32_rproc_prepare(struct rproc *rproc)
+>  {
+>  	struct device *dev = rproc->dev.parent;
+> @@ -319,7 +410,14 @@ static int stm32_rproc_prepare(struct rproc *rproc)
+>  
+>  static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+>  {
+> -	if (rproc_elf_load_rsc_table(rproc, fw))
+> +	struct stm32_rproc *ddata = rproc->priv;
+> +	int ret;
+> +
+> +	if (ddata->trproc)
+> +		ret = rproc_tee_get_rsc_table(ddata->trproc);
+> +	else
+> +		ret = rproc_elf_load_rsc_table(rproc, fw);
+> +	if (ret)
+>  		dev_warn(&rproc->dev, "no resource table found for this firmware\n");
+>  
+>  	return 0;
+> @@ -693,8 +791,22 @@ static const struct rproc_ops st_rproc_ops = {
+>  	.get_boot_addr	= rproc_elf_get_boot_addr,
+>  };
+>  
+> +static const struct rproc_ops st_rproc_tee_ops = {
+> +	.prepare	= stm32_rproc_prepare,
+> +	.start		= stm32_rproc_tee_start,
+> +	.stop		= stm32_rproc_tee_stop,
+> +	.attach		= stm32_rproc_tee_attach,
+> +	.kick		= stm32_rproc_kick,
+> +	.parse_fw	= stm32_rproc_parse_fw,
+> +	.find_loaded_rsc_table = stm32_rproc_tee_elf_find_loaded_rsc_table,
+> +	.get_loaded_rsc_table = stm32_rproc_get_loaded_rsc_table,
+> +	.sanity_check	= stm32_rproc_tee_elf_sanity_check,
+> +	.load		= stm32_rproc_tee_elf_load,
+> +};
+> +
+>  static const struct of_device_id stm32_rproc_match[] = {
+> -	{ .compatible = "st,stm32mp1-m4" },
+> +	{.compatible = "st,stm32mp1-m4",},
+> +	{.compatible = "st,stm32mp1-m4-tee",},
+>  	{},
+>  };
+>  MODULE_DEVICE_TABLE(of, stm32_rproc_match);
+> @@ -853,6 +965,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct stm32_rproc *ddata;
+>  	struct device_node *np = dev->of_node;
+> +	struct tee_rproc *trproc = NULL;
+>  	struct rproc *rproc;
+>  	unsigned int state;
+>  	int ret;
+> @@ -861,11 +974,31 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	rproc = rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
+> -	if (!rproc)
+> -		return -ENOMEM;
+> +	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
+> +		trproc = tee_rproc_register(dev, STM32_MP1_M4_PROC_ID);
+> +		if (IS_ERR(trproc)) {
+> +			dev_err_probe(dev, PTR_ERR(trproc),
+> +				      "signed firmware not supported by TEE\n");
+> +			return PTR_ERR(trproc);
+> +		}
+> +		/*
+> +		 * Delegate the firmware management to the secure context.
+> +		 * The firmware loaded has to be signed.
+> +		 */
+> +		dev_info(dev, "Support of signed firmware only\n");
 
-On Fri, Jan 26, 2024 at 08:56:33AM -0600, Alex Elder wrote:
-> On 1/25/24 6:09 AM, Uwe Kleine-K=F6nig wrote:
-> > This function allocates a struct pwm_chip and driver data. Compared to
-> > the status quo the split into pwm_chip and driver data is new, otherwise
-> > it doesn't change anything relevant (yet).
-> >=20
-> > The intention is that after all drivers are switched to use this
-> > allocation function, its possible to add a struct device to struct
-> > pwm_chip to properly track the latter's lifetime without touching all
-> > drivers again. Proper lifetime tracking is a necessary precondition to
-> > introduce character device support for PWMs (that implements atomic
-> > setting and doesn't suffer from the sysfs overhead of the /sys/class/pwm
-> > userspace support).
-> >=20
-> > The new function pwmchip_priv() (obviously?) only works for chips
-> > allocated with devm_pwmchip_alloc().
->=20
-> I think this looks good.  Two questions:
-> - Should you explicitly align the private data?  Or do you believe
->   the default alignment (currently pointer size aligned) is adequate?
+Not sure what this adds.  Please remove.
 
-I'm not aware of a requirement for a higher order alignment (but I might
-well miss something). I did my tests on arm, nothing exploded there.
-Maybe the conservative approach of asserting the same alignment as
-kmalloc would be a good idea. I'll think and research about that.
-
-iio uses ARCH_DMA_MINALIGN, net uses 32 (NETDEV_ALIGN).
-
-> - Is there a non-devres version of the allocation function?
-
-Patch #109 introduces a non-devres variant. As it's not used it's a
-static function though. Can easily be changed is a use case pops up.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---b26sjadvk3fz44v6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmWz540ACgkQj4D7WH0S
-/k4oQwf+Nnq9bGZWZrbCQsHJYB54zfZt1whu2kQgdRMIQzT8HP7NadKhFCqs3Ob6
-5xwIwbIpdczrpzHM25+5ZrTBiH5oSQ/Si0YMzglndL8Tm59GEJxcKoorYpDNplJR
-xHL2owB7VgG87fFIvSCe163biS2vI/gIjAGvL9bpzcSH62Eq7EO3APk7Hx+h7d9e
-QHLzzUmpN9JlrzYOhKE7Pu7/iVFPNqNb7FQtAOnamXe0kRLs05649mgdJ9q30gS8
-imf9reDedsSG7sHM5NjtZpBQpF9H3vulzuGbH2MH2jNDLjtcpvUXUZpfijLN69iQ
-GqSwNOqcwcXljLsP1A1wM8snNwzi/A==
-=cXfD
------END PGP SIGNATURE-----
-
---b26sjadvk3fz44v6--
-
---===============6725413012263972979==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +	}
+> +	rproc = rproc_alloc(dev, np->name,
+> +			    trproc ? &st_rproc_tee_ops : &st_rproc_ops,
+> +			    NULL, sizeof(*ddata));
+> +	if (!rproc) {
+> +		ret = -ENOMEM;
+> +		goto free_tee;
+> +	}
+>  
+>  	ddata = rproc->priv;
+> +	ddata->trproc = trproc;
+> +	if (trproc)
+> +		trproc->rproc = rproc;
+>  
+>  	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
+>  
+> @@ -916,6 +1049,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>  		device_init_wakeup(dev, false);
+>  	}
+>  	rproc_free(rproc);
+> +free_tee:
+> +	if (trproc)
+> +		tee_rproc_unregister(trproc);
+> +
+>  	return ret;
+>  }
+>  
+> @@ -937,6 +1074,8 @@ static void stm32_rproc_remove(struct platform_device *pdev)
+>  		device_init_wakeup(dev, false);
+>  	}
+>  	rproc_free(rproc);
+> +	if (ddata->trproc)
+> +		tee_rproc_unregister(ddata->trproc);
+>  }
+>  
+>  static int stm32_rproc_suspend(struct device *dev)
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6725413012263972979==--
