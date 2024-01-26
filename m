@@ -2,57 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9088583E279
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 20:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF8EA83E33E
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 21:19:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4807CC6DD70;
-	Fri, 26 Jan 2024 19:27:51 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64EACC6DD70;
+	Fri, 26 Jan 2024 20:19:33 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C423BC6DD6F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47A78C6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jan 2024 19:27:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1706297269;
- bh=NW9/Y1sMfKulS8DYavETlMP6KBNa2HphYFT4fmqYhiQ=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=xXcRyGxDv0Xqsfg6pHpA2QSKTxLhBF71dFtSwBxKkRD8WdBl+q42Mf+z8zNhPnrkX
- xdkwzX62vOt84LBzrWfOeuzAhL7S9sseI8UAQgkpEK4KLkBrSgD944tYNZ4RkWuh/c
- Y7VDLOVx+50q7qhGZ5jmgnKrO0/L5htnhq+3umjBlAZ70LYGpEebSnXGhQqsVRa23B
- FmjXach9aOc1ngY4CPsVGyHYZ5Gczki6wZaTL48GzWbbSJBEXCB5fUGE5pzTWuci1p
- L1EDNz+kWeoFwe5z3ft24OjFNxWe9+guyNdJuA7Rk/QJsKySv+Xnt9rljpcL7XWq5S
- 2UD7pnP/iZjHw==
-Received: from [100.115.223.179] (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id E22ED3780022;
- Fri, 26 Jan 2024 19:27:47 +0000 (UTC)
-Message-ID: <920e764c-4fa3-4298-bb49-d31416fc3dd6@collabora.com>
-Date: Fri, 26 Jan 2024 21:27:47 +0200
+ Fri, 26 Jan 2024 20:19:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 98107CE3782;
+ Fri, 26 Jan 2024 20:19:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C85C433C7;
+ Fri, 26 Jan 2024 20:19:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706300369;
+ bh=awpRcgfVITqJmr4m6h4D7QiLDSW/PQz0VRDDLkPva8Y=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=itgfnOi4w6ElrBtPlbwuYXt71w4C7FIgEdFIdykJMv2Tu/jW8Ums3HKR64Hl1v48o
+ YxQ0t5yC9Lfg3pfiobJ7IlXjPeLofQVmw8PiR2mqxQQKGaip8sPjNNk+od/1Fe2Lyc
+ yoJZJ33BUdCEV3fwOZCWHuvrUEDXC6c19kPHOFv8WfLBqDHsj6CwxRZwDo7RMY0Y1/
+ qRIeTFzLCrJD9QBQZ47+XsD2UR1gYLLhhStXkMQ6VRaXcMkXb6L9UR7/LZcQO3xl5w
+ 6MuD9tVdSVx56gTAuwxVJ1h2AeHMLQm2YvlrEMHDnHhv6FAioR2rzf8XeIRqhvgZch
+ YlFCZ4monKulQ==
+Date: Fri, 26 Jan 2024 12:19:28 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: rohan.g.thomas@intel.com
+Message-ID: <20240126121928.48a44327@kernel.org>
+In-Reply-To: <20240126173634.13162-1-rohan.g.thomas@intel.com>
+References: <87msss4gtj.fsf@geanix.com>
+ <20240126173634.13162-1-rohan.g.thomas@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Samin Guo <samin.guo@starfivetech.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Andrew Lunn <andrew@lunn.ch>,
- Jacob Keller <jacob.e.keller@intel.com>
-References: <20240126191319.1209821-1-cristian.ciocaltea@collabora.com>
-In-Reply-To: <20240126191319.1209821-1-cristian.ciocaltea@collabora.com>
-Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/2] StarFive DWMAC support for JH7100
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ robh@kernel.org, netdev@vger.kernel.org, esben@geanix.com,
+ linux-stm32@st-md-mailman.stormreply.com, fancer.lancer@gmail.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, joabreu@synopsys.com,
+ krzysztof.kozlowski+dt@linaro.org, peppe.cavallaro@st.com, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] dt-bindings: net: snps,
+ dwmac: Time Based Scheduling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,25 +60,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Please ignore this and use the RESEND version [1], as the binding patch 
-was not correctly updated with the latest tags.
-
-Sorry for the noise,
-Cristian
-
-[1] https://lore.kernel.org/lkml/20240126192128.1210579-1-cristian.ciocaltea@collabora.com/
-
-On 1/26/24 21:13, Cristian Ciocaltea wrote:
-> This is just a subset of the initial patch series [1] adding networking
-> support for StarFive JH7100 SoC.
+On Sat, 27 Jan 2024 01:36:34 +0800 rohan.g.thomas@intel.com wrote:
+> > The tricky part here is that the whole devicetree bindings story for the
+> > stmmac driver is filled with such configuration choices. As such, it is
+> > only natural to add the property you are suggesting here. I completely
+> > agree. But you can also argue that it is "wrong", because it does not
+> > just describe the hardware, but also a configuration choice.  
 > 
-> [1]: https://lore.kernel.org/lkml/20231218214451.2345691-1-cristian.ciocaltea@collabora.com/
-> 
-> Changes in v4:
->  - Rebased series onto next-20240125
->  - Added R-b tag from Rob in PATCH 1
->  - v3:
->    https://lore.kernel.org/lkml/20231222101001.2541758-1-cristian.ciocaltea@collabora.com/
+> Isn't this requirement of using enhanced tx desc instead of normal tx
+> desc to support TBS is specific to Synopsys IP? Switching from
+> normal desc to enhanced desc at the time of tc-etf qdisc offload
+> cannot be done without traffic disruption, which I don't think is
+> acceptable. Since this behavior is IP specific, can we consider
+> this as an OS configuration choice?
+
+Why is traffic disruption not acceptable when TBS gets turned on?
+User has to install the right qdisc to enable TBS, I presume,
+installing qdiscs destroys the old ones which also leads to packet
+drops.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
