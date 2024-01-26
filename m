@@ -2,77 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2478683D25B
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 03:09:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 744B883D2B0
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 03:45:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1F97C6B444;
-	Fri, 26 Jan 2024 02:09:01 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 14DFAC6B444;
+	Fri, 26 Jan 2024 02:45:32 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2079.outbound.protection.outlook.com [40.107.20.79])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B64DC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6E4CC65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jan 2024 02:09:00 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-6da6b0eb2d4so232277b3a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 18:09:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706234939; x=1706839739;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Br6VJLagRb3AfSDX41gJAp6j1fOegiaHY5+r3X1kYKU=;
- b=Eh3bUl4UMH294pEirefxttyp+oKX3/LtaQ3yzx5Qu3urTl9vNtHn+0hjK9cDkyTQG/
- 4CtHBjZ2iJDR5ptMYUZ6Z3Tl5d5ecCdddJArWB+C004YH01vUTSdjWPZnFmmtRWkD+Th
- E3HxMCE57eYcvuxthCDJZFaVOX93101Qe1sEGP9Myyki+bYP3cgG71EG52Wl30lmEQ73
- VVBnmuadRBbSBy7I5EU0qKQ2NLMi5MR7YQAmXUN4hPvaE1MD7el/ZCM7jjeoXoqXdv6m
- 4/3zCBaHPbNf569EeqNTgoP0J05OQCvHdALYzm6YkWlM06ru/a0Xv8x+eOTjAoik5YvO
- zpxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706234939; x=1706839739;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Br6VJLagRb3AfSDX41gJAp6j1fOegiaHY5+r3X1kYKU=;
- b=sS9GthNJfEINHK5etE8xwecW1uwsR9hCET76i+zMzTT51w263XQYGdBl2mWbdP3nkB
- nvj+lnFhVTuW1rhX4ArpcvV4bHcHFj2a3DI9ddn7Vv9YexK5PZPejO8WB/stJOeCJqhb
- 4dBMOb1pTVcDaHEZzOdekWlmz4/UR5JD6UzkbiGfs0geLgPzF7GcJUTKXP8cJuQ2PSRK
- Wl7mHftAXhD7ODieEBmA1sajDTBT+UVQ4ojvXyewCt1FLDOq/Ij9Frb2JQoWlH/39pNK
- FCzi7qZMOwjD88E1tySGlefvDIS6sRXNGULxYLyS2bvZ9ySnq89DYDr4K4ljTlUIYBhU
- 1s6g==
-X-Gm-Message-State: AOJu0Yyho+T6qEs7aI9zTSq3pkZxu7l5JeX0O8aEds9YZCF82WT8go9O
- lW0WEyl6rbi8rbWOiuwc6XNBSPUW8y7nHvefQEJ71x1jBmrbMvvt
-X-Google-Smtp-Source: AGHT+IFpXDfDdLfol3GnedT7BVcJU3Lg5lPS/W1n8oFL0fn5cIeJRsE+SQKAsKBssVzbjlUXZm9qHA==
-X-Received: by 2002:a05:6a20:6a03:b0:19a:404b:86c3 with SMTP id
- p3-20020a056a206a0300b0019a404b86c3mr631310pzk.70.1706234938867; 
- Thu, 25 Jan 2024 18:08:58 -0800 (PST)
-Received: from localhost ([129.146.253.192]) by smtp.gmail.com with ESMTPSA id
- m13-20020a17090ade0d00b0028ddfb484bfsm2251209pjv.49.2024.01.25.18.08.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 25 Jan 2024 18:08:58 -0800 (PST)
-Date: Fri, 26 Jan 2024 10:08:47 +0800
-From: Furong Xu <0x1207@gmail.com>
-To: Serge Semin <fancer.lancer@gmail.com>
-Message-ID: <20240126100847.0000370e@gmail.com>
-In-Reply-To: <4coefc2fqtc2eoereds3rf7vudci5l7ahme2wydocjepk2wrwy@ncgwl3j3koyu>
-References: <20240123085037.939471-1-0x1207@gmail.com>
- <ii3muj3nmhuo6s5hm3g7wuiubtyzr632klrcesubtuaoyifogb@ohmunpxvdtsv>
- <20240125103454.0000312a@gmail.com>
- <4coefc2fqtc2eoereds3rf7vudci5l7ahme2wydocjepk2wrwy@ncgwl3j3koyu>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.34; x86_64-w64-mingw32)
+ Fri, 26 Jan 2024 02:45:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nQp68Lx3MGWOYQvaLf+Bzp+UcO3zv1cVWkPy7H7rswVJDQTVnnsAHfHWOk6lPwTkOUC5TyKq78LBrQguBwZ8DIu/Ds+uEup7q44ofNZrECfMwV4FnRkWmJGwGZufez0R7zJUn4L069zEE/rULiFORuBIuI8rxoFp3LtgWZOHGuF6Zto9q1S67zSHudH+bQ4/KQLP37gEQL9lnjH5VUt09B+oWRfUgFl+147ja4P6koKDEp7Lzxjerw2DV/cG+W9nSOffzL6gEE8SudwDrQwz2bWqvxsFIRJzX5WTyUMRgmXbaGHoJjal9KaUks098LjUviD6jKhPfNqA46AtiCMmMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bW49dLpV8USGjUemLcLvL7oPezuBeSxUtAH5BdqpUi8=;
+ b=CjDS66rVnNEFd58KW9xwsHfd+JbikLvunKKphUSEVZgKaRqt4ow3G29ywLrqbd4N4PKSxPrdWMbaxnO+8yLGqM52fLThNahwsZXoeR5tYbZJh62KGNScb1+nZReFXh1ajhx5kxGzXpqMwyLmtdNAH9+inKo02bM+lSMvZYdzXMtYTMtKbgdiClXj+u5znI+k5nZ6M4O4uEYnJ/9JIxjmEY0ICZ+aaeW2U3MkcZ1ahR8CPJEU2aYuu36jtsC3hPi0RNJhl2yhzmA7I/rpox3KMxe+XZhGSlM8K2SYbF3U2AoI6cBTGEjWO/wwA+RNQjC8gGsr1nRTiP2EPpzFWf9hEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bW49dLpV8USGjUemLcLvL7oPezuBeSxUtAH5BdqpUi8=;
+ b=YVgMcy8OBAumtOdYBnKcg6zM4IweJjGvZSzF+kZJ2GR37zzmnkeb3rhaq6koBLLdUbZdUT9gkYM7Ebs1ynCgn4wxGMV1wvG76eaMXOLSJr4l6OmBSzCwwBAgvA/P8Ld8gelX7GAVN6h4XjIfn1kn5bdoE7EbYEoFBbCvSNG9va4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8382.eurprd04.prod.outlook.com (2603:10a6:20b:3ea::11)
+ by DB8PR04MB6811.eurprd04.prod.outlook.com (2603:10a6:10:fa::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.27; Fri, 26 Jan
+ 2024 02:45:29 +0000
+Received: from AM9PR04MB8382.eurprd04.prod.outlook.com
+ ([fe80::708:ff6d:21e:71ae]) by AM9PR04MB8382.eurprd04.prod.outlook.com
+ ([fe80::708:ff6d:21e:71ae%7]) with mapi id 15.20.7228.027; Fri, 26 Jan 2024
+ 02:45:29 +0000
+From: Clark Wang <xiaoning.wang@nxp.com>
+To: alexandre.torgue@foss.st.com, joabreu@synopsys.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, shawnguo@kernel.org, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com
+Date: Fri, 26 Jan 2024 10:44:32 +0800
+Message-Id: <20240126024433.2928223-1-xiaoning.wang@nxp.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: SG2PR04CA0153.apcprd04.prod.outlook.com (2603:1096:4::15)
+ To AM9PR04MB8382.eurprd04.prod.outlook.com (2603:10a6:20b:3ea::11)
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- xfr@outlook.com, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix safety error
-	descriptions
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8382:EE_|DB8PR04MB6811:EE_
+X-MS-Office365-Filtering-Correlation-Id: 983c40ec-ee2b-4543-b735-08dc1e18db82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8100ojHXOPtbdq0RTrXKcVFWOEBTJah9WL9aA5PdrUa57rqcp3fohktRcrvLdnyR0jM1EA5bN6X43mPwvcinz9cjZEq9Hr1CZbpHFoIFupWj/CII3i8VyXEBCMp4bRmjKv6pKzBzyxfjFNjB7hh5HkgV2EFtsQdCOH89FU8oB5YzeVUOu/qkVVyb6fQchzWYHBCTCmtxdJOalBPT2VP1xaUbEBsk0SfCpUuHHbGx/XUi/JSFMAnCcW6hEQLpecQd7ngTS9FrhCTkR7AHcUPhloUczZ39eJOqYmQ+MS8+d9jSfYWAZqIQt18tB7Wm9+6sYFc3WzzkSJJuBM3IPe5sWRmZBItmP7MnMMSjo8jAzUKJ3xOyr6bQn+AaNaTE4FEJY888KHPHPrk/rS3jqSOA8IzbFcKce8/0U8k9lb3WMw0qlXHbEBsWyrApPyiOCHqBTcbgqiZcfoaQB9taM4lPLwxvdrxaFM1LthN6ryg5zjPUfN6l5Hm1gzjrc1huxlmtfX0eT7vMT3BoG1SyOUA7qyweJgUs5rN+2Jnfc/RHCACdzWA7LSIPFTqIsPA1WujLeJVCw7wAAeL91tixBVf11fRjUG8Df0PWSwqdcxUFUQ2bedADhHuXNQj8eE4NeSZfnssSukzXSwfpNSXMJRvcHQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM9PR04MB8382.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(346002)(376002)(396003)(39860400002)(136003)(230922051799003)(1800799012)(186009)(451199024)(64100799003)(921011)(38350700005)(6486002)(6666004)(8676002)(6506007)(6512007)(52116002)(66946007)(316002)(66556008)(66476007)(478600001)(1076003)(83380400001)(7416002)(5660300002)(2616005)(4326008)(26005)(8936002)(38100700002)(2906002)(41300700001)(86362001)(36756003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dnv/bn60p4gGBd/IBOcjGMJmwXcNOavNy7pipZrormorfyvOG//ISr5X2WKL?=
+ =?us-ascii?Q?0iaJ2PgCUmi+S27FS9XKzJNKym4BtRbO6jyS/M+4UQsqwy0i+giKRgsBlVo2?=
+ =?us-ascii?Q?cm9KI1AnF0wJdjdhZUbR7pME6KP5ZuesRXvdM7W7/3oGMfp7n3j3tJP5COMP?=
+ =?us-ascii?Q?mMwhBIlNkdifQ9KgYwi5bhxpn7IWpOxXb2BnqOsMP3Jzlb3IPS0Bhda5vdOd?=
+ =?us-ascii?Q?gJSm/2aQLF17gfFS+6IH/cbIOHorw9Vop2/+DUH/SGO8a/lBZQ7QCZ+so/P5?=
+ =?us-ascii?Q?VNZijjGsFBPjEqevbiM6VINsvBd45XDe9c6NRUduVg1VVrBigJQ0BZyKijWk?=
+ =?us-ascii?Q?KfoZY2NiuRMtutw4Hv6IrpBqJadE19UlSSDySe4azQ4oInDhOX2XWlACRn7+?=
+ =?us-ascii?Q?frms6+dhEHAzOV64HeXZjtpuguUfVktCtdFF9OQL3UaDnAqvX+95wSTBiEf8?=
+ =?us-ascii?Q?oOHJ3iLhtnILaoF0E69XnINHP03IBRgjmXZGJQcyClq2bEJT4jPAvMcVzcMf?=
+ =?us-ascii?Q?sdN/IHHN13XgiFXA8H7Cg5PJDl+97tKIhH7WZBzUOpli5U0VJq2u52Bojnmf?=
+ =?us-ascii?Q?D2teb218IS36RGZtc89kk5LVeIk8mVjdebERY+HQlP9t7XPdsMKNdz1S9MJa?=
+ =?us-ascii?Q?se/oayBGIxRJZeFnK6tePnzk+1YLrU26pBMz5KMY5kwWkD4k8b7M9SJVPURu?=
+ =?us-ascii?Q?z/3Ve10dEyFMXloBNR8EEnR6Gmof0zNSWYmjfUxXDRK+i4ZCht5CxfsgBGTm?=
+ =?us-ascii?Q?SHmbXLhrhnHmcfbzTepH0SNJan2QKdIwwfNhchmNBh7SMYmBikreL/qz8+Ew?=
+ =?us-ascii?Q?B5hqUbiybFqhyHRxP1nBWmbbBX0BjKhtCmT9UNy0chkptJsJ2G7FS8OU2okP?=
+ =?us-ascii?Q?8MbgcRKefVRKAqhTksHIAyK0hR1y2R/mO7piitcE9HbQPswPDgLpG0mbF1tp?=
+ =?us-ascii?Q?w0dHL5alBd+hDPt5yvFu6/rOBaZtkDfSmDWPiCzozPlq4nOL03nPUde7QO7N?=
+ =?us-ascii?Q?xktpHBLwYVsMPku6ET04+7OoyyN1j5xyQJ99QeIup1UD8goX1n4SRbc/46fU?=
+ =?us-ascii?Q?a6RtQXTzNyxXcjRdqDTCl9cH4D9JMhPGvezajEStN6b8yvvzo0KIk9xWYOhJ?=
+ =?us-ascii?Q?ByvGuu2cQIkeMYYBtpkEWYxXkH6iOeG4YiSL5I5RlyawNxwm78X/bYurNmvH?=
+ =?us-ascii?Q?Kye2tNgaxs0riN2OK7L7UcpoJMj/HUKCJIBijJJ/1YC1kx1fFxxeZAedLy6W?=
+ =?us-ascii?Q?3kSLnf8oW5UY1yJYuRTYniOq2zv0PlxyTL8bFYEVK5dbzPhMpaRhnKIdbymI?=
+ =?us-ascii?Q?dFG6CyKEKGfRId2MEIfh/V3J6IDgFVJXCqs7DxzfxTQ1RtPCEiBbH/dSd61+?=
+ =?us-ascii?Q?GwQUTfqpIrf8W9E1dwdrs804Ha1hq7SX7X6MfpmS1wZGMmrLaEsr9f1WP0cZ?=
+ =?us-ascii?Q?1/av/zKgeC4k1S+eaSWcfF1RKZzL0nzE7LYyQnvhGqtHQwtWFToR8vrSxWiT?=
+ =?us-ascii?Q?8kTcG66dT2NvEzy92VryYRKhIk77vfPFkHdWNvZBL002JI/wMl01l6CvnJHH?=
+ =?us-ascii?Q?YXaEzJesR8phmH+9oYCksagdTpWwzowc9Rc7tJfP?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 983c40ec-ee2b-4543-b735-08dc1e18db82
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8382.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2024 02:45:29.2773 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: siuAk6gSI/uXguJoRbbyBeM146N2c6ZCJTuu2TpvqM5x8i5OKQeSyZ7eVMxjV5A9JqibMIQmu0vLkHSKRKJWcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6811
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-imx@nxp.com,
+ linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] net: stmmac: fix wrong place to call pinctrl
+	state change
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,228 +119,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, 25 Jan 2024 16:48:23 +0300
-Serge Semin <fancer.lancer@gmail.com> wrote:
+The previous patch put the phylink_suspend after the pm_runtime_force_suspend
+to fix an issue. But in phylink_suspend, it will call mdio read/write. If the
+iomux of the pins of MDIO bus have been changed to others, the MDIO bus will
+not functional.
+So put pinctrl_pm_select_sleep_state to the right place to fix this issue.
 
-> On Thu, Jan 25, 2024 at 10:34:54AM +0800, Furong Xu wrote:
-> > On Wed, 24 Jan 2024 17:25:27 +0300
-> > Serge Semin <fancer.lancer@gmail.com> wrote:
-> >   
-> > > On Tue, Jan 23, 2024 at 04:50:37PM +0800, Furong Xu wrote:  
-> > > > Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
-> > > > XGMAC core") prints safety error descriptions when safety error assert,
-> > > > but missed some special errors, and mixed correctable errors and
-> > > > uncorrectable errors together.
-> > > > This patch complete the error code list and print the type of errors.    
-> > > 
-> > > The XGMAC ECC Safety code has likely been just copied from the DW GMAC
-> > > v5 (DW QoS Eth) part. So this change is partly relevant to that code too. I
-> > > can't confirm that the special errors support is relevant to the DW
-> > > QoS Eth too (it likely is though), so what about splitting this patch
-> > > up into two:
-> > > 1. Elaborate the errors description for DW GMAC v5 and DW XGMAC.
-> > > 2. Add new ECC safety errors support.
-> > > ?
-> > > 
-> > > On the other hand if we were sure that both DW QoS Eth and XGMAC
-> > > safety features implementation match the ideal solution would be to
-> > > refactor out the common code into a dedicated module.
-> > > 
-> > > -Serge(y)
-> > >   
-> >   
-> 
-> > Checked XGMAC Version 3.20a and DW QoS Eth Version 5.20a, the safety error
-> > code definitions are not identical at all, they do have some differences,
-> > about more than 20 bits of status register are different.
-> > I think we should just leave them in individual implementations.  
-> 
-> For some reason you answered to the last part of my comment and
-> completely ignored the first part which was the main point of my
-> message.
-> 
-> Regarding the Safety Feature support implemented in QoS Eth and XGMAC
-> STMMAC modules. You were wrong in using the statement "at all". Except
-> the optional events enable/disable procedure introduced in the commit
-> 5ac712dcdfef ("net: stmmac: enable platform specific safety
-> features"), there aren't many differences: at least the errors
-> handling and report are identical, MTL and DMA error flags match, even
-> MTL and DMA ECC/Safety IRQ flags match. The only difference is in the
-> MTL/MAC DPP (Data Parity Protection) part which can be easily factored
-> out based on the device ID should we attempt to refactor the safety
-> feature code. See the attached html-diff for more details of what
-> match and what is different.
-> 
-> Anyway I am not insisting on the refactoring. That was just a
-> proposal, a more preferred alternative to simultaneously patching two
-> parts of the drivers looking very much alike. Such refactoring would
-> improve the code maintainability. The main point of my comment was to
-> extend your patch for DW QoS Eth safety feature implementation too
-> since some of the changes you introduced were useful for it too, and
-> in splitting the patch up since your patch added new flags support
-> which was unrelated change.  Thus your patch would turned into the
-> two-patches patchset like this:
-> [Patch 1] would provide an elaborated errors description for both DW
-> QOS Eth (GMAC v5.x) and DW XGMAC.
-> [Patch 2] would introduce the new ECC safety errors support.
-> 
-> See my further comments about the respective changes.
-> 
-> >   
-> > > > 
-> > > > Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
-> > > > Signed-off-by: Furong Xu <0x1207@gmail.com>
-> > > > ---
-> > > >  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 36 +++++++++----------
-> > > >  1 file changed, 18 insertions(+), 18 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > > > index eb48211d9b0e..ad812484059e 100644
-> > > > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > > > @@ -748,29 +748,29 @@ static void dwxgmac3_handle_mac_err(struct net_device *ndev,
-> > > >  }
-> > > >  
-> > > >  static const struct dwxgmac3_error_desc dwxgmac3_mtl_errors[32]= {  
-> 
-> > > > -	{ true, "TXCES", "MTL TX Memory Error" },
-> > > > +	{ true, "TXCES", "MTL TX Memory Correctable Error" },  
-> 
-> Applicable for both IP-cores
-> [Patch 1] +QoS, +XGMAC
-> please apply this change to dwmac5.c too.
-> 
-> > > >  	{ true, "TXAMS", "MTL TX Memory Address Mismatch Error" },  
-> 
-> > > > -	{ true, "TXUES", "MTL TX Memory Error" },
-> > > > +	{ true, "TXUES", "MTL TX Memory Uncorrectable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */  
-> 
-> > > > -	{ true, "RXCES", "MTL RX Memory Error" },
-> > > > +	{ true, "RXCES", "MTL RX Memory Correctable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ true, "RXAMS", "MTL RX Memory Address Mismatch Error" },  
-> 
-> > > > -	{ true, "RXUES", "MTL RX Memory Error" },
-> > > > +	{ true, "RXUES", "MTL RX Memory Uncorrectable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */  
-> 
-> > > > -	{ true, "ECES", "MTL EST Memory Error" },
-> > > > +	{ true, "ECES", "MTL EST Memory Correctable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ true, "EAMS", "MTL EST Memory Address Mismatch Error" },  
-> 
-> > > > -	{ true, "EUES", "MTL EST Memory Error" },
-> > > > +	{ true, "EUES", "MTL EST Memory Uncorrectable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 11 */  
-> 
-> > > > -	{ true, "RPCES", "MTL RX Parser Memory Error" },
-> > > > +	{ true, "RPCES", "MTL RX Parser Memory Correctable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ true, "RPAMS", "MTL RX Parser Memory Address Mismatch Error" },  
-> 
-> > > > -	{ true, "RPUES", "MTL RX Parser Memory Error" },
-> > > > +	{ true, "RPUES", "MTL RX Parser Memory Uncorrectable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 15 */  
-> 
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 16 */
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 17 */
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 18 */
-> > > > +	{ true, "SCES", "MTL SGF GCL Memory Correctable Error" },
-> > > > +	{ true, "SAMS", "MTL SGF GCL Memory Address Mismatch Error" },
-> > > > +	{ true, "SUES", "MTL SGF GCL Memory Uncorrectable Error" },
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 19 */
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 20 */
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 21 */
-> > > > -	{ false, "UNKNOWN", "Unknown Error" }, /* 22 */
-> > > > +	{ true, "RXFCES", "MTL RXF Memory Correctable Error" },
-> > > > +	{ true, "RXFAMS", "MTL RXF Memory Address Mismatch Error" },
-> > > > +	{ true, "RXFUES", "MTL RXF Memory Uncorrectable Error" },  
-> 
-> This introduces the new flags support. Please move this change into a
-> separate patch (Patch 2):
-> [Patch 2] +XGMAC only.
-> 
-> My DW QoS Eth v5.10a databook doesn't have these flags defined. If
-> your 5.20a HW-manual have them described then please add them for DW
-> QoS Eth too.
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 23 */
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 24 */
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 25 */
-> > > > @@ -796,13 +796,13 @@ static void dwxgmac3_handle_mtl_err(struct net_device *ndev,
-> > > >  }
-> > > >  
-> > > >  static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {  
-> 
-> > > > -	{ true, "TCES", "DMA TSO Memory Error" },
-> > > > +	{ true, "TCES", "DMA TSO Memory Correctable Error" },  
-> 
-> Applicable for both IP-cores
-> [Patch 1] +QoS, +XGMAC
-> please apply this change to dwmac5.c too.
-> 
-> > > >  	{ true, "TAMS", "DMA TSO Memory Address Mismatch Error" },  
-> 
-> > > > -	{ true, "TUES", "DMA TSO Memory Error" },
-> > > > +	{ true, "TUES", "DMA TSO Memory Uncorrectable Error" },  
-> 
-> [Patch 1] +QoS, +XGMAC
-> ditto
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 3 */  
-> 
-> > > > -	{ true, "DCES", "DMA DCACHE Memory Error" },
-> > > > +	{ true, "DCES", "DMA DCACHE Memory Correctable Error" },
-> > > >  	{ true, "DAMS", "DMA DCACHE Address Mismatch Error" },
-> > > > -	{ true, "DUES", "DMA DCACHE Memory Error" },
-> > > > +	{ true, "DUES", "DMA DCACHE Memory Uncorrectable Error" },  
-> 
-> AFAICS applicable for XGMAC only
-> [Patch 1] +XGMAC only.
-> Once again, My DW QoS Eth v5.10a databook doesn't have these flags
-> defined. So if your DW QoS Eth 5.20a HW-manual do have them described
-> please add them for DW QoS Eth with the elaborated description in the
-> framework of the Patch 2.
-> 
-> -Serge(y)
-> 
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 7 */
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 8 */
-> > > >  	{ false, "UNKNOWN", "Unknown Error" }, /* 9 */
-> > > > -- 
-> > > > 2.34.1
-> > > > 
-> > > >     
-> >   
+Fixes: 90702dcd19c0 ("net: stmmac: fix MAC not working when system resume back with WoL active")
+Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
+Reviewed-by: Wei Fang <wei.fang@nxp.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi Serge:
-Thanks for your detailed explanation, new refactoring will be sent to net-next.
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b334eb16da23..9104ebf49c5d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -7851,7 +7851,6 @@ int stmmac_suspend(struct device *dev)
+ 		priv->irq_wake = 1;
+ 	} else {
+ 		stmmac_mac_set(priv, priv->ioaddr, false);
+-		pinctrl_pm_select_sleep_state(priv->device);
+ 	}
+ 
+ 	mutex_unlock(&priv->lock);
+@@ -7863,6 +7862,7 @@ int stmmac_suspend(struct device *dev)
+ 		if (device_may_wakeup(priv->device))
+ 			phylink_speed_down(priv->phylink, false);
+ 		phylink_suspend(priv->phylink, false);
++		pinctrl_pm_select_sleep_state(priv->device);
+ 	}
+ 	rtnl_unlock();
+ 
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
