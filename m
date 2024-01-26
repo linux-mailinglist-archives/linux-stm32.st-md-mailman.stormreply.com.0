@@ -2,83 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8995F83CDD1
-	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jan 2024 21:54:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 896D383D1FE
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jan 2024 02:22:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C4CFC6B444;
-	Thu, 25 Jan 2024 20:54:57 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AAACC6B444;
+	Fri, 26 Jan 2024 01:22:58 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B051C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDDD5C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 25 Jan 2024 20:54:55 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1rT6kK-0000q6-2e; Thu, 25 Jan 2024 21:54:48 +0100
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1rT6kE-002MbB-Qk; Thu, 25 Jan 2024 21:54:42 +0100
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ukl@pengutronix.de>) id 1rT6kE-0088NE-2C;
- Thu, 25 Jan 2024 21:54:42 +0100
-Date: Thu, 25 Jan 2024 21:54:42 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Message-ID: <h4l5ki3mvayfmfb73jnrokmxu3p2ewutihx4rytefmpce7bcxq@nhsyy2fw6fds>
-References: <cover.1706182805.git.u.kleine-koenig@pengutronix.de>
- <1cae6f73264ab313205eaa9483251f7aaf259cb4.1706182805.git.u.kleine-koenig@pengutronix.de>
- <c89cbecf-253d-4a2c-8782-304b7b620175@broadcom.com>
- <e3xeos2rtfydqj3hz3ql7xkon3aa3aingww7q5lpb3xa4arqrs@6jgwfrgay4le>
+ Fri, 26 Jan 2024 01:22:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 7CFFC622C5;
+ Fri, 26 Jan 2024 01:22:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3997C433C7;
+ Fri, 26 Jan 2024 01:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706232175;
+ bh=Hk9/gpwL/FH2xmnit/2UJvfVqasuwOB//G3xIDeSRXY=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=QbX2GfKhc5hZC6h46CHXmhCNSbMB8gJ/J4nLe6qNyA1qja9Bx/1+7GMkkTu7Vrkqo
+ 2B1vx1tOGSpm3V8/KYFG+mBy621FwOkM5v5A6zENUMsqvkzEJLgMfZ/HNq664U8tkP
+ Nr4prtIK2SqWcBWyaxLsUhZlvjwcVKkki/Q4vBkuCUsOgMMy4HqX5xPpxEECJly+aA
+ D3N2ZmkRivt4zCmOGAHEVuKM27BJGqiVonKPbSuqcpcf3eztESC17H/FzAlpdGT4wL
+ 8qEN1M9Os2zV8uf7+5rAddkolgppNsYnFmpbp2TJIesGiMlXOl4MCg/9td0zCyC+UL
+ ZL8+JdfmnpD4g==
+Date: Thu, 25 Jan 2024 17:22:53 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Esben Haabendal <esben@geanix.com>
+Message-ID: <20240125172253.3fe50cfc@kernel.org>
+In-Reply-To: <5606bb5f0b7566a20bb136b268dae89d22a48898.1706184304.git.esben@geanix.com>
+References: <cover.1706184304.git.esben@geanix.com>
+ <5606bb5f0b7566a20bb136b268dae89d22a48898.1706184304.git.esben@geanix.com>
 MIME-Version: 1.0
-In-Reply-To: <e3xeos2rtfydqj3hz3ql7xkon3aa3aingww7q5lpb3xa4arqrs@6jgwfrgay4le>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
- Douglas Anderson <dianders@chromium.org>, Paul Cercueil <paul@crapouillou.net>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Guenter Roeck <groeck@chromium.org>,
- linux-riscv@lists.infradead.org, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- chrome-platform@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- Robert Foss <rfoss@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Kevin Hilman <khilman@baylibre.com>, linux-staging@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- NXP Linux Team <linux-imx@nxp.com>, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-pwm@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- Jonas Karlman <jonas@kwiboo.se>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- greybus-dev@lists.linaro.org, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Benson Leung <bleung@chromium.org>, kernel@pengutronix.de,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Alex Elder <elder@kernel.org>,
- Scott Branden <sbranden@broadcom.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 003/111] pwm: Provide a macro to get
- the parent device of a given chip
+Cc: Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] net: stmmac: dwmac-imx: set TSO/TBS
+ TX queues default settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,103 +57,21 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3996060004060952802=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+On Thu, 25 Jan 2024 13:34:34 +0100 Esben Haabendal wrote:
+> +        for (int i = 0; i < plat_dat->tx_queues_to_use; i++) {
+> +                /* Default TX Q0 to use TSO and rest TXQ for TBS */
+> +                if (i > 0)
+> +                        plat_dat->tx_queues_cfg[i].tbs_en = 1;
+> +        }
 
---===============3996060004060952802==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2cxtxp6sbv6wwe5j"
-Content-Disposition: inline
-
-
---2cxtxp6sbv6wwe5j
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jan 25, 2024 at 09:29:37PM +0100, Uwe Kleine-K=F6nig wrote:
-> On Thu, Jan 25, 2024 at 11:32:47AM -0800, Florian Fainelli wrote:
-> > On 1/25/24 04:08, Uwe Kleine-K=F6nig wrote:
-> > > Currently a pwm_chip stores in its struct device *dev member a pointer
-> > > to the parent device. Preparing a change that embeds a full struct
-> > > device in struct pwm_chip, this accessor macro should be used in all
-> > > drivers directly accessing chip->dev now. This way struct pwm_chip and
-> > > this macro can be changed without having to touch all drivers in the
-> > > same change set.
-> > >=20
-> > > Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
-> >=20
-> > Nit: this is not a macro but an inline function.
->=20
-> Oh right, it used to be a macro, but I changed that. I made the commit
-> log read:
->=20
->     pwm: Provide an inline function to get the parent device of a given c=
-hip
->=20
->     Currently a pwm_chip stores in its struct device *dev member a pointer
->     to the parent device. Preparing a change that embeds a full struct
->     device in struct pwm_chip, this accessor function should be used in a=
-ll
->     drivers directly accessing chip->dev now. This way struct pwm_chip and
->     this new function can be changed without having to touch all drivers =
-in
->     the same change set.
-
-While looking into further feedback, I noticed I did the same mistake in
-all the patches that convert the drivers to use this function. I did
-
-	git filter-branch --msg-filter 'sed "s/Make use of pwmchip_parent() macro/=
-Make use of pwmchip_parent() accessor/; s/commit as struct pwm_chip::dev, u=
-se the macro/commit as struct pwm_chip::dev, use the accessor/; s/provided =
-for exactly this purpose./function provided for exactly this purpose./"' li=
-nus/master..
-
-on my branch to make the typical commit log read:
-
-	pwm: atmel: Make use of pwmchip_parent() accessor
-=09
-	struct pwm_chip::dev is about to change. To not have to touch this
-	driver in the same commit as struct pwm_chip::dev, use the accessor
-	function provided for exactly this purpose.
-
-I wont resend the whole series if this is the only change to it.
-
-Best regards
-Uwe
-
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---2cxtxp6sbv6wwe5j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmWyypEACgkQj4D7WH0S
-/k5psggAul+UfI+G8dHEaH2KDgkBUUlYZUwuEaOFluY8XF2KWBYgzrV6GTSkw5wT
-Me32hGYPzkH5GThVge4EwflIY6st1Dpe7hApskZcERowT4iaqpLmRhMLJSfbNFFL
-TKdck+IYqa1cFxKcnCqPr5UHCx9DR2zJulclKHey+IaAQbbiSZ7PXqTliJidSqA4
-gcZdCllP/NksXCjwuu7f3ffFYfT4eD4biOf/g24aQx4AkSSB/1xPNtYnwHwe9U7Q
-NfCN0EtnmSN3qHIMZQ0v8PHGjfE/VvFR+cIRqaher18JI/FRZFfNPMhT1hniO7vh
-qGInsEnK5ClF+KhK7XpBNiDRRAyXtw==
-=6bo9
------END PGP SIGNATURE-----
-
---2cxtxp6sbv6wwe5j--
-
---===============3996060004060952802==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+checkpatch points out this code is indented with spaces.
+Please use tabs.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3996060004060952802==--
