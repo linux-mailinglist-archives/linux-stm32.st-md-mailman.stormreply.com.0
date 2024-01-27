@@ -2,64 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76D5883EADF
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 05:05:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FCEE83ED22
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 14:04:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DEB6C6DD70;
-	Sat, 27 Jan 2024 04:05:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E31B8C6DD94;
+	Sat, 27 Jan 2024 13:04:25 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B47FCC6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2847AC6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jan 2024 04:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706328313; x=1737864313;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=arnNZFPeOWnn8Q5oQ59hKd7A7dEFpKto5u5vQcBQRZw=;
- b=UweUYZW4a8vix7R4ZpV8BwbBeByhmxWa6KOFQbUAlluEy+7WbFCx9zwO
- Fg4n6ggUR7d+wCxCJ39bBXiHRAhNb7ShnkLLNz1fFo08eveZ39n5NXYmd
- oWKCFvD72eYTMp13u+n9ATdEn78D5I5ntzbOMimNqHrQZvaEx7X2RxqY9
- 0mOu5VdkXEtd20UagexzeWafbst0aPRFJfwtFDJcu5z/9NZ8RK7yOJAK0
- U9XJTupWcoq60+/xkAj90pXbMdqdQiB0Ca9drzwoAZ0JsszBx634Uq2Kk
- icWSPRz1V6h6P5NRx7QMRvlcEjmwEsScX15j6pIPSUMmqIYAysjE4iOa4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="402289700"
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="402289700"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2024 20:05:13 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="787309871"
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="787309871"
-Received: from ppglcf2090.png.intel.com ([10.126.160.96])
- by orsmga002.jf.intel.com with ESMTP; 26 Jan 2024 20:05:07 -0800
-From: Rohan G Thomas <rohan.g.thomas@intel.com>
-To: "David S . Miller" <davem@davemloft.net>,
+ Sat, 27 Jan 2024 13:04:23 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40RCxpbl001346; Sat, 27 Jan 2024 13:04:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id; s=qcppdkim1; bh=6oebARhWnbWU
+ R8eKVVvlJcocYHJTcYCqahQxWhiBad0=; b=HMaB8xqJ9VBO09LxitQsHPjqo4eU
+ nHql5VcTIerEBoOYBhoEy5mfoDQ5DnM5+htqCHATo4CvqHduCjbjjR/yAEGrrbcX
+ WbWjbbbU2G0JahoXEi07W84d619FI5TWonzTuc4MM3yYYgPwjGtGc31cY3uaR6n1
+ U0WFs3x9EWXGCk8nIWyJ/j+c9UzI/tgXH4KLjynl7YIS2B7sKNj5fjQ7of9UrYW/
+ cCXBUGxAvqDT1N5FgQbeAHF8NNHN1iTu86NBtVHfWFPTtHF8Fl48DqGRUA+SpKvi
+ MUwlak0zHdSPnECgXS9HR+LL49GqmB5Rg/A6RyD+6UFzKb5Flp6kjBCRVQ==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vvq6sgrrm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sat, 27 Jan 2024 13:04:07 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 40RD44xr032026; 
+ Sat, 27 Jan 2024 13:04:04 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3vvtwkh1yy-1;
+ Sat, 27 Jan 2024 13:04:04 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 40RD43ad032020;
+ Sat, 27 Jan 2024 13:04:03 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
+ [10.147.246.35])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 40RD43rP032019;
+ Sat, 27 Jan 2024 13:04:03 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
+ id A7D185013A4; Sat, 27 Jan 2024 18:34:02 +0530 (+0530)
+From: Sneh Shah <quic_snehshah@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Sat, 27 Jan 2024 12:04:43 +0800
-Message-Id: <20240127040443.24835-4-rohan.g.thomas@intel.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20240127040443.24835-1-rohan.g.thomas@intel.com>
-References: <20240127040443.24835-1-rohan.g.thomas@intel.com>
-MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, bpf@vger.kernel.org,
- Rohan G Thomas <rohan.g.thomas@intel.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Report taprio
-	offload status
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 27 Jan 2024 18:33:27 +0530
+Message-Id: <20240127130327.22443-1-quic_snehshah@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: hfW17_9FU6EIZ5OE24pmXqy0sXMCugSJ
+X-Proofpoint-ORIG-GUID: hfW17_9FU6EIZ5OE24pmXqy0sXMCugSJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-25_14,2024-01-25_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0
+ phishscore=0 adultscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
+ suspectscore=0 mlxscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401270097
+Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos: Add
+	support for pm ops
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,121 +90,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Report taprio offload status. This includes per txq and global
-counters of window_drops and tx_overruns.
+Add qcom ethqos specific runtime and system sleep pm ops.
+As part of system sleep qcom ethqos needs to disable all clocks.
+This ops will be extended further with qcom specific features.
 
-Window_drops count include count of frames dropped because of
-queueMaxSDU setting and HLBF error. Transmission overrun counter
-inform the user application whether any packets are currently being
-transmitted on a particular queue during a gate-close event.DWMAC IPs
-takes care Transmission overrun won't happen hence this is always 0.
-
-Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
+Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 62 +++++++++++++++++--
- 1 file changed, 58 insertions(+), 4 deletions(-)
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 51 ++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 07aa3a3089dc..cce00719937d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -937,8 +937,8 @@ static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
- 	}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 31631e3f89d0..cba601ee9e01 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -720,6 +720,55 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
+ 	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
  }
  
--static int tc_setup_taprio(struct stmmac_priv *priv,
--			   struct tc_taprio_qopt_offload *qopt)
-+static int tc_taprio_configure(struct stmmac_priv *priv,
-+			       struct tc_taprio_qopt_offload *qopt)
++static int qcom_ethqos_runtime_suspend(struct device *dev)
++{
++	struct net_device *ndev = dev_get_drvdata(dev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++
++	return stmmac_bus_clks_config(priv, false);
++}
++
++static int qcom_ethqos_runtime_resume(struct device *dev)
++{
++	struct net_device *ndev = dev_get_drvdata(dev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++
++	return stmmac_bus_clks_config(priv, true);
++}
++
++static int qcom_ethqos_suspend(struct device *dev)
++{
++	struct net_device *ndev = dev_get_drvdata(dev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++	int ret;
++
++	if (!ndev || !netif_running(ndev))
++		return -EINVAL;
++
++	ret = stmmac_suspend(dev);
++
++	return stmmac_bus_clks_config(priv, false);
++}
++
++static int qcom_ethqos_resume(struct device *dev)
++{
++	struct net_device *ndev = dev_get_drvdata(dev);
++	struct stmmac_priv *priv = netdev_priv(ndev);
++	int ret;
++
++	if (!ndev || !netif_running(ndev))
++		return -EINVAL;
++
++	stmmac_bus_clks_config(priv, true);
++
++	return stmmac_resume(dev);
++}
++
++const struct dev_pm_ops qcom_ethqos_pm_ops = {
++	SET_SYSTEM_SLEEP_PM_OPS(qcom_ethqos_suspend, qcom_ethqos_resume)
++	SET_RUNTIME_PM_OPS(qcom_ethqos_runtime_suspend, qcom_ethqos_runtime_resume, NULL)
++};
++
+ static int qcom_ethqos_probe(struct platform_device *pdev)
  {
- 	u32 size, wid = priv->dma_cap.estwid, dep = priv->dma_cap.estdep;
- 	struct plat_stmmacenet_data *plat = priv->plat;
-@@ -990,8 +990,6 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 
- 	if (qopt->cmd == TAPRIO_CMD_DESTROY)
- 		goto disable;
--	else if (qopt->cmd != TAPRIO_CMD_REPLACE)
--		return -EOPNOTSUPP;
- 
- 	if (qopt->num_entries >= dep)
- 		return -EINVAL;
-@@ -1102,6 +1100,11 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 		priv->plat->est->enable = false;
- 		stmmac_est_configure(priv, priv, priv->plat->est,
- 				     priv->plat->clk_ptp_rate);
-+		/* Reset taprio status */
-+		for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
-+			priv->xstats.max_sdu_txq_drop[i] = 0;
-+			priv->xstats.mtl_est_txq_hlbf[i] = 0;
-+		}
- 		mutex_unlock(&priv->plat->est->lock);
- 	}
- 
-@@ -1119,6 +1122,57 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 	return ret;
- }
- 
-+static void tc_taprio_stats(struct stmmac_priv *priv,
-+			    struct tc_taprio_qopt_offload *qopt)
-+{
-+	u64 window_drops = 0;
-+	int i = 0;
-+
-+	for (i = 0; i < priv->plat->tx_queues_to_use; i++)
-+		window_drops += priv->xstats.max_sdu_txq_drop[i] +
-+				priv->xstats.mtl_est_txq_hlbf[i];
-+	qopt->stats.window_drops = window_drops;
-+
-+	/* Transmission overrun doesn't happen for stmmac, hence always 0 */
-+	qopt->stats.tx_overruns = 0;
-+}
-+
-+static void tc_taprio_queue_stats(struct stmmac_priv *priv,
-+				  struct tc_taprio_qopt_offload *qopt)
-+{
-+	struct tc_taprio_qopt_queue_stats *q_stats = &qopt->queue_stats;
-+	int queue = qopt->queue_stats.queue;
-+
-+	q_stats->stats.window_drops = priv->xstats.max_sdu_txq_drop[queue] +
-+				      priv->xstats.mtl_est_txq_hlbf[queue];
-+
-+	/* Transmission overrun doesn't happen for stmmac, hence always 0 */
-+	q_stats->stats.tx_overruns = 0;
-+}
-+
-+static int tc_setup_taprio(struct stmmac_priv *priv,
-+			   struct tc_taprio_qopt_offload *qopt)
-+{
-+	int err = 0;
-+
-+	switch (qopt->cmd) {
-+	case TAPRIO_CMD_REPLACE:
-+	case TAPRIO_CMD_DESTROY:
-+		err = tc_taprio_configure(priv, qopt);
-+		break;
-+	case TAPRIO_CMD_STATS:
-+		tc_taprio_stats(priv, qopt);
-+		break;
-+	case TAPRIO_CMD_QUEUE_STATS:
-+		tc_taprio_queue_stats(priv, qopt);
-+		break;
-+	default:
-+		err = -EOPNOTSUPP;
-+	}
-+
-+	return err;
-+}
-+
- static int tc_setup_etf(struct stmmac_priv *priv,
- 			struct tc_etf_qopt_offload *qopt)
- {
+ 	struct device_node *np = pdev->dev.of_node;
+@@ -838,7 +887,7 @@ static struct platform_driver qcom_ethqos_driver = {
+ 	.probe  = qcom_ethqos_probe,
+ 	.driver = {
+ 		.name           = "qcom-ethqos",
+-		.pm		= &stmmac_pltfr_pm_ops,
++		.pm		= &qcom_ethqos_pm_ops,
+ 		.of_match_table = qcom_ethqos_match,
+ 	},
+ };
 -- 
-2.26.2
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
