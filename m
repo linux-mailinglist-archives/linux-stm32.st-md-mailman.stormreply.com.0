@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D9B83EADA
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 05:05:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF0283EADE
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 05:05:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED76AC6DD70;
-	Sat, 27 Jan 2024 04:05:01 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BE31C6DD70;
+	Sat, 27 Jan 2024 04:05:10 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 993F1C6DD6C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41C5CC6DD6C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jan 2024 04:05:00 +0000 (UTC)
+ Sat, 27 Jan 2024 04:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706328300; x=1737864300;
+ t=1706328308; x=1737864308;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=tmaDAZOOoco/B/Do5lARVSsuFNiunl83/qadTSQAa+E=;
- b=GqCH2bqzCr3mB6grVnJ6i+2NIvtILX3NI7KiPSKjg4uRMuAPtkHIL85v
- 4lX/ywxYxXmxU/KOvywMRQCqaGN1uQbWZpiGEXtTR9IsYgvXu9d7ocSvC
- 7uFgx8dev7hOsWluF7zuFXXRCs1R/H//2NDgUVzMQaliwM8CXV0Btclm6
- VgK3nkPPQ+yeaIdy/QxvpYx1gL5vhlEck8wfAzJpbPwSWja45bTNZXP26
- Yr9QHSC7rUDMc6ksV8TrTIBZTaalbYDqaLCErfK46Xi8J6ltALZy/auFW
- 9voLSeEYZDXCbtJKTqf295NRVwOJAd0Dtai7wG+mMig1WV7hRbwRInUJB w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="402289626"
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="402289626"
+ bh=eCcylmKuGhzpjVUqVE5u3nCimW0l3ydQAg3Bgrb9n4U=;
+ b=eig9PUYVFdF5WSHTTCCa9EHKFgtRDBKcru9eLlR6/shweepF8hMJ+KBq
+ 1Jsk/8kLRVMxsVUJBJcZ+DydmkoO/QqrqxOLpQq7hwzvzCERaA+aIx7iY
+ dVooGeuBrOplyzBubr/yOrd6F1h5qvgsZ+AT10LU5JrKsLyciqxZY5dNB
+ gFzGf1mWXN4TjXoY5B2iMLzgyPLwZcV6MZm9L6TcqaN/4/W0YPPXt5omS
+ 2K5mrU/2GwmnVa2wrWICXS/XXp0SHhJ5XonnTHur2WdNMQbQho5EqnCEk
+ L64o4ucUg3hUnaC33ra596EJxPs71mvGReueu53s9kaQ/iyRP7oyrrrGJ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="402289665"
+X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="402289665"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2024 20:04:59 -0800
+ 26 Jan 2024 20:05:06 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="787309789"
-X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="787309789"
+X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="787309861"
+X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; d="scan'208";a="787309861"
 Received: from ppglcf2090.png.intel.com ([10.126.160.96])
- by orsmga002.jf.intel.com with ESMTP; 26 Jan 2024 20:04:54 -0800
+ by orsmga002.jf.intel.com with ESMTP; 26 Jan 2024 20:05:00 -0800
 From: Rohan G Thomas <rohan.g.thomas@intel.com>
 To: "David S . Miller" <davem@davemloft.net>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -48,8 +48,8 @@ To: "David S . Miller" <davem@davemloft.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
  John Fastabend <john.fastabend@gmail.com>,
  Serge Semin <fancer.lancer@gmail.com>
-Date: Sat, 27 Jan 2024 12:04:41 +0800
-Message-Id: <20240127040443.24835-2-rohan.g.thomas@intel.com>
+Date: Sat, 27 Jan 2024 12:04:42 +0800
+Message-Id: <20240127040443.24835-3-rohan.g.thomas@intel.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20240127040443.24835-1-rohan.g.thomas@intel.com>
 References: <20240127040443.24835-1-rohan.g.thomas@intel.com>
@@ -58,8 +58,8 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, bpf@vger.kernel.org,
  Rohan G Thomas <rohan.g.thomas@intel.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Offload queueMaxSDU
-	from tc-taprio
+Subject: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: est: Per Tx-queue
+	error count for HLBF
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,149 +76,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for configuring queueMaxSDU. As DWMAC IPs doesn't support
-queueMaxSDU table handle this in the SW. The maximum 802.3 frame size
-that is allowed to be transmitted by any queue is queueMaxSDU +
-16 bytes (i.e. 6 bytes SA + 6 bytes DA + 4 bytes FCS).
-
-Inspired from intel i225 driver.
+Keep per Tx-queue error count on Head-Of-Line Blocking due to frame
+size(HLBF) error. The MAC raises HLBF error on one or more queues
+when none of the time Intervals of open-gates in the GCL is greater
+than or equal to the duration needed for frame transmission and by
+default drops those packets that causes HLBF error. EST_FRM_SZ_ERR
+register provides the One Hot encoded Queue numbers that have the
+Frame Size related error.
 
 Signed-off-by: Rohan G Thomas <rohan.g.thomas@intel.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 22 ++++++++++++++++
- .../net/ethernet/stmicro/stmmac/stmmac_tc.c   | 25 +++++++++++++++++++
- include/linux/stmmac.h                        |  1 +
- 4 files changed, 49 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/common.h     | 1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_est.c | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 721c1f8e892f..d8d2a90fd228 100644
+index d8d2a90fd228..70bef7811c91 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/common.h
 +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -202,6 +202,7 @@ struct stmmac_extra_stats {
- 	unsigned long mtl_est_hlbf;
+@@ -203,6 +203,7 @@ struct stmmac_extra_stats {
  	unsigned long mtl_est_btre;
  	unsigned long mtl_est_btrlm;
-+	unsigned long max_sdu_txq_drop[MTL_MAX_TX_QUEUES];
+ 	unsigned long max_sdu_txq_drop[MTL_MAX_TX_QUEUES];
++	unsigned long mtl_est_txq_hlbf[MTL_MAX_TX_QUEUES];
  	/* per queue statistics */
  	struct stmmac_txq_stats txq_stats[MTL_MAX_TX_QUEUES];
  	struct stmmac_rxq_stats rxq_stats[MTL_MAX_RX_QUEUES];
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index b334eb16da23..33509237fe60 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2507,6 +2507,13 @@ static bool stmmac_xdp_xmit_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
- 		if (!xsk_tx_peek_desc(pool, &xdp_desc))
- 			break;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
+index 4da6ccc17c20..c9693f77e1f6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_est.c
+@@ -81,6 +81,7 @@ static void est_irq_status(struct stmmac_priv *priv, struct net_device *dev,
+ 	u32 status, value, feqn, hbfq, hbfs, btrl, btrl_max;
+ 	void __iomem *est_addr = priv->estaddr;
+ 	u32 txqcnt_mask = BIT(txqcnt) - 1;
++	int i;
  
-+		if (priv->plat->est && priv->plat->est->enable &&
-+		    priv->plat->est->max_sdu[queue] &&
-+		    xdp_desc.len > priv->plat->est->max_sdu[queue]) {
-+			priv->xstats.max_sdu_txq_drop[queue]++;
-+			continue;
+ 	status = readl(est_addr + EST_STATUS);
+ 
+@@ -125,6 +126,11 @@ static void est_irq_status(struct stmmac_priv *priv, struct net_device *dev,
+ 
+ 		x->mtl_est_hlbf++;
+ 
++		for (i = 0; i < txqcnt; i++) {
++			if (feqn & BIT(i))
++				x->mtl_est_txq_hlbf[i]++;
 +		}
 +
- 		if (likely(priv->extend_desc))
- 			tx_desc = (struct dma_desc *)(tx_q->dma_etx + entry);
- 		else if (tx_q->tbs & STMMAC_TBS_AVAIL)
-@@ -4498,6 +4505,13 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 			return stmmac_tso_xmit(skb, dev);
- 	}
+ 		/* Clear Interrupt */
+ 		writel(feqn, est_addr + EST_FRM_SZ_ERR);
  
-+	if (priv->plat->est && priv->plat->est->enable &&
-+	    priv->plat->est->max_sdu[queue] &&
-+	    skb->len > priv->plat->est->max_sdu[queue]){
-+		priv->xstats.max_sdu_txq_drop[queue]++;
-+		goto max_sdu_err;
-+	}
-+
- 	if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
- 		if (!netif_tx_queue_stopped(netdev_get_tx_queue(dev, queue))) {
- 			netif_tx_stop_queue(netdev_get_tx_queue(priv->dev,
-@@ -4715,6 +4729,7 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 
- dma_map_err:
- 	netdev_err(priv->dev, "Tx DMA map failed\n");
-+max_sdu_err:
- 	dev_kfree_skb(skb);
- 	priv->xstats.tx_dropped++;
- 	return NETDEV_TX_OK;
-@@ -4871,6 +4886,13 @@ static int stmmac_xdp_xmit_xdpf(struct stmmac_priv *priv, int queue,
- 	if (stmmac_tx_avail(priv, queue) < STMMAC_TX_THRESH(priv))
- 		return STMMAC_XDP_CONSUMED;
- 
-+	if (priv->plat->est && priv->plat->est->enable &&
-+	    priv->plat->est->max_sdu[queue] &&
-+	    xdpf->len > priv->plat->est->max_sdu[queue]) {
-+		priv->xstats.max_sdu_txq_drop[queue]++;
-+		return STMMAC_XDP_CONSUMED;
-+	}
-+
- 	if (likely(priv->extend_desc))
- 		tx_desc = (struct dma_desc *)(tx_q->dma_etx + entry);
- 	else if (tx_q->tbs & STMMAC_TBS_AVAIL)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-index 26fa33e5ec34..07aa3a3089dc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_tc.c
-@@ -915,6 +915,28 @@ struct timespec64 stmmac_calc_tas_basetime(ktime_t old_base_time,
- 	return time;
- }
- 
-+static void tc_taprio_map_maxsdu_txq(struct stmmac_priv *priv,
-+				     struct tc_taprio_qopt_offload *qopt)
-+{
-+	struct plat_stmmacenet_data *plat = priv->plat;
-+	u32 num_tc = qopt->mqprio.qopt.num_tc;
-+	u32 offset, count, i, j;
-+
-+	/* QueueMaxSDU received from the driver corresponds to the Linux traffic
-+	 * class. Map queueMaxSDU per Linux traffic class to DWMAC Tx queues.
-+	 */
-+	for (i = 0; i < num_tc; i++) {
-+		if (!qopt->max_sdu[i])
-+			continue;
-+
-+		offset = qopt->mqprio.qopt.offset[i];
-+		count = qopt->mqprio.qopt.count[i];
-+
-+		for (j = offset; j < offset + count; j++)
-+			plat->est->max_sdu[j] = qopt->max_sdu[i] + ETH_HLEN - ETH_TLEN;
-+	}
-+}
-+
- static int tc_setup_taprio(struct stmmac_priv *priv,
- 			   struct tc_taprio_qopt_offload *qopt)
- {
-@@ -1045,6 +1067,8 @@ static int tc_setup_taprio(struct stmmac_priv *priv,
- 
- 	priv->plat->est->ter = qopt->cycle_time_extension;
- 
-+	tc_taprio_map_maxsdu_txq(priv, qopt);
-+
- 	if (fpe && !priv->dma_cap.fpesel) {
- 		mutex_unlock(&priv->plat->est->lock);
- 		return -EOPNOTSUPP;
-@@ -1126,6 +1150,7 @@ static int tc_query_caps(struct stmmac_priv *priv,
- 			return -EOPNOTSUPP;
- 
- 		caps->gate_mask_per_txq = true;
-+		caps->supports_queue_max_sdu = true;
- 
- 		return 0;
- 	}
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index dee5ad6e48c5..dfa1828cd756 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -127,6 +127,7 @@ struct stmmac_est {
- 	u32 gcl_unaligned[EST_GCL];
- 	u32 gcl[EST_GCL];
- 	u32 gcl_size;
-+	u32 max_sdu[MTL_MAX_TX_QUEUES];
- };
- 
- struct stmmac_rxq_cfg {
 -- 
 2.26.2
 
