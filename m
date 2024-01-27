@@ -2,73 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF00783EDEC
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 16:29:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E9183EDEE
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 16:29:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73FAAC6DD95;
-	Sat, 27 Jan 2024 15:29:03 +0000 (UTC)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D8F6C6DD94;
+	Sat, 27 Jan 2024 15:29:06 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 342ABC6DD94
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8307C6DD72
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sat, 27 Jan 2024 15:29:02 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2cf588c4dbcso2997571fa.1
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-40eacb4bfa0so20190365e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sat, 27 Jan 2024 07:29:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1706369341; x=1706974141;
+ d=amarulasolutions.com; s=google; t=1706369342; x=1706974142;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rQ9PYTfLUcfjyRJqgcRWuTdkFl4CeqFScaddJa4Lyi0=;
- b=lQzYtkZib9abSJySfigEOkllG+5aiAfIvI2jGTYNxSgwnKnNSsikPunHMzL+cBmj4c
- jKa10hOE8LRtDNYY1hnFD2uyPG8Jh2ql/NmQQgZKw6hp6l8uBwQv3J4d+x89eUJwY2nP
- MNLRzd8Wfk1noTQ4tU6uktwW5een4ca5buVwc=
+ bh=jr5hMNUd1x8YCEgCqvY7QTv9IEyl6KU3Ejyn2wYPqRg=;
+ b=r7T8UDwWaCyZfEx/Gb0pd5uZ3m11UVkzNmnHaNgR98EhAMRLN54PPpCgNV81eFo9iB
+ 1GPqZKmW6A/OSplAMN7tZRpxDuK3fEheDj2+gR+rFZLCpDAOmvTPsyu7hjZrU6MwjuPG
+ C/6H8qJAooV5HSqdDUMXG7QgKnuhbPbukkrCw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706369341; x=1706974141;
+ d=1e100.net; s=20230601; t=1706369342; x=1706974142;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rQ9PYTfLUcfjyRJqgcRWuTdkFl4CeqFScaddJa4Lyi0=;
- b=LFO/MFFZKecenqyLSMsGpYAZaGBjXR8dRlUMK6itSYn2Xn74+8ms9kqDBfcH+2bXqG
- G3U/IsXvvdboNe88PuNGGwBE5ZMwdmAtsB6kp3twdSDUiXJKQqDAwks9GLcJEwfofgdE
- R3yTgbOJHdOmUMlU85Hr03XXKl5STFDTt7sQcP76i7CPrL66C3Nct28Z/C2XdvR/JHn7
- P4tdnZQQ5eP4qwGN9mPgbHqSQ1bPjFt5QC/4RqlCEsdrCNUqTvrYa1XnVsyasrEWvomS
- vQ0J0hEYEW76DLPEM1OpkKKbzrjNTAzp4vi0xQK48XrEilhhmcE6NtgUC9fL9E9NcUkO
- ZZaQ==
-X-Gm-Message-State: AOJu0Ywix+pVFL8sVmdaYYW4tT7F3E6jlV24SCf2htiEjZ+mJTeseSRs
- 8+cqh0vT+iR5YJ4YLDli6ul3hWu5vt1zo4FbVt+EBpQR2tcWqwgDTtydlfNLH4E=
-X-Google-Smtp-Source: AGHT+IFbqC5mI6d85g/WTmEICTQPFRXc2Q3MZ26rVAnIhbQylAq8FLk78zQxkd8AP9QrJIUphT0u1g==
-X-Received: by 2002:a2e:965a:0:b0:2cd:143c:9283 with SMTP id
- z26-20020a2e965a000000b002cd143c9283mr1436284ljh.27.1706369341158; 
- Sat, 27 Jan 2024 07:29:01 -0800 (PST)
+ bh=jr5hMNUd1x8YCEgCqvY7QTv9IEyl6KU3Ejyn2wYPqRg=;
+ b=V4lMRdrecav6nQ4+I+bttbYMBT042ECyFIYH+UXwqVFXuiI/eE5sZrEWXCzTz3pd2+
+ 4yb1MykEQbVkVE7v1Na07Ye4k+9sz46WPQJSna4mOBKJo3dFVYwfag/w6I0fBraYMQUk
+ RWwq3rUQxSg7SmbFqueO4IYjpzzetRyrTMDPXG+rVPNupVcuhp0NxSeDSGY2xXavFoo0
+ fEW/cmke+es4/6Ikwf5D4ilx9yHFZapioGYxt6ES32PsB9XpYDspDfIK3iJneg0i8hdl
+ UfGC1TpBY8qlf5h6ku5mrJVacKWValK5uPMFRzrrf1Fu9mDQxnJ3Io5rSkDLDYJh71R6
+ wnmg==
+X-Gm-Message-State: AOJu0YxJkrF+b3QSaOJSCcFZY4ysSXIFmumyD/JspiEg3aaEtj/0p3Uz
+ brPTmBTyMKm2Rw/tBn2rAQUoKx00PrhYSEbIifkuOzALqZIcibZGfpX5sNoit0o=
+X-Google-Smtp-Source: AGHT+IFOp9OP4FcMBTo00Ve4mfOu7PZh6QSfp8vwCqTlsNUh8pHjMhtyqQLLFLD21GtKlIfVpbbfgg==
+X-Received: by 2002:adf:ef0f:0:b0:339:38c2:14c8 with SMTP id
+ e15-20020adfef0f000000b0033938c214c8mr1378646wro.81.1706369342516; 
+ Sat, 27 Jan 2024 07:29:02 -0800 (PST)
 Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
  (host-79-21-103-141.retail.telecomitalia.it. [79.21.103.141])
  by smtp.gmail.com with ESMTPSA id
- l5-20020a056402344500b0055974a2a2d4sm1745220edc.39.2024.01.27.07.29.00
+ l5-20020a056402344500b0055974a2a2d4sm1745220edc.39.2024.01.27.07.29.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 27 Jan 2024 07:29:00 -0800 (PST)
+ Sat, 27 Jan 2024 07:29:02 -0800 (PST)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Sat, 27 Jan 2024 16:28:48 +0100
-Message-ID: <20240127152853.65937-5-dario.binacchi@amarulasolutions.com>
+Date: Sat, 27 Jan 2024 16:28:49 +0100
+Message-ID: <20240127152853.65937-6-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240127152853.65937-1-dario.binacchi@amarulasolutions.com>
 References: <20240127152853.65937-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lee Jones <lee@kernel.org>,
+ =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Nyekjaer <sean@geanix.com>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v10 4/5] ARM: dts: stm32: add display support
-	on stm32f769-disco
+Subject: [Linux-stm32] [PATCH v10 5/5] ARM: dts: add
+	stm32f769-disco-mb1166-reva09
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,127 +89,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The patch adds display support on the stm32f769-disco board.
+As reported in the section 8.3 (i. e. Board revision history) of document
+UM2033 (i. e. Discovery kit with STM32F769NI MCU) these are the changes
+related to the board revision addressed by the patch:
+- Board MB1166 revision A-09:
+  - LCD FRIDA FRD397B25009-D-CTK replaced by FRIDA FRD400B25025-A-CTK
+
+The patch adds the DTS support for the new display which belongs to the
+the Novatek NT35510-based panel family.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Reviewed-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
 ---
 
 Changes in v10:
-- Drop backlight. From a closer analysis of the schematics
-  en.MB1225-F769I-B01_Schematic.pdf and en.mb1166-default-a09-schematic.pdf,
-  it is noticed that the GPIO I14 is connected to an unmounted
-  resistor (n/a), making the backlight functionality via GPIO unusable.
+- Drop backlight references
 
 Changes in v9:
-- Rename panel-dsi@0 to panel@0 to fix yaml warnings
+- Change commit message
+- Rename stm32f769-disco-mb1225-revb03-mb1166-reva09 to
+  stm32f769-disco-mb1166-reva09
 
 Changes in v8:
-- Remove unit name from 'ltdc/port/endpoint@0' to fix the compiling
-  warning:
-  ../arch/arm/boot/dts/st/stm32f769-disco.dts:189.28-191.5: Warning
-  (unit_address_vs_reg): /soc/display-controller@40016800/port/endpoint@0: node
-  has a unit name, but no reg or ranges property
+- Add Reviewed-by tag of Linus Walleij
+- Add Reviewed-by tag of Raphael Gallais-Pou
 
- arch/arm/boot/dts/st/stm32f769-disco.dts | 64 +++++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 1 deletion(-)
+Changes in v7:
+- Replace .dts with .dtb in the Makefile
 
-diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
-index 660f85984164..52c5baf58ab9 100644
---- a/arch/arm/boot/dts/st/stm32f769-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32f769-disco.dts
-@@ -41,7 +41,7 @@
-  */
- 
- /dts-v1/;
--#include "stm32f746.dtsi"
-+#include "stm32f769.dtsi"
- #include "stm32f769-pinctrl.dtsi"
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/gpio/gpio.h>
-@@ -60,6 +60,19 @@ memory@c0000000 {
- 		reg = <0xC0000000 0x1000000>;
- 	};
- 
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
+Changes in v6:
+- Drop patches
+  - [5/8] dt-bindings: nt35510: add compatible for FRIDA FRD400B25025-A-CTK
+  - [7/8] drm/panel: nt35510: move hardwired parameters to configuration
+  - [8/8] drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK
+  because applied by the maintainer Linus Walleij
+
+Changes in v5:
+- Replace GPIOD_ASIS with GPIOD_OUT_HIGH in the call to devm_gpiod_get_optional().
+
+Changes in v2:
+- Change the status of panel_backlight node to "disabled"
+- Delete backlight property from panel0 node.
+- Re-write the patch [8/8] "drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK"
+  in the same style as the original driver.
+
+ arch/arm/boot/dts/st/Makefile                       |  1 +
+ .../boot/dts/st/stm32f769-disco-mb1166-reva09.dts   | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
+ create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
+
+diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
+index 7892ad69b441..9fedd6776208 100644
+--- a/arch/arm/boot/dts/st/Makefile
++++ b/arch/arm/boot/dts/st/Makefile
+@@ -23,6 +23,7 @@ dtb-$(CONFIG_ARCH_STM32) += \
+ 	stm32f469-disco.dtb \
+ 	stm32f746-disco.dtb \
+ 	stm32f769-disco.dtb \
++	stm32f769-disco-mb1166-reva09.dtb \
+ 	stm32429i-eval.dtb \
+ 	stm32746g-eval.dtb \
+ 	stm32h743i-eval.dtb \
+diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
+new file mode 100644
+index 000000000000..ff7ff32371d0
+--- /dev/null
++++ b/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
++ */
 +
-+		linux,dma {
-+			compatible = "shared-dma-pool";
-+			linux,dma-default;
-+			no-map;
-+			size = <0x100000>;
-+		};
-+	};
++#include "stm32f769-disco.dts"
 +
- 	aliases {
- 		serial0 = &usart1;
- 	};
-@@ -114,6 +127,45 @@ &clk_hse {
- 	clock-frequency = <25000000>;
- };
- 
-+&dsi {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			dsi_in: endpoint {
-+				remote-endpoint = <&ltdc_out_dsi>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			dsi_out: endpoint {
-+				remote-endpoint = <&dsi_panel_in>;
-+			};
-+		};
-+	};
-+
-+	panel0: panel@0 {
-+		compatible = "orisetech,otm8009a";
-+		reg = <0>; /* dsi virtual channel (0..3) */
-+		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
-+		power-supply = <&vcc_3v3>;
-+		status = "okay";
-+
-+		port {
-+			dsi_panel_in: endpoint {
-+				remote-endpoint = <&dsi_out>;
-+			};
-+		};
-+	};
++&panel0 {
++	compatible = "frida,frd400b25025", "novatek,nt35510";
++	vddi-supply = <&vcc_3v3>;
++	vdd-supply = <&vcc_3v3>;
++	/delete-property/power-supply;
 +};
-+
- &i2c1 {
- 	pinctrl-0 = <&i2c1_pins_b>;
- 	pinctrl-names = "default";
-@@ -122,6 +174,16 @@ &i2c1 {
- 	status = "okay";
- };
- 
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_out_dsi: endpoint {
-+			remote-endpoint = <&dsi_in>;
-+		};
-+	};
-+};
-+
- &rtc {
- 	status = "okay";
- };
 -- 
 2.43.0
 
