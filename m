@@ -2,83 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCEE83ED22
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 14:04:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB0783EDE8
+	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jan 2024 16:28:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E31B8C6DD94;
-	Sat, 27 Jan 2024 13:04:25 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A718C6DD72;
+	Sat, 27 Jan 2024 15:28:59 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2847AC6DD72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45C73C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jan 2024 13:04:23 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40RCxpbl001346; Sat, 27 Jan 2024 13:04:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id; s=qcppdkim1; bh=6oebARhWnbWU
- R8eKVVvlJcocYHJTcYCqahQxWhiBad0=; b=HMaB8xqJ9VBO09LxitQsHPjqo4eU
- nHql5VcTIerEBoOYBhoEy5mfoDQ5DnM5+htqCHATo4CvqHduCjbjjR/yAEGrrbcX
- WbWjbbbU2G0JahoXEi07W84d619FI5TWonzTuc4MM3yYYgPwjGtGc31cY3uaR6n1
- U0WFs3x9EWXGCk8nIWyJ/j+c9UzI/tgXH4KLjynl7YIS2B7sKNj5fjQ7of9UrYW/
- cCXBUGxAvqDT1N5FgQbeAHF8NNHN1iTu86NBtVHfWFPTtHF8Fl48DqGRUA+SpKvi
- MUwlak0zHdSPnECgXS9HR+LL49GqmB5Rg/A6RyD+6UFzKb5Flp6kjBCRVQ==
-Received: from apblrppmta02.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vvq6sgrrm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 27 Jan 2024 13:04:07 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 40RD44xr032026; 
- Sat, 27 Jan 2024 13:04:04 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3vvtwkh1yy-1;
- Sat, 27 Jan 2024 13:04:04 +0000
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
- [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 40RD43ad032020;
- Sat, 27 Jan 2024 13:04:03 GMT
-Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
- [10.147.246.35])
- by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 40RD43rP032019;
- Sat, 27 Jan 2024 13:04:03 +0000
-Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
- id A7D185013A4; Sat, 27 Jan 2024 18:34:02 +0530 (+0530)
-From: Sneh Shah <quic_snehshah@quicinc.com>
-To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 27 Jan 2024 18:33:27 +0530
-Message-Id: <20240127130327.22443-1-quic_snehshah@quicinc.com>
-X-Mailer: git-send-email 2.17.1
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: hfW17_9FU6EIZ5OE24pmXqy0sXMCugSJ
-X-Proofpoint-ORIG-GUID: hfW17_9FU6EIZ5OE24pmXqy0sXMCugSJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-25_14,2024-01-25_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0
- phishscore=0 adultscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- suspectscore=0 mlxscore=0 lowpriorityscore=0 mlxlogscore=999
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401190000 definitions=main-2401270097
-Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos: Add
-	support for pm ops
+ Sat, 27 Jan 2024 15:28:57 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-55d314c1cb7so2583261a12.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sat, 27 Jan 2024 07:28:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amarulasolutions.com; s=google; t=1706369337; x=1706974137;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=V9qOpvovQxTeO30aF5mISOGXWyu7pY+UB92+iH0umaM=;
+ b=GannPvS35EB72usSe9+O4aS2xlyFSVCTBj1XHHEpPSIZms8dE/s1yx+gKlazvwRKHI
+ PVdGOcrfbd/6t0u3ZQ4nlO7g/mze5VkSmm8EdLYZgRecsMkD42R6EB92HWl+GlQsakFD
+ 5M63oLB5IAd5FhWaomDGDM3FteNws8KlGHlAc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1706369337; x=1706974137;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=V9qOpvovQxTeO30aF5mISOGXWyu7pY+UB92+iH0umaM=;
+ b=YZONFS2xCuANFBfg6IqJelvCmd1bxa6AXGqhOSh8WSAku2nC1zwR8iCLIRgLVK9Xps
+ UnOjDJ5AvoqJXARfSYTL/AkFH1gaaEre5PeJFq7Y4BKlVSg9GbCf5RFiunqINe561zoz
+ U3lKXDbzCmVqCDVHTHq9KXF9Ff0rVrx2Zj4qTVJ9PjsdvalK8c+Gl7NW/iZfJPouH2yG
+ RMaLDy/5Ka2RoDPBDqkCY7bPHUHrrnxQusNKjA4S/ussvHU43nMANIe/8T9PqtgLBVkW
+ 8vslcnABChWV1EXaS6i5aWHZt5h/No560DaUCG/HT7bRi11wqxaMZq78etGeT1AlsqZx
+ DDgA==
+X-Gm-Message-State: AOJu0YzSN+7nS8LffVcZV5X72SIgvHsvpU8LTtT1IwPzPG4ccEAtJy5d
+ oyZIkFiHMg9bfHJd+/Ly01QUTLLU5AZwMoNq0bJSmTGtO/0WvBygLY1joyp1+1Q=
+X-Google-Smtp-Source: AGHT+IGmnblWXBThT/arNwzFsq5cI0uqWhD1N8OmGQ1IBaVswSAky7d8phVyRODGghXdbxr92kxmfw==
+X-Received: by 2002:aa7:c418:0:b0:55e:b014:da62 with SMTP id
+ j24-20020aa7c418000000b0055eb014da62mr1710923edq.16.1706369336400; 
+ Sat, 27 Jan 2024 07:28:56 -0800 (PST)
+Received: from dario-ThinkPad-T14s-Gen-2i.homenet.telecomitalia.it
+ (host-79-21-103-141.retail.telecomitalia.it. [79.21.103.141])
+ by smtp.gmail.com with ESMTPSA id
+ l5-20020a056402344500b0055974a2a2d4sm1745220edc.39.2024.01.27.07.28.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 27 Jan 2024 07:28:56 -0800 (PST)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Date: Sat, 27 Jan 2024 16:28:44 +0100
+Message-ID: <20240127152853.65937-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ =?UTF-8?q?Leonard=20G=C3=B6hrs?= <l.goehrs@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Sean Nyekjaer <sean@geanix.com>,
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v10 0/5] Add display support for
+	stm32f769-disco board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,92 +81,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add qcom ethqos specific runtime and system sleep pm ops.
-As part of system sleep qcom ethqos needs to disable all clocks.
-This ops will be extended further with qcom specific features.
+The series adds display support for the stm32f769-disco board. It has been
+tested on hardware revisions MB1225-B03 and MB1166-A09. This required
+modifications to the nt35510 driver that have already been applied.
 
-Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 51 ++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+Changes in v10:
+- Drop backlight. From a closer analysis of the schematics
+  en.MB1225-F769I-B01_Schematic.pdf and en.mb1166-default-a09-schematic.pdf,
+  it is noticed that the GPIO I14 is connected to an unmounted
+  resistor (n/a), making the backlight functionality via GPIO unusable.
+- Drop backlight references
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 31631e3f89d0..cba601ee9e01 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -720,6 +720,55 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
- 	netdev_dbg(priv->dev, "PTP rate %d\n", plat_dat->clk_ptp_rate);
- }
- 
-+static int qcom_ethqos_runtime_suspend(struct device *dev)
-+{
-+	struct net_device *ndev = dev_get_drvdata(dev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+
-+	return stmmac_bus_clks_config(priv, false);
-+}
-+
-+static int qcom_ethqos_runtime_resume(struct device *dev)
-+{
-+	struct net_device *ndev = dev_get_drvdata(dev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+
-+	return stmmac_bus_clks_config(priv, true);
-+}
-+
-+static int qcom_ethqos_suspend(struct device *dev)
-+{
-+	struct net_device *ndev = dev_get_drvdata(dev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	int ret;
-+
-+	if (!ndev || !netif_running(ndev))
-+		return -EINVAL;
-+
-+	ret = stmmac_suspend(dev);
-+
-+	return stmmac_bus_clks_config(priv, false);
-+}
-+
-+static int qcom_ethqos_resume(struct device *dev)
-+{
-+	struct net_device *ndev = dev_get_drvdata(dev);
-+	struct stmmac_priv *priv = netdev_priv(ndev);
-+	int ret;
-+
-+	if (!ndev || !netif_running(ndev))
-+		return -EINVAL;
-+
-+	stmmac_bus_clks_config(priv, true);
-+
-+	return stmmac_resume(dev);
-+}
-+
-+const struct dev_pm_ops qcom_ethqos_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(qcom_ethqos_suspend, qcom_ethqos_resume)
-+	SET_RUNTIME_PM_OPS(qcom_ethqos_runtime_suspend, qcom_ethqos_runtime_resume, NULL)
-+};
-+
- static int qcom_ethqos_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
-@@ -838,7 +887,7 @@ static struct platform_driver qcom_ethqos_driver = {
- 	.probe  = qcom_ethqos_probe,
- 	.driver = {
- 		.name           = "qcom-ethqos",
--		.pm		= &stmmac_pltfr_pm_ops,
-+		.pm		= &qcom_ethqos_pm_ops,
- 		.of_match_table = qcom_ethqos_match,
- 	},
- };
+Changes in v9:
+- Drop 'interrupts' property to fix yaml checks
+- Rename vcc_3v3 to to vcc-3v3
+- Rename panel-dsi@0 to panel@0 to fix yaml warnings
+- Change commit message
+- Rename stm32f769-disco-mb1225-revb03-mb1166-reva09 to
+  stm32f769-disco-mb1166-reva09
+
+Changes in v8:
+- Add Acked-by tag of Lee Jones
+- Add Reviewed-by tag of Raphael Gallais-Pou
+- Add Reviewed-by tag of Raphael Gallais-Pou
+- Remove unit name from 'ltdc/port/endpoint@0' to fix the compiling
+  warning:
+  ../arch/arm/boot/dts/st/stm32f769-disco.dts:189.28-191.5: Warning
+  (unit_address_vs_reg): /soc/display-controller@40016800/port/endpoint@0: node
+  has a unit name, but no reg or ranges property
+- Add Reviewed-by tag of Linus Walleij
+- Add Reviewed-by tag of Raphael Gallais-Pou
+
+Changes in v7:
+- Replace .dts with .dtb in the Makefile
+
+Changes in v6:
+- Drop patches
+  - [5/8] dt-bindings: nt35510: add compatible for FRIDA FRD400B25025-A-CTK
+  - [7/8] drm/panel: nt35510: move hardwired parameters to configuration
+  - [8/8] drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK
+  because applied by the maintainer Linus Walleij
+
+Changes in v5:
+- Replace GPIOD_ASIS with GPIOD_OUT_HIGH in the call to devm_gpiod_get_optional().
+
+Changes in v2:
+- Add Acked-by tag of Conor Dooley
+- Change the status of panel_backlight node to "disabled"
+- Delete backlight property from panel0 node.
+- Re-write the patch [8/8] "drm/panel: nt35510: support FRIDA FRD400B25025-A-CTK"
+  in the same style as the original driver.
+
+Dario Binacchi (5):
+  dt-bindings: mfd: stm32f7: Add binding definition for DSI
+  ARM: dts: stm32: add DSI support on stm32f769
+  ARM: dts: stm32: rename mmc_vcard to vcc-3v3 on stm32f769-disco
+  ARM: dts: stm32: add display support on stm32f769-disco
+  ARM: dts: add stm32f769-disco-mb1166-reva09
+
+ arch/arm/boot/dts/st/Makefile                 |  1 +
+ .../dts/st/stm32f769-disco-mb1166-reva09.dts  | 13 ++++
+ arch/arm/boot/dts/st/stm32f769-disco.dts      | 70 +++++++++++++++++--
+ arch/arm/boot/dts/st/stm32f769.dtsi           | 20 ++++++
+ include/dt-bindings/mfd/stm32f7-rcc.h         |  1 +
+ 5 files changed, 101 insertions(+), 4 deletions(-)
+ create mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
+ create mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
+
 -- 
-2.17.1
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
