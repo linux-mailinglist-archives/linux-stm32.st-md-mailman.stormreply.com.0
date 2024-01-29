@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3633B8404AC
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 13:12:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 235D88404A8
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 13:12:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB6D4C6A613;
-	Mon, 29 Jan 2024 12:12:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE6C2C6C820;
+	Mon, 29 Jan 2024 12:12:28 +0000 (UTC)
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B798C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D0AB3C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jan 2024 12:12:34 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ Mon, 29 Jan 2024 12:12:27 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40T6gMYk025007; Mon, 29 Jan 2024 12:12:23 GMT
+ 40T9nRsm012455; Mon, 29 Jan 2024 12:12:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=qcppdkim1; bh=AbNKmiJ
- NTRVU/tBq36ysiUQ3MmyL1LwSWkWkl4M+C5o=; b=ZND2vu2O356PMYlc+tXmtpp
- KGEbBS/d6FcV8TfX9JBC0tsMm+k+F+IaJpr3xybha2hi4sd+DBJaECzxzpgeLkP7
- LX+UWD3waxyZ6+Lb8o1agVkPLrVvxPmeGTVA4FxcGlQgbpwPuSVfBHqyQPB3u43J
- 1Ho2FB2kK/Aln4o6CMGipjceYAKhJamn/hGyr3Efp+4nLFZahDJuYrHuarr+Q1Dp
- iR/JUAIoITt/NHAZNC/nlIpb+iYzaIqaZeWgAkbTf3gIWbYXzJQhkChBUSadW210
- StKT+uuQfNdpQkxf06mQMUw1/KfI3CTfp6uyEok4/iO41kAYEMAxvuzgn8DyevQ=
- =
-Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com
+ from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding:content-type; s=
+ qcppdkim1; bh=B+sgRFv5yp3Rlr3nFlR9pT+L2BHT0szx2DeDHoUL8MA=; b=WJ
+ KlrPWIRlusYi0b1tNOFtEoeR6SnkO8X/V4XetbSw+NQcwsybuKRGH/xzIsonzF0G
+ O7ND5rKhJMDXG1/X82bE2QIaI2l6TrNgL9WURNYtAY05XwWfyyfm0CeJfGNEowbc
+ DoEUEdzfXyYSQZofXUQCpxyaHUSGmhMx3AlASXkn7VDU+3YEzQ87uOnUlP+YMsA6
+ YuPTC+5XThxh6u0DUN24K/HFgMNuJsEFfuF01aOKi/4+1myqAg9AgKn45xqRLyD7
+ ZlGfq4M9Ja1BAvYGgGGU+3S5HPsIUndfpKfLLTjJsPu83pFS8UqR/585t5Vct2sW
+ Mn09tDGNvdNSx6hRaURQ==
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
  [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vvtkmbhe0-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vvqhmus68-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jan 2024 12:12:23 +0000 (GMT)
+ Mon, 29 Jan 2024 12:12:13 +0000 (GMT)
 Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
  [10.47.209.197])
- by NALASPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40TCBqld009691
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40TCBxqi027834
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jan 2024 12:11:52 GMT
+ Mon, 29 Jan 2024 12:11:59 GMT
 Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
  nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 29 Jan 2024 04:11:42 -0800
+ 15.2.1118.40; Mon, 29 Jan 2024 04:11:49 -0800
 From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
 To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
  <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
@@ -56,9 +56,11 @@ To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
  <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
  Prasad Sodagudi <psodagud@quicinc.com>,
  Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
-Date: Mon, 29 Jan 2024 17:41:26 +0530
-Message-ID: <20240129121129.3581530-1-quic_jsuraj@quicinc.com>
+Date: Mon, 29 Jan 2024 17:41:27 +0530
+Message-ID: <20240129121129.3581530-2-quic_jsuraj@quicinc.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20240129121129.3581530-1-quic_jsuraj@quicinc.com>
+References: <20240129121129.3581530-1-quic_jsuraj@quicinc.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.80.80.8]
 X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
@@ -66,20 +68,20 @@ X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: 1dKb6_-dB6eYWhcQI7GIMSoKkc3kkSJD
-X-Proofpoint-GUID: 1dKb6_-dB6eYWhcQI7GIMSoKkc3kkSJD
+X-Proofpoint-GUID: FdumseHTZYJKNw0f3ZwsIGcfvnYhKCVb
+X-Proofpoint-ORIG-GUID: FdumseHTZYJKNw0f3ZwsIGcfvnYhKCVb
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-01-29_07,2024-01-29_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- lowpriorityscore=0 mlxlogscore=878 malwarescore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ suspectscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 mlxlogscore=999
+ spamscore=0 impostorscore=0 clxscore=1015 mlxscore=0 bulkscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.19.0-2401190000 definitions=main-2401290089
 Cc: kernel@quicinc.com
-Subject: [Linux-stm32] [PATCH net-next v10 0/3] Ethernet common fault IRQ
-	support
+Subject: [Linux-stm32] [PATCH net-next v10 1/3] dt-bindings: net: qcom,
+	ethqos: add binding doc for safety IRQ for sa8775p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,51 +98,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Suraj Jaiswal <jsuraj@qti.qualcomm.com>
+Add binding doc for safety IRQ. The safety IRQ will be
+triggered for ECC(error correction code), DPP(data path
+parity), FSM(finite state machine) error.
 
-Add support to listen Ethernet HW common safery IRQ for correctable and 
-uncorrectable fault. The safety IRQ will be triggered for ECC(error
-correction code), DPP(data path parity, FSM(finite state machine) error.
+Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ Documentation/devicetree/bindings/net/qcom,ethqos.yaml | 9 ++++++---
+ Documentation/devicetree/bindings/net/snps,dwmac.yaml  | 6 ++++--
+ 2 files changed, 10 insertions(+), 5 deletions(-)
 
-Changes since v10:
-- Update commit message
-
-Changes since v9:
-- prevent race condition of safety IRQ handling
-
-Changes since v8:
-- Use shared IRQ for sfty
-- update error message
-
-Changes since v7:
-- Add support of common sfty irq on stmmac_request_irq_multi_msi.
-- Remove uncecessary blank line.
-
-Changes since v6:
-- use name sfty_irq instead of safety_common_irq.
-
-Changes since v5:
-- Add description of ECC, DPP, FSM
-
-Changes since v4:
-- Fix DT_CHECKER warning
-- use name safety for the IRQ.
-
-Suraj Jaiswal (3):
-  dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
-    sa8775p
-  arm64: dts: qcom: sa8775p: enable safety IRQ
-  net: stmmac: Add driver support for common safety IRQ
-
- .../devicetree/bindings/net/qcom,ethqos.yaml  |  9 ++--
- .../devicetree/bindings/net/snps,dwmac.yaml   |  6 ++-
- arch/arm64/boot/dts/qcom/sa8775p.dtsi         | 10 +++--
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 41 ++++++++++++++++++-
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
- 7 files changed, 67 insertions(+), 11 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+index 7bdb412a0185..69a337c7e345 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+@@ -37,12 +37,14 @@ properties:
+     items:
+       - description: Combined signal for various interrupt events
+       - description: The interrupt that occurs when Rx exits the LPI state
++      - description: The interrupt that occurs when HW safety error triggered
+ 
+   interrupt-names:
+     minItems: 1
+     items:
+       - const: macirq
+-      - const: eth_lpi
++      - enum: [eth_lpi, sfty]
++      - const: sfty
+ 
+   clocks:
+     maxItems: 4
+@@ -89,8 +91,9 @@ examples:
+                <&gcc GCC_ETH_PTP_CLK>,
+                <&gcc GCC_ETH_RGMII_CLK>;
+       interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
+-                   <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
+-      interrupt-names = "macirq", "eth_lpi";
++                   <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
++                   <GIC_SPI 782 IRQ_TYPE_LEVEL_HIGH>;
++      interrupt-names = "macirq", "eth_lpi", "sfty";
+ 
+       rx-fifo-depth = <4096>;
+       tx-fifo-depth = <4096>;
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 5c2769dc689a..9b04e2ed7c18 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -107,13 +107,15 @@ properties:
+       - description: Combined signal for various interrupt events
+       - description: The interrupt to manage the remote wake-up packet detection
+       - description: The interrupt that occurs when Rx exits the LPI state
++      - description: The interrupt that occurs when HW safety error triggered
+ 
+   interrupt-names:
+     minItems: 1
+     items:
+       - const: macirq
+-      - enum: [eth_wake_irq, eth_lpi]
+-      - const: eth_lpi
++      - enum: [eth_wake_irq, eth_lpi, sfty]
++      - enum: [eth_wake_irq, eth_lpi, sfty]
++      - enum: [eth_wake_irq, eth_lpi, sfty]
+ 
+   clocks:
+     minItems: 1
 -- 
 2.25.1
 
