@@ -2,86 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 256E88404A6
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 13:12:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6343D8405FC
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 14:05:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BECF9C6A613;
-	Mon, 29 Jan 2024 12:12:27 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0D57DC6A613;
+	Mon, 29 Jan 2024 13:05:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8D2D0C6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74A42C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jan 2024 12:12:26 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 40TAG2aT019995; Mon, 29 Jan 2024 12:12:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- qcppdkim1; bh=5wESy/498DHj/3BcjLShykVaFa+dINc2CeCNCA27zfU=; b=Bx
- U+D5XluH0+6ZMv+WrOFEpordF3PfPgtHkd1wOStsBJe6CS6QoJNUFpkCZL2AZPt7
- XPsbPNNuRPoOPrz5IiS6gOPRREJ4KlfgCJ3ZIhZmWzLDYETiXT3ijOFrfhYT1/l0
- 9PZpJUR9a1jrdueE/cU83LLU6He4IWB35JAU8aTrl/anjWLEXeKAqscxqwp2kyad
- 7x2YPtKrpCyXImsOh7X25qgt3aeMYK6fza2ZTH5b7GIleirMaCNk5p/e5oS3rHHr
- vc0ZedeZfro7+r85M3IRfHkWnwyQJIv3OUh9DVdtRaPVRWsT/Hi618EaoYs6i8tJ
- 8uDcjqhJncfSExaY991Q==
-Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vxa42g782-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jan 2024 12:12:14 +0000 (GMT)
-Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
- [10.47.209.197])
- by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40TCCEwl006136
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 29 Jan 2024 12:12:14 GMT
-Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
- nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 29 Jan 2024 04:12:04 -0800
-From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
-To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
- <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Jose Abreu" <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- Prasad Sodagudi <psodagud@quicinc.com>,
- Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
-Date: Mon, 29 Jan 2024 17:41:29 +0530
-Message-ID: <20240129121129.3581530-4-quic_jsuraj@quicinc.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240129121129.3581530-1-quic_jsuraj@quicinc.com>
-References: <20240129121129.3581530-1-quic_jsuraj@quicinc.com>
+ Mon, 29 Jan 2024 13:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706533509; x=1738069509;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xyoHfqTNIOjnNDp1+5s08f5WV/yjrMhPn3StDt1Ourk=;
+ b=S47hAKvfLkmCG3ZJTUn+i7C9qNltHAknLAHr3qihqGWI+fHd44kZPRXP
+ cKFukCUTZiLe5ylWOLdfrEUXy6NhHhc9ZEZwy0iLXGj9965DaG4xgnve3
+ cwvW6bDf5qclMdVzWRR/cH8rTlHtxzdMB1rwkgOfsHvqS0DjZ8sChxptt
+ 3PcJHv4H2wi2RLq2w1FSsoYhUNzO1nYJ4CtiKrOkHdnucPuR4OLrLG4us
+ m1J8nEZjHQpVa287lb4KDI+YzEbEdkLR1g/lD/Fu3mp1TLI58LoqCYpZ3
+ itmoITy7bjnvIhhv5MavJfqOkgRF/rnq27J5W56mDB0XCFc6ra5fkuo9Z A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10967"; a="21473124"
+X-IronPort-AV: E=Sophos;i="6.05,227,1701158400"; d="scan'208";a="21473124"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2024 05:05:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10967"; a="907106700"
+X-IronPort-AV: E=Sophos;i="6.05,227,1701158400"; d="scan'208";a="907106700"
+Received: from yongliang-ubuntu20-ilbpg12.png.intel.com ([10.88.229.33])
+ by fmsmga002.fm.intel.com with ESMTP; 29 Jan 2024 05:04:59 -0800
+From: Choong Yong Liang <yong.liang.choong@linux.intel.com>
+To: Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+ David E Box <david.e.box@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <Jose.Abreu@synopsys.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Date: Mon, 29 Jan 2024 21:02:42 +0800
+Message-Id: <20240129130253.1400707-1-yong.liang.choong@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nalasex01b.na.qualcomm.com (10.47.209.197)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-GUID: pSMvFbj37y4zu4r-YTICZ7j9vwsBx4F5
-X-Proofpoint-ORIG-GUID: pSMvFbj37y4zu4r-YTICZ7j9vwsBx4F5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-01-29_07,2024-01-29_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=951 phishscore=0
- malwarescore=0 mlxscore=0 clxscore=1015 spamscore=0 priorityscore=1501
- adultscore=0 lowpriorityscore=0 suspectscore=0 bulkscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2401190000
- definitions=main-2401290089
-Cc: kernel@quicinc.com
-Subject: [Linux-stm32] [PATCH net-next v10 3/3] net: stmmac: Add driver
-	support for common safety IRQ
+Cc: linux-hwmon@vger.kernel.org, Voon Wei Feng <weifeng.voon@intel.com>,
+ Simon Horman <simon.horman@corigine.com>, linux-kernel@vger.kernel.org,
+ Serge Semin <fancer.lancer@gmail.com>, platform-driver-x86@vger.kernel.org,
+ Lai Peter Jun Ann <jun.ann.lai@intel.com>,
+ Abdul Rahim Faizal <faizal.abdul.rahim@intel.com>, netdev@vger.kernel.org,
+ Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v4 00/11] Enable SGMII and 2500BASEX
+	interface mode switching for Intel platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,159 +82,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support to listen HW safety IRQ like ECC(error
-correction code), DPP(data path parity), FSM(finite state
-machine) fault in common IRQ line.
+From: Choong Yong Liang <yong.liang.choong@intel.com>
 
-Signed-off-by: Suraj Jaiswal <quic_jsuraj@quicinc.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 41 ++++++++++++++++++-
- .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
- 4 files changed, 51 insertions(+), 2 deletions(-)
+At the start of link initialization, the 'allow_switch_interface' flag is
+set to true. Based on 'allow_switch_interface' flag, the interface mode is
+configured to PHY_INTERFACE_MODE_NA within the 'phylink_validate_phy'
+function. This setting allows all ethtool link modes that are supported and
+advertised will be published. Then interface mode switching occurs based on
+the selection of different link modes.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 721c1f8e892f..b9233b09b80f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -344,6 +344,7 @@ enum request_irq_err {
- 	REQ_IRQ_ERR_ALL,
- 	REQ_IRQ_ERR_TX,
- 	REQ_IRQ_ERR_RX,
-+	REQ_IRQ_ERR_SFTY,
- 	REQ_IRQ_ERR_SFTY_UE,
- 	REQ_IRQ_ERR_SFTY_CE,
- 	REQ_IRQ_ERR_LPI,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 9f89acf31050..ca3d93851bed 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -31,6 +31,7 @@ struct stmmac_resources {
- 	int wol_irq;
- 	int lpi_irq;
- 	int irq;
-+	int sfty_irq;
- 	int sfty_ce_irq;
- 	int sfty_ue_irq;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
-@@ -297,6 +298,7 @@ struct stmmac_priv {
- 	void __iomem *ptpaddr;
- 	void __iomem *estaddr;
- 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
-+	int sfty_irq;
- 	int sfty_ce_irq;
- 	int sfty_ue_irq;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
-@@ -305,6 +307,7 @@ struct stmmac_priv {
- 	char int_name_mac[IFNAMSIZ + 9];
- 	char int_name_wol[IFNAMSIZ + 9];
- 	char int_name_lpi[IFNAMSIZ + 9];
-+	char int_name_sfty[IFNAMSIZ + 10];
- 	char int_name_sfty_ce[IFNAMSIZ + 10];
- 	char int_name_sfty_ue[IFNAMSIZ + 10];
- 	char int_name_rx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 14];
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 47de466e432c..e0192a282121 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3592,6 +3592,10 @@ static void stmmac_free_irq(struct net_device *dev,
- 		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
- 			free_irq(priv->wol_irq, dev);
- 		fallthrough;
-+	case REQ_IRQ_ERR_SFTY:
-+		if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq)
-+			free_irq(priv->sfty_irq, dev);
-+		fallthrough;
- 	case REQ_IRQ_ERR_WOL:
- 		free_irq(dev->irq, dev);
- 		fallthrough;
-@@ -3661,6 +3665,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 		}
- 	}
+During the interface mode change, the 'phylink_major_config' function
+will be triggered in phylink. The modification of the following functions
+will be triggered to support the switching between SGMII and 2500BASEX
+interfaces for the Intel platform.
+
+- mac_get_pcs_neg_mode: A new function that selects the PCS negotiation
+  mode according to the interface mode.
+- mac_select_pcs: Destroys and creates a new PCS according to the
+  interface mode.
+- mac_finish: Configures the SerDes according to the interface mode.
+
+With the above changes, the code will work as follows during the
+interface mode change. The PCS and PCS negotiation mode will be selected
+for PCS configuration according to the interface mode. Then, the MAC
+driver will perform SerDes configuration on the 'mac_finish' based on the
+interface mode. During the SerDes configuration, the selected interface
+mode will identify TSN lane registers from FIA and then send IPC commands
+to the Power Management Controller (PMC) through the PMC driver/API.
+PMC will act as a proxy to program the PLL registers.
+
+Change log:
+v1 -> v2: 
+ - Add static to pmc_lpm_modes declaration
+ - Add cur_link_an_mode to the kernel doc
+ - Combine 2 commits i.e. "stmmac: intel: Separate driver_data of ADL-N
+ from TGL" and "net: stmmac: Add 1G/2.5G auto-negotiation
+ support for ADL-N" into 1 commit.
+
+v2 -> v3:
+ - Create `pmc_ipc.c` file for `intel_pmc_ipc()` function and 
+ allocate the file in `arch/x86/platform/intel/` directory.
+ - Update phylink's AN mode during phy interface change and 
+ not exposing phylink's AN mode into phylib.
  
-+	/* Request the common Safety Feature Correctible/Uncorrectible
-+	 * Error line in case of another line is used
-+	 */
-+	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-+		int_name = priv->int_name_sfty;
-+		sprintf(int_name, "%s:%s", dev->name, "safety");
-+		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-+				  0, int_name, dev);
-+		if (unlikely(ret < 0)) {
-+			netdev_err(priv->dev,
-+				   "%s: alloc sfty MSI %d (error: %d)\n",
-+				   __func__, priv->sfty_irq, ret);
-+			irq_err = REQ_IRQ_ERR_SFTY;
-+			goto irq_error;
-+		}
-+	}
-+
- 	/* Request the Safety Feature Correctible Error line in
- 	 * case of another line is used
- 	 */
-@@ -3798,6 +3819,21 @@ static int stmmac_request_irq_single(struct net_device *dev)
- 		}
- 	}
- 
-+	/* Request the common Safety Feature Correctible/Uncorrectible
-+	 * Error line in case of another line is used
-+	 */
-+	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
-+		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
-+				  IRQF_SHARED, dev->name, dev);
-+		if (unlikely(ret < 0)) {
-+			netdev_err(priv->dev,
-+				   "%s: ERROR: allocating the sfty IRQ %d (%d)\n",
-+				   __func__, priv->sfty_irq, ret);
-+			irq_err = REQ_IRQ_ERR_SFTY;
-+			goto irq_error;
-+		}
-+	}
-+
- 	return 0;
- 
- irq_error:
-@@ -6022,8 +6058,8 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id)
- 	if (test_bit(STMMAC_DOWN, &priv->state))
- 		return IRQ_HANDLED;
- 
--	/* Check if a fatal error happened */
--	if (stmmac_safety_feat_interrupt(priv))
-+	/* Check ASP error if it isn't delivered via an individual IRQ */
-+	if (priv->sfty_irq <= 0 && stmmac_safety_feat_interrupt(priv))
- 		return IRQ_HANDLED;
- 
- 	/* To handle Common interrupts */
-@@ -7462,6 +7498,7 @@ int stmmac_dvr_probe(struct device *device,
- 	priv->dev->irq = res->irq;
- 	priv->wol_irq = res->wol_irq;
- 	priv->lpi_irq = res->lpi_irq;
-+	priv->sfty_irq = res->sfty_irq;
- 	priv->sfty_ce_irq = res->sfty_ce_irq;
- 	priv->sfty_ue_irq = res->sfty_ue_irq;
- 	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 70eadc83ca68..ab250161fd79 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -743,6 +743,14 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
- 		dev_info(&pdev->dev, "IRQ eth_lpi not found\n");
- 	}
- 
-+	stmmac_res->sfty_irq =
-+		platform_get_irq_byname_optional(pdev, "sfty");
-+	if (stmmac_res->sfty_irq < 0) {
-+		if (stmmac_res->sfty_irq == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+		dev_info(&pdev->dev, "IRQ safety IRQ not found\n");
-+	}
-+
- 	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
- 
- 	return PTR_ERR_OR_ZERO(stmmac_res->addr);
+ v3 -> v4:
+ - Introduce `allow_switch_interface` flag to have all ethtool 
+ link modes that are supported and advertised will be published.
+ - Introduce `mac_get_pcs_neg_mode` function that selects the PCS 
+ negotiation mode according to the interface mode.
+ - Remove pcs-xpcs.c changes and handle pcs during `mac_select_pcs`
+ function
+ - Configure SerDes base on the interface on `mac_finish` function.
+
+Choong Yong Liang (9):
+  net: phylink: publish ethtool link modes that supported and advertised
+  net: stmmac: provide allow_switch_interface flag
+  net: phylink: provide mac_get_pcs_neg_mode() function
+  net: phylink: add phylink_pcs_neg_mode() declaration into phylink.h
+  net: stmmac: select PCS negotiation mode according to the interface
+    mode
+  net: stmmac: resetup XPCS according to the new interface mode
+  net: stmmac: configure SerDes on mac_finish
+  stmmac: intel: interface switching support for EHL platform
+  stmmac: intel: interface switching support for ADL-N platform
+
+David E. Box (1):
+  arch: x86: Add IPC mailbox accessor function and add SoC register
+    access
+
+Tan, Tee Min (1):
+  stmmac: intel: configure SerDes according to the interface mode
+
+ MAINTAINERS                                   |   2 +
+ arch/x86/Kconfig                              |   9 +
+ arch/x86/platform/intel/Makefile              |   1 +
+ arch/x86/platform/intel/pmc_ipc.c             |  75 ++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 233 ++++++++++++++++--
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.h |  81 ++++++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  48 +++-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |   7 +-
+ drivers/net/phy/phylink.c                     |  30 ++-
+ include/linux/phylink.h                       |   9 +
+ .../linux/platform_data/x86/intel_pmc_ipc.h   |  34 +++
+ include/linux/stmmac.h                        |   6 +
+ 14 files changed, 506 insertions(+), 32 deletions(-)
+ create mode 100644 arch/x86/platform/intel/pmc_ipc.c
+ create mode 100644 include/linux/platform_data/x86/intel_pmc_ipc.h
+
 -- 
-2.25.1
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
