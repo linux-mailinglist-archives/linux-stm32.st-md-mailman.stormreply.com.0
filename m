@@ -2,57 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73613840285
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 11:11:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705B28402F8
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 11:42:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29547C6A613;
-	Mon, 29 Jan 2024 10:11:37 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35BDBC6C841;
+	Mon, 29 Jan 2024 10:42:01 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48E1DC6A5EA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8D93C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jan 2024 10:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=Content-Type:MIME-Version:Message-ID:Date:References:
- In-Reply-To:Subject:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=F3JBR5y9GKGAqMtonNzwpD3YmZTrMPQTqcJ9HmXVvzc=; b=yyS6D+u3TeFvuc2yHwCeZfP0JR
- OgJzuLndRUYv7v6AM35molg6u0/YwdUERsHc8tZMxqn4K2hr9aEaDYuPlIkH8MsfguYVjxS2jB4p+
- f0zW2O9ytkKSensR9kvABo/dufznu3EUbn5pPFyiUxi6aPMkypV8NRJnHskaOev8kpF9yRVf5pIor
- /JBu+YIOUz4t97i3qloAd31bpDL3fdttH97a8GDHfb229B1FoRwfryShX/KDEZ4MUuCYMBIwVMxJg
- h/SxO4AKTNVlJTzVRYFpCNYUmOa3bpBPeplerPFb3R3Khms9eXPk6uUoM/pE4VuXXMi1ZvPpy2H+o
- sWfhyh5g==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <esben@geanix.com>)
- id 1rUObn-0003SD-7S; Mon, 29 Jan 2024 11:11:19 +0100
-Received: from [87.49.42.9] (helo=localhost)
- by sslproxy04.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92) (envelope-from <esben@geanix.com>)
- id 1rUObm-000XU1-3Y; Mon, 29 Jan 2024 11:11:18 +0100
-From: Esben Haabendal <esben@geanix.com>
-To: rohan.g.thomas@intel.com
-In-Reply-To: <20240126173925.16794-1-rohan.g.thomas@intel.com> (rohan g.
- thomas's message of "Sat, 27 Jan 2024 01:39:25 +0800")
-References: <87v87g4hmy.fsf@geanix.com>
- <20240126173925.16794-1-rohan.g.thomas@intel.com>
-Date: Mon, 29 Jan 2024 11:11:17 +0100
-Message-ID: <87plxktpoa.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+ Mon, 29 Jan 2024 10:41:57 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40T61ECc013749; Mon, 29 Jan 2024 11:41:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=7vOrMpK
+ rhmC5GZ7lLl0/bEb14hQaIT+NcW4xeoCn3wg=; b=2GSlDyqctOIb3x4m53c1K5/
+ Oide7sWqUf+6oQbsbk9X/s0qXKxkfTUq8dKtWnxmZcwYuDlGUD61WEgNLtZfkpPt
+ kKjb6PSZHK9vYqdaqle8FCDu3k7rrAWsl5vCouyBtRb3WXpMcZGwe57klr0udbNa
+ BPII8BBknXd3gZiav/gn3qMYbY8BBXm0YlBqvRXp1+I5qVuoCmHHG0GGkrc973d/
+ Mw2EZzQqbz0L60i/VzV8Mn1QoqHP8d5Pw4Fk4HTMFTMSIClw9+MbPydfNuHBldeK
+ dlp+VcrC+SePb21VjSIMv7i0WwEve26xRxt2qNiqJxBv9stP/hMKp+GTmBycpnA=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vwc94v9dk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Jan 2024 11:41:21 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id E46AC100064;
+ Mon, 29 Jan 2024 11:41:18 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id DD6FB21683A;
+ Mon, 29 Jan 2024 11:41:18 +0100 (CET)
+Received: from localhost (10.252.28.37) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 29 Jan
+ 2024 11:41:16 +0100
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+To: Yannick Fertre <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Mon, 29 Jan 2024 11:41:03 +0100
+Message-ID: <20240129104106.43141-1-raphael.gallais-pou@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Authenticated-Sender: esben@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.10/27168/Sun Jan 28 10:37:47 2024)
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- fancer.lancer@gmail.com, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- edumazet@google.com, joabreu@synopsys.com, krzysztof.kozlowski+dt@linaro.org,
- peppe.cavallaro@st.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
-	platform driver
+X-Originating-IP: [10.252.28.37]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-29_06,2024-01-29_01,2023-05-22_02
+Cc: linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH RESEND v3 0/3] Update STM DSI PHY driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,79 +80,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-rohan.g.thomas@intel.com writes:
 
-> From: Rohan G Thomas <rohan.g.thomas@intel.com>
->
-> On Fri, 26 Jan 2024 09:35:01 +0100, Esben Haabendal wrote:
->
->> > +	/* If TBS feature is supported(i.e. tbssel is true), then at least 1 Tx
->> > +	 * DMA channel supports TBS. So if tbs_ch_num is 0 and tbssel is true,
->> > +	 * assume all Tx DMA channels support TBS. TBS_CH field, which gives
->> > +	 * number of Tx DMA channels with TBS support is only available only
->> for
->> > +	 * DW xGMAC IP. For other DWMAC IPs all Tx DMA channels can
->> support TBS.
->> 
->> The Ethernet QOS controllers found in various i.MX socs does not support TBS
->> on TX queue 0. I believe this patch would break the dwmac driver for these
->> platforms.
->
-> AFAIU from Synopsys DWMAC5 Databook, all queues support TBS. But TBS
-> cannot coexist with TSO. So all glue drivers enabling TBS feature are
-> avoiding queue 0 to support TSO. Also packets requesting TSO are
-> always directed to queue 0 by stmmac driver.
+This patch series aims to add several features of the dw-mipi-dsi phy
+driver that are missing or need to be updated.
 
-After re-reading the i.MX8MP documentation, and making a few
-experiments, I have to agree with you. Enabling TBS (enhanced
-descriptors) for Q0 should be ok on i.MX.
+First patch update a PM macro.
 
->> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->> > @@ -3773,12 +3773,18 @@ stmmac_setup_dma_desc(struct stmmac_priv
->> *priv, unsigned int mtu)
->> >  		dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
->> >
->> >  	/* Earlier check for TBS */
->> > -	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++) {
->> > -		struct stmmac_tx_queue *tx_q = &dma_conf-
->> >tx_queue[chan];
->> > -		int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
->> > +	if (priv->dma_cap.tbssel) {
->> > +		/* TBS is available only for tbs_ch_num of Tx DMA channels,
->> > +		 * starting from the highest Tx DMA channel.
->> > +		 */
->> > +		chan = priv->dma_cap.number_tx_channel - priv-
->> >dma_cap.tbs_ch_num;
->
-> For IPs which don't have tbs_ch_num, this loop goes from 0 to
-> number_tx_channel to check if tbs_enable is set by glue driver.
-> Existing logic is also the same. Unless you set tbs_en flag of
-> queue 0 from the glue driver or dts configuration this patch doesn't
-> set tbs flag for queue 0. This is a sanity check to avoid wrong
-> configuration for IPs which support tbs only in a few number of
-> queues.
+Second patch adds runtime PM functionality to the driver.
 
-Sounds good.
+Third patch adds a clock provider generated by the PHY itself.  As
+explained in the commit log of the second patch, a clock declaration is
+missing.  Since this clock is parent of 'dsi_k', it leads to an orphan
+clock.  Most importantly this patch is an anticipation for future
+versions of the DSI PHY, and its inclusion within the display subsystem
+and the DRM framework.
 
->> > +		for (; chan < priv->plat->tx_queues_to_use; chan++) {
->> > +			struct stmmac_tx_queue *tx_q = &dma_conf-
->> >tx_queue[chan];
->> > +			int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;
->> >
->> > -		/* Setup per-TXQ tbs flag before TX descriptor alloc */
->> > -		tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
->> > +			/* Setup per-TXQ tbs flag before TX descriptor alloc
->> */
->> > +			tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
->> > +		}
->> >  	}
->
-> Please correct me if I've misstated anything.
+Last patch fixes a corner effect introduced previously.  Since 'dsi' and
+'dsi_k' are gated by the same bit on the same register, both reference
+work as peripheral clock in the device-tree.
 
-No corrections for now :)
+---
+Changes in v3-resend:
+	- Removed last patch as it has been merged
+https://lore.kernel.org/lkml/bf49f4c9-9e81-4c91-972d-13782d996aaa@foss.st.com/
 
-/Esben
+Changes in v3:
+	- Fix smatch warning (disable dsi->pclk when clk_register fails)
+
+Changes in v2:
+	- Added patch 1/4 to use SYSTEM_SLEEP_PM_OPS instead of old macro
+	  and removed __maybe_used for accordingly
+	- Changed SET_RUNTIME_PM_OPS to RUNTIME_PM_OPS
+
+Raphael Gallais-Pou (3):
+  drm/stm: dsi: use new SYSTEM_SLEEP_PM_OPS() macro
+  drm/stm: dsi: expose DSI PHY internal clock
+
+Yannick Fertre (1):
+  drm/stm: dsi: add pm runtime ops
+
+ drivers/gpu/drm/stm/dw_mipi_dsi-stm.c | 279 ++++++++++++++++++++++----
+ 1 file changed, 238 insertions(+), 41 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
