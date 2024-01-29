@@ -2,45 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91A4984076D
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 14:51:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015D3840A3E
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jan 2024 16:41:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 429F7C6A613;
-	Mon, 29 Jan 2024 13:51:40 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 288EFC6A5EA
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA6F9C6B463;
+	Mon, 29 Jan 2024 15:41:09 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC297C6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 29 Jan 2024 13:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Z98X2Dv/gFHdwMZq84R2/WmZ935wMrTZ5Sxl3bVWePg=; b=aO8TH4ySmVxbUrRdjSZ0f0FdgQ
- pEXvay/NZkuMzYUZavwBXpyGeUiJ5/N2MTudAeouPgZUWOcecoT3PbxsiF1vmLb5d4etqBCOMwKeD
- hCeyOQWs0cS8LW2Xmt1S/V3WH3mWmjOf10iZbDwgMiODZ81LqZIa8ZBvq9d85lnNgYVQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rUS2o-006NrQ-EG; Mon, 29 Jan 2024 14:51:26 +0100
-Date: Mon, 29 Jan 2024 14:51:26 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Clark Wang <xiaoning.wang@nxp.com>
-Message-ID: <f11b9162-2b77-413b-8158-ee46c1602bd3@lunn.ch>
-References: <20240126024433.2928223-1-xiaoning.wang@nxp.com>
- <20240126024433.2928223-2-xiaoning.wang@nxp.com>
+ Mon, 29 Jan 2024 15:41:07 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D1EBEDA7;
+ Mon, 29 Jan 2024 07:41:50 -0800 (PST)
+Received: from e127643.lan (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6D8363F738;
+ Mon, 29 Jan 2024 07:41:04 -0800 (PST)
+From: James Clark <james.clark@arm.com>
+To: coresight@lists.linaro.org,
+	suzuki.poulose@arm.com
+Date: Mon, 29 Jan 2024 15:40:31 +0000
+Message-Id: <20240129154050.569566-1-james.clark@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240126024433.2928223-2-xiaoning.wang@nxp.com>
-Cc: linux-kernel@vger.kernel.org, kernel@pengutronix.de, festevam@gmail.com,
- s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
- edumazet@google.com, joabreu@synopsys.com, linux-imx@nxp.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-imx: add clock input
- support in RMII mode
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: [Linux-stm32] [PATCH v2 00/12] coresight: Separate sysfs and Perf
+	usage and some other cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,35 +47,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Jan 26, 2024 at 10:44:33AM +0800, Clark Wang wrote:
-> In RMII mode, the default setting is using the 50MHz reference clock
-> from SoC. The ref_clk pin is output.
-> If users want to use external or PHY to provide the 50MHz ref clock,
-> it needs to config the GPR register.
-> So, add the code to config GPR register to support the clock input.
+Changes since V1:
 
-Hi Clark
+  * Clarify further "the selected sink" in _coresight_build_path()
+  * Move etm4x's mode to coresight device which was missing from V1
+  * Use explicit initialisers in coresight_dev_type
+  * Create functions for handling mode changes
 
-You have this threaded to the previous email. That previous email is a
-fix, where are this is development of a new feature. So please don't
-thread them. Please take a read of:
+I've been finding it quite difficult to reason about some of the state
+and functions in coresight-core.c because they have generic names when
+they are actually only relevant to the sysfs usage of Coresight rather
+than usage through Perf. This is probably because sysfs came first and
+Perf was added later. This has caused a couple of issues where these
+things have been used in the wrong context, for example the first
+commit is a fixup.
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+To fix this I've mainly just moved all of the sysfs stuff to the sysfs
+file and removed the 'enable' state, which was just for sysfs. While
+doing the refactor it became obvious that refcnt didn't need to be
+atomic either, so that can be simplified along with some other comment
+clarifications and simplifications.
 
-You need different Subject lines to indicate which tree these patches
-should be applied to.
+Hopefully it's also a step towards to removing all of the duplicate
+refcnt and mode tracking code from the individual devices. That tracking
+pretty much always results in a one-shot enable/disable and fixes the
+mode to either sysfs or Perf, and there is no reason that can't exist in
+the core layer outside of the devices. I tried to finish that in this
+set, but there turned out to be some complexities, so I cut it short at
+a point where I can be sure that there are no behavioral changes.
 
-> 
-> Signed-off-by: Clark Wang <xiaoning.wang@nxp.com>
-> Reviewed-by: Wei Fang <wei.fang@nxp.com>
+James Clark (12):
+  coresight: Fix issue where a source device's helpers aren't disabled
+  coresight: Make language around "activated" sinks consistent
+  coresight: Remove ops callback checks
+  coresight: Move mode to struct coresight_device
+  coresight: Remove the 'enable' field.
+  coresight: Move all sysfs code to sysfs file
+  coresight: Remove atomic type from refcnt
+  coresight: Remove unused stubs
+  coresight: Add explicit member initializers to coresight_dev_type
+  coresight: Add helper for atomically taking the device
+  coresight: Add a helper for getting csdev->mode
+  coresight: Add helper for setting csdev->mode
 
-Signed-of-by comes last.
+ drivers/hwtracing/coresight/coresight-core.c  | 494 +-----------------
+ drivers/hwtracing/coresight/coresight-etb10.c |  29 +-
+ .../hwtracing/coresight/coresight-etm-perf.c  |   2 +-
+ drivers/hwtracing/coresight/coresight-etm.h   |   2 -
+ .../coresight/coresight-etm3x-core.c          |  23 +-
+ .../coresight/coresight-etm3x-sysfs.c         |   4 +-
+ .../coresight/coresight-etm4x-core.c          |  26 +-
+ drivers/hwtracing/coresight/coresight-etm4x.h |   1 -
+ drivers/hwtracing/coresight/coresight-priv.h  |   9 +-
+ drivers/hwtracing/coresight/coresight-stm.c   |  30 +-
+ drivers/hwtracing/coresight/coresight-sysfs.c | 391 ++++++++++++++
+ .../hwtracing/coresight/coresight-tmc-core.c  |   2 +-
+ .../hwtracing/coresight/coresight-tmc-etf.c   |  46 +-
+ .../hwtracing/coresight/coresight-tmc-etr.c   |  33 +-
+ drivers/hwtracing/coresight/coresight-tmc.h   |   2 -
+ drivers/hwtracing/coresight/coresight-tpda.c  |  13 +-
+ drivers/hwtracing/coresight/coresight-tpiu.c  |  14 +-
+ drivers/hwtracing/coresight/ultrasoc-smb.c    |  22 +-
+ drivers/hwtracing/coresight/ultrasoc-smb.h    |   2 -
+ include/linux/coresight.h                     | 146 ++----
+ 20 files changed, 606 insertions(+), 685 deletions(-)
 
+-- 
+2.34.1
 
-    Andrew
-
----
-pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
