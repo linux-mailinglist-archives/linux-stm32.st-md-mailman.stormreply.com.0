@@ -2,81 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC7B2842871
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 16:53:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E52D842AC0
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 18:22:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B2F8C6B477;
-	Tue, 30 Jan 2024 15:53:31 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47243C62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD531C6C820;
+	Tue, 30 Jan 2024 17:22:04 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66437C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 15:53:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1706630009;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=oSj1lyNclmh9b1DFiLfFnvUIxkzThYLUPlpLm9/wz/A=;
- b=IopQ6CkFdtaCaqV5cZ7dzixRvffYOoCKSoWpBlyKmr4hl10LYNAoynDeTDKhN4BjWUJqpE
- hgz3Eh5ZjBkbOqH7HaagGu2qIG4gP2dM8CKmGjarZGRNuZyiqhso8Si1dsWpTiPhUQGQvc
- vQ5nBVOIn3kzRE5EQoaWwvZn2S6rtC0=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-651-L1QRh19nPdm5QqbwxjnUaA-1; Tue, 30 Jan 2024 10:53:25 -0500
-X-MC-Unique: L1QRh19nPdm5QqbwxjnUaA-1
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-42aaaba1bdbso23444561cf.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 07:53:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706630005; x=1707234805;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oSj1lyNclmh9b1DFiLfFnvUIxkzThYLUPlpLm9/wz/A=;
- b=SHqxZw+Gkm99zz6tydyGath8LqIKzs2KGv19U348uWiakl6ba2SAmIj5G91wXSPlKS
- cScExCs4x118rXAZES6tl5NqXPXhSZG9hayl7vklGWOj0ZPCJ0Rq9kLAS5ZE67SNPqN8
- 2wNULwKsnvCV+JepM6pqKSzxHqETpzR1Jb+am93r3ikqEtt5ubR9XSPSlAvsWFGQW+2s
- k+CEFTrMfhY89nLtPfcMBhtCR6BOxC48pvGtvTdBjaQz0q5IuOQVjZNkTUSz/GTX6oIa
- /MgPVEuQ9PYHA8Dh0uSul0LMEo+J+VLDDweZc1ypenXCfvTGcZgOuJnHANclq5d4haOz
- Wr5g==
-X-Gm-Message-State: AOJu0Yym5OaQGUlUhIkpCMvEFTJW4yqb0H4Skx6CsMXhB6BIy53Av4/6
- BlULL3Igw68nipjDPSpA7V7/YIKNRrDPT/3ImGkF2D6RVcVwirZnjacBe5Mu4sukkuAvbBxdwre
- iKOYAb1jvvwSD+uM8wp03+n50daZz+3qskzMYCHuzZVaqRKVtNbI2HRgZir1vuGnO8/gapCJIFb
- GZnA==
-X-Received: by 2002:ac8:5950:0:b0:42a:6df3:1f1d with SMTP id
- 16-20020ac85950000000b0042a6df31f1dmr12272874qtz.74.1706630005297; 
- Tue, 30 Jan 2024 07:53:25 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IFVEawnHTN95Z6HJiyigSQy1AJjcgY3k8TnIlbRXYXuot4rDh5Z3hGCkiEuIFI9fTvFfvDK0Q==
-X-Received: by 2002:ac8:5950:0:b0:42a:6df3:1f1d with SMTP id
- 16-20020ac85950000000b0042a6df31f1dmr12272860qtz.74.1706630005018; 
- Tue, 30 Jan 2024 07:53:25 -0800 (PST)
-Received: from fedora ([2600:1700:1ff0:d0e0::47])
- by smtp.gmail.com with ESMTPSA id
- z12-20020ac87cac000000b0042a1223cb9bsm3313663qtv.70.2024.01.30.07.53.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jan 2024 07:53:24 -0800 (PST)
-Date: Tue, 30 Jan 2024 09:53:22 -0600
-From: Andrew Halaney <ahalaney@redhat.com>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <ual3c4fuuz5trgn2ekklsfeslwvswfjg5nij5epbnuf5mihfay@pp32fs6btwxk>
-References: <20240129-remove-dwmac-qcom-ethqos-reviewer-v1-1-2645eab61451@redhat.com>
- <ZbkWwn-oN5wqoPfJ@matsya>
+ Tue, 30 Jan 2024 17:22:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B152FCE1B0E;
+ Tue, 30 Jan 2024 17:22:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB412C433F1;
+ Tue, 30 Jan 2024 17:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706635318;
+ bh=4wWtwu39k0xPKfG1c0t6Pd+ipT50TOdvHg/dYeAN4AY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kmWXiDzFUZWMZzmBpA4YYhgxS/sibS2eQcWpJvG1LA1+FZUYuc4kD2PbTzNoe036L
+ wYJKCwdrnHW7bBjNmXHyy8rgOVYVsejkz3nh71I0n3LOa/8TvyUVadKn8sCQ0gSJ/C
+ aAvDPnVAQKBuUw0wGxr97lIUE4fyGPbIWebRkfIiqV6jtg3Wsbn9wcJH4POQzdOiEq
+ woKbFV9NOfEOOFaAzQfCzXP/UzV33va2G+x2r0t1Q4XFJu1SYiUPYxLMZM7Qnh9ZyM
+ QRZw0o3pTGGHBr/CrZGen3PvVQRFXtsel6if2VsexK0EHc9ypSF3Qvz44AgM3qYOhc
+ 9FELK1rhUbM1Q==
+Date: Tue, 30 Jan 2024 11:21:56 -0600
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <20240130172156.GA2008728-robh@kernel.org>
+References: <20240118100433.3984196-1-arnaud.pouliquen@foss.st.com>
+ <20240118100433.3984196-3-arnaud.pouliquen@foss.st.com>
+ <75429209-8f30-4880-8f92-ecb3cf90ae33@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <ZbkWwn-oN5wqoPfJ@matsya>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, bhupesh.linux@gmail.com,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: Drop unreachable reviewer
- for Qualcomm ETHQOS ethernet driver
+In-Reply-To: <75429209-8f30-4880-8f92-ecb3cf90ae33@linaro.org>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ op-tee@lists.trustedfirmware.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 2/4] dt-bindings: remoteproc: Add
+ compatibility for TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,59 +64,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 30, 2024 at 09:03:22PM +0530, Vinod Koul wrote:
-> On 29-01-24, 11:12, Andrew Halaney wrote:
-> > Bhupesh's email responds indicating they've changed employers and with
-> > no new contact information. Let's drop the line from MAINTAINERS to
-> > avoid getting the same response over and over.
-> 
-> Looks like Bhupesh sent the patch changing but never followed up with a
-> v2 for this:
-> lore.kernel.org/r/20230915191600.3410862-1-bhupesh.linux@gmail.com
-> 
-> Would prefer if this is changed to his email (copied him as well)
-> 
-
-Thanks for finding that! Bhupesh, do you plan on spinning a v2 soon? If
-so I will not send a v2, otherwise I can respin this with your email and
-no .mailmap change.
-
-> 
+On Fri, Jan 26, 2024 at 12:03:25PM +0100, Krzysztof Kozlowski wrote:
+> On 18/01/2024 11:04, Arnaud Pouliquen wrote:
+> > The "st,stm32mp1-m4-tee" compatible is utilized in a system configuration
+> > where the Cortex-M4 firmware is loaded by the Trusted execution Environment
+> > (TEE).
+> > For instance, this compatible is used in both the Linux and OP-TEE
+> > device-tree:
+> > - In OP-TEE, a node is defined in the device tree with the
+> >   st,stm32mp1-m4-tee to support signed remoteproc firmware.
+> >   Based on DT properties, OP-TEE authenticates, loads, starts, and stops
+> >   the firmware.
+> > - On Linux, when the compatibility is set, the Cortex-M resets should not
+> >   be declared in the device tree.
 > > 
-> > Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> > Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
 > > ---
-> > If anyone knows how to contact Bhupesh / if they're willing to continue
-> > being a reviewer feel free to suggest an alternative, but for the moment
-> > this is better than nothing.
+> > V1 to V2 updates
+> > - update "st,stm32mp1-m4" compatible description to generalize
+> > - remove the 'reset-names' requirement in one conditional branch, as the
+> >   property is already part of the condition test.
 > > ---
-> >  MAINTAINERS | 1 -
-> >  1 file changed, 1 deletion(-)
+> >  .../bindings/remoteproc/st,stm32-rproc.yaml   | 52 +++++++++++++++----
+> >  1 file changed, 43 insertions(+), 9 deletions(-)
 > > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 939f6dd0ef6a..b285d9a123ce 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -18080,7 +18080,6 @@ F:	drivers/net/ethernet/qualcomm/emac/
+> > diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> > index 370af61d8f28..6af821b15736 100644
+> > --- a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> > +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc.yaml
+> > @@ -16,7 +16,12 @@ maintainers:
 > >  
-> >  QUALCOMM ETHQOS ETHERNET DRIVER
-> >  M:	Vinod Koul <vkoul@kernel.org>
-> > -R:	Bhupesh Sharma <bhupesh.sharma@linaro.org>
-> >  L:	netdev@vger.kernel.org
-> >  L:	linux-arm-msm@vger.kernel.org
-> >  S:	Maintained
-> > 
-> > ---
-> > base-commit: 596764183be8ebb13352b281a442a1f1151c9b06
-> > change-id: 20240129-remove-dwmac-qcom-ethqos-reviewer-1a37d8c71383
-> > 
-> > Best regards,
-> > -- 
-> > Andrew Halaney <ahalaney@redhat.com>
+> >  properties:
+> >    compatible:
+> > -    const: st,stm32mp1-m4
+> > +    enum:
+> > +      - st,stm32mp1-m4
+> > +      - st,stm32mp1-m4-tee
 > 
-> -- 
-> ~Vinod
+> The patch looks good to me, but I wonder about this choice of two
+> compatibles.
 > 
+> Basically this is the same hardware with the same interface, but two
+> compatibles to differentiate a bit different firmware setup. We have
+> already such cases for Qualcomm [1] [2] and new ones will be coming. [3]
+> 
+> I wonder whether this should be rather the same compatible with
+> additional property, e.g. "st,tee-control" or "remote-control".
+> 
+> [1]
+> https://elixir.bootlin.com/linux/v6.7.1/source/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml#L54
+> 
+> [2]
+> https://elixir.bootlin.com/linux/v6.7.1/source/Documentation/devicetree/bindings/net/qcom,ipa.yaml#L129
+> (that's a bit different)
+> 
+> [3] https://lore.kernel.org/linux-devicetree/20240124103623.GJ4906@thinkpad/
+> 
+> @Rob,
+> Any general guidance for this and Qualcomm?
 
+I think we have cases using compatible already as well. Either way is 
+fine with me.
+
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
