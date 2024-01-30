@@ -2,92 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E25AA84235C
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 12:41:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D767C842361
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 12:41:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84D6EC6C820;
-	Tue, 30 Jan 2024 11:41:07 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6DF41C62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C1CCC6C820;
+	Tue, 30 Jan 2024 11:41:39 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4757BC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 11:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1706614864;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vqL8cSbEJLbz0oyXDooXBK6CIdhGloCDIht6dtmeLe4=;
- b=R4C8yg5YqugOBdD6Vcb2Gx6ejuGC+1PEwhyQcWNn91xL920ON7u+jqXcn5hBvHzFfK0qiQ
- +23+qi58ncZNi5h/x36BuhKOSTF5QFRDcv6drZ8iR9fSUq1p9fwwSwInBsJRLnROzisKsp
- 4rw/k2PmAxCRZJl24v6AqIvl5oXSb2k=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-397-xyx1ecfLNRubR1r1_D9i7Q-1; Tue, 30 Jan 2024 06:41:03 -0500
-X-MC-Unique: xyx1ecfLNRubR1r1_D9i7Q-1
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-40ef88ff82aso3780095e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 03:41:02 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706614862; x=1707219662;
- h=mime-version:user-agent:content-transfer-encoding:autocrypt
- :references:in-reply-to:date:cc:to:from:subject:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qawN/sGbFjDIitx+OorbC+U5Qtbve2fOYXbwnffL1Dc=;
- b=QjJCZeQ/B6fbQKy955m+qoo7YCdjkFMq9DpuJdi1g79j7po/PH5OLW4jKpO/gmHgXv
- DZiau0WwkOxLNpLD8ke8NWvvfKII3Y8vth4VRjVT9BSzWh7r1EmQ+ElPTjPA9TdNET+Y
- d9W8DSWzbjdqlvbjmyTttXOPVSNLB66W+QRuZVT5VdkCpJ0kZYCauNJW72hcVvfRZ6Dv
- zOlNa+KyEkJGSQwdwLQtKeiyxcJayGn/v/4TaPEaTOxhrO/lEzw3NNwP0iHNMKWW/b33
- lRAzHbzAhZiY2VD1fXYdeB6S+/gc5zjM+GCCEbK4F12fpRuoMPhZdldNwOttuoVKoTFP
- kzFg==
-X-Forwarded-Encrypted: i=0;
- AJvYcCX3M1Z58y78bfXdNXEGqZkb1ugkjpw8N8dfBS8q2sso3lB/0hGDDq9aDY8+cuXoSCFKd3mhKBlEnDenIw20f+lU6GRiz+sVy2LQSSbG9tygzDpK+LEO9Oy0
-X-Gm-Message-State: AOJu0Yx61vxP3yZdpW20eYb3Dpt5Olzm9rX47/V57Bq1VNKzd0b5UHnq
- NW7I42FDLSyQisJ7AioIorlATAT6naVAGHRlmCcGfRj0gDKtaA3Wec67mM47nFk+fbuGtY3GKVl
- +FKQbWz8JHnug+p3PamOJJt/ziooZBja9Nuptpmriy4el6sr+1ZlV6FKkupnO0AqAlyKBjv9lCv
- Vyaw==
-X-Received: by 2002:adf:ab03:0:b0:33a:e9d3:5112 with SMTP id
- q3-20020adfab03000000b0033ae9d35112mr5449391wrc.6.1706614862077; 
- Tue, 30 Jan 2024 03:41:02 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGIIeJgGMfAM6ut6/WvxTeihLmkFSyfr9rChSanCUvXU3AmcWKRXEsMnL/zFfSJ3c70P75sjQ==
-X-Received: by 2002:adf:ab03:0:b0:33a:e9d3:5112 with SMTP id
- q3-20020adfab03000000b0033ae9d35112mr5449369wrc.6.1706614861759; 
- Tue, 30 Jan 2024 03:41:01 -0800 (PST)
-Received: from gerbillo.redhat.com (146-241-232-203.dyn.eolo.it.
- [146.241.232.203]) by smtp.gmail.com with ESMTPSA id
- r15-20020adfda4f000000b00337d9a717bcsm10503807wrl.52.2024.01.30.03.41.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jan 2024 03:41:01 -0800 (PST)
-Message-ID: <efd5126fcfe840d9bb7d583c8c69a3c97cdb2285.camel@redhat.com>
-From: Paolo Abeni <pabeni@redhat.com>
-To: Furong Xu <0x1207@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
- <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,  Jakub Kicinski
- <kuba@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Joao Pinto
- <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>
-Date: Tue, 30 Jan 2024 12:40:59 +0100
-In-Reply-To: <20240126073928.1070729-1-0x1207@gmail.com>
-References: <20240126073928.1070729-1-0x1207@gmail.com>
-Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual;
- keydata=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
-User-Agent: Evolution 3.50.3 (3.50.3-1.fc39)
+ Tue, 30 Jan 2024 11:41:38 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40UATr6s004965; Tue, 30 Jan 2024 11:41:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=7JXWKUW
+ 1E7ghsDEkZBFGU82nOmZDcd1ujbS6PKH4dAo=; b=dqqhvpKPByheIOn5/3brqza
+ 036hCTwaaXUAUimIBnacYUIOAPRl6yQzoYdacFPXzCdaOv1PRGuVJuws2jBjbN8M
+ x2P4ecLHR2uILcNWP0TDT/dZk5i8YKS3QMFfQwI2rZ/sVJ3JpjmzEV88lUK6JEZI
+ dc5o3X1SKxEf11lWJPVpdviM++YEUMnepcOU87W/bGvF/zHqXzN7EuPWIWRUXHo1
+ xKTK2fszzErPzfFlAE5T0oB/lMax+b7jczOQdTCuTwiWw7FI8INhl3VY3Farr9c0
+ 8gVm+zN1sbeeW4Xu3LHQ4LNF/8ruY/AoHDEGMxc1K27VDncvh4vJuiquObZZoIA=
+ =
+Received: from nalasppmta02.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vxydh04q5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 11:41:25 +0000 (GMT)
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40UBfOlp026860
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 11:41:24 GMT
+Received: from hu-jsuraj-hyd.qualcomm.com (10.80.80.8) by
+ nalasex01b.na.qualcomm.com (10.47.209.197) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Tue, 30 Jan 2024 03:41:15 -0800
+From: Suraj Jaiswal <quic_jsuraj@quicinc.com>
+To: <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma
+ <bhupesh.sharma@linaro.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, "Krzysztof
+ Kozlowski" <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Jose Abreu" <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
+Date: Tue, 30 Jan 2024 17:10:59 +0530
+Message-ID: <20240130114102.4116046-1-quic_jsuraj@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, rock.xu@nio.com,
- xfr@outlook.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: xgmac: fix handling
- of DPP safety error for DMA channels
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: OehGOF_7sBrjiKHDrYBag1puAl0vBB3V
+X-Proofpoint-GUID: OehGOF_7sBrjiKHDrYBag1puAl0vBB3V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-30_05,2024-01-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0
+ mlxscore=0 malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 mlxlogscore=892
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401300085
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH net-next v11 0/3] Ethernet common fault IRQ
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,28 +96,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, 2024-01-26 at 15:39 +0800, Furong Xu wrote:
-> @@ -914,7 +964,12 @@ static int dwxgmac3_safety_feat_irq_status(struct net_device *ndev,
->  		ret |= !corr;
->  	}
->  
-> -	err = dma & (XGMAC_DEUIS | XGMAC_DECIS);
-> +	/* DMA_DPP_Interrupt_Status is indicated by MCSIS bit in
-> +	 * DMA_Safety_Interrupt_Status, so we handle DMA Data Path
-> +	 * Parity Errors here
-> +	 */
-> +	err = (dma & (XGMAC_DEUIS | XGMAC_DECIS)) ||
-> +	      (dma & XGMAC_MCSIS);
+From: Suraj Jaiswal <jsuraj@codeaurora.org>
 
-The above syntax is IMHO confusing, 
+Changes since v11:
+- Update debug message print
 
-	err = (dma & (XGMAC_DEUIS | XGMAC_DECIS | XGMAC_MCSIS))
+Changes since v10:
+- Update commit message
 
-should be more readable.
+Changes since v9:
+- prevent race condition of safety IRQ handling
 
-Cheers,
+Changes since v8:
+- Use shared IRQ for sfty
+- update error message
 
-Paolo
+Changes since v7:
+- Add support of common sfty irq on stmmac_request_irq_multi_msi.
+- Remove uncecessary blank line.
+
+Changes since v6:
+- use name sfty_irq instead of safety_common_irq.
+
+Changes since v5:
+- Add description of ECC, DPP, FSM
+
+Changes since v4:
+- Fix DT_CHECKER warning
+- use name safety for the IRQ.
+
+Suraj Jaiswal (3):
+  dt-bindings: net: qcom,ethqos: add binding doc for safety IRQ for
+    sa8775p
+  arm64: dts: qcom: sa8775p: enable safety IRQ
+  net: stmmac: Add driver support for common safety IRQ
+
+ .../devicetree/bindings/net/qcom,ethqos.yaml  |  9 ++--
+ .../devicetree/bindings/net/snps,dwmac.yaml   |  6 ++-
+ arch/arm64/boot/dts/qcom/sa8775p.dtsi         | 10 +++--
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 41 ++++++++++++++++++-
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |  8 ++++
+ 7 files changed, 67 insertions(+), 11 deletions(-)
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
