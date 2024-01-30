@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 499CF842468
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 13:06:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6883184246E
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 13:07:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 032DAC6C820;
-	Tue, 30 Jan 2024 12:06:34 +0000 (UTC)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C484C6C841;
+	Tue, 30 Jan 2024 12:07:10 +0000 (UTC)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+ [209.85.160.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04232C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 25E3BC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 12:06:32 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-6e1196dc31bso1649955a34.3
+ Tue, 30 Jan 2024 12:07:08 +0000 (UTC)
+Received: by mail-qt1-f176.google.com with SMTP id
+ d75a77b69052e-42aa0f7ea98so14231061cf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 04:06:32 -0800 (PST)
+ Tue, 30 Jan 2024 04:07:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706616391; x=1707221191;
+ d=linaro.org; s=google; t=1706616427; x=1707221227;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=6VQPImZ/4IQm9KIxbi2fxjRtKvipwSecgsg8i7If4Jc=;
- b=Q6WSQh8oHi5EzVRhNG1L2eorc86goQNwZVsAVd7SgbU9dZaRsaDOLTELWe9PqEdFnp
- 7PITGezx+f+5cRuuRgvetY5a9QSoTX4Fjgjik4sU2ZRr5SVgX/yui+AnCB1pS2OiEi6/
- Bvb8rlpwikTjerDXXVSRuROVt010Eh4NMiiOjRlJdBTbGpyLO2xkpN1MseY0tee3g8EA
- be5ysMz10dI/wvJNADg8sCes6jJ4w8Ei2J4m4B3LlLMd4fSj+g0PClGlS9yxGqa3lL+u
- bKvZMCdadLj2eDvLxwielqKJyQCBtpVOmtZ712gZjbIsqRZr/GWe/CBy0ytEdj5FqIgQ
- YP8A==
+ bh=gyBHy6pI3FKKoVKb9OTIKEEMGOtNOKqEi6iRWPGhH/c=;
+ b=QRRw9ZaaintsAV7kBTEutp5g9tRLQMbjUBMlxKrxr4BuRGhz72og4fN91zx2ricj5x
+ 60RqSr0qsKJZtO5YWSJzS6FM5nDP26LigdxvnT3MiagANxk80rMq6fwSHeZmYN19JJ6P
+ QdBPVREgX1YpHGT7W/t0RSxz6z2QSwFp26ycOI2tuW6KvCTm57NbIm/HK0Tw8JPuZAqC
+ VwcX7ztyXns1Nn4Liqz3qwsxbIaXZ8Qcrnz5RTS7vgDUdNn/fRbiuPvyhdibQuegsDq6
+ tHU9KFSFEDHideTyZwV9I8FM4tdzD/VMXnbhZLdo5mO3yX/ZgK5XzPXk9cDTFiDPSc2d
+ fSbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706616391; x=1707221191;
+ d=1e100.net; s=20230601; t=1706616427; x=1707221227;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6VQPImZ/4IQm9KIxbi2fxjRtKvipwSecgsg8i7If4Jc=;
- b=nqx4kEKcMoSJiWOM0VQ1HvlRZkSDaqNl42WY5A0oEMFysmDuCdcz2ob9SEdroMlx2H
- 0MO85rFeYmF16q/W0rDgdESpXn5ec0GRFlC5yj90OqfxsxrUL05xJfKj/5lOA5RZC+lc
- 5OgtQfepplNffoKKaY7Kmmgp1XwtqcYniuzCvJGjwF5yOPLqGVqyWWzzuq98FVi4y1po
- 4Jsx+vPy8iw4trJVSDReZBZczF/Rff1Z4dOROa5ts8XzFeqLl5iAKFhp0JWm4LjrHUwV
- GyO0LXgL9q/HaulvPWiR7YCkIpETyvWWW0Ss4VyKO+1Gproce2gvwP3Z3nGIVlz9yOZl
- 8oVA==
-X-Gm-Message-State: AOJu0YzafnZdORpC/ep5T7MpKRVE4TWUs39XZTn0Pc8Lv9Fs9ScAexAA
- CeAAoXhJU3z6uj2WPuaYF3Mas2I4z/MF2fn2JJ3sRdC9XYZQL/+oxd0b1yPNpj4=
-X-Google-Smtp-Source: AGHT+IFaIOEigDgFT/5QQbdDQk5NbtpmVP0pGHFyvEoSZT0SYMoAUi2j7U7q3LV4g9f19uwS7KMz5A==
-X-Received: by 2002:a05:6830:14e:b0:6dd:c918:b9dc with SMTP id
- j14-20020a056830014e00b006ddc918b9dcmr7418443otp.22.1706616391729; 
- Tue, 30 Jan 2024 04:06:31 -0800 (PST)
+ bh=gyBHy6pI3FKKoVKb9OTIKEEMGOtNOKqEi6iRWPGhH/c=;
+ b=jllWM5zWdxIfLnVfI93yTsmhejcNsX52AbUQcmfRX3ZGW1lKx2RSvtEMK3uabUJ7d4
+ bwmKYPowLFvS8VT3OuSuop4FK632MnDR0V1j+XREasD/8kGI7lWWyIh+ru+WAzSs+bjM
+ 2ERby/w3QhPUNhXjfNOKGMNdMyrozJ1R9J/IchU9J1EhnuUanftxw9219HJ9fm++l/5Z
+ SpnUoaMEFYLrfF3OA9NoErCW+lXOvVE4m7MUkaF6kTyb8UHFX9frbihB14NN+OLcafwe
+ FrFo69Xt8GQGVWAxuovF8UYWchmIOXA9hVgT/bHjM12uYujDCd5tpbvCE3d3EVr75H7Q
+ VVWQ==
+X-Gm-Message-State: AOJu0YxWEzjpCi2y7Mw78WDX0FoC5rVsrH587JZvvHSe3LTCL/2993kt
+ I6lefPiyaBNsYtarDcnhV+WSo2aWBmES1MCIioZMXMYkLzV1lix3mtsfRdmtj/g=
+X-Google-Smtp-Source: AGHT+IERY9Zv2jVzCd4DvnU6wA6agETCSIskOYvzOQIUam41P+N4PPuEHCzoFn1GMey31SjNHSsVEg==
+X-Received: by 2002:a05:622a:301:b0:42a:6e58:6746 with SMTP id
+ q1-20020a05622a030100b0042a6e586746mr9743162qtw.81.1706616427104; 
+ Tue, 30 Jan 2024 04:07:07 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCVGnfi0kUIop1brl7MA5GjZg4Hw9TytnsDqbLapiK3kXUSDG7HIOtJ+zmS+kiSUnGuQQsLeCNB84sYNk9QT2NE5s5ctcFERZByhCLCOEX7kPZvc2S0gauu1N8noBs3XWLwhu/zzj0JTy79UwF/LzO1oSPZYRp6oYuVa5Hlp8obk4hbDrjTmWzef18XayKbXWY7kHpq5CfI39fgjqDmFOw5lJ+AzvfNW+4BckdE+qRIlblnNDlGZUer5e0/m+qNMIXttziXduQdfBKw7UNyakEiC6YUavD9rBI6fXF5qq98CMDujml6O43IQ66sOuY28Rl3Gqz8tYIUyyO3ezKIxdmIJWjWhQ+ujO5i/rJosI05KuBx8kdKn+3dH7WPKXWolvXXbQHvu+YLuT7QH+4m0a2fhwZ8V69pVxFBkO/IsdcdBpcUmSP8amgHH2lzoRo0UIQHJIa5XHnMlopry3MRebqNiFVxEdBiXKpNtaAbO4rnXyyPGITh7PssRnTMFmHSrgV3hY/dQiCqlp/8LbuQtL5jQcEMLnTg8gkfrH9Bs1jXd/BraW8lfynWw2O7DJqUMYVgY4loU3T/dhzeWq5J8I4RNfYyUgs1tgnJSFLBG7E5SAMGaWzmVjohJr4dhochatS2rMNqFqHyeVsA06AcdQZdk5whs4dRvZ1PMHvdfzy0D/4mFc4ny3XilAulwFwNt0y6x9TvY/3vwsjErFQObohLH9epGVbBzgexznhUKXhfkaOeEe4Rif9Ivcf6gnqf1ppPsXYHtD/J9FlXPfg==
+ AJvYcCXUH9FEea4MA7CbUeiDaF1BqWKSWk4sK+zCApudPeKt/JpEUuB5eQ6iVRhv/uzJWHZ2JiqOmuf1cjCYY8Ee/idNV0RbW+nfZ8+fxJjeK44CmpwgPqJ4lyDgfXlZBP694HjrWQ67ihmEg8JsEbfMDcq5SgeUVvGbXd7z2OzXcMWxVXn6w5ntZZ6AhN3X4Sx7HCBsZnXaQjrFa7OSDGYBiOdrmUt1PFIK8bBmKP9RDxHQclVqcUeVUD1Ynzp4NxS8uRx7eHyrlJfJk5RtUNalx/Wmhpw3eoMjQkE9cKT0BUGAs8S6nKxdYa9rJD6LY1ltr7e3UXu3c2JzKlM4vTPa98SHCQNyd8WcdpszYTdHJLa41uS9yfm+cbL7IYiwVXl7yu5HCuv/zsjV49DY4G/u4EAnc9jlJ0DzTj6e/d7cYkohWKwK1Y64eIqaK7H+edx/IMIYPUWQYxEZBYcxfr9MwjZaw2yWBPdIuz2LcMDtxJ89SWCcYeJP6VcWWTB07waFuKxB3j9Yj10KNFnBqThmPB6lfdLePVQvZt7GyB+A6WFqNN/ySZ+nD6zTsl6mrWyeRdEFvhuCYZAX4yzakNv4rcSmKwi+G2nj2Ist+d5NM0ZcGCbzJMvJBTFJOWWMTF94l7LCCcfNDmV/nvilBfXym6SGH/432QbEj71DvuFigYvPo/7ivacKoy7cMFh5qmecd3Vs4+BA89dRSFdiY4A98huG0ikX7W33/Y2PTsX9Pf61arXohYfccvP7xgRFRLGxCWZ5b4y3RwMionN/MA==
 Received: from [192.168.1.20] ([178.197.222.62])
  by smtp.gmail.com with ESMTPSA id
- bz9-20020a05622a1e8900b00429d3257dd6sm3274367qtb.45.2024.01.30.04.06.27
+ bz9-20020a05622a1e8900b00429d3257dd6sm3274367qtb.45.2024.01.30.04.07.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jan 2024 04:06:31 -0800 (PST)
-Message-ID: <a320fa4e-937e-4ecf-9d28-54cc999dd334@linaro.org>
-Date: Tue, 30 Jan 2024 13:06:25 +0100
+ Tue, 30 Jan 2024 04:07:06 -0800 (PST)
+Message-ID: <84f63696-7e5e-4824-b80a-be12a32d90eb@linaro.org>
+Date: Tue, 30 Jan 2024 13:07:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -77,7 +77,6 @@ To: Suraj Jaiswal <quic_jsuraj@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
  Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney
  <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
 References: <20240130120306.4120632-1-quic_jsuraj@quicinc.com>
- <20240130120306.4120632-3-quic_jsuraj@quicinc.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -123,10 +122,10 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240130120306.4120632-3-quic_jsuraj@quicinc.com>
+In-Reply-To: <20240130120306.4120632-1-quic_jsuraj@quicinc.com>
 Cc: kernel@quicinc.com
-Subject: Re: [Linux-stm32] [PATCH net-next v12 2/3] arm64: dts: qcom:
- sa8775p: enable safety IRQ
+Subject: Re: [Linux-stm32] [PATCH net-next v12 0/3] Ethernet common fault
+	IRQ support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,13 +143,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 30/01/2024 13:03, Suraj Jaiswal wrote:
-> Add changes to support safety IRQ handling
-> support for ethernet.
+> Changes since v12:
+> - Update correct sender email
 > 
+> Changes since v11:
+> - Update debug message print
 
-You still keep sending the same and ignoring comments.
+The limit is: one patchset per day.
 
-Still NAK.
+You just ignored feedback you got...
 
 Best regards,
 Krzysztof
