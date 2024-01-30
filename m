@@ -2,71 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1495841F67
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 10:28:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F4010841F68
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 10:28:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C68AC6C820;
-	Tue, 30 Jan 2024 09:28:06 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B69C5C6C820;
+	Tue, 30 Jan 2024 09:28:16 +0000 (UTC)
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2C8CC6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6D03C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 09:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wBVJH31eVDzBpyupvBp7B4u8sfC8jD1DSOL/7C0GLE4=; b=CAJAYaogKroU2lJyjJipR7b8uy
- +6k0mduJVPIEKPyCwBjAt72D44vvkyqqgwx/LuZV9D66NjKAIOEZqy04A3PSqNZawfNP5oiAx6Sk4
- DuztLAxmu8Cjt/01yLc+BuMEBDb/T0XhppzZVslMM5vVy+0QD68VAnOl1U+4N2E+WjIPGlhCYsq/1
- //v9869QKVkEJQ6lX6Y7ieG6OCziOncVZsVdAtQ1lwDzwS0oLQki0brLtUkNQL3Mce9N4LVnBCMyX
- vg5NXQJDrsGxZ3rxYTz5psJXGH61lSehIaDitqzKVOyC45Db1jkwmiLDUMT0M65RYreibsYpRKRSi
- WTA0Za9w==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:60964)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rUkP8-0001Vq-02;
- Tue, 30 Jan 2024 09:27:42 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rUkP1-0005OV-T1; Tue, 30 Jan 2024 09:27:35 +0000
-Date: Tue, 30 Jan 2024 09:27:35 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <ZbjBB81+Jh5uTqnz@shell.armlinux.org.uk>
-References: <20240129130253.1400707-1-yong.liang.choong@linux.intel.com>
- <20240129130253.1400707-2-yong.liang.choong@linux.intel.com>
+ Tue, 30 Jan 2024 09:28:14 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 02D4F60007;
+ Tue, 30 Jan 2024 09:28:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1706606894;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=DTvCoD/7ux9ZCg2ivERCoomsLOqzLvcETeTcMi+v1AE=;
+ b=PSRsrBw6IRjX4lk/BP5xAybOoffCEaEfMMvrry48Mtiq5i34EFa3tfFkPt8t3RIgsrrq8i
+ xef+s49ff5/284ntK5esm2TWAmTIM0/IAdvdLBhVl/ARN8rlXHSYN0MBoe3mcK7GRJyZyn
+ OSc0LgOy43DOj/Y+beC/yyl1vbVOxTBUXXy226zNAzsyBeK6Sn1IeX41iDtwhmK3rkELCO
+ IRoIffMRgmWEp2q3YnuOQy98sZKcgyeLeM9n5T+g1HMG5M5jtC/E80y3F0RMMvOeFjOEV+
+ W5Dnnwa6Sn1hNFp4vuJ8KAS5DHnLCsuQBZI8RjbbNatZkQ6hUGPDpBc0CO1zGg==
+From: Romain Gantois <romain.gantois@bootlin.com>
+Date: Tue, 30 Jan 2024 10:28:35 +0100
+Message-Id: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240129130253.1400707-2-yong.liang.choong@linux.intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Voon Wei Feng <weifeng.voon@intel.com>,
- Simon Horman <simon.horman@corigine.com>, platform-driver-x86@vger.kernel.org,
- Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric Dumazet <edumazet@google.com>,
- David E Box <david.e.box@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Richard Cochran <richardcochran@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Abdul Rahim Faizal <faizal.abdul.rahim@intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, bpf@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 01/11] net: phylink: publish
- ethtool link modes that supported and advertised
+X-B4-Tracking: v=1; b=H4sIAETBuGUC/02MTQqDMBBGryKz7oiZBJWueo9SSqKjBmoiSVoE8
+ e4duuryfT/vgMzJc4ZrdUDij88+BgG6VDAsNsyMfhQGasg0ilpM+/B073nyO46mc9opqzszgRy
+ 2xBL/ZHcIXDDwXuAhzZTiimVJbP9kjVaGeupq1faaFCqUlfWhnm0o0eebi7G8hIe4wnl+AYCGj
+ Z6rAAAA
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>
+X-Mailer: b4 0.12.4
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Clark Wang <xiaoning.wang@nxp.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/7] Fix missing PHY-to-MAC RX
+	clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,33 +63,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 29, 2024 at 09:02:43PM +0800, Choong Yong Liang wrote:
-> Adding the allow_switch_interface flag to publish all the ethtool
-> link modes that can be supported and advertised.
-> 
-> This will allow the interface switching based on different ethtool
-> link modes.
-
-I don't think you need this at all. You seem to be suggesting that you
-have a PHY which switches between different interface modes on its host
-interface. We already support several PHYs with this capability.
-
-Generic support for this was added, and you need the PHY driver to
-fill in phydev->possible_interfaces so phylink knows which interface
-modes the PHY can switch between.
-
-Instead, you are modifying the legacy path, which eventually I want
-to get rid of.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gZXZlcnlvbmUsCgpUaGlzIGlzIHZlcnNpb24gdHdvIG9mIG15IHNlcmllcyB0aGF0IGFk
+ZHJlc3NlcyB0aGUgaXNzdWUgd2l0aCBzb21lIE1BQy9QSFkKY29tYmluYXRpb25zLiBWZXJzaW9u
+IG9uZSB3YXMgc2VudCBvbiBuZXQsIG5vdCBuZXQtbmV4dC4KCk5vdGFibGUgY2hhbmdlcyBpbiB2
+MjoKICAtIEludHJvZHVjZWQgYSBwY3Mgb3AgZm9yIGluaXRpYWxpemluZyBoYXJkd2FyZSByZXF1
+aXJlZCBmb3IgTUFDCiAgICBpbml0aWFsaXphdGlvbiwgaW5zdGVhZCBvZiB1c2luZyBwaHlsaW5r
+X3ZhbGlkYXRlKCkgZm9yIHRoaXMgcHVycG9zZS4KICAtIFJlZmFjdG9yZWQgc3RtbWFjIHRvIHVz
+ZSBhIGdlbmVyaWMgUENTIHJlZmVyZW5jZSBpbiBtYWNfZGV2aWNlX2luZm8KICAgIGluc3RlYWQg
+b2YgYSBtb2RlbC1zcGVjaWZpYyBmaWVsZC4KClRoZXJlIGlzIGFuIGlzc3VlIHdpdGggc29tZSBz
+dG1tYWMvUEhZIGNvbWJpbmF0aW9ucyB0aGF0IGhhcyBiZWVuIHJlcG9ydGVkCnNvbWUgdGltZSBh
+Z28gaW4gYSBjb3VwbGUgb2YgZGlmZmVyZW50IHNlcmllczoKCkNsYXJrIFdhbmcncyByZXBvcnQ6
+Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIzMDIwMjA4MTU1OS4zNTUzNjM3LTEteGlh
+b25pbmcud2FuZ0BueHAuY29tLwpDbMOpbWVudCBMw6lnZXIncyByZXBvcnQ6Cmh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2xpbnV4LWFybS1rZXJuZWwvMjAyMzAxMTYxMDM5MjYuMjc2ODY5LTQtY2xl
+bWVudC5sZWdlckBib290bGluLmNvbS8KClN0bW1hYyBjb250cm9sbGVycyByZXF1aXJlIGFuIFJY
+IGNsb2NrIHNpZ25hbCBmcm9tIHRoZSBNSUkgYnVzIHRvIHBlcmZvcm0KdGhlaXIgaGFyZHdhcmUg
+aW5pdGlhbGl6YXRpb24gc3VjY2Vzc2Z1bGx5LiBUaGlzIGNhdXNlcyBpc3N1ZXMgd2l0aCBzb21l
+ClBIWS9QQ1MgZGV2aWNlcy4gSWYgdGhlc2UgZGV2aWNlcyBkbyBub3QgYnJpbmcgdGhlIGNsb2Nr
+IHNpZ25hbCB1cCBiZWZvcmUKdGhlIE1BQyBkcml2ZXIgaW5pdGlhbGl6ZXMgaXRzIGhhcmR3YXJl
+LCB0aGVuIHNhaWQgaW5pdGlhbGl6YXRpb24gd2lsbApmYWlsLiBUaGlzIGNhbiBoYXBwZW4gYXQg
+cHJvYmUgdGltZSBvciB3aGVuIHRoZSBzeXN0ZW0gd2FrZXMgdXAgZnJvbSBhCnN1c3BlbmRlZCBz
+dGF0ZS4KClRoaXMgc2VyaWVzIGludHJvZHVjZXMgbmV3IGZsYWdzIGZvciBwaHlfZGV2aWNlIGFu
+ZCBwaHlsaW5rX3Bjcy4gVGhlc2UKZmxhZ3MgYWxsb3cgTUFDIGRyaXZlcnMgdG8gc2lnbmFsIHRv
+IFBIWS9QQ1MgZHJpdmVycyB0aGF0IHRoZSBSWCBjbG9jawpzaWduYWwgc2hvdWxkIGJlIGVuYWJs
+ZWQgYXMgc29vbiBhcyBwb3NzaWJsZSwgYW5kIHRoYXQgaXQgc2hvdWxkIGFsd2F5cwpzdGF5IGVu
+YWJsZWQuCgpJIGhhdmUgaW5jbHVkZWQgc3BlY2lmaWMgdXNlcyBvZiB0aGVzZSBmbGFncyB0aGF0
+IGZpeCB0aGUgUlpOMSBHTUFDMSBzdG1tYWMKZHJpdmVyIHRoYXQgSSBhbSBjdXJyZW50bHkgd29y
+a2luZyBvbiBhbmQgdGhhdCBpcyBub3QgeWV0IHVwc3RyZWFtLiBJIGhhdmUKYWxzbyBpbmNsdWRl
+ZCBjaGFuZ2VzIHRvIHRoZSBhdDgwM3ggUEhZIGRyaXZlciB0aGF0IHNob3VsZCBmaXggdGhlIGlz
+c3VlCnRoYXQgQ2xhcmsgV2FuZyB3YXMgaGF2aW5nLgoKQ2xhcmssIGNvdWxkIHlvdSBwbGVhc2Ug
+Y29uZmlybSB0aGF0IHRoaXMgc2VyaWVzIGZpeGVzIHlvdXIgaXNzdWUgd2l0aCB0aGUKYXQ4MDN4
+IFBIWT8KCkJlc3QgUmVnYXJkcywKClJvbWFpbgoKUm9tYWluIEdhbnRvaXMgKDIpOgogIG5ldDog
+cGh5OiBhZGQgcnhjX2Fsd2F5c19vbiBmbGFnIHRvIHBoeWxpbmtfcGNzCiAgbmV0OiBwY3M6IHJ6
+bjEtbWlpYzogSW5pdCBSWCBjbG9jayBlYXJseSBpZiBNQUMgcmVxdWlyZXMgaXQKClJ1c3NlbGwg
+S2luZyAoMyk6CiAgbmV0OiBwaHk6IGFkZCBQSFlfRl9SWENfQUxXQVlTX09OIHRvIFBIWSBkZXYg
+ZmxhZ3MKICBuZXQ6IHN0bW1hYzogU2lnbmFsIHRvIFBIWS9QQ1MgZHJpdmVycyB0byBrZWVwIFJY
+IGNsb2NrIG9uCiAgbmV0OiBwaHk6IGF0ODAzeDogQXZvaWQgaGliZXJuYXRpbmcgaWYgTUFDIHJl
+cXVpcmVzIFJYIGNsb2NrCgogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
+bWFpbi5jICB8ICA1ICsrKysrCiBkcml2ZXJzL25ldC9wY3MvcGNzLXJ6bjEtbWlpYy5jICAgICAg
+ICAgICAgICAgIHwgMTggKysrKysrKysrKysrKy0tLS0tCiBkcml2ZXJzL25ldC9waHkvYXQ4MDN4
+LmMgICAgICAgICAgICAgICAgICAgICAgIHwgIDMgKystCiBkcml2ZXJzL25ldC9waHkvcGh5bGlu
+ay5jICAgICAgICAgICAgICAgICAgICAgIHwgMTMgKysrKysrKysrKysrLQogaW5jbHVkZS9saW51
+eC9waHkuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgv
+cGh5bGluay5oICAgICAgICAgICAgICAgICAgICAgICAgfCAgOSArKysrKysrKysKIDYgZmlsZXMg
+Y2hhbmdlZCwgNDIgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCi0tCjIuNDMuMAoKLS0t
+Ck1heGltZSBDaGV2YWxsaWVyICgxKToKICAgICAgbmV0OiBzdG1tYWM6IGRvbid0IHJlbHkgb24g
+bHlueF9wY3MgcHJlc2VuY2UgdG8gY2hlY2sgZm9yIGEgUEhZCgpSb21haW4gR2FudG9pcyAoNCk6
+CiAgICAgIG5ldDogcGh5OiBhZGQgcnhjX2Fsd2F5c19vbiBmbGFnIHRvIHBoeWxpbmtfcGNzCiAg
+ICAgIG5ldDogc3RtbWFjOiBTdXBwb3J0IGEgZ2VuZXJpYyBQQ1MgZmllbGQgaW4gbWFjX2Rldmlj
+ZV9pbmZvCiAgICAgIG5ldDogc3RtbWFjOiBTaWduYWwgdG8gUEhZL1BDUyBkcml2ZXJzIHRvIGtl
+ZXAgUlggY2xvY2sgb24KICAgICAgbmV0OiBwY3M6IHJ6bjEtbWlpYzogSW5pdCBSWCBjbG9jayBl
+YXJseSBpZiBNQUMgcmVxdWlyZXMgaXQKClJ1c3NlbGwgS2luZyAoMik6CiAgICAgIG5ldDogcGh5
+OiBhZGQgUEhZX0ZfUlhDX0FMV0FZU19PTiB0byBQSFkgZGV2IGZsYWdzCiAgICAgIG5ldDogcGh5
+OiBhdDgwM3g6IEF2b2lkIGhpYmVybmF0aW5nIGlmIE1BQyByZXF1aXJlcyBSWCBjbG9jawoKIGRy
+aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oICAgICAgIHwgIDIgKy0K
+IC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtc29jZnBnYS5jICAgIHwgIDgg
+KysrKy0tLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
+LmMgIHwgMTUgKysrKysrKystLS0tLS0KIGRyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMg
+ICAgICAgICAgICAgICAgICAgIHwgMTYgKysrKysrKysrKysrKysrCiBkcml2ZXJzL25ldC9waHkv
+YXQ4MDN4LmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAzICsrLQogZHJpdmVycy9uZXQv
+cGh5L3BoeWxpbmsuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAyNCArKysrKysrKysrKysr
+KysrKysrKystCiBpbmNsdWRlL2xpbnV4L3BoeS5oICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgvcGh5bGluay5oICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgMTUgKysrKysrKysrKysrKysKIDggZmlsZXMgY2hhbmdlZCwgNzEgaW5zZXJ0aW9u
+cygrKSwgMTMgZGVsZXRpb25zKC0pCi0tLQpiYXNlLWNvbW1pdDogNzk1YTdkZmJjM2Q5NWU0Yzdj
+MDk1NjlmMzE5ZjAyNmY4YzdmNWE5YwpjaGFuZ2UtaWQ6IDIwMjQwMTI2LXJ4Y19idWdmaXgtZDQ3
+YjNiMWEzNzRmCgpCZXN0IHJlZ2FyZHMsCi0tIApSb21haW4gR2FudG9pcyA8cm9tYWluLmdhbnRv
+aXNAYm9vdGxpbi5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
