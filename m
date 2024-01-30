@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60DCB842644
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 14:40:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E507B842666
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 14:48:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0C8EEC6C820;
-	Tue, 30 Jan 2024 13:40:13 +0000 (UTC)
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net
- [217.70.183.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95BCCC6C820;
+	Tue, 30 Jan 2024 13:48:41 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2BBDDC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9BCD0C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 13:40:11 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id BB1221C0005;
- Tue, 30 Jan 2024 13:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1706622010;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=A3wtrD2uoXhVlXOQf9qkwgkVdNZsFSpbdjrR4OR46j4=;
- b=LrKfnFVsBIoEn/8B5X8Q4FrVyf8P3XnWHnYRgT04wSxgpV6el0DMo9SCrOYyuTlNWRy9F6
- HiMifCO0TYFOfj1nXd7yppKz47BmgspAYw26tmMHKIroClhx4tqd94/B2C7y1n9iIs7nM2
- 5AhD1nOEdr729xRmPWHdrlVN+0yjF3PF3u4ih5/SG2gfgZTc7l46mgcAWQ2OhaNeJMiwJd
- hJmhwDRxnp3iwd88Jqru9WGzBoBTH1yEWeMs6ITKE79IvuRZtRyQzWckvB5Qid55y+yUrd
- ZCfiUJZfROj1ZhBBYxDvSMdZQrem47kgWHWsZX5uxyP+SYZu1LypAurOGVhPyw==
-Date: Tue, 30 Jan 2024 14:40:31 +0100 (CET)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-In-Reply-To: <ZbjLN+FzBSohg1c2@shell.armlinux.org.uk>
-Message-ID: <3e1617d8-b8c9-64d6-030d-5b6781544692@bootlin.com>
-References: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
- <20240130-rxc_bugfix-v2-2-5e6c3168e5f0@bootlin.com>
- <ZbjLN+FzBSohg1c2@shell.armlinux.org.uk>
+ Tue, 30 Jan 2024 13:48:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=vd//V4XYtNdO2bVzPimQHhpuzy1TW7+TDVfUFwizcWs=; b=0EyaNAy3PN3WNXOZkObkKOnf7m
+ l+LjuYFxeSmhk3U5RzxxGCO0Ob/JJ5phV2UidjoFY6TDp/w1VAOw5GU0j/6w7dWlLI65z+naIqFmw
+ nV0n25zGIlwSGH0LXks3/JplBRPXEwI4GX7pzoZ7e+w37JMlEZfKniz/sYw3x4tI8BxM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rUoTM-006UoM-Ti; Tue, 30 Jan 2024 14:48:20 +0100
+Date: Tue, 30 Jan 2024 14:48:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jisheng Zhang <jszhang@kernel.org>
+Message-ID: <cd9ce78c-2761-4b87-af87-ed6ccb1206bb@lunn.ch>
+References: <20240128193529.24677-1-petr@tesarici.cz>
+ <ZbiCWtY8ODrroHIq@xhacker>
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <ZbiCWtY8ODrroHIq@xhacker>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Marc Haber <mh+netdev@zugschlus.de>,
+ Samuel Holland <samuel@sholland.org>, Petr Tesarik <petr@tesarici.cz>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 2/7] net: phy: add
- rxc_always_on flag to phylink_pcs
+ stable@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: protect updates of
+ 64-bit statistics counters
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,52 +64,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Russell,
+> PS: when I sent the above "net: stmmac: use per-queue 64 bit statistics
+> where necessary", I had an impression: there are too much statistics in
+> stmmac driver, I didn't see so many statistics in other eth drivers, is
+> it possible to remove some useless or not that useful statistic members?
 
-On Tue, 30 Jan 2024, Russell King (Oracle) wrote:
-...
-> > +int phylink_pcs_pre_init(struct phylink *pl, struct phylink_pcs *pcs)
-> > +{
-> > +	int ret = 0;
-> > +
-> > +	/* Signal to PCS driver that MAC requires RX clock for init */
-> > +	if (pl->config->mac_requires_rxc)
-> > +		pcs->rxc_always_on = true;
-> > +
-> > +	if (pcs->ops->pcs_pre_init)
-> > +		ret = pcs->ops->pcs_pre_init(pcs, pl->link_config.interface);
-> 
-> Given that:
-> 1) phylink supports switching between mutliple different interfaces,
-> 2) from what I can see you are only calling this from stmmac's
->    initialisation path,
-> 3) you pass the interface mode to the PCS here
-> 
-> then we don't want the PCS to configure itself for the interface mode
-> passed in, because this function won't be called when the interface
-> mode changes - and PCS driver authors will have to bear that in mind.
-> So...
-> 
-...
-> However, do we really need it - if the PCS is supplying the RXC to
-> the MAC, then is the interface mode between the PCS and PHY all that
-> relevant at this point?
+These counters might be considered ABI. We don't want to cause
+regressions in somebodies testing, or even billing scripts because we
+remove a counter which somebody is using.
 
-If a PCS can set the needed clock signal without configuring the details 
-of a particular link mode, then passing the interface mode to pcs_pre_init() 
-would indeed not be relevant. Generally, I agree that setting the interface mode 
-shouldn't be the concern of the pre-initialization function. I'll dig a bit 
-more into the PCS datasheet and run more tests to see if I can get away with 
-enabling the RX clock selectively for this particular PCS model. If not, then 
-maybe I can hardcode a "default" interface mode for the pre-initialization that 
-will not interfere with the rest of the link setup process.
-
-Best Regards,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+       Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
