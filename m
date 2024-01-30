@@ -2,39 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F4010841F68
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 10:28:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A248841F69
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 10:28:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B69C5C6C820;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6EB5C6C855;
 	Tue, 30 Jan 2024 09:28:16 +0000 (UTC)
 Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
  [217.70.183.195])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6D03C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8375FC6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 30 Jan 2024 09:28:15 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5CEA46000D;
  Tue, 30 Jan 2024 09:28:14 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 02D4F60007;
- Tue, 30 Jan 2024 09:28:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1706606894;
+ t=1706606895;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=DTvCoD/7ux9ZCg2ivERCoomsLOqzLvcETeTcMi+v1AE=;
- b=PSRsrBw6IRjX4lk/BP5xAybOoffCEaEfMMvrry48Mtiq5i34EFa3tfFkPt8t3RIgsrrq8i
- xef+s49ff5/284ntK5esm2TWAmTIM0/IAdvdLBhVl/ARN8rlXHSYN0MBoe3mcK7GRJyZyn
- OSc0LgOy43DOj/Y+beC/yyl1vbVOxTBUXXy226zNAzsyBeK6Sn1IeX41iDtwhmK3rkELCO
- IRoIffMRgmWEp2q3YnuOQy98sZKcgyeLeM9n5T+g1HMG5M5jtC/E80y3F0RMMvOeFjOEV+
- W5Dnnwa6Sn1hNFp4vuJ8KAS5DHnLCsuQBZI8RjbbNatZkQ6hUGPDpBc0CO1zGg==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=z5O20HcAEwbcwvmGvpmwDURpDyrqr9bQSjxWrUXZWn8=;
+ b=GnlAE1xENwaIwsGVIRnoLrfTLR3bnZr4e0/SBriECbPlnR0TKm4MeELAPNJs+NH6WcLyOl
+ l2i6waDAjVjYchEwS8B3/4vOx7PFrmbAY9Vwn4tAfXi2HSd6SVGYRzaQchA2SsD5K3yNkm
+ CEqmoAOreNoaU1G6HvdhpUXnhJ0ZhVei8V9D3UCdBkCbdnERC+iQQFRIpHhDaKi0tDhUmp
+ Pyoq/0deGUUJ49SWkY/OzEbzSty7TvZamTqgiOkUbkmSYIZ+feP02uwDtJEutnkEB6Pc7O
+ +9MdBSXoPmmtX/cxNWeHPhH7L5YptdyIA1i2NC4CDkRkrhlZcgM5yENN1cB/dw==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 30 Jan 2024 10:28:35 +0100
-Message-Id: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
+Date: Tue, 30 Jan 2024 10:28:36 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAETBuGUC/02MTQqDMBBGryKz7oiZBJWueo9SSqKjBmoiSVoE8
- e4duuryfT/vgMzJc4ZrdUDij88+BgG6VDAsNsyMfhQGasg0ilpM+/B073nyO46mc9opqzszgRy
- 2xBL/ZHcIXDDwXuAhzZTiimVJbP9kjVaGeupq1faaFCqUlfWhnm0o0eebi7G8hIe4wnl+AYCGj
- Z6rAAAA
+Message-Id: <20240130-rxc_bugfix-v2-1-5e6c3168e5f0@bootlin.com>
+References: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
+In-Reply-To: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
  Heiner Kallweit <hkallweit1@gmail.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -46,12 +45,12 @@ To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
 X-Mailer: b4 0.12.4
 X-GND-Sasl: romain.gantois@bootlin.com
 Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Clark Wang <xiaoning.wang@nxp.com>,
+ linux-renesas-soc@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 0/7] Fix missing PHY-to-MAC RX
-	clock
+Subject: [Linux-stm32] [PATCH net-next v2 1/7] net: phy: add
+ PHY_F_RXC_ALWAYS_ON to PHY dev flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,78 +62,111 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGVsbG8gZXZlcnlvbmUsCgpUaGlzIGlzIHZlcnNpb24gdHdvIG9mIG15IHNlcmllcyB0aGF0IGFk
-ZHJlc3NlcyB0aGUgaXNzdWUgd2l0aCBzb21lIE1BQy9QSFkKY29tYmluYXRpb25zLiBWZXJzaW9u
-IG9uZSB3YXMgc2VudCBvbiBuZXQsIG5vdCBuZXQtbmV4dC4KCk5vdGFibGUgY2hhbmdlcyBpbiB2
-MjoKICAtIEludHJvZHVjZWQgYSBwY3Mgb3AgZm9yIGluaXRpYWxpemluZyBoYXJkd2FyZSByZXF1
-aXJlZCBmb3IgTUFDCiAgICBpbml0aWFsaXphdGlvbiwgaW5zdGVhZCBvZiB1c2luZyBwaHlsaW5r
-X3ZhbGlkYXRlKCkgZm9yIHRoaXMgcHVycG9zZS4KICAtIFJlZmFjdG9yZWQgc3RtbWFjIHRvIHVz
-ZSBhIGdlbmVyaWMgUENTIHJlZmVyZW5jZSBpbiBtYWNfZGV2aWNlX2luZm8KICAgIGluc3RlYWQg
-b2YgYSBtb2RlbC1zcGVjaWZpYyBmaWVsZC4KClRoZXJlIGlzIGFuIGlzc3VlIHdpdGggc29tZSBz
-dG1tYWMvUEhZIGNvbWJpbmF0aW9ucyB0aGF0IGhhcyBiZWVuIHJlcG9ydGVkCnNvbWUgdGltZSBh
-Z28gaW4gYSBjb3VwbGUgb2YgZGlmZmVyZW50IHNlcmllczoKCkNsYXJrIFdhbmcncyByZXBvcnQ6
-Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIzMDIwMjA4MTU1OS4zNTUzNjM3LTEteGlh
-b25pbmcud2FuZ0BueHAuY29tLwpDbMOpbWVudCBMw6lnZXIncyByZXBvcnQ6Cmh0dHBzOi8vbG9y
-ZS5rZXJuZWwub3JnL2xpbnV4LWFybS1rZXJuZWwvMjAyMzAxMTYxMDM5MjYuMjc2ODY5LTQtY2xl
-bWVudC5sZWdlckBib290bGluLmNvbS8KClN0bW1hYyBjb250cm9sbGVycyByZXF1aXJlIGFuIFJY
-IGNsb2NrIHNpZ25hbCBmcm9tIHRoZSBNSUkgYnVzIHRvIHBlcmZvcm0KdGhlaXIgaGFyZHdhcmUg
-aW5pdGlhbGl6YXRpb24gc3VjY2Vzc2Z1bGx5LiBUaGlzIGNhdXNlcyBpc3N1ZXMgd2l0aCBzb21l
-ClBIWS9QQ1MgZGV2aWNlcy4gSWYgdGhlc2UgZGV2aWNlcyBkbyBub3QgYnJpbmcgdGhlIGNsb2Nr
-IHNpZ25hbCB1cCBiZWZvcmUKdGhlIE1BQyBkcml2ZXIgaW5pdGlhbGl6ZXMgaXRzIGhhcmR3YXJl
-LCB0aGVuIHNhaWQgaW5pdGlhbGl6YXRpb24gd2lsbApmYWlsLiBUaGlzIGNhbiBoYXBwZW4gYXQg
-cHJvYmUgdGltZSBvciB3aGVuIHRoZSBzeXN0ZW0gd2FrZXMgdXAgZnJvbSBhCnN1c3BlbmRlZCBz
-dGF0ZS4KClRoaXMgc2VyaWVzIGludHJvZHVjZXMgbmV3IGZsYWdzIGZvciBwaHlfZGV2aWNlIGFu
-ZCBwaHlsaW5rX3Bjcy4gVGhlc2UKZmxhZ3MgYWxsb3cgTUFDIGRyaXZlcnMgdG8gc2lnbmFsIHRv
-IFBIWS9QQ1MgZHJpdmVycyB0aGF0IHRoZSBSWCBjbG9jawpzaWduYWwgc2hvdWxkIGJlIGVuYWJs
-ZWQgYXMgc29vbiBhcyBwb3NzaWJsZSwgYW5kIHRoYXQgaXQgc2hvdWxkIGFsd2F5cwpzdGF5IGVu
-YWJsZWQuCgpJIGhhdmUgaW5jbHVkZWQgc3BlY2lmaWMgdXNlcyBvZiB0aGVzZSBmbGFncyB0aGF0
-IGZpeCB0aGUgUlpOMSBHTUFDMSBzdG1tYWMKZHJpdmVyIHRoYXQgSSBhbSBjdXJyZW50bHkgd29y
-a2luZyBvbiBhbmQgdGhhdCBpcyBub3QgeWV0IHVwc3RyZWFtLiBJIGhhdmUKYWxzbyBpbmNsdWRl
-ZCBjaGFuZ2VzIHRvIHRoZSBhdDgwM3ggUEhZIGRyaXZlciB0aGF0IHNob3VsZCBmaXggdGhlIGlz
-c3VlCnRoYXQgQ2xhcmsgV2FuZyB3YXMgaGF2aW5nLgoKQ2xhcmssIGNvdWxkIHlvdSBwbGVhc2Ug
-Y29uZmlybSB0aGF0IHRoaXMgc2VyaWVzIGZpeGVzIHlvdXIgaXNzdWUgd2l0aCB0aGUKYXQ4MDN4
-IFBIWT8KCkJlc3QgUmVnYXJkcywKClJvbWFpbgoKUm9tYWluIEdhbnRvaXMgKDIpOgogIG5ldDog
-cGh5OiBhZGQgcnhjX2Fsd2F5c19vbiBmbGFnIHRvIHBoeWxpbmtfcGNzCiAgbmV0OiBwY3M6IHJ6
-bjEtbWlpYzogSW5pdCBSWCBjbG9jayBlYXJseSBpZiBNQUMgcmVxdWlyZXMgaXQKClJ1c3NlbGwg
-S2luZyAoMyk6CiAgbmV0OiBwaHk6IGFkZCBQSFlfRl9SWENfQUxXQVlTX09OIHRvIFBIWSBkZXYg
-ZmxhZ3MKICBuZXQ6IHN0bW1hYzogU2lnbmFsIHRvIFBIWS9QQ1MgZHJpdmVycyB0byBrZWVwIFJY
-IGNsb2NrIG9uCiAgbmV0OiBwaHk6IGF0ODAzeDogQXZvaWQgaGliZXJuYXRpbmcgaWYgTUFDIHJl
-cXVpcmVzIFJYIGNsb2NrCgogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
-bWFpbi5jICB8ICA1ICsrKysrCiBkcml2ZXJzL25ldC9wY3MvcGNzLXJ6bjEtbWlpYy5jICAgICAg
-ICAgICAgICAgIHwgMTggKysrKysrKysrKysrKy0tLS0tCiBkcml2ZXJzL25ldC9waHkvYXQ4MDN4
-LmMgICAgICAgICAgICAgICAgICAgICAgIHwgIDMgKystCiBkcml2ZXJzL25ldC9waHkvcGh5bGlu
-ay5jICAgICAgICAgICAgICAgICAgICAgIHwgMTMgKysrKysrKysrKysrLQogaW5jbHVkZS9saW51
-eC9waHkuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgv
-cGh5bGluay5oICAgICAgICAgICAgICAgICAgICAgICAgfCAgOSArKysrKysrKysKIDYgZmlsZXMg
-Y2hhbmdlZCwgNDIgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCi0tCjIuNDMuMAoKLS0t
-Ck1heGltZSBDaGV2YWxsaWVyICgxKToKICAgICAgbmV0OiBzdG1tYWM6IGRvbid0IHJlbHkgb24g
-bHlueF9wY3MgcHJlc2VuY2UgdG8gY2hlY2sgZm9yIGEgUEhZCgpSb21haW4gR2FudG9pcyAoNCk6
-CiAgICAgIG5ldDogcGh5OiBhZGQgcnhjX2Fsd2F5c19vbiBmbGFnIHRvIHBoeWxpbmtfcGNzCiAg
-ICAgIG5ldDogc3RtbWFjOiBTdXBwb3J0IGEgZ2VuZXJpYyBQQ1MgZmllbGQgaW4gbWFjX2Rldmlj
-ZV9pbmZvCiAgICAgIG5ldDogc3RtbWFjOiBTaWduYWwgdG8gUEhZL1BDUyBkcml2ZXJzIHRvIGtl
-ZXAgUlggY2xvY2sgb24KICAgICAgbmV0OiBwY3M6IHJ6bjEtbWlpYzogSW5pdCBSWCBjbG9jayBl
-YXJseSBpZiBNQUMgcmVxdWlyZXMgaXQKClJ1c3NlbGwgS2luZyAoMik6CiAgICAgIG5ldDogcGh5
-OiBhZGQgUEhZX0ZfUlhDX0FMV0FZU19PTiB0byBQSFkgZGV2IGZsYWdzCiAgICAgIG5ldDogcGh5
-OiBhdDgwM3g6IEF2b2lkIGhpYmVybmF0aW5nIGlmIE1BQyByZXF1aXJlcyBSWCBjbG9jawoKIGRy
-aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oICAgICAgIHwgIDIgKy0K
-IC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtc29jZnBnYS5jICAgIHwgIDgg
-KysrKy0tLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWlu
-LmMgIHwgMTUgKysrKysrKystLS0tLS0KIGRyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMg
-ICAgICAgICAgICAgICAgICAgIHwgMTYgKysrKysrKysrKysrKysrCiBkcml2ZXJzL25ldC9waHkv
-YXQ4MDN4LmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAzICsrLQogZHJpdmVycy9uZXQv
-cGh5L3BoeWxpbmsuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAyNCArKysrKysrKysrKysr
-KysrKysrKystCiBpbmNsdWRlL2xpbnV4L3BoeS5oICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgvcGh5bGluay5oICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwgMTUgKysrKysrKysrKysrKysKIDggZmlsZXMgY2hhbmdlZCwgNzEgaW5zZXJ0aW9u
-cygrKSwgMTMgZGVsZXRpb25zKC0pCi0tLQpiYXNlLWNvbW1pdDogNzk1YTdkZmJjM2Q5NWU0Yzdj
-MDk1NjlmMzE5ZjAyNmY4YzdmNWE5YwpjaGFuZ2UtaWQ6IDIwMjQwMTI2LXJ4Y19idWdmaXgtZDQ3
-YjNiMWEzNzRmCgpCZXN0IHJlZ2FyZHMsCi0tIApSb21haW4gR2FudG9pcyA8cm9tYWluLmdhbnRv
-aXNAYm9vdGxpbi5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
-bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+From: Russell King <linux@armlinux.org.uk>
+
+Some MAC controllers (e.g. stmmac) require their connected PHY to
+continuously provide a receive clock signal. This can cause issues in two
+cases:
+
+  1. The clock signal hasn't been started yet by the time the MAC driver
+     initializes its hardware. This can make the initialization fail, as in
+      the case of the rzn1 GMAC1 driver.
+  2. The clock signal is cut during a power saving event. By the time the
+     MAC is brought back up, the clock signal is still not active since
+     phylink_start hasn't been called yet. This brings us back to case 1.
+
+If a PHY driver reads this flag, it should ensure that the receive clock
+signal is started as soon as possible, and that it isn't brought down when
+the PHY goes into suspend.
+
+Signed-off-by: Russell King <linux@armlinux.org.uk>
+[rgantois: commit log]
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+---
+ drivers/net/phy/phylink.c | 10 +++++++++-
+ include/linux/phy.h       |  1 +
+ include/linux/phylink.h   |  4 ++++
+ 3 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index ed0b4ccaa6a6..851049096488 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1923,6 +1923,8 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
+ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+ 			      phy_interface_t interface)
+ {
++	u32 flags = 0;
++
+ 	if (WARN_ON(pl->cfg_link_an_mode == MLO_AN_FIXED ||
+ 		    (pl->cfg_link_an_mode == MLO_AN_INBAND &&
+ 		     phy_interface_mode_is_8023z(interface) && !pl->sfp_bus)))
+@@ -1931,7 +1933,10 @@ static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
+ 	if (pl->phydev)
+ 		return -EBUSY;
+ 
+-	return phy_attach_direct(pl->netdev, phy, 0, interface);
++	if (pl->config->mac_requires_rxc)
++		flags |= PHY_F_RXC_ALWAYS_ON;
++
++	return phy_attach_direct(pl->netdev, phy, flags, interface);
+ }
+ 
+ /**
+@@ -2034,6 +2039,9 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
+ 		pl->link_config.interface = pl->link_interface;
+ 	}
+ 
++	if (pl->config->mac_requires_rxc)
++		flags |= PHY_F_RXC_ALWAYS_ON;
++
+ 	ret = phy_attach_direct(pl->netdev, phy_dev, flags,
+ 				pl->link_interface);
+ 	phy_device_free(phy_dev);
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index c9994a59ca2e..3ef30f035bc0 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -768,6 +768,7 @@ struct phy_device {
+ 
+ /* Generic phy_device::dev_flags */
+ #define PHY_F_NO_IRQ		0x80000000
++#define PHY_F_RXC_ALWAYS_ON	BIT(30)
+ 
+ static inline struct phy_device *to_phy_device(const struct device *dev)
+ {
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index d589f89c612c..fcee99632964 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -138,6 +138,9 @@ enum phylink_op_type {
+  * @poll_fixed_state: if true, starts link_poll,
+  *		      if MAC link is at %MLO_AN_FIXED mode.
+  * @mac_managed_pm: if true, indicate the MAC driver is responsible for PHY PM.
++ * @mac_requires_rxc: if true, the MAC always requires a receive clock from PHY.
++ *                    The PHY driver should start the clock signal as soon as
++ *                    possible and avoid stopping it during suspend events.
+  * @ovr_an_inband: if true, override PCS to MLO_AN_INBAND
+  * @get_fixed_state: callback to execute to determine the fixed link state,
+  *		     if MAC link is at %MLO_AN_FIXED mode.
+@@ -150,6 +153,7 @@ struct phylink_config {
+ 	enum phylink_op_type type;
+ 	bool poll_fixed_state;
+ 	bool mac_managed_pm;
++	bool mac_requires_rxc;
+ 	bool ovr_an_inband;
+ 	void (*get_fixed_state)(struct phylink_config *config,
+ 				struct phylink_link_state *state);
+
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
