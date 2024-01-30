@@ -2,75 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 976F4841E66
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 09:52:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D634C841EFE
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 10:14:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DDB6C6C820;
-	Tue, 30 Jan 2024 08:52:36 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8902BC6C820;
+	Tue, 30 Jan 2024 09:14:07 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98243C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB6E8C6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 08:52:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1706604755; x=1738140755;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=2h2lKDVDe0Qt6DafrcvNa34Fl+qhtWodrVVJ81QUTO0=;
- b=Rf7WBFv+Z30MdyrI0Vfkp7vsCmOBhkAIlqL+8wOZ/jJIvFoHH/1VoUyV
- zuK6XOryVK9g9WD60EuVQpRLxATEOMv7BbIuIyEtKJIOinmWB4eKNrZ1u
- Y+U1Irz0hRFIdmVqfrUJ/1XCH0Q63d8dN8yA1aLUx9TpnBeFoLOo0joJH
- EaYgW9TQwOS1zD/too8RbXZwoGzz5UTRQniRPa9SYvlHp63GKBIGxBC7K
- gcBehwrBbIAqX3jdvzuQmIu8Dd9jOa70QG73s5yyWNioIppRQbHYBorWo
- uFE7EWBsMniY98ihLBt1XiJEHw2BbVzWuybWeeptrf1JQQ2AJheKW3aD7 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="10602340"
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="10602340"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2024 00:52:32 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10968"; a="788126949"
-X-IronPort-AV: E=Sophos;i="6.05,707,1701158400"; d="scan'208";a="788126949"
-Received: from lkp-server02.sh.intel.com (HELO 59f4f4cd5935) ([10.239.97.151])
- by orsmga002.jf.intel.com with ESMTP; 30 Jan 2024 00:52:17 -0800
-Received: from kbuild by 59f4f4cd5935 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rUjou-00009I-0m;
- Tue, 30 Jan 2024 08:50:34 +0000
-Date: Tue, 30 Jan 2024 16:48:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Message-ID: <202401301610.XVvNEdG4-lkp@intel.com>
-References: <20240129130253.1400707-9-yong.liang.choong@linux.intel.com>
+ Tue, 30 Jan 2024 09:14:05 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40U74qLU017764; Tue, 30 Jan 2024 10:13:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=dt87CNLkMt3980cHLAqyKgavtbKzWkDPS1dcS5e8/3Y=; b=Ky
+ I2NNjOnDo3+K8j+jKsOw3RWwgItQniWKLKLigFeSxpW81U+AKzcVMjJkxJXrN40J
+ jeJnJYIy73AoKxeCVFXdc/hs67+YxNrFVUldgEK053eDkiBQT0Rv6l3wJ9YNjrIT
+ zVx2O97WKIa8R1eUv4t5AVY4+7/qR+bOOmZc3CdbU4SYKGiJOmELNYADg4sviJe+
+ c0zbrSE6S3sKNbZ479JWAFzJVpJP0ktCQD7hFX60gaJL3UhrK/LM4HbOvy5l6xF9
+ 344cTbxIZqJDv9NMa/5b9n1/INVIcuMNZRnyaJfE9qBpEZve2Vo9jmNx3iQS9JNp
+ DUSHTlHsAdQrX1LoWJ7w==
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3vvqu8tjf6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 10:13:53 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id CCA60100067;
+ Tue, 30 Jan 2024 10:13:50 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C007020B9E5;
+ Tue, 30 Jan 2024 10:13:50 +0100 (CET)
+Received: from [10.201.20.75] (10.201.20.75) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 30 Jan
+ 2024 10:13:49 +0100
+Message-ID: <7ec6c9e8-9267-4e7c-81a4-abcdb2ab4239@foss.st.com>
+Date: Tue, 30 Jan 2024 10:13:48 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240129130253.1400707-9-yong.liang.choong@linux.intel.com>
-Cc: linux-hwmon@vger.kernel.org, Simon Horman <simon.horman@corigine.com>,
- Necip Fazil Yildiran <fazilyildiran@gmail.com>, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- platform-driver-x86@vger.kernel.org, netdev@vger.kernel.org,
- Paul Gazzillo <paul@pgazz.com>, bpf@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 08/11] stmmac: intel:
- configure SerDes according to the interface mode
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20240118100433.3984196-1-arnaud.pouliquen@foss.st.com>
+ <20240118100433.3984196-5-arnaud.pouliquen@foss.st.com>
+ <ZbPnsJm67G10+HQ3@p14s>
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Organization: STMicroelectronics
+In-Reply-To: <ZbPnsJm67G10+HQ3@p14s>
+X-Originating-IP: [10.201.20.75]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-30_03,2024-01-29_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 4/4] remoteproc: stm32: Add support of
+ an OP-TEE TA to load the firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,130 +84,298 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Choong,
 
-kernel test robot noticed the following build warnings:
 
-[auto build test WARNING on net-next/main]
+On 1/26/24 18:11, Mathieu Poirier wrote:
+> On Thu, Jan 18, 2024 at 11:04:33AM +0100, Arnaud Pouliquen wrote:
+>> The new TEE remoteproc device is used to manage remote firmware in a
+>> secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
+>> introduced to delegate the loading of the firmware to the trusted
+>> execution context. In such cases, the firmware should be signed and
+>> adhere to the image format defined by the TEE.
+>>
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>> V1 to V2 update:
+>> - remove the select "TEE_REMOTEPROC" in STM32_RPROC config as detected by
+>>   the kernel test robot:
+>>      WARNING: unmet direct dependencies detected for TEE_REMOTEPROC
+>>      Depends on [n]: REMOTEPROC [=y] && OPTEE [=n]
+>>      Selected by [y]:
+>>      - STM32_RPROC [=y] && (ARCH_STM32 || COMPILE_TEST [=y]) && REMOTEPROC [=y]
+>> - Fix initialized trproc variable in  stm32_rproc_probe
+>> ---
+>>  drivers/remoteproc/stm32_rproc.c | 149 +++++++++++++++++++++++++++++--
+>>  1 file changed, 144 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+>> index fcc0001e2657..cf6a21bac945 100644
+>> --- a/drivers/remoteproc/stm32_rproc.c
+>> +++ b/drivers/remoteproc/stm32_rproc.c
+>> @@ -20,6 +20,7 @@
+>>  #include <linux/remoteproc.h>
+>>  #include <linux/reset.h>
+>>  #include <linux/slab.h>
+>> +#include <linux/tee_remoteproc.h>
+>>  #include <linux/workqueue.h>
+>>  
+>>  #include "remoteproc_internal.h"
+>> @@ -49,6 +50,9 @@
+>>  #define M4_STATE_STANDBY	4
+>>  #define M4_STATE_CRASH		5
+>>  
+>> +/* Remote processor unique identifier aligned with the Trusted Execution Environment definitions */
+>> +#define STM32_MP1_M4_PROC_ID    0
+>> +
+>>  struct stm32_syscon {
+>>  	struct regmap *map;
+>>  	u32 reg;
+>> @@ -90,6 +94,8 @@ struct stm32_rproc {
+>>  	struct stm32_mbox mb[MBOX_NB_MBX];
+>>  	struct workqueue_struct *workqueue;
+>>  	bool hold_boot_smc;
+>> +	bool fw_loaded;
+>> +	struct tee_rproc *trproc;
+>>  	void __iomem *rsc_va;
+>>  };
+>>  
+>> @@ -257,6 +263,91 @@ static int stm32_rproc_release(struct rproc *rproc)
+>>  	return err;
+>>  }
+>>  
+>> +static int stm32_rproc_tee_elf_sanity_check(struct rproc *rproc,
+>> +					    const struct firmware *fw)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +	unsigned int ret = 0;
+>> +
+>> +	if (rproc->state == RPROC_DETACHED)
+>> +		return 0;
+>> +
+>> +	ret = tee_rproc_load_fw(ddata->trproc, fw);
+>> +	if (!ret)
+>> +		ddata->fw_loaded = true;
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static int stm32_rproc_tee_elf_load(struct rproc *rproc,
+>> +				    const struct firmware *fw)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +	unsigned int ret;
+>> +
+>> +	/*
+>> +	 * This function can be called by remote proc for recovery
+>> +	 * without the sanity check. In this case we need to load the firmware
+>> +	 * else nothing done here as the firmware has been preloaded for the
+>> +	 * sanity check to be able to parse it for the resource table.
+>> +	 */
+> 
+> This comment is very confusing - please consider refactoring.  
+> 
+>> +	if (ddata->fw_loaded)
+>> +		return 0;
+>> +
+> 
+> I'm not sure about keeping a flag to indicate the status of the loaded firmware.
+> It is not done for the non-secure method, I don't see why it would be needed for
+> the secure one.
+> 
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Choong-Yong-Liang/net-phylink-publish-ethtool-link-modes-that-supported-and-advertised/20240129-211219
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20240129130253.1400707-9-yong.liang.choong%40linux.intel.com
-patch subject: [PATCH net-next v4 08/11] stmmac: intel: configure SerDes according to the interface mode
-config: x86_64-kismet-CONFIG_INTEL_PMC_IPC-CONFIG_DWMAC_INTEL-0-0 (https://download.01.org/0day-ci/archive/20240130/202401301610.XVvNEdG4-lkp@intel.com/config)
-reproduce: (https://download.01.org/0day-ci/archive/20240130/202401301610.XVvNEdG4-lkp@intel.com/reproduce)
+The difference is on the sanity check.
+- in rproc_elf_sanity_check we  parse the elf file to verify that it is
+valid.
+- in stm32_rproc_tee_elf_sanity_check we have to do the same, that means to
+authenticate it. the authentication is done during the load.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202401301610.XVvNEdG4-lkp@intel.com/
+So this flag is used to avoid to reload it twice time.
+refactoring the comment should help to understand this flag
 
-kismet warnings: (new ones prefixed by >>)
->> kismet: WARNING: unmet direct dependencies detected for INTEL_PMC_IPC when selected by DWMAC_INTEL
-   .config:21:warning: symbol value 'n' invalid for AIC79XX_DEBUG_MASK
-   .config:51:warning: symbol value 'n' invalid for BLK_DEV_LOOP_MIN_COUNT
-   .config:114:warning: symbol value 'n' invalid for SQUASHFS_FRAGMENT_CACHE_SIZE
-   .config:205:warning: symbol value 'n' invalid for FB_OMAP2_NUM_FBS
-   .config:209:warning: symbol value 'n' invalid for CMA_SIZE_MBYTES
-   .config:254:warning: symbol value 'n' invalid for SATA_MOBILE_LPM_POLICY
-   .config:337:warning: symbol value 'n' invalid for CFAG12864B_RATE
-   .config:351:warning: symbol value 'n' invalid for PSTORE_BLK_MAX_REASON
-   .config:355:warning: symbol value 'n' invalid for AIC79XX_CMDS_PER_DEVICE
-   .config:437:warning: symbol value 'n' invalid for PANEL_LCD_PIN_SDA
-   .config:459:warning: symbol value 'n' invalid for KFENCE_SAMPLE_INTERVAL
-   .config:574:warning: symbol value 'n' invalid for AIC7XXX_DEBUG_MASK
-   .config:646:warning: symbol value 'n' invalid for CRYPTO_DEV_QCE_SW_MAX_LEN
-   .config:653:warning: symbol value 'n' invalid for DRM_XE_JOB_TIMEOUT_MIN
-   .config:690:warning: symbol value 'n' invalid for FAT_DEFAULT_CODEPAGE
-   .config:752:warning: symbol value 'n' invalid for PANEL_LCD_CHARSET
-   .config:838:warning: symbol value 'n' invalid for SND_AC97_POWER_SAVE_DEFAULT
-   .config:868:warning: symbol value 'n' invalid for MAGIC_SYSRQ_DEFAULT_ENABLE
-   .config:885:warning: symbol value 'n' invalid for DRM_I915_MAX_REQUEST_BUSYWAIT
-   .config:919:warning: symbol value 'n' invalid for SND_AT73C213_TARGET_BITRATE
-   .config:957:warning: symbol value 'n' invalid for DRM_XE_PREEMPT_TIMEOUT_MIN
-   .config:969:warning: symbol value 'n' invalid for VMCP_CMA_SIZE
-   .config:1154:warning: symbol value 'n' invalid for NODES_SHIFT
-   .config:1224:warning: symbol value 'n' invalid for RCU_CPU_STALL_TIMEOUT
-   .config:1253:warning: symbol value 'n' invalid for MTDRAM_ERASE_SIZE
-   .config:1327:warning: symbol value 'n' invalid for SERIAL_UARTLITE_NR_UARTS
-   .config:1492:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_Y
-   .config:1506:warning: symbol value 'n' invalid for LEGACY_PTY_COUNT
-   .config:1667:warning: symbol value 'n' invalid for AIC7XXX_RESET_DELAY_MS
-   .config:1833:warning: symbol value 'n' invalid for USB_GADGET_STORAGE_NUM_BUFFERS
-   .config:1883:warning: symbol value 'n' invalid for IBM_EMAC_POLL_WEIGHT
-   .config:1951:warning: symbol value 'n' invalid for PANEL_PROFILE
-   .config:1967:warning: symbol value 'n' invalid for DRM_I915_STOP_TIMEOUT
-   .config:2289:warning: symbol value 'n' invalid for SND_HDA_PREALLOC_SIZE
-   .config:2301:warning: symbol value 'n' invalid for PANEL_LCD_PIN_E
-   .config:2336:warning: symbol value 'n' invalid for SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST_NUM
-   .config:2339:warning: symbol value 'n' invalid for RCU_FANOUT_LEAF
-   .config:2443:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MAX
-   .config:2500:warning: symbol value 'n' invalid for PANEL_LCD_BWIDTH
-   .config:2763:warning: symbol value 'n' invalid for PANEL_PARPORT
-   .config:2773:warning: symbol value 'n' invalid for PSTORE_BLK_CONSOLE_SIZE
-   .config:2860:warning: symbol value 'n' invalid for NOUVEAU_DEBUG_DEFAULT
-   .config:2938:warning: symbol value 'n' invalid for BOOKE_WDT_DEFAULT_TIMEOUT
-   .config:3061:warning: symbol value 'n' invalid for KCSAN_REPORT_ONCE_IN_MS
-   .config:3171:warning: symbol value 'n' invalid for KCSAN_UDELAY_INTERRUPT
-   .config:3194:warning: symbol value 'n' invalid for PANEL_LCD_PIN_BL
-   .config:3216:warning: symbol value 'n' invalid for DEBUG_OBJECTS_ENABLE_DEFAULT
-   .config:3223:warning: symbol value 'n' invalid for INITRAMFS_ROOT_GID
-   .config:3345:warning: symbol value 'n' invalid for ATM_FORE200E_TX_RETRY
-   .config:3389:warning: symbol value 'n' invalid for FB_OMAP2_DSS_MIN_FCK_PER_PCK
-   .config:3450:warning: symbol value 'n' invalid for AIC79XX_RESET_DELAY_MS
-   .config:3538:warning: symbol value 'n' invalid for KCSAN_UDELAY_TASK
-   .config:3574:warning: symbol value 'n' invalid for STACK_MAX_DEFAULT_SIZE_MB
-   .config:3759:warning: symbol value 'n' invalid for MMC_BLOCK_MINORS
-   .config:3806:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_SYNC
-   .config:3894:warning: symbol value 'n' invalid for SERIAL_MCF_BAUDRATE
-   .config:3936:warning: symbol value 'n' invalid for UCLAMP_BUCKETS_COUNT
-   .config:3963:warning: symbol value 'n' invalid for X86_AMD_PSTATE_DEFAULT_MODE
-   .config:3985:warning: symbol value 'n' invalid for DE2104X_DSL
-   .config:3993:warning: symbol value 'n' invalid for BLK_DEV_RAM_COUNT
-   .config:4233:warning: symbol value 'n' invalid for IP_VS_SH_TAB_BITS
-   .config:4347:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_BAUDRATE
-   .config:4385:warning: symbol value 'n' invalid for USBIP_VHCI_HC_PORTS
-   .config:4492:warning: symbol value 'n' invalid for CMA_AREAS
-   .config:4493:warning: symbol value 'n' invalid for DUMMY_CONSOLE_ROWS
-   .config:4551:warning: symbol value 'n' invalid for INPUT_MOUSEDEV_SCREEN_X
-   .config:4670:warning: symbol value 'n' invalid for RIONET_RX_SIZE
-   .config:4736:warning: symbol value 'n' invalid for RADIO_TYPHOON_PORT
-   .config:4854:warning: symbol value 'n' invalid for SERIAL_TXX9_NR_UARTS
-   .config:4899:warning: symbol value 'n' invalid for MTRR_SANITIZER_SPARE_REG_NR_DEFAULT
-   .config:5001:warning: symbol value 'n' invalid for IBM_EMAC_TXB
-   .config:5148:warning: symbol value 'n' invalid for FTRACE_RECORD_RECURSION_SIZE
-   .config:5510:warning: symbol value 'n' invalid for DRM_I915_FENCE_TIMEOUT
-   .config:5532:warning: symbol value 'n' invalid for TTY_PRINTK_LEVEL
-   .config:5585:warning: symbol value 'n' invalid for CRYPTO_DEV_FSL_CAAM_INTC_TIME_THLD
-   .config:5701:warning: symbol value 'n' invalid for MIPS_EJTAG_FDC_KGDB_CHAN
-   .config:5772:warning: symbol value 'n' invalid for PPC_EARLY_DEBUG_EHV_BC_HANDLE
-   .config:5796:warning: symbol value 'n' invalid for KDB_DEFAULT_ENABLE
-   .config:5816:warning: symbol value 'n' invalid for SERIAL_ALTERA_UART_MAXPORTS
-   .config:5933:warning: symbol value 'n' invalid for IP_VS_MH_TAB_INDEX
-   .config:6101:warning: symbol value 'n' invalid for PANEL_LCD_HWIDTH
-   .config:6131:warning: symbol value 'n' invalid for LOCKDEP_CHAINS_BITS
-   .config:6230:warning: symbol value 'n' invalid for DRM_I915_HEARTBEAT_INTERVAL
-   .config:6236:warning: symbol value 'n' invalid for KCSAN_SKIP_WATCH
-   .config:6244:warning: symbol value 'n' invalid for EFI_MAX_FAKE_MEM
-   .config:6260:warning: symbol value 'n' invalid for PSTORE_BLK_KMSG_SIZE
-   .config:6358:warning: symbol value 'n' invalid for PANEL_LCD_PIN_RW
-   .config:6481:warning: symbol value 'n' invalid for SERIAL_8250_RUNTIME_UARTS
-   .config:6517:warning: symbol value 'n' invalid for KVM_MAX_NR_VCPUS
-   .config:6584:warning: symbol value 'n' invalid for ARCH_MMAP_RND_COMPAT_BITS
-   .config:6633:warning: symbol value 'n' invalid for SERIAL_SH_SCI_NR_UARTS
-   .config:6766:warning: symbol value 'n' invalid for RADIO_TRUST_PORT
-   .config:6852:warning: symbol value 'n' invalid for SND_MAX_CARDS
-   .config:7006:warning: symbol value 'n' invalid for RCU_BOOST_DELAY
-   .config:7177:warning: symbol value 'n' invalid for DVB_MAX_ADAPTERS
-   .config:7180:warning: symbol value 'n' invalid for SCSI_NCR53C8XX_MAX_TAGS
-   .config:7187:warning: symbol value 'n' invalid for CMA_SIZE_PERCENTAGE
-   .config:7213:warning: symbol value 'n' invalid for SCSI_SYM53C8XX_DMA_ADDRESSING_MODE
-   .config:7257:warning: symbol value 'n' invalid for ZSMALLOC_CHAIN_SIZE
-   .config:7354:warning: symbol value 'n' invalid for DRM_XE_TIMESLICE_MIN
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+An alternative would be to bypass the sanity check. But this lead to same
+limitation.
+Before loading the firmware in remoteproc_core, we call rproc_parse_fw() that is
+used to get the resource table address. To get it from tee we need to
+authenticate the firmware so load it...
+
+
+>> +	ret = tee_rproc_load_fw(ddata->trproc, fw);
+>> +	if (ret)
+>> +		return ret;
+>> +	ddata->fw_loaded = true;
+>> +
+>> +	/* Update the resource table parameters. */
+>> +	if (rproc_tee_get_rsc_table(ddata->trproc)) {
+>> +		/* No resource table: reset the related fields. */
+>> +		rproc->cached_table = NULL;
+>> +		rproc->table_ptr = NULL;
+>> +		rproc->table_sz = 0;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static struct resource_table *
+>> +stm32_rproc_tee_elf_find_loaded_rsc_table(struct rproc *rproc,
+>> +					  const struct firmware *fw)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +
+>> +	return tee_rproc_get_loaded_rsc_table(ddata->trproc);
+>> +}
+>> +
+>> +static int stm32_rproc_tee_start(struct rproc *rproc)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +
+>> +	return tee_rproc_start(ddata->trproc);
+>> +}
+>> +
+>> +static int stm32_rproc_tee_attach(struct rproc *rproc)
+>> +{
+>> +	/* Nothing to do, remote proc already started by the secured context. */
+>> +	return 0;
+>> +}
+>> +
+>> +static int stm32_rproc_tee_stop(struct rproc *rproc)
+>> +{
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +	int err;
+>> +
+>> +	stm32_rproc_request_shutdown(rproc);
+>> +
+>> +	err = tee_rproc_stop(ddata->trproc);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	ddata->fw_loaded = false;
+>> +
+>> +	return stm32_rproc_release(rproc);
+>> +}
+>> +
+>>  static int stm32_rproc_prepare(struct rproc *rproc)
+>>  {
+>>  	struct device *dev = rproc->dev.parent;
+>> @@ -319,7 +410,14 @@ static int stm32_rproc_prepare(struct rproc *rproc)
+>>  
+>>  static int stm32_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+>>  {
+>> -	if (rproc_elf_load_rsc_table(rproc, fw))
+>> +	struct stm32_rproc *ddata = rproc->priv;
+>> +	int ret;
+>> +
+>> +	if (ddata->trproc)
+>> +		ret = rproc_tee_get_rsc_table(ddata->trproc);
+>> +	else
+>> +		ret = rproc_elf_load_rsc_table(rproc, fw);
+>> +	if (ret)
+>>  		dev_warn(&rproc->dev, "no resource table found for this firmware\n");
+>>  
+>>  	return 0;
+>> @@ -693,8 +791,22 @@ static const struct rproc_ops st_rproc_ops = {
+>>  	.get_boot_addr	= rproc_elf_get_boot_addr,
+>>  };
+>>  
+>> +static const struct rproc_ops st_rproc_tee_ops = {
+>> +	.prepare	= stm32_rproc_prepare,
+>> +	.start		= stm32_rproc_tee_start,
+>> +	.stop		= stm32_rproc_tee_stop,
+>> +	.attach		= stm32_rproc_tee_attach,
+>> +	.kick		= stm32_rproc_kick,
+>> +	.parse_fw	= stm32_rproc_parse_fw,
+>> +	.find_loaded_rsc_table = stm32_rproc_tee_elf_find_loaded_rsc_table,
+>> +	.get_loaded_rsc_table = stm32_rproc_get_loaded_rsc_table,
+>> +	.sanity_check	= stm32_rproc_tee_elf_sanity_check,
+>> +	.load		= stm32_rproc_tee_elf_load,
+>> +};
+>> +
+>>  static const struct of_device_id stm32_rproc_match[] = {
+>> -	{ .compatible = "st,stm32mp1-m4" },
+>> +	{.compatible = "st,stm32mp1-m4",},
+>> +	{.compatible = "st,stm32mp1-m4-tee",},
+>>  	{},
+>>  };
+>>  MODULE_DEVICE_TABLE(of, stm32_rproc_match);
+>> @@ -853,6 +965,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>>  	struct device *dev = &pdev->dev;
+>>  	struct stm32_rproc *ddata;
+>>  	struct device_node *np = dev->of_node;
+>> +	struct tee_rproc *trproc = NULL;
+>>  	struct rproc *rproc;
+>>  	unsigned int state;
+>>  	int ret;
+>> @@ -861,11 +974,31 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>>  	if (ret)
+>>  		return ret;
+>>  
+>> -	rproc = rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
+>> -	if (!rproc)
+>> -		return -ENOMEM;
+>> +	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
+>> +		trproc = tee_rproc_register(dev, STM32_MP1_M4_PROC_ID);
+>> +		if (IS_ERR(trproc)) {
+>> +			dev_err_probe(dev, PTR_ERR(trproc),
+>> +				      "signed firmware not supported by TEE\n");
+>> +			return PTR_ERR(trproc);
+>> +		}
+>> +		/*
+>> +		 * Delegate the firmware management to the secure context.
+>> +		 * The firmware loaded has to be signed.
+>> +		 */
+>> +		dev_info(dev, "Support of signed firmware only\n");
+> 
+> Not sure what this adds.  Please remove.
+
+This is used to inform the user that only a signed firmware can be loaded, not
+an ELF file.
+I have a patch in my pipe to provide the supported format in the debugfs. In a
+first step, I can suppress this message and we can revisit the issue when I push
+the debugfs proposal.
+
+Thanks,
+Arnaud
+
+> 
+>> +	}
+>> +	rproc = rproc_alloc(dev, np->name,
+>> +			    trproc ? &st_rproc_tee_ops : &st_rproc_ops,
+>> +			    NULL, sizeof(*ddata));
+>> +	if (!rproc) {
+>> +		ret = -ENOMEM;
+>> +		goto free_tee;
+>> +	}
+>>  
+>>  	ddata = rproc->priv;
+>> +	ddata->trproc = trproc;
+>> +	if (trproc)
+>> +		trproc->rproc = rproc;
+>>  
+>>  	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
+>>  
+>> @@ -916,6 +1049,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
+>>  		device_init_wakeup(dev, false);
+>>  	}
+>>  	rproc_free(rproc);
+>> +free_tee:
+>> +	if (trproc)
+>> +		tee_rproc_unregister(trproc);
+>> +
+>>  	return ret;
+>>  }
+>>  
+>> @@ -937,6 +1074,8 @@ static void stm32_rproc_remove(struct platform_device *pdev)
+>>  		device_init_wakeup(dev, false);
+>>  	}
+>>  	rproc_free(rproc);
+>> +	if (ddata->trproc)
+>> +		tee_rproc_unregister(ddata->trproc);
+>>  }
+>>  
+>>  static int stm32_rproc_suspend(struct device *dev)
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
