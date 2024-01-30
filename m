@@ -2,71 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0842984211C
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 11:21:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 178B084226A
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jan 2024 12:13:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8769C6B476;
-	Tue, 30 Jan 2024 10:21:51 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB2BCC6C820;
+	Tue, 30 Jan 2024 11:13:28 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0BE8C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8949FC6B477
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 10:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7X7nyoTob837kWWS4ii2spbXx6qHIsfIrrozaG7eBhw=; b=PQtfvQ4HPrhtLZf/ky6DE1d/mi
- 6rP+Gbp9/1EAYGUkkbwtIZhlLo3uejAakSHk6CQ5XHEKMmMyxahazloEQ20EE9kr9pgS1kIexNHZi
- m9iC2HgVg9isgFgr/9myEHDJaLrZk40tsCi4Rj9RRQiNfeLqkRno8n5yAXQD8XWCkUuAnfo+v8QEK
- k6kxpsbXuoYnCAUZf7kkwCD9JUMZ+V6vD9ONzN32HmSYdOnQ4qLmzwn/gQGlh+WajsWlWnOXO6bnK
- gV5Biuqx40A9fITUM64AFjqn4F2CRpCgtR/KsRTT88VIcXwmXeMcaBMdH17IFtp6lg2MRlDscceiD
- 8ccWrW5w==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50698)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rUlF6-0001dH-2d;
- Tue, 30 Jan 2024 10:21:25 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rUlF1-0005Ql-Cp; Tue, 30 Jan 2024 10:21:19 +0000
-Date: Tue, 30 Jan 2024 10:21:19 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-Message-ID: <ZbjNn+C/VHegH2t7@shell.armlinux.org.uk>
-References: <20240129130253.1400707-1-yong.liang.choong@linux.intel.com>
- <20240129130253.1400707-7-yong.liang.choong@linux.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240129130253.1400707-7-yong.liang.choong@linux.intel.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Voon Wei Feng <weifeng.voon@intel.com>,
- Simon Horman <simon.horman@corigine.com>, platform-driver-x86@vger.kernel.org,
- Lai Peter Jun Ann <jun.ann.lai@intel.com>, Eric Dumazet <edumazet@google.com>,
- David E Box <david.e.box@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Richard Cochran <richardcochran@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>,
- Abdul Rahim Faizal <faizal.abdul.rahim@intel.com>,
- Michael Sit Wei Hong <michael.wei.hong.sit@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Serge Semin <fancer.lancer@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>, bpf@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4 06/11] net: stmmac: resetup
- XPCS according to the new interface mode
+ Tue, 30 Jan 2024 11:13:26 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40U9Subu021047; Tue, 30 Jan 2024 11:12:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id; s=qcppdkim1; bh=c1BeU21acqQL
+ zZJuqF68xS9O05SDPWdTDcRcFxY/38g=; b=OWRMTAsWnkKImj/9LnuWiTySySXF
+ uXk2g82g+Myo6CihJAEdo3c67Zi2KFwoffH9nIndKVJeZqnUy0wK2+FY9HszOorf
+ waOXBfilSLLAN0LTf3vprUbTPfNlq5sAp+ZtrtUrB5NeJFmRsL/l7IIrzwshBpWq
+ 2xnenLJ5peM/IimVZT0Ni/1YnyNraEdCE3kDTf0iABJLOSduMHBQ80OqBzr5DaD8
+ VklyHcJeN7UbPehh9s4XAS5W5Fyc68J2pU8plAqd0KAyVc3UrpiBRK6hO7rP3BLq
+ 6+uTLoEPzkBW+8VM+rsVnAEFYcv5iSqzXP6uuggGbv9pKnK9RB0ruw8/gQ==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vxupk8jhf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 30 Jan 2024 11:12:42 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 40UBCdSF021685; 
+ Tue, 30 Jan 2024 11:12:39 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3vvtwkst75-1;
+ Tue, 30 Jan 2024 11:12:39 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 40UBCdhL021680;
+ Tue, 30 Jan 2024 11:12:39 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
+ [10.147.246.35])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 40UBCcOD021676;
+ Tue, 30 Jan 2024 11:12:39 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
+ id 72D145013A3; Tue, 30 Jan 2024 16:42:37 +0530 (+0530)
+From: Sneh Shah <quic_snehshah@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 30 Jan 2024 16:42:34 +0530
+Message-Id: <20240130111234.1244-1-quic_snehshah@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 51Ok5m-SS5P1ZlilOA2gsYNrEpR3IESr
+X-Proofpoint-ORIG-GUID: 51Ok5m-SS5P1ZlilOA2gsYNrEpR3IESr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-30_05,2024-01-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999
+ malwarescore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ mlxscore=0 lowpriorityscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2401190000 definitions=main-2401300082
+Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: dwmac-qcom-ethqos:
+	Add support for 2.5G SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,67 +90,118 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 29, 2024 at 09:02:48PM +0800, Choong Yong Liang wrote:
-> XPCS creation will map the configuration for the provided interface mode.
-> Then XPCS will operate according to the interface mode.
-> 
-> When the interface mode changes, XPCS is required to map the configuration
-> to the new interface mode and destroy the old interface mode where it
-> is not in use.
-> 
-> Signed-off-by: Choong Yong Liang <yong.liang.choong@linux.intel.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 +-
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 13 +++++++++++--
->  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c |  7 +++----
->  3 files changed, 15 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> index f155e4841c62..886efd26991e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -357,7 +357,7 @@ enum stmmac_state {
->  int stmmac_mdio_unregister(struct net_device *ndev);
->  int stmmac_mdio_register(struct net_device *ndev);
->  int stmmac_mdio_reset(struct mii_bus *mii);
-> -int stmmac_xpcs_setup(struct mii_bus *mii);
-> +int stmmac_xpcs_setup(struct mii_bus *mii, phy_interface_t interface);
->  void stmmac_set_ethtool_ops(struct net_device *netdev);
->  
->  int stmmac_init_tstamp_counter(struct stmmac_priv *priv, u32 systime_flags);
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 00af5a4195fd..50429c985441 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -941,8 +941,17 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
->  {
->  	struct stmmac_priv *priv = netdev_priv(to_net_dev(config->dev));
->  
-> -	if (priv->hw->xpcs)
-> +	if (priv->hw->xpcs) {
-> +		if (interface != PHY_INTERFACE_MODE_NA &&
-> +		    interface != priv->plat->phy_interface) {
-> +			/* When there are major changes, we reconfigure
-> +			 * the setup for xpcs according to the interface.
-> +			 */
-> +			xpcs_destroy(priv->hw->xpcs);
-> +			stmmac_xpcs_setup(priv->mii, interface);
+Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
+mode for 1G/100M/10M speed.
+Added changes to configure serdes phy and mac based on link speed.
+Changing serdes phy speed involves multiple register writes for
+serdes block. To avoid redundant write opertions only update serdes
+phy when new speed is different.
 
-NAK. Absolutely not. You haven't read the phylink documentation, nor
-understood how phylink works.
+Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
+---
+v3 changelog:
+- updated commit message
+---
+v2 changelog:
+- updated stmmac_pcs_ane to support autoneg disable
+- Update serdes speed to 1000 for 100M and 10M also
+---
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 27 +++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  2 ++
+ 2 files changed, 29 insertions(+)
 
-Since you haven't read the phylink documentation, I'm not going to
-waste any more time reviewing this series since you haven't done your
-side of the bargin here.
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 31631e3f89d0..3ead32cd49a4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -106,6 +106,7 @@ struct qcom_ethqos {
+ 	struct clk *link_clk;
+ 	struct phy *serdes_phy;
+ 	unsigned int speed;
++	int serdes_speed;
+ 	phy_interface_t phy_mode;
+ 
+ 	const struct ethqos_emac_por *por;
+@@ -608,17 +609,38 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ {
+ 	int val;
+ 
++	struct platform_device *pdev = ethqos->pdev;
++	struct net_device *dev = platform_get_drvdata(pdev);
++	struct stmmac_priv *priv = netdev_priv(dev);
+ 	val = readl(ethqos->mac_base + MAC_CTRL_REG);
+ 
+ 	switch (ethqos->speed) {
++	case SPEED_2500:
++		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
++		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
++			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
++			      RGMII_IO_MACRO_CONFIG2);
++		if (ethqos->serdes_speed != SPEED_2500)
++			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
++		ethqos->serdes_speed = SPEED_2500;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
++		break;
+ 	case SPEED_1000:
+ 		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_100:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_10:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+@@ -627,6 +649,10 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
+ 					 SGMII_10M_RX_CLK_DVDR),
+ 			      RGMII_IO_MACRO_CONFIG);
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	}
+ 
+@@ -799,6 +825,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 				     "Failed to get serdes phy\n");
+ 
+ 	ethqos->speed = SPEED_1000;
++	ethqos->serdes_speed = SPEED_1000;
+ 	ethqos_update_link_clk(ethqos, SPEED_1000);
+ 	ethqos_set_func_clk_en(ethqos);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+index aefc121464b5..13a30e6df4c1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+@@ -110,6 +110,8 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+ 	/* Enable and restart the Auto-Negotiation */
+ 	if (ane)
+ 		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
++	else
++		value &= ~GMAC_AN_CTRL_ANE;
+ 
+ 	/* In case of MAC-2-MAC connection, block is configured to operate
+ 	 * according to MAC conf register.
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.17.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
