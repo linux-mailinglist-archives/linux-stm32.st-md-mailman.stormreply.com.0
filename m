@@ -2,52 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6524843F6E
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 13:30:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A306484410C
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 14:53:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67743C6C841;
-	Wed, 31 Jan 2024 12:30:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38F43C65E4F;
+	Wed, 31 Jan 2024 13:53:23 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD954C6B477
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB83BC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jan 2024 12:30:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 9F9C461716;
- Wed, 31 Jan 2024 12:30:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 42649C433F1;
- Wed, 31 Jan 2024 12:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706704225;
- bh=dQmcqZyGCVpAunYCRVp1AfKJ2llbhfxVUlSByVXTwik=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=uhYm0Y3j9PWV/aB5FFde4SBDymNc0aJ4tykkrM2Uo+tDHBJ4HwxWwwlZS3pHvKaQ0
- FPnyYFNVdrfdKAVxkABTPaLxjRwIbGpVsAYfR2OnW8o5qbXDSW9s5AzIG78zkEcPI1
- T4OVzTCm6V/4edy1E4p40JwONH7u6r5hHapKmhCpk40ou7J7DnvmYf7lRBE90Dr8SL
- arhAp1eOxb3PorXNQHsVNWQXC6Aiv7+ANEWldizh5ITwAM/Bofrdf2Mw/LcUIaUR+S
- XWF/KlCLZWelHr7bM4LuEecbptwQUsE/FPEVTuoFYJLcxavv/1dRy1ZgfGKqMN511Y
- +HJxDoHRd8mAQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 1C054DC99E5; Wed, 31 Jan 2024 12:30:25 +0000 (UTC)
+ Wed, 31 Jan 2024 13:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=qcyaXFYC+ivJeWBiO5AvsKPXRmjwKj0eXMoou6vZC8M=; b=JtQmV1Z/FRjfJmPxrI8pyW029C
+ NYwbzy+E9g99rrspc1RWRQNVOB6G3r4ZGs1gMhjmSuIMrrrUiYkELTS0Q4g5vQ2iiiumz7ZN41wVv
+ gq3PMrRFsiOLGlBhpHYyWHTYRW7VtLfEo6QPhC/7qMNl8+dbdguano5QFQyHho/xe/5E=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rVB1Z-006aFh-AA; Wed, 31 Jan 2024 14:53:09 +0100
+Date: Wed, 31 Jan 2024 14:53:09 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <c8602a95-3131-4c15-9ec5-4a5bdcae3ac9@lunn.ch>
+References: <20240130-rxc_bugfix-v2-0-5e6c3168e5f0@bootlin.com>
+ <20240130-rxc_bugfix-v2-1-5e6c3168e5f0@bootlin.com>
+ <78ee61dc-3f1e-4092-b2a3-5831f8caf132@lunn.ch>
+ <ZbkBZPm2R9LgYYCI@shell.armlinux.org.uk>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170670422511.21491.17051926451255201000.git-patchwork-notify@kernel.org>
-Date: Wed, 31 Jan 2024 12:30:25 +0000
-References: <20240127040443.24835-1-rohan.g.thomas@intel.com>
-In-Reply-To: <20240127040443.24835-1-rohan.g.thomas@intel.com>
-To: Rohan G Thomas <rohan.g.thomas@intel.com>
-Cc: ast@kernel.org, hawk@kernel.org, daniel@iogearbox.net,
- netdev@vger.kernel.org, richardcochran@gmail.com, bpf@vger.kernel.org,
- john.fastabend@gmail.com, fancer.lancer@gmail.com, linux@armlinux.org.uk,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com,
- kuba@kernel.org, linux-kernel@vger.kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: EST conformance
-	support
+Content-Disposition: inline
+In-Reply-To: <ZbkBZPm2R9LgYYCI@shell.armlinux.org.uk>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 1/7] net: phy: add
+ PHY_F_RXC_ALWAYS_ON to PHY dev flags
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,38 +63,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Sat, 27 Jan 2024 12:04:40 +0800 you wrote:
-> Hi,
+On Tue, Jan 30, 2024 at 02:02:12PM +0000, Russell King (Oracle) wrote:
+> On Tue, Jan 30, 2024 at 02:55:50PM +0100, Andrew Lunn wrote:
+> > > @@ -768,6 +768,7 @@ struct phy_device {
+> > >  
+> > >  /* Generic phy_device::dev_flags */
+> > >  #define PHY_F_NO_IRQ		0x80000000
+> > > +#define PHY_F_RXC_ALWAYS_ON	BIT(30)
+> > 
+> > It is a bit odd mixing 0x numbers and BIT() macros for the same class
+> > of thing. I would use 0x40000000, or convert PHY_F_NO_IRQ to BIT(31)
 > 
-> This patchset enables support for queueMaxSDU and transmission overrun
-> counters which are required for Qbv conformance.
-> 
-> Rohan G Thomas (3):
->   net: stmmac: Offload queueMaxSDU from tc-taprio
->   net: stmmac: est: Per Tx-queue error count for HLBF
->   net: stmmac: Report taprio offload status
-> 
-> [...]
+> If I used 0x40000000, there would be review comments suggesting the use
+> of BIT(). Can't win!
 
-Here is the summary with links:
-  - [net-next,1/3] net: stmmac: Offload queueMaxSDU from tc-taprio
-    https://git.kernel.org/netdev/net-next/c/c5c3e1bfc9e0
-  - [net-next,2/3] net: stmmac: est: Per Tx-queue error count for HLBF
-    https://git.kernel.org/netdev/net-next/c/fd5a6a71313e
-  - [net-next,3/3] net: stmmac: Report taprio offload status
-    https://git.kernel.org/netdev/net-next/c/5ca63ffdb94b
+No, you cannot win, but at least it would be consistent :-)
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
