@@ -2,136 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C5D8436D9
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 07:33:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BE8E8438FC
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 09:27:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3DD4C6B477;
-	Wed, 31 Jan 2024 06:33:09 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D533AC6C841;
+	Wed, 31 Jan 2024 08:27:28 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F23A8C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39D0EC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jan 2024 06:33:07 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-dbed0710c74so4772806276.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jan 2024 22:33:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1706682787; x=1707287587;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=W+0UrfFLZxByUhAQTRyALxC5TYXU+3QlMDreZkniP6Y=;
- b=NxMDCtsr2wCruPyzUgPPbE1xRNMDPxqGUmr1YXbvSYb9bm1lRqOmprxmLlrOApnNxW
- 3yea+D7/8cGgkE3lDoxeH0GIqpnYJ46nKGYCI0OG3ov8OoQTq0h7gDCHe4/BLpc/mk1D
- qmgmoGuPn8nWNGS9wqUm9KJR2gyX8jKaKfT87faPWjuVv0dDBV2Ik3PMA3cVO6dnn46a
- pbF9d5/xgaGr7JiRYqKNw4YP0iouz/8g1xvLEPsO8X7LoCluXytqIxzLeA8bgM72H/Me
- tdFNS6L4Vam0T6TbPk0GAcxSSmMuwjXzfu9bdNNENZjXr9OjFXGL0bhwXfDFGrRpa1b2
- i9fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706682787; x=1707287587;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=W+0UrfFLZxByUhAQTRyALxC5TYXU+3QlMDreZkniP6Y=;
- b=WsST9altEM1AsY6J0Yb/mfh5LaC+XxK3KkhyBrumS4mnqfPp/7mFwtbHJVQmm9iuCy
- GRUsjU53VhQYHXybw+Tlk+KWOYCmnG0uZ53A7t1FyHYSBTEKf4UadAte/44+fQVMUhZn
- jWeX89RtSkDyB6veeIurhfkTuEeqqdyFCY48uNJeSIRZ0kD4nPHpskrseb6s6aGFKwo0
- 02AFoz6tHdoXje3nE9BqqhfUM/FEQHyVmXiJ6+PBxbM/9BmiMMwaM8ePyFtP3VI7d7XO
- Vi0ARx3vjpltXAaqxIujc1/J0CewRO7wqHAO21o2MFGG/7Yu7IqSUIa+dg5nzQHYKXLo
- yDXA==
-X-Gm-Message-State: AOJu0Yzu6/3mwsAQa93Se6haOnrjqNmvD+oK/kn1DRiUTJARyxxTb8lU
- vY4IXo+pGFTtsm6TuyrFEZ+X670ASBxviu1teu6qpL3it10VO+oJ2nl6NsWVm14qS7kuSRZR7et
- OX0oiOtBy60v86gT4K708D3P2F8myYLUppNG3Dg==
-X-Google-Smtp-Source: AGHT+IFxRXwNP5PRj+1YvzHjYbCYITU/P5nsMmG4/Z+5FnhpEGiUV21GZeIbWwZE5W49t+z2Do1jj0wx+tXggTPULI4=
-X-Received: by 2002:a5b:582:0:b0:dc2:1c77:ca7 with SMTP id
- l2-20020a5b0582000000b00dc21c770ca7mr757962ybp.36.1706682786826; 
- Tue, 30 Jan 2024 22:33:06 -0800 (PST)
+ Wed, 31 Jan 2024 08:27:27 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40V76sWG029058; Wed, 31 Jan 2024 08:26:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=qcppdkim1; bh=tYl3s9p
+ 5OEXscwNJG7uavE127SKilayG8iPqXxCe7J8=; b=bSz6ItBvDwSjImIX4XsrWzR
+ R8KShudwp38LAKxVNx1rHyudHgMKzVBQFsVFuYC/ELgdcCelfYh+JAxcgLLHYUXk
+ f787NNero5aIzZwUXCCljJimxiLZfEeq7O87wAeYkcGKjSPGWXqNKpIFHCtzgjKy
+ trxNtTqA/aj3/g/H32I/U0CaC9OLuujK6MopMdh5xYjqj0PIis1pFkDsXZuRMcdY
+ dx0E1b6ggjvkm5hFhLTynrRG15pan0nD10xohbXDjaX4lRjyoX6sUepCiRndYx9q
+ 1PINXuPRlWDOhUW5d0AufID5aLq8GhirX5UuXsZsS2yRo9/c8sHCPdKD6zUHSOA=
+ =
+Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vy9b8saew-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 Jan 2024 08:26:41 +0000 (GMT)
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40V8QeQM025364
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 Jan 2024 08:26:40 GMT
+Received: from hu-jinlmao-lv.qualcomm.com (10.49.16.6) by
+ nalasex01a.na.qualcomm.com (10.47.209.196) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Wed, 31 Jan 2024 00:26:39 -0800
+From: Mao Jinlong <quic_jinlmao@quicinc.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@arm.com>, Leo Yan
+ <leo.yan@linaro.org>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konrad.dybcio@linaro.org>, "Mathieu
+ Poirier" <mathieu.poirier@linaro.org>
+Date: Wed, 31 Jan 2024 00:26:24 -0800
+Message-ID: <20240131082628.6288-1-quic_jinlmao@quicinc.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-References: <87o7d26qla.wl-kuninori.morimoto.gx@renesas.com>
- <87eddy6qjf.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87eddy6qjf.wl-kuninori.morimoto.gx@renesas.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 31 Jan 2024 08:32:56 +0200
-Message-ID: <CAA8EJpq79tOCH3vK+Hh_XD4mtj1GVgVvwehQF4BfxTjwPi_fHQ@mail.gmail.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- =?UTF-8?B?VXdlIEtsZWluZS1Lw4PCtm5pZw==?= <u.kleine-koenig@pengutronix.de>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Eugen Hristev <eugen.hristev@collabora.com>, Sam Ravnborg <sam@ravnborg.org>,
- linux-omap@vger.kernel.org, Sean Paul <sean@poorly.run>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Michael Tretter <m.tretter@pengutronix.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>, freedreno@lists.freedesktop.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, "Lad,
- Prabhakar" <prabhakar.csengg@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, James Clark <james.clark@arm.com>,
- Saravana Kannan <saravanak@google.com>, Frank Rowand <frowand.list@gmail.com>,
- Helge Deller <deller@gmx.de>, Alexey Brodkin <abrodkin@synopsys.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Miguel Ojeda <ojeda@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- linux-media@vger.kernel.org, Jacopo Mondi <jacopo@jmondi.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Liu Ying <victor.liu@nxp.com>,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- Maxime Ripard <mripard@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- =?UTF-8?Q?Niklas_S=C3=83=C2=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>, linux-renesas-soc@vger.kernel.org,
- Jacopo Mondi <jacopo+renesas@jmondi.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Tom Rix <trix@redhat.com>, linux-fbdev@vger.kernel.org,
- Stefan Agner <stefan@agner.ch>, linux-tegra@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
- linux-staging@lists.linux.dev,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Jonas Karlman <jonas@kwiboo.se>,
- Tim Harvey <tharvey@gateworks.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Nathan Chancellor <nathan@kernel.org>, Mark Brown <broonie@kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Shawn Guo <shawnguo@kernel.org>,
- Yannick Fertre <yannick.fertre@foss.st.com>, Emma Anholt <emma@anholt.net>,
- llvm@lists.linux.dev, Todor Tomov <todor.too@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
- Mike Leach <mike.leach@linaro.org>, devicetree@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, linux-sound@vger.kernel.org,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Rob Clark <robdclark@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Leo Yan <leo.yan@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v3 07/24] gpu: drm: switch to use
-	of_graph_get_next_device_endpoint()
+X-Originating-IP: [10.49.16.6]
+X-ClientProxiedBy: nalasex01b.na.qualcomm.com (10.47.209.197) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 7IEwbEnrFHWUphbr28oJoRi62uk0ZeO9
+X-Proofpoint-ORIG-GUID: 7IEwbEnrFHWUphbr28oJoRi62uk0ZeO9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-31_03,2024-01-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0
+ clxscore=1011 spamscore=0 suspectscore=0 mlxscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 mlxlogscore=999 malwarescore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401310063
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Mao Jinlong <quic_jinlmao@quicinc.com>,
+ Tingwei Zhang <quic_tingweiz@quicinc.com>, linux-kernel@vger.kernel.org,
+ Tao Zhang <quic_taozha@quicinc.com>, coresight@lists.linaro.org,
+ Yuanfang Zhang <quic_yuanfang@quicinc.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 0/2] coresight: core: Add device name
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,34 +96,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 31 Jan 2024 at 07:05, Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
-> of_graph_get_next_endpoint() is now renamed to
-> of_graph_get_next_device_endpoint(). Switch to it.
->
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  drivers/gpu/drm/armada/armada_drv.c                   | 2 +-
->  drivers/gpu/drm/bridge/tc358767.c                     | 2 +-
->  drivers/gpu/drm/drm_of.c                              | 6 +++---
->  drivers/gpu/drm/meson/meson_drv.c                     | 4 ++--
->  drivers/gpu/drm/msm/msm_drv.c                         | 2 +-
->  drivers/gpu/drm/mxsfb/lcdif_drv.c                     | 2 +-
->  drivers/gpu/drm/omapdrm/dss/base.c                    | 2 +-
->  drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c | 2 +-
->  drivers/gpu/drm/pl111/pl111_drv.c                     | 2 +-
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c         | 2 +-
->  drivers/gpu/drm/stm/ltdc.c                            | 4 ++--
->  drivers/gpu/drm/tiny/arcpgu.c                         | 2 +-
->  12 files changed, 16 insertions(+), 16 deletions(-)
->
+With current design, the name of the non-cpu bounded coresight
+component is the device type with the number. And with 'ls' command
+we can get the register address of the component. But from these
+information, we can't know what the HW or system the component belongs
+to. Add device-name in DT to support it.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+cti_sys0 -> ../../../devices/platform/soc@0/138f0000.cti/cti_sys0
+cti_sys1 -> ../../../devices/platform/soc@0/13900000.cti/cti_sys1
+tpdm0 -> ../../../devices/platform/soc@0/10b0d000.tpdm/tpdm0
+tpdm1 -> ../../../devices/platform/soc@0/10c28000.tpdm/tpdm1
+tpdm2 -> ../../../devices/platform/soc@0/10c29000.tpdm/tpdm2
+
+Change since V2:
+1. Fix the error in coresight core.
+drivers/hwtracing/coresight/coresight-core.c:1775:7: error: assigning to 'char *' from 'const char *' discards qualifiers
+
+2. Fix the warning when run dtbinding check.
+Documentation/devicetree/bindings/arm/arm,coresight-cpu-debug.yaml: device-name: missing type definition
+
+Change since V1:
+1. Change coresight-name to device name.
+2. Add the device-name in coresight dt bindings.
+
+
+Mao Jinlong (2):
+  coresight: core: Add device name support
+  dt-bindings: arm: Add device-name in the coresight components
+
+ .../bindings/arm/arm,coresight-catu.yaml      |  6 +++
+ .../bindings/arm/arm,coresight-cpu-debug.yaml |  6 +++
+ .../bindings/arm/arm,coresight-cti.yaml       |  6 +++
+ .../arm/arm,coresight-dummy-sink.yaml         |  6 +++
+ .../arm/arm,coresight-dummy-source.yaml       |  6 +++
+ .../arm/arm,coresight-dynamic-funnel.yaml     |  6 +++
+ .../arm/arm,coresight-dynamic-replicator.yaml |  6 +++
+ .../bindings/arm/arm,coresight-etb10.yaml     |  6 +++
+ .../bindings/arm/arm,coresight-etm.yaml       |  6 +++
+ .../arm/arm,coresight-static-funnel.yaml      |  6 +++
+ .../arm/arm,coresight-static-replicator.yaml  |  6 +++
+ .../bindings/arm/arm,coresight-stm.yaml       |  6 +++
+ .../bindings/arm/arm,coresight-tmc.yaml       |  6 +++
+ .../bindings/arm/arm,coresight-tpiu.yaml      |  6 +++
+ .../bindings/arm/qcom,coresight-tpda.yaml     |  6 +++
+ .../bindings/arm/qcom,coresight-tpdm.yaml     |  6 +++
+ drivers/hwtracing/coresight/coresight-core.c  | 37 ++++++++++---------
+ .../hwtracing/coresight/coresight-platform.c  | 31 ++++++++++++++++
+ include/linux/coresight.h                     |  3 +-
+ 19 files changed, 149 insertions(+), 18 deletions(-)
 
 -- 
-With best wishes
-Dmitry
+2.41.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
