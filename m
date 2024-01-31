@@ -2,53 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFAF8448AC
-	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 21:20:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79C68844AA0
+	for <lists+linux-stm32@lfdr.de>; Wed, 31 Jan 2024 22:59:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59C05C6DD6D;
-	Wed, 31 Jan 2024 20:20:34 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26ED2C6DD6D;
+	Wed, 31 Jan 2024 21:59:53 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88EE1C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07244C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jan 2024 20:20:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CE156CE22DA;
- Wed, 31 Jan 2024 20:20:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1644BC43399;
- Wed, 31 Jan 2024 20:20:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706732429;
- bh=5n2GPaqqGywO7Qry4eYZWTM4oFGQUDmGZmFT4fN7rrA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=j2uVbYHmJ0BNlBHTdgUBgToOHPf+Qp4+Unj1DhM4x0CdZn1Tp36nyKi13zJ4NsBIr
- //0kQJg6fwsnmWQYfnR2CZSUXvSIpo3/iGgYh/XaFnVL1jU0DTgM8QBNto5qWBWVDS
- vcqbDp7/vd0zLOGyh5KfD4vVhxPymWXNSaVHEQnaHcADHr+VtdaF38ZzDPzu6o8zPU
- fWEGnzHYcE7+2/JhZaS3ZIov8rGKSfUD63SwZdSAHH3lFpglQsA/0G3nIPMWrFeXm3
- 9frtgxX17A8LyAlpcuY9DlRurZmEwHMKebMLzPTzZHfIKjiacmWjriWBzUTbkx54sG
- 53m66RsqvuGaQ==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- F2F56DC99E4; Wed, 31 Jan 2024 20:20:28 +0000 (UTC)
+ Wed, 31 Jan 2024 21:59:50 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 40VKseC0031538; Wed, 31 Jan 2024 21:59:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=6cceawbCFiLT/nNuxjw20HwwZkJ0peSJEK9m+ASYads=; b=jX
+ 0hpcZN831ZU0B3HHrEPsdDQ+KmBd1831TuEAvXjnVuOVTFZOzMC2n5w1E4HbRXF2
+ RIXeiAhgQbVMgH/Jd/gohx9kXdiud+DHkBsTFkJSoNbAibxFMoAPgGpQcug7ljre
+ iie+sM1L550U/rgiqg0XLn1iouCbDdv8+uuSUg/dnM1Pin1xdzRMonlF5vq4VIpz
+ kjZwnVrjsaV5n6dHem2VR0Aq7Ppi7b08ALukMHw1Unc6fWU4+QtdE3jkR9IlUk0j
+ uj+HjaomBQrt8Joc6gycVM/2iMlosftnLQAenSfFBTf/W4fp4oQQw1j7xA733uY9
+ ujA3Sw9ofUD9kMPCnlsw==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3vyve60auh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 Jan 2024 21:59:23 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 40VLxMCO007973
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 31 Jan 2024 21:59:22 GMT
+Received: from [10.110.127.163] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 31 Jan
+ 2024 13:59:20 -0800
+Message-ID: <5626e874-066c-4bf2-842d-a7f3387b6c1b@quicinc.com>
+Date: Wed, 31 Jan 2024 13:59:20 -0800
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170673242899.4502.6917209613478941432.git-patchwork-notify@kernel.org>
-Date: Wed, 31 Jan 2024 20:20:28 +0000
-References: <cover.1706491398.git.dxu@dxuuu.xyz>
-In-Reply-To: <cover.1706491398.git.dxu@dxuuu.xyz>
-To: Daniel Xu <dxu@dxuuu.xyz>
-Cc: fsverity@lists.linux.dev, alan.maguire@oracle.com,
- linux-doc@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com, memxor@gmail.com,
- coreteam@netfilter.org, netfilter-devel@vger.kernel.org, quentin@isovalent.com,
- linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
- cgroups@vger.kernel.org, bpf@vger.kernel.org, olsajiri@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v4 0/3] Annotate kfuncs in
-	.BTF_ids section
+User-Agent: Mozilla Thunderbird
+To: Esben Haabendal <esben@geanix.com>
+References: <20230927130919.25683-1-rohan.g.thomas@intel.com>
+ <20230927130919.25683-3-rohan.g.thomas@intel.com>
+ <92892988-bb77-4075-812e-19f6112f436e@quicinc.com>
+ <87r0i44h8v.fsf@geanix.com>
+Content-Language: en-US
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <87r0i44h8v.fsf@geanix.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: PB0QoEx8sXd23pNThVFyQYoPg1a0htHB
+X-Proofpoint-ORIG-GUID: PB0QoEx8sXd23pNThVFyQYoPg1a0htHB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-01-31_10,2024-01-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 mlxscore=0
+ malwarescore=0 spamscore=0 clxscore=1011 impostorscore=0 bulkscore=0
+ mlxlogscore=999 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2401310170
+Cc: Eric Dumazet <edumazet@google.com>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose
+ Abreu <joabreu@synopsys.com>, elder@linaro.org, Jakub
+ Kicinski <kuba@kernel.org>, Rohan G Thomas <rohan.g.thomas@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ quic_bhaviks@quicinc.com, Rob Herring <robh+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, kernel.upstream@quicinc.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Serge
+ Semin <fancer.lancer@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
+	platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,37 +101,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Hi Esben,
+	My responses are inline to the queries. I hope i have justified my problem statement.  
 
-This series was applied to bpf/bpf-next.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
-
-On Sun, 28 Jan 2024 18:24:05 -0700 you wrote:
-> === Description ===
+On 1/26/2024 12:43 AM, Esben Haabendal wrote:
+> "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com> writes:
 > 
-> This is a bpf-treewide change that annotates all kfuncs as such inside
-> .BTF_ids. This annotation eventually allows us to automatically generate
-> kfunc prototypes from bpftool.
+>> Qualcomm had similar discussions with respect to enabling of TBS for a
+>> particular queue. We had similar discussion on these terms yesterday
+>> with Redhat. Adding Andrew from Redhat here
+>>
+>> What we discovered as part of the discussions is listed below.
+>>
+>> 1. Today upstream stmmac code is designed in such a way that TBS flag
+>> is put as part of queue configurations(see below snippet) and as well
+>> know that stmmac queue configuration comes from the dtsi file.
+>>
+>> //ndo_open => stmmac_open
+>> int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;(comes from tx_queues_cfg)
+>>
+>> /* Setup per-TXQ tbs flag before TX descriptor alloc */
+>> tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+>>
+>> 2. There is a no way to do this dynamically from user space because we don't have any 
+>> API exposed which can do it from user space
 > 
-> We store this metadata inside a yet-unused flags field inside struct
-> btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
+> Not now. But why not extend ethtool API to allow enabling TBS for
+> supported controllers?
 > 
-> [...]
-
-Here is the summary with links:
-  - [bpf-next,v4,1/3] bpf: btf: Support flags for BTF_SET8 sets
-    https://git.kernel.org/bpf/bpf-next/c/79b47344bbc5
-  - [bpf-next,v4,2/3] bpf: btf: Add BTF_KFUNCS_START/END macro pair
-    https://git.kernel.org/bpf/bpf-next/c/2747e0ee57c2
-  - [bpf-next,v4,3/3] bpf: treewide: Annotate BPF kfuncs in BTF
-    https://git.kernel.org/bpf/bpf-next/c/6e7769e6419f
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+ethtool API can be implemented but that still doesn't solve the problem of stopping the 
+entire MAC block because of enhanced desc allocation. 
+1. We can either allocate enhanced desc for all channels at bootup and then choose 
+to switch to enable TBS mode at runtime  (Additional memory usage)
+2. Live with the disruption of traffic for a brief duration of time. 
+Which is not a good solution for priority and critical traffic. 
+>> and also TBS rely on special descriptors aka enhanced desc this cannot
+>> be done run time and stmmac has to be aware of it before we do
+>> DMA/MAC/MTL start.
+> 
+> Isn't this somewhat similar to changing the RX/TX ring parameters, which
+> I believe also is quite difficult to do at run time, and ethtool
+> therefore requires the interface to be down in oroer to change them?
+> 
+>> To do this dynamically would only mean stopping DMA/MAC/MTL realloc
+>> resources for enhanced desc and the starting MAC/DMA/MTL. This means
+>> we are disrupting other traffic(By stopping MAC block).
+> 
+> Yes. But you would be disrupting traffic less than by requiring a
+> complete reboot of the target which is needed if the devicetree must be
+> changed.
+> 
+any DTS solution today anyway requires completely loading the boot image 
+and rebooting the device, but once the device is functional,
+End user can activate TBS, as he knows the exact usecase and requirements. 
+I understand the solution is not scalable, but at this point we don't have a solution 
+to activate TBS  at runtime. 
+>> 3. I dont think there is a way we can enable this dynamically today. I
+>> would like upstream community to share your thoughts as well.
+> 
+> Hereby done. Could we investigate the possibility of using ethtool to
+> change TBS enable/disable "run-time"?
+> 
+We can either allocate enhanced desc for all channels at bootup
+and then choose to switch to enable TBS mode at runtime
+>> 4. I agree with Rohan's patch here and want upstream community to
+>> accept it. This will allow use to configure the queues where TBS needs
+>> to be enabled as hardcoding in the code unless upstream has better way
+>> to this using userspace.
+>>
+>> Please let us know if you think otherwise. 
+> 
+> /Esben
+Best Regards
+ABC
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
