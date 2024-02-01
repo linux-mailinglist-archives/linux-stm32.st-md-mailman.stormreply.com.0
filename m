@@ -2,93 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5408F84604C
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 19:49:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A680846089
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 20:01:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D23EC71280;
-	Thu,  1 Feb 2024 18:49:21 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E05F8C6DD9D;
+	Thu,  1 Feb 2024 19:01:29 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A8BB2C6DD68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85E99C6DD68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Feb 2024 18:49:19 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-55f2b0c5ae9so1701369a12.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Feb 2024 10:49:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706813359; x=1707418159;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=CP10ASwjzq21gj6cHPQz3XuKiRelwR6OnJvv0UFbQiI=;
- b=XLfq0K3MDck8RC+0Q7t/g96XMp/cMPfIrul9eg6pnIkQU0sPBdlBjdyNrsCeujCpte
- BaX832PpXY2WjaIftR4HDLnDQbIvp39+rUHKOzDbh5haPr5ZgENjiYRKqzhJ1z6uePKe
- 8SuQVQ7AX0Rd6S0uZ+irZttm0SO/rD6LlLFmBiSpYGvqj2VsJn59h5FYzQK+IKdP2Svy
- II7VmKY/tXP9tKbjohFxKfyZSduF87B+Az2heT1o2COVLVVwPa00Q33mYt+3jI7yF+Zm
- iOdPLVENDcfU6drXpFthxxrGxnMDSQXWc03kANGY+RlYjm24a40XWuNay9YOMD59Uw6U
- 8yTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706813359; x=1707418159;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=CP10ASwjzq21gj6cHPQz3XuKiRelwR6OnJvv0UFbQiI=;
- b=XO6Y0bYvQ55Pa8kEn14KrgNL0cBB/l16NSTOe1vvJ18ssHVZLq8dTjoDISbglW4Vim
- C73QliLGIJG/YYisrOgU5V6KquD7cQDEMqE8rVQuBGUSwkLu8k3idJaae0pwont5o0XJ
- lAKKAIgXKKI0nUJPtFo+ca6d0cinKLTfysb1aDHbnUubajJbgVimaOCujKa5RrlFd/if
- gihKoO+rnrp0JDuvgHcqFe8IhBiqYIduURNW7qoCEQPKCtEFh3EfN48qoXqtYMlKdeXu
- 8Xb/NfkG/qe4VL7M9O2sW5vZebZQ/hdk/Iwa1xWnqi7AEUf1kvdhVD0Kw3FC8d0m3CzQ
- 7Z7w==
-X-Gm-Message-State: AOJu0YyeUmXaJToUXAiEzP4b1wNBOd7WR6toW3rrKhYtsghcS0KmwVjt
- PMehKywsa70BNjX+7t6A5a2wTUf+dy+ViPzAcYieXyIux01SHTVQ
-X-Google-Smtp-Source: AGHT+IFKlOu8htL+VeocZQsCqcN2H5lOEv7UpM8fH+qAO6/+jfphQEQwjVFyg6IbQ9oupKKzRN2jWw==
-X-Received: by 2002:aa7:d70b:0:b0:55f:caa3:f7c6 with SMTP id
- t11-20020aa7d70b000000b0055fcaa3f7c6mr1331654edq.31.1706813359117; 
- Thu, 01 Feb 2024 10:49:19 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCXbOS/rwccwJDrMvw00+Ow/75KWAzVeEtF8qq2WRWPm6ayDE121p8dbC3RHPHu9tOWrBYelgUWK4aTwC7J1FAzb9+KSW+tHWj6wtsbPG5QpiGXFAVp9gu0NItSxirPMXd+wWZK2owMbKeG8lbel2uXljcp7iziPhebh6QeBA9+P4HrdChU0ZKZNVIHTmcaAsulFx9dQlOW1KoJCEDLoZ9wZUcpZHWH46zoXisLtVBelrQMeGZzPsEmXoVzS7SeOBu02xZuvjc3AnA6xLOh1o3f+NSZ+wGiK1qWIoKM5qaTsO/5PO2LMpGplTh45gaqd/4cquHQ/sTWJjE2cfatRGAiP7QWontk2rXqDxJ9ZTBcI3I57X84iMHE8+QSvxIVVwizyfajFO5eSqy8ED//VogzugA==
-Received: from localhost
- (p200300e41f147f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f14:7f00:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- g23-20020a50ee17000000b0055971af7a23sm75332eds.95.2024.02.01.10.49.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Feb 2024 10:49:18 -0800 (PST)
-From: Thierry Reding <thierry.reding@gmail.com>
-Date: Thu, 01 Feb 2024 19:49:07 +0100
+ Thu,  1 Feb 2024 19:01:28 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 411GEMZa004256; Thu, 1 Feb 2024 19:00:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ qcppdkim1; bh=CEPvhuqBAzR9JTprWZWY6mkiYQwJNcN/+j7I9096g80=; b=Pt
+ RqufRBRL2/tQACYvHUmx8rVAPoE9dnhRRNoNy2BpxO3u/d0GaRd/AplxNJflzGmu
+ f1qvIpWAQQ4zzrEwLu5SsUDqYSpTd6rdKOGk0D4JQr/HSnKrTD+6ECyXmCdC+Cs5
+ b/qPW3RJ9aOIO+JmtUg4HDoSdLRzdpaekZ3fPiV5o9lgZwAvBBqtBu90p2ItS0bc
+ naC/otOgipTlgz185sZj2IhBFYRAofIj8u5OBQ+N4VkRZR10Au/8402eZ/V3REzf
+ n2Q8fE1JpOTl+rk6QWNNEZR1jqJWxo4JSAZxSuEentL/BkJJe8PwQVByKFMhPNi1
+ 846KKKu32Kk6TKIdqJWA==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w06mnsu2q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 01 Feb 2024 19:00:57 +0000 (GMT)
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 411J0t6H004090
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 1 Feb 2024 19:00:55 GMT
+Received: from [10.110.99.223] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 1 Feb
+ 2024 11:00:52 -0800
+Message-ID: <c2497eef-1041-4cd0-8220-42622c8902f4@quicinc.com>
+Date: Thu, 1 Feb 2024 11:00:52 -0800
 MIME-Version: 1.0
-Message-Id: <20240201-stmmac-axi-config-v1-3-822e97b2d26e@nvidia.com>
-References: <20240201-stmmac-axi-config-v1-0-822e97b2d26e@nvidia.com>
-In-Reply-To: <20240201-stmmac-axi-config-v1-0-822e97b2d26e@nvidia.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1341; i=treding@nvidia.com;
- h=from:subject:message-id; bh=NJ6QmQ9rSuyu2yILzTMeD+XilmAw5wEYJDPvDZo2/VA=;
- b=owEBbQKS/ZANAwAIAd0jrNd/PrOhAcsmYgBlu+ep1zJWpEM8HRzktM8KpsERNnutRk7N84dvz
- K2El6DKvMuJAjMEAAEIAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCZbvnqQAKCRDdI6zXfz6z
- ofTjD/9vqkLXf0KsRrAGJFdVsvmQwB4UULEK0xMOneRYgY1j7/xcxTaqvOZfJ81Z9hxI/U7CDRx
- XvwAIYUqbi66duOyf/viRcLGYwAWCsFdn8zvMgsM004MjLki6BhICcLabpaXoYQSwC9QtKWV4Qp
- JIHve3g6rlXez1V4SLhClwwXJRsw7iyHTeiVc9SYVEapCIaZmEJpgLNZqgQxgP/uxME4k6wwNS3
- 6Zkon2xpBLVxxdw5dRRUVdWdw56JT1Xh229MaoLARsWUtaJmjpC0HSK1EBfHLzsV3fN9O58Dq9u
- 0xVzUsOkHlvhUVPvqbJEgpzrjHaL3w4mfkpFxoDfP7qUnJKYZbFwKwl7sko4NgeYz/SQ+fiNXh1
- dIPA1FXHrHq6NyeO9/3MwKkuTiTWS1vpDhUbTXQUFzeCyFmakx9uk63lrM7fe2v3zSxmNGCBtyx
- TW3atIO720/GQc7okk8LM0MXlpg+UPEJYtQp7/G+6SludKy6yLf7v1gz8ovrQdfc0aeu8YaYahh
- +Uq35mjGpOTsDo7sYM+eONXk5zGkCaoNZCvleBvCaLJIkQvm+g1/3wJ8LeBjXNidPSGfBMsyxM+
- B7ePsc1guQNfMU1CjQITNzqu4fV/Hj5fepo+1mQmnsYmAjK/0ZA2hASSBW9cQ0GPsyxNSr6zXNX
- kCD605YF4Kg+Uig==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Configure AXI on
-	Tegra234 MGBE
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Esben Haabendal <esben@geanix.com>
+References: <20230927130919.25683-1-rohan.g.thomas@intel.com>
+ <20230927130919.25683-3-rohan.g.thomas@intel.com>
+ <92892988-bb77-4075-812e-19f6112f436e@quicinc.com>
+ <87r0i44h8v.fsf@geanix.com>
+ <5626e874-066c-4bf2-842d-a7f3387b6c1b@quicinc.com>
+ <87a5okvbdt.fsf@geanix.com>
+From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
+In-Reply-To: <87a5okvbdt.fsf@geanix.com>
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 598Pt-pLYSSFWLEVg2mMTCAOFDnOomF_
+X-Proofpoint-ORIG-GUID: 598Pt-pLYSSFWLEVg2mMTCAOFDnOomF_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-01_05,2024-01-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 priorityscore=1501
+ impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 mlxlogscore=999 clxscore=1015 malwarescore=0
+ spamscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401190000 definitions=main-2402010146
+Cc: Eric Dumazet <edumazet@google.com>, Krzysztof
+ Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jose
+ Abreu <joabreu@synopsys.com>, elder@linaro.org, Jakub
+ Kicinski <kuba@kernel.org>, Rohan G Thomas <rohan.g.thomas@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Halaney <ahalaney@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ quic_bhaviks@quicinc.com, Rob Herring <robh+dt@kernel.org>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ linux-arm-kernel@lists.infradead.org, kernel.upstream@quicinc.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Serge
+ Semin <fancer.lancer@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: TBS support for
+	platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,48 +103,128 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Thierry Reding <treding@nvidia.com>
 
-Allow the device to use bursts and increase the maximum number of
-outstanding requests to improve performance. Measurements show an
-increase in throughput of around 5x on a 1 Gbps link.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+On 2/1/2024 12:26 AM, Esben Haabendal wrote:
+> "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com> writes:
+>> On 1/26/2024 12:43 AM, Esben Haabendal wrote:
+>>> "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com> writes:
+>>>
+>>>> Qualcomm had similar discussions with respect to enabling of TBS for a
+>>>> particular queue. We had similar discussion on these terms yesterday
+>>>> with Redhat. Adding Andrew from Redhat here
+>>>>
+>>>> What we discovered as part of the discussions is listed below.
+>>>>
+>>>> 1. Today upstream stmmac code is designed in such a way that TBS flag
+>>>> is put as part of queue configurations(see below snippet) and as well
+>>>> know that stmmac queue configuration comes from the dtsi file.
+>>>>
+>>>> //ndo_open => stmmac_open
+>>>> int tbs_en = priv->plat->tx_queues_cfg[chan].tbs_en;(comes from tx_queues_cfg)
+>>>>
+>>>> /* Setup per-TXQ tbs flag before TX descriptor alloc */
+>>>> tx_q->tbs |= tbs_en ? STMMAC_TBS_AVAIL : 0;
+>>>>
+>>>> 2. There is a no way to do this dynamically from user space because
+>>>> we don't have any API exposed which can do it from user space
+>>>
+>>> Not now. But why not extend ethtool API to allow enabling TBS for
+>>> supported controllers?
+>>
+>> ethtool API can be implemented but that still doesn't solve the
+>> problem of stopping the entire MAC block because of enhanced desc
+>> allocation.
+> 
+> I am not sure what you exact point is here.
+> 
+> If you look at the implementation of ethtool API for changing ring
+> parameters, you have stmmac_set_ringparam() which calls
+> stmmac_reinit_ringparam(), which again calls stmmac_release() if the
+> interface is up (stopping the entire MAC), and then stmmac_open() which
+> reinitializes everything.
+> 
+> The same pattern could be applied to changes to enable enhanced
+> descriptor allocation.
+> 
+> I don't see why that will not be acceptable. Why would anyone have to do
+> that while critical traffic is flowing? In your system you should be
+> able to know which queues needs enhanced descriptors before starting
+> communication.
+> 
+>> 1. We can either allocate enhanced desc for all channels at bootup and
+>> then choose to switch to enable TBS mode at runtime (Additional memory
+>> usage)
+> 
+> A good default would IMHO be to enable enhanced descriptors for all but
+> TX queue 0. This will allow use of TBS without needing to change
+> anything. If the rather minimal extra memory usage is disturbing anyone,
+> then they can tune it at boot time before bringing the interface up.
+> 
+>> 2. Live with the disruption of traffic for a brief duration of time.
+>> Which is not a good solution for priority and critical traffic.
+> 
+> As mentioned above, I don't see why anyone would need to modify the
+> descriptor allocation while critical traffic is flowing.
+> 
+> If you are able put this information in your device tree, you definitely
+> will be able to put it in an boot script in some form.
+> 
+>>>> and also TBS rely on special descriptors aka enhanced desc this
+>>>> cannot be done run time and stmmac has to be aware of it before we
+>>>> do DMA/MAC/MTL start.
+>>>
+>>> Isn't this somewhat similar to changing the RX/TX ring parameters,
+>>> which I believe also is quite difficult to do at run time, and
+>>> ethtool therefore requires the interface to be down in oroer to
+>>> change them?
+>>>
+>>>> To do this dynamically would only mean stopping DMA/MAC/MTL realloc
+>>>> resources for enhanced desc and the starting MAC/DMA/MTL. This means
+>>>> we are disrupting other traffic(By stopping MAC block).
+>>>
+>>> Yes. But you would be disrupting traffic less than by requiring a
+>>> complete reboot of the target which is needed if the devicetree must be
+>>> changed.
+>>>
+>> any DTS solution today anyway requires completely loading the boot
+>> image and rebooting the device, but once the device is functional, End
+>> user can activate TBS, as he knows the exact usecase and requirements.
+>> I understand the solution is not scalable, but at this point we don't
+>> have a solution to activate TBS at runtime.
+> 
+> Exactly. We are discussing a solution to activate enhanced descriptors
+> at "runtime". But I propose to do it in a similar way as changing ring
+> parameters, so it is in runtime seen from a CPU perspective, but the
+> interface will be shortly brought down when changing it.
+> 
+>>>> 3. I dont think there is a way we can enable this dynamically today. I
+>>>> would like upstream community to share your thoughts as well.
+>>>
+>>> Hereby done. Could we investigate the possibility of using ethtool to
+>>> change TBS enable/disable "run-time"?
+>>>
+>> We can either allocate enhanced desc for all channels at bootup
+>> and then choose to switch to enable TBS mode at runtime.
+> 
+> I think we should do something like this:
+> https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=3b12ec8f618e
+> 
+> for all glue drivers, so a sane default is established that allows using
+> TBS from boot up.
+> 
+> But in addition to that, I think it would make sense to create an
+> ethtool API to change it from that default. And it will bring down the
+> interface while applying the change.
+> 
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-index bab57d1675df..b6bfa48f279d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-@@ -199,6 +199,12 @@ static void mgbe_uphy_lane_bringup_serdes_down(struct net_device *ndev, void *mg
- 	writel(value, mgbe->xpcs + XPCS_WRAP_UPHY_RX_CONTROL);
- }
- 
-+static const struct stmmac_axi tegra234_mgbe_axi = {
-+	.axi_wr_osr_lmt = 63,
-+	.axi_rd_osr_lmt = 63,
-+	.axi_blen = { 256, },
-+};
-+
- static int tegra_mgbe_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat;
-@@ -284,6 +290,9 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto disable_clks;
- 
-+	/* setup default AXI configuration */
-+	res.axi = &tegra234_mgbe_axi;
-+
- 	plat = devm_stmmac_probe_config_dt(pdev, &res);
- 	if (IS_ERR(plat)) {
- 		err = PTR_ERR(plat);
+Agreed. Okay, We can go with this approach. I will evaluate the changes from ethtool perspective.
+ethtool approach will be favorable to everyone as most of the users rely on ethtool to configure 
+the NIC parameters. 
 
--- 
-2.43.0
+For now glue drivers can exclude queue0 for tbs and have all other queues to have tbs enabled.  
 
+> /Esben
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
