@@ -2,47 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D38844D1E
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 00:41:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC652844D85
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 01:00:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47CB4C6DD6D;
-	Wed, 31 Jan 2024 23:41:59 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B7AFC6DD6D;
+	Thu,  1 Feb 2024 00:00:33 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9DB1C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77164C6DD6B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 31 Jan 2024 23:41:56 +0000 (UTC)
+ Thu,  1 Feb 2024 00:00:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 1E1A1CE232B;
- Wed, 31 Jan 2024 23:41:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97879C433C7;
- Wed, 31 Jan 2024 23:41:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 342B461A24;
+ Thu,  1 Feb 2024 00:00:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7A141C43394;
+ Thu,  1 Feb 2024 00:00:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1706744514;
- bh=Cxry7gNqW2doRhJEQkZIqtEdzMs9aiFd0Dqs4XIolps=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=k9c1ot3iIXBALfeUAu3wqIIJ7Ti8ktIInBfVbWNZhd1coiGlvHEg/G7EFO4mB2vR3
- tCnJ5dWRDePTI5zb3mVZzlXawgGgnmwTJuV2A04LjKjcictcYm5SXybHee+VtGT/lg
- dUax5FimBswXB5IlU2zZlSGiaznW3aCVYxH2mvEqd1CwTHIcVniV/3Cw0xGkP/3ZIH
- SgUm/bpRtF6R0dgePswepsAgLm9BLA+S5pu/r82Zqdbms5RmuJXRRMJ61TfPmXqxLW
- HgFNjRnXlbkc189WnNNSXT9HavAuiCpcrVvTMjBwdDyCqWDmQl7Qol3VyBhsBxcNyM
- 7DWjvyFUBV+YA==
-Date: Wed, 31 Jan 2024 15:41:48 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Andrew Halaney <ahalaney@redhat.com>
-Message-ID: <20240131154148.00d9d318@kernel.org>
-In-Reply-To: <ual3c4fuuz5trgn2ekklsfeslwvswfjg5nij5epbnuf5mihfay@pp32fs6btwxk>
-References: <20240129-remove-dwmac-qcom-ethqos-reviewer-v1-1-2645eab61451@redhat.com>
- <ZbkWwn-oN5wqoPfJ@matsya>
- <ual3c4fuuz5trgn2ekklsfeslwvswfjg5nij5epbnuf5mihfay@pp32fs6btwxk>
+ s=k20201202; t=1706745629;
+ bh=VQ1dvamFDSryW11vpmGv5L78MWAe9bKmnX4ruK5uSbs=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=N8/pQahrcMr8fQlcWeBYDBb/MeX8DcaueRP9x84V8xYsa4Kg1hRbTkfwdrT9Ohw8f
+ YFlREoniVhxmlc7JjhGtiKMa9R/I8VTOyn4uHzx3MfR4avlQjXH0P5E7HYzeQoSlG1
+ n1W9ay7LPAIch4Ia3ZjcBHapWrB41hLPF87pWWMx79/gnUSHeCG1KYTM9HnDMcr+7U
+ g5vYZXb2hSCTULnqdtNAZdlJmTh/cm78zqRr8s/HFx5rQQRyYB+pGyneevU4LSnF6X
+ 3pHfPTFCSXiwWJDKdW+ecg6CDN9gIo4AcMWV0msXAAnV4Va5wp7tndoOcjCFUUJYXf
+ QtC2xi+vokbmQ==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 5D1D2DC99E8; Thu,  1 Feb 2024 00:00:29 +0000 (UTC)
 MIME-Version: 1.0
-Cc: Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-arm-msm@vger.kernel.org, bhupesh.linux@gmail.com, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <170674562937.31899.1767619419103104462.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Feb 2024 00:00:29 +0000
+References: <20240129-remove-dwmac-qcom-ethqos-reviewer-v1-1-2645eab61451@redhat.com>
+In-Reply-To: <20240129-remove-dwmac-qcom-ethqos-reviewer-v1-1-2645eab61451@redhat.com>
+To: Andrew Halaney <ahalaney@redhat.com>
+Cc: edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ linux-arm-msm@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] MAINTAINERS: Drop unreachable reviewer
  for Qualcomm ETHQOS ethernet driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -61,20 +62,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, 30 Jan 2024 09:53:22 -0600 Andrew Halaney wrote:
-> > Looks like Bhupesh sent the patch changing but never followed up with a
-> > v2 for this:
-> > lore.kernel.org/r/20230915191600.3410862-1-bhupesh.linux@gmail.com
-> > 
-> > Would prefer if this is changed to his email (copied him as well)
-> >   
-> 
-> Thanks for finding that! Bhupesh, do you plan on spinning a v2 soon? If
-> so I will not send a v2, otherwise I can respin this with your email and
-> no .mailmap change.
+Hello:
 
-The lack of response is not inspiring confidence. We can add Bhupesh
-back if he wants to be active again..
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 29 Jan 2024 11:12:11 -0600 you wrote:
+> Bhupesh's email responds indicating they've changed employers and with
+> no new contact information. Let's drop the line from MAINTAINERS to
+> avoid getting the same response over and over.
+> 
+> Signed-off-by: Andrew Halaney <ahalaney@redhat.com>
+> ---
+> If anyone knows how to contact Bhupesh / if they're willing to continue
+> being a reviewer feel free to suggest an alternative, but for the moment
+> this is better than nothing.
+> 
+> [...]
+
+Here is the summary with links:
+  - MAINTAINERS: Drop unreachable reviewer for Qualcomm ETHQOS ethernet driver
+    https://git.kernel.org/netdev/net/c/e028243003ad
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
