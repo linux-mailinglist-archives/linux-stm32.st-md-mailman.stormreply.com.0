@@ -2,94 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34AA6846049
-	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 19:49:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33BA584604A
+	for <lists+linux-stm32@lfdr.de>; Thu,  1 Feb 2024 19:49:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC435C6DD68;
-	Thu,  1 Feb 2024 18:49:16 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6F6BC71280;
+	Thu,  1 Feb 2024 18:49:17 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4525C6DD68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACFD6C6DD68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  1 Feb 2024 18:49:14 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a350bfcc621so155293866b.0
+ Thu,  1 Feb 2024 18:49:16 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a36cb22869aso97245766b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 01 Feb 2024 10:49:14 -0800 (PST)
+ Thu, 01 Feb 2024 10:49:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706813354; x=1707418154;
+ d=gmail.com; s=20230601; t=1706813356; x=1707418156;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UZ2BNxl4CuX+CwL0Q0MM0vOQQgkTfsFjivCQCX+8Vok=;
- b=EvYS9J7H/mPlDX2HbRZJDFU5BoDd5SAY0fKpd42099cJGYu1h3DAXIArVaQM4VUD2H
- IoqzF5SUqrpK24zEwfKT4m7NydAGDg2fYO6/G6v6r+aLN2Zp4rw3pND/rWYWRxKeD+Fr
- eUkiNixkavg66NR93gVpVdwBPZS7RwMN5B2YPYb0ExtHOfmr2FFLer7h5y3mDtwxYUZj
- Dvj7UoIlkfBzh9AYTlgzlJSgNtfCpfd8Me9YCy7r2ROamYWeHr7AHgj7sJFkUs4pORlE
- lD9xUBoWT8g7J+64GA4usfq84NAl45gUpXgJWf80DLXrF63u1Sow8ZrCWGVXxDUmGQu8
- IKLQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=ihl+g5/rZRPOCECkepIZuS5aKdjKNwlyiq9PZoCqPB4=;
+ b=Cbi6G0grlihDDXnCG3vq8if6N01WTFnYnBzDASZic9vKJC6UiJ1BX0OVXGzrDCogvO
+ /rnH0dPySdiIaLbyR/JMzMcM4w9rjsxp5NZZqzvUfh/a3qSRONs3mbxwtbflmdGMnRt2
+ /v84y9O3cWjXrBOwrxhVdwdrcOG7O2yiOh68rf2cnqzFzmMOaalqMOTaw7c5GGq7u/SG
+ P6RXEQXgBi7+JRTD0nGxR06jHwjN1mor91GKILJ9sBmkkkob2ofFbT+3m1ESzyT/Ythj
+ f8rzvcQKgDO3/cZjMRUQRQZogvG4VjHpwOySleMMZxtYLSuDkrDJGxCZlbOaai4nzgRS
+ tNCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706813354; x=1707418154;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UZ2BNxl4CuX+CwL0Q0MM0vOQQgkTfsFjivCQCX+8Vok=;
- b=M8ubEHClXzdvdbKTCoywaiY49FyWrgh2ZSx1yI6wUIyFuw5xR8yu+1nLJlDur4AxS9
- uWif+LyMI/LgTeG5F/X3ayjyWZc0jNPopqomlrsbutylVwHTr5T7l4CNaoGgXAGjZjqm
- GjlJS35VSW3c1ABaEtQAYfFYCtrr1cKTwMhukLQdkWf005kjWxjDVgHHnWdU5kUCBLIp
- jwMU/54PLPlibuJ6Ei3LSEsb8EF/YtgV4z60fDiZkdJDGnjUIeVebDwbrDQX4U4fXvDI
- zVdSrfjoLx7TS9c5YAu6KW1pftw/bouAAYLITMF24H0I1ILRyUhKuG13kHbqv24eexm3
- R6PA==
-X-Gm-Message-State: AOJu0Yyg8KkjIfOgselsYqzGrDBHmKI5uv3YAriO58MguzqLeXL9ecKC
- otIiS8KC++HKQb65Z+zDlJLNg76cB6FagzD7U6eN56otgfhcUjlv
-X-Google-Smtp-Source: AGHT+IGGA5qp6wn5ZIQiyD78CL7wjsdqPIfXb8OZBkRJqlut4YHxc8hMsIAnp6J7GpIY62bc0rilfQ==
-X-Received: by 2002:a17:907:762d:b0:a36:c478:32c9 with SMTP id
- jy13-20020a170907762d00b00a36c47832c9mr7913ejc.1.1706813354086; 
- Thu, 01 Feb 2024 10:49:14 -0800 (PST)
+ d=1e100.net; s=20230601; t=1706813356; x=1707418156;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ihl+g5/rZRPOCECkepIZuS5aKdjKNwlyiq9PZoCqPB4=;
+ b=YVLI7n/Y34yfGeoQWpVs/LgFoMatRvwc4NyVA7YPuRTenmY/0w1n9FBJlsafjN4zt+
+ RRoGOvhpyW2M8vpY9TnlvbLdZB2Hlnq/iwgNxn17ckJarvkWPyKce4OHXTJTSKbopb98
+ QHcsMKzwHJrcKYHRbmFqltNWHTGtCvn2cIiwjlU3sYZq9mcBJeGXdnKVaNchwXOLkla7
+ egonzTpL4WrIfHzrtEM+nx10Br9t8IikjHv2bWYrHS6C7Vcvc0NoCJCyrooj44vKs1aC
+ xXYQ8DCJ/Tagc5PacnhakI8kzMfSKNguZKhXPy6vYttNqgZ/cd1t2S3PWRZNxahVkFAj
+ Ahzg==
+X-Gm-Message-State: AOJu0Yw+HfvfXngNHLXYwe1Wzln8GHO2ZJ49yaC4An0TTRlUJWL7CCjz
+ zwcioXAA7+VmISK2jcv+IWeTD5rQ8k175NAqRqw9w/5Hc+YnGoMx
+X-Google-Smtp-Source: AGHT+IECaAKFI+HrM9GJnKMdRlUNnkOvOobYd0oCEEuIMXKyN8t8yW7yRExvNAlaXXnMFJh7rNH/7w==
+X-Received: by 2002:a17:906:11c4:b0:a35:de06:23fa with SMTP id
+ o4-20020a17090611c400b00a35de0623famr4988269eja.6.1706813355834; 
+ Thu, 01 Feb 2024 10:49:15 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCVU8v/SCLnQ7LZSb0w8mkEB9nouppO33QaZIRTkg63zkKfHvnUwR8byyA/ehU4WvIaOSLEfS1AnQtY6pDN12rc/YClKddtWhr0a2epLmZakvpUTr8th0VXyE8tQPJhTSLJwwHPcq9GfP6AvjsMFvrjtHSn6jHT3eL+Au5mtYYypiUEDHzsdwqNJG1hIkKcmDEZivoxQ9O9F3ghxR7jpcMFuXy2IW/+54zZJE3UcVwgFqqVbdYBg0hKZQL/CnheCZZ8ODDbsFBdPcJIJkC1+hjTDNsYFt/wtwblJYfHQXXm8O8K81vy2QX6TLgMcmEVmuKKIqlDDcGDqBn8LF9P8jRq8dCTvtfbY6EB5iX83RMThRTig2I94hY18VgJiepPAjsJCu+XCnHWDwOmxMEb9H9p3Ug==
+ AJvYcCUN8ZouWAf5gZn/HHKLaxLcT/Ok7BEEedXGSuyBs8QzqCSIIcxcvlTiRoSbhhoXhDRkgyl5OX273PSpXkg3roODoizQK3K6v66G3knl0zkFNVVd3dP6NbzhDeH9sKVL+mav5IHyXlikv5fIGui1jaGiUURC++LAVT1pV3lzTYAOmmGXC/BXUZpJNAxWgmEWfsObFcHVBSxBaoUz7ALqWeXOgYbI25uTTc+gyCvF80w2irLuo6T4bHehALymDYQg0P0Y/ifoQ0rNoOGNw9d5chd8Gku7GMXA5eGQmiLl5/jx/FOlb/oXigxxL2fsUw8SMZqYwta+XcCxerixk6rpxuaz2mp5YNQjN2aV7/TkMqMNSxwhRq+KLCFa1O+cwxzI18I3XxoXi4GAScwEv+k0Vp91rg==
 Received: from localhost
  (p200300e41f147f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f14:7f00:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- cx3-20020a170907168300b00a2cd74b743csm66021ejd.3.2024.02.01.10.49.13
+ k11-20020a17090627cb00b00a367a82c0e6sm57018ejc.156.2024.02.01.10.49.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Feb 2024 10:49:13 -0800 (PST)
+ Thu, 01 Feb 2024 10:49:14 -0800 (PST)
 From: Thierry Reding <thierry.reding@gmail.com>
-Date: Thu, 01 Feb 2024 19:49:04 +0100
-Message-Id: <20240201-stmmac-axi-config-v1-0-822e97b2d26e@nvidia.com>
+Date: Thu, 01 Feb 2024 19:49:05 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAKDnu2UC/x3MQQqDMBBG4avIrB2IoSLtVcTFEP/oLBxLEiQg3
- r2hy2/x3k0ZSZHp092UcGnW0xqGvqOwi21gXZvJO/9y3g2cy3FIYKnK4bSoG08TxI2QN2Kk1n0
- Totb/cyZDYUMttDzPD6w5IFptAAAA
+Message-Id: <20240201-stmmac-axi-config-v1-1-822e97b2d26e@nvidia.com>
+References: <20240201-stmmac-axi-config-v1-0-822e97b2d26e@nvidia.com>
+In-Reply-To: <20240201-stmmac-axi-config-v1-0-822e97b2d26e@nvidia.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
  Paolo Abeni <pabeni@redhat.com>
 X-Mailer: b4 0.12.4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2274; i=treding@nvidia.com;
- h=from:subject:message-id; bh=oSTzOFlxbkYeKTE1fBaJJNw0JiRbh4c461BYCNvcpLk=;
- b=owEBbQKS/ZANAwAIAd0jrNd/PrOhAcsmYgBlu+eouMKBqCqjqHbOEFVUq9JEBc1aaNZ6eBX7v
- soopTeA7ouJAjMEAAEIAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCZbvnqAAKCRDdI6zXfz6z
- oSBMEACd6S+LvgVemvFHdK75JLJpTPtGcLDSQ/7Sk7hUBygC0TW7403tq5t6684qywgS1lXxtrW
- 09j9R37CCZMvHlpp1RFdsRRu76P3Wu6B1EQPjupoitMRebpFjpD20jaAkCExwgzLyWEvwutf7y5
- pn6TvLXwgXUk5bhkgh7C7p0OaXdDMp9HMf/N8/2dKkbzZZ6T+5NMt3GE3fcduTnMgM6xDxnhXGS
- 8bXvnYLCeeIvGeKcduRK7rcWxZrfqgymErDIM93ILeo2F+md46+NTjFFixPMABrrN/Z49GzvjCd
- 3Vieksc4XFJDeXbkP6v39Cd4UHGGxiXXjYJsJ1rcjJIbnW0hp5A9BXp9vrQ3b/EhUcVLR+i9H//
- bXpj5hyCNGJHvMPVaqfo2Aiij8cw3t3AeEr+HTcmpy43I6FG9ROI+WGB6uSW2Rp/CFmveRHoYg6
- cffusiQC8Hft6ykZO6/s+4bJ8OHIiQ7kXXlUWGjFqLKQ1mRZdY++Xr7LTbioY2Itgljf8GOgdfj
- MzKTeKR5JKpxg8wQkdhNdn80oL97L/bfRzXP3Ta63b3Gl4VP/c3VUXK1p2KVIvudI1b3t2Ybend
- 2jrqodVYP/HxW3DMfPb4/jNEOifckKicPANmsn6EsCXNHpTgAEm4XBCUJ9HY6OWTbCRJCW5rJK3
- Dj/WUeGdQSOFhCA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=18495; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=FKxUC9O9kvT63FVRLSY5iJAMkiANp2n19vF0V6Qtwa8=;
+ b=owEBbQKS/ZANAwAIAd0jrNd/PrOhAcsmYgBlu+eoWPJQ58rNP/yDc6hJBuMKTX/5jSzR4bGxx
+ FG3h0uMBlmJAjMEAAEIAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCZbvnqAAKCRDdI6zXfz6z
+ ocJ1EACloeRZl0DD7FeN81j0pqUr0b9ZHhnAiJz8/FBGVyKH4tHdTg2DkTHdLIMuiEd3UttFEFI
+ wWoZfhYUa2FwASA8NtnR7TSN9RrqpXpNFjohYoNhd3ksdU3JyG4T+nxzDjvU6uvbMffF0DhKRwN
+ aZHGORiLFT9TvXlqgxmgEXW0vfdJHqH+C7MTb90YEltjYxT1OqfNih3w5p1K+08UgE7cZAunmK7
+ 71L5drRXEzLLQOKi4Qa/jagaTsncmpx79LXzRN+nQ1EPxSfDQ6zjQNWxWtpDkYXFkK13pp012Dc
+ P8yGhkHEPZ4psJU8L5PKKH6X7saOP3CVXly2sNufM3Vr+hmMztDXRgf05XWeTxY3R0g9KmpzpQy
+ vNYwmYZXlrt6cdiaAczZMhtj2MHRw9Ka+qwvLFiXHeHYManGsxh8KX776aOVa9mtZzg04Y0ApeF
+ B6lMejQ4m2zIpUXLWemC+U9bYIlu9NoSwsH0QkC6ykOx8usTJOFij6/DBbnUrAhywJ4g8ez4vCo
+ HRQjVOCSleUK8KOJgEURDX1zGJTprkLqUkXkmsSek4IzO02x+vPlMvgXYRAScYjs3KxrOAUXu3N
+ 94AZc2qXzTs2oLY2zQ96HL0p9LLwKKL+f+aMrDVa2Xmup1ZRgF4v4pds/sM4b7SkbCmYaJzzaMd
+ +YBOb+Zy0nKKFGg==
 X-Developer-Key: i=treding@nvidia.com; a=openpgp;
  fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: Allow
- driver-specific AXI configuration
+Subject: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: Pass resources to
+ DT parsing code
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,51 +105,421 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-AXI bus configuration can, in most cases, be derived from the compatible
-string, so instead of relying exclusively on device tree for the AXI bus
-configuration, create a method for device drivers to pass along a known-
-good configuration.
+From: Thierry Reding <treding@nvidia.com>
+
+We already pass the stmmac_resources structure to other initialization
+functions since it allows us to exchange more data between the driver
+and those functions. Passing this structure to the DT parsing code makes
+it easier to extend what we pass around in the future.
 
 Signed-off-by: Thierry Reding <treding@nvidia.com>
 ---
-Thierry Reding (3):
-      net: stmmac: Pass resources to DT parsing code
-      net: stmmac: Allow drivers to provide a default AXI configuration
-      net: stmmac: Configure AXI on Tegra234 MGBE
+ drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c     |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c  |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-loongson1.c   |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c   |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c      |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-starfive.c    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c     |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c   |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c   |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c   |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c   |  2 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-visconti.c    |  2 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c   | 21 ++++++++++++---------
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.h   |  3 ++-
+ 24 files changed, 36 insertions(+), 32 deletions(-)
 
- .../net/ethernet/stmicro/stmmac/dwmac-anarion.c    |  2 +-
- .../ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-generic.c    |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-ingenic.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-intel-plat.c |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-ipq806x.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-loongson1.c  |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c  |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-meson8b.c    |  2 +-
- .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c     |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac-starfive.c   |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c    |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c  |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c  |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c  | 11 +++-
- .../net/ethernet/stmicro/stmmac/dwmac-visconti.c   |  2 +-
- drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 +
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 66 ++++++++++++++--------
- .../net/ethernet/stmicro/stmmac/stmmac_platform.h  |  3 +-
- 25 files changed, 77 insertions(+), 47 deletions(-)
----
-base-commit: 51b70ff55ed88edd19b080a524063446bcc34b62
-change-id: 20240201-stmmac-axi-config-77ea05ea9eff
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c
+index 643ee6d8d4dd..f37d9912380b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-anarion.c
+@@ -115,7 +115,7 @@ static int anarion_dwmac_probe(struct platform_device *pdev)
+ 	if (IS_ERR(gmac))
+ 		return PTR_ERR(gmac);
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+index ec924c6c76c6..36ef2ed9fd2d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-dwc-qos-eth.c
+@@ -435,7 +435,7 @@ static int dwc_eth_dwmac_probe(struct platform_device *pdev)
+ 	if (IS_ERR(stmmac_res.addr))
+ 		return PTR_ERR(stmmac_res.addr);
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+index 598eff926815..98a00084807b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-generic.c
+@@ -27,7 +27,7 @@ static int dwmac_generic_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	if (pdev->dev.of_node) {
+-		plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++		plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 		if (IS_ERR(plat_dat)) {
+ 			dev_err(&pdev->dev, "dt configuration failed\n");
+ 			return PTR_ERR(plat_dat);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+index 6b65420e11b5..d72b9d8ac464 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+@@ -331,7 +331,7 @@ static int imx_dwmac_probe(struct platform_device *pdev)
+ 	if (!dwmac)
+ 		return -ENOMEM;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
+index 19c93b998fb3..de2f5d7e95b2 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ingenic.c
+@@ -241,7 +241,7 @@ static int ingenic_mac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
+index d68f0c4e7835..79582983c060 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel-plat.c
+@@ -84,7 +84,7 @@ static int intel_eth_plat_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat)) {
+ 		dev_err(&pdev->dev, "dt configuration failed\n");
+ 		return PTR_ERR(plat_dat);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+index 281687d7083b..311410509012 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ipq806x.c
+@@ -384,7 +384,7 @@ static int ipq806x_gmac_probe(struct platform_device *pdev)
+ 	if (val)
+ 		return val;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
+index 3e86810717d3..1ede4f409937 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson1.c
+@@ -169,7 +169,7 @@ static int ls1x_dwmac_probe(struct platform_device *pdev)
+ 	if (!dwmac)
+ 		return -ENOMEM;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat),
+ 				     "dt configuration failed\n");
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c
+index 4c810d8f5bea..004bf4d14fdb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-lpc18xx.c
+@@ -37,7 +37,7 @@ static int lpc18xx_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+index 2a9132d6d743..763ec218ff2c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+@@ -656,7 +656,7 @@ static int mediatek_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
+index a16bfa9089ea..5bd936ef2796 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson.c
+@@ -52,7 +52,7 @@ static int meson6_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+index b23944aa344e..88db2907640d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+@@ -400,7 +400,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 31631e3f89d0..473e8d4228e4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -735,7 +735,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, ret,
+ 				     "Failed to get platform resources\n");
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat)) {
+ 		return dev_err_probe(dev, PTR_ERR(plat_dat),
+ 				     "dt configuration failed\n");
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 382e8de1255d..4297a6919c8a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -1824,7 +1824,7 @@ static int rk_gmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 68f85e4605cb..e827e01b4398 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -400,7 +400,7 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+index 4e1076faee0c..a0f15fbb8993 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
+@@ -122,7 +122,7 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, err,
+ 				     "failed to get resources\n");
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat),
+ 				     "dt configuration failed\n");
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
+index 4445cddc4cbe..5b2cde45dc3e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sti.c
+@@ -273,7 +273,7 @@ static int sti_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+index c92dfc4ecf57..af131b0bf589 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c
+@@ -366,7 +366,7 @@ static int stm32_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index 137741b94122..3ccf695c8b5f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -1224,7 +1224,7 @@ static int sun8i_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return -EINVAL;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
+index 2653a9f0958c..f78e244b9d81 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sunxi.c
+@@ -108,7 +108,7 @@ static int sun7i_gmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+index 362f85136c3e..bab57d1675df 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+@@ -284,7 +284,7 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+ 	if (err < 0)
+ 		goto disable_clks;
+ 
+-	plat = devm_stmmac_probe_config_dt(pdev, res.mac);
++	plat = devm_stmmac_probe_config_dt(pdev, &res);
+ 	if (IS_ERR(plat)) {
+ 		err = PTR_ERR(plat);
+ 		goto disable_clks;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
+index a5a5cfa989c6..f99d147b3424 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-visconti.c
+@@ -220,7 +220,7 @@ static int visconti_eth_dwmac_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	plat_dat = devm_stmmac_probe_config_dt(pdev, &stmmac_res);
+ 	if (IS_ERR(plat_dat))
+ 		return PTR_ERR(plat_dat);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 70eadc83ca68..8ec2ac28a775 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -424,13 +424,14 @@ static void stmmac_remove_config_dt(struct platform_device *pdev,
+ /**
+  * stmmac_probe_config_dt - parse device-tree driver parameters
+  * @pdev: platform_device structure
+- * @mac: MAC address to use
++ * @res: driver-specific parameters
+  * Description:
+  * this function is to read the driver parameters from device-tree and
+  * set some private fields that will be used by the main at runtime.
+  */
+ static struct plat_stmmacenet_data *
+-stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
++stmmac_probe_config_dt(struct platform_device *pdev,
++		       struct stmmac_resources *res)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct plat_stmmacenet_data *plat;
+@@ -443,12 +444,12 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	if (!plat)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	rc = of_get_mac_address(np, mac);
++	rc = of_get_mac_address(np, res->mac);
+ 	if (rc) {
+ 		if (rc == -EPROBE_DEFER)
+ 			return ERR_PTR(rc);
+ 
+-		eth_zero_addr(mac);
++		eth_zero_addr(res->mac);
+ 	}
+ 
+ 	phy_mode = device_get_phy_mode(&pdev->dev);
+@@ -605,7 +606,7 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 
+ 	of_property_read_u32(np, "snps,ps-speed", &plat->mac_port_sel_speed);
+ 
+-	plat->axi = stmmac_axi_setup(pdev);
++	plat->axi = stmmac_axi_setup(pdev, res);
+ 
+ 	rc = stmmac_mtl_setup(pdev, plat);
+ 	if (rc) {
+@@ -677,17 +678,18 @@ static void devm_stmmac_remove_config_dt(void *data)
+ /**
+  * devm_stmmac_probe_config_dt
+  * @pdev: platform_device structure
+- * @mac: MAC address to use
++ * @res: driver-specific parameters
+  * Description: Devres variant of stmmac_probe_config_dt(). Does not require
+  * the user to call stmmac_remove_config_dt() at driver detach.
+  */
+ struct plat_stmmacenet_data *
+-devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
++devm_stmmac_probe_config_dt(struct platform_device *pdev,
++			    struct stmmac_resources *res)
+ {
+ 	struct plat_stmmacenet_data *plat;
+ 	int ret;
+ 
+-	plat = stmmac_probe_config_dt(pdev, mac);
++	plat = stmmac_probe_config_dt(pdev, res);
+ 	if (IS_ERR(plat))
+ 		return plat;
+ 
+@@ -700,7 +702,8 @@ devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ }
+ #else
+ struct plat_stmmacenet_data *
+-devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
++devm_stmmac_probe_config_dt(struct platform_device *pdev,
++			    struct stmmac_resources *res)
+ {
+ 	return ERR_PTR(-EINVAL);
+ }
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+index bb6fc7e59aed..daf3bbb503a3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.h
+@@ -12,7 +12,8 @@
+ #include "stmmac.h"
+ 
+ struct plat_stmmacenet_data *
+-devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac);
++devm_stmmac_probe_config_dt(struct platform_device *pdev,
++			    struct stmmac_resources *res);
+ 
+ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 				  struct stmmac_resources *stmmac_res);
 
-Best regards,
 -- 
-Thierry Reding <treding@nvidia.com>
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
