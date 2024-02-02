@@ -2,38 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF210846C0C
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Feb 2024 10:34:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 080FB846C0E
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Feb 2024 10:34:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9516C6DD9F;
-	Fri,  2 Feb 2024 09:34:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C585EC6DD9F;
+	Fri,  2 Feb 2024 09:34:21 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61439C6C820
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DDF6C6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Feb 2024 09:34:16 +0000 (UTC)
+ Fri,  2 Feb 2024 09:34:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LAIXrcGLIz+mYluAnrDraCyjl4jRrDiCTuZzIy+Ppxk=; b=EAa2XEyZYQoZVTBu9npDD+xIUz
- QDggunk8rs8ihOSXhWjfHl+PbZMX6kA4cUQqNIvULz2DWnuSTMbEQlp5VLCJHbtQ/oPxWs1p61Ns9
- xbZpv3oS5r0og9VSVeNbobqT69IEy51wH6aD4zQsfdKTd8PXx1bo2ZvYEJVKigAHBsK2HUikx+M4d
- XVSM1cbuj06I9+zHxXg2aEZZymiWgKuNF4mQcxKzpx/JcigBSQTetKpO/PRahTI8WnaFOZ6QDKrL7
- x6MAwXAmQFq00jPhqa919W5+RTzBQI8tm2/0UFenHeFGr3evsoJmeRavhAr3NJxXNF00K1N5GBydp
- ywEbSFGQ==;
+ bh=RYigqvKp+xajIPmg+6RK+NoYme7EmhQ5CBgPRCDS1Po=; b=tp+k/0igR/CtGrHFnPuhenukta
+ 3JwYDgctuTSy+Y4WfYNxeQN9xgsNDd2unYkHiR+jvxGLnYpYZ/zz4pFWrx/z2ycQjq4xgkgKPBUZO
+ j5fIpL0/URZHermmyuREWU8/brcSdrOuMHZtxleb8eDxQ0tj77tyFMMP0KIU+Lw8nwRysbyoi64Tr
+ yK7IOSz3pjaQszcGygOsl7BBQMj527XYKlmaAzYjf26GLZ+DevIFU2rqw58B07E91tk/mzRAx3UYa
+ D1R4ultGUc6wcm8PFZCoD6FZqnxzGKgPJBmzVUV05kFDOWP+C1yw2bX371ibxw0AZFKSURcb+2RT3
+ OaesoQzw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54174 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54184 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1rVpvm-0005j1-0i;
- Fri, 02 Feb 2024 09:33:55 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1rVpvs-0005jA-2T;
+ Fri, 02 Feb 2024 09:34:00 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1rVpvh-002Pdv-Ol; Fri, 02 Feb 2024 09:33:49 +0000
+ id 1rVpvm-002Pe0-TV; Fri, 02 Feb 2024 09:33:54 +0000
 In-Reply-To: <Zby24IKSgzpvRDNF@shell.armlinux.org.uk>
 References: <Zby24IKSgzpvRDNF@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
@@ -41,8 +41,8 @@ To: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1rVpvh-002Pdv-Ol@rmk-PC.armlinux.org.uk>
-Date: Fri, 02 Feb 2024 09:33:49 +0000
+Message-Id: <E1rVpvm-002Pe0-TV@rmk-PC.armlinux.org.uk>
+Date: Fri, 02 Feb 2024 09:33:54 +0000
 Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  Byungho An <bh74.an@samsung.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
@@ -55,8 +55,8 @@ Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  Shenwei Wang <shenwei.wang@nxp.com>, Paolo Abeni <pabeni@redhat.com>,
  Wei Fang <wei.fang@nxp.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/6] net: sxgbe: remove
- eee_enabled/eee_active in sxgbe_get_eee()
+Subject: [Linux-stm32] [PATCH net-next 3/6] net: fec: remove
+ eee_enabled/eee_active in fec_enet_get_eee()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,62 +73,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-sxgbe_get_eee() sets edata->eee_active and edata->eee_enabled from its
-own copy, and then calls phy_ethtool_get_eee() which in turn will call
-genphy_c45_ethtool_get_eee().
+fec_enet_get_eee() sets edata->eee_active and edata->eee_enabled from
+its own copy, and then calls phy_ethtool_get_eee() which in turn will
+call genphy_c45_ethtool_get_eee().
 
 genphy_c45_ethtool_get_eee() will overwrite eee_enabled and eee_active
 with its own interpretation from the PHYs settings and negotiation
 result.
 
-Therefore, setting these members in sxgbe_get_eee() is redundant.
-Remove this, and remove the priv->eee_active member which then becomes
-a write-only variable.
+Therefore, setting these members in fec_enet_get_eee() is redundant.
+Remove this, and remove the setting of fep->eee.eee_active member which
+becomes a write-only variable.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h  | 1 -
- drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c | 2 --
- drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c    | 1 -
- 3 files changed, 4 deletions(-)
+ drivers/net/ethernet/freescale/fec_main.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h b/drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h
-index d14e0cfc3a6b..1458939c3bf5 100644
---- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h
-+++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h
-@@ -503,7 +503,6 @@ struct sxgbe_priv_data {
- 	bool tx_path_in_lpi_mode;
- 	int lpi_irq;
- 	int eee_enabled;
--	int eee_active;
- 	int tx_lpi_timer;
- };
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 63707e065141..38dcf0989e3f 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -3140,7 +3140,6 @@ static int fec_enet_eee_mode_set(struct net_device *ndev, bool enable)
  
-diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c b/drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c
-index d93b628b7046..4a439b34114d 100644
---- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c
-+++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c
-@@ -140,8 +140,6 @@ static int sxgbe_get_eee(struct net_device *dev,
- 	if (!priv->hw_cap.eee)
- 		return -EOPNOTSUPP;
+ 	p->tx_lpi_enabled = enable;
+ 	p->eee_enabled = enable;
+-	p->eee_active = enable;
  
--	edata->eee_enabled = priv->eee_enabled;
--	edata->eee_active = priv->eee_active;
- 	edata->tx_lpi_timer = priv->tx_lpi_timer;
+ 	writel(sleep_cycle, fep->hwp + FEC_LPI_SLEEP);
+ 	writel(wake_cycle, fep->hwp + FEC_LPI_WAKE);
+@@ -3160,8 +3159,6 @@ fec_enet_get_eee(struct net_device *ndev, struct ethtool_keee *edata)
+ 	if (!netif_running(ndev))
+ 		return -ENETDOWN;
  
- 	return phy_ethtool_get_eee(dev->phydev, edata);
-diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c b/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-index 71439825ea4e..ecbe3994f2b1 100644
---- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-+++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c
-@@ -130,7 +130,6 @@ bool sxgbe_eee_init(struct sxgbe_priv_data * const priv)
- 		if (phy_init_eee(ndev->phydev, true))
- 			return false;
+-	edata->eee_enabled = p->eee_enabled;
+-	edata->eee_active = p->eee_active;
+ 	edata->tx_lpi_timer = p->tx_lpi_timer;
+ 	edata->tx_lpi_enabled = p->tx_lpi_enabled;
  
--		priv->eee_active = 1;
- 		timer_setup(&priv->eee_ctrl_timer, sxgbe_eee_ctrl_timer, 0);
- 		priv->eee_ctrl_timer.expires = SXGBE_LPI_TIMER(eee_timer);
- 		add_timer(&priv->eee_ctrl_timer);
 -- 
 2.30.2
 
