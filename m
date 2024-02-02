@@ -2,61 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37DB4846C11
-	for <lists+linux-stm32@lfdr.de>; Fri,  2 Feb 2024 10:34:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4584846D28
+	for <lists+linux-stm32@lfdr.de>; Fri,  2 Feb 2024 11:00:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF98CC71281;
-	Fri,  2 Feb 2024 09:34:33 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84CEDC6DD9F;
+	Fri,  2 Feb 2024 10:00:34 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89DC0C71282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E17AC6C820
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  2 Feb 2024 09:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3G/SM6B9LVAezkmjsQuCkLPRjodqHykC7esT3tP+0gc=; b=sGd0o21jyhaVAVnBkm1EuwCq/V
- hIEo8T2CKS4tisynNYpw8A20vMnznJfIAht/JJL558p+ew8mw1rhdOxP2MD6OE64aUaSKLi2DHPkS
- W5F3tLAmNgxMpqaMsE4bg3MrFbaQ3wNBAywiFC1ojZsmWRZaVmrsvAIheRxSN23ZgBbmEDXj/mc8/
- VHhVY2MyxMWq2aoWNgN9zcK88R5uh7ft8wns69R0fW/1UjO3cS6V/HB3YqVXxuVE958fLwEwFBqBl
- XQxqrug2/VSEdnVbhDXsybKOs/8iQBA3vt6mi86PzzfKbhMGbwXrv+ydNlJPWtjwHGuLBi3HWwL+T
- /s/7KqKQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37130 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <rmk@armlinux.org.uk>) id 1rVpw6-0005kI-1V;
- Fri, 02 Feb 2024 09:34:14 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1rVpw2-002PeJ-Bh; Fri, 02 Feb 2024 09:34:10 +0000
-In-Reply-To: <Zby24IKSgzpvRDNF@shell.armlinux.org.uk>
-References: <Zby24IKSgzpvRDNF@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ Fri,  2 Feb 2024 10:00:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2225DCE29C1;
+ Fri,  2 Feb 2024 10:00:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A738C433F1;
+ Fri,  2 Feb 2024 10:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1706868030;
+ bh=REjEIQrnQERARGidm7gNYzGY6yUMPRZUpbx7KHkn8Jo=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=oEgjRovbR2P8NSAlqdZ6bYr8Yq/WI2RmzrN3RC2XXakiaY6HdFrKK/OoNJkPHLKug
+ bDQathmKTYSuEQc3Jy0tyCsQZw0hfUP8rx18E0wbKRgMYi+POupmghy/o33MSbHHCX
+ VQsvBJKF7St19tA0OTA/wNEUFL0i5PfqHfkdCACXX6GEHuhEsLgnTEWFWT+bqkcfbf
+ xlZCTNiqiKN6yWjZ1wrR2eG46jM0cOT9Owa4Is9QisZ60t1T/6AGph+ApgmY2jKNfP
+ hj9JoKecy95QsViDRZftZEQksaptQYmVPha2uGdkBH1U9FukybWFfXTWU1k1euNnSC
+ SstKzcvVkO3Sw==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 2C758D8C970; Fri,  2 Feb 2024 10:00:30 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1rVpw2-002PeJ-Bh@rmk-PC.armlinux.org.uk>
-Date: Fri, 02 Feb 2024 09:34:10 +0000
-Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
- Byungho An <bh74.an@samsung.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Justin Chen <justin.chen@broadcom.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Clark Wang <xiaoning.wang@nxp.com>,
- NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Shenwei Wang <shenwei.wang@nxp.com>, Paolo Abeni <pabeni@redhat.com>,
- Wei Fang <wei.fang@nxp.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 6/6] net: dsa: b53: remove
- eee_enabled/eee_active in b53_get_mac_eee()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <170686803017.11061.18210179700306129756.git-patchwork-notify@kernel.org>
+Date: Fri, 02 Feb 2024 10:00:30 +0000
+References: <20240131020828.2007741-1-0x1207@gmail.com>
+In-Reply-To: <20240131020828.2007741-1-0x1207@gmail.com>
+To: Furong Xu <0x1207@gmail.com>
+Cc: linux-kernel@vger.kernel.org, horms@kernel.org, jpinto@synopsys.com,
+ netdev@vger.kernel.org, fancer.lancer@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, xfr@outlook.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, rock.xu@nio.com
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: xgmac: fix handling
+ of DPP safety error for DMA channels
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,54 +63,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-b53_get_mac_eee() sets both eee_enabled and eee_active, and then
-returns zero.
+Hello:
 
-dsa_slave_get_eee(), which calls this function, will then continue to
-call phylink_ethtool_get_eee(), which will return -EOPNOTSUPP if there
-is no PHY present, otherwise calling phy_ethtool_get_eee() which in
-turn will call genphy_c45_ethtool_get_eee().
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
 
-genphy_c45_ethtool_get_eee() will overwrite eee_enabled and eee_active
-with its own interpretation from the PHYs settings and negotiation
-result.
+On Wed, 31 Jan 2024 10:08:28 +0800 you wrote:
+> Commit 56e58d6c8a56 ("net: stmmac: Implement Safety Features in
+> XGMAC core") checks and reports safety errors, but leaves the
+> Data Path Parity Errors for each channel in DMA unhandled at all, lead to
+> a storm of interrupt.
+> Fix it by checking and clearing the DMA_DPP_Interrupt_Status register.
+> 
+> Fixes: 56e58d6c8a56 ("net: stmmac: Implement Safety Features in XGMAC core")
+> Signed-off-by: Furong Xu <0x1207@gmail.com>
+> 
+> [...]
 
-Thus, when there is no PHY, dsa_slave_get_eee() will fail with
--EOPNOTSUPP, meaning eee_enabled and eee_active will not be returned to
-userspace. When there is a PHY, eee_enabled and eee_active will be
-overwritten by phylib, making the setting of these members in
-b53_get_mac_eee() entirely unnecessary.
+Here is the summary with links:
+  - [net,v3] net: stmmac: xgmac: fix handling of DPP safety error for DMA channels
+    https://git.kernel.org/netdev/net/c/46eba193d04f
 
-Remove this code, thus simplifying b53_get_mac_eee().
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/dsa/b53/b53_common.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-index adc93abf4551..9e4c9bd6abcc 100644
---- a/drivers/net/dsa/b53/b53_common.c
-+++ b/drivers/net/dsa/b53/b53_common.c
-@@ -2227,16 +2227,10 @@ EXPORT_SYMBOL(b53_eee_init);
- int b53_get_mac_eee(struct dsa_switch *ds, int port, struct ethtool_keee *e)
- {
- 	struct b53_device *dev = ds->priv;
--	struct ethtool_keee *p = &dev->ports[port].eee;
--	u16 reg;
- 
- 	if (is5325(dev) || is5365(dev))
- 		return -EOPNOTSUPP;
- 
--	b53_read16(dev, B53_EEE_PAGE, B53_EEE_LPI_INDICATE, &reg);
--	e->eee_enabled = p->eee_enabled;
--	e->eee_active = !!(reg & BIT(port));
--
- 	return 0;
- }
- EXPORT_SYMBOL(b53_get_mac_eee);
+You are awesome, thank you!
 -- 
-2.30.2
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
