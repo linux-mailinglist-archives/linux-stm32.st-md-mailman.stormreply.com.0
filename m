@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71127847E1A
-	for <lists+linux-stm32@lfdr.de>; Sat,  3 Feb 2024 02:18:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72722847E1C
+	for <lists+linux-stm32@lfdr.de>; Sat,  3 Feb 2024 02:18:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F07AC6DD98;
-	Sat,  3 Feb 2024 01:18:06 +0000 (UTC)
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
- [209.85.219.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 35DACC6DD98;
+	Sat,  3 Feb 2024 01:18:57 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A3F6C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54BF6C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  3 Feb 2024 01:18:05 +0000 (UTC)
-Received: by mail-qv1-f51.google.com with SMTP id
- 6a1803df08f44-680b1335af6so33118826d6.1
+ Sat,  3 Feb 2024 01:18:56 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-783d4b3a00bso193636385a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Feb 2024 17:18:05 -0800 (PST)
+ Fri, 02 Feb 2024 17:18:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1706923084; x=1707527884;
+ d=broadcom.com; s=google; t=1706923135; x=1707527935;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:autocrypt:from:references:cc:to:subject:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=+/BR8PCPNwLsiPQ2CwgpztYMU195ham48cfvUNN/FJU=;
- b=FdSANN/D+hr4/YJxXazY10h0ofKGeDv43eJFZW0c9TFwbcR8rrxH+gAe6dbdd+NeLw
- 4GJlJnv82fP2vBm6OF7gs1n20eBd1mhuu2n8iW2B+j/UyfBpNBE6MVIl9pPseD89i7do
- xZvU2eldxkg1D0gTvsDrEgqFV6YWTXMARBeFI=
+ :reply-to; bh=HxnLTg47wetCkojCK1s7IDqovSFi+D05pWXGbbUPNOU=;
+ b=deeNzc5W+/P9sDlGsUHMxPUodDW7MIseILio40CLJaGdQetpcbXxSrAM+KkMTfQ8Cq
+ p5hxl11i+Y4oLNHQvNLEPNV00IilLGLaIvAZCNzyebYpWXMQO0TX1W8aRe51io/ZN6dW
+ B0xDbbYhjtTkQI08F73i7nS4rbJul3NHmCujE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706923084; x=1707527884;
+ d=1e100.net; s=20230601; t=1706923135; x=1707527935;
  h=in-reply-to:autocrypt:from:references:cc:to:subject:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=+/BR8PCPNwLsiPQ2CwgpztYMU195ham48cfvUNN/FJU=;
- b=I9c/sAm4eBKqO2tH2lDSMA5zGOnko9LOPIyz8BbyQ6+fR6jqCjw1Ixs3j1OXIU8HHR
- CjWOjrgTPRpZ5wRkNGLKgvPCnfEDAZWMUCWJW7YC2YXWXa7Md58uLptASJ1/IeFKXOkQ
- gkQJLYj5UYO0JH3mE8gGpLhd0ueIGMUASbynQ8Ogbc/wRYw/JeLfNvY9h7V1tSV0RE/H
- Dbf9I4YYR0k8cCl/8rFHHcqE2U49MAaSz6Y31RYGNRoBsq5ulSBRn42c2LTG9RepUal3
- KBjYWpMD7ni9RjOSnRwBSZYLw+pnisRaGakf6tH3Xa7LsoMzGm5BIh+4Bt7ZoyRjYSLi
- KhjA==
-X-Gm-Message-State: AOJu0Yzkf3JdLpvvVAjgfU4Je+ij7Pd/C5wFnIKYiL2U7zTB6ZyrEaO9
- mo76GbG7AQ7L87/jNCa5Ah/t0pamB3uKKx2BkfuQiOmb6xJ3Azv+PGhRX4j6pw==
-X-Google-Smtp-Source: AGHT+IH4w7P8/0tld4PwrHDz2dhv4W/8GRxDjMk+qnYLMPH+YnBCgAnmYZLlH9apIRi4uia3Ip40xw==
-X-Received: by 2002:a05:6214:d89:b0:68c:907f:e044 with SMTP id
- e9-20020a0562140d8900b0068c907fe044mr581681qve.11.1706923084364; 
- Fri, 02 Feb 2024 17:18:04 -0800 (PST)
+ bh=HxnLTg47wetCkojCK1s7IDqovSFi+D05pWXGbbUPNOU=;
+ b=a4iGwmyPT89y1d5ehuj5ocD8dX1mXM6ZOXmo3FgqgnxekTUMg/5PalBMGS4x7RTQR/
+ oFh0qxPRV3gxc9UgfBzkbtvZHYwEYpW2sbrzfxIGndeU9U9d5uIYd+gcSX4yKu/nCvFG
+ 1FgBQYWC8e8xgXYHZ/yUIJHMWcwWRUUF+SuRyHdLoBrxRGfSr800saZFSmKr1dWpGof0
+ yI2mBSPHsnoBW8nHJkxOQgqDusHX3hFmxZw4m7Y5L4yOcGtFVGQb48TXoqCfNAg0RjK8
+ lScYxdhXWd0FNjwMXrvn3vI7WQkdJZtyjb0MiBMjr2gBgSBEPYaCRyAQN/v1LT/FRPOY
+ IJ1g==
+X-Gm-Message-State: AOJu0Yy9OhA4gOVxwk7uEvvssCvOnc/FMR00vF+6dks7rSE7WMGKNrd2
+ lNJiTnPVj/aAdF4+ZG4/2Obk+IFsT4eco5YCF1QDx87k4y2Q0VfCtoB9D9oIjA==
+X-Google-Smtp-Source: AGHT+IE+IrFkszCTC/CPuypl63AoDZJlqd0OCyB3I1YV97y93igxl4Rtl08eLVnf8uZpbxwpHabYQw==
+X-Received: by 2002:a05:6214:21c3:b0:68c:7870:c400 with SMTP id
+ d3-20020a05621421c300b0068c7870c400mr10305273qvh.51.1706923135284; 
+ Fri, 02 Feb 2024 17:18:55 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCXRgeQGMptLsH3c2VUDBuE+uBcmO36wEedKhLh7ugijOYYO41CRfngPbof6m6z2f7MvqXQShWb9wPKJBqn7HHw1mkJn1f9A/1KU5GtUqNA9C6YvartRRzhR1xAsjlHsLOTUYugYhPnCkdozuu+ySjZK67EGqIG0XP28ew9upUhxUkM3EnUbzObFJjDctZLocBhhNAbM+uB3pMhsT8bT0GxrzZuEXz8HQgI8Et+Fks8e06rqOaK1fidb5+LC0jDgETaA4b2hsWG0pAvSDEs9lqnwj3dp9WGSUW377lVMMYCZuNKHSkS6IEY18SMyfGUBbFY8K/vk8IfZ/zZz34ekdRG6D9MBeoq7s7TsUvCiG2w3xnLj2zhV/7FPYuxfoEexm0y4ZS7f1rMMGcJOiLZj+rkuH+hK4yBgYLFTDSIT6MMZBHofuSbriaAqSYQr5fSjwL3steWejNAIfHtQcp7w/pT9H9A/S8H4oeprzpEp+GdXHGwS7r1NDVt8/cL/8cZ0e+IUPBtd043w93YrTQmzwWJ2naEpWKdtezF7VVdjoq3vFDnJ5bN2C2xBJaBJVvhkH4Ejd/ArcivuXiYrDzeCBX9ZSe7rHPVfe3s6rijD6pO8REHxhiMhrOuvIDdWZJxhIRz5xBK2KwloLQ4vW0fN3/+sNeagXzHiEc+ZIrWp9akqPYHyRLzCXsNVAQ==
+ AJvYcCXKHpY4Hj6a/1C93aqjcOrST0VTM+so05KlOZMEa0xNZcnRXe1hMeEYL7pzQd/ysnNOPdATZLNjJet/BnjKYIlPspEc4SQMleA77f0XhL6SfgTat0WeCpUcfepYYKTBsvIawOjV/zlIHEnW/lm1ct7XveuyY9cFhHg6GCLc9UnM3g1dUR8Fx3/6D0h8j3qbPney9zj08O1aAKvNLbuYvmphlgI5brhscLEuclHEZXkeTXamgO0JrUtt4jC8+XUd8zuhw7/jC8IwQR5iZdKo97kGTCLMSZfsYC8Jwi81Cm5w8NH2ZZrSlI7JGAXq0tBZAqDDrsU7Q2SMquvjb5po59qS65SHP5nxZgfYeFNqhln0pA5cTZoWBRs48qyQQP4ThQxW3IZFw0T1peQqhmdy7ZxjyFhiBdij60K/90EgmRmzxt5ydeNxGb7MTEsBgSRK4OvlCQGTfZfrFvID+JHpyoeaM1u8dXf4XUHE+zu2pLebF3BKL+X/Acja17xIShwLEvva6lAKO0nIh+aaqSYMBtJIi9H5XjSBYL9ccoDzVTZjOOX7zfFOAnQUG01JeNGIZ7CHiMb2ULFyrYG4bmt1tEbgF5L+N+ZVvTMYRDibD8obXZakuKgyyNmoI3NFtkETTNvwIskDr6GxxoGfy3GFkBC8qRbeg62XhonjMEfZ5XwAvJfa5TH+XiOJ1Q==
 Received: from [192.168.63.133] ([107.127.59.147])
  by smtp.gmail.com with ESMTPSA id
- mf13-20020a0562145d8d00b0068c5e3d86bdsm1322667qvb.48.2024.02.02.17.17.58
+ mf13-20020a0562145d8d00b0068c5e3d86bdsm1322667qvb.48.2024.02.02.17.18.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Feb 2024 17:18:03 -0800 (PST)
-Message-ID: <e04888df-adba-49fc-b7f3-3b930e80af81@broadcom.com>
-Date: Fri, 2 Feb 2024 17:17:56 -0800
+ Fri, 02 Feb 2024 17:18:54 -0800 (PST)
+Message-ID: <56c88486-e576-4dca-9bf3-8dc6880e0899@broadcom.com>
+Date: Fri, 2 Feb 2024 17:18:49 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
 References: <Zby24IKSgzpvRDNF@shell.armlinux.org.uk>
- <E1rVpvs-002Pe6-1w@rmk-PC.armlinux.org.uk>
+ <E1rVpvx-002PeD-71@rmk-PC.armlinux.org.uk>
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
@@ -93,7 +93,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <E1rVpvs-002Pe6-1w@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1rVpvx-002PeD-71@rmk-PC.armlinux.org.uk>
 Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  Byungho An <bh74.an@samsung.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -104,8 +104,8 @@ Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  bcm-kernel-feedback-list@broadcom.com, Shenwei Wang <shenwei.wang@nxp.com>,
  Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 4/6] net: bcmgenet: remove
- eee_enabled/eee_active in bcmgenet_get_eee()
+Subject: Re: [Linux-stm32] [PATCH net-next 5/6] net: bcmasp: remove
+ eee_enabled/eee_active in bcmasp_get_eee()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,15 +117,15 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1785186243408231768=="
+Content-Type: multipart/mixed; boundary="===============7428242828515824354=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============1785186243408231768==
+--===============7428242828515824354==
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000001e5c18061070001f"
+	boundary="00000000000027360006107003a7"
 
---0000000000001e5c18061070001f
+--00000000000027360006107003a7
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
@@ -133,7 +133,7 @@ Content-Transfer-Encoding: 7bit
 
 
 On 2/2/2024 1:34 AM, Russell King (Oracle) wrote:
-> bcmgenet_get_eee() sets edata->eee_active and edata->eee_enabled from
+> bcmasp_get_eee() sets edata->eee_active and edata->eee_enabled from
 > its own copy, and then calls phy_ethtool_get_eee() which in turn will
 > call genphy_c45_ethtool_get_eee().
 > 
@@ -141,20 +141,17 @@ On 2/2/2024 1:34 AM, Russell King (Oracle) wrote:
 > with its own interpretation from the PHYs settings and negotiation
 > result.
 > 
-> Therefore, setting these members in bcmgenet_get_eee() is redundant,
-> and can be removed. This also makes priv->eee.eee_active unnecessary,
-> so remove this and use a local variable where appropriate.
+> Therefore, setting these members in bcmasp_get_eee() is redundant, and
+> can be removed. This also makes intf->eee.eee_active unnecessary, so
+> remove this and use a local variable where appropriate.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-
-Is not there an opportunity for no longer overriding eee_enabled as well 
-since genphy_c45_ethtool_get_eee() will set that variable too?
 -- 
 Florian
 
---0000000000001e5c18061070001f
+--00000000000027360006107003a7
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -225,19 +222,19 @@ kNGap1mHJ+JngGzZCz+dDiHRQKGpXLxkHX0BvEDZLW6LGOJ83ImrW38YMOo3ZYnCYNHA9qDOakiw
 NxADYvcRBA0ySL6sZpj8BIIhWiXiuusuBmt2Mak2eEv0xDbovE6Z6hYyl/ZnRadbgK/ClgbY3w+O
 AfUXEZ0xggJtMIICaQIBATBrMFsxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
 LXNhMTEwLwYDVQQDEyhHbG9iYWxTaWduIEdDQyBSMyBQZXJzb25hbFNpZ24gMiBDQSAyMDIwAgwT
-/D/YSkVckoN0L+QwDQYJYIZIAWUDBAIBBQCggdQwLwYJKoZIhvcNAQkEMSIEIDjSKzRlO9cakjAC
-Pqa594+66b9vVyHGTioT/SGp7D8FMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-AQkFMQ8XDTI0MDIwMzAxMTgwNFowaQYJKoZIhvcNAQkPMVwwWjALBglghkgBZQMEASowCwYJYIZI
+/D/YSkVckoN0L+QwDQYJYIZIAWUDBAIBBQCggdQwLwYJKoZIhvcNAQkEMSIEIH8NuamxKAWKt7u+
+kaCqD3HIECtQc0nmkDVBli4/XK2XMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
+AQkFMQ8XDTI0MDIwMzAxMTg1NVowaQYJKoZIhvcNAQkPMVwwWjALBglghkgBZQMEASowCwYJYIZI
 AWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQowCwYJKoZIhvcNAQEH
-MAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQC+ljGqRTnLnnAn0xz/vtISov1Fk/C9Kw7b
-t+zYpeAe82QXja8ct6NAg60Ku/kiaPpjaR4KGGDOhoGL32qHjo7SUhzoNofKuD8mw0B9z+7LzvCh
-/H88XU71d05SXxGidkvV5g1lF7b862KAqCXgMWlCmBmuT6FOWsUUA2gaRfwhkFRfdJLf/AwmeMAH
-LIJEy8MDf2HgTaYN23vGT/cox311qcpNfxj+Tb/HfAmtx9+DAVssleXyDDGSndiQnNpyinypXYgC
-Aww1ymh84Pns1u+ag9qE4FBOxElWip/LXPf9VEkPDmXBozXxEakj6HBoSeF9EhwJQbHMNJAXXxht
-xMbs
---0000000000001e5c18061070001f--
+MAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQCuASOr2i0hntNY0/3+W/GOl0H9vFWzFS6S
+T07iG3Zre/OIKCPX/uqPQ1OxLtN9h0ycRTWeLHAw7Pce85zBYmU/n+B/rjG4idYowdd95B76/Lnt
+gJcrd9daYKqKOKqZynG0IwOm8aTZiEtayPlzQWxoB3QXEbhyM0e88mUJLY2L966u0y1ocWoC16yI
+ViJLAdpN1AYc85VvYxJPU+bOn/bjVsYyfKhjmgT9mwvuzvZb8tvkrn+2rPl5/4pkMakD/wD6vP/X
++yJVn0VrD9lXi8Wq9XNuwRtNLwyGVIxBNRLR1zq3UbtgLbDl292JSQa7EaIp+YAyRjlyP3jFZ+lO
+QzcR
+--00000000000027360006107003a7--
 
---===============1785186243408231768==
+--===============7428242828515824354==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -248,4 +245,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1785186243408231768==--
+--===============7428242828515824354==--
