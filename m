@@ -2,76 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C01D848400
-	for <lists+linux-stm32@lfdr.de>; Sat,  3 Feb 2024 06:31:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 447F6848564
+	for <lists+linux-stm32@lfdr.de>; Sat,  3 Feb 2024 13:00:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DA30C6DD98;
-	Sat,  3 Feb 2024 05:31:59 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6097C6C820;
+	Sat,  3 Feb 2024 12:00:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 659F1C03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A3B6C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  3 Feb 2024 05:31:58 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-5d4d15ec7c5so2567294a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 02 Feb 2024 21:31:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1706938317; x=1707543117;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=VU5xgvL3cR0xNsh2zZS6yozISBYA1A6NcgWvOieC82Y=;
- b=Invc5oNlYVRuFfg3Nb240UNOyIGQjNno3bxxOj3bDsuO70xecQg0JW2qO9ay3XD+wW
- kO1AErRkTAK0t5Vr5isfm33qi8Kyl/ewuxyXz9bWq3P0wOqlLK1ShmBKxJ5dIoovHti/
- 8C7iBEoqc3QwHoiw27StVXZtWoKJJsLTUJOEm0GnLfBix+1o7JBTVAoFaFkDxY2eH/9F
- grH5JXXckAXYNf2jxwJ6KymKr7mh/XQEdFZD8Lf1xlPtLz24XDBA6oQ6amXifDuqUwRY
- S8PFGUmTrwP9+WJHwSDR8e0iDKfWcas1kilf0uF6gXITcf7QuwZC1uObY/HEDhFNSkv3
- KY+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1706938317; x=1707543117;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=VU5xgvL3cR0xNsh2zZS6yozISBYA1A6NcgWvOieC82Y=;
- b=ldGw18kYuk4fulNr64YzEHW9MrklOtOF1kvHD0PL1ufK9VFR2uLMxuVSQknAS//Iv+
- Q9yDjdX2J7FjJvb0XdZaKimFifeWuCWsq4wgQ1dww+LIwUMxi/MZRnPYeh8uw4YQPDiq
- aquYIHRYbnvzSJ/3Yf1jslehifcp3TG3fQgdSBQroAS5k6tv0j5Pqt91QqR6TqZGMarz
- rtjvP6+AGLuu8ZVelHD0JbWoQZ2mbuGGwE9efvKfu/dz1ytTZ7m3CesjREMdl86AVGEt
- h6LDTQmPux4+iiW6GLuuwrYIq7ar7wh9HsFqsIVJDYRcLNExkFi6ZqtMDfxbqZZAo7hV
- fakg==
-X-Gm-Message-State: AOJu0Ywbkq7DN3B7TyyxoeLpyIfEtjVrXhbxrBNwpTc6HP8nyxGsTOo/
- yUDZAP+ls/P9HJ6Hx/tDbMOcRSyTx9ATG+jstn158xkITK4Vf/uA
-X-Google-Smtp-Source: AGHT+IFWVqk1b0NST/97uJ2zgzmU7AmYZH/GXvS5SuXLfRb8AyJVkmN6i1eMozNxdaY3jAwfjnS4Qg==
-X-Received: by 2002:a17:902:f68a:b0:1d8:fb17:a1f2 with SMTP id
- l10-20020a170902f68a00b001d8fb17a1f2mr14667824plg.34.1706938316894; 
- Fri, 02 Feb 2024 21:31:56 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCW/R92Ns9HBAWu7bG/hQmdzg+lbNaMtxd1B6bSQMgjyvZ4LykqfWtBvSlY2RA/gsNvsVgPHYho+rSngrGVondwbmV+ZHPARde3dhMZ7htzR/L4OSM5UAPKGefXjZIjEFNpEP08DlSOqISkTeXSf/HA8YhUofhJexVdmsVqdN50KNYGQT4fyz2Pk7q+SQgX+ox0CJYAuja8+vRvRx7ARtZ+YFSHRmxcWYAHJg6kP1nEUcPPfzyN8gdGmbqia3dahNPr9nQeqWNKlMbLbo+FWBoE8j3WY0d+rED8yr3LatP39NsjcaaGbH9DJByzMI1yvzXQ66wg8rvjsB8jwzWaIu4AxRShBlh3YLwpV0rNe9P9uegtppmeHAtfDI9x/oCJNEtXOWA5Y8bCfjcySAQ4jRxN4ac6jtiXOzqYA0ks/r/OIfnKlzpL2xwslLh3TVqJLrs3SLI3l7/twiDEwoWVxo4T0GcQV4u3IFLyvUDN3QuwP/euZ+rIMR5M2Kai4k4FgdKWFLKUiDPAiirSYkGYoBv+2OPNseHjw35Q=
-Received: from localhost.localdomain ([129.146.253.192])
- by smtp.googlemail.com with ESMTPSA id
- v11-20020a170902d08b00b001d8f6b95dcbsm2507121plv.20.2024.02.02.21.31.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Feb 2024 21:31:56 -0800 (PST)
-From: Furong Xu <0x1207@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
+ Sat,  3 Feb 2024 12:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1706961601; x=1738497601;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=OaM3NQPREDdpKg0JK+QSLTqUnxO///RJV6jgIGAqKH8=;
+ b=HL5fchyX6SouCfOz1q2d7KHeFB1wGeZi4B07J8BPMQehJy8iYADvgmHR
+ lAspxQNvfIMDJX8qIXmrCNuoETaPx6IS3OEQgBvWeP/pxMMklvy1yFjMb
+ jKPV2/SHdUFgHY58313y++Rp4aQFELVuKy/XET3t2LOp3Q8V/acX0X0ry
+ TQFr9QUfr9I/meVLH+G5G+oJ001SX3NACf1T7VgmLofqKifcPmDwRxrgP
+ m+Hj102nmEXHOuIYYpSnBAsBaZgS1j1snn+6vUN/9NdxEKSR/jTHYjmdq
+ 8bFyvz2mDqApO61+Yi0TJPsFRuTnXOIztgQJkxm1G0UhvgDZcUqYj8CN1 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10971"; a="17835207"
+X-IronPort-AV: E=Sophos;i="6.05,240,1701158400"; d="scan'208";a="17835207"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Feb 2024 03:59:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,240,1701158400"; 
+   d="scan'208";a="4911402"
+Received: from lkp-server02.sh.intel.com (HELO 59f4f4cd5935) ([10.239.97.151])
+ by orviesa005.jf.intel.com with ESMTP; 03 Feb 2024 03:59:55 -0800
+Received: from kbuild by 59f4f4cd5935 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rWEga-000506-0C;
+ Sat, 03 Feb 2024 11:59:52 +0000
+Date: Sat, 3 Feb 2024 19:59:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Joao Pinto <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>,
- Serge Semin <fancer.lancer@gmail.com>
-Date: Sat,  3 Feb 2024 13:31:33 +0800
-Message-Id: <20240203053133.1129236-1-0x1207@gmail.com>
-X-Mailer: git-send-email 2.34.1
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Message-ID: <202402031948.IySiUm4u-lkp@intel.com>
+References: <20240201-stmmac-axi-config-v1-2-822e97b2d26e@nvidia.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20240201-stmmac-axi-config-v1-2-822e97b2d26e@nvidia.com>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Furong Xu <0x1207@gmail.com>, rock.xu@nio.com, xfr@outlook.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: xgmac: fix a typo of
-	register name in DPP safety handling
+ oe-kbuild-all@lists.linux.dev, linux-tegra@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/3] net: stmmac: Allow drivers
+ to provide a default AXI configuration
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,50 +72,91 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-DDPP is copied from Synopsys Data book:
+Hi Thierry,
 
-DDPP: Disable Data path Parity Protection.
-    When it is 0x0, Data path Parity Protection is enabled.
-    When it is 0x1, Data path Parity Protection is disabled.
+kernel test robot noticed the following build warnings:
 
-The macro name should be XGMAC_DPP_DISABLE.
+[auto build test WARNING on 51b70ff55ed88edd19b080a524063446bcc34b62]
 
-Fixes: 46eba193d04f ("net: stmmac: xgmac: fix handling of DPP safety error for DMA channels")
-Signed-off-by: Furong Xu <0x1207@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h      | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Thierry-Reding/net-stmmac-Pass-resources-to-DT-parsing-code/20240202-025357
+base:   51b70ff55ed88edd19b080a524063446bcc34b62
+patch link:    https://lore.kernel.org/r/20240201-stmmac-axi-config-v1-2-822e97b2d26e%40nvidia.com
+patch subject: [PATCH net-next 2/3] net: stmmac: Allow drivers to provide a default AXI configuration
+config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20240203/202402031948.IySiUm4u-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 13.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20240203/202402031948.IySiUm4u-lkp@intel.com/reproduce)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index 5c67a3f89f08..6a2c7d22df1e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -304,7 +304,7 @@
- #define XGMAC_TXCEIE			BIT(0)
- #define XGMAC_MTL_ECC_INT_STATUS	0x000010cc
- #define XGMAC_MTL_DPP_CONTROL		0x000010e0
--#define XGMAC_DDPP_DISABLE		BIT(0)
-+#define XGMAC_DPP_DISABLE		BIT(0)
- #define XGMAC_MTL_TXQ_OPMODE(x)		(0x00001100 + (0x80 * (x)))
- #define XGMAC_TQS			GENMASK(25, 16)
- #define XGMAC_TQS_SHIFT			16
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 04d7c4dc2e35..323c57f03c93 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -928,7 +928,7 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, unsigned int asp,
- 	/* 5. Enable Data Path Parity Protection */
- 	value = readl(ioaddr + XGMAC_MTL_DPP_CONTROL);
- 	/* already enabled by default, explicit enable it again */
--	value &= ~XGMAC_DDPP_DISABLE;
-+	value &= ~XGMAC_DPP_DISABLE;
- 	writel(value, ioaddr + XGMAC_MTL_DPP_CONTROL);
- 
- 	return 0;
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202402031948.IySiUm4u-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c:96: warning: Function parameter or struct member 'res' not described in 'stmmac_axi_setup'
+
+
+vim +96 drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+
+3b57de958e2aa3 Vince Bridgers     2014-07-31   86  
+afea03656add70 Giuseppe Cavallaro 2016-02-29   87  /**
+afea03656add70 Giuseppe Cavallaro 2016-02-29   88   * stmmac_axi_setup - parse DT parameters for programming the AXI register
+afea03656add70 Giuseppe Cavallaro 2016-02-29   89   * @pdev: platform device
+afea03656add70 Giuseppe Cavallaro 2016-02-29   90   * Description:
+afea03656add70 Giuseppe Cavallaro 2016-02-29   91   * if required, from device-tree the AXI internal register can be tuned
+afea03656add70 Giuseppe Cavallaro 2016-02-29   92   * by using platform parameters.
+afea03656add70 Giuseppe Cavallaro 2016-02-29   93   */
+af49f82367c1e3 Thierry Reding     2024-02-01   94  static struct stmmac_axi *stmmac_axi_setup(struct platform_device *pdev,
+af49f82367c1e3 Thierry Reding     2024-02-01   95  					   struct stmmac_resources *res)
+afea03656add70 Giuseppe Cavallaro 2016-02-29  @96  {
+afea03656add70 Giuseppe Cavallaro 2016-02-29   97  	struct device_node *np;
+afea03656add70 Giuseppe Cavallaro 2016-02-29   98  	struct stmmac_axi *axi;
+afea03656add70 Giuseppe Cavallaro 2016-02-29   99  
+afea03656add70 Giuseppe Cavallaro 2016-02-29  100  	np = of_parse_phandle(pdev->dev.of_node, "snps,axi-config", 0);
+af49f82367c1e3 Thierry Reding     2024-02-01  101  	if (!np && !res->axi)
+afea03656add70 Giuseppe Cavallaro 2016-02-29  102  		return NULL;
+afea03656add70 Giuseppe Cavallaro 2016-02-29  103  
+64f48e593a54a8 Joao Pinto         2017-03-07  104  	axi = devm_kzalloc(&pdev->dev, sizeof(*axi), GFP_KERNEL);
+4613b279bee795 Peter Chen         2016-08-01  105  	if (!axi) {
+af49f82367c1e3 Thierry Reding     2024-02-01  106  		if (np)
+4613b279bee795 Peter Chen         2016-08-01  107  			of_node_put(np);
+af49f82367c1e3 Thierry Reding     2024-02-01  108  
+afea03656add70 Giuseppe Cavallaro 2016-02-29  109  		return ERR_PTR(-ENOMEM);
+4613b279bee795 Peter Chen         2016-08-01  110  	}
+afea03656add70 Giuseppe Cavallaro 2016-02-29  111  
+af49f82367c1e3 Thierry Reding     2024-02-01  112  	if (res->axi)
+af49f82367c1e3 Thierry Reding     2024-02-01  113  		*axi = *res->axi;
+af49f82367c1e3 Thierry Reding     2024-02-01  114  
+af49f82367c1e3 Thierry Reding     2024-02-01  115  	if (np) {
+afea03656add70 Giuseppe Cavallaro 2016-02-29  116  		axi->axi_lpi_en = of_property_read_bool(np, "snps,lpi_en");
+afea03656add70 Giuseppe Cavallaro 2016-02-29  117  		axi->axi_xit_frm = of_property_read_bool(np, "snps,xit_frm");
+61d4f140943c47 Jisheng Zhang      2022-12-03  118  		axi->axi_kbbe = of_property_read_bool(np, "snps,kbbe");
+61d4f140943c47 Jisheng Zhang      2022-12-03  119  		axi->axi_fb = of_property_read_bool(np, "snps,fb");
+61d4f140943c47 Jisheng Zhang      2022-12-03  120  		axi->axi_mb = of_property_read_bool(np, "snps,mb");
+61d4f140943c47 Jisheng Zhang      2022-12-03  121  		axi->axi_rb =  of_property_read_bool(np, "snps,rb");
+afea03656add70 Giuseppe Cavallaro 2016-02-29  122  
+af49f82367c1e3 Thierry Reding     2024-02-01  123  		if (of_property_read_u32(np, "snps,wr_osr_lmt", &axi->axi_wr_osr_lmt)) {
+af49f82367c1e3 Thierry Reding     2024-02-01  124  			if (!res->axi)
+6b3374cb1c0bd4 Niklas Cassel      2016-12-05  125  				axi->axi_wr_osr_lmt = 1;
+af49f82367c1e3 Thierry Reding     2024-02-01  126  		}
+af49f82367c1e3 Thierry Reding     2024-02-01  127  
+af49f82367c1e3 Thierry Reding     2024-02-01  128  		if (of_property_read_u32(np, "snps,rd_osr_lmt", &axi->axi_rd_osr_lmt)) {
+af49f82367c1e3 Thierry Reding     2024-02-01  129  			if (!res->axi)
+6b3374cb1c0bd4 Niklas Cassel      2016-12-05  130  				axi->axi_rd_osr_lmt = 1;
+af49f82367c1e3 Thierry Reding     2024-02-01  131  		}
+af49f82367c1e3 Thierry Reding     2024-02-01  132  
+afea03656add70 Giuseppe Cavallaro 2016-02-29  133  		of_property_read_u32_array(np, "snps,blen", axi->axi_blen, AXI_BLEN);
+af49f82367c1e3 Thierry Reding     2024-02-01  134  
+4613b279bee795 Peter Chen         2016-08-01  135  		of_node_put(np);
+af49f82367c1e3 Thierry Reding     2024-02-01  136  	}
+afea03656add70 Giuseppe Cavallaro 2016-02-29  137  
+afea03656add70 Giuseppe Cavallaro 2016-02-29  138  	return axi;
+afea03656add70 Giuseppe Cavallaro 2016-02-29  139  }
+afea03656add70 Giuseppe Cavallaro 2016-02-29  140  
+
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
