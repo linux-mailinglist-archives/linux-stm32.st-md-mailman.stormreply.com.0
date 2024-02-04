@@ -2,44 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDB44848D62
-	for <lists+linux-stm32@lfdr.de>; Sun,  4 Feb 2024 13:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6FDC848D64
+	for <lists+linux-stm32@lfdr.de>; Sun,  4 Feb 2024 13:13:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76B7DC6C858;
-	Sun,  4 Feb 2024 12:13:04 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 876A3C6C858;
+	Sun,  4 Feb 2024 12:13:13 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9916C6B476
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFF18C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  4 Feb 2024 12:13:03 +0000 (UTC)
+ Sun,  4 Feb 2024 12:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tfFGQOv5/GrEK0+zIwugqFLOB+gCx2wHcbHq6NIW+nA=; b=D3umHcB1QiRfAsodNiW0F/EiA3
- N3PiKr6gAVsu+YU/rw0WbxSwT6//3WFYU8I6qjtJBUC5S97kCGEmR7iENHpIOtG1w6jIxOeR4bClY
- V8unQnz0io3vRrv/ka7MEEB1qP5lBrSkQ8iR1Uma/PnrHJFvgNYzebSHbiG3N1EaIUumRx0b5wB++
- NpCxx0JzT1ZlHpuZSUERS9/vnBWzim/kUEJaCcVkWahed6YZrzGVDs4GYfkng6dHdQERV0lruNxHt
- ThzezR/v8iye6UN2NHTK1uKRnNnwk5nQEZk8CZ7kAPQtk4FWvvxsCnaqlRtkWSFNlkckTiyB/ZIxG
- LiYvTmLw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:55160)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9TY+u62AIM3bIGhcSG/JvkNxj/XTkNruEmxy2Od3+9o=; b=xLyOxf3jDB9kplfJSOsQvCLQJY
+ 1nDryOf3Z6rODzM8WNjEQd1EeJQsohnR2+R13DkAQ3B7s41NxwBSulPRYnOvDQRF5VCRCK8jYfDw8
+ xi0iWThDgMJXc72FC8kcWcilFfIU2yOLWct+hp+3D08hQy08k0U0xhGMgVNuTEzgeRNKYsx0Ae0kZ
+ C4/oAhc5NthxmqvcQtS87bYEMZDjjR/KhhwBgIzZUCZeoj200pHE/6ljiN7jTrHqGzTi1g/LdaCK0
+ qRmi3g24Lkkjv0Am4TA9DfY3FkImMFLriKdgXr/k2wcV7LXUAKE9tdATrtkJyOirFAfc4BfXgFstb
+ rfWoQGjg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56012 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rWbMf-0007vK-34;
- Sun, 04 Feb 2024 12:12:51 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rWbMZ-0001ke-TI; Sun, 04 Feb 2024 12:12:43 +0000
-Date: Sun, 4 Feb 2024 12:12:43 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1rWbMt-0007vf-1K;
+ Sun, 04 Feb 2024 12:13:03 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1rWbMs-002cCV-EE; Sun, 04 Feb 2024 12:13:02 +0000
+In-Reply-To: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
+References: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1rWbMs-002cCV-EE@rmk-PC.armlinux.org.uk>
+Date: Sun, 04 Feb 2024 12:13:02 +0000
 Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  Byungho An <bh74.an@samsung.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
@@ -48,11 +51,12 @@ Cc: Vladimir Oltean <olteanv@gmail.com>, Doug Berger <opendmb@gmail.com>,
  Jose Abreu <joabreu@synopsys.com>, Clark Wang <xiaoning.wang@nxp.com>,
  NXP Linux Team <linux-imx@nxp.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- bcm-kernel-feedback-list@broadcom.com, Shenwei Wang <shenwei.wang@nxp.com>,
- Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 0/6] net: eee network driver
-	cleanups
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Shenwei Wang <shenwei.wang@nxp.com>, Paolo Abeni <pabeni@redhat.com>,
+ Wei Fang <wei.fang@nxp.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 1/6] net: stmmac: remove
+ eee_enabled/eee_active in stmmac_ethtool_op_get_eee()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,35 +73,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+stmmac_ethtool_op_get_eee() sets both eee_enabled and eee_active, and
+then goes on to call phylink_ethtool_get_eee().
 
-Since commit d1420bb99515 ("net: phy: improve generic EEE ethtool
-functions") changed phylib to set eee->eee_active and eee->eee_enabled,
-overriding anything that drivers have set these to prior to calling
-phy_ethtool_get_eee().
+phylink_ethtool_get_eee() will return -EOPNOTSUPP if there is no PHY
+present, otherwise calling phy_ethtool_get_eee() which in turn will call
+genphy_c45_ethtool_get_eee().
 
-Therefore, drivers setting these members becomes redundant, since
-phylib overwrites the values they set. This series finishes off
-Heiner's work in the referenced commit by removing these redundant
-writes in various drivers and any associated code or structure members
-that become unnecessary.
+genphy_c45_ethtool_get_eee() will overwrite eee_enabled and eee_active
+with its own interpretation from the PHYs settings and negotiation
+result.
 
-v2: Address Andrew's comment on fec_main.c
+Thus, when there is no PHY, stmmac_ethtool_op_get_eee() will fail with
+-EOPNOTSUPP, meaning eee_enabled and eee_active will not be returned to
+userspace. When there is a PHY, eee_enabled and eee_active will be
+overwritten by phylib, making the setting of these members in
+stmmac_ethtool_op_get_eee() entirely unnecessary.
 
- drivers/net/dsa/b53/b53_common.c                     | 6 ------
- drivers/net/ethernet/broadcom/asp2/bcmasp_ethtool.c  | 4 ----
- drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c     | 5 +++--
- drivers/net/ethernet/broadcom/genet/bcmgenet.c       | 8 +++-----
- drivers/net/ethernet/broadcom/genet/bcmmii.c         | 5 +++--
- drivers/net/ethernet/freescale/fec_main.c            | 4 ----
- drivers/net/ethernet/samsung/sxgbe/sxgbe_common.h    | 1 -
- drivers/net/ethernet/samsung/sxgbe/sxgbe_ethtool.c   | 2 --
- drivers/net/ethernet/samsung/sxgbe/sxgbe_main.c      | 1 -
+Remove this code, thus simplifying stmmac_ethtool_op_get_eee().
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
  drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 --
- 10 files changed, 9 insertions(+), 29 deletions(-)
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index bbecb3b89535..411c3ac8cb17 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -859,8 +859,6 @@ static int stmmac_ethtool_op_get_eee(struct net_device *dev,
+ 	if (!priv->dma_cap.eee)
+ 		return -EOPNOTSUPP;
+ 
+-	edata->eee_enabled = priv->eee_enabled;
+-	edata->eee_active = priv->eee_active;
+ 	edata->tx_lpi_timer = priv->tx_lpi_timer;
+ 	edata->tx_lpi_enabled = priv->tx_lpi_enabled;
+ 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.30.2
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
