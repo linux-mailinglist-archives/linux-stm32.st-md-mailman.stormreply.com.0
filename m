@@ -2,71 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696A084968E
-	for <lists+linux-stm32@lfdr.de>; Mon,  5 Feb 2024 10:34:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55CE1849FFD
+	for <lists+linux-stm32@lfdr.de>; Mon,  5 Feb 2024 17:55:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19A55C6907A;
-	Mon,  5 Feb 2024 09:34:39 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0035FC6907A;
+	Mon,  5 Feb 2024 16:55:25 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5F0CEC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC262C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  5 Feb 2024 09:34:37 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4158Jfau017463; Mon, 5 Feb 2024 10:34:18 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:date:subject:mime-version:content-type
- :content-transfer-encoding:message-id:references:in-reply-to:to
- :cc; s=selector1; bh=yRD+45wPol9C5Oo/j6x0XsNhrnxr5qZGHo18uofpfm4
- =; b=ELAybzmlTlHzCV4JWfGPhoA6fEeBBz5dIQ2Qzty0alFer7RAu2+HQvN9K4T
- DeD5EAOGeCHcAeCSM10LwE8F610ihmtaGFKqHj6ETrmNJpbiVPwBGmJyqqii04kn
- AklFnqOKgJtQg8n3opcJ0xLRD9AkK+71IMztqcA/kMmUVaOKX7FBqIyDEIkB3Cln
- 1AjFtO1yRGLn3oQ3e4LRQZtz8T1YzqoP/n3gp0+DYlQiwQ0DvcmsgbQ4LJj9ifAD
- LpcAC5Tmorl0I2Rkcqj2DP9rdC2j1Ya8kxLHo1HpESw9tHLXvT84mS8K05iUyBAF
- U7fVuw/1fGCxm4h6Zi12oIS00Pw==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w1eyp656b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 05 Feb 2024 10:34:18 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 4D7F810003B;
- Mon,  5 Feb 2024 10:34:17 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 425C72AC0F0;
- Mon,  5 Feb 2024 10:34:17 +0100 (CET)
-Received: from localhost (10.252.18.216) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 5 Feb
- 2024 10:34:14 +0100
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Mon, 5 Feb 2024 10:26:50 +0100
+ Mon,  5 Feb 2024 16:55:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id B8D3D611DB;
+ Mon,  5 Feb 2024 16:55:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFCAC433B1;
+ Mon,  5 Feb 2024 16:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707152121;
+ bh=sVWDGae8We/GTqGu3KZXsI4ao8GOXiioemxExEsLxqU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V4NzN+xxV2kwpgpmvzwCZPjJxe0p8svapOJGajeWjpEEriWr006tLpAtpBBcG14NI
+ l7fHkZZTCCS2aZun+9xT18fkoZ/FMtKy9LlDCrv1uFwhHjeK2n19B4nBN7o649VSjD
+ kYGKpO0o3BwY+Ahh0TeOWYCXz8+otRo3yXnErLJRN29uNdXJLWcsE4UEYU9xBrYL0Y
+ 5EBIyjafRZpDVbbOWCUrKL9UVViaDMskAXZEUX2zUclSY3mEzo3VIqcDhKNa3FKHrK
+ rehOGq4a9IDtDYOiom3YhLrNbFEjmM7KUgyXugv+FwASEWfoMD6zmOeVRIwz7AMYR2
+ 3iJTbqU63Gc+A==
+Date: Mon, 5 Feb 2024 16:55:17 +0000
+From: Rob Herring <robh@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Message-ID: <20240205165517.GA3486840-robh@kernel.org>
+References: <87o7d26qla.wl-kuninori.morimoto.gx@renesas.com>
+ <87h6iu6qjs.wl-kuninori.morimoto.gx@renesas.com>
+ <20240202174941.GA310089-robh@kernel.org>
+ <875xz3n6ag.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-Message-ID: <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
-References: <20240205-ltdc_mp13-v1-0-116d43ebba75@foss.st.com>
-In-Reply-To: <20240205-ltdc_mp13-v1-0-116d43ebba75@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.4
-X-Originating-IP: [10.252.18.216]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-05_04,2024-01-31_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/5] drm/panel: simple: push blanking limit on
-	RK32FN48H
+Content-Disposition: inline
+In-Reply-To: <875xz3n6ag.wl-kuninori.morimoto.gx@renesas.com>
+Cc: dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ =?iso-8859-1?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <u.kleine-koenig@pengutronix.de>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Eugen Hristev <eugen.hristev@collabora.com>, Sam Ravnborg <sam@ravnborg.org>,
+ linux-omap@vger.kernel.org, Sean Paul <sean@poorly.run>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Michael Tretter <m.tretter@pengutronix.de>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>, freedreno@lists.freedesktop.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, "Lad,
+ Prabhakar" <prabhakar.csengg@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>, James Clark <james.clark@arm.com>,
+ Saravana Kannan <saravanak@google.com>, Frank Rowand <frowand.list@gmail.com>,
+ Helge Deller <deller@gmx.de>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ linux-media@vger.kernel.org, Jacopo Mondi <jacopo@jmondi.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Liu Ying <victor.liu@nxp.com>,
+ linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+ Maxime Ripard <mripard@kernel.org>, linux-rpi-kernel@lists.infradead.org,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ =?iso-8859-1?Q?=22Niklas_S=C3=B6derlund=22?=
+ <niklas.soderlund+renesas@ragnatech.se>, linux-renesas-soc@vger.kernel.org,
+ Jacopo Mondi <jacopo+renesas@jmondi.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Tom Rix <trix@redhat.com>, linux-fbdev@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>, linux-tegra@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-staging@lists.linux.dev,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Tim Harvey <tharvey@gateworks.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Nathan Chancellor <nathan@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Shawn Guo <shawnguo@kernel.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Emma Anholt <emma@anholt.net>,
+ llvm@lists.linux.dev, Todor Tomov <todor.too@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>, Andy Gross <agross@kernel.org>,
+ Mike Leach <mike.leach@linaro.org>, devicetree@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-sound@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Rob Clark <robdclark@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Leo Yan <leo.yan@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v3 05/24] media: i2c: switch to use
+ of_graph_get_next_device_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,35 +130,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Push horizontal front porch and vertical back porch blanking limit.
-This allows to get a 60 fps sharp.
+On Sun, Feb 04, 2024 at 11:44:39PM +0000, Kuninori Morimoto wrote:
+> 
+> Hi Rob
+> 
+> > This is assuming there's just 1 port and 1 endpoint, but let's be 
+> > specific as the bindings are (first endpoint on port 0):
+> > 
+> > of_graph_get_endpoint_by_regs(client->dev.of_node, 0, -1);
+> > 
+> > Note we could ask for endpoint 0 here, but the bindings generally allow 
+> > for more than 1.
+> > 
+> > I imagine most of the other cases here are the same.
+> 
+> I will do it on new patch-set
+> 
+> > > -	for_each_endpoint_of_node(state->dev->of_node, ep_np) {
+> > > +	for_each_device_endpoint_of_node(state->dev->of_node, ep_np) {
+> > 
+> > I would skip the rename.
+> 
+> It is needed to avoid confuse, because new function will add
+> another endpoint loop.
+> 
+> see
+> https://lore.kernel.org/r/20240131100701.754a95ee@booty
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- drivers/gpu/drm/panel/panel-simple.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I've read the threads already and think you should skip the rename. Just 
+put 'port' in the name of the new one. That and taking a port number 
+param should be enough distinction.
 
-diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-index 7b286382ffb4..10b361d603be 100644
---- a/drivers/gpu/drm/panel/panel-simple.c
-+++ b/drivers/gpu/drm/panel/panel-simple.c
-@@ -3516,10 +3516,10 @@ static const struct display_timing rocktech_rk043fn48h_timing = {
- 	.pixelclock = { 6000000, 9000000, 12000000 },
- 	.hactive = { 480, 480, 480 },
- 	.hback_porch = { 8, 43, 43 },
--	.hfront_porch = { 2, 8, 8 },
-+	.hfront_porch = { 2, 8, 10 },
- 	.hsync_len = { 1, 1, 1 },
- 	.vactive = { 272, 272, 272 },
--	.vback_porch = { 2, 12, 12 },
-+	.vback_porch = { 2, 12, 26 },
- 	.vfront_porch = { 1, 4, 4 },
- 	.vsync_len = { 1, 10, 10 },
- 	.flags = DISPLAY_FLAGS_VSYNC_LOW | DISPLAY_FLAGS_HSYNC_LOW |
-
--- 
-2.25.1
-
+Rob
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
