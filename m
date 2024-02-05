@@ -2,134 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D33E184C3BB
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 05:39:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3615684C626
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B726C6C858;
-	Wed,  7 Feb 2024 04:39:24 +0000 (UTC)
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2054.outbound.protection.outlook.com [40.107.113.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 498B5C6B463
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D532AC71285;
+	Wed,  7 Feb 2024 08:26:37 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7C65C03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 04:39:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=atGuOd8eOP7QIt98pUbowHjfWjbJs6DGhRZgFuQeiDYq9OGTOHSJ8ZLPqipOFC2PorbtCfg0oQDM4aMBv33LrKnnQxckQIYa19DCxa+Q/mJPzvxtd2gsxAoSW2uN8ReSyASfq27bjzXZwYDMqtcalJIHlQ0bjC6Gknn3X1RONDM/eJOD74rMBtKnah/Zcl+J9ajeAPaStkOsNMoDR2j6qhtIACIJab0J1gjWD037UTugb0slrLt0wWm5XMHP3C0A9QlW52WrfWrWtqwXCE/gUdrZC3rtbzvKjh22VLP9qTwyI3w4i1UkHy36J0ZkR0w/gyrgVz97Z7OQorEzIUKYsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=N2NohMG3QTZiRe+pOMd4McDZ7t8SyyE0URzxf3tYs9W4uT7RtOcnvbbD2pZOMox4HkeuYs7G2NCNdoLtSM3OfdYE2/TygM0XZYwdrKa4xLtKWjVy20w0QKRk7BBnF/SDIQy1OlakgtXafKUNsCOeY7/0NELrD+ytKQakwz9227XRLygHMg+aGc5aPIdJQqnfZcmXPyjUZLbxhsaaFtzFx81dY3odvmVvgXlhZz5k0xwfFIrN+8MSmBcKwHqxHG3/8WNdkU4XWqf3HgjgZ12BtUhYaoloRHH6+gkexMLx6f0e9qEgvypLi06ZPn6+DIm8zYhPwSfaSMrrsWHm8yvTPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=X6pDPDH7BmzEl7c98SJRFmCYn+o6RQQyV2AAKIaI4YsABNaFyspxfuveUHpY4ongSrNxC9nnBGOe08/qXVgswgJy5QZl/RY3jCNizm8qky04XyPmeZYQ5R5kK03fgFk5HWPrpDLySPIr5s/hckUTVNoq9Ql3bG4OhmIedbZdUVE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYWPR01MB11031.jpnprd01.prod.outlook.com
- (2603:1096:400:398::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36; Wed, 7 Feb
- 2024 04:39:18 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8%6]) with mapi id 15.20.7249.035; Wed, 7 Feb 2024
- 04:39:18 +0000
-Message-ID: <87le7wsxai.wl-kuninori.morimoto.gx@renesas.com>
-To: "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>, =?ISO-8859-1?Q?=22Uwe_?=
- =?ISO-8859-1?Q?Kleine-K=F6nig=22?= <u.kleine-koenig@pengutronix.de>, Alain
- Volmat <alain.volmat@foss.st.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Alexey Brodkin <abrodkin@synopsys.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Claudiu Beznea
- <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, David Airlie <airlied@gmail.com>, Eugen
- Hristev <eugen.hristev@collabora.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Helge Deller <deller@gmx.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Jacopo Mondi <jacopo@jmondi.org>, Jessica Zhang
- <quic_jesszhan@quicinc.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@linaro.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime
- Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Sam Ravnborg <sam@ravnborg.org>, Sylwester
- Nawrocki <s.nawrocki@samsung.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Tim Harvey <tharvey@gateworks.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
- linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87r0hosxc3.wl-kuninori.morimoto.gx@renesas.com>
-References: <87r0hosxc3.wl-kuninori.morimoto.gx@renesas.com>
-Date: Wed, 7 Feb 2024 04:39:17 +0000
-X-ClientProxiedBy: TYCP286CA0305.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38b::16) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ Mon,  5 Feb 2024 18:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1707158586;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=LNq6oubwXmqe6ItjQ33y0Ud8zzbj1+GnKVYTNf0QWt4=;
+ b=LDCODIf9ltZ3tRdTQPs5OvjJ9JL43He9NN9YqsGnbJtT6u/qL5S3ZMpQ0HD79pWk4AbMSW
+ OJIZG+zxzO71W5CApXODc7rJ61/FGwjhpExp16DjTzBUH8aJmqcLEIWZoBgufcogbkxFii
+ oo/awuUIvYCHYJXvOPUT3QjGUufmV4A=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-187-HVIZDcqNNR6WrHzV4OC1DQ-1; Mon, 05 Feb 2024 13:43:05 -0500
+X-MC-Unique: HVIZDcqNNR6WrHzV4OC1DQ-1
+Received: by mail-ej1-f69.google.com with SMTP id
+ a640c23a62f3a-a26f2da3c7bso275923466b.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 05 Feb 2024 10:43:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707158584; x=1707763384;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=LNq6oubwXmqe6ItjQ33y0Ud8zzbj1+GnKVYTNf0QWt4=;
+ b=o1rUlSa8okVOt3EcuscVapLb9b73WXkKMo8lr+VytRpYiYsFZ6vO6yZN+q6zWSZRzX
+ q55YR2uRPoh63zfuKOtDKBI8FYpG1Gvvs0X6SYcrRoGELQnd48N9ITW++78zTOIzvIwD
+ tIxo5WiQ6yJ84pt/bOfy8JkVxjYzqcjfEtq+bzT0jcRRimqOiUxStoh5eJ+GSiMumQSu
+ KdFeOQZ3wABkXNnttt9gKT2bSZSgvMipkQJS6+oFMgrS2QejKKo4XKJwkbng2RcIjHZC
+ fL7KyxlSLm5sHpEKgsLqV7GOA4T3ry3XDBOiW2iqLPO6T7/0LxysC+JouGHId4yIhguD
+ tLGw==
+X-Gm-Message-State: AOJu0Yz3JpjqPFB5bo0GkMb7JpQi/VD3oDdz8GZfDm2M28smKlkBsq5X
+ c68YmucNhwYxCZaE+FhHCCo8rZrX5vvMpVTI1d1QjIUKS8yw3QtQbC52sW90JtQ16NGNoTifqm7
+ GAg5Q5JjEzJwUixTxVgmI8NXkH/gyndWZBwWHf/QE1Ii0D7zua/YNjWvwSdR0iX2BEjuOiRSYx5
+ nR
+X-Received: by 2002:a17:906:c291:b0:a32:b376:489d with SMTP id
+ r17-20020a170906c29100b00a32b376489dmr228577ejz.21.1707158584056; 
+ Mon, 05 Feb 2024 10:43:04 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHBJJqi+E8gTHS8rAQpA+gl5qKoCPXD/0rXi7vARpqh0DWv7P2ivFSjS3co7lz7OUOuk2D9Nw==
+X-Received: by 2002:a17:906:c291:b0:a32:b376:489d with SMTP id
+ r17-20020a170906c29100b00a32b376489dmr228552ejz.21.1707158583686; 
+ Mon, 05 Feb 2024 10:43:03 -0800 (PST)
+X-Forwarded-Encrypted: i=0;
+ AJvYcCW/539QzZ3CsCBd/dh6u4+Lu0RJ/lNp9RpJ+QdlVC2XRNNKX6VqeLJj50ZJA+N90OsJClBVsg5JNJx2ats/acge24t52SP1Khtr1Zb4g78xgsfghwaFLj1f6AJtfVo6O317uL1HzzNqXxmpy7ECqBJEptEIkKBxTFpYeMwuFd+BML/Xrojv2jMMXM9fitkLsKBmdYff02rTHIy1/9RYeW9KdA+vBiMMFajtXpJ9V3LInGlCjYjlUDdXOvBtO5I7hA45drv3aKenosx8u4UyB41Mz1PLz7aLENeuLx+D1O2uqJitQ5WY2/MWQsxC4hRsJLrtQSEiVEO//auoefGKYicIZXYmMBpZyobmMO+U5/AI7JRZNB4SrfhxFR3pafp6m1NPrmYlSeKc08AuIyTHk9ANC0tpyeniQJ3jCv+QnMgmLtM/kn+0P+/bRaYeDZ6d8IRlYLtr+o3sXelQ5sLfNPgIJKCnYmIVFOljcVjx7+ZUhFi0fAaUSSYmOH5KO46artcSjNhj82irK/HCSLEyg8UvWscGqbKXPwX22XgIsaFBiaZQJE98IoKW/FK5HPxvcKxRAW/5/iKxgZhKCM8KtX0dQCkHll57HIUiJSjrmPsVcn0ucLRS3jgg9lsPvnuDItmph5A4CJHwTnHeAe/8NIIZ8VBicJlP78Sc2dSEOj28GuudM2rMQLEK9T4bEzynKCV2zDJ0K6FcH+gAF302k7BBiiWiEivB
+Received: from [192.168.0.159] (185-219-167-205-static.vivo.cz.
+ [185.219.167.205]) by smtp.gmail.com with ESMTPSA id
+ t26-20020a1709066bda00b00a353d1a19a9sm121768ejs.191.2024.02.05.10.43.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 10:43:03 -0800 (PST)
+Message-ID: <afb2fc66-abb4-4010-8120-ada7a6881f89@redhat.com>
+Date: Mon, 5 Feb 2024 19:43:02 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYWPR01MB11031:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7bbf108-d290-4126-18b2-08dc2796bee3
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bHasXoaLSyRZ0+tbjrPUZlzlDCAhap6HluvvV7vtAGC5dQGVmg+f8yGl7rsxr4K1V9djMWGwccLKKr/WE0wf91idrO4znZux36ivIY4zhXnGY2SDizUpXr297H0I5ulwlIilRTT8xVurB7Z6LorJHz0qzwpRHr/hGPUKApTANDrHBVnBPo5VfqokreYLnxmRkJBHTfB1rYWHnZbOC9R6wwvXl+U8i1EHl8GdE/s92k55NTwRoTbguzWWRfUVUoJvn1Ll6c12gFe8Yq+Pe9wDxAK1nn5Gi7O6aIfEF9bkSq4nRi63soottsYBvsBlUgUtk9wgR0D5loxvvxjB2cwasC1UeQPVygiw0gnQffzbLipDM0ArLjDztoKiPsFxdc317AlJ2zVH+3BVN+QY6pBuL+R7M948BMMiEtS6z+hjrqFmm0NPLhi1R67f/tCJV/UwzKW5ky2gwC91zYdQsk2kp2//VtDI+BoA+cGnuew99Zjj6O0op7DcSyVrfyyWk/eHV3yGB3rP1pzNsukDGNhity21hjlSCa0MKBtaOtpcrcgLXrRcH+9EPX8skuP28Ve/i5RgikQ3dXoCCQgvn4Fc8C0ENY9IQBLvxq339FqiMH5tQbns2W0w29iaXIkBMtGq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(136003)(396003)(376002)(39860400002)(366004)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(41300700001)(38100700002)(66556008)(6486002)(66946007)(52116002)(36756003)(66476007)(6512007)(6506007)(966005)(478600001)(8936002)(110136005)(8676002)(38350700005)(316002)(26005)(86362001)(2616005)(83380400001)(7416002)(7406005)(921011)(5660300002)(2906002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?3FCNt6ZZ7I/Pr/4nlQu6MJxi0u0/fUtTBnsZGdC6hHbWDKArJNX/urFMAZRu?=
- =?us-ascii?Q?jXqfvqmnhSj7pymLVmTgCn6L6xEVuAYG+LESmSkL+ZxZJQh3R+oZrl+GnG+q?=
- =?us-ascii?Q?NcJyY6M8z9Kx+hXX2JxZENWddFTIjhjuNAZjK+NvZiwMCWoAqVcwAKAb2d8o?=
- =?us-ascii?Q?tfhDrEptgTUoWM1unJVs2FfdKQl2T/h4xjp1hoz2JsdENSho76aD9+mxSn85?=
- =?us-ascii?Q?3Up1CWMuVlO/jv9Qw5LUw20Hn1C6rOhXq+KylRMMzDXkURCCfuCI6fP6tWR1?=
- =?us-ascii?Q?/k3s/liAZ6QvUWcQezgz7Z2T8H58T9nv83Vhlk6gf6MRSTLWQPDJaw6qAJkw?=
- =?us-ascii?Q?WyRoaSMusDVuUWdBlfqPWDWyjeNox+vBBetGNlt2yprEdYvijfQ0oMP1kIlb?=
- =?us-ascii?Q?FTWi7TmvcAQjiUL9zIiuf3KeqQbZitgpbQZjzFMtjUuUnYaIevOxBt9U4RS8?=
- =?us-ascii?Q?ZsP89pGEija9iqNM4yFNpEZQCwVxDjn3dENm9SjD5OO22g1ay4t2p8d22gsi?=
- =?us-ascii?Q?vqgtGyXLA/adWoX5I5xAM0jyRzv+yHRa1m6RuwG4+TFs3ouNaJU9L3tkGHmP?=
- =?us-ascii?Q?iUGj/gDOXMy0mi1PmE6AXyyTj4H7aEDn1GpHjAL+imae/6MoD+MdyV/KTg6I?=
- =?us-ascii?Q?U49RBdNvqCfbn38jGlojwIG23/m1dEVu5GLBLMx//cTrDs+He0psThsSEAo6?=
- =?us-ascii?Q?xJFY0QZSniShq8KXlWJ9B0QFeUISqIoVlSbKTADpPqTS0WhGt+kMWTLz5S1z?=
- =?us-ascii?Q?M6sLlu2MW/bVujMP1eC0USjrX267BS0dYpef9wLmm7B4jBRtEvhWoa+Sf0jD?=
- =?us-ascii?Q?BHQO10iEpevi6A0sHaK0wNKNklqwppRes1o4ru8MgDtyo6AacpNYMEmaSePt?=
- =?us-ascii?Q?s7lMLumPJbs9LhO3vGrwiF76DfY3Per0E3F5RFwkLSWsaOxASieIhNnl8T45?=
- =?us-ascii?Q?iNBHlq+Nhf0trFfCES8DuJYxvQks/2SMUerRtH0Hj8tnzM7S+Ae0p1V6JmRG?=
- =?us-ascii?Q?+nZ3SZczz5fFIXErtupgTN/d1BixK7tRz3iY1eAVRrqyTDCIpGVN9Pi6m5Oi?=
- =?us-ascii?Q?67bf++N1v0JOW4HJuDZMsIYqPRazK3LTBegNWUZ8EtfFx5dM9LLV+3JYkD8w?=
- =?us-ascii?Q?mfM4z7YNJh/gUQVB4aa09oWTIBwRqLqB7h2OsoWCu2i4hB9FRR62wRnxpYqn?=
- =?us-ascii?Q?bNMaFfGV9/Nmg0ESr+L7QE8pUevY4swFMc9SGbS+eGVWSxuJ5Q1nxWdhv/aI?=
- =?us-ascii?Q?lwksJvCTc/qQmn56vjd3DvJYH+YlZ8DK2v5e5dTnRCZd/IPK0hGkl+qaEnQ8?=
- =?us-ascii?Q?O6wIhHcsb7YlEAzauZVcSIsCa+X69uqe0EcriX5pu+KzrzcWjFKHUf5dutsF?=
- =?us-ascii?Q?zbUq0F+DsLDkIk/n+9Dj00m+P4S4ISXaNs+pWvmT54aRsDA4eKu89U0xSxca?=
- =?us-ascii?Q?cN4mi0amI4GIJv2RyOLmnvXBuJ1hqZjt27dNehMo4NBc+gKBeuEIo9UnDmdi?=
- =?us-ascii?Q?gI853VOfT0UqK5SeLrUrSogubKggbo1LvqqdcpB7mT04IiCLrLImTY5n0q2x?=
- =?us-ascii?Q?OOo1UgwXZTuSjSCF2XMJhRgkbK8Fpel70WLvP6h2voiQ7dwZM6z5uJUmO05w?=
- =?us-ascii?Q?IE8Ec3paxtv3DlKs/ulOb2Q=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7bbf108-d290-4126-18b2-08dc2796bee3
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 04:39:18.1674 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kAGADB1N3w59RbhRwKjgxftugaJi7nRbpr9cV7P4lk3of76nL6u5jbPXfKlogXTSzJKDreGgYg+8y1XsgjNDZZhEIqiMqLRRTVV6CmigAMVZIumN12nUva2Jfmh4zbex
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11031
-Subject: [Linux-stm32] [PATCH v2 4/4] video: fbdev: replace
-	of_graph_get_next_endpoint()
+User-Agent: Mozilla Thunderbird
+To: Manu Bretelle <chantr4@gmail.com>, Jiri Olsa <olsajiri@gmail.com>
+References: <cover.1706491398.git.dxu@dxuuu.xyz> <Zb12EZt0BAKOPBk/@surya>
+ <Zb5QWCw3Tg26_MDa@krava> <Zb6Jt30bNcNhM6zR@surya>
+From: Viktor Malik <vmalik@redhat.com>
+In-Reply-To: <Zb6Jt30bNcNhM6zR@surya>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 07 Feb 2024 08:26:35 +0000
+Cc: fsverity@lists.linux.dev, linux-doc@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alexei.starovoitov@gmail.com,
+ netfilter-devel@vger.kernel.org, memxor@gmail.com, coreteam@netfilter.org,
+ Daniel Xu <dxu@dxuuu.xyz>, quentin@isovalent.com,
+ linux-kselftest@vger.kernel.org, linux-input@vger.kernel.org,
+ cgroups@vger.kernel.org, bpf@vger.kernel.org, alan.maguire@oracle.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v4 0/3] Annotate kfuncs in
+	.BTF_ids section
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,180 +100,125 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From DT point of view, in general, drivers should be asking for a
-specific port number because their function is fixed in the binding.
+On 2/3/24 19:45, Manu Bretelle wrote:
+> On Sat, Feb 03, 2024 at 03:40:24PM +0100, Jiri Olsa wrote:
+>> On Fri, Feb 02, 2024 at 03:09:05PM -0800, Manu Bretelle wrote:
+>>> On Sun, Jan 28, 2024 at 06:24:05PM -0700, Daniel Xu wrote:
+>>>> === Description ===
+>>>>
+>>>> This is a bpf-treewide change that annotates all kfuncs as such inside
+>>>> .BTF_ids. This annotation eventually allows us to automatically generate
+>>>> kfunc prototypes from bpftool.
+>>>>
+>>>> We store this metadata inside a yet-unused flags field inside struct
+>>>> btf_id_set8 (thanks Kumar!). pahole will be taught where to look.
+>>>>
+>>>> More details about the full chain of events are available in commit 3's
+>>>> description.
+>>>>
+>>>> The accompanying pahole and bpftool changes can be viewed
+>>>> here on these "frozen" branches [0][1].
+>>>>
+>>>> [0]: https://github.com/danobi/pahole/tree/kfunc_btf-v3-mailed
+>>>> [1]: https://github.com/danobi/linux/tree/kfunc_bpftool-mailed
+>>>
+>>>
+>>> I hit a similar issue to [0] on master
+>>> 943b043aeecc ("selftests/bpf: Fix bench runner SIGSEGV")
+>>>  when cross-compiling on x86_64 (LE) to s390x (BE).
+>>> I do have CONFIG_DEBUG_INFO_BTF enable and the issue would not trigger if
+>>> I disabled CONFIG_DEBUG_INFO_BTF (and with the fix mentioned in [0]).
+>>>
+>>> What seems to happen is that `tools/resolve_btfids` is ran in the context of the
+>>> host endianess and if I printk before the WARN_ON:
+>>> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+>>> index ef380e546952..a9ed7a1a4936 100644
+>>>   --- a/kernel/bpf/btf.c
+>>>   +++ b/kernel/bpf/btf.c
+>>>   @@ -8128,6 +8128,7 @@ int register_btf_kfunc_id_set(enum bpf_prog_type prog_type,
+>>>            * WARN() for initcall registrations that do not check errors.
+>>>            */
+>>>           if (!(kset->set->flags & BTF_SET8_KFUNCS)) {
+>>>   +        printk("Flag 0x%08X, expected 0x%08X\n", kset->set->flags, BTF_SET8_KFUNCS);
+>>>                   WARN_ON(!kset->owner);
+>>>                   return -EINVAL;
+>>>           }
+>>>
+>>> the boot logs would show:
+>>>   Flag 0x01000000, expected 0x00000001
+>>>
+>>> The issue did not happen prior to
+>>> 6f3189f38a3e ("bpf: treewide: Annotate BPF kfuncs in BTF")
+>>> has only 0 was written before.
+>>>
+>>> It seems [1] will be addressing cross-compilation, but it did not fix it as is
+>>> by just applying on top of master, so probably some of the changes will also need
+>>> to be ported to `tools/include/linux/btf_ids.h`?
+>>
+>> the fix in [1] is fixing flags in set8's pairs, but not the global flags
+>>
+>> it looks like Viktor's fix should now also swap that as well? like in the
+>> change below on top of Viktor's changes (untested)
+>>
+>> jirka
+>>
+>>
+>> ---
+>> diff --git a/tools/bpf/resolve_btfids/main.c b/tools/bpf/resolve_btfids/main.c
+>> index d01603ef6283..c44d57fec390 100644
+>> --- a/tools/bpf/resolve_btfids/main.c
+>> +++ b/tools/bpf/resolve_btfids/main.c
+>> @@ -706,6 +706,8 @@ static int sets_patch(struct object *obj)
+>>  			 * correctly translate everything.
+>>  			 */
+>>  			if (need_bswap) {
+>> +				set8->flags = bswap_32(set8->flags);
+>> +
+>>  				for (i = 0; i < cnt; i++) {
+>>  					set8->pairs[i].flags =
+>>  						bswap_32(set8->pairs[i].flags);
+>>
+> 
+> That should work. Here are a few tests I ran:
+> 
+> $ md5sum /tmp/kbuild-s390x/vmlinux.*
+> eb658e51e089f3c5b2c8909a29dc9997  /tmp/kbuild-s390x/vmlinux.a
+> # plain vmlinux before running resolv_btfids (all 0s)
+> ea907cd46a1a73b8276b5f2a82af00ca  /tmp/kbuild-s390x/vmlinux.before_resolv
+> # x86_64 resolv_btfids on master without Viktor's patch
+> 980a40c3a3ff563d1c2d1ebdd5071a23  /tmp/kbuild-s390x/vmlinux.resolv_native
+> # x86_64 resolv_btfids on master with Viktor's patch
+> b986d19e242719ebea41c578235da662  /tmp/kbuild-s390x/vmlinux.resolv_native_patch_viktor
+> # x86_64 resolv_btfids on master with Viktor's patch and your suggested patch
+> 4edd8752ff01129945bd442689b1927b  /tmp/kbuild-s390x/vmlinux.resolv_native_patch_viktor_patched
+> # s390x resolv_btfids run with qemu-s390x-static
+> 4edd8752ff01129945bd442689b1927b  /tmp/kbuild-s390x/vmlinux.resolv_s390x
+> 
+> 
+> and some hexdiff of those binaries:
+> 
+> 
+> # difference between master's native build and s390x build.... has byte swapping for set8 and others
+> diff -ruN <(xxd /tmp/kbuild-s390x/vmlinux.resolv_s390x) <(xxd /tmp/kbuild-s390x/vmlinux.resolv_native) > diff_s390x_native.diff
+> https://gist.github.com/chantra/c3d58637a08a6f7340953dc155bb18cc
+> 
+> # difference betwee Viktor's version and  s390x build.... squinting my eyes I only see the global set8 is missing
+> diff -ruN <(xxd /tmp/kbuild-s390x/vmlinux.resolv_s390x) <(xxd /tmp/kbuild-s390x/vmlinux.resolv_native_patch_viktor) > diff_s390x_native_viktor.diff
+> https://gist.github.com/chantra/61cfff02b456ae72d3c0161ce1897097
 
-of_graph_get_next_endpoint() doesn't match to this concept.
+Thanks for the testing Manu!
 
-Simply replace
+Jiri's suggested fix is now a part of [1].
 
-	- of_graph_get_next_endpoint(xxx, NULL);
-	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
+Viktor
 
-Link: https://lore.kernel.org/r/20240202174941.GA310089-robh@kernel.org
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
- drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
- drivers/video/fbdev/pxafb.c                   |  2 +-
- include/video/omapfb_dss.h                    |  3 ---
- 7 files changed, 10 insertions(+), 27 deletions(-)
+[1] https://lore.kernel.org/bpf/cover.1707157553.git.vmalik@redhat.com/
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index b7eb17a16ec4..1f13bcf73da5 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -28,6 +28,7 @@
- #include <linux/debugfs.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/of_platform.h>
- #include <linux/component.h>
- 
-@@ -5079,7 +5080,7 @@ static int dsi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	struct omap_dsi_pin_config pin_cfg;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-index 0282d4eef139..14965a3fd05b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-@@ -130,24 +130,6 @@ static struct device_node *omapdss_of_get_remote_port(const struct device_node *
- 	return np;
- }
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent)
--{
--	struct device_node *port, *ep;
--
--	port = omapdss_of_get_next_port(parent, NULL);
--
--	if (!port)
--		return NULL;
--
--	ep = omapdss_of_get_next_endpoint(port, NULL);
--
--	of_node_put(port);
--
--	return ep;
--}
--EXPORT_SYMBOL_GPL(omapdss_of_get_first_endpoint);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node)
- {
-@@ -155,7 +137,7 @@ omapdss_of_find_source_for_first_ep(struct device_node *node)
- 	struct device_node *src_port;
- 	struct omap_dss_device *src;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return ERR_PTR(-EINVAL);
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-index f05b4e35a842..8f407ec134dc 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-@@ -20,6 +20,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -529,7 +530,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-index 03292945b1d4..4ad219f522b9 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-@@ -25,6 +25,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -561,7 +562,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/venc.c b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-index c9d40e28a06f..0bd80d3b8f1b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-@@ -24,6 +24,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/component.h>
- 
- #include <video/omapfb_dss.h>
-@@ -764,7 +765,7 @@ static int venc_probe_of(struct platform_device *pdev)
- 	u32 channels;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
-index fa943612c4e2..2ef56fa28aff 100644
---- a/drivers/video/fbdev/pxafb.c
-+++ b/drivers/video/fbdev/pxafb.c
-@@ -2171,7 +2171,7 @@ static int of_get_pxafb_mode_info(struct device *dev,
- 	u32 bus_width;
- 	int ret, i;
- 
--	np = of_graph_get_next_endpoint(dev->of_node, NULL);
-+	np = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
- 	if (!np) {
- 		dev_err(dev, "could not find endpoint\n");
- 		return -EINVAL;
-diff --git a/include/video/omapfb_dss.h b/include/video/omapfb_dss.h
-index e8eaac2cb7b8..a8c0c3eeeb5b 100644
---- a/include/video/omapfb_dss.h
-+++ b/include/video/omapfb_dss.h
-@@ -819,9 +819,6 @@ struct device_node *
- omapdss_of_get_next_endpoint(const struct device_node *parent,
- 			     struct device_node *prev);
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node);
- #else
--- 
-2.25.1
+> 
+> Have a good weekend all!
+> 
+> Manu
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
