@@ -2,48 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF22384B60F
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:12:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6B7C84B65A
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:29:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AB83C6B476;
-	Tue,  6 Feb 2024 13:12:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93B75C6B476;
+	Tue,  6 Feb 2024 13:29:28 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A7CCC6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1F85C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 13:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=UjKogbJoVYwz4/4zIRPiHZA8DeUtMRsDWvm2PZop3Tc=; b=1naGhjY7kYT8LNxUUIUOowYWeX
- eKwBs27naUc6/NxZ6U/hWTiIEXpVXwM6TFkHBBzOETzr0T2kl8nAOdru3pAOKyabsFXeL7livY0kf
- OD3F5iyMvCtxKORhmUACtDY0BoSx242QEo+yw8OiIHoVlXgbhR9X5Nn02hPMtAyuE5vaTuJRcWVon
- CAjx21TdK+VHLsaK7sfo1PVuJ+xHQtc6AXlDN23pRm1ObkEfVef33aY3BZcB9ht4M6C9coPYiaCFG
- AF75hBHggI3Ug/weORRMZpw+EMmfo35N0wmIodL9XBj4A661QS1p3FcnpNa/8Agc8SSU/Op6FcAPp
- 2qslTbKw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39738)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rXLFh-00021Y-0h;
- Tue, 06 Feb 2024 13:12:41 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rXLFZ-0003f6-I9; Tue, 06 Feb 2024 13:12:33 +0000
-Date: Tue, 6 Feb 2024 13:12:33 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Vladimir Oltean <olteanv@gmail.com>
-Message-ID: <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
+ Tue,  6 Feb 2024 13:29:27 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-a26ed1e05c7so773033866b.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 06 Feb 2024 05:29:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1707226167; x=1707830967;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=T3K8mbqYkN2pkZybDOCl4vjMSCHUwiGmdLNrVAvodoY=;
+ b=Ob04frUEgyWUrMMnEZYo/jt/uH0ntHijvk68UyLXgd+I+CktKlRkptcq63om7Oh9k5
+ taVtZwPbFwNhsloMZQucgaC3Nm0F9zStcLf+0/7djmG14/3dipqGgnimpOlX2mvC9ihs
+ hNoGU4fFhmbph1rtOOR9i61eS3kNaNQI1TbLvn2uw0w4rP2L8CYn2oRsnIo9A2hCs3o3
+ R6QJj6tBkSERlvehXvEo7SlX/0hGKTIFG1IMBxqKd9C0hKxkXLvBnandwb3TjE93j+xM
+ iwpy6lby9OBM1zcdGmkyc1hRSUrNBGtXLRqzICbrCtLxAWRyWb+5cAWpGkqxC/1hEPBv
+ BQDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707226167; x=1707830967;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=T3K8mbqYkN2pkZybDOCl4vjMSCHUwiGmdLNrVAvodoY=;
+ b=pm3Hb/vkDjZPkVwclGU/FwefeIjFDnY2iaqr5pk6WuCCUXubUcKXu0GJRWgQF4qeIf
+ MJHaIP+8wtQXdQZy2ETWcofHnZfalUXI99TBFdm3/iHQLNTlje6C37NbFhqpblrEdhe8
+ zhc8bDjyvRrv/Tm0o9h0NEagPztz8l/e5n/HTh8eD6q+0xyppM0FnzU4A0xM5GXULlhZ
+ 5PFk/cDOtWPyshLFpUhE5sicvk1q5qx3KAai1mHGQ1H939+YfYQADnVZjpYAl7U6G9g+
+ DmWx6JFUG59mCPuQCNE+X8kV6OXzpINtbI/j9V2sq9mFlDbooXVNg75Cx9s8sLdfKlIA
+ p5cg==
+X-Gm-Message-State: AOJu0YyHChTqircjsFpMgQbybn3lRpX1veMix8GkPxSGCRZJO7qDKLhu
+ ZZ4Jrrrbzrd0v668AbruIe+bj6+J+VzQf50Spj1/M9n9prXShBJ8
+X-Google-Smtp-Source: AGHT+IGTLVlI+eqWQ1ZQHpgJ55q3BV6R5mXCQxRL1l7fryYx1ZyrC2J6wB/lmr+IJkT8F+ppYUfZzA==
+X-Received: by 2002:a17:907:7f17:b0:a37:7fb9:ea27 with SMTP id
+ qf23-20020a1709077f1700b00a377fb9ea27mr2353193ejc.48.1707226166913; 
+ Tue, 06 Feb 2024 05:29:26 -0800 (PST)
+X-Forwarded-Encrypted: i=0;
+ AJvYcCXk8hbCICCWddyCzOnK4U/3MlJvCaV6Wpr8b1jGhhgqCOBdc8qhnubiPfFoS0MAPd/0dffFuFzHlR9IAyVo398lMI/r6ANV7fOIjpmQyicICoI6lbsqnHDAdu6wzUV4zswDsBD1Za/4BBdWU4s6nnP1ldHTrMw/gzlp+VIC9Fdj4AvAn6kWbRhr8lwv+QYH8qyDUdGhwHeKd1TjOEXRY0Yjaly+wKTINW1KyHG8D3XnSj6ztr1HvyDI3AdBhkt7kR3hcXuOtZsF7uriIqp3AYgU8TBlbMPMYjwQpGUj2F226OMakQwNyLODHhsFqCXKsDCYAhEm91M0VbxioWFRyH3UPGZrkcjov+nH85+ySQjCsFsULQBXJYjc2gK0Ph0VjuxbUrgAUG5NkLhcmV+O77qsehH4hWbk3ygPoU7POkNjuApBE1RRK+ManeeTi56VNVD0pnbMlg6XINvE4H2GEv5EUNjceNNiY6yJmPtPbB1PBZV9UFMYK0cGHqFLJMCk2D4LofN3JIjl2c5TgrzyVaNywp1/1aiK1+ZbpTBect2MRkezoWJOrzt0frBaBHAMnuXVJ2dUbXVPS0vuD4BOwS4hO77KB9rH69OjjO/2t8I0BgI39komLmZQ1EjULK9kow0dFApOOv6+27h6iT7EXGbdwKbRfWqvIDDSXFtnhIIdRgvQSzsf77IUz/BmUv/xrgjEtuDG
+Received: from skbuf ([188.25.173.195]) by smtp.gmail.com with ESMTPSA id
+ cb6-20020a170906a44600b00a35a11fd795sm1137050ejb.129.2024.02.06.05.29.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Feb 2024 05:29:26 -0800 (PST)
+Date: Tue, 6 Feb 2024 15:29:23 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20240206132923.eypnqvqwe3cga5tp@skbuf>
 References: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
  <E1rWbNI-002cCz-4x@rmk-PC.armlinux.org.uk>
  <20240206112024.3jxtcru3dupeirnj@skbuf>
+ <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240206112024.3jxtcru3dupeirnj@skbuf>
+In-Reply-To: <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>, Doug Berger <opendmb@gmail.com>,
  Byungho An <bh74.an@samsung.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
@@ -74,54 +95,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 06, 2024 at 01:20:24PM +0200, Vladimir Oltean wrote:
-> On Sun, Feb 04, 2024 at 12:13:28PM +0000, Russell King (Oracle) wrote:
-> > b53_get_mac_eee() sets both eee_enabled and eee_active, and then
-> > returns zero.
-> > 
-> > dsa_slave_get_eee(), which calls this function, will then continue to
-> > call phylink_ethtool_get_eee(), which will return -EOPNOTSUPP if there
-> > is no PHY present, otherwise calling phy_ethtool_get_eee() which in
-> > turn will call genphy_c45_ethtool_get_eee().
+On Tue, Feb 06, 2024 at 01:12:33PM +0000, Russell King (Oracle) wrote:
+> > I know next to nothing about EEE and especially the implementation on
+> > Broadcom switches. But is the information brought by B53_EEE_LPI_INDICATE
+> > completely redundant? Is it actually in the system's best interest to
+> > ignore it?
 > 
-> Nitpick: If you need to resend, the function name changed to
-> dsa_user_get_eee().
+> That's a review comment that should have been made when the original
+> change to phylib was done, because it's already ignored in kernels
+> today since the commit changing phylib that I've referenced in this
+> series - since e->eee_enabled and e->eee_active will be overwritten by
+> phylib.
 
-Thanks.
+That's fair, but commit d1420bb99515 ("net: phy: improve generic EEE
+ethtool functions") is dated November 2018, and my involvement with the
+kernel started in March 2019. So it would have been a bit difficult for
+me to make this observation back then.
 
-> > @@ -2227,16 +2227,10 @@ EXPORT_SYMBOL(b53_eee_init);
-> >  int b53_get_mac_eee(struct dsa_switch *ds, int port, struct ethtool_keee *e)
-> >  {
-> >  	struct b53_device *dev = ds->priv;
-> > -	struct ethtool_keee *p = &dev->ports[port].eee;
-> > -	u16 reg;
-> >  
-> >  	if (is5325(dev) || is5365(dev))
-> >  		return -EOPNOTSUPP;
-> >  
-> > -	b53_read16(dev, B53_EEE_PAGE, B53_EEE_LPI_INDICATE, &reg);
-> > -	e->eee_enabled = p->eee_enabled;
-> > -	e->eee_active = !!(reg & BIT(port));
-> > -
-> 
-> I know next to nothing about EEE and especially the implementation on
-> Broadcom switches. But is the information brought by B53_EEE_LPI_INDICATE
-> completely redundant? Is it actually in the system's best interest to
-> ignore it?
+> If we need B53_EEE_LPI_INDICATE to do something, then we need to have
+> a discussion about it, and decide how that fits in with the EEE
+> interface, and how to work around phylib's implementation.
 
-That's a review comment that should have been made when the original
-change to phylib was done, because it's already ignored in kernels
-today since the commit changing phylib that I've referenced in this
-series - since e->eee_enabled and e->eee_active will be overwritten by
-phylib.
-
-If we need B53_EEE_LPI_INDICATE to do something, then we need to have
-a discussion about it, and decide how that fits in with the EEE
-interface, and how to work around phylib's implementation.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Hopefully Florian or Doug can quickly clarify whether this is the case
+or not.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
