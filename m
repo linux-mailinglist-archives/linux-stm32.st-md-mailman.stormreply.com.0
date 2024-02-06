@@ -2,80 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B79D84AFC8
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 09:18:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC0C84B046
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 09:47:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1C78DC6907A;
-	Tue,  6 Feb 2024 08:18:03 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C987DC6907A;
+	Tue,  6 Feb 2024 08:47:53 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC135C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90D4AC03FC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 08:18:01 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-33b189ae5e8so2763166f8f.2
+ Tue,  6 Feb 2024 08:47:52 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-40ef64d8955so5014545e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Feb 2024 00:18:01 -0800 (PST)
+ Tue, 06 Feb 2024 00:47:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707207481; x=1707812281;
+ d=linaro.org; s=google; t=1707209272; x=1707814072;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=ecxK0OeSx8DU/V9lxqcdeUM2UFGv78q9j2Mxgkb5Lhg=;
- b=dQt/Livw5DQ7rQJ5HoR86uo3heLa4oK6AOjpDkov+jidKCPQUKuNCNbOrsn5lPyy/L
- eHrrEARAlSBMv2PUwpbH70v01M4mTjG9FjRIVBQNH0BR5MS2NIkB/uepF1LI7m75Mk/q
- flroyyG2bNB2xhVjqjOSUyDwTQNQ+pUSdgKM1fKK3y+77b+bAtYS1f4VTbMHCF0XUHO5
- Qhuk8Uk1pu62jU03L9RWGYmJH88KoMmzGP2SNcC1a16gNYetV4CmKekzvqqewi856f6q
- ovGDg7tqnRcsGlEZT0M0kF2/8ZEd2CmpoILudJdaPaRVujasw3M937F5CFuEgvIxfIIF
- YoFw==
+ :reply-to; bh=Cgswh97JThtSZc+MWkKLL/sOqrjScM78TS+JiOIKCEY=;
+ b=Ymbkl+j3+RkvV1RbKt1yA9VT41xxAjLaFQ0t1JsDs3B7x/W9/3StXiZhhWPLhHtZNF
+ BvdKs+XF1J9URyL/CyZpaGW6ax9yFHo+2tZFuK7lcfWxXSRpUq5Dw0IRaMo4bttX24iy
+ 0wk7F8fBu3Xa+JwGxXvV/B/h+VKcj4B4Qafbzasl5RhqCSu2/1QifWaqcLxh2ZZqTUsk
+ 73g8/h2wkIoPwfft2hZavUnYMdxIxM4NbCGF459h0Sp/Gk38ojpuNr1dLmpmK4KLB4VI
+ z6hiJ1f2sqZ1R8N4zoBZEJdq5k5cyQ13Lpzh+tgp0mt7h8lkT/516O+fzk9ojwSfc3+x
+ +J0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707207481; x=1707812281;
+ d=1e100.net; s=20230601; t=1707209272; x=1707814072;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :references:cc:to:content-language:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=ecxK0OeSx8DU/V9lxqcdeUM2UFGv78q9j2Mxgkb5Lhg=;
- b=OTBNX3VoG1fxrx2ZGcMGR2+VLvxQo6YzYCmF7a0gmoRY+DEf6+7OcBrUGoHfGs2naE
- JKgF8nPKB4nDiFD4CFKN/o/9mG3/5lx3DyS3umta9B0GsxmkD8wXOwoXHn3eys6JcV0p
- mUOotdOyMJRHFLK8Jqx28u07UkgefM4Kh98UiLxq9R3a58A//OuOC8D/hCa8pVIkIKQh
- rVZ0ECuha/Fy7H3TEXGpgPvP/DlkROGK5JVgtkI4ufGz0DI6CsonMqm+tDcwA6YcfZQ9
- A3WEV03SRp/TjF8AFGBAFEUU9o0e9nRlByYsg1/pcK60uGX5DspPno/pHkAZctbpIiDZ
- Q9vA==
-X-Gm-Message-State: AOJu0YxaKzB2XKrguM3lowtxooKIoPybjvbJHr4RKUEoIOcJ12ePhA4J
- yJXDAPLhMF15+AsQ165TeyW4uSdeaEtXhj0Vs8ISOlPp6BlO+ziEGLsrJXJiEmQ=
-X-Google-Smtp-Source: AGHT+IEpMcoa6cfEkFvIfvzpfuQ8Yx+dGDw/vR+l5ulMZgEDkKNzC9S0nuR1ItidAKgMFW7/sDqpmA==
-X-Received: by 2002:a5d:55c6:0:b0:33b:287d:412c with SMTP id
- i6-20020a5d55c6000000b0033b287d412cmr598635wrw.43.1707207481106; 
- Tue, 06 Feb 2024 00:18:01 -0800 (PST)
+ bh=Cgswh97JThtSZc+MWkKLL/sOqrjScM78TS+JiOIKCEY=;
+ b=VJnPkeCIISEbBW/DF6fbUSs1Gzn5P+EU/iRtHXtig6hO1Vm1nPEhQslbwkOPBBNRSS
+ ZQLz/Al9SkB694f4DDIMGKJdJXcXKLbqSzNVYpPFrClMss42M7nL9NPwBrRthFWNxVbp
+ d3mTvUtgEvIKENsUkPKvDMzt9Kr+RUNeZ8qNW1fxWw5zMq2a1yqYFiimbY3n/Fc95+cb
+ VaFiQtc52RsOY+BKdZw8y8mgW4v27i9HfNM13d3DiMPwVQIHJgQpp2GeHp8jioABnGGr
+ MaadKvONnr6+wUtu+30Rdyfwk2fWCxvQliVYLWmbDTwACKdcLlL4o/PDp5X5b7uOobkR
+ dyqg==
+X-Gm-Message-State: AOJu0YytojZIPg5N0NtrHSVyfwH1gavNMTfLjtlmCmZ3056uOG/xjn9r
+ 6ooYavHz3EK1Nyq++GNBdbaC7B9xqfSDddKpvBMPj+SMP9v1wpgDBJUGzq+gJ3Q=
+X-Google-Smtp-Source: AGHT+IGhYB7S/j7lcNzeBzGO6RKkAL5j0F4BGe7lMnfxVZSyyt0yaNgwR3CzP3SL1KkRGHmCS6IleQ==
+X-Received: by 2002:a05:600c:5204:b0:40f:bdf3:3426 with SMTP id
+ fb4-20020a05600c520400b0040fbdf33426mr2050471wmb.31.1707209271941; 
+ Tue, 06 Feb 2024 00:47:51 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCWHbtH0YjwFLURKvvaj4m5/n5NPHSzvgoPcHOJvao8oQ289AiAyaZ5GlNthURTVrfwvxHGKwF/HByeoEpD+uZMQpctXoCfGsgiAyaEyYsTs6LfLhec/hMJIhdvM8RXPV+7wCwtHd8sZZgDd4GXS1jAHF5aui6uCObLAEYXcNNqdPt7J9g7TkUH/rxmx1DhYLT8uSV/U/hqzSL72p1q/aKrsVnkOXT7g8wHC1X7FkLKguFAX18M/M9Y62UGCDBCXsQaGxayBlRjZfLAfNfKon+27TgHHviOPrgxIyqs4hV+EekHxC8x5no4M0zewRa1C+jist3lT6cKCEGVn8HdYdujWfObaAUDD5wJz5kp/iEP6LSZ3hNfrXrTSlXcpfrrJhCAlqScMB3qMlxsf87phYRMPGVn4dUiydThdQmv21/QTuS03MvLDuTgufP3V8rsjNunlMsRUCF3He1FMwwC/nlBT1ttm5APCq6KNQy/rmWrRgJ4yWZUcGMYD31PLCggD2R2e0dxSEdgKUf40GI/sb4Na0qpZUpQdBMg/YGbf7UwG9Y3JawmduQdwiiNK3mEhXj3M0uJdPc96IrJsckfaO5aTaDfyWrkSqSoA1na0Ff6a0ipo/klDRxmO7jjBMZ0lYw==
+ AJvYcCX161gOqgvdRv10X26uunEqBIdx6lmer6jebnO8ie7WB84hoaVNdkmlbFSJ5LjujcMzuSzR/xphCn25giI+Q9UXCOpzU0SYElVmWIQHgdF1py1U6L8WklwZZ3QCMEX5nHAOzbJ9xizUKNmRG7qouRrbJUW2H0ChFld4lhcQ1KE9rJ+70wxfDZBjS2Kc0VxqLZOAGYnfch42/wyj5QYcH8ntahvUVFDmk41fpL5rXhGVE0BbfZWgTNwPSj9wZMcSWF77C2AruITJSKqyiP1Go4J5m1tT1or2ugXqOOxrXzTQ7YDRBGl1iKaBRVIiXD6ZaV+DyjcjKv5cvRVdxCt+od9xKcOV6F3/VQr3bdL2enneL+g0fOryGLlMbyAjDVZkC9jBg3EDHyoUXjj03kT0z561HwcXCTD6FBYlDJfH5VxhCQ7lVPLqsGVNUuEXexKOKhaEBxfYQHceEq7+1Ca4rKDHI5JfApLifcobxpRZNIZRb47N+wmvsTtdfZg4sc9kWkJD3GZshjCLZt+YeEjY/a3k8X4emne7fSNi6nAfvkxYgs12WG8iNGcsJjCA3i0mkA7UCH+6Wp8IcF80TAwq9ZrMZVn8Lmo9ggVYYDUb6g==
 Received: from ?IPV6:2a01:e0a:982:cbb0:ba23:8574:fa8:28dd?
  ([2a01:e0a:982:cbb0:ba23:8574:fa8:28dd])
  by smtp.gmail.com with ESMTPSA id
- n2-20020a5d67c2000000b0033b4335dce5sm1418976wrw.85.2024.02.06.00.17.59
+ l16-20020a5d5610000000b0033b3ca3a255sm1511899wrv.19.2024.02.06.00.47.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 00:18:00 -0800 (PST)
-Message-ID: <b78d2ca4-9516-4d7e-9ec0-3fe93894523b@linaro.org>
-Date: Tue, 6 Feb 2024 09:17:59 +0100
+ Tue, 06 Feb 2024 00:47:51 -0800 (PST)
+Message-ID: <0e47aa27-b28d-4672-a2eb-f906e0e6a5ac@linaro.org>
+Date: Tue, 6 Feb 2024 09:47:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
+From: neil.armstrong@linaro.org
 Content-Language: en-US, fr
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
- <20240205-ltdc_mp13-v1-4-072d24bf1b36@foss.st.com>
+To: Bo Liu <liubo03@inspur.com>, lee@kernel.org, wens@csie.org,
+ marek.vasut+renesas@gmail.com, support.opensource@diasemi.com,
+ ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com,
+ mazziesaccount@gmail.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com
+References: <20240206071314.8721-1-liubo03@inspur.com>
+ <20240206071314.8721-9-liubo03@inspur.com>
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
  GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
@@ -101,12 +96,12 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro Developer Services
-In-Reply-To: <20240205-ltdc_mp13-v1-4-072d24bf1b36@foss.st.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 4/5] drm/panel: simple: fix flags on
-	RK043FN48H
+In-Reply-To: <20240206071314.8721-9-liubo03@inspur.com>
+Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 08/18] mfd: khadas-mcu: convert to use
+ maple tree register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,33 +119,29 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/02/2024 10:06, Raphael Gallais-Pou wrote:
-> DISPLAY_FLAGS_SYNC_POSEDGE is missing in the flags on the default
-> timings. When overriding the default mode with one described in the
-> device tree, the mode does not get acked because of this missing flag.
-> Moreover since the panel is driven by the positive edge it makes sense
-> to add it here.
+On 06/02/2024 08:13, Bo Liu wrote:
+> The maple tree register cache is based on a much more modern data structure
+> than the rbtree cache and makes optimisation choices which are probably
+> more appropriate for modern systems than those made by the rbtree cache.
 > 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Signed-off-by: Bo Liu <liubo03@inspur.com>
 > ---
->   drivers/gpu/drm/panel/panel-simple.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/mfd/khadas-mcu.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 2214cb09678c..7b286382ffb4 100644
-> --- a/drivers/gpu/drm/panel/panel-simple.c
-> +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -3523,7 +3523,8 @@ static const struct display_timing rocktech_rk043fn48h_timing = {
->   	.vfront_porch = { 1, 4, 4 },
->   	.vsync_len = { 1, 10, 10 },
->   	.flags = DISPLAY_FLAGS_VSYNC_LOW | DISPLAY_FLAGS_HSYNC_LOW |
-> -		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
-> +		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
-> +		 DISPLAY_FLAGS_SYNC_POSEDGE,
+> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+> index 61396d824f16..ba981a788692 100644
+> --- a/drivers/mfd/khadas-mcu.c
+> +++ b/drivers/mfd/khadas-mcu.c
+> @@ -72,7 +72,7 @@ static const struct regmap_config khadas_mcu_regmap_config = {
+>   	.max_register	= KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
+>   	.volatile_reg	= khadas_mcu_reg_volatile,
+>   	.writeable_reg	= khadas_mcu_reg_writeable,
+> -	.cache_type	= REGCACHE_RBTREE,
+> +	.cache_type	= REGCACHE_MAPLE,
 >   };
 >   
->   static const struct panel_desc rocktech_rk043fn48h = {
-> 
+>   static struct mfd_cell khadas_mcu_fan_cells[] = {
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 _______________________________________________
