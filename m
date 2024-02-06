@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F076584C62C
+	by mail.lfdr.de (Postfix) with ESMTPS id D66C684C62A
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A7A6C71291;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7659CC7128D;
 	Wed,  7 Feb 2024 08:26:38 +0000 (UTC)
 Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68947C6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53630C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  6 Feb 2024 07:13:40 +0000 (UTC)
 Received: from ssh248.corpemail.net
- by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00033;
- Tue, 06 Feb 2024 15:13:33 +0800
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00034;
+ Tue, 06 Feb 2024 15:13:34 +0800
 Received: from localhost.localdomain.com (10.73.45.222) by
  jtjnmail201602.home.langchao.com (10.100.2.2) with Microsoft SMTP Server id
- 15.1.2507.34; Tue, 6 Feb 2024 15:13:34 +0800
+ 15.1.2507.34; Tue, 6 Feb 2024 15:13:35 +0800
 From: Bo Liu <liubo03@inspur.com>
 To: <lee@kernel.org>, <wens@csie.org>, <marek.vasut+renesas@gmail.com>,
  <support.opensource@diasemi.com>, <neil.armstrong@linaro.org>,
  <ckeepax@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
  <mazziesaccount@gmail.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>
-Date: Tue, 6 Feb 2024 02:12:58 -0500
-Message-ID: <20240206071314.8721-3-liubo03@inspur.com>
+Date: Tue, 6 Feb 2024 02:12:59 -0500
+Message-ID: <20240206071314.8721-4-liubo03@inspur.com>
 X-Mailer: git-send-email 2.18.2
 In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
 References: <20240206071314.8721-1-liubo03@inspur.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.73.45.222]
-tUid: 20242061513335d7d1ddc64fd98ee472a3fadb93a8399
+tUid: 20242061513345631f7344a890d28f25b48b88f981cf6
 X-Abuse-Reports-To: service@corp-email.com
 Abuse-Reports-To: service@corp-email.com
 X-Complaints-To: service@corp-email.com
@@ -42,7 +42,7 @@ Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Bo Liu <liubo03@inspur.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 02/18] mfd: as3711: convert to use maple tree
+Subject: [Linux-stm32] [PATCH 03/18] mfd: as3722: convert to use maple tree
 	register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -66,22 +66,22 @@ more appropriate for modern systems than those made by the rbtree cache.
 
 Signed-off-by: Bo Liu <liubo03@inspur.com>
 ---
- drivers/mfd/as3711.c | 2 +-
+ drivers/mfd/as3722.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/as3711.c b/drivers/mfd/as3711.c
-index c7e85ff38013..9741977031df 100644
---- a/drivers/mfd/as3711.c
-+++ b/drivers/mfd/as3711.c
-@@ -106,7 +106,7 @@ static const struct regmap_config as3711_regmap_config = {
- 	.precious_reg = as3711_precious_reg,
- 	.max_register = AS3711_MAX_REG,
- 	.num_reg_defaults_raw = AS3711_NUM_REGS,
+diff --git a/drivers/mfd/as3722.c b/drivers/mfd/as3722.c
+index a2bf68afc131..bec047bdd088 100644
+--- a/drivers/mfd/as3722.c
++++ b/drivers/mfd/as3722.c
+@@ -299,7 +299,7 @@ static const struct regmap_config as3722_regmap_config = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+ 	.max_register = AS3722_MAX_REGISTER,
 -	.cache_type = REGCACHE_RBTREE,
 +	.cache_type = REGCACHE_MAPLE,
- };
- 
- #ifdef CONFIG_OF
+ 	.rd_table = &as3722_readable_table,
+ 	.wr_table = &as3722_writable_table,
+ 	.volatile_table = &as3722_volatile_table,
 -- 
 2.18.2
 
