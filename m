@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C862884C63A
+	by mail.lfdr.de (Postfix) with ESMTPS id E140E84C63B
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9111EC78005;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A19C8C78007;
 	Wed,  7 Feb 2024 08:26:39 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 838C1C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 540AEC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 17:24:47 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ Tue,  6 Feb 2024 17:37:45 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 416GvOR7021699; Tue, 6 Feb 2024 17:24:31 GMT
+ 416CqE9h003991; Tue, 6 Feb 2024 17:37:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=qUdMIp4/x7DVpBklDSlXSlEvcCkzfd4ODDKt1vMjopA=; b=gS
- LEkObCK/ljULCVhGs7khz1urn1H4niuMlJkHiXTAze3T+3AMCkPdVonP2cA/9vU9
- XKoi5BA3mf1h/2l8OAn24Zd0INuW/HZd37nPhcJ+EkSQVgpIa4qRepw+ZWxQQT+M
- ii105pAGf2MMhUuKbjxFucTsd0UPGhT84GZ6EKlxKKrULkkPU1Ow0/yDCQ/+tSd6
- iUtHUHcdxI2dcJuIS3KDgnxhZcMlRdWaCiGTjthbQx9aUyTPCVbFwbGz/BfJBzz4
- XDseelA3DNUhtm4IqJtvCTizHvF2+utYZogr8oeWkzJ9Vdjzw7Z5SYc2K9sWQUGB
- Kgo2tVpkwMBqxUuLqugQ==
-Received: from nasanppmta01.qualcomm.com (i-global254.qualcomm.com
+ qcppdkim1; bh=YSZbU39de2Pw9PYzWE9cTPaZgT4sfubdamZgAk/WS5o=; b=K3
+ E7EjXoo85Qa1CM+5EJK9RbXaF1WUTu1E7kj0x3RzzjIfj+ZeZEQdExqxCz1eTdLN
+ cA2WZGDPxmlQX2u1URgwU9QNHUaIzuqlkZizOvqSob/t9pD9VVbVKiLAqcnRTeQA
+ ZSwNiu6Zi/egkUvlKup94GCYn299A+mfr5I6Mz9JQP+j9uT02Q7aN24MKx8+PJhq
+ GIz1XRzMBeCzsQAd6zBXqJJqB1T9vkNpp1pi9zddz//G8qXv7o9W/bPpyDzt3Wup
+ cGyOoV/T9wZEYQpGhATC6ycW85o/AymZ3QMdKEj0snmXWWBSERhYvFBaxtBOizKU
+ M68tFA4PEW5GuN8vL1Ug==
+Received: from nasanppmta04.qualcomm.com (i-global254.qualcomm.com
  [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w3hses1x3-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w31wnu71f-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Feb 2024 17:24:30 +0000 (GMT)
+ Tue, 06 Feb 2024 17:37:13 +0000 (GMT)
 Received: from nasanex01b.na.qualcomm.com (nasanex01b.na.qualcomm.com
  [10.46.141.250])
- by NASANPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 416HOTX9026207
+ by NASANPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 416HbCxk012164
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 6 Feb 2024 17:24:29 GMT
+ Tue, 6 Feb 2024 17:37:12 GMT
 Received: from [10.71.111.207] (10.80.80.8) by nasanex01b.na.qualcomm.com
  (10.46.141.250) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 6 Feb
- 2024 09:24:28 -0800
-Message-ID: <80c8f6cf-5419-4c45-8e0f-f5eab7419df3@quicinc.com>
-Date: Tue, 6 Feb 2024 09:24:27 -0800
+ 2024 09:37:11 -0800
+Message-ID: <6436b9c7-de53-4248-9c06-48c39c54e014@quicinc.com>
+Date: Tue, 6 Feb 2024 09:37:11 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -55,33 +55,33 @@ To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Rob Herring
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
- <20240205-ltdc_mp13-v1-4-072d24bf1b36@foss.st.com>
+References: <20240205-ltdc_mp13-v1-0-116d43ebba75@foss.st.com>
+ <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
 From: Jessica Zhang <quic_jesszhan@quicinc.com>
-In-Reply-To: <20240205-ltdc_mp13-v1-4-072d24bf1b36@foss.st.com>
+In-Reply-To: <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
 X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
  nasanex01b.na.qualcomm.com (10.46.141.250)
 X-QCInternal: smtphost
 X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
  signatures=585085
-X-Proofpoint-ORIG-GUID: k-aQ9fJsYUBPQZfb54pb-fHgQXF3Xnp1
-X-Proofpoint-GUID: k-aQ9fJsYUBPQZfb54pb-fHgQXF3Xnp1
+X-Proofpoint-ORIG-GUID: 7qIUBFQcaiZMpdVSbLBGTgixzgx6ubmK
+X-Proofpoint-GUID: 7qIUBFQcaiZMpdVSbLBGTgixzgx6ubmK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
  definitions=2024-02-06_10,2024-01-31_01,2023-05-22_02
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0
- lowpriorityscore=0 mlxlogscore=999 mlxscore=0 impostorscore=0 bulkscore=0
- phishscore=0 clxscore=1011 spamscore=0 priorityscore=1501 malwarescore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2401310000 definitions=main-2402060122
+ priorityscore=1501
+ adultscore=0 phishscore=0 mlxlogscore=999 spamscore=0 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 clxscore=1015 malwarescore=0 suspectscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402060123
 X-Mailman-Approved-At: Wed, 07 Feb 2024 08:26:35 +0000
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 4/5] drm/panel: simple: fix flags on
-	RK043FN48H
+Subject: Re: [Linux-stm32] [PATCH 5/5] drm/panel: simple: push blanking
+	limit on RK32FN48H
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,12 +100,9 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 2/5/2024 1:06 AM, Raphael Gallais-Pou wrote:
-> DISPLAY_FLAGS_SYNC_POSEDGE is missing in the flags on the default
-> timings. When overriding the default mode with one described in the
-> device tree, the mode does not get acked because of this missing flag.
-> Moreover since the panel is driven by the positive edge it makes sense
-> to add it here.
+On 2/5/2024 1:26 AM, Raphael Gallais-Pou wrote:
+> Push horizontal front porch and vertical back porch blanking limit.
+> This allows to get a 60 fps sharp.
 > 
 > Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
@@ -118,23 +115,26 @@ Thanks,
 Jessica Zhang
 
 > ---
->   drivers/gpu/drm/panel/panel-simple.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/panel/panel-simple.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> index 2214cb09678c..7b286382ffb4 100644
+> index 7b286382ffb4..10b361d603be 100644
 > --- a/drivers/gpu/drm/panel/panel-simple.c
 > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> @@ -3523,7 +3523,8 @@ static const struct display_timing rocktech_rk043fn48h_timing = {
+> @@ -3516,10 +3516,10 @@ static const struct display_timing rocktech_rk043fn48h_timing = {
+>   	.pixelclock = { 6000000, 9000000, 12000000 },
+>   	.hactive = { 480, 480, 480 },
+>   	.hback_porch = { 8, 43, 43 },
+> -	.hfront_porch = { 2, 8, 8 },
+> +	.hfront_porch = { 2, 8, 10 },
+>   	.hsync_len = { 1, 1, 1 },
+>   	.vactive = { 272, 272, 272 },
+> -	.vback_porch = { 2, 12, 12 },
+> +	.vback_porch = { 2, 12, 26 },
 >   	.vfront_porch = { 1, 4, 4 },
 >   	.vsync_len = { 1, 10, 10 },
 >   	.flags = DISPLAY_FLAGS_VSYNC_LOW | DISPLAY_FLAGS_HSYNC_LOW |
-> -		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE,
-> +		 DISPLAY_FLAGS_DE_HIGH | DISPLAY_FLAGS_PIXDATA_POSEDGE |
-> +		 DISPLAY_FLAGS_SYNC_POSEDGE,
->   };
->   
->   static const struct panel_desc rocktech_rk043fn48h = {
 > 
 > -- 
 > 2.25.1
