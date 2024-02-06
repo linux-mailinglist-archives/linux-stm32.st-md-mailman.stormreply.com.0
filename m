@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D62B84B388
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 12:34:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC8484B3D6
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 12:46:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 506B0C6B476;
-	Tue,  6 Feb 2024 11:34:00 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B184C6907A;
+	Tue,  6 Feb 2024 11:46:12 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C3CEC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B485C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 11:33:58 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Tue,  6 Feb 2024 11:46:10 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4169DVsF003834; Tue, 6 Feb 2024 12:33:21 +0100
+ 4168nXgM018518; Tue, 6 Feb 2024 12:45:55 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:date:subject:mime-version:content-type
- :content-transfer-encoding:message-id:references:in-reply-to:to
- :cc; s=selector1; bh=DnsKquutEGOQewPoi6J/BDbXg1mh4kqRqxYNbt4LG2M
- =; b=XV4FOSJSfZnWum0RQAYV7/5WuOrVgo2wwcKtAjAqyBf/AgHS9CWDt/tUlCB
- Xvbncqy0uqPaCmwxwjj0I1kfpeG4bifTcrEau5FG05sRD9vwbv4zC3YigHIiYdPA
- QSq0j1QkV1Mx0xpL0mSGq/63FKErSe1iQc+wSechpbYNPcXf3r//DRr40G2ncByi
- DfG+ZdwVzwlS65Qbg4O27FFbfR04OLDsp25G2fwJK6jKR/5QhLkBogXhf7onivCI
- Wf6eh9+oyQ4Na346QIKz7Lu5oRaj4GtTZcmW9kJcHmE74P7LdR2QiJAVs9GvCSUZ
- UD2j/g8R06eop1DTl9HHhtDF0aw==
+ from:subject:date:message-id:mime-version:content-type
+ :content-transfer-encoding:to:cc; s=selector1; bh=KFKGglTUpjYqNq
+ WORHTS/MU/U9RXok/ogiI6BUa3hCc=; b=6tTCLbnb0Pka6raI1BUyCTVkaVLDLz
+ uAfcOm67cV9GCTJJigLlJW1s48OcjzhaQIGTTKO0I5jRg6VEDRtRfx7WCFeBfyvh
+ EY9HagpzoBWXWD0m2+BO6DneEMNEIlfJR1NxqUgfXBHiN3jMMEfWBHcT5bDPUUx5
+ XPHR/fy6XawpkrW3S+qlWNypTI4YP2m4B7xkEpefFfvQSKbk/cf4gqU44Vdfh3VP
+ Xe9OLxyHWIfxt/0/3nntz2cJV03nm1M9ZdX4hKOCjIR3iHrh+lnmOQZcuwavWc9Y
+ NkMWn1RGLwpBGQz/jj+TamnmKV8xnCRIQZ+sGKOuRTaWMuGR0pt6benA==
 Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w1ewp33mm-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w1yx4110d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 06 Feb 2024 12:33:21 +0100 (CET)
+ Tue, 06 Feb 2024 12:45:54 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 76D5310005A;
- Tue,  6 Feb 2024 12:33:20 +0100 (CET)
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 64A93100056;
+ Tue,  6 Feb 2024 12:45:54 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6AD3F23C6B7;
- Tue,  6 Feb 2024 12:33:20 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5B91B23D408;
+ Tue,  6 Feb 2024 12:45:54 +0100 (CET)
 Received: from localhost (10.129.178.155) by SHFDAG1NODE2.st.com
  (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 6 Feb
- 2024 12:33:20 +0100
+ 2024 12:45:54 +0100
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Tue, 6 Feb 2024 12:33:18 +0100
+Date: Tue, 6 Feb 2024 12:45:33 +0100
+Message-ID: <20240206-lvds-v5-0-bd16797b0f09@foss.st.com>
 MIME-Version: 1.0
-Message-ID: <20240206-lvds-v4-3-98d5f9af399d@foss.st.com>
-References: <20240206-lvds-v4-0-98d5f9af399d@foss.st.com>
-In-Reply-To: <20240206-lvds-v4-0-98d5f9af399d@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAN0bwmUC/zXMQQ7CIBCF4as0s5aGICi46j1MFw0MdhIthmmIp
+ uHuYo3L/+Xl24AxEzJcug0yFmJKSwtz6MDP03JDQaE1KKm0VNKIewksUFqN3ki0Zwvt+swY6bU
+ z17H1TLym/N7Vor/rHzj9gKKFFM4GE90Uj86FISbmntfepweMtdYPeN2XW5oAAAA=
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten
  Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
  <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
@@ -67,7 +67,7 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 3/3] drm/stm: ltdc: add lvds pixel clock
+Subject: [Linux-stm32] [PATCH v5 0/3] Introduce STM32 LVDS driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,91 +84,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The STM32MP25x display subsystem presents a mux which feeds the loopback
-pixel clock of the current bridge in use into the LTDC. This mux is only
-accessible through sysconfig registers which is not yet available in the
-STM32MP25x common clock framework.
+This serie introduces a new DRM bridge driver for STM32MP257 platforms
+based on Arm Cortex-35. It also adds an instance in the device-tree and
+handle the inclusion of the driver within the DRM framework. First patch
+adds a new panel compatible in the panel-lvds driver, which is used by
+default on the STM32MP257.
 
-While waiting for a complete update of the clock framework, this would
-allow to use the LVDS.
+Changes in v5:
+	- Fixed path in MAINTAINERS
+	- Fixed compatible in driver
+
+Changes in v4:
+	- Align dt-bindings filename and compatible
+	- Remove redundant word in [1/6] subject
+	- Fix example on typo
+	- Some minor fixes on YAML syntax
+	- Explicitly include linux/platform_device.h
+	- Drop device-tree related patch after internal discussions
+	- Rebase on latest drm-misc-next
+
+Changes in v3:
+	- Changed the compatible to show SoC specificity
+	- Fixed includes in dt-binding example
+	- Added "#clock-cells" description in dt-binding example
+	- Some minor fixes on typo
+
+Changes in v2:
+	- Dropped [1/8] because already merged
+	- Dropped [4/8] since not mandatory for this serie
+	- [1/6]: Switch compatible and clock-cells related areas
+	- [1/6]: Remove faulty #include in the example.
+	- [1/6]: Add missing entry in MAINTAINERS
+	- [2/6]: Removed CamelCase macros
+	- [2/6]: Removed hard to read debug log
+	- [3/6]: Fixed my address
+	- [3/6]: Fixed smatch warning
+	- [5/6]: Move changes to stm32mp255.dtsi
 
 Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Signed-off-by: Yannick Fertre <yannick.fertre@foss.st.com>
 ---
-Changes in v2:
-	- Fixed my address
-	- Fixed smatch warning
+Raphael Gallais-Pou (3):
+      dt-bindings: display: add STM32 LVDS device
+      drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver
+      drm/stm: ltdc: add lvds pixel clock
+
+ .../bindings/display/st,stm32mp25-lvds.yaml        |  119 ++
+ MAINTAINERS                                        |    1 +
+ drivers/gpu/drm/stm/Kconfig                        |   11 +
+ drivers/gpu/drm/stm/Makefile                       |    2 +
+ drivers/gpu/drm/stm/ltdc.c                         |   19 +
+ drivers/gpu/drm/stm/ltdc.h                         |    1 +
+ drivers/gpu/drm/stm/lvds.c                         | 1226 ++++++++++++++++++++
+ 7 files changed, 1379 insertions(+)
 ---
- drivers/gpu/drm/stm/ltdc.c | 19 +++++++++++++++++++
- drivers/gpu/drm/stm/ltdc.h |  1 +
- 2 files changed, 20 insertions(+)
+base-commit: bb3bc3eac316b7c388733e625cc2343131b69dee
+change-id: 20240205-lvds-e084ec50e878
 
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 5576fdae4962..23011a8913bd 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -838,6 +838,12 @@ ltdc_crtc_mode_valid(struct drm_crtc *crtc,
- 	int target_max = target + CLK_TOLERANCE_HZ;
- 	int result;
- 
-+	if (ldev->lvds_clk) {
-+		result = clk_round_rate(ldev->lvds_clk, target);
-+		DRM_DEBUG_DRIVER("lvds pixclk rate target %d, available %d\n",
-+				 target, result);
-+	}
-+
- 	result = clk_round_rate(ldev->pixel_clk, target);
- 
- 	DRM_DEBUG_DRIVER("clk rate target %d, available %d\n", target, result);
-@@ -1896,6 +1902,8 @@ void ltdc_suspend(struct drm_device *ddev)
- 
- 	DRM_DEBUG_DRIVER("\n");
- 	clk_disable_unprepare(ldev->pixel_clk);
-+	if (ldev->lvds_clk)
-+		clk_disable_unprepare(ldev->lvds_clk);
- }
- 
- int ltdc_resume(struct drm_device *ddev)
-@@ -1910,6 +1918,13 @@ int ltdc_resume(struct drm_device *ddev)
- 		DRM_ERROR("failed to enable pixel clock (%d)\n", ret);
- 		return ret;
- 	}
-+	if (ldev->lvds_clk) {
-+		if (clk_prepare_enable(ldev->lvds_clk)) {
-+			clk_disable_unprepare(ldev->pixel_clk);
-+			DRM_ERROR("Unable to prepare lvds clock\n");
-+			return -ENODEV;
-+		}
-+	}
- 
- 	return 0;
- }
-@@ -1981,6 +1996,10 @@ int ltdc_load(struct drm_device *ddev)
- 		}
- 	}
- 
-+	ldev->lvds_clk = devm_clk_get(dev, "lvds");
-+	if (IS_ERR(ldev->lvds_clk))
-+		ldev->lvds_clk = NULL;
-+
- 	rstc = devm_reset_control_get_exclusive(dev, NULL);
- 
- 	mutex_init(&ldev->err_lock);
-diff --git a/drivers/gpu/drm/stm/ltdc.h b/drivers/gpu/drm/stm/ltdc.h
-index 9d488043ffdb..4a60ce5b610c 100644
---- a/drivers/gpu/drm/stm/ltdc.h
-+++ b/drivers/gpu/drm/stm/ltdc.h
-@@ -44,6 +44,7 @@ struct ltdc_device {
- 	void __iomem *regs;
- 	struct regmap *regmap;
- 	struct clk *pixel_clk;	/* lcd pixel clock */
-+	struct clk *lvds_clk;	/* lvds pixel clock */
- 	struct mutex err_lock;	/* protecting error_status */
- 	struct ltdc_caps caps;
- 	u32 irq_status;
-
+Best regards,
 -- 
-2.25.1
+Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
