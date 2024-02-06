@@ -2,83 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B7C84B65A
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:29:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1442184B667
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:31:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93B75C6B476;
-	Tue,  6 Feb 2024 13:29:28 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C70BAC6B476;
+	Tue,  6 Feb 2024 13:31:23 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1F85C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0376C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 13:29:27 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-a26ed1e05c7so773033866b.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Feb 2024 05:29:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707226167; x=1707830967;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=T3K8mbqYkN2pkZybDOCl4vjMSCHUwiGmdLNrVAvodoY=;
- b=Ob04frUEgyWUrMMnEZYo/jt/uH0ntHijvk68UyLXgd+I+CktKlRkptcq63om7Oh9k5
- taVtZwPbFwNhsloMZQucgaC3Nm0F9zStcLf+0/7djmG14/3dipqGgnimpOlX2mvC9ihs
- hNoGU4fFhmbph1rtOOR9i61eS3kNaNQI1TbLvn2uw0w4rP2L8CYn2oRsnIo9A2hCs3o3
- R6QJj6tBkSERlvehXvEo7SlX/0hGKTIFG1IMBxqKd9C0hKxkXLvBnandwb3TjE93j+xM
- iwpy6lby9OBM1zcdGmkyc1hRSUrNBGtXLRqzICbrCtLxAWRyWb+5cAWpGkqxC/1hEPBv
- BQDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707226167; x=1707830967;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=T3K8mbqYkN2pkZybDOCl4vjMSCHUwiGmdLNrVAvodoY=;
- b=pm3Hb/vkDjZPkVwclGU/FwefeIjFDnY2iaqr5pk6WuCCUXubUcKXu0GJRWgQF4qeIf
- MJHaIP+8wtQXdQZy2ETWcofHnZfalUXI99TBFdm3/iHQLNTlje6C37NbFhqpblrEdhe8
- zhc8bDjyvRrv/Tm0o9h0NEagPztz8l/e5n/HTh8eD6q+0xyppM0FnzU4A0xM5GXULlhZ
- 5PFk/cDOtWPyshLFpUhE5sicvk1q5qx3KAai1mHGQ1H939+YfYQADnVZjpYAl7U6G9g+
- DmWx6JFUG59mCPuQCNE+X8kV6OXzpINtbI/j9V2sq9mFlDbooXVNg75Cx9s8sLdfKlIA
- p5cg==
-X-Gm-Message-State: AOJu0YyHChTqircjsFpMgQbybn3lRpX1veMix8GkPxSGCRZJO7qDKLhu
- ZZ4Jrrrbzrd0v668AbruIe+bj6+J+VzQf50Spj1/M9n9prXShBJ8
-X-Google-Smtp-Source: AGHT+IGTLVlI+eqWQ1ZQHpgJ55q3BV6R5mXCQxRL1l7fryYx1ZyrC2J6wB/lmr+IJkT8F+ppYUfZzA==
-X-Received: by 2002:a17:907:7f17:b0:a37:7fb9:ea27 with SMTP id
- qf23-20020a1709077f1700b00a377fb9ea27mr2353193ejc.48.1707226166913; 
- Tue, 06 Feb 2024 05:29:26 -0800 (PST)
-X-Forwarded-Encrypted: i=0;
- AJvYcCXk8hbCICCWddyCzOnK4U/3MlJvCaV6Wpr8b1jGhhgqCOBdc8qhnubiPfFoS0MAPd/0dffFuFzHlR9IAyVo398lMI/r6ANV7fOIjpmQyicICoI6lbsqnHDAdu6wzUV4zswDsBD1Za/4BBdWU4s6nnP1ldHTrMw/gzlp+VIC9Fdj4AvAn6kWbRhr8lwv+QYH8qyDUdGhwHeKd1TjOEXRY0Yjaly+wKTINW1KyHG8D3XnSj6ztr1HvyDI3AdBhkt7kR3hcXuOtZsF7uriIqp3AYgU8TBlbMPMYjwQpGUj2F226OMakQwNyLODHhsFqCXKsDCYAhEm91M0VbxioWFRyH3UPGZrkcjov+nH85+ySQjCsFsULQBXJYjc2gK0Ph0VjuxbUrgAUG5NkLhcmV+O77qsehH4hWbk3ygPoU7POkNjuApBE1RRK+ManeeTi56VNVD0pnbMlg6XINvE4H2GEv5EUNjceNNiY6yJmPtPbB1PBZV9UFMYK0cGHqFLJMCk2D4LofN3JIjl2c5TgrzyVaNywp1/1aiK1+ZbpTBect2MRkezoWJOrzt0frBaBHAMnuXVJ2dUbXVPS0vuD4BOwS4hO77KB9rH69OjjO/2t8I0BgI39komLmZQ1EjULK9kow0dFApOOv6+27h6iT7EXGbdwKbRfWqvIDDSXFtnhIIdRgvQSzsf77IUz/BmUv/xrgjEtuDG
-Received: from skbuf ([188.25.173.195]) by smtp.gmail.com with ESMTPSA id
- cb6-20020a170906a44600b00a35a11fd795sm1137050ejb.129.2024.02.06.05.29.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Feb 2024 05:29:26 -0800 (PST)
-Date: Tue, 6 Feb 2024 15:29:23 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20240206132923.eypnqvqwe3cga5tp@skbuf>
-References: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
- <E1rWbNI-002cCz-4x@rmk-PC.armlinux.org.uk>
- <20240206112024.3jxtcru3dupeirnj@skbuf>
- <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
+ Tue,  6 Feb 2024 13:31:22 +0000 (UTC)
+Received: from pendragon.ideasonboard.com (85-76-34-85-nat.elisa-mobile.fi
+ [85.76.34.85])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id CAB3874A;
+ Tue,  6 Feb 2024 14:29:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1707226198;
+ bh=KMA/bJybbnWogXygT+8vj+CljyBc90aEvqxIQixKXiE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jJt87ajWVdK89Rfyb+jiky4gvmowtfZOCJZtCWAdBzrxqQjYl8RkDAWw1GjNPt3rj
+ Jenek9xQ8efrqfbQWdR/MAB0bf8AjF6cNDJomTaxkqGCx5MqRkTc5onD0kUQ+f/BDi
+ E1GhB9QNoRnXcHEKttDqnEeZ9R8xAGJsVuVXKMVI=
+Date: Tue, 6 Feb 2024 15:31:22 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Message-ID: <20240206133122.GA2827@pendragon.ideasonboard.com>
+References: <87ttmmnvzh.wl-kuninori.morimoto.gx@renesas.com>
+ <87sf26nvy2.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>, Doug Berger <opendmb@gmail.com>,
- Byungho An <bh74.an@samsung.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Justin Chen <justin.chen@broadcom.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, bcm-kernel-feedback-list@broadcom.com,
- NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Clark Wang <xiaoning.wang@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 6/6] net: dsa: b53: remove
- eee_enabled/eee_active in b53_get_mac_eee()
+In-Reply-To: <87sf26nvy2.wl-kuninori.morimoto.gx@renesas.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Sam Ravnborg <sam@ravnborg.org>,
+ dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, David Airlie <airlied@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, Helge Deller <deller@gmx.de>,
+ Alexey Brodkin <abrodkin@synopsys.com>, Russell King <linux@armlinux.org.uk>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ =?utf-8?Q?=22Uwe_Kleine-K=C3=B6nig=22?= <u.kleine-koenig@pengutronix.de>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>, linux-media@vger.kernel.org,
+ Jacopo Mondi <jacopo@jmondi.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Tim Harvey <tharvey@gateworks.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Eugen Hristev <eugen.hristev@collabora.com>, linux-samsung-soc@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ linux-rpi-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 1/4] gpu: drm: replace
+	of_graph_get_next_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,29 +81,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 06, 2024 at 01:12:33PM +0000, Russell King (Oracle) wrote:
-> > I know next to nothing about EEE and especially the implementation on
-> > Broadcom switches. But is the information brought by B53_EEE_LPI_INDICATE
-> > completely redundant? Is it actually in the system's best interest to
-> > ignore it?
+Hello Morimoto-san,
+
+Thank you for the patch.
+
+On Tue, Feb 06, 2024 at 02:55:01AM +0000, Kuninori Morimoto wrote:
+> From DT point of view, in general, drivers should be asking for a
+> specific port number because their function is fixed in the binding.
 > 
-> That's a review comment that should have been made when the original
-> change to phylib was done, because it's already ignored in kernels
-> today since the commit changing phylib that I've referenced in this
-> series - since e->eee_enabled and e->eee_active will be overwritten by
-> phylib.
+> of_graph_get_next_endpoint() doesn't match to this concept.
+> 
+> Simply replace
+> 
+> 	- of_graph_get_next_endpoint(xxx, NULL);
+> 	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
+> 
+> Link: https://lore.kernel.org/r/20240202174941.GA310089-robh@kernel.org
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  drivers/gpu/drm/drm_of.c                              | 2 +-
+>  drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c | 2 +-
+>  drivers/gpu/drm/tiny/arcpgu.c                         | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+> index 177b600895d3..c2eae9296012 100644
+> --- a/drivers/gpu/drm/drm_of.c
+> +++ b/drivers/gpu/drm/drm_of.c
+> @@ -516,7 +516,7 @@ struct mipi_dsi_host *drm_of_get_dsi_bus(struct device *dev)
+>  	/*
+>  	 * Get first endpoint child from device.
+>  	 */
+> -	endpoint = of_graph_get_next_endpoint(dev->of_node, NULL);
+> +	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
 
-That's fair, but commit d1420bb99515 ("net: phy: improve generic EEE
-ethtool functions") is dated November 2018, and my involvement with the
-kernel started in March 2019. So it would have been a bit difficult for
-me to make this observation back then.
+This assumes that the DSI device's port@0 will also be the input. That's
+fine for current users of this function, but we should at least document
+it.
 
-> If we need B53_EEE_LPI_INDICATE to do something, then we need to have
-> a discussion about it, and decide how that fits in with the EEE
-> interface, and how to work around phylib's implementation.
+diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+index 177b600895d3..012c4d04cf51 100644
+--- a/drivers/gpu/drm/drm_of.c
++++ b/drivers/gpu/drm/drm_of.c
+@@ -504,6 +504,8 @@ EXPORT_SYMBOL_GPL(drm_of_get_data_lanes_count_ep);
+  * Gets parent DSI bus for a DSI device controlled through a bus other
+  * than MIPI-DCS (SPI, I2C, etc.) using the Device Tree.
+  *
++ * This function assumes that the device's port@0 is the DSI input.
++ *
+  * Returns pointer to mipi_dsi_host if successful, -EINVAL if the
+  * request is unsupported, -EPROBE_DEFER if the DSI host is found but
+  * not available, or -ENODEV otherwise.
 
-Hopefully Florian or Doug can quickly clarify whether this is the case
-or not.
+With this,
+
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+
+>  	if (!endpoint)
+>  		return ERR_PTR(-ENODEV);
+>  
+> diff --git a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> index 4618c892cdd6..e10e469aa7a6 100644
+> --- a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> +++ b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
+> @@ -400,7 +400,7 @@ static int rpi_touchscreen_probe(struct i2c_client *i2c)
+>  	rpi_touchscreen_i2c_write(ts, REG_POWERON, 0);
+>  
+>  	/* Look up the DSI host.  It needs to probe before we do. */
+> -	endpoint = of_graph_get_next_endpoint(dev->of_node, NULL);
+> +	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
+>  	if (!endpoint)
+>  		return -ENODEV;
+>  
+> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
+> index e5b10e41554a..04d0053b9315 100644
+> --- a/drivers/gpu/drm/tiny/arcpgu.c
+> +++ b/drivers/gpu/drm/tiny/arcpgu.c
+> @@ -288,7 +288,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
+>  	 * There is only one output port inside each device. It is linked with
+>  	 * encoder endpoint.
+>  	 */
+> -	endpoint_node = of_graph_get_next_endpoint(pdev->dev.of_node, NULL);
+> +	endpoint_node = of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
+>  	if (endpoint_node) {
+>  		encoder_node = of_graph_get_remote_port_parent(endpoint_node);
+>  		of_node_put(endpoint_node);
+
+-- 
+Regards,
+
+Laurent Pinchart
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
