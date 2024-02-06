@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02CF784C62D
+	by mail.lfdr.de (Postfix) with ESMTPS id 30A6784C630
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1818C71293;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC46CC71299;
 	Wed,  7 Feb 2024 08:26:38 +0000 (UTC)
 Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A8F4C6C85A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51E74C71284
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 07:13:43 +0000 (UTC)
+ Tue,  6 Feb 2024 07:13:46 +0000 (UTC)
 Received: from ssh248.corpemail.net
- by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00139;
- Tue, 06 Feb 2024 15:13:39 +0800
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00040;
+ Tue, 06 Feb 2024 15:13:40 +0800
 Received: from localhost.localdomain.com (10.73.45.222) by
  jtjnmail201602.home.langchao.com (10.100.2.2) with Microsoft SMTP Server id
- 15.1.2507.34; Tue, 6 Feb 2024 15:13:39 +0800
+ 15.1.2507.34; Tue, 6 Feb 2024 15:13:40 +0800
 From: Bo Liu <liubo03@inspur.com>
 To: <lee@kernel.org>, <wens@csie.org>, <marek.vasut+renesas@gmail.com>,
  <support.opensource@diasemi.com>, <neil.armstrong@linaro.org>,
  <ckeepax@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
  <mazziesaccount@gmail.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>
-Date: Tue, 6 Feb 2024 02:13:04 -0500
-Message-ID: <20240206071314.8721-9-liubo03@inspur.com>
+Date: Tue, 6 Feb 2024 02:13:05 -0500
+Message-ID: <20240206071314.8721-10-liubo03@inspur.com>
 X-Mailer: git-send-email 2.18.2
 In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
 References: <20240206071314.8721-1-liubo03@inspur.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.73.45.222]
-tUid: 2024206151339888f549b31f273a362f0bbdd55baa0cf
+tUid: 2024206151340dc7b47325e1d94996cd6585e6dd71cab
 X-Abuse-Reports-To: service@corp-email.com
 Abuse-Reports-To: service@corp-email.com
 X-Complaints-To: service@corp-email.com
@@ -42,8 +42,8 @@ Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Bo Liu <liubo03@inspur.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 08/18] mfd: khadas-mcu: convert to use maple
-	tree register cache
+Subject: [Linux-stm32] [PATCH 09/18] mfd: lochnagar-i2c: convert to use
+	maple tree register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,22 +66,31 @@ more appropriate for modern systems than those made by the rbtree cache.
 
 Signed-off-by: Bo Liu <liubo03@inspur.com>
 ---
- drivers/mfd/khadas-mcu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mfd/lochnagar-i2c.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
-index 61396d824f16..ba981a788692 100644
---- a/drivers/mfd/khadas-mcu.c
-+++ b/drivers/mfd/khadas-mcu.c
-@@ -72,7 +72,7 @@ static const struct regmap_config khadas_mcu_regmap_config = {
- 	.max_register	= KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
- 	.volatile_reg	= khadas_mcu_reg_volatile,
- 	.writeable_reg	= khadas_mcu_reg_writeable,
--	.cache_type	= REGCACHE_RBTREE,
-+	.cache_type	= REGCACHE_MAPLE,
+diff --git a/drivers/mfd/lochnagar-i2c.c b/drivers/mfd/lochnagar-i2c.c
+index 0b76fcccd0bd..6c930c57f2e2 100644
+--- a/drivers/mfd/lochnagar-i2c.c
++++ b/drivers/mfd/lochnagar-i2c.c
+@@ -70,7 +70,7 @@ static const struct regmap_config lochnagar1_i2c_regmap = {
+ 	.use_single_read = true,
+ 	.use_single_write = true,
+ 
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
  };
  
- static struct mfd_cell khadas_mcu_fan_cells[] = {
+ static const struct reg_sequence lochnagar1_patch[] = {
+@@ -163,7 +163,7 @@ static const struct regmap_config lochnagar2_i2c_regmap = {
+ 	.readable_reg = lochnagar2_readable_register,
+ 	.volatile_reg = lochnagar2_volatile_register,
+ 
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ };
+ 
+ static const struct reg_sequence lochnagar2_patch[] = {
 -- 
 2.18.2
 
