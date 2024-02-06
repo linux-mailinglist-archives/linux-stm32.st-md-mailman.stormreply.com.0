@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A6784C630
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E8C184C631
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC46CC71299;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EF66DC7129B;
 	Wed,  7 Feb 2024 08:26:38 +0000 (UTC)
 Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51E74C71284
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5202AC71285
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  6 Feb 2024 07:13:46 +0000 (UTC)
 Received: from ssh248.corpemail.net
- by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00040;
- Tue, 06 Feb 2024 15:13:40 +0800
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00041;
+ Tue, 06 Feb 2024 15:13:41 +0800
 Received: from localhost.localdomain.com (10.73.45.222) by
  jtjnmail201602.home.langchao.com (10.100.2.2) with Microsoft SMTP Server id
- 15.1.2507.34; Tue, 6 Feb 2024 15:13:40 +0800
+ 15.1.2507.34; Tue, 6 Feb 2024 15:13:42 +0800
 From: Bo Liu <liubo03@inspur.com>
 To: <lee@kernel.org>, <wens@csie.org>, <marek.vasut+renesas@gmail.com>,
  <support.opensource@diasemi.com>, <neil.armstrong@linaro.org>,
  <ckeepax@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
  <mazziesaccount@gmail.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>
-Date: Tue, 6 Feb 2024 02:13:05 -0500
-Message-ID: <20240206071314.8721-10-liubo03@inspur.com>
+Date: Tue, 6 Feb 2024 02:13:06 -0500
+Message-ID: <20240206071314.8721-11-liubo03@inspur.com>
 X-Mailer: git-send-email 2.18.2
 In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
 References: <20240206071314.8721-1-liubo03@inspur.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.73.45.222]
-tUid: 2024206151340dc7b47325e1d94996cd6585e6dd71cab
+tUid: 20242061513412c33292c74460fb4cc83da7df0762be9
 X-Abuse-Reports-To: service@corp-email.com
 Abuse-Reports-To: service@corp-email.com
 X-Complaints-To: service@corp-email.com
@@ -42,8 +42,8 @@ Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Bo Liu <liubo03@inspur.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 09/18] mfd: lochnagar-i2c: convert to use
-	maple tree register cache
+Subject: [Linux-stm32] [PATCH 10/18] mfd: wolfson: convert to use maple tree
+	register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,31 +66,96 @@ more appropriate for modern systems than those made by the rbtree cache.
 
 Signed-off-by: Bo Liu <liubo03@inspur.com>
 ---
- drivers/mfd/lochnagar-i2c.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mfd/wm5102-tables.c | 2 +-
+ drivers/mfd/wm5110-tables.c | 2 +-
+ drivers/mfd/wm8350-regmap.c | 2 +-
+ drivers/mfd/wm8400-core.c   | 2 +-
+ drivers/mfd/wm97xx-core.c   | 6 +++---
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/lochnagar-i2c.c b/drivers/mfd/lochnagar-i2c.c
-index 0b76fcccd0bd..6c930c57f2e2 100644
---- a/drivers/mfd/lochnagar-i2c.c
-+++ b/drivers/mfd/lochnagar-i2c.c
-@@ -70,7 +70,7 @@ static const struct regmap_config lochnagar1_i2c_regmap = {
- 	.use_single_read = true,
- 	.use_single_write = true,
+diff --git a/drivers/mfd/wm5102-tables.c b/drivers/mfd/wm5102-tables.c
+index f77ecc635b6f..6a8602c1c4ee 100644
+--- a/drivers/mfd/wm5102-tables.c
++++ b/drivers/mfd/wm5102-tables.c
+@@ -1922,7 +1922,7 @@ const struct regmap_config wm5102_spi_regmap = {
+ 	.readable_reg = wm5102_readable_register,
+ 	.volatile_reg = wm5102_volatile_register,
+ 
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.reg_defaults = wm5102_reg_default,
+ 	.num_reg_defaults = ARRAY_SIZE(wm5102_reg_default),
+ };
+diff --git a/drivers/mfd/wm5110-tables.c b/drivers/mfd/wm5110-tables.c
+index eba324875afd..6ff33a54a068 100644
+--- a/drivers/mfd/wm5110-tables.c
++++ b/drivers/mfd/wm5110-tables.c
+@@ -3202,7 +3202,7 @@ const struct regmap_config wm5110_spi_regmap = {
+ 	.readable_reg = wm5110_readable_register,
+ 	.volatile_reg = wm5110_volatile_register,
+ 
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.reg_defaults = wm5110_reg_default,
+ 	.num_reg_defaults = ARRAY_SIZE(wm5110_reg_default),
+ };
+diff --git a/drivers/mfd/wm8350-regmap.c b/drivers/mfd/wm8350-regmap.c
+index 5663b8b0b3ad..3d0ebb004dbf 100644
+--- a/drivers/mfd/wm8350-regmap.c
++++ b/drivers/mfd/wm8350-regmap.c
+@@ -325,7 +325,7 @@ const struct regmap_config wm8350_regmap = {
+ 	.reg_bits = 8,
+ 	.val_bits = 16,
+ 
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 
+ 	.max_register = WM8350_MAX_REGISTER,
+ 	.readable_reg = wm8350_readable,
+diff --git a/drivers/mfd/wm8400-core.c b/drivers/mfd/wm8400-core.c
+index 75483c9be0c4..ddfb234849dd 100644
+--- a/drivers/mfd/wm8400-core.c
++++ b/drivers/mfd/wm8400-core.c
+@@ -100,7 +100,7 @@ static const struct regmap_config wm8400_regmap_config = {
+ 
+ 	.volatile_reg = wm8400_volatile,
  
 -	.cache_type = REGCACHE_RBTREE,
 +	.cache_type = REGCACHE_MAPLE,
  };
  
- static const struct reg_sequence lochnagar1_patch[] = {
-@@ -163,7 +163,7 @@ static const struct regmap_config lochnagar2_i2c_regmap = {
- 	.readable_reg = lochnagar2_readable_register,
- 	.volatile_reg = lochnagar2_volatile_register,
- 
+ /**
+diff --git a/drivers/mfd/wm97xx-core.c b/drivers/mfd/wm97xx-core.c
+index 663acbb1854c..1566a9b04b6a 100644
+--- a/drivers/mfd/wm97xx-core.c
++++ b/drivers/mfd/wm97xx-core.c
+@@ -95,7 +95,7 @@ static const struct regmap_config wm9705_regmap_config = {
+ 	.reg_stride = 2,
+ 	.val_bits = 16,
+ 	.max_register = 0x7e,
 -	.cache_type = REGCACHE_RBTREE,
 +	.cache_type = REGCACHE_MAPLE,
- };
  
- static const struct reg_sequence lochnagar2_patch[] = {
+ 	.reg_defaults = wm9705_reg_defaults,
+ 	.num_reg_defaults = ARRAY_SIZE(wm9705_reg_defaults),
+@@ -163,7 +163,7 @@ static const struct regmap_config wm9712_regmap_config = {
+ 	.reg_stride = 2,
+ 	.val_bits = 16,
+ 	.max_register = 0x7e,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 
+ 	.reg_defaults = wm9712_reg_defaults,
+ 	.num_reg_defaults = ARRAY_SIZE(wm9712_reg_defaults),
+@@ -234,7 +234,7 @@ static const struct regmap_config wm9713_regmap_config = {
+ 	.reg_stride = 2,
+ 	.val_bits = 16,
+ 	.max_register = 0x7e,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 
+ 	.reg_defaults = wm9713_reg_defaults,
+ 	.num_reg_defaults = ARRAY_SIZE(wm9713_reg_defaults),
 -- 
 2.18.2
 
