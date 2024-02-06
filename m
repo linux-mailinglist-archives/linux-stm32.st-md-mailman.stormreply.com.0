@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A89C84C634
+	by mail.lfdr.de (Postfix) with ESMTPS id 8484984C635
 	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 09:26:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36C4DC712A1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48BBCC712A3;
 	Wed,  7 Feb 2024 08:26:39 +0000 (UTC)
 Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B634C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B0AFC7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  6 Feb 2024 07:13:52 +0000 (UTC)
 Received: from ssh248.corpemail.net
- by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00146;
- Tue, 06 Feb 2024 15:13:46 +0800
+ by ssh248.corpemail.net ((D)) with ASMTP (SSL) id CZT00147;
+ Tue, 06 Feb 2024 15:13:47 +0800
 Received: from localhost.localdomain.com (10.73.45.222) by
  jtjnmail201602.home.langchao.com (10.100.2.2) with Microsoft SMTP Server id
- 15.1.2507.34; Tue, 6 Feb 2024 15:13:45 +0800
+ 15.1.2507.34; Tue, 6 Feb 2024 15:13:47 +0800
 From: Bo Liu <liubo03@inspur.com>
 To: <lee@kernel.org>, <wens@csie.org>, <marek.vasut+renesas@gmail.com>,
  <support.opensource@diasemi.com>, <neil.armstrong@linaro.org>,
  <ckeepax@opensource.cirrus.com>, <rf@opensource.cirrus.com>,
  <mazziesaccount@gmail.com>, <mcoquelin.stm32@gmail.com>,
  <alexandre.torgue@foss.st.com>
-Date: Tue, 6 Feb 2024 02:13:09 -0500
-Message-ID: <20240206071314.8721-14-liubo03@inspur.com>
+Date: Tue, 6 Feb 2024 02:13:10 -0500
+Message-ID: <20240206071314.8721-15-liubo03@inspur.com>
 X-Mailer: git-send-email 2.18.2
 In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
 References: <20240206071314.8721-1-liubo03@inspur.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.73.45.222]
-tUid: 2024206151346ad9d6b2efc569570e0a336b7eae766e3
+tUid: 20242061513483a817558e4ef6f668dac82e845d94b2e
 X-Abuse-Reports-To: service@corp-email.com
 Abuse-Reports-To: service@corp-email.com
 X-Complaints-To: service@corp-email.com
@@ -42,8 +42,8 @@ Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, Bo Liu <liubo03@inspur.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 13/18] mfd: rn5t618: convert to use maple tree
-	register cache
+Subject: [Linux-stm32] [PATCH 14/18] mfd: rsmu_i2c: convert to use maple
+	tree register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,22 +66,22 @@ more appropriate for modern systems than those made by the rbtree cache.
 
 Signed-off-by: Bo Liu <liubo03@inspur.com>
 ---
- drivers/mfd/rn5t618.c | 2 +-
+ drivers/mfd/rsmu_i2c.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/rn5t618.c b/drivers/mfd/rn5t618.c
-index 7336e6d8a001..23ca00d2c624 100644
---- a/drivers/mfd/rn5t618.c
-+++ b/drivers/mfd/rn5t618.c
-@@ -62,7 +62,7 @@ static const struct regmap_config rn5t618_regmap_config = {
- 	.val_bits	= 8,
- 	.volatile_reg	= rn5t618_volatile_reg,
- 	.max_register	= RN5T618_MAX_REG,
--	.cache_type	= REGCACHE_RBTREE,
-+	.cache_type	= REGCACHE_MAPLE,
+diff --git a/drivers/mfd/rsmu_i2c.c b/drivers/mfd/rsmu_i2c.c
+index 06d78a1cf1cc..5711e512b6a2 100644
+--- a/drivers/mfd/rsmu_i2c.c
++++ b/drivers/mfd/rsmu_i2c.c
+@@ -188,7 +188,7 @@ static const struct regmap_config rsmu_sabre_regmap_config = {
+ 	.ranges = rsmu_sabre_range_cfg,
+ 	.num_ranges = ARRAY_SIZE(rsmu_sabre_range_cfg),
+ 	.volatile_reg = rsmu_sabre_volatile_reg,
+-	.cache_type = REGCACHE_RBTREE,
++	.cache_type = REGCACHE_MAPLE,
+ 	.can_multi_write = true,
  };
  
- static const struct regmap_irq rc5t619_irqs[] = {
 -- 
 2.18.2
 
