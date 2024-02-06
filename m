@@ -2,38 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1442184B667
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:31:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C18C684B6AD
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 14:41:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C70BAC6B476;
-	Tue,  6 Feb 2024 13:31:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 762F0C6B476;
+	Tue,  6 Feb 2024 13:41:57 +0000 (UTC)
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0376C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFBDDC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 13:31:22 +0000 (UTC)
+ Tue,  6 Feb 2024 13:41:56 +0000 (UTC)
 Received: from pendragon.ideasonboard.com (85-76-34-85-nat.elisa-mobile.fi
  [85.76.34.85])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id CAB3874A;
- Tue,  6 Feb 2024 14:29:57 +0100 (CET)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6C521240;
+ Tue,  6 Feb 2024 14:40:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1707226198;
- bh=KMA/bJybbnWogXygT+8vj+CljyBc90aEvqxIQixKXiE=;
+ s=mail; t=1707226832;
+ bh=D+TBqmysgnL/HqC+ck7im51xVuE0eKf2Vx5tfRp1Hkc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jJt87ajWVdK89Rfyb+jiky4gvmowtfZOCJZtCWAdBzrxqQjYl8RkDAWw1GjNPt3rj
- Jenek9xQ8efrqfbQWdR/MAB0bf8AjF6cNDJomTaxkqGCx5MqRkTc5onD0kUQ+f/BDi
- E1GhB9QNoRnXcHEKttDqnEeZ9R8xAGJsVuVXKMVI=
-Date: Tue, 6 Feb 2024 15:31:22 +0200
+ b=FGuKLCoR+tVg+6jR2YorraeR/At256PUFSppI95wrfNlx7aNBd5r4yEwq9f25NR3a
+ EIL4EjimIbaYLv31HcXfK52O2BzGqUtcyDxLuSEHyg9q+PVZ2BI8KXioxCy9gTSj/4
+ jlffOsqbpaVGIRnG62lv5Xi896kxrLt84Lv+nzbA=
+Date: Tue, 6 Feb 2024 15:41:55 +0200
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <20240206133122.GA2827@pendragon.ideasonboard.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>
+Message-ID: <20240206134155.GB2827@pendragon.ideasonboard.com>
 References: <87ttmmnvzh.wl-kuninori.morimoto.gx@renesas.com>
- <87sf26nvy2.wl-kuninori.morimoto.gx@renesas.com>
+ <87r0hqnvxc.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <87sf26nvy2.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r0hqnvxc.wl-kuninori.morimoto.gx@renesas.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Alim Akhtar <alim.akhtar@samsung.com>, Sam Ravnborg <sam@ravnborg.org>,
  dri-devel@lists.freedesktop.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
@@ -61,9 +63,8 @@ Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>,
  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Daniel Vetter <daniel@ffwll.ch>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- linux-rpi-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/4] gpu: drm: replace
+ Daniel Vetter <daniel@ffwll.ch>, linux-rpi-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/4] media: i2c: replace
 	of_graph_get_next_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -76,102 +77,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Morimoto-san,
-
-Thank you for the patch.
-
-On Tue, Feb 06, 2024 at 02:55:01AM +0000, Kuninori Morimoto wrote:
-> From DT point of view, in general, drivers should be asking for a
-> specific port number because their function is fixed in the binding.
-> 
-> of_graph_get_next_endpoint() doesn't match to this concept.
-> 
-> Simply replace
-> 
-> 	- of_graph_get_next_endpoint(xxx, NULL);
-> 	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
-> 
-> Link: https://lore.kernel.org/r/20240202174941.GA310089-robh@kernel.org
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  drivers/gpu/drm/drm_of.c                              | 2 +-
->  drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c | 2 +-
->  drivers/gpu/drm/tiny/arcpgu.c                         | 2 +-
->  3 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-> index 177b600895d3..c2eae9296012 100644
-> --- a/drivers/gpu/drm/drm_of.c
-> +++ b/drivers/gpu/drm/drm_of.c
-> @@ -516,7 +516,7 @@ struct mipi_dsi_host *drm_of_get_dsi_bus(struct device *dev)
->  	/*
->  	 * Get first endpoint child from device.
->  	 */
-> -	endpoint = of_graph_get_next_endpoint(dev->of_node, NULL);
-> +	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
-
-This assumes that the DSI device's port@0 will also be the input. That's
-fine for current users of this function, but we should at least document
-it.
-
-diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
-index 177b600895d3..012c4d04cf51 100644
---- a/drivers/gpu/drm/drm_of.c
-+++ b/drivers/gpu/drm/drm_of.c
-@@ -504,6 +504,8 @@ EXPORT_SYMBOL_GPL(drm_of_get_data_lanes_count_ep);
-  * Gets parent DSI bus for a DSI device controlled through a bus other
-  * than MIPI-DCS (SPI, I2C, etc.) using the Device Tree.
-  *
-+ * This function assumes that the device's port@0 is the DSI input.
-+ *
-  * Returns pointer to mipi_dsi_host if successful, -EINVAL if the
-  * request is unsupported, -EPROBE_DEFER if the DSI host is found but
-  * not available, or -ENODEV otherwise.
-
-With this,
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
->  	if (!endpoint)
->  		return ERR_PTR(-ENODEV);
->  
-> diff --git a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> index 4618c892cdd6..e10e469aa7a6 100644
-> --- a/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> +++ b/drivers/gpu/drm/panel/panel-raspberrypi-touchscreen.c
-> @@ -400,7 +400,7 @@ static int rpi_touchscreen_probe(struct i2c_client *i2c)
->  	rpi_touchscreen_i2c_write(ts, REG_POWERON, 0);
->  
->  	/* Look up the DSI host.  It needs to probe before we do. */
-> -	endpoint = of_graph_get_next_endpoint(dev->of_node, NULL);
-> +	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
->  	if (!endpoint)
->  		return -ENODEV;
->  
-> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-> index e5b10e41554a..04d0053b9315 100644
-> --- a/drivers/gpu/drm/tiny/arcpgu.c
-> +++ b/drivers/gpu/drm/tiny/arcpgu.c
-> @@ -288,7 +288,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->  	 * There is only one output port inside each device. It is linked with
->  	 * encoder endpoint.
->  	 */
-> -	endpoint_node = of_graph_get_next_endpoint(pdev->dev.of_node, NULL);
-> +	endpoint_node = of_graph_get_endpoint_by_regs(pdev->dev.of_node, 0, -1);
->  	if (endpoint_node) {
->  		encoder_node = of_graph_get_remote_port_parent(endpoint_node);
->  		of_node_put(endpoint_node);
-
--- 
-Regards,
-
-Laurent Pinchart
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgTW9yaW1vdG8tc2FuLAoKKEFkZGluZyBLcnp5c3p0b2YgSGHFgmFzYSkKClRoYW5rIHlvdSBm
+b3IgdGhlIHBhdGNoLgoKT24gVHVlLCBGZWIgMDYsIDIwMjQgYXQgMDI6NTU6MjdBTSArMDAwMCwg
+S3VuaW5vcmkgTW9yaW1vdG8gd3JvdGU6Cj4gRnJvbSBEVCBwb2ludCBvZiB2aWV3LCBpbiBnZW5l
+cmFsLCBkcml2ZXJzIHNob3VsZCBiZSBhc2tpbmcgZm9yIGEKPiBzcGVjaWZpYyBwb3J0IG51bWJl
+ciBiZWNhdXNlIHRoZWlyIGZ1bmN0aW9uIGlzIGZpeGVkIGluIHRoZSBiaW5kaW5nLgo+IAo+IG9m
+X2dyYXBoX2dldF9uZXh0X2VuZHBvaW50KCkgZG9lc24ndCBtYXRjaCB0byB0aGlzIGNvbmNlcHQu
+Cj4gCj4gU2ltcGx5IHJlcGxhY2UKPiAKPiAJLSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRwb2ludCh4
+eHgsIE5VTEwpOwo+IAkrIG9mX2dyYXBoX2dldF9lbmRwb2ludF9ieV9yZWdzKHh4eCwgMCwgLTEp
+Owo+IAo+IExpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNDAyMDIxNzQ5NDEuR0Ez
+MTAwODktcm9iaEBrZXJuZWwub3JnCj4gU2lnbmVkLW9mZi1ieTogS3VuaW5vcmkgTW9yaW1vdG8g
+PGt1bmlub3JpLm1vcmltb3RvLmd4QHJlbmVzYXMuY29tPgo+IC0tLQo+ICBkcml2ZXJzL21lZGlh
+L2kyYy9hZHY3MzQzLmMgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9h
+ZHY3NjA0LmMgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9tdDlwMDMx
+LmMgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9tdDl2MDMyLmMgICAg
+ICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9vdjI2NTkuYyAgICAgICAgICAg
+ICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9vdjU2NDUuYyAgICAgICAgICAgICAgIHwg
+MiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy9vdjU2NDcuYyAgICAgICAgICAgICAgIHwgMiArLQo+
+ICBkcml2ZXJzL21lZGlhL2kyYy9zNWM3M20zL3M1YzczbTMtY29yZS5jIHwgMiArLQo+ICBkcml2
+ZXJzL21lZGlhL2kyYy9zNWs1YmFmLmMgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21l
+ZGlhL2kyYy90YzM1ODc0My5jICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2ky
+Yy90ZGExOTk3eC5jICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy90dnA1
+MTR4LmMgICAgICAgICAgICAgIHwgMiArLQo+ICBkcml2ZXJzL21lZGlhL2kyYy90dnA3MDAyLmMg
+ICAgICAgICAgICAgIHwgMiArLQo+ICAxMyBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCsp
+LCAxMyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9pMmMvYWR2
+NzM0My5jIGIvZHJpdmVycy9tZWRpYS9pMmMvYWR2NzM0My5jCj4gaW5kZXggZmYyMWNkNDc0NGQz
+Li40ZmJlNGUxODU3MGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS9pMmMvYWR2NzM0My5j
+Cj4gKysrIGIvZHJpdmVycy9tZWRpYS9pMmMvYWR2NzM0My5jCj4gQEAgLTQwMyw3ICs0MDMsNyBA
+QCBhZHY3MzQzX2dldF9wZGF0YShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xpZW50KQo+ICAJaWYgKCFJ
+U19FTkFCTEVEKENPTkZJR19PRikgfHwgIWNsaWVudC0+ZGV2Lm9mX25vZGUpCj4gIAkJcmV0dXJu
+IGNsaWVudC0+ZGV2LnBsYXRmb3JtX2RhdGE7Cj4gIAo+IC0JbnAgPSBvZl9ncmFwaF9nZXRfbmV4
+dF9lbmRwb2ludChjbGllbnQtPmRldi5vZl9ub2RlLCBOVUxMKTsKPiArCW5wID0gb2ZfZ3JhcGhf
+Z2V0X2VuZHBvaW50X2J5X3JlZ3MoY2xpZW50LT5kZXYub2Zfbm9kZSwgMCwgLTEpOwo+ICAJaWYg
+KCFucCkKPiAgCQlyZXR1cm4gTlVMTDsKPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEv
+aTJjL2Fkdjc2MDQuYyBiL2RyaXZlcnMvbWVkaWEvaTJjL2Fkdjc2MDQuYwo+IGluZGV4IGIyMDJh
+ODVmYmVhYS4uZGNmZGJiOTc1NDczIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvaTJjL2Fk
+djc2MDQuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEvaTJjL2Fkdjc2MDQuYwo+IEBAIC0zMjA1LDcg
+KzMyMDUsNyBAQCBzdGF0aWMgaW50IGFkdjc2eHhfcGFyc2VfZHQoc3RydWN0IGFkdjc2eHhfc3Rh
+dGUgKnN0YXRlKQo+ICAJbnAgPSBzdGF0ZS0+aTJjX2NsaWVudHNbQURWNzZYWF9QQUdFX0lPXS0+
+ZGV2Lm9mX25vZGU7Cj4gIAo+ICAJLyogUGFyc2UgdGhlIGVuZHBvaW50LiAqLwo+IC0JZW5kcG9p
+bnQgPSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRwb2ludChucCwgTlVMTCk7Cj4gKwllbmRwb2ludCA9
+IG9mX2dyYXBoX2dldF9lbmRwb2ludF9ieV9yZWdzKG5wLCAwLCAtMSk7CgpJIHRoaW5rIHRoaXMg
+c2hvdWxkIGJlIHBvcnQgMSBmb3IgdGhlIGFkdjc2MTEgYW5kIHBvcnQyIGZvciB0aGUgYWR2NzYx
+Mi4KVGhlIGFkdjc2MTAgbWF5IG5lZWQgdG8gdXNlIHBvcnQgMSB0b28sIGJ1dCB0aGUgYmluZGlu
+Z3MgbGlrZWx5IG5lZWQgdG8KYmUgdXBkYXRlZC4KCkhhbnMsIEtyenlzenRvZiwgYW55IG9waW5p
+b24gPwoKPiAgCWlmICghZW5kcG9pbnQpCj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4gIAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL21lZGlhL2kyYy9tdDlwMDMxLmMgYi9kcml2ZXJzL21lZGlhL2kyYy9t
+dDlwMDMxLmMKPiBpbmRleCAzNDhmMWUxMDk4ZmIuLmM1N2EwZDQzNjQyMSAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL21lZGlhL2kyYy9tdDlwMDMxLmMKPiArKysgYi9kcml2ZXJzL21lZGlhL2kyYy9t
+dDlwMDMxLmMKPiBAQCAtMTA4MCw3ICsxMDgwLDcgQEAgbXQ5cDAzMV9nZXRfcGRhdGEoc3RydWN0
+IGkyY19jbGllbnQgKmNsaWVudCkKPiAgCWlmICghSVNfRU5BQkxFRChDT05GSUdfT0YpIHx8ICFj
+bGllbnQtPmRldi5vZl9ub2RlKQo+ICAJCXJldHVybiBjbGllbnQtPmRldi5wbGF0Zm9ybV9kYXRh
+Owo+ICAKPiAtCW5wID0gb2ZfZ3JhcGhfZ2V0X25leHRfZW5kcG9pbnQoY2xpZW50LT5kZXYub2Zf
+bm9kZSwgTlVMTCk7Cj4gKwlucCA9IG9mX2dyYXBoX2dldF9lbmRwb2ludF9ieV9yZWdzKGNsaWVu
+dC0+ZGV2Lm9mX25vZGUsIDAsIC0xKTsKPiAgCWlmICghbnApCj4gIAkJcmV0dXJuIE5VTEw7Cj4g
+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL2kyYy9tdDl2MDMyLmMgYi9kcml2ZXJzL21l
+ZGlhL2kyYy9tdDl2MDMyLmMKPiBpbmRleCAxYzZmNmNlYTEyMDQuLjE0ZDI3NzY4MGZhMiAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL21lZGlhL2kyYy9tdDl2MDMyLmMKPiArKysgYi9kcml2ZXJzL21l
+ZGlhL2kyYy9tdDl2MDMyLmMKPiBAQCAtMTAwOCw3ICsxMDA4LDcgQEAgbXQ5djAzMl9nZXRfcGRh
+dGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCkKPiAgCWlmICghSVNfRU5BQkxFRChDT05GSUdf
+T0YpIHx8ICFjbGllbnQtPmRldi5vZl9ub2RlKQo+ICAJCXJldHVybiBjbGllbnQtPmRldi5wbGF0
+Zm9ybV9kYXRhOwo+ICAKPiAtCW5wID0gb2ZfZ3JhcGhfZ2V0X25leHRfZW5kcG9pbnQoY2xpZW50
+LT5kZXYub2Zfbm9kZSwgTlVMTCk7Cj4gKwlucCA9IG9mX2dyYXBoX2dldF9lbmRwb2ludF9ieV9y
+ZWdzKGNsaWVudC0+ZGV2Lm9mX25vZGUsIDAsIC0xKTsKPiAgCWlmICghbnApCj4gIAkJcmV0dXJu
+IE5VTEw7Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL2kyYy9vdjI2NTkuYyBiL2Ry
+aXZlcnMvbWVkaWEvaTJjL292MjY1OS5jCj4gaW5kZXggMmMzZGJlMTY0ZWI2Li5lZGVhNjJhMDIz
+MjAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS9pMmMvb3YyNjU5LmMKPiArKysgYi9kcml2
+ZXJzL21lZGlhL2kyYy9vdjI2NTkuYwo+IEBAIC0xMzg4LDcgKzEzODgsNyBAQCBvdjI2NTlfZ2V0
+X3BkYXRhKHN0cnVjdCBpMmNfY2xpZW50ICpjbGllbnQpCj4gIAlpZiAoIUlTX0VOQUJMRUQoQ09O
+RklHX09GKSB8fCAhY2xpZW50LT5kZXYub2Zfbm9kZSkKPiAgCQlyZXR1cm4gY2xpZW50LT5kZXYu
+cGxhdGZvcm1fZGF0YTsKPiAgCj4gLQllbmRwb2ludCA9IG9mX2dyYXBoX2dldF9uZXh0X2VuZHBv
+aW50KGNsaWVudC0+ZGV2Lm9mX25vZGUsIE5VTEwpOwo+ICsJZW5kcG9pbnQgPSBvZl9ncmFwaF9n
+ZXRfZW5kcG9pbnRfYnlfcmVncyhjbGllbnQtPmRldi5vZl9ub2RlLCAwLCAtMSk7Cj4gIAlpZiAo
+IWVuZHBvaW50KQo+ICAJCXJldHVybiBOVUxMOwo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
+ZWRpYS9pMmMvb3Y1NjQ1LmMgYi9kcml2ZXJzL21lZGlhL2kyYy9vdjU2NDUuYwo+IGluZGV4IGE3
+MGRiN2U2MDFhNC4uMzFkMjE0YmQ0YTgzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvaTJj
+L292NTY0NS5jCj4gKysrIGIvZHJpdmVycy9tZWRpYS9pMmMvb3Y1NjQ1LmMKPiBAQCAtMTA1Myw3
+ICsxMDUzLDcgQEAgc3RhdGljIGludCBvdjU2NDVfcHJvYmUoc3RydWN0IGkyY19jbGllbnQgKmNs
+aWVudCkKPiAgCW92NTY0NS0+aTJjX2NsaWVudCA9IGNsaWVudDsKPiAgCW92NTY0NS0+ZGV2ID0g
+ZGV2Owo+ICAKPiAtCWVuZHBvaW50ID0gb2ZfZ3JhcGhfZ2V0X25leHRfZW5kcG9pbnQoZGV2LT5v
+Zl9ub2RlLCBOVUxMKTsKPiArCWVuZHBvaW50ID0gb2ZfZ3JhcGhfZ2V0X2VuZHBvaW50X2J5X3Jl
+Z3MoZGV2LT5vZl9ub2RlLCAwLCAtMSk7Cj4gIAlpZiAoIWVuZHBvaW50KSB7Cj4gIAkJZGV2X2Vy
+cihkZXYsICJlbmRwb2ludCBub2RlIG5vdCBmb3VuZFxuIik7Cj4gIAkJcmV0dXJuIC1FSU5WQUw7
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvaTJjL292NTY0Ny5jIGIvZHJpdmVycy9tZWRp
+YS9pMmMvb3Y1NjQ3LmMKPiBpbmRleCBkY2ZlMzEyOWM2M2EuLmJlYWIyODEzYzY3MiAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL21lZGlhL2kyYy9vdjU2NDcuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEv
+aTJjL292NTY0Ny5jCj4gQEAgLTEzNjMsNyArMTM2Myw3IEBAIHN0YXRpYyBpbnQgb3Y1NjQ3X3Bh
+cnNlX2R0KHN0cnVjdCBvdjU2NDcgKnNlbnNvciwgc3RydWN0IGRldmljZV9ub2RlICpucCkKPiAg
+CXN0cnVjdCBkZXZpY2Vfbm9kZSAqZXA7Cj4gIAlpbnQgcmV0Owo+ICAKPiAtCWVwID0gb2ZfZ3Jh
+cGhfZ2V0X25leHRfZW5kcG9pbnQobnAsIE5VTEwpOwo+ICsJZXAgPSBvZl9ncmFwaF9nZXRfZW5k
+cG9pbnRfYnlfcmVncyhucCwgMCwgLTEpOwo+ICAJaWYgKCFlcCkKPiAgCQlyZXR1cm4gLUVJTlZB
+TDsKPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvaTJjL3M1YzczbTMvczVjNzNtMy1j
+b3JlLmMgYi9kcml2ZXJzL21lZGlhL2kyYy9zNWM3M20zL3M1YzczbTMtY29yZS5jCj4gaW5kZXgg
+ZWQ1YjEwNzMxYTE0Li5hYWVjNWY2NGYzMWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS9p
+MmMvczVjNzNtMy9zNWM3M20zLWNvcmUuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEvaTJjL3M1Yzcz
+bTMvczVjNzNtMy1jb3JlLmMKPiBAQCAtMTU1NSw3ICsxNTU1LDcgQEAgc3RhdGljIGludCBzNWM3
+M20zX2dldF9kdF9kYXRhKHN0cnVjdCBzNWM3M20zICpzdGF0ZSkKPiAgCQkJCSAgICAgImZhaWxl
+ZCB0byByZXF1ZXN0IGdwaW8gUzVDNzNNM19SU1RcbiIpOwo+ICAJZ3Bpb2Rfc2V0X2NvbnN1bWVy
+X25hbWUoc3RhdGUtPnJlc2V0LCAiUzVDNzNNM19SU1QiKTsKPiAgCj4gLQlub2RlX2VwID0gb2Zf
+Z3JhcGhfZ2V0X25leHRfZW5kcG9pbnQobm9kZSwgTlVMTCk7Cj4gKwlub2RlX2VwID0gb2ZfZ3Jh
+cGhfZ2V0X2VuZHBvaW50X2J5X3JlZ3Mobm9kZSwgMCwgLTEpOwo+ICAJaWYgKCFub2RlX2VwKSB7
+Cj4gIAkJZGV2X3dhcm4oZGV2LCAibm8gZW5kcG9pbnQgZGVmaW5lZCBmb3Igbm9kZTogJXBPRlxu
+Iiwgbm9kZSk7Cj4gIAkJcmV0dXJuIDA7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvaTJj
+L3M1azViYWYuYyBiL2RyaXZlcnMvbWVkaWEvaTJjL3M1azViYWYuYwo+IGluZGV4IDY3ZGEyMDQ1
+ZjU0My4uYWY3ZTQ5ZTZjYzViIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvaTJjL3M1azVi
+YWYuYwo+ICsrKyBiL2RyaXZlcnMvbWVkaWEvaTJjL3M1azViYWYuYwo+IEBAIC0xODM2LDcgKzE4
+MzYsNyBAQCBzdGF0aWMgaW50IHM1azViYWZfcGFyc2VfZGV2aWNlX25vZGUoc3RydWN0IHM1azVi
+YWYgKnN0YXRlLCBzdHJ1Y3QgZGV2aWNlICpkZXYpCj4gIAkJCSBzdGF0ZS0+bWNsa19mcmVxdWVu
+Y3kpOwo+ICAJfQo+ICAKPiAtCW5vZGVfZXAgPSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRwb2ludChu
+b2RlLCBOVUxMKTsKPiArCW5vZGVfZXAgPSBvZl9ncmFwaF9nZXRfZW5kcG9pbnRfYnlfcmVncyhu
+b2RlLCAwLCAtMSk7Cj4gIAlpZiAoIW5vZGVfZXApIHsKPiAgCQlkZXZfZXJyKGRldiwgIm5vIGVu
+ZHBvaW50IGRlZmluZWQgYXQgbm9kZSAlcE9GXG4iLCBub2RlKTsKPiAgCQlyZXR1cm4gLUVJTlZB
+TDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9pMmMvdGMzNTg3NDMuYyBiL2RyaXZlcnMv
+bWVkaWEvaTJjL3RjMzU4NzQzLmMKPiBpbmRleCAyNzg1OTM1ZGE0OTcuLjg3MmU4MDJjZGZiZSAx
+MDA2NDQKPiAtLS0gYS9kcml2ZXJzL21lZGlhL2kyYy90YzM1ODc0My5jCj4gKysrIGIvZHJpdmVy
+cy9tZWRpYS9pMmMvdGMzNTg3NDMuYwo+IEBAIC0xODk1LDcgKzE4OTUsNyBAQCBzdGF0aWMgaW50
+IHRjMzU4NzQzX3Byb2JlX29mKHN0cnVjdCB0YzM1ODc0M19zdGF0ZSAqc3RhdGUpCj4gIAkJcmV0
+dXJuIGRldl9lcnJfcHJvYmUoZGV2LCBQVFJfRVJSKHJlZmNsayksCj4gIAkJCQkgICAgICJmYWls
+ZWQgdG8gZ2V0IHJlZmNsa1xuIik7Cj4gIAo+IC0JZXAgPSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRw
+b2ludChkZXYtPm9mX25vZGUsIE5VTEwpOwo+ICsJZXAgPSBvZl9ncmFwaF9nZXRfZW5kcG9pbnRf
+YnlfcmVncyhkZXYtPm9mX25vZGUsIDAsIC0xKTsKPiAgCWlmICghZXApIHsKPiAgCQlkZXZfZXJy
+KGRldiwgIm1pc3NpbmcgZW5kcG9pbnQgbm9kZVxuIik7Cj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvaTJjL3RkYTE5OTd4LmMgYi9kcml2ZXJzL21lZGlh
+L2kyYy90ZGExOTk3eC5jCj4gaW5kZXggMzI1ZTk5MTI1OTQxLi42NjJlZmQ1ZTY5YjkgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9tZWRpYS9pMmMvdGRhMTk5N3guYwo+ICsrKyBiL2RyaXZlcnMvbWVk
+aWEvaTJjL3RkYTE5OTd4LmMKPiBAQCAtMjMwNyw3ICsyMzA3LDcgQEAgc3RhdGljIGludCB0ZGEx
+OTk3eF9wYXJzZV9kdChzdHJ1Y3QgdGRhMTk5N3hfc3RhdGUgKnN0YXRlKQo+ICAJcGRhdGEtPnZp
+ZG91dF9zZWxfZGUgPSBERV9GUkVGX1NFTF9ERV9WSFJFRjsKPiAgCj4gIAlucCA9IHN0YXRlLT5j
+bGllbnQtPmRldi5vZl9ub2RlOwo+IC0JZXAgPSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRwb2ludChu
+cCwgTlVMTCk7Cj4gKwllcCA9IG9mX2dyYXBoX2dldF9lbmRwb2ludF9ieV9yZWdzKG5wLCAwLCAt
+MSk7Cj4gIAlpZiAoIWVwKQo+ICAJCXJldHVybiAtRUlOVkFMOwo+ICAKPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9tZWRpYS9pMmMvdHZwNTE0eC5jIGIvZHJpdmVycy9tZWRpYS9pMmMvdHZwNTE0eC5j
+Cj4gaW5kZXggYzM3ZjYwNWNiNzVmLi5iMTYzMGE2YzM5NmIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9tZWRpYS9pMmMvdHZwNTE0eC5jCj4gKysrIGIvZHJpdmVycy9tZWRpYS9pMmMvdHZwNTE0eC5j
+Cj4gQEAgLTk4OCw3ICs5ODgsNyBAQCB0dnA1MTR4X2dldF9wZGF0YShzdHJ1Y3QgaTJjX2NsaWVu
+dCAqY2xpZW50KQo+ICAJaWYgKCFJU19FTkFCTEVEKENPTkZJR19PRikgfHwgIWNsaWVudC0+ZGV2
+Lm9mX25vZGUpCj4gIAkJcmV0dXJuIGNsaWVudC0+ZGV2LnBsYXRmb3JtX2RhdGE7Cj4gIAo+IC0J
+ZW5kcG9pbnQgPSBvZl9ncmFwaF9nZXRfbmV4dF9lbmRwb2ludChjbGllbnQtPmRldi5vZl9ub2Rl
+LCBOVUxMKTsKPiArCWVuZHBvaW50ID0gb2ZfZ3JhcGhfZ2V0X2VuZHBvaW50X2J5X3JlZ3MoY2xp
+ZW50LT5kZXYub2Zfbm9kZSwgMCwgLTEpOwo+ICAJaWYgKCFlbmRwb2ludCkKPiAgCQlyZXR1cm4g
+TlVMTDsKPiAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvaTJjL3R2cDcwMDIuYyBiL2Ry
+aXZlcnMvbWVkaWEvaTJjL3R2cDcwMDIuYwo+IGluZGV4IGEyZDdiYzc5OTg0OS4uOGU1OGNlNDAw
+ZGYyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvbWVkaWEvaTJjL3R2cDcwMDIuYwo+ICsrKyBiL2Ry
+aXZlcnMvbWVkaWEvaTJjL3R2cDcwMDIuYwo+IEBAIC04OTMsNyArODkzLDcgQEAgdHZwNzAwMl9n
+ZXRfcGRhdGEoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCkKPiAgCWlmICghSVNfRU5BQkxFRChD
+T05GSUdfT0YpIHx8ICFjbGllbnQtPmRldi5vZl9ub2RlKQo+ICAJCXJldHVybiBjbGllbnQtPmRl
+di5wbGF0Zm9ybV9kYXRhOwo+ICAKPiAtCWVuZHBvaW50ID0gb2ZfZ3JhcGhfZ2V0X25leHRfZW5k
+cG9pbnQoY2xpZW50LT5kZXYub2Zfbm9kZSwgTlVMTCk7Cj4gKwllbmRwb2ludCA9IG9mX2dyYXBo
+X2dldF9lbmRwb2ludF9ieV9yZWdzKGNsaWVudC0+ZGV2Lm9mX25vZGUsIDAsIC0xKTsKPiAgCWlm
+ICghZW5kcG9pbnQpCj4gIAkJcmV0dXJuIE5VTEw7Cj4gIAoKLS0gClJlZ2FyZHMsCgpMYXVyZW50
+IFBpbmNoYXJ0Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
