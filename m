@@ -2,106 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC0C84B046
-	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 09:47:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEDE084B153
+	for <lists+linux-stm32@lfdr.de>; Tue,  6 Feb 2024 10:33:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C987DC6907A;
-	Tue,  6 Feb 2024 08:47:53 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8837EC6907A;
+	Tue,  6 Feb 2024 09:33:38 +0000 (UTC)
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
+ [209.85.128.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90D4AC03FC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C6BB1C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  6 Feb 2024 08:47:52 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-40ef64d8955so5014545e9.3
+ Tue,  6 Feb 2024 09:33:35 +0000 (UTC)
+Received: by mail-yw1-f170.google.com with SMTP id
+ 00721157ae682-6048313efb4so251767b3.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Feb 2024 00:47:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707209272; x=1707814072;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=Cgswh97JThtSZc+MWkKLL/sOqrjScM78TS+JiOIKCEY=;
- b=Ymbkl+j3+RkvV1RbKt1yA9VT41xxAjLaFQ0t1JsDs3B7x/W9/3StXiZhhWPLhHtZNF
- BvdKs+XF1J9URyL/CyZpaGW6ax9yFHo+2tZFuK7lcfWxXSRpUq5Dw0IRaMo4bttX24iy
- 0wk7F8fBu3Xa+JwGxXvV/B/h+VKcj4B4Qafbzasl5RhqCSu2/1QifWaqcLxh2ZZqTUsk
- 73g8/h2wkIoPwfft2hZavUnYMdxIxM4NbCGF459h0Sp/Gk38ojpuNr1dLmpmK4KLB4VI
- z6hiJ1f2sqZ1R8N4zoBZEJdq5k5cyQ13Lpzh+tgp0mt7h8lkT/516O+fzk9ojwSfc3+x
- +J0A==
+ Tue, 06 Feb 2024 01:33:35 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707209272; x=1707814072;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :references:cc:to:content-language:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=Cgswh97JThtSZc+MWkKLL/sOqrjScM78TS+JiOIKCEY=;
- b=VJnPkeCIISEbBW/DF6fbUSs1Gzn5P+EU/iRtHXtig6hO1Vm1nPEhQslbwkOPBBNRSS
- ZQLz/Al9SkB694f4DDIMGKJdJXcXKLbqSzNVYpPFrClMss42M7nL9NPwBrRthFWNxVbp
- d3mTvUtgEvIKENsUkPKvDMzt9Kr+RUNeZ8qNW1fxWw5zMq2a1yqYFiimbY3n/Fc95+cb
- VaFiQtc52RsOY+BKdZw8y8mgW4v27i9HfNM13d3DiMPwVQIHJgQpp2GeHp8jioABnGGr
- MaadKvONnr6+wUtu+30Rdyfwk2fWCxvQliVYLWmbDTwACKdcLlL4o/PDp5X5b7uOobkR
- dyqg==
-X-Gm-Message-State: AOJu0YytojZIPg5N0NtrHSVyfwH1gavNMTfLjtlmCmZ3056uOG/xjn9r
- 6ooYavHz3EK1Nyq++GNBdbaC7B9xqfSDddKpvBMPj+SMP9v1wpgDBJUGzq+gJ3Q=
-X-Google-Smtp-Source: AGHT+IGhYB7S/j7lcNzeBzGO6RKkAL5j0F4BGe7lMnfxVZSyyt0yaNgwR3CzP3SL1KkRGHmCS6IleQ==
-X-Received: by 2002:a05:600c:5204:b0:40f:bdf3:3426 with SMTP id
- fb4-20020a05600c520400b0040fbdf33426mr2050471wmb.31.1707209271941; 
- Tue, 06 Feb 2024 00:47:51 -0800 (PST)
+ d=1e100.net; s=20230601; t=1707212014; x=1707816814;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wv8aVTQt1PkjH10jXoXAhUeu0btco/HHsLNCr4o/nTU=;
+ b=oqAf4L7advci8ti90NoZlR2PR2GOP4A5fRiHhj8r+rzuOI125KV4JgDChaUCqxGKd4
+ anJceA9Sd8MbZofTu9NTIH1wEqZwHVv47QV8U/lYo7+z8DBCDjX8B/7X4DEn9zk5XLRD
+ gnAy7Lo0FTaZnMWs/JC9QMStXWyTPXVTfKFqs1JxqV5m3NUwteddyEYpGyaPhgig/9nT
+ eISR5tSb9EfAfwTKIcRlV+igjdO1Je8hqR249yRvUc2JXhVJIu6zD/MjP0ukgsNSjN2y
+ No3aiHMHnXQUEdxfFFg2ETObet7zznW1iOTyCmN1a6DC3tuPFO+q715nXsrj8jFeHV42
+ sC5A==
+X-Gm-Message-State: AOJu0Yyx7G6lUkH5ZKfHjSS8KZksECDESPcJB/5X7P6RsS9Ncq5k993X
+ xoeKh8qUlNsFvNnoYLZ52XVR1UO43Zp5i0vgKvPitDZRTlSLvFKk7GEnQce+FNc=
+X-Google-Smtp-Source: AGHT+IGf5ouEdHx6NqKafErEO7M79FbachW7O+1+iwk2U0OsrlyFqz37taHRtlnI4DpXO4KVcFh8Pw==
+X-Received: by 2002:a81:9996:0:b0:5ff:7dd8:26cc with SMTP id
+ q144-20020a819996000000b005ff7dd826ccmr1040565ywg.22.1707212014423; 
+ Tue, 06 Feb 2024 01:33:34 -0800 (PST)
 X-Forwarded-Encrypted: i=0;
- AJvYcCX161gOqgvdRv10X26uunEqBIdx6lmer6jebnO8ie7WB84hoaVNdkmlbFSJ5LjujcMzuSzR/xphCn25giI+Q9UXCOpzU0SYElVmWIQHgdF1py1U6L8WklwZZ3QCMEX5nHAOzbJ9xizUKNmRG7qouRrbJUW2H0ChFld4lhcQ1KE9rJ+70wxfDZBjS2Kc0VxqLZOAGYnfch42/wyj5QYcH8ntahvUVFDmk41fpL5rXhGVE0BbfZWgTNwPSj9wZMcSWF77C2AruITJSKqyiP1Go4J5m1tT1or2ugXqOOxrXzTQ7YDRBGl1iKaBRVIiXD6ZaV+DyjcjKv5cvRVdxCt+od9xKcOV6F3/VQr3bdL2enneL+g0fOryGLlMbyAjDVZkC9jBg3EDHyoUXjj03kT0z561HwcXCTD6FBYlDJfH5VxhCQ7lVPLqsGVNUuEXexKOKhaEBxfYQHceEq7+1Ca4rKDHI5JfApLifcobxpRZNIZRb47N+wmvsTtdfZg4sc9kWkJD3GZshjCLZt+YeEjY/a3k8X4emne7fSNi6nAfvkxYgs12WG8iNGcsJjCA3i0mkA7UCH+6Wp8IcF80TAwq9ZrMZVn8Lmo9ggVYYDUb6g==
-Received: from ?IPV6:2a01:e0a:982:cbb0:ba23:8574:fa8:28dd?
- ([2a01:e0a:982:cbb0:ba23:8574:fa8:28dd])
- by smtp.gmail.com with ESMTPSA id
- l16-20020a5d5610000000b0033b3ca3a255sm1511899wrv.19.2024.02.06.00.47.50
+ AJvYcCWoYIw231RvmkEeRyrDxpqUJwZtxaZiB/+uOz0SDjKCoHh1xjPdIf21nCmcYBLhsjdvJYzB+gpurL79bnsNowpwN8rm0PNCI3LpHTpNDF+QFQEinQEgOqM8
+Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com.
+ [209.85.219.174]) by smtp.gmail.com with ESMTPSA id
+ b76-20020a0dd94f000000b005f9673cb763sm403016ywe.126.2024.02.06.01.33.34
+ for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 00:47:51 -0800 (PST)
-Message-ID: <0e47aa27-b28d-4672-a2eb-f906e0e6a5ac@linaro.org>
-Date: Tue, 6 Feb 2024 09:47:49 +0100
+ Tue, 06 Feb 2024 01:33:34 -0800 (PST)
+Received: by mail-yb1-f174.google.com with SMTP id
+ 3f1490d57ef6-dc6d9a8815fso5126535276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 06 Feb 2024 01:33:34 -0800 (PST)
+X-Received: by 2002:a5b:711:0:b0:dc6:4c9e:9e4d with SMTP id
+ g17-20020a5b0711000000b00dc64c9e9e4dmr1100023ybq.20.1707212014034; Tue, 06
+ Feb 2024 01:33:34 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Content-Language: en-US, fr
-To: Bo Liu <liubo03@inspur.com>, lee@kernel.org, wens@csie.org,
- marek.vasut+renesas@gmail.com, support.opensource@diasemi.com,
- ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com,
- mazziesaccount@gmail.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com
 References: <20240206071314.8721-1-liubo03@inspur.com>
- <20240206071314.8721-9-liubo03@inspur.com>
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro Developer Services
-In-Reply-To: <20240206071314.8721-9-liubo03@inspur.com>
-Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 08/18] mfd: khadas-mcu: convert to use
- maple tree register cache
+In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 6 Feb 2024 10:33:22 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdU7fYCsNT9ditqJ-saUsRm9J2zLh=-q-zmExhBRJeE8NQ@mail.gmail.com>
+Message-ID: <CAMuHMdU7fYCsNT9ditqJ-saUsRm9J2zLh=-q-zmExhBRJeE8NQ@mail.gmail.com>
+To: Bo Liu <liubo03@inspur.com>
+Cc: neil.armstrong@linaro.org, ckeepax@opensource.cirrus.com,
+ support.opensource@diasemi.com, mazziesaccount@gmail.com,
+ linux-kernel@vger.kernel.org, lee@kernel.org, rf@opensource.cirrus.com,
+ linux-renesas-soc@vger.kernel.org, wens@csie.org,
+ Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
+ patches@opensource.cirrus.com, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ marek.vasut+renesas@gmail.com
+Subject: Re: [Linux-stm32] [PATCH 00/18] mfd: convert to use maple tree
+	register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,38 +80,47 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: neil.armstrong@linaro.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 06/02/2024 08:13, Bo Liu wrote:
-> The maple tree register cache is based on a much more modern data structure
-> than the rbtree cache and makes optimisation choices which are probably
-> more appropriate for modern systems than those made by the rbtree cache.
-> 
-> Signed-off-by: Bo Liu <liubo03@inspur.com>
-> ---
->   drivers/mfd/khadas-mcu.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
-> index 61396d824f16..ba981a788692 100644
-> --- a/drivers/mfd/khadas-mcu.c
-> +++ b/drivers/mfd/khadas-mcu.c
-> @@ -72,7 +72,7 @@ static const struct regmap_config khadas_mcu_regmap_config = {
->   	.max_register	= KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG,
->   	.volatile_reg	= khadas_mcu_reg_volatile,
->   	.writeable_reg	= khadas_mcu_reg_writeable,
-> -	.cache_type	= REGCACHE_RBTREE,
-> +	.cache_type	= REGCACHE_MAPLE,
->   };
->   
->   static struct mfd_cell khadas_mcu_fan_cells[] = {
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQm8sCgpDQyBicm9vbmllCgpUaGFua3MgZm9yIHlvdXIgc2VyaWVzIQoKT24gVHVlLCBGZWIg
+NiwgMjAyNCBhdCA4OjE24oCvQU0gQm8gTGl1IDxsaXVibzAzQGluc3B1ci5jb20+IHdyb3RlOgo+
+IFRoZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlIGlzIGJhc2VkIG9uIGEgbXVjaCBtb3JlIG1v
+ZGVybiBkYXRhIHN0cnVjdHVyZQo+IHRoYW4gdGhlIHJidHJlZSBjYWNoZSBhbmQgbWFrZXMgb3B0
+aW1pc2F0aW9uIGNob2ljZXMgd2hpY2ggYXJlIHByb2JhYmx5Cgpwcm9iYWJseT8KCj4gbW9yZSBh
+cHByb3ByaWF0ZSBmb3IgbW9kZXJuIHN5c3RlbXMgdGhhbiB0aG9zZSBtYWRlIGJ5IHRoZSByYnRy
+ZWUgY2FjaGUuCj4KPiBCbyBMaXUgKDE4KToKPiAgIG1mZDogYWMxMDA6IGNvbnZlcnQgdG8gdXNl
+IG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1mZDogYXMzNzExOiBjb252ZXJ0IHRvIHVz
+ZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IGFzMzcyMjogY29udmVydCB0byB1
+c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBheHAyMHg6IGNvbnZlcnQgdG8g
+dXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1mZDogYmNtNTkweHg6IGNvbnZlcnQg
+dG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1mZDogYmQ5NTcxbXd2OiBjb252
+ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IGRpYWxvZzogY29u
+dmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBraGFkYXMtbWN1
+OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IGxvY2hu
+YWdhci1pMmM6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1m
+ZDogd29sZnNvbjogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAg
+bWZkOiByb2htOiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBt
+ZmQ6IHJrOHh4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBt
+ZmQ6IHJuNXQ2MTg6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAg
+IG1mZDogcnNtdV9pMmM6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUK
+PiAgIG1mZDogc2k0NzZ4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hl
+Cj4gICBtZmQ6IHN0bWZ4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hl
+Cj4gICBtZmQ6IHN0cG1pYzE6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2Fj
+aGUKPiAgIG1mZDogcmM1dDU4MzogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBj
+YWNoZQoKSWYgYWxsIG9mIHRoaXMgaXMgdHJ1ZSwgaXMgdGhlcmUgYW55IHJlYXNvbiB0byBrZWVw
+IFJFR0NBQ0hFX1JCVFJFRQphcm91bmQ/ICBJZiBub3QsIHBlcmhhcHMgUkVHQ0FDSEVfUkJUUkVF
+IHNob3VsZCBiZSB0cmVhdGVkIGFzClJFR0NBQ0hFX01BUExFIGluIHRoZSByZWdtYXAgY29yZSBj
+b2RlIGZpcnN0LCBmb2xsb3dlZCBieSBhIHNpbmdsZQp0cmVlLXdpZGUgcGF0Y2ggdG8gcmVwbGFj
+ZSBSRUdDQUNIRV9SQlRSRUU/CgpHcntvZXRqZSxlZXRpbmd9cywKCiAgICAgICAgICAgICAgICAg
+ICAgICAgIEdlZXJ0CgoKLS0KR2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRoZXJlJ3MgbG90cyBvZiBM
+aW51eCBiZXlvbmQgaWEzMiAtLSBnZWVydEBsaW51eC1tNjhrLm9yZwoKSW4gcGVyc29uYWwgY29u
+dmVyc2F0aW9ucyB3aXRoIHRlY2huaWNhbCBwZW9wbGUsIEkgY2FsbCBteXNlbGYgYSBoYWNrZXIu
+IEJ1dAp3aGVuIEknbSB0YWxraW5nIHRvIGpvdXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1t
+ZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQuCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgLS0gTGludXMgVG9ydmFsZHMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1h
+aWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+L21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
