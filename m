@@ -2,77 +2,127 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A71984C9A4
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 12:34:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1B984CA08
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 12:56:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE0F7C6B463;
-	Wed,  7 Feb 2024 11:34:40 +0000 (UTC)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com
- [209.85.208.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FA0EC6DD9E;
+	Wed,  7 Feb 2024 11:56:38 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1970C65E4C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B486FC65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 11:34:39 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-2d066b532f0so8078751fa.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Feb 2024 03:34:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707305679; x=1707910479;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=nPQzZxl5bE1RItDITVNujm+ZmvjYJeoOtU5sHIw4Szs=;
- b=Lm8yPSCGjzdSdMWTM1PzrjWf5ZQ+EepVZW9vBK3u6dTE/Ef/Yg5jwfntjIix0s+icT
- REqAHhEkof8BNVf3ndkCQClL47BrQElhvYMP6JFR1qp2iYSCt20eX06eV21RK1mCjFzq
- 8i99cnaPEcgM1VpRfThDt4ePtj3tI/4Y53Z42uMZgcx83M5cogRMGqL6vLCDVXgryNuB
- 5lMqCxn2SD7KwOezldMmhtszvSaofmb5BI7jTF9hrqwgyNvwfHLCEGgDcNhoLGiTIWtI
- E9QDgoBDjJLAPDR4MwYUV/TXKg9eOlcy/eJstQZXDEo8U2zjrKqdKmaelYbIGhJNijYJ
- tAYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707305679; x=1707910479;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nPQzZxl5bE1RItDITVNujm+ZmvjYJeoOtU5sHIw4Szs=;
- b=TbsDNYI/qdusiFCU0Zl79KdB7ACnpHr0KmmWE9mu2ekdkMfXMT8IO8OH2RIkOMpg8h
- AdfV5o/d9yJg6Ct/8VivkPjA0u+i9PKHEq3m3GdsFETRRrRlry00/cs0KkzSFcVKsiie
- 4nbjVbbu9UvZETR/8EnubGGUX4s3HURH2IhuBo591walQCbJinGP96oD5H3siso+GWVY
- dtS0dsxrQhU9JXCscMiJtkOCgU9BlUZnxidxqtJ4iJsEMomL9qIPEYxu0MKVF0ewHe2V
- egbtzyseuaNsFG9KfsDOLDgyIfnwxIQvNeVQtWzl/ky6qOQdmsUYXovBAycjBDf0Ek0E
- Uhew==
-X-Gm-Message-State: AOJu0YyrBLO9FqSKLJli1WQcJUCroIf1dmv/G8IjRQi+Rz4j/tDw1P+D
- of/EXdj8LcsQSIjFv9uUroDpExeteJ+6YhEdZunkm7DBCdnWUewe
-X-Google-Smtp-Source: AGHT+IFtHTL1sJ/QvAt+78/YRYABzfZKnDNRbo56DjDqklw/3Z6EPdqKy3AIocI3PHi8NhHTSurcFg==
-X-Received: by 2002:a2e:9992:0:b0:2d0:9076:e9cc with SMTP id
- w18-20020a2e9992000000b002d09076e9ccmr4268383lji.29.1707305678385; 
- Wed, 07 Feb 2024 03:34:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXPe5zFF9e6iqt4dBN6yTi7bU1Mk4W5dqeCN8tJ8xEbbnrz8Gc7cE2oCKwiHti8Gx/YzrcsG5BP0GT+OD+3SPL7hrhSNYfN2cMZ+dhbteqMsmeSVdRvQ8ED4C+NR0zJuO/zgFBHu1k6/CA7leb1eAO3OsvjdwJbgYTjQ+tompJjlsypzA1bZN8g8RnY46/H1MTgrHlDuEnbsnC1aBK+SOipw6QqbqRExkYsWKIZ9u8gGucNRpuJrVQeQ/1pdgnYl/3UDXE6VPZeRuB0p6TxVsbKkIBbXt30aR1JqHgDXn51fdn6pTxk84G1N/zXFL1mwNEoKnu57/1ude+sA/RSXrVyo/JD2G2XB4vAH0Le8bZjfYjtgrEydQn03O9JR7Zx+m3TTyDoj9XM8AFweb5P+YPDD7r75FZURhL4ingHlDtsbCHNYgmkrus/lvQIur4m8IULurTLu6c5svaOEwl5cAWd59WtRSVeFyikZO5v34Bkcu89QD6G7qNrYKNK7nTU
-Received: from mobilestation ([178.176.56.174])
- by smtp.gmail.com with ESMTPSA id
- t1-20020a2e7801000000b002d0a6b9d0casm145443ljc.67.2024.02.07.03.34.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Feb 2024 03:34:38 -0800 (PST)
-Date: Wed, 7 Feb 2024 14:34:33 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Simon Horman <horms@kernel.org>, Pavel Sakharov <p.sakharov@ispras.ru>
-Message-ID: <tg2au3a524douxq6k37aa73zuotlx5sl6hbcokm7xwy3bumqxc@lothlyjh6ksg>
-References: <20240203150323.1041736-1-p.sakharov@ispras.ru>
- <20240206150704.GD1104779@kernel.org>
+ Wed,  7 Feb 2024 11:56:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e0HKM7xrK2R7mX4OHSzj9CHbEXeQhX5U8wjhiQIudtRKlTbfpf1ZhtmEsaHQzJU2x3sl3lji1nvRn+wCnQLs1xi5aPYHsKqmFPQKkaRIlakYg8l19ou4EJ58upu5zgonEM9bat/3NJs60BX+Neukfj6Xji1nhk7BDCqyz8ir3HtudeGj4uoKERh3wJXlGk3L5i0adANhoyJXMD1FETjT07ZhABFCiwJOSSj1X8t7iJT9h7TvOV5B4kMlToHx+HNp8nMDMzf6mW7Ec3lWByQaZT48LUTMMGO7yMuMAFyZLNtwYlvq68AzyiAT3suxALVrJOZbRtE59W8hWTmN+2+9dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kpjZibRKgiBCeEEc5IiM/1bSP1xe9iLDPC4lU6+4wcw=;
+ b=Ijw3M6udnO9Paee9Kz8WpNweecn3R6ccGA7KIox50RNfFHAcKU/U3IrghufYL7guoJQW51S2XIlJquZPu0Miq0WN7PDEdyH2VGZ1y6cBXTw0qvp8ffBTmqIrrKpoQJcVBwe8ROkKOVwEQ72OZUu0RGudQXY8r4a5F/N+PceOYMkGyff+D3vY7V+gXmAjzHELuodTrgQD8ZYjBkzP09opViy4pwmfTWFZhRmvqEu4/upGm1NekZVnsJQ3Za6Inbq9XaHApsIzgoPfy0of99aleOwq+XGSSFSg4JBiBKVcdkAjmuBxeUekhCii0hdpG96yrWNo1SH7PxREn+s09tgFmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kpjZibRKgiBCeEEc5IiM/1bSP1xe9iLDPC4lU6+4wcw=;
+ b=L82nF6DAWQGDKLFOjrBM3viWI6rprQXvwHrJ5BnI2YE+HxbTMMeEA8d1h61GMjTq8F186OPJ9IvYz3FkwBaZY5427aTLszeGm76wX5JkCAoSBFnjJuuh/of3Bp/zIxfmmubo1cBVVigrEvsbz4ewI6WTUucF+0jCOQ9RfMFYmIH8jbMJJfbq8F8I6sdVwLIH55A1yTJd7hrVBayYJhdb7gQByBrag5u4Q2TABjNF826poP2NspHRGyBi0NEGs5rOBJzNLkK3KkSiKjWo23pmg3lYAZH4ivyLHZazzZjCdRnFZKpy8ZlGWgsl1wK6L8I11E7wCIp1I14sca4vySmq4Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com (2603:10b6:5:35e::8) by
+ DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7292.10; Wed, 7 Feb 2024 11:56:33 +0000
+Received: from CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::acb6:8bd8:e40b:2bfe]) by CO6PR12MB5444.namprd12.prod.outlook.com
+ ([fe80::acb6:8bd8:e40b:2bfe%3]) with mapi id 15.20.7270.016; Wed, 7 Feb 2024
+ 11:56:33 +0000
+Message-ID: <c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com>
+Date: Wed, 7 Feb 2024 11:56:26 +0000
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Furong Xu <0x1207@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Joao Pinto
+ <jpinto@synopsys.com>, Simon Horman <horms@kernel.org>,
+ Serge Semin <fancer.lancer@gmail.com>
+References: <20240203051439.1127090-1-0x1207@gmail.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <20240203051439.1127090-1-0x1207@gmail.com>
+X-ClientProxiedBy: LO4P265CA0181.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:311::8) To CO6PR12MB5444.namprd12.prod.outlook.com
+ (2603:10b6:5:35e::8)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240206150704.GD1104779@kernel.org>
-Cc: linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Alexey Khoroshilov <khoroshilov@ispras.ru>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] stmmac: Fix incorrect dereference in
-	stmmac_*_interrupt()
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO6PR12MB5444:EE_|DM6PR12MB4450:EE_
+X-MS-Office365-Filtering-Correlation-Id: 34f248cf-7ba1-41f5-b463-08dc27d3d444
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U3+inSCB7dtR0JM72UHlQlnJUTjyN/l6utqFMgfM6uXNA6qK3mCcwKeviTA944CNiTygg2ZAT1zU098fjsu81J7hwrMXCdQry33ZzmOiyovmPt+TTSblqcHcev9NYoF4XZ3YWa3IlCNdtjZKHiab+OdYLc0amhC3aVNjoq8q5kzgsmvUi+fSPVxv3o6v/264N6F0qGLzCN9mAjSNDTp+ytZL/WDPcMx59lNrvvDO+WyYeC21+TvWT6adFGc5W64nRc+NmUg77C0/mOzpGuU4dWplNlEKe01VO6elasDkqWy+72L7ZMrSX62bh1rlmAtxRJjNu0TAqVbPCrvzSe9W8bspcgX7b/HJh76lU4wyIwftPm5cDNdHgzZTWM97VUFoxHfB5G/4bAMAWMm4Q5+TM8I6flGsyuTXfpU0I1WPrtMLuNlDLTsroLVlBwh5+Xk9oCkTBc9xlqIE1Jw5D8roG3xi2fO6xy2kTG1GuwTjB8gbt6eZhVAhL97smArgzK9bDehOBDsO+i4Hw6narvtf9PZV2IgLB7jUqbLP6mzdoWVwIGXJTKGHICV9fYKqZwFb408dHfHgBN0jzG6WTm62b7a+57FnYbH8hA0qLBKu6MI42vjXrFYjoHBlZ0Ao6D/mDTG7/smprYLJIYWYQQoPK77yWFB0TYe6aywZn6lAn1rHvJMCQfT3qlcMW4ov1M0+5WFA4JLZoLwfTXdRq7ftxQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO6PR12MB5444.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(396003)(136003)(39860400002)(376002)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(41300700001)(36756003)(6486002)(966005)(66946007)(110136005)(53546011)(6506007)(6512007)(66476007)(478600001)(6666004)(66556008)(8676002)(4326008)(8936002)(316002)(38100700002)(86362001)(2616005)(83380400001)(31696002)(5660300002)(921011)(2906002)(7416002)(31686004)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkR5N0hHWkNjUmo2STNoUWJSN0RXTTNSMnVLeitCYklpaURleFZRNTRvS0xS?=
+ =?utf-8?B?V280TW93VTVwaERiUGV3QVVGT1VFRHVtVWlVbXorWDBsajJ6Y3JDaWlvMnZU?=
+ =?utf-8?B?RlhRaHFWam1yU05KbG9hNUEyUXpvR3FxWStXVldQUVRzYmNhNURaZnlkd2pj?=
+ =?utf-8?B?NWhCb09uM2dRak5YQnlUSVVCT2VSOWdRUVVjdDFValNxQVUxV3B5b0pweW10?=
+ =?utf-8?B?UU5MZklnVEtuUS9yaTJIVXJPNVpUckYzSXlmamVTQXkxZ2Y1aXV6M0xmeXBN?=
+ =?utf-8?B?YS80SThuY0dOeEVTZTJWYWpmWlUzMUhYc0gyQTdjS3JYUGRCcVBuZ2wveitY?=
+ =?utf-8?B?L3BBM0lKSUxtL0hzaFFuYkVISEFjQ0VucUpmUHJaTXh2ZUdwUk5rR0F0OHBo?=
+ =?utf-8?B?cXRwUWsrdVNYeVpDb2NqTitHS2luTTl0RFdIalA3QTNQMjN4cVNFWkNqSE1X?=
+ =?utf-8?B?SFRyaGxJR01hQUhCbzF0NHJoTVo1Q041OUhpQTZpYU9NYmI0NVgvZEJvMnkv?=
+ =?utf-8?B?T3BWWGJ6SEQwUWJyOWlnYnlzN0NqeTEvb0lWVXlJbjhJeEFOL0lRNnNML0Jz?=
+ =?utf-8?B?VTNRcU5VZUJYT01UdDlCZmJtTThqSGthVU1lbHFNb0xSOEtCMkxCTGYzYUM0?=
+ =?utf-8?B?cjZKQkpTckNIajgxbytqRDJwZkZiRXdYcHlDNUJya0I1alRaSnQyU0dPU01t?=
+ =?utf-8?B?N0NDcmRLNDIzL3dOSEpuZm9CK0NpVTJENHd3NmRSbldNWDR5UFY4bVdZSEp5?=
+ =?utf-8?B?aklPTDJIbHV6V0VJREtGRmo5bTZwUEVFTVJDY01uc0tGZ3ZlOUpqNzI1enBI?=
+ =?utf-8?B?dEJYeTNRTC9yV3ZPUDNOelptNWtIMzBPSkpsNUdhTVpoRUwyamNLSnJyeUtr?=
+ =?utf-8?B?bE1uMU5zQytCc1BZSDRZZE0ycEcxWkNvVzBkYUlpSEF5ZDZlVWIwdWdEM2k1?=
+ =?utf-8?B?c1N6eXNNTlJFRmtCQktUa2NqVGsxUjg1TnNTdGl1NVpnK3JtRXR1TitkRTE3?=
+ =?utf-8?B?MVhXU1ZyRU1pRDdITGd2U0FLdFYyNmhpTVNFNHl0eWdlVnRKYk5hTmhUSFBS?=
+ =?utf-8?B?MDVRdGx2Mm84RzYzL09BcDlsbFdaNUU4QjdtUzVTREdDRVFJZUdIbGxlWUdn?=
+ =?utf-8?B?ajBiVTdIQ0gwaGlWdlZaQjVqTDhDTWlJN0QvdjRGRm9ka0M4NTYySGVIcjJC?=
+ =?utf-8?B?ck83RjRpK0dEZ3B3T0pDN05RM1lWNUM2K3NRd1A0bGZPaDRjWVlZTmhBSHZY?=
+ =?utf-8?B?N1crZ1loNDBtVTFiWUVjVUwvTlFrNHVKZmJRKzhOd2xvbzN3aHpmd2ZwZisw?=
+ =?utf-8?B?Q3g4eXVtTVRYRzNwems3dWNsK3NjK0l5ZGNHWE9TaWdjamJSL0tZdDNLdWR1?=
+ =?utf-8?B?WExKekVISHJFT3ZieGNhYmxMQ2lxdjg1WVc1S1gwdnFtZU1IY0VJaTh4Y2lL?=
+ =?utf-8?B?VzNjYjQ0Vm5JcTBscHcxYW9wYXl6dG9UYTZnY2pGUGV6aGc2VU5MVTkvNEVz?=
+ =?utf-8?B?Tk5vQWY2TU1XNE95Tjd0TlNCd0hzWkUrQ01vSVU1cC9YZllkWkxwdzB5RlVl?=
+ =?utf-8?B?d3c2R2ZlVGxPVU03bCs3THBta09FUTV4bXNtM1UwU251Y0t1bXdxaWM0YVB5?=
+ =?utf-8?B?Y3VGS1BYTTNZSjdCRUkxVlh5M01ZWEZxUTdZeiswUWhPeU9tWGo4ZTB6NTJj?=
+ =?utf-8?B?R01PQXpyRWVFblNsMndabTBEYjJCV3lDMERxRERkVjRJVTA0emdMc2l4eEVi?=
+ =?utf-8?B?SnNBMVFBVkVFaWthVHNWZzJWVlk2d0FNVzl2SnNBV3MwWFBGa1JQWmg4aFBB?=
+ =?utf-8?B?R1BxVzAvVEEraWdFYVFpcEgwRElQazNNdjdJQXBoRStMM3RwQnVlaEFzRFpl?=
+ =?utf-8?B?VjBnZDNxUGJHZU5FTlF1RTRSUGZEYmxlL0J5NXIwWEhJci81YVNGdDNKN21L?=
+ =?utf-8?B?cmRzTWhiOGkrdHhnbkdQeXpNOHZ4bUNxZHVJVkM2eHVYcDdpNVU1OGlmSGxV?=
+ =?utf-8?B?N0NxRGE1RlB5cWtQbElvbnJIbm12aFMvWUI0RHNBZW5SZC9ITlI2ZUxUc3hq?=
+ =?utf-8?B?amJGcXB3elphL0tobndYYTVIYVMvcDRLdm9xUkZudzVrUVZMbFgvTy9SS1hE?=
+ =?utf-8?B?QWRidHM3eHBhTytpVXZQbmdDQSs0YytLbWlxTUR1bEQwbFNTb0FlaDFvMlo3?=
+ =?utf-8?B?OEc2MmxKNG1FQWRXWUU2dlVMWFFtTktFUGx6UjV2eGZGOWcxM0djMmpQR01u?=
+ =?utf-8?B?L3ZlbGlZaDFpZ0JZRUNDNEJSaVFRPT0=?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 34f248cf-7ba1-41f5-b463-08dc27d3d444
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR12MB5444.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 11:56:33.4608 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E0OAF3AJMGb9X7qntPtkTbA41S/NHyvz4FQV0XPWO/sE9mAe13Ge8Ou3qd7juY6OqYxmPqO3IVFT3enW03cBdg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ xfr@outlook.com, "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v4] net: stmmac: xgmac: fix handling
+ of DPP safety error for DMA channels
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,155 +134,137 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 06, 2024 at 03:07:04PM +0000, Simon Horman wrote:
-> On Sat, Feb 03, 2024 at 06:03:21PM +0300, Pavel Sakharov wrote:
-> > If 'dev' is NULL, the 'priv' variable has an incorrect address when
-> > dereferencing calling netdev_err().
-> > 
-> > Pass 'dev' instead of 'priv->dev" to the function.
-> > 
-> > Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> > 
-> > Signed-off-by: Pavel Sakharov <p.sakharov@ispras.ru>
-> 
-> Thanks Pavel,
-> 
-> I agree with your analysis that this can result in a NULL dereference.
-> And that your proposed fix is good: netdev_err() can handle a NULL
-> dev argument.
-> 
-> As this seems to be a fix I suggest it should be for net.
-> And that it should be based on that tree and designated as such
-> in the subject:
-> 
-> Subject: [PATCH net] ...
-> 
-> Also if it is a fix, it should have a fixes tag.
-> Perhaps this one:
-> 
-> Fixes: 8532f613bc78 ("net: stmmac: introduce MSI Interrupt routines for mac, safety, RX & TX")
-> 
-> 
-> I don't think there is a need to respin for the above, though please
-> keep this in mind when posting Networking patches in future.
-> 
-> 
-> Looking at the patch above, and stmmac_main.c, it seems that the following
-> functions also suffer from a similar problem:
-> 
-> static irqreturn_t stmmac_msi_intr_tx(int irq, void *data)
-> {
-> 	struct stmmac_tx_queue *tx_q = (struct stmmac_tx_queue *)data;
-> 	...
-> 	dma_conf = container_of(tx_q, struct stmmac_dma_conf, tx_queue[chan]);
-> 	priv = container_of(dma_conf, struct stmmac_priv, dma_conf);
-> 
-> 	if (unlikely(!data)) {
-> 		netdev_err(priv->dev, "%s: invalid dev pointer\n", __func__);
-> 		...
-> 
-> And stmmac_msi_intr_rx(), which follows a similar pattern
-> to stmmac_msi_intr_tx().
-> 
-> I also note that in those functions "invalid dev pointer" seems misleading,
-> perhaps it ought to be "invalid queue" pointer.
-> 
-> As these problems seem to all have been introduced at the same time,
-> perhaps it is appropriate to fix them all in one patch?
-
-IMO we can just drop these and the noted in the patch checks. Before
-actually making a decision about that there are three general
-questions we'd need to answer to:
-
-1. Do we trust the IRQ-subsystem to supply a correct cookie pointer
-specified during the IRQ request procedure?
-
-2. Do we trust the driver code for correctly performing the IRQs
-request?
-
-3. If we don't trust to any of that then what is caused if the problem
-happens and there is no sanity checks implemented?
-
-Here are my thoughts regarding that:
-
-1. If no dev_id sanity checks implemented in the handlers then having
-the IRQ requested with NULL argument passed even though the handlers
-imply the netdev pointer will for sure cause troubles right away since
-the driver won't work and the system will likely crash. So it will be
-spotted during the initial test/debug stage of the respective change.
-
-2. If for some reason the IRQ subsystem supplied a NULL pointer
-instead of the cookie pointer, then something is really wrong and the
-entire system likely won't work correctly. If this case is possible
-to happen then all the kernel IRQ handlers should have been
-implemented with such sanity check, which I don't see in practice.
-
-3. If IRQ was caused by the DW *MAC controller, but NULL pointer is
-passed and the handler returns IRQ_NONE state, then the actual IRQ
-won't be handled AFAICS causing the spurious IRQs detected. Eventually
-the IRQ will be effectively disabled. In anyway the driver will stop
-working. But even if this happens see points 1. and 2. for the
-problem cause implications.
-
-4. The common IRQ handler doesn't have such check in the driver.
-Though unlike the rest of the handlers it's assigned with the
-IRQF_SHARED flag which requires the cookie pointer passed. Anyway the
-sanity check was removed from the common IRQ handler in the commit
-f42234ffd531 ("stmmac: fix pointer check after utilization in
-stmmac_interrupt") with a justification as being _paranoidal_ and
-pointless in the respective context. But in about a year afterwards
-the individual IRQ handlers were introduced with the same check but
-this time in a bit more reasonable context. Still it doesn't make
-the check existence less paranoidal.
-
-5. I took a look at first 20 Ethernet device drivers. None of them has
-such checks implemented even though about half of them request IRQs as
-non-shared (so the cookie pointer is optional).
-
-6. Finally the checks are implemented in the hard IRQ handlers for
-which the less code the better.
-
-To sum all the above up from my point of view the checks are redundant
-of course unless we turn on the paranoidal mode and stop trusting the
-driver code and the IRQ subsystem.
-
--Serge(y)
-
-> 
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index 4727f7be4f86..5ab5148013cd 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -5848,7 +5848,7 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
-> >  	struct stmmac_priv *priv = netdev_priv(dev);
-> > 
-> >  	if (unlikely(!dev)) {
-> > -		netdev_err(priv->dev, "%s: invalid dev pointer\n", __func__);
-> > +		netdev_err(dev, "%s: invalid dev pointer\n", __func__);
-> >  		return IRQ_NONE;
-> >  	}
-> > 
-> > @@ -5868,7 +5868,7 @@ static irqreturn_t stmmac_safety_interrupt(int irq, void *dev_id)
-> >  	struct stmmac_priv *priv = netdev_priv(dev);
-> > 
-> >  	if (unlikely(!dev)) {
-> > -		netdev_err(priv->dev, "%s: invalid dev pointer\n", __func__);
-> > +		netdev_err(dev, "%s: invalid dev pointer\n", __func__);
-> >  		return IRQ_NONE;
-> >  	}
-> > 
-> > 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Ck9uIDAzLzAyLzIwMjQgMDU6MTQsIEZ1cm9uZyBYdSB3cm90ZToKPiBDb21taXQgNTZlNThkNmM4
+YTU2ICgibmV0OiBzdG1tYWM6IEltcGxlbWVudCBTYWZldHkgRmVhdHVyZXMgaW4KPiBYR01BQyBj
+b3JlIikgY2hlY2tzIGFuZCByZXBvcnRzIHNhZmV0eSBlcnJvcnMsIGJ1dCBsZWF2ZXMgdGhlCj4g
+RGF0YSBQYXRoIFBhcml0eSBFcnJvcnMgZm9yIGVhY2ggY2hhbm5lbCBpbiBETUEgdW5oYW5kbGVk
+IGF0IGFsbCwgbGVhZCB0bwo+IGEgc3Rvcm0gb2YgaW50ZXJydXB0Lgo+IEZpeCBpdCBieSBjaGVj
+a2luZyBhbmQgY2xlYXJpbmcgdGhlIERNQV9EUFBfSW50ZXJydXB0X1N0YXR1cyByZWdpc3Rlci4K
+PiAKPiBGaXhlczogNTZlNThkNmM4YTU2ICgibmV0OiBzdG1tYWM6IEltcGxlbWVudCBTYWZldHkg
+RmVhdHVyZXMgaW4gWEdNQUMgY29yZSIpCj4gU2lnbmVkLW9mZi1ieTogRnVyb25nIFh1IDwweDEy
+MDdAZ21haWwuY29tPgo+IFJldmlld2VkLWJ5OiBTaW1vbiBIb3JtYW4gPGhvcm1zQGtlcm5lbC5v
+cmc+Cj4gUmV2aWV3ZWQtYnk6IFNlcmdlIFNlbWluIDxmYW5jZXIubGFuY2VyQGdtYWlsLmNvbT4K
+PiAtLS0KPiBDaGFuZ2VzIGluIHY0Ogo+ICAgLSBmaXggYSB0eXBvIG5hbWUgb2YgRERQUCBiaXQs
+IHRoYW5rcyBTZXJnZSBTZW1pbgo+IAo+IENoYW5nZXMgaW4gdjM6Cj4gICAtIGNvZGUgc3R5bGUg
+Zml4LCB0aGFua3MgUGFvbG8gQWJlbmkKPiAKPiBDaGFuZ2VzIGluIHYyOgo+ICAgIC0gZXhwbGlj
+aXQgZW5hYmxlIERhdGEgUGF0aCBQYXJpdHkgUHJvdGVjdGlvbgo+ICAgIC0gYWRkIG5ldyBjb3Vu
+dGVycyB0byBzdG1tYWNfc2FmZXR5X3N0YXRzCj4gICAgLSBhZGQgZGV0YWlsZWQgbG9nCj4gLS0t
+Cj4gICBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24uaCAgfCAgMSAr
+Cj4gICAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyLmggICAgfCAgMyAr
+Cj4gICAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfY29yZS5jICAgfCA1NyAr
+KysrKysrKysrKysrKysrKystCj4gICAzIGZpbGVzIGNoYW5nZWQsIDYwIGluc2VydGlvbnMoKyks
+IDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3Rt
+aWNyby9zdG1tYWMvY29tbW9uLmggYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1h
+Yy9jb21tb24uaAo+IGluZGV4IDcyMWMxZjhlODkyZi4uYjRmNjBhYjA3OGQ2IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oCj4gKysrIGIv
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmgKPiBAQCAtMjE2LDYg
+KzIxNiw3IEBAIHN0cnVjdCBzdG1tYWNfc2FmZXR5X3N0YXRzIHsKPiAgIAl1bnNpZ25lZCBsb25n
+IG1hY19lcnJvcnNbMzJdOwo+ICAgCXVuc2lnbmVkIGxvbmcgbXRsX2Vycm9yc1szMl07Cj4gICAJ
+dW5zaWduZWQgbG9uZyBkbWFfZXJyb3JzWzMyXTsKPiArCXVuc2lnbmVkIGxvbmcgZG1hX2RwcF9l
+cnJvcnNbMzJdOwo+ICAgfTsKPiAgIAo+ICAgLyogTnVtYmVyIG9mIGZpZWxkcyBpbiBTYWZldHkg
+U3RhdHMgKi8KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
+YWMvZHd4Z21hYzIuaCBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdt
+YWMyLmgKPiBpbmRleCAyMDdmZjE3OTlmMmMuLjVjNjdhM2Y4OWYwOCAxMDA2NDQKPiAtLS0gYS9k
+cml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMi5oCj4gKysrIGIvZHJp
+dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzIuaAo+IEBAIC0zMDMsNiAr
+MzAzLDggQEAKPiAgICNkZWZpbmUgWEdNQUNfUlhDRUlFCQkJQklUKDQpCj4gICAjZGVmaW5lIFhH
+TUFDX1RYQ0VJRQkJCUJJVCgwKQo+ICAgI2RlZmluZSBYR01BQ19NVExfRUNDX0lOVF9TVEFUVVMJ
+MHgwMDAwMTBjYwo+ICsjZGVmaW5lIFhHTUFDX01UTF9EUFBfQ09OVFJPTAkJMHgwMDAwMTBlMAo+
+ICsjZGVmaW5lIFhHTUFDX0RQUF9ESVNBQkxFCQlCSVQoMCkKPiAgICNkZWZpbmUgWEdNQUNfTVRM
+X1RYUV9PUE1PREUoeCkJCSgweDAwMDAxMTAwICsgKDB4ODAgKiAoeCkpKQo+ICAgI2RlZmluZSBY
+R01BQ19UUVMJCQlHRU5NQVNLKDI1LCAxNikKPiAgICNkZWZpbmUgWEdNQUNfVFFTX1NISUZUCQkJ
+MTYKPiBAQCAtMzg1LDYgKzM4Nyw3IEBACj4gICAjZGVmaW5lIFhHTUFDX0RDRUlFCQkJQklUKDEp
+Cj4gICAjZGVmaW5lIFhHTUFDX1RDRUlFCQkJQklUKDApCj4gICAjZGVmaW5lIFhHTUFDX0RNQV9F
+Q0NfSU5UX1NUQVRVUwkweDAwMDAzMDZjCj4gKyNkZWZpbmUgWEdNQUNfRE1BX0RQUF9JTlRfU1RB
+VFVTCTB4MDAwMDMwNzQKPiAgICNkZWZpbmUgWEdNQUNfRE1BX0NIX0NPTlRST0woeCkJCSgweDAw
+MDAzMTAwICsgKDB4ODAgKiAoeCkpKQo+ICAgI2RlZmluZSBYR01BQ19TUEgJCQlCSVQoMjQpCj4g
+ICAjZGVmaW5lIFhHTUFDX1BCTHg4CQkJQklUKDE2KQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25l
+dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmMgYi9kcml2ZXJzL25ldC9l
+dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmMKPiBpbmRleCBlYjQ4MjExZDli
+MGUuLjA0ZDdjNGRjMmUzNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
+Y3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmMKPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9z
+dG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmMKPiBAQCAtODMwLDYgKzgzMCw0MyBAQCBzdGF0
+aWMgY29uc3Qgc3RydWN0IGR3eGdtYWMzX2Vycm9yX2Rlc2MgZHd4Z21hYzNfZG1hX2Vycm9yc1sz
+Ml09IHsKPiAgIAl7IGZhbHNlLCAiVU5LTk9XTiIsICJVbmtub3duIEVycm9yIiB9LCAvKiAzMSAq
+Lwo+ICAgfTsKPiAgIAo+ICtzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IGRwcF9yeF9lcnIgPSAi
+UmVhZCBSeCBEZXNjcmlwdG9yIFBhcml0eSBjaGVja2VyIEVycm9yIjsKPiArc3RhdGljIGNvbnN0
+IGNoYXIgKiBjb25zdCBkcHBfdHhfZXJyID0gIlJlYWQgVHggRGVzY3JpcHRvciBQYXJpdHkgY2hl
+Y2tlciBFcnJvciI7Cj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZHd4Z21hYzNfZXJyb3JfZGVzYyBk
+d3hnbWFjM19kbWFfZHBwX2Vycm9yc1szMl0gPSB7Cj4gKwl7IHRydWUsICJURFBFUzAiLCBkcHBf
+dHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBFUzEiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUs
+ICJURFBFUzIiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBFUzMiLCBkcHBfdHhfZXJy
+IH0sCj4gKwl7IHRydWUsICJURFBFUzQiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBF
+UzUiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBFUzYiLCBkcHBfdHhfZXJyIH0sCj4g
+Kwl7IHRydWUsICJURFBFUzciLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBFUzgiLCBk
+cHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJURFBFUzkiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRy
+dWUsICJURFBFUzEwIiwgZHBwX3R4X2VyciB9LAo+ICsJeyB0cnVlLCAiVERQRVMxMSIsIGRwcF90
+eF9lcnIgfSwKPiArCXsgdHJ1ZSwgIlREUEVTMTIiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUs
+ICJURFBFUzEzIiwgZHBwX3R4X2VyciB9LAo+ICsJeyB0cnVlLCAiVERQRVMxNCIsIGRwcF90eF9l
+cnIgfSwKPiArCXsgdHJ1ZSwgIlREUEVTMTUiLCBkcHBfdHhfZXJyIH0sCj4gKwl7IHRydWUsICJS
+RFBFUzAiLCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzEiLCBkcHBfcnhfZXJyIH0s
+Cj4gKwl7IHRydWUsICJSRFBFUzIiLCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzMi
+LCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzQiLCBkcHBfcnhfZXJyIH0sCj4gKwl7
+IHRydWUsICJSRFBFUzUiLCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzYiLCBkcHBf
+cnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzciLCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUs
+ICJSRFBFUzgiLCBkcHBfcnhfZXJyIH0sCj4gKwl7IHRydWUsICJSRFBFUzkiLCBkcHBfcnhfZXJy
+IH0sCj4gKwl7IHRydWUsICJSRFBFUzEwIiwgZHBwX3J4X2VyciB9LAo+ICsJeyB0cnVlLCAiUkRQ
+RVMxMSIsIGRwcF9yeF9lcnIgfSwKPiArCXsgdHJ1ZSwgIlJEUEVTMTIiLCBkcHBfcnhfZXJyIH0s
+Cj4gKwl7IHRydWUsICJSRFBFUzEzIiwgZHBwX3J4X2VyciB9LAo+ICsJeyB0cnVlLCAiUkRQRVMx
+NCIsIGRwcF9yeF9lcnIgfSwKPiArCXsgdHJ1ZSwgIlJEUEVTMTUiLCBkcHBfcnhfZXJyIH0sCj4g
+K307Cj4gKwo+ICAgc3RhdGljIHZvaWQgZHd4Z21hYzNfaGFuZGxlX2RtYV9lcnIoc3RydWN0IG5l
+dF9kZXZpY2UgKm5kZXYsCj4gICAJCQkJICAgIHZvaWQgX19pb21lbSAqaW9hZGRyLCBib29sIGNv
+cnJlY3RhYmxlLAo+ICAgCQkJCSAgICBzdHJ1Y3Qgc3RtbWFjX3NhZmV0eV9zdGF0cyAqc3RhdHMp
+Cj4gQEAgLTg0MSw2ICs4NzgsMTMgQEAgc3RhdGljIHZvaWQgZHd4Z21hYzNfaGFuZGxlX2RtYV9l
+cnIoc3RydWN0IG5ldF9kZXZpY2UgKm5kZXYsCj4gICAKPiAgIAlkd3hnbWFjM19sb2dfZXJyb3Io
+bmRldiwgdmFsdWUsIGNvcnJlY3RhYmxlLCAiRE1BIiwKPiAgIAkJCSAgIGR3eGdtYWMzX2RtYV9l
+cnJvcnMsIFNUQVRfT0ZGKGRtYV9lcnJvcnMpLCBzdGF0cyk7Cj4gKwo+ICsJdmFsdWUgPSByZWFk
+bChpb2FkZHIgKyBYR01BQ19ETUFfRFBQX0lOVF9TVEFUVVMpOwo+ICsJd3JpdGVsKHZhbHVlLCBp
+b2FkZHIgKyBYR01BQ19ETUFfRFBQX0lOVF9TVEFUVVMpOwo+ICsKPiArCWR3eGdtYWMzX2xvZ19l
+cnJvcihuZGV2LCB2YWx1ZSwgZmFsc2UsICJETUFfRFBQIiwKPiArCQkJICAgZHd4Z21hYzNfZG1h
+X2RwcF9lcnJvcnMsCj4gKwkJCSAgIFNUQVRfT0ZGKGRtYV9kcHBfZXJyb3JzKSwgc3RhdHMpOwo+
+ICAgfQo+ICAgCj4gICBzdGF0aWMgaW50Cj4gQEAgLTg4MSw2ICs5MjUsMTIgQEAgZHd4Z21hYzNf
+c2FmZXR5X2ZlYXRfY29uZmlnKHZvaWQgX19pb21lbSAqaW9hZGRyLCB1bnNpZ25lZCBpbnQgYXNw
+LAo+ICAgCXZhbHVlIHw9IFhHTUFDX1RNT1VURU47IC8qIEZTTSBUaW1lb3V0IEZlYXR1cmUgKi8K
+PiAgIAl3cml0ZWwodmFsdWUsIGlvYWRkciArIFhHTUFDX01BQ19GU01fQ09OVFJPTCk7Cj4gICAK
+PiArCS8qIDUuIEVuYWJsZSBEYXRhIFBhdGggUGFyaXR5IFByb3RlY3Rpb24gKi8KPiArCXZhbHVl
+ID0gcmVhZGwoaW9hZGRyICsgWEdNQUNfTVRMX0RQUF9DT05UUk9MKTsKPiArCS8qIGFscmVhZHkg
+ZW5hYmxlZCBieSBkZWZhdWx0LCBleHBsaWNpdCBlbmFibGUgaXQgYWdhaW4gKi8KPiArCXZhbHVl
+ICY9IH5YR01BQ19EUFBfRElTQUJMRTsKPiArCXdyaXRlbCh2YWx1ZSwgaW9hZGRyICsgWEdNQUNf
+TVRMX0RQUF9DT05UUk9MKTsKPiArCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiBAQCAtOTE0
+LDcgKzk2NCwxMSBAQCBzdGF0aWMgaW50IGR3eGdtYWMzX3NhZmV0eV9mZWF0X2lycV9zdGF0dXMo
+c3RydWN0IG5ldF9kZXZpY2UgKm5kZXYsCj4gICAJCXJldCB8PSAhY29ycjsKPiAgIAl9Cj4gICAK
+PiAtCWVyciA9IGRtYSAmIChYR01BQ19ERVVJUyB8IFhHTUFDX0RFQ0lTKTsKPiArCS8qIERNQV9E
+UFBfSW50ZXJydXB0X1N0YXR1cyBpcyBpbmRpY2F0ZWQgYnkgTUNTSVMgYml0IGluCj4gKwkgKiBE
+TUFfU2FmZXR5X0ludGVycnVwdF9TdGF0dXMsIHNvIHdlIGhhbmRsZSBETUEgRGF0YSBQYXRoCj4g
+KwkgKiBQYXJpdHkgRXJyb3JzIGhlcmUKPiArCSAqLwo+ICsJZXJyID0gZG1hICYgKFhHTUFDX0RF
+VUlTIHwgWEdNQUNfREVDSVMgfCBYR01BQ19NQ1NJUyk7Cj4gICAJY29yciA9IGRtYSAmIFhHTUFD
+X0RFQ0lTOwo+ICAgCWlmIChlcnIpIHsKPiAgIAkJZHd4Z21hYzNfaGFuZGxlX2RtYV9lcnIobmRl
+diwgaW9hZGRyLCBjb3JyLCBzdGF0cyk7Cj4gQEAgLTkzMCw2ICs5ODQsNyBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IGR3eGdtYWMzX2Vycm9yIHsKPiAgIAl7IGR3eGdtYWMzX21hY19lcnJvcnMgfSwK
+PiAgIAl7IGR3eGdtYWMzX210bF9lcnJvcnMgfSwKPiAgIAl7IGR3eGdtYWMzX2RtYV9lcnJvcnMg
+fSwKPiArCXsgZHd4Z21hYzNfZG1hX2RwcF9lcnJvcnMgfSwKPiAgIH07Cj4gICAKPiAgIHN0YXRp
+YyBpbnQgZHd4Z21hYzNfc2FmZXR5X2ZlYXRfZHVtcChzdHJ1Y3Qgc3RtbWFjX3NhZmV0eV9zdGF0
+cyAqc3RhdHMsCgoKVGhpcyBjaGFuZ2UgaXMgYnJlYWtpbmcgdGhlIGJ1aWxkIG9uIHNvbWUgb2Yg
+b3VyIGJ1aWxkZXJzIHRoYXQgYXJlIHN0aWxsIHVzaW5nIEdDQyA2LnggLi4uCgpkcml2ZXJzL25l
+dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmM6ODM2OjIwOiBlcnJvcjog
+aW5pdGlhbGlzZXIgZWxlbWVudCBpcyBub3QgY29uc3RhbnQKICAgeyB0cnVlLCAiVERQRVMwIiwg
+ZHBwX3R4X2VyciB9LAogICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+CmRyaXZlcnMvbmV0
+L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2NvcmUuYzo4MzY6MjA6IG5vdGU6IChu
+ZWFyIGluaXRpYWxpc2F0aW9uIGZvciDigJhkd3hnbWFjM19kbWFfZHBwX2Vycm9yc1swXS5kZXRh
+aWxlZF9kZXNj4oCZKQpkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFj
+Ml9jb3JlLmM6ODM3OjIwOiBlcnJvcjogaW5pdGlhbGlzZXIgZWxlbWVudCBpcyBub3QgY29uc3Rh
+bnQKICAgeyB0cnVlLCAiVERQRVMxIiwgZHBwX3R4X2VyciB9LAogICAgICAgICAgICAgICAgICAg
+ICBefn5+fn5+fn5+CmRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMy
+X2NvcmUuYzo4Mzc6MjA6IG5vdGU6IChuZWFyIGluaXRpYWxpc2F0aW9uIGZvciDigJhkd3hnbWFj
+M19kbWFfZHBwX2Vycm9yc1sxXS5kZXRhaWxlZF9kZXNj4oCZKQouLi4KCkkga25vdyB0aGF0IHRo
+aXMgaXMgcXVpdGUgb2xkIGJ1dCB0aGUgbWluaW11bSBzdXBwb3J0ZWQgYnkgdGhlIGtlcm5lbCBp
+cyB2NS4xIC4uLgoKaHR0cHM6Ly93d3cua2VybmVsLm9yZy9kb2MvaHRtbC9uZXh0L3Byb2Nlc3Mv
+Y2hhbmdlcy5odG1sCgpKb24KCi0tIApudnB1YmxpYwpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
