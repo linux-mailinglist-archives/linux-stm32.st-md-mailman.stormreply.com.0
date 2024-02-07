@@ -2,85 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F93384C71B
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 10:19:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5191A84C8E5
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 11:46:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49BD6C6DD97;
-	Wed,  7 Feb 2024 09:19:19 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED814C6DD93;
+	Wed,  7 Feb 2024 10:46:25 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BB51C6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1172AC6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 09:19:18 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4101d08c34cso144865e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Feb 2024 01:19:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707297557; x=1707902357;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3E4sDqzii/6R8d7i8uvIM9PeK0fYlmETkH8H6KbNcjA=;
- b=o4h3lCn+Zqg5YgSltXG0Z76xO5Rhlv8DAYA2B9vYs9q8JzDX81Qfs86A4NAvVcVu/n
- w3WVyXSsZG0UIJhw7XTcwJDjJXiWQyMFZMeIw+uxcJtj4EA3c2AB/1JsKNEAwFg7zVcb
- 7/ce0nRHOZFbi1zxRTDHTgQ9qJpqj2tVFG3vFnRzrzEs1cjXb/eXhX/GUAoS7LtpL3Lt
- Lv+rAM6rpJyYnx5KXs5klRXWNRfT9MboZfSAeuGoB14w4ooPbuL1HY79OaiSnrbZCEAh
- MPgAtEA1FJFigrcYJFuaLMJHAb6eVxrSc2Yy0eq1lqci4HuFCGe5Q462a0CgOfGLub7H
- 8C+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707297557; x=1707902357;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3E4sDqzii/6R8d7i8uvIM9PeK0fYlmETkH8H6KbNcjA=;
- b=TKWKHwbjVvITBuphB475LlZYbCCIRRlQx17CUApLtKb8RfB6V74flJA2MJEUid+6wr
- TdZwsPvdPnevTgeQQntsjaBeU/X5DPNFLuATgvUSSJSUYQ+bpVpirO9ZaIsHb1kfnSvP
- 6QWzq/Ufib9OgVychzBRh/Hm3VydTzpoDxaKcygrhfMfOrNz3eJXuCKmFYwsrI5dTYAa
- VM+aFPjtahMID778uk4A6DyZn2YsAY7+rzpfH4fefSHYL9ncgCQGGb5SsdrgLv7CVaZZ
- RJKxUrdh9E0DnoBegBihlrdMAH4DFjDjSB3i5QSN13O1dULTqiTloiYIv5uXQu4Xx2ix
- ZjCg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUm9nhLTvy3be9eXpdgVy7BfsV8qFs95gyYUcWLUT3JOEf4AQgj3A+oRpNhzJrCssH0BTrf+mUkOtP47wWXWg52gmPz4huW+j0r2/vta3ltCXwWkGNj1e74
-X-Gm-Message-State: AOJu0YzHiB8osOtpXphadU1DwjSKgt3uF1u7zG8e2McWI1xxwYpHpUhA
- Xws4lIuh6zrXRb+oLQKGX/gOshwUTAE7JJCLDHjjdVVH64glL1gMuNhi6yWgKyc=
-X-Google-Smtp-Source: AGHT+IGWzAsUTDmBmLWHnB0zSYQvDAlkA/M0ZyEQ9KVtZ5H+fM6jmNNCaOcPYRkzWHOKIg5Lztf8QA==
-X-Received: by 2002:a05:600c:502a:b0:410:1d5f:5bc with SMTP id
- n42-20020a05600c502a00b004101d5f05bcmr7264wmr.31.1707297557602; 
- Wed, 07 Feb 2024 01:19:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCUs/M/jhqlfqTPEJC9TWo03wE+lL81k14rkOIobGRfNTLxv0PThTJ+BtQKuutnm0kxgX4FMDgJQ0IHyuCD33UsPM9Qxq3PYM+rFgkZMn5IDVREVm//fUXqYkMhNkdAD4ksZyt28tJbXb5paKj0nmDdeFX26/TpWOCy4I5CQXzB3YfZr2lc2Fslb81CxPqZpznSKGYimpvNE4b5YSsZHjLOuANGREgLCvA2+iSSxVUBp4elFleBXjzGyL6u9fLlpxy2TaS0shtyXTb+nuSFh3DFWptHtXhmTt0lAaPRLR8rZNuLvTovJvFsA0gQpCu2wCrNxmiU7nsSkPyWACOR0cTLeguUzKyS9KjofmhqbOE/JW7v+5MCdsfjopyqaHPSksgho4FqUKKdxN2LFHAe9IwmSHa5paMu/Tn0WdFqQ+COOmolv3vO4qq3QnIUSdWpJCb+DjY2H3dp2Y5teYCdPA5HFlcY7I5SpT9oBajGcJZkRgWIPdfgVzEQxMXP4mgQdro4qPhxXz8aM1+09hGwofBjAg5R3KL3vdtvJqGrHWoC8bnD5eEsX0Gt7z6jxnD3EM/ZxRiOrtms/ckzwKP+WrDF3/Tji/p44zCslZeULCOJDvIjNTbUM2MT1Mv5iQRDaK0cEYJyBI7h7UJEesus=
-Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
- by smtp.gmail.com with ESMTPSA id
- r20-20020adfb1d4000000b00337d6f0013esm1003490wra.107.2024.02.07.01.19.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Feb 2024 01:19:17 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Rob Herring <robh+dt@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
-References: <20240205-ltdc_mp13-v1-0-116d43ebba75@foss.st.com>
- <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
-Message-Id: <170729755662.1647630.425379349649657352.b4-ty@linaro.org>
-Date: Wed, 07 Feb 2024 10:19:16 +0100
+ Wed,  7 Feb 2024 10:46:24 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4176FQnZ003091; Wed, 7 Feb 2024 11:46:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=PIc5fr4
+ 3l23sf01s2fsMtu9PxKCMeqeCBi0nksf6Bds=; b=bVW5X8A7Obp8CGLSsz7WyBu
+ kXC3XvjBa2ggJ63H1GVCUnIcvfTspUTDb0VJ8FaNlUYIQKd4XZxYFapca+pB6jyw
+ YlCkuKXgnni4D7RHUUjOrzFHSpJ2I6ioMgShTCUcUvP0tds4yvEF24VFog55M9s+
+ JoIr8ioX6q/CDcUevO29NdoHWMXuIweh511oEy3hV13SxGYJloRNz/AN2RxeyktJ
+ +A85TU2Q/7XK0B9ir28liEE1ynMfa8gj60c96ybXOcna20KHm6FDFAlRsPehgUVF
+ t7Sj9fpT58VPI9Ht0AoLYGE2MBFW5wx1vPedZNLkYPsvYKMpupL5wkrApDw1rbw=
+ =
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w1yx45j5e-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 11:46:16 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F1E1D100058;
+ Wed,  7 Feb 2024 11:46:15 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id EBD4922D181;
+ Wed,  7 Feb 2024 11:46:15 +0100 (CET)
+Received: from localhost (10.252.26.183) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 7 Feb
+ 2024 11:46:15 +0100
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ <linux-gpio@vger.kernel.org>
+Date: Wed, 7 Feb 2024 11:46:04 +0100
+Message-ID: <20240207104604.174843-1-antonio.borneo@foss.st.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-Mailer: b4 0.12.4
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 5/5] drm/panel: simple: push blanking
- limit on RK32FN48H
+X-Originating-IP: [10.252.26.183]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-07_04,2024-01-31_01,2023-05-22_02
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] pinctrl: stm32: fix PM support for stm32mp257
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,21 +75,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi,
+The driver for stm32mp257 is missing the suspend callback in
+struct dev_pm_ops.
 
-On Mon, 05 Feb 2024 10:26:50 +0100, Raphael Gallais-Pou wrote:
-> Push horizontal front porch and vertical back porch blanking limit.
-> This allows to get a 60 fps sharp.
-> 
-> 
+Add the callback, using the common stm32_pinctrl_suspend()
+function.
 
-Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
+Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Fixes: 619f8ca4a73d ("pinctrl: stm32: add stm32mp257 pinctrl support")
+---
+ drivers/pinctrl/stm32/pinctrl-stm32mp257.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[5/5] drm/panel: simple: push blanking limit on RK32FN48H
-      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c9424076d7642bf6e214eccf34904848c8b53515
+diff --git a/drivers/pinctrl/stm32/pinctrl-stm32mp257.c b/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
+index 73f091cd827e..23aebd4695e9 100644
+--- a/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
++++ b/drivers/pinctrl/stm32/pinctrl-stm32mp257.c
+@@ -2562,7 +2562,7 @@ static const struct of_device_id stm32mp257_pctrl_match[] = {
+ };
+ 
+ static const struct dev_pm_ops stm32_pinctrl_dev_pm_ops = {
+-	 SET_LATE_SYSTEM_SLEEP_PM_OPS(NULL, stm32_pinctrl_resume)
++	 SET_LATE_SYSTEM_SLEEP_PM_OPS(stm32_pinctrl_suspend, stm32_pinctrl_resume)
+ };
+ 
+ static struct platform_driver stm32mp257_pinctrl_driver = {
 
+base-commit: 6613476e225e090cc9aad49be7fa504e290dd33d
 -- 
-Neil
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
