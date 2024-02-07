@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96C7584C71A
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 10:19:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F93384C71B
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 10:19:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D41BC6DD68;
-	Wed,  7 Feb 2024 09:19:18 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 49BD6C6DD97;
+	Wed,  7 Feb 2024 09:19:19 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E66CC6B463
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BB51C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 09:19:17 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-33b0f36b808so301565f8f.3
+ Wed,  7 Feb 2024 09:19:18 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4101d08c34cso144865e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 07 Feb 2024 01:19:17 -0800 (PST)
+ Wed, 07 Feb 2024 01:19:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707297556; x=1707902356;
+ d=linaro.org; s=google; t=1707297557; x=1707902357;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=THgk+e9Cb62XQUQpCM4anGjiBdgkprTbUp5Xnr6DNDA=;
- b=Av23/iW6RRf7zdNhEFEO/8CwPEsQZHjlZ0dpyIh36BMzWJR5kWOYGzLz9kRim9F1dQ
- xr6p75sa91lXwzwnmNSLOq6ZDDC7MKx7J7/4pgIgGKtcuuKBcv9GVf6SdVpVYSHg+ti3
- 6wdr2LaRVhmjplJx4b9GYPKX4ZpkxQo1d5ZhvyCdlyAAbMIfp6bKf1QuuJ0JS7cimc9P
- WwvZNCLnZzzuhVfJVvbzJHtnnFAAAyGq+sTF7IIQLXLPXnyE+G4ZsxVVP30cH2og80Fb
- i938PIhzldk/GxtkCvgQXVasmVxbRe+SzgxjjFPrDJRlCtSovvuGfwhwyCHzIcvtVZs0
- LHKA==
+ bh=3E4sDqzii/6R8d7i8uvIM9PeK0fYlmETkH8H6KbNcjA=;
+ b=o4h3lCn+Zqg5YgSltXG0Z76xO5Rhlv8DAYA2B9vYs9q8JzDX81Qfs86A4NAvVcVu/n
+ w3WVyXSsZG0UIJhw7XTcwJDjJXiWQyMFZMeIw+uxcJtj4EA3c2AB/1JsKNEAwFg7zVcb
+ 7/ce0nRHOZFbi1zxRTDHTgQ9qJpqj2tVFG3vFnRzrzEs1cjXb/eXhX/GUAoS7LtpL3Lt
+ Lv+rAM6rpJyYnx5KXs5klRXWNRfT9MboZfSAeuGoB14w4ooPbuL1HY79OaiSnrbZCEAh
+ MPgAtEA1FJFigrcYJFuaLMJHAb6eVxrSc2Yy0eq1lqci4HuFCGe5Q462a0CgOfGLub7H
+ 8C+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707297556; x=1707902356;
+ d=1e100.net; s=20230601; t=1707297557; x=1707902357;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=THgk+e9Cb62XQUQpCM4anGjiBdgkprTbUp5Xnr6DNDA=;
- b=T+Ec6R0yQ5mX3+RRt2bE9qmP+v+uH8A3gaznnIi6iZbi85Ju6KAYjIfmBCLzzQSnkQ
- 4OqYPXFxHl6tKsU1O4TnyqRopohY0LKmh1vToeji0usBUOYrpWsBBZgEz2WNlqy5qveB
- lvvWQGiDK/4bAgbIi70WFuOQNVNr3XUPQCw/HNRZlYBXQ2YHuQ9KWnEmSxfdJOr9QUvb
- 6S5CWZOv0kVhRE1MtBM0op3DBBHJSDU2iT5AfF5vlc/7p89kYF+3vxSxNP5mwego65UB
- cGteZ5feK62fNxdGQ7FGa9eZvHQqsbhUSGQWjWQdaONEOCoAXNa8ww0cdZ5SZuC+yHzF
- hdIQ==
+ bh=3E4sDqzii/6R8d7i8uvIM9PeK0fYlmETkH8H6KbNcjA=;
+ b=TKWKHwbjVvITBuphB475LlZYbCCIRRlQx17CUApLtKb8RfB6V74flJA2MJEUid+6wr
+ TdZwsPvdPnevTgeQQntsjaBeU/X5DPNFLuATgvUSSJSUYQ+bpVpirO9ZaIsHb1kfnSvP
+ 6QWzq/Ufib9OgVychzBRh/Hm3VydTzpoDxaKcygrhfMfOrNz3eJXuCKmFYwsrI5dTYAa
+ VM+aFPjtahMID778uk4A6DyZn2YsAY7+rzpfH4fefSHYL9ncgCQGGb5SsdrgLv7CVaZZ
+ RJKxUrdh9E0DnoBegBihlrdMAH4DFjDjSB3i5QSN13O1dULTqiTloiYIv5uXQu4Xx2ix
+ ZjCg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW111JIq0gnPBX69alIq9OGgfNwadM7yT9vnzmpyLCgjHqFQ3/RApCi/8zhtD1c0KO3gErCAIwthkPGTWx+3SPEi83xRxcuxy9mYtZiuWoxFSfRAVdZ6OkJ
-X-Gm-Message-State: AOJu0YzwmXSy5HLGUUOesSzNZsuoKwKv8DUQlNn0uGWzYWcpMOMKD+dx
- WhB84aD/8oMDJ4r4i91g0OSwJaoOaoLVuAExZQUbLJrfevF3igO0qOVW50OiAM4=
-X-Google-Smtp-Source: AGHT+IFH3IS82L5gMUchaVBxO2U3Dm3TiOIG6AHHKdxNIxx731oN2gzwqakpiXj2hF5Y0reTcfq/wQ==
-X-Received: by 2002:adf:f051:0:b0:33b:26de:ea with SMTP id
- t17-20020adff051000000b0033b26de00eamr3532439wro.37.1707297556498; 
- Wed, 07 Feb 2024 01:19:16 -0800 (PST)
+ AJvYcCUm9nhLTvy3be9eXpdgVy7BfsV8qFs95gyYUcWLUT3JOEf4AQgj3A+oRpNhzJrCssH0BTrf+mUkOtP47wWXWg52gmPz4huW+j0r2/vta3ltCXwWkGNj1e74
+X-Gm-Message-State: AOJu0YzHiB8osOtpXphadU1DwjSKgt3uF1u7zG8e2McWI1xxwYpHpUhA
+ Xws4lIuh6zrXRb+oLQKGX/gOshwUTAE7JJCLDHjjdVVH64glL1gMuNhi6yWgKyc=
+X-Google-Smtp-Source: AGHT+IGWzAsUTDmBmLWHnB0zSYQvDAlkA/M0ZyEQ9KVtZ5H+fM6jmNNCaOcPYRkzWHOKIg5Lztf8QA==
+X-Received: by 2002:a05:600c:502a:b0:410:1d5f:5bc with SMTP id
+ n42-20020a05600c502a00b004101d5f05bcmr7264wmr.31.1707297557602; 
+ Wed, 07 Feb 2024 01:19:17 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVWiN+qIiZ+TGCqz6O1ozMaHDU937wmh5nPirJyx1NADCaa8DhzV5aRPcP1mlSeh8HS9tGnzuRYwqGdTodkvALK0+mgXVO87Ajgg1qFaP+36SZu+xs4ctMTJbe/QTi8UKQxz3AuxRxWHghJ+tBTDjP4e2aU8XK7L/Zar6hb1TtfUqdDk+Pajvg6A17Z3ehLjk3EtAKAcNlBMimPGFU9ZutwTsgzR1zDTLoB3Vj6BV+7awo2Qd4kKbzadF7nF1q8g23bprCMoLIidVw+9+tnq5/wJx4eYmATRg+HQIU/QdohVTyula19yRXkyRerG3hRJ08bn2+xB2GsYfsmI3x7Ciu69xbME6dZV7T5d2ezhFUXR//dk/5wwIYwptRGp3MyJumTFHXfgpeRfDlhIELN1Fhoio9bOSQak669MwUghfOz1/s5GNChseQ4qFsej674RQuAETJjWjoQeLjMpuqasSopZBGNY7JhW5OTtd5IbYJXWVtXcdhuN3jqbQ5CqWU6gyhqIwIHUwjaWj/CzcoAGniVOfgsonolBAV5O/qlCp7Mk4rMC3UfJxZyxU/B1JkE2Qsh4CuI5z12vEQWa8xue9rfLQP25L6RiTR5WNAvmNXiFNdtpVTZHS0/5oV5iKdcCqEWXasnhSIycPntk8LJkIkVQOm39whjVtj2rFJpbigZyHSFgKvtiJ5B
+ AJvYcCUs/M/jhqlfqTPEJC9TWo03wE+lL81k14rkOIobGRfNTLxv0PThTJ+BtQKuutnm0kxgX4FMDgJQ0IHyuCD33UsPM9Qxq3PYM+rFgkZMn5IDVREVm//fUXqYkMhNkdAD4ksZyt28tJbXb5paKj0nmDdeFX26/TpWOCy4I5CQXzB3YfZr2lc2Fslb81CxPqZpznSKGYimpvNE4b5YSsZHjLOuANGREgLCvA2+iSSxVUBp4elFleBXjzGyL6u9fLlpxy2TaS0shtyXTb+nuSFh3DFWptHtXhmTt0lAaPRLR8rZNuLvTovJvFsA0gQpCu2wCrNxmiU7nsSkPyWACOR0cTLeguUzKyS9KjofmhqbOE/JW7v+5MCdsfjopyqaHPSksgho4FqUKKdxN2LFHAe9IwmSHa5paMu/Tn0WdFqQ+COOmolv3vO4qq3QnIUSdWpJCb+DjY2H3dp2Y5teYCdPA5HFlcY7I5SpT9oBajGcJZkRgWIPdfgVzEQxMXP4mgQdro4qPhxXz8aM1+09hGwofBjAg5R3KL3vdtvJqGrHWoC8bnD5eEsX0Gt7z6jxnD3EM/ZxRiOrtms/ckzwKP+WrDF3/Tji/p44zCslZeULCOJDvIjNTbUM2MT1Mv5iQRDaK0cEYJyBI7h7UJEesus=
 Received: from arrakeen.starnux.net ([2a01:e0a:982:cbb0:8261:5fff:fe11:bdda])
  by smtp.gmail.com with ESMTPSA id
- r20-20020adfb1d4000000b00337d6f0013esm1003490wra.107.2024.02.07.01.19.15
+ r20-20020adfb1d4000000b00337d6f0013esm1003490wra.107.2024.02.07.01.19.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Feb 2024 01:19:16 -0800 (PST)
+ Wed, 07 Feb 2024 01:19:17 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Rob Herring <robh+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
@@ -69,17 +69,18 @@ To: Rob Herring <robh+dt@kernel.org>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, 
  Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-In-Reply-To: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
-References: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
-Message-Id: <170729755552.1647630.4818786052103823648.b4-ty@linaro.org>
-Date: Wed, 07 Feb 2024 10:19:15 +0100
+In-Reply-To: <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
+References: <20240205-ltdc_mp13-v1-0-116d43ebba75@foss.st.com>
+ <20240205-ltdc_mp13-v1-5-116d43ebba75@foss.st.com>
+Message-Id: <170729755662.1647630.425379349649657352.b4-ty@linaro.org>
+Date: Wed, 07 Feb 2024 10:19:16 +0100
 MIME-Version: 1.0
 X-Mailer: b4 0.12.4
-Cc: devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] (subset) [PATCH 0/5] Add display support for
- stm32mp135f-dk board
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 5/5] drm/panel: simple: push blanking
+ limit on RK32FN48H
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,24 +99,16 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 Hi,
 
-On Mon, 05 Feb 2024 10:06:50 +0100, Raphael Gallais-Pou wrote:
-> This serie aims to enable display support for the stm32mp135f-dk board
+On Mon, 05 Feb 2024 10:26:50 +0100, Raphael Gallais-Pou wrote:
+> Push horizontal front porch and vertical back porch blanking limit.
+> This allows to get a 60 fps sharp.
 > 
-> Those are only patches of the device-tree since the driver support has
-> already been added [1].
 > 
-> It respectivelly:
-> 	- adds support for the display controller on stm32mp135
-> 	- adds pinctrl for the display controller
-> 	- enables panel, backlight and display controller on
-> 	  stm32mp135f-dk
-> 
-> [...]
 
 Thanks, Applied to https://anongit.freedesktop.org/git/drm/drm-misc.git (drm-misc-next)
 
-[4/5] drm/panel: simple: fix flags on RK043FN48H
-      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=536090b695c429e9d672f72341a5b6fb147d389d
+[5/5] drm/panel: simple: push blanking limit on RK32FN48H
+      https://cgit.freedesktop.org/drm/drm-misc/commit/?id=c9424076d7642bf6e214eccf34904848c8b53515
 
 -- 
 Neil
