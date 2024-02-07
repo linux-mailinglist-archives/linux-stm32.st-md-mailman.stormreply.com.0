@@ -2,121 +2,132 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC4B684C38A
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 05:25:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FCA184C3A5
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 05:38:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61C12C6B476;
-	Wed,  7 Feb 2024 04:25:22 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48C62C6B476;
+	Wed,  7 Feb 2024 04:38:27 +0000 (UTC)
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2056.outbound.protection.outlook.com [40.107.114.56])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50B29C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10F99C6B463
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 04:25:21 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1d8ef977f1eso2108635ad.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 06 Feb 2024 20:25:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1707279920; x=1707884720;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HMrlr7nZw5dCUAxbazVv9rYOkAKQRL0V1zpDd/IjA/w=;
- b=QYRM7ShHvcUJAH7Fvi6brAVmNA/N4VsxySOQegvnUPx0bixL1AZTjHOaRiXqRrAQ6j
- 9bR3av0Oxb0cUgdtPC0+ZDUeLabnoroR64L8vh0UXcdgB3UdeYk50IpW2RyQvLCb2oXk
- ZE/nJMT80q2jCTk2odGhZYZjJ6j08d/MjZp7dr0jJUiIfb6R3+XtWn8IkiJwR1rZKmv8
- 7DgwXqilfzpeAJLdJbivFIn4a7Fk5kkjf/t/+1UpTvu+POv3dR8JOGEH3YvSRXNEQ+pp
- 8CTUF+HlsjaZefLe3pUH71sLah9DR0jFjtfeFI2ZkO80tWTDIdkYEq4H+CIawhJ+P2EF
- YOxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707279920; x=1707884720;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=HMrlr7nZw5dCUAxbazVv9rYOkAKQRL0V1zpDd/IjA/w=;
- b=o/yLNAL0R3r4sTyOMtOl8JnmHiCWfMAZkvvKlAPEiLi+5E0EORWjD36uPN9RVRr7Mz
- ACBAdwNXDhW7uSMU5Nlqa0iG4MY4XbjGgsK83GXEOX+558ug80LLtUMi89O3SCDAbmeb
- lFl6z0IThsKsg4egwbnyb3I1OtOrHvAx+F/E4wWH7IAz8MDnGIrTlLvAPpNCYvRJGD4C
- CSWmnKhRtLB3GDPohlvCosznq83TDndQTFrPEey8RVYgJEllnHo6oWHgav5QU465aL+/
- LFrYPUsZa5bvrd4a6wuCokySjMJfWG68+lRV/7O1KWLtj4HtOb5JI1Hk5Thvy9NUbm+c
- vYFw==
-X-Gm-Message-State: AOJu0YyAsFwQlOhC2r5GFBl/eFtmQz1jYq0tlprSef9oI5CSuRXaS7kH
- HmYw2SjFyL3xf4c707c9m6OGwSUnZk5ilfGoFjUV1KvPn7w7LnC4
-X-Google-Smtp-Source: AGHT+IG1DZr3LGFkUE2k+B+E34X6XrM6TPAN3drCI1YmumoFCqZR38zQwG26rMMUWss43/w1Ye+Lmw==
-X-Received: by 2002:a17:903:4286:b0:1d4:e04b:3eea with SMTP id
- ju6-20020a170903428600b001d4e04b3eeamr3529877plb.31.1707279919709; 
- Tue, 06 Feb 2024 20:25:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWvfccdKYlKvU+hBjmZAQ9INqcyY5ToS/CHtFubvPLK9tdpGkqjKoiT4TuLRGMQeae/LdszWZNz1Wd7hVXGAEtu59DwJ/FCzlMtjna+B7HRMunLKWi3Pzln1pU7zvZEyN52DK5ETIujfc7r3sIzIUhtGR9NiRzgreUADGsovhmieURWqoxy1Zz2EhF5bpuwzeVf/M0siaQikBS+nIlIF33BBUcCjUQHqB2ya2d7YGnHfDqLVaaJAEB18Z2PJg7Wyh1eeocflQtsqF7jK+kx4dcz/+GTpRm5gK7DQgHGeeY0l7TQbXNysG8KCgSZfV7GDAM68x1S+DsUvuCrmnxu7EYtAv38TSJ1WpzFazsv3lTiCe9NzijijCieanpH2++WMkNCwdv9nn7fivxE4GWe1DsviLozDsLyVYGwZZHc23firDYL8ppxrtmR8CmVlV6jKubuwePZQoaflrowWHT3237giMTGOhghUtvmeIBLzdqguRnXvt5JXNmnadYoVvG1CGi24OJrX36++0OGqB9BRUL/zyKl4W36T0MloG6PxAHEz8oC5y+7klNfULZXxBZnhM3QXm6VllV3Tq77nNw1cRQtgPmFt/Si3Sr90NhpLtYANemzijjkbN5Adis3wqn6HAxFPAZxnKA5qDFvpSdmSbcdlpgCpdIcGMJpD/XaeHkc5QoUmWY3pIygQYKrEmJiNU7fErpsL2HdDOx/2le1xufkiJrWtw1RCyqfNJw=
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
- by smtp.gmail.com with ESMTPSA id
- iz6-20020a170902ef8600b001d95a70ee93sm357092plb.240.2024.02.06.20.25.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 20:25:19 -0800 (PST)
-Message-ID: <57406055-ff3c-4788-bbf7-8476f63f90db@gmail.com>
-Date: Tue, 6 Feb 2024 20:25:17 -0800
+ Wed,  7 Feb 2024 04:38:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WhhTQWxwenKS+av/JcqFAQK91V3IFU5x5bqJHNSJ+AD8cJGBPngPoB2VASuhvCYkUn5BDs+ofqUaipepV1OqnWqWpK5rRyKAmKdl/iQREDnS2MNo5wCapwFQLCcN56Hmdcu8gn3B40vNvFPseqzP61Wa92Qff5CEHy2IY93SmMNPO+Xrk1qmIDFXxkCAAaogQcu7/QIVYwiqnYwtySY1DGBCghVK3dvsuuudbSXeU1f3PCdlI3XnjSp0vsuU/1NQelqHn3gRtJ30PDiHIEM41CXvHeDGJP1jB4EFdawHXoh+dyPoVnkfLUCbj9532EPWWP96xIBXiynND0X+xsjRFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KrBUw1BWATzR6g0PWPOlP84Ez48OkFe8CqJi2JWgoJ4=;
+ b=cPFXNnRoiFrGNAuZe76bYx256GvctgJ+30RrOvEKf7/58BdtkyEGYxXxEx88RXJ1ujm5qoFx350dZ58WMerUjVgHC9mki4AlkqlFAtf1/erDEaZHSP6yXS36opmIGbqrTt+NHIwlVBsu8qNOm/Z17KPpbrzEC3ob1TCn9/pfZ66oSmQn/sFi+C31QHyVfiOL+CbuKBxohF/cWtICeiU2nKyX+XGWTV9Q2QVlWAel9HhHkoP+jexP6ANQ8W0OAqV6gKWkP1hvG06J5cZZL6Fngwi+yRMtTu+MmmYFNM17H/uZFMxx0pINVnzqeQEIkrOFr/3skuxv9rgvLsbAZ0CMfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KrBUw1BWATzR6g0PWPOlP84Ez48OkFe8CqJi2JWgoJ4=;
+ b=a2ApfRc1VF5v3mqVLzBcLwpWgzqYaoiwD2c/q+XUs3bM96prBKeMq155Eel09secSOmByBCOaV0DmzuNff3S0ms/qrCJDnCtPPkCojJFXrvZVoYrW8u/MVgiTxUb52O0VqKWs3MBCTcL0JBUilix3zBCr/TyUQMQQkbXov8Bu8M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by TYYPR01MB8022.jpnprd01.prod.outlook.com
+ (2603:1096:400:f8::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36; Wed, 7 Feb
+ 2024 04:38:21 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::4d0b:6738:dc2b:51c8]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::4d0b:6738:dc2b:51c8%6]) with mapi id 15.20.7249.035; Wed, 7 Feb 2024
+ 04:38:21 +0000
+Message-ID: <87r0hosxc3.wl-kuninori.morimoto.gx@renesas.com>
+To: "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>, =?ISO-8859-1?Q?=22Uwe_?=
+ =?ISO-8859-1?Q?Kleine-K=F6nig=22?= <u.kleine-koenig@pengutronix.de>, Alain
+ Volmat <alain.volmat@foss.st.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, David Airlie <airlied@gmail.com>, Eugen
+ Hristev <eugen.hristev@collabora.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Helge Deller <deller@gmx.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jacopo Mondi <jacopo@jmondi.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime
+ Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Sam Ravnborg <sam@ravnborg.org>, Sylwester
+ Nawrocki <s.nawrocki@samsung.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tim Harvey <tharvey@gateworks.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 7 Feb 2024 04:38:20 +0000
+X-ClientProxiedBy: TY2PR04CA0011.apcprd04.prod.outlook.com
+ (2603:1096:404:f6::23) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Vladimir Oltean <olteanv@gmail.com>,
- "Russell King (Oracle)" <linux@armlinux.org.uk>
-References: <Zb9/O81fVAZw4ANr@shell.armlinux.org.uk>
- <E1rWbNI-002cCz-4x@rmk-PC.armlinux.org.uk>
- <20240206112024.3jxtcru3dupeirnj@skbuf>
- <ZcIwQcn3qlk0UjS4@shell.armlinux.org.uk>
- <20240206132923.eypnqvqwe3cga5tp@skbuf>
-From: Florian Fainelli <f.fainelli@gmail.com>
-Autocrypt: addr=f.fainelli@gmail.com; keydata=
- xsDiBEjPuBIRBACW9MxSJU9fvEOCTnRNqG/13rAGsj+vJqontvoDSNxRgmafP8d3nesnqPyR
- xGlkaOSDuu09rxuW+69Y2f1TzjFuGpBk4ysWOR85O2Nx8AJ6fYGCoeTbovrNlGT1M9obSFGQ
- X3IzRnWoqlfudjTO5TKoqkbOgpYqIo5n1QbEjCCwCwCg3DOH/4ug2AUUlcIT9/l3pGvoRJ0E
- AICDzi3l7pmC5IWn2n1mvP5247urtHFs/uusE827DDj3K8Upn2vYiOFMBhGsxAk6YKV6IP0d
- ZdWX6fqkJJlu9cSDvWtO1hXeHIfQIE/xcqvlRH783KrihLcsmnBqOiS6rJDO2x1eAgC8meAX
- SAgsrBhcgGl2Rl5gh/jkeA5ykwbxA/9u1eEuL70Qzt5APJmqVXR+kWvrqdBVPoUNy/tQ8mYc
- nzJJ63ng3tHhnwHXZOu8hL4nqwlYHRa9eeglXYhBqja4ZvIvCEqSmEukfivk+DlIgVoOAJbh
- qIWgvr3SIEuR6ayY3f5j0f2ejUMYlYYnKdiHXFlF9uXm1ELrb0YX4GMHz80nRmxvcmlhbiBG
- YWluZWxsaSA8Zi5mYWluZWxsaUBnbWFpbC5jb20+wmYEExECACYCGyMGCwkIBwMCBBUCCAME
- FgIDAQIeAQIXgAUCVF/S8QUJHlwd3wAKCRBhV5kVtWN2DvCVAJ4u4/bPF4P3jxb4qEY8I2gS
- 6hG0gACffNWlqJ2T4wSSn+3o7CCZNd7SLSDOw00ESM+4EhAQAL/o09boR9D3Vk1Tt7+gpYr3
- WQ6hgYVON905q2ndEoA2J0dQxJNRw3snabHDDzQBAcqOvdi7YidfBVdKi0wxHhSuRBfuOppu
- pdXkb7zxuPQuSveCLqqZWRQ+Cc2QgF7SBqgznbe6Ngout5qXY5Dcagk9LqFNGhJQzUGHAsIs
- hap1f0B1PoUyUNeEInV98D8Xd/edM3mhO9nRpUXRK9Bvt4iEZUXGuVtZLT52nK6Wv2EZ1TiT
- OiqZlf1P+vxYLBx9eKmabPdm3yjalhY8yr1S1vL0gSA/C6W1o/TowdieF1rWN/MYHlkpyj9c
- Rpc281gAO0AP3V1G00YzBEdYyi0gaJbCEQnq8Vz1vDXFxHzyhgGz7umBsVKmYwZgA8DrrB0M
- oaP35wuGR3RJcaG30AnJpEDkBYHznI2apxdcuTPOHZyEilIRrBGzDwGtAhldzlBoBwE3Z3MY
- 31TOpACu1ZpNOMysZ6xiE35pWkwc0KYm4hJA5GFfmWSN6DniimW3pmdDIiw4Ifcx8b3mFrRO
- BbDIW13E51j9RjbO/nAaK9ndZ5LRO1B/8Fwat7bLzmsCiEXOJY7NNpIEpkoNoEUfCcZwmLrU
- +eOTPzaF6drw6ayewEi5yzPg3TAT6FV3oBsNg3xlwU0gPK3v6gYPX5w9+ovPZ1/qqNfOrbsE
- FRuiSVsZQ5s3AAMFD/9XjlnnVDh9GX/r/6hjmr4U9tEsM+VQXaVXqZuHKaSmojOLUCP/YVQo
- 7IiYaNssCS4FCPe4yrL4FJJfJAsbeyDykMN7wAnBcOkbZ9BPJPNCbqU6dowLOiy8AuTYQ48m
- vIyQ4Ijnb6GTrtxIUDQeOBNuQC/gyyx3nbL/lVlHbxr4tb6YkhkO6shjXhQh7nQb33FjGO4P
- WU11Nr9i/qoV8QCo12MQEo244RRA6VMud06y/E449rWZFSTwGqb0FS0seTcYNvxt8PB2izX+
- HZA8SL54j479ubxhfuoTu5nXdtFYFj5Lj5x34LKPx7MpgAmj0H7SDhpFWF2FzcC1bjiW9mjW
- HaKaX23Awt97AqQZXegbfkJwX2Y53ufq8Np3e1542lh3/mpiGSilCsaTahEGrHK+lIusl6mz
- Joil+u3k01ofvJMK0ZdzGUZ/aPMZ16LofjFA+MNxWrZFrkYmiGdv+LG45zSlZyIvzSiG2lKy
- kuVag+IijCIom78P9jRtB1q1Q5lwZp2TLAJlz92DmFwBg1hyFzwDADjZ2nrDxKUiybXIgZp9
- aU2d++ptEGCVJOfEW4qpWCCLPbOT7XBr+g/4H3qWbs3j/cDDq7LuVYIe+wchy/iXEJaQVeTC
- y5arMQorqTFWlEOgRA8OP47L9knl9i4xuR0euV6DChDrguup2aJVU8JPBBgRAgAPAhsMBQJU
- X9LxBQkeXB3fAAoJEGFXmRW1Y3YOj4UAn3nrFLPZekMeqX5aD/aq/dsbXSfyAKC45Go0YyxV
- HGuUuzv+GKZ6nsysJw==
-In-Reply-To: <20240206132923.eypnqvqwe3cga5tp@skbuf>
-Cc: Andrew Lunn <andrew@lunn.ch>, Doug Berger <opendmb@gmail.com>,
- Byungho An <bh74.an@samsung.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Justin Chen <justin.chen@broadcom.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, bcm-kernel-feedback-list@broadcom.com,
- NXP Linux Team <linux-imx@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Clark Wang <xiaoning.wang@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>,
- Paolo Abeni <pabeni@redhat.com>, Wei Fang <wei.fang@nxp.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 6/6] net: dsa: b53: remove
- eee_enabled/eee_active in b53_get_mac_eee()
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYYPR01MB8022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95c31d17-41a2-4576-62f4-08dc27969d04
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: lq2kHrgR4N17LqQsf7+SEMl4AJz/+G+EKinUmibE8tDVHCTSVwgJt8/nmraM6eJIOtjp7sIkGypo/qYECAgayNagbj27rT34OVYvNnfMYA7aoasuUN40RkTPOfPL02K7Rs121rcOJayW6W8g31z7BEvgo31S14Ey8ClJnZ/WNUhviwutPMAjhrd8AeGj0DzE1JCuGQTOTu5btp1eXiwIqpz1nG++Rle3PXgp6BdcXagUl2+k3BCsFR2Pe6wtaed65z71PeD07PRJegDUsn7dYSGz2WS9D2B5vlw8iEivjtTnyxbtULR4SygfSXQgySHjE2ZkBDmnKwmgbiGyXWNqbISk4fewPaDTx/TFbLusviBUD8wLtVTZXVuV9KQkJz7cxlqyfuMfc9ZFLUSycAPFbZL7vSIBUZwRJGV4kq+u7v4n+7pmJtxtxC3GtxT4oV1+YNWb8s8vsGIJhMVk6pEFvpxA0ob3aezsBK1ijoXpiYhinIvAy+tcG5WL0VTM3XVL2LYPJv708MS1/ydUsKfs4vJ82jOkT5XwI5xzGEpZvL7z99zkdSgtXyzZk3yQeRmG7tEOa5qMM9H5Him18wWqNzSEPEHLKZPzGSaSWiG2ntxgJNF6MWqgEZUztBtVyRrv
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(366004)(39860400002)(136003)(346002)(396003)(376002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(6512007)(6486002)(41300700001)(66946007)(66556008)(66476007)(38350700005)(316002)(26005)(8676002)(8936002)(86362001)(6506007)(83380400001)(2616005)(52116002)(110136005)(36756003)(478600001)(966005)(7416002)(2906002)(5660300002)(921011)(7406005)(38100700002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PWf11XEy//9PLTPxcqL5KbKt2BJnr+J4ROsMB2MgcKb/cwHf/1o/EEsJiju8?=
+ =?us-ascii?Q?KVY+8uCbw7jqVxzh3glZmR0sR+Gkz8W54N+HB5Pkc5cueN9GUSDWSeVX67P9?=
+ =?us-ascii?Q?Vo7yMdraoh7ekcI8Qc2piQVf4vbLnpIeXV/dXMHd3niB7hbdgFyyw6rjNh7x?=
+ =?us-ascii?Q?wSxMK5ofGbCM0XNnujYDe/eNhANbOOZkjbiK8Pb+bz6iuJIgiyK73k8eIp6B?=
+ =?us-ascii?Q?mom3/tEblx0xBrRx2O+QwfhDu+xMgVEuHIMg4UQYWP3QNT8t3Ttv+lPzyrLY?=
+ =?us-ascii?Q?5CBoWfBz4ciubNCm+4RYdvvYVH+HHdwbUylk5gz08rSO4egJ1MM7aSRmSh6Y?=
+ =?us-ascii?Q?byh0xO/WTR9NjODIAbYqVSFGKzyA9x4MwxWFExHGobalY5SfaCLql3OSvIEc?=
+ =?us-ascii?Q?P97sljr6CJ2ig/o1EC69jMCdOc6lRuoQdfsP0HRhUrn07rQ3t356N+XvK+4o?=
+ =?us-ascii?Q?2k8qOzt2zpzEpMo6Zas9p9u93Iz2zoQ5K8ibM1Tcnq7hBU/yesdkxH2kdAHf?=
+ =?us-ascii?Q?tKkw6EcCFqp4nhArn40OtwqlkGm0TnNOkwyJWER+YSwQie54zjcH15YGdxy4?=
+ =?us-ascii?Q?BwJCMfS0tWkFrSn4Hd6vQDUo1hgXcDaGMejLzDjvdWhm2O0BhNMBsAk9qajC?=
+ =?us-ascii?Q?oE1TA+oqDgQQPHYnsGMJ074mZ9z0g2BHeem7IGH+f8HcHjQ4b0kZxiOJgRF2?=
+ =?us-ascii?Q?/FLhG5W43u7SIApKo/8pj1nVnTtKLYs+ual9HPtu4nH+hJBcCJ+dhvRTFkZj?=
+ =?us-ascii?Q?08DxIAF9mlxzifio31K5eWKQGdCpRwDSA4XEgV2VXtfrTWGzWDQTrTmFKahZ?=
+ =?us-ascii?Q?UzaCucvooPOKUc3+1INeOnTZlkxTP+clsAtlOBCadFsAsFTRRIkfhv9qCz6N?=
+ =?us-ascii?Q?h8mM/rKh9moeLO60xuxLkI/8MHMOH7omK1e1wEa5hQnMP0DZ58uFYnn1ZwQo?=
+ =?us-ascii?Q?XHvjadpTa6ZukS3ICEwpGmRo7yJl6BMLCBmJf8+kYMqawO8C05HP/QQQs0px?=
+ =?us-ascii?Q?5OWedEmS+hpGpfdP4Cma0Ghx9a0+msvUne51iAMFVNtP01OafQzj3YpVrGqH?=
+ =?us-ascii?Q?VFD9JiONQ6Rn0RtHi12cNbpk1QFa87BKa1ERLdbkT4yTXuKIuEwt9RWRB/I+?=
+ =?us-ascii?Q?+6SbDbb8lIwY9NGyJ79OugXFnpyRkevxZPxRZ0re4DlkSqeFAr6yecTYdHms?=
+ =?us-ascii?Q?994qmdubf4XGQFqV7WpHOnFsGd19k7yH+TfXj7kKpKKKl9G+WZCne7MmNVAp?=
+ =?us-ascii?Q?mvdVyD1+G9tz9KkPrAOC5WA/hgwFZqODVIOK7pP1V6Tv7hvvr9yRA3JTrbkw?=
+ =?us-ascii?Q?suI8wiD653yRdJO2rpkaRAaDfkIxc/oo/pcyZOsuFOc9O5heLOPFHgWmHSyj?=
+ =?us-ascii?Q?mIgUO7Oy5OZrXsvNMKHurjzj16ENJ60cKY2fFF6j/Tx96GU7PxVkyrVfU/Vc?=
+ =?us-ascii?Q?dwPRxxtmfbysBjfK0JMGTXtnNy9wriliEHtTYDk1DsXxwP79YSXVNwY1Is1P?=
+ =?us-ascii?Q?p397PjFVnyCu9WKETYoPo+NMIEwDv6fYT32eLO401m7sr/gANj4FWVA8vxqv?=
+ =?us-ascii?Q?pcNbdM1lHRseEyT401dzhZnc+0XnpEtn1/FUacYeksaACBfD0R3K265VZiJv?=
+ =?us-ascii?Q?+pAwiMff5Rwd7pE8VTWa03U=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95c31d17-41a2-4576-62f4-08dc27969d04
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 04:38:21.3498 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I3AvTF1G80SFy/58Hb1qyMunJueaabp3gynGthhvvVcu7e0ycHoocgX6AU1JR4tpsPlG+GksvjcNy3H50zkBobAviRFrnPGKZfW01NPYMK5A+IT3QY51P3C9ImLxTKNn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB8022
+Subject: [Linux-stm32] [PATCH v2 0/4] of: replace
+	of_graph_get_next_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,44 +139,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
+Hi Rob
 
-On 2/6/2024 5:29 AM, Vladimir Oltean wrote:
-> On Tue, Feb 06, 2024 at 01:12:33PM +0000, Russell King (Oracle) wrote:
->>> I know next to nothing about EEE and especially the implementation on
->>> Broadcom switches. But is the information brought by B53_EEE_LPI_INDICATE
->>> completely redundant? Is it actually in the system's best interest to
->>> ignore it?
->>
->> That's a review comment that should have been made when the original
->> change to phylib was done, because it's already ignored in kernels
->> today since the commit changing phylib that I've referenced in this
->> series - since e->eee_enabled and e->eee_active will be overwritten by
->> phylib.
-> 
-> That's fair, but commit d1420bb99515 ("net: phy: improve generic EEE
-> ethtool functions") is dated November 2018, and my involvement with the
-> kernel started in March 2019. So it would have been a bit difficult for
-> me to make this observation back then.
-> 
->> If we need B53_EEE_LPI_INDICATE to do something, then we need to have
->> a discussion about it, and decide how that fits in with the EEE
->> interface, and how to work around phylib's implementation.
-> 
-> Hopefully Florian or Doug can quickly clarify whether this is the case
-> or not.
+This is v2 of replace of_graph_get_next_endpoint()
 
-Russell's replacement is actually a better one because it will return a 
-stable state. B53_EEE_LPI_INDICATE would indicate when the switch port's 
-built-in PHY asserts the LPI signal to its MAC, which could be transient 
-AFAICT.
+We should get rid of or minimize of_graph_get_next_endpoint() in
+its current form. In general, drivers should be asking for a specific 
+port number because their function is fixed in the binding.
+
+	https://lore.kernel.org/r/20240131184347.GA1906672-robh@kernel.org
+
+This patch-set replace of_graph_get_next_endpoint() by
+of_graph_get_endpoint_by_regs(). There are still next_endpoint()
+after this patch-set, but it will be replaced by
+for_each_endpoint_of_node() in next patch-set (A)
+
+[*] this patch-set
+[o] done
+
+	[o] tidyup of_graph_get_endpoint_count()
+	[*] replace endpoint func - use endpoint_by_regs()
+(A)	[ ] replace endpoint func - use for_each()
+	[ ] rename endpoint func to device_endpoint
+	[ ] add new port function
+	[ ] add new endpont function
+	[ ] remove of_graph_get_next_device_endpoint()
+
+v1 -> v2
+	- add Reviewed-by from Launrent
+	- use by_regs(xx, -1, -1) for some devices
+	- add extra explain for drm_of_get_dsi_bus()
+	- add FIXME and Link on adv7604.c
+	- based on latest of branch
+
+Kuninori Morimoto (4):
+  gpu: drm: replace of_graph_get_next_endpoint()
+  media: i2c: replace of_graph_get_next_endpoint()
+  media: platform: replace of_graph_get_next_endpoint()
+  video: fbdev: replace of_graph_get_next_endpoint()
+
+ drivers/gpu/drm/drm_of.c                      |  4 +++-
+ .../drm/panel/panel-raspberrypi-touchscreen.c |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+ drivers/media/i2c/adv7343.c                   |  2 +-
+ drivers/media/i2c/adv7604.c                   |  4 ++--
+ drivers/media/i2c/mt9p031.c                   |  2 +-
+ drivers/media/i2c/mt9v032.c                   |  2 +-
+ drivers/media/i2c/ov2659.c                    |  2 +-
+ drivers/media/i2c/ov5645.c                    |  2 +-
+ drivers/media/i2c/ov5647.c                    |  2 +-
+ drivers/media/i2c/s5c73m3/s5c73m3-core.c      |  2 +-
+ drivers/media/i2c/s5k5baf.c                   |  2 +-
+ drivers/media/i2c/tc358743.c                  |  2 +-
+ drivers/media/i2c/tda1997x.c                  |  2 +-
+ drivers/media/i2c/tvp514x.c                   |  2 +-
+ drivers/media/i2c/tvp7002.c                   |  2 +-
+ drivers/media/platform/atmel/atmel-isi.c      |  4 ++--
+ drivers/media/platform/intel/pxa_camera.c     |  2 +-
+ .../platform/samsung/exynos4-is/fimc-is.c     |  2 +-
+ .../platform/samsung/exynos4-is/mipi-csis.c   |  3 ++-
+ drivers/media/platform/st/stm32/stm32-dcmi.c  |  4 ++--
+ drivers/media/platform/ti/davinci/vpif.c      |  3 +--
+ drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
+ drivers/video/fbdev/pxafb.c                   |  2 +-
+ include/video/omapfb_dss.h                    |  3 ---
+ 29 files changed, 38 insertions(+), 53 deletions(-)
+
 -- 
-Florian
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
