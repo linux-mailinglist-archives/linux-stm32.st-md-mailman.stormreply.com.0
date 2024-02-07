@@ -2,111 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48C684C123
-	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 01:05:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E950184C143
+	for <lists+linux-stm32@lfdr.de>; Wed,  7 Feb 2024 01:10:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47930C6B463;
-	Wed,  7 Feb 2024 00:05:47 +0000 (UTC)
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2063.outbound.protection.outlook.com [40.107.113.63])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CFEDC6B463;
+	Wed,  7 Feb 2024 00:10:50 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3816BC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D80CC6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  7 Feb 2024 00:05:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XN4n/Ld2cwpowkqUrI8ym8dArJaI+GlcsoqF+VS23NZUB+6kCT4sLtUUoKMvRLMyiAN+5dZZj0hdHvRixqo4pe2+1FBmFWcdD1lUp0bdNVRyO4QZ+pdQHIssZ0XbmNX2QmBqIGYR5vankfLcQCzc92YwKCENUnRdrnIQiLW7eIkHld/l0oawiJn599qAklfHRoU2v8pmh1UpR9cEWu9ud55ggfzHQOJW/Q+WLXdZZaU0GIvcveXV2VfYzYTNUedsD6VBLUNURI0lZ0OEY16vkeIS4LEIx1nzJHmdFE3rd/kNZjmovIkoseYcutl8iIeaeu/UoAd1Rpp7ez/KMWrzSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LeXJD5u8Orq+ZyP3+g3ib6eNMCbIxpGaYSM1J8gg+Vw=;
- b=Nbijg6s4llxgcG9POdHRQmAw3bmGmor6/M+pGsBQSiFuFQMNkcz6aYgBc70JcdJWq9u/hTdhvKIThLQSe7S86sllCF5YLToHnMMiuHCWI/F1u+mmUppl0mckhbgFnEqUgz6uylXvzleMk9s8lwLiVke1kazg7WuGzGJwmGekjtpNMh/UbWxbPXxEQmlVOwzIwTrtAu2PXreI5GoC2OrPpOoJqltVFTpkO6qTaFFkgJb0VbpoHrP2yoRoYR1ddkSwT9C0yOx8MIkT/uXMyKtEckhAYmdWfKWFk8LnzYjJwrOcU58fYUCOhaIteJIvh6kQ8bfysx+bauzlIVF82xL7qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LeXJD5u8Orq+ZyP3+g3ib6eNMCbIxpGaYSM1J8gg+Vw=;
- b=E/lz5sfgZZAul+iD9njNB4k8Hx7jIkA68K17H4EwghV96scD/RGC9CA8vbJ8h7RuMZq+L0jqEz8KB2KkxS3qvwcMwrSZcbG+alNpCGRyVo5KUm5iwi3KXt82goDc5/nk+QHecoMkyEZlQOpHw3NOVj6jgEYkhcw+Fh4jQk8UEaE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OSYPR01MB5400.jpnprd01.prod.outlook.com
- (2603:1096:604:8d::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36; Wed, 7 Feb
- 2024 00:05:42 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8%6]) with mapi id 15.20.7249.035; Wed, 7 Feb 2024
- 00:05:42 +0000
-Date: Wed, 07 Feb 2024 09:05:42 +0900
-Message-ID: <8734u5t9yh.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
-In-Reply-To: <20240206164429.GD2827@pendragon.ideasonboard.com>
-References: <20240206164429.GD2827@pendragon.ideasonboard.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-X-ClientProxiedBy: TY2PR0101CA0040.apcprd01.prod.exchangelabs.com
- (2603:1096:404:8000::26) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ Wed,  7 Feb 2024 00:10:49 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 416NISTZ010794; Wed, 7 Feb 2024 00:10:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=qcppdkim1; bh=Skg3HbQjq2/sqhBqmP0V
+ Z8miwYY04Us8dUh25zkVrRE=; b=Uw21QNs9FXkmcZGXLoDo2qZoXPcwQ0ZqwPNt
+ pabH1bIQXEqzBe1AeA/7kBvCRFhIi8S5hgjVBtG5M0Z9H5RBh88KA1vthCqYvicn
+ HRMCj2Xq6jky79/V1JKxIBfllnzY0OqII2Xu/YXa28/MxPa7n/MyvZtTtfVrrGfR
+ 1gRqet3r9qSyl30SK1Rpwo8jWja0kxEYxI1GWGTvnynEXLynu+uc2vUts0gltE/K
+ C8FToJft24r1UMfLcEJ4KwJKT0/naAVer3rf0bkApjb7Fy+iMZN+LMi2uplPUBaQ
+ IhJowCUsW4fI7nj3YDJe22XvtVgVlMTFAIXwepsTypOCVOJ0kw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3w3ud2ree6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 00:10:38 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA04.qualcomm.com [127.0.0.1])
+ by NALASPPMTA04.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 4170AbMC031971; 
+ Wed, 7 Feb 2024 00:10:37 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 3w37h10ecd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 00:10:37 +0000
+Received: from NALASPPMTA04.qualcomm.com (NALASPPMTA04.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 4170Ab4d031966;
+ Wed, 7 Feb 2024 00:10:37 GMT
+Received: from hu-devc-lv-u20-a-new.qualcomm.com (hu-abchauha-lv.qualcomm.com
+ [10.81.25.35])
+ by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 4170AaGU031961
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 07 Feb 2024 00:10:37 +0000
+Received: by hu-devc-lv-u20-a-new.qualcomm.com (Postfix, from userid 214165)
+ id 5216A22B62; Tue,  6 Feb 2024 16:10:36 -0800 (PST)
+From: Abhishek Chauhan <quic_abchauha@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
+ Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Prasad Sodagudi <psodagud@quicinc.com>,
+ Andrew Halaney <ahalaney@redhat.com>, Rob Herring <robh@kernel.org>
+Date: Tue,  6 Feb 2024 16:10:36 -0800
+Message-Id: <20240207001036.1333450-1-quic_abchauha@quicinc.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OSYPR01MB5400:EE_
-X-MS-Office365-Filtering-Correlation-Id: 380df5ac-a68b-4c15-3919-08dc2770865f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hsiPUFOQS1DtrXhEUboAVwty5jPL24A12KmSnLmxDGSUVAyfwgboR7HW8EvH9gqu7MuwLlcYHQdo8rqX5R5mXKAgnrME6sMAkHVAYQTEe+/4KERUaGovHa9Lp7ULgcj1qq0zV6BOBZwQJTsI2jpvIrcAsh+zVlE/fSLESpn/n1bSrbJXX86AwlPEFK9pbmq5NKBgvfVgzqc1Ko5F4wchyxALfpSYCLNZT3umepLIeBXDECUabu/qgPzydprQ45JRVnuOdl8sSU5miiMz3k+GFcESYLTxlncLi9rBtmPuWUNRx+f0gmfyPM2BgiegzZKY0fAroVvqNis9MptY5yFjVdy8dmBKgOkoMaCxHJHYG53v1aNqc4puNny0rjmAD5xcDGnJbIvmv46/P4cdbuq7lStw2WtE60z1I2O9vrgqeW0Nlt+qtI3acu9ZJRf1w3XC47eCRUvOdD/bJ9HJpT3Epf65Vxo/2f4dno0jeZAhoBi0bPASLirHyWb3e7rzfZNLARuCZ3IzBAXA/7g0BZabaaPNBOpqIiTMVQaaaN9/5lLipw1C+IR0cjSFFkktWi+Nfmup2K4ljEqokZSH4g4qIGt5P/0WA8Qs+VBqEYAW4alFhaYVIJ8ltO7KiUud8Zyk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376002)(396003)(136003)(346002)(366004)(39860400002)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(38100700002)(41300700001)(36756003)(478600001)(6512007)(6486002)(4744005)(2906002)(5660300002)(38350700005)(66946007)(66556008)(66476007)(316002)(6916009)(52116002)(2616005)(8676002)(83380400001)(26005)(86362001)(6506007)(4326008)(8936002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?oUmxLFPfAjkBuPbHIOULCTtvuFgpr9fL1FK+KD2w3bcMCsxwAYFsNyZ7K4cg?=
- =?us-ascii?Q?IXQSs1H5xN9CRClgLZuET+fYEwVFX4lvebznB7GaGT4oDldXwEIY4UBjUUGN?=
- =?us-ascii?Q?nsMNahUtBaQ2xJ0FYwKICtRTJ/k3vbextUEKuVVe9sUN6suo9sgSXfGZ4dCe?=
- =?us-ascii?Q?MDOmTe5D3uaGnLpRt6vJ7Bsw2yJ594iCNPHa/SAlrWB5kVsgmzYJTA7icv8P?=
- =?us-ascii?Q?4DuftMxhilDDTsQspOa1OIiujL5UOHni8zTBvzcsp9OhGExH9kjcP9FpjanP?=
- =?us-ascii?Q?/qePH/dFvu9Wt5Nq9f4KmI4+z+liT25bUKZ3j5tDTIcosGFjE0kSosG5YEHF?=
- =?us-ascii?Q?YdFVLKTqESAZd+9BKgsXeFLI1UHVxZbHFFvy5yEiFyuN2gplmmWpztlgGTfp?=
- =?us-ascii?Q?jID4VE3oni81QlMB0JXINl0jtaTxCMS5y2dKhz+OiSyPIg7eW7+Jyha7u5u8?=
- =?us-ascii?Q?Vsjc1EZGuqg8cT88mnpRnGNcspAzZ8GaIjb9giPorXvEQ45oBcHd0daynkpD?=
- =?us-ascii?Q?/03NheSqivFSwzl89xlbF+wJn+xjQr6UMLiPVyKfomaVq4r+Uiyr+/QxExcT?=
- =?us-ascii?Q?PBlyg6pd/fFjKqe+3RBp6w/o6zbqDoGgPoCvfg4S6Bg6DbenbpHWubf4t3gS?=
- =?us-ascii?Q?U96R6d8KKXnm3m2uOBRO1Pvg01gQlIbNg3xHlnvawjmn/HMvOvOq6DPVDbPt?=
- =?us-ascii?Q?KrI4pJBdPLvZGVaiox221HO5C0EoCWC+zY2OTWZYLnro+uDRZx481SyBONNZ?=
- =?us-ascii?Q?CnZaILzsh6z+9zp3a6cJX5FCd9AzO8lqoXD0dE5868wr59njsa1PZnhE2BNn?=
- =?us-ascii?Q?i/gZGbUVLaeyJXenaIs+KZFLcRhR3PLlerm0CNll6O9Ij1FjE6xGHn+rOedk?=
- =?us-ascii?Q?V2yIUpnxpaZbFKz2fjBdVG0B8qEBemewABBAtV2kKrXxpQeqnILMYFbPNiWw?=
- =?us-ascii?Q?nCpUJq0xgpRow0kRSTHDEVE2unpG6M9o37ntKI4TFFp7Uy9fmsiHrWngGDOR?=
- =?us-ascii?Q?PedWkWqdIw0FnGYN7Ts+emxI0fl0KxvBnbgLJfu2EsIFYMj09j38KYBlXPF8?=
- =?us-ascii?Q?8ejtr7YgRM/CvB3ILdeCqjkYGBLAfP9ioERkjVxI7kkb8ETgoFlX87eDjNCx?=
- =?us-ascii?Q?2uA8oG7zepWJx4ghLCrBazXp5YbscJyvE8fYaD8Dm1VbYZ/+8PTQSkoEM3p0?=
- =?us-ascii?Q?T2JZGZhEjVJKhD7CU10KwkUmdHKBmF7prcV9zDql8NZEmg3Zk2xkzLAETd05?=
- =?us-ascii?Q?RbWWli0Aet33nslg+e3lQBI4sLB54bZfa4rKClfMSK5BwsOMq/DbKT9P7rOq?=
- =?us-ascii?Q?pa5ToR9xXc7YTpKfao6FHYiNo7dzuIb/8rLVYsfD8t7YxBrdk8Gpl7zekEvm?=
- =?us-ascii?Q?nZeIJuhELARaEjTaLhSUXPF5ZYPV1OSSC5UyzaOBaiPscovysigd9udTodzf?=
- =?us-ascii?Q?aCCaAcgrIKGaTTYNbabzWhKuG9FW3P4bJoZVhQlfvmXkgC/yx3vOUqMvyPSu?=
- =?us-ascii?Q?jJ63EZyLDxq1xDdLRob7gAN7Mf1MizoWpYbU8mlqdTizkMizo1o3nbMzwCe+?=
- =?us-ascii?Q?HFdd/j84GDib3oCiVQaOLecENZd7O2AsK3UvOmMatvGzXNG0zVJqlsN1zD1n?=
- =?us-ascii?Q?NQBh9AxYwG0p6GBliR6iFps=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 380df5ac-a68b-4c15-3919-08dc2770865f
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2024 00:05:42.5192 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uMM6qQ5JMhvVZxMdX2SYry7MXpG2iN+Qp3ola3GV1V28VMvrgbN5TsMmkAZE2CQlhHd4R9W14qzYDr0CCjtq57ybcjtYLGuF3HadRdGrIzE1ii2e3rCXrOL15pixyHz2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSYPR01MB5400
-Cc: linux-fbdev@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
- linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 4/4] video: fbdev: replace
-	of_graph_get_next_endpoint()
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-ORIG-GUID: pFMpKkgujDH8ky-4mt2LIGwBn_H2n5fc
+X-Proofpoint-GUID: pFMpKkgujDH8ky-4mt2LIGwBn_H2n5fc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-06_15,2024-01-31_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
+ malwarescore=0 mlxscore=0 adultscore=0 mlxlogscore=801 impostorscore=0
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2401310000 definitions=main-2402060171
+Cc: kernel@quicinc.com
+Subject: [Linux-stm32] [PATCH v2] net: stmmac: dwmac-qcom-ethqos: Enable TBS
+	on all queues but 0
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,36 +105,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+TSO and TBS cannot co-exist. TBS requires special descriptor to be
+allocated at bootup. Initialising Tx queues at probe to support
+TSO and TBS can help in allocating those resources at bootup.
 
-Hi Laurent
+TX queues with TBS can support etf qdisc hw offload.
 
-Thank you for the review
+This is similar to the patch raised by NXP <3b12ec8f618e>
+<"net: stmmac: dwmac-imx: set TSO/TBS TX queues default settings">
 
-> > From DT point of view, in general, drivers should be asking for a
-> > specific port number because their function is fixed in the binding.
-> > 
-> > of_graph_get_next_endpoint() doesn't match to this concept.
-> > 
-> > Simply replace
-> > 
-> > 	- of_graph_get_next_endpoint(xxx, NULL);
-> > 	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
-(snip)
-> > --- a/drivers/video/fbdev/amba-clcd.c
-> > +++ b/drivers/video/fbdev/amba-clcd.c
-> 
-> This driver has been deleted in v6.8-rc1.
+Changes since v1:
+- Subject is changed as per upstream guidelines
+- Added a reference of a similar change done by NXP in
+  body of the commit message
 
-Thank you for pointing it.
-I will rebase to latest of branch in v2
-
-
-Thank you for your help !!
-
-Best regards
+Signed-off-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
 ---
-Renesas Electronics
-Ph.D. Kuninori Morimoto
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 31631e3f89d0..d2f9b8f6c027 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -728,7 +728,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	struct stmmac_resources stmmac_res;
+ 	struct device *dev = &pdev->dev;
+ 	struct qcom_ethqos *ethqos;
+-	int ret;
++	int ret, i;
+ 
+ 	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+ 	if (ret)
+@@ -822,6 +822,10 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 		plat_dat->serdes_powerdown  = qcom_ethqos_serdes_powerdown;
+ 	}
+ 
++	/*Enable TSO on queue0 and enable TBS on rest of the queues*/
++	for (i = 1; i < plat_dat->tx_queues_to_use; i++)
++		plat_dat->tx_queues_cfg[i].tbs_en = 1;
++
+ 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+ }
+ 
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
