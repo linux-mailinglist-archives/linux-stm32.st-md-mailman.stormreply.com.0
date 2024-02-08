@@ -2,52 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1608C84DCD5
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 10:26:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AE3684DD40
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 10:48:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC6A4C65E4C;
-	Thu,  8 Feb 2024 09:26:37 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F4DAC65E4C;
+	Thu,  8 Feb 2024 09:48:38 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2E46C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 743F3C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Feb 2024 09:26:36 +0000 (UTC)
+ Thu,  8 Feb 2024 09:48:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E5E66CE1BB0;
- Thu,  8 Feb 2024 09:26:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83EBC433C7;
- Thu,  8 Feb 2024 09:26:29 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 76EC2CE1BB1;
+ Thu,  8 Feb 2024 09:48:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A510C433F1;
+ Thu,  8 Feb 2024 09:48:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707384393;
- bh=DJn/JznV4z6gHv7cVHFcfLco3THQI2iFxeIjFcAeR5U=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=XRu8/JvUYQ3LRRE7NieWOIEMI5jR0RbvmIng0aOkFS2Rj/gVCVdMjQ8FxxVrgvAAm
- 7OfNfkva16HRK8+2FS+CH3gsDZMMdRV0wVZw/l/DNIQFSUSYY/I0JATtG8G9MZY2We
- RrskuRl2UMdcVPeOH3EWrN3AnHO9U792zatvgVapsq4bw4zUe/rUttOW6BFW7KZ6Hu
- sjJEYfv8bJ5a576g7soea/ckwko3A3hietiDU5Wbi8/AP0FZciUE2cWDub69NHgcew
- tw0z+MTh1PaccjMqYtDwAsJIoc4wi9wmQgLBud9yMnKQXy6v9Hn9Ls3+ejIpatUunK
- CUuuRz17hiROA==
-Date: Thu, 8 Feb 2024 09:26:27 +0000
+ s=k20201202; t=1707385713;
+ bh=dkNBf6Wtnx+g/bNs6bb2sjIsg6Nk2Oo7MshQorgJg4Q=;
+ h=From:Date:Subject:To:Cc:From;
+ b=Zeb3eMpCPXHN7y4LQyhk0OboUuo2MF5fSMSUfbAu9qAGPR6RlrV/kixO8NhmSUUjq
+ CGbC/sXzM16aqBWwgL2hbv/ZRKXI/BYTGJxVLRSf6kmE9cVY5fQC4j8/6XdtBEz8om
+ tassQjbt3jIaeObIh5ZOnOK24g6MEIPYvh+hxhPcRfD59mxDTiGih6ci0fJpN4EML/
+ /Q/LsEDxktZdmcK+eYc8jSWxn78jvlpzqf2iXiXU3ahnTdVhMXEtxDLhtwxW9Pq6GB
+ sGyHfJoTKKrXKi/szVBkFXRMjqkjmTPCIJHXaqLdgDK35v4GMWdoDDlosANG3sUdep
+ 0HTT5bPZmGXXw==
 From: Simon Horman <horms@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <20240208092627.GP1297511@kernel.org>
-References: <20240203051439.1127090-1-0x1207@gmail.com>
- <c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com>
+Date: Thu, 08 Feb 2024 09:48:27 +0000
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
- Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Serge Semin <fancer.lancer@gmail.com>, Furong Xu <0x1207@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v4] net: stmmac: xgmac: fix handling
- of DPP safety error for DMA channels
+Message-Id: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAGqjxGUC/x3MQQqAIBBA0avErBPMlKKrRIuaJptFFiohiHdPW
+ r7F/xkCeaYAU5PB08uBb1fRtQ3guTpLgvdqUFJpqeQokr1WFHi7EMWm0QybkQZ7hFo8ng5O/20
+ GRxGWUj7OWc8XYgAAAA==
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+X-Mailer: b4 0.12.3
+Cc: Furong Xu <0x1207@gmail.com>, Kernel Test Robot <lkp@intel.com>,
+ netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: xgmac: use #define for
+	string constants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,149 +57,127 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gV2VkLCBGZWIgMDcsIDIwMjQgYXQgMTE6NTY6MjZBTSArMDAwMCwgSm9uIEh1bnRlciB3cm90
-ZToKPiAKPiBPbiAwMy8wMi8yMDI0IDA1OjE0LCBGdXJvbmcgWHUgd3JvdGU6Cj4gPiBDb21taXQg
-NTZlNThkNmM4YTU2ICgibmV0OiBzdG1tYWM6IEltcGxlbWVudCBTYWZldHkgRmVhdHVyZXMgaW4K
-PiA+IFhHTUFDIGNvcmUiKSBjaGVja3MgYW5kIHJlcG9ydHMgc2FmZXR5IGVycm9ycywgYnV0IGxl
-YXZlcyB0aGUKPiA+IERhdGEgUGF0aCBQYXJpdHkgRXJyb3JzIGZvciBlYWNoIGNoYW5uZWwgaW4g
-RE1BIHVuaGFuZGxlZCBhdCBhbGwsIGxlYWQgdG8KPiA+IGEgc3Rvcm0gb2YgaW50ZXJydXB0Lgo+
-ID4gRml4IGl0IGJ5IGNoZWNraW5nIGFuZCBjbGVhcmluZyB0aGUgRE1BX0RQUF9JbnRlcnJ1cHRf
-U3RhdHVzIHJlZ2lzdGVyLgo+ID4gCj4gPiBGaXhlczogNTZlNThkNmM4YTU2ICgibmV0OiBzdG1t
-YWM6IEltcGxlbWVudCBTYWZldHkgRmVhdHVyZXMgaW4gWEdNQUMgY29yZSIpCj4gPiBTaWduZWQt
-b2ZmLWJ5OiBGdXJvbmcgWHUgPDB4MTIwN0BnbWFpbC5jb20+Cj4gPiBSZXZpZXdlZC1ieTogU2lt
-b24gSG9ybWFuIDxob3Jtc0BrZXJuZWwub3JnPgo+ID4gUmV2aWV3ZWQtYnk6IFNlcmdlIFNlbWlu
-IDxmYW5jZXIubGFuY2VyQGdtYWlsLmNvbT4KPiA+IC0tLQo+ID4gQ2hhbmdlcyBpbiB2NDoKPiA+
-ICAgLSBmaXggYSB0eXBvIG5hbWUgb2YgRERQUCBiaXQsIHRoYW5rcyBTZXJnZSBTZW1pbgo+ID4g
-Cj4gPiBDaGFuZ2VzIGluIHYzOgo+ID4gICAtIGNvZGUgc3R5bGUgZml4LCB0aGFua3MgUGFvbG8g
-QWJlbmkKPiA+IAo+ID4gQ2hhbmdlcyBpbiB2MjoKPiA+ICAgIC0gZXhwbGljaXQgZW5hYmxlIERh
-dGEgUGF0aCBQYXJpdHkgUHJvdGVjdGlvbgo+ID4gICAgLSBhZGQgbmV3IGNvdW50ZXJzIHRvIHN0
-bW1hY19zYWZldHlfc3RhdHMKPiA+ICAgIC0gYWRkIGRldGFpbGVkIGxvZwo+ID4gLS0tCj4gPiAg
-IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oICB8ICAxICsKPiA+
-ICAgLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMi5oICAgIHwgIDMgKwo+
-ID4gICAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfY29yZS5jICAgfCA1NyAr
-KysrKysrKysrKysrKysrKystCj4gPiAgIDMgZmlsZXMgY2hhbmdlZCwgNjAgaW5zZXJ0aW9ucygr
-KSwgMSBkZWxldGlvbigtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmggYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9jb21tb24uaAo+ID4gaW5kZXggNzIxYzFmOGU4OTJmLi5iNGY2MGFiMDc4ZDYgMTAw
-NjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9jb21tb24u
-aAo+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmgK
-PiA+IEBAIC0yMTYsNiArMjE2LDcgQEAgc3RydWN0IHN0bW1hY19zYWZldHlfc3RhdHMgewo+ID4g
-ICAJdW5zaWduZWQgbG9uZyBtYWNfZXJyb3JzWzMyXTsKPiA+ICAgCXVuc2lnbmVkIGxvbmcgbXRs
-X2Vycm9yc1szMl07Cj4gPiAgIAl1bnNpZ25lZCBsb25nIGRtYV9lcnJvcnNbMzJdOwo+ID4gKwl1
-bnNpZ25lZCBsb25nIGRtYV9kcHBfZXJyb3JzWzMyXTsKPiA+ICAgfTsKPiA+ICAgLyogTnVtYmVy
-IG9mIGZpZWxkcyBpbiBTYWZldHkgU3RhdHMgKi8KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25l
-dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMi5oIGIvZHJpdmVycy9uZXQvZXRoZXJu
-ZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzIuaAo+ID4gaW5kZXggMjA3ZmYxNzk5ZjJjLi41YzY3
-YTNmODlmMDggMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9kd3hnbWFjMi5oCj4gPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0
-bW1hYy9kd3hnbWFjMi5oCj4gPiBAQCAtMzAzLDYgKzMwMyw4IEBACj4gPiAgICNkZWZpbmUgWEdN
-QUNfUlhDRUlFCQkJQklUKDQpCj4gPiAgICNkZWZpbmUgWEdNQUNfVFhDRUlFCQkJQklUKDApCj4g
-PiAgICNkZWZpbmUgWEdNQUNfTVRMX0VDQ19JTlRfU1RBVFVTCTB4MDAwMDEwY2MKPiA+ICsjZGVm
-aW5lIFhHTUFDX01UTF9EUFBfQ09OVFJPTAkJMHgwMDAwMTBlMAo+ID4gKyNkZWZpbmUgWEdNQUNf
-RFBQX0RJU0FCTEUJCUJJVCgwKQo+ID4gICAjZGVmaW5lIFhHTUFDX01UTF9UWFFfT1BNT0RFKHgp
-CQkoMHgwMDAwMTEwMCArICgweDgwICogKHgpKSkKPiA+ICAgI2RlZmluZSBYR01BQ19UUVMJCQlH
-RU5NQVNLKDI1LCAxNikKPiA+ICAgI2RlZmluZSBYR01BQ19UUVNfU0hJRlQJCQkxNgo+ID4gQEAg
-LTM4NSw2ICszODcsNyBAQAo+ID4gICAjZGVmaW5lIFhHTUFDX0RDRUlFCQkJQklUKDEpCj4gPiAg
-ICNkZWZpbmUgWEdNQUNfVENFSUUJCQlCSVQoMCkKPiA+ICAgI2RlZmluZSBYR01BQ19ETUFfRUND
-X0lOVF9TVEFUVVMJMHgwMDAwMzA2Ywo+ID4gKyNkZWZpbmUgWEdNQUNfRE1BX0RQUF9JTlRfU1RB
-VFVTCTB4MDAwMDMwNzQKPiA+ICAgI2RlZmluZSBYR01BQ19ETUFfQ0hfQ09OVFJPTCh4KQkJKDB4
-MDAwMDMxMDAgKyAoMHg4MCAqICh4KSkpCj4gPiAgICNkZWZpbmUgWEdNQUNfU1BICQkJQklUKDI0
-KQo+ID4gICAjZGVmaW5lIFhHTUFDX1BCTHg4CQkJQklUKDE2KQo+ID4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2NvcmUuYyBiL2RyaXZl
-cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2NvcmUuYwo+ID4gaW5kZXgg
-ZWI0ODIxMWQ5YjBlLi4wNGQ3YzRkYzJlMzUgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL25ldC9l
-dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmMKPiA+ICsrKyBiL2RyaXZlcnMv
-bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2NvcmUuYwo+ID4gQEAgLTgzMCw2
-ICs4MzAsNDMgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkd3hnbWFjM19lcnJvcl9kZXNjIGR3eGdt
-YWMzX2RtYV9lcnJvcnNbMzJdPSB7Cj4gPiAgIAl7IGZhbHNlLCAiVU5LTk9XTiIsICJVbmtub3du
-IEVycm9yIiB9LCAvKiAzMSAqLwo+ID4gICB9Owo+ID4gK3N0YXRpYyBjb25zdCBjaGFyICogY29u
-c3QgZHBwX3J4X2VyciA9ICJSZWFkIFJ4IERlc2NyaXB0b3IgUGFyaXR5IGNoZWNrZXIgRXJyb3Ii
-Owo+ID4gK3N0YXRpYyBjb25zdCBjaGFyICogY29uc3QgZHBwX3R4X2VyciA9ICJSZWFkIFR4IERl
-c2NyaXB0b3IgUGFyaXR5IGNoZWNrZXIgRXJyb3IiOwo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3Qg
-ZHd4Z21hYzNfZXJyb3JfZGVzYyBkd3hnbWFjM19kbWFfZHBwX2Vycm9yc1szMl0gPSB7Cj4gPiAr
-CXsgdHJ1ZSwgIlREUEVTMCIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVMxIiwg
-ZHBwX3R4X2VyciB9LAo+ID4gKwl7IHRydWUsICJURFBFUzIiLCBkcHBfdHhfZXJyIH0sCj4gPiAr
-CXsgdHJ1ZSwgIlREUEVTMyIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVM0Iiwg
-ZHBwX3R4X2VyciB9LAo+ID4gKwl7IHRydWUsICJURFBFUzUiLCBkcHBfdHhfZXJyIH0sCj4gPiAr
-CXsgdHJ1ZSwgIlREUEVTNiIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVM3Iiwg
-ZHBwX3R4X2VyciB9LAo+ID4gKwl7IHRydWUsICJURFBFUzgiLCBkcHBfdHhfZXJyIH0sCj4gPiAr
-CXsgdHJ1ZSwgIlREUEVTOSIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVMxMCIs
-IGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVMxMSIsIGRwcF90eF9lcnIgfSwKPiA+
-ICsJeyB0cnVlLCAiVERQRVMxMiIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVMx
-MyIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiVERQRVMxNCIsIGRwcF90eF9lcnIgfSwK
-PiA+ICsJeyB0cnVlLCAiVERQRVMxNSIsIGRwcF90eF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiUkRQ
-RVMwIiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzEiLCBkcHBfcnhfZXJyIH0s
-Cj4gPiArCXsgdHJ1ZSwgIlJEUEVTMiIsIGRwcF9yeF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiUkRQ
-RVMzIiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzQiLCBkcHBfcnhfZXJyIH0s
-Cj4gPiArCXsgdHJ1ZSwgIlJEUEVTNSIsIGRwcF9yeF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiUkRQ
-RVM2IiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzciLCBkcHBfcnhfZXJyIH0s
-Cj4gPiArCXsgdHJ1ZSwgIlJEUEVTOCIsIGRwcF9yeF9lcnIgfSwKPiA+ICsJeyB0cnVlLCAiUkRQ
-RVM5IiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzEwIiwgZHBwX3J4X2VyciB9
-LAo+ID4gKwl7IHRydWUsICJSRFBFUzExIiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJS
-RFBFUzEyIiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzEzIiwgZHBwX3J4X2Vy
-ciB9LAo+ID4gKwl7IHRydWUsICJSRFBFUzE0IiwgZHBwX3J4X2VyciB9LAo+ID4gKwl7IHRydWUs
-ICJSRFBFUzE1IiwgZHBwX3J4X2VyciB9LAo+ID4gK307Cj4gPiArCj4gPiAgIHN0YXRpYyB2b2lk
-IGR3eGdtYWMzX2hhbmRsZV9kbWFfZXJyKHN0cnVjdCBuZXRfZGV2aWNlICpuZGV2LAo+ID4gICAJ
-CQkJICAgIHZvaWQgX19pb21lbSAqaW9hZGRyLCBib29sIGNvcnJlY3RhYmxlLAo+ID4gICAJCQkJ
-ICAgIHN0cnVjdCBzdG1tYWNfc2FmZXR5X3N0YXRzICpzdGF0cykKPiA+IEBAIC04NDEsNiArODc4
-LDEzIEBAIHN0YXRpYyB2b2lkIGR3eGdtYWMzX2hhbmRsZV9kbWFfZXJyKHN0cnVjdCBuZXRfZGV2
-aWNlICpuZGV2LAo+ID4gICAJZHd4Z21hYzNfbG9nX2Vycm9yKG5kZXYsIHZhbHVlLCBjb3JyZWN0
-YWJsZSwgIkRNQSIsCj4gPiAgIAkJCSAgIGR3eGdtYWMzX2RtYV9lcnJvcnMsIFNUQVRfT0ZGKGRt
-YV9lcnJvcnMpLCBzdGF0cyk7Cj4gPiArCj4gPiArCXZhbHVlID0gcmVhZGwoaW9hZGRyICsgWEdN
-QUNfRE1BX0RQUF9JTlRfU1RBVFVTKTsKPiA+ICsJd3JpdGVsKHZhbHVlLCBpb2FkZHIgKyBYR01B
-Q19ETUFfRFBQX0lOVF9TVEFUVVMpOwo+ID4gKwo+ID4gKwlkd3hnbWFjM19sb2dfZXJyb3IobmRl
-diwgdmFsdWUsIGZhbHNlLCAiRE1BX0RQUCIsCj4gPiArCQkJICAgZHd4Z21hYzNfZG1hX2RwcF9l
-cnJvcnMsCj4gPiArCQkJICAgU1RBVF9PRkYoZG1hX2RwcF9lcnJvcnMpLCBzdGF0cyk7Cj4gPiAg
-IH0KPiA+ICAgc3RhdGljIGludAo+ID4gQEAgLTg4MSw2ICs5MjUsMTIgQEAgZHd4Z21hYzNfc2Fm
-ZXR5X2ZlYXRfY29uZmlnKHZvaWQgX19pb21lbSAqaW9hZGRyLCB1bnNpZ25lZCBpbnQgYXNwLAo+
-ID4gICAJdmFsdWUgfD0gWEdNQUNfVE1PVVRFTjsgLyogRlNNIFRpbWVvdXQgRmVhdHVyZSAqLwo+
-ID4gICAJd3JpdGVsKHZhbHVlLCBpb2FkZHIgKyBYR01BQ19NQUNfRlNNX0NPTlRST0wpOwo+ID4g
-KwkvKiA1LiBFbmFibGUgRGF0YSBQYXRoIFBhcml0eSBQcm90ZWN0aW9uICovCj4gPiArCXZhbHVl
-ID0gcmVhZGwoaW9hZGRyICsgWEdNQUNfTVRMX0RQUF9DT05UUk9MKTsKPiA+ICsJLyogYWxyZWFk
-eSBlbmFibGVkIGJ5IGRlZmF1bHQsIGV4cGxpY2l0IGVuYWJsZSBpdCBhZ2FpbiAqLwo+ID4gKwl2
-YWx1ZSAmPSB+WEdNQUNfRFBQX0RJU0FCTEU7Cj4gPiArCXdyaXRlbCh2YWx1ZSwgaW9hZGRyICsg
-WEdNQUNfTVRMX0RQUF9DT05UUk9MKTsKPiA+ICsKPiA+ICAgCXJldHVybiAwOwo+ID4gICB9Cj4g
-PiBAQCAtOTE0LDcgKzk2NCwxMSBAQCBzdGF0aWMgaW50IGR3eGdtYWMzX3NhZmV0eV9mZWF0X2ly
-cV9zdGF0dXMoc3RydWN0IG5ldF9kZXZpY2UgKm5kZXYsCj4gPiAgIAkJcmV0IHw9ICFjb3JyOwo+
-ID4gICAJfQo+ID4gLQllcnIgPSBkbWEgJiAoWEdNQUNfREVVSVMgfCBYR01BQ19ERUNJUyk7Cj4g
-PiArCS8qIERNQV9EUFBfSW50ZXJydXB0X1N0YXR1cyBpcyBpbmRpY2F0ZWQgYnkgTUNTSVMgYml0
-IGluCj4gPiArCSAqIERNQV9TYWZldHlfSW50ZXJydXB0X1N0YXR1cywgc28gd2UgaGFuZGxlIERN
-QSBEYXRhIFBhdGgKPiA+ICsJICogUGFyaXR5IEVycm9ycyBoZXJlCj4gPiArCSAqLwo+ID4gKwll
-cnIgPSBkbWEgJiAoWEdNQUNfREVVSVMgfCBYR01BQ19ERUNJUyB8IFhHTUFDX01DU0lTKTsKPiA+
-ICAgCWNvcnIgPSBkbWEgJiBYR01BQ19ERUNJUzsKPiA+ICAgCWlmIChlcnIpIHsKPiA+ICAgCQlk
-d3hnbWFjM19oYW5kbGVfZG1hX2VycihuZGV2LCBpb2FkZHIsIGNvcnIsIHN0YXRzKTsKPiA+IEBA
-IC05MzAsNiArOTg0LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkd3hnbWFjM19lcnJvciB7Cj4g
-PiAgIAl7IGR3eGdtYWMzX21hY19lcnJvcnMgfSwKPiA+ICAgCXsgZHd4Z21hYzNfbXRsX2Vycm9y
-cyB9LAo+ID4gICAJeyBkd3hnbWFjM19kbWFfZXJyb3JzIH0sCj4gPiArCXsgZHd4Z21hYzNfZG1h
-X2RwcF9lcnJvcnMgfSwKPiA+ICAgfTsKPiA+ICAgc3RhdGljIGludCBkd3hnbWFjM19zYWZldHlf
-ZmVhdF9kdW1wKHN0cnVjdCBzdG1tYWNfc2FmZXR5X3N0YXRzICpzdGF0cywKPiAKPiAKPiBUaGlz
-IGNoYW5nZSBpcyBicmVha2luZyB0aGUgYnVpbGQgb24gc29tZSBvZiBvdXIgYnVpbGRlcnMgdGhh
-dCBhcmUgc3RpbGwgdXNpbmcgR0NDIDYueCAuLi4KPiAKPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9z
-dG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmM6ODM2OjIwOiBlcnJvcjogaW5pdGlhbGlzZXIg
-ZWxlbWVudCBpcyBub3QgY29uc3RhbnQKPiAgIHsgdHJ1ZSwgIlREUEVTMCIsIGRwcF90eF9lcnIg
-fSwKPiAgICAgICAgICAgICAgICAgICAgIF5+fn5+fn5+fn4KPiBkcml2ZXJzL25ldC9ldGhlcm5l
-dC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3JlLmM6ODM2OjIwOiBub3RlOiAobmVhciBpbml0
-aWFsaXNhdGlvbiBmb3Ig4oCYZHd4Z21hYzNfZG1hX2RwcF9lcnJvcnNbMF0uZGV0YWlsZWRfZGVz
-Y+KAmSkKPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3Jl
-LmM6ODM3OjIwOiBlcnJvcjogaW5pdGlhbGlzZXIgZWxlbWVudCBpcyBub3QgY29uc3RhbnQKPiAg
-IHsgdHJ1ZSwgIlREUEVTMSIsIGRwcF90eF9lcnIgfSwKPiAgICAgICAgICAgICAgICAgICAgIF5+
-fn5+fn5+fn4KPiBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9j
-b3JlLmM6ODM3OjIwOiBub3RlOiAobmVhciBpbml0aWFsaXNhdGlvbiBmb3Ig4oCYZHd4Z21hYzNf
-ZG1hX2RwcF9lcnJvcnNbMV0uZGV0YWlsZWRfZGVzY+KAmSkKPiAuLi4KPiAKPiBJIGtub3cgdGhh
-dCB0aGlzIGlzIHF1aXRlIG9sZCBidXQgdGhlIG1pbmltdW0gc3VwcG9ydGVkIGJ5IHRoZSBrZXJu
-ZWwgaXMgdjUuMSAuLi4KPiAKPiBodHRwczovL3d3dy5rZXJuZWwub3JnL2RvYy9odG1sL25leHQv
-cHJvY2Vzcy9jaGFuZ2VzLmh0bWwKClRoYW5rcyBKb24sCgpJIHNlcGFyYXRlbHkgcmVjZWl2ZWQg
-YSBub3RpZmljYXRpb24gYWJvdXQgdGhpcyBvY2N1cnJpbmcgd2l0aCBnY2MgNy4KCmh0dHBzOi8v
-bG9yZS5rZXJuZWwub3JnL29lLWtidWlsZC1hbGwvMjAyNDAyMDgxMTM1LmxBeHhCWEhrLWxrcEBp
-bnRlbC5jb20vCgpJdCBpcyB1bmNsZWFyIHRvIG1lIHdoeSB0aGlzIG9jY3VycywgYXMgZHBwX3R4
-X2VyciBhbmQgZHBwX3R4X2VyciBhcmUgY29uc3QuCkJ1dCBJIGRvIHNlZW0gdG8gYmUgYWJsZSB0
-byBhZGRyZXNzIHRoaXMgcHJvYmxlbSBieSB1c2luZyAjZGVmaW5lcyBmb3IKdGhlc2UgdmFsdWVz
-IGluc3RlYWQuCgpJIHBsYW4gdG8gcG9zdCBhIHBhdGNoIHNob3J0bHkuCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlz
-dApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+The cited commit introduces and uses the string constants dpp_tx_err and
+dpp_rx_err. These are assigned to constant fields of the array
+dwxgmac3_error_desc.
+
+It has been reported that on GCC 6 and 7.5.0 this results in warnings
+such as:
+
+  .../dwxgmac2_core.c:836:20: error: initialiser element is not constant
+   { true, "TDPES0", dpp_tx_err },
+
+I have been able to reproduce this using: GCC 7.5.0, 8.4.0, 9.4.0 and 10.5.0.
+But not GCC 13.2.0.
+
+So it seems this effects older compilers but not newer ones.
+As Jon points out in his report, the minimum compiler supported by
+the kernel is GCC 5.1, so it does seem that this ought to be fixed.
+
+It is not clear to me what combination of 'const', if any, would address
+this problem.  So this patch takes of using #defines for the string
+constants
+
+Compile tested only.
+
+Fixes: 46eba193d04f ("net: stmmac: xgmac: fix handling of DPP safety error for DMA channels")
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Closes: https://lore.kernel.org/netdev/c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com/
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202402081135.lAxxBXHk-lkp@intel.com/
+Signed-off-by: Simon Horman <horms@kernel.org>
+---
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 69 +++++++++++-----------
+ 1 file changed, 35 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 323c57f03c93..1af2f89a0504 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -830,41 +830,42 @@ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 31 */
+ };
+ 
+-static const char * const dpp_rx_err = "Read Rx Descriptor Parity checker Error";
+-static const char * const dpp_tx_err = "Read Tx Descriptor Parity checker Error";
++#define DPP_RX_ERR "Read Rx Descriptor Parity checker Error"
++#define DPP_TX_ERR "Read Tx Descriptor Parity checker Error"
++
+ static const struct dwxgmac3_error_desc dwxgmac3_dma_dpp_errors[32] = {
+-	{ true, "TDPES0", dpp_tx_err },
+-	{ true, "TDPES1", dpp_tx_err },
+-	{ true, "TDPES2", dpp_tx_err },
+-	{ true, "TDPES3", dpp_tx_err },
+-	{ true, "TDPES4", dpp_tx_err },
+-	{ true, "TDPES5", dpp_tx_err },
+-	{ true, "TDPES6", dpp_tx_err },
+-	{ true, "TDPES7", dpp_tx_err },
+-	{ true, "TDPES8", dpp_tx_err },
+-	{ true, "TDPES9", dpp_tx_err },
+-	{ true, "TDPES10", dpp_tx_err },
+-	{ true, "TDPES11", dpp_tx_err },
+-	{ true, "TDPES12", dpp_tx_err },
+-	{ true, "TDPES13", dpp_tx_err },
+-	{ true, "TDPES14", dpp_tx_err },
+-	{ true, "TDPES15", dpp_tx_err },
+-	{ true, "RDPES0", dpp_rx_err },
+-	{ true, "RDPES1", dpp_rx_err },
+-	{ true, "RDPES2", dpp_rx_err },
+-	{ true, "RDPES3", dpp_rx_err },
+-	{ true, "RDPES4", dpp_rx_err },
+-	{ true, "RDPES5", dpp_rx_err },
+-	{ true, "RDPES6", dpp_rx_err },
+-	{ true, "RDPES7", dpp_rx_err },
+-	{ true, "RDPES8", dpp_rx_err },
+-	{ true, "RDPES9", dpp_rx_err },
+-	{ true, "RDPES10", dpp_rx_err },
+-	{ true, "RDPES11", dpp_rx_err },
+-	{ true, "RDPES12", dpp_rx_err },
+-	{ true, "RDPES13", dpp_rx_err },
+-	{ true, "RDPES14", dpp_rx_err },
+-	{ true, "RDPES15", dpp_rx_err },
++	{ true, "TDPES0", DPP_TX_ERR },
++	{ true, "TDPES1", DPP_TX_ERR },
++	{ true, "TDPES2", DPP_TX_ERR },
++	{ true, "TDPES3", DPP_TX_ERR },
++	{ true, "TDPES4", DPP_TX_ERR },
++	{ true, "TDPES5", DPP_TX_ERR },
++	{ true, "TDPES6", DPP_TX_ERR },
++	{ true, "TDPES7", DPP_TX_ERR },
++	{ true, "TDPES8", DPP_TX_ERR },
++	{ true, "TDPES9", DPP_TX_ERR },
++	{ true, "TDPES10", DPP_TX_ERR },
++	{ true, "TDPES11", DPP_TX_ERR },
++	{ true, "TDPES12", DPP_TX_ERR },
++	{ true, "TDPES13", DPP_TX_ERR },
++	{ true, "TDPES14", DPP_TX_ERR },
++	{ true, "TDPES15", DPP_TX_ERR },
++	{ true, "RDPES0", DPP_RX_ERR },
++	{ true, "RDPES1", DPP_RX_ERR },
++	{ true, "RDPES2", DPP_RX_ERR },
++	{ true, "RDPES3", DPP_RX_ERR },
++	{ true, "RDPES4", DPP_RX_ERR },
++	{ true, "RDPES5", DPP_RX_ERR },
++	{ true, "RDPES6", DPP_RX_ERR },
++	{ true, "RDPES7", DPP_RX_ERR },
++	{ true, "RDPES8", DPP_RX_ERR },
++	{ true, "RDPES9", DPP_RX_ERR },
++	{ true, "RDPES10", DPP_RX_ERR },
++	{ true, "RDPES11", DPP_RX_ERR },
++	{ true, "RDPES12", DPP_RX_ERR },
++	{ true, "RDPES13", DPP_RX_ERR },
++	{ true, "RDPES14", DPP_RX_ERR },
++	{ true, "RDPES15", DPP_RX_ERR },
+ };
+ 
+ static void dwxgmac3_handle_dma_err(struct net_device *ndev,
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
