@@ -2,50 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE3684DD40
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 10:48:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C063684DD54
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 10:53:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0F4DAC65E4C;
-	Thu,  8 Feb 2024 09:48:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F7D6C65E4C;
+	Thu,  8 Feb 2024 09:53:58 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 743F3C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2B37C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Feb 2024 09:48:36 +0000 (UTC)
+ Thu,  8 Feb 2024 09:53:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 76EC2CE1BB1;
- Thu,  8 Feb 2024 09:48:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A510C433F1;
- Thu,  8 Feb 2024 09:48:31 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 29F5DCE1BC6;
+ Thu,  8 Feb 2024 09:53:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A331C433C7;
+ Thu,  8 Feb 2024 09:53:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707385713;
- bh=dkNBf6Wtnx+g/bNs6bb2sjIsg6Nk2Oo7MshQorgJg4Q=;
- h=From:Date:Subject:To:Cc:From;
- b=Zeb3eMpCPXHN7y4LQyhk0OboUuo2MF5fSMSUfbAu9qAGPR6RlrV/kixO8NhmSUUjq
- CGbC/sXzM16aqBWwgL2hbv/ZRKXI/BYTGJxVLRSf6kmE9cVY5fQC4j8/6XdtBEz8om
- tassQjbt3jIaeObIh5ZOnOK24g6MEIPYvh+hxhPcRfD59mxDTiGih6ci0fJpN4EML/
- /Q/LsEDxktZdmcK+eYc8jSWxn78jvlpzqf2iXiXU3ahnTdVhMXEtxDLhtwxW9Pq6GB
- sGyHfJoTKKrXKi/szVBkFXRMjqkjmTPCIJHXaqLdgDK35v4GMWdoDDlosANG3sUdep
- 0HTT5bPZmGXXw==
+ s=k20201202; t=1707386033;
+ bh=nbfg0Gx52d/qcbW7/rm/yJ54WM1bD93/zqjyFrQALIQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=RQi+rpdI22K+N6hKk7cWedZtbH5ITgmMjh65WTq8PO30GUPourd3yKw6ZR0fH6ylw
+ LF8N+W94jek1r8JR87VILyd0ep1JfHefWx+tzNKbQXMR7GkD6dAXY0jpcJbxhzWZD8
+ vaG6+NWeeVgN2W2dAHuZMVkzpQN7mEJ1YuarUQ2dusR9aD5AvTU6WFcM+vPxPkjoSg
+ 56UqDsNjNYLpUb11ZvzY2McnxmcJGSnUDV75d9+UMEGLKWFaoxgOppRRaKH0xfVc63
+ dSLqsgAxYTGXEQE3Tl2eRcsZ0N+dublcOWs2q1UuwvbALZbBZBiQTkhj7PhBF7HPc/
+ /aL8ew+rYMBXw==
+Date: Thu, 8 Feb 2024 09:53:48 +0000
 From: Simon Horman <horms@kernel.org>
-Date: Thu, 08 Feb 2024 09:48:27 +0000
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <20240208095348.GA1435458@kernel.org>
+References: <20240203051439.1127090-1-0x1207@gmail.com>
+ <c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com>
+ <20240208092627.GP1297511@kernel.org>
 MIME-Version: 1.0
-Message-Id: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAGqjxGUC/x3MQQqAIBBA0avErBPMlKKrRIuaJptFFiohiHdPW
- r7F/xkCeaYAU5PB08uBb1fRtQ3guTpLgvdqUFJpqeQokr1WFHi7EMWm0QybkQZ7hFo8ng5O/20
- GRxGWUj7OWc8XYgAAAA==
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>
-X-Mailer: b4 0.12.3
-Cc: Furong Xu <0x1207@gmail.com>, Kernel Test Robot <lkp@intel.com>,
- netdev@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: xgmac: use #define for
-	string constants
+Content-Disposition: inline
+In-Reply-To: <20240208092627.GP1297511@kernel.org>
+Cc: linux-kernel@vger.kernel.org, rock.xu@nio.com,
+ Joao Pinto <jpinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Serge Semin <fancer.lancer@gmail.com>, Furong Xu <0x1207@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, xfr@outlook.com,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v4] net: stmmac: xgmac: fix handling
+ of DPP safety error for DMA channels
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,127 +60,160 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The cited commit introduces and uses the string constants dpp_tx_err and
-dpp_rx_err. These are assigned to constant fields of the array
-dwxgmac3_error_desc.
-
-It has been reported that on GCC 6 and 7.5.0 this results in warnings
-such as:
-
-  .../dwxgmac2_core.c:836:20: error: initialiser element is not constant
-   { true, "TDPES0", dpp_tx_err },
-
-I have been able to reproduce this using: GCC 7.5.0, 8.4.0, 9.4.0 and 10.5.0.
-But not GCC 13.2.0.
-
-So it seems this effects older compilers but not newer ones.
-As Jon points out in his report, the minimum compiler supported by
-the kernel is GCC 5.1, so it does seem that this ought to be fixed.
-
-It is not clear to me what combination of 'const', if any, would address
-this problem.  So this patch takes of using #defines for the string
-constants
-
-Compile tested only.
-
-Fixes: 46eba193d04f ("net: stmmac: xgmac: fix handling of DPP safety error for DMA channels")
-Reported-by: Jon Hunter <jonathanh@nvidia.com>
-Closes: https://lore.kernel.org/netdev/c25eb595-8d91-40ea-9f52-efa15ebafdbc@nvidia.com/
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202402081135.lAxxBXHk-lkp@intel.com/
-Signed-off-by: Simon Horman <horms@kernel.org>
----
- .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    | 69 +++++++++++-----------
- 1 file changed, 35 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 323c57f03c93..1af2f89a0504 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -830,41 +830,42 @@ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
- 	{ false, "UNKNOWN", "Unknown Error" }, /* 31 */
- };
- 
--static const char * const dpp_rx_err = "Read Rx Descriptor Parity checker Error";
--static const char * const dpp_tx_err = "Read Tx Descriptor Parity checker Error";
-+#define DPP_RX_ERR "Read Rx Descriptor Parity checker Error"
-+#define DPP_TX_ERR "Read Tx Descriptor Parity checker Error"
-+
- static const struct dwxgmac3_error_desc dwxgmac3_dma_dpp_errors[32] = {
--	{ true, "TDPES0", dpp_tx_err },
--	{ true, "TDPES1", dpp_tx_err },
--	{ true, "TDPES2", dpp_tx_err },
--	{ true, "TDPES3", dpp_tx_err },
--	{ true, "TDPES4", dpp_tx_err },
--	{ true, "TDPES5", dpp_tx_err },
--	{ true, "TDPES6", dpp_tx_err },
--	{ true, "TDPES7", dpp_tx_err },
--	{ true, "TDPES8", dpp_tx_err },
--	{ true, "TDPES9", dpp_tx_err },
--	{ true, "TDPES10", dpp_tx_err },
--	{ true, "TDPES11", dpp_tx_err },
--	{ true, "TDPES12", dpp_tx_err },
--	{ true, "TDPES13", dpp_tx_err },
--	{ true, "TDPES14", dpp_tx_err },
--	{ true, "TDPES15", dpp_tx_err },
--	{ true, "RDPES0", dpp_rx_err },
--	{ true, "RDPES1", dpp_rx_err },
--	{ true, "RDPES2", dpp_rx_err },
--	{ true, "RDPES3", dpp_rx_err },
--	{ true, "RDPES4", dpp_rx_err },
--	{ true, "RDPES5", dpp_rx_err },
--	{ true, "RDPES6", dpp_rx_err },
--	{ true, "RDPES7", dpp_rx_err },
--	{ true, "RDPES8", dpp_rx_err },
--	{ true, "RDPES9", dpp_rx_err },
--	{ true, "RDPES10", dpp_rx_err },
--	{ true, "RDPES11", dpp_rx_err },
--	{ true, "RDPES12", dpp_rx_err },
--	{ true, "RDPES13", dpp_rx_err },
--	{ true, "RDPES14", dpp_rx_err },
--	{ true, "RDPES15", dpp_rx_err },
-+	{ true, "TDPES0", DPP_TX_ERR },
-+	{ true, "TDPES1", DPP_TX_ERR },
-+	{ true, "TDPES2", DPP_TX_ERR },
-+	{ true, "TDPES3", DPP_TX_ERR },
-+	{ true, "TDPES4", DPP_TX_ERR },
-+	{ true, "TDPES5", DPP_TX_ERR },
-+	{ true, "TDPES6", DPP_TX_ERR },
-+	{ true, "TDPES7", DPP_TX_ERR },
-+	{ true, "TDPES8", DPP_TX_ERR },
-+	{ true, "TDPES9", DPP_TX_ERR },
-+	{ true, "TDPES10", DPP_TX_ERR },
-+	{ true, "TDPES11", DPP_TX_ERR },
-+	{ true, "TDPES12", DPP_TX_ERR },
-+	{ true, "TDPES13", DPP_TX_ERR },
-+	{ true, "TDPES14", DPP_TX_ERR },
-+	{ true, "TDPES15", DPP_TX_ERR },
-+	{ true, "RDPES0", DPP_RX_ERR },
-+	{ true, "RDPES1", DPP_RX_ERR },
-+	{ true, "RDPES2", DPP_RX_ERR },
-+	{ true, "RDPES3", DPP_RX_ERR },
-+	{ true, "RDPES4", DPP_RX_ERR },
-+	{ true, "RDPES5", DPP_RX_ERR },
-+	{ true, "RDPES6", DPP_RX_ERR },
-+	{ true, "RDPES7", DPP_RX_ERR },
-+	{ true, "RDPES8", DPP_RX_ERR },
-+	{ true, "RDPES9", DPP_RX_ERR },
-+	{ true, "RDPES10", DPP_RX_ERR },
-+	{ true, "RDPES11", DPP_RX_ERR },
-+	{ true, "RDPES12", DPP_RX_ERR },
-+	{ true, "RDPES13", DPP_RX_ERR },
-+	{ true, "RDPES14", DPP_RX_ERR },
-+	{ true, "RDPES15", DPP_RX_ERR },
- };
- 
- static void dwxgmac3_handle_dma_err(struct net_device *ndev,
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBGZWIgMDgsIDIwMjQgYXQgMDk6MjY6MjdBTSArMDAwMCwgU2ltb24gSG9ybWFuIHdy
+b3RlOgo+IE9uIFdlZCwgRmViIDA3LCAyMDI0IGF0IDExOjU2OjI2QU0gKzAwMDAsIEpvbiBIdW50
+ZXIgd3JvdGU6Cj4gPiAKPiA+IE9uIDAzLzAyLzIwMjQgMDU6MTQsIEZ1cm9uZyBYdSB3cm90ZToK
+PiA+ID4gQ29tbWl0IDU2ZTU4ZDZjOGE1NiAoIm5ldDogc3RtbWFjOiBJbXBsZW1lbnQgU2FmZXR5
+IEZlYXR1cmVzIGluCj4gPiA+IFhHTUFDIGNvcmUiKSBjaGVja3MgYW5kIHJlcG9ydHMgc2FmZXR5
+IGVycm9ycywgYnV0IGxlYXZlcyB0aGUKPiA+ID4gRGF0YSBQYXRoIFBhcml0eSBFcnJvcnMgZm9y
+IGVhY2ggY2hhbm5lbCBpbiBETUEgdW5oYW5kbGVkIGF0IGFsbCwgbGVhZCB0bwo+ID4gPiBhIHN0
+b3JtIG9mIGludGVycnVwdC4KPiA+ID4gRml4IGl0IGJ5IGNoZWNraW5nIGFuZCBjbGVhcmluZyB0
+aGUgRE1BX0RQUF9JbnRlcnJ1cHRfU3RhdHVzIHJlZ2lzdGVyLgo+ID4gPiAKPiA+ID4gRml4ZXM6
+IDU2ZTU4ZDZjOGE1NiAoIm5ldDogc3RtbWFjOiBJbXBsZW1lbnQgU2FmZXR5IEZlYXR1cmVzIGlu
+IFhHTUFDIGNvcmUiKQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBGdXJvbmcgWHUgPDB4MTIwN0BnbWFp
+bC5jb20+Cj4gPiA+IFJldmlld2VkLWJ5OiBTaW1vbiBIb3JtYW4gPGhvcm1zQGtlcm5lbC5vcmc+
+Cj4gPiA+IFJldmlld2VkLWJ5OiBTZXJnZSBTZW1pbiA8ZmFuY2VyLmxhbmNlckBnbWFpbC5jb20+
+Cj4gPiA+IC0tLQo+ID4gPiBDaGFuZ2VzIGluIHY0Ogo+ID4gPiAgIC0gZml4IGEgdHlwbyBuYW1l
+IG9mIEREUFAgYml0LCB0aGFua3MgU2VyZ2UgU2VtaW4KPiA+ID4gCj4gPiA+IENoYW5nZXMgaW4g
+djM6Cj4gPiA+ICAgLSBjb2RlIHN0eWxlIGZpeCwgdGhhbmtzIFBhb2xvIEFiZW5pCj4gPiA+IAo+
+ID4gPiBDaGFuZ2VzIGluIHYyOgo+ID4gPiAgICAtIGV4cGxpY2l0IGVuYWJsZSBEYXRhIFBhdGgg
+UGFyaXR5IFByb3RlY3Rpb24KPiA+ID4gICAgLSBhZGQgbmV3IGNvdW50ZXJzIHRvIHN0bW1hY19z
+YWZldHlfc3RhdHMKPiA+ID4gICAgLSBhZGQgZGV0YWlsZWQgbG9nCj4gPiA+IC0tLQo+ID4gPiAg
+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oICB8ICAxICsKPiA+
+ID4gICAuLi4vbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyLmggICAgfCAgMyAr
+Cj4gPiA+ICAgLi4uL2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2NvcmUuYyAgIHwg
+NTcgKysrKysrKysrKysrKysrKysrLQo+ID4gPiAgIDMgZmlsZXMgY2hhbmdlZCwgNjAgaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2NvbW1vbi5oIGIvZHJpdmVycy9uZXQvZXRoZXJu
+ZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmgKPiA+ID4gaW5kZXggNzIxYzFmOGU4OTJmLi5iNGY2
+MGFiMDc4ZDYgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
+c3RtbWFjL2NvbW1vbi5oCj4gPiA+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8v
+c3RtbWFjL2NvbW1vbi5oCj4gPiA+IEBAIC0yMTYsNiArMjE2LDcgQEAgc3RydWN0IHN0bW1hY19z
+YWZldHlfc3RhdHMgewo+ID4gPiAgIAl1bnNpZ25lZCBsb25nIG1hY19lcnJvcnNbMzJdOwo+ID4g
+PiAgIAl1bnNpZ25lZCBsb25nIG10bF9lcnJvcnNbMzJdOwo+ID4gPiAgIAl1bnNpZ25lZCBsb25n
+IGRtYV9lcnJvcnNbMzJdOwo+ID4gPiArCXVuc2lnbmVkIGxvbmcgZG1hX2RwcF9lcnJvcnNbMzJd
+Owo+ID4gPiAgIH07Cj4gPiA+ICAgLyogTnVtYmVyIG9mIGZpZWxkcyBpbiBTYWZldHkgU3RhdHMg
+Ki8KPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFj
+L2R3eGdtYWMyLmggYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFj
+Mi5oCj4gPiA+IGluZGV4IDIwN2ZmMTc5OWYyYy4uNWM2N2EzZjg5ZjA4IDEwMDY0NAo+ID4gPiAt
+LS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMi5oCj4gPiA+
+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyLmgKPiA+
+ID4gQEAgLTMwMyw2ICszMDMsOCBAQAo+ID4gPiAgICNkZWZpbmUgWEdNQUNfUlhDRUlFCQkJQklU
+KDQpCj4gPiA+ICAgI2RlZmluZSBYR01BQ19UWENFSUUJCQlCSVQoMCkKPiA+ID4gICAjZGVmaW5l
+IFhHTUFDX01UTF9FQ0NfSU5UX1NUQVRVUwkweDAwMDAxMGNjCj4gPiA+ICsjZGVmaW5lIFhHTUFD
+X01UTF9EUFBfQ09OVFJPTAkJMHgwMDAwMTBlMAo+ID4gPiArI2RlZmluZSBYR01BQ19EUFBfRElT
+QUJMRQkJQklUKDApCj4gPiA+ICAgI2RlZmluZSBYR01BQ19NVExfVFhRX09QTU9ERSh4KQkJKDB4
+MDAwMDExMDAgKyAoMHg4MCAqICh4KSkpCj4gPiA+ICAgI2RlZmluZSBYR01BQ19UUVMJCQlHRU5N
+QVNLKDI1LCAxNikKPiA+ID4gICAjZGVmaW5lIFhHTUFDX1RRU19TSElGVAkJCTE2Cj4gPiA+IEBA
+IC0zODUsNiArMzg3LDcgQEAKPiA+ID4gICAjZGVmaW5lIFhHTUFDX0RDRUlFCQkJQklUKDEpCj4g
+PiA+ICAgI2RlZmluZSBYR01BQ19UQ0VJRQkJCUJJVCgwKQo+ID4gPiAgICNkZWZpbmUgWEdNQUNf
+RE1BX0VDQ19JTlRfU1RBVFVTCTB4MDAwMDMwNmMKPiA+ID4gKyNkZWZpbmUgWEdNQUNfRE1BX0RQ
+UF9JTlRfU1RBVFVTCTB4MDAwMDMwNzQKPiA+ID4gICAjZGVmaW5lIFhHTUFDX0RNQV9DSF9DT05U
+Uk9MKHgpCQkoMHgwMDAwMzEwMCArICgweDgwICogKHgpKSkKPiA+ID4gICAjZGVmaW5lIFhHTUFD
+X1NQSAkJCUJJVCgyNCkKPiA+ID4gICAjZGVmaW5lIFhHTUFDX1BCTHg4CQkJQklUKDE2KQo+ID4g
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21h
+YzJfY29yZS5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJf
+Y29yZS5jCj4gPiA+IGluZGV4IGViNDgyMTFkOWIwZS4uMDRkN2M0ZGMyZTM1IDEwMDY0NAo+ID4g
+PiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd3hnbWFjMl9jb3Jl
+LmMKPiA+ID4gKysrIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21h
+YzJfY29yZS5jCj4gPiA+IEBAIC04MzAsNiArODMwLDQzIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
+ZHd4Z21hYzNfZXJyb3JfZGVzYyBkd3hnbWFjM19kbWFfZXJyb3JzWzMyXT0gewo+ID4gPiAgIAl7
+IGZhbHNlLCAiVU5LTk9XTiIsICJVbmtub3duIEVycm9yIiB9LCAvKiAzMSAqLwo+ID4gPiAgIH07
+Cj4gPiA+ICtzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IGRwcF9yeF9lcnIgPSAiUmVhZCBSeCBE
+ZXNjcmlwdG9yIFBhcml0eSBjaGVja2VyIEVycm9yIjsKPiA+ID4gK3N0YXRpYyBjb25zdCBjaGFy
+ICogY29uc3QgZHBwX3R4X2VyciA9ICJSZWFkIFR4IERlc2NyaXB0b3IgUGFyaXR5IGNoZWNrZXIg
+RXJyb3IiOwo+ID4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBkd3hnbWFjM19lcnJvcl9kZXNjIGR3
+eGdtYWMzX2RtYV9kcHBfZXJyb3JzWzMyXSA9IHsKPiA+ID4gKwl7IHRydWUsICJURFBFUzAiLCBk
+cHBfdHhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiVERQRVMxIiwgZHBwX3R4X2VyciB9LAo+ID4g
+PiArCXsgdHJ1ZSwgIlREUEVTMiIsIGRwcF90eF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJURFBF
+UzMiLCBkcHBfdHhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiVERQRVM0IiwgZHBwX3R4X2VyciB9
+LAo+ID4gPiArCXsgdHJ1ZSwgIlREUEVTNSIsIGRwcF90eF9lcnIgfSwKPiA+ID4gKwl7IHRydWUs
+ICJURFBFUzYiLCBkcHBfdHhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiVERQRVM3IiwgZHBwX3R4
+X2VyciB9LAo+ID4gPiArCXsgdHJ1ZSwgIlREUEVTOCIsIGRwcF90eF9lcnIgfSwKPiA+ID4gKwl7
+IHRydWUsICJURFBFUzkiLCBkcHBfdHhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiVERQRVMxMCIs
+IGRwcF90eF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJURFBFUzExIiwgZHBwX3R4X2VyciB9LAo+
+ID4gPiArCXsgdHJ1ZSwgIlREUEVTMTIiLCBkcHBfdHhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAi
+VERQRVMxMyIsIGRwcF90eF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJURFBFUzE0IiwgZHBwX3R4
+X2VyciB9LAo+ID4gPiArCXsgdHJ1ZSwgIlREUEVTMTUiLCBkcHBfdHhfZXJyIH0sCj4gPiA+ICsJ
+eyB0cnVlLCAiUkRQRVMwIiwgZHBwX3J4X2VyciB9LAo+ID4gPiArCXsgdHJ1ZSwgIlJEUEVTMSIs
+IGRwcF9yeF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJSRFBFUzIiLCBkcHBfcnhfZXJyIH0sCj4g
+PiA+ICsJeyB0cnVlLCAiUkRQRVMzIiwgZHBwX3J4X2VyciB9LAo+ID4gPiArCXsgdHJ1ZSwgIlJE
+UEVTNCIsIGRwcF9yeF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJSRFBFUzUiLCBkcHBfcnhfZXJy
+IH0sCj4gPiA+ICsJeyB0cnVlLCAiUkRQRVM2IiwgZHBwX3J4X2VyciB9LAo+ID4gPiArCXsgdHJ1
+ZSwgIlJEUEVTNyIsIGRwcF9yeF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJSRFBFUzgiLCBkcHBf
+cnhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiUkRQRVM5IiwgZHBwX3J4X2VyciB9LAo+ID4gPiAr
+CXsgdHJ1ZSwgIlJEUEVTMTAiLCBkcHBfcnhfZXJyIH0sCj4gPiA+ICsJeyB0cnVlLCAiUkRQRVMx
+MSIsIGRwcF9yeF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJSRFBFUzEyIiwgZHBwX3J4X2VyciB9
+LAo+ID4gPiArCXsgdHJ1ZSwgIlJEUEVTMTMiLCBkcHBfcnhfZXJyIH0sCj4gPiA+ICsJeyB0cnVl
+LCAiUkRQRVMxNCIsIGRwcF9yeF9lcnIgfSwKPiA+ID4gKwl7IHRydWUsICJSRFBFUzE1IiwgZHBw
+X3J4X2VyciB9LAo+ID4gPiArfTsKPiA+ID4gKwo+ID4gPiAgIHN0YXRpYyB2b2lkIGR3eGdtYWMz
+X2hhbmRsZV9kbWFfZXJyKHN0cnVjdCBuZXRfZGV2aWNlICpuZGV2LAo+ID4gPiAgIAkJCQkgICAg
+dm9pZCBfX2lvbWVtICppb2FkZHIsIGJvb2wgY29ycmVjdGFibGUsCj4gPiA+ICAgCQkJCSAgICBz
+dHJ1Y3Qgc3RtbWFjX3NhZmV0eV9zdGF0cyAqc3RhdHMpCj4gPiA+IEBAIC04NDEsNiArODc4LDEz
+IEBAIHN0YXRpYyB2b2lkIGR3eGdtYWMzX2hhbmRsZV9kbWFfZXJyKHN0cnVjdCBuZXRfZGV2aWNl
+ICpuZGV2LAo+ID4gPiAgIAlkd3hnbWFjM19sb2dfZXJyb3IobmRldiwgdmFsdWUsIGNvcnJlY3Rh
+YmxlLCAiRE1BIiwKPiA+ID4gICAJCQkgICBkd3hnbWFjM19kbWFfZXJyb3JzLCBTVEFUX09GRihk
+bWFfZXJyb3JzKSwgc3RhdHMpOwo+ID4gPiArCj4gPiA+ICsJdmFsdWUgPSByZWFkbChpb2FkZHIg
+KyBYR01BQ19ETUFfRFBQX0lOVF9TVEFUVVMpOwo+ID4gPiArCXdyaXRlbCh2YWx1ZSwgaW9hZGRy
+ICsgWEdNQUNfRE1BX0RQUF9JTlRfU1RBVFVTKTsKPiA+ID4gKwo+ID4gPiArCWR3eGdtYWMzX2xv
+Z19lcnJvcihuZGV2LCB2YWx1ZSwgZmFsc2UsICJETUFfRFBQIiwKPiA+ID4gKwkJCSAgIGR3eGdt
+YWMzX2RtYV9kcHBfZXJyb3JzLAo+ID4gPiArCQkJICAgU1RBVF9PRkYoZG1hX2RwcF9lcnJvcnMp
+LCBzdGF0cyk7Cj4gPiA+ICAgfQo+ID4gPiAgIHN0YXRpYyBpbnQKPiA+ID4gQEAgLTg4MSw2ICs5
+MjUsMTIgQEAgZHd4Z21hYzNfc2FmZXR5X2ZlYXRfY29uZmlnKHZvaWQgX19pb21lbSAqaW9hZGRy
+LCB1bnNpZ25lZCBpbnQgYXNwLAo+ID4gPiAgIAl2YWx1ZSB8PSBYR01BQ19UTU9VVEVOOyAvKiBG
+U00gVGltZW91dCBGZWF0dXJlICovCj4gPiA+ICAgCXdyaXRlbCh2YWx1ZSwgaW9hZGRyICsgWEdN
+QUNfTUFDX0ZTTV9DT05UUk9MKTsKPiA+ID4gKwkvKiA1LiBFbmFibGUgRGF0YSBQYXRoIFBhcml0
+eSBQcm90ZWN0aW9uICovCj4gPiA+ICsJdmFsdWUgPSByZWFkbChpb2FkZHIgKyBYR01BQ19NVExf
+RFBQX0NPTlRST0wpOwo+ID4gPiArCS8qIGFscmVhZHkgZW5hYmxlZCBieSBkZWZhdWx0LCBleHBs
+aWNpdCBlbmFibGUgaXQgYWdhaW4gKi8KPiA+ID4gKwl2YWx1ZSAmPSB+WEdNQUNfRFBQX0RJU0FC
+TEU7Cj4gPiA+ICsJd3JpdGVsKHZhbHVlLCBpb2FkZHIgKyBYR01BQ19NVExfRFBQX0NPTlRST0wp
+Owo+ID4gPiArCj4gPiA+ICAgCXJldHVybiAwOwo+ID4gPiAgIH0KPiA+ID4gQEAgLTkxNCw3ICs5
+NjQsMTEgQEAgc3RhdGljIGludCBkd3hnbWFjM19zYWZldHlfZmVhdF9pcnFfc3RhdHVzKHN0cnVj
+dCBuZXRfZGV2aWNlICpuZGV2LAo+ID4gPiAgIAkJcmV0IHw9ICFjb3JyOwo+ID4gPiAgIAl9Cj4g
+PiA+IC0JZXJyID0gZG1hICYgKFhHTUFDX0RFVUlTIHwgWEdNQUNfREVDSVMpOwo+ID4gPiArCS8q
+IERNQV9EUFBfSW50ZXJydXB0X1N0YXR1cyBpcyBpbmRpY2F0ZWQgYnkgTUNTSVMgYml0IGluCj4g
+PiA+ICsJICogRE1BX1NhZmV0eV9JbnRlcnJ1cHRfU3RhdHVzLCBzbyB3ZSBoYW5kbGUgRE1BIERh
+dGEgUGF0aAo+ID4gPiArCSAqIFBhcml0eSBFcnJvcnMgaGVyZQo+ID4gPiArCSAqLwo+ID4gPiAr
+CWVyciA9IGRtYSAmIChYR01BQ19ERVVJUyB8IFhHTUFDX0RFQ0lTIHwgWEdNQUNfTUNTSVMpOwo+
+ID4gPiAgIAljb3JyID0gZG1hICYgWEdNQUNfREVDSVM7Cj4gPiA+ICAgCWlmIChlcnIpIHsKPiA+
+ID4gICAJCWR3eGdtYWMzX2hhbmRsZV9kbWFfZXJyKG5kZXYsIGlvYWRkciwgY29yciwgc3RhdHMp
+Owo+ID4gPiBAQCAtOTMwLDYgKzk4NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHd4Z21hYzNf
+ZXJyb3Igewo+ID4gPiAgIAl7IGR3eGdtYWMzX21hY19lcnJvcnMgfSwKPiA+ID4gICAJeyBkd3hn
+bWFjM19tdGxfZXJyb3JzIH0sCj4gPiA+ICAgCXsgZHd4Z21hYzNfZG1hX2Vycm9ycyB9LAo+ID4g
+PiArCXsgZHd4Z21hYzNfZG1hX2RwcF9lcnJvcnMgfSwKPiA+ID4gICB9Owo+ID4gPiAgIHN0YXRp
+YyBpbnQgZHd4Z21hYzNfc2FmZXR5X2ZlYXRfZHVtcChzdHJ1Y3Qgc3RtbWFjX3NhZmV0eV9zdGF0
+cyAqc3RhdHMsCj4gPiAKPiA+IAo+ID4gVGhpcyBjaGFuZ2UgaXMgYnJlYWtpbmcgdGhlIGJ1aWxk
+IG9uIHNvbWUgb2Ygb3VyIGJ1aWxkZXJzIHRoYXQgYXJlIHN0aWxsIHVzaW5nIEdDQyA2LnggLi4u
+Cj4gPiAKPiA+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3eGdtYWMyX2Nv
+cmUuYzo4MzY6MjA6IGVycm9yOiBpbml0aWFsaXNlciBlbGVtZW50IGlzIG5vdCBjb25zdGFudAo+
+ID4gICB7IHRydWUsICJURFBFUzAiLCBkcHBfdHhfZXJyIH0sCj4gPiAgICAgICAgICAgICAgICAg
+ICAgIF5+fn5+fn5+fn4KPiA+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3
+eGdtYWMyX2NvcmUuYzo4MzY6MjA6IG5vdGU6IChuZWFyIGluaXRpYWxpc2F0aW9uIGZvciDigJhk
+d3hnbWFjM19kbWFfZHBwX2Vycm9yc1swXS5kZXRhaWxlZF9kZXNj4oCZKQo+ID4gZHJpdmVycy9u
+ZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfY29yZS5jOjgzNzoyMDogZXJyb3I6
+IGluaXRpYWxpc2VyIGVsZW1lbnQgaXMgbm90IGNvbnN0YW50Cj4gPiAgIHsgdHJ1ZSwgIlREUEVT
+MSIsIGRwcF90eF9lcnIgfSwKPiA+ICAgICAgICAgICAgICAgICAgICAgXn5+fn5+fn5+fgo+ID4g
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHd4Z21hYzJfY29yZS5jOjgzNzoy
+MDogbm90ZTogKG5lYXIgaW5pdGlhbGlzYXRpb24gZm9yIOKAmGR3eGdtYWMzX2RtYV9kcHBfZXJy
+b3JzWzFdLmRldGFpbGVkX2Rlc2PigJkpCj4gPiAuLi4KPiA+IAo+ID4gSSBrbm93IHRoYXQgdGhp
+cyBpcyBxdWl0ZSBvbGQgYnV0IHRoZSBtaW5pbXVtIHN1cHBvcnRlZCBieSB0aGUga2VybmVsIGlz
+IHY1LjEgLi4uCj4gPiAKPiA+IGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL2h0bWwvbmV4dC9w
+cm9jZXNzL2NoYW5nZXMuaHRtbAo+IAo+IFRoYW5rcyBKb24sCj4gCj4gSSBzZXBhcmF0ZWx5IHJl
+Y2VpdmVkIGEgbm90aWZpY2F0aW9uIGFib3V0IHRoaXMgb2NjdXJyaW5nIHdpdGggZ2NjIDcuCj4g
+Cj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2Uta2J1aWxkLWFsbC8yMDI0MDIwODExMzUubEF4
+eEJYSGstbGtwQGludGVsLmNvbS8KPiAKPiBJdCBpcyB1bmNsZWFyIHRvIG1lIHdoeSB0aGlzIG9j
+Y3VycywgYXMgZHBwX3R4X2VyciBhbmQgZHBwX3R4X2VyciBhcmUgY29uc3QuCj4gQnV0IEkgZG8g
+c2VlbSB0byBiZSBhYmxlIHRvIGFkZHJlc3MgdGhpcyBwcm9ibGVtIGJ5IHVzaW5nICNkZWZpbmVz
+IGZvcgo+IHRoZXNlIHZhbHVlcyBpbnN0ZWFkLgo+IAo+IEkgcGxhbiB0byBwb3N0IGEgcGF0Y2gg
+c2hvcnRseS4KClBhdGNoIHBvc3RlZDoKLSBbUEFUQ0ggbmV0XSBuZXQ6IHN0bW1hYzogeGdtYWM6
+IHVzZSAjZGVmaW5lIGZvciBzdHJpbmcgY29uc3RhbnRzCiAgaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvbmV0ZGV2LzIwMjQwMjA4LXhnbWFjLWNvbnN0LXYxLTEtZTY5YTFlZWFiZmM4QGtlcm5lbC5v
+cmcvCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
+eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
+by9saW51eC1zdG0zMgo=
