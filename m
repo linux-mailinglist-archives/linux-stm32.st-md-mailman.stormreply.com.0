@@ -2,139 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E103884E37E
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 15:52:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA04184E3B7
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 16:08:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F253C65E4C;
-	Thu,  8 Feb 2024 14:52:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64736C65E4C;
+	Thu,  8 Feb 2024 15:08:03 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 077C1C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 515BFC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  8 Feb 2024 14:52:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1707403966; x=1738939966;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=5kZMWcSf9UyQKhYq/+KYPBBBZl7lJYG5ytWx9i1NyDk=;
- b=SfBTHA110Y9QF7hbJZpGBlbN0CnN2trTaYEcxC492kbgrc91cmp27WW0
- HGYxuAVUBo0EGJJOPx8h+QjA+4QRNSrdKIZA89fhhLFIrTeR1PYaw3TEg
- 824RYKh38OHnXd3WP1xBBNh2n98C+F007TM+gwCuMHsIgkPjpWDEj3LLd
- e4goOGw51RXKyWZKqM+4q9cV0fnnuEkhMCKJOm4U/ovbnQLgoD0ka/RJA
- b1sjwrpFY6aYycqj7VmlcJJOtsdg6kyR9r0fbtB63Jsg8mTcRoRk4hUZL
- lmW9XZo1p0tXivrUadPw3SgNxE3fHs2es025EGwfG7FNhUsgMhbHhjaly w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="436367109"
-X-IronPort-AV: E=Sophos;i="6.05,254,1701158400"; d="scan'208";a="436367109"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2024 06:52:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10978"; a="824857619"
-X-IronPort-AV: E=Sophos;i="6.05,254,1701158400"; d="scan'208";a="824857619"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 08 Feb 2024 06:52:41 -0800
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Thu, 8 Feb 2024 06:52:41 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Thu, 8 Feb 2024 06:52:40 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35 via Frontend Transport; Thu, 8 Feb 2024 06:52:40 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.169)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.35; Thu, 8 Feb 2024 06:52:40 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YcDqyvxx43djexemn85YmF1QpjX83sueMNve1QtWOwAAqstA0GK9swiI53MNcDPLRuYoMfPIDpVG7/NOQ4+jQd8n3SDN0yubLDu7lS/TRJnTiIFzSzu217Afijd5VwDNqUDlu50keJ6Hzo20BlV/2nPiwfzJvT4AobFUZ36tFDRXzwwyx5s2RyecH1fGSG3zrEoyAPqSONu2iy1eRl4DaMTbrEWptearwnQgH3rDPq/BS/n4b4sCp+pK+dMSlIRdn8kQhfUNKv/u8EmAwcfy8iJpwl4e0MSyDnbXtDLyF8eyLYdmHV8IPAoufuOCYrTZjZVqwF/Qc6LqUYi454iopg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tc1cYM8Z+WtO+3MwMJHKP5ueRYaullbFj/srFizJOR8=;
- b=jqgM/gwVT/+hhcVFqv2N9phDy45PFrTAsHwwGOjftD5IMD8CqykNd/XxL06NTxe2kHmP7FLf68fpLxPPeRnK9vWoZrMdDKSIvnOohFlK7aGOwhuGgNbVi7OBhjBqTqAD/Fz/sVHCQq/UdjAJVKgapEPb/TqHmPb8+TIqsafjdJw7MuyJ/WkfbvgX8ZT0aAz76lXjGk+kVlcKthBRMYFw/FIqHbIhioNTSYxQQWxWj3lSpaLiO2mn4y5clgz5XGecL0u7U9WKSFWA/qrnOTql/A/Na13mewWzsE1/3FW08OoUsVRWeQAiKQdrRyWq/nZI2vhXbKKQXvzr/HDCt7ZVKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
- SJ2PR11MB8321.namprd11.prod.outlook.com (2603:10b6:a03:546::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.24; Thu, 8 Feb
- 2024 14:52:38 +0000
-Received: from DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::ccab:b5f4:e200:ee47]) by DM4PR11MB6117.namprd11.prod.outlook.com
- ([fe80::ccab:b5f4:e200:ee47%6]) with mapi id 15.20.7249.035; Thu, 8 Feb 2024
- 14:52:38 +0000
-Date: Thu, 8 Feb 2024 15:52:27 +0100
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Kurt Kanzenbach <kurt@linutronix.de>
-Message-ID: <ZcTqqwmGTIEq6bfO@boxer>
+ Thu,  8 Feb 2024 15:08:02 +0000 (UTC)
+From: Kurt Kanzenbach <kurt@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1707404881;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KWgJgd6Z3ryJqQjA1Py+G/4gkJHYEfzRUj8BBBe02k8=;
+ b=qAHoFif3apfMZ5rPFFx44tAG5uffVd/VGorFMZXggJn2F3iILQ6Px4Pp39ptQACupsxrDE
+ 2vEXSN4dmNHy5wpSWi4sT1Y00zR2b13Nf/UmyIfoN+DkdyBkPDPfOjXcBgVUIqvHOEODuI
+ xODZdWubb1xvkDbf1UVH7BNwFciDuN/jVDWuXS1OczDl8dBg6QCUSJs2VNv4KhxdC1q5hE
+ 4RZmUOznwbZ8eITl/dhsIHDgXgrrUMvAXwns719IUvvn//0M8TIhFbP1QXD7jAtcVnTqV+
+ uItQOr6SAjOozbppeDoFqho4X5sjHx5PWFKAqV+olREOtaW0miYEDcZp/LWyJw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1707404881;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KWgJgd6Z3ryJqQjA1Py+G/4gkJHYEfzRUj8BBBe02k8=;
+ b=CYhzDV5MkDoZ0H9Q8gHK39KLiF4HBdpN1Wbddapq8bhNDgRgPCNWfW3wDBhJoxNfPG6wbe
+ 4YNJiYpnDVdGKhCA==
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+In-Reply-To: <ZcTqqwmGTIEq6bfO@boxer>
 References: <20240208-stmmac_irq-v1-1-8bab236026d4@linutronix.de>
  <ZcTNCxrWTAfj90Es@boxer> <871q9n81s1.fsf@kurt.kurt.home>
-Content-Disposition: inline
-In-Reply-To: <871q9n81s1.fsf@kurt.kurt.home>
-X-ClientProxiedBy: FR0P281CA0217.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ac::9) To DM4PR11MB6117.namprd11.prod.outlook.com
- (2603:10b6:8:b3::19)
+ <ZcTqqwmGTIEq6bfO@boxer>
+Date: Thu, 08 Feb 2024 16:08:00 +0100
+Message-ID: <87y1bv6lkf.fsf@kurt.kurt.home>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|SJ2PR11MB8321:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4cccd5f-32be-441d-f2fa-08dc28b597f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nKBfqB0+3L6WmGDSO5FdKr5+rqvMN5TgfOW1iY3j1GymgaR+Sk1jyWggOPKAwDbPapH4Fnv/nJ/e6OuwQlzlY940OiuLWFyEuidIB/X1106OEBMRYSM4zBkAziOJjiMYZ4zrzIQiRmaDtEdaDUjKNQNYVWG1aSaSy4ovptwjnSSmfRAUA/61KqG5gUHlHoDID/OOAQfJrbcQLcorUKtsRSiHcKQCBUywZH8Ea7X70ZX/1QHu/G3Qq63JArr9aJKpbZUPM/Z6m904zEl5bPyMXGT4U9wfzyrgiDSwtOYmQ+bI5J+9AB4Z4MJIsksqiFC1y41ERyvrZeIJrIICwHCnUYd7JmooZMTFbNqH9ve1xrrgScGI98jqYrCgf5II2C3kprAApTcnO3/pDxegt3SqH2p44kxvCLwFxjeVbUD8heUIBsWeWmTYF60tIcjHFX/5XTCcOzyWr7plEV41wAbonNHgUjHo6VYDinNKyz+RZ3mU4IJd95whJxXsVPMB2MEvcqTdPYFhqVIv9jtINk7w9B4uYYKZlAFaLIwGRsffrQGhwV1Zf35wbl6z1Ic8yIhq
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6117.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(7916004)(376002)(346002)(39860400002)(366004)(396003)(136003)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(33716001)(6666004)(54906003)(316002)(44832011)(4326008)(2906002)(66556008)(66476007)(66946007)(6486002)(6512007)(478600001)(9686003)(6506007)(5660300002)(7416002)(82960400001)(86362001)(38100700002)(6916009)(26005)(8936002)(8676002)(41300700001)(83380400001);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?s9Wa2JXuR4qg4cGFXGrrKqiFg4SSzSOevdQ0ro0iTE9QLF0uFGA2s73jfYlF?=
- =?us-ascii?Q?UBO8XUQJTcUkrol1fceDPzzhzsG2VFGm4xMqf4Cl1v3tK65OtoEUlfN6WQkb?=
- =?us-ascii?Q?qk/52HERlk5xSjJlBlSpOJpEoDYhShMDxkS3Ie7OYqpciOjNHjzOg3SWjNZV?=
- =?us-ascii?Q?2y4sYUuhQJpgyNzHbyZVItj5oOTcoH/k8lZTDQQxGDc52PeKmEYWmy4wDLR4?=
- =?us-ascii?Q?ZDKraiwlxFNNhCMhycHVaDWyuuCEK10ocXH2pw+Xi7xulx2RAtb36jGhdo5U?=
- =?us-ascii?Q?K8Tl0C4PujIerbJh+1yoqrpySjYZ6rkrEyVD2QaXOHk/cZgr8pprCecmq4m3?=
- =?us-ascii?Q?PvprlSK/rhppaTLjPUlpXk6eJ2wX0BM7Zn7VXGOdicSpfLBAcz/fEBxADDBt?=
- =?us-ascii?Q?G7Bkw6fM0ARIV8hwmV+rWKwI1UoZxB0GiqhjHtwy2+eiCb7qvQ0piAI3/68s?=
- =?us-ascii?Q?L89gpfKn6ZN+Fw6cT8+rOF8Bk2nCye9HUoaVBRhGZI/fD0QWxlJOgPn0U66r?=
- =?us-ascii?Q?KdjG8DXaQ2r0noml08spiXg/o7qEL5BKN06UtYbYjKgNiFtLhDvSQe48wazK?=
- =?us-ascii?Q?fDNp4FEyepsUCty0ORTOP8Ux0gMSpvEZLeKHRH0KTROxsB3sBq3N74/F7qt6?=
- =?us-ascii?Q?TQmIjxa/crTlMGvh/WW7R30ItrZNSZRa3SRlfZNiWEwB7Lv3CfmugLju/rGz?=
- =?us-ascii?Q?EAFHZXtkLDZTWCvJnmM75l5Yp8oL+RNzPrcxTOUH5856xTF5ukGSM+USY0ZL?=
- =?us-ascii?Q?2xJQLfrxgMYJS3QdhSXVkUIcDQkFJsuf9D9e3GURDgkEU9mx1NBw9OHzvpuL?=
- =?us-ascii?Q?32RQ4Ggr9A+kqoFy5ObEftUp5NYJi+xS1XndqlgFSYeYN8Dvmw5t6miGSmCz?=
- =?us-ascii?Q?7VeyzMd+TNR4LQTWkx+dxpUuHU9H8u+8Az8kTDxQ19LjpmZwVznwXoNK01iQ?=
- =?us-ascii?Q?ieY5CC4ZEAS4ANpvclrSbp4SMdcGWvDZ/UUhmlo9dyDn0z0W6T9DIMnzrvL+?=
- =?us-ascii?Q?CqiCfn1GjhDuRLFan8T6rwaqc26C+hm/A8EZY4gJXgdTC5ep0XYG+g8qGbB4?=
- =?us-ascii?Q?e+BrrsYSTjVJ248DY3PHxo7WbB2SiFyzDnhI1xB0T/JQDEo8Ts6z7gZWtskM?=
- =?us-ascii?Q?npjwVc0wASoqTRWaf0YEAf9De2c/xLed2KbuGka6xtl6lSpyyZrLo+Q1fE4C?=
- =?us-ascii?Q?XMXtTY9wBwe5/Z4s4UTpqnj28XV/RhaDWAvhRTh+6LbeqZILI0BTG1BlVUdw?=
- =?us-ascii?Q?NcMzo0z0I1odVhtVoyio46WAHSJT9jyDslcDwvLjd/lm0f+JPXTEgXB5PPeY?=
- =?us-ascii?Q?4LZm+0zNb8eWV204Y/bRMG2s12/WHKCCTobzTzEovxC7LjtPU6OQ+08BW8EW?=
- =?us-ascii?Q?wBAbVo4woHZ1k2Lno+1n2P5KiNQ+q3JswQ/KsLFJe/EdrnpLGA6ftBjY3nSC?=
- =?us-ascii?Q?vhl+oMSuAV73mQuYq523sS8dAvBU+/M70CLKnccU7rTAcXQEL5VkX0vbibFm?=
- =?us-ascii?Q?bRrPNqiGCAxJsjUl4tpGSNPzsVONTq1L71BRw6n5koNOqguPUtgdMcsBctKY?=
- =?us-ascii?Q?YhNKGpBj1YxESItEHA/mhV90jupHYklZKAACmZL2T13Qr7RR4Zsgu3S4UCnc?=
- =?us-ascii?Q?/w=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4cccd5f-32be-441d-f2fa-08dc28b597f1
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 14:52:38.4204 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +MxG4YkK9deRpKQw+/Y5ivo2n24+IGH1/WmCPy+hhr6wxXAflPbEyazFd/VK9KrdItuPX72NEHdlLnJ6msT6CYU5ZesuV6w1k6c0qMjsSgg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8321
-X-OriginatorOrg: intel.com
 Cc: Yannick Vignon <yannick.vignon@nxp.com>, netdev@vger.kernel.org,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
@@ -154,62 +60,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8292519886525871217=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Feb 08, 2024 at 03:32:30PM +0100, Kurt Kanzenbach wrote:
-> On Thu Feb 08 2024, Maciej Fijalkowski wrote:
-> > On Thu, Feb 08, 2024 at 11:35:25AM +0100, Kurt Kanzenbach wrote:
-> >> Commit 8a7cb245cf28 ("net: stmmac: Do not enable RX FIFO overflow
-> >> interrupts") disabled the RX FIFO overflow interrupts. However, it left the
-> >> status variable around, but never checks it.
-> >> 
-> >> As stmmac_host_mtl_irq_status() returns only 0 now, the code can be
-> >> simplified.
-> >> 
-> >> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
-> >> ---
-> >>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 ++----
-> >>  1 file changed, 2 insertions(+), 4 deletions(-)
-> >> 
-> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> index 04d817dc5899..10ce2f272b62 100644
-> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> >> @@ -6036,10 +6036,8 @@ static void stmmac_common_interrupt(struct stmmac_priv *priv)
-> >>  				priv->tx_path_in_lpi_mode = false;
-> >>  		}
-> >>  
-> >> -		for (queue = 0; queue < queues_count; queue++) {
-> >> -			status = stmmac_host_mtl_irq_status(priv, priv->hw,
-> >> -							    queue);
-> >> -		}
-> >> +		for (queue = 0; queue < queues_count; queue++)
-> >> +			stmmac_host_mtl_irq_status(priv, priv->hw, queue);
-> >
-> > Hey Kurt,
-> >
-> > looks to me that all of the current callbacks just return 0 so why not
-> > make them return void instead?
-> 
-> Well, there are two callbacks of this in dwmac4 and dwxgmac2. Both of
-> them still have the code for handling the overflow interrupt (and then
-> returning != 0). However, as of commit 8a7cb245cf28 the interrupt
-> shouldn't fire. So yes, it could be changed to void along with some
-> code removal. But, maybe i'm missing something.
+--===============8292519886525871217==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-Hmm, ok, my 'quick' glance over the code was too quick :) I missed
-overflow encoding to ret within callbacks, sorry. But it seems that even
-though they can return nonzero values they would be ignored, correct?
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> Thanks,
-> Kurt
+On Thu Feb 08 2024, Maciej Fijalkowski wrote:
+> On Thu, Feb 08, 2024 at 03:32:30PM +0100, Kurt Kanzenbach wrote:
+>> On Thu Feb 08 2024, Maciej Fijalkowski wrote:
+>> > On Thu, Feb 08, 2024 at 11:35:25AM +0100, Kurt Kanzenbach wrote:
+>> >> Commit 8a7cb245cf28 ("net: stmmac: Do not enable RX FIFO overflow
+>> >> interrupts") disabled the RX FIFO overflow interrupts. However, it le=
+ft the
+>> >> status variable around, but never checks it.
+>> >>=20
+>> >> As stmmac_host_mtl_irq_status() returns only 0 now, the code can be
+>> >> simplified.
+>> >>=20
+>> >> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+>> >> ---
+>> >>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 6 ++----
+>> >>  1 file changed, 2 insertions(+), 4 deletions(-)
+>> >>=20
+>> >> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/driv=
+ers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> index 04d817dc5899..10ce2f272b62 100644
+>> >> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> >> @@ -6036,10 +6036,8 @@ static void stmmac_common_interrupt(struct stm=
+mac_priv *priv)
+>> >>  				priv->tx_path_in_lpi_mode =3D false;
+>> >>  		}
+>> >>=20=20
+>> >> -		for (queue =3D 0; queue < queues_count; queue++) {
+>> >> -			status =3D stmmac_host_mtl_irq_status(priv, priv->hw,
+>> >> -							    queue);
+>> >> -		}
+>> >> +		for (queue =3D 0; queue < queues_count; queue++)
+>> >> +			stmmac_host_mtl_irq_status(priv, priv->hw, queue);
+>> >
+>> > Hey Kurt,
+>> >
+>> > looks to me that all of the current callbacks just return 0 so why not
+>> > make them return void instead?
+>>=20
+>> Well, there are two callbacks of this in dwmac4 and dwxgmac2. Both of
+>> them still have the code for handling the overflow interrupt (and then
+>> returning !=3D 0). However, as of commit 8a7cb245cf28 the interrupt
+>> shouldn't fire. So yes, it could be changed to void along with some
+>> code removal. But, maybe i'm missing something.
+>
+> Hmm, ok, my 'quick' glance over the code was too quick :) I missed
+> overflow encoding to ret within callbacks, sorry. But it seems that even
+> though they can return nonzero values they would be ignored, correct?
 
+Yeah, they are ignored.
+
+Thanks,
+Kurt
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJHBAEBCgAxFiEEvLm/ssjDfdPf21mSwZPR8qpGc4IFAmXE7lATHGt1cnRAbGlu
+dXRyb25peC5kZQAKCRDBk9HyqkZzgtzBD/9nDDb3DltYcIgqEvmxDM3LECpgT0DF
+HFB3GXNIA6YKdtCS+QusIoH1E0B6qf4F06j7zNh/os9u+tsbMyLkxiimsaWOyfIk
+OEqX1a9bZpFcEFAaDcSLQB367SoqAGeuswQ+KHOUR+IerOj0Y+vCnz7jrjn5N+Pn
+KfQXn1p2u3QkDHPILK+TSE4ygPDMqr3tk7CtHoWnZ+hT1qaRsPyNYZEpLX+R17+f
+xndwQP6IzM77RrNq/RCfsM2Ozl/5Aar3PumvuHtB4eIgEMhTug2s1QI3KHq6bzL3
+R9iyUPnqwhK8MUMEaR+jksVZPL0I+lZtLVJmQuiUpwLGLG1ipw0ULUOD1/38UZuk
+yPaosBA8i3NyGS3akVmDc08AcsnsMrAnY/lgP2H2mKvmPCKf3/kuhmDbfLUehpql
+gerYvYGfNIeGIe0PGuYSRf/1eWADM3gDMSzS2JlwVteYfIsSniD6DHkfRKTkOzr0
++Y6pH3dYrmSr0Zb9243Ebgw2f7nXbUIYW8MM16RgqC32vg4Yk6MrcQkZ6rpUOgk4
+/0E6afVbJjrYYweTsiARACdluiF+9Yd5byyIxz7Om6KIWrY7zDkg90L3mVnE1WcR
+U4ao0ASaiUSn5wL4rwLvvf6r1n/vE2ZzikBhKbr5E6mS6LgZAKeQ9DIHDsLRAjTL
+RZyukkHrSq8KGg==
+=U68y
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============8292519886525871217==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============8292519886525871217==--
