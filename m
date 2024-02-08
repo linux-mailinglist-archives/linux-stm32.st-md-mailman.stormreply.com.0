@@ -2,69 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC39484E312
-	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 15:24:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0600784E313
+	for <lists+linux-stm32@lfdr.de>; Thu,  8 Feb 2024 15:25:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A299BC6C83F;
-	Thu,  8 Feb 2024 14:24:58 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C11AEC6C858;
+	Thu,  8 Feb 2024 14:25:04 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB3D4C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0AA8C6C83F
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu,  8 Feb 2024 14:25:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 882E0CE1B1A;
+ Thu,  8 Feb 2024 14:25:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9097C433F1;
  Thu,  8 Feb 2024 14:24:57 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 418Du9VY003834; Thu, 8 Feb 2024 15:24:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=hKislKxnW7bDWoDYssDOxiVgE9aR5W6wE8Gb1TrL33s=; b=bC
- VvNu32qde9qd9wN83HenoemEyY2pT2x5rwxCAZ0pGG24oTGsOGPB+EPZBvBc0Tf3
- OLfpL0RtC8qhDajAr1pb/nQwMli+0YJs26B8aXb/jy5l4J6B0Z4EYvfZoOeUy/2T
- ilAEpFA6rQ6i2miGJ/JkvPpScyetjKvLZ2q7hWdGMo/51rCqIupZZlAsYqE4Kn2m
- UI9JAaQ7WA+5kVPn2MUS+vHMzK0T1cnq2RVrnzVgpgWeBcs4KElSzUk+luL9cVfk
- x+954LyjblVxmzQLS02otfbMnwBDxzDOi0jDWo3CPVq4fRvbQmxWuJ+AdCgr4duN
- 4s+MD6lncXoPBKdd0YwQ==
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w1ewpd67n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 08 Feb 2024 15:24:47 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 3170C100051;
- Thu,  8 Feb 2024 15:24:46 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2719429B140;
- Thu,  8 Feb 2024 15:24:46 +0100 (CET)
-Received: from localhost (10.201.21.240) by SHFDAG1NODE1.st.com (10.75.129.69)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 8 Feb
- 2024 15:24:45 +0100
-From: <gabriel.fernandez@foss.st.com>
-To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Date: Thu, 8 Feb 2024 15:23:01 +0100
-Message-ID: <20240208142301.155698-5-gabriel.fernandez@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240208142301.155698-1-gabriel.fernandez@foss.st.com>
-References: <20240208142301.155698-1-gabriel.fernandez@foss.st.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1707402300;
+ bh=k9PWzREXb25IgI5xrvjYbQ9AfDmYYoThZ4v7NnxSkE4=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=HKN5UCsyzQDmfnSVUA0PWCr4yMUZNi+1lTyc0JbjjTsQb2UcMIusw04kON04kkTgZ
+ 948z61i3hmXjbIWe8qSO9l5wG+h4glMKC6+BdVXxonSILXp24tafqTww0GCcZls3My
+ OZq1GfqXgkhPAyRS/lapHkeu6oBhtg6G3IzH3mCW+9fxtCcEuzyNEg+vEYRa5/UZGw
+ RH/0aEs1OHbGsGpaP/c0pLiCYssn7lBmC5gh5HZ5o3QiIAfiUOLNgpWG0nG7JTdJcU
+ xs4rgdJmjlkdIITupdx5kNo9x1RpgvYkBn0F5KTUejtILWmz01+JbrkwC/0rdq6+bZ
+ PQYII4pWOpX/Q==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org, wens@csie.org, marek.vasut+renesas@gmail.com, 
+ support.opensource@diasemi.com, neil.armstrong@linaro.org, 
+ ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com, 
+ mazziesaccount@gmail.com, mcoquelin.stm32@gmail.com, 
+ alexandre.torgue@foss.st.com, Bo Liu <liubo03@inspur.com>
+In-Reply-To: <20240206071314.8721-1-liubo03@inspur.com>
+References: <20240206071314.8721-1-liubo03@inspur.com>
+Message-Id: <170740229742.1068783.15434523911244194304.b4-ty@kernel.org>
+Date: Thu, 08 Feb 2024 14:24:57 +0000
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.240]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-08_05,2024-02-08_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v9 4/4] arm64: dts: st: add rcc support for
-	STM32MP25
+X-Mailer: b4 0.12.3
+Cc: patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 00/18] mfd: convert to use maple tree
+	register cache
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,321 +56,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-
-Add RCC support to manage clocks and resets on the STM32MP25.
-
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 144 ++++++++++++++++++-------
- arch/arm64/boot/dts/st/stm32mp255.dtsi |   4 +-
- 2 files changed, 110 insertions(+), 38 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 5dd4f3580a60..15b79d26d1c6 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -3,7 +3,9 @@
-  * Copyright (C) STMicroelectronics 2023 - All Rights Reserved
-  * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
-  */
-+#include <dt-bindings/clock/st,stm32mp25-rcc.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/st,stm32mp25-rcc.h>
- 
- / {
- 	#address-cells = <2>;
-@@ -35,34 +37,16 @@ arm_wdt: watchdog {
- 	};
- 
- 	clocks {
--		ck_flexgen_08: ck-flexgen-08 {
-+		clk_dsi_txbyte: txbyteclk {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
--			clock-frequency = <100000000>;
-+			clock-frequency = <0>;
- 		};
- 
--		ck_flexgen_51: ck-flexgen-51 {
-+		clk_rcbsec: clk-rcbsec {
- 			#clock-cells = <0>;
- 			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_ls_mcu: ck-icn-ls-mcu {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_p_vdec: ck-icn-p-vdec {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
--		};
--
--		ck_icn_p_venc: ck-icn-p-venc {
--			#clock-cells = <0>;
--			compatible = "fixed-clock";
--			clock-frequency = <200000000>;
-+			clock-frequency = <64000000>;
- 		};
- 	};
- 
-@@ -134,7 +118,7 @@ usart2: serial@400e0000 {
- 				compatible = "st,stm32h7-uart";
- 				reg = <0x400e0000 0x400>;
- 				interrupts = <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_08>;
-+				clocks = <&rcc CK_KER_USART2>;
- 				status = "disabled";
- 			};
- 
-@@ -143,8 +127,9 @@ sdmmc1: mmc@48220000 {
- 				arm,primecell-periphid = <0x00353180>;
- 				reg = <0x48220000 0x400>, <0x44230400 0x8>;
- 				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_flexgen_51>;
-+				clocks = <&rcc CK_KER_SDMMC1 >;
- 				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC1_R>;
- 				cap-sd-highspeed;
- 				cap-mmc-highspeed;
- 				max-frequency = <120000000>;
-@@ -168,6 +153,93 @@ package_otp@1e8 {
- 			};
- 		};
- 
-+		rcc: clock-controller@44200000 {
-+			compatible = "st,stm32mp25-rcc";
-+			reg = <0x44200000 0x10000>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			clocks = <&scmi_clk CK_SCMI_HSE>,
-+				<&scmi_clk CK_SCMI_HSI>,
-+				<&scmi_clk CK_SCMI_MSI>,
-+				<&scmi_clk CK_SCMI_LSE>,
-+				<&scmi_clk CK_SCMI_LSI>,
-+				<&scmi_clk CK_SCMI_HSE_DIV2>,
-+				<&scmi_clk CK_SCMI_ICN_HS_MCU>,
-+				<&scmi_clk CK_SCMI_ICN_LS_MCU>,
-+				<&scmi_clk CK_SCMI_ICN_SDMMC>,
-+				<&scmi_clk CK_SCMI_ICN_DDR>,
-+				<&scmi_clk CK_SCMI_ICN_DISPLAY>,
-+				<&scmi_clk CK_SCMI_ICN_HSL>,
-+				<&scmi_clk CK_SCMI_ICN_NIC>,
-+				<&scmi_clk CK_SCMI_ICN_VID>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_07>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_08>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_09>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_10>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_11>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_12>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_13>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_14>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_15>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_16>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_17>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_18>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_19>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_20>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_21>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_22>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_23>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_24>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_25>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_26>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_27>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_28>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_29>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_30>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_31>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_32>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_33>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_34>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_35>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_36>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_37>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_38>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_39>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_40>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_41>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_42>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_43>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_44>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_45>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_46>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_47>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_48>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_49>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_50>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_51>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_52>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_53>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_54>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_55>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_56>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_57>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_58>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_59>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_60>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_61>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_62>,
-+				<&scmi_clk CK_SCMI_FLEXGEN_63>,
-+				<&scmi_clk CK_SCMI_ICN_APB1>,
-+				<&scmi_clk CK_SCMI_ICN_APB2>,
-+				<&scmi_clk CK_SCMI_ICN_APB3>,
-+				<&scmi_clk CK_SCMI_ICN_APB4>,
-+				<&scmi_clk CK_SCMI_ICN_APBDBG>,
-+				<&scmi_clk CK_SCMI_TIMG1>,
-+				<&scmi_clk CK_SCMI_TIMG2>,
-+				<&scmi_clk CK_SCMI_PLL3>,
-+				<&clk_dsi_txbyte>;
-+		};
-+
- 		syscfg: syscon@44230000 {
- 			compatible = "st,stm32mp25-syscfg", "syscon";
- 			reg = <0x44230000 0x10000>;
-@@ -186,7 +258,7 @@ gpioa: gpio@44240000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOA>;
- 				st,bank-name = "GPIOA";
- 				status = "disabled";
- 			};
-@@ -197,7 +269,7 @@ gpiob: gpio@44250000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x10000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOB>;
- 				st,bank-name = "GPIOB";
- 				status = "disabled";
- 			};
-@@ -208,7 +280,7 @@ gpioc: gpio@44260000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x20000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOC>;
- 				st,bank-name = "GPIOC";
- 				status = "disabled";
- 			};
-@@ -219,7 +291,7 @@ gpiod: gpio@44270000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x30000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOD>;
- 				st,bank-name = "GPIOD";
- 				status = "disabled";
- 			};
-@@ -230,7 +302,7 @@ gpioe: gpio@44280000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x40000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOE>;
- 				st,bank-name = "GPIOE";
- 				status = "disabled";
- 			};
-@@ -241,7 +313,7 @@ gpiof: gpio@44290000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x50000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOF>;
- 				st,bank-name = "GPIOF";
- 				status = "disabled";
- 			};
-@@ -252,7 +324,7 @@ gpiog: gpio@442a0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x60000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOG>;
- 				st,bank-name = "GPIOG";
- 				status = "disabled";
- 			};
-@@ -263,7 +335,7 @@ gpioh: gpio@442b0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x70000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOH>;
- 				st,bank-name = "GPIOH";
- 				status = "disabled";
- 			};
-@@ -274,7 +346,7 @@ gpioi: gpio@442c0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x80000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOI>;
- 				st,bank-name = "GPIOI";
- 				status = "disabled";
- 			};
-@@ -285,7 +357,7 @@ gpioj: gpio@442d0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0x90000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOJ>;
- 				st,bank-name = "GPIOJ";
- 				status = "disabled";
- 			};
-@@ -296,7 +368,7 @@ gpiok: gpio@442e0000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0xa0000 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOK>;
- 				st,bank-name = "GPIOK";
- 				status = "disabled";
- 			};
-@@ -315,7 +387,7 @@ gpioz: gpio@46200000 {
- 				interrupt-controller;
- 				#interrupt-cells = <2>;
- 				reg = <0 0x400>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
- 				st,bank-name = "GPIOZ";
- 				st,bank-ioport = <11>;
- 				status = "disabled";
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index 17f197c5b22b..d5175a1f339c 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -12,14 +12,14 @@ vdec: vdec@480d0000 {
- 				compatible = "st,stm32mp25-vdec";
- 				reg = <0x480d0000 0x3c8>;
- 				interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_icn_p_vdec>;
-+				clocks = <&rcc CK_BUS_VDEC>;
- 			};
- 
- 			venc: venc@480e0000 {
- 				compatible = "st,stm32mp25-venc";
- 				reg = <0x480e0000 0x800>;
- 				interrupts = <GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&ck_icn_ls_mcu>;
-+				clocks = <&rcc CK_BUS_VENC>;
- 			};
- 		};
- 	};
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCAwNiBGZWIgMjAyNCAwMjoxMjo1NiAtMDUwMCwgQm8gTGl1IHdyb3RlOgo+IFRoZSBt
+YXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlIGlzIGJhc2VkIG9uIGEgbXVjaCBtb3JlIG1vZGVybiBk
+YXRhIHN0cnVjdHVyZQo+IHRoYW4gdGhlIHJidHJlZSBjYWNoZSBhbmQgbWFrZXMgb3B0aW1pc2F0
+aW9uIGNob2ljZXMgd2hpY2ggYXJlIHByb2JhYmx5Cj4gbW9yZSBhcHByb3ByaWF0ZSBmb3IgbW9k
+ZXJuIHN5c3RlbXMgdGhhbiB0aG9zZSBtYWRlIGJ5IHRoZSByYnRyZWUgY2FjaGUuCj4gCj4gQm8g
+TGl1ICgxOCk6Cj4gICBtZmQ6IGFjMTAwOiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lz
+dGVyIGNhY2hlCj4gICBtZmQ6IGFzMzcxMTogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdp
+c3RlciBjYWNoZQo+ICAgbWZkOiBhczM3MjI6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVn
+aXN0ZXIgY2FjaGUKPiAgIG1mZDogYXhwMjB4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJl
+Z2lzdGVyIGNhY2hlCj4gICBtZmQ6IGJjbTU5MHh4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVl
+IHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IGJkOTU3MW13djogY29udmVydCB0byB1c2UgbWFwbGUg
+dHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBkaWFsb2c6IGNvbnZlcnQgdG8gdXNlIG1hcGxl
+IHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1mZDoga2hhZGFzLW1jdTogY29udmVydCB0byB1c2Ug
+bWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBsb2NobmFnYXItaTJjOiBjb252ZXJ0
+IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IHdvbGZzb246IGNvbnZl
+cnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAgIG1mZDogcm9obTogY29udmVy
+dCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiByazh4eDogY29udmVy
+dCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBybjV0NjE4OiBjb252
+ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IHJzbXVfaTJjOiBj
+b252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IHNpNDc2eDog
+Y29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBzdG1meDog
+Y29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQo+ICAgbWZkOiBzdHBtaWMx
+OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCj4gICBtZmQ6IHJjNXQ1
+ODM6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKPiAKPiBbLi4uXQoK
+QXBwbGllZCwgdGhhbmtzIQoKWzAxLzE4XSBtZmQ6IGFjMTAwOiBjb252ZXJ0IHRvIHVzZSBtYXBs
+ZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAgICAgY29tbWl0OiA4NzQ1YTgxYWMyMmY0MmM3MjMz
+ZmJkZGM2YWE1OTIyYjIzMWFhYzJhClswMi8xOF0gbWZkOiBhczM3MTE6IGNvbnZlcnQgdG8gdXNl
+IG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKICAgICAgICBjb21taXQ6IDc4MGIxYWE0NDFhM2Q2
+NGU0MDBjYjJlYTk2YmMzZTE2MjMyMmViMzEKWzAzLzE4XSBtZmQ6IGFzMzcyMjogY29udmVydCB0
+byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQogICAgICAgIGNvbW1pdDogYWVhNWMzY2Jj
+NTFlZWUzYWMyNWZmOGY5MzYyNTI5MDFjNDU0OTAxMQpbMDQvMThdIG1mZDogYXhwMjB4OiBjb252
+ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAgICAgY29tbWl0OiAwMDkw
+NzNkNTA0ZjY3MTQ2ZDkzNmNjNDVmMjFjYzI3YzFiYzE1NDkwClswNS8xOF0gbWZkOiBiY201OTB4
+eDogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQogICAgICAgIGNvbW1p
+dDogNjg0YzFmMGI3OTQxN2NmMDg4MTBkZmQ1N2M1YTU0OWE5NzQxYWQ3YQpbMDYvMThdIG1mZDog
+YmQ5NTcxbXd2OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAg
+ICAgY29tbWl0OiAzNWIxYjg2MjJjYTMxNzJiM2M2YjJhMzc3ZTU5MTNiYWMwMzY3NjM0ClswNy8x
+OF0gbWZkOiBkaWFsb2c6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUK
+ICAgICAgICBjb21taXQ6IDFjYjdhM2JjYTU2YzEyNGNhOWU1YzEzZmNhYzdkZTg4NGMxOTVjNWMK
+WzA4LzE4XSBtZmQ6IGtoYWRhcy1tY3U6IGNvbnZlcnQgdG8gdXNlIG1hcGxlIHRyZWUgcmVnaXN0
+ZXIgY2FjaGUKICAgICAgICBjb21taXQ6IDVmNzM0ZjVmMzc0ZjY4OTYwYWZkMjEzMGE1Y2U5ODI5
+MTJjMTRjMTUKWzA5LzE4XSBtZmQ6IGxvY2huYWdhci1pMmM6IGNvbnZlcnQgdG8gdXNlIG1hcGxl
+IHRyZWUgcmVnaXN0ZXIgY2FjaGUKICAgICAgICBjb21taXQ6IDg4ODE4OTZlMDViNmE5MTI1MWRk
+ZTBjZTIxY2U3OWMyYzIwMTg4OGQKWzEwLzE4XSBtZmQ6IHdvbGZzb246IGNvbnZlcnQgdG8gdXNl
+IG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKICAgICAgICBjb21taXQ6IGYzNTNiMmM2MzllNGY0
+YWM5ODMxZDk0YzgyMzcwMjZjZWJhYThlNzMKWzExLzE4XSBtZmQ6IHJvaG06IGNvbnZlcnQgdG8g
+dXNlIG1hcGxlIHRyZWUgcmVnaXN0ZXIgY2FjaGUKICAgICAgICBjb21taXQ6IGFhYmQzOGYzNzc5
+YjgxMDhiNjVjYzdhZThiNWMyMGE2YzM1MmIwYTIKWzEyLzE4XSBtZmQ6IHJrOHh4OiBjb252ZXJ0
+IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAgICAgY29tbWl0OiAwOGFhMWU3
+OTdhNWNjOTdkMjEwNjQ3NjI2M2Y5MzgzNDJlNzIwMTVlClsxMy8xOF0gbWZkOiBybjV0NjE4OiBj
+b252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAgICAgY29tbWl0OiBh
+MDExY2FjYjYzYzNmZjY1NjJiZDg2YWZhZThjZGQ0OWQwZjA3NWM5ClsxNC8xOF0gbWZkOiByc211
+X2kyYzogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQogICAgICAgIGNv
+bW1pdDogYjg1ODIxY2VjZGY5MzM0MjBhNmJhOTM2NThlMWU0NzEwNjQ0ZjVjMQpbMTUvMThdIG1m
+ZDogc2k0NzZ4OiBjb252ZXJ0IHRvIHVzZSBtYXBsZSB0cmVlIHJlZ2lzdGVyIGNhY2hlCiAgICAg
+ICAgY29tbWl0OiAwMzA0NzM4NzFjM2Y0ZjEyNmJkNDMwMTg1MTdhYmZjYjA3MGY2Yjk1ClsxNi8x
+OF0gbWZkOiBzdG1meDogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBjYWNoZQog
+ICAgICAgIGNvbW1pdDogODdhNDhlMzVjZTJlZjk5MjI4N2I4MjhiMTI2OGJlZGM3NDE1ZDJkZQpb
+MTcvMThdIG1mZDogc3RwbWljMTogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdpc3RlciBj
+YWNoZQogICAgICAgIGNvbW1pdDogYWI5OTNkMmQ2ODk1MWRiM2ViZmVhYTQ0NTY3YTc5MGVjNTY2
+NTI2ZApbMTgvMThdIG1mZDogcmM1dDU4MzogY29udmVydCB0byB1c2UgbWFwbGUgdHJlZSByZWdp
+c3RlciBjYWNoZQogICAgICAgIGNvbW1pdDogZDUxMzJkMTc2ZDZmMjE3NDJhYzY3ZmQzMTFjY2M2
+MWZlODMwZTk5OQoKLS0KTGVlIEpvbmVzIFvmnY7nkLzmlq9dCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
+dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
