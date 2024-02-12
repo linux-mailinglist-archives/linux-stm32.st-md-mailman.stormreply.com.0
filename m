@@ -2,50 +2,38 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1376E8510DC
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Feb 2024 11:30:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559E7851234
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Feb 2024 12:27:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8600C6C83C;
-	Mon, 12 Feb 2024 10:30:29 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33989C65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 047AFC6C83C;
+	Mon, 12 Feb 2024 11:27:20 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91D91C65E4F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Feb 2024 10:30:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id DE45860EEB;
- Mon, 12 Feb 2024 10:30:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 827E8C433F1;
- Mon, 12 Feb 2024 10:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707733826;
- bh=mdLN9Mi0jBOEC7J635BO3YYQtUbzRw+yuJA/UGXvjgo=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=t9aVtuRR0a0TBp4xR3gWY2JNWvBFEPf6a1e9Hxup7PNiU62kxaMhHI7RZP9C+0mX/
- uOd9BVQszU0WONCEVh2W2bitnRC+WRrNdmRMqt/rkqc+hRi8pPkz4XEQ+qsFdSABH7
- BNCxxMYwUOKN1NLLFexIT+Jost3iPqqwhhavUJaXnIoTnKvhfwa1k1oWwajGD42Kvb
- uTBkgW1iIxFT5W8FKvC9SR1ovNf41PcMDUdd9XX3CBYy9ZOiJCuEDH6JdovOYedFgM
- QHNtYg4FIBrArbHy4bjOb0kAXnytrGumAMYG0ADtpEqdvN17KpsuQkXsO6iW1QMkFv
- uH3/9JRK7XSjg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 63CABD84BC3; Mon, 12 Feb 2024 10:30:26 +0000 (UTC)
+ Mon, 12 Feb 2024 11:27:18 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6320FDA7;
+ Mon, 12 Feb 2024 03:27:59 -0800 (PST)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com
+ [10.1.197.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6C2663F762;
+ Mon, 12 Feb 2024 03:27:16 -0800 (PST)
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: coresight@lists.linaro.org,
+	James Clark <james.clark@arm.com>
+Date: Mon, 12 Feb 2024 11:27:11 +0000
+Message-Id: <170773625002.2157180.1032311578975893182.b4-ty@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231123120459.287578-1-james.clark@arm.com>
+References: <20231123120459.287578-1-james.clark@arm.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170773382640.15535.14931143276870991018.git-patchwork-notify@kernel.org>
-Date: Mon, 12 Feb 2024 10:30:26 +0000
-References: <20240208231145.2732931-1-quic_abchauha@quicinc.com>
-In-Reply-To: <20240208231145.2732931-1-quic_abchauha@quicinc.com>
-To: Abhishek Chauhan <quic_abchauha@quicinc.com>
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
- joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, quic_jjohnson@quicinc.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org, ahalaney@redhat.com
-Subject: Re: [Linux-stm32] [PATCH net-next v4] net: stmmac:
- dwmac-qcom-ethqos: Enable TBS on all queues but 0
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH v3 0/4] coresight: Make current W=1
+	warnings default
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,33 +50,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Thu,  8 Feb 2024 15:11:45 -0800 you wrote:
-> TSO and TBS cannot co-exist. TBS requires special descriptor to be
-> allocated at bootup. Initialising Tx queues at probe to support
-> TSO and TBS can help in allocating those resources at bootup.
+On Thu, 23 Nov 2023 12:04:55 +0000, James Clark wrote:
+> Changes since v2:
 > 
-> TX queues with TBS can support etf qdisc hw offload.
-> 
-> This is similar to the patch raised by NXP
-> commit 3b12ec8f618e ("net: stmmac: dwmac-imx: set TSO/TBS TX queues default settings")
+>   * Split code and Makefile changes
+>   * Add a fix for a comment warning in etm3x
+>   * Add some sparse checker fixes in coresight-cfg-afdo.c
+>   * Fix the 0 instead of NULL warnings reported by kernel test robot
 > 
 > [...]
 
-Here is the summary with links:
-  - [net-next,v4] net: stmmac: dwmac-qcom-ethqos: Enable TBS on all queues but 0
-    https://git.kernel.org/netdev/net-next/c/0918c1dcd55c
+Now moved to coresight next branch, thanks!
 
-You are awesome, thank you!
+[1/4] coresight: Fix uninitialized struct warnings
+      https://git.kernel.org/coresight/c/8a519235c3c3
+[2/4] coresight: etm3x: Fix build warning
+      https://git.kernel.org/coresight/c/54daf07e6332
+[3/4] coresight: Fix undeclared variable warnings from sparse checker
+      https://git.kernel.org/coresight/c/a7195f3f9383
+[4/4] coresight: Make current W=1 warnings default
+      https://git.kernel.org/coresight/c/d999c7dd5279
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Suzuki K Poulose <suzuki.poulose@arm.com>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
