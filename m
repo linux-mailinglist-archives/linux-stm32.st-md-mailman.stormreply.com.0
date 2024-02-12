@@ -2,36 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A296C850F77
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Feb 2024 10:14:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8048385103E
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Feb 2024 11:03:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B181C6C83C;
-	Mon, 12 Feb 2024 09:14:48 +0000 (UTC)
-Received: from laurent.telenet-ops.be (laurent.telenet-ops.be [195.130.137.89])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19911C6C83C;
+	Mon, 12 Feb 2024 10:03:22 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF625C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CA79C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Feb 2024 09:14:47 +0000 (UTC)
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed40:47b8:b872:d87c:512])
- by laurent.telenet-ops.be with bizsmtp
- id m9En2B0011wMtyi019EnmE; Mon, 12 Feb 2024 10:14:47 +0100
-Received: from geert (helo=localhost)
- by ramsan.of.borg with local-esmtp (Exim 4.95)
- (envelope-from <geert@linux-m68k.org>) id 1rZSOk-000VTv-Ud;
- Mon, 12 Feb 2024 10:14:46 +0100
-Date: Mon, 12 Feb 2024 10:14:46 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: linux-kernel@vger.kernel.org
-In-Reply-To: <20240212090741.3249554-1-geert@linux-m68k.org>
-Message-ID: <8bc564c7-a9e8-e491-6cf2-808875c2d334@linux-m68k.org>
-References: <CAHk-=wg1c4Q1Ve6BG71DikHu-AEoKUUQoj1QbVdjwGQyTExqCw@mail.gmail.com>
- <20240212090741.3249554-1-geert@linux-m68k.org>
+ Mon, 12 Feb 2024 10:03:20 +0000 (UTC)
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41C7sVo4016307; Mon, 12 Feb 2024 04:02:21 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=PODMain02222019; bh=WLF2X+j3Bn92Q1D
+ DaV05/unswsO5ahBS+1WWPqaApW4=; b=LWzQNVJn8q7dcq0Bd+TtMxT1lIBoGiw
+ yD0TsejCsoABuy8AggRDJW06Q1z2xJlky/ztkU9ADIkffObtOL0UuCQv3Beh4nhA
+ Put6Ypu2vVivviEJ6Oil+cEfW1Q27QM+O9ltZ623dvQO4anhr/dZNovMzxP3lw+a
+ LhOj5jub+y3fjAvlvXTHjliMbTrYlMFuhJHFxHorIs5Vl5GjaGvKHU61HqyF2Ni8
+ oMyxoPUphkMgU1KFNxi+kfuEZzYoo4jyVm3Qy64lf8Glce+CGjlLDllqFwliGFC9
+ RTpYBk2a8X7avMhCql6FZ7NmoU/tVg544Z1TluPmt36M8g8y3w06Uow==
+Received: from ediex02.ad.cirrus.com ([84.19.233.68])
+ by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 3w67e21nee-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 12 Feb 2024 04:02:21 -0600 (CST)
+Received: from ediex02.ad.cirrus.com (198.61.84.81) by ediex02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 12 Feb
+ 2024 10:02:18 +0000
+Received: from ediswmail9.ad.cirrus.com (198.61.86.93) by
+ anon-ediex02.ad.cirrus.com (198.61.84.81) with Microsoft SMTP Server id
+ 15.2.1118.40 via Frontend Transport; Mon, 12 Feb 2024 10:02:18 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
+ [198.61.86.93])
+ by ediswmail9.ad.cirrus.com (Postfix) with ESMTPS id 70E1F820242;
+ Mon, 12 Feb 2024 10:02:18 +0000 (UTC)
+Date: Mon, 12 Feb 2024 10:02:17 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <ZcnsqaIftZXcNaUA@ediswmail9.ad.cirrus.com>
+References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-Cc: sparclinux@vger.kernel.org, netdev@vger.kernel.org,
- linux-sh@vger.kernel.org, Furong Xu <0x1207@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] Build regressions/improvements in v6.8-rc4
+Content-Disposition: inline
+In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+X-Proofpoint-ORIG-GUID: NzDJLMtFiatrdGDskmwX3IMPmG4MYizJ
+X-Proofpoint-GUID: NzDJLMtFiatrdGDskmwX3IMPmG4MYizJ
+X-Proofpoint-Spam-Reason: safe
+Cc: Nishanth Menon <nm@ti.com>, Peng Fan <peng.fan@nxp.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, alsa-devel@alsa-project.org,
+ Jaroslav
+ Kysela <perex@perex.cz>, Thierry Reding <thierry.reding@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Laurent
+ Pinchart <laurent.pinchart@ideasonboard.com>, linux-phy@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-omap@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Jonathan Hunter <jonathanh@nvidia.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Sudeep Holla <sudeep.holla@arm.com>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
+ argument of of_clk_provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -43,48 +85,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 12 Feb 2024, Geert Uytterhoeven wrote:
-> JFYI, when comparing v6.8-rc4[1] to v6.8-rc3[3], the summaries are:
->  - build errors: +5/-18
+On Thu, Feb 08, 2024 at 05:37:10PM +0100, Krzysztof Kozlowski wrote:
+> None of the implementations of the get() and get_hw() callbacks of
+> "struct of_clk_provider" modify the contents of received of_phandle_args
+> pointer.  They treat it as read-only variable used to find the clock to
+> return.  Make obvious that implementations are not supposed to modify
+> the of_phandle_args, by making it a pointer to const.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> ---
+>  drivers/clk/clk-lochnagar.c                   |  2 +-
 
-   + /kisskb/src/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c: error: initializer element is not constant:  => 850:21, 845:20, 867:21, 838:20, 858:20, 849:21, 836:20, 856:20, 861:20, 863:21, 840:20, 864:21, 848:21, 855:20, 859:20, 839:20, 862:21, 846:21, 852:20, 865:21, 847:21, 854:20, 853:20, 851:21, 866:21, 844:20, 842:20, 837:20, 857:20, 860:20, 841:20, 843:20
+For the Lochnagar bits:
 
-arm64-gcc5/arm64-allmodconfig
-mipsel-gcc5/mips-defconfig
-powerpc-gcc5/powerpc-all{mod,yes}config
-powerpc-gcc5/{ppc32,ppc64_book3e,ppc64le}_allmodconfig
-sparc64-gcc5/sparc-allmodconfig
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-I.e. gcc5.
-
-   + /kisskb/src/drivers/sbus/char/bbc_envctrl.c: error: no previous prototype for 'bbc_envctrl_cleanup' [-Werror=missing-prototypes]:  => 594:6
-   + /kisskb/src/drivers/sbus/char/bbc_envctrl.c: error: no previous prototype for 'bbc_envctrl_init' [-Werror=missing-prototypes]:  => 566:5
-
-sparc64-gcc12/sparc64-allmodconfig
-
-   + {standard input}: Error: invalid operands for opcode: 935 => 940, 606
-   + {standard input}: Error: missing operand: 935 => 940, 606
-
-SH ICE crickets
-
-> [1] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/841c35169323cd833294798e58b9bf63fa4fa1de/ (238 out of 239 configs)
-> [3] http://kisskb.ellerman.id.au/kisskb/branch/linus/head/54be6c6c5ae8e0d93a6c4641cb7528eb0b6ba478/ (238 out of 239 configs)
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
+Thanks,
+Charles
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
