@@ -2,41 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D06168527A7
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 04:13:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EBBC85297C
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 07:58:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76D17C6C83D;
-	Tue, 13 Feb 2024 03:13:49 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D333DC6C83C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0FC5C6C83D;
+	Tue, 13 Feb 2024 06:58:03 +0000 (UTC)
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97AA0C6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 03:13:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B30DDA7;
- Mon, 12 Feb 2024 19:14:28 -0800 (PST)
-Received: from [10.162.41.8] (a077893.blr.arm.com [10.162.41.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 164D33F5A1;
- Mon, 12 Feb 2024 19:13:42 -0800 (PST)
-Message-ID: <0c65f3b0-a879-444c-b0a4-4af485e72166@arm.com>
-Date: Tue, 13 Feb 2024 08:43:39 +0530
+ Mon, 12 Feb 2024 15:43:55 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id 0FA9D240107
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Feb 2024 16:43:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.net; s=2017;
+ t=1707752635; bh=cvVTOC2X+05hH/d+YZ7aGeqiZdF4zt9gjMio55/9LC4=;
+ h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:
+ Content-Transfer-Encoding:From;
+ b=gS7lHoVJUa0+Vm69TgFx8bQbHOMKrApMNLk50nRR5YKcltNl9p2WPpkRzIZBLSmgy
+ TcPH++Wrv2nXZ05XQJGb/1mLvdTFTp3jXsPHtXtvmYYFirOILan5cOIjBNF7iRHWNY
+ NdK4aCwNusOr+zjBR1X/x4IHHgJ9MISW84+OyT+mwB+u2o83lqbf4A+h5WWRhlRgI3
+ sFW/NFlD13d7e7TEmnBpclZI/oVOcHvnUkvptcRsr0iILO8U4eVQUmeP04l3r6XFQ/
+ VXtO+Psw3XN3H31Sp3IvNLmThZY/FiQoIu4/lkfJAHnuh3AkIzrZhfiTRZ3NZof0Ng
+ 55go2bntVoIqg==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4TYTJl4Z3Dz6txm;
+ Mon, 12 Feb 2024 16:43:51 +0100 (CET)
+From: Mark O'Donovan <shiftee@posteo.net>
+To: linux-kernel@vger.kernel.org
+Date: Mon, 12 Feb 2024 15:43:19 +0000
+Message-Id: <20240212154319.907447-1-shiftee@posteo.net>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
- <20240123054608.1790189-4-anshuman.khandual@arm.com>
- <44597c9a-79bd-40f8-87a7-b53582132583@arm.com>
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <44597c9a-79bd-40f8-87a7-b53582132583@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V4 03/11] coresight: tmc: Extract device
- properties from AMBA pid based table lookup
+X-Mailman-Approved-At: Tue, 13 Feb 2024 06:58:03 +0000
+Cc: Mark O'Donovan <shiftee@posteo.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: xgmac: fix initializer element
+	is not constant error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,83 +53,44 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyLzEyLzI0IDE3OjQzLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDIzLzAxLzIw
-MjQgMDU6NDYsIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+PiBUaGlzIGV4dHJhY3RzIGRldmlj
-ZSBwcm9wZXJ0aWVzIGZyb20gQU1CQSBwaWQgYmFzZWQgdGFibGUgbG9va3VwLiBUaGlzIGFsc28K
-Pj4gZGVmZXJzIHRtY19ldHJfc2V0dXBfY2FwcygpIGFmdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNl
-IGhhcyBiZWVuIGluaXRpYWxpemVkCj4+IHNvIHRoYXQgUElEIHZhbHVlIGNhbiBiZSByZWFkLgo+
-Pgo+PiBDYzogU3V6dWtpIEsgUG91bG9zZSA8c3V6dWtpLnBvdWxvc2VAYXJtLmNvbT4KPj4gQ2M6
-IE1pa2UgTGVhY2ggPG1pa2UubGVhY2hAbGluYXJvLm9yZz4KPj4gQ2M6IEphbWVzIENsYXJrIDxq
-YW1lcy5jbGFya0Bhcm0uY29tPgo+PiBDYzogY29yZXNpZ2h0QGxpc3RzLmxpbmFyby5vcmcKPj4g
-Q2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+PiBDYzogbGludXgta2Vy
-bmVsQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5OiBBbnNodW1hbiBLaGFuZHVhbCA8
-YW5zaHVtYW4ua2hhbmR1YWxAYXJtLmNvbT4KPj4gLS0tCj4+IMKgIC4uLi9od3RyYWNpbmcvY29y
-ZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jwqAgfCAxOSArKysrKysrKysrKysrLS0tLS0tCj4+
-IMKgIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+Pgo+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMt
-Y29yZS5jIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5j
-Cj4+IGluZGV4IDdlYzUzNjVlMmI2NC4uZTcxZGIzMDk5YTI5IDEwMDY0NAo+PiAtLS0gYS9kcml2
-ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3JlLmMKPj4gKysrIGIvZHJp
-dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jCj4+IEBAIC0zNzAs
-MTYgKzM3MCwyNCBAQCBzdGF0aWMgaW5saW5lIGJvb2wgdG1jX2V0cl9oYXNfbm9uX3NlY3VyZV9h
-Y2Nlc3Moc3RydWN0IHRtY19kcnZkYXRhICpkcnZkYXRhKQo+PiDCoMKgwqDCoMKgIHJldHVybiAo
-YXV0aCAmIFRNQ19BVVRIX05TSURfTUFTSykgPT0gMHgzOwo+PiDCoCB9Cj4+IMKgICsjZGVmaW5l
-IFRNQ19BTUJBX01BU0sgMHhmZmZmZgo+PiArCj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGFtYmFf
-aWQgdG1jX2lkc1tdOwo+PiArCj4+IMKgIC8qIERldGVjdCBhbmQgaW5pdGlhbGlzZSB0aGUgY2Fw
-YWJpbGl0aWVzIG9mIGEgVE1DIEVUUiAqLwo+PiAtc3RhdGljIGludCB0bWNfZXRyX3NldHVwX2Nh
-cHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIgZGV2aWQsIHZvaWQgKmRldl9jYXBzKQo+PiAr
-c3RhdGljIGludCB0bWNfZXRyX3NldHVwX2NhcHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIg
-ZGV2aWQpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBpbnQgcmM7Cj4+IC3CoMKgwqAgdTMyIGRtYV9t
-YXNrID0gMDsKPj4gK8KgwqDCoCB1MzIgdG1jX3BpZCwgZG1hX21hc2sgPSAwOwo+PiDCoMKgwqDC
-oMKgIHN0cnVjdCB0bWNfZHJ2ZGF0YSAqZHJ2ZGF0YSA9IGRldl9nZXRfZHJ2ZGF0YShwYXJlbnQp
-Owo+PiArwqDCoMKgIHZvaWQgKmRldl9jYXBzOwo+PiDCoCDCoMKgwqDCoMKgIGlmICghdG1jX2V0
-cl9oYXNfbm9uX3NlY3VyZV9hY2Nlc3MoZHJ2ZGF0YSkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBy
-ZXR1cm4gLUVBQ0NFUzsKPj4gwqAgK8KgwqDCoCB0bWNfcGlkID0gY29yZXNpZ2h0X2dldF9waWQo
-JmRydmRhdGEtPmNzZGV2LT5hY2Nlc3MpICYgVE1DX0FNQkFfTUFTSzsKPj4gK8KgwqDCoCBkZXZf
-Y2FwcyA9IGNvcmVzaWdodF9nZXRfdWNpX2RhdGFfZnJvbV9hbWJhKHRtY19pZHMsIHRtY19waWQp
-Owo+PiArCj4+IMKgwqDCoMKgwqAgLyogU2V0IHRoZSB1bmFkdmVydGlzZWQgY2FwYWJpbGl0aWVz
-ICovCj4+IMKgwqDCoMKgwqAgdG1jX2V0cl9pbml0X2NhcHMoZHJ2ZGF0YSwgKHUzMikodW5zaWdu
-ZWQgbG9uZylkZXZfY2Fwcyk7Cj4+IMKgIEBAIC00OTcsMTAgKzUwNSw2IEBAIHN0YXRpYyBpbnQg
-dG1jX3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAqYWRldiwgY29uc3Qgc3RydWN0IGFtYmFfaWQg
-KmlkKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGVzYy50eXBlID0gQ09SRVNJR0hUX0RFVl9UWVBF
-X1NJTks7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBkZXNjLnN1YnR5cGUuc2lua19zdWJ0eXBlID0g
-Q09SRVNJR0hUX0RFVl9TVUJUWVBFX1NJTktfU1lTTUVNOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZGVzYy5vcHMgPSAmdG1jX2V0cl9jc19vcHM7Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSB0bWNf
-ZXRyX3NldHVwX2NhcHMoZGV2LCBkZXZpZCwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgY29yZXNpZ2h0X2dldF91Y2lfZGF0YShpZCkpOwo+PiAtwqDCoMKgwqDC
-oMKgwqAgaWYgKHJldCkKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBvdXQ7Cj4+IMKg
-wqDCoMKgwqDCoMKgwqDCoCBpZHJfaW5pdCgmZHJ2ZGF0YS0+aWRyKTsKPj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIG11dGV4X2luaXQoJmRydmRhdGEtPmlkcl9tdXRleCk7Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCBkZXZfbGlzdCA9ICZldHJfZGV2czsKPj4gQEAgLTUzOSw2ICs1NDMsOSBAQCBzdGF0aWMg
-aW50IHRtY19wcm9iZShzdHJ1Y3QgYW1iYV9kZXZpY2UgKmFkZXYsIGNvbnN0IHN0cnVjdCBhbWJh
-X2lkICppZCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gb3V0Owo+PiDCoMKgwqDCoMKgIH0K
-Pj4gwqAgK8KgwqDCoCBpZiAoZHJ2ZGF0YS0+Y29uZmlnX3R5cGUgPT0gVE1DX0NPTkZJR19UWVBF
-X0VUUikKPj4gK8KgwqDCoMKgwqDCoMKgIHJldCA9IHRtY19ldHJfc2V0dXBfY2FwcyhkZXYsIGRl
-dmlkKTsKPj4gKwo+IAo+IFdpdGggdGhpcyBjaGFuZ2UsIHdlIHNpbGVudGx5IGFjY2VwdCBhbiBF
-VFIgdGhhdCBtYXkgb25seSBoYXZlICJTRUNVUkUiIGFjY2VzcyBvbmx5IGFuZCBjcmFzaCBsYXRl
-ciB3aGlsZSB3ZSB0cnkgdG8gZW5hYmxlIHRyYWNpbmcuIFlvdSBjb3VsZAo+IHBhc3MgaW4gdGhl
-ICJhY2Nlc3MiICh3aGljaCBpcyBhbHJlYWR5IGluICdkZXNjLmFjY2VzcycgaW4gdGhlIG9yaWdp
-bmFsCj4gY2FsbCBzaXRlIGFuZCBkZWFsIHdpdGggaXQgPwoKSnVzdCB3b25kZXJpbmcsIGlmIHNv
-bWV0aGluZyBsaWtlIHRoZSBmb2xsb3dpbmcgd2lsbCBoZWxwID8gQSBmYWlsZWQgdG1jX2V0cl9z
-ZXR1cF9jYXBzKCkKYmVjYXVzZSBvZiBmYWlsZWQgdG1jX2V0cl9oYXNfbm9uX3NlY3VyZV9hY2Nl
-c3MoKSwgd2lsbCB1bnJlZ2lzdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNlCmJlZm9yZSByZXR1cm5p
-bmcuCgotLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3Jl
-LmMKKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5j
-CkBAIC01MzgsOCArNTM4LDEzIEBAIHN0YXRpYyBpbnQgX190bWNfcHJvYmUoc3RydWN0IGRldmlj
-ZSAqZGV2LCBzdHJ1Y3QgcmVzb3VyY2UgKnJlcykKICAgICAgICAgICAgICAgIGdvdG8gb3V0Owog
-ICAgICAgIH0KIAotICAgICAgIGlmIChkcnZkYXRhLT5jb25maWdfdHlwZSA9PSBUTUNfQ09ORklH
-X1RZUEVfRVRSKQorICAgICAgIGlmIChkcnZkYXRhLT5jb25maWdfdHlwZSA9PSBUTUNfQ09ORklH
-X1RZUEVfRVRSKSB7CiAgICAgICAgICAgICAgICByZXQgPSB0bWNfZXRyX3NldHVwX2NhcHMoZGV2
-LCBkZXZpZCk7CisgICAgICAgICAgICAgICBpZiAocmV0KSB7CisgICAgICAgICAgICAgICAgICAg
-ICAgIGNvcmVzaWdodF91bnJlZ2lzdGVyKGRydmRhdGEtPmNzZGV2KTsKKyAgICAgICAgICAgICAg
-ICAgICAgICAgZ290byBvdXQ7CisgICAgICAgICAgICAgICB9CisgICAgICAgfQogCiAgICAgICAg
-ZHJ2ZGF0YS0+bWlzY2Rldi5uYW1lID0gZGVzYy5uYW1lOwogICAgICAgIGRydmRhdGEtPm1pc2Nk
-ZXYubWlub3IgPSBNSVNDX0RZTkFNSUNfTUlOT1I7Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+GCC prior to 8.x gives an "initializer element is not constant"
+error for the uses of dpp_tx_err in dwxgmac3_dma_dpp_errors.
+Newer compilers accept either version.
+
+More info here:
+https://lore.kernel.org/all/20240103-fix-bq24190_charger-vbus_desc-non-const-v1-1-115ddf798c70@kernel.org
+
+Signed-off-by: Mark O'Donovan <shiftee@posteo.net>
+---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 323c57f03c93..c02c035b81c0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -830,8 +830,8 @@ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+ 	{ false, "UNKNOWN", "Unknown Error" }, /* 31 */
+ };
+ 
+-static const char * const dpp_rx_err = "Read Rx Descriptor Parity checker Error";
+-static const char * const dpp_tx_err = "Read Tx Descriptor Parity checker Error";
++#define dpp_rx_err "Read Rx Descriptor Parity checker Error"
++#define dpp_tx_err "Read Tx Descriptor Parity checker Error"
+ static const struct dwxgmac3_error_desc dwxgmac3_dma_dpp_errors[32] = {
+ 	{ true, "TDPES0", dpp_tx_err },
+ 	{ true, "TDPES1", dpp_tx_err },
+
+base-commit: 841c35169323cd833294798e58b9bf63fa4fa1de
+-- 
+2.39.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
