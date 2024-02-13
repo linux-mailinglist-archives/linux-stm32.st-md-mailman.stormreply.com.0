@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8785D852679
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 02:30:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8B08526BA
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 02:40:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CAF5C6C83D;
-	Tue, 13 Feb 2024 01:30:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3122C6C83D;
+	Tue, 13 Feb 2024 01:40:29 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 066ECC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1ED4C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 01:30:19 +0000 (UTC)
+ Tue, 13 Feb 2024 01:40:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id CBEC9CE18C3;
- Tue, 13 Feb 2024 01:30:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808CDC433C7;
- Tue, 13 Feb 2024 01:30:16 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id EFD2CCE18E7;
+ Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 31713C433C7;
+ Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707787817;
- bh=JdTHedcxVO15s3B4sRid8zTpEzYkN8lo7pBe02dMOIA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=f7FzUXFTQaQH8sST/82MCPpBjozyaFswVdXgob1DuM96d49GvcQ8wdCMwWZLzkxgb
- UJgmMIkE6HmuBTiwWJJ6jbHzUIBgH/uaV2/oVNOH4xgI1gpyjHC1FKtodkkM88NPb5
- LyLBx4QyM/e4GbXQ9l/97+7UnUSKW79+3X60suDirIZ49zHBqCVf9kc5JZJbMEEuBU
- lj1FTyIPXxlSxynmRWq9W8yZkHNr8N0DDAMX7DKO/qDNJnO27yCwoSnhWfXInum8fD
- dpSzPJHVFS8eWxVFGFi/KxHI9rP3OGCCxyjAQig1Jl5af3KmOGPZSpKo/QKejms+s5
- N9fniz4acy2nQ==
-Date: Mon, 12 Feb 2024 17:30:15 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sneh Shah <quic_snehshah@quicinc.com>
-Message-ID: <20240212173015.0341f0ee@kernel.org>
-In-Reply-To: <20240208111714.11456-1-quic_snehshah@quicinc.com>
-References: <20240208111714.11456-1-quic_snehshah@quicinc.com>
+ s=k20201202; t=1707788426;
+ bh=C7XIxg2//9H9lNyyL4lVnFIE3rkFS9Y7qI8j3SBXhMY=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=CweQf6meCbweoJAM0Jm8E32JxjtvvfbRFeSGess8IGVjuSH/MWw5bTo+Nd/wams88
+ ek/Mb8hL8gnhB92iQAg3F8GPwXy046WZ6FIJoffiKQ4Xei4EGm0MuiwaEKKAZFA98T
+ Cr9pH7x0gwOEFOe0Mp9jz3Pky6uTDTZqprDDeXwtOT9GOTbQXBKTwty3gNbvrMTLmY
+ 83ZT4Z7PXJEcXz+rPfyrUBlX/kBhO0LnZ4rs6d1OdUdj2vRsru8kBX6ikPMMNZdVmW
+ Un+hZbI886lyEOlyMS9W1LRuOBTC0jUKnlnUCfmY88guD7CvsZznKUqvrTFm9qSm9U
+ 0lt7L9c/WLUKg==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 17A84D84BC6; Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
 MIME-Version: 1.0
-Cc: kernel@quicinc.com, linux-kernel@vger.kernel.org,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-arm-msm@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v4] net: stmmac:
- dwmac-qcom-ethqos: Add support for 2.5G SGMII
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <170778842609.15795.7467205079881432963.git-patchwork-notify@kernel.org>
+Date: Tue, 13 Feb 2024 01:40:26 +0000
+References: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
+In-Reply-To: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
+To: Simon Horman <horms@kernel.org>
+Cc: jonathanh@nvidia.com, lkp@intel.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, fancer.lancer@gmail.com,
+ 0x1207@gmail.com, edumazet@google.com, joabreu@synopsys.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: use #define for
+	string constants
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,40 +62,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu,  8 Feb 2024 16:47:14 +0530 Sneh Shah wrote:
-> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
-> mode for 1G/100M/10M speed.
-> Added changes to configure serdes phy and mac based on link speed.
-> Changing serdes phy speed involves multiple register writes for
-> serdes block. To avoid redundant write operations only update serdes
-> phy when new speed is different.
+Hello:
 
-Sounds like 2 separate changes in one patch, please split the
-optimization of not writing the registers multiple times and
-the 2.5G support.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 31631e3f89d0..6bbdbb7bef44 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -106,6 +106,7 @@ struct qcom_ethqos {
->  	struct clk *link_clk;
->  	struct phy *serdes_phy;
->  	unsigned int speed;
-> +	int serdes_speed;
+On Thu, 08 Feb 2024 09:48:27 +0000 you wrote:
+> The cited commit introduces and uses the string constants dpp_tx_err and
+> dpp_rx_err. These are assigned to constant fields of the array
+> dwxgmac3_error_desc.
+> 
+> It has been reported that on GCC 6 and 7.5.0 this results in warnings
+> such as:
+> 
+> [...]
 
-Why signed if speed itself is unsigned?
+Here is the summary with links:
+  - [net] net: stmmac: xgmac: use #define for string constants
+    https://git.kernel.org/netdev/net/c/1692b9775e74
 
->  	/* Enable and restart the Auto-Negotiation */
->  	if (ane)
->  		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-> +	else
-> +		value &= ~GMAC_AN_CTRL_ANE;
-
-That looks unrelated. Either a separate patch or please explain in the
-commit msg why.
+You are awesome, thank you!
 -- 
-pw-bot: cr
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
