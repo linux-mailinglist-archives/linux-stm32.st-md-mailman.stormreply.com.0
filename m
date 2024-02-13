@@ -2,42 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9BFF8541C7
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 04:35:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8060D85431D
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 07:55:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D1F3C6DD69;
-	Wed, 14 Feb 2024 03:35:37 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8724DC65E42
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AD24C6DD69;
+	Wed, 14 Feb 2024 06:55:28 +0000 (UTC)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E07F8C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 03:35:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF43F1FB;
- Tue, 13 Feb 2024 19:36:15 -0800 (PST)
-Received: from [10.163.45.99] (unknown [10.163.45.99])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 546EE3F766;
- Tue, 13 Feb 2024 19:35:31 -0800 (PST)
-Message-ID: <14d4c862-0880-408c-bc4e-5047c7eace87@arm.com>
-Date: Wed, 14 Feb 2024 09:05:29 +0530
+ Tue, 13 Feb 2024 22:45:36 +0000 (UTC)
+Received: from heihei.fritz.box
+ (ppp14-2-125-29.adl-apt-pir-bras32.tpg.internode.on.net [14.2.125.29])
+ by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 9AC79201BD;
+ Wed, 14 Feb 2024 06:45:20 +0800 (AWST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=codeconstruct.com.au; s=2022a; t=1707864333;
+ bh=rroNdU9BVPUWE5wDt+3REaeJt2znsw1CC54JRzmWpmY=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References;
+ b=KHU+A3iT+rXyEDnXx+5mY8gdyPd9RWW+IqjkatculYf0WMU9pEWV3lRQCkTDA0EzI
+ xaQRdVv6ONl5bSVVt+LS/QHv9KXR0YT+wOKEzHEk6ENorzt6peBUrGxgmVVbj1w/iy
+ 1HjnEw+ZCd2iWua115sYd63cgh4PNaf4kwKyTyoar7mOLyZhESbJxdxIq+yzZzyaNX
+ SW0fRRSQjx4ywPBzEZtsbYSOEQ+k4WVQplTD0W2lni1ygtrlTWCGNAeTjZ9xaf0EWM
+ Dto/KMIkfYa0O5HKCg8KnOdWszlCAKyfH/kkPoEvmSP1qCSUbu5pEXrDsZ9ADFy8aH
+ cV53xTq95Tecw==
+Message-ID: <9a67cee101e7e15d5e70553e3929ee2fbd480c1f.camel@codeconstruct.com.au>
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Rob Herring <robh@kernel.org>, soc@kernel.org, Shawn Guo
+ <shawnguo@kernel.org>,  Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,  Conor Dooley
+ <conor+dt@kernel.org>, Tsahee Zidenberg <tsahee@annapurnalabs.com>, Antoine
+ Tenart <atenart@kernel.org>, Joel Stanley <joel@jms.id.au>, Ray Jui
+ <rjui@broadcom.com>,  Scott Branden <sbranden@broadcom.com>, Broadcom
+ internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrew
+ Lunn <andrew@lunn.ch>,  Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,  Jonathan
+ =?ISO-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>, Thierry Reding
+ <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, Stefan
+ Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,  =?ISO-8859-1?Q?Beno=EEt?=
+ Cousson <bcousson@baylibre.com>, Tony Lindgren <tony@atomide.com>, Chanho
+ Min <chanho.min@lge.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+ <magnus.damm@gmail.com>, Linus Walleij <linusw@kernel.org>, Imre Kaloz
+ <kaloz@openwrt.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konrad.dybcio@linaro.org>, Masahiro Yamada <masahiroy@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>
+Date: Wed, 14 Feb 2024 09:15:14 +1030
+In-Reply-To: <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
+References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+ <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
- <20240123054608.1790189-4-anshuman.khandual@arm.com>
- <44597c9a-79bd-40f8-87a7-b53582132583@arm.com>
- <0c65f3b0-a879-444c-b0a4-4af485e72166@arm.com>
- <39c01eae-049b-4f5b-b86e-4af22c8246c1@arm.com>
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <39c01eae-049b-4f5b-b86e-4af22c8246c1@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V4 03/11] coresight: tmc: Extract device
- properties from AMBA pid based table lookup
+X-Mailman-Approved-At: Wed, 14 Feb 2024 06:55:27 +0000
+Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/6] arm: dts: Fix dtc interrupt_provider
+	warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -49,125 +78,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyLzEzLzI0IDE2OjAyLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDEzLzAyLzIw
-MjQgMDM6MTMsIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+Pgo+Pgo+PiBPbiAyLzEyLzI0IDE3
-OjQzLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+Pj4gT24gMjMvMDEvMjAyNCAwNTo0NiwgQW5z
-aHVtYW4gS2hhbmR1YWwgd3JvdGU6Cj4+Pj4gVGhpcyBleHRyYWN0cyBkZXZpY2UgcHJvcGVydGll
-cyBmcm9tIEFNQkEgcGlkIGJhc2VkIHRhYmxlIGxvb2t1cC4gVGhpcyBhbHNvCj4+Pj4gZGVmZXJz
-IHRtY19ldHJfc2V0dXBfY2FwcygpIGFmdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNlIGhhcyBiZWVu
-IGluaXRpYWxpemVkCj4+Pj4gc28gdGhhdCBQSUQgdmFsdWUgY2FuIGJlIHJlYWQuCj4+Pj4KPj4+
-PiBDYzogU3V6dWtpIEsgUG91bG9zZSA8c3V6dWtpLnBvdWxvc2VAYXJtLmNvbT4KPj4+PiBDYzog
-TWlrZSBMZWFjaCA8bWlrZS5sZWFjaEBsaW5hcm8ub3JnPgo+Pj4+IENjOiBKYW1lcyBDbGFyayA8
-amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4+PiBDYzogY29yZXNpZ2h0QGxpc3RzLmxpbmFyby5vcmcK
-Pj4+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQub3JnCj4+Pj4gQ2M6IGxp
-bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKPj4+PiBTaWduZWQtb2ZmLWJ5OiBBbnNodW1hbiBL
-aGFuZHVhbCA8YW5zaHVtYW4ua2hhbmR1YWxAYXJtLmNvbT4KPj4+PiAtLS0KPj4+PiDCoMKgIC4u
-Li9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jwqAgfCAxOSArKysrKysr
-KysrKysrLS0tLS0tCj4+Pj4gwqDCoCAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwg
-NiBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2h3dHJhY2luZy9j
-b3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3JlLmMgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
-aHQvY29yZXNpZ2h0LXRtYy1jb3JlLmMKPj4+PiBpbmRleCA3ZWM1MzY1ZTJiNjQuLmU3MWRiMzA5
-OWEyOSAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNp
-Z2h0LXRtYy1jb3JlLmMKPj4+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29y
-ZXNpZ2h0LXRtYy1jb3JlLmMKPj4+PiBAQCAtMzcwLDE2ICszNzAsMjQgQEAgc3RhdGljIGlubGlu
-ZSBib29sIHRtY19ldHJfaGFzX25vbl9zZWN1cmVfYWNjZXNzKHN0cnVjdCB0bWNfZHJ2ZGF0YSAq
-ZHJ2ZGF0YSkKPj4+PiDCoMKgwqDCoMKgwqAgcmV0dXJuIChhdXRoICYgVE1DX0FVVEhfTlNJRF9N
-QVNLKSA9PSAweDM7Cj4+Pj4gwqDCoCB9Cj4+Pj4gwqDCoCArI2RlZmluZSBUTUNfQU1CQV9NQVNL
-IDB4ZmZmZmYKPj4+PiArCj4+Pj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYW1iYV9pZCB0bWNfaWRz
-W107Cj4+Pj4gKwo+Pj4+IMKgwqAgLyogRGV0ZWN0IGFuZCBpbml0aWFsaXNlIHRoZSBjYXBhYmls
-aXRpZXMgb2YgYSBUTUMgRVRSICovCj4+Pj4gLXN0YXRpYyBpbnQgdG1jX2V0cl9zZXR1cF9jYXBz
-KHN0cnVjdCBkZXZpY2UgKnBhcmVudCwgdTMyIGRldmlkLCB2b2lkICpkZXZfY2FwcykKPj4+PiAr
-c3RhdGljIGludCB0bWNfZXRyX3NldHVwX2NhcHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIg
-ZGV2aWQpCj4+Pj4gwqDCoCB7Cj4+Pj4gwqDCoMKgwqDCoMKgIGludCByYzsKPj4+PiAtwqDCoMKg
-IHUzMiBkbWFfbWFzayA9IDA7Cj4+Pj4gK8KgwqDCoCB1MzIgdG1jX3BpZCwgZG1hX21hc2sgPSAw
-Owo+Pj4+IMKgwqDCoMKgwqDCoCBzdHJ1Y3QgdG1jX2RydmRhdGEgKmRydmRhdGEgPSBkZXZfZ2V0
-X2RydmRhdGEocGFyZW50KTsKPj4+PiArwqDCoMKgIHZvaWQgKmRldl9jYXBzOwo+Pj4+IMKgwqAg
-wqDCoMKgwqDCoCBpZiAoIXRtY19ldHJfaGFzX25vbl9zZWN1cmVfYWNjZXNzKGRydmRhdGEpKQo+
-Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUFDQ0VTOwo+Pj4+IMKgwqAgK8KgwqDC
-oCB0bWNfcGlkID0gY29yZXNpZ2h0X2dldF9waWQoJmRydmRhdGEtPmNzZGV2LT5hY2Nlc3MpICYg
-VE1DX0FNQkFfTUFTSzsKPj4+PiArwqDCoMKgIGRldl9jYXBzID0gY29yZXNpZ2h0X2dldF91Y2lf
-ZGF0YV9mcm9tX2FtYmEodG1jX2lkcywgdG1jX3BpZCk7Cj4+Pj4gKwo+Pj4+IMKgwqDCoMKgwqDC
-oCAvKiBTZXQgdGhlIHVuYWR2ZXJ0aXNlZCBjYXBhYmlsaXRpZXMgKi8KPj4+PiDCoMKgwqDCoMKg
-wqAgdG1jX2V0cl9pbml0X2NhcHMoZHJ2ZGF0YSwgKHUzMikodW5zaWduZWQgbG9uZylkZXZfY2Fw
-cyk7Cj4+Pj4gwqDCoCBAQCAtNDk3LDEwICs1MDUsNiBAQCBzdGF0aWMgaW50IHRtY19wcm9iZShz
-dHJ1Y3QgYW1iYV9kZXZpY2UgKmFkZXYsIGNvbnN0IHN0cnVjdCBhbWJhX2lkICppZCkKPj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBkZXNjLnR5cGUgPSBDT1JFU0lHSFRfREVWX1RZUEVfU0lOSzsK
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXNjLnN1YnR5cGUuc2lua19zdWJ0eXBlID0gQ09S
-RVNJR0hUX0RFVl9TVUJUWVBFX1NJTktfU1lTTUVNOwo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGRlc2Mub3BzID0gJnRtY19ldHJfY3Nfb3BzOwo+Pj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSB0
-bWNfZXRyX3NldHVwX2NhcHMoZGV2LCBkZXZpZCwKPj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfZ2V0X3VjaV9kYXRhKGlkKSk7Cj4+Pj4gLcKg
-wqDCoMKgwqDCoMKgIGlmIChyZXQpCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBv
-dXQ7Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWRyX2luaXQoJmRydmRhdGEtPmlkcik7Cj4+
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqAgbXV0ZXhfaW5pdCgmZHJ2ZGF0YS0+aWRyX211dGV4KTsK
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfbGlzdCA9ICZldHJfZGV2czsKPj4+PiBAQCAt
-NTM5LDYgKzU0Myw5IEBAIHN0YXRpYyBpbnQgdG1jX3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAq
-YWRldiwgY29uc3Qgc3RydWN0IGFtYmFfaWQgKmlkKQo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGdvdG8gb3V0Owo+Pj4+IMKgwqDCoMKgwqDCoCB9Cj4+Pj4gwqDCoCArwqDCoMKgIGlmIChkcnZk
-YXRhLT5jb25maWdfdHlwZSA9PSBUTUNfQ09ORklHX1RZUEVfRVRSKQo+Pj4+ICvCoMKgwqDCoMKg
-wqDCoCByZXQgPSB0bWNfZXRyX3NldHVwX2NhcHMoZGV2LCBkZXZpZCk7Cj4+Pj4gKwo+Pj4KPj4+
-IFdpdGggdGhpcyBjaGFuZ2UsIHdlIHNpbGVudGx5IGFjY2VwdCBhbiBFVFIgdGhhdCBtYXkgb25s
-eSBoYXZlICJTRUNVUkUiIGFjY2VzcyBvbmx5IGFuZCBjcmFzaCBsYXRlciB3aGlsZSB3ZSB0cnkg
-dG8gZW5hYmxlIHRyYWNpbmcuIFlvdSBjb3VsZAo+Pj4gcGFzcyBpbiB0aGUgImFjY2VzcyIgKHdo
-aWNoIGlzIGFscmVhZHkgaW4gJ2Rlc2MuYWNjZXNzJyBpbiB0aGUgb3JpZ2luYWwKPj4+IGNhbGwg
-c2l0ZSBhbmQgZGVhbCB3aXRoIGl0ID8KPj4KPj4gSnVzdCB3b25kZXJpbmcsIGlmIHNvbWV0aGlu
-ZyBsaWtlIHRoZSBmb2xsb3dpbmcgd2lsbCBoZWxwID8gQSBmYWlsZWQgdG1jX2V0cl9zZXR1cF9j
-YXBzKCkKPj4gYmVjYXVzZSBvZiBmYWlsZWQgdG1jX2V0cl9oYXNfbm9uX3NlY3VyZV9hY2Nlc3Mo
-KSwgd2lsbCB1bnJlZ2lzdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNlCj4+IGJlZm9yZSByZXR1cm5p
-bmcuCj4+Cj4+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1j
-LWNvcmUuYwo+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRt
-Yy1jb3JlLmMKPj4gQEAgLTUzOCw4ICs1MzgsMTMgQEAgc3RhdGljIGludCBfX3RtY19wcm9iZShz
-dHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCByZXNvdXJjZSAqcmVzKQo+PiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIG91dDsKPj4gwqDCoMKgwqDCoMKgwqDCoCB9Cj4+IMKg
-IC3CoMKgwqDCoMKgwqAgaWYgKGRydmRhdGEtPmNvbmZpZ190eXBlID09IFRNQ19DT05GSUdfVFlQ
-RV9FVFIpCj4+ICvCoMKgwqDCoMKgwqAgaWYgKGRydmRhdGEtPmNvbmZpZ190eXBlID09IFRNQ19D
-T05GSUdfVFlQRV9FVFIpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0
-ID0gdG1jX2V0cl9zZXR1cF9jYXBzKGRldiwgZGV2aWQpOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpZiAocmV0KSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBjb3Jlc2lnaHRfdW5yZWdpc3RlcihkcnZkYXRhLT5jc2Rldik7Cj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIG91dDsKPj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+PiArwqDCoMKgwqDCoMKgIH0KPiAKPiBX
-aHkgZG8gd2UgbW92ZSB0aGUgdG1jX2V0cl9zZXR1cF9jYXBzKCkgaW4gdGhlIGZpcnN0IHBsYWNl
-ID8gV2UgY291bGQgcmV0YWluIHdoZXJlIHRoYXQgd2FzIGFuZCBwYXNzICJkZXNjLmFjY2VzcyIg
-cGFyYW1ldGVyIHJhdGhlciB0aGFuIHJlZ2lzdGVyaW5nIHRoZSBjc2RldiBhbmQgdGhlbiByZWx5
-aW5nIGNzZGV2LT5hY2Nlc3MgPwoKQWdyZWVkLCBhbmQgYWZ0ZXIgaW1wbGVtZW50aW5nIHRoZSBj
-aGFuZ2VzIHN1Z2dlc3RlZCBhYm92ZSwgdGhlIGVudGlyZSBwYXRjaAp3aWxsIGxvb2sgc29tZXRo
-aW5nIGxpa2UgdGhlIGZvbGxvd2luZy4gUGxlYXNlIGRvIGNvbmZpcm0gaWYgdGhpcyBsb29rcyBn
-b29kCmVub3VnaC4KCi0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQt
-dG1jLWNvcmUuYworKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRt
-Yy1jb3JlLmMKQEAgLTM3MCwxNiArMzcwLDI1IEBAIHN0YXRpYyBpbmxpbmUgYm9vbCB0bWNfZXRy
-X2hhc19ub25fc2VjdXJlX2FjY2VzcyhzdHJ1Y3QgdG1jX2RydmRhdGEgKmRydmRhdGEpCiAgICAg
-ICAgcmV0dXJuIChhdXRoICYgVE1DX0FVVEhfTlNJRF9NQVNLKSA9PSAweDM7CiB9CiAKKyNkZWZp
-bmUgVE1DX0FNQkFfTUFTSyAweGZmZmZmCisKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgYW1iYV9pZCB0
-bWNfaWRzW107CisKIC8qIERldGVjdCBhbmQgaW5pdGlhbGlzZSB0aGUgY2FwYWJpbGl0aWVzIG9m
-IGEgVE1DIEVUUiAqLwotc3RhdGljIGludCB0bWNfZXRyX3NldHVwX2NhcHMoc3RydWN0IGRldmlj
-ZSAqcGFyZW50LCB1MzIgZGV2aWQsIHZvaWQgKmRldl9jYXBzKQorc3RhdGljIGludCB0bWNfZXRy
-X3NldHVwX2NhcHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIgZGV2aWQsCisgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBjc2Rldl9hY2Nlc3MgKmFjY2VzcykKIHsKICAgICAg
-ICBpbnQgcmM7Ci0gICAgICAgdTMyIGRtYV9tYXNrID0gMDsKKyAgICAgICB1MzIgdG1jX3BpZCwg
-ZG1hX21hc2sgPSAwOwogICAgICAgIHN0cnVjdCB0bWNfZHJ2ZGF0YSAqZHJ2ZGF0YSA9IGRldl9n
-ZXRfZHJ2ZGF0YShwYXJlbnQpOworICAgICAgIHZvaWQgKmRldl9jYXBzOwogCiAgICAgICAgaWYg
-KCF0bWNfZXRyX2hhc19ub25fc2VjdXJlX2FjY2VzcyhkcnZkYXRhKSkKICAgICAgICAgICAgICAg
-IHJldHVybiAtRUFDQ0VTOwogCisgICAgICAgdG1jX3BpZCA9IGNvcmVzaWdodF9nZXRfcGlkKGFj
-Y2VzcykgJiBUTUNfQU1CQV9NQVNLOworICAgICAgIGRldl9jYXBzID0gY29yZXNpZ2h0X2dldF91
-Y2lfZGF0YV9mcm9tX2FtYmEodG1jX2lkcywgdG1jX3BpZCk7CisKICAgICAgICAvKiBTZXQgdGhl
-IHVuYWR2ZXJ0aXNlZCBjYXBhYmlsaXRpZXMgKi8KICAgICAgICB0bWNfZXRyX2luaXRfY2Fwcyhk
-cnZkYXRhLCAodTMyKSh1bnNpZ25lZCBsb25nKWRldl9jYXBzKTsKIApAQCAtNDk3LDggKzUwNiw3
-IEBAIHN0YXRpYyBpbnQgdG1jX3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAqYWRldiwgY29uc3Qg
-c3RydWN0IGFtYmFfaWQgKmlkKQogICAgICAgICAgICAgICAgZGVzYy50eXBlID0gQ09SRVNJR0hU
-X0RFVl9UWVBFX1NJTks7CiAgICAgICAgICAgICAgICBkZXNjLnN1YnR5cGUuc2lua19zdWJ0eXBl
-ID0gQ09SRVNJR0hUX0RFVl9TVUJUWVBFX1NJTktfU1lTTUVNOwogICAgICAgICAgICAgICAgZGVz
-Yy5vcHMgPSAmdG1jX2V0cl9jc19vcHM7Ci0gICAgICAgICAgICAgICByZXQgPSB0bWNfZXRyX3Nl
-dHVwX2NhcHMoZGV2LCBkZXZpZCwKLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBjb3Jlc2lnaHRfZ2V0X3VjaV9kYXRhKGlkKSk7CisgICAgICAgICAgICAgICByZXQgPSB0
-bWNfZXRyX3NldHVwX2NhcHMoZGV2LCBkZXZpZCwgJmRlc2MuYWNjZXNzKTsKICAgICAgICAgICAg
-ICAgIGlmIChyZXQpCiAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0OwogICAgICAgICAg
-ICAgICAgaWRyX2luaXQoJmRydmRhdGEtPmlkcik7CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, 2024-02-13 at 13:34 -0600, Rob Herring wrote:
+> The dtc interrupt_provider warning is off by default. Fix all the warnings
+> so it can be enabled.
+> 
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> ---
+>  arch/arm/boot/dts/amazon/alpine.dtsi                   |  1 -
+>  arch/arm/boot/dts/aspeed/aspeed-g4.dtsi                | 14 --------------
+>  arch/arm/boot/dts/aspeed/aspeed-g5.dtsi                | 15 +--------------
+>  arch/arm/boot/dts/aspeed/aspeed-g6.dtsi                | 18 ++----------------
+
+I wrote a very similar patch just a day or so ago, so thanks :)
+
+For the Aspeed portions:
+
+Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
