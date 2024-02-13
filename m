@@ -2,84 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F3C3853131
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 14:03:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE6C85318B
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 14:16:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23091C6DD69;
-	Tue, 13 Feb 2024 13:03:43 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8879C6DD69;
+	Tue, 13 Feb 2024 13:16:12 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBDE0C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF2E3C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 13:03:41 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-411d2836b20so613605e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 05:03:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707829421; x=1708434221;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=C5NrW5FTTwB3Xw2yt6Nvx3f3s8HF+s3K3TJHJX5IeCg=;
- b=jzNjwXjgDwRYvkT/+CDTs9nqP2B6pR1tH5A5J6nZxzmfH7w8wgVswDB5fKuEz0ritM
- H/2guKaTD3d1QC/p1wilCTKErULiF6GuVFMSwTAvK8lJg4Yz7mJERgYJ5E3fbe9UO09N
- sw9RKO8BVjUOtGTVXxR3wmS+pAD0vTrDJGzo6rhER2C+Sq8q+dFV5QYHTCaFga+31f94
- IT47KEi1qZ+ntTbmQkVP3YVPUYTTjp/JOCROT3CQcYKK1YJ/2A9SZSpFuLGv5lcvcz7L
- vWVrKCm/FQ7EjM03Q93UBPc4fwI4GClsgFaH+0WZsrqynFf/vzAqNSdIEod70YV/ApOV
- 7qEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707829421; x=1708434221;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=C5NrW5FTTwB3Xw2yt6Nvx3f3s8HF+s3K3TJHJX5IeCg=;
- b=sgDFY86n/FdSCnbTKWhTXWpw6g3+GdR3mebhspIfiCYudKNiQpuDN5atGQaGGZLpDB
- qcPiG/RLRq0n13Fzv18RnMu0dr4Am47flVBduB9tHSw45tLg1lfuev1+XGTNcXkAN1k1
- CXxZgDH1xBuDCW1Mqbw94HZbUTZKft2vMg62o2FJKERo/k58m6vmEbulg4PfgLuZpF0D
- ikGkd4tVHiE2nFZs/2e4upMGdPV8X83zyag7wBrxrd6CkPyfpogVDoWDpd5bNeT4iEZj
- DvRzC9tF/niJ5gXwu+H2UaxmpOxTlfEbEdQn9MivXr/3PwIDW94fZZiH1DPcB7M2z4As
- cqNA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWR0JRLmykUitjv0MRRvH/7BFWxWzIGmlUBJ5Ez0DV2MOkkGFpNE/nTcCHIQs7TnRzQ8ZrgrcxwCSf/+be1DttNwBPRz9UIjuVFahetiDcm5Qlwg4Bo1nRq
-X-Gm-Message-State: AOJu0Yzw22y9FK0tgUlZCHAPwghZepkAaZVqU7xt8lS5B+ASKv3N9uc3
- x3KF1e/uryuUr3stn/yZlMt3rYWDD6LdgwPKjSvgVJqOQ18A/17P6H649ylLLBs=
-X-Google-Smtp-Source: AGHT+IGff4Ny4f1WeJGCs+3nuZxbToyUFx8GempT/EH0khCzbnM4pZaGfiEmTfd7EjnRLIAX3EhG9A==
-X-Received: by 2002:a05:600c:3b86:b0:40f:fe1a:6baf with SMTP id
- n6-20020a05600c3b8600b0040ffe1a6bafmr6994110wms.1.1707829421015; 
- Tue, 13 Feb 2024 05:03:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCW7CtLuect2QEqcymxQGaUVmVCPIyY1NdHNUpoLLZHXRt9+n/gP+2I6mH9ctZZlAnwNCbloiXyQRv9bQh+MF5UWYu1yRjChSKHqVrHw8wnHuac0mRrY1Gj7p9X/s2YJDdaZ5mSMdtRpTNTm6GaISrpY1EQpQ+b6t1VrU+0xsYEm8bwBlZmUtkBNxcN5vVx20fwpOp6xICEzXAypqtVuaZoL/C7RzpDGn+aRrdZJieEGE/btmHIpyWNcL8dPDbdkE8zLdibnJa5m/CcTl5lC/oHHy7v52s8tA4V/zcBwIUUbmI6eks6zokE63AeiPVHcU/UGEAIWk/7/kuIk0ephB0BuEVIm1+vtMFWk90ZljITNTf6YVyg8QHCbvqwL32VOUlerYK0QGoRBeACZD4ijWSgdiWGABW9JkLNzK2MF7xv8iD1PQ7UAJbJm7BmmVaQNK2/vhxQEhb2tnJPR3PkbKensFAb7wKFZMGtBXV+dO9zdpn45vC/xXjXkxs3ARiFVNyjydEOvQ/kTHjVgNzVLqhb+6wlM10wrJpW05sV9e6HW7jIbKVqZEhMyh2DAWiDqr1yk/Vz2S1lDfjL7K1XkIc4+OPQqqWfxcskmUJmbbFBkWgqVQP/AGwqU50T0L4psZXPemJdpkXwoyOU=
-Received: from [192.168.10.46] (146725694.box.freepro.com. [130.180.211.218])
- by smtp.googlemail.com with ESMTPSA id
- v1-20020a05600c214100b00410395dc7d1sm11615850wml.7.2024.02.13.05.03.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Feb 2024 05:03:40 -0800 (PST)
-Message-ID: <6092ee3a-4a28-488b-97fe-538e619f8983@linaro.org>
-Date: Tue, 13 Feb 2024 14:03:39 +0100
+ Tue, 13 Feb 2024 13:16:11 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41D9uK7w020791; Tue, 13 Feb 2024 14:15:57 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=TwqBdLRFrC89Gum8bOmwsdD/H4TwxCPDPJBEptKd63w=; b=vB
+ jkosKYh6Oa7v4Bwz1I8hHagete7JZT8JIz2i/z+ARGnOjCpM6zkGitH7Ge+dC4dv
+ vWmfadSXp2VNn/03uXKU2rSYN3EoFdDODiVvq7LsPCH5bXgwS9pjdKaJXQq0Ey21
+ 3DyPWdyGfobRBAy53wF2HsXXx+JfXf5mahIQuolL+zwZa+8J+OmL4i5MNGrodI06
+ KeE3MTCAnFX7Rf2rCjgiLgeFzpZUDsrytRUmuVqLFoclodR2h+p9nYcav+Md6Wrj
+ Ybz0xzDyoilO3Tk/eZ3bDAsSIZaJ8YdfRX6V3V3BkWpnMTfcQoHY2M5W95IvF7hm
+ 40kIyIn5KQodXc9fxShw==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w62ktju4p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 13 Feb 2024 14:15:57 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 31FDB4002D;
+ Tue, 13 Feb 2024 14:15:52 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 109E424C458;
+ Tue, 13 Feb 2024 14:15:08 +0100 (CET)
+Received: from [10.201.22.200] (10.201.22.200) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 13 Feb
+ 2024 14:15:07 +0100
+Message-ID: <edbb5e6e-44c0-426b-9c97-87ea1eee1b4c@foss.st.com>
+Date: Tue, 13 Feb 2024 14:15:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-References: <20231115212908.33131-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <CA+V-a8tN-qn8zuimte=-riahJBWGgGi8i5botNfWqdWwJ7w-4g@mail.gmail.com>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-In-Reply-To: <CA+V-a8tN-qn8zuimte=-riahJBWGgGi8i5botNfWqdWwJ7w-4g@mail.gmail.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Chris Brandt <chris.brandt@renesas.com>,
- Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Biju Das <biju.das.jz@bp.renesas.com>, Thomas Gleixner <tglx@linutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: timer: renesas: ostm:
-	Document RZ/Five SoC
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
+ <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <conor+dt@kernel.org>
+References: <20240212174822.77734-1-christophe.kerello@foss.st.com>
+ <20240212174822.77734-7-christophe.kerello@foss.st.com>
+ <989661f0-f539-43c3-a332-13c0e99ed7b9@linaro.org>
+From: Christophe Kerello <christophe.kerello@foss.st.com>
+In-Reply-To: <989661f0-f539-43c3-a332-13c0e99ed7b9@linaro.org>
+X-Originating-IP: [10.201.22.200]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-13_07,2024-02-12_03,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH 06/12] memory: stm32-fmc2-ebi: add RIF
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,31 +76,286 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gMTMvMDIvMjAyNCAxMToyMiwgTGFkLCBQcmFiaGFrYXIgd3JvdGU6Cj4gSGkgRGFuaWVsLAo+
-IAo+IE9uIFdlZCwgTm92IDE1LCAyMDIzIGF0IDk6MjnigK9QTSBQcmFiaGFrYXIgPHByYWJoYWth
-ci5jc2VuZ2dAZ21haWwuY29tPiB3cm90ZToKPj4KPj4gRnJvbTogTGFkIFByYWJoYWthciA8cHJh
-Ymhha2FyLm1haGFkZXYtbGFkLnJqQGJwLnJlbmVzYXMuY29tPgo+Pgo+PiBUaGUgT1NUTSBibG9j
-ayBvbiB0aGUgUlovRml2ZSBTb0MgaXMgaWRlbnRpY2FsIHRvIG9uZSBmb3VuZCBvbiB0aGUgUlov
-RzJVTAo+PiBTb0MuICJyZW5lc2FzLHI5YTA3ZzA0My1vc3RtIiBjb21wYXRpYmxlIHN0cmluZyB3
-aWxsIGJlIHVzZWQgb24gdGhlIFJaL0ZpdmUKPj4gU29DIHNvIHRvIG1ha2UgdGhpcyBjbGVhciBh
-bmQgdG8ga2VlcCB0aGlzIGZpbGUgY29uc2lzdGVudCwgdXBkYXRlIHRoZQo+PiBjb21tZW50IHRv
-IGluY2x1ZGUgUlovRml2ZSBTb0MuCj4+Cj4+IE5vIGRyaXZlciBjaGFuZ2VzIGFyZSByZXF1aXJl
-ZCBhcyBnZW5lcmljIGNvbXBhdGlibGUgc3RyaW5nICJyZW5lc2FzLG9zdG0iCj4+IHdpbGwgYmUg
-dXNlZCBhcyBhIGZhbGxiYWNrIG9uIFJaL0ZpdmUgU29DLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBM
-YWQgUHJhYmhha2FyIDxwcmFiaGFrYXIubWFoYWRldi1sYWQucmpAYnAucmVuZXNhcy5jb20+Cj4+
-IC0tLQo+PiAgIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy90aW1lci9yZW5lc2Fz
-LG9zdG0ueWFtbCB8IDIgKy0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEg
-ZGVsZXRpb24oLSkKPj4KPiBHZW50bGUgcGluZyEKCkFwcGxpZWQsIHRoYW5rcyBmb3IgdGhlIGhl
-YWQgdXAKCi0tIAo8aHR0cDovL3d3dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIgT3BlbiBz
-b3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6Ly93d3cu
-ZmFjZWJvb2suY29tL3BhZ2VzL0xpbmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0ZXIuY29t
-LyMhL2xpbmFyb29yZz4gVHdpdHRlciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGluYXJvLWJs
-b2cvPiBCbG9nCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
-aXN0aW5mby9saW51eC1zdG0zMgo=
+
+
+On 2/13/24 08:52, Krzysztof Kozlowski wrote:
+> On 12/02/2024 18:48, Christophe Kerello wrote:
+>> The FMC2 revision 2 supports security and isolation compliant with
+>> the Resource Isolation Framework (RIF). From RIF point of view,
+>> the FMC2 is composed of several independent resources, listed below,
+>> which can be assigned to different security and compartment domains:
+>>    - 0: Common FMC_CFGR register.
+>>    - 1: EBI controller for Chip Select 1.
+>>    - 2: EBI controller for Chip Select 2.
+>>    - 3: EBI controller for Chip Select 3.
+>>    - 4: EBI controller for Chip Select 4.
+>>    - 5: NAND controller.
+>>
+> 
+> 
+>>   	regmap_update_bits(ebi->regmap, reg, mask, setup ? mask : 0);
+>>   
+>>   	return 0;
+>> @@ -990,6 +1023,107 @@ static const struct stm32_fmc2_prop stm32_fmc2_child_props[] = {
+>>   	},
+>>   };
+>>   
+>> +static int stm32_fmc2_ebi_check_rif(struct stm32_fmc2_ebi *ebi, u32 resource)
+>> +{
+>> +	u32 seccfgr, cidcfgr, semcr;
+>> +	int cid;
+>> +
+>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>> +		return 0;
+>> +
+>> +	if (resource >= FMC2_MAX_RESOURCES)
+>> +		return -EINVAL;
+>> +
+>> +	regmap_read(ebi->regmap, FMC2_SECCFGR, &seccfgr);
+
+Hi Krzysztof,
+
+> 
+> No checking of read value?
+> 
+
+No, it should never failed.
+
+>> +	if (seccfgr & BIT(resource)) {
+> 
+> Then on read failure this is random stack junk.
+> 
+>> +		if (resource)
+>> +			dev_err(ebi->dev, "resource %d is configured as secure\n",
+>> +				resource);
+>> +
+>> +		return -EACCES;
+>> +	}
+>> +
+>> +	regmap_read(ebi->regmap, FMC2_CIDCFGR(resource), &cidcfgr);
+>> +	if (!(cidcfgr & FMC2_CIDCFGR_CFEN))
+>> +		/* CID filtering is turned off: access granted */
+>> +		return 0;
+>> +
+>> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMEN)) {
+>> +		/* Static CID mode */
+>> +		cid = FIELD_GET(FMC2_CIDCFGR_SCID, cidcfgr);
+>> +		if (cid != FMC2_CID1) {
+>> +			if (resource)
+>> +				dev_err(ebi->dev, "static CID%d set for resource %d\n",
+>> +					cid, resource);
+>> +
+>> +			return -EACCES;
+>> +		}
+>> +
+>> +		return 0;
+>> +	}
+>> +
+>> +	/* Pass-list with semaphore mode */
+>> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMWLC1)) {
+>> +		if (resource)
+>> +			dev_err(ebi->dev, "CID1 is block-listed for resource %d\n",
+>> +				resource);
+>> +
+>> +		return -EACCES;
+>> +	}
+>> +
+>> +	regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
+>> +	if (!(semcr & FMC2_SEMCR_SEM_MUTEX)) {
+>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+>> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
+>> +		regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
+>> +	}
+>> +
+>> +	cid = FIELD_GET(FMC2_SEMCR_SEMCID, semcr);
+>> +	if (cid != FMC2_CID1) {
+>> +		if (resource)
+>> +			dev_err(ebi->dev, "resource %d is already used by CID%d\n",
+>> +				resource, cid);
+>> +
+>> +		return -EACCES;
+>> +	}
+>> +
+>> +	ebi->sem_taken |= BIT(resource);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void stm32_fmc2_ebi_put_sems(struct stm32_fmc2_ebi *ebi)
+>> +{
+>> +	unsigned int resource;
+>> +
+>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>> +		return;
+>> +
+>> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
+>> +		if (!(ebi->sem_taken & BIT(resource)))
+>> +			continue;
+>> +
+>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+>> +				   FMC2_SEMCR_SEM_MUTEX, 0);
+>> +	}
+>> +}
+>> +
+>> +static void stm32_fmc2_ebi_get_sems(struct stm32_fmc2_ebi *ebi)
+>> +{
+>> +	unsigned int resource;
+>> +
+>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>> +		return;
+>> +
+>> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
+>> +		if (!(ebi->sem_taken & BIT(resource)))
+>> +			continue;
+>> +
+>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+>> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
+>> +	}
+>> +}
+>> +
+>>   static int stm32_fmc2_ebi_parse_prop(struct stm32_fmc2_ebi *ebi,
+>>   				     struct device_node *dev_node,
+>>   				     const struct stm32_fmc2_prop *prop,
+>> @@ -1057,6 +1191,9 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>>   	unsigned int cs;
+>>   
+>>   	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
+>> +		if (!(ebi->bank_assigned & BIT(cs)))
+>> +			continue;
+>> +
+>>   		regmap_read(ebi->regmap, FMC2_BCR(cs), &ebi->bcr[cs]);
+>>   		regmap_read(ebi->regmap, FMC2_BTR(cs), &ebi->btr[cs]);
+>>   		regmap_read(ebi->regmap, FMC2_BWTR(cs), &ebi->bwtr[cs]);
+>> @@ -1064,7 +1201,7 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>>   
+>>   	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>>   		regmap_read(ebi->regmap, FMC2_PCSCNTR, &ebi->pcscntr);
+>> -	else
+>> +	else if (ebi->access_granted)
+>>   		regmap_read(ebi->regmap, FMC2_CFGR, &ebi->cfgr);
+>>   }
+>>   
+>> @@ -1073,6 +1210,9 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
+>>   	unsigned int cs;
+>>   
+>>   	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
+>> +		if (!(ebi->bank_assigned & BIT(cs)))
+>> +			continue;
+>> +
+>>   		regmap_write(ebi->regmap, FMC2_BCR(cs), ebi->bcr[cs]);
+>>   		regmap_write(ebi->regmap, FMC2_BTR(cs), ebi->btr[cs]);
+>>   		regmap_write(ebi->regmap, FMC2_BWTR(cs), ebi->bwtr[cs]);
+>> @@ -1080,7 +1220,7 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
+>>   
+>>   	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>>   		regmap_write(ebi->regmap, FMC2_PCSCNTR, ebi->pcscntr);
+>> -	else
+>> +	else if (ebi->access_granted)
+>>   		regmap_write(ebi->regmap, FMC2_CFGR, ebi->cfgr);
+> 
+> So this is kind of half-allowed-half-not. How is it supposed to work
+> with !access_granted? You configure some registers but some not. So will
+> it work or not? If yes, why even needing to write to FMC2_CFGR!
+> 
+
+This register is considered as one resource and can be protected. If a
+companion (like optee_os) has configured this resource as secure, it
+means that the driver can not write into this register, and this
+register will be handled by the companion. If this register is let as
+non secure, the driver can handle this ressource.
+
+>>   }
+>>   
+>> @@ -1124,7 +1264,8 @@ static void stm32_fmc2_ebi_enable(struct stm32_fmc2_ebi *ebi)
+>>   	u32 mask = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_BCR1_FMC2EN :
+>>   						      FMC2_CFGR_FMC2EN;
+>>   
+>> -	regmap_update_bits(ebi->regmap, reg, mask, mask);
+>> +	if (ebi->access_granted)
+>> +		regmap_update_bits(ebi->regmap, reg, mask, mask);
+>>   }
+>>   
+>>   static void stm32_fmc2_ebi_disable(struct stm32_fmc2_ebi *ebi)
+>> @@ -1133,7 +1274,8 @@ static void stm32_fmc2_ebi_disable(struct stm32_fmc2_ebi *ebi)
+>>   	u32 mask = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_BCR1_FMC2EN :
+>>   						      FMC2_CFGR_FMC2EN;
+>>   
+>> -	regmap_update_bits(ebi->regmap, reg, mask, 0);
+>> +	if (ebi->access_granted)
+>> +		regmap_update_bits(ebi->regmap, reg, mask, 0);
+>>   }
+>>   
+>>   static int stm32_fmc2_ebi_setup_cs(struct stm32_fmc2_ebi *ebi,
+>> @@ -1190,6 +1332,13 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+>>   			return -EINVAL;
+>>   		}
+>>   
+>> +		ret = stm32_fmc2_ebi_check_rif(ebi, bank + 1);
+>> +		if (ret) {
+>> +			dev_err(dev, "bank access failed: %d\n", bank);
+>> +			of_node_put(child);
+>> +			return ret;
+>> +		}
+>> +
+>>   		if (bank < FMC2_MAX_EBI_CE) {
+>>   			ret = stm32_fmc2_ebi_setup_cs(ebi, child, bank);
+>>   			if (ret) {
+>> @@ -1261,6 +1410,23 @@ static int stm32_fmc2_ebi_probe(struct platform_device *pdev)
+>>   	regmap_read(ebi->regmap, FMC2_VERR, &verr);
+>>   	ebi->majrev = FIELD_GET(FMC2_VERR_MAJREV, verr);
+>>   
+>> +	/* Check if CFGR register can be modified */
+>> +	ret = stm32_fmc2_ebi_check_rif(ebi, 0);
+>> +	if (!ret)
+>> +		ebi->access_granted = true;
+> 
+> I don't understand why you need to store it. If access is not granted,
+> what else is to do for this driver? Why even probing it? Why enabling
+> clocks and keep everything running if it cannot work?
+> 
+
+CFGR register contains the bit that is enabling the IP. CFGR register
+can be set to secure when all the others ressources can be set to non
+secure. If CFGR register is secured, then we check that the IP has been
+enabled by the companion. If it is the case, PSRAM controller or NAND
+controller set as non secure can be used. And, if CFGR register is
+secured and the IP is not enabled, the probe of the driver fails.
+
+>> +
+>> +	/* In case of CFGR is secure, just check that the FMC2 is enabled */
+>> +	if (!ebi->access_granted) {
+> 
+> This is just "else", isn't it?
+
+Yes, can be "else".
+
+Regards,
+Christophe Kerello.
+
+> 
+>> +		u32 sr;
+>> +
+>> +		regmap_read(ebi->regmap, FMC2_SR, &sr);
+>> +		if (sr & FMC2_SR_ISOST) {
+>> +			dev_err(dev, "FMC2 is not ready to be used.\n");
+>> +			ret = -EACCES;
+>> +			goto err_release;
+>> +		}
+>> +	}
+>> +
+>>   	ret = stm32_fmc2_ebi_parse_dt(ebi);
+> 
+>>   
+> 
+> Best regards,
+> Krzysztof
+> 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
