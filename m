@@ -2,35 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11FA5853778
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 18:25:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 485C18537B3
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 18:28:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B997FC6DD69;
-	Tue, 13 Feb 2024 17:25:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 093CAC6DD69;
+	Tue, 13 Feb 2024 17:28:36 +0000 (UTC)
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8499FC6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A5C7C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 17:25:53 +0000 (UTC)
+ Tue, 13 Feb 2024 17:28:35 +0000 (UTC)
 Received: from mail.maildlp.com (unknown [172.18.186.216])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4TZ7Rn3QwWz6K5pj;
- Wed, 14 Feb 2024 01:22:13 +0800 (CST)
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4TZ7W919xfz67LmL;
+ Wed, 14 Feb 2024 01:25:09 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (unknown [7.191.163.240])
- by mail.maildlp.com (Postfix) with ESMTPS id E6EB01400D9;
- Wed, 14 Feb 2024 01:25:51 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 32A7C1400D9;
+ Wed, 14 Feb 2024 01:28:34 +0800 (CST)
 Received: from localhost (10.202.227.76) by lhrpeml500005.china.huawei.com
  (7.191.163.240) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 13 Feb
- 2024 17:25:51 +0000
-Date: Tue, 13 Feb 2024 17:25:50 +0000
+ 2024 17:28:33 +0000
+Date: Tue, 13 Feb 2024 17:28:32 +0000
 From: Jonathan Cameron <Jonathan.Cameron@Huawei.com>
 To: David Lechner <dlechner@baylibre.com>
-Message-ID: <20240213172550.000023a7@Huawei.com>
-In-Reply-To: <20240212-mainline-spi-precook-message-v1-1-a2373cd72d36@baylibre.com>
+Message-ID: <20240213172832.00004fab@Huawei.com>
+In-Reply-To: <20240212-mainline-spi-precook-message-v1-5-a2373cd72d36@baylibre.com>
 References: <20240212-mainline-spi-precook-message-v1-0-a2373cd72d36@baylibre.com>
- <20240212-mainline-spi-precook-message-v1-1-a2373cd72d36@baylibre.com>
+ <20240212-mainline-spi-precook-message-v1-5-a2373cd72d36@baylibre.com>
 Organization: Huawei Technologies Research and Development (UK) Ltd.
 X-Mailer: Claws Mail 4.1.0 (GTK 3.24.33; x86_64-w64-mingw32)
 MIME-Version: 1.0
@@ -44,7 +44,8 @@ Cc: linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
  Martin Sperl <kernel@martin.sperl.org>, linux-spi@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 1/5] spi: add spi_optimize_message() APIs
+Subject: Re: [Linux-stm32] [PATCH 5/5] iio: adc: ad7380: use
+	spi_optimize_message()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,104 +62,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 12 Feb 2024 17:26:41 -0600
+On Mon, 12 Feb 2024 17:26:45 -0600
 David Lechner <dlechner@baylibre.com> wrote:
 
-> This adds a new spi_optimize_message() function that can be used to
-> optimize SPI messages that are used more than once. Peripheral drivers
-> that use the same message multiple times can use this API to perform SPI
-> message validation and controller-specific optimizations once and then
-> reuse the message while avoiding the overhead of revalidating the
-> message on each spi_(a)sync() call.
+> This modifies the ad7380 ADC driver to use spi_optimize_message() to
+> optimize the SPI message for the buffered read operation. Since buffered
+> reads reuse the same SPI message for each read, this can improve
+> performance by reducing the overhead of setting up some parts the SPI
+> message in each spi_sync() call.
 > 
-> Internally, the SPI core will also call this function for each message
-> if the peripheral driver did not explicitly call it. This is done to so
-> that controller drivers don't have to have multiple code paths for
-> optimized and non-optimized messages.
-> 
-> A hook is provided for controller drivers to perform controller-specific
-> optimizations.
-> 
-> Suggested-by: Martin Sperl <kernel@martin.sperl.org>
-> Link: https://lore.kernel.org/linux-spi/39DEC004-10A1-47EF-9D77-276188D2580C@martin.sperl.org/
 > Signed-off-by: David Lechner <dlechner@baylibre.com>
-
-A few trivial things inline but looks good to me in general.
-
-I thought about suggesting splitting this into an initial patch that just does
-the bits without the controller callbacks. Maybe it would work better that way
-with that introduced after the validate and splitting of transfers (so most
-of patches 1 and 2) as a patch 3 prior to the stm32 additions?
-
 > ---
->  drivers/spi/spi.c       | 145 ++++++++++++++++++++++++++++++++++++++++++++++--
->  include/linux/spi/spi.h |  19 +++++++
->  2 files changed, 160 insertions(+), 4 deletions(-)
+>  drivers/iio/adc/ad7380.c | 52 +++++++++++++++++++++++++++++++++++++++++-------
+>  1 file changed, 45 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index c2b10e2c75f0..5bac215d7009 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
-> @@ -2106,6 +2106,41 @@ struct spi_message *spi_get_next_queued_message(struct spi_controller *ctlr)
->  }
->  EXPORT_SYMBOL_GPL(spi_get_next_queued_message);
->  
-> +/**
-> + * __spi_unoptimize_message - shared implementation of spi_unoptimize_message()
-> + *                            and spi_maybe_unoptimize_message()
-> + * @msg: the message to unoptimize
-> + *
-> + * Periperhal drivers should use spi_unoptimize_message() and callers inside
-> + * core should use spi_maybe_unoptimize_message() rather than calling this
-> + * function directly.
-> + *
-> + * It is not valid to call this on a message that is not currently optimized.
-> + */
-> +static void __spi_unoptimize_message(struct spi_message *msg)
-> +{
-> +	struct spi_controller *ctlr = msg->spi->controller;
-> +
-> +	if (ctlr->unoptimize_message)
-> +		ctlr->unoptimize_message(msg);
-> +
-> +	msg->optimized = false;
-> +	msg->opt_state = NULL;
-> +}
-
-Seems misbalanced that this doesn't take a pre_optimized flag in but
-__spi_optimize does. I'd move handling that to outside the call in both cases.
-
-
->  	spin_lock_irqsave(&ctlr->bus_lock_spinlock, flags);
-> @@ -4271,6 +4401,8 @@ int spi_async(struct spi_device *spi, struct spi_message *message)
->  
->  	spin_unlock_irqrestore(&ctlr->bus_lock_spinlock, flags);
->  
-> +	spi_maybe_unoptimize_message(message);
-> +
+> diff --git a/drivers/iio/adc/ad7380.c b/drivers/iio/adc/ad7380.c
+> index abd746aef868..5c5d2642a474 100644
+> --- a/drivers/iio/adc/ad7380.c
+> +++ b/drivers/iio/adc/ad7380.c
+> @@ -133,6 +133,7 @@ struct ad7380_state {
+>  	struct spi_device *spi;
+>  	struct regulator *vref;
+>  	struct regmap *regmap;
+> +	struct spi_message *msg;
+>  	/*
+>  	 * DMA (thus cache coherency maintenance) requires the
+>  	 * transfer buffers to live in their own cache lines.
+> @@ -231,19 +232,55 @@ static int ad7380_debugfs_reg_access(struct iio_dev *indio_dev, u32 reg,
 >  	return ret;
 >  }
->  EXPORT_SYMBOL_GPL(spi_async);
-> @@ -4331,10 +4463,15 @@ static int __spi_sync(struct spi_device *spi, struct spi_message *message)
->  		return -ESHUTDOWN;
->  	}
 >  
-> -	status = __spi_validate(spi, message);
-> -	if (status != 0)
-> +	status = spi_maybe_optimize_message(spi, message);
-> +	if (status)
->  		return status;
->  
-> +	/*
-> +	 * NB: all return paths after this point must ensure that
-> +	 * spi_finalize_current_message() is called to avoid leaking resources.
-
-I'm not sure a catch all like that makes sense. Not sufficient to call
-the finer grained spi_maybe_unoptimize_message()  ?
-> +	 */
+> +static int ad7380_buffer_preenable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad7380_state *st = iio_priv(indio_dev);
+> +	struct spi_transfer *xfer;
+> +	int ret;
 > +
->  	SPI_STATISTICS_INCREMENT_FIELD(ctlr->pcpu_statistics, spi_sync);
->  	SPI_STATISTICS_INCREMENT_FIELD(spi->pcpu_statistics, spi_sync);
+> +	st->msg = spi_message_alloc(1, GFP_KERNEL);
+
+As it only ever has one element, is there a clear advantage over
+just embedding the spi_message in the structure rather than
+as a separate allocation? You'd need the transfer as well.
+
+	spi_message_init_with_transfers(st->msg, &st->trans, 1);
+
+The transfer is then also available without walking the list (though
+obviously you don't walk very far ;).
+
+> +	if (!st->msg)
+> +		return -ENOMEM;
+> +
+> +	xfer = list_first_entry(&st->msg->transfers, struct spi_transfer,
+> +				transfer_list);
+> +
+> +	xfer->bits_per_word = st->chip_info->channels[0].scan_type.realbits;
+> +	xfer->len = 4;
+> +	xfer->rx_buf = st->scan_data.raw;
+> +
+> +	ret = spi_optimize_message(st->spi, st->msg);
+> +	if (ret) {
+> +		spi_message_free(st->msg);
+Would avoid freeing explicitly here or later if it was embedded in
+struct ad7380_state
+
+Also, this doesn't seem very dynamic in general. Anything stopping this
+being done at probe() as a one time thing?
+
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ad7380_buffer_postdisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad7380_state *st = iio_priv(indio_dev);
+> +
+> +	spi_unoptimize_message(st->msg);
+> +	spi_message_free(st->msg);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct iio_buffer_setup_ops ad7380_buffer_setup_ops = {
+> +	.preenable = ad7380_buffer_preenable,
+> +	.postdisable = ad7380_buffer_postdisable,
+> +};
+> +
+>  static irqreturn_t ad7380_trigger_handler(int irq, void *p)
+>  {
+>  	struct iio_poll_func *pf = p;
+>  	struct iio_dev *indio_dev = pf->indio_dev;
+>  	struct ad7380_state *st = iio_priv(indio_dev);
+> -	struct spi_transfer xfer = {
+> -		.bits_per_word = st->chip_info->channels[0].scan_type.realbits,
+> -		.len = 4,
+> -		.rx_buf = st->scan_data.raw,
+> -	};
+>  	int ret;
+>  
+> -	ret = spi_sync_transfer(st->spi, &xfer, 1);
+> +	ret = spi_sync(st->spi, st->msg);
+>  	if (ret)
+>  		goto out;
+>  
+> @@ -420,7 +457,8 @@ static int ad7380_probe(struct spi_device *spi)
+>  
+>  	ret = devm_iio_triggered_buffer_setup(&spi->dev, indio_dev,
+>  					      iio_pollfunc_store_time,
+> -					      ad7380_trigger_handler, NULL);
+> +					      ad7380_trigger_handler,
+> +					      &ad7380_buffer_setup_ops);
+>  	if (ret)
+>  		return ret;
+>  
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
