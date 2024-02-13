@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89EAF8529F9
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 08:34:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 948D3852A24
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 08:36:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F9E9C6C83D;
-	Tue, 13 Feb 2024 07:34:47 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56B3EC6C83D;
+	Tue, 13 Feb 2024 07:36:35 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B312DC65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 921B7C65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 07:34:45 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-410e820a4feso7849465e9.1
+ Tue, 13 Feb 2024 07:36:34 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4114e0a2936so10031625e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Feb 2024 23:34:45 -0800 (PST)
+ Mon, 12 Feb 2024 23:36:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707809685; x=1708414485;
+ d=linaro.org; s=google; t=1707809794; x=1708414594;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=EAS30wnL6Rv1IC3CSnwsh+lVNpsYoIWrZeit9s0/DyM=;
- b=RHePwu2RtppzSl15gQpOKMaYQE3jkqaLBdV6/D8Q9CF2Wc4pyFl3LqDV4ijXpDfDi4
- b47+nNZx7DT2QGJOuS0mdIcYZtSqvkall0YVKSEH1/EZRvfMXG5VpJezCMKZWl4KNAVo
- dfDY+/5o19aSFhpmeIOtSkWXR9l0gIOhroZcms1JdQwHSWdCRI2xFhW1Fn5/eRxGZZ0S
- 2tyav6VTst5Rel9tpVQCdcq/Ych8G0+CRjyM2sEBV/zaxLqLB0FuKM7vSiB1IIY7Ch1i
- LYSfX9D8BcbTeAn7FKVvsohJ3z/h+vJIKRfaZYxEA2CrH+VnMBnhOKJxGZdn+aLcejoT
- xOCg==
+ bh=3qKO6w6id7IchIagMH9q3ni7wU4UnSKJ2g30c/IBubE=;
+ b=P9VCnc2E6hpN/50nShDl7Fpbh15Qa8Q1z6jxhFQKVPXfjQEdYZ21ozc//5mCjD/7vE
+ pAXgV1qs1P5tNDe+HW+WaXE4euOKgm7UTGjtww/sqpTmpOZjjaUR+GgObpICIPlHsr1O
+ Wj2k9mWffRmBBj0rJhnMUQSeHrj39CRhRBZxXTIbmlXWaVskD0PtWf1ZDF122gYeGO/M
+ 4tX6ps+UUsjlhxiCfbimytLUw6l7S0mp6Usyb2Du4gbTAdBr0pQdwUiH6GFWXykIljcT
+ 8t0BzisdPk0jJXa37c1YQiVrEFtRCWvHg+n7YKoDleDI/PeS1+yHEB25FBRaa0Mk3CYm
+ x3Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707809685; x=1708414485;
+ d=1e100.net; s=20230601; t=1707809794; x=1708414594;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EAS30wnL6Rv1IC3CSnwsh+lVNpsYoIWrZeit9s0/DyM=;
- b=vVIDQqhnqvieBAgoS3ebm8KTxVl/Tz7Q0mwp/vl2AU79JzBDTribyPkNMaZ8XFS0Q4
- cyyCKzzEUy2o6b5E1ZHzuQ1BNPpyCppvm2LQhsJ2gJcBj9yN7ycasXe8G/DMbhFNm1Vq
- iPx7VXRYP+vTZvNIYUOwWSsPQyWR7yde7kf7IxkK5wZm0Ufq7cIF2JaLVAoVyc/Bc/8k
- 7Fv63CWJfNH2MTJ5/z66mnaIUjlPR15Sq8rWi6PDD1dnrqogxFau09tOYy3MM8GCIrda
- ueHO58Rxcjvaah7cK0PoArms1w/KW8zFiJvYrB383kCzeSSQskdk3tahrqakpShBM1tA
- e3PQ==
+ bh=3qKO6w6id7IchIagMH9q3ni7wU4UnSKJ2g30c/IBubE=;
+ b=qwvo0hTqI6ZFV1tUTQkPP9XpBvcGvc3CY9JT7ZMaw4Zx5eg3uUrOmXDWNwMqKiGw2A
+ RyLDOMVGvKeslOwSCGsaJrlsQ+PeZI3ssy7Vl03NUff0+rB30rHX4fHO5lpVZD1w2hpd
+ QrdGOs7K0K0p1iPMtxLJeaZMXmyrDJZ8CJf/zaLFNjnpE23GKWhmE3JD5Z7vwsQgnou6
+ LpzBsnupE7lZWKIGXfHu9D8HJu2qZJEK/xTckqeH+bqZJdz6hcM2kCRHndtyRhVmj8xH
+ TtrdJuGlef84eVep6n/qOwtlx9hmbMMRr/mMEGtiQmpKVXmpWXOFDSlQhyZ41vibyTPy
+ 6ZPQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXzetOZDaDls1N2F9B2DNCRpL1SdoVRnVVgWi9WVHLUB4jiEUQLjFGEFzJVvLXT4Tm/T0CLATQFKEM1395rl58G/IKo+jJUVDI4HSMd0gXWVzftLNmk7ucO
-X-Gm-Message-State: AOJu0YwPt4pE/N3V0gKt6DoD0YiD645TCgjZgKkF2XAJMRQB0h8nPbF1
- dPUelRmwtgL0TS/vrwBqzAgeaK9EzwYUX9kFCaq9O+tMMD+2kd93XHpEmcSOosY=
-X-Google-Smtp-Source: AGHT+IF7fxLrfe3YfzY4xqOtOPSFO23TmQZr7/A1GlgGB9VdskAAsmNPequsQTPsRrn5g06Jjq95VA==
-X-Received: by 2002:a05:600c:35d2:b0:410:cb93:8a13 with SMTP id
- r18-20020a05600c35d200b00410cb938a13mr1347784wmq.5.1707809685173; 
- Mon, 12 Feb 2024 23:34:45 -0800 (PST)
+ AJvYcCV095oOS1c4TXXKUBEpM01XEFebKOw2+HXVAk2L8DRi/HCrG87LhgYIrbPLB84XMrTMe+tVdp1Zr5aaAdw9DNbiPsyF+O9FYqcslWxt5TOHaLtkc4s7JyRU
+X-Gm-Message-State: AOJu0YywQhiIo9b8wYBmpTPLqfn/rZPDArXMme8stZwMkEMoLNsoR1Qn
+ XWmiQM4emqlPw/89M9gl7sGLFWhaB2viZEHef0KRiK7MytMywMTm8zpqGJWp5Qs=
+X-Google-Smtp-Source: AGHT+IF5GmEHNdHwgIu9hH7ZeYF20sFP8fOT/5Qbg7HmVeORoi87obfIJFBFeiyqu+vM0n2qpQhjzQ==
+X-Received: by 2002:a05:600c:a386:b0:410:bfc1:d994 with SMTP id
+ hn6-20020a05600ca38600b00410bfc1d994mr4916531wmb.21.1707809794039; 
+ Mon, 12 Feb 2024 23:36:34 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVZF7x/xO4caM3IQLN6ET8cEzWFuO3OlkNz2Isv7Z2uGhUGKYYDcCWuloenWhF/tMNU2ZZ6GX59xBFemfsCf1QFa0o1856vzlqqYNU7CjVLE9ICBCo7kHYXQUNgUJfwRHrTk9zdZfkongpsDGD9xbAPhmNltgz6K0BLXE+A3ODzwZk7BwYXAA2TQQUqULZ9gB3O+MzSjMNcf4vexx/6EzzDTMuKcpFRRhR9RxADCvPEBjqNrkKuBdLdcytW1eEZw/60lXkvdLHNMC7keb8wFWHWuqKPy12Om+6cmjRdjqrJrhw9CtNcfelUOKjz45nNxh5exVT5zhpAUiEdpRh9xYsR9pjcP+JAvGRx75HdV1t8daIR31tvLZrC9AY=
+ AJvYcCW74wNdLQhyMEW2twzcJU2CJ2I31uAb83QnFCX9k38I30UtMTOr6Kywtm8DY0H4S/df1ZiOSSBHqDJTi8h/mb8/lo6xx1PTAC8CelXzJyfCvSH0Mj0iqD5PBGoIuyi/a/hFwd+ZEbxEHoqd21GAHJKdfno0VGishU4y0xnp3+wc3WR/sYj0RMvXxc61/FytAWwy0uLuz3TbF5uXR9+H8d2vaN83BFiy8XKc7zKUBiXRe4HEeN9Gf1uW9lK/Qdaw/NjLkAqdcWg8Jo20jtQeCmH+QbV3ohUaYy1/VI1y+OcX1vQPCumpZPrNo7Tpu8qr9yhKc/di5DTaZ/bzLEnDUe2azATDLx3kFQ0P4+odwYiz3xzjMAlhF6QEsZo=
 Received: from [192.168.1.20] ([178.197.223.6])
  by smtp.gmail.com with ESMTPSA id
- jg8-20020a05600ca00800b00410820995dcsm10256721wmb.23.2024.02.12.23.34.43
+ f7-20020a05600c4e8700b00410709fa0d3sm10967698wmq.33.2024.02.12.23.36.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 23:34:44 -0800 (PST)
-Message-ID: <fbaad3c7-13b7-41a2-a8f6-7036ec1ca2fe@linaro.org>
-Date: Tue, 13 Feb 2024 08:34:42 +0100
+ Mon, 12 Feb 2024 23:36:33 -0800 (PST)
+Message-ID: <afb4bd72-aa22-4d74-aeb8-d3875c6d07ca@linaro.org>
+Date: Tue, 13 Feb 2024 08:36:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -67,6 +67,7 @@ To: Christophe Kerello <christophe.kerello@foss.st.com>,
  miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org
 References: <20240212174822.77734-1-christophe.kerello@foss.st.com>
+ <20240212174822.77734-5-christophe.kerello@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -112,10 +113,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240212174822.77734-1-christophe.kerello@foss.st.com>
+In-Reply-To: <20240212174822.77734-5-christophe.kerello@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 00/12] Add MP25 FMC2 support
+Subject: Re: [Linux-stm32] [PATCH 04/12] memory: stm32-fmc2-ebi: add MP25
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -133,13 +135,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 12/02/2024 18:48, Christophe Kerello wrote:
-> Add MP25 SOC support in stm32_fmc2 drivers:
->  - Update stm32-fmc2-ebi driver to support FMC2 revision 2 and MP25 SOC.
->  - Update stm32_fmc2_nand driver to support FMC2 revision 2 and MP25 SOC
+> Add MP25 SOC support. RNB and NWAIT signals are differentiated.
 
-Why do you combine memory controller driver and NAND in one patchset if
-there is no dependency? On any further submissions, please split
-independent works.
+s/SOC/SoC/
+everywhere
+
+> 
+
+The way you split patches is a bit odd. Shall we understand that this
+patch is the complete MP25 SoC support?
 
 Best regards,
 Krzysztof
