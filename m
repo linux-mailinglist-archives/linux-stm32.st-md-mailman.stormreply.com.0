@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 542F3852A38
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 08:46:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C50D5852A47
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 08:52:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00EC2C6C83D;
-	Tue, 13 Feb 2024 07:46:50 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7329FC6C83D;
+	Tue, 13 Feb 2024 07:52:49 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1386C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D3AAC65E42
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 07:46:49 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-411c7359e35so707315e9.1
+ Tue, 13 Feb 2024 07:52:48 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5116ec49081so4347058e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Feb 2024 23:46:49 -0800 (PST)
+ Mon, 12 Feb 2024 23:52:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707810409; x=1708415209;
+ d=linaro.org; s=google; t=1707810767; x=1708415567;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=TsRrHrpLNGxvj3Hpc9o+8hI8G6R3/zQa/0HCfH7df84=;
- b=cf8ASqrszLXVcJ5KZp3kVKUxwAFY+zS2n/pfkvbIQiXWDECLSjJDMn0x8FQxrRQxWB
- hfspGPLWzH9p20SeiY6MT89jjzBMKoaZbLRl13M+nv6HCsFEFmavdwKQ2WMRvDROVjhx
- FfDtqBVU6Sl+DlCYI51vvoSZ9r9yae4QFyMmh+wmtZf6VCqTvEma+TJUYY4KL8vJU176
- 9y1y+RjdsaZ+KG8xHrSdqF2vAakUQ83RZd5MmRRm2m2N4dPCeG2iOecc/wvfksm9z47m
- zUTLPrY24supVFEufuYk9n+HOxtJTGfO9vuGwyt6y6RrKTHBaliJK/IrjfFLo7YoXjIN
- mHsg==
+ bh=4gUdl2/6yyUfOH9+d0TxWj7DiTsTpgfUjt65todPL28=;
+ b=Qrx8/ENhw61taZslzVaRwvhcB/2NAferHe8sKXQ3elhcGevf/HTDqBzhFrM+IrQete
+ bG0dF0Pyz9odw6pW7+MDhBjVbW8grdygBX9KDqEKMDtgL+4cTGHvm8qUrivTYN1IP3d1
+ oNA1MSdvI6QYaAD1eZDviFGBnX6TdoQjqEO+KEo+MYBRaWHQSf/kHJh7RTISzQsoL+p+
+ AF2omTH1QJAYqTQpaa7uvZ/vTKj1RmiyOYQcwuqr37XGaDVuq7hy9I6N5JPmBR+VpIc2
+ mdJBsqnGmbv7iVzJPedk4LRCGqqk86iHQORJJnU+mStY3zBimplN5RsDe+P4sMZwBIVb
+ p2TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707810409; x=1708415209;
+ d=1e100.net; s=20230601; t=1707810767; x=1708415567;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TsRrHrpLNGxvj3Hpc9o+8hI8G6R3/zQa/0HCfH7df84=;
- b=eZZCqatZ8aP3FyoOa4WiBb67HrMGNRhEU4/7mQnrBrzLBD0Q2UPug8wAZskbZPUYoW
- RDweHI7caOKm+LlFzMvgV6+yhQBXfSS3kYrNwx6f5xk56rZgj9nc7mu1ozg19fe+aVvu
- 26bXuxl8lRCScXZe+NnEmUgvt7cRg66SlcFF0uoaoaZtxLQDU7pJZf0s+r8pFQU2In4r
- /rUSj8Xf08fXGhCS7SSeVmVoVme/Kv/WzCrzHYt9OmqWUsqXhsOE0W53ON/onoJsiCN+
- mW1Lmjso1EJl1KDJqDYxdqFiPYp+WFXrCKgZ+/teH9o8ojkVLC4932RIs68NRGKfrEx8
- G6OQ==
+ bh=4gUdl2/6yyUfOH9+d0TxWj7DiTsTpgfUjt65todPL28=;
+ b=G5jtGzZgx3KfLkkMXOn0aRMJUlZ96k8SF/nBU+IKRXVKkJb9tvCv2eFqIp8lygrlTS
+ EHUAbdcvEMJlmw0WtgcDRjeJGs7vP9LGnx6vLSaXzkZCXQqlvtTI7JpYi63yrWzBUg3q
+ 5bqlZ4uaaC4nalraswComUNXx8Qwf7DQf30W3YxphkJ+wCmAtYeStqaCCiFuf5q0O/lU
+ 9/XkMvfIBLfNjzmuje/zf+mGWdf0RewDl705Y9i+ybwZgjvjVQ0iMpY50YZ6lrAEf3dk
+ c3lj+vCgnZ0exlhqYpSEV2kXXVmGOmA2V6Y4AGz2mklqcgqJbMdKFY7sIDGRyG4Ubd/S
+ S1dA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXknHJ4OCXBGx1VcUDVk7RpPuVlxy7zbl1nDGqGMJgIBWDzO7364ehLVhINQZw3ph1OB3XG6+6laCXbUVNczCQF7KxgarzqiFpajIHroqPx5Mz1NcEvVMJt
-X-Gm-Message-State: AOJu0YyEMTkVYtWEhyqBZQmDwRMyZdJVrrMNZHp4Nqq0xKwwXT0V4zxD
- khPLYZ074YI5eDBrQFVx/x55C1DvRmNt1aLv6EcA7lRjfpzzRC5bYDifn1AmfQk=
-X-Google-Smtp-Source: AGHT+IGLlGPKUXKUCZMz1EaVZ6mJB3Pvj1K630QCRVUmMxA6RlZZZV77RDHcUhhc9uVzQ4zernkqhQ==
-X-Received: by 2002:a05:600c:4f42:b0:410:726b:6f87 with SMTP id
- m2-20020a05600c4f4200b00410726b6f87mr6790081wmq.32.1707810409078; 
- Mon, 12 Feb 2024 23:46:49 -0800 (PST)
+ AJvYcCUKYKz7+CC7t4Ax4lzHb5HW7TWYtgkFE3P8fwXK7Ss+W9ShEf9vBEW6Ut+T1IOaHmVtFibMiFNZwmmWnxcPkEOmK9i/ccf7Zk39kQwSBR9shChB7wvhYECn
+X-Gm-Message-State: AOJu0YxLTjH9pRB0CQraZyvLx+3Z882hkTRsgLVRyfyNEVOJcwdATDer
+ lEm8FDcxZ6ykxqctNQMweNbr8+j1LT+sTMCBu76t6utB769etzI/O2QxUy3spH0=
+X-Google-Smtp-Source: AGHT+IGb1cmv23Djtnq5yjHeIK0VKg3qB6uyfQOubZv26Q3PESmao9vQc4FXyx18Z/la97IOwrOeGQ==
+X-Received: by 2002:ac2:41ca:0:b0:511:1ed7:61b8 with SMTP id
+ d10-20020ac241ca000000b005111ed761b8mr6112291lfi.30.1707810767434; 
+ Mon, 12 Feb 2024 23:52:47 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUYP7h+XC3hcncLIeqOcdYxjoS5oh28yxDHfTTz8B6cshmu4ZEyCifZhVkdk8U71LV29RzvuoMPUHky+0r8ciBxHTicZvkA+iUFBd4O+ikuqXGMDUEVv7IiwicuIxgXRhzdfFNCcSc46jQH/C/gWRmahIky2IQOhR/L2Sxg1CjfZ7N6nlrgROGfmh+PGztvkvfZdHHJ71w+b/v8VlpktyJib7Ddy/sxje3Xs16qqJCFzGjdpmY+zsm7G0uK+O8SHwPYxEs54YyFFx3F41Fek60BLHArRsdfXPAUdf9Y8pCeIv1EVPpRWI8yn0qW21kYqPCcyq+tlZTecgSPGFy79dg9SUhLztVaxZBxqH2MKkFX8ZQivpTps8FiiOg=
+ AJvYcCWfIDnmXSHQs9RC0eoASbW20HKcbnPj50wh9FUN+kizs9ao1dURas9VwCeuqxtwEPZiIacvm72Kz/N2AH8XlcscBWq097C+iovnIqNPr3UMBdL2bFx2qExOObM64qvpdYTDNQ9R4wwN+Lxn6tfOEpfDEh6CFdUz5PQxfkviU+upojm3mmHslvGf7v9yZF5bDo8hJTunE+RnVWwmJsR+nhknn/OksnjmvQrz5GPf2u1R2nRQ53QBf7glwaooK098HUxr+LaeRNaRJQfffjTscWqoetkIko+m+yIGtl4Cjf44CYRVBg81DMHN6eHjo1qfbM8FqlFsqUgbVbZrUzbNUmQ5BkajBhJAft7WSbMrhE155Vkh36wku3aUkds=
 Received: from [192.168.1.20] ([178.197.223.6])
  by smtp.gmail.com with ESMTPSA id
- dn7-20020a05600c654700b00411b7c91470sm1128366wmb.12.2024.02.12.23.46.47
+ jx6-20020a05600c578600b0040ffd94cd27sm10703773wmb.45.2024.02.12.23.52.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 23:46:48 -0800 (PST)
-Message-ID: <6bc91742-66d8-425b-ba40-fe5fa6ba18c4@linaro.org>
-Date: Tue, 13 Feb 2024 08:46:46 +0100
+ Mon, 12 Feb 2024 23:52:47 -0800 (PST)
+Message-ID: <989661f0-f539-43c3-a332-13c0e99ed7b9@linaro.org>
+Date: Tue, 13 Feb 2024 08:52:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -67,7 +67,7 @@ To: Christophe Kerello <christophe.kerello@foss.st.com>,
  miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
  robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org
 References: <20240212174822.77734-1-christophe.kerello@foss.st.com>
- <20240212174822.77734-6-christophe.kerello@foss.st.com>
+ <20240212174822.77734-7-christophe.kerello@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -113,11 +113,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240212174822.77734-6-christophe.kerello@foss.st.com>
+In-Reply-To: <20240212174822.77734-7-christophe.kerello@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 05/12] memory: stm32-fmc2-ebi: update the
- driver to support revision 2
+Subject: Re: [Linux-stm32] [PATCH 06/12] memory: stm32-fmc2-ebi: add RIF
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,265 +135,245 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 12/02/2024 18:48, Christophe Kerello wrote:
-> Add the support of the revision 2 of FMC2 IP.
->  - PCSCNTR register has been removed,
->  - CFGR register has been added,
->  - the bit used to enable the IP has moved from BCR1 to CFGR,
->  - the timeout for CEx deassertion has moved from PCSCNTR to BCRx,
->  - the continuous clock enable has moved from BCR1 to CFGR,
->  - the clk divide ratio has moved from BCR1 to CFGR.
+> The FMC2 revision 2 supports security and isolation compliant with
+> the Resource Isolation Framework (RIF). From RIF point of view,
+> the FMC2 is composed of several independent resources, listed below,
+> which can be assigned to different security and compartment domains:
+>   - 0: Common FMC_CFGR register.
+>   - 1: EBI controller for Chip Select 1.
+>   - 2: EBI controller for Chip Select 2.
+>   - 3: EBI controller for Chip Select 3.
+>   - 4: EBI controller for Chip Select 4.
+>   - 5: NAND controller.
 > 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> ---
->  drivers/memory/stm32-fmc2-ebi.c | 206 +++++++++++++++++++++++++-------
->  1 file changed, 163 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/memory/stm32-fmc2-ebi.c b/drivers/memory/stm32-fmc2-ebi.c
-> index d79dcb6c239a..066722274a45 100644
-> --- a/drivers/memory/stm32-fmc2-ebi.c
-> +++ b/drivers/memory/stm32-fmc2-ebi.c
-> @@ -20,8 +20,10 @@
->  #define FMC2_BCR(x)			((x) * 0x8 + FMC2_BCR1)
->  #define FMC2_BTR(x)			((x) * 0x8 + FMC2_BTR1)
->  #define FMC2_PCSCNTR			0x20
-> +#define FMC2_CFGR			0x20
->  #define FMC2_BWTR1			0x104
->  #define FMC2_BWTR(x)			((x) * 0x8 + FMC2_BWTR1)
-> +#define FMC2_VERR			0x3f4
->  
->  /* Register: FMC2_BCR1 */
->  #define FMC2_BCR1_CCLKEN		BIT(20)
-> @@ -42,6 +44,7 @@
->  #define FMC2_BCR_ASYNCWAIT		BIT(15)
->  #define FMC2_BCR_CPSIZE			GENMASK(18, 16)
->  #define FMC2_BCR_CBURSTRW		BIT(19)
-> +#define FMC2_BCR_CSCOUNT		GENMASK(21, 20)
->  #define FMC2_BCR_NBLSET			GENMASK(23, 22)
->  
->  /* Register: FMC2_BTRx/FMC2_BWTRx */
-> @@ -58,6 +61,15 @@
->  #define FMC2_PCSCNTR_CSCOUNT		GENMASK(15, 0)
->  #define FMC2_PCSCNTR_CNTBEN(x)		BIT((x) + 16)
->  
-> +/* Register: FMC2_CFGR */
-> +#define FMC2_CFGR_CLKDIV		GENMASK(19, 16)
-> +#define FMC2_CFGR_CCLKEN		BIT(20)
-> +#define FMC2_CFGR_FMC2EN		BIT(31)
-> +
-> +/* Register: FMC2_VERR */
-> +#define FMC2_VERR_MAJREV		GENMASK(7, 4)
-> +#define FMC2_VERR_MAJREV_2		2
-> +
->  #define FMC2_MAX_EBI_CE			4
->  #define FMC2_MAX_BANKS			5
->  
-> @@ -74,6 +86,11 @@
->  #define FMC2_BCR_MTYP_PSRAM		0x1
->  #define FMC2_BCR_MTYP_NOR		0x2
->  
-> +#define FMC2_BCR_CSCOUNT_0		0x0
-> +#define FMC2_BCR_CSCOUNT_1		0x1
-> +#define FMC2_BCR_CSCOUNT_64		0x2
-> +#define FMC2_BCR_CSCOUNT_256		0x3
-> +
->  #define FMC2_BXTR_EXTMOD_A		0x0
->  #define FMC2_BXTR_EXTMOD_B		0x1
->  #define FMC2_BXTR_EXTMOD_C		0x2
-> @@ -85,7 +102,7 @@
->  #define FMC2_BXTR_DATAST_MAX		0xff
->  #define FMC2_BXTR_BUSTURN_MAX		0xf
->  #define FMC2_BXTR_DATAHLD_MAX		0x3
-> -#define FMC2_BTR_CLKDIV_MAX		0xf
-> +#define FMC2_REG_CLKDIV_MAX		0xf
-
-Why?
-
->  #define FMC2_BTR_DATLAT_MAX		0xf
->  #define FMC2_PCSCNTR_CSCOUNT_MAX	0xff
->  
-> @@ -101,7 +118,8 @@ enum stm32_fmc2_ebi_register_type {
->  	FMC2_REG_BCR = 1,
->  	FMC2_REG_BTR,
->  	FMC2_REG_BWTR,
-> -	FMC2_REG_PCSCNTR
-> +	FMC2_REG_PCSCNTR,
-> +	FMC2_REG_CFGR,
->  };
->  
->  enum stm32_fmc2_ebi_transaction_type {
-> @@ -132,6 +150,13 @@ enum stm32_fmc2_ebi_cpsize {
->  	FMC2_CPSIZE_1024 = 1024
->  };
->  
-> +enum stm32_fmc2_ebi_cscount {
-> +	FMC2_CSCOUNT_0 = 0,
-> +	FMC2_CSCOUNT_1 = 1,
-> +	FMC2_CSCOUNT_64 = 64,
-> +	FMC2_CSCOUNT_256 = 256
-> +};
-> +
->  struct stm32_fmc2_ebi_data {
->  	bool rnb_for_nand;
->  };
-> @@ -142,11 +167,13 @@ struct stm32_fmc2_ebi {
->  	struct regmap *regmap;
->  	const struct stm32_fmc2_ebi_data *data;
->  	u8 bank_assigned;
-> +	u8 majrev;
->  
->  	u32 bcr[FMC2_MAX_EBI_CE];
->  	u32 btr[FMC2_MAX_EBI_CE];
->  	u32 bwtr[FMC2_MAX_EBI_CE];
->  	u32 pcscntr;
-> +	u32 cfgr;
->  };
->  
->  /*
-> @@ -274,15 +301,29 @@ static int stm32_fmc2_ebi_check_clk_period(struct stm32_fmc2_ebi *ebi,
->  					   const struct stm32_fmc2_prop *prop,
->  					   int cs)
->  {
-> -	u32 bcr, bcr1;
-> +	u32 bcr, cfgr;
->  
->  	regmap_read(ebi->regmap, FMC2_BCR(cs), &bcr);
-> -	if (cs)
-> -		regmap_read(ebi->regmap, FMC2_BCR1, &bcr1);
-> -	else
-> -		bcr1 = bcr;
->  
-> -	if (bcr & FMC2_BCR_BURSTEN && (!cs || !(bcr1 & FMC2_BCR1_CCLKEN)))
-> +	if (ebi->majrev < FMC2_VERR_MAJREV_2) {
-> +		u32 bcr1;
-> +
-> +		if (cs)
-> +			regmap_read(ebi->regmap, FMC2_BCR1, &bcr1);
-> +		else
-> +			bcr1 = bcr;
-> +
-> +		if (bcr & FMC2_BCR_BURSTEN &&
-> +		    (!cs || !(bcr1 & FMC2_BCR1_CCLKEN)))
-> +			return 0;
-> +
-> +		return -EINVAL;
-> +	}
-
-The function is not really readable anymore. Please split it into three
-functions: for v1 (so original code), v2 and wrapper choosing it based
-on revision). Or two functions and some sort of ops with function
-pointers (so you call ops->check_clk_period). Or just parametrize the
-registers with two different "struct reg_field" and use appropriate one
-for given revision (the code looks the same!)
-Or just two set of stm32_fmc2_child_props...
-
-Anyway the duplicated code just two read different register is it not
-the way to go.
 
 
-> +
-> +	regmap_read(ebi->regmap, FMC2_CFGR, &cfgr);
-> +
-> +	if (bcr & FMC2_BCR_BURSTEN &&
-> +	    (!cs || !(cfgr & FMC2_CFGR_CCLKEN)))
->  		return 0;
->  
->  	return -EINVAL;
-> @@ -311,15 +352,29 @@ static u32 stm32_fmc2_ebi_ns_to_clk_period(struct stm32_fmc2_ebi *ebi,
->  					   int cs, u32 setup)
->  {
->  	u32 nb_clk_cycles = stm32_fmc2_ebi_ns_to_clock_cycles(ebi, cs, setup);
-> -	u32 bcr, btr, clk_period;
-> +	u32 btr, clk_period;
->  
-> -	regmap_read(ebi->regmap, FMC2_BCR1, &bcr);
-> -	if (bcr & FMC2_BCR1_CCLKEN || !cs)
-> -		regmap_read(ebi->regmap, FMC2_BTR1, &btr);
-> -	else
-> -		regmap_read(ebi->regmap, FMC2_BTR(cs), &btr);
-> +	if (ebi->majrev < FMC2_VERR_MAJREV_2) {
-> +		u32 bcr;
->  
-> -	clk_period = FIELD_GET(FMC2_BTR_CLKDIV, btr) + 1;
-> +		regmap_read(ebi->regmap, FMC2_BCR1, &bcr);
-> +		if (bcr & FMC2_BCR1_CCLKEN || !cs)
-> +			regmap_read(ebi->regmap, FMC2_BTR1, &btr);
-> +		else
-> +			regmap_read(ebi->regmap, FMC2_BTR(cs), &btr);
-> +
-> +		clk_period = FIELD_GET(FMC2_BTR_CLKDIV, btr) + 1;
-> +	} else {
-> +		u32 cfgr;
-> +
-> +		regmap_read(ebi->regmap, FMC2_CFGR, &cfgr);
-> +		if (cfgr & FMC2_CFGR_CCLKEN) {
-> +			clk_period = FIELD_GET(FMC2_CFGR_CLKDIV, cfgr) + 1;
-> +		} else {
-> +			regmap_read(ebi->regmap, FMC2_BTR(cs), &btr);
-> +			clk_period = FIELD_GET(FMC2_BTR_CLKDIV, btr) + 1;
-> +		}
-> +	}
->  
->  	return DIV_ROUND_UP(nb_clk_cycles, clk_period);
->  }
-> @@ -339,6 +394,9 @@ static int stm32_fmc2_ebi_get_reg(int reg_type, int cs, u32 *reg)
->  	case FMC2_REG_PCSCNTR:
->  		*reg = FMC2_PCSCNTR;
->  		break;
-> +	case FMC2_REG_CFGR:
-> +		*reg = FMC2_CFGR;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -672,10 +730,26 @@ static int stm32_fmc2_ebi_set_clk_period(struct stm32_fmc2_ebi *ebi,
->  					 int cs, u32 setup)
->  {
->  	u32 val;
-> +	u32 reg = FMC2_BTR(cs);
-> +	u32 mask = FMC2_BTR_CLKDIV;
->  
-> -	val = setup ? clamp_val(setup - 1, 1, FMC2_BTR_CLKDIV_MAX) : 1;
-> -	val = FIELD_PREP(FMC2_BTR_CLKDIV, val);
-> -	regmap_update_bits(ebi->regmap, FMC2_BTR(cs), FMC2_BTR_CLKDIV, val);
-> +	if (ebi->majrev >= FMC2_VERR_MAJREV_2) {
-> +		u32 cfgr;
-> +
-> +		regmap_read(ebi->regmap, FMC2_CFGR, &cfgr);
-> +
-> +		if (cfgr & FMC2_CFGR_CCLKEN) {
-> +			reg = FMC2_CFGR;
-> +			mask = FMC2_CFGR_CLKDIV;
-> +		}
-> +	}
-> +
-> +	val = setup ? clamp_val(setup - 1, 1, FMC2_REG_CLKDIV_MAX) : 1;
-> +	if (reg == FMC2_CFGR)
-> +		val = FIELD_PREP(FMC2_CFGR_CLKDIV, val);
-> +	else
-> +		val = FIELD_PREP(FMC2_BTR_CLKDIV, val);
-
-This scales poorly for any new revision. You should really start using
-reg_field per each version.
-
-> +	regmap_update_bits(ebi->regmap, reg, mask, val);
+>  	regmap_update_bits(ebi->regmap, reg, mask, setup ? mask : 0);
 >  
 >  	return 0;
+> @@ -990,6 +1023,107 @@ static const struct stm32_fmc2_prop stm32_fmc2_child_props[] = {
+>  	},
+>  };
+>  
+> +static int stm32_fmc2_ebi_check_rif(struct stm32_fmc2_ebi *ebi, u32 resource)
+> +{
+> +	u32 seccfgr, cidcfgr, semcr;
+> +	int cid;
+> +
+> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+> +		return 0;
+> +
+> +	if (resource >= FMC2_MAX_RESOURCES)
+> +		return -EINVAL;
+> +
+> +	regmap_read(ebi->regmap, FMC2_SECCFGR, &seccfgr);
+
+No checking of read value?
+
+> +	if (seccfgr & BIT(resource)) {
+
+Then on read failure this is random stack junk.
+
+> +		if (resource)
+> +			dev_err(ebi->dev, "resource %d is configured as secure\n",
+> +				resource);
+> +
+> +		return -EACCES;
+> +	}
+> +
+> +	regmap_read(ebi->regmap, FMC2_CIDCFGR(resource), &cidcfgr);
+> +	if (!(cidcfgr & FMC2_CIDCFGR_CFEN))
+> +		/* CID filtering is turned off: access granted */
+> +		return 0;
+> +
+> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMEN)) {
+> +		/* Static CID mode */
+> +		cid = FIELD_GET(FMC2_CIDCFGR_SCID, cidcfgr);
+> +		if (cid != FMC2_CID1) {
+> +			if (resource)
+> +				dev_err(ebi->dev, "static CID%d set for resource %d\n",
+> +					cid, resource);
+> +
+> +			return -EACCES;
+> +		}
+> +
+> +		return 0;
+> +	}
+> +
+> +	/* Pass-list with semaphore mode */
+> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMWLC1)) {
+> +		if (resource)
+> +			dev_err(ebi->dev, "CID1 is block-listed for resource %d\n",
+> +				resource);
+> +
+> +		return -EACCES;
+> +	}
+> +
+> +	regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
+> +	if (!(semcr & FMC2_SEMCR_SEM_MUTEX)) {
+> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
+> +		regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
+> +	}
+> +
+> +	cid = FIELD_GET(FMC2_SEMCR_SEMCID, semcr);
+> +	if (cid != FMC2_CID1) {
+> +		if (resource)
+> +			dev_err(ebi->dev, "resource %d is already used by CID%d\n",
+> +				resource, cid);
+> +
+> +		return -EACCES;
+> +	}
+> +
+> +	ebi->sem_taken |= BIT(resource);
+> +
+> +	return 0;
+> +}
+> +
+> +static void stm32_fmc2_ebi_put_sems(struct stm32_fmc2_ebi *ebi)
+> +{
+> +	unsigned int resource;
+> +
+> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+> +		return;
+> +
+> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
+> +		if (!(ebi->sem_taken & BIT(resource)))
+> +			continue;
+> +
+> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+> +				   FMC2_SEMCR_SEM_MUTEX, 0);
+> +	}
+> +}
+> +
+> +static void stm32_fmc2_ebi_get_sems(struct stm32_fmc2_ebi *ebi)
+> +{
+> +	unsigned int resource;
+> +
+> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+> +		return;
+> +
+> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
+> +		if (!(ebi->sem_taken & BIT(resource)))
+> +			continue;
+> +
+> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
+> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
+> +	}
+> +}
+> +
+>  static int stm32_fmc2_ebi_parse_prop(struct stm32_fmc2_ebi *ebi,
+>  				     struct device_node *dev_node,
+>  				     const struct stm32_fmc2_prop *prop,
+> @@ -1057,6 +1191,9 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>  	unsigned int cs;
+>  
+>  	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
+> +		if (!(ebi->bank_assigned & BIT(cs)))
+> +			continue;
+> +
+>  		regmap_read(ebi->regmap, FMC2_BCR(cs), &ebi->bcr[cs]);
+>  		regmap_read(ebi->regmap, FMC2_BTR(cs), &ebi->btr[cs]);
+>  		regmap_read(ebi->regmap, FMC2_BWTR(cs), &ebi->bwtr[cs]);
+> @@ -1064,7 +1201,7 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>  
+>  	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>  		regmap_read(ebi->regmap, FMC2_PCSCNTR, &ebi->pcscntr);
+> -	else
+> +	else if (ebi->access_granted)
+>  		regmap_read(ebi->regmap, FMC2_CFGR, &ebi->cfgr);
 >  }
-> @@ -697,27 +771,58 @@ static int stm32_fmc2_ebi_set_max_low_pulse(struct stm32_fmc2_ebi *ebi,
->  					    const struct stm32_fmc2_prop *prop,
->  					    int cs, u32 setup)
->  {
-> -	u32 old_val, new_val, pcscntr;
-> +	u32 val;
-> +	u32 reg = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_PCSCNTR :
-> +						     FMC2_BCR(cs);
-> +	u32 mask = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_PCSCNTR_CSCOUNT :
-> +						      FMC2_BCR_CSCOUNT;
+>  
+> @@ -1073,6 +1210,9 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
+>  	unsigned int cs;
+>  
+>  	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
+> +		if (!(ebi->bank_assigned & BIT(cs)))
+> +			continue;
+> +
+>  		regmap_write(ebi->regmap, FMC2_BCR(cs), ebi->bcr[cs]);
+>  		regmap_write(ebi->regmap, FMC2_BTR(cs), ebi->btr[cs]);
+>  		regmap_write(ebi->regmap, FMC2_BWTR(cs), ebi->bwtr[cs]);
+> @@ -1080,7 +1220,7 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
+>  
+>  	if (ebi->majrev < FMC2_VERR_MAJREV_2)
+>  		regmap_write(ebi->regmap, FMC2_PCSCNTR, ebi->pcscntr);
+> -	else
+> +	else if (ebi->access_granted)
+>  		regmap_write(ebi->regmap, FMC2_CFGR, ebi->cfgr);
 
-You have such code everywhere... sorry, that's not readable at all. No
-conditional assignmnents, that's a clear NAK.
+So this is kind of half-allowed-half-not. How is it supposed to work
+with !access_granted? You configure some registers but some not. So will
+it work or not? If yes, why even needing to write to FMC2_CFGR!
 
+>  }
+>  
+> @@ -1124,7 +1264,8 @@ static void stm32_fmc2_ebi_enable(struct stm32_fmc2_ebi *ebi)
+>  	u32 mask = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_BCR1_FMC2EN :
+>  						      FMC2_CFGR_FMC2EN;
+>  
+> -	regmap_update_bits(ebi->regmap, reg, mask, mask);
+> +	if (ebi->access_granted)
+> +		regmap_update_bits(ebi->regmap, reg, mask, mask);
+>  }
+>  
+>  static void stm32_fmc2_ebi_disable(struct stm32_fmc2_ebi *ebi)
+> @@ -1133,7 +1274,8 @@ static void stm32_fmc2_ebi_disable(struct stm32_fmc2_ebi *ebi)
+>  	u32 mask = ebi->majrev < FMC2_VERR_MAJREV_2 ? FMC2_BCR1_FMC2EN :
+>  						      FMC2_CFGR_FMC2EN;
+>  
+> -	regmap_update_bits(ebi->regmap, reg, mask, 0);
+> +	if (ebi->access_granted)
+> +		regmap_update_bits(ebi->regmap, reg, mask, 0);
+>  }
+>  
+>  static int stm32_fmc2_ebi_setup_cs(struct stm32_fmc2_ebi *ebi,
+> @@ -1190,6 +1332,13 @@ static int stm32_fmc2_ebi_parse_dt(struct stm32_fmc2_ebi *ebi)
+>  			return -EINVAL;
+>  		}
+>  
+> +		ret = stm32_fmc2_ebi_check_rif(ebi, bank + 1);
+> +		if (ret) {
+> +			dev_err(dev, "bank access failed: %d\n", bank);
+> +			of_node_put(child);
+> +			return ret;
+> +		}
+> +
+>  		if (bank < FMC2_MAX_EBI_CE) {
+>  			ret = stm32_fmc2_ebi_setup_cs(ebi, child, bank);
+>  			if (ret) {
+> @@ -1261,6 +1410,23 @@ static int stm32_fmc2_ebi_probe(struct platform_device *pdev)
+>  	regmap_read(ebi->regmap, FMC2_VERR, &verr);
+>  	ebi->majrev = FIELD_GET(FMC2_VERR_MAJREV, verr);
+>  
+> +	/* Check if CFGR register can be modified */
+> +	ret = stm32_fmc2_ebi_check_rif(ebi, 0);
+> +	if (!ret)
+> +		ebi->access_granted = true;
 
+I don't understand why you need to store it. If access is not granted,
+what else is to do for this driver? Why even probing it? Why enabling
+clocks and keep everything running if it cannot work?
+
+> +
+> +	/* In case of CFGR is secure, just check that the FMC2 is enabled */
+> +	if (!ebi->access_granted) {
+
+This is just "else", isn't it?
+
+> +		u32 sr;
+> +
+> +		regmap_read(ebi->regmap, FMC2_SR, &sr);
+> +		if (sr & FMC2_SR_ISOST) {
+> +			dev_err(dev, "FMC2 is not ready to be used.\n");
+> +			ret = -EACCES;
+> +			goto err_release;
+> +		}
+> +	}
+> +
+>  	ret = stm32_fmc2_ebi_parse_dt(ebi);
+
+>  
 
 Best regards,
 Krzysztof
