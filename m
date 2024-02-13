@@ -2,50 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F8B08526BA
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 02:40:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D06168527A7
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 04:13:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3122C6C83D;
-	Tue, 13 Feb 2024 01:40:29 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1ED4C6B45B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76D17C6C83D;
+	Tue, 13 Feb 2024 03:13:49 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D333DC6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 01:40:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id EFD2CCE18E7;
- Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 31713C433C7;
- Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707788426;
- bh=C7XIxg2//9H9lNyyL4lVnFIE3rkFS9Y7qI8j3SBXhMY=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=CweQf6meCbweoJAM0Jm8E32JxjtvvfbRFeSGess8IGVjuSH/MWw5bTo+Nd/wams88
- ek/Mb8hL8gnhB92iQAg3F8GPwXy046WZ6FIJoffiKQ4Xei4EGm0MuiwaEKKAZFA98T
- Cr9pH7x0gwOEFOe0Mp9jz3Pky6uTDTZqprDDeXwtOT9GOTbQXBKTwty3gNbvrMTLmY
- 83ZT4Z7PXJEcXz+rPfyrUBlX/kBhO0LnZ4rs6d1OdUdj2vRsru8kBX6ikPMMNZdVmW
- Un+hZbI886lyEOlyMS9W1LRuOBTC0jUKnlnUCfmY88guD7CvsZznKUqvrTFm9qSm9U
- 0lt7L9c/WLUKg==
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 17A84D84BC6; Tue, 13 Feb 2024 01:40:26 +0000 (UTC)
+ Tue, 13 Feb 2024 03:13:47 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1B30DDA7;
+ Mon, 12 Feb 2024 19:14:28 -0800 (PST)
+Received: from [10.162.41.8] (a077893.blr.arm.com [10.162.41.8])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 164D33F5A1;
+ Mon, 12 Feb 2024 19:13:42 -0800 (PST)
+Message-ID: <0c65f3b0-a879-444c-b0a4-4af485e72166@arm.com>
+Date: Tue, 13 Feb 2024 08:43:39 +0530
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <170778842609.15795.7467205079881432963.git-patchwork-notify@kernel.org>
-Date: Tue, 13 Feb 2024 01:40:26 +0000
-References: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
-In-Reply-To: <20240208-xgmac-const-v1-1-e69a1eeabfc8@kernel.org>
-To: Simon Horman <horms@kernel.org>
-Cc: jonathanh@nvidia.com, lkp@intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, fancer.lancer@gmail.com,
- 0x1207@gmail.com, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: xgmac: use #define for
-	string constants
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20240123054608.1790189-1-anshuman.khandual@arm.com>
+ <20240123054608.1790189-4-anshuman.khandual@arm.com>
+ <44597c9a-79bd-40f8-87a7-b53582132583@arm.com>
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+In-Reply-To: <44597c9a-79bd-40f8-87a7-b53582132583@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH V4 03/11] coresight: tmc: Extract device
+ properties from AMBA pid based table lookup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,37 +48,83 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 08 Feb 2024 09:48:27 +0000 you wrote:
-> The cited commit introduces and uses the string constants dpp_tx_err and
-> dpp_rx_err. These are assigned to constant fields of the array
-> dwxgmac3_error_desc.
-> 
-> It has been reported that on GCC 6 and 7.5.0 this results in warnings
-> such as:
-> 
-> [...]
-
-Here is the summary with links:
-  - [net] net: stmmac: xgmac: use #define for string constants
-    https://git.kernel.org/netdev/net/c/1692b9775e74
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiAyLzEyLzI0IDE3OjQzLCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDIzLzAxLzIw
+MjQgMDU6NDYsIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+PiBUaGlzIGV4dHJhY3RzIGRldmlj
+ZSBwcm9wZXJ0aWVzIGZyb20gQU1CQSBwaWQgYmFzZWQgdGFibGUgbG9va3VwLiBUaGlzIGFsc28K
+Pj4gZGVmZXJzIHRtY19ldHJfc2V0dXBfY2FwcygpIGFmdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNl
+IGhhcyBiZWVuIGluaXRpYWxpemVkCj4+IHNvIHRoYXQgUElEIHZhbHVlIGNhbiBiZSByZWFkLgo+
+Pgo+PiBDYzogU3V6dWtpIEsgUG91bG9zZSA8c3V6dWtpLnBvdWxvc2VAYXJtLmNvbT4KPj4gQ2M6
+IE1pa2UgTGVhY2ggPG1pa2UubGVhY2hAbGluYXJvLm9yZz4KPj4gQ2M6IEphbWVzIENsYXJrIDxq
+YW1lcy5jbGFya0Bhcm0uY29tPgo+PiBDYzogY29yZXNpZ2h0QGxpc3RzLmxpbmFyby5vcmcKPj4g
+Q2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZwo+PiBDYzogbGludXgta2Vy
+bmVsQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5OiBBbnNodW1hbiBLaGFuZHVhbCA8
+YW5zaHVtYW4ua2hhbmR1YWxAYXJtLmNvbT4KPj4gLS0tCj4+IMKgIC4uLi9od3RyYWNpbmcvY29y
+ZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jwqAgfCAxOSArKysrKysrKysrKysrLS0tLS0tCj4+
+IMKgIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQo+Pgo+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMt
+Y29yZS5jIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5j
+Cj4+IGluZGV4IDdlYzUzNjVlMmI2NC4uZTcxZGIzMDk5YTI5IDEwMDY0NAo+PiAtLS0gYS9kcml2
+ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3JlLmMKPj4gKysrIGIvZHJp
+dmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5jCj4+IEBAIC0zNzAs
+MTYgKzM3MCwyNCBAQCBzdGF0aWMgaW5saW5lIGJvb2wgdG1jX2V0cl9oYXNfbm9uX3NlY3VyZV9h
+Y2Nlc3Moc3RydWN0IHRtY19kcnZkYXRhICpkcnZkYXRhKQo+PiDCoMKgwqDCoMKgIHJldHVybiAo
+YXV0aCAmIFRNQ19BVVRIX05TSURfTUFTSykgPT0gMHgzOwo+PiDCoCB9Cj4+IMKgICsjZGVmaW5l
+IFRNQ19BTUJBX01BU0sgMHhmZmZmZgo+PiArCj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IGFtYmFf
+aWQgdG1jX2lkc1tdOwo+PiArCj4+IMKgIC8qIERldGVjdCBhbmQgaW5pdGlhbGlzZSB0aGUgY2Fw
+YWJpbGl0aWVzIG9mIGEgVE1DIEVUUiAqLwo+PiAtc3RhdGljIGludCB0bWNfZXRyX3NldHVwX2Nh
+cHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIgZGV2aWQsIHZvaWQgKmRldl9jYXBzKQo+PiAr
+c3RhdGljIGludCB0bWNfZXRyX3NldHVwX2NhcHMoc3RydWN0IGRldmljZSAqcGFyZW50LCB1MzIg
+ZGV2aWQpCj4+IMKgIHsKPj4gwqDCoMKgwqDCoCBpbnQgcmM7Cj4+IC3CoMKgwqAgdTMyIGRtYV9t
+YXNrID0gMDsKPj4gK8KgwqDCoCB1MzIgdG1jX3BpZCwgZG1hX21hc2sgPSAwOwo+PiDCoMKgwqDC
+oMKgIHN0cnVjdCB0bWNfZHJ2ZGF0YSAqZHJ2ZGF0YSA9IGRldl9nZXRfZHJ2ZGF0YShwYXJlbnQp
+Owo+PiArwqDCoMKgIHZvaWQgKmRldl9jYXBzOwo+PiDCoCDCoMKgwqDCoMKgIGlmICghdG1jX2V0
+cl9oYXNfbm9uX3NlY3VyZV9hY2Nlc3MoZHJ2ZGF0YSkpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXR1cm4gLUVBQ0NFUzsKPj4gwqAgK8KgwqDCoCB0bWNfcGlkID0gY29yZXNpZ2h0X2dldF9waWQo
+JmRydmRhdGEtPmNzZGV2LT5hY2Nlc3MpICYgVE1DX0FNQkFfTUFTSzsKPj4gK8KgwqDCoCBkZXZf
+Y2FwcyA9IGNvcmVzaWdodF9nZXRfdWNpX2RhdGFfZnJvbV9hbWJhKHRtY19pZHMsIHRtY19waWQp
+Owo+PiArCj4+IMKgwqDCoMKgwqAgLyogU2V0IHRoZSB1bmFkdmVydGlzZWQgY2FwYWJpbGl0aWVz
+ICovCj4+IMKgwqDCoMKgwqAgdG1jX2V0cl9pbml0X2NhcHMoZHJ2ZGF0YSwgKHUzMikodW5zaWdu
+ZWQgbG9uZylkZXZfY2Fwcyk7Cj4+IMKgIEBAIC00OTcsMTAgKzUwNSw2IEBAIHN0YXRpYyBpbnQg
+dG1jX3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAqYWRldiwgY29uc3Qgc3RydWN0IGFtYmFfaWQg
+KmlkKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZGVzYy50eXBlID0gQ09SRVNJR0hUX0RFVl9UWVBF
+X1NJTks7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBkZXNjLnN1YnR5cGUuc2lua19zdWJ0eXBlID0g
+Q09SRVNJR0hUX0RFVl9TVUJUWVBFX1NJTktfU1lTTUVNOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
+ZGVzYy5vcHMgPSAmdG1jX2V0cl9jc19vcHM7Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXQgPSB0bWNf
+ZXRyX3NldHVwX2NhcHMoZGV2LCBkZXZpZCwKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgY29yZXNpZ2h0X2dldF91Y2lfZGF0YShpZCkpOwo+PiAtwqDCoMKgwqDC
+oMKgwqAgaWYgKHJldCkKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBvdXQ7Cj4+IMKg
+wqDCoMKgwqDCoMKgwqDCoCBpZHJfaW5pdCgmZHJ2ZGF0YS0+aWRyKTsKPj4gwqDCoMKgwqDCoMKg
+wqDCoMKgIG11dGV4X2luaXQoJmRydmRhdGEtPmlkcl9tdXRleCk7Cj4+IMKgwqDCoMKgwqDCoMKg
+wqDCoCBkZXZfbGlzdCA9ICZldHJfZGV2czsKPj4gQEAgLTUzOSw2ICs1NDMsOSBAQCBzdGF0aWMg
+aW50IHRtY19wcm9iZShzdHJ1Y3QgYW1iYV9kZXZpY2UgKmFkZXYsIGNvbnN0IHN0cnVjdCBhbWJh
+X2lkICppZCkKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gb3V0Owo+PiDCoMKgwqDCoMKgIH0K
+Pj4gwqAgK8KgwqDCoCBpZiAoZHJ2ZGF0YS0+Y29uZmlnX3R5cGUgPT0gVE1DX0NPTkZJR19UWVBF
+X0VUUikKPj4gK8KgwqDCoMKgwqDCoMKgIHJldCA9IHRtY19ldHJfc2V0dXBfY2FwcyhkZXYsIGRl
+dmlkKTsKPj4gKwo+IAo+IFdpdGggdGhpcyBjaGFuZ2UsIHdlIHNpbGVudGx5IGFjY2VwdCBhbiBF
+VFIgdGhhdCBtYXkgb25seSBoYXZlICJTRUNVUkUiIGFjY2VzcyBvbmx5IGFuZCBjcmFzaCBsYXRl
+ciB3aGlsZSB3ZSB0cnkgdG8gZW5hYmxlIHRyYWNpbmcuIFlvdSBjb3VsZAo+IHBhc3MgaW4gdGhl
+ICJhY2Nlc3MiICh3aGljaCBpcyBhbHJlYWR5IGluICdkZXNjLmFjY2VzcycgaW4gdGhlIG9yaWdp
+bmFsCj4gY2FsbCBzaXRlIGFuZCBkZWFsIHdpdGggaXQgPwoKSnVzdCB3b25kZXJpbmcsIGlmIHNv
+bWV0aGluZyBsaWtlIHRoZSBmb2xsb3dpbmcgd2lsbCBoZWxwID8gQSBmYWlsZWQgdG1jX2V0cl9z
+ZXR1cF9jYXBzKCkKYmVjYXVzZSBvZiBmYWlsZWQgdG1jX2V0cl9oYXNfbm9uX3NlY3VyZV9hY2Nl
+c3MoKSwgd2lsbCB1bnJlZ2lzdGVyIHRoZSBjb3Jlc2lnaHQgZGV2aWNlCmJlZm9yZSByZXR1cm5p
+bmcuCgotLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRtYy1jb3Jl
+LmMKKysrIGIvZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10bWMtY29yZS5j
+CkBAIC01MzgsOCArNTM4LDEzIEBAIHN0YXRpYyBpbnQgX190bWNfcHJvYmUoc3RydWN0IGRldmlj
+ZSAqZGV2LCBzdHJ1Y3QgcmVzb3VyY2UgKnJlcykKICAgICAgICAgICAgICAgIGdvdG8gb3V0Owog
+ICAgICAgIH0KIAotICAgICAgIGlmIChkcnZkYXRhLT5jb25maWdfdHlwZSA9PSBUTUNfQ09ORklH
+X1RZUEVfRVRSKQorICAgICAgIGlmIChkcnZkYXRhLT5jb25maWdfdHlwZSA9PSBUTUNfQ09ORklH
+X1RZUEVfRVRSKSB7CiAgICAgICAgICAgICAgICByZXQgPSB0bWNfZXRyX3NldHVwX2NhcHMoZGV2
+LCBkZXZpZCk7CisgICAgICAgICAgICAgICBpZiAocmV0KSB7CisgICAgICAgICAgICAgICAgICAg
+ICAgIGNvcmVzaWdodF91bnJlZ2lzdGVyKGRydmRhdGEtPmNzZGV2KTsKKyAgICAgICAgICAgICAg
+ICAgICAgICAgZ290byBvdXQ7CisgICAgICAgICAgICAgICB9CisgICAgICAgfQogCiAgICAgICAg
+ZHJ2ZGF0YS0+bWlzY2Rldi5uYW1lID0gZGVzYy5uYW1lOwogICAgICAgIGRydmRhdGEtPm1pc2Nk
+ZXYubWlub3IgPSBNSVNDX0RZTkFNSUNfTUlOT1I7Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
+MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
