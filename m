@@ -2,39 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B911D853C33
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 21:27:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D4A5853C87
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Feb 2024 21:56:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62A4AC6DD69;
-	Tue, 13 Feb 2024 20:27:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42751C6DD69;
+	Tue, 13 Feb 2024 20:56:41 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8F02C65E42
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFCA7C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Feb 2024 20:27:04 +0000 (UTC)
+ Tue, 13 Feb 2024 20:56:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5C857616C3;
- Tue, 13 Feb 2024 20:27:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACEE0C433F1;
- Tue, 13 Feb 2024 20:26:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 966FD61218
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Feb 2024 20:56:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC4FC433F1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Feb 2024 20:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1707856023;
- bh=wr2SPv5Ld/DSkoS5vcAzZJ9Df9CxqcjpNgsKUEXsmMg=;
- h=Date:From:To:List-Id:Cc:Subject:References:In-Reply-To:From;
- b=lPFkxYPR0J3NXG1zdBfo423wECnKhWMgXPxCg52F3jS4QKKMEyqjBhXaUGKE3tgG6
- 37ZF1eFh/KlF2KXEvZh8+5akK0hqsrS1FZnabOENmkW6SqKVRepSFJf7g6xxh7ojEV
- jnkdi6FQUiy1uKshzEZhLb5yve1bg3+EMiWyulcWid6e7LMamsxlhTvq2275lGDRVd
- PYq1svZG2Lc2X9dtgFRoH1KjCqQDhIoYjVbGHKXP+VJjE7rPkT9HdKzpsCs5RzEGYP
- ef1gd/J3wmRP/+qW2yBa+bsr9UVpRx1oatwybDxzT9Hk3Wx4NArI6+dQLf7ihqU6h7
- NgaQAYTbgz0rQ==
-Date: Tue, 13 Feb 2024 20:26:51 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Message-ID: <20240213-wafer-garnish-88287bc5d4a5@spud>
-References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+ s=k20201202; t=1707857798;
+ bh=D4LSaj+s1Zug+tnZej27exr9mIRN2BETmj/yUE3GRW0=;
+ h=References:In-Reply-To:From:Date:Subject:To:List-Id:Cc:From;
+ b=M009CAqx6Zq+bU3B0slxzBX4LYSGGAZlLcuMORtlOdd1kPRADV0yPtV0MDcvh/71i
+ eKKoQaL4IsBOouhURFlM7bXuQ1D+e7yiNAbxs/G05NqAm2BjmuGEY/P1HIx/MQdVN6
+ 9/uohBcFpABqa62lO3DqYEuiChWq5V/oECVXlNWCANYY5X9R/C9Nws/8iKKgLLeHWI
+ q+gvXX6qfTY1DgMimsbt8BAPRBa8NoqLAC1nvSX6dK0At+XS3rq+B5Tk0i6eLbMBEH
+ N59MOVh1jaHbHqW0UyPdMbEaABRBPAKSbb1MqwD1LTiA0FoW4hgfJEmvHJ/Elhf/J6
+ Trj6bzLhSmhMg==
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5116063585aso6154647e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Feb 2024 12:56:38 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5OVUocVMUDTfgXimFzI5ypYNTShnM+xXfLtDSuHcCHV/yL1COQyclMN1Y/GQpAMMtwDTGxjgoL35PekIn7G/hHKYntUZiYtlOmLFFKF6XWsrLdwk7mrSd
+X-Gm-Message-State: AOJu0YzHjxFO9va4qlO55z3EFCky5ecwcDoR7A70h8NCvjEcj4VvxwvS
+ EeBrcRhrS7RRrH6oBJlsIqza6VEzwlrX8SF+KwkF4opXuiVw56eW0b8ba4zLpxytx1sgguDpmGU
+ EeErcdfD5tWfNiVn6AWjZyPrsDA==
+X-Google-Smtp-Source: AGHT+IHaVnixOZOBNn0WypWTPscuLN4ELDvcVIU+BZ+gCn9OLEVbEJc+WSHECitxZrPyjoAQls55JHpdFFIbqmURVBc=
+X-Received: by 2002:a2e:9bc7:0:b0:2d1:107b:3bbd with SMTP id
+ w7-20020a2e9bc7000000b002d1107b3bbdmr506655ljj.9.1707857776326; Tue, 13 Feb
+ 2024 12:56:16 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+ <20240213-wafer-garnish-88287bc5d4a5@spud>
+In-Reply-To: <20240213-wafer-garnish-88287bc5d4a5@spud>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 13 Feb 2024 20:56:03 +0000
+X-Gmail-Original-Message-ID: <CAL_Jsq+9BwYyV9Vu1gfCnK_QjdRHvw2anM==Z6fsJvjyqLYFLw@mail.gmail.com>
+Message-ID: <CAL_Jsq+9BwYyV9Vu1gfCnK_QjdRHvw2anM==Z6fsJvjyqLYFLw@mail.gmail.com>
+To: Conor Dooley <conor@kernel.org>
 Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
  Tony Lindgren <tony@atomide.com>, linux-arm-msm@vger.kernel.org,
  Stefan Agner <stefan@agner.ch>, Chanho Min <chanho.min@lge.com>,
@@ -53,11 +70,10 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
  linux-tegra@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-kbuild@vger.kernel.org, Ray Jui <rjui@broadcom.com>,
  Sascha Hauer <s.hauer@pengutronix.de>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
  Nathan Chancellor <nathan@kernel.org>, soc@kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- =?iso-8859-1?Q?Beno=EEt?= Cousson <bcousson@baylibre.com>,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>,
  linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
  Imre Kaloz <kaloz@openwrt.org>, Scott Branden <sbranden@broadcom.com>,
@@ -78,73 +94,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1373546533329277976=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============1373546533329277976==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4XczAmSSxV0XIpGO"
-Content-Disposition: inline
-
-
---4XczAmSSxV0XIpGO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Feb 13, 2024 at 01:34:24PM -0600, Rob Herring wrote:
-> I had a branch with most of these changes sitting in my tree for some=20
-> time. Geert's asking about some errors not getting found prompted me to=
-=20
-> clean it up and send it out. This series fixes all* interrupt related=20
-> warnings and enables the check by default.=20
->=20
-> SoC maintainers, Can you please take this series directly.=20
->=20
-> Rob
->=20
-> *There's a few Renesas warnings still Geert said he would fix.
->=20
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> ---
-> Rob Herring (6):
->       arm64: dts: freescale: Disable interrupt_map check
->       arm: dts: Fix dtc interrupt_provider warnings
->       arm64: dts: Fix dtc interrupt_provider warnings
->       arm: dts: Fix dtc interrupt_map warnings
->       arm64: dts: qcom: Fix interrupt-map cell sizes
->       dtc: Enable dtc interrupt_provider check
-
-Only fixing it for arm, Sadge.
-
-Co-incidentally I noticed there was one for riscv while looking at
-Krzysztof's underscore in node name patch earlier, so I'd already
-written a patch to fix it :)
-
---4XczAmSSxV0XIpGO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZcvQiwAKCRB4tDGHoIJi
-0iKoAP9EkRpfMdcQD2Rxy6EyQrFHOf9aK1XBqWvwsM+uYWZVZAD9El92XfSbd1tC
-IcCJORhtpqwWl2bRDhMSRtSpWpqRygA=
-=9Yjc
------END PGP SIGNATURE-----
-
---4XczAmSSxV0XIpGO--
-
---===============1373546533329277976==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1373546533329277976==--
+T24gVHVlLCBGZWIgMTMsIDIwMjQgYXQgMjoyN+KAr1BNIENvbm9yIERvb2xleSA8Y29ub3JAa2Vy
+bmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiBUdWUsIEZlYiAxMywgMjAyNCBhdCAwMTozNDoyNFBNIC0w
+NjAwLCBSb2IgSGVycmluZyB3cm90ZToKPiA+IEkgaGFkIGEgYnJhbmNoIHdpdGggbW9zdCBvZiB0
+aGVzZSBjaGFuZ2VzIHNpdHRpbmcgaW4gbXkgdHJlZSBmb3Igc29tZQo+ID4gdGltZS4gR2VlcnQn
+cyBhc2tpbmcgYWJvdXQgc29tZSBlcnJvcnMgbm90IGdldHRpbmcgZm91bmQgcHJvbXB0ZWQgbWUg
+dG8KPiA+IGNsZWFuIGl0IHVwIGFuZCBzZW5kIGl0IG91dC4gVGhpcyBzZXJpZXMgZml4ZXMgYWxs
+KiBpbnRlcnJ1cHQgcmVsYXRlZAo+ID4gd2FybmluZ3MgYW5kIGVuYWJsZXMgdGhlIGNoZWNrIGJ5
+IGRlZmF1bHQuCj4gPgo+ID4gU29DIG1haW50YWluZXJzLCBDYW4geW91IHBsZWFzZSB0YWtlIHRo
+aXMgc2VyaWVzIGRpcmVjdGx5Lgo+ID4KPiA+IFJvYgo+ID4KPiA+ICpUaGVyZSdzIGEgZmV3IFJl
+bmVzYXMgd2FybmluZ3Mgc3RpbGwgR2VlcnQgc2FpZCBoZSB3b3VsZCBmaXguCj4gPgo+ID4gU2ln
+bmVkLW9mZi1ieTogUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz4KPiA+IC0tLQo+ID4gUm9i
+IEhlcnJpbmcgKDYpOgo+ID4gICAgICAgYXJtNjQ6IGR0czogZnJlZXNjYWxlOiBEaXNhYmxlIGlu
+dGVycnVwdF9tYXAgY2hlY2sKPiA+ICAgICAgIGFybTogZHRzOiBGaXggZHRjIGludGVycnVwdF9w
+cm92aWRlciB3YXJuaW5ncwo+ID4gICAgICAgYXJtNjQ6IGR0czogRml4IGR0YyBpbnRlcnJ1cHRf
+cHJvdmlkZXIgd2FybmluZ3MKPiA+ICAgICAgIGFybTogZHRzOiBGaXggZHRjIGludGVycnVwdF9t
+YXAgd2FybmluZ3MKPiA+ICAgICAgIGFybTY0OiBkdHM6IHFjb206IEZpeCBpbnRlcnJ1cHQtbWFw
+IGNlbGwgc2l6ZXMKPiA+ICAgICAgIGR0YzogRW5hYmxlIGR0YyBpbnRlcnJ1cHRfcHJvdmlkZXIg
+Y2hlY2sKPgo+IE9ubHkgZml4aW5nIGl0IGZvciBhcm0sIFNhZGdlLgoKSSB3YXMgYXNzdW1pbmcg
+eW91IGhhZCB0aGluZ3MgaW4gb3JkZXIuIDspCgo+IENvLWluY2lkZW50YWxseSBJIG5vdGljZWQg
+dGhlcmUgd2FzIG9uZSBmb3IgcmlzY3Ygd2hpbGUgbG9va2luZyBhdAo+IEtyenlzenRvZidzIHVu
+ZGVyc2NvcmUgaW4gbm9kZSBuYW1lIHBhdGNoIGVhcmxpZXIsIHNvIEknZCBhbHJlYWR5Cj4gd3Jp
+dHRlbiBhIHBhdGNoIHRvIGZpeCBpdCA6KQoKU2VlLCBJIHdhcyByaWdodC4KCkFjdHVhbGx5LCBJ
+IGRpZCByZW1lbWJlciB0byBjaGVjayByaWdodCBhZnRlciBJIHNlbnQgdGhpcyBhbmQgbm90aWNl
+ZCB0aGUgc2FtZS4KCkZvciBwb3dlcnBjLCBubyBvbmUgZWxzZSBjYW4gYmUgYm90aGVyZWQgdG8g
+Y2FyZSwgc28gbmVpdGhlciBkbyBJLiBJCnRoaW5rIHBvd2VycGMgaGFzIGJlZW4gc3Bld2luZyBk
+dGMgd2FybmluZ3MgYnkgZGVmYXVsdCBmb3Igc29tZSB0aW1lCm5vdy4KClJvYgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
