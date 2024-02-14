@@ -2,76 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EE4E854B85
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 15:36:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4BD3854C0C
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 16:01:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD29FC57194;
-	Wed, 14 Feb 2024 14:36:39 +0000 (UTC)
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68852C57194;
+	Wed, 14 Feb 2024 15:01:24 +0000 (UTC)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+ [209.85.160.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD7D3CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0678BCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 14:36:38 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-599fc25071bso3655183eaf.3
+ Wed, 14 Feb 2024 15:01:22 +0000 (UTC)
+Received: by mail-qt1-f176.google.com with SMTP id
+ d75a77b69052e-42a0ba5098bso28647881cf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 06:36:38 -0800 (PST)
+ Wed, 14 Feb 2024 07:01:22 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707921396; x=1708526196;
+ d=1e100.net; s=20230601; t=1707922880; x=1708527680;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ieRFgVX+l5qNLg5VWXa9Hrv9zNfV92pS7+FucPfjsp8=;
- b=MyA2XFqQN1uxkT6/FhiB/ZOlIK3ZXRa+p8abTaLKZoSA76jIWsv1k3oQMyV7tzqYoU
- f5Cru9nl18Jn+h9ab14vreNjhZb1K86SdtSFNfY3ExoUVoBi3jA5dB1pvAmtAaCICGEU
- tVWl//A3QZ7BQl0rJ6/gqMiZlqEZ0Mt59xuUaEUFe7zDjFYoYvDswrjcNBmErI8a7ei8
- u6U7+w0Ix4KVDUdP0ANXcLjkne6QpdE9r8x+6kahn8OKj9wgYGsFNHRZA6YTsKlQ5BaR
- Zc5BvaVT2q+UYuYkznqDeP4UBaO3fPZmb9mOZ/liiWkNesRA3mOLC146Pjp/USsDcm2B
- CZBg==
+ bh=h6upARWbXs1k8V4Vnc/YI44n6rxziwjW/OPtXVVY76s=;
+ b=OKXZyYkk6T2hjB35RVqn3u2ZT/HeNRfA+zRqqnjDCMXJxECTboZowu7qBm0eR6t4zo
+ lF4otxxkS6UvPKWFMDj3YMQ/qs07qb4mMlMZonI+/1+sKSP7zDbKGPvdKfaOWB0QMXYj
+ lKzAnwdUK1+khxP/64KxSMQmDKG1jEzR+i31H047TdSm1+dMTRVgY+vW2j8uozB0q6Gh
+ KHx/brm4/vlYUOvI2rA77UuaNcIIlKawbVH+hG9faL2CJU6wNPTRSRwZ8Z3mNh+YItmV
+ VubmdS4OoJSDuO4uxdf4J7H1wjRC2uo02ATRAbVlEFV5OOyAAdVpnQOytGRVHyx66hrO
+ JKcw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQZPaVtATRwg9C92nmSb/faY2zBc0D92scPucKAQjMVcl+2NEP4cd74jMHDyATtZeI8QiMWjDLgGk9FnScAu4l1r0UH5t5Yi2KfwrtfHeexrpoPxTP/7/l
-X-Gm-Message-State: AOJu0YwKINRNXVtV/fi2z+KYVM+6QqBHxxSEvxYhYH8SLZFgR0J1sr5I
- gCFj8rECp11vfLg6jlfQwKHIAZqIj2/8vwwwftI36J6KV7s+cjFPrH7hmryIgk8=
-X-Google-Smtp-Source: AGHT+IEDrHoVRejYjjyByDbeZl9UVciUUcCSo3E2tIPf19FX7PF0Rb0QhpENvJGSZ3q39tEdOmq0LQ==
-X-Received: by 2002:a05:6820:161e:b0:59d:d349:d2ea with SMTP id
- bb30-20020a056820161e00b0059dd349d2eamr3690218oob.0.1707921395963; 
- Wed, 14 Feb 2024 06:36:35 -0800 (PST)
+ AJvYcCW21aJvwdKXUgqgKJLA9/KFLbdluuFDZtZjDGbcfoz8CMh+Mb4Blihhu0lxl5/gOBq/XFatAmNJ0R2u2qkzQhxZp0JEWNbb1hJdLvB32H4zgjZ+M0ybkS7p
+X-Gm-Message-State: AOJu0Yw8mSrWJlhHE+/vSYV5aKsAZxvwduCGo+TQldFQTLSQ1J3lg08M
+ 9qQujWOz2zEXyltYN5dI36Q8BlsdT0shx6AWb6r4cjyqNBiHTjoVmLRBERd5wQE=
+X-Google-Smtp-Source: AGHT+IGBeRxkP0QD3OhK/cg7IzduAD9DUesf3WvMij+9SrsrE1XKDLEbWlarubzGX7wOMHenHvwKwg==
+X-Received: by 2002:ac8:5756:0:b0:42d:b20d:d6fc with SMTP id
+ 22-20020ac85756000000b0042db20dd6fcmr3064201qtx.3.1707922879070; 
+ Wed, 14 Feb 2024 07:01:19 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWLZGzPgfYYuMNqlFAD9PqT/CjuVNB6oZmiuMEHoukVP+55M/jny7wmMBeP50u8FSOevIuihC0e6qw1sC+JxsgmVhT74AenjJdKMlSpvIyhKIi5JzcyHdmb
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com.
- [209.85.161.44]) by smtp.gmail.com with ESMTPSA id
- g25-20020a4a2519000000b0059a826dcf53sm842074ooa.40.2024.02.14.06.36.35
+ AJvYcCWZnOnh9dVJTC7TP9hTCDg/R4Op6QnMi9BuBqKl8Wlxg1z/PqbYRRV4dM/V+Q/Lzr8CXtClDGfVUALW00ftjIRyFazREcEax5i2JA1CaQGNeHsuzk/UVDRP
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com.
+ [209.85.160.180]) by smtp.gmail.com with ESMTPSA id
+ c22-20020ac84e16000000b0042994b3c20dsm2052898qtw.29.2024.02.14.07.01.18
  for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 06:36:35 -0800 (PST)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-599fc25071bso3655156eaf.3
+ Wed, 14 Feb 2024 07:01:18 -0800 (PST)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-42a8a3973c5so28297781cf.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 06:36:35 -0800 (PST)
+ Wed, 14 Feb 2024 07:01:18 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXIfWtK63dYxVeABeYBnb4QLJxWp6738z7O3lV9GZ2uZhkl1haQil+e7mcqpFsPUeXNhAZH2EgFTy87OhE/bHH0lU/RQEwqIPoB51AigzasPU3ml2L21Ms5
-X-Received: by 2002:a25:8686:0:b0:dc7:4546:d107 with SMTP id
- z6-20020a258686000000b00dc74546d107mr2758581ybk.23.1707921374648; Wed, 14 Feb
- 2024 06:36:14 -0800 (PST)
+ AJvYcCUJJzQ8VJndiO/cGkASNQlc1tKi6x3rWkuKHoRGu6lHtwuSKYdj+qPDYf38nv0t7D5SfY6fBgLP3n+KuhRO07L+tICg8OMtVIL+sskpZfDyn/qMfIT9f9t4
+X-Received: by 2002:a25:84c9:0:b0:dc2:3fbd:82fe with SMTP id
+ x9-20020a2584c9000000b00dc23fbd82femr2322270ybm.46.1707922857034; Wed, 14 Feb
+ 2024 07:00:57 -0800 (PST)
 MIME-Version: 1.0
 References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
- <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
-In-Reply-To: <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
+In-Reply-To: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 14 Feb 2024 15:36:03 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXjJcsFiusnBQmJg1p-oy-NPmr+qyt0znOk0n+wL8TrnA@mail.gmail.com>
-Message-ID: <CAMuHMdXjJcsFiusnBQmJg1p-oy-NPmr+qyt0znOk0n+wL8TrnA@mail.gmail.com>
+Date: Wed, 14 Feb 2024 16:00:45 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
+Message-ID: <CAMuHMdWgvD9szXksK+jzyvwLQ8ufWWf1TPQ7s-5z4JWgrvXmkg@mail.gmail.com>
 To: Rob Herring <robh@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-aspeed@lists.ozlabs.org,
  Tony Lindgren <tony@atomide.com>, linux-arm-msm@vger.kernel.org,
  Stefan Agner <stefan@agner.ch>, Chanho Min <chanho.min@lge.com>,
  Thierry Reding <thierry.reding@gmail.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
  Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  Nicolas Schier <nicolas@fjasle.eu>, Bjorn Andersson <andersson@kernel.org>,
- Masahiro Yamada <masahiroy@kernel.org>, linux-aspeed@lists.ozlabs.org,
+ Masahiro Yamada <masahiroy@kernel.org>,
  Gregory Clement <gregory.clement@bootlin.com>,
  Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
@@ -95,8 +94,7 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
  Shawn Guo <shawnguo@kernel.org>, Tsahee Zidenberg <tsahee@annapurnalabs.com>
-Subject: Re: [Linux-stm32] [PATCH 3/6] arm64: dts: Fix dtc
-	interrupt_provider warnings
+Subject: Re: [Linux-stm32] [PATCH 0/6] dts: Fix dtc interrupt warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,20 +111,26 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBGZWIgMTMsIDIwMjQgYXQgODozNeKAr1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5l
-bC5vcmc+IHdyb3RlOgo+IFRoZSBkdGMgaW50ZXJydXB0X3Byb3ZpZGVyIHdhcm5pbmcgaXMgb2Zm
-IGJ5IGRlZmF1bHQuIEZpeCBhbGwgdGhlIHdhcm5pbmdzCj4gc28gaXQgY2FuIGJlIGVuYWJsZWQu
-Cj4KPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgoKPiAgYXJj
-aC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3VsY2Ita2YuZHRzaSAgICAgICAgICAgIHwgNCArKysr
-CgpSZXZpZXdlZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5i
-ZT4KQWNrZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+
-CgpHcntvZXRqZSxlZXRpbmd9cywKCiAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0CgotLSAK
-R2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRoZXJlJ3MgbG90cyBvZiBMaW51eCBiZXlvbmQgaWEzMiAt
-LSBnZWVydEBsaW51eC1tNjhrLm9yZwoKSW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRl
-Y2huaWNhbCBwZW9wbGUsIEkgY2FsbCBteXNlbGYgYSBoYWNrZXIuIEJ1dAp3aGVuIEknbSB0YWxr
-aW5nIHRvIGpvdXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBs
-aWtlIHRoYXQuCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFs
-ZHMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
-c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
-b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
-bGludXgtc3RtMzIK
+SGkgUm9iLAoKT24gVHVlLCBGZWIgMTMsIDIwMjQgYXQgODozNeKAr1BNIFJvYiBIZXJyaW5nIDxy
+b2JoQGtlcm5lbC5vcmc+IHdyb3RlOgo+IEkgaGFkIGEgYnJhbmNoIHdpdGggbW9zdCBvZiB0aGVz
+ZSBjaGFuZ2VzIHNpdHRpbmcgaW4gbXkgdHJlZSBmb3Igc29tZQo+IHRpbWUuIEdlZXJ0J3MgYXNr
+aW5nIGFib3V0IHNvbWUgZXJyb3JzIG5vdCBnZXR0aW5nIGZvdW5kIHByb21wdGVkIG1lIHRvCj4g
+Y2xlYW4gaXQgdXAgYW5kIHNlbmQgaXQgb3V0LiBUaGlzIHNlcmllcyBmaXhlcyBhbGwqIGludGVy
+cnVwdCByZWxhdGVkCj4gd2FybmluZ3MgYW5kIGVuYWJsZXMgdGhlIGNoZWNrIGJ5IGRlZmF1bHQu
+Cgo+ICpUaGVyZSdzIGEgZmV3IFJlbmVzYXMgd2FybmluZ3Mgc3RpbGwgR2VlcnQgc2FpZCBoZSB3
+b3VsZCBmaXguCgpUaGFua3MsIGZpeCBzZW50Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvYTM1
+MWU1MDNlYTk3ZmIxYWY2ODM5NTg0M2Y1MTM5MjVmZjFiZGYyNi4xNzA3OTIyNDYwLmdpdC5nZWVy
+dCtyZW5lc2FzQGdsaWRlci5iZQoKPiAgICAgICBkdGM6IEVuYWJsZSBkdGMgaW50ZXJydXB0X3By
+b3ZpZGVyIGNoZWNrCgo+ICBzY3JpcHRzL01ha2VmaWxlLmxpYiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB8ICAzICstLQoKSnVzdCB3b25kZXJpbmcsIGNhbiB0aGUgcmVtYWluaW5n
+IGRpc2FibGVyIGJlIHJlbW92ZWQsIHRvbz8KCkRvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5k
+aW5ncy9NYWtlZmlsZTogICAgIC1Xbm8taW50ZXJydXB0X3Byb3ZpZGVyIFwKCkdye29ldGplLGVl
+dGluZ31zLAoKICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQKCi0tIApHZWVydCBVeXR0ZXJo
+b2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4
+LW02OGsub3JnCgpJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdpdGggdGVjaG5pY2FsIHBlb3Bs
+ZSwgSSBjYWxsIG15c2VsZiBhIGhhY2tlci4gQnV0CndoZW4gSSdtIHRhbGtpbmcgdG8gam91cm5h
+bGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxkcwpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
