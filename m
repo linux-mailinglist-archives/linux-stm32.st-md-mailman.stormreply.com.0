@@ -2,66 +2,109 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC3568547F1
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 12:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4F4854983
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 13:49:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59387C57194;
-	Wed, 14 Feb 2024 11:16:46 +0000 (UTC)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12E60C62EFE;
+	Wed, 14 Feb 2024 12:49:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E733FCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F7EEC57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 11:16:44 +0000 (UTC)
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-6078f656914so13787637b3.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 03:16:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1707909404; x=1708514204;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=uj6mDAYoRHzkcy8dqG4hUvzPf2kuoVsNIBmDePLCGTA=;
- b=dXVSLH2EFCmW63I+XKHPif88INwHvV4ptWFMYK4n3PZtrXs6MSyUt88III/g7DR2/4
- nlpwlX2pPVSHKUTSM08YAJUHbDjmoU85G+CDcQwSXr6gcP0I0+Z58HkU0EimXaiDifYD
- OzIfGMlAOAZlD8kTHlzBDwKD6S2j2jRoX8IOb0UcRSxCX2Tt5Be6MePb8K+KjtKm4aP7
- V1+Wr70Mf3tePTdiA52fUskHVMlt5GlhG4Uwq70cu7jXPwzaSzvCaL1GpO04l7gAi7Vw
- zVrfhSC8vstIz9oOHzHcLH9LBMYrlVJfBt6Jf1N94ndJL4YH9W152ormuqppGh2+uIjc
- ES5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707909404; x=1708514204;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uj6mDAYoRHzkcy8dqG4hUvzPf2kuoVsNIBmDePLCGTA=;
- b=Ra89etRKpi/reesi9EAvfDElzZ3oLD/VupOfAudXXIS4kz9zbo3iLuXeeArYvdDnyW
- mZ8xaLCJx5X2B7tIHX3c8TR9Y1Tz8nR6RO0Yuv1YJw3ADcJhlgGBLBM/82oh9Ss+IoEt
- /9vQsxKfoQysPHHXXSnWe7gjdy/sTp8ev7Vix93AyNrL4+IsUETWGM8M+N+C6Ocwa0ie
- vbkJA0/qZSTvb1O8eTNT1O/lOiM6MtRRhiZxPHHVeyvJMl6+t9iilRaLQoOlYJ+W9eV0
- 7jRFzJhcFNnrOXKxNObzIPKqDigS4O2KSGt+kZ1+F9fjZ7ha4AloQlBZL2BgNRNK7y6Q
- KjWQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV5jEek6+oBl77aH7IF/CNi8yCPL9bNSr4rVuFSu8RsvBuZTBWdkxKA0yafyWrlWndC+zUw6vpZb+lFdg4PZBre+alNlVxJYv+FFH7S879sh2rwX2dXjdxY
-X-Gm-Message-State: AOJu0Yzm6pIKV/6aNbV9p2MACcPeLIfMSk5+1AaAr1j5+oaRtRdG4vPy
- UCD4MDRYKQmoUhxtk9cjrWkcM1OE62ylW3fQJh4075EN8u9+3NkzXNTIDI0JxLoE+xadKAxUaLi
- RSA/FMdzI5THcFRoZqX5bkMTXwAnk1vENYmZkcw==
-X-Google-Smtp-Source: AGHT+IGR6d9+WdNJXu0uxM+Xlzc9aogCPu7mnmTFb0vI1BVAlCSxaoGjJYxY6TTrV91065vIGhvBhfdccdgYl7fPDE8=
-X-Received: by 2002:a25:b29f:0:b0:dc7:6f13:61d1 with SMTP id
- k31-20020a25b29f000000b00dc76f1361d1mr2242861ybj.20.1707909403782; Wed, 14
- Feb 2024 03:16:43 -0800 (PST)
+ Wed, 14 Feb 2024 12:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1707914993; x=1739450993;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=VfFo/DkZzmeQyKntjmarBqvTj2pcgH+G7HGM6HxEwSk=;
+ b=C+SZyq4J6dxhznCmpkjvmy+MGaS5U2l5nRx41CS0BLupO3iyoLrQFtwq
+ BJ09p4KhLgY1jnrwB1UvVd/cr+/uFKMg8mPOLVrZXfn2kkoMCnjOyMVys
+ 06ITgTPSgxPSmfeWTFBJG7eCjyYBFeuxTUCEBvOfb64cu+vpEueacGcrj
+ 3XhvfcA4wDySrKdmAEZ4QNUixarqaXNbxHtaEZqhWjddpMqbbk2gJ/tC/
+ +sqKqTgMDSRE2B4d0lgr1zoaUokl0Qpr+J0uNWNGJ7DDFtKyEtFriPBju
+ 2HJ5FxWp2mk06ybPvs0bdG4n64d367N2BjZP3ySQAQgmGzuJAU2p+mlJk g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="1809725"
+X-IronPort-AV: E=Sophos;i="6.06,159,1705392000"; 
+   d="scan'208";a="1809725"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2024 04:49:51 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10982"; a="912083870"
+X-IronPort-AV: E=Sophos;i="6.06,159,1705392000"; d="scan'208";a="912083870"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2024 04:49:33 -0800
+Received: from andy by smile.fi.intel.com with local (Exim 4.97)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1raEhb-00000004UXT-0JCa; Wed, 14 Feb 2024 14:49:27 +0200
+Date: Wed, 14 Feb 2024 14:49:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <Zcy21tsntcK80hef@smile.fi.intel.com>
+References: <cover.1707900770.git.u.kleine-koenig@pengutronix.de>
+ <9577d6053a5a52536057dc8654ff567181c2da82.1707900770.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-References: <20240207143951.938144-1-christophe.kerello@foss.st.com>
-In-Reply-To: <20240207143951.938144-1-christophe.kerello@foss.st.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 14 Feb 2024 12:16:07 +0100
-Message-ID: <CAPDyKFpsABh4qsJv7sJiSZGWiBPM+umN2kp7teUYqdReC2a-zw@mail.gmail.com>
-To: Christophe Kerello <christophe.kerello@foss.st.com>
-Cc: linus.walleij@linaro.org, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH] mmc: mmci: stm32: fix DMA API overlapping
-	mappings warning
+Content-Disposition: inline
+In-Reply-To: <9577d6053a5a52536057dc8654ff567181c2da82.1707900770.git.u.kleine-koenig@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Michael Walle <mwalle@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-doc@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-tegra@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Thierry Reding <thierry.reding@gmail.com>, James Clark <james.clark@arm.com>,
+ Pavel Machek <pavel@ucw.cz>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev,
+ Nobuhiro Iwamatsu <nobuhiro1.iwamatsu@toshiba.co.jp>,
+ Fabio Estevam <festevam@gmail.com>, linux-riscv@lists.infradead.org,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>, Jerome Brunet <jbrunet@baylibre.com>,
+ Rob Herring <robh@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-samsung-soc@vger.kernel.org, Bjorn Andersson <quic_bjorande@quicinc.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jonathan Corbet <corbet@lwn.net>, Sean Anderson <sean.anderson@seco.com>,
+ Benson Leung <bleung@chromium.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ Lee Jones <lee@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Hammer Hsieh <hammerh0314@gmail.com>,
+ linux-rockchip@lists.infradead.org, Chen-Yu Tsai <wens@csie.org>,
+ Michal Simek <michal.simek@amd.com>, NXP Linux Team <linux-imx@nxp.com>,
+ linux-leds@vger.kernel.org,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, linux-mips@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ linux-pwm@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Sven Peter <sven@svenpeter.dev>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+ Vladimir Zapolskiy <vz@mleia.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Orson Zhai <orsonzhai@gmail.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>, kernel@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Alexander Shiyan <shc_work@mail.ru>, Scott Branden <sbranden@broadcom.com>,
+ linux-gpio@vger.kernel.org, Daire McNamara <daire.mcnamara@microchip.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Hector Martin <marcan@marcan.st>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, asahi@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
+ Anjelique Melendez <quic_amelende@quicinc.com>
+Subject: Re: [Linux-stm32] [PATCH v6 003/164] pwm: Provide pwmchip_alloc()
+ function and a devm variant of it
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,118 +116,70 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Wed, 7 Feb 2024 at 15:40, Christophe Kerello
-<christophe.kerello@foss.st.com> wrote:
->
-> Turning on CONFIG_DMA_API_DEBUG_SG results in the following warning:
->
-> DMA-API: mmci-pl18x 48220000.mmc: cacheline tracking EEXIST,
-> overlapping mappings aren't supported
-> WARNING: CPU: 1 PID: 51 at kernel/dma/debug.c:568
-> add_dma_entry+0x234/0x2f4
-> Modules linked in:
-> CPU: 1 PID: 51 Comm: kworker/1:2 Not tainted 6.1.28 #1
-> Hardware name: STMicroelectronics STM32MP257F-EV1 Evaluation Board (DT)
-> Workqueue: events_freezable mmc_rescan
-> Call trace:
-> add_dma_entry+0x234/0x2f4
-> debug_dma_map_sg+0x198/0x350
-> __dma_map_sg_attrs+0xa0/0x110
-> dma_map_sg_attrs+0x10/0x2c
-> sdmmc_idma_prep_data+0x80/0xc0
-> mmci_prep_data+0x38/0x84
-> mmci_start_data+0x108/0x2dc
-> mmci_request+0xe4/0x190
-> __mmc_start_request+0x68/0x140
-> mmc_start_request+0x94/0xc0
-> mmc_wait_for_req+0x70/0x100
-> mmc_send_tuning+0x108/0x1ac
-> sdmmc_execute_tuning+0x14c/0x210
-> mmc_execute_tuning+0x48/0xec
-> mmc_sd_init_uhs_card.part.0+0x208/0x464
-> mmc_sd_init_card+0x318/0x89c
-> mmc_attach_sd+0xe4/0x180
-> mmc_rescan+0x244/0x320
->
-> DMA API debug brings to light leaking dma-mappings as dma_map_sg and
-> dma_unmap_sg are not correctly balanced.
->
-> If an error occurs in mmci_cmd_irq function, only mmci_dma_error
-> function is called and as this API is not managed on stm32 variant,
-> dma_unmap_sg is never called in this error path.
->
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+On Wed, Feb 14, 2024 at 10:30:50AM +0100, Uwe Kleine-K=F6nig wrote:
+> This function allocates a struct pwm_chip and driver data. Compared to
+> the status quo the split into pwm_chip and driver data is new, otherwise
+> it doesn't change anything relevant (yet).
+> =
 
-Applied for fixes and by adding a fixes- and stable-tag, thanks!
+> The intention is that after all drivers are switched to use this
+> allocation function, its possible to add a struct device to struct
+> pwm_chip to properly track the latter's lifetime without touching all
+> drivers again. Proper lifetime tracking is a necessary precondition to
+> introduce character device support for PWMs (that implements atomic
+> setting and doesn't suffer from the sysfs overhead of the /sys/class/pwm
+> userspace support).
+> =
 
-Kind regards
-Uffe
+> The new function pwmchip_priv() (obviously?) only works for chips
+> allocated with pwmchip_alloc().
 
+...
 
-> ---
->  drivers/mmc/host/mmci_stm32_sdmmc.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
->
-> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> index 35067e1e6cd8..f5da7f9baa52 100644
-> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> @@ -225,6 +225,8 @@ static int sdmmc_idma_start(struct mmci_host *host, unsigned int *datactrl)
->         struct scatterlist *sg;
->         int i;
->
-> +       host->dma_in_progress = true;
+> +#define PWMCHIP_ALIGN ARCH_DMA_MINALIGN
 > +
->         if (!host->variant->dma_lli || data->sg_len == 1 ||
->             idma->use_bounce_buffer) {
->                 u32 dma_addr;
-> @@ -263,9 +265,30 @@ static int sdmmc_idma_start(struct mmci_host *host, unsigned int *datactrl)
->         return 0;
->  }
->
-> +static void sdmmc_idma_error(struct mmci_host *host)
+> +static void *pwmchip_priv(struct pwm_chip *chip)
 > +{
-> +       struct mmc_data *data = host->data;
-> +       struct sdmmc_idma *idma = host->dma_priv;
-> +
-> +       if (!dma_inprogress(host))
-> +               return;
-> +
-> +       writel_relaxed(0, host->base + MMCI_STM32_IDMACTRLR);
-> +       host->dma_in_progress = false;
-> +       data->host_cookie = 0;
-> +
-> +       if (!idma->use_bounce_buffer)
-> +               dma_unmap_sg(mmc_dev(host->mmc), data->sg, data->sg_len,
-> +                            mmc_get_dma_dir(data));
+> +	return (void *)chip + ALIGN(sizeof(*chip), PWMCHIP_ALIGN);
 > +}
-> +
->  static void sdmmc_idma_finalize(struct mmci_host *host, struct mmc_data *data)
->  {
-> +       if (!dma_inprogress(host))
-> +               return;
-> +
->         writel_relaxed(0, host->base + MMCI_STM32_IDMACTRLR);
-> +       host->dma_in_progress = false;
->
->         if (!data->host_cookie)
->                 sdmmc_idma_unprep_data(host, data, 0);
-> @@ -676,6 +699,7 @@ static struct mmci_host_ops sdmmc_variant_ops = {
->         .dma_setup = sdmmc_idma_setup,
->         .dma_start = sdmmc_idma_start,
->         .dma_finalize = sdmmc_idma_finalize,
-> +       .dma_error = sdmmc_idma_error,
->         .set_clkreg = mmci_sdmmc_set_clkreg,
->         .set_pwrreg = mmci_sdmmc_set_pwrreg,
->         .busy_complete = sdmmc_busy_complete,
-> --
-> 2.25.1
->
+
+Why not use dma_get_cache_alignment() ?
+
+...
+
+> +/* This is the counterpart to pwmchip_alloc */
+
+pwmchip_alloc()
+
+...
+
+> +EXPORT_SYMBOL_GPL(pwmchip_put);
+
+> +EXPORT_SYMBOL_GPL(pwmchip_alloc);
+
+> +EXPORT_SYMBOL_GPL(devm_pwmchip_alloc);
+
+Are these exported via namespace? If no, can they be from day 1?
+
+...
+
+> +static inline void pwmchip_put(struct pwm_chip *chip)
+> +{
+> +}
+
+Can be one line, but it's up to the present style in this header.
+
+-- =
+
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
