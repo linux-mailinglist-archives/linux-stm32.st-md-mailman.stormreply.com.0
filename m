@@ -2,73 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B0C7854AA7
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 14:42:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE4E854B85
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 15:36:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E65BC57194;
-	Wed, 14 Feb 2024 13:42:48 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD29FC57194;
+	Wed, 14 Feb 2024 14:36:39 +0000 (UTC)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36724C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD7D3CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 13:42:47 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41ECKIHK025049; Wed, 14 Feb 2024 14:42:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=63ccJdkmYj60Sx0VF1iQ9ToU2xIdXBSWALt0f6lAonM=; b=sQ
- Vn/JNrCwCL1yvVvfxCInR4HZow6dCVibArvy5c/Myj4zD4aWOJNx0Tw6gJBGmJy2
- kr7mrK98ISDsF+jrRl9YB4d7t+54kafIu2kN/44/DeX54+cd+CoWLBibaoZL0IAB
- SGBS2jgAG9sF6pzQmZp41odZ2n7KF6JX217efB/UfkcQRw4NJ22HqGODSnZqKi5w
- RKmhnOOB2LddukuWAc2hx3p95W4bG3OFhaSoCyGqJfCx8eiJ7hF1BlBPOZZ5b2XC
- ijvqAXFpcw8xkOoq+/3gIUST/DZNU+rU3eYl6/HURQQWALt7WOrD7g8hH7/O8Tdy
- c/rpIteNx2dVCEtgTGYA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w6mynmqee-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 14 Feb 2024 14:42:20 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6AEEE4002D;
- Wed, 14 Feb 2024 14:42:10 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 0F06A264AF6;
- Wed, 14 Feb 2024 14:41:00 +0100 (CET)
-Received: from [10.201.21.122] (10.201.21.122) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 14 Feb
- 2024 14:40:58 +0100
-Message-ID: <0c551a84-5c4a-4d79-ae59-d5b0d34b017d@foss.st.com>
-Date: Wed, 14 Feb 2024 14:40:58 +0100
+ Wed, 14 Feb 2024 14:36:38 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-599fc25071bso3655183eaf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 Feb 2024 06:36:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707921396; x=1708526196;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ieRFgVX+l5qNLg5VWXa9Hrv9zNfV92pS7+FucPfjsp8=;
+ b=MyA2XFqQN1uxkT6/FhiB/ZOlIK3ZXRa+p8abTaLKZoSA76jIWsv1k3oQMyV7tzqYoU
+ f5Cru9nl18Jn+h9ab14vreNjhZb1K86SdtSFNfY3ExoUVoBi3jA5dB1pvAmtAaCICGEU
+ tVWl//A3QZ7BQl0rJ6/gqMiZlqEZ0Mt59xuUaEUFe7zDjFYoYvDswrjcNBmErI8a7ei8
+ u6U7+w0Ix4KVDUdP0ANXcLjkne6QpdE9r8x+6kahn8OKj9wgYGsFNHRZA6YTsKlQ5BaR
+ Zc5BvaVT2q+UYuYkznqDeP4UBaO3fPZmb9mOZ/liiWkNesRA3mOLC146Pjp/USsDcm2B
+ CZBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUQZPaVtATRwg9C92nmSb/faY2zBc0D92scPucKAQjMVcl+2NEP4cd74jMHDyATtZeI8QiMWjDLgGk9FnScAu4l1r0UH5t5Yi2KfwrtfHeexrpoPxTP/7/l
+X-Gm-Message-State: AOJu0YwKINRNXVtV/fi2z+KYVM+6QqBHxxSEvxYhYH8SLZFgR0J1sr5I
+ gCFj8rECp11vfLg6jlfQwKHIAZqIj2/8vwwwftI36J6KV7s+cjFPrH7hmryIgk8=
+X-Google-Smtp-Source: AGHT+IEDrHoVRejYjjyByDbeZl9UVciUUcCSo3E2tIPf19FX7PF0Rb0QhpENvJGSZ3q39tEdOmq0LQ==
+X-Received: by 2002:a05:6820:161e:b0:59d:d349:d2ea with SMTP id
+ bb30-20020a056820161e00b0059dd349d2eamr3690218oob.0.1707921395963; 
+ Wed, 14 Feb 2024 06:36:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWLZGzPgfYYuMNqlFAD9PqT/CjuVNB6oZmiuMEHoukVP+55M/jny7wmMBeP50u8FSOevIuihC0e6qw1sC+JxsgmVhT74AenjJdKMlSpvIyhKIi5JzcyHdmb
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com.
+ [209.85.161.44]) by smtp.gmail.com with ESMTPSA id
+ g25-20020a4a2519000000b0059a826dcf53sm842074ooa.40.2024.02.14.06.36.35
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Feb 2024 06:36:35 -0800 (PST)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-599fc25071bso3655156eaf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 14 Feb 2024 06:36:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXIfWtK63dYxVeABeYBnb4QLJxWp6738z7O3lV9GZ2uZhkl1haQil+e7mcqpFsPUeXNhAZH2EgFTy87OhE/bHH0lU/RQEwqIPoB51AigzasPU3ml2L21Ms5
+X-Received: by 2002:a25:8686:0:b0:dc7:4546:d107 with SMTP id
+ z6-20020a258686000000b00dc74546d107mr2758581ybk.23.1707921374648; Wed, 14 Feb
+ 2024 06:36:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Jessica Zhang <quic_jesszhan@quicinc.com>, Sam
- Ravnborg <sam@ravnborg.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20240205-ltdc_mp13-v1-0-072d24bf1b36@foss.st.com>
-X-Originating-IP: [10.201.21.122]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-14_06,2024-02-14_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Yannick Fertre <yannick.fertre@foss.st.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/5] Add display support for
-	stm32mp135f-dk board
+References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
+ <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
+In-Reply-To: <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 14 Feb 2024 15:36:03 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXjJcsFiusnBQmJg1p-oy-NPmr+qyt0znOk0n+wL8TrnA@mail.gmail.com>
+Message-ID: <CAMuHMdXjJcsFiusnBQmJg1p-oy-NPmr+qyt0znOk0n+wL8TrnA@mail.gmail.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Tony Lindgren <tony@atomide.com>, linux-arm-msm@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>, Chanho Min <chanho.min@lge.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Nicolas Schier <nicolas@fjasle.eu>, Bjorn Andersson <andersson@kernel.org>,
+ Masahiro Yamada <masahiroy@kernel.org>, linux-aspeed@lists.ozlabs.org,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Joel Stanley <joel@jms.id.au>, linux-renesas-soc@vger.kernel.org,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Linus Walleij <linusw@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-tegra@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-kbuild@vger.kernel.org, Ray Jui <rjui@broadcom.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Nathan Chancellor <nathan@kernel.org>, soc@kernel.org,
+ Rob Herring <robh+dt@kernel.org>, linux-mediatek@lists.infradead.org,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ =?UTF-8?Q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Imre Kaloz <kaloz@openwrt.org>, Scott Branden <sbranden@broadcom.com>,
+ openbmc@lists.ozlabs.org, Antoine Tenart <atenart@kernel.org>,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Shawn Guo <shawnguo@kernel.org>, Tsahee Zidenberg <tsahee@annapurnalabs.com>
+Subject: Re: [Linux-stm32] [PATCH 3/6] arm64: dts: Fix dtc
+	interrupt_provider warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,91 +108,25 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Raphael
-
-On 2/5/24 10:06, Raphael Gallais-Pou wrote:
-> This serie aims to enable display support for the stm32mp135f-dk board
-> 
-> Those are only patches of the device-tree since the driver support has
-> already been added [1].
-> 
-> It respectivelly:
-> 	- adds support for the display controller on stm32mp135
-> 	- adds pinctrl for the display controller
-> 	- enables panel, backlight and display controller on
-> 	  stm32mp135f-dk
-> 
-> Finally it fixes the flags on the panel default mode in the
-> 'panel-simple' driver, allowing to override the default mode by one
-> described in the device tree, and push further the blanking limit on the
-> panel.
-> 
-> [1] commit 1726cee3d053 ("drm/stm: ltdc: support of new hardware version")
-> 
-> Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> ---
-> Raphael Gallais-Pou (5):
->        ARM: dts: stm32: add LTDC support for STM32MP13x SoC family
->        ARM: dts: stm32: add LTDC pinctrl on STM32MP13x SoC family
->        ARM: dts: stm32: enable display support on stm32mp135f-dk board
->        drm/panel: simple: fix flags on RK043FN48H
->        drm/panel: simple: push blanking limit on RK32FN48H
-> 
->   arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 57 +++++++++++++++++++++++++++++
->   arch/arm/boot/dts/st/stm32mp135.dtsi        | 11 ++++++
->   arch/arm/boot/dts/st/stm32mp135f-dk.dts     | 55 ++++++++++++++++++++++++++++
->   drivers/gpu/drm/panel/panel-simple.c        |  7 ++--
->   4 files changed, 127 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 6613476e225e090cc9aad49be7fa504e290dd33d
-> change-id: 20240124-ltdc_mp13-2f86a782424c
-> 
-> Best regards,
-
-I got the following errors during YAML verification:
-
-arch/arm/boot/dts/st/stm32mp135f-dk.dtb: /soc/i2c@40012000/pinctrl@21: 
-failed to match any schema with compatible: ['microchip,mcp23017']
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-backlight: 'default-brightness-level' does not match any of the 
-regexes: 'pinctrl-[0-9]+'
-	from schema $id: 
-http://devicetree.org/schemas/leds/backlight/gpio-backlight.yaml#
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-rgb: data-mapping:0: 'bgr666' is not one of ['jeida-18', 
-'jeida-24', 'vesa-24']
-	from schema $id: 
-http://devicetree.org/schemas/display/panel/panel-simple.yaml#
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-rgb: compatible: ['rocktech,rk043fn48h', 'panel-dpi'] is too long
-	from schema $id: 
-http://devicetree.org/schemas/display/panel/panel-simple.yaml#
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-rgb: data-mapping: False schema does not allow ['bgr666']
-	from schema $id: 
-http://devicetree.org/schemas/display/panel/panel-simple.yaml#
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-rgb: 'height-mm', 'panel-timing', 'width-mm' do not match any of 
-the regexes: 'pinctrl-[0-9]+'
-	from schema $id: 
-http://devicetree.org/schemas/display/panel/panel-simple.yaml#
-/local/home/frq08678/STLINUX/kernel/my-kernel/stm32/arch/arm/boot/dts/st/stm32mp135f-dk.dtb: 
-panel-rgb: 'data-mapping' does not match any of the regexes: 
-'pinctrl-[0-9]+'
-	from schema $id: 
-http://devicetree.org/schemas/display/panel/panel-dpi.yaml#
-
-Do I miss something ?
-
-Alex
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBGZWIgMTMsIDIwMjQgYXQgODozNeKAr1BNIFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5l
+bC5vcmc+IHdyb3RlOgo+IFRoZSBkdGMgaW50ZXJydXB0X3Byb3ZpZGVyIHdhcm5pbmcgaXMgb2Zm
+IGJ5IGRlZmF1bHQuIEZpeCBhbGwgdGhlIHdhcm5pbmdzCj4gc28gaXQgY2FuIGJlIGVuYWJsZWQu
+Cj4KPiBTaWduZWQtb2ZmLWJ5OiBSb2IgSGVycmluZyA8cm9iaEBrZXJuZWwub3JnPgoKPiAgYXJj
+aC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3VsY2Ita2YuZHRzaSAgICAgICAgICAgIHwgNCArKysr
+CgpSZXZpZXdlZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5i
+ZT4KQWNrZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+
+CgpHcntvZXRqZSxlZXRpbmd9cywKCiAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0CgotLSAK
+R2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRoZXJlJ3MgbG90cyBvZiBMaW51eCBiZXlvbmQgaWEzMiAt
+LSBnZWVydEBsaW51eC1tNjhrLm9yZwoKSW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRl
+Y2huaWNhbCBwZW9wbGUsIEkgY2FsbCBteXNlbGYgYSBoYWNrZXIuIEJ1dAp3aGVuIEknbSB0YWxr
+aW5nIHRvIGpvdXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBs
+aWtlIHRoYXQuCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFs
+ZHMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
