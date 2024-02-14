@@ -2,61 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BA51855260
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 19:41:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4336B85526A
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Feb 2024 19:41:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E05FCC57194;
-	Wed, 14 Feb 2024 18:41:17 +0000 (UTC)
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05EF4CFAC50;
+	Wed, 14 Feb 2024 18:41:41 +0000 (UTC)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 63B3ACFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 430D9CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 18:41:16 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-785d57056b0so4275785a.0
+ Wed, 14 Feb 2024 18:41:39 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-781753f52afso3405785a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Feb 2024 10:41:16 -0800 (PST)
+ Wed, 14 Feb 2024 10:41:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1707936075; x=1708540875;
+ d=broadcom.com; s=google; t=1707936098; x=1708540898;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:autocrypt:from:references:cc:to:subject:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=i7LGlBEAdb8ms3L/vv7Da/iRKVXxdHtFEPZKNI9tzGw=;
- b=SG75ummSW4/cAyOBgu6cPQZIZTzSgebBz9u93lMJr42ujFWIrcHWzwGnSFg65D0VUC
- ykua8w8X9iJ8egKXSabhAFRhhP6ASD1FZF8W5z63vCoR+cYw/XLuTdxQZUlkvKrsLt5I
- OUOLkUjWZSYm+HqYHFvRYnjLrZkH5d68HgwFg=
+ :reply-to; bh=+gNfTG07D7di11jxryJwS+7DK3kvZQaF1uKaVo17PXk=;
+ b=HNaE9cSe78z6BNRz5wo7wICc9Op1veGdT9JrerHiWBYjjDG74tClUgYUZOv8bl6ADQ
+ NZDxBi0fJjkmbUKzWpIkwCNmyHej0nFhnyB3MjfvPCB2nUTM+7IxT2DXbRhriy5LiPHi
+ yVgy2FyXWqzts9x/0icsIdgXTJvpaqBe3C5JI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1707936075; x=1708540875;
+ d=1e100.net; s=20230601; t=1707936098; x=1708540898;
  h=in-reply-to:autocrypt:from:references:cc:to:subject:user-agent
  :mime-version:date:message-id:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to;
- bh=i7LGlBEAdb8ms3L/vv7Da/iRKVXxdHtFEPZKNI9tzGw=;
- b=rpsCe/FmKnf/kTzyDKHogxsQxnwN+jlGbh6bb539E3OJhlQvS29ocdeykbhZNwaq6i
- uVtusoyciWUSDuc7oQWevPn49HwEe3UYz9GcaDYzClCzaNxaoOG/YmjIOXGRQ3r0LbMr
- 5REeLacnFzrdSND5Ld3S9XlvsBc4qnLF55144B78ceulyuKdCk3Dcfkpd71zAHnlDcXl
- TgKJmsJP+8SW6M5A8aVn28J2enRsheDuGoZUPqr0T5QOLU8WTozKTfWMyuj0cPeP3QxC
- 5T5sHYtMdBRTGVy1paoc3XwDkMxHqE7D644+vG5k3dwVrS5QM9FeSg5Gs94/HZLd3i59
- MbQA==
+ bh=+gNfTG07D7di11jxryJwS+7DK3kvZQaF1uKaVo17PXk=;
+ b=JemBFvRd3MCG4jlXfcVxjdoKRCsO3xf/yrBeqcLWmNRL/DoHJp5RiXmm8DunWbymPX
+ DJkOrO1ZF1JpaZxdmaiKlGvNwk87tFvR3pxMPL5ytlfuVCKTBAQataUrREbeb0+NXlp4
+ 657zysBuBy1IBBY6ySoHWzjqv0uAgAETDIaHhxl2P0NINy1w8ZOCOzpnqOl+0tBJpSTi
+ GYJm/lgj+qW+jNQAK69TQBO5gWGiWoxbpJSei5u/IuIt0/50vM44S3+B8IsxIoKZM/pf
+ GlSpXz9xex5lxvV15vT1vhCyxw97Nx8BnYjxMf2mLlZutgEg1taMxAyh7DWRmN5V8bVJ
+ 6BNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQarSOuPkXaDfbNXx0HDQ1gS+i/5fviZEK043l2T2Nj0yu+zniV53PDNuIRbLcl9Ih3E+Nv9jSl9shhqj2OeLw97Q9B6mcmKxrSjtvENh9oPeFx08NwBfI
-X-Gm-Message-State: AOJu0Yzuh5dB0EvIVRU1hp+OXYRaVdNgKvbfJ+Whndf2KG7jBoj8ragK
- r/DZSNOzf9QIiGw1S8eClntjfhl1HdWGxrKROJWsMMshgdstu210Gy/5o/Le8A==
-X-Google-Smtp-Source: AGHT+IGG9vamkxVTyKtk3A1Fy5G5Pfea0uIk6/fO7rl9o+F/wLbdrSOhlQqyC/jaEbCyIJhr665oZg==
-X-Received: by 2002:a05:620a:e1e:b0:786:89d9:b165 with SMTP id
- y30-20020a05620a0e1e00b0078689d9b165mr3574025qkm.5.1707936075179; 
- Wed, 14 Feb 2024 10:41:15 -0800 (PST)
+ AJvYcCX1Adzq/5i1kd1A1264vlGiZ0zcUJl2PKaEb7TU3Jgp1JSRLMaGjeQwvzVSy9GmMeJ50FUpS7DmH7jYPYzbo45roLPYpGT76/ZnF5M5ErP+VWYFfZRuslte
+X-Gm-Message-State: AOJu0Yx+tBXZAaUmnl1O3Xw82HNV2wrmzhf44xxQXL8/Ej3sm/bizr62
+ QOSiTPvC8UUAJrCqMEzsCrFjLkaw1Ptluugt2YX6xLrksiykIFfYMoSC8UoqIA==
+X-Google-Smtp-Source: AGHT+IFEy1VX7wNMXcFOuNhPKmHMqNsWsnMLFP52fxFzst1Rzx+LVNlLP9b65ohJPh0/O0HpYib4tQ==
+X-Received: by 2002:a05:620a:16c2:b0:785:dacb:926f with SMTP id
+ a2-20020a05620a16c200b00785dacb926fmr3434642qkn.50.1707936098184; 
+ Wed, 14 Feb 2024 10:41:38 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- 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
+ 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
 Received: from [10.67.48.245] ([192.19.223.252])
  by smtp.gmail.com with ESMTPSA id
- t8-20020a05620a004800b0078718e1f581sm1810522qkt.68.2024.02.14.10.41.09
+ t8-20020a05620a004800b0078718e1f581sm1810522qkt.68.2024.02.14.10.41.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 10:41:14 -0800 (PST)
-Message-ID: <43d80fa7-4f11-44ee-9a79-7f76fd9ffcc7@broadcom.com>
-Date: Wed, 14 Feb 2024 10:41:08 -0800
+ Wed, 14 Feb 2024 10:41:37 -0800 (PST)
+Message-ID: <af372c4a-0b7b-45b6-a3bf-3f17ba2eb3a5@broadcom.com>
+Date: Wed, 14 Feb 2024 10:41:31 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Rob Herring <robh@kernel.org>, soc@kernel.org,
@@ -89,7 +89,7 @@ To: Rob Herring <robh@kernel.org>, soc@kernel.org,
  Masahiro Yamada <masahiroy@kernel.org>, Nathan Chancellor
  <nathan@kernel.org>, Nicolas Schier <nicolas@fjasle.eu>
 References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
- <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
+ <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
@@ -123,15 +123,15 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
+In-Reply-To: <20240213-arm-dt-cleanups-v1-3-f2dee1292525@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
  linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/6] arm: dts: Fix dtc interrupt_provider
-	warnings
+Subject: Re: [Linux-stm32] [PATCH 3/6] arm64: dts: Fix dtc
+	interrupt_provider warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,15 +143,15 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6533745473002974488=="
+Content-Type: multipart/mixed; boundary="===============3632429676090835588=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6533745473002974488==
+--===============3632429676090835588==
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000001450ee06115bdbab"
+	boundary="00000000000073913806115bdc93"
 
---0000000000001450ee06115bdbab
+--00000000000073913806115bdc93
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
@@ -163,16 +163,15 @@ On 2/13/24 11:34, Rob Herring wrote:
 > Signed-off-by: Rob Herring <robh@kernel.org>
 > ---
 
->   arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi             |  3 +++
->   arch/arm/boot/dts/broadcom/bcm-hr2.dtsi                |  1 +
->   arch/arm/boot/dts/broadcom/bcm-nsp.dtsi                |  2 ++
+>   arch/arm64/boot/dts/broadcom/northstar2/ns2.dtsi    | 1 +
+>   arch/arm64/boot/dts/broadcom/stingray/stingray.dtsi | 1 +
 
 Acked-by: Florian Fainelli <florian.fainelli@broadcom.com> #Broadcom
 -- 
 Florian
 
 
---0000000000001450ee06115bdbab
+--00000000000073913806115bdc93
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -243,19 +242,19 @@ kNGap1mHJ+JngGzZCz+dDiHRQKGpXLxkHX0BvEDZLW6LGOJ83ImrW38YMOo3ZYnCYNHA9qDOakiw
 NxADYvcRBA0ySL6sZpj8BIIhWiXiuusuBmt2Mak2eEv0xDbovE6Z6hYyl/ZnRadbgK/ClgbY3w+O
 AfUXEZ0xggJtMIICaQIBATBrMFsxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
 LXNhMTEwLwYDVQQDEyhHbG9iYWxTaWduIEdDQyBSMyBQZXJzb25hbFNpZ24gMiBDQSAyMDIwAgwT
-/D/YSkVckoN0L+QwDQYJYIZIAWUDBAIBBQCggdQwLwYJKoZIhvcNAQkEMSIEIPtbWpyNL0PH+MQR
-UqsmyQA6Bc5Z96zEqhgYpgnMNeBeMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
-AQkFMQ8XDTI0MDIxNDE4NDExNVowaQYJKoZIhvcNAQkPMVwwWjALBglghkgBZQMEASowCwYJYIZI
+/D/YSkVckoN0L+QwDQYJYIZIAWUDBAIBBQCggdQwLwYJKoZIhvcNAQkEMSIEIK8OgoswcO0rvKzC
+/Bji7gH65uuKRcqBj30f4D9ez+jKMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcN
+AQkFMQ8XDTI0MDIxNDE4NDEzOFowaQYJKoZIhvcNAQkPMVwwWjALBglghkgBZQMEASowCwYJYIZI
 AWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQowCwYJKoZIhvcNAQEH
-MAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQD18ENx9WjUnvfZWLxeo2yAGUKHUhWnuzAj
-N7mfaCxZV9s5wZ/56BrO5t+5U6MwjQi7dEliXy1s8pmB/VjJwZFeUll5RqYvJl3xiLfpyK6Rx34a
-aJUd/Zl3bHp16uUymdY+Gk7s6MZdlLauiysbVv6ZuJJRjwaohxGfjHrCvqoWUo4d7CrZYqTuiJdY
-iaKSsE6EscA6GiiTqlsavTFtwQhCAioT7ggE4qrHa2eUSZ2q4l4F61K6Mc9GLgmdVdopSjTcqxmk
-XwvdRJV5xFT0h0AbPG5K6VM6MA39aV90H5wrbD3CUsB6ufsCspeO//g/GKQJsJS3BJWuIchRiLS0
-f+wy
---0000000000001450ee06115bdbab--
+MAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQCqeMKNizrxHLOK+ATX3vyPameOolEEeiVm
+Y3f1GaJhGFUcChr+6+ekolxyS+u3kReRK4DC3jXOfBN3mjcLs1lZVXbP1zNn4cTLC5b4abGc0Qmv
+GAIppUdbJBL8vKAXumhC0QWrDTFavKB4JioTHz1J5NVcIwYmLZMkJ31so7sno/00fwp/5LzM9KN1
+RNtFt+773bdcH8qq3qa5EGde7z7vM+yfbZGBQdgxvsnMGYMUkQm9VBajvJsknI+hxKe66wU2+EZu
+q+CICqqnkpcUKW9MzD/TwbcSV7au5063wVsg8bsTmUawvRjX6Op9ixrMhzUN7AAIC47Xjemj6SE1
+8uFy
+--00000000000073913806115bdc93--
 
---===============6533745473002974488==
+--===============3632429676090835588==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -266,4 +265,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============6533745473002974488==--
+--===============3632429676090835588==--
