@@ -2,71 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78B6855D2E
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Feb 2024 10:01:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7331C855FF1
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Feb 2024 11:47:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D1D8C62EFE;
-	Thu, 15 Feb 2024 09:01:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEF49CFAC50
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20C97C64102;
+	Thu, 15 Feb 2024 10:47:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3033CC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Feb 2024 09:01:33 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41F7wfCA001809; Thu, 15 Feb 2024 10:01:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=nHyhI12A8CHJ2DXANwDSFY56v/VwqxMrvbug8JpUKUA=; b=bD
- rM88tnUp1aLAiysjOjAeJ9feO1qMffXVwqucuJGyOcWeD7hVzrTrAndea+tDrzc4
- 5wmD31Jqs/JbsXVYxwtMjDW0kXK6r410pS3w1RVfyc+S7ENIoJd+2igHTsJNPdXO
- JM/mqLWXyHPWJadAK1khW6pGh+eX7AaI19qhtgiWElLXy5rj9uRKpnkwMVBhzh0C
- LUJsu/LXO21asDQ/WoBmzKedTy8xp1AMqCeD9vKY/grK5kx6LK4tYpstj8KX/E9G
- a8SC58XJGdiTACANgzg1B54ewqoNIDra0si6E9e19bKPQ6tcqTGUFthdzfRo80aC
- 34ftO7bd5xPhctKfPWDQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3w6kk50cgm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 15 Feb 2024 10:01:12 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id B298F4002D;
- Thu, 15 Feb 2024 10:01:05 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 793FD229A89;
- Thu, 15 Feb 2024 10:00:22 +0100 (CET)
-Received: from [10.201.22.200] (10.201.22.200) by SHFDAG1NODE3.st.com
- (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 15 Feb
- 2024 10:00:19 +0100
-Message-ID: <a1badd8b-041b-495d-81cb-b264c687de80@foss.st.com>
-Date: Thu, 15 Feb 2024 10:00:17 +0100
+ Thu, 15 Feb 2024 10:47:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1707994046;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=4lm03LnxC3OUh/TJ2baKEgkE4+9W2WtmyGQNUlzO8Ec=;
+ b=DKWeeFPwvmRcf0LGSWzmSm/0GF/vIa/5YAOr0NigaMnaCKMEi697Yd2h9/Du9so+G832mm
+ jK9TPipOKfbGo7RR/82ahYWJRae0SFp5jMJNjbaYzWXhRguC/RNMoGwUaRkgeAlSESVUGJ
+ d1kl8Gr4Js9hOm+9X1/q1iRyLj/GihM=
+Received: from mail-lf1-f71.google.com (mail-lf1-f71.google.com
+ [209.85.167.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-623-X3_B5YlePcCxkEzaTMyRlA-1; Thu, 15 Feb 2024 05:47:24 -0500
+X-MC-Unique: X3_B5YlePcCxkEzaTMyRlA-1
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-51161bd080aso254279e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 Feb 2024 02:47:24 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1707994043; x=1708598843;
+ h=mime-version:user-agent:content-transfer-encoding:autocrypt
+ :references:in-reply-to:date:cc:to:from:subject:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZDI9baZMetrqyJo1wIZ/D/RqqsOmJwsksCZtQl0+Oxk=;
+ b=ex9BhStzSNn+xteeYT3xl7CajHRQkWdGk/eDYd9jxgVrayLL9mBlL4bW+r75xud51b
+ ieXYqM+twpoKz+yzyRD9QC9oFByXuGTNaNo7sQO/BypwqWwUXE91E8n9PUIv9srkjb6v
+ q+IsAxgkjBGYw4zJ0DSuCI5bXLbyHt8bI3q4JHCeaXTwslIPffiOjgaoDRgyKS9+ekbc
+ pWArEftuFC1TGu7iNoIR2Ez5htn9zYvVaB5KGfGNHgFPczwNqhKsJ+NBqMfPuWN+WGGh
+ Dom/5CgSAfwb34CUW/9Gp7H051yAQyk/kAu8R0AZ4T0uRbO1FOoNWQ3rJ4lB8km8htHp
+ eiCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXMXV7zSmqIEMFHOE/WR6QVH4RUjNnjT/057dN4HNC57sxOtQ0+KQYRTi+GHEpzdkOhJGuIxsqhW3hiWq03pt4zUiwZ7uXuv7FGOvpoD0gQhljBTObf3UVP
+X-Gm-Message-State: AOJu0YylE2PbrLfWFncLvywaJ6ekccgVlhJFIp1xdk/VDs+5iR/9xbKV
+ bZ83/Ycew2ZC61BMowKUhnZNth1k+DnYdnzlIGkk7yhEBkSlKijZOXeiLU6ddDWD+444bJX6ayE
+ FOWBh/tlWJwmttf9q3uiPQoCTdQOFRXw0u9DeyZNw++ziRynZa42ipQJPqEMVNkMBWwYo7xZCOX
+ sfwg==
+X-Received: by 2002:a19:650e:0:b0:511:8819:e8be with SMTP id
+ z14-20020a19650e000000b005118819e8bemr815454lfb.6.1707994043040; 
+ Thu, 15 Feb 2024 02:47:23 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFnpAB0DvqRdkJX5tH+4WWOj5F+ve231YQXDISI3lMCd0A3ewMnH3ZhmD55UrEuT5V+RwMbGA==
+X-Received: by 2002:a19:650e:0:b0:511:8819:e8be with SMTP id
+ z14-20020a19650e000000b005118819e8bemr815440lfb.6.1707994042659; 
+ Thu, 15 Feb 2024 02:47:22 -0800 (PST)
+Received: from gerbillo.redhat.com (146-241-227-156.dyn.eolo.it.
+ [146.241.227.156]) by smtp.gmail.com with ESMTPSA id
+ x17-20020a05600c21d100b00410b98a5c77sm4580112wmj.32.2024.02.15.02.47.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Feb 2024 02:47:22 -0800 (PST)
+Message-ID: <3e15fbcc6cc87f4bafea8bc0a7164366cb1f4439.camel@redhat.com>
+From: Paolo Abeni <pabeni@redhat.com>
+To: Mark O'Donovan <shiftee@posteo.net>, Jacob Keller
+ <jacob.e.keller@intel.com>,  linux-kernel@vger.kernel.org
+Date: Thu, 15 Feb 2024 11:47:20 +0100
+In-Reply-To: <867da21e-7f30-4caf-9f78-260d426e4186@posteo.net>
+References: <20240212154319.907447-1-shiftee@posteo.net>
+ <44c29a45-86fa-4e41-b4b5-e69187f0712e@intel.com>
+ <867da21e-7f30-4caf-9f78-260d426e4186@posteo.net>
+Autocrypt: addr=pabeni@redhat.com; prefer-encrypt=mutual;
+ keydata=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
+User-Agent: Evolution 3.50.3 (3.50.3-1.fc39)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
- <conor+dt@kernel.org>
-References: <20240212174822.77734-1-christophe.kerello@foss.st.com>
- <20240212174822.77734-7-christophe.kerello@foss.st.com>
- <989661f0-f539-43c3-a332-13c0e99ed7b9@linaro.org>
- <edbb5e6e-44c0-426b-9c97-87ea1eee1b4c@foss.st.com>
- <1e1ae38b-7f8c-44ba-9970-0929aaaa28a8@linaro.org>
-From: Christophe Kerello <christophe.kerello@foss.st.com>
-In-Reply-To: <1e1ae38b-7f8c-44ba-9970-0929aaaa28a8@linaro.org>
-X-Originating-IP: [10.201.22.200]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-15_08,2024-02-14_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH 06/12] memory: stm32-fmc2-ebi: add RIF
-	support
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ edumazet@google.com, joabreu@synopsys.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: xgmac: fix initializer
+ element is not constant error
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,208 +98,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi,
 
-
-On 2/14/24 11:07, Krzysztof Kozlowski wrote:
-> On 13/02/2024 14:15, Christophe Kerello wrote:
->>>> +
->>>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
->>>> +		return 0;
->>>> +
->>>> +	if (resource >= FMC2_MAX_RESOURCES)
->>>> +		return -EINVAL;
->>>> +
->>>> +	regmap_read(ebi->regmap, FMC2_SECCFGR, &seccfgr);
->>
->> Hi Krzysztof,
->>
->>>
->>> No checking of read value?
->>>
->>
->> No, it should never failed.
+On Wed, 2024-02-14 at 22:07 +0000, Mark O'Donovan wrote:
+> On 14/02/2024 20:31, Jacob Keller wrote:
+> > 
+> > 
+> > On 2/12/2024 7:43 AM, Mark O'Donovan wrote:
+> > > GCC prior to 8.x gives an "initializer element is not constant"
+> > > error for the uses of dpp_tx_err in dwxgmac3_dma_dpp_errors.
+> > > Newer compilers accept either version.
+> > > 
+> > > More info here:
+> > > https://lore.kernel.org/all/20240103-fix-bq24190_charger-vbus_desc-non-const-v1-1-115ddf798c70@kernel.org
+> > > 
+> > > Signed-off-by: Mark O'Donovan <shiftee@posteo.net>
+> > > ---
+> > 
+> > I'm not sure whether the Linux kernel project has an explicit cutoff for
+> > what versions of GCC (or other compilers) are supported. GCC 8 was first
+> > released in 2018.
+> > 
+> > The fix provided here is fairly straight forward, and while I do think
+> > the benefit of using builtin types vs using the macros is nice, I don't
+> > see that as a strong enough reason to hold up supporting the older compiler.
+> > 
+> > Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> > 
+> > >   drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 4 ++--
+> > >   1 file changed, 2 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > > index 323c57f03c93..c02c035b81c0 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> > > @@ -830,8 +830,8 @@ static const struct dwxgmac3_error_desc dwxgmac3_dma_errors[32]= {
+> > >   	{ false, "UNKNOWN", "Unknown Error" }, /* 31 */
+> > >   };
+> > >   
+> > > -static const char * const dpp_rx_err = "Read Rx Descriptor Parity checker Error";
+> > > -static const char * const dpp_tx_err = "Read Tx Descriptor Parity checker Error";
+> > > +#define dpp_rx_err "Read Rx Descriptor Parity checker Error"
+> > > +#define dpp_tx_err "Read Tx Descriptor Parity checker Error"
+> > >   static const struct dwxgmac3_error_desc dwxgmac3_dma_dpp_errors[32] = {
+> > >   	{ true, "TDPES0", dpp_tx_err },
+> > >   	{ true, "TDPES1", dpp_tx_err },
+> > > 
+> > > base-commit: 841c35169323cd833294798e58b9bf63fa4fa1de
 > 
-> And you tested that neither smatch, sparse nor Coverity report here
-> warnings?
+> Thanks Jacob.
 > 
-
-Hi Krzysztof,
-
-There is a lot of driver in the Kernel that are using same 
-implementation, and I am surprised to not have had this comment 4 years 
-ago when the driver was introduced.
-
-So, how should I proceed? Shall I initialize all local variables used by 
-regmap_read? Or shall I check the return value of regmap_read?
-And, as there is a lot of regmap_read call in this driver, shall I fix 
-them in a separate patch?
-
->>
->>>> +	if (seccfgr & BIT(resource)) {
->>>
->>> Then on read failure this is random stack junk.
->>>
->>>> +		if (resource)
->>>> +			dev_err(ebi->dev, "resource %d is configured as secure\n",
->>>> +				resource);
->>>> +
->>>> +		return -EACCES;
->>>> +	}
->>>> +
->>>> +	regmap_read(ebi->regmap, FMC2_CIDCFGR(resource), &cidcfgr);
->>>> +	if (!(cidcfgr & FMC2_CIDCFGR_CFEN))
->>>> +		/* CID filtering is turned off: access granted */
->>>> +		return 0;
->>>> +
->>>> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMEN)) {
->>>> +		/* Static CID mode */
->>>> +		cid = FIELD_GET(FMC2_CIDCFGR_SCID, cidcfgr);
->>>> +		if (cid != FMC2_CID1) {
->>>> +			if (resource)
->>>> +				dev_err(ebi->dev, "static CID%d set for resource %d\n",
->>>> +					cid, resource);
->>>> +
->>>> +			return -EACCES;
->>>> +		}
->>>> +
->>>> +		return 0;
->>>> +	}
->>>> +
->>>> +	/* Pass-list with semaphore mode */
->>>> +	if (!(cidcfgr & FMC2_CIDCFGR_SEMWLC1)) {
->>>> +		if (resource)
->>>> +			dev_err(ebi->dev, "CID1 is block-listed for resource %d\n",
->>>> +				resource);
->>>> +
->>>> +		return -EACCES;
->>>> +	}
->>>> +
->>>> +	regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
->>>> +	if (!(semcr & FMC2_SEMCR_SEM_MUTEX)) {
->>>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
->>>> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
->>>> +		regmap_read(ebi->regmap, FMC2_SEMCR(resource), &semcr);
->>>> +	}
->>>> +
->>>> +	cid = FIELD_GET(FMC2_SEMCR_SEMCID, semcr);
->>>> +	if (cid != FMC2_CID1) {
->>>> +		if (resource)
->>>> +			dev_err(ebi->dev, "resource %d is already used by CID%d\n",
->>>> +				resource, cid);
->>>> +
->>>> +		return -EACCES;
->>>> +	}
->>>> +
->>>> +	ebi->sem_taken |= BIT(resource);
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +static void stm32_fmc2_ebi_put_sems(struct stm32_fmc2_ebi *ebi)
->>>> +{
->>>> +	unsigned int resource;
->>>> +
->>>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
->>>> +		return;
->>>> +
->>>> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
->>>> +		if (!(ebi->sem_taken & BIT(resource)))
->>>> +			continue;
->>>> +
->>>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
->>>> +				   FMC2_SEMCR_SEM_MUTEX, 0);
->>>> +	}
->>>> +}
->>>> +
->>>> +static void stm32_fmc2_ebi_get_sems(struct stm32_fmc2_ebi *ebi)
->>>> +{
->>>> +	unsigned int resource;
->>>> +
->>>> +	if (ebi->majrev < FMC2_VERR_MAJREV_2)
->>>> +		return;
->>>> +
->>>> +	for (resource = 0; resource < FMC2_MAX_RESOURCES; resource++) {
->>>> +		if (!(ebi->sem_taken & BIT(resource)))
->>>> +			continue;
->>>> +
->>>> +		regmap_update_bits(ebi->regmap, FMC2_SEMCR(resource),
->>>> +				   FMC2_SEMCR_SEM_MUTEX, FMC2_SEMCR_SEM_MUTEX);
->>>> +	}
->>>> +}
->>>> +
->>>>    static int stm32_fmc2_ebi_parse_prop(struct stm32_fmc2_ebi *ebi,
->>>>    				     struct device_node *dev_node,
->>>>    				     const struct stm32_fmc2_prop *prop,
->>>> @@ -1057,6 +1191,9 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
->>>>    	unsigned int cs;
->>>>    
->>>>    	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
->>>> +		if (!(ebi->bank_assigned & BIT(cs)))
->>>> +			continue;
->>>> +
->>>>    		regmap_read(ebi->regmap, FMC2_BCR(cs), &ebi->bcr[cs]);
->>>>    		regmap_read(ebi->regmap, FMC2_BTR(cs), &ebi->btr[cs]);
->>>>    		regmap_read(ebi->regmap, FMC2_BWTR(cs), &ebi->bwtr[cs]);
->>>> @@ -1064,7 +1201,7 @@ static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
->>>>    
->>>>    	if (ebi->majrev < FMC2_VERR_MAJREV_2)
->>>>    		regmap_read(ebi->regmap, FMC2_PCSCNTR, &ebi->pcscntr);
->>>> -	else
->>>> +	else if (ebi->access_granted)
->>>>    		regmap_read(ebi->regmap, FMC2_CFGR, &ebi->cfgr);
->>>>    }
->>>>    
->>>> @@ -1073,6 +1210,9 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
->>>>    	unsigned int cs;
->>>>    
->>>>    	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
->>>> +		if (!(ebi->bank_assigned & BIT(cs)))
->>>> +			continue;
->>>> +
->>>>    		regmap_write(ebi->regmap, FMC2_BCR(cs), ebi->bcr[cs]);
->>>>    		regmap_write(ebi->regmap, FMC2_BTR(cs), ebi->btr[cs]);
->>>>    		regmap_write(ebi->regmap, FMC2_BWTR(cs), ebi->bwtr[cs]);
->>>> @@ -1080,7 +1220,7 @@ static void stm32_fmc2_ebi_set_setup(struct stm32_fmc2_ebi *ebi)
->>>>    
->>>>    	if (ebi->majrev < FMC2_VERR_MAJREV_2)
->>>>    		regmap_write(ebi->regmap, FMC2_PCSCNTR, ebi->pcscntr);
->>>> -	else
->>>> +	else if (ebi->access_granted)
->>>>    		regmap_write(ebi->regmap, FMC2_CFGR, ebi->cfgr);
->>>
->>> So this is kind of half-allowed-half-not. How is it supposed to work
->>> with !access_granted? You configure some registers but some not. So will
->>> it work or not? If yes, why even needing to write to FMC2_CFGR!
->>>
->>
->> This register is considered as one resource and can be protected. If a
->> companion (like optee_os) has configured this resource as secure, it
->> means that the driver can not write into this register, and this
->> register will be handled by the companion. If this register is let as
->> non secure, the driver can handle this ressource.
+> The minimum versions for compilers and other tools are documented here:
+> https://www.kernel.org/doc/html/latest/process/changes.html
 > 
-> So this is not an error? Other places print errors and return -EACCESS,
-> so that's a bit confusing me.
-> 
+> I am using a SLES 15 server to build, the first version of which came out in 2017.
 
-It is not an error. We are saving registers values to restore them on 
-low power cases. If registers are set as secure, it is the 
-responsibility of the companion to restore them when it is the 
-responsibility of the non secure driver to restore them if they are 
-configured as non secure.
+Note that we already have net commit
+1692b9775e745f84b69dc8ad0075b0855a43db4e addressing this issue.
 
-Regards,
-Christophe Kerello.
+Thanks,
 
-> 
-> Best regards,
-> Krzysztof
-> 
+Paolo
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
