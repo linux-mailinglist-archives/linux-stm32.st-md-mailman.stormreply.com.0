@@ -2,85 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CF5857C01
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 12:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1E9857CF1
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 13:51:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E03DCC65E42;
-	Fri, 16 Feb 2024 11:47:06 +0000 (UTC)
-Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
- [209.85.219.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8877C65E42;
+	Fri, 16 Feb 2024 12:51:21 +0000 (UTC)
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43CF2C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3C276C6410C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 11:47:06 +0000 (UTC)
-Received: by mail-yb1-f180.google.com with SMTP id
- 3f1490d57ef6-dcc80d6006aso689282276.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 03:47:06 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708084023; x=1708688823;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=lQ7tnAKFUkQOj4UEtgJN4h/6u4fraBJnTp0nHjLT6cQ=;
- b=BHSITBDCzVAP9Tfnoxq9LAlWEdCxwBXpfADE5kRXMK4pOH5yNC8GvCFVek3+qOFLba
- HfoN1QRUiQxVnCbvCPUliMXhc74nloJNP3ovPns7iZ67IgsB1gG0yfg6QGaUcGPo4WbL
- 2TvZCCxjdJv6CalWybA+urDj+ZlNPkYqzW0VLeVoDU/g+DJT+Y03VEzbsY3/n3ThAo++
- DzPLeZjBHD5Wm96j2Qgw43HUXiehbOyJk7y6713rKmsquS1XD4YQNkzDUolXGA/IU7JN
- jQb3CT4zKJEphsYnLZN+56nmyt9ENijXEaoY+mR4Kjv6/LBIKa2JdXM3R0aCBOydDLoW
- tbXA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXow+VlsiNV1DygPH/bv/DAFeeianpTZrGdtXGMVV2wHTzsTKoIVjBY019CMtrlVGVTVS3r5nWVB/vUFXOb6MnwICepX30m3EQ16Y1LoIZ/W4dJ53DGNpqk
-X-Gm-Message-State: AOJu0YzzESK0pUXK4Z8kQvGPt7qS3ZD4sD3dtEksg5A2yL91uAp+wNTL
- nfy9hWFlUpVK1Qla+vuPOyrvGRBSqiJXNWQjsjBjjXyvhni1KETbNmT5joBOEVo=
-X-Google-Smtp-Source: AGHT+IG+4DTR+XesvChTiV7lGzeBZP3/XpLuzwyaWd2O0+E/FxQjADLV3aTWyiQ6GEMACxpZz6CvRA==
-X-Received: by 2002:a25:97c8:0:b0:dcc:4b84:67cd with SMTP id
- j8-20020a2597c8000000b00dcc4b8467cdmr4264044ybo.9.1708084022815; 
- Fri, 16 Feb 2024 03:47:02 -0800 (PST)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com.
- [209.85.219.176]) by smtp.gmail.com with ESMTPSA id
- z2-20020a5b0202000000b00dcc45635f27sm272074ybl.18.2024.02.16.03.47.01
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Feb 2024 03:47:01 -0800 (PST)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-dcbc00f6c04so621711276.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 03:47:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWGQpS/xJL/WOiLoDw60vMDzA/TwPbFha4Gt4lygJa7e/9PVDDSlzlL6wl1JFCBRuaI4gXxJeeC+nlS6e5PvTmC2im6m6Lgk4Qo1lzJXMfAu2wFm7YDQEvp
-X-Received: by 2002:a5b:708:0:b0:dc6:cc35:35e9 with SMTP id
- g8-20020a5b0708000000b00dc6cc3535e9mr4412013ybq.35.1708084021189; Fri, 16 Feb
- 2024 03:47:01 -0800 (PST)
+ Fri, 16 Feb 2024 12:51:20 +0000 (UTC)
+Received: from lvc-arm12.ispras.local (unknown [83.149.199.78])
+ by mail.ispras.ru (Postfix) with ESMTPSA id BE57B40241B8;
+ Fri, 16 Feb 2024 12:51:18 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru BE57B40241B8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+ s=default; t=1708087878;
+ bh=S1r8Mq3qgF/963ARXbA2g2vgUJ1UOzD2+uwWm8hvuMU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=l530KQlS2F9fEvWEyHl8g2mcEv5y1S8LDqebs9zWqV1IBJoQpJB2NWVvHu1/byxMK
+ /7f0bxZaBr3BjfVZmVEoS2lzkVSq2rYwDfOsAO4nmCgr7cbEofREBynkQkJM808RiS
+ lqUSHobGdoN8Dl115yt8N6JYyQeh5nLP3fKFt1YY=
+From: Katya Orlova <e.orlova@ispras.ru>
+To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Date: Fri, 16 Feb 2024 15:50:40 +0300
+Message-Id: <20240216125040.8968-1-e.orlova@ispras.ru>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240122111128.10852-1-e.orlova@ispras.ru>
+References: 
 MIME-Version: 1.0
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 16 Feb 2024 12:46:48 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
-Message-ID: <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Nishanth Menon <nm@ti.com>, Peng Fan <peng.fan@nxp.com>,
- Michael Turquette <mturquette@baylibre.com>, alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Thierry Reding <thierry.reding@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-omap@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Russell King <linux@armlinux.org.uk>,
- Jonathan Hunter <jonathanh@nvidia.com>, NXP Linux Team <linux-imx@nxp.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
- patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
- Sudeep Holla <sudeep.holla@arm.com>, Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
-	argument of of_clk_provider
+Cc: Daniel Vetter <daniel@ffwll.ch>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Katya Orlova <e.orlova@ispras.ru>, Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, lvc-project@linuxtesting.org
+Subject: [Linux-stm32] [PATCH v4] drm/stm: Avoid use-after-free issues with
+	crtc and plane
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,32 +51,255 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVGh1LCBGZWIgOCwgMjAyNCBhdCA1OjM34oCvUE0gS3J6eXN6dG9mIEtvemxvd3NraQo8a3J6
-eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPiB3cm90ZToKPiBOb25lIG9mIHRoZSBpbXBsZW1l
-bnRhdGlvbnMgb2YgdGhlIGdldCgpIGFuZCBnZXRfaHcoKSBjYWxsYmFja3Mgb2YKPiAic3RydWN0
-IG9mX2Nsa19wcm92aWRlciIgbW9kaWZ5IHRoZSBjb250ZW50cyBvZiByZWNlaXZlZCBvZl9waGFu
-ZGxlX2FyZ3MKPiBwb2ludGVyLiAgVGhleSB0cmVhdCBpdCBhcyByZWFkLW9ubHkgdmFyaWFibGUg
-dXNlZCB0byBmaW5kIHRoZSBjbG9jayB0bwo+IHJldHVybi4gIE1ha2Ugb2J2aW91cyB0aGF0IGlt
-cGxlbWVudGF0aW9ucyBhcmUgbm90IHN1cHBvc2VkIHRvIG1vZGlmeQo+IHRoZSBvZl9waGFuZGxl
-X2FyZ3MsIGJ5IG1ha2luZyBpdCBhIHBvaW50ZXIgdG8gY29uc3QuCj4KPiBTaWduZWQtb2ZmLWJ5
-OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+Cgo+
-ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3I5YTA2ZzAzMi1jbG9ja3MuYyAgICAgICAgfCAgMiArLQo+
-ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3JlbmVzYXMtY3BnLW1zc3IuYyAgICAgICAgfCAgMiArLQo+
-ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3J6ZzJsLWNwZy5jICAgICAgICAgICAgICAgfCAgMiArLQoK
-UmV2aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+
-CkFja2VkLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPgoK
-R3J7b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAgICAgICAgICAgICAgICBHZWVydAoKLS0gCkdl
-ZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0g
-Z2VlcnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNo
-bmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQKd2hlbiBJJ20gdGFsa2lu
-ZyB0byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJwcm9ncmFtbWVyIiBvciBzb21ldGhpbmcgbGlr
-ZSB0aGF0LgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0tIExpbnVzIFRvcnZhbGRz
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
-bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
-Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
-bnV4LXN0bTMyCg==
+ltdc_load() calls functions drm_crtc_init_with_planes(),
+drm_universal_plane_init() and drm_encoder_init(). These functions
+should not be called with parameters allocated with devm_kzalloc()
+to avoid use-after-free issues [1].
+
+Use allocations managed by the DRM framework.
+
+Found by Linux Verification Center (linuxtesting.org).
+
+[1]
+https://lore.kernel.org/lkml/u366i76e3qhh3ra5oxrtngjtm2u5lterkekcz6y2jkndhuxzli@diujon4h7qwb/
+
+Signed-off-by: Katya Orlova <e.orlova@ispras.ru>
+---
+v4: rebase on the drm-misc
+v3: style problems
+v2: use allocations managed by the DRM as
+Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com> suggested.
+Also add a fix for encoder.
+ drivers/gpu/drm/stm/drv.c  |  3 +-
+ drivers/gpu/drm/stm/ltdc.c | 73 ++++++++++----------------------------
+ 2 files changed, 20 insertions(+), 56 deletions(-)
+
+diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
+index e8523abef27a..152bec2c0238 100644
+--- a/drivers/gpu/drm/stm/drv.c
++++ b/drivers/gpu/drm/stm/drv.c
+@@ -25,6 +25,7 @@
+ #include <drm/drm_module.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_managed.h>
+ 
+ #include "ltdc.h"
+ 
+@@ -75,7 +76,7 @@ static int drv_load(struct drm_device *ddev)
+ 
+ 	DRM_DEBUG("%s\n", __func__);
+ 
+-	ldev = devm_kzalloc(ddev->dev, sizeof(*ldev), GFP_KERNEL);
++	ldev = drmm_kzalloc(ddev, sizeof(*ldev), GFP_KERNEL);
+ 	if (!ldev)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
+index 5576fdae4962..eeaabb4e10d3 100644
+--- a/drivers/gpu/drm/stm/ltdc.c
++++ b/drivers/gpu/drm/stm/ltdc.c
+@@ -36,6 +36,7 @@
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
+ #include <drm/drm_vblank.h>
++#include <drm/drm_managed.h>
+ 
+ #include <video/videomode.h>
+ 
+@@ -1199,7 +1200,6 @@ static void ltdc_crtc_atomic_print_state(struct drm_printer *p,
+ }
+ 
+ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
+-	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.reset = drm_atomic_helper_crtc_reset,
+@@ -1212,7 +1212,6 @@ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
+ };
+ 
+ static const struct drm_crtc_funcs ltdc_crtc_with_crc_support_funcs = {
+-	.destroy = drm_crtc_cleanup,
+ 	.set_config = drm_atomic_helper_set_config,
+ 	.page_flip = drm_atomic_helper_page_flip,
+ 	.reset = drm_atomic_helper_crtc_reset,
+@@ -1545,7 +1544,6 @@ static void ltdc_plane_atomic_print_state(struct drm_printer *p,
+ static const struct drm_plane_funcs ltdc_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = drm_plane_cleanup,
+ 	.reset = drm_atomic_helper_plane_reset,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
+@@ -1572,7 +1570,6 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	const u64 *modifiers = ltdc_format_modifiers;
+ 	u32 lofs = index * LAY_OFS;
+ 	u32 val;
+-	int ret;
+ 
+ 	/* Allocate the biggest size according to supported color formats */
+ 	formats = devm_kzalloc(dev, (ldev->caps.pix_fmt_nb +
+@@ -1613,14 +1610,10 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 		}
+ 	}
+ 
+-	plane = devm_kzalloc(dev, sizeof(*plane), GFP_KERNEL);
+-	if (!plane)
+-		return NULL;
+-
+-	ret = drm_universal_plane_init(ddev, plane, possible_crtcs,
+-				       &ltdc_plane_funcs, formats, nb_fmt,
+-				       modifiers, type, NULL);
+-	if (ret < 0)
++	plane = drmm_universal_plane_alloc(ddev, struct drm_plane, dev,
++					   possible_crtcs, &ltdc_plane_funcs, formats,
++					   nb_fmt, modifiers, type, NULL);
++	if (IS_ERR(plane))
+ 		return NULL;
+ 
+ 	if (ldev->caps.ycbcr_input) {
+@@ -1643,15 +1636,6 @@ static struct drm_plane *ltdc_plane_create(struct drm_device *ddev,
+ 	return plane;
+ }
+ 
+-static void ltdc_plane_destroy_all(struct drm_device *ddev)
+-{
+-	struct drm_plane *plane, *plane_temp;
+-
+-	list_for_each_entry_safe(plane, plane_temp,
+-				 &ddev->mode_config.plane_list, head)
+-		drm_plane_cleanup(plane);
+-}
+-
+ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ {
+ 	struct ltdc_device *ldev = ddev->dev_private;
+@@ -1677,14 +1661,14 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 
+ 	/* Init CRTC according to its hardware features */
+ 	if (ldev->caps.crc)
+-		ret = drm_crtc_init_with_planes(ddev, crtc, primary, NULL,
+-						&ltdc_crtc_with_crc_support_funcs, NULL);
++		ret = drmm_crtc_init_with_planes(ddev, crtc, primary, NULL,
++						 &ltdc_crtc_with_crc_support_funcs, NULL);
+ 	else
+-		ret = drm_crtc_init_with_planes(ddev, crtc, primary, NULL,
+-						&ltdc_crtc_funcs, NULL);
++		ret = drmm_crtc_init_with_planes(ddev, crtc, primary, NULL,
++						 &ltdc_crtc_funcs, NULL);
+ 	if (ret) {
+ 		DRM_ERROR("Can not initialize CRTC\n");
+-		goto cleanup;
++		return ret;
+ 	}
+ 
+ 	drm_crtc_helper_add(crtc, &ltdc_crtc_helper_funcs);
+@@ -1698,9 +1682,8 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 	for (i = 1; i < ldev->caps.nb_layers; i++) {
+ 		overlay = ltdc_plane_create(ddev, DRM_PLANE_TYPE_OVERLAY, i);
+ 		if (!overlay) {
+-			ret = -ENOMEM;
+ 			DRM_ERROR("Can not create overlay plane %d\n", i);
+-			goto cleanup;
++			return -ENOMEM;
+ 		}
+ 		if (ldev->caps.dynamic_zorder)
+ 			drm_plane_create_zpos_property(overlay, i, 0, ldev->caps.nb_layers - 1);
+@@ -1713,10 +1696,6 @@ static int ltdc_crtc_init(struct drm_device *ddev, struct drm_crtc *crtc)
+ 	}
+ 
+ 	return 0;
+-
+-cleanup:
+-	ltdc_plane_destroy_all(ddev);
+-	return ret;
+ }
+ 
+ static void ltdc_encoder_disable(struct drm_encoder *encoder)
+@@ -1776,23 +1755,19 @@ static int ltdc_encoder_init(struct drm_device *ddev, struct drm_bridge *bridge)
+ 	struct drm_encoder *encoder;
+ 	int ret;
+ 
+-	encoder = devm_kzalloc(ddev->dev, sizeof(*encoder), GFP_KERNEL);
+-	if (!encoder)
+-		return -ENOMEM;
++	encoder = drmm_simple_encoder_alloc(ddev, struct drm_encoder, dev,
++					    DRM_MODE_ENCODER_DPI);
++	if (IS_ERR(encoder))
++		return PTR_ERR(encoder);
+ 
+ 	encoder->possible_crtcs = CRTC_MASK;
+ 	encoder->possible_clones = 0;	/* No cloning support */
+ 
+-	drm_simple_encoder_init(ddev, encoder, DRM_MODE_ENCODER_DPI);
+-
+ 	drm_encoder_helper_add(encoder, &ltdc_encoder_helper_funcs);
+ 
+ 	ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+-	if (ret) {
+-		if (ret != -EPROBE_DEFER)
+-			drm_encoder_cleanup(encoder);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	DRM_DEBUG_DRIVER("Bridge encoder:%d created\n", encoder->base.id);
+ 
+@@ -1962,8 +1937,7 @@ int ltdc_load(struct drm_device *ddev)
+ 			goto err;
+ 
+ 		if (panel) {
+-			bridge = drm_panel_bridge_add_typed(panel,
+-							    DRM_MODE_CONNECTOR_DPI);
++			bridge = drmm_panel_bridge_add(ddev, panel);
+ 			if (IS_ERR(bridge)) {
+ 				DRM_ERROR("panel-bridge endpoint %d\n", i);
+ 				ret = PTR_ERR(bridge);
+@@ -2045,7 +2019,7 @@ int ltdc_load(struct drm_device *ddev)
+ 		}
+ 	}
+ 
+-	crtc = devm_kzalloc(dev, sizeof(*crtc), GFP_KERNEL);
++	crtc = drmm_kzalloc(ddev, sizeof(*crtc), GFP_KERNEL);
+ 	if (!crtc) {
+ 		DRM_ERROR("Failed to allocate crtc\n");
+ 		ret = -ENOMEM;
+@@ -2072,9 +2046,6 @@ int ltdc_load(struct drm_device *ddev)
+ 
+ 	return 0;
+ err:
+-	for (i = 0; i < nb_endpoints; i++)
+-		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+-
+ 	clk_disable_unprepare(ldev->pixel_clk);
+ 
+ 	return ret;
+@@ -2082,16 +2053,8 @@ int ltdc_load(struct drm_device *ddev)
+ 
+ void ltdc_unload(struct drm_device *ddev)
+ {
+-	struct device *dev = ddev->dev;
+-	int nb_endpoints, i;
+-
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+-	nb_endpoints = of_graph_get_endpoint_count(dev->of_node);
+-
+-	for (i = 0; i < nb_endpoints; i++)
+-		drm_of_panel_bridge_remove(ddev->dev->of_node, 0, i);
+-
+ 	pm_runtime_disable(ddev->dev);
+ }
+ 
+-- 
+2.30.2
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
