@@ -2,103 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A5E857AD1
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 12:00:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1C13857B81
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 12:23:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 368C2C65E42;
-	Fri, 16 Feb 2024 11:00:22 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 852DFC65E42;
+	Fri, 16 Feb 2024 11:23:40 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19A0DC6410C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D784C6410C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 11:00:21 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-a3d159220c7so83908466b.2
+ Fri, 16 Feb 2024 11:23:39 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-511acd26c2bso2750063e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 03:00:21 -0800 (PST)
+ Fri, 16 Feb 2024 03:23:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708081220; x=1708686020;
+ d=gmail.com; s=20230601; t=1708082618; x=1708687418;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=PLhCxXeXfTy0oKV1PZq76pGTpwbsrb7RXVp5Ag35IfA=;
- b=mYNsMFXlNFAWyJBzrnbH8RaKzhvRkw/5JW6QyGgmtZ2DeMAZDqFjC3mAtEMnhABprm
- pkksLF84LfE/Q81NZugq1JsopNRzWM0xkQ8Kbhzzl3mvwBB0qPMeVgAnx8qGyeoy8GOU
- YkkGTteH2VROFH6zDYwrdTIUy377fnpkZ87YrVt23n51XzvCv1JM2hSuGw7lLfDL7lZo
- ICpQ4smWePVTKFpDwTjIDb+8bztQXjw1uEic482ia2yqBB8vS40dPwyX03LYoK5m8vHS
- 2FcdV32qgBJc/EuNMEwA2DyZbN0R93GjP1Wx6KdsWmHZRmU2Ko1r5dgYjYqMC69PZ/kt
- sx8Q==
+ h=in-reply-to:references:to:from:subject:message-id:date:mime-version
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
+ b=jrj3RtpLrKTytJVaKSYmBs7Lc7HQUxfVncwmGFDJ+EExTOHFL//b2M6J7l8cie1vGm
+ XWC9FaXcC1n3oAOnb0VtE2bgbU71kTvL0PC2mEwGqZQJduJLacqLiSiMPeKgqqh8+Zgd
+ wu6C45VFrIjF+AMDx8k4DNc8rPazowSEtaKJZTH93QirGKy3kEWwLzHeTtxL7/MPXWu/
+ /IVQe32fKRrDeKbRaXb2InVIPQcvtfBjTFU0So7Dxhu/hQMxtTy/Zgv919ueLdHx/MNG
+ WZJI0okG5v/8C2xgH5y1axKog88UvU+zxiBELcyw7gWmkv+YHroEU7b9Atiekg6aI7mA
+ dnxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708081220; x=1708686020;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PLhCxXeXfTy0oKV1PZq76pGTpwbsrb7RXVp5Ag35IfA=;
- b=jGVRMVsVR+rjynpKCPk032k/EtLhbk2XQ4Og1wakd7Poo83geVh1adMZ8eYGkdyKTw
- rQNPl1NUjbHXkXyI5a9asBx6uzUg6MnPLDiGt+RMC4yBqwc5drfMiMQUhSHpQZXzRDXz
- R6WESrcBFcC3KP/R+JejQ4Diai9/EeshFokGGNVbeYFoZbIsUUHzjEsWaYRimyh/2pow
- a1R8om8lQ7uHsM1okgZRt8TKpIP5dccdR1EvMp5E/4DoOKfOYNsBXewLRbjmbwXo+dSQ
- dQ8J4AvBzC/dh1OErvMTnBSPFdWOoPF8uzM+6PyCIK37zCKwx6FPxnp0Zk93+Tn3387a
- 9myw==
+ d=1e100.net; s=20230601; t=1708082618; x=1708687418;
+ h=in-reply-to:references:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
+ b=vvzLdgJhSStMs2U6fLKRiVaRL2GtkBuR6OQJ7kYFWL6W8WaV49d6p4WOnkVYJwxuwL
+ jX8Uzc9Dzcx+NTQ38NTzCXJS7ysXEpfeJqek+WScV66JF0lWqgm7UPjqOG8mX1IyazsQ
+ NVBK8iwnUEnwa4wrSRRVQBhIQYPV8VLA7oDjV9dbi64mKy8zGii/7cHyxVJD/UL711Zn
+ WgM4WP6QSwXcjzKNdJ4o7CnkMkBGfTBfvZFTha1AHOFU2i5YahmgEuSUaXTm9kwj6s87
+ RYXh8xGfGBBCxdcSsV/rMLFCV5O1cAPuZh7Iq5tMJPw39QOTJjhFO74wNd+hbFm4l+GT
+ cZYA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVo4xq84KFy5zzH33PIpPDayGMtYDm8d5OIWT1AsRyCZJznjMwhjJMoM4mM2ebSlQTpFtSCkGdsorQ2+K8mch6yVPmtfwO5v4JEND0JMMGNrkDKUa8F/lUg
-X-Gm-Message-State: AOJu0YxwoI92FOXcmCE/usxUhRX4qS8zXdALadERqwLBWRwbPngjyHmu
- 04Wk++jjDiDGLFR6086ogDL68fE/gCAC9bSTrGzthw7CO5hiE31c
-X-Google-Smtp-Source: AGHT+IGJg1U3l1s0cZ7SNrJJLULfB++IrJsj8RGS0gGWbyw09mvwxmMXattq7dTy3fEu4mQVbz3vaQ==
-X-Received: by 2002:a17:906:46da:b0:a3c:f6dc:ea46 with SMTP id
- k26-20020a17090646da00b00a3cf6dcea46mr3038631ejs.49.1708081220098; 
- Fri, 16 Feb 2024 03:00:20 -0800 (PST)
+ AJvYcCWX+/kWFpZp/i7JNMSFaX0aFxyYB7KyZpd1zc92GM10lBgNcnl7HlE4t/7D8NOhTTSti5f6VnX2dD4aug4kIyCLlzYBGvGML6mQng8t7NaFdqb+X6p/kyDl
+X-Gm-Message-State: AOJu0Yw/EY2W4GxuZlNo3pjPl/hxRO5Zt2QB9YP9DK0NPpp3oyWauhHR
+ EpsLw/i79YFdDOxp12hz10ySspEbm/G8xu+YUQI4bbmhiOKJnpq3
+X-Google-Smtp-Source: AGHT+IFk4ZkCa0R/m44omA2Xi3MhoAzI8tKPY8V0cTU/2axm4inHWuZNW2UcVx0PzaNks2ZutoR+ew==
+X-Received: by 2002:a05:6512:716:b0:511:8b40:ab6b with SMTP id
+ b22-20020a056512071600b005118b40ab6bmr2834631lfs.50.1708082618024; 
+ Fri, 16 Feb 2024 03:23:38 -0800 (PST)
 Received: from localhost
  (p200300e41f147f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
  [2003:e4:1f14:7f00:f22f:74ff:fe1f:3a53])
  by smtp.gmail.com with ESMTPSA id
- ts4-20020a170907c5c400b00a3df003b6a9sm219235ejc.119.2024.02.16.03.00.18
+ f23-20020a170906561700b00a3d828c54f1sm1459386ejq.135.2024.02.16.03.23.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Feb 2024 03:00:19 -0800 (PST)
+ Fri, 16 Feb 2024 03:23:37 -0800 (PST)
 Mime-Version: 1.0
-Date: Fri, 16 Feb 2024 12:00:18 +0100
-Message-Id: <CZ6G9AYXMMHZ.3ABQKCJUHPSLU@gmail.com>
+Date: Fri, 16 Feb 2024 12:23:36 +0100
+Message-Id: <CZ6GR5BWC80N.36XRBM33WF8MW@gmail.com>
 From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Rob Herring" <robh@kernel.org>, <soc@kernel.org>, "Shawn Guo"
- <shawnguo@kernel.org>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam"
- <festevam@gmail.com>, "NXP Linux Team" <linux-imx@nxp.com>, "Rob Herring"
- <robh+dt@kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski+dt@linaro.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Tsahee Zidenberg" <tsahee@annapurnalabs.com>, "Antoine Tenart"
- <atenart@kernel.org>, "Joel Stanley" <joel@jms.id.au>, "Andrew Jeffery"
- <andrew@codeconstruct.com.au>, "Ray Jui" <rjui@broadcom.com>, "Scott
- Branden" <sbranden@broadcom.com>, "Broadcom internal kernel review list"
- <bcm-kernel-feedback-list@broadcom.com>, "Andrew Lunn" <andrew@lunn.ch>,
- "Gregory Clement" <gregory.clement@bootlin.com>, "Sebastian Hesselbarth"
- <sebastian.hesselbarth@gmail.com>, =?utf-8?q?Jonathan_Neusch=C3=A4fer?=
- <j.neuschaefer@gmx.net>, "Jonathan Hunter" <jonathanh@nvidia.com>, "Stefan
- Agner" <stefan@agner.ch>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- =?utf-8?q?Beno=C3=AEt_Cousson?= <bcousson@baylibre.com>, "Tony Lindgren"
- <tony@atomide.com>, "Chanho Min" <chanho.min@lge.com>, "Matthias Brugger"
- <matthias.bgg@gmail.com>, "AngeloGioacchino Del Regno"
- <angelogioacchino.delregno@collabora.com>, "Geert Uytterhoeven"
- <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Linus
- Walleij" <linusw@kernel.org>, "Imre Kaloz" <kaloz@openwrt.org>, "Bjorn
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>, "Michael
+ Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Sudeep Holla" <sudeep.holla@arm.com>, "Peng Fan" <peng.fan@nxp.com>,
+ "Shawn Guo" <shawnguo@kernel.org>, "Nishanth Menon" <nm@ti.com>, "Bjorn
  Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konrad.dybcio@linaro.org>, "Masahiro Yamada" <masahiroy@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>, "Nicolas Schier"
- <nicolas@fjasle.eu>
+ <konrad.dybcio@linaro.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
+ "Jonathan Hunter" <jonathanh@nvidia.com>, "Linus Walleij"
+ <linus.walleij@linaro.org>, "Laurent Pinchart"
+ <laurent.pinchart@ideasonboard.com>, "Mauro Carvalho Chehab"
+ <mchehab@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Russell King"
+ <linux@armlinux.org.uk>, "Srinivas Kandagatla"
+ <srinivas.kandagatla@linaro.org>, "Mark Brown" <broonie@kernel.org>,
+ "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
+ <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
+ <linux-stm32@st-md-mailman.stormreply.com>, "NXP Linux Team"
+ <linux-imx@nxp.com>, <linux-amlogic@lists.infradead.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+ <linux-tegra@vger.kernel.org>, <linux-omap@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linux-phy@lists.infradead.org>,
+ <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
 X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
-References: <20240213-arm-dt-cleanups-v1-0-f2dee1292525@kernel.org>
- <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
-In-Reply-To: <20240213-arm-dt-cleanups-v1-2-f2dee1292525@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-kbuild@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/6] arm: dts: Fix dtc interrupt_provider
-	warnings
+References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
+ argument of of_clk_provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,52 +97,53 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1605616400421742747=="
+Content-Type: multipart/mixed; boundary="===============4463777968423382700=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============1605616400421742747==
+--===============4463777968423382700==
 Content-Type: multipart/signed;
- boundary=3f4d0b1f359aea3b19397b20b790a1177690846d9dafd4c758ed6e868b5b;
+ boundary=87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5;
  micalg=pgp-sha256; protocol="application/pgp-signature"
 
---3f4d0b1f359aea3b19397b20b790a1177690846d9dafd4c758ed6e868b5b
+--87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
 
-On Tue Feb 13, 2024 at 8:34 PM CET, Rob Herring wrote:
+On Thu Feb 8, 2024 at 5:37 PM CET, Krzysztof Kozlowski wrote:
 [...]
->  arch/arm/boot/dts/nvidia/tegra30-apalis-v1.1.dtsi      |  1 -
->  arch/arm/boot/dts/nvidia/tegra30-apalis.dtsi           |  1 -
->  arch/arm/boot/dts/nvidia/tegra30-colibri.dtsi          |  1 -
+>  drivers/clk/tegra/clk-bpmp.c                  |  2 +-
+>  drivers/clk/tegra/clk-tegra124.c              |  2 +-
+>  drivers/clk/tegra/clk-tegra20.c               |  2 +-
+>  drivers/clk/tegra/clk-tegra30.c               |  2 +-
 [...]
 
 Acked-by: Thierry Reding <treding@nvidia.com>
 
---3f4d0b1f359aea3b19397b20b790a1177690846d9dafd4c758ed6e868b5b
+--87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXPQEMACgkQ3SOs138+
-s6F44g/+KPT4RF0vNadKSFIV9/iihK84gvvjHc/8S/+Ks+sJw7//4Zws8JtsGdab
-UvvmQ8R5uIrvLpONlnmdl8cjWpnA3OV1VMJRgXeYIR/kKZxuoiZF03R8COiGQvfJ
-Cf4mq2od1sc4OOIFxTV0KJfp6XbmI09stW6zm5wk1F5CjbnMD0TTgxQhEAsOLfum
-aDJefFKp6T8QOlCQhCeYYnXwUIBdoYs7z+SRXBuJWJvgwdPMnyc4M7/5PtW57UXZ
-Vn2Hri2+u9imbcIzSUkrPLev1Kg5sWTF7CSICzmA+jTvHQUAZFQQMyjrGFkFTeI/
-g/J4ljpwRqBlhXRx5ioNbGqYmptZvuljjH6bT8hDzTRNPdfvZfKJSX2+wWb5+kM7
-/CdKfwORAUgMMqqABa4mSxHys/mmyeLJ2idQj/buql4pC7EpgD7SZRadqnaAkD/S
-3zxA6VBVq4Jt+6X3kjgGySa0tUyBMSWydLjH/TTkcZtwu8iEEggp7MxiYA2wJhne
-Pf5VjnhX5nLnPJuJn/Av5GHF1jvsrt9lENJTmpLFZIzxhxWrPntynrvfbpAV50e3
-eWqEDRu7eWFatZNZTrnRhmOHcGO197HIErp20X4PVISOY0uolzuiHFpjQBCUGQdV
-1xaTRZPbjaTB4pcqWNxi+mI4M6jIyDJc6COrC2G9t5GYMcbE6W4=
-=HY7z
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXPRbkACgkQ3SOs138+
+s6FzcQ/9F5fJyakwkqSmFCFsFTUwQ0Vv6AmJP7kf0C2oOGiJISmgaFwRE7ikl73f
+tfJ/jetoF3grVZE950B1ZtY1sAK6WLfAlRnkD52YE25Y+NcehSPfcE2403gBL/JZ
+6Rtlw4U/jJhHC7k1NNSCV6W3YM9tFJZzPdOwWL1efc33DWZQkTgvIPKSfqGIHd0i
+iclZTsusANQThdL9ASOlvq81RrglhXgo2PIt/oeGjEBtf+IoDVhHSWqJ65e/lmYV
+cBw1uhHa5zHLiWoT4xTqJY8dPkSLfBSRM3uflLUkA5BRNllvVsHAPvIgR6aBpqi5
+KeLdZEDFeIuIi8nqtYxhhnGa8nKz9t03MNj9GbFf9HYocIVDIV4SvKuKongDjcYZ
+zr5jC3lMZnmuQIM5XOIFu8hQWG0zQ6H+Kuf6ifolHj13E5gplCo4BoZWNnE84OZ8
+fMjNHraK6RNUUqJXW43OBEjejW+FvvZIpMvyyt8TcE/I7hieXCjib0Spu2n5SwvK
+mQgKxPJpsOpCxIOID89cK2VwOX3uOZslT3M5sU9ZkoUcwRpQ/Ntfr7ZWW8Jy/L4Y
+DWnk7IvOvI4fFlmRQONIeWpr8euHFmCL8L8dJ29AI9oB2lvs7ZovvWw9QTE8E6iU
+EjVBwtdG6KqWJxP803h8DAvvD0Vsu0KzQFr+Pwre3NP2FHYDCR0=
+=E0uq
 -----END PGP SIGNATURE-----
 
---3f4d0b1f359aea3b19397b20b790a1177690846d9dafd4c758ed6e868b5b--
+--87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5--
 
---===============1605616400421742747==
+--===============4463777968423382700==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -166,4 +154,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1605616400421742747==--
+--===============4463777968423382700==--
