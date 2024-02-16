@@ -2,90 +2,85 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1C13857B81
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 12:23:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CF5857C01
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 12:47:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 852DFC65E42;
-	Fri, 16 Feb 2024 11:23:40 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E03DCC65E42;
+	Fri, 16 Feb 2024 11:47:06 +0000 (UTC)
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D784C6410C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43CF2C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 11:23:39 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-511acd26c2bso2750063e87.2
+ Fri, 16 Feb 2024 11:47:06 +0000 (UTC)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-dcc80d6006aso689282276.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 03:23:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708082618; x=1708687418;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:to:from:subject:message-id:date:mime-version
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
- b=jrj3RtpLrKTytJVaKSYmBs7Lc7HQUxfVncwmGFDJ+EExTOHFL//b2M6J7l8cie1vGm
- XWC9FaXcC1n3oAOnb0VtE2bgbU71kTvL0PC2mEwGqZQJduJLacqLiSiMPeKgqqh8+Zgd
- wu6C45VFrIjF+AMDx8k4DNc8rPazowSEtaKJZTH93QirGKy3kEWwLzHeTtxL7/MPXWu/
- /IVQe32fKRrDeKbRaXb2InVIPQcvtfBjTFU0So7Dxhu/hQMxtTy/Zgv919ueLdHx/MNG
- WZJI0okG5v/8C2xgH5y1axKog88UvU+zxiBELcyw7gWmkv+YHroEU7b9Atiekg6aI7mA
- dnxA==
+ Fri, 16 Feb 2024 03:47:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708082618; x=1708687418;
- h=in-reply-to:references:to:from:subject:message-id:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=qCkIBF2HUHDgPA/fkE23qtD6c+3DYAPMy1MuIjYZckA=;
- b=vvzLdgJhSStMs2U6fLKRiVaRL2GtkBuR6OQJ7kYFWL6W8WaV49d6p4WOnkVYJwxuwL
- jX8Uzc9Dzcx+NTQ38NTzCXJS7ysXEpfeJqek+WScV66JF0lWqgm7UPjqOG8mX1IyazsQ
- NVBK8iwnUEnwa4wrSRRVQBhIQYPV8VLA7oDjV9dbi64mKy8zGii/7cHyxVJD/UL711Zn
- WgM4WP6QSwXcjzKNdJ4o7CnkMkBGfTBfvZFTha1AHOFU2i5YahmgEuSUaXTm9kwj6s87
- RYXh8xGfGBBCxdcSsV/rMLFCV5O1cAPuZh7Iq5tMJPw39QOTJjhFO74wNd+hbFm4l+GT
- cZYA==
+ d=1e100.net; s=20230601; t=1708084023; x=1708688823;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=lQ7tnAKFUkQOj4UEtgJN4h/6u4fraBJnTp0nHjLT6cQ=;
+ b=BHSITBDCzVAP9Tfnoxq9LAlWEdCxwBXpfADE5kRXMK4pOH5yNC8GvCFVek3+qOFLba
+ HfoN1QRUiQxVnCbvCPUliMXhc74nloJNP3ovPns7iZ67IgsB1gG0yfg6QGaUcGPo4WbL
+ 2TvZCCxjdJv6CalWybA+urDj+ZlNPkYqzW0VLeVoDU/g+DJT+Y03VEzbsY3/n3ThAo++
+ DzPLeZjBHD5Wm96j2Qgw43HUXiehbOyJk7y6713rKmsquS1XD4YQNkzDUolXGA/IU7JN
+ jQb3CT4zKJEphsYnLZN+56nmyt9ENijXEaoY+mR4Kjv6/LBIKa2JdXM3R0aCBOydDLoW
+ tbXA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWX+/kWFpZp/i7JNMSFaX0aFxyYB7KyZpd1zc92GM10lBgNcnl7HlE4t/7D8NOhTTSti5f6VnX2dD4aug4kIyCLlzYBGvGML6mQng8t7NaFdqb+X6p/kyDl
-X-Gm-Message-State: AOJu0Yw/EY2W4GxuZlNo3pjPl/hxRO5Zt2QB9YP9DK0NPpp3oyWauhHR
- EpsLw/i79YFdDOxp12hz10ySspEbm/G8xu+YUQI4bbmhiOKJnpq3
-X-Google-Smtp-Source: AGHT+IFk4ZkCa0R/m44omA2Xi3MhoAzI8tKPY8V0cTU/2axm4inHWuZNW2UcVx0PzaNks2ZutoR+ew==
-X-Received: by 2002:a05:6512:716:b0:511:8b40:ab6b with SMTP id
- b22-20020a056512071600b005118b40ab6bmr2834631lfs.50.1708082618024; 
- Fri, 16 Feb 2024 03:23:38 -0800 (PST)
-Received: from localhost
- (p200300e41f147f00f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f14:7f00:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- f23-20020a170906561700b00a3d828c54f1sm1459386ejq.135.2024.02.16.03.23.36
+ AJvYcCXow+VlsiNV1DygPH/bv/DAFeeianpTZrGdtXGMVV2wHTzsTKoIVjBY019CMtrlVGVTVS3r5nWVB/vUFXOb6MnwICepX30m3EQ16Y1LoIZ/W4dJ53DGNpqk
+X-Gm-Message-State: AOJu0YzzESK0pUXK4Z8kQvGPt7qS3ZD4sD3dtEksg5A2yL91uAp+wNTL
+ nfy9hWFlUpVK1Qla+vuPOyrvGRBSqiJXNWQjsjBjjXyvhni1KETbNmT5joBOEVo=
+X-Google-Smtp-Source: AGHT+IG+4DTR+XesvChTiV7lGzeBZP3/XpLuzwyaWd2O0+E/FxQjADLV3aTWyiQ6GEMACxpZz6CvRA==
+X-Received: by 2002:a25:97c8:0:b0:dcc:4b84:67cd with SMTP id
+ j8-20020a2597c8000000b00dcc4b8467cdmr4264044ybo.9.1708084022815; 
+ Fri, 16 Feb 2024 03:47:02 -0800 (PST)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com.
+ [209.85.219.176]) by smtp.gmail.com with ESMTPSA id
+ z2-20020a5b0202000000b00dcc45635f27sm272074ybl.18.2024.02.16.03.47.01
+ for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 Feb 2024 03:23:37 -0800 (PST)
-Mime-Version: 1.0
-Date: Fri, 16 Feb 2024 12:23:36 +0100
-Message-Id: <CZ6GR5BWC80N.36XRBM33WF8MW@gmail.com>
-From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@linaro.org>, "Michael
- Turquette" <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>,
- "Sudeep Holla" <sudeep.holla@arm.com>, "Peng Fan" <peng.fan@nxp.com>,
- "Shawn Guo" <shawnguo@kernel.org>, "Nishanth Menon" <nm@ti.com>, "Bjorn
- Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konrad.dybcio@linaro.org>, "Geert Uytterhoeven" <geert+renesas@glider.be>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Linus Walleij"
- <linus.walleij@linaro.org>, "Laurent Pinchart"
- <laurent.pinchart@ideasonboard.com>, "Mauro Carvalho Chehab"
- <mchehab@kernel.org>, "Vinod Koul" <vkoul@kernel.org>, "Russell King"
- <linux@armlinux.org.uk>, "Srinivas Kandagatla"
- <srinivas.kandagatla@linaro.org>, "Mark Brown" <broonie@kernel.org>,
- "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>,
- <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <patches@opensource.cirrus.com>,
- <linux-stm32@st-md-mailman.stormreply.com>, "NXP Linux Team"
- <linux-imx@nxp.com>, <linux-amlogic@lists.infradead.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-tegra@vger.kernel.org>, <linux-omap@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <alsa-devel@alsa-project.org>, <linux-sound@vger.kernel.org>
-X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
+ Fri, 16 Feb 2024 03:47:01 -0800 (PST)
+Received: by mail-yb1-f176.google.com with SMTP id
+ 3f1490d57ef6-dcbc00f6c04so621711276.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 16 Feb 2024 03:47:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWGQpS/xJL/WOiLoDw60vMDzA/TwPbFha4Gt4lygJa7e/9PVDDSlzlL6wl1JFCBRuaI4gXxJeeC+nlS6e5PvTmC2im6m6Lgk4Qo1lzJXMfAu2wFm7YDQEvp
+X-Received: by 2002:a5b:708:0:b0:dc6:cc35:35e9 with SMTP id
+ g8-20020a5b0708000000b00dc6cc3535e9mr4412013ybq.35.1708084021189; Fri, 16 Feb
+ 2024 03:47:01 -0800 (PST)
+MIME-Version: 1.0
 References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
 In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 16 Feb 2024 12:46:48 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
+Message-ID: <CAMuHMdXzObEqExtJZpUpXLfCWB5fW9ZhekbbotcxcMrN+uj0Ag@mail.gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Nishanth Menon <nm@ti.com>, Peng Fan <peng.fan@nxp.com>,
+ Michael Turquette <mturquette@baylibre.com>, alsa-devel@alsa-project.org,
+ Jaroslav Kysela <perex@perex.cz>, Thierry Reding <thierry.reding@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ linux-phy@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-omap@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Russell King <linux@armlinux.org.uk>,
+ Jonathan Hunter <jonathanh@nvidia.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
+ patches@opensource.cirrus.com, Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Vinod Koul <vkoul@kernel.org>,
+ Sudeep Holla <sudeep.holla@arm.com>, Shawn Guo <shawnguo@kernel.org>
 Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
- argument of of_clk_provider
+	argument of of_clk_provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,61 +92,32 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4463777968423382700=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============4463777968423382700==
-Content-Type: multipart/signed;
- boundary=87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5;
- micalg=pgp-sha256; protocol="application/pgp-signature"
-
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Thu Feb 8, 2024 at 5:37 PM CET, Krzysztof Kozlowski wrote:
-[...]
->  drivers/clk/tegra/clk-bpmp.c                  |  2 +-
->  drivers/clk/tegra/clk-tegra124.c              |  2 +-
->  drivers/clk/tegra/clk-tegra20.c               |  2 +-
->  drivers/clk/tegra/clk-tegra30.c               |  2 +-
-[...]
-
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXPRbkACgkQ3SOs138+
-s6FzcQ/9F5fJyakwkqSmFCFsFTUwQ0Vv6AmJP7kf0C2oOGiJISmgaFwRE7ikl73f
-tfJ/jetoF3grVZE950B1ZtY1sAK6WLfAlRnkD52YE25Y+NcehSPfcE2403gBL/JZ
-6Rtlw4U/jJhHC7k1NNSCV6W3YM9tFJZzPdOwWL1efc33DWZQkTgvIPKSfqGIHd0i
-iclZTsusANQThdL9ASOlvq81RrglhXgo2PIt/oeGjEBtf+IoDVhHSWqJ65e/lmYV
-cBw1uhHa5zHLiWoT4xTqJY8dPkSLfBSRM3uflLUkA5BRNllvVsHAPvIgR6aBpqi5
-KeLdZEDFeIuIi8nqtYxhhnGa8nKz9t03MNj9GbFf9HYocIVDIV4SvKuKongDjcYZ
-zr5jC3lMZnmuQIM5XOIFu8hQWG0zQ6H+Kuf6ifolHj13E5gplCo4BoZWNnE84OZ8
-fMjNHraK6RNUUqJXW43OBEjejW+FvvZIpMvyyt8TcE/I7hieXCjib0Spu2n5SwvK
-mQgKxPJpsOpCxIOID89cK2VwOX3uOZslT3M5sU9ZkoUcwRpQ/Ntfr7ZWW8Jy/L4Y
-DWnk7IvOvI4fFlmRQONIeWpr8euHFmCL8L8dJ29AI9oB2lvs7ZovvWw9QTE8E6iU
-EjVBwtdG6KqWJxP803h8DAvvD0Vsu0KzQFr+Pwre3NP2FHYDCR0=
-=E0uq
------END PGP SIGNATURE-----
-
---87caa6e717479adfa0f5d015ffee82cc14ceb938e5f7a71c46d45b7997b5--
-
---===============4463777968423382700==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4463777968423382700==--
+T24gVGh1LCBGZWIgOCwgMjAyNCBhdCA1OjM34oCvUE0gS3J6eXN6dG9mIEtvemxvd3NraQo8a3J6
+eXN6dG9mLmtvemxvd3NraUBsaW5hcm8ub3JnPiB3cm90ZToKPiBOb25lIG9mIHRoZSBpbXBsZW1l
+bnRhdGlvbnMgb2YgdGhlIGdldCgpIGFuZCBnZXRfaHcoKSBjYWxsYmFja3Mgb2YKPiAic3RydWN0
+IG9mX2Nsa19wcm92aWRlciIgbW9kaWZ5IHRoZSBjb250ZW50cyBvZiByZWNlaXZlZCBvZl9waGFu
+ZGxlX2FyZ3MKPiBwb2ludGVyLiAgVGhleSB0cmVhdCBpdCBhcyByZWFkLW9ubHkgdmFyaWFibGUg
+dXNlZCB0byBmaW5kIHRoZSBjbG9jayB0bwo+IHJldHVybi4gIE1ha2Ugb2J2aW91cyB0aGF0IGlt
+cGxlbWVudGF0aW9ucyBhcmUgbm90IHN1cHBvc2VkIHRvIG1vZGlmeQo+IHRoZSBvZl9waGFuZGxl
+X2FyZ3MsIGJ5IG1ha2luZyBpdCBhIHBvaW50ZXIgdG8gY29uc3QuCj4KPiBTaWduZWQtb2ZmLWJ5
+OiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+Cgo+
+ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3I5YTA2ZzAzMi1jbG9ja3MuYyAgICAgICAgfCAgMiArLQo+
+ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3JlbmVzYXMtY3BnLW1zc3IuYyAgICAgICAgfCAgMiArLQo+
+ICBkcml2ZXJzL2Nsay9yZW5lc2FzL3J6ZzJsLWNwZy5jICAgICAgICAgICAgICAgfCAgMiArLQoK
+UmV2aWV3ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnQrcmVuZXNhc0BnbGlkZXIuYmU+
+CkFja2VkLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPgoK
+R3J7b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAgICAgICAgICAgICAgICBHZWVydAoKLS0gCkdl
+ZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0g
+Z2VlcnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNo
+bmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQKd2hlbiBJJ20gdGFsa2lu
+ZyB0byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJwcm9ncmFtbWVyIiBvciBzb21ldGhpbmcgbGlr
+ZSB0aGF0LgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0tIExpbnVzIFRvcnZhbGRz
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
