@@ -2,66 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C04C857D5D
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 14:13:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F32C28580C6
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 16:24:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 202CAC65E42;
-	Fri, 16 Feb 2024 13:13:06 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A4BCFC65E42;
+	Fri, 16 Feb 2024 15:24:44 +0000 (UTC)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on2075.outbound.protection.outlook.com [40.107.14.75])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8428AC6410C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7474C6410C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 13:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1708089185; x=1739625185;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=w7PxYeL2YJi5lLDMuxgVxDRatSZggnbIIYFFi/StyVM=;
- b=insdE1+RVAg7Bx2xLsdsMnNePf2jYsZrEgFsktLRZH9ktM8Fl5jvnsTd
- LpSww8++PvMNWnWVe/p5jDMoAk/tCDYSYD7mDSajLeXrRfHpb9JMLKBkp
- 71DOP0nteDwb9zJnHi+5UFvFUdnDTwsW6oF6RjAWfDyd9jLBN0OPfzwRF
- kAJzr+tptI9g7AeFUp9LZAIyIQpDm4H2jeO5R05V+Dv4ADRnTn/7VmGI2
- i/zY+vVAIdS+wn0P4KF5Ljp9u2HZKm1ru6JF6cMpZ0W3PyOf/AJ6AigSK
- keKlK+J4AJzZsYUMcY5GtvrFCF93QAjcahjdjFEkqCnXg/xBCseLBn0E2 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10985"; a="2083630"
-X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; 
-   d="scan'208";a="2083630"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2024 05:13:03 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.06,164,1705392000"; 
-   d="scan'208";a="3801537"
-Received: from lkp-server02.sh.intel.com (HELO 3c78fa4d504c) ([10.239.97.151])
- by fmviesa009.fm.intel.com with ESMTP; 16 Feb 2024 05:12:58 -0800
-Received: from kbuild by 3c78fa4d504c with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1ray1N-0001IA-17;
- Fri, 16 Feb 2024 13:12:54 +0000
-Date: Fri, 16 Feb 2024 21:12:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Message-ID: <202402162038.HP7VzIHX-lkp@intel.com>
-References: <20240206-lvds-v5-2-bd16797b0f09@foss.st.com>
+ Fri, 16 Feb 2024 15:24:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gT7l+K0uiYbEZ9Btcgx18GvCiLqfYXFDto9tJJT6f3MO/dkM2wPC++AYF8/Zln/LL6a3cdirkaz+krcIrzk/+78KLM+b7+vGXgmJ30TKto5/z6EL9Stq77ym5WsXV4c7uJwKRM4hxO9IlOavj9rB4DXQox0LyzB+2VAIQCrcsf3RUWlhi9AdWuZc32PluumM82iRpAjQz7npCZDOF1QwTikqHC/pPbPVFau9zWuV7xdRLgqoMSiXXu5ZIF5S1z0OneiGjdDMbOIcywgX2VDWmKraqt5feprg4pAWhUu+uzbXUrW3wqiSMmJKqS5gJ6mQuKURimL4ZL/KGTJCKqm6QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=37sPE7amiEW/LSX22nPYRRTcsfGA/KdN6cUCAu0caMo=;
+ b=K6m+029TjOBDUfaggbDiCzMEYw6rXaASO0EGHx9DDYnaVetsE6RiwijLeBZyQUh21pYdm6RHS9jZ84sMztbU8c6jvHsxZvGsZFknmky5CDtBaCIBjNwMQWEU/n1bMSjT05ldUf/f5nikPV8l5JWBO57h2Az75XTcuBFsojPmALKBdVfZ+Bp/RFifFWekmv7j2r7WkHsSapBxZqEX659SZzfc0NMQSniUM+YUQ1NjlDho5WlGGjx1BhyYcYH50EvWjVYkAMoTJwgYsPVVzbhy5TW4wO7d0fa4nXHm7C4r7mkABC4l8JEDwjKWD2egoI6fsvCRZVFL6N6a8kbvr6IyWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=davemloft.net smtp.mailfrom=axis.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=37sPE7amiEW/LSX22nPYRRTcsfGA/KdN6cUCAu0caMo=;
+ b=BWVCT3bWLezGZ4YNRA3eUmnHdFNmxIGzbiP4pWbKy1m1b6os9GvD0woLLMUSY/VciCflj6BA8J6rEyUVR1MreNqdeCiRmj1RVb0A+/nmBiUuhFeSKHtV6LURftvfJ+TOglOjgViDbyfblx/kUr+yxjs2dfA9qDrbbRU6sYqxjhE=
+Received: from AM6PR02CA0036.eurprd02.prod.outlook.com (2603:10a6:20b:6e::49)
+ by GVXPR02MB10805.eurprd02.prod.outlook.com (2603:10a6:150:158::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.29; Fri, 16 Feb
+ 2024 15:24:39 +0000
+Received: from AMS0EPF0000019D.eurprd05.prod.outlook.com
+ (2603:10a6:20b:6e:cafe::3) by AM6PR02CA0036.outlook.office365.com
+ (2603:10a6:20b:6e::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.39 via Frontend
+ Transport; Fri, 16 Feb 2024 15:24:39 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=axis.com;
+Received-SPF: Fail (protection.outlook.com: domain of axis.com does not
+ designate 195.60.68.100 as permitted sender) receiver=protection.outlook.com; 
+ client-ip=195.60.68.100; helo=mail.axis.com;
+Received: from mail.axis.com (195.60.68.100) by
+ AMS0EPF0000019D.mail.protection.outlook.com (10.167.16.249) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 16 Feb 2024 15:24:38 +0000
+Received: from se-mail01w.axis.com (10.20.40.7) by se-mail01w.axis.com
+ (10.20.40.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Feb
+ 2024 16:24:38 +0100
+Received: from se-intmail01x.se.axis.com (10.0.5.60) by se-mail01w.axis.com
+ (10.20.40.7) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 16 Feb 2024 16:24:38 +0100
+Received: from pc55637-2337.se.axis.com (pc55637-2337.se.axis.com [10.88.4.11])
+ by se-intmail01x.se.axis.com (Postfix) with ESMTP id 7D2D7146C8;
+ Fri, 16 Feb 2024 16:24:38 +0100 (CET)
+Received: by pc55637-2337.se.axis.com (Postfix, from userid 363)
+ id 805D422DFE41; Fri, 16 Feb 2024 16:24:38 +0100 (CET)
+From: Jesper Nilsson <jesper.nilsson@axis.com>
+Date: Fri, 16 Feb 2024 16:24:21 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240206-lvds-v5-2-bd16797b0f09@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, oe-kbuild-all@lists.linux.dev,
+Message-ID: <20240216-stmmac_stats-v1-1-7065fa4613f8@axis.com>
+X-B4-Tracking: v=1; b=H4sIACR+z2UC/x3MQQqAIBBA0avIrBPUzEVXiQjJqWZhhSMRiHdPW
+ r7F/wUYEyHDKAokfIjpOht0J2A9/LmjpNAMRhmrjHaSc4x+XTj7zBL7welgnQoKoSV3wo3efzf
+ NtX7B5gzPXgAAAA==
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1708097078; l=1873;
+ i=jesper.nilsson@axis.com; s=20240216; h=from:subject:message-id;
+ bh=KLt7lkxMIDXwqVaa187HXcW2n371/Kn3gOTNz7xxQIQ=;
+ b=3AALvebc5WkJMbXlrwZxPpsh1ObS6AysvNlUkoKDysRlH9NCs9RnpgTWV+fLG7HDlSKOqIyPe
+ 7QLfuZE3uWxDndTDmgJVBcsqLy5Nf8nwDBFp8fi9h+qWyLn8IbDsfKR
+X-Developer-Key: i=jesper.nilsson@axis.com; a=ed25519;
+ pk=RDobTFVrTaE8iMP112Wk0CDiLdcV7I+OkaCECzhr/bI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF0000019D:EE_|GVXPR02MB10805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b8cb483-070b-4cda-4313-08dc2f036409
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4oX4JGtheX+f2uX5984nJb+nT7QU/Rl4A8HnTm6vL2KgcQ3+uSnBGmEHt0/BkXhbCIYzyDjRZPiciAXZKAKSfNGRoK1zWxJ5izpDYP28SrAiOliulLq0lunBeXFtpTbcPTS1zZXXE0SNCgtjmn8QJ6UOqmxfig+SZmsMHY5KH80ZGgdICMTFXq0Sw8DxqZ66Luf5zGYvRtE+4VNynwZAjwJpUH+JH4ResLdsQgSRGgvj07rcvsKavb3JR01sjLIpKOSONKYjh+mGEuwCkzrW+ENMb2c7Bw7QGQkTaZfHtNyFDwTdvtKdxaS07hjHqDRs/S4dgQAXXYJRcRcrrDObULR3Qh7AgOblEHdDsv9WIoD8trooQ1+V8LporRZVdQrwE584RqumLz9NKQ0v0pIviU/WEYtMighgPMUbvp5miNziOZG5ZL4xvoPf1vCqVZrut2du23F7iW+4p2R6zzIpPZcO4Bg6xOLbdw9fJi3mIoF9mZIFKyA/o9tKdo1vVbHCv0I7Iw7vjugYWQIofT1Qm8Da1/27Tj34AwxmTQemVhYyo8GAlS6dvjSmKxEcalqQHpIAuHjDc1P7V3NzCiCV+YOwhvo22mg9O7ULrkseBq55UoSVQOX6nCTWYUZATgxmPM/EpPehkKdcAhUVzfEMG3UZTV/8DkN2vmGS6chqADU=
+X-Forefront-Antispam-Report: CIP:195.60.68.100; CTRY:SE; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.axis.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(4636009)(346002)(376002)(396003)(136003)(39860400002)(230922051799003)(82310400011)(186009)(64100799003)(451199024)(36860700004)(1800799012)(46966006)(40470700004)(478600001)(2616005)(316002)(7416002)(5660300002)(44832011)(2906002)(8676002)(8936002)(4326008)(70586007)(70206006)(54906003)(110136005)(42186006)(41300700001)(6666004)(36756003)(26005)(83380400001)(426003)(107886003)(81166007)(86362001)(336012)(356005)(6266002)(82740400003);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2024 15:24:38.9191 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b8cb483-070b-4cda-4313-08dc2f036409
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af; Ip=[195.60.68.100];
+ Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF0000019D.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR02MB10805
+Cc: Jesper Nilsson <jesper.nilsson@axis.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@axis.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 2/3] drm/stm: lvds: add new STM32 LVDS
- Display Interface Transmitter driver
+Subject: [Linux-stm32] [PATCH] net: stmmac: mmc_core: Assign,
+ don't add interrupt registers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,72 +123,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Raphael,
+The MMC IPC interrupt status and interrupt mask registers are of
+little use as Ethernet statistics, but incrementing counters
+based on the current interrupt and interrupt mask registers
+makes them worse than useless.
 
-kernel test robot noticed the following build warnings:
+For example, if the interrupt mask is set to 0x08420842,
+the current code will increment by that amount each iteration,
+leading to the following sequence of nonsense:
 
-[auto build test WARNING on bb3bc3eac316b7c388733e625cc2343131b69dee]
+mmc_rx_ipc_intr_mask: 969816526
+mmc_rx_ipc_intr_mask: 1108361744
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Raphael-Gallais-Pou/dt-bindings-display-add-STM32-LVDS-device/20240206-194740
-base:   bb3bc3eac316b7c388733e625cc2343131b69dee
-patch link:    https://lore.kernel.org/r/20240206-lvds-v5-2-bd16797b0f09%40foss.st.com
-patch subject: [PATCH v5 2/3] drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver
-config: arm-randconfig-r132-20240214 (https://download.01.org/0day-ci/archive/20240216/202402162038.HP7VzIHX-lkp@intel.com/config)
-compiler: clang version 15.0.7 (https://github.com/llvm/llvm-project.git 8dfdcc7b7bf66834a761bd8de445840ef68e4d1a)
-reproduce: (https://download.01.org/0day-ci/archive/20240216/202402162038.HP7VzIHX-lkp@intel.com/reproduce)
+Change the increment to a straight assignment to make the
+statistics at least nominally useful.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202402162038.HP7VzIHX-lkp@intel.com/
+Signed-off-by: Jesper Nilsson <jesper.nilsson@axis.com>
+---
+ drivers/net/ethernet/stmicro/stmmac/mmc_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/stm/lvds.c:318:17: sparse: sparse: symbol 'lvds_bitmap_jeida_rgb888' was not declared. Should it be static?
->> drivers/gpu/drm/stm/lvds.c:335:17: sparse: sparse: symbol 'lvds_bitmap_vesa_rgb888' was not declared. Should it be static?
-   drivers/gpu/drm/stm/lvds.c: note: in included file (through include/linux/mmzone.h, include/linux/gfp.h, include/linux/stackdepot.h, ...):
-   include/linux/page-flags.h:242:46: sparse: sparse: self-comparison always evaluates to false
+diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+index 6a7c1d325c46..6051a22b3cec 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+@@ -280,8 +280,8 @@ static void dwmac_mmc_read(void __iomem *mmcaddr, struct stmmac_counters *mmc)
+ 	mmc->mmc_rx_vlan_frames_gb += readl(mmcaddr + MMC_RX_VLAN_FRAMES_GB);
+ 	mmc->mmc_rx_watchdog_error += readl(mmcaddr + MMC_RX_WATCHDOG_ERROR);
+ 	/* IPC */
+-	mmc->mmc_rx_ipc_intr_mask += readl(mmcaddr + MMC_RX_IPC_INTR_MASK);
+-	mmc->mmc_rx_ipc_intr += readl(mmcaddr + MMC_RX_IPC_INTR);
++	mmc->mmc_rx_ipc_intr_mask = readl(mmcaddr + MMC_RX_IPC_INTR_MASK);
++	mmc->mmc_rx_ipc_intr = readl(mmcaddr + MMC_RX_IPC_INTR);
+ 	/* IPv4 */
+ 	mmc->mmc_rx_ipv4_gd += readl(mmcaddr + MMC_RX_IPV4_GD);
+ 	mmc->mmc_rx_ipv4_hderr += readl(mmcaddr + MMC_RX_IPV4_HDERR);
 
-vim +/lvds_bitmap_jeida_rgb888 +318 drivers/gpu/drm/stm/lvds.c
+---
+base-commit: 0dd3ee31125508cd67f7e7172247f05b7fd1753a
+change-id: 20240216-stmmac_stats-e3561d460d0e
 
-   308	
-   309	/*
-   310	 * Expected JEIDA-RGB888 data to be sent in LSB format
-   311	 *	    bit6 ............................bit0
-   312	 * CHAN0   {ONE, ONE, ZERO, ZERO, ZERO, ONE, ONE}
-   313	 * CHAN1   {G2,  R7,  R6,   R5,   R4,   R3,  R2}
-   314	 * CHAN2   {B3,  B2,  G7,   G6,   G5,   G4,  G3}
-   315	 * CHAN3   {DE,  VS,  HS,   B7,   B6,   B5,  B4}
-   316	 * CHAN4   {CE,  B1,  B0,   G1,   G0,   R1,  R0}
-   317	 */
- > 318	enum lvds_pixel lvds_bitmap_jeida_rgb888[5][7] = {
-   319		{ PIX_ONE, PIX_ONE, PIX_ZER, PIX_ZER, PIX_ZER, PIX_ONE, PIX_ONE },
-   320		{ PIX_G_2, PIX_R_7, PIX_R_6, PIX_R_5, PIX_R_4, PIX_R_3, PIX_R_2 },
-   321		{ PIX_B_3, PIX_B_2, PIX_G_7, PIX_G_6, PIX_G_5, PIX_G_4, PIX_G_3 },
-   322		{ PIX_D_E, PIX_V_S, PIX_H_S, PIX_B_7, PIX_B_6, PIX_B_5, PIX_B_4 },
-   323		{ PIX_C_E, PIX_B_1, PIX_B_0, PIX_G_1, PIX_G_0, PIX_R_1, PIX_R_0 }
-   324	};
-   325	
-   326	/*
-   327	 * Expected VESA-RGB888 data to be sent in LSB format
-   328	 *	    bit6 ............................bit0
-   329	 * CHAN0   {ONE, ONE, ZERO, ZERO, ZERO, ONE, ONE}
-   330	 * CHAN1   {G0,  R5,  R4,   R3,   R2,   R1,  R0}
-   331	 * CHAN2   {B1,  B0,  G5,   G4,   G3,   G2,  G1}
-   332	 * CHAN3   {DE,  VS,  HS,   B5,   B4,   B3,  B2}
-   333	 * CHAN4   {CE,  B7,  B6,   G7,   G6,   R7,  R6}
-   334	 */
- > 335	enum lvds_pixel lvds_bitmap_vesa_rgb888[5][7] = {
-   336		{ PIX_ONE, PIX_ONE, PIX_ZER, PIX_ZER, PIX_ZER, PIX_ONE, PIX_ONE },
-   337		{ PIX_G_0, PIX_R_5, PIX_R_4, PIX_R_3, PIX_R_2, PIX_R_1, PIX_R_0 },
-   338		{ PIX_B_1, PIX_B_0, PIX_G_5, PIX_G_4, PIX_G_3, PIX_G_2, PIX_G_1 },
-   339		{ PIX_D_E, PIX_V_S, PIX_H_S, PIX_B_5, PIX_B_4, PIX_B_3, PIX_B_2 },
-   340		{ PIX_C_E, PIX_B_7, PIX_B_6, PIX_G_7, PIX_G_6, PIX_R_7, PIX_R_6 }
-   341	};
-   342	
-
+Best regards,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+/^JN - Jesper Nilsson
+-- 
+               Jesper Nilsson -- jesper.nilsson@axis.com
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
