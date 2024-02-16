@@ -2,115 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD0988576A9
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 08:13:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFBE85769D
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 08:12:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72029C69063;
-	Fri, 16 Feb 2024 07:13:23 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2104.outbound.protection.outlook.com [40.107.22.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C055C65E42;
+	Fri, 16 Feb 2024 07:12:34 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 613B1C64102
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 064ABC6410C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Feb 2024 15:16:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PCVFAbAWutgVN99t7AL+xyaVAzUdJD0ciEX51k4VbCgmgVpJpRia+rF4FkmXAc/IFRGPi91DyobPBwXUgNeba7FLRmn30bwl2Z7RY2fbyLfK4v+BUfeVIOmbylXAG7KmBLl+O7wOYnD755B/l8w8jQfqoZZjKfkkEaWOA03oG9qTTPSSvqhv8mnbM4XiykUL/Ac4Si0k4r635qPPFvtJsjD5zAxjhWspX4RYfL1bX3X8AC0PRtkJTKQnU1rCYIYZw4KoO/lXSnyM0pw5jE1By+fSgbzO0l+C7pP0fQolkBxuG3J4dk++h9Jc3ch/qEYW7lOqxyey2hfbkJPZ3VC9Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8jLZq8jz0DWJEcyr3ovhepEpw9+xJcdDaG6fRrA1Zjc=;
- b=WIsNkLfWsMEwGvJ4QmrXN0fRXlxNfkSEIVLHrou53+ceFgX0gDRpCZn5ZxU+tS//rczG6+zWOAmuhdwDgGcSmrdWO+PJqjKrjdpXoCBAG1lRqL4rRUpw0KOAccFjtgIz3Fm6hWN0pTH+X097Db9fq3IvThy6OO8aB4+XXSE7E15yDYDd8JmojST32lXYyEoAzkHSh9Zm39IUbKIOz8KfXMk1UZ57Rd1U1Fo402xgrTdtVTnX23EPbrs++98VQ0K9cy6mGTeNTUVA89UsHEhM6BISpoCRbCWJmoRn+GIIscvC2LDr2Rs5a75e0YfGj3KxBA75tATzdc2o/g9Do8oRjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=witekio.com; dmarc=pass action=none header.from=witekio.com;
- dkim=pass header.d=witekio.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=witekio.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8jLZq8jz0DWJEcyr3ovhepEpw9+xJcdDaG6fRrA1Zjc=;
- b=Em2vo3zC+BPgbpfEpYr4RhDb/mqaDW1YvaqLK6IddMrn769bqDR33SPx2NxVrAk9dQlrovTzp3705hPg4mY2zzygyOAlD9HOkVGB9gpCL79TiJBUOUyyA/mUbbNGYQLS93MaDKyZnHanKUnxMK3NK+koiBtXZp+BoY391vYGLsL831gE05HlKi0b6OIx8fII23koRD5+BCFp7z22henomNbUPxLRzPtRQ0FcqL7Yxbg/FzIAN2qo4k7vKet3AUlP6OjD7KqBTOCgNGYdJB3qZh3+ecgAiSiDoVNmQFHy2ga3zzJmlOZupNBr6EAsHG9RhW1QPS731vxkCEBw15N1xQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=witekio.com;
-Received: from PR3P192MB0714.EURP192.PROD.OUTLOOK.COM (2603:10a6:102:48::10)
- by DB9P192MB1539.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:33b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.39; Thu, 15 Feb
- 2024 15:16:10 +0000
-Received: from PR3P192MB0714.EURP192.PROD.OUTLOOK.COM
- ([fe80::9a43:c1dc:91c3:186c]) by PR3P192MB0714.EURP192.PROD.OUTLOOK.COM
- ([fe80::9a43:c1dc:91c3:186c%7]) with mapi id 15.20.7292.029; Thu, 15 Feb 2024
- 15:16:10 +0000
-From: hsimeliere.opensource@witekio.com
-To: stable@vger.kernel.org
-Date: Thu, 15 Feb 2024 16:15:26 +0100
-Message-Id: <20240215151527.6098-2-hsimeliere.opensource@witekio.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240215151527.6098-1-hsimeliere.opensource@witekio.com>
-References: <20240215151527.6098-1-hsimeliere.opensource@witekio.com>
-X-ClientProxiedBy: PA7P264CA0059.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:34a::19) To PR3P192MB0714.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:102:48::10)
+ Fri, 16 Feb 2024 07:12:32 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a3dd0075540so39121566b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 Feb 2024 23:12:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1708067552; x=1708672352;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=ATkurgrubpUgh0fShoFCedN3hGiv0h68AvHCnzi4M2s=;
+ b=tU0BCiwwIaldqro2La2ofTZNxquL+xMfaM/nbVrl9exlcBS+rQkzCyvBgOI/Rp4f1u
+ Mkj6U4d0SYJTE6cJmkKRb0g3UsL1hQnJ6DSEYS3kxXBZkmgc3oI2IOSD/Grsg+IRdYqr
+ 04ODcKun9psdN9Sk1RR0ojc6Xz4fW1Z9kmoFGQioXsMPTBC4rbjZontUKgUgb5CWzgDH
+ uKiuo7Wea5WmSQyr6Uqpu1H+Q/Me9nQv3yv4F0JJ5ZsXUfK4GuN6lguDFZY8CL3LKirl
+ rq7ABIeK/hUsSfeyCc1mIS2EYZRSQGfcM2FhOQ1x7SvYnwBSkFgg23JL05dCVGp93RAZ
+ hBYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708067552; x=1708672352;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ATkurgrubpUgh0fShoFCedN3hGiv0h68AvHCnzi4M2s=;
+ b=vpPgusDIyKJckwWA9oyM0FsOGZM0rXhAHS1TEgc7FTzrzODWN0H3hfaJlgt0rsJRUb
+ tYG8c/B8NUSgYgVg9GMU1m+1iScmzreMxHydpyOzFqDAxVCnN9JzjH3mNpBLOcN/wezH
+ xuUc4o+lSs8hHlrUXPdDzIS9WmiW2lKHQgtav9TjC0TL/2GzpPjKKfHbmSXH883X4jpq
+ yCSN1U4TugrYTc+L8QXzwfFay//KdcQgX16ndEa60uN3FeAcTAxR8FE7emAy/bzuqlDh
+ wY+OG7XkT6pwUOJcjL2Jx8sLmtHEMOtlSAmLe29jnarlQK2HopwKW6MFxuKwVA9ah1Je
+ mTKQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtVcPk9YX8oXLwjc+MG0cbJ8HmJKJl6IZ/jmQ4bFAs7Cq0WIjAsnE0+uPTTt9TYwEFfs0RtpAEtltCsTj74cLXZmfSf/21cG7KCzotL4zm/+92Mf1kayU/
+X-Gm-Message-State: AOJu0YyDjURdo2t2YtQNKWT/y7fJOf/RSTi5OIhlHYpMNQwS1FkEypXK
+ XId0NNopGwDOeRFiNKc79Spxd2XP5qtacQpwNczXZjq/0HY5AbVlBK9MYqmDR4U=
+X-Google-Smtp-Source: AGHT+IHpIBqVJpYgmERaWvMTmzuZlC7ldDINGPCwctFY0/xh+c5nNK7lzCpRfEPfDlKJ3PmwCQOluQ==
+X-Received: by 2002:a17:906:7196:b0:a3c:7b20:2dfb with SMTP id
+ h22-20020a170906719600b00a3c7b202dfbmr3268891ejk.1.1708067552347; 
+ Thu, 15 Feb 2024 23:12:32 -0800 (PST)
+Received: from [192.168.0.22] ([78.10.207.130])
+ by smtp.gmail.com with ESMTPSA id
+ tj10-20020a170907c24a00b00a3dd52e7539sm339695ejc.60.2024.02.15.23.12.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Feb 2024 23:12:31 -0800 (PST)
+Message-ID: <02461595-16b3-4fea-a029-54190e10e6f5@linaro.org>
+Date: Fri, 16 Feb 2024 08:12:29 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PR3P192MB0714:EE_|DB9P192MB1539:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f8fb6d9-5cfc-4798-a7dc-08dc2e390a88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Aa+PWXIEy3o4Sos16Jr5s9dvb9WfxWzsxafQr6onr5kbpzv34ej8VsedV/q/mRYnzpDrsQjVTRdGoBeESB92PHyrwNmHuIgLbZBBQ4vHQX7NEkD5so8Mf1Ut0sxFPjGrjp+vJKNXAn5XOgxH4Z9qLPZPio9npNCVblfWusDz6PywWFxBgR6erC5jkbM0jsEeRj56x9/HU/CDCNCghNl6bmexDtP9lHs3PGH2CXqipI+SXIwAwlNPWXFyVeXvb8tZZIcbhjgMNpEVq/olDK7dp8kf55ig+NMblLofeEhQP1fM0qsLmGVCvTX4SCyM0blFnZCPZbu+zr6ioYqnH1SlvLBUM1kfiIFHSRz34N+6pRMoAlHPKAu0ZsB0rtHbi1it0R8BB4R+1vJ5RpisJtQzakACQDKF5IApC6Y9YyBJKrtC1TguOisSD5iIrB4sgYxSCbpPvosDBKguFDSeY38GsICCvu+lvE9cWEuQRWc8M7erRyTNeDmQ9st5zP6tyBemXPhZwRAFSUAx1tdIETcYPOH0hJYAXY4IL7RYEVMlU/3NGsxVUVDlBtX1kS1eFpCcf34gnHjmBD7Oe/bel8YlkaqPXw7YFTDMSTAFgR27zouyeWhv5cSC4Ai4+sAtWzo8
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PR3P192MB0714.EURP192.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230031)(346002)(396003)(136003)(366004)(376002)(39840400004)(230922051799003)(186009)(1800799012)(64100799003)(451199024)(6666004)(316002)(54906003)(2906002)(66946007)(66476007)(6512007)(6916009)(5660300002)(36756003)(66556008)(8676002)(4326008)(41300700001)(478600001)(26005)(52116002)(9686003)(2616005)(107886003)(6506007)(38350700005)(6486002)(1076003)(38100700002)(83380400001)(8936002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dulLoHs+IOW4dK2uuvoGLV01J2MIX/pnRgGjCtBMA8y0D0hQnTXvw2ybeY1U?=
- =?us-ascii?Q?V0uJs/SPTzM146nQE494ZwP/cgLlHIMxyF9YqtBSfFFHSqqSTMiW0KF4vbp+?=
- =?us-ascii?Q?a00nYF6f9FgVpTJWBAWpgIm5MNPe1ZG6+cVn4PeuwBfQ2ART3Z20zuSObcZn?=
- =?us-ascii?Q?fLT6aBh0QjC9J2C/RRwg7iO1ddE2aBjKIszf7wskUa+2ImNcKZhhmnEItOz5?=
- =?us-ascii?Q?IjVRCSiLa8rDlzYXGz041h/sTcfYzx05iM4vadGMiv4GgAU63V90/aI3gU89?=
- =?us-ascii?Q?5HhlqyATihkoA3LggjZK6PLzWgWxYC/N4ujsLOsDU95JjgVbbN8WQKs4xvNp?=
- =?us-ascii?Q?v20Xxblno1kN5m97hFEo98TqSkxLTfHJ15V2o0VUibO0sfNsCtseoosGjQH/?=
- =?us-ascii?Q?MYGLWlpqVH6MUCUyZ27lyRLDvMTDTuiOUe7rWVD5SQRyzCOPWpxCGSc3WjT8?=
- =?us-ascii?Q?TP65WihOpaVlTgTf2xoenFQK2VpFyzVlUr7TQsZcQFNFIbbDOuJilDRBVjFu?=
- =?us-ascii?Q?bpI/6+Q4+QFbd6U0IepMP13MB7UuxxRchcMX3iyNEe0anhJSF14c8LXbVRYV?=
- =?us-ascii?Q?YQlaFJJK5hkCXkfijSZeF/5yOlJDsXZuhVF45yWlfRlH7FTYw5jA4ph5pjyo?=
- =?us-ascii?Q?cqtocYHy0RxhOgTHsvbiF+XsFf+rbv+WuXIieLk5Z5sTXRa7jx8NSjPOW51x?=
- =?us-ascii?Q?V5Bb7S57QxCc78lu/lXalDCs+mq6m9h3sygavp7fpcHOSua/+Kxv01tMcq1+?=
- =?us-ascii?Q?CeVyaa0krGHxfaaZiD3AVl9Up6/iFighHlmqbCu70lyHmEKeR2dPKiqieuiz?=
- =?us-ascii?Q?+YbtNirowHZkzmd0V4niMWhSOT55EGhKJqDRc8aHDiH7Rj/yDpw3BJRb30o3?=
- =?us-ascii?Q?FnLSNDFgLbdXRhtXHpsajZmI0QSjM4Owe/wU5y4/Pm6lV+vQ1QRaiArRhvAb?=
- =?us-ascii?Q?dmkAT5G9nu0IRkNzRdo8eyTXDhO9ogx9ErjtYwcckuzf52/FgHiKgRDr9sRs?=
- =?us-ascii?Q?RMzk7fqQM1+s00x6YW9fQjveHTwtAcaFT1wODlHjVZMy5tOpVeMadzt0Fp89?=
- =?us-ascii?Q?rH5PwOcbJq/KyUxpmUNEclLpfEBJ/1QpPyKZ1yCxymDdPsdQcDZCWPGt+7CC?=
- =?us-ascii?Q?f+pgvsPLSM+p0ccHe9VNrUEIB55ViL4wIQXvqP34u2l0kWcBtRekY28pk6H6?=
- =?us-ascii?Q?raGQYdd/5HGG807IIgjFJo/c4lLuk68W7SRoP2qSWvU90FNvHlMiycRSnbBc?=
- =?us-ascii?Q?PNa0ONKvvwmP7pNuElfgpy3fwDMix/XCFCq8envQeMJTxoR9iQhmc6IYfFYh?=
- =?us-ascii?Q?UQkM2f2nxzmLU8Q4KTRlRyO7dqvWD/5FcOc0Tl1h/8tY7c2TcAor5yMAaQHy?=
- =?us-ascii?Q?SIDmVMXTLOxA8JlwJoJNKprAUZllC7HR+gyPV9dku7jZeQEyXFVttmoKewoH?=
- =?us-ascii?Q?V95ThtxHdDD8NDr4/+EB3qHYu6Ribi7bdumPn7Rtrl9Iivv5Q8JVbhVMtbB5?=
- =?us-ascii?Q?Eys3ixsNDfMaymk4RpI++IJqsB6Zbw0TIzcnkbTI0uGISVb8O+33TkWJuPqh?=
- =?us-ascii?Q?o80CCLPn0z27Ltf18lnqYnaFpWSPMthYFbP6+PH6ApF5X7sMa1efuJJ9bZWe?=
- =?us-ascii?Q?Tg=3D=3D?=
-X-OriginatorOrg: witekio.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f8fb6d9-5cfc-4798-a7dc-08dc2e390a88
-X-MS-Exchange-CrossTenant-AuthSource: PR3P192MB0714.EURP192.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 15:16:10.5318 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 317e086a-301a-49af-9ea4-48a1c458b903
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bVYbX5DkOKoVwGaSg9p7cbwVR+hbB9VcGokNVSY1b2HNN7j+Okg31YYZXHc7Avn88FI+/rZZLcvVofap8X5pFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P192MB1539
-X-Mailman-Approved-At: Fri, 16 Feb 2024 07:13:22 +0000
-Cc: Alexandre Torgue <alexandre.torgue@st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-stm32@st-md-mailman.stormreply.com, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Hugo SIMELIERE <hsimeliere.opensource@witekio.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH stmmac 4.19 1/2] stmmac: no need to check
-	return value of debugfs_create functions
+User-Agent: Mozilla Thunderbird
+To: Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Jaroslav Kysela <perex@perex.cz>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Nishanth Menon <nm@ti.com>,
+ Peng Fan <peng.fan@nxp.com>, Russell King <linux@armlinux.org.uk>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sudeep Holla <sudeep.holla@arm.com>, Takashi Iwai <tiwai@suse.com>,
+ Thierry Reding <thierry.reding@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ alsa-devel@alsa-project.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-tegra@vger.kernel.org, patches@opensource.cirrus.com
+References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+ <38e7e80f61f7c67c984735cf55c3dfb3.sboyd@kernel.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <38e7e80f61f7c67c984735cf55c3dfb3.sboyd@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
+ argument of of_clk_provider
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,144 +149,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On 16/02/2024 00:12, Stephen Boyd wrote:
+> Quoting Krzysztof Kozlowski (2024-02-08 08:37:10)
+>> None of the implementations of the get() and get_hw() callbacks of
+>> "struct of_clk_provider" modify the contents of received of_phandle_args
+>> pointer.  They treat it as read-only variable used to find the clock to
+>> return.  Make obvious that implementations are not supposed to modify
+>> the of_phandle_args, by making it a pointer to const.
+>>
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>> ---
+> 
+> This will almost certainly break the build once it is merged to
+> linux-next. What's your plan to merge this?
 
-[ Upstream commit 8d72ab119f42f25abb393093472ae0ca275088b6 ]
+First problem is that it might not apply... I prepared it on next to be
+sure all subsystems are updated.
 
-When calling debugfs functions, there is no need to ever check the
-return value.  The function can work or not, but the code logic should
-never do something different based on this.
+The idea is to get reviews and acks and then:
+1. Maybe it applies cleanly to your tree meaning there will be no
+conflicts with other trees,
+2. If not, then I can keep rebasing it and it should be applied after rc1.
 
-Because we don't care about the individual files, we can remove the
-stored dentry for the files, as they are not needed to be kept track of
-at all.
 
-Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Cc: Alexandre Torgue <alexandre.torgue@st.com>
-Cc: Jose Abreu <joabreu@synopsys.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-Signed-off-by: Hugo SIMELIERE <hsimeliere.opensource@witekio.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 -
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 52 +++----------------
- 2 files changed, 8 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 63e1064b27a2..5ec268817ee4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -188,8 +188,6 @@ struct stmmac_priv {
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *dbgfs_dir;
--	struct dentry *dbgfs_rings_status;
--	struct dentry *dbgfs_dma_cap;
- #endif
- 
- 	unsigned long state;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3e35cdf0d2b7..6ee9c447ac43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -115,7 +115,7 @@ static irqreturn_t stmmac_interrupt(int irq, void *dev_id);
- 
- #ifdef CONFIG_DEBUG_FS
- static const struct net_device_ops stmmac_netdev_ops;
--static int stmmac_init_fs(struct net_device *dev);
-+static void stmmac_init_fs(struct net_device *dev);
- static void stmmac_exit_fs(struct net_device *dev);
- #endif
- 
-@@ -4063,47 +4063,22 @@ static struct notifier_block stmmac_notifier = {
- 	.notifier_call = stmmac_device_event,
- };
- 
--static int stmmac_init_fs(struct net_device *dev)
-+static void stmmac_init_fs(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
- 
- 	/* Create per netdev entries */
- 	priv->dbgfs_dir = debugfs_create_dir(dev->name, stmmac_fs_dir);
- 
--	if (!priv->dbgfs_dir || IS_ERR(priv->dbgfs_dir)) {
--		netdev_err(priv->dev, "ERROR failed to create debugfs directory\n");
--
--		return -ENOMEM;
--	}
--
- 	/* Entry to report DMA RX/TX rings */
--	priv->dbgfs_rings_status =
--		debugfs_create_file("descriptors_status", 0444,
--				    priv->dbgfs_dir, dev,
--				    &stmmac_rings_status_fops);
--
--	if (!priv->dbgfs_rings_status || IS_ERR(priv->dbgfs_rings_status)) {
--		netdev_err(priv->dev, "ERROR creating stmmac ring debugfs file\n");
--		debugfs_remove_recursive(priv->dbgfs_dir);
--
--		return -ENOMEM;
--	}
-+	debugfs_create_file("descriptors_status", 0444, priv->dbgfs_dir, dev,
-+			    &stmmac_rings_status_fops);
- 
- 	/* Entry to report the DMA HW features */
--	priv->dbgfs_dma_cap = debugfs_create_file("dma_cap", 0444,
--						  priv->dbgfs_dir,
--						  dev, &stmmac_dma_cap_fops);
--
--	if (!priv->dbgfs_dma_cap || IS_ERR(priv->dbgfs_dma_cap)) {
--		netdev_err(priv->dev, "ERROR creating stmmac MMC debugfs file\n");
--		debugfs_remove_recursive(priv->dbgfs_dir);
--
--		return -ENOMEM;
--	}
-+	debugfs_create_file("dma_cap", 0444, priv->dbgfs_dir, dev,
-+			    &stmmac_dma_cap_fops);
- 
- 	register_netdevice_notifier(&stmmac_notifier);
--
--	return 0;
- }
- 
- static void stmmac_exit_fs(struct net_device *dev)
-@@ -4442,10 +4417,7 @@ int stmmac_dvr_probe(struct device *device,
- 	}
- 
- #ifdef CONFIG_DEBUG_FS
--	ret = stmmac_init_fs(ndev);
--	if (ret < 0)
--		netdev_warn(priv->dev, "%s: failed debugFS registration\n",
--			    __func__);
-+	stmmac_init_fs(ndev);
- #endif
- 
- 	return ret;
-@@ -4705,16 +4677,8 @@ static int __init stmmac_init(void)
- {
- #ifdef CONFIG_DEBUG_FS
- 	/* Create debugfs main directory if it doesn't exist yet */
--	if (!stmmac_fs_dir) {
-+	if (!stmmac_fs_dir)
- 		stmmac_fs_dir = debugfs_create_dir(STMMAC_RESOURCE_NAME, NULL);
--
--		if (!stmmac_fs_dir || IS_ERR(stmmac_fs_dir)) {
--			pr_err("ERROR %s, debugfs create directory failed\n",
--			       STMMAC_RESOURCE_NAME);
--
--			return -ENOMEM;
--		}
--	}
- #endif
- 
- 	return 0;
--- 
-2.25.1
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
