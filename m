@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA57A857931
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 10:49:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E316F857932
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Feb 2024 10:49:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86A99C6C83D;
-	Fri, 16 Feb 2024 09:49:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A793DC69063;
+	Fri, 16 Feb 2024 09:49:31 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
  [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 703C9C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 798E9C65E4C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Feb 2024 09:49:29 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Fri, 16 Feb 2024 09:49:30 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41G4qrbW018706; Fri, 16 Feb 2024 10:49:06 +0100
+ 41G4qHJT024968; Fri, 16 Feb 2024 10:49:06 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=CQbKI3q6/SH3YpK3aFqJIfLPoWvnVZQLDfz/UiKph8I=; b=Nx
- zL8TLZiZUowQPsg3IhFKrjHe1qZJ+qJYCC4fd+uGeJ6aJX901VAQF0X/cpMqxL6Q
- qZFhVP5PZmjzzH8pjq6E9Fr3f/HEgTMASYPMuHEuGpSODs7EUOeDOarVuxnj9Tvy
- Bmsj1oQ6aEuZipkkUwhWku8BIQAJswMo0gO3DIimuzvj0fuBg6SdHiRcYwmY471J
- GaqMawXT8gVUZhP3kMWCpkED8l4Qz7WYIJniWONeyPYT6O1EMO5EOH6krZ+uRkVG
- uod9dQ4yAQO1E0mxE6C5dqFEX9UFzWK8VZnmvPfeQ8mgu593EuU8qJMfyVfHo+NH
- LKCeXX8ESOt1z1FrC5QQ==
+ selector1; bh=TGty+ngzeg7A5dCR3wVNlt1JicJKb8JKWR8Q6qrUtAE=; b=YV
+ HE4ir1DmdHjnsMXcsmBrMmUeeUhIThLa1M0gqcZek2fdMu2f0d35ykitVYQ+vZ/o
+ rFoAyVjTxceQhogfVUZGJGSLiPn1TSq9YHsWNM+OFNbnAGtksep8+az6cLbw/aC3
+ /HLugvdZGWKwaSmtkuVtjqsyfvVuGNPDV6xr5ierHx/bq4z6M7U95L8dk+yElvm5
+ 2P2ZFGX9QPY/isp6KzURnz/xgrW2UuIaJPvZuQ4qNaOxMVj2Rlgq4wH6MZzJbzXx
+ y+EJwVqOEVitsP8Zuyxlgv2l+2owNyqYMqP4BIJsHfdvpC/y0xWxwtpKnmQuBqVi
+ 2JGcYKbtiHEZiO6l8enQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wa12ary49-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wa126gy3j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Fri, 16 Feb 2024 10:49:06 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 60E6040047;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 10C414002D;
  Fri, 16 Feb 2024 10:49:03 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D1539237D79;
- Fri, 16 Feb 2024 10:48:18 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 685D2237D77;
+ Fri, 16 Feb 2024 10:48:19 +0100 (CET)
 Received: from localhost (10.201.20.114) by SHFDAG1NODE1.st.com (10.75.129.69)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 16 Feb
- 2024 10:48:18 +0100
+ 2024 10:48:19 +0100
 From: Antonio Borneo <antonio.borneo@foss.st.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Rob Herring <robh+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
  <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Catalin Marinas
  <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Date: Fri, 16 Feb 2024 10:47:48 +0100
-Message-ID: <20240216094758.916722-4-antonio.borneo@foss.st.com>
+Date: Fri, 16 Feb 2024 10:47:49 +0100
+Message-ID: <20240216094758.916722-5-antonio.borneo@foss.st.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240216094758.916722-1-antonio.borneo@foss.st.com>
 References: <20240216094758.916722-1-antonio.borneo@foss.st.com>
@@ -61,8 +61,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2024-02-16_08,2024-02-14_01,2023-05-22_02
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 03/12] irqchip/stm32-exti: Map interrupts
-	through interrupt nexus node
+Subject: [Linux-stm32] [PATCH 04/12] irqchip/stm32-exti: Convert driver to
+	standard PM
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,92 +79,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The mapping of EXTI interrupts to its parent interrupt controller
-is both SoC and instance dependent.
-The current implementation requires adding a new table to the
-driver's code and a new compatible for each new EXTI instance.
+All driver's dependencies for suspend/resume have been fixed long
+ago. There are no more reasons to use syscore PM for the part of
+this driver related to Cortex-A MPU.
 
-Check for the presence of the optional interrupt nexus child node
-and use its property 'interrup-map' to map EXTI interrupts to the
-parent's interrupts.
+Switch to standard PM using NOIRQ_SYSTEM_SLEEP_PM_OPS, so all the
+registers of the interrupt controller get resumed before any irq
+gets enabled.
 
-For old DT's without the optional nexus child node, the driver's
-behavior is unchanged, thus keeps backward compatibility.
+A side effect of this change is to drop the only global variable
+'stm32_host_data', used to keep the driver's data for syscore_ops.
+This makes the driver ready to support multiple EXTI instances.
 
 Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
 ---
- drivers/irqchip/irq-stm32-exti.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+ drivers/irqchip/irq-stm32-exti.c | 58 ++++++++++----------------------
+ 1 file changed, 17 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index 69982f21126a..95bb3dd10b2c 100644
+index 95bb3dd10b2c..de18cddf6b88 100644
 --- a/drivers/irqchip/irq-stm32-exti.c
 +++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -61,6 +61,7 @@ struct stm32_exti_host_data {
- 	struct stm32_exti_chip_data *chips_data;
- 	const struct stm32_exti_drv_data *drv_data;
- 	struct hwspinlock *hwlock;
-+	struct device_node *irq_map_node;
+@@ -19,7 +19,7 @@
+ #include <linux/of_address.h>
+ #include <linux/of_irq.h>
+ #include <linux/platform_device.h>
+-#include <linux/syscore_ops.h>
++#include <linux/pm.h>
+ 
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ 
+@@ -64,8 +64,6 @@ struct stm32_exti_host_data {
+ 	struct device_node *irq_map_node;
  };
  
- static struct stm32_exti_host_data *stm32_host_data;
-@@ -713,8 +714,9 @@ static int stm32_exti_h_domain_alloc(struct irq_domain *dm,
- 	u8 desc_irq;
- 	struct irq_fwspec *fwspec = data;
- 	struct irq_fwspec p_fwspec;
-+	struct of_phandle_args out_irq;
- 	irq_hw_number_t hwirq;
--	int bank;
-+	int bank, ret;
- 	u32 event_trg;
- 	struct irq_chip *chip;
+-static struct stm32_exti_host_data *stm32_host_data;
+-
+ static const struct stm32_exti_bank stm32f4xx_exti_b1 = {
+ 	.imr_ofst	= 0x00,
+ 	.emr_ofst	= 0x04,
+@@ -622,50 +620,32 @@ static int stm32_exti_h_set_affinity(struct irq_data *d,
+ 	return IRQ_SET_MASK_OK_DONE;
+ }
  
-@@ -731,6 +733,25 @@ static int stm32_exti_h_domain_alloc(struct irq_domain *dm,
- 
- 	irq_domain_set_hwirq_and_chip(dm, virq, hwirq, chip, chip_data);
- 
-+	if (host_data->irq_map_node) {
-+		out_irq.np = host_data->irq_map_node;
-+		out_irq.args_count = 2;
-+		out_irq.args[0] = fwspec->param[0];
-+		out_irq.args[1] = fwspec->param[1];
-+
-+		ret = of_irq_parse_raw(NULL, &out_irq);
-+		if (ret)
-+			return ret;
-+		/* we only support one parent, so far */
-+		if (of_node_to_fwnode(out_irq.np) != dm->parent->fwnode)
-+			return -EINVAL;
-+
-+		of_phandle_args_to_fwspec(out_irq.np, out_irq.args,
-+					  out_irq.args_count, &p_fwspec);
-+
-+		return irq_domain_alloc_irqs_parent(dm, virq, 1, &p_fwspec);
-+	}
-+
- 	if (!host_data->drv_data->desc_irqs)
- 		return -EINVAL;
- 
-@@ -908,7 +929,7 @@ static int stm32_exti_probe(struct platform_device *pdev)
+-static int __maybe_unused stm32_exti_h_suspend(void)
++static int stm32_exti_h_suspend(struct device *dev)
  {
- 	int ret, i;
- 	struct device *dev = &pdev->dev;
--	struct device_node *np = dev->of_node;
-+	struct device_node *child, *np = dev->of_node;
- 	struct irq_domain *parent_domain, *domain;
- 	struct stm32_exti_host_data *host_data;
- 	const struct stm32_exti_drv_data *drv_data;
-@@ -976,6 +997,10 @@ static int stm32_exti_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
++	struct stm32_exti_host_data *host_data = dev_get_drvdata(dev);
+ 	struct stm32_exti_chip_data *chip_data;
+ 	int i;
  
-+	child = of_get_child_by_name(np, "exti-interrupt-map");
-+	if (child && of_property_read_bool(child, "interrupt-map"))
-+		host_data->irq_map_node = child;
-+
- 	stm32_exti_h_syscore_init(host_data);
+-	for (i = 0; i < stm32_host_data->drv_data->bank_nr; i++) {
+-		chip_data = &stm32_host_data->chips_data[i];
+-		raw_spin_lock(&chip_data->rlock);
++	for (i = 0; i < host_data->drv_data->bank_nr; i++) {
++		chip_data = &host_data->chips_data[i];
+ 		stm32_chip_suspend(chip_data, chip_data->wake_active);
+-		raw_spin_unlock(&chip_data->rlock);
+ 	}
  
  	return 0;
+ }
+ 
+-static void __maybe_unused stm32_exti_h_resume(void)
++static int stm32_exti_h_resume(struct device *dev)
+ {
++	struct stm32_exti_host_data *host_data = dev_get_drvdata(dev);
+ 	struct stm32_exti_chip_data *chip_data;
+ 	int i;
+ 
+-	for (i = 0; i < stm32_host_data->drv_data->bank_nr; i++) {
+-		chip_data = &stm32_host_data->chips_data[i];
+-		raw_spin_lock(&chip_data->rlock);
++	for (i = 0; i < host_data->drv_data->bank_nr; i++) {
++		chip_data = &host_data->chips_data[i];
+ 		stm32_chip_resume(chip_data, chip_data->mask_cache);
+-		raw_spin_unlock(&chip_data->rlock);
+ 	}
+-}
+ 
+-static struct syscore_ops stm32_exti_h_syscore_ops = {
+-#ifdef CONFIG_PM_SLEEP
+-	.suspend	= stm32_exti_h_suspend,
+-	.resume		= stm32_exti_h_resume,
+-#endif
+-};
+-
+-static void stm32_exti_h_syscore_init(struct stm32_exti_host_data *host_data)
+-{
+-	stm32_host_data = host_data;
+-	register_syscore_ops(&stm32_exti_h_syscore_ops);
+-}
+-
+-static void stm32_exti_h_syscore_deinit(void)
+-{
+-	unregister_syscore_ops(&stm32_exti_h_syscore_ops);
++	return 0;
+ }
+ 
+ static int stm32_exti_h_retrigger(struct irq_data *d)
+@@ -792,8 +772,6 @@ stm32_exti_host_data *stm32_exti_host_init(const struct stm32_exti_drv_data *dd,
+ 		goto free_chips_data;
+ 	}
+ 
+-	stm32_host_data = host_data;
+-
+ 	return host_data;
+ 
+ free_chips_data:
+@@ -919,12 +897,6 @@ static void stm32_exti_remove_irq(void *data)
+ 	irq_domain_remove(domain);
+ }
+ 
+-static int stm32_exti_remove(struct platform_device *pdev)
+-{
+-	stm32_exti_h_syscore_deinit();
+-	return 0;
+-}
+-
+ static int stm32_exti_probe(struct platform_device *pdev)
+ {
+ 	int ret, i;
+@@ -938,6 +910,8 @@ static int stm32_exti_probe(struct platform_device *pdev)
+ 	if (!host_data)
+ 		return -ENOMEM;
+ 
++	dev_set_drvdata(dev, host_data);
++
+ 	/* check for optional hwspinlock which may be not available yet */
+ 	ret = of_hwspin_lock_get_id(np, 0);
+ 	if (ret == -EPROBE_DEFER)
+@@ -1001,8 +975,6 @@ static int stm32_exti_probe(struct platform_device *pdev)
+ 	if (child && of_property_read_bool(child, "interrupt-map"))
+ 		host_data->irq_map_node = child;
+ 
+-	stm32_exti_h_syscore_init(host_data);
+-
+ 	return 0;
+ }
+ 
+@@ -1014,12 +986,16 @@ static const struct of_device_id stm32_exti_ids[] = {
+ };
+ MODULE_DEVICE_TABLE(of, stm32_exti_ids);
+ 
++static const struct dev_pm_ops stm32_exti_dev_pm_ops = {
++	NOIRQ_SYSTEM_SLEEP_PM_OPS(stm32_exti_h_suspend, stm32_exti_h_resume)
++};
++
+ static struct platform_driver stm32_exti_driver = {
+ 	.probe		= stm32_exti_probe,
+-	.remove		= stm32_exti_remove,
+ 	.driver		= {
+ 		.name	= "stm32_exti",
+ 		.of_match_table = stm32_exti_ids,
++		.pm	= &stm32_exti_dev_pm_ops,
+ 	},
+ };
+ 
 -- 
 2.34.1
 
