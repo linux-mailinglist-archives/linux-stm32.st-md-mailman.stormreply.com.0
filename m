@@ -2,71 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88974858EED
-	for <lists+linux-stm32@lfdr.de>; Sat, 17 Feb 2024 12:04:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 466EB8591D9
+	for <lists+linux-stm32@lfdr.de>; Sat, 17 Feb 2024 19:50:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37B60C6C841;
-	Sat, 17 Feb 2024 11:04:40 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E9C25C69066;
+	Sat, 17 Feb 2024 18:50:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CBAF2CFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B8A2CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 Feb 2024 11:04:39 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41H4iBek028987; Sat, 17 Feb 2024 12:04:06 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:date:subject:mime-version:content-type
- :content-transfer-encoding:message-id:references:in-reply-to:to
- :cc; s=selector1; bh=RnhRbd/hclbstXd7Q3NPDVDNjfAippsXAKSovZiaCJg
- =; b=Rs25/BLctHvzsAXjDLDQ6PuOhH0RPprK6ImbHWKJB4ggXElnwrey2IMElUE
- DFZ2yxK5VKcduqooM2Bl0wcuslxrmT6r9M3yDfEa9Rnc/tvveM1iuLz0t1ZOpAH8
- 8AAhLeAxqL1RIL196lQhbZjy7hPeZIVA08yfc7rCGOMX0RTeL86ZWyYpsCM+gcZl
- K+xXCph+LtfXysAKv8Vg9lovwj9yQ4QQOdTOllJJnx/lXcItJCLTcmtFA5+DyQ7U
- AbX5P5RTubdacf3cn6XqESP6BBcWkfNA31N/VhjX14d2E/4tIhK595xCX+W2ppn/
- s3oK59BK7PDkRs1Bcw55C/u0SWQ==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wamjh0tbx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 17 Feb 2024 12:04:05 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C72F840046;
- Sat, 17 Feb 2024 12:03:58 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8345F253B49;
- Sat, 17 Feb 2024 12:03:12 +0100 (CET)
-Received: from localhost (10.252.12.210) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Sat, 17 Feb
- 2024 12:03:12 +0100
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Sat, 17 Feb 2024 12:02:58 +0100
+ Sat, 17 Feb 2024 18:50:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 297F961260;
+ Sat, 17 Feb 2024 18:50:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C59E3C43390;
+ Sat, 17 Feb 2024 18:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1708195825;
+ bh=tDHoBtrkxZ/0jzu6S3iKZ2VIA9W0xR3UxtvM71RgyeQ=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=uUcVBUDUh/5Qu6NcsXej5qk2ggMnUtyzEFashF4WpcCPX9ABF2o6VQkc/gokvfcRk
+ Lq07Ojgiy2ippKfN+pgDxJbpF0w861xfTYr80XgImvSESf7CXpzdk/g9B+UrNtf7MX
+ 5PO2EqNj+0X9AqmGDItvvGHZb9l2Q/TWMNImwHmwrVgIDYqo36AEZ6azuR7x4UlQZa
+ uhcDpUVRbkEmsmJgROzGJGWs+Sgil+JonBoKxUrpP0Cl5pCmEeUgF1vvGoWTx/fyFx
+ p9CkdaG6Lpx7vkKWBqMrbTRfRCg6Uz/kt6F7g/THmw0hZeMuiNhPil78Dso/36mRG3
+ lbzoMRS9bvBGg==
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ ADF62C04E24; Sat, 17 Feb 2024 18:50:25 +0000 (UTC)
 MIME-Version: 1.0
-Message-ID: <20240217-ltdc_mp13-v2-4-50881f1b394e@foss.st.com>
-References: <20240217-ltdc_mp13-v2-0-50881f1b394e@foss.st.com>
-In-Reply-To: <20240217-ltdc_mp13-v2-0-50881f1b394e@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <quic_jesszhan@quicinc.com>, Sam Ravnborg <sam@ravnborg.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.12.4
-X-Originating-IP: [10.252.12.210]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-17_07,2024-02-16_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 4/4] dt-bindings: display: simple: hardware
- can use several properties
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <170819582570.11703.17257609518253001084.git-patchwork-notify@kernel.org>
+Date: Sat, 17 Feb 2024 18:50:25 +0000
+References: <20240214092718.331891-1-p.sakharov@ispras.ru>
+In-Reply-To: <20240214092718.331891-1-p.sakharov@ispras.ru>
+To: Pavel Sakharov <p.sakharov@ispras.ru>
+Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, fancer.lancer@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, edumazet@google.com,
+ joabreu@synopsys.com, khoroshilov@ispras.ru, horms@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ lvc-project@linuxtesting.org
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: Fix incorrect
+ dereference in interrupt handlers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,37 +63,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Setting a panel-timing in the device-tree overwrite the one specified in
-the driver and set it as preferred.  In that case 'height-mm',
-'width-mm' and 'panel-timing' are properties that can be use for simple
-panels, according to panel-common.yaml
+Hello:
 
-Fixes following warnings:
-arch/arm/boot/dts/st/stm32mp135f-dk.dtb: panel-rgb: 'height-mm', 'panel-timing', 'width-mm' do not match any of the regexes: 'pinctrl-[0-9]+'
-	from schema $id: http://devicetree.org/schemas/display/panel/panel-simple.yaml#
+This patch was applied to netdev/net.git (main)
+by David S. Miller <davem@davemloft.net>:
 
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+On Wed, 14 Feb 2024 12:27:17 +0300 you wrote:
+> If 'dev' or 'data' is NULL, the 'priv' variable has an incorrect address
+> when dereferencing calling netdev_err().
+> 
+> Since we get as 'dev_id' or 'data' what was passed as the 'dev' argument
+> to request_irq() during interrupt initialization (that is, the net_device
+> and rx/tx queue pointers initialized at the time of the call) and since
+> there are usually no checks for the 'dev_id' argument in such handlers
+> in other drivers, remove these checks from the handlers in stmmac driver.
+> 
+> [...]
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-index 634a10c6f2dd..c02cbbc7a100 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-@@ -352,6 +352,9 @@ properties:
-   no-hpd: true
-   hpd-gpios: true
-   data-mapping: true
-+  height-mm: true
-+  width-mm: true
-+  panel-timing: true
- 
- if:
-   not:
+Here is the summary with links:
+  - [net,v2] net: stmmac: Fix incorrect dereference in interrupt handlers
+    https://git.kernel.org/netdev/net/c/97dde8402633
 
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
