@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521C3859D63
+	by mail.lfdr.de (Postfix) with ESMTPS id 6101F859D64
 	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 08:48:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1302CC71285;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20CC5C71287;
 	Mon, 19 Feb 2024 07:48:18 +0000 (UTC)
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
- [209.85.208.170])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED971C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC39CC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 06:25:12 +0000 (UTC)
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-2d241ff062cso843581fa.3
+ Mon, 19 Feb 2024 07:33:57 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-512b69f6c22so303189e87.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 18 Feb 2024 22:25:12 -0800 (PST)
+ Sun, 18 Feb 2024 23:33:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tuxon.dev; s=google; t=1708323912; x=1708928712;
+ d=tuxon.dev; s=google; t=1708328037; x=1708932837;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
- b=ITYjNDr9d50y+4kdYYnUznHUna9iKJElcXUk8y5/Mff6KchMfKKMyefdceiyqIwmwa
- ovbOkjhe1xC/rbiPDaRBwJT8MqT+mqzkm/1LGTsjxOl2VhHHqVifsiqZ4QqQxgNgYypz
- vPGjDithPWUTMiwklyDPahqCe4zFy26J8Gss6GmGQUn6HujKZazPLMjPPa40rGg/R6Vs
- BjHjUrLZbjRgZy2Fhlo8KAMM09pnZmNnB86CSoOFZ9QEyPGJ0Q9BVWx7AHMpSkJmcOLV
- QsAQ19r4Bhn5Wn5kNZzHq5zbQr3ZigDxz4M6RMBKRIAj8YlIZCdI8939cN1BggCYUt8u
- 6qwQ==
+ bh=+ng3gW4V3o0lgSkXW6LbE2EKjcIRK6fb4LZxE38g6CE=;
+ b=RD0lXemTmbQ3+QN3waCmAv5qJ6O2hTNL4aEpsWIzVpC/lZ+xglitILjmrSAblywwIi
+ kWXWPDIHV9XWOfAVh3ZVoMUSR0HIAuG96CzGtG7uhwgGa/EJHrTOXppaMlLQ/xCCDpx6
+ gU1dPb5lz1sb3OHSrhtKHgCQbRbbK1zYltn/8MF0tKjPtlgb0Hmlcf3BQtnLxi40cHYS
+ N6V+GRLOdEbyrfQkhKS8yG3PmenGGYrDnbpBpyZytV24wEs1qVHWp6WWv/VlPOIx6aZk
+ 12ENDCjsdLBuabVhM9TvTtTjEG8rpdEhnVspA6zOjpuaQ6fyDt3cQVJZh+Pph9WtO02M
+ zw6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708323912; x=1708928712;
+ d=1e100.net; s=20230601; t=1708328037; x=1708932837;
  h=content-transfer-encoding:in-reply-to:from:references:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Zy/lENoBOBZbXj8shKgVOAS0kIgCPAbaRSp31XzJm0E=;
- b=Cud6dGDJAiv9t8DPpEM4HD1MZ0fGctNCOEUfQZ3Cl4RW8v+NWaZb1VEZlmWwK8RH/9
- qZSBsTxuPQbH14o62h46Nb1XS8FgIUFykRNw7BO2rp0TXEI5pQWlVzLlFaWRcXDHsFIt
- u/y3b7eB2JTjfYg6GEUGq1NzBwyf8o8w8tugMqD2aTqawg1YdVbb9tTF27fIzEms21cY
- nTjeAdGacRDELkKwVqi5XV1TxdAXJV0uaN1o3grGBOTOTjd+ZfiOMIC9Ht0H+Wpx4jTb
- rWt1MMnlkJ7IDddhGbESb1rIs3QKk0xrDxZeWk09RyeorvoNKpWMgaQ+172jBr+EYjbg
- YCFA==
+ bh=+ng3gW4V3o0lgSkXW6LbE2EKjcIRK6fb4LZxE38g6CE=;
+ b=hZr4v+3f/dRvpj0UVtZ5apnDzQMLl5OPgj4m0UjdhmufEQ/xSx3vcLs1amychxktBh
+ BSS2tMORrgYmhKwyzKYdJTDkCNQim+8yNaB/lyBUzaD+eCWAC7QW9AJfoNMrmGL2Y1uN
+ owVOqalA791vDimRo4ksULKdYdAMjCPU4uA/+ykFmUCyQNhE+OLiDntP/5PxOW28X9j7
+ gP7snQKC2ho8mElitIJo9tZKm1l/ajbZ8rFLeaQQ4UGrD24c5rFjZ+g3oF+bzc7XTPEu
+ sPIrLvPsWR4mEKi2A1hyAzwrghdkM17UdjO340NVM9K03TperO5k7qGI8RY8LIdwrxdn
+ x4fQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVwhU2/rRGldkFe9purZmuR8E0L4GZp0MVkVZ4ZIzPyWSrwxOSFfPsXxcIpfu5YwHhL27tfMki63961P6me6F4jqQpnLVaZdggXERu7RDm5BWn3TlyFMOwO
-X-Gm-Message-State: AOJu0YwWpDf+7sDRpU6IluSkStpoCDbX5+oWzsFNUFEQRQ370ru3MQoa
- IsYOrHjHVvYGJg4ZbTEOQcTjlk3jS/kUyAH1F26Dnp6H1u+YuRD3TH8GUwijZCo=
-X-Google-Smtp-Source: AGHT+IGP6skyrpQ+LHssyeFVL9x4R2C5PmtB+z/bDgXXtY+zd/lWWTMfb39ns1BsA6xd3vrJYLpPRQ==
-X-Received: by 2002:a2e:99c3:0:b0:2d2:3b20:72ba with SMTP id
- l3-20020a2e99c3000000b002d23b2072bamr755168ljj.50.1708323911958; 
- Sun, 18 Feb 2024 22:25:11 -0800 (PST)
+ AJvYcCUxL2kyiXmT510BYS3XKb6xGGfgI5i9JDkEkkl/tJ7rWEJuWyrsrTaVv43d9N1iLc158ArVnjAovFwJhs1eSYIQ3j7A/8pM/DP3yS50D+bQuSgvTrB5qdDV
+X-Gm-Message-State: AOJu0YzauDlFwITAh0dteFp7070z+FlGU39zECx+Fc+DZ1J8corI7Wmk
+ gpiquvp0Idb9mQyZ4WI4GvQdktUu88wqnxvgzKTaOmDJIGcYxsTxyuh/uROktqw=
+X-Google-Smtp-Source: AGHT+IH7t2S3UJLlE+g5RosWguA6ACJo1jYaUo0HRFcgzCtXQeK6rSIGLys7KhAWV1PTPsrhu0txhw==
+X-Received: by 2002:a05:6512:3144:b0:511:84fe:8dcd with SMTP id
+ s4-20020a056512314400b0051184fe8dcdmr7786108lfi.1.1708328036943; 
+ Sun, 18 Feb 2024 23:33:56 -0800 (PST)
 Received: from [192.168.50.4] ([82.78.167.20])
  by smtp.gmail.com with ESMTPSA id
- s10-20020a05600c044a00b004122fbf9253sm10177702wmb.39.2024.02.18.22.25.09
+ l20-20020a05600c1d1400b0041256ab5becsm7611582wms.26.2024.02.18.23.33.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 Feb 2024 22:25:11 -0800 (PST)
-Message-ID: <e43727bd-d83d-4271-9871-ff995c8e7d03@tuxon.dev>
-Date: Mon, 19 Feb 2024 08:25:08 +0200
+ Sun, 18 Feb 2024 23:33:56 -0800 (PST)
+Message-ID: <e6c6e825-42dd-4f2d-8329-f7b3e09bb8a9@tuxon.dev>
+Date: Mon, 19 Feb 2024 09:33:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -85,8 +85,10 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
  alsa-devel@alsa-project.org, linux-sound@vger.kernel.org
 References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+ <e43727bd-d83d-4271-9871-ff995c8e7d03@tuxon.dev>
+ <88de75cd-4069-4be6-9c4e-f32befa46d58@linaro.org>
 From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
+In-Reply-To: <88de75cd-4069-4be6-9c4e-f32befa46d58@linaro.org>
 X-Mailman-Approved-At: Mon, 19 Feb 2024 07:48:15 +0000
 Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
  argument of of_clk_provider
@@ -108,19 +110,36 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 08.02.2024 18:37, Krzysztof Kozlowski wrote:
-> None of the implementations of the get() and get_hw() callbacks of
-> "struct of_clk_provider" modify the contents of received of_phandle_args
-> pointer.  They treat it as read-only variable used to find the clock to
-> return.  Make obvious that implementations are not supposed to modify
-> the of_phandle_args, by making it a pointer to const.
+On 19.02.2024 08:59, Krzysztof Kozlowski wrote:
+> On 19/02/2024 07:25, claudiu beznea wrote:
+>>
+>>
+>> On 08.02.2024 18:37, Krzysztof Kozlowski wrote:
+>>> None of the implementations of the get() and get_hw() callbacks of
+>>> "struct of_clk_provider" modify the contents of received of_phandle_args
+>>> pointer.  They treat it as read-only variable used to find the clock to
+>>> return.  Make obvious that implementations are not supposed to modify
+>>> the of_phandle_args, by making it a pointer to const.
+>>>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>>> ---
+>>>  drivers/clk/at91/pmc.c                        |  3 +-
+>>>  drivers/clk/at91/pmc.h                        |  3 +-
+>>
+>> Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> ---
->  drivers/clk/at91/pmc.c                        |  3 +-
->  drivers/clk/at91/pmc.h                        |  3 +-
+> You understand there is no review for "part of patch"? You probably
+> meant Acked-by.
 
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Sure... Here it is:
+Acked-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+
+> 
+> https://elixir.bootlin.com/linux/v6.8-rc5/source/Documentation/process/submitting-patches.rst#L544
+> 
+> Best regards,
+> Krzysztof
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
