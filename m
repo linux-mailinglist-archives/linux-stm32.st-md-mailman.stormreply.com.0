@@ -2,66 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A052D85A22B
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 12:40:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5EA185A61B
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 15:37:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6B9DEC69063;
-	Mon, 19 Feb 2024 11:40:18 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5DBE1C69063;
+	Mon, 19 Feb 2024 14:37:11 +0000 (UTC)
+Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
+ [209.85.219.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97931C035BB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67817C035BB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 11:40:17 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41J820MB027184; Mon, 19 Feb 2024 12:40:07 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=vtgOW1F/P27OtsClB1wYitZvlIxif1OkjeVL9NFq9+g=; b=5T
- bEunxBjlUCxLM+pnT1gCjB2gRnZVdl/sMTsbIeyPHe+i+Gn/CPFwpKA00+T0PBDN
- Fi7lCyfa/ANpPUn5xzORLA5FVy1BpsH2t3+0GMuw6Euf/6/n1uXsUmxs7MfavK1m
- Wz76JPGxSiVY5e1K2nZImI+6KdDczW6MSx/pfnvuYK8KIaJ7EGS9l3FpG80JIoDl
- HYI8F7xFyG8bZI/2zMHutQqy3jpxrF5MfDmvvyRIFMSQ+uErAtqxbAj5/sVPEaZT
- 09i4aDlZ48+mcbJV+dOX8gSTKmZW0lNFH2cfjuy7ib45cWZ9gSdAFwzEr+h6iED5
- BYGGM15rcCkMnnpBNg7w==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wb8mnm4gy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Feb 2024 12:40:07 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 8D8ED4002D;
- Mon, 19 Feb 2024 12:40:04 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 33B1425AEE4;
- Mon, 19 Feb 2024 12:39:32 +0100 (CET)
-Received: from localhost (10.201.22.242) by SHFDAG1NODE3.st.com (10.75.129.71)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 19 Feb
- 2024 12:39:31 +0100
-From: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
-To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-Date: Mon, 19 Feb 2024 12:37:45 +0100
-Message-ID: <20240219113745.92538-4-thomas.bourgoin@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240219113745.92538-1-thomas.bourgoin@foss.st.com>
-References: <20240219113745.92538-1-thomas.bourgoin@foss.st.com>
-MIME-Version: 1.0
-X-Originating-IP: [10.201.22.242]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE3.st.com
- (10.75.129.71)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-19_08,2024-02-19_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 3/3] ARM: dts: stm32: enable crypto
-	accelerator on stm32mp135f-dk
+ Mon, 19 Feb 2024 11:32:18 +0000 (UTC)
+Received: by mail-yb1-f202.google.com with SMTP id
+ 3f1490d57ef6-dcbfe1a42a4so9078679276.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Feb 2024 03:32:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1708342337; x=1708947137;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=F9Y8XdXv1kzTQtopo89RJ5Qe87rOsaXFYORvSusUYec=;
+ b=BN8goNjDYARqOPa3kTTPMgpq2LDyff46Nn/dKRRkx7KKaTDIZERqc9HFvqxiNQR/JV
+ KMdi5xUj7fauVauB1jR64YoGNPvqzHLuwL26/CZ37goAeisZXTco+IKo9xgVDL++td1b
+ stJV+0a7Us+SvQ05lpYhBJlfjVhjwtiD5MPm5FT0AzGTyT54r4MucMunK0I9qOLLAUEL
+ xM+FOTcdVnoGtvMUvLJ62SXYPIpnlsG9aFk0kmGbx1YmsRWRUPQhkIR8y30yk6PDnoe1
+ rIqBRk2fUfrUEyVOWX7yoC/g5GcQwX4VGYh7yKTr8UwEzsKDenLemmnIS1vBP8Rj3V3M
+ t6NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708342337; x=1708947137;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=F9Y8XdXv1kzTQtopo89RJ5Qe87rOsaXFYORvSusUYec=;
+ b=Ms+r5xnqTHima9E+K7uUetJa3dw6hcyG09c6Jc1YVMuWbHP3WCBLQMxBWTYMfRz5gF
+ gJpICHotTY2XMcdwdty4k3LDMaFnHYGrYzxaIVDtHuNCa0IiLxPcwsKoje+fhnQ5cqMj
+ /nF2oVF4GedLVlIGZn+N0w9Z/KbVsOZidCxps0+p4i8k4Q9qnKY4ZYxmje6k3adZvvGn
+ 4hFnLPdD8BTf39PfB0VkGveocFcAb8d9/SDXa1MDp21W2+91ob6OvU06H/urG4HWLTLA
+ 7V/mYvyEvrVGu33B+1GXl4cNyB9IPverMoNnSzz7TkegjRPju8zBWnHGIvlC7UG9GeEx
+ 880w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXDptDPKMNnufnfsr4XSo+U37DNueiGuBV1r8XN7LAs8mY4IkYA0MuP4gkFDjC6l/Gl+mVrUCAWah+zgviPcF9FTyUMjcfnyvQ/TfJpDFDVxz1DtgZWLrN9
+X-Gm-Message-State: AOJu0YwjaTUg3ag2Ftgs36K1Txo72ScuG0yUGCbmP/vEHj26rJI9+2FJ
+ 1ieWRLgXhVWr9ESCRhpjVl46u4AputPmsjPitAfy3yDMjlX45Giv8CkBRsOmrUgy27y7po9dyWm
+ 0ZnG+g/RyWw==
+X-Google-Smtp-Source: AGHT+IFrFQSwNuSWu6/Y6yp6TLKb1ES+/eMj+OGcS+zU6Jh3xmGly/67ECjCQIexHldo+hDW4MAPEIU45QbnUA==
+X-Received: from joychakr.c.googlers.com
+ ([fda3:e722:ac3:cc00:4f:4b78:c0a8:6ea])
+ (user=joychakr job=sendgmr) by 2002:a25:ced3:0:b0:dc2:3441:897f with SMTP id
+ x202-20020a25ced3000000b00dc23441897fmr3248186ybe.6.1708342337288; Mon, 19
+ Feb 2024 03:32:17 -0800 (PST)
+Date: Mon, 19 Feb 2024 11:31:48 +0000
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.44.0.rc0.258.g7320e95886-goog
+Message-ID: <20240219113149.2437990-1-joychakr@google.com>
+From: Joy Chakraborty <joychakr@google.com>
+To: Hector Martin <marcan@marcan.st>, Sven Peter <sven@svenpeter.dev>, 
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, 
+ NXP Linux Team <linux-imx@nxp.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Orson Zhai <orsonzhai@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Vincent Shih <vincent.sunplus@gmail.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Rafal Milecki <rafal@milecki.pl>,
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Michal Simek <michal.simek@amd.com>
+X-Mailman-Approved-At: Mon, 19 Feb 2024 14:37:10 +0000
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ asahi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Joy Chakraborty <joychakr@google.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v1 0/1] nvmem: Handle actual amount of data
+	read/written by suppliers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,30 +107,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add the crypto accelerator enable on stm32mp135f-dk board.
+This Patch series stems from discussions in patchset,
+"[PATCH v2] nvmem: rmem: Fix return value of rmem_read()"
+(https://lore.kernel.org/all/20240206042408.224138-1-joychakr@google.com/).
+Where we come across the fact that currently the nvmem suppliers do not
+actually let the core know how much data has been actually read or written.
+Instead they are expected to return 0 for success and the core assumes that
+the amount of data written is equal to what the core has requested.
 
-Signed-off-by: Thomas Bourgoin <thomas.bourgoin@foss.st.com>
+On addition this patchset will also add some guards and checks based on the
+count of data returned by the nvmem supplier.
 ---
- arch/arm/boot/dts/st/stm32mp135f-dk.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+V1 Changes : Change read/write callback prototype to ssize_t and
+supplier changes to accomodate the same with core checks and bounds.
+---
 
-diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-index a7b1b2ca9d0b..52171214a308 100644
---- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-@@ -97,6 +97,10 @@ &crc1 {
- 	status = "okay";
- };
- 
-+&cryp {
-+	status = "okay";
-+};
-+
- &i2c1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&i2c1_pins_a>;
+Joy Chakraborty (1):
+  nvmem: Change return type of reg read/write to ssize_t
+
+ drivers/nvmem/apple-efuses.c        |  5 +-
+ drivers/nvmem/bcm-ocotp.c           |  8 ++--
+ drivers/nvmem/brcm_nvram.c          |  8 +++-
+ drivers/nvmem/core.c                | 73 +++++++++++++----------------
+ drivers/nvmem/imx-iim.c             |  4 +-
+ drivers/nvmem/imx-ocotp-ele.c       |  4 +-
+ drivers/nvmem/imx-ocotp-scu.c       |  8 ++--
+ drivers/nvmem/imx-ocotp.c           |  6 +--
+ drivers/nvmem/jz4780-efuse.c        |  5 +-
+ drivers/nvmem/lan9662-otpc.c        |  8 ++--
+ drivers/nvmem/layerscape-sfp.c      |  7 ++-
+ drivers/nvmem/lpc18xx_eeprom.c      | 10 ++--
+ drivers/nvmem/lpc18xx_otp.c         |  4 +-
+ drivers/nvmem/meson-efuse.c         | 10 +++-
+ drivers/nvmem/meson-mx-efuse.c      |  4 +-
+ drivers/nvmem/microchip-otpc.c      |  4 +-
+ drivers/nvmem/mtk-efuse.c           |  4 +-
+ drivers/nvmem/mxs-ocotp.c           |  5 +-
+ drivers/nvmem/nintendo-otp.c        |  4 +-
+ drivers/nvmem/qcom-spmi-sdam.c      |  8 ++--
+ drivers/nvmem/qfprom.c              | 10 ++--
+ drivers/nvmem/qoriq-efuse.c         |  4 +-
+ drivers/nvmem/rave-sp-eeprom.c      | 12 ++---
+ drivers/nvmem/rmem.c                |  2 +-
+ drivers/nvmem/rockchip-efuse.c      | 11 +++--
+ drivers/nvmem/rockchip-otp.c        | 13 ++---
+ drivers/nvmem/sc27xx-efuse.c        |  3 +-
+ drivers/nvmem/sec-qfprom.c          |  4 +-
+ drivers/nvmem/snvs_lpgpr.c          | 13 +++--
+ drivers/nvmem/sprd-efuse.c          |  8 ++--
+ drivers/nvmem/stm32-bsec-optee-ta.c |  8 ++--
+ drivers/nvmem/stm32-bsec-optee-ta.h | 12 ++---
+ drivers/nvmem/stm32-romem.c         | 16 +++----
+ drivers/nvmem/sunplus-ocotp.c       |  4 +-
+ drivers/nvmem/sunxi_sid.c           | 11 +++--
+ drivers/nvmem/u-boot-env.c          |  4 +-
+ drivers/nvmem/uniphier-efuse.c      |  4 +-
+ drivers/nvmem/vf610-ocotp.c         |  5 +-
+ drivers/nvmem/zynqmp_nvmem.c        |  2 +-
+ include/linux/nvmem-provider.h      |  4 +-
+ 40 files changed, 180 insertions(+), 159 deletions(-)
+
 -- 
-2.25.1
+2.44.0.rc0.258.g7320e95886-goog
 
 _______________________________________________
 Linux-stm32 mailing list
