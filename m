@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE69785AE81
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 23:35:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B1E85AE82
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 23:35:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91398C6C855;
-	Mon, 19 Feb 2024 22:35:02 +0000 (UTC)
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AD69C6C83C;
+	Mon, 19 Feb 2024 22:35:04 +0000 (UTC)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 457C2C6B460
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D33C57194
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 22:35:01 +0000 (UTC)
-Received: by mail-ot1-f47.google.com with SMTP id
- 46e09a7af769-6e2e5824687so1587127a34.0
+ Mon, 19 Feb 2024 22:35:02 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-6e2d83d2568so3376377a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 14:35:01 -0800 (PST)
+ Mon, 19 Feb 2024 14:35:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708382100; x=1708986900;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708382101; x=1708986901;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Dm08qHNGM2q4SeLkv5aeyRrRYY/ISTOBJCodG60HdvI=;
- b=feX63tF3eHAa1eOGRHw6+ZlYxUWfybnpL0+xFt35VxmE9IVHcnhcGgdzodaFwboqmt
- 9kIL2YhIlpVYDCl2ZzMLPNhQV/yY8G3TUQbnd7fdGdG5OpMiMCNhY/8jP8xLCLErbFUU
- 14BK7V0WoU71Zo4tBP7WMbQgjri4/2MbjSTP8N679cj2EJLsE5ZNbaNk3uRb705lsZ36
- zU7cBA2z6JMoBeVwlhcZYAYSprl+jBUknEyJkXbxBtcPbyFwkmQ7MGS4N59IBSgGhYIk
- wIOzF7LjU4v9RWnrnsLjgI98jCkeYuej+a8j6+RZUuMFMrB4iAwcygirkYHH5WKGhhxV
- d+wg==
+ bh=nguAE7f5YcWI/h5umYjj7eHdUyvOtkK6QQpK6mXXbx4=;
+ b=ovGSApSWUvKxOfiBy/SEZSKvP8AfF1AM4A1a/KdM7g42sxLSafvw88OfTwkh+hvG0/
+ f1KkOcWSEhQBpw6wpEnwZXmlccWoe4FeAchuZ6Dglye/HRbsvMVq2Zj1BgmxvyPwWU/u
+ t7dUJ0NxjpNvlXg68FswQ5KuhBzWy5+o1vcxhvMABEGrKQ5A9MeKST9y+7TP7CXAGX2w
+ ORw/OzqfoQml64VVDoJJ96fkQA30HDqpEXbr6ig0uPsa6U9iAYvJKa5HaGJNEMcGGJCa
+ Ha4jfQL8WcUZkpuiZo/9bHJuJ2vMOcAZkPraWq8GChJfV2tZNNzMmSoeondfKtXF7Di0
+ qF5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708382100; x=1708986900;
+ d=1e100.net; s=20230601; t=1708382101; x=1708986901;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Dm08qHNGM2q4SeLkv5aeyRrRYY/ISTOBJCodG60HdvI=;
- b=ifZ6CJc0SDW8nxY/Mnw47zBnfngqBGg1fGTkbajOs5SDpQdGgs91UdsD4necMcBovo
- mgXyu0obdxIJNhguTJO/liRJgJICBdWOeF/2a+CVvbQFrG3s6zMohbuZFRGLmEUCGF7a
- 6UmQELsNmZ/RLpmAJqvuhyzK2bIQzm2mIlRCiho9D8shRjCAu/Ffb7XNxKjTqa2a8++j
- NOfUVQ1hs7+50h0QeyVDzdwIDEEye4WXdlSasZ2VBed9+be9cbQXX/RVNkOaMgOvyV8B
- k6zImVhIhLThEk0AR7FJhdMuDGLyvJ43QywjGvGvEN42mKMePYfu8FbMbYMqqgJ7dv3G
- 44JA==
+ bh=nguAE7f5YcWI/h5umYjj7eHdUyvOtkK6QQpK6mXXbx4=;
+ b=aieYUUfI3js6fyI0Vs774E7G9P4KXmXTrA0/h1ONz3VKUJw8Sn2DLte76D0Ve5WHWj
+ 8/dKEbM3KOM41dE9V84iilbVK2eGQRslWRRzRT6FGO82nIZmM3xB6IMTyVokZj0rHxyq
+ Jy7mNjuted5nKeaR/zsmCU4L1AFHv37WKescqMHqwqwbqkLft2ZwI7FBhNswoDlKWCCr
+ +ZLHXcZdcctORpJm6FYYnoKlikOFTcaL6NUZjCVqlvJ0nztg2xXKYCZB8bw9VM+Pcn/G
+ JoGQlAzbE1nrZm66MEdZOa6aGoz3eraExMevsPj1pwDdPB3q15vlE31v9kBimlQeVkP3
+ Yfgw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX/aPdbKQhbEr0KUyNjwVsP0pIfzeuPYn5E2j/z5rBnPNfZ5spsXu6BQdNDybZDu/gJWOvgkZrRVdRLwcXpoLIrR96xCUYPLJScYmZ+PSDei6LakD74uUkX
-X-Gm-Message-State: AOJu0YzqWku4N6bi/3E/g8RmqE1qEzmUdho/mRi4l1787CnYOiu0iaXT
- znpxdCOt9FBn1/ffnY3LFvF9NNyum4jlrelZsivaYKFwJecGmLiOdn3VNXF6P3A=
-X-Google-Smtp-Source: AGHT+IG2NoaqjYoSMqFyQv2m8w5xifGGubCdc9CRgDcRHsj47qCzP+Zv0pGnImu1mhHHlHwc9JQGvQ==
-X-Received: by 2002:a9d:7a93:0:b0:6e2:ec3d:f141 with SMTP id
- l19-20020a9d7a93000000b006e2ec3df141mr13211177otn.16.1708382100186; 
- Mon, 19 Feb 2024 14:35:00 -0800 (PST)
+ AJvYcCUnExd9g1gpDU9GbQlhZZCtO9eri37KcTGaRoS3+Dqh+M3D0vSnKTkRskEs2m7575jDa8wPf51C3ocaJaMOyy92lqO57+JWXsw9FCbBeXlF9Ltb+l/f3KgX
+X-Gm-Message-State: AOJu0YyC/5IgRGZsM35H1l6sDKudEhrH1f7OSK5IQ1PLoniDmKEJIyRh
+ gFRFDKy/f4BGg7elMACDZ5qESh33EgrHy6G3senzyZjIw0Ip/zF2btlmlOVCU6Q=
+X-Google-Smtp-Source: AGHT+IEKk7jzI/qkme4zk/gFRVTVBf/1nLdJFY+y7tiRySbZb046arGF15DJiOZ4ycZjN+0TNGVe+A==
+X-Received: by 2002:a9d:7494:0:b0:6e2:e5a3:1732 with SMTP id
+ t20-20020a9d7494000000b006e2e5a31732mr3221609otk.37.1708382101127; 
+ Mon, 19 Feb 2024 14:35:01 -0800 (PST)
 Received: from freyr.lechnology.com (ip98-183-112-25.ok.ok.cox.net.
  [98.183.112.25]) by smtp.gmail.com with ESMTPSA id
- h25-20020a9d6419000000b006e45a5f0a70sm171776otl.49.2024.02.19.14.34.59
+ h25-20020a9d6419000000b006e45a5f0a70sm171776otl.49.2024.02.19.14.35.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 14:34:59 -0800 (PST)
+ Mon, 19 Feb 2024 14:35:00 -0800 (PST)
 From: David Lechner <dlechner@baylibre.com>
 To: Mark Brown <broonie@kernel.org>
-Date: Mon, 19 Feb 2024 16:33:21 -0600
-Message-ID: <20240219-mainline-spi-precook-message-v2-4-4a762c6701b9@baylibre.com>
+Date: Mon, 19 Feb 2024 16:33:22 -0600
+Message-ID: <20240219-mainline-spi-precook-message-v2-5-4a762c6701b9@baylibre.com>
 X-Mailer: git-send-email 2.43.2
 In-Reply-To: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
 References: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
@@ -73,8 +73,8 @@ Cc: linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
  Martin Sperl <kernel@martin.sperl.org>, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 4/5] spi: axi-spi-engine: move message
-	compile to optimize_message
+Subject: [Linux-stm32] [PATCH v2 5/5] iio: adc: ad7380: use
+	spi_optimize_message()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,131 +91,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In the AXI SPI Engine driver, compiling the message is an expensive
-operation. Previously, it was done per message transfer in the
-prepare_message hook. This patch moves the message compile to the
-optimize_message hook so that it is only done once per message in
-cases where the peripheral driver calls spi_optimize_message().
-
-This can be a significant performance improvement for some peripherals.
-For example, the ad7380 driver saw a 13% improvement in throughput
-when using the AXI SPI Engine driver with this patch.
-
-Since we now need two message states, one for the optimization stage
-that doesn't change for the lifetime of the message and one that is
-reset on each transfer for managing the current transfer state, the old
-msg->state is split into msg->opt_state and spi_engine->msg_state. The
-latter is included in the driver struct now since there is only one
-current message at a time that can ever use it and it is in a hot path
-so avoiding allocating a new one on each message transfer saves a few
-cpu cycles and lets us get rid of the prepare_message callback.
+This modifies the ad7380 ADC driver to use spi_optimize_message() to
+optimize the SPI message for the buffered read operation. Since buffered
+reads reuse the same SPI message for each read, this can improve
+performance by reducing the overhead of setting up some parts the SPI
+message in each spi_sync() call.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
 
-v2 changes: none
+v2 changes:
+- Removed dynamic allocation of spi xfer/msg
+- Moved spi message optimization to probe function
+- Dropped buffer pre/post callbacks
 
- drivers/spi/spi-axi-spi-engine.c | 40 +++++++++++++++++-----------------------
- 1 file changed, 17 insertions(+), 23 deletions(-)
+ drivers/iio/adc/ad7380.c | 36 ++++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/spi/spi-axi-spi-engine.c b/drivers/spi/spi-axi-spi-engine.c
-index ca66d202f0e2..6177c1a8d56e 100644
---- a/drivers/spi/spi-axi-spi-engine.c
-+++ b/drivers/spi/spi-axi-spi-engine.c
-@@ -109,6 +109,7 @@ struct spi_engine {
- 	spinlock_t lock;
+diff --git a/drivers/iio/adc/ad7380.c b/drivers/iio/adc/ad7380.c
+index abd746aef868..6b3fd20c8f1f 100644
+--- a/drivers/iio/adc/ad7380.c
++++ b/drivers/iio/adc/ad7380.c
+@@ -133,6 +133,9 @@ struct ad7380_state {
+ 	struct spi_device *spi;
+ 	struct regulator *vref;
+ 	struct regmap *regmap;
++	/* xfer and msg for buffer reads */
++	struct spi_transfer xfer;
++	struct spi_message msg;
+ 	/*
+ 	 * DMA (thus cache coherency maintenance) requires the
+ 	 * transfer buffers to live in their own cache lines.
+@@ -236,14 +239,9 @@ static irqreturn_t ad7380_trigger_handler(int irq, void *p)
+ 	struct iio_poll_func *pf = p;
+ 	struct iio_dev *indio_dev = pf->indio_dev;
+ 	struct ad7380_state *st = iio_priv(indio_dev);
+-	struct spi_transfer xfer = {
+-		.bits_per_word = st->chip_info->channels[0].scan_type.realbits,
+-		.len = 4,
+-		.rx_buf = st->scan_data.raw,
+-	};
+ 	int ret;
  
- 	void __iomem *base;
-+	struct spi_engine_message_state msg_state;
- 	struct completion msg_complete;
- 	unsigned int int_enable;
+-	ret = spi_sync_transfer(st->spi, &xfer, 1);
++	ret = spi_sync(st->spi, &st->msg);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -335,6 +333,28 @@ static const struct iio_info ad7380_info = {
+ 	.debugfs_reg_access = &ad7380_debugfs_reg_access,
  };
-@@ -499,17 +500,11 @@ static irqreturn_t spi_engine_irq(int irq, void *devid)
- 	return IRQ_HANDLED;
- }
  
--static int spi_engine_prepare_message(struct spi_controller *host,
--				      struct spi_message *msg)
-+static int spi_engine_optimize_message(struct spi_message *msg)
- {
- 	struct spi_engine_program p_dry, *p;
--	struct spi_engine_message_state *st;
- 	size_t size;
- 
--	st = kzalloc(sizeof(*st), GFP_KERNEL);
--	if (!st)
--		return -ENOMEM;
--
- 	spi_engine_precompile_message(msg);
- 
- 	p_dry.length = 0;
-@@ -517,31 +512,22 @@ static int spi_engine_prepare_message(struct spi_controller *host,
- 
- 	size = sizeof(*p->instructions) * (p_dry.length + 1);
- 	p = kzalloc(sizeof(*p) + size, GFP_KERNEL);
--	if (!p) {
--		kfree(st);
-+	if (!p)
- 		return -ENOMEM;
--	}
- 
- 	spi_engine_compile_message(msg, false, p);
- 
- 	spi_engine_program_add_cmd(p, false, SPI_ENGINE_CMD_SYNC(
- 						AXI_SPI_ENGINE_CUR_MSG_SYNC_ID));
- 
--	st->p = p;
--	st->cmd_buf = p->instructions;
--	st->cmd_length = p->length;
--	msg->state = st;
-+	msg->opt_state = p;
- 
- 	return 0;
- }
- 
--static int spi_engine_unprepare_message(struct spi_controller *host,
--					struct spi_message *msg)
-+static int spi_engine_unoptimize_message(struct spi_message *msg)
- {
--	struct spi_engine_message_state *st = msg->state;
--
--	kfree(st->p);
--	kfree(st);
-+	kfree(msg->opt_state);
- 
- 	return 0;
- }
-@@ -550,10 +536,18 @@ static int spi_engine_transfer_one_message(struct spi_controller *host,
- 	struct spi_message *msg)
- {
- 	struct spi_engine *spi_engine = spi_controller_get_devdata(host);
--	struct spi_engine_message_state *st = msg->state;
-+	struct spi_engine_message_state *st = &spi_engine->msg_state;
-+	struct spi_engine_program *p = msg->opt_state;
- 	unsigned int int_enable = 0;
- 	unsigned long flags;
- 
-+	/* reinitialize message state for this transfer */
-+	memset(st, 0, sizeof(*st));
-+	st->p = p;
-+	st->cmd_buf = p->instructions;
-+	st->cmd_length = p->length;
-+	msg->state = st;
++static void ad7380_unoptimize_spi_msg(void *msg)
++{
++	spi_unoptimize_message(msg);
++}
 +
- 	reinit_completion(&spi_engine->msg_complete);
++static int devm_ad7380_setup_spi_msg(struct device *dev, struct ad7380_state *st)
++{
++	int ret;
++
++	st->xfer.bits_per_word = st->chip_info->channels[0].scan_type.realbits;
++	st->xfer.len = 4;
++	st->xfer.rx_buf = st->scan_data.raw;
++
++	spi_message_init_with_transfers(&st->msg, &st->xfer, 1);
++
++	ret = spi_optimize_message(st->spi, &st->msg);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to optimize message\n");
++
++	return devm_add_action_or_reset(dev, ad7380_unoptimize_spi_msg, &st->msg);
++}
++
+ static int ad7380_init(struct ad7380_state *st)
+ {
+ 	int ret;
+@@ -411,6 +431,10 @@ static int ad7380_probe(struct spi_device *spi)
+ 		return dev_err_probe(&spi->dev, PTR_ERR(st->regmap),
+ 				     "failed to allocate register map\n");
  
- 	spin_lock_irqsave(&spi_engine->lock, flags);
-@@ -658,8 +652,8 @@ static int spi_engine_probe(struct platform_device *pdev)
- 	host->bits_per_word_mask = SPI_BPW_RANGE_MASK(1, 32);
- 	host->max_speed_hz = clk_get_rate(spi_engine->ref_clk) / 2;
- 	host->transfer_one_message = spi_engine_transfer_one_message;
--	host->prepare_message = spi_engine_prepare_message;
--	host->unprepare_message = spi_engine_unprepare_message;
-+	host->optimize_message = spi_engine_optimize_message;
-+	host->unoptimize_message = spi_engine_unoptimize_message;
- 	host->num_chipselect = 8;
- 
- 	if (host->max_speed_hz == 0)
++	ret = devm_ad7380_setup_spi_msg(&spi->dev, st);
++	if (ret)
++		return ret;
++
+ 	indio_dev->channels = st->chip_info->channels;
+ 	indio_dev->num_channels = st->chip_info->num_channels;
+ 	indio_dev->name = st->chip_info->name;
 
 -- 
 2.43.2
