@@ -2,66 +2,112 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF9A85ABC2
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 20:08:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED22A85ACF0
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 21:17:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B83F8C6B45E;
-	Mon, 19 Feb 2024 19:08:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99F45C6B45E;
+	Mon, 19 Feb 2024 20:17:41 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDCEFC57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 706BEC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 19:08:32 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 314B460F36;
- Mon, 19 Feb 2024 19:08:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE033C433C7;
- Mon, 19 Feb 2024 19:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708369709;
- bh=Qgm4yRczBnXgjpxAD+i1bsbP2xXCEc56/SoGjrcpzPo=;
- h=In-Reply-To:References:Subject:From:To:Date:From;
- b=atM/CvQ3iM2Anizb1lzybkxvKx4jL0MqzynEc9xfeXYO4jST8XRzcHkXWB1rVSoXm
- QzyUkIxjMCH9R5YY/PaB5tsF3NM1FDm8ykl4d3vXKA5asaVD7k3T/dyEoh1VZZzkjV
- kIr74/S+E61h0sUkZdHfsYrdNzab1k3HMtQZRRFEGMUr+2ET8tOcs0ZuNnfT1ZRisK
- aGWGhy6Ua4SklPFh8q/0UhO+nzJXgQ6wsbcSkaoqa5RFwR1fvwJmxCB+5UNPA+m8me
- VnACdEWHC3NqCsBvhJZUamXJbuuKbNyTaBxaPGys8l0JPiznLYdaSAmdLDp4bqSWW0
- hCsk3eP26kWrw==
-Message-ID: <e760847bd911671f1e364271888481fd.sboyd@kernel.org>
+ Mon, 19 Feb 2024 20:17:40 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1d932f6ccfaso38492025ad.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Feb 2024 12:17:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708373859; x=1708978659;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=rONE3Abn4dO/b9f7QenLonwDofv6vCpXy42uqDKlHxo=;
+ b=kzF1Gas9GNiUWrxhXv+PoJObdBIjHLou4+8/Wk0cdMt8YI5HN3zuq63+Cla2LHKloS
+ s9uESotpjg+6jDzQ8CRWRWrLjrCEZEShs0LQJSI/yppX2e9VeGlttwm8DzGFXe8l2PoA
+ tI5e+Ddr5lAgWtj/RVtQqOywJ/x7IIr/iKy3HI1A/xro+UR2drW/w8JYc4WjzSh2R4/a
+ 8ZCrlHMHSO5Zbj35Qmqkl8b/4F/rxVh2BJGQu4kIG/zJEIzfxdr7uZE1PrQPnGi40ABj
+ WgOugY5scMflolDpjFoFl/djiWl6npXqfh0feAcTwaw7ar7uzVUe5GsW75MtBBFnVCfD
+ DuhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708373859; x=1708978659;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=rONE3Abn4dO/b9f7QenLonwDofv6vCpXy42uqDKlHxo=;
+ b=hvbRmY8lkD8BAdBcfCybAf1og6AzBC5+fT7Xu+3J25Ios0dZXs7FwrpwHiJHaFMyOP
+ mdbZl8zh2waTrdETtwCqkV3lWibyWAi9BXjUobeaFAN+AZNK+NdBAEONjN+ucxn5SlqM
+ CR1RPlJddEZcW1ieqivWQeYbLgO+ybsEL8j6AAwEVan+gXQEgAfRS3s1kwWMcj/fezSM
+ GPBarA1XTIcxXPSf5qQnDjubGG6qxP0diX0xoTa1Y4chrox719OCOy9tygAhd4yLbQl4
+ YOj2UccfHRO2IgoFId4zv1ojgRfS+4Nu1TPdNH86dj1vSG2TPqlDx0FXLwx84YBlUzIK
+ BsLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUAPPTagic4JHp/8P/mn1Qfb7bGsVgmLXfI9vPivXxE+z7DDrBec2Zu5c0w8K0WejwSKoSE/RH7Xcyyk+V9eH/Sc0a5XehMoq29hvnpK3BJM73rRvmF6X/1
+X-Gm-Message-State: AOJu0Yw6om2xhtVVbOOM5H3iq65xjqDaGgum07DGTNM3XqaJ0NXyeWaf
+ Xz2tIF6nsjA7Gsb9hZxjYdzOVAO4qZdcJsR9+kcxXDJnec9gm2Ym
+X-Google-Smtp-Source: AGHT+IEf41VN0cQCRsLyrwiGaNtQCiBDuirdu+fKuIUuNKMJOBH3FCxl/tzPUzaptxBRzL9nvHiI2Q==
+X-Received: by 2002:a17:903:491:b0:1db:9759:f716 with SMTP id
+ jj17-20020a170903049100b001db9759f716mr10190731plb.55.1708373858716; 
+ Mon, 19 Feb 2024 12:17:38 -0800 (PST)
+Received: from [10.230.29.214] ([192.19.223.252])
+ by smtp.gmail.com with ESMTPSA id
+ t11-20020a170902d28b00b001db616fa11dsm4837055plc.238.2024.02.19.12.17.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Feb 2024 12:17:38 -0800 (PST)
+Message-ID: <7961378c-9d4f-419b-bf86-4f5e55b3839a@gmail.com>
+Date: Mon, 19 Feb 2024 12:17:35 -0800
 MIME-Version: 1.0
-In-Reply-To: <02461595-16b3-4fea-a029-54190e10e6f5@linaro.org>
-References: <20240208163710.512733-1-krzysztof.kozlowski@linaro.org>
- <38e7e80f61f7c67c984735cf55c3dfb3.sboyd@kernel.org>
- <02461595-16b3-4fea-a029-54190e10e6f5@linaro.org>
-From: Stephen Boyd <sboyd@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Jaroslav Kysela <perex@perex.cz>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- NXP Linux Team <linux-imx@nxp.com>, Nishanth Menon <nm@ti.com>,
- Peng Fan <peng.fan@nxp.com>, Russell King <linux@armlinux.org.uk>,
- Shawn Guo <shawnguo@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sudeep Holla <sudeep.holla@arm.com>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- alsa-devel@alsa-project.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org,
- patches@opensource.cirrus.com
-Date: Mon, 19 Feb 2024 11:08:27 -0800
-User-Agent: alot/0.10
-Subject: Re: [Linux-stm32] [PATCH] clk: constify the of_phandle_args
-	argument of of_clk_provider
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Jesper Nilsson <jesper.nilsson@axis.com>
+References: <20240216-stmmac_stats-v1-1-7065fa4613f8@axis.com>
+ <61bdd802-abe4-4544-8e48-9493a6bb99c8@gmail.com>
+ <20240219104025.GM22484@axis.com>
+From: Florian Fainelli <f.fainelli@gmail.com>
+Autocrypt: addr=f.fainelli@gmail.com; keydata=
+ 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
+ HGuUuzv+GKZ6nsysJw==
+In-Reply-To: <20240219104025.GM22484@axis.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, kernel@axis.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: mmc_core: Assign,
+ don't add interrupt registers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,128 +119,52 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Quoting Krzysztof Kozlowski (2024-02-15 23:12:29)
-> On 16/02/2024 00:12, Stephen Boyd wrote:
-> > Quoting Krzysztof Kozlowski (2024-02-08 08:37:10)
-> >> None of the implementations of the get() and get_hw() callbacks of
-> >> "struct of_clk_provider" modify the contents of received of_phandle_args
-> >> pointer.  They treat it as read-only variable used to find the clock to
-> >> return.  Make obvious that implementations are not supposed to modify
-> >> the of_phandle_args, by making it a pointer to const.
-> >>
-> >> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >> ---
-> > 
-> > This will almost certainly break the build once it is merged to
-> > linux-next. What's your plan to merge this?
+
+
+On 2/19/2024 2:40 AM, Jesper Nilsson wrote:
+> On Fri, Feb 16, 2024 at 09:13:51AM -0800, Florian Fainelli wrote:
+>> So in premise I agree with the patch, that incrementing those is not the
+>> right way to go about them. However these registers are currently provided
+>> as part of the statistics set, but they should instead be accessed via the
+>> register dumping method.
 > 
-> First problem is that it might not apply... I prepared it on next to be
-> sure all subsystems are updated.
+> You mean extending the dump register code to dump the MAC Management Counter
+> registers that are not counters?
+
+Yes that is what I meant.
+
+>  From what I understand it's only the Rx and Tx interrupt and interrupt mask
+> registers that aren't counters. Oh, and the MMC control register itself?
 > 
-> The idea is to get reviews and acks and then:
-> 1. Maybe it applies cleanly to your tree meaning there will be no
-> conflicts with other trees,
-> 2. If not, then I can keep rebasing it and it should be applied after rc1.
+> To be honest, I don't think their use can justify the code churn.
+
+Fair enough, it really depends whether they are actually useful in 
+troubleshooting or not.
+
 > 
+>> In either case you will get at best a snapshot of those two registers at any
+>> given time and I suppose this can help diagnose a stuck RX condition, but
+>> not much more than that.
+> 
+> Yeah, their use is very doubtful. For me, they only introduce more nonsense
+> data in my logs.
+> 
+> The Rx registers looks to have been added in the first version of the MMC
+> back in 2011, but the Tx registers never was.
+> In commit 1c901a46d57 Giuseppe mentions the MMC interrupts as something to
+> add later (if actually useful).
+> 
+> So Serge's suggestion to drop the entries completely is actually quite attractive.
 
-The struct clk based version is probably not going to be used in any new
-code. If you split the patch up and converted the struct clk based ones
-first then that would probably apply without breaking anything, because
-new code should only be using the struct clk_hw version.
-
-The struct clk_hw version could be done in two steps. Introduce another
-get_hw callback with the const signature, and then update the world to
-use that callback, finally remove the old callback. We could call this
-callback 'get_clk_hw'. This is probably more work than it's worth
-though, but at least this way we don't have to worry about applying
-after rc1.
-
-Or perhaps we need to cast everything and use macros? It would be bad if
-the callback actually did something with the clkspec and we cast it to
-const, but your patch shows that nobody is doing that. We would get rid
-of this macro garbage once everything is converted.
-
----8<---
-diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 2253c154a824..8e5ed16a97a0 100644
---- a/drivers/clk/clk.c
-+++ b/drivers/clk/clk.c
-@@ -4818,7 +4818,7 @@ struct of_clk_provider {
- 	struct list_head link;
- 
- 	struct device_node *node;
--	struct clk *(*get)(struct of_phandle_args *clkspec, void *data);
-+	struct clk *(*get)(const struct of_phandle_args *clkspec, void *data);
- 	struct clk_hw *(*get_hw)(struct of_phandle_args *clkspec, void *data);
- 	void *data;
- };
-@@ -4880,8 +4880,8 @@ EXPORT_SYMBOL_GPL(of_clk_hw_onecell_get);
-  *
-  * This function is *deprecated*. Use of_clk_add_hw_provider() instead.
-  */
--int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *clkspec,
-+int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *clkspec,
- 						   void *data),
- 			void *data)
- {
-@@ -4914,7 +4914,7 @@ int of_clk_add_provider(struct device_node *np,
- 
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(of_clk_add_provider);
-+EXPORT_SYMBOL_GPL(_of_clk_add_provider);
- 
- /**
-  * of_clk_add_hw_provider() - Register a clock provider for a node
-diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index 1293c38ddb7f..bfc660fa7c8f 100644
---- a/include/linux/clk-provider.h
-+++ b/include/linux/clk-provider.h
-@@ -1531,10 +1531,11 @@ struct clk_hw_onecell_data {
- 	}
- 
- #ifdef CONFIG_OF
--int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *args,
-+int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *args,
- 						   void *data),
- 			void *data);
-+
- int of_clk_add_hw_provider(struct device_node *np,
- 			   struct clk_hw *(*get)(struct of_phandle_args *clkspec,
- 						 void *data),
-@@ -1559,8 +1560,8 @@ int of_clk_detect_critical(struct device_node *np, int index,
- 
- #else /* !CONFIG_OF */
- 
--static inline int of_clk_add_provider(struct device_node *np,
--			struct clk *(*clk_src_get)(struct of_phandle_args *args,
-+static inline int _of_clk_add_provider(struct device_node *np,
-+			struct clk *(*clk_src_get)(const struct of_phandle_args *args,
- 						   void *data),
- 			void *data)
- {
-@@ -1614,6 +1615,12 @@ static inline int of_clk_detect_critical(struct device_node *np, int index,
- }
- #endif /* CONFIG_OF */
- 
-+typedef struct clk *(*clk_src_get_fn)(const struct of_phandle_args *args, void *data);
-+
-+#define of_clk_add_provider(np, get, data) ({				\
-+		_of_clk_add_provider(np, (clk_src_get_fn)(get), data);		\
-+})
-+
- void clk_gate_restore_context(struct clk_hw *hw);
- 
- #endif /* CLK_PROVIDER_H */
+No concerns from me to drop them, not much value in having inaccurate 
+information.
+-- 
+Florian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
