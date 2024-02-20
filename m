@@ -2,74 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD7985B897
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 11:08:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02BC885B949
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 11:41:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAFB1C6A61D;
-	Tue, 20 Feb 2024 10:08:46 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8763C6A61D;
+	Tue, 20 Feb 2024 10:41:32 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78D37C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72A01C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 10:08:45 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-512b700c8ebso2294618e87.0
+ Tue, 20 Feb 2024 10:41:31 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-33d6f1f17e5so212954f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 02:08:45 -0800 (PST)
+ Tue, 20 Feb 2024 02:41:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708423725; x=1709028525;
+ d=gmail.com; s=20230601; t=1708425691; x=1709030491;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+toL7F0kapuzeBLcfc5DcPeiTKIyw1Qh60DwqayzqDU=;
- b=Cq7FNSPn4WYR1xpnRU/lF6qNdaBYrenEvhDCX/0hODIs58Zz2OAhbCr5/haJJ47zfI
- uT4T3t8QoexCbnKIw9HhqvBxB3XVEFa1EJcs7XVX+hcpHmjkdBlUdG+uyuefovKTTcfK
- Cq2x1jmpCAZxLRUvdBlDif3KCEDmSuKJmtwTsTZ+i+Wr/eL5SOcMPoDOtw5+qTAqo7QD
- nX/MFLCEWcl5MOFAECMpinu7FSMNqg1K72zmFAHnjDeoTbhvOBJCpGW5MY132HSGtfDN
- rhKRxZ1+ynXBwVOT1Bqe2bVEpk61Lr0hnoH+WiIemfnLRqtluwr85yDi1WaTMqDQ8b0b
- 07wA==
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=1ffOH1itwl3Z/6WXt9S5kShMdP0MfLLwhwAMSm7CnAc=;
+ b=gzPwAFpup1luY342YiwsN4LFwd8k6a3GQSnxNXnYYgrlWF32vFAHov8+HQtJTbhKlT
+ +ymaJOUcgVuhsu8Jm0hoUzZnY+BkykLvEWmug5tG2qGnOjw2MAgCENTH9qjkEM6S1Eyo
+ pjbyLtuUExE8BbsfisqRdJ2RxtDfQCm1nmh/GNuPi9hYt5/ygHIOCQPIvrTt35p8wOe2
+ 4rXCuRZsvoe6jysKA2EwlpROGmM6iDEJLgFjJ/4YEOTVOSaLqaxTKhekQuKVdc4VDmIz
+ SuoG3eQDARTGKjgHmZ9DnVQGykJibDHCKbDocSXSccZirT2qceYmShLstIEigxTQoXau
+ bvWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708423725; x=1709028525;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+toL7F0kapuzeBLcfc5DcPeiTKIyw1Qh60DwqayzqDU=;
- b=jjuz7ntSmb5RM7/DzjMnjaGld+oj6XDASEEfDaXGPKbDysZbsICbj6DJavGR0Mvj4B
- AdLPM9bPa5uulhIQGLltVfFK5cdqpUSgDr0frduWGO8reVaKOhBC+NOSCRcGGZoaF7qR
- lQqEkID3U/5858UbcM0AA9HI24WbJOauZmswZvE0ndxwG61NPHad/qSVQgcWBvyJv70L
- NpTe/JvXtOdfVswIfv/Ci2yoQUozQj2SztIApRJvCnmlG3KSj5u2LmmqPUydaopDoh2Z
- XTJfPZK5ffy3coPMpgQlT3YgNF1FHWBo0r5QxOAhJTjX1Ucn5x5/FuQ9/syiRjE2VcXL
- B6dA==
+ d=1e100.net; s=20230601; t=1708425691; x=1709030491;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=1ffOH1itwl3Z/6WXt9S5kShMdP0MfLLwhwAMSm7CnAc=;
+ b=aKr/DGP1e12bbYsLOpPktOQQv9OGd3OogJ1s+PbyIkS0JZwEZd7SV1XoRAgI8E5OOM
+ 6tHBb9QQFNnLWWAJuH35iW6yN45GZCnEvZFSPYcb2aLnmF0gy5SEeMmQQywh86Uio3/C
+ qpNalzWkAmPZXhrhQA7fctkhY/Rsa/lbsKU4/bQK08QnpH+lvZPud944BqrQgDHEeZOf
+ OAEPFWIkY/1r/qFe9d5M1FPWGSBgovSBMg+aRIqu8LeEfJniOf/WrJil6xz8uIhAIhTQ
+ aC+Ejlm+QgvzM30AVps/4csHfKKvaFaGGJorONczp5UMnJ2ieA4qz5yRT267cF8LYbyl
+ Afbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWZk+/AbqZZL6od8B+T3NwlHyOtkXD8xZMlLhLffIE7RA7nf8TjrA9IR4/QhcQGcRZC48FZcvfGO0pKnFv3tWTtwvbCsJzMVWVKRSVd9znk3kYvziYDcXzx
-X-Gm-Message-State: AOJu0YygG+58IqqBa+j/o8R9DuY5SCcXlxylD1IYav0Mh3oniD6KvkGE
- MMmD13lcOUpJ0lln2D92ngVyQw3s0BNFJWqA8oOZ55sOIbMe+910
-X-Google-Smtp-Source: AGHT+IHRIUgCBvBMs2u9VD5mm0TT4sdm+ubatW6v+3YvFEbj6ODVK8F0sTO+qhcrQUMf2MsZ309twA==
-X-Received: by 2002:a05:6512:39d1:b0:512:c2e7:27a3 with SMTP id
- k17-20020a05651239d100b00512c2e727a3mr1510368lfu.33.1708423724417; 
- Tue, 20 Feb 2024 02:08:44 -0800 (PST)
-Received: from mobilestation ([178.176.56.174])
+ AJvYcCXVt7NvEX6GFVBZeqtDTdPcFdhuAjKI2biaZ8HJKIBEcMUmMQ5u3rkPXUljXPYC84+zQSDfEOGQI8AqxAI9Gc+arrGNkojQ+V0t8DVyR3+Qgyk7PuHtiQNw
+X-Gm-Message-State: AOJu0YyFD/cI+YVvLdCHw8dSTEse1JofH95Eswnt4ABkKKZvI4Im95Oy
+ f4O9/hMRJs4A8abiWZjG/K/ZyIu+V4BWFtx+zy10WZoeQ9deFcbG
+X-Google-Smtp-Source: AGHT+IFDrhQX32VSUY+dvsggxvJw3807349WRgyk55H4GHmP6zw0T6olauNngu8d77E6a61PPbdeog==
+X-Received: by 2002:a05:6000:1a8a:b0:33d:3a00:554d with SMTP id
+ f10-20020a0560001a8a00b0033d3a00554dmr6111440wry.8.1708425690688; 
+ Tue, 20 Feb 2024 02:41:30 -0800 (PST)
+Received: from ?IPv6:2001:a61:3456:4e01:6ae:b55a:bd1d:57fc?
+ ([2001:a61:3456:4e01:6ae:b55a:bd1d:57fc])
  by smtp.gmail.com with ESMTPSA id
- t17-20020a195f11000000b0051181cbea91sm1262744lfb.228.2024.02.20.02.08.43
+ b7-20020adfe647000000b0033b406bc689sm13193409wrn.75.2024.02.20.02.41.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Feb 2024 02:08:43 -0800 (PST)
-Date: Tue, 20 Feb 2024 13:08:40 +0300
-From: Serge Semin <fancer.lancer@gmail.com>
-To: Piotr Wejman <piotrwejman90@gmail.com>
-Message-ID: <nniukwj6oil7hbr2aefvlwicw362h7gotrudarozre35dk3ugm@wjsosr7p27li>
-References: <20240219102405.32015-1-piotrwejman90@gmail.com>
+ Tue, 20 Feb 2024 02:41:30 -0800 (PST)
+Message-ID: <0ec567d7df3632a9c8104485c4207a47e159fdb9.camel@gmail.com>
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: David Lechner <dlechner@baylibre.com>, Mark Brown <broonie@kernel.org>
+Date: Tue, 20 Feb 2024 11:41:29 +0100
+In-Reply-To: <20240219-mainline-spi-precook-message-v2-5-4a762c6701b9@baylibre.com>
+References: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
+ <20240219-mainline-spi-precook-message-v2-5-4a762c6701b9@baylibre.com>
+User-Agent: Evolution 3.50.3 (3.50.3-1.fc39) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240219102405.32015-1-piotrwejman90@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix rx queue priority
-	assignment
+Cc: Michael Hennerich <michael.hennerich@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Julien Stephan <jstephan@baylibre.com>,
+ David Jander <david@protonic.nl>,
+ Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Martin Sperl <kernel@martin.sperl.org>, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 5/5] iio: adc: ad7380: use
+	spi_optimize_message()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,124 +87,66 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 19, 2024 at 11:24:05AM +0100, Piotr Wejman wrote:
-> The driver should ensure that same priority is not mapped to multiple
-> rx queues. Currently dwmac4_rx_queue_priority function is adding
-> priorities for a queue without clearing them from others.
-> 
-> From DesignWare Cores Ethernet Quality-of-Service
-> Databook, section 17.1.29 MAC_RxQ_Ctrl2:
-> "[...]The software must ensure that the content of this field is
-> mutually exclusive to the PSRQ fields for other queues, that is,
-> the same priority is not mapped to multiple Rx queues[...]"
-> 
-> After this patch, dwmac4_rx_queue_priority function will:
-> - assign desired priorities to a queue
-> - remove those priorities from all other queues
-> The write sequence of CTRL2 and CTRL3 registers is done in the way to
-> ensure this order.
-> 
-
-Thanks for the fix. The change in general seems good. The same is
-applicable for the DW XGMAC too. Could you please apply it to
-dwxgmac2_rx_queue_prio()?
-
-> Also, the PSRQn field contains the mask of priorities and not only one
-> priority. Rename "prio" argument to "prio_mask".
-
-Please move this to a separate patch applied on top of the main change
-described above. Also in order to be done coherently the renaming
-should be extended onto all the Tx/Rx queue prio parts in the
-driver:
-0. dwmac4_core.c
-   +-> dwmac4_rx_queue_priority()
-   +-> dwmac4_tx_queue_priority()
-1. dwxgmac2_core.c
-   +-> dwxgmac2_rx_queue_prio()
-   +-> dwxgmac2_tx_queue_prio()
-2. hwif.h
-   +-> stmmac_ops::rx_queue_prio
-   +-> stmmac_ops::tx_queue_prio
-3. stmmac.h
-   +-> stmmac_rxq_cfg::prio
-   +-> stmmac_txq_cfg::prio
-4. stmmac_main.c:
-   +-> stmmac_mac_config_rx_queues_prio()::prio
-   +-> stmmac_mac_config_tx_queues_prio()::prio
-
-* Hope I listed all of them.
-
--Serge(y)
-
-> 
-> Signed-off-by: Piotr Wejman <piotrwejman90@gmail.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 36 +++++++++++++------
->  1 file changed, 26 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> index 6b6d0de09619..6acc8bad794e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> @@ -89,22 +89,38 @@ static void dwmac4_rx_queue_enable(struct mac_device_info *hw,
->  }
->  
->  static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
-> -				     u32 prio, u32 queue)
-> +				     u32 prio_mask, u32 queue)
->  {
->  	void __iomem *ioaddr = hw->pcsr;
-> -	u32 base_register;
-> -	u32 value;
-> +	u32 clear_mask = 0;
-> +	u32 ctrl2, ctrl3;
-> +	int i;
->  
-> -	base_register = (queue < 4) ? GMAC_RXQ_CTRL2 : GMAC_RXQ_CTRL3;
-> -	if (queue >= 4)
-> -		queue -= 4;
-> +	ctrl2 = readl(ioaddr + GMAC_RXQ_CTRL2);
-> +	ctrl3 = readl(ioaddr + GMAC_RXQ_CTRL3);
->  
-> -	value = readl(ioaddr + base_register);
-> +	for (i = 0; i < 4; i++)
-> +		clear_mask |= ((prio_mask << GMAC_RXQCTRL_PSRQX_SHIFT(i)) &
-> +						GMAC_RXQCTRL_PSRQX_MASK(i));
->  
-> -	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
-> -	value |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-> +	ctrl2 &= ~clear_mask;
-> +	ctrl3 &= ~clear_mask;
-> +
-> +	if (queue < 4) {
-> +		ctrl2 |= (prio_mask << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
->  						GMAC_RXQCTRL_PSRQX_MASK(queue);
-> -	writel(value, ioaddr + base_register);
-> +
-> +		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-> +		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-> +	} else {
-> +		queue -= 4;
-> +
-> +		ctrl3 |= (prio_mask << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-> +						GMAC_RXQCTRL_PSRQX_MASK(queue);
-> +
-> +		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-> +		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-> +	}
->  }
->  
->  static void dwmac4_tx_queue_priority(struct mac_device_info *hw,
-> -- 
-> 2.25.1
-> 
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCAyMDI0LTAyLTE5IGF0IDE2OjMzIC0wNjAwLCBEYXZpZCBMZWNobmVyIHdyb3RlOgo+
+IFRoaXMgbW9kaWZpZXMgdGhlIGFkNzM4MCBBREMgZHJpdmVyIHRvIHVzZSBzcGlfb3B0aW1pemVf
+bWVzc2FnZSgpIHRvCj4gb3B0aW1pemUgdGhlIFNQSSBtZXNzYWdlIGZvciB0aGUgYnVmZmVyZWQg
+cmVhZCBvcGVyYXRpb24uIFNpbmNlIGJ1ZmZlcmVkCj4gcmVhZHMgcmV1c2UgdGhlIHNhbWUgU1BJ
+IG1lc3NhZ2UgZm9yIGVhY2ggcmVhZCwgdGhpcyBjYW4gaW1wcm92ZQo+IHBlcmZvcm1hbmNlIGJ5
+IHJlZHVjaW5nIHRoZSBvdmVyaGVhZCBvZiBzZXR0aW5nIHVwIHNvbWUgcGFydHMgdGhlIFNQSQo+
+IG1lc3NhZ2UgaW4gZWFjaCBzcGlfc3luYygpIGNhbGwuCj4gCj4gU2lnbmVkLW9mZi1ieTogRGF2
+aWQgTGVjaG5lciA8ZGxlY2huZXJAYmF5bGlicmUuY29tPgo+IC0tLQo+IAoKUmV2aWV3ZWQtYnk6
+IE51bm8gU2EgPG51bm8uc2FAYW5hbG9nLmNvbT4KCj4gdjIgY2hhbmdlczoKPiAtIFJlbW92ZWQg
+ZHluYW1pYyBhbGxvY2F0aW9uIG9mIHNwaSB4ZmVyL21zZwo+IC0gTW92ZWQgc3BpIG1lc3NhZ2Ug
+b3B0aW1pemF0aW9uIHRvIHByb2JlIGZ1bmN0aW9uCj4gLSBEcm9wcGVkIGJ1ZmZlciBwcmUvcG9z
+dCBjYWxsYmFja3MKPiAKPiDCoGRyaXZlcnMvaWlvL2FkYy9hZDczODAuYyB8IDM2ICsrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKy0tLS0tLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2Vy
+dGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaWlvL2Fk
+Yy9hZDczODAuYyBiL2RyaXZlcnMvaWlvL2FkYy9hZDczODAuYwo+IGluZGV4IGFiZDc0NmFlZjg2
+OC4uNmIzZmQyMGM4ZjFmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvaWlvL2FkYy9hZDczODAuYwo+
+ICsrKyBiL2RyaXZlcnMvaWlvL2FkYy9hZDczODAuYwo+IEBAIC0xMzMsNiArMTMzLDkgQEAgc3Ry
+dWN0IGFkNzM4MF9zdGF0ZSB7Cj4gwqAJc3RydWN0IHNwaV9kZXZpY2UgKnNwaTsKPiDCoAlzdHJ1
+Y3QgcmVndWxhdG9yICp2cmVmOwo+IMKgCXN0cnVjdCByZWdtYXAgKnJlZ21hcDsKPiArCS8qIHhm
+ZXIgYW5kIG1zZyBmb3IgYnVmZmVyIHJlYWRzICovCj4gKwlzdHJ1Y3Qgc3BpX3RyYW5zZmVyIHhm
+ZXI7Cj4gKwlzdHJ1Y3Qgc3BpX21lc3NhZ2UgbXNnOwo+IMKgCS8qCj4gwqAJICogRE1BICh0aHVz
+IGNhY2hlIGNvaGVyZW5jeSBtYWludGVuYW5jZSkgcmVxdWlyZXMgdGhlCj4gwqAJICogdHJhbnNm
+ZXIgYnVmZmVycyB0byBsaXZlIGluIHRoZWlyIG93biBjYWNoZSBsaW5lcy4KPiBAQCAtMjM2LDE0
+ICsyMzksOSBAQCBzdGF0aWMgaXJxcmV0dXJuX3QgYWQ3MzgwX3RyaWdnZXJfaGFuZGxlcihpbnQg
+aXJxLCB2b2lkICpwKQo+IMKgCXN0cnVjdCBpaW9fcG9sbF9mdW5jICpwZiA9IHA7Cj4gwqAJc3Ry
+dWN0IGlpb19kZXYgKmluZGlvX2RldiA9IHBmLT5pbmRpb19kZXY7Cj4gwqAJc3RydWN0IGFkNzM4
+MF9zdGF0ZSAqc3QgPSBpaW9fcHJpdihpbmRpb19kZXYpOwo+IC0Jc3RydWN0IHNwaV90cmFuc2Zl
+ciB4ZmVyID0gewo+IC0JCS5iaXRzX3Blcl93b3JkID0gc3QtPmNoaXBfaW5mby0+Y2hhbm5lbHNb
+MF0uc2Nhbl90eXBlLnJlYWxiaXRzLAo+IC0JCS5sZW4gPSA0LAo+IC0JCS5yeF9idWYgPSBzdC0+
+c2Nhbl9kYXRhLnJhdywKPiAtCX07Cj4gwqAJaW50IHJldDsKPiDCoAo+IC0JcmV0ID0gc3BpX3N5
+bmNfdHJhbnNmZXIoc3QtPnNwaSwgJnhmZXIsIDEpOwo+ICsJcmV0ID0gc3BpX3N5bmMoc3QtPnNw
+aSwgJnN0LT5tc2cpOwo+IMKgCWlmIChyZXQpCj4gwqAJCWdvdG8gb3V0Owo+IMKgCj4gQEAgLTMz
+NSw2ICszMzMsMjggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpaW9faW5mbyBhZDczODBfaW5mbyA9
+IHsKPiDCoAkuZGVidWdmc19yZWdfYWNjZXNzID0gJmFkNzM4MF9kZWJ1Z2ZzX3JlZ19hY2Nlc3Ms
+Cj4gwqB9Owo+IMKgCj4gK3N0YXRpYyB2b2lkIGFkNzM4MF91bm9wdGltaXplX3NwaV9tc2codm9p
+ZCAqbXNnKQo+ICt7Cj4gKwlzcGlfdW5vcHRpbWl6ZV9tZXNzYWdlKG1zZyk7Cj4gK30KPiArCj4g
+K3N0YXRpYyBpbnQgZGV2bV9hZDczODBfc2V0dXBfc3BpX21zZyhzdHJ1Y3QgZGV2aWNlICpkZXYs
+IHN0cnVjdCBhZDczODBfc3RhdGUgKnN0KQo+ICt7Cj4gKwlpbnQgcmV0Owo+ICsKPiArCXN0LT54
+ZmVyLmJpdHNfcGVyX3dvcmQgPSBzdC0+Y2hpcF9pbmZvLT5jaGFubmVsc1swXS5zY2FuX3R5cGUu
+cmVhbGJpdHM7Cj4gKwlzdC0+eGZlci5sZW4gPSA0Owo+ICsJc3QtPnhmZXIucnhfYnVmID0gc3Qt
+PnNjYW5fZGF0YS5yYXc7Cj4gKwo+ICsJc3BpX21lc3NhZ2VfaW5pdF93aXRoX3RyYW5zZmVycygm
+c3QtPm1zZywgJnN0LT54ZmVyLCAxKTsKPiArCj4gKwlyZXQgPSBzcGlfb3B0aW1pemVfbWVzc2Fn
+ZShzdC0+c3BpLCAmc3QtPm1zZyk7Cj4gKwlpZiAocmV0KQo+ICsJCXJldHVybiBkZXZfZXJyX3By
+b2JlKGRldiwgcmV0LCAiZmFpbGVkIHRvIG9wdGltaXplIG1lc3NhZ2VcbiIpOwo+ICsKPiArCXJl
+dHVybiBkZXZtX2FkZF9hY3Rpb25fb3JfcmVzZXQoZGV2LCBhZDczODBfdW5vcHRpbWl6ZV9zcGlf
+bXNnLCAmc3QtPm1zZyk7Cj4gK30KPiArCj4gwqBzdGF0aWMgaW50IGFkNzM4MF9pbml0KHN0cnVj
+dCBhZDczODBfc3RhdGUgKnN0KQo+IMKgewo+IMKgCWludCByZXQ7Cj4gQEAgLTQxMSw2ICs0MzEs
+MTAgQEAgc3RhdGljIGludCBhZDczODBfcHJvYmUoc3RydWN0IHNwaV9kZXZpY2UgKnNwaSkKPiDC
+oAkJcmV0dXJuIGRldl9lcnJfcHJvYmUoJnNwaS0+ZGV2LCBQVFJfRVJSKHN0LT5yZWdtYXApLAo+
+IMKgCQkJCcKgwqDCoMKgICJmYWlsZWQgdG8gYWxsb2NhdGUgcmVnaXN0ZXIgbWFwXG4iKTsKPiDC
+oAo+ICsJcmV0ID0gZGV2bV9hZDczODBfc2V0dXBfc3BpX21zZygmc3BpLT5kZXYsIHN0KTsKPiAr
+CWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKPiArCj4gwqAJaW5kaW9fZGV2LT5jaGFubmVscyA9
+IHN0LT5jaGlwX2luZm8tPmNoYW5uZWxzOwo+IMKgCWluZGlvX2Rldi0+bnVtX2NoYW5uZWxzID0g
+c3QtPmNoaXBfaW5mby0+bnVtX2NoYW5uZWxzOwo+IMKgCWluZGlvX2Rldi0+bmFtZSA9IHN0LT5j
+aGlwX2luZm8tPm5hbWU7Cj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
