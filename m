@@ -2,70 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B8585B4EC
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 09:22:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 145E285B7C8
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 10:41:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DC0FC6A61D;
-	Tue, 20 Feb 2024 08:22:50 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2723C6A61D;
+	Tue, 20 Feb 2024 09:41:40 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0286DC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3771CC03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 08:22:48 +0000 (UTC)
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1708417368;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=o7FhDKCpVRzBZVqcVUK+TCqEXZxgC5mnVj+4kjWa4Gw=;
- b=qrAlfbQI84Pv+3qnK1/qX/0zfxmbMmNvjoPYwyuYCI0nlRjPvy9bC8/XFD8ITbXVCKXM4a
- S7ZMLJBXLNMdaQ1+GLe6WjSxDCOOJplgjhBmzVIv41DTFwHPOWgPFCQgA7GNCAOb7EMUGD
- zdF9i/9n3GTNb/qsnYEFn+QAcgzYkWyhIvpDzuoI8SM1IJkxgGv8zXYjOl66kha+mtU9Yn
- NMyYIAI9bbUM5zhCMjPVY/mFZcrVKgWWOuB4zptuFqcU1SQAG//hOJOIUiu7lV8yWcOpzK
- sL00Rhk76aChGibk9f4Luk+ijz8kCM/G7urHY6y2/StezjZQmzZJi1GHgNJxfQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1708417368;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=o7FhDKCpVRzBZVqcVUK+TCqEXZxgC5mnVj+4kjWa4Gw=;
- b=Ow0xOJexYEoL0IjzIbFbM2bawK4aWJLbJG2ZEnJk9ugeBswYY2wK8om2pucK0X49uccSwk
- caIeir4NJkhMfADQ==
-Date: Tue, 20 Feb 2024 09:22:46 +0100
+ Tue, 20 Feb 2024 03:51:07 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-1d73066880eso48155685ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 19 Feb 2024 19:51:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1708401065; x=1709005865;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8UkmNgftH857w2sqifeOqAr+iNHF37XOde+wq8ViDZE=;
+ b=JF2Q5hlOu3nBHL4hMj6fuu21q1p33BR7wdnUEWfWmnpBpEkZc+3jkoigS630Zfo8PK
+ psc3YTulUwsoPDEL8t8Otxh+QdXI3evuVS+Kku1PZBJTczSMvJ/mdXXNz9W4S+P8qP/2
+ pwTZ92eLbVAiMP0MBZJ5lJtQncEIslZemgefcnTSZ7NSlFClcTJ2vU/ex4IuHKfuHnPR
+ SqseAasma9S1Z2szSdyXrfcIiveW8POQur4jsYjUsl2P5XCA+SnUmFbeYP/PS8ZEpAYb
+ nULitENUkafbtn7ptfP/DxtxlW81zalK6uUVYuqthZWA3TASg86vLYeiB04HNfTBMSFf
+ E4Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708401065; x=1709005865;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8UkmNgftH857w2sqifeOqAr+iNHF37XOde+wq8ViDZE=;
+ b=qabDyVw0WZASrqscaPj6kWmhM7+7ULZmt6tiOVsAu1o7Doo5b3vLlUBrTUn+acM0iV
+ jmaaehjL5zc1ZSyEm667nRhWPWTCYczkfy2IgHAdNeDSiqcRX+2TCI+sEnapkAbKetBV
+ POtW6qBbeWja1MfdExZN4H44novySYgE80Lvuzf2rsTlN+ylADKwRZPNLdQrmO2gIQcM
+ 0g3RnG6RlaHj7xApUH7PhPLJbgQJr0c9+7SGMao74kZDvm3NMMJiQznqGeeUtDfT1wZ0
+ +8KYeE7TexWMPaa//f9zc9f1OBx/8tTH5bno6Mo+9x+1c3P+dyAzjcS4cWES0yS0wk0K
+ nCsg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVda5JgVIgpIGGiNvlRHUKlDGwYs6ChY7rRAnQ/apYSx/Ki9133qzz+W8pfcJs8eOhMnILYczJORXEoU16cPRi7M49ZTFpbniTCn0x8Cy+heEHn3tkzruXq
+X-Gm-Message-State: AOJu0YzAtYQ3lCqzN17Q+Zo/9UhrEREn7MHhTm/rR6UHhJyCA4vkelMX
+ KNApBBKf+6AVsSKqo791789KS2F+yF2C+ejy8c7a1+gnCeAz9FGtWWraHh294dQ=
+X-Google-Smtp-Source: AGHT+IFahjx8Wl0J1qpYL1S67NT7dQm8quAfM53FT6LDzNXvorRUNHjgFtfIKe9Dezhf1ddJbvtSYw==
+X-Received: by 2002:a17:903:1104:b0:1db:37b1:b1a3 with SMTP id
+ n4-20020a170903110400b001db37b1b1a3mr16490922plh.17.1708401065669; 
+ Mon, 19 Feb 2024 19:51:05 -0800 (PST)
+Received: from localhost.localdomain ([43.129.25.208])
+ by smtp.gmail.com with ESMTPSA id
+ jz7-20020a170903430700b001d94678a76csm5131723plb.117.2024.02.19.19.50.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Feb 2024 19:51:05 -0800 (PST)
+From: Menglong Dong <dongmenglong.8@bytedance.com>
+To: andrii@kernel.org
+Date: Tue, 20 Feb 2024 11:51:00 +0800
+Message-Id: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Message-Id: <20240220-stmmac_est-v1-1-c41f9ae2e7b7@linutronix.de>
-X-B4-Tracking: v=1; b=H4sIAFVh1GUC/x2NwQrCMBAFf6Xs2UCMRaq/IiKb9NXuIVF2QxFK/
- 920x2EYZiWDCozu3UqKRUw+pcH51FGaubzhZGxMwYfeh+Cd1Zw5vWDVga/D0E+3yJdELYhscFG
- 5pHlPMluF7uKrmOR3XB5UUOm5bX96smAZegAAAA==
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Rohan G Thomas <rohan.g.thomas@intel.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1436; i=kurt@linutronix.de;
- h=from:subject:message-id; bh=VtSbRYpW3xF4C41G3ex623iXQjdzDj88U4DQFDFPBXA=;
- b=owEBbQKS/ZANAwAKAcGT0fKqRnOCAcsmYgBl1GFX6qPgFG7he/qqzxgpfnWgTU2YcF03X2yM/
- NoH2jMuOjCJAjMEAAEKAB0WIQS8ub+yyMN909/bWZLBk9HyqkZzggUCZdRhVwAKCRDBk9HyqkZz
- gur9EACitYR7rS+jg6FDa7PC9TDwFeID84CDFl3pTZmtMXggcm64U8mhgFVOoH+cMjqirqiro44
- fvFJUvS5ajdy1NjTYarTnRXXFfCmsBMavgycpFMJ38YwjiMp/gvbzGihQUW7jJQgVZdEeAEV2EL
- IQqUeZmga9rAOxk5wxPzIJTLZe8xaa5iY2giuMM9I3WuoUmb7v2wUXh7rgK8NaPedgj9KotBDuT
- 0Ekg5+YPEWfwyLTnhOJv5+Vj6MCkKIhEwEcC8n2evR5Fral+E2CfqZjLXS3JJl3OrAAMqt3r830
- JqLYkFIL0o5ZePCh88iPusVFpMZHgPk357PU7VZDjmOBJxawieSWOh9CbGUbXDSZI+oXvlN0+FK
- MjNemptzgvcRuGTV1ClwXFm9fyUfr3DInBlJm8Tuq3IN5i0VF0aMELFIzXFYStQy3QIfMkKujvi
- Us7T2/q8aXgx9Fy6rJx+GEriK8Wa4hwfYVvf8HxuyKryXVXP223TdhN6IyeJbbrKBGWkr1IKuiM
- ADBqVC2QXXNNKEhj9yggHFsTG0b6MGIgVX48G3Djz01v+bI6tCsItugg1bzroA3Ny78tORY4YWi
- QBZUFOAo5yCx2dp+YqKrW7sMddKDVmLSOHJQyyLGGKhzBaQ6SkntpnlW+ZOL3+y1s7Hc4rJ+MKl
- CMmFMPSlTzYfmNQ==
-X-Developer-Key: i=kurt@linutronix.de; a=openpgp;
- fpr=BCB9BFB2C8C37DD3DFDB5992C193D1F2AA467382
-Cc: netdev@vger.kernel.org, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Kurt Kanzenbach <kurt@linutronix.de>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: Fix EST offset for dwmac 5.10
+X-Mailman-Approved-At: Tue, 20 Feb 2024 09:41:40 +0000
+Cc: linux-kselftest@vger.kernel.org, davemarchevsky@fb.com, song@kernel.org,
+ sdf@google.com, yonghong.song@linux.dev, thinker.li@gmail.com,
+ shuah@kernel.org, linux-stm32@st-md-mailman.stormreply.com, mykolal@fb.com,
+ dongmenglong.8@bytedance.com, daniel@iogearbox.net, john.fastabend@gmail.com,
+ zhoufeng.zf@bytedance.com, mcoquelin.stm32@gmail.com, ast@kernel.org,
+ dxu@dxuuu.xyz, kpsingh@kernel.org, linux-arm-kernel@lists.infradead.org,
+ haoluo@google.com, linux-kernel@vger.kernel.org, eddyz87@gmail.com,
+ jolsa@kernel.org, bpf@vger.kernel.org, martin.lau@linux.dev
+Subject: [Linux-stm32] [PATCH bpf-next 0/5] bpf: make tracing program
+	support multi-attach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,48 +88,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Fix EST offset for dwmac 5.10.
+For now, the BPF program of type BPF_PROG_TYPE_TRACING is not allowed to
+be attached to multiple hooks, and we have to create a BPF program for
+each kernel function, for which we want to trace, even through all the
+program have the same (or similar) logic. This can consume extra memory,
+and make the program loading slow if we have plenty of kernel function to
+trace.
 
-Currently configuring Qbv doesn't work as expected. The schedule is
-configured, but never confirmed:
+In the commit 4a1e7c0c63e0 ("bpf: Support attaching freplace programs to
+multiple attach points"), the freplace BPF program is made to support
+attach to multiple attach points. And in this series, we extend it to
+fentry/fexit/raw_tp/...
 
-|[  128.250219] imx-dwmac 428a0000.ethernet eth1: configured EST
+In the 1st patch, we add the support to record index of the accessed
+function args of the target for tracing program. Meanwhile, we add the
+function btf_check_func_part_match() to compare the accessed function args
+of two function prototype. This function will be used in the next commit.
 
-The reason seems to be the refactoring of the EST code which set the wrong
-EST offset for the dwmac 5.10. After fixing this it works as before:
+In the 2nd patch, we do some adjust to bpf_tracing_prog_attach() to make
+it support multiple attaching.
 
-|[  106.359577] imx-dwmac 428a0000.ethernet eth1: configured EST
-|[  128.430715] imx-dwmac 428a0000.ethernet eth1: EST: SWOL has been switched
+In the 3rd patch, we allow to set bpf cookie in bpf_link_create() even if
+target_btf_id is set, as we are allowed to attach the tracing program to
+new target.
 
-Tested on imx93.
+In the 4th patch, we introduce the function libbpf_find_kernel_btf_id() to
+libbpf to find the btf type id of the kernel function, and this function
+will be used in the next commit.
 
-Fixes: c3f3b97238f6 ("net: stmmac: Refactor EST implementation")
-Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
----
- drivers/net/ethernet/stmicro/stmmac/hwif.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In the 5th patch, we add the testcases for this series.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-index 1bd34b2a47e8..29367105df54 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-@@ -224,7 +224,7 @@ static const struct stmmac_hwif_entry {
- 		.regs = {
- 			.ptp_off = PTP_GMAC4_OFFSET,
- 			.mmc_off = MMC_GMAC4_OFFSET,
--			.est_off = EST_XGMAC_OFFSET,
-+			.est_off = EST_GMAC4_OFFSET,
- 		},
- 		.desc = &dwmac4_desc_ops,
- 		.dma = &dwmac410_dma_ops,
+Menglong Dong (5):
+  bpf: tracing: add support to record and check the accessed args
+  bpf: tracing: support to attach program to multi hooks
+  libbpf: allow to set coookie when target_btf_id is set in
+    bpf_link_create
+  libbpf: add the function libbpf_find_kernel_btf_id()
+  selftests/bpf: add test cases for multiple attach of tracing program
 
----
-base-commit: 40b9385dd8e6a0515e1c9cd06a277483556b7286
-change-id: 20240220-stmmac_est-ea6884f9ba3c
+ include/linux/bpf.h                           |   6 +
+ include/uapi/linux/bpf.h                      |   1 +
+ kernel/bpf/btf.c                              | 121 ++++++++++++++
+ kernel/bpf/syscall.c                          | 118 +++++++++++---
+ tools/lib/bpf/bpf.c                           |  17 +-
+ tools/lib/bpf/libbpf.c                        |  83 ++++++++++
+ tools/lib/bpf/libbpf.h                        |   3 +
+ tools/lib/bpf/libbpf.map                      |   1 +
+ .../selftests/bpf/bpf_testmod/bpf_testmod.c   |  49 ++++++
+ .../bpf/prog_tests/tracing_multi_attach.c     | 153 ++++++++++++++++++
+ .../selftests/bpf/progs/tracing_multi_test.c  |  66 ++++++++
+ 11 files changed, 583 insertions(+), 35 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/tracing_multi_attach.c
+ create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_test.c
 
-Best regards,
 -- 
-Kurt Kanzenbach <kurt@linutronix.de>
+2.39.2
 
 _______________________________________________
 Linux-stm32 mailing list
