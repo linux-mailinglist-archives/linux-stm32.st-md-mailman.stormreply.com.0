@@ -2,79 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D3385BEC1
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 15:28:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E4585C256
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 18:18:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BD6BC69067;
-	Tue, 20 Feb 2024 14:28:43 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B264C6B45E;
+	Tue, 20 Feb 2024 17:18:35 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1DFC8C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F132EC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 14:28:42 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-a3e550ef31cso277127866b.3
+ Tue, 20 Feb 2024 17:18:33 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a3d5e77cfbeso998460666b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 06:28:42 -0800 (PST)
+ Tue, 20 Feb 2024 09:18:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708439321; x=1709044121;
+ d=gmail.com; s=20230601; t=1708449513; x=1709054313;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vz5RzTNhpTPMTVMz3nxEsmiIaAzAhCmMLP53qUjHq3g=;
- b=DXO0q5pdac/DWmdfJqY031BXRhROwW1X4UubgG2Uzeyhq4Uwi++aXcN31qQLJjspTX
- gBXmWYmn5jwCNxFL36jQtL6282thTsPYXCT5FTPgG9Smxk3az90cuTzlyvjqPNAIQ2Wy
- bHpER25MbiR8HeIHrUelPAqH3nBAyn0JkfP532OszSyMOBtzxiBzAGTrxmI7ySfp8pRT
- SnorLt2QKLUBfYnEK1NB9y7aA636AKuFBqJDpwLzzfKkQEKiWaxDGeOB62mrnpWyckKL
- HN5Ghkc8BgboN9NXuB9rZLFNdm+vuZEbEqpYN0YgrQpeM2k5cWhAcjKrzX8UpX5wcD67
- 5h6g==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=dmxS6iktBtidz6yGIwqms+MtYfTcC8Gwrx4Li+2LctM=;
+ b=UM4FxGfHEAl5nPGhZ1T5KwvmMFwRMrjwF8ICsJrQLVM3B3lIUNKuQHeK6AtQaH2rwg
+ DE2ai37cxedT8Q4KjimejLynRw4hbCweWMJy+NA3SPcGRQDPZg4GTejPgBrpWfPcw2hI
+ OI/mKC5fgQ2jBklSgIWy62mvJ9fqHOyGGu7/lcE6bZd9YLMeDGgPGVr79WqaHiCt92Qz
+ yVqk0+m2Ype5qwTCg3EI5t4H2YT0iiM1WplJYiTTFrZMD1+L45ywUHaFCp49GYNQJ7cK
+ JeCl/RRQ7AxtfBENh1RY/3/sNsvjQPVeBDP3X9ZnUdZWOxheTkJI6VuUYpw3pmNFpIwV
+ 5U3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708439321; x=1709044121;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vz5RzTNhpTPMTVMz3nxEsmiIaAzAhCmMLP53qUjHq3g=;
- b=KZ+l6ocIyi8BOiC5UY5X5gmEna5FOOabwHdRB+at9tSiHBxH5QAoO2ixNZAyojLwwh
- KffN2l6dblZfrVWEi/h2Iiod+jOe8LqvFS0/F3/bj9BUMEQS6Fgro0KmZPEAHO6p2gAV
- +tQAa7BUegG2n004Z9M6PTyynp8CmHEgBtxbPFwW3CiUPtQBvF5N1WoQ0YQaQos0OmJB
- lG2eP7k/xzjhWC858pGoky7MKAsvuYNtqXWRBqFxPOhK5Q1+EVTDXTIXl3Yku5ZlY2rW
- R0O2+e35falw1aFRoLLW55O2bK5k2raa2nyuI9SfexCzL+606CrOs9oXipqXsk7bY1ht
- Ye9w==
+ d=1e100.net; s=20230601; t=1708449513; x=1709054313;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dmxS6iktBtidz6yGIwqms+MtYfTcC8Gwrx4Li+2LctM=;
+ b=Mzx8gSb41wKKMPI+7INGOaLnRu9NbdUPIy6UqtwO0V7KsVhVbqDGK7xNLp8SyeXXPe
+ xKt+Qt8vxM4088ZBj0eh2o2klkJ84bst6V+3OieQfzoTRLQig5lyXjQosjvDRhj3Ge0C
+ bC1P+YiPiOPtZMtgUCEEruNNTuTI2YYlkLxPJocBrRF4Pg+/VZWBsMg5QOQLO7yFjolg
+ IZybz3ZegaC9qOFnnMAkrtxmdx6typU0qIx6oEkp7kRj0w1kPkgpgdVasLcxMmr4klmU
+ 27x7GnT2r5HhZU/8AWoRmlbj0EdsyJ+/NlUN0YcAS9JYNf7cy7Sp5n1WDtGTNkiT05Rj
+ DPbw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhYlEJ6kxtBuJ2vrH5MpAHyJ3kWXee8ChXJMMZV878QNrNe7suyrAzIIFB3cP/HRH/TN29SlB8a3L9Em6R5U6EaxYaiw3XSf7tECuZ/owE3BXWMCV7GrSE
-X-Gm-Message-State: AOJu0Yy3sg1acUghcgiVg/5xDHwSzMMV/CVBzb57Wgu+WbZUJf2Cut9v
- 9idjI8peyQsKHLbl9oQeWE0pIoT5m6LeI6T+jXDSbdP8AVztG5w1
-X-Google-Smtp-Source: AGHT+IFqSZIGLTjK5nMNqJ0mC/A+H31d6ZqUqt7xA4Zv5XlbR7MTAcjYaOiWvzrP3SvxWDabVUin/A==
-X-Received: by 2002:a17:906:b0c:b0:a3e:5b7f:6d31 with SMTP id
- u12-20020a1709060b0c00b00a3e5b7f6d31mr4677754ejg.5.1708439320970; 
- Tue, 20 Feb 2024 06:28:40 -0800 (PST)
-Received: from localhost
- (p200300e41f2d4600f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f2d:4600:f22f:74ff:fe1f:3a53])
- by smtp.gmail.com with ESMTPSA id
- vi10-20020a170907d40a00b00a3e7713dcbesm2523386ejc.39.2024.02.20.06.28.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 06:28:40 -0800 (PST)
-Mime-Version: 1.0
-Date: Tue, 20 Feb 2024 15:28:39 +0100
-Message-Id: <CZ9Z70HO2C7J.398BRNM8NBIG1@gmail.com>
-From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Serge Semin" <fancer.lancer@gmail.com>
-X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
-References: <20240219-stmmac-axi-config-v3-0-fca7f046e6ee@nvidia.com>
- <20240219-stmmac-axi-config-v3-3-fca7f046e6ee@nvidia.com>
- <xne2i6jwqaptsrd2hjdahxbscysgtj7iabqendyjb75fnrjc5z@js7n7qngtzym>
-In-Reply-To: <xne2i6jwqaptsrd2hjdahxbscysgtj7iabqendyjb75fnrjc5z@js7n7qngtzym>
-Cc: Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-tegra@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Configure
- AXI on Tegra234 MGBE
+ AJvYcCUCDNjX880dhDa9QCG7GUyo9cAemzLm/Zt95lZcypti0X0z4PRzT1IdaLolR0yVEM01lFnRLDhHzSnpdYNhg5THRYOd3llhma3gOatkURpOA7zfbigytBdN
+X-Gm-Message-State: AOJu0YwlRozJfV8R5xcQVo6pNYZlcs2kVnTpi/kNycCGBTxrJcUhtExP
+ 84Q9FvQKkn83r/yg0b/vpHrzJgOLouo02mvN4yckdVYuJHUlYNxRgYnDznpW+Vg=
+X-Google-Smtp-Source: AGHT+IFcO8MiaoD6Cte2ItgLhV+w9LAMsoeBHZyEn5ZrO/x7ZBnibRjWEqOEGIuYMtJYCpOsxEMCFg==
+X-Received: by 2002:a17:906:28d1:b0:a3e:c77a:8100 with SMTP id
+ p17-20020a17090628d100b00a3ec77a8100mr4485554ejd.17.1708449513035; 
+ Tue, 20 Feb 2024 09:18:33 -0800 (PST)
+Received: from krava ([83.240.60.70]) by smtp.gmail.com with ESMTPSA id
+ g1-20020a170906c18100b00a3e278c4a3fsm3668349ejz.53.2024.02.20.09.18.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Feb 2024 09:18:32 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Tue, 20 Feb 2024 18:18:30 +0100
+To: Menglong Dong <dongmenglong.8@bytedance.com>
+Message-ID: <ZdTe5pyV16y4wYzv@krava>
+References: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
+ <20240220035105.34626-3-dongmenglong.8@bytedance.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20240220035105.34626-3-dongmenglong.8@bytedance.com>
+Cc: yonghong.song@linux.dev, davemarchevsky@fb.com, song@kernel.org,
+ sdf@google.com, linux-kselftest@vger.kernel.org, thinker.li@gmail.com,
+ shuah@kernel.org, linux-stm32@st-md-mailman.stormreply.com, mykolal@fb.com,
+ daniel@iogearbox.net, john.fastabend@gmail.com, andrii@kernel.org,
+ zhoufeng.zf@bytedance.com, ast@kernel.org, dxu@dxuuu.xyz, kpsingh@kernel.org,
+ linux-arm-kernel@lists.infradead.org, haoluo@google.com,
+ linux-kernel@vger.kernel.org, eddyz87@gmail.com, mcoquelin.stm32@gmail.com,
+ bpf@vger.kernel.org, martin.lau@linux.dev
+Subject: Re: [Linux-stm32] [PATCH bpf-next 2/5] bpf: tracing: support to
+ attach program to multi hooks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,189 +85,195 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4290464016755656984=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============4290464016755656984==
-Content-Type: multipart/signed;
- boundary=54d881cc30ca662a73cfdacbec92cecca394f1f83ef4012a7b29e0247a47;
- micalg=pgp-sha256; protocol="application/pgp-signature"
+On Tue, Feb 20, 2024 at 11:51:02AM +0800, Menglong Dong wrote:
 
---54d881cc30ca662a73cfdacbec92cecca394f1f83ef4012a7b29e0247a47
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+SNIP
 
-On Mon Feb 19, 2024 at 7:32 PM CET, Serge Semin wrote:
-> On Mon, Feb 19, 2024 at 05:46:06PM +0100, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > Allow the device to use bursts and increase the maximum number of
-> > outstanding requests to improve performance. Measurements show an
-> > increase in throughput of around 5x on a 1 Gbps link.
-> >=20
-> > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > ---
-> >  drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >=20
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/driver=
-s/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > index bab57d1675df..b6bfa48f279d 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > @@ -199,6 +199,12 @@ static void mgbe_uphy_lane_bringup_serdes_down(str=
-uct net_device *ndev, void *mg
-> >  	writel(value, mgbe->xpcs + XPCS_WRAP_UPHY_RX_CONTROL);
-> >  }
-> > =20
-> > +static const struct stmmac_axi tegra234_mgbe_axi =3D {
-> > +	.axi_wr_osr_lmt =3D 63,
-> > +	.axi_rd_osr_lmt =3D 63,
-> > +	.axi_blen =3D { 256, },
-> > +};
-> > +
-> >  static int tegra_mgbe_probe(struct platform_device *pdev)
-> >  {
-> >  	struct plat_stmmacenet_data *plat;
-> > @@ -284,6 +290,9 @@ static int tegra_mgbe_probe(struct platform_device =
-*pdev)
-> >  	if (err < 0)
-> >  		goto disable_clks;
-> > =20
-> > +	/* setup default AXI configuration */
-> > +	res.axi =3D &tegra234_mgbe_axi;
-> > +
-> >  	plat =3D devm_stmmac_probe_config_dt(pdev, &res);
-> >  	if (IS_ERR(plat)) {
-> >  		err =3D PTR_ERR(plat);
->
-> Let's get back to the v2 discussion:
->
-> On Mon Feb 5, 2024 at 1:44 AM CET, Serge Semin wrote:
-> > The entire series can be converted to just a few lines of change:
-> >     plat =3D devm_stmmac_probe_config_dt(pdev, res.mac);
-> >     if (IS_ERR(plat)) {
-> >             err =3D PTR_ERR(plat);
-> >             goto disable_clks;
-> >     }
-> > +
-> > +   if (IS_ERR_OR_NULL(plat->axi)) {
-> > +           plat->axi =3D devm_kzalloc(&pdev->dev, sizeof(*axi), GFP_KE=
-RNEL);
-> > +           if (!plat->axi) {
-> > +                   ret =3D -ENOMEM;
-> > +                   goto disable_clks;
-> > +           }
-> > +   } /* else memset plat->axi with zeros if you wish */
-> > +
-> > +   plat->axi->axi_wr_osr_lmt =3D 63;
-> > +   plat->axi->axi_rd_osr_lmt =3D 63;
-> > +   plat->axi->axi_blen[0] =3D 256;
-> > =20
-> >     plat->has_xgmac =3D 1;
-> >     plat->flags |=3D STMMAC_FLAG_TSO_EN;
-> >     plat->pmt =3D 1;
-> >
-> > Please don't overcomplicate the already overcomplicated driver with a
-> > functionality which can be reached by the default one. In this case
-> > the easiest way is to let the generic code work and then
-> > override/replace/fix/etc the retrieved values. Thus there won't be
-> > need in adding the redundant functionality and keep the generic
-> > DT-platform code a bit simpler to read.
->
-> You responded with:
->
-> On Tue, Feb 13, 2024 at 04:51:34PM +0100, Thierry Reding wrote:
-> > I'm not sure I understand how this is overcomplicating things. The code
-> > is pretty much unchanged, except that the AXI configuration can now hav=
-e
-> > driver-specified defaults before the DT is parsed. Perhaps I need to ad=
-d
-> > comments to make that a bit clearer?
-> >=20
-> > While your version is certainly simpler it has the drawback that it no
-> > longer allows the platform defaults to be overridden in device tree. I
-> > would prefer if the defaults can be derived from the compatible string
-> > but if need be for those defaults to still be overridable from device
-> > tree.
->
-> Currently available functionality is easier to read and understand: by
-> default the data is retrieved from the DT, if no AXI DT-node found you
-> can allocate/create your own AXI-configs, if there is AXI DT-node you
-> can fix it up in whatever way your wish. Thus the default behavior is
-> straightforward. You on the contrary suggest to add an additional
-> field to the resources structure which would need to be merged in with
-> the data retrieved from DT. It makes the stmmac_axi_setup() method and
-> the entire logic more complex and thus harder to comprehend.
+> @@ -3228,7 +3260,9 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  	struct bpf_link_primer link_primer;
+>  	struct bpf_prog *tgt_prog = NULL;
+>  	struct bpf_trampoline *tr = NULL;
+> +	struct btf *attach_btf = NULL;
+>  	struct bpf_tracing_link *link;
+> +	struct module *mod = NULL;
+>  	u64 key = 0;
+>  	int err;
+>  
+> @@ -3258,31 +3292,50 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  		goto out_put_prog;
+>  	}
+>  
+> -	if (!!tgt_prog_fd != !!btf_id) {
+> -		err = -EINVAL;
+> -		goto out_put_prog;
+> -	}
+> -
+>  	if (tgt_prog_fd) {
+> -		/*
+> -		 * For now we only allow new targets for BPF_PROG_TYPE_EXT. If this
+> -		 * part would be changed to implement the same for
+> -		 * BPF_PROG_TYPE_TRACING, do not forget to update the way how
+> -		 * attach_tracing_prog flag is set.
+> -		 */
+> -		if (prog->type != BPF_PROG_TYPE_EXT) {
+> +		if (!btf_id) {
+>  			err = -EINVAL;
+>  			goto out_put_prog;
+>  		}
+> -
+>  		tgt_prog = bpf_prog_get(tgt_prog_fd);
+>  		if (IS_ERR(tgt_prog)) {
+> -			err = PTR_ERR(tgt_prog);
+>  			tgt_prog = NULL;
+> -			goto out_put_prog;
+> +			/* tgt_prog_fd is the fd of the kernel module BTF */
+> +			attach_btf = btf_get_by_fd(tgt_prog_fd);
 
-I suppose that's subjective. Being able to let the driver provide
-defaults that can then be overridden by values from DT doesn't seem like
-a very exotic (or complicated) feature to me. We do that elsewhere all
-the time. Do the comments that I added in this version not sufficiently
-explain what's going on?
+I think we should pass the btf_fd through attr, like add
+link_create.tracing_btf_fd instead, this seems confusing
 
-> The driver is already overwhelmed with flags and private/platform data
-> fixing the code here and there (see plat_stmmacenet_data, it's a
-> madness). So please justify in more details why do you need one more
-> complexity added instead of:
-> 1. overriding the AXI-configs retrieved from DT,
+> +			if (IS_ERR(attach_btf)) {
+> +				attach_btf = NULL;
+> +				err = -EINVAL;
+> +				goto out_put_prog;
+> +			}
+> +			if (!btf_is_kernel(attach_btf)) {
+> +				btf_put(attach_btf);
+> +				err = -EOPNOTSUPP;
+> +				goto out_put_prog;
+> +			}
+> +		} else if (prog->type == BPF_PROG_TYPE_TRACING &&
+> +			   tgt_prog->type == BPF_PROG_TYPE_TRACING) {
+> +			prog->aux->attach_tracing_prog = true;
+>  		}
 
-Again, overriding the AXI configs read from DT doesn't keep the current
-default behaviour of DT being the final authority. That's a policy that
-should remain intact. This patch (series) is about allowing the driver
-to override the AXI defaults with something that's sensible based on
-the compatible string. The current defaults, for example, cause the GBE
-on Tegra devices to run at around 100 Mbps even on a 1 Gbps link.
+could you please add comment on why this check is in here?
 
-> 2. updating DT on your platform
+> -
+> -		key = bpf_trampoline_compute_key(tgt_prog, NULL, btf_id);
+> +		key = bpf_trampoline_compute_key(tgt_prog, attach_btf,
+> +						 btf_id);
+> +	} else if (btf_id) {
+> +		attach_btf = bpf_get_btf_vmlinux();
+> +		if (IS_ERR(attach_btf)) {
+> +			attach_btf = NULL;
+> +			err = PTR_ERR(attach_btf);
+> +			goto out_unlock;
+> +		}
+> +		if (!attach_btf) {
+> +			err = -EINVAL;
+> +			goto out_unlock;
+> +		}
+> +		btf_get(attach_btf);
+> +		key = bpf_trampoline_compute_key(NULL, attach_btf, btf_id);
+> +	} else {
+> +		attach_btf = prog->aux->attach_btf;
+> +		/* get the reference of the btf for bpf link */
+> +		if (attach_btf)
+> +			btf_get(attach_btf);
+>  	}
+>  
+>  	link = kzalloc(sizeof(*link), GFP_USER);
+> @@ -3319,7 +3372,7 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  	 *   are NULL, then program was already attached and user did not provide
+>  	 *   tgt_prog_fd so we have no way to find out or create trampoline
+>  	 */
+> -	if (!prog->aux->dst_trampoline && !tgt_prog) {
+> +	if (!prog->aux->dst_trampoline && !tgt_prog && !btf_id) {
+>  		/*
+>  		 * Allow re-attach for TRACING and LSM programs. If it's
+>  		 * currently linked, bpf_trampoline_link_prog will fail.
+> @@ -3346,17 +3399,27 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  		 * different from the destination specified at load time, we
+>  		 * need a new trampoline and a check for compatibility
+>  		 */
+> +		struct btf *origin_btf = prog->aux->attach_btf;
+>  		struct bpf_attach_target_info tgt_info = {};
+>  
+> +		/* use the new attach_btf to check the target */
+> +		prog->aux->attach_btf = attach_btf;
+>  		err = bpf_check_attach_target(NULL, prog, tgt_prog, btf_id,
+>  					      &tgt_info);
+> +		prog->aux->attach_btf = origin_btf;
 
-That's one possibility and was in fact the first variant I used, but it
-has a few drawbacks. For example, it means that I need to create the AXI
-node just to make the device functional, but if possible it's better to
-derive all necessary information from the compatible string. Having this
-in a separate AXI configuration node is duplicating information that's
-already implied by the compatible string.
+could we pass the attach_btf as argument then?
 
-Also, on Tegra we have a few instances of this device that are all
-configured the same way. Since the AXI configuration node is supposed to
-be a child of the Ethernet controller node, we end up having to
-duplicate even more information.
+jirka
 
-Thierry
-
---54d881cc30ca662a73cfdacbec92cecca394f1f83ef4012a7b29e0247a47
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXUtxgACgkQ3SOs138+
-s6FwXw/+NI5f4NQaxXMdNTZw4i9JMgVZR8IurQ/Weei3I0HDz7t17hwB+g3eRjuk
-6XhD92hL3YpUuV6Ii96Wfb0JrtL5j651COCXyaRxaGU/vRvtYJvwEmpRLKEds35H
-6oARkoy40FoDUKKbnsrVT81ERAKSZgVNyAIFWM3byS4ez3R6Kp+Lf9BiRjkVlvbo
-KWdb1KfGC+EOCv2WIVFZA2R4OH1H4AmOp2cJa/PWha3+FW66aj9Xdgena7wu4KiJ
-R/Q+gmFK3uPG6pBO3O2+HF1SkI8ECAW73rX90qzw/3Ie0i5yPaqPo8yxmLI29AhM
-mPY7vq8hGnCTKiYwvy4je86ajKD/zrjiaxCNlgl155dk3Q+2iYNgDXcFlIb0au9Q
-AK6Mu8AAxrVkp14t94gpkZvb5EnUKYQO1OtZKiv+jmKXYyoaESSlmw9kvmySifJY
-T6aNUw91fFA5eiRu59oHnjbz2WIt+/yLTgJyVZURT+4E8Ajvs6v4kLVvv5hGp5d7
-E5gU8XQGnWcCFlDT0ojxQXV55arCHXuP85ijD+sqFJhjBAcysNBRgEHLH0lHs6/W
-NmO8VFLECjL0932LLbhiZV4XrP9ou4wSP4Hz576nGLMlJRmNAlOepaOO8XYFyOuc
-J/afiFERL2IogN5FYu075zt3Tg2/4jXPJMOJE1BQMPNwPAirrbo=
-=1yTl
------END PGP SIGNATURE-----
-
---54d881cc30ca662a73cfdacbec92cecca394f1f83ef4012a7b29e0247a47--
-
---===============4290464016755656984==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>  		if (err)
+>  			goto out_unlock;
+>  
+> -		if (tgt_info.tgt_mod) {
+> -			module_put(prog->aux->mod);
+> -			prog->aux->mod = tgt_info.tgt_mod;
+> -		}
+> +		mod = tgt_info.tgt_mod;
+> +		/* the new target and the previous target are in the same
+> +		 * module, release the reference once.
+> +		 */
+> +		if (mod && mod == prog->aux->mod)
+> +			module_put(mod);
+> +		err = bpf_tracing_check_multi(prog, tgt_prog, attach_btf,
+> +					      tgt_info.tgt_type);
+> +		if (err)
+> +			goto out_unlock;
+>  
+>  		tr = bpf_trampoline_get(key, &tgt_info);
+>  		if (!tr) {
+> @@ -3373,6 +3436,7 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  		 */
+>  		tr = prog->aux->dst_trampoline;
+>  		tgt_prog = prog->aux->dst_prog;
+> +		mod = prog->aux->mod;
+>  	}
+>  
+>  	err = bpf_link_prime(&link->link.link, &link_primer);
+> @@ -3388,6 +3452,8 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  
+>  	link->tgt_prog = tgt_prog;
+>  	link->trampoline = tr;
+> +	link->attach_btf = attach_btf;
+> +	link->mod = mod;
+>  
+>  	/* Always clear the trampoline and target prog from prog->aux to make
+>  	 * sure the original attach destination is not kept alive after a
+> @@ -3400,20 +3466,27 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+>  	if (prog->aux->dst_trampoline && tr != prog->aux->dst_trampoline)
+>  		/* we allocated a new trampoline, so free the old one */
+>  		bpf_trampoline_put(prog->aux->dst_trampoline);
+> +	if (prog->aux->mod && mod != prog->aux->mod)
+> +		/* the mod in prog is not used anywhere, move it to link */
+> +		module_put(prog->aux->mod);
+>  
+>  	prog->aux->dst_prog = NULL;
+>  	prog->aux->dst_trampoline = NULL;
+> +	prog->aux->mod = NULL;
+>  	mutex_unlock(&prog->aux->dst_mutex);
+>  
+>  	return bpf_link_settle(&link_primer);
+>  out_unlock:
+>  	if (tr && tr != prog->aux->dst_trampoline)
+>  		bpf_trampoline_put(tr);
+> +	if (mod && mod != prog->aux->mod)
+> +		module_put(mod);
+>  	mutex_unlock(&prog->aux->dst_mutex);
+>  	kfree(link);
+>  out_put_prog:
+>  	if (tgt_prog_fd && tgt_prog)
+>  		bpf_prog_put(tgt_prog);
+> +	btf_put(attach_btf);
+>  	return err;
+>  }
+>  
+> -- 
+> 2.39.2
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4290464016755656984==--
