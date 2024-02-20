@@ -2,133 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FC0285B065
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 02:16:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48FBA85B218
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 06:08:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F068EC6B460;
-	Tue, 20 Feb 2024 01:16:57 +0000 (UTC)
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2075.outbound.protection.outlook.com [40.107.113.75])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A4E8C6B45E;
+	Tue, 20 Feb 2024 05:08:16 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D97BCC6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 052C2C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 01:16:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kOG2MPU0O1OqZeG/7nnUp3QEZEZo5oh6A46OPvLEu+FnAuISLwY2Ah9Zb+LT0fYy9SOW2oKNGb4wiaRqzgJQBnxFv0+kFL/qHyvdC3vkhfNUJJusLskB20qZRKY2o9zi9z6Z7NwcHm6CrjNQVEEgkVuB8vqlK/o8/qEMvW1JTlfHDA5UPeGeLX3MZ4FEiEqLro6bVIEkd7bbQM2wEQ1t+GZWn/JG/PQiVpHLUY1oiboCH78H+ZC4ffPWY8SxNW8WhBM5rRTMZdWOPyby9s6L1AYa7Lx8ypxj+D8ATBgyScw7gZUIE4gfmRAXRi4JJmE16vIh7vL6tzJ7kOKs8g0TIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=A/rjfCIWT7XVsWXV9kGqeLzCSxz7JQZ1Lzv9T7sH5CAqepvZNw/MzLsx2Yg6N7kD7HlR+BOh46/4eBWcP1qUk4xExGNK11mpbBBh0vqRL0lRZGc6PIf5KgPMaGiLF59hEy5dsQS6DXZ/vVXxXHvBG9udAKTFd2kALUpSvWIZLANHLWj6OOIPejZOCXcir4Do1OFpr2BQAK3ELGqwNps3xECUhWWBezk9LrAVFKdiCqpiWUeHdh8ADTV5LxcxfGa0ZUGp04ZKMM+TnwMGIc4FHtNu38yptzcOOHPPui8OZBOn0oIfzbL0RVsJ/43knX1Jp8IbbGhPN23s5+pvX+aNPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=bZsFAB9HebwFwqY2K5fALKhoSGEgyd8Z0pqss/3FvibP1fp4VXEd/wefD8t24SgU8Bzj3Nnv+oyd81GRcxQAqyn0i79qaB28dbwHKSkdYLGLsfzJqnxYH9SiFkAGhNIxmbLIdU5IEDVh4ewNndY5zlGL14rZcGulnWKInqoY80A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by TYCPR01MB10730.jpnprd01.prod.outlook.com
- (2603:1096:400:296::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39; Tue, 20 Feb
- 2024 01:16:52 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::4d0b:6738:dc2b:51c8%6]) with mapi id 15.20.7292.029; Tue, 20 Feb 2024
- 01:16:52 +0000
-Message-ID: <87y1bgj5oc.wl-kuninori.morimoto.gx@renesas.com>
-To: "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>,	=?ISO-8859-1?Q?=22Uwe_?=
- =?ISO-8859-1?Q?Kleine-K=F6nig=22?= <u.kleine-koenig@pengutronix.de>,	Alain
- Volmat <alain.volmat@foss.st.com>,	Alexandre Belloni
- <alexandre.belloni@bootlin.com>,	Alexandre Torgue
- <alexandre.torgue@foss.st.com>,	Alexey Brodkin <abrodkin@synopsys.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,	Andrzej Hajda
- <andrzej.hajda@intel.com>,	Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,	Claudiu Beznea
- <claudiu.beznea@tuxon.dev>,	Daniel Vetter <daniel@ffwll.ch>,	Dave Stevenson
- <dave.stevenson@raspberrypi.com>,	David Airlie <airlied@gmail.com>,	Eugen
- Hristev <eugen.hristev@collabora.com>,	Florian Fainelli
- <florian.fainelli@broadcom.com>,	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Helge Deller <deller@gmx.de>,	Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Jacopo Mondi <jacopo@jmondi.org>,	Jessica Zhang
- <quic_jesszhan@quicinc.com>,	Krzysztof Kozlowski
- <krzysztof.kozlowski@linaro.org>,	Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>,	Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,	Mauro Carvalho Chehab
- <mchehab@kernel.org>,	Maxime Coquelin <mcoquelin.stm32@gmail.com>,	Maxime
- Ripard <mripard@kernel.org>,	Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,	Sakari Ailus
- <sakari.ailus@linux.intel.com>,	Sam Ravnborg <sam@ravnborg.org>,	Sylwester
- Nawrocki <s.nawrocki@samsung.com>,	Thomas Zimmermann <tzimmermann@suse.de>,
- Tim Harvey <tharvey@gateworks.com>,	dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org,	linux-fbdev@vger.kernel.org,
- linux-media@vger.kernel.org,	linux-omap@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org,	linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-In-Reply-To: <874je4kkdn.wl-kuninori.morimoto.gx@renesas.com>
-References: <874je4kkdn.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 20 Feb 2024 01:16:52 +0000
-X-ClientProxiedBy: TYCP286CA0092.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b4::10) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|TYCPR01MB10730:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d26bfcf-b8c6-486a-3238-08dc31b19ed7
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9Hd1cP0a9uANPQ8rFQ2g2Z4kIf8YS5a4L4DcvdTkvKh7YLP7P11ISDCgrQdSG6rXvVirh16T+pCsaEecF3wEJXf3utcJjugux+YaPWHBe5pkR8pmZew/mG4dg4lgWGScQvg8mvi8Ef+KsoniKE3D799AqZCjHuOrRsmmVCZaMsJDQgu16DaaIXtdbgaAFQk9ko6vKpmamHvIEhVHWnkx79mKunuOx7X329DeR/PluYUd2oV5/2CGrDuUjjNawVVfN44lm+1q8mFHYsDb8G8ECfucRhQZ6UG+DtE7R8MRFj6dTRsEjaza7oQ0c7Z+7DEC9cMkOg2qCYAL8dQvSoKm/32W9TbbaoNgumWOt3EFW7bMEswAz1DZyLqOrhv56lxsz25aimkln0o3VXJ3Zm+tAE0ES3QY9iaSY90QN3yCDZDWZtBVwzd4XMkURJZhOMs9PEFPSHEa3ToVIxFWVZR4TnkxjkwfniAZxbvmNk40bW4Pg9jh9yAXhuopqLgRf/O0+D6A30HEgxhiy7lGSeJvbLhZNVnt4YXHGfVwCYdNpwQm2ci2Xjao6dFoq761AA2go0xp6SlHxbTOw/m37w3KtPRgCJfPNgy1iMdngxKuPiPDB+wW740/FfiI4AxG1ug9
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(38350700005)(921011); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?i+ckKuOPcvWCQI/6LCEN7ITVi1XKEIpX/DLWvvIppzL4uZRWFsNDsfB6GEYC?=
- =?us-ascii?Q?2/VqNmGiMI8HgLDzfCnK1QDjBykI9XkY86ptXmBE9EafiBZV5krtKQvhJ7ww?=
- =?us-ascii?Q?ZhIw9SAUHvHwo2E2u0uO999C5T6BmS6ulwaP59XQALstIATSEXdbTUQ0QutK?=
- =?us-ascii?Q?7+WNbAs2BVzMJ/YvF8lf2231Cu+CAkIVk6BRSvRytP3zH4uBHjxTjL571O+w?=
- =?us-ascii?Q?Ta2L7ZL/+6H7fUplt61BBHFte+2V20Y6So7vAR+dTsMQtFFAxIZySbJTKmEr?=
- =?us-ascii?Q?TgW0t4RCOtJqz/P4riNqXPG4tHMlty7ylGx2Vnvri2GYk2kyYkN3CMtnTTl8?=
- =?us-ascii?Q?KcY7WdSxulVTjlmpy7Qru2wfXA/0h/UfW2+OIttG8QVSJgsywavDDp2Ulidy?=
- =?us-ascii?Q?fKtW5cQNk29uRSWhLK+IAXG+JMUdiIiQJi/EZ8satX3b8yMaLJMKE5UT4/Qb?=
- =?us-ascii?Q?om0tUN/MmJ7uDJ2e7EonY2NOYDRpOZKFrKIZqjz0uoxcjF/7rwr0n2KLj4mN?=
- =?us-ascii?Q?UFE54X7X7duanHAnu2py1za2bye7ruK9KRBNXTgOtQ1J9Qc6e7gto7vTvW76?=
- =?us-ascii?Q?fopB1Gk69khHJj0n13m2XernBXmBQZMwsIefyuud8jK3N9vzEM7kOFABKeCO?=
- =?us-ascii?Q?0I+mAWkyEURH6shJXts3JxrkvjqI4/zwXGjdbLExzFojHq98I/t0edelqN3e?=
- =?us-ascii?Q?63ZZSg1KjpxyLfGNCYLBO84Bb5xohvVxNJYLpIhWC6a/CFjlhAJu2xXjO8tI?=
- =?us-ascii?Q?KXRRQfDe6syD/L0bXeEemrZ5lOKLHgN0lYedgdqqz43Anr0XJUYFvK0o2ZZ2?=
- =?us-ascii?Q?chDwXSyRWVls0lnM0WYP2hCG40U7t+PGzRzcNMON0H7lQcV3h/vxRfU8H1jM?=
- =?us-ascii?Q?R0CH8gZ14zZVHp56Oo9+OPv6B+BNGmPMsHOMvDq2MWYlLnvlRgSykuFESSso?=
- =?us-ascii?Q?G6S3vELyfccg4535LB3+9TUKZqqgGMqgLQ06s3Iq6E9xptlZH/C5pPrhfBCJ?=
- =?us-ascii?Q?d5y42zSybojYh2V1DjYbo37CcS1AXqX1eyOPlWTX1HcqtErEbMq4M54psqCs?=
- =?us-ascii?Q?G7IJNCVm6x+nmciA6aMut8FChKY2Ip4h6qtmF2nNIqSkqED5SqawzZhOTL2/?=
- =?us-ascii?Q?WdJ+9jZyrI/AQsSfHYT8OWxKEpAHyt3X2y/s0YFBVONIZzJg1qOhbcEl2Y7R?=
- =?us-ascii?Q?E+gMBl4lu38HdLIlMJLC0EdrO96DH0tUEIIKuqjnihA2UogXytdgE8wiWxHO?=
- =?us-ascii?Q?fkAD4Im1zCk5U6iDJaVvk6/LgmWfOpJ1eFAkkl6Y/O//RnXYBfsZAXeCxctp?=
- =?us-ascii?Q?fNqWsvW6PSWvaCWmbtyeWS9FefJKHPgumcRXxV4hGK4WOdE8nAAQNkAju+0t?=
- =?us-ascii?Q?KH//vrWHfdw/MpXIwIGmKfUWOitaF72FqQIi1dcKC6duLHR57mtV5aIqqVQe?=
- =?us-ascii?Q?UDPCnUNk3cvEQap1YmD9NsqREavt3t6MJKs7PahcsOMpoMUbumBBHnEarXRd?=
- =?us-ascii?Q?RzryhsqVf/NtSHSkE9mN5EmxFkuDdOvO7YxcKO8eeuKhEapzMRkWAUkmlgFy?=
- =?us-ascii?Q?b5VZW4Er7Jt6A6ngjVlCiTIjnuJgR/UlyCrCnhnE+E4VBKKFw0XSWGYE2TzA?=
- =?us-ascii?Q?0vf9nd/4o1oXhhbZlZOsHbc=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d26bfcf-b8c6-486a-3238-08dc31b19ed7
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 01:16:52.4622 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pF7DmZqmBHqrSoAGLtmP6zeXzb239ACwWPV0Y0A8GEo8yaRPG49ECNbhenuBTmYzhvhItej97nqAn3voWAGT/jtLlQ+aDZGRGPKnl80AjI1Tv+Ql/7gCgit0+PpdlxkW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10730
-Subject: [Linux-stm32] [PATCH v2 resend 4/4] video: fbdev: replace
-	of_graph_get_next_endpoint()
+ Tue, 20 Feb 2024 05:08:14 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41K4kSDM024893; Tue, 20 Feb 2024 05:07:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ from:to:cc:subject:date:message-id; s=qcppdkim1; bh=MhtlekRsepEl
+ CIsKwt+ETmTkwwxR1cINhfvJXfVw7aU=; b=GO/vQvx9SXK9PrwyrPdfLbcOwIni
+ lA9MXRxuS6GRGBo/DIQtGgGCxWE4P30cLD0iqU0N44f312Ic1LphWfh4U7x1Igho
+ LqQ7JEBgIIWwR/PzbbOTbe+DuBpNU6p4Eym4DTlQHNKAtqMhgmrxMN8u/rhb7hNC
+ MR1v3j9MlLWkjGaq8N7nED3+6SwEN0gZIoDnYuJPywmcajaLBAhCtJikWwfZphwn
+ S1Kotu8NKnQHFq0wR9SCks4acE/WUwymoKBFQR4m6SxDO/hRXJKwfbbURfRN8zpt
+ wtbyH7zSHOBzRRlar/fStSCxW9p09p13TUMhYNuyASfYTuiBYLUv9qAkHA==
+Received: from apblrppmta02.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wcnbd80x4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 20 Feb 2024 05:07:53 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTP id 41K56ZaB032676; 
+ Tue, 20 Feb 2024 05:07:48 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 3wanvkbfmx-1;
+ Tue, 20 Feb 2024 05:07:48 +0000
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com
+ [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 41K57mlP000910;
+ Tue, 20 Feb 2024 05:07:48 GMT
+Received: from hu-maiyas-hyd.qualcomm.com (hu-snehshah-hyd.qualcomm.com
+ [10.147.246.35])
+ by APBLRPPMTA02.qualcomm.com (PPS) with ESMTP id 41K57mPg000907;
+ Tue, 20 Feb 2024 05:07:48 +0000
+Received: by hu-maiyas-hyd.qualcomm.com (Postfix, from userid 2319345)
+ id 454B15013A6; Tue, 20 Feb 2024 10:37:47 +0530 (+0530)
+From: Sneh Shah <quic_snehshah@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>, Bhupesh Sharma <bhupesh.sharma@linaro.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Tue, 20 Feb 2024 10:37:35 +0530
+Message-Id: <20240220050735.29507-1-quic_snehshah@quicinc.com>
+X-Mailer: git-send-email 2.17.1
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: gxu3sjaCAaaVmTgWOtimBZ76QZLeF7Zl
+X-Proofpoint-ORIG-GUID: gxu3sjaCAaaVmTgWOtimBZ76QZLeF7Zl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-20_04,2024-02-19_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=999 clxscore=1011
+ priorityscore=1501 malwarescore=0 bulkscore=0 impostorscore=0 mlxscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.19.0-2401310000
+ definitions=main-2402200034
+Cc: Sneh Shah <quic_snehshah@quicinc.com>, kernel@quicinc.com,
+ Andrew Halaney <ahalaney@redhat.com>
+Subject: [Linux-stm32] [PATCH net-next v5] net: stmmac: dwmac-qcom-ethqos:
+	Add support for 2.5G SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,185 +90,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From DT point of view, in general, drivers should be asking for a
-specific port number because their function is fixed in the binding.
+Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
+mode for 1G/100M/10M speed.
+Added changes to configure serdes phy and mac based on link speed.
+Changing serdes phy speed involves multiple register writes for
+serdes block. To avoid redundant write operations only update serdes
+phy when new speed is different.
+For 2500 speed MAC PCS autoneg needs to disabled. Added changes to
+disable MAC PCS autoneg if ANE parameter is not set.
 
-of_graph_get_next_endpoint() doesn't match to this concept.
-
-Simply replace
-
-	- of_graph_get_next_endpoint(xxx, NULL);
-	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
-
-Link: https://lore.kernel.org/r/20240202174941.GA310089-robh@kernel.org
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
 ---
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
- drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
- drivers/video/fbdev/pxafb.c                   |  2 +-
- include/video/omapfb_dss.h                    |  3 ---
- 7 files changed, 10 insertions(+), 27 deletions(-)
+v5 changelog:
+- Updated commit message with more details on MAC PCS autoneg disable
+v4 changelog:
+- Made cosmetic changes
+v3 changelog:
+- updated commit message
+---
+v2 changelog:
+- updated stmmac_pcs_ane to support autoneg disable
+- Update serdes speed to 1000 for 100M and 10M also---
+---
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 26 +++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  2 ++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index b7eb17a16ec4..1f13bcf73da5 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -28,6 +28,7 @@
- #include <linux/debugfs.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/of_platform.h>
- #include <linux/component.h>
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index 31631e3f89d0..6bbdbb7bef44 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -106,6 +106,7 @@ struct qcom_ethqos {
+ 	struct clk *link_clk;
+ 	struct phy *serdes_phy;
+ 	unsigned int speed;
++	int serdes_speed;
+ 	phy_interface_t phy_mode;
  
-@@ -5079,7 +5080,7 @@ static int dsi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	struct omap_dsi_pin_config pin_cfg;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-index 0282d4eef139..14965a3fd05b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-@@ -130,24 +130,6 @@ static struct device_node *omapdss_of_get_remote_port(const struct device_node *
- 	return np;
- }
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent)
--{
--	struct device_node *port, *ep;
--
--	port = omapdss_of_get_next_port(parent, NULL);
--
--	if (!port)
--		return NULL;
--
--	ep = omapdss_of_get_next_endpoint(port, NULL);
--
--	of_node_put(port);
--
--	return ep;
--}
--EXPORT_SYMBOL_GPL(omapdss_of_get_first_endpoint);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node)
+ 	const struct ethqos_emac_por *por;
+@@ -606,19 +607,39 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
+  */
+ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
  {
-@@ -155,7 +137,7 @@ omapdss_of_find_source_for_first_ep(struct device_node *node)
- 	struct device_node *src_port;
- 	struct omap_dss_device *src;
++	struct net_device *dev = platform_get_drvdata(ethqos->pdev);
++	struct stmmac_priv *priv = netdev_priv(dev);
+ 	int val;
  
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return ERR_PTR(-EINVAL);
+ 	val = readl(ethqos->mac_base + MAC_CTRL_REG);
  
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-index f05b4e35a842..8f407ec134dc 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-@@ -20,6 +20,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -529,7 +530,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
+ 	switch (ethqos->speed) {
++	case SPEED_2500:
++		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
++		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
++			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
++			      RGMII_IO_MACRO_CONFIG2);
++		if (ethqos->serdes_speed != SPEED_2500)
++			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
++		ethqos->serdes_speed = SPEED_2500;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
++		break;
+ 	case SPEED_1000:
+ 		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
+ 		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_100:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	case SPEED_10:
+ 		val |= ETHQOS_MAC_CTRL_PORT_SEL;
+@@ -627,6 +648,10 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
+ 			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
+ 					 SGMII_10M_RX_CLK_DVDR),
+ 			      RGMII_IO_MACRO_CONFIG);
++		if (ethqos->serdes_speed != SPEED_1000)
++			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
++		ethqos->serdes_speed = SPEED_1000;
++		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
+ 		break;
+ 	}
  
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
+@@ -799,6 +824,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 				     "Failed to get serdes phy\n");
  
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-index 03292945b1d4..4ad219f522b9 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-@@ -25,6 +25,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -561,7 +562,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
+ 	ethqos->speed = SPEED_1000;
++	ethqos->serdes_speed = SPEED_1000;
+ 	ethqos_update_link_clk(ethqos, SPEED_1000);
+ 	ethqos_set_func_clk_en(ethqos);
  
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+index aefc121464b5..13a30e6df4c1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+@@ -110,6 +110,8 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+ 	/* Enable and restart the Auto-Negotiation */
+ 	if (ane)
+ 		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
++	else
++		value &= ~GMAC_AN_CTRL_ANE;
  
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/venc.c b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-index c9d40e28a06f..0bd80d3b8f1b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-@@ -24,6 +24,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/component.h>
- 
- #include <video/omapfb_dss.h>
-@@ -764,7 +765,7 @@ static int venc_probe_of(struct platform_device *pdev)
- 	u32 channels;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
-index fa943612c4e2..2ef56fa28aff 100644
---- a/drivers/video/fbdev/pxafb.c
-+++ b/drivers/video/fbdev/pxafb.c
-@@ -2171,7 +2171,7 @@ static int of_get_pxafb_mode_info(struct device *dev,
- 	u32 bus_width;
- 	int ret, i;
- 
--	np = of_graph_get_next_endpoint(dev->of_node, NULL);
-+	np = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
- 	if (!np) {
- 		dev_err(dev, "could not find endpoint\n");
- 		return -EINVAL;
-diff --git a/include/video/omapfb_dss.h b/include/video/omapfb_dss.h
-index e8eaac2cb7b8..a8c0c3eeeb5b 100644
---- a/include/video/omapfb_dss.h
-+++ b/include/video/omapfb_dss.h
-@@ -819,9 +819,6 @@ struct device_node *
- omapdss_of_get_next_endpoint(const struct device_node *parent,
- 			     struct device_node *prev);
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node);
- #else
+ 	/* In case of MAC-2-MAC connection, block is configured to operate
+ 	 * according to MAC conf register.
 -- 
-2.25.1
+2.17.1
 
 _______________________________________________
 Linux-stm32 mailing list
