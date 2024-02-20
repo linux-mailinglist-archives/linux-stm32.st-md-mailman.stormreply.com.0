@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E4585C256
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 18:18:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E146685C25A
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 18:18:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B264C6B45E;
-	Tue, 20 Feb 2024 17:18:35 +0000 (UTC)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7648C6B45E;
+	Tue, 20 Feb 2024 17:18:45 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F132EC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C0A76C6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 17:18:33 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-a3d5e77cfbeso998460666b.0
+ Tue, 20 Feb 2024 17:18:43 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-563f675be29so5187231a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 09:18:33 -0800 (PST)
+ Tue, 20 Feb 2024 09:18:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708449513; x=1709054313;
+ d=gmail.com; s=20230601; t=1708449523; x=1709054323;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=dmxS6iktBtidz6yGIwqms+MtYfTcC8Gwrx4Li+2LctM=;
- b=UM4FxGfHEAl5nPGhZ1T5KwvmMFwRMrjwF8ICsJrQLVM3B3lIUNKuQHeK6AtQaH2rwg
- DE2ai37cxedT8Q4KjimejLynRw4hbCweWMJy+NA3SPcGRQDPZg4GTejPgBrpWfPcw2hI
- OI/mKC5fgQ2jBklSgIWy62mvJ9fqHOyGGu7/lcE6bZd9YLMeDGgPGVr79WqaHiCt92Qz
- yVqk0+m2Ype5qwTCg3EI5t4H2YT0iiM1WplJYiTTFrZMD1+L45ywUHaFCp49GYNQJ7cK
- JeCl/RRQ7AxtfBENh1RY/3/sNsvjQPVeBDP3X9ZnUdZWOxheTkJI6VuUYpw3pmNFpIwV
- 5U3w==
+ bh=2jsimXL4CWxMWFytJ0GOuQvmJcBH3su7G6flKHH6vaI=;
+ b=HxnWb6PgTV7Vkh+VkV5rl8Fl1H59X3vyfpTM99/QDp0CPwU+Y2FmOdQiGm6sAzvzQb
+ zErp/y3/7oPuUK4YZvykbG4KuUzffOSufFyDjBkqQTugSChmsSaS+nCbwqzB7ZH8Nquy
+ 9/rT7z/Q9rjbzjiKdVL7xwDx+0PuMus+6kmyQYF8rhm+0zgr3f+CQOVK580a0amgoger
+ 5hLnHRGO0sfYQZnpG0c2evD5NKFZdolfI59m6txk1HJ0iuB+q3b+11gLEjE6ixpbC4R9
+ SNq2N4rq52tnJxj3q8th+xQlP0RemCbYVoQfW7fsV8fUe/tTfv3uB5zZLyq1OfmwqrRp
+ AqfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708449513; x=1709054313;
+ d=1e100.net; s=20230601; t=1708449523; x=1709054323;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dmxS6iktBtidz6yGIwqms+MtYfTcC8Gwrx4Li+2LctM=;
- b=Mzx8gSb41wKKMPI+7INGOaLnRu9NbdUPIy6UqtwO0V7KsVhVbqDGK7xNLp8SyeXXPe
- xKt+Qt8vxM4088ZBj0eh2o2klkJ84bst6V+3OieQfzoTRLQig5lyXjQosjvDRhj3Ge0C
- bC1P+YiPiOPtZMtgUCEEruNNTuTI2YYlkLxPJocBrRF4Pg+/VZWBsMg5QOQLO7yFjolg
- IZybz3ZegaC9qOFnnMAkrtxmdx6typU0qIx6oEkp7kRj0w1kPkgpgdVasLcxMmr4klmU
- 27x7GnT2r5HhZU/8AWoRmlbj0EdsyJ+/NlUN0YcAS9JYNf7cy7Sp5n1WDtGTNkiT05Rj
- DPbw==
+ bh=2jsimXL4CWxMWFytJ0GOuQvmJcBH3su7G6flKHH6vaI=;
+ b=n8jcWwMNsEo3CS2xi/qFMDEh3MIiOB2ECR6kiHhJIR8MUkupVTWOPWomSgj4oU5EW5
+ Z/Wz1b0Ea3coMSFNjA+6XQetZCK4CoXvQEeE+VwgymwZgJT7YMbaIBB2gVyRmYVLULBO
+ CXq+nyP/ZhJ6OJft7hFBtueGvMzz/3XIU9+r8n7pPD8yqZFaj4KAI/3CtnSjjDbvm4Lx
+ cG3sFioQ4yIrlIm9bqrzQAIHdktDIEnaDAIOYfTwHwwWxw3O7jGQEi+DBFHF2zogUivt
+ JmbqwI1kIyUoQhvyp/aU/pfs2W0PREBkZRLwQh9W3LYsBveU+pcPfGzXrUSW7oOlIXSL
+ Jyig==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUCDNjX880dhDa9QCG7GUyo9cAemzLm/Zt95lZcypti0X0z4PRzT1IdaLolR0yVEM01lFnRLDhHzSnpdYNhg5THRYOd3llhma3gOatkURpOA7zfbigytBdN
-X-Gm-Message-State: AOJu0YwlRozJfV8R5xcQVo6pNYZlcs2kVnTpi/kNycCGBTxrJcUhtExP
- 84Q9FvQKkn83r/yg0b/vpHrzJgOLouo02mvN4yckdVYuJHUlYNxRgYnDznpW+Vg=
-X-Google-Smtp-Source: AGHT+IFcO8MiaoD6Cte2ItgLhV+w9LAMsoeBHZyEn5ZrO/x7ZBnibRjWEqOEGIuYMtJYCpOsxEMCFg==
-X-Received: by 2002:a17:906:28d1:b0:a3e:c77a:8100 with SMTP id
- p17-20020a17090628d100b00a3ec77a8100mr4485554ejd.17.1708449513035; 
- Tue, 20 Feb 2024 09:18:33 -0800 (PST)
+ AJvYcCWOWsZjhYSBBfUHjV6e9yfn/hOuZJBH1xDA2zkP9rIpRd3wW4xARuZWUevzQ8yeD8nwFPPvhMG0Y1qaCqhTZywDWkX6CEm5yDpvV6AFQXV4n6/ydhNmCY28
+X-Gm-Message-State: AOJu0Yz6BJDJxKflANQsLJ+qOtCXxnER5yFi09iQzNGPuPqMFt9t/JiH
+ l8Ac4oFhVGtxHZs2DuaMgze6eNcYw8K7j1tONADfUELCZQfFH2WX
+X-Google-Smtp-Source: AGHT+IHc0pN9KHkKeb7luanourVgNNVzQPzVIAPQ4poYAK/bHeBaBBTbjvPtzX2mIiyI/iKaLuo4xQ==
+X-Received: by 2002:aa7:db49:0:b0:564:a76b:aa55 with SMTP id
+ n9-20020aa7db49000000b00564a76baa55mr2426459edt.12.1708449523138; 
+ Tue, 20 Feb 2024 09:18:43 -0800 (PST)
 Received: from krava ([83.240.60.70]) by smtp.gmail.com with ESMTPSA id
- g1-20020a170906c18100b00a3e278c4a3fsm3668349ejz.53.2024.02.20.09.18.31
+ ew14-20020a056402538e00b005602346c3f5sm3823732edb.79.2024.02.20.09.18.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Feb 2024 09:18:32 -0800 (PST)
+ Tue, 20 Feb 2024 09:18:42 -0800 (PST)
 From: Jiri Olsa <olsajiri@gmail.com>
 X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
-Date: Tue, 20 Feb 2024 18:18:30 +0100
+Date: Tue, 20 Feb 2024 18:18:40 +0100
 To: Menglong Dong <dongmenglong.8@bytedance.com>
-Message-ID: <ZdTe5pyV16y4wYzv@krava>
+Message-ID: <ZdTe8LteoqR43d4q@krava>
 References: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
- <20240220035105.34626-3-dongmenglong.8@bytedance.com>
+ <20240220035105.34626-2-dongmenglong.8@bytedance.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20240220035105.34626-3-dongmenglong.8@bytedance.com>
+In-Reply-To: <20240220035105.34626-2-dongmenglong.8@bytedance.com>
 Cc: yonghong.song@linux.dev, davemarchevsky@fb.com, song@kernel.org,
  sdf@google.com, linux-kselftest@vger.kernel.org, thinker.li@gmail.com,
  shuah@kernel.org, linux-stm32@st-md-mailman.stormreply.com, mykolal@fb.com,
@@ -72,8 +72,8 @@ Cc: yonghong.song@linux.dev, davemarchevsky@fb.com, song@kernel.org,
  linux-arm-kernel@lists.infradead.org, haoluo@google.com,
  linux-kernel@vger.kernel.org, eddyz87@gmail.com, mcoquelin.stm32@gmail.com,
  bpf@vger.kernel.org, martin.lau@linux.dev
-Subject: Re: [Linux-stm32] [PATCH bpf-next 2/5] bpf: tracing: support to
- attach program to multi hooks
+Subject: Re: [Linux-stm32] [PATCH bpf-next 1/5] bpf: tracing: add support to
+ record and check the accessed args
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,186 +90,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Feb 20, 2024 at 11:51:02AM +0800, Menglong Dong wrote:
+On Tue, Feb 20, 2024 at 11:51:01AM +0800, Menglong Dong wrote:
 
 SNIP
 
-> @@ -3228,7 +3260,9 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  	struct bpf_link_primer link_primer;
->  	struct bpf_prog *tgt_prog = NULL;
->  	struct bpf_trampoline *tr = NULL;
-> +	struct btf *attach_btf = NULL;
->  	struct bpf_tracing_link *link;
-> +	struct module *mod = NULL;
->  	u64 key = 0;
->  	int err;
->  
-> @@ -3258,31 +3292,50 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  		goto out_put_prog;
->  	}
->  
-> -	if (!!tgt_prog_fd != !!btf_id) {
-> -		err = -EINVAL;
-> -		goto out_put_prog;
-> -	}
-> -
->  	if (tgt_prog_fd) {
-> -		/*
-> -		 * For now we only allow new targets for BPF_PROG_TYPE_EXT. If this
-> -		 * part would be changed to implement the same for
-> -		 * BPF_PROG_TYPE_TRACING, do not forget to update the way how
-> -		 * attach_tracing_prog flag is set.
-> -		 */
-> -		if (prog->type != BPF_PROG_TYPE_EXT) {
-> +		if (!btf_id) {
->  			err = -EINVAL;
->  			goto out_put_prog;
->  		}
-> -
->  		tgt_prog = bpf_prog_get(tgt_prog_fd);
->  		if (IS_ERR(tgt_prog)) {
-> -			err = PTR_ERR(tgt_prog);
->  			tgt_prog = NULL;
-> -			goto out_put_prog;
-> +			/* tgt_prog_fd is the fd of the kernel module BTF */
-> +			attach_btf = btf_get_by_fd(tgt_prog_fd);
+> +static int get_ctx_arg_idx_aligned(struct btf *btf, const struct btf_type *t,
+> +				   int off)
+> +{
+> +	const struct btf_param *args;
+> +	u32 offset = 0, nr_args;
+> +	int i;
+> +
+> +	nr_args = btf_type_vlen(t);
+> +	args = (const struct btf_param *)(t + 1);
+> +	for (i = 0; i < nr_args; i++) {
+> +		if (offset == off)
+> +			return i;
+> +
+> +		t = btf_type_skip_modifiers(btf, args[i].type, NULL);
+> +		offset += btf_type_is_ptr(t) ? 8 : roundup(t->size, 8);
+> +		if (offset > off)
+> +			return -1;
+> +	}
+> +	return -1;
+> +}
+> +
+> +/* This function is similar to btf_check_func_type_match(), except that it
+> + * only compare some function args of the function prototype t1 and t2.
+> + */
 
-I think we should pass the btf_fd through attr, like add
-link_create.tracing_btf_fd instead, this seems confusing
-
-> +			if (IS_ERR(attach_btf)) {
-> +				attach_btf = NULL;
-> +				err = -EINVAL;
-> +				goto out_put_prog;
-> +			}
-> +			if (!btf_is_kernel(attach_btf)) {
-> +				btf_put(attach_btf);
-> +				err = -EOPNOTSUPP;
-> +				goto out_put_prog;
-> +			}
-> +		} else if (prog->type == BPF_PROG_TYPE_TRACING &&
-> +			   tgt_prog->type == BPF_PROG_TYPE_TRACING) {
-> +			prog->aux->attach_tracing_prog = true;
->  		}
-
-could you please add comment on why this check is in here?
-
-> -
-> -		key = bpf_trampoline_compute_key(tgt_prog, NULL, btf_id);
-> +		key = bpf_trampoline_compute_key(tgt_prog, attach_btf,
-> +						 btf_id);
-> +	} else if (btf_id) {
-> +		attach_btf = bpf_get_btf_vmlinux();
-> +		if (IS_ERR(attach_btf)) {
-> +			attach_btf = NULL;
-> +			err = PTR_ERR(attach_btf);
-> +			goto out_unlock;
-> +		}
-> +		if (!attach_btf) {
-> +			err = -EINVAL;
-> +			goto out_unlock;
-> +		}
-> +		btf_get(attach_btf);
-> +		key = bpf_trampoline_compute_key(NULL, attach_btf, btf_id);
-> +	} else {
-> +		attach_btf = prog->aux->attach_btf;
-> +		/* get the reference of the btf for bpf link */
-> +		if (attach_btf)
-> +			btf_get(attach_btf);
->  	}
->  
->  	link = kzalloc(sizeof(*link), GFP_USER);
-> @@ -3319,7 +3372,7 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  	 *   are NULL, then program was already attached and user did not provide
->  	 *   tgt_prog_fd so we have no way to find out or create trampoline
->  	 */
-> -	if (!prog->aux->dst_trampoline && !tgt_prog) {
-> +	if (!prog->aux->dst_trampoline && !tgt_prog && !btf_id) {
->  		/*
->  		 * Allow re-attach for TRACING and LSM programs. If it's
->  		 * currently linked, bpf_trampoline_link_prog will fail.
-> @@ -3346,17 +3399,27 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  		 * different from the destination specified at load time, we
->  		 * need a new trampoline and a check for compatibility
->  		 */
-> +		struct btf *origin_btf = prog->aux->attach_btf;
->  		struct bpf_attach_target_info tgt_info = {};
->  
-> +		/* use the new attach_btf to check the target */
-> +		prog->aux->attach_btf = attach_btf;
->  		err = bpf_check_attach_target(NULL, prog, tgt_prog, btf_id,
->  					      &tgt_info);
-> +		prog->aux->attach_btf = origin_btf;
-
-could we pass the attach_btf as argument then?
+could we reuse btf_check_func_type_match instead? perhaps just
+adding extra argument with arguments bitmap to it?
 
 jirka
 
->  		if (err)
->  			goto out_unlock;
->  
-> -		if (tgt_info.tgt_mod) {
-> -			module_put(prog->aux->mod);
-> -			prog->aux->mod = tgt_info.tgt_mod;
-> -		}
-> +		mod = tgt_info.tgt_mod;
-> +		/* the new target and the previous target are in the same
-> +		 * module, release the reference once.
-> +		 */
-> +		if (mod && mod == prog->aux->mod)
-> +			module_put(mod);
-> +		err = bpf_tracing_check_multi(prog, tgt_prog, attach_btf,
-> +					      tgt_info.tgt_type);
-> +		if (err)
-> +			goto out_unlock;
->  
->  		tr = bpf_trampoline_get(key, &tgt_info);
->  		if (!tr) {
-> @@ -3373,6 +3436,7 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  		 */
->  		tr = prog->aux->dst_trampoline;
->  		tgt_prog = prog->aux->dst_prog;
-> +		mod = prog->aux->mod;
->  	}
->  
->  	err = bpf_link_prime(&link->link.link, &link_primer);
-> @@ -3388,6 +3452,8 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  
->  	link->tgt_prog = tgt_prog;
->  	link->trampoline = tr;
-> +	link->attach_btf = attach_btf;
-> +	link->mod = mod;
->  
->  	/* Always clear the trampoline and target prog from prog->aux to make
->  	 * sure the original attach destination is not kept alive after a
-> @@ -3400,20 +3466,27 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
->  	if (prog->aux->dst_trampoline && tr != prog->aux->dst_trampoline)
->  		/* we allocated a new trampoline, so free the old one */
->  		bpf_trampoline_put(prog->aux->dst_trampoline);
-> +	if (prog->aux->mod && mod != prog->aux->mod)
-> +		/* the mod in prog is not used anywhere, move it to link */
-> +		module_put(prog->aux->mod);
->  
->  	prog->aux->dst_prog = NULL;
->  	prog->aux->dst_trampoline = NULL;
-> +	prog->aux->mod = NULL;
->  	mutex_unlock(&prog->aux->dst_mutex);
->  
->  	return bpf_link_settle(&link_primer);
->  out_unlock:
->  	if (tr && tr != prog->aux->dst_trampoline)
->  		bpf_trampoline_put(tr);
-> +	if (mod && mod != prog->aux->mod)
-> +		module_put(mod);
->  	mutex_unlock(&prog->aux->dst_mutex);
->  	kfree(link);
->  out_put_prog:
->  	if (tgt_prog_fd && tgt_prog)
->  		bpf_prog_put(tgt_prog);
-> +	btf_put(attach_btf);
->  	return err;
->  }
->  
+> +int btf_check_func_part_match(struct btf *btf1, const struct btf_type *func1,
+> +			      struct btf *btf2, const struct btf_type *func2,
+> +			      u64 func_args)
+> +{
+> +	const struct btf_param *args1, *args2;
+> +	u32 nargs1, i, offset = 0;
+> +	const char *s1, *s2;
+> +
+> +	if (!btf_type_is_func_proto(func1) || !btf_type_is_func_proto(func2))
+> +		return -EINVAL;
+> +
+> +	args1 = (const struct btf_param *)(func1 + 1);
+> +	args2 = (const struct btf_param *)(func2 + 1);
+> +	nargs1 = btf_type_vlen(func1);
+> +
+> +	for (i = 0; i <= nargs1; i++) {
+> +		const struct btf_type *t1, *t2;
+> +
+> +		if (!(func_args & (1 << i)))
+> +			goto next;
+> +
+> +		if (i < nargs1) {
+> +			int t2_index;
+> +
+> +			/* get the index of the arg corresponding to args1[i]
+> +			 * by the offset.
+> +			 */
+> +			t2_index = get_ctx_arg_idx_aligned(btf2, func2,
+> +							   offset);
+> +			if (t2_index < 0)
+> +				return -EINVAL;
+> +
+> +			t1 = btf_type_skip_modifiers(btf1, args1[i].type, NULL);
+> +			t2 = btf_type_skip_modifiers(btf2, args2[t2_index].type,
+> +						     NULL);
+> +		} else {
+> +			/* i == nargs1, this is the index of return value of t1 */
+> +			if (get_ctx_arg_total_size(btf1, func1) !=
+> +			    get_ctx_arg_total_size(btf2, func2))
+> +				return -EINVAL;
+> +
+> +			/* check the return type of t1 and t2 */
+> +			t1 = btf_type_skip_modifiers(btf1, func1->type, NULL);
+> +			t2 = btf_type_skip_modifiers(btf2, func2->type, NULL);
+> +		}
+> +
+> +		if (t1->info != t2->info ||
+> +		    (btf_type_has_size(t1) && t1->size != t2->size))
+> +			return -EINVAL;
+> +		if (btf_type_is_int(t1) || btf_is_any_enum(t1))
+> +			goto next;
+> +
+> +		if (btf_type_is_struct(t1))
+> +			goto on_struct;
+> +
+> +		if (!btf_type_is_ptr(t1))
+> +			return -EINVAL;
+> +
+> +		t1 = btf_type_skip_modifiers(btf1, t1->type, NULL);
+> +		t2 = btf_type_skip_modifiers(btf2, t2->type, NULL);
+> +		if (!btf_type_is_struct(t1) || !btf_type_is_struct(t2))
+> +			return -EINVAL;
+> +
+> +on_struct:
+> +		s1 = btf_name_by_offset(btf1, t1->name_off);
+> +		s2 = btf_name_by_offset(btf2, t2->name_off);
+> +		if (strcmp(s1, s2))
+> +			return -EINVAL;
+> +next:
+> +		if (i < nargs1) {
+> +			t1 = btf_type_skip_modifiers(btf1, args1[i].type, NULL);
+> +			offset += btf_type_is_ptr(t1) ? 8 : roundup(t1->size, 8);
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static bool btf_is_dynptr_ptr(const struct btf *btf, const struct btf_type *t)
+>  {
+>  	const char *name;
 > -- 
 > 2.39.2
 > 
