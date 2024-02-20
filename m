@@ -2,79 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C78F85B7CD
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 10:41:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBD4E85B72E
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 10:21:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12DA2C6C858;
-	Tue, 20 Feb 2024 09:41:43 +0000 (UTC)
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D53DC6A61D;
+	Tue, 20 Feb 2024 09:21:02 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0512EC6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89D39C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 03:51:37 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-3c03d6e5e56so5188418b6e.1
+ Tue, 20 Feb 2024 09:21:01 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-512bce554a5so1810316e87.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 19:51:36 -0800 (PST)
+ Tue, 20 Feb 2024 01:21:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1708401096; x=1709005896;
+ d=gmail.com; s=20230601; t=1708420861; x=1709025661;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=XIatRLdxp59gkCuXn1TM1+7Ffjtt7PxZsUax3x716A4=;
- b=YPKoKTds/U//WoFld6E+zO9iWNArTarmHTpNt07i5cB4untHKL9D7uWLgZxP+wQ+Ng
- GbwdOW0oJfYRJMwooQrf/wsUgMqQ/Gzs2EnRBErVgyOcXZQqNjBHWkJPZcI3UCWi8Bxq
- qQPy3OSeRGaHAQM6eICfKIiW9SaNEklzXubViEtwC400i1mKHT1ztVzGkDjept5Cknnd
- ZhQm43y22MhYb7EmOD9Q9TT3vBgCZDtqBHWriNu7bsh164YoOfrvGXBCQvqxs4rtq8Wn
- 7zXLugT+hC+5kSYzVinX2323v+h6uZcCQh/vFQmk+T0WjdW+tmFmXRFuNkrQ42YKnvvW
- QeWQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=fdhB/OebAUjm/AFv0XF6TY7b9nkZEns3B+QEhrz2u2s=;
+ b=J+DqHWp6x59GPzu+M5PLbG9n6ESu+TxiK2a1PACfbt8Fdcw99vhMeXMgX+bFX/uM8d
+ XNZLhCEvqNbc8e2kGmALVuBLeufMilAPd9pHecD5MNigHn9LHqaliWP3+5T8QHzSLPmj
+ bzThYCFU66i31B6s2ixO+x+holEWnh18mRrmOs82Rqd0EWReLYmwZvMj4fmXCRqMt9tf
+ meUVIC+BeGx3ToAfn9UPniXo54qab2pCFqhKUeiRpfFx34IqrqQrTx/IN6ukna/Q6fZc
+ qmGyD69YuX8TE/bhItl+fN6tpN4rOUOgDUTfw4KhsQmrC2KMCvrpFzASRft8Nzyyivyr
+ fBMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708401096; x=1709005896;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=XIatRLdxp59gkCuXn1TM1+7Ffjtt7PxZsUax3x716A4=;
- b=OkKv8PpM8UPURrirtMGWbBhKef/ojH4waPqL8zsejm4EJu8xXUvLCPAcySHHgKNlbr
- R4q4UHGh6QWm8gUliCJicpCqJv2Br1I3L2iLSvNdblUGY5zy4SwMR7aVWFTaL7beyfPR
- s8Sah0SUnZ4+o3cpIO/SOxGK4Ve+2Br0/s6pLdjnSFwKojnGdlahVg7gp6fycIqKTysg
- DFI9xIpmpcKkhN7B9+g4Rz34FMYn9V4axE0/PI3Q0Vlc2tyqb2OLpT6vAaV5ddbkAsAd
- Aov8iA7MUXqEAVMp8xG2JxEmKOWpneDl8KJw4ZnJFtXEv2s1seYMQUlH5IXDimLao3er
- QgDw==
+ d=1e100.net; s=20230601; t=1708420861; x=1709025661;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fdhB/OebAUjm/AFv0XF6TY7b9nkZEns3B+QEhrz2u2s=;
+ b=IybA8DBEmuJ3QjD5T8BRmsFGIxGkS5CNmPibguWFZJS/nV0FOvfxxyc61Es3QZ0Dc8
+ Q7jpuuhXUVxZPWIn5mdtRrc4opGQZBYFttUds/ykT9p++xSeVAl107iNqA6uXIfCGvXg
+ +M62r9hw7YGNMJIZmaCu/MaXSLTM+KwOBZoPE6umXBbeef3/6lKb9FnlQACGyhgi9O4D
+ NDwkZwtQFSdpnrnsIJnxzQI74gMsoWySjDtx8kA3hR3EUUFvfsWiKk4QwwTDSztRxEjp
+ h9nh6o6coz3TW3zzEncanE9QVEuCkN4IQMgCJ75D7cZyF+oZB9KhUMwxHVAq4FkSodf/
+ kYzA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXLfJjL9lbYN/i/nPKeh7BypvD0MGasB+4X7w1Ao5E+CQWgZQSIIBgotaSx9pJPc60ZwFoueO4+J6a34/77ey7PjQzQYWnl0Uhiy1lvRHetoS6bbf5W8/OH
-X-Gm-Message-State: AOJu0YzJbu9eE/0sFIpkwVL4+zkXxSUCSRDmvKLv7V0SWqVlZ7c9R/SL
- +neZ77h5QDjqMI/7IXCgkVF5J87m6M+/ReqAnaARuelKSweAnbkGFY1naOcJ63c=
-X-Google-Smtp-Source: AGHT+IGR3ZiUXeeQYK4PiqThY08Xd9MG8AmFv61MNQVpDP2MDd+C2I7YVN1xqhHQa/R/QyD8+ZbFGQ==
-X-Received: by 2002:a05:6808:1646:b0:3c1:3427:fef3 with SMTP id
- az6-20020a056808164600b003c13427fef3mr18759661oib.48.1708401095822; 
- Mon, 19 Feb 2024 19:51:35 -0800 (PST)
-Received: from localhost.localdomain ([43.129.25.208])
+ AJvYcCUUXhZsKrgTA9j22FapQPU3g2z7S1T+GI5hMFXFPJqcB1Y3R59kigJRezrr6C9wY41Zt2D6INPZXwZCDmrp8Xrv2Vb+ATa+5MgfetuuU5pdtz9oKFtNcqrq
+X-Gm-Message-State: AOJu0YwLFmGQdiAJGgnfQL11M8EWbpGZJI/ayEElrhTOb/eko8oxZsCv
+ C75PjaRMN8/3nTVOEX/D8B6O5Ezrfz6NId0lgzKlkhN9x0ei5dag
+X-Google-Smtp-Source: AGHT+IFENXQ2/kIvaynag/3ye0EYbZr1RqBX2LzSkz1tqwcz87hMFLb+HYFe/A4uzUmPS1D8iGWrkA==
+X-Received: by 2002:a19:655d:0:b0:512:ab03:f4 with SMTP id
+ c29-20020a19655d000000b00512ab0300f4mr4763035lfj.37.1708420860434; 
+ Tue, 20 Feb 2024 01:21:00 -0800 (PST)
+Received: from mobilestation ([178.176.56.174])
  by smtp.gmail.com with ESMTPSA id
- jz7-20020a170903430700b001d94678a76csm5131723plb.117.2024.02.19.19.51.30
+ x28-20020ac25ddc000000b00512a3f5322fsm1151146lfq.8.2024.02.20.01.20.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 19:51:35 -0800 (PST)
-From: Menglong Dong <dongmenglong.8@bytedance.com>
-To: andrii@kernel.org
-Date: Tue, 20 Feb 2024 11:51:05 +0800
-Message-Id: <20240220035105.34626-6-dongmenglong.8@bytedance.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
-References: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
+ Tue, 20 Feb 2024 01:21:00 -0800 (PST)
+Date: Tue, 20 Feb 2024 12:20:56 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Kurt Kanzenbach <kurt@linutronix.de>
+Message-ID: <mmjrlyzhegve5u3s3lhw4hmhooxixn3pwxkkdikxgxno4teqyz@rtetljwg6ffg>
+References: <20240220-stmmac_est-v1-1-c41f9ae2e7b7@linutronix.de>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 20 Feb 2024 09:41:40 +0000
-Cc: linux-kselftest@vger.kernel.org, davemarchevsky@fb.com, song@kernel.org,
- sdf@google.com, yonghong.song@linux.dev, thinker.li@gmail.com,
- shuah@kernel.org, linux-stm32@st-md-mailman.stormreply.com, mykolal@fb.com,
- dongmenglong.8@bytedance.com, daniel@iogearbox.net, john.fastabend@gmail.com,
- zhoufeng.zf@bytedance.com, mcoquelin.stm32@gmail.com, ast@kernel.org,
- dxu@dxuuu.xyz, kpsingh@kernel.org, linux-arm-kernel@lists.infradead.org,
- haoluo@google.com, linux-kernel@vger.kernel.org, eddyz87@gmail.com,
- jolsa@kernel.org, bpf@vger.kernel.org, martin.lau@linux.dev
-Subject: [Linux-stm32] [PATCH bpf-next 5/5] selftests/bpf: add test cases
-	for multiple attach of tracing program
+Content-Disposition: inline
+In-Reply-To: <20240220-stmmac_est-v1-1-c41f9ae2e7b7@linutronix.de>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, netdev@vger.kernel.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rohan G Thomas <rohan.g.thomas@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: Fix EST offset for dwmac
+	5.10
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,326 +88,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-In this commit, we add the testcases for multiple attaching of tracing,
-include FENTRY, FEXIT, MODIFY_RETURN.
+Hi Kurt
 
-Signed-off-by: Menglong Dong <dongmenglong.8@bytedance.com>
----
- .../selftests/bpf/bpf_testmod/bpf_testmod.c   |  49 ++++++
- .../bpf/prog_tests/tracing_multi_attach.c     | 155 ++++++++++++++++++
- .../selftests/bpf/progs/tracing_multi_test.c  |  72 ++++++++
- 3 files changed, 276 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/tracing_multi_attach.c
- create mode 100644 tools/testing/selftests/bpf/progs/tracing_multi_test.c
+On Tue, Feb 20, 2024 at 09:22:46AM +0100, Kurt Kanzenbach wrote:
+> Fix EST offset for dwmac 5.10.
+> 
+> Currently configuring Qbv doesn't work as expected. The schedule is
+> configured, but never confirmed:
+> 
+> |[  128.250219] imx-dwmac 428a0000.ethernet eth1: configured EST
+> 
+> The reason seems to be the refactoring of the EST code which set the wrong
+> EST offset for the dwmac 5.10. After fixing this it works as before:
+> 
+> |[  106.359577] imx-dwmac 428a0000.ethernet eth1: configured EST
+> |[  128.430715] imx-dwmac 428a0000.ethernet eth1: EST: SWOL has been switched
+> 
+> Tested on imx93.
+> 
+> Fixes: c3f3b97238f6 ("net: stmmac: Refactor EST implementation")
+> Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/hwif.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> index 1bd34b2a47e8..29367105df54 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> @@ -224,7 +224,7 @@ static const struct stmmac_hwif_entry {
+>  		.regs = {
+>  			.ptp_off = PTP_GMAC4_OFFSET,
+>  			.mmc_off = MMC_GMAC4_OFFSET,
+> -			.est_off = EST_XGMAC_OFFSET,
+> +			.est_off = EST_GMAC4_OFFSET,
 
-diff --git a/tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c b/tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c
-index 66787e99ba1b..237eeb7daa07 100644
---- a/tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c
-+++ b/tools/testing/selftests/bpf/bpf_testmod/bpf_testmod.c
-@@ -98,12 +98,61 @@ bpf_testmod_test_struct_arg_8(u64 a, void *b, short c, int d, void *e,
- 	return bpf_testmod_test_struct_arg_result;
- }
- 
-+noinline int
-+bpf_testmod_test_struct_arg_9(struct bpf_testmod_struct_arg_2 a,
-+			      struct bpf_testmod_struct_arg_1 b) {
-+	bpf_testmod_test_struct_arg_result = a.a + a.b  + b.a;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline int
-+bpf_testmod_test_struct_arg_10(int a, struct bpf_testmod_struct_arg_2 b) {
-+	bpf_testmod_test_struct_arg_result = a + b.a + b.b;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline struct bpf_testmod_struct_arg_2 *
-+bpf_testmod_test_struct_arg_11(int a, struct bpf_testmod_struct_arg_2 b, int c) {
-+	bpf_testmod_test_struct_arg_result = a + b.a + b.b + c;
-+	return (void *)bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline int
-+bpf_testmod_test_struct_arg_12(int a, struct bpf_testmod_struct_arg_2 b, int *c) {
-+	bpf_testmod_test_struct_arg_result = a + b.a + b.b + *c;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
- noinline int
- bpf_testmod_test_arg_ptr_to_struct(struct bpf_testmod_struct_arg_1 *a) {
- 	bpf_testmod_test_struct_arg_result = a->a;
- 	return bpf_testmod_test_struct_arg_result;
- }
- 
-+noinline int
-+bpf_testmod_test_arg_ptr_1(struct bpf_testmod_struct_arg_1 *a) {
-+	bpf_testmod_test_struct_arg_result = a->a;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline int
-+bpf_testmod_test_arg_ptr_2(struct bpf_testmod_struct_arg_2 *a) {
-+	bpf_testmod_test_struct_arg_result = a->a + a->b;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline int
-+bpf_testmod_test_arg_ptr_3(int a, struct bpf_testmod_struct_arg_2 *b) {
-+	bpf_testmod_test_struct_arg_result = a + b->a + b->b;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
-+noinline int
-+bpf_testmod_test_arg_ptr_4(struct bpf_testmod_struct_arg_2 *a, int b) {
-+	bpf_testmod_test_struct_arg_result = a->a + a->b + b;
-+	return bpf_testmod_test_struct_arg_result;
-+}
-+
- __bpf_kfunc void
- bpf_testmod_test_mod_kfunc(int i)
- {
-diff --git a/tools/testing/selftests/bpf/prog_tests/tracing_multi_attach.c b/tools/testing/selftests/bpf/prog_tests/tracing_multi_attach.c
-new file mode 100644
-index 000000000000..6162d41cca9e
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/tracing_multi_attach.c
-@@ -0,0 +1,155 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2024 Bytedance. */
-+
-+#include <test_progs.h>
-+#include "tracing_multi_test.skel.h"
-+
-+struct test_item {
-+	char *prog;
-+	char *target;
-+	int attach_type;
-+	bool success;
-+	int link_fd;
-+};
-+
-+static struct test_item test_items[] = {
-+	{
-+		.prog = "fentry_test1", .target = "bpf_testmod_test_struct_arg_9",
-+		.attach_type = BPF_TRACE_FENTRY, .success = true,
-+	},
-+	{
-+		.prog = "fentry_test1", .target = "bpf_testmod_test_struct_arg_1",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test1", .target = "bpf_testmod_test_struct_arg_2",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test1", .target = "bpf_testmod_test_arg_ptr_2",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test2", .target = "bpf_testmod_test_struct_arg_2",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test2", .target = "bpf_testmod_test_struct_arg_10",
-+		.attach_type = BPF_TRACE_FENTRY, .success = true,
-+	},
-+	{
-+		.prog = "fentry_test2", .target = "bpf_testmod_test_struct_arg_9",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test2", .target = "bpf_testmod_test_arg_ptr_3",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test3", .target = "bpf_testmod_test_arg_ptr_3",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fentry_test3", .target = "bpf_testmod_test_arg_ptr_4",
-+		.attach_type = BPF_TRACE_FENTRY, .success = true,
-+	},
-+	{
-+		.prog = "fentry_test4", .target = "bpf_testmod_test_struct_arg_4",
-+		.attach_type = BPF_TRACE_FENTRY, .success = true,
-+	},
-+	{
-+		.prog = "fentry_test4", .target = "bpf_testmod_test_struct_arg_2",
-+		.attach_type = BPF_TRACE_FENTRY, .success = true,
-+	},
-+	{
-+		.prog = "fentry_test4", .target = "bpf_testmod_test_struct_arg_12",
-+		.attach_type = BPF_TRACE_FENTRY, .success = false,
-+	},
-+	{
-+		.prog = "fexit_test1", .target = "bpf_testmod_test_struct_arg_2",
-+		.attach_type = BPF_TRACE_FEXIT, .success = true,
-+	},
-+	{
-+		.prog = "fexit_test1", .target = "bpf_testmod_test_struct_arg_3",
-+		.attach_type = BPF_TRACE_FEXIT, .success = true,
-+	},
-+	{
-+		.prog = "fexit_test1", .target = "bpf_testmod_test_struct_arg_4",
-+		.attach_type = BPF_TRACE_FEXIT, .success = false,
-+	},
-+	{
-+		.prog = "fexit_test2", .target = "bpf_testmod_test_struct_arg_10",
-+		.attach_type = BPF_TRACE_FEXIT, .success = false,
-+	},
-+	{
-+		.prog = "fexit_test2", .target = "bpf_testmod_test_struct_arg_11",
-+		.attach_type = BPF_TRACE_FEXIT, .success = false,
-+	},
-+	{
-+		.prog = "fexit_test2", .target = "bpf_testmod_test_struct_arg_12",
-+		.attach_type = BPF_TRACE_FEXIT, .success = true,
-+	},
-+	{
-+		.prog = "fmod_ret_test1", .target = "bpf_modify_return_test2",
-+		.attach_type = BPF_MODIFY_RETURN, .success = true,
-+	},
-+};
-+
-+static int do_test_item(struct tracing_multi_test *skel, struct test_item *item)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, link_opts);
-+	struct bpf_program *prog;
-+	int err, btf_fd = 0, btf_type_id;
-+
-+	err = libbpf_find_kernel_btf_id(item->target, item->attach_type,
-+					&btf_fd, &btf_type_id);
-+	if (!ASSERT_OK(err, "find_vmlinux_btf_id"))
-+		return -1;
-+
-+	link_opts.target_btf_id = btf_type_id;
-+	prog = bpf_object__find_program_by_name(skel->obj, item->prog);
-+	if (!ASSERT_OK_PTR(prog, "find_program_by_name"))
-+		return -1;
-+
-+	err = bpf_link_create(bpf_program__fd(prog), btf_fd, item->attach_type,
-+			      &link_opts);
-+	item->link_fd = err;
-+	if (item->success) {
-+		if (!ASSERT_GE(err, 0, "link_create"))
-+			return -1;
-+	} else {
-+		if (!ASSERT_LT(err, 0, "link_create"))
-+			return -1;
-+	}
-+
-+	return 0;
-+}
-+
-+void test_tracing_multi_attach(void)
-+{
-+	struct tracing_multi_test *skel;
-+	int i = 0, err, fd;
-+
-+	skel = tracing_multi_test__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "tracing_multi_test__open_and_load"))
-+		return;
-+
-+	err = tracing_multi_test__attach(skel);
-+	if (!ASSERT_OK(err, "tracing_multi_test__attach"))
-+		goto destroy_skel;
-+
-+	for (; i < ARRAY_SIZE(test_items); i++) {
-+		if (do_test_item(skel, &test_items[i]))
-+			break;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(test_items); i++) {
-+		fd = test_items[i].link_fd;
-+		if (fd >= 0)
-+			close(fd);
-+	}
-+
-+	tracing_multi_test__detach(skel);
-+destroy_skel:
-+	tracing_multi_test__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/tracing_multi_test.c b/tools/testing/selftests/bpf/progs/tracing_multi_test.c
-new file mode 100644
-index 000000000000..f1ca8b64ed16
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/tracing_multi_test.c
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2024 ByteDance */
-+#include <linux/bpf.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+struct bpf_testmod_struct_arg_1 {
-+	int a;
-+};
-+struct bpf_testmod_struct_arg_2 {
-+	long a;
-+	long b;
-+};
-+
-+__u64 fentry_test1_result = 0;
-+SEC("fentry/bpf_testmod_test_struct_arg_1")
-+int BPF_PROG2(fentry_test1, struct bpf_testmod_struct_arg_2, a)
-+{
-+	fentry_test1_result = a.a + a.b;
-+	return 0;
-+}
-+
-+__u64 fentry_test2_result = 0;
-+SEC("fentry/bpf_testmod_test_struct_arg_2")
-+int BPF_PROG2(fentry_test2, int, a, struct bpf_testmod_struct_arg_2, b)
-+{
-+	fentry_test2_result = a + b.a + b.b;
-+	return 0;
-+}
-+
-+__u64 fentry_test3_result = 0;
-+SEC("fentry/bpf_testmod_test_arg_ptr_2")
-+int BPF_PROG(fentry_test3, struct bpf_testmod_struct_arg_2 *a)
-+{
-+	fentry_test3_result = a->a + a->b;
-+	return 0;
-+}
-+
-+__u64 fentry_test4_result = 0;
-+SEC("fentry/bpf_testmod_test_struct_arg_1")
-+int BPF_PROG2(fentry_test4, struct bpf_testmod_struct_arg_2, a, int, b,
-+	      int, c)
-+{
-+	fentry_test3_result = c;
-+	return 0;
-+}
-+
-+__u64 fexit_test1_result = 0;
-+SEC("fexit/bpf_testmod_test_struct_arg_1")
-+int BPF_PROG2(fexit_test1, struct bpf_testmod_struct_arg_2, a, int, b,
-+	      int, c, int, retval)
-+{
-+	fexit_test1_result = retval;
-+	return 0;
-+}
-+
-+__u64 fexit_test2_result = 0;
-+SEC("fexit/bpf_testmod_test_struct_arg_2")
-+int BPF_PROG2(fexit_test2, int, a, struct bpf_testmod_struct_arg_2, b,
-+	      int, c, int, retval)
-+{
-+	fexit_test2_result = a + b.a + b.b + retval;
-+	return 0;
-+}
-+
-+SEC("fmod_ret/bpf_modify_return_test")
-+int BPF_PROG(fmod_ret_test1, int a, int *b)
-+{
-+	return 0;
-+}
--- 
-2.39.2
+Unfortunate c&p typo indeed. Thanks for fixing it!
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
 
+-Serge(y)
+
+>  		},
+>  		.desc = &dwmac4_desc_ops,
+>  		.dma = &dwmac410_dma_ops,
+> 
+> ---
+> base-commit: 40b9385dd8e6a0515e1c9cd06a277483556b7286
+> change-id: 20240220-stmmac_est-ea6884f9ba3c
+> 
+> Best regards,
+> -- 
+> Kurt Kanzenbach <kurt@linutronix.de>
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
