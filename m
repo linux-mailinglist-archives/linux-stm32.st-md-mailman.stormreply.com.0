@@ -2,70 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3DD85B858
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 10:56:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DD4885B85C
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 10:56:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0713DC6A61D;
-	Tue, 20 Feb 2024 09:56:39 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 151E0C6A61D;
+	Tue, 20 Feb 2024 09:56:58 +0000 (UTC)
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DF41C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 141B5C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 09:56:37 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-41270d0b919so735955e9.1
+ Tue, 20 Feb 2024 09:56:57 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-2d23114b19dso27023181fa.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 01:56:37 -0800 (PST)
+ Tue, 20 Feb 2024 01:56:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708422997; x=1709027797;
+ d=linaro.org; s=google; t=1708423016; x=1709027816;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=1dC3qgPyCztp68Rk9wkOxAtnkA5840c3vumQ5Wuu1yg=;
- b=vXT6Lx584L55kQYdQuVZiDDegf87BUgmG6vlG3OHF+16TbW9UetMmw443mLI4GB7ue
- JZSe2SdmF21iT7GUrBLjOBP1KA7pTTWRLPBU6O/oU0xvZOuHusq0m+fU1+Mwe2K+QV1g
- gxg83gnM84+WntEmJje2ikZukQLP3eZihliQnoTGFgCHuIQPb+r7w9W58LR6yxy/cBhQ
- rN3wVX2Up/Hm1uMVW8H2znJd79IZoX8lD2ggCETTkTkyzp4q8psXTI0Zj6ilr9ZHt3ow
- xE4gfwVrsoiNFabF9j2gk7eZFKCrq9ZNwlV0gOdJmSqUPSpPUg9RobtabQaTJEzGZKuh
- qNTg==
+ bh=mud0FbZ4sMRBYCOa+MDmHundvVoizhjI8J/7NPROOXY=;
+ b=kTlpANO0gh3KaxwxfBg/TpKlI3F5gdrdIZOWFBvw61pQQUG/stmu3Wudz0nVTIcmXU
+ MXbHqyAD2Ghd9r9dAGanNGc1rEygGz1rzGX24heTdz75m7xERpJaTRSkvD0kWoYuM/U9
+ k2POxR2/L5k9JxCD/Oydy2hcc2Zci6i8wasf47LPKHOUUK1oN+GMjtWtWJL1XavjI3QR
+ CFju3m0yQj5rjAP/zD0OonbWyjp222DOLFkgPkZj09TZO2GlF+xRLezmBRihGZYBGmlA
+ 4ep1fSKdHifoDtdYlQVVGivrSEt/D7mYpDUyprwSVZF54BjLkm4iLIQSVouY36WcKKA1
+ dhVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708422997; x=1709027797;
+ d=1e100.net; s=20230601; t=1708423016; x=1709027816;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1dC3qgPyCztp68Rk9wkOxAtnkA5840c3vumQ5Wuu1yg=;
- b=Gl6jbaTHVQ4lqhc41KWZT0RAxQb5PS8rGnMO7cl7hEU80s4OnyPgCdxX1L68e9Ex0F
- IUozqjf7OyyGa6sFrdxrrjbktSfiIzoytWPddYfoKFJ8kWvLnWeuyowIbKZiBwx+8Y2S
- znkWVx3+b5nl+eY1z/nxctZe7Uzpq0YrH756KomPi+ldLh5F846rlxBU8FFFpKTDwOyG
- GNbsCBM1OQLbNR83bQDucHtuak8i9cfmq5wWVmCv9Z+CJn5wmPnsO5DX34sYbbQ13tGl
- OyUKQ+6rLlBhivzdn9+TmQOd9Qbzc9yeFVxY84BwCZlo4lDuSe8V4ma9l7ENVaEQUdqQ
- Odyw==
+ bh=mud0FbZ4sMRBYCOa+MDmHundvVoizhjI8J/7NPROOXY=;
+ b=giU9w2mKNWAd/WeMkymfnTyvRH0yW1tzbMzoh8YgCp7hEP8etZRP3LsEwD3GVFLUmv
+ 5irD6k4Vt9oKY2Zd8ZtN+2QiRd8Tp6qt7OM8MHDpalqdmqiiuNnKLxD2yNIm/XFeUAOL
+ T9oqlnCzcmElfaSstXQtzsiR+6IVTMo/MvuJyBjup97Pmbzv8toWJ7gZmhbh/vojQ83Z
+ 8Qi5g5/vmuZDH8TDBKdz2ykNmzjaewGULWTGAs0DzlmiNfDK/cz3kVoJ7OE8X0J8CyXe
+ WwVTZdqISR7MTODx2+jpgMVduiEW2mGpRUTb1cdN84199WWumUYK5rDIUbStadQsLVNI
+ 8VOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXr3SMk0ZG4Q8wTh5YHW5MUQlpekpUpu36hMinOSVBWXZmxz5I5nE9kBLKfxSXWQ+5bUE52hyUE9hVZba+048VVxOd0jMuwwvGIvnbuI89tyVxLgsbthZe8
-X-Gm-Message-State: AOJu0YyboAi+K6/ckGnQyRliQl6WwoTPFe9MERR4YMQZaGuaUxCSOSjk
- BY9ZeuCc9zbBmcCnvRnKahPjZKzjWqZrUK/sWNK6Ox3lMMWANir1l+mzpuL/dBs=
-X-Google-Smtp-Source: AGHT+IHpEV3L2zYoLuTNe5IZKak6J08fkHdOpnTq5s0CQmOsoM2uAjbezStiSFmeD+556g0KKI5ucQ==
-X-Received: by 2002:a05:600c:4688:b0:412:3b33:d130 with SMTP id
- p8-20020a05600c468800b004123b33d130mr7516295wmo.25.1708422996765; 
- Tue, 20 Feb 2024 01:56:36 -0800 (PST)
+ AJvYcCUPPs7JJvV1gPelj+0iYC8X96aYMs3T7dsskwmrhS2sqNeYWh3krqqUpmP5dCmaaTYKpC98AIhYN8HbQnZgoHPCsgBBVn4ZLlrRqKKpUtYl73SLxjjETfMC
+X-Gm-Message-State: AOJu0YxJUQGgBQ2go5XnWH3U/Kyk1EbGAxfW+6flx1laqoEFg/Taq1Fr
+ hol/AONT+PejWlNNwKvGBYcTZViHwtcRBEi6/b+prE6XgdCye/5a73Z2C92KgWg=
+X-Google-Smtp-Source: AGHT+IHqyfA90aCSCsVS/Fd2bSJL6rSiOtcYy7igGzOSbAfb2c7V9pA/ieTa5EPAQokxpzaQn/0tCA==
+X-Received: by 2002:a2e:b5ce:0:b0:2d2:31e5:103b with SMTP id
+ g14-20020a2eb5ce000000b002d231e5103bmr5622176ljn.17.1708423016314; 
+ Tue, 20 Feb 2024 01:56:56 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.222.116])
  by smtp.gmail.com with ESMTPSA id
- g19-20020a7bc4d3000000b004126101915esm8246700wmk.4.2024.02.20.01.56.34
+ g19-20020a7bc4d3000000b004126101915esm8246700wmk.4.2024.02.20.01.56.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Feb 2024 01:56:36 -0800 (PST)
-Message-ID: <d19c098e-c5a4-4d95-ae62-cf8d3a062546@linaro.org>
-Date: Tue, 20 Feb 2024 10:56:34 +0100
+ Tue, 20 Feb 2024 01:56:55 -0800 (PST)
+Message-ID: <fea964af-4ae8-46ed-a12f-d9d2849e25a7@linaro.org>
+Date: Tue, 20 Feb 2024 10:56:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Christophe Kerello <christophe.kerello@foss.st.com>,
- miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
- robh+dt@kernel.org, krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org
-References: <20240219140505.85794-1-christophe.kerello@foss.st.com>
- <20240219140505.85794-2-christophe.kerello@foss.st.com>
+To: Christophe Kerello <christophe.kerello@foss.st.com>, robh+dt@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, conor+dt@kernel.org
+References: <20240219140202.85680-1-christophe.kerello@foss.st.com>
+ <20240219140202.85680-2-christophe.kerello@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -111,11 +110,11 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240219140505.85794-2-christophe.kerello@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [Linux-stm32] [PATCH v2 1/3] dt-bindings: mtd: st,
-	stm32: add MP25 support
+In-Reply-To: <20240219140202.85680-2-christophe.kerello@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 1/5] dt-bindings: memory-controller: st,
+ stm32: add MP25 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,19 +131,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 19/02/2024 15:05, Christophe Kerello wrote:
-> Add a compatible string to support MP25 SoC.
+On 19/02/2024 15:01, Christophe Kerello wrote:
+> Add a new compatible string to support MP25 SoC.
 > 
-> FMC2 IP supports up to 4 chip select. On MP1 SoC, only 2 of them are
-> available when on MP25 SoC, the 4 chip select are available.
+> On MP1 SoC, RNB signal (NAND controller signal) and NWAIT signal (PSRAM
+> controller signal) have been integrated together in the SoC. That means
+> that the NAND controller and the PSRAM controller (if the signal is
+> used) can not be used at the same time. On MP25 SoC, the 2 signals can
+> be used outside the SoC, so there is no more restrictions.
 > 
-> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
-> ---
-> Changes in v2:
->  - commit message has been updated.
+> MP1 SoC also embeds revision 1.1 of the FMC2 IP when MP25 SoC embeds
+> revision 2.0 of the FMC2 IP.
 > 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 Best regards,
 Krzysztof
