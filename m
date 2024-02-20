@@ -2,79 +2,132 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B1E85AE82
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Feb 2024 23:35:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E40BC85B046
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 02:14:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AD69C6C83C;
-	Mon, 19 Feb 2024 22:35:04 +0000 (UTC)
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93E8FC6B460;
+	Tue, 20 Feb 2024 01:14:03 +0000 (UTC)
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com
+ (mail-os0jpn01on2054.outbound.protection.outlook.com [40.107.113.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43D33C57194
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4842BC6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 22:35:02 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-6e2d83d2568so3376377a34.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Feb 2024 14:35:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1708382101; x=1708986901;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nguAE7f5YcWI/h5umYjj7eHdUyvOtkK6QQpK6mXXbx4=;
- b=ovGSApSWUvKxOfiBy/SEZSKvP8AfF1AM4A1a/KdM7g42sxLSafvw88OfTwkh+hvG0/
- f1KkOcWSEhQBpw6wpEnwZXmlccWoe4FeAchuZ6Dglye/HRbsvMVq2Zj1BgmxvyPwWU/u
- t7dUJ0NxjpNvlXg68FswQ5KuhBzWy5+o1vcxhvMABEGrKQ5A9MeKST9y+7TP7CXAGX2w
- ORw/OzqfoQml64VVDoJJ96fkQA30HDqpEXbr6ig0uPsa6U9iAYvJKa5HaGJNEMcGGJCa
- Ha4jfQL8WcUZkpuiZo/9bHJuJ2vMOcAZkPraWq8GChJfV2tZNNzMmSoeondfKtXF7Di0
- qF5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708382101; x=1708986901;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nguAE7f5YcWI/h5umYjj7eHdUyvOtkK6QQpK6mXXbx4=;
- b=aieYUUfI3js6fyI0Vs774E7G9P4KXmXTrA0/h1ONz3VKUJw8Sn2DLte76D0Ve5WHWj
- 8/dKEbM3KOM41dE9V84iilbVK2eGQRslWRRzRT6FGO82nIZmM3xB6IMTyVokZj0rHxyq
- Jy7mNjuted5nKeaR/zsmCU4L1AFHv37WKescqMHqwqwbqkLft2ZwI7FBhNswoDlKWCCr
- +ZLHXcZdcctORpJm6FYYnoKlikOFTcaL6NUZjCVqlvJ0nztg2xXKYCZB8bw9VM+Pcn/G
- JoGQlAzbE1nrZm66MEdZOa6aGoz3eraExMevsPj1pwDdPB3q15vlE31v9kBimlQeVkP3
- Yfgw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnExd9g1gpDU9GbQlhZZCtO9eri37KcTGaRoS3+Dqh+M3D0vSnKTkRskEs2m7575jDa8wPf51C3ocaJaMOyy92lqO57+JWXsw9FCbBeXlF9Ltb+l/f3KgX
-X-Gm-Message-State: AOJu0YyC/5IgRGZsM35H1l6sDKudEhrH1f7OSK5IQ1PLoniDmKEJIyRh
- gFRFDKy/f4BGg7elMACDZ5qESh33EgrHy6G3senzyZjIw0Ip/zF2btlmlOVCU6Q=
-X-Google-Smtp-Source: AGHT+IEKk7jzI/qkme4zk/gFRVTVBf/1nLdJFY+y7tiRySbZb046arGF15DJiOZ4ycZjN+0TNGVe+A==
-X-Received: by 2002:a9d:7494:0:b0:6e2:e5a3:1732 with SMTP id
- t20-20020a9d7494000000b006e2e5a31732mr3221609otk.37.1708382101127; 
- Mon, 19 Feb 2024 14:35:01 -0800 (PST)
-Received: from freyr.lechnology.com (ip98-183-112-25.ok.ok.cox.net.
- [98.183.112.25]) by smtp.gmail.com with ESMTPSA id
- h25-20020a9d6419000000b006e45a5f0a70sm171776otl.49.2024.02.19.14.35.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Feb 2024 14:35:00 -0800 (PST)
-From: David Lechner <dlechner@baylibre.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Mon, 19 Feb 2024 16:33:22 -0600
-Message-ID: <20240219-mainline-spi-precook-message-v2-5-4a762c6701b9@baylibre.com>
-X-Mailer: git-send-email 2.43.2
-In-Reply-To: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
-References: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
+ Tue, 20 Feb 2024 01:14:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nTxHxJtaxA8sa+G4g43fbu0XvvXcF7jNVXzxDX3I+EUIisaqzbUzIEre4Uou5LjEidXb/Y1xCVt8L9OgkTFM/HTlsi0lt082sV1PuofHuACSOw5TKE+SxT8UD7gSQm6ByntFosQG0xn6BOcwGqzJMuPaTrQlH1gp8yBrXxxY67e6wfoXVeFx3lel80gg0gPlUAdYZxoLJww5ni3E76LoIpEKWoryG2lEt5pLVZJWs6Hz/NidP11tNFOuo94OPgc1zPrYNbzRAFmeS6/FMYcvsIPJzVtvcriXuQpN5/nvd9/Sqxsp9G1q8xFzHRUkvPNAt1UhtvR7vAQaKoSfHpxyeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1s0I5LH7+wq5eXtbHjAN0c5fw6/2Na9YnGXIeaB7fzg=;
+ b=eM98Xoqn8H3LyRXWsh7hL8hpJwWHUdsx0BhwE3KJ2kB0lDsgtU7maqh1Q06DwyjfaKprnFo8+y7FB87Yo2fd+BV/6AscphILcvPvDa/U9pj4Q6nf0lEFNIWx+zaJvHYO2b++OxMHOdrSpNaC5E5kfhFsCBnA2s3ONza0xu+aq5zv6NqVyE1YI444JmWpv4HqccEAMINDSmXxwAXvkqLkIgG4BouQgZOJaHRjHEhqKHmfMRfjj5ogcFRn1hvQ/uM1VLHRtRtp+zR8G+prqbDFO31nSEG3AvHcLJ2LYZc0dKMDWacCa8e8vAU+wYgnsjLCgTVrbdbuEcXWY2u2Q/Q71g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1s0I5LH7+wq5eXtbHjAN0c5fw6/2Na9YnGXIeaB7fzg=;
+ b=fzN0LOKc5CO8CsyQgxSCt8RLHU7hnQFIdq16sQZTeze6EBLO0fLVtb2ajd0+enKIucdoPD5MD4uMCcpjoRNeTzFzVyu8dU7esfkbrQ7qUM3W7G1hwW1JZhMPwcrYkZ9bIlWWFC9sB2BX76CBMk5ZM4jQrfUwSqDrXZIytT6x+J4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OS3PR01MB5621.jpnprd01.prod.outlook.com
+ (2603:1096:604:c1::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.39; Tue, 20 Feb
+ 2024 01:13:57 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::4d0b:6738:dc2b:51c8]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::4d0b:6738:dc2b:51c8%6]) with mapi id 15.20.7292.029; Tue, 20 Feb 2024
+ 01:13:57 +0000
+Message-ID: <874je4kkdn.wl-kuninori.morimoto.gx@renesas.com>
+To: "Lad,  Prabhakar" <prabhakar.csengg@gmail.com>, =?ISO-8859-1?Q?=22Uwe_?=
+ =?ISO-8859-1?Q?Kleine-K=F6nig=22?= <u.kleine-koenig@pengutronix.de>, Alain
+ Volmat <alain.volmat@foss.st.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, David Airlie <airlied@gmail.com>, Eugen
+ Hristev <eugen.hristev@collabora.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Helge Deller <deller@gmx.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jacopo Mondi <jacopo@jmondi.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime
+ Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Sam Ravnborg <sam@ravnborg.org>, Sylwester
+ Nawrocki <s.nawrocki@samsung.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tim Harvey <tharvey@gateworks.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Date: Tue, 20 Feb 2024 01:13:56 +0000
+X-ClientProxiedBy: TY2PR02CA0001.apcprd02.prod.outlook.com
+ (2603:1096:404:56::13) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-X-Mailer: b4 0.12.4
-Cc: linux-kernel@vger.kernel.org,
- Michael Hennerich <michael.hennerich@analog.com>, linux-iio@vger.kernel.org,
- Julien Stephan <jstephan@baylibre.com>, linux-spi@vger.kernel.org,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Jander <david@protonic.nl>,
- Martin Sperl <kernel@martin.sperl.org>, David Lechner <dlechner@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH v2 5/5] iio: adc: ad7380: use
-	spi_optimize_message()
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB5621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e267491-5dfb-4d21-391f-08dc31b13675
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cGP/19dofZfMWjPj3zfzTotAyY8ajTJKzBRZcgeUwepBpkVpk7uelp7DUgZNegoxqPuEwTI/LxLmBf9MQHW0HfCGMOhFEwPyinHuwBJkWa0Yfj5cq1kUvPmLe+U/E4duooEzjAteCR2zSx1NhBkqpzTRZ8UDb31uPiqQTZrT58vmzuqNYWWR4hNrXMunJBM9vN49qbgLCxCTh0jWgVBaoRfLX5dDGvSNi+2VhdjMzc3391wS2apNsW+F5GTtVCAwrkRosJh+e4USQvlxPFqXz5fTVcyxXPp7w6401clemux5Y1ni4ZjZT+QpJFf13XrzvlIO0vwXy1d2IDa6xhovJHYM2qvQICKWV9gzOsVz2ydd/dGX2ff/sZhqx3PZyv3NL8QoSwNmH8XEK8K/SDv7Ce1Aci/ge50aTeZUtlDIMJ2j+EEYqCUJJT1eopwsIcdVKBVyYjvYWdvvVm+cAWUcI87ZL6gyFdSxEeRnJTLIU9H2SeA7MGOaPGvQO/yPIqq4vnWIOO6gkedLYKpA/dKMBjosqGjgKmZfcCERk876dSrqdnhVXEt7rvOT93CjU/ajeIBxGVE0zkWtt7gt7/YYgS439c0bVimL3Gwt106SvgYN2kjvCqfcDLE5pB4LqlN8
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(921011)(38350700005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ay1QPguOQz5AL1ebYNqioZy0IpzIDgRUPedehTSiG+ZQlXjviWoQc6yCRgNx?=
+ =?us-ascii?Q?XFPsTTO0cuwGF/fGhiw6QtbTgcWLU71eKJBR4idTpYUqgrpMLxoJGWVG964v?=
+ =?us-ascii?Q?F2tu55rwi3GttoLsaM+9XgMdYvYeBpHst97PE9POrxhwsH49iOkpFtSL8K1t?=
+ =?us-ascii?Q?Jg1EKtcAP0gP0rP5fOcIwMTQmwW11HRgjGNHspTBdnTPV34SVdq+G+AYRi5j?=
+ =?us-ascii?Q?kVJfvH2fDwSN+ob0t+OWw9jqRbLn0UbFF+JQHv2M+PhO/6Cbe/orZfJLlphU?=
+ =?us-ascii?Q?ohC1w1lUm44UxhSelhvVOj2gPVWljSj8+qz+d7nm1r4eP/NM27zU6BWKQHkY?=
+ =?us-ascii?Q?IUrCPUkloz6ObcOC1DeyjgNE3/fzOyQI/utMJYIc//tphezPU9vHwSFNIkRK?=
+ =?us-ascii?Q?5ePFc0BMc4lWDPO2b+8UgF+mZ8TGgATKDZc1wUX+/2jdhxbsHFVmpjqmq3U+?=
+ =?us-ascii?Q?f4dH6/lyOrAAc8kJQeAOmiIATunTjz0gYUemORl8TpnIM4M+B6LMY8/zbgic?=
+ =?us-ascii?Q?/SvGX72vDgntim2biBYexQ4lE3b1Lhs/rWgl7Ych9yOn3/CA9pBPu6/ZZfzb?=
+ =?us-ascii?Q?cAjFRpH0b4ien24qN/jd/JYcR1Z9mGpPIKFJ+fqDB/lTuadLFvaVpiGEIybL?=
+ =?us-ascii?Q?8hBbGQf4UQ9h5i/VXdgyQCuvbzv5Z2GhVwg4svcBBKwQa2Ra9/XBjL34eQik?=
+ =?us-ascii?Q?bvIJ+P+QtLIIbT7VCoyPZKLmw6MfEVPMimaquoAk99fSNdgw/i22TJXZNaGB?=
+ =?us-ascii?Q?PydcodfUEau0TkRO0N0FISiyQDcIeLnRYHA/SGj6BWevlEpwQwtr7+vpQHRf?=
+ =?us-ascii?Q?kyktAZkuNfO+nNx+nkv95lQsPOii6rO7ZYSdkaBAQL59xmuOQAGfVvp696sB?=
+ =?us-ascii?Q?aIKFskhrWT1E9z/rWJFp4sv+kCZ+VT1Ya6gpX7M99ft3pKfxOx1axosnIl9W?=
+ =?us-ascii?Q?gee0Cz9oSbZFuEXn84dQUEVYG9LLXTCe0JcAAG6+I62/HY3bJCxZ+72jWoja?=
+ =?us-ascii?Q?nuCh4G73pm4Jud4VK1qxnbvCGnC+oCnQazhTuqnhIANdGjWPCGTINbW9X13w?=
+ =?us-ascii?Q?rJ80STBz+8txWUzXRX55ggqhKusS14ou1Vtt1gyhlNuCtJdNbxTSmBWVi4fP?=
+ =?us-ascii?Q?7juZolYTdEKc6NX8v2R4+fs90JlGvPNp9wbxWS8Su3vnjQpZxw+AB3ODHRTR?=
+ =?us-ascii?Q?zQVe8pdmwJHo0xiHjq8RqhIEWOvnLZfc6mDYT9J+T/GB4E8nEfY+b0+QBlMV?=
+ =?us-ascii?Q?adO2H+YZD5kHCglTxPo4KASfeJ1ozM9oD7HGOX6gMcXihsvczgUROY4wGLEo?=
+ =?us-ascii?Q?sWx2haKtI3/3fUUwXeHq3oSTdNO1cK0BdcOVf4VJmd/t9jSPla94aUh2PMiw?=
+ =?us-ascii?Q?RjeeNdv1J0FV6VNL0JRqYqGUoYNj1pubpTf/V0dSQuzWA19+yVJe8xBysGiQ?=
+ =?us-ascii?Q?Vnjbv4WawV2VqK5JYsn0/kZFlS3Hc6pgz68nJeQ3YEuVY6gXVCbaRekk7WDe?=
+ =?us-ascii?Q?4wHKO5izxV8dJ1f2HiOzm1xIMDRjThHH+tJOHLB9vRyVMVFWbY1xelTaHtaE?=
+ =?us-ascii?Q?uWGzVEtAN/0kWeVXjYlG3Inpd4kgw+kPg2MEeJ3Z+2m5LfXs3u3kPMmE1Jwk?=
+ =?us-ascii?Q?JW5zu1DDgS8B0BwhrFqjA24=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e267491-5dfb-4d21-391f-08dc31b13675
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2024 01:13:57.3910 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JhaBo6Ov5BvJLLwCuO7Z3rV7yjJFojB2au9vCS1CLJZA+7KkGNkyfUIosdxck90uUBXMaYKvePyKNzeefJR4ufimaITqbgGAuJBAH7keFpkwLQU5oYyCz9SXfdjhjv2K
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB5621
+Subject: [Linux-stm32] [PATCH v2 resend 0/4] of: replace
+	of_graph_get_next_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,96 +144,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This modifies the ad7380 ADC driver to use spi_optimize_message() to
-optimize the SPI message for the buffered read operation. Since buffered
-reads reuse the same SPI message for each read, this can improve
-performance by reducing the overhead of setting up some parts the SPI
-message in each spi_sync() call.
 
-Signed-off-by: David Lechner <dlechner@baylibre.com>
----
+Hi Rob
 
-v2 changes:
-- Removed dynamic allocation of spi xfer/msg
-- Moved spi message optimization to probe function
-- Dropped buffer pre/post callbacks
+This is resend v2 of replace of_graph_get_next_endpoint()
 
- drivers/iio/adc/ad7380.c | 36 ++++++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+We should get rid of or minimize of_graph_get_next_endpoint() in
+its current form. In general, drivers should be asking for a specific 
+port number because their function is fixed in the binding.
 
-diff --git a/drivers/iio/adc/ad7380.c b/drivers/iio/adc/ad7380.c
-index abd746aef868..6b3fd20c8f1f 100644
---- a/drivers/iio/adc/ad7380.c
-+++ b/drivers/iio/adc/ad7380.c
-@@ -133,6 +133,9 @@ struct ad7380_state {
- 	struct spi_device *spi;
- 	struct regulator *vref;
- 	struct regmap *regmap;
-+	/* xfer and msg for buffer reads */
-+	struct spi_transfer xfer;
-+	struct spi_message msg;
- 	/*
- 	 * DMA (thus cache coherency maintenance) requires the
- 	 * transfer buffers to live in their own cache lines.
-@@ -236,14 +239,9 @@ static irqreturn_t ad7380_trigger_handler(int irq, void *p)
- 	struct iio_poll_func *pf = p;
- 	struct iio_dev *indio_dev = pf->indio_dev;
- 	struct ad7380_state *st = iio_priv(indio_dev);
--	struct spi_transfer xfer = {
--		.bits_per_word = st->chip_info->channels[0].scan_type.realbits,
--		.len = 4,
--		.rx_buf = st->scan_data.raw,
--	};
- 	int ret;
- 
--	ret = spi_sync_transfer(st->spi, &xfer, 1);
-+	ret = spi_sync(st->spi, &st->msg);
- 	if (ret)
- 		goto out;
- 
-@@ -335,6 +333,28 @@ static const struct iio_info ad7380_info = {
- 	.debugfs_reg_access = &ad7380_debugfs_reg_access,
- };
- 
-+static void ad7380_unoptimize_spi_msg(void *msg)
-+{
-+	spi_unoptimize_message(msg);
-+}
-+
-+static int devm_ad7380_setup_spi_msg(struct device *dev, struct ad7380_state *st)
-+{
-+	int ret;
-+
-+	st->xfer.bits_per_word = st->chip_info->channels[0].scan_type.realbits;
-+	st->xfer.len = 4;
-+	st->xfer.rx_buf = st->scan_data.raw;
-+
-+	spi_message_init_with_transfers(&st->msg, &st->xfer, 1);
-+
-+	ret = spi_optimize_message(st->spi, &st->msg);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to optimize message\n");
-+
-+	return devm_add_action_or_reset(dev, ad7380_unoptimize_spi_msg, &st->msg);
-+}
-+
- static int ad7380_init(struct ad7380_state *st)
- {
- 	int ret;
-@@ -411,6 +431,10 @@ static int ad7380_probe(struct spi_device *spi)
- 		return dev_err_probe(&spi->dev, PTR_ERR(st->regmap),
- 				     "failed to allocate register map\n");
- 
-+	ret = devm_ad7380_setup_spi_msg(&spi->dev, st);
-+	if (ret)
-+		return ret;
-+
- 	indio_dev->channels = st->chip_info->channels;
- 	indio_dev->num_channels = st->chip_info->num_channels;
- 	indio_dev->name = st->chip_info->name;
+	https://lore.kernel.org/r/20240131184347.GA1906672-robh@kernel.org
+
+This patch-set replace of_graph_get_next_endpoint() by
+of_graph_get_endpoint_by_regs(). There are still next_endpoint()
+after this patch-set, but it will be replaced by
+for_each_endpoint_of_node() in next patch-set (A)
+
+[*] this patch-set
+[o] done
+
+	[o] tidyup of_graph_get_endpoint_count()
+	[*] replace endpoint func - use endpoint_by_regs()
+(A)	[ ] replace endpoint func - use for_each()
+	[ ] rename endpoint func to device_endpoint
+	[ ] add new port function
+	[ ] add new endpont function
+	[ ] remove of_graph_get_next_device_endpoint()
+
+v1 -> v2
+	- add Reviewed-by from Launrent
+	- use by_regs(xx, -1, -1) for some devices
+	- add extra explain for drm_of_get_dsi_bus()
+	- add FIXME and Link on adv7604.c
+	- based on latest of branch
+
+Kuninori Morimoto (4):
+  gpu: drm: replace of_graph_get_next_endpoint()
+  media: i2c: replace of_graph_get_next_endpoint()
+  media: platform: replace of_graph_get_next_endpoint()
+  video: fbdev: replace of_graph_get_next_endpoint()
+
+ drivers/gpu/drm/drm_of.c                      |  4 +++-
+ .../drm/panel/panel-raspberrypi-touchscreen.c |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+ drivers/media/i2c/adv7343.c                   |  2 +-
+ drivers/media/i2c/adv7604.c                   |  4 ++--
+ drivers/media/i2c/mt9p031.c                   |  2 +-
+ drivers/media/i2c/mt9v032.c                   |  2 +-
+ drivers/media/i2c/ov2659.c                    |  2 +-
+ drivers/media/i2c/ov5645.c                    |  2 +-
+ drivers/media/i2c/ov5647.c                    |  2 +-
+ drivers/media/i2c/s5c73m3/s5c73m3-core.c      |  2 +-
+ drivers/media/i2c/s5k5baf.c                   |  2 +-
+ drivers/media/i2c/tc358743.c                  |  2 +-
+ drivers/media/i2c/tda1997x.c                  |  2 +-
+ drivers/media/i2c/tvp514x.c                   |  2 +-
+ drivers/media/i2c/tvp7002.c                   |  2 +-
+ drivers/media/platform/atmel/atmel-isi.c      |  4 ++--
+ drivers/media/platform/intel/pxa_camera.c     |  2 +-
+ .../platform/samsung/exynos4-is/fimc-is.c     |  2 +-
+ .../platform/samsung/exynos4-is/mipi-csis.c   |  3 ++-
+ drivers/media/platform/st/stm32/stm32-dcmi.c  |  4 ++--
+ drivers/media/platform/ti/davinci/vpif.c      |  3 +--
+ drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
+ drivers/video/fbdev/pxafb.c                   |  2 +-
+ include/video/omapfb_dss.h                    |  3 ---
+ 29 files changed, 38 insertions(+), 53 deletions(-)
 
 -- 
-2.43.2
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
