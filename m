@@ -2,54 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B446285D3D2
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Feb 2024 10:39:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3FFD85D8A3
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Feb 2024 14:03:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 698F2C6B47A;
-	Wed, 21 Feb 2024 09:39:41 +0000 (UTC)
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
- [217.70.183.193])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A5EDC6B47A;
+	Wed, 21 Feb 2024 13:03:59 +0000 (UTC)
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
+ [217.70.183.196])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA5C4C65E4F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6352FC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Feb 2024 09:39:40 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7D2CF24000D;
- Wed, 21 Feb 2024 09:39:38 +0000 (UTC)
+ Wed, 21 Feb 2024 13:03:58 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 0488EE000A;
+ Wed, 21 Feb 2024 13:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1708508380;
+ t=1708520638;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Xr1h5K30G9MBY/JWOVj85ZQBdVlWSBtQJRX0YVGUwUU=;
- b=OJiEUiYWioWWVy7fpqJv/3WVpgZDBbegcbSmaG4Vm34r0L7mR1K6SgLIiMIYpK9Pcs1iiV
- 22A26aitmZoSfA58c8LK37aXF36sli8Ho7vQushhwJRWseNe3tv6rY9SJl/otDqLGVvj1F
- mOyIL7jv8KQKbrZotC9sLIZnunnb1vKIGrx8NuFJuEIKCty43XsOH/6VFLzIPzSRDC/ndD
- 3sTjT1yuTOznavogBz4bFwe1qvEvrNiqv9VVkpa5Q1zVL69izNF649QNMQuITL2X918AFo
- SkoumL/Z8whT/v0o1J1ZrdIhbzIsDJyMbdMkvRBEjgySLWBoXFb7r2cXCZD+QA==
-Date: Wed, 21 Feb 2024 10:40:06 +0100 (CET)
+ content-transfer-encoding:content-transfer-encoding;
+ bh=U/mNFUOk9QkXbNNdCkBT6ClRB51umlNcGDF8vmj5WAk=;
+ b=PG+g/mXtmf8iIVdAlwYafoMc4v4JGL/b+sCdkvBP2KtieKTQyrSdcWF0riitqzfkokYstJ
+ wyXO1lR8X0ln3Yrcn2M7TESB4iJ+QwdE5s8D14q3qfF2O3OCFU/bwgsn7+GLOHKkK5UaC/
+ /8kW2zvlaliND6Fla383E4WR63IGm6MnidNplXZKaHxGgncmpLm85iI+t5q1oquVpiVKy9
+ tEnzsxOeSI+JADNwIvON6nqmt8f8NADrAyNvDbE1E24pO/ZSboZ+eGsALhKY4ZEJZb90uD
+ SfTXQYcJdKjPMN+QoJVtSJ0UqIPyem00Gq3lTDce93lK27k9G3cx/CtFQ9n8VQ==
 From: Romain Gantois <romain.gantois@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20240212185332.2ebf2935@device-28.home>
-Message-ID: <cc90a3d2-4a6a-7274-4ede-cf6ff2f9db17@bootlin.com>
-References: <20240212-rxc_bugfix-v3-0-e9f2eb6b3b05@bootlin.com>
- <20240212-rxc_bugfix-v3-7-e9f2eb6b3b05@bootlin.com>
- <20240212185332.2ebf2935@device-28.home>
+Date: Wed, 21 Feb 2024 14:04:17 +0100
+Message-Id: <20240221-rxc_bugfix-v4-0-4883ee1cc7b1@bootlin.com>
 MIME-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIANL01WUC/1WPQW7DIBBFrxKxzkQwYDvpqveoogqcwUZqoAJiu
+ Yp890ycRePlH+a9+dxFoRyoiI/dXWSaQgkpcjD7nehHGweCcOEsUKKRClvIc//tboMPM1xM57R
+ TVnfGCwZ+M/F4lX2JSBUizVWc+cXndIU6ZrJvMqmVwSN2B9UeNSpQwFs2xMNgY02hfLqU6g/nP
+ l2f+jGUmvLfWnXC9chLpOV7qwlBQkNtr9lLjZcbz7PNpP9hVLiBNcN08kiu5b/JZgsvy/IAz9u
+ JezIBAAA=
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>
+X-Mailer: b4 0.12.4
 X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Andrew Lunn <andrew@lunn.ch>,
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Clark Wang <xiaoning.wang@nxp.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- linux-renesas-soc@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v3 7/7] net: pcs: rzn1-miic: Init
- RX clock early if MAC requires it
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v4 0/7] Fix missing PHY-to-MAC RX
+	clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,54 +64,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Maxime,
-
-On Mon, 12 Feb 2024, Maxime Chevallier wrote:
-
-> > +static int miic_pre_init(struct phylink_pcs *pcs)
-> > +{
-> > +	struct miic_port *miic_port = phylink_pcs_to_miic_port(pcs);
-> > +	struct miic *miic = miic_port->miic;
-> > +	u32 val;
-> > +
-> > +	/* Start RX clock if required */
-> > +	if (pcs->rxc_always_on) {
-> > +		/* In MII through mode, the clock signals will be driven by the
-> > +		 * external PHY, which might not be initialized yet. Set RMII
-> > +		 * as default mode to ensure that a reference clock signal is
-> > +		 * generated.
-> > +		 */
-> > +		miic_port->interface = PHY_INTERFACE_MODE_RMII;
-> 
-> There's this check in miic_config :
-> 
-> 	if (interface != miic_port->interface) {
-> 		val |= FIELD_PREP(MIIC_CONVCTRL_CONV_SPEED, speed);
-> 		mask |= MIIC_CONVCTRL_CONV_SPEED;
-> 		miic_port->interface = interface;
-> 	}
-> 
-> As you set the interface to RMII and set the CONV_MODE below without
-> really looking at the speed, is there any risk of a mismatch between
-> the configured mode and the speed ?
-Good point, it is probably necessary to set the default RMII speed in 
-miic_pre_init(), since miic_config will not do it if the link mode hasn't 
-changed in the meantime. However, this is only an issue if the link isn't 
-already up when miic_config() is called. If the link is up, then that means that 
-miic_link_up() has already been called and has set the appropriate speed anyway.
-
-Thanks,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gZXZlcnlvbmUsCgpUaGlzIGlzIHZlcnNpb24gZm91ciBvZiBteSBzZXJpZXMgdGhhdCBh
+ZGRyZXNzZXMgdGhlIGlzc3VlIHdpdGggc29tZSBNQUMvUEhZCmNvbWJpbmF0aW9ucy4KCk5vdGFi
+bGUgY2hhbmdlcyBpbiB2NDoKICAtIE1vZGlmaWVkIG1paWNfcHJlX2luaXQoKSB0byBhbHNvIHNl
+dCB0aGUgZGVmYXVsdCBSTUlJIGNvbnZlcnNpb24gc3BlZWQuCgpOb3RhYmxlIGNoYW5nZXMgaW4g
+djM6CiAgLSBSZW1vdmVkIHRoZSAiaW50ZXJmYWNlIiBhcmd1bWVudCBmcm9tIHBjc19pbml0KCku
+CiAgLSBBZGRlZCBhIGtlcm5lbCBkb2MgZm9yIHBjc19pbml0KCkuCgpOb3RhYmxlIGNoYW5nZXMg
+aW4gdjI6CiAgLSBJbnRyb2R1Y2VkIGEgcGNzIG9wIGZvciBpbml0aWFsaXppbmcgaGFyZHdhcmUg
+cmVxdWlyZWQgZm9yIE1BQwogICAgaW5pdGlhbGl6YXRpb24sIGluc3RlYWQgb2YgdXNpbmcgcGh5
+bGlua192YWxpZGF0ZSgpIGZvciB0aGlzIHB1cnBvc2UuCiAgLSBSZWZhY3RvcmVkIHN0bW1hYyB0
+byB1c2UgYSBnZW5lcmljIFBDUyByZWZlcmVuY2UgaW4gbWFjX2RldmljZV9pbmZvCiAgICBpbnN0
+ZWFkIG9mIGEgbW9kZWwtc3BlY2lmaWMgZmllbGQuCgpUaGVyZSBpcyBhbiBpc3N1ZSB3aXRoIHNv
+bWUgc3RtbWFjL1BIWSBjb21iaW5hdGlvbnMgdGhhdCBoYXMgYmVlbiByZXBvcnRlZApzb21lIHRp
+bWUgYWdvIGluIGEgY291cGxlIG9mIGRpZmZlcmVudCBzZXJpZXM6CgpDbGFyayBXYW5nJ3MgcmVw
+b3J0OgpodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyMzAyMDIwODE1NTkuMzU1MzYzNy0x
+LXhpYW9uaW5nLndhbmdAbnhwLmNvbS8KQ2zDqW1lbnQgTMOpZ2VyJ3MgcmVwb3J0OgpodHRwczov
+L2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjMwMTE2MTAzOTI2LjI3Njg2OS00
+LWNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20vCgpTdG1tYWMgY29udHJvbGxlcnMgcmVxdWlyZSBh
+biBSWCBjbG9jayBzaWduYWwgZnJvbSB0aGUgTUlJIGJ1cyB0byBwZXJmb3JtCnRoZWlyIGhhcmR3
+YXJlIGluaXRpYWxpemF0aW9uIHN1Y2Nlc3NmdWxseS4gVGhpcyBjYXVzZXMgaXNzdWVzIHdpdGgg
+c29tZQpQSFkvUENTIGRldmljZXMuIElmIHRoZXNlIGRldmljZXMgZG8gbm90IGJyaW5nIHRoZSBj
+bG9jayBzaWduYWwgdXAgYmVmb3JlCnRoZSBNQUMgZHJpdmVyIGluaXRpYWxpemVzIGl0cyBoYXJk
+d2FyZSwgdGhlbiBzYWlkIGluaXRpYWxpemF0aW9uIHdpbGwKZmFpbC4gVGhpcyBjYW4gaGFwcGVu
+IGF0IHByb2JlIHRpbWUgb3Igd2hlbiB0aGUgc3lzdGVtIHdha2VzIHVwIGZyb20gYQpzdXNwZW5k
+ZWQgc3RhdGUuCgpUaGlzIHNlcmllcyBpbnRyb2R1Y2VzIG5ldyBmbGFncyBmb3IgcGh5X2Rldmlj
+ZSBhbmQgcGh5bGlua19wY3MuIFRoZXNlCmZsYWdzIGFsbG93IE1BQyBkcml2ZXJzIHRvIHNpZ25h
+bCB0byBQSFkvUENTIGRyaXZlcnMgdGhhdCB0aGUgUlggY2xvY2sKc2lnbmFsIHNob3VsZCBiZSBl
+bmFibGVkIGFzIHNvb24gYXMgcG9zc2libGUsIGFuZCB0aGF0IGl0IHNob3VsZCBhbHdheXMKc3Rh
+eSBlbmFibGVkLgoKSSBoYXZlIGluY2x1ZGVkIHNwZWNpZmljIHVzZXMgb2YgdGhlc2UgZmxhZ3Mg
+dGhhdCBmaXggdGhlIFJaTjEgR01BQzEgc3RtbWFjCmRyaXZlciB0aGF0IEkgYW0gY3VycmVudGx5
+IHdvcmtpbmcgb24gYW5kIHRoYXQgaXMgbm90IHlldCB1cHN0cmVhbS4gSSBoYXZlCmFsc28gaW5j
+bHVkZWQgY2hhbmdlcyB0byB0aGUgYXQ4MDN4IFBIWSBkcml2ZXIgdGhhdCBzaG91bGQgZml4IHRo
+ZSBpc3N1ZQp0aGF0IENsYXJrIFdhbmcgd2FzIGhhdmluZy4KCkNsYXJrLCBjb3VsZCB5b3UgcGxl
+YXNlIGNvbmZpcm0gdGhhdCB0aGlzIHNlcmllcyBmaXhlcyB5b3VyIGlzc3VlIHdpdGggdGhlCmF0
+ODAzeCBQSFk/CgpCZXN0IFJlZ2FyZHMsCgpSb21haW4KClJvbWFpbiBHYW50b2lzICgyKToKICBu
+ZXQ6IHBoeTogYWRkIHJ4Y19hbHdheXNfb24gZmxhZyB0byBwaHlsaW5rX3BjcwogIG5ldDogcGNz
+OiByem4xLW1paWM6IEluaXQgUlggY2xvY2sgZWFybHkgaWYgTUFDIHJlcXVpcmVzIGl0CgpSdXNz
+ZWxsIEtpbmcgKDMpOgogIG5ldDogcGh5OiBhZGQgUEhZX0ZfUlhDX0FMV0FZU19PTiB0byBQSFkg
+ZGV2IGZsYWdzCiAgbmV0OiBzdG1tYWM6IFNpZ25hbCB0byBQSFkvUENTIGRyaXZlcnMgdG8ga2Vl
+cCBSWCBjbG9jayBvbgogIG5ldDogcGh5OiBhdDgwM3g6IEF2b2lkIGhpYmVybmF0aW5nIGlmIE1B
+QyByZXF1aXJlcyBSWCBjbG9jawoKIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3Rt
+bWFjX21haW4uYyAgfCAgNSArKysrKwogZHJpdmVycy9uZXQvcGNzL3Bjcy1yem4xLW1paWMuYyAg
+ICAgICAgICAgICAgICB8IDE4ICsrKysrKysrKysrKystLS0tLQogZHJpdmVycy9uZXQvcGh5L2F0
+ODAzeC5jICAgICAgICAgICAgICAgICAgICAgICB8ICAzICsrLQogZHJpdmVycy9uZXQvcGh5L3Bo
+eWxpbmsuYyAgICAgICAgICAgICAgICAgICAgICB8IDEzICsrKysrKysrKysrKy0KIGluY2x1ZGUv
+bGludXgvcGh5LmggICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMSArCiBpbmNsdWRlL2xp
+bnV4L3BoeWxpbmsuaCAgICAgICAgICAgICAgICAgICAgICAgIHwgIDkgKysrKysrKysrCiA2IGZp
+bGVzIGNoYW5nZWQsIDQyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgotLQoyLjQzLjAK
+Ci0tLQotIExpbmsgdG8gdjI6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNDAxMzAtcnhj
+X2J1Z2ZpeC12Mi0wLTVlNmMzMTY4ZTVmMEBib290bGluLmNvbQoKLS0tCi0gTGluayB0byB2Mzog
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI0MDIxMi1yeGNfYnVnZml4LXYzLTAtZTlmMmVi
+NmIzYjA1QGJvb3RsaW4uY29tCgotLS0KTWF4aW1lIENoZXZhbGxpZXIgKDEpOgogICAgICBuZXQ6
+IHN0bW1hYzogZG9uJ3QgcmVseSBvbiBseW54X3BjcyBwcmVzZW5jZSB0byBjaGVjayBmb3IgYSBQ
+SFkKClJvbWFpbiBHYW50b2lzICg0KToKICAgICAgbmV0OiBwaHlsaW5rOiBhZGQgcnhjX2Fsd2F5
+c19vbiBmbGFnIHRvIHBoeWxpbmtfcGNzCiAgICAgIG5ldDogc3RtbWFjOiBTdXBwb3J0IGEgZ2Vu
+ZXJpYyBQQ1MgZmllbGQgaW4gbWFjX2RldmljZV9pbmZvCiAgICAgIG5ldDogc3RtbWFjOiBTaWdu
+YWwgdG8gUEhZL1BDUyBkcml2ZXJzIHRvIGtlZXAgUlggY2xvY2sgb24KICAgICAgbmV0OiBwY3M6
+IHJ6bjEtbWlpYzogSW5pdCBSWCBjbG9jayBlYXJseSBpZiBNQUMgcmVxdWlyZXMgaXQKClJ1c3Nl
+bGwgS2luZyAoMik6CiAgICAgIG5ldDogcGh5bGluazogYWRkIFBIWV9GX1JYQ19BTFdBWVNfT04g
+dG8gUEhZIGRldiBmbGFncwogICAgICBuZXQ6IHBoeTogcWNvbTogYXQ4MDN4OiBBdm9pZCBoaWJl
+cm5hdGluZyBpZiBNQUMgcmVxdWlyZXMgUlggY2xvY2sKCiBkcml2ZXJzL25ldC9ldGhlcm5ldC9z
+dG1pY3JvL3N0bW1hYy9jb21tb24uaCAgICAgICB8ICAyICstCiAuLi4vbmV0L2V0aGVybmV0L3N0
+bWljcm8vc3RtbWFjL2R3bWFjLXNvY2ZwZ2EuYyAgICB8ICA4ICsrLS0tCiBkcml2ZXJzL25ldC9l
+dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jICB8IDE1ICsrKystLS0tCiBkcml2
+ZXJzL25ldC9wY3MvcGNzLXJ6bjEtbWlpYy5jICAgICAgICAgICAgICAgICAgICB8IDI4ICsrKysr
+KysrKysrKysrKwogZHJpdmVycy9uZXQvcGh5L3BoeWxpbmsuYyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAyNCArKysrKysrKysrKystCiBkcml2ZXJzL25ldC9waHkvcWNvbS9hdDgwM3guYyAg
+ICAgICAgICAgICAgICAgICAgICB8ICAzICstCiBpbmNsdWRlL2xpbnV4L3BoeS5oICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB8ICAxICsKIGluY2x1ZGUvbGludXgvcGh5bGluay5oICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHwgNDIgKysrKysrKysrKysrKysrKysrKysrKwogOCBm
+aWxlcyBjaGFuZ2VkLCAxMTAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCi0tLQpiYXNl
+LWNvbW1pdDogMGYzNzY2NmQ4N2QyZGVhNDJlYzIxNzc2YzNkNTYyYjdjYmQ3MTYxMgpjaGFuZ2Ut
+aWQ6IDIwMjQwMTI2LXJ4Y19idWdmaXgtZDQ3YjNiMWEzNzRmCgpCZXN0IHJlZ2FyZHMsCi0tIApS
+b21haW4gR2FudG9pcyA8cm9tYWluLmdhbnRvaXNAYm9vdGxpbi5jb20+CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
