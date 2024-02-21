@@ -2,83 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1039885C882
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Feb 2024 22:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 265D385CD6C
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Feb 2024 02:24:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B137EC6B45E;
-	Tue, 20 Feb 2024 21:22:42 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEE95C6B45E;
+	Wed, 21 Feb 2024 01:24:29 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11E48C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23D91C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Feb 2024 21:22:41 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41KJD5hY002449; Tue, 20 Feb 2024 21:22:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=OdMEj7azN4uCGGFB9DoExghf1hCn72OYfVqg/ygKTi4=; b=F4
- iJGJTvnw88Ez4o1ZtCTy273OpTQnJWq0SO4RMCfiSWfT9NS2iStDfZoYng4YS9Zq
- Lrdg7/hfBdWWZ7MJtDZWBAkKBjwqDrH22Rt/Q1OLXngrcmh76hhqZWDgSWOZKptC
- 4NUeQZ76ydWzLo9612rcyFaYa7w7Gp5ZPRuR/5yckjX4/LDCagjHGdDRkLTgNNg/
- kpFJSgd9xULSx5bznnAuz61tiGrmT+2gkXXuso10clRG4FKChfr7QRIhDE2Dtb9i
- CGLQo2O92rA3BRyeugCUu4EFs/ZclhM3GYu1O4T+m8EsoW63WSo9nop3rFuXdZOi
- GmLUafi6cndh5px8FbBg==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wd21s089c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Feb 2024 21:22:24 +0000 (GMT)
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41KLMNDp025986
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 20 Feb 2024 21:22:23 GMT
-Received: from [10.46.19.239] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Tue, 20 Feb
- 2024 13:22:20 -0800
-Message-ID: <e3688f73-2040-4cd2-965a-0ed5482aff2d@quicinc.com>
-Date: Tue, 20 Feb 2024 13:22:19 -0800
+ Wed, 21 Feb 2024 01:24:28 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-33d6fe64a9bso954854f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 20 Feb 2024 17:24:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708478667; x=1709083467;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QZojfwT+RxAPcmdQGaQgA+F8ssXlbPridr3vJSQMHT4=;
+ b=PaOK1nKVfnf7Pa81q1GhVXGOXf/n7p6wVH+bLR5mAIgyqNJGwTizALoP6JRt8EiYUL
+ 7lRhpjP/QaEXe55dxFkUJJA54Vmi6uql92ONMDT+SOwh8sqPbiHhkMLI06k3lzIKe5b6
+ TZ+z4UVDIMFuSvOERY3ruHAwqrOy7utzGkXD3BcWGsN2vAQDxl0F3Q2KciobvGp2xmWE
+ lI7WdTLz9SciYHtOAGJ9f2yNsI/frmAsG2KIMBUt2RDLgBLMcOc7Kn7Q2WsndPxaNf0U
+ drjlOV7/ojqwf6h1EUZRgOf9ydfZ9hta/kd+m2YXweAJH2smHD1/qzJvFkYUAxT+RCd2
+ /Wgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708478667; x=1709083467;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QZojfwT+RxAPcmdQGaQgA+F8ssXlbPridr3vJSQMHT4=;
+ b=DxwILerwtfDfXclfWEDezEEG93/XvkqcPi0pQo/GzpPzKKf5HROCfXenMl7MzVChNZ
+ iysV39A/l8s4uZo4WUxJJh5zR+7nW6EMiic8xSkLjyS2ehvTdbQ4Zf8yTn2TBLzzgtFE
+ +LR0RJ1/evuCu+bTMLmbuoxXZZqH8uvJvMOvPrtxNVmL3MS4s8cQTXKKY+U3AVZUUsrt
+ 45Zd4LoQS56V+wCJNJYZfy6uQMPoH8XbuNgmbagfl+NAP0u5D4mPJRwEY+X2RF2bg1dV
+ A3EQWEw08Zz4/hO9AUqoC877mvppsFi85S8UAdlOnKX8ghZiZAQC7SDKFE2JDPLSF0Ot
+ ed1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVohev/lPR9dUJHucONkavAIbT9qf1ekZakJDZ3ovzxTY1q3iWNJH6jCswt4agGnQWBV+sZkIHBbOvF0ESvRGNTOdBQAml8VFKuIl4Z7wEC5zyOYtE6V4hH
+X-Gm-Message-State: AOJu0Yx0PXc7N1oQP0i4v20UnuLADj8kltGcqFi7yHJCA17GTQkfvUsQ
+ Tcu+XQlkmvlpaZIqSrmewqZhhKSUhSK8YUCPFQInh+zb4w1MeS0A3rW3K89rUE9X9mep0dXECzK
+ dZ+ZAv2Vx60u/DSOQoE9t4J/uoYg=
+X-Google-Smtp-Source: AGHT+IFyffuFUKOEwh8cz2anMZHoATwBV3He7T2iJSSw7NZmTRvibOeFA+SKuUw6n1BjpafmDJGA/qD3RYrvTH/2jQ4=
+X-Received: by 2002:a05:6000:1e86:b0:33d:34a9:902f with SMTP id
+ dd6-20020a0560001e8600b0033d34a9902fmr7166848wrb.36.1708478667438; Tue, 20
+ Feb 2024 17:24:27 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Sneh Shah <quic_snehshah@quicinc.com>, Vinod Koul <vkoul@kernel.org>,
- Bhupesh Sharma <bhupesh.sharma@linaro.org>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Jose Abreu <joabreu@synopsys.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, <netdev@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-References: <20240220050735.29507-1-quic_snehshah@quicinc.com>
-Content-Language: en-US
-From: "Abhishek Chauhan (ABC)" <quic_abchauha@quicinc.com>
-In-Reply-To: <20240220050735.29507-1-quic_snehshah@quicinc.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: oj5a9uhE6Yc3ERR5VRnTqQ-Be2wgTtNV
-X-Proofpoint-GUID: oj5a9uhE6Yc3ERR5VRnTqQ-Be2wgTtNV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-20_06,2024-02-20_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- spamscore=0 impostorscore=0 mlxscore=0 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 mlxlogscore=999 malwarescore=0
- bulkscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402200153
-Cc: kernel@quicinc.com, Andrew Halaney <ahalaney@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v5] net: stmmac:
- dwmac-qcom-ethqos: Add support for 2.5G SGMII
+References: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
+In-Reply-To: <20240220035105.34626-1-dongmenglong.8@bytedance.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Tue, 20 Feb 2024 17:24:16 -0800
+Message-ID: <CAADnVQ+E4ygZV6dcs8wj5FdFz9bfrQ=61235uiRoxe9RqQvR9Q@mail.gmail.com>
+To: Menglong Dong <dongmenglong.8@bytedance.com>
+Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ Dave Marchevsky <davemarchevsky@fb.com>, Song Liu <song@kernel.org>,
+ Stanislav Fomichev <sdf@google.com>, Yonghong Song <yonghong.song@linux.dev>,
+ Kui-Feng Lee <thinker.li@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Mykola Lysenko <mykolal@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Feng Zhou <zhoufeng.zf@bytedance.com>, mcoquelin.stm32@gmail.com,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Xu <dxu@dxuuu.xyz>,
+ KP Singh <kpsingh@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>, LKML <linux-kernel@vger.kernel.org>,
+ Eddy Z <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
+ bpf <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
+Subject: Re: [Linux-stm32] [PATCH bpf-next 0/5] bpf: make tracing program
+	support multi-attach
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,127 +86,24 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 2/19/2024 9:07 PM, Sneh Shah wrote:
-> Serdes phy needs to operate at 2500 mode for 2.5G speed and 1000
-> mode for 1G/100M/10M speed.
-> Added changes to configure serdes phy and mac based on link speed.
-> Changing serdes phy speed involves multiple register writes for
-> serdes block. To avoid redundant write operations only update serdes
-> phy when new speed is different.
-> For 2500 speed MAC PCS autoneg needs to disabled. Added changes to
-> disable MAC PCS autoneg if ANE parameter is not set.
-> 
-> Signed-off-by: Sneh Shah <quic_snehshah@quicinc.com>
-Tested-by: Abhishek Chauhan <quic_abchauha@quicinc.com> # sa8775p-ride
-Reviewed-by: Abhishek Chauhan <quic_abchauha@quicinc.com>
-> ---
-> v5 changelog:
-> - Updated commit message with more details on MAC PCS autoneg disable
-> v4 changelog:
-> - Made cosmetic changes
-> v3 changelog:
-> - updated commit message
-> ---
-> v2 changelog:
-> - updated stmmac_pcs_ane to support autoneg disable
-> - Update serdes speed to 1000 for 100M and 10M also---
-> ---
->  .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 26 +++++++++++++++++++
->  .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  2 ++
->  2 files changed, 28 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 31631e3f89d0..6bbdbb7bef44 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -106,6 +106,7 @@ struct qcom_ethqos {
->  	struct clk *link_clk;
->  	struct phy *serdes_phy;
->  	unsigned int speed;
-> +	int serdes_speed;
->  	phy_interface_t phy_mode;
->  
->  	const struct ethqos_emac_por *por;
-> @@ -606,19 +607,39 @@ static int ethqos_configure_rgmii(struct qcom_ethqos *ethqos)
->   */
->  static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
->  {
-> +	struct net_device *dev = platform_get_drvdata(ethqos->pdev);
-> +	struct stmmac_priv *priv = netdev_priv(dev);
->  	int val;
->  
->  	val = readl(ethqos->mac_base + MAC_CTRL_REG);
->  
->  	switch (ethqos->speed) {
-> +	case SPEED_2500:
-> +		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
-> +		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> +			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
-> +			      RGMII_IO_MACRO_CONFIG2);
-> +		if (ethqos->serdes_speed != SPEED_2500)
-> +			phy_set_speed(ethqos->serdes_phy, SPEED_2500);
-> +		ethqos->serdes_speed = SPEED_2500;
-> +		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 0, 0, 0);
-> +		break;
->  	case SPEED_1000:
->  		val &= ~ETHQOS_MAC_CTRL_PORT_SEL;
->  		rgmii_updatel(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->  			      RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
->  			      RGMII_IO_MACRO_CONFIG2);
-> +		if (ethqos->serdes_speed != SPEED_1000)
-> +			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-> +		ethqos->serdes_speed = SPEED_1000;
-> +		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
->  		break;
->  	case SPEED_100:
->  		val |= ETHQOS_MAC_CTRL_PORT_SEL | ETHQOS_MAC_CTRL_SPEED_MODE;
-> +		if (ethqos->serdes_speed != SPEED_1000)
-> +			phy_set_speed(ethqos->serdes_phy, SPEED_1000);
-> +		ethqos->serdes_speed = SPEED_1000;
-> +		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
->  		break;
->  	case SPEED_10:
->  		val |= ETHQOS_MAC_CTRL_PORT_SEL;
-> @@ -627,6 +648,10 @@ static int ethqos_configure_sgmii(struct qcom_ethqos *ethqos)
->  			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
->  					 SGMII_10M_RX_CLK_DVDR),
->  			      RGMII_IO_MACRO_CONFIG);
-> +		if (ethqos->serdes_speed != SPEED_1000)
-> +			phy_set_speed(ethqos->serdes_phy, ethqos->speed);
-> +		ethqos->serdes_speed = SPEED_1000;
-> +		stmmac_pcs_ctrl_ane(priv, priv->ioaddr, 1, 0, 0);
->  		break;
->  	}
->  
-> @@ -799,6 +824,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  				     "Failed to get serdes phy\n");
->  
->  	ethqos->speed = SPEED_1000;
-> +	ethqos->serdes_speed = SPEED_1000;
->  	ethqos_update_link_clk(ethqos, SPEED_1000);
->  	ethqos_set_func_clk_en(ethqos);
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-> index aefc121464b5..13a30e6df4c1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
-> @@ -110,6 +110,8 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
->  	/* Enable and restart the Auto-Negotiation */
->  	if (ane)
->  		value |= GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_RAN;
-> +	else
-> +		value &= ~GMAC_AN_CTRL_ANE;
->  
->  	/* In case of MAC-2-MAC connection, block is configured to operate
->  	 * according to MAC conf register.
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBGZWIgMTksIDIwMjQgYXQgNzo1MeKAr1BNIE1lbmdsb25nIERvbmcKPGRvbmdtZW5n
+bG9uZy44QGJ5dGVkYW5jZS5jb20+IHdyb3RlOgo+Cj4gRm9yIG5vdywgdGhlIEJQRiBwcm9ncmFt
+IG9mIHR5cGUgQlBGX1BST0dfVFlQRV9UUkFDSU5HIGlzIG5vdCBhbGxvd2VkIHRvCj4gYmUgYXR0
+YWNoZWQgdG8gbXVsdGlwbGUgaG9va3MsIGFuZCB3ZSBoYXZlIHRvIGNyZWF0ZSBhIEJQRiBwcm9n
+cmFtIGZvcgo+IGVhY2gga2VybmVsIGZ1bmN0aW9uLCBmb3Igd2hpY2ggd2Ugd2FudCB0byB0cmFj
+ZSwgZXZlbiB0aHJvdWdoIGFsbCB0aGUKPiBwcm9ncmFtIGhhdmUgdGhlIHNhbWUgKG9yIHNpbWls
+YXIpIGxvZ2ljLiBUaGlzIGNhbiBjb25zdW1lIGV4dHJhIG1lbW9yeSwKPiBhbmQgbWFrZSB0aGUg
+cHJvZ3JhbSBsb2FkaW5nIHNsb3cgaWYgd2UgaGF2ZSBwbGVudHkgb2Yga2VybmVsIGZ1bmN0aW9u
+IHRvCj4gdHJhY2UuCgpTaG91bGQgdGhpcyBiZSBjb21iaW5lZCB3aXRoIG11bHRpIGxpbmsgPwoo
+QXMgd2FzIHJlY2VudGx5IGRvbmUgZm9yIGtwcm9iZV9tdWx0aSBhbmQgdXByb2JlX211bHRpKS4K
+TG9hZGluZyBmZW50cnkgcHJvZyBvbmNlIGFuZCBhdHRhY2hpbmcgaXQgdGhyb3VnaCBtYW55IGJw
+Zl9saW5rcwp0byBtdWx0aXBsZSBwbGFjZXMgaXMgYSBuaWNlIGFkZGl0aW9uLApidXQgd2Ugc2hv
+dWxkIHByb2JhYmx5IGFkZCBhIG11bHRpIGxpbmsgcmlnaHQgYXdheSB0b28uCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
