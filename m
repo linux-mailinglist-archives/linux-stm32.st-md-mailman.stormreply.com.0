@@ -2,39 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C2585F2C5
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Feb 2024 09:22:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5D785F2F6
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Feb 2024 09:31:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2EC2CC6C83D;
-	Thu, 22 Feb 2024 08:22:57 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75F22C6C83C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F1B5C6B47A;
+	Thu, 22 Feb 2024 08:31:06 +0000 (UTC)
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4B00C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Feb 2024 08:22:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3457D1007;
- Thu, 22 Feb 2024 00:23:34 -0800 (PST)
-Received: from a077893.blr.arm.com (a077893.blr.arm.com [10.162.42.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 88AF23F762;
- Thu, 22 Feb 2024 00:22:51 -0800 (PST)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	suzuki.poulose@arm.com
-Date: Thu, 22 Feb 2024 13:51:42 +0530
-Message-Id: <20240222082142.3663983-12-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240222082142.3663983-1-anshuman.khandual@arm.com>
-References: <20240222082142.3663983-1-anshuman.khandual@arm.com>
+ Thu, 22 Feb 2024 08:31:05 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DD0E72000B;
+ Thu, 22 Feb 2024 08:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1708590665;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5PMuuuclVIaSoKYSTG9l7tX59EQaHIKNZ7KCMWv4BXM=;
+ b=EkUA7yLcRa5a2pXFrOZZ9T6y/dDaNwUWqLGjiLkJA4zlS/MdaAIZThQYB55si4SIhYDEtS
+ cA1GG21UwP7j0GHYyFc2i1+5McyPboIwsq55o2etuZ19AUBz6Xmxd90sR6PBV3TIojpni5
+ bHgTBvf3hHHCoxp1/Q6t35HBamGHR/Yzo+poHmzca4fY2Tq3XMwQvfNeboCKab/P5Cq4hq
+ 2Ge2QXxYItSZUT+upCO+oe/ZPmS2cg6PLC6x83aHa0WZllgORRSzEdHWJTswe9jGLZVG9l
+ 828VIfeCEXtJVNeiSfyoJVIPa4pprTxBszWRHeabGcifMxfQGg/2bS9QmYV4JQ==
+Date: Thu, 22 Feb 2024 09:31:33 +0100 (CET)
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Simon Horman <horms@kernel.org>
+In-Reply-To: <20240221190740.GG722610@kernel.org>
+Message-ID: <46da0819-13f6-c44c-eee0-fb87468ffe51@bootlin.com>
+References: <20240221-rxc_bugfix-v4-0-4883ee1cc7b1@bootlin.com>
+ <20240221-rxc_bugfix-v4-2-4883ee1cc7b1@bootlin.com>
+ <20240221190740.GG722610@kernel.org>
 MIME-Version: 1.0
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V5 11/11] coresight: debug: Move ACPI support
-	from AMBA driver to platform driver
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
+ linux-renesas-soc@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v4 2/7] net: phylink: add
+ rxc_always_on flag to phylink_pcs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -51,249 +66,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the cpu debug devices in a new platform driver, which can
-then be used on ACPI based platforms. This change would now allow runtime
-power management for ACPI based systems. The driver would try to enable
-the APB clock if available. But first this renames and then refactors
-debug_probe() and debug_remove(), making sure they can be used both for
-platform and AMBA drivers.
+Hello Simon,
 
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Mike Leach <mike.leach@linaro.org>
-Cc: James Clark <james.clark@arm.com>
-Cc: linux-acpi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: coresight@lists.linaro.org
-Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
-Reviewed-by: James Clark <james.clark@arm.com>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
-Changes in V5:
+On Wed, 21 Feb 2024, Simon Horman wrote:
 
-- Updated commit message regarding debug_probe/remove() refactoring
-- Replaced device name s/tmc/debug in coresight_init_driver()
+> > + * driver authors should consider whether their target device is to be used in
+> > + * conjunction with a MAC device whose driver calls phylink_pcs_pre_init(). MAC
+> > + * driver authors should document their requirements for the PCS
+> > + * pre-initialization.
+> > + *
+> > + */
+> > +int pcs_config(struct phylink_pcs *pcs);
+Yes it should, thank you for pointing that out.
 
- drivers/acpi/arm64/amba.c                     |   1 -
- .../hwtracing/coresight/coresight-cpu-debug.c | 141 ++++++++++++++++--
- 2 files changed, 127 insertions(+), 15 deletions(-)
+Best Regards,
 
-diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
-index bec0976541da..e1f0bbb8f393 100644
---- a/drivers/acpi/arm64/amba.c
-+++ b/drivers/acpi/arm64/amba.c
-@@ -22,7 +22,6 @@
- static const struct acpi_device_id amba_id_list[] = {
- 	{"ARMH0061", 0}, /* PL061 GPIO Device */
- 	{"ARMH0330", 0}, /* ARM DMA Controller DMA-330 */
--	{"ARMHC503", 0}, /* ARM CoreSight Debug */
- 	{"", 0},
- };
- 
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 1874df7c6a73..e56a4b9ebd22 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -23,6 +23,8 @@
- #include <linux/smp.h>
- #include <linux/types.h>
- #include <linux/uaccess.h>
-+#include <linux/platform_device.h>
-+#include <linux/acpi.h>
- 
- #include "coresight-priv.h"
- 
-@@ -84,6 +86,7 @@
- #define DEBUG_WAIT_TIMEOUT		32000
- 
- struct debug_drvdata {
-+	struct clk	*pclk;
- 	void __iomem	*base;
- 	struct device	*dev;
- 	int		cpu;
-@@ -557,18 +560,12 @@ static void debug_func_exit(void)
- 	debugfs_remove_recursive(debug_debugfs_dir);
- }
- 
--static int debug_probe(struct amba_device *adev, const struct amba_id *id)
-+static int __debug_probe(struct device *dev, struct resource *res)
- {
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 	void __iomem *base;
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata;
--	struct resource *res = &adev->res;
- 	int ret;
- 
--	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
--	if (!drvdata)
--		return -ENOMEM;
--
- 	drvdata->cpu = coresight_get_cpu(dev);
- 	if (drvdata->cpu < 0)
- 		return drvdata->cpu;
-@@ -579,8 +576,7 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 		return -EBUSY;
- 	}
- 
--	drvdata->dev = &adev->dev;
--	amba_set_drvdata(adev, drvdata);
-+	drvdata->dev = dev;
- 
- 	/* Validity for the resource is already checked by the AMBA core */
- 	base = devm_ioremap_resource(dev, res);
-@@ -629,10 +625,21 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 	return ret;
- }
- 
--static void debug_remove(struct amba_device *adev)
-+static int debug_probe(struct amba_device *adev, const struct amba_id *id)
-+{
-+	struct debug_drvdata *drvdata;
-+
-+	drvdata = devm_kzalloc(&adev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	amba_set_drvdata(adev, drvdata);
-+	return __debug_probe(&adev->dev, &adev->res);
-+}
-+
-+static void __debug_remove(struct device *dev)
- {
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata = amba_get_drvdata(adev);
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 
- 	per_cpu(debug_drvdata, drvdata->cpu) = NULL;
- 
-@@ -646,6 +653,11 @@ static void debug_remove(struct amba_device *adev)
- 		debug_func_exit();
- }
- 
-+static void debug_remove(struct amba_device *adev)
-+{
-+	__debug_remove(&adev->dev);
-+}
-+
- static const struct amba_cs_uci_id uci_id_debug[] = {
- 	{
- 		/*  CPU Debug UCI data */
-@@ -677,7 +689,108 @@ static struct amba_driver debug_driver = {
- 	.id_table	= debug_ids,
- };
- 
--module_amba_driver(debug_driver);
-+static int debug_platform_probe(struct platform_device *pdev)
-+{
-+	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	struct debug_drvdata *drvdata;
-+	int ret = 0;
-+
-+	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
-+	if (IS_ERR(drvdata->pclk))
-+		return -ENODEV;
-+
-+	if (res) {
-+		drvdata->base = devm_ioremap_resource(&pdev->dev, res);
-+		if (IS_ERR(drvdata->base)) {
-+			clk_put(drvdata->pclk);
-+			return PTR_ERR(drvdata->base);
-+		}
-+	}
-+
-+	dev_set_drvdata(&pdev->dev, drvdata);
-+	pm_runtime_get_noresume(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = __debug_probe(&pdev->dev, res);
-+	if (ret) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		pm_runtime_disable(&pdev->dev);
-+	}
-+	return ret;
-+}
-+
-+static int debug_platform_remove(struct platform_device *pdev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(&pdev->dev);
-+
-+	if (drvdata)
-+		__debug_remove(&pdev->dev);
-+
-+	pm_runtime_disable(&pdev->dev);
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_put(drvdata->pclk);
-+	return 0;
-+}
-+
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id debug_platform_ids[] = {
-+	{"ARMHC503", 0}, /* ARM CoreSight Debug */
-+	{},
-+};
-+MODULE_DEVICE_TABLE(acpi, debug_platform_ids);
-+#endif
-+
-+#ifdef CONFIG_PM
-+static int debug_runtime_suspend(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_disable_unprepare(drvdata->pclk);
-+	return 0;
-+}
-+
-+static int debug_runtime_resume(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_prepare_enable(drvdata->pclk);
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops debug_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(debug_runtime_suspend, debug_runtime_resume, NULL)
-+};
-+
-+static struct platform_driver debug_platform_driver = {
-+	.probe	= debug_platform_probe,
-+	.remove	= debug_platform_remove,
-+	.driver	= {
-+		.name			= "coresight-debug-platform",
-+		.acpi_match_table	= ACPI_PTR(debug_platform_ids),
-+		.suppress_bind_attrs	= true,
-+		.pm			= &debug_dev_pm_ops,
-+	},
-+};
-+
-+static int __init debug_init(void)
-+{
-+	return coresight_init_driver("debug", &debug_driver, &debug_platform_driver);
-+}
-+
-+static void __exit debug_exit(void)
-+{
-+	coresight_remove_driver(&debug_driver, &debug_platform_driver);
-+}
-+module_init(debug_init);
-+module_exit(debug_exit);
- 
- MODULE_AUTHOR("Leo Yan <leo.yan@linaro.org>");
- MODULE_DESCRIPTION("ARM Coresight CPU Debug Driver");
 -- 
-2.25.1
-
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
