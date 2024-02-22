@@ -2,81 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89C2185F242
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Feb 2024 08:58:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13EAB85F2B2
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Feb 2024 09:22:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42488C6C855;
-	Thu, 22 Feb 2024 07:58:37 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B88FC65E4F
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 98905C6B47A;
+	Thu, 22 Feb 2024 08:22:02 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CEA5C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Feb 2024 05:44:10 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41M3uHrm025369; Thu, 22 Feb 2024 05:43:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- qcppdkim1; bh=oCC3QGnbRxCLzx4KRoEqeteCKzjPTUEElYcaAwDBXsA=; b=Ep
- dSbFdcHg36DzMP+JDwlh8qUWQsDI5VNBZ77uN0CcNosWOQiqoPVRIwaRo04yegZa
- s6SXEz3LzZSmD1m4zEucXUXc1VmPodUKofzy9JNs4r2+iBJF1VH2i7lIeox9ndHm
- B4mphwC+1WHT8KzJ12+JBi25nXePzQ7szJ61v9/2nd2+r4IFs+opa3wY1L6S+CkZ
- f9MpsVg/s0srg209fAAEbSsZBayBSG+jRztc4EwDydf78ThCRadzqqAU3cc4jQaS
- P6D2CS6bc4kv2G9dZLR+73nuwlm4EL0Q6nPx2vh9DBLaIx+OktUVECG4k6pa/W7D
- 1R5te5KbHh9CyynxSvPw==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3wdpjn95rq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Feb 2024 05:43:53 +0000 (GMT)
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA01.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 41M5hqFj004786
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 22 Feb 2024 05:43:52 GMT
-Received: from [10.214.82.119] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 21 Feb
- 2024 21:43:48 -0800
-Message-ID: <fe4ec29f-7521-4369-a382-bae50dbf0ee5@quicinc.com>
-Date: Thu, 22 Feb 2024 11:13:48 +0530
+ Thu, 22 Feb 2024 08:22:01 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8862A1007;
+ Thu, 22 Feb 2024 00:22:39 -0800 (PST)
+Received: from a077893.blr.arm.com (a077893.blr.arm.com [10.162.42.8])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C810C3F762;
+ Thu, 22 Feb 2024 00:21:56 -0800 (PST)
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	suzuki.poulose@arm.com
+Date: Thu, 22 Feb 2024 13:51:31 +0530
+Message-Id: <20240222082142.3663983-1-anshuman.khandual@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Bjorn Andersson
- <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, Jens
- Wiklander <jens.wiklander@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>
-References: <20240214172127.1022199-1-arnaud.pouliquen@foss.st.com>
-From: Naman Jain <quic_namajain@quicinc.com>
-In-Reply-To: <20240214172127.1022199-1-arnaud.pouliquen@foss.st.com>
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
- signatures=585085
-X-Proofpoint-ORIG-GUID: -lkiXDkqUkLoLXNDx0na_5iwoAA8Refh
-X-Proofpoint-GUID: -lkiXDkqUkLoLXNDx0na_5iwoAA8Refh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-22_03,2024-02-22_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 mlxlogscore=999 malwarescore=0 adultscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.19.0-2402120000 definitions=main-2402220042
-X-Mailman-Approved-At: Thu, 22 Feb 2024 07:58:36 +0000
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/7] Introduction of a remoteproc tee
- to load signed firmware
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: [Linux-stm32] [PATCH V5 00/11] coresight: Move remaining AMBA ACPI
+	devices into platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,97 +44,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 2/14/2024 10:51 PM, Arnaud Pouliquen wrote:
-> Updates from the previous version [1]:
-> 
-> This version proposes another approach based on an alternate load and boot
-> of the coprocessor. Therefore, the constraint introduced by tee_remoteproc
-> is that the firmware has to be authenticated and loaded before the resource
-> table can be obtained.
-> 
-> The existing boot sequence is: >
->    1) Get the resource table and store it in a cache,
->       calling rproc->ops->parse_fw().
->    2) Parse the resource table and handle resources,
->       calling rproc_handle_resources.
->    3) Load the firmware, calling rproc->ops->load().
->    4) Start the firmware, calling rproc->ops->start().
->   
-> => Steps 1 and 2 are executed in rproc_fw_boot(), while steps 3 and 4 are
->     executed in rproc_start().
-> => the use of rproc->ops->load() ops is mandatory
-> 
-> The boot sequence needed for TEE boot is:
-> 
->    1) Load the firmware.
->    2) Get the loaded resource, no cache.
->    3) Parse the resource table and handle resources.
->    4) Start the firmware.
+This moves remaining AMBA ACPI devices into respective platform drivers for
+enabling ACPI based power management support. This series applies on kernel
+v6.8-rc5 release. This series has been built, and boot tested on a DT based
+(RB5) and ACPI supported coresight platform (N1SDP).
 
-Hi,
-What problem are we really addressing here by reordering load, parse of
-FW resources?
-Basically, what are the limitations of the current design you are 
-referring to?
-I understood that TEE is designed that way.
+https://git.gitlab.arm.com/linux-arm/linux-anshuman.git (amba_other_acpi_migration_v5)
 
-> 
-> Then the crash recovery also has to be managed.For recovery, the cache is
-> used to temporarily save the resource table and then reapply it on
-> restart:
->    1) Stop the remote processor, calling rproc->ops->stop().
->    2) Load the firmware, calling rproc->ops->load().
->    3) Copy cached resource table.
->    4) Start the remote processor, calling rproc->ops->start().
-> 
-> => This sequence is also needed when TEE manages the boot of the remote
->     processor.
-> => The rproc->ops->load() is also used in recovery sequence.
-> 
-> Based on the sequences described above, the proposal is to:
-> 
-> - Rework tee_rproc API to better match the rproc_ops structure.
->    This allows to simply map the function to implement the load ops, which
->    is not optional. The tee_rproc_load_fw() is updated in consequence.
-> - Remove the call of rproc_load_segments from rproc_start() to dissociate
->    the load and the start. This is necessary to implement the boot sequence
->    requested for the TEE remote proc support.
-> - Introduce an rproc_alt_fw_boot() function that is an alternative boot
->    sequence, which implements the sequence requested for the TEE remoteproc
->    support.
-> 
-> 
-> [1] https://lore.kernel.org/lkml/20240118100433.3984196-1-arnaud.pouliquen@foss.st.com/T/
-> 
-> 
-> Description of the feature:
-> 
-> This series proposes the implementation of a remoteproc tee driver to
-> communicate with a TEE trusted application responsible for authenticating and
-> loading the remoteproc firmware image in an Arm secure context.
-> 
-> 1) Principle:
-> 
-> The remoteproc tee driver provides services to communicate with the OP-TEE
-> trusted application running on the Trusted Execution Context (TEE).
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Mike Leach <mike.leach@linaro.org>
+Cc: James Clark <james.clark@arm.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-acpi@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: coresight@lists.linaro.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
 
-s/Context/Environment?
+Changes in V5:
 
-> The trusted application in TEE manages the remote processor lifecycle:
-> 
-> - authenticating and loading firmware images,
-> - isolating and securing the remote processor memories,
-> - supporting multi-firmware (e.g., TF-M + Zephyr on a Cortex-M33),
-> - managing the start and stop of the firmware by the TEE.
-> 
+- Used table->mask to filter out bits from pid in coresight_get_uci_data_from_amba()
+- Dropped custom masks such as STM_AMBA_MASK and TMC_AMBA_MASK
+- Modified tmc_etr_setup_caps() to accept struct csdev_access argument
+- Reverted back tmc_etr_setup_caps() call site position in tmc_probe()
+- Changed replicator and funnel devices to use the new helpers earlier in series
+- Updated the commit messages regarding xxx_probe() refactoring and renaming
 
-Regards,
-Naman Jain
+Changes in V4:
+
+https://lore.kernel.org/all/20240123054608.1790189-1-anshuman.khandual@arm.com/
+
+- Fixed PM imbalance in etm4_probe() error path with pm_runtime_disable()
+- Restored back the pm_runtime_disable() on platform probe error paths
+  in replicator, funnel, catu, tpiu, tmc and stm devices
+- Dropped dev_caps argument from __tmc_probe()
+- Changed xxxx_platform_remove() for platform_driver->remove_new() callback
+
+Changes in V3:
+
+https://lore.kernel.org/all/20231208053939.42901-1-anshuman.khandual@arm.com/
+
+- Split coresight_init_driver/remove_driver() helpers into a separate patch
+- Added 'drvdata->pclk' comments in replicator, funnel, tpiu, tmc, and stm devices
+- Updated funnel, and replicator drivers to use these new helpers
+- Check for drvdata instead of drvdata->pclk in suspend and resume paths in catu,
+  tmc and debug devices
+- Added patch to extract device name from AMBA pid based table lookup for stm
+- Added patch to extract device properties from AMBA pid based table look for tmc
+- Dropped pm_runtime_put() from common __probe() functions
+- Handled pm_runtime_put() in AMBA driver in success path
+- Handled pm_runtime_put() in platform driver in both success and error paths
+
+Changes in V2:
+
+https://lore.kernel.org/all/20231201062053.1268492-1-anshuman.khandual@arm.com/
+
+- Dropped redundant devm_ioremap_resource() hunk from tmc_platform_probe()
+- Defined coresight_[init|remove]_driver() for both AMBA/platform drivers
+- Changed catu, tmc, tpiu, stm and debug coresight drivers to use the new
+  helpers avoiding build issues arising from module_amba_driver(), and
+  module_platform_driver() being on the same file
+
+Changes in V1:
+
+https://lore.kernel.org/all/20231027072943.3418997-1-anshuman.khandual@arm.com/
+
+- Replaced all IS_ERR() instances with IS_ERR_OR_NULL() as per Suzuki
+
+Changes in RFC:
+
+https://lore.kernel.org/all/20230921042040.1334641-1-anshuman.khandual@arm.com/
+
+Anshuman Khandual (11):
+  coresight: etm4x: Fix unbalanced pm_runtime_enable()
+  coresight: stm: Extract device name from AMBA pid based table lookup
+  coresight: tmc: Extract device properties from AMBA pid based table lookup
+  coresight: Add helpers registering/removing both AMBA and platform drivers
+  coresight: replicator: Move ACPI support from AMBA driver to platform driver
+  coresight: funnel: Move ACPI support from AMBA driver to platform driver
+  coresight: catu: Move ACPI support from AMBA driver to platform driver
+  coresight: tpiu: Move ACPI support from AMBA driver to platform driver
+  coresight: tmc: Move ACPI support from AMBA driver to platform driver
+  coresight: stm: Move ACPI support from AMBA driver to platform driver
+  coresight: debug: Move ACPI support from AMBA driver to platform driver
+
+ drivers/acpi/arm64/amba.c                     |   8 -
+ drivers/hwtracing/coresight/coresight-catu.c  | 142 +++++++++++++---
+ drivers/hwtracing/coresight/coresight-catu.h  |   1 +
+ drivers/hwtracing/coresight/coresight-core.c  |  29 ++++
+ .../hwtracing/coresight/coresight-cpu-debug.c | 141 ++++++++++++++--
+ .../coresight/coresight-etm4x-core.c          |   3 +
+ .../hwtracing/coresight/coresight-funnel.c    |  86 +++++-----
+ drivers/hwtracing/coresight/coresight-priv.h  |  10 ++
+ .../coresight/coresight-replicator.c          |  81 +++++-----
+ drivers/hwtracing/coresight/coresight-stm.c   | 115 +++++++++++--
+ .../hwtracing/coresight/coresight-tmc-core.c  | 153 +++++++++++++++---
+ drivers/hwtracing/coresight/coresight-tmc.h   |   2 +
+ drivers/hwtracing/coresight/coresight-tpiu.c  | 102 ++++++++++--
+ include/linux/coresight.h                     |   7 +
+ 14 files changed, 721 insertions(+), 159 deletions(-)
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
