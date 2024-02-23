@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B1386119B
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 13:38:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1D786119E
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 13:39:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB7FBC6C83C;
-	Fri, 23 Feb 2024 12:38:57 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBFDAC6B47E;
+	Fri, 23 Feb 2024 12:38:59 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F576C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E441CC6C858
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Feb 2024 12:38:56 +0000 (UTC)
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ Fri, 23 Feb 2024 12:38:57 +0000 (UTC)
+Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41NAZHt5028218; Fri, 23 Feb 2024 13:38:10 +0100
+ 41N8GlAX022193; Fri, 23 Feb 2024 13:38:13 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:date:subject:mime-version:content-type
  :content-transfer-encoding:message-id:references:in-reply-to:to
- :cc; s=selector1; bh=Dn4f3GfvCGhg9NuA1T7NEVx1XeeRBh/2a8fH4stLPtw
- =; b=Yg1oWazSP7Ff195paEYAmoqsIkbL8K+wa4GJgHEmXzVn59rrnrhFeaqS7fF
- Tp86iwEMoH5Ln2FjhVOaoe25BBbZKkDID+kbO8/U4qnrG4JZZuUXQANOfDActWMF
- 9rwq8L2XD6sgyQ5TUHWYfSxIQZGKwI3l4NXv8PmnTgq85egfub8+eoKUETq0PSHY
- TBaDN00sYvLBjwq9vay3yls3ellXDn8qdZCKh2ZhY5NhEhOOcn9QGHqN0MnuTLoD
- oyjrxYR/YEZ437GFE9eyxPn1S7Elq3rgm7tzFirukh/8FmeVLZA7inCjwkb+squm
- ciE88MG9cDUnkzwWnUfXA5DIK2Q==
+ :cc; s=selector1; bh=F8zN5Yz0CWcU425g4AE37w9LRhYp8Zn5uSxrL8yHXMQ
+ =; b=KLgrMambOr1HfgvJtNKE7rQUf6tvKRDf6amCBEY4a+YxJLQ2vW9rBQpmOWB
+ mcPSA/SY3aBdumAM0cZqIUgqAYTHizi52XjhPq9axXa6/yRcGy0LiJVPuKxBJrLn
+ TxSl0Ms0KDygiNyBkwj8b3668ZBS0U6PRKlorg0T3uC1yj2EttYL1IZmMZ5b1TUj
+ r2JqlSdJqLxHmVYKIbIKeBEHCVi+lLucpCvAL4IgI0lBUpz8Oya9Sf50DiINKP07
+ dp08Vb1O4Lq72eaGhLCX6cTaHCZ7rWyTa0hwv0osL0AdPrrY51nV4LwZ7SgeWdg3
+ LVUCVnxahCO4nOcUpXvvHGdBC4g==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wesr88fdv-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wd2034kjr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 13:38:10 +0100 (CET)
+ Fri, 23 Feb 2024 13:38:13 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 575364002D;
- Fri, 23 Feb 2024 13:38:01 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 64DDC40046;
+ Fri, 23 Feb 2024 13:38:05 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E76728DDB8;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id A7BC428DDC3;
  Fri, 23 Feb 2024 13:36:54 +0100 (CET)
 Received: from localhost (10.129.178.151) by SHFDAG1NODE2.st.com
  (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 23 Feb
  2024 13:36:54 +0100
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Fri, 23 Feb 2024 13:36:50 +0100
+Date: Fri, 23 Feb 2024 13:36:51 +0100
 MIME-Version: 1.0
-Message-ID: <20240223-ltdc_mp13-v3-3-7f92a59ca11f@foss.st.com>
+Message-ID: <20240223-ltdc_mp13-v3-4-7f92a59ca11f@foss.st.com>
 References: <20240223-ltdc_mp13-v3-0-7f92a59ca11f@foss.st.com>
 In-Reply-To: <20240223-ltdc_mp13-v3-0-7f92a59ca11f@foss.st.com>
 To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
@@ -65,8 +65,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/4] ARM: dts: stm32: enable display
- support on stm32mp135f-dk board
+Subject: [Linux-stm32] [PATCH v3 4/4] dt-bindings: display: simple: allow
+ panel-common properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,58 +78,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-TGluayBwYW5lbCBhbmQgZGlzcGxheSBjb250cm9sbGVyLgpFbmFibGUgcGFuZWwsIGJhY2tsaWdo
-dCBhbmQgZGlzcGxheSBjb250cm9sbGVyLgoKU2lnbmVkLW9mZi1ieTogUmFwaGFlbCBHYWxsYWlz
-LVBvdSA8cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4KCi0tLQpDaGFuZ2VzIGluIHYy
-OgogIC0gRml4ZWQgZHRic19jaGVjayB3YXJuaW5ncyA6CmFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0
-bTMybXAxMzVmLWRrLmR0YjogcGFuZWwtYmFja2xpZ2h0OiAnZGVmYXVsdC1icmlnaHRuZXNzLWxl
-dmVsJyBkb2VzIG5vdCBtYXRjaCBhbnkgb2YgdGhlIHJlZ2V4ZXM6ICdwaW5jdHJsLVswLTldKycK
-4oCD4oCDZnJvbSBzY2hlbWEgJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9sZWRz
-L2JhY2tsaWdodC9ncGlvLWJhY2tsaWdodC55YW1sIwphcmNoL2FybS9ib290L2R0cy9zdC9zdG0z
-Mm1wMTM1Zi1kay5kdGI6IHBhbmVsLXJnYjogZGF0YS1tYXBwaW5nOjA6ICdiZ3I2NjYnIGlzIG5v
-dCBvbmUgb2YgWydqZWlkYS0xOCcsICdqZWlkYS0yNCcsICd2ZXNhLTI0J10K4oCD4oCDZnJvbSBz
-Y2hlbWEgJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3BhbmVsL3Bh
-bmVsLXNpbXBsZS55YW1sIwphcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1kay5kdGI6
-IHBhbmVsLXJnYjogY29tcGF0aWJsZTogWydyb2NrdGVjaCxyazA0M2ZuNDhoJywgJ3BhbmVsLWRw
-aSddIGlzIHRvbyBsb25nCuKAg+KAg2Zyb20gc2NoZW1hICRpZDogaHR0cDovL2RldmljZXRyZWUu
-b3JnL3NjaGVtYXMvZGlzcGxheS9wYW5lbC9wYW5lbC1zaW1wbGUueWFtbCMKYXJjaC9hcm0vYm9v
-dC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRiOiBwYW5lbC1yZ2I6IGRhdGEtbWFwcGluZzogRmFs
-c2Ugc2NoZW1hIGRvZXMgbm90IGFsbG93IFsnYmdyNjY2J10K4oCD4oCDZnJvbSBzY2hlbWEgJGlk
-OiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3BhbmVsL3BhbmVsLXNpbXBs
-ZS55YW1sIwotLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzVmLWRrLmR0cyB8IDUz
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDUzIGlu
-c2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1
-Zi1kay5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1kay5kdHMKaW5kZXgg
-ZWVhNzQwZDA5N2M3Li5jOTE4ZjMzMmNiZmQgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRz
-L3N0L3N0bTMybXAxMzVmLWRrLmR0cworKysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1w
-MTM1Zi1kay5kdHMKQEAgLTY2LDYgKzY2LDQ2IEBAIGxlZC1ibHVlIHsKIAkJCWRlZmF1bHQtc3Rh
-dGUgPSAib2ZmIjsKIAkJfTsKIAl9OworCisJcGFuZWxfYmFja2xpZ2h0OiBwYW5lbC1iYWNrbGln
-aHQgeworCQljb21wYXRpYmxlID0gImdwaW8tYmFja2xpZ2h0IjsKKwkJZ3Bpb3MgPSA8JmdwaW9l
-IDEyIEdQSU9fQUNUSVZFX0hJR0g+OworCQlkZWZhdWx0LW9uOworCQlzdGF0dXMgPSAib2theSI7
-CisJfTsKKworCXBhbmVsX3JnYjogcGFuZWwtcmdiIHsKKwkJY29tcGF0aWJsZSA9ICJyb2NrdGVj
-aCxyazA0M2ZuNDhoIjsKKwkJZW5hYmxlLWdwaW9zID0gPCZncGlvaSA3IEdQSU9fQUNUSVZFX0hJ
-R0g+OworCQliYWNrbGlnaHQgPSA8JnBhbmVsX2JhY2tsaWdodD47CisJCXBvd2VyLXN1cHBseSA9
-IDwmc2NtaV92M3YzX3N3PjsKKwkJc3RhdHVzID0gIm9rYXkiOworCisJCXdpZHRoLW1tID0gPDEw
-NT47CisJCWhlaWdodC1tbSA9IDw2Nz47CisKKwkJcGFuZWwtdGltaW5nIHsKKwkJCWNsb2NrLWZy
-ZXF1ZW5jeSA9IDwxMDAwMDAwMD47CisJCQloYWN0aXZlID0gPDQ4MD47CisJCQloYmFjay1wb3Jj
-aCA9IDw0Mz47CisJCQloZnJvbnQtcG9yY2ggPSA8MTA+OworCQkJaHN5bmMtbGVuID0gPDE+Owor
-CQkJaHN5bmMtYWN0aXZlID0gPDA+OworCQkJdmFjdGl2ZSA9IDwyNzI+OworCQkJdmJhY2stcG9y
-Y2ggPSA8MjY+OworCQkJdmZyb250LXBvcmNoID0gPDQ+OworCQkJdnN5bmMtbGVuID0gPDEwPjsK
-KwkJCXZzeW5jLWFjdGl2ZSA9IDwwPjsKKwkJCWRlLWFjdGl2ZSA9IDwxPjsKKwkJCXBpeGVsY2xr
-LWFjdGl2ZSA9IDwxPjsKKwkJfTsKKworCQlwb3J0IHsKKwkJCXBhbmVsX2luX3JnYjogZW5kcG9p
-bnQgeworCQkJCXJlbW90ZS1lbmRwb2ludCA9IDwmbHRkY19vdXRfcmdiPjsKKwkJCX07CisJCX07
-CisJfTsKIH07CiAKICZhZGNfMSB7CkBAIC0xNjAsNiArMjAwLDE5IEBAICZpd2RnMiB7CiAJc3Rh
-dHVzID0gIm9rYXkiOwogfTsKIAorJmx0ZGMgeworCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIs
-ICJzbGVlcCI7CisJcGluY3RybC0wID0gPCZsdGRjX3BpbnNfYT47CisJcGluY3RybC0xID0gPCZs
-dGRjX3NsZWVwX3BpbnNfYT47CisJc3RhdHVzID0gIm9rYXkiOworCisJcG9ydCB7CisJCWx0ZGNf
-b3V0X3JnYjogZW5kcG9pbnQgeworCQkJcmVtb3RlLWVuZHBvaW50ID0gPCZwYW5lbF9pbl9yZ2I+
-OworCQl9OworCX07Cit9OworCiAmcnRjIHsKIAlzdGF0dXMgPSAib2theSI7CiB9OwoKLS0gCjIu
-MjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
-dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
-eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
-Zm8vbGludXgtc3RtMzIK
+This device inherits properties from panel-common. Those should be allowed
+to use, instead of specifying properties to true for each specific use.
+
+Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+---
+Changes in v3:
+  - Allow every properties instead of adding each properties to true as
+    Rob suggested
+  - Rewrite commit log to match changes
+
+Changes in v2:
+  - Added this patch
+
+Fixes following warnings:
+arch/arm/boot/dts/st/stm32mp135f-dk.dtb: panel-rgb: 'height-mm', 'panel-timing', 'width-mm' do not match any of the regexes: 'pinctrl-[0-9]+'
+	from schema $id: http://devicetree.org/schemas/display/panel/panel-simple.yaml#
+---
+ .../devicetree/bindings/display/panel/panel-simple.yaml       | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+index 634a10c6f2dd..01c9153da3d3 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
+@@ -344,15 +344,6 @@ properties:
+         # Yes Optoelectronics YTC700TLAG-05-201C 7" TFT LCD panel
+       - yes-optoelectronics,ytc700tlag-05-201c
+ 
+-  backlight: true
+-  ddc-i2c-bus: true
+-  enable-gpios: true
+-  port: true
+-  power-supply: true
+-  no-hpd: true
+-  hpd-gpios: true
+-  data-mapping: true
+-
+ if:
+   not:
+     properties:
+@@ -363,7 +354,7 @@ then:
+   properties:
+     data-mapping: false
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ required:
+   - compatible
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
