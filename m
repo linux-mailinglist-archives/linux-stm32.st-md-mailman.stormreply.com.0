@@ -2,116 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8056C861DB3
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 21:37:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A75D0861F9E
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 23:25:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34ED5C6B47E;
-	Fri, 23 Feb 2024 20:37:35 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2081.outbound.protection.outlook.com [40.107.20.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33EC7C6B47E;
+	Fri, 23 Feb 2024 22:25:00 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4706EC6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86360C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Feb 2024 20:37:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JkO2qNFNy/+9xNvcQku4DU1PCG2R48NzWgQunCmQNtu5f2A7F68kjZHmkKMxCe5UqYhUBi8KLnXP/BkROmvPYGWUvzpmIf+si6Jys9b+xoR/YHIIaP0T2z9/u4HLxk1jziHIiS6ynPtvyV9u/ZO+esY/73I5GSgYxYyCCkuQFeYF52fl/jphW6hxyykgH3qrcTDq4uqtDjPOJIAcb4xBEOkmvjioLoMN58pqdeG6rloiaiC+2LeHOg7wCm4MWFX7ZiLsVnByWJ7cTKWoWFy+jZ4ThAirQmIJw9jbUbwFBCoTMcuZed0SyEjaNrocIYKaxK1Cobxknxo/CzRdXUZydw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KX2vTzEsii4NViW4fXjvR0QwyG1i8Hhyblb5tLywzXo=;
- b=UffD1wngdNVa0kcd++RDIZ+lAnKW509e4i0lgfcoMY8EU0TeCYS2hVmQu5aGE8e+YKudikKYv6D/iNVZzPNOFZfw+7eUiZ4qEIjMkso0vc9cyyfxTXTPLpF+w9CIEXbpqNGyAy5eH5eu3KQNHLeHNCnpWr88A0fI+zyHSsO73l5j9juv4kMpMQstgkw8L0/VlbTk5At4hVb/37tfez9P5i3cymnb3OCvZmlN9jROaad9LK4VtrhOm1E2pZy9LkKETmEXqEm+5+hUkzV5HCVbQRGfPqQK78CHLnefu3wvj6V24eUTr2GMG82ycG+G8BFRpAIUGbMymWhm0otomDShCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 195.60.68.100) smtp.rcpttodomain=davemloft.net smtp.mailfrom=axis.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KX2vTzEsii4NViW4fXjvR0QwyG1i8Hhyblb5tLywzXo=;
- b=jgALnP+OTN74HjcmT8zsKQYAAkI+bbqBIOVbx+XpCaNFNO+o2cT93VtiWyzYqjeloXGAOx5cWcaXkASt2TfvhABV2NFNqQoaZsNP4wVpenDDb9IDrDJIVSE0w/Jm0HCqhpeOPpGN9FOeFJaEqam3SRm92KOazWkYKiVCArY0lLU=
-Received: from AM6P194CA0062.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::39)
- by DB4PR02MB8462.eurprd02.prod.outlook.com (2603:10a6:10:379::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Fri, 23 Feb
- 2024 20:37:33 +0000
-Received: from AMS0EPF000001A5.eurprd05.prod.outlook.com
- (2603:10a6:209:84:cafe::45) by AM6P194CA0062.outlook.office365.com
- (2603:10a6:209:84::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.43 via Frontend
- Transport; Fri, 23 Feb 2024 20:37:32 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=axis.com;
-Received-SPF: Fail (protection.outlook.com: domain of axis.com does not
- designate 195.60.68.100 as permitted sender) receiver=protection.outlook.com; 
- client-ip=195.60.68.100; helo=mail.axis.com;
-Received: from mail.axis.com (195.60.68.100) by
- AMS0EPF000001A5.mail.protection.outlook.com (10.167.16.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Fri, 23 Feb 2024 20:37:32 +0000
-Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail02w.axis.com
- (10.20.40.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 23 Feb
- 2024 21:37:31 +0100
-Received: from se-mail01w.axis.com (10.20.40.7) by SE-MAILARCH01W.axis.com
- (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 23 Feb
- 2024 21:37:31 +0100
-Received: from se-intmail01x.se.axis.com (10.0.5.60) by se-mail01w.axis.com
- (10.20.40.7) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 23 Feb 2024 21:37:31 +0100
-Received: from pc55637-2337.se.axis.com (pc55637-2337.se.axis.com [10.88.4.11])
- by se-intmail01x.se.axis.com (Postfix) with ESMTP id 075D214EA7;
- Fri, 23 Feb 2024 21:37:31 +0100 (CET)
-Received: by pc55637-2337.se.axis.com (Postfix, from userid 363)
- id 3BDE12369AF7; Fri, 23 Feb 2024 21:37:31 +0100 (CET)
-From: Jesper Nilsson <jesper.nilsson@axis.com>
-Date: Fri, 23 Feb 2024 21:37:01 +0100
+ Fri, 23 Feb 2024 22:24:58 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-512bd533be0so1767758e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 Feb 2024 14:24:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1708727098; x=1709331898;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=OOl1lY0a6/dohk1NliPsKFcgM+2fz/8FAtk2Q5fDb1Y=;
+ b=b1zLrpgCcrwt63D5TyU+YL2xo4XshR9E32hsPYfu53O/Fu1iPZxeb2FDZ7iGuMWPmX
+ SVzvjCUUv7h90gNL19lJnsSlhVZcGxNhaA920v7sO8X19TQv7tfpHS+nRVgiNgx+MGLe
+ PpMd8h3HWwYWU6QUIJYCcfEC5je8ROBolwQ2s8qV5RWmGZjIeLqe6HlLK9h/MLQspnUl
+ 1XvakFOZfu8qXPqUwx/CC5hRRxKonh2OHVTo6yxy8/s/ZRM49qUeAeFch/Dgc3BFn8XH
+ NAhY8wGN+XVu7xllb/h1vWBmzinZdg1e1cRGauO9AI4UQLm2Nf3BfKpb7apyPCup63M1
+ Vd6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1708727098; x=1709331898;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OOl1lY0a6/dohk1NliPsKFcgM+2fz/8FAtk2Q5fDb1Y=;
+ b=RmV+ajAuCQ6g5c/H+qP7V5wN+Fe/glUNR3CGv+RwuXDeKDkq8MMbN3TJug72yBq1bR
+ m4OUvtV9LJEmHQqmaK/HszmK7DRxMB+G995iFzIjNKTm7czFhXPA8ruE9XAIN8qWiL5k
+ 4jshkgcqUQfWvDVL6vXjqmNHVoJWPK0VDvBaohSl3JU3Qn0GIZVuvdj3V43yTFkrNAmn
+ wJr1kzarF87MOhVfI4eUWOVxqoEpZ8ojqPKDUoEPFYBppMj4YeK9NrkjR2B9e+OJhOfl
+ BKBlO6/QKKMgGg5K5TeeXbib0emejysKOpIRjhJ/8nhlcALiOS+wfCHA+pOurbA3CuB7
+ q1SQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7WHOj0m3iss269WCiwcw1UN7+Z3Z03qU7H22VxH0mBsteSdta/b/4rydihoPcDxh5BhRry8w3u+6mo9Wb7KX2jRgUCa3tntCtW0tIe2cLnmrmOdkXoByB
+X-Gm-Message-State: AOJu0Yynj8aRb900QseXfbfcUCQ4fPBCGupA5IwMKJ3aKSnNifVnxGr5
+ AbIuqoF4l/aLOisPcIqvr6QuA+kXJDDHcQ5cP/S01j1/AIHgQNAv
+X-Google-Smtp-Source: AGHT+IEXKLqTCm3Drz6eJFU6W2jRa+bGqgbnfHWqsjRN8it0sQzJZAQ9bhgdCfAAqOYjVLeFlMIwOQ==
+X-Received: by 2002:ac2:5e9b:0:b0:512:db76:4e16 with SMTP id
+ b27-20020ac25e9b000000b00512db764e16mr642503lfq.4.1708727097314; 
+ Fri, 23 Feb 2024 14:24:57 -0800 (PST)
+Received: from mobilestation ([95.79.226.168])
+ by smtp.gmail.com with ESMTPSA id
+ j9-20020a056512398900b00512e14d1218sm610819lfu.261.2024.02.23.14.24.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Feb 2024 14:24:56 -0800 (PST)
+Date: Sat, 24 Feb 2024 01:24:54 +0300
+From: Serge Semin <fancer.lancer@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>
+Message-ID: <kns2u6o4nhz4vda74r2mscyyp6yjgo2p62vryeenucm4o3ngzb@j6ch3sl6xha2>
+References: <20240219-stmmac-axi-config-v3-0-fca7f046e6ee@nvidia.com>
+ <20240219-stmmac-axi-config-v3-3-fca7f046e6ee@nvidia.com>
+ <xne2i6jwqaptsrd2hjdahxbscysgtj7iabqendyjb75fnrjc5z@js7n7qngtzym>
+ <CZ9Z70HO2C7J.398BRNM8NBIG1@gmail.com>
 MIME-Version: 1.0
-Message-ID: <20240223-stmmac_stats-v3-1-5d483c2a071a@axis.com>
-X-B4-Tracking: v=1; b=H4sIAOwB2WUC/22NQQqDMBBFryKzbsok0Shd9R6llDSONQu1ZEKwi
- HdvyEpKl4/Pe38DpuCJ4VJtECh59sucQZ8qcKOdXyR8nxkUqhqVNILjNFn34GgjC9KNkX1tsEe
- CrLwDDX4tuRvMFMVMa4R7XkbPcQmf8pNk2f8nkxRStGiawdZG6qG72tXz2S1T6SR1cBX+uCq7a
- NuuM/pJrsWDu+/7Fwfma0ztAAAA
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
- <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1708720651; l=3843;
- i=jesper.nilsson@axis.com; s=20240216; h=from:subject:message-id;
- bh=aBWSrG5PTHNDYbjhu6vhwaGZci5zg9VS2o4mtJiReCk=;
- b=Bh+Rxs7daVj8594P6YNp7rM9ZzWAJfr4ixMYoRXeDBlqt0tXkJQRqncG/xWdtkhMSHYeXGn6X
- FRXqcrU6FBEDU7r5dMVLXT9zZSq20ZVl4QXVqoxwx5jow0QHDz45ZE+
-X-Developer-Key: i=jesper.nilsson@axis.com; a=ed25519;
- pk=RDobTFVrTaE8iMP112Wk0CDiLdcV7I+OkaCECzhr/bI=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF000001A5:EE_|DB4PR02MB8462:EE_
-X-MS-Office365-Filtering-Correlation-Id: fafa762f-109b-490f-1e30-08dc34af42a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LY4TkECqaYmAd3wTqlcI1DlcZjkfRZ9SmaPssjt6pB6WSflhBXRq/ShyNkAUETBnMdsd0JEV0a5QZEt+/nIWXyqEQM97mUf1PlEEVLUIxONFMbQxP9mG+dghRcaKqasZ6/xnwI684tK6QAjrJJYPYqO7T90e0DTs2GAppzDCKGCQNfeIPVk7iAqXHNuiR9HP/g5QVlwM//GcG5pQDVr2uj1H+MbzvWK+alR3ZCYzDHxHj1lbwsbt+iJJxHk+y7/9wej9MW/ew4ivE1eXOp/u8Goa6buPXqNoJCMsv+cHi9UM9A2OMtJ3Nl143C0MzcXXtCv9Cae1SjyWRTJTkDyIp+iGE3o7c6Yj3zrvXCjqebE3bzVltrrAItin24IUKehrQ3Wc4wb+Me5LArRUf6S3j3nEe9icFk8/E1tAaQuMLpfdN2/Y8v3ksIKn/Z04AKvq1vnCdELvUfKIFEKjnypZ64gaeljqo8cB/hAkMMymM7jOdgVAMRAMUcrdRnlfhMtdbqpFC9x3KXwJztyDuZRq30iIERbEQG0wlnAiNy9kyRPLzsxDNFIi0cleLi/xvzdqAF9pwiJ0QS7z+I0B62amFDTqtv4x/yj6VvgwaXDfC8nyNb430PG5UQoD3oJf5mQv1whhSOE6ezITZxc1mAplXg==
-X-Forefront-Antispam-Report: CIP:195.60.68.100; CTRY:SE; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.axis.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230031)(36860700004)(46966006)(40470700004); DIR:OUT; SFP:1101; 
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 20:37:32.1231 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fafa762f-109b-490f-1e30-08dc34af42a1
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af; Ip=[195.60.68.100];
- Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001A5.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR02MB8462
-Cc: Jesper Nilsson <jesper.nilsson@axis.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
- kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
+Content-Disposition: inline
+In-Reply-To: <CZ9Z70HO2C7J.398BRNM8NBIG1@gmail.com>
+Cc: Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ linux-tegra@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: mmc_core: Drop
- interrupt registers from stats
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Configure
+ AXI on Tegra234 MGBE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,97 +90,211 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The MMC IPC interrupt status and interrupt mask registers are
-of little use as Ethernet statistics, but incrementing counters
-based on the current interrupt and interrupt mask registers
-makes them actively misleading.
+On Tue, Feb 20, 2024 at 03:28:39PM +0100, Thierry Reding wrote:
+> On Mon Feb 19, 2024 at 7:32 PM CET, Serge Semin wrote:
+> > On Mon, Feb 19, 2024 at 05:46:06PM +0100, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > > 
+> > > Allow the device to use bursts and increase the maximum number of
+> > > outstanding requests to improve performance. Measurements show an
+> > > increase in throughput of around 5x on a 1 Gbps link.
+> > > 
+> > > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > > ---
+> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+> > > index bab57d1675df..b6bfa48f279d 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
+> > > @@ -199,6 +199,12 @@ static void mgbe_uphy_lane_bringup_serdes_down(struct net_device *ndev, void *mg
+> > >  	writel(value, mgbe->xpcs + XPCS_WRAP_UPHY_RX_CONTROL);
+> > >  }
+> > >  
+> > > +static const struct stmmac_axi tegra234_mgbe_axi = {
+> > > +	.axi_wr_osr_lmt = 63,
+> > > +	.axi_rd_osr_lmt = 63,
+> > > +	.axi_blen = { 256, },
+> > > +};
+> > > +
+> > >  static int tegra_mgbe_probe(struct platform_device *pdev)
+> > >  {
+> > >  	struct plat_stmmacenet_data *plat;
+> > > @@ -284,6 +290,9 @@ static int tegra_mgbe_probe(struct platform_device *pdev)
+> > >  	if (err < 0)
+> > >  		goto disable_clks;
+> > >  
+> > > +	/* setup default AXI configuration */
+> > > +	res.axi = &tegra234_mgbe_axi;
+> > > +
+> > >  	plat = devm_stmmac_probe_config_dt(pdev, &res);
+> > >  	if (IS_ERR(plat)) {
+> > >  		err = PTR_ERR(plat);
+> >
+> > Let's get back to the v2 discussion:
+> >
+> > On Mon Feb 5, 2024 at 1:44 AM CET, Serge Semin wrote:
+> > > The entire series can be converted to just a few lines of change:
+> > >     plat = devm_stmmac_probe_config_dt(pdev, res.mac);
+> > >     if (IS_ERR(plat)) {
+> > >             err = PTR_ERR(plat);
+> > >             goto disable_clks;
+> > >     }
+> > > +
+> > > +   if (IS_ERR_OR_NULL(plat->axi)) {
+> > > +           plat->axi = devm_kzalloc(&pdev->dev, sizeof(*axi), GFP_KERNEL);
+> > > +           if (!plat->axi) {
+> > > +                   ret = -ENOMEM;
+> > > +                   goto disable_clks;
+> > > +           }
+> > > +   } /* else memset plat->axi with zeros if you wish */
+> > > +
+> > > +   plat->axi->axi_wr_osr_lmt = 63;
+> > > +   plat->axi->axi_rd_osr_lmt = 63;
+> > > +   plat->axi->axi_blen[0] = 256;
+> > >  
+> > >     plat->has_xgmac = 1;
+> > >     plat->flags |= STMMAC_FLAG_TSO_EN;
+> > >     plat->pmt = 1;
+> > >
+> > > Please don't overcomplicate the already overcomplicated driver with a
+> > > functionality which can be reached by the default one. In this case
+> > > the easiest way is to let the generic code work and then
+> > > override/replace/fix/etc the retrieved values. Thus there won't be
+> > > need in adding the redundant functionality and keep the generic
+> > > DT-platform code a bit simpler to read.
+> >
+> > You responded with:
+> >
+> > On Tue, Feb 13, 2024 at 04:51:34PM +0100, Thierry Reding wrote:
+> > > I'm not sure I understand how this is overcomplicating things. The code
+> > > is pretty much unchanged, except that the AXI configuration can now have
+> > > driver-specified defaults before the DT is parsed. Perhaps I need to add
+> > > comments to make that a bit clearer?
+> > > 
+> > > While your version is certainly simpler it has the drawback that it no
+> > > longer allows the platform defaults to be overridden in device tree. I
+> > > would prefer if the defaults can be derived from the compatible string
+> > > but if need be for those defaults to still be overridable from device
+> > > tree.
+> >
+> > Currently available functionality is easier to read and understand: by
+> > default the data is retrieved from the DT, if no AXI DT-node found you
+> > can allocate/create your own AXI-configs, if there is AXI DT-node you
+> > can fix it up in whatever way your wish. Thus the default behavior is
+> > straightforward. You on the contrary suggest to add an additional
+> > field to the resources structure which would need to be merged in with
+> > the data retrieved from DT. It makes the stmmac_axi_setup() method and
+> > the entire logic more complex and thus harder to comprehend.
+> 
+> I suppose that's subjective. Being able to let the driver provide
+> defaults that can then be overridden by values from DT doesn't seem like
+> a very exotic (or complicated) feature to me. We do that elsewhere all
+> the time. Do the comments that I added in this version not sufficiently
+> explain what's going on?
 
-For example, if the interrupt mask is set to 0x08420842,
-the current code will increment by that amount each iteration,
-leading to the following sequence of nonsense:
+I have perfectly understood what was going on since v1. My concern is
+the implementation. Here is the way the platform-specific setup
+currently works.
 
-mmc_rx_ipc_intr_mask: 969816526
-mmc_rx_ipc_intr_mask: 1108361744
+There are two structures: stmmac_resources and plat_stmmacenet_data.
+The former one contains the generic platform resources like CSRs
+mapping, IRQs and MAC-address. The later one mainly has the DW
+MAC-specific settings. Yes, plat_stmmacenet_data has been evolved to
+an ugly monster with many redundant flags (fixing code and data here
+and there in the driver) and with some generic platform resources
+(which should have been added to the stmmac_resources structure in the
+first place, like clocks and resets). But still it's purpose is
+more-or-less defined. Both of these structures can be filled in with
+data either directly by the glue drivers or by calling the
+ready-to-use DW MAC platform data getters (stmmac_probe_config_dt()
+and stmmac_get_platform_resources()). Most importantly is that
+currently these structures have independent init semantics: no common
+data, no fields used in both contexts. There are tons of problematic
+places or questionable implementations in the driver, but at least
+this one is more-or-less defined: coherency is minimal, logic is
+linear.
 
-These registers have been included in the Ethernet statistics
-since the first version of MMC back in 2011 (commit 1c901a46d57).
-That commit also mentions the MMC interrupts as
-"something to add later (if actually useful)".
+You suggest to break that logic by introducing a new stmmac_resources
+field which doesn't represent a generic resource data, but which
+purpose is to tweak the AXI-settings in the plat_stmmacenet_data
+structure. The pointer won't be even ever initialized in the
+stmmac_get_platform_resources() method because it's done in the
+stmmac_probe_config_dt() function. Based on all of that the change you
+suggest look more like a fixup of the problem with your particular
+device/platform.
 
-If the registers are actually useful, they should probably
-be part of the Ethernet register dump instead of statistics,
-but for now, drop the counters for mmc_rx_ipc_intr and
-mmc_rx_ipc_intr_mask completely.
+Let's assume you patches are accepted. In sometime an another
+developer comes with a need to pre-define say MTL Tx/Rx queue configs,
+then another one with DMA configs, MDIO-bus settings, and so on. Thus
+the stmmac_resources structure will eventually turn in a set of the
+tweaks and the plat_stmmacenet_data pre-defines. That's how the
+plat_stmmacenet_data structure has turned in what it is now. This
+doesn't look like a right path to take again.
 
-Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
-Signed-off-by: Jesper Nilsson <jesper.nilsson@axis.com>
----
-Changes in v3:
-- Rebase to be against net-next
-- Link to v2: https://lore.kernel.org/r/20240220-stmmac_stats-v2-1-0a78863bec70@axis.com
+> 
+> > The driver is already overwhelmed with flags and private/platform data
+> > fixing the code here and there (see plat_stmmacenet_data, it's a
+> > madness). So please justify in more details why do you need one more
+> > complexity added instead of:
+> > 1. overriding the AXI-configs retrieved from DT,
+> 
+> Again, overriding the AXI configs read from DT doesn't keep the current
+> default behaviour of DT being the final authority. That's a policy that
+> should remain intact. This patch (series) is about allowing the driver
+> to override the AXI defaults with something that's sensible based on
+> the compatible string. The current defaults, for example, cause the GBE
+> on Tegra devices to run at around 100 Mbps even on a 1 Gbps link.
+> 
+> > 2. updating DT on your platform
+> 
 
-Changes in v2:
-- Drop the misleading registers completely
-- Link to v1: https://lore.kernel.org/r/20240216-stmmac_stats-v1-1-7065fa4613f8@axis.com
----
- drivers/net/ethernet/stmicro/stmmac/mmc.h            | 4 ----
- drivers/net/ethernet/stmicro/stmmac/mmc_core.c       | 3 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 --
- 3 files changed, 9 deletions(-)
+> That's one possibility and was in fact the first variant I used, but it
+> has a few drawbacks. For example, it means that I need to create the AXI
+> node just to make the device functional, but if possible it's better to
+> derive all necessary information from the compatible string. Having this
+> in a separate AXI configuration node is duplicating information that's
+> already implied by the compatible string.
+> 
+> Also, on Tegra we have a few instances of this device that are all
+> configured the same way. Since the AXI configuration node is supposed to
+> be a child of the Ethernet controller node, we end up having to
+> duplicate even more information.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc.h b/drivers/net/ethernet/stmicro/stmmac/mmc.h
-index 14c9d2637dfe..dff02d75d519 100644
---- a/drivers/net/ethernet/stmicro/stmmac/mmc.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/mmc.h
-@@ -86,10 +86,6 @@ struct stmmac_counters {
- 	unsigned int mmc_rx_discard_octets_gb;
- 	unsigned int mmc_rx_align_err_frames;
- 
--	/* IPC */
--	unsigned int mmc_rx_ipc_intr_mask;
--	unsigned int mmc_rx_ipc_intr;
--
- 	/* IPv4 */
- 	unsigned int mmc_rx_ipv4_gd;
- 	unsigned int mmc_rx_ipv4_hderr;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-index 8597c6abae8d..7eb477faa75a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-@@ -316,9 +316,6 @@ static void dwmac_mmc_read(void __iomem *mmcaddr, struct stmmac_counters *mmc)
- 	mmc->mmc_rx_fifo_overflow += readl(mmcaddr + MMC_RX_FIFO_OVERFLOW);
- 	mmc->mmc_rx_vlan_frames_gb += readl(mmcaddr + MMC_RX_VLAN_FRAMES_GB);
- 	mmc->mmc_rx_watchdog_error += readl(mmcaddr + MMC_RX_WATCHDOG_ERROR);
--	/* IPC */
--	mmc->mmc_rx_ipc_intr_mask += readl(mmcaddr + MMC_RX_IPC_INTR_MASK);
--	mmc->mmc_rx_ipc_intr += readl(mmcaddr + MMC_RX_IPC_INTR);
- 	/* IPv4 */
- 	mmc->mmc_rx_ipv4_gd += readl(mmcaddr + MMC_RX_IPV4_GD);
- 	mmc->mmc_rx_ipv4_hderr += readl(mmcaddr + MMC_RX_IPV4_HDERR);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-index 0e44b84fb7e7..e1537a57815f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-@@ -243,8 +243,6 @@ static const struct stmmac_stats stmmac_mmc[] = {
- 	STMMAC_MMC_STAT(mmc_rx_discard_frames_gb),
- 	STMMAC_MMC_STAT(mmc_rx_discard_octets_gb),
- 	STMMAC_MMC_STAT(mmc_rx_align_err_frames),
--	STMMAC_MMC_STAT(mmc_rx_ipc_intr_mask),
--	STMMAC_MMC_STAT(mmc_rx_ipc_intr),
- 	STMMAC_MMC_STAT(mmc_rx_ipv4_gd),
- 	STMMAC_MMC_STAT(mmc_rx_ipv4_hderr),
- 	STMMAC_MMC_STAT(mmc_rx_ipv4_nopay),
+None of that sounds like big problems. The default behavior doesn't
+make your devices not-working. Yes, the performance is poor, but they
+still work. Regarding the AXI-config DT-nodes it's not a problem at
+all. A lot of the DW *MAC instances currently have the AXI-config
+DT-subnodes. It's absolutely fine to have them setting up the same
+configs.
 
----
-base-commit: a08689109c5989acdc5c320de8e45324f6cfa791
-change-id: 20240216-stmmac_stats-e3561d460d0e
+Once again having the pre-defined configs is fine. All I am worried
+about is the implementation you suggest especially in using the
+stmmac_resources structure to tweak up the plat_stmmacenet_data data.
+So the easiest solutions in your case are:
+1. Initialize the plat_stmmacenet_data->axi pointer if no AXI
+DT-subnode was detected by the stmmac_probe_config_dt() method, after
+the method is called. This will provide almost the same semantics as
+you suggest. The only difference is that it would work not on the
+property level but on the node-level one. (Note the implementation
+suggested by you doesn't provide the AXI-configs pre-definition for
+the boolean properties. So it doesn't provide a complete AXI-config
+default pre-definition.)
+2. Add the proper AXI-config DT-subnodes to the respective device tree
+sources.
 
-Best regards,
--- 
+If despite of all my reasoning you still insist on having a
+pre-defined setting pattern, then we'll need to come up with some
+better solution. On the top of my mind it might be for example a
+pre-definition of the entire plat_stmmacenet_data structure instance
+or using the software nodes.
 
-/^JN - Jesper Nilsson
--- 
-               Jesper Nilsson -- jesper.nilsson@axis.com
+-Serge(y)
+
+> 
+> Thierry
+
 
 _______________________________________________
 Linux-stm32 mailing list
