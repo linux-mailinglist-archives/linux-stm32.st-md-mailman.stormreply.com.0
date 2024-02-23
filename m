@@ -2,79 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6CC861BD8
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 19:37:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8056C861DB3
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 21:37:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F9B4C6B47E;
-	Fri, 23 Feb 2024 18:37:34 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34ED5C6B47E;
+	Fri, 23 Feb 2024 20:37:35 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2081.outbound.protection.outlook.com [40.107.20.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E48FDC6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4706EC6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Feb 2024 18:37:33 +0000 (UTC)
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1dc75972f25so4718595ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Feb 2024 10:37:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1708713452; x=1709318252;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KZoiqAY2Uur/aGWMy2naDtSDhhq1uQ0pWzfI5wkuDOg=;
- b=Bswga0dAtizFupUt6C5PXWnb6H10xCaIMcprfSJIqnbTqoAHnxEFHrxAY/NF3KozF2
- 6VwmgwX1cermeRrilkZpxZMPuYTNt4XGdcB2vBzFuWtuGNtowoHrTMxUBZ0viwxee2EA
- Jnm7wDgrGAjbOOCawskl7PYUv+gga5bt3fI0eUGUzYWS1H59HC1/Wb5vOeXzEVYDg8td
- RLNkYYxQaNs6lyiTKPi5HT9RNQxMtHAn+SyOGudSqsZi+GoORdG9Uo7fY/dzAqJ6Xfbr
- O5SKbm9BBsVD06DPAk81M2oMGw5Y6S/wTGw3LGbHssWuswe4H+tPiBB7C+IyB9YcpzqU
- gGsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708713452; x=1709318252;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KZoiqAY2Uur/aGWMy2naDtSDhhq1uQ0pWzfI5wkuDOg=;
- b=NFiY2Y4LaXDZtN2MrCibJSTCBFgI4AeWNJoTiwY+iFuWoRr+X72yt+/leipn9CVaGd
- 0pklP2neQyWFOrf+L9JIqs9P4zr7e82BQfhkBl0A7TVsBoegBdsTLrXFOVMar2Pbe5Dr
- 56NAmAmnacuSwMcqItDHzG2qdv7eXSdzP2/1ff7TG9KQc/Xfhn6PS3YFFfVEBpTn0GWq
- kZVluI4Xo7SfswLtmz33VTyru6EjNbf74BR8k9YpMRb0CWR/Ssqfz+8RLng5f3WKMHum
- g2BK+lzjtIcyMZCth7fZ44d8RjlVMozdDfTs3auT6rbxbsjOY4QUL23wLvydkdySRJuT
- 9/Lg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWFhHJhAGQ/qEZAR/kpwmK+5zvLlA4QKGp+8pdPGoJEiiYat8XjuIIGlw68oLj8RSUPTIRC62Qvn93UqfFrhF/yGCB2Gqv8wzxT5EkbYF1LmQfJ86CuHa6L
-X-Gm-Message-State: AOJu0YztU25mPlTBUjanFuC0eiXFlgRoEDWL9WF5BKlCeikJoAa0ktFP
- jRsOK+O6M4rOi2uXVyO2EH+zI25gnIsffRdERDY2+4i1vnV7KaZYyyhE8v9tdkk=
-X-Google-Smtp-Source: AGHT+IEFnq/adSWGsq0T7PG+TvSPinae6jkrUQ6p7/FCofH5i6KR3wHNsGv2ykbTotKDS+HU96hvow==
-X-Received: by 2002:a17:902:c146:b0:1dc:5ae8:174c with SMTP id
- 6-20020a170902c14600b001dc5ae8174cmr624284plj.17.1708713452286; 
- Fri, 23 Feb 2024 10:37:32 -0800 (PST)
-Received: from p14s ([2604:3d09:148c:c800:a9ba:9d9e:b797:23f1])
- by smtp.gmail.com with ESMTPSA id
- kb6-20020a170903338600b001db5bdd5e3bsm12042829plb.13.2024.02.23.10.37.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Feb 2024 10:37:31 -0800 (PST)
-Date: Fri, 23 Feb 2024 11:37:29 -0700
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Message-ID: <Zdjl6Z2ktTwi+oWp@p14s>
-References: <20240214172127.1022199-1-arnaud.pouliquen@foss.st.com>
- <20240214172127.1022199-8-arnaud.pouliquen@foss.st.com>
- <ZdeaUGpWlqGOG31u@p14s>
- <609373ba-c81d-4aee-81cb-8628e2c6897b@foss.st.com>
+ Fri, 23 Feb 2024 20:37:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JkO2qNFNy/+9xNvcQku4DU1PCG2R48NzWgQunCmQNtu5f2A7F68kjZHmkKMxCe5UqYhUBi8KLnXP/BkROmvPYGWUvzpmIf+si6Jys9b+xoR/YHIIaP0T2z9/u4HLxk1jziHIiS6ynPtvyV9u/ZO+esY/73I5GSgYxYyCCkuQFeYF52fl/jphW6hxyykgH3qrcTDq4uqtDjPOJIAcb4xBEOkmvjioLoMN58pqdeG6rloiaiC+2LeHOg7wCm4MWFX7ZiLsVnByWJ7cTKWoWFy+jZ4ThAirQmIJw9jbUbwFBCoTMcuZed0SyEjaNrocIYKaxK1Cobxknxo/CzRdXUZydw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KX2vTzEsii4NViW4fXjvR0QwyG1i8Hhyblb5tLywzXo=;
+ b=UffD1wngdNVa0kcd++RDIZ+lAnKW509e4i0lgfcoMY8EU0TeCYS2hVmQu5aGE8e+YKudikKYv6D/iNVZzPNOFZfw+7eUiZ4qEIjMkso0vc9cyyfxTXTPLpF+w9CIEXbpqNGyAy5eH5eu3KQNHLeHNCnpWr88A0fI+zyHSsO73l5j9juv4kMpMQstgkw8L0/VlbTk5At4hVb/37tfez9P5i3cymnb3OCvZmlN9jROaad9LK4VtrhOm1E2pZy9LkKETmEXqEm+5+hUkzV5HCVbQRGfPqQK78CHLnefu3wvj6V24eUTr2GMG82ycG+G8BFRpAIUGbMymWhm0otomDShCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=davemloft.net smtp.mailfrom=axis.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KX2vTzEsii4NViW4fXjvR0QwyG1i8Hhyblb5tLywzXo=;
+ b=jgALnP+OTN74HjcmT8zsKQYAAkI+bbqBIOVbx+XpCaNFNO+o2cT93VtiWyzYqjeloXGAOx5cWcaXkASt2TfvhABV2NFNqQoaZsNP4wVpenDDb9IDrDJIVSE0w/Jm0HCqhpeOPpGN9FOeFJaEqam3SRm92KOazWkYKiVCArY0lLU=
+Received: from AM6P194CA0062.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::39)
+ by DB4PR02MB8462.eurprd02.prod.outlook.com (2603:10a6:10:379::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.24; Fri, 23 Feb
+ 2024 20:37:33 +0000
+Received: from AMS0EPF000001A5.eurprd05.prod.outlook.com
+ (2603:10a6:209:84:cafe::45) by AM6P194CA0062.outlook.office365.com
+ (2603:10a6:209:84::39) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.43 via Frontend
+ Transport; Fri, 23 Feb 2024 20:37:32 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=axis.com;
+Received-SPF: Fail (protection.outlook.com: domain of axis.com does not
+ designate 195.60.68.100 as permitted sender) receiver=protection.outlook.com; 
+ client-ip=195.60.68.100; helo=mail.axis.com;
+Received: from mail.axis.com (195.60.68.100) by
+ AMS0EPF000001A5.mail.protection.outlook.com (10.167.16.232) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Fri, 23 Feb 2024 20:37:32 +0000
+Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail02w.axis.com
+ (10.20.40.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 23 Feb
+ 2024 21:37:31 +0100
+Received: from se-mail01w.axis.com (10.20.40.7) by SE-MAILARCH01W.axis.com
+ (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 23 Feb
+ 2024 21:37:31 +0100
+Received: from se-intmail01x.se.axis.com (10.0.5.60) by se-mail01w.axis.com
+ (10.20.40.7) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 23 Feb 2024 21:37:31 +0100
+Received: from pc55637-2337.se.axis.com (pc55637-2337.se.axis.com [10.88.4.11])
+ by se-intmail01x.se.axis.com (Postfix) with ESMTP id 075D214EA7;
+ Fri, 23 Feb 2024 21:37:31 +0100 (CET)
+Received: by pc55637-2337.se.axis.com (Postfix, from userid 363)
+ id 3BDE12369AF7; Fri, 23 Feb 2024 21:37:31 +0100 (CET)
+From: Jesper Nilsson <jesper.nilsson@axis.com>
+Date: Fri, 23 Feb 2024 21:37:01 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <609373ba-c81d-4aee-81cb-8628e2c6897b@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
+Message-ID: <20240223-stmmac_stats-v3-1-5d483c2a071a@axis.com>
+X-B4-Tracking: v=1; b=H4sIAOwB2WUC/22NQQqDMBBFryKzbsok0Shd9R6llDSONQu1ZEKwi
+ HdvyEpKl4/Pe38DpuCJ4VJtECh59sucQZ8qcKOdXyR8nxkUqhqVNILjNFn34GgjC9KNkX1tsEe
+ CrLwDDX4tuRvMFMVMa4R7XkbPcQmf8pNk2f8nkxRStGiawdZG6qG72tXz2S1T6SR1cBX+uCq7a
+ NuuM/pJrsWDu+/7Fwfma0ztAAAA
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Jose Abreu
+ <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1708720651; l=3843;
+ i=jesper.nilsson@axis.com; s=20240216; h=from:subject:message-id;
+ bh=aBWSrG5PTHNDYbjhu6vhwaGZci5zg9VS2o4mtJiReCk=;
+ b=Bh+Rxs7daVj8594P6YNp7rM9ZzWAJfr4ixMYoRXeDBlqt0tXkJQRqncG/xWdtkhMSHYeXGn6X
+ FRXqcrU6FBEDU7r5dMVLXT9zZSq20ZVl4QXVqoxwx5jow0QHDz45ZE+
+X-Developer-Key: i=jesper.nilsson@axis.com; a=ed25519;
+ pk=RDobTFVrTaE8iMP112Wk0CDiLdcV7I+OkaCECzhr/bI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001A5:EE_|DB4PR02MB8462:EE_
+X-MS-Office365-Filtering-Correlation-Id: fafa762f-109b-490f-1e30-08dc34af42a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LY4TkECqaYmAd3wTqlcI1DlcZjkfRZ9SmaPssjt6pB6WSflhBXRq/ShyNkAUETBnMdsd0JEV0a5QZEt+/nIWXyqEQM97mUf1PlEEVLUIxONFMbQxP9mG+dghRcaKqasZ6/xnwI684tK6QAjrJJYPYqO7T90e0DTs2GAppzDCKGCQNfeIPVk7iAqXHNuiR9HP/g5QVlwM//GcG5pQDVr2uj1H+MbzvWK+alR3ZCYzDHxHj1lbwsbt+iJJxHk+y7/9wej9MW/ew4ivE1eXOp/u8Goa6buPXqNoJCMsv+cHi9UM9A2OMtJ3Nl143C0MzcXXtCv9Cae1SjyWRTJTkDyIp+iGE3o7c6Yj3zrvXCjqebE3bzVltrrAItin24IUKehrQ3Wc4wb+Me5LArRUf6S3j3nEe9icFk8/E1tAaQuMLpfdN2/Y8v3ksIKn/Z04AKvq1vnCdELvUfKIFEKjnypZ64gaeljqo8cB/hAkMMymM7jOdgVAMRAMUcrdRnlfhMtdbqpFC9x3KXwJztyDuZRq30iIERbEQG0wlnAiNy9kyRPLzsxDNFIi0cleLi/xvzdqAF9pwiJ0QS7z+I0B62amFDTqtv4x/yj6VvgwaXDfC8nyNb430PG5UQoD3oJf5mQv1whhSOE6ezITZxc1mAplXg==
+X-Forefront-Antispam-Report: CIP:195.60.68.100; CTRY:SE; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.axis.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230031)(36860700004)(46966006)(40470700004); DIR:OUT; SFP:1101; 
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2024 20:37:32.1231 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fafa762f-109b-490f-1e30-08dc34af42a1
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af; Ip=[195.60.68.100];
+ Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF000001A5.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR02MB8462
+Cc: Jesper Nilsson <jesper.nilsson@axis.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Serge Semin <fancer.lancer@gmail.com>,
+ kernel@axis.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 7/7] remoteproc: stm32: Add support of
- an OP-TEE TA to load the firmware
+Subject: [Linux-stm32] [PATCH net-next v3] net: stmmac: mmc_core: Drop
+ interrupt registers from stats
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,270 +128,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Feb 23, 2024 at 02:54:13PM +0100, Arnaud POULIQUEN wrote:
-> Hello Mathieu,
-> 
-> On 2/22/24 20:02, Mathieu Poirier wrote:
-> > Hi,
-> > 
-> > On Wed, Feb 14, 2024 at 06:21:27PM +0100, Arnaud Pouliquen wrote:
-> >> The new TEE remoteproc device is used to manage remote firmware in a
-> >> secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
-> >> introduced to delegate the loading of the firmware to the trusted
-> >> execution context. In such cases, the firmware should be signed and
-> >> adhere to the image format defined by the TEE.
-> >>
-> >> A new "to_attach" field is introduced to differentiate the use cases
-> >> "firmware loaded by the boot stage" and "firmware loaded by the TEE".
-> >>
-> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-> >> ---
-> >> V2 to V3 update:
-> >> - remove stm32_rproc_tee_elf_sanity_check(), stm32_rproc_tee_elf_load()
-> >>   stm32_rproc_tee_elf_find_loaded_rsc_table() and  stm32_rproc_tee_start() that are bnow unused
-> >> - use new rproc::alt_boot field to sepcify that the alternate fboot method is used
-> >> - use stm32_rproc::to_attach field to differenciate attch mode from remoteproc tee boot mode.
-> >> - remove the used of stm32_rproc::fw_loaded
-> >> ---
-> >>  drivers/remoteproc/stm32_rproc.c | 85 +++++++++++++++++++++++++++++---
-> >>  1 file changed, 79 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> >> index fcc0001e2657..9cfcf66462e0 100644
-> >> --- a/drivers/remoteproc/stm32_rproc.c
-> >> +++ b/drivers/remoteproc/stm32_rproc.c
-> >> @@ -20,6 +20,7 @@
-> >>  #include <linux/remoteproc.h>
-> >>  #include <linux/reset.h>
-> >>  #include <linux/slab.h>
-> >> +#include <linux/tee_remoteproc.h>
-> >>  #include <linux/workqueue.h>
-> >>  
-> >>  #include "remoteproc_internal.h"
-> >> @@ -49,6 +50,9 @@
-> >>  #define M4_STATE_STANDBY	4
-> >>  #define M4_STATE_CRASH		5
-> >>  
-> >> +/* Remote processor unique identifier aligned with the Trusted Execution Environment definitions */
-> >> +#define STM32_MP1_M4_PROC_ID    0
-> >> +
-> >>  struct stm32_syscon {
-> >>  	struct regmap *map;
-> >>  	u32 reg;
-> >> @@ -90,6 +94,8 @@ struct stm32_rproc {
-> >>  	struct stm32_mbox mb[MBOX_NB_MBX];
-> >>  	struct workqueue_struct *workqueue;
-> >>  	bool hold_boot_smc;
-> >> +	bool to_attach;
-> >> +	struct tee_rproc *trproc;
-> >>  	void __iomem *rsc_va;
-> >>  };
-> >>  
-> >> @@ -253,10 +259,30 @@ static int stm32_rproc_release(struct rproc *rproc)
-> >>  			return err;
-> >>  		}
-> >>  	}
-> >> +	ddata->to_attach = false;
-> >>  
-> >>  	return err;
-> >>  }
-> >>  
-> >> +static int stm32_rproc_tee_attach(struct rproc *rproc)
-> >> +{
-> >> +	/* Nothing to do, remote proc already started by the secured context. */
-> >> +	return 0;
-> >> +}
-> >> +
-> >> +static int stm32_rproc_tee_stop(struct rproc *rproc)
-> >> +{
-> >> +	int err;
-> >> +
-> >> +	stm32_rproc_request_shutdown(rproc);
-> >> +
-> >> +	err = tee_rproc_stop(rproc);
-> >> +	if (err)
-> >> +		return err;
-> >> +
-> >> +	return stm32_rproc_release(rproc);
-> >> +}
-> >> +
-> >>  static int stm32_rproc_prepare(struct rproc *rproc)
-> >>  {
-> >>  	struct device *dev = rproc->dev.parent;
-> >> @@ -637,10 +663,14 @@ stm32_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
-> >>  {
-> >>  	struct stm32_rproc *ddata = rproc->priv;
-> >>  	struct device *dev = rproc->dev.parent;
-> >> +	struct tee_rproc *trproc = ddata->trproc;
-> >>  	phys_addr_t rsc_pa;
-> >>  	u32 rsc_da;
-> >>  	int err;
-> >>  
-> >> +	if (trproc && !ddata->to_attach)
-> >> +		return tee_rproc_get_loaded_rsc_table(rproc, table_sz);
-> >> +
-> > 
-> > Why do we need a flag at all?  Why can't st_rproc_tee_ops::get_loaded_rsc_table
-> > be set to tee_rproc_get_loaded_rsc_table()?
-> 
-> 
-> This function is used to retrieve the address of the resource table in 3 cases
-> - attach to a firmware started by the boot loader (U-boot).
-> - load of the firmware by OP-TEE.
-> - crash recovery on a signed firmware started by the boot loader.
-> 
-> The flag is used to differentiate the attch from the other uses cases
-> For instance we support this use case.
-> 1) attach to the firmware on boot
-> 2) crash during runtime
->   2a) stop the firmware by OP-TEE( ddata->to_attach set to 0)
->   2b) load the firmware by OP-TEE
->   2c) get the loaded resource table from OP-TEE (we can not guaranty
->       that the firmware loaded on recovery is the same)
->   2d) restart the firmware by OP-TEE
+The MMC IPC interrupt status and interrupt mask registers are
+of little use as Ethernet statistics, but incrementing counters
+based on the current interrupt and interrupt mask registers
+makes them actively misleading.
 
-This is not maintainable and needs to be broken down into smaller
-building blocks.  The introduction of tee_rproc_parse_fw() should help dealing
-with some of the complexity.
+For example, if the interrupt mask is set to 0x08420842,
+the current code will increment by that amount each iteration,
+leading to the following sequence of nonsense:
 
-> 
-> > 
-> >>  	/* The resource table has already been mapped, nothing to do */
-> >>  	if (ddata->rsc_va)
-> >>  		goto done;
-> >> @@ -693,8 +723,20 @@ static const struct rproc_ops st_rproc_ops = {
-> >>  	.get_boot_addr	= rproc_elf_get_boot_addr,
-> >>  };
-> >>  
-> >> +static const struct rproc_ops st_rproc_tee_ops = {
-> >> +	.prepare	= stm32_rproc_prepare,
-> >> +	.start		= tee_rproc_start,
-> >> +	.stop		= stm32_rproc_tee_stop,
-> >> +	.attach		= stm32_rproc_tee_attach,
-> >> +	.kick		= stm32_rproc_kick,
-> >> +	.get_loaded_rsc_table = stm32_rproc_get_loaded_rsc_table,
-> >> +	.find_loaded_rsc_table = tee_rproc_find_loaded_rsc_table,
-> >> +	.load		= tee_rproc_load_fw,
-> >> +};
-> >> +
-> >>  static const struct of_device_id stm32_rproc_match[] = {
-> >> -	{ .compatible = "st,stm32mp1-m4" },
-> >> +	{.compatible = "st,stm32mp1-m4",},
-> >> +	{.compatible = "st,stm32mp1-m4-tee",},
-> >>  	{},
-> >>  };
-> >>  MODULE_DEVICE_TABLE(of, stm32_rproc_match);
-> >> @@ -853,6 +895,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
-> >>  	struct device *dev = &pdev->dev;
-> >>  	struct stm32_rproc *ddata;
-> >>  	struct device_node *np = dev->of_node;
-> >> +	struct tee_rproc *trproc = NULL;
-> >>  	struct rproc *rproc;
-> >>  	unsigned int state;
-> >>  	int ret;
-> >> @@ -861,12 +904,33 @@ static int stm32_rproc_probe(struct platform_device *pdev)
-> >>  	if (ret)
-> >>  		return ret;
-> >>  
-> >> -	rproc = rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
-> >> -	if (!rproc)
-> >> -		return -ENOMEM;
-> > 
-> > This patch doesn't apply to rproc-next - please rebase.
-> 
-> Yes, sure. I forgot to mention in my cover letter that my series has been
-> applied and tested on 841c35169323 (Linux 6.8-rc4).
-> 
-> > 
-> > 
-> >> +	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
-> >> +		/*
-> >> +		 * Delegate the firmware management to the secure context.
-> >> +		 * The firmware loaded has to be signed.
-> >> +		 */
-> >> +		trproc = tee_rproc_register(dev, STM32_MP1_M4_PROC_ID);
-> >> +		if (IS_ERR(trproc)) {
-> >> +			dev_err_probe(dev, PTR_ERR(trproc),
-> >> +				      "signed firmware not supported by TEE\n");
-> >> +			return PTR_ERR(trproc);
-> >> +		}
-> >> +	}
-> >>  
-> >> -	ddata = rproc->priv;
-> >> +	rproc = rproc_alloc(dev, np->name,
-> >> +			    trproc ? &st_rproc_tee_ops : &st_rproc_ops,
-> >> +			    NULL, sizeof(*ddata));
-> >> +	if (!rproc) {
-> >> +		ret = -ENOMEM;
-> >> +		goto free_tee;
-> >> +	}
-> >>  
-> >> +	ddata = rproc->priv;
-> >> +	ddata->trproc = trproc;
-> > 
-> > My opinion hasn't changed from the previous patchet, i.e tee_rproc should be
-> > folded in struct rproc as rproc::tee_interface.
-> 
-> Sure, I will do it in next version
-> 
-> > 
-> > More comments to come shortly...
-> > 
-> 
-> Thanks!
-> Arnaud
-> 
-> >> +	if (trproc) {
-> >> +		rproc->alt_boot = true;
-> >> +		trproc->rproc = rproc;
-> >> +	}
-> >>  	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
-> >>  
-> >>  	ret = stm32_rproc_parse_dt(pdev, ddata, &rproc->auto_boot);
-> >> @@ -881,8 +945,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
-> >>  	if (ret)
-> >>  		goto free_rproc;
-> >>  
-> >> -	if (state == M4_STATE_CRUN)
-> >> +	if (state == M4_STATE_CRUN) {
-> >>  		rproc->state = RPROC_DETACHED;
-> >> +		ddata->to_attach = true;
-> >> +	}
-> >>  
-> >>  	rproc->has_iommu = false;
-> >>  	ddata->workqueue = create_workqueue(dev_name(dev));
-> >> @@ -916,6 +982,10 @@ static int stm32_rproc_probe(struct platform_device *pdev)
-> >>  		device_init_wakeup(dev, false);
-> >>  	}
-> >>  	rproc_free(rproc);
-> >> +free_tee:
-> >> +	if (trproc)
-> >> +		tee_rproc_unregister(trproc);
-> >> +
-> >>  	return ret;
-> >>  }
-> >>  
-> >> @@ -923,6 +993,7 @@ static void stm32_rproc_remove(struct platform_device *pdev)
-> >>  {
-> >>  	struct rproc *rproc = platform_get_drvdata(pdev);
-> >>  	struct stm32_rproc *ddata = rproc->priv;
-> >> +	struct tee_rproc *trproc = ddata->trproc;
-> >>  	struct device *dev = &pdev->dev;
-> >>  
-> >>  	if (atomic_read(&rproc->power) > 0)
-> >> @@ -937,6 +1008,8 @@ static void stm32_rproc_remove(struct platform_device *pdev)
-> >>  		device_init_wakeup(dev, false);
-> >>  	}
-> >>  	rproc_free(rproc);
-> >> +	if (trproc)
-> >> +		tee_rproc_unregister(trproc);
-> >>  }
-> >>  
-> >>  static int stm32_rproc_suspend(struct device *dev)
-> >> -- 
-> >> 2.25.1
-> >>
-> > 
+mmc_rx_ipc_intr_mask: 969816526
+mmc_rx_ipc_intr_mask: 1108361744
+
+These registers have been included in the Ethernet statistics
+since the first version of MMC back in 2011 (commit 1c901a46d57).
+That commit also mentions the MMC interrupts as
+"something to add later (if actually useful)".
+
+If the registers are actually useful, they should probably
+be part of the Ethernet register dump instead of statistics,
+but for now, drop the counters for mmc_rx_ipc_intr and
+mmc_rx_ipc_intr_mask completely.
+
+Reviewed-by: Serge Semin <fancer.lancer@gmail.com>
+Signed-off-by: Jesper Nilsson <jesper.nilsson@axis.com>
+---
+Changes in v3:
+- Rebase to be against net-next
+- Link to v2: https://lore.kernel.org/r/20240220-stmmac_stats-v2-1-0a78863bec70@axis.com
+
+Changes in v2:
+- Drop the misleading registers completely
+- Link to v1: https://lore.kernel.org/r/20240216-stmmac_stats-v1-1-7065fa4613f8@axis.com
+---
+ drivers/net/ethernet/stmicro/stmmac/mmc.h            | 4 ----
+ drivers/net/ethernet/stmicro/stmmac/mmc_core.c       | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 2 --
+ 3 files changed, 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc.h b/drivers/net/ethernet/stmicro/stmmac/mmc.h
+index 14c9d2637dfe..dff02d75d519 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/mmc.h
++++ b/drivers/net/ethernet/stmicro/stmmac/mmc.h
+@@ -86,10 +86,6 @@ struct stmmac_counters {
+ 	unsigned int mmc_rx_discard_octets_gb;
+ 	unsigned int mmc_rx_align_err_frames;
+ 
+-	/* IPC */
+-	unsigned int mmc_rx_ipc_intr_mask;
+-	unsigned int mmc_rx_ipc_intr;
+-
+ 	/* IPv4 */
+ 	unsigned int mmc_rx_ipv4_gd;
+ 	unsigned int mmc_rx_ipv4_hderr;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+index 8597c6abae8d..7eb477faa75a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
+@@ -316,9 +316,6 @@ static void dwmac_mmc_read(void __iomem *mmcaddr, struct stmmac_counters *mmc)
+ 	mmc->mmc_rx_fifo_overflow += readl(mmcaddr + MMC_RX_FIFO_OVERFLOW);
+ 	mmc->mmc_rx_vlan_frames_gb += readl(mmcaddr + MMC_RX_VLAN_FRAMES_GB);
+ 	mmc->mmc_rx_watchdog_error += readl(mmcaddr + MMC_RX_WATCHDOG_ERROR);
+-	/* IPC */
+-	mmc->mmc_rx_ipc_intr_mask += readl(mmcaddr + MMC_RX_IPC_INTR_MASK);
+-	mmc->mmc_rx_ipc_intr += readl(mmcaddr + MMC_RX_IPC_INTR);
+ 	/* IPv4 */
+ 	mmc->mmc_rx_ipv4_gd += readl(mmcaddr + MMC_RX_IPV4_GD);
+ 	mmc->mmc_rx_ipv4_hderr += readl(mmcaddr + MMC_RX_IPV4_HDERR);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 0e44b84fb7e7..e1537a57815f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -243,8 +243,6 @@ static const struct stmmac_stats stmmac_mmc[] = {
+ 	STMMAC_MMC_STAT(mmc_rx_discard_frames_gb),
+ 	STMMAC_MMC_STAT(mmc_rx_discard_octets_gb),
+ 	STMMAC_MMC_STAT(mmc_rx_align_err_frames),
+-	STMMAC_MMC_STAT(mmc_rx_ipc_intr_mask),
+-	STMMAC_MMC_STAT(mmc_rx_ipc_intr),
+ 	STMMAC_MMC_STAT(mmc_rx_ipv4_gd),
+ 	STMMAC_MMC_STAT(mmc_rx_ipv4_hderr),
+ 	STMMAC_MMC_STAT(mmc_rx_ipv4_nopay),
+
+---
+base-commit: a08689109c5989acdc5c320de8e45324f6cfa791
+change-id: 20240216-stmmac_stats-e3561d460d0e
+
+Best regards,
+-- 
+
+/^JN - Jesper Nilsson
+-- 
+               Jesper Nilsson -- jesper.nilsson@axis.com
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
