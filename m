@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F26586119D
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 13:38:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B1386119B
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 13:38:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B72ACC6C841;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB7FBC6C83C;
 	Fri, 23 Feb 2024 12:38:57 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 490AEC6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F576C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 23 Feb 2024 12:38:56 +0000 (UTC)
-Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41N6TQdn027885; Fri, 23 Feb 2024 13:38:14 +0100
+ 41NAZHt5028218; Fri, 23 Feb 2024 13:38:10 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:date:subject:mime-version:content-type
  :content-transfer-encoding:message-id:references:in-reply-to:to
- :cc; s=selector1; bh=B/DdT1Hekue/y2cbdJTf13MdZkRgi2lmLP5jnu8Gv/8
- =; b=KqX52Xbx422s3kbIDBNVIVnin5onGlim3lEALQ0jXOmGxTV7NW2mTf8dMjs
- qoHfNORlZgV8mGHAEFea9S0xhycxfnqpHUut/UdMXJoWERTHYx0+gPS9PwDJz5EC
- cSVGaRuC9L3X2kOmWEBNvxnqDh+CtWUE0i2RR0cuE/YahB0KMciJteqeNRF5ut1s
- A9cgoClPl5jMnVruN/P+tfzMxxTMLSQ8TvEnSGLur3YfOsb72vIXtUukzgI/RekS
- jZjj3Uz/Uul63zBMMjxaCmL27oi7dDChNClUyE9KYI1RLnM/eRnvZV3RY/rqJNx0
- wzpioxPxCEmaMep4UYwmYk1ot7Q==
+ :cc; s=selector1; bh=Dn4f3GfvCGhg9NuA1T7NEVx1XeeRBh/2a8fH4stLPtw
+ =; b=Yg1oWazSP7Ff195paEYAmoqsIkbL8K+wa4GJgHEmXzVn59rrnrhFeaqS7fF
+ Tp86iwEMoH5Ln2FjhVOaoe25BBbZKkDID+kbO8/U4qnrG4JZZuUXQANOfDActWMF
+ 9rwq8L2XD6sgyQ5TUHWYfSxIQZGKwI3l4NXv8PmnTgq85egfub8+eoKUETq0PSHY
+ TBaDN00sYvLBjwq9vay3yls3ellXDn8qdZCKh2ZhY5NhEhOOcn9QGHqN0MnuTLoD
+ oyjrxYR/YEZ437GFE9eyxPn1S7Elq3rgm7tzFirukh/8FmeVLZA7inCjwkb+squm
+ ciE88MG9cDUnkzwWnUfXA5DIK2Q==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wd201vx12-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wesr88fdv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 13:38:13 +0100 (CET)
+ Fri, 23 Feb 2024 13:38:10 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 4E3C740045;
- Fri, 23 Feb 2024 13:38:05 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 575364002D;
+ Fri, 23 Feb 2024 13:38:01 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 9AD4B28DDC0;
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E76728DDB8;
  Fri, 23 Feb 2024 13:36:54 +0100 (CET)
 Received: from localhost (10.129.178.151) by SHFDAG1NODE2.st.com
  (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 23 Feb
- 2024 13:36:53 +0100
+ 2024 13:36:54 +0100
 From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Date: Fri, 23 Feb 2024 13:36:49 +0100
+Date: Fri, 23 Feb 2024 13:36:50 +0100
 MIME-Version: 1.0
-Message-ID: <20240223-ltdc_mp13-v3-2-7f92a59ca11f@foss.st.com>
+Message-ID: <20240223-ltdc_mp13-v3-3-7f92a59ca11f@foss.st.com>
 References: <20240223-ltdc_mp13-v3-0-7f92a59ca11f@foss.st.com>
 In-Reply-To: <20240223-ltdc_mp13-v3-0-7f92a59ca11f@foss.st.com>
 To: Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
@@ -65,8 +65,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 2/4] ARM: dts: stm32: add LTDC pinctrl on
- STM32MP13x SoC family
+Subject: [Linux-stm32] [PATCH v3 3/4] ARM: dts: stm32: enable display
+ support on stm32mp135f-dk board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,91 +78,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Adds LTDC pinctrl support and assigns dedicated GPIO pins.
-
-Signed-off-by: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi | 57 +++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
-index 27e0c3826789..32c5d8a1e06a 100644
---- a/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13-pinctrl.dtsi
-@@ -47,6 +47,63 @@ pins {
- 		};
- 	};
- 
-+	ltdc_pins_a: ltdc-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D',  9, AF13)>, /* LCD_CLK */
-+				 <STM32_PINMUX('C',  6, AF14)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  4, AF11)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('H',  9, AF11)>, /* LCD_DE */
-+				 <STM32_PINMUX('G',  7, AF14)>, /* LCD_R2 */
-+				 <STM32_PINMUX('B', 12, AF13)>, /* LCD_R3 */
-+				 <STM32_PINMUX('D', 14, AF14)>, /* LCD_R4 */
-+				 <STM32_PINMUX('E',  7, AF14)>, /* LCD_R5 */
-+				 <STM32_PINMUX('E', 13, AF14)>, /* LCD_R6 */
-+				 <STM32_PINMUX('E',  9, AF14)>, /* LCD_R7 */
-+				 <STM32_PINMUX('H', 13, AF14)>, /* LCD_G2 */
-+				 <STM32_PINMUX('F',  3, AF14)>, /* LCD_G3 */
-+				 <STM32_PINMUX('D',  5, AF14)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G',  0, AF14)>, /* LCD_G5 */
-+				 <STM32_PINMUX('C',  7, AF14)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A', 15, AF11)>, /* LCD_G7 */
-+				 <STM32_PINMUX('D', 10, AF14)>, /* LCD_B2 */
-+				 <STM32_PINMUX('F',  2, AF14)>, /* LCD_B3 */
-+				 <STM32_PINMUX('H', 14, AF11)>, /* LCD_B4 */
-+				 <STM32_PINMUX('E',  0, AF14)>, /* LCD_B5 */
-+				 <STM32_PINMUX('B',  6, AF7)>,  /* LCD_B6 */
-+				 <STM32_PINMUX('F',  1, AF13)>; /* LCD_B7 */
-+			bias-disable;
-+			drive-push-pull;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	ltdc_sleep_pins_a: ltdc-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('D',  9, ANALOG)>, /* LCD_CLK */
-+				 <STM32_PINMUX('C',  6, ANALOG)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  4, ANALOG)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('H',  9, ANALOG)>, /* LCD_DE */
-+				 <STM32_PINMUX('G',  7, ANALOG)>, /* LCD_R2 */
-+				 <STM32_PINMUX('B', 12, ANALOG)>, /* LCD_R3 */
-+				 <STM32_PINMUX('D', 14, ANALOG)>, /* LCD_R4 */
-+				 <STM32_PINMUX('E',  7, ANALOG)>, /* LCD_R5 */
-+				 <STM32_PINMUX('E', 13, ANALOG)>, /* LCD_R6 */
-+				 <STM32_PINMUX('E',  9, ANALOG)>, /* LCD_R7 */
-+				 <STM32_PINMUX('H', 13, ANALOG)>, /* LCD_G2 */
-+				 <STM32_PINMUX('F',  3, ANALOG)>, /* LCD_G3 */
-+				 <STM32_PINMUX('D',  5, ANALOG)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G',  0, ANALOG)>, /* LCD_G5 */
-+				 <STM32_PINMUX('C',  7, ANALOG)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A', 15, ANALOG)>, /* LCD_G7 */
-+				 <STM32_PINMUX('D', 10, ANALOG)>, /* LCD_B2 */
-+				 <STM32_PINMUX('F',  2, ANALOG)>, /* LCD_B3 */
-+				 <STM32_PINMUX('H', 14, ANALOG)>, /* LCD_B4 */
-+				 <STM32_PINMUX('E',  0, ANALOG)>, /* LCD_B5 */
-+				 <STM32_PINMUX('B',  6, ANALOG)>, /* LCD_B6 */
-+				 <STM32_PINMUX('F',  1, ANALOG)>; /* LCD_B7 */
-+		};
-+	};
-+
- 	mcp23017_pins_a: mcp23017-0 {
- 		pins {
- 			pinmux = <STM32_PINMUX('G', 12, GPIO)>;
-
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+TGluayBwYW5lbCBhbmQgZGlzcGxheSBjb250cm9sbGVyLgpFbmFibGUgcGFuZWwsIGJhY2tsaWdo
+dCBhbmQgZGlzcGxheSBjb250cm9sbGVyLgoKU2lnbmVkLW9mZi1ieTogUmFwaGFlbCBHYWxsYWlz
+LVBvdSA8cmFwaGFlbC5nYWxsYWlzLXBvdUBmb3NzLnN0LmNvbT4KCi0tLQpDaGFuZ2VzIGluIHYy
+OgogIC0gRml4ZWQgZHRic19jaGVjayB3YXJuaW5ncyA6CmFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0
+bTMybXAxMzVmLWRrLmR0YjogcGFuZWwtYmFja2xpZ2h0OiAnZGVmYXVsdC1icmlnaHRuZXNzLWxl
+dmVsJyBkb2VzIG5vdCBtYXRjaCBhbnkgb2YgdGhlIHJlZ2V4ZXM6ICdwaW5jdHJsLVswLTldKycK
+4oCD4oCDZnJvbSBzY2hlbWEgJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9sZWRz
+L2JhY2tsaWdodC9ncGlvLWJhY2tsaWdodC55YW1sIwphcmNoL2FybS9ib290L2R0cy9zdC9zdG0z
+Mm1wMTM1Zi1kay5kdGI6IHBhbmVsLXJnYjogZGF0YS1tYXBwaW5nOjA6ICdiZ3I2NjYnIGlzIG5v
+dCBvbmUgb2YgWydqZWlkYS0xOCcsICdqZWlkYS0yNCcsICd2ZXNhLTI0J10K4oCD4oCDZnJvbSBz
+Y2hlbWEgJGlkOiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3BhbmVsL3Bh
+bmVsLXNpbXBsZS55YW1sIwphcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1kay5kdGI6
+IHBhbmVsLXJnYjogY29tcGF0aWJsZTogWydyb2NrdGVjaCxyazA0M2ZuNDhoJywgJ3BhbmVsLWRw
+aSddIGlzIHRvbyBsb25nCuKAg+KAg2Zyb20gc2NoZW1hICRpZDogaHR0cDovL2RldmljZXRyZWUu
+b3JnL3NjaGVtYXMvZGlzcGxheS9wYW5lbC9wYW5lbC1zaW1wbGUueWFtbCMKYXJjaC9hcm0vYm9v
+dC9kdHMvc3Qvc3RtMzJtcDEzNWYtZGsuZHRiOiBwYW5lbC1yZ2I6IGRhdGEtbWFwcGluZzogRmFs
+c2Ugc2NoZW1hIGRvZXMgbm90IGFsbG93IFsnYmdyNjY2J10K4oCD4oCDZnJvbSBzY2hlbWEgJGlk
+OiBodHRwOi8vZGV2aWNldHJlZS5vcmcvc2NoZW1hcy9kaXNwbGF5L3BhbmVsL3BhbmVsLXNpbXBs
+ZS55YW1sIwotLS0KIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxMzVmLWRrLmR0cyB8IDUz
+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDUzIGlu
+c2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1
+Zi1kay5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTM1Zi1kay5kdHMKaW5kZXgg
+ZWVhNzQwZDA5N2M3Li5jOTE4ZjMzMmNiZmQgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRz
+L3N0L3N0bTMybXAxMzVmLWRrLmR0cworKysgYi9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1w
+MTM1Zi1kay5kdHMKQEAgLTY2LDYgKzY2LDQ2IEBAIGxlZC1ibHVlIHsKIAkJCWRlZmF1bHQtc3Rh
+dGUgPSAib2ZmIjsKIAkJfTsKIAl9OworCisJcGFuZWxfYmFja2xpZ2h0OiBwYW5lbC1iYWNrbGln
+aHQgeworCQljb21wYXRpYmxlID0gImdwaW8tYmFja2xpZ2h0IjsKKwkJZ3Bpb3MgPSA8JmdwaW9l
+IDEyIEdQSU9fQUNUSVZFX0hJR0g+OworCQlkZWZhdWx0LW9uOworCQlzdGF0dXMgPSAib2theSI7
+CisJfTsKKworCXBhbmVsX3JnYjogcGFuZWwtcmdiIHsKKwkJY29tcGF0aWJsZSA9ICJyb2NrdGVj
+aCxyazA0M2ZuNDhoIjsKKwkJZW5hYmxlLWdwaW9zID0gPCZncGlvaSA3IEdQSU9fQUNUSVZFX0hJ
+R0g+OworCQliYWNrbGlnaHQgPSA8JnBhbmVsX2JhY2tsaWdodD47CisJCXBvd2VyLXN1cHBseSA9
+IDwmc2NtaV92M3YzX3N3PjsKKwkJc3RhdHVzID0gIm9rYXkiOworCisJCXdpZHRoLW1tID0gPDEw
+NT47CisJCWhlaWdodC1tbSA9IDw2Nz47CisKKwkJcGFuZWwtdGltaW5nIHsKKwkJCWNsb2NrLWZy
+ZXF1ZW5jeSA9IDwxMDAwMDAwMD47CisJCQloYWN0aXZlID0gPDQ4MD47CisJCQloYmFjay1wb3Jj
+aCA9IDw0Mz47CisJCQloZnJvbnQtcG9yY2ggPSA8MTA+OworCQkJaHN5bmMtbGVuID0gPDE+Owor
+CQkJaHN5bmMtYWN0aXZlID0gPDA+OworCQkJdmFjdGl2ZSA9IDwyNzI+OworCQkJdmJhY2stcG9y
+Y2ggPSA8MjY+OworCQkJdmZyb250LXBvcmNoID0gPDQ+OworCQkJdnN5bmMtbGVuID0gPDEwPjsK
+KwkJCXZzeW5jLWFjdGl2ZSA9IDwwPjsKKwkJCWRlLWFjdGl2ZSA9IDwxPjsKKwkJCXBpeGVsY2xr
+LWFjdGl2ZSA9IDwxPjsKKwkJfTsKKworCQlwb3J0IHsKKwkJCXBhbmVsX2luX3JnYjogZW5kcG9p
+bnQgeworCQkJCXJlbW90ZS1lbmRwb2ludCA9IDwmbHRkY19vdXRfcmdiPjsKKwkJCX07CisJCX07
+CisJfTsKIH07CiAKICZhZGNfMSB7CkBAIC0xNjAsNiArMjAwLDE5IEBAICZpd2RnMiB7CiAJc3Rh
+dHVzID0gIm9rYXkiOwogfTsKIAorJmx0ZGMgeworCXBpbmN0cmwtbmFtZXMgPSAiZGVmYXVsdCIs
+ICJzbGVlcCI7CisJcGluY3RybC0wID0gPCZsdGRjX3BpbnNfYT47CisJcGluY3RybC0xID0gPCZs
+dGRjX3NsZWVwX3BpbnNfYT47CisJc3RhdHVzID0gIm9rYXkiOworCisJcG9ydCB7CisJCWx0ZGNf
+b3V0X3JnYjogZW5kcG9pbnQgeworCQkJcmVtb3RlLWVuZHBvaW50ID0gPCZwYW5lbF9pbl9yZ2I+
+OworCQl9OworCX07Cit9OworCiAmcnRjIHsKIAlzdGF0dXMgPSAib2theSI7CiB9OwoKLS0gCjIu
+MjUuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
