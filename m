@@ -2,77 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0D418613A8
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 15:11:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE779861613
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Feb 2024 16:41:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50D84C6B47A;
-	Fri, 23 Feb 2024 14:11:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82841C6B47A;
+	Fri, 23 Feb 2024 15:41:31 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 744C2C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B22F3C69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Feb 2024 14:11:26 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 41N8C67k012818; Fri, 23 Feb 2024 15:11:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=BtiOK7zNGmf7T/HNpNbS7LRFrHlD65J1Nz54bRzladI=; b=pC
- t+DOqE5VNZYO1AF14Au2IruOE4S9FDoF3BkLNh6k7+/2X+Bh3XFjyzpTbA0vfw14
- ifnMSoqHxO1FGhffD86z63Plq+2shAbSKNSowLIt6Qbpka9JNoTzso30Z6SfpUi4
- qXaMFYNisKMw26zDwOwgHrfFmPvcNFwIPzLNocjYeGP+H+qlc3XzQ6iDLkaQKzs7
- sy8cykZ2WEd3fv2IZA3DPogrIZCRZFyD4/L3hhXmhDNFpKLxiQ0hvF5e84TiuMyW
- mpKsALRzc1TtPDGwScf8zSk82JETDKV2i8kdg2P/rD00vgSAQtNRN9IoifuF9bUC
- GnUqi1WSAfTz2AZFYpTA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3weqn41faw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 23 Feb 2024 15:11:07 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 464FF4002D;
- Fri, 23 Feb 2024 15:10:59 +0100 (CET)
-Received: from Webmail-eu.st.com (eqndag1node5.st.com [10.75.129.134])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D0DB42A14CB;
- Fri, 23 Feb 2024 15:10:05 +0100 (CET)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE5.st.com
- (10.75.129.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 23 Feb
- 2024 15:10:05 +0100
-Received: from [10.252.31.57] (10.252.31.57) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 23 Feb
- 2024 15:10:04 +0100
-Message-ID: <c80d0ca1-1ae3-4af3-ba84-6dc5efaff1c7@foss.st.com>
-Date: Fri, 23 Feb 2024 15:10:03 +0100
+ Fri, 23 Feb 2024 15:41:29 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 72C83CE2D07;
+ Fri, 23 Feb 2024 15:41:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55CCBC433C7;
+ Fri, 23 Feb 2024 15:41:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1708702886;
+ bh=k25xRE4ivIVNHyYHvMpyQdAS+gk+3Q9XueBPL5g94l4=;
+ h=Subject:To:Cc:From:Date:From;
+ b=Nxk3Wj30VFf3cxRzjal2qCWVxK+yY0D+TA1VSVRYGdmv+OZOfg3T+giXMVhlZZjsK
+ ljD9GMgzHvPIlekzqtMAStGV3YmxRQ53W4GQPCXM43cmUQm4AM7l6OOXs2tmdqPSCn
+ nsdg86nF6+doPHl/V3eeLXu9Yfnaks5cn5Q9CNM4=
+To: alexandre.torgue@st.com, davem@davemloft.net, gregkh@linuxfoundation.org,
+ hsimeliere.opensource@witekio.com, jacob.e.keller@intel.com,
+ joabreu@synopsys.com, linux-stm32@st-md-mailman.stormreply.com,
+ mcoquelin.stm32@gmail.com, peppe.cavallaro@st.com
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 23 Feb 2024 16:41:16 +0100
+Message-ID: <2024022316-cactus-smasher-07f2@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Naman Jain <quic_namajain@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, "Jens
- Wiklander" <jens.wiklander@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley
- <conor+dt@kernel.org>
-References: <20240214172127.1022199-1-arnaud.pouliquen@foss.st.com>
- <fe4ec29f-7521-4369-a382-bae50dbf0ee5@quicinc.com>
- <adcf0c0d-f452-4285-8651-c147fcca001b@foss.st.com>
- <8af59b01-53cf-4fc4-9946-6c630fb7b38e@quicinc.com>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <8af59b01-53cf-4fc4-9946-6c630fb7b38e@quicinc.com>
-X-Originating-IP: [10.252.31.57]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-02-22_15,2024-02-23_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/7] Introduction of a remoteproc tee
- to load signed firmware
+X-stable: commit
+X-Patchwork-Hint: ignore 
+Cc: stable-commits@vger.kernel.org
+Subject: [Linux-stm32] Patch "stmmac: no need to check return value of
+	debugfs_create functions" has been added to the 4.19-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,72 +49,177 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAyLzIyLzI0IDEwOjU1LCBOYW1hbiBKYWluIHdyb3RlOgo+IE9uIDIvMjIvMjAyNCAyOjE3
-IFBNLCBBcm5hdWQgUE9VTElRVUVOIHdyb3RlOgo+PiBIZWxsbyBOYW1hbiwKPj4KPj4gT24gMi8y
-Mi8yNCAwNjo0MywgTmFtYW4gSmFpbiB3cm90ZToKPj4+IE9uIDIvMTQvMjAyNCAxMDo1MSBQTSwg
-QXJuYXVkIFBvdWxpcXVlbiB3cm90ZToKPj4+PiBVcGRhdGVzIGZyb20gdGhlIHByZXZpb3VzIHZl
-cnNpb24gWzFdOgo+Pj4+Cj4+Pj4gVGhpcyB2ZXJzaW9uIHByb3Bvc2VzIGFub3RoZXIgYXBwcm9h
-Y2ggYmFzZWQgb24gYW4gYWx0ZXJuYXRlIGxvYWQgYW5kIGJvb3QKPj4+PiBvZiB0aGUgY29wcm9j
-ZXNzb3IuIFRoZXJlZm9yZSwgdGhlIGNvbnN0cmFpbnQgaW50cm9kdWNlZCBieSB0ZWVfcmVtb3Rl
-cHJvYwo+Pj4+IGlzIHRoYXQgdGhlIGZpcm13YXJlIGhhcyB0byBiZSBhdXRoZW50aWNhdGVkIGFu
-ZCBsb2FkZWQgYmVmb3JlIHRoZSByZXNvdXJjZQo+Pj4+IHRhYmxlIGNhbiBiZSBvYnRhaW5lZC4K
-Pj4+Pgo+Pj4+IFRoZSBleGlzdGluZyBib290IHNlcXVlbmNlIGlzOiA+Cj4+Pj4gwqDCoMKgIDEp
-IEdldCB0aGUgcmVzb3VyY2UgdGFibGUgYW5kIHN0b3JlIGl0IGluIGEgY2FjaGUsCj4+Pj4gwqDC
-oMKgwqDCoMKgIGNhbGxpbmcgcnByb2MtPm9wcy0+cGFyc2VfZncoKS4KPj4+PiDCoMKgwqAgMikg
-UGFyc2UgdGhlIHJlc291cmNlIHRhYmxlIGFuZCBoYW5kbGUgcmVzb3VyY2VzLAo+Pj4+IMKgwqDC
-oMKgwqDCoCBjYWxsaW5nIHJwcm9jX2hhbmRsZV9yZXNvdXJjZXMuCj4+Pj4gwqDCoMKgIDMpIExv
-YWQgdGhlIGZpcm13YXJlLCBjYWxsaW5nIHJwcm9jLT5vcHMtPmxvYWQoKS4KPj4+PiDCoMKgwqAg
-NCkgU3RhcnQgdGhlIGZpcm13YXJlLCBjYWxsaW5nIHJwcm9jLT5vcHMtPnN0YXJ0KCkuCj4+Pj4g
-wqDCoCA9PiBTdGVwcyAxIGFuZCAyIGFyZSBleGVjdXRlZCBpbiBycHJvY19md19ib290KCksIHdo
-aWxlIHN0ZXBzIDMgYW5kIDQgYXJlCj4+Pj4gwqDCoMKgwqAgZXhlY3V0ZWQgaW4gcnByb2Nfc3Rh
-cnQoKS4KPj4+PiA9PiB0aGUgdXNlIG9mIHJwcm9jLT5vcHMtPmxvYWQoKSBvcHMgaXMgbWFuZGF0
-b3J5Cj4+Pj4KPj4+PiBUaGUgYm9vdCBzZXF1ZW5jZSBuZWVkZWQgZm9yIFRFRSBib290IGlzOgo+
-Pj4+Cj4+Pj4gwqDCoMKgIDEpIExvYWQgdGhlIGZpcm13YXJlLgo+Pj4+IMKgwqDCoCAyKSBHZXQg
-dGhlIGxvYWRlZCByZXNvdXJjZSwgbm8gY2FjaGUuCj4+Pj4gwqDCoMKgIDMpIFBhcnNlIHRoZSBy
-ZXNvdXJjZSB0YWJsZSBhbmQgaGFuZGxlIHJlc291cmNlcy4KPj4+PiDCoMKgwqAgNCkgU3RhcnQg
-dGhlIGZpcm13YXJlLgo+Pj4KPj4+IEhpLAo+Pj4gV2hhdCBwcm9ibGVtIGFyZSB3ZSByZWFsbHkg
-YWRkcmVzc2luZyBoZXJlIGJ5IHJlb3JkZXJpbmcgbG9hZCwgcGFyc2Ugb2YKPj4+IEZXIHJlc291
-cmNlcz8KPj4KPj4gVGhlIGZlYXR1cmUgaW50cm9kdWNlZCBpbiBURUUgaXMgdGhlIHNpZ25hdHVy
-ZSBvZiB0aGUgZmlybXdhcmUgaW1hZ2VzLiBUaGF0Cj4+IG1lYW5zIHRoYXQgYmVmb3JlIGdldHRp
-bmcgdGhlIHJlc291cmNlIHRhYmxlLCB3ZSBuZWVkIHRvIGZpcnN0IGF1dGhlbnRpY2F0ZSB0aGUK
-Pj4gZmlybXdhcmUgaW1hZ2VzLgo+PiBBdXRoZW50aWNhdGluZyBhIGZpcm13YXJlIGltYWdlIG1l
-YW5zIHRoYXQgd2UgaGF2ZSB0byBjb3B5IHRoZSBmaXJtd2FyZSBpbnRvCj4+IHByb3RlY3RlZCBt
-ZW1vcnkgdGhhdCBjYW5ub3QgYmUgY29ycnVwdGVkIGJ5IHRoZSBub24tc2VjdXJlIGFuZCB0aGVu
-IHZlcmlmeSB0aGUKPj4gc2lnbmF0dXJlLgo+PiBUaGUgc3RyYXRlZ3kgaW1wbGVtZW50ZWQgaW4g
-T1AtVEVFIGlzIHRvIGxvYWQgdGhlIGZpcm13YXJlIGludG8gZGVzdGluYXRpb24KPj4gbWVtb3J5
-IGFuZCB0aGVuIGF1dGhlbnRpY2F0ZSBpdC4KPj4gVGhpcyBzdHJhdGVneSBhdm9pZHMgaGF2aW5n
-IGEgdGVtcG9yYXJ5IGNvcHkgb2YgdGhlIHdob2xlIGltYWdlcyBpbiBhIHNlY3VyZQo+PiBtZW1v
-cnkuCj4+IFRoaXMgc3RyYXRlZ3kgaW1wb3NlcyBsb2FkaW5nIHRoZSBmaXJtd2FyZSBpbWFnZXMg
-YmVmb3JlIHJldHJpZXZpbmcgdGhlIHJlc291cmNlCj4+IHRhYmxlLgo+Pgo+Pj4gQmFzaWNhbGx5
-LCB3aGF0IGFyZSB0aGUgbGltaXRhdGlvbnMgb2YgdGhlIGN1cnJlbnQgZGVzaWduIHlvdSBhcmUg
-cmVmZXJyaW5nIHRvPwo+Pj4gSSB1bmRlcnN0b29kIHRoYXQgVEVFIGlzIGRlc2lnbmVkIHRoYXQg
-d2F5Lgo+Pgo+PiBUaGUgbGltaXRhdGlvbiBvZiB0aGUgY3VycmVudCBkZXNpZ24gaXMgdGhhdCB3
-ZSBvYnRhaW4gdGhlIHJlc291cmNlIHRhYmxlIGJlZm9yZQo+PiBsb2FkaW5nIHRoZSBmaXJtd2Fy
-ZS4gRm9sbG93aW5nIHRoZSBjdXJyZW50IGRlc2lnbiB3b3VsZCBpbXBvc2UgY29uc3RyYWludHMg
-aW4KPj4gVEVFIHRoYXQgYXJlIG5vdCBzdHJhaWdodGZvcndhcmQuIFN0ZXAgMSAoZ2V0dGluZyB0
-aGUgcmVzb3VyY2UgdGFibGUgYW5kIHN0b3JpbmcKPj4gaXQgaW4gYSBjYWNoZSkgd291bGQgcmVx
-dWlyZSBoYXZpbmcgYSBjb3B5IG9mIHRoZSByZXNvdXJjZSB0YWJsZSBpbiBURUUgYWZ0ZXIKPj4g
-YXV0aGVudGljYXRpbmcgdGhlIGltYWdlcy4gSG93ZXZlciwgYXV0aGVudGljYXRpbmcgdGhlIGZp
-cm13YXJlLCBhcyBleHBsYWluZWQKPj4gYmVmb3JlLCBkZXBlbmRzIG9uIHRoZSBzdHJhdGVneSBp
-bXBsZW1lbnRlZC4gSW4gVEVFIGltcGxlbWVudGF0aW9uLCB3ZSBsb2FkIHRoZQo+PiBmaXJtd2Fy
-ZSB0byBhdXRoZW50aWNhdGUgaXQgaW4gdGhlIGRlc3RpbmF0aW9uIG1lbW9yeS4KPj4KPj4gUmVn
-YXJkcywKPj4gQXJuYXVkCj4gCj4gCj4gSGVsbG8gQXJuYXVkLAo+IEkgdGhpbmsgbm93IEkgZ290
-IHlvdXIgcG9pbnQuIEluIFRFRSwgeW91IGRvbid0IHdhbnQgdG8gZG8gYW55dGhpbmcocmVhZAo+
-IHJlc291cmNlIHRhYmxlKSB3aXRoIEZXIGltYWdlcywgdW50aWwgaXRzIGxvYWRlZCBhbmQgYXV0
-aGVudGljYXRlZC4KPiBTaW5jZSBjdXJyZW50IGRlc2lnbiB3YXMgbm90IGFsbG93aW5nIHlvdSB0
-byBkbyBpdCwgeW91IGhhZCB0byByZW9yZ2FuaXplIHRoZQo+IGNvZGUgc28gdGhhdCB0aGlzIGNh
-biBiZSBhY2hpZXZlZC4KPiAKPiBHZW5lcmFsbHkgc3BlYWtpbmcsIGluIGN1cnJlbnQgZGVzaWdu
-LCBpZiBhdXRoZW50aWNhdGlvbiBmYWlscyBmb3Igc29tZQo+IHJlYXNvbiBsYXRlciwgb25lIGNh
-biBoYW5kbGUgaXQsIGJ1dCBpdCBkZXBlbmRzIG9uIHRoZSBpbXBsZW1lbnRhdGlvbiBvZgo+IHBh
-cnNlX2Z3IG9wIGlmIHRoZSBkYW1hZ2UgaXMgYWxyZWFkeSBkb25lLgo+IAo+IFBsZWFzZSBjb3Jy
-ZWN0IG1lIGlmIHRoaXMgaXMgd3JvbmcgYXNzdW1wdGlvbi4KClRoYXQncyBjb3JyZWN0LgoKUmVn
-YXJkcywKQXJuYXVkCgo+IFBhdGNoIGxvb2tzIGdvb2QgdG8gbWUuCj4gCj4gUmVnYXJkcywKPiBO
-YW1hbiBKYWluCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+This is a note to let you know that I've just added the patch titled
+
+    stmmac: no need to check return value of debugfs_create functions
+
+to the 4.19-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     stmmac-no-need-to-check-return-value-of-debugfs_create-functions.patch
+and it can be found in the queue-4.19 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 8d72ab119f42f25abb393093472ae0ca275088b6 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Sat, 10 Aug 2019 12:17:24 +0200
+Subject: stmmac: no need to check return value of debugfs_create functions
+
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+commit 8d72ab119f42f25abb393093472ae0ca275088b6 upstream.
+
+When calling debugfs functions, there is no need to ever check the
+return value.  The function can work or not, but the code logic should
+never do something different based on this.
+
+Because we don't care about the individual files, we can remove the
+stored dentry for the files, as they are not needed to be kept track of
+at all.
+
+Cc: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+Cc: Alexandre Torgue <alexandre.torgue@st.com>
+Cc: Jose Abreu <joabreu@synopsys.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Signed-off-by: David S. Miller <davem@davemloft.net>
+Signed-off-by: Hugo SIMELIERE <hsimeliere.opensource@witekio.com>
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Stable-dep-of: 474a31e13a4e ("net: stmmac: fix notifier registration")
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |    2 
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |   52 +++-------------------
+ 2 files changed, 8 insertions(+), 46 deletions(-)
+
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -188,8 +188,6 @@ struct stmmac_priv {
+ 
+ #ifdef CONFIG_DEBUG_FS
+ 	struct dentry *dbgfs_dir;
+-	struct dentry *dbgfs_rings_status;
+-	struct dentry *dbgfs_dma_cap;
+ #endif
+ 
+ 	unsigned long state;
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -115,7 +115,7 @@ static irqreturn_t stmmac_interrupt(int
+ 
+ #ifdef CONFIG_DEBUG_FS
+ static const struct net_device_ops stmmac_netdev_ops;
+-static int stmmac_init_fs(struct net_device *dev);
++static void stmmac_init_fs(struct net_device *dev);
+ static void stmmac_exit_fs(struct net_device *dev);
+ #endif
+ 
+@@ -4063,47 +4063,22 @@ static struct notifier_block stmmac_noti
+ 	.notifier_call = stmmac_device_event,
+ };
+ 
+-static int stmmac_init_fs(struct net_device *dev)
++static void stmmac_init_fs(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
+ 	/* Create per netdev entries */
+ 	priv->dbgfs_dir = debugfs_create_dir(dev->name, stmmac_fs_dir);
+ 
+-	if (!priv->dbgfs_dir || IS_ERR(priv->dbgfs_dir)) {
+-		netdev_err(priv->dev, "ERROR failed to create debugfs directory\n");
+-
+-		return -ENOMEM;
+-	}
+-
+ 	/* Entry to report DMA RX/TX rings */
+-	priv->dbgfs_rings_status =
+-		debugfs_create_file("descriptors_status", 0444,
+-				    priv->dbgfs_dir, dev,
+-				    &stmmac_rings_status_fops);
+-
+-	if (!priv->dbgfs_rings_status || IS_ERR(priv->dbgfs_rings_status)) {
+-		netdev_err(priv->dev, "ERROR creating stmmac ring debugfs file\n");
+-		debugfs_remove_recursive(priv->dbgfs_dir);
+-
+-		return -ENOMEM;
+-	}
++	debugfs_create_file("descriptors_status", 0444, priv->dbgfs_dir, dev,
++			    &stmmac_rings_status_fops);
+ 
+ 	/* Entry to report the DMA HW features */
+-	priv->dbgfs_dma_cap = debugfs_create_file("dma_cap", 0444,
+-						  priv->dbgfs_dir,
+-						  dev, &stmmac_dma_cap_fops);
+-
+-	if (!priv->dbgfs_dma_cap || IS_ERR(priv->dbgfs_dma_cap)) {
+-		netdev_err(priv->dev, "ERROR creating stmmac MMC debugfs file\n");
+-		debugfs_remove_recursive(priv->dbgfs_dir);
+-
+-		return -ENOMEM;
+-	}
++	debugfs_create_file("dma_cap", 0444, priv->dbgfs_dir, dev,
++			    &stmmac_dma_cap_fops);
+ 
+ 	register_netdevice_notifier(&stmmac_notifier);
+-
+-	return 0;
+ }
+ 
+ static void stmmac_exit_fs(struct net_device *dev)
+@@ -4442,10 +4417,7 @@ int stmmac_dvr_probe(struct device *devi
+ 	}
+ 
+ #ifdef CONFIG_DEBUG_FS
+-	ret = stmmac_init_fs(ndev);
+-	if (ret < 0)
+-		netdev_warn(priv->dev, "%s: failed debugFS registration\n",
+-			    __func__);
++	stmmac_init_fs(ndev);
+ #endif
+ 
+ 	return ret;
+@@ -4705,16 +4677,8 @@ static int __init stmmac_init(void)
+ {
+ #ifdef CONFIG_DEBUG_FS
+ 	/* Create debugfs main directory if it doesn't exist yet */
+-	if (!stmmac_fs_dir) {
++	if (!stmmac_fs_dir)
+ 		stmmac_fs_dir = debugfs_create_dir(STMMAC_RESOURCE_NAME, NULL);
+-
+-		if (!stmmac_fs_dir || IS_ERR(stmmac_fs_dir)) {
+-			pr_err("ERROR %s, debugfs create directory failed\n",
+-			       STMMAC_RESOURCE_NAME);
+-
+-			return -ENOMEM;
+-		}
+-	}
+ #endif
+ 
+ 	return 0;
+
+
+Patches currently in stable-queue which might be from gregkh@linuxfoundation.org are
+
+queue-4.19/stmmac-no-need-to-check-return-value-of-debugfs_create-functions.patch
+queue-4.19/memcg-add-refcnt-for-pcpu-stock-to-avoid-uaf-problem-in-drain_all_stock.patch
+queue-4.19/net-sched-retire-atm-qdisc.patch
+queue-4.19/net-sched-retire-dsmark-qdisc.patch
+queue-4.19/net-sched-retire-cbq-qdisc.patch
+queue-4.19/net-stmmac-fix-notifier-registration.patch
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
