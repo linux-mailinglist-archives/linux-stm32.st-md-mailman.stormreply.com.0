@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C3D08626A5
-	for <lists+linux-stm32@lfdr.de>; Sat, 24 Feb 2024 19:16:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E27E1862740
+	for <lists+linux-stm32@lfdr.de>; Sat, 24 Feb 2024 21:10:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C21E0C6B47E;
-	Sat, 24 Feb 2024 18:16:03 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 913ACC6B47E;
+	Sat, 24 Feb 2024 20:10:11 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [217.72.192.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14597C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D6FCC69067
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 24 Feb 2024 18:16:02 +0000 (UTC)
+ Sat, 24 Feb 2024 20:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
- t=1708798541; x=1709403341; i=markus.elfring@web.de;
- bh=VUx1i8XWpfeim7DHTmTo7nDlWrnG/F3najnDhzFbEu0=;
+ t=1708805383; x=1709410183; i=markus.elfring@web.de;
+ bh=yLz7Vg77PB7IlV1AITmSO9pNNY8zgh7ejy/6z5+C0lo=;
  h=X-UI-Sender-Class:Date:To:Cc:References:Subject:From:
  In-Reply-To;
- b=obqcXRK3l8/f6gVhd0guF3S8rwmabTEE1NwgSuP3x5HBGyMvteRhIfn79357pqC6
- beBKWNt9zzMUNAipF1WNf/uYEPDiFI0b3HVNH4Y3VdhvEf23VnX8JfVz4z95TqINf
- mqV7VZgp0wacpZE3x4dJTp0IzFO197JRk6mIMrRUiF7RMGSpD5aq2sJwHQ+8My92X
- IF8sTfEjrjbgub1/48bqoxm8TUIRznKJT5WtUQZvCXWctGEEL0NxoRhutUl2r+IwD
- 0b/73Y4wlYDuQSbc3mtNFBaKl2l8Z31n/Tb+4jVVAi96ksXGWOpRWpdzl63Tvc3w5
- fhGzhYMwM5xZ5YI3Hg==
+ b=cz6rsbiCBDHMcTQ84gLSFbavYUFXrrHjPffNe+PqE6H+aPSS3VNKsrwqPFruBdRO
+ vY+IyeQtkL5kds1aFXjwb/feb1g1khvjO57Lf02k7YLNmXBwTBkYbfOl7lejf61Mz
+ 2T+0aVUoxrrU8jo7V7qUuu80DQyXC+dcgU0EuXkeNRzfMOYNuEHAc6e3xt1GNm+oV
+ x6AwWedKOcqg6TnRaLmT4s8EMp54UWR9nXqXM854ojIF/EqhKUL4re+MYvimRs8Ic
+ 9Z7//KsF7T7sW+7KlqLJyiIOUmtVysMDGcyQwl8HsCvdQIJUxpsY+8AADwh5hTH3y
+ q8nBNxC91K97VdWHBA==
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 Received: from [192.168.178.21] ([94.31.80.95]) by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1M7epr-1rYiQq2PiX-008CCk; Sat, 24
- Feb 2024 19:15:41 +0100
-Message-ID: <80b1afef-3502-4719-ba9d-682b5566688b@web.de>
-Date: Sat, 24 Feb 2024 19:15:31 +0100
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MkElP-1rBoP0152X-00ka9U; Sat, 24
+ Feb 2024 21:09:43 +0100
+Message-ID: <0f25b520-563c-4b3b-96cd-d1dcc7ea6f40@web.de>
+Date: Sat, 24 Feb 2024 21:09:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: David Lechner <dlechner@baylibre.com>, linux-spi@vger.kernel.org,
@@ -41,24 +41,24 @@ References: <20240219-mainline-spi-precook-message-v2-1-4a762c6701b9@baylibre.co
 Content-Language: en-GB
 From: Markus Elfring <Markus.Elfring@web.de>
 In-Reply-To: <20240219-mainline-spi-precook-message-v2-1-4a762c6701b9@baylibre.com>
-X-Provags-ID: V03:K1:PDatmO5YnLqX8lT6ygw7MPKZXfWiMCjg+ZexIiXGIK3wvR8lKMV
- /D3tyZEGXNWGy+CM+nkgcUpjdTYfgURdM/7+bewmaixJqJJgLgWI5zi8O8NXfQ9AdFgo9ta
- JdqGnsqs4kbLdMlyl8QifRHdNHSO1yLeFJV+TpuyrVUjGrYyTcIQHXXPgJ6TaS5p1tsdTVR
- 927Io9MXhIa5fOxDVxJlg==
+X-Provags-ID: V03:K1:KmuGeYS0ux4JU6O/o1Nu+42F6g71tHr+fv4Cdf5CuQtvKg1uvSg
+ vjYqz61D7ymrpo994E5hjD1PvjDRPtvAwNo4ABW+RoF6DWx1XWXdjexrxQauqSgPlIiKbo3
+ nRHW4A+GgRRwZp6WbEM7VuOXok/HOHsz2z1MMcumnqxMuE6AJtwolCKp6PbYWs5E8s6iVYP
+ 9jaJaK9mvtvBHtKRt3VBw==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:3cS0VhBImIU=;bnuscn4tw449kz9nyq0ezwz1zYn
- znvFq8A809Mc1Ko/3CjdxpWOQYyGmzXkIu1yx+oyng4uHcin/fqlbDZsJmxY17tQQ+tV4uplU
- DGI4py1z3E1S/kJeloswIzeDmoj3o7rfhStWl8DhZzCh9hdAkcujgskHxJRbNBYkgfrefCtaM
- qKX6jKU6hRB4v5b6dG8pNzN+UuptzpKLvFg8GhNnKkfwB+Hr5RxX29Aqulfp59tRvHiv6/CQx
- HNshIcIpVwLvuIhIU5ssSkNnp64QS4+iO0p812r/689a12jgh87qQ1ww5n4PJxvmSKKdAwFbo
- Kh7dUpjrWpaOUC/mQBzgTkLw9hO9eJwQW2mBzqucVitxho5fc96zZkosMElSBLIUnz5bEAeEN
- 9qRh2AEaYlz/lXEum+vZMBFa6MQtfYp1DFmRhHxjo3o0JDNZHAw1HvljZyTKATGh+MpnmWpiP
- I/xg5jwrggf0oXtRnZBKusYWCtS7AdyjIqetIAl5s1p/kUOR/7AfyYvtabhQOWyKG/zPvJC7S
- PsUdKuxh9fCvnsq0lZziEo3Nz8uQOGdiK2kyD9r09dwxQ7X10mqofUnqD9nAvYuM7/qiHVt9s
- IuHe8xojX7X+os3dauybB5/fzj6sjYSA4zkMPDHlzWgbFvC1cbTTn9SVNek7ke/IHc0cSuEfh
- luwKT1yO8U6+3stJ6ftbp756hIcP0wx3lcqwJ+2qsEy9lHRz/l6wGBIJ4gsPsfUX9DWBofvPT
- afY6uvZdrqUCVeXnzTTf7/k1YUW1SXDWkh+ZpSIChGdXfjDAIkVuiEmrHNAM+OwPZjPh61KtZ
- nVd0zyKylIJotK6myJI818B2cn880ihp/1IP37EwCMjY0=
+UI-OutboundReport: notjunk:1;M01:P0:rs8ApOkw4n0=;kKElr7kdlqMFdGj4Ytt69yAWBfV
+ j/SWK+ut/QxX+wxw+Wc+wCxQQQPSRP1sguIrGT2PLFo/uqQMmhbGugP73ZyqD5AZ8EvzO/SHR
+ lwmZp8PTm19zu0vKpgaB9AXnAtTs2UgB1ijFbHJ/fiGT5lCui1lF8PpG0loy8CwgzjAzACi65
+ qnw5M0XUxJzeUoUIcWahISrS9b7s+r3y2K0UBvoeXswFzlhW1P6WDk9FBfckqzKttJt84N6sL
+ vtDBVQoOhejDkKIx3g0f8bxw/PUhaEEktKsZGDkYrlgLnL/E8vKzVfR3ZUTfOa1cEd/kqHEdG
+ ueZTVDhDLRChWtMUcawTrx5+ko1chWs+Rc3halO4cDlzirRHC6ecyJWIl4JrOwr5zHdgaWRzs
+ QSR2DQlsWC2AvKSW5E+ZpAEtSnjyWulFo+qgtGeM83vpXP5ZlG6n/O449N2QAaiwIjZAhgCWL
+ /yGvDQO0mexGUIAH1wjK3wOyJAac/FA/J0MmYstkj5MC9V51HLs4cCs3dCwIcJt5+cD6Yr4M2
+ t1BqtohPSJqOVy1x0rIcq8ZpRQ+u9P7sPrRMdmN0/TgBy8bWCWqEeoqJyhPiKVsIIWi2PK+zK
+ q+MA7CUX+oXoxu8OuLAvRA/BpJQSEg5MrxvvBTNExIkt47LiQmz7Ey4pUSstYUaS32QPemQpH
+ WNY4dgNLO+wGa9xd9IGS68p8R2ah7yBCQd9N3ywueSraPjhZI3eCXEDiTSnQo4zhAVQa5kjlS
+ WVPjOGheQintX/p1rORFyPfJHLvALtVhRfzH/QjzcrPQ4WPcFfAERXVdZDw18rk3CIklxh7qM
+ G7vz62U3ZpEVrjqoLcYNtqw9mRRdDUAfT5ZmCYdw41mik=
 Cc: Michael Hennerich <michael.hennerich@analog.com>,
  David Jander <david@protonic.nl>, LKML <linux-kernel@vger.kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -83,10 +83,13 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICDigKYgY2FsbCBpdC4g
-VGhpcyBpcyBkb25lIHRvIHNvCj4gdGhhdCBjb250cm9sbGVyIGRyaXZlcnMg4oCmCgpJIGhvcGUg
-dGhhdCBzdWNoIGEgd29yZGluZyB3aWxsIGJlIGltcHJvdmVkIGZvciB0aGUgZmluYWwgY2hhbmdl
-IGRlc2NyaXB0aW9uLgoKUmVnYXJkcywKTWFya3VzCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+4oCmCj4gKysrIGIvZHJpdmVycy9zcGkvc3BpLmMK4oCmCj4gK3N0YXRpYyBpbnQgX19zcGlfb3B0
+aW1pemVfbWVzc2FnZShzdHJ1Y3Qgc3BpX2RldmljZSAqc3BpLAo+ICsJCQkJICBzdHJ1Y3Qgc3Bp
+X21lc3NhZ2UgKm1zZykK4oCmCgpJIHByb3Bvc2UgdG8gcmVjb25zaWRlciB0aGUgdXNhZ2Ugb2Yg
+bGVhZGluZyB1bmRlcnNjb3JlcyBpbiBzdWNoIGlkZW50aWZpZXJzLgoKU2VlIGFsc286Cmh0dHBz
+Oi8vd2lraS5zZWkuY211LmVkdS9jb25mbHVlbmNlL2Rpc3BsYXkvYy9EQ0wzNy1DLitEbytub3Qr
+ZGVjbGFyZStvcitkZWZpbmUrYStyZXNlcnZlZCtpZGVudGlmaWVyCgpSZWdhcmRzLApNYXJrdXMK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3Rt
+MzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20K
+aHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGlu
+dXgtc3RtMzIK
