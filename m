@@ -2,51 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9598680AE
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Feb 2024 20:16:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18DE886846F
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Feb 2024 00:05:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97C08C6B46B;
-	Mon, 26 Feb 2024 19:16:36 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B9F8DC6B46B;
+	Mon, 26 Feb 2024 23:05:28 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61B21C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11570C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Feb 2024 19:16:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1D6A7612EA;
- Mon, 26 Feb 2024 19:16:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D98C433F1;
- Mon, 26 Feb 2024 19:16:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1708974993;
- bh=SbNCXSNgmsHvZE9a2LpECzn1pLI8U+O6zKu8IEb7FC0=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=MIsnQmVDw/trVh09qDNojxvjYpsL03Abgycr+6i8gxKHJQ2+p7hYTIkhhGt+zGdxZ
- GX5Pal9Wugiq54uqjJuPA+s+XvZc4zKK8WN9kr+BSzta3JBokdfEiOFEjw5Cl+v9OU
- vXsBMXBarSnIvdFeGpgCRj3pgIXW3/WXBF+OGELbRJvRzzgBED4xFg/wTKPmfDDlEP
- Y7kjz8B9/n6PYRs4xUVhaMrliNQcA5/n9rn7f7+T+s4BusEFOFiOlZXyipdARz/SdZ
- DZsTIWpdTuL1dviT0qsVPKNV4Mg2qcM1I9a3MzhqGkjOPHcWVqq/ltyn8mPr7xtaNC
- xvvXJ1cDcT8Zw==
-From: Mark Brown <broonie@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
-References: <20240219-mainline-spi-precook-message-v2-0-4a762c6701b9@baylibre.com>
-Message-Id: <170897499057.117217.2960696908311224436.b4-ty@kernel.org>
-Date: Mon, 26 Feb 2024 19:16:30 +0000
+ Mon, 26 Feb 2024 23:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=pYmdkgX1dVrE40bWWH7YizC1+wHj2Ilzj2iousZ5MvQ=; b=biDX9XVZoNS+cu+iILmQSUl1K+
+ Qg9ttG/A56qZt0e4lsHbOPZw1aHansTRFWg7u3iBfNdZv0inSyJh+RRvOrrYAm72UhuCMqRUD/KCG
+ 5Ojfv0AiI7kvUVIbFYnMiYQiIeYZlZGzXUM38f9nmsFFD8fcu/6Cn2Xmyc4O66l8g7+w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1rek2P-008lo4-S6; Tue, 27 Feb 2024 00:05:33 +0100
+Date: Tue, 27 Feb 2024 00:05:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Konrad Dybcio <konrad.dybcio@linaro.org>
+Message-ID: <89c54319-82d0-4cb3-b3be-ccdf6dcf2742@lunn.ch>
+References: <20240222125517.3356-1-quic_sarohasa@quicinc.com>
+ <54b8c58a-6288-4ae6-9ed7-aa7b212e63da@linaro.org>
 MIME-Version: 1.0
-X-Mailer: b4 0.13-dev-a684c
-Cc: Michael Hennerich <michael.hennerich@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Julien Stephan <jstephan@baylibre.com>,
- David Jander <david@protonic.nl>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Martin Sperl <kernel@martin.sperl.org>, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Cameron <jic23@kernel.org>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: Re: [Linux-stm32] (subset) [PATCH v2 0/5] spi: add support for
- pre-cooking messages
+Content-Disposition: inline
+In-Reply-To: <54b8c58a-6288-4ae6-9ed7-aa7b212e63da@linaro.org>
+Cc: Suraj Jaiswal <quic_jsuraj@quicinc.com>,
+ Sneh Shah <quic_snehshah@quicinc.com>, Eric Dumazet <edumazet@google.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Sarosh Hasan <quic_sarohasa@quicinc.com>, Rob Herring <robh@kernel.org>,
+ kernel@quicinc.com, Jose Abreu <joabreu@synopsys.com>,
+ Andy Gross <agross@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Prasad Sodagudi <psodagud@quicinc.com>, Andrew Halaney <ahalaney@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Bhupesh Sharma <bhupesh.sharma@linaro.org>, linux-arm-msm@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac-qcom-ethqos:
+ Update link clock rate only for RGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,50 +65,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 19 Feb 2024 16:33:17 -0600, David Lechner wrote:
-> This is a follow-up to [1] where it was suggested to break down the
-> proposed SPI offload support into smaller series.
+> >   static void
+> >   ethqos_update_link_clk(struct qcom_ethqos *ethqos, unsigned int speed)
+> >   {
+> > -	switch (speed) {
+> > -	case SPEED_1000:
+> > -		ethqos->link_clk_rate =  RGMII_1000_NOM_CLK_FREQ;
+> > -		break;
+> > +	if (phy_interface_mode_is_rgmii(ethqos->phy_mode)) {
+> > +		switch (speed) {
+> > +		case SPEED_1000:
+> > +			ethqos->link_clk_rate =  RGMII_1000_NOM_CLK_FREQ;
+> > +			break;
+> > -	case SPEED_100:
+> > -		ethqos->link_clk_rate =  RGMII_ID_MODE_100_LOW_SVS_CLK_FREQ;
+> > -		break;
+> > +		case SPEED_100:
+> > +			ethqos->link_clk_rate =  RGMII_ID_MODE_100_LOW_SVS_CLK_FREQ;
+> > +			break;
+> > -	case SPEED_10:
+> > -		ethqos->link_clk_rate =  RGMII_ID_MODE_10_LOW_SVS_CLK_FREQ;
+> > -		break;
+> > -	}
+> > +		case SPEED_10:
+> > +			ethqos->link_clk_rate =  RGMII_ID_MODE_10_LOW_SVS_CLK_FREQ;
+> > +			break;
+> > +		}
+> > -	clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
+> > +		clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
+> > +	}
+> >   }
 > 
-> This takes on the first suggested task of introducing an API to
-> "pre-cook" SPI messages. This idea was first discussed extensively in
-> 2013 [2][3] and revisited more briefly 2022 [4].
-> 
-> [...]
+> if (!phy_interface_mode_is_rgmii(ethqos->phy_mode))
+> 	return 0;
 
-Applied to
+It is a void function, so no 0, but otherwise this does look less
+invasive.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
-
-Thanks!
-
-[1/5] spi: add spi_optimize_message() APIs
-      commit: 7b1d87af14d9ae902ed0c5dc5fabf4eea5abdf02
-[2/5] spi: move splitting transfers to spi_optimize_message()
-      commit: fab53fea21a909e4e0656764a8ee7c356fe89d6f
-[3/5] spi: stm32: move splitting transfers to optimize_message
-      commit: c2bcfe7c6edf418d5adf731a7d60a8abd81e952f
-[4/5] spi: axi-spi-engine: move message compile to optimize_message
-      commit: 7dba2adb063bcf7a293eacb88980e0975b1fb1fd
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
