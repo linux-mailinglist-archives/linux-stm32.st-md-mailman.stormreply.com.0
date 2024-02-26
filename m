@@ -2,76 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31E7862A16
-	for <lists+linux-stm32@lfdr.de>; Sun, 25 Feb 2024 12:38:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6D3866C12
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Feb 2024 09:25:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F22BC6C838;
-	Sun, 25 Feb 2024 11:38:42 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED484C6B46B;
+	Mon, 26 Feb 2024 08:25:54 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B846C6B46B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF88CC64102
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Feb 2024 11:38:41 +0000 (UTC)
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1708861121;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Nd1jp0ik0EQ8lB4/a6qsMXOn4vrUpwGeAyAe+L+hO74=;
- b=2Kl/5+Vz2RGNX9IRizM/tRprQhU4nMEu8+jdI/nwr0dXIDCI62kr4l+QhcvCILGd80SVaH
- DC6u8JNDYaV8iyBldD0qlo5h4WrY5VxvkXSaCHnyiQPaFZ4olgaaE7RvlUFRJZLmFvup1+
- L9V+9ahaQwCwwiqymU0U+TkTwOotKgFoV8Igi6UdB5SeTQVvcuriXBpmHaEyDZv9P2sq6X
- UBzw/nn3eJpc1Jkm4FG3kA+zUxiLw6NAdPiBQEEa2yYCnlA9tLF8gwx0PRZQ1BfiDBEvQy
- uzcPKSylBqADmG/yWPx7kCYxMn6bAvojJCnA6NlXeKR78N/ZMXaWKrGpMkQwaw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1708861121;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Nd1jp0ik0EQ8lB4/a6qsMXOn4vrUpwGeAyAe+L+hO74=;
- b=bgRHsuM6ku0+shTnNChydhV6wAmCSP/Ocbdf6eZIfn7IMUd9PaXfAho5W4iOE/wlPp2jjW
- CF5eHWjPceLFAzAw==
-Date: Sun, 25 Feb 2024 12:38:37 +0100
+ Mon, 26 Feb 2024 08:25:53 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 41Q3T6cD001925; Mon, 26 Feb 2024 09:25:42 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=ipjqMNVCa6S6fgiDE7vR21a99GdkTx/G11g4uP/BcWo=; b=re
+ m6OKKwNwvCp2pW4u/6mMlfjuS8RNmSFjVPAmlz2bPp9F+JqJox3Hc/SBI2Q5yadI
+ dGPwtVG/NEKZEs3agmVqVQ5BcX2oxwPMMkbh65QGAV4GlAyHist0zk+J59ucHGin
+ FmAFH6qAfwOzUf2ONh9hKbTwgE0qMQbNSzWuCL1QAlBJ6OaWCzZMcyc9x3BQAkii
+ +3+u4SVAdfy1xN413PoKsb3nvp+/sAmqIg415Wk/Dx6UPvlzlgelKuOlxI9tweoL
+ UBeFFz/9GKvnTn6kU8fqc9Dg6w1Juv2LbZfBxpfKbUs3nfY1pmg2NT9YMF2q6rYa
+ dQETh34CLS96SptsmWZA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wf6rke8dn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 26 Feb 2024 09:25:42 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 492164002D;
+ Mon, 26 Feb 2024 09:25:38 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node3.st.com [10.75.129.71])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C3E12243FD1;
+ Mon, 26 Feb 2024 09:25:07 +0100 (CET)
+Received: from [10.201.21.177] (10.201.21.177) by SHFDAG1NODE3.st.com
+ (10.75.129.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 26 Feb
+ 2024 09:25:07 +0100
+Message-ID: <9859023c-57bf-4316-911c-c5f5ade1ebb4@foss.st.com>
+Date: Mon, 26 Feb 2024 09:25:02 +0100
 MIME-Version: 1.0
-Message-Id: <20240222-stmmac_xdp-v2-1-4beee3a037e4@linutronix.de>
-X-B4-Tracking: v=1; b=H4sIALwm22UC/22NQQ6CMBBFr0JmbU07iiIr72GIaelUJpFC2kowh
- LtbWLt8/+flLRApMEWoiwUCTRx58BnwUEDbaf8iwTYzoMSzREQRU9/r9jnbUZRVScapSyXNCbJ
- gdCRhgvZttym9jonCdoyBHM975QGeEjR57DimIXz38qT2619kUkIJqixaNNebc/L+Zv9JYfA8H
- y1Bs67rD1hDlJbGAAAA
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1989; i=kurt@linutronix.de;
- h=from:subject:message-id; bh=nO+yNgUNWjiWE9FvprklDXQiq6XovnJDIndTRXHt+DI=;
- b=owEBbQKS/ZANAwAKAcGT0fKqRnOCAcsmYgBl2ya/itUaWlWcQlzoS007kcDGfWCQqL9H4sNex
- 3nznKAs996JAjMEAAEKAB0WIQS8ub+yyMN909/bWZLBk9HyqkZzggUCZdsmvwAKCRDBk9HyqkZz
- gq63D/9a5xGEBWftDOSIqgb07v1rM8qCP849lIzLis3u5Ys3mwrMSOkDkpj7seZVvzwdqLlMQ5H
- 3kcwf6QyiEUXWtabPlmdv2tlBWvmnNS5zQMxu+mlnoC4RS7xAarFnIzcNVaWijGQVpKnfsq69h3
- ZI41n+YI0h9qFJzVObhyifR5u8YJuvzxzHLWsi/npuyGNPYLaWSlS0TL5n5uyDqqH6Kg2KaR+PL
- lTjrwlgNpyKqLJvziYwNDijD0EEmf+7BLYAwDpdD3Pt73WCvpqmKds/M8Khp0qbSwiBS5D9iLRD
- 5dAlmBG9rpZ8Kr6Y1DtYy72//A/FKECZMbt9HZ0mtIRVfBTyEOnJMmIbvuCbi++KLOa+jsEtOFH
- xot8ftlqcJRQD5oSOFjBi7LAzGRzxJsMlItbwjNx7pP90dePaAh3VJFGalLtWHX/Rk6/25MIIIQ
- hgvnGsXM/ODxS1FqXLl40YJqe/r0+YzGY48UOWGNuDihY9P3/cg4RhbQmtuVveN1Oz4ap3QDaEN
- x+Q6johoucfQ5yFexV5XjUs9VzCfWCOefLfRFLV/u2zgY5+Ob2YjpQ+B1p4AmTiddeEduUBieyK
- T9TOcWTZ1R4pFX0JnT/TGcJTV+tPJnkd9c6CbeDyzNZxwWAfxHQqDk0RBoseQ/gqGAQJ2/AyhRY
- 3QO4vT04ftJz5vg==
-X-Developer-Key: i=kurt@linutronix.de; a=openpgp;
- fpr=BCB9BFB2C8C37DD3DFDB5992C193D1F2AA467382
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Kurt Kanzenbach <kurt@linutronix.de>,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- Serge Semin <fancer.lancer@gmail.com>, Stanislav Fomichev <sdf@google.com>,
- Song Yoong Siang <yoong.siang.song@intel.com>, bpf@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2] net: stmmac: Complete meta data only
-	when enabled
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, <robh+dt@kernel.org>,
+ <krzysztof.kozlowski+dt@linaro.org>, <conor+dt@kernel.org>
+References: <20240219140202.85680-1-christophe.kerello@foss.st.com>
+ <20240219140202.85680-3-christophe.kerello@foss.st.com>
+ <1c4ab974-2b72-45ce-ab20-de158b91e356@linaro.org>
+Content-Language: en-US
+From: Christophe Kerello <christophe.kerello@foss.st.com>
+In-Reply-To: <1c4ab974-2b72-45ce-ab20-de158b91e356@linaro.org>
+X-Originating-IP: [10.201.21.177]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE3.st.com
+ (10.75.129.71)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-02-26_05,2024-02-23_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v2 2/5] memory: stm32-fmc2-ebi: check
+ regmap_read return value
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,62 +74,67 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Currently using plain XDP/ZC sockets on stmmac results in a kernel crash:
+Hi Krzysztof,
 
-|[  255.822584] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-|[...]
-|[  255.822764] Call trace:
-|[  255.822766]  stmmac_tx_clean.constprop.0+0x848/0xc38
+On 2/21/24 09:29, Krzysztof Kozlowski wrote:
+> On 19/02/2024 15:01, Christophe Kerello wrote:
+>> Check regmap_read return value to avoid to use uninitialized local
+>> variables.
+>>
+>> Signed-off-by: Christophe Kerello <christophe.kerello@foss.st.com>
+>> ---
+>> Changes in v2:
+>>   - New patch added
+>>
+>>   drivers/memory/stm32-fmc2-ebi.c | 128 +++++++++++++++++++++++---------
+>>   1 file changed, 94 insertions(+), 34 deletions(-)
+>>
+> 
+> ...
+> 
+>> -static void stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>> +static int stm32_fmc2_ebi_save_setup(struct stm32_fmc2_ebi *ebi)
+>>   {
+>>   	unsigned int cs;
+>> +	int ret;
+>>   
+>>   	for (cs = 0; cs < FMC2_MAX_EBI_CE; cs++) {
+>> -		regmap_read(ebi->regmap, FMC2_BCR(cs), &ebi->bcr[cs]);
+>> -		regmap_read(ebi->regmap, FMC2_BTR(cs), &ebi->btr[cs]);
+>> -		regmap_read(ebi->regmap, FMC2_BWTR(cs), &ebi->bwtr[cs]);
+>> +		ret = regmap_read(ebi->regmap, FMC2_BCR(cs), &ebi->bcr[cs]);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_read(ebi->regmap, FMC2_BTR(cs), &ebi->btr[cs]);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_read(ebi->regmap, FMC2_BWTR(cs), &ebi->bwtr[cs]);
+>> +		if (ret)
+>> +			return ret;
+> 
+> These are just:
+> 
+> ret |= regmapr_read()
+> and one "if (ret)" clause.
+> 
 
-The program counter indicates xsk_tx_metadata_complete(). It works on
-compl->tx_timestamp, which is not set by xsk_tx_metadata_to_compl() due to
-missing meta data. Therefore, call xsk_tx_metadata_complete() only when
-meta data is actually used.
+Ok, it will be done in V3.
 
-Tested on imx93 without XDP, with XDP and with XDP/ZC.
+Regards,
+Christophe Kerello.
 
-Fixes: 1347b419318d ("net: stmmac: Add Tx HWTS support to XDP ZC")
-Suggested-by: Serge Semin <fancer.lancer@gmail.com>
-Tested-by: Serge Semin <fancer.lancer@gmail.com>
-Link: https://lore.kernel.org/netdev/87r0h7wg8u.fsf@kurt.kurt.home/
-Acked-by: Stanislav Fomichev <sdf@google.com>
-Signed-off-by: Kurt Kanzenbach <kurt@linutronix.de>
----
-Changes in v2:
-- Add more details to change log (Maciej)
-- Link to v1: https://lore.kernel.org/r/20240222-stmmac_xdp-v1-1-e8d2d2b79ff0@linutronix.de
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index e80d77bd9f1f..8b77c0952071 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2672,7 +2672,8 @@ static int stmmac_tx_clean(struct stmmac_priv *priv, int budget, u32 queue,
- 			}
- 			if (skb) {
- 				stmmac_get_tx_hwtstamp(priv, p, skb);
--			} else {
-+			} else if (tx_q->xsk_pool &&
-+				   xp_tx_metadata_enabled(tx_q->xsk_pool)) {
- 				struct stmmac_xsk_tx_complete tx_compl = {
- 					.priv = priv,
- 					.desc = p,
-
----
-base-commit: 2a770cdc4382b457ca3d43d03f0f0064f905a0d0
-change-id: 20240222-stmmac_xdp-585ebf1680b3
-
-Best regards,
--- 
-Kurt Kanzenbach <kurt@linutronix.de>
-
+> 
+> 
+> Best regards,
+> Krzysztof
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
