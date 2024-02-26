@@ -2,81 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E81B867893
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Feb 2024 15:33:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881D5867EF8
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Feb 2024 18:41:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03CC1C6B46B;
-	Mon, 26 Feb 2024 14:33:48 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E2E9C6B46B;
+	Mon, 26 Feb 2024 17:41:20 +0000 (UTC)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B874C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2351EC64102
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Feb 2024 14:33:46 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-564e4df00f3so4006689a12.3
+ Mon, 26 Feb 2024 17:41:18 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-6e43ee3f6fbso3014586b3a.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Feb 2024 06:33:46 -0800 (PST)
+ Mon, 26 Feb 2024 09:41:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1708958025; x=1709562825;
+ d=gmail.com; s=20230601; t=1708969276; x=1709574076;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=3N6Ym3bgXQzF5z7AmW2Qb4zuSJjYbLzuSuV+PTkZGxo=;
- b=WuFxLg8jGRwThBOqNgVVQmbp6ui1SaWbKjZyulRXgjyTYdZCltMUGJNVTe6tuCARtN
- Bd1P4Xr+3CZf3i/+/XYQ6C1nD4djDr3/J+x0KiLLPKTrGeFgosMZtAicsDiDdKRq2H7d
- HCDHTBuHF0NTHEzxmjyiX/yQJpADSBc1n8N1Md4+4yQPvd0PcGy6mxsVO9hFSv8ahdgP
- WbEsCfMicLbAmkcAwHRG8pEunHCw+cnPDh+6kcxel6cpz/lJz0kXwtnMKrPcrUdJ3XMN
- BQuXQo6wyIXDnIaAxagVifj4kmK7mDgEXrBN+YehGOyaTIeaOV3tVm0Opf1iQwo+Knnl
- qAMQ==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
+ :reply-to; bh=bgTijKmXxs2TTmfZvORuZdqAS/4Fe7yTHh8kyxONrjM=;
+ b=ZBMrbB5cCSj1+zbQBqgaTpqdimciF2M+D9612j/XMsuC+j3BhpRWkLkwYR72USHh8a
+ 8zADk7TNRNVc8NV0jqXmOK5XUoVJx81lGHGIBTjrvQ62lAbZhuFeYpbvApu3GxMrQGSs
+ UKjxtXdpT/zdJ4HiNX+xaha7obYVq7citLpmqNnes2v8YMjVjT0Swo0Ce78V5pr1oEcB
+ DiAdADxxMXY23Bf4O916dsNN/5hFa7tv5HTocTceIo/QbpDEwuU/BDnEnDOgFYCk5w9s
+ o0kj7qfZDQoezuieyNzNgCpT8VAzwxCgp+JRrgFEVlH6utaWQAEVv3CHrUuEVniyWgE5
+ lOJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1708958025; x=1709562825;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=3N6Ym3bgXQzF5z7AmW2Qb4zuSJjYbLzuSuV+PTkZGxo=;
- b=Jc5Z4cRhOfSBrF6uhlkDBUx8e2MUuoLBGRY6YnCbkpL0izF6F6zJjFrWSRGxY6N2P3
- NXCVf+zXmh1kRTRzzoeXAeTZ01xWTVpax9IIW9bby/ewdN/a12gikWAnvOTjD5hUIKY6
- g7QdnsjROrwRxWAFY2EfIbU2T/0qD2J7J/3cyW8QBcTkDq3kXJwlEuF4tyG2G/oVQyCY
- Tr/d/oZQZCBNYrhLa5yjQukoqp2LPD7CNFvQSgm3BfuuUR+63nxho6M2iyaepnihUVag
- ITqhIBIAGLaQ5MUCKvpk0J/FzOR6e48R+j/7GghW8ZSgzUHhe5g9cMCHFnRCzP9G94ie
- ZbnQ==
+ d=1e100.net; s=20230601; t=1708969276; x=1709574076;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=bgTijKmXxs2TTmfZvORuZdqAS/4Fe7yTHh8kyxONrjM=;
+ b=KAwldJehjA75RGtrJ4fskRG55L0Jwt1L+YYhnFijEpv8kNyNFx4ejKRUQhV3h9fUPA
+ H1IeqxR2IbdVhOq1jF3qvBWrG/OtJdVbJi+jtFlmkZatVrfqfIDHgH/CEgIuU+FDr9RY
+ zi4tnTSQrUAuBUSV/znSE9i7ENt7NFnqAstuZPfMT+08m1Qu9qQ/GyS3ro4BuomRvjtU
+ sxKxFMrAtIXYGCZYKicLjS0u/bhH7d6sLf2XyQ+EgmHvLJmZQqgjycereY/fWbdnJaeB
+ JvkUVFmuMguEtqFB69wmjw9TYCCMCSYoHgfMbkrsvAkoB513FTtRft68rPMkKfUqs1ZU
+ dqkQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsG9c030cLorPkYIMA9n2xXZSiDwgIsX8iInfLHSYLjRsWrBGvIwubWw0ZklZRexIR5Judwi6Uxc6du5WMScTonS6wtq39VNFadcM1OfG/Ou5viOaYaoiE
-X-Gm-Message-State: AOJu0YxuwjcfJtFbV2vDtu6Wmw+azoYhs5p6keWOKsnDguEc3kXgfOkq
- bNXQYE1UvoVCfGiGbpVicp1oDRYpRa3jhuRqkQADTQIs5k9UKMrW
-X-Google-Smtp-Source: AGHT+IHgys4HEymXkOTHp1yCx3gCB2tXlabzaPGh5szcy6U0nbuX8/uSEHAx937Ahxxw0TFO6/BZpQ==
-X-Received: by 2002:a17:906:603:b0:a3e:fc79:c92b with SMTP id
- s3-20020a170906060300b00a3efc79c92bmr4479666ejb.31.1708958024993; 
- Mon, 26 Feb 2024 06:33:44 -0800 (PST)
-Received: from localhost
- (p200300e41f222300f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f22:2300:f22f:74ff:fe1f:3a53])
+ AJvYcCVxn2W8Kk/Xm6Zr25nkVswaTDdXIuFZcMgqDg13Ax9Ag2ax/wdShZq8667O+fjcmnvR3wFwmnxHThjP/H9WaMgO3SMp+GMhQPirBxLPx25G98bOwnQJxp9H
+X-Gm-Message-State: AOJu0YxQdTbSDJMjaXN/5wV0hnQeODm0wqtqh8DHBtEgC8uauA6UzAEh
+ GnPNO/53hzHWc3cn26F8V6BSHhCmmQxi2z0VAjRjRIut5E+3OORo
+X-Google-Smtp-Source: AGHT+IH/KwcL6EIgZIFJid8+Iuv/hGu/ukOE+8S0Bq41eCSnpaVvodVUZawruucW00ynqaEP1J9T/w==
+X-Received: by 2002:a05:6a21:918a:b0:1a0:885e:96d6 with SMTP id
+ tp10-20020a056a21918a00b001a0885e96d6mr11064774pzb.61.1708969276385; 
+ Mon, 26 Feb 2024 09:41:16 -0800 (PST)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
  by smtp.gmail.com with ESMTPSA id
- vw7-20020a170907a70700b00a4324ae24dbsm1556647ejc.62.2024.02.26.06.33.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 Feb 2024 06:33:44 -0800 (PST)
-Mime-Version: 1.0
-Date: Mon, 26 Feb 2024 15:33:43 +0100
-Message-Id: <CZF325ZTG8X5.28VUA9EUUHHBK@gmail.com>
-From: "Thierry Reding" <thierry.reding@gmail.com>
-To: "Serge Semin" <fancer.lancer@gmail.com>
-X-Mailer: aerc 0.16.0-1-0-g560d6168f0ed-dirty
-References: <20240219-stmmac-axi-config-v3-0-fca7f046e6ee@nvidia.com>
- <20240219-stmmac-axi-config-v3-3-fca7f046e6ee@nvidia.com>
- <xne2i6jwqaptsrd2hjdahxbscysgtj7iabqendyjb75fnrjc5z@js7n7qngtzym>
- <CZ9Z70HO2C7J.398BRNM8NBIG1@gmail.com>
- <kns2u6o4nhz4vda74r2mscyyp6yjgo2p62vryeenucm4o3ngzb@j6ch3sl6xha2>
-In-Reply-To: <kns2u6o4nhz4vda74r2mscyyp6yjgo2p62vryeenucm4o3ngzb@j6ch3sl6xha2>
-Cc: Thierry Reding <treding@nvidia.com>, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, Eric
- Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- linux-tegra@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: Configure
- AXI on Tegra234 MGBE
+ s36-20020a056a0017a400b006e3e72a4f87sm4331124pfg.0.2024.02.26.09.41.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Feb 2024 09:41:15 -0800 (PST)
+Date: Mon, 26 Feb 2024 09:41:14 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Petr Tesarik <petr@tesarici.cz>
+Message-ID: <ef284cb7-5d71-4485-af52-61dc7fb1abb7@roeck-us.net>
+References: <20240203190927.19669-1-petr@tesarici.cz>
+ <ea1567d9-ce66-45e6-8168-ac40a47d1821@roeck-us.net>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <ea1567d9-ce66-45e6-8168-ac40a47d1821@roeck-us.net>
+Cc: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Marc Haber <mh+netdev@zugschlus.de>,
+ "open list:STMMAC ETHERNET DRIVER" <netdev@vger.kernel.org>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
+ stable@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
+ "David S. Miller" <davem@davemloft.net>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+ regressions@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: protect updates of
+ 64-bit statistics counters
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,297 +91,168 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6785573980934574371=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6785573980934574371==
-Content-Type: multipart/signed;
- boundary=d466fbf28d2645461829b3779913021bcae7500246ea7f2e1559fe55a58a;
- micalg=pgp-sha256; protocol="application/pgp-signature"
+Adding report to regression tracker.
 
---d466fbf28d2645461829b3779913021bcae7500246ea7f2e1559fe55a58a
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+#regzbot ^introduced 38cc3c6dcc09
+#regzbot title Inconsistent lock state in stmmac code
+#regzbot ignore-activity
 
-On Fri Feb 23, 2024 at 11:24 PM CET, Serge Semin wrote:
-> On Tue, Feb 20, 2024 at 03:28:39PM +0100, Thierry Reding wrote:
-> > On Mon Feb 19, 2024 at 7:32 PM CET, Serge Semin wrote:
-> > > On Mon, Feb 19, 2024 at 05:46:06PM +0100, Thierry Reding wrote:
-> > > > From: Thierry Reding <treding@nvidia.com>
-> > > >=20
-> > > > Allow the device to use bursts and increase the maximum number of
-> > > > outstanding requests to improve performance. Measurements show an
-> > > > increase in throughput of around 5x on a 1 Gbps link.
-> > > >=20
-> > > > Signed-off-by: Thierry Reding <treding@nvidia.com>
-> > > > ---
-> > > >  drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c | 9 +++++++++
-> > > >  1 file changed, 9 insertions(+)
-> > > >=20
-> > > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > > > index bab57d1675df..b6bfa48f279d 100644
-> > > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tegra.c
-> > > > @@ -199,6 +199,12 @@ static void mgbe_uphy_lane_bringup_serdes_down=
-(struct net_device *ndev, void *mg
-> > > >  	writel(value, mgbe->xpcs + XPCS_WRAP_UPHY_RX_CONTROL);
-> > > >  }
-> > > > =20
-> > > > +static const struct stmmac_axi tegra234_mgbe_axi =3D {
-> > > > +	.axi_wr_osr_lmt =3D 63,
-> > > > +	.axi_rd_osr_lmt =3D 63,
-> > > > +	.axi_blen =3D { 256, },
-> > > > +};
-> > > > +
-> > > >  static int tegra_mgbe_probe(struct platform_device *pdev)
-> > > >  {
-> > > >  	struct plat_stmmacenet_data *plat;
-> > > > @@ -284,6 +290,9 @@ static int tegra_mgbe_probe(struct platform_dev=
-ice *pdev)
-> > > >  	if (err < 0)
-> > > >  		goto disable_clks;
-> > > > =20
-> > > > +	/* setup default AXI configuration */
-> > > > +	res.axi =3D &tegra234_mgbe_axi;
-> > > > +
-> > > >  	plat =3D devm_stmmac_probe_config_dt(pdev, &res);
-> > > >  	if (IS_ERR(plat)) {
-> > > >  		err =3D PTR_ERR(plat);
-> > >
-> > > Let's get back to the v2 discussion:
-> > >
-> > > On Mon Feb 5, 2024 at 1:44 AM CET, Serge Semin wrote:
-> > > > The entire series can be converted to just a few lines of change:
-> > > >     plat =3D devm_stmmac_probe_config_dt(pdev, res.mac);
-> > > >     if (IS_ERR(plat)) {
-> > > >             err =3D PTR_ERR(plat);
-> > > >             goto disable_clks;
-> > > >     }
-> > > > +
-> > > > +   if (IS_ERR_OR_NULL(plat->axi)) {
-> > > > +           plat->axi =3D devm_kzalloc(&pdev->dev, sizeof(*axi), GF=
-P_KERNEL);
-> > > > +           if (!plat->axi) {
-> > > > +                   ret =3D -ENOMEM;
-> > > > +                   goto disable_clks;
-> > > > +           }
-> > > > +   } /* else memset plat->axi with zeros if you wish */
-> > > > +
-> > > > +   plat->axi->axi_wr_osr_lmt =3D 63;
-> > > > +   plat->axi->axi_rd_osr_lmt =3D 63;
-> > > > +   plat->axi->axi_blen[0] =3D 256;
-> > > > =20
-> > > >     plat->has_xgmac =3D 1;
-> > > >     plat->flags |=3D STMMAC_FLAG_TSO_EN;
-> > > >     plat->pmt =3D 1;
-> > > >
-> > > > Please don't overcomplicate the already overcomplicated driver with=
- a
-> > > > functionality which can be reached by the default one. In this case
-> > > > the easiest way is to let the generic code work and then
-> > > > override/replace/fix/etc the retrieved values. Thus there won't be
-> > > > need in adding the redundant functionality and keep the generic
-> > > > DT-platform code a bit simpler to read.
-> > >
-> > > You responded with:
-> > >
-> > > On Tue, Feb 13, 2024 at 04:51:34PM +0100, Thierry Reding wrote:
-> > > > I'm not sure I understand how this is overcomplicating things. The =
-code
-> > > > is pretty much unchanged, except that the AXI configuration can now=
- have
-> > > > driver-specified defaults before the DT is parsed. Perhaps I need t=
-o add
-> > > > comments to make that a bit clearer?
-> > > >=20
-> > > > While your version is certainly simpler it has the drawback that it=
- no
-> > > > longer allows the platform defaults to be overridden in device tree=
-. I
-> > > > would prefer if the defaults can be derived from the compatible str=
-ing
-> > > > but if need be for those defaults to still be overridable from devi=
-ce
-> > > > tree.
-> > >
-> > > Currently available functionality is easier to read and understand: b=
-y
-> > > default the data is retrieved from the DT, if no AXI DT-node found yo=
-u
-> > > can allocate/create your own AXI-configs, if there is AXI DT-node you
-> > > can fix it up in whatever way your wish. Thus the default behavior is
-> > > straightforward. You on the contrary suggest to add an additional
-> > > field to the resources structure which would need to be merged in wit=
-h
-> > > the data retrieved from DT. It makes the stmmac_axi_setup() method an=
-d
-> > > the entire logic more complex and thus harder to comprehend.
-> >=20
-> > I suppose that's subjective. Being able to let the driver provide
-> > defaults that can then be overridden by values from DT doesn't seem lik=
-e
-> > a very exotic (or complicated) feature to me. We do that elsewhere all
-> > the time. Do the comments that I added in this version not sufficiently
-> > explain what's going on?
->
-> I have perfectly understood what was going on since v1. My concern is
-> the implementation. Here is the way the platform-specific setup
-> currently works.
->
-> There are two structures: stmmac_resources and plat_stmmacenet_data.
-> The former one contains the generic platform resources like CSRs
-> mapping, IRQs and MAC-address. The later one mainly has the DW
-> MAC-specific settings. Yes, plat_stmmacenet_data has been evolved to
-> an ugly monster with many redundant flags (fixing code and data here
-> and there in the driver) and with some generic platform resources
-> (which should have been added to the stmmac_resources structure in the
-> first place, like clocks and resets). But still it's purpose is
-> more-or-less defined. Both of these structures can be filled in with
-> data either directly by the glue drivers or by calling the
-> ready-to-use DW MAC platform data getters (stmmac_probe_config_dt()
-> and stmmac_get_platform_resources()). Most importantly is that
-> currently these structures have independent init semantics: no common
-> data, no fields used in both contexts. There are tons of problematic
-> places or questionable implementations in the driver, but at least
-> this one is more-or-less defined: coherency is minimal, logic is
-> linear.
->
-> You suggest to break that logic by introducing a new stmmac_resources
-> field which doesn't represent a generic resource data, but which
-> purpose is to tweak the AXI-settings in the plat_stmmacenet_data
-> structure. The pointer won't be even ever initialized in the
-> stmmac_get_platform_resources() method because it's done in the
-> stmmac_probe_config_dt() function. Based on all of that the change you
-> suggest look more like a fixup of the problem with your particular
-> device/platform.
->
-> Let's assume you patches are accepted. In sometime an another
-> developer comes with a need to pre-define say MTL Tx/Rx queue configs,
-> then another one with DMA configs, MDIO-bus settings, and so on. Thus
-> the stmmac_resources structure will eventually turn in a set of the
-> tweaks and the plat_stmmacenet_data pre-defines. That's how the
-> plat_stmmacenet_data structure has turned in what it is now. This
-> doesn't look like a right path to take again.
->
-> >=20
-> > > The driver is already overwhelmed with flags and private/platform dat=
-a
-> > > fixing the code here and there (see plat_stmmacenet_data, it's a
-> > > madness). So please justify in more details why do you need one more
-> > > complexity added instead of:
-> > > 1. overriding the AXI-configs retrieved from DT,
-> >=20
-> > Again, overriding the AXI configs read from DT doesn't keep the current
-> > default behaviour of DT being the final authority. That's a policy that
-> > should remain intact. This patch (series) is about allowing the driver
-> > to override the AXI defaults with something that's sensible based on
-> > the compatible string. The current defaults, for example, cause the GBE
-> > on Tegra devices to run at around 100 Mbps even on a 1 Gbps link.
-> >=20
-> > > 2. updating DT on your platform
-> >=20
->
-> > That's one possibility and was in fact the first variant I used, but it
-> > has a few drawbacks. For example, it means that I need to create the AX=
-I
-> > node just to make the device functional, but if possible it's better to
-> > derive all necessary information from the compatible string. Having thi=
-s
-> > in a separate AXI configuration node is duplicating information that's
-> > already implied by the compatible string.
-> >=20
-> > Also, on Tegra we have a few instances of this device that are all
-> > configured the same way. Since the AXI configuration node is supposed t=
-o
-> > be a child of the Ethernet controller node, we end up having to
-> > duplicate even more information.
->
-> None of that sounds like big problems. The default behavior doesn't
-> make your devices not-working. Yes, the performance is poor, but they
-> still work. Regarding the AXI-config DT-nodes it's not a problem at
-> all. A lot of the DW *MAC instances currently have the AXI-config
-> DT-subnodes. It's absolutely fine to have them setting up the same
-> configs.
-
-But that's precisely my issue. In my opinion the default behavior for a
-device should be to be able to run at optimal performance without having
-to resort to extra quirks.
-
-All of the AXI configuration parameters can be derived from the DT
-compatible string, so it shouldn't be necessary to duplicate that
-information in an additional AXI configuration node.
-
-> Once again having the pre-defined configs is fine. All I am worried
-> about is the implementation you suggest especially in using the
-> stmmac_resources structure to tweak up the plat_stmmacenet_data data.
-> So the easiest solutions in your case are:
-> 1. Initialize the plat_stmmacenet_data->axi pointer if no AXI
-> DT-subnode was detected by the stmmac_probe_config_dt() method, after
-> the method is called. This will provide almost the same semantics as
-> you suggest. The only difference is that it would work not on the
-> property level but on the node-level one. (Note the implementation
-> suggested by you doesn't provide the AXI-configs pre-definition for
-> the boolean properties. So it doesn't provide a complete AXI-config
-> default pre-definition.)
-
-Quite frankly that would not be useful at all. If there's no way to
-override defaults individually this becomes very brittle. If somebody
-wanted to override just a single parameter, they would need to reproduce
-the entire AXI configuration node, using an exact copy of the defaults
-for the parameters that they don't want to change.
-
-> 2. Add the proper AXI-config DT-subnodes to the respective device tree
-> sources.
->
-> If despite of all my reasoning you still insist on having a
-> pre-defined setting pattern, then we'll need to come up with some
-> better solution. On the top of my mind it might be for example a
-> pre-definition of the entire plat_stmmacenet_data structure instance
-> or using the software nodes.
-
-That sounds very impractical. We'd need to make sure to deep-copy the
-pre-definition structure and such, then deal with reference counting of
-the clocks, resets and whatever else.
-
-I'll drop this series and stick with AXI configuration nodes like
-everyone else.
-
-Thierry
-
---d466fbf28d2645461829b3779913021bcae7500246ea7f2e1559fe55a58a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmXcoUgACgkQ3SOs138+
-s6FFBRAAvNmKW5F9JaZOWoRbNCOa24mgbUt2118hqt2TCYg5cU/lFowjl6Gg7vcL
-fVJ7RjCI/d3BZzXd2Lgvr5HW1BPpbG80qw+vZ1Sk7cotpBKch23rKlHr/4yNF/bJ
-qLYCTDetGLgdmxVGgTH5pSdAZr/AwdQBWGVe+ey3iS5g5cNa/ci4Dyeu6atg2CLI
-3fFK26jTN3UHKCGayh5F9viDzC0iJgOweVTfeRMN3vVBCE8dosCNyU7PvpUff6lV
-BR11OqwLYgBpQRAyhYIT+LC8kxCB8IDrcZzxs/P2+E5BPySADmKhtvEJB4AshRuA
-2NSgahz4lMMTFYMLRMhbWEw5IItAubUQynqBjQK/vIRLwZoeE29oIaJrggLzpgcS
-r/db31k6zgxjMpo8pW5vg5kPqeTQk3Ixlp/4QGp4eOut4wcOgH92erV2mlHoIOoV
-4GuTp2h3MgBpP3HQ/GkalaaBoCjVhHC3S9gw/iehocnU+tVeWXSXibmuhtvLVrgZ
-Q8eaBRDEZpj3sAjspUJus1UtcoQakt645qYO1dRT4xdM5UgmfmTO9O4x7T9YrKm+
-u8fk6WcwKvVmSmsvT2bbaVsyideKDh8FTeSwPBotlZyblx7jc31EQ57SoQH7rDK8
-Hc+DehK0PQm1aaMqVY0V32A7n809vQzDrhilQyskekLwYgSLOFE=
-=Ivt5
------END PGP SIGNATURE-----
-
---d466fbf28d2645461829b3779913021bcae7500246ea7f2e1559fe55a58a--
-
---===============6785573980934574371==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+On Sun, Feb 11, 2024 at 08:30:21PM -0800, Guenter Roeck wrote:
+> Hi,
+> 
+> On Sat, Feb 03, 2024 at 08:09:27PM +0100, Petr Tesarik wrote:
+> > As explained by a comment in <linux/u64_stats_sync.h>, write side of struct
+> > u64_stats_sync must ensure mutual exclusion, or one seqcount update could
+> > be lost on 32-bit platforms, thus blocking readers forever. Such lockups
+> > have been observed in real world after stmmac_xmit() on one CPU raced with
+> > stmmac_napi_poll_tx() on another CPU.
+> > 
+> > To fix the issue without introducing a new lock, split the statics into
+> > three parts:
+> > 
+> > 1. fields updated only under the tx queue lock,
+> > 2. fields updated only during NAPI poll,
+> > 3. fields updated only from interrupt context,
+> > 
+> > Updates to fields in the first two groups are already serialized through
+> > other locks. It is sufficient to split the existing struct u64_stats_sync
+> > so that each group has its own.
+> > 
+> > Note that tx_set_ic_bit is updated from both contexts. Split this counter
+> > so that each context gets its own, and calculate their sum to get the total
+> > value in stmmac_get_ethtool_stats().
+> > 
+> > For the third group, multiple interrupts may be processed by different CPUs
+> > at the same time, but interrupts on the same CPU will not nest. Move fields
+> > from this group to a newly created per-cpu struct stmmac_pcpu_stats.
+> > 
+> > Fixes: 133466c3bbe1 ("net: stmmac: use per-queue 64 bit statistics where necessary")
+> > Link: https://lore.kernel.org/netdev/Za173PhviYg-1qIn@torres.zugschlus.de/t/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Petr Tesarik <petr@tesarici.cz>
+> 
+> This patch results in a lockdep splat. Backtrace and bisect results attached.
+> 
+> Guenter
+> 
+> ---
+> [   33.736728] ================================
+> [   33.736805] WARNING: inconsistent lock state
+> [   33.736953] 6.8.0-rc4 #1 Tainted: G                 N
+> [   33.737080] --------------------------------
+> [   33.737155] inconsistent {HARDIRQ-ON-W} -> {IN-HARDIRQ-W} usage.
+> [   33.737309] kworker/0:2/39 [HC1[1]:SC0[2]:HE0:SE0] takes:
+> [   33.737459] ef792074 (&syncp->seq#2){?...}-{0:0}, at: sun8i_dwmac_dma_interrupt+0x9c/0x28c
+> [   33.738206] {HARDIRQ-ON-W} state was registered at:
+> [   33.738318]   lock_acquire+0x11c/0x368
+> [   33.738431]   __u64_stats_update_begin+0x104/0x1ac
+> [   33.738525]   stmmac_xmit+0x4d0/0xc58
+> [   33.738605]   dev_hard_start_xmit+0xc4/0x2a0
+> [   33.738689]   sch_direct_xmit+0xf8/0x30c
+> [   33.738763]   __dev_queue_xmit+0x400/0xcc4
+> [   33.738831]   ip6_finish_output2+0x254/0xafc
+> [   33.738903]   mld_sendpack+0x260/0x5b0
+> [   33.738969]   mld_ifc_work+0x274/0x588
+> [   33.739032]   process_one_work+0x230/0x604
+> [   33.739101]   worker_thread+0x1dc/0x494
+> [   33.739165]   kthread+0x100/0x120
+> [   33.739225]   ret_from_fork+0x14/0x28
+> [   33.739302] irq event stamp: 3553
+> [   33.739371] hardirqs last  enabled at (3552): [<c03e884c>] __call_rcu_common.constprop.0+0x1a4/0x6b4
+> [   33.739515] hardirqs last disabled at (3553): [<c0300bd4>] __irq_svc+0x54/0xb8
+> [   33.739638] softirqs last  enabled at (3542): [<c1254a60>] neigh_resolve_output+0x1fc/0x254
+> [   33.739795] softirqs last disabled at (3546): [<c1243798>] __dev_queue_xmit+0x48/0xcc4
+> [   33.739919]
+> [   33.739919] other info that might help us debug this:
+> [   33.740021]  Possible unsafe locking scenario:
+> [   33.740021]
+> [   33.740111]        CPU0
+> [   33.740158]        ----
+> [   33.740204]   lock(&syncp->seq#2);
+> [   33.740314]   <Interrupt>
+> [   33.740363]     lock(&syncp->seq#2);
+> [   33.740511]
+> [   33.740511]  *** DEADLOCK ***
+> [   33.740511]
+> [   33.740665] 8 locks held by kworker/0:2/39:
+> [   33.740761]  #0: c4bfb2a8 ((wq_completion)mld){+.+.}-{0:0}, at: process_one_work+0x168/0x604
+> [   33.741025]  #1: f0909f20 ((work_completion)(&(&idev->mc_ifc_work)->work)){+.+.}-{0:0}, at: process_one_work+0x168/0x604
+> [   33.741230]  #2: c328baac (&idev->mc_lock){+.+.}-{3:3}, at: mld_ifc_work+0x24/0x588
+> [   33.741387]  #3: c2191488 (rcu_read_lock){....}-{1:2}, at: mld_sendpack+0x0/0x5b0
+> [   33.741553]  #4: c2191488 (rcu_read_lock){....}-{1:2}, at: ip6_finish_output2+0x174/0xafc
+> [   33.741716]  #5: c219149c (rcu_read_lock_bh){....}-{1:2}, at: __dev_queue_xmit+0x48/0xcc4
+> [   33.741877]  #6: c4d3a974 (dev->qdisc_tx_busylock ?: &qdisc_tx_busylock){+...}-{2:2}, at: __dev_queue_xmit+0x334/0xcc4
+> [   33.742070]  #7: c49e5050 (_xmit_ETHER#2){+...}-{2:2}, at: sch_direct_xmit+0x158/0x30c
+> [   33.742250]
+> [   33.742250] stack backtrace:
+> [   33.742426] CPU: 0 PID: 39 Comm: kworker/0:2 Tainted: G                 N 6.8.0-rc4 #1
+> [   33.742578] Hardware name: Allwinner sun8i Family
+> [   33.742776] Workqueue: mld mld_ifc_work
+> [   33.742998]  unwind_backtrace from show_stack+0x10/0x14
+> [   33.743119]  show_stack from dump_stack_lvl+0x68/0x90
+> [   33.743232]  dump_stack_lvl from mark_lock.part.0+0xbd8/0x12d8
+> [   33.743345]  mark_lock.part.0 from __lock_acquire+0xad4/0x224c
+> [   33.743458]  __lock_acquire from lock_acquire+0x11c/0x368
+> [   33.743564]  lock_acquire from __u64_stats_update_begin+0x104/0x1ac
+> [   33.743683]  __u64_stats_update_begin from sun8i_dwmac_dma_interrupt+0x9c/0x28c
+> [   33.743805]  sun8i_dwmac_dma_interrupt from stmmac_napi_check+0x40/0x1c8
+> [   33.743917]  stmmac_napi_check from stmmac_interrupt+0xa4/0x154
+> [   33.744020]  stmmac_interrupt from __handle_irq_event_percpu+0xcc/0x2ec
+> [   33.744134]  __handle_irq_event_percpu from handle_irq_event+0x38/0x80
+> [   33.744243]  handle_irq_event from handle_fasteoi_irq+0x9c/0x1c4
+> [   33.744346]  handle_fasteoi_irq from generic_handle_domain_irq+0x28/0x38
+> [   33.744459]  generic_handle_domain_irq from gic_handle_irq+0x98/0xcc
+> [   33.744567]  gic_handle_irq from generic_handle_arch_irq+0x34/0x44
+> [   33.744673]  generic_handle_arch_irq from call_with_stack+0x18/0x20
+> [   33.744831]  call_with_stack from __irq_svc+0x9c/0xb8
+> [   33.745018] Exception stack(0xf0909c00 to 0xf0909c48)
+> [   33.745221] 9c00: f0ab0000 c49e506c 0000005a 00000000 c0000006 f0ab0014 0000005a c0f5da68
+> [   33.745387] 9c20: c35bd810 c4b50000 c4b50000 c365d300 00000000 f0909c50 c0f70a70 c0f70a74
+> [   33.745574] 9c40: 60000013 ffffffff
+> [   33.745668]  __irq_svc from sun8i_dwmac_enable_dma_transmission+0x20/0x24
+> [   33.745809]  sun8i_dwmac_enable_dma_transmission from stmmac_xmit+0x790/0xc58
+> [   33.745975]  stmmac_xmit from dev_hard_start_xmit+0xc4/0x2a0
+> [   33.746100]  dev_hard_start_xmit from sch_direct_xmit+0xf8/0x30c
+> [   33.746220]  sch_direct_xmit from __dev_queue_xmit+0x400/0xcc4
+> [   33.746350]  __dev_queue_xmit from ip6_finish_output2+0x254/0xafc
+> [   33.746462]  ip6_finish_output2 from mld_sendpack+0x260/0x5b0
+> [   33.746568]  mld_sendpack from mld_ifc_work+0x274/0x588
+> [   33.746670]  mld_ifc_work from process_one_work+0x230/0x604
+> [   33.746793]  process_one_work from worker_thread+0x1dc/0x494
+> [   33.746906]  worker_thread from kthread+0x100/0x120
+> [   33.746994]  kthread from ret_from_fork+0x14/0x28
+> [   33.747076] Exception stack(0xf0909fb0 to 0xf0909ff8)
+> [   33.747165] 9fa0:                                     00000000 00000000 00000000 00000000
+> [   33.747303] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+> [   33.747433] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+> 
+> ---
+> # bad: [841c35169323cd833294798e58b9bf63fa4fa1de] Linux 6.8-rc4
+> # good: [54be6c6c5ae8e0d93a6c4641cb7528eb0b6ba478] Linux 6.8-rc3
+> git bisect start 'HEAD' 'v6.8-rc3'
+> # bad: [c76b766ec50d3d43e2dacea53a733b285f4b730d] Merge tag 'drm-fixes-2024-02-09' of git://anongit.freedesktop.org/drm/drm
+> git bisect bad c76b766ec50d3d43e2dacea53a733b285f4b730d
+> # bad: [63e4b9d693e0f8c28359c7ea81e1ee510864c37b] Merge tag 'nf-24-02-08' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf
+> git bisect bad 63e4b9d693e0f8c28359c7ea81e1ee510864c37b
+> # bad: [75428f537d7cae33c7e4dd726144074f78622c09] net: intel: fix old compiler regressions
+> git bisect bad 75428f537d7cae33c7e4dd726144074f78622c09
+> # good: [1a1c13303ff6d64e6f718dc8aa614e580ca8d9b4] nfp: flower: prevent re-adding mac index for bonded port
+> git bisect good 1a1c13303ff6d64e6f718dc8aa614e580ca8d9b4
+> # good: [3871aa01e1a779d866fa9dfdd5a836f342f4eb87] tipc: Check the bearer type before calling tipc_udp_nl_bearer_add()
+> git bisect good 3871aa01e1a779d866fa9dfdd5a836f342f4eb87
+> # good: [58086721b7781c3e35b19c9b78c8f5a791070ba3] devlink: avoid potential loop in devlink_rel_nested_in_notify_work()
+> git bisect good 58086721b7781c3e35b19c9b78c8f5a791070ba3
+> # bad: [38cc3c6dcc09dc3a1800b5ec22aef643ca11eab8] net: stmmac: protect updates of 64-bit statistics counters
+> git bisect bad 38cc3c6dcc09dc3a1800b5ec22aef643ca11eab8
+> # good: [cb88cb53badb8aeb3955ad6ce80b07b598e310b8] ppp_async: limit MRU to 64K
+> git bisect good cb88cb53badb8aeb3955ad6ce80b07b598e310b8
+> # first bad commit: [38cc3c6dcc09dc3a1800b5ec22aef643ca11eab8] net: stmmac: protect updates of 64-bit statistics counters
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6785573980934574371==--
