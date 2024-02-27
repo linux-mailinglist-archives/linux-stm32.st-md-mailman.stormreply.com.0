@@ -2,47 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC488869D00
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Feb 2024 18:00:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED87D869D0B
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Feb 2024 18:03:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 725A5C6C841;
-	Tue, 27 Feb 2024 17:00:21 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7C44C6C841;
+	Tue, 27 Feb 2024 17:03:09 +0000 (UTC)
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1806AC6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 429E0C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Feb 2024 17:00:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id BB548CE01C1;
- Tue, 27 Feb 2024 17:00:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DA7C433F1;
- Tue, 27 Feb 2024 17:00:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1709053217;
- bh=Rtg/wJB+BwOfbLpXE7ewLdRK21mvIkgnQ8NFpKpylzg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mEZVkleoAOhydHqEWHg/rQfg/pNdE3CSGBgWQPF8/NJIv8K3UrpYePZbTNCCm2uNf
- A07aYmhkG2OxxOI4hy+BI4cpj0H/6nQjkSCQ9JiFfrvfzldGbQ3VKf/eHzx9cPSWhq
- J/w/GXftvQZYCfEutbIu7/HIeJhwiKZU8f4EaWp7YdeRh0AH+SKWnPvUO30c7lvUzz
- vZrO1FKHgPBXGn/vr2dpjcBaqVAqx+0x3ytQV1y5OyR3GXUVfBMfTFs/Rmf1xu8ULY
- 24WLz6N4GqSW3UaH+/AJCULFkhFmaLKgJK2dhTNUfaDEJt/3qnHhwWsD5C/Byhl+Gq
- yw1U2w14cQlLg==
-Date: Tue, 27 Feb 2024 17:00:12 +0000
-From: Simon Horman <horms@kernel.org>
-To: Piotr Wejman <piotrwejman90@gmail.com>
-Message-ID: <20240227170012.GC277116@kernel.org>
-References: <20240226093144.31965-1-piotrwejman90@gmail.com>
+ Tue, 27 Feb 2024 17:03:08 +0000 (UTC)
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1709053387;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5l/z5niNWmPcrTzUn5sccV50+EwR7ocb+Kg+fSadhTg=;
+ b=08SNpyQvlIQU2jDRMfIsTN3MWypAwK0VUGYT42tEBQgFLalrgvtfjw6UYXQVej2Ynh4ktb
+ 5Fk4PQ1exCmD8hEkfA4vrrKFpZNWQ1AO3HA3SOinAlt+rWo2xwFY3/wZ4SgDpWCFL1WpVQ
+ 3Ui4gjSwZIE6e4msvl5V/U6twYA1bl7qqqwSy4rvbFeY2tm46uoYWMhDEYq394TrR6uYZl
+ vyY759M+v3TaLN6BSUKcNv5ijbkpmhowBrO7U9XpbEd6b6qCRHNIBjq4sBKqSlm/CRti8t
+ +xDkOUF+Kz4koFfCmAS4TKjW+HgSAGy+/eSlmUdGDeyzosfVbk/gwAEqza17pA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1709053387;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5l/z5niNWmPcrTzUn5sccV50+EwR7ocb+Kg+fSadhTg=;
+ b=schyaOoT6pP96CHkQtz1KlTYOnuJapoTYgyTGeAbfVUt5j0qYE5viIyMTjwapWp7ij9Uiz
+ Tq5mM+uFan0hgUAA==
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+In-Reply-To: <knhwqxhouaiehmnnz5oxaxibhq7usokefztae4pplqypwuzgye@mke2irokres4>
+References: <cover.1703284359.git.u.kleine-koenig@pengutronix.de>
+ <knhwqxhouaiehmnnz5oxaxibhq7usokefztae4pplqypwuzgye@mke2irokres4>
+Date: Tue, 27 Feb 2024 18:03:07 +0100
+Message-ID: <874jdtalh0.ffs@tglx>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240226093144.31965-1-piotrwejman90@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: fix rx queue priority
-	assignment
+Cc: Andrew Lunn <andrew@lunn.ch>, alsa-devel@alsa-project.org,
+ Fabio Estevam <festevam@gmail.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>, patches@opensource.cirrus.com,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ NXP Linux Team <linux-imx@nxp.com>, kernel@pengutronix.de,
+ Shawn Guo <shawnguo@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 00/13] irqchip: Convert to platform remove
+ callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,131 +66,29 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Feb 26, 2024 at 10:31:44AM +0100, Piotr Wejman wrote:
-> The driver should ensure that same priority is not mapped to multiple
-> rx queues. Currently rx_queue_priority() function is adding
-> priorities for a queue without clearing them from others.
-> 
-> >From DesignWare Cores Ethernet Quality-of-Service
-> Databook, section 17.1.29 MAC_RxQ_Ctrl2:
-> "[...]The software must ensure that the content of this field is
-> mutually exclusive to the PSRQ fields for other queues, that is,
-> the same priority is not mapped to multiple Rx queues[...]"
-> 
-> After this patch, rx_queue_priority() function will:
-> - assign desired priorities to a queue
-> - remove those priorities from all other queues
-> The write sequence of CTRL2 and CTRL3 registers is done in the way to
-> ensure this order.
-> 
-> Signed-off-by: Piotr Wejman <piotrwejman90@gmail.com>
-> ---
-> Changes in v2:
->   - Add some comments
->   - Apply same changes to dwxgmac2_rx_queue_prio()
->   - Revert "Rename prio argument to prio_mask"
->   - Link to v1: https://lore.kernel.org/netdev/20240219102405.32015-1-piotrwejman90@gmail.com/T/#u
-> 
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 42 +++++++++++++++----
->  .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 40 ++++++++++++++----
->  2 files changed, 66 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> index 6b6d0de09619..76ec0c1da250 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-> @@ -92,19 +92,43 @@ static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
->  				     u32 prio, u32 queue)
->  {
->  	void __iomem *ioaddr = hw->pcsr;
-> -	u32 base_register;
-> -	u32 value;
-> +	u32 clear_mask = 0;
-> +	u32 ctrl2, ctrl3;
-> +	int i;
->  
-> -	base_register = (queue < 4) ? GMAC_RXQ_CTRL2 : GMAC_RXQ_CTRL3;
-> -	if (queue >= 4)
-> -		queue -= 4;
-> +	ctrl2 = readl(ioaddr + GMAC_RXQ_CTRL2);
-> +	ctrl3 = readl(ioaddr + GMAC_RXQ_CTRL3);
-> +	
-> +	/* The software must ensure that the same priority
-> +	 * is not mapped to multiple Rx queues.
-> +	 */
-> +	for (i = 0; i < 4; i++)
-> +		clear_mask |= ((prio << GMAC_RXQCTRL_PSRQX_SHIFT(i)) &
-> +						GMAC_RXQCTRL_PSRQX_MASK(i));
->  
-> -	value = readl(ioaddr + base_register);
-> +	ctrl2 &= ~clear_mask;
-> +	ctrl3 &= ~clear_mask;
->  
-> -	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
-> -	value |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-> +	/* Assign new priorities to a queue and
-> +	 * clear them from others queues.
-> +	 * The CTRL2 and CTRL3 registers write sequence is done
-> +	 * in the way to ensure this order.
-> +	 */
-> +	if (queue < 4) {
-> +		ctrl2 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
->  						GMAC_RXQCTRL_PSRQX_MASK(queue);
-> -	writel(value, ioaddr + base_register);
-> +
-> +		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-> +		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-> +	} else {
-> +		queue -= 4;
-> +
-> +		ctrl3 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-> +						GMAC_RXQCTRL_PSRQX_MASK(queue);
-> +
-> +		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-> +		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-> +	}
->  }
-
-Hi Piotr,
-
-Sorry if I am on the wrong track here, but this seems a little odd to me.
-
-My reading is that each byte of GMAC_RXQ_CTRL2 and GMAC_RXQ_CTRL3
-hold the priority value - an integer in the range of 0-255 - for
-each of 8 queues.
-
-This corresponds with the way that the queue is set both before and
-after this patch.
-
-But the code immediately above treats these bytes as bit fields.
-
-Consider the case where all queues are initialised to 0
-(I have no idea if this is valid queue values).
-
-Now suppose we wish to set Queue 0 to Priority 7.
-Then my my reading we will end up with.
-
-clear_mask = 0x07070707
-ctrl0 = (0x00000000 & ~clear_mask) | 0x00000007 = 0x00000007
-ctrl3 =  0x00000000 & ~clear_mask               = 0x00000000
-
-So far so good, but now suppose we now wish to set Queue 1 to Priority 9.
-Then we get:
-
-clear_mask = 0x09090909
-ctrl0 = (0x00000007 & ~clear_mask) | 0x00000900 = 0x00000906
-ctrl3 =  0x00000000 & ~clear_mask               = 0x00000000
-
-Now queue 0 seems to have priority 6.
-
-...
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBGZWIgMTUgMjAyNCBhdCAyMjowMywgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4g
+T24gRnJpLCBEZWMgMjIsIDIwMjMgYXQgMTE6NTA6MzFQTSArMDEwMCwgVXdlIEtsZWluZS1Lw7Zu
+aWcgd3JvdGU6Cj4+IHRoaXMgc2VyaWVzIGNvbnZlcnRzIGFsbCBkcml2ZXJzIGJlbG93IGRyaXZl
+cnMvaXJxY2hpcCB0byB1c2UKPj4gLnJlbW92ZV9uZXcoKS4gU2VlIGNvbW1pdCA1YzVhNzY4MGU2
+N2IgKCJwbGF0Zm9ybTogUHJvdmlkZSBhIHJlbW92ZQo+PiBjYWxsYmFjayB0aGF0IHJldHVybnMg
+bm8gdmFsdWUiKSBmb3IgYW4gZXh0ZW5kZWQgZXhwbGFuYXRpb24gYW5kIHRoZQo+PiBldmVudHVh
+bCBnb2FsLiBUaGUgVEw7RFI7IGlzIHRvIG1ha2UgaXQgaGFyZGVyIGZvciBkcml2ZXIgYXV0aG9y
+cyB0bwo+PiBsZWFrIHJlc291cmNlcy4KPj4gCj4+IFRoZSBkcml2ZXJzIHRvdWNoZWQgaGVyZSBh
+cmUgYWxsIGZpbmUgdGhvdWdoIGFuZCBkb24ndCByZXR1cm4gZWFybHkgaW4KPj4gLnJlbW92ZSgp
+LiBTbyBhbGwgY29udmVyc2lvbnMgaW4gdGhpcyBzZXJpZXMgYXJlIHRyaXZpYWwuCj4KPiBJJ20g
+c3RpbGwgd2FpdGluZyBmb3IgdGhpcyBzZXJpZXMgdG8gZ28gaW4gKG9yIGdldCByZXZpZXcgZmVl
+ZGJhY2spLiBJcwo+IHRoaXMgc3RpbGwgb24geW91ciByYWRhcj8gWW91J3JlIHRoZSByaWdodCBt
+YWludGFpbmVyIHRvIHRha2UgdGhpcwo+IHNlcmllcywgYXJlbid0IHlvdT8KCkkgYW0gYW5kIGl0
+IGZlbGwgdGhyb3VnaCBteSBjaHJpc3RtYXMgY3JhY2suIEkgZG9uJ3QgZXZlbiB0cnkgdG8gY2F0
+Y2gKdXAgd2l0aCBlbWFpbCBhZnRlciBiZWluZyBhbG1vc3QgMyB3ZWVrcyBBRksuIEZvciB0d28g
+ZGVjYWRlcyBJIHJlbHkgb24Kc3VibWl0dGVycyB0byBwaW5nIG1lIGFmdGVyIGEgY291cGxlIG9m
+IHdlZWtzIG9yIG1vbnRoIGluIHRoaXMgY2FzZSA6KQoKVGhhbmtzLAoKICAgICAgICB0Z2x4Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0z
+MiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpo
+dHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51
+eC1zdG0zMgo=
