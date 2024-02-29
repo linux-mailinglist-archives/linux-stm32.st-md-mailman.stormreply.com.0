@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 320BE86D0BC
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Feb 2024 18:33:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6808786D0C8
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Feb 2024 18:36:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DDA0DC6C83D;
-	Thu, 29 Feb 2024 17:33:21 +0000 (UTC)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23299C6C83D;
+	Thu, 29 Feb 2024 17:36:14 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15EBCC6C838
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61916C6C838
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Feb 2024 17:33:21 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-563d32ee33aso1737275a12.2
+ Thu, 29 Feb 2024 17:36:13 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-5648d92919dso2237155a12.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Feb 2024 09:33:20 -0800 (PST)
+ Thu, 29 Feb 2024 09:36:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709228000; x=1709832800;
+ d=linaro.org; s=google; t=1709228173; x=1709832973;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=g4SW9IEV1AHr8zcIVjzCtrupsEd2zmLHvwRqfkyVnQo=;
- b=L8dmvGbiD4FN9sQnv/nKS0ViWT6SkSdMHsRZa5b7UTy5kyQCPQFN58rPrZKURdgPCC
- zGMVQH8VvAlVho6ObiiilR30q7OUMr8Rq43WicRV9aRsYHZNDu0exYbjFfabGvkfzfOW
- haJ0LmMjgZIKT55h+0UB0jeck0t9OJ3bFpEVZGZtOFstDIwQ3NjuvgOO3XPHFfzO7snY
- CqYSfkh1b89aHzAlVnoLJ9M8otv9qC9CDXdnHuSCYYym1iwnAhkVOIrgx48ubXYKn3Ff
- cQcLiNTFmXj6XKc1Pb59jOtBb7LRW/mfeo1b4qNOvABnUaEMrq1PJhzR2sR04SuXsj7r
- ZHpA==
+ bh=iLSby/jlmJK3uljHnqc3l6N1Z82nXJjM+dUciAyqBwA=;
+ b=asfyBMS7OlqUjGX2qxsqJdoItth/uWNLjv4QCFK+87HOElGnWNms7wHfVXlSa13VHh
+ eZ9Vp6g5ZzT9Cqc1OfGXBl5IIt7g7WqKwpvvbv+O6f/XFH8KhsajtIJHZEMS+1HOAqQr
+ 4BdlgOiVIMWm+5KVV/n2IBT4d0h9MX5K9hoVP+GEUNLqlHorbEVhcLW1aL5L+NoafpZ7
+ BOioJVMYKaoX0AgplnNNQeGs2Kq35+vUgf+VV9TYRXPrLs19Oi10MQvjOowixxc4Wgb3
+ Bx7iWTSY2UOVF1criBgam6iwmUgSDQkOdzCdsiLDShroSfccDi0+v5bPMI3RtDxA3kP6
+ 9qHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709228000; x=1709832800;
+ d=1e100.net; s=20230601; t=1709228173; x=1709832973;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=g4SW9IEV1AHr8zcIVjzCtrupsEd2zmLHvwRqfkyVnQo=;
- b=B9YNdLPgyCaz+2yOe2nSmaCIx/p8hBO0LqR0uJoJfLqsFQ0Smvtv2qVuxDwCnDDgfb
- xPgLKVr+An31HlX5oEQ/2Q9BZ9BL6+FJ7AXughgC3yprtphF40lwv1Yu/EPxvEQSQ2Xi
- bHJ6smNZN7yBJElhuE8DvL3rhOuElIsTq+ZWgUlCwb2LX3mN37e4GGFBZUDtNMcqkcyX
- kchcFtnedN0qghntILFvyBiTzY3tMzQRgHbm5FxmB9OC1hjXpLV1P5DMZQYwy2t5z7HB
- /bH49n6xzUV5AlObn91BdDM9RyTuKN6dC6A+bqfwPF1nB164Wd6ucyl/KUq5YFiivGv+
- mBHg==
+ bh=iLSby/jlmJK3uljHnqc3l6N1Z82nXJjM+dUciAyqBwA=;
+ b=hxJj8tsb/iWOLIDWEK3uUxuJvCD6f1aAC43XnvoxADgJ3eFvAkeBit1YkFN3M+0664
+ 99YLtMCAs/g2a1CSFQ77yo8HsyPhGywVwfwODQQTmnHUm7An6+UTYT63GhzGlO0j8LNx
+ cdlWvFp7vYTv2boNOJTy4YlcNFP9y5KLDVnW7xiJ2mGy8FW1++YMHSQEoGAH69KB8038
+ Mpdi3LusvcOOIH7nlIcFny/VwjDdyyUD5wRME0YdaIRwRIVtcFa8HV0vy03q7Y3tVcWZ
+ WjnwEbum5foaikzf736ezOTelXPFzCqLi7RraC1byyWFji1MyWxCetQChDqs1abKgQJx
+ 8EEg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtz0bTngNmfzqZmcC8vlPjZnMD5TIKePTLMT3NhoWA5ubvTVQrp1EcpWj+VSdvLRGXxx7C9vfx5YBKzniJD6rwYkzmC2JzHKdLSOfs9S+MnEgZZBh1W5WI
-X-Gm-Message-State: AOJu0YzXn7vyRHWaUleI1xpiEQHFSG4VhtNx9Keu3Rh9LyaKuYWcWGyb
- 1/NLUVpqBx8pTLC27Da8LdFsjWNhXTNJkNQEYNzcG7y1ub+gwKL3+WTmTSVWQns=
-X-Google-Smtp-Source: AGHT+IEKMsPkZ39TgyCZPSJIyfL82K1VoIXkvFpH3Et+GrJuX3JxausyV7UmalyVsNVcRwEc/HuKRQ==
-X-Received: by 2002:a50:9e4e:0:b0:565:6dde:ed2e with SMTP id
- z72-20020a509e4e000000b005656ddeed2emr1877940ede.33.1709228000487; 
- Thu, 29 Feb 2024 09:33:20 -0800 (PST)
+ AJvYcCWTvm8DOFxpSjSF3i91jxc1MNDetJdZ1ukmjHA5frbipn8Bw9FljFaHWSxAKR30y2KTFkfIKEYo/t5mLmKEbTBprkjONHBqLtWEZ+gMSC6reyWfIxGfdR6t
+X-Gm-Message-State: AOJu0YyzJVzpOGFJ/FS6UxIprtOwabgC95Qw3gQ/W2yt9Ax1QvTt0InL
+ gRDdUGfrwTH1dwYVKwhMXmnQbaJQ17wVQeq9bCYB0tFXNK1Co+bvCDITFaG/trk=
+X-Google-Smtp-Source: AGHT+IFywM80eZIH8bIonSuktJ0UT/SAH3nkxmpcNS14qHNuZsAbBE+CbYtErcaJ8+IkhLeN10YZcw==
+X-Received: by 2002:a05:6402:5202:b0:566:49f4:c538 with SMTP id
+ s2-20020a056402520200b0056649f4c538mr2158771edd.34.1709228172842; 
+ Thu, 29 Feb 2024 09:36:12 -0800 (PST)
 Received: from [192.168.1.20] ([178.197.222.97])
  by smtp.gmail.com with ESMTPSA id
- a10-20020a50ff0a000000b005665a6e07fcsm795398edu.30.2024.02.29.09.33.18
+ m13-20020aa7d34d000000b0056486eaa669sm790762edr.50.2024.02.29.09.36.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 29 Feb 2024 09:33:19 -0800 (PST)
-Message-ID: <e1a7ce61-016b-4052-bca6-81264269c0a2@linaro.org>
-Date: Thu, 29 Feb 2024 18:33:17 +0100
+ Thu, 29 Feb 2024 09:36:12 -0800 (PST)
+Message-ID: <64b15740-901e-4561-b42c-5fd3a0997ace@linaro.org>
+Date: Thu, 29 Feb 2024 18:36:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -73,7 +73,7 @@ To: Christophe Roullier <christophe.roullier@foss.st.com>,
  <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
 References: <20240229134724.1353903-1-christophe.roullier@foss.st.com>
- <20240229134724.1353903-2-christophe.roullier@foss.st.com>
+ <20240229134724.1353903-3-christophe.roullier@foss.st.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -119,12 +119,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240229134724.1353903-2-christophe.roullier@foss.st.com>
+In-Reply-To: <20240229134724.1353903-3-christophe.roullier@foss.st.com>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/2] dt-bindings: net: add phy-supply
-	property for stm32
+Subject: Re: [Linux-stm32] [PATCH 2/2] dt-bindings: net: add new property st,
+ ext-phyclk in documentation for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,13 +142,19 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 29/02/2024 14:47, Christophe Roullier wrote:
-> Phandle to a regulator that provides power to the PHY. This
-> regulator will be managed during the PHY power on/off sequence.
-> 
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
+> Add property st,ext-phyclk to manage cases when PHY have no cristal/quartz
+> This property can be used with RMII phy without cristal 50Mhz and when we
+> want to select RCC clock instead of ETH_REF_CLK
+> Can be used also with RGMII phy with no cristal and we select RCC clock
+> instead of ETH_CLK125
+> This new property replace st,eth-clk-sel and st,eth-ref-clk-sel
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+You miss full stops everywhere. What I don't get is why you decided to
+deprecate above - no explanation why. Also no implementation and nothing
+here mentions that you document existing property, but commit msg
+actually suggests adding new property. If new, then where is any user of
+this in following patch?
+
 
 Best regards,
 Krzysztof
