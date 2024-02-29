@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721F486D45D
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Feb 2024 21:38:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9894E86D473
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Feb 2024 21:40:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A9F3C6C83D;
-	Thu, 29 Feb 2024 20:38:22 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55CB0C6C83D;
+	Thu, 29 Feb 2024 20:40:25 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6D4DC6A61D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5F3BC6A61D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Feb 2024 20:38:20 +0000 (UTC)
+ Thu, 29 Feb 2024 20:40:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 441F3CE1A80;
- Thu, 29 Feb 2024 20:38:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43AEC433C7;
- Thu, 29 Feb 2024 20:38:12 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id F39A3CE0613;
+ Thu, 29 Feb 2024 20:40:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F51C433C7;
+ Thu, 29 Feb 2024 20:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1709239097;
+ s=k20201202; t=1709239221;
  bh=NKk9DfgAyxGXNWdgqcpfsG6GEb2KHxtt6O3UhenhoNA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IkpYIpzOwpS0ID4c5SPhFPtSKp/SUyTn7YgGvmeUUd+H7h7oA6AC5woXSf/gGfBLi
- vJJK0pku7ALSzkKGUbyUFKZH3OxxiBQo+B+0W5NevoZbX3fL9OooAxO00XrVXZ6QNu
- n92u6IJTHymmElDQScHeAAzI8gHEu2gNRwu+m1EkMFqg9Oi9K6vO+M/LX+HXugq+Sz
- Y0S6w7K14b5SiltgPzQ+CehpoEnLYUgaQb3sIxqZ+1WPTDK6/qLertWdV9Rc/hhhIm
- nNjqi9X3x7oozlBF5RgJK1NkdDU/pHqFM8E+5gUUwKubixsG6lQCE1Xmwi+rjYC1Cr
- /Y4Gnzi8cu7iA==
+ b=Yky3sXu1EZTXwXggl70GMctUhj1CEVlVFjd7q7i6BicH3/YcZ+pjKqyI3GlsKPpMO
+ /wdEHUJ8mZJp7m5Dy3X+EWR1sTo9xfp4YsSNp9EZqR0tR4XHD3gtIwGnTxImcQJLhw
+ enFY38VvBfJ0QC8Idnz1W3tIJcFduWfXQvkgCa9eZ60A3UNl7M1yzfSQ08/8S1F40N
+ U39StBu6SL/uR8o9X+/V4ThdAAslguxDN/MLFV+vdPc+13FzgGqT2643eeWASF9EFU
+ gK9Rm3TGoFPMo5puoj8MsbKmaxNyz+ro1DQ93PqVD5NXdV3+n4jqtoqMUhhmjhvWJH
+ 6tW/e4z6QLCWg==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 29 Feb 2024 15:36:59 -0500
-Message-ID: <20240229203729.2860356-19-sashal@kernel.org>
+Date: Thu, 29 Feb 2024 15:39:11 -0500
+Message-ID: <20240229203933.2861006-18-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240229203729.2860356-1-sashal@kernel.org>
-References: <20240229203729.2860356-1-sashal@kernel.org>
+In-Reply-To: <20240229203933.2861006-1-sashal@kernel.org>
+References: <20240229203933.2861006-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7.6
-Cc: andrew@lunn.ch, linux-aspeed@lists.ozlabs.org, tony@atomide.com,
+X-stable-base: Linux 6.6.18
+Cc: andrew@lunn.ch, hayashi.kunihiko@socionext.com, tony@atomide.com,
  thierry.reding@gmail.com, krzysztof.kozlowski+dt@linaro.org,
  linux-stm32@st-md-mailman.stormreply.com, Sasha Levin <sashal@kernel.org>,
- Rob Herring <robh@kernel.org>,
+ Rob Herring <robh@kernel.org>, linux-aspeed@lists.ozlabs.org,
  Florian Fainelli <florian.fainelli@broadcom.com>, gregory.clement@bootlin.com,
  jonathanh@nvidia.com, joel@jms.id.au, andre.przywara@arm.com,
  Andrew Jeffery <andrew@codeconstruct.com.au>, sebastian.hesselbarth@gmail.com,
@@ -52,9 +52,8 @@ Cc: andrew@lunn.ch, linux-aspeed@lists.ozlabs.org, tony@atomide.com,
  robh+dt@kernel.org, linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>,
  sbranden@broadcom.com, atenart@kernel.org, mcoquelin.stm32@gmail.com,
- sudeep.holla@arm.com, tsahee@annapurnalabs.com, shawnguo@kernel.org,
- openbmc@lists.ozlabs.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.7 19/24] arm: dts: Fix dtc
+ tsahee@annapurnalabs.com, shawnguo@kernel.org, openbmc@lists.ozlabs.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 18/22] arm: dts: Fix dtc
 	interrupt_provider warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
