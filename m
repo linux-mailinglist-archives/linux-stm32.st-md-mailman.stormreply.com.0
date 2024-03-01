@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7862C86E466
-	for <lists+linux-stm32@lfdr.de>; Fri,  1 Mar 2024 16:34:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 863E786E467
+	for <lists+linux-stm32@lfdr.de>; Fri,  1 Mar 2024 16:34:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F771C6DD69;
-	Fri,  1 Mar 2024 15:34:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4928CC6DD6B;
+	Fri,  1 Mar 2024 15:34:45 +0000 (UTC)
 Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
  [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85764C6DD6B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8262EC6C855
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri,  1 Mar 2024 15:34:43 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 553071BF214;
  Fri,  1 Mar 2024 15:34:42 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 4F4491BF211;
- Fri,  1 Mar 2024 15:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1709307282;
+ t=1709307283;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=8tGPa25k36EJxEeWQmzUhYRx/TSCnts9If8gK5aVX/8=;
- b=AerBo37ke4x6VVF866h2zbiFQyQ5jKbKpCPfWyo2R+uwPlTmZ1ZvLDYsp/jyXwhW1kkZGv
- sZB//gXWrMaY57es+DOkitbnFWWBHhBcEBwUJarPb8URDVW+IdXBMtSchXecBMqUNRyyMg
- 3nSyESBaZQ+LJdeX/pI0DwK7uKHlRSfIWJbS1L0iiCi92o9cVhje8WGkDltjzhHbmY0OnY
- +fEDuMmC7iyey/j5pMKCLVhMR9sDbVZWveHFquApHNJhiJk48RbY7Jai8psK0uM8phJSPG
- DFMWn/OFZPzsU5NDy+jcC6vcaQkTbP05e5PtHV9ikBDRDF4lhueyw02bzZ85dw==
+ bh=mPP+dx/u1QlLp7Z98ZPnW3Pcjv5oOqegMlpLj3+UIJM=;
+ b=ndvfllSY32eEq2O0+A4kF3t7bdII2sta6fBVypj8LB92rrRUwqtSP4BVvyctivWahO+UmE
+ gOxIc+k2/kzSo57HHYo6oqZ7vwM3vcIWCsgjXgS5SbgYrnK7x5+aypg9Ww/c5NvCq07YTX
+ qXxfH9gjwnNjS+/Zf46uKQLKHpBsGxnQSAvGy5BsdML7q+tB+tRWTJOnHoPxA3ZivL+DMb
+ BBmhgADBPOVigumaBI1YP51l3Nwztr9Wkk6vO7shog7g4HTiz2v644LDQP7zV9uzRcrHat
+ xrszVivl3SW0KiAikl5KrMiUu3QQAwMtkcPcVD2aryrft7U9vkIDHdOPVpfqjw==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Fri, 01 Mar 2024 16:35:01 +0100
+Date: Fri, 01 Mar 2024 16:35:02 +0100
 MIME-Version: 1.0
-Message-Id: <20240301-rxc_bugfix-v5-4-8dac30230050@bootlin.com>
+Message-Id: <20240301-rxc_bugfix-v5-5-8dac30230050@bootlin.com>
 References: <20240301-rxc_bugfix-v5-0-8dac30230050@bootlin.com>
 In-Reply-To: <20240301-rxc_bugfix-v5-0-8dac30230050@bootlin.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
@@ -45,12 +45,12 @@ To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
 X-Mailer: b4 0.13.0
 X-GND-Sasl: romain.gantois@bootlin.com
 Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Clark Wang <xiaoning.wang@nxp.com>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v5 4/7] net: stmmac: Support a
- generic PCS field in mac_device_info
+Subject: [Linux-stm32] [PATCH net-next v5 5/7] net: stmmac: Signal to
+ PHY/PCS drivers to keep RX clock on
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,88 +62,46 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Global stmmac support for early initialization of PCS devices requires a
-generic PCS reference that can be passed to phylink_pcs_pre_init().
-Currently, the mac_device_info struct contains only one PCS field, which is
-specific to the Lynx model.
-
-As PCS models are hardware-specific, it is more appropriate to have a
-generic PCS field in the mac_device_info struct.
-
-Refactor the lynx_pcs field into a generic phylink_pcs field.
-
-Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h        | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 8 ++++----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 5 +----
- 3 files changed, 6 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index a6fefe675ef1..f55cf09f0783 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -593,7 +593,7 @@ struct mac_device_info {
- 	const struct stmmac_mmc_ops *mmc;
- 	const struct stmmac_est_ops *est;
- 	struct dw_xpcs *xpcs;
--	struct phylink_pcs *lynx_pcs; /* Lynx external PCS */
-+	struct phylink_pcs *phylink_pcs;
- 	struct mii_regs mii;	/* MII register Addresses */
- 	struct mac_link link;
- 	void __iomem *pcsr;     /* vpointer to device CSRs */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 68f85e4605cb..12b4a80ea3aa 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -479,9 +479,9 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 			goto err_dvr_remove;
- 		}
- 
--		stpriv->hw->lynx_pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
--		if (IS_ERR(stpriv->hw->lynx_pcs)) {
--			ret = PTR_ERR(stpriv->hw->lynx_pcs);
-+		stpriv->hw->phylink_pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
-+		if (IS_ERR(stpriv->hw->phylink_pcs)) {
-+			ret = PTR_ERR(stpriv->hw->phylink_pcs);
- 			goto err_dvr_remove;
- 		}
- 	}
-@@ -498,7 +498,7 @@ static void socfpga_dwmac_remove(struct platform_device *pdev)
- {
- 	struct net_device *ndev = platform_get_drvdata(pdev);
- 	struct stmmac_priv *priv = netdev_priv(ndev);
--	struct phylink_pcs *pcs = priv->hw->lynx_pcs;
-+	struct phylink_pcs *pcs = priv->hw->phylink_pcs;
- 
- 	stmmac_pltfr_remove(pdev);
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d78c625d33eb..79844dbe4258 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -944,10 +944,7 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
- 	if (priv->hw->xpcs)
- 		return &priv->hw->xpcs->pcs;
- 
--	if (priv->hw->lynx_pcs)
--		return priv->hw->lynx_pcs;
--
--	return NULL;
-+	return priv->hw->phylink_pcs;
- }
- 
- static void stmmac_mac_config(struct phylink_config *config, unsigned int mode,
-
--- 
-2.43.2
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+VGhlcmUgaXMgYSByZW9jdXJyaW5nIGlzc3VlIHdpdGggc3RtbWFjIGNvbnRyb2xsZXJzIHdoZXJl
+IHRoZSBNQUMgZmFpbHMgdG8KaW5pdGlhbGl6ZSBpdHMgaGFyZHdhcmUgaWYgYW4gUlggY2xvY2sg
+c2lnbmFsIGlzbid0IHByb3ZpZGVkIG9uIHRoZSBNQUMvUEhZCmxpbmsuCgpUaGlzIGNhdXNlcyBp
+c3N1ZXMgd2hlbiBQSFkgb3IgUENTIGRldmljZXMgZWl0aGVyIGdvIGludG8gc3VzcGVuZCB3aGls
+ZQpjdXR0aW5nIHRoZSBSWCBjbG9jayBvciBkbyBub3QgYnJpbmcgdGhlIGNsb2NrIHNpZ25hbCB1
+cCBlYXJseSBlbm91Z2ggZm9yCnRoZSBNQUMgdG8gaW5pdGlhbGl6ZSBzdWNjZXNzZnVsbHkuCgpT
+ZXQgdGhlIG1hY19yZXF1aXJlc19yeGMgZmxhZyBpbiB0aGUgc3RtbWFjIHBoeWxpbmsgY29uZmln
+IHNvIHRoYXQgUEhZL1BDUwpkcml2ZXJzIGtub3cgdG8ga2VlcCB0aGUgUlggY2xvY2sgdXAgYXQg
+YWxsIHRpbWVzLgoKUmVwb3J0ZWQtYnk6IENsYXJrIFdhbmcgPHhpYW9uaW5nLndhbmdAbnhwLmNv
+bT4KTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjMwMjAyMDgxNTU5LjM1NTM2
+MzctMS14aWFvbmluZy53YW5nQG54cC5jb20vClJlcG9ydGVkLWJ5OiBDbMOpbWVudCBMw6lnZXIg
+PGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
+L2xpbnV4LWFybS1rZXJuZWwvMjAyMzAxMTYxMDM5MjYuMjc2ODY5LTQtY2xlbWVudC5sZWdlckBi
+b290bGluLmNvbS8KU3VnZ2VzdGVkLWJ5OiBSdXNzZWxsIEtpbmcgPGxpbnV4QGFybWxpbnV4Lm9y
+Zy51az4KU2lnbmVkLW9mZi1ieTogUm9tYWluIEdhbnRvaXMgPHJvbWFpbi5nYW50b2lzQGJvb3Rs
+aW4uY29tPgotLS0KIGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19t
+YWluLmMgfCA3ICsrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5j
+IGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwppbmRl
+eCA3OTg0NGRiZTQyNTguLjIyOTBmNDgwOGQ3ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvZXRo
+ZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYworKysgYi9kcml2ZXJzL25ldC9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCkBAIC0xMjE4LDYgKzEyMTgsOSBAQCBz
+dGF0aWMgaW50IHN0bW1hY19waHlfc2V0dXAoc3RydWN0IHN0bW1hY19wcml2ICpwcml2KQogCXBy
+aXYtPnBoeWxpbmtfY29uZmlnLnR5cGUgPSBQSFlMSU5LX05FVERFVjsKIAlwcml2LT5waHlsaW5r
+X2NvbmZpZy5tYWNfbWFuYWdlZF9wbSA9IHRydWU7CiAKKwkvKiBTdG1tYWMgYWx3YXlzIHJlcXVp
+cmVzIGFuIFJYIGNsb2NrIGZvciBoYXJkd2FyZSBpbml0aWFsaXphdGlvbiAqLworCXByaXYtPnBo
+eWxpbmtfY29uZmlnLm1hY19yZXF1aXJlc19yeGMgPSB0cnVlOworCiAJbWRpb19idXNfZGF0YSA9
+IHByaXYtPnBsYXQtPm1kaW9fYnVzX2RhdGE7CiAJaWYgKG1kaW9fYnVzX2RhdGEpCiAJCXByaXYt
+PnBoeWxpbmtfY29uZmlnLm92cl9hbl9pbmJhbmQgPQpAQCAtMzQwOCw2ICszNDExLDEwIEBAIHN0
+YXRpYyBpbnQgc3RtbWFjX2h3X3NldHVwKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYsIGJvb2wgcHRw
+X3JlZ2lzdGVyKQogCXUzMiBjaGFuOwogCWludCByZXQ7CiAKKwkvKiBNYWtlIHN1cmUgUlggY2xv
+Y2sgaXMgZW5hYmxlZCAqLworCWlmIChwcml2LT5ody0+cGh5bGlua19wY3MpCisJCXBoeWxpbmtf
+cGNzX3ByZV9pbml0KHByaXYtPnBoeWxpbmssIHByaXYtPmh3LT5waHlsaW5rX3Bjcyk7CisKIAkv
+KiBETUEgaW5pdGlhbGl6YXRpb24gYW5kIFNXIHJlc2V0ICovCiAJcmV0ID0gc3RtbWFjX2luaXRf
+ZG1hX2VuZ2luZShwcml2KTsKIAlpZiAocmV0IDwgMCkgewoKLS0gCjIuNDMuMgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
