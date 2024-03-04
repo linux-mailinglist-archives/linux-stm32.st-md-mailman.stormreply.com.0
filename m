@@ -2,133 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A4F586F987
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 06:16:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D423186FBE7
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 09:31:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D52BBC6DD6B;
-	Mon,  4 Mar 2024 05:16:47 +0000 (UTC)
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01on2080.outbound.protection.outlook.com [40.107.113.80])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82D01C6B45E;
+	Mon,  4 Mar 2024 08:31:08 +0000 (UTC)
+Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CD6FC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D5CEC6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Mar 2024 05:16:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NgnnemBLyd0JX93vUseHxxw6EW1dLdMgV9/ysf8LJcYw3hkuDtvSWQImOOJpQTLkg+7vjUYw5NmMBSAEm/fIUzkGCqv/blR98ZNuywXdJzePTzoWFGsDc3Frz0xvHkUCC0nlYYMFcH2jHUfAVO0XEtKhsT1YQix/RawfT/Ud/CnP+nOt0Pys3SETefWSmy4TmG/EWpEuX92aepqsPCO5fJ87gVyj06aibbNtnCZ+dJUCAuYY4yZkWmksKZG7m97QQ9NBcUyBuLzlD4Aloph7qTVSY7qHSIzHmVlHUSTue/GoapfWPoi7IXV3y/djTgiHkiyKfQ4WXQuBDKHWLlK21w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=Dhj7B7q0YAbds3an2/uDPVIWRomeNzWcEkwKbEIEkxTltkgK3fNKGriBHWJzgghRsTqv3lpOo9wCVigEUHWHphkbr36qVWX2k/Bqd2GEHYuw0yj80WhdU0Hw0pFPjsWC3QmA0ShDty/+L1zvUtfab6RYrwxYLGzF+pjAWg/ciDBnCaXSckdoGIFUDmtKDensuOptU+etd5kB0oO4Qg2vXFYEVz2FOybbCWDndbawQ9kURBlNRIqk3nkJTE578imPsNm7LrTKvFjpJyaFEnig6CVkvZ8WrBiUQVZ5usCxbaci6crPrVIkPY/cesYtkBs5VqiWE9ux6vQ2CF+4p71T4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iPWy+PYtnAvN+6i0I6jsdtewufqRlqn7Qxjn1KjTnik=;
- b=L3Yvvu5wrTS0eFs32MUsSh9J2UL/PKq/Uf/7AhIniPtnKajt33Cwhv9ZJJiYoldnLZH5sp62imxEjzKkSuDtMkA60JArxhpwOF/uSxvGZMDJYFUbTGjQafZ/dxKvBmulC01fdWAJXbcX4RUuCTC/+wrKW/vUhc0i73ZE7R2dwp0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OSZPR01MB6616.jpnprd01.prod.outlook.com
- (2603:1096:604:fe::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38; Mon, 4 Mar
- 2024 05:16:42 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::1934:4a38:d599:33a2]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::1934:4a38:d599:33a2%5]) with mapi id 15.20.7339.035; Mon, 4 Mar 2024
- 05:16:42 +0000
-Message-ID: <87jzmih8zq.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87plwah92n.wl-kuninori.morimoto.gx@renesas.com>
-References: <87plwah92n.wl-kuninori.morimoto.gx@renesas.com>
-To: Rob Herring <robh+dt@kernel.org>, "Lad Prabhakar"
- <prabhakar.csengg@gmail.com>, =?ISO-8859-1?Q?=22Uwe_Kleine-K=F6nig=22?=
- <u.kleine-koenig@pengutronix.de>, Alain Volmat <alain.volmat@foss.st.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Alexey Brodkin <abrodkin@synopsys.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Claudiu Beznea
- <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, David Airlie <airlied@gmail.com>, Eugen
- Hristev <eugen.hristev@collabora.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Helge Deller <deller@gmx.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Jacopo Mondi <jacopo@jmondi.org>, Jessica Zhang
- <quic_jesszhan@quicinc.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@linaro.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime
- Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Sam Ravnborg <sam@ravnborg.org>, Sylwester
- Nawrocki <s.nawrocki@samsung.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Tim Harvey <tharvey@gateworks.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
- linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 4 Mar 2024 05:16:41 +0000
-X-ClientProxiedBy: TYCP286CA0130.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b6::12) To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OSZPR01MB6616:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce6f1ffa-ad5a-4f71-8bc9-08dc3c0a470a
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 0yeRBJMdvOV/MHZmmaEQlT3LNiGRRzxmZks+64Hk4BQZzfFb7ZqnxAtq2eMWxvdfANe/0irG2/6cOtkdIVyL3OnGlEUvGUERW9+djVx4ISARbGB4GgVVdQGEw1qHdMkBnB5E2T2Xx6mCaR7qNdacUeepu93pv1VAm5ofEU5ovr6lGQG87FmUjv9MAvh3bBU6CpG49BeUkgv3Wt+06GpTSS5ba3BngM0x8ZhISCoRN9tUh5aDm1y6c8dtPKqGDObZJYMhIA/7boFp3wJyXiS7EBRx1C7o7D/IbGBi+0LipCA4UTc3acJuoc4K0elglB5tul2XRQgGHfzQoRpBm/ds7G2anEzv3WQa3QtwLcuMwvP9Lw7vEAZRPwqJ5ZHolVtcRBi87qWc9HduYJ6d526j2X6U4SOHqJIMrqBV0nEjkzTA9kwBdXg/XlOlVO+eOKFrzQ20beDvm/CKgLkbROYmpQ4z+dgmYIppE1hU2LVB3Xddbur4TVb+y8YhuJE95CcaoZ6uiR4DVAkTj5GY4WAJSZbJOar0z0ztriP8Ce2squ5T7wqR7vL8G1/jXeNFqChPAoYs6oy2NX0GVdPTTOv06beKWJfYPXIBFLXNipeSA17B/+0vIMAF7hurHicmj+qPwrF0nJAog+OSK/PFFW0MQeXWT5krl/DcO/kUUcojPjGubr7U5w47WFv1GXhsnKai
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(376005)(921011)(38350700005); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IvU4vwrGHc5Vd6eJhNTkPK5uRVJeeOKrarNLItYzXj4Jl+rRaBvykgX23mss?=
- =?us-ascii?Q?eZRp8MO5AlqRwR6F5Q6V1AsYZGxJx54tPOUZ5TC1up6L9ai6AlN8Gu8SV+ql?=
- =?us-ascii?Q?PS6goQTvv2s93eo55rhcC929k44dKsIDWUI9GYB5LeQTPOolByNvXlOcpzPJ?=
- =?us-ascii?Q?FhO9ZW6HHjjUt9wusa/Ts31uhKO8/+XW7DggVkObrconXsXkUiiBxOXtt6PQ?=
- =?us-ascii?Q?n5AdhIaRuwwC+tIB4LkggH58p+DGiELlCjlWzMVkfWGjBFFLPvDXEYmGgqB1?=
- =?us-ascii?Q?7Em9tj7wfVe0ekeCQmDkkUjMgmEYfm5+CczaaSZNav67dbIP5flqxIzzQmFy?=
- =?us-ascii?Q?yk6Tbb8g8Zt7BxO+w+dN8F01zSJYzdOSomefWWcKfOfwd/wsnOvZ885P8mNL?=
- =?us-ascii?Q?ARDSec7VjAVPSWzL7CbBhA2KvwVFZEHnO2USmOjVX+oQ2LjctOV0mvagUJts?=
- =?us-ascii?Q?sYVfWQHRke9nPFQr1k7TybvlE+0v35StSb0UMkXZmZCsOwCoL8tOObe1ynKU?=
- =?us-ascii?Q?Yjkt8B/Zl79e9Jk+q8KllUHMYGaWhgEPh50x+8Kj4MQ6wde6UeGisfIU0WNE?=
- =?us-ascii?Q?YawVTIVpOPZobWgHdycilHaklMQpHVhYsu3YpugZEycNnNpOk9I3UFAoXHc6?=
- =?us-ascii?Q?fTWz5H/PpMK2/67VLsR2WHumb4DqAXQ4Ru4vsnUy4hWU+zX+liIVfuQzc+k9?=
- =?us-ascii?Q?EV82cmElZntMH2ZOKX0UO2xvo4lVWxaxWIb7bQ3b5EgXkfM9FdwrmZMkqZmq?=
- =?us-ascii?Q?zdt0i3fuH3NjLpdq6PYsPfJd8UOdopR5zsb0lDZf7uFuIZJob80RuWqaFscW?=
- =?us-ascii?Q?Za0jSfpyx1KADHkfCMZkqzxiDNL1yZ55wueUI9q/QxgoAlocwARiDIegCcS6?=
- =?us-ascii?Q?frHKFyaWZgu9vqxtGn6dKKyp0stPO9E07aOvugG4aV1JfwDegysdkSNwUe3l?=
- =?us-ascii?Q?/myRIvaIPjTrRimuj2KtdnQ+VrQCX4nug13cK6jTyJbN13jBbUOhL+VH9oNt?=
- =?us-ascii?Q?BO3mBYlXkyzQ/eb5df6fCoqWC/YTUZHorAspES1Aot1Ct3xEXyg4cUnULgW6?=
- =?us-ascii?Q?0vWmsGqcNLHZ9Gpj2ZT/FBpXsHSNhGH79ID9wHhJ8k599fULlbFTtZH8tQ3Z?=
- =?us-ascii?Q?DoYETOpaZ/2O0398QmQBduH3bUkuFx2tISHpe/7QxNaUPfK04iF1pubFLY1q?=
- =?us-ascii?Q?WAGYtJP++YXsplQA1E4vPHP54N7i4H6NqEWll2pfI7nnxIuBQraOikEXORkJ?=
- =?us-ascii?Q?3+XpJAjvC0kQZnwPU3slqFkzbUUCoLhKwQY9rSEcR3pOvD8Dy/o58CIVoPfU?=
- =?us-ascii?Q?uAECAqxubiiKbNW7ihbwY3D1tWbCNt2rVdU3ENIYkOhZXsaRVoLhdc4WzKD2?=
- =?us-ascii?Q?8U26jt/irUYiv2zLMQFY36UZS2q3xytf4FlAfNR+tq6cugzKaYKac8uzprSK?=
- =?us-ascii?Q?84ogN9XrDEQ4yETNkn7ZUWVPRQsAE9rm4dnWijflSmEZ+MnAcevjFgebmjny?=
- =?us-ascii?Q?V+WPhHZ/7lmO63ekUgKdZDSS9yLrpNkYCU3y+LJ9VQO8fcFq/g8fgOBq24d2?=
- =?us-ascii?Q?p5HjQkcW/HA2Hk+i1UvaQFjjSQcR0WMeftsOqa4mnHJBgrZ2sPW4XE47EICB?=
- =?us-ascii?Q?vZOJRTMiY6xPKSpQSE6Cz9c=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce6f1ffa-ad5a-4f71-8bc9-08dc3c0a470a
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2024 05:16:42.0006 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u/YeQt0iLyiGlUAXtyF6YJdBdL5yWM9uUuvNWZmTSo4Mlb9TgZyVNHrestba5hrgBguSA/HeosSnh/ItW9VTfYM6V4ncZ9ha+jGJ9PDBrP025UNEAPr5eCttpVHjJq7j
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB6616
-Subject: [Linux-stm32] [PATCH v2 4/4] video: fbdev: replace
-	of_graph_get_next_endpoint()
+ Mon,  4 Mar 2024 08:31:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
+ s=default2211;
+ h=To:References:Message-Id:Content-Transfer-Encoding:Cc:Date:
+ In-Reply-To:From:Subject:Mime-Version:Content-Type:Sender:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID; bh=1M6UDCT9fxHuvS5Jnt8MM2lhPA8tAqqAX6Boab+gmE0=; 
+ b=Vc+L7mu72jTq4JTA0x4rayXVnX07NjaC2zBWtb5NHlsw+IGflt/5RzS8G8eZ7Kn0Yc4+OJisFJb
+ uAMobJIzZklBFwigkxm/cXWF3AtSwjEm9/qitOOexEQDljwXnk7RQJFo3tQ+ML9UeDQXN/NUF9Bnz
+ xDHZ0heHBu7aV2DCzcp8NCJ65JOZy8xNNo4OPg7WiXkK099/3/1hmWnlS8eMwh+CDyOHf29YVimnQ
+ NA4eF7fbeAGq9QyZhHFFODPAsNwoROu5PxyqhyQGZZWM9Av66Tx0brtvxhcZyn/MCibOdNY675E7V
+ 2wi2UzLVXKIjrBfebbjMMqVo832N3PRjjoig==;
+Received: from sslproxy01.your-server.de ([78.46.139.224])
+ by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.94.2) (envelope-from <sean@geanix.com>)
+ id 1rh3it-000Giv-KH; Mon, 04 Mar 2024 09:30:59 +0100
+Received: from [185.17.218.86] (helo=smtpclient.apple)
+ by sslproxy01.your-server.de with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <sean@geanix.com>) id 1rh3is-0005gX-19;
+ Mon, 04 Mar 2024 09:30:57 +0100
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.400.31\))
+From: Sean Nyekjaer <sean@geanix.com>
+In-Reply-To: <bda00a5c-d976-4525-9740-c83d97da8923@foss.st.com>
+Date: Mon, 4 Mar 2024 09:30:46 +0100
+Message-Id: <C14DF5A0-E263-49CD-8DCB-6B56014DD342@geanix.com>
+References: <4807FD7F-FEB5-4460-B1EB-3E2330864C8B@geanix.com>
+ <bda00a5c-d976-4525-9740-c83d97da8923@foss.st.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+X-Mailer: Apple Mail (2.3774.400.31)
+X-Authenticated-Sender: sean@geanix.com
+X-Virus-Scanned: Clear (ClamAV 0.103.10/27203/Sun Mar  3 10:27:22 2024)
+Cc: kishon@kernel.org, marex@denx.de, m.grzeschik@pengutronix.de,
+ =?utf-8?Q?Martin_Hundeb=C3=B8ll?= <martin@geanix.com>, lgirdwood@gmail.com,
+ p.paillet@st.com, vkoul@kernel.org, broonie@kernel.org,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, u.kleine-koenig@pengutronix.de,
+ linux-phy@lists.infradead.org, l.goehrs@pengutronix.de,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] stm32mp1xx: use of reg11, reg18 and vdd_usb rails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,187 +63,118 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From DT point of view, in general, drivers should be asking for a
-specific port number because their function is fixed in the binding.
-
-of_graph_get_next_endpoint() doesn't match to this concept.
-
-Simply replace
-
-	- of_graph_get_next_endpoint(xxx, NULL);
-	+ of_graph_get_endpoint_by_regs(xxx, 0, -1);
-
-Link: https://lore.kernel.org/r/20240202174941.GA310089-robh@kernel.org
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
- drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
- drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
- drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
- drivers/video/fbdev/pxafb.c                   |  2 +-
- include/video/omapfb_dss.h                    |  3 ---
- 7 files changed, 10 insertions(+), 27 deletions(-)
-
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-index b7eb17a16ec4..1f13bcf73da5 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dsi.c
-@@ -28,6 +28,7 @@
- #include <linux/debugfs.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/of_platform.h>
- #include <linux/component.h>
- 
-@@ -5079,7 +5080,7 @@ static int dsi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	struct omap_dsi_pin_config pin_cfg;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-index 0282d4eef139..14965a3fd05b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/dss-of.c
-@@ -130,24 +130,6 @@ static struct device_node *omapdss_of_get_remote_port(const struct device_node *
- 	return np;
- }
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent)
--{
--	struct device_node *port, *ep;
--
--	port = omapdss_of_get_next_port(parent, NULL);
--
--	if (!port)
--		return NULL;
--
--	ep = omapdss_of_get_next_endpoint(port, NULL);
--
--	of_node_put(port);
--
--	return ep;
--}
--EXPORT_SYMBOL_GPL(omapdss_of_get_first_endpoint);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node)
- {
-@@ -155,7 +137,7 @@ omapdss_of_find_source_for_first_ep(struct device_node *node)
- 	struct device_node *src_port;
- 	struct omap_dss_device *src;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return ERR_PTR(-EINVAL);
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-index f05b4e35a842..8f407ec134dc 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c
-@@ -20,6 +20,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -529,7 +530,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-index 03292945b1d4..4ad219f522b9 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c
-@@ -25,6 +25,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/clk.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/regulator/consumer.h>
- #include <linux/component.h>
- #include <video/omapfb_dss.h>
-@@ -561,7 +562,7 @@ static int hdmi_probe_of(struct platform_device *pdev)
- 	struct device_node *ep;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/omap2/omapfb/dss/venc.c b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-index c9d40e28a06f..0bd80d3b8f1b 100644
---- a/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-+++ b/drivers/video/fbdev/omap2/omapfb/dss/venc.c
-@@ -24,6 +24,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
-+#include <linux/of_graph.h>
- #include <linux/component.h>
- 
- #include <video/omapfb_dss.h>
-@@ -764,7 +765,7 @@ static int venc_probe_of(struct platform_device *pdev)
- 	u32 channels;
- 	int r;
- 
--	ep = omapdss_of_get_first_endpoint(node);
-+	ep = of_graph_get_endpoint_by_regs(node, 0, -1);
- 	if (!ep)
- 		return 0;
- 
-diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
-index fa943612c4e2..2ef56fa28aff 100644
---- a/drivers/video/fbdev/pxafb.c
-+++ b/drivers/video/fbdev/pxafb.c
-@@ -2171,7 +2171,7 @@ static int of_get_pxafb_mode_info(struct device *dev,
- 	u32 bus_width;
- 	int ret, i;
- 
--	np = of_graph_get_next_endpoint(dev->of_node, NULL);
-+	np = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
- 	if (!np) {
- 		dev_err(dev, "could not find endpoint\n");
- 		return -EINVAL;
-diff --git a/include/video/omapfb_dss.h b/include/video/omapfb_dss.h
-index e8eaac2cb7b8..a8c0c3eeeb5b 100644
---- a/include/video/omapfb_dss.h
-+++ b/include/video/omapfb_dss.h
-@@ -819,9 +819,6 @@ struct device_node *
- omapdss_of_get_next_endpoint(const struct device_node *parent,
- 			     struct device_node *prev);
- 
--struct device_node *
--omapdss_of_get_first_endpoint(const struct device_node *parent);
--
- struct omap_dss_device *
- omapdss_of_find_source_for_first_ep(struct device_node *node);
- #else
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Cgo+IE9uIDEgTWFyIDIwMjQsIGF0IDE4LjU4LCBGYWJyaWNlIEdhc25pZXIgPGZhYnJpY2UuZ2Fz
+bmllckBmb3NzLnN0LmNvbT4gd3JvdGU6Cj4gCj4gT24gMy8xLzI0IDE1OjQxLCBTZWFuIE55ZWtq
+YWVyIHdyb3RlOgo+PiBIaSBhbGwsCj4+IAo+PiBXZSBhcmUgdXNpbmcgdGhlIG9zZDMybXAxIFNJ
+UCBtb2R1bGUgWzBdLgo+PiBXZSBhcmUgc2VlaW5nIHNvbWUgaGFyZHdhcmUgZ2V04oCZcyBmcmll
+ZCBpbnNpZGUgdGhlIFNJUCBtb2R1bGUuCj4+IEl04oCZcyBzb21ld2hhdCB0cmFjZWQgZG93biB0
+byB0aGUgdXNiIGNvbnRyb2xsZXIvcGh5L3JlZ3VsYXRvci4KPj4gCj4+IFdpdGggdGhpcyBkZXZp
+Y2UgdHJlZVsxXS4gV2UgaGF2ZSBub3RpY2VkIGR1cmluZyBib290IHRoZSByZWcxOCBpcyB0b2dn
+bGVkIG9uIGFuZCBvZmYKPiAKPiBEZWFyIFNlYW4sCgpIaSBGYWJyaWNlLAoKPiAKPiBJJ3ZlIHRy
+aWVkIHRvIGNoZWNrIHdoYXQgeW91J3ZlIHBvaW50ZWQgb3V0Lgo+IAo+IFRoZSB0b2dnbGluZyBo
+YXBwZW5zIHdoZW4gcmVnaXN0ZXJpbmcgdGhlIFBIWSBhcyBhIGNsb2NrIHByb3ZpZGVyLiBUaGUK
+PiBVU0IgUEhZIGhhcyBhIFBMTCB0byBwcm92aWRlIGNsb2NrIGZvciBPVEcgYW5kIFVTQkguIFRo
+aXMgY2xvY2sgZ2V0cwo+IHJlZ2lzdGVyZWQgdG8gdGhlIGNsb2NrIGZyYW1ld29yaywgYXMgdGhl
+eSBnbyB0aHJvdWdoIFJDQy4KPiAKPiBzdG0zMl91c2JwaHljX2NsazQ4X3JlZ2lzdGVyKCkgLT4g
+Y2xrX2h3X3JlZ2lzdGVyKCkKPiAKPiBJbiBvcmRlciB0byBwcm9wZXJseSBiZSBpbnNlcnRlZCBp
+bnRvIHRoZSBjbG9jayB0cmVlLCAoZS5nLiBSQ0MgZG9lcwo+IHNvbWUgZ2F0aW5nIHRoZW4pIHJl
+cGFyZW50IG9wZXJhdGlvbiByZXF1aXJlcyB0aGUgUExMICh3aXRoIGl0cwo+IHN1cHBsaWVzKSB0
+byBiZSBlbmFibGVkLiBPbmNlIHRoZSByZXBhcmVudCBpcyBjb21wbGV0ZWQsIGl0IHJlcXVlc3Rz
+IHRvCj4gdHVybiBpdCBPRkYuCj4gCj4gVGhhdCdzIHRoZSByZWFzb24gZm9yIHRoZSB0b2dnbGlu
+Zy4KCkFsc28gb3VyIGNvbmNsdXNpb24uIEEgcmF0aGVyIGNvbXBsZXggc2V0dXAuCgo+IAo+PiB3
+aXRob3V0IHZkZF91c2IgYmVpbmcgdHVybmVkIG9mZiBiZWZvcmUgcmVnMTggYXMgcmVxdWlyZWQg
+aW4gdGhlIGRhdGEgc2hlZXRbMl0sIHNlY3Rpb24gMy44LjE6Cj4gCj4gdmRkX3VzYiBpcyBwcm9i
+bGFibHkgKEkgaGF2ZW4ndCBjaGVja2VkKSBhIGJvb3Qtb24gcmVndWxhdG9yLCB0b3RhbGx5Cj4g
+dW50b3VjaGVkIHdoZW4gdGhlIHRvZ2dsaW5nIGhhcHBlbnMuIEl0IGdldHMgZW5hYmxlZCBpbiBk
+cml2ZXJzIGxhdGVyLAo+IGR1cmluZyBwaHlfcG93ZXJfb24oKSBvciBpbiBkd2MyIGRyaXZlciAo
+c3RtIGlkIGdsdWUgLyB1c2IzM2QgY2FzY2FkZWQKPiB0aGVuIHRvIHB3cikuIFNvIGl0IGlzbid0
+IGNvbnRyb2xsZWQgYmVmb3JlIHRoYXQuCgpyZWcxOCBpcyBib290LW9uIGJlY2F1c2UgdGhlIEJZ
+UEFTU19SRUcxVjggaXMgcHVsbGVkIGxvdywgcmVnMTggaXMgZmVkIGJ5IFZERCwgd2hpY2ggaXMg
+aGFzIGEgbG93ZXIgUE1JQyByYW5raW5nIHRoYW4gdmRkX3VzYi9sZG80LgpVLWJvb3QgaXMgYWN0
+dWFsbHkgcG93ZXJpbmcgb2ZmIHJlZzExLCByZWcxOCBhbmQgdmRkX3VzYihpbiB0aGUgY29ycmVj
+dCBvcmRlcikuIEJlZm9yZSBzdGFydGluZyB0aGUga2VybmVsLgoKPiAKPj4gVkREM1YzX1VTQkhT
+IG11c3Qgbm90IGJlIHByZXNlbnQgdW5sZXNzIFZEREExVjhfUkVHIGlzIHByZXNlbnQsIG90aGVy
+d2lzZSBwZXJtYW5lbnQgCj4+IFNUTTMyTVAxNTdDL0YgZGFtYWdlIGNvdWxkIG9jY3VyLiBNdXN0
+IGJlIGVuc3VyZWQgYnkgUE1JQyByYW5raW5nIG9yZGVyIG9yIHdpdGgKPj4gZXh0ZXJuYWwgY29t
+cG9uZW50IGluIGNhc2Ugb2YgZGlzY3JldGUgY29tcG9uZW50IHBvd2VyIHN1cHBseSBpbXBsZW1l
+bnRhdGlvbi4KPj4gCj4+IEl04oCZcyBoYXBwZW5zIGJlY2F1c2UgdGhlIHNvbWV0aGluZyBpcyBh
+bHJlYWR5IHVzZXMgdGhlIHZkZF91c2IsIGl04oCZcyBib3RoIHRoZSBkcml2ZXJzL3BoeS9zdC9w
+aHktc3RtMzItdXNicGh5Yy5jCj4+IGFuZCBkcml2ZXJzL3JlZ3VsYXRvci9zdG0zMi1wd3IuYyB0
+aGF0IGNvbnN1bWVzIGl0Lgo+IAo+IE5vIChzZWUgYWJvdmUpLgoKWWVzLCB0aGUgc3RtMzItcHdy
+LmMgY29uc3VtZXMgdGhlIHZkZF91c2IsIGFuZCBibG9ja3MgdGhlIGR3YzIgZHJpdmVyIGZyb20g
+cG93ZXJpbmcgaXQgb2ZmLgoKPiAKPj4gCj4+IEkgY2FuIGZpeCBpdCBieSByZW1vdmluZyB0aGUg
+dmRkX3VzYiBmcm9tIHRoZSB1c2IzMyBzdXBwbHlbM106Cj4gCj4gVGhpcyB3aWxsIGJyZWFrIGFs
+bCBpbXBsZW1lbnRhdGlvbnMgdGhhdCByZWx5IG9uIElEL1ZidXMgcGlucyBvbiBNUDE1LgoKT0su
+IFNvIHdlIHdpbGwgaGF2ZSB0byB1c2UgTWFya+KAmXMgc3VnZ2VzdGlvbiBhbmQgZm9yY2UgaXQg
+b24uCgo+IAo+PiBUaGUgc3RtMzItcHdyLmMgaXMgKHRvIG1lKSByYXRoZXIgd2VpcmQsIGFzIGl0
+IGV4cG9zZXMgdGhlIHVzYjMzIGFzIGEgcmVndWxhdG9yIHdoZW4gaW4gZmFjdCBpdOKAmXMgYSBk
+ZXRlY3Rpb24gcGluLgo+PiBJcyB0aGF0IGRvbmUgb24gcHVycG9zZT8KPj4gCj4+IEkgd291bGQg
+bGlrZSBpbnRyb2R1Y2UgYSBlcnJvciBpbiB0aGUgc3RtMzItcHdyLmMgaWYgc29tZXRoaW5nIGlz
+IHRyeWluZyB0byBwb3dlciBvZmYgcmVnMTggd2l0aCB1c2IzMyBwcmVzZW50Pwo+IAo+IFdlbGws
+IGFkZGluZyBzb21lIGVycm9yIGFzIHlvdSBoYXZlIGRyYWZ0ZWQgc2hvdWxkIHByb3RlY3QgdGhl
+IGhhcmR3YXJlLgo+IERvZXNuJ3QgdGhpcyBicmluZ3MgZXJyb3IsIHdoZW4gcmVnaXN0ZXJpbmcg
+aW50byB0aGUgY2xvY2sgZnJhbWV3b3JrID8KPiBEb2VzIHRoaXMgcHJldmVudCByZWdpc3Rlcmlu
+ZyBVU0IgdGhlbiA/Cj4gCj4gVGhlcmUncyBwcm9iYWJseSBiZXR0ZXIgb3B0aW9ucy4gSXQgbmVl
+ZHMgYWRkaXRpb25hbCBmaXguIEkgY2FuJ3QgdGhpbmsKPiBhYm91dCByaWdodCBub3cuLi4KPiBJ
+dCBpcyBqdXN0IGEgdGhvdWdodCwgYnV0IHdoZW4gdGhlIFBIWSBkcml2ZXIgcmVnaXN0ZXJzIHRo
+ZSBjbG9jaywgYQo+IGJldHRlciBjb250cm9sIG9mIGFsbCB0aGUgcmVndWxhdG9yIDF2MSwgMXY4
+IGFuZCB2ZGRfdXNiIGNvdWxkIGJlIHRvCj4gZW5mb3JjZSB2ZGRfdXNiIGZpcnN0IGdldHMgZGlz
+YWJsZWQgaW4gdGhpcyBwcm9jZXNzLgoKVGhpcyBpcyBob3cgdS1ib290IGlzIGhhbmRsaW5nIHRo
+aW5ncy4gVGhlIGRyaXZlciBoYXJkIGNvbnRyb2xzIGFsbCByZWd1bGF0b3JzLgoKPiAKPiBPciB0
+ZW1wb3JhcmlseSBmbGFnIHRoaXMgaW5pdGlhbGl6YXRpb24gc3RlcCwgZnJvbQo+IHN0bTMyX3Vz
+YnBoeWNfY2xrNDhfcmVnaXN0ZXIoKSwgdW50aWwgcGh5X2luaXQoKSBvY2N1cnMsIHNvIHRoZSAx
+djEgYW5kCj4gMXY4IGRvbid0IGdldCBkaXNhYmxlZCA/IFRoaXMgd2lsbCBzcGFyZSB0aW1lIChl
+LmcuIHRvZ2dsaW5nKSBhcwo+IHBoeV9pbml0IHdpbGwgcmVlbmFibGUgYWxsIHRoZXNlIGp1c3Qg
+ZmV3IHRpbWUgYWZ0ZXIgaXQncyBiZWVuIGRpc2FibGVkLgo+IAoKU28gSSBzaG91bGQgdHJ5IHRv
+IGNoZWNrIGluaXRfY291bnQgaW4gc3RtMzJfdXNicGh5Y19jbGs0OF9yZWdpc3Rlcj8KCj4+IFdv
+dWxkIGl0IGJlIG9rYXkgdG8gcmV0dXJuIC1FQlVTWT8gT3IgZXZlbiAtRVNNT0tFPyA6KQo+PiAK
+Pj4gT3IgaXMgaXQgYmV0dGVyIHRvIGRvIGl0IGluIHBoeS1zdG0zMi11c2JwaHljLmNbNF0/Cj4+
+IAo+PiAvU2Vhbgo+PiAKPj4gWzBdOiBodHRwczovL29jdGF2b3N5c3RlbXMuY29tL29jdGF2b19w
+cm9kdWN0cy9vc2QzMm1wMTV4Lwo+PiBbMV06IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3Nj
+bS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90cmVlL2FyY2gvYXJtL2Jvb3Qv
+ZHRzL3N0L3N0bTMybXAxNTdjLW9zZDMybXAxLXJlZC5kdHMKPj4gWzJdOiBodHRwczovL3d3dy5z
+dC5jb20vcmVzb3VyY2UvZW4vZGF0YXNoZWV0L3N0bTMybXAxNTdjLnBkZgo+PiBbM106Cj4+IGRp
+ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1vc2QzMm1wMS1yZWQu
+ZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2Mtb3NkMzJtcDEtcmVkLmR0cwo+
+PiBpbmRleCA1MjdjMzNiZTY2Y2MuLjBkNjcwMDY4MDZjNCAxMDA2NDQKPj4gLS0tIGEvYXJjaC9h
+cm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2Mtb3NkMzJtcDEtcmVkLmR0cwo+PiArKysgYi9hcmNo
+L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1vc2QzMm1wMS1yZWQuZHRzCj4+IEBAIC0xNDks
+NyArMTQ5LDYgQEAgJm1fY2FuMSB7Cj4+IAo+PiAmcHdyX3JlZ3VsYXRvcnMgewo+PiAgICAgICAg
+dmRkLXN1cHBseSA9IDwmdmRkPjsKPj4gLSAgICAgICB2ZGRfM3YzX3VzYmZzLXN1cHBseSA9IDwm
+dmRkX3VzYj47Cj4gCj4gQXMgc2FpZCBhYm92ZSwgdGhpcyB3aWxsIG1ha2UgdGhlIElEIGFuZCBW
+YnVzIGRldGVjdGlvbiBsb2dpYyBvbiBPVEcKPiBwb3J0IG5vdCB3b3JraW5nLl0KCk9rLCB3ZSBh
+cmUgbm90IHVzaW5nIGl0LiAKCj4gCj4+IH07Cj4+IAo+PiAmcnRjIHsKPj4gWzRdOgo+PiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9waHkvc3QvcGh5LXN0bTMyLXVzYnBoeWMuYyBiL2RyaXZlcnMvcGh5
+L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4gaW5kZXggZDVlN2U0NDAwMGI1Li41OGZjYzMwOTk4
+MDMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvcGh5L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4g
+KysrIGIvZHJpdmVycy9waHkvc3QvcGh5LXN0bTMyLXVzYnBoeWMuYwo+PiBAQCAtMTg4LDggKzE4
+OCwxOCBAQCBzdGF0aWMgaW50IHN0bTMyX3VzYnBoeWNfcmVndWxhdG9yc19lbmFibGUoc3RydWN0
+IHN0bTMyX3VzYnBoeWMgKnVzYnBoeWMpCj4+IAo+PiBzdGF0aWMgaW50IHN0bTMyX3VzYnBoeWNf
+cmVndWxhdG9yc19kaXNhYmxlKHN0cnVjdCBzdG0zMl91c2JwaHljICp1c2JwaHljKQo+PiB7Cj4+
+ICsgICAgICAgc3RydWN0IHN0bTMyX3VzYnBoeWNfcGh5ICp1c2JwaHljX3BoeTsKPj4gICAgICAg
+IGludCByZXQ7Cj4+IAo+PiArICAgICAgIGZvciAocG9ydCA9IDA7IHBvcnQgPCB1c2JwaHljLT5u
+cGh5czsgcG9ydCsrKSB7Cj4+ICsgICAgICAgICAgICAgICB1c2JwaHljX3BoeSA9IHVzYnBoeWMt
+PnBoeXNbcG9ydF07Cj4+ICsKPj4gKyAgICAgICAgICAgICAgIGlmKHJlZ3VsYXRvcl9pc19lbmFi
+bGVkKHVzYnBoeWNfcGh5LT5waHktPnB3cikpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
+cHJfZXJyKCIlczogcGh5IGlzIHBvd2VyZWQgbm90IGFsbG93ZWQgdG8gc3dpdGNoIG9mZiByZWd1
+bGF0b3JcbiIsIF9fZnVuY19fKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1F
+QlVTWTsKPj4gKyAgICAgICAgICAgICAgIH0KPj4gKyAgICAgICB9Cj4+ICsKPiAKPiBBcyBhYm92
+ZSwgdGhpcyBjb3VsZCBtYWtlIHNlbnNlIHRvIGZsYWcgdGhlIGVycm9yLgo+IEJ1dCBpdCBuZWVk
+cyBzb21lIGhhbmRsaW5nIHRvIHByb3Blcmx5IGF2b2lkIHRoZSB0b2dnbGluZywgb3IgbWFrZSBp
+dCBzYWZlLgoKWWVzLCB3ZSBhbHNvIG5lZWQgdG8gbWFrZSBzdXJlIHdlIGFyZW7igJl0IGJyaWNr
+aW5nIGFueXRoaW5nIGluIHRoZSBjbGsgYW5kIHJlZ3VsYXRvciBmcmFtZXdvcmsgYnkgcmV0dXJu
+aW5nIGVycm9yLgoKL1NlYW4KCj4gCj4gSG9wZSB0aGlzIGhlbHBzIHRvIGNsYXJpZnksCj4gQlIs
+Cj4gRmFicmljZQo+IAo+PiAgICAgICAgcmV0ID0gcmVndWxhdG9yX2Rpc2FibGUodXNicGh5Yy0+
+dmRkYTF2OCk7Cj4+ICAgICAgICBpZiAocmV0KQo+PiAgICAgICAgICAgICAgICByZXR1cm4gcmV0
+Owo+PiAKPj4gCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4+IExpbnV4LXN0bTMyIG1haWxpbmcgbGlzdAo+PiBMaW51eC1zdG0zMkBzdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tCj4+IGh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCgoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
+dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
+dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
