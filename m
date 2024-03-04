@@ -2,56 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D423186FBE7
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 09:31:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A86786FC0C
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 09:42:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82D01C6B45E;
-	Mon,  4 Mar 2024 08:31:08 +0000 (UTC)
-Received: from www530.your-server.de (www530.your-server.de [188.40.30.78])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37070C6B45E;
+	Mon,  4 Mar 2024 08:42:08 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D5CEC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FE25C6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Mar 2024 08:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=geanix.com; 
- s=default2211;
- h=To:References:Message-Id:Content-Transfer-Encoding:Cc:Date:
- In-Reply-To:From:Subject:Mime-Version:Content-Type:Sender:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID; bh=1M6UDCT9fxHuvS5Jnt8MM2lhPA8tAqqAX6Boab+gmE0=; 
- b=Vc+L7mu72jTq4JTA0x4rayXVnX07NjaC2zBWtb5NHlsw+IGflt/5RzS8G8eZ7Kn0Yc4+OJisFJb
- uAMobJIzZklBFwigkxm/cXWF3AtSwjEm9/qitOOexEQDljwXnk7RQJFo3tQ+ML9UeDQXN/NUF9Bnz
- xDHZ0heHBu7aV2DCzcp8NCJ65JOZy8xNNo4OPg7WiXkK099/3/1hmWnlS8eMwh+CDyOHf29YVimnQ
- NA4eF7fbeAGq9QyZhHFFODPAsNwoROu5PxyqhyQGZZWM9Av66Tx0brtvxhcZyn/MCibOdNY675E7V
- 2wi2UzLVXKIjrBfebbjMMqVo832N3PRjjoig==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
- by www530.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.94.2) (envelope-from <sean@geanix.com>)
- id 1rh3it-000Giv-KH; Mon, 04 Mar 2024 09:30:59 +0100
-Received: from [185.17.218.86] (helo=smtpclient.apple)
- by sslproxy01.your-server.de with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <sean@geanix.com>) id 1rh3is-0005gX-19;
- Mon, 04 Mar 2024 09:30:57 +0100
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.400.31\))
-From: Sean Nyekjaer <sean@geanix.com>
-In-Reply-To: <bda00a5c-d976-4525-9740-c83d97da8923@foss.st.com>
-Date: Mon, 4 Mar 2024 09:30:46 +0100
-Message-Id: <C14DF5A0-E263-49CD-8DCB-6B56014DD342@geanix.com>
-References: <4807FD7F-FEB5-4460-B1EB-3E2330864C8B@geanix.com>
- <bda00a5c-d976-4525-9740-c83d97da8923@foss.st.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-X-Mailer: Apple Mail (2.3774.400.31)
-X-Authenticated-Sender: sean@geanix.com
-X-Virus-Scanned: Clear (ClamAV 0.103.10/27203/Sun Mar  3 10:27:22 2024)
-Cc: kishon@kernel.org, marex@denx.de, m.grzeschik@pengutronix.de,
- =?utf-8?Q?Martin_Hundeb=C3=B8ll?= <martin@geanix.com>, lgirdwood@gmail.com,
- p.paillet@st.com, vkoul@kernel.org, broonie@kernel.org,
- Marc Kleine-Budde <mkl@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, u.kleine-koenig@pengutronix.de,
- linux-phy@lists.infradead.org, l.goehrs@pengutronix.de,
+ Mon,  4 Mar 2024 08:42:07 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4247gAFC026675; Mon, 4 Mar 2024 09:41:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=bJnRc0D0H74QihxsMJduhmW8GQyOwkO9RFjU12y0p4M=; b=m4
+ 1JRwtTlXG3PcefLldIGEl77X0tUzuX+IDQXBAmHPBC+tOYP8w+XPQ9oqzVVDSJ8p
+ dG9F5BbzPgdp6eHuOSyBrgE3B9oIFZA8U5rdki+EXke2aT4mQyO0sXWsUVt5bXFA
+ 3+dO8XJm8hfWyt1RSiRnQHT1angHmSEvKMivYax6ZkCoeHnWxSFAFjjtvH/a3WM4
+ /RFWp74L8NlLfmaFny43+2JvSpVzbB2HVogeui34sDQhYfT95ZMLKZ1MC4KqyuYO
+ EB++E08T+M3PlmY8fjXumYfQd0qtjfj/Du80U34MqRTLapNdflV0p6DblR6KSDWa
+ smqORLvSC+TfwCrRRMnA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wktdkxss1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Mar 2024 09:41:56 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 7E2584002D;
+ Mon,  4 Mar 2024 09:41:51 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C3E60255E46;
+ Mon,  4 Mar 2024 09:41:16 +0100 (CET)
+Received: from [10.252.5.201] (10.252.5.201) by SHFDAG1NODE2.st.com
+ (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 4 Mar
+ 2024 09:41:15 +0100
+Message-ID: <562cdbfe-9353-4f5d-a804-34e158a190a7@foss.st.com>
+Date: Mon, 4 Mar 2024 09:41:14 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: William Breathitt Gray <william.gray@linaro.org>
+References: <20240301102505.591918-1-fabrice.gasnier@foss.st.com>
+ <ZeH6e02zzfAjw-sd@ishi>
+Content-Language: en-US
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <ZeH6e02zzfAjw-sd@ishi>
+X-Originating-IP: [10.252.5.201]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-04_04,2024-03-01_03,2023-05-22_02
+Cc: vigneshr@ti.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ jpanis@baylibre.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] stm32mp1xx: use of reg11, reg18 and vdd_usb rails
+Subject: Re: [Linux-stm32] [PATCH v5] counter: Introduce the
+	COUNTER_COMP_FREQUENCY() macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,118 +73,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Cgo+IE9uIDEgTWFyIDIwMjQsIGF0IDE4LjU4LCBGYWJyaWNlIEdhc25pZXIgPGZhYnJpY2UuZ2Fz
-bmllckBmb3NzLnN0LmNvbT4gd3JvdGU6Cj4gCj4gT24gMy8xLzI0IDE1OjQxLCBTZWFuIE55ZWtq
-YWVyIHdyb3RlOgo+PiBIaSBhbGwsCj4+IAo+PiBXZSBhcmUgdXNpbmcgdGhlIG9zZDMybXAxIFNJ
-UCBtb2R1bGUgWzBdLgo+PiBXZSBhcmUgc2VlaW5nIHNvbWUgaGFyZHdhcmUgZ2V04oCZcyBmcmll
-ZCBpbnNpZGUgdGhlIFNJUCBtb2R1bGUuCj4+IEl04oCZcyBzb21ld2hhdCB0cmFjZWQgZG93biB0
-byB0aGUgdXNiIGNvbnRyb2xsZXIvcGh5L3JlZ3VsYXRvci4KPj4gCj4+IFdpdGggdGhpcyBkZXZp
-Y2UgdHJlZVsxXS4gV2UgaGF2ZSBub3RpY2VkIGR1cmluZyBib290IHRoZSByZWcxOCBpcyB0b2dn
-bGVkIG9uIGFuZCBvZmYKPiAKPiBEZWFyIFNlYW4sCgpIaSBGYWJyaWNlLAoKPiAKPiBJJ3ZlIHRy
-aWVkIHRvIGNoZWNrIHdoYXQgeW91J3ZlIHBvaW50ZWQgb3V0Lgo+IAo+IFRoZSB0b2dnbGluZyBo
-YXBwZW5zIHdoZW4gcmVnaXN0ZXJpbmcgdGhlIFBIWSBhcyBhIGNsb2NrIHByb3ZpZGVyLiBUaGUK
-PiBVU0IgUEhZIGhhcyBhIFBMTCB0byBwcm92aWRlIGNsb2NrIGZvciBPVEcgYW5kIFVTQkguIFRo
-aXMgY2xvY2sgZ2V0cwo+IHJlZ2lzdGVyZWQgdG8gdGhlIGNsb2NrIGZyYW1ld29yaywgYXMgdGhl
-eSBnbyB0aHJvdWdoIFJDQy4KPiAKPiBzdG0zMl91c2JwaHljX2NsazQ4X3JlZ2lzdGVyKCkgLT4g
-Y2xrX2h3X3JlZ2lzdGVyKCkKPiAKPiBJbiBvcmRlciB0byBwcm9wZXJseSBiZSBpbnNlcnRlZCBp
-bnRvIHRoZSBjbG9jayB0cmVlLCAoZS5nLiBSQ0MgZG9lcwo+IHNvbWUgZ2F0aW5nIHRoZW4pIHJl
-cGFyZW50IG9wZXJhdGlvbiByZXF1aXJlcyB0aGUgUExMICh3aXRoIGl0cwo+IHN1cHBsaWVzKSB0
-byBiZSBlbmFibGVkLiBPbmNlIHRoZSByZXBhcmVudCBpcyBjb21wbGV0ZWQsIGl0IHJlcXVlc3Rz
-IHRvCj4gdHVybiBpdCBPRkYuCj4gCj4gVGhhdCdzIHRoZSByZWFzb24gZm9yIHRoZSB0b2dnbGlu
-Zy4KCkFsc28gb3VyIGNvbmNsdXNpb24uIEEgcmF0aGVyIGNvbXBsZXggc2V0dXAuCgo+IAo+PiB3
-aXRob3V0IHZkZF91c2IgYmVpbmcgdHVybmVkIG9mZiBiZWZvcmUgcmVnMTggYXMgcmVxdWlyZWQg
-aW4gdGhlIGRhdGEgc2hlZXRbMl0sIHNlY3Rpb24gMy44LjE6Cj4gCj4gdmRkX3VzYiBpcyBwcm9i
-bGFibHkgKEkgaGF2ZW4ndCBjaGVja2VkKSBhIGJvb3Qtb24gcmVndWxhdG9yLCB0b3RhbGx5Cj4g
-dW50b3VjaGVkIHdoZW4gdGhlIHRvZ2dsaW5nIGhhcHBlbnMuIEl0IGdldHMgZW5hYmxlZCBpbiBk
-cml2ZXJzIGxhdGVyLAo+IGR1cmluZyBwaHlfcG93ZXJfb24oKSBvciBpbiBkd2MyIGRyaXZlciAo
-c3RtIGlkIGdsdWUgLyB1c2IzM2QgY2FzY2FkZWQKPiB0aGVuIHRvIHB3cikuIFNvIGl0IGlzbid0
-IGNvbnRyb2xsZWQgYmVmb3JlIHRoYXQuCgpyZWcxOCBpcyBib290LW9uIGJlY2F1c2UgdGhlIEJZ
-UEFTU19SRUcxVjggaXMgcHVsbGVkIGxvdywgcmVnMTggaXMgZmVkIGJ5IFZERCwgd2hpY2ggaXMg
-aGFzIGEgbG93ZXIgUE1JQyByYW5raW5nIHRoYW4gdmRkX3VzYi9sZG80LgpVLWJvb3QgaXMgYWN0
-dWFsbHkgcG93ZXJpbmcgb2ZmIHJlZzExLCByZWcxOCBhbmQgdmRkX3VzYihpbiB0aGUgY29ycmVj
-dCBvcmRlcikuIEJlZm9yZSBzdGFydGluZyB0aGUga2VybmVsLgoKPiAKPj4gVkREM1YzX1VTQkhT
-IG11c3Qgbm90IGJlIHByZXNlbnQgdW5sZXNzIFZEREExVjhfUkVHIGlzIHByZXNlbnQsIG90aGVy
-d2lzZSBwZXJtYW5lbnQgCj4+IFNUTTMyTVAxNTdDL0YgZGFtYWdlIGNvdWxkIG9jY3VyLiBNdXN0
-IGJlIGVuc3VyZWQgYnkgUE1JQyByYW5raW5nIG9yZGVyIG9yIHdpdGgKPj4gZXh0ZXJuYWwgY29t
-cG9uZW50IGluIGNhc2Ugb2YgZGlzY3JldGUgY29tcG9uZW50IHBvd2VyIHN1cHBseSBpbXBsZW1l
-bnRhdGlvbi4KPj4gCj4+IEl04oCZcyBoYXBwZW5zIGJlY2F1c2UgdGhlIHNvbWV0aGluZyBpcyBh
-bHJlYWR5IHVzZXMgdGhlIHZkZF91c2IsIGl04oCZcyBib3RoIHRoZSBkcml2ZXJzL3BoeS9zdC9w
-aHktc3RtMzItdXNicGh5Yy5jCj4+IGFuZCBkcml2ZXJzL3JlZ3VsYXRvci9zdG0zMi1wd3IuYyB0
-aGF0IGNvbnN1bWVzIGl0Lgo+IAo+IE5vIChzZWUgYWJvdmUpLgoKWWVzLCB0aGUgc3RtMzItcHdy
-LmMgY29uc3VtZXMgdGhlIHZkZF91c2IsIGFuZCBibG9ja3MgdGhlIGR3YzIgZHJpdmVyIGZyb20g
-cG93ZXJpbmcgaXQgb2ZmLgoKPiAKPj4gCj4+IEkgY2FuIGZpeCBpdCBieSByZW1vdmluZyB0aGUg
-dmRkX3VzYiBmcm9tIHRoZSB1c2IzMyBzdXBwbHlbM106Cj4gCj4gVGhpcyB3aWxsIGJyZWFrIGFs
-bCBpbXBsZW1lbnRhdGlvbnMgdGhhdCByZWx5IG9uIElEL1ZidXMgcGlucyBvbiBNUDE1LgoKT0su
-IFNvIHdlIHdpbGwgaGF2ZSB0byB1c2UgTWFya+KAmXMgc3VnZ2VzdGlvbiBhbmQgZm9yY2UgaXQg
-b24uCgo+IAo+PiBUaGUgc3RtMzItcHdyLmMgaXMgKHRvIG1lKSByYXRoZXIgd2VpcmQsIGFzIGl0
-IGV4cG9zZXMgdGhlIHVzYjMzIGFzIGEgcmVndWxhdG9yIHdoZW4gaW4gZmFjdCBpdOKAmXMgYSBk
-ZXRlY3Rpb24gcGluLgo+PiBJcyB0aGF0IGRvbmUgb24gcHVycG9zZT8KPj4gCj4+IEkgd291bGQg
-bGlrZSBpbnRyb2R1Y2UgYSBlcnJvciBpbiB0aGUgc3RtMzItcHdyLmMgaWYgc29tZXRoaW5nIGlz
-IHRyeWluZyB0byBwb3dlciBvZmYgcmVnMTggd2l0aCB1c2IzMyBwcmVzZW50Pwo+IAo+IFdlbGws
-IGFkZGluZyBzb21lIGVycm9yIGFzIHlvdSBoYXZlIGRyYWZ0ZWQgc2hvdWxkIHByb3RlY3QgdGhl
-IGhhcmR3YXJlLgo+IERvZXNuJ3QgdGhpcyBicmluZ3MgZXJyb3IsIHdoZW4gcmVnaXN0ZXJpbmcg
-aW50byB0aGUgY2xvY2sgZnJhbWV3b3JrID8KPiBEb2VzIHRoaXMgcHJldmVudCByZWdpc3Rlcmlu
-ZyBVU0IgdGhlbiA/Cj4gCj4gVGhlcmUncyBwcm9iYWJseSBiZXR0ZXIgb3B0aW9ucy4gSXQgbmVl
-ZHMgYWRkaXRpb25hbCBmaXguIEkgY2FuJ3QgdGhpbmsKPiBhYm91dCByaWdodCBub3cuLi4KPiBJ
-dCBpcyBqdXN0IGEgdGhvdWdodCwgYnV0IHdoZW4gdGhlIFBIWSBkcml2ZXIgcmVnaXN0ZXJzIHRo
-ZSBjbG9jaywgYQo+IGJldHRlciBjb250cm9sIG9mIGFsbCB0aGUgcmVndWxhdG9yIDF2MSwgMXY4
-IGFuZCB2ZGRfdXNiIGNvdWxkIGJlIHRvCj4gZW5mb3JjZSB2ZGRfdXNiIGZpcnN0IGdldHMgZGlz
-YWJsZWQgaW4gdGhpcyBwcm9jZXNzLgoKVGhpcyBpcyBob3cgdS1ib290IGlzIGhhbmRsaW5nIHRo
-aW5ncy4gVGhlIGRyaXZlciBoYXJkIGNvbnRyb2xzIGFsbCByZWd1bGF0b3JzLgoKPiAKPiBPciB0
-ZW1wb3JhcmlseSBmbGFnIHRoaXMgaW5pdGlhbGl6YXRpb24gc3RlcCwgZnJvbQo+IHN0bTMyX3Vz
-YnBoeWNfY2xrNDhfcmVnaXN0ZXIoKSwgdW50aWwgcGh5X2luaXQoKSBvY2N1cnMsIHNvIHRoZSAx
-djEgYW5kCj4gMXY4IGRvbid0IGdldCBkaXNhYmxlZCA/IFRoaXMgd2lsbCBzcGFyZSB0aW1lIChl
-LmcuIHRvZ2dsaW5nKSBhcwo+IHBoeV9pbml0IHdpbGwgcmVlbmFibGUgYWxsIHRoZXNlIGp1c3Qg
-ZmV3IHRpbWUgYWZ0ZXIgaXQncyBiZWVuIGRpc2FibGVkLgo+IAoKU28gSSBzaG91bGQgdHJ5IHRv
-IGNoZWNrIGluaXRfY291bnQgaW4gc3RtMzJfdXNicGh5Y19jbGs0OF9yZWdpc3Rlcj8KCj4+IFdv
-dWxkIGl0IGJlIG9rYXkgdG8gcmV0dXJuIC1FQlVTWT8gT3IgZXZlbiAtRVNNT0tFPyA6KQo+PiAK
-Pj4gT3IgaXMgaXQgYmV0dGVyIHRvIGRvIGl0IGluIHBoeS1zdG0zMi11c2JwaHljLmNbNF0/Cj4+
-IAo+PiAvU2Vhbgo+PiAKPj4gWzBdOiBodHRwczovL29jdGF2b3N5c3RlbXMuY29tL29jdGF2b19w
-cm9kdWN0cy9vc2QzMm1wMTV4Lwo+PiBbMV06IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3Nj
-bS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90cmVlL2FyY2gvYXJtL2Jvb3Qv
-ZHRzL3N0L3N0bTMybXAxNTdjLW9zZDMybXAxLXJlZC5kdHMKPj4gWzJdOiBodHRwczovL3d3dy5z
-dC5jb20vcmVzb3VyY2UvZW4vZGF0YXNoZWV0L3N0bTMybXAxNTdjLnBkZgo+PiBbM106Cj4+IGRp
-ZmYgLS1naXQgYS9hcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1vc2QzMm1wMS1yZWQu
-ZHRzIGIvYXJjaC9hcm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2Mtb3NkMzJtcDEtcmVkLmR0cwo+
-PiBpbmRleCA1MjdjMzNiZTY2Y2MuLjBkNjcwMDY4MDZjNCAxMDA2NDQKPj4gLS0tIGEvYXJjaC9h
-cm0vYm9vdC9kdHMvc3Qvc3RtMzJtcDE1N2Mtb3NkMzJtcDEtcmVkLmR0cwo+PiArKysgYi9hcmNo
-L2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTU3Yy1vc2QzMm1wMS1yZWQuZHRzCj4+IEBAIC0xNDks
-NyArMTQ5LDYgQEAgJm1fY2FuMSB7Cj4+IAo+PiAmcHdyX3JlZ3VsYXRvcnMgewo+PiAgICAgICAg
-dmRkLXN1cHBseSA9IDwmdmRkPjsKPj4gLSAgICAgICB2ZGRfM3YzX3VzYmZzLXN1cHBseSA9IDwm
-dmRkX3VzYj47Cj4gCj4gQXMgc2FpZCBhYm92ZSwgdGhpcyB3aWxsIG1ha2UgdGhlIElEIGFuZCBW
-YnVzIGRldGVjdGlvbiBsb2dpYyBvbiBPVEcKPiBwb3J0IG5vdCB3b3JraW5nLl0KCk9rLCB3ZSBh
-cmUgbm90IHVzaW5nIGl0LiAKCj4gCj4+IH07Cj4+IAo+PiAmcnRjIHsKPj4gWzRdOgo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9waHkvc3QvcGh5LXN0bTMyLXVzYnBoeWMuYyBiL2RyaXZlcnMvcGh5
-L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4gaW5kZXggZDVlN2U0NDAwMGI1Li41OGZjYzMwOTk4
-MDMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvcGh5L3N0L3BoeS1zdG0zMi11c2JwaHljLmMKPj4g
-KysrIGIvZHJpdmVycy9waHkvc3QvcGh5LXN0bTMyLXVzYnBoeWMuYwo+PiBAQCAtMTg4LDggKzE4
-OCwxOCBAQCBzdGF0aWMgaW50IHN0bTMyX3VzYnBoeWNfcmVndWxhdG9yc19lbmFibGUoc3RydWN0
-IHN0bTMyX3VzYnBoeWMgKnVzYnBoeWMpCj4+IAo+PiBzdGF0aWMgaW50IHN0bTMyX3VzYnBoeWNf
-cmVndWxhdG9yc19kaXNhYmxlKHN0cnVjdCBzdG0zMl91c2JwaHljICp1c2JwaHljKQo+PiB7Cj4+
-ICsgICAgICAgc3RydWN0IHN0bTMyX3VzYnBoeWNfcGh5ICp1c2JwaHljX3BoeTsKPj4gICAgICAg
-IGludCByZXQ7Cj4+IAo+PiArICAgICAgIGZvciAocG9ydCA9IDA7IHBvcnQgPCB1c2JwaHljLT5u
-cGh5czsgcG9ydCsrKSB7Cj4+ICsgICAgICAgICAgICAgICB1c2JwaHljX3BoeSA9IHVzYnBoeWMt
-PnBoeXNbcG9ydF07Cj4+ICsKPj4gKyAgICAgICAgICAgICAgIGlmKHJlZ3VsYXRvcl9pc19lbmFi
-bGVkKHVzYnBoeWNfcGh5LT5waHktPnB3cikpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-cHJfZXJyKCIlczogcGh5IGlzIHBvd2VyZWQgbm90IGFsbG93ZWQgdG8gc3dpdGNoIG9mZiByZWd1
-bGF0b3JcbiIsIF9fZnVuY19fKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1F
-QlVTWTsKPj4gKyAgICAgICAgICAgICAgIH0KPj4gKyAgICAgICB9Cj4+ICsKPiAKPiBBcyBhYm92
-ZSwgdGhpcyBjb3VsZCBtYWtlIHNlbnNlIHRvIGZsYWcgdGhlIGVycm9yLgo+IEJ1dCBpdCBuZWVk
-cyBzb21lIGhhbmRsaW5nIHRvIHByb3Blcmx5IGF2b2lkIHRoZSB0b2dnbGluZywgb3IgbWFrZSBp
-dCBzYWZlLgoKWWVzLCB3ZSBhbHNvIG5lZWQgdG8gbWFrZSBzdXJlIHdlIGFyZW7igJl0IGJyaWNr
-aW5nIGFueXRoaW5nIGluIHRoZSBjbGsgYW5kIHJlZ3VsYXRvciBmcmFtZXdvcmsgYnkgcmV0dXJu
-aW5nIGVycm9yLgoKL1NlYW4KCj4gCj4gSG9wZSB0aGlzIGhlbHBzIHRvIGNsYXJpZnksCj4gQlIs
-Cj4gRmFicmljZQo+IAo+PiAgICAgICAgcmV0ID0gcmVndWxhdG9yX2Rpc2FibGUodXNicGh5Yy0+
-dmRkYTF2OCk7Cj4+ICAgICAgICBpZiAocmV0KQo+PiAgICAgICAgICAgICAgICByZXR1cm4gcmV0
-Owo+PiAKPj4gCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4+IExpbnV4LXN0bTMyIG1haWxpbmcgbGlzdAo+PiBMaW51eC1zdG0zMkBzdC1tZC1tYWls
-bWFuLnN0b3JtcmVwbHkuY29tCj4+IGh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCgoKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On 3/1/24 16:55, William Breathitt Gray wrote:
+> On Fri, Mar 01, 2024 at 11:25:05AM +0100, Fabrice Gasnier wrote:
+>> Now that there are two users for the "frequency" extension, introduce a
+>> new COUNTER_COMP_FREQUENCY() macro.
+>> This extension is intended to be a read-only signal attribute.
+>>
+>> Suggested-by: William Breathitt Gray <william.gray@linaro.org>
+>> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+>> ---
+>> Changes in v5
+>> - "frequency" extension is read-only, so there's no need to provide
+>>   a write parameter.
+>> - patch sent separately from "counter: Add stm32 timer events support" [1]
+>> [1] https://lore.kernel.org/lkml/20240227173803.53906-2-fabrice.gasnier@foss.st.com/
+>> ---
+>>  include/linux/counter.h | 7 +++++++
+>>  1 file changed, 7 insertions(+)
+>>
+>> diff --git a/include/linux/counter.h b/include/linux/counter.h
+>> index 702e9108bbb4..0ac36f815b7d 100644
+>> --- a/include/linux/counter.h
+>> +++ b/include/linux/counter.h
+>> @@ -602,6 +602,13 @@ struct counter_array {
+>>  #define COUNTER_COMP_FLOOR(_read, _write) \
+>>  	COUNTER_COMP_COUNT_U64("floor", _read, _write)
+>>  
+>> +#define COUNTER_COMP_FREQUENCY(_read) \
+>> +{ \
+>> +	.type = COUNTER_COMP_U64, \
+>> +	.name = "frequency", \
+>> +	.signal_u64_read = (_read), \
+>> +}
+>> +
+>>  #define COUNTER_COMP_POLARITY(_read, _write, _available) \
+>>  { \
+>>  	.type = COUNTER_COMP_SIGNAL_POLARITY, \
+>> -- 
+>> 2.25.1
+> 
+> Hi Fabrice,
+> 
+> Setting the structure members directly works, but why not use
+> COUNTER_COMP_SIGNAL_U64("frequency", _read, NULL) instead to keep the
+> code more succinct?
+
+Hi William,
+
+I originally wrote it this way, but I had a doubt since some macros use
+the structure members directly.
+
+I can update to use COUNTER_COMP_SIGNAL_U64() instead, that will spare
+few lines.
+
+Please let me know what you prefer (I guess your proposal above ?).
+
+Best Regards,
+Thanks,
+Fabrice
+
+> 
+> William Breathitt Gray
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
