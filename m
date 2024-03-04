@@ -2,54 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2E9C87046A
-	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 15:41:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0DDD8706F1
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 17:24:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77D63C6B45E;
-	Mon,  4 Mar 2024 14:41:37 +0000 (UTC)
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59383C6C83A;
+	Mon,  4 Mar 2024 16:24:49 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97EA3C6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5334C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 Mar 2024 14:41:36 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C28A51BF20C;
- Mon,  4 Mar 2024 14:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1709563296;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=JB4712Zmm5XygfOkhRNsGTmf84IUmoX3p3owXLkMnrY=;
- b=pwOLp/q2NMfAhLnUpRwHw4RnWdElX/CLSXWTpOPs0zic6ZiTu5twmlh+kERXKoYgZRylLJ
- CQw8z4GeHv3qna7mFij6jURThx5evriRiOmvGL3b8HV5IB+SdT0psjNX9numwZl+QB2bXe
- jedsjxzbt0X9lErHaDSsAqf5ryoROSNB2n1LIUPryWOxeiKnBHOGRhjDSIKmM8f6EiE+Wf
- mTLhjBGV/r0DjRFnERtQTF3SucXLgJDgoSG/b03xaLlPP8mn0qi1ilxhQIcsKB3Q+kVRfw
- ONwmaD9NSjdj0MZOY8kPPO5iLWD7orf4Z+eiFstCwU14FchxGjELfaYaEtFJuQ==
-Date: Mon, 4 Mar 2024 15:42:06 +0100 (CET)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-In-Reply-To: <ZeXbV2hIBs7OcEDK@shell.armlinux.org.uk>
-Message-ID: <1a5ba9e2-9cf2-00be-3a0f-03a8d6bfb04c@bootlin.com>
-References: <20240301-rxc_bugfix-v5-0-8dac30230050@bootlin.com>
- <20240301-rxc_bugfix-v5-1-8dac30230050@bootlin.com>
- <ZeXbV2hIBs7OcEDK@shell.armlinux.org.uk>
+ Mon,  4 Mar 2024 16:24:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 2DCA4CE1182;
+ Mon,  4 Mar 2024 16:24:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44643C433F1;
+ Mon,  4 Mar 2024 16:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1709569485;
+ bh=Yc4P1CIXlKDGFPR0/DVQiT/46JdWqiofdfkNDqPQVZI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mTeEzxHfNCuzklQWKn0MQXGpW9wqJ5wU7bMtXXE3fNVk9xkSNCPuSErh0dD0iaM66
+ Zf/idjm7pk9j+QcMsx+CiFy9KLc4DVT269NsV+fSYoAWP7T6MQZSNh+8Q8Z/guuzET
+ fPgLI/JpW2VumWdtsZ9LYTzB2FhR8AKOkJ44dU0ewYkcxpbnA0Z/KHgTSA1xdAdBLy
+ Ox3nmj1Me/PuiigdHF9L5hfYMUdMhWon/P14XnXBKzCzKmflmmQKwtTPwd4tMCMkmu
+ japN0uyQHYOVfn+D5pfavzok/zAqZJSFByDy00IT9Rw2nVXfnL5vVst2ROwEp8Hn77
+ 0ViJmGCCPQG6w==
+Date: Mon, 4 Mar 2024 10:24:43 -0600
+From: Rob Herring <robh@kernel.org>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+Message-ID: <20240304162443.GA568211-robh@kernel.org>
+References: <20240229134724.1353903-1-christophe.roullier@foss.st.com>
+ <20240229134724.1353903-3-christophe.roullier@foss.st.com>
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
+Content-Disposition: inline
+In-Reply-To: <20240229134724.1353903-3-christophe.roullier@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Liam Girdwood <lgirdwood@gmail.com>,
  Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- =?ISO-8859-15?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v5 1/7] net: phylink: add
- PHY_F_RXC_ALWAYS_ON to PHY dev flags
+ Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/2] dt-bindings: net: add new property st,
+ ext-phyclk in documentation for stm32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,26 +64,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, 4 Mar 2024, Russell King (Oracle) wrote:
+On Thu, Feb 29, 2024 at 02:47:24PM +0100, Christophe Roullier wrote:
+> Add property st,ext-phyclk to manage cases when PHY have no cristal/quartz
+> This property can be used with RMII phy without cristal 50Mhz and when we
+> want to select RCC clock instead of ETH_REF_CLK
+> Can be used also with RGMII phy with no cristal and we select RCC clock
+> instead of ETH_CLK125
+> This new property replace st,eth-clk-sel and st,eth-ref-clk-sel
 
-> > the PHY goes into suspend.
-> > 
-> > Signed-off-by: Russell King <linux@armlinux.org.uk>
+That is obvious from the diff. What is not obvious is why we need a new 
+property and what is the problem with the existing ones.
+
 > 
-> This is not the sign-off I sent you with my patches. At the very least,
-> it doesn't acknowledge my employer, and also has the wrong email address
-> that I use for _all_ my kernel attributations. Therefore, I can
-> definitively say that that you made this up. Please correct it back to
-> the sign-off in my patches that you derived this combined work from.
-
-My apologies, I'll fix the commit tags.
-
-Best Regards,
-
--- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
+> ---
+>  Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> index 80937b28fa046..fda23c07c1cad 100644
+> --- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
+> @@ -85,12 +85,21 @@ properties:
+>    phy-supply:
+>      description: PHY regulator
+>  
+> +  st,ext-phyclk:
+> +    description:
+> +      set this property in RMII mode when you have PHY without crystal 50MHz and want to
+> +      select RCC clock instead of ETH_REF_CLK. OR in RGMII mode when you want to select
+> +      RCC clock instead of ETH_CLK125.
+> +    type: boolean
+> +
+>    st,eth-clk-sel:
+> +    deprecated: true
+>      description:
+>        set this property in RGMII PHY when you want to select RCC clock instead of ETH_CLK125.
+>      type: boolean
+>  
+>    st,eth-ref-clk-sel:
+> +    deprecated: true
+>      description:
+>        set this property in RMII mode when you have PHY without crystal 50MHz and want to
+>        select RCC clock instead of ETH_REF_CLK.
+> -- 
+> 2.25.1
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
