@@ -2,74 +2,132 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28EF386F6A3
-	for <lists+linux-stm32@lfdr.de>; Sun,  3 Mar 2024 20:03:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C1086F96F
+	for <lists+linux-stm32@lfdr.de>; Mon,  4 Mar 2024 06:15:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAD45C6C83A;
-	Sun,  3 Mar 2024 19:03:45 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 887AFC6B45E;
+	Mon,  4 Mar 2024 05:15:03 +0000 (UTC)
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2061.outbound.protection.outlook.com [40.107.114.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3924DC6A61A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5F9EC6A61A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 Mar 2024 19:03:44 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-412d501fb96so8958265e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 03 Mar 2024 11:03:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1709492623; x=1710097423;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=+Q6tqq+YHMrtRDD0QwVDNeMhXDLukwoqe/1azYB8u5U=;
- b=mFd1HPyz4oR+4nKgAcEuMldDuIYlcT/YKf7LGN6F5fLeQcmWPzqsaY9kKPK9HH8D6Q
- GlTtJmX8aqoXve26jun8M+J+9CbsRutBzSHunQydiJuy1h38j4XxJZzY4fwEXNnk/EZO
- 2Ba7CvJSqYZcompEMpRI9TpSEZ56D11k0fVXLN9MuqMgym9cljv5U/Yg9NkDUzME+0hq
- 03tLObqo4FlHdKwxuVbrySTNBUwB5T9EDR7yDgtMpJ/TXTvrx95JIvUe8jU4X9DKCgLT
- qF2zpR2MfDdoWdFp2pFmV2/86RJpYOZjbvY1jogaUbkCck36sfNV5v2s2Ma0SzQpJUo2
- +fxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709492623; x=1710097423;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+Q6tqq+YHMrtRDD0QwVDNeMhXDLukwoqe/1azYB8u5U=;
- b=hRRKpaWqRGIjofIJeVtD1C9yuAaCZBmbzo9ImZfI42bzw3trqKrGyl60f6bDXEuap0
- IYEq135EHrTcIo2T5n7H82Mywbo5lHdNXRZ28aKG9vZzKjGxyeFhYZjvneD9QTlQ/8YP
- o5P9FDwCzfptkfUWMeHSYlKkWfdOKhkLMVF/d9HOja1pS0lZHw45m2VcF1qHnesOnSJK
- 68gsofcAmlmc4qh25nTjRg8hHV4PRQbElo4hwYLzVbkvN/7KX4T71rCE09um0GXUg5la
- 8wgXOZuWAP/0Y/3wYuxnsdUg8QFT+Hsf+o1dMiig6ukANce8fOJYprs9VUkchoCbupuR
- r0NQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXY4LywxyMAhkSiKqj0IE89yi9mMdXxq6/owHndYkqByyeAKR7KxtN0YaXwLmqHt0f7hjztisdfHSVTIP11I3kAEG1AVZnuYer4w1MXkbFhSLmPOYmPNHXN
-X-Gm-Message-State: AOJu0YzipSvLBU2PPAC/nxsKBuaHF+9IvAFUVdKlwb0FvCmArB+NO/R4
- n9bV7RGDMe1Xue20QjY7MveTDz/Yen/JVGmvAY05wO7NlK//0Xkt
-X-Google-Smtp-Source: AGHT+IGg4+GTgKpcocRSHWqddDrc+rrpm/34o839Hkj+OJRCyujj5Z/0OpTcDzfW6PMDiFO0ZbZYoA==
-X-Received: by 2002:a05:600c:354b:b0:412:bca2:1680 with SMTP id
- i11-20020a05600c354b00b00412bca21680mr5891715wmq.35.1709492623332; 
- Sun, 03 Mar 2024 11:03:43 -0800 (PST)
-Received: from localhost.localdomain ([2a01:e0a:a92:c660:e318:3b1a:c27a:9905])
- by smtp.gmail.com with ESMTPSA id
- fk6-20020a05600c0cc600b00412e2ccdc97sm1265674wmb.17.2024.03.03.11.03.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Mar 2024 11:03:42 -0800 (PST)
-From: Piotr Wejman <piotrwejman90@gmail.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sun,  3 Mar 2024 20:03:38 +0100
-Message-Id: <20240303190339.52496-1-piotrwejman90@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ Mon,  4 Mar 2024 05:15:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ACl25ziSuEH++ip/ASeHAYK5EM+IKTBDJdCGa9f4eaVcjrzl89QJh5gzKDWT8mZXsfIn1fCBAUaccqNbO/ZZSN+mdbS27O8Tao8m8VkaQD5XYSA2crlfMgmwu9DmgmJSSv674Pc2qp4FJyWn5ZBrb8k+ObnakyA8X3hjCSWRNnM++JXY04Y+W5L+5z6OHlZbq2Qt/zzGn7ziNDgWabdP/5FMJ+4U2/6ugolk2hZUVgM18kXUwMFGo+6dVnym+fQC6TJZQAP8CgxNDdKx5XLZ6SOwnu7B8cwJ0KLlgOofSn5g+OxLFujs6dzsf88XT/rZCSfjxazyAvkuwOpN61VjSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pPWqBcRXwbO+R2g6KVNJFygj60WyLlHpr50NYErWcqQ=;
+ b=YJ93jUCHlPBENKG/HIT1tq316ypFB9+1CS3QRV2W6kBtkUFy7eLLSWHtWsfl6lVUKCmLCaSW3DLWaBvjxrvEoHyzqMouthILIwbLALc7vRri3jOrG7ZJKereBRQHsFc2k2NIsz9G7tuJOgjNLUBBmM6sNk2h2TJ8YJLRRhynhp9cNIgxjQy5tnPkgwmJtiC3H0NYH+duSoiU+UqZOVjZf/tD5yF77qSmtd9sz9qEy7WbJTlMMVv81+joJCFXKUEovPn187a3wSvzEuSZ7QvlMFabXQqiQ03T5kTVDRvshnuQ214M+J7YaCDV6CZRP17fWrjcApa64HH7aBGZBk72zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pPWqBcRXwbO+R2g6KVNJFygj60WyLlHpr50NYErWcqQ=;
+ b=PNUZWMvnOoEGzwqAPyDsFreuYtvn7VQukF4Xfn6qLJL+gZhLDXUBwqwUrCDQCMReqsugJ6TfAlkCxUuGOyWUEsgC6QxGqsXqe+rs/o7DXcSWsnHOX3VRWxNr9Sk5FCKKMW5lpl4KtzW/V5LJdVI/Vd2uyOJjyY5ialHsMSYtwRA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OS3PR01MB6322.jpnprd01.prod.outlook.com
+ (2603:1096:604:f4::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.38; Mon, 4 Mar
+ 2024 05:14:57 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::1934:4a38:d599:33a2]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::1934:4a38:d599:33a2%5]) with mapi id 15.20.7339.035; Mon, 4 Mar 2024
+ 05:14:57 +0000
+Message-ID: <87plwah92n.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Rob Herring <robh+dt@kernel.org>, "Lad Prabhakar"
+ <prabhakar.csengg@gmail.com>, =?ISO-8859-1?Q?=22Uwe_Kleine-K=F6nig=22?=
+ <u.kleine-koenig@pengutronix.de>, Alain Volmat <alain.volmat@foss.st.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Alexey Brodkin <abrodkin@synopsys.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>, Daniel Vetter <daniel@ffwll.ch>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, David Airlie <airlied@gmail.com>, Eugen
+ Hristev <eugen.hristev@collabora.com>, Florian Fainelli
+ <florian.fainelli@broadcom.com>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Helge Deller <deller@gmx.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Jacopo Mondi <jacopo@jmondi.org>, Jessica Zhang
+ <quic_jesszhan@quicinc.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@linaro.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime
+ Ripard <mripard@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Sam Ravnborg <sam@ravnborg.org>, Sylwester
+ Nawrocki <s.nawrocki@samsung.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tim Harvey <tharvey@gateworks.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
+Date: Mon, 4 Mar 2024 05:14:57 +0000
+X-ClientProxiedBy: TYAPR01CA0187.jpnprd01.prod.outlook.com
+ (2603:1096:404:ba::31) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-Cc: Piotr Wejman <piotrwejman90@gmail.com>
-Subject: [Linux-stm32] [PATCH v3] net: stmmac: fix rx queue priority
-	assignment
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB6322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38b65b10-ba4c-4ba6-470b-08dc3c0a08cf
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: uNFimaYfjhR/GTIBnIlbcpWPpHA5x6Ar0wG6xuCUOcP/S4Y9ZKl6t88vT44WhMPMXuRgdsmXPJLGS3R0W+rRaNti6M1eDqahpMvXSdV9FilD/nbEpUNGbU3l5AhZjkaZooyVe71LYw3bfgWsymE3N+jFkMON1K0djo1aCZIj2N9pFRfEfH2LAGSXSCrWHpBx2AWzMa6Tg2CLg+MvATEqBiX1fs+scXveKsWU9K2aO7hZfSRj0pzmExhH5VsZRfFjd1xgXMFEwC0KntDG/ofbb3UwwNFeNCLcZKYyuMgbr3LVPdkxGiex2U8l8ljn32HGuxCbpgqykwEUVr+F855ZALZ/HLVAOdzkxCTnXOvifZsGKh4aKUkBDtz6bfYWr10QsON8OUIcZh8qRMR+p1y/GE8S2KzUSpmUorGwtOZC6f6UIhPA/7l74BCYJfG0Y5dQufnjt6wL8qYlzF3+vSlb98qLr7Zmqg0c2QXf8BH1xG81ifZvEhJKX8RWKBkpYAz8dHVve3qZCbYpaue5NUkBxvz7hFH/MWvin95A7oyXD9QeSJWMhGPwTMBEgnkOWZMIpWH8boDSuk+sEKZl1DZ/Qjp3lQEHhjVXQFPi1NlUuZlwxspDkI2FBsRHkNbcSmmyT+vEwI1K/TCbmuw3BIByks6bcv2DwsKhMb6hH6fE/DktQqHbiC6b1zPcrcf459n2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(921011)(38350700005); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4NJEQyIMla2dgd5Q+forIT0Ej/xRKlVE+sVf5LHaJJpHf2tIkD/viwcPY1E3?=
+ =?us-ascii?Q?zO2oh5NhQNLIFQ1Rk/hcb69Yw0sRjAmmAIdFEGLAv1lav2P2XjxfnFXOafFI?=
+ =?us-ascii?Q?mxX5BemcEdu5w0XJ6WEleyONS82E4ywH2km/0DT3khryaObLlmUS+OCdEnBE?=
+ =?us-ascii?Q?L46YovctdMMZIdFC7GSG+a8UWsOjaPCgLSn6NdZOz0eRsbHSjbACK5jMng6V?=
+ =?us-ascii?Q?G0az2QWlkt+q0lojTxMT7xpLsKVZnaJfmnD0YeyWwTeggaQStSTb45DoN/AF?=
+ =?us-ascii?Q?WEgjxRiw9tdQu+IV+vq2bFAE1lRObZejEwv0r9WsHYHti2NZHaw4+G89Tax5?=
+ =?us-ascii?Q?bN/dKhGLDNoni9/WH5cBO8B6SEs8FnafWSuwfJzGw2W9J3e3zbLpPiohSebm?=
+ =?us-ascii?Q?uBXXS1LnYxWcZX/yDKhUKtUWdy6YYAO7n1Oik8522LtBgXkq+VXkzQk1JTAl?=
+ =?us-ascii?Q?TtI876EOUZeIDbqpQsp3KXsh/Gebk4xzeB50NZ5bLdghIFW2jdiS0bahjrdg?=
+ =?us-ascii?Q?HZkvw49h44AwX2ccdmTFB7fQy4k3nlxcJWTWGEs5Vy4kZqVG5fxE/dNs5eil?=
+ =?us-ascii?Q?9fjNtP6aRJG8ofcZgH0MiDwQXkre9RKWzEjPki2zwDqBnaSu0fyTyiR5lafR?=
+ =?us-ascii?Q?huf2QD7vZqQAgYMQvdDxw82F9tRqrnUwJPSjxxJWwtxx7B5ZWFV9GqDK6o3P?=
+ =?us-ascii?Q?t/A9HJMaKejAJWd9l9FButwtqxbuv2iBH+K+sLig/lxn+isxy+FezaMZLEgA?=
+ =?us-ascii?Q?OWeTrjuBoJKbke65A2jT2go/WVPBb/BDomCCyDONJuB8nXaTQiezhIvT3onV?=
+ =?us-ascii?Q?vMadkvDFrx+4H2Lsx6wnJLbZUsNX4zJESe0H3nKwQ0oFXZCPb4l4AK6U8ryZ?=
+ =?us-ascii?Q?hdDXbOtDQJHYD2OyLv6a0TMu3UTi5bNutudRMlf675dfFLYOF7va9vWu2DoF?=
+ =?us-ascii?Q?5qASfoXx83M1t1XyT1PdJWB95msl71x2t3bU9OzRw1ANtMJUGw7MCX226Ow3?=
+ =?us-ascii?Q?xzILhPiXSDcrloY6rSLWbURrxLS8fWoMDs8VBp4K4AVLdIf5sXp/5C/zNdU2?=
+ =?us-ascii?Q?bHvNMp2YZa6FQd100eSkESSTbVBjHD4Yer2Xy9qcogBty3IS9pdbS5/02Qm7?=
+ =?us-ascii?Q?+nOJxbij5qWkNFBC3zY629KPZI3AkXymc9wt8CmgdP9Eq5U/9tfp5yq7UD1b?=
+ =?us-ascii?Q?8IbI/POU8vHszyFKjFSv2iAku/COchUMS6U0NbkbcYgOsgz3pWKGrgElEwE8?=
+ =?us-ascii?Q?lc51r+6cWecqaCr3Tt+zXodK/wh4Ybj9G0lyw9H15XLlI2In5baHXxShd7x7?=
+ =?us-ascii?Q?yo90NURAJo4+hozh6UGTMbhpZzcrDDfYVIyl55MRkqJ7KgcDqKsfuO9meFCR?=
+ =?us-ascii?Q?qIqeg+qkj8ux56RsBdwCXBWns8iXIK7F/RAC8K1kiRlJnZqIG+PW+RCpvYhU?=
+ =?us-ascii?Q?zXZ3zVNYysDm756K1UyB3ITQc5rQZl+4m4WH/rE5uG9Zqi+vrYxq4q2PsKa7?=
+ =?us-ascii?Q?xxyGSV1czNKKF7sdyAgEe5umDZI6f1rnAf0xB7qDi5tpsN8DXUJr5d6sG7Op?=
+ =?us-ascii?Q?BN/1jEo9AU4Pmfnp01QNngDSIsAeLZ5ypeWtzztns5JgQZEGEjRV+5tgUne9?=
+ =?us-ascii?Q?0Y6iCRfno+lQH90cn2IHzYs=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38b65b10-ba4c-4ba6-470b-08dc3c0a08cf
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2024 05:14:57.6044 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hU+HpGK4Fx+TSG6Kn/4+qg/sNFGtuJrBGqdJogC5ZcnvGXHNpP35QsoLd4w7BC8fmY4aE5n3ZKGugG/t1N7OqIs5yoy9LKxBgYF2/r4G5vGP1NIOFiCacU1wGIqOa2Sa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB6322
+Subject: [Linux-stm32] [PATCH v2 resend 0/4] of: replace
+	of_graph_get_next_endpoint()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,153 +144,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The driver should ensure that same priority is not mapped to multiple
-rx queues. Currently rx_queue_priority() function is adding
-priorities for a queue without clearing them from others.
 
-From DesignWare Cores Ethernet Quality-of-Service
-Databook, section 17.1.29 MAC_RxQ_Ctrl2:
-"[...]The software must ensure that the content of this field is
-mutually exclusive to the PSRQ fields for other queues, that is,
-the same priority is not mapped to multiple Rx queues[...]"
+Hi Rob
 
-After this patch, rx_queue_priority() function will:
-- assign desired priorities to a queue
-- remove those priorities from all other queues
-The write sequence of CTRL2 and CTRL3 registers is done in the way to
-ensure this order.
+This is resend v2 of replace of_graph_get_next_endpoint()
 
-Signed-off-by: Piotr Wejman <piotrwejman90@gmail.com>
----
-Changes in v2:
-  - Add some comments
-  - Apply same changes to dwxgmac2_rx_queue_prio()
-  - Revert "Rename prio argument to prio_mask"
-  - Link to v1: https://lore.kernel.org/netdev/20240219102405.32015-1-piotrwejman90@gmail.com/T/#u
+We should get rid of or minimize of_graph_get_next_endpoint() in
+its current form. In general, drivers should be asking for a specific 
+port number because their function is fixed in the binding.
 
-Changes in v3:
-  - Fix trailing whitespace
-  - Link to v2: https://lore.kernel.org/netdev/20240226093144.31965-1-piotrwejman90@gmail.com/
+	https://lore.kernel.org/r/20240131184347.GA1906672-robh@kernel.org
 
- .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 42 +++++++++++++++----
- .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 40 ++++++++++++++----
- 2 files changed, 66 insertions(+), 16 deletions(-)
+This patch-set replace of_graph_get_next_endpoint() by
+of_graph_get_endpoint_by_regs(). There are still next_endpoint()
+after this patch-set, but it will be replaced by
+for_each_endpoint_of_node() in next patch-set (A)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index 6b6d0de09619..a0e6d33ca87e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -92,19 +92,43 @@ static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
- 				     u32 prio, u32 queue)
- {
- 	void __iomem *ioaddr = hw->pcsr;
--	u32 base_register;
--	u32 value;
-+	u32 clear_mask = 0;
-+	u32 ctrl2, ctrl3;
-+	int i;
- 
--	base_register = (queue < 4) ? GMAC_RXQ_CTRL2 : GMAC_RXQ_CTRL3;
--	if (queue >= 4)
--		queue -= 4;
-+	ctrl2 = readl(ioaddr + GMAC_RXQ_CTRL2);
-+	ctrl3 = readl(ioaddr + GMAC_RXQ_CTRL3);
- 
--	value = readl(ioaddr + base_register);
-+	/* The software must ensure that the same priority
-+	 * is not mapped to multiple Rx queues.
-+	 */
-+	for (i = 0; i < 4; i++)
-+		clear_mask |= ((prio << GMAC_RXQCTRL_PSRQX_SHIFT(i)) &
-+						GMAC_RXQCTRL_PSRQX_MASK(i));
-+
-+	ctrl2 &= ~clear_mask;
-+	ctrl3 &= ~clear_mask;
-+
-+	/* Assign new priorities to a queue and
-+	 * clear them from others queues.
-+	 * The CTRL2 and CTRL3 registers write sequence is done
-+	 * in the way to ensure this order.
-+	 */
-+	if (queue < 4) {
-+		ctrl2 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-+						GMAC_RXQCTRL_PSRQX_MASK(queue);
- 
--	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
--	value |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
-+		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-+		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-+	} else {
-+		queue -= 4;
-+
-+		ctrl3 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
- 						GMAC_RXQCTRL_PSRQX_MASK(queue);
--	writel(value, ioaddr + base_register);
-+
-+		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
-+		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
-+	}
- }
- 
- static void dwmac4_tx_queue_priority(struct mac_device_info *hw,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-index 1af2f89a0504..d15752823d93 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-@@ -105,17 +105,43 @@ static void dwxgmac2_rx_queue_prio(struct mac_device_info *hw, u32 prio,
- 				   u32 queue)
- {
- 	void __iomem *ioaddr = hw->pcsr;
--	u32 value, reg;
-+	u32 clear_mask = 0;
-+	u32 ctrl2, ctrl3;
-+	int i;
- 
--	reg = (queue < 4) ? XGMAC_RXQ_CTRL2 : XGMAC_RXQ_CTRL3;
--	if (queue >= 4)
-+	ctrl2 = readl(ioaddr + XGMAC_RXQ_CTRL2);
-+	ctrl3 = readl(ioaddr + XGMAC_RXQ_CTRL3);
-+
-+	/* The software must ensure that the same priority
-+	 * is not mapped to multiple Rx queues.
-+	 */
-+	for (i = 0; i < 4; i++)
-+		clear_mask |= ((prio << XGMAC_PSRQ_SHIFT(i)) &
-+						XGMAC_PSRQ(i));
-+
-+	ctrl2 &= ~clear_mask;
-+	ctrl3 &= ~clear_mask;
-+
-+	/* Assign new priorities to a queue and
-+	 * clear them from others queues.
-+	 * The CTRL2 and CTRL3 registers write sequence is done
-+	 * in the way to ensure this order.
-+	 */
-+	if (queue < 4) {
-+		ctrl2 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
-+						XGMAC_PSRQ(queue);
-+
-+		writel(ctrl2, ioaddr + XGMAC_RXQ_CTRL2);
-+		writel(ctrl3, ioaddr + XGMAC_RXQ_CTRL3);
-+	} else {
- 		queue -= 4;
- 
--	value = readl(ioaddr + reg);
--	value &= ~XGMAC_PSRQ(queue);
--	value |= (prio << XGMAC_PSRQ_SHIFT(queue)) & XGMAC_PSRQ(queue);
-+		ctrl3 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
-+						XGMAC_PSRQ(queue);
- 
--	writel(value, ioaddr + reg);
-+		writel(ctrl3, ioaddr + XGMAC_RXQ_CTRL3);
-+		writel(ctrl2, ioaddr + XGMAC_RXQ_CTRL2);
-+	}
- }
- 
- static void dwxgmac2_tx_queue_prio(struct mac_device_info *hw, u32 prio,
--- 
-2.25.1
+[*] this patch-set
+[o] done
 
+	[o] tidyup of_graph_get_endpoint_count()
+	[*] replace endpoint func - use endpoint_by_regs()
+(A)	[ ] replace endpoint func - use for_each()
+	[ ] rename endpoint func to device_endpoint
+	[ ] add new port function
+	[ ] add new endpont function
+	[ ] remove of_graph_get_next_device_endpoint()
+
+v1 -> v2
+	- add Reviewed-by from Launrent
+	- use by_regs(xx, -1, -1) for some devices
+	- add extra explain for drm_of_get_dsi_bus()
+	- add FIXME and Link on adv7604.c
+	- based on latest of branch
+
+Kuninori Morimoto (4):
+  gpu: drm: replace of_graph_get_next_endpoint()
+  media: i2c: replace of_graph_get_next_endpoint()
+  media: platform: replace of_graph_get_next_endpoint()
+  video: fbdev: replace of_graph_get_next_endpoint()
+
+ drivers/gpu/drm/drm_of.c                      |  4 +++-
+ .../drm/panel/panel-raspberrypi-touchscreen.c |  2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |  2 +-
+ drivers/media/i2c/adv7343.c                   |  2 +-
+ drivers/media/i2c/adv7604.c                   |  4 ++--
+ drivers/media/i2c/mt9p031.c                   |  2 +-
+ drivers/media/i2c/mt9v032.c                   |  2 +-
+ drivers/media/i2c/ov2659.c                    |  2 +-
+ drivers/media/i2c/ov5645.c                    |  2 +-
+ drivers/media/i2c/ov5647.c                    |  2 +-
+ drivers/media/i2c/s5c73m3/s5c73m3-core.c      |  2 +-
+ drivers/media/i2c/s5k5baf.c                   |  2 +-
+ drivers/media/i2c/tc358743.c                  |  2 +-
+ drivers/media/i2c/tda1997x.c                  |  2 +-
+ drivers/media/i2c/tvp514x.c                   |  2 +-
+ drivers/media/i2c/tvp7002.c                   |  2 +-
+ drivers/media/platform/atmel/atmel-isi.c      |  4 ++--
+ drivers/media/platform/intel/pxa_camera.c     |  2 +-
+ .../platform/samsung/exynos4-is/fimc-is.c     |  2 +-
+ .../platform/samsung/exynos4-is/mipi-csis.c   |  3 ++-
+ drivers/media/platform/st/stm32/stm32-dcmi.c  |  4 ++--
+ drivers/media/platform/ti/davinci/vpif.c      |  3 +--
+ drivers/video/fbdev/omap2/omapfb/dss/dsi.c    |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/dss-of.c | 20 +------------------
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi4.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/hdmi5.c  |  3 ++-
+ drivers/video/fbdev/omap2/omapfb/dss/venc.c   |  3 ++-
+ drivers/video/fbdev/pxafb.c                   |  2 +-
+ include/video/omapfb_dss.h                    |  3 ---
+ 29 files changed, 38 insertions(+), 53 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
