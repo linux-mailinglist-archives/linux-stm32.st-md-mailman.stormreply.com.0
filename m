@@ -2,61 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1F44873AD4
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Mar 2024 16:37:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD4F873C7B
+	for <lists+linux-stm32@lfdr.de>; Wed,  6 Mar 2024 17:43:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75AB0C6A61D;
-	Wed,  6 Mar 2024 15:37:54 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41684C6A613;
+	Wed,  6 Mar 2024 16:43:43 +0000 (UTC)
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
+ [209.85.221.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65D81C03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48760C64102
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Mar 2024 15:37:53 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 426A3Hk7012206; Wed, 6 Mar 2024 16:37:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=qstRAve
- 03QX2RDPXI2xiohBwHTDAxLnNYs7VMSqsGpg=; b=242AI4QFoBfN8HA2pkk9Z0b
- IldQn41koXHItj8gVHkAMUJXvKjaCVZSZtjpm2FMvrKJ7gfUJtr8tvt9vK2Qibf5
- FFMMtUcxR4yliuC3Cmss4+0m0+B1AZTHEbKfKH6/6uDcp7gzsmx1kcCb/0ADOWIH
- zikStUZq07Z+/bXj53Y2kTOj9iYwt+5qht1FSji08CbsIUOeW0IykM3C9f6hB8i6
- Q0fs36qfoTEqze2x/nr3N1Ax65B6zeZKY80H4RX40FjVZXUQFYyJE3fFGH/LQGwx
- cQhqxlu8QbJATdW4NNR1xxEDSwtO6+a30wXt84i57IQWHtl7zzu1BSU5bQAeuJA=
- =
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wmej58r3y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 06 Mar 2024 16:37:44 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C1DDA4002D;
- Wed,  6 Mar 2024 16:37:37 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 42AF0283682;
- Wed,  6 Mar 2024 16:37:03 +0100 (CET)
-Received: from localhost (10.201.22.191) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 6 Mar
- 2024 16:37:00 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-To: <william.gray@linaro.org>
-Date: Wed, 6 Mar 2024 16:36:31 +0100
-Message-ID: <20240306153631.4051115-1-fabrice.gasnier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Wed,  6 Mar 2024 16:43:42 +0000 (UTC)
+Received: by mail-vk1-f170.google.com with SMTP id
+ 71dfb90a1353d-4d34dadcb23so1397793e0c.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 06 Mar 2024 08:43:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1709743421; x=1710348221;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+CzHKJhoZJ9L9/JumXPgp0DQ56z60RjeIgEzaXkgl64=;
+ b=P64O8nTMlqfP9t55j8AMUnE7NvaMRxTbvRki6x5cD77SeORaBruryoPN36fXcM+G7J
+ sBz7hN/BZGdxcpz12R1Goq86AakRgvivDTlJ5lNvbi335TheZtXAVSi652RJ8pnnjsKt
+ qd/ejt/XbvZAe9UFmLZa8Qs4YGDAA7Bnq7XKlrajCDiNu5mfBE43EyrKEj0LY/Yhq6ii
+ rccCuN+CehGD3bgDkyf/P1J4yYfVaHJixpMtFeFOiKBefVonBAgDzYY49Xaxp7yf6++d
+ 7kTT8TmwF3pfAiabLm0wPXigcEedlpImasVW+LoLU5J2Iq/SHdqkqVixuuIVo207Vmwp
+ 4L2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1709743421; x=1710348221;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=+CzHKJhoZJ9L9/JumXPgp0DQ56z60RjeIgEzaXkgl64=;
+ b=g0TVfY6qdX95JydOLfkt4g2forkFWIFfMbCbTusPsGuUplp2J85PKyiAzLvmkRu+eI
+ NbJmskS3ONhYxc21KJj7kEjOD668DEjCSCVTeyUNLE7nT/FVVMFuSDI3UypK99/8mm2h
+ 5n2xpgK0bO+paAVDU+lC5RVIMYgiaLgrUAVDJiq/D2qiVWiKWmxOHE7nzFaGPGAa01+3
+ yIIf9WSrOjBcdirY+msyZi4L07f+aaHrIILBoMjuvMnK8gLVUsC9zRXttsOTHGpP/ET2
+ 56Iw+My3CPSNlxi7lJIl7vmUTCiYJ4y9BkmAtHCR8cGza/triM8uSlEOqC3WRqOUM2vv
+ Khdg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJZwKrFRY1MW8CwvRJxE1fn9vgaDpzgNBiykJF2cT/WnOp29SJr7MCxdd89nUNI8CDuXW5m+Gd+MZxLz0lo0w35lkT/mM5SphewIKdyU5g/O3txP7gHecS
+X-Gm-Message-State: AOJu0YxhIpHhWvg4T6rR5iqyaY58TnIvE/1d7+Df1R4ZE4hcebyY8vOk
+ gJ8Vy/PxEIboV6m4Nly+8TAokEMKBKHwheOnNEcZB3imquHn2Njo9YuHLOSJW1M=
+X-Google-Smtp-Source: AGHT+IEtqKs4f+XSGVsSLHNo1vi31Z+1UVpK7SSLgkuapm9nCa1m0G66gdX1EHLx1QeDvVmUMUFg2A==
+X-Received: by 2002:ac5:ccc7:0:b0:4cd:20ea:35aa with SMTP id
+ j7-20020ac5ccc7000000b004cd20ea35aamr4880544vkn.8.1709743420987; 
+ Wed, 06 Mar 2024 08:43:40 -0800 (PST)
+Received: from ishi.. ([185.243.57.249]) by smtp.gmail.com with ESMTPSA id
+ ep15-20020a056122390f00b004c02d68e4ffsm1628459vkb.44.2024.03.06.08.43.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Mar 2024 08:43:40 -0800 (PST)
+From: William Breathitt Gray <william.gray@linaro.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Wed,  6 Mar 2024 11:43:23 -0500
+Message-ID: <170974334053.40130.15652602513065815985.b4-ty@linaro.org>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20240306153631.4051115-1-fabrice.gasnier@foss.st.com>
+References: <20240306153631.4051115-1-fabrice.gasnier@foss.st.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.22.191]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-06_10,2024-03-05_01,2023-05-22_02
-Cc: vigneshr@ti.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: vigneshr@ti.com, linux-iio@vger.kernel.org,
+ William Breathitt Gray <william.gray@linaro.org>, linux-kernel@vger.kernel.org,
  jpanis@baylibre.com, syednwaris@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6] counter: Introduce the
+Subject: Re: [Linux-stm32] [PATCH v6] counter: Introduce the
 	COUNTER_COMP_FREQUENCY() macro
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -74,42 +85,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Now that there are two users for the "frequency" extension, introduce a
-new COUNTER_COMP_FREQUENCY() macro.
-This extension is intended to be a read-only signal attribute.
 
-Suggested-by: William Breathitt Gray <william.gray@linaro.org>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v6
-- use COUNTER_COMP_SIGNAL_U64() helper macro.
+On Wed, 06 Mar 2024 16:36:31 +0100, Fabrice Gasnier wrote:
+> Now that there are two users for the "frequency" extension, introduce a
+> new COUNTER_COMP_FREQUENCY() macro.
+> This extension is intended to be a read-only signal attribute.
+> 
+> 
 
-Changes in v5
-- "frequency" extension is read-only, so there's no need to provide
-  a write parameter.
-- patch sent separately from "counter: Add stm32 timer events support" [1]
-[1] https://lore.kernel.org/lkml/20240227173803.53906-2-fabrice.gasnier@foss.st.com/
----
- include/linux/counter.h | 3 +++
- 1 file changed, 3 insertions(+)
+Applied, thanks!
 
-diff --git a/include/linux/counter.h b/include/linux/counter.h
-index 702e9108bbb4..ac36f6e799f6 100644
---- a/include/linux/counter.h
-+++ b/include/linux/counter.h
-@@ -602,6 +602,9 @@ struct counter_array {
- #define COUNTER_COMP_FLOOR(_read, _write) \
- 	COUNTER_COMP_COUNT_U64("floor", _read, _write)
- 
-+#define COUNTER_COMP_FREQUENCY(_read) \
-+	COUNTER_COMP_SIGNAL_U64("frequency", _read, NULL)
-+
- #define COUNTER_COMP_POLARITY(_read, _write, _available) \
- { \
- 	.type = COUNTER_COMP_SIGNAL_POLARITY, \
--- 
-2.25.1
+[1/1] counter: Introduce the COUNTER_COMP_FREQUENCY() macro
+      commit: 0e313270e0e91e8d48be7a58e1622228cf9e53f3
 
+William Breathitt Gray
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
