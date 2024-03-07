@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BECB875014
-	for <lists+linux-stm32@lfdr.de>; Thu,  7 Mar 2024 14:35:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABEBB875016
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Mar 2024 14:35:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60028C6DD94;
-	Thu,  7 Mar 2024 13:35:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73ED7C6DD94;
+	Thu,  7 Mar 2024 13:35:20 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F9D8C6DD6E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 468E7C6DD94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 Mar 2024 13:35:16 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ Thu,  7 Mar 2024 13:35:19 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4279Ya15007106; Thu, 7 Mar 2024 14:35:08 +0100
+ 4278eS77014219; Thu, 7 Mar 2024 14:35:09 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=ElfAaGaHRlTpUHfuhu7chh+EcaBsNYx6kELVdLzTaZI=; b=0h
- +P8tzjmaQAP6ZQE/TbjNxBauUHHWc7Ncle9h89wN40Vk/jRhtGWVSq3xLzL/RIsd
- +2s2kbuDEUOSDxrYVA6nlMLD6jtdxGsNApo77mZIvsewdCOWbud1C9EWVbikk8dC
- EhpOwQhJd8F/kiq8aKiZ15gcGo9ofDsPrV4bEix/4wp+abxAYNBNA8PuuzOa1HOF
- zLpRYKtAzLNOPf/tasDG5lLxg1jyGkYj9gEg9cYtZpOcSjNWUqEWm2RPTpWzczNf
- ibrYKeP8GPL7+ASGxE+oXSW8jITfkaaOnF1IHDmtvHHw7td7MyN7K1YtbaEhQS3i
- jRllMwbVuvbpAB3gkYQw==
+ selector1; bh=j5LYoNpWBrOk/Pfrt8DrnNoB0RQgOHa3KZB9xD3ISKQ=; b=8X
+ HLkKbl6ZcY4LwurRPqcZE5Nt5d2tOjKEEVsjPUEfNmZ85FtdQ5sr05Aghrhek/Hn
+ YJTAuwrl0y2IJnir0FZw5YW16JiYpOMrjz79Phyh31PcJM+7IN/NaWiYDmXoIvB0
+ QBSXGtF+UpG/8/PQT3eVPYEEUkFa8L9Cil95ha45JLJEOXhVmcbiuMFl3RAazX6H
+ wf1b/ZoVExM8VAZIZ/2VHYLJjWY+NwMU+aTLcZsObF1sKHWudm0CmOXASQYf2JXm
+ GXHZL/++eM3d3EygVu8ZyB4gT3saHpODdxhinUGPHVcKN+v33qo7UkFppaEw2nAt
+ W1gtlya9qFzUSkV9KRfg==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wmej5dtv0-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wktdmgh44-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 07 Mar 2024 14:35:08 +0100 (CET)
+ Thu, 07 Mar 2024 14:35:09 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 26C1E40048;
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 246D040047;
  Thu,  7 Mar 2024 14:35:05 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id E2C7327A500;
- Thu,  7 Mar 2024 14:34:39 +0100 (CET)
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 995CD27A501;
+ Thu,  7 Mar 2024 14:34:40 +0100 (CET)
 Received: from localhost (10.201.22.191) by SHFDAG1NODE2.st.com (10.75.129.70)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Thu, 7 Mar
  2024 14:34:39 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 To: <william.gray@linaro.org>
-Date: Thu, 7 Mar 2024 14:33:01 +0100
-Message-ID: <20240307133306.383045-6-fabrice.gasnier@foss.st.com>
+Date: Thu, 7 Mar 2024 14:33:02 +0100
+Message-ID: <20240307133306.383045-7-fabrice.gasnier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240307133306.383045-1-fabrice.gasnier@foss.st.com>
 References: <20240307133306.383045-1-fabrice.gasnier@foss.st.com>
@@ -57,8 +57,8 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2024-03-07_08,2024-03-06_01,2023-05-22_02
 Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 05/10] counter: stm32-timer-cnt: add
-	counter prescaler extension
+Subject: [Linux-stm32] [PATCH v5 06/10] counter: stm32-timer-cnt: add checks
+	on quadrature encoder capability
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,66 +75,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-There's a prescaler in between the selected input signal used for
-counting (CK_PSC), and the counter input (CK_CNT).
-So add the "prescaler" extension to the counter.
+This is a precursor patch to support capture channels on all possible
+channels and stm32 timer types. Original driver was intended to be used
+only as quadrature encoder and simple counter on internal clock.
+
+So, add a check on encoder capability, so the driver may be probed for
+timer instances without encoder feature. This way, all timers may be used
+as simple counter on internal clock, starting from here.
+
+Encoder capability is retrieved by using the timer index (originally in
+stm32-timer-trigger driver and dt-bindings). The need to keep backward
+compatibility with existing device tree lead to parse aside trigger node.
 
 Reviewed-by: William Breathitt Gray <william.gray@linaro.org>
 Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 ---
+Changes in v5:
+- Add William's Reviewed-by tag.
+
 Changes in v4:
-- Add William's Reviewed-by tag
+- drop idx from struct stm32_timer_cnt as unused after probing
+- directly use dev struct in stm32_timer_cnt_probe_encoder routine.
+
 Changes in v3:
-- New patch split from "counter: stm32-timer-cnt: introduce clock signal"
+- New patch split from:
+  "counter: stm32-timer-cnt: populate capture channels and check encoder"
+- return -EOPNOTSUPP when encoder function isn't supported by the timer
+  instance.
 ---
- drivers/counter/stm32-timer-cnt.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/counter/stm32-timer-cnt.c | 55 +++++++++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
 diff --git a/drivers/counter/stm32-timer-cnt.c b/drivers/counter/stm32-timer-cnt.c
-index 65b447b42e75..b969d550e90a 100644
+index b969d550e90a..17f87ace450d 100644
 --- a/drivers/counter/stm32-timer-cnt.c
 +++ b/drivers/counter/stm32-timer-cnt.c
-@@ -220,11 +220,40 @@ static int stm32_count_enable_write(struct counter_device *counter,
- 	return 0;
- }
+@@ -11,6 +11,7 @@
+ #include <linux/mfd/stm32-timers.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/platform_device.h>
+ #include <linux/types.h>
+@@ -38,6 +39,7 @@ struct stm32_timer_cnt {
+ 	u32 max_arr;
+ 	bool enabled;
+ 	struct stm32_timer_regs bak;
++	bool has_encoder;
+ };
  
-+static int stm32_count_prescaler_read(struct counter_device *counter,
-+				      struct counter_count *count, u64 *prescaler)
+ static const enum counter_function stm32_count_functions[] = {
+@@ -111,12 +113,18 @@ static int stm32_count_function_write(struct counter_device *counter,
+ 		sms = TIM_SMCR_SMS_SLAVE_MODE_DISABLED;
+ 		break;
+ 	case COUNTER_FUNCTION_QUADRATURE_X2_A:
++		if (!priv->has_encoder)
++			return -EOPNOTSUPP;
+ 		sms = TIM_SMCR_SMS_ENCODER_MODE_1;
+ 		break;
+ 	case COUNTER_FUNCTION_QUADRATURE_X2_B:
++		if (!priv->has_encoder)
++			return -EOPNOTSUPP;
+ 		sms = TIM_SMCR_SMS_ENCODER_MODE_2;
+ 		break;
+ 	case COUNTER_FUNCTION_QUADRATURE_X4:
++		if (!priv->has_encoder)
++			return -EOPNOTSUPP;
+ 		sms = TIM_SMCR_SMS_ENCODER_MODE_3;
+ 		break;
+ 	default:
+@@ -388,6 +396,49 @@ static struct counter_count stm32_counts = {
+ 	.num_ext = ARRAY_SIZE(stm32_count_ext)
+ };
+ 
++/* encoder supported on TIM1 TIM2 TIM3 TIM4 TIM5 TIM8 */
++#define STM32_TIM_ENCODER_SUPPORTED	(BIT(0) | BIT(1) | BIT(2) | BIT(3) | BIT(4) | BIT(7))
++
++static const char * const stm32_timer_trigger_compat[] = {
++	"st,stm32-timer-trigger",
++	"st,stm32h7-timer-trigger",
++};
++
++static int stm32_timer_cnt_probe_encoder(struct device *dev,
++					 struct stm32_timer_cnt *priv)
 +{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 psc;
++	struct device *parent = dev->parent;
++	struct device_node *tnode = NULL, *pnode = parent->of_node;
++	int i, ret;
++	u32 idx;
 +
-+	regmap_read(priv->regmap, TIM_PSC, &psc);
++	/*
++	 * Need to retrieve the trigger node index from DT, to be able
++	 * to determine if the counter supports encoder mode. It also
++	 * enforce backward compatibility, and allow to support other
++	 * counter modes in this driver (when the timer doesn't support
++	 * encoder).
++	 */
++	for (i = 0; i < ARRAY_SIZE(stm32_timer_trigger_compat) && !tnode; i++)
++		tnode = of_get_compatible_child(pnode, stm32_timer_trigger_compat[i]);
++	if (!tnode) {
++		dev_err(dev, "Can't find trigger node\n");
++		return -ENODATA;
++	}
 +
-+	*prescaler = psc + 1;
++	ret = of_property_read_u32(tnode, "reg", &idx);
++	if (ret) {
++		dev_err(dev, "Can't get index (%d)\n", ret);
++		return ret;
++	}
++
++	priv->has_encoder = !!(STM32_TIM_ENCODER_SUPPORTED & BIT(idx));
++
++	dev_dbg(dev, "encoder support: %s\n", priv->has_encoder ? "yes" : "no");
 +
 +	return 0;
 +}
 +
-+static int stm32_count_prescaler_write(struct counter_device *counter,
-+				       struct counter_count *count, u64 prescaler)
-+{
-+	struct stm32_timer_cnt *const priv = counter_priv(counter);
-+	u32 psc;
-+
-+	if (!prescaler || prescaler > MAX_TIM_PSC + 1)
-+		return -ERANGE;
-+
-+	psc = prescaler - 1;
-+
-+	return regmap_write(priv->regmap, TIM_PSC, psc);
-+}
-+
- static struct counter_comp stm32_count_ext[] = {
- 	COUNTER_COMP_DIRECTION(stm32_count_direction_read),
- 	COUNTER_COMP_ENABLE(stm32_count_enable_read, stm32_count_enable_write),
- 	COUNTER_COMP_CEILING(stm32_count_ceiling_read,
- 			     stm32_count_ceiling_write),
-+	COUNTER_COMP_COUNT_U64("prescaler", stm32_count_prescaler_read,
-+			       stm32_count_prescaler_write),
- };
+ static int stm32_timer_cnt_probe(struct platform_device *pdev)
+ {
+ 	struct stm32_timers *ddata = dev_get_drvdata(pdev->dev.parent);
+@@ -409,6 +460,10 @@ static int stm32_timer_cnt_probe(struct platform_device *pdev)
+ 	priv->clk = ddata->clk;
+ 	priv->max_arr = ddata->max_arr;
  
- static const enum counter_synapse_action stm32_clock_synapse_actions[] = {
++	ret = stm32_timer_cnt_probe_encoder(dev, priv);
++	if (ret)
++		return ret;
++
+ 	counter->name = dev_name(dev);
+ 	counter->parent = dev;
+ 	counter->ops = &stm32_timer_cnt_ops;
 -- 
 2.25.1
 
