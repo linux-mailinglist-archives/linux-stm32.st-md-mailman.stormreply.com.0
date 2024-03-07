@@ -2,70 +2,143 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E65158740AE
-	for <lists+linux-stm32@lfdr.de>; Wed,  6 Mar 2024 20:44:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF1D874A6F
+	for <lists+linux-stm32@lfdr.de>; Thu,  7 Mar 2024 10:13:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7951C6A613;
-	Wed,  6 Mar 2024 19:44:00 +0000 (UTC)
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com
- [209.85.217.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CA46C6DD69;
+	Thu,  7 Mar 2024 09:13:14 +0000 (UTC)
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2063.outbound.protection.outlook.com [40.107.104.63])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F17DC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A3B97C64102
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 Mar 2024 19:43:59 +0000 (UTC)
-Received: by mail-vs1-f52.google.com with SMTP id
- ada2fe7eead31-4727e38ec10so33336137.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 06 Mar 2024 11:43:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1709754238; x=1710359038;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3h1bbnwAIyReRJZyvKPJxbEARb+nxhxtKQ4kf1OInaM=;
- b=rXAIzWz2II6mmJdOWDqlPcA0dHnwWiCnMinfyXiskSune2ecnvOWKGpW8jTNRGOxyv
- 4zJQNUt7oMW3UFAUlQgkPxSbQjdlXiiLM7DcJA7BqG+TZ4uqzqciOEGItpgLk8tMArYi
- VfwjWHNQj0yyi1sMGAtZs3ZCzTU2RTLvb2UWOCUB3KZYJY/t34W6GfPIH12E56nzFvf8
- +jhoCbuML38i6o70+NjpCBbSoymEDazPIubEuAGKU+75AjiFOOd/Scvu6Z+TMaTxEqiq
- bF76LOAEpBST3+LNrUGFJ/LYOAEqLpUubbFSU/w93ssV76NZSze3q3Yq3ifUQwu2GbWk
- MgBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1709754238; x=1710359038;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3h1bbnwAIyReRJZyvKPJxbEARb+nxhxtKQ4kf1OInaM=;
- b=CMcQzzN+AOecipwUGwSwsWzAghRxp6XUL5V+VBKtmWrpUHCf9XnnsOVgnWTdKb+VdH
- HwZ99QyKwHh1/M+sbPwHq5ZHBAe3DoL3J805Hp8TIWcSN0Gcv/ugoEFIsK8J5DzpCJOP
- VfvQirKkeEL1PmFgZ78Fs8n++LdHxMVvGk9Nnyz8YLuF8bP3Iuulmn1DkDXn8jOTBwYe
- H770/zh/FacduL4DxzyFk1mpkjSAvUOD1/IstZG0sBuS9lB5TR10Zz0pb7PefI43d4NF
- /lcf34k/Ww6OyIPBq0G4nG7cpg8T4kWfrbUNC3XQdjAcRgeroYXuIAJ3DdJ6U3Rw9v59
- I42w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWJkfkLa9MaJ/M9OYnFRW54I/VwSDi1LahLkgHypEnJNUp9DBkULlGQdPAKlZjS38kKKvlL1dmtIeQlb6ECNI+v++7U9WeSp0YR+Y+2R/s8DBjZnu6Z6OoI
-X-Gm-Message-State: AOJu0YwAvRbgsGzuCekd+8xlO4uqMMhkVHecHj6S0WIgWuGaxcQ6IkAW
- omFcrf+fFfm9AuPKjgM7j93KJI/KwwFrTooflQr78GUjjKai68xXpkKBqpnpUDs=
-X-Google-Smtp-Source: AGHT+IEyLGk6lO2/Z0y29ajHV8WtFiOo34D73UwYULuhEUyqvjui+WV95jfXzAfgg56mvqNDNS3sgA==
-X-Received: by 2002:a05:6102:55a4:b0:472:7b61:70c4 with SMTP id
- dc36-20020a05610255a400b004727b6170c4mr7625665vsb.20.1709754238304; 
- Wed, 06 Mar 2024 11:43:58 -0800 (PST)
-Received: from ishi ([185.243.57.249]) by smtp.gmail.com with ESMTPSA id
- cf4-20020a056130114400b007d5d3dac7dbsm1970664uab.3.2024.03.06.11.43.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Mar 2024 11:43:57 -0800 (PST)
-Date: Wed, 6 Mar 2024 14:43:55 -0500
-From: William Breathitt Gray <william.gray@linaro.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Message-ID: <ZejHe8C_iy4ZNXEX@ishi>
-References: <20240227173803.53906-1-fabrice.gasnier@foss.st.com>
- <20240227173803.53906-6-fabrice.gasnier@foss.st.com>
+ Thu,  7 Mar 2024 09:13:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PdTqzpiVull1wwSAA4A8s2qkw4F1AEZDYCPTTu1J66UYA7GgpXQr+dKT3mRfxO8gDaVCoe343f6oIN9IV/LPQwdF30x1GJC/lukIZ8pC3kkWgrNd92J32M7YBuKvutH/sbmo4Anl556gJCajIkGSNQbX1toIzEYU9GJYt4iWXR64ZZCjLHsiRVQ0tRXEgCZ0j6BFD560UI3p4shQGcSs8lTtbLp0J4pT6PxrjqDST2xWcS8kXmSusReznNc0Ii7zXIKEUM+XgcKQbNbk2cZGypcvFBxkkfYouvQX8HlWVWnMkvVvsoVAAeZhfR5NicVzX5qYv+oxrSfmSKq9tWFkzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/iu/BsETsB+ZXF9/ciX9XGUt0auZJnKOufdLfdOR+pc=;
+ b=LgRB89xrUOS5mQmMTf4Fw+HrpennbnkVPskFlYjAiEeBeDUOEaQ72czVKBHwLeiK2Og+f028eQeB/O1nhzo4yn1WxoJuky9pf6vakHPsjdZdAKFisnK5Ew+DHAGUuJ3TOj3nBppCQLqwaGQF6BGHHjjMOanNB/SbeUy7YJQ355poZtQ+R+p8DORlEjFf2gSQpM9vNDfdCp2owIjfY87SSLhOshVKNYqs48BkA4rc/2rrQejG17SCdVFFCpb3W10SVqh3DPxdiII0+KkEqatj5BVJudmLgO7QJU7z24Rmo+2tmroaKphJprNHdQJitXFTLtTKyxk/QVWKl6ioymVCzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=leica-geosystems.com; dmarc=pass action=none
+ header.from=leica-geosystems.com; dkim=pass header.d=leica-geosystems.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com; 
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/iu/BsETsB+ZXF9/ciX9XGUt0auZJnKOufdLfdOR+pc=;
+ b=ep4SWQeWA4Euic0cwUHSf0UCGHpNKQfMnzy2j7b5X27JKLm7mSTVf5sw4ZrmKwLgEMA5h3Q31Ohi7d6vEFx4SEP0t5VSX3ayx383S1Be+tHkJULhxeYAFl/b4e2hDtbEYP5XfZ9ZuunDdqSKhQnHuLQso7MN7DghQc8ZJzJeIHQ=
+Received: from VE1PR06MB6911.eurprd06.prod.outlook.com (2603:10a6:800:1a4::13)
+ by GVXPR06MB8684.eurprd06.prod.outlook.com (2603:10a6:150:114::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Thu, 7 Mar
+ 2024 09:13:11 +0000
+Received: from VE1PR06MB6911.eurprd06.prod.outlook.com
+ ([fe80::9256:56bc:4cd2:d41]) by VE1PR06MB6911.eurprd06.prod.outlook.com
+ ([fe80::9256:56bc:4cd2:d41%2]) with mapi id 15.20.7362.019; Thu, 7 Mar 2024
+ 09:13:10 +0000
+From: POPESCU Catalin <catalin.popescu@leica-geosystems.com>
+To: Florian Fainelli <f.fainelli@gmail.com>, "davem@davemloft.net"
+ <davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+ "robh@kernel.org" <robh@kernel.org>, "krzysztof.kozlowski+dt@linaro.org"
+ <krzysztof.kozlowski+dt@linaro.org>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>, "shawnguo@kernel.org" <shawnguo@kernel.org>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, "kernel@pengutronix.de"
+ <kernel@pengutronix.de>, "festevam@gmail.com" <festevam@gmail.com>,
+ "xiaoning.wang@nxp.com" <xiaoning.wang@nxp.com>, "linux-imx@nxp.com"
+ <linux-imx@nxp.com>, "alexandre.torgue@foss.st.com"
+ <alexandre.torgue@foss.st.com>, "joabreu@synopsys.com"
+ <joabreu@synopsys.com>, "mcoquelin.stm32@gmail.com"
+ <mcoquelin.stm32@gmail.com>
+Thread-Topic: [PATCH net-next 2/2] net: stmmac: dwmac-imx: add support for PHY
+ WOL
+Thread-Index: AQHab+scVJOjKV/i6ECTY9fbEkaV4bEq+0gAgAEEOgA=
+Date: Thu, 7 Mar 2024 09:13:10 +0000
+Message-ID: <ddd2f984-e5e7-4708-a013-bfd668794466@leica-geosystems.com>
+References: <20240306172409.878928-1-catalin.popescu@leica-geosystems.com>
+ <20240306172409.878928-2-catalin.popescu@leica-geosystems.com>
+ <bbe3e611-a310-41f5-a037-4b7d5e914b94@gmail.com>
+In-Reply-To: <bbe3e611-a310-41f5-a037-4b7d5e914b94@gmail.com>
+Accept-Language: en-CH, en-US
+Content-Language: aa
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=leica-geosystems.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VE1PR06MB6911:EE_|GVXPR06MB8684:EE_
+x-ms-office365-filtering-correlation-id: ea1565f0-ac65-4010-d504-08dc3e86cf59
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5gjLyWPnc/6s7kFDWJ4tJ3IbnyU9+FZFjIX94S52iZhpJ3gTNwDoN+QVryCrUmn0a+caGXjxo+KbEQYBA8s6XjYIWLpFsJ7MN7YMiGnl7CnkxI1Yu5N7xytpWNBjkYD/rEAwK9sWhs/1cFkrbKZWOkB6nLCu8aWEXXFjzQWELrMIS9ZF+NdYP4haRb8qRqHLuvxK5M+XThKAO1xO+gh2w71bLHqTE3j53UFWB3n3YEZ+OujynCHDsjZfMLdCQp5sTajUmjl7k3hppGgW+iag6WxV1xfM/W/Kowl2cO6m80uSSMffNzhskNWCwQqf38L1eO9vFNvo9WSVQi35+OxqBQC62VlwuEttPLC786WCQBoAUZBFZ0L3Y+EWRfDTN/KrgwDrb/2HwXggp8Io0AMBBwkWe/fxkRnoC6Jd1/++u8CjE9cMfadZOQzlL3J9fsD2HggEAw/wPRxMuz1eDyYcgOnkaRrtgX662kRfeig6lQ9SGORHW0sLUpCRGceH8BfdqlOHJfvYtpQdv9e6O2Zx4JwzCyrddYmZEROz/7wKPkrOX5qKZ5QTn+UiFEuawx6fhTbxV/oCGymb3Lfz9leLVEb3ySvjw5UCCLcQXQfafY88DCYjBeHTJEPm/9ZyKSUiA5cFufJbJe3j4K/SMirFM2oMo1F2K8x3XEefqF8EkrC37mfT78cX/GyBcZY9xZgTBgtaCG83MA5b6ejovVH81iUpWvHxrmFYgMrtLLX/upU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VE1PR06MB6911.eurprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(376005)(921011)(38070700009); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WjQ2L25EVmdYK2tRbllKeGhZdXBIUjhFV0hzbzNWT3FmSm92Y3c2RFVMRTFK?=
+ =?utf-8?B?MS9vUVBUcjNLZVdqSlRydllIZVNiNFVJQ0Y5SnNTanZ4bng0MnVmWFowdFR6?=
+ =?utf-8?B?UklqOTVtUGxRYW5lMFdNRWFyYWZWTHJ4cWFRVzdxVDdNWW5xejhLZGJUM2M4?=
+ =?utf-8?B?ZWt4Y3VqZS8yRENKVzQvdUJyWDlEbTlhT2xpNjFRNXFMVTgveFlqa0xVcFNZ?=
+ =?utf-8?B?bkZmdGpaRUVkUFBJUUhsUW1hazJZRHdpMm42NXY5TlJxUUdNR2lPYnRkWmV5?=
+ =?utf-8?B?dGVVVVZTSHV5ZHY5SnY4dTk5SWlDSTFZKzhqN0RHYWtuNEdqbVIvWDNhbWk0?=
+ =?utf-8?B?ck4zeEJROU1WbDZrRnhpSEo5V05ReGhoUnlhOHV5NVZHamNKUkJnWk10Y2Nr?=
+ =?utf-8?B?MlV2WFhwcHp5V2t1d3JTMGgyVU5iVGpMYzJwWG9BdU9kdU9aVzV4bElkaDJq?=
+ =?utf-8?B?QklWZjRlcll3Q0NGRGpsOFlmUlRjd2pCYjRqV0pSVC9iWjZFWWlUb2ovU0N4?=
+ =?utf-8?B?YnNScUtKVDJjbFhJMlRpK0V0WDBNRVd1N3RHMGlnOC9rSmlIQmsrV3NxcU1n?=
+ =?utf-8?B?OW56ajlaZ0EwQ3pNOFovNHBaRzZwZXdZdFZ2ekRWdmkxQ0tEYnJPa09ZQ2Yr?=
+ =?utf-8?B?NUZxbEhjaEpYQmlGUnIySlR2Njc4NVJjK0JJN2UzVzVqRGNYN1YyQ2JEK21p?=
+ =?utf-8?B?blFORktiaUlVTWVNdnJTUDBVVFhDNVc1Y2ptc29sbXJTT0Z6NmdPbTQ3UGVn?=
+ =?utf-8?B?THZseERPeTVRTEYvUEFjZG9waVZkcktiY01aUVhIZEsvMTdDaENsTTAwSVg2?=
+ =?utf-8?B?dEJXeVZHWThyODFITy80S25RVHJ5RnozbDdPb0hKRHhDTEVCN252V3RIUkp1?=
+ =?utf-8?B?UHNPbU1Wa21RVDY3ZUVjQkF0UzNwZVdqY3BDYTI2ZWhBMWdQNy9yaXp5SnVw?=
+ =?utf-8?B?Y0U1Q2FkSE9KMjJrd3JTOUM4UnlCanBjRmc1bWVmSmZWSFA4MHB0TjVxSDM0?=
+ =?utf-8?B?SDBuUXg4U3IwaDYyaGtxb2tVV3kvU00waFlaMC9zUUVnZWZyQzlqL0RyNUZK?=
+ =?utf-8?B?ak9iRVY0MkdMcmIrQkE3USs1dVFIVkFkZ1RybGpzSFREU25jcHFjcjNPSFpw?=
+ =?utf-8?B?eDhiTjdlSEVlRmJub3doZWRQbU96cWluZVEyU3JCc2dsc2tqU0pUcWh5eEZM?=
+ =?utf-8?B?a0Z5ZVpQV2swYzlJbC9RQm1rL01IWEdoSlJ2aUltR3R0SnNtLzExRTg1eTZ2?=
+ =?utf-8?B?L0IyK1NsSGY5dGJhOTB4amdxR09YWkx0RnhKa3ppQUFydHQ2eUY0WWhYcUN5?=
+ =?utf-8?B?Ky9uM3NQT2syOHQraUFLRXl4VEZGMTVIZTdRQ1JTcytLdDZDZU1UTFM0cDgr?=
+ =?utf-8?B?UGlyVEZhVDRiM285TnI2SXRvVUNiQm51NmVNcUU4MmJ3SlMvY2FOc01QV0R3?=
+ =?utf-8?B?cDRWcUd0cmloQ3M0SEZSQ3U5czBMajNKampnSDVwaDEwd0NEVDJoQ3NZYytT?=
+ =?utf-8?B?SXQzcXZPTkN5SFFXbHhHdENrU0t3ZGwzRGZZUG9weUNqSGVEWUVNT20vcnRV?=
+ =?utf-8?B?eHZsSW5IdUpRUnVMRFZzTGowYzlzRVczMjJlVlNWQ3MydlFCSE55T2RYYlFw?=
+ =?utf-8?B?dEFwM2tobDFBVnJuUHp1MzFXUVFIL3VzZDJJMW1LM2JuNUpGbzBNWmdwZ2d4?=
+ =?utf-8?B?UjFqbkUyM0xTWEcycCtnY2RrVUEwdWFzTk90eVA3dGlUUU1IRzQxK0s3RXNI?=
+ =?utf-8?B?NjJlNzBvZDBxZlVqZnFRTEczOVJOVlBHRmlmZllaZHNYY1J6cEtjV2FoQ0lE?=
+ =?utf-8?B?WldZc3diVko0akRoREc5Y2J6aHkyMjkvZE1WMlg3Y01lcGFsVHlXZ2x0UDJk?=
+ =?utf-8?B?V3ZLNHdtVDUvUEVEQ0tiSnBUaHJVaXp5UGtLQ2NFQldpVVBJREVUK24yYmdT?=
+ =?utf-8?B?ZkcrQmpDeEs1bVN4OG5IaXJFNWtHRVB1U3d5MDBwVVBuS1h6THdMWVMzMW1P?=
+ =?utf-8?B?OVhQcTVIYVlXazRUMFFPT0xQZnFnNkFYY2I2dXMrSldYTEs5Z0N5WHJMbzNG?=
+ =?utf-8?B?MXJWZzhzUXhRalBJMGhVTnlkek1GRlArQzRLSnJCeDBDWjVwWXBESzhzaGFS?=
+ =?utf-8?B?V0VEZ05uV0F0cXFuVXBiZFdtQm5xZ2ZxRW9kWmJhQU51RHhTbmVNT3dBczRj?=
+ =?utf-8?B?VXc9PQ==?=
+Content-ID: <2CAE2F71502DE44E8AAE1FC71A4B9CCF@eurprd06.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <20240227173803.53906-6-fabrice.gasnier@foss.st.com>
-Cc: linux-iio@vger.kernel.org, lee@kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 05/11] counter: stm32-timer-cnt:
-	introduce clock signal
+X-OriginatorOrg: leica-geosystems.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR06MB6911.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea1565f0-ac65-4010-d504-08dc3e86cf59
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2024 09:13:10.5026 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mnpY3mZb4y3KoQ4TzH5rMn8S++xACWvVELJ3TkbNeNNYrhcy/BqQBOIWmoGkjjxOW6pWaSBKf901wUiUxxodMKx70n7tAdhF9wczBK4qbiIY3xJv0F+QjAc2oCECAEWl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR06MB8684
+Cc: "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ GEO-CHHER-bsp-development <bsp-development.geo@leica-geosystems.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "m.felsch@pengutronix.de" <m.felsch@pengutronix.de>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-imx: add
+ support for PHY WOL
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,75 +150,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4265761603348722273=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============4265761603348722273==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UUEoCLXwhPXDowOG"
-Content-Disposition: inline
-
-
---UUEoCLXwhPXDowOG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Feb 27, 2024 at 06:37:57PM +0100, Fabrice Gasnier wrote:
-> Introduce the internal clock signal, used to count when in simple rising
-> function. Also add the "frequency" extension to the clock signal.
->=20
-> With this patch, signal action reports a consistent state when "increase"
-> function is used, and the counting frequency:
->     $ echo increase > function
->     $ grep -H "" signal*_action
->     signal0_action:none
->     signal1_action:none
->     signal2_action:rising edge
->     $ echo 1 > enable
->     $ cat count
->     25425
->     $ cat count
->     44439
->     $ cat ../signal2/frequency
->     208877930
->=20
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-Hi Fabrice,
-
-Rebase this on the latest counter-next to account for the
-COUNTER_COMP_FREQUENCY() change, and that should be the last thing left
-to do for this patchset before I pick it up. :-)
-
-Thanks,
-
-William Breathitt Gray
-
---UUEoCLXwhPXDowOG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQSNN83d4NIlKPjon7a1SFbKvhIjKwUCZejHewAKCRC1SFbKvhIj
-K1s0AP42PGLQj0Xyd8x57hYGP2PXXQJtYsVAEQunEFZk1MJQqAEAhI9IKmZMCY73
-uD5bv4vCbfx4aFk0aSqwtkdXbSu4yQs=
-=T9k5
------END PGP SIGNATURE-----
-
---UUEoCLXwhPXDowOG--
-
---===============4265761603348722273==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4265761603348722273==--
+T24gMDYuMDMuMjQgMTg6NDEsIEZsb3JpYW4gRmFpbmVsbGkgd3JvdGU6DQo+IFtTb21lIHBlb3Bs
+ZSB3aG8gcmVjZWl2ZWQgdGhpcyBtZXNzYWdlIGRvbid0IG9mdGVuIGdldCBlbWFpbCBmcm9tIA0K
+PiBmLmZhaW5lbGxpQGdtYWlsLmNvbS4gTGVhcm4gd2h5IHRoaXMgaXMgaW1wb3J0YW50IGF0IA0K
+PiBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRlbnRpZmljYXRpb24gXQ0KPg0KPiBU
+aGlzIGVtYWlsIGlzIG5vdCBmcm9tIEhleGFnb27igJlzIE9mZmljZSAzNjUgaW5zdGFuY2UuIFBs
+ZWFzZSBiZSANCj4gY2FyZWZ1bCB3aGlsZSBjbGlja2luZyBsaW5rcywgb3BlbmluZyBhdHRhY2ht
+ZW50cywgb3IgcmVwbHlpbmcgdG8gdGhpcyANCj4gZW1haWwuDQo+DQo+DQo+IE9uIDMvNi8yNCAw
+OToyNCwgQ2F0YWxpbiBQb3Blc2N1IHdyb3RlOg0KPj4gQWRkIHN1cHBvcnQgZm9yIFBIWSBXT0wg
+Y2FwYWJpbGl0eSBpbnRvIGR3bWFjLWlteCBNQUMgZHJpdmVyLg0KPj4gVGhpcyBpcyByZXF1aXJl
+ZCB0byBlbmFibGUgV09MIGZlYXR1cmUgb24gYSBwbGF0Zm9ybSB3aGVyZSBNQUMNCj4+IFdPTCBj
+YXBhYmlsaXR5IGlzIG5vdCBzdWZmaWNpZW50IGFuZCBXT0wgY2FwYWJpbGl0eSBidWlsdCBpbnRv
+DQo+PiB0aGUgUEhZIGlzIGFjdHVhbGx5IG5lZWRlZC4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBD
+YXRhbGluIFBvcGVzY3UgPGNhdGFsaW4ucG9wZXNjdUBsZWljYS1nZW9zeXN0ZW1zLmNvbT4NCj4N
+Cj4gTm9wZSwgdGhpcyBpcyBub3QgYWJvdXQgaG93IHRvIGRvIHRoaXMuIFlvdSB1c2UgYSBEZXZp
+Y2UgVHJlZSBwcm9wZXJ0eQ0KPiBhcyBhIHBvbGljeSByYXRoZXIgdGhhbiBwcm9wZXJseSBkZXNj
+cmliZSB5b3VyIHN5c3RlbXMgY2FwYWJpbGl0aWVzLg0KSSdtIG5vdCBzdXJlIHdoYXQgcG9saWN5
+IG1lYW5zIGluIHRoYXQgY29udGV4dC4NCkJUVywgZHdtYWMtbWVkaWF0ZWsgZG9lcyB0aGUgc2Ft
+ZSB3aXRoIGJpbmRpbmcgIm1lZGlhdGVrLG1hYy13b2wiIHdoaWNoIA0KaXMgYSBjb21taXQgZnJv
+bSAwMy8yMDIyLg0KSSB1bmRlcnN0YW5kIHRoaXMgd2F5IG9mIGRvaW5nIGJlY2FtZSAidW5hY2Nl
+cHRhYmxlIiBzaW5jZSB0aGVuID8/DQo+DQo+IFdoYXQgc29ydCBvZiBXYWtlLW9uLUxBTiBkbyB5
+b3Ugd2FudCB0byBiZSBkb25lIGJ5IHRoZSBQSFkgZXhhY3RseT8gRG9lcw0KPiB0aGUgUEhZIGhh
+dmUgcGFja2V0IG1hdGNoaW5nIGNhcGFiaWxpdGllcywgb3IgZG8geW91IHdhbnQgdG8gd2FrZS11
+cA0KPiBmcm9tIGEgUEhZIGV2ZW50IGxpa2UgbGluayB1cC9kb3duL2FueSBpbnRlcnJ1cHQ/DQoN
+ClBIWSBpcyBUSSBkcDgzODI2IGFuZCBoYXMgc2VjdXJlIG1hZ2ljIHBhY2tldCBjYXBhYmlsaXR5
+LiBGb3IgdGhlIHdha2V1cCANCndlIHJlbHkgb24gYSBleHRlcm5hbCBNQ1Ugd2hpY2ggaXMgc2ln
+bmFsZWQgdGhyb3VnaCBhIFBIWSdzIEdQSU8gd2hpY2ggDQp0b2dnbGVzIG9ubHkgb24gbWFnaWMg
+cGFja2V0IHJlY2VwdGlvbi4NCldlIHdhbnQgdG8gd2FrZXVwIF9vbmx5XyBvbiBtYWdpYyBwYWNr
+ZXQgcmVjZXB0aW9uLg0KDQo+DQo+IElmIHRoZSBmb3JtZXIsIHRoZW4geW91IHdvdWxkIG5lZWQg
+dG8gaW50ZXJyb2dhdGUgdGhlIFBIWSBkcml2ZXIgdmlhDQo+IHBoeV9ldGh0b29sX2dldF93b2wo
+KSB0byBmaWd1cmUgb3V0IHdoYXQgV2FrZS1vbi1MQU4gbW9kZXMgaXQgaXMgY2FwYWJsZQ0KPiBv
+ZiBzdXBwb3J0aW5nIGFuZCB0aGVuIG1ha2UgYSBkZWNpc2lvbiB3aGV0aGVyIHRvIHByaW9yaXRp
+emUgV2FrZS1vbi1MQU4NCj4gZnJvbSB0aGUgUEhZIG9yIHRoZSBNQUMsIG9yIG1heWJlIG9ubHkg
+dGhlIFBIWSBjYW4gYWN0dWFsbHkgd2FrZS11cCB0aGUNCj4gc3lzdGVtIGluIHlvdXIgY2FzZS4N
+Cj4NCnN0bW1hYyBhbHJlYWR5IGNhbGxzIHBoeV9ldGh0b29sX2dldF93b2wvcGh5X2V0aHRvb2xf
+c2V0X3dvbCB0aHJvdWdoIA0KcGh5bGlua19ldGh0b29sX2dldF93b2wvcGh5bGlua19ldGh0b29s
+X3NldF93b2wuIEJ1dCBuZWVkcyBmbGFnIA0KU1RNTUFDX0ZMQUdfVVNFX1BIWV9XT0wgdG8gYmUg
+c2V0LiBPdGhlcndpc2UsIGl0IHdpbGwgb25seSB3b3JrIHdpdGggTUFDIA0KV09MIHdoaWNoIHdl
+IGRvbid0IHdhbnQuIFdpdGggdGhlIG5ldyBiaW5kaW5nIHdlIGp1c3QgYWxsb3cgdGhlIE1BQyAN
+CmRyaXZlciB0byBjYWxsIHRoZSBQSFkgZm9yIHRoZSBXT0wgY2FwYWJpbGl0eS4gVGhpcyBkb2Vz
+bid0IGZvcmNlIFdPTCB0byANCmVuYWJsZWQgb3IgZGlzYWJsZWQsIGFzIGl0IGlzIHN0aWxsIHVw
+IHRvIGV0aHRvb2wgdG8gY29uZmlndXJlIGl0Lg0KPiBJZiB0aGUgbGF0dGVyLCB0aGVuIHlvdSBu
+ZWVkIHRvIGFkZCBzdXBwb3J0IGZvciBXQUtFX1BIWSB0byB0aGUgc3RtbWFjDQo+IGRyaXZlci4N
+Ck5vLCB3ZSBkb24ndCB3YW50IFdBS0VfUEhZLCB3ZSB3YW50IFdBS0VfTUFHSUMvV0FLRV9NQUdJ
+Q1NFQ1VSRSB3aGljaCANCnN0bW1hYyBkcml2ZXIgYWxyZWFkeSBzdXBwb3J0cy4NCj4NCj4gcHct
+Ym90OiBjcg0KPiAtLSANCj4gRmxvcmlhbg0KPg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
