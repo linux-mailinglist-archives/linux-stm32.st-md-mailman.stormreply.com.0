@@ -2,77 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538338786CC
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 18:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24EC5878996
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 21:41:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0820BC6DD9E;
-	Mon, 11 Mar 2024 17:56:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7F75C6DD9D;
+	Mon, 11 Mar 2024 20:41:48 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55F23C6DD73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8BADEC6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 17:56:27 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42BBTHgA031821; Mon, 11 Mar 2024 18:55:50 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=
- selector1; bh=NQG+2qhjNjjYXPhRwsqUC5kmwQUxn53pvpUv3WEV40M=; b=N5
- RQs48/N6jDwH5C8ioEjmzE3xw/uhDcWeKMKxrdmbfMUWsxm2DuUoV+Y+pG/QCg0z
- aC3SCZibf00/yODCjOQeInIt+k0QsvltTrQL7Dt7CU+UORWwGghYXmqAhVJQ9+wD
- /sGEiY4vxe7ajGQggmtesaqWiSuRW9EO+TMsvPm2W6e7y3XjNcsFJMaay1U7fU0G
- byuX77weaCLtKovuG7gJD6PgfUCByKt7St3OwmII7scNN2WgEpqivWwPO8kCAAgF
- IK56X4/4lqCiudXiBJVioFpqY9C3n4f/yz64aTYn3blF/ihP9etXtS3xxB4l0Otl
- 1eAB8RqHT37tovMYwJpA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wrfhfh8mb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 11 Mar 2024 18:55:49 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C15C840044;
- Mon, 11 Mar 2024 18:55:45 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 885B42967F6;
- Mon, 11 Mar 2024 18:55:13 +0100 (CET)
-Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
- (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Mar
- 2024 18:55:13 +0100
-Date: Mon, 11 Mar 2024 18:55:07 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <20240311175442.GA109372@gnbcxd0016.gnb.st.com>
-Mail-Followup-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?=
- <u.kleine-koenig@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de
-References: <cover.1708692946.git.u.kleine-koenig@pengutronix.de>
- <7e85adb3c2f11fc10e5a18bb341c5af8b35c4d88.1708692946.git.u.kleine-koenig@pengutronix.de>
+ Mon, 11 Mar 2024 20:41:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5546460F94;
+ Mon, 11 Mar 2024 20:41:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B796C433F1;
+ Mon, 11 Mar 2024 20:41:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1710189706;
+ bh=zCrAyipAu34X8H/QzFwggTciVlrm34ebhAgGLc4sySE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=Vy7t7w+Qcu/Nfn9x1re1G4djimbGTDqzBjtSLMjxQH8BHw089k+IxU0l7c5AuPUKf
+ O9nLgJw8tC8t/m6Q9Hd39Qaemsb3mz2M1cOUiK2i87yCSK6hFQDfGyvWRhOIUBM4FA
+ 9CClBFeArVDmwTKE9lDes2z8YQrJjQ1d1lDwvDI5teoJ5GBQnXvGrMPUl5UYLbmfCC
+ Uqls39WKbokTSujVmDMDixz6K2Dy1iPETb3WvVuLqzB7OAWzaBgvMpgy6JndIwFWif
+ Wv0MuRdZPBBfBKEB8xlSp4CesRNyMmRx29QYlLijqiIfYDRsLOG6mn5Cn2IWPW2HzS
+ jbF4ua2qJj7ug==
+Date: Mon, 11 Mar 2024 13:41:44 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Piotr Wejman <piotrwejman90@gmail.com>
+Message-ID: <20240311134144.7b1e1a34@kernel.org>
+In-Reply-To: <20240303190339.52496-1-piotrwejman90@gmail.com>
+References: <20240303190339.52496-1-piotrwejman90@gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7e85adb3c2f11fc10e5a18bb341c5af8b35c4d88.1708692946.git.u.kleine-koenig@pengutronix.de>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.129.178.213]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
- (10.75.129.69)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-11_10,2024-03-11_01,2023-05-22_02
-Cc: kernel@pengutronix.de, Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 4/5] media: stm32-dcmipp: Convert to
- platform remove callback returning void
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: fix rx queue priority
+	assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,85 +53,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Uwe,
+On Sun,  3 Mar 2024 20:03:38 +0100 Piotr Wejman wrote:
+> The driver should ensure that same priority is not mapped to multiple
+> rx queues. Currently rx_queue_priority() function is adding
+> priorities for a queue without clearing them from others.
 
-thank you for your patch.
+Do you know what user-visible mis-behavior this may result in?
 
-On Fri, Feb 23, 2024 at 01:59:07PM +0100, Uwe Kleine-K=F6nig wrote:
-> The .remove() callback for a platform driver returns an int which makes
-> many driver authors wrongly assume it's possible to do error handling by
-> returning an error code. However the value returned is ignored (apart
-> from emitting a warning) and this typically results in resource leaks.
-> =
+> From DesignWare Cores Ethernet Quality-of-Service
+> Databook, section 17.1.29 MAC_RxQ_Ctrl2:
+> "[...]The software must ensure that the content of this field is
+> mutually exclusive to the PSRQ fields for other queues, that is,
+> the same priority is not mapped to multiple Rx queues[...]"
+> 
+> After this patch, rx_queue_priority() function will:
+> - assign desired priorities to a queue
+> - remove those priorities from all other queues
 
-> To improve here there is a quest to make the remove callback return
-> void. In the first step of this quest all drivers are converted to
-> .remove_new(), which already returns void. Eventually after all drivers
-> are converted, .remove_new() will be renamed to .remove().
-> =
+But also you seem to remove clearing all other prios from the queue:
 
-> Trivially convert this driver from always returning zero in the remove
-> callback to the void returning variant.
-> =
+-	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
 
-> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+and 
 
-Reviewed-by: Alain Volmat <alain.volmat@foss.st.com>
+-	value &= ~XGMAC_PSRQ(queue);
 
-> ---
->  drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> =
+is that intentional? Commit message should explain why.
 
-> diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b=
-/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> index 32c6619be9a2..bce821eb71ce 100644
-> --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-> @@ -517,7 +517,7 @@ static int dcmipp_probe(struct platform_device *pdev)
->  	return 0;
->  }
->  =
+> The write sequence of CTRL2 and CTRL3 registers is done in the way to
+> ensure this order.
 
-> -static int dcmipp_remove(struct platform_device *pdev)
-> +static void dcmipp_remove(struct platform_device *pdev)
->  {
->  	struct dcmipp_device *dcmipp =3D platform_get_drvdata(pdev);
->  	unsigned int i;
-> @@ -534,8 +534,6 @@ static int dcmipp_remove(struct platform_device *pdev)
->  	media_device_cleanup(&dcmipp->mdev);
->  =
+Ensure which order? Looks like you're actually writing in the opposite
+order than what I'd expect :S First the register you want to assign to,
+and then the register you only clear from.
 
->  	v4l2_device_unregister(&dcmipp->v4l2_dev);
-> -
-> -	return 0;
->  }
->  =
-
->  static int dcmipp_runtime_suspend(struct device *dev)
-> @@ -588,7 +586,7 @@ static const struct dev_pm_ops dcmipp_pm_ops =3D {
->  =
-
->  static struct platform_driver dcmipp_pdrv =3D {
->  	.probe		=3D dcmipp_probe,
-> -	.remove		=3D dcmipp_remove,
-> +	.remove_new	=3D dcmipp_remove,
->  	.driver		=3D {
->  		.name	=3D DCMIPP_PDEV_NAME,
->  		.of_match_table =3D dcmipp_of_match,
-> -- =
-
-> 2.43.0
-> =
-
-
-Regards,
-Alain
+When you repost please include a Fixes tag.
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
