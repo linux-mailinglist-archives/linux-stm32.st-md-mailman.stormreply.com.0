@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937B9877CE8
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 10:35:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4CDA877CE9
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 10:35:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58950C71281;
-	Mon, 11 Mar 2024 09:35:24 +0000 (UTC)
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6342BC71281;
+	Mon, 11 Mar 2024 09:35:34 +0000 (UTC)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 216B7C71280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0FE5C71280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 09:35:23 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-6e69655242cso514500b3a.3
+ Mon, 11 Mar 2024 09:35:32 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-1dc1ff3ba1aso30290715ad.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 02:35:23 -0700 (PDT)
+ Mon, 11 Mar 2024 02:35:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1710149722; x=1710754522;
+ d=bytedance.com; s=google; t=1710149731; x=1710754531;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=XgF85BcnRi6YfuBECKn9LdNVtsda3wFJUMkfKzYPaTg=;
- b=ivaR8RcdQ6vhYWf//uxkRSBlgoivJkMt+dr9N2uBv5UeXSp3ux38GMJbPD6f/TztDw
- yBqEMusYiU2SnrHQMXrG7QaEGZKJwcY8CcuS5I5S55rnQqM2/jate9kOgnegIOj/3oeK
- 6f/5b4XduBTUzfeyexyYvIV9lErcOHjh0gtV+6ETAo0aaMZOdOZs5T00r+6r9Z/lhB2M
- tX7jhL4/XvTCHK0odXFGecqXP5OEevW0vHQ49KO7/VnTi10VkxcmsrXDj36XHRm92d3g
- j2CXdtawPriMc8WbR9PnO/Dt1Ck0eFTjPIVYcKm5mje/+hRxDzY42FLUlzNhn7VcG0Ga
- frPw==
+ bh=JFf08lEs3m84/dbvV4ZlLUOMjMFpJvm5xegIfbyJ9HU=;
+ b=gvIu4BksmJHg0HiB+tSmVKLm/29wFMaUz1InrRS8PtY73cyHwxT0cm5RCMIq+Rhcxl
+ suPGrXU9yxjwS3si6bKcpkP7HpB/yOPc1MPs42AF2AfRv5+sOMSM90MD1waMkjtViJFD
+ JyFBqHR/yguf6ymy4gwQHQBbb/Zds7YYiobwgNr5ULnu/6Slg6PQPqu6M42lxuUJTCIh
+ khK9WuQjxplGc10e6ueOqdu6IvY476rmFXHdYxyB59QkT9K7h6ETvvz2/MfzBdeZb8WV
+ J/FpXzqRBepYXq6a5D4WT5Tva+tZ64vGlACNvGg8ssB7HrMYueWvvh9cy/5rdu3HrMHA
+ Upww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710149722; x=1710754522;
+ d=1e100.net; s=20230601; t=1710149731; x=1710754531;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=XgF85BcnRi6YfuBECKn9LdNVtsda3wFJUMkfKzYPaTg=;
- b=UJ9YhJaPMW4WmByV8aB2YZ6GS+bvA6aL6K+wtGxhFxearm1t/C/ih+IvWgwrc4+cYn
- 4qpKtcBat8gcKeMWpvPAfsuGLhwL7WWSq1OsFYvNgQkjJMUHDtdNTNg9bB5nvQRMqZRq
- IiAvJ2VWmYNyBbptwAAke00Mk67NrcC4mpQVMcwgJ1keyGN8u4M4LjcogYee4VQcEZYb
- 7labWYfwoR94nXrdf9jutnt5HLFsEjm/GPfFPGn6EFGlFE5Kf7KOkv/Wm4lCSP+8Hrc3
- +SlNrOHWD66s98P919ITX+8Dejo3ceIXNNcS6XE4hhWnCcnBSmGwzQ3pUu6BxY0QICpu
- RZSw==
+ bh=JFf08lEs3m84/dbvV4ZlLUOMjMFpJvm5xegIfbyJ9HU=;
+ b=PqyKwOo521bosw4UzcA3oQ8XwmcS2M/ivng5P2ujKjLH91AxQJ2DFbEHVDL++P6Wbj
+ dMUg509ujfoyEjDvVxhX02Nv+hLqyYifvcCFFWycr8ltzuw7kNdyFZgYbk7pzVoj8CDg
+ 3y7Efboruujnq/Wxv4s7BRf56MZpczr9BSFl7JDRihCSjcYvjNdNi1C7PA9h3zTvqLye
+ zxHgaHpt5QiSN/c9kdarWMiGHlhjRCfhDsPbIZIS6a15lp538+rp7cTgUYuAg58XjygK
+ EiswGirWXG0yxTnUytXu0aDUp9F5cZIRN4uMy+dOef91dCnBqhK78V4WQrP1LVPzbs7f
+ A8eA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoa+oXlhVoLSbly9BYTLSBpsiCXuWtNwHHHDqx3q9tOTqQdG8H7V+/MLxhT1WCp6v3rhmLYpmwpk63R+nNVzhZHjuEDRinsq8D/7bDd+Svbzz9C5daYA7e
-X-Gm-Message-State: AOJu0YwrmMEXyZehC0n6Q6i/hI6hMIdMWwNyn0EGBhLGK1kj/XsqxG9p
- 36sN5RlN3E2SU+aa09x3+fbnyNSQ0bzdtidsQZKjz3bzNcnIWcboRT9PWCeq4/s=
-X-Google-Smtp-Source: AGHT+IFGOb1BTeFqqztsZqYiXrANUPvsqRtIr4BKGzv55kaAP5codanubKYDi1f1h+yfBwPdORvCXA==
-X-Received: by 2002:a05:6a20:3944:b0:1a1:6c19:a175 with SMTP id
- r4-20020a056a20394400b001a16c19a175mr8143881pzg.8.1710149721824; 
- Mon, 11 Mar 2024 02:35:21 -0700 (PDT)
+ AJvYcCXXVr2uPbyBcuwRQHdbC2WYKxMYmYgVSEeM/9LSEM2b8GGKJAMapwM/VlWs1KLa3NtTqHApM+D7itydRkUnIbqt6jkCJpprJc9cK7LA2bY9SZ04i5PyjkVh
+X-Gm-Message-State: AOJu0YwJU2BVpC0hxiAlq4oOrYccLvdcrf5wcnfgAm9iqbYSpNq1HGuE
+ baGlKG4FLAxmkMY7vlKk8ehzHY911zb8lr+rHDDj8HQCeVblVtq/kbVC3kF3SaM=
+X-Google-Smtp-Source: AGHT+IFQIVN/SFlbgP5cEEuZ7moW9KP5l9jB6qy51la06bqNfTxjZ7YG5WDDYrE2U6yDVhQ3L+9Yxw==
+X-Received: by 2002:a17:902:988c:b0:1dd:772e:d504 with SMTP id
+ s12-20020a170902988c00b001dd772ed504mr4091891plp.66.1710149729346; 
+ Mon, 11 Mar 2024 02:35:29 -0700 (PDT)
 Received: from localhost.localdomain ([43.129.25.208])
  by smtp.gmail.com with ESMTPSA id
- h9-20020a170902f7c900b001dcad9cbf8bsm4253365plw.239.2024.03.11.02.35.14
+ h9-20020a170902f7c900b001dcad9cbf8bsm4253365plw.239.2024.03.11.02.35.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Mar 2024 02:35:21 -0700 (PDT)
+ Mon, 11 Mar 2024 02:35:29 -0700 (PDT)
 From: Menglong Dong <dongmenglong.8@bytedance.com>
 To: andrii@kernel.org
-Date: Mon, 11 Mar 2024 17:35:24 +0800
-Message-Id: <20240311093526.1010158-8-dongmenglong.8@bytedance.com>
+Date: Mon, 11 Mar 2024 17:35:25 +0800
+Message-Id: <20240311093526.1010158-9-dongmenglong.8@bytedance.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
 References: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
@@ -76,8 +76,8 @@ Cc: linux-kselftest@vger.kernel.org, dave.hansen@linux.intel.com,
  netdev@vger.kernel.org, dsahern@kernel.org, linux-kernel@vger.kernel.org,
  eddyz87@gmail.com, svens@linux.ibm.com, jolsa@kernel.org, bpf@vger.kernel.org,
  martin.lau@linux.dev, davem@davemloft.net
-Subject: [Linux-stm32] [PATCH bpf-next v2 7/9] libbpf: don't free btf if
-	program of multi-link tracing existing
+Subject: [Linux-stm32] [PATCH bpf-next v2 8/9] libbpf: add support for the
+	multi-link of tracing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,116 +94,330 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-By default, the kernel btf that we load during loading program will be
-freed after the programs are loaded in bpf_object_load(). However, we
-still need to use these btf for tracing of multi-link during attaching.
-Therefore, we don't free the btfs until the bpf object is closed if any
-bpf programs of the type multi-link tracing exist.
+Add support for the attach types of:
 
-Meanwhile, introduce the new api bpf_object__free_btf() to manually free
-the btfs after attaching.
+BPF_TRACE_FENTRY_MULTI
+BPF_TRACE_FEXIT_MULTI
+BPF_MODIFY_RETURN_MULTI
 
 Signed-off-by: Menglong Dong <dongmenglong.8@bytedance.com>
 ---
- tools/lib/bpf/libbpf.c   | 47 ++++++++++++++++++++++++++++++----------
- tools/lib/bpf/libbpf.h   |  2 ++
- tools/lib/bpf/libbpf.map |  1 +
- 3 files changed, 38 insertions(+), 12 deletions(-)
+ tools/bpf/bpftool/common.c |   3 +
+ tools/lib/bpf/bpf.c        |  10 +++
+ tools/lib/bpf/bpf.h        |   6 ++
+ tools/lib/bpf/libbpf.c     | 168 ++++++++++++++++++++++++++++++++++++-
+ tools/lib/bpf/libbpf.h     |  14 ++++
+ tools/lib/bpf/libbpf.map   |   1 +
+ 6 files changed, 199 insertions(+), 3 deletions(-)
 
+diff --git a/tools/bpf/bpftool/common.c b/tools/bpf/bpftool/common.c
+index cc6e6aae2447..ffc85256671d 100644
+--- a/tools/bpf/bpftool/common.c
++++ b/tools/bpf/bpftool/common.c
+@@ -1089,6 +1089,9 @@ const char *bpf_attach_type_input_str(enum bpf_attach_type t)
+ 	case BPF_TRACE_FENTRY:			return "fentry";
+ 	case BPF_TRACE_FEXIT:			return "fexit";
+ 	case BPF_MODIFY_RETURN:			return "mod_ret";
++	case BPF_TRACE_FENTRY_MULTI:		return "fentry_multi";
++	case BPF_TRACE_FEXIT_MULTI:		return "fexit_multi";
++	case BPF_MODIFY_RETURN_MULTI:		return "mod_ret_multi";
+ 	case BPF_SK_REUSEPORT_SELECT:		return "sk_skb_reuseport_select";
+ 	case BPF_SK_REUSEPORT_SELECT_OR_MIGRATE:	return "sk_skb_reuseport_select_or_migrate";
+ 	default:	return libbpf_bpf_attach_type_str(t);
+diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+index 97ec005c3c47..63d4734dbae4 100644
+--- a/tools/lib/bpf/bpf.c
++++ b/tools/lib/bpf/bpf.c
+@@ -793,6 +793,16 @@ int bpf_link_create(int prog_fd, int target_fd,
+ 		if (!OPTS_ZEROED(opts, tracing))
+ 			return libbpf_err(-EINVAL);
+ 		break;
++	case BPF_TRACE_FENTRY_MULTI:
++	case BPF_TRACE_FEXIT_MULTI:
++	case BPF_MODIFY_RETURN_MULTI:
++		attr.link_create.tracing_multi.btf_ids = ptr_to_u64(OPTS_GET(opts, tracing_multi.btf_ids, 0));
++		attr.link_create.tracing_multi.tgt_fds = ptr_to_u64(OPTS_GET(opts, tracing_multi.tgt_fds, 0));
++		attr.link_create.tracing_multi.cookies = ptr_to_u64(OPTS_GET(opts, tracing_multi.cookies, 0));
++		attr.link_create.tracing_multi.cnt = OPTS_GET(opts, tracing_multi.cnt, 0);
++		if (!OPTS_ZEROED(opts, tracing_multi))
++			return libbpf_err(-EINVAL);
++		break;
+ 	case BPF_NETFILTER:
+ 		attr.link_create.netfilter.pf = OPTS_GET(opts, netfilter.pf, 0);
+ 		attr.link_create.netfilter.hooknum = OPTS_GET(opts, netfilter.hooknum, 0);
+diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
+index df0db2f0cdb7..e28c88d6cfa4 100644
+--- a/tools/lib/bpf/bpf.h
++++ b/tools/lib/bpf/bpf.h
+@@ -419,6 +419,12 @@ struct bpf_link_create_opts {
+ 		struct {
+ 			__u64 cookie;
+ 		} tracing;
++		struct {
++			__u32 cnt;
++			const __u32 *btf_ids;
++			const __u32 *tgt_fds;
++			const __u64 *cookies;
++		} tracing_multi;
+ 		struct {
+ 			__u32 pf;
+ 			__u32 hooknum;
 diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 567ad367e7aa..fd5428494a7e 100644
+index fd5428494a7e..821214774941 100644
 --- a/tools/lib/bpf/libbpf.c
 +++ b/tools/lib/bpf/libbpf.c
-@@ -8267,6 +8267,39 @@ static int bpf_object_prepare_struct_ops(struct bpf_object *obj)
- 	return 0;
+@@ -132,6 +132,9 @@ static const char * const attach_type_name[] = {
+ 	[BPF_TRACE_UPROBE_MULTI]	= "trace_uprobe_multi",
+ 	[BPF_NETKIT_PRIMARY]		= "netkit_primary",
+ 	[BPF_NETKIT_PEER]		= "netkit_peer",
++	[BPF_TRACE_FENTRY_MULTI]	= "trace_fentry_multi",
++	[BPF_TRACE_FEXIT_MULTI]		= "trace_fexit_multi",
++	[BPF_MODIFY_RETURN_MULTI]	= "modify_return_multi",
+ };
+ 
+ static const char * const link_type_name[] = {
+@@ -381,6 +384,8 @@ enum sec_def_flags {
+ 	SEC_XDP_FRAGS = 16,
+ 	/* Setup proper attach type for usdt probes. */
+ 	SEC_USDT = 32,
++	/* attachment target is multi-link */
++	SEC_ATTACH_BTF_MULTI = 64,
+ };
+ 
+ struct bpf_sec_def {
+@@ -7160,9 +7165,9 @@ static int libbpf_prepare_prog_load(struct bpf_program *prog,
+ 	if ((def & SEC_USDT) && kernel_supports(prog->obj, FEAT_UPROBE_MULTI_LINK))
+ 		prog->expected_attach_type = BPF_TRACE_UPROBE_MULTI;
+ 
+-	if ((def & SEC_ATTACH_BTF) && !prog->attach_btf_id) {
++	if ((def & (SEC_ATTACH_BTF | SEC_ATTACH_BTF_MULTI)) && !prog->attach_btf_id) {
+ 		int btf_obj_fd = 0, btf_type_id = 0, err;
+-		const char *attach_name;
++		const char *attach_name, *name_end;
+ 
+ 		attach_name = strchr(prog->sec_name, '/');
+ 		if (!attach_name) {
+@@ -7181,7 +7186,27 @@ static int libbpf_prepare_prog_load(struct bpf_program *prog,
+ 		}
+ 		attach_name++; /* skip over / */
+ 
+-		err = libbpf_find_attach_btf_id(prog, attach_name, &btf_obj_fd, &btf_type_id);
++		name_end = strchr(attach_name, ',');
++		/* for multi-link tracing, use the first target symbol during
++		 * loading.
++		 */
++		if ((def & SEC_ATTACH_BTF_MULTI) && name_end) {
++			int len = name_end - attach_name + 1;
++			char *first_tgt;
++
++			first_tgt = malloc(len);
++			if (!first_tgt)
++				return -ENOMEM;
++			strncpy(first_tgt, attach_name, len);
++			first_tgt[len - 1] = '\0';
++			err = libbpf_find_attach_btf_id(prog, first_tgt, &btf_obj_fd,
++							&btf_type_id);
++			free(first_tgt);
++		} else {
++			err = libbpf_find_attach_btf_id(prog, attach_name, &btf_obj_fd,
++							&btf_type_id);
++		}
++
+ 		if (err)
+ 			return err;
+ 
+@@ -9149,6 +9174,7 @@ static int attach_kprobe_multi(const struct bpf_program *prog, long cookie, stru
+ static int attach_uprobe_multi(const struct bpf_program *prog, long cookie, struct bpf_link **link);
+ static int attach_lsm(const struct bpf_program *prog, long cookie, struct bpf_link **link);
+ static int attach_iter(const struct bpf_program *prog, long cookie, struct bpf_link **link);
++static int attach_trace_multi(const struct bpf_program *prog, long cookie, struct bpf_link **link);
+ 
+ static const struct bpf_sec_def section_defs[] = {
+ 	SEC_DEF("socket",		SOCKET_FILTER, 0, SEC_NONE),
+@@ -9192,6 +9218,13 @@ static const struct bpf_sec_def section_defs[] = {
+ 	SEC_DEF("fentry.s+",		TRACING, BPF_TRACE_FENTRY, SEC_ATTACH_BTF | SEC_SLEEPABLE, attach_trace),
+ 	SEC_DEF("fmod_ret.s+",		TRACING, BPF_MODIFY_RETURN, SEC_ATTACH_BTF | SEC_SLEEPABLE, attach_trace),
+ 	SEC_DEF("fexit.s+",		TRACING, BPF_TRACE_FEXIT, SEC_ATTACH_BTF | SEC_SLEEPABLE, attach_trace),
++	SEC_DEF("tp_btf+",		TRACING, BPF_TRACE_RAW_TP, SEC_ATTACH_BTF, attach_trace),
++	SEC_DEF("fentry.multi+",	TRACING, BPF_TRACE_FENTRY_MULTI, SEC_ATTACH_BTF_MULTI, attach_trace_multi),
++	SEC_DEF("fmod_ret.multi+",	TRACING, BPF_MODIFY_RETURN_MULTI, SEC_ATTACH_BTF_MULTI, attach_trace_multi),
++	SEC_DEF("fexit.multi+",		TRACING, BPF_TRACE_FEXIT_MULTI, SEC_ATTACH_BTF_MULTI, attach_trace_multi),
++	SEC_DEF("fentry.multi.s+",	TRACING, BPF_TRACE_FENTRY_MULTI, SEC_ATTACH_BTF_MULTI | SEC_SLEEPABLE, attach_trace_multi),
++	SEC_DEF("fmod_ret.multi.s+",	TRACING, BPF_MODIFY_RETURN_MULTI, SEC_ATTACH_BTF_MULTI | SEC_SLEEPABLE, attach_trace_multi),
++	SEC_DEF("fexit.multi.s+",	TRACING, BPF_TRACE_FEXIT_MULTI, SEC_ATTACH_BTF_MULTI | SEC_SLEEPABLE, attach_trace_multi),
+ 	SEC_DEF("freplace+",		EXT, 0, SEC_ATTACH_BTF, attach_trace),
+ 	SEC_DEF("lsm+",			LSM, BPF_LSM_MAC, SEC_ATTACH_BTF, attach_lsm),
+ 	SEC_DEF("lsm.s+",		LSM, BPF_LSM_MAC, SEC_ATTACH_BTF | SEC_SLEEPABLE, attach_lsm),
+@@ -12300,6 +12333,135 @@ static int attach_trace(const struct bpf_program *prog, long cookie, struct bpf_
+ 	return libbpf_get_error(*link);
  }
  
-+void bpf_object__free_btfs(struct bpf_object *obj)
++struct bpf_link *bpf_program__attach_trace_multi_opts(const struct bpf_program *prog,
++						      const struct bpf_trace_multi_opts *opts)
 +{
-+	int i;
++	LIBBPF_OPTS(bpf_link_create_opts, link_opts);
++	__u32 *btf_ids = NULL, *tgt_fds = NULL;
++	struct bpf_link *link = NULL;
++	char errmsg[STRERR_BUFSIZE];
++	int prog_fd, pfd, cnt, err;
 +
-+	/* clean up module BTFs */
-+	for (i = 0; i < obj->btf_module_cnt; i++) {
-+		close(obj->btf_modules[i].fd);
-+		btf__free(obj->btf_modules[i].btf);
-+		free(obj->btf_modules[i].name);
-+	}
-+	free(obj->btf_modules);
-+	obj->btf_modules = NULL;
-+	obj->btf_module_cnt = 0;
++	if (!OPTS_VALID(opts, bpf_trace_multi_opts))
++		return libbpf_err_ptr(-EINVAL);
 +
-+	/* clean up vmlinux BTF */
-+	btf__free(obj->btf_vmlinux);
-+	obj->btf_vmlinux = NULL;
-+}
-+
-+static void bpf_object_early_free_btf(struct bpf_object *obj)
-+{
-+	struct bpf_program *prog;
-+
-+	bpf_object__for_each_program(prog, obj) {
-+		if (prog->expected_attach_type == BPF_TRACE_FENTRY_MULTI ||
-+		    prog->expected_attach_type == BPF_TRACE_FEXIT_MULTI ||
-+		    prog->expected_attach_type == BPF_MODIFY_RETURN_MULTI)
-+			return;
++	prog_fd = bpf_program__fd(prog);
++	if (prog_fd < 0) {
++		pr_warn("prog '%s': can't attach before loaded\n", prog->name);
++		return libbpf_err_ptr(-EINVAL);
 +	}
 +
-+	bpf_object__free_btfs(obj);
++	cnt = OPTS_GET(opts, cnt, 0);
++	if (opts->syms) {
++		int btf_obj_fd, btf_type_id, i;
++
++		if (opts->btf_ids || opts->tgt_fds) {
++			pr_warn("can set both opts->syms and opts->btf_ids\n");
++			return libbpf_err_ptr(-EINVAL);
++		}
++
++		btf_ids = malloc(sizeof(*btf_ids) * cnt);
++		tgt_fds = malloc(sizeof(*tgt_fds) * cnt);
++		if (!btf_ids || !tgt_fds) {
++			err = -ENOMEM;
++			goto err_free;
++		}
++		for (i = 0; i < cnt; i++) {
++			btf_obj_fd = btf_type_id = 0;
++
++			err = find_kernel_btf_id(prog->obj, opts->syms[i],
++					 prog->expected_attach_type, &btf_obj_fd,
++					 &btf_type_id);
++			if (err)
++				goto err_free;
++			btf_ids[i] = btf_type_id;
++			tgt_fds[i] = btf_obj_fd;
++		}
++		link_opts.tracing_multi.btf_ids = btf_ids;
++		link_opts.tracing_multi.tgt_fds = tgt_fds;
++	} else {
++		link_opts.tracing_multi.btf_ids = OPTS_GET(opts, btf_ids, 0);
++		link_opts.tracing_multi.tgt_fds = OPTS_GET(opts, tgt_fds, 0);
++	}
++
++	link = calloc(1, sizeof(*link));
++	if (!link) {
++		err = -ENOMEM;
++		goto err_free;
++	}
++	link->detach = &bpf_link__detach_fd;
++
++	link_opts.tracing_multi.cookies = OPTS_GET(opts, cookies, 0);
++	link_opts.tracing_multi.cnt = cnt;
++
++	pfd = bpf_link_create(prog_fd, 0, bpf_program__expected_attach_type(prog), &link_opts);
++	if (pfd < 0) {
++		err = -errno;
++		pr_warn("prog '%s': failed to attach: %s\n",
++			prog->name, libbpf_strerror_r(pfd, errmsg, sizeof(errmsg)));
++		goto err_free;
++	}
++	link->fd = pfd;
++
++	free(btf_ids);
++	free(tgt_fds);
++	return link;
++err_free:
++	free(btf_ids);
++	free(tgt_fds);
++	free(link);
++	return libbpf_err_ptr(err);
 +}
 +
- static int bpf_object_load(struct bpf_object *obj, int extra_log_level, const char *target_btf_path)
++static int attach_trace_multi(const struct bpf_program *prog, long cookie, struct bpf_link **link)
++{
++	LIBBPF_OPTS(bpf_trace_multi_opts, opts);
++	int i, err, len, cnt = 1;
++	char **syms, *buf, *name;
++	const char *spec;
++
++	spec = strchr(prog->sec_name, '/');
++	if (!spec || !*(++spec))
++		return -EINVAL;
++
++	len = strlen(spec);
++	buf = malloc(len + 1);
++	if (!buf)
++		return -ENOMEM;
++
++	strcpy(buf, spec);
++	for (i = 0; i < len; i++) {
++		if (buf[i] == ',')
++			cnt++;
++	}
++
++	syms = malloc(sizeof(*syms) * cnt);
++	if (!syms) {
++		err = -ENOMEM;
++		goto out_free;
++	}
++
++	opts.syms = (const char **)syms;
++	opts.cnt = cnt;
++	name = buf;
++	err = -EINVAL;
++	while (name) {
++		if (*name == '\0')
++			goto out_free;
++		*(syms++) = name;
++		name = strchr(name, ',');
++		if (name)
++			*(name++) = '\0';
++	}
++
++	*link = bpf_program__attach_trace_multi_opts(prog, &opts);
++	err = libbpf_get_error(*link);
++out_free:
++	free(buf);
++	free(opts.syms);
++	return err;
++}
++
+ static int attach_lsm(const struct bpf_program *prog, long cookie, struct bpf_link **link)
  {
- 	int err, i;
-@@ -8307,18 +8340,7 @@ static int bpf_object_load(struct bpf_object *obj, int extra_log_level, const ch
- 	/* clean up fd_array */
- 	zfree(&obj->fd_array);
- 
--	/* clean up module BTFs */
--	for (i = 0; i < obj->btf_module_cnt; i++) {
--		close(obj->btf_modules[i].fd);
--		btf__free(obj->btf_modules[i].btf);
--		free(obj->btf_modules[i].name);
--	}
--	free(obj->btf_modules);
--
--	/* clean up vmlinux BTF */
--	btf__free(obj->btf_vmlinux);
--	obj->btf_vmlinux = NULL;
--
-+	bpf_object_early_free_btf(obj);
- 	obj->loaded = true; /* doesn't matter if successfully or not */
- 
- 	if (err)
-@@ -8791,6 +8813,7 @@ void bpf_object__close(struct bpf_object *obj)
- 	usdt_manager_free(obj->usdt_man);
- 	obj->usdt_man = NULL;
- 
-+	bpf_object__free_btfs(obj);
- 	bpf_gen__free(obj->gen_loader);
- 	bpf_object__elf_finish(obj);
- 	bpf_object_unload(obj);
+ 	*link = bpf_program__attach_lsm(prog);
 diff --git a/tools/lib/bpf/libbpf.h b/tools/lib/bpf/libbpf.h
-index 5723cbbfcc41..c41a909ea4c1 100644
+index c41a909ea4c1..9bca44d5adfa 100644
 --- a/tools/lib/bpf/libbpf.h
 +++ b/tools/lib/bpf/libbpf.h
-@@ -299,6 +299,8 @@ LIBBPF_API struct bpf_program *
- bpf_object__find_program_by_name(const struct bpf_object *obj,
- 				 const char *name);
- 
-+LIBBPF_API void bpf_object__free_btfs(struct bpf_object *obj);
+@@ -790,6 +790,20 @@ bpf_program__attach_xdp(const struct bpf_program *prog, int ifindex);
+ LIBBPF_API struct bpf_link *
+ bpf_program__attach_freplace(const struct bpf_program *prog,
+ 			     int target_fd, const char *attach_func_name);
++struct bpf_trace_multi_opts {
++	/* size of this struct, for forward/backward compatibility */
++	size_t sz;
++	const char **syms;
++	__u32 *btf_ids;
++	__u32 *tgt_fds;
++	__u64 *cookies;
++	size_t cnt;
++};
++#define bpf_trace_multi_opts__last_field cnt
 +
- LIBBPF_API int
- libbpf_prog_type_by_name(const char *name, enum bpf_prog_type *prog_type,
- 			 enum bpf_attach_type *expected_attach_type);
++LIBBPF_API struct bpf_link *
++bpf_program__attach_trace_multi_opts(const struct bpf_program *prog,
++				     const struct bpf_trace_multi_opts *opts);
+ 
+ struct bpf_netfilter_opts {
+ 	/* size of this struct, for forward/backward compatibility */
 diff --git a/tools/lib/bpf/libbpf.map b/tools/lib/bpf/libbpf.map
-index 86804fd90dd1..57642b78917f 100644
+index 57642b78917f..94933898df44 100644
 --- a/tools/lib/bpf/libbpf.map
 +++ b/tools/lib/bpf/libbpf.map
-@@ -413,4 +413,5 @@ LIBBPF_1.4.0 {
- 		bpf_token_create;
+@@ -414,4 +414,5 @@ LIBBPF_1.4.0 {
  		btf__new_split;
  		btf_ext__raw_data;
-+		bpf_object__free_btfs;
+ 		bpf_object__free_btfs;
++		bpf_program__attach_trace_multi_opts;
  } LIBBPF_1.3.0;
 -- 
 2.39.2
