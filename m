@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA27877C9D
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 10:25:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8D3877CCD
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 10:33:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A737C6DD9C;
-	Mon, 11 Mar 2024 09:25:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D84BBC6DD9C;
+	Mon, 11 Mar 2024 09:33:35 +0000 (UTC)
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38D77C6DD73
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5F24C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 09:25:09 +0000 (UTC)
+ Mon, 11 Mar 2024 09:33:34 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F14EFEC;
- Mon, 11 Mar 2024 02:25:45 -0700 (PDT)
-Received: from [192.168.1.100] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 276A93F762;
- Mon, 11 Mar 2024 02:25:05 -0700 (PDT)
-Message-ID: <828d2109-7413-ffe5-da6a-56f15ed2f562@arm.com>
-Date: Mon, 11 Mar 2024 09:25:02 +0000
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 86557FEC;
+ Mon, 11 Mar 2024 02:34:10 -0700 (PDT)
+Received: from [10.162.42.8] (a077893.blr.arm.com [10.162.42.8])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7CBC03F762;
+ Mon, 11 Mar 2024 02:33:30 -0700 (PDT)
+Message-ID: <081eef3f-3b19-42d1-b70d-8916b867f766@arm.com>
+Date: Mon, 11 Mar 2024 15:03:27 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: James Clark <james.clark@arm.com>,
  Suzuki K Poulose <suzuki.poulose@arm.com>
 References: <20240222082142.3663983-1-anshuman.khandual@arm.com>
  <8ef57dd9-a16d-4847-89f5-a309c4ccb849@arm.com>
  <379bf6df-3568-43c0-9a68-4a5693bf5ccc@arm.com>
-Content-Language: en-US
-From: James Clark <james.clark@arm.com>
-In-Reply-To: <379bf6df-3568-43c0-9a68-4a5693bf5ccc@arm.com>
+ <828d2109-7413-ffe5-da6a-56f15ed2f562@arm.com>
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+In-Reply-To: <828d2109-7413-ffe5-da6a-56f15ed2f562@arm.com>
 Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
  linux-acpi@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -49,127 +49,50 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAxMS8wMy8yMDI0IDA2OjA0LCBBbnNodW1hbiBLaGFuZHVhbCB3cm90ZToKPiAKPiAKPiBP
-biAzLzUvMjQgMjM6NTUsIFN1enVraSBLIFBvdWxvc2Ugd3JvdGU6Cj4+IE9uIDIyLzAyLzIwMjQg
-MDg6MjEsIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+Pj4gVGhpcyBtb3ZlcyByZW1haW5pbmcg
-QU1CQSBBQ1BJIGRldmljZXMgaW50byByZXNwZWN0aXZlIHBsYXRmb3JtIGRyaXZlcnMgZm9yCj4+
-PiBlbmFibGluZyBBQ1BJIGJhc2VkIHBvd2VyIG1hbmFnZW1lbnQgc3VwcG9ydC4gVGhpcyBzZXJp
-ZXMgYXBwbGllcyBvbiBrZXJuZWwKPj4+IHY2LjgtcmM1IHJlbGVhc2UuIFRoaXMgc2VyaWVzIGhh
-cyBiZWVuIGJ1aWx0LCBhbmQgYm9vdCB0ZXN0ZWQgb24gYSBEVCBiYXNlZAo+Pj4gKFJCNSkgYW5k
-IEFDUEkgc3VwcG9ydGVkIGNvcmVzaWdodCBwbGF0Zm9ybSAoTjFTRFApLgo+Pgo+PiBQbGVhc2Ug
-cmViYXNlIHlvdXIgc2VyaWVzIG9uIGNvcmVzaWdodCBuZXh0IGFuZCBmaXggYnVpbGQgZmFpbHVy
-ZXMgd2l0aCB0aGUgZXh0cmEgd2FybmluZ3MgdHVybmVkIE9OIChzaG91bGQgYmUgb24gYnkgZGVm
-YXVsdCB3aXRoIG5leHQpLgo+IAo+IEkgZGlkIHJlYmFzZSB0aGUgc2VyaWVzICh3aGljaCByZXF1
-aXJlZCBzb21lIHJlYmFzZSByZWxhdGVkIGNoYW5nZXMgZm9yIHNvbWUpIG9uCj4gY29yZXNpZ2h0
-IG5leHQgaS5lIHdpdGggdGhlIGZvbGxvd2luZyBjb21taXQgYXMgSEVBRC4KPiAKPiBhNGYzMDU3
-ZDE5ZmYgKCJjb3Jlc2lnaHQtdHBkYTogQ2hhbmdlIHFjb20sZHNiLWVsZW1lbnQtc2l6ZSB0byBx
-Y29tLGRzYi1lbGVtLWJpdHMiKQo+IAo+IEFsdGhvdWdoIGRpZCBub3Qgc2VlIGFueSB3YXJuaW5n
-IGVpdGhlciB3aXRoID0gbSBvciA9IHkgYmFzZWQgY29yZXNpZ2h0IG9wdGlvbnMuCj4gSXMgdGhl
-cmUgYW55IG90aGVyIHBhcnRpY3VsYXIgY29uZmlnIHdoaWNoIG5lZWRzIHRvIGJlIGVuYWJsZWQg
-Zm9yIHRoZXNlIHdhcm5pbmdzCj4gdG8gY29tZSB1cCA/Cj4gCgpJdCBkb2Vzbid0IGFwcGx5IGNs
-ZWFubHkgb24gYTRmMzA1IGZvciBtZSwgbWF5YmUgeW91IHNlbnQgYW4gb2xkIHZlcnNpb24KYWZ0
-ZXIgcmViYXNpbmc/CgpUaGlzIGNoYW5nZSBpbiBwYXRjaCA1IGlzIGEgd2FybmluZyBmb3IgZXhh
-bXBsZSwgYmVjYXVzZSBub3QgYWxsIG1lbWJlcnMKb2YgdGhlIHN0cnVjdCBhcmUgaW5pdGlhbGlz
-ZWQuIE5vIHNwZWNpYWwgY29uZmlnIGlzIHJlcXVpcmVkOgoKKwl7IkFSTUhDOThEIiwgMH0sIC8q
-IEFSTSBDb3JlU2lnaHQgRHluYW1pYyBSZXBsaWNhdG9yICovIgoKCj4+Cj4+Cj4+IFN1enVraQo+
-Pgo+Pj4KPj4+IGh0dHBzOi8vZ2l0LmdpdGxhYi5hcm0uY29tL2xpbnV4LWFybS9saW51eC1hbnNo
-dW1hbi5naXQgKGFtYmFfb3RoZXJfYWNwaV9taWdyYXRpb25fdjUpCj4+Pgo+Pj4gQ2M6IExvcmVu
-em8gUGllcmFsaXNpIDxscGllcmFsaXNpQGtlcm5lbC5vcmc+Cj4+PiBDYzogU3VkZWVwIEhvbGxh
-IDxzdWRlZXAuaG9sbGFAYXJtLmNvbT4KPj4+IENjOiBTdXp1a2kgSyBQb3Vsb3NlIDxzdXp1a2ku
-cG91bG9zZUBhcm0uY29tPgo+Pj4gQ2M6IE1pa2UgTGVhY2ggPG1pa2UubGVhY2hAbGluYXJvLm9y
-Zz4KPj4+IENjOiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4+IENjOiBNYXhp
-bWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20+Cj4+PiBDYzogQWxleGFuZHJl
-IFRvcmd1ZSA8YWxleGFuZHJlLnRvcmd1ZUBmb3NzLnN0LmNvbT4KPj4+IENjOiBsaW51eC1hY3Bp
-QHZnZXIua2VybmVsLm9yZwo+Pj4gQ2M6IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFk
-Lm9yZwo+Pj4gQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKPj4+IENjOiBjb3Jlc2ln
-aHRAbGlzdHMubGluYXJvLm9yZwo+Pj4gQ2M6IGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20KPj4+Cj4+PiBDaGFuZ2VzIGluIFY1Ogo+Pj4KPj4+IC0gVXNlZCB0YWJsZS0+
-bWFzayB0byBmaWx0ZXIgb3V0IGJpdHMgZnJvbSBwaWQgaW4gY29yZXNpZ2h0X2dldF91Y2lfZGF0
-YV9mcm9tX2FtYmEoKQo+Pj4gLSBEcm9wcGVkIGN1c3RvbSBtYXNrcyBzdWNoIGFzIFNUTV9BTUJB
-X01BU0sgYW5kIFRNQ19BTUJBX01BU0sKPj4+IC0gTW9kaWZpZWQgdG1jX2V0cl9zZXR1cF9jYXBz
-KCkgdG8gYWNjZXB0IHN0cnVjdCBjc2Rldl9hY2Nlc3MgYXJndW1lbnQKPj4+IC0gUmV2ZXJ0ZWQg
-YmFjayB0bWNfZXRyX3NldHVwX2NhcHMoKSBjYWxsIHNpdGUgcG9zaXRpb24gaW4gdG1jX3Byb2Jl
-KCkKPj4+IC0gQ2hhbmdlZCByZXBsaWNhdG9yIGFuZCBmdW5uZWwgZGV2aWNlcyB0byB1c2UgdGhl
-IG5ldyBoZWxwZXJzIGVhcmxpZXIgaW4gc2VyaWVzCj4+PiAtIFVwZGF0ZWQgdGhlIGNvbW1pdCBt
-ZXNzYWdlcyByZWdhcmRpbmcgeHh4X3Byb2JlKCkgcmVmYWN0b3JpbmcgYW5kIHJlbmFtaW5nCj4+
-Pgo+Pj4gQ2hhbmdlcyBpbiBWNDoKPj4+Cj4+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwv
-MjAyNDAxMjMwNTQ2MDguMTc5MDE4OS0xLWFuc2h1bWFuLmtoYW5kdWFsQGFybS5jb20vCj4+Pgo+
-Pj4gLSBGaXhlZCBQTSBpbWJhbGFuY2UgaW4gZXRtNF9wcm9iZSgpIGVycm9yIHBhdGggd2l0aCBw
-bV9ydW50aW1lX2Rpc2FibGUoKQo+Pj4gLSBSZXN0b3JlZCBiYWNrIHRoZSBwbV9ydW50aW1lX2Rp
-c2FibGUoKSBvbiBwbGF0Zm9ybSBwcm9iZSBlcnJvciBwYXRocwo+Pj4gwqDCoCBpbiByZXBsaWNh
-dG9yLCBmdW5uZWwsIGNhdHUsIHRwaXUsIHRtYyBhbmQgc3RtIGRldmljZXMKPj4+IC0gRHJvcHBl
-ZCBkZXZfY2FwcyBhcmd1bWVudCBmcm9tIF9fdG1jX3Byb2JlKCkKPj4+IC0gQ2hhbmdlZCB4eHh4
-X3BsYXRmb3JtX3JlbW92ZSgpIGZvciBwbGF0Zm9ybV9kcml2ZXItPnJlbW92ZV9uZXcoKSBjYWxs
-YmFjawo+Pj4KPj4+IENoYW5nZXMgaW4gVjM6Cj4+Pgo+Pj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvYWxsLzIwMjMxMjA4MDUzOTM5LjQyOTAxLTEtYW5zaHVtYW4ua2hhbmR1YWxAYXJtLmNvbS8K
-Pj4+Cj4+PiAtIFNwbGl0IGNvcmVzaWdodF9pbml0X2RyaXZlci9yZW1vdmVfZHJpdmVyKCkgaGVs
-cGVycyBpbnRvIGEgc2VwYXJhdGUgcGF0Y2gKPj4+IC0gQWRkZWQgJ2RydmRhdGEtPnBjbGsnIGNv
-bW1lbnRzIGluIHJlcGxpY2F0b3IsIGZ1bm5lbCwgdHBpdSwgdG1jLCBhbmQgc3RtIGRldmljZXMK
-Pj4+IC0gVXBkYXRlZCBmdW5uZWwsIGFuZCByZXBsaWNhdG9yIGRyaXZlcnMgdG8gdXNlIHRoZXNl
-IG5ldyBoZWxwZXJzCj4+PiAtIENoZWNrIGZvciBkcnZkYXRhIGluc3RlYWQgb2YgZHJ2ZGF0YS0+
-cGNsayBpbiBzdXNwZW5kIGFuZCByZXN1bWUgcGF0aHMgaW4gY2F0dSwKPj4+IMKgwqAgdG1jIGFu
-ZCBkZWJ1ZyBkZXZpY2VzCj4+PiAtIEFkZGVkIHBhdGNoIHRvIGV4dHJhY3QgZGV2aWNlIG5hbWUg
-ZnJvbSBBTUJBIHBpZCBiYXNlZCB0YWJsZSBsb29rdXAgZm9yIHN0bQo+Pj4gLSBBZGRlZCBwYXRj
-aCB0byBleHRyYWN0IGRldmljZSBwcm9wZXJ0aWVzIGZyb20gQU1CQSBwaWQgYmFzZWQgdGFibGUg
-bG9vayBmb3IgdG1jCj4+PiAtIERyb3BwZWQgcG1fcnVudGltZV9wdXQoKSBmcm9tIGNvbW1vbiBf
-X3Byb2JlKCkgZnVuY3Rpb25zCj4+PiAtIEhhbmRsZWQgcG1fcnVudGltZV9wdXQoKSBpbiBBTUJB
-IGRyaXZlciBpbiBzdWNjZXNzIHBhdGgKPj4+IC0gSGFuZGxlZCBwbV9ydW50aW1lX3B1dCgpIGlu
-IHBsYXRmb3JtIGRyaXZlciBpbiBib3RoIHN1Y2Nlc3MgYW5kIGVycm9yIHBhdGhzCj4+Pgo+Pj4g
-Q2hhbmdlcyBpbiBWMjoKPj4+Cj4+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyMzEy
-MDEwNjIwNTMuMTI2ODQ5Mi0xLWFuc2h1bWFuLmtoYW5kdWFsQGFybS5jb20vCj4+Pgo+Pj4gLSBE
-cm9wcGVkIHJlZHVuZGFudCBkZXZtX2lvcmVtYXBfcmVzb3VyY2UoKSBodW5rIGZyb20gdG1jX3Bs
-YXRmb3JtX3Byb2JlKCkKPj4+IC0gRGVmaW5lZCBjb3Jlc2lnaHRfW2luaXR8cmVtb3ZlXV9kcml2
-ZXIoKSBmb3IgYm90aCBBTUJBL3BsYXRmb3JtIGRyaXZlcnMKPj4+IC0gQ2hhbmdlZCBjYXR1LCB0
-bWMsIHRwaXUsIHN0bSBhbmQgZGVidWcgY29yZXNpZ2h0IGRyaXZlcnMgdG8gdXNlIHRoZSBuZXcK
-Pj4+IMKgwqAgaGVscGVycyBhdm9pZGluZyBidWlsZCBpc3N1ZXMgYXJpc2luZyBmcm9tIG1vZHVs
-ZV9hbWJhX2RyaXZlcigpLCBhbmQKPj4+IMKgwqAgbW9kdWxlX3BsYXRmb3JtX2RyaXZlcigpIGJl
-aW5nIG9uIHRoZSBzYW1lIGZpbGUKPj4+Cj4+PiBDaGFuZ2VzIGluIFYxOgo+Pj4KPj4+IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIzMTAyNzA3Mjk0My4zNDE4OTk3LTEtYW5zaHVtYW4u
-a2hhbmR1YWxAYXJtLmNvbS8KPj4+Cj4+PiAtIFJlcGxhY2VkIGFsbCBJU19FUlIoKSBpbnN0YW5j
-ZXMgd2l0aCBJU19FUlJfT1JfTlVMTCgpIGFzIHBlciBTdXp1a2kKPj4+Cj4+PiBDaGFuZ2VzIGlu
-IFJGQzoKPj4+Cj4+PiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyMzA5MjEwNDIwNDAu
-MTMzNDY0MS0xLWFuc2h1bWFuLmtoYW5kdWFsQGFybS5jb20vCj4+Pgo+Pj4gQW5zaHVtYW4gS2hh
-bmR1YWwgKDExKToKPj4+IMKgwqAgY29yZXNpZ2h0OiBldG00eDogRml4IHVuYmFsYW5jZWQgcG1f
-cnVudGltZV9lbmFibGUoKQo+Pj4gwqDCoCBjb3Jlc2lnaHQ6IHN0bTogRXh0cmFjdCBkZXZpY2Ug
-bmFtZSBmcm9tIEFNQkEgcGlkIGJhc2VkIHRhYmxlIGxvb2t1cAo+Pj4gwqDCoCBjb3Jlc2lnaHQ6
-IHRtYzogRXh0cmFjdCBkZXZpY2UgcHJvcGVydGllcyBmcm9tIEFNQkEgcGlkIGJhc2VkIHRhYmxl
-IGxvb2t1cAo+Pj4gwqDCoCBjb3Jlc2lnaHQ6IEFkZCBoZWxwZXJzIHJlZ2lzdGVyaW5nL3JlbW92
-aW5nIGJvdGggQU1CQSBhbmQgcGxhdGZvcm0gZHJpdmVycwo+Pj4gwqDCoCBjb3Jlc2lnaHQ6IHJl
-cGxpY2F0b3I6IE1vdmUgQUNQSSBzdXBwb3J0IGZyb20gQU1CQSBkcml2ZXIgdG8gcGxhdGZvcm0g
-ZHJpdmVyCj4+PiDCoMKgIGNvcmVzaWdodDogZnVubmVsOiBNb3ZlIEFDUEkgc3VwcG9ydCBmcm9t
-IEFNQkEgZHJpdmVyIHRvIHBsYXRmb3JtIGRyaXZlcgo+Pj4gwqDCoCBjb3Jlc2lnaHQ6IGNhdHU6
-IE1vdmUgQUNQSSBzdXBwb3J0IGZyb20gQU1CQSBkcml2ZXIgdG8gcGxhdGZvcm0gZHJpdmVyCj4+
-PiDCoMKgIGNvcmVzaWdodDogdHBpdTogTW92ZSBBQ1BJIHN1cHBvcnQgZnJvbSBBTUJBIGRyaXZl
-ciB0byBwbGF0Zm9ybSBkcml2ZXIKPj4+IMKgwqAgY29yZXNpZ2h0OiB0bWM6IE1vdmUgQUNQSSBz
-dXBwb3J0IGZyb20gQU1CQSBkcml2ZXIgdG8gcGxhdGZvcm0gZHJpdmVyCj4+PiDCoMKgIGNvcmVz
-aWdodDogc3RtOiBNb3ZlIEFDUEkgc3VwcG9ydCBmcm9tIEFNQkEgZHJpdmVyIHRvIHBsYXRmb3Jt
-IGRyaXZlcgo+Pj4gwqDCoCBjb3Jlc2lnaHQ6IGRlYnVnOiBNb3ZlIEFDUEkgc3VwcG9ydCBmcm9t
-IEFNQkEgZHJpdmVyIHRvIHBsYXRmb3JtIGRyaXZlcgo+Pj4KPj4+IMKgIGRyaXZlcnMvYWNwaS9h
-cm02NC9hbWJhLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKg
-IDggLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1jYXR1LmPC
-oCB8IDE0MiArKysrKysrKysrKysrLS0tCj4+PiDCoCBkcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2ln
-aHQvY29yZXNpZ2h0LWNhdHUuaMKgIHzCoMKgIDEgKwo+Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcv
-Y29yZXNpZ2h0L2NvcmVzaWdodC1jb3JlLmPCoCB8wqAgMjkgKysrKwo+Pj4gwqAgLi4uL2h3dHJh
-Y2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LWNwdS1kZWJ1Zy5jIHwgMTQxICsrKysrKysrKysrKysr
-LS0KPj4+IMKgIC4uLi9jb3Jlc2lnaHQvY29yZXNpZ2h0LWV0bTR4LWNvcmUuY8KgwqDCoMKgwqDC
-oMKgwqDCoCB8wqDCoCAzICsKPj4+IMKgIC4uLi9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdo
-dC1mdW5uZWwuY8KgwqDCoCB8wqAgODYgKysrKystLS0tLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNp
-bmcvY29yZXNpZ2h0L2NvcmVzaWdodC1wcml2LmjCoCB8wqAgMTAgKysKPj4+IMKgIC4uLi9jb3Jl
-c2lnaHQvY29yZXNpZ2h0LXJlcGxpY2F0b3IuY8KgwqDCoMKgwqDCoMKgwqDCoCB8wqAgODEgKysr
-KystLS0tLQo+Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC1zdG0u
-Y8KgwqAgfCAxMTUgKysrKysrKysrKystLQo+Pj4gwqAgLi4uL2h3dHJhY2luZy9jb3Jlc2lnaHQv
-Y29yZXNpZ2h0LXRtYy1jb3JlLmPCoCB8IDE1MyArKysrKysrKysrKysrKystLS0KPj4+IMKgIGRy
-aXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdG1jLmjCoMKgIHzCoMKgIDIgKwo+
-Pj4gwqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cGl1LmPCoCB8IDEw
-MiArKysrKysrKysrLS0KPj4+IMKgIGluY2x1ZGUvbGludXgvY29yZXNpZ2h0LmjCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDcgKwo+Pj4gwqAgMTQgZmlsZXMg
-Y2hhbmdlZCwgNzIxIGluc2VydGlvbnMoKyksIDE1OSBkZWxldGlvbnMoLSkKPj4+Cj4+Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+
+
+On 3/11/24 14:55, James Clark wrote:
+> 
+> On 11/03/2024 06:04, Anshuman Khandual wrote:
+>>
+>> On 3/5/24 23:55, Suzuki K Poulose wrote:
+>>> On 22/02/2024 08:21, Anshuman Khandual wrote:
+>>>> This moves remaining AMBA ACPI devices into respective platform drivers for
+>>>> enabling ACPI based power management support. This series applies on kernel
+>>>> v6.8-rc5 release. This series has been built, and boot tested on a DT based
+>>>> (RB5) and ACPI supported coresight platform (N1SDP).
+>>> Please rebase your series on coresight next and fix build failures with the extra warnings turned ON (should be on by default with next).
+>> I did rebase the series (which required some rebase related changes for some) on
+>> coresight next i.e with the following commit as HEAD.
+>>
+>> a4f3057d19ff ("coresight-tpda: Change qcom,dsb-element-size to qcom,dsb-elem-bits")
+>>
+>> Although did not see any warning either with = m or = y based coresight options.
+>> Is there any other particular config which needs to be enabled for these warnings
+>> to come up ?
+>>
+> It doesn't apply cleanly on a4f305 for me, maybe you sent an old version
+> after rebasing?
+
+Ohh, I was not clear enough earlier. This series is NOT rebased against coresight next.
+I am preparing V6 series respin which is rebased against the above mentioned commit on
+coresight next branch instead.
+
+> 
+> This change in patch 5 is a warning for example, because not all members
+> of the struct are initialised. No special config is required:
+> 
+> +	{"ARMHC98D", 0}, /* ARM CoreSight Dynamic Replicator */"
+
+Right, will change the above as follows and fix other affected places as well.
+
+	{"ARMHC98D", 0, 0, 0}, /* ARM CoreSight Dynamic Replicator */
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
