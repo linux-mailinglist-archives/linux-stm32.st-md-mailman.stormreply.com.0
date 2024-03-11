@@ -2,85 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47EAF878FB1
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 Mar 2024 09:29:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538338786CC
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 Mar 2024 18:56:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EEA21C6DD9D;
-	Tue, 12 Mar 2024 08:29:06 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0820BC6DD9E;
+	Mon, 11 Mar 2024 17:56:29 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26B83C6B442
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55F23C6DD73
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 15:29:12 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4132cbe26a9so4361115e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 Mar 2024 08:29:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=isovalent.com; s=google; t=1710170951; x=1710775751;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=oBRdUgazJ1HnLsYGkRF0jKMpPcVcTcXQbKGRIqRZPjY=;
- b=SVn5KyaD5eRJZwzCqZtN5G8s/NuKSZNM/zveCXOzs50Kk3FhAOQaO9+wQ+cRvLIJ1t
- +TaP0fM8HQmhrgyOV0WZXBxGpMzyWijj6B5FxGXW1oUmQLmj5dyGCU1W8X5Ve0g3VE24
- r6ZUMQsWlOx/qDUSsOsxdQxeGs1Ag0IOzkrId056YbWTLrY428zvT3vAT9npPP5Q5cMK
- AHFplmlU2cs8e+8aRkdLHfERCsRh4O1yD8TH12sNnu18rs7X/3UcGidbbuzbNC146fpp
- U4A1nEUgP+t/DzHLT9JdZa3pC4cThtwlurQxJXZrTYoYaMbBDPhatb8aATDVJeSJTZmL
- bGAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710170951; x=1710775751;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=oBRdUgazJ1HnLsYGkRF0jKMpPcVcTcXQbKGRIqRZPjY=;
- b=Iq2fK9cG9PPgpOatmkT62uZnz7cDk3pT1LyTC/oabtDWmLTNG/vDbEHZ+qwbArhB5g
- Cu4kSc5Qt+HdfyI0x1BayGV89O1m1ZHpCCMg0pzWEdOCL9y9Sbg5HN9ZA4kMcGH+iH2H
- bTH6WQI3B68+BcQNTbVJr+CVfhxWyUfdMzfmerEaA+HA2ug2WPOe3WL2NBd9nOhbZeHf
- 3h19LRXCVhJGuTvYB347lDxmXMBNI27Cpz/RRB1bPQ/26qWSZgmgHGkBtUH38bI3pX9m
- Cbn9giAp+oEIwFMoM25sIufjx2gf5zQki68MiWh14904ulyZUoNnMAOFUxtIMq4DmNTn
- 979Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXj5H7edZuIvhkViAaaqB8eeZGryz252YuWttGH0ASVpMmL9borPoSe5Bh+plXInOpoIAQkuTIUPi9h00dxu9pUpFggur9MXbdcQHrlfEpqiC/rtuovot4i
-X-Gm-Message-State: AOJu0YyToJEAvm+U17jGdCAobgIf+DWUV1tli7M9oYr+cH0ae6kdbMwC
- nX851Z/sG2L+j4/LFF27feQBBYj3VG1u6aXnKayJ4TyH1MoSuyLAyr1ZE9vXszY=
-X-Google-Smtp-Source: AGHT+IEwgdh7H+9crLcV9S5SLA+JZoumOzg/VaQuwX7biWBYjQ6DqPv+BHttGcsj9IyOJw9JoIyg7w==
-X-Received: by 2002:a05:600c:4449:b0:413:1f5c:baa6 with SMTP id
- v9-20020a05600c444900b004131f5cbaa6mr5344265wmn.30.1710170951441; 
- Mon, 11 Mar 2024 08:29:11 -0700 (PDT)
-Received: from ?IPV6:2a02:8011:e80c:0:5231:db44:25b0:339e?
- ([2a02:8011:e80c:0:5231:db44:25b0:339e])
- by smtp.gmail.com with ESMTPSA id
- n4-20020a05600c4f8400b00412ff941abasm15941091wmq.21.2024.03.11.08.29.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Mar 2024 08:29:11 -0700 (PDT)
-Message-ID: <e8f37842-1ddf-4241-97f3-b83ffcb32ddc@isovalent.com>
-Date: Mon, 11 Mar 2024 15:29:09 +0000
+ Mon, 11 Mar 2024 17:56:27 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42BBTHgA031821; Mon, 11 Mar 2024 18:55:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=
+ selector1; bh=NQG+2qhjNjjYXPhRwsqUC5kmwQUxn53pvpUv3WEV40M=; b=N5
+ RQs48/N6jDwH5C8ioEjmzE3xw/uhDcWeKMKxrdmbfMUWsxm2DuUoV+Y+pG/QCg0z
+ aC3SCZibf00/yODCjOQeInIt+k0QsvltTrQL7Dt7CU+UORWwGghYXmqAhVJQ9+wD
+ /sGEiY4vxe7ajGQggmtesaqWiSuRW9EO+TMsvPm2W6e7y3XjNcsFJMaay1U7fU0G
+ byuX77weaCLtKovuG7gJD6PgfUCByKt7St3OwmII7scNN2WgEpqivWwPO8kCAAgF
+ IK56X4/4lqCiudXiBJVioFpqY9C3n4f/yz64aTYn3blF/ihP9etXtS3xxB4l0Otl
+ 1eAB8RqHT37tovMYwJpA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wrfhfh8mb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 11 Mar 2024 18:55:49 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id C15C840044;
+ Mon, 11 Mar 2024 18:55:45 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 885B42967F6;
+ Mon, 11 Mar 2024 18:55:13 +0100 (CET)
+Received: from gnbcxd0016.gnb.st.com (10.129.178.213) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 11 Mar
+ 2024 18:55:13 +0100
+Date: Mon, 11 Mar 2024 18:55:07 +0100
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20240311175442.GA109372@gnbcxd0016.gnb.st.com>
+Mail-Followup-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?=
+ <u.kleine-koenig@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-media@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de
+References: <cover.1708692946.git.u.kleine-koenig@pengutronix.de>
+ <7e85adb3c2f11fc10e5a18bb341c5af8b35c4d88.1708692946.git.u.kleine-koenig@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB
-To: Menglong Dong <dongmenglong.8@bytedance.com>, andrii@kernel.org
-References: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
- <20240311093526.1010158-9-dongmenglong.8@bytedance.com>
-From: Quentin Monnet <quentin@isovalent.com>
-In-Reply-To: <20240311093526.1010158-9-dongmenglong.8@bytedance.com>
-X-Mailman-Approved-At: Tue, 12 Mar 2024 08:29:06 +0000
-Cc: linux-kselftest@vger.kernel.org, dave.hansen@linux.intel.com,
- ast@kernel.org, song@kernel.org, sdf@google.com, yonghong.song@linux.dev,
- agordeev@linux.ibm.com, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, daniel@iogearbox.net, x86@kernel.org,
- john.fastabend@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- borntraeger@linux.ibm.com, linux-trace-kernel@vger.kernel.org,
- rostedt@goodmis.org, kpsingh@kernel.org, mathieu.desnoyers@efficios.com,
- linux-arm-kernel@lists.infradead.org, haoluo@google.com,
- netdev@vger.kernel.org, dsahern@kernel.org, linux-kernel@vger.kernel.org,
- eddyz87@gmail.com, svens@linux.ibm.com, jolsa@kernel.org, bpf@vger.kernel.org,
- martin.lau@linux.dev, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 8/9] libbpf: add support for
- the multi-link of tracing
+Content-Disposition: inline
+In-Reply-To: <7e85adb3c2f11fc10e5a18bb341c5af8b35c4d88.1708692946.git.u.kleine-koenig@pengutronix.de>
+X-Disclaimer: ce message est personnel / this message is private
+X-Originating-IP: [10.129.178.213]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-11_10,2024-03-11_01,2023-05-22_02
+Cc: kernel@pengutronix.de, Hugues Fruchet <hugues.fruchet@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 4/5] media: stm32-dcmipp: Convert to
+ platform remove callback returning void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,55 +84,85 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-2024-03-11 09:35 UTC+0000 ~ Menglong Dong <dongmenglong.8@bytedance.com>
-> Add support for the attach types of:
-> 
-> BPF_TRACE_FENTRY_MULTI
-> BPF_TRACE_FEXIT_MULTI
-> BPF_MODIFY_RETURN_MULTI
-> 
-> Signed-off-by: Menglong Dong <dongmenglong.8@bytedance.com>
+Hi Uwe,
+
+thank you for your patch.
+
+On Fri, Feb 23, 2024 at 01:59:07PM +0100, Uwe Kleine-K=F6nig wrote:
+> The .remove() callback for a platform driver returns an int which makes
+> many driver authors wrongly assume it's possible to do error handling by
+> returning an error code. However the value returned is ignored (apart
+> from emitting a warning) and this typically results in resource leaks.
+> =
+
+> To improve here there is a quest to make the remove callback return
+> void. In the first step of this quest all drivers are converted to
+> .remove_new(), which already returns void. Eventually after all drivers
+> are converted, .remove_new() will be renamed to .remove().
+> =
+
+> Trivially convert this driver from always returning zero in the remove
+> callback to the void returning variant.
+> =
+
+> Signed-off-by: Uwe Kleine-K=F6nig <u.kleine-koenig@pengutronix.de>
+
+Reviewed-by: Alain Volmat <alain.volmat@foss.st.com>
+
 > ---
->  tools/bpf/bpftool/common.c |   3 +
->  tools/lib/bpf/bpf.c        |  10 +++
->  tools/lib/bpf/bpf.h        |   6 ++
->  tools/lib/bpf/libbpf.c     | 168 ++++++++++++++++++++++++++++++++++++-
->  tools/lib/bpf/libbpf.h     |  14 ++++
->  tools/lib/bpf/libbpf.map   |   1 +
->  6 files changed, 199 insertions(+), 3 deletions(-)
-> 
-> diff --git a/tools/bpf/bpftool/common.c b/tools/bpf/bpftool/common.c
-> index cc6e6aae2447..ffc85256671d 100644
-> --- a/tools/bpf/bpftool/common.c
-> +++ b/tools/bpf/bpftool/common.c
-> @@ -1089,6 +1089,9 @@ const char *bpf_attach_type_input_str(enum bpf_attach_type t)
->  	case BPF_TRACE_FENTRY:			return "fentry";
->  	case BPF_TRACE_FEXIT:			return "fexit";
->  	case BPF_MODIFY_RETURN:			return "mod_ret";
-> +	case BPF_TRACE_FENTRY_MULTI:		return "fentry_multi";
-> +	case BPF_TRACE_FEXIT_MULTI:		return "fexit_multi";
-> +	case BPF_MODIFY_RETURN_MULTI:		return "mod_ret_multi";
->  	case BPF_SK_REUSEPORT_SELECT:		return "sk_skb_reuseport_select";
->  	case BPF_SK_REUSEPORT_SELECT_OR_MIGRATE:	return "sk_skb_reuseport_select_or_migrate";
->  	default:	return libbpf_bpf_attach_type_str(t);
+>  drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> =
 
-Hi, please drop this part in bpftool.
+> diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b=
+/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+> index 32c6619be9a2..bce821eb71ce 100644
+> --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+> +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+> @@ -517,7 +517,7 @@ static int dcmipp_probe(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  =
 
-bpf_attach_type_input_str() is used for legacy attach type names that
-were used before bpftool switched to libbpf_bpf_attach_type_str(), and
-that are still supported today. The names for new attach types should
-just be retrieved with libbpf_bpf_attach_type_str(). And function
-bpf_attach_type_input_str() is also only used for attaching
-cgroup-related programs with "bpftool cgroup (at|de)tach".
+> -static int dcmipp_remove(struct platform_device *pdev)
+> +static void dcmipp_remove(struct platform_device *pdev)
+>  {
+>  	struct dcmipp_device *dcmipp =3D platform_get_drvdata(pdev);
+>  	unsigned int i;
+> @@ -534,8 +534,6 @@ static int dcmipp_remove(struct platform_device *pdev)
+>  	media_device_cleanup(&dcmipp->mdev);
+>  =
 
-Thanks,
-Quentin
+>  	v4l2_device_unregister(&dcmipp->v4l2_dev);
+> -
+> -	return 0;
+>  }
+>  =
 
+>  static int dcmipp_runtime_suspend(struct device *dev)
+> @@ -588,7 +586,7 @@ static const struct dev_pm_ops dcmipp_pm_ops =3D {
+>  =
+
+>  static struct platform_driver dcmipp_pdrv =3D {
+>  	.probe		=3D dcmipp_probe,
+> -	.remove		=3D dcmipp_remove,
+> +	.remove_new	=3D dcmipp_remove,
+>  	.driver		=3D {
+>  		.name	=3D DCMIPP_PDEV_NAME,
+>  		.of_match_table =3D dcmipp_of_match,
+> -- =
+
+> 2.43.0
+> =
+
+
+Regards,
+Alain
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
