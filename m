@@ -2,50 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D5A787A955
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Mar 2024 15:17:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90DDB87BCB1
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Mar 2024 13:23:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F07C5C6C83C;
-	Wed, 13 Mar 2024 14:17:12 +0000 (UTC)
-Received: from madrid.collaboradmins.com (madrid.collaboradmins.com
- [46.235.227.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50F11C6B476;
+	Thu, 14 Mar 2024 12:23:40 +0000 (UTC)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1ED9AC62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9960C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Mar 2024 14:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1710339431;
- bh=7LeOG2wNuxDjCRbEa+kiNhbHeBP3r4A3vvB0gv+OL1o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lSSQi3xcCksgyjMDBukyOvFXAqcj6zABeVftEMLPXBvAz3ZUF9aONImTVbkJL4mFq
- fSz1SeNylIwugM4ZgfGQ6o6/yFsnXJVIanSABL1R4XAGkfX0NCA99H4rZqBxQe2W6F
- ei7OplwH9OSwGDXVKvzzel5+BiJyICrp8R205slhxuB8xAfeqsV/0LrjEhiHMAIwNE
- VRaWQ+R+8W8oyfgNGlCFUjLtusKYFKcGmBPsfdkh/fehr1wfpplv7a6HBqan5n/u5i
- D8I8dmYOGAS2kG0swlvF7SXCxCYtgkoybq58Df8L6tUIK0YK0S9UL0HATzOgu8vO0S
- 6REnjOzPiBQiA==
-Received: from mercury (cola.collaboradmins.com [195.201.22.229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: sre)
- by madrid.collaboradmins.com (Postfix) with ESMTPSA id 820EE37820D4;
- Wed, 13 Mar 2024 14:17:11 +0000 (UTC)
-Received: by mercury (Postfix, from userid 1000)
- id 13DD81061C35; Wed, 13 Mar 2024 15:17:11 +0100 (CET)
-Date: Wed, 13 Mar 2024 15:17:11 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <mz55sv7refxxpf7krrbbu4etnim6z7kv4ksovg2vsoi5dzymub@hsi3qgqnzm3k>
-References: <20240313140057.2088667-1-andriy.shevchenko@linux.intel.com>
+ Wed, 13 Mar 2024 17:26:11 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-78850ab4075so4100385a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 13 Mar 2024 10:26:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710350770; x=1710955570;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=/xlPdDv6yvSDgUYLn/3ttkYWsR7atQ5kgTqz8H924Zg=;
+ b=E0qec1M5LCcIa+jLOwEw2kfWE0oG04Pob7cQORnS7QPsPrvxvICrByDSNXD6hbhr6g
+ zCTnOK3PXhEJdx1rOCmGT9F2Ome8X5o7P/uv3gTvqEaW73QA0wZs9UDhDTxg1B+BQILf
+ jWmhdebYAmqzsdcho+Nq24cesx1Ti0GnYduF8wDl4t+SlZA5l1wiMuon+DiGwVaScKsx
+ tIBaNke41/GW7ROxDlSyG/vuERuWoohXZlT9aanx2+gYDwl8+/0yRtOeKLTgaIFOxIsm
+ QdNkgNauLpL+0S8fCJYznG7u8GjVf+gbtvK8E9OhCr3wNru/rM3VzQuEvDq1/AgP0rkU
+ EWIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710350770; x=1710955570;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=/xlPdDv6yvSDgUYLn/3ttkYWsR7atQ5kgTqz8H924Zg=;
+ b=jFRJvNjpVLGzmKoeDekj7kESLMZN2Q8aGOGwB+h9BQ26MJIIPAmVmiFZoqzw4YrQ2w
+ LM1RU2YWMA0hwiY5RCvO05aB88/ignwAQvtFKeu+bJdBc/thXvEOYKPpJmgblnDFOHZL
+ FomTyOA1pmJpz9+W0W/EHonkX0YcoSaPi130qmJuFU0Gyr+1p2LvRxEIbUAgSflCHmz2
+ EmCzXdSltj/RIsUZCV/aF9xRiBvRP07cF3qGr7FxL21wwzK5nVCo7D9DBY+waTavQHyO
+ 3QDk1VFk4WTLGeHGRFkULcTrseI2WjsLHdFsLyO6PqQI3Jbk72TiDrvrNPmWQT/HWNuy
+ nFZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUoNJT7BMmD9I8Y6+3rUTshXsfdRmZcYXO3dJlp+a7rWiZLONel7PMlqWFVmVyZhGy/n2ulQlrqacrcaSm53yMcmgYbRFpqdtMn/c/IyUmQg5dazv1pxjiB
+X-Gm-Message-State: AOJu0Yz79lRbr0VlcFR8ZxdibrjsRAGbKvTVncM1A/sT/HSHnWECOaum
+ FThrhN4DwSVmDRhCeYhHTpkABfDj2jI+j2cdtfh+/8Onl1r2bHTK
+X-Google-Smtp-Source: AGHT+IFyyiGiWin6XQHjnKeLqB0dBkLVo4kmfRKf8luDrrfr/cY3NN2DX7JZ46wiVXxtXIKQSkqJLg==
+X-Received: by 2002:a05:620a:178e:b0:787:a83a:cfed with SMTP id
+ ay14-20020a05620a178e00b00787a83acfedmr607731qkb.70.1710350770507; 
+ Wed, 13 Mar 2024 10:26:10 -0700 (PDT)
+Received: from [10.102.4.159] ([208.195.13.130])
+ by smtp.gmail.com with ESMTPSA id
+ yf23-20020a05620a3bd700b007884b14b0b4sm4888800qkn.51.2024.03.13.10.26.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 13 Mar 2024 10:26:10 -0700 (PDT)
+Message-ID: <f2dcbe55-0f0e-4173-8e21-f899c6fc802a@gmail.com>
+Date: Wed, 13 Mar 2024 10:26:06 -0700
 MIME-Version: 1.0
-In-Reply-To: <20240313140057.2088667-1-andriy.shevchenko@linux.intel.com>
-Cc: "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v1 1/1] net: stmmac: dwmac-rk: Remove
-	unused of_gpio.h
+User-Agent: Mozilla Thunderbird
+To: Johannes Berg <johannes@sipsolutions.net>, Karel Balej
+ <balejk@matfyz.cz>, dimitri.ledkov@canonical.com
+References: <CZSHRUIJ4RKL.34T4EASV5DNJM@matfyz.cz>
+ <005f998ec59e27633b1b99fdf929e40ccfd401c1.camel@sipsolutions.net>
+Content-Language: en-US
+From: James Prestwood <prestwoj@gmail.com>
+In-Reply-To: <005f998ec59e27633b1b99fdf929e40ccfd401c1.camel@sipsolutions.net>
+X-Mailman-Approved-At: Thu, 14 Mar 2024 12:23:39 +0000
+Cc: herbert@gondor.apana.org.au, linux-wireless@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ dhowells@redhat.com, mcgrof@kernel.org, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, linux-modules@vger.kernel.org, iwd@lists.linux.dev,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [REGRESSION] Re: [PATCH] crypto: pkcs7: remove
+	sha1 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,89 +87,37 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2719967576522931214=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
---===============2719967576522931214==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s4m5pnqu3w2utz3e"
-Content-Disposition: inline
-
-
---s4m5pnqu3w2utz3e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
 Hi,
 
-On Wed, Mar 13, 2024 at 04:00:57PM +0200, Andy Shevchenko wrote:
-> of_gpio.h is deprecated and subject to remove.
-> The driver doesn't use it, simply remove the unused header.
->=20
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
+On 3/13/24 1:56 AM, Johannes Berg wrote:
+> Not sure why you're CC'ing the world, but I guess adding a few more
+> doesn't hurt ...
+>
+> On Wed, 2024-03-13 at 09:50 +0100, Karel Balej wrote:
+>>   and I use iwd
+> This is your problem, the wireless stack in the kernel doesn't use any
+> kernel crypto code for 802.1X.
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Yes, the wireless stack has zero bearing on the issue. I think that's 
+what you meant by "problem".
 
--- Sebastian
+IWD has used the kernel crypto API forever which was abruptly broken, 
+that is the problem.
 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net=
-/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 382e8de1255d..7ae04d8d291c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> @@ -12,10 +12,8 @@
->  #include <linux/clk.h>
->  #include <linux/phy.h>
->  #include <linux/of_net.h>
-> -#include <linux/gpio.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> -#include <linux/of_gpio.h>
->  #include <linux/platform_device.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/delay.h>
-> --=20
-> 2.43.0.rc1.1.gbec44491f096
->=20
+The original commit says it was to remove support for sha1 signed kernel 
+modules, but it did more than that and broke the keyctl API.
 
---s4m5pnqu3w2utz3e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmXxtV4ACgkQ2O7X88g7
-+ppV1A//fyQqXP+7uaMBcWR9nRq+3t4g6Z61t1qGl8setP/+tyCbdYlUZ7CWSBAq
-Kk/fxK5Jh9ChrPByBz8/kNmub2Qj/x0iHKyabQYcH9p0Ifon98pP+D/Cw5olXAIf
-e4uq/bKHwSPe8XnB9YSgseVci5CSqBzwoc+1pZkhi2zZwTskKq6jFar/KWDE6GiL
-1QdlO5JOojO6Iv+cJKtqSmZ0ebc6WvhDb25Kcz0bkNy2znTy0XZlpVZrHCFV0SXf
-6lDxoBN6vba7rVq+2RFnT6ieam+5L8unJGn0cnePHoWQX9yekrrZNMfdYDBZxIfj
-PdB4vVt8aQohtGRU0m36RfKiQEDGim61oji9NiHhLPt8yhWSK0kWPy5An5LfnyvS
-0HGkd5lKGYSlfTM71bt7YkAL1ixgJZ3iOzfe/J2KlpyarZMCskh2ycB+4vl0XJkS
-rC5OwSXtLF+/34mHJblKiMaKcIxrLX5Pssa/d+6EE8lfVTqlkZdPRipyPZUbdZ7r
-J+JibT3Yv5coDWAnkBBeB+P9rKj9CUXK2NHA9exN/3cKnYglBn2T8BC8XiaSVOWd
-ITDvFSs3fQjLjXtOB1UbA2nJHl8kVtifdQDTd0oXVnR6FuBp+I2lG2nLVhzeQ4NA
-+8ZdWZIhI0lxvN9xMHLS17MpnvBh/0iEUtPAlkN6/Z3kM1IAfk8=
-=bv+r
------END PGP SIGNATURE-----
-
---s4m5pnqu3w2utz3e--
-
---===============2719967576522931214==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>
+> I suppose iwd wants to use the kernel infrastructure but has no
+> fallbacks to other implementations.
+> johannes
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============2719967576522931214==--
