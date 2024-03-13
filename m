@@ -2,74 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB8187A60B
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Mar 2024 11:41:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F027B87A6BB
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Mar 2024 12:08:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F053AC6C83C;
-	Wed, 13 Mar 2024 10:41:28 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 540F2C03FC3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3F53C6C83C;
+	Wed, 13 Mar 2024 11:08:42 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63BC6C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Mar 2024 10:41:27 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42DAQqtj031797; Wed, 13 Mar 2024 11:40:57 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- content-type:message-id:date:mime-version:subject:to:cc
- :references:from:in-reply-to; s=selector1; bh=P/TGwE35gwGLRt0DU7
- 8yvvMNsaXojjEnz1nodaHHGRo=; b=FlyNtWwiQTVKZg2/cLDN1/hFcbnPuc9Ivb
- 4yI+hA3otcD2MdMvX8Bku4d+Bp9CWCHOeTXfWCpPv6EQhpBccvma6Yz5+KQl9m0l
- JAcbXzBBYKipgoT3/g3EKAwtz4zXUBQt2fLE84YcszGVuitoqLRupOHfFgGsQqcF
- GTW/OGABVb1bdGJAy16cKoISWdjz5VcLPfbNQuEy+U7mVoakvhnomX/ySSrWhr6g
- yw+zkphqHw331oU0gf6ViykwQ/uCL4uPWpN0csQXO+xybs98rBz8dkq1wJse9YA0
- jaFuBgcnyf9wPgaxQFKPGtZD5s3bu6TtoXKvONsUYnc8+ylTiC5A==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wrg02ssdg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 13 Mar 2024 11:40:56 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A587640048;
- Wed, 13 Mar 2024 11:40:40 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id D4C5425B742;
- Wed, 13 Mar 2024 11:39:54 +0100 (CET)
-Received: from [10.201.21.128] (10.201.21.128) by SHFDAG1NODE2.st.com
- (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 13 Mar
- 2024 11:39:53 +0100
-Message-ID: <50ee6122-b160-48ea-8c44-1046b5907d7c@foss.st.com>
-Date: Wed, 13 Mar 2024 11:39:53 +0100
+ Wed, 13 Mar 2024 11:08:41 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77BDA1063;
+ Wed, 13 Mar 2024 04:09:17 -0700 (PDT)
+Received: from [10.57.51.109] (unknown [10.57.51.109])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D5AC63F73F;
+ Wed, 13 Mar 2024 04:08:38 -0700 (PDT)
+Message-ID: <b4450fd4-677d-45a1-8627-bd0b0eb45e7e@arm.com>
+Date: Wed, 13 Mar 2024 11:08:37 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-References: <20240307135957.303481-1-christophe.roullier@foss.st.com>
- <20240307135957.303481-3-christophe.roullier@foss.st.com>
- <578f421c-ca06-45d4-8380-8b2b423d4d47@linaro.org>
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <578f421c-ca06-45d4-8380-8b2b423d4d47@linaro.org>
-X-Originating-IP: [10.201.21.128]
-X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-13_07,2024-03-12_01,2023-05-22_02
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: net: add new property
- st, ext-phyclk in documentation for stm32
+Content-Language: en-GB
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+References: <20240312102318.2285165-1-anshuman.khandual@arm.com>
+ <20240312102318.2285165-7-anshuman.khandual@arm.com>
+ <2dbef82c-96a0-419f-9950-8ee4169fb634@arm.com>
+ <bab93283-3b4a-4f39-a4a9-fee8cea1605a@arm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <bab93283-3b4a-4f39-a4a9-fee8cea1605a@arm.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: Re: [Linux-stm32] [PATCH V6 06/11] coresight: funnel: Move ACPI
+ support from AMBA driver to platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,141 +49,135 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8720616514526828382=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============8720616514526828382==
-Content-Type: multipart/alternative;
-	boundary="------------0X7J7dDU074IYcmfz0sxjYiU"
-Content-Language: en-US
-
---------------0X7J7dDU074IYcmfz0sxjYiU
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 3/8/24 09:28, Krzysztof Kozlowski wrote:
-> On 07/03/2024 14:59, Christophe Roullier wrote:
->> Add property st,ext-phyclk to manage cases when PHY have no cristal/quartz
->> This property can be used with RMII phy without cristal 50Mhz and when we
->> want to select RCC clock instead of ETH_REF_CLK
->> Can be used also with RGMII phy with no cristal and we select RCC clock
->> instead of ETH_CLK125
->>
-> Nothing improved here. You say you add new property (wrote it explicitly
-> in the subject), but where is it? Where is the user?
->
-> I think we talked about this. Rob also asked quite clear:
->
->> That is obvious from the diff. What is not obvious is why we need a new
->> property and what is the problem with the existing ones.
-> How did you solve it?
-
-Hi,
-
-I do not understand your questions.
-
-That I would like to do, it is property "st,ext-phyclk" was introduced 
-in driver
-
-"drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c" in 2020, and YAML 
-was not updated at the time.
-
-Goal of this patch it is to update YAML to avoid dtbs check issue if 
-someone use this property :
-
-  dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb:
-ethernet@5800a000: Unevaluated properties are not allowed
-('st,ext-phyclk' was unexpected)
-
-Regards,
-
-Christophe
-
->
-> Best regards,
-> Krzysztof
->
---------------0X7J7dDU074IYcmfz0sxjYiU
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 3/8/24 09:28, Krzysztof Kozlowski
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:578f421c-ca06-45d4-8380-8b2b423d4d47@linaro.org">
-      <pre class="moz-quote-pre" wrap="">On 07/03/2024 14:59, Christophe Roullier wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Add property st,ext-phyclk to manage cases when PHY have no cristal/quartz
-This property can be used with RMII phy without cristal 50Mhz and when we
-want to select RCC clock instead of ETH_REF_CLK
-Can be used also with RGMII phy with no cristal and we select RCC clock
-instead of ETH_CLK125
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Nothing improved here. You say you add new property (wrote it explicitly
-in the subject), but where is it? Where is the user?
-
-I think we talked about this. Rob also asked quite clear:
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">That is obvious from the diff. What is not obvious is why we need a new
-property and what is the problem with the existing ones.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-How did you solve it?</pre>
-    </blockquote>
-    <p>Hi,</p>
-    <p>I do not understand your questions.</p>
-    <p>That I would like to do, it is property "<span
-      style="white-space: pre-wrap">st,ext-phyclk" was introduced in driver </span></p>
-    <p><span style="white-space: pre-wrap">"drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c" in 2020, and YAML was not updated at the time.</span></p>
-    <p><span style="white-space: pre-wrap">Goal of this patch it is to update YAML to avoid dtbs check issue if someone use this property :</span></p>
-    <pre class="moz-quote-pre" wrap=""> dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb: 
-ethernet@5800a000: Unevaluated properties are not allowed 
-('st,ext-phyclk' was unexpected) </pre>
-    <p></p>
-    <p><span style="white-space: pre-wrap">Regards,</span></p>
-    <p><span style="white-space: pre-wrap">Christophe
-</span></p>
-    <blockquote type="cite"
-      cite="mid:578f421c-ca06-45d4-8380-8b2b423d4d47@linaro.org">
-      <pre class="moz-quote-pre" wrap="">
-
-Best regards,
-Krzysztof
-
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------0X7J7dDU074IYcmfz0sxjYiU--
-
---===============8720616514526828382==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8720616514526828382==--
+T24gMTMvMDMvMjAyNCAwNDozMywgQW5zaHVtYW4gS2hhbmR1YWwgd3JvdGU6Cj4gCj4gCj4gT24g
+My8xMi8yNCAyMDoxMSwgU3V6dWtpIEsgUG91bG9zZSB3cm90ZToKPj4gT24gMTIvMDMvMjAyNCAx
+MDoyMywgQW5zaHVtYW4gS2hhbmR1YWwgd3JvdGU6Cj4+PiBBZGQgc3VwcG9ydCBmb3IgdGhlIGR5
+bmFtaWMgZnVubmVsIGRldmljZSBpbiB0aGUgcGxhdGZvcm0gZHJpdmVyLCB3aGljaCBjYW4KPj4+
+IHRoZW4gYmUgdXNlZCBvbiBBQ1BJIGJhc2VkIHBsYXRmb3Jtcy4gVGhpcyBjaGFuZ2Ugd291bGQg
+YWxsb3cgcnVudGltZSBwb3dlcgo+Pj4gbWFuYWdlbWVudCBmb3IgQUNQSSBiYXNlZCBzeXN0ZW1z
+Lgo+Pj4KPj4+IFRoZSBkcml2ZXIgd291bGQgdHJ5IHRvIGVuYWJsZSB0aGUgQVBCIGNsb2NrIGlm
+IGF2YWlsYWJsZS4gQWxzbywgcmVuYW1lIHRoZQo+Pj4gY29kZSB0byByZWZsZWN0IHRoZSBmYWN0
+IHRoYXQgaXQgbm93IGhhbmRsZXMgYm90aCBzdGF0aWMgYW5kIGR5bmFtaWMKPj4+IGZ1bm5lbHMu
+IEJ1dCBmaXJzdCB0aGlzIHJlZmFjdG9ycyBmdW5uZWxfcHJvYmUoKSBtYWtpbmcgc3VyZSBpdCBj
+YW4gYmUgdXNlZAo+Pj4gYm90aCBmb3IgcGxhdGZvcm0gYW5kIEFNQkEgZHJpdmVycywgYnkgbW92
+aW5nIHRoZSBwbV9ydW50aW1lX3B1dCgpIHRvIHRoZQo+Pj4gY2FsbGVycy4KPj4+Cj4+PiBDYzog
+TG9yZW56byBQaWVyYWxpc2kgPGxwaWVyYWxpc2lAa2VybmVsLm9yZz4KPj4+IENjOiBTdWRlZXAg
+SG9sbGEgPHN1ZGVlcC5ob2xsYUBhcm0uY29tPgo+Pj4gQ2M6IFN1enVraSBLIFBvdWxvc2UgPHN1
+enVraS5wb3Vsb3NlQGFybS5jb20+Cj4+PiBDYzogTWlrZSBMZWFjaCA8bWlrZS5sZWFjaEBsaW5h
+cm8ub3JnPgo+Pj4gQ2M6IEphbWVzIENsYXJrIDxqYW1lcy5jbGFya0Bhcm0uY29tPgo+Pj4gQ2M6
+IGxpbnV4LWFjcGlAdmdlci5rZXJuZWwub3JnCj4+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0
+cy5pbmZyYWRlYWQub3JnCj4+PiBDYzogbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwo+Pj4g
+Q2M6IGNvcmVzaWdodEBsaXN0cy5saW5hcm8ub3JnCj4+PiBUZXN0ZWQtYnk6IFN1ZGVlcCBIb2xs
+YSA8c3VkZWVwLmhvbGxhQGFybS5jb20+ICMgQm9vdCBhbmQgZHJpdmVyIHByb2JlIG9ubHkKPj4+
+IEFja2VkLWJ5OiBTdWRlZXAgSG9sbGEgPHN1ZGVlcC5ob2xsYUBhcm0uY29tPiAjIEZvciBBQ1BJ
+IHJlbGF0ZWQgY2hhbmdlcwo+Pj4gUmV2aWV3ZWQtYnk6IEphbWVzIENsYXJrIDxqYW1lcy5jbGFy
+a0Bhcm0uY29tPgo+Pj4gU2lnbmVkLW9mZi1ieTogQW5zaHVtYW4gS2hhbmR1YWwgPGFuc2h1bWFu
+LmtoYW5kdWFsQGFybS5jb20+Cj4+PiAtLS0KPj4+IENoYW5nZXMgaW4gVjY6Cj4+Pgo+Pj4gLSBB
+ZGRlZCBjbGtfZGlzYWJsZV91bnByZXBhcmUoKSBmb3IgcGNsayBpbiBmdW5uZWxfcHJvYmUoKSBl
+cnJvciBwYXRoCj4+PiAtIEFkZGVkIFdBUk5fT04oIWRydmRhdGEpIGNoZWNrIGluIGZ1bm5lbF9w
+bGF0Zm9ybV9yZW1vdmUoKQo+Pj4gLSBBZGRlZCBhZGRpdGlvbmFsIGVsZW1lbnRzIGZvciBhY3Bp
+X2RldmljZV9pZFtdCj4+Pgo+Pj4gIMKgIGRyaXZlcnMvYWNwaS9hcm02NC9hbWJhLmPCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCAxIC0KPj4+ICDCoCAuLi4vaHd0
+cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZnVubmVsLmPCoMKgwqAgfCA3MiArKysrKysrKysr
+KystLS0tLS0tCj4+PiAgwqAgMiBmaWxlcyBjaGFuZ2VkLCA0OCBpbnNlcnRpb25zKCspLCAyNSBk
+ZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9hY3BpL2FybTY0L2FtYmEu
+YyBiL2RyaXZlcnMvYWNwaS9hcm02NC9hbWJhLmMKPj4+IGluZGV4IDI3MGY0ZTM4MTlhMi4uYWZi
+NmFmYjY2OTY3IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9hY3BpL2FybTY0L2FtYmEuYwo+Pj4g
+KysrIGIvZHJpdmVycy9hY3BpL2FybTY0L2FtYmEuYwo+Pj4gQEAgLTI4LDcgKzI4LDYgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBhY3BpX2RldmljZV9pZCBhbWJhX2lkX2xpc3RbXSA9IHsKPj4+ICDC
+oMKgwqDCoMKgIHsiQVJNSEM5NzkiLCAwfSwgLyogQVJNIENvcmVTaWdodCBUUElVICovCj4+PiAg
+wqDCoMKgwqDCoCB7IkFSTUhDOTdDIiwgMH0sIC8qIEFSTSBDb3JlU2lnaHQgU29DLTQwMCBUTUMs
+IFNvQy02MDAgRVRGL0VUQiAqLwo+Pj4gIMKgwqDCoMKgwqAgeyJBUk1IQzlDQSIsIDB9LCAvKiBB
+Uk0gQ29yZVNpZ2h0IENBVFUgKi8KPj4+IC3CoMKgwqAgeyJBUk1IQzlGRiIsIDB9LCAvKiBBUk0g
+Q29yZVNpZ2h0IER5bmFtaWMgRnVubmVsICovCj4+PiAgwqDCoMKgwqDCoCB7IiIsIDB9LAo+Pj4g
+IMKgIH07Cj4+PiAgwqAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9j
+b3Jlc2lnaHQtZnVubmVsLmMgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0
+LWZ1bm5lbC5jCj4+PiBpbmRleCBmZjNlYTA2NzBhNWIuLjNiNGJlMTBhMGYwYyAxMDA2NDQKPj4+
+IC0tLSBhL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZnVubmVsLmMKPj4+
+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtZnVubmVsLmMKPj4+
+IEBAIC0zNiw2ICszNiw3IEBAIERFRklORV9DT1JFU0lHSFRfREVWTElTVChmdW5uZWxfZGV2cywg
+ImZ1bm5lbCIpOwo+Pj4gIMKgwqAgKiBzdHJ1Y3QgZnVubmVsX2RydmRhdGEgLSBzcGVjaWZpY3Mg
+YXNzb2NpYXRlZCB0byBhIGZ1bm5lbCBjb21wb25lbnQKPj4+ICDCoMKgICogQGJhc2U6wqDCoMKg
+IG1lbW9yeSBtYXBwZWQgYmFzZSBhZGRyZXNzIGZvciB0aGlzIGNvbXBvbmVudC4KPj4+ICDCoMKg
+ICogQGF0Y2xrOsKgwqDCoCBvcHRpb25hbCBjbG9jayBmb3IgdGhlIGNvcmUgcGFydHMgb2YgdGhl
+IGZ1bm5lbC4KPj4+ICsgKiBAcGNsazrCoMKgwqAgQVBCIGNsb2NrIGlmIHByZXNlbnQsIG90aGVy
+d2lzZSBOVUxMCj4+PiAgwqDCoCAqIEBjc2RldjrCoMKgwqAgY29tcG9uZW50IHZpdGFscyBuZWVk
+ZWQgYnkgdGhlIGZyYW1ld29yay4KPj4+ICDCoMKgICogQHByaW9yaXR5OsKgwqDCoCBwb3J0IHNl
+bGVjdGlvbiBvcmRlci4KPj4+ICDCoMKgICogQHNwaW5sb2NrOsKgwqDCoCBzZXJpYWxpemUgZW5h
+YmxlL2Rpc2FibGUgb3BlcmF0aW9ucy4KPj4+IEBAIC00Myw2ICs0NCw3IEBAIERFRklORV9DT1JF
+U0lHSFRfREVWTElTVChmdW5uZWxfZGV2cywgImZ1bm5lbCIpOwo+Pj4gIMKgIHN0cnVjdCBmdW5u
+ZWxfZHJ2ZGF0YSB7Cj4+PiAgwqDCoMKgwqDCoCB2b2lkIF9faW9tZW3CoMKgwqDCoMKgwqDCoCAq
+YmFzZTsKPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBjbGvCoMKgwqDCoMKgwqDCoCAqYXRjbGs7Cj4+
+PiArwqDCoMKgIHN0cnVjdCBjbGvCoMKgwqDCoMKgwqDCoCAqcGNsazsKPj4+ICDCoMKgwqDCoMKg
+IHN0cnVjdCBjb3Jlc2lnaHRfZGV2aWNlwqDCoMKgICpjc2RldjsKPj4+ICDCoMKgwqDCoMKgIHVu
+c2lnbmVkIGxvbmfCoMKgwqDCoMKgwqDCoCBwcmlvcml0eTsKPj4+ICDCoMKgwqDCoMKgIHNwaW5s
+b2NrX3TCoMKgwqDCoMKgwqDCoCBzcGlubG9jazsKPj4+IEBAIC0yMzYsNiArMjM4LDEwIEBAIHN0
+YXRpYyBpbnQgZnVubmVsX3Byb2JlKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IHJlc291cmNl
+ICpyZXMpCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+ICDC
+oMKgwqDCoMKgIH0KPj4+ICDCoCArwqDCoMKgIGRydmRhdGEtPnBjbGsgPSBjb3Jlc2lnaHRfZ2V0
+X2VuYWJsZV9hcGJfcGNsayhkZXYpOwo+Pj4gK8KgwqDCoCBpZiAoSVNfRVJSKGRydmRhdGEtPnBj
+bGspKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PREVWOwo+Pj4gKwo+Pj4gIMKgwqDC
+oMKgwqAgLyoKPj4+ICDCoMKgwqDCoMKgwqAgKiBNYXAgdGhlIGRldmljZSBiYXNlIGZvciBkeW5h
+bWljLWZ1bm5lbCwgd2hpY2ggaGFzIGJlZW4KPj4+ICDCoMKgwqDCoMKgwqAgKiB2YWxpZGF0ZWQg
+YnkgQU1CQSBjb3JlLgo+Pj4gQEAgLTI3MiwxMiArMjc4LDEzIEBAIHN0YXRpYyBpbnQgZnVubmVs
+X3Byb2JlKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IHJlc291cmNlICpyZXMpCj4+PiAgwqDC
+oMKgwqDCoMKgwqDCoMKgIGdvdG8gb3V0X2Rpc2FibGVfY2xrOwo+Pj4gIMKgwqDCoMKgwqAgfQo+
+Pj4gIMKgIC3CoMKgwqAgcG1fcnVudGltZV9wdXQoZGV2KTsKPj4+ICDCoMKgwqDCoMKgIHJldCA9
+IDA7Cj4+PiAgwqAgwqAgb3V0X2Rpc2FibGVfY2xrOgo+Pj4gIMKgwqDCoMKgwqAgaWYgKHJldCAm
+JiAhSVNfRVJSX09SX05VTEwoZHJ2ZGF0YS0+YXRjbGspKQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
+oCBjbGtfZGlzYWJsZV91bnByZXBhcmUoZHJ2ZGF0YS0+YXRjbGspOwo+Pj4gK8KgwqDCoCBpZiAo
+cmV0ICYmICFJU19FUlJfT1JfTlVMTChkcnZkYXRhLT5wY2xrKSkKPj4+ICvCoMKgwqDCoMKgwqDC
+oCBjbGtfZGlzYWJsZV91bnByZXBhcmUoZHJ2ZGF0YS0+cGNsayk7Cj4+PiAgwqDCoMKgwqDCoCBy
+ZXR1cm4gcmV0Owo+Pj4gIMKgIH0KPj4+ICDCoCBAQCAtMjk4LDYgKzMwNSw5IEBAIHN0YXRpYyBp
+bnQgZnVubmVsX3J1bnRpbWVfc3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+PiAgwqDCoMKg
+wqDCoCBpZiAoZHJ2ZGF0YSAmJiAhSVNfRVJSKGRydmRhdGEtPmF0Y2xrKSkKPj4+ICDCoMKgwqDC
+oMKgwqDCoMKgwqAgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRydmRhdGEtPmF0Y2xrKTsKPj4+ICDC
+oCArwqDCoMKgIGlmIChkcnZkYXRhICYmICFJU19FUlJfT1JfTlVMTChkcnZkYXRhLT5wY2xrKSkK
+Pj4+ICvCoMKgwqDCoMKgwqDCoCBjbGtfZGlzYWJsZV91bnByZXBhcmUoZHJ2ZGF0YS0+cGNsayk7
+Cj4+PiArCj4+PiAgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+ICDCoCB9Cj4+PiAgwqAgQEAgLTMw
+OCw2ICszMTgsOCBAQCBzdGF0aWMgaW50IGZ1bm5lbF9ydW50aW1lX3Jlc3VtZShzdHJ1Y3QgZGV2
+aWNlICpkZXYpCj4+PiAgwqDCoMKgwqDCoCBpZiAoZHJ2ZGF0YSAmJiAhSVNfRVJSKGRydmRhdGEt
+PmF0Y2xrKSkKPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgY2xrX3ByZXBhcmVfZW5hYmxlKGRydmRh
+dGEtPmF0Y2xrKTsKPj4+ICDCoCArwqDCoMKgIGlmIChkcnZkYXRhICYmICFJU19FUlJfT1JfTlVM
+TChkcnZkYXRhLT5wY2xrKSkKPj4+ICvCoMKgwqDCoMKgwqDCoCBjbGtfcHJlcGFyZV9lbmFibGUo
+ZHJ2ZGF0YS0+cGNsayk7Cj4+PiAgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+ICDCoCB9Cj4+PiAg
+wqAgI2VuZGlmCj4+PiBAQCAtMzE2LDU1ICszMjgsNjEgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBk
+ZXZfcG1fb3BzIGZ1bm5lbF9kZXZfcG1fb3BzID0gewo+Pj4gIMKgwqDCoMKgwqAgU0VUX1JVTlRJ
+TUVfUE1fT1BTKGZ1bm5lbF9ydW50aW1lX3N1c3BlbmQsIGZ1bm5lbF9ydW50aW1lX3Jlc3VtZSwg
+TlVMTCkKPj4+ICDCoCB9Owo+Pj4gIMKgIC1zdGF0aWMgaW50IHN0YXRpY19mdW5uZWxfcHJvYmUo
+c3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4+ICtzdGF0aWMgaW50IGZ1bm5lbF9wbGF0
+Zm9ybV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gIMKgIHsKPj4+ICvC
+oMKgwqAgc3RydWN0IHJlc291cmNlICpyZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwg
+SU9SRVNPVVJDRV9NRU0sIDApOwo+Pj4gIMKgwqDCoMKgwqAgaW50IHJldDsKPj4+ICDCoCDCoMKg
+wqDCoMKgIHBtX3J1bnRpbWVfZ2V0X25vcmVzdW1lKCZwZGV2LT5kZXYpOwo+Pj4gIMKgwqDCoMKg
+wqAgcG1fcnVudGltZV9zZXRfYWN0aXZlKCZwZGV2LT5kZXYpOwo+Pj4gIMKgwqDCoMKgwqAgcG1f
+cnVudGltZV9lbmFibGUoJnBkZXYtPmRldik7Cj4+PiAgwqAgLcKgwqDCoCAvKiBTdGF0aWMgZnVu
+bmVsIGRvIG5vdCBoYXZlIHByb2dyYW1taW5nIGJhc2UgKi8KPj4+IC3CoMKgwqAgcmV0ID0gZnVu
+bmVsX3Byb2JlKCZwZGV2LT5kZXYsIE5VTEwpOwo+Pj4gLQo+Pj4gLcKgwqDCoCBpZiAocmV0KSB7
+Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcG1fcnVudGltZV9wdXRfbm9pZGxlKCZwZGV2LT5kZXYpOwo+
+Pj4gK8KgwqDCoCByZXQgPSBmdW5uZWxfcHJvYmUoJnBkZXYtPmRldiwgcmVzKTsKPj4+ICvCoMKg
+wqAgcG1fcnVudGltZV9wdXQoJnBkZXYtPmRldik7Cj4+PiArwqDCoMKgIGlmIChyZXQpCj4+PiAg
+wqDCoMKgwqDCoMKgwqDCoMKgIHBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsKPj4+IC3C
+oMKgwqAgfQo+Pj4gIMKgIMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+ICDCoCB9Cj4+PiAgwqAg
+LXN0YXRpYyB2b2lkIHN0YXRpY19mdW5uZWxfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
+KnBkZXYpCj4+PiArc3RhdGljIHZvaWQgZnVubmVsX3BsYXRmb3JtX3JlbW92ZShzdHJ1Y3QgcGxh
+dGZvcm1fZGV2aWNlICpwZGV2KQo+Pj4gIMKgIHsKPj4+ICvCoMKgwqAgc3RydWN0IGZ1bm5lbF9k
+cnZkYXRhICpkcnZkYXRhID0gZGV2X2dldF9kcnZkYXRhKCZwZGV2LT5kZXYpOwo+Pj4gKwo+Pj4g
+K8KgwqDCoCBpZiAoV0FSTl9PTighZHJ2ZGF0YSkpCj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJu
+Owo+Pj4gKwo+Pj4gIMKgwqDCoMKgwqAgZnVubmVsX3JlbW92ZSgmcGRldi0+ZGV2KTsKPj4+ICDC
+oMKgwqDCoMKgIHBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsKPj4+ICvCoMKgwqAgaWYg
+KGRydmRhdGEgJiYgIUlTX0VSUl9PUl9OVUxMKGRydmRhdGEtPnBjbGspKQo+Pgo+PiBTYW1lIGFz
+IHRoZSBwcmV2aW91cyBwYXRjaAo+IAo+IFJpZ2h0LCB1bmxpa2UgaW4geHh4X3J1bnRpbWVfc3Vz
+cGVuZC9yZXN1bWUoKSBmdW5jdGlvbnMsIHh4eF9wbGF0Zm9ybV9yZW1vdmUoKQo+IGZ1bmN0aW9u
+cyBkbyBoYXZlIGEgKCFkcnZkYXRhKSBjaGVjayByaWdodCBhdCB0aGUgYmVnaW5uaW5nLiBIZW5j
+ZSBhIHJlZHVuZGFudAo+IGNoZWNrIGluIHN1Y2ggcGxhY2VzIGNhbiBiZSBkcm9wcGVkLgoKVGhp
+cyBhcHBsaWVzIHRvIGFsbW9zdCBhbGwgdGhlIGRyaXZlcnMsIHNvIHBsZWFzZSBmaXggaXQgZWxz
+ZXdoZXJlCgpTdXp1a2kKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
