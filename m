@@ -2,41 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F9A87A25F
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 Mar 2024 05:42:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FC587AC0A
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 Mar 2024 17:56:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 92AE3C6C83C;
-	Wed, 13 Mar 2024 04:42:42 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68501C03FC3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3EA4C6B46B;
+	Wed, 13 Mar 2024 16:56:39 +0000 (UTC)
+Received: from smtp1.ms.mff.cuni.cz (smtp-in1.ms.mff.cuni.cz [195.113.20.234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 27490C03FC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Mar 2024 04:42:40 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03AB81007;
- Tue, 12 Mar 2024 21:43:17 -0700 (PDT)
-Received: from [10.162.43.8] (a077893.blr.arm.com [10.162.43.8])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AA5793F64C;
- Tue, 12 Mar 2024 21:42:36 -0700 (PDT)
-Message-ID: <bf609360-d3ac-4a18-8165-41ad31e4d02b@arm.com>
-Date: Wed, 13 Mar 2024 10:12:33 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org
-References: <20240312102318.2285165-1-anshuman.khandual@arm.com>
- <20240312102318.2285165-9-anshuman.khandual@arm.com>
- <6d812f7b-169c-45bd-99f6-56b993381bd4@arm.com>
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-In-Reply-To: <6d812f7b-169c-45bd-99f6-56b993381bd4@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Wed, 13 Mar 2024 08:52:15 +0000 (UTC)
+X-SubmittedBy: id balejk@matfyz.cz subject
+ /postalCode=110+2000/O=Univerzita+20Karlova/street=Ovocn+5CxC3+5CxBD+20trh+20560/5/ST=Praha,
+ +20Hlavn+5CxC3+5CxAD+20m+5CxC4+5Cx9Bsto/C=CZ/CN=Karel+20Balej/emailAddress=balejk@matfyz.cz
+ serial F5FD910E8FE2121B897F7E55B84E351D
+ issued by /C=NL/O=GEANT+20Vereniging/CN=GEANT+20Personal+20CA+204
+ auth type TLS.CUNI
+Received: from localhost (koleje-wifi-0013.koleje.cuni.cz [78.128.191.13])
+ (authenticated)
+ by smtp1.ms.mff.cuni.cz (8.16.1/8.16.1) with ESMTPS id 42D8neSJ059445
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+ Wed, 13 Mar 2024 09:49:41 +0100 (CET)
+ (envelope-from balejk@matfyz.cz)
+Mime-Version: 1.0
+Date: Wed, 13 Mar 2024 09:50:11 +0100
+Message-Id: <CZSHRUIJ4RKL.34T4EASV5DNJM@matfyz.cz>
+To: <dimitri.ledkov@canonical.com>, "Johannes Berg" <johannes@sipsolutions.net>
+From: "Karel Balej" <balejk@matfyz.cz>
+In-Reply-To: <20231010212240.61637-1-dimitri.ledkov@canonical.com>
+X-Mailman-Approved-At: Wed, 13 Mar 2024 16:56:38 +0000
+Cc: herbert@gondor.apana.org.au, linux-wireless@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH V6 08/11] coresight: tpiu: Move ACPI
- support from AMBA driver to platform driver
+ dhowells@redhat.com, mcgrof@kernel.org, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, linux-modules@vger.kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [REGRESSION] Re: [PATCH] crypto: pkcs7: remove sha1
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -48,186 +51,56 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAzLzEyLzI0IDIyOjA3LCBTdXp1a2kgSyBQb3Vsb3NlIHdyb3RlOgo+IE9uIDEyLzAzLzIw
-MjQgMTA6MjMsIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOgo+PiBBZGQgc3VwcG9ydCBmb3IgdGhl
-IHRwaXUgZGV2aWNlIGluIHRoZSBwbGF0Zm9ybSBkcml2ZXIsIHdoaWNoIGNhbiB0aGVuIGJlCj4+
-IHVzZWQgb24gQUNQSSBiYXNlZCBwbGF0Zm9ybXMuIFRoaXMgY2hhbmdlIHdvdWxkIG5vdyBhbGxv
-dyBydW50aW1lIHBvd2VyCj4+IG1hbmFnZW1lbnQgZm9yIEFDUEkgYmFzZWQgc3lzdGVtcy4gVGhl
-IGRyaXZlciB3b3VsZCB0cnkgdG8gZW5hYmxlIHRoZSBBUEIKPj4gY2xvY2sgaWYgYXZhaWxhYmxl
-LiBCdXQgZmlyc3QgdGhpcyByZW5hbWVzIGFuZCB0aGVuIHJlZmFjdG9ycyB0cGl1X3Byb2JlKCkK
-Pj4gYW5kIHRwaXVfcmVtb3ZlKCksIG1ha2luZyBzdXJlIGl0IGNhbiBiZSB1c2VkIGJvdGggZm9y
-IHBsYXRmb3JtIGFuZCBBTUJBCj4+IGRyaXZlcnMuIFRoaXMgYWxzbyBtb3ZlcyBwbV9ydW50aW1l
-X3B1dCgpIGZyb20gdHBpdV9wcm9iZSgpIHRvIHRoZSBjYWxsZXJzLgo+Pgo+PiBDYzogTG9yZW56
-byBQaWVyYWxpc2kgPGxwaWVyYWxpc2lAa2VybmVsLm9yZz4KPj4gQ2M6IFN1ZGVlcCBIb2xsYSA8
-c3VkZWVwLmhvbGxhQGFybS5jb20+Cj4+IENjOiBTdXp1a2kgSyBQb3Vsb3NlIDxzdXp1a2kucG91
-bG9zZUBhcm0uY29tPgo+PiBDYzogTWlrZSBMZWFjaCA8bWlrZS5sZWFjaEBsaW5hcm8ub3JnPgo+
-PiBDYzogSmFtZXMgQ2xhcmsgPGphbWVzLmNsYXJrQGFybS5jb20+Cj4+IENjOiBsaW51eC1hY3Bp
-QHZnZXIua2VybmVsLm9yZwo+PiBDYzogbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQu
-b3JnCj4+IENjOiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4+IENjOiBjb3Jlc2lnaHRA
-bGlzdHMubGluYXJvLm9yZwo+PiBUZXN0ZWQtYnk6IFN1ZGVlcCBIb2xsYSA8c3VkZWVwLmhvbGxh
-QGFybS5jb20+ICMgQm9vdCBhbmQgZHJpdmVyIHByb2JlIG9ubHkKPj4gQWNrZWQtYnk6IFN1ZGVl
-cCBIb2xsYSA8c3VkZWVwLmhvbGxhQGFybS5jb20+ICMgRm9yIEFDUEkgcmVsYXRlZCBjaGFuZ2Vz
-Cj4+IFJldmlld2VkLWJ5OiBKYW1lcyBDbGFyayA8amFtZXMuY2xhcmtAYXJtLmNvbT4KPj4gU2ln
-bmVkLW9mZi1ieTogQW5zaHVtYW4gS2hhbmR1YWwgPGFuc2h1bWFuLmtoYW5kdWFsQGFybS5jb20+
-Cj4+IC0tLQo+PiBDaGFuZ2VzIGluIFY2Ogo+Pgo+PiAtIEFkZGVkIFdBUk5fT04oIWRydmRhdGEp
-IGNoZWNrIGluIHRwaXVfcGxhdGZvcm1fcmVtb3ZlKCkKPj4gLSBBZGRlZCBhZGRpdGlvbmFsIGVs
-ZW1lbnRzIGZvciBhY3BpX2RldmljZV9pZFtdCj4+Cj4+IMKgIGRyaXZlcnMvYWNwaS9hcm02NC9h
-bWJhLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqDCoCAxIC0KPj4g
-wqAgZHJpdmVycy9od3RyYWNpbmcvY29yZXNpZ2h0L2NvcmVzaWdodC10cGl1LmMgfCAxMDMgKysr
-KysrKysrKysrKysrKystLQo+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDkzIGluc2VydGlvbnMoKyks
-IDExIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9hY3BpL2FybTY0L2Ft
-YmEuYyBiL2RyaXZlcnMvYWNwaS9hcm02NC9hbWJhLmMKPj4gaW5kZXggNTg3MDYxYjBmZDJmLi42
-ZDI0YThmNzkxNGIgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvYWNwaS9hcm02NC9hbWJhLmMKPj4g
-KysrIGIvZHJpdmVycy9hY3BpL2FybTY0L2FtYmEuYwo+PiBAQCAtMjUsNyArMjUsNiBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGFjcGlfZGV2aWNlX2lkIGFtYmFfaWRfbGlzdFtdID0gewo+PiDCoMKg
-wqDCoMKgIHsiQVJNSEM1MDEiLCAwfSwgLyogQVJNIENvcmVTaWdodCBFVFIgKi8KPj4gwqDCoMKg
-wqDCoCB7IkFSTUhDNTAyIiwgMH0sIC8qIEFSTSBDb3JlU2lnaHQgU1RNICovCj4+IMKgwqDCoMKg
-wqAgeyJBUk1IQzUwMyIsIDB9LCAvKiBBUk0gQ29yZVNpZ2h0IERlYnVnICovCj4+IC3CoMKgwqAg
-eyJBUk1IQzk3OSIsIDB9LCAvKiBBUk0gQ29yZVNpZ2h0IFRQSVUgKi8KPj4gwqDCoMKgwqDCoCB7
-IkFSTUhDOTdDIiwgMH0sIC8qIEFSTSBDb3JlU2lnaHQgU29DLTQwMCBUTUMsIFNvQy02MDAgRVRG
-L0VUQiAqLwo+PiDCoMKgwqDCoMKgIHsiIiwgMH0sCj4+IMKgIH07Cj4+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRwaXUuYyBiL2RyaXZlcnMvaHd0
-cmFjaW5nL2NvcmVzaWdodC9jb3Jlc2lnaHQtdHBpdS5jCj4+IGluZGV4IDI5MDI0Zjg4MGZkYS4u
-NDExNzQ3NWY4ODg5IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQv
-Y29yZXNpZ2h0LXRwaXUuYwo+PiArKysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29y
-ZXNpZ2h0LXRwaXUuYwo+PiBAQCAtNSw2ICs1LDggQEAKPj4gwqDCoCAqIERlc2NyaXB0aW9uOiBD
-b3JlU2lnaHQgVHJhY2UgUG9ydCBJbnRlcmZhY2UgVW5pdCBkcml2ZXIKPj4gwqDCoCAqLwo+PiDC
-oCArI2luY2x1ZGUgPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPgo+PiArI2luY2x1ZGUgPGxpbnV4
-L2FjcGkuaD4KPiAKPiBuaXQ6IFBsZWFzZSBjb3VsZCB5b3Uga2VlcCB0aGVtIGFscGhhYmV0aWMg
-b3JkZXIgKGluY2x1ZGluZyB0aGUgZXhpc3Rpbmcgb25lcyBiZWxvdykuCgpTb3J0aW5nIHRoZSBl
-eGlzdGluZyBvbmVzIGFsb25nIHdpdGggdGhlIG5ldyBoZWFkZXIgYmVpbmcgYWRkZWQgaGVyZSwg
-Y3JlYXRlcwp0aGUgZm9sbG93aW5nIGNvZGUgY2h1cm4uIFN1cmUsIHdpbGwgZG8gdGhlIGNoYW5n
-ZXMuCgotLS0gYS9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRwaXUuYwor
-KysgYi9kcml2ZXJzL2h3dHJhY2luZy9jb3Jlc2lnaHQvY29yZXNpZ2h0LXRwaXUuYwpAQCAtNSwx
-NyArNSwxOSBAQAogICogRGVzY3JpcHRpb246IENvcmVTaWdodCBUcmFjZSBQb3J0IEludGVyZmFj
-ZSBVbml0IGRyaXZlcgogICovCgorI2luY2x1ZGUgPGxpbnV4L2FjcGkuaD4KKyNpbmNsdWRlIDxs
-aW51eC9hbWJhL2J1cy5oPgogI2luY2x1ZGUgPGxpbnV4L2F0b21pYy5oPgotI2luY2x1ZGUgPGxp
-bnV4L2tlcm5lbC5oPgotI2luY2x1ZGUgPGxpbnV4L2luaXQuaD4KKyNpbmNsdWRlIDxsaW51eC9j
-bGsuaD4KKyNpbmNsdWRlIDxsaW51eC9jb3Jlc2lnaHQuaD4KICNpbmNsdWRlIDxsaW51eC9kZXZp
-Y2UuaD4KLSNpbmNsdWRlIDxsaW51eC9pby5oPgogI2luY2x1ZGUgPGxpbnV4L2Vyci5oPgotI2lu
-Y2x1ZGUgPGxpbnV4L3NsYWIuaD4KKyNpbmNsdWRlIDxsaW51eC9pbml0Lmg+CisjaW5jbHVkZSA8
-bGludXgvaW8uaD4KKyNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KKyNpbmNsdWRlIDxsaW51eC9w
-bGF0Zm9ybV9kZXZpY2UuaD4KICNpbmNsdWRlIDxsaW51eC9wbV9ydW50aW1lLmg+Ci0jaW5jbHVk
-ZSA8bGludXgvY29yZXNpZ2h0Lmg+Ci0jaW5jbHVkZSA8bGludXgvYW1iYS9idXMuaD4KLSNpbmNs
-dWRlIDxsaW51eC9jbGsuaD4KKyNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cgo+IAo+PiDCoCAjaW5j
-bHVkZSA8bGludXgvYXRvbWljLmg+Cj4+IMKgICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPj4g
-wqAgI2luY2x1ZGUgPGxpbnV4L2luaXQuaD4KPj4gQEAgLTUyLDExICs1NCwxMyBAQCBERUZJTkVf
-Q09SRVNJR0hUX0RFVkxJU1QodHBpdV9kZXZzLCAidHBpdSIpOwo+PiDCoCAvKgo+PiDCoMKgICog
-QGJhc2U6wqDCoMKgIG1lbW9yeSBtYXBwZWQgYmFzZSBhZGRyZXNzIGZvciB0aGlzIGNvbXBvbmVu
-dC4KPj4gwqDCoCAqIEBhdGNsazrCoMKgwqAgb3B0aW9uYWwgY2xvY2sgZm9yIHRoZSBjb3JlIHBh
-cnRzIG9mIHRoZSBUUElVLgo+PiArICogQHBjbGs6wqDCoMKgIEFQQiBjbG9jayBpZiBwcmVzZW50
-LCBvdGhlcndpc2UgTlVMTAo+PiDCoMKgICogQGNzZGV2OsKgwqDCoCBjb21wb25lbnQgdml0YWxz
-IG5lZWRlZCBieSB0aGUgZnJhbWV3b3JrLgo+PiDCoMKgICovCj4+IMKgIHN0cnVjdCB0cGl1X2Ry
-dmRhdGEgewo+PiDCoMKgwqDCoMKgIHZvaWQgX19pb21lbcKgwqDCoMKgwqDCoMKgICpiYXNlOwo+
-PiDCoMKgwqDCoMKgIHN0cnVjdCBjbGvCoMKgwqDCoMKgwqDCoCAqYXRjbGs7Cj4+ICvCoMKgwqAg
-c3RydWN0IGNsa8KgwqDCoMKgwqDCoMKgICpwY2xrOwo+PiDCoMKgwqDCoMKgIHN0cnVjdCBjb3Jl
-c2lnaHRfZGV2aWNlwqDCoMKgICpjc2RldjsKPj4gwqDCoMKgwqDCoCBzcGlubG9ja190wqDCoMKg
-wqDCoMKgwqAgc3BpbmxvY2s7Cj4+IMKgIH07Cj4+IEBAIC0xMjIsMTQgKzEyNiwxMiBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGNvcmVzaWdodF9vcHMgdHBpdV9jc19vcHMgPSB7Cj4+IMKgwqDCoMKg
-wqAgLnNpbmtfb3BzwqDCoMKgID0gJnRwaXVfc2lua19vcHMsCj4+IMKgIH07Cj4+IMKgIC1zdGF0
-aWMgaW50IHRwaXVfcHJvYmUoc3RydWN0IGFtYmFfZGV2aWNlICphZGV2LCBjb25zdCBzdHJ1Y3Qg
-YW1iYV9pZCAqaWQpCj4+ICtzdGF0aWMgaW50IF9fdHBpdV9wcm9iZShzdHJ1Y3QgZGV2aWNlICpk
-ZXYsIHN0cnVjdCByZXNvdXJjZSAqcmVzKQo+PiDCoCB7Cj4+IMKgwqDCoMKgwqAgaW50IHJldDsK
-Pj4gwqDCoMKgwqDCoCB2b2lkIF9faW9tZW0gKmJhc2U7Cj4+IC3CoMKgwqAgc3RydWN0IGRldmlj
-ZSAqZGV2ID0gJmFkZXYtPmRldjsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X3BsYXRm
-b3JtX2RhdGEgKnBkYXRhID0gTlVMTDsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgdHBpdV9kcnZkYXRh
-ICpkcnZkYXRhOwo+PiAtwqDCoMKgIHN0cnVjdCByZXNvdXJjZSAqcmVzID0gJmFkZXYtPnJlczsK
-Pj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY29yZXNpZ2h0X2Rlc2MgZGVzYyA9IHsgMCB9Owo+PiDCoCDC
-oMKgwqDCoMKgIGRlc2MubmFtZSA9IGNvcmVzaWdodF9hbGxvY19kZXZpY2VfbmFtZSgmdHBpdV9k
-ZXZzLCBkZXYpOwo+PiBAQCAtMTQyLDEyICsxNDQsMTYgQEAgc3RhdGljIGludCB0cGl1X3Byb2Jl
-KHN0cnVjdCBhbWJhX2RldmljZSAqYWRldiwgY29uc3Qgc3RydWN0IGFtYmFfaWQgKmlkKQo+PiDC
-oCDCoMKgwqDCoMKgIHNwaW5fbG9ja19pbml0KCZkcnZkYXRhLT5zcGlubG9jayk7Cj4+IMKgIC3C
-oMKgwqAgZHJ2ZGF0YS0+YXRjbGsgPSBkZXZtX2Nsa19nZXQoJmFkZXYtPmRldiwgImF0Y2xrIik7
-IC8qIG9wdGlvbmFsICovCj4+ICvCoMKgwqAgZHJ2ZGF0YS0+YXRjbGsgPSBkZXZtX2Nsa19nZXQo
-ZGV2LCAiYXRjbGsiKTsgLyogb3B0aW9uYWwgKi8KPj4gwqDCoMKgwqDCoCBpZiAoIUlTX0VSUihk
-cnZkYXRhLT5hdGNsaykpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IGNsa19wcmVwYXJl
-X2VuYWJsZShkcnZkYXRhLT5hdGNsayk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQo+
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+PiDCoMKgwqDCoMKgIH0K
-Pj4gKwo+PiArwqDCoMKgIGRydmRhdGEtPnBjbGsgPSBjb3Jlc2lnaHRfZ2V0X2VuYWJsZV9hcGJf
-cGNsayhkZXYpOwo+PiArwqDCoMKgIGlmIChJU19FUlIoZHJ2ZGF0YS0+cGNsaykpCj4+ICvCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsKPj4gwqDCoMKgwqDCoCBkZXZfc2V0X2RydmRhdGEo
-ZGV2LCBkcnZkYXRhKTsKPj4gwqAgwqDCoMKgwqDCoCAvKiBWYWxpZGl0eSBmb3IgdGhlIHJlc291
-cmNlIGlzIGFscmVhZHkgY2hlY2tlZCBieSB0aGUgQU1CQSBjb3JlICovCj4+IEBAIC0xNzMsMjEg
-KzE3OSwzNCBAQCBzdGF0aWMgaW50IHRwaXVfcHJvYmUoc3RydWN0IGFtYmFfZGV2aWNlICphZGV2
-LCBjb25zdCBzdHJ1Y3QgYW1iYV9pZCAqaWQpCj4+IMKgwqDCoMKgwqAgZGVzYy5kZXYgPSBkZXY7
-Cj4+IMKgwqDCoMKgwqAgZHJ2ZGF0YS0+Y3NkZXYgPSBjb3Jlc2lnaHRfcmVnaXN0ZXIoJmRlc2Mp
-Owo+PiDCoCAtwqDCoMKgIGlmICghSVNfRVJSKGRydmRhdGEtPmNzZGV2KSkgewo+PiAtwqDCoMKg
-wqDCoMKgwqAgcG1fcnVudGltZV9wdXQoJmFkZXYtPmRldik7Cj4+ICvCoMKgwqAgaWYgKCFJU19F
-UlIoZHJ2ZGF0YS0+Y3NkZXYpKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IC3C
-oMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgIHJldHVybiBQVFJfRVJSKGRydmRhdGEtPmNzZGV2KTsK
-Pj4gwqAgfQo+PiDCoCAtc3RhdGljIHZvaWQgdHBpdV9yZW1vdmUoc3RydWN0IGFtYmFfZGV2aWNl
-ICphZGV2KQo+PiArc3RhdGljIGludCB0cGl1X3Byb2JlKHN0cnVjdCBhbWJhX2RldmljZSAqYWRl
-diwgY29uc3Qgc3RydWN0IGFtYmFfaWQgKmlkKQo+PiDCoCB7Cj4+IC3CoMKgwqAgc3RydWN0IHRw
-aXVfZHJ2ZGF0YSAqZHJ2ZGF0YSA9IGRldl9nZXRfZHJ2ZGF0YSgmYWRldi0+ZGV2KTsKPj4gK8Kg
-wqDCoCBpbnQgcmV0Owo+PiArCj4+ICvCoMKgwqAgcmV0ID0gX190cGl1X3Byb2JlKCZhZGV2LT5k
-ZXYsICZhZGV2LT5yZXMpOwo+PiArwqDCoMKgIGlmICghcmV0KQo+PiArwqDCoMKgwqDCoMKgwqAg
-cG1fcnVudGltZV9wdXQoJmFkZXYtPmRldik7Cj4+ICvCoMKgwqAgcmV0dXJuIHJldDsKPj4gK30K
-Pj4gKwo+PiArc3RhdGljIHZvaWQgX190cGl1X3JlbW92ZShzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+
-ICt7Cj4+ICvCoMKgwqAgc3RydWN0IHRwaXVfZHJ2ZGF0YSAqZHJ2ZGF0YSA9IGRldl9nZXRfZHJ2
-ZGF0YShkZXYpOwo+PiDCoCDCoMKgwqDCoMKgIGNvcmVzaWdodF91bnJlZ2lzdGVyKGRydmRhdGEt
-PmNzZGV2KTsKPj4gwqAgfQo+PiDCoCArc3RhdGljIHZvaWQgdHBpdV9yZW1vdmUoc3RydWN0IGFt
-YmFfZGV2aWNlICphZGV2KQo+PiArewo+PiArwqDCoMKgIF9fdHBpdV9yZW1vdmUoJmFkZXYtPmRl
-dik7Cj4+ICt9Cj4+ICsKPj4gwqAgI2lmZGVmIENPTkZJR19QTQo+PiDCoCBzdGF0aWMgaW50IHRw
-aXVfcnVudGltZV9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikKPj4gwqAgewo+PiBAQCAtMTk2
-LDYgKzIxNSw4IEBAIHN0YXRpYyBpbnQgdHBpdV9ydW50aW1lX3N1c3BlbmQoc3RydWN0IGRldmlj
-ZSAqZGV2KQo+PiDCoMKgwqDCoMKgIGlmIChkcnZkYXRhICYmICFJU19FUlIoZHJ2ZGF0YS0+YXRj
-bGspKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgY2xrX2Rpc2FibGVfdW5wcmVwYXJlKGRydmRhdGEt
-PmF0Y2xrKTsKPj4gwqAgK8KgwqDCoCBpZiAoZHJ2ZGF0YSAmJiAhSVNfRVJSX09SX05VTEwoZHJ2
-ZGF0YS0+cGNsaykpCj4+ICvCoMKgwqDCoMKgwqDCoCBjbGtfZGlzYWJsZV91bnByZXBhcmUoZHJ2
-ZGF0YS0+cGNsayk7Cj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IMKgIH0KPj4gwqAgQEAgLTIw
-Niw2ICsyMjcsOCBAQCBzdGF0aWMgaW50IHRwaXVfcnVudGltZV9yZXN1bWUoc3RydWN0IGRldmlj
-ZSAqZGV2KQo+PiDCoMKgwqDCoMKgIGlmIChkcnZkYXRhICYmICFJU19FUlIoZHJ2ZGF0YS0+YXRj
-bGspKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgY2xrX3ByZXBhcmVfZW5hYmxlKGRydmRhdGEtPmF0
-Y2xrKTsKPj4gwqAgK8KgwqDCoCBpZiAoZHJ2ZGF0YSAmJiAhSVNfRVJSX09SX05VTEwoZHJ2ZGF0
-YS0+cGNsaykpCj4+ICvCoMKgwqDCoMKgwqDCoCBjbGtfcHJlcGFyZV9lbmFibGUoZHJ2ZGF0YS0+
-cGNsayk7Cj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IMKgIH0KPj4gwqAgI2VuZGlmCj4+IEBA
-IC0yNDUsNyArMjY4LDY3IEBAIHN0YXRpYyBzdHJ1Y3QgYW1iYV9kcml2ZXIgdHBpdV9kcml2ZXIg
-PSB7Cj4+IMKgwqDCoMKgwqAgLmlkX3RhYmxlwqDCoMKgID0gdHBpdV9pZHMsCj4+IMKgIH07Cj4+
-IMKgIC1tb2R1bGVfYW1iYV9kcml2ZXIodHBpdV9kcml2ZXIpOwo+PiArc3RhdGljIGludCB0cGl1
-X3BsYXRmb3JtX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICt7Cj4+ICvC
-oMKgwqAgc3RydWN0IHJlc291cmNlICpyZXMgPSBwbGF0Zm9ybV9nZXRfcmVzb3VyY2UocGRldiwg
-SU9SRVNPVVJDRV9NRU0sIDApOwo+PiArwqDCoMKgIGludCByZXQ7Cj4+ICsKPj4gK8KgwqDCoCBw
-bV9ydW50aW1lX2dldF9ub3Jlc3VtZSgmcGRldi0+ZGV2KTsKPj4gK8KgwqDCoCBwbV9ydW50aW1l
-X3NldF9hY3RpdmUoJnBkZXYtPmRldik7Cj4+ICvCoMKgwqAgcG1fcnVudGltZV9lbmFibGUoJnBk
-ZXYtPmRldik7Cj4+ICsKPj4gK8KgwqDCoCByZXQgPSBfX3RwaXVfcHJvYmUoJnBkZXYtPmRldiwg
-cmVzKTsKPj4gK8KgwqDCoCBwbV9ydW50aW1lX3B1dCgmcGRldi0+ZGV2KTsKPj4gK8KgwqDCoCBp
-ZiAocmV0KQo+PiArwqDCoMKgwqDCoMKgwqAgcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYp
-Owo+PiArCj4+ICvCoMKgwqAgcmV0dXJuIHJldDsKPj4gK30KPj4gKwo+PiArc3RhdGljIGludCB0
-cGl1X3BsYXRmb3JtX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiArewo+
-PiArwqDCoMKgIHN0cnVjdCB0cGl1X2RydmRhdGEgKmRydmRhdGEgPSBkZXZfZ2V0X2RydmRhdGEo
-JnBkZXYtPmRldik7Cj4+ICsKPj4gK8KgwqDCoCBpZiAoV0FSTl9PTighZHJ2ZGF0YSkpCj4+ICvC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0RFVjsKPj4gKwo+PiArwqDCoMKgIF9fdHBpdV9yZW1v
-dmUoJnBkZXYtPmRldik7Cj4+ICvCoMKgwqAgcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYp
-Owo+PiArwqDCoMKgIGlmIChkcnZkYXRhICYmICFJU19FUlJfT1JfTlVMTChkcnZkYXRhLT5wY2xr
-KSkKPiAKPiBTYW1lIGFzIHRoZSBwcmV2aW91cyBwYXRjaGVzLgoKU3VyZSwgd2lsbCBkcm9wIHRo
-ZSBhYm92ZSBkcnZkYXRhIGNoZWNrLgoKPiAKPiBTdXp1a2kKPiAKPiAKPj4gK8KgwqDCoMKgwqDC
-oMKgIGNsa19wdXQoZHJ2ZGF0YS0+cGNsayk7Cj4+ICvCoMKgwqAgcmV0dXJuIDA7Cj4+ICt9Cj4+
-ICsKPj4gKyNpZmRlZiBDT05GSUdfQUNQSQo+PiArc3RhdGljIGNvbnN0IHN0cnVjdCBhY3BpX2Rl
-dmljZV9pZCB0cGl1X2FjcGlfaWRzW10gPSB7Cj4+ICvCoMKgwqAgeyJBUk1IQzk3OSIsIDAsIDAs
-IDB9LCAvKiBBUk0gQ29yZVNpZ2h0IFRQSVUgKi8KPj4gK8KgwqDCoCB7fQo+PiArfTsKPj4gK01P
-RFVMRV9ERVZJQ0VfVEFCTEUoYWNwaSwgdHBpdV9hY3BpX2lkcyk7Cj4+ICsjZW5kaWYKPj4gKwo+
-PiArc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgdHBpdV9wbGF0Zm9ybV9kcml2ZXIgPSB7
-Cj4+ICvCoMKgwqAgLnByb2JlwqDCoMKgID0gdHBpdV9wbGF0Zm9ybV9wcm9iZSwKPj4gK8KgwqDC
-oCAucmVtb3ZlwqDCoMKgID0gdHBpdV9wbGF0Zm9ybV9yZW1vdmUsCj4+ICvCoMKgwqAgLmRyaXZl
-ciA9IHsKPj4gK8KgwqDCoMKgwqDCoMKgIC5uYW1lwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA9ICJj
-b3Jlc2lnaHQtdHBpdS1wbGF0Zm9ybSIsCj4+ICvCoMKgwqDCoMKgwqDCoCAuYWNwaV9tYXRjaF90
-YWJsZcKgwqDCoCA9IEFDUElfUFRSKHRwaXVfYWNwaV9pZHMpLAo+PiArwqDCoMKgwqDCoMKgwqAg
-LnN1cHByZXNzX2JpbmRfYXR0cnPCoMKgwqAgPSB0cnVlLAo+PiArwqDCoMKgwqDCoMKgwqAgLnBt
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCA9ICZ0cGl1X2Rldl9wbV9vcHMsCj4+ICvCoMKgwqAgfSwK
-Pj4gK307Cj4+ICsKPj4gK3N0YXRpYyBpbnQgX19pbml0IHRwaXVfaW5pdCh2b2lkKQo+PiArewo+
-PiArwqDCoMKgIHJldHVybiBjb3Jlc2lnaHRfaW5pdF9kcml2ZXIoInRwaXUiLCAmdHBpdV9kcml2
-ZXIsICZ0cGl1X3BsYXRmb3JtX2RyaXZlcik7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIF9f
-ZXhpdCB0cGl1X2V4aXQodm9pZCkKPj4gK3sKPj4gK8KgwqDCoCBjb3Jlc2lnaHRfcmVtb3ZlX2Ry
-aXZlcigmdHBpdV9kcml2ZXIsICZ0cGl1X3BsYXRmb3JtX2RyaXZlcik7Cj4+ICt9Cj4+ICttb2R1
-bGVfaW5pdCh0cGl1X2luaXQpOwo+PiArbW9kdWxlX2V4aXQodHBpdV9leGl0KTsKPj4gwqAgwqAg
-TU9EVUxFX0FVVEhPUigiUHJhdGlrIFBhdGVsIDxwcmF0aWtwQGNvZGVhdXJvcmEub3JnPiIpOwo+
-PiDCoCBNT0RVTEVfQVVUSE9SKCJNYXRoaWV1IFBvaXJpZXIgPG1hdGhpZXUucG9pcmllckBsaW5h
-cm8ub3JnPiIpOwo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Dimitri, Johannes,
+
+ever since upgrading to Linux v6.7 I am unable to connect to a 802.1X
+wireless network (specifically, eduroam). In my dmesg, the following
+messages appear:
+
+	[   68.161621] wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=xx:xx:xx:xx:xx:xx)
+	[   68.163733] wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+	[   68.165773] wlan0: authenticated
+	[   68.166785] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+	[   68.168498] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x1411 status=0 aid=4)
+	[   68.172445] wlan0: associated
+	[   68.204956] wlan0: Limiting TX power to 23 (23 - 0) dBm as advertised by xx:xx:xx:xx:xx:xx
+	[   70.262032] wlan0: deauthenticated from xx:xx:xx:xx:xx:xx (Reason: 23=IEEE8021X_FAILED)
+	[   73.065966] wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=xx:xx:xx:xx:xx:xx)
+	[   73.068006] wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+	[   73.070166] wlan0: authenticated
+	[   73.070756] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+	[   73.072807] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x1411 status=0 aid=4)
+	[   73.076676] wlan0: associated
+	[   73.120396] wlan0: Limiting TX power to 23 (23 - 0) dBm as advertised by xx:xx:xx:xx:xx:xx
+	[   75.148376] wlan0: deauthenticating from xx:xx:xx:xx:xx:xx by local choice (Reason: 23=IEEE8021X_FAILED)
+	[   77.718016] wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=xx:xx:xx:xx:xx:xx)
+	[   77.720137] wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+	[   77.722670] wlan0: authenticated
+	[   77.724737] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+	[   77.726172] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x1411 status=0 aid=4)
+	[   77.730822] wlan0: associated
+	[   77.830763] wlan0: Limiting TX power to 23 (23 - 0) dBm as advertised by xx:xx:xx:xx:xx:xx
+	[   79.784199] wlan0: deauthenticating from xx:xx:xx:xx:xx:xx by local choice (Reason: 23=IEEE8021X_FAILED)
+
+The connection works fine with v6.6 and I have bisected the problem to
+the revision introduced by this patch (16ab7cb5825f mainline).
+
+My wireless kernel driver is iwlwifi and I use iwd. I started the bisect
+with a config copied from my distribution package [1].
+
+Would you please help me with this? Please let me know if I forgot to
+mention something which could be helpful in resolving this.
+
+[1] https://raw.githubusercontent.com/void-linux/void-packages/master/srcpkgs/linux6.6/files/x86_64-dotconfig
+
+Thank you very much, kind regards,
+K. B.
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
