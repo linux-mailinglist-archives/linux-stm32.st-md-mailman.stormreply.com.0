@@ -2,39 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0956D87B790
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Mar 2024 07:00:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D042C87B7ED
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Mar 2024 07:27:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C107DC6A613;
-	Thu, 14 Mar 2024 06:00:12 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C7C2C62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 863DFC6A613;
+	Thu, 14 Mar 2024 06:27:57 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC3A1C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Mar 2024 06:00:11 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5CA791007;
- Wed, 13 Mar 2024 23:00:47 -0700 (PDT)
-Received: from a077893.arm.com (unknown [10.163.53.138])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D18AF3F73F;
- Wed, 13 Mar 2024 23:00:06 -0700 (PDT)
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	suzuki.poulose@arm.com
-Date: Thu, 14 Mar 2024 11:28:43 +0530
-Message-Id: <20240314055843.2625883-12-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240314055843.2625883-1-anshuman.khandual@arm.com>
-References: <20240314055843.2625883-1-anshuman.khandual@arm.com>
+ Thu, 14 Mar 2024 06:27:56 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a44f2d894b7so53194966b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 13 Mar 2024 23:27:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1710397676; x=1711002476;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:date:from:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Wy48BMq7k7tUA5PbAAKgjU/lgoVJFz6MN9TbVJQFsQM=;
+ b=UY/Pdu2V0NMSPikq8pu1L5yC7k88ngsEjgaiTTc7DKpSj0P3P+XFAJBKDiJuw4ycVZ
+ MCQu0VjrarTseOZ6NBmjyRITf03jmKVvtTy7sGJ+2bq7nBbo2Ys09hpNAC1UpGlcTiep
+ q/RdIWVVoGW83KaKHuuhHuJZfpickPY9aS9flXCT9pMw8rMLodN1WavQnYNiCCTucgxi
+ ICUMnPHJNuEkIekaOu5wx9bA/00rzz4TDkMGGwLEpRWEmTJgJrJv6BWUefl500ZaE+jH
+ PQTcndNXNzZHN0e9SvHmpNkQN1AzRY+fThoCrdLjwgyL2+3YYvDQmPhQ5gv11KBSiG+S
+ jpKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1710397676; x=1711002476;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:date:from
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Wy48BMq7k7tUA5PbAAKgjU/lgoVJFz6MN9TbVJQFsQM=;
+ b=ooLMK2WYFLFxtCenqmGzAP/QwtnM64ztzZD0QrcK7m8d57O3j3ID3U8bm2QPpo2b/w
+ JECs3cHkN/iM49CiWLbJK183tPPz8tfNiUKKZ8ee98dYhTDY9DdD3XfAAgQ+1q+lWlgw
+ YZJ5eG3jvQUyJkV0tEjc+m851rKnFmKQ7AQuWlY1agYTwsx1lq+D2wuX/z3sEdQubYvN
+ PXytMAf/Adt9CfzglaTg+bPquY3IocMaef9ww0U1K6xSlQ69XUlpuaPmrNrlgdoAkjZQ
+ NqROUxzJ5Uhu7xUhiQhfBtG3Nvc11PUipyjAAgUZQPlVK2ND+8R02u+MiXrIgv+d49xy
+ xVCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW+k7bA881E/BHs37TtJQiHH73Fya7DL6q+2s4cjGxgN074I0/3BZ88Qq/Oeh2waq/DdSLJxXSRv5EXh39gPHXNXqR099FwL/PjaT8k9C25/LRysClefP8b
+X-Gm-Message-State: AOJu0YwNT3UDhku367/pkvbd3OaeuJcUNm7sBltvZjxY+YpGSl5v7ZuG
+ en9ySwZqV/PRxUWLttbAsGVvYh1WPOjdEp38rBxHQvzXAsG2akXb
+X-Google-Smtp-Source: AGHT+IF0pnR3t8OP32CidAqcEwLWVf5pxREHuVK53gI8rH7KwaQf04P9Mb0+ZaiK2iVNQgj+ScQKXQ==
+X-Received: by 2002:a17:906:b899:b0:a3f:5ad2:1ff0 with SMTP id
+ hb25-20020a170906b89900b00a3f5ad21ff0mr391041ejb.46.1710397675813; 
+ Wed, 13 Mar 2024 23:27:55 -0700 (PDT)
+Received: from krava (2001-1ae9-1c2-4c00-726e-c10f-8833-ff22.ip6.tmcz.cz.
+ [2001:1ae9:1c2:4c00:726e:c10f:8833:ff22])
+ by smtp.gmail.com with ESMTPSA id
+ ld8-20020a170906f94800b00a46754900a4sm104587ejb.33.2024.03.13.23.27.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 13 Mar 2024 23:27:55 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Thu, 14 Mar 2024 07:27:52 +0100
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Message-ID: <ZfKY6E8xhSgzYL1I@krava>
+References: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
+ <20240311093526.1010158-2-dongmenglong.8@bytedance.com>
+ <CAADnVQKQPS5NcvEouH4JqZ2fKgQAC+LtcwhX9iXYoiEkF_M94Q@mail.gmail.com>
+ <CALz3k9i5G5wWi+rtvHPwVLOUAXVMCiU_8QUZs87TEYgR_0wpPA@mail.gmail.com>
+ <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail.com>
+ <CALz3k9icPePb0c4FE67q=u1U0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
+ <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
+ <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
+ <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
 MIME-Version: 1.0
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: [Linux-stm32] [PATCH V7 11/11] coresight: debug: Move ACPI support
-	from AMBA driver to platform driver
+Content-Disposition: inline
+In-Reply-To: <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
+Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
+ Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ linux-s390 <linux-s390@vger.kernel.org>,
+ =?utf-8?B?5qKm6b6Z6JGj?= <dongmenglong.8@bytedance.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Quentin Monnet <quentin@isovalent.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
+ KP Singh <kpsingh@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Hao Luo <haoluo@google.com>, Network Development <netdev@vger.kernel.org>,
+ David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Eddy Z <eddyz87@gmail.com>, Sven Schnelle <svens@linux.ibm.com>,
+ bpf <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [External] Re: [PATCH bpf-next v2 1/9] bpf:
+ tracing: add support to record and check the accessed args
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -46,261 +109,145 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add support for the cpu debug devices in a new platform driver, which can
-then be used on ACPI based platforms. This change would now allow runtime
-power management for ACPI based systems. The driver would try to enable
-the APB clock if available. But first this renames and then refactors
-debug_probe() and debug_remove(), making sure they can be used both for
-platform and AMBA drivers.
-
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Mike Leach <mike.leach@linaro.org>
-Cc: James Clark <james.clark@arm.com>
-Cc: linux-acpi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: coresight@lists.linaro.org
-Acked-by: Sudeep Holla <sudeep.holla@arm.com> # For ACPI related changes
-Reviewed-by: James Clark <james.clark@arm.com>
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
----
-Changes in V7:
-
-- Dropped struct resource check before devm_ioremap_resource()
-- Dropped reduntant drvdata check in debug_platform_probe()
-- Dropped reduntant drvdata check in debug_platform_remove()
-- Sorted the headers in alphabetic order
-
- drivers/acpi/arm64/amba.c                     |   1 -
- .../hwtracing/coresight/coresight-cpu-debug.c | 138 ++++++++++++++++--
- 2 files changed, 122 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/acpi/arm64/amba.c b/drivers/acpi/arm64/amba.c
-index bec0976541da..e1f0bbb8f393 100644
---- a/drivers/acpi/arm64/amba.c
-+++ b/drivers/acpi/arm64/amba.c
-@@ -22,7 +22,6 @@
- static const struct acpi_device_id amba_id_list[] = {
- 	{"ARMH0061", 0}, /* PL061 GPIO Device */
- 	{"ARMH0330", 0}, /* ARM DMA Controller DMA-330 */
--	{"ARMHC503", 0}, /* ARM CoreSight Debug */
- 	{"", 0},
- };
- 
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 1874df7c6a73..3263fc86cb66 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -4,6 +4,7 @@
-  *
-  * Author: Leo Yan <leo.yan@linaro.org>
-  */
-+#include <linux/acpi.h>
- #include <linux/amba/bus.h>
- #include <linux/coresight.h>
- #include <linux/cpu.h>
-@@ -18,6 +19,7 @@
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/panic_notifier.h>
-+#include <linux/platform_device.h>
- #include <linux/pm_qos.h>
- #include <linux/slab.h>
- #include <linux/smp.h>
-@@ -84,6 +86,7 @@
- #define DEBUG_WAIT_TIMEOUT		32000
- 
- struct debug_drvdata {
-+	struct clk	*pclk;
- 	void __iomem	*base;
- 	struct device	*dev;
- 	int		cpu;
-@@ -557,18 +560,12 @@ static void debug_func_exit(void)
- 	debugfs_remove_recursive(debug_debugfs_dir);
- }
- 
--static int debug_probe(struct amba_device *adev, const struct amba_id *id)
-+static int __debug_probe(struct device *dev, struct resource *res)
- {
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 	void __iomem *base;
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata;
--	struct resource *res = &adev->res;
- 	int ret;
- 
--	drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
--	if (!drvdata)
--		return -ENOMEM;
--
- 	drvdata->cpu = coresight_get_cpu(dev);
- 	if (drvdata->cpu < 0)
- 		return drvdata->cpu;
-@@ -579,10 +576,7 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 		return -EBUSY;
- 	}
- 
--	drvdata->dev = &adev->dev;
--	amba_set_drvdata(adev, drvdata);
--
--	/* Validity for the resource is already checked by the AMBA core */
-+	drvdata->dev = dev;
- 	base = devm_ioremap_resource(dev, res);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
-@@ -629,10 +623,21 @@ static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- 	return ret;
- }
- 
--static void debug_remove(struct amba_device *adev)
-+static int debug_probe(struct amba_device *adev, const struct amba_id *id)
- {
--	struct device *dev = &adev->dev;
--	struct debug_drvdata *drvdata = amba_get_drvdata(adev);
-+	struct debug_drvdata *drvdata;
-+
-+	drvdata = devm_kzalloc(&adev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	amba_set_drvdata(adev, drvdata);
-+	return __debug_probe(&adev->dev, &adev->res);
-+}
-+
-+static void __debug_remove(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
- 
- 	per_cpu(debug_drvdata, drvdata->cpu) = NULL;
- 
-@@ -646,6 +651,11 @@ static void debug_remove(struct amba_device *adev)
- 		debug_func_exit();
- }
- 
-+static void debug_remove(struct amba_device *adev)
-+{
-+	__debug_remove(&adev->dev);
-+}
-+
- static const struct amba_cs_uci_id uci_id_debug[] = {
- 	{
- 		/*  CPU Debug UCI data */
-@@ -677,7 +687,103 @@ static struct amba_driver debug_driver = {
- 	.id_table	= debug_ids,
- };
- 
--module_amba_driver(debug_driver);
-+static int debug_platform_probe(struct platform_device *pdev)
-+{
-+	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	struct debug_drvdata *drvdata;
-+	int ret = 0;
-+
-+	drvdata = devm_kzalloc(&pdev->dev, sizeof(*drvdata), GFP_KERNEL);
-+	if (!drvdata)
-+		return -ENOMEM;
-+
-+	drvdata->pclk = coresight_get_enable_apb_pclk(&pdev->dev);
-+	if (IS_ERR(drvdata->pclk))
-+		return -ENODEV;
-+
-+	dev_set_drvdata(&pdev->dev, drvdata);
-+	pm_runtime_get_noresume(&pdev->dev);
-+	pm_runtime_set_active(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = __debug_probe(&pdev->dev, res);
-+	if (ret) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		pm_runtime_disable(&pdev->dev);
-+		if (!IS_ERR_OR_NULL(drvdata->pclk))
-+			clk_put(drvdata->pclk);
-+	}
-+	return ret;
-+}
-+
-+static int debug_platform_remove(struct platform_device *pdev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(&pdev->dev);
-+
-+	if (WARN_ON(!drvdata))
-+		return -ENODEV;
-+
-+	__debug_remove(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+	if (!IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_put(drvdata->pclk);
-+	return 0;
-+}
-+
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id debug_platform_ids[] = {
-+	{"ARMHC503", 0, 0, 0}, /* ARM CoreSight Debug */
-+	{},
-+};
-+MODULE_DEVICE_TABLE(acpi, debug_platform_ids);
-+#endif
-+
-+#ifdef CONFIG_PM
-+static int debug_runtime_suspend(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_disable_unprepare(drvdata->pclk);
-+	return 0;
-+}
-+
-+static int debug_runtime_resume(struct device *dev)
-+{
-+	struct debug_drvdata *drvdata = dev_get_drvdata(dev);
-+
-+	if (drvdata && !IS_ERR_OR_NULL(drvdata->pclk))
-+		clk_prepare_enable(drvdata->pclk);
-+	return 0;
-+}
-+#endif
-+
-+static const struct dev_pm_ops debug_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(debug_runtime_suspend, debug_runtime_resume, NULL)
-+};
-+
-+static struct platform_driver debug_platform_driver = {
-+	.probe	= debug_platform_probe,
-+	.remove	= debug_platform_remove,
-+	.driver	= {
-+		.name			= "coresight-debug-platform",
-+		.acpi_match_table	= ACPI_PTR(debug_platform_ids),
-+		.suppress_bind_attrs	= true,
-+		.pm			= &debug_dev_pm_ops,
-+	},
-+};
-+
-+static int __init debug_init(void)
-+{
-+	return coresight_init_driver("debug", &debug_driver, &debug_platform_driver);
-+}
-+
-+static void __exit debug_exit(void)
-+{
-+	coresight_remove_driver(&debug_driver, &debug_platform_driver);
-+}
-+module_init(debug_init);
-+module_exit(debug_exit);
- 
- MODULE_AUTHOR("Leo Yan <leo.yan@linaro.org>");
- MODULE_DESCRIPTION("ARM Coresight CPU Debug Driver");
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBNYXIgMTMsIDIwMjQgYXQgMDU6MjU6MzVQTSAtMDcwMCwgQWxleGVpIFN0YXJvdm9p
+dG92IHdyb3RlOgo+IE9uIFR1ZSwgTWFyIDEyLCAyMDI0IGF0IDY6NTPigK9QTSDmoqbpvpnokaMg
+PGRvbmdtZW5nbG9uZy44QGJ5dGVkYW5jZS5jb20+IHdyb3RlOgo+ID4KPiA+IE9uIFdlZCwgTWFy
+IDEzLCAyMDI0IGF0IDEyOjQy4oCvQU0gQWxleGVpIFN0YXJvdm9pdG92Cj4gPiA8YWxleGVpLnN0
+YXJvdm9pdG92QGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiA+Cj4gPiA+IE9uIE1vbiwgTWFyIDExLCAy
+MDI0IGF0IDc6NDLigK9QTSDmoqbpvpnokaMgPGRvbmdtZW5nbG9uZy44QGJ5dGVkYW5jZS5jb20+
+IHdyb3RlOgo+ID4gPiA+Cj4gPiBbLi4uLi4uXQo+ID4gPgo+ID4gPiBJIHNlZS4KPiA+ID4gSSB0
+aG91Z2h0IHlvdSdyZSBzaGFyaW5nIHRoZSB0cmFtcG9saW5lIGFjcm9zcyBhdHRhY2htZW50cy4K
+PiA+ID4gKHNpbmNlIGJwZiBwcm9nIGlzIHRoZSBzYW1lKS4KPiA+Cj4gPiBUaGF0IHNlZW1zIHRv
+IGJlIGEgZ29vZCBpZGVhLCB3aGljaCBJIGhhZG4ndCB0aG91Z2h0IGJlZm9yZS4KPiA+Cj4gPiA+
+IEJ1dCBhYm92ZSBhcHByb2FjaCBjYW5ub3QgcG9zc2libHkgd29yayB3aXRoIGEgc2hhcmVkIHRy
+YW1wb2xpbmUuCj4gPiA+IFlvdSBuZWVkIHRvIGNyZWF0ZSBpbmRpdmlkdWFsIHRyYW1wb2xpbmUg
+Zm9yIGFsbCBhdHRhY2htZW50Cj4gPiA+IGFuZCBwb2ludCB0aGVtIHRvIHNpbmdsZSBicGYgcHJv
+Zy4KPiA+ID4KPiA+ID4gdGJoIEknbSBsZXNzIGV4Y2l0ZWQgYWJvdXQgdGhpcyBmZWF0dXJlIG5v
+dywgc2luY2Ugc2hhcmluZwo+ID4gPiB0aGUgcHJvZyBhY3Jvc3MgZGlmZmVyZW50IGF0dGFjaG1l
+bnRzIGlzIG5pY2UsIGJ1dCBpdCB3b24ndCBzY2FsZQo+ID4gPiB0byB0aG91c2FuZHMgb2YgYXR0
+YWNobWVudHMuCj4gPiA+IEkgYXNzdW1lZCB0aGF0IHRoZXJlIHdpbGwgYmUgYSBzaW5nbGUgdHJh
+bXBvbGluZSB3aXRoIG1heChhcmdubykKPiA+ID4gYWNyb3NzIGF0dGFjaG1lbnRzIGFuZCBhdHRh
+Y2gvZGV0YWNoIHdpbGwgc2NhbGUgdG8gdGhvdXNhbmRzLgo+ID4gPgo+ID4gPiBXaXRoIGluZGl2
+aWR1YWwgdHJhbXBvbGluZSB0aGlzIHdpbGwgd29yayBmb3IgdXAgdG8gYSBodW5kcmVkCj4gPiA+
+IGF0dGFjaG1lbnRzIG1heC4KPiA+Cj4gPiBXaGF0IGRvZXMgImEgaHVuZHJlZCBhdHRhY2htZW50
+cyBtYXgiIG1lYW5zPyBDYW4ndCBJCj4gPiB0cmFjZSB0aG91c2FuZHMgb2Yga2VybmVsIGZ1bmN0
+aW9ucyB3aXRoIGEgYnBmIHByb2dyYW0gb2YKPiA+IHRyYWNpbmcgbXVsdGktbGluaz8KPiAKPiBJ
+IG1lYW4gd2hhdCB0aW1lIGRvZXMgaXQgdGFrZSB0byBhdHRhY2ggb25lIHByb2dyYW0KPiB0byAx
+MDAgZmVudHJ5LXMgPwo+IFdoYXQgaXMgdGhlIHRpbWUgZm9yIDFrIGFuZCBmb3IgMTBrID8KPiAK
+PiBUaGUga3Byb2JlIG11bHRpIHRlc3QgYXR0YWNoZXMgdG8gcHJldHR5IG11Y2ggYWxsIGZ1bmNz
+IGluCj4gL3N5cy9rZXJuZWwvdHJhY2luZy9hdmFpbGFibGVfZmlsdGVyX2Z1bmN0aW9ucwo+IGFu
+ZCBpdCdzIGZhc3QgZW5vdWdoIHRvIHJ1biBpbiB0ZXN0X3Byb2dzIG9uIGV2ZXJ5IGNvbW1pdCBp
+biBicGYgQ0kuCj4gU2VlIGdldF9zeW1zKCkgaW4gcHJvZ190ZXN0cy9rcHJvYmVfbXVsdGlfdGVz
+dC5jCj4gCj4gQ2FuIHRoaXMgbmV3IG11bHRpIGZlbnRyeSBkbyB0aGF0Pwo+IGFuZCBhdCB3aGF0
+IHNwZWVkPwo+IFRoZSBhbnN3ZXIgd2lsbCBkZWNpZGUgaG93IGFwcGxpY2FibGUgdGhpcyBhcGkg
+aXMgZ29pbmcgdG8gYmUuCj4gR2VuZXJhdGluZyBkaWZmZXJlbnQgdHJhbXBvbGluZXMgZm9yIGV2
+ZXJ5IGF0dGFjaCBwb2ludAo+IGlzIGFuIGFwcHJvYWNoIGFzIHdlbGwuIFBscyBiZW5jaG1hcmsg
+aXQgdG9vLgo+IAo+ID4gPgo+ID4gPiBMZXQncyBzdGVwIGJhY2suCj4gPiA+IFdoYXQgaXMgdGhl
+IGV4YWN0IHVzZSBjYXNlIHlvdSdyZSB0cnlpbmcgdG8gc29sdmU/Cj4gPiA+IE5vdCBhbiBhcnRp
+ZmljaWFsIG9uZSBhcyBzZWxmdGVzdCBpbiBwYXRjaCA5LCBidXQgdGhlIHJlYWwgdXNlIGNhc2U/
+Cj4gPgo+ID4gSSBoYXZlIGEgdG9vbCwgd2hpY2ggaXMgdXNlZCB0byBkaWFnbm9zZSBuZXR3b3Jr
+IHByb2JsZW1zLAo+ID4gYW5kIGl0cyBuYW1lIGlzICJuZXR0cmFjZSIuIEl0IHdpbGwgdHJhY2Ug
+bWFueSBrZXJuZWwgZnVuY3Rpb25zLCB3aG9zZQo+ID4gZnVuY3Rpb24gYXJncyBjb250YWluICJz
+a2IiLCBsaWtlIHRoaXM6Cj4gPgo+ID4gLi9uZXR0cmFjZSAtcCBpY21wCj4gPiBiZWdpbiB0cmFj
+ZS4uLgo+ID4gKioqKioqKioqKioqKioqKiogZmZmZjg4OWJlOGZiZDUwMCxmZmZmODg5YmU4ZmJj
+ZDAwICoqKioqKioqKioqKioqKgo+ID4gWzEyNzIzNDkuNjE0NTY0XSBbZGV2X2dyb19yZWNlaXZl
+ICAgICBdIElDTVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gPiAxNzIuMjcuMC42IHBpbmcgcmVxdWVz
+dCwgc2VxOiA0ODIyMAo+ID4gWzEyNzIzNDkuNjE0NTc5XSBbX19uZXRpZl9yZWNlaXZlX3NrYl9j
+b3JlXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3Qs
+IHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDU4NV0gW2lwX3JjdiAgICAgICAgICAgICAgXSBJ
+Q01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTog
+NDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDU5Ml0gW2lwX3Jjdl9jb3JlICAgICAgICAgXSBJQ01QOiAx
+NjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAK
+PiA+IFsxMjcyMzQ5LjYxNDU5OV0gW3NrYl9jbG9uZSAgICAgICAgICAgXSBJQ01QOiAxNjkuMjU0
+LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsx
+MjcyMzQ5LjYxNDYxNl0gW25mX2hvb2tfc2xvdyAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4x
+NSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5
+LjYxNDYyOV0gW25mdF9kb19jaGFpbiAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+
+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDYz
+NV0gW2lwX3Jjdl9maW5pc2ggICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcy
+LjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY0M10gW2lw
+X3JvdXRlX2lucHV0X3Nsb3cgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAu
+NiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY0N10gW2ZpYl92YWxp
+ZGF0ZV9zb3VyY2UgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5n
+IHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY1Ml0gW2lwX2xvY2FsX2RlbGl2
+ZXIgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVl
+c3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY1OF0gW25mX2hvb2tfc2xvdyAgICAgICAg
+XSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNl
+cTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY2M10gW2lwX2xvY2FsX2RlbGl2ZXJfZmluaXNoXSBJ
+Q01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTog
+NDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDY2Nl0gW2ljbXBfcmN2ICAgICAgICAgICAgXSBJQ01QOiAx
+NjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAK
+PiA+IFsxMjcyMzQ5LjYxNDY3MV0gW2ljbXBfZWNobyAgICAgICAgICAgXSBJQ01QOiAxNjkuMjU0
+LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsx
+MjcyMzQ5LjYxNDY3NV0gW2ljbXBfcmVwbHkgICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4x
+NSAtPgo+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5
+LjYxNDcxNV0gW2NvbnN1bWVfc2tiICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+
+ID4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDcy
+Ml0gW3BhY2tldF9yY3YgICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcy
+LjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+IFsxMjcyMzQ5LjYxNDcyNV0gW2Nv
+bnN1bWVfc2tiICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+ID4gMTcyLjI3LjAu
+NiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiA+Cj4gPiBGb3Igbm93LCBJIGhhdmUgdG8gY3Jl
+YXRlIGEgYnBmIHByb2dyYW0gZm9yIGV2ZXJ5IGtlcm5lbAo+ID4gZnVuY3Rpb24gdGhhdCBJIHdh
+bnQgdG8gdHJhY2UsIHdoaWNoIGlzIHVwIHRvIDIwMC4KPiA+Cj4gPiBXaXRoIHRoaXMgbXVsdGkt
+bGluaywgSSBvbmx5IG5lZWQgdG8gY3JlYXRlIDUgYnBmIHByb2dyYW0sCj4gPiBsaWtlIHRoaXM6
+Cj4gPgo+ID4gaW50IEJQRl9QUk9HKHRyYWNlX3NrYl8xLCBzdHJ1Y3QgKnNrYik7Cj4gPiBpbnQg
+QlBGX1BST0codHJhY2Vfc2tiXzIsIHU2NCBhcmcwLCBzdHJ1Y3QgKnNrYik7Cj4gPiBpbnQgQlBG
+X1BST0codHJhY2Vfc2tiXzMsIHU2NCBhcmcwLCB1NjQgYXJnMSwgc3RydWN0ICpza2IpOwo+ID4g
+aW50IEJQRl9QUk9HKHRyYWNlX3NrYl80LCB1NjQgYXJnMCwgdTY0IGFyZzEsIHU2NCBhcmcyLCBz
+dHJ1Y3QgKnNrYik7Cj4gPiBpbnQgQlBGX1BST0codHJhY2Vfc2tiXzUsIHU2NCBhcmcwLCB1NjQg
+YXJnMSwgdTY0IGFyZzIsIHU2NCBhcmczLCBzdHJ1Y3QgKnNrYik7Cj4gPgo+ID4gVGhlbiwgSSBj
+YW4gYXR0YWNoIHRyYWNlX3NrYl8xIHRvIGFsbCB0aGUga2VybmVsIGZ1bmN0aW9ucyB0aGF0Cj4g
+PiBJIHdhbnQgdG8gdHJhY2UgYW5kIHdob3NlIGZpcnN0IGFyZyBpcyBza2I7IGF0dGFjaCB0cmFj
+ZV9za2JfMiB0byBrZXJuZWwKPiA+IGZ1bmN0aW9ucyB3aG9zZSAybmQgYXJnIGlzIHNrYiwgZXRj
+Lgo+ID4KPiA+IE9yLCBJIGNhbiBjcmVhdGUgb25seSBvbmUgYnBmIHByb2dyYW0gYW5kIHN0b3Jl
+IHRoZSBpbmRleAo+ID4gb2Ygc2tiIHRvIHRoZSBhdHRhY2htZW50IGNvb2tpZSwgYW5kIGF0dGFj
+aCB0aGlzIHByb2dyYW0gdG8gYWxsCj4gPiB0aGUga2VybmVsIGZ1bmN0aW9ucyB0aGF0IEkgd2Fu
+dCB0byB0cmFjZS4KPiA+Cj4gPiBUaGlzIGlzIG15IHVzZSBjYXNlLiBXaXRoIHRoZSBtdWx0aS1s
+aW5rLCBub3cgSSBvbmx5IGhhdmUKPiA+IDEgYnBmIHByb2dyYW0sIDEgYnBmIGxpbmssIDIwMCB0
+cmFtcG9saW5lcywgaW5zdGVhZCBvZiAyMDAKPiA+IGJwZiBwcm9ncmFtcywgMjAwIGJwZiBsaW5r
+IGFuZCAyMDAgdHJhbXBvbGluZXMuCj4gCj4gSSBzZWUuIFRoZSB1c2UgY2FzZSBtYWtlcyBzZW5z
+ZSB0byBtZS4KPiBBbmRyaWkncyByZXRzbm9vcCBpcyB1c2VkIHRvIGRvIHNpbWlsYXIgdGhpbmcg
+YmVmb3JlIGtwcm9iZSBtdWx0aSB3YXMKPiBpbnRyb2R1Y2VkLgo+IAo+ID4gVGhlIHNoYXJlZCB0
+cmFtcG9saW5lIHlvdSBtZW50aW9uZWQgc2VlbXMgdG8gYmUgYQo+ID4gd29uZGVyZnVsIGlkZWEs
+IHdoaWNoIGNhbiBtYWtlIHRoZSAyMDAgdHJhbXBvbGluZXMKPiA+IHRvIG9uZS4gTGV0IG1lIGhh
+dmUgYSBsb29rLCB3ZSBjcmVhdGUgYSB0cmFtcG9saW5lIGFuZAo+ID4gcmVjb3JkIHRoZSBtYXgg
+YXJncyBjb3VudCBvZiBhbGwgdGhlIHRhcmdldCBmdW5jdGlvbnMsIGxldCdzCj4gPiBtYXJrIGl0
+IGFzIGFyZ19jb3VudC4KPiA+Cj4gPiBEdXJpbmcgZ2VuZXJhdGluZyB0aGUgdHJhbXBvbGluZSwg
+d2UgYXNzdW1lIHRoYXQgdGhlCj4gPiBmdW5jdGlvbiBhcmdzIGNvdW50IGlzIGFyZ19jb3VudC4g
+RHVyaW5nIGF0dGFjaGluZywgd2UKPiA+IGNoZWNrIHRoZSBjb25zaXN0ZW5jeSBvZiBhbGwgdGhl
+IHRhcmdldCBmdW5jdGlvbnMsIGp1c3QgbGlrZQo+ID4gd2hhdCB3ZSBkbyBub3cuCj4gCj4gRm9y
+IG9uZSB0cmFtcG9saW5lIHRvIGhhbmRsZSBhbGwgYXR0YWNoIHBvaW50cyB3ZSBtaWdodAo+IG5l
+ZWQgc29tZSBhcmNoIHN1cHBvcnQsIGJ1dCB3ZSBjYW4gc3RhcnQgc2ltcGxlLgo+IE1ha2UgYnRm
+X2Z1bmNfbW9kZWwgd2l0aCBNQVhfQlBGX0ZVTkNfUkVHX0FSR1MKPiBieSBjYWxsaW5nIGJ0Zl9k
+aXN0aWxsX2Z1bmNfcHJvdG8oKSB3aXRoIGZ1bmM9PU5VTEwuCj4gQW5kIHVzZSB0aGF0IHRvIGJ1
+aWxkIGEgdHJhbXBvbGluZS4KPiAKPiBUaGUgY2hhbGxlbmdlIGlzIGhvdyB0byB1c2UgbWluaW1h
+bCBudW1iZXIgb2YgdHJhbXBvbGluZXMKPiB3aGVuIGJwZl9wcm9nQSBpcyBhdHRhY2hlZCBmb3Ig
+ZnVuYzEsIGZ1bmMyLCBmdW5jMwo+IGFuZCBicGZfcHJvZ0IgaXMgYXR0YWNoZWQgdG8gZnVuYzMs
+IGZ1bmM0LCBmdW5jNS4KPiBXZSdkIHN0aWxsIG5lZWQgMyB0cmFtcG9saW5lczoKPiBmb3IgZnVu
+Y1sxMl0gdG8gY2FsbCBicGZfcHJvZ0EsCj4gZm9yIGZ1bmMzIHRvIGNhbGwgYnBmX3Byb2dBIGFu
+ZCBicGZfcHJvZ0IsCj4gZm9yIGZ1bmNbNDVdIHRvIGNhbGwgYnBmX3Byb2dCLgo+IAo+IEppcmkg
+d2FzIHRyeWluZyB0byBzb2x2ZSBpdCBpbiB0aGUgcGFzdC4gSGlzIHNsaWRlcyBmcm9tIExQQzoK
+PiBodHRwczovL2xwYy5ldmVudHMvZXZlbnQvMTYvY29udHJpYnV0aW9ucy8xMzUwL2F0dGFjaG1l
+bnRzLzEwMzMvMTk4My9wbHVtYmVycy5wZGYKPiAKPiBQbHMgc3R1ZHkgdGhlbSBhbmQgaGlzIHBy
+aW9yIHBhdGNoc2V0cyB0byBhdm9pZCBzdGVwcGluZyBvbiB0aGUgc2FtZSByYWtlcy4KCnllcCwg
+SSByZWZyYWluZWQgZnJvbSBjb21tZW50aW5nIG5vdCB0byB0YWtlIHlvdSBkb3duIHRoZSBzYW1l
+IHBhdGgKSSBkaWQsIGJ1dCBpZiB5b3UgaW5zaXN0Li4gOy0pIAoKSSBtYW5hZ2VkIHRvIGZvcmdv
+dCBhbG1vc3QgYWxsIG9mIGl0LCBidXQgdGhlIElJUkMgdGhlIG1haW4gcGFpbiBwb2ludAp3YXMg
+dGhhdCBhdCBzb21lIHBvaW50IEkgaGFkIHRvIHNwbGl0IGV4aXN0aW5nIHRyYW1wb2xpbmUgd2hp
+Y2ggY2F1c2VkCnRoZSB3aG9sZSB0cmFtcG9saW5lcyBtYW5hZ2VtZW50IGFuZCBlcnJvciBwYXRo
+cyB0byBiZWNvbWUgYSBtZXNzCgpJIHRyaWVkIHRvIGV4cGxhaW4gdGhpbmdzIGluIFsxXSBjaGFu
+Z2Vsb2cgYW5kIHRoZSBsYXRlc3QgcGF0Y2hzZXQgaXMgaW4gWzBdCgpmZWVsIGZyZWUgdG8gdXNl
+L3Rha2UgYW55dGhpbmcsIGJ1dCBJIGFkdmljZSBzdHJvbmdseSBhZ2FpbnN0IGl0IDstKQpwbGVh
+c2UgbGV0IG1lIGtub3cgaWYgSSBjYW4gaGVscAoKamlya2EKCgpbMF0gaHR0cHM6Ly9naXQua2Vy
+bmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvam9sc2EvcGVyZi5naXQvbG9nLz9oPWJw
+Zi9iYXRjaApbMV0gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9n
+aXQvam9sc2EvcGVyZi5naXQvY29tbWl0Lz9oPWJwZi9iYXRjaCZpZD01MmExZDRhY2RmNTVkZjQx
+ZTk5Y2EyY2VhNTE4NjVlNjgyMTAzNmNlCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1t
+ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
+LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
