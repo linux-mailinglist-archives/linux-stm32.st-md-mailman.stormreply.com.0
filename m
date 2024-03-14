@@ -2,94 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6621587B5C2
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 Mar 2024 01:25:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A8387B782
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 Mar 2024 06:59:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1BF94C6B46B;
-	Thu, 14 Mar 2024 00:25:50 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADF24C62EFE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A091C6A613;
+	Thu, 14 Mar 2024 05:59:17 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FFE8C62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 Mar 2024 00:25:48 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-33e570ef661so154006f8f.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 Mar 2024 17:25:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710375948; x=1710980748;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=b1pXXVSLcJWs+QWrQ+i4P/taCr8L+0F6xiRmk8ycZXY=;
- b=g4Z91F4ZiAe1QM9QNnIk1Hk8l/nBgpUHNkpU3N+Ms8lQK6iOL6kbY41EpwO53YtliQ
- vaeaiHVn5Ra6zzJjbRC7xkBXYrfFq0OXhyfr5F/5iNvqKMFLGKDRXrL3TIJsEF7CKsH3
- Z33hDnLCOK+7Q19wwtWxf8kBaMAdyXjpiJbJ9pyesx80VWOzH27VRCMtBpQtm2q16aAO
- /0hqoZ5HPUfo4Re/2pssggxGvLDuFv6FkC9NBetVfmrxJ/ToqAlKSRRJtBDf7gOxNUs2
- Un+o8s4J5mlW7oTd8r/UFEYKvOKA/F8MsNGocWj/dIjc03JVrhoPOyErP9wt91yV58ac
- 39QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710375948; x=1710980748;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=b1pXXVSLcJWs+QWrQ+i4P/taCr8L+0F6xiRmk8ycZXY=;
- b=YqiOUfG9qgQGUM1x8kyhTNpQ0IUWrFp+uwtIwhhR9jjHcHUkDg7js/tnIqW2ucoP4s
- VLqsA7G1XWNghvvBWRTvnssz9CI2ltSlT0nStONjPnHsZ0bWshu1adV48lWwwZsSC/+F
- OHIY1jWYCO1E8F727PL/Wod8F7KoIg4dEKDi689joGyfRc5XEEroKE8IISYBx90je69m
- h6lll843iF/2gvQvt3GWTEBXBaNIYIC06YB8boZ0+9X4h6ZrDUCs+1RtHC9dQ+PzdDh9
- nkSx23hMKn8ZkXqOpPYRzZDU59JVUGDcCX0cdsH0+6Xkfk00IyYLeWDE+Uq7BHC7QmcS
- bhbQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXYtzGIndMmkBHwwFE1BjgW8Y7EfShmTCnB7vyBGYhkE+POB2iiuyGSQN3Fg1dFHpgZySxqMpsPLGNZeA6xqPe87WnuhpVfJOI9THq4voZbGqCjYIMeZo2k
-X-Gm-Message-State: AOJu0YwMYrtMkvkq62cdrcR2rTUbyxIQ5bunWsRGKvEmHKH1PYmLXvmV
- GbUROyWcMS/21RDqSnmM7bqmErbHbCZ+3jr+IbXyF7rZ30lDieG2zfQlUla3OQpQdMBDnaHs5O3
- COkoTeIvq5sPeqiljAPDbVVgUU0Q=
-X-Google-Smtp-Source: AGHT+IEluUxpksFRvEO4amy8bxc8cXhNS84YSmujwUrBqdFTzudYkIWBqt3bc5Ekgo5hTd/k08iQyCGhQiEqmdJKoSg=
-X-Received: by 2002:a5d:438e:0:b0:33e:44da:827 with SMTP id
- i14-20020a5d438e000000b0033e44da0827mr112820wrq.57.1710375947716; Wed, 13 Mar
- 2024 17:25:47 -0700 (PDT)
+ Thu, 14 Mar 2024 05:59:15 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 907691007;
+ Wed, 13 Mar 2024 22:59:51 -0700 (PDT)
+Received: from a077893.arm.com (unknown [10.163.53.138])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 10A633F73F;
+ Wed, 13 Mar 2024 22:59:09 -0700 (PDT)
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	suzuki.poulose@arm.com
+Date: Thu, 14 Mar 2024 11:28:32 +0530
+Message-Id: <20240314055843.2625883-1-anshuman.khandual@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
- <20240311093526.1010158-2-dongmenglong.8@bytedance.com>
- <CAADnVQKQPS5NcvEouH4JqZ2fKgQAC+LtcwhX9iXYoiEkF_M94Q@mail.gmail.com>
- <CALz3k9i5G5wWi+rtvHPwVLOUAXVMCiU_8QUZs87TEYgR_0wpPA@mail.gmail.com>
- <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail.com>
- <CALz3k9icPePb0c4FE67q=u1U0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
-In-Reply-To: <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Wed, 13 Mar 2024 17:25:35 -0700
-Message-ID: <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
-To: =?UTF-8?B?5qKm6b6Z6JGj?= <dongmenglong.8@bytedance.com>
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- linux-s390 <linux-s390@vger.kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Quentin Monnet <quentin@isovalent.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- KP Singh <kpsingh@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, Network Development <netdev@vger.kernel.org>,
- David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Eddy Z <eddyz87@gmail.com>, Sven Schnelle <svens@linux.ibm.com>,
- Jiri Olsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [External] Re: [PATCH bpf-next v2 1/9] bpf:
- tracing: add support to record and check the accessed args
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, James Clark <james.clark@arm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>
+Subject: [Linux-stm32] [PATCH V7 00/11] coresight: Move remaining AMBA ACPI
+	devices into platform driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,126 +44,152 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBNYXIgMTIsIDIwMjQgYXQgNjo1M+KAr1BNIOaipum+meiRoyA8ZG9uZ21lbmdsb25n
-LjhAYnl0ZWRhbmNlLmNvbT4gd3JvdGU6Cj4KPiBPbiBXZWQsIE1hciAxMywgMjAyNCBhdCAxMjo0
-MuKAr0FNIEFsZXhlaSBTdGFyb3ZvaXRvdgo+IDxhbGV4ZWkuc3Rhcm92b2l0b3ZAZ21haWwuY29t
-PiB3cm90ZToKPiA+Cj4gPiBPbiBNb24sIE1hciAxMSwgMjAyNCBhdCA3OjQy4oCvUE0g5qKm6b6Z
-6JGjIDxkb25nbWVuZ2xvbmcuOEBieXRlZGFuY2UuY29tPiB3cm90ZToKPiA+ID4KPiBbLi4uLi4u
-XQo+ID4KPiA+IEkgc2VlLgo+ID4gSSB0aG91Z2h0IHlvdSdyZSBzaGFyaW5nIHRoZSB0cmFtcG9s
-aW5lIGFjcm9zcyBhdHRhY2htZW50cy4KPiA+IChzaW5jZSBicGYgcHJvZyBpcyB0aGUgc2FtZSku
-Cj4KPiBUaGF0IHNlZW1zIHRvIGJlIGEgZ29vZCBpZGVhLCB3aGljaCBJIGhhZG4ndCB0aG91Z2h0
-IGJlZm9yZS4KPgo+ID4gQnV0IGFib3ZlIGFwcHJvYWNoIGNhbm5vdCBwb3NzaWJseSB3b3JrIHdp
-dGggYSBzaGFyZWQgdHJhbXBvbGluZS4KPiA+IFlvdSBuZWVkIHRvIGNyZWF0ZSBpbmRpdmlkdWFs
-IHRyYW1wb2xpbmUgZm9yIGFsbCBhdHRhY2htZW50Cj4gPiBhbmQgcG9pbnQgdGhlbSB0byBzaW5n
-bGUgYnBmIHByb2cuCj4gPgo+ID4gdGJoIEknbSBsZXNzIGV4Y2l0ZWQgYWJvdXQgdGhpcyBmZWF0
-dXJlIG5vdywgc2luY2Ugc2hhcmluZwo+ID4gdGhlIHByb2cgYWNyb3NzIGRpZmZlcmVudCBhdHRh
-Y2htZW50cyBpcyBuaWNlLCBidXQgaXQgd29uJ3Qgc2NhbGUKPiA+IHRvIHRob3VzYW5kcyBvZiBh
-dHRhY2htZW50cy4KPiA+IEkgYXNzdW1lZCB0aGF0IHRoZXJlIHdpbGwgYmUgYSBzaW5nbGUgdHJh
-bXBvbGluZSB3aXRoIG1heChhcmdubykKPiA+IGFjcm9zcyBhdHRhY2htZW50cyBhbmQgYXR0YWNo
-L2RldGFjaCB3aWxsIHNjYWxlIHRvIHRob3VzYW5kcy4KPiA+Cj4gPiBXaXRoIGluZGl2aWR1YWwg
-dHJhbXBvbGluZSB0aGlzIHdpbGwgd29yayBmb3IgdXAgdG8gYSBodW5kcmVkCj4gPiBhdHRhY2ht
-ZW50cyBtYXguCj4KPiBXaGF0IGRvZXMgImEgaHVuZHJlZCBhdHRhY2htZW50cyBtYXgiIG1lYW5z
-PyBDYW4ndCBJCj4gdHJhY2UgdGhvdXNhbmRzIG9mIGtlcm5lbCBmdW5jdGlvbnMgd2l0aCBhIGJw
-ZiBwcm9ncmFtIG9mCj4gdHJhY2luZyBtdWx0aS1saW5rPwoKSSBtZWFuIHdoYXQgdGltZSBkb2Vz
-IGl0IHRha2UgdG8gYXR0YWNoIG9uZSBwcm9ncmFtCnRvIDEwMCBmZW50cnktcyA/CldoYXQgaXMg
-dGhlIHRpbWUgZm9yIDFrIGFuZCBmb3IgMTBrID8KClRoZSBrcHJvYmUgbXVsdGkgdGVzdCBhdHRh
-Y2hlcyB0byBwcmV0dHkgbXVjaCBhbGwgZnVuY3MgaW4KL3N5cy9rZXJuZWwvdHJhY2luZy9hdmFp
-bGFibGVfZmlsdGVyX2Z1bmN0aW9ucwphbmQgaXQncyBmYXN0IGVub3VnaCB0byBydW4gaW4gdGVz
-dF9wcm9ncyBvbiBldmVyeSBjb21taXQgaW4gYnBmIENJLgpTZWUgZ2V0X3N5bXMoKSBpbiBwcm9n
-X3Rlc3RzL2twcm9iZV9tdWx0aV90ZXN0LmMKCkNhbiB0aGlzIG5ldyBtdWx0aSBmZW50cnkgZG8g
-dGhhdD8KYW5kIGF0IHdoYXQgc3BlZWQ/ClRoZSBhbnN3ZXIgd2lsbCBkZWNpZGUgaG93IGFwcGxp
-Y2FibGUgdGhpcyBhcGkgaXMgZ29pbmcgdG8gYmUuCkdlbmVyYXRpbmcgZGlmZmVyZW50IHRyYW1w
-b2xpbmVzIGZvciBldmVyeSBhdHRhY2ggcG9pbnQKaXMgYW4gYXBwcm9hY2ggYXMgd2VsbC4gUGxz
-IGJlbmNobWFyayBpdCB0b28uCgo+ID4KPiA+IExldCdzIHN0ZXAgYmFjay4KPiA+IFdoYXQgaXMg
-dGhlIGV4YWN0IHVzZSBjYXNlIHlvdSdyZSB0cnlpbmcgdG8gc29sdmU/Cj4gPiBOb3QgYW4gYXJ0
-aWZpY2lhbCBvbmUgYXMgc2VsZnRlc3QgaW4gcGF0Y2ggOSwgYnV0IHRoZSByZWFsIHVzZSBjYXNl
-Pwo+Cj4gSSBoYXZlIGEgdG9vbCwgd2hpY2ggaXMgdXNlZCB0byBkaWFnbm9zZSBuZXR3b3JrIHBy
-b2JsZW1zLAo+IGFuZCBpdHMgbmFtZSBpcyAibmV0dHJhY2UiLiBJdCB3aWxsIHRyYWNlIG1hbnkg
-a2VybmVsIGZ1bmN0aW9ucywgd2hvc2UKPiBmdW5jdGlvbiBhcmdzIGNvbnRhaW4gInNrYiIsIGxp
-a2UgdGhpczoKPgo+IC4vbmV0dHJhY2UgLXAgaWNtcAo+IGJlZ2luIHRyYWNlLi4uCj4gKioqKioq
-KioqKioqKioqKiogZmZmZjg4OWJlOGZiZDUwMCxmZmZmODg5YmU4ZmJjZDAwICoqKioqKioqKioq
-KioqKgo+IFsxMjcyMzQ5LjYxNDU2NF0gW2Rldl9ncm9fcmVjZWl2ZSAgICAgXSBJQ01QOiAxNjku
-MjU0LjEyOC4xNSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0LCBzZXE6IDQ4MjIwCj4gWzEy
-NzIzNDkuNjE0NTc5XSBbX19uZXRpZl9yZWNlaXZlX3NrYl9jb3JlXSBJQ01QOiAxNjkuMjU0LjEy
-OC4xNSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDku
-NjE0NTg1XSBbaXBfcmN2ICAgICAgICAgICAgICBdIElDTVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4g
-MTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiBbMTI3MjM0OS42MTQ1OTJdIFtp
-cF9yY3ZfY29yZSAgICAgICAgIF0gSUNNUDogMTY5LjI1NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42
-IHBpbmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+IFsxMjcyMzQ5LjYxNDU5OV0gW3NrYl9jbG9uZSAg
-ICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1
-ZXN0LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDkuNjE0NjE2XSBbbmZfaG9va19zbG93ICAgICAgICBd
-IElDTVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTog
-NDgyMjAKPiBbMTI3MjM0OS42MTQ2MjldIFtuZnRfZG9fY2hhaW4gICAgICAgIF0gSUNNUDogMTY5
-LjI1NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42IHBpbmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+IFsx
-MjcyMzQ5LjYxNDYzNV0gW2lwX3Jjdl9maW5pc2ggICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4x
-NSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDkuNjE0
-NjQzXSBbaXBfcm91dGVfaW5wdXRfc2xvdyBdIElDTVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gMTcy
-LjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiBbMTI3MjM0OS42MTQ2NDddIFtmaWJf
-dmFsaWRhdGVfc291cmNlIF0gSUNNUDogMTY5LjI1NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42IHBp
-bmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+IFsxMjcyMzQ5LjYxNDY1Ml0gW2lwX2xvY2FsX2RlbGl2
-ZXIgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0
-LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDkuNjE0NjU4XSBbbmZfaG9va19zbG93ICAgICAgICBdIElD
-TVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgy
-MjAKPiBbMTI3MjM0OS42MTQ2NjNdIFtpcF9sb2NhbF9kZWxpdmVyX2ZpbmlzaF0gSUNNUDogMTY5
-LjI1NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42IHBpbmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+IFsx
-MjcyMzQ5LjYxNDY2Nl0gW2ljbXBfcmN2ICAgICAgICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4x
-NSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDkuNjE0
-NjcxXSBbaWNtcF9lY2hvICAgICAgICAgICBdIElDTVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gMTcy
-LjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgyMjAKPiBbMTI3MjM0OS42MTQ2NzVdIFtpY21w
-X3JlcGx5ICAgICAgICAgIF0gSUNNUDogMTY5LjI1NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42IHBp
-bmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+IFsxMjcyMzQ5LjYxNDcxNV0gW2NvbnN1bWVfc2tiICAg
-ICAgICAgXSBJQ01QOiAxNjkuMjU0LjEyOC4xNSAtPgo+IDE3Mi4yNy4wLjYgcGluZyByZXF1ZXN0
-LCBzZXE6IDQ4MjIwCj4gWzEyNzIzNDkuNjE0NzIyXSBbcGFja2V0X3JjdiAgICAgICAgICBdIElD
-TVA6IDE2OS4yNTQuMTI4LjE1IC0+Cj4gMTcyLjI3LjAuNiBwaW5nIHJlcXVlc3QsIHNlcTogNDgy
-MjAKPiBbMTI3MjM0OS42MTQ3MjVdIFtjb25zdW1lX3NrYiAgICAgICAgIF0gSUNNUDogMTY5LjI1
-NC4xMjguMTUgLT4KPiAxNzIuMjcuMC42IHBpbmcgcmVxdWVzdCwgc2VxOiA0ODIyMAo+Cj4gRm9y
-IG5vdywgSSBoYXZlIHRvIGNyZWF0ZSBhIGJwZiBwcm9ncmFtIGZvciBldmVyeSBrZXJuZWwKPiBm
-dW5jdGlvbiB0aGF0IEkgd2FudCB0byB0cmFjZSwgd2hpY2ggaXMgdXAgdG8gMjAwLgo+Cj4gV2l0
-aCB0aGlzIG11bHRpLWxpbmssIEkgb25seSBuZWVkIHRvIGNyZWF0ZSA1IGJwZiBwcm9ncmFtLAo+
-IGxpa2UgdGhpczoKPgo+IGludCBCUEZfUFJPRyh0cmFjZV9za2JfMSwgc3RydWN0ICpza2IpOwo+
-IGludCBCUEZfUFJPRyh0cmFjZV9za2JfMiwgdTY0IGFyZzAsIHN0cnVjdCAqc2tiKTsKPiBpbnQg
-QlBGX1BST0codHJhY2Vfc2tiXzMsIHU2NCBhcmcwLCB1NjQgYXJnMSwgc3RydWN0ICpza2IpOwo+
-IGludCBCUEZfUFJPRyh0cmFjZV9za2JfNCwgdTY0IGFyZzAsIHU2NCBhcmcxLCB1NjQgYXJnMiwg
-c3RydWN0ICpza2IpOwo+IGludCBCUEZfUFJPRyh0cmFjZV9za2JfNSwgdTY0IGFyZzAsIHU2NCBh
-cmcxLCB1NjQgYXJnMiwgdTY0IGFyZzMsIHN0cnVjdCAqc2tiKTsKPgo+IFRoZW4sIEkgY2FuIGF0
-dGFjaCB0cmFjZV9za2JfMSB0byBhbGwgdGhlIGtlcm5lbCBmdW5jdGlvbnMgdGhhdAo+IEkgd2Fu
-dCB0byB0cmFjZSBhbmQgd2hvc2UgZmlyc3QgYXJnIGlzIHNrYjsgYXR0YWNoIHRyYWNlX3NrYl8y
-IHRvIGtlcm5lbAo+IGZ1bmN0aW9ucyB3aG9zZSAybmQgYXJnIGlzIHNrYiwgZXRjLgo+Cj4gT3Is
-IEkgY2FuIGNyZWF0ZSBvbmx5IG9uZSBicGYgcHJvZ3JhbSBhbmQgc3RvcmUgdGhlIGluZGV4Cj4g
-b2Ygc2tiIHRvIHRoZSBhdHRhY2htZW50IGNvb2tpZSwgYW5kIGF0dGFjaCB0aGlzIHByb2dyYW0g
-dG8gYWxsCj4gdGhlIGtlcm5lbCBmdW5jdGlvbnMgdGhhdCBJIHdhbnQgdG8gdHJhY2UuCj4KPiBU
-aGlzIGlzIG15IHVzZSBjYXNlLiBXaXRoIHRoZSBtdWx0aS1saW5rLCBub3cgSSBvbmx5IGhhdmUK
-PiAxIGJwZiBwcm9ncmFtLCAxIGJwZiBsaW5rLCAyMDAgdHJhbXBvbGluZXMsIGluc3RlYWQgb2Yg
-MjAwCj4gYnBmIHByb2dyYW1zLCAyMDAgYnBmIGxpbmsgYW5kIDIwMCB0cmFtcG9saW5lcy4KCkkg
-c2VlLiBUaGUgdXNlIGNhc2UgbWFrZXMgc2Vuc2UgdG8gbWUuCkFuZHJpaSdzIHJldHNub29wIGlz
-IHVzZWQgdG8gZG8gc2ltaWxhciB0aGluZyBiZWZvcmUga3Byb2JlIG11bHRpIHdhcwppbnRyb2R1
-Y2VkLgoKPiBUaGUgc2hhcmVkIHRyYW1wb2xpbmUgeW91IG1lbnRpb25lZCBzZWVtcyB0byBiZSBh
-Cj4gd29uZGVyZnVsIGlkZWEsIHdoaWNoIGNhbiBtYWtlIHRoZSAyMDAgdHJhbXBvbGluZXMKPiB0
-byBvbmUuIExldCBtZSBoYXZlIGEgbG9vaywgd2UgY3JlYXRlIGEgdHJhbXBvbGluZSBhbmQKPiBy
-ZWNvcmQgdGhlIG1heCBhcmdzIGNvdW50IG9mIGFsbCB0aGUgdGFyZ2V0IGZ1bmN0aW9ucywgbGV0
-J3MKPiBtYXJrIGl0IGFzIGFyZ19jb3VudC4KPgo+IER1cmluZyBnZW5lcmF0aW5nIHRoZSB0cmFt
-cG9saW5lLCB3ZSBhc3N1bWUgdGhhdCB0aGUKPiBmdW5jdGlvbiBhcmdzIGNvdW50IGlzIGFyZ19j
-b3VudC4gRHVyaW5nIGF0dGFjaGluZywgd2UKPiBjaGVjayB0aGUgY29uc2lzdGVuY3kgb2YgYWxs
-IHRoZSB0YXJnZXQgZnVuY3Rpb25zLCBqdXN0IGxpa2UKPiB3aGF0IHdlIGRvIG5vdy4KCkZvciBv
-bmUgdHJhbXBvbGluZSB0byBoYW5kbGUgYWxsIGF0dGFjaCBwb2ludHMgd2UgbWlnaHQKbmVlZCBz
-b21lIGFyY2ggc3VwcG9ydCwgYnV0IHdlIGNhbiBzdGFydCBzaW1wbGUuCk1ha2UgYnRmX2Z1bmNf
-bW9kZWwgd2l0aCBNQVhfQlBGX0ZVTkNfUkVHX0FSR1MKYnkgY2FsbGluZyBidGZfZGlzdGlsbF9m
-dW5jX3Byb3RvKCkgd2l0aCBmdW5jPT1OVUxMLgpBbmQgdXNlIHRoYXQgdG8gYnVpbGQgYSB0cmFt
-cG9saW5lLgoKVGhlIGNoYWxsZW5nZSBpcyBob3cgdG8gdXNlIG1pbmltYWwgbnVtYmVyIG9mIHRy
-YW1wb2xpbmVzCndoZW4gYnBmX3Byb2dBIGlzIGF0dGFjaGVkIGZvciBmdW5jMSwgZnVuYzIsIGZ1
-bmMzCmFuZCBicGZfcHJvZ0IgaXMgYXR0YWNoZWQgdG8gZnVuYzMsIGZ1bmM0LCBmdW5jNS4KV2Un
-ZCBzdGlsbCBuZWVkIDMgdHJhbXBvbGluZXM6CmZvciBmdW5jWzEyXSB0byBjYWxsIGJwZl9wcm9n
-QSwKZm9yIGZ1bmMzIHRvIGNhbGwgYnBmX3Byb2dBIGFuZCBicGZfcHJvZ0IsCmZvciBmdW5jWzQ1
-XSB0byBjYWxsIGJwZl9wcm9nQi4KCkppcmkgd2FzIHRyeWluZyB0byBzb2x2ZSBpdCBpbiB0aGUg
-cGFzdC4gSGlzIHNsaWRlcyBmcm9tIExQQzoKaHR0cHM6Ly9scGMuZXZlbnRzL2V2ZW50LzE2L2Nv
-bnRyaWJ1dGlvbnMvMTM1MC9hdHRhY2htZW50cy8xMDMzLzE5ODMvcGx1bWJlcnMucGRmCgpQbHMg
-c3R1ZHkgdGhlbSBhbmQgaGlzIHByaW9yIHBhdGNoc2V0cyB0byBhdm9pZCBzdGVwcGluZyBvbiB0
-aGUgc2FtZSByYWtlcy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
-YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+This moves remaining AMBA ACPI devices into respective platform drivers for
+enabling ACPI based power management support. This series applies on latest
+coresight next. This series has been built, and boot tested on a DT based
+(RB5) and ACPI supported coresight platform (N1SDP).
+
+https://git.gitlab.arm.com/linux-arm/linux-anshuman.git (amba_other_acpi_migration_v7)
+
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Mike Leach <mike.leach@linaro.org>
+Cc: James Clark <james.clark@arm.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: linux-acpi@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: coresight@lists.linaro.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+
+Changes in V7:
+
+- Dropped reduntant 'drvdata' check in following functions
+  replicator_platform_remove()
+  funnel_platform_remove()
+  tpiu_platform_remove()
+  tmc_platform_remove()
+  catu_platform_remove()
+  catu_platform_probe()
+  debug_platform_remove()
+  debug_platform_probe()
+- Dropped struct resource check before devm_ioremap_resource()
+- Sorted the headers in alphabetic order
+
+Changes in V6:
+
+https://lore.kernel.org/all/20240312102318.2285165-1-anshuman.khandual@arm.com/
+
+- Dropped Jame's RB tag from [PATCH 3/11]
+- Added clk_disable_unprepare() for pclk in replicator_probe() error path
+- Added clk_disable_unprepare() for pclk in funnel_probe() error path
+- Added clk_put() for pclk in catu_platform_probe() error path
+- Added clk_put() for pclk in debug_platform_probe() error path
+- Added WARN_ON(!drvdata) check in replicator_platform_remove()
+- Added WARN_ON(!drvdata) check in funnel_platform_remove()
+- Added WARN_ON(!drvdata) check in catu_platform_remove()
+- Added WARN_ON(!drvdata) check in tpiu_platform_remove()
+- Added WARN_ON(!drvdata) check in tmc_platform_remove()
+- Added WARN_ON(!drvdata) check in stm_platform_remove()
+- Added WARN_ON(!drvdata) check in debug_platform_remove()
+- Added additional elements for all acpi_device_id[] updates
+
+Changes in V5:
+
+https://lore.kernel.org/all/20240222082142.3663983-1-anshuman.khandual@arm.com/
+
+- Used table->mask to filter out bits from pid in coresight_get_uci_data_from_amba()
+- Dropped custom masks such as STM_AMBA_MASK and TMC_AMBA_MASK
+- Modified tmc_etr_setup_caps() to accept struct csdev_access argument
+- Reverted back tmc_etr_setup_caps() call site position in tmc_probe()
+- Changed replicator and funnel devices to use the new helpers earlier in series
+- Updated the commit messages regarding xxx_probe() refactoring and renaming
+
+Changes in V4:
+
+https://lore.kernel.org/all/20240123054608.1790189-1-anshuman.khandual@arm.com/
+
+- Fixed PM imbalance in etm4_probe() error path with pm_runtime_disable()
+- Restored back the pm_runtime_disable() on platform probe error paths
+  in replicator, funnel, catu, tpiu, tmc and stm devices
+- Dropped dev_caps argument from __tmc_probe()
+- Changed xxxx_platform_remove() for platform_driver->remove_new() callback
+
+Changes in V3:
+
+https://lore.kernel.org/all/20231208053939.42901-1-anshuman.khandual@arm.com/
+
+- Split coresight_init_driver/remove_driver() helpers into a separate patch
+- Added 'drvdata->pclk' comments in replicator, funnel, tpiu, tmc, and stm devices
+- Updated funnel, and replicator drivers to use these new helpers
+- Check for drvdata instead of drvdata->pclk in suspend and resume paths in catu,
+  tmc and debug devices
+- Added patch to extract device name from AMBA pid based table lookup for stm
+- Added patch to extract device properties from AMBA pid based table look for tmc
+- Dropped pm_runtime_put() from common __probe() functions
+- Handled pm_runtime_put() in AMBA driver in success path
+- Handled pm_runtime_put() in platform driver in both success and error paths
+
+Changes in V2:
+
+https://lore.kernel.org/all/20231201062053.1268492-1-anshuman.khandual@arm.com/
+
+- Dropped redundant devm_ioremap_resource() hunk from tmc_platform_probe()
+- Defined coresight_[init|remove]_driver() for both AMBA/platform drivers
+- Changed catu, tmc, tpiu, stm and debug coresight drivers to use the new
+  helpers avoiding build issues arising from module_amba_driver(), and
+  module_platform_driver() being on the same file
+
+Changes in V1:
+
+https://lore.kernel.org/all/20231027072943.3418997-1-anshuman.khandual@arm.com/
+
+- Replaced all IS_ERR() instances with IS_ERR_OR_NULL() as per Suzuki
+
+Changes in RFC:
+
+https://lore.kernel.org/all/20230921042040.1334641-1-anshuman.khandual@arm.com/
+
+Anshuman Khandual (11):
+  coresight: etm4x: Fix unbalanced pm_runtime_enable()
+  coresight: stm: Extract device name from AMBA pid based table lookup
+  coresight: tmc: Extract device properties from AMBA pid based table lookup
+  coresight: Add helpers registering/removing both AMBA and platform drivers
+  coresight: replicator: Move ACPI support from AMBA driver to platform driver
+  coresight: funnel: Move ACPI support from AMBA driver to platform driver
+  coresight: catu: Move ACPI support from AMBA driver to platform driver
+  coresight: tpiu: Move ACPI support from AMBA driver to platform driver
+  coresight: tmc: Move ACPI support from AMBA driver to platform driver
+  coresight: stm: Move ACPI support from AMBA driver to platform driver
+  coresight: debug: Move ACPI support from AMBA driver to platform driver
+
+ drivers/acpi/arm64/amba.c                     |   8 -
+ drivers/hwtracing/coresight/coresight-catu.c  | 138 +++++++++++++---
+ drivers/hwtracing/coresight/coresight-catu.h  |   1 +
+ drivers/hwtracing/coresight/coresight-core.c  |  29 ++++
+ .../hwtracing/coresight/coresight-cpu-debug.c | 138 ++++++++++++++--
+ .../coresight/coresight-etm4x-core.c          |   3 +
+ .../hwtracing/coresight/coresight-funnel.c    |  87 +++++-----
+ drivers/hwtracing/coresight/coresight-priv.h  |  10 ++
+ .../coresight/coresight-replicator.c          |  82 +++++-----
+ drivers/hwtracing/coresight/coresight-stm.c   | 116 +++++++++++--
+ .../hwtracing/coresight/coresight-tmc-core.c  | 154 +++++++++++++++---
+ drivers/hwtracing/coresight/coresight-tmc.h   |   2 +
+ drivers/hwtracing/coresight/coresight-tpiu.c  | 117 +++++++++++--
+ include/linux/coresight.h                     |   7 +
+ 14 files changed, 726 insertions(+), 166 deletions(-)
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
