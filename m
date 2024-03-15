@@ -2,79 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41B7B87CFF9
-	for <lists+linux-stm32@lfdr.de>; Fri, 15 Mar 2024 16:16:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6338487D147
+	for <lists+linux-stm32@lfdr.de>; Fri, 15 Mar 2024 17:40:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2E48C6DD69;
-	Fri, 15 Mar 2024 15:16:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EAB7C6DD69;
+	Fri, 15 Mar 2024 16:40:29 +0000 (UTC)
 Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
  [185.132.182.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE179C64102
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 88B93C64102
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Mar 2024 15:16:16 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
+ Fri, 15 Mar 2024 16:40:27 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
  by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42FEcweV009640; Fri, 15 Mar 2024 16:15:47 +0100
+ 42FEkFZJ021920; Fri, 15 Mar 2024 17:40:02 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
  message-id:date:mime-version:subject:to:cc:references:from
  :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=mN5YOoII/OjhboOJve/4NynjPrKGyVn2gyMyB0ukmK8=; b=O4
- 3SCO9MyJtYSOKQdCylCRvSDcHHxssv5BfVPLBubd9+Szkv5WcxgLnXtQAUfWgSpU
- I/ziY/map1ZTLqOZb8ZAnHsdyX60bH1ck19Gasjv4xwvTDWB7UoL00peD7ZiCStO
- KeaFREhRryPVNq8JlIigO7sTODYdN74knfTf/64YaI2cECSnOQXA2TDg2oVnyhxf
- P1Ith7hPfjfZF1sCPg9eLz3nYzbimwXYUPLzLHoxToQw0oCvidRmtD+dA3IjzbcF
- g9O/JaNlPfLQ71HLGwZi21RHHQpgGpDVpk7byycaRUQ1xcUN6bn0PdAJMuuQbsMe
- cbrKU5yedbA9yalQymXg==
+ selector1; bh=8yeqzO7B3mr+EiV0jNhU6eDDqyUYHa/uGezqm7wGIkE=; b=Yy
+ 62tgn3Hs4grXiop+HVWVvKqNlc14T5Jo0qKRA+dy4ZrcehKjkKVOS02Yzbkq/EqE
+ deDE2uk+QO6Ya+Yj6rKoFubJJu9A99/DXSJv6rkgMXRR/Yu3PUTn1LO+RGEmnPYK
+ 3vHCXCDEs0anPL5igDIUFqXCQuBYwsmdLgSU65gb31u62WaFU7mD+egLTgUoDG2Y
+ dZUA/vcyz6t1o4HMMX5tZnflVOJIcYAZXYeJnlwLBSyWgBIyeQXJACtiZPv0+C5v
+ eLhsc82Bn70D4IK/by7RUXr03LuNcezsjN9Ua27B7A3FBZvE4md7lj1+Y7yYeSZc
+ BXaBEBQGxisDhQoiw6MQ==
 Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wv9yckf3e-1
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3wv9y9ut90-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Mar 2024 16:15:46 +0100 (CET)
+ Fri, 15 Mar 2024 17:40:02 +0100 (CET)
 Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A126D4002D;
- Fri, 15 Mar 2024 16:15:30 +0100 (CET)
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A03034002D;
+ Fri, 15 Mar 2024 17:39:58 +0100 (CET)
 Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8AEB827564A;
- Fri, 15 Mar 2024 16:14:16 +0100 (CET)
-Received: from [10.252.28.102] (10.252.28.102) by SHFDAG1NODE2.st.com
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id CBF7D2801CF;
+ Fri, 15 Mar 2024 17:39:36 +0100 (CET)
+Received: from [10.252.9.197] (10.252.9.197) by SHFDAG1NODE2.st.com
  (10.75.129.70) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 15 Mar
- 2024 16:14:15 +0100
-Message-ID: <ac696442-0513-48cc-86b1-8647b9bd8e91@foss.st.com>
-Date: Fri, 15 Mar 2024 16:14:06 +0100
+ 2024 17:39:35 +0100
+Message-ID: <861cb184-42ee-4f27-9b0c-3129d52cc706@foss.st.com>
+Date: Fri, 15 Mar 2024 17:39:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-References: <20240307135957.303481-1-christophe.roullier@foss.st.com>
- <20240307135957.303481-3-christophe.roullier@foss.st.com>
- <578f421c-ca06-45d4-8380-8b2b423d4d47@linaro.org>
- <50ee6122-b160-48ea-8c44-1046b5907d7c@foss.st.com>
- <e2a98098-8ccd-4b8f-9a4b-1cbc0776a9c2@linaro.org>
- <51531046-ee83-4d99-836b-af4dc5d7add9@foss.st.com>
- <cf122942-c0fd-457f-a753-366cae39d5f8@linaro.org>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+ <linux-pwm@vger.kernel.org>
+References: <20240315145443.982807-2-u.kleine-koenig@pengutronix.de>
 Content-Language: en-US
-From: Christophe ROULLIER <christophe.roullier@foss.st.com>
-In-Reply-To: <cf122942-c0fd-457f-a753-366cae39d5f8@linaro.org>
-X-Originating-IP: [10.252.28.102]
-X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE2.st.com
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20240315145443.982807-2-u.kleine-koenig@pengutronix.de>
+X-Originating-IP: [10.252.9.197]
+X-ClientProxiedBy: SHFCAS1NODE1.st.com (10.75.129.72) To SHFDAG1NODE2.st.com
  (10.75.129.70)
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-15_02,2024-03-13_01,2023-05-22_02
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/2] dt-bindings: net: add new property
- st, ext-phyclk in documentation for stm32
+ definitions=2024-03-15_04,2024-03-13_01,2023-05-22_02
+Cc: linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] pwm: stm32: Add error messages in
+	.probe()'s error paths
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,106 +73,38 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi
-
-On 3/14/24 16:25, Krzysztof Kozlowski wrote:
-> On 14/03/2024 16:10, Christophe ROULLIER wrote:
->> Hi,
->>
->> On 3/13/24 14:06, Krzysztof Kozlowski wrote:
->>> On 13/03/2024 11:39, Christophe ROULLIER wrote:
->>>> On 3/8/24 09:28, Krzysztof Kozlowski wrote:
->>>>> On 07/03/2024 14:59, Christophe Roullier wrote:
->>>>>> Add property st,ext-phyclk to manage cases when PHY have no cristal/quartz
->>>>>> This property can be used with RMII phy without cristal 50Mhz and when we
->>>>>> want to select RCC clock instead of ETH_REF_CLK
->>>>>> Can be used also with RGMII phy with no cristal and we select RCC clock
->>>>>> instead of ETH_CLK125
->>>>>>
->>>>> Nothing improved here. You say you add new property (wrote it explicitly
->>>>> in the subject), but where is it? Where is the user?
->>>>>
->>>>> I think we talked about this. Rob also asked quite clear:
->>>>>
->>>>>> That is obvious from the diff. What is not obvious is why we need a new
->>>>>> property and what is the problem with the existing ones.
->>>>> How did you solve it?
->>>> Hi,
->>>>
->>>> I do not understand your questions.
->>> OK, I will clarify some questions, but are you sure that this question:
->>> "How did you solve it?"
->>> needs clarification?
->>>
->>> If so, then let me clarify:
->>> Rob pointed issue. How did you resolve Rob's comment? How did you
->>> address it? What changed in your patch, that Rob's comment should be
->>> considered as addressed/resolved/done?
->> This property was introduced in 2020 in order to simplify management of
->> all STM32 platforms without Ethernet cristal/quartz PHY.
-> I fail to see how this answers how did you resolve the comment. You now
-> described some sort of history, but I am asking: what did you change in
-> your patches, so Rob's comment is considered resolved?
-
-Concerning Rob's comment, in V2 I finally remove deprecated fields put 
-in V1 to keep existing properties, which have no pb and can be used.
-
-And I explained the meaning to add existing property in yaml.
-
->>> Now about my other question:
->>> "but where is it? Where is the user?"
->>>
->>> Your subject and commit message claim you add new property. This means
->>> such property was not existing so far in the Linux kernel. If you add
->>> new property in the binding, then I expect adding the user of that
->>> binding, thus my question: where is the user of that binding?
->>>
->> I'm preparing glue and DTS to upstream for STM32MP13 platform, this
->> platform will use with property.
->>
->> Since 2020, this property is available in the driver in kernel.org, so
->> it is also possible that someone who has not upstreamed their
-> This should be explained in commit msg (although not kernel.org, website
-> does not matter here).
-ok I will add this in V3.
->
->> code also uses it.
->>
->>>> That I would like to do, it is property "st,ext-phyclk" was introduced
->>>> in driver
->>>>
->>>> "drivers/net/ethernet/stmicro/stmmac/dwmac-stm32.c" in 2020, and YAML
->>>> was not updated at the time.
->>> Are you saying you document existing property or add a new one?
->> Yes, existing property, since 2020 in kernel.org.
-> Drop the website. We talk here about Linux kernel.
->
-> Commit msg fails to explain it in a clear way.
-
-ok I will add this in V3.
-
-Thanks
-
->
->>>> Goal of this patch it is to update YAML to avoid dtbs check issue if
->>>> someone use this property :
->>>>
->>>>     dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb:
->>>> ethernet@5800a000: Unevaluated properties are not allowed
->>>> ('st,ext-phyclk' was unexpected)
->>> So DTS uses it?
->> Here it was example, if someone wants to use this property, but today
->> this property is not yet present in DTS in kernel.org
->
-> Best regards,
-> Krzysztof
->
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMy8xNS8yNCAxNTo1NCwgVXdlIEtsZWluZS1Lw7ZuaWcgd3JvdGU6Cj4gR2l2aW5nIGFuIGlu
+ZGljYXRpb24gYWJvdXQgdGhlIHByb2JsZW0gaWYgcHJvYmluZyBhIGRldmljZSBmYWlscyBpcyBh
+Cj4gbmljZSBtb3ZlLiBEbyB0aGF0IGZvciB0aGUgc3RtMzIgcHdtIGRyaXZlci4KPiAKPiBTaWdu
+ZWQtb2ZmLWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyA8dS5rbGVpbmUta29lbmlnQHBlbmd1dHJvbml4
+LmRlPgoKSGkgVXdlLAoKVGhhbmtzIGZvciB5b3VyIHBhdGNoLCB5b3UgY2FuIGFkZCBteToKUmV2
+aWV3ZWQtYnk6IEZhYnJpY2UgR2FzbmllciA8ZmFicmljZS5nYXNuaWVyQGZvc3Muc3QuY29tPgoK
+QmVzdCBSZWdhcmRzLApGYWJyaWNlCgo+IC0tLQo+ICBkcml2ZXJzL3B3bS9wd20tc3RtMzIuYyB8
+IDkgKysrKysrLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDMgZGVsZXRp
+b25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jIGIvZHJpdmVy
+cy9wd20vcHdtLXN0bTMyLmMKPiBpbmRleCAwYzAyOGQxN2MwNzUuLmZmZTU3MmI3NjE3NCAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYwo+ICsrKyBiL2RyaXZlcnMvcHdtL3B3
+bS1zdG0zMi5jCj4gQEAgLTY0OCwxMSArNjQ4LDEzIEBAIHN0YXRpYyBpbnQgc3RtMzJfcHdtX3By
+b2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAlwcml2LT5tYXhfYXJyID0gZGRh
+dGEtPm1heF9hcnI7Cj4gIAo+ICAJaWYgKCFwcml2LT5yZWdtYXAgfHwgIXByaXYtPmNsaykKPiAt
+CQlyZXR1cm4gLUVJTlZBTDsKPiArCQlyZXR1cm4gZGV2X2Vycl9wcm9iZShkZXYsIC1FSU5WQUws
+ICJGYWlsZWQgdG8gZ2V0ICVzXG4iLAo+ICsJCQkJICAgICBwcml2LT5yZWdtYXAgPyAiY2xrIiA6
+ICJyZWdtYXAiKTsKPiAgCj4gIAlyZXQgPSBzdG0zMl9wd21fcHJvYmVfYnJlYWtpbnB1dHMocHJp
+diwgbnApOwo+ICAJaWYgKHJldCkKPiAtCQlyZXR1cm4gcmV0Owo+ICsJCXJldHVybiBkZXZfZXJy
+X3Byb2JlKGRldiwgcmV0LAo+ICsJCQkJICAgICAiRmFpbGVkIHRvIGNvbmZpZ3VyZSBicmVha2lu
+cHV0c1xuIik7Cj4gIAo+ICAJc3RtMzJfcHdtX2RldGVjdF9jb21wbGVtZW50YXJ5KHByaXYpOwo+
+ICAKPiBAQCAtNjY0LDcgKzY2Niw4IEBAIHN0YXRpYyBpbnQgc3RtMzJfcHdtX3Byb2JlKHN0cnVj
+dCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAo+ICAJcmV0ID0gZGV2bV9wd21jaGlwX2FkZChk
+ZXYsIGNoaXApOwo+ICAJaWYgKHJldCA8IDApCj4gLQkJcmV0dXJuIHJldDsKPiArCQlyZXR1cm4g
+ZGV2X2Vycl9wcm9iZShkZXYsIHJldCwKPiArCQkJCSAgICAgIkZhaWxlZCB0byByZWdpc3RlciBw
+d21jaGlwXG4iKTsKPiAgCj4gIAlwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2LCBjaGlwKTsKPiAg
+Cj4gCj4gYmFzZS1jb21taXQ6IGRkNmM2ZDU3YWI2MWQ0OTZmNmZmN2Q2Y2EzODYxMTA2MmFmMTQy
+YTEKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
