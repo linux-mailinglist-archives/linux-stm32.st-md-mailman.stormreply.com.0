@@ -2,64 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D36487E469
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B7F187E46A
 	for <lists+linux-stm32@lfdr.de>; Mon, 18 Mar 2024 08:54:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DE01C6DD93;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16DD8C6DD9C;
 	Mon, 18 Mar 2024 07:54:23 +0000 (UTC)
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7BC3BC6C83A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BD29C6C83A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Mar 2024 22:28:37 +0000 (UTC)
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-5684ea117a3so3612114a12.0
+ Fri, 15 Mar 2024 22:28:45 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-a465ddc2c09so206567866b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 Mar 2024 15:28:37 -0700 (PDT)
+ Fri, 15 Mar 2024 15:28:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1710541717; x=1711146517;
+ d=gmail.com; s=20230601; t=1710541725; x=1711146525;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EoqrHV/pJegAKS+3Zs75bA48HBVK/uGfqkB8xSr5TFI=;
- b=ebfYF8wxcuwwEMRzDoHbZj7EUnH7+0Qlc67DlvmqLhoS+bVf/P1Fz8WnyfQuHFdFxj
- q6Sfy8PbunBRfoSPk2kx6PGNmw5BIEVagH5ONC9OsPSizXbL5/dzaX+NT8fxugiB6rMi
- qUTDoPLEuX2/E7Fqy1X17owB7qVLsrQGS+B9gch/v2x7VOpHfirE7L4Re1xlLRaMVK96
- 98Dq9k5jpsObUvt+Qj0TPaQX6WHNlol9EXavbr7RA56IXNN/bmXm7+E3+MEbxPAeoiD8
- auftqUsijl0MX6NoQhqG1FAQgO648pRtl3SHUFp54Q1EqHIf51aAVpxOsYn9Kuy1/opo
- 2Jsg==
+ bh=LYdzaI1eyA1l5LCnb5/DYNm+G0BOSq1irGEnCEKn3hw=;
+ b=KIpi0B6aXziqCV3lXS7U24MxIpPU7pVnz3bcsIReWN1y+9uU8NVnPj1eLK1yGytDg8
+ +GGHQLvsk52IvdzrHZ8MIMjcyNmejrMC6tv1+sbab8t2WgI9R+tZ2g9+AZzXDIeA2tCg
+ C7ym/qNrX21fGUQKyKyJ8Nt2e8cEaIRdcFXI5pAD2GtKUvisfv96w8qRln/rUGjiE0EI
+ /2pw/B8kn21Jo4qRWq1FLFSTOYNktVoVwVvi32cKDZMfbe0EGvyzcIiIrbY9S+8d0889
+ kWNACjvtX5na8+CI1fuoH2DsVHeEfcZ+SVefle1vk0Ye/QvSuNJZcHgnV4MLBJfvJLiM
+ 5cjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710541717; x=1711146517;
+ d=1e100.net; s=20230601; t=1710541725; x=1711146525;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EoqrHV/pJegAKS+3Zs75bA48HBVK/uGfqkB8xSr5TFI=;
- b=VTvmJBVbrKYflO//waz++lGzWkqKFbBCvpSKEFdbtGExEu5WfcBl54XzKrPsOvYAn5
- ed25extSCRItF0gl7GVvlGe9WG/eb3ObgNKK7Y37wsE5lXepp7I4p42T3PMU+wDZ64GY
- ZJocplYGG9fPBAqnrcyV/ioCRB87h6Kb4yUp6HDMuP+JZYbh2RcnEXscHmUOShMx3nbV
- sm1uN6XYYaQ0bFvC93R7OkUQJCbBGltDF9eTU0jUZQCglUofA/b1GlpF+daGRh+LM5vR
- ri+NkGlm2ORhqHEowYQui4ANqA4fUYyCTE0U6SJXzIpblcpRaH/ULPdsp0VfEWl2mOHZ
- wBUg==
+ bh=LYdzaI1eyA1l5LCnb5/DYNm+G0BOSq1irGEnCEKn3hw=;
+ b=gSjmllz368wV8z1ahdcJ/PuRHXZmBwLKKHMUpqhkifnVeOGiI5FBkgz6BnJE1r/XLc
+ G5P92DKlOEhz3xPMW3TsAylMko8srbtFI7J8ihEMmTToFrbXGdLuxxsCarZ06QAt3Y8r
+ 1zKpUGBEzZme5gwAfXhGbEyzlHBAtbhbLuoiFWdEHki1aCf85LHXeMHjKY7paGFe5uBa
+ yp0+aaifk+Z+OWhEvAL/IIlS+Mk8WX/k/fHIwrZXO3uWAQYpF8Myy28x4DCfxJ3xk53o
+ xrJC6kte5numSOyOV3mnVD+yDHCx1Qjy61jpl5j80qvgUSBeu/XRqfZdZ26yB7iJyGjG
+ wanA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW85oFjNrmHrDsH/qyVJXGezEe4PcJK3GaHzFaUPOyO63cduNCX2kTiMmCdkf5vXWAbVT0Ra5vWui+cKY+8tIVQ3Zm5mkrufafZsatD7hG078IPETkbDtmm
-X-Gm-Message-State: AOJu0Yx1bOkKjDR1flJmRCvxRgV++ONf0av6AYMDWbg2JYOFC6iS1pyL
- acLgOFDT4bt22ODPY1E+isRD7WVM1GXG81aiIpFMiq7ztStLjihXOrZHew0ABCM=
-X-Google-Smtp-Source: AGHT+IFDlEBQww0G3TM01cGQj7ivgS5yY7b0wcU0XKx4QQySjvP69UWdgIiUkKET9ITrR4aD7fnglA==
-X-Received: by 2002:a05:6402:4581:b0:568:bda1:9630 with SMTP id
- ig1-20020a056402458100b00568bda19630mr187152edb.7.1710541716897; 
- Fri, 15 Mar 2024 15:28:36 -0700 (PDT)
+ AJvYcCXG5wfsowpEJFISsuYLgVeXtWefjEcro5j77Vai9qCLmMeCSzTknU46JtBtqf88gK97YPTWeOsWJr8j8Vw54mPNOD6jgtzpHfFtADD3bBy2H04SM8AcwW6o
+X-Gm-Message-State: AOJu0YwByInq1Yi1EvUMz2gHmIZhDCkk9yCqRy08s5JteHqA44wut0hE
+ SBx3mDn5lr4ioFvC3oOFsjfgDpo8iuyX/x1/WLOPCO6S+LnXk4K+
+X-Google-Smtp-Source: AGHT+IHxKuh84z/F3OBiz6d2Qj0ZQHQzmu8WpEQSSVaxaFcnXA5VKEtbGnPyU13CE3uQE7JxMXXEmQ==
+X-Received: by 2002:aa7:c54e:0:b0:566:ecce:9d3c with SMTP id
+ s14-20020aa7c54e000000b00566ecce9d3cmr276215edr.26.1710541724771; 
+ Fri, 15 Mar 2024 15:28:44 -0700 (PDT)
 Received: from bhlegrsu.conti.de ([2a02:908:2525:6ea0::f845])
  by smtp.googlemail.com with ESMTPSA id
- el9-20020a056402360900b005684173e413sm2039833edb.72.2024.03.15.15.28.35
+ el9-20020a056402360900b005684173e413sm2039833edb.72.2024.03.15.15.28.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Mar 2024 15:28:36 -0700 (PDT)
+ Fri, 15 Mar 2024 15:28:44 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: 
-Date: Fri, 15 Mar 2024 23:27:47 +0100
-Message-Id: <20240315222754.22366-2-wafgo01@gmail.com>
+Date: Fri, 15 Mar 2024 23:27:48 +0100
+Message-Id: <20240315222754.22366-3-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240315222754.22366-1-wafgo01@gmail.com>
 References: <20240315222754.22366-1-wafgo01@gmail.com>
@@ -90,8 +90,8 @@ Cc: NXP S32 Linux Team <s32@nxp.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>
-Subject: [Linux-stm32] [PATCH 1/3] arm64: dts: S32G3: Introduce device tree
-	for S32G-VNP-RDB3
+Subject: [Linux-stm32] [PATCH 2/3] net: stmmac: Add NXP S32 SoC family
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,637 +108,530 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This commit adds device tree support for the NXP S32G3-based
-S32G-VNP-RDB3 Board (Vehicle Networking Platform - Reference Design Board) [1].
+Add support for NXP S32 SoC family's GMAC to the stmmac network driver. This driver implementation is based on the patchset originally contributed by Chester Lin [1], which itself draws heavily from NXP's downstream implementation [2]. The patchset was never merged.
 
-The S32G3 features an 8-core ARM Cortex-A53 based SoC developed by NXP.
+The S32G2/3 SoCs feature multiple Ethernet interfaces (PFE0, PFE1, PFE2, and GMAC) which can be routed through a SerDes Subsystem, supporting various interfaces such as SGMII and RGMII. However, the current Glue Code lacks support for SerDes routing and pinctrl handling, relying solely on correct settings in U-Boot. Clock settings for this SoC are managed by the ATF Firmware.
 
-The device tree files are derived from the official NXP downstream Linux tree [2].
+Changes made compared to [1]:
 
-This addition encompasses a limited selection of peripherals that are upstream-supported. Apart from the ARM System Modules (GIC, Generic Timer, etc.), the following IPs have been validated:
+    Rebased onto Linux 6.8-rc7
+    Consolidated into a single commit
+    Minor adjustments in naming and usage of dev_err()/dev_info()
 
-    UART: fsl-linflexuart
-    SDHC: fsl-imx-esdhc
-    Ethernet: synopsys gmac/stmac
+Test Environment:
+The driver has been successfully tested on the official S32G-VNP-RDB3 Reference Design Board from NXP, utilizing an S32G3 SoC. The firmware and U-Boot used were from the BSP39 Release. The official BSP39 Ubuntu 22.04 Release was successfully booted. A network stress test using iperf [3] was also executed without issues.
 
-Clock settings for the chip rely on ATF Firmware [3]. Pin control integration into the device tree is pending and currently relies on Firmware/U-Boot settings [4].
-
-These changes were validated using the latest BSP39 Firmware/U-Boot from NXP [5].
-
-The modifications enable booting the official Ubuntu 22.04 from NXP on
-the RDB3 with default settings from the SD card and eMMC.
-
-[1] https://www.nxp.com/design/design-center/designs/s32g3-vehicle-networking-reference-design:S32G-VNP-RDB3
-[2] https://github.com/nxp-auto-linux/linux
-[3] https://github.com/nxp-auto-linux/arm-trusted-firmware
+[1] https://patchwork.kernel.org/project/netdevbpf/patch/20221031101052.14956-6-clin@suse.com/#25068228
+[2] https://github.com/nxp-auto-linux/linux/blob/release/bsp39.0-5.15.129-rt/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
+[3] https://linux.die.net/man/1/iperf
 [4] https://github.com/nxp-auto-linux/u-boot
-[5] https://github.com/nxp-auto-linux/auto_yocto_bsp
+[5] https://github.com/nxp-auto-linux/arm-trusted-firmware
 
 Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- arch/arm64/boot/dts/freescale/s32g3.dtsi      | 352 ++++++++++++++++++
- .../boot/dts/freescale/s32g399a-rdb3.dts      |  57 +++
- .../dt-bindings/clock/nxp,s32-scmi-clock.h    | 158 ++++++++
- 4 files changed, 568 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/s32g3.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
- create mode 100644 include/dt-bindings/clock/nxp,s32-scmi-clock.h
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ drivers/net/ethernet/stmicro/stmmac/common.h  |   3 +
+ .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 313 ++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |   9 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |   3 +
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |   5 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   7 +
+ include/linux/stmmac.h                        |   9 +
+ 9 files changed, 362 insertions(+)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 2cb0212b63c6..e701008dbc7b 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -252,3 +252,4 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw74xx-rpidsi.dtb
- dtb-$(CONFIG_ARCH_S32) += s32g274a-evb.dtb
- dtb-$(CONFIG_ARCH_S32) += s32g274a-rdb2.dtb
- dtb-$(CONFIG_ARCH_S32) += s32v234-evb.dtb
-+dtb-$(CONFIG_ARCH_S32) += s32g399a-rdb3.dtb
-diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+index 85dcda51df05..1cdf2da0251c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
++++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+@@ -142,6 +142,18 @@ config DWMAC_ROCKCHIP
+ 	  This selects the Rockchip RK3288 SoC glue layer support for
+ 	  the stmmac device driver.
+ 
++config DWMAC_S32
++	tristate "NXP S32 series GMAC support"
++	default ARCH_S32
++	depends on OF && (ARCH_S32 || COMPILE_TEST)
++	select PHYLINK
++	help
++	  Support for ethernet controller on NXP S32 series SOCs.
++
++	  This selects NXP SoC glue layer support for the stmmac
++	  device driver. This driver is used for the S32 series
++	  SOCs GMAC ethernet controller.
++
+ config DWMAC_SOCFPGA
+ 	tristate "SOCFPGA dwmac support"
+ 	default ARCH_INTEL_SOCFPGA
+diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
+index 26cad4344701..c48ff95ed972 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/Makefile
++++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
+@@ -34,6 +34,7 @@ obj-$(CONFIG_DWMAC_GENERIC)	+= dwmac-generic.o
+ obj-$(CONFIG_DWMAC_IMX8)	+= dwmac-imx.o
+ obj-$(CONFIG_DWMAC_TEGRA)	+= dwmac-tegra.o
+ obj-$(CONFIG_DWMAC_VISCONTI)	+= dwmac-visconti.o
++obj-$(CONFIG_DWMAC_S32)	+= dwmac-s32.o
+ stmmac-platform-objs:= stmmac_platform.o
+ dwmac-altr-socfpga-objs := dwmac-socfpga.o
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 5ba606a596e7..e5e23e8c07e1 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -254,6 +254,9 @@ struct stmmac_safety_stats {
+ #define CSR_F_150M	150000000
+ #define CSR_F_250M	250000000
+ #define CSR_F_300M	300000000
++#define CSR_F_500M	500000000
++#define CSR_F_800M	800000000
++
+ 
+ #define	MAC_CSR_H_FRQ_MASK	0x20
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
 new file mode 100644
-index 000000000000..481ddcfd3a6d
+index 000000000000..1920eeed2269
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-@@ -0,0 +1,352 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/nxp,s32-scmi-clock.h>
-+/ {
-+	compatible = "nxp,s32g3";
-+	interrupt-parent = <&gic>;
-+	#address-cells = <0x02>;
-+	#size-cells = <0x02>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu-map {
-+			cluster0 {
-+				core0 {
-+					cpu = <&cpu0>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu1>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu2>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu3>;
-+				};
-+			};
-+
-+			cluster1 {
-+				core0 {
-+					cpu = <&cpu4>;
-+				};
-+
-+				core1 {
-+					cpu = <&cpu5>;
-+				};
-+
-+				core2 {
-+					cpu = <&cpu6>;
-+				};
-+
-+				core3 {
-+					cpu = <&cpu7>;
-+				};
-+			};
-+		};
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x0>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster0_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu1: cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x1>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster0_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu2: cpu@2 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x2>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster0_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu3: cpu@3 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x3>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster0_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu4: cpu@100 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x100>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster1_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu5: cpu@101 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x101>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster1_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu6: cpu@102 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x102>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster1_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cpu7: cpu@103 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a53";
-+			reg = <0x103>;
-+			enable-method = "psci";
-+			clocks = <&dfs S32_SCMI_CLK_A53>;
-+			next-level-cache = <&cluster1_l2_cache>;
-+			#cooling-cells = <2>;
-+		};
-+
-+		cluster0_l2_cache: l2-cache0 {
-+			compatible = "cache";
-+			status = "okay";
-+		};
-+
-+		cluster1_l2_cache: l2-cache1 {
-+			compatible = "cache";
-+			status = "okay";
-+		};
-+	};
-+
-+	pmu {
-+		compatible = "arm,cortex-a53-pmu";
-+		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+	};
-+
-+	timer {
-+		compatible = "arm,armv8-timer";
-+		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>, /* sec-phys */
-+			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>, /* virt */
-+			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>, /* hyp-virt */
-+		             <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>, /* sec-phys */
-+		             <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>; /* phys */
-+		always-on;
-+	};
-+
-+	reserved-memory  {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		scmi_tx_buf: shm@d0000000 {
-+			compatible = "arm,scmi-shmem";
-+			reg = <0x0 0xd0000000 0x0 0x80>;
-+			no-map;
-+		};
-+
-+		scmi_rx_buf: shm@d0000080 {
-+			compatible = "arm,scmi-shmem";
-+			reg = <0x0 0xd0000080 0x0 0x80>;
-+			no-map;
-+		};
-+	};
-+
-+	firmware {
-+		scmi: scmi {
-+			compatible = "arm,scmi-smc";
-+			mbox-names = "tx", "rx";
-+			shmem = <&scmi_tx_buf>, <&scmi_rx_buf>;
-+			arm,smc-id = <0xc20000fe>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			status = "okay";
-+			interrupts = <GIC_SPI 300 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "p2a_notif";
-+
-+			dfs: protocol@13 {
-+				reg = <0x13>;
-+				#clock-cells = <1>;
-+			};
-+
-+			clks: protocol@14 {
-+				reg = <0x14>;
-+				#clock-cells = <1>;
-+			};
-+
-+			reset: protocol@16 {
-+				reg = <0x16>;
-+				#reset-cells = <1>;
-+			};
-+
-+			pinctrl_scmi: protocol@80 {
-+				reg = <0x80>;
-+				#pinctrl-cells = <2>;
-+
-+				status = "disabled";
-+			};
-+		};
-+
-+		psci: psci {
-+			compatible = "arm,psci-1.0";
-+			method = "smc";
-+		};
-+	};
-+
-+	soc@0 {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges = <0 0 0 0x80000000>;
-+
-+		uart0: serial@401c8000 {
-+			compatible = "nxp,s32g3-linflexuart",
-+				     "fsl,s32v234-linflexuart";
-+			reg = <0x401c8000 0x3000>;
-+			interrupts = <GIC_SPI 82 IRQ_TYPE_EDGE_RISING>;
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@401cc000 {
-+			compatible = "nxp,s32g3-linflexuart",
-+				     "fsl,s32v234-linflexuart";
-+			reg = <0x401cc000 0x3000>;
-+			interrupts = <GIC_SPI 83 IRQ_TYPE_EDGE_RISING>;
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@402bc000 {
-+			compatible = "nxp,s32g3-linflexuart",
-+				     "fsl,s32v234-linflexuart";
-+			reg = <0x402bc000 0x3000>;
-+			interrupts = <GIC_SPI 84 IRQ_TYPE_EDGE_RISING>;
-+			status = "disabled";
-+		};
-+
-+		gic: interrupt-controller@50800000 {
-+			compatible = "arm,gic-v3";
-+			#interrupt-cells = <3>;
-+			interrupt-controller;
-+			reg = <0x50800000 0x10000>,
-+			      <0x50900000 0x200000>,
-+			      <0x50400000 0x2000>,
-+			      <0x50410000 0x2000>,
-+			      <0x50420000 0x2000>;
-+			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+			mbi-ranges = <167 16>;
-+		};
-+
-+		qspi: spi@40134000 {
-+			compatible = "nxp,s32g3-qspi";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0x0 0x00000000 0x0 0x20000000>,
-+				<0x0 0x40134000 0x0 0x1000>;
-+			reg-names = "QuadSPI-memory", "QuadSPI";
-+			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+			clock-names = "qspi_en", "qspi";
-+			clocks = <&clks S32_SCMI_CLK_QSPI_FLASH1X>,
-+				 <&clks S32_SCMI_CLK_QSPI_FLASH1X>;
-+			spi-max-frequency = <200000000>;
-+			spi-num-chipselects = <2>;
-+			status = "disabled";
-+		};
-+
-+		usdhc0: mmc@402f0000 {
-+			compatible = "nxp,s32g3-usdhc",
-+			             "nxp,s32g2-usdhc";
-+			reg = <0x402f0000 0x1000>;
-+			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clks S32_SCMI_CLK_USDHC_MODULE>,
-+				 <&clks S32_SCMI_CLK_USDHC_AHB>,
-+				 <&clks S32_SCMI_CLK_USDHC_CORE>;
-+			clock-names = "ipg", "ahb", "per";
-+			status = "disabled";
-+		};
-+
-+		gmac0: ethernet@4033c000 {
-+			status = "disabled";
-+			compatible = "nxp,s32-dwmac";
-+			reg = <0x4033c000 0x2000>, /* gmac IP */
-+			      <0x4007c004 0x4>;    /* S32 CTRL_STS reg */
-+			interrupt-parent = <&gic>;
-+			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq";
-+			tx-fifo-depth = <20480>;
-+			rx-fifo-depth = <20480>;
-+			dma-coherent;
-+			snps,mtl-rx-config = <&mtl_rx_setup_gmac0>;
-+			snps,mtl-tx-config = <&mtl_tx_setup_gmac0>;
-+			clocks = <&clks S32_SCMI_CLK_GMAC0_AXI>,
-+				 <&clks S32_SCMI_CLK_GMAC0_AXI>,
-+				 <&clks S32_SCMI_CLK_GMAC0_TX_SGMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_TX_RGMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_TX_RMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_TX_MII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_RX_SGMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_RX_RGMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_RX_RMII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_RX_MII>,
-+				 <&clks S32_SCMI_CLK_GMAC0_TS>;
-+			clock-names = "stmmaceth", "pclk",
-+				      "tx_sgmii", "tx_rgmii",
-+				      "tx_rmii", "tx_mii",
-+				      "rx_sgmii", "rx_rgmii",
-+				      "rx_rmii", "rx_mii",
-+				      "ptp_ref";
-+
-+			mtl_rx_setup_gmac0: rx-queues-config {
-+				snps,rx-queues-to-use = <5>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				queue@0 {};
-+				queue@1 {};
-+				queue@2 {};
-+				queue@3 {};
-+				queue@4 {};
-+			};
-+
-+			mtl_tx_setup_gmac0: tx-queues-config {
-+				snps,tx-queues-to-use = <5>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				queue@0 {};
-+				queue@1 {};
-+				queue@2 {};
-+				queue@3 {};
-+				queue@4 {};
-+			};
-+
-+			gmac0_mdio: mdio0 {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts b/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
-new file mode 100644
-index 000000000000..707b503c0165
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
-@@ -0,0 +1,57 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+@@ -0,0 +1,313 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * NXP S32G3 Reference Design Board 3 (S32G-VNP-RDB3)
++ * DWMAC Specific Glue layer for NXP S32 SoCs
++ *
++ * Copyright (C) 2019-2022 NXP
++ * Copyright (C) 2022 SUSE LLC
++ *
 + */
 +
-+/dts-v1/;
++#include <linux/device.h>
++#include <linux/ethtool.h>
++#include <linux/module.h>
++#include <linux/io.h>
++#include <linux/clk.h>
++#include <linux/phy.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_net.h>
++#include <linux/of_address.h>
++#include <linux/stmmac.h>
++#include "stmmac_platform.h"
 +
-+#include "s32g3.dtsi"
++#define GMAC_TX_RATE_125M 125000000 /* 125MHz */
++#define GMAC_TX_RATE_25M 25000000 /* 25MHz */
++#define GMAC_TX_RATE_2M5 2500000 /* 2.5MHz */
 +
-+/ {
-+	model = "NXP S32G3 Reference Design Board 3 (S32G-VNP-RDB3)";
-+	compatible = "nxp,s32g399a-rdb3", "nxp,s32g3";
++/* S32 SRC register for phyif selection */
++#define PHY_INTF_SEL_MII 0x00
++#define PHY_INTF_SEL_SGMII 0x01
++#define PHY_INTF_SEL_RGMII 0x02
++#define PHY_INTF_SEL_RMII 0x08
 +
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		ethernet0 = &gmac0;
-+		reset = &reset;
++/* AXI4 ACE control settings */
++#define ACE_DOMAIN_SIGNAL 0x2
++#define ACE_CACHE_SIGNAL 0xf
++#define ACE_CONTROL_SIGNALS ((ACE_DOMAIN_SIGNAL << 4) | ACE_CACHE_SIGNAL)
++#define ACE_PROTECTION 0x2
++
++struct s32_priv_data {
++	void __iomem *ctrl_sts;
++	struct device *dev;
++	phy_interface_t intf_mode;
++	struct clk *tx_clk;
++	struct clk *rx_clk;
++};
++
++static int s32_gmac_init(struct platform_device *pdev, void *priv)
++{
++	struct s32_priv_data *gmac = priv;
++	u32 intf_sel;
++	int ret;
++
++	if (gmac->tx_clk) {
++		ret = clk_prepare_enable(gmac->tx_clk);
++		if (ret) {
++			dev_err(&pdev->dev, "Can't set tx clock\n");
++			return ret;
++		}
++	}
++
++	if (gmac->rx_clk) {
++		ret = clk_prepare_enable(gmac->rx_clk);
++		if (ret) {
++			dev_err(&pdev->dev, "Can't set rx clock\n");
++			return ret;
++		}
++	}
++
++	/* set interface mode */
++	if (gmac->ctrl_sts) {
++		switch (gmac->intf_mode) {
++		default:
++			dev_info(
++				&pdev->dev,
++				"unsupported mode %u, set the default phy mode.\n",
++				gmac->intf_mode);
++			fallthrough;
++		case PHY_INTERFACE_MODE_SGMII:
++			dev_info(&pdev->dev, "phy mode set to SGMII\n");
++			intf_sel = PHY_INTF_SEL_SGMII;
++			break;
++		case PHY_INTERFACE_MODE_RGMII:
++		case PHY_INTERFACE_MODE_RGMII_ID:
++		case PHY_INTERFACE_MODE_RGMII_TXID:
++		case PHY_INTERFACE_MODE_RGMII_RXID:
++			dev_info(&pdev->dev, "phy mode set to RGMII\n");
++			intf_sel = PHY_INTF_SEL_RGMII;
++			break;
++		case PHY_INTERFACE_MODE_RMII:
++			dev_info(&pdev->dev, "phy mode set to RMII\n");
++			intf_sel = PHY_INTF_SEL_RMII;
++			break;
++		case PHY_INTERFACE_MODE_MII:
++			dev_info(&pdev->dev, "phy mode set to MII\n");
++			intf_sel = PHY_INTF_SEL_MII;
++			break;
++		}
++
++		writel(intf_sel, gmac->ctrl_sts);
++	}
++
++	return 0;
++}
++
++static void s32_gmac_exit(struct platform_device *pdev, void *priv)
++{
++	struct s32_priv_data *gmac = priv;
++
++	if (gmac->tx_clk)
++		clk_disable_unprepare(gmac->tx_clk);
++
++	if (gmac->rx_clk)
++		clk_disable_unprepare(gmac->rx_clk);
++}
++
++static void s32_fix_speed(void *priv, unsigned int speed, unsigned int mode)
++{
++	struct s32_priv_data *gmac = priv;
++
++	if (!gmac->tx_clk || !gmac->rx_clk)
++		return;
++
++	/* SGMII mode doesn't support the clock reconfiguration */
++	if (gmac->intf_mode == PHY_INTERFACE_MODE_SGMII)
++		return;
++
++	switch (speed) {
++	case SPEED_1000:
++		dev_info(gmac->dev, "Set TX clock to 125M\n");
++		clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_125M);
++		break;
++	case SPEED_100:
++		dev_info(gmac->dev, "Set TX clock to 25M\n");
++		clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_25M);
++		break;
++	case SPEED_10:
++		dev_info(gmac->dev, "Set TX clock to 2.5M\n");
++		clk_set_rate(gmac->tx_clk, GMAC_TX_RATE_2M5);
++		break;
++	default:
++		dev_err(gmac->dev, "Unsupported/Invalid speed: %d\n", speed);
++		return;
++	}
++}
++
++static int s32_config_cache_coherency(struct platform_device *pdev,
++				      struct plat_stmmacenet_data *plat_dat)
++{
++	plat_dat->axi4_ace_ctrl = devm_kzalloc(
++		&pdev->dev, sizeof(struct stmmac_axi4_ace_ctrl), GFP_KERNEL);
++
++	if (!plat_dat->axi4_ace_ctrl)
++		return -ENOMEM;
++
++	plat_dat->axi4_ace_ctrl->tx_ar_reg = (ACE_CONTROL_SIGNALS << 16) |
++					     (ACE_CONTROL_SIGNALS << 8) |
++					     ACE_CONTROL_SIGNALS;
++
++	plat_dat->axi4_ace_ctrl->rx_aw_reg =
++		(ACE_CONTROL_SIGNALS << 24) | (ACE_CONTROL_SIGNALS << 16) |
++		(ACE_CONTROL_SIGNALS << 8) | ACE_CONTROL_SIGNALS;
++
++	plat_dat->axi4_ace_ctrl->txrx_awar_reg =
++		(ACE_PROTECTION << 20) | (ACE_PROTECTION << 16) |
++		(ACE_CONTROL_SIGNALS << 8) | ACE_CONTROL_SIGNALS;
++
++	return 0;
++}
++
++static int s32_dwmac_probe(struct platform_device *pdev)
++{
++	struct plat_stmmacenet_data *plat_dat;
++	struct stmmac_resources stmmac_res;
++	struct s32_priv_data *gmac;
++	struct resource *res;
++	const char *tx_clk, *rx_clk;
++	int ret;
++
++	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
++	if (ret)
++		return ret;
++
++	gmac = devm_kzalloc(&pdev->dev, sizeof(*gmac), GFP_KERNEL);
++	if (!gmac)
++		return PTR_ERR(gmac);
++
++	gmac->dev = &pdev->dev;
++
++	/* S32G control reg */
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
++	gmac->ctrl_sts = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR_OR_NULL(gmac->ctrl_sts)) {
++		dev_err(&pdev->dev, "S32G config region is missing\n");
++		return PTR_ERR(gmac->ctrl_sts);
++	}
++
++	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
++	if (IS_ERR(plat_dat))
++		return PTR_ERR(plat_dat);
++
++	plat_dat->bsp_priv = gmac;
++
++	switch (plat_dat->phy_interface) {
++	case PHY_INTERFACE_MODE_SGMII:
++		tx_clk = "tx_sgmii";
++		rx_clk = "rx_sgmii";
++		break;
++	case PHY_INTERFACE_MODE_RGMII:
++	case PHY_INTERFACE_MODE_RGMII_ID:
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++		tx_clk = "tx_rgmii";
++		rx_clk = "rx_rgmii";
++		break;
++	case PHY_INTERFACE_MODE_RMII:
++		tx_clk = "tx_rmii";
++		rx_clk = "rx_rmii";
++		break;
++	case PHY_INTERFACE_MODE_MII:
++		tx_clk = "tx_mii";
++		rx_clk = "rx_mii";
++		break;
++	default:
++		dev_err(&pdev->dev, "Not supported phy interface mode: [%s]\n",
++			phy_modes(plat_dat->phy_interface));
++		return -EINVAL;
 +	};
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
++	gmac->intf_mode = plat_dat->phy_interface;
 +
-+	/* 4GiB RAM */
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0 0x80000000>,
-+		      <0x8 0x80000000 0 0x80000000>;
-+	};
++	/* DMA cache coherency settings */
++	if (of_dma_is_coherent(pdev->dev.of_node)) {
++		ret = s32_config_cache_coherency(pdev, plat_dat);
++		if (ret)
++			return ret;
++	}
++
++	/* tx clock */
++	gmac->tx_clk = devm_clk_get(&pdev->dev, tx_clk);
++	if (IS_ERR(gmac->tx_clk)) {
++		dev_info(&pdev->dev, "tx clock not found\n");
++		gmac->tx_clk = NULL;
++	}
++
++	/* rx clock */
++	gmac->rx_clk = devm_clk_get(&pdev->dev, rx_clk);
++	if (IS_ERR(gmac->rx_clk)) {
++		dev_info(&pdev->dev, "rx clock not found\n");
++		gmac->rx_clk = NULL;
++	}
++
++	ret = s32_gmac_init(pdev, gmac);
++	if (ret)
++		return ret;
++
++	/* core feature set */
++	plat_dat->has_gmac4 = true;
++	plat_dat->pmt = 1;
++
++	plat_dat->init = s32_gmac_init;
++	plat_dat->exit = s32_gmac_exit;
++	plat_dat->fix_mac_speed = s32_fix_speed;
++
++	/* safety feature config */
++	plat_dat->safety_feat_cfg = devm_kzalloc(
++		&pdev->dev, sizeof(*plat_dat->safety_feat_cfg), GFP_KERNEL);
++
++	if (!plat_dat->safety_feat_cfg) {
++		dev_err(&pdev->dev, "allocate safety_feat_cfg failed\n");
++		goto err_gmac_exit;
++	}
++
++	plat_dat->safety_feat_cfg->tsoee = 1;
++	plat_dat->safety_feat_cfg->mrxpee = 1;
++	plat_dat->safety_feat_cfg->mestee = 1;
++	plat_dat->safety_feat_cfg->mrxee = 1;
++	plat_dat->safety_feat_cfg->mtxee = 1;
++	plat_dat->safety_feat_cfg->epsi = 1;
++	plat_dat->safety_feat_cfg->edpp = 1;
++	plat_dat->safety_feat_cfg->prtyen = 1;
++	plat_dat->safety_feat_cfg->tmouten = 1;
++
++	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
++	if (ret)
++		goto err_gmac_exit;
++
++	return 0;
++
++err_gmac_exit:
++	s32_gmac_exit(pdev, plat_dat->bsp_priv);
++	return ret;
++}
++
++static const struct of_device_id s32_dwmac_match[] = {
++	{ .compatible = "nxp,s32-dwmac" },
++	{}
++};
++MODULE_DEVICE_TABLE(of, s32_dwmac_match);
++
++static struct platform_driver s32_dwmac_driver = {
++	.probe  = s32_dwmac_probe,
++	.remove_new = stmmac_pltfr_remove,
++	.driver = {
++		.name           = "s32-dwmac",
++		.pm		= &stmmac_pltfr_pm_ops,
++		.of_match_table = s32_dwmac_match,
++	},
++};
++module_platform_driver(s32_dwmac_driver);
++
++MODULE_AUTHOR("Jan Petrous <jan.petrous@nxp.com>");
++MODULE_DESCRIPTION("NXP S32 GMAC driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index 84d3a8551b03..edb559c36509 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -556,6 +556,14 @@ static int dwmac4_enable_tbs(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 	return 0;
+ }
+ 
++static void dwmac4_set_axi4_cc(struct stmmac_priv *priv, void __iomem *ioaddr,
++			   struct stmmac_axi4_ace_ctrl *acecfg)
++{
++	writel(acecfg->tx_ar_reg, ioaddr + DMA_AXI4_TX_AR_ACE_CONTROL);
++	writel(acecfg->rx_aw_reg, ioaddr + DMA_AXI4_RX_AW_ACE_CONTROL);
++	writel(acecfg->txrx_awar_reg, ioaddr + DMA_AXI4_TXRX_AWAR_ACE_CONTROL);
++}
++
+ const struct stmmac_dma_ops dwmac4_dma_ops = {
+ 	.reset = dwmac4_dma_reset,
+ 	.init = dwmac4_dma_init,
+@@ -608,6 +616,7 @@ const struct stmmac_dma_ops dwmac410_dma_ops = {
+ 	.set_tx_ring_len = dwmac4_set_tx_ring_len,
+ 	.set_rx_tail_ptr = dwmac4_set_rx_tail_ptr,
+ 	.set_tx_tail_ptr = dwmac4_set_tx_tail_ptr,
++	.set_axi4_cc = dwmac4_set_axi4_cc,
+ 	.enable_tso = dwmac4_enable_tso,
+ 	.qmode = dwmac4_qmode,
+ 	.set_bfsize = dwmac4_set_bfsize,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+index 358e7dcb6a9a..7195c643774f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+@@ -22,6 +22,9 @@
+ #define DMA_DEBUG_STATUS_1		0x00001010
+ #define DMA_DEBUG_STATUS_2		0x00001014
+ #define DMA_AXI_BUS_MODE		0x00001028
++#define DMA_AXI4_TX_AR_ACE_CONTROL	0x00001020
++#define DMA_AXI4_RX_AW_ACE_CONTROL	0x00001024
++#define DMA_AXI4_TXRX_AWAR_ACE_CONTROL	0x00001028
+ #define DMA_TBS_CTRL			0x00001050
+ 
+ /* DMA Bus Mode bitmap */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 7be04b54738b..6ea2d8f562d0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -227,6 +227,9 @@ struct stmmac_dma_ops {
+ 				u32 tail_ptr, u32 chan);
+ 	void (*set_tx_tail_ptr)(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 				u32 tail_ptr, u32 chan);
++    	/* Configure AXI4 cache coherency for Tx and Rx DMA channels */
++        void (*set_axi4_cc)(struct stmmac_priv *priv, void __iomem *ioaddr,
++			   struct stmmac_axi4_ace_ctrl *acecfg);
+ 	void (*enable_tso)(struct stmmac_priv *priv, void __iomem *ioaddr,
+ 			   bool en, u32 chan);
+ 	void (*qmode)(struct stmmac_priv *priv, void __iomem *ioaddr,
+@@ -285,6 +288,8 @@ struct stmmac_dma_ops {
+ 	stmmac_do_void_callback(__priv, dma, set_rx_tail_ptr, __priv, __args)
+ #define stmmac_set_tx_tail_ptr(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, dma, set_tx_tail_ptr, __priv, __args)
++#define stmmac_set_axi4_cc(__priv, __args...) \
++        stmmac_do_void_callback(__priv, dma, set_axi4_cc, __priv, __args)
+ #define stmmac_enable_tso(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, dma, enable_tso, __priv, __args)
+ #define stmmac_dma_qmode(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7c6aef033a45..b7b4d7dd1149 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -324,6 +324,10 @@ static void stmmac_clk_csr_set(struct stmmac_priv *priv)
+ 			priv->clk_csr = STMMAC_CSR_150_250M;
+ 		else if ((clk_rate >= CSR_F_250M) && (clk_rate <= CSR_F_300M))
+ 			priv->clk_csr = STMMAC_CSR_250_300M;
++		else if ((clk_rate >= CSR_F_300M) && (clk_rate < CSR_F_500M))
++			priv->clk_csr = STMMAC_CSR_300_500M;
++		else if ((clk_rate >= CSR_F_500M) && (clk_rate < CSR_F_800M))
++			priv->clk_csr = STMMAC_CSR_500_800M;
+ 	}
+ 
+ 	if (priv->plat->flags & STMMAC_FLAG_HAS_SUN8I) {
+@@ -3030,6 +3034,9 @@ static int stmmac_init_dma_engine(struct stmmac_priv *priv)
+ 	if (priv->plat->axi)
+ 		stmmac_axi(priv, priv->ioaddr, priv->plat->axi);
+ 
++	if (priv->plat->axi4_ace_ctrl)
++		stmmac_set_axi4_cc(priv, priv->ioaddr, priv->plat->axi4_ace_ctrl);
++
+ 	/* DMA CSR Channel configuration */
+ 	for (chan = 0; chan < dma_csr_ch; chan++) {
+ 		stmmac_init_chan(priv, priv->ioaddr, priv->plat->dma_cfg, chan);
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index dee5ad6e48c5..a69ac8b9274e 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -34,6 +34,8 @@
+ #define	STMMAC_CSR_35_60M	0x3	/* MDC = clk_scr_i/26 */
+ #define	STMMAC_CSR_150_250M	0x4	/* MDC = clk_scr_i/102 */
+ #define	STMMAC_CSR_250_300M	0x5	/* MDC = clk_scr_i/122 */
++#define	STMMAC_CSR_300_500M	0x6	/* MDC = clk_scr_i/204 */
++#define	STMMAC_CSR_500_800M	0x7	/* MDC = clk_scr_i/324 */
+ 
+ /* MTL algorithms identifiers */
+ #define MTL_TX_ALGORITHM_WRR	0x0
+@@ -115,6 +117,12 @@ struct stmmac_axi {
+ 	bool axi_rb;
+ };
+ 
++struct stmmac_axi4_ace_ctrl {
++	u32 tx_ar_reg;
++	u32 rx_aw_reg;
++	u32 txrx_awar_reg;
 +};
 +
-+&gmac0 {
-+	status = "okay";
-+	phy-handle = <&mdio_a_phy1>;
-+	phy-mode = "rgmii-id";
-+};
-+
-+&gmac0_mdio {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	mdio_a_phy1: ethernet-phy@1 {
-+		reg = <1>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&usdhc0 {
-+	status = "okay";
-+};
-diff --git a/include/dt-bindings/clock/nxp,s32-scmi-clock.h b/include/dt-bindings/clock/nxp,s32-scmi-clock.h
-new file mode 100644
-index 000000000000..240022c1f109
---- /dev/null
-+++ b/include/dt-bindings/clock/nxp,s32-scmi-clock.h
-@@ -0,0 +1,158 @@
-+/* SPDX-License-Identifier: BSD-3-Clause */
-+
-+#ifndef __DT_BINDINGS_NXP_SCMI_CLOCK_S32_H
-+#define __DT_BINDINGS_NXP_SCMI_CLOCK_S32_H
-+
-+#define S32_SCMI_COMPLEX_CLK		0xFFFFFFFFU
-+#define S32_SCMI_NOT_IMPLEMENTED_CLK	0xFFFFFFFEU
-+
-+#define S32_SCMI_CLK_BASE_ID		0U
-+#define S32_SCMI_CLK(N)		        ((N) + S32_SCMI_CLK_BASE_ID)
-+#define S32_PLAT_SCMI_CLK(N)		((N) + S32_SCMI_PLAT_CLK_BASE_ID)
-+
-+#define S32_SCMI_CLK_VERSION_MAJOR	(1)
-+#define S32_SCMI_CLK_VERSION_MINOR	(0)
-+
-+/* A53 */
-+#define S32_SCMI_CLK_A53		S32_SCMI_CLK(0)
-+/* SERDES */
-+#define S32_SCMI_CLK_SERDES_AXI	        S32_SCMI_CLK(1)
-+#define S32_SCMI_CLK_SERDES_AUX	        S32_SCMI_CLK(2)
-+#define S32_SCMI_CLK_SERDES_APB	        S32_SCMI_CLK(3)
-+#define S32_SCMI_CLK_SERDES_REF	        S32_SCMI_CLK(4)
-+/* FTM0 */
-+#define S32_SCMI_CLK_FTM0_SYS		S32_SCMI_CLK(5)
-+#define S32_SCMI_CLK_FTM0_EXT		S32_SCMI_CLK(6)
-+/* FTM1 */
-+#define S32_SCMI_CLK_FTM1_SYS		S32_SCMI_CLK(7)
-+#define S32_SCMI_CLK_FTM1_EXT		S32_SCMI_CLK(8)
-+/* FlexCAN */
-+#define S32_SCMI_CLK_FLEXCAN_REG	S32_SCMI_CLK(9)
-+#define S32_SCMI_CLK_FLEXCAN_SYS	S32_SCMI_CLK(10)
-+#define S32_SCMI_CLK_FLEXCAN_CAN	S32_SCMI_CLK(11)
-+#define S32_SCMI_CLK_FLEXCAN_TS	        S32_SCMI_CLK(12)
-+/* LINFlexD */
-+#define S32_SCMI_CLK_LINFLEX_XBAR	S32_SCMI_CLK(13)
-+#define S32_SCMI_CLK_LINFLEX_LIN	S32_SCMI_CLK(14)
-+#define S32_SCMI_CLK_GMAC0_TS		S32_SCMI_CLK(15)
-+/* GMAC0 - SGMII */
-+#define S32_SCMI_CLK_GMAC0_RX_SGMII	S32_SCMI_CLK(16)
-+#define S32_SCMI_CLK_GMAC0_TX_SGMII	S32_SCMI_CLK(17)
-+/* GMAC0 - RGMII */
-+#define S32_SCMI_CLK_GMAC0_RX_RGMII	S32_SCMI_CLK(18)
-+#define S32_SCMI_CLK_GMAC0_TX_RGMII	S32_SCMI_CLK(19)
-+/* GMAC0 - RMII */
-+#define S32_SCMI_CLK_GMAC0_RX_RMII	S32_SCMI_CLK(20)
-+#define S32_SCMI_CLK_GMAC0_TX_RMII	S32_SCMI_CLK(21)
-+/* GMAC0 - MII */
-+#define S32_SCMI_CLK_GMAC0_RX_MII	S32_SCMI_CLK(22)
-+#define S32_SCMI_CLK_GMAC0_TX_MII	S32_SCMI_CLK(23)
-+#define S32_SCMI_CLK_GMAC0_AXI	        S32_SCMI_CLK(24)
-+/* SPI */
-+#define S32_SCMI_CLK_SPI_REG		S32_SCMI_CLK(25)
-+#define S32_SCMI_CLK_SPI_MODULE	        S32_SCMI_CLK(26)
-+/* QSPI */
-+#define S32_SCMI_CLK_QSPI_REG		S32_SCMI_CLK(27)
-+#define S32_SCMI_CLK_QSPI_AHB		S32_SCMI_CLK(28)
-+#define S32_SCMI_CLK_QSPI_FLASH2X	S32_SCMI_CLK(29)
-+#define S32_SCMI_CLK_QSPI_FLASH1X	S32_SCMI_CLK(30)
-+/* uSDHC */
-+#define S32_SCMI_CLK_USDHC_AHB	        S32_SCMI_CLK(31)
-+#define S32_SCMI_CLK_USDHC_MODULE	S32_SCMI_CLK(32)
-+#define S32_SCMI_CLK_USDHC_CORE	        S32_SCMI_CLK(33)
-+#define S32_SCMI_CLK_USDHC_MOD32K	S32_SCMI_CLK(34)
-+/* DDR */
-+#define S32_SCMI_CLK_DDR_REG		S32_SCMI_CLK(35)
-+#define S32_SCMI_CLK_DDR_PLL_REF	S32_SCMI_CLK(36)
-+#define S32_SCMI_CLK_DDR_AXI		S32_SCMI_CLK(37)
-+/* SRAM */
-+#define S32_SCMI_CLK_SRAM_AXI		S32_SCMI_CLK(38)
-+#define S32_SCMI_CLK_SRAM_REG		S32_SCMI_CLK(39)
-+/* I2C */
-+#define S32_SCMI_CLK_I2C_REG		S32_SCMI_CLK(40)
-+#define S32_SCMI_CLK_I2C_MODULE	        S32_SCMI_CLK(41)
-+/* SIUL2 */
-+#define S32_SCMI_CLK_SIUL2_REG	        S32_SCMI_CLK(42)
-+#define S32_SCMI_CLK_SIUL2_FILTER	S32_SCMI_CLK(43)
-+/* CRC */
-+#define S32_SCMI_CLK_CRC_REG		S32_SCMI_CLK(44)
-+#define S32_SCMI_CLK_CRC_MODULE	        S32_SCMI_CLK(45)
-+/* EIM0 */
-+#define S32_SCMI_CLK_EIM0_REG		S32_SCMI_CLK(46)
-+#define S32_SCMI_CLK_EIM0_MODULE	S32_SCMI_CLK(47)
-+/* EIM0 */
-+#define S32_SCMI_CLK_EIM123_REG	        S32_SCMI_CLK(48)
-+#define S32_SCMI_CLK_EIM123_MODULE	S32_SCMI_CLK(49)
-+/* EIM */
-+#define S32_SCMI_CLK_EIM_REG		S32_SCMI_CLK(50)
-+#define S32_SCMI_CLK_EIM_MODULE	        S32_SCMI_CLK(51)
-+/* FCCU */
-+#define S32_SCMI_CLK_FCCU_MODULE	S32_SCMI_CLK(52)
-+#define S32_SCMI_CLK_FCCU_SAFE	        S32_SCMI_CLK(53)
-+/* RTC */
-+#define S32_SCMI_CLK_RTC_REG		S32_SCMI_CLK(54)
-+#define S32_SCMI_CLK_RTC_SIRC		S32_SCMI_CLK(55)
-+#define S32_SCMI_CLK_RTC_FIRC		S32_SCMI_CLK(56)
-+/* SWT */
-+#define S32_SCMI_CLK_SWT_MODULE	        S32_SCMI_CLK(57)
-+#define S32_SCMI_CLK_SWT_COUNTER	S32_SCMI_CLK(58)
-+/* STM */
-+#define S32_SCMI_CLK_STM_MODULE	        S32_SCMI_CLK(59)
-+#define S32_SCMI_CLK_STM_REG		S32_SCMI_CLK(60)
-+/* PIT */
-+#define S32_SCMI_CLK_PIT_MODULE	        S32_SCMI_CLK(61)
-+#define S32_SCMI_CLK_PIT_REG		S32_SCMI_CLK(62)
-+/* eDMA */
-+#define S32_SCMI_CLK_EDMA_MODULE	S32_SCMI_CLK(63)
-+#define S32_SCMI_CLK_EDMA_AHB		S32_SCMI_CLK(64)
-+/* ADC */
-+#define S32_SCMI_CLK_SAR_ADC_BUS	S32_SCMI_CLK(65)
-+/* CMU */
-+#define S32_SCMI_CLK_CMU_MODULE	        S32_SCMI_CLK(66)
-+#define S32_SCMI_CLK_CMU_REG		S32_SCMI_CLK(67)
-+/* TMU */
-+#define S32_SCMI_CLK_TMU_MODULE	        S32_SCMI_CLK(68)
-+#define S32_SCMI_CLK_TMU_REG		S32_SCMI_CLK(69)
-+/* FlexRay */
-+#define S32_SCMI_CLK_FR_REG		S32_SCMI_CLK(70)
-+#define S32_SCMI_CLK_FR_PE		S32_SCMI_CLK(71)
-+/* WKPU */
-+#define S32_SCMI_CLK_WKPU_MODULE	S32_SCMI_CLK(72)
-+#define S32_SCMI_CLK_WKPU_REG		S32_SCMI_CLK(73)
-+/* SRC */
-+#define S32_SCMI_CLK_SRC_MODULE	        S32_SCMI_CLK(74)
-+#define S32_SCMI_CLK_SRC_REG		S32_SCMI_CLK(75)
-+/* SRC-TOP */
-+#define S32_SCMI_CLK_SRC_TOP_MODULE	S32_SCMI_CLK(76)
-+#define S32_SCMI_CLK_SRC_TOP_REG	S32_SCMI_CLK(77)
-+/* CTU */
-+#define S32_SCMI_CLK_CTU_MODULE	        S32_SCMI_CLK(78)
-+#define S32_SCMI_CLK_CTU_CTU		S32_SCMI_CLK(79)
-+/* DBG */
-+#define S32_SCMI_CLK_DBG_SYS4		S32_SCMI_CLK(80)
-+#define S32_SCMI_CLK_DBG_SYS2		S32_SCMI_CLK(81)
-+/* Cortex-M7 */
-+#define S32_SCMI_CLK_M7_CORE		S32_SCMI_CLK(82)
-+/* DMAMUX */
-+#define S32_SCMI_CLK_DMAMUX_MODULE	S32_SCMI_CLK(83)
-+#define S32_SCMI_CLK_DMAMUX_REG	        S32_SCMI_CLK(84)
-+/* GIC */
-+#define S32_SCMI_CLK_GIC_MODULE	        S32_SCMI_CLK(85)
-+/* MSCM */
-+#define S32_SCMI_CLK_MSCM_MODULE	S32_SCMI_CLK(86)
-+#define S32_SCMI_CLK_MSCM_REG		S32_SCMI_CLK(87)
-+/* SEMA42 */
-+#define S32_SCMI_CLK_SEMA42_MODULE	S32_SCMI_CLK(88)
-+#define S32_SCMI_CLK_SEMA42_REG	        S32_SCMI_CLK(89)
-+/* XRDC */
-+#define S32_SCMI_CLK_XRDC_MODULE	S32_SCMI_CLK(90)
-+#define S32_SCMI_CLK_XRDC_REG		S32_SCMI_CLK(91)
-+/* CLKOUT */
-+#define S32_SCMI_CLK_CLKOUT_0		S32_SCMI_CLK(92)
-+#define S32_SCMI_CLK_CLKOUT_1		S32_SCMI_CLK(93)
-+
-+#define S32_SCMI_PLAT_CLK_BASE_ID	S32_SCMI_CLK(94)
-+
-+#define S32_SCMI_CLK_MAX_ID		S32_PLAT_SCMI_CLK(32)
-+
-+#endif
+ #define EST_GCL		1024
+ struct stmmac_est {
+ 	struct mutex lock;
+@@ -296,6 +304,7 @@ struct plat_stmmacenet_data {
+ 	struct reset_control *stmmac_rst;
+ 	struct reset_control *stmmac_ahb_rst;
+ 	struct stmmac_axi *axi;
++	struct stmmac_axi4_ace_ctrl *axi4_ace_ctrl;
+ 	int has_gmac4;
+ 	int rss_en;
+ 	int mac_port_sel_speed;
 -- 
 2.25.1
 
