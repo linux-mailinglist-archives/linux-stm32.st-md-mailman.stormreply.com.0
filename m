@@ -2,146 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 962C387DF53
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 Mar 2024 19:47:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38BDD87E083
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Mar 2024 22:52:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31DDAC6B46B;
-	Sun, 17 Mar 2024 18:47:43 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
- [209.85.208.171])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C923EC6DD69;
+	Sun, 17 Mar 2024 21:52:38 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2453C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90108C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Mar 2024 18:47:41 +0000 (UTC)
-Received: by mail-lj1-f171.google.com with SMTP id
- 38308e7fff4ca-2d49ca33dcaso16713231fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Mar 2024 11:47:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710701261; x=1711306061;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=VKXtvsqImemBiWCLBIvLrfhzInPoUFOQ1xHfm3l91So=;
- b=NXwPQ+Hdejccgb6oNLUKZjDFIKYXpb3PfPOULpix2Wfz4iWeeHED2zXbPdiWWVGUBj
- 3iAzwW1RwQ3FZYz9+acRnA3Qgkg5sVDiYUBWQiJaIdbSbWEZBJW1JrNy3120UVF/I4IC
- 9PjaQbVlNH1tm0/4i0yZPLKXhx6lbQBKb0dcudAUgR9g4X20XGiEkG1fuLGE6JW23T9r
- wm4S1f1GzGtW2PRsr1qS3oVpA2ojDk2gwTokZ29ACtJE3+LEROJcHwfN1peOf3tffwsF
- QbgMYCJqLmiMtUYJ/RHLiMA3bqBmhdJgDqoHJfC4OARTkARDSE19t3Rh25DxcJtd4t7s
- Vbgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710701261; x=1711306061;
- h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
- :to:content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VKXtvsqImemBiWCLBIvLrfhzInPoUFOQ1xHfm3l91So=;
- b=gdD9KpScDcc66Em7jSgiPqwBsW4DgwmhBxFHb7jWrGbwMm3ZIUje0gagzHVSIPSU/o
- v5T932DHVXTsGnZOJdrrJwPqD/tNmLo1uUcWudAEsytzlVg2V3rZ+8vr3/zSdjsTlQBB
- wFOwm+VsUp65FArup7akCKWQrKuEx7KdQKnIAOWm1L2r9DgmwjwmaVAvHZECRFEEzmhw
- Wrjio2A8i7NGBcA+z00xTCDmbvcXE9cjoHVx9F5YAOps3F3XcTuwcyEmaLYh8e5JlTqP
- WE5P00XvwBwTJ7q/2RhlLpG+XgM+RvaptGPOImGGz2F84GlaZ1DSFrpBVk+uL/yZ38Ll
- USRw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUz4v8bpVU1gmjF1slljDNghDn7Lor4LPPonzeXzbslTxqiQ2WD2TmSsXLjw1dtKgm/ko4aTtUgSsWjiSyYWrefkV7XqSNJLJeuKGH2+qixl7ITfnJF4goY
-X-Gm-Message-State: AOJu0YxwodqFaOjlEDLa2zEEoPMB+5myiMV1MBLYe9yrn0VgTehD2E2j
- z6ZGoPnmFSYUHRalPc6Lc/ZfcyVZ6V5ioJKjMNAnkjVfkQdMcsFSdUDMyNBoeTQ=
-X-Google-Smtp-Source: AGHT+IFAr2DXYl74fsplXyGANfFVV8qAO45Bw7D5ro4+K13W9zhcg2/Fy+WhYhdLgVgkdDbqjyL+6A==
-X-Received: by 2002:a2e:91d4:0:b0:2d4:5d3e:9666 with SMTP id
- u20-20020a2e91d4000000b002d45d3e9666mr5923485ljg.45.1710701260560; 
- Sun, 17 Mar 2024 11:47:40 -0700 (PDT)
-Received: from [192.168.1.20] ([178.197.222.97])
- by smtp.gmail.com with ESMTPSA id
- p7-20020a056402500700b0056882aa15b9sm3829135eda.95.2024.03.17.11.47.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Mar 2024 11:47:40 -0700 (PDT)
-Message-ID: <3ce9cf8e-f8d0-4de5-b5b7-1060f77321eb@linaro.org>
-Date: Sun, 17 Mar 2024 19:47:34 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>,
- Wadim Mueller <wafgo01@gmail.com>
-References: <20240315222754.22366-1-wafgo01@gmail.com>
- <20240315222754.22366-3-wafgo01@gmail.com>
- <AM9PR04MB8506244076FBC931101B2205E22E2@AM9PR04MB8506.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
- 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
- D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <AM9PR04MB8506244076FBC931101B2205E22E2@AM9PR04MB8506.eurprd04.prod.outlook.com>
-Cc: dl-S32 <S32@nxp.com>, Michael Turquette <mturquette@baylibre.com>,
- Swee Leong Ching <leong.ching.swee@intel.com>,
- Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Johannes Zink <j.zink@pengutronix.de>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
- Jose Abreu <joabreu@synopsys.com>, dl-linux-imx <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Andrew Halaney <ahalaney@redhat.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+ Sun, 17 Mar 2024 21:52:36 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1rlyQk-0002km-4u; Sun, 17 Mar 2024 22:52:34 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1rlyQi-006xGn-S7; Sun, 17 Mar 2024 22:52:32 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
+ (envelope-from <ukl@pengutronix.de>) id 1rlyQi-007fnv-2W;
+ Sun, 17 Mar 2024 22:52:32 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- Stephen Boyd <sboyd@kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [EXT] [PATCH 2/3] net: stmmac: Add NXP S32 SoC
-	family support
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Sun, 17 Mar 2024 22:52:13 +0100
+Message-ID: <cover.1710711976.git.u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=957;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject:message-id;
+ bh=PBFTj54rIAkX9wEsGaAGKdtJlRaJeRIbI8HQTYWi8t4=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBl92YOlpfRRDDkAHEMVgHkRqSly0zgbSvEy52Ra
+ Gj8Ae9rXX2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCZfdmDgAKCRCPgPtYfRL+
+ TlKOCACpt5vgcFrmRNkITC5B2J2dMxu54054EpwrMv4U3GAtnNrRXHyk95m/+hxj9It7aE9FNym
+ nqChmJe5Y8S5wHKccH3fMuKmaa0LjcTzQ6UhlSHqWQVz6fZ4rk1GPca4q4HX529PdKmDh0mL7De
+ /b2Ddk5x5+jhx9OALGvbZQNSnhyW7sTLEScuDWN1UTcq+++zM8+k6N1FvleCcxtZTHnn+zpS/TM
+ FNGAuEHEk+4Gr2wuqH4wVGe3YmZRyOvLOmVPA/sHCYPHSuUJKWg7POVeRAifWegwfbzv2sfjUnX
+ S41A6SfJhqSGVl+AiUpA6cO4CYbUVYcoV10eBHstSjqGUWm3
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
+Cc: kernel@pengutronix.de, linux-pwm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/3] pwm: stm32: Some improvements
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -153,39 +66,28 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 17/03/2024 19:26, Jan Petrous (OSS) wrote:
->> Add support for NXP S32 SoC family's GMAC to the stmmac network driver.
->> This driver implementation is based on the patchset originally contributed by
->> Chester Lin [1], which itself draws heavily from NXP's downstream
->> implementation [2]. The patchset was never merged.
->>
-> 
-> Hi Wadim,
-> 
-> Thank you for your upstreaming activities, but I would like to note that
-> the old NXP S32CC  stmmac glue was rewritten lately and will be part of next
-> NXP BSP Linux release planned for April.
-> 
-> The rework was done mainly to allow simpler upstreaming process, so I would recommend
-> to postpone your current work.
-
-I suggest you working with upstream first instead of claiming that
-upstream contributions should align with your downstream work. To be
-clear: your downstream NXP BSP does not matter.
-
-If you think this submission needs any particular changes, then please
-comment on specifics, but such broad statement that community should
-wait till NXP will be so kind to allow upstream work is just not acceptable.
-
-Best regards,
-Krzysztof
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgp3aGlsZSB3b3JraW5nIG9uIHRoZSBjaGFyYWN0ZXIgZGV2aWNlIHN1cHBvcnQgb24g
+YW4gc3RtMzJtcDE1NyBJCmlkZW50aWZpZWQgYSBmZXcgYnVncyAvIHNob3J0Y29taW5ncyBpbiB0
+aGUgc3RtMzIgcHdtIGRyaXZlci4gVGhlc2UgYXJlCmZpeGVkIGhlcmUuCgpJIGJhc2VkIHRoaXMg
+c2VyaWVzIG9uIHRvcCBvZiBwd20vZm9yLW5leHQKKyBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
+aW51eC1wd20vMjAyNDAzMTUxNDU0NDMuOTgyODA3LTItdS5rbGVpbmUta29lbmlnQHBlbmd1dHJv
+bml4LmRlCisgYSBjaGVycnktcGljayBvZiBjb21taXQgYjBjZGU2MmU0YzU0ICgiY2xrOiBBZGQg
+YSBkZXZtIHZhcmlhbnQgb2YgY2xrX3JhdGVfZXhjbHVzaXZlX2dldCgpIikKCkJlc3QgcmVnYXJk
+cwpVd2UKClV3ZSBLbGVpbmUtS8O2bmlnICgzKToKICBwd206IHN0bTMyOiBJbXByb3ZlIHByZWNp
+c2lvbiBvZiBjYWxjdWxhdGlvbiBpbiAuYXBwbHkoKQogIHB3bTogc3RtMzI6IEZpeCBmb3Igc2V0
+dGluZ3MgdXNpbmcgcGVyaW9kID4gVUlOVDMyX01BWAogIHB3bTogc3RtMzI6IENhbGN1bGF0ZSBw
+cmVzY2FsZXIgd2l0aCBhIGRpdmlzaW9uIGluc3RlYWQgb2YgYSBsb29wCgogZHJpdmVycy9wd20v
+cHdtLXN0bTMyLmMgfCA1MSArKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0t
+LQogMSBmaWxlIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKYmFz
+ZS1jb21taXQ6IGRkNmM2ZDU3YWI2MWQ0OTZmNmZmN2Q2Y2EzODYxMTA2MmFmMTQyYTEKcHJlcmVx
+dWlzaXRlLXBhdGNoLWlkOiA5MWUzMzliYTZmNjg3MGUyMDhmNWQ3YmVlZjRjZmQ1OWU4MWU3Yzk1
+CnByZXJlcXVpc2l0ZS1wYXRjaC1pZDogNzMzZTcwNjFjMmQ5YjViYTIyMDJmZWQ0ZWNlZTRiMDcw
+ZDQyMzM2OAotLSAKMi40My4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
+bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
+bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
