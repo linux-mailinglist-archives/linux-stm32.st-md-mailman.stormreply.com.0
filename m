@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C05FE87DD8C
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 Mar 2024 15:51:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4A587DD96
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 Mar 2024 15:53:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6739FC6B46B;
-	Sun, 17 Mar 2024 14:51:01 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 966F8C6B46B;
+	Sun, 17 Mar 2024 14:53:24 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68723C62EFE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FBFBC62EFE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Mar 2024 14:51:00 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-a46a7208eedso126743666b.0
+ Sun, 17 Mar 2024 14:53:23 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-a3fb8b0b7acso338538766b.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 Mar 2024 07:51:00 -0700 (PDT)
+ Sun, 17 Mar 2024 07:53:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710687060; x=1711291860;
+ d=linaro.org; s=google; t=1710687202; x=1711292002;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=OzkgJIRc2tYmJ3Btk0xVIO9rDn0mpVtYOI9YDc2eSB4=;
- b=Jrz11Y86WGtJUK4XDQDqG6yYKQJsEEIqNW7x7kTbxxk4eSEM85pYPV6QePLzHliRKi
- LpRkmNcDMSdo3EH281f06p0TGqf3AXwp9CD4BWk+bCVGBZhHuqkDQl+pBP2mMwhYbC62
- R1G5Uv78OUKuyaeJp9tAeaOwdCtN35fAxuDgCGpDjuKmmQulEaqRjj2OHg/pOahL6mnS
- rluMm2WiLlOHgKp5SgCVUIjUaePdhMDxB4XAVC47oEB9hGvZX66nadoULx9YiUh1fCM+
- 4Fsb+DwYg8WphdtZH408RQaMAwl1p0iMFGW52pbyN+P1kTfXqm5oQ+4xls0Y4CkD0KXn
- yMIg==
+ bh=m7ImUJS52VyjYeLxcluUDeQFte9FFBlkrSYtgWQ8yXw=;
+ b=qOo8cV1tzmq3I0q9ABwm/u88RKI8zfUxGkyUNdq9Xk/yAZfhWrMGEj+YAEKRvorFKz
+ 8uOvgorxZFD7IHzzjDWv0rb8gi8HPvcg7g4aY33v3ZenvoRRFsl9SDK6hGrpWrypfLhj
+ KwCTu3GeNGM01B2w4wFXXtrv3J3GuxJKfhLwH+2BK8jLAx13SFW9w1+NSYRkjmHO7os4
+ Rnw08z1Xiv0BdsNKRAdxGx3bWOvoTKnTXRGXaAan9GK3JlVS6ml6gHjxf+QystGWX4H0
+ GkZ5MZ7H4FrVCUO93yvC2NtAcT028fNrTKj++3i8exrfKoI0KJskPLvAOlmdcJEpMSjk
+ TpLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710687060; x=1711291860;
+ d=1e100.net; s=20230601; t=1710687202; x=1711292002;
  h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
  :to:content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OzkgJIRc2tYmJ3Btk0xVIO9rDn0mpVtYOI9YDc2eSB4=;
- b=szEDWBcoyDqBOH58gGSiaJUp61YqvCvijgSu3gbDwtXQFhez+DnmXJCQpa5RkVSEBZ
- k58RfuMZ4r7PsB52xkMTFCuijQ3lp0pWP3htKFnCla+t1t6tMhlCjrQnG/DClBF97pHk
- BOfDkOZi1QLKlC+liUZvGQKk65IbQJQn4de9XLx/ClRJGiAD49705kTeE2iXkeuxMutS
- 7BOiDqGTtgyt+Tz8Ca2yvzfcmooxcItQ+6ZMH8JVL+sQIVCW6JclCbXO3ZAoZNmExqbY
- AglyBa4KXlvZ2AUlMCj4v8YempOH8oUyOT7qoWT7U4OmQ5YlFdymnDh5qM5g/kH91EtT
- VzvA==
+ bh=m7ImUJS52VyjYeLxcluUDeQFte9FFBlkrSYtgWQ8yXw=;
+ b=jRQhYkiZqQVrD2t45bY1tDPSzcfFL8KSzKIqOM1nvAuxU51fruZHpNNGYZjEM02zqc
+ G3mkkXejxvoBDWsmiJrjdXeevPLwsmXnzeRCRQfGk9s668ZZsUOzqVGkI/mk7V6v+Fc1
+ E9CPKErdRNFQwDojQP5wMTbFMMW5RWf2Aj7HHu+Ej1HW685mNRFJbkF4TiHfaJLhRLjh
+ yJ51tMVxPqAnO7kxq7jD0yQtu6u8/qOQqDF2DD0pGVU1h1dvwAY84dOncBfiW31NksQW
+ PHV4IiE1xa9wxccUyzziuJA9dshOqvjVKBhfsm1umrr2fwzniRfdImiWxPvusnTHo4Za
+ TBiQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX15/BpltJsqqWV/QZMRbb7DdyTdf2SqSsIloK28JX12wu9GEV6LhrmxsVhM/zImGNdsaVkqLyHKBJAZ/5FhlZzRfe6W67cjNpUPlJJNnb4g2Laq42bJrXu
-X-Gm-Message-State: AOJu0Yzp7Xjrh+mKZ/B34T13tLRQEq4hpD8l5TfDaUbB30oou9qx3cIy
- TIzKOwi/zqmzISnA2TyIvkvN0pNVQceKXCYhOBIBly18ulrwqMTrzaFLmk238d0=
-X-Google-Smtp-Source: AGHT+IEh9mfhHobJDKbSW8F2c89QW3ynMelBgP21Gj4W8BGI1tkkbQZK51shego22/azCsTJcxmG0A==
-X-Received: by 2002:a17:906:c411:b0:a46:635b:bb3e with SMTP id
- u17-20020a170906c41100b00a46635bbb3emr5701615ejz.52.1710687059641; 
- Sun, 17 Mar 2024 07:50:59 -0700 (PDT)
+ AJvYcCULxz/CO2rUOv+1BTmkkHqCJ+FZZjMXEHuXL5mmUeR4f2/MIQZm/cVj2Sp8jY025EbF8ecNhbZSPgKwYIjzt14O0DGiGxtkxJl3KEKPJiCclMzRSG9YEAJg
+X-Gm-Message-State: AOJu0YykdqoWarMplCr+fO6W5J8+ahy/BuUYih15AIIYOUylNOTOpXBY
+ u+QBNqAQbVRAvvCniyp2EdwFngljH4GVNn4M0ibTzDUH7JMAfVUA/T8xdYk8wig=
+X-Google-Smtp-Source: AGHT+IGLHuYAXQTzUPfWxEk8zH5AVbEU7r4LozhX+lOU5bfxaSZ8BYJc0KlNTmOXTDzCaC2yHlx4VQ==
+X-Received: by 2002:a17:906:831a:b0:a46:a10b:8806 with SMTP id
+ j26-20020a170906831a00b00a46a10b8806mr3048939ejx.13.1710687202489; 
+ Sun, 17 Mar 2024 07:53:22 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.222.97])
  by smtp.gmail.com with ESMTPSA id
- w13-20020a1709064a0d00b00a453b2261b4sm3797814eju.184.2024.03.17.07.50.56
+ jx25-20020a170907761900b00a4661f0f1e7sm3822898ejc.205.2024.03.17.07.53.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Mar 2024 07:50:59 -0700 (PDT)
-Message-ID: <cc55daa1-0256-48d1-97a4-0f755fb4951b@linaro.org>
-Date: Sun, 17 Mar 2024 15:50:55 +0100
+ Sun, 17 Mar 2024 07:53:22 -0700 (PDT)
+Message-ID: <2316e61d-ad7d-46fb-9f55-67964552855a@linaro.org>
+Date: Sun, 17 Mar 2024 15:53:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: Wadim Mueller <wafgo01@gmail.com>
 References: <20240315222754.22366-1-wafgo01@gmail.com>
- <20240315222754.22366-2-wafgo01@gmail.com>
+ <20240315222754.22366-3-wafgo01@gmail.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -109,7 +109,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240315222754.22366-2-wafgo01@gmail.com>
+In-Reply-To: <20240315222754.22366-3-wafgo01@gmail.com>
 Cc: NXP S32 Linux Team <s32@nxp.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Swee Leong Ching <leong.ching.swee@intel.com>,
@@ -135,8 +135,8 @@ Cc: NXP S32 Linux Team <s32@nxp.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Shawn Guo <shawnguo@kernel.org>,
  =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 1/3] arm64: dts: S32G3: Introduce device
- tree for S32G-VNP-RDB3
+Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: Add NXP S32 SoC family
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,475 +154,101 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 15/03/2024 23:27, Wadim Mueller wrote:
-> This commit adds device tree support for the NXP S32G3-based
-> S32G-VNP-RDB3 Board (Vehicle Networking Platform - Reference Design Board) [1].
+> Add support for NXP S32 SoC family's GMAC to the stmmac network driver. This driver implementation is based on the patchset originally contributed by Chester Lin [1], which itself draws heavily from NXP's downstream implementation [2]. The patchset was never merged.
 > 
-> The S32G3 features an 8-core ARM Cortex-A53 based SoC developed by NXP.
-> 
-> The device tree files are derived from the official NXP downstream Linux tree [2].
-> 
-> This addition encompasses a limited selection of peripherals that are upstream-supported. Apart from the ARM System Modules (GIC, Generic Timer, etc.), the following IPs have been validated:
-> 
->     UART: fsl-linflexuart
->     SDHC: fsl-imx-esdhc
->     Ethernet: synopsys gmac/stmac
-> 
-> Clock settings for the chip rely on ATF Firmware [3]. Pin control integration into the device tree is pending and currently relies on Firmware/U-Boot settings [4].
-> 
-> These changes were validated using the latest BSP39 Firmware/U-Boot from NXP [5].
-> 
-> The modifications enable booting the official Ubuntu 22.04 from NXP on
-> the RDB3 with default settings from the SD card and eMMC.
-> 
-> [1] https://www.nxp.com/design/design-center/designs/s32g3-vehicle-networking-reference-design:S32G-VNP-RDB3
-> [2] https://github.com/nxp-auto-linux/linux
-> [3] https://github.com/nxp-auto-linux/arm-trusted-firmware
-> [4] https://github.com/nxp-auto-linux/u-boot
-> [5] https://github.com/nxp-auto-linux/auto_yocto_bsp
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
-> ---
->  arch/arm64/boot/dts/freescale/Makefile        |   1 +
->  arch/arm64/boot/dts/freescale/s32g3.dtsi      | 352 ++++++++++++++++++
->  .../boot/dts/freescale/s32g399a-rdb3.dts      |  57 +++
->  .../dt-bindings/clock/nxp,s32-scmi-clock.h    | 158 ++++++++
+> The S32G2/3 SoCs feature multiple Ethernet interfaces (PFE0, PFE1, PFE2, and GMAC) which can be routed through a SerDes Subsystem, supporting various interfaces such as SGMII and RGMII. However, the current Glue Code lacks support for SerDes routing and pinctrl handling, relying solely on correct settings in U-Boot. Clock settings for this SoC are managed by the ATF Firmware.
+
 
 Please run scripts/checkpatch.pl and fix reported warnings. Some
 warnings can be ignored, but the code here looks like it needs a fix.
 Feel free to get in touch if the warning is not clear.
 
-Bindings are not DTS.
+Read how commit msg should be wrapped.
 
->  4 files changed, 568 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/freescale/s32g3.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
->  create mode 100644 include/dt-bindings/clock/nxp,s32-scmi-clock.h
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+
 > 
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> index 2cb0212b63c6..e701008dbc7b 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -252,3 +252,4 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw74xx-rpidsi.dtb
->  dtb-$(CONFIG_ARCH_S32) += s32g274a-evb.dtb
->  dtb-$(CONFIG_ARCH_S32) += s32g274a-rdb2.dtb
->  dtb-$(CONFIG_ARCH_S32) += s32v234-evb.dtb
-> +dtb-$(CONFIG_ARCH_S32) += s32g399a-rdb3.dtb
-> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-> new file mode 100644
-> index 000000000000..481ddcfd3a6d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-> @@ -0,0 +1,352 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/clock/nxp,s32-scmi-clock.h>
-> +/ {
-> +	compatible = "nxp,s32g3";
+> Changes made compared to [1]:
+> 
+>     Rebased onto Linux 6.8-rc7
+>     Consolidated into a single commit
+>     Minor adjustments in naming and usage of dev_err()/dev_info()
+> 
+> Test Environment:
+> The driver has been successfully tested on the official S32G-VNP-RDB3 Reference Design Board from NXP, utilizing an S32G3 SoC. The firmware and U-Boot used were from the BSP39 Release. The official BSP39 Ubuntu 22.04 Release was successfully booted. A network stress test using iperf [3] was also executed without issues.
+> 
+> [1] https://patchwork.kernel.org/project/netdevbpf/patch/20221031101052.14956-6-clin@suse.com/#25068228
+> [2] https://github.com/nxp-auto-linux/linux/blob/release/bsp39.0-5.15.129-rt/drivers/net/ethernet/stmicro/stmmac/dwmac-s32cc.c
+> [3] https://linux.die.net/man/1/iperf
+> [4] https://github.com/nxp-auto-linux/u-boot
+> [5] https://github.com/nxp-auto-linux/arm-trusted-firmware
+> 
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 +
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
 
-Order your patches correctly. Bindings come before users.
+That's totally unrelated to DTS. Do not mix independent work in one
+patchset. This targets net-next, not SoC, so please send it as separate
+patchset when net-next reopens, so after merge window.
 
-> +	interrupt-parent = <&gic>;
-> +	#address-cells = <0x02>;
-> +	#size-cells = <0x02>;
-> +
-> +	cpus {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		cpu-map {
-> +			cluster0 {
-> +				core0 {
-> +					cpu = <&cpu0>;
-> +				};
-> +
-> +				core1 {
-> +					cpu = <&cpu1>;
-> +				};
-> +
-> +				core2 {
-> +					cpu = <&cpu2>;
-> +				};
-> +
-> +				core3 {
-> +					cpu = <&cpu3>;
-> +				};
-> +			};
-> +
-> +			cluster1 {
-> +				core0 {
-> +					cpu = <&cpu4>;
-> +				};
-> +
-> +				core1 {
-> +					cpu = <&cpu5>;
-> +				};
-> +
-> +				core2 {
-> +					cpu = <&cpu6>;
-> +				};
-> +
-> +				core3 {
-> +					cpu = <&cpu7>;
-> +				};
-> +			};
-> +		};
-> +
-> +		cpu0: cpu@0 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x0>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster0_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu1: cpu@1 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x1>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster0_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu2: cpu@2 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x2>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster0_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu3: cpu@3 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x3>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster0_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu4: cpu@100 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x100>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster1_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu5: cpu@101 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x101>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster1_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu6: cpu@102 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x102>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster1_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cpu7: cpu@103 {
-> +			device_type = "cpu";
-> +			compatible = "arm,cortex-a53";
-> +			reg = <0x103>;
-> +			enable-method = "psci";
-> +			clocks = <&dfs S32_SCMI_CLK_A53>;
-> +			next-level-cache = <&cluster1_l2_cache>;
-> +			#cooling-cells = <2>;
-> +		};
-> +
-> +		cluster0_l2_cache: l2-cache0 {
+>  drivers/net/ethernet/stmicro/stmmac/common.h  |   3 +
+>  .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 313 ++++++++++++++++++
+>  .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |   9 +
+>  .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |   3 +
+>  drivers/net/ethernet/stmicro/stmmac/hwif.h    |   5 +
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c |   7 +
+>  include/linux/stmmac.h                        |   9 +
+>  9 files changed, 362 insertions(+)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index 85dcda51df05..1cdf2da0251c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -142,6 +142,18 @@ config DWMAC_ROCKCHIP
+>  	  This selects the Rockchip RK3288 SoC glue layer support for
+>  	  the stmmac device drive
 
-l2-cache-0
 
-> +			compatible = "cache";
-> +			status = "okay";
+...
 
-Why do you need it? It's enabled by default.
+> +
+> +	plat_dat->safety_feat_cfg->tsoee = 1;
+> +	plat_dat->safety_feat_cfg->mrxpee = 1;
+> +	plat_dat->safety_feat_cfg->mestee = 1;
+> +	plat_dat->safety_feat_cfg->mrxee = 1;
+> +	plat_dat->safety_feat_cfg->mtxee = 1;
+> +	plat_dat->safety_feat_cfg->epsi = 1;
+> +	plat_dat->safety_feat_cfg->edpp = 1;
+> +	plat_dat->safety_feat_cfg->prtyen = 1;
+> +	plat_dat->safety_feat_cfg->tmouten = 1;
+> +
+> +	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+> +	if (ret)
+> +		goto err_gmac_exit;
+> +
+> +	return 0;
+> +
+> +err_gmac_exit:
+> +	s32_gmac_exit(pdev, plat_dat->bsp_priv);
+> +	return ret;
+> +}
+> +
+> +static const struct of_device_id s32_dwmac_match[] = {
+> +	{ .compatible = "nxp,s32-dwmac" },
 
-Anyway it incomplete:
-It does not look like you tested the DTS against bindings. Please run
-`make dtbs_check W=1` (see
-Documentation/devicetree/bindings/writing-schema.rst or
-https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
-for instructions).
-
-> +		};
-> +
-> +		cluster1_l2_cache: l2-cache1 {
-
-l2-cache-1
-
-> +			compatible = "cache";
-> +			status = "okay";
-> +		};
-> +	};
-> +
-> +	pmu {
-> +		compatible = "arm,cortex-a53-pmu";
-> +		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
-> +	};
-> +
-> +	timer {
-> +		compatible = "arm,armv8-timer";
-> +		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>, /* sec-phys */
-> +			     <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>, /* virt */
-> +			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>, /* hyp-virt */
-> +		             <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>, /* sec-phys */
-> +		             <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>; /* phys */
-> +		always-on;
-> +	};
-> +
-> +	reserved-memory  {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		scmi_tx_buf: shm@d0000000 {
-> +			compatible = "arm,scmi-shmem";
-> +			reg = <0x0 0xd0000000 0x0 0x80>;
-> +			no-map;
-> +		};
-> +
-> +		scmi_rx_buf: shm@d0000080 {
-> +			compatible = "arm,scmi-shmem";
-> +			reg = <0x0 0xd0000080 0x0 0x80>;
-> +			no-map;
-> +		};
-> +	};
-> +
-> +	firmware {
-> +		scmi: scmi {
-> +			compatible = "arm,scmi-smc";
-> +			mbox-names = "tx", "rx";
-> +			shmem = <&scmi_tx_buf>, <&scmi_rx_buf>;
-> +			arm,smc-id = <0xc20000fe>;
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			status = "okay";
-
-Drop or explain why is it needed.
-
-> +			interrupts = <GIC_SPI 300 IRQ_TYPE_EDGE_RISING>;
-> +			interrupt-names = "p2a_notif";
-> +
-> +			dfs: protocol@13 {
-> +				reg = <0x13>;
-> +				#clock-cells = <1>;
-> +			};
-> +
-> +			clks: protocol@14 {
-> +				reg = <0x14>;
-> +				#clock-cells = <1>;
-> +			};
-> +
-> +			reset: protocol@16 {
-> +				reg = <0x16>;
-> +				#reset-cells = <1>;
-> +			};
-> +
-> +			pinctrl_scmi: protocol@80 {
-> +				reg = <0x80>;
-> +				#pinctrl-cells = <2>;
-> +
-> +				status = "disabled";
-> +			};
-> +		};
-> +
-> +		psci: psci {
-> +			compatible = "arm,psci-1.0";
-> +			method = "smc";
-> +		};
-> +	};
-> +
-> +	soc@0 {
-> +		compatible = "simple-bus";
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges = <0 0 0 0x80000000>;
-> +
-> +		uart0: serial@401c8000 {
-> +			compatible = "nxp,s32g3-linflexuart",
-> +				     "fsl,s32v234-linflexuart";
-> +			reg = <0x401c8000 0x3000>;
-> +			interrupts = <GIC_SPI 82 IRQ_TYPE_EDGE_RISING>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart1: serial@401cc000 {
-> +			compatible = "nxp,s32g3-linflexuart",
-> +				     "fsl,s32v234-linflexuart";
-> +			reg = <0x401cc000 0x3000>;
-> +			interrupts = <GIC_SPI 83 IRQ_TYPE_EDGE_RISING>;
-> +			status = "disabled";
-> +		};
-> +
-> +		uart2: serial@402bc000 {
-> +			compatible = "nxp,s32g3-linflexuart",
-> +				     "fsl,s32v234-linflexuart";
-> +			reg = <0x402bc000 0x3000>;
-> +			interrupts = <GIC_SPI 84 IRQ_TYPE_EDGE_RISING>;
-> +			status = "disabled";
-> +		};
-> +
-> +		gic: interrupt-controller@50800000 {
-> +			compatible = "arm,gic-v3";
-> +			#interrupt-cells = <3>;
-> +			interrupt-controller;
-> +			reg = <0x50800000 0x10000>,
-> +			      <0x50900000 0x200000>,
-> +			      <0x50400000 0x2000>,
-> +			      <0x50410000 0x2000>,
-> +			      <0x50420000 0x2000>;
-> +			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-> +			mbi-ranges = <167 16>;
-> +		};
-> +
-> +		qspi: spi@40134000 {
-
-Keep order by unit address.
-
-> +			compatible = "nxp,s32g3-qspi";
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +			reg = <0x0 0x00000000 0x0 0x20000000>,
-> +				<0x0 0x40134000 0x0 0x1000>;
-> +			reg-names = "QuadSPI-memory", "QuadSPI";
-> +			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-> +			clock-names = "qspi_en", "qspi";
-> +			clocks = <&clks S32_SCMI_CLK_QSPI_FLASH1X>,
-> +				 <&clks S32_SCMI_CLK_QSPI_FLASH1X>;
-> +			spi-max-frequency = <200000000>;
-> +			spi-num-chipselects = <2>;
-> +			status = "disabled";
-> +		};
-> +
-> +		usdhc0: mmc@402f0000 {
-> +			compatible = "nxp,s32g3-usdhc",
-> +			             "nxp,s32g2-usdhc";
-> +			reg = <0x402f0000 0x1000>;
-> +			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks = <&clks S32_SCMI_CLK_USDHC_MODULE>,
-> +				 <&clks S32_SCMI_CLK_USDHC_AHB>,
-> +				 <&clks S32_SCMI_CLK_USDHC_CORE>;
-> +			clock-names = "ipg", "ahb", "per";
-> +			status = "disabled";
-> +		};
-> +
-> +		gmac0: ethernet@4033c000 {
-> +			status = "disabled";
-
-Random code... sorry, but status does not come first. Put it last and
-please read carefully DTS coding style.
-
-> +			compatible = "nxp,s32-dwmac";
-> +			reg = <0x4033c000 0x2000>, /* gmac IP */
-> +			      <0x4007c004 0x4>;    /* S32 CTRL_STS reg */
-> +			interrupt-parent = <&gic>;
-> +			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq";
-> +			tx-fifo-depth = <20480>;
-> +			rx-fifo-depth = <20480>;
-> +			dma-coherent;
-> +			snps,mtl-rx-config = <&mtl_rx_setup_gmac0>;
-> +			snps,mtl-tx-config = <&mtl_tx_setup_gmac0>;
-> +			clocks = <&clks S32_SCMI_CLK_GMAC0_AXI>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_AXI>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_TX_SGMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_TX_RGMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_TX_RMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_TX_MII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_RX_SGMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_RX_RGMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_RX_RMII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_RX_MII>,
-> +				 <&clks S32_SCMI_CLK_GMAC0_TS>;
-> +			clock-names = "stmmaceth", "pclk",
-> +				      "tx_sgmii", "tx_rgmii",
-> +				      "tx_rmii", "tx_mii",
-> +				      "rx_sgmii", "rx_rgmii",
-> +				      "rx_rmii", "rx_mii",
-> +				      "ptp_ref";
-> +
-> +			mtl_rx_setup_gmac0: rx-queues-config {
-> +				snps,rx-queues-to-use = <5>;
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				queue@0 {};
-> +				queue@1 {};
-> +				queue@2 {};
-> +				queue@3 {};
-> +				queue@4 {};
-> +			};
-> +
-> +			mtl_tx_setup_gmac0: tx-queues-config {
-> +				snps,tx-queues-to-use = <5>;
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				queue@0 {};
-> +				queue@1 {};
-> +				queue@2 {};
-> +				queue@3 {};
-> +				queue@4 {};
-> +			};
-> +
-> +			gmac0_mdio: mdio0 {
-
-mdio?
-
-It does not look like you tested the DTS against bindings. Please run
-`make dtbs_check W=1` (see
-Documentation/devicetree/bindings/writing-schema.rst or
-https://www.linaro.org/blog/tips-and-tricks-for-validating-devicetree-sources-with-the-devicetree-schema/
-for instructions).
-
-> +				compatible = "snps,dwmac-mdio";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +			};
-> +		};
-> +
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts b/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
-> new file mode 100644
-> index 000000000000..707b503c0165
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/s32g399a-rdb3.dts
-> @@ -0,0 +1,57 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * NXP S32G3 Reference Design Board 3 (S32G-VNP-RDB3)
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "s32g3.dtsi"
-> +
-> +/ {
-> +	model = "NXP S32G3 Reference Design Board 3 (S32G-VNP-RDB3)";
-> +	compatible = "nxp,s32g399a-rdb3", "nxp,s32g3";
 
 Missing bindings.
+
+Please run scripts/checkpatch.pl and fix reported warnings. Some
+warnings can be ignored, but the code here looks like it needs a fix.
+Feel free to get in touch if the warning is not clear.
+
+> +	{}
+> +};
 
 
 
