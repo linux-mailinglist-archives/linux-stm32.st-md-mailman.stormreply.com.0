@@ -2,71 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB9B87E423
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Mar 2024 08:36:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BB5087E429
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 Mar 2024 08:39:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 91D14C6DD60;
-	Mon, 18 Mar 2024 07:36:20 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5BF2C6DD60;
+	Mon, 18 Mar 2024 07:39:19 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95072C6B45E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7627C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Mar 2024 07:36:19 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-565c6cf4819so8669901a12.1
+ Mon, 18 Mar 2024 07:39:18 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-56829f41f81so5500815a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Mar 2024 00:36:19 -0700 (PDT)
+ Mon, 18 Mar 2024 00:39:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1710747379; x=1711352179;
+ d=linaro.org; s=google; t=1710747558; x=1711352358;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=MfjiiYYXEp81SaS6PQp9hkSFCb7c2xr3ZnLROIncV98=;
- b=tv6htQb9zpNJkoM/OFDtT2MnHylPXHRgP5UF58qTNXw3UHaY532RrKwkb8ppe3uf1F
- iDDA5tlHNTDpov0+tzFA/yQlqgBNu0B2DYwaJ8j3qZN37P7WYA4q6hjJDsSo7zOjpRP6
- n1LHAXL3Sy3G8Zi4GzKk3J/8fFLXwNN+70xQuw7MZ0g72sUH5V1hzU8v3Prfyn9lBbIq
- ILbCaqPUZQHeYqoXzSRAOWBsqe/up6n3kZdKC0qh5eJCM1g86KZ+918UQMzg8edJJGhm
- y8BkQT3kb5E+w0SeQJ7Aof2C/8+run0m98l6d88hU6lvzXnUXT1AxxdEIYLBgwmUnBq4
- DHJQ==
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=vpoJHq2kVU4cubYvHHTHZKWABpZl9dQPC/sCgzyCCfo=;
+ b=BIzIaPHWUhoX0vz1MqlAwPZkeMZG56y03OwfVVBVVQucSgnYKtPrxvWxOdjOV+Mqdq
+ v1tmGUPuJNYY0FBJSMMD1SsPahZhJrtLtigFrd2mc48fd2nlHIx29nrqMgR2LUOjMaFI
+ VmgBw3Cq7KwB+hbBYmiFAb3o6XL58jUbjYWHhTEJ3FEzyXzK8D+weZ+SfKGaSlAzLymY
+ BJB2aiFDS/ZZvNJwD3HMk9AZBHuasLJYFAdZohIx+tGzZHDHeGdPktVX7Z329fZlFUOf
+ 8xzQlZxc2rZw6IlYHu1j7b9hv2mipuooGDlBGX9N9IBUgIO9DM7pcfpXtKldj3QxCszI
+ 8ADA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1710747379; x=1711352179;
- h=content-transfer-encoding:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MfjiiYYXEp81SaS6PQp9hkSFCb7c2xr3ZnLROIncV98=;
- b=AKwY7qvzf6+hk3frB7wx8YwUgg6EAuyk1ffi1qVWgvT0VG96dgfjFQSG6HA0XR0j9b
- YgQXDOZI9KWS/RNAQI6p902ug3qwVEZNDtgBpB1DU73R4uv7SvatJbdcGKmWMD2HYLhA
- 2UZn8YDxX6pGhsOhNXWblHwSPjQSroSDJkLubyX2H0ChOAfcvbWH1ufthMi6GJg3XBPX
- Btb8qRgoEIxRIgiu8bMhJrxbzZGD68S98SvDCCCtnGNY8uRKnbFC21nuQACsX1TjALS7
- QxgZ854S+I0kkR+NJIVRPIF/nlfZReQRAx7Np4ozv+I83yGEnWjnlQe1RnawD2FbOCjD
- rxsQ==
+ d=1e100.net; s=20230601; t=1710747558; x=1711352358;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+ :to:content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vpoJHq2kVU4cubYvHHTHZKWABpZl9dQPC/sCgzyCCfo=;
+ b=OIBQSuIEJT+DNLJBthNsKBGWiX/TlB6ZxCHuayhFPlnpx3ICi3mU/HNVkCZois029a
+ WWMSgnH4quQ8fcrx/c/liINyrDbnFvEb08mwHHS3jlpg3/94d8PdO0FcpSRvx0kdP1bb
+ SllrJw/UmlGzseFU9dBAdCaP0LnvAKuC9wtxoooxFvhOVdXCC+UQImY6gXqXyTfSJtUZ
+ QUMrj5OT/ZiNIH0hUcKqmeHRoaPjNhUoDRgbyjO6BUKiuQvXLlSQ7u5V3qzE3vk1RBZC
+ AJb+Gt48LCkkJpaUbkkUkOqkm47JM7SMbQ/XkW9r8mbHL8WS2GsCVQFiCS3rX6VCoZRS
+ zmWg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVII73TnnPUhXtROctWZl1CJPvLV6tRYM6Og6S0IDmSc/usFhdt44ehT1AAWBsSfN10qMZ5OGA8Femyf4b9bLY//Ve+sZFxAslahlCS8QHe5D6FrFq3dkCo
-X-Gm-Message-State: AOJu0Yz9KrFTLvxIf6DXmuFgk3ApIOC2jb9ZOdGKVE5M4thpX9ZJQ8Az
- chHma4CBRruYVdCWsyKMsHIVOquTJWHxjxE9YxIt3juyZ03NaiDFtItvXwFV1CY=
-X-Google-Smtp-Source: AGHT+IEa+fkX+R3HtaY5jARiu8UhuzhoenRKPwtRIcYIVNLvMrDRbi+IkiMFsyIULGGxUp9hdlv9Jw==
-X-Received: by 2002:a17:907:3e8a:b0:a46:3d7d:35c with SMTP id
- hs10-20020a1709073e8a00b00a463d7d035cmr16103686ejc.30.1710747378886; 
- Mon, 18 Mar 2024 00:36:18 -0700 (PDT)
+ AJvYcCVa2RcX21l/YIbfCk94JopIIwGpIr5JBvitCvhetXP64Tx1K1sCez7BJ448hANdTWIaQYyqRJbpxGgh4b8Xx/Mn7VpjY2IMBGVK8SzeJOFEsTvYb50LHXYp
+X-Gm-Message-State: AOJu0Yy21kdFQ3lU8a4UjFzqQHne8tYHMR62nrXhvMW9qbj/dTFDAbsh
+ vZvuOrASs2R+546j7HG+zqdQ2c0KAmhphnwZLDQHRaJugnxbY+53Wb8JY6rJr84=
+X-Google-Smtp-Source: AGHT+IFzRNxfhosEyI+rRgGgowaMy78jv75fcicSpz5Y5yLsGIrZvtYgBwFW7R2LulAEPEzO9jc+hw==
+X-Received: by 2002:a05:6402:2401:b0:568:a05e:eafd with SMTP id
+ t1-20020a056402240100b00568a05eeafdmr9346676eda.39.1710747558031; 
+ Mon, 18 Mar 2024 00:39:18 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.222.97])
  by smtp.gmail.com with ESMTPSA id
- hj11-20020a170906874b00b00a46a04d7daesm2589682ejb.115.2024.03.18.00.36.15
+ g13-20020a056402428d00b005689f3d6936sm4350727edc.53.2024.03.18.00.39.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Mar 2024 00:36:18 -0700 (PDT)
-Message-ID: <c8a6d671-8391-440f-b4da-28eaf1a68b73@linaro.org>
-Date: Mon, 18 Mar 2024 08:36:14 +0100
+ Mon, 18 Mar 2024 00:39:17 -0700 (PDT)
+Message-ID: <85123b46-188c-47b3-88e9-3122ad67ec47@linaro.org>
+Date: Mon, 18 Mar 2024 08:39:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Wadim Mueller <wafgo01@gmail.com>
+Content-Language: en-US
+To: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Wadim Mueller <wafgo01@gmail.com>
 References: <20240315222754.22366-1-wafgo01@gmail.com>
  <20240315222754.22366-2-wafgo01@gmail.com>
- <cc55daa1-0256-48d1-97a4-0f755fb4951b@linaro.org>
- <20240317231000.GA22886@bhlegrsu.conti.de>
-Content-Language: en-US
+ <4e168fbc-8a13-4666-ab80-e3032f61ef38@oss.nxp.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -112,7 +111,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240317231000.GA22886@bhlegrsu.conti.de>
+In-Reply-To: <4e168fbc-8a13-4666-ab80-e3032f61ef38@oss.nxp.com>
 Cc: NXP S32 Linux Team <s32@nxp.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Swee Leong Ching <leong.ching.swee@intel.com>,
@@ -156,32 +155,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 18/03/2024 00:10, Wadim Mueller wrote:
->>> +
->>> +			mtl_tx_setup_gmac0: tx-queues-config {
->>> +				snps,tx-queues-to-use = <5>;
->>> +				#address-cells = <1>;
->>> +				#size-cells = <0>;
->>> +
->>> +				queue@0 {};
->>> +				queue@1 {};
->>> +				queue@2 {};
->>> +				queue@3 {};
->>> +				queue@4 {};
->>> +			};
->>> +
->>> +			gmac0_mdio: mdio0 {
+On 18/03/2024 08:32, Ghennadi Procopciuc wrote:
+> On 3/16/24 00:27, Wadim Mueller wrote:
+>> This commit adds device tree support for the NXP S32G3-based
+>> S32G-VNP-RDB3 Board (Vehicle Networking Platform - Reference Design Board) [1].
 >>
->> mdio?
+>> The S32G3 features an 8-core ARM Cortex-A53 based SoC developed by NXP.
 >>
+>> The device tree files are derived from the official NXP downstream Linux tree [2].
+>>
+>> This addition encompasses a limited selection of peripherals that are upstream-supported. Apart from the ARM System Modules (GIC, Generic Timer, etc.), the following IPs have been validated:
+>>
+>>     UART: fsl-linflexuart
+>>     SDHC: fsl-imx-esdhc
+>>     Ethernet: synopsys gmac/stmac
+>>
+>> Clock settings for the chip rely on ATF Firmware [3]. Pin control integration into the device tree is pending and currently relies on Firmware/U-Boot settings [4].
+>>
+>> These changes were validated using the latest BSP39 Firmware/U-Boot from NXP [5].
+>>
+>> The modifications enable booting the official Ubuntu 22.04 from NXP on
+>> the RDB3 with default settings from the SD card and eMMC.
+>>
+>> [1] https://www.nxp.com/design/design-center/designs/s32g3-vehicle-networking-reference-design:S32G-VNP-RDB3
+>> [2] https://github.com/nxp-auto-linux/linux
+>> [3] https://github.com/nxp-auto-linux/arm-trusted-firmware
+>> [4] https://github.com/nxp-auto-linux/u-boot
+>> [5] https://github.com/nxp-auto-linux/auto_yocto_bsp
+>>
+>> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 > 
-> Can you please explain what the problem with mdio is? Is it the label?
-> 
+> This patch seems to be heavily based on the downstream version of the
+> kernel. Many of the changes originate from NXP. Therefore, shouldn't the
+> authors also be mentioned here?
 
-Node names should be generic. See also an explanation and list of
-examples (not exhaustive) in DT specification:
-https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+Let's say there are 100 commits with 100 authors in downstream. Do you
+expect to list them all? Please point to parts which are directly copied
+(with references to original commits).
 
+Anyway, Wadim's SoB is enough from DCO point of view. We do not keep
+authorship of downstream sources. If downstream cared, they would
+upstreamed it much earlier than the community.
+
+However if original work has any copyright statements, they should be
+retained if this is indeed derivative work.
 
 Best regards,
 Krzysztof
