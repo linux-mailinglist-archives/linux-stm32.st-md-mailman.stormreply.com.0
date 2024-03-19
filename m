@@ -2,64 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAA5F87F190
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 Mar 2024 21:50:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1452787F644
+	for <lists+linux-stm32@lfdr.de>; Tue, 19 Mar 2024 05:05:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58938C6DD68;
-	Mon, 18 Mar 2024 20:50:51 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1290C6DD68;
+	Tue, 19 Mar 2024 04:05:42 +0000 (UTC)
+Received: from phobos.denx.de (phobos.denx.de [85.214.62.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF9D5C6DD60
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8FAF1C6B45E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 Mar 2024 20:50:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=V7hiweKCShqTkZVjRoBbzPoSakFvSACyYI9eRdobDaY=; b=JvelUiUlEPlnNSozIDXO9xVl79
- Vs4SbJuFviGCjY4V59jwpJctAAgl/bbxuvkCTt8bNjpAbrnA/aZIbPTJEfgE0AA9FpnamA7sF7sJt
- j4SWEbsy5Vwie22bOlRsk92UlWylNrCgyTskccbnJYgCIhiTjBaXOW7fIAbhCA3TxMgU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1rmJw1-00Adr6-5R; Mon, 18 Mar 2024 21:50:17 +0100
-Date: Mon, 18 Mar 2024 21:50:17 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Wadim Mueller <wafgo01@gmail.com>
-Message-ID: <ddf5c4e2-16c2-4399-ae34-57114b8d4d21@lunn.ch>
-References: <20240315222754.22366-1-wafgo01@gmail.com>
- <20240315222754.22366-3-wafgo01@gmail.com>
+ Tue, 19 Mar 2024 04:05:41 +0000 (UTC)
+Received: from tr.lan (ip-86-49-120-218.bb.vodafone.cz [86.49.120.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: marex@denx.de)
+ by phobos.denx.de (Postfix) with ESMTPSA id 81B5A87ED1;
+ Tue, 19 Mar 2024 05:05:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=denx.de;
+ s=phobos-20191101; t=1710821141;
+ bh=jBZcyAZwPc3c9H9QIxIxQb/mu6RynF42oc1cRAenTCk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=uTd/7nUiZg4RZ9RXOs0qkQFDSSMD6vqtdfTK9cu/W4LUQPdL1T4Gy3TsQQsX3u+3Q
+ /ZdjAHPBfjH2rPnbLGycOH+9tw4JLzEDDOxSawPYUEwtOknR1kMgBPKZ7PCveMCzaT
+ 0QsXMDTamG/6XS5pG/ZocLjC7wi2ddVXoOzA0yzpwmXe32UqWSH+Ke51UAQr3o5IxA
+ WRDlxUTQ07rGEKnScAXySW41EUCMxruES4qLuHuc0o0/ClHLu6Ryne+fDpZ6g/TX/P
+ z1OWhgcwSg3ZJBHrYefpR/1xTmqMXnQFRrZI9Ph40VHcQkEBnieedXdF8DFkL7Q8ko
+ YBt2xsPjM3UMA==
+From: Marek Vasut <marex@denx.de>
+To: linux-arm-kernel@lists.infradead.org
+Date: Tue, 19 Mar 2024 05:05:06 +0100
+Message-ID: <20240319040528.104932-1-marex@denx.de>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240315222754.22366-3-wafgo01@gmail.com>
-Cc: NXP S32 Linux Team <s32@nxp.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Swee Leong Ching <leong.ching.swee@intel.com>,
- Eric Dumazet <edumazet@google.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Shenwei Wang <shenwei.wang@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Johannes Zink <j.zink@pengutronix.de>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- linux-clk@vger.kernel.org, Jose Abreu <joabreu@synopsys.com>,
- NXP Linux Team <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Andrew Halaney <ahalaney@redhat.com>, devicetree@vger.kernel.org,
+X-Virus-Scanned: clamav-milter 0.103.8 at phobos.denx.de
+X-Virus-Status: Clean
+Cc: Marek Vasut <marex@denx.de>, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Rob Herring <robh+dt@kernel.org>, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
- Matthias Brugger <mbrugger@suse.com>, Stephen Boyd <sboyd@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 2/3] net: stmmac: Add NXP S32 SoC family
-	support
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH] ARM: dts: stm32: add PWR regulators support
+	on stm32mp131
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,202 +61,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Fri, Mar 15, 2024 at 11:27:48PM +0100, Wadim Mueller wrote:
-> Add support for NXP S32 SoC family's GMAC to the stmmac network driver. This driver implementation is based on the patchset originally contributed by Chester Lin [1], which itself draws heavily from NXP's downstream implementation [2]. The patchset was never merged.
+This patch adds STM32 PWR regulators DT support on stm32mp131.
+This requires TFA to clear RCC_SECCFGR, is disabled by default
+and can only be enabled on board DT level.
 
-Please wrap you commit message.
+Signed-off-by: Marek Vasut <marex@denx.de>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index 3900f32da797b..58b8ae759998d 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -1092,6 +1092,30 @@ rcc: rcc@50000000 {
+ 				 <&scmi_clk CK_SCMI_LSI>;
+ 		};
  
-> +#include <linux/device.h>
-> +#include <linux/ethtool.h>
-
-Is this one needed?
-
-> +static int s32_gmac_init(struct platform_device *pdev, void *priv)
-> +{
-> +	struct s32_priv_data *gmac = priv;
-> +	u32 intf_sel;
-> +	int ret;
-> +
-> +	if (gmac->tx_clk) {
-> +		ret = clk_prepare_enable(gmac->tx_clk);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "Can't set tx clock\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	if (gmac->rx_clk) {
-> +		ret = clk_prepare_enable(gmac->rx_clk);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "Can't set rx clock\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	/* set interface mode */
-> +	if (gmac->ctrl_sts) {
-> +		switch (gmac->intf_mode) {
-> +		default:
-> +			dev_info(
-> +				&pdev->dev,
-> +				"unsupported mode %u, set the default phy mode.\n",
-> +				gmac->intf_mode);
-> +			fallthrough;
-
-I would actually return -EINVAL. There is no backwards compatibility
-needed here, so force that the mode is always specified.
-
-> +		case PHY_INTERFACE_MODE_SGMII:
-> +			dev_info(&pdev->dev, "phy mode set to SGMII\n");
-
-Please don't spam the kernel log. dev_dbg(). 
-
-> +static void s32_fix_speed(void *priv, unsigned int speed, unsigned int mode)
-> +{
-> +	struct s32_priv_data *gmac = priv;
-> +
-> +	if (!gmac->tx_clk || !gmac->rx_clk)
-> +		return;
-> +
-> +	/* SGMII mode doesn't support the clock reconfiguration */
-> +	if (gmac->intf_mode == PHY_INTERFACE_MODE_SGMII)
-> +		return;
-> +
-> +	switch (speed) {
-> +	case SPEED_1000:
-> +		dev_info(gmac->dev, "Set TX clock to 125M\n");
-
-more dev_dbg(). A driver should generally be silent, unless something
-goes wrong. It is also questionable if dev_dbg() should be used. Once
-the driver actually works, you can throw away a lot of debug
-prints. Do you expect problems here in the future?
-
-> +static int s32_config_cache_coherency(struct platform_device *pdev,
-> +				      struct plat_stmmacenet_data *plat_dat)
-> +{
-> +	plat_dat->axi4_ace_ctrl = devm_kzalloc(
-> +		&pdev->dev, sizeof(struct stmmac_axi4_ace_ctrl), GFP_KERNEL);
-> +
-> +	if (!plat_dat->axi4_ace_ctrl)
-> +		return -ENOMEM;
-> +
-> +	plat_dat->axi4_ace_ctrl->tx_ar_reg = (ACE_CONTROL_SIGNALS << 16) |
-> +					     (ACE_CONTROL_SIGNALS << 8) |
-> +					     ACE_CONTROL_SIGNALS;
-> +
-> +	plat_dat->axi4_ace_ctrl->rx_aw_reg =
-> +		(ACE_CONTROL_SIGNALS << 24) | (ACE_CONTROL_SIGNALS << 16) |
-> +		(ACE_CONTROL_SIGNALS << 8) | ACE_CONTROL_SIGNALS;
-> +
-> +	plat_dat->axi4_ace_ctrl->txrx_awar_reg =
-> +		(ACE_PROTECTION << 20) | (ACE_PROTECTION << 16) |
-> +		(ACE_CONTROL_SIGNALS << 8) | ACE_CONTROL_SIGNALS;
-
-This looks like magic. Can the various shifts be replaced my #defines?
-Comments added? This makes changes in some of the core code. So it
-might be better to have a prerequisite patch adding cache coherency
-control, with a good commit message explaining it.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int s32_dwmac_probe(struct platform_device *pdev)
-> +{
-> +	struct plat_stmmacenet_data *plat_dat;
-> +	struct stmmac_resources stmmac_res;
-> +	struct s32_priv_data *gmac;
-> +	struct resource *res;
-> +	const char *tx_clk, *rx_clk;
-> +	int ret;
-> +
-> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> +	if (ret)
-> +		return ret;
-> +
-> +	gmac = devm_kzalloc(&pdev->dev, sizeof(*gmac), GFP_KERNEL);
-> +	if (!gmac)
-> +		return PTR_ERR(gmac);
-> +
-> +	gmac->dev = &pdev->dev;
-> +
-> +	/* S32G control reg */
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-> +	gmac->ctrl_sts = devm_ioremap_resource(&pdev->dev, res);
-> +	if (IS_ERR_OR_NULL(gmac->ctrl_sts)) {
-> +		dev_err(&pdev->dev, "S32G config region is missing\n");
-> +		return PTR_ERR(gmac->ctrl_sts);
-> +	}
-> +
-> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-> +	if (IS_ERR(plat_dat))
-> +		return PTR_ERR(plat_dat);
-> +
-> +	plat_dat->bsp_priv = gmac;
-> +
-> +	switch (plat_dat->phy_interface) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		tx_clk = "tx_sgmii";
-> +		rx_clk = "rx_sgmii";
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +		tx_clk = "tx_rgmii";
-> +		rx_clk = "rx_rgmii";
-> +		break;
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		tx_clk = "tx_rmii";
-> +		rx_clk = "rx_rmii";
-> +		break;
-> +	case PHY_INTERFACE_MODE_MII:
-> +		tx_clk = "tx_mii";
-> +		rx_clk = "rx_mii";
-> +		break;
-> +	default:
-> +		dev_err(&pdev->dev, "Not supported phy interface mode: [%s]\n",
-> +			phy_modes(plat_dat->phy_interface));
-> +		return -EINVAL;
-> +	};
-> +
-> +	gmac->intf_mode = plat_dat->phy_interface;
-> +
-> +	/* DMA cache coherency settings */
-> +	if (of_dma_is_coherent(pdev->dev.of_node)) {
-> +		ret = s32_config_cache_coherency(pdev, plat_dat);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/* tx clock */
-> +	gmac->tx_clk = devm_clk_get(&pdev->dev, tx_clk);
-> +	if (IS_ERR(gmac->tx_clk)) {
-> +		dev_info(&pdev->dev, "tx clock not found\n");
-> +		gmac->tx_clk = NULL;
-
-Is the clock really optional?
-
-I would also print the name of the clock which is missing.
-
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -324,6 +324,10 @@ static void stmmac_clk_csr_set(struct stmmac_priv *priv)
->  			priv->clk_csr = STMMAC_CSR_150_250M;
->  		else if ((clk_rate >= CSR_F_250M) && (clk_rate <= CSR_F_300M))
->  			priv->clk_csr = STMMAC_CSR_250_300M;
-> +		else if ((clk_rate >= CSR_F_300M) && (clk_rate < CSR_F_500M))
-> +			priv->clk_csr = STMMAC_CSR_300_500M;
-> +		else if ((clk_rate >= CSR_F_500M) && (clk_rate < CSR_F_800M))
-> +			priv->clk_csr = STMMAC_CSR_500_800M;
-
-Also seems like something which could be a patch of its own. Ideally
-you want lots of small patches which are obviously correct. Part of
-being obviously correct is the commit message, which is easier to
-write when the patch is small and only does one thing.
-
-      Andrew
++		pwr_regulators: pwr@50001000 {
++			compatible = "st,stm32mp1,pwr-reg";
++			reg = <0x50001000 0x10>;
++			status = "disabled";
++
++			reg11: reg11 {
++				regulator-name = "reg11";
++				regulator-min-microvolt = <1100000>;
++				regulator-max-microvolt = <1100000>;
++			};
++
++			reg18: reg18 {
++				regulator-name = "reg18";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++
++			usb33: usb33 {
++				regulator-name = "usb33";
++				regulator-min-microvolt = <3300000>;
++				regulator-max-microvolt = <3300000>;
++			};
++		};
++
+ 		exti: interrupt-controller@5000d000 {
+ 			compatible = "st,stm32mp13-exti", "syscon";
+ 			interrupt-controller;
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
