@@ -2,84 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3216885CF0
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Mar 2024 17:05:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97FCC885B5C
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 Mar 2024 16:04:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67F00C6DD68;
-	Thu, 21 Mar 2024 16:05:56 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E98AC6DD68;
+	Thu, 21 Mar 2024 15:04:28 +0000 (UTC)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A7BCC03FC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20A8EC6C85A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Mar 2024 13:54:19 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-56bc5a12a75so1121231a12.2
+ Thu, 21 Mar 2024 15:04:27 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a46dec5d00cso148445566b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Mar 2024 06:54:19 -0700 (PDT)
+ Thu, 21 Mar 2024 08:04:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711029259; x=1711634059;
+ d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1711033466; x=1711638266;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=RISJ51b+qHtZnF1GQnWK2y8jYm5bTJzD2sPnVFGaQwU=;
- b=VD/d7b4jCTdf8vxkEBmzSfyP9oLhMFzzaqRnlKpY2YGsZTPR5Lk6arX2aiT/vbVe60
- o3LEq7IyaubLVdc/9lXUJ2RfI9nyZukvQmDUw7fL6pG41SHHajZdZYHdE1tRUwmllBDV
- uSgIPrTI95PbClSSNVN4sb2GWR4Wkh998/AlgVKU3Hu0HcvK9MdzX0h/0WSV0Hem7Cqe
- XtJGwcHYCA7LtlAFFlxP+RZOMvl0Rk7BeOtra0i9sQa1KbTD/QAkLQIZmApPGfj2YqY/
- Tfl8PkgGedqyAaQHAQ8quAd+m2mDiZjfxi577+Yq+qXER1wwte3sl/NGNAC046a+3zE/
- MZsg==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=C+M26qwP0oSliowXOMgjRNibYsMtGqN5dSYVPUjBSio=;
+ b=Nzqsv6rjivD+rmbWilpRyqA98TNwEOhDSWDRhZ0gypMIBmwva9Ub84E2jX4r4U7Mpi
+ PJJoioU5LpI2JVXeK4bfigy7rcwGSeJ51RIPOmUQZVeQZccVxKSJyhItG5SiFxiC/UB2
+ tpuMholmBk5PAGoC6ZqU+wQst+BzPekI56SlUbxlvUIhpoTLyyLyxMl4UNh87IRvB76C
+ nW+mR3nAcvUvmCwLEq+65qF1j5TaTl3NxvdmT8/PwW8aNtBfGU1kcv6TafynvhugsKeY
+ 082QHv4RdW8IM5VsjYzVGxdfOlYVserF7WjYA+EhJzHZedhNW4Zr4k+GENBj54xy/65h
+ X/9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711029259; x=1711634059;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=RISJ51b+qHtZnF1GQnWK2y8jYm5bTJzD2sPnVFGaQwU=;
- b=ZKAwffAo6Y58GAp7mpP9m8IKi/IhxJ1Z/m3GzprkjsWRtC/qUzSb2tPLl0h/k+LzWK
- 3BgVz6fkCjnKlJly7eK7W6Z47orYxu+bLHdH2I5qU/Jn25OWDCN+sV0LBBUYZOIM3ONN
- FGzAR3XvnZZk0DafouTHYRL37rFuVvrvLYQ5/hz/33N4CezlG2rgcvnQ3KbKvCgVTppO
- 7q4bPtgAQ4ZE3cKmyHtPStsdV83wPQbANVGiTIEMmIu8ncIlAy5pFIPS4NZDj/FcI4+2
- 7Cu6Zmd+bxenkywyWalGz2WAGwKbdCubasgpzTp6AGfr3gZl54daEynbHh9NidgUvjvF
- TPhA==
+ d=1e100.net; s=20230601; t=1711033466; x=1711638266;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C+M26qwP0oSliowXOMgjRNibYsMtGqN5dSYVPUjBSio=;
+ b=Yhyhf9s9MB/uDXTdjNwUUgV3tErd+uTSWJmLI9OxIxQMBd/CuDeso/uozmfycIA7Go
+ UweY2jWyv6BFeypyBfTF3KK7F7H2ksznSwDi0AUFY05nt+9ABBKk78rejRocVe7H1lvo
+ MABFfy02XFk5otjzeS8Hf3M1U0g/QcIg3+9G8KJdSGY+mwL+ALGqIbHKxRq0YV8qqC88
+ KlbTULfovJZelp9MiMLfE0zkojfktvnY6XEsYS6LXiyKHO1FGQtab4Oc3CUY8us6M5as
+ 1tvR1t3vnGXa+yhFhq6H1kpoD0Q0YQVeM+gjbTyJPhxbclbzvo0lF+C4i13NZhUDGUCe
+ jmbg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU0MGpGr8XkxTVVyAURyDEEIxS8hXfvyJuFC2yljCjGf+rsrd0Eugik+V/37cIEoQTQkQk3nE2TpbKsZw2yhbQBDtMrwSgZb2hdns4WiYSm6erJrm92+U1K
-X-Gm-Message-State: AOJu0YxJwXO9N4REL7G+Z9QsspYAqRU5S8/L9W/OHl21W/IL4dYOT4Dd
- c3KqvBv4Fex8SJ7S06l5VEnMDg3JqfXDsOKF6wyZ4BNLdIEmgSCa
-X-Google-Smtp-Source: AGHT+IGadgowPlBXY8+3yucdMCmheOCbVFSzXp6SgBTcViNNF5D6JaD0RNL1gKemJKrXc0/SJj8hbA==
-X-Received: by 2002:a50:c011:0:b0:567:3ed0:47ec with SMTP id
- r17-20020a50c011000000b005673ed047ecmr1405423edb.23.1711029258435; 
- Thu, 21 Mar 2024 06:54:18 -0700 (PDT)
-Received: from [127.0.1.1] ([62.96.37.222]) by smtp.gmail.com with ESMTPSA id
- cb4-20020a0564020b6400b005663b0d7243sm8130749edb.83.2024.03.21.06.54.17
+ AJvYcCV7kfajHFUWxCohqiE3jmRN9RPyFPB2wvDorN9X0E8JeKCXU+yEpulxONO+1zHr/W9Wajap4VOzL31nDUXX1J+rFRhS67M7IXtOqn9Y39lsO8revM4xIpO1
+X-Gm-Message-State: AOJu0YwdJ/4IJU7/NtWLlx6x7rgy0A+Nlmqt6w1iCnxhkSN0D+bRmDA9
+ CZyMWrQdq5XeJY47eGJgt77YR718p275zAscKyADAjviooUIe0apYoV8Qt0yJaM=
+X-Google-Smtp-Source: AGHT+IHEcr1Lc61NMyPIBSb8z115P5vSr6cXrLSqEMELys5uxp7RSzY4HAP3yVuJ9q6mhhIjpF5WHw==
+X-Received: by 2002:a17:906:1817:b0:a46:af3e:dedc with SMTP id
+ v23-20020a170906181700b00a46af3ededcmr1426310eje.40.1711033466146; 
+ Thu, 21 Mar 2024 08:04:26 -0700 (PDT)
+Received: from localhost ([193.47.165.251]) by smtp.gmail.com with ESMTPSA id
+ t21-20020a170906179500b00a46cffe6d06sm13598eje.42.2024.03.21.08.04.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Mar 2024 06:54:17 -0700 (PDT)
-From: Mikhail Malyshev <mike.malyshev@gmail.com>
-Date: Thu, 21 Mar 2024 13:54:15 +0000
+ Thu, 21 Mar 2024 08:04:25 -0700 (PDT)
+Date: Thu, 21 Mar 2024 16:04:22 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Mikhail Malyshev <mike.malyshev@gmail.com>
+Message-ID: <ZfxMdihnVqSNJZG6@nanopsycho>
+References: <20240321-stmmac-fix-v1-1-3aef470494c6@gmail.com>
 MIME-Version: 1.0
-Message-Id: <20240321-stmmac-fix-v1-1-3aef470494c6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAY8/GUC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIxMDYyND3eKS3NzEZN20zArdNFMDsxRTIwsLoxQjJaCGgqJUoDDYsOjY2lo
- A6gFopFwAAAA=
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1711029257; l=1598;
- i=mike.malyshev@gmail.com; s=20240321; h=from:subject:message-id;
- bh=yBIC1I5/CGJewUczVdGzE+xSoggq/bg+8ZYTCA2HupY=;
- b=NSMFpt+cRP1D2Zcz2GidQr5P61iTF4xy8bTCVVY7Ik9xa6MmzN2Jv5ofNejppMhHLNJEiTVvy
- uCDtXvBXHWvAkOkLQu70oxopzpwhZnTouzFZWRD8RpCfjH7H+sDM69Z
-X-Developer-Key: i=mike.malyshev@gmail.com; a=ed25519;
- pk=dEab2IpWMPzEiv9/nKbxaOgLTBJJfCpKN4FJcNIQk5k=
-X-Mailman-Approved-At: Thu, 21 Mar 2024 16:05:55 +0000
-Cc: netdev@vger.kernel.org, Mikhail Malyshev <mike.malyshev@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: Do not enable/disable runtime PM
- for PCI devices
+Content-Disposition: inline
+In-Reply-To: <20240321-stmmac-fix-v1-1-3aef470494c6@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Do not enable/disable
+ runtime PM for PCI devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,53 +85,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Common function stmmac_dvr_probe is called for both PCI and non-PCI
-device. For PCI devices pm_runtime_enable/disable are called by framework
-and should not be called by the driver.
+Thu, Mar 21, 2024 at 02:54:15PM CET, mike.malyshev@gmail.com wrote:
+>Common function stmmac_dvr_probe is called for both PCI and non-PCI
+>device. For PCI devices pm_runtime_enable/disable are called by framework
+>and should not be called by the driver.
 
-For PCI devices plat->pdev != NULL. Use this fact to detect PCI devices
+I don't follow. The rest of the pm_runtime* functions are okay to call,
+but enable() is not. Why? You need to provide more reasoning.
 
-Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 24cd80490d19..db45d8dbc1eb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7743,7 +7743,9 @@ int stmmac_dvr_probe(struct device *device,
- 
- 	pm_runtime_get_noresume(device);
- 	pm_runtime_set_active(device);
--	if (!pm_runtime_enabled(device))
-+
-+	/* For PCI devices PM is disabled/enabled by the framework */
-+	if (!priv->plat->pdev)
- 		pm_runtime_enable(device);
- 
- 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
-@@ -7846,7 +7848,10 @@ void stmmac_dvr_remove(struct device *dev)
- 	mutex_destroy(&priv->lock);
- 	bitmap_free(priv->af_xdp_zc_qps);
- 
--	pm_runtime_disable(dev);
-+	/* For PCI devices PM is disabled/enabled by the framework */
-+	if (!priv->plat->pdev)
-+		pm_runtime_disable(dev);
-+
- 	pm_runtime_put_noidle(dev);
- }
- EXPORT_SYMBOL_GPL(stmmac_dvr_remove);
+>
+>For PCI devices plat->pdev != NULL. Use this fact to detect PCI devices
 
----
-base-commit: 23956900041d968f9ad0f30db6dede4daccd7aa9
-change-id: 20240321-stmmac-fix-f506d52882d2
+Sentence ends with "."
 
-Best regards,
--- 
-Mikhail Malyshev <mike.malyshev@gmail.com>
+I assume this is a bug fix. Do you have a trace or some other symptoms?
+Please add it to the patch description. You also need to add "Fixes"
+tag.
 
+Make sure you read:
+https://www.kernel.org/doc/html/next/process/maintainer-netdev.html?highlight=network#tl-dr
+
+Thanks
+
+pw-bot: cr
+
+
+>
+>Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
+>---
+> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++--
+> 1 file changed, 7 insertions(+), 2 deletions(-)
+>
+>diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>index 24cd80490d19..db45d8dbc1eb 100644
+>--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>@@ -7743,7 +7743,9 @@ int stmmac_dvr_probe(struct device *device,
+> 
+> 	pm_runtime_get_noresume(device);
+> 	pm_runtime_set_active(device);
+>-	if (!pm_runtime_enabled(device))
+>+
+>+	/* For PCI devices PM is disabled/enabled by the framework */
+>+	if (!priv->plat->pdev)
+> 		pm_runtime_enable(device);
+> 
+> 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
+>@@ -7846,7 +7848,10 @@ void stmmac_dvr_remove(struct device *dev)
+> 	mutex_destroy(&priv->lock);
+> 	bitmap_free(priv->af_xdp_zc_qps);
+> 
+>-	pm_runtime_disable(dev);
+>+	/* For PCI devices PM is disabled/enabled by the framework */
+>+	if (!priv->plat->pdev)
+>+		pm_runtime_disable(dev);
+>+
+> 	pm_runtime_put_noidle(dev);
+> }
+> EXPORT_SYMBOL_GPL(stmmac_dvr_remove);
+>
+>---
+>base-commit: 23956900041d968f9ad0f30db6dede4daccd7aa9
+>change-id: 20240321-stmmac-fix-f506d52882d2
+>
+>Best regards,
+>-- 
+>Mikhail Malyshev <mike.malyshev@gmail.com>
+>
+>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
