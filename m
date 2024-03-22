@@ -2,73 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97FCC885B5C
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 Mar 2024 16:04:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E60A8869C9
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 Mar 2024 10:55:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E98AC6DD68;
-	Thu, 21 Mar 2024 15:04:28 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20A8EC6C85A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2389DC6DD95;
+	Fri, 22 Mar 2024 09:55:42 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 42684C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Mar 2024 15:04:27 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-a46dec5d00cso148445566b.0
+ Fri, 22 Mar 2024 09:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1711101340;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vo/L3PCMtanLu2TJZTNwXbvQfetWwP+AkuBpjYG20CY=;
+ b=An/EFXdM+ZbTom+06eQ7/3ntOeJyycGVCHBCl8XL/uFmNiedSJj5wbrKSdrc4KKIxzE5Od
+ 6F4yYrvwFG8+n8+XNdFTKQ4SXH/picStDcBFD0Cc0fCMmpwP5QPzYM+ntSXqu+Hw3gSqhm
+ pnmDn8CgfRai61eGWZBBRkIHphaEr8Q=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-597-sqDgVnw_PKK5eFUWMq0WCA-1; Fri, 22 Mar 2024 05:55:36 -0400
+X-MC-Unique: sqDgVnw_PKK5eFUWMq0WCA-1
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-4140f58ac00so11842175e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 Mar 2024 08:04:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1711033466; x=1711638266;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=C+M26qwP0oSliowXOMgjRNibYsMtGqN5dSYVPUjBSio=;
- b=Nzqsv6rjivD+rmbWilpRyqA98TNwEOhDSWDRhZ0gypMIBmwva9Ub84E2jX4r4U7Mpi
- PJJoioU5LpI2JVXeK4bfigy7rcwGSeJ51RIPOmUQZVeQZccVxKSJyhItG5SiFxiC/UB2
- tpuMholmBk5PAGoC6ZqU+wQst+BzPekI56SlUbxlvUIhpoTLyyLyxMl4UNh87IRvB76C
- nW+mR3nAcvUvmCwLEq+65qF1j5TaTl3NxvdmT8/PwW8aNtBfGU1kcv6TafynvhugsKeY
- 082QHv4RdW8IM5VsjYzVGxdfOlYVserF7WjYA+EhJzHZedhNW4Zr4k+GENBj54xy/65h
- X/9Q==
+ Fri, 22 Mar 2024 02:55:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711033466; x=1711638266;
+ d=1e100.net; s=20230601; t=1711101335; x=1711706135;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=C+M26qwP0oSliowXOMgjRNibYsMtGqN5dSYVPUjBSio=;
- b=Yhyhf9s9MB/uDXTdjNwUUgV3tErd+uTSWJmLI9OxIxQMBd/CuDeso/uozmfycIA7Go
- UweY2jWyv6BFeypyBfTF3KK7F7H2ksznSwDi0AUFY05nt+9ABBKk78rejRocVe7H1lvo
- MABFfy02XFk5otjzeS8Hf3M1U0g/QcIg3+9G8KJdSGY+mwL+ALGqIbHKxRq0YV8qqC88
- KlbTULfovJZelp9MiMLfE0zkojfktvnY6XEsYS6LXiyKHO1FGQtab4Oc3CUY8us6M5as
- 1tvR1t3vnGXa+yhFhq6H1kpoD0Q0YQVeM+gjbTyJPhxbclbzvo0lF+C4i13NZhUDGUCe
- jmbg==
+ bh=vo/L3PCMtanLu2TJZTNwXbvQfetWwP+AkuBpjYG20CY=;
+ b=PWHbDQXreO1IxFcPSqypk/RKgnKb6DPqSATenq3R9n5+Rx1Af+1lHhlPedySRQNu2Z
+ j/JfVN3dD75Mo0Dh3W29XJiOC8uHCM2OcJ9NpkIeKRLIOY66zqAXMFfBii1o5ljGbQr2
+ 39NQ8hkhLKCm0ICZ0UAYDgLKi2K0nEj3kZXCMkeqP1C6OKnjWAfG7dLywmbJRhsrctlA
+ zR0JlyTMssBznzbdkRwL46sIyUm2rIou+zXFV+LeUNs7nRxiDyqYv3rrKAbmtYAOQ7eJ
+ Ty2VX7NvJvAaZksDIEZ1P2SgYr601cytKK4Fv67a8yCaO6jrOOzwWvuhlwo9JeUJuimq
+ NQeQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV7kfajHFUWxCohqiE3jmRN9RPyFPB2wvDorN9X0E8JeKCXU+yEpulxONO+1zHr/W9Wajap4VOzL31nDUXX1J+rFRhS67M7IXtOqn9Y39lsO8revM4xIpO1
-X-Gm-Message-State: AOJu0YwdJ/4IJU7/NtWLlx6x7rgy0A+Nlmqt6w1iCnxhkSN0D+bRmDA9
- CZyMWrQdq5XeJY47eGJgt77YR718p275zAscKyADAjviooUIe0apYoV8Qt0yJaM=
-X-Google-Smtp-Source: AGHT+IHEcr1Lc61NMyPIBSb8z115P5vSr6cXrLSqEMELys5uxp7RSzY4HAP3yVuJ9q6mhhIjpF5WHw==
-X-Received: by 2002:a17:906:1817:b0:a46:af3e:dedc with SMTP id
- v23-20020a170906181700b00a46af3ededcmr1426310eje.40.1711033466146; 
- Thu, 21 Mar 2024 08:04:26 -0700 (PDT)
-Received: from localhost ([193.47.165.251]) by smtp.gmail.com with ESMTPSA id
- t21-20020a170906179500b00a46cffe6d06sm13598eje.42.2024.03.21.08.04.25
+ AJvYcCWjO1YPBEYJQ/B+eS21wAbb6k//IHUNo+cAOzfvNobbkZpYVrwoHZyVnIZTr/RwwgIsTnVKv3rX2QNQnJ6hDILGTaca8pGUMPYVunxL0WNs6E4weD9PTzyd
+X-Gm-Message-State: AOJu0Yy668k03EgvhzqZEQ/J684Lp6shHr6I5CQafVzAk7fJX6PIYwrh
+ nY8OE0RFGiGj+79WR8r5lpLE9ISCZyrJVeDMgqSJ6UV/bMKSPj2iOoFqv9GgsiRBWhofbP8J7ZQ
+ dqfV/8KKiNmKWbbL/3KOy6+BdU1XQS8ia2xGKmE18laXEA4ihB/6JiEUUC3/bOAxlFpyEVAHTl1
+ UZqgTe7hf7Sg==
+X-Received: by 2002:a05:600c:524f:b0:414:113b:36a6 with SMTP id
+ fc15-20020a05600c524f00b00414113b36a6mr1186556wmb.25.1711101334842; 
+ Fri, 22 Mar 2024 02:55:34 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGg/h7b5xnDKSo4gtbJWuasREGSAYbEF2+V9h+/dUOcDuMToHsBM1B7l/0LDXtt7umgouxxoA==
+X-Received: by 2002:a05:600c:524f:b0:414:113b:36a6 with SMTP id
+ fc15-20020a05600c524f00b00414113b36a6mr1186532wmb.25.1711101334272; 
+ Fri, 22 Mar 2024 02:55:34 -0700 (PDT)
+Received: from localhost ([2a01:e0a:b25:f902::ff])
+ by smtp.gmail.com with ESMTPSA id
+ fc18-20020a05600c525200b00414105c4cd9sm8362519wmb.21.2024.03.22.02.55.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 Mar 2024 08:04:25 -0700 (PDT)
-Date: Thu, 21 Mar 2024 16:04:22 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Mikhail Malyshev <mike.malyshev@gmail.com>
-Message-ID: <ZfxMdihnVqSNJZG6@nanopsycho>
-References: <20240321-stmmac-fix-v1-1-3aef470494c6@gmail.com>
+ Fri, 22 Mar 2024 02:55:33 -0700 (PDT)
+Date: Fri, 22 Mar 2024 10:55:33 +0100
+From: Maxime Ripard <mripard@redhat.com>
+To: Sean Nyekjaer <sean@geanix.com>
+Message-ID: <20240322-brass-magpie-of-teaching-9cbff7@houat>
+References: <4A53A669-C3AF-4D29-B5A5-0F7FEBA79045@geanix.com>
+ <20240320-berserk-soft-crab-70d22c@houat>
+ <2A220F57-5DD2-4F28-9328-547A04185D3F@geanix.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240321-stmmac-fix-v1-1-3aef470494c6@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: Do not enable/disable
- runtime PM for PCI devices
+In-Reply-To: <2A220F57-5DD2-4F28-9328-547A04185D3F@geanix.com>
+Cc: Martin =?utf-8?Q?Hundeb=C3=B8ll?= <martin@geanix.com>,
+ yannick.fertre@foss.st.com, dri-devel@lists.freedesktop.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] STM32 DSI controller driver: mode_valid clock
+	tolerance
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,81 +86,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1232337211011551341=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Thu, Mar 21, 2024 at 02:54:15PM CET, mike.malyshev@gmail.com wrote:
->Common function stmmac_dvr_probe is called for both PCI and non-PCI
->device. For PCI devices pm_runtime_enable/disable are called by framework
->and should not be called by the driver.
 
-I don't follow. The rest of the pm_runtime* functions are okay to call,
-but enable() is not. Why? You need to provide more reasoning.
+--===============1232337211011551341==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rp7u3xpfvn5q7kb4"
+Content-Disposition: inline
 
 
->
->For PCI devices plat->pdev != NULL. Use this fact to detect PCI devices
+--rp7u3xpfvn5q7kb4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sentence ends with "."
+On Thu, Mar 21, 2024 at 09:47:18AM +0100, Sean Nyekjaer wrote:
+> >> If HDMI is requiring a tolerance of 50 Hz, would it be better to do
+> >> the check in the HDMI bridge driver?
+> >=20
+> > Judging from the code, it would be hard to do because the clock that
+> > generates the pixel clock isn't exposed to the HDMI bridge.
+>=20
+> What do you think about Raphael=E2=80=99s proposal to add the tolerance a=
+s a
+> device tree option?
 
-I assume this is a bug fix. Do you have a trace or some other symptoms?
-Please add it to the patch description. You also need to add "Fixes"
-tag.
+I don't think it's the right solution, for multiple reasons:
 
-Make sure you read:
-https://www.kernel.org/doc/html/next/process/maintainer-netdev.html?highlight=network#tl-dr
+  - There's no way for OEM to come up with a decent value;
 
-Thanks
+  - That value isn't platform specific in the first place;
 
-pw-bot: cr
+  - Allowing any value will create troubles somewhere else in the stack,
+    for example for applications that rely on accurate vblank;
+
+  - We could come up with something that would make this entirely
+    irrelevant, like being able to come up with proper drm_display_mode
+    based on display_timings and a given clock rate.
+
+So it's a software problem, it needs to be solved at the software layer,
+not in the platform description layer, no matter how convenient it is.
+
+Like I said, VESA DMT and CVT specs use a .5% tolerance and it works
+quite well for panels too for other platforms. Just use that and see if
+it's still an issue.
+
+Maxime
+
+--rp7u3xpfvn5q7kb4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZf1VlAAKCRDj7w1vZxhR
+xaFOAQDKiKkMqulyFswAi+droFD84pxIoT6ueIzkm7W7ZLCtKwEAvw5ciGv/GTA/
+wM7izR039t7Wi6kVqWxiDb/R8gQHWAI=
+=MX70
+-----END PGP SIGNATURE-----
+
+--rp7u3xpfvn5q7kb4--
 
 
->
->Signed-off-by: Mikhail Malyshev <mike.malyshev@gmail.com>
->---
-> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++--
-> 1 file changed, 7 insertions(+), 2 deletions(-)
->
->diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->index 24cd80490d19..db45d8dbc1eb 100644
->--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
->@@ -7743,7 +7743,9 @@ int stmmac_dvr_probe(struct device *device,
-> 
-> 	pm_runtime_get_noresume(device);
-> 	pm_runtime_set_active(device);
->-	if (!pm_runtime_enabled(device))
->+
->+	/* For PCI devices PM is disabled/enabled by the framework */
->+	if (!priv->plat->pdev)
-> 		pm_runtime_enable(device);
-> 
-> 	if (priv->hw->pcs != STMMAC_PCS_TBI &&
->@@ -7846,7 +7848,10 @@ void stmmac_dvr_remove(struct device *dev)
-> 	mutex_destroy(&priv->lock);
-> 	bitmap_free(priv->af_xdp_zc_qps);
-> 
->-	pm_runtime_disable(dev);
->+	/* For PCI devices PM is disabled/enabled by the framework */
->+	if (!priv->plat->pdev)
->+		pm_runtime_disable(dev);
->+
-> 	pm_runtime_put_noidle(dev);
-> }
-> EXPORT_SYMBOL_GPL(stmmac_dvr_remove);
->
->---
->base-commit: 23956900041d968f9ad0f30db6dede4daccd7aa9
->change-id: 20240321-stmmac-fix-f506d52882d2
->
->Best regards,
->-- 
->Mikhail Malyshev <mike.malyshev@gmail.com>
->
->
+--===============1232337211011551341==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1232337211011551341==--
+
