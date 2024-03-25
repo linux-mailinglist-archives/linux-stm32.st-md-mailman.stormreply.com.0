@@ -2,119 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A13889674
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Mar 2024 09:51:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA31E88989F
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Mar 2024 10:44:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EA64C6B444;
-	Mon, 25 Mar 2024 08:51:55 +0000 (UTC)
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
- (mail-sh0chn02on2129.outbound.protection.partner.outlook.cn
- [139.219.146.129])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EF3EC71281;
+	Mon, 25 Mar 2024 09:44:37 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A04A8C6DD93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66EBFC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Mar 2024 08:51:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gv7V+0siv9MmLD8qd4e3ToRkX4s/CgUoPyTR8FN9xbLTpGrj3MmS7m49A3Dda8/gAwJedw2PY6N+IBNIUX3X62SQRwrZbXqE7vjS1CDIhCL9R1J2iH1RfdOIPXW8wpTfABa53JT1y3mMJQ4uj0FxQ6XGaINe9amkWIZ3XfcqhXnQUgNzrhMBiHoYcPve6NeXjk699yQuEqOrZCwUQLxp/Ir7EAxqaCjqeKoAfE0rsbhD624sL2XIpJ3GdjPDHbyQKNPLzrRVJdS4XeRDIcRtT4q/ELuH07x91sV+qTpwYShQPzv6eKAWBk2trSEyBv1TIkwmXlJFakn5+LI/La3VdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PRJ7ol/QflDOrJxK3kbJ/VLH32Zx9yhLkXArOZkVLyI=;
- b=YXlvr7yw3n0G/uetPybW0YOC77ozzB09rR3lYYJAOtgikTb1M0zlE9LmK705T86xfhuKkR9ZdAhtdDirpD5GwsoDwTlSbZfHNXVFu6GpuOue47nQjLe+6pnJJC8jpADx8UI8pd7YeRdfOHrZjLrfg/GHPbscxUg82T8OrCxQHn1hVZvI/LWVUyG319ntybkMLubAl25rHNmJja7aubfZBNxFrfo5G2TNd7VHm/0RGVCPxPsG1ticJt0Ja3Ikde9U2et7loBJLR9uC5ZqIJMlG+R26C29miPmEOwbjkwfejyiYY+l+UwBOpbW0L3dTQR+mggBvxoyL1QAvdD0uxVq1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:e::20) by BJSPR01MB0451.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:d::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.31; Mon, 25 Mar
- 2024 08:51:50 +0000
-Received: from BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- ([fe80::d0cf:5e2e:fd40:4aef]) by
- BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn ([fe80::d0cf:5e2e:fd40:4aef%4])
- with mapi id 15.20.7409.028; Mon, 25 Mar 2024 08:51:49 +0000
-From: Tan Chun Hau <chunhau.tan@starfivetech.com>
-To: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Simon Horman <horms@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Andrew Halaney <ahalaney@redhat.com>, Jisheng Zhang <jszhang@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Russell King <rmk+kernel@armlinux.org.uk>
-Date: Mon, 25 Mar 2024 01:51:31 -0700
-Message-Id: <20240325085131.182657-2-chunhau.tan@starfivetech.com>
+ Mon, 25 Mar 2024 09:44:35 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42P8eGmA028115; Mon, 25 Mar 2024 10:44:07 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=ffbGzpk
+ ISaeUbR7jR83UhYzV507/spEZuEB2LJi1r+s=; b=n0gWS2ha/eKuYFCL9oX5EIw
+ Bg1NzsCkqiDc38Ee7IZOEEquoBhLx1EaZb9TR8oJrEoGFxG/It5WfZz8u4gIrBIO
+ zCtpuleSZQiiAGVo7tjql9EqoFb7EVWKk8eZG0vQnWWXY50LgRMo1DlPUfCzbV3u
+ FZnJVzhzWgLHwvN92OKahVOhJMGsbxXgcPfLGUiq4HtPDQcdsjtk/3Bb4STstH7f
+ 8FNTkLl0qR9CxiphXXpbYDeCP1xRe2d0gifbzRQB9fPaV/xY86jZstEQujuWN8St
+ h/unnqrnwyUHPSOHcs7VixG+EUBQjojj/2ZK1kzGZlCcHEGA5W6LjgWiREkkMqw=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x1n3977fn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 25 Mar 2024 10:44:07 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6101240045;
+ Mon, 25 Mar 2024 10:43:58 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 8A8F3216EF3;
+ Mon, 25 Mar 2024 10:42:43 +0100 (CET)
+Received: from localhost (10.201.21.128) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 25 Mar
+ 2024 10:42:42 +0100
+From: Christophe Roullier <christophe.roullier@foss.st.com>
+To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Christophe Roullier
+ <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
+Date: Mon, 25 Mar 2024 10:42:16 +0100
+Message-ID: <20240325094218.56934-1-christophe.roullier@foss.st.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240325085131.182657-1-chunhau.tan@starfivetech.com>
-References: <20240325085131.182657-1-chunhau.tan@starfivetech.com>
-X-ClientProxiedBy: SHXPR01CA0005.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::14) To BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c211:e::20)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BJSPR01MB0595:EE_|BJSPR01MB0451:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb3a83e1-dc35-41f5-b2af-08dc4ca8cf53
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uSFSbun4ILwVoOTkpjxVATph4sVvZ20YlShmk+tcpgx7+FklMuXH17M63Kx/hdEAm7lXvaRwmugugAh4PhbQufyYRtT6BOLZ8ObCkiQMbiSOuca2SABi0Ij2T8rv2ItdE8oTOYynZoNB8HQfUaWOwQsiugTyFaQG3Y2gPQFrbeXYD2esHdBqQxqQ1tubDMuNY2KB+vIImXVmbtuREEIdoSJs+jWA0GVN20IOZcLZRYUT0VQt1j9LrAssmV83wuT7d3S1HNKTHoLF8E4N0UqdIQfaVDYqaBuskIRoojm6uC9RX0gwMmaYiAhPLYfk5tSm6FPGK5N2h2jsGDauUTtG1GYA5KQ7kOV/2m/PdhkakI9lODijhWiafAlUNufLwNy0B/y6EiR8T/vcV8/3Yh+IR6vmxAivy5ynu1BDEWvvyEnJS0Mp097fhoC7rJXh172TDbQH5XEHTQwL6MNuyN3StATeVsnW4mtWglfZJu4NDpDAIi77Cn2nKVnoPxAbGZvbVrgIPVrBk5EuXEMTzd3/131Wcpz2dDyI8/ISCUaKnU3/8nRd7JtSaFRR9PJJDc63zjulDmCfGlH1uK2y7BlyBVgf3D0Ame7TJ3xgBWjAUH7CngDf9s7G7lLPdU8DwV9zlcJoHOMFVVEFa4D9+lchzw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230031)(41320700004)(7416005)(52116005)(1800799015)(366007)(38350700005)(921011);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?x4WxwfWhu9u+FRb4kWgBfbFhYBt1Za5h5oiAu/oSmiaIn/wNE5do0WqU2A//?=
- =?us-ascii?Q?9TODh5ItY4HSk1DTUenJnmiN7UOPWaEKc8YZANksBXf0G9KJq/tgYO3hj/yJ?=
- =?us-ascii?Q?gtrPfLCkXzRJlJ5ZdPKG2IWlm+/xowAHorf0/PwF3VPRBVnLCUo3UrmJRuoB?=
- =?us-ascii?Q?Z2H+kIz3kLQVH0hKaKmPN5LBiC11CWcU0uiRrcE9pAaRPdsVE5prBsdOkG5G?=
- =?us-ascii?Q?CGkBTO+3hDAvvjIUU2ZeF7/WHxr9yi8D0X1SamDfObOmf6lGJxyBzQDUoavu?=
- =?us-ascii?Q?EJxr9jNpXnYIRPaIQnx2L21bSyXwfiQ3vbAwX+YBuJ8EV3y1BdRndVn6f/pj?=
- =?us-ascii?Q?azaPtSxWMD5JbMWtl6OIuCxnyIrWe5G30WYG6UQlkt5Tc+43L3cnlEI9pY9Q?=
- =?us-ascii?Q?7cbtH5AEwKz3jV1hyC+0vxh41gfTxs554Ok8mq8WQuCwdd5HbAAaW3gaDENa?=
- =?us-ascii?Q?0Hh8QKpnFeFKq3p/PX2LEDgmDdV8Jd0TC7ULu1FcTGFZl3oeDZrXjG3vHjfw?=
- =?us-ascii?Q?bcvwwhrA6Z6YoCVjJ5L3CRLXj4IpV2E1VrjVdKv79LyJ1qfnUgCpQFAKZmFh?=
- =?us-ascii?Q?KnMK+dGWVSecD9D8k3FrGGDu1Sv3jkZhNtAJMyMIWxn59VY3VNTQ4K9MH++u?=
- =?us-ascii?Q?MvT6CJdpWY+YWb7mKL1jhUhNiw58bEDaE60Sp4cVeAfN2YZCWeSTgOYVZTxV?=
- =?us-ascii?Q?0TvZikSjiuQdG2QgrKg/9sx9VwYkP43Stb749zSsR50SsFWxDV/2pkiciq8q?=
- =?us-ascii?Q?NHCmjpnSb6BvCbkFApznZ7m1eNBHwFL/JBXMSGOJGA6wSRqxNdgS0NJWEuOD?=
- =?us-ascii?Q?pIa/D1GkmS34bTPk+4L3X1a+IWvQVRq8QtY0M5UzZRGTuFrpHpi+eicubFN8?=
- =?us-ascii?Q?VtMCY69Pd/lnVYcPJ29umQaZ9fGsntzFcmp5nuRG2zIr27CrdA3zJPbsR19U?=
- =?us-ascii?Q?9uXD8Zv3eWhJnpwOPGZfxMpiqdAAHDBC7P6sdexIt1TiT9y9K5CKqBGNtENY?=
- =?us-ascii?Q?eczIUUMnH3Krt/PG6XUL0apmh3nWxH6NrAKwAz0aiyR1BGKcH2/wvgNHAmJN?=
- =?us-ascii?Q?W1AxMSjizwXwXm9qUmfdCkgVFR04k1J+lJxJQtabGjUplIux/PXK+QsJZuGF?=
- =?us-ascii?Q?sazR9SEbahZwxCRG9jKS5dpYh/ErXfLWwSdDbqk7822aKm4xmAoGpInLU4ww?=
- =?us-ascii?Q?yzYuZBSS0ifCzleib4uqPjAkgFXr2e6hk1lJHyxdZNqaEOvR2PgYRgMA1eZq?=
- =?us-ascii?Q?dcXezn4mfVn7jA+o9h9FShtAOO4FWBCmRQTd7tzAZcbQGGooveqCqRcS69dW?=
- =?us-ascii?Q?SScp8qcEj8wkaHdpK39/8aAU5cp36wCBU+mWST7Ky+Tr2UErpZB0wVrzZhGJ?=
- =?us-ascii?Q?bx094lFQb//ClCc3WnJQEk0xQtF8OhKfkKIuo/3gRjesZ2E0HZ+ymY5UYolt?=
- =?us-ascii?Q?rVctxiJtQRXy4jaKab7rUl/lLfHUe9jdJU6UUh2fhe94D2RvWLrRxjkNj3dB?=
- =?us-ascii?Q?x4c9YeCgp5V/KQS1f7GzXsTUTVnhacFNTVk99KpKlmiYUYlGDY8Ow+ffnI2Y?=
- =?us-ascii?Q?PB8PQ48RiirUWNfU9bvIp+R59JOTFv0nZnUWiG9eDYYUim30g5Oqp4Ot7H1q?=
- =?us-ascii?Q?7w=3D=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb3a83e1-dc35-41f5-b2af-08dc4ca8cf53
-X-MS-Exchange-CrossTenant-AuthSource: BJSPR01MB0595.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2024 08:51:49.8581 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HkUOMn3qh/n7guxPgMCX2REGoeolOo3dUZwlZbRO6FQya8jKQibHKCfbqvAOoXUofx26mfBsY1IvJ2jy9jSXx1e0WBWU1BmJK+WNm+ynXh4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJSPR01MB0451
-Cc: devicetree@vger.kernel.org, Ley Foon Tan <leyfoon.tan@starfivetech.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jee Heng Sia <jeeheng.sia@starfivetech.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 1/1] dt-bindings: net: starfive,
-	jh7110-dwmac: Add StarFive JH8100 support
+X-Originating-IP: [10.201.21.128]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-25_07,2024-03-21_02,2023-05-22_02
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v3 0/2] Add properties in dwmac-stm32
+	documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,159 +82,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Add StarFive JH8100 dwmac support.
-The JH8100 dwmac shares the same driver code as the JH7110 dwmac
-and has only one reset signal.
+Introduce 2 new properties in dwmac-stm32 documentation
 
-Please refer to below:
+ - phy-supply: to manage PHY regulator.
+ - st,ext-phyclk: is present since 2020 in driver so need to explain
+   it and avoid dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb: 
+ethernet@5800a000: Unevaluated properties are not allowed 
+('st,ext-phyclk' was unexpected)
+   Furthermore this property will be use in upstream of MP13 dwmac glue. (next step)
 
-  JH8100: reset-names = "stmmaceth";
-  JH7110: reset-names = "stmmaceth", "ahb";
-  JH7100: reset-names = "ahb";
+V2: - Drop deprecated: property for st,eth-clk-sel and st,eth-ref-clk-sel
+V3: - Rework commit message
 
-Example usage of JH8100 in the device tree:
+Christophe Roullier (2):
+  dt-bindings: net: add phy-supply property for stm32
+  dt-bindings: net: dwmac: Document STM32 property st,ext-phyclk
 
-gmac0: ethernet@16030000 {
-        compatible = "starfive,jh8100-dwmac",
-                     "starfive,jh7110-dwmac",
-                     "snps,dwmac-5.20";
-        ...
-};
+ Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Signed-off-by: Tan Chun Hau <chunhau.tan@starfivetech.com>
----
- .../devicetree/bindings/net/snps,dwmac.yaml   |  1 +
- .../bindings/net/starfive,jh7110-dwmac.yaml   | 82 +++++++++++++------
- 2 files changed, 58 insertions(+), 25 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 6b0341a8e0ea..a6d596b7dcf4 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -97,6 +97,7 @@ properties:
-         - snps,dwxgmac-2.10
-         - starfive,jh7100-dwmac
-         - starfive,jh7110-dwmac
-+        - starfive,jh8100-dwmac
- 
-   reg:
-     minItems: 1
-diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-index 0d1962980f57..da3cc984fec9 100644
---- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
-@@ -18,6 +18,7 @@ select:
-         enum:
-           - starfive,jh7100-dwmac
-           - starfive,jh7110-dwmac
-+          - starfive,jh8100-dwmac
-   required:
-     - compatible
- 
-@@ -30,6 +31,10 @@ properties:
-       - items:
-           - const: starfive,jh7110-dwmac
-           - const: snps,dwmac-5.20
-+      - items:
-+          - const: starfive,jh8100-dwmac
-+          - const: starfive,jh7110-dwmac
-+          - const: snps,dwmac-5.20
- 
-   reg:
-     maxItems: 1
-@@ -83,29 +88,13 @@ allOf:
-   - if:
-       properties:
-         compatible:
--          contains:
--            const: starfive,jh7100-dwmac
--    then:
--      properties:
--        interrupts:
--          minItems: 2
--          maxItems: 2
--
--        interrupt-names:
--          minItems: 2
--          maxItems: 2
--
--        resets:
--          maxItems: 1
--
--        reset-names:
--          const: ahb
--
--  - if:
--      properties:
--        compatible:
--          contains:
--            const: starfive,jh7110-dwmac
-+          allOf:
-+            - contains:
-+                enum:
-+                  - starfive,jh8100-dwmac
-+            - contains:
-+                enum:
-+                  - starfive,jh7110-dwmac
-     then:
-       properties:
-         interrupts:
-@@ -117,10 +106,53 @@ allOf:
-           maxItems: 3
- 
-         resets:
--          minItems: 2
-+          maxItems: 1
- 
-         reset-names:
--          minItems: 2
-+          const: stmmaceth
-+
-+    else:
-+      if:
-+        properties:
-+          compatible:
-+            contains:
-+              const: starfive,jh7100-dwmac
-+      then:
-+        properties:
-+          interrupts:
-+            minItems: 2
-+            maxItems: 2
-+
-+          interrupt-names:
-+            minItems: 2
-+            maxItems: 2
-+
-+          resets:
-+            maxItems: 1
-+
-+          reset-names:
-+            const: ahb
-+
-+        if:
-+          properties:
-+            compatible:
-+              contains:
-+                const: starfive,jh7110-dwmac
-+        then:
-+          properties:
-+            interrupts:
-+              minItems: 3
-+              maxItems: 3
-+
-+            interrupt-names:
-+              minItems: 3
-+              maxItems: 3
-+
-+            resets:
-+              minItems: 2
-+
-+            reset-names:
-+              minItems: 2
- 
- unevaluatedProperties: false
- 
 -- 
 2.25.1
 
