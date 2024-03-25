@@ -2,72 +2,130 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB72288989D
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 Mar 2024 10:44:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94ECF889A4B
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 Mar 2024 11:27:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 581DEC6B444;
-	Mon, 25 Mar 2024 09:44:35 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17156C6B444;
+	Mon, 25 Mar 2024 10:27:50 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F614C6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28445C6907A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 Mar 2024 09:44:34 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42P8fHpK027449; Mon, 25 Mar 2024 10:44:07 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding:content-type; s=
- selector1; bh=TumpbS5vUWGOFAnUTrFiTwigoWxOBILory3Y1hvCVq0=; b=wW
- Rh8sbXOSa0HCm1qDw2GTdinczGE4iRNoMKzZ7d+eb5UHjHsJiN0qP3Fr/Xvk53Iz
- J+wNsoVqGlJYXOJz7xjFeEjIAxCLMac/W5bzILa06kMAzLXmbCI6ULLXkNOG14TE
- owDV+JjBKXjFxbj06eSZgJ01Pco8aFl8ESMtwmKfEcwqMYto19eY7vlMUfdaPixj
- zwgosJVIMzgCbGeBt5aQ8ZbhVzMiKMaaTvLUAcsuUSaUVrGiaDFua2GLwyoyFg1i
- ATP2pzEQGPqaqX5OongDIvdKSsYYrkgQYbiZAvJ0IQioenTg4gAJo0aE4qB3bHKQ
- Dbjj1sRZMBV3mg6hdrcA==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x29h5mfw9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2024 10:44:07 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 6089F4002D;
- Mon, 25 Mar 2024 10:43:58 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 94129216EF9;
- Mon, 25 Mar 2024 10:42:44 +0100 (CET)
-Received: from localhost (10.201.21.128) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 25 Mar
- 2024 10:42:44 +0100
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Mon, 25 Mar 2024 10:42:18 +0100
-Message-ID: <20240325094218.56934-3-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20240325094218.56934-1-christophe.roullier@foss.st.com>
-References: <20240325094218.56934-1-christophe.roullier@foss.st.com>
+ Mon, 25 Mar 2024 10:27:48 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-a466fc8fcccso544745566b.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 25 Mar 2024 03:27:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711362467; x=1711967267;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=WyN0/plXDAmtEoHE9Q5NJaUkW+ebBHssQoVcKAW6yzY=;
+ b=I2Eqzm0Y9gHsRd7yZdXX2NapAi8KdxUBszrBox1I1xD1rSlM6xRbsra6UB2vgNBKxn
+ 3+PGRgQV2V/hqM7tM40P5ux05/we+pb6acduSls4NssQGw2VswbA8+h2e/Lj+WPeVtZK
+ XKruMiDGM/BHH1RoV7NY2wHNAbHYkrEDy4C1xt+xlpnqB+P5huTw0/woPwoNiHoKhkdc
+ Z040Yc70YWZixTn0iDKQlpII9YhQ5gUdL9sNFGvH2794UCo5/XgaD+Q1rMY4VfT/whuw
+ FfLaq2sCL4YYyIpv53HRZQMpa896jlhempNjv8naeajDx0LBAnwmTCMdu25fixSHOKsA
+ nFaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711362467; x=1711967267;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WyN0/plXDAmtEoHE9Q5NJaUkW+ebBHssQoVcKAW6yzY=;
+ b=Qxb3hx4vYCr2sBBjrlGPNqkgG/Jggj9r968DrRGCpD1V5GEkR9Eu6cwBd6JqOJuGiX
+ 9uKLzVPCjv/sBM7RJgFa91sJm4SECvwRETUgWjdusuw6ziVHVA7o+/CUOyXdo/w3uXJQ
+ iPr7bilFL0wcJp7kafofvFN+j1PWfiAHi+S0z4h8TrVzlJSkroFkWuFCxcrnwfXjFuwV
+ vDBR75tMvfIRJF8FekVg7dgACx8wPsyruq9ascQzHO92qH7KvKLnLBPtTFYxbmbpA+Uh
+ /y0C/LJejfyciDO6Z2m+8jJmAT6RAMgUhom3S+KDTuq2OFYvF2qwoSBJa+Vb6QEey9zY
+ 0JAg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWrA3JnruapQHqoHkR009K6cEdVQL/REP53/ITbVYKyIt00VH17Rt41qjLoz9JUxz1CvQHnY2g5TcCabzvCpDLeonLdEt4q9ti93SAELee+R+T7RKtdvg56
+X-Gm-Message-State: AOJu0Yx1fKjQPaf/OxVtGUbX4yvJNVJr3NQ5M/0CxImB2+DoRiW3ghCD
+ 1CLX1HpANNPRrsYkKD1tDYk5DN//7izL5lluA5nE1zgSnrkKfim1w3m4rC9QAiU=
+X-Google-Smtp-Source: AGHT+IGK6ceUlIME9R4/GQMt+7uCDGXiKM/z9j/c9NgAopISUFCGzMjsAmm5gRr3FFpwsf7tVj1BrA==
+X-Received: by 2002:a17:907:7e9a:b0:a47:a340:c9c1 with SMTP id
+ qb26-20020a1709077e9a00b00a47a340c9c1mr2736098ejc.27.1711362467565; 
+ Mon, 25 Mar 2024 03:27:47 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.222.44])
+ by smtp.gmail.com with ESMTPSA id
+ l20-20020a1709066b9400b00a4d95d4a8f7sm58042ejr.5.2024.03.25.03.27.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Mar 2024 03:27:47 -0700 (PDT)
+Message-ID: <49146c33-d698-4e3d-b204-ef567c7b7d38@linaro.org>
+Date: Mon, 25 Mar 2024 11:27:45 +0100
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.128]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-25_07,2024-03-21_02,2023-05-22_02
+User-Agent: Mozilla Thunderbird
+To: Christophe Roullier <christophe.roullier@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>, Jose Abreu
+ <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Marek Vasut <marex@denx.de>
+References: <20240325094218.56934-1-christophe.roullier@foss.st.com>
+ <20240325094218.56934-3-christophe.roullier@foss.st.com>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240325094218.56934-3-christophe.roullier@foss.st.com>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v3 2/2] dt-bindings: net: dwmac: Document
-	STM32 property st, ext-phyclk
+Subject: Re: [Linux-stm32] [PATCH v3 2/2] dt-bindings: net: dwmac: Document
+ STM32 property st, ext-phyclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,79 +142,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Linux kernel dwmac-stm32 driver currently supports three DT
-properties used to configure whether PHY clock are generated by
-the MAC or supplied to the MAC from the PHY.
+On 25/03/2024 10:42, Christophe Roullier wrote:
+> The Linux kernel dwmac-stm32 driver currently supports three DT
+> properties used to configure whether PHY clock are generated by
+> the MAC or supplied to the MAC from the PHY.
+> 
+> Originally there were two properties, st,eth-clk-sel and
+> st,eth-ref-clk-sel, each used to configure MAC clocking in
+> different bus mode and for different MAC clock frequency.
+> Since it is possible to determine the MAC 'eth-ck' clock
+> frequency from the clock subsystem and PHY bus mode from
+> the 'phy-mode' property, two disparate DT properties are
+> no longer required to configure MAC clocking.
+> 
+> Linux kernel commit
+> 1bb694e20839 ("net: ethernet: stmmac: simplify phy modes management for stm32")
 
-Originally there were two properties, st,eth-clk-sel and
-st,eth-ref-clk-sel, each used to configure MAC clocking in
-different bus mode and for different MAC clock frequency.
-Since it is possible to determine the MAC 'eth-ck' clock
-frequency from the clock subsystem and PHY bus mode from
-the 'phy-mode' property, two disparate DT properties are
-no longer required to configure MAC clocking.
+Don't wrap. Word commit must be followed by the commit. Syntax is:
+commit deadbeef ("foo
+bar").
 
-Linux kernel commit
-1bb694e20839 ("net: ethernet: stmmac: simplify phy modes management for stm32")
-introduced a third, unified, property st,ext-phyclk. This property
-covers both use cases of st,eth-clk-sel and st,eth-ref-clk-sel DT
-properties, as well as a new use case for 25 MHz clock generated
-by the MAC.
+> introduced a third, unified, property st,ext-phyclk. This property
+> covers both use cases of st,eth-clk-sel and st,eth-ref-clk-sel DT
+> properties, as well as a new use case for 25 MHz clock generated
+> by the MAC.
+> 
 
-The third property st,ext-phyclk is so far undocumented,
-document it.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-Below table summarizes the clock requirement and clock sources for
-supported PHY interface modes.
- __________________________________________________________________________
-|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
-|         |        |      25MHz    |        50MHz       |                  |
-
----------------------------------------------------------------------------
-|  MII    |    -   |     eth-ck    |        n/a         |       n/a        |
-|         |        | st,ext-phyclk |                    |                  |
-
----------------------------------------------------------------------------
-|  GMII   |    -   |     eth-ck    |        n/a         |       n/a        |
-|         |        | st,ext-phyclk |                    |                  |
-
----------------------------------------------------------------------------
-| RGMII   |    -   |     eth-ck    |        n/a         |      eth-ck      |
-|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
-|         |        |               |                    | st,ext-phyclk    |
-
----------------------------------------------------------------------------
-| RMII    |    -   |     eth-ck    |      eth-ck        |       n/a        |
-|         |        | st,ext-phyclk | st,eth-ref-clk-sel |                  |
-|         |        |               | or st,ext-phyclk   |                  |
-
----------------------------------------------------------------------------
-
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-index 80937b28fa046..529665d4fc911 100644
---- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-@@ -85,6 +85,13 @@ properties:
-   phy-supply:
-     description: PHY regulator
- 
-+  st,ext-phyclk:
-+    description:
-+      set this property in RMII mode when you have PHY without crystal 50MHz and want to
-+      select RCC clock instead of ETH_REF_CLK. OR in RGMII mode when you want to select
-+      RCC clock instead of ETH_CLK125.
-+    type: boolean
-+
-   st,eth-clk-sel:
-     description:
-       set this property in RGMII PHY when you want to select RCC clock instead of ETH_CLK125.
--- 
-2.25.1
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
