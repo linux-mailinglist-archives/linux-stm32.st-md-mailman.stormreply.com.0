@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C57E888CE3B
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7E3888CE3C
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CC28C71281;
-	Tue, 26 Mar 2024 20:24:05 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9C484C6DD93;
+	Tue, 26 Mar 2024 20:24:07 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E21F7C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17BEBC6DD93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 20:24:03 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-a450bedffdfso695963066b.3
+ Tue, 26 Mar 2024 20:24:06 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-a46ba938de0so803390566b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:24:03 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711484643; x=1712089443;
+ d=linaro.org; s=google; t=1711484645; x=1712089445;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=oszJq80lB2gEh9lWeE9ItwyQq2sVQmw5suR14elTxRc=;
- b=oc9MSCXkx1QLslAr7+PP76VEnA7ROR3S6+A8zdxaOlEuidSrv1xNLOkiWduJC0usp/
- g2Dfm7BPzugqgeiUzp05s9DCafWRCjBe8RshJHZhBDbjzjQ/0CSJUdlV4IOBOVXYU6sj
- hnJfeURmOuwjJiKz6pgZCkz1l98x4pjfiLnV6lttMGZY/A0/fIVD1Z7V8s96MTRuUNw/
- adSAEXNxgrHIpU4pcAXu29lJC0SxRg2sQQJ+5PDwGFju0B7zuEhSS48TZs5vFVGl4KxW
- yYyGixEN8Bk/f6r2XEGyjVvGFZjMRoDjUFCLuhBcWUVz0N0JOCqYKIQEE0I90k6usY4U
- +NVA==
+ :reply-to; bh=iXiHjg9z5WjtRj7FyN981q22Cf3/qPHIvV7q8gsMVd8=;
+ b=coLw7W2XYV3A+3cO48AyOz1WhOSRvq9G1mnr3NmqMeLoDtBGS/pqCQKxdRVmGvqcgg
+ kutbHHReNGiY+LVQKcWjyh8d22C3+amIhuYRJA9D+hf0AuVG3LNJJrCO4z6lfpJdSRUx
+ ltBs3cPj+Kh1ac/IpiyWHjQgs6KlO9A9z7qz2YVDqt9u4n3OBny9Yf3tC3eesEpk5XRT
+ hWs4jflkisiufx4+9QNzeBysFCMy2/GW3ITFcdT3frr5KOzRJtUsvNGjtzB9YTB9UzWH
+ MneLW1VSFWhNFazc5gQJPk2DtOIa81jPzpLHF77/nWQe1s/lUklht/0qGtn8WYQZzp9D
+ Cn5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711484643; x=1712089443;
+ d=1e100.net; s=20230601; t=1711484645; x=1712089445;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oszJq80lB2gEh9lWeE9ItwyQq2sVQmw5suR14elTxRc=;
- b=v8v4FeyzWU1Cu3vHyKFczjAa4gw3IX6DD45HmsREle9guS1HHhAO8a3a0gx82Yjc0M
- Jza+5RxvytscPNf/9u1Eefzv9tDzutjnOGsikUY1s4s7k3QWpXNz1r0YHYNwm6hTU3GE
- cn5D2AYI/FN+15Aby7qUZFxYIOQKeElkqgLpdnw5lkLbFDy5OLvW3VDKS6cFHOKujhGH
- KZ5XCmvfUHrAj09H3UBnObyzR2LJc45nVbUp7ouo6RKyKJDe+BUaJahvwZJxmL5e2q5i
- 9plu2Kfxqz+iZW/Fg6DtK8C6u9N+N3Q1XbDZUvPmlZMDdv4uKctzs/Iw1pJYYVLVuQxK
- 0zFg==
+ bh=iXiHjg9z5WjtRj7FyN981q22Cf3/qPHIvV7q8gsMVd8=;
+ b=o9F5TDBiYlF2ua8SNP+49x/dqbP4ypBEXlHaQryEU3KcRz6Xhx6y5/gZnChprj34Rl
+ cWqAqRhXjxhoOj0RUddXrTzUVnN5AxhpAcaE8IaI2MFfUlcb+2p3lEPU/v0CPnRltkDS
+ VW7VAjg8kJe02sc21WczCdSeRfZD2y+uTqtfy3jre5Gf1zgGp//7IrkMtLsZRU0aMSLA
+ Cap1mTMpRDC6zyuJ9mFhRk4X4obdPneyYadG05gD38eKHKraWg9Y/y98h7BRPzMn27lQ
+ 8qcGu2VvVWNZG5oQd4SUszkmFBXHUx/C8/EmLiAGGIvELqqCOqyTohGM7WI6b6nnL7WB
+ 28pQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX575b28LWP659pf2fQ9RDwLyWVk5eUIfqnYIrFbd6wH2uT1V1cqyVX9Vj3uS1RqnFh4c1hX5ZPbowp1Bk4ngutsfoZqXqo0oK3B8NpUZf2Gg+wuu/UHxip
-X-Gm-Message-State: AOJu0YzJEG8c1cdG/YSGgixCGyu0IjWmPTjL2iAVWM6NMqzWAnOzn2LQ
- n3KAT90PDGZJ86qcUlPCK22scffMuxOx8R02PfaAxZSFUbReXADAD1pWcej2b+0=
-X-Google-Smtp-Source: AGHT+IF36ebGHdThhaXtGqM/m8jr3LdkOo+O0duXrjQ1dCCzQHRrHj2gdSWK7PhOmV9feIMSlJ3TuQ==
-X-Received: by 2002:a17:906:169a:b0:a4d:f406:259e with SMTP id
- s26-20020a170906169a00b00a4df406259emr1568712ejd.1.1711484643350; 
- Tue, 26 Mar 2024 13:24:03 -0700 (PDT)
+ AJvYcCU4OzVg176FB2YEHDoTJD8Qe/QWVCGJwAk/YZHYeVpzbzfjEgT+gUbLD41h/1qTn9C0Jx/3Z1qbp9RFiU8XjR4fEI7Z6hXPni2Tv/RuU0rrbsLYOsAtsMhd
+X-Gm-Message-State: AOJu0Yw+mbeb2o98WEfYJqgY5d2tnsjekdwNWSjDH6fMCPMVWn1tyx7N
+ YCnD32tfqqhWIof+Dnk+BuF5NYamnHVgpUMeLlC5adunj+9NRcV2rI/RxHdtI/8=
+X-Google-Smtp-Source: AGHT+IEfy9gjsew9ETjHc7FFOuJT2jM+L2jQiDOYJkSH4p0nwSV/DeAW7YcWUd59qggx/U12Voj5nQ==
+X-Received: by 2002:a17:906:15c2:b0:a47:35c6:910c with SMTP id
+ l2-20020a17090615c200b00a4735c6910cmr2699146ejd.22.1711484645499; 
+ Tue, 26 Mar 2024 13:24:05 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.222.44]) by smtp.gmail.com with ESMTPSA id
- b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.01
+ b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Mar 2024 13:24:02 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:05 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 26 Mar 2024 21:23:32 +0100
+Date: Tue, 26 Mar 2024 21:23:33 +0100
 MIME-Version: 1.0
-Message-Id: <20240326-module-owner-amba-v1-2-4517b091385b@linaro.org>
+Message-Id: <20240326-module-owner-amba-v1-3-4517b091385b@linaro.org>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 To: Russell King <linux@armlinux.org.uk>, 
@@ -76,21 +76,21 @@ To: Russell King <linux@armlinux.org.uk>,
  Eric Auger <eric.auger@redhat.com>, 
  Alex Williamson <alex.williamson@redhat.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=781;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=732;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=E6oiCUv77bElbjGq0w2fujcqFTlKT8NL9bDH7uHNcnY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7NOwLLbJwaDUXL7V0PZh2jku+JoMDsPrc7m
- NzHCD3TWnuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzQAKCRDBN2bmhouD
- 1zcCD/wL7jy6EpLsVXBGfS64OBKoLjqB570Nzr0xz5jjEOIHnWEDebnlh2C9JRhEwi4ybeuiYUh
- d8OKzKNy5u1RrBqvyeZD3ETlW83XhTv8PdFb8WanJkUJ7Ob8YMesycKcnijf2seqXrPkA+FQI4w
- rFSrSXuvNx+OjDSmYfkVidv0rpBT74bf/PzYydwUxVP7rjTuXM5rNKSl77s6EvPOvrPTE8t/Rbw
- XrHqKCXQlBMdBt4uC6fm9GVQtc6SLAsYheVeOLRGxtz+MYUaDWGMicARiMFrAirc29AI7hftROU
- 84wz50/TuB4s4U9heZ0ljKA1oYuujdugLPLph9WXB+zzfHz2dYa76mPI03DuF0w6CXtxhmqM456
- IUPEIIFbp/HLx0x50QhWNnz+X5KnLTYvIPjLXoqwYe0klaC2f+mqBgI4pEGKFwgjMlCOPyGGw+W
- gK4hjrni09R1RHmFzfeZ+XxjrHuYiY89MQvapBUifZDclD6Tje2rmV2YrRW+3ZnsyMz7+P8TFNm
- VdlFafpLM/XiQfBV9MOXM83S/RGSkPnFFuWAf0mscOBGiqlVjPIsaBkamqXOUZBaJXWxLUK62dj
- CfgUsFRgQUrSiw0cj9+pSXjf7sL9haRJXVq8dQ56TA3w/5+9G45chAo/5PIBxYIFaeWsLHhVUgL
- SqRSg3rM2hSciDA==
+ bh=0tCOGOTEtsk1MNOC81cBK1OFb61otkPtGFYTYNaDfAE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7Ow6S6gU7K4xDsl5z8ZYW2obxkxWcKgTa9z
+ D8mHyRiajqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzgAKCRDBN2bmhouD
+ 14LtD/9FUnFagmEFO7sKZPZnAcq1cBTmy/uTlAtbqeDP6H4YewQ8W9uGOFTYp8fC8IUnU7uyY2Q
+ 8ZnWnr1zDTQ5IHHMNTOCR0Achdhw9VSQQOSPwH5J0Ao9g7XB52Y2st0OMpx1UJfFUFkBVQsyqti
+ gEQ24BTObJeM1nnLCARdwUTLjhYrZjV1cpBkR2revehYTsFJMckEWO9F0mhkw96si1zGX1B7YiM
+ +BBbIK647s16FHygeAFUSNHtoJs/Ln2mhayP/40EwBbmfx2mZL4mHsMoNzHKzqHRbAkBQCk4GH6
+ pTAIThqPv2TnYrVAjNKWHlOe35c+oSID75/EXe0HY9M4PADM9nWzucSCVtQk22IVJ77okKqkHmd
+ Ef+xUKR2Mtw2yRT268Pyp5emSM2wXId/BDxoqwrvQJfxfrJJBDCVRAzlmjB8yz5Hq+ZnXgfASmz
+ lhWJo32QM06Pb8dtzaWO4J0OGeOHu/bvLKNCUS996msar7BNqnTV862YrclcjvslGAVq3k4Ufrg
+ tI+qt228BBRKLgbw96RP1WU4lrXpXrQZUWAjgGIr74ojyuYR8/w+kTXVD80ydtgKGdI5Qc46TXW
+ 9IcpF7erQW3bWFrfSb7yJKJUPe1Q8o+s0n0Ml+8eNJUaqi2ivyRh1dXiixULJSEfdkA4EnBW792
+ sPlFZr2NZ9dt+VA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
@@ -98,7 +98,7 @@ Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
  linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-crypto@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 02/19] coresight: cti: drop owner assignment
+Subject: [Linux-stm32] [PATCH 03/19] coresight: catu: drop owner assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,26 +118,22 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Amba bus core already sets owner, so driver does not need to.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-
 ---
-
-Depends on first amba patch.
----
- drivers/hwtracing/coresight/coresight-cti-core.c | 1 -
+ drivers/hwtracing/coresight/coresight-catu.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/hwtracing/coresight/coresight-cti-core.c
-index e805617020d0..d2b5a5718c29 100644
---- a/drivers/hwtracing/coresight/coresight-cti-core.c
-+++ b/drivers/hwtracing/coresight/coresight-cti-core.c
-@@ -982,7 +982,6 @@ MODULE_DEVICE_TABLE(amba, cti_ids);
- static struct amba_driver cti_driver = {
+diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
+index 3949ded0d4fa..375bd0d89b0c 100644
+--- a/drivers/hwtracing/coresight/coresight-catu.c
++++ b/drivers/hwtracing/coresight/coresight-catu.c
+@@ -590,7 +590,6 @@ MODULE_DEVICE_TABLE(amba, catu_ids);
+ static struct amba_driver catu_driver = {
  	.drv = {
- 		.name	= "coresight-cti",
--		.owner = THIS_MODULE,
- 		.suppress_bind_attrs = true,
+ 		.name			= "coresight-catu",
+-		.owner			= THIS_MODULE,
+ 		.suppress_bind_attrs	= true,
  	},
- 	.probe		= cti_probe,
+ 	.probe				= catu_probe,
 
 -- 
 2.34.1
