@@ -2,79 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2782988C209
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 13:25:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C7FA88C2D7
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 14:00:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8BF9C6B45B;
-	Tue, 26 Mar 2024 12:25:52 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 039C7C6B45B;
+	Tue, 26 Mar 2024 13:00:52 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E921BCFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9B4BC640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 12:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711455951; x=1742991951;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=4/FUC3PgeGbPj/ACm7P2erlBnN7nF3Qy/MNNSPLifnI=;
- b=Tch6iqwIlORvI13v6yUHK8czZVRE077Jtrx/dNQuBc9+ixM1Q5ie3IJa
- HkKxnA5dheYb4+tdfYJAHOzPN694ypIN0e79Wg6fydszr2Cw4vZf0VoLz
- eC/gIy5xWIofOobyAgKwRxf7PB4O5+21o2+mfR16Nn6/5RrAf0dp3h7PQ
- JCUwt4VxGVU50liSkBnh9c28hoOgrmRQ1gQb3K3u53hPzoK3Isb8kELMO
- x4rZTS6WvcPIfz5+WCO/I2HD0X3Kc4eI9NgnNxy4xdQ5kNhItCYrWTOr7
- lVW6sQXNvRH+wthuSAi6bhPKmE+mWA7w8QvLRSanHoxac9OBnFVN7pR0+ w==;
-X-CSE-ConnectionGUID: OudhN+CIS7e3WGoyb9xLGQ==
-X-CSE-MsgGUID: uoG2qJdvSrOrodZj0Ao8uA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="10299230"
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="10299230"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 05:25:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="47099724"
-Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
- ([10.94.0.53])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 05:25:41 -0700
-Message-ID: <83d63442-ae4c-4e5e-a610-c0c0be54d50e@linux.intel.com>
-Date: Tue, 26 Mar 2024 13:25:38 +0100
+ Tue, 26 Mar 2024 13:00:50 +0000 (UTC)
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 42QCwvYX028115; Tue, 26 Mar 2024 14:00:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=/db77bR
+ vEP4jYO3usvNHt4toe1IvRseqPMS2T/ZuErE=; b=iLzYSNvJlosukfvG0AizBaJ
+ amhux4Y0xAOTGcwKMIGIldiS2vmsAffVQWAHScZED21qjfYoLBCsKlTmzRoJQN8U
+ bHiCo/e1lHcbEHug0PbnrAp9BLrXLA1cicH2P8iQ7FK2KPgyouynX081Yr25Nhju
+ 6WCOzZi2WIAXeEFCeVnSOdmPUJtyM+9SMtp6rN6nr7TLXiCpvKk8Nq31vgL8dm2r
+ 1uxhTSbZSsS6W8RuqZlMav9wzdfvUCc8OfLLIVYz3Dn6Gyh7Rz66vP4O9+le1TYK
+ +rMLTIoNCA34RBsgD0xAvBwGN1HUJcLaUa3NmMu0NWikKZANvBj4jiV7CBCbLoQ=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x1n39dgf1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 26 Mar 2024 14:00:16 +0100 (CET)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id 1BEBD40048;
+ Tue, 26 Mar 2024 14:00:11 +0100 (CET)
+Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 04788218631;
+ Tue, 26 Mar 2024 13:58:56 +0100 (CET)
+Received: from localhost (10.201.21.128) by SHFDAG1NODE2.st.com (10.75.129.70)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 26 Mar
+ 2024 13:58:55 +0100
+From: Christophe Roullier <christophe.roullier@foss.st.com>
+To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
+ Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Christophe Roullier
+ <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
+Date: Tue, 26 Mar 2024 13:58:47 +0100
+Message-ID: <20240326125849.226765-1-christophe.roullier@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
- imx@lists.linux.dev, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
-From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [Linux-stm32] [PATCH 00/15] ASoC: replace dpcm_playback/capture
- to playback/capture_only
+X-Originating-IP: [10.201.21.128]
+X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
+ (10.75.129.70)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-03-26_06,2024-03-21_02,2023-05-22_02
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v4 0/2] Add properties in dwmac-stm32
+	documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,36 +77,33 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/25/2024 5:35 AM, Kuninori Morimoto wrote:
-> 
-> Hi Mark
-> 
-> When we use DPCM, we need to set dpcm_playback/capture flag.
-> If these flag are set, soc_get_playback_capture() will check its
-> availability, but non DPCM case is checked without special flags.
-> 
-> OTOH, it cares playback/capture_only flag. It is needed.
-> 
-> This patch remove DPCM special flag, and replace it playback/capture_only
-> flag if needed.
-> 
+Introduce 2 new properties in dwmac-stm32 documentation
 
-One general note, I wonder if playback/capture_only should be renamed to 
-something more descriptive, current names are a bit weird from use case 
-point of view. I mean no flags, means both capture and playback are 
-enabled. Then you do something like playback_only = 1, which effectively 
-affects capture stream. Notice that flag is named playback, but affects 
-capture. Perhaps, something like capture_disabled, playback_disabled 
-would make more sense? This would also make more sense to me for 
-something like playback_only = 1; capture_only = 1; which while weird 
-doesn't instantly seem that wrong, while disable on both directions 
-instantly seems broken.
+ - phy-supply: to manage PHY regulator.
+ - st,ext-phyclk: is present since 2020 in driver so need to explain
+   it and avoid dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb: 
+ethernet@5800a000: Unevaluated properties are not allowed 
+('st,ext-phyclk' was unexpected)
+   Furthermore this property will be use in upstream of MP13 dwmac glue. (next step)
 
+V2: - Drop deprecated: property for st,eth-clk-sel and st,eth-ref-clk-sel
+V3: - Rework commit message
+V4: - Fix syntax issue in commit message
+
+Christophe Roullier (2):
+  dt-bindings: net: add phy-supply property for stm32
+  dt-bindings: net: dwmac: Document STM32 property st,ext-phyclk
+
+ Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
