@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 656A688C36E
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C8A88C36F
 	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 14:31:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29B6EC6DD93;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C7DEC71288;
 	Tue, 26 Mar 2024 13:31:43 +0000 (UTC)
 Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
  [217.70.183.198])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 148B7C6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DAFFC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:31:41 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id D690BC000D;
- Tue, 26 Mar 2024 13:31:39 +0000 (UTC)
+ Tue, 26 Mar 2024 13:31:42 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D9681C000E;
+ Tue, 26 Mar 2024 13:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1711459900;
+ t=1711459902;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5X4Vqf5dMNOvdBRrjTCmAMrnSKF3wTY7sOX12e/v6N8=;
- b=XHGFRCraGoleTe74a8fvapXFBTEXRh3K3ZoBTFdNIdkfhhnASEnrfrHfnK3bszQ+fuHN1f
- +z55lo2LOAlSTmIU8WC4XfwEVaozluB97JWYzXNcd3WPq4FqtQMMog2mJH0Jcd/fVmzphe
- 4cxRzNIs95/b3kd4t+UyOb1yIaPh3OqMB/oipDEIuOYbwOFj8rkXgRXpJZ/7gX9Fjnbfvt
- NWrV6eIrMfDCdXTOArq0eHmlOrPRNLx7QmxrwgLqAJ2KuoDxI0JSDGk9LHLSfaOomw7mNE
- u9gk4MiU4+pEoUv3+VlBSnEzJalSUms6zQVuRqZFY+DRL7LXSkFklWXQ4jSaMQ==
+ bh=kOpNMTW/vA5X/6RU5HQH0KSBKcCLzUFZqJhHW5arx8w=;
+ b=CcfOk3nV93OLbtj4+ARAgsz9peVRLid64OWvzDW/hQVDqDmmlI6CKIaqpE5i9m4mNvp0Y8
+ KUfqeF2eGe02EcLd/966AUraPcY0mefC+uvVXAalC9QHTNF6qLrmL+h+GRkuD8YX9VFBgU
+ 7CyjeiAghWoHKyCpjS+U0uUMuvn/Ue68ZXpc40Hgh/zbrS+FWJs9oGYKedbtGog9zOqEas
+ z7ysPIw7wzrIFhhxstp3lD4+KiHuKWRkshYbfbDGCCHlvi+pf2UyaM5nnBnX7QRxsbHKsG
+ y76HiZ2v2zf8nCZPUKsC123IdVxt1nvyMIyUEhocBXEt0ScCPi1Pp8rbtibSKw==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 26 Mar 2024 14:32:11 +0100
+Date: Tue, 26 Mar 2024 14:32:12 +0100
 MIME-Version: 1.0
-Message-Id: <20240326-rxc_bugfix-v6-5-24a74e5c761f@bootlin.com>
+Message-Id: <20240326-rxc_bugfix-v6-6-24a74e5c761f@bootlin.com>
 References: <20240326-rxc_bugfix-v6-0-24a74e5c761f@bootlin.com>
 In-Reply-To: <20240326-rxc_bugfix-v6-0-24a74e5c761f@bootlin.com>
 To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
@@ -51,8 +51,8 @@ Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RESEND net-next v6 5/7] net: stmmac: Signal to
- PHY/PCS drivers to keep RX clock on
+Subject: [Linux-stm32] [PATCH RESEND net-next v6 6/7] net: phy: qcom:
+ at803x: Avoid hibernating if MAC requires RX clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,49 +64,51 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-VGhlcmUgaXMgYSByZW9jdXJyaW5nIGlzc3VlIHdpdGggc3RtbWFjIGNvbnRyb2xsZXJzIHdoZXJl
-IHRoZSBNQUMgZmFpbHMgdG8KaW5pdGlhbGl6ZSBpdHMgaGFyZHdhcmUgaWYgYW4gUlggY2xvY2sg
-c2lnbmFsIGlzbid0IHByb3ZpZGVkIG9uIHRoZSBNQUMvUEhZCmxpbmsuCgpUaGlzIGNhdXNlcyBp
-c3N1ZXMgd2hlbiBQSFkgb3IgUENTIGRldmljZXMgZWl0aGVyIGdvIGludG8gc3VzcGVuZCB3aGls
-ZQpjdXR0aW5nIHRoZSBSWCBjbG9jayBvciBkbyBub3QgYnJpbmcgdGhlIGNsb2NrIHNpZ25hbCB1
-cCBlYXJseSBlbm91Z2ggZm9yCnRoZSBNQUMgdG8gaW5pdGlhbGl6ZSBzdWNjZXNzZnVsbHkuCgpT
-ZXQgdGhlIG1hY19yZXF1aXJlc19yeGMgZmxhZyBpbiB0aGUgc3RtbWFjIHBoeWxpbmsgY29uZmln
-IHNvIHRoYXQgUEhZL1BDUwpkcml2ZXJzIGtub3cgdG8ga2VlcCB0aGUgUlggY2xvY2sgdXAgYXQg
-YWxsIHRpbWVzLgoKUmVwb3J0ZWQtYnk6IENsYXJrIFdhbmcgPHhpYW9uaW5nLndhbmdAbnhwLmNv
-bT4KTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjMwMjAyMDgxNTU5LjM1NTM2
-MzctMS14aWFvbmluZy53YW5nQG54cC5jb20vClJlcG9ydGVkLWJ5OiBDbMOpbWVudCBMw6lnZXIg
-PGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3Jn
-L2xpbnV4LWFybS1rZXJuZWwvMjAyMzAxMTYxMDM5MjYuMjc2ODY5LTQtY2xlbWVudC5sZWdlckBi
-b290bGluLmNvbS8KQ28tZGV2ZWxvcGVkLWJ5OiBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgPHJtaytr
-ZXJuZWxAYXJtbGludXgub3JnLnVrPgpTaWduZWQtb2ZmLWJ5OiBSdXNzZWxsIEtpbmcgKE9yYWNs
-ZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPgpTaWduZWQtb2ZmLWJ5OiBSb21haW4gR2Fu
-dG9pcyA8cm9tYWluLmdhbnRvaXNAYm9vdGxpbi5jb20+ClJldmlld2VkLWJ5OiBBbmRyZXcgTHVu
-biA8YW5kcmV3QGx1bm4uY2g+Ci0tLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
-YWMvc3RtbWFjX21haW4uYyB8IDcgKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9u
-cygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0
-bW1hY19tYWluLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
-bWFpbi5jCmluZGV4IDc5ODQ0ZGJlNDI1OC4uMjI5MGY0ODA4ZDdlIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCisrKyBiL2RyaXZl
-cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKQEAgLTEyMTgsNiAr
-MTIxOCw5IEBAIHN0YXRpYyBpbnQgc3RtbWFjX3BoeV9zZXR1cChzdHJ1Y3Qgc3RtbWFjX3ByaXYg
-KnByaXYpCiAJcHJpdi0+cGh5bGlua19jb25maWcudHlwZSA9IFBIWUxJTktfTkVUREVWOwogCXBy
-aXYtPnBoeWxpbmtfY29uZmlnLm1hY19tYW5hZ2VkX3BtID0gdHJ1ZTsKIAorCS8qIFN0bW1hYyBh
-bHdheXMgcmVxdWlyZXMgYW4gUlggY2xvY2sgZm9yIGhhcmR3YXJlIGluaXRpYWxpemF0aW9uICov
-CisJcHJpdi0+cGh5bGlua19jb25maWcubWFjX3JlcXVpcmVzX3J4YyA9IHRydWU7CisKIAltZGlv
-X2J1c19kYXRhID0gcHJpdi0+cGxhdC0+bWRpb19idXNfZGF0YTsKIAlpZiAobWRpb19idXNfZGF0
-YSkKIAkJcHJpdi0+cGh5bGlua19jb25maWcub3ZyX2FuX2luYmFuZCA9CkBAIC0zNDA4LDYgKzM0
-MTEsMTAgQEAgc3RhdGljIGludCBzdG1tYWNfaHdfc2V0dXAoc3RydWN0IG5ldF9kZXZpY2UgKmRl
-diwgYm9vbCBwdHBfcmVnaXN0ZXIpCiAJdTMyIGNoYW47CiAJaW50IHJldDsKIAorCS8qIE1ha2Ug
-c3VyZSBSWCBjbG9jayBpcyBlbmFibGVkICovCisJaWYgKHByaXYtPmh3LT5waHlsaW5rX3BjcykK
-KwkJcGh5bGlua19wY3NfcHJlX2luaXQocHJpdi0+cGh5bGluaywgcHJpdi0+aHctPnBoeWxpbmtf
-cGNzKTsKKwogCS8qIERNQSBpbml0aWFsaXphdGlvbiBhbmQgU1cgcmVzZXQgKi8KIAlyZXQgPSBz
-dG1tYWNfaW5pdF9kbWFfZW5naW5lKHByaXYpOwogCWlmIChyZXQgPCAwKSB7CgotLSAKMi40NC4w
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+
+Stmmac controllers connected to an at803x PHY cannot resume properly after
+suspend when WoL is enabled. This happens because the MAC requires an RX
+clock generated by the PHY to initialize its hardware properly. But the RX
+clock is cut when the PHY suspends and isn't brought up until the MAC
+driver resumes the phylink.
+
+Prevent the at803x PHY driver from going into suspend if the attached MAC
+driver always requires an RX clock signal.
+
+Reported-by: Clark Wang <xiaoning.wang@nxp.com>
+Link: https://lore.kernel.org/all/20230202081559.3553637-1-xiaoning.wang@nxp.com/
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+[rgantois: commit log]
+Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+ drivers/net/phy/qcom/at803x.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
+index 4717c59d51d0..2a221b81cf37 100644
+--- a/drivers/net/phy/qcom/at803x.c
++++ b/drivers/net/phy/qcom/at803x.c
+@@ -426,7 +426,8 @@ static int at803x_hibernation_mode_config(struct phy_device *phydev)
+ 	/* The default after hardware reset is hibernation mode enabled. After
+ 	 * software reset, the value is retained.
+ 	 */
+-	if (!(priv->flags & AT803X_DISABLE_HIBERNATION_MODE))
++	if (!(priv->flags & AT803X_DISABLE_HIBERNATION_MODE) &&
++	    !(phydev->dev_flags & PHY_F_RXC_ALWAYS_ON))
+ 		return 0;
+ 
+ 	return at803x_debug_reg_mask(phydev, AT803X_DEBUG_REG_HIB_CTRL,
+
+-- 
+2.44.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
