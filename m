@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC9988CE3E
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E922988CE41
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5D3FC6DD93;
-	Tue, 26 Mar 2024 20:24:09 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF98DC6DD96;
+	Tue, 26 Mar 2024 20:24:11 +0000 (UTC)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
+ [209.85.208.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B568C6DD96
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 346ECC6DD96
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 20:24:08 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-a4a387ff7acso313354766b.2
+ Tue, 26 Mar 2024 20:24:10 +0000 (UTC)
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-56c2b4850d2so1334780a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:24:08 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711484648; x=1712089448;
+ d=linaro.org; s=google; t=1711484650; x=1712089450;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=cS6l3DFyZZnaHeh/4JIde34mk8Loy614n3vF51Qtne4=;
- b=gyGPvqUoa6j2yeJsx7vVhrOrGTzBBFQS+OPFT2Shq4pm4qgV1Af6tvl3u3dfMrXNCY
- H4ViVz6MlxAZXvyzVsxry4VyY8W+bceaUnUAGQ+/x6Yu49eYdojNaliFwh89ci8wIMTs
- P7AsYbfdLLTfB/umQ8lagQ2/dTM6ONxohVY0pMY4kvZWoGUgoE0t1ihqSHABUju4+a0c
- QnH5Bk8s7JuzcCs/hXZ1gq2D/24XR1GH/GPOfgPE5R4RW8iDIxECmEek9NVPFhSWpMOk
- wCZ96oqYB2gipzYsoNnDeX/xwWkNfNBVv0XvViwXcDplmdxIe9ztQBQtP8wIxIQc9h9e
- 45zw==
+ :reply-to; bh=MUoAEonqbq6mZXdrDqe4h4/X1Y47oOMjA1M1PU77dgA=;
+ b=ZeM38qhOBwwIZgsfGSldEe5SthdSv9Uw5d02WnUlxpa8n9rCSfBMHh2B7rlOYEAzX9
+ zBGv07fbR9cpafBXpZsC2ommZ1fHJ0kC53zr69Mn9DXFcRphjepxE400WRgLMlGFixw8
+ /wZZC2MIQwBguu6v0JiPCFe+h4peR4hgb3mybWm2HspzUkJ3Aq1F+Ru8ut/JOLmSdl8X
+ Qjm8HkuFfxZMHMF1GLoxg8qI8nFdE54dHRZtBGkMTwNd04fCJtKG26+D9ThoUhrtRFFZ
+ 7cpmZZxD7zgLC0MN/MDAEB1mf2ejtxsgwGuPVzHzz+0yKVadK47k0n2PTGigl/SE+N8D
+ tRiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711484648; x=1712089448;
+ d=1e100.net; s=20230601; t=1711484650; x=1712089450;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cS6l3DFyZZnaHeh/4JIde34mk8Loy614n3vF51Qtne4=;
- b=gyuDbN7FneC2YcgSZoJMWJBD5/ghJww4ZMJV/T9jiuV/tTa36qOuNVYJa/V8tOGpeh
- 57cQxzlsgAJnJ8q3MweNNr7usCRcnUNcAerFLNfIJVLXembOmKp9i17V827VvkYqiyC9
- mjVekpNyWlEFDkzO4vB3jIu30qkS794Zinb7D3zLJOLHVpIecvmNYUq3vq7toZWamUso
- 2WBZAQxmUqkFSsaPPnif3bWG+TEfprJpBpWBsScnLITRtlnHtnXDNZQfEWHXzyrhUHIG
- 0u0T2+EjBr4sdFNPQIj09Qnt10fy+7PMO2CFO60Aram54GGovMusGC/ydsozbR/jrhHY
- LgIA==
+ bh=MUoAEonqbq6mZXdrDqe4h4/X1Y47oOMjA1M1PU77dgA=;
+ b=XkBLXkq9mwHFO9fd4qXBCg+mkX3xk1oxcmMXZKVK6ydicbBtqiTWMgML6Qy/WgqhG7
+ LIoo/TdZoc/2q1yBsnYf8IABTwpdSvC5cmxz/pKdLZ/jxxJOZFvjYajJjWJF9FCGaHqR
+ 202jCl3bb2Ek4GmXIwLnOWJKReHMtwa6tx13dAJtGKcdjaSjcAywBJ8Ke4eEVXDy+ft5
+ BvoocZwIh3WfZSsfUtXFb8c/AHvcYOSH23f/NYyGkQMWH6FQUo9D+ewWJlsXr70cTEq2
+ bfXWmTp9zusE1131pg1wgff75aDgoXcsyShQjA+n5nUkjpU7C5ZduQpSGvENvzhTTxi+
+ D/gA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVURwhO7MHuPfQJZAKm85NN6klp6H3PlNo/kHfgUbdF60pIrOOf+0Zwyw/7+xpxOr/QCt4umjmv/h9YlR4COLHPiQNDYgTDD1/E/EB65H4c7UQkZRethFX3
-X-Gm-Message-State: AOJu0YzhWACZlbvaIsfVFQa2TDpeaoaZQ4lX2fRWm7AxAdD1UGeEMJJQ
- r+avdjJAr83KaeeFh2AJ+aL/LWMmLLbL25OYoBxOpqr/Y5GfaK3eh8iyk+zvDcU=
-X-Google-Smtp-Source: AGHT+IHH9/GNxpyIkXwZHA9aKbHJoaISBEw7CCGiO/tr5xtDA/461qS+hvMLh2XB50VnnElFIf4DRQ==
-X-Received: by 2002:a17:906:ae5b:b0:a46:da87:26e9 with SMTP id
- lf27-20020a170906ae5b00b00a46da8726e9mr1373608ejb.77.1711484647788; 
- Tue, 26 Mar 2024 13:24:07 -0700 (PDT)
+ AJvYcCVpxkBOjMpJT6O56iIKTmty9NsGgfStygZoWYO9E2SAauI8RubnuJLMFR/eFCYnGmM2AtPuN8w/Fhlz35Fqzsc+TqQoG4B838HqevJsysDk9A1GDagy/tuJ
+X-Gm-Message-State: AOJu0YzSC7t8Wc1269fxE2YhVzP2RblYHq4N0sbbJ8jKhuPhKjYXLsez
+ hglUX4UZH3i9Nv2PldglIkqophvIf3rfQIpJoFWFvOh2EUY47Lvuva6qEspV3pY=
+X-Google-Smtp-Source: AGHT+IFktIMOuGQr83iXCOXqE8Qfk01qdlT5fhCvZP9F6Upy1Aunb2VLAuZdlUWX1tsm3QMok6//tw==
+X-Received: by 2002:a17:907:868d:b0:a47:5351:e8a8 with SMTP id
+ qa13-20020a170907868d00b00a475351e8a8mr3611593ejc.33.1711484649819; 
+ Tue, 26 Mar 2024 13:24:09 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.222.44]) by smtp.gmail.com with ESMTPSA id
- b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.05
+ b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Mar 2024 13:24:07 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:09 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 26 Mar 2024 21:23:34 +0100
+Date: Tue, 26 Mar 2024 21:23:35 +0100
 MIME-Version: 1.0
-Message-Id: <20240326-module-owner-amba-v1-4-4517b091385b@linaro.org>
+Message-Id: <20240326-module-owner-amba-v1-5-4517b091385b@linaro.org>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 To: Russell King <linux@armlinux.org.uk>, 
@@ -76,21 +76,21 @@ To: Russell King <linux@armlinux.org.uk>,
  Eric Auger <eric.auger@redhat.com>, 
  Alex Williamson <alex.williamson@redhat.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=759;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=773;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=OegJxEVoCh+2bPB0kaSuE8HSowWXNd7MSXtbllgm3ec=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7O3XhDWR0q73ZKyq6XFUMDnvOhhzKDH2CrZ
- vvB8ceCmhWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzgAKCRDBN2bmhouD
- 1xKlD/9ExjFMSjdPGngGOSZcBFRS70Gp3v66nFNAWDnXMWpCuRjIg1ArvtwHE38reg4ukpjqisf
- eZCnXRa9ADyqy+n/8uJ3w7ccn9tZzDdmY3L4SaI3cMc5HAp5XYeMiX/cYKdzE2ALwBdMxY75TMl
- /Q4uKyo75bB3pM4Np7wfBBBiZpwLYTa1LMr4VmXOGaAZkgm+XRCGwl12VNZMp0avw+UiS+qs2Gt
- SGJV0hSOzf3ufcb54mIoz6VKTaN1q3MOdbc9z9aGqvotG1VRuPvn9QVd6jbVXoKayIt/mlwW3NG
- pIwRq2UVU2hDBYcoMS+S4c6bU2CIgajMVMkHzei39+/20OgcwjrWUB6i1KLzbe/lQtmgGs3S/HU
- Giw5gW49yn1lA40ZqEvOHRr4qRe538gVZB6dQVKv5Q5tQeE69z0jsfgey5aGbebR6mmkltOGVrc
- IQkvCmCeQ6yEGnOai1AvBGnrZk6G5nj3JN+fOyB1n53ihepFxqhVskEuWfqCB+5qNpiNntr1V6W
- +Do14xIInZSsuAnpGc06u6viXcysJyCkz2w4evz53wfEEK7kSq7roG5ncSgoI1OZZMabAYlCvp4
- 3V9JqlpOMehdE2bAHiefJWpzv1Kaz1nz/2SomhlaDJh7L8Zb6g0brqigl4UQzGhW/g+NhHo+Gq5
- Wt9X4UAzVmw5Xqw==
+ bh=dLMLqJMRutmhpAj9QPWjvHyuzryPfsbXssGz64hwg7s=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7PqZxAqSLMTcZ+iIF2WgxJbOdjAERugmhHY
+ Ri9uz+X3quJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzwAKCRDBN2bmhouD
+ 11YBEACKdHpjBts0bi85xrrB+V5bm9+C4a6btkKtB6exqkvpm4CJ6/J1wcZaqXuGclO7BcdfjMl
+ Wfw+1cBXtd0NrHO0VdsLJe6YLD9lvVPx2MufQK9ZxVODxsQ/DONPj4t7bhOG4f+Q4yspNCN2a6m
+ rdIx3+WzHtym438cEFWjgJuGtbFIDXHwWXPlo0Po+q3EHnvj21GGEO6yFP4zQGUTmKajdk1IASV
+ FZVy5GpeKJ1K2KV8l8rCd+tYMsK32cWOgIUQGvExNx75N2Pm5Ac7zoUmbYpfL2ELwwXacdnw15N
+ YkMnKu/VoXvsQ4gPjqyrviCQiifoPEV5O45ywNGJA2AjmEFdU9CMzJsxhoSa2OKchbgpy3sLjhB
+ dvD9oBigcYn1nmkv93lRanSpS/lvGIOHbf2JWd/jblCUX3TVFUCibn6bicchBLObQH6VWD2+TPc
+ Y0+nGtp5BdsRosXAMD3STQy8PZ+qo0K+JJ7tHHreyDspmRbCuel9ZlJ+Rj7htk4toMx5Nx3YPJE
+ TvqW5MMDyOtqGWsSzuzvFG3tgcSiWZSwKRNt7jYKyfmMQKSQmFs7j6dp5iMNGqtlmGh9LP+SAa+
+ aT6QiowSX4npz2oDHTUwakI4hcjbRDz1lt9HcvbvjBeabKhZcLb/SAsuX7VuWZxNygOkk51wrXG
+ vYYXvPCZhk/EFLg==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
@@ -98,7 +98,7 @@ Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
  linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-crypto@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 04/19] coresight: etm3x: drop owner assignment
+Subject: [Linux-stm32] [PATCH 05/19] coresight: etm4x: drop owner assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,21 +119,21 @@ Amba bus core already sets owner, so driver does not need to.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-etm3x-core.c | 1 -
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm3x-core.c b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-index 9d5c1391ffb1..8b362605d242 100644
---- a/drivers/hwtracing/coresight/coresight-etm3x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm3x-core.c
-@@ -1008,7 +1008,6 @@ MODULE_DEVICE_TABLE(amba, etm_ids);
- static struct amba_driver etm_driver = {
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+index c2ca4a02dfce..e6cd9705596c 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+@@ -2344,7 +2344,6 @@ MODULE_DEVICE_TABLE(amba, etm4_ids);
+ static struct amba_driver etm4x_amba_driver = {
  	.drv = {
- 		.name	= "coresight-etm3x",
--		.owner	= THIS_MODULE,
- 		.pm	= &etm_dev_pm_ops,
+ 		.name   = "coresight-etm4x",
+-		.owner  = THIS_MODULE,
  		.suppress_bind_attrs = true,
  	},
+ 	.probe		= etm4_probe_amba,
 
 -- 
 2.34.1
