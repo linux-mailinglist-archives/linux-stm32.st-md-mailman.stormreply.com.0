@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 053A488CE43
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2001488CE45
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C125EC71287;
-	Tue, 26 Mar 2024 20:24:15 +0000 (UTC)
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D83D9C71289;
+	Tue, 26 Mar 2024 20:24:18 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
+ [209.85.208.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC955C71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8B4AC71289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 20:24:14 +0000 (UTC)
-Received: by mail-lj1-f173.google.com with SMTP id
- 38308e7fff4ca-2d485886545so104765681fa.2
+ Tue, 26 Mar 2024 20:24:16 +0000 (UTC)
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-2d485886545so104766161fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:24:14 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711484654; x=1712089454;
+ d=linaro.org; s=google; t=1711484656; x=1712089456;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=kuScgEGC8UrWc0EoVLGgWCbv6tlfkdiLjT4dUhMOUcQ=;
- b=sfFwcvBvZ2GXgQGMq44Ltv9RCE9/Ch6nkJWxiPr0vA3+Q6uPdCce/6dk44YlYLS+3i
- 5Gc7XET392+vkpAcgGoBLUBnvgKNeIBTTI07bcweLo74Fm93i90V8TyzB6UPYsZhzKXD
- 4fPnu4s5qVUXYhh4j9Xv8kgGuGhpTBOkConJrkEYM415BtvLyjUWvgiSb7CjiEgZK1Af
- l97UH+QlwDzqDbxw964oOUcCGn5eWsK/0RfDaUpT8yHKLozKO7nPdqdTtQ/xYnlp6ThU
- pcSympXidC2yoFwM4jb5sB6aYd8Sm7ey0mCKRwUdQAM44iAmxitjenxg00Qu2inN4RoH
- qpaw==
+ :reply-to; bh=HACANyvTKUa2F7OFT3YqMnbFiK8dE6yzsz6U8915HRw=;
+ b=OM2QZef811YCTOVhdnNBMys7+1bnEz5CXE4+xJ3nEw0hbJGn4nxPuY+iOHDMMKU4wy
+ l/Ca0+iQvBtNMEF8pmQWHPX3NkSPncDwVEOSd8ZtbUKjLLC7M9uTsHubKINvUgHJBIZD
+ k5XVvL0ab4qVQcyjR+c/b1znT1kPSRZImlduA0Gfc7VDsbM9HRzRuSC2+hbVcD0mRQCC
+ elo3es9idZc0/ittl3YQlgRgAm40JBGwKowKhz4f/GP5P6UYn9QmUnEaZcgU7vuZm43Z
+ C0sjbiYVKB/8UTkn1OdhJ3C6IzV+O4fwpsaPQhaq2PxlQqxNAZTaUuXWoFeSSl6HjtXc
+ oDpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711484654; x=1712089454;
+ d=1e100.net; s=20230601; t=1711484656; x=1712089456;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kuScgEGC8UrWc0EoVLGgWCbv6tlfkdiLjT4dUhMOUcQ=;
- b=sj1sk7CbVPfI4RCBwLoEhgOpQ18JUoMU67ZzwvdI+Nvkoexu/Lh5jDzS71IxVOBjxr
- kCMi9taufhBNB1mMhbb4P0wRBMfDEc2IA1Qcla7IVlVDBmkoXTagTKnyRoymJ20R/nt+
- HM4Yr6nXctZ060d5UXClnYRGyYfP+RAc8i/LMzO/Wdf2vqUxnYaNFzBO50nuIg7+IhUh
- tqNVSt2HNRI03PDsLU6ONQdsXiwYaQmHwVMV87+/UVAbGl31BQV5Ikt0f88BKF/9MUN+
- hP9mGCNQX47nRNu6vD3qAjRSfKjF5st+HKbPG1YzwxZGSU7rwFx9b1p2FrC6e+FG71Li
- XQpg==
+ bh=HACANyvTKUa2F7OFT3YqMnbFiK8dE6yzsz6U8915HRw=;
+ b=dAYVB4dcvFU4r9BTrWZALJzDdz//0zQPtOs552izBJVPHKkTzM1UCZ8F9oP+kerENH
+ mjZLOkFRu5CvVw88Gu/NJIV90bUfLsC8G5Ea+HujS6lGFEOFNB3US5L7zhnYVIDZxEBA
+ yIRusJoSVL6FBnfiu9mio6bfNdytmsPz57KhqRefyfiMwg0coEiaxLOkMxzekFQ4QSSK
+ bq25sXGx+wAUPRE3vt42F5ak/8ha9LRsr5Yrmqq4O5XSAoSMRZiQQpSjEz7zX9Qrtkur
+ qANIVc+V8dE2fIQyqP79fHh/w2NO9bTAh+xUDSETM2IIsWvNpvgOLoZej/tDLtFV/177
+ X3Qg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5Mi+edYcMLlFJy9L75rMRfh4iQCsqlQwToCkKYSk5nGXdfl3QI63vFZlPTNjSbXPo9Ck8yUqJEKZpzD4DtZzkEYoV0122fJYbxhlcZ2DNcvvf3KJ7kjjy
-X-Gm-Message-State: AOJu0YwgLrVmYyc5k4S3awL0HhvMHDdVoEklVFeFXBk8mHKCg8CzJVO8
- t1mpQ9rQiec/L/6VAeGuHwQzDbHH2ERE5+H252mmkz17Iib2HzpmLUahAD6rkfY=
-X-Google-Smtp-Source: AGHT+IGMXZVW5Ho8kmBDmP6Omvoj6jlGcOLG9xvCaAtMPcGWVxz3Ke5z/lSDDh+jhBaIsDnuGDukqg==
-X-Received: by 2002:a2e:2403:0:b0:2d4:4ffa:9fa6 with SMTP id
- k3-20020a2e2403000000b002d44ffa9fa6mr548353ljk.52.1711484654090; 
- Tue, 26 Mar 2024 13:24:14 -0700 (PDT)
+ AJvYcCWAHOIq0ciid+geK4ZM/ZjlFcIq32kSH5Vb21kZd9CRsW/4IZG/QjeHv+2ky/GcS/ZQEC3YGxdY9nayQi501WZG1RjLL+YfSBDvBGBPTC5qlZFmQRDp2/QT
+X-Gm-Message-State: AOJu0Yw0icJtGHNmZnkjxLWaAuzmgsFptP5o9YOxoHnKHbpc/K/0btRj
+ OAb4PltZhyedQjN0WSbrSRCeyCK5HemG/HfDCg2jXbqBdKlPnHqO/jeZtoC+Afk=
+X-Google-Smtp-Source: AGHT+IF9pUMO5M3/G0TGt/BcN+vt86zQwEQP4of6OmbIqz+WBaFAHT+Lq8Y8KdBG7dtyVu7UH7lCUQ==
+X-Received: by 2002:a05:6512:2012:b0:513:bf8a:bd2e with SMTP id
+ a18-20020a056512201200b00513bf8abd2emr604675lfb.17.1711484656259; 
+ Tue, 26 Mar 2024 13:24:16 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.222.44]) by smtp.gmail.com with ESMTPSA id
- b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.11
+ b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Mar 2024 13:24:13 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:15 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 26 Mar 2024 21:23:37 +0100
+Date: Tue, 26 Mar 2024 21:23:38 +0100
 MIME-Version: 1.0
-Message-Id: <20240326-module-owner-amba-v1-7-4517b091385b@linaro.org>
+Message-Id: <20240326-module-owner-amba-v1-8-4517b091385b@linaro.org>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 To: Russell King <linux@armlinux.org.uk>, 
@@ -76,21 +76,21 @@ To: Russell King <linux@armlinux.org.uk>,
  Eric Auger <eric.auger@redhat.com>, 
  Alex Williamson <alex.williamson@redhat.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=793;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=729;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=nzJjr/3kzpVLtmrrfpAcGA4hmhn+rDCa4L/qGUurIR0=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7RsBi9rHE6OerWYBGpsQMhaz7sDPU0K5tJt
- e5wrxjrm9aJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMu0QAKCRDBN2bmhouD
- 12TQD/91xpOZIgLBEENNHIqagJN55vDh9wP+g0KteobIrBUpfgDGbwLBHPdL2E8eV+ZDMeVIxBK
- /CYCJMyJ4f1Xt2NQ3EIE6pAZZmYG2zggbc6ZOK5kkxYxAUGqXj8tBB6WE8IHdZu/ztKl7bwb/iQ
- g/mzOYng7/+bi5ZLMUtD2QnISo+qIRHw231SZ1Ss9+rno95DhucOQw09sxTElgCvj8iF4FRTqHt
- 2pVx8QTGVe7de68eNnqDWZ7M4i3e/SQ/UzfsXzKj0wnosMJmWapOuaoGMvrAuSBetrHAWG5A4kC
- 2VkJy1CKGow3pRqbmBZWFuQvkgcLP/sOPkT5UAdUpcm3TdM21IjNwEkFOmaaXiqYwQ8kKfBquel
- xWyP5ugKPwZAvNmJP6kBLVFtBZ0fsLOdQbov4bfg4BJ2CkrwOXKlvoK3MPC2uitvcNS7lq4I8+Z
- bItTs5IN+EmNc0osQcar9g4oHqSjLEPFk//1+gF/HAP0zT0tVk5arvN2/l/VzeipqGn6UaOwCOy
- 7t/sqEhDcgBOzfYuBuj96UuisdPH531LFP8sPyguoAmQj/jRHRKtptTLoX/C+6luAQYkPLs6DQu
- hDqzGvzZyZuu8GbRMn4umaNuj5g/ZS00l3b5jZx/qC3brSZ2D/PWeR53ESa29QZKSYJ7cnr/RUj
- 514FcGu+Prar6ng==
+ bh=wYJl4vhVWtWOdD3Sbdos0pesavVG40uaiKbFBYn+928=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7SkWq5sAlGgTyUPiqGzsh+Q+oXWdA1MnZYA
+ IUmYXEOH1OJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMu0gAKCRDBN2bmhouD
+ 1+HOEACAmSAmkE3a3j67RICYun3nSNDCQ2Ctd3yWPnpTaNzh2D4VErkXht9CBOYh9XcE8TJP8sb
+ iWjQjj0Zuc7MUFhPyWSUo6R9q7YIKGdhlN4h+PraouDOic+ib3iU0a+YKc/+H0f38cTpKLExdyE
+ DYrkcd/8n71Zn02XP6WPM6HS8CUbKj9syRY7iOXPsRKUEacQ7Prj/fRtfEU9mKaDQ5V2CBymmvl
+ APTMp2voCMq+0E1VmmE26uY+0SrK8PYPe/iiWHZAc8EkX1Uqz9/HxaVEGv8Zco9qI/IFj5jqCd/
+ 78P2ufBMMwjrgwFmTYedxZPNIgwfNu3c6sXH+M0V30qWivJW/xEtQmcTA66xjyLpaI2JqPRCzQ0
+ t7bPzGh/e47T3pLALRDnTfd87Rq5h9Iei/E4EGQvlCmdN7Muo+Qj1xM0GXUJW6vmiT0dCBZmEUE
+ 5HOpQcQxD5WVVrXf1M4u6fVE75dlWRG0wR09TIEqoVOmNZqpGBExHxOERcUA7ZUyaFXj1ZVr4/G
+ fqxDm1AF8P9ToGvKeuujU+nwaiO+xutHyuxDvIMg7G3tKlTNZZoXIG/fJGI/tE3jGDy+Tw3GNVh
+ yJZy0bXGOzbsbOszryV3haor8aXc8XJML+xeVHwJlq1FbN53kUCCg1mlQoB6I7n+IexGHMGQMMN
+ 8jI6ABMDvFg0I+w==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
@@ -98,8 +98,7 @@ Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
  linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-crypto@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 07/19] coresight: replicator: drop owner
-	assignment
+Subject: [Linux-stm32] [PATCH 08/19] coresight: etb10: drop owner assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,21 +119,21 @@ Amba bus core already sets owner, so driver does not need to.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-replicator.c | 1 -
+ drivers/hwtracing/coresight/coresight-etb10.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-index 73452d9dc13b..2bb9ba66e3c0 100644
---- a/drivers/hwtracing/coresight/coresight-replicator.c
-+++ b/drivers/hwtracing/coresight/coresight-replicator.c
-@@ -406,7 +406,6 @@ static struct amba_driver dynamic_replicator_driver = {
+diff --git a/drivers/hwtracing/coresight/coresight-etb10.c b/drivers/hwtracing/coresight/coresight-etb10.c
+index 3aab182b562f..7edd3f1d0d46 100644
+--- a/drivers/hwtracing/coresight/coresight-etb10.c
++++ b/drivers/hwtracing/coresight/coresight-etb10.c
+@@ -844,7 +844,6 @@ MODULE_DEVICE_TABLE(amba, etb_ids);
+ static struct amba_driver etb_driver = {
  	.drv = {
- 		.name	= "coresight-dynamic-replicator",
- 		.pm	= &replicator_dev_pm_ops,
+ 		.name	= "coresight-etb10",
 -		.owner	= THIS_MODULE,
+ 		.pm	= &etb_dev_pm_ops,
  		.suppress_bind_attrs = true,
- 	},
- 	.probe		= dynamic_replicator_probe,
+ 
 
 -- 
 2.34.1
