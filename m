@@ -2,70 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6577388C2E0
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 14:02:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9642588C369
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 14:31:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B865C6B45B;
-	Tue, 26 Mar 2024 13:02:22 +0000 (UTC)
-Received: from mx08-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DF04BC6B45B;
+	Tue, 26 Mar 2024 13:31:36 +0000 (UTC)
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CA62C640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AFD8CFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:02:20 +0000 (UTC)
-Received: from pps.filterd (m0369457.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 42Q9FH4S009970; Tue, 26 Mar 2024 14:01:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding:content-type; s=selector1; bh=QloCXwv
- iKDQy08mLenO0tS2XCKRzTagg1MEsZ0Mf8XA=; b=H86dfRXpBT8MM9lxQbwMshD
- XLhWXJq2AGMR8Dz1uSEJAJbKvxy5nUClfKUDL57PePil2AckF37ufhmrRkmTyLe6
- XVu8xjaY+BVyZzmEMPA4aUxw0BCAo3Vo0pB1h/EvzOROiVkq9MBI84bCUm/643uC
- e9SHQJrCzqNAoVjKrBuJMyOFVMTaP+DlOMMN3gMcMTIk3fJTyXKeZirEThPjIe9p
- KH4WlTpjU9Vr3JLfVxPy8IV0v7zeETXsr9eo2A7I8ezTuTnKykEU8h3q5x7+f+2N
- Kpsi3ar4ifVe8IVzuaooC2UwJDYj20IYkRgWzRfZSgqi4f5Diy98/v3dkiHBojQ=
- =
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x2awpasx1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Mar 2024 14:01:58 +0100 (CET)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id AA6D14002D;
- Tue, 26 Mar 2024 14:01:55 +0100 (CET)
-Received: from Webmail-eu.st.com (shfdag1node2.st.com [10.75.129.70])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 057C221863B;
- Tue, 26 Mar 2024 14:00:42 +0100 (CET)
-Received: from localhost (10.201.21.128) by SHFDAG1NODE2.st.com (10.75.129.70)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 26 Mar
- 2024 14:00:39 +0100
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
- <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Richard Cochran <richardcochran@gmail.com>,
- Jose Abreu <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Christophe Roullier
- <christophe.roullier@foss.st.com>, Marek Vasut <marex@denx.de>
-Date: Tue, 26 Mar 2024 14:00:17 +0100
-Message-ID: <20240326130017.226875-3-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.25.1
+ Tue, 26 Mar 2024 13:31:35 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id AEAC7C0003;
+ Tue, 26 Mar 2024 13:31:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1711459894;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=Su4anKYfguw45iKaUAiZJzbAMOQ95uSYJX0GLHgexbw=;
+ b=TtbzOcX2k00zErOdvCk4vCRlrvIV/zsiouzyrBoVbyglT6n6ilPT+38jd/MW+38gV57sGS
+ kN/ZMof9ySrS8dTJu/ErkxXoSiMNpgCnaFja9Fc7otkcL9rMSQbffw6h1cVT+36fRIrBOS
+ m30uFgU80Tg97Lao7MEdrojJ8x/yCTmJGPVwQ3f0XR0HrTl8yS8SUc1jlgCJmu55EWjYdz
+ qs72L9O/c9yRzP+FTD/3G9xOqVcRJn6BXXILBDFUZFY74VbGEoKWbJsPtRITwOli1nUIPA
+ qaET4V7ppH5oYemNCAMcutDroJgNXFboZ4MMVYp2vT0d230fQlrrbBYy/Pj11w==
+From: Romain Gantois <romain.gantois@bootlin.com>
+Date: Tue, 26 Mar 2024 14:32:06 +0100
+Message-Id: <20240326-rxc_bugfix-v6-0-24a74e5c761f@bootlin.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.21.128]
-X-ClientProxiedBy: SHFCAS1NODE2.st.com (10.75.129.73) To SHFDAG1NODE2.st.com
- (10.75.129.70)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-03-26_06,2024-03-21_02,2023-05-22_02
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v4 2/2] dt-bindings: net: dwmac: Document
-	STM32 property st, ext-phyclk
+To: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>
+X-Mailer: b4 0.13.0
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: Romain Gantois <romain.gantois@bootlin.com>, netdev@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Clark Wang <xiaoning.wang@nxp.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next RESEND v6 0/7] Fix missing PHY-to-MAC
+	RX clock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,86 +61,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The Linux kernel dwmac-stm32 driver currently supports three DT
-properties used to configure whether PHY clock are generated by
-the MAC or supplied to the MAC from the PHY.
-
-Originally there were two properties, st,eth-clk-sel and
-st,eth-ref-clk-sel, each used to configure MAC clocking in
-different bus mode and for different MAC clock frequency.
-Since it is possible to determine the MAC 'eth-ck' clock
-frequency from the clock subsystem and PHY bus mode from
-the 'phy-mode' property, two disparate DT properties are
-no longer required to configure MAC clocking.
-
-Linux kernel commit 1bb694e20839 ("net: ethernet: stmmac: simplify phy modes management for stm32")
-introduced a third, unified, property st,ext-phyclk. This property
-covers both use cases of st,eth-clk-sel and st,eth-ref-clk-sel DT
-properties, as well as a new use case for 25 MHz clock generated
-by the MAC.
-
-The third property st,ext-phyclk is so far undocumented,
-document it.
-
-Below table summarizes the clock requirement and clock sources for
-supported PHY interface modes.
- __________________________________________________________________________
-|PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
-|         |        |      25MHz    |        50MHz       |                  |
-
----------------------------------------------------------------------------
-|  MII    |    -   |     eth-ck    |        n/a         |       n/a        |
-|         |        | st,ext-phyclk |                    |                  |
-
----------------------------------------------------------------------------
-|  GMII   |    -   |     eth-ck    |        n/a         |       n/a        |
-|         |        | st,ext-phyclk |                    |                  |
-
----------------------------------------------------------------------------
-| RGMII   |    -   |     eth-ck    |        n/a         |      eth-ck      |
-|         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
-|         |        |               |                    | st,ext-phyclk    |
-
----------------------------------------------------------------------------
-| RMII    |    -   |     eth-ck    |      eth-ck        |       n/a        |
-|         |        | st,ext-phyclk | st,eth-ref-clk-sel |                  |
-|         |        |               | or st,ext-phyclk   |                  |
-
----------------------------------------------------------------------------
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-index 80937b28fa046..529665d4fc911 100644
---- a/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/stm32-dwmac.yaml
-@@ -85,6 +85,13 @@ properties:
-   phy-supply:
-     description: PHY regulator
- 
-+  st,ext-phyclk:
-+    description:
-+      set this property in RMII mode when you have PHY without crystal 50MHz and want to
-+      select RCC clock instead of ETH_REF_CLK. OR in RGMII mode when you want to select
-+      RCC clock instead of ETH_CLK125.
-+    type: boolean
-+
-   st,eth-clk-sel:
-     description:
-       set this property in RGMII PHY when you want to select RCC clock instead of ETH_CLK125.
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8gZXZlcnlvbmUsCgpUaGlzIGlzIHZlcnNpb24gc2l4IG9mIG15IHNlcmllcyB0aGF0IGFk
+ZHJlc3NlcyB0aGUgaXNzdWUgd2l0aCBzb21lIE1BQy9QSFkKY29tYmluYXRpb25zLgoKTm90YWJs
+ZSBjaGFuZ2VzIGluIHY2OgogIC0gQ29ycmVjdGVkIHRyYWlsZXJzCgpOb3RhYmxlIGNoYW5nZXMg
+aW4gdjU6CiAgLSBFeHBvcnRlZCBwaHlsaW5rX3Bjc19wcmVfaW5pdCgpIGFzIGEgR1BMIHN5bWJv
+bAogIC0gQ29ycmVjdGVkIGtlcm5lbCBkb2MgZm9yIHBoeWxpbmtfcGNzX3ByZV9pbml0KCkKCk5v
+dGFibGUgY2hhbmdlcyBpbiB2NDoKICAtIE1vZGlmaWVkIG1paWNfcHJlX2luaXQoKSB0byBhbHNv
+IHNldCB0aGUgZGVmYXVsdCBSTUlJIGNvbnZlcnNpb24gc3BlZWQuCgpOb3RhYmxlIGNoYW5nZXMg
+aW4gdjM6CiAgLSBSZW1vdmVkIHRoZSAiaW50ZXJmYWNlIiBhcmd1bWVudCBmcm9tIHBjc19pbml0
+KCkuCiAgLSBBZGRlZCBhIGtlcm5lbCBkb2MgZm9yIHBjc19pbml0KCkuCgpOb3RhYmxlIGNoYW5n
+ZXMgaW4gdjI6CiAgLSBJbnRyb2R1Y2VkIGEgcGNzIG9wIGZvciBpbml0aWFsaXppbmcgaGFyZHdh
+cmUgcmVxdWlyZWQgZm9yIE1BQwogICAgaW5pdGlhbGl6YXRpb24sIGluc3RlYWQgb2YgdXNpbmcg
+cGh5bGlua192YWxpZGF0ZSgpIGZvciB0aGlzIHB1cnBvc2UuCiAgLSBSZWZhY3RvcmVkIHN0bW1h
+YyB0byB1c2UgYSBnZW5lcmljIFBDUyByZWZlcmVuY2UgaW4gbWFjX2RldmljZV9pbmZvCiAgICBp
+bnN0ZWFkIG9mIGEgbW9kZWwtc3BlY2lmaWMgZmllbGQuCgpUaGVyZSBpcyBhbiBpc3N1ZSB3aXRo
+IHNvbWUgc3RtbWFjL1BIWSBjb21iaW5hdGlvbnMgdGhhdCBoYXMgYmVlbiByZXBvcnRlZApzb21l
+IHRpbWUgYWdvIGluIGEgY291cGxlIG9mIGRpZmZlcmVudCBzZXJpZXM6CgpDbGFyayBXYW5nJ3Mg
+cmVwb3J0OgpodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyMzAyMDIwODE1NTkuMzU1MzYz
+Ny0xLXhpYW9uaW5nLndhbmdAbnhwLmNvbS8KQ2zDqW1lbnQgTMOpZ2VyJ3MgcmVwb3J0OgpodHRw
+czovL2xvcmUua2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjMwMTE2MTAzOTI2LjI3Njg2
+OS00LWNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20vCgpTdG1tYWMgY29udHJvbGxlcnMgcmVxdWly
+ZSBhbiBSWCBjbG9jayBzaWduYWwgZnJvbSB0aGUgTUlJIGJ1cyB0byBwZXJmb3JtCnRoZWlyIGhh
+cmR3YXJlIGluaXRpYWxpemF0aW9uIHN1Y2Nlc3NmdWxseS4gVGhpcyBjYXVzZXMgaXNzdWVzIHdp
+dGggc29tZQpQSFkvUENTIGRldmljZXMuIElmIHRoZXNlIGRldmljZXMgZG8gbm90IGJyaW5nIHRo
+ZSBjbG9jayBzaWduYWwgdXAgYmVmb3JlCnRoZSBNQUMgZHJpdmVyIGluaXRpYWxpemVzIGl0cyBo
+YXJkd2FyZSwgdGhlbiBzYWlkIGluaXRpYWxpemF0aW9uIHdpbGwKZmFpbC4gVGhpcyBjYW4gaGFw
+cGVuIGF0IHByb2JlIHRpbWUgb3Igd2hlbiB0aGUgc3lzdGVtIHdha2VzIHVwIGZyb20gYQpzdXNw
+ZW5kZWQgc3RhdGUuCgpUaGlzIHNlcmllcyBpbnRyb2R1Y2VzIG5ldyBmbGFncyBmb3IgcGh5X2Rl
+dmljZSBhbmQgcGh5bGlua19wY3MuIFRoZXNlCmZsYWdzIGFsbG93IE1BQyBkcml2ZXJzIHRvIHNp
+Z25hbCB0byBQSFkvUENTIGRyaXZlcnMgdGhhdCB0aGUgUlggY2xvY2sKc2lnbmFsIHNob3VsZCBi
+ZSBlbmFibGVkIGFzIHNvb24gYXMgcG9zc2libGUsIGFuZCB0aGF0IGl0IHNob3VsZCBhbHdheXMK
+c3RheSBlbmFibGVkLgoKSSBoYXZlIGluY2x1ZGVkIHNwZWNpZmljIHVzZXMgb2YgdGhlc2UgZmxh
+Z3MgdGhhdCBmaXggdGhlIFJaTjEgR01BQzEgc3RtbWFjCmRyaXZlciB0aGF0IEkgYW0gY3VycmVu
+dGx5IHdvcmtpbmcgb24gYW5kIHRoYXQgaXMgbm90IHlldCB1cHN0cmVhbS4gSSBoYXZlCmFsc28g
+aW5jbHVkZWQgY2hhbmdlcyB0byB0aGUgYXQ4MDN4IFBIWSBkcml2ZXIgdGhhdCBzaG91bGQgZml4
+IHRoZSBpc3N1ZQp0aGF0IENsYXJrIFdhbmcgd2FzIGhhdmluZy4KCkNsYXJrLCBjb3VsZCB5b3Ug
+cGxlYXNlIGNvbmZpcm0gdGhhdCB0aGlzIHNlcmllcyBmaXhlcyB5b3VyIGlzc3VlIHdpdGggdGhl
+CmF0ODAzeCBQSFk/CgpCZXN0IFJlZ2FyZHMsCgpSb21haW4KClJvbWFpbiBHYW50b2lzICgyKToK
+ICBuZXQ6IHBoeTogYWRkIHJ4Y19hbHdheXNfb24gZmxhZyB0byBwaHlsaW5rX3BjcwogIG5ldDog
+cGNzOiByem4xLW1paWM6IEluaXQgUlggY2xvY2sgZWFybHkgaWYgTUFDIHJlcXVpcmVzIGl0CgpS
+dXNzZWxsIEtpbmcgKDMpOgogIG5ldDogcGh5OiBhZGQgUEhZX0ZfUlhDX0FMV0FZU19PTiB0byBQ
+SFkgZGV2IGZsYWdzCiAgbmV0OiBzdG1tYWM6IFNpZ25hbCB0byBQSFkvUENTIGRyaXZlcnMgdG8g
+a2VlcCBSWCBjbG9jayBvbgogIG5ldDogcGh5OiBhdDgwM3g6IEF2b2lkIGhpYmVybmF0aW5nIGlm
+IE1BQyByZXF1aXJlcyBSWCBjbG9jawoKIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
+c3RtbWFjX21haW4uYyAgfCAgNSArKysrKwogZHJpdmVycy9uZXQvcGNzL3Bjcy1yem4xLW1paWMu
+YyAgICAgICAgICAgICAgICB8IDE4ICsrKysrKysrKysrKystLS0tLQogZHJpdmVycy9uZXQvcGh5
+L2F0ODAzeC5jICAgICAgICAgICAgICAgICAgICAgICB8ICAzICsrLQogZHJpdmVycy9uZXQvcGh5
+L3BoeWxpbmsuYyAgICAgICAgICAgICAgICAgICAgICB8IDEzICsrKysrKysrKysrKy0KIGluY2x1
+ZGUvbGludXgvcGh5LmggICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMSArCiBpbmNsdWRl
+L2xpbnV4L3BoeWxpbmsuaCAgICAgICAgICAgICAgICAgICAgICAgIHwgIDkgKysrKysrKysrCiA2
+IGZpbGVzIGNoYW5nZWQsIDQyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgotLQoyLjQz
+LjAKCi0tLQotIExpbmsgdG8gdjI6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNDAxMzAt
+cnhjX2J1Z2ZpeC12Mi0wLTVlNmMzMTY4ZTVmMEBib290bGluLmNvbQoKLS0tCi0gTGluayB0byB2
+MzogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI0MDIxMi1yeGNfYnVnZml4LXYzLTAtZTlm
+MmViNmIzYjA1QGJvb3RsaW4uY29tCgotLS0KLSBMaW5rIHRvIHY0OiBodHRwczovL2xvcmUua2Vy
+bmVsLm9yZy9yLzIwMjQwMjIxLXJ4Y19idWdmaXgtdjQtMC00ODgzZWUxY2M3YjFAYm9vdGxpbi5j
+b20KCi0tLQotIExpbmsgdG8gdjU6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNDAzMDEt
+cnhjX2J1Z2ZpeC12NS0wLThkYWMzMDIzMDA1MEBib290bGluLmNvbQoKLS0tCk1heGltZSBDaGV2
+YWxsaWVyICgxKToKICAgICAgbmV0OiBzdG1tYWM6IGRvbid0IHJlbHkgb24gbHlueF9wY3MgcHJl
+c2VuY2UgdG8gY2hlY2sgZm9yIGEgUEhZCgpSb21haW4gR2FudG9pcyAoNCk6CiAgICAgIG5ldDog
+cGh5bGluazogYWRkIHJ4Y19hbHdheXNfb24gZmxhZyB0byBwaHlsaW5rX3BjcwogICAgICBuZXQ6
+IHN0bW1hYzogU3VwcG9ydCBhIGdlbmVyaWMgUENTIGZpZWxkIGluIG1hY19kZXZpY2VfaW5mbwog
+ICAgICBuZXQ6IHN0bW1hYzogU2lnbmFsIHRvIFBIWS9QQ1MgZHJpdmVycyB0byBrZWVwIFJYIGNs
+b2NrIG9uCiAgICAgIG5ldDogcGNzOiByem4xLW1paWM6IEluaXQgUlggY2xvY2sgZWFybHkgaWYg
+TUFDIHJlcXVpcmVzIGl0CgpSdXNzZWxsIEtpbmcgKE9yYWNsZSkgKDIpOgogICAgICBuZXQ6IHBo
+eWxpbms6IGFkZCBQSFlfRl9SWENfQUxXQVlTX09OIHRvIFBIWSBkZXYgZmxhZ3MKICAgICAgbmV0
+OiBwaHk6IHFjb206IGF0ODAzeDogQXZvaWQgaGliZXJuYXRpbmcgaWYgTUFDIHJlcXVpcmVzIFJY
+IGNsb2NrCgogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvY29tbW9uLmggICAg
+ICAgfCAgMiArLQogLi4uL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1zb2NmcGdh
+LmMgICAgfCAgOCArKy0tLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3Rt
+bWFjX21haW4uYyAgfCAxNSArKysrLS0tLQogZHJpdmVycy9uZXQvcGNzL3Bjcy1yem4xLW1paWMu
+YyAgICAgICAgICAgICAgICAgICAgfCAyOCArKysrKysrKysrKysrKysKIGRyaXZlcnMvbmV0L3Bo
+eS9waHlsaW5rLmMgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMjUgKysrKysrKysrKysrLQog
+ZHJpdmVycy9uZXQvcGh5L3Fjb20vYXQ4MDN4LmMgICAgICAgICAgICAgICAgICAgICAgfCAgMyAr
+LQogaW5jbHVkZS9saW51eC9waHkuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAg
+MSArCiBpbmNsdWRlL2xpbnV4L3BoeWxpbmsuaCAgICAgICAgICAgICAgICAgICAgICAgICAgICB8
+IDQyICsrKysrKysrKysrKysrKysrKysrKysKIDggZmlsZXMgY2hhbmdlZCwgMTExIGluc2VydGlv
+bnMoKyksIDEzIGRlbGV0aW9ucygtKQotLS0KYmFzZS1jb21taXQ6IGQ3ZTE0ZTUzNDQ5MzMyOGNj
+NWY2N2JhYWZmMmIwYzIzZDMyYjBhNTcKY2hhbmdlLWlkOiAyMDI0MDEyNi1yeGNfYnVnZml4LWQ0
+N2IzYjFhMzc0ZgoKQmVzdCByZWdhcmRzLAotLSAKUm9tYWluIEdhbnRvaXMgPHJvbWFpbi5nYW50
+b2lzQGJvb3RsaW4uY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxt
+YW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21h
+aWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
