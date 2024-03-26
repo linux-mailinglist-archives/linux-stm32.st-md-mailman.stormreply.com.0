@@ -2,43 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B88288BD6D
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 10:16:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2782988C209
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 13:25:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AE071C6B45B;
-	Tue, 26 Mar 2024 09:16:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8BF9C6B45B;
+	Tue, 26 Mar 2024 12:25:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 55DBDC640E5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E921BCFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 09:16:25 +0000 (UTC)
+ Tue, 26 Mar 2024 12:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711444586; x=1742980586;
+ t=1711455951; x=1742991951;
  h=message-id:date:mime-version:subject:to:references:from:
  in-reply-to:content-transfer-encoding;
- bh=bedNodAL0epS6BTRsXC3wvUj3ZKA55DLlAXiTh5Pi8k=;
- b=Rvj8MuSaN9Y4i+xikinTlIbUH5pw5Z5sYKZGyXAcLqgBnmPyJVRtai4C
- XKwjDxrLr7xI8eCbEVFL0gz08iDYqJMv4LNC+fx3iRwu6kXwcWsph2H5B
- jsiPfkcKACo+7Cxu26GJr0LaxTRzCjfyf+MLUvYAsD2riwyTEue8lc4jM
- DX6T293ux2rmZihbrTIgOfuKrNgCm11tz0Lk6U0rcrPnkE1qT8aqKgKxm
- 77uzX2CnSREMeeFmQV9px98tURR+DueDz6Xb8xEGE4OgKe825KEMVP4nV
- 5JxFDZJwtF1t4nSCsJsKd2FvQXyOhsf9e5jGAx110H0Vz5G6joo6TnC/C w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="7082132"
-X-IronPort-AV: E=Sophos;i="6.07,155,1708416000"; 
-   d="scan'208";a="7082132"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 02:15:38 -0700
+ bh=4/FUC3PgeGbPj/ACm7P2erlBnN7nF3Qy/MNNSPLifnI=;
+ b=Tch6iqwIlORvI13v6yUHK8czZVRE077Jtrx/dNQuBc9+ixM1Q5ie3IJa
+ HkKxnA5dheYb4+tdfYJAHOzPN694ypIN0e79Wg6fydszr2Cw4vZf0VoLz
+ eC/gIy5xWIofOobyAgKwRxf7PB4O5+21o2+mfR16Nn6/5RrAf0dp3h7PQ
+ JCUwt4VxGVU50liSkBnh9c28hoOgrmRQ1gQb3K3u53hPzoK3Isb8kELMO
+ x4rZTS6WvcPIfz5+WCO/I2HD0X3Kc4eI9NgnNxy4xdQ5kNhItCYrWTOr7
+ lVW6sQXNvRH+wthuSAi6bhPKmE+mWA7w8QvLRSanHoxac9OBnFVN7pR0+ w==;
+X-CSE-ConnectionGUID: OudhN+CIS7e3WGoyb9xLGQ==
+X-CSE-MsgGUID: uoG2qJdvSrOrodZj0Ao8uA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11024"; a="10299230"
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="10299230"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 05:25:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,155,1708416000"; d="scan'208";a="16564237"
+X-IronPort-AV: E=Sophos;i="6.07,156,1708416000"; d="scan'208";a="47099724"
 Received: from aslawinx-mobl.ger.corp.intel.com (HELO [10.94.0.53])
  ([10.94.0.53])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2024 02:15:28 -0700
-Message-ID: <80b9d7ed-5ddf-488b-8839-a96f85cfe9e0@linux.intel.com>
-Date: Tue, 26 Mar 2024 10:15:26 +0100
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2024 05:25:41 -0700
+Message-ID: <83d63442-ae4c-4e5e-a610-c0c0be54d50e@linux.intel.com>
+Date: Tue, 26 Mar 2024 13:25:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -69,12 +70,11 @@ To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  imx@lists.linux.dev, linux-sound@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com
 References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
- <87bk7353m7.wl-kuninori.morimoto.gx@renesas.com>
 From: =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-In-Reply-To: <87bk7353m7.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [Linux-stm32] [PATCH 09/15] ASoC: Intel/avs: replace
- dpcm_playback/capture to playback/capture_only
+In-Reply-To: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Re: [Linux-stm32] [PATCH 00/15] ASoC: replace dpcm_playback/capture
+ to playback/capture_only
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,18 +91,32 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 3/25/2024 5:37 AM, Kuninori Morimoto wrote:
-> soc_get_playback_capture() is now handling DPCM and normal comprehensively
-> for playback/capture stream. We can use playback/capture_only flag
-> instead of using dpcm_playback/capture. This patch replace these.
+On 3/25/2024 5:35 AM, Kuninori Morimoto wrote:
 > 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
+> Hi Mark
+> 
+> When we use DPCM, we need to set dpcm_playback/capture flag.
+> If these flag are set, soc_get_playback_capture() will check its
+> availability, but non DPCM case is checked without special flags.
+> 
+> OTOH, it cares playback/capture_only flag. It is needed.
+> 
+> This patch remove DPCM special flag, and replace it playback/capture_only
+> flag if needed.
+> 
 
-ASoC: Intel: avs: boards: Replace dpcm_playback/capture to 
-playback/capture_only
+One general note, I wonder if playback/capture_only should be renamed to 
+something more descriptive, current names are a bit weird from use case 
+point of view. I mean no flags, means both capture and playback are 
+enabled. Then you do something like playback_only = 1, which effectively 
+affects capture stream. Notice that flag is named playback, but affects 
+capture. Perhaps, something like capture_disabled, playback_disabled 
+would make more sense? This would also make more sense to me for 
+something like playback_only = 1; capture_only = 1; which while weird 
+doesn't instantly seem that wrong, while disable on both directions 
+instantly seems broken.
 
-Fix prefix and start commit title from capital letter, otherwise seems good.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
