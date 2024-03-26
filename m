@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B606788CE3A
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C57E888CE3B
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 Mar 2024 21:24:05 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82F28C6DD96;
-	Tue, 26 Mar 2024 20:24:03 +0000 (UTC)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CC28C71281;
+	Tue, 26 Mar 2024 20:24:05 +0000 (UTC)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4A71C6DD93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E21F7C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 20:24:01 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-a46cd9e7fcaso716433566b.1
+ Tue, 26 Mar 2024 20:24:03 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-a450bedffdfso695963066b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 Mar 2024 13:24:01 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711484641; x=1712089441;
+ d=linaro.org; s=google; t=1711484643; x=1712089443;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rzOtSbwk5HJ+2n5ZSOsaMRKkDMm+dhZPpBfR72UdRjo=;
- b=iTcKPcLwqRhfOIOJQ6vCtMLLvAoc3G+wu5ftaQo7SMRa0MLHa8O0rcLCRQnFXWvdAW
- P0rkkqLRVb7re55byvMehJ30tZPjSR7E65ygGfQTrwevthN63b6Wz1HfwOy12aUafiDJ
- 6th0l3f0Lwbt8RTRAbyH4mAK8egYYdt5F25x/HHb/IlT0pr7EOPsUVP+NLAzEomuG0CB
- MaRHqbIq2hKHn9xEe3bAnxKNRuThbP84ALTMUtcPefIwWLPlRMYQBguUvtzi88QZuPnr
- mccULLZxVWdMpnyBr8cPLkPGmI30owwPfxES9eAEd8CXiViNC2cgJneUMdB31dAjqxUD
- IwqA==
+ :reply-to; bh=oszJq80lB2gEh9lWeE9ItwyQq2sVQmw5suR14elTxRc=;
+ b=oc9MSCXkx1QLslAr7+PP76VEnA7ROR3S6+A8zdxaOlEuidSrv1xNLOkiWduJC0usp/
+ g2Dfm7BPzugqgeiUzp05s9DCafWRCjBe8RshJHZhBDbjzjQ/0CSJUdlV4IOBOVXYU6sj
+ hnJfeURmOuwjJiKz6pgZCkz1l98x4pjfiLnV6lttMGZY/A0/fIVD1Z7V8s96MTRuUNw/
+ adSAEXNxgrHIpU4pcAXu29lJC0SxRg2sQQJ+5PDwGFju0B7zuEhSS48TZs5vFVGl4KxW
+ yYyGixEN8Bk/f6r2XEGyjVvGFZjMRoDjUFCLuhBcWUVz0N0JOCqYKIQEE0I90k6usY4U
+ +NVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711484641; x=1712089441;
+ d=1e100.net; s=20230601; t=1711484643; x=1712089443;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rzOtSbwk5HJ+2n5ZSOsaMRKkDMm+dhZPpBfR72UdRjo=;
- b=o5II1D1zVB6sOohLE90tAPNrypZDCtVM+y0k9/RdzxdLN0O1KBB8mYMvl9b2yFFWMo
- jqcX38TkyK75/gGV7iRHjKtYgy8wcyA/2PHQf9OTL3/D8WPkKCTPeWXXbR/A0cJiMeMg
- Q1yCyfbVrW0mYndVJwvbEcL2McaFccDzcYTGqKY38lfVGDe1SsKiNjyUGezcRYDiOABB
- 0SHi5faEjwG6AQeeif5nXnrU7VKNfeSbhplNqvFKLjsGwM2CdjTkz1K0T7NPX0ZaJljQ
- T/W8qnc9aSlvp4lWPcf5YB+QEZ0fCWBtG4mVK3TvcgzvrZq6BrFIwq8NiVC0XDzISOAE
- 99vg==
+ bh=oszJq80lB2gEh9lWeE9ItwyQq2sVQmw5suR14elTxRc=;
+ b=v8v4FeyzWU1Cu3vHyKFczjAa4gw3IX6DD45HmsREle9guS1HHhAO8a3a0gx82Yjc0M
+ Jza+5RxvytscPNf/9u1Eefzv9tDzutjnOGsikUY1s4s7k3QWpXNz1r0YHYNwm6hTU3GE
+ cn5D2AYI/FN+15Aby7qUZFxYIOQKeElkqgLpdnw5lkLbFDy5OLvW3VDKS6cFHOKujhGH
+ KZ5XCmvfUHrAj09H3UBnObyzR2LJc45nVbUp7ouo6RKyKJDe+BUaJahvwZJxmL5e2q5i
+ 9plu2Kfxqz+iZW/Fg6DtK8C6u9N+N3Q1XbDZUvPmlZMDdv4uKctzs/Iw1pJYYVLVuQxK
+ 0zFg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWBjlUTvSNLJ72FtFJNQhTnhuY6dKUEWSpui+8Er7w8+4pDZDnq/50T+4n3ttxlCBNoRP7GOoQ8LPI5c7zvb1XMpsQI/M6HTX6w2ijy6IDYqIjKD29LLaes
-X-Gm-Message-State: AOJu0YyY/HaNoBsHBUAjwmZEq8TM7k+94/j78ubx5lHs/HJ2xyMONW5Z
- DCcUAp8ygEdeEBy6RILHzwd2Tmi3eYx6URApk7+Pn5UHvLiUUqNudYSasnKnmA8=
-X-Google-Smtp-Source: AGHT+IHfUSgEMWZC88gEg7F4GxZ/oDXrRdeKiGsGX2j66fElfR1zUubE+AJU7degaWuoIw5rscdz0Q==
-X-Received: by 2002:a17:907:9958:b0:a46:7794:2c00 with SMTP id
- kl24-20020a170907995800b00a4677942c00mr7550207ejc.40.1711484641253; 
- Tue, 26 Mar 2024 13:24:01 -0700 (PDT)
+ AJvYcCX575b28LWP659pf2fQ9RDwLyWVk5eUIfqnYIrFbd6wH2uT1V1cqyVX9Vj3uS1RqnFh4c1hX5ZPbowp1Bk4ngutsfoZqXqo0oK3B8NpUZf2Gg+wuu/UHxip
+X-Gm-Message-State: AOJu0YzJEG8c1cdG/YSGgixCGyu0IjWmPTjL2iAVWM6NMqzWAnOzn2LQ
+ n3KAT90PDGZJ86qcUlPCK22scffMuxOx8R02PfaAxZSFUbReXADAD1pWcej2b+0=
+X-Google-Smtp-Source: AGHT+IF36ebGHdThhaXtGqM/m8jr3LdkOo+O0duXrjQ1dCCzQHRrHj2gdSWK7PhOmV9feIMSlJ3TuQ==
+X-Received: by 2002:a17:906:169a:b0:a4d:f406:259e with SMTP id
+ s26-20020a170906169a00b00a4df406259emr1568712ejd.1.1711484643350; 
+ Tue, 26 Mar 2024 13:24:03 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.222.44]) by smtp.gmail.com with ESMTPSA id
- b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.23.59
+ b2-20020a1709062b4200b00a4725e4f53asm4584492ejg.40.2024.03.26.13.24.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Mar 2024 13:24:00 -0700 (PDT)
+ Tue, 26 Mar 2024 13:24:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Date: Tue, 26 Mar 2024 21:23:31 +0100
+Date: Tue, 26 Mar 2024 21:23:32 +0100
 MIME-Version: 1.0
-Message-Id: <20240326-module-owner-amba-v1-1-4517b091385b@linaro.org>
+Message-Id: <20240326-module-owner-amba-v1-2-4517b091385b@linaro.org>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
 To: Russell King <linux@armlinux.org.uk>, 
@@ -76,21 +76,21 @@ To: Russell King <linux@armlinux.org.uk>,
  Eric Auger <eric.auger@redhat.com>, 
  Alex Williamson <alex.williamson@redhat.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2900;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=781;
  i=krzysztof.kozlowski@linaro.org; h=from:subject:message-id;
- bh=Z0l0OnzgFtpbmIReqfYeehApq3f4h0o4aClKc0Rot+0=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7MRPDu5a+3xwWGiZHE1/r7AY6a/x3KWTzHp
- 77I8uZh33qJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzAAKCRDBN2bmhouD
- 1yOyEACSnqUPFtIIdUyjMgTJS4Qmh0Be5ij4MNrmGJi0DcwMoT/FYoqXDwowpxlx8KaNnjkytMS
- g87s0XhMJrEHtMgWgKsIHNH4CR36WyN/wPZWxgZBQUNFMGEWA4SRWXI6ciqjqFDdtyOcOiiNDOB
- fjlML1z9zLk3ZgS69LBDozVDoKYqATgEivZnXVpH+fYyZH+dwGJ+wIWFDHNlD+D5ESopGYbvVrI
- acagfRKmUyn32IZtpsKAzxWP0N0jyuxvy3o/gzmIJODgXUbai5pWZ9SvmdjW6mwJQhZNLP0wEAl
- FeGgVZHmuZxZx7b50T5L9HutnGId15TIfFk2kigt9tvxzJbK9faRqNrd3xPSO1StxHVdgGUJdhH
- 7qBOhl3cKy8P6d8w/bhMwsG2qPnSlPtB5xqq1/bP2I/XoYMc/on3ySbT/UAXPZoN3sy7RHJf4Dw
- uDA4cdhkQv/dmkCXI5FKEnH9QGC67ZRvyiDn5rMeab2wksV+iRV6DQFivjvzwDjyaLWH5tj9mGI
- bYUhU4iOTf16YgQ+zkq2tJPAugQ4AnoGofp7J62i2Ixb7zMMsLRSul6x9/MJ72BHumZ2WNFG/yR
- 1b32qFSAKFBJxacXSMluhq8gmBg0FrD5qiNxFc1KPUJsvZxf8X0Yd72wwm0dvcV2BerN8HUJRxj
- PN3v05nOHA22Kyg==
+ bh=E6oiCUv77bElbjGq0w2fujcqFTlKT8NL9bDH7uHNcnY=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBmAy7NOwLLbJwaDUXL7V0PZh2jku+JoMDsPrc7m
+ NzHCD3TWnuJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCZgMuzQAKCRDBN2bmhouD
+ 1zcCD/wL7jy6EpLsVXBGfS64OBKoLjqB570Nzr0xz5jjEOIHnWEDebnlh2C9JRhEwi4ybeuiYUh
+ d8OKzKNy5u1RrBqvyeZD3ETlW83XhTv8PdFb8WanJkUJ7Ob8YMesycKcnijf2seqXrPkA+FQI4w
+ rFSrSXuvNx+OjDSmYfkVidv0rpBT74bf/PzYydwUxVP7rjTuXM5rNKSl77s6EvPOvrPTE8t/Rbw
+ XrHqKCXQlBMdBt4uC6fm9GVQtc6SLAsYheVeOLRGxtz+MYUaDWGMicARiMFrAirc29AI7hftROU
+ 84wz50/TuB4s4U9heZ0ljKA1oYuujdugLPLph9WXB+zzfHz2dYa76mPI03DuF0w6CXtxhmqM456
+ IUPEIIFbp/HLx0x50QhWNnz+X5KnLTYvIPjLXoqwYe0klaC2f+mqBgI4pEGKFwgjMlCOPyGGw+W
+ gK4hjrni09R1RHmFzfeZ+XxjrHuYiY89MQvapBUifZDclD6Tje2rmV2YrRW+3ZnsyMz7+P8TFNm
+ VdlFafpLM/XiQfBV9MOXM83S/RGSkPnFFuWAf0mscOBGiqlVjPIsaBkamqXOUZBaJXWxLUK62dj
+ CfgUsFRgQUrSiw0cj9+pSXjf7sL9haRJXVq8dQ56TA3w/5+9G45chAo/5PIBxYIFaeWsLHhVUgL
+ SqRSg3rM2hSciDA==
 X-Developer-Key: i=krzysztof.kozlowski@linaro.org; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
@@ -98,8 +98,7 @@ Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
  linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-crypto@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 01/19] amba: store owner from modules with
- amba_driver_register()
+Subject: [Linux-stm32] [PATCH 02/19] coresight: cti: drop owner assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,87 +115,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Modules registering driver with amba_driver_register() often forget to
-set .owner field.  The field is used by some of other kernel parts for
-reference counting (try_module_get()), so it is expected that drivers
-will set it.
-
-Solve the problem by moving this task away from the drivers to the core
-amba bus code, just like we did for platform_driver in
-commit 9447057eaff8 ("platform_device: use a macro instead of
-platform_driver_register").
+Amba bus core already sets owner, so driver does not need to.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- drivers/amba/bus.c       | 11 +++++++----
- include/linux/amba/bus.h | 11 +++++++++--
- 2 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/amba/bus.c b/drivers/amba/bus.c
-index a24c152bfaac..aba3aa95b224 100644
---- a/drivers/amba/bus.c
-+++ b/drivers/amba/bus.c
-@@ -488,28 +488,31 @@ static int __init amba_stub_drv_init(void)
- 	 * waiting on amba_match(). So, register a stub driver to make sure
- 	 * amba_match() is called even if no amba driver has been registered.
- 	 */
--	return amba_driver_register(&amba_proxy_drv);
-+	return __amba_driver_register(&amba_proxy_drv, NULL);
- }
- late_initcall_sync(amba_stub_drv_init);
- 
- /**
-- *	amba_driver_register - register an AMBA device driver
-+ *	__amba_driver_register - register an AMBA device driver
-  *	@drv: amba device driver structure
-+ *	@owner: owning module/driver
-  *
-  *	Register an AMBA device driver with the Linux device model
-  *	core.  If devices pre-exist, the drivers probe function will
-  *	be called.
-  */
--int amba_driver_register(struct amba_driver *drv)
-+int __amba_driver_register(struct amba_driver *drv,
-+			   struct module *owner)
- {
- 	if (!drv->probe)
- 		return -EINVAL;
- 
-+	drv->drv.owner = owner;
- 	drv->drv.bus = &amba_bustype;
- 
- 	return driver_register(&drv->drv);
- }
--EXPORT_SYMBOL(amba_driver_register);
-+EXPORT_SYMBOL(__amba_driver_register);
- 
- /**
-  *	amba_driver_unregister - remove an AMBA device driver
-diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
-index c60a6a14638c..958a55bcc708 100644
---- a/include/linux/amba/bus.h
-+++ b/include/linux/amba/bus.h
-@@ -112,11 +112,18 @@ extern struct bus_type amba_bustype;
- #define amba_get_drvdata(d)	dev_get_drvdata(&d->dev)
- #define amba_set_drvdata(d,p)	dev_set_drvdata(&d->dev, p)
- 
-+/*
-+ * use a macro to avoid include chaining to get THIS_MODULE
-+ */
-+#define amba_driver_register(drv) \
-+	__amba_driver_register(drv, THIS_MODULE)
-+
- #ifdef CONFIG_ARM_AMBA
--int amba_driver_register(struct amba_driver *);
-+int __amba_driver_register(struct amba_driver *, struct module *);
- void amba_driver_unregister(struct amba_driver *);
- #else
--static inline int amba_driver_register(struct amba_driver *drv)
-+static inline int __amba_driver_register(struct amba_driver *drv,
-+					 struct module *owner)
- {
- 	return -EINVAL;
- }
+---
+
+Depends on first amba patch.
+---
+ drivers/hwtracing/coresight/coresight-cti-core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/hwtracing/coresight/coresight-cti-core.c b/drivers/hwtracing/coresight/coresight-cti-core.c
+index e805617020d0..d2b5a5718c29 100644
+--- a/drivers/hwtracing/coresight/coresight-cti-core.c
++++ b/drivers/hwtracing/coresight/coresight-cti-core.c
+@@ -982,7 +982,6 @@ MODULE_DEVICE_TABLE(amba, cti_ids);
+ static struct amba_driver cti_driver = {
+ 	.drv = {
+ 		.name	= "coresight-cti",
+-		.owner = THIS_MODULE,
+ 		.suppress_bind_attrs = true,
+ 	},
+ 	.probe		= cti_probe,
 
 -- 
 2.34.1
