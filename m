@@ -2,58 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B01D88E91F
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 16:32:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 800F188EC18
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 18:07:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7DE4C6DD96;
-	Wed, 27 Mar 2024 15:32:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AB53C6DD96;
+	Wed, 27 Mar 2024 17:07:30 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45F53C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE2F2C6DD93
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Mar 2024 15:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711553556; x=1743089556;
- h=date:from:to:cc:subject:message-id;
- bh=EY1vmy+qSpddaD5xBKTWyGhU5QNJtbsjuXgfoV+5Kwc=;
- b=PBcLKhIldDN7J+LWJWzkoMoLQHVITCAjbCsCacsYG1FMsuU59kZiSHoV
- CtEVMi4hh67kAmHAszAamRn2t7LqpZEb3I88V/smI3+fnjPclZa56KqAB
- xNPPyoz8O90gZtF6RA9hf52FmXLgRszPYtnvRT+Fsdue9kblfmjFqKib9
- jim6LC4Vw/FudXLdL4Mcptnp1CaGizBS3avY5tm+3irKvEHtv3L9btfAf
- y7S2FPf6RRQ+f0Z3MxTu+aIfma74KNXkrrl5aO7FCnUFxvrfyCGp5a9qS
- yOufMqa4PmAVJNHc2Muk27p8hF/K7akRG4A5tBbrBPJG7QfAZmKhl/vZ4 g==;
-X-CSE-ConnectionGUID: oKt+O/lZTHWnJ1ArI/+s1g==
-X-CSE-MsgGUID: b+3boMTeQiqrbSvGD5GvgA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6487386"
-X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; 
-   d="scan'208";a="6487386"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2024 08:32:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="21037528"
-Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
- by orviesa004.jf.intel.com with ESMTP; 27 Mar 2024 08:32:30 -0700
-Received: from kbuild by be39aa325d23 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1rpVGN-0001BK-0X;
- Wed, 27 Mar 2024 15:32:27 +0000
-Date: Wed, 27 Mar 2024 23:32:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <202403272304.r5Yy7kIF-lkp@intel.com>
-User-Agent: s-nail v14.9.24
-Cc: linux-arch@vger.kernel.org, lima@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-sound@vger.kernel.org,
- virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Linux Memory Management List <linux-mm@kvack.org>,
- linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
- spice-devel@lists.freedesktop.org, bpf@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Wed, 27 Mar 2024 17:07:28 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-1dff837d674so409105ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 Mar 2024 10:07:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1711559247; x=1712164047;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=B5ZOmADbVSTInhNHzFuQawIFfi8U/bqE1tAqV3bsISw=;
+ b=EHYUIJYZZts5D7/ofBqHX7uzyHrhtQljGAyp+rljcwjc41f6motrLUsfWRKCOA81BI
+ EnyzMgXFzamMDgXy/RF+Gkzx3hzzWdJ0SElAxRZG7EeC9Plo3UvEI8xc9jJlsBvpOI2l
+ zqRhQllTpghKFEmhcrqqK9UZaEb15LQtW8RicsGooScH+yYU4U7ZmYrkEFdkmlQOixOs
+ hXgU8CmuvVWqwgRxd6yTU7BEVMP7b4bJi/3eKsl0EZWg0ZPu1+PiP3STN4QEm+1Arq7s
+ UxCSDiIJciXQiuKdPp/IFfdze83yX+QiV04sVNI7l073G8mBZqorjeNVV4HvlYjAPwva
+ Ryew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711559247; x=1712164047;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=B5ZOmADbVSTInhNHzFuQawIFfi8U/bqE1tAqV3bsISw=;
+ b=OFPtjuB2lrMx8e8srGr1uJYWwKmWQe5rwce1Ieez+Iwa5qXBJAW6acRmmElqKBoV9t
+ yiu7smW6XN2hDPxi2SLU68sNeYmTekZw+MqbWGaCNyEDWm/fwZ+Gwbeb+Xsa0nlDzivM
+ Oz5/ufi6ulThzUl6Vo2ga6Z/Z4pM3SP68u9jBbhI3MKGquyMr8mcJUq8aR43UIkBHyOD
+ 2Re+PZFMB9FUtvDDT0e/1JsPw6RwiU8gJSAGLsZxaHcmKe7QAir99+T0F7UrItLjFU+K
+ MsRrn9GxCFbxXUms+YTM/JcqeCmKiKZO05AUBW4lMvg0w36QlGPCqfzmoGjn3fqyBBJr
+ UqJQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVG5gq1q9EKQcORi4V3I7/suy1i7BGedKpoEi5l3CO6lAppA4AmKr7eF8ipM/e02M0k/gIF8PiC9DUdBw093zk1mc8Dk9ts5PQiEKvl9+Q5foBtDnsBSSli
+X-Gm-Message-State: AOJu0Yy1VPZe6WjBV11UtgmL9sNMrHy+ghiSI4co172mNkSC2vklo2OY
+ jg0z2Tk52JIgG4Yr1muWwXzmggOT7PHfskkj1yt4xWxyrTrjQHC58ZwbZBa5HyQ=
+X-Google-Smtp-Source: AGHT+IEbwLgVOxcxs9lDGGfs24QNEbCGlLcdMhsfKXXAdQ4XSwj+GDuKV9Qj2LEMaRWg8JCPWDG+1Q==
+X-Received: by 2002:a17:902:cec8:b0:1e0:f367:2c9d with SMTP id
+ d8-20020a170902cec800b001e0f3672c9dmr293780plg.41.1711559247077; 
+ Wed, 27 Mar 2024 10:07:27 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:dd82:60ad:849e:4ab5])
+ by smtp.gmail.com with ESMTPSA id
+ k13-20020a170902c40d00b001dd5cdaaa0fsm9285450plk.250.2024.03.27.10.07.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Mar 2024 10:07:26 -0700 (PDT)
+Date: Wed, 27 Mar 2024 11:07:23 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+Message-ID: <ZgRSS76mtc4JBAJP@p14s>
+References: <20240308144708.62362-1-arnaud.pouliquen@foss.st.com>
+ <20240308144708.62362-2-arnaud.pouliquen@foss.st.com>
+ <ZgGqfItYtkUUvlxf@p14s>
+ <5bb9f583-351d-45a4-90e1-ce0b8dde8ce2@foss.st.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <5bb9f583-351d-45a4-90e1-ce0b8dde8ce2@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
+ linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [linux-next:master] BUILD REGRESSION
- 26074e1be23143b2388cacb36166766c235feb7c
+Subject: Re: [Linux-stm32] [PATCH v4 1/4] remoteproc: Add TEE support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,349 +85,752 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: 26074e1be23143b2388cacb36166766c235feb7c  Add linux-next specific files for 20240327
+On Tue, Mar 26, 2024 at 08:18:23PM +0100, Arnaud POULIQUEN wrote:
+> Hello Mathieu,
+> 
+> On 3/25/24 17:46, Mathieu Poirier wrote:
+> > On Fri, Mar 08, 2024 at 03:47:05PM +0100, Arnaud Pouliquen wrote:
+> >> Add a remoteproc TEE (Trusted Execution Environment) driver
+> >> that will be probed by the TEE bus. If the associated Trusted
+> >> application is supported on secure part this device offers a client
+> > 
+> > Device or driver?  I thought I touched on that before.
+> 
+> Right, I changed the first instance and missed this one
+> 
+> > 
+> >> interface to load a firmware in the secure part.
+> >> This firmware could be authenticated by the secure trusted application.
+> >>
+> >> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >> ---
+> >> Updates from V3:
+> >> - rework TEE_REMOTEPROC description in Kconfig
+> >> - fix some namings
+> >> - add tee_rproc_parse_fw  to support rproc_ops::parse_fw
+> >> - add proc::tee_interface;
+> >> - add rproc struct as parameter of the tee_rproc_register() function
+> >> ---
+> >>  drivers/remoteproc/Kconfig          |  10 +
+> >>  drivers/remoteproc/Makefile         |   1 +
+> >>  drivers/remoteproc/tee_remoteproc.c | 434 ++++++++++++++++++++++++++++
+> >>  include/linux/remoteproc.h          |   4 +
+> >>  include/linux/tee_remoteproc.h      | 112 +++++++
+> >>  5 files changed, 561 insertions(+)
+> >>  create mode 100644 drivers/remoteproc/tee_remoteproc.c
+> >>  create mode 100644 include/linux/tee_remoteproc.h
+> >>
+> >> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
+> >> index 48845dc8fa85..2cf1431b2b59 100644
+> >> --- a/drivers/remoteproc/Kconfig
+> >> +++ b/drivers/remoteproc/Kconfig
+> >> @@ -365,6 +365,16 @@ config XLNX_R5_REMOTEPROC
+> >>  
+> >>  	  It's safe to say N if not interested in using RPU r5f cores.
+> >>  
+> >> +
+> >> +config TEE_REMOTEPROC
+> >> +	tristate "remoteproc support by a TEE application"
+> > 
+> > s/remoteproc/Remoteproc
+> > 
+> >> +	depends on OPTEE
+> >> +	help
+> >> +	  Support a remote processor with a TEE application. The Trusted
+> >> +	  Execution Context is responsible for loading the trusted firmware
+> >> +	  image and managing the remote processor's lifecycle.
+> >> +	  This can be either built-in or a loadable module.
+> >> +
+> >>  endif # REMOTEPROC
+> >>  
+> >>  endmenu
+> >> diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
+> >> index 91314a9b43ce..fa8daebce277 100644
+> >> --- a/drivers/remoteproc/Makefile
+> >> +++ b/drivers/remoteproc/Makefile
+> >> @@ -36,6 +36,7 @@ obj-$(CONFIG_RCAR_REMOTEPROC)		+= rcar_rproc.o
+> >>  obj-$(CONFIG_ST_REMOTEPROC)		+= st_remoteproc.o
+> >>  obj-$(CONFIG_ST_SLIM_REMOTEPROC)	+= st_slim_rproc.o
+> >>  obj-$(CONFIG_STM32_RPROC)		+= stm32_rproc.o
+> >> +obj-$(CONFIG_TEE_REMOTEPROC)		+= tee_remoteproc.o
+> >>  obj-$(CONFIG_TI_K3_DSP_REMOTEPROC)	+= ti_k3_dsp_remoteproc.o
+> >>  obj-$(CONFIG_TI_K3_R5_REMOTEPROC)	+= ti_k3_r5_remoteproc.o
+> >>  obj-$(CONFIG_XLNX_R5_REMOTEPROC)	+= xlnx_r5_remoteproc.o
+> >> diff --git a/drivers/remoteproc/tee_remoteproc.c b/drivers/remoteproc/tee_remoteproc.c
+> >> new file mode 100644
+> >> index 000000000000..c855210e52e3
+> >> --- /dev/null
+> >> +++ b/drivers/remoteproc/tee_remoteproc.c
+> >> @@ -0,0 +1,434 @@
+> >> +// SPDX-License-Identifier: GPL-2.0-or-later
+> >> +/*
+> >> + * Copyright (C) STMicroelectronics 2024 - All Rights Reserved
+> >> + * Author: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> >> + */
+> >> +
+> >> +#include <linux/firmware.h>
+> >> +#include <linux/io.h>
+> >> +#include <linux/module.h>
+> >> +#include <linux/remoteproc.h>
+> >> +#include <linux/slab.h>
+> >> +#include <linux/tee_drv.h>
+> >> +#include <linux/tee_remoteproc.h>
+> >> +
+> >> +#include "remoteproc_internal.h"
+> >> +
+> >> +#define MAX_TEE_PARAM_ARRY_MEMBER	4
+> >> +
+> >> +/*
+> >> + * Authentication of the firmware and load in the remote processor memory
+> >> + *
+> >> + * [in]  params[0].value.a:	unique 32bit identifier of the remote processor
+> >> + * [in]	 params[1].memref:	buffer containing the image of the buffer
+> >> + */
+> >> +#define TA_RPROC_FW_CMD_LOAD_FW		1
+> >> +
+> >> +/*
+> >> + * Start the remote processor
+> >> + *
+> >> + * [in]  params[0].value.a:	unique 32bit identifier of the remote processor
+> >> + */
+> >> +#define TA_RPROC_FW_CMD_START_FW	2
+> >> +
+> >> +/*
+> >> + * Stop the remote processor
+> >> + *
+> >> + * [in]  params[0].value.a:	unique 32bit identifier of the remote processor
+> >> + */
+> >> +#define TA_RPROC_FW_CMD_STOP_FW		3
+> >> +
+> >> +/*
+> >> + * Return the address of the resource table, or 0 if not found
+> >> + * No check is done to verify that the address returned is accessible by
+> >> + * the non secure context. If the resource table is loaded in a protected
+> >> + * memory the access by the non secure context will lead to a data abort.
+> >> + *
+> >> + * [in]  params[0].value.a:	unique 32bit identifier of the remote processor
+> >> + * [out]  params[1].value.a:	32bit LSB resource table memory address
+> >> + * [out]  params[1].value.b:	32bit MSB resource table memory address
+> >> + * [out]  params[2].value.a:	32bit LSB resource table memory size
+> >> + * [out]  params[2].value.b:	32bit MSB resource table memory size
+> >> + */
+> >> +#define TA_RPROC_FW_CMD_GET_RSC_TABLE	4
+> >> +
+> >> +/*
+> >> + * Return the address of the core dump
+> >> + *
+> >> + * [in]  params[0].value.a:	unique 32bit identifier of the remote processor
+> >> + * [out] params[1].memref:	address of the core dump image if exist,
+> >> + *				else return Null
+> >> + */
+> >> +#define TA_RPROC_FW_CMD_GET_COREDUMP	5
+> >> +
+> >> +struct tee_rproc_context {
+> >> +	struct list_head sessions;
+> >> +	struct tee_context *tee_ctx;
+> >> +	struct device *dev;
+> >> +};
+> >> +
+> >> +static struct tee_rproc_context *tee_rproc_ctx;
+> >> +
+> >> +static void tee_rproc_prepare_args(struct tee_rproc *trproc, int cmd,
+> >> +				   struct tee_ioctl_invoke_arg *arg,
+> >> +				   struct tee_param *param,
+> >> +				   unsigned int num_params)
+> >> +{
+> >> +	memset(arg, 0, sizeof(*arg));
+> >> +	memset(param, 0, MAX_TEE_PARAM_ARRY_MEMBER * sizeof(*param));
+> >> +
+> >> +	arg->func = cmd;
+> >> +	arg->session = trproc->session_id;
+> >> +	arg->num_params = num_params + 1;
+> >> +
+> >> +	param[0] = (struct tee_param) {
+> >> +		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> >> +		.u.value.a = trproc->rproc_id,
+> >> +	};
+> >> +}
+> >> +
+> >> +int tee_rproc_load_fw(struct rproc *rproc, const struct firmware *fw)
+> >> +{
+> >> +	struct tee_ioctl_invoke_arg arg;
+> >> +	struct tee_param param[MAX_TEE_PARAM_ARRY_MEMBER];
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	struct tee_shm *fw_shm;
+> >> +	int ret;
+> > 
+> > Declarations in reverse ascending order here and everywhere in the driver.
+> > Sometimes it is done properly, sometimes it isn't. 
+> > 
+> >> +
+> >> +	if (!trproc)
+> >> +		return -EINVAL;
+> >> +
+> >> +	fw_shm = tee_shm_register_kernel_buf(tee_rproc_ctx->tee_ctx, (void *)fw->data, fw->size);
+> >> +	if (IS_ERR(fw_shm))
+> >> +		return PTR_ERR(fw_shm);
+> >> +
+> >> +	tee_rproc_prepare_args(trproc, TA_RPROC_FW_CMD_LOAD_FW, &arg, param, 1);
+> >> +
+> >> +	/* Provide the address of the firmware image */
+> >> +	param[1] = (struct tee_param) {
+> >> +		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT,
+> >> +		.u.memref = {
+> >> +			.shm = fw_shm,
+> >> +			.size = fw->size,
+> >> +			.shm_offs = 0,
+> >> +		},
+> >> +	};
+> >> +
+> >> +	ret = tee_client_invoke_func(tee_rproc_ctx->tee_ctx, &arg, param);
+> >> +	if (ret < 0 || arg.ret != 0) {
+> >> +		dev_err(tee_rproc_ctx->dev,
+> >> +			"TA_RPROC_FW_CMD_LOAD_FW invoke failed TEE err: %x, ret:%x\n",
+> >> +			arg.ret, ret);
+> >> +		if (!ret)
+> >> +			ret = -EIO;
+> >> +	}
+> >> +
+> >> +	tee_shm_free(fw_shm);
+> >> +
+> >> +	return ret;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_load_fw);
+> >> +
+> >> +struct resource_table *tee_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
+> >> +{
+> >> +	struct tee_ioctl_invoke_arg arg;
+> >> +	struct tee_param param[MAX_TEE_PARAM_ARRY_MEMBER];
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	struct resource_table *rsc_table;
+> >> +	int ret;
+> >> +
+> >> +	if (!trproc)
+> >> +		return ERR_PTR(-EINVAL);
+> >> +
+> >> +	tee_rproc_prepare_args(trproc, TA_RPROC_FW_CMD_GET_RSC_TABLE, &arg, param, 2);
+> >> +
+> >> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT;
+> >> +	param[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT;
+> >> +
+> >> +	ret = tee_client_invoke_func(tee_rproc_ctx->tee_ctx, &arg, param);
+> >> +	if (ret < 0 || arg.ret != 0) {
+> >> +		dev_err(tee_rproc_ctx->dev,
+> >> +			"TA_RPROC_FW_CMD_GET_RSC_TABLE invoke failed TEE err: %x, ret:%x\n",
+> >> +			arg.ret, ret);
+> >> +		return ERR_PTR(-EIO);
+> >> +	}
+> >> +
+> >> +	*table_sz = param[2].u.value.a;
+> >> +
+> >> +	/* If the size is null no resource table defined in the image */
+> >> +	if (!*table_sz)
+> >> +		return NULL;
+> >> +
+> >> +	/* Store the resource table address that would be updated by the remote core. */
+> >> +	rsc_table = ioremap_wc(param[1].u.value.a, *table_sz);
+> >> +	if (IS_ERR_OR_NULL(rsc_table)) {
+> >> +		dev_err(tee_rproc_ctx->dev, "Unable to map memory region: %lld+%zx\n",
+> >> +			param[1].u.value.a, *table_sz);
+> >> +		return ERR_PTR(-ENOMEM);
+> >> +	}
+> >> +
+> >> +	return rsc_table;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_get_loaded_rsc_table);
+> >> +
+> >> +int tee_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+> >> +{
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	struct resource_table *rsc_table;
+> >> +	size_t table_sz;
+> >> +	int ret;
+> >> +
+> >> +	ret = tee_rproc_load_fw(rproc, fw);
+> >> +	if (ret)
+> >> +		return ret;
+> >> +
+> >> +	rsc_table = tee_rproc_get_loaded_rsc_table(rproc, &table_sz);
+> >> +	if (IS_ERR(rsc_table))
+> >> +		return PTR_ERR(rsc_table);
+> >> +
+> >> +	/* Create a copy of the resource table to have same behaviour than the elf loader. */
+> >> +	rproc->cached_table = kmemdup(rsc_table, table_sz, GFP_KERNEL);
+> >> +	if (!rproc->cached_table)
+> >> +		return -ENOMEM;
+> > 
+> > Why not ->table_ptr and setting ->cached_table to NULL?
+> 
+> It was my plan preparing this version. But during implementarion it looks
+> to me that having exactly same behavior than the ELF loader would be
+> simpler to maintain the remoteproc avoiding to update in the remoteproc core
+> to manage for the cached resource table (see also my comment below abourt recovery)
+> That why I propose this implementation
+> 
+> That said what you proposal should also work (with some updates in
+> remoteproc_core for the management of the cached table).
+>
 
-Error/Warning reports:
+Yes
 
-https://lore.kernel.org/oe-kbuild-all/202403271905.BYbGJiPi-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202403271907.0z0uuG5I-lkp@intel.com
-https://lore.kernel.org/oe-kbuild-all/202403272205.UKAQzc7v-lkp@intel.com
+> So please just comfirm your preference.
+>
 
-Error/Warning: (recently discovered and may have been fixed)
+Definitely keep ->cached_table to NULL.  
 
-ERROR: modpost: "memcpy" [crypto/asymmetric_keys/public_key.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/asymmetric_keys/x509_key_parser.ko] undefined!
-ERROR: modpost: "memcpy" [crypto/sha1_generic.ko] undefined!
-drivers/gpu/drm/lima/lima_drv.c:387:13: error: cast to smaller integer type 'enum lima_gpu_id' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
-drivers/gpu/drm/panthor/panthor_sched.c:2048:6: error: variable 'csg_mod_mask' set but not used [-Werror,-Wunused-but-set-variable]
-drivers/gpu/drm/pl111/pl111_versatile.c:488:24: error: cast to smaller integer type 'enum versatile_clcd' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
-drivers/gpu/drm/qxl/qxl_cmd.c:424:6: error: variable 'count' set but not used [-Werror,-Wunused-but-set-variable]
-drivers/gpu/drm/qxl/qxl_ioctl.c:148:14: error: variable 'num_relocs' set but not used [-Werror,-Wunused-but-set-variable]
-drivers/pwm/pwm-stm32.c:662:8: error: call to undeclared function 'devm_clk_rate_exclusive_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-include/asm-generic/io.h:547:31: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
-ld: sof_board_helpers.c:(.text+0x157): undefined reference to `sof_ssp_detect_amp_type'
-sof_board_helpers.c:(.text+0x149): undefined reference to `sof_ssp_detect_codec_type'
-sound/soc/codecs/rk3308_codec.c:956:34: warning: 'rk3308_codec_of_match' defined but not used [-Wunused-const-variable=]
-sound/soc/codecs/rk3308_codec.c:956:34: warning: unused variable 'rk3308_codec_of_match' [-Wunused-const-variable]
+> > 
+> >> +
+> >> +	rproc->table_ptr = rproc->cached_table;
+> >> +	rproc->table_sz = table_sz;
+> >> +	trproc->rsc_table = rsc_table;
+> > 
+> > I really don't see why this is needed, please remove and use rproc->table_ptr
+> > instead.
+> 
+> I need to store it for the iounmap in tee_rproc_remove.
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
+iounmap(entry->rproc->rsc_table);
 
-drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c:400:42-43: WARNING opportunity for min()
-drivers/gpu/drm/amd/display/dc/dpp/dcn20/dcn20_dpp.c:269:42-43: WARNING opportunity for min()
-drivers/gpu/drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c:43:42-43: WARNING opportunity for min()
+What am I missing?
 
-Error/Warning ids grouped by kconfigs:
+> 
+> > 
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_parse_fw);
+> >> +
+> >> +struct resource_table *tee_rproc_find_loaded_rsc_table(struct rproc *rproc,
+> >> +						       const struct firmware *fw)
+> >> +{
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	struct resource_table *rsc_table;
+> >> +	size_t table_sz;
+> >> +
+> >> +	if (!trproc)
+> >> +		return ERR_PTR(-EINVAL);
+> >> +
+> >> +	/* Check if the resourse table has already been obtained in tee_rproc_parse_fw() */
+> >> +	if (trproc->rsc_table)
+> >> +		return trproc->rsc_table;
+> > 
+> > Again, why not simply use rproc->rsc_table?  This function should only return
+> > the resource table that was set in tee_rproc_parse_fw(). 
+> 
+> In case of recovery rproc->_rsc_table point to the cached table [1]
+ 
+In [1], on line 1554, add a check for rproc->tee_interface and if it is valid
+call rproc_find_loaded_rsc_table(). 
 
-gcc_recent_errors
-|-- alpha-randconfig-r001-20220112
-|   |-- ERROR:memcpy-crypto-asymmetric_keys-public_key.ko-undefined
-|   |-- ERROR:memcpy-crypto-asymmetric_keys-x509_key_parser.ko-undefined
-|   `-- ERROR:memcpy-crypto-sha1_generic.ko-undefined
-|-- arc-randconfig-r053-20240327
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- arm-omap2plus_defconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- arm64-defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- csky-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- loongarch-defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- m68k-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- m68k-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- microblaze-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- microblaze-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- nios2-randconfig-002-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allmodconfig
-|   |-- drivers-pwm-pwm-stm32.c:error:implicit-declaration-of-function-devm_clk_rate_exclusive_get
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sh-allyesconfig
-|   |-- drivers-pwm-pwm-stm32.c:error:implicit-declaration-of-function-devm_clk_rate_exclusive_get
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc-randconfig-001-20240327
-|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
-|   |-- (.init.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-symbol-leon_smp_cpu_startup-defined-in-.text-section-in-arch-sparc-kernel-trampoline_32.o
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allmodconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- sparc64-allyesconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- um-allyesconfig
-|   |-- collect2:error:ld-returned-exit-status
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- um-i386_defconfig
-|   `-- collect2:error:ld-returned-exit-status
-|-- x86_64-buildonly-randconfig-001-20240327
-|   |-- ld:sof_board_helpers.c:(.text):undefined-reference-to-sof_ssp_detect_amp_type
-|   |-- sof_board_helpers.c:(.text):undefined-reference-to-sof_ssp_detect_codec_type
-|   `-- sound-soc-codecs-rk3308_codec.c:warning:rk3308_codec_of_match-defined-but-not-used
-|-- x86_64-randconfig-004-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-`-- x86_64-randconfig-102-20240326
-    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn10-dcn10_dpp_dscl.c:WARNING-opportunity-for-min()
-    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn20-dcn20_dpp.c:WARNING-opportunity-for-min()
-    `-- drivers-gpu-drm-amd-display-dc-dpp-dcn32-dcn32_dpp.c:WARNING-opportunity-for-min()
-clang_recent_errors
-|-- arm-defconfig
-|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- hexagon-randconfig-001-20240326
-|   `-- drivers-pwm-pwm-stm32.c:error:call-to-undeclared-function-devm_clk_rate_exclusive_get-ISO-C99-and-later-do-not-support-implicit-function-declarations
-|-- hexagon-randconfig-001-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-buildonly-randconfig-005-20240327
-|   `-- sound-soc-codecs-rk3308_codec.c:warning:unused-variable-rk3308_codec_of_match
-|-- i386-randconfig-005-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- i386-randconfig-012-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- mips-bmips_stb_defconfig
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|-- powerpc-randconfig-r061-20240327
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- powerpc-randconfig-r062-20240327
-|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
-|-- riscv-allmodconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- riscv-allyesconfig
-|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- s390-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_drv.c:error:bitwise-operation-between-different-enumeration-types-(-enum-amd_asic_type-and-enum-amd_chip_flags-)-Werror-Wenum-enum-conversion
-|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras.c:error:arithmetic-between-different-enumeration-types-(-enum-amdgpu_ras_block-and-enum-amdgpu_ras_mca_block-)-Werror-Wenum-enum-conversion
-|   |-- drivers-gpu-drm-lima-lima_drv.c:error:cast-to-smaller-integer-type-enum-lima_gpu_id-from-const-void-Werror-Wvoid-pointer-to-enum-cast
-|   |-- drivers-gpu-drm-panthor-panthor_sched.c:error:variable-csg_mod_mask-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- drivers-gpu-drm-pl111-pl111_versatile.c:error:cast-to-smaller-integer-type-enum-versatile_clcd-from-const-void-Werror-Wvoid-pointer-to-enum-cast
-|   |-- drivers-gpu-drm-qxl-qxl_cmd.c:error:variable-count-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- drivers-gpu-drm-qxl-qxl_ioctl.c:error:variable-num_relocs-set-but-not-used-Werror-Wunused-but-set-variable
-|   |-- drivers-gpu-drm-radeon-radeon_drv.c:error:bitwise-operation-between-different-enumeration-types-(-enum-radeon_family-and-enum-radeon_chip_flags-)-Werror-Wenum-enum-conversion
-|   `-- include-asm-generic-io.h:error:performing-pointer-arithmetic-on-a-null-pointer-has-undefined-behavior-Werror-Wnull-pointer-arithmetic
-|-- s390-defconfig
-|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
-|-- x86_64-randconfig-075-20240327
-|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
-`-- x86_64-randconfig-161-20240327
-    `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+> and we need to reapply the configuration in rproc_start() called during the
+> recovery[2]
 
-elapsed time: 725m
+1) Rename rproc_set_rsc_table() to rproc_set_rsc_table_on_attach()
+2) Introduce a new function called rproc_set_rsc_table_on_start()
+3) Move code from [2], line 1278 to 1292, to that new function.  In the new
+function, add a check on rproc->tee_interface.  If it is valid then call
+rproc_find_loaded_rsc_table().
+4) in rproc_start(), replace lines 1278 to 1292 with a call to
+rproc_set_rsc_table_on_start().
 
-configs tested: 189
-configs skipped: 3
+> [1]https://elixir.bootlin.com/linux/latest/source/drivers/remoteproc/remoteproc_core.c#L1586
+> [2]https://elixir.bootlin.com/linux/latest/source/drivers/remoteproc/remoteproc_core.c#L1287
+> 
+> > 
+> >> +
+> >> +	rsc_table = tee_rproc_get_loaded_rsc_table(rproc, &table_sz);
+> >> +	if (IS_ERR(rsc_table))
+> >> +		return rsc_table;
+> >> +
+> >> +	rproc->table_sz = table_sz;
+> >> +	trproc->rsc_table = rsc_table;
+> >> +
+> >> +	return rsc_table;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_find_loaded_rsc_table);
+> >> +
+> >> +int tee_rproc_start(struct rproc *rproc)
+> >> +{
+> >> +	struct tee_ioctl_invoke_arg arg;
+> >> +	struct tee_param param[MAX_TEE_PARAM_ARRY_MEMBER];
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	int ret;
+> >> +
+> >> +	if (!trproc)
+> >> +		return -EINVAL;
+> >> +
+> >> +	tee_rproc_prepare_args(trproc, TA_RPROC_FW_CMD_START_FW, &arg, param, 0);
+> >> +
+> >> +	ret = tee_client_invoke_func(tee_rproc_ctx->tee_ctx, &arg, param);
+> >> +	if (ret < 0 || arg.ret != 0) {
+> >> +		dev_err(tee_rproc_ctx->dev,
+> >> +			"TA_RPROC_FW_CMD_START_FW invoke failed TEE err: %x, ret:%x\n",
+> >> +			arg.ret, ret);
+> >> +		if (!ret)
+> >> +			ret = -EIO;
+> >> +	}
+> >> +
+> >> +	return ret;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_start);
+> >> +
+> >> +int tee_rproc_stop(struct rproc *rproc)
+> >> +{
+> >> +	struct tee_ioctl_invoke_arg arg;
+> >> +	struct tee_param param[MAX_TEE_PARAM_ARRY_MEMBER];
+> >> +	struct tee_rproc *trproc = rproc->tee_interface;
+> >> +	int ret;
+> >> +
+> >> +	if (!trproc)
+> >> +		return -EINVAL;
+> >> +
+> >> +	tee_rproc_prepare_args(trproc, TA_RPROC_FW_CMD_STOP_FW, &arg, param, 0);
+> >> +
+> >> +	ret = tee_client_invoke_func(tee_rproc_ctx->tee_ctx, &arg, param);
+> >> +	if (ret < 0 || arg.ret != 0) {
+> >> +		dev_err(tee_rproc_ctx->dev,
+> >> +			"TA_RPROC_FW_CMD_STOP_FW invoke failed TEE err: %x, ret:%x\n",
+> >> +			arg.ret, ret);
+> >> +		if (!ret)
+> >> +			ret = -EIO;
+> >> +	}
+> >> +
+> >> +	if (!rproc->table_ptr)
+> >> +		return ret;
+> >> +
+> >> +	iounmap(trproc->rsc_table);
+> >> +	trproc->rsc_table = NULL;
+> >> +	rproc->table_ptr = NULL;
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_stop);
+> >> +
+> >> +static const struct tee_client_device_id stm32_tee_rproc_id_table[] = {
+> >> +	{UUID_INIT(0x80a4c275, 0x0a47, 0x4905,
+> >> +		   0x82, 0x85, 0x14, 0x86, 0xa9, 0x77, 0x1a, 0x08)},
+> >> +	{}
+> >> +};
+> >> +
+> >> +struct tee_rproc *tee_rproc_register(struct device *dev, struct rproc *rproc, unsigned int rproc_id)
+> >> +{
+> >> +	struct tee_client_device *tee_device;
+> >> +	struct tee_ioctl_open_session_arg sess_arg;
+> >> +	struct tee_param param[MAX_TEE_PARAM_ARRY_MEMBER];
+> >> +	struct tee_rproc *trproc;
+> >> +	int ret;
+> >> +
+> >> +	/*
+> >> +	 * Test if the device has been probed by the TEE bus. In case of failure, we ignore the
+> >> +	 * reason. The bus could be not yet probed or the service not available in the secure
+> >> +	 * firmware.The assumption in such a case is that the TEE remoteproc is not probed.
+> >> +	 */
+> >> +	if (!tee_rproc_ctx)
+> >> +		return ERR_PTR(-EPROBE_DEFER);
+> >> +
+> >> +	trproc =  devm_kzalloc(dev, sizeof(*trproc), GFP_KERNEL);
+> >> +	if (!trproc)
+> >> +		return ERR_PTR(-ENOMEM);
+> >> +
+> >> +	tee_device = to_tee_client_device(tee_rproc_ctx->dev);
+> >> +	memset(&sess_arg, 0, sizeof(sess_arg));
+> >> +
+> >> +	memcpy(sess_arg.uuid, tee_device->id.uuid.b, TEE_IOCTL_UUID_LEN);
+> >> +
+> >> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL;
+> >> +	sess_arg.num_params = 1;
+> >> +
+> >> +	param[0] = (struct tee_param) {
+> >> +		.attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT,
+> >> +		.u.value.a = rproc_id,
+> >> +	};
+> >> +
+> >> +	ret = tee_client_open_session(tee_rproc_ctx->tee_ctx, &sess_arg, param);
+> >> +	if (ret < 0 || sess_arg.ret != 0) {
+> >> +		dev_err(dev, "tee_client_open_session failed, err: %x\n", sess_arg.ret);
+> >> +		return ERR_PTR(-EINVAL);
+> >> +	}
+> >> +
+> >> +	trproc->parent =  dev;
+> >> +	trproc->rproc_id = rproc_id;
+> >> +	trproc->session_id = sess_arg.session;
+> >> +
+> >> +	trproc->rproc = rproc;
+> >> +	rproc->tee_interface = trproc;
+> >> +
+> >> +	list_add_tail(&trproc->node, &tee_rproc_ctx->sessions);
+> >> +
+> >> +	return trproc;
+> > 
+> > Once this function was called by a client, what prevents a user from unloading
+> > the tee_remoteproc module and breaking everything?
+> 
+> Good point! seems better toremove the module build capability
+> 
 
-tested configs:
-alpha                             allnoconfig   gcc  
-alpha                            allyesconfig   gcc  
-alpha                               defconfig   gcc  
-arc                              allmodconfig   gcc  
-arc                               allnoconfig   gcc  
-arc                              allyesconfig   gcc  
-arc                                 defconfig   gcc  
-arc                        nsimosci_defconfig   gcc  
-arc                   randconfig-001-20240327   gcc  
-arc                   randconfig-002-20240327   gcc  
-arc                        vdk_hs38_defconfig   gcc  
-arm                              allmodconfig   gcc  
-arm                               allnoconfig   clang
-arm                              allyesconfig   gcc  
-arm                     am200epdkit_defconfig   gcc  
-arm                         axm55xx_defconfig   clang
-arm                                 defconfig   clang
-arm                          exynos_defconfig   clang
-arm                       omap2plus_defconfig   gcc  
-arm                   randconfig-001-20240327   clang
-arm                   randconfig-002-20240327   clang
-arm                   randconfig-003-20240327   clang
-arm                   randconfig-004-20240327   gcc  
-arm64                            allmodconfig   clang
-arm64                             allnoconfig   gcc  
-arm64                               defconfig   gcc  
-arm64                 randconfig-001-20240327   clang
-arm64                 randconfig-002-20240327   clang
-arm64                 randconfig-003-20240327   gcc  
-arm64                 randconfig-004-20240327   clang
-csky                             allmodconfig   gcc  
-csky                              allnoconfig   gcc  
-csky                             allyesconfig   gcc  
-csky                                defconfig   gcc  
-csky                  randconfig-001-20240327   gcc  
-csky                  randconfig-002-20240327   gcc  
-hexagon                          allmodconfig   clang
-hexagon                           allnoconfig   clang
-hexagon                          allyesconfig   clang
-hexagon                             defconfig   clang
-hexagon               randconfig-001-20240327   clang
-hexagon               randconfig-002-20240327   clang
-i386                             allmodconfig   gcc  
-i386                              allnoconfig   gcc  
-i386                             allyesconfig   gcc  
-i386         buildonly-randconfig-001-20240327   gcc  
-i386         buildonly-randconfig-002-20240327   gcc  
-i386         buildonly-randconfig-003-20240327   clang
-i386         buildonly-randconfig-004-20240327   clang
-i386         buildonly-randconfig-005-20240327   clang
-i386         buildonly-randconfig-006-20240327   clang
-i386                                defconfig   clang
-i386                  randconfig-001-20240327   gcc  
-i386                  randconfig-002-20240327   gcc  
-i386                  randconfig-003-20240327   clang
-i386                  randconfig-004-20240327   gcc  
-i386                  randconfig-005-20240327   clang
-i386                  randconfig-006-20240327   gcc  
-i386                  randconfig-011-20240327   gcc  
-i386                  randconfig-012-20240327   clang
-i386                  randconfig-013-20240327   gcc  
-i386                  randconfig-014-20240327   clang
-i386                  randconfig-015-20240327   gcc  
-i386                  randconfig-016-20240327   clang
-loongarch                        allmodconfig   gcc  
-loongarch                         allnoconfig   gcc  
-loongarch                           defconfig   gcc  
-loongarch             randconfig-001-20240327   gcc  
-loongarch             randconfig-002-20240327   gcc  
-m68k                             allmodconfig   gcc  
-m68k                              allnoconfig   gcc  
-m68k                             allyesconfig   gcc  
-m68k                       bvme6000_defconfig   gcc  
-m68k                                defconfig   gcc  
-m68k                            q40_defconfig   gcc  
-m68k                        stmark2_defconfig   gcc  
-microblaze                       allmodconfig   gcc  
-microblaze                        allnoconfig   gcc  
-microblaze                       allyesconfig   gcc  
-microblaze                          defconfig   gcc  
-mips                              allnoconfig   gcc  
-mips                             allyesconfig   gcc  
-mips                      bmips_stb_defconfig   clang
-mips                    maltaup_xpa_defconfig   gcc  
-nios2                            alldefconfig   gcc  
-nios2                            allmodconfig   gcc  
-nios2                             allnoconfig   gcc  
-nios2                            allyesconfig   gcc  
-nios2                               defconfig   gcc  
-nios2                 randconfig-001-20240327   gcc  
-nios2                 randconfig-002-20240327   gcc  
-openrisc                          allnoconfig   gcc  
-openrisc                         allyesconfig   gcc  
-openrisc                            defconfig   gcc  
-parisc                           allmodconfig   gcc  
-parisc                            allnoconfig   gcc  
-parisc                           allyesconfig   gcc  
-parisc                              defconfig   gcc  
-parisc                randconfig-001-20240327   gcc  
-parisc                randconfig-002-20240327   gcc  
-parisc64                            defconfig   gcc  
-powerpc                          allmodconfig   gcc  
-powerpc                           allnoconfig   gcc  
-powerpc                          allyesconfig   clang
-powerpc                       ebony_defconfig   clang
-powerpc                      katmai_defconfig   clang
-powerpc                 mpc8315_rdb_defconfig   clang
-powerpc                     mpc83xx_defconfig   clang
-powerpc                     rainier_defconfig   gcc  
-powerpc               randconfig-001-20240327   clang
-powerpc               randconfig-002-20240327   gcc  
-powerpc               randconfig-003-20240327   clang
-powerpc                      tqm8xx_defconfig   clang
-powerpc64             randconfig-001-20240327   clang
-powerpc64             randconfig-002-20240327   gcc  
-powerpc64             randconfig-003-20240327   gcc  
-riscv                            allmodconfig   clang
-riscv                             allnoconfig   gcc  
-riscv                            allyesconfig   clang
-riscv                               defconfig   clang
-riscv                 randconfig-001-20240327   clang
-riscv                 randconfig-002-20240327   gcc  
-s390                             allmodconfig   clang
-s390                              allnoconfig   clang
-s390                             allyesconfig   gcc  
-s390                                defconfig   clang
-s390                  randconfig-001-20240327   clang
-s390                  randconfig-002-20240327   gcc  
-sh                               allmodconfig   gcc  
-sh                                allnoconfig   gcc  
-sh                               allyesconfig   gcc  
-sh                                  defconfig   gcc  
-sh                         ecovec24_defconfig   gcc  
-sh                             espt_defconfig   gcc  
-sh                          polaris_defconfig   gcc  
-sh                    randconfig-001-20240327   gcc  
-sh                    randconfig-002-20240327   gcc  
-sh                          rsk7201_defconfig   gcc  
-sh                          sdk7786_defconfig   gcc  
-sh                           se7343_defconfig   gcc  
-sh                           se7619_defconfig   gcc  
-sh                           se7751_defconfig   gcc  
-sh                   sh7770_generic_defconfig   gcc  
-sparc                            allmodconfig   gcc  
-sparc                             allnoconfig   gcc  
-sparc                               defconfig   gcc  
-sparc64                          allmodconfig   gcc  
-sparc64                          allyesconfig   gcc  
-sparc64                             defconfig   gcc  
-sparc64               randconfig-001-20240327   gcc  
-sparc64               randconfig-002-20240327   gcc  
-um                               allmodconfig   clang
-um                                allnoconfig   clang
-um                               allyesconfig   gcc  
-um                                  defconfig   clang
-um                             i386_defconfig   gcc  
-um                    randconfig-001-20240327   clang
-um                    randconfig-002-20240327   clang
-um                           x86_64_defconfig   clang
-x86_64                            allnoconfig   clang
-x86_64                           allyesconfig   clang
-x86_64       buildonly-randconfig-001-20240327   gcc  
-x86_64       buildonly-randconfig-002-20240327   gcc  
-x86_64       buildonly-randconfig-003-20240327   gcc  
-x86_64       buildonly-randconfig-004-20240327   clang
-x86_64       buildonly-randconfig-005-20240327   gcc  
-x86_64       buildonly-randconfig-006-20240327   gcc  
-x86_64                              defconfig   gcc  
-x86_64                randconfig-001-20240327   clang
-x86_64                randconfig-002-20240327   gcc  
-x86_64                randconfig-003-20240327   gcc  
-x86_64                randconfig-004-20240327   gcc  
-x86_64                randconfig-005-20240327   clang
-x86_64                randconfig-006-20240327   clang
-x86_64                randconfig-011-20240327   gcc  
-x86_64                randconfig-012-20240327   clang
-x86_64                randconfig-013-20240327   clang
-x86_64                randconfig-014-20240327   clang
-x86_64                randconfig-015-20240327   clang
-x86_64                randconfig-016-20240327   clang
-x86_64                randconfig-071-20240327   gcc  
-x86_64                randconfig-072-20240327   clang
-x86_64                randconfig-073-20240327   clang
-x86_64                randconfig-074-20240327   clang
-x86_64                randconfig-075-20240327   clang
-x86_64                randconfig-076-20240327   clang
-x86_64                          rhel-8.3-rust   clang
-xtensa                            allnoconfig   gcc  
-xtensa                randconfig-001-20240327   gcc  
+I was thinking more along the lines of try_module_get() and module_put() to
+avoid bloating the core.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> Thanks,
+> Arnaud
+> 
+> > 
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_register);
+> >> +
+> >> +int tee_rproc_unregister(struct tee_rproc *trproc)
+> >> +{
+> > 
+> > If you pass a struct_rproc instead of a struct tee_rproc there is no need for
+> > tee_rproc::rproc, which is only ever used in this function.
+> > 
+> > 
+> >> +	struct rproc *rproc = trproc->rproc;
+> >> +	int ret;
+> >> +
+> >> +	ret = tee_client_close_session(tee_rproc_ctx->tee_ctx, trproc->session_id);
+> >> +	if (ret < 0)
+> >> +		dev_err(trproc->parent,	"tee_client_close_session failed, err: %x\n", ret);
+> >> +
+> >> +	list_del(&trproc->node);
+> >> +	rproc->tee_interface = NULL;
+> >> +
+> >> +	return ret;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(tee_rproc_unregister);
+> >> +
+> >> +static int tee_rproc_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+> >> +{
+> >> +	/* Today we support only the OP-TEE, could be extend to other tees */
+> >> +	return (ver->impl_id == TEE_IMPL_ID_OPTEE);
+> >> +}
+> >> +
+> >> +static int tee_rproc_probe(struct device *dev)
+> >> +{
+> >> +	struct tee_context *tee_ctx;
+> >> +	int ret;
+> >> +
+> >> +	/* Open context with TEE driver */
+> >> +	tee_ctx = tee_client_open_context(NULL, tee_rproc_ctx_match, NULL, NULL);
+> >> +	if (IS_ERR(tee_ctx))
+> >> +		return PTR_ERR(tee_ctx);
+> >> +
+> >> +	tee_rproc_ctx = devm_kzalloc(dev, sizeof(*tee_ctx), GFP_KERNEL);
+> >> +	if (!tee_rproc_ctx) {
+> >> +		ret = -ENOMEM;
+> >> +		goto err;
+> >> +	}
+> >> +
+> >> +	tee_rproc_ctx->dev = dev;
+> >> +	tee_rproc_ctx->tee_ctx = tee_ctx;
+> >> +	INIT_LIST_HEAD(&tee_rproc_ctx->sessions);
+> >> +
+> >> +	return 0;
+> >> +err:
+> >> +	tee_client_close_context(tee_ctx);
+> >> +
+> >> +	return ret;
+> >> +}
+> >> +
+> >> +static int tee_rproc_remove(struct device *dev)
+> >> +{
+> >> +	struct tee_rproc *entry, *tmp;
+> >> +
+> >> +	list_for_each_entry_safe(entry, tmp, &tee_rproc_ctx->sessions, node) {
+> >> +		tee_client_close_session(tee_rproc_ctx->tee_ctx, entry->session_id);
+> >> +		list_del(&entry->node);
+> >> +		if (entry->rsc_table)
+> >> +			iounmap(entry->rsc_table);
+> >> +		kfree(entry);
+> >> +	}
+> >> +
+> >> +	tee_client_close_context(tee_rproc_ctx->tee_ctx);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +MODULE_DEVICE_TABLE(tee, stm32_tee_rproc_id_table);
+> >> +
+> >> +static struct tee_client_driver tee_rproc_fw_driver = {
+> >> +	.id_table	= stm32_tee_rproc_id_table,
+> >> +	.driver		= {
+> >> +		.name		= KBUILD_MODNAME,
+> >> +		.bus		= &tee_bus_type,
+> >> +		.probe		= tee_rproc_probe,
+> >> +		.remove		= tee_rproc_remove,
+> >> +	},
+> >> +};
+> >> +
+> >> +static int __init tee_rproc_fw_mod_init(void)
+> >> +{
+> >> +	return driver_register(&tee_rproc_fw_driver.driver);
+> >> +}
+> >> +
+> >> +static void __exit tee_rproc_fw_mod_exit(void)
+> >> +{
+> >> +	driver_unregister(&tee_rproc_fw_driver.driver);
+> >> +}
+> >> +
+> >> +module_init(tee_rproc_fw_mod_init);
+> >> +module_exit(tee_rproc_fw_mod_exit);
+> >> +
+> >> +MODULE_DESCRIPTION(" TEE remote processor control driver");
+> >> +MODULE_LICENSE("GPL");
+> >> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> >> index b4795698d8c2..8b678009e481 100644
+> >> --- a/include/linux/remoteproc.h
+> >> +++ b/include/linux/remoteproc.h
+> >> @@ -503,6 +503,8 @@ enum rproc_features {
+> >>  	RPROC_MAX_FEATURES,
+> >>  };
+> >>  
+> >> +struct tee_rproc;
+> >> +
+> >>  /**
+> >>   * struct rproc - represents a physical remote processor device
+> >>   * @node: list node of this rproc object
+> >> @@ -545,6 +547,7 @@ enum rproc_features {
+> >>   * @cdev: character device of the rproc
+> >>   * @cdev_put_on_release: flag to indicate if remoteproc should be shutdown on @char_dev release
+> >>   * @features: indicate remoteproc features
+> >> + * @tee_interface: pointer to the remoteproc tee context
+> >>   */
+> >>  struct rproc {
+> >>  	struct list_head node;
+> >> @@ -586,6 +589,7 @@ struct rproc {
+> >>  	struct cdev cdev;
+> >>  	bool cdev_put_on_release;
+> >>  	DECLARE_BITMAP(features, RPROC_MAX_FEATURES);
+> >> +	struct tee_rproc *tee_interface;
+> >>  };
+> >>  
+> >>  /**
+> >> diff --git a/include/linux/tee_remoteproc.h b/include/linux/tee_remoteproc.h
+> >> new file mode 100644
+> >> index 000000000000..571e47190d02
+> >> --- /dev/null
+> >> +++ b/include/linux/tee_remoteproc.h
+> >> @@ -0,0 +1,112 @@
+> >> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> >> +/*
+> >> + * Copyright(c) 2024 STMicroelectronics - All Rights Reserved
+> >> + */
+> >> +
+> >> +#ifndef TEE_REMOTEPROC_H
+> >> +#define TEE_REMOTEPROC_H
+> >> +
+> >> +#include <linux/tee_drv.h>
+> >> +#include <linux/firmware.h>
+> >> +#include <linux/remoteproc.h>
+> >> +
+> >> +struct rproc;
+> >> +
+> >> +/**
+> >> + * struct tee_rproc - TEE remoteproc structure
+> >> + * @node:		Reference in list
+> >> + * @rproc:		Remoteproc reference
+> >> + * @parent:		Parent device
+> >> + * @rproc_id:		Identifier of the target firmware
+> >> + * @session_id:		TEE session identifier
+> >> + * @rsc_table:		Resource table virtual address.
+> >> + */
+> >> +struct tee_rproc {
+> >> +	struct list_head node;
+> >> +	struct rproc *rproc;
+> >> +	struct device *parent;
+> >> +	u32 rproc_id;
+> >> +	u32 session_id;
+> >> +	struct resource_table *rsc_table;
+> >> +};
+> >> +
+> >> +#if IS_REACHABLE(CONFIG_TEE_REMOTEPROC)
+> >> +
+> >> +struct tee_rproc *tee_rproc_register(struct device *dev, struct rproc *rproc,
+> >> +				     unsigned int rproc_id);
+> >> +int tee_rproc_unregister(struct tee_rproc *trproc);
+> >> +int tee_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw);
+> >> +int tee_rproc_load_fw(struct rproc *rproc, const struct firmware *fw);
+> >> +struct resource_table *tee_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz);
+> >> +struct resource_table *tee_rproc_find_loaded_rsc_table(struct rproc *rproc,
+> >> +						       const struct firmware *fw);
+> >> +int tee_rproc_start(struct rproc *rproc);
+> >> +int tee_rproc_stop(struct rproc *rproc);
+> >> +
+> >> +#else
+> >> +
+> >> +static inline struct tee_rproc *tee_rproc_register(struct device *dev, struct rproc *rproc,
+> >> +						   unsigned int rproc_id)
+> >> +{
+> >> +	return ERR_PTR(-ENODEV);
+> >> +}
+> >> +
+> >> +static int tee_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static inline int tee_rproc_unregister(struct tee_rproc *trproc)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static inline int tee_rproc_load_fw(struct rproc *rproc,  const struct firmware *fw)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static inline int tee_rproc_start(struct rproc *rproc)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static inline int tee_rproc_stop(struct rproc *rproc)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return 0;
+> >> +}
+> >> +
+> >> +static inline struct resource_table *
+> >> +tee_rproc_get_loaded_rsc_table(struct rproc *rproc, size_t *table_sz)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return NULL;
+> >> +}
+> >> +
+> >> +static inline struct resource_table *
+> >> +tee_rproc_find_loaded_rsc_table(struct rproc *rproc, const struct firmware *fw)
+> >> +{
+> >> +	/* This shouldn't be possible */
+> >> +	WARN_ON(1);
+> >> +
+> >> +	return NULL;
+> >> +}
+> >> +#endif /* CONFIG_TEE_REMOTEPROC */
+> >> +#endif /* TEE_REMOTEPROC_H */
+> >> -- 
+> >> 2.25.1
+> >>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
