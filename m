@@ -2,45 +2,98 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 566E188DFD9
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 13:27:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA95F88E139
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 13:55:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A9CBC71288;
-	Wed, 27 Mar 2024 12:27:22 +0000 (UTC)
-Received: from SHSQR01.spreadtrum.com (mx1.unisoc.com [222.66.158.135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F1CEC6DD93;
+	Wed, 27 Mar 2024 12:55:39 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C2BAC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F9AFC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Mar 2024 11:03:06 +0000 (UTC)
-Received: from dlp.unisoc.com ([10.29.3.86])
- by SHSQR01.spreadtrum.com with ESMTP id 42RB1uoB056670;
- Wed, 27 Mar 2024 19:01:56 +0800 (+08)
- (envelope-from cathy.cai@unisoc.com)
-Received: from SHDLP.spreadtrum.com (shmbx06.spreadtrum.com [10.0.1.11])
- by dlp.unisoc.com (SkyGuard) with ESMTPS id 4V4Nx94wClz2MN62X;
- Wed, 27 Mar 2024 19:00:13 +0800 (CST)
-Received: from zeshkernups02.spreadtrum.com (10.29.35.184) by
- shmbx06.spreadtrum.com (10.0.1.11) with Microsoft SMTP Server (TLS) id
- 15.0.1497.23; Wed, 27 Mar 2024 19:01:55 +0800
-From: Cathy Cai <cathy.cai@unisoc.com>
-To: <cathycai0714@gmail.com>, <davem@davemloft.net>, <edumazet@google.com>,
- <kuba@kernel.org>, <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 27 Mar 2024 19:01:42 +0800
-Message-ID: <20240327110142.159851-1-cathy.cai@unisoc.com>
-X-Mailer: git-send-email 2.34.1
+ Wed, 27 Mar 2024 12:55:38 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-341730bfc46so4801915f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 Mar 2024 05:55:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1711544137; x=1712148937;
+ darn=st-md-mailman.stormreply.com; 
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+ bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
+ b=MGW3HLlYV0e5BefHgJjj1jswh2nEmNRGgKuIwpYraHFet70xleFaWOdXdENtMp/FZ4
+ IaAgHCAxZb41WiPvqEUwkfddfkIlmN5V2rJdQRZNA1Xf7+UyU5CR5Y2lDgu/3Vkh98id
+ L0Yvtpe9o8IpZYNeMECUydgEterBF2ZjbM8Wa0apaz1JJbxqwstMb2u2TrtYUt+AT3BS
+ R1qd30GG0P13RdH7TYzgAxEsDxeQycOh7F3xYFOuiS64c5fRHuajwVhjokhKsIou2awZ
+ qWDOUO0tqaNFPWBxzMMc0bN4DKGrxUFZ7S8xwHY9aEIBn6l6FAgu8B3igSMnBenNfGE4
+ uVDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711544137; x=1712148937;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
+ b=pNeNVGXwBoy+gCo7BZuI6BTSG1yt1krEfH45i+5droknGXt6y1JiaW/SGdQZYeEmIT
+ 3O+Gc4mitH58bRWXwioa03NAybirrZLgEU+BOg+X6gPgAieYGNA/KlJMRY6qDmYMGlol
+ AF7hW8CbTDGUSfvkhaG/DeQ1pMQ4n4B4IhulCrvyoV9CLCOQDLHjJqoCcpRnJzcspmJj
+ QCh/XsQho8h5GbA38IKjByB8Z0sDE+UgqlLl94exxn2KHQj2iZj81lvbAkBfIWui7heH
+ 82yDVG+Yrq4YVrlpdW/TNt5pXTS+F3yUjjuax1ZpumH1vAICGp6/vD66aEjwXC3zhaC/
+ pnOQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWfvIOHEbNPepkhBfoO+E2/Wkmca7hR733jGmINfYrJOsMjSI5C+QCUn55n+O94ApedjBjTN0H7s2v+ZmoPs96ScYv1kOeb4yfkMnMstgbhmi15gUg3QYs6
+X-Gm-Message-State: AOJu0YzmwTIeeMSefK8s/SKp4hLLKCHsJ8JSDVdwTmjecWcUZFy6qOOE
+ RWwEQNfkk0813WJ8X/kOlJiB3zPc+zOlKlnWOG9EHviC2M/H66NYfWfmrhO4an0=
+X-Google-Smtp-Source: AGHT+IFNNxBDz2Tx/jpDPmwWEphhbXKgsW+qHx/Yz0edPYKGGY5dsGFKtIqCm7B13uhNEaK0FJ6NZA==
+X-Received: by 2002:adf:a3d0:0:b0:33e:1ee0:6292 with SMTP id
+ m16-20020adfa3d0000000b0033e1ee06292mr4235689wrb.58.1711544137249; 
+ Wed, 27 Mar 2024 05:55:37 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:e2f0:34bb:2ffe:1a3b])
+ by smtp.gmail.com with ESMTPSA id
+ h2-20020a5d5042000000b00341c162a6d4sm11641186wrt.107.2024.03.27.05.55.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Mar 2024 05:55:36 -0700 (PDT)
+References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
+ <8734sf53kv.wl-kuninori.morimoto.gx@renesas.com>
+ <1j7chp9gbb.fsf@starbuckisacylon.baylibre.com>
+ <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 27 Mar 2024 13:30:32 +0100
+In-reply-to: <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <1jcyrfal6f.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.29.35.184]
-X-ClientProxiedBy: SHCAS03.spreadtrum.com (10.0.1.207) To
- shmbx06.spreadtrum.com (10.0.1.11)
-X-MAIL: SHSQR01.spreadtrum.com 42RB1uoB056670
-X-Mailman-Approved-At: Wed, 27 Mar 2024 12:27:20 +0000
-Cc: joabreu@synopsys.com, zhiguo.niu@unisoc.com, cixi.geng1@unisoc.com,
- cathy.cai@unisoc.com, xuewen.yan94@gmail.com, wade.shu@unisoc.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
-	interrupt storm
+Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
+ alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Amadeusz =?utf-8?B?U8WCYXdpxYRz?= =?utf-8?B?a2k=?=
+ <amadeuszx.slawinski@linux.intel.com>, linux-sound@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Brent Lu <brent.lu@intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 15/15] ASoC: soc-pcm: indicate warning if
+ DPCM BE Codec has no settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,98 +110,125 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-After I do seven days of MSR test (monkey sleep reboot test) in Android,
-I can encounter below netdev watchdog timeout issue. Tx queue timed out
-then reset adapter. There is a probability that an interruption storm will
-occur and the system will crash.
 
-When we do MSR test, there is a NETDEV WATCHDOG WARNING:
-[  117.885804] ------------[ cut here ]------------
-[  117.885818] NETDEV WATCHDOG: eth0 (stmmaceth): transmit queue 0 timed
-               out
-[  117.885873] WARNING: CPU: 1 PID: 4169 at net/sched/sch_generic.c:473
-               dev_watchdog+0x2fc/0x41c
-[  117.886070]  sprd_systimer sprd_sip_svc sprd_wdt_fiq sprd_wdt_pon
-[  117.886082] CPU: 1 PID: 4169 Comm: RenderThread Tainted: G S       C O
-               5.4.147-ab41313 #1
-[  117.886085] Hardware name: Spreadtrum UIS6780 SoC (DT)
-[  117.886090] pstate: 60400005 (nZCv daif +PAN -UAO)
-[  117.886094] pc : dev_watchdog+0x2fc/0x41c
-[  117.886098] lr : dev_watchdog+0x2fc/0x41c
-[  117.886100] sp : ffffffc01000bcf0
-[  117.886103] x29: ffffffc01000bcf0 x28: ffffffc011eafe28
-[  117.886107] x27: ffffff80f97a5c40 x26: 00000000ffffffff
-[  117.886111] x25: 0000000000000001 x24: 0000000000000008
-[  117.886114] x23: ffffffc011ea6000 x22: ffffffc011e73020
-[  117.886118] x21: 0000000000000000 x20: ffffff80f434841c
-[  117.886122] x19: ffffff80f4348000 x18: ffffffc01000d048
-[  117.886127] x17: ffffffc012050044 x16: 00000000000508d0
-[  117.886130] x15: 0000000000000006 x14: 0000000000000058
-[  117.886134] x13: 0000000000000008 x12: 0000000042d7d11b
-[  117.886138] x11: 0000000000000015 x10: 0000000000000001
-[  117.886141] x9 : a6fe08b7d867fd00 x8 : a6fe08b7d867fd00
-[  117.886145] x7 : 0000000000000000 x6 : ffffffc0120a0899
-[  117.886149] x5 : 0000000000000058 x4 : 0000000000000002
-[  117.886152] x3 : ffffffc01000b980 x2 : 0000000000000007
-[  117.886156] x1 : 0000000000000006 x0 : 000000000000003d
-[  117.886164]
+On Wed 27 Mar 2024 at 01:06, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
 
-[  117.887028]
-[  117.887030] Call trace:
-[  117.887035]  dev_watchdog+0x2fc/0x41c
-[  117.887043]  call_timer_fn+0x5c/0x274
-[  117.887046]  expire_timers+0x74/0x1b4
-[  117.887050]  __run_timers+0x250/0x2b0
-[  117.887054]  run_timer_softirq+0x28/0x4c
-[  117.887061]  __do_softirq+0x128/0x4dc
-[  117.887067]  irq_exit+0xf8/0xfc
-[  117.887072]  __handle_domain_irq+0xb0/0x108
-[  117.887076]  gic_handle_irq+0x6c/0x124
-[  117.887081]  el0_irq_naked+0x64/0x74
-[  117.887084] ---[ end trace 1308772835db89f6 ]---
-[  117.887188] stmmaceth 32600000.ethernet eth0: Reset adapter.
+> Hi Jerome
+>
+> Thank you for your feedback
+>
+>> I'm not quite sure what you mean by "should have validation" and what
+>> setting exactly we should validate ?
+>> 
+>> I know I should be able to able to understand that
+>> from the code below but, somehow I have trouble deciphering it.
+>
+> Current ASoC have validation for ^^^ part
+>
+> 	DPCM
+> 		[CPU/xxxx]-[xxxx/Codec]
+> 		^^^^                   (A)
+> 	Normal
+> 		[CPU/Codec]
+> 		^^^^^^^^^^^
+>
+> (In many case, this "xxxx" is "dummy")
 
-Tx queue time out then reset adapter. When reset the adapter, stmmac driver
-sets the state to STMMAC_DOWN and calls dev_close() function. If an interrupt
-is triggered at this instant after setting state to STMMAC_DOWN, before the
-dev_close() call.
+Yes for many DPCM user, you have:
 
-The scene is as follows:
-stmmac_reset_subtask()
-	set_bit(STMMAC_DOWN, &priv->state);
-					--->interrupt
-					  stmmac_interrupt()
-					    return IRQ_HANDLED
-	dev_close(priv->dev);
+       DPCM
+               [CPU/dummy]-[dummy/Codec]
 
-The interrupt handler stmmac_interrupt is executed, judging that the state is
-STMMAC_DOWN and returning IRQ_HANDLED. Then the processing will not continue,
-and it will not be able to clear the interrupt status.
+FYI: on Amlogic it is mostly the following
+(only considering DCPM, omitting C2C ...)
 
-Therefore, to avoid this, set STMMAC_DOWN after dev_close().
+       DPCM
+               [CPU-FE/dummy]-[CPU-BE/Codec]
 
-Signed-off-by: Cathy Cai <cathy.cai@unisoc.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+With possibly several BE instances per FE, and several codecs per BE.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 24cd80490d19..61690b68b6ad 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7167,8 +7167,8 @@ static void stmmac_reset_subtask(struct stmmac_priv *priv)
- 	while (test_and_set_bit(STMMAC_RESETING, &priv->state))
- 		usleep_range(1000, 2000);
- 
--	set_bit(STMMAC_DOWN, &priv->state);
- 	dev_close(priv->dev);
-+	set_bit(STMMAC_DOWN, &priv->state);
- 	dev_open(priv->dev, NULL);
- 	clear_bit(STMMAC_DOWN, &priv->state);
- 	clear_bit(STMMAC_RESETING, &priv->state);
+And there is even this for loopbacks:
+
+       DPCM
+               [CPU-FE/dummy]-[CPU-BE/dummy]
+
+
+> By this patch-set, It will check all cases
+>
+> 	DPCM
+> 		[CPU/xxxx]-[xxxx/Codec]
+> 		^^^^^^^^^   ^^^^^^^^^^ (B)
+> 	Normal
+> 		[CPU/Codec]
+> 		^^^^^^^^^^^
+>
+> At first, in [CPU/xxxx] case, "xxxx" part should be also checked
+> (in many case, this "xxxx" is "dummy").
+>
+> And, because it didn't check (A) part before,
+> (B) part might be error on some board (at least Intel board).
+> To avoid such case, temporally it uses "dummy" instead of "Codec"
+> before [15/15]. This means (B) part checked as like below.
+>
+> 	[xxxx/Codec] -> [xxxx/dummy]
+>
+> Because "dummy" will pass all cases, (B) part is almost same as no check.
+> Yes, it is no meaning, but the code will be simple.
+>
+>> Where you have a CPU supporting both direction and 2 codecs, each
+>> supporting 1 stream direction ? This is a valid i2s configuration.
+> (snip)
+>> >  		/*
+>> > -		 * FIXME
+>> > +		 * FIXME / CLEAN-UP-ME
+>> >  		 *
+>> >  		 * DPCM BE Codec has been no checked before.
+>> >  		 * It should be checked, but it breaks compatibility.
+>> >  		 * It ignores BE Codec here, so far.
+>> >  		 */
+>> > -		if (dai_link->no_pcm)
+>> > -			codec_dai = dummy_dai;
+>> > +		if ((dai_link->no_pcm) &&
+>> > +		    ((cpu_play_t	&& !codec_play_t) ||
+>> > +		     (cpu_capture_t	&& !codec_capture_t))) {
+>> > +			dev_warn_once(rtd->dev, "DCPM BE Codec has no stream settings (%s)\n",
+>> > +				      codec_dai->name);
+>> 
+>> Taking one codec at a time, would you trigger a warning for the use case I
+>> described above ?
+>
+> Oops, indeed it will indicate warning in your case.
+> How about this ?
+>
+> 	if ((dai_link->no_pcm) &&
+                         ^ Actually my comment applies to all links, DPCM backend or not
+
+> 	    (!codec_play_t && !codec_capture_t)) {
+
+A codec that does not support playback and does not support capture does
+not support much, does it ? ;)
+
+I suppose you meant something like:
+
+>           (!cpu_play_t && !codec_capture_t)) { 
+
+Then at first glance, maybe ... CPU and codec seem to exclude each other but
+that will only work as long as DCPM is limited to a single CPU per link.
+
+> 		dev_warn_once(...)
+> 		...
+> 	}
+>
+> Thank you for your help !!
+>
+> Best regards
+> ---
+> Renesas Electronics
+> Ph.D. Kuninori Morimoto
+
+
 -- 
-2.34.1
-
+Jerome
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
