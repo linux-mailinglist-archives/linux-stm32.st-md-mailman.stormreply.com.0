@@ -2,98 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA95F88E139
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 13:55:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B01D88E91F
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 Mar 2024 16:32:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F1CEC6DD93;
-	Wed, 27 Mar 2024 12:55:39 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7DE4C6DD96;
+	Wed, 27 Mar 2024 15:32:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F9AFC6B45B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45F53C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Mar 2024 12:55:38 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-341730bfc46so4801915f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 Mar 2024 05:55:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1711544137; x=1712148937;
- darn=st-md-mailman.stormreply.com; 
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
- bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
- b=MGW3HLlYV0e5BefHgJjj1jswh2nEmNRGgKuIwpYraHFet70xleFaWOdXdENtMp/FZ4
- IaAgHCAxZb41WiPvqEUwkfddfkIlmN5V2rJdQRZNA1Xf7+UyU5CR5Y2lDgu/3Vkh98id
- L0Yvtpe9o8IpZYNeMECUydgEterBF2ZjbM8Wa0apaz1JJbxqwstMb2u2TrtYUt+AT3BS
- R1qd30GG0P13RdH7TYzgAxEsDxeQycOh7F3xYFOuiS64c5fRHuajwVhjokhKsIou2awZ
- qWDOUO0tqaNFPWBxzMMc0bN4DKGrxUFZ7S8xwHY9aEIBn6l6FAgu8B3igSMnBenNfGE4
- uVDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711544137; x=1712148937;
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Vp48KocudoiGALvWKkmTWkUXKZEVfSQEtoMbBwrHz/0=;
- b=pNeNVGXwBoy+gCo7BZuI6BTSG1yt1krEfH45i+5droknGXt6y1JiaW/SGdQZYeEmIT
- 3O+Gc4mitH58bRWXwioa03NAybirrZLgEU+BOg+X6gPgAieYGNA/KlJMRY6qDmYMGlol
- AF7hW8CbTDGUSfvkhaG/DeQ1pMQ4n4B4IhulCrvyoV9CLCOQDLHjJqoCcpRnJzcspmJj
- QCh/XsQho8h5GbA38IKjByB8Z0sDE+UgqlLl94exxn2KHQj2iZj81lvbAkBfIWui7heH
- 82yDVG+Yrq4YVrlpdW/TNt5pXTS+F3yUjjuax1ZpumH1vAICGp6/vD66aEjwXC3zhaC/
- pnOQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWfvIOHEbNPepkhBfoO+E2/Wkmca7hR733jGmINfYrJOsMjSI5C+QCUn55n+O94ApedjBjTN0H7s2v+ZmoPs96ScYv1kOeb4yfkMnMstgbhmi15gUg3QYs6
-X-Gm-Message-State: AOJu0YzmwTIeeMSefK8s/SKp4hLLKCHsJ8JSDVdwTmjecWcUZFy6qOOE
- RWwEQNfkk0813WJ8X/kOlJiB3zPc+zOlKlnWOG9EHviC2M/H66NYfWfmrhO4an0=
-X-Google-Smtp-Source: AGHT+IFNNxBDz2Tx/jpDPmwWEphhbXKgsW+qHx/Yz0edPYKGGY5dsGFKtIqCm7B13uhNEaK0FJ6NZA==
-X-Received: by 2002:adf:a3d0:0:b0:33e:1ee0:6292 with SMTP id
- m16-20020adfa3d0000000b0033e1ee06292mr4235689wrb.58.1711544137249; 
- Wed, 27 Mar 2024 05:55:37 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:e2f0:34bb:2ffe:1a3b])
- by smtp.gmail.com with ESMTPSA id
- h2-20020a5d5042000000b00341c162a6d4sm11641186wrt.107.2024.03.27.05.55.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Mar 2024 05:55:36 -0700 (PDT)
-References: <87o7b353of.wl-kuninori.morimoto.gx@renesas.com>
- <8734sf53kv.wl-kuninori.morimoto.gx@renesas.com>
- <1j7chp9gbb.fsf@starbuckisacylon.baylibre.com>
- <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 27 Mar 2024 13:30:32 +0100
-In-reply-to: <87v858cwki.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <1jcyrfal6f.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Amadeusz =?utf-8?B?U8WCYXdpxYRz?= =?utf-8?B?a2k=?=
- <amadeuszx.slawinski@linux.intel.com>, linux-sound@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Brent Lu <brent.lu@intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH 15/15] ASoC: soc-pcm: indicate warning if
- DPCM BE Codec has no settings
+ Wed, 27 Mar 2024 15:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1711553556; x=1743089556;
+ h=date:from:to:cc:subject:message-id;
+ bh=EY1vmy+qSpddaD5xBKTWyGhU5QNJtbsjuXgfoV+5Kwc=;
+ b=PBcLKhIldDN7J+LWJWzkoMoLQHVITCAjbCsCacsYG1FMsuU59kZiSHoV
+ CtEVMi4hh67kAmHAszAamRn2t7LqpZEb3I88V/smI3+fnjPclZa56KqAB
+ xNPPyoz8O90gZtF6RA9hf52FmXLgRszPYtnvRT+Fsdue9kblfmjFqKib9
+ jim6LC4Vw/FudXLdL4Mcptnp1CaGizBS3avY5tm+3irKvEHtv3L9btfAf
+ y7S2FPf6RRQ+f0Z3MxTu+aIfma74KNXkrrl5aO7FCnUFxvrfyCGp5a9qS
+ yOufMqa4PmAVJNHc2Muk27p8hF/K7akRG4A5tBbrBPJG7QfAZmKhl/vZ4 g==;
+X-CSE-ConnectionGUID: oKt+O/lZTHWnJ1ArI/+s1g==
+X-CSE-MsgGUID: b+3boMTeQiqrbSvGD5GvgA==
+X-IronPort-AV: E=McAfee;i="6600,9927,11026"; a="6487386"
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; 
+   d="scan'208";a="6487386"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Mar 2024 08:32:34 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,159,1708416000"; d="scan'208";a="21037528"
+Received: from lkp-server01.sh.intel.com (HELO be39aa325d23) ([10.239.97.150])
+ by orviesa004.jf.intel.com with ESMTP; 27 Mar 2024 08:32:30 -0700
+Received: from kbuild by be39aa325d23 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1rpVGN-0001BK-0X;
+ Wed, 27 Mar 2024 15:32:27 +0000
+Date: Wed, 27 Mar 2024 23:32:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Message-ID: <202403272304.r5Yy7kIF-lkp@intel.com>
+User-Agent: s-nail v14.9.24
+Cc: linux-arch@vger.kernel.org, lima@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-sound@vger.kernel.org,
+ virtualization@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ linux-mtd@lists.infradead.org, amd-gfx@lists.freedesktop.org,
+ spice-devel@lists.freedesktop.org, bpf@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [linux-next:master] BUILD REGRESSION
+ 26074e1be23143b2388cacb36166766c235feb7c
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,130 +65,349 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+branch HEAD: 26074e1be23143b2388cacb36166766c235feb7c  Add linux-next specific files for 20240327
 
-On Wed 27 Mar 2024 at 01:06, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+Error/Warning reports:
 
-> Hi Jerome
->
-> Thank you for your feedback
->
->> I'm not quite sure what you mean by "should have validation" and what
->> setting exactly we should validate ?
->> 
->> I know I should be able to able to understand that
->> from the code below but, somehow I have trouble deciphering it.
->
-> Current ASoC have validation for ^^^ part
->
-> 	DPCM
-> 		[CPU/xxxx]-[xxxx/Codec]
-> 		^^^^                   (A)
-> 	Normal
-> 		[CPU/Codec]
-> 		^^^^^^^^^^^
->
-> (In many case, this "xxxx" is "dummy")
+https://lore.kernel.org/oe-kbuild-all/202403271905.BYbGJiPi-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202403271907.0z0uuG5I-lkp@intel.com
+https://lore.kernel.org/oe-kbuild-all/202403272205.UKAQzc7v-lkp@intel.com
 
-Yes for many DPCM user, you have:
+Error/Warning: (recently discovered and may have been fixed)
 
-       DPCM
-               [CPU/dummy]-[dummy/Codec]
+ERROR: modpost: "memcpy" [crypto/asymmetric_keys/public_key.ko] undefined!
+ERROR: modpost: "memcpy" [crypto/asymmetric_keys/x509_key_parser.ko] undefined!
+ERROR: modpost: "memcpy" [crypto/sha1_generic.ko] undefined!
+drivers/gpu/drm/lima/lima_drv.c:387:13: error: cast to smaller integer type 'enum lima_gpu_id' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+drivers/gpu/drm/panthor/panthor_sched.c:2048:6: error: variable 'csg_mod_mask' set but not used [-Werror,-Wunused-but-set-variable]
+drivers/gpu/drm/pl111/pl111_versatile.c:488:24: error: cast to smaller integer type 'enum versatile_clcd' from 'const void *' [-Werror,-Wvoid-pointer-to-enum-cast]
+drivers/gpu/drm/qxl/qxl_cmd.c:424:6: error: variable 'count' set but not used [-Werror,-Wunused-but-set-variable]
+drivers/gpu/drm/qxl/qxl_ioctl.c:148:14: error: variable 'num_relocs' set but not used [-Werror,-Wunused-but-set-variable]
+drivers/pwm/pwm-stm32.c:662:8: error: call to undeclared function 'devm_clk_rate_exclusive_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+include/asm-generic/io.h:547:31: error: performing pointer arithmetic on a null pointer has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
+ld: sof_board_helpers.c:(.text+0x157): undefined reference to `sof_ssp_detect_amp_type'
+sof_board_helpers.c:(.text+0x149): undefined reference to `sof_ssp_detect_codec_type'
+sound/soc/codecs/rk3308_codec.c:956:34: warning: 'rk3308_codec_of_match' defined but not used [-Wunused-const-variable=]
+sound/soc/codecs/rk3308_codec.c:956:34: warning: unused variable 'rk3308_codec_of_match' [-Wunused-const-variable]
 
-FYI: on Amlogic it is mostly the following
-(only considering DCPM, omitting C2C ...)
+Unverified Error/Warning (likely false positive, please contact us if interested):
 
-       DPCM
-               [CPU-FE/dummy]-[CPU-BE/Codec]
+drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c:400:42-43: WARNING opportunity for min()
+drivers/gpu/drm/amd/display/dc/dpp/dcn20/dcn20_dpp.c:269:42-43: WARNING opportunity for min()
+drivers/gpu/drm/amd/display/dc/dpp/dcn32/dcn32_dpp.c:43:42-43: WARNING opportunity for min()
 
-With possibly several BE instances per FE, and several codecs per BE.
+Error/Warning ids grouped by kconfigs:
 
-And there is even this for loopbacks:
+gcc_recent_errors
+|-- alpha-randconfig-r001-20220112
+|   |-- ERROR:memcpy-crypto-asymmetric_keys-public_key.ko-undefined
+|   |-- ERROR:memcpy-crypto-asymmetric_keys-x509_key_parser.ko-undefined
+|   `-- ERROR:memcpy-crypto-sha1_generic.ko-undefined
+|-- arc-randconfig-r053-20240327
+|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
+|-- arm-omap2plus_defconfig
+|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- arm64-defconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- csky-allmodconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- csky-allyesconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- i386-allyesconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- loongarch-allmodconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- loongarch-defconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- m68k-allmodconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- m68k-allyesconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- microblaze-allmodconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- microblaze-allyesconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- nios2-randconfig-002-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- sh-allmodconfig
+|   |-- drivers-pwm-pwm-stm32.c:error:implicit-declaration-of-function-devm_clk_rate_exclusive_get
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- sh-allyesconfig
+|   |-- drivers-pwm-pwm-stm32.c:error:implicit-declaration-of-function-devm_clk_rate_exclusive_get
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- sparc-randconfig-001-20240327
+|   |-- (.head.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-init.text
+|   |-- (.init.text):relocation-truncated-to-fit:R_SPARC_WDISP22-against-symbol-leon_smp_cpu_startup-defined-in-.text-section-in-arch-sparc-kernel-trampoline_32.o
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- sparc64-allmodconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- sparc64-allyesconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- um-allyesconfig
+|   |-- collect2:error:ld-returned-exit-status
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- um-i386_defconfig
+|   `-- collect2:error:ld-returned-exit-status
+|-- x86_64-buildonly-randconfig-001-20240327
+|   |-- ld:sof_board_helpers.c:(.text):undefined-reference-to-sof_ssp_detect_amp_type
+|   |-- sof_board_helpers.c:(.text):undefined-reference-to-sof_ssp_detect_codec_type
+|   `-- sound-soc-codecs-rk3308_codec.c:warning:rk3308_codec_of_match-defined-but-not-used
+|-- x86_64-randconfig-004-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+`-- x86_64-randconfig-102-20240326
+    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn10-dcn10_dpp_dscl.c:WARNING-opportunity-for-min()
+    |-- drivers-gpu-drm-amd-display-dc-dpp-dcn20-dcn20_dpp.c:WARNING-opportunity-for-min()
+    `-- drivers-gpu-drm-amd-display-dc-dpp-dcn32-dcn32_dpp.c:WARNING-opportunity-for-min()
+clang_recent_errors
+|-- arm-defconfig
+|   |-- arch-arm-mach-omap2-prm33xx.c:warning:expecting-prototype-for-am33xx_prm_global_warm_sw_reset().-Prototype-was-for-am33xx_prm_global_sw_reset()-instead
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- hexagon-randconfig-001-20240326
+|   `-- drivers-pwm-pwm-stm32.c:error:call-to-undeclared-function-devm_clk_rate_exclusive_get-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|-- hexagon-randconfig-001-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- i386-buildonly-randconfig-005-20240327
+|   `-- sound-soc-codecs-rk3308_codec.c:warning:unused-variable-rk3308_codec_of_match
+|-- i386-randconfig-005-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- i386-randconfig-012-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- mips-bmips_stb_defconfig
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|-- powerpc-randconfig-r061-20240327
+|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
+|-- powerpc-randconfig-r062-20240327
+|   `-- drivers-firmware-arm_scmi-raw_mode.c:WARNING:scmi_dbg_raw_mode_reset_fops:write()-has-stream-semantic-safe-to-change-nonseekable_open-stream_open.
+|-- riscv-allmodconfig
+|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
+|-- riscv-allyesconfig
+|   |-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
+|-- s390-allmodconfig
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_drv.c:error:bitwise-operation-between-different-enumeration-types-(-enum-amd_asic_type-and-enum-amd_chip_flags-)-Werror-Wenum-enum-conversion
+|   |-- drivers-gpu-drm-amd-amdgpu-amdgpu_ras.c:error:arithmetic-between-different-enumeration-types-(-enum-amdgpu_ras_block-and-enum-amdgpu_ras_mca_block-)-Werror-Wenum-enum-conversion
+|   |-- drivers-gpu-drm-lima-lima_drv.c:error:cast-to-smaller-integer-type-enum-lima_gpu_id-from-const-void-Werror-Wvoid-pointer-to-enum-cast
+|   |-- drivers-gpu-drm-panthor-panthor_sched.c:error:variable-csg_mod_mask-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- drivers-gpu-drm-pl111-pl111_versatile.c:error:cast-to-smaller-integer-type-enum-versatile_clcd-from-const-void-Werror-Wvoid-pointer-to-enum-cast
+|   |-- drivers-gpu-drm-qxl-qxl_cmd.c:error:variable-count-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- drivers-gpu-drm-qxl-qxl_ioctl.c:error:variable-num_relocs-set-but-not-used-Werror-Wunused-but-set-variable
+|   |-- drivers-gpu-drm-radeon-radeon_drv.c:error:bitwise-operation-between-different-enumeration-types-(-enum-radeon_family-and-enum-radeon_chip_flags-)-Werror-Wenum-enum-conversion
+|   `-- include-asm-generic-io.h:error:performing-pointer-arithmetic-on-a-null-pointer-has-undefined-behavior-Werror-Wnull-pointer-arithmetic
+|-- s390-defconfig
+|   `-- kernel-bpf-bpf_struct_ops.c:warning:bitwise-operation-between-different-enumeration-types-(-enum-bpf_type_flag-and-enum-bpf_reg_type-)
+|-- x86_64-randconfig-075-20240327
+|   `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
+`-- x86_64-randconfig-161-20240327
+    `-- fs-ubifs-journal.c:warning:expecting-prototype-for-wake_up_reservation().-Prototype-was-for-add_or_start_queue()-instead
 
-       DPCM
-               [CPU-FE/dummy]-[CPU-BE/dummy]
+elapsed time: 725m
 
+configs tested: 189
+configs skipped: 3
 
-> By this patch-set, It will check all cases
->
-> 	DPCM
-> 		[CPU/xxxx]-[xxxx/Codec]
-> 		^^^^^^^^^   ^^^^^^^^^^ (B)
-> 	Normal
-> 		[CPU/Codec]
-> 		^^^^^^^^^^^
->
-> At first, in [CPU/xxxx] case, "xxxx" part should be also checked
-> (in many case, this "xxxx" is "dummy").
->
-> And, because it didn't check (A) part before,
-> (B) part might be error on some board (at least Intel board).
-> To avoid such case, temporally it uses "dummy" instead of "Codec"
-> before [15/15]. This means (B) part checked as like below.
->
-> 	[xxxx/Codec] -> [xxxx/dummy]
->
-> Because "dummy" will pass all cases, (B) part is almost same as no check.
-> Yes, it is no meaning, but the code will be simple.
->
->> Where you have a CPU supporting both direction and 2 codecs, each
->> supporting 1 stream direction ? This is a valid i2s configuration.
-> (snip)
->> >  		/*
->> > -		 * FIXME
->> > +		 * FIXME / CLEAN-UP-ME
->> >  		 *
->> >  		 * DPCM BE Codec has been no checked before.
->> >  		 * It should be checked, but it breaks compatibility.
->> >  		 * It ignores BE Codec here, so far.
->> >  		 */
->> > -		if (dai_link->no_pcm)
->> > -			codec_dai = dummy_dai;
->> > +		if ((dai_link->no_pcm) &&
->> > +		    ((cpu_play_t	&& !codec_play_t) ||
->> > +		     (cpu_capture_t	&& !codec_capture_t))) {
->> > +			dev_warn_once(rtd->dev, "DCPM BE Codec has no stream settings (%s)\n",
->> > +				      codec_dai->name);
->> 
->> Taking one codec at a time, would you trigger a warning for the use case I
->> described above ?
->
-> Oops, indeed it will indicate warning in your case.
-> How about this ?
->
-> 	if ((dai_link->no_pcm) &&
-                         ^ Actually my comment applies to all links, DPCM backend or not
-
-> 	    (!codec_play_t && !codec_capture_t)) {
-
-A codec that does not support playback and does not support capture does
-not support much, does it ? ;)
-
-I suppose you meant something like:
-
->           (!cpu_play_t && !codec_capture_t)) { 
-
-Then at first glance, maybe ... CPU and codec seem to exclude each other but
-that will only work as long as DCPM is limited to a single CPU per link.
-
-> 		dev_warn_once(...)
-> 		...
-> 	}
->
-> Thank you for your help !!
->
-> Best regards
-> ---
-> Renesas Electronics
-> Ph.D. Kuninori Morimoto
-
+tested configs:
+alpha                             allnoconfig   gcc  
+alpha                            allyesconfig   gcc  
+alpha                               defconfig   gcc  
+arc                              allmodconfig   gcc  
+arc                               allnoconfig   gcc  
+arc                              allyesconfig   gcc  
+arc                                 defconfig   gcc  
+arc                        nsimosci_defconfig   gcc  
+arc                   randconfig-001-20240327   gcc  
+arc                   randconfig-002-20240327   gcc  
+arc                        vdk_hs38_defconfig   gcc  
+arm                              allmodconfig   gcc  
+arm                               allnoconfig   clang
+arm                              allyesconfig   gcc  
+arm                     am200epdkit_defconfig   gcc  
+arm                         axm55xx_defconfig   clang
+arm                                 defconfig   clang
+arm                          exynos_defconfig   clang
+arm                       omap2plus_defconfig   gcc  
+arm                   randconfig-001-20240327   clang
+arm                   randconfig-002-20240327   clang
+arm                   randconfig-003-20240327   clang
+arm                   randconfig-004-20240327   gcc  
+arm64                            allmodconfig   clang
+arm64                             allnoconfig   gcc  
+arm64                               defconfig   gcc  
+arm64                 randconfig-001-20240327   clang
+arm64                 randconfig-002-20240327   clang
+arm64                 randconfig-003-20240327   gcc  
+arm64                 randconfig-004-20240327   clang
+csky                             allmodconfig   gcc  
+csky                              allnoconfig   gcc  
+csky                             allyesconfig   gcc  
+csky                                defconfig   gcc  
+csky                  randconfig-001-20240327   gcc  
+csky                  randconfig-002-20240327   gcc  
+hexagon                          allmodconfig   clang
+hexagon                           allnoconfig   clang
+hexagon                          allyesconfig   clang
+hexagon                             defconfig   clang
+hexagon               randconfig-001-20240327   clang
+hexagon               randconfig-002-20240327   clang
+i386                             allmodconfig   gcc  
+i386                              allnoconfig   gcc  
+i386                             allyesconfig   gcc  
+i386         buildonly-randconfig-001-20240327   gcc  
+i386         buildonly-randconfig-002-20240327   gcc  
+i386         buildonly-randconfig-003-20240327   clang
+i386         buildonly-randconfig-004-20240327   clang
+i386         buildonly-randconfig-005-20240327   clang
+i386         buildonly-randconfig-006-20240327   clang
+i386                                defconfig   clang
+i386                  randconfig-001-20240327   gcc  
+i386                  randconfig-002-20240327   gcc  
+i386                  randconfig-003-20240327   clang
+i386                  randconfig-004-20240327   gcc  
+i386                  randconfig-005-20240327   clang
+i386                  randconfig-006-20240327   gcc  
+i386                  randconfig-011-20240327   gcc  
+i386                  randconfig-012-20240327   clang
+i386                  randconfig-013-20240327   gcc  
+i386                  randconfig-014-20240327   clang
+i386                  randconfig-015-20240327   gcc  
+i386                  randconfig-016-20240327   clang
+loongarch                        allmodconfig   gcc  
+loongarch                         allnoconfig   gcc  
+loongarch                           defconfig   gcc  
+loongarch             randconfig-001-20240327   gcc  
+loongarch             randconfig-002-20240327   gcc  
+m68k                             allmodconfig   gcc  
+m68k                              allnoconfig   gcc  
+m68k                             allyesconfig   gcc  
+m68k                       bvme6000_defconfig   gcc  
+m68k                                defconfig   gcc  
+m68k                            q40_defconfig   gcc  
+m68k                        stmark2_defconfig   gcc  
+microblaze                       allmodconfig   gcc  
+microblaze                        allnoconfig   gcc  
+microblaze                       allyesconfig   gcc  
+microblaze                          defconfig   gcc  
+mips                              allnoconfig   gcc  
+mips                             allyesconfig   gcc  
+mips                      bmips_stb_defconfig   clang
+mips                    maltaup_xpa_defconfig   gcc  
+nios2                            alldefconfig   gcc  
+nios2                            allmodconfig   gcc  
+nios2                             allnoconfig   gcc  
+nios2                            allyesconfig   gcc  
+nios2                               defconfig   gcc  
+nios2                 randconfig-001-20240327   gcc  
+nios2                 randconfig-002-20240327   gcc  
+openrisc                          allnoconfig   gcc  
+openrisc                         allyesconfig   gcc  
+openrisc                            defconfig   gcc  
+parisc                           allmodconfig   gcc  
+parisc                            allnoconfig   gcc  
+parisc                           allyesconfig   gcc  
+parisc                              defconfig   gcc  
+parisc                randconfig-001-20240327   gcc  
+parisc                randconfig-002-20240327   gcc  
+parisc64                            defconfig   gcc  
+powerpc                          allmodconfig   gcc  
+powerpc                           allnoconfig   gcc  
+powerpc                          allyesconfig   clang
+powerpc                       ebony_defconfig   clang
+powerpc                      katmai_defconfig   clang
+powerpc                 mpc8315_rdb_defconfig   clang
+powerpc                     mpc83xx_defconfig   clang
+powerpc                     rainier_defconfig   gcc  
+powerpc               randconfig-001-20240327   clang
+powerpc               randconfig-002-20240327   gcc  
+powerpc               randconfig-003-20240327   clang
+powerpc                      tqm8xx_defconfig   clang
+powerpc64             randconfig-001-20240327   clang
+powerpc64             randconfig-002-20240327   gcc  
+powerpc64             randconfig-003-20240327   gcc  
+riscv                            allmodconfig   clang
+riscv                             allnoconfig   gcc  
+riscv                            allyesconfig   clang
+riscv                               defconfig   clang
+riscv                 randconfig-001-20240327   clang
+riscv                 randconfig-002-20240327   gcc  
+s390                             allmodconfig   clang
+s390                              allnoconfig   clang
+s390                             allyesconfig   gcc  
+s390                                defconfig   clang
+s390                  randconfig-001-20240327   clang
+s390                  randconfig-002-20240327   gcc  
+sh                               allmodconfig   gcc  
+sh                                allnoconfig   gcc  
+sh                               allyesconfig   gcc  
+sh                                  defconfig   gcc  
+sh                         ecovec24_defconfig   gcc  
+sh                             espt_defconfig   gcc  
+sh                          polaris_defconfig   gcc  
+sh                    randconfig-001-20240327   gcc  
+sh                    randconfig-002-20240327   gcc  
+sh                          rsk7201_defconfig   gcc  
+sh                          sdk7786_defconfig   gcc  
+sh                           se7343_defconfig   gcc  
+sh                           se7619_defconfig   gcc  
+sh                           se7751_defconfig   gcc  
+sh                   sh7770_generic_defconfig   gcc  
+sparc                            allmodconfig   gcc  
+sparc                             allnoconfig   gcc  
+sparc                               defconfig   gcc  
+sparc64                          allmodconfig   gcc  
+sparc64                          allyesconfig   gcc  
+sparc64                             defconfig   gcc  
+sparc64               randconfig-001-20240327   gcc  
+sparc64               randconfig-002-20240327   gcc  
+um                               allmodconfig   clang
+um                                allnoconfig   clang
+um                               allyesconfig   gcc  
+um                                  defconfig   clang
+um                             i386_defconfig   gcc  
+um                    randconfig-001-20240327   clang
+um                    randconfig-002-20240327   clang
+um                           x86_64_defconfig   clang
+x86_64                            allnoconfig   clang
+x86_64                           allyesconfig   clang
+x86_64       buildonly-randconfig-001-20240327   gcc  
+x86_64       buildonly-randconfig-002-20240327   gcc  
+x86_64       buildonly-randconfig-003-20240327   gcc  
+x86_64       buildonly-randconfig-004-20240327   clang
+x86_64       buildonly-randconfig-005-20240327   gcc  
+x86_64       buildonly-randconfig-006-20240327   gcc  
+x86_64                              defconfig   gcc  
+x86_64                randconfig-001-20240327   clang
+x86_64                randconfig-002-20240327   gcc  
+x86_64                randconfig-003-20240327   gcc  
+x86_64                randconfig-004-20240327   gcc  
+x86_64                randconfig-005-20240327   clang
+x86_64                randconfig-006-20240327   clang
+x86_64                randconfig-011-20240327   gcc  
+x86_64                randconfig-012-20240327   clang
+x86_64                randconfig-013-20240327   clang
+x86_64                randconfig-014-20240327   clang
+x86_64                randconfig-015-20240327   clang
+x86_64                randconfig-016-20240327   clang
+x86_64                randconfig-071-20240327   gcc  
+x86_64                randconfig-072-20240327   clang
+x86_64                randconfig-073-20240327   clang
+x86_64                randconfig-074-20240327   clang
+x86_64                randconfig-075-20240327   clang
+x86_64                randconfig-076-20240327   clang
+x86_64                          rhel-8.3-rust   clang
+xtensa                            allnoconfig   gcc  
+xtensa                randconfig-001-20240327   gcc  
 
 -- 
-Jerome
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
