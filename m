@@ -2,80 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59B1788F9D0
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Mar 2024 09:13:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84CED88F9DC
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Mar 2024 09:15:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DB25C6DD96;
-	Thu, 28 Mar 2024 08:13:37 +0000 (UTC)
-Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
- [209.85.219.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72F19C6B444
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39D1AC6DD96;
+	Thu, 28 Mar 2024 08:15:51 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7A4DC6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Mar 2024 08:13:36 +0000 (UTC)
-Received: by mail-yb1-f176.google.com with SMTP id
- 3f1490d57ef6-dcd7c526cc0so633718276.1
+ Thu, 28 Mar 2024 08:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1711613749;
+ h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zjUADkxK7W8MqHSaaLff78AqyJRHwq7pquaV+zZOTUA=;
+ b=LR7fCMkz5IfEk6B9SFWIsRlsTbv21GkbArFiXiQPgeNJlj+zfToxGkkqhvJt/Jyf31Ur5D
+ Avf+HCR3fZty530hjeMKEY6x9kxoCk1PCc3hfol2Z03xnf5HaQ+PJB4vtXLJ4oykKGpo5V
+ waUYdmBRcAvwdWFQAQ6JHiWDW/2uEao=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-120-muOqEIvWPv6JXL7d2FUydQ-1; Thu, 28 Mar 2024 04:15:47 -0400
+X-MC-Unique: muOqEIvWPv6JXL7d2FUydQ-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-341678a510bso406203f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Mar 2024 01:13:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711613615; x=1712218415;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=eyAd8Fm3t44gc7qEKT0d4Zv8xoYimRNogrja13Iomu4=;
- b=aUXRDwFQ+LFY1YYh9jNDLEoCF3bxEENd8Mx0jyNe+5Dv0+q1DVi9JD91LmoTpVE6HE
- M9Rs9xv5HjPPxepoHaTjmtyXzN+L+xK2e1Di6ZM+lswoVfuN5gQ1vS4OsBEY8MFDO/Cc
- D62wP3pOQSKIPw0yim2neMvQQhvSVX4GNlPYScV8a7vsLV9DrmtaxQigimnqyJWUvi1i
- bmpQcPJqBo8mElERpEWA6AJQ3mcyhIW1hDl+pGgNsp5XUYOwYPQpYteZ2Bjd78KCSCQm
- QFl/f5Kf0lXslbKhtotf7onjDDUzwJOdfFSECbxwuKEzmQxG0rRfpvLSPozF2vf9J1Uc
- HLmQ==
+ Thu, 28 Mar 2024 01:15:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711613615; x=1712218415;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=eyAd8Fm3t44gc7qEKT0d4Zv8xoYimRNogrja13Iomu4=;
- b=qdMd8Yarn7nL+pYc9iEwTajHOk56urWE4JwZRELd5TG2kPkVvfeLlqXkZDaEsTZpIP
- BV32aeV39HbCyDpN9/OraO5z1c6AAiYLSQ1yWXEmYAoCJ95dFnE+3aiKnP3xb/w7Ez3/
- gGtn6vPshByYWJQ52kMSKIrFzaLX43YtgY0jKe3wCiv0r3ChDw6tLzDJL/1Z7XEd2c3N
- CqLTQY0QBc+GQ9XvuHl/KrcknFbaAu60g1KpcxDGFXGo9wydMsxxBToW2qzzNO5x8tzE
- WqpvAtnSmObPuT0gVk9VrkG5Pg+SBJfp9MndkR1HJ+6HMs+dqqd91m11MC9Mzaq5zgsI
- WFNg==
+ d=1e100.net; s=20230601; t=1711613746; x=1712218546;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:reply-to:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=zjUADkxK7W8MqHSaaLff78AqyJRHwq7pquaV+zZOTUA=;
+ b=TPezwt8dBnqNxJ2TTjsjzp7nVFKbjqxj0fxkkYRRlBWxvCIxE4FPG+N4XIL0v84KgK
+ 1M0dAmR53wsehHsFc2dPcSRMFyEmDeDW8IYYpQSm4XYZ8aCmVqDPEToNBMJUOdyDvVKr
+ T8Hzi75U5Dhp2nFYe0W+6Yg/c1ceoTmMAffvVwuS6E0w48xqCP/kWmf0VDsPX4PunPAm
+ GZYqoyvp9xsOiW8Lr69qmGHootyaikPD9kSw7MDepCa+C3pIBrvyd+A1CfkP1re7jVWX
+ UUSW10q2AEAGQEwu30NCwd1djwQ4JIkBEiaz3pruLdYyMwj6DANNUVmNtFsyg6zmtvCF
+ Y/RQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+53z7zT2Tm3qHArAxV95lqjvXZ4HuyxcvGUJx7iBPX4yvOHz8cOr3fxmoIcCb/0/f5U3meWo84/qLxvC5tymNnclpjfNGOpAuXuKauAyRtG0gSCdWQhck
-X-Gm-Message-State: AOJu0YyFIufPE4cDWmOhozTdbyHyVFLukigNDpsaPW0Vyt4lj0CvYoE7
- HujA89E5TygCyW7f1I0J90UuiJWl1ClFFmeJGtUNTdv76DcJchYWKZcUtki4y7KtyfJ142Gz5R4
- YL31ycDcAd7BejWbhwqI65mnJSX1WCwH3X/99fw==
-X-Google-Smtp-Source: AGHT+IGMP4Tk1rGQykOPNpks4MpJ7aMlQvkvBPR1XoNvNcoaKqQfOEDiNp35dK3mcwnlEPOwTL2pN8U5wfPMlD/HYFQ=
-X-Received: by 2002:a25:4dd4:0:b0:dc7:4806:4fb with SMTP id
- a203-20020a254dd4000000b00dc7480604fbmr1887988ybb.8.1711613615243; Thu, 28
- Mar 2024 01:13:35 -0700 (PDT)
+ AJvYcCWmuKgawcQN/JGTGpjsEVG05IEzVVSZkuFVFNa0TRAkRwzX4IRC/IcdDurjC+Cx6J+C8QLUW/bKJim3NI/og/IPAemAn2OfTyh2UHFxwFLZRUXEV8YzNqEq
+X-Gm-Message-State: AOJu0YygGwN4+u7nLRs4Uoj32fC1Xe6A/xPpsiVjaB5x0HMGM4yIUKfI
+ tww2YBcHrkOFWRh6ztd5L+jW57FyuAh4nr70jcKgIAfW8E9Scw19uWWbKN0Dcbt4BjQ+dijaUtM
+ l4JRt3G/hoaMbjO7L34RrA886GVAxIy31VKtDh5pGH6Hm1o66xR0fMMN4mRZhtSKKp3XiRl3adF
+ YJzw==
+X-Received: by 2002:a05:600c:468a:b0:414:c42:e114 with SMTP id
+ p10-20020a05600c468a00b004140c42e114mr1687514wmo.39.1711613746198; 
+ Thu, 28 Mar 2024 01:15:46 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IE8MDeRM7xS3BA3duuFbIO3KAqdPRdzqESI90M9Ta6qWW4GGp1Je55w6TxUEAK7EYkUeNt2Cw==
+X-Received: by 2002:a05:600c:468a:b0:414:c42:e114 with SMTP id
+ p10-20020a05600c468a00b004140c42e114mr1687496wmo.39.1711613745872; 
+ Thu, 28 Mar 2024 01:15:45 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:59e:9d80:527b:9dff:feef:3874?
+ ([2a01:e0a:59e:9d80:527b:9dff:feef:3874])
+ by smtp.gmail.com with ESMTPSA id
+ s21-20020a05600c45d500b0041487f70d9fsm4599444wmo.21.2024.03.28.01.15.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Mar 2024 01:15:44 -0700 (PDT)
+Message-ID: <66fd044e-37a8-4f03-a19a-fcd754bdcc40@redhat.com>
+Date: Thu, 28 Mar 2024 09:15:42 +0100
 MIME-Version: 1.0
-References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
- <20240326-module-owner-amba-v1-14-4517b091385b@linaro.org>
-In-Reply-To: <20240326-module-owner-amba-v1-14-4517b091385b@linaro.org>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Thu, 28 Mar 2024 09:13:23 +0100
-Message-ID: <CACRpkdaXWOp9C+7ahUO+6eTGodABW1D3CAGoE-6RrXbFcpd8OQ@mail.gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: kvm@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-i2c@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
- linux-input@vger.kernel.org, Mike Leach <mike.leach@linaro.org>,
- Andi Shyti <andi.shyti@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- coresight@lists.linaro.org, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Olivia Mackall <olivia@selenic.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- James Clark <james.clark@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 14/19] i2c: nomadik: drop owner assignment
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Alex Williamson <alex.williamson@redhat.com>
+References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+ <20240326-module-owner-amba-v1-19-4517b091385b@linaro.org>
+From: Eric Auger <eric.auger@redhat.com>
+In-Reply-To: <20240326-module-owner-amba-v1-19-4517b091385b@linaro.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 19/19] vfio: amba: drop owner assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,17 +106,48 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Reply-To: eric.auger@redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBNYXIgMjYsIDIwMjQgYXQgOToyNOKAr1BNIEtyenlzenRvZiBLb3psb3dza2kKPGty
-enlzenRvZi5rb3psb3dza2lAbGluYXJvLm9yZz4gd3JvdGU6Cgo+IEFtYmEgYnVzIGNvcmUgYWxy
-ZWFkeSBzZXRzIG93bmVyLCBzbyBkcml2ZXIgZG9lcyBub3QgbmVlZCB0by4KPgo+IFNpZ25lZC1v
-ZmYtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAbGluYXJvLm9y
-Zz4KCkFja2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxsaW51cy53YWxsZWlqQGxpbmFyby5vcmc+CgpZ
-b3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi,
+
+On 3/26/24 21:23, Krzysztof Kozlowski wrote:
+> Amba bus core already sets owner, so driver does not need to.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+>
+> ---
+>
+> Depends on first amba patch.
+> ---
+>  drivers/vfio/platform/vfio_amba.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/vfio/platform/vfio_amba.c b/drivers/vfio/platform/vfio_amba.c
+> index 485c6f9161a9..ff8ff8480968 100644
+> --- a/drivers/vfio/platform/vfio_amba.c
+> +++ b/drivers/vfio/platform/vfio_amba.c
+> @@ -134,7 +134,6 @@ static struct amba_driver vfio_amba_driver = {
+>  	.id_table = vfio_amba_ids,
+>  	.drv = {
+>  		.name = "vfio-amba",
+> -		.owner = THIS_MODULE,
+>  	},
+>  	.driver_managed_dma = true,
+>  };
+>
+>
+
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
+
+Thanks
+
+Eric
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
