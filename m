@@ -2,52 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF5D890302
-	for <lists+linux-stm32@lfdr.de>; Thu, 28 Mar 2024 16:25:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B593A8907B1
+	for <lists+linux-stm32@lfdr.de>; Thu, 28 Mar 2024 18:54:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B0264C6DD96;
-	Thu, 28 Mar 2024 15:25:58 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6737DC6DD96;
+	Thu, 28 Mar 2024 17:54:31 +0000 (UTC)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F19CC6DD93
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93170C6B444
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 28 Mar 2024 15:25:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 2AC2B61220;
- Thu, 28 Mar 2024 15:25:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92053C433F1;
- Thu, 28 Mar 2024 15:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711639554;
- bh=eM6eoVS/j9fw7JpCQoWfgH8JFa9jiXdb3VWcSy5HKQs=;
- h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
- b=m7YCPw09Lnjm3o8eGUlVm1JyS575H5ItmJV66i/715GAh9DvT2s1TqVQsmtMiwFJQ
- Sdveujo87MYNPaBKsD3/BHH4k/zHid421JUnytdk/Qx+cM34N7hrlSsFXQwcatw1DZ
- 5M6D2E/gbHUfQU4eaGnAaJ/UjsMdEOGB3gHfBuazOcTB8DNXWBCxN9jsz46CxByMsh
- UcMgWz6gsNati9StCAyoP4u/GLqZBLWtDaW2P6FlM8ifoD/Mx5WOGjWpCrJvkmeRaz
- flyIyVt0ALvaDO3JikR1Wpg/2pRCj9odTaHZReKhEwD89WB8YmmhpdueJefBAWofwx
- cCVaSb07IY8IQ==
-Date: Thu, 28 Mar 2024 10:25:53 -0500
+ Thu, 28 Mar 2024 17:54:30 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-1e0d82c529fso11716225ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 28 Mar 2024 10:54:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711648469; x=1712253269;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=oZvp/lITJDNWxOLYjQgBZB6pagg7Ik04GSqU8vqzwII=;
+ b=hLwn/shnlekDxZ3J2nKyCioPZCqy2dCmJofpE6tEMbkPxki2epNHYaduBAJEXxqSQF
+ ravqwrwutZDTroo0Y7gQwG5b0BqqxOSJjR8PH/MuB18MjXXFERTWWESetlqE4PVffO04
+ 3yvPElwwCZmsG6Yr0TMjcWnwdTOhASgwF2MEoDW/l6sBavT5o6aM07h0py2i7j4w4uO7
+ tp9YKzo3tOJvdGdqV54uosyeP9hhisv2EzljLwDw8x28oxdTzluKjMFTVbn2P+ggXYAH
+ weYwozsA7AzbkgONi43mwYvjhki9CcNy7cApzWpnuuMh5QGlbDaEGymFB/GdXvZLUP9j
+ 2G6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711648469; x=1712253269;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oZvp/lITJDNWxOLYjQgBZB6pagg7Ik04GSqU8vqzwII=;
+ b=RYiT5Sj7iBuRRtDPyDBIpzvCqrk5aHadFUTWDILSELkwWSTvgLtXK75AhDuUKvYhD5
+ RKNp9ZeAbp6ysjXu08Dk+xZWvmKOLLJhk42xhkXiozQjnm01x/auQiU3BdheeYWRMmbW
+ J4YCbtoFS5eL4V/qpH990ZsaHbUuH8G9OBpqOwEYUR34M5oboWVPnZyxJIXzmwD8svd2
+ COOU8oMJaeHnpscN5+FUxzKye3uKOb10caMs93dR92EGWpyQN0IyEBQW+s7U1YlClPbA
+ z7o58kp1U9SClmeNj25ydgIONbOG2H+6yFLD0uCbqGH9hLfj3b2r7SCNfQmrlerRScPg
+ oIGA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXm4rPN4xq+ddo1g/YXRq5gAhf3hiP13sOhFfr2rTYigPB9WHclSa7ygpLqIJajW55hG6PMkXq/feJDGQUO7JkihZrebfGMkBNaB7jlXLFJv12pwsazZbWj
+X-Gm-Message-State: AOJu0YxriVdJbCJo7Ii5htk/lyp+H2RMl86kxt2lAjGSvtdls+wzqenl
+ dCBgRosQJjZDsiuFF7Ou+xv0o4QvhSqdhxDwymOfuTva9MVPOYLu
+X-Google-Smtp-Source: AGHT+IFRMQqdaniMo9xyMzawxw0tFu+l7drmFv/DHiNd03hzItm5qnsMz3xD1cRBeIVmDfNxU4ri3A==
+X-Received: by 2002:a17:902:b08b:b0:1dd:bf6a:2b97 with SMTP id
+ p11-20020a170902b08b00b001ddbf6a2b97mr129367plr.60.1711648468849; 
+ Thu, 28 Mar 2024 10:54:28 -0700 (PDT)
+Received: from google.com ([2620:15c:9d:2:493e:82a3:49f9:d88])
+ by smtp.gmail.com with ESMTPSA id
+ s2-20020a170902c64200b001e0e8e4f7e3sm1895787pls.206.2024.03.28.10.54.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Mar 2024 10:54:28 -0700 (PDT)
+Date: Thu, 28 Mar 2024 10:54:26 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Message-ID: <ZgWu0ouzKLIS7tHI@google.com>
+References: <20240327174655.519503-1-krzysztof.kozlowski@linaro.org>
 MIME-Version: 1.0
-From: Rob Herring <robh@kernel.org>
-To: Christophe Roullier <christophe.roullier@foss.st.com>
-In-Reply-To: <20240328140803.324141-2-christophe.roullier@foss.st.com>
-References: <20240328140803.324141-1-christophe.roullier@foss.st.com>
- <20240328140803.324141-2-christophe.roullier@foss.st.com>
-Message-Id: <171163955238.3507826.5734001949624773121.robh@kernel.org>
-Cc: Marek Vasut <marex@denx.de>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, netdev@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Richard Cochran <richardcochran@gmail.com>,
- linux-arm-kernel@lists.infradead.org, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v5 1/1] dt-bindings: net: dwmac: Document
- STM32 property st, ext-phyclk
+Content-Disposition: inline
+In-Reply-To: <20240327174655.519503-1-krzysztof.kozlowski@linaro.org>
+Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-input@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] Input: stmpe - drop driver owner
+	assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,96 +84,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-On Thu, 28 Mar 2024 15:08:03 +0100, Christophe Roullier wrote:
-> The Linux kernel dwmac-stm32 driver currently supports three DT
-> properties used to configure whether PHY clock are generated by
-> the MAC or supplied to the MAC from the PHY.
+On Wed, Mar 27, 2024 at 06:46:55PM +0100, Krzysztof Kozlowski wrote:
+> Core in platform_driver_register() already sets the .owner, so driver
+> does not need to.
 > 
-> Originally there were two properties, st,eth-clk-sel and
-> st,eth-ref-clk-sel, each used to configure MAC clocking in
-> different bus mode and for different MAC clock frequency.
-> Since it is possible to determine the MAC 'eth-ck' clock
-> frequency from the clock subsystem and PHY bus mode from
-> the 'phy-mode' property, two disparate DT properties are
-> no longer required to configure MAC clocking.
-> 
-> Linux kernel commit 1bb694e20839 ("net: ethernet: stmmac: simplify phy modes management for stm32")
-> introduced a third, unified, property st,ext-phyclk. This property
-> covers both use cases of st,eth-clk-sel and st,eth-ref-clk-sel DT
-> properties, as well as a new use case for 25 MHz clock generated
-> by the MAC.
-> 
-> The third property st,ext-phyclk is so far undocumented,
-> document it.
-> 
-> Below table summarizes the clock requirement and clock sources for
-> supported PHY interface modes.
->  __________________________________________________________________________
-> |PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
-> |         |        |      25MHz    |        50MHz       |                  |
-> 
-> ---------------------------------------------------------------------------
-> |  MII    |    -   |     eth-ck    |        n/a         |       n/a        |
-> |         |        | st,ext-phyclk |                    |                  |
-> 
-> ---------------------------------------------------------------------------
-> |  GMII   |    -   |     eth-ck    |        n/a         |       n/a        |
-> |         |        | st,ext-phyclk |                    |                  |
-> 
-> ---------------------------------------------------------------------------
-> | RGMII   |    -   |     eth-ck    |        n/a         |      eth-ck      |
-> |         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
-> |         |        |               |                    | st,ext-phyclk    |
-> 
-> ---------------------------------------------------------------------------
-> | RMII    |    -   |     eth-ck    |      eth-ck        |       n/a        |
-> |         |        | st,ext-phyclk | st,eth-ref-clk-sel |                  |
-> |         |        |               | or st,ext-phyclk   |                  |
-> 
-> ---------------------------------------------------------------------------
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-> ---
->  Documentation/devicetree/bindings/net/stm32-dwmac.yaml | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+Applied, thank you.
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/net/stm32-dwmac.yaml:86:5: [warning] wrong indentation: expected 2 but found 4 (indentation)
-./Documentation/devicetree/bindings/net/stm32-dwmac.yaml:92:3: [error] syntax error: expected <block end>, but found '<block mapping start>' (syntax)
-
-dtschema/dtc warnings/errors:
-make[2]: *** Deleting file 'Documentation/devicetree/bindings/net/stm32-dwmac.example.dts'
-Documentation/devicetree/bindings/net/stm32-dwmac.yaml:92:3: did not find expected key
-make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/net/stm32-dwmac.example.dts] Error 1
-make[2]: *** Waiting for unfinished jobs....
-./Documentation/devicetree/bindings/net/stm32-dwmac.yaml:92:3: did not find expected key
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/stm32-dwmac.yaml: ignoring, error parsing file
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1430: dt_binding_check] Error 2
-make: *** [Makefile:240: __sub-make] Error 2
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20240328140803.324141-2-christophe.roullier@foss.st.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
