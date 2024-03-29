@@ -2,50 +2,108 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54779892F00
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 Mar 2024 10:35:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35F8893228
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 Mar 2024 18:01:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 056A2C6C820;
-	Sun, 31 Mar 2024 08:35:01 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 924E3C6C820;
+	Sun, 31 Mar 2024 16:01:35 +0000 (UTC)
+Received: from a.mx.secunet.com (a.mx.secunet.com [62.96.220.36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8992C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E721C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Mar 2024 08:34:59 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id CDE87FF802;
- Sun, 31 Mar 2024 08:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1711874099;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bkZCTZa2SatyGqLS+NTU0GDbJQ+zI3N+D0QKibBZfFo=;
- b=QDlQrJbB2rfbs4C1sU9IDLdaWQ07Bwzdr9P4B5RCC+MWQIfcjVBaFGtDuBHlw0Dnmdc8iB
- qZFFdLSLc8dlSfJR9Xwkb5vLq4l37Lu4sDOycMhDCjE/ANGx8jXtnirdOd60VPGdJP1i9y
- KWZY7shJ0cUKpD1Hc1FpmWk5JMXFawMxeIhWPE/3wIVCQ8AVym5wGmRiVfMZwwwkwVU8z4
- ftsot8rUb4bMoRVoYTuGKJkASlmJCri07zpmxPFP3h1NpijrAM2k4q+HLh2aXeWYC4vsH5
- vGJf+6vwi54D5xqpg6hc2+CeFSc3dLitXSb/uQkZIlPKbpuoTsFCaV0Z93GWfg==
-Date: Sun, 31 Mar 2024 10:35:32 +0200 (CEST)
-From: Romain Gantois <romain.gantois@bootlin.com>
-To: Cathy Cai <cathy.cai@unisoc.com>
-In-Reply-To: <20240327110142.159851-1-cathy.cai@unisoc.com>
-Message-ID: <d1da7fdb-10f6-7f69-4820-520469c0193c@bootlin.com>
-References: <20240327110142.159851-1-cathy.cai@unisoc.com>
+ Sun, 31 Mar 2024 16:01:34 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by a.mx.secunet.com (Postfix) with ESMTP id DE28A20799;
+ Sun, 31 Mar 2024 18:01:33 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from a.mx.secunet.com ([127.0.0.1])
+ by localhost (a.mx.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id MONWvnqNRudz; Sun, 31 Mar 2024 18:01:32 +0200 (CEST)
+Received: from mailout2.secunet.com (mailout2.secunet.com [62.96.220.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by a.mx.secunet.com (Postfix) with ESMTPS id 942FE207D8;
+ Sun, 31 Mar 2024 18:01:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 a.mx.secunet.com 942FE207D8
+Received: from cas-essen-01.secunet.de (unknown [10.53.40.201])
+ by mailout2.secunet.com (Postfix) with ESMTP id 8663A80004A;
+ Sun, 31 Mar 2024 18:01:32 +0200 (CEST)
+Received: from mbx-essen-01.secunet.de (10.53.40.197) by
+ cas-essen-01.secunet.de (10.53.40.201) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Sun, 31 Mar 2024 18:01:32 +0200
+Received: from Pickup by mbx-essen-01.secunet.de with Microsoft SMTP Server id
+ 15.1.2507.17; Sun, 31 Mar 2024 15:52:41 +0000
+X-sender: <netdev+bounces-83482-steffen.klassert=secunet.com@vger.kernel.org>
+X-Receiver: <steffen.klassert@secunet.com>
+ ORCPT=rfc822;steffen.klassert@secunet.com NOTIFY=NEVER;
+ X-ExtendedProps=BQAVABYAAgAAAAUAFAARAPDFCS25BAlDktII2g02frgPADUAAABNaWNyb3NvZnQuRXhjaGFuZ2UuVHJhbnNwb3J0LkRpcmVjdG9yeURhdGEuSXNSZXNvdXJjZQIAAAUAagAJAAEAAAAAAAAABQAWAAIAAAUAQwACAAAFAEYABwADAAAABQBHAAIAAAUAEgAPAGIAAAAvbz1zZWN1bmV0L291PUV4Y2hhbmdlIEFkbWluaXN0cmF0aXZlIEdyb3VwIChGWURJQk9IRjIzU1BETFQpL2NuPVJlY2lwaWVudHMvY249U3RlZmZlbiBLbGFzc2VydDY4YwUACwAXAL4AAACheZxkHSGBRqAcAp3ukbifQ049REI2LENOPURhdGFiYXNlcyxDTj1FeGNoYW5nZSBBZG1pbmlzdHJhdGl2ZSBHcm91cCAoRllESUJPSEYyM1NQRExUKSxDTj1BZG1pbmlzdHJhdGl2ZSBHcm91cHMsQ049c2VjdW5ldCxDTj1NaWNyb3NvZnQgRXhjaGFuZ2UsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1zZWN1bmV0LERDPWRlBQAOABEABiAS9uuMOkqzwmEZDvWNNQUAHQAPAAwAAABtYngtZXNzZW4tMDIFADwAAgAADwA2AAAATWljcm9zb2Z0LkV4Y2hhbmdlLlRyYW5zcG9ydC5NYWlsUmVjaXBpZW50LkRpc3BsYXlOYW1lDwARAAAAS2xhc3NlcnQsIFN0ZWZmZW4FAAwAAgAABQBsAAIAAAUAWAAXAEoAAADwxQktuQQJQ5LSCNoNNn64Q049S2xhc3NlcnQgU3RlZmZlbixPVT1Vc2VycyxPVT1NaWdyYXRpb24sREM9c2VjdW5ldCxEQz1kZQUAJgACAAEFACIADwAxAAAAQXV0b1Jlc3BvbnNlU3VwcHJlc3M6IDANClRyYW5zbWl0SGlzdG9ye
+ TogRmFsc2UNCg8ALwAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuRXhwYW5zaW9uR3JvdXBUeXBlDwAVAAAATWVtYmVyc0dyb3VwRXhwYW5zaW9uBQAjAAIAAQ==
+X-CreatedBy: MSExchange15
+X-HeloDomain: b.mx.secunet.com
+X-ExtendedProps: BQBjAAoA+Q1rGbMv3AgFAGEACAABAAAABQA3AAIAAA8APAAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuTWFpbFJlY2lwaWVudC5Pcmdhbml6YXRpb25TY29wZREAAAAAAAAAAAAAAAAAAAAAAAUASQACAAEFAAQAFCABAAAAHAAAAHN0ZWZmZW4ua2xhc3NlcnRAc2VjdW5ldC5jb20FAAYAAgABBQApAAIAAQ8ACQAAAENJQXVkaXRlZAIAAQUAAgAHAAEAAAAFAAMABwAAAAAABQAFAAIAAQUAYgAKAHcAAADMigAABQBkAA8AAwAAAEh1Yg==
+X-Source: SMTP:Default MBX-ESSEN-01
+X-SourceIPAddress: 62.96.220.37
+X-EndOfInjectedXHeaders: 12207
+X-Virus-Scanned: by secunet
+Received-SPF: Pass (sender SPF authorized) identity=mailfrom;
+ client-ip=147.75.199.223; helo=ny.mirrors.kernel.org;
+ envelope-from=netdev+bounces-83482-steffen.klassert=secunet.com@vger.kernel.org;
+ receiver=steffen.klassert@secunet.com 
+DKIM-Filter: OpenDKIM Filter v2.11.0 b.mx.secunet.com E4B95200BB
+Authentication-Results: b.mx.secunet.com;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QriMG5bP"
+Authentication-Results: smtp.subspace.kernel.org;
+ dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="QriMG5bP"
+X-Original-To: netdev@vger.kernel.org
+Authentication-Results: smtp.subspace.kernel.org;
+ arc=none smtp.client-ip=10.30.226.201
+ARC-Seal: i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+ t=1711752631; cv=none;
+ b=eLispVzL4Rucdj5yrzfRgnSRePLp+Y1FD2BRZyUX76ykzaZw7VHi9YXASU31baAxoYFmxYlpOQR4UYS8gEjEpjt1zGwq62prz06qhAHc+483Hh1xmTXYFXP7I4YViQd6l9vns1N932S+E0brudJT0ir0I9KRIrHiq60XZoaVoX0=
+ARC-Message-Signature: i=1; a=rsa-sha256; d=subspace.kernel.org;
+ s=arc-20240116; t=1711752631; c=relaxed/simple;
+ bh=1rWdaEawfYR3LfAF31PiRtpuMF8rLJZ44iKkxh0MscI=;
+ h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+ In-Reply-To:To:Cc;
+ b=Xg3OsV9Hn217vm8daSQu1usYD3ksPWTEpVZ2YL8e46SgPg+BrESFujNuqbVuhFeJowZ00pl26chFLpmFOjszBnk+xcfKA2Lv8VGoUK8QewV5y96v44UHH8h1j3HJYz3vCS+bWN/aej6pX4824HBLNpa31QWPvcxKcQWmCuSFNkM=
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
+ dkim=pass (2048-bit key) header.d=kernel.org
+ header.i=@kernel.org header.b=QriMG5bP; arc=none smtp.client-ip=10.30.226.201
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1711752630;
+ bh=1rWdaEawfYR3LfAF31PiRtpuMF8rLJZ44iKkxh0MscI=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=QriMG5bPxFDJal3+iK1Pb0iH9WyOvvWgwweQ2/D86v3oy/13nMNRcnZgIMYLJopSY
+ 7KLJczmMCVMHyE0HUKo16Zlrh+oM1jIPi5sy2qLvR1xNCT85FR5iD28bsq3bhCic2E
+ 9agT52MvYHoRihMvi5B1sSF3/Py9XPrQj9IBRigclTJz6rtPhf6vSl/5FSEsRqKbd5
+ AG+Y/Btm/xHAuRSBzBp5kwOLojbL6e2YNlyWE+0YcxgNg53lc484ELHLR7HwPJHh3Q
+ zxW5r1DkUTeEdz0tQrKVSD3O2p8NxXZGc3WAWBi8z8L8dwVHWkG0HVZicER5qqp8k6
+ laI6AElXluGGw==
+Precedence: bulk
+X-Mailing-List: netdev@vger.kernel.org
 MIME-Version: 1.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: joabreu@synopsys.com, cixi.geng1@unisoc.com, cathycai0714@gmail.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, edumazet@google.com, zhiguo.niu@unisoc.com,
- xuewen.yan94@gmail.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- wade.shu@unisoc.com, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
-	interrupt storm
+From: patchwork-bot+netdevbpf@kernel.org
+Message-ID: <171175263052.1693.263504657362042828.git-patchwork-notify@kernel.org>
+Date: Fri, 29 Mar 2024 22:50:30 +0000
+References: <20240328185337.332703-1-christophe.roullier@foss.st.com>
+In-Reply-To: <20240328185337.332703-1-christophe.roullier@foss.st.com>
+To: Christophe Roullier <christophe.roullier@foss.st.com>
+X-EXCLAIMER-MD-CONFIG: 2c86f778-e09b-4440-8b15-867914633a10
+Cc: marex@denx.de, joabreu@synopsys.com, conor+dt@kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org, richardcochran@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, lgirdwood@gmail.com,
+ edumazet@google.com, robh+dt@kernel.org, broonie@kernel.org,
+ krzysztof.kozlowski+dt@linaro.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v6 0/1] Add property in dwmac-stm32
+	documentation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
-Precedence: list
 List-Id: <linux-stm32.st-md-mailman.stormreply.com>
 List-Unsubscribe: <https://st-md-mailman.stormreply.com/mailman/options/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=unsubscribe>
@@ -59,43 +117,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello Cathy,
+Hello:
 
-On Wed, 27 Mar 2024, Cathy Cai wrote:
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> Tx queue time out then reset adapter. When reset the adapter, stmmac driver
-> sets the state to STMMAC_DOWN and calls dev_close() function. If an interrupt
-> is triggered at this instant after setting state to STMMAC_DOWN, before the
-> dev_close() call.
+On Thu, 28 Mar 2024 19:53:36 +0100 you wrote:
+> Introduce property in dwmac-stm32 documentation
 > 
-...
-> -	set_bit(STMMAC_DOWN, &priv->state);
->  	dev_close(priv->dev);
-> +	set_bit(STMMAC_DOWN, &priv->state);
->  	dev_open(priv->dev, NULL);
->  	clear_bit(STMMAC_DOWN, &priv->state);
->  	clear_bit(STMMAC_RESETING, &priv->state);
+>  - st,ext-phyclk: is present since 2020 in driver so need to explain
+>    it and avoid dtbs check issue : views/kernel/upstream/net-next/arch/arm/boot/dts/st/stm32mp157c-dk2.dtb:
+> ethernet@5800a000: Unevaluated properties are not allowed
+> ('st,ext-phyclk' was unexpected)
+>    Furthermore this property will be use in upstream of MP13 dwmac glue. (next step)
+> 
+> [...]
 
-If this IRQ issue can happen whenever STMMAC_DOWN is set while the net device is 
-open, then it could also happen between the dev_open() and 
-clear_bit(STMMAC_DOWN) calls right? So you'd have to clear STMMAC_DOWN before 
-calling dev_open() but then I don't see the usefulness of setting STMMAC_DOWN 
-and clearing it immediately. Maybe closing and opening the net device should be 
-enough?
+Here is the summary with links:
+  - [v6,1/1] dt-bindings: net: dwmac: Document STM32 property st,ext-phyclk
+    https://git.kernel.org/netdev/net-next/c/929107d3d2a3
 
-Moreover, it seems strange to me that stmmac_interrupt() unconditionnally 
-ignores interrupts when the driver is in STMMAC_DOWN state. This seems like 
-dangerous behaviour, since it could cause IRQ storm issues whenever something 
-in the driver sets this state. I'm not too familiar with the interrupt handling 
-in this driver, but maybe stmmac_interrupt() could clear interrupts 
-unconditionnally in the STMMAC_DOWN state?
-
-Best Regards,
-
+You are awesome, thank you!
 -- 
-Romain Gantois, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
