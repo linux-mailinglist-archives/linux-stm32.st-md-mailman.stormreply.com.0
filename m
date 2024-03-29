@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7644A8918B4
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 Mar 2024 13:27:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABC2A8918D6
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 Mar 2024 13:30:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FBA5C6B476;
-	Fri, 29 Mar 2024 12:27:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 64469C6C83C;
+	Fri, 29 Mar 2024 12:30:09 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EC88C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E844C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Mar 2024 12:27:06 +0000 (UTC)
+ Fri, 29 Mar 2024 12:30:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 758756192C;
- Fri, 29 Mar 2024 12:27:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C513C433F1;
- Fri, 29 Mar 2024 12:27:03 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 866EF61920;
+ Fri, 29 Mar 2024 12:30:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D4EC433C7;
+ Fri, 29 Mar 2024 12:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1711715225;
- bh=eiHczAN8CfBkmWQPdjGmY28oSD8yxl/F8O6h6t+qqUM=;
+ s=k20201202; t=1711715406;
+ bh=fGWliy9Py0kHF0LFXnRJ2qj5+UOGyO4F560EW12K47k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c+OlNWxwI11rReL/FXJHXPDvmJ+ehzFgAICJKDyUL0ZzpzCdWX+EJ0bnUI/tPVlKG
- cqk8yzTukY5Zv+x6jRE948s49uNJxlmCO8WduLuFoeFYAhkaQ03fP+ydhn4oHMOeyq
- Pd5BJLrEM5irhqEGpkLRBe4KKE+7jJaAlGZ7dasLMNRCnudRN7tdqK7vsVS7VWyLRf
- MrpJFwIiH87xjL1lUk1hdYN31kNjlTXOSwKQIrnS7ccVksFCsnkEqHtKvSRFBbSBYw
- EViqpBVRJnIoP9AUTMBCE0934b6wpiA5wCgPoycQtm07XGJWFUtc9AAAsNL5tSFTIo
- jFbAYchxy0lRg==
+ b=OCFZWWII1ZcsfOHhxqJafato7LjDD4lnI0vsUO+gvu6e1UammnNX1QD1vKytAXHKa
+ oakKnCeLEQxNpmLt1570ju2p2O/hBDsTpMw2Wu9fRnt9AUfBdBM1c5yT2idvB1juyN
+ 16SzlQjkPGG60LzNJBP1OO0lqomqkb5jwOTVNpsK4EEIxmtLvUvUerNA4vn3pyqyr1
+ HBwjyhw6SGnKuo6ITltmHhpJuWEJKxLM4gb79FjaoQCmCyQCpmx8FI39P+b6Wl8Y2l
+ xnxwNSa+9b4R6//1Dm5YQ+DZhfEDGZYsjDu2KfjDedtU77tW8gfTJAzDH6+iaxABqV
+ UjndU18WESOPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 29 Mar 2024 08:25:03 -0400
-Message-ID: <20240329122652.3082296-7-sashal@kernel.org>
+Date: Fri, 29 Mar 2024 08:28:36 -0400
+Message-ID: <20240329122956.3083859-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240329122652.3082296-1-sashal@kernel.org>
-References: <20240329122652.3082296-1-sashal@kernel.org>
+In-Reply-To: <20240329122956.3083859-1-sashal@kernel.org>
+References: <20240329122956.3083859-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.8.2
+X-stable-base: Linux 6.6.23
 Cc: Sasha Levin <sashal@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
  Emil Renner Berthing <kernel@esmil.dk>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -48,7 +48,7 @@ Cc: Sasha Levin <sashal@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, kuba@kernel.org,
  pabeni@redhat.com, "David S . Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH AUTOSEL 6.8 07/68] net: stmmac:
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.6 06/52] net: stmmac:
 	dwmac-starfive: Add support for JH7100 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -88,7 +88,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 31 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 85dcda51df052..4ec61f1ee71a2 100644
+index 25f2d42de406d..92d7d5a00b84c 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
 +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
 @@ -165,9 +165,9 @@ config DWMAC_STARFIVE
@@ -105,7 +105,7 @@ index 85dcda51df052..4ec61f1ee71a2 100644
  config DWMAC_STI
  	tristate "STi GMAC support"
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-index 5d630affb4d15..4e1076faee0cd 100644
+index 9289bb87c3e3a..0c713257193de 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
 @@ -15,13 +15,20 @@
@@ -165,8 +165,8 @@ index 5d630affb4d15..4e1076faee0cd 100644
  	dwmac->clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
  	if (IS_ERR(dwmac->clk_tx))
  		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->clk_tx),
-@@ -144,8 +163,13 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+@@ -150,8 +169,13 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
+ 	return 0;
  }
  
 +static const struct starfive_dwmac_data jh7100_data = {
