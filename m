@@ -2,80 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB5F0892C45
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 19:00:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BBCB892C96
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 19:40:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A415C6C855;
-	Sat, 30 Mar 2024 18:00:31 +0000 (UTC)
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC51EC6C855;
+	Sat, 30 Mar 2024 18:40:24 +0000 (UTC)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C064AC69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9D6BC6A613
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 18:00:30 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4154471fb59so17264975e9.3
+ Sat, 30 Mar 2024 18:40:23 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-2d6ee81bc87so25869501fa.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 11:00:30 -0700 (PDT)
+ Sat, 30 Mar 2024 11:40:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711821630; x=1712426430;
+ d=linaro.org; s=google; t=1711824023; x=1712428823;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=r39j2D5BMTjv9agvH23NugKjyW42TUeZqGeGsZaMYf0=;
- b=QZzG+t8k7GuBWv0m1UmUEu8sdsT8mh7XrS6ewKPJmAnitmTf9r9fOoiMuHCB40Hh0w
- rIUARjXMP3KRiq12Xbq159nmHfUvbApypABZsDUuvqmeLw9/393y1TkaCGlA3pdIDZgm
- 0tN09rvuoLGGYr6FeFe9c0m2vylHdyMgvCIlTJKLyqFzuS+4EvXwEag/HEDp9WKUwBAF
- 5pqQLkHlKxPSK/nLdhD/hSYO2DvFReg4gte9OeWx6s9+Sqd91yojRDzhIXUODN6IDGtm
- qPD79ct5uJak0yRXl8+RP9F2FLCjbmD574Twm4pQHf4lzKxFG1D4HT8ZRDfyjbHAJJZg
- tALg==
+ bh=A3VqCu8McawT5v2srPzwVC1CxiNRKF4OzinQo91YGYM=;
+ b=JcunhPYEnKjDCk6SNiC4P59rf/QpygEcRYZxLWCcy+WH7N6C/AW6Fo0wDDVVTbQBEz
+ 00HBsbsP2AieMdmS4ViCFmpzrQHl7nHbzU0+ceCQNcj2QZYx3O+11GvkzUHvlWq49P97
+ 7NtyfEPMqPcKHIMF8/yLVN/BSCWYN73EvIYRvy5nkIim/0X3PQmdu6KbhxKxIKsQDJeB
+ G8FOO8hCGVVC7RGQ2pVhPiOxBPv7UsHGw+66jfWELJEvMSCMh3+GQLxPDHXpIBkUo/iW
+ I1uQD/ygp/6zoL5SyVJc42Dt4yVaQ2GmZw6PoPnYRBb4Ic4I+3Gm9rps98sd2xxpKrUq
+ pmww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711821630; x=1712426430;
+ d=1e100.net; s=20230601; t=1711824023; x=1712428823;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=r39j2D5BMTjv9agvH23NugKjyW42TUeZqGeGsZaMYf0=;
- b=aDDmEceUnjBtgiuo5LNJWBOY60zIaj4JqT+9edkyjmAObznnBzkAWZ8cXQahGcjjHc
- UppMI20QqPc8H3p+hu3+sEEGQeB9tLgAfhGZyCql92zwJLijnuDRmD32p6Uv40XQeehA
- DR5QS3ZA+ZAuuq3Vxc/Hh0M9m1ju5KFEU1xbk8BdZR9+NIlHykT1fX45RfCaeVLXKwMY
- E6wSkWB04SiQaAQpeR6lmNv0xqTMpWVv/gk+p8WaQJl+3LUwU6lS8ql3j+xmi2jYyPIZ
- GvxaOlfvqUFZpke4M8hFgvw0cBzL1X3MLQeTjwEpGNmvOxAvj8P46lXZyfz9TNPjJl0C
- zBVA==
+ bh=A3VqCu8McawT5v2srPzwVC1CxiNRKF4OzinQo91YGYM=;
+ b=cHqzzoE0e0H1kfMnZWB+kCc8tRRFuEvxTHeSE3aoug3w1lta9XiGSFL56FJoHM0WYd
+ dx1SGP765cFBqpJmXJIKU4u+GpJ3W7Sn9W0uvpKPf1Yn3a0O689WRtziGvwYbejwIM8u
+ rbLavXJdfoUHXETtmH/WfHf5ZZNzaa0/JJB1V6I5C3+2uucednKvDI8LVy3BuWUEIcr0
+ r6QtoPCAEiNNJZJUup72cFQlbJB5kzGtF7JWAZ1j2XpGmfaKD0AOfTa9qXg8qI81EwZe
+ 6f3tRz1XYX1xQAp/95LOn+GQRnpW/QqRmv6yoVs7tT7vq7S96yC2EbKGGylMre7foo+4
+ j5xQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU57Ojs7ocHVj0fXGSJ2klfzxYvpNlYP0GBYn6OrjI2/b9ck6vFqAWS1zgMaYeySRLDvzuCBiAMVDn8KBzy7PQSV0VAoebgamx14YhXrdJr13hEcJYU3YUC
-X-Gm-Message-State: AOJu0Yz+JKIwxrhXegYkgF2CyQsMSNpyCO/50OjYhwnmp7Gcx/VjuUxy
- MfDYrDZ83MUwwSgDAbfpdV+1WDWyrEg+ZHCLPT40H+uhkODWX9dy5p3l/rMl2ek=
-X-Google-Smtp-Source: AGHT+IF08e2/g7vun76NTerfx5th/Hnqzkh4SuYGxOXmBfdp04gFPw4kDsBu5Sb4XueCWxhfPG5L7g==
-X-Received: by 2002:a05:600c:450a:b0:413:2852:2835 with SMTP id
- t10-20020a05600c450a00b0041328522835mr3636994wmo.17.1711821630033; 
- Sat, 30 Mar 2024 11:00:30 -0700 (PDT)
+ AJvYcCXSWmNl0u5zSjuC92iiNhF97QXCGivw19qdYzSJvK7lreCkPuc466FT101p7Jkvh4FGD8PTrkbTTMMpqFQrPtJkggw57zATV1R5MkkEr9aq5PHlPhAubu+f
+X-Gm-Message-State: AOJu0YzT3p+BB0lUDjGPTqGFfAgl9R7aLkgQAEOpZO5PE+AKb3jciJBE
+ 6bUA3CKMlI+CEgQI0B31CwVGJbwh4zcrTc1lQJ+ByswpdaU3mILEDxlHBMWUSYs=
+X-Google-Smtp-Source: AGHT+IFAV3o4UY/hu5H0Wy2QF9GFBHA3ATanZSUry4YleUZP9Co40bCkswGTtms9hcvOo/OKxYMGzg==
+X-Received: by 2002:a05:651c:1401:b0:2d7:16f6:f678 with SMTP id
+ u1-20020a05651c140100b002d716f6f678mr2611136lje.15.1711824022831; 
+ Sat, 30 Mar 2024 11:40:22 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- n2-20020a056000170200b0034335e47102sm4988194wrc.113.2024.03.30.11.00.28
+ h11-20020a05600c314b00b0041490467febsm12416252wmo.38.2024.03.30.11.40.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 30 Mar 2024 11:00:29 -0700 (PDT)
-Message-ID: <cfa5aa01-44ef-4eb1-9ca6-541ed5908db4@linaro.org>
-Date: Sat, 30 Mar 2024 19:00:27 +0100
+ Sat, 30 Mar 2024 11:40:22 -0700 (PDT)
+Message-ID: <46b065d1-82d7-4a15-9de2-1e0bdd2a9085@linaro.org>
+Date: Sat, 30 Mar 2024 19:40:20 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Russell King <linux@armlinux.org.uk>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+To: Christophe Roullier <christophe.roullier@foss.st.com>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Linus Walleij <linus.walleij@linaro.org>, Andi Shyti
- <andi.shyti@kernel.org>, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Michal Simek <michal.simek@amd.com>, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>
-References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
- <171182151736.34189.6433134738765363803.b4-ty@linaro.org>
+ Richard Cochran <richardcochran@gmail.com>, Jose Abreu
+ <joabreu@synopsys.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Marek Vasut <marex@denx.de>
+References: <20240328140803.324141-1-christophe.roullier@foss.st.com>
+ <20240328140803.324141-2-christophe.roullier@foss.st.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -122,14 +120,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <171182151736.34189.6433134738765363803.b4-ty@linaro.org>
-Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
+In-Reply-To: <20240328140803.324141-2-christophe.roullier@foss.st.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-crypto@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/19] amba: store owner from modules with
- amba_driver_register()
+ devicetree@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 1/1] dt-bindings: net: dwmac: Document
+ STM32 property st, ext-phyclk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,28 +142,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 30/03/2024 18:58, Krzysztof Kozlowski wrote:
+On 28/03/2024 15:08, Christophe Roullier wrote:
+> The Linux kernel dwmac-stm32 driver currently supports three DT
+> properties used to configure whether PHY clock are generated by
+> the MAC or supplied to the MAC from the PHY.
 > 
-> On Tue, 26 Mar 2024 21:23:30 +0100, Krzysztof Kozlowski wrote:
->> Merging
->> =======
->> All further patches depend on the first amba patch, therefore please ack
->> and this should go via one tree.
->>
->> Description
->> ===========
->> Modules registering driver with amba_driver_register() often forget to
->> set .owner field.
->>
->> [...]
+> Originally there were two properties, st,eth-clk-sel and
+> st,eth-ref-clk-sel, each used to configure MAC clocking in
+> different bus mode and for different MAC clock frequency.
+> Since it is possible to determine the MAC 'eth-ck' clock
+> frequency from the clock subsystem and PHY bus mode from
+> the 'phy-mode' property, two disparate DT properties are
+> no longer required to configure MAC clocking.
 > 
-> Applied, thanks!
+> Linux kernel commit 1bb694e20839 ("net: ethernet: stmmac: simplify phy modes management for stm32")
+> introduced a third, unified, property st,ext-phyclk. This property
+> covers both use cases of st,eth-clk-sel and st,eth-ref-clk-sel DT
+> properties, as well as a new use case for 25 MHz clock generated
+> by the MAC.
 > 
-> [01/19] amba: store owner from modules with amba_driver_register()
->         (no commit info)
+> The third property st,ext-phyclk is so far undocumented,
+> document it.
+> 
+> Below table summarizes the clock requirement and clock sources for
+> supported PHY interface modes.
+>  __________________________________________________________________________
+> |PHY_MODE | Normal | PHY wo crystal|   PHY wo crystal   |No 125Mhz from PHY|
+> |         |        |      25MHz    |        50MHz       |                  |
+> 
+> ---------------------------------------------------------------------------
+> |  MII    |    -   |     eth-ck    |        n/a         |       n/a        |
+> |         |        | st,ext-phyclk |                    |                  |
+> 
+> ---------------------------------------------------------------------------
+> |  GMII   |    -   |     eth-ck    |        n/a         |       n/a        |
+> |         |        | st,ext-phyclk |                    |                  |
+> 
+> ---------------------------------------------------------------------------
+> | RGMII   |    -   |     eth-ck    |        n/a         |      eth-ck      |
+> |         |        | st,ext-phyclk |                    | st,eth-clk-sel or|
+> |         |        |               |                    | st,ext-phyclk    |
+> 
+> ---------------------------------------------------------------------------
+> | RMII    |    -   |     eth-ck    |      eth-ck        |       n/a        |
+> |         |        | st,ext-phyclk | st,eth-ref-clk-sel |                  |
+> |         |        |               | or st,ext-phyclk   |                  |
+> 
+> ---------------------------------------------------------------------------
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
 
-Patchset applied here:
-https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git/log/?h=for-v6.10/module-owner-amba
+Can you please start testing patches *before* sending them?
 
 Best regards,
 Krzysztof
