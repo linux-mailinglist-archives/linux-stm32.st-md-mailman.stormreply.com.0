@@ -2,68 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F57F892B21
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 13:18:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5253E892B28
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 13:19:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E7CC6C855;
-	Sat, 30 Mar 2024 12:18:34 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 167F7C6C855;
+	Sat, 30 Mar 2024 12:19:09 +0000 (UTC)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66657C69066
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 36229C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 12:18:33 +0000 (UTC)
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-34100f4f9a2so1890426f8f.2
+ Sat, 30 Mar 2024 12:19:08 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-33ed4dd8659so2362092f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 05:18:33 -0700 (PDT)
+ Sat, 30 Mar 2024 05:19:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1711801113; x=1712405913;
+ d=linaro.org; s=google; t=1711801148; x=1712405948;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=bH0VKkyLThWY6MNf2JTOJyg2yMbF29kM0ZaMHkLqmAQ=;
- b=qxqdyPoc+Rq2oc3/jbDkLxHCrnK7w1jPoQ+b8+TgXXdFQCMNPqngVydSGWP8xABbTG
- ZHXEm/vQw1jKKZZWTDdb3SEchh9T6EEjIvBZU1Hqp3Y83N5ZNBUoipzwlxGg8ckeey/7
- YEtGVnZHKXXbbpKeb9m/V6SFRJLed7WS3iadlliS5HcLYALUgakyF93Z0yWcALGWoHJU
- yQovNXj+VwTkLt726poDGZBv/EcOQxLeUzg/jzOOfbJt6hvs0c8791pFCgGc/tLnAYJl
- kosVnB2+dgvOFu6KW9GoHimUtTKTNoDNBghn77jexmcdy6eRZ0+Lk6AZpNXIkz1T6ufo
- 1Q/g==
+ bh=pwRsl4tW7J5i09nNsaEN0WbRHBKT2ZFbRiuCSTzWq2c=;
+ b=JGHE8m2w1ypEu2DVqf2UKd8x/yLGSAI9QGv8gsq8Jy3jY1bJ6s5SkGgZLK3jsIJ1cj
+ JcInpZ8XfjTDz8mGkXuj/Dy8WoWUKWkC2+qdqYPM5R7xjr3mWFE6Qdo9anEsboVhNBRX
+ MgCTma5Byqg+d2on7lZc6Uv7CdBj34pd6ab0Suir50JVgHdZSxmTz7JCuZ83sdprsijV
+ DlIa8dTJ7wo3ZIMieX9D/Ycfk7VPbZL6GFM+7IESu4em0PmvJzRM7vqA0D8lFDP3s+Tz
+ l8IdePy3VqvBksxCDAzWCQqm73ZTaBS0wLlpfchRBwXtTHrAwmHszrDWd4WnGjpKbL+O
+ ipKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711801113; x=1712405913;
+ d=1e100.net; s=20230601; t=1711801148; x=1712405948;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bH0VKkyLThWY6MNf2JTOJyg2yMbF29kM0ZaMHkLqmAQ=;
- b=b3IOK9CP5UtiUP8og9A+ZGYWEmEik4UL2Dn+f5ZpWzLfBZXzJGazzhDdSZEoF7URyF
- hOU2uuVUhge4t/lC7h7ezzQrZMqfbxSwb0pHCTory1EllfOGhN2wcDmuL2NF2oOfT2J+
- Ke26Ng9TmqhJ3svzUOEb/mURNmRTu1H6ndbR0uE4k9HqoSJeBwl8zQeXfE0lcQRVhwCa
- lPUYVZosw+IO1e8UTXq9fYZlNhr93LQF6olMW9DvBGC0O9h9OK2o6u7yxpN39ShEGLZR
- aenAsZAweLK3oZzXz8bGPykIV0mjOr+d3MH5Jr6oQ/vOTQNxk4lPRSXzhhqiS6VW7xLW
- 7aKA==
+ bh=pwRsl4tW7J5i09nNsaEN0WbRHBKT2ZFbRiuCSTzWq2c=;
+ b=awoaJW9dNydb3CMXChuy/LL+y0+VaTiotiI2lioWamULZVvHps9rHOQYKkXmb4/Xmo
+ zXYVs4Pv4u5BlgewzhOrSCp7I6z/SnAoL/oq2GRNzUdEQZpq9UwDXGdX5z+gFWRKg//I
+ XpoJaEj/A/lzd577jrogrGyRwEffXV+nwmPwJaQ27kTrrMpeFgWkyPEkPp1hScq333ND
+ OExAcYk0vPBwT0ro+ayojN/odXsWbVeXUTODS0rNHOSJNKk3t1ghKZ+yBCRXGnWS5Ue9
+ plgvvnPZsUZL1O7Gb7QmV2lMKPeN+lkO08EMRH3xd01aaqsCarwuCSLqtyZLMhbER+jW
+ elXg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXcY2hrlW98O9fvXwLbhUDZ3QGvAJZ4RSUrDTAlRW5UqU91JfxKLFHB5V5jqEiK26BbfhRqh3FEXUIJy+6iRlFO8LKBEJlkKR7C6FPN6nmVdp1wdxmoL+aJ
-X-Gm-Message-State: AOJu0YwKJFNEwmDv0jdrHB3o1gbjPyhxnNhfF3C9CX2ZHYANUW/u0uoq
- sQg8y5pTqu5/NnuKLqFz3ntud+14JGocxjVq3+dv5rLwsbnXDZR3HNbxQeOGcoY=
-X-Google-Smtp-Source: AGHT+IFXTj6Oopp+TgXdXNYNRNf/PPJajmoyEILRHRDR4VAErFFTxd6mVFOMxvFL+RdoGqW9r8ISHg==
-X-Received: by 2002:adf:ecce:0:b0:33e:9292:b194 with SMTP id
- s14-20020adfecce000000b0033e9292b194mr3243693wro.14.1711801112726; 
- Sat, 30 Mar 2024 05:18:32 -0700 (PDT)
+ AJvYcCXDcBoePlR5KAQ2lcB1g7en4iqlpCbszEK8hdCnBZiia+9sylVlxkTiiCbUC72T+soewYZbmCM7M3hN+1bZ5Bdt1WU7+aYLZLjFAb9ddJYPI78iG/pVIeN1
+X-Gm-Message-State: AOJu0YwUIGy0F5RmyMCP99z+ZNJWd31mNetB4BoB8znf1c0ej/DdWwEJ
+ c04eo55f5nLUWINA3ErsZ3YZZRR3DuRZGmYayH4Ec9Kq7/Wr1MRMbopQDaYOlDg=
+X-Google-Smtp-Source: AGHT+IGxitXr7L7h8CUcKtleeDnrSZmBoUk9QkYBw9ltjVABur0LBmd4a6MEByPy5E4LS7vzmYpyOA==
+X-Received: by 2002:adf:f403:0:b0:343:39a6:93bc with SMTP id
+ g3-20020adff403000000b0034339a693bcmr3335018wro.11.1711801147697; 
+ Sat, 30 Mar 2024 05:19:07 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- bl37-20020adfe265000000b0033b87c2725csm6349947wrb.104.2024.03.30.05.18.30
+ v17-20020adfe291000000b0034174566ec4sm6339522wri.16.2024.03.30.05.19.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 30 Mar 2024 05:18:32 -0700 (PDT)
-Message-ID: <f514d9e1-61fa-4c55-aea1-d70c955bb96a@linaro.org>
-Date: Sat, 30 Mar 2024 13:18:30 +0100
+ Sat, 30 Mar 2024 05:19:07 -0700 (PDT)
+Message-ID: <edd167fb-df0c-4434-8f9f-7c4016b87d83@linaro.org>
+Date: Sat, 30 Mar 2024 13:19:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Russell King <linux@armlinux.org.uk>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@arm.com>,
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Russell King <linux@armlinux.org.uk>, Mike Leach <mike.leach@linaro.org>,
+ James Clark <james.clark@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
@@ -75,6 +75,9 @@ To: Russell King <linux@armlinux.org.uk>,
  Michal Simek <michal.simek@amd.com>, Eric Auger <eric.auger@redhat.com>,
  Alex Williamson <alex.williamson@redhat.com>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+ <3f61d6d3-a0d6-4c49-b094-6ba62d09ab14@arm.com>
+ <f23f2e60-e5c0-4c3c-9722-dba63a6e7ef6@linaro.org>
+ <d8fa8e1a-b2ce-4d91-9ab5-ad1b160111c6@arm.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -121,7 +124,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+In-Reply-To: <d8fa8e1a-b2ce-4d91-9ab5-ad1b160111c6@arm.com>
 Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
  linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
@@ -145,62 +148,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 26/03/2024 21:23, Krzysztof Kozlowski wrote:
-> Merging
-> =======
-> All further patches depend on the first amba patch, therefore please ack
-> and this should go via one tree.
+On 27/03/2024 10:22, Suzuki K Poulose wrote:
+> On 27/03/2024 05:57, Krzysztof Kozlowski wrote:
+>> On 27/03/2024 00:24, Suzuki K Poulose wrote:
+>>> Hi Krzysztof
+>>>
+>>> On 26/03/2024 20:23, Krzysztof Kozlowski wrote:
+>>>> Merging
+>>>> =======
+>>>> All further patches depend on the first amba patch, therefore please ack
+>>>> and this should go via one tree.
+>>>
+>>> Are you able to provide a stable branch with these patches once you pull
+>>
+>> I doubt I will be merging this. I think amba code goes through Russell.
+>>
+>>> them in to "one tree" here ? We have changes coming up in the coresight
+>>> tree, which would conflict with the changes here (horribly).
+>>>
+>>
+>> You mean conflict with  coresight conversion to platform driver? Worst
 > 
-> Description
-> ===========
-> Modules registering driver with amba_driver_register() often forget to
-> set .owner field.
+> Yes.
 > 
-> Solve the problem by moving this task away from the drivers to the core
-> amba bus code, just like we did for platform_driver in commit
-> 9447057eaff8 ("platform_device: use a macro instead of
-> platform_driver_register").
+>> case it is solveable: just drop .owner.
 > 
-> Best regards,
+> Or, we could merge the CoreSight changes (as they are really not
+> affected by the problem this series is trying to address) after the
+> base changes land in AMBA, via the CoreSight tree.
 
-I tried to submit this series to Russell patch tracker and failed. This
-is ridiculous. It's 2024 and instead of normal process, like every other
-maintainer, so b4 or Patchwork, we have some unusable system rejecting
-standard patches.
-
-First, it depends some weird, duplicated signed-off-by's. Second it
-submitting patch-by-patch, all with clicking on some web (!!!) interface.
-
-I did it, clicked 19 times and system was happy... but then on email
-said the patches were rejected. Couldn't tell it after submitting first
-patch via the web?
-
-That's the response:
--------------
-Your patch has not been logged because:
-
-Error:   Please supply a summary subject line briefly describing
-         your patch.
-
-
-Error:   Please supply a "KernelVersion: " tag after "PATCH FOLLOWS" or
-"---".
-
-Error:   the patch you are submitting has one or more missing or incorrect
-         Signed-off-by lines:
-
-         - author signoff <krzkreg@gmail.com> is missing.
-
-         Please see the file Documentation/SubmittingPatches, section 11
-         for details on signing off patches.
-
-
-Please see https://www.armlinux.org.uk/developer/patches/info.shtml
-for more information.
--------------
-
-This is unbelievable waste of time. I am not going to use this tracker.
-It's huge obstacle and huge waste of submitters time.
+I'll provide you a stable branch to fetch. I was defeated by Russell's
+patch tracking system.
 
 Best regards,
 Krzysztof
