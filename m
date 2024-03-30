@@ -2,100 +2,133 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86FC3892932
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 05:15:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F57F892B21
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 Mar 2024 13:18:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 364C4C6C83D;
-	Sat, 30 Mar 2024 04:15:34 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 03E7CC6C855;
+	Sat, 30 Mar 2024 12:18:34 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A660C6A613
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66657C69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 04:15:32 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-5d3907ff128so1950173a12.3
+ Sat, 30 Mar 2024 12:18:33 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-34100f4f9a2so1890426f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 Mar 2024 21:15:31 -0700 (PDT)
+ Sat, 30 Mar 2024 05:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1711772130; x=1712376930;
+ d=linaro.org; s=google; t=1711801113; x=1712405913;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ofE4DiMnvHuiRZX1XlrIQJQuThx3U4684j2Vrwr4bOc=;
- b=cu2pclOe7g6J7Dz7CZ3Rr2X8jeBHkiF54WeOOXgEnDP9zI+Qp3W/oAfXrykYwpuMxF
- MQr/I5eLXirmQr466bRGMr/bZh4+cmMPC8ekfG1XxPETj8motNSCtKrHuKjh+C/lqVsD
- l+ZonCqGrCa8AVTqvgpTRgfq+kHG+CZA1ChHeh1OliWyuRskmeBW42paVjcb0jstQY0R
- GenV8/oDYgtf3NZEqa30Y2U7IP0Ui2KZy1GYIb4dWhxym02XYmUG54w/ZwLGOatpRzFG
- dHKMiA/8NcXUJ+nGx8xMfN8RnneGYC+WhSzaIAr+kVGP6LK68jT7IiiUpkW5DihIvPcW
- 4paQ==
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=bH0VKkyLThWY6MNf2JTOJyg2yMbF29kM0ZaMHkLqmAQ=;
+ b=qxqdyPoc+Rq2oc3/jbDkLxHCrnK7w1jPoQ+b8+TgXXdFQCMNPqngVydSGWP8xABbTG
+ ZHXEm/vQw1jKKZZWTDdb3SEchh9T6EEjIvBZU1Hqp3Y83N5ZNBUoipzwlxGg8ckeey/7
+ YEtGVnZHKXXbbpKeb9m/V6SFRJLed7WS3iadlliS5HcLYALUgakyF93Z0yWcALGWoHJU
+ yQovNXj+VwTkLt726poDGZBv/EcOQxLeUzg/jzOOfbJt6hvs0c8791pFCgGc/tLnAYJl
+ kosVnB2+dgvOFu6KW9GoHimUtTKTNoDNBghn77jexmcdy6eRZ0+Lk6AZpNXIkz1T6ufo
+ 1Q/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711772130; x=1712376930;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ofE4DiMnvHuiRZX1XlrIQJQuThx3U4684j2Vrwr4bOc=;
- b=ieiiMSNllIX2onHJj9w//PyjzOJZmV7PkE2NyvLFIZ02Xngqaa2bPwUngnzQBUSFgu
- EKBIfZZpq9gtc1jCHal/8IzN1tTbGHQUnSPiVaAajeMZSgE9CLU0AYQbMs4hSKU1R64Q
- aRQwxwPuUD1Brn3kOlxDIMr/qZ5vYPlOZFJf9mHFxJHVDlQz+XuRfcrZkmz4Ulo7LtL8
- Ry9WJyBVwbuzhl4OUC3eMA7d6vmPt7kPv47t0PcmdAE9eV7hv8CFAdtiCRyK8Pl0e2OA
- cQZdrLIfUR5QNPZNStf6YLGUYFqx/PmEv68llT2/J6qngdl/RCT78BE/aPy+VQa2/m/Q
- HKpw==
+ d=1e100.net; s=20230601; t=1711801113; x=1712405913;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bH0VKkyLThWY6MNf2JTOJyg2yMbF29kM0ZaMHkLqmAQ=;
+ b=b3IOK9CP5UtiUP8og9A+ZGYWEmEik4UL2Dn+f5ZpWzLfBZXzJGazzhDdSZEoF7URyF
+ hOU2uuVUhge4t/lC7h7ezzQrZMqfbxSwb0pHCTory1EllfOGhN2wcDmuL2NF2oOfT2J+
+ Ke26Ng9TmqhJ3svzUOEb/mURNmRTu1H6ndbR0uE4k9HqoSJeBwl8zQeXfE0lcQRVhwCa
+ lPUYVZosw+IO1e8UTXq9fYZlNhr93LQF6olMW9DvBGC0O9h9OK2o6u7yxpN39ShEGLZR
+ aenAsZAweLK3oZzXz8bGPykIV0mjOr+d3MH5Jr6oQ/vOTQNxk4lPRSXzhhqiS6VW7xLW
+ 7aKA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWCimopGrNqYyHhoNtWTcb8Wo9vyCvlFjHrWhIc2rd642su5p8V2zXte8vzXYubXbmFVK0Jor7vprDIR/0EkoqqgxZbx1dkuuj3pzAJpqcvhZJidacbxL9c
-X-Gm-Message-State: AOJu0YwDHizsMuVEzySyuiC+0I6/gkrd3pGXG8puvmhnA0teGZfeEGT1
- 59b5as9tVGDFvURJWa6CgY1XnNXEchBvsG0T/E0IX8QS0l0O2JOehho6gUxLQ+PwIVbCLMvaMkZ
- JiexJpb1+ZdPoeF04i0r8r5sL5LR9gtJOHehEJw==
-X-Google-Smtp-Source: AGHT+IGgndwZ3xqfDhf4CyJqUlqHUpBRYWacoRvVkoWzKCTwU3GtudllRjOr+s4vd+S8mdhVeoofK0l9Hh+AwBW0mGw=
-X-Received: by 2002:a05:6a20:17a2:b0:1a3:67fd:46b1 with SMTP id
- bl34-20020a056a2017a200b001a367fd46b1mr3653617pzb.36.1711772130610; Fri, 29
- Mar 2024 21:15:30 -0700 (PDT)
+ AJvYcCXcY2hrlW98O9fvXwLbhUDZ3QGvAJZ4RSUrDTAlRW5UqU91JfxKLFHB5V5jqEiK26BbfhRqh3FEXUIJy+6iRlFO8LKBEJlkKR7C6FPN6nmVdp1wdxmoL+aJ
+X-Gm-Message-State: AOJu0YwKJFNEwmDv0jdrHB3o1gbjPyhxnNhfF3C9CX2ZHYANUW/u0uoq
+ sQg8y5pTqu5/NnuKLqFz3ntud+14JGocxjVq3+dv5rLwsbnXDZR3HNbxQeOGcoY=
+X-Google-Smtp-Source: AGHT+IFXTj6Oopp+TgXdXNYNRNf/PPJajmoyEILRHRDR4VAErFFTxd6mVFOMxvFL+RdoGqW9r8ISHg==
+X-Received: by 2002:adf:ecce:0:b0:33e:9292:b194 with SMTP id
+ s14-20020adfecce000000b0033e9292b194mr3243693wro.14.1711801112726; 
+ Sat, 30 Mar 2024 05:18:32 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.16])
+ by smtp.gmail.com with ESMTPSA id
+ bl37-20020adfe265000000b0033b87c2725csm6349947wrb.104.2024.03.30.05.18.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 30 Mar 2024 05:18:32 -0700 (PDT)
+Message-ID: <f514d9e1-61fa-4c55-aea1-d70c955bb96a@linaro.org>
+Date: Sat, 30 Mar 2024 13:18:30 +0100
 MIME-Version: 1.0
-References: <20240311093526.1010158-1-dongmenglong.8@bytedance.com>
- <20240311093526.1010158-2-dongmenglong.8@bytedance.com>
- <CAADnVQKQPS5NcvEouH4JqZ2fKgQAC+LtcwhX9iXYoiEkF_M94Q@mail.gmail.com>
- <CALz3k9i5G5wWi+rtvHPwVLOUAXVMCiU_8QUZs87TEYgR_0wpPA@mail.gmail.com>
- <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail.com>
- <CALz3k9icPePb0c4FE67q=u1U0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
- <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
- <CALz3k9g-U8ih=ycJPRbyU9x_9cp00fNkU3PGQ6jP0WJ+=uKmqQ@mail.gmail.com>
- <CALz3k9jG5Jrqw=BGjt05yMkEF-1u909GbBYrV-02W0dQtm6KQQ@mail.gmail.com>
- <20240328111330.194dcbe5@gandalf.local.home>
- <CAEf4BzYgzOti+Hfdn3SUCjuofGedXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
-In-Reply-To: <CAEf4BzYgzOti+Hfdn3SUCjuofGedXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
-From: =?UTF-8?B?5qKm6b6Z6JGj?= <dongmenglong.8@bytedance.com>
-Date: Sat, 30 Mar 2024 12:16:52 +0800
-Message-ID: <CALz3k9hm6U90K8+d7SprXiKvscRjFno83idqYneHEVwgs4pCiw@mail.gmail.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-s390 <linux-s390@vger.kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Quentin Monnet <quentin@isovalent.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- KP Singh <kpsingh@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, Network Development <netdev@vger.kernel.org>,
- David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Eddy Z <eddyz87@gmail.com>, Sven Schnelle <svens@linux.ibm.com>,
- Jiri Olsa <jolsa@kernel.org>, bpf <bpf@vger.kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [External] Re: [PATCH bpf-next v2 1/9] bpf:
- tracing: add support to record and check the accessed args
+User-Agent: Mozilla Thunderbird
+To: Russell King <linux@armlinux.org.uk>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Olivia Mackall <olivia@selenic.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, Vinod Koul <vkoul@kernel.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Michal Simek <michal.simek@amd.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>
+References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+Content-Language: en-US
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
+ 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
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
+Cc: kvm@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-input@vger.kernel.org, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/19] amba: store owner from modules with
+ amba_driver_register()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,81 +140,72 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU2F0LCBNYXIgMzAsIDIwMjQgYXQgNzoyOOKAr0FNIEFuZHJpaSBOYWtyeWlrbwo8YW5kcmlp
-Lm5ha3J5aWtvQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBUaHUsIE1hciAyOCwgMjAyNCBhdCA4
-OjEw4oCvQU0gU3RldmVuIFJvc3RlZHQgPHJvc3RlZHRAZ29vZG1pcy5vcmc+IHdyb3RlOgo+ID4K
-PiA+IE9uIFRodSwgMjggTWFyIDIwMjQgMjI6NDM6NDYgKzA4MDAKPiA+IOaipum+meiRoyA8ZG9u
-Z21lbmdsb25nLjhAYnl0ZWRhbmNlLmNvbT4gd3JvdGU6Cj4gPgo+ID4gPiBJIGhhdmUgZG9uZSBh
-IHNpbXBsZSBiZW5jaG1hcmsgb24gY3JlYXRpbmcgMTAwMAo+ID4gPiB0cmFtcG9saW5lcy4gSXQg
-aXMgc2xvdywgcXVpdGUgc2xvdywgd2hpY2ggY29uc3VtZSB1cCB0bwo+ID4gPiA2MHMuIFdlIGNh
-bid0IGRvIGl0IHRoaXMgd2F5Lgo+ID4gPgo+ID4gPiBOb3csIEkgaGF2ZSBhIGJhZCBpZGVhLiBI
-b3cgYWJvdXQgd2UgaW50cm9kdWNlCj4gPiA+IGEgImR5bmFtaWMgdHJhbXBvbGluZSI/IFRoZSBi
-YXNpYyBsb2dpYyBvZiBpdCBjYW4gYmU6Cj4gPiA+Cj4gPiA+ICIiIgo+ID4gPiBzYXZlIHJlZ3MK
-PiA+ID4gYnBmcyA9IHRyYW1wb2xpbmVfbG9va3VwX2lwKGlwKQo+ID4gPiBmZW50cnkgPSBicGZz
-LT5mZW50cmllcwo+ID4gPiB3aGlsZSBmZW50cnk6Cj4gPiA+ICAgZmVudHJ5KGN0eCkKPiA+ID4g
-ICBmZW50cnkgPSBmZW50cnktPm5leHQKPiA+ID4KPiA+ID4gY2FsbCBvcmlnaW4KPiA+ID4gc2F2
-ZSByZXR1cm4gdmFsdWUKPiA+ID4KPiA+ID4gZmV4aXQgPSBicGZzLT5mZXhpdHMKPiA+ID4gd2hp
-bGUgZmV4aXQ6Cj4gPiA+ICAgZmV4aXQoY3R4KQo+ID4gPiAgIGZleGl0ID0gZmV4aXQtPm5leHQK
-PiA+ID4KPiA+ID4geHh4eHh4Cj4gPiA+ICIiIgo+ID4gPgo+ID4gPiBBbmQgd2UgbG9va3VwIHRo
-ZSAiYnBmcyIgYnkgdGhlIGZ1bmN0aW9uIGlwIGluIGEgaGFzaCBtYXAKPiA+ID4gaW4gdHJhbXBv
-bGluZV9sb29rdXBfaXAuIFRoZSB0eXBlIG9mICJicGZzIiBpczoKPiA+ID4KPiA+ID4gc3RydWN0
-IGJwZl9hcnJheSB7Cj4gPiA+ICAgc3RydWN0IGJwZl9wcm9nICpmZW50cmllczsKPiA+ID4gIHN0
-cnVjdCBicGZfcHJvZyAqZmV4aXRzOwo+ID4gPiAgIHN0cnVjdCBicGZfcHJvZyAqbW9kaWZ5X3Jl
-dHVybnM7Cj4gPiA+IH0KPiA+ID4KPiA+ID4gV2hlbiB3ZSBuZWVkIHRvIGF0dGFjaCB0aGUgYnBm
-IHByb2dBIHRvIGZ1bmN0aW9uIEEvQi9DLAo+ID4gPiB3ZSBvbmx5IG5lZWQgdG8gY3JlYXRlIHRo
-ZSBicGZfYXJyYXlBLCBicGZfYXJyYXlCLCBicGZfYXJyYXlDCj4gPiA+IGFuZCBhZGQgdGhlIHBy
-b2dBIHRvIHRoZW0sIGFuZCBpbnNlcnQgdGhlbSB0byB0aGUgaGFzaCBtYXAKPiA+ID4gImRpcmVj
-dF9jYWxsX2JwZnMiLCBhbmQgYXR0YWNoIHRoZSAiZHluYW1pYyB0cmFtcG9saW5lIiB0bwo+ID4g
-PiBBL0IvQy4gSWYgYnBmX2FycmF5QSBleGlzdCwganVzdCBhZGQgcHJvZ0EgdG8gdGhlIHRhaWwg
-b2YKPiA+ID4gYnBmX2FycmF5QS0+ZmVudHJpZXMuIFdoZW4gd2UgbmVlZCB0byBhdHRhY2ggcHJv
-Z0IgdG8KPiA+ID4gQi9DLCBqdXN0IGFkZCBwcm9nQiB0byBicGZfYXJyYXlCLT5mZW50cmllcyBh
-bmQKPiA+ID4gYnBmX2FycmF5Qi0+ZmVudHJpZXMuCj4gPiA+Cj4gPiA+IENvbXBhcmVkIHRvIHRo
-ZSB0cmFtcG9saW5lLCBleHRyYSBvdmVyaGVhZCBpcyBpbnRyb2R1Y2VkCj4gPiA+IGJ5IHRoZSBo
-YXNoIGxvb2t1cGluZy4KPiA+ID4KPiA+ID4gSSBoYXZlIG5vdCBiZWd1biB0byBjb2RlIHlldCwg
-YW5kIEkgYW0gbm90IHN1cmUgdGhlIG92ZXJoZWFkIGlzCj4gPiA+IGFjY2VwdGFibGUuIENvbnNp
-ZGVyaW5nIHRoYXQgd2UgYWxzbyBuZWVkIHRvIGRvIGhhc2ggbG9va3VwCj4gPiA+IGJ5IHRoZSBm
-dW5jdGlvbiBpbiBrcHJvYmVfbXVsdGksIG1heWJlIHRoZSBvdmVyaGVhZCBpcwo+ID4gPiBhY2Nl
-cHRhYmxlPwo+ID4KPiA+IFNvdW5kcyBsaWtlIHlvdSBhcmUganVzdCByZWNyZWF0aW5nIHRoZSBm
-dW5jdGlvbiBtYW5hZ2VtZW50IHRoYXQgZnRyYWNlCj4gPiBoYXMuIEl0IGFsc28gY2FuIGFkZCB0
-aG91c2FuZHMgb2YgdHJhbXBvbGluZXMgdmVyeSBxdWlja2x5LCBiZWNhdXNlIGl0IGRvZXMKPiA+
-IGl0IGluIGJhdGNoZXMuIEl0IHRha2VzIHNwZWNpYWwgc3luY2hyb25pemF0aW9uIHN0ZXBzIHRv
-IGF0dGFjaCB0byBmZW50cnkuCj4gPiBmdHJhY2UgKGFuZCBJIGJlbGlldmUgbXVsdGkta3Byb2Jl
-cykgdXBkYXRlcyBhbGwgdGhlIGF0dGFjaG1lbnRzIGZvciBlYWNoCj4gPiBzdGVwLCBzbyB0aGUg
-c3luY2hyb25pemF0aW9uIG5lZWRlZCBpcyBvbmx5IGRvbmUgb25jZS4KPiA+Cj4gPiBJZiB5b3Ug
-cmVhbGx5IHdhbnQgdG8gaGF2ZSB0aG91c2FuZHMgb2YgZnVuY3Rpb25zLCB3aHkgbm90IGp1c3Qg
-cmVnaXN0ZXIgaXQKPiA+IHdpdGggZnRyYWNlIGl0c2VsZi4gSXQgd2lsbCBnaXZlIHlvdSB0aGUg
-YXJndW1lbnRzIHZpYSB0aGUgZnRyYWNlX3JlZ3MKPiA+IHN0cnVjdHVyZS4gQ2FuJ3QgeW91IGp1
-c3QgcmVnaXN0ZXIgYSBwcm9ncmFtIGFzIHRoZSBjYWxsYmFjaz8KPiA+Cj4gPiBJdCB3aWxsIHBy
-b2JhYmx5IG1ha2UgeW91ciBhY2NvdW50aW5nIG11Y2ggZWFzaWVyLCBhbmQganVzdCBsZXQgZnRy
-YWNlCj4gPiBoYW5kbGUgdGhlIGZlbnRyeSBsb2dpYy4gVGhhdCdzIHdoYXQgaXQgd2FzIG1hZGUg
-dG8gZG8uCj4gPgo+Cj4gSSB0aG91Z2h0IEknbGwganVzdCBhc2sgaW5zdGVhZCBvZiBkaWdnaW5n
-IHRocm91Z2ggY29kZSwgc29ycnkgZm9yCj4gYmVpbmcgbGF6eSA6KSBJcyB0aGVyZSBhbnkgd2F5
-IHRvIHBhc3MgcHRfcmVncy9mdHJhY2VfcmVncyBjYXB0dXJlZAo+IGJlZm9yZSBmdW5jdGlvbiBl
-eGVjdXRpb24gdG8gYSByZXR1cm4gcHJvYmUgKGZleGl0L2tyZXRwcm9iZSk/IEkuZS4sCj4gaG93
-IGhhcmQgaXMgaXQgdG8gcGFzcyBpbnB1dCBmdW5jdGlvbiBhcmd1bWVudHMgdG8gYSBrcmV0cHJv
-YmU/IFRoYXQncwo+IHRoZSBiaWdnZXN0IGFkdmFudGFnZSBvZiBmZXhpdCBvdmVyIGtyZXRwcm9i
-ZSwgYW5kIGlmIHdlIGNhbiBtYWtlCj4gdGhlc2Ugb3JpZ2luYWwgcHRfcmVncy9mdHJhY2VfcmVn
-cyBhdmFpbGFibGUgdG8ga3JldHByb2JlLCB0aGVuCj4gbXVsdGkta3JldHByb2JlIHdpbGwgZWZm
-ZWN0aXZlbHkgYmUgdGhpcyBtdWx0aS1mZXhpdC4KClllcywgd2UgY2FuIHVzZSBtdWx0aS1rcmV0
-cHJvYmUgaW5zdGVhZCBvZiBtdWx0aS1mZXhpdAppZiB3ZSBjYW4gb2J0YWluIHRoZSBmdW5jdGlv
-biBhcmdzIGluIGtyZXRwcm9iZS4KCkkgdGhpbmsgaXQncyBoYXJkLiBUaGUgcmVhc29uIHRoYXQg
-d2UgY2FuIG9idGFpbiB0aGUKZnVuY3Rpb24gYXJncyBpcyB0aGF0IHdlIGhhdmUgYSB0cmFtcG9s
-aW5lLCBhbmQgaXQKY2FsbCB0aGUgb3JpZ2luIGZ1bmN0aW9uIGZvciBGRVhJVC4gSWYgd2UgZG8g
-dGhlIHNhbWUKZm9yIG11bHRpLWtyZXRwcm9iZSwgd2UgbmVlZCB0byBtb2RpZnkgZnRyYWNlX3Jl
-Z3NfY2FsbGVyCnRvOgoKZnRyYWNlX3JlZ3NfY2FsbGVyCnwKX19mdHJhY2Vfb3BzX2xpc3RfZnVu
-Ywp8CmNhbGwgYWxsIG11bHRpLWtwcm9iZSBjYWxsYmFja3MKfApjYWxsIG9yZ2luCnwKY2FsbCBh
-bGwgbXVsdGkta3JldHByb2JlIGNhbGxiYWNrcwp8CmNhbGwgYnBmIHRyYW1wb2xpbmUoZm9yIFRS
-QUNJTkcpCgpIb3dldmVyLCB0aGlzIGxvZ2ljIGNvbmZsaWN0cyB3aXRoIGJwZiB0cmFtcG9saW5l
-LAphcyBpdCBjYW4gYWxzbyBjYWxsIHRoZSBvcmlnaW4gZnVuY3Rpb24uIFdoYXQncyBtb3JlLAp0
-aGUgRkVOVFJZIHNob3VsZCBiZSBjYWxsZWQgYmVmb3JlIHRoZSAiY2FsbCBvcmlnaW4iCmFib3Zl
-LgoKSSdtIHN1cmUgaWYgSSB1bmRlcnN0YW5kIGNvcnJlY3RseSwgYXMgSSBoYXZlIG5vdApmaWd1
-cmVkIG91dCBob3cgbXVsdGkta3JldHByb2JlIHdvcmtzIGluIGZwcm9iZS4KClRoYW5rcyEKTWVu
-Z2xvbmcgRG9uZwoKPgo+ID4gLS0gU3RldmUKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0
-LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVw
-bHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On 26/03/2024 21:23, Krzysztof Kozlowski wrote:
+> Merging
+> =======
+> All further patches depend on the first amba patch, therefore please ack
+> and this should go via one tree.
+> 
+> Description
+> ===========
+> Modules registering driver with amba_driver_register() often forget to
+> set .owner field.
+> 
+> Solve the problem by moving this task away from the drivers to the core
+> amba bus code, just like we did for platform_driver in commit
+> 9447057eaff8 ("platform_device: use a macro instead of
+> platform_driver_register").
+> 
+> Best regards,
+
+I tried to submit this series to Russell patch tracker and failed. This
+is ridiculous. It's 2024 and instead of normal process, like every other
+maintainer, so b4 or Patchwork, we have some unusable system rejecting
+standard patches.
+
+First, it depends some weird, duplicated signed-off-by's. Second it
+submitting patch-by-patch, all with clicking on some web (!!!) interface.
+
+I did it, clicked 19 times and system was happy... but then on email
+said the patches were rejected. Couldn't tell it after submitting first
+patch via the web?
+
+That's the response:
+-------------
+Your patch has not been logged because:
+
+Error:   Please supply a summary subject line briefly describing
+         your patch.
+
+
+Error:   Please supply a "KernelVersion: " tag after "PATCH FOLLOWS" or
+"---".
+
+Error:   the patch you are submitting has one or more missing or incorrect
+         Signed-off-by lines:
+
+         - author signoff <krzkreg@gmail.com> is missing.
+
+         Please see the file Documentation/SubmittingPatches, section 11
+         for details on signing off patches.
+
+
+Please see https://www.armlinux.org.uk/developer/patches/info.shtml
+for more information.
+-------------
+
+This is unbelievable waste of time. I am not going to use this tracker.
+It's huge obstacle and huge waste of submitters time.
+
+Best regards,
+Krzysztof
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
