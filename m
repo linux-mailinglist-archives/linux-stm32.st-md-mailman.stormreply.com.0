@@ -2,97 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0381892E53
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 Mar 2024 04:34:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54779892F00
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 Mar 2024 10:35:01 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4642CC6A613;
-	Sun, 31 Mar 2024 02:34:48 +0000 (UTC)
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 056A2C6C820;
+	Sun, 31 Mar 2024 08:35:01 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD16CC6907A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8992C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Mar 2024 02:34:46 +0000 (UTC)
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-7d0262036afso159185039f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 Mar 2024 19:34:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711852485; x=1712457285;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gV26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=;
- b=aCl/wRffG1a6JyN8cDXHT3gCHLh/kLw7+yybL/MYduTZskoKN1X2k3F748MlAT1fGh
- 2D1ZZOFMoY6hEsKSyqCty9MjKNleg4diGCERuPSQbtX6HfjmCph3Uz8zMBDywtuHxnEL
- VFQwNVoBQrVH5fCf4YkwJZP21AHpSrTyfgNzKR5FR3/nR3jOdiW6Zu5j31eaIMMEaFGa
- 1lIISsszV1GZNCI3jmeILzZwsHby1AUvp2tseVySWRtv+zNGrCO+vE8zrII5bxhA/6dN
- PVGG2NnXqGk8OVi64jSj1Iwgq9NZc7CqycW29bBLajg4mvBpdFnhHXJbX+7SQF4rOJ+r
- fEkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711852485; x=1712457285;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gV26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=;
- b=O2+Gz8j1YXF3WN61k8aO3OyX8xXcDbSC416qiWKV/53E28hRfinbg2+jnvdJDOBt/B
- Kpetj1+O/yjl3Wt3D+oEshwkb4xL1Hcf/9m76Qa86mpVck2euC5ionwqxJtoWgP1dRSM
- n85Pa5zIMMp3KaybVbMonoxQUj1iffKU0tz5YUrd9w1TV3KdyW2E7fkYcMVynLmTa9VI
- SymSb/7MgSeDnW6N+FeqH2s+opynu3PP9uqfO8ruBnNQMpEnQRBnlyxfjbBXWklW0AZo
- ITScqVC2F+up1+Qr0u8atafX7CP5A2esbCvHpSx+PNHEkzgxXmlBZBntSX34X8P/1EWH
- XEOg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWcHZdqKvjBTvkrQIRZTUJ7SpZoE0fTI+DRcdvFjQXRvX3m/I+OMG6DJzsIbTeJ+sXtBE2ICp7Pp7CzUkf9HeDEybV/kKKgf7Q0ablrJGxptRfuFhxbBe9L
-X-Gm-Message-State: AOJu0YxrJ6rhsUmWX+4Rt441PLwGx+/vWmcb25LF9GPto7oKF6+KEkYl
- 84zHyxiNxiXZW1jeHqgNVzTKSPoac8MRqSN9JIq4+/xjeUUfUn6bOsLRNih8oVl76QWgbw/27rR
- ZOmRUHRMwGRR7x5GzUB5KUvG2UA8=
-X-Google-Smtp-Source: AGHT+IEUljvEWt6RLJvm0ZvDNAAvbKF98d8W07FBneubUp0ru50ICaCtTHNp6cmd+wxEi3ZRk7j/LT8mS1rRQW2OsKc=
-X-Received: by 2002:a05:6e02:3710:b0:366:ab6f:f63 with SMTP id
- ck16-20020a056e02371000b00366ab6f0f63mr8646788ilb.3.1711852485494; Sat, 30
- Mar 2024 19:34:45 -0700 (PDT)
+ Sun, 31 Mar 2024 08:34:59 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id CDE87FF802;
+ Sun, 31 Mar 2024 08:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1711874099;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=bkZCTZa2SatyGqLS+NTU0GDbJQ+zI3N+D0QKibBZfFo=;
+ b=QDlQrJbB2rfbs4C1sU9IDLdaWQ07Bwzdr9P4B5RCC+MWQIfcjVBaFGtDuBHlw0Dnmdc8iB
+ qZFFdLSLc8dlSfJR9Xwkb5vLq4l37Lu4sDOycMhDCjE/ANGx8jXtnirdOd60VPGdJP1i9y
+ KWZY7shJ0cUKpD1Hc1FpmWk5JMXFawMxeIhWPE/3wIVCQ8AVym5wGmRiVfMZwwwkwVU8z4
+ ftsot8rUb4bMoRVoYTuGKJkASlmJCri07zpmxPFP3h1NpijrAM2k4q+HLh2aXeWYC4vsH5
+ vGJf+6vwi54D5xqpg6hc2+CeFSc3dLitXSb/uQkZIlPKbpuoTsFCaV0Z93GWfg==
+Date: Sun, 31 Mar 2024 10:35:32 +0200 (CEST)
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Cathy Cai <cathy.cai@unisoc.com>
+In-Reply-To: <20240327110142.159851-1-cathy.cai@unisoc.com>
+Message-ID: <d1da7fdb-10f6-7f69-4820-520469c0193c@bootlin.com>
+References: <20240327110142.159851-1-cathy.cai@unisoc.com>
 MIME-Version: 1.0
-References: <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail.com>
- <CALz3k9icPePb0c4FE67q=u1U0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
- <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
- <CALz3k9g-U8ih=ycJPRbyU9x_9cp00fNkU3PGQ6jP0WJ+=uKmqQ@mail.gmail.com>
- <CALz3k9jG5Jrqw=BGjt05yMkEF-1u909GbBYrV-02W0dQtm6KQQ@mail.gmail.com>
- <20240328111330.194dcbe5@gandalf.local.home>
- <CAEf4BzYgzOti+Hfdn3SUCjuofGedXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
- <20240330082755.1cbeb8c6@rorschach.local.home> <ZghRXtc8ZiTOKMR3@krava>
-In-Reply-To: <ZghRXtc8ZiTOKMR3@krava>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Sat, 30 Mar 2024 19:34:33 -0700
-Message-ID: <CAEf4BzbOAwLZ9=QnMQo-W5oHxTA7nM5ERRp0Q=WihuC8b+Y1Ww@mail.gmail.com>
-To: Jiri Olsa <olsajiri@gmail.com>
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-s390 <linux-s390@vger.kernel.org>,
- =?UTF-8?B?5qKm6b6Z6JGj?= <dongmenglong.8@bytedance.com>,
- Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Quentin Monnet <quentin@isovalent.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- KP Singh <kpsingh@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, Network Development <netdev@vger.kernel.org>,
- David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Eddy Z <eddyz87@gmail.com>, Sven Schnelle <svens@linux.ibm.com>,
- bpf <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [External] Re: [PATCH bpf-next v2 1/9] bpf:
- tracing: add support to record and check the accessed args
+X-GND-Sasl: romain.gantois@bootlin.com
+Cc: joabreu@synopsys.com, cixi.geng1@unisoc.com, cathycai0714@gmail.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, edumazet@google.com, zhiguo.niu@unisoc.com,
+ xuewen.yan94@gmail.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ wade.shu@unisoc.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
+	interrupt storm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,34 +54,49 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gU2F0LCBNYXIgMzAsIDIwMjQgYXQgMTA6NTLigK9BTSBKaXJpIE9sc2EgPG9sc2FqaXJpQGdt
-YWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBTYXQsIE1hciAzMCwgMjAyNCBhdCAwODoyNzo1NUFNIC0w
-NDAwLCBTdGV2ZW4gUm9zdGVkdCB3cm90ZToKPiA+IE9uIEZyaSwgMjkgTWFyIDIwMjQgMTY6Mjg6
-MzMgLTA3MDAKPiA+IEFuZHJpaSBOYWtyeWlrbyA8YW5kcmlpLm5ha3J5aWtvQGdtYWlsLmNvbT4g
-d3JvdGU6Cj4gPgo+ID4gPiBJIHRob3VnaHQgSSdsbCBqdXN0IGFzayBpbnN0ZWFkIG9mIGRpZ2dp
-bmcgdGhyb3VnaCBjb2RlLCBzb3JyeSBmb3IKPiA+ID4gYmVpbmcgbGF6eSA6KSBJcyB0aGVyZSBh
-bnkgd2F5IHRvIHBhc3MgcHRfcmVncy9mdHJhY2VfcmVncyBjYXB0dXJlZAo+ID4gPiBiZWZvcmUg
-ZnVuY3Rpb24gZXhlY3V0aW9uIHRvIGEgcmV0dXJuIHByb2JlIChmZXhpdC9rcmV0cHJvYmUpPyBJ
-LmUuLAo+ID4gPiBob3cgaGFyZCBpcyBpdCB0byBwYXNzIGlucHV0IGZ1bmN0aW9uIGFyZ3VtZW50
-cyB0byBhIGtyZXRwcm9iZT8gVGhhdCdzCj4gPiA+IHRoZSBiaWdnZXN0IGFkdmFudGFnZSBvZiBm
-ZXhpdCBvdmVyIGtyZXRwcm9iZSwgYW5kIGlmIHdlIGNhbiBtYWtlCj4gPiA+IHRoZXNlIG9yaWdp
-bmFsIHB0X3JlZ3MvZnRyYWNlX3JlZ3MgYXZhaWxhYmxlIHRvIGtyZXRwcm9iZSwgdGhlbgo+ID4g
-PiBtdWx0aS1rcmV0cHJvYmUgd2lsbCBlZmZlY3RpdmVseSBiZSB0aGlzIG11bHRpLWZleGl0Lgo+
-ID4KPiA+IFRoaXMgc2hvdWxkIGJlIHBvc3NpYmxlIHdpdGggdGhlIHVwZGF0ZXMgdGhhdCBNYXNh
-bWkgaXMgZG9pbmcgd2l0aCB0aGUKPiA+IGZncmFwaCBjb2RlLgo+Cj4geWVzLCBJIGhhdmUgYnBm
-IGtwcm9iZS1tdWx0aSBsaW5rIHN1cHBvcnQgZm9yIHRoYXQgWzBdIChpdCdzIG9uIHRvcCBvZgo+
-IE1hc2FtaSdzIGZwcm9iZS1vdmVyLWZncmFwaCBjaGFuZ2VzKSB3ZSBkaXNjdXNzZWQgdGhhdCBp
-biBbMV0KClNvcnJ5LCBJIGZvcmdvdCB0aGUgcmVncy9hcmdzIHBhcnQsIG1vc3RseSByZW1lbWJl
-cmluZyB3ZSBkaXNjdXNzZWQKc2Vzc2lvbiBjb29raWUgaWRlYXMuIFRoYW5rcyBmb3IgcmVtaW5k
-ZXIhCgo+Cj4gamlya2EKPgo+IFswXSBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGlu
-dXgva2VybmVsL2dpdC9qb2xzYS9wZXJmLmdpdC9sb2cvP2g9YnBmL3Nlc3Npb25fZGF0YQo+IFsx
-XSBodHRwczovL2xvcmUua2VybmVsLm9yZy9icGYvMjAyNDAyMjgwOTAyNDIuNDA0MDIxMC0xLWpv
-bHNhQGtlcm5lbC5vcmcvCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello Cathy,
+
+On Wed, 27 Mar 2024, Cathy Cai wrote:
+
+> Tx queue time out then reset adapter. When reset the adapter, stmmac driver
+> sets the state to STMMAC_DOWN and calls dev_close() function. If an interrupt
+> is triggered at this instant after setting state to STMMAC_DOWN, before the
+> dev_close() call.
+> 
+...
+> -	set_bit(STMMAC_DOWN, &priv->state);
+>  	dev_close(priv->dev);
+> +	set_bit(STMMAC_DOWN, &priv->state);
+>  	dev_open(priv->dev, NULL);
+>  	clear_bit(STMMAC_DOWN, &priv->state);
+>  	clear_bit(STMMAC_RESETING, &priv->state);
+
+If this IRQ issue can happen whenever STMMAC_DOWN is set while the net device is 
+open, then it could also happen between the dev_open() and 
+clear_bit(STMMAC_DOWN) calls right? So you'd have to clear STMMAC_DOWN before 
+calling dev_open() but then I don't see the usefulness of setting STMMAC_DOWN 
+and clearing it immediately. Maybe closing and opening the net device should be 
+enough?
+
+Moreover, it seems strange to me that stmmac_interrupt() unconditionnally 
+ignores interrupts when the driver is in STMMAC_DOWN state. This seems like 
+dangerous behaviour, since it could cause IRQ storm issues whenever something 
+in the driver sets this state. I'm not too familiar with the interrupt handling 
+in this driver, but maybe stmmac_interrupt() could clear interrupts 
+unconditionnally in the STMMAC_DOWN state?
+
+Best Regards,
+
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
