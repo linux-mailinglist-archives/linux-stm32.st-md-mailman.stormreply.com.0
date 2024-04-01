@@ -2,80 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56900894082
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Apr 2024 18:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 370B3894475
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Apr 2024 19:48:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19AB2C6B47A;
-	Mon,  1 Apr 2024 16:30:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD840C69067;
+	Mon,  1 Apr 2024 17:48:24 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0CB5C6B46B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D45BECFAC50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Apr 2024 16:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1711989053; x=1743525053;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=AczA0vvBlhEgaTyRAAogpcX/Z5MI2QUY4sUERwvz+hk=;
- b=ObFcEjHGwb40lU+SM8V7Z/rFMR+R4PRpLeMPz8oVfS1eWpn0+Fm64gN3
- y/Y8f3Dk90f44t/9TRHUqoyCKZBCMqbQG5NHmnY5ZWlvky9pu9stIvfeh
- 0YpaH9ugK4yyySCwFikP0/1oOQnDIifW/NTK2g6XTe7DpmGC+4CZX6jIr
- hT9yE0U4z80J7sQtXAPlMrIDoOVSxYpHBHCA1YroubG7UZYzLr/5LVBCu
- 0pG8e50VRAGa/XVx38GJ7HJyipKfT/bmKSFqAu9v7as8HUcTwwxP9D1Yg
- mTb2jiLkdSvs4gdCjIRX7QiQ4nNDV1BRg6/f8J9PakWvxuzrP+YKclZ0P g==;
-X-CSE-ConnectionGUID: 8pzuUG3CSMOznIZ55rAaBQ==
-X-CSE-MsgGUID: GVkdDy3XSzKGJz4QhRiKMA==
-X-IronPort-AV: E=McAfee;i="6600,9927,11031"; a="10083807"
-X-IronPort-AV: E=Sophos;i="6.07,172,1708416000"; d="scan'208";a="10083807"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2024 09:30:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,172,1708416000"; d="scan'208";a="18224603"
-Received: from anahar-mobl.amr.corp.intel.com (HELO [10.212.2.239])
- ([10.212.2.239])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2024 09:30:49 -0700
-Message-ID: <94a85305-2761-458f-84c9-4d76e59ae11c@linux.intel.com>
-Date: Mon, 1 Apr 2024 11:28:50 -0500
+ Mon,  1 Apr 2024 17:48:23 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-41568096c4aso5221415e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 01 Apr 2024 10:48:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1711993703; x=1712598503;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=zrigaZFXWcx1kCyKa9oGq8jbBkbvJ11REE5OiYoomxk=;
+ b=KORpJNaL5n0ek8fvwlA7G7tDIOar/+gSV8H+oeFj8eRR2CNjwFT8SVGzSus6vMS+PK
+ +QjRNsoCzBB4caNSarv6wItO0DlbTJD1KmlTcPQA71rFPiUxHmeRzdLHbMtBujsFzrhH
+ Oq5hYh0waFysuoXXMdu1D1DA4iAVy4V/W0SMnEzYvhDVYcFTTt2wjGfPJgF4/ZPdUy3O
+ Ti53akcZYs3BJnYDXQvLfOW4e1NmCkt+1i7rIPf0Ntrh+gd2cHf+j0ruH93beOUQo2I0
+ R1EuGXRXxrTwYW+y8bNj8JLKF8B19k2rVNlQ4GybY8rcvza6GvHsi/DMgj72zy6DTjPR
+ z6TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1711993703; x=1712598503;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zrigaZFXWcx1kCyKa9oGq8jbBkbvJ11REE5OiYoomxk=;
+ b=lt86nzcnGjnVFjf8QDpB7fg4WK8ccMqc1LB2JrDFFn+HhcJmaR5eWDHjinQxCUUr26
+ 2gWcMLacfVm/6hYYdbyd7qCOQziRTKXHDhlwStyAvStxx1sg81KS9YlvChs0U9+qdgDM
+ ZjlAYtTL9AbV2To8j3rVJ20keFdz6mmcelo8jBVirTH5kbhaiAJZotm7v5SsEHCDD8af
+ g0qGvuSKPnBzdW5VLfJp2GsKasOXRisADe8swhp8RmwKm9EcjZi7hy1/Ov4ZrxX67tUA
+ IDGmm5u4t/ot+JMLG6yxA7iCRuVETJeBBf1rOKLF1YzaDX02Ei41CnEYs0PtW8Milz/t
+ Vysw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX9C/wfPE2Bs44RT7wdUHSUBKPVSB0V41yLwxjSfOAHsKDxxqkY1g9Gnx48JOXv5VeI6zOTaQlsgDGw1APjsNO2XE9ABj0u478vHzn9E9zUJi0LZtmCA7cp
+X-Gm-Message-State: AOJu0Yy7/MHvYGcGirOeRVHNWWyTPzl3MwkNbcTCOGHN6mWNGDcL2vKa
+ QdcfiHzWvfTH3hF8NqG8+TYUTRpqIyVfR5b48Dahm+sTZ6VUzm9U
+X-Google-Smtp-Source: AGHT+IFFKEPqYBqhXPvo3d9e2KGAB3GpC18x3pZ1hRTgMveG4viHnSGaLgA5CQDjSMLrjG8QFtrf1A==
+X-Received: by 2002:a05:600c:1907:b0:414:869b:dbd9 with SMTP id
+ j7-20020a05600c190700b00414869bdbd9mr7334584wmq.9.1711993702998; 
+ Mon, 01 Apr 2024 10:48:22 -0700 (PDT)
+Received: from Kalray-lp320 ([2a01:e0a:a92:c660:38e3:78b9:48eb:4246])
+ by smtp.gmail.com with ESMTPSA id
+ n17-20020a05600c3b9100b0041493aae77esm18603515wms.23.2024.04.01.10.48.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Apr 2024 10:48:22 -0700 (PDT)
+Date: Mon, 1 Apr 2024 19:48:20 +0200
+From: Piotr Wejman <piotrwejman90@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20240401174820.GA22684@Kalray-lp320>
+References: <20240303190339.52496-1-piotrwejman90@gmail.com>
+ <20240311134144.7b1e1a34@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>,
- Jaroslav Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
- Maso Huang <maso.huang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org,
- imx@lists.linux.dev, linux-sound@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87edbpudm9.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87edbpudm9.wl-kuninori.morimoto.gx@renesas.com>
-Subject: Re: [Linux-stm32] [PATCH v2 15/16] ASoC: soc-pcm: indicate warning
- if DPCM BE Codec has no settings
+Content-Disposition: inline
+In-Reply-To: <20240311134144.7b1e1a34@kernel.org>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: fix rx queue priority
+	assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,73 +82,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-CgpPbiAzLzMxLzI0IDE5OjMyLCBLdW5pbm9yaSBNb3JpbW90byB3cm90ZToKPiBIaXN0b3JpY2Fs
-bHksIEFTb0MgZG9lc24ndCBoYXZlIHZhbGlkYXRpb24gY2hlY2sgZm9yIERQQ00gQkUgQ29kZWMs
-Cj4gYnV0IGl0IHNob3VsZCBoYXZlLiBDdXJyZW50IEFTb0MgaXMgaWdub3JpbmcgaXQgc2FtZSBh
-cyBiZWZvcmUsCj4gYnV0IGxldCdzIGluZGljYXRlIHRoZSB3YXJuaW5nIGFib3V0IHRoYXQuCj4g
-Cj4gVGhpcyB3YXJuaW5nIGFuZCBjb2RlIHNob3VsZCBiZSByZW1vdmVkIGFuZCBjbGVhbnVwZWQg
-aWYgRFBDTSBCRSBDb2RlYwo+IGhhcyBuZWNlc3Nhcnkgc2V0dGluZ3MuCj4gT25lIG9mIHRoZSBi
-aWcgdXNlciB3aGljaCBkb2Vzbid0IGhhdmUgaXQgaXMgSW50ZWwuCj4gCj4gCS0tLSBzb3VuZC9z
-b2MvY29kZWNzL2hkYS5jIC0tLQo+IAo+IAlzdGF0aWMgc3RydWN0IHNuZF9zb2NfZGFpX2RyaXZl
-ciBjYXJkX2JpbmRlcl9kYWkgPSB7Cj4gCQkuaWQgPSAtMSwKPiAJCS5uYW1lID0gImNvZGVjLXBy
-b2JpbmctREFJIiwKPiArCQkuY2FwdHVyZS5jaGFubmVsc19taW4gPSAxLAo+ICsJCS5wbGF5YmFj
-ay5jaGFubmVsc19taW4gPSAxLAo+IAl9Owo+IAo+IAktLS0gc291bmQvcGNpL2hkYS9wYXRjaF9o
-ZG1pLmMgLS0tCj4gCj4gCXN0YXRpYyBpbnQgZ2VuZXJpY19oZG1pX2J1aWxkX3BjbXMoLi4uKQo+
-IAl7Cj4gCQkuLi4KPiAJCWZvciAoLi4uKSB7Cj4gCQkJLi4uCj4gKwkJCXBzdHItPmNoYW5uZWxz
-X21pbiA9IDE7Cj4gCQl9Cj4gCj4gCQlyZXR1cm4gMDsKPiAJfQo+IAo+IExpbms6IGh0dHBzOi8v
-bG9yZS5rZXJuZWwub3JnL3IvYWIzZjBjMGEtNjJmZC1hNDY4LWIzY2YtMGU0YjU5YmFjNmFlQGxp
-bnV4LmludGVsLmNvbQo+IENjOiBBbWFkZXVzeiBTxYJhd2nFhHNraSA8YW1hZGV1c3p4LnNsYXdp
-bnNraUBsaW51eC5pbnRlbC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogS3VuaW5vcmkgTW9yaW1vdG8g
-PGt1bmlub3JpLm1vcmltb3RvLmd4QHJlbmVzYXMuY29tPgo+IC0tLQo+ICBzb3VuZC9zb2Mvc29j
-LXBjbS5jIHwgMzEgKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hh
-bmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBh
-L3NvdW5kL3NvYy9zb2MtcGNtLmMgYi9zb3VuZC9zb2Mvc29jLXBjbS5jCj4gaW5kZXggYWM0MmMw
-ODk4MTViLi45NWE1ZTI4ZGVhZDMgMTAwNjQ0Cj4gLS0tIGEvc291bmQvc29jL3NvYy1wY20uYwo+
-ICsrKyBiL3NvdW5kL3NvYy9zb2MtcGNtLmMKPiBAQCAtMjc5Niw3ICsyNzk2LDYgQEAgc3RhdGlj
-IGludCBzb2NfZ2V0X3BsYXliYWNrX2NhcHR1cmUoc3RydWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUg
-KnJ0ZCwKPiAgCXN0cnVjdCBzbmRfc29jX2RhaV9saW5rX2NoX21hcCAqY2hfbWFwczsKPiAgCXN0
-cnVjdCBzbmRfc29jX2RhaSAqY3B1X2RhaTsKPiAgCXN0cnVjdCBzbmRfc29jX2RhaSAqY29kZWNf
-ZGFpOwo+IC0Jc3RydWN0IHNuZF9zb2NfZGFpICpkdW1teV9kYWkgPSBzbmRfc29jX2ZpbmRfZGFp
-KCZzbmRfc29jX2R1bW15X2RsYyk7Cj4gIAlpbnQgY3B1X3BsYXliYWNrOwo+ICAJaW50IGNwdV9j
-YXB0dXJlOwo+ICAJaW50IGhhc19wbGF5YmFjayA9IDA7Cj4gQEAgLTI4MTcsMjQgKzI4MTYsMzYg
-QEAgc3RhdGljIGludCBzb2NfZ2V0X3BsYXliYWNrX2NhcHR1cmUoc3RydWN0IHNuZF9zb2NfcGNt
-X3J1bnRpbWUgKnJ0ZCwKPiAgCSAqCXNvYy5oIDo6IFtkYWlfbGluay0+Y2hfbWFwcyBJbWFnZSBz
-YW1wbGVdCj4gIAkgKi8KPiAgCWZvcl9lYWNoX3J0ZF9jaF9tYXBzKHJ0ZCwgaSwgY2hfbWFwcykg
-ewo+IC0JCWNwdV9kYWkJICA9IHNuZF9zb2NfcnRkX3RvX2NwdShydGQsICAgY2hfbWFwcy0+Y3B1
-KTsKPiAtCQljb2RlY19kYWkgPSBzbmRfc29jX3J0ZF90b19jb2RlYyhydGQsIGNoX21hcHMtPmNv
-ZGVjKTsKPiArCQlpbnQgY3B1X3BsYXlfdCwgY3B1X2NhcHR1cmVfdDsKPiArCQlpbnQgY29kZWNf
-cGxheV90LCBjb2RlY19jYXB0dXJlX3Q7Cj4gKwo+ICsJCWNwdV9kYWkJCT0gc25kX3NvY19ydGRf
-dG9fY3B1KHJ0ZCwgICBjaF9tYXBzLT5jcHUpOwo+ICsJCWNvZGVjX2RhaQk9IHNuZF9zb2NfcnRk
-X3RvX2NvZGVjKHJ0ZCwgY2hfbWFwcy0+Y29kZWMpOwo+ICsKPiArCQljcHVfcGxheV90CT0gc25k
-X3NvY19kYWlfc3RyZWFtX3ZhbGlkKGNwdV9kYWksICAgY3B1X3BsYXliYWNrKTsKPiArCQljb2Rl
-Y19wbGF5X3QJPSBzbmRfc29jX2RhaV9zdHJlYW1fdmFsaWQoY29kZWNfZGFpLCBTTkRSVl9QQ01f
-U1RSRUFNX1BMQVlCQUNLKTsKPiArCj4gKwkJY3B1X2NhcHR1cmVfdAk9IHNuZF9zb2NfZGFpX3N0
-cmVhbV92YWxpZChjcHVfZGFpLCAgIGNwdV9jYXB0dXJlKTsKPiArCQljb2RlY19jYXB0dXJlX3QJ
-PSBzbmRfc29jX2RhaV9zdHJlYW1fdmFsaWQoY29kZWNfZGFpLCBTTkRSVl9QQ01fU1RSRUFNX0NB
-UFRVUkUpOwo+ICAKPiAgCQkvKgo+IC0JCSAqIEZJWE1FCj4gKwkJICogRklYTUUgLyBDTEVBTi1V
-UC1NRQo+ICAJCSAqCj4gIAkJICogRFBDTSBCRSBDb2RlYyBoYXMgYmVlbiBubyBjaGVja2VkIGJl
-Zm9yZS4KPiAgCQkgKiBJdCBzaG91bGQgYmUgY2hlY2tlZCwgYnV0IGl0IGJyZWFrcyBjb21wYXRp
-YmlsaXR5Lgo+ICAJCSAqIEl0IGlnbm9yZXMgQkUgQ29kZWMgaGVyZSwgc28gZmFyLgo+ICAJCSAq
-Lwo+IC0JCWlmIChkYWlfbGluay0+bm9fcGNtKQo+IC0JCQljb2RlY19kYWkgPSBkdW1teV9kYWk7
-Cj4gKwkJaWYgKChkYWlfbGluay0+bm9fcGNtKSAmJgo+ICsJCSAgICAoIWNvZGVjX3BsYXlfdCAm
-JiAhY29kZWNfY2FwdHVyZV90KSkgewo+ICsJCQlkZXZfd2Fybl9vbmNlKHJ0ZC0+ZGV2LCAiRENQ
-TSBCRSBDb2RlYyBoYXMgbm8gc3RyZWFtIHNldHRpbmdzICglcylcbiIsCj4gKwkJCQkgICAgICBj
-b2RlY19kYWktPm5hbWUpOwo+ICsJCQljb2RlY19wbGF5X3QJPSAxOwo+ICsJCQljb2RlY19jYXB0
-dXJlX3QJPSAxOwo+ICsJCX0KPiAgCj4gLQkJaWYgKHNuZF9zb2NfZGFpX3N0cmVhbV92YWxpZChj
-cHVfZGFpLCAgIGNwdV9wbGF5YmFjaykgJiYKPiAtCQkgICAgc25kX3NvY19kYWlfc3RyZWFtX3Zh
-bGlkKGNvZGVjX2RhaSwgU05EUlZfUENNX1NUUkVBTV9QTEFZQkFDSykpCj4gKwkJaWYgKGNwdV9w
-bGF5X3QgJiYgY29kZWNfcGxheV90KQo+ICAJCQloYXNfcGxheWJhY2sgPSAxOwo+IC0JCWlmIChz
-bmRfc29jX2RhaV9zdHJlYW1fdmFsaWQoY3B1X2RhaSwgICBjcHVfY2FwdHVyZSkgJiYKPiAtCQkg
-ICAgc25kX3NvY19kYWlfc3RyZWFtX3ZhbGlkKGNvZGVjX2RhaSwgU05EUlZfUENNX1NUUkVBTV9D
-QVBUVVJFKSkKPiArCQlpZiAoY3B1X2NhcHR1cmVfdCAmJiBjb2RlY19jYXB0dXJlX3QpCj4gIAkJ
-CWhhc19jYXB0dXJlID0gMTsKPiAgCX0KCkFsbCB0aGF0IGNvZGUgc2hvdWxkIGJlIGFkZGVkIGVh
-cmxpZXIsIGFuZCB0aGVyZSdzIHN0aWxsIHRoZSBpc3N1ZSB0aGF0CmFsbCB0aGlzIGNvZGUgaXMg
-bm93IG92ZXJyaWRkZW4gYnkgdGhlIGRhaV9saW5rIHNldHRpbmdzLgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QK
-TGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Mon, Mar 11, 2024 at 01:41:44PM -0700, Jakub Kicinski wrote:
+> On Sun,  3 Mar 2024 20:03:38 +0100 Piotr Wejman wrote:
+> > The driver should ensure that same priority is not mapped to multiple
+> > rx queues. Currently rx_queue_priority() function is adding
+> > priorities for a queue without clearing them from others.
+> 
+> Do you know what user-visible mis-behavior this may result in?
+
+When changing priority to rx queue mapping with tc qdisc taprio command (man tc-taprio),
+all packets with priority assigned to multiple queues are dropped.
+
+> 
+> > From DesignWare Cores Ethernet Quality-of-Service
+> > Databook, section 17.1.29 MAC_RxQ_Ctrl2:
+> > "[...]The software must ensure that the content of this field is
+> > mutually exclusive to the PSRQ fields for other queues, that is,
+> > the same priority is not mapped to multiple Rx queues[...]"
+> > 
+> > After this patch, rx_queue_priority() function will:
+> > - assign desired priorities to a queue
+> > - remove those priorities from all other queues
+> 
+> But also you seem to remove clearing all other prios from the queue:
+> 
+> -	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
+> 
+> and 
+> 
+> -	value &= ~XGMAC_PSRQ(queue);
+> 
+> is that intentional? Commit message should explain why.
+
+Yes, that keeps other priorities assigned to that queue and only clears
+the same priorities from all other queues.
+
+> 
+> > The write sequence of CTRL2 and CTRL3 registers is done in the way to
+> > ensure this order.
+> 
+> Ensure which order? Looks like you're actually writing in the opposite
+> order than what I'd expect :S First the register you want to assign to,
+> and then the register you only clear from.
+> 
+
+I meant the order you wrote: first assign new priorities to a queue,
+then clear them from others queues.
+
+> When you repost please include a Fixes tag.
+> -- 
+> pw-bot: cr
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
