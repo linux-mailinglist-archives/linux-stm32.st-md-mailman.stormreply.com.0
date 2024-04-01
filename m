@@ -2,162 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B982789338B
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 Mar 2024 18:43:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 261FB893684
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Apr 2024 02:28:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66DA7C6C820;
-	Sun, 31 Mar 2024 16:43:45 +0000 (UTC)
-Received: from a.mx.secunet.com (a.mx.secunet.com [62.96.220.36])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C20AFC6C820;
+	Mon,  1 Apr 2024 00:28:06 +0000 (UTC)
+Received: from JPN01-TYC-obe.outbound.protection.outlook.com
+ (mail-tycjpn01on2134.outbound.protection.outlook.com [40.107.114.134])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B3E7C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E416C6B476
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 Mar 2024 16:43:43 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by a.mx.secunet.com (Postfix) with ESMTP id 92492208C8;
- Sun, 31 Mar 2024 18:43:43 +0200 (CEST)
-X-Virus-Scanned: by secunet
-Received: from a.mx.secunet.com ([127.0.0.1])
- by localhost (a.mx.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id SMQTNbjbghYG; Sun, 31 Mar 2024 18:43:41 +0200 (CEST)
-Received: from mailout1.secunet.com (mailout1.secunet.com [62.96.220.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by a.mx.secunet.com (Postfix) with ESMTPS id 522A7208BE;
- Sun, 31 Mar 2024 18:43:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 a.mx.secunet.com 522A7208BE
-Received: from cas-essen-01.secunet.de (unknown [10.53.40.201])
- by mailout1.secunet.com (Postfix) with ESMTP id 42D94800060;
- Sun, 31 Mar 2024 18:43:40 +0200 (CEST)
-Received: from mbx-essen-01.secunet.de (10.53.40.197) by
- cas-essen-01.secunet.de (10.53.40.201) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.35; Sun, 31 Mar 2024 18:43:40 +0200
-Received: from Pickup by mbx-essen-01.secunet.de with Microsoft SMTP Server id
- 15.1.2507.17; Sun, 31 Mar 2024 16:36:27 +0000
-X-sender: <netdev+bounces-83537-steffen.klassert=secunet.com@vger.kernel.org>
-X-Receiver: <steffen.klassert@secunet.com>
- ORCPT=rfc822;steffen.klassert@secunet.com NOTIFY=NEVER;
- X-ExtendedProps=BQAVABYAAgAAAAUAFAARAPDFCS25BAlDktII2g02frgPADUAAABNaWNyb3NvZnQuRXhjaGFuZ2UuVHJhbnNwb3J0LkRpcmVjdG9yeURhdGEuSXNSZXNvdXJjZQIAAAUAagAJAAEAAAAAAAAABQAWAAIAAAUAQwACAAAFAEYABwADAAAABQBHAAIAAAUAEgAPAGIAAAAvbz1zZWN1bmV0L291PUV4Y2hhbmdlIEFkbWluaXN0cmF0aXZlIEdyb3VwIChGWURJQk9IRjIzU1BETFQpL2NuPVJlY2lwaWVudHMvY249U3RlZmZlbiBLbGFzc2VydDY4YwUACwAXAL4AAACheZxkHSGBRqAcAp3ukbifQ049REI2LENOPURhdGFiYXNlcyxDTj1FeGNoYW5nZSBBZG1pbmlzdHJhdGl2ZSBHcm91cCAoRllESUJPSEYyM1NQRExUKSxDTj1BZG1pbmlzdHJhdGl2ZSBHcm91cHMsQ049c2VjdW5ldCxDTj1NaWNyb3NvZnQgRXhjaGFuZ2UsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1zZWN1bmV0LERDPWRlBQAOABEABiAS9uuMOkqzwmEZDvWNNQUAHQAPAAwAAABtYngtZXNzZW4tMDIFADwAAgAADwA2AAAATWljcm9zb2Z0LkV4Y2hhbmdlLlRyYW5zcG9ydC5NYWlsUmVjaXBpZW50LkRpc3BsYXlOYW1lDwARAAAAS2xhc3NlcnQsIFN0ZWZmZW4FAAwAAgAABQBsAAIAAAUAWAAXAEoAAADwxQktuQQJQ5LSCNoNNn64Q049S2xhc3NlcnQgU3RlZmZlbixPVT1Vc2VycyxPVT1NaWdyYXRpb24sREM9c2VjdW5ldCxEQz1kZQUAJgACAAEFACIADwAxAAAAQXV0b1Jlc3BvbnNlU3VwcHJlc3M6IDANClRyYW5zbWl0SGlzdG9ye
- TogRmFsc2UNCg8ALwAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuRXhwYW5zaW9uR3JvdXBUeXBlDwAVAAAATWVtYmVyc0dyb3VwRXhwYW5zaW9uBQAjAAIAAQ==
-X-CreatedBy: MSExchange15
-X-HeloDomain: b.mx.secunet.com
-X-ExtendedProps: BQBjAAoAJWsFfe5Q3AgFAGEACAABAAAABQA3AAIAAA8APAAAAE1pY3Jvc29mdC5FeGNoYW5nZS5UcmFuc3BvcnQuTWFpbFJlY2lwaWVudC5Pcmdhbml6YXRpb25TY29wZREAAAAAAAAAAAAAAAAAAAAAAAUASQACAAEFAAQAFCABAAAAHAAAAHN0ZWZmZW4ua2xhc3NlcnRAc2VjdW5ldC5jb20FAAYAAgABBQApAAIAAQ8ACQAAAENJQXVkaXRlZAIAAQUAAgAHAAEAAAAFAAMABwAAAAAABQAFAAIAAQUAYgAKAGEAAADpigAABQBkAA8AAwAAAEh1Yg==
-X-Source: SMTP:Default MBX-ESSEN-02
-X-SourceIPAddress: 62.96.220.37
-X-EndOfInjectedXHeaders: 17450
-X-Virus-Scanned: by secunet
-Received-SPF: Pass (sender SPF authorized) identity=mailfrom;
- client-ip=147.75.48.161; helo=sy.mirrors.kernel.org;
- envelope-from=netdev+bounces-83537-steffen.klassert=secunet.com@vger.kernel.org;
- receiver=steffen.klassert@secunet.com 
-DKIM-Filter: OpenDKIM Filter v2.11.0 b.mx.secunet.com BD08C20199
-Authentication-Results: b.mx.secunet.com;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Jy2AymGs"
-Authentication-Results: smtp.subspace.kernel.org;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Jy2AymGs"
-X-Original-To: netdev@vger.kernel.org
-Authentication-Results: smtp.subspace.kernel.org;
- arc=none smtp.client-ip=209.85.166.50
-ARC-Seal: i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
- t=1711852487; cv=none;
- b=jWMqKNBstHic1NnNqtmEhklFX98fH400WfQDTFyqhKjtIXY7tRb0YqsOvtGOZyXx0wEWKPJAKd86o+m1j+A6/1WE8pCEXzgUX6SKfC6W0ezZ25Rzsz2fAVlUyUeM5EEuntcuT+ehdeWbAQcf77zyAw8axusWoE4oQeU/ECfd/vE=
-ARC-Message-Signature: i=1; a=rsa-sha256; d=subspace.kernel.org;
- s=arc-20240116; t=1711852487; c=relaxed/simple;
- bh=gV26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=QmzYeAGSaMyIjDZPlrwMo3hgPPsMOffRH8URPmCTR8dQMZhq7GO//lFDYMSk6tPcMuQTRTFRf2OrVj1ugqK0lxJM3vFBFuu/N7HMnZBcdqNyXGtnkhCp/notTFUWHOF2ByvyVCUhghBbJ/tO3SGu2dV2uOZN7pwqyGJffONCsRk=
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com;
- spf=pass smtp.mailfrom=gmail.com;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b=Jy2AymGs; arc=none smtp.client-ip=209.85.166.50
-Authentication-Results: smtp.subspace.kernel.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
- spf=pass smtp.mailfrom=gmail.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711852485; x=1712457285; darn=vger.kernel.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gV26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=;
- b=Jy2AymGsN5lMSc1UzWBQqYEmctJu9hcEFMrLk1EvVIPUQ2vRWGvrki52sw7v23NLNy
- PJRpVeNV/9llTQ9/EMyMHfhE3PGEFhw1ToIkfDHcu4G1MtDeAmPMGmvoQVD2ytyOBfP9
- 1k2Xm1jfRY4gUYOSigq2OoU+Ho3HoOiPnoIQxo10pvq1GTvxA/OcXA+fq6TRplYNpRAp
- fdai6ZVFdNN0dNmPdfkij0KZIsOnGnXl0Cln4cRXfOqX51cSkigiXGyKO4QieVXSKSXV
- CUYMuTkl3aX2Q2MAX4cEY+tEewnezwTFzF6/t0lpTHAi4cbvhL5i75u/2uT5rVPpvl4n
- 4IGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711852485; x=1712457285;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gV26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=;
- b=rdUmY+KCUxxZt/KqUHDvByexlAZtEIH4XrbOIIDE9I6XBIVvHCTPgiV21Nr3oWYET5
- 4yi797sJtaxzpP3l0L6AfMJZE1jq7q/JletLXiVED8JM2Mkgmh8pgemMqK+pjU5snNqj
- 4SmAIY9xpkUFJTwb6KQRCHmClshfbax662MBwNLdyc71cKI+Ht6zOLscmyap13Cm8Jdl
- Pvwlu0PYjCt12ID8IEZH3heQS/YN134MrRK3B4SP56jTUo+ckVMsH43yk55Yq86rvUs/
- gxA5UuIqE4dGMSW497CceIm6gFxtwaAaA60xM1XmcEKkoJKn5MK0/KWEaiB12sZMfuDR
- xm/A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW84S9V+AQQkYp+0Pg3uFJiqkrinKOD+cj0jo9RwHYKPgQTM0ca31x7++jsQaCnCHVrKhB4AZsrCgxGVc8F2iXDhlG9Twpbk1TuCelrLjExzQK5aDvFn2pyX1jXjUlDgWGnQskZ+ly86pfRZuSc6zLRTs1VtmYF1ktL1pi43uQwDvDiil12jcTRLBPiIPHnFnT4xag5EJJM5dDha3MF/IDYBm+KEn5/IQcomA3GYVFHVuXIiU3syvBp4mciUubTWnoJGGoBTfuVBZ+umC0D3La4taNF/wXygvGVcQ==
-X-Gm-Message-State: AOJu0YxBCqzw8NXdwxSkflidZiBTQf2FxMt5MAFfeqN8T6V6IoSKYHDr
- LtNNbixGctgBJMaMxDf8ZKejURE+MphiwvxQexQkxWspvI/JgsQUap7XnuBlDVsr+sE+TBpgATD
- eqRNYh5vFsGTaYQ4ptCAJ0U5K7iE=
-X-Google-Smtp-Source: AGHT+IEUljvEWt6RLJvm0ZvDNAAvbKF98d8W07FBneubUp0ru50ICaCtTHNp6cmd+wxEi3ZRk7j/LT8mS1rRQW2OsKc=
-X-Received: by 2002:a05:6e02:3710:b0:366:ab6f:f63 with SMTP id
- ck16-20020a056e02371000b00366ab6f0f63mr8646788ilb.3.1711852485494; Sat, 30
- Mar 2024 19:34:45 -0700 (PDT)
-Precedence: bulk
-X-Mailing-List: netdev@vger.kernel.org
+ Mon,  1 Apr 2024 00:28:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cPsrivVz/GIx2q4JPMAzBkJTTl95V/TC0cNSk6+CNzCGBJiJAcYgxK4I2INpP9WQ6STZfVo3WCzSLxy5MHvyjBwoJ0ijIMfnl+HQCo55tUcO+tyXqPQ6BLmQRiPpdZEnCD60yVOKeYBdl5/jnre+slz5q7sq4M3ZhG1gX98jf3EcYjWV0f/4MWaQJyO58Iq2r+ZhuRgMys2u0K+yO73TxkH6KBD1vgRQCOqP0X762WUdjK+8AubGUg63Sisulk93Iv6tTiNEl9yxZmzfr+P1SAd64avP03wGcszkEGCPFEpqHUqWS22cc97eABiWVbVFDQGzs7b3pJwFLcR09hHryw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IoevXD4g7BBS/Eca9R+O8x214bgT58QaAzMPPPLQcPM=;
+ b=J11pQ9YTbFS5fbiQs8/Hp9RlCkN/iEROKvpWe0UPf410f01qD7DQRKjZydTMfMBVZJqjgF4s3WLqmadhoEFwuyXzm8hwlJ6OwrfPOaj/eqi4Jl6b7WhwAdxJbrMyXmiA5+mZnXFBsRG9wbCUaURk2lx0EkzqfmQVV/g1oCAq26C9rOFBJ/lOfkxY4w1IM95jnznsENz8gKJA+YE5WSSIQvt7cs1D0xMPwMz9aH9/PO0/1jT6Cnmsy0vRv7olEUv9eECSTAz8IIBSqom9IZBZklfRHzGIP9kUIF3eu8JI8GKr/WKp+Eyw0fmKF3nDkWIrEVyW7dba5RufP/4PkTH7Eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IoevXD4g7BBS/Eca9R+O8x214bgT58QaAzMPPPLQcPM=;
+ b=BMMwnns53YcGdtZHDjOmSXCEjkoONQJwhjqbIscwHZY1Z0iSCYmpk8R/cq9TpZ0hYqagmjVYvZhqZsq+9UjbaI/RsbEXQab38m2a5LsPv2DN5LieG/e0aH2174swOusKNeQprXop12aLLTddrhm87YJKBkSOQqKDk1OKkudBUJE=
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11) by OS3PR01MB8258.jpnprd01.prod.outlook.com
+ (2603:1096:604:175::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.46; Mon, 1 Apr
+ 2024 00:27:58 +0000
+Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
+ ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Mon, 1 Apr 2024
+ 00:27:58 +0000
+Message-ID: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+To: =?ISO-8859-2?Q?=22Amadeusz_S=B3awi=F1ski=22?=
+ <amadeuszx.slawinski@linux.intel.com>, Alper Nebi Yasak
+ <alpernebiyasak@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Banajit Goswami
+ <bgoswami@quicinc.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, Brent
+ Lu <brent.lu@intel.com>, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Daniel Baluta
+ <daniel.baluta@nxp.com>, Hans de Goede <hdegoede@redhat.com>, Jaroslav
+ Kysela <perex@perex.cz>, Jerome Brunet <jbrunet@baylibre.com>, Kai Vehmanen
+ <kai.vehmanen@linux.intel.com>, Kevin Hilman <khilman@baylibre.com>, Liam
+ Girdwood <lgirdwood@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
+ Mark Brown <broonie@kernel.org>, Maso Huang <maso.huang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Peter Ujfalusi
+ <peter.ujfalusi@linux.intel.com>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, Shengjiu Wang <shengjiu.wang@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, Sylwester Nawrocki
+ <s.nawrocki@samsung.com>, Takashi Iwai <tiwai@suse.com>, Trevor Wu
+ <trevor.wu@mediatek.com>, Vinod Koul <vkoul@kernel.org>, Xiubo Li
+ <Xiubo.Lee@gmail.com>, alsa-devel@alsa-project.org, imx@lists.linux.dev,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Mon, 1 Apr 2024 00:27:58 +0000
+X-ClientProxiedBy: TYWP286CA0012.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:178::14) To TYCPR01MB10914.jpnprd01.prod.outlook.com
+ (2603:1096:400:3a9::11)
 MIME-Version: 1.0
-References: <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail.com>
- <CALz3k9icPePb0c4FE67q=u1U0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
- <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
- <CALz3k9g-U8ih=ycJPRbyU9x_9cp00fNkU3PGQ6jP0WJ+=uKmqQ@mail.gmail.com>
- <CALz3k9jG5Jrqw=BGjt05yMkEF-1u909GbBYrV-02W0dQtm6KQQ@mail.gmail.com>
- <20240328111330.194dcbe5@gandalf.local.home>
- <CAEf4BzYgzOti+Hfdn3SUCjuofGedXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
- <20240330082755.1cbeb8c6@rorschach.local.home> <ZghRXtc8ZiTOKMR3@krava>
-In-Reply-To: <ZghRXtc8ZiTOKMR3@krava>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Sat, 30 Mar 2024 19:34:33 -0700
-Message-ID: <CAEf4BzbOAwLZ9=QnMQo-W5oHxTA7nM5ERRp0Q=WihuC8b+Y1Ww@mail.gmail.com>
-To: Jiri Olsa <olsajiri@gmail.com>
-X-EXCLAIMER-MD-CONFIG: 2c86f778-e09b-4440-8b15-867914633a10
-Cc: "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Alexei Starovoitov <ast@kernel.org>,
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
- Yonghong Song <yonghong.song@linux.dev>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-s390 <linux-s390@vger.kernel.org>,
- =?UTF-8?B?5qKm6b6Z6JGj?= <dongmenglong.8@bytedance.com>,
- Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Quentin Monnet <quentin@isovalent.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>,
- KP Singh <kpsingh@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- Hao Luo <haoluo@google.com>, Network Development <netdev@vger.kernel.org>,
- David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Eddy Z <eddyz87@gmail.com>, Sven Schnelle <svens@linux.ibm.com>,
- bpf <bpf@vger.kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [External] Re: [PATCH bpf-next v2 1/9] bpf:
- tracing: add support to record and check the accessed args
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB8258:EE_
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 5AUQ6+59X6cs7FkWRhQYjxf/lOAUkzjG2oPOIulA4E7MbOgrB91eEMmBmno/PkAKFyKAYtdxxbl5CU9UJaIpPX0Og+2j9MK1MFNotxII0dCgu4auwwtObxWR8P8EYZG94krYwqXks+T+AGe94/zkGoNYIyY1RW7IU+JWdD4ASsYfCheOtvF+4O8sswi1OuPRHw3wud7hAALs5fYmZR4r8RVvT1TBh1mfnXNIpwj82xgOXMxP7h+uDLBocEWA0MkTUqJl1kuVvDhJ5fhMIaf9a0oglxDLOWBztGCtWoDQeingaPMqgcb85GCcmtnFJgZzdp2O3qoxwbFzcmb+MF+nRGHoekqrNWsD6Ctr4Js6oZ2GXEd9N/UoUWEhbMIaZS5GxYeh/l/KIvx+UTIUDCBdAVoUYBKzYyJ+Auqbo9t/5MpP1dmci61KfxP639O6mbbQ0Hjqjz50HChZM17+617a24oap2NoumjNtyYa3GP10g4Z2Iq6Kovt6zw3Hx1sgNEjLRTZTLIe+BBrZi1fV4i2RD9TBZ9MprE+oTQpp0vvxQyceNie9iNg6pjoNfXI8gHb7I3eq8x3gezK9uv2efPpJ3lX7FNvyRg5rwTobbEVzy0EirGZJkFmWEd2Z/VQj9IXEYwqTnAFIiqfIxUUJcgZ25UIkrEXasL2ZdGdp113iVI9O5AK7NRK9YA9xBu4d4Xd
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7416005)(376005)(52116005)(1800799015)(366007)(921011)(38350700005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lGXlOYNgiCmUNK/yl1Qaqe8R32tgx4GbzceeqnAeaTd3ZdgYRhxsJI2ls7gH?=
+ =?us-ascii?Q?jK/vsblYDVvQoHUKwWZ7ySEAdN4zI5Z+0FaeZXBhrbYLRFDeuEKZoiwtWSnQ?=
+ =?us-ascii?Q?oejX+QJsAzBZ7ntvnr96h3s6VzN474yZ63RddJnDyV+5QSR9L50vPxaclx5K?=
+ =?us-ascii?Q?CbP1LvkXdouSwJQm3g7FVM3J8w7UzBSZgywKCzgWUDL4MuLAekHJOVq/y9kK?=
+ =?us-ascii?Q?muYxpCrLLLb4JULD5xwb25COoifoelcAH/o1OhkP2NTLNnx5ags0msFnCsCt?=
+ =?us-ascii?Q?Pd/jn1TKYI5I5gnlvPBQ2ceRGb48iVOETb7RryVRBjfS/dP5E+Ejli9f7FRo?=
+ =?us-ascii?Q?ibnbaoRZC/HLbSctwIDIy2CNczOd8eBm23LSBBC7V6whkJq87cjUL36unJ3A?=
+ =?us-ascii?Q?5UUpH4IJONTFe6QGX3Z9XMsbQ3we7yvl5VvIndRxjkE/LQ20Z0vjVHYR6ggS?=
+ =?us-ascii?Q?kYIXel7p4Y+QfQaNy3bFF+SKLB8qKh+ynHJlQj0KWWRbnKtyTpEoz9JWdSea?=
+ =?us-ascii?Q?Jj5hqz/v/dyx3OM+iS7H17GS/TjbbThV4FjdTzNx/Vcuo1lxGA5rUHBRm3sj?=
+ =?us-ascii?Q?cFYZuMI1JSJwecRzdkh3pKf3rhe/+G2wJuajMdPxoKS3AnrOG4gwOddBOHIR?=
+ =?us-ascii?Q?pGU3IjWoUGwDrV5puWH2ljgdQgOUxUBZMW5Sqw87EHIO27kR9j2kANBDfr2f?=
+ =?us-ascii?Q?RAlmSpMA8uLCOXxpcgzzddq62kYWb8GY7OHdEVhsgvcyDeTLgxpt9G4QQuVm?=
+ =?us-ascii?Q?TR1zZEOpN3sVg+WnKe2WFb9rG+aD3/olkqOSu2VH5RUWVC3a9TxgXOCTKn0k?=
+ =?us-ascii?Q?BmwK3hfb10xKh7S+MMNc3hAcKvexySJ7gVV7fXQNspHJRy4hMQEoAXPQOZ91?=
+ =?us-ascii?Q?tHX+zUBvNyUAyww0/hWcku920rEwj2MRgFhdvx0dvnbXGJUMYi0F5hEcyoXI?=
+ =?us-ascii?Q?+xMUkuDIIfGdF3/aeYcr9N17SpCqhz98ZfIDw2ZRM11RsmDJB8dTDQ13XP6b?=
+ =?us-ascii?Q?UqNO1/BUJ29NBW+cJb0J3/Umg5RJQwbFBzY68LgS1DJrLTeNehII3+ffuHqi?=
+ =?us-ascii?Q?8zm+ahDm3A2LwhcS6DQ5Jan1Q/WbokNukUsmkuRkzOEhgvUGPCj3bcwxkWKv?=
+ =?us-ascii?Q?YeEMsRN8D2g4Rtiwl8cXT3vH55wgOq2oRnW8Pq86ZnhWfNlVhqyLG2MjpLr5?=
+ =?us-ascii?Q?95RWiEVLeyNtT9UNUpBWZhFIMiBfeQzBhtB9IjlAZcm3yDiULKW5GVq7Li3Z?=
+ =?us-ascii?Q?aCQNDKMxko0M65tUsr32bCsGNXXNAdH6/2V7OJ0xBMP/ZpbppD9jC/jhnZ+X?=
+ =?us-ascii?Q?fUCV0Nj8IjxnWMFr5iQZeNE58bXgUIchtODj06GEaNcMlGJBZ7Q33p0kwqwR?=
+ =?us-ascii?Q?sZP3fij3V5CpGHbx9WW0fbBaqV2X1Xaa17P/v3g6S0BU02pDqpKKLjgItIZc?=
+ =?us-ascii?Q?cr1fDox3TQeAzTF1nkGzEhRnhJPaiU3kV8H+Hv3JBHUShcXsxYIcEOJnvmEQ?=
+ =?us-ascii?Q?dGrHQ/owSEjglHMR5EdgnAmwyG4HfMhllD3cYVmGyJ+dQvpXg0BIbfFYbi2l?=
+ =?us-ascii?Q?Wa3BfiQRM8I8IOEDny5EzH8jcCPMc8afFDGvq/LqKVYc2xc2W6V4EaT9bkpV?=
+ =?us-ascii?Q?l8kvq24KsTiVNALqXXlSYYc=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94b97e20-fb49-4ea3-f591-08dc51e294ef
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2024 00:27:58.5569 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XJOUhT4YHqNPTcfBVY9qDRoPcr2hMKsw6lumRCnpB5Ju2Tg+piusVoqVF/XUrZxI1yHXFn1Ej7vuS75dmHaAYfOCC946Y1RmSgJuo0o4NEFydKveYFNNDxCQve71WGIw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8258
+Subject: [Linux-stm32] [PATCH v2 00/16] ASoC: Replace dpcm_playback/capture
+	to playback/capture_only
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
+Precedence: list
 List-Id: <linux-stm32.st-md-mailman.stormreply.com>
 List-Unsubscribe: <https://st-md-mailman.stormreply.com/mailman/options/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=unsubscribe>
@@ -166,680 +130,152 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6706559002991437665=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
---===============6706559002991437665==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Mar 30, 2024 at 10:52=E2=80=AFAM Jiri Olsa <olsajiri@gmail.com> wro=
-te:
->
-> On Sat, Mar 30, 2024 at 08:27:55AM -0400, Steven Rostedt wrote:
-> > On Fri, 29 Mar 2024 16:28:33 -0700
-> > Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
-> >
-> > > I thought I'll just ask instead of digging through code, sorry for
-> > > being lazy :) Is there any way to pass pt_regs/ftrace_regs captured
-> > > before function execution to a return probe (fexit/kretprobe)? I.e.,
-> > > how hard is it to pass input function arguments to a kretprobe? That'=
-s
-> > > the biggest advantage of fexit over kretprobe, and if we can make
-> > > these original pt_regs/ftrace_regs available to kretprobe, then
-> > > multi-kretprobe will effectively be this multi-fexit.
-> >
-> > This should be possible with the updates that Masami is doing with the
-> > fgraph code.
->
-> yes, I have bpf kprobe-multi link support for that [0] (it's on top of
-> Masami's fprobe-over-fgraph changes) we discussed that in [1]
+Hi Mark
 
-Sorry, I forgot the regs/args part, mostly remembering we discussed
-session cookie ideas. Thanks for reminder!
+This is v2 patch-set
 
->
-> jirka
->
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git/log/?h=
-=3Dbpf/session_data
-> [1] https://lore.kernel.org/bpf/20240228090242.4040210-1-jolsa@kernel.org=
-/
+When we use DPCM, we need to set dpcm_playback/capture flag.
+If these flag are set, soc_get_playback_capture() will check its
+availability, but non DPCM doesn't need such special flags.
 
-X-sender: <linux-kernel+bounces-125930-steffen.klassert=3Dcunet.com@vger.ke=
-rnel.org>
-X-Receiver: <steffen.klassert@secunet.com> ORCPT=3Dc822;steffen.klassert@se=
-cunet.com NOTIFY=3DVER; X-ExtendedProps=3DAVABYAAgAAAAUAFAARAPDFCS25BAlDktI=
-I2g02frgPADUAAABNaWNyb3NvZnQuRXhjaGFuZ2UuVHJhbnNwb3J0LkRpcmVjdG9yeURhdGEuSX=
-NSZXNvdXJjZQIAAAUAagAJAAEAAAAAAAAABQAWAAIAAAUAQwACAAAFAEYABwADAAAABQBHAAIAA=
-AUAEgAPAGIAAAAvbz1zZWN1bmV0L291PUV4Y2hhbmdlIEFkbWluaXN0cmF0aXZlIEdyb3VwIChG=
-WURJQk9IRjIzU1BETFQpL2NuPVJlY2lwaWVudHMvY249U3RlZmZlbiBLbGFzc2VydDY4YwUACwA=
-XAL4AAACheZxkHSGBRqAcAp3ukbifQ049REI2LENOPURhdGFiYXNlcyxDTj1FeGNoYW5nZSBBZG=
-1pbmlzdHJhdGl2ZSBHcm91cCAoRllESUJPSEYyM1NQRExUKSxDTj1BZG1pbmlzdHJhdGl2ZSBHc=
-m91cHMsQ049c2VjdW5ldCxDTj1NaWNyb3NvZnQgRXhjaGFuZ2UsQ049U2VydmljZXMsQ049Q29u=
-ZmlndXJhdGlvbixEQz1zZWN1bmV0LERDPWRlBQAOABEABiAS9uuMOkqzwmEZDvWNNQUAHQAPAAw=
-AAABtYngtZXNzZW4tMDIFADwAAgAADwA2AAAATWljcm9zb2Z0LkV4Y2hhbmdlLlRyYW5zcG9ydC=
-5NYWlsUmVjaXBpZW50LkRpc3BsYXlOYW1lDwARAAAAS2xhc3NlcnQsIFN0ZWZmZW4FAAwAAgAAB=
-QBsAAIAAAUAWAAXAEoAAADwxQktuQQJQ5LSCNoNNn64Q049S2xhc3NlcnQgU3RlZmZlbixPVT1V=
-c2VycyxPVT1NaWdyYXRpb24sREM9c2VjdW5ldCxEQz1kZQUAJgACAAEFACIADwAxAAAAQXV0b1J=
-lc3BvbnNlU3VwcHJlc3M6IDANClRyYW5zbWl0SGlzdG9yeTogRmFsc2UNCg8ALwAAAE1pY3Jvc2=
-9mdC5FeGNoYW5nZS5UcmFuc3BvcnQuRXhwYW5zaW9uR3JvdXBUeXBlDwAVAAAATWVtYmVyc0dyb=
-3VwRXhwYW5zaW9uBQAjAAIAAQ=3D=0A=
-X-CreatedBy: MSExchange15
-X-HeloDomain: b.mx.secunet.com
-X-ExtendedProps: BQBjAAoAJWsFfe5Q3AgFAGEACAABAAAABQA3AAIAAA8APAAAAE1pY3Jvc2=
-9mdC5FeGNoYW5nZS5UcmFuc3BvcnQuTWFpbFJlY2lwaWVudC5Pcmdhbml6YXRpb25TY29wZREAA=
-AAAAAAAAAAAAAAAAAAAAAUASQACAAEFAAQAFCABAAAAHAAAAHN0ZWZmZW4ua2xhc3NlcnRAc2Vj=
-dW5ldC5jb20FAAYAAgABBQApAAIAAQ8ACQAAAENJQXVkaXRlZAIAAQUAAgAHAAEAAAAFAAMABwA=
-AAAAABQAFAAIAAQUAYgAKAGIAAADpigAABQBkAA8AAwAAAEh1Yg=3D=0A=
-X-Source: SMTP:Default MBX-ESSEN-02
-X-SourceIPAddress: 62.96.220.37
-X-EndOfInjectedXHeaders: 17433
-Received: from cas-essen-01.secunet.de (10.53.40.201) by
- mbx-essen-02.secunet.de (10.53.40.198) with Microsoft SMTP Server
- (version=3DS1_2, cipher=3DS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.37; Sun, 31 Mar 2024 04:35:13 +0200
-Received: from b.mx.secunet.com (62.96.220.37) by cas-essen-01.secunet.de
- (10.53.40.201) with Microsoft SMTP Server (version=3DS1_2,
- cipher=3DS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37 via Frontend
- Transport; Sun, 31 Mar 2024 04:35:12 +0200
-Received: from localhost (localhost [127.0.0.1])
-	by b.mx.secunet.com (Postfix) with ESMTP id E266220322
-	for <steffen.klassert@secunet.com>; Sun, 31 Mar 2024 04:35:12 +0200 (CEST)
-X-Virus-Scanned: by secunet
-X-Spam-Flag: NO
-X-Spam-Score: -2.749
-X-Spam-Level:
-X-Spam-Status: No, score=3D.749 tagged_above=3D99 required=3D1
-	tests=3DAYES_00=3D.9, DKIM_SIGNED=3D1, DKIM_VALID=3D.1,
-	DKIM_VALID_AU=3D.1, FREEMAIL_FORGED_FROMDOMAIN=3D001,
-	FREEMAIL_FROM=3D001, HEADER_FROM_DIFFERENT_DOMAINS=3D249,
-	MAILING_LIST_MULTI=3D, RCVD_IN_DNSWL_NONE=3D.0001,
-	SPF_HELO_NONE=3D001, SPF_PASS=3D.001]
-	autolearn=3Davailable autolearn_force=3D
-Authentication-Results: a.mx.secunet.com (amavisd-new);
-	dkim=3Dss (2048-bit key) header.d=3Dail.com
-Received: from b.mx.secunet.com ([127.0.0.1])
-	by localhost (a.mx.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id 7swtypsqutpn for <steffen.klassert@secunet.com>;
-	Sun, 31 Mar 2024 04:35:12 +0200 (CEST)
-Received-SPF: Pass (sender SPF authorized) identity=3Dilfrom; client-ip=147=
-.75.80.249; helo=3D.mirrors.kernel.org; envelope-from=3Dnux-kernel+bounces-=
-125930-steffen.klassert=3Dcunet.com@vger.kernel.org; receiver=3Deffen.klass=
-ert@secunet.com=20
-DKIM-Filter: OpenDKIM Filter v2.11.0 b.mx.secunet.com 297DC20199
-Authentication-Results: b.mx.secunet.com;
-	dkim=3Dss (2048-bit key) header.d=3Dail.com header.i=3Dmail.com header.b=
-=3Dy2AymGs"
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249]=
-)
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by b.mx.secunet.com (Postfix) with ESMTPS id 297DC20199
-	for <steffen.klassert@secunet.com>; Sun, 31 Mar 2024 04:35:12 +0200 (CEST)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.2=
-5.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id 9E4A51F218DC
-	for <steffen.klassert@secunet.com>; Sun, 31 Mar 2024 02:35:11 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F935611B;
-	Sun, 31 Mar 2024 02:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=3Dss (2048-bit key) header.d=3Dail.com header.i=3Dmail.com header.b=
-=3Dy2AymGs"
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com [209.85.166=
-.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7384E1396;
-	Sun, 31 Mar 2024 02:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=3Dne smtp.client-ip 9=
-.85.166.50
-ARC-Seal: i=3D a=3Da-sha256; d=3Dbspace.kernel.org; s=3Dc-20240116;
-	t=1711852487; cv=3Dne; b=3DMqKNBstHic1NnNqtmEhklFX98fH400WfQDTFyqhKjtIXY7t=
-Rb0YqsOvtGOZyXx0wEWKPJAKd86o+m1j+A6/1WE8pCEXzgUX6SKfC6W0ezZ25Rzsz2fAVlUyUeM=
-5EEuntcuT+ehdeWbAQcf77zyAw8axusWoE4oQeU/ECfd/vEARC-Message-Signature: i=3D =
-a=3Da-sha256; d=3Dbspace.kernel.org;
-	s=3Dc-20240116; t=1711852487; c=3Dlaxed/simple;
-	bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-	h=3DME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=3DzYeAGSaMyIjDZPlrwMo3hgPPsMOffRH8URPmCTR8dQMZhq7GO=
-//lFDYMSk6tPcMuQTRTFRf2OrVj1ugqK0lxJM3vFBFuu/N7HMnZBcdqNyXGtnkhCp/notTFUWHO=
-F2ByvyVCUhghBbJ/tO3SGu2dV2uOZN7pwqyGJffONCsRkARC-Authentication-Results: i=
-=3D smtp.subspace.kernel.org; dmarc=3Dss (p=3Dne dis=3Dne) header.from=3Dai=
-l.com; spf=3Dss smtp.mailfrom=3Dail.com; dkim=3Dss (2048-bit key) header.d=
-=3Dail.com header.i=3Dmail.com header.b=3D2AymGs; arc=3Dne smtp.client-ip 9=
-.85.166.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=3Dss (p=3Dne dis=3D=
-ne) header.from=3Dail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=3Dss smtp.mailfrom=3D=
-ail.com
-Received: by mail-io1-f50.google.com with SMTP id ca18e2360f4ac-7cc01644f51=
-so159554639f.2;
-        Sat, 30 Mar 2024 19:34:46 -0700 (PDT)
-DKIM-Signature: v=3D a=3Da-sha256; c=3Dlaxed/relaxed;
-        d=3Dail.com; s 230601; t=1711852485; x=1712457285; darn=3Der.kernel=
-.org;
-        h=3Dntent-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-        b=3D2AymGsN5lMSc1UzWBQqYEmctJu9hcEFMrLk1EvVIPUQ2vRWGvrki52sw7v23NLN=
-y
-         PJRpVeNV/9llTQ9/EMyMHfhE3PGEFhw1ToIkfDHcu4G1MtDeAmPMGmvoQVD2ytyOBf=
-P9
-         1k2Xm1jfRY4gUYOSigq2OoU+Ho3HoOiPnoIQxo10pvq1GTvxA/OcXA+fq6TRplYNpR=
-Ap
-         fdai6ZVFdNN0dNmPdfkij0KZIsOnGnXl0Cln4cRXfOqX51cSkigiXGyKO4QieVXSKS=
-XV
-         CUYMuTkl3aX2Q2MAX4cEY+tEewnezwTFzF6/t0lpTHAi4cbvhL5i75u/2uT5rVPpvl=
-4n
-         4IGQ=3D=0A=
-X-Google-DKIM-Signature: v=3D a=3Da-sha256; c=3Dlaxed/relaxed;
-        d=1E100.net; s 230601; t=1711852485; x=1712457285;
-        h=3Dntent-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-        b=3DUmY+KCUxxZt/KqUHDvByexlAZtEIH4XrbOIIDE9I6XBIVvHCTPgiV21Nr3oWYET=
-5
-         4yi797sJtaxzpP3l0L6AfMJZE1jq7q/JletLXiVED8JM2Mkgmh8pgemMqK+pjU5snN=
-qj
-         4SmAIY9xpkUFJTwb6KQRCHmClshfbax662MBwNLdyc71cKI+Ht6zOLscmyap13Cm8J=
-dl
-         Pvwlu0PYjCt12ID8IEZH3heQS/YN134MrRK3B4SP56jTUo+ckVMsH43yk55Yq86rvU=
-s/
-         gxA5UuIqE4dGMSW497CceIm6gFxtwaAaA60xM1XmcEKkoJKn5MK0/KWEaiB12sZMfu=
-DR
-         xm/A=3D=0A=
-X-Forwarded-Encrypted: i=3D AJvYcCW84S9V+AQQkYp+0Pg3uFJiqkrinKOD+cj0jo9RwHY=
-KPgQTM0ca31x7++jsQaCnCHVrKhB4AZsrCgxGVc8F2iXDhlG9Twpbk1TuCelrLjExzQK5aDvFn2=
-pyX1jXjUlDgWGnQskZ+ly86pfRZuSc6zLRTs1VtmYF1ktL1pi43uQwDvDiil12jcTRLBPiIPHnF=
-nT4xag5EJJM5dDha3MF/IDYBm+KEn5/IQcomA3GYVFHVuXIiU3syvBp4mciUubTWnoJGGoBTfuV=
-BZ+umC0D3La4taNF/wXygvGVcQ=3D=0A=
-X-Gm-Message-State: AOJu0YxBCqzw8NXdwxSkflidZiBTQf2FxMt5MAFfeqN8T6V6IoSKYHD=
-r
-	LtNNbixGctgBJMaMxDf8ZKejURE+MphiwvxQexQkxWspvI/JgsQUap7XnuBlDVsr+sE+TBpgAT=
-D
-	eqRNYh5vFsGTaYQ4ptCAJ0U5K7iEX-Google-Smtp-Source: AGHT+IEUljvEWt6RLJvm0ZvD=
-NAAvbKF98d8W07FBneubUp0ru50ICaCtTHNp6cmd+wxEi3ZRk7j/LT8mS1rRQW2OsKcX-Receiv=
-ed: by 2002:a05:6e02:3710:b0:366:ab6f:f63 with SMTP id
- ck16-20020a056e02371000b00366ab6f0f63mr8646788ilb.3.1711852485494; Sat, 30
- Mar 2024 19:34:45 -0700 (PDT)
-Precedence: bulk
-X-Mailing-List: linux-kernel@vger.kernel.org
-List-Id: <linux-kernel.vger.kernel.org>
-List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
-List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail=
-.com>
- <CALz3k9icPePb0c4FE67q=3DU0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
- <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
- <CALz3k9g-U8ih=3DJPRbyU9x_9cp00fNkU3PGQ6jP0WJ+=3DmqQ@mail.gmail.com>
- <CALz3k9jG5Jrqw=3Djt05yMkEF-1u909GbBYrV-02W0dQtm6KQQ@mail.gmail.com>
- <20240328111330.194dcbe5@gandalf.local.home> <CAEf4BzYgzOti+Hfdn3SUCjuofGe=
-dXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
- <20240330082755.1cbeb8c6@rorschach.local.home> <ZghRXtc8ZiTOKMR3@krava>
-In-Reply-To: <ZghRXtc8ZiTOKMR3@krava>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Sat, 30 Mar 2024 19:34:33 -0700
-Message-ID: <CAEf4BzbOAwLZ9=3DMQo-W5oHxTA7nM5ERRp0Q=3DhuC8b+Y1Ww@mail.gmail=
-.com>
-Subject: Re: [External] Re: [PATCH bpf-next v2 1/9] bpf: tracing: add suppo=
-rt
- to record and check the accessed args
-To: Jiri Olsa <olsajiri@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, =3DTF-8?B?5qKm6b6Z6JGj?=3Dongmeng=
-long.8@bytedance.com>,=20
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>, Andrii Nakryiko <andrii=
-@kernel.org>,=20
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net=
->,=20
-	Martin KaFai Lau <martin.lau@linux.dev>, Eddy Z <eddyz87@gmail.com>, Song =
-Liu <song@kernel.org>,=20
-	Yonghong Song <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gm=
-ail.com>,=20
-	KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>, Hao Lu=
-o <haoluo@google.com>,=20
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntra=
-eger@linux.ibm.com>,=20
-	Sven Schnelle <svens@linux.ibm.com>, "David S. Miller" <davem@davemloft.ne=
-t>,=20
-	David Ahern <dsahern@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com=
->,=20
-	X86 ML <x86@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com=
->,=20
-	Quentin Monnet <quentin@isovalent.com>, bpf <bpf@vger.kernel.org>,=20
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kerne=
-l@vger.kernel.org>,=20
-	linux-riscv <linux-riscv@lists.infradead.org>, linux-s390 <linux-s390@vger=
-.kernel.org>,=20
-	Network Development <netdev@vger.kernel.org>, linux-trace-kernel@vger.kern=
-el.org,=20
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, l=
-inux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset=3DTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-Path: linux-kernel+bounces-125930-steffen.klassert=3Dcunet.com@vger.=
-kernel.org
-X-MS-Exchange-Organization-OriginalArrivalTime: 31 Mar 2024 02:35:12.9064
- (UTC)
-X-MS-Exchange-Organization-Network-Message-Id: bd0d62d3-6a24-4f47-4e50-08dc=
-512b311b
-X-MS-Exchange-Organization-OriginalClientIPAddress: 62.96.220.37
-X-MS-Exchange-Organization-OriginalServerIPAddress: 10.53.40.201
-X-MS-Exchange-Organization-Cross-Premises-Headers-Processed: cas-essen-01.s=
-ecunet.de
-X-MS-Exchange-Organization-OrderedPrecisionLatencyInProgress: LSRV=3Dx-esse=
-n-02.secunet.de:TOTAL-HUB=3D405|SMR=3D332(SMRDE=3D005|SMRC=3D326(SMRCL=3D10=
-2|X-SMRCR=3D326))|CAT=3D070(CATOS=3D001
- |CATRESL=3D029(CATRESLP2R=3D023)|CATORES=3D037(CATRS=3D037(CATRS-Transport
- Rule Agent=3D001 |CATRS-Index Routing Agent=3D035)));2024-03-31T02:35:13.4=
-14Z
-X-MS-Exchange-Forest-ArrivalHubServer: mbx-essen-02.secunet.de
-X-MS-Exchange-Organization-AuthSource: cas-essen-01.secunet.de
-X-MS-Exchange-Organization-AuthAs: Anonymous
-X-MS-Exchange-Organization-FromEntityHeader: Internet
-X-MS-Exchange-Organization-OriginalSize: 11569
-X-MS-Exchange-Organization-HygienePolicy: Standard
-X-MS-Exchange-Organization-MessageLatency: SRV=CAs-essen-01.secunet.de:TOTA=
-L-FE=3D103|SMR=3D007(SMRPI=3D005(SMRPI-FrontendProxyAgent=3D005))|SMS=3D095
-X-MS-Exchange-Organization-Recipient-Limit-Verified: True
-X-MS-Exchange-Organization-TotalRecipientCount: 1
-X-MS-Exchange-Organization-Rules-Execution-History: 0b0cf904-14ac-4724-8bdf=
--482ee6223cf2%%%fd34672d-751c-45ae-a963-ed177fcabe23%%%d8080257-b0c3-47b4-b=
-0db-23bc0c8ddb3c%%%95e591a2-5d7d-4afa-b1d0-7573d6c0a5d9%%%f7d0f6bc-4dcc-487=
-6-8c5d-b3d6ddbb3d55%%%16355082-c50b-4214-9c7d-d39575f9f79b
-X-MS-Exchange-Forest-RulesExecuted: mbx-essen-02
-X-MS-Exchange-Organization-RulesExecuted: mbx-essen-02
-X-MS-Exchange-Forest-IndexAgent-0: AQ0CZW4AATwEAAAPAAADH4sIAAAAAAAEAHVUTY/b=
-NhClbMtfu07a9N
- Tb9JQsYFuyd7fZGOlucgmwBbYBmqCXIAhoi5K5kkWBpOx1T/0R/R/9
- T/0lnSFtr4EmACGMhm/evHmk9Hf/fQkfuB3CHddwHg9hGk8vgFuYxL
- PL6b9//fP2Dn6VWsL7wnB4rfB5j69vshWXxXihVtew0cqK2aB/jQu+
- RRdfzaYvZ5eXSDeKL2Lc+WDFWpTwuzJWJPaRBRzJOy2x+JXjcRyTn2
- fTq9n5OZa/jGOPe1smWkr4jed6K3MFr7lLjMtd4qsq4doXX8Mt2KWq
- s6WF2+dFAfe1scBNDrJESTwBlUIis0yWGQI1IWGhEjEEo7TeQqr0nm
- kuCFTwP7cwO4Nbg3ihBfByCxu+Baug4sZAZb9okZkotZovhIthwStb
- a5E8UiGvgLQuF1aqEsSDWNQuQhYOWiC6hEqruYAXqXiQNsox6RJnN3
- A7FuPhnmupNrDkOgFpQNqDDFlWtX3swHVWr0Rpje9wYLuBj0tun5s9
- G84Ec/RDkE3JmpeWZ4JMcipArYV+LB7i8Ng3hY3AEUtY8VwcERks1B
- Kt5cVXXeFrPDg+LwRpOiLF0nJPs6oLK0eHTdhIPESRpgLHWotii1Yi
- Hkf3QKdyfHQBPtKewRtQJAStlDGSOm6kXbph6yrhVtBh4gW+44avJD
- mZKDrsPcpzpZnmlb8e492XsBVmiFdsyddoW5VC7lSOnBgoZJmDqatK
- aUsXyff4FH+GFxItB3fcFZpLTL41ZlNPQU6P9h2XvMQTOSOfE2kWtT
- Ei8WyyhE+Tz4P+oP+B7iuJwU6Zsm44ZzkePd5KrvGDXeF3iJ5psRKr
- udBuxCPKQd8I9Ad1LZTKpQCZCG7GdEXK3LgRsFSWidA/UUtnAf4pcr
- 6LabaltZWZRVGGB5ELXYpijIKiqp5HZrGK0JT6IfIbhInu6XcTVUKn
- Y3otVBbdLH9BM6OdmC94QNyxTx7ZC/x+jukJT7+QeDq9il9hMB1f4C
- 9oOolHk5Fr8eYITeIZa7Bmk4XNgJ3iYq0Ga7VY2AiaXca6rIdxi7W7
- AXvGeiFrIzJkg2+WBMxVdTEOGQtZp806HdYN2akvaQTsBBfFrVYQEj
- joOeQJIrus3w7YjxQcev0QsAYyOBkhVmGMVPh0ybaDneCTBLAmLpdp
- NUlV06liHRe0qW8Hgy77zvXq9VgfMciPryGtdo+dNtmg6cdxbJ4Et4
- 7xPVL7xIvxSS8A875vww/ITn3h/zX4KsQTJmBPqXUf8yfOKOpISJzu
- e6piHUz6s/BND0nft8l6baJF8VjX8LA2HU3HA7DEGY45Fuync1JJXp
- sOt+M5O6iWhPWddS2HRxkd75J3xl8JfPVqcQrk9x56TJc9C4OBq22i
- oD9cd7/lV+jKfeDVeuW76YLeofbdflhf+IQ9RQAidwz/Ac+HXw/UBw
- AAAQrVAjw/eG1sIHZlcnNpb249IjEuMCIgZW5jb2Rpbmc9InV0Zi0x
- NiI/Pg0KPEVtYWlsU2V0Pg0KICA8VmVyc2lvbj4xNS4wLjAuMDwvVm
- Vyc2lvbj4NCiAgPEVtYWlscz4NCiAgICA8RW1haWwgU3RhcnRJbmRl
- eD0iNDQiPg0KICAgICAgPEVtYWlsU3RyaW5nPm9sc2FqaXJpQGdtYW
- lsLmNvbTwvRW1haWxTdHJpbmc+DQogICAgPC9FbWFpbD4NCiAgICA8
- RW1haWwgU3RhcnRJbmRleD0iMjAzIiBQb3NpdGlvbj0iU2lnbmF0dX
- JlIj4NCiAgICAgIDxFbWFpbFN0cmluZz5hbmRyaWkubmFrcnlpa29A
- Z21haWwuY29tPC9FbWFpbFN0cmluZz4NCiAgICA8L0VtYWlsPg0KIC
- A8L0VtYWlscz4NCjwvRW1haWxTZXQ+AQuyAzw/eG1sIHZlcnNpb249
- IjEuMCIgZW5jb2Rpbmc9InV0Zi0xNiI/Pg0KPFVybFNldD4NCiAgPF
- ZlcnNpb24+MTUuMC4wLjA8L1ZlcnNpb24+DQogIDxVcmxzPg0KICAg
- IDxVcmwgU3RhcnRJbmRleD0iMTEzMCIgVHlwZT0iVXJsIj4NCiAgIC
- AgIDxVcmxTdHJpbmc+aHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIv
- c2NtL2xpbnV4L2tlcm5lbC9naXQvam9sc2EvcGVyZi5naXQvbG9nLz
- 9oPWJwZi9zZXNzaW9uX2RhdGE8L1VybFN0cmluZz4NCiAgICA8L1Vy
- bD4NCiAgICA8VXJsIFN0YXJ0SW5kZXg9IjEyMjQiIFR5cGU9IlVybC
- I+DQogICAgICA8VXJsU3RyaW5nPmh0dHBzOi8vbG9yZS5rZXJuZWwu
- b3JnL2JwZi8yMDI0MDIyODA5MDI0Mi40MDQwMjEwLTEtam9sc2FAa2
- VybmVsLm9yZy88L1VybFN0cmluZz4NCiAgICA8L1VybD4NCiAgPC9V
- cmxzPg0KPC9VcmxTZXQ+AQzyBzw/eG1sIHZlcnNpb249IjEuMCIgZW
- 5jb2Rpbmc9InV0Zi0xNiI/Pg0KPENvbnRhY3RTZXQ+DQogIDxWZXJz
- aW9uPjE1LjAuMC4wPC9WZXJzaW9uPg0KICA8Q29udGFjdHM+DQogIC
- AgPENvbnRhY3QgU3RhcnRJbmRleD0iMzMiPg0KICAgICAgPFBlcnNv
- biBTdGFydEluZGV4PSIzMyI+DQogICAgICAgIDxQZXJzb25TdHJpbm
- c+SmlyaSBPbHNhPC9QZXJzb25TdHJpbmc+DQogICAgICA8L1BlcnNv
- bj4NCiAgICAgIDxFbWFpbHM+DQogICAgICAgIDxFbWFpbCBTdGFydE
- luZGV4PSI0NCI+DQogICAgICAgICAgPEVtYWlsU3RyaW5nPm9sc2Fq
- aXJpQGdtYWlsLmNvbTwvRW1haWxTdHJpbmc+DQogICAgICAgIDwvRW
- 1haWw+DQogICAgICA8L0VtYWlscz4NCiAgICAgIDxDb250YWN0U3Ry
- aW5nPkppcmkgT2xzYSAmbHQ7b2xzYWppcmlAZ21haWwuY29tPC9Db2
- 50YWN0U3RyaW5nPg0KICAgIDwvQ29udGFjdD4NCiAgICA8Q29udGFj
- dCBTdGFydEluZGV4PSIxMTkiIFBvc2l0aW9uPSJTaWduYXR1cmUiPg
- 0KICAgICAgPFBlcnNvbiBTdGFydEluZGV4PSIxMTkiIFBvc2l0aW9u
- PSJTaWduYXR1cmUiPg0KICAgICAgICA8UGVyc29uU3RyaW5nPlN0ZX
- ZlbiBSb3N0ZWR0PC9QZXJzb25TdHJpbmc+DQogICAgICA8L1BlcnNv
- bj4NCiAgICAgIDxFbWFpbHM+DQogICAgICAgIDxFbWFpbCBTdGFydE
- luZGV4PSIyMDMiIFBvc2l0aW9uPSJTaWduYXR1cmUiPg0KICAgICAg
- ICAgIDxFbWFpbFN0cmluZz5hbmRyaWkubmFrcnlpa29AZ21haWwuY2
- 9tPC9FbWFpbFN0cmluZz4NCiAgICAgICAgPC9FbWFpbD4NCiAgICAg
- IDwvRW1haWxzPg0KICAgICAgPENvbnRhY3RTdHJpbmc+U3RldmVuIF
- Jvc3RlZHQgd3JvdGU6DQomZ3Q7ICZndDsgT24gRnJpLCAyOSBNYXIg
- MjAyNCAxNjoyODozMyAtMDcwMA0KJmd0OyAmZ3Q7IEFuZHJpaSBOYW
- tyeWlrbyAmbHQ7YW5kcmlpLm5ha3J5aWtvQGdtYWlsLmNvbTwvQ29u
- dGFjdFN0cmluZz4NCiAgICA8L0NvbnRhY3Q+DQogIDwvQ29udGFjdH
- M+DQo8L0NvbnRhY3RTZXQ+AQ7PAVJldHJpZXZlck9wZXJhdG9yLDEw
- LDE7UmV0cmlldmVyT3BlcmF0b3IsMTEsMjtQb3N0RG9jUGFyc2VyT3
- BlcmF0b3IsMTAsMDtQb3N0RG9jUGFyc2VyT3BlcmF0b3IsMTEsMDtQ
- b3N0V29yZEJyZWFrZXJEaWFnbm9zdGljT3BlcmF0b3IsMTAsMDtQb3
- N0V29yZEJyZWFrZXJEaWFnbm9zdGljT3BlcmF0b3IsMTEsMDtUcmFu
- c3BvcnRXcml0ZXJQcm9kdWNlciwyMCwxMw=3D=0A=
-X-MS-Exchange-Forest-IndexAgent: 1 3103
-X-MS-Exchange-Forest-EmailMessageHash: B1968A4D
-X-MS-Exchange-Forest-Language: en
-X-MS-Exchange-Organization-Processed-By-Journaling: Journal Agent
+OTOH, it cares playback/capture_only flag. It is needed.
 
-On Sat, Mar 30, 2024 at 10:52=E2=80=AFAM Jiri Olsa <olsajiri@gmail.com> wro=
-te:
->
-> On Sat, Mar 30, 2024 at 08:27:55AM -0400, Steven Rostedt wrote:
-> > On Fri, 29 Mar 2024 16:28:33 -0700
-> > Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
-> >
-> > > I thought I'll just ask instead of digging through code, sorry for
-> > > being lazy :) Is there any way to pass pt_regs/ftrace_regs captured
-> > > before function execution to a return probe (fexit/kretprobe)? I.e.,
-> > > how hard is it to pass input function arguments to a kretprobe? That'=
-s
-> > > the biggest advantage of fexit over kretprobe, and if we can make
-> > > these original pt_regs/ftrace_regs available to kretprobe, then
-> > > multi-kretprobe will effectively be this multi-fexit.
-> >
-> > This should be possible with the updates that Masami is doing with the
-> > fgraph code.
->
-> yes, I have bpf kprobe-multi link support for that [0] (it's on top of
-> Masami's fprobe-over-fgraph changes) we discussed that in [1]
+This patch remove DPCM special flag, and replace it playback/capture_only
+flag if needed.
 
-Sorry, I forgot the regs/args part, mostly remembering we discussed
-session cookie ideas. Thanks for reminder!
+v1 -> v2
+	- based on latest ASoC branch
+	- keep comment on Intel
+	- tidyup patch title
+	- tidyup DPCM BE warning output condition
+	- Add new patch for Document
 
->
-> jirka
->
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git/log/?h=
-=3Dbpf/session_data
-> [1] https://lore.kernel.org/bpf/20240228090242.4040210-1-jolsa@kernel.org=
-/
+Link: https://lore.kernel.org/r/87o7b353of.wl-kuninori.morimoto.gx@renesas.com
 
-X-sender: <netdev+bounces-83537-peter.schumann=3Dcunet.com@vger.kernel.org>
-X-Receiver: <peter.schumann@secunet.com> ORCPT=3Dc822;peter.schumann@secune=
-t.com
-X-CreatedBy: MSExchange15
-X-HeloDomain: mbx-dresden-01.secunet.de
-X-ExtendedProps: BQBjAAoAPWsFfe5Q3AgFADcAAgAADwA8AAAATWljcm9zb2Z0LkV4Y2hhbm=
-dlLlRyYW5zcG9ydC5NYWlsUmVjaXBpZW50Lk9yZ2FuaXphdGlvblNjb3BlEQAAAAAAAAAAAAAAA=
-AAAAAAADwA/AAAATWljcm9zb2Z0LkV4Y2hhbmdlLlRyYW5zcG9ydC5EaXJlY3RvcnlEYXRhLk1h=
-aWxEZWxpdmVyeVByaW9yaXR5DwADAAAATG93
-X-Source: SMTP:Default MBX-ESSEN-02
-X-SourceIPAddress: 10.53.40.199
-X-EndOfInjectedXHeaders: 12095
-Received: from mbx-dresden-01.secunet.de (10.53.40.199) by
- mbx-essen-02.secunet.de (10.53.40.198) with Microsoft SMTP Server
- (version=3DS1_2, cipher=3DS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.37; Sun, 31 Mar 2024 04:34:59 +0200
-Received: from b.mx.secunet.com (62.96.220.37) by cas-essen-02.secunet.de
- (10.53.40.202) with Microsoft SMTP Server (version=3DS1_2,
- cipher=3DS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.37 via Frontend
- Transport; Sun, 31 Mar 2024 04:34:59 +0200
-Received: from localhost (localhost [127.0.0.1])
-	by b.mx.secunet.com (Postfix) with ESMTP id 141EE20322
-	for <peter.schumann@secunet.com>; Sun, 31 Mar 2024 04:34:59 +0200 (CEST)
-X-Virus-Scanned: by secunet
-X-Spam-Flag: NO
-X-Spam-Score: -2.749
-X-Spam-Level:
-X-Spam-Status: No, score=3D.749 tagged_above=3D99 required=3D1
-	tests=3DAYES_00=3D.9, DKIM_SIGNED=3D1, DKIM_VALID=3D.1,
-	DKIM_VALID_AU=3D.1, FREEMAIL_FORGED_FROMDOMAIN=3D001,
-	FREEMAIL_FROM=3D001, HEADER_FROM_DIFFERENT_DOMAINS=3D249,
-	MAILING_LIST_MULTI=3D, RCVD_IN_DNSWL_NONE=3D.0001,
-	SPF_HELO_NONE=3D001, SPF_PASS=3D.001] autolearn=3Dm autolearn_force=3D
-Authentication-Results: a.mx.secunet.com (amavisd-new);
-	dkim=3Dss (2048-bit key) header.d=3Dail.com
-Received: from b.mx.secunet.com ([127.0.0.1])
-	by localhost (a.mx.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id OpKISkofR2pT for <peter.schumann@secunet.com>;
-	Sun, 31 Mar 2024 04:34:54 +0200 (CEST)
-Received-SPF: Pass (sender SPF authorized) identity=3Dilfrom; client-ip=147=
-.75.199.223; helo=3D.mirrors.kernel.org; envelope-from=3Dtdev+bounces-83537=
--peter.schumann=3Dcunet.com@vger.kernel.org; receiver=3Dter.schumann@secune=
-t.com=20
-DKIM-Filter: OpenDKIM Filter v2.11.0 b.mx.secunet.com 8423120199
-Authentication-Results: b.mx.secunet.com;
-	dkim=3Dss (2048-bit key) header.d=3Dail.com header.i=3Dmail.com header.b=
-=3Dy2AymGs"
-Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223=
-])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by b.mx.secunet.com (Postfix) with ESMTPS id 8423120199
-	for <peter.schumann@secunet.com>; Sun, 31 Mar 2024 04:34:54 +0200 (CEST)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.2=
-5.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 479A61C20B9E
-	for <peter.schumann@secunet.com>; Sun, 31 Mar 2024 02:34:53 +0000 (UTC)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F234410FA;
-	Sun, 31 Mar 2024 02:34:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=3Dss (2048-bit key) header.d=3Dail.com header.i=3Dmail.com header.b=
-=3Dy2AymGs"
-X-Original-To: netdev@vger.kernel.org
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com [209.85.166=
-.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7384E1396;
-	Sun, 31 Mar 2024 02:34:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=3Dne smtp.client-ip 9=
-.85.166.50
-ARC-Seal: i=3D a=3Da-sha256; d=3Dbspace.kernel.org; s=3Dc-20240116;
-	t=1711852487; cv=3Dne; b=3DMqKNBstHic1NnNqtmEhklFX98fH400WfQDTFyqhKjtIXY7t=
-Rb0YqsOvtGOZyXx0wEWKPJAKd86o+m1j+A6/1WE8pCEXzgUX6SKfC6W0ezZ25Rzsz2fAVlUyUeM=
-5EEuntcuT+ehdeWbAQcf77zyAw8axusWoE4oQeU/ECfd/vEARC-Message-Signature: i=3D =
-a=3Da-sha256; d=3Dbspace.kernel.org;
-	s=3Dc-20240116; t=1711852487; c=3Dlaxed/simple;
-	bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-	h=3DME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=3DzYeAGSaMyIjDZPlrwMo3hgPPsMOffRH8URPmCTR8dQMZhq7GO=
-//lFDYMSk6tPcMuQTRTFRf2OrVj1ugqK0lxJM3vFBFuu/N7HMnZBcdqNyXGtnkhCp/notTFUWHO=
-F2ByvyVCUhghBbJ/tO3SGu2dV2uOZN7pwqyGJffONCsRkARC-Authentication-Results: i=
-=3D smtp.subspace.kernel.org; dmarc=3Dss (p=3Dne dis=3Dne) header.from=3Dai=
-l.com; spf=3Dss smtp.mailfrom=3Dail.com; dkim=3Dss (2048-bit key) header.d=
-=3Dail.com header.i=3Dmail.com header.b=3D2AymGs; arc=3Dne smtp.client-ip 9=
-.85.166.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=3Dss (p=3Dne dis=3D=
-ne) header.from=3Dail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=3Dss smtp.mailfrom=3D=
-ail.com
-Received: by mail-io1-f50.google.com with SMTP id ca18e2360f4ac-7cc01644f51=
-so159554639f.2;
-        Sat, 30 Mar 2024 19:34:46 -0700 (PDT)
-DKIM-Signature: v=3D a=3Da-sha256; c=3Dlaxed/relaxed;
-        d=3Dail.com; s 230601; t=1711852485; x=1712457285; darn=3Der.kernel=
-.org;
-        h=3Dntent-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-        b=3D2AymGsN5lMSc1UzWBQqYEmctJu9hcEFMrLk1EvVIPUQ2vRWGvrki52sw7v23NLN=
-y
-         PJRpVeNV/9llTQ9/EMyMHfhE3PGEFhw1ToIkfDHcu4G1MtDeAmPMGmvoQVD2ytyOBf=
-P9
-         1k2Xm1jfRY4gUYOSigq2OoU+Ho3HoOiPnoIQxo10pvq1GTvxA/OcXA+fq6TRplYNpR=
-Ap
-         fdai6ZVFdNN0dNmPdfkij0KZIsOnGnXl0Cln4cRXfOqX51cSkigiXGyKO4QieVXSKS=
-XV
-         CUYMuTkl3aX2Q2MAX4cEY+tEewnezwTFzF6/t0lpTHAi4cbvhL5i75u/2uT5rVPpvl=
-4n
-         4IGQ=3D=0A=
-X-Google-DKIM-Signature: v=3D a=3Da-sha256; c=3Dlaxed/relaxed;
-        d=1E100.net; s 230601; t=1711852485; x=1712457285;
-        h=3Dntent-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3D26OU7eK1E3sOOfCTy+tBkXi+05uIIvVJ+TP4hGj4w=3D=0A=
-        b=3DUmY+KCUxxZt/KqUHDvByexlAZtEIH4XrbOIIDE9I6XBIVvHCTPgiV21Nr3oWYET=
-5
-         4yi797sJtaxzpP3l0L6AfMJZE1jq7q/JletLXiVED8JM2Mkgmh8pgemMqK+pjU5snN=
-qj
-         4SmAIY9xpkUFJTwb6KQRCHmClshfbax662MBwNLdyc71cKI+Ht6zOLscmyap13Cm8J=
-dl
-         Pvwlu0PYjCt12ID8IEZH3heQS/YN134MrRK3B4SP56jTUo+ckVMsH43yk55Yq86rvU=
-s/
-         gxA5UuIqE4dGMSW497CceIm6gFxtwaAaA60xM1XmcEKkoJKn5MK0/KWEaiB12sZMfu=
-DR
-         xm/A=3D=0A=
-X-Forwarded-Encrypted: i=3D AJvYcCW84S9V+AQQkYp+0Pg3uFJiqkrinKOD+cj0jo9RwHY=
-KPgQTM0ca31x7++jsQaCnCHVrKhB4AZsrCgxGVc8F2iXDhlG9Twpbk1TuCelrLjExzQK5aDvFn2=
-pyX1jXjUlDgWGnQskZ+ly86pfRZuSc6zLRTs1VtmYF1ktL1pi43uQwDvDiil12jcTRLBPiIPHnF=
-nT4xag5EJJM5dDha3MF/IDYBm+KEn5/IQcomA3GYVFHVuXIiU3syvBp4mciUubTWnoJGGoBTfuV=
-BZ+umC0D3La4taNF/wXygvGVcQ=3D=0A=
-X-Gm-Message-State: AOJu0YxBCqzw8NXdwxSkflidZiBTQf2FxMt5MAFfeqN8T6V6IoSKYHD=
-r
-	LtNNbixGctgBJMaMxDf8ZKejURE+MphiwvxQexQkxWspvI/JgsQUap7XnuBlDVsr+sE+TBpgAT=
-D
-	eqRNYh5vFsGTaYQ4ptCAJ0U5K7iEX-Google-Smtp-Source: AGHT+IEUljvEWt6RLJvm0ZvD=
-NAAvbKF98d8W07FBneubUp0ru50ICaCtTHNp6cmd+wxEi3ZRk7j/LT8mS1rRQW2OsKcX-Receiv=
-ed: by 2002:a05:6e02:3710:b0:366:ab6f:f63 with SMTP id
- ck16-20020a056e02371000b00366ab6f0f63mr8646788ilb.3.1711852485494; Sat, 30
- Mar 2024 19:34:45 -0700 (PDT)
-Precedence: bulk
-X-Mailing-List: netdev@vger.kernel.org
-List-Id: <netdev.vger.kernel.org>
-List-Subscribe: <mailto:netdev+subscribe@vger.kernel.org>
-List-Unsubscribe: <mailto:netdev+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAADnVQJ_ZCzMmT1aBsNXEBFfYNSVBdBXmLocjR0PPEWtYQrQFw@mail.gmail=
-.com>
- <CALz3k9icPePb0c4FE67q=3DU0hrePorN9gDpQrKTR_sXbLMfDA@mail.gmail.com>
- <CAADnVQLwgw8bQ7OHBbqLhcPJ2QpxiGw3fkMFur+2cjZpM_78oA@mail.gmail.com>
- <CALz3k9g9k7fEwdTZVLhrmGoXp8CE47Q+83r-AZDXrzzuR+CjVA@mail.gmail.com>
- <CAADnVQLHpi3J6cBJ0QBgCQ2aY6fWGnVvNGdfi3W-jmoa9d1eVQ@mail.gmail.com>
- <CALz3k9g-U8ih=3DJPRbyU9x_9cp00fNkU3PGQ6jP0WJ+=3DmqQ@mail.gmail.com>
- <CALz3k9jG5Jrqw=3Djt05yMkEF-1u909GbBYrV-02W0dQtm6KQQ@mail.gmail.com>
- <20240328111330.194dcbe5@gandalf.local.home> <CAEf4BzYgzOti+Hfdn3SUCjuofGe=
-dXRSGApVDD+K2TdG6oNE-pw@mail.gmail.com>
- <20240330082755.1cbeb8c6@rorschach.local.home> <ZghRXtc8ZiTOKMR3@krava>
-In-Reply-To: <ZghRXtc8ZiTOKMR3@krava>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Sat, 30 Mar 2024 19:34:33 -0700
-Message-ID: <CAEf4BzbOAwLZ9=3DMQo-W5oHxTA7nM5ERRp0Q=3DhuC8b+Y1Ww@mail.gmail=
-.com>
-Subject: Re: [External] Re: [PATCH bpf-next v2 1/9] bpf: tracing: add suppo=
-rt
- to record and check the accessed args
-To: Jiri Olsa <olsajiri@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, =3DTF-8?B?5qKm6b6Z6JGj?=3Dongmeng=
-long.8@bytedance.com>,=20
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>, Andrii Nakryiko <andrii=
-@kernel.org>,=20
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net=
->,=20
-	Martin KaFai Lau <martin.lau@linux.dev>, Eddy Z <eddyz87@gmail.com>, Song =
-Liu <song@kernel.org>,=20
-	Yonghong Song <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gm=
-ail.com>,=20
-	KP Singh <kpsingh@kernel.org>, Stanislav Fomichev <sdf@google.com>, Hao Lu=
-o <haoluo@google.com>,=20
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntra=
-eger@linux.ibm.com>,=20
-	Sven Schnelle <svens@linux.ibm.com>, "David S. Miller" <davem@davemloft.ne=
-t>,=20
-	David Ahern <dsahern@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com=
->,=20
-	X86 ML <x86@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com=
->,=20
-	Quentin Monnet <quentin@isovalent.com>, bpf <bpf@vger.kernel.org>,=20
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kerne=
-l@vger.kernel.org>,=20
-	linux-riscv <linux-riscv@lists.infradead.org>, linux-s390 <linux-s390@vger=
-.kernel.org>,=20
-	Network Development <netdev@vger.kernel.org>, linux-trace-kernel@vger.kern=
-el.org,=20
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, l=
-inux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset=3DTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-Path: netdev+bounces-83537-peter.schumann=3Dcunet.com@vger.kernel.or=
-g
-X-MS-Exchange-Organization-OriginalArrivalTime: 31 Mar 2024 02:34:59.1620
- (UTC)
-X-MS-Exchange-Organization-Network-Message-Id: 84b93fda-0cf0-47dc-3a87-08dc=
-512b28ea
-X-MS-Exchange-Organization-OriginalClientIPAddress: 62.96.220.37
-X-MS-Exchange-Organization-OriginalServerIPAddress: 10.53.40.202
-X-MS-Exchange-Organization-Cross-Premises-Headers-Processed: cas-essen-02.s=
-ecunet.de
-X-MS-Exchange-Organization-OrderedPrecisionLatencyInProgress: LSRV=CAs-esse=
-n-02.secunet.de:TOTAL-FE=3D011|SMR=3D011(SMRPI=3D008(SMRPI-FrontendProxyAge=
-nt=3D008));2024-03-31T02:34:59.174Z
-X-MS-Exchange-Forest-ArrivalHubServer: mbx-essen-02.secunet.de
-X-MS-Exchange-Organization-AuthSource: cas-essen-02.secunet.de
-X-MS-Exchange-Organization-AuthAs: Anonymous
-X-MS-Exchange-Organization-OriginalSize: 11546
-X-MS-Exchange-Organization-Transport-Properties: DeliveryPriority=3Dw
-X-MS-Exchange-Organization-Prioritization: 2:ShadowRedundancy
-X-MS-Exchange-Organization-IncludeInSla: False:ShadowRedundancy
+Kuninori Morimoto (16):
+  ASoC: soc-pcm.c: cleanup soc_get_playback_capture()
+  ASoC: amd: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: fsl: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: sof: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: meson: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: Intel: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: samsung: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: mediatek: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: soc-core: Replace dpcm_playback/capture to playback/capture_only
+  ASoC: soc-topology: Replace dpcm_playback/capture to
+    playback/capture_only
+  ASoC: soc-compress: Replace dpcm_playback/capture to
+    playback/capture_only
+  ASoC: Intel: avs: boards: Replace dpcm_playback/capture to
+    playback/capture_only
+  ASoC: remove snd_soc_dai_link_set_capabilities()
+  ASoC: soc-pcm: remove dpcm_playback/capture
+  ASoC: soc-pcm: indicate warning if DPCM BE Codec has no settings
+  ASoC: doc: remove .dpcm_playback/capture flags
 
-On Sat, Mar 30, 2024 at 10:52=E2=80=AFAM Jiri Olsa <olsajiri@gmail.com> wro=
-te:
->
-> On Sat, Mar 30, 2024 at 08:27:55AM -0400, Steven Rostedt wrote:
-> > On Fri, 29 Mar 2024 16:28:33 -0700
-> > Andrii Nakryiko <andrii.nakryiko@gmail.com> wrote:
-> >
-> > > I thought I'll just ask instead of digging through code, sorry for
-> > > being lazy :) Is there any way to pass pt_regs/ftrace_regs captured
-> > > before function execution to a return probe (fexit/kretprobe)? I.e.,
-> > > how hard is it to pass input function arguments to a kretprobe? That'=
-s
-> > > the biggest advantage of fexit over kretprobe, and if we can make
-> > > these original pt_regs/ftrace_regs available to kretprobe, then
-> > > multi-kretprobe will effectively be this multi-fexit.
-> >
-> > This should be possible with the updates that Masami is doing with the
-> > fgraph code.
->
-> yes, I have bpf kprobe-multi link support for that [0] (it's on top of
-> Masami's fprobe-over-fgraph changes) we discussed that in [1]
+ Documentation/sound/soc/dpcm.rst              | 14 ++-
+ include/sound/soc-dai.h                       |  1 -
+ include/sound/soc.h                           |  4 -
+ sound/soc/amd/acp-da7219-max98357a.c          | 20 ++---
+ sound/soc/amd/acp-es8336.c                    |  2 -
+ sound/soc/amd/acp/acp-mach-common.c           | 24 ++---
+ sound/soc/amd/acp3x-rt5682-max9836.c          |  6 +-
+ sound/soc/amd/vangogh/acp5x-mach.c            |  6 --
+ sound/soc/fsl/fsl-asoc-card.c                 | 16 ++--
+ sound/soc/fsl/imx-audmix.c                    |  6 +-
+ sound/soc/fsl/imx-card.c                      |  7 +-
+ sound/soc/generic/audio-graph-card.c          |  2 -
+ sound/soc/generic/audio-graph-card2.c         |  2 -
+ sound/soc/generic/simple-card.c               |  2 -
+ sound/soc/intel/avs/boards/da7219.c           |  2 -
+ sound/soc/intel/avs/boards/dmic.c             |  4 +-
+ sound/soc/intel/avs/boards/es8336.c           |  2 -
+ sound/soc/intel/avs/boards/hdaudio.c          |  4 -
+ sound/soc/intel/avs/boards/i2s_test.c         |  2 -
+ sound/soc/intel/avs/boards/max98357a.c        |  2 +-
+ sound/soc/intel/avs/boards/max98373.c         |  2 -
+ sound/soc/intel/avs/boards/max98927.c         |  2 -
+ sound/soc/intel/avs/boards/nau8825.c          |  2 -
+ sound/soc/intel/avs/boards/rt274.c            |  2 -
+ sound/soc/intel/avs/boards/rt286.c            |  2 -
+ sound/soc/intel/avs/boards/rt298.c            |  2 -
+ sound/soc/intel/avs/boards/rt5514.c           |  2 +-
+ sound/soc/intel/avs/boards/rt5663.c           |  2 -
+ sound/soc/intel/avs/boards/rt5682.c           |  2 -
+ sound/soc/intel/avs/boards/ssm4567.c          |  2 -
+ sound/soc/intel/boards/bdw-rt5650.c           |  4 -
+ sound/soc/intel/boards/bdw-rt5677.c           |  4 -
+ sound/soc/intel/boards/bdw_rt286.c            | 10 +--
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 32 ++++---
+ sound/soc/intel/boards/bxt_rt298.c            | 26 +++---
+ sound/soc/intel/boards/bytcht_cx2072x.c       |  6 +-
+ sound/soc/intel/boards/bytcht_da7213.c        |  6 +-
+ sound/soc/intel/boards/bytcht_es8316.c        |  6 +-
+ sound/soc/intel/boards/bytcht_nocodec.c       |  6 +-
+ sound/soc/intel/boards/bytcr_rt5640.c         |  6 +-
+ sound/soc/intel/boards/bytcr_rt5651.c         |  6 +-
+ sound/soc/intel/boards/bytcr_wm5102.c         |  6 +-
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c  |  6 +-
+ sound/soc/intel/boards/cht_bsw_nau8824.c      |  6 +-
+ sound/soc/intel/boards/cht_bsw_rt5645.c       |  6 +-
+ sound/soc/intel/boards/cht_bsw_rt5672.c       |  6 +-
+ sound/soc/intel/boards/cml_rt1011_rt5682.c    | 15 ++--
+ sound/soc/intel/boards/ehl_rt5660.c           | 14 ++-
+ sound/soc/intel/boards/glk_rt5682_max98357a.c | 30 +++----
+ sound/soc/intel/boards/hsw_rt5640.c           | 10 +--
+ sound/soc/intel/boards/kbl_da7219_max98357a.c | 26 +++---
+ sound/soc/intel/boards/kbl_da7219_max98927.c  | 54 +++++-------
+ sound/soc/intel/boards/kbl_rt5660.c           | 18 ++--
+ sound/soc/intel/boards/kbl_rt5663_max98927.c  | 44 +++++-----
+ .../intel/boards/kbl_rt5663_rt5514_max98927.c | 22 ++---
+ sound/soc/intel/boards/skl_hda_dsp_common.c   | 14 ++-
+ .../soc/intel/boards/skl_nau88l25_max98357a.c | 26 +++---
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c | 26 +++---
+ sound/soc/intel/boards/skl_rt286.c            | 26 +++---
+ sound/soc/intel/boards/sof_board_helpers.c    | 13 +--
+ sound/soc/intel/boards/sof_es8336.c           |  8 +-
+ sound/soc/intel/boards/sof_pcm512x.c          |  8 +-
+ sound/soc/intel/boards/sof_sdw.c              |  4 +-
+ sound/soc/intel/boards/sof_wm8804.c           |  2 -
+ sound/soc/mediatek/mt2701/mt2701-cs42448.c    | 20 ++---
+ sound/soc/mediatek/mt2701/mt2701-wm8960.c     |  6 +-
+ sound/soc/mediatek/mt6797/mt6797-mt6351.c     | 24 ++---
+ sound/soc/mediatek/mt7986/mt7986-wm8960.c     |  6 +-
+ sound/soc/mediatek/mt8173/mt8173-max98090.c   |  6 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5514.c    |  6 +-
+ .../mediatek/mt8173/mt8173-rt5650-rt5676.c    | 10 +--
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c     | 10 +--
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 34 +++-----
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 34 +++-----
+ .../mt8186/mt8186-mt6366-da7219-max98357.c    | 86 +++++++-----------
+ .../mt8186/mt8186-mt6366-rt1019-rt5682s.c     | 86 +++++++-----------
+ sound/soc/mediatek/mt8188/mt8188-mt6359.c     | 58 ++++++-------
+ .../mt8192/mt8192-mt6359-rt1015-rt5682.c      | 78 ++++++++---------
+ sound/soc/mediatek/mt8195/mt8195-mt6359.c     | 60 +++++++------
+ sound/soc/meson/axg-card.c                    |  9 +-
+ sound/soc/meson/gx-card.c                     |  1 -
+ sound/soc/meson/meson-card-utils.c            |  4 +-
+ sound/soc/qcom/common.c                       |  1 -
+ sound/soc/samsung/odroid.c                    | 11 ++-
+ sound/soc/soc-compress.c                      | 10 ++-
+ sound/soc/soc-core.c                          | 20 +----
+ sound/soc/soc-dai.c                           | 38 --------
+ sound/soc/soc-pcm.c                           | 87 ++++++++-----------
+ sound/soc/soc-topology-test.c                 |  2 -
+ sound/soc/soc-topology.c                      |  4 +-
+ sound/soc/sof/nocodec.c                       |  4 -
+ 91 files changed, 502 insertions(+), 863 deletions(-)
 
-Sorry, I forgot the regs/args part, mostly remembering we discussed
-session cookie ideas. Thanks for reminder!
-
->
-> jirka
->
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/jolsa/perf.git/log/?h=
-=3Dbpf/session_data
-> [1] https://lore.kernel.org/bpf/20240228090242.4040210-1-jolsa@kernel.org=
-/
-
-
---===============6706559002991437665==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.25.1
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============6706559002991437665==--
