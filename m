@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 370B3894475
-	for <lists+linux-stm32@lfdr.de>; Mon,  1 Apr 2024 19:48:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D142E894574
+	for <lists+linux-stm32@lfdr.de>; Mon,  1 Apr 2024 21:25:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD840C69067;
-	Mon,  1 Apr 2024 17:48:24 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79EC6C69067;
+	Mon,  1 Apr 2024 19:25:22 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D45BECFAC50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 550ACC69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Apr 2024 17:48:23 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-41568096c4aso5221415e9.0
+ Mon,  1 Apr 2024 19:25:21 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-33ed4dd8659so3251415f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Apr 2024 10:48:23 -0700 (PDT)
+ Mon, 01 Apr 2024 12:25:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1711993703; x=1712598503;
+ d=gmail.com; s=20230601; t=1711999521; x=1712604321;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zrigaZFXWcx1kCyKa9oGq8jbBkbvJ11REE5OiYoomxk=;
- b=KORpJNaL5n0ek8fvwlA7G7tDIOar/+gSV8H+oeFj8eRR2CNjwFT8SVGzSus6vMS+PK
- +QjRNsoCzBB4caNSarv6wItO0DlbTJD1KmlTcPQA71rFPiUxHmeRzdLHbMtBujsFzrhH
- Oq5hYh0waFysuoXXMdu1D1DA4iAVy4V/W0SMnEzYvhDVYcFTTt2wjGfPJgF4/ZPdUy3O
- Ti53akcZYs3BJnYDXQvLfOW4e1NmCkt+1i7rIPf0Ntrh+gd2cHf+j0ruH93beOUQo2I0
- R1EuGXRXxrTwYW+y8bNj8JLKF8B19k2rVNlQ4GybY8rcvza6GvHsi/DMgj72zy6DTjPR
- z6TA==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lbATZVSwtVFCc38UdteT0WxrSxfowo8TkRKmuWEvy1c=;
+ b=fTDFvnLavRxOPdP/9s4jlgKcGtgrB645Ih6U4iVXCsyzAyDU8ohpEMykRE+Oj2S1Mh
+ vYdJQPLcaJEbnRX3W/m/Rv3//cZwbWgaDJyJ6bKaban+7KDT4OWpStDboJeetVhNKoNH
+ bIsrrsxh8Z2Dg/N/RgGrpjIADgxHaXu5xDkhY/SZYGb2dUz0VtbTzK/EHAoEEyqimzoD
+ mRiDvWsPj+gPli9YnzOmimEFI/GFvxNlJZ44KdzsQSLgflN/j82kuDNlYz3jzJI4c+UU
+ cT3MSs4J26Ozw5O+vSMkIqxHJ9RmpaDbLiwo/tZUBD69cSZKXYfniO63zmfkc/wMFq46
+ MvJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1711993703; x=1712598503;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zrigaZFXWcx1kCyKa9oGq8jbBkbvJ11REE5OiYoomxk=;
- b=lt86nzcnGjnVFjf8QDpB7fg4WK8ccMqc1LB2JrDFFn+HhcJmaR5eWDHjinQxCUUr26
- 2gWcMLacfVm/6hYYdbyd7qCOQziRTKXHDhlwStyAvStxx1sg81KS9YlvChs0U9+qdgDM
- ZjlAYtTL9AbV2To8j3rVJ20keFdz6mmcelo8jBVirTH5kbhaiAJZotm7v5SsEHCDD8af
- g0qGvuSKPnBzdW5VLfJp2GsKasOXRisADe8swhp8RmwKm9EcjZi7hy1/Ov4ZrxX67tUA
- IDGmm5u4t/ot+JMLG6yxA7iCRuVETJeBBf1rOKLF1YzaDX02Ei41CnEYs0PtW8Milz/t
- Vysw==
+ d=1e100.net; s=20230601; t=1711999521; x=1712604321;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lbATZVSwtVFCc38UdteT0WxrSxfowo8TkRKmuWEvy1c=;
+ b=By8UcyI3EqU2xeKTptIhrSDEtltXti298Ja9ufPHogOUDf6EAMYoui/sASt8EYsycr
+ wL3O8wPSZktoMF+uKOQAWZlSpcs9ZYiOjjNFnB6l4eFDxWtenSnCzLmn6w7dYYaNIprS
+ 0+dHRtRtId5+1rDF/HH2eK7apw6N23BsDDTOj8q6gp/VdwdAwnB7rhObM3xB88mSOM05
+ I1b9lIfmRt1IwEff9bJ+LUcj4YOgUkPwev7sTbPaGpYYf2XYYqHSttj3vcoK0rLUadAa
+ kKvqskzbDbDKOaA+B4ufmYdHk89vQ8pkzUkqfKENDH6+yK3jW0bPykPCL9XnBXla+zCc
+ ft2w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX9C/wfPE2Bs44RT7wdUHSUBKPVSB0V41yLwxjSfOAHsKDxxqkY1g9Gnx48JOXv5VeI6zOTaQlsgDGw1APjsNO2XE9ABj0u478vHzn9E9zUJi0LZtmCA7cp
-X-Gm-Message-State: AOJu0Yy7/MHvYGcGirOeRVHNWWyTPzl3MwkNbcTCOGHN6mWNGDcL2vKa
- QdcfiHzWvfTH3hF8NqG8+TYUTRpqIyVfR5b48Dahm+sTZ6VUzm9U
-X-Google-Smtp-Source: AGHT+IFFKEPqYBqhXPvo3d9e2KGAB3GpC18x3pZ1hRTgMveG4viHnSGaLgA5CQDjSMLrjG8QFtrf1A==
-X-Received: by 2002:a05:600c:1907:b0:414:869b:dbd9 with SMTP id
- j7-20020a05600c190700b00414869bdbd9mr7334584wmq.9.1711993702998; 
- Mon, 01 Apr 2024 10:48:22 -0700 (PDT)
-Received: from Kalray-lp320 ([2a01:e0a:a92:c660:38e3:78b9:48eb:4246])
+ AJvYcCVwrnlJ/uG7ICP7MKD/rsKLFjRZsszpVzji6F1LOgNzH51Nb4ZJZSndXk1Cl5LYtSwsoH7MaPZJOypkie6axGD1FPqMTCMJJXFYlVlO5kWAHIV4ULh6x9dr
+X-Gm-Message-State: AOJu0Ywt7i6BiJ0bTYkHcGhJjOVoQ5g/Afgi/yJP8ZavKZQSgIH2FqHC
+ LUqDW6OO9np9rU1iwVgVt8vm2taIdtzr1pbmeg7+WhxNm++ikMvI
+X-Google-Smtp-Source: AGHT+IFKo0GgVDkY7Zy7nJekIuEkhWVnxNxEK6NrznEjLdMqIaCn/ECvU1iVX2nGEqSYcSNB4vTQvA==
+X-Received: by 2002:a5d:47c4:0:b0:343:44cd:7d1e with SMTP id
+ o4-20020a5d47c4000000b0034344cd7d1emr5650181wrc.17.1711999520491; 
+ Mon, 01 Apr 2024 12:25:20 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:a92:c660:38e3:78b9:48eb:4246])
  by smtp.gmail.com with ESMTPSA id
- n17-20020a05600c3b9100b0041493aae77esm18603515wms.23.2024.04.01.10.48.21
+ n2-20020a056000170200b0034335e47102sm10319848wrc.113.2024.04.01.12.25.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Apr 2024 10:48:22 -0700 (PDT)
-Date: Mon, 1 Apr 2024 19:48:20 +0200
+ Mon, 01 Apr 2024 12:25:19 -0700 (PDT)
 From: Piotr Wejman <piotrwejman90@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <20240401174820.GA22684@Kalray-lp320>
-References: <20240303190339.52496-1-piotrwejman90@gmail.com>
- <20240311134144.7b1e1a34@kernel.org>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Jose Abreu <joabreu@synopsys.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Joao Pinto <Joao.Pinto@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon,  1 Apr 2024 21:22:39 +0200
+Message-Id: <20240401192239.33942-1-piotrwejman90@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20240311134144.7b1e1a34@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: fix rx queue priority
+Cc: Piotr Wejman <piotrwejman90@gmail.com>
+Subject: [Linux-stm32] [PATCH v4] net: stmmac: fix rx queue priority
 	assignment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -87,56 +87,154 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Mar 11, 2024 at 01:41:44PM -0700, Jakub Kicinski wrote:
-> On Sun,  3 Mar 2024 20:03:38 +0100 Piotr Wejman wrote:
-> > The driver should ensure that same priority is not mapped to multiple
-> > rx queues. Currently rx_queue_priority() function is adding
-> > priorities for a queue without clearing them from others.
-> 
-> Do you know what user-visible mis-behavior this may result in?
+The driver should ensure that same priority is not mapped to multiple
+rx queues. From DesignWare Cores Ethernet Quality-of-Service
+Databook, section 17.1.29 MAC_RxQ_Ctrl2:
+"[...]The software must ensure that the content of this field is
+mutually exclusive to the PSRQ fields for other queues, that is,
+the same priority is not mapped to multiple Rx queues[...]"
 
-When changing priority to rx queue mapping with tc qdisc taprio command (man tc-taprio),
-all packets with priority assigned to multiple queues are dropped.
+Previously rx_queue_priority() function was:
+- clearing all priorities from a queue
+- adding new priorities to that queue
+After this patch it will:
+- first assign new priorities to a queue
+- then remove those priorities from all other queues
+- keep other priorities previously assigned to that queue
 
-> 
-> > From DesignWare Cores Ethernet Quality-of-Service
-> > Databook, section 17.1.29 MAC_RxQ_Ctrl2:
-> > "[...]The software must ensure that the content of this field is
-> > mutually exclusive to the PSRQ fields for other queues, that is,
-> > the same priority is not mapped to multiple Rx queues[...]"
-> > 
-> > After this patch, rx_queue_priority() function will:
-> > - assign desired priorities to a queue
-> > - remove those priorities from all other queues
-> 
-> But also you seem to remove clearing all other prios from the queue:
-> 
-> -	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
-> 
-> and 
-> 
-> -	value &= ~XGMAC_PSRQ(queue);
-> 
-> is that intentional? Commit message should explain why.
+Fixes: a8f5102af2a7 ("net: stmmac: TX and RX queue priority configuration")
+Fixes: 2142754f8b9c ("net: stmmac: Add MAC related callbacks for XGMAC2")
+Signed-off-by: Piotr Wejman <piotrwejman90@gmail.com>
+---
+Changes in v2:
+  - Add some comments
+  - Apply same changes to dwxgmac2_rx_queue_prio()
+  - Revert "Rename prio argument to prio_mask"
+  - Link to v1: https://lore.kernel.org/netdev/20240219102405.32015-1-piotrwejman90@gmail.com/T/#u
 
-Yes, that keeps other priorities assigned to that queue and only clears
-the same priorities from all other queues.
+Changes in v3:
+  - Fix trailing whitespace
+  - Link to v2: https://lore.kernel.org/netdev/20240226093144.31965-1-piotrwejman90@gmail.com/
 
-> 
-> > The write sequence of CTRL2 and CTRL3 registers is done in the way to
-> > ensure this order.
-> 
-> Ensure which order? Looks like you're actually writing in the opposite
-> order than what I'd expect :S First the register you want to assign to,
-> and then the register you only clear from.
-> 
+Changes in v4:
+  - amend comment and commit message
+  - Link to v3: https://lore.kernel.org/netdev/20240303190339.52496-1-piotrwejman90@gmail.com/
 
-I meant the order you wrote: first assign new priorities to a queue,
-then clear them from others queues.
+ .../net/ethernet/stmicro/stmmac/dwmac4_core.c | 40 ++++++++++++++-----
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   | 38 ++++++++++++++----
+ 2 files changed, 62 insertions(+), 16 deletions(-)
 
-> When you repost please include a Fixes tag.
-> -- 
-> pw-bot: cr
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index 6b6d0de09619..eb2d0976d010 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -92,19 +92,41 @@ static void dwmac4_rx_queue_priority(struct mac_device_info *hw,
+ 				     u32 prio, u32 queue)
+ {
+ 	void __iomem *ioaddr = hw->pcsr;
+-	u32 base_register;
+-	u32 value;
++	u32 clear_mask = 0;
++	u32 ctrl2, ctrl3;
++	int i;
+ 
+-	base_register = (queue < 4) ? GMAC_RXQ_CTRL2 : GMAC_RXQ_CTRL3;
+-	if (queue >= 4)
+-		queue -= 4;
++	ctrl2 = readl(ioaddr + GMAC_RXQ_CTRL2);
++	ctrl3 = readl(ioaddr + GMAC_RXQ_CTRL3);
+ 
+-	value = readl(ioaddr + base_register);
++	/* The software must ensure that the same priority
++	 * is not mapped to multiple Rx queues
++	 */
++	for (i = 0; i < 4; i++)
++		clear_mask |= ((prio << GMAC_RXQCTRL_PSRQX_SHIFT(i)) &
++						GMAC_RXQCTRL_PSRQX_MASK(i));
++
++	ctrl2 &= ~clear_mask;
++	ctrl3 &= ~clear_mask;
++
++	/* First assign new priorities to a queue, then
++	 * clear them from others queues
++	 */
++	if (queue < 4) {
++		ctrl2 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
++						GMAC_RXQCTRL_PSRQX_MASK(queue);
+ 
+-	value &= ~GMAC_RXQCTRL_PSRQX_MASK(queue);
+-	value |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
++		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
++		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
++	} else {
++		queue -= 4;
++
++		ctrl3 |= (prio << GMAC_RXQCTRL_PSRQX_SHIFT(queue)) &
+ 						GMAC_RXQCTRL_PSRQX_MASK(queue);
+-	writel(value, ioaddr + base_register);
++
++		writel(ctrl3, ioaddr + GMAC_RXQ_CTRL3);
++		writel(ctrl2, ioaddr + GMAC_RXQ_CTRL2);
++	}
+ }
+ 
+ static void dwmac4_tx_queue_priority(struct mac_device_info *hw,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 1af2f89a0504..2bc05173884e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -105,17 +105,41 @@ static void dwxgmac2_rx_queue_prio(struct mac_device_info *hw, u32 prio,
+ 				   u32 queue)
+ {
+ 	void __iomem *ioaddr = hw->pcsr;
+-	u32 value, reg;
++	u32 clear_mask = 0;
++	u32 ctrl2, ctrl3;
++	int i;
+ 
+-	reg = (queue < 4) ? XGMAC_RXQ_CTRL2 : XGMAC_RXQ_CTRL3;
+-	if (queue >= 4)
++	ctrl2 = readl(ioaddr + XGMAC_RXQ_CTRL2);
++	ctrl3 = readl(ioaddr + XGMAC_RXQ_CTRL3);
++
++	/* The software must ensure that the same priority
++	 * is not mapped to multiple Rx queues
++	 */
++	for (i = 0; i < 4; i++)
++		clear_mask |= ((prio << XGMAC_PSRQ_SHIFT(i)) &
++						XGMAC_PSRQ(i));
++
++	ctrl2 &= ~clear_mask;
++	ctrl3 &= ~clear_mask;
++
++	/* First assign new priorities to a queue, then
++	 * clear them from others queues
++	 */
++	if (queue < 4) {
++		ctrl2 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
++						XGMAC_PSRQ(queue);
++
++		writel(ctrl2, ioaddr + XGMAC_RXQ_CTRL2);
++		writel(ctrl3, ioaddr + XGMAC_RXQ_CTRL3);
++	} else {
+ 		queue -= 4;
+ 
+-	value = readl(ioaddr + reg);
+-	value &= ~XGMAC_PSRQ(queue);
+-	value |= (prio << XGMAC_PSRQ_SHIFT(queue)) & XGMAC_PSRQ(queue);
++		ctrl3 |= (prio << XGMAC_PSRQ_SHIFT(queue)) &
++						XGMAC_PSRQ(queue);
+ 
+-	writel(value, ioaddr + reg);
++		writel(ctrl3, ioaddr + XGMAC_RXQ_CTRL3);
++		writel(ctrl2, ioaddr + XGMAC_RXQ_CTRL2);
++	}
+ }
+ 
+ static void dwxgmac2_tx_queue_prio(struct mac_device_info *hw, u32 prio,
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
