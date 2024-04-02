@@ -2,70 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B493894FB8
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 12:15:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C730489530D
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 14:35:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8382C6B45B;
-	Tue,  2 Apr 2024 10:15:25 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79B98C6B46B;
+	Tue,  2 Apr 2024 12:35:31 +0000 (UTC)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45F1FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D9BCC6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Apr 2024 10:15:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XcKQ6bjR8juooJeYFkyQvyoAYNtxrPcLEvnKdMTyFu8=; b=0beqMXVtPisgfQmEG2UBAidiVW
- 84+j9DAP25fOyTv08R6Sq+HES71u81tNt/O07QPZpGE3DDCsc5eMDgt27vYLJKa2vSrJUB6eGdSO5
- 2xJ8YAqid3EnAbCdEchOKgHRM6mT8Bh3x+TWFOFRLkGQzi1oOeTn/i76rfyD4ZQeL3NsvKLN8q0IY
- fmtkpkXyq/aOlrrjHPexBzYFjdJw+8l6k3zqUvOk8FwKv5fXbzYrdOiDxKW9wPtZl12nlrQHZ1Neq
- o2r6Pw+BMVTmSwN/IzPOC6ts0Evl8M5cISIt3onDGFUXRkQ7YQLJ8mm2VQ6+4UBLk83BeUAyaQGe6
- 90zRLFdQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35944)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rrbAc-0006J4-1Y;
- Tue, 02 Apr 2024 11:15:10 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rrbAb-0006t6-9b; Tue, 02 Apr 2024 11:15:09 +0100
-Date: Tue, 2 Apr 2024 11:15:09 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <ZgvarVCRBam9anOm@shell.armlinux.org.uk>
-References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
- <f514d9e1-61fa-4c55-aea1-d70c955bb96a@linaro.org>
- <ZgvIMRDfeQaeVxYt@shell.armlinux.org.uk>
- <324e9c02-c005-4e18-9872-8408695fb1fe@linaro.org>
- <ZgvWfhSEYIUaIn6h@shell.armlinux.org.uk>
- <65f0ed39-4c2f-4cea-b488-2a8ba6fdbeff@linaro.org>
- <ZgvaFNLTqgQrPeiO@shell.armlinux.org.uk>
+ Tue,  2 Apr 2024 12:35:29 +0000 (UTC)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-6151d79db7bso8119447b3.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 Apr 2024 05:35:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712061329; x=1712666129;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZhodAsfbqQph/6Oss9KdocUA4jNT8v1VGBe4Vmslbbg=;
+ b=FuLEXmtSHxxwpxXou8DRHvgZhJnlpWgAi22YI2EJVCkdhYax9nWC7/I/0GskkBnKxW
+ iYhJfQqKw2EQqojFbQdR0vrxMMbHHUV7MG3QHjbjm30EDdTG7UrCoQozIGh+HrY7Bl4D
+ F/p5MoQd7ICV25I3qcef9aLc+a22OdXdVHBPEh+V6WbQC7FxY1gW1wM6j9F849ht7xfo
+ mWe7pndw82OVxVDMApC7PMloacY6ymBYu9Ejb0a8GSXF4V579U2PvKv2WnxqLqWbvnJM
+ Z/gXLk2rW0+ao+7+LdN1nkteRq3+UOov1FJlkG2BSd8Z6Lzn79wUqJ2BplRZryO/cFEw
+ lCXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712061329; x=1712666129;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZhodAsfbqQph/6Oss9KdocUA4jNT8v1VGBe4Vmslbbg=;
+ b=H4PMXKN/S/I8OEnej4gZC6tcqc8LHWRBn7dl6ORC3V+Y1r1LUbfsaLDgFiF32+Tftl
+ N/ATX7F50dxmt8mH+bIu7hoDALgvSOTh+WmPuNZddNhHlgxg0yvC/dTe+Orh6XitxVwI
+ 4uIq4pEd8HdYO55JhXNGRA51XkEMil5L0jTfjCCEt3CP4bAHj0CLIcf3MjG8XKq1LN2R
+ 04u3afcCPaZyg8LqPC4lIqc4jP1Kb1OYfwXBUsoi8nPoiQ2j1v/9AbYaHZufCeYXo4AV
+ njsqPRjWsjm2f8+W/og09aZ5upb1THZWZ8uCIgHAOCc0QBw7y7DH0PcPllj6j997R4bq
+ g7NA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVfn9J/aG/nSC4eZUe/V87I78mkf0KSMaKod0Grjt8Gd4000B6c7BW7//qD0MvvG/JnEuQ3n3u2zPMrDofaYIlyqAirqXE7H56gNGfBHKVvnx+r56isNd95
+X-Gm-Message-State: AOJu0YxTJKp/4kgIhRc5iZtQyWEEM4i6KpQnQ6KaSycUSfupBSjAw3II
+ Cah88wrN4zVUDurWiFICziacLetumzjeV2KnTfOXygtLBXiJ/CtJ+N8fvKbg6IpuWjWaHsOFs88
+ V1WlvvGcmME69ri7vECS6YFnqAUxmotFRqhKtXQ==
+X-Google-Smtp-Source: AGHT+IG5hxT/EMYnHoU6u7S6MkbvLw5l9U/Ss0P2rks8Fb0m+zQTGqjqkjSlSz0lY1KsLwpjx1moujtIXAN3uBffPV8=
+X-Received: by 2002:a25:6d86:0:b0:dc2:2d75:5fde with SMTP id
+ i128-20020a256d86000000b00dc22d755fdemr10687728ybc.29.1712061328813; Tue, 02
+ Apr 2024 05:35:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ZgvaFNLTqgQrPeiO@shell.armlinux.org.uk>
-Cc: kvm@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-input@vger.kernel.org,
- Mike Leach <mike.leach@linaro.org>, Andi Shyti <andi.shyti@kernel.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, coresight@lists.linaro.org,
- Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Olivia Mackall <olivia@selenic.com>, Michal Simek <michal.simek@amd.com>,
+References: <20240322132619.6389-1-wsa+renesas@sang-engineering.com>
+ <20240322132619.6389-65-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20240322132619.6389-65-wsa+renesas@sang-engineering.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 2 Apr 2024 14:35:17 +0200
+Message-ID: <CACRpkdbtRoDtWN4mnyZY_yEfWQFPCQaVudjBki8N1sOXxXWupQ@mail.gmail.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Shyam Sundar S K <shyam-sundar.s-k@amd.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Ajay Gupta <ajayg@nvidia.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Dmitry Osipenko <digetx@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, linux-samsung-soc@vger.kernel.org,
+ Robert Foss <rfoss@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Michael Ellerman <mpe@ellerman.id.au>, Khalil Blaiech <kblaiech@nvidia.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Oleksij Rempel <o.rempel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Nicholas Piggin <npiggin@gmail.com>,
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Yicong Yang <yangyicong@hisilicon.com>, Laxman Dewangan <ldewangan@nvidia.com>,
+ linux-i2c@vger.kernel.org, Guenter Roeck <groeck@chromium.org>,
+ chrome-platform@lists.linux.dev, Fabio Estevam <festevam@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Nick Hawkins <nick.hawkins@hpe.com>, linux-amlogic@lists.infradead.org,
+ Mika Westerberg <mika.westerberg@linux.intel.com>,
  linux-arm-kernel@lists.infradead.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- James Clark <james.clark@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 00/19] amba: store owner from modules with
- amba_driver_register()
+ Neil Armstrong <neil.armstrong@linaro.org>, Hector Martin <marcan@marcan.st>,
+ linux-renesas-soc@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, linux-mediatek@lists.infradead.org,
+ imx@lists.linux.dev, Jean-Marie Verdun <verdun@hpe.com>,
+ linux-tegra@vger.kernel.org, Elie Morisse <syniurge@gmail.com>,
+ Krzysztof Adamski <krzysztof.adamski@nokia.com>,
+ Alyssa Rosenzweig <alyssa@rosenzweig.io>,
+ Peter Korsgaard <peter@korsgaard.com>, Benjamin Fair <benjaminfair@google.com>,
+ Michal Simek <michal.simek@amd.com>, Nancy Yuen <yuenn@google.com>,
+ "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Robert Richter <rric@kernel.org>, Asmaa Mnebhi <asmaa@nvidia.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Conghui Chen <conghui.chen@intel.com>,
+ Benson Leung <bleung@chromium.org>, Qii Wang <qii.wang@mediatek.com>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>, asahi@lists.linux.dev,
+ Shawn Guo <shawnguo@kernel.org>, Vignesh R <vigneshr@ti.com>,
+ Tony Lindgren <tony@atomide.com>, Tali Perry <tali.perry1@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Jan Dabros <jsd@semihalf.com>,
+ openbmc@lists.ozlabs.org, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Sven Peter <sven@svenpeter.dev>, virtualization@lists.linux.dev,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Loic Poulain <loic.poulain@linaro.org>, Patrick Venture <venture@google.com>,
+ Bjorn Andersson <andersson@kernel.org>, linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [Linux-stm32] [PATCH 64/64] i2c: reword i2c_algorithm in
+ drivers according to newest specification
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,44 +129,23 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 02, 2024 at 11:12:36AM +0100, Russell King (Oracle) wrote:
-> On Tue, Apr 02, 2024 at 12:04:07PM +0200, Krzysztof Kozlowski wrote:
-> > You brought no argument for keeping the kernel-version-header
-> > requirement nowadays, yet you call me of not working constructively. I
-> 
-> So add inability to read to your failings, because I _did_ state that
-> _I_ still _use_ it.
-> 
-> End of discussion, I'm not engaging with you in your current
-> confrontational mood where you clearly don't want to understand
-> anything (or intentionally misinterpreting) I'm writing - making it
-> pointless to continue.
-> 
-> I even think you're intentionally misinterpreting the responses
-> from the patch system.
-> 
-> Overall, I can only draw the conclusion that you are playing politics
-> and want the patch system gone, and you want me to use "standard"
-> tooling that will _increase_ the amount of effort I need to put in.
-> No, that's not going to happen.
-
-... and this is your final chance to change to a constructive discourse,
-if not, you are going to end up in my kill file. Whether you do is
-entirely up to the tone of your reply to this email.
-
-I am always more than willing to work with a submitter to diagnose
-what the problem is, but the tone of your emails make me want to
-ignore you.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBNYXIgMjIsIDIwMjQgYXQgMjoyN+KAr1BNIFdvbGZyYW0gU2FuZwo8d3NhK3JlbmVz
+YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgoKPiBNYXRjaCB0aGUgd29yZGluZyBpbiBp
+MmNfYWxnb3JpdGhtIGluIEkyQyBkcml2ZXJzIHdydC4gdGhlIG5ld2VzdCBJMkMKPiB2NywgU01C
+dXMgMy4yLCBJM0Mgc3BlY2lmaWNhdGlvbnMgYW5kIHJlcGxhY2UgIm1hc3Rlci9zbGF2ZSIgd2l0
+aCBtb3JlCj4gYXBwcm9wcmlhdGUgdGVybXMuIEZvciBzb21lIGRyaXZlcnMsIHRoaXMgbWVhbnMg
+bm8gbW9yZSBjb252ZXJzaW9ucyBhcmUKPiBuZWVkZWQuIEZvciB0aGUgb3RoZXJzIG1vcmUgd29y
+ayBuZWVkcyB0byBiZSBkb25lIGJ1dCB0aGlzIHdpbGwgYmUKPiBwZXJmb3JtZWQgaW5jcmVtZW50
+YWxseSBhbG9uZyB3aXRoIEFQSSBjaGFuZ2VzL2ltcHJvdmVtZW50cy4gQWxsIHRoZXNlCj4gY2hh
+bmdlcyBoZXJlIGFyZSBzaW1wbGUgc2VhcmNoL3JlcGxhY2UgcmVzdWx0cy4KPgo+IFNpZ25lZC1v
+ZmYtYnk6IFdvbGZyYW0gU2FuZyA8d3NhK3JlbmVzYXNAc2FuZy1lbmdpbmVlcmluZy5jb20+CgpB
+Y2tlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXMud2FsbGVpakBsaW5hcm8ub3JnPgoKWW91cnMs
+CkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4u
+c3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxt
+YW4vbGlzdGluZm8vbGludXgtc3RtMzIK
