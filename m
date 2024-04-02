@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282BB896F44
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 14:50:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B588896F46
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 14:50:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB25FC6B46B;
-	Wed,  3 Apr 2024 12:50:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E6907C6B47A;
+	Wed,  3 Apr 2024 12:50:30 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F785C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAF6FC6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 12:50:26 +0000 (UTC)
+ Wed,  3 Apr 2024 12:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712148627; x=1743684627;
+ t=1712148630; x=1743684630;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=kMKCTwKn8cIKYzkCfS7drdn8LHov9ndMuinvA3lbcgw=;
- b=DqGa2Er6X3qO3pn9KbSr+190MOxRfHyrDe+/hsWzJTudpbcJ5+Zo+QkF
- lx2G7n9Ew6+swkaiYP0Znq1ZP8fAJdz2wmqRffKOeAeG4OJyYwxWLwjvu
- 2x2V6rg9stypDtwS7qyfew3065nx7HH2Z+NDXpIwAbpxAkCtAZ0DH+yn3
- dfFZVYvD0LtwOHMzBYu28vXLG9fwam2jUKDAXH4x9U6gTe7wluS0OIwbE
- Xg9RyddNta9WD+pHnXa+zNt26HYEULvRYhuDsConOmAhmR0qWMsZfxtDI
- byDZPbrQD8yONh6LRdyDRZaD8OJrYKNMIsB5z3ipS5DGz8pq1W9KCosIG w==;
-X-CSE-ConnectionGUID: zBmK/kC8T5iBeMfrg+AjpA==
-X-CSE-MsgGUID: xCrfTCziQ++10HvWsVWsLg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7539320"
+ bh=D/FfpbAsiof89LgUZ4/UlHEJN8aXS0QySDUDCd5cFgU=;
+ b=Du+NRsOH5ql8p7ayHhZ6wyorMYsnwPhif00iTy9ogDuKOd8rp84dg5jx
+ 9Rkvv542N/hQ4DBxlxwMA2WXKMZeW8o4megi0JpyjP06i5GBjfS2nePkv
+ XtIhPAsTbeakAr9T4uSqDhdCl/elzPtBY1C2MXOAdR4vvH4kDqog/IfQb
+ w3Tq+Tda8KvLRDRRiLx8JR/xr+5liw8Nsy8sk7aZaKXbrXwGO7mZ9DhV5
+ cmM8LbKNsz90zFX6S6z+PB81qM1jzFqhwzqmemhC0yN/JMLGD0l2Zat+2
+ fXlN5KlJEYVHhEySvbH/keYfB00yY5Usk97N9gFhMJxNmRhYCqA2XkoYk Q==;
+X-CSE-ConnectionGUID: mJppNFSaQ/KAkX5DatZvWg==
+X-CSE-MsgGUID: w8JRCVdfQCeN6g1JwlbO2Q==
+X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7539344"
 X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
-   d="scan'208";a="7539320"
+   d="scan'208";a="7539344"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:50:26 -0700
-X-CSE-ConnectionGUID: hVk+VsPMTNGqw+pBvOSqyw==
-X-CSE-MsgGUID: RwciptEsRAWsX8VxQF1m0Q==
+ 03 Apr 2024 05:50:28 -0700
+X-CSE-ConnectionGUID: /D+wW3RkS/a6+yA0ZGswww==
+X-CSE-MsgGUID: J/jGeT/nQbCMDRSoTLK5iQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18343230"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="18343238"
 Received: from makulkar-mobl1.amr.corp.intel.com (HELO [10.212.52.18])
  ([10.212.52.18])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2024 05:50:24 -0700
-Message-ID: <27d79c07-4ff9-48f4-9785-2643a8c5f4c5@linux.intel.com>
-Date: Tue, 2 Apr 2024 09:06:16 -0500
+ 03 Apr 2024 05:50:26 -0700
+Message-ID: <2cb2f96f-836c-4816-86f8-2262c2dd1ce3@linux.intel.com>
+Date: Tue, 2 Apr 2024 09:09:23 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
- <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
- <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
- <87ttkk9se3.wl-kuninori.morimoto.gx@renesas.com>
+ <87msqdudn7.wl-kuninori.morimoto.gx@renesas.com>
+ <1a42ebbb-1e1f-4ecf-a1ec-7af292f7ff96@linux.intel.com>
+ <871q7o8y0d.wl-kuninori.morimoto.gx@renesas.com>
 Content-Language: en-US
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87ttkk9se3.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871q7o8y0d.wl-kuninori.morimoto.gx@renesas.com>
 Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
  alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
@@ -78,8 +77,8 @@ Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
  Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
- soc_get_playback_capture()
+Subject: Re: [Linux-stm32] [PATCH v2 09/16] ASoC: soc-core: Replace
+ dpcm_playback/capture to playback/capture_only
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,71 +97,49 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
 
-On 4/2/24 01:43, Kuninori Morimoto wrote:
+On 4/1/24 18:27, Kuninori Morimoto wrote:
 > 
-> Hi Pierre-Louis, again
+> Hi Pierre-Louis
 > 
->>> The problem I have is with the following code (not shown with diff)
->>>
->>> 	if (dai_link->playback_only)
->>> 		has_capture = 0;
->>>
->>> 	if (dai_link->capture_only)
->>> 		has_playback = 0;
->>>
->>> So with this grand unification, all the loops above may make a decision
->>> that could be overridden by these two branches.
->>>
->>> This was not the case before for DPCM, all the 'has_capture' and
->>> 'has_playback' variables were used as a verification of the dai_link
->>> settings with an error thrown e.g. if the dpcm_playback was set without
->>> any DAIs supporting playback.
+> Thank you for the feedback
 > 
-> Hmm... above 2 branches are used for DPCM too before.
+>>>  			/* convert non BE into BE */
+>>> -			if (!dai_link->no_pcm) {
+>>> -				dai_link->no_pcm = 1;
+>>> -
+>>> -				if (dai_link->dpcm_playback)
+>>> -					dev_warn(card->dev,
+>>> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_playback=1\n",
+>>> -						 dai_link->name);
+>>> -				if (dai_link->dpcm_capture)
+>>> -					dev_warn(card->dev,
+>>> -						 "invalid configuration, dailink %s has flags no_pcm=0 and dpcm_capture=1\n",
+>>> -						 dai_link->name);
+>>> -
+>>> -				/* convert normal link into DPCM one */
+>>> -				if (!(dai_link->dpcm_playback ||
+>>> -				      dai_link->dpcm_capture)) {
+>>> -					dai_link->dpcm_playback = !dai_link->capture_only;
+>>> -					dai_link->dpcm_capture = !dai_link->playback_only;
+>>> -				}
+>>> -			}
+>>> +			dai_link->no_pcm = 1;
+> (snip)
+>> It's not clear to me how this is related to the
+>> dpcm_playback/dpcm_capture removal.
+> 
+> In my understanding, if "dai_link->no_pcm" was 0, it sets no_pcm and
+> convert setting to BE. If no_pcm was 1, it is BE anyway. So no_pcm will
+> be 1 anyway after this code.
+> And then, dpcm_playback/capture is no longer needed.
+> So it just set no_pcm = 1 here. But am I wrong ??
 
-Not really, playback_only and capture_only were never set so those two
-branches were always false.
-> 
->>> Now the dailink settings are used unconditionally. There is one warning
->>> added if there are no settings for a dailink, but we've lost the
->>> detection of a mismatch between dailink and the set of cpu/codec dais
->>> that are part of this dailink.
-> 
-> Does this mean, for example you want to have warning/error by dpcm_playback
-> flag if you are thinking it can use playback , but FE or BE playback was
-> not valid ?
+The problem is that the patchset is supposed to be only about removal of
+flags to align on one set, but then we also have "simplifications" or
+removal of checks without explanations.
 
-Again we had a verification that if the dpcm_playback was set at the
-dailink level, it was actually supported by the dais.
-
-We seem to have lost this verification. We only have an error when there
-are no settings at all.
-
-> 
-> If so, yes indeed this patch removes such flags.
-> But I wonder why you want to get it in case of DPCM only ?
-
-It's helpful to detect invalid configurations. And I see to reason why
-the removal of flags should change the functionality.
-
-> I can understand if all case want to have it.
-> 
-> Then, I think we can check _only for this purpose too ?
-> 
-> (A)	if dai_link has playback_only        -> it should have has_playback
-> (B)	if dai_link has capture_only         -> it should have has_capture
-> (C)	if dai_link don't have both xxx_only -> it should have both has_xxx
-> 
-> I think we already have (A)(B) check. We want to add (C) check ?
-> 
-> If my understanding was correct, the things dpcm_xxx flag can do is also
-> can do by xxx_only flag. But dpcm_xxx flag is used only DPCM, but xxx_only
-> flag is used on all cases.
-
-I am only concerned about mismatches between dailinks and dai
-capabilities. The logic above is fine, but it's in the scope of the
-dailink only.
-
+It would be far less invasive if we only replaced flags and had
+iso-functionality. Then we can discuss the merits of simplifications.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
