@@ -2,59 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F050A895328
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 14:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C0838953E8
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 14:54:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B76DEC6B46B;
-	Tue,  2 Apr 2024 12:36:39 +0000 (UTC)
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A880C6B47E;
+	Tue,  2 Apr 2024 12:54:32 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04E68C6B46B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C8F0C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Apr 2024 12:36:38 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8B431FF80E;
- Tue,  2 Apr 2024 12:36:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1712061397;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MxX4gGO1cf6dYcz+BOp+BvU3IyOz8Kkdye9gsRIK7QY=;
- b=n+ex7qwzQ7ziFrjCxgPfwRIY61xb6tVeXZaMeutMjWVpXbMCUHDbKEsyI0mwZr1r/9juTB
- LlSx6DLoDT/ElN66FIyi09ilOty7GXqERMlgm2rgPRUfM2mztzJqDlROd9RH2GXiUQXXvB
- vg0qx0tP26EO3RVhZHA+gSYMCZKN//Kz4DSkWXdjUOKaCcTyNab7hEulH5SOyJADz2hfF1
- 9xmfTUaoT3TbloR0Cq3bzbyQoJleQsQ3f2iHWnNjPj3F0TyQU+2U9jz/XY8yc6aTjhb3+r
- PSaWH+oYAEUQEzdQtbrGRP168TVlh48wwtOry6nL0joRrzaGOtrra1bu3E/18g==
-From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 02 Apr 2024 14:37:02 +0200
+ Tue,  2 Apr 2024 12:54:30 +0000 (UTC)
+Received: from pps.filterd (m0288072.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 432B9Gre019355; Tue, 2 Apr 2024 14:54:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding:content-type; s=selector1; bh=zaPY/Fi
+ i7n1522i/lEuTYz0M022TA0flX4c6e/PmMDY=; b=VQopndSg9oLaZb/OAqSajRM
+ iaQYlIZ9YwfwMCHZb+anFPyjlSKHsPFgrTsWsggWm3hUNpyxKEAjc3K3nCByAYqI
+ Pz5JPtXEtGgIm/vlIlLzb7yo45eXXyBew4kswO9e9KG31XhQ1hAmA44xhD6TvDEG
+ h1xreepUvy0/wdBGupmMfBFt6H77DHgFPXdi0LxueDAdHSkkGfjn96RkgeI4UVze
+ Wcli73jinh7Ng1LUJGpty8aJzeuSNdkeI7+5HJvevaCpqg1wCIpWQBtm/O+7BUZw
+ vYPn70moebjo9N2SQBtq9Q2tuUfiOuRaF0IhPilY+vFgKNjiHnlgfNMXLZanTXw=
+ =
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x691m4hkk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 02 Apr 2024 14:54:11 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id DCA6740044;
+ Tue,  2 Apr 2024 14:54:06 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 609A621B531;
+ Tue,  2 Apr 2024 14:53:15 +0200 (CEST)
+Received: from localhost (10.201.21.240) by SHFDAG1NODE1.st.com (10.75.129.69)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Tue, 2 Apr
+ 2024 14:53:15 +0200
+From: <gabriel.fernandez@foss.st.com>
+To: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski+dt@linaro.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+Date: Tue, 2 Apr 2024 14:53:08 +0200
+Message-ID: <20240402125312.277052-1-gabriel.fernandez@foss.st.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Message-Id: <20240402-rzn1-gmac1-v1-3-5be2b2894d8c@bootlin.com>
-References: <20240402-rzn1-gmac1-v1-0-5be2b2894d8c@bootlin.com>
-In-Reply-To: <20240402-rzn1-gmac1-v1-0-5be2b2894d8c@bootlin.com>
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- =?utf-8?q?Cl=C3=A9ment_L=C3=A9ger?= <clement.leger@bootlin.com>
-X-Mailer: b4 0.13.0
-X-GND-Sasl: romain.gantois@bootlin.com
-Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/3] ARM: dts: r9a06g032: describe
-	GMAC1
+X-Originating-IP: [10.201.21.240]
+X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-02_06,2024-04-01_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [RESEND PATCH v9 0/4] Introduce STM32MP257 clock
+	driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,41 +74,90 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-RnJvbTogQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgoKVGhlIHI5
-YTA2ZzAzMiBTb0Mgb2YgdGhlIFJaL04xIGZhbWlseSBmZWF0dXJlcyB0d28gR01BQyBkZXZpY2Vz
-IG5hbWVkCkdNQUMxLzIsIHRoYXQgYXJlIGJhc2VkIG9uIFN5bm9wc3lzIGNvcmVzLiBHTUFDMSBp
-cyBjb25uZWN0ZWQgdG8gYQpSR01JSS9STUlJIGNvbnZlcnRlciB0aGF0IGlzIGFscmVhZHkgZGVz
-Y3JpYmVkIGluIHRoaXMgZGV2aWNlIHRyZWUuCgpTaWduZWQtb2ZmLWJ5OiAiQ2zDqW1lbnQgTMOp
-Z2VyIiA8Y2xlbWVudC5sZWdlckBib290bGluLmNvbT4KW3JnYW50b2lzOiBjb21taXQgbG9nXQpT
-aWduZWQtb2ZmLWJ5OiBSb21haW4gR2FudG9pcyA8cm9tYWluLmdhbnRvaXNAYm9vdGxpbi5jb20+
-Ci0tLQogYXJjaC9hcm0vYm9vdC9kdHMvcmVuZXNhcy9yOWEwNmcwMzIuZHRzaSB8IDE5ICsrKysr
-KysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspCgpkaWZmIC0t
-Z2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvcmVuZXNhcy9yOWEwNmcwMzIuZHRzaSBiL2FyY2gvYXJt
-L2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMyLmR0c2kKaW5kZXggZmE2M2UxYWZjNGVmLi5jYWI3
-YTY0MWY5NWIgMTAwNjQ0Ci0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDZnMDMy
-LmR0c2kKKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvcmVuZXNhcy9yOWEwNmcwMzIuZHRzaQpAQCAt
-MzE2LDYgKzMxNiwyNSBAQCBkbWExOiBkbWEtY29udHJvbGxlckA0MDEwNTAwMCB7CiAJCQlkYXRh
-LXdpZHRoID0gPDg+OwogCQl9OwogCisJCWdtYWMxOiBldGhlcm5ldEA0NDAwMDAwMCB7CisJCQlj
-b21wYXRpYmxlID0gInJlbmVzYXMscjlhMDZnMDMyLWdtYWMiLCAicmVuZXNhcyxyem4xLWdtYWMi
-LCAic25wcyxkd21hYyI7CisJCQlyZWcgPSA8MHg0NDAwMDAwMCAweDIwMDA+OworCQkJaW50ZXJy
-dXB0LXBhcmVudCA9IDwmZ2ljPjsKKwkJCWludGVycnVwdHMgPSA8R0lDX1NQSSAzNCBJUlFfVFlQ
-RV9MRVZFTF9ISUdIPiwKKwkJCQkgICAgIDxHSUNfU1BJIDM2IElSUV9UWVBFX0xFVkVMX0hJR0g+
-LAorCQkJCSAgICAgPEdJQ19TUEkgMzUgSVJRX1RZUEVfTEVWRUxfSElHSD47CisJCQlpbnRlcnJ1
-cHQtbmFtZXMgPSAibWFjaXJxIiwgImV0aF93YWtlX2lycSIsICJldGhfbHBpIjsKKwkJCWNsb2Nr
-cyA9IDwmc3lzY3RybCBSOUEwNkcwMzJfSENMS19HTUFDMD47CisJCQljbG9jay1uYW1lcyA9ICJz
-dG1tYWNldGgiOworCQkJcG93ZXItZG9tYWlucyA9IDwmc3lzY3RybD47CisJCQlzbnBzLG11bHRp
-Y2FzdC1maWx0ZXItYmlucyA9IDwyNTY+OworCQkJc25wcyxwZXJmZWN0LWZpbHRlci1lbnRyaWVz
-ID0gPDEyOD47CisJCQl0eC1maWZvLWRlcHRoID0gPDIwNDg+OworCQkJcngtZmlmby1kZXB0aCA9
-IDw0MDk2PjsKKwkJCXBjcy1oYW5kbGUgPSA8Jm1paV9jb252MT47CisJCQlzdGF0dXMgPSAiZGlz
-YWJsZWQiOworCQl9OworCiAJCWdtYWMyOiBldGhlcm5ldEA0NDAwMjAwMCB7CiAJCQljb21wYXRp
-YmxlID0gInJlbmVzYXMscjlhMDZnMDMyLWdtYWMiLCAicmVuZXNhcyxyem4xLWdtYWMiLCAic25w
-cyxkd21hYyI7CiAJCQlyZWcgPSA8MHg0NDAwMjAwMCAweDIwMDA+OwoKLS0gCjIuNDQuMAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+
+v9: base on next-20240207
+  - update dt binding documentation with v8 modidification on RCC driver
+    (use .index of clk_parent_data struct to define a parent)
+  - rebase patch "arm64: dts: st: add rcc support for STM32MP25"
+     with next-20240207 tag
+
+v8:
+  - use .index of clk_parent_data struct to define a parent
+  - remove unnecessary dependency check with SCMI clock driver
+  - convert to platform device APIs
+  - convert to devm_of_clk_add_hw_provider()
+  - convert single value enum to a define
+
+v7: base on next-20231219
+  - These patches below are applied to clk-next:
+      clk: stm32mp1: move stm32mp1 clock driver into stm32 directory
+      clk: stm32mp1: use stm32mp13 reset driver
+      dt-bindings: stm32: add clocks and reset binding for stm32mp25
+  - remove unnecessary includes
+  - migrate clock parents to struct clk_parent_data and remove
+    CLK_STM32_XXX() macros  to have a more readble code
+  - use platform device APIs (devm_of_iomap() instead of_iomap())
+  - move content of stm32mp25_rcc_init() to stm32mp25_rcc_clocks_probe()
+  - simply get_clock_deps()
+  - add const to stm32mp25_data struct
+  - remove ck_icn_p_serc clock (will be integrate later with security
+    management)
+
+v6:
+  - remove useless defines in drivers/clk/stm32/stm32mp25_rcc.h
+
+v5:
+  - Fix sparse warnings: was not declared. Should it be static?
+    drivers/clk/stm32/clk-stm32mp13.c:1516:29: symbol 'stm32mp13_reset_data'
+    drivers/clk/stm32/clk-stm32mp1.c:2148:29: symbol 'stm32mp1_reset_data'
+    drivers/clk/stm32/clk-stm32mp25.c:1003:5: symbol 'stm32mp25_cpt_gate'
+    drivers/clk/stm32/clk-stm32mp25.c:1005:29: symbol 'stm32mp25_clock_data'
+    drivers/clk/stm32/clk-stm32mp25.c:1011:29: symbol 'stm32mp25_reset_data'
+
+v4:
+  - use GPL-2.0-only OR BSD-2-Clause for clock and reset binding files
+  - use quotes ' for #clock-cells and #reset-cells in YAML documentation
+  - reset binding start now to 0 instead 1
+  - improve management of reset lines that are not managed
+
+v3:
+  - from Rob Herring change clock item description in YAML documentation
+v2:
+  - rework reset binding (use ID witch start from 0)
+  - rework reset driver to manage STM32MP13 / STM32MP15 / STM32MP25
+  - rework YAML documentation
+
+Gabriel Fernandez (4):
+  clk: stm32mp13: use platform device APIs
+  dt-bindings: stm32: update DT bingding for stm32mp25
+  clk: stm32: introduce clocks for STM32MP257 platform
+  arm64: dts: st: add rcc support for STM32MP25
+
+ .../bindings/clock/st,stm32mp25-rcc.yaml      |  171 +-
+ arch/arm64/boot/dts/st/stm32mp251.dtsi        |  144 +-
+ arch/arm64/boot/dts/st/stm32mp255.dtsi        |    4 +-
+ drivers/clk/stm32/Kconfig                     |    7 +
+ drivers/clk/stm32/Makefile                    |    1 +
+ drivers/clk/stm32/clk-stm32-core.c            |   11 +-
+ drivers/clk/stm32/clk-stm32mp13.c             |   72 +-
+ drivers/clk/stm32/clk-stm32mp25.c             | 1876 +++++++++++++++++
+ drivers/clk/stm32/reset-stm32.c               |   59 +-
+ drivers/clk/stm32/reset-stm32.h               |    7 +
+ drivers/clk/stm32/stm32mp25_rcc.h             |  712 +++++++
+ 11 files changed, 2922 insertions(+), 142 deletions(-)
+ create mode 100644 drivers/clk/stm32/clk-stm32mp25.c
+ create mode 100644 drivers/clk/stm32/stm32mp25_rcc.h
+
+-- 
+2.25.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
