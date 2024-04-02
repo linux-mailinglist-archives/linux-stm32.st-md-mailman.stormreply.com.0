@@ -2,113 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F9589621E
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 03:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFDC5896455
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 08:04:10 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B78F7C6B45B;
-	Wed,  3 Apr 2024 01:41:14 +0000 (UTC)
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on2121.outbound.protection.partner.outlook.cn [139.219.17.121])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7956EC6B45B;
+	Wed,  3 Apr 2024 06:04:10 +0000 (UTC)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE9ACC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3135BC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 01:41:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jnmf0bHlFz34Yg17jE9+A5YG79w7irCI+xRR5UhThhWJQKmC9QzwbZTvn92fSRgWNVrkRgTlK2cfGmea7kHgGZlgj82MJehhRWQCq0WG1zxHsl2VNqTYJRKOrK3sH8HMUQAdWXQRjj+4c2qKTLHOzMSBAsM5UMBKlB9+wOFrK4UQFRTFLg75DgaPjg/3zXob85OTNXRn3ZlsBiCzzkTgKfS0TUzmgtAzpElK098ed7AF6W8jJWj7mT8xAHBe6p3ZV/EC8P0aLY5KVjx6H5gcFJ8zRLTwagF8MJvMOjnaFG9f1dAFKGBvdBW9OSiEfqG/7yBGQ3E2bX5QaSDq15PcnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7vnNo9bd/zTfR1nAwLAprCJ80qWZ48/Sm1QXUJGRfis=;
- b=X7fs8XYdvKvmXVjqV42uAIfWpIuYw0ZPgDcyG41lKtYraPX0rcC2AGmgOtYRLaQUrxyVma/cmzyBX7RBoWnMC45Lv3YzW9mRH8KLmcXwgovvNyR9ObtOYlN95XddzUMNVo1UM6uyfDeVPW0k8kI935uaLbbQqnNbNCz/UdvGNGQClMgnlbm2HfBxcNBr9IAwT8Y32rzaM8fKh4YZlT68s91Y8+XXKlFJNF/q7ggeJ9SpFM6Vlk025rEDbWkcslYLMmX8x1NU9f/uGoN+7b2TUkbIrFQxslaIrvT3h+2H7FKpgQXfVA9RRI5R5yDAOPUXmSmV8Jp81L5+0/vnVcHzFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0847.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:24::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.43; Wed, 3 Apr
- 2024 01:41:09 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::a137:b8e5:8a0e:ca9f]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::a137:b8e5:8a0e:ca9f%4])
- with mapi id 15.20.7409.042; Wed, 3 Apr 2024 01:41:09 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Thread-Topic: [PATCH v1 2/2] net: stmmac: mmc_core: Add GMAC mmc tx/rx missing
- statistics
-Thread-Index: AQHag96avQqP5Wam70CUDUnMD23smbFVw26AgAAE1KA=
-Date: Wed, 3 Apr 2024 01:41:09 +0000
-Message-ID: <SHXPR01MB086358DEAFDD853ED4103D57E63DA@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
-References: <20240401024456.41433-1-minda.chen@starfivetech.com>
- <20240401024456.41433-2-minda.chen@starfivetech.com>
- <20240402182351.031f5b59@kernel.org>
-In-Reply-To: <20240402182351.031f5b59@kernel.org>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0847:EE_
-x-ms-office365-filtering-correlation-id: 24d8e265-8c25-4e1d-203e-08dc537f2335
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nbuOHKwgIVS4dIddUiZYgBscc9Wllzu09i+TN+76Tf/X9HpBrxhCdfDZPAKvFldVuXmKrKATwoC8oLFZkxz/2m5hLkef7vaxmol9ZREN53oZ2OUq67PUjjQEReZEB5PXWXHpfetZMRpF50TQXbfHCbzhaa31fGAdpowRx18LjB0QkV4Mp4SUmbn6rLTzZJ0+49dXLluo0mR7o2Ql6oZtI7lV9+mmjdiHGbZDnAuG0ptiP3jMoC1K2UDKLgYy4whak4g34SfJvkBfFz58Zd8xz9F8vQJUJYWJz/ZtalR6iZaD+sVd+BExvR8gbVdgBc6/lZQzUnZ7lUryfGDiNpT6hr/1iNIeT167JLOZeS0i8QedIooDaoMJsO1YMc9WzXx6qYPu4BJw55zjFIaTZdTLflTOmJV6aKCgZ4SysPoXkDM48nBpiMcLGqGcKx/m2wWLBrWRysq7HZ7rEt2pP8lJjgzUCQzSM53DNZsnRv6Zk9wj/yZZ5fDICQ29Kzu+jpDYuqAKtBdBS4CbG68CjjD+rOE6cmvAZ6zWCoR8lFVOSTCix1904kB0bXqWz+3QcHidFk3w5SXS6R8OUXmf+LmJX6mMCpYLxskl8yxl77op8lmOfZ9rVTVpV1px2k3gGpYG
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230031)(41320700004)(366007)(1800799015)(7416005)(38070700009); DIR:OUT;
- SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?gg4UoGmpQbAzyybkDbyXxRcmbi9wBRTRNu35KUSeLfvwtzjdlLBQB3K/U+Nq?=
- =?us-ascii?Q?8Kf+sJ4RfKPK0qN9OCTiQ7eYxbJTMT/k11Bilf6U9b0JzcgAHMHapawyFuSv?=
- =?us-ascii?Q?eD5puz7GoOa3ItaW+yOT2inSsfeRuVCnIGUOSk6NLarVSI79/D4TnLWuV6sz?=
- =?us-ascii?Q?QWYc/ihuZpNxdwIDd7dnigQukIBjLUZ7zQuvalT016KDCZxI3SuY0YjdDVZZ?=
- =?us-ascii?Q?4Nwj5mmNvofncD+14U0BXJhEg5/DwQ06+Y4WAiW2A5YUfFiqf1u4FLD36ltp?=
- =?us-ascii?Q?rr/Cz7IaRcZgttgd0y6QFqZL/bpXeVG3mGYwcirtKnjA3usUqkEU8/zbPq98?=
- =?us-ascii?Q?W/iZfhY4rqqr6pcVr2pJyQV2HBHDPiDRql2fjUt03IdgLM36lyMNM0oALTUN?=
- =?us-ascii?Q?kIuX1i8vODPxfY+A/Zczpns0CEHu4JHitZ91NdRzjt+5hF33c6CUgcovjlnD?=
- =?us-ascii?Q?q4kSR6J9qpPqITSodVg7tPjAwNSgeukisRTJWL+yzZ76HrjYjghAeQGmFwaF?=
- =?us-ascii?Q?nJKYx3MjGP7Cp7FLNMFW1/FIyKM+ElBXqbI9SJSeKm3PwFtzxQEZYSFX5+cG?=
- =?us-ascii?Q?PiCE/B9RwdxZRB7Dc4VvB6pJLsrpEhYAV+tnC6KAN1Bk/zjBx7jRour+Qi7s?=
- =?us-ascii?Q?E5AK4YXCY2TJiSpjEY1L5DehWWu7Al7nCyBaEc1iCg9IbcRuh4Z+dQuEE7BN?=
- =?us-ascii?Q?HpFQNcCUMr+jlJt5spAJokEc1lFsAZ5hKO3Z8ysmtkF5OEI0lbKtbwmkzNDx?=
- =?us-ascii?Q?f1T+K1D/ToFaEI1QX69iSrL49BWvC2DmE2rcj+rJ0xvygDE6QoF5AyGBYLNo?=
- =?us-ascii?Q?4j59ddhLM5tICTUDI6XolR0JLdFh2YuCNVk3dYJ+qmGR+/wkW7W9brm4/vdb?=
- =?us-ascii?Q?Bjt/+K9d9Y9+aUz6vemR7oQvc66ijdaavt4k8dmK5mFc7E2vXVooHc/jvb33?=
- =?us-ascii?Q?9Uvmq5uIUMwzdmWWnyv71FUgNYkgi4O+Yjm+5xe6rCexhOpZCi88sJPWvCJO?=
- =?us-ascii?Q?G03XtsWH8iuHOUTtcF4E+8KbBs2kT/tp+zaCh6ivyfk+D7cBKHQlQiILkEAe?=
- =?us-ascii?Q?09uwRBQAItKBbLRL/IVFFEZTTV/XmO1KRL7E9jOG8aXn/Opvc2COzBJTomkd?=
- =?us-ascii?Q?QHVQIxWaYo5obk5gzlQN9DLHkJtiaYLeDyrD3l+m5JzW1I9BUUFj0qI4Qb7T?=
- =?us-ascii?Q?QAqYij3ZQlBYYmqsV53myaJa12RUMYaBRfn2ugF6fB3kdSEXH6EE6hX79E42?=
- =?us-ascii?Q?nbqi3PsR2lWzuNAZFl/3Kdux1WntHEcbxa5KDHvx0GTU/yIKPLVixg34NMkG?=
- =?us-ascii?Q?YSOoQg96q5m/rjM5J5Du5zB1vRQxqcO/BpozIAma5h2wrleNdi/cv1Wyv7lO?=
- =?us-ascii?Q?85G+UdS5DHsHs3BL9BOVOaqQ/dbTgmkS/lnb4oPgtzDrf6lSB9/LZvGTrBkf?=
- =?us-ascii?Q?BvevyTSx5zzdfwnW7bFuKoUOuEN6B3Raf8qM2QaaeoNTVVUi9omcJRHlH6RM?=
- =?us-ascii?Q?c4TMtHyyiukj2jFdSxMpq5rUEGjYolza3GrBP2l1cX3ZHl5AJqlN3rk3O8+G?=
- =?us-ascii?Q?F123x2Ke9ZlIva8Nf0Agl82THGXfw5CDO1OaONgW?=
+ Tue,  2 Apr 2024 12:11:39 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-29fa10274e5so3200245a91.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 02 Apr 2024 05:11:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712059897; x=1712664697;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=0esGpBpAiPqrK5lCpSaD2HyrDX7pE11OqqX7Q75j3cs=;
+ b=mocqYKarBGUA4ZV8BwfjqjCq7wk9n5NclTJNyez0Du9pGpcIwMhSE/HeNtc8tFSNuv
+ Ng6cUx6uLevDOgQm10RbUe0/OmTnQJoGMmC8PGDUAE8wBu+ieSrz+GADaSbPWQhR7BhE
+ NUE3ouv/Vt5jEeO//2uuzwe/o+z+n+KgVDzrYDbCUKqAUu9uulKeYooU22HEMES1nM4y
+ 9xIkalFf5l9dspCwyyAOQHnnk9EXtVXacXtdJP19IT2eZh/nSWMZZcIM54v81btec0QB
+ DsxSgA6CPXv36L4iO04bIIm10m6bEDf/UubLjFSCgSd8Z4Y+q30S/yn/nOyPxIQjgg0U
+ Ah0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712059897; x=1712664697;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0esGpBpAiPqrK5lCpSaD2HyrDX7pE11OqqX7Q75j3cs=;
+ b=dIB8Z/xAzjarZZpdrho8K+dYaV9M1k2Vi4gMfWjCEksSrqlRVbkyeXBpoLeNdhMUSw
+ aTizJAYQfn1sQ6lYi+YVz9d28YIzA5Lw9+gTe3NG4CJfG8S+CfftO9LNyW4G/3ElK1RB
+ /t150nKAAqopT4xZYEHwX9ZyzJ94kohvADR8BAzikEiZ50wUAzQVsQoRI1kQ/SD+JwMz
+ HpiEFDEmvvxp8ukyA8t7FkUCJi5wIcHHeJDlIosCyvFdsjytxGKh67z/XptaeFOl0k6R
+ aUUegBj/WMxG0e1dyNFPx5xOZYuOqQQJJPXS8KCwPnXiOfnO2PZFeqoc0+qGwXWDTg2u
+ eyeQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJcqAlcXE805ltubAr28JLAFvrsPFiArD0He8PR/uCA+om/lW5zmrRyPNnizoXZAZ9jdG3rXarq8ptPSg5gjWfMShhS0IFFiBF2V41Km9SWC4WmpSTdon0
+X-Gm-Message-State: AOJu0YxCk88LqlQZRMOCl7YJUT9oHHyoE8bBPDU1L0bcOEfA3e4zH0s4
+ Up5u26rjmXhF3Jkzm9uUi6K/BC5ykVWi3gP2WS6veGCuRIqnZ0KvcJEYsC5F4vSVS6TeUC4eT0K
+ c+XrrKBT3lGO3+/eSMNCuvpjt0Vg=
+X-Google-Smtp-Source: AGHT+IFF0DDEIJ7ByRhFLN7gq8pW25dNIQFNfIVp+X2rOY0c5xQpRVSmCHK2TfBGRjtGzons7QvHRSHObqipi80Mi8U=
+X-Received: by 2002:a17:90a:aa03:b0:299:3035:aede with SMTP id
+ k3-20020a17090aaa0300b002993035aedemr8961192pjq.44.1712059897470; Tue, 02 Apr
+ 2024 05:11:37 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24d8e265-8c25-4e1d-203e-08dc537f2335
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2024 01:41:09.5990 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vCO3hJOhLkbOkZIzPloOI3v3h63zvhPy1CMrIXTddTiBfmsjxXhowZNlDSHBWF0steGtm9RwQAkXZkoCF6NNUL/hDs/tz6iE2k1QkDmXMkI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0847
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH v1 2/2] net: stmmac: mmc_core: Add GMAC
- mmc tx/rx missing statistics
+References: <20240327110142.159851-1-cathy.cai@unisoc.com>
+ <d1da7fdb-10f6-7f69-4820-520469c0193c@bootlin.com>
+In-Reply-To: <d1da7fdb-10f6-7f69-4820-520469c0193c@bootlin.com>
+From: cathy cai <cathycai0714@gmail.com>
+Date: Tue, 2 Apr 2024 20:11:25 +0800
+Message-ID: <CAG8gwPWCjL84futbvfM=3iAhJ6VtK7YGYkM=9yKszenSAxQ6kg@mail.gmail.com>
+To: Romain Gantois <romain.gantois@bootlin.com>
+X-Mailman-Approved-At: Wed, 03 Apr 2024 06:04:08 +0000
+Cc: joabreu@synopsys.com, cixi.geng1@unisoc.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, zhiguo.niu@unisoc.com, xuewen.yan94@gmail.com,
+ mcoquelin.stm32@gmail.com, Cathy Cai <cathy.cai@unisoc.com>, kuba@kernel.org,
+ wade.shu@unisoc.com, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RFC PATCH] net: stmmac: Fix the problem about
+	interrupt storm
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,28 +79,174 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7986890282049850409=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+--===============7986890282049850409==
+Content-Type: multipart/alternative; boundary="00000000000005e7bb06151c02d8"
 
-> 
-> On Mon,  1 Apr 2024 10:44:56 +0800 Minda Chen wrote:
-> > +	unsigned int mmc_rx_control_g;
-> 
-> What's control_g?
-> If it's number of received control frames it should be reported as
-> MACControlFramesReceived from ethtool_ops::get_eth_ctrl_stats.
+--00000000000005e7bb06151c02d8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is explanations
-Rx Control Packets Good
-This field indicates the number of good control packets received.
+Hi Romain,
 
-It looks it is number of received control. But I don't know register offset
-in designware XGMAC IP.I can't implement ethtool_ops::get_eth_ctrl_stats.
-I will delete this first
+On Sun, Mar 31, 2024 at 4:35=E2=80=AFPM Romain Gantois <romain.gantois@boot=
+lin.com>
+wrote:
+
+> Hello Cathy,
+>
+> On Wed, 27 Mar 2024, Cathy Cai wrote:
+>
+> > Tx queue time out then reset adapter. When reset the adapter, stmmac
+> driver
+> > sets the state to STMMAC_DOWN and calls dev_close() function. If an
+> interrupt
+> > is triggered at this instant after setting state to STMMAC_DOWN, before
+> the
+> > dev_close() call.
+> >
+> ...
+> > -     set_bit(STMMAC_DOWN, &priv->state);
+> >       dev_close(priv->dev);
+> > +     set_bit(STMMAC_DOWN, &priv->state);
+> >       dev_open(priv->dev, NULL);
+> >       clear_bit(STMMAC_DOWN, &priv->state);
+> >       clear_bit(STMMAC_RESETING, &priv->state);
+>
+> If this IRQ issue can happen whenever STMMAC_DOWN is set while the net
+> device is
+> open, then it could also happen between the dev_open() and
+> clear_bit(STMMAC_DOWN) calls right? So you'd have to clear STMMAC_DOWN
+> before
+> calling dev_open() but then I don't see the usefulness of setting
+> STMMAC_DOWN
+> and clearing it immediately. Maybe closing and opening the net device
+> should be
+> enough?
+>
+>  Yes. It could also happen between the dev_open() and
+clear_bit(STMMAC_DOWN) calls.
+Although we did not reproduce this scenario, it should have happened if we
+had increased
+the number of test samples. In addition, I found that other people had
+similar problems before.
+The link is:
+https://lore.kernel.org/all/20210208140820.10410-11-Sergey.Semin@baikalelec=
+tronics.ru/
+
+Moreover, it seems strange to me that stmmac_interrupt() unconditionnally
+> ignores interrupts when the driver is in STMMAC_DOWN state. This seems
+> like
+> dangerous behaviour, since it could cause IRQ storm issues whenever
+> something
+> in the driver sets this state. I'm not too familiar with the interrupt
+> handling
+> in this driver, but maybe stmmac_interrupt() could clear interrupts
+> unconditionnally in the STMMAC_DOWN state?
+>
+> Clear interrupts unconditionally in the STMMAC_DOWN state directly
+certainly won't cause this problem.
+This may be too rough, maybe this design has other considerations.
+
+Best Regards,
+>
+> --
+> Romain Gantois, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+
+
+ Best Regards,
+Cathy
+
+--00000000000005e7bb06151c02d8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi=C2=A0Romain,</div><div><br></div><div dir=3D"ltr">=
+On Sun, Mar 31, 2024 at 4:35=E2=80=AFPM Romain Gantois &lt;<a href=3D"mailt=
+o:romain.gantois@bootlin.com">romain.gantois@bootlin.com</a>&gt; wrote:<br>=
+</div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex">Hello Cathy,<br>
+<br>
+On Wed, 27 Mar 2024, Cathy Cai wrote:<br>
+<br>
+&gt; Tx queue time out then reset adapter. When reset the adapter, stmmac d=
+river<br>
+&gt; sets the state to STMMAC_DOWN and calls dev_close() function. If an in=
+terrupt<br>
+&gt; is triggered at this instant after setting state to STMMAC_DOWN, befor=
+e the<br>
+&gt; dev_close() call.<br>
+&gt; <br>
+...<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0set_bit(STMMAC_DOWN, &amp;priv-&gt;state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0dev_close(priv-&gt;dev);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0set_bit(STMMAC_DOWN, &amp;priv-&gt;state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0dev_open(priv-&gt;dev, NULL);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0clear_bit(STMMAC_DOWN, &amp;priv-&gt;state);=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0clear_bit(STMMAC_RESETING, &amp;priv-&gt;sta=
+te);<br>
+<br>
+If this IRQ issue can happen whenever STMMAC_DOWN is set while the net devi=
+ce is <br>
+open, then it could also happen between the dev_open() and <br>
+clear_bit(STMMAC_DOWN) calls right? So you&#39;d have to clear STMMAC_DOWN =
+before <br>
+calling dev_open() but then I don&#39;t see the usefulness of setting STMMA=
+C_DOWN <br>
+and clearing it immediately. Maybe closing and opening the net device shoul=
+d be <br>
+enough?<br>
+<br></blockquote><div>=C2=A0Yes. It could also happen between the dev_open(=
+) and clear_bit(STMMAC_DOWN) calls.</div><div>Although we did not reproduce=
+ this scenario, it should have happened if we had increased</div><div>the n=
+umber of test samples. In addition, I found that other people had similar p=
+roblems before.</div><div>The link is:</div><a href=3D"https://lore.kernel.=
+org/all/20210208140820.10410-11-Sergey.Semin@baikalelectronics.ru/">https:/=
+/lore.kernel.org/all/20210208140820.10410-11-Sergey.Semin@baikalelectronics=
+.ru/</a><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Moreover, it seems strange to me that stmmac_interrupt() unconditionnally <=
+br>
+ignores interrupts when the driver is in STMMAC_DOWN state. This seems like=
+ <br>
+dangerous behaviour, since it could cause IRQ storm issues whenever somethi=
+ng <br>
+in the driver sets this state. I&#39;m not too familiar with the interrupt =
+handling <br>
+in this driver, but maybe stmmac_interrupt() could clear interrupts <br>
+unconditionnally in the STMMAC_DOWN state?<br>
+<br></blockquote>Clear interrupts unconditionally in the STMMAC_DOWN state =
+directly certainly won&#39;t cause this problem. <br><div>This may be too r=
+ough, maybe this design has other considerations.=C2=A0</div><div><br></div=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left:1px solid rgb(204,204,204);padding-left:1ex">
+Best Regards,<br>
+<br>
+-- <br>
+Romain Gantois, Bootlin<br>
+Embedded Linux and Kernel engineering<br>
+<a href=3D"https://bootlin.com" rel=3D"noreferrer" target=3D"_blank">https:=
+//bootlin.com</a></blockquote><div><br></div><div>=C2=A0Best Regards,</div>=
+Cathy</div></div>
+
+--00000000000005e7bb06151c02d8--
+
+--===============7986890282049850409==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7986890282049850409==--
