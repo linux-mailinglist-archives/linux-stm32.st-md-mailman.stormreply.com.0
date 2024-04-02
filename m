@@ -2,69 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 468B4894EF8
-	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 11:48:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8811894F45
+	for <lists+linux-stm32@lfdr.de>; Tue,  2 Apr 2024 11:57:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDB62C6B45B;
-	Tue,  2 Apr 2024 09:48:13 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8EE51C6B45B;
+	Tue,  2 Apr 2024 09:57:23 +0000 (UTC)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0C58AC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31E5DC69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Apr 2024 09:48:11 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-a45f257b81fso504316066b.0
+ Tue,  2 Apr 2024 09:57:22 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-2d485886545so81679101fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 02 Apr 2024 02:48:11 -0700 (PDT)
+ Tue, 02 Apr 2024 02:57:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712051291; x=1712656091;
+ d=linaro.org; s=google; t=1712051841; x=1712656641;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=2sz48q8t12VAjxd/9AdQNmu9otPht69ziWcxN5aYwFo=;
- b=jJHU4iwvCl8DASvAu09OMvzdFB6FyFKK62F8e7Viye280F1YugITjE1tKy+0gaOhXq
- 5IIU4fD/1maY117U+/3XGFmyVcT0GnC7QZlKuANPeKdC7ikVxYfhX43oxpbK9APZxTeV
- oPRG7oz6kwJQP2neySYuyJ72U6bA89x2G1JlkcIVDJJusQXc3fFVJ6+1gWQTV/Q0S533
- WDeMYrjdIFFBwYwG1efpWvLrck+fevO5d+/mAfRwj8LsfQ5ULVnPGzhqFZQQKknffPiS
- IKY2TeTa7O18YUbYElNMDJL+pHuxciMo+SNm72lP1bccSnVwkl4eZRf7PhRNd9RUYF8H
- q+bg==
+ bh=KaALGpR55LLYN546Bwu1n1OTGHrwQpx5Bj/luubs+R0=;
+ b=CGKlybkockgmQZ7SNI+UAV4Ert0eYnaIyIxFIzsTGiF7lZQvV/lz9XAKsyMnYv5dac
+ cl/EiUVx/cvB9TVCfzdwcNib1chQQcU9W5piJ3ycYHAwvDj/C5bihtW7MDmsDNkGBCdS
+ poLy9ZnUgAWvHwuu8jXioRZBt1CJaRLpMGyTp+y55T8+tdIkip4eyt0KC/0KyV/Iu/GA
+ LBYzH1/xoM/k07TOe5YQ6cRONERheCtJhI8KkkTLYnCETVBjvQIKSsMVkhjSv/0ecxUx
+ 2lwlZGtRJeHFTrMTTQVKsO8aAtemvViB7lRA5peb5dv6ElcVD/KJPSK1XnipjUHJAtjK
+ ls0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712051291; x=1712656091;
+ d=1e100.net; s=20230601; t=1712051841; x=1712656641;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2sz48q8t12VAjxd/9AdQNmu9otPht69ziWcxN5aYwFo=;
- b=P57X13ReafJ2EKkI5K16x+eMrGC/6/FNp6h8J2OFl7ChMX0YoyCnzDsEXyA6dz1PKV
- EAOuohQN0HajFz76iSbC8AcqNkvk3brz8F4XTflTVv7zTNkYoF9xftISnlodB9k8NLVL
- +/XdyXiuFZnUzQ2ENAIZnPYgXCekRKy2sZMJTcvTwIvlWsJHn/y5mKiLo3aY0sZ3k21n
- hO9zG3iQHTZYsGFNZTDCXrmPySEd1V+MxokSBIZTy68HAeG9TjKc39AZsssp0TD6CS0z
- wW1pYInWKsXNC4Ftftb07hSODxfoJTu+WMn2820x2qcWrknpJgkMnB4kwoXG6cZtETnu
- e2Ng==
+ bh=KaALGpR55LLYN546Bwu1n1OTGHrwQpx5Bj/luubs+R0=;
+ b=gOUO7YUDNeUyU4/pj4aYbPhSe4K+HNt98IqNTQFG2L1wtnZIufcswKGHHirbqLzRXu
+ T/jl3LLhJShzC6/v+yf8cpmzs98or4V0r5fjspKtF0/zbO67inV61qfyOqeUBIWgSAXQ
+ 6b8W80g0ChuCBRnfQ+z+18yKuEPlQhpDobMXF5fwEdH5y5NfNv7pp5Fy1gta1FF52xnh
+ dnlTpCxeUjcpWc3kTES5V62IG5zeUY1FhmN7WZvhhA2fetkHO3ciVV/5Ju4rzI7qZWz4
+ lrapgKvvZ3YyVrgug8s7B3mGilcoLjqwb02oqU/h06uuKGoEChWIAdzPOpmshy7WrYZT
+ h1SQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVil3mhIeECn/9bkux/tHp31w5Y2AAbesBm7IFTshmmmPtfDO1d4HGVX71OQ+EtBOqvdBxg1FVc6Rm5MT/OGK8y2MWAOWeHP7Qst+8Y8Hxgu97tjMtG6qeX
-X-Gm-Message-State: AOJu0YzdDJ2uCDCp36lr/IoyALmLXBL3IcH0inYpfpzia5ziCytb5Jvi
- Ihqk97nG+iLmnm/b5vL0J2NeGF5Pw7IUWktfhhfNcsbpd2ht+b+D8Gs4LhEzA4w=
-X-Google-Smtp-Source: AGHT+IF2NogpPqBNvyrR1zcHjbhJk2XG5tvD6ivUrERteThTeF3BX1JrsGweDRwkBIK7KneO6GTUzw==
-X-Received: by 2002:a17:906:bf2:b0:a47:df55:cf6c with SMTP id
- z18-20020a1709060bf200b00a47df55cf6cmr9253414ejg.63.1712051291217; 
- Tue, 02 Apr 2024 02:48:11 -0700 (PDT)
+ AJvYcCVUm5KCgG5iVhtcMiN39UICovbOBEaznpNCquYTSd0BgasKqYdSrE3E4iFX2A078g20KMex0+t3beyrvqGsQ8+/fa+pYEQ3vS897oVw8DUtD84UQJN4W8zv
+X-Gm-Message-State: AOJu0YwBpx95zx/GpjwXQY19JZm/L6RryxeElBsOVQMEWlu5c4b50dNB
+ 7IZF9ieGWQ41QMXyP3dvzLZk5QO+0ogbYifBKOtgO8GYGhWBIt+7HLsJ8h0DLko=
+X-Google-Smtp-Source: AGHT+IGWCEOGN1+XjtzfYre7/egOrrrKPQ8Lfe9ZEH+5g0W7eKr0xB6p1bbpF7hXyXxGItvb0g1xWg==
+X-Received: by 2002:a05:6512:403:b0:516:a686:8ae1 with SMTP id
+ u3-20020a056512040300b00516a6868ae1mr1017019lfk.62.1712051841164; 
+ Tue, 02 Apr 2024 02:57:21 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- u10-20020a17090663ca00b00a4e8991cfbfsm586473ejk.127.2024.04.02.02.48.09
+ r1-20020a170906364100b00a4628cacad4sm6312315ejb.195.2024.04.02.02.57.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Apr 2024 02:48:10 -0700 (PDT)
-Message-ID: <324e9c02-c005-4e18-9872-8408695fb1fe@linaro.org>
-Date: Tue, 2 Apr 2024 11:48:08 +0200
+ Tue, 02 Apr 2024 02:57:20 -0700 (PDT)
+Message-ID: <47813c01-39b2-4e5e-bb67-1d49788fc613@linaro.org>
+Date: Tue, 2 Apr 2024 11:57:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
 References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
  <f514d9e1-61fa-4c55-aea1-d70c955bb96a@linaro.org>
  <ZgvIMRDfeQaeVxYt@shell.armlinux.org.uk>
+ <ZgvKh/Cwudh3gCDr@shell.armlinux.org.uk>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -111,7 +112,7 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <ZgvIMRDfeQaeVxYt@shell.armlinux.org.uk>
+In-Reply-To: <ZgvKh/Cwudh3gCDr@shell.armlinux.org.uk>
 Cc: kvm@vger.kernel.org,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
@@ -146,126 +147,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 02/04/2024 10:56, Russell King (Oracle) wrote:
-> On Sat, Mar 30, 2024 at 01:18:30PM +0100, Krzysztof Kozlowski wrote:
->> On 26/03/2024 21:23, Krzysztof Kozlowski wrote:
->>> Merging
->>> =======
->>> All further patches depend on the first amba patch, therefore please ack
->>> and this should go via one tree.
+On 02/04/2024 11:06, Russell King (Oracle) wrote:
+> On Tue, Apr 02, 2024 at 09:56:17AM +0100, Russell King (Oracle) wrote:
+>> On Sat, Mar 30, 2024 at 01:18:30PM +0100, Krzysztof Kozlowski wrote:
+>>> On 26/03/2024 21:23, Krzysztof Kozlowski wrote:
+>>>> Merging
+>>>> =======
+>>>> All further patches depend on the first amba patch, therefore please ack
+>>>> and this should go via one tree.
+>>>>
+>>>> Description
+>>>> ===========
+>>>> Modules registering driver with amba_driver_register() often forget to
+>>>> set .owner field.
+>>>>
+>>>> Solve the problem by moving this task away from the drivers to the core
+>>>> amba bus code, just like we did for platform_driver in commit
+>>>> 9447057eaff8 ("platform_device: use a macro instead of
+>>>> platform_driver_register").
+>>>>
+>>>> Best regards,
 >>>
->>> Description
->>> ===========
->>> Modules registering driver with amba_driver_register() often forget to
->>> set .owner field.
+>>> I tried to submit this series to Russell patch tracker and failed. This
+>>> is ridiculous. It's 2024 and instead of normal process, like every other
+>>> maintainer, so b4 or Patchwork, we have some unusable system rejecting
+>>> standard patches.
+>>
+>> Sorry but no. Stop being offensive.
+>>
+>>> First, it depends some weird, duplicated signed-off-by's.
+>>
+>> Eh? There is no such logic in there.
+>>
+>>> Second it > submitting patch-by-patch, all with clicking on some web
+>>> (!!!) interface.
+>>
+>> Again, no it doesn't, and you're just throwing crap out because you
+>> failed. Unlike most of the "normal" processes, the patch system allows
+>> you to submit both by *email* and also by *web* for those cases where
+>> the emails get screwed up by ones company mail server. That's why the
+>> web interface exists - to give people *flexibility*.
+>>
+>> The fact is, the web interface is merely a front end interface that
+>> generates an email and submits it in the usual way by email - an
+>> email that you can perfectly well generate that is *very* close to
+>> the standard email that git format-patch generates.
+>>
+>> The *only* difference is that the patch system wants a KernelVersion:
+>> tag in the email _somewhere_ and it doesn't matter where it appears.
+>> Git even has support to do this.
+>>
+>>   git format-patch --add-header="KernelVersion: $foo"
+>>
+>> Why does it want the kernel version? Because when we were running 2.4
+>> and 2.5 kernel versions in parallel, it was important to know which
+>> tree the patch was being submitted for. It has continued to be required
+>> because it means when there's problems applying a patch, it gives me
+>> the additional information about the base used for the patch (and it
+>> keeps on being useful to have.)
+>>
+>>> That's the response:
+>>> -------------
+>>> Your patch has not been logged because:
 >>>
->>> Solve the problem by moving this task away from the drivers to the core
->>> amba bus code, just like we did for platform_driver in commit
->>> 9447057eaff8 ("platform_device: use a macro instead of
->>> platform_driver_register").
+>>> Error:   Please supply a summary subject line briefly describing
+>>>          your patch.
 >>>
->>> Best regards,
+>>>
+>>> Error:   Please supply a "KernelVersion: " tag after "PATCH FOLLOWS" or
+>>> "---".
+>>>
+>>> Error:   the patch you are submitting has one or more missing or incorrect
+>>>          Signed-off-by lines:
+>>>
+>>>          - author signoff <krzkreg@gmail.com> is missing.
+>>>
+>>>          Please see the file Documentation/SubmittingPatches, section 11
+>>>          for details on signing off patches.
 >>
->> I tried to submit this series to Russell patch tracker and failed. This
->> is ridiculous. It's 2024 and instead of normal process, like every other
->> maintainer, so b4 or Patchwork, we have some unusable system rejecting
->> standard patches.
-> 
-> Sorry but no. Stop being offensive.
-> 
->> First, it depends some weird, duplicated signed-off-by's.
-> 
-> Eh? There is no such logic in there.
-
-In the web system there is - read the error message I pasted. It wants
-another SoB from the unrelated email account, the one used purely for
-registering in some web system, not the one used for code handling.
-
-> 
->> Second it > submitting patch-by-patch, all with clicking on some web
->> (!!!) interface.
-> 
-> Again, no it doesn't, and you're just throwing crap out because you
-> failed. Unlike most of the "normal" processes, the patch system allows
-> you to submit both by *email* and also by *web* for those cases where
-
-The email one requires additional steps, so this is unnecessary work
-confusing submitters. I submit dozens or hundreds of patches every
-release cycle. That's the only subsystem which is odd to use.
-
-> the emails get screwed up by ones company mail server. That's why the
-> web interface exists - to give people *flexibility*.
-
-No, they are not. None of my emails are screwed by my company system.
-
-> 
-> The fact is, the web interface is merely a front end interface that
-> generates an email and submits it in the usual way by email - an
-> email that you can perfectly well generate that is *very* close to
-> the standard email that git format-patch generates.
-> 
-> The *only* difference is that the patch system wants a KernelVersion:
-> tag in the email _somewhere_ and it doesn't matter where it appears.
-> Git even has support to do this.
-> 
->   git format-patch --add-header="KernelVersion: $foo"
-> 
-> Why does it want the kernel version? Because when we were running 2.4
-> and 2.5 kernel versions in parallel, it was important to know which
-> tree the patch was being submitted for. It has continued to be required
-
-Which is absolutely ridiculous now. Expecting submitters to adhere to
-some rule for 20 year old kernel is not reasonable.
-
-> because it means when there's problems applying a patch, it gives me
-> the additional information about the base used for the patch (and it
-> keeps on being useful to have.)
-> 
->> That's the response:
->> -------------
->> Your patch has not been logged because:
+>> Lots of people use it without a problem. I've just run the parser
+>> through its offline tests, and it parses email content correctly.
+>> I've no idea what you're doing wrong, but it looks like something
+>> pretty serious if it didn't parse the subject line.
 >>
->> Error:   Please supply a summary subject line briefly describing
->>          your patch.
->>
->>
->> Error:   Please supply a "KernelVersion: " tag after "PATCH FOLLOWS" or
->> "---".
->>
->> Error:   the patch you are submitting has one or more missing or incorrect
->>          Signed-off-by lines:
->>
->>          - author signoff <krzkreg@gmail.com> is missing.
-
-^^^ here you have additional SoB expectation.
-
->>
->>          Please see the file Documentation/SubmittingPatches, section 11
->>          for details on signing off patches.
+>> Rather than getting stressed about it, why don't you send me an email
+>> the first time something goes wrong so I can investigate, turn on
+>> debugging to capture the problem email?
 > 
-> Lots of people use it without a problem. I've just run the parser
-> through its offline tests, and it parses email content correctly.
-> I've no idea what you're doing wrong, but it looks like something
-> pretty serious if it didn't parse the subject line.
+> ... and I'll also point out one of the biggest problems is people.
+> People who think it's more complex than it is, or who can't read
+> instructions.
+
+We all read submitting-patches instructions (and many more). A need to
+learn one more set of instructions for one more process leads to people
+needing to learn 100 different processes for 100 different subsystems.
+
+That's not the way how people should be contributing to Linux kernel.
+
 > 
-> Rather than getting stressed about it, why don't you send me an email
-> the first time something goes wrong so I can investigate, turn on
-> debugging to capture the problem email?
+> For example, trying to tell people to use the standard format subject
+> line:
+> 
+> 	[PATCH ...] blah
+> 
+> has proven to be hopeless - unless one states to them the exact
+> sequence of keys on their keyboard to press - yes, it *really* takes
+> that patronising level to get everyone to understand. If one tries to
+> do it any other way, then you get stuff like:
+> 
+> 	"[PATCH ...] ..."
+> 
+> with the quotes. Or some other stupid variation.
+> 
+> The patch system is as forgiving as possible. It takes standard git
+> formatted patches (with the exception of wanting an additional tag).
 
-I don't know any person who enjoyed working with your patch workflow.
-From few people I talked, it was always "now I have to learn this weird
-system" or "I need to get through this process which is different than
-everything in the kernel".
+The additional tag about kernel version is redundant and not helping
+anyone. I doubt you apply patches on top of linux-next or top of
+previous release (e.g. v6.8-rc1). Almost every maintainer applies on top
+of current RC, so v6.9-rc1 currently, thus version is just unnecessary
+obstacle.
 
-Plus you entirely ignored poor usability of this system which:
-1. Allows submitting patches only 1-by-1, so 19 useless steps in my case.
-2. Accepts the first/second/all patches without problem encouraging me
-to submit the rest... and then tells me via email they were wrong and
-could not be accepted.
+> 
+> It is possible that bugs creep in - particularly when Debian updates
+> get applied and change the way Perl works, but I don't think that's
+> what has happened with your situation.
+> 
+> I _guess_ you're putting the entire email-like output from git
+> format-patch as the patch file. That won't work - that isn't a "patch
+> file", that is an email/email template, and the patch system will
+> attempt to parse that as the patch itself.
 
-This is the poorest user-experience one can imagine. If you put effort
-into some web form, make it at least helpful so reject the patch if it
-does not match your expectations.
+Yes, that's what every sane person's workflow is. git format-patch -19
+(cover letter goes from branch description).
+
+> 
+> I suppose you term "patch" to be the email as well, rather than what
+> I interpret it to be, which is only the output of "diff" - call me
+> old fashioned but that's what a patch file used to be before the
+> waters got muddied by git "patch files".
+
+Well, world is now using git as a standard. It's true there is quilt out
+there, but even Andrew I think is going slowly towards git in some parts
+of his workflow.
+
+But then even Andrew accepted standard patch from the mailing lists. No
+need for any other step, no need for any double submission (one public,
+second to patches@armlinux or webform) with any other requirement.
 
 Best regards,
 Krzysztof
