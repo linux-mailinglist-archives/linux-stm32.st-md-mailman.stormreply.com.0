@@ -2,77 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06C01896548
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 09:05:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5FB58967A2
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 10:07:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DA7DC6B45B;
-	Wed,  3 Apr 2024 07:05:44 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6345BC6B45B;
+	Wed,  3 Apr 2024 08:07:35 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66B1EC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0BF2C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 07:05:43 +0000 (UTC)
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
- 4336x1Vn017098; Wed, 3 Apr 2024 09:05:21 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
- message-id:date:mime-version:subject:to:cc:references:from
- :in-reply-to:content-type:content-transfer-encoding; s=
- selector1; bh=DCUbKNbF474gC8lSGkhmcz5s3IeyLZ0AClzAIHxg1FI=; b=Bx
- EU8nsi6DU64tznn8b2K4Ofd6OEfjKTmmTuvyiPn6a9seHJ1JkmOwT9wM74I0sBwY
- edU2UjRsXbao30fSddAQnHboyDtG87H2GX7zuN7EM4IrY2MSFKQigjK6F5dLLt0v
- sR7JsZqRS+v71LRUGq52fmFG6YWZK5/4kpX7J7kLnGzlcXzJM3KrAUJuQLz2wXNJ
- +ljO5f8f+Y/Ih1XIU6YF19tBCnhw7+sootbgLNaAgvMie6TRHo30Wa2TO9+LhbWV
- 1HmqYIle5pdGrEE1Ozrc4ZylRlsmxLAe9UOCy9jdxh6j6GkyCJJR0E3YRKwHyVKJ
- LsioAICav4OdSTne1FCw==
-Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x6aggygkn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 03 Apr 2024 09:05:21 +0200 (MEST)
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id A2DF24002D;
- Wed,  3 Apr 2024 09:05:16 +0200 (CEST)
-Received: from Webmail-eu.st.com (eqndag1node6.st.com [10.75.129.135])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 20FF32105B0;
- Wed,  3 Apr 2024 09:04:27 +0200 (CEST)
-Received: from SAFDAG1NODE1.st.com (10.75.90.17) by EQNDAG1NODE6.st.com
- (10.75.129.135) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 3 Apr
- 2024 09:04:26 +0200
-Received: from [10.201.21.20] (10.201.21.20) by SAFDAG1NODE1.st.com
- (10.75.90.17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 3 Apr
- 2024 09:04:26 +0200
-Message-ID: <7080443a-e06b-45e1-a57a-3f90b2fad07f@foss.st.com>
-Date: Wed, 3 Apr 2024 09:04:25 +0200
+ Wed,  3 Apr 2024 08:07:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id A376DCE210F;
+ Wed,  3 Apr 2024 08:07:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9555FC433C7;
+ Wed,  3 Apr 2024 08:07:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712131648;
+ bh=K2ePQOaggCQbp9MAuVhX6tyGJTkfITqYlV3FRyD1b2w=;
+ h=From:To:Cc:Subject:Date:From;
+ b=i9S2rWNSxBnVceX/PhEYHUL/8obuw7YBD3dJv3NpxgtqFmbZ6YmcytIk5F3iE5aJR
+ I5RYRukVlaohxFlUlx3DoVo8ioTOKPq24ESuwErVo02d8QkqEyqWnOCLJPy3IIKQQU
+ hPSJJJ28UFYnjJaOw9nBVZfRfW9z44J6zH3uuTF5it8w/Z071qPjEqTUM2WnMMrizN
+ fO98GSAxPEoZV8r5mdONzcx9Bk+cWCKiyR3aI2XXY3Z1B5LcdC6almvWr6dDKTwDko
+ dlyuak8JP+s7GrNn1iYACGO+Vywch0Qm7yXwZNXpNcwyBGG5wOlDd55NN/VlxGiFO6
+ vEIx/q6HxkU2Q==
+From: Arnd Bergmann <arnd@kernel.org>
+To: linux-kernel@vger.kernel.org
+Date: Wed,  3 Apr 2024 10:06:18 +0200
+Message-Id: <20240403080702.3509288-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-References: <20240308144708.62362-1-arnaud.pouliquen@foss.st.com>
- <20240308144708.62362-5-arnaud.pouliquen@foss.st.com> <ZgGrnkcebcIQQic6@p14s>
- <a08add21-b8ff-434a-9689-6af8b05b1965@foss.st.com> <ZgRT7PtzIogAWc50@p14s>
- <2cd23e93-1a3a-4128-b947-35fe2b04ccab@foss.st.com> <ZgrW2avODv29vWNP@p14s>
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-Organization: STMicroelectronics
-In-Reply-To: <ZgrW2avODv29vWNP@p14s>
-X-Originating-IP: [10.201.21.20]
-X-ClientProxiedBy: EQNCAS1NODE4.st.com (10.75.129.82) To SAFDAG1NODE1.st.com
- (10.75.90.17)
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2024-04-03_06,2024-04-01_01,2023-05-22_02
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- op-tee@lists.trustedfirmware.org, Bjorn Andersson <andersson@kernel.org>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jens Wiklander <jens.wiklander@linaro.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 4/4] remoteproc: stm32: Add support of
- an OP-TEE TA to load the firmware
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Heiko Stuebner <heiko@sntech.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Christoph Hellwig <hch@lst.de>, linux-samsung-soc@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>, linux-pm@vger.kernel.org,
+ linux-sound@vger.kernel.org, Ian Abbott <abbotti@mev.co.uk>,
+ linux-omap@vger.kernel.org, Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Alex Elder <elder@kernel.org>, Tero Kristo <kristo@kernel.org>,
+ Xiang Chen <chenxiang66@hisilicon.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ linux-crypto@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-trace-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Markuss Broks <markuss.broks@gmail.com>,
+ Vaibhav Hiremath <hvaibhav.linux@gmail.com>, linux-i2c@vger.kernel.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Corey Minyard <minyard@acm.org>,
+ Helge Deller <deller@gmx.de>, Lee Jones <lee@kernel.org>,
+ linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, Yisen Zhuang <yisen.zhuang@huawei.com>,
+ Len Brown <lenb@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, linux-kbuild@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, greybus-dev@lists.linaro.org,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ linux-integrity@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jonathan Cameron <jic23@kernel.org>, linux-efi@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fpga@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, kasan-dev@googlegroups.com,
+ Jiri Slaby <jirislaby@kernel.org>, linux-rtc@vger.kernel.org,
+ Stanislaw Gruszka <stf_xl@wp.pl>, Masahiro Yamada <masahiroy@kernel.org>,
+ linux-staging@lists.linux.dev, linux-input@vger.kernel.org,
+ Jacky Huang <ychuang3@nuvoton.com>, Kees Cook <keescook@chromium.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jiri Kosina <jikos@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Nathan Chancellor <nathan@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Moritz Fischer <mdf@kernel.org>, openipmi-developer@lists.sourceforge.net,
+ linux-nfs@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Sebastian Reichel <sre@kernel.org>, Peter Rosin <peda@axentia.se>,
+ linux-stm32@st-md-mailman.stormreply.com, Tony Lindgren <tony@atomide.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, linux-ide@vger.kernel.org,
+ Peter Huewe <peterhuewe@gmx.de>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-leds@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-scsi@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ linux-serial@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Kalle Valo <kvalo@kernel.org>,
+ John Allen <john.allen@amd.com>, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Damien Le Moal <dlemoal@kernel.org>, dmaengine@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [Linux-stm32] [PATCH 00/34] address all -Wunused-const warnings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,295 +109,254 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+From: Arnd Bergmann <arnd@arndb.de>
 
+Compilers traditionally warn for unused 'static' variables, but not
+if they are constant. The reason here is a custom for C++ programmers
+to define named constants as 'static const' variables in header files
+instead of using macros or enums.
 
-On 4/1/24 17:46, Mathieu Poirier wrote:
-> On Fri, Mar 29, 2024 at 11:57:43AM +0100, Arnaud POULIQUEN wrote:
->>
->>
->> On 3/27/24 18:14, Mathieu Poirier wrote:
->>> On Tue, Mar 26, 2024 at 08:31:33PM +0100, Arnaud POULIQUEN wrote:
->>>>
->>>>
->>>> On 3/25/24 17:51, Mathieu Poirier wrote:
->>>>> On Fri, Mar 08, 2024 at 03:47:08PM +0100, Arnaud Pouliquen wrote:
->>>>>> The new TEE remoteproc device is used to manage remote firmware in a
->>>>>> secure, trusted context. The 'st,stm32mp1-m4-tee' compatibility is
->>>>>> introduced to delegate the loading of the firmware to the trusted
->>>>>> execution context. In such cases, the firmware should be signed and
->>>>>> adhere to the image format defined by the TEE.
->>>>>>
->>>>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->>>>>> ---
->>>>>> Updates from V3:
->>>>>> - remove support of the attach use case. Will be addressed in a separate
->>>>>>   thread,
->>>>>> - add st_rproc_tee_ops::parse_fw ops,
->>>>>> - inverse call of devm_rproc_alloc()and tee_rproc_register() to manage cross
->>>>>>   reference between the rproc struct and the tee_rproc struct in tee_rproc.c.
->>>>>> ---
->>>>>>  drivers/remoteproc/stm32_rproc.c | 60 +++++++++++++++++++++++++++++---
->>>>>>  1 file changed, 56 insertions(+), 4 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
->>>>>> index 8cd838df4e92..13df33c78aa2 100644
->>>>>> --- a/drivers/remoteproc/stm32_rproc.c
->>>>>> +++ b/drivers/remoteproc/stm32_rproc.c
->>>>>> @@ -20,6 +20,7 @@
->>>>>>  #include <linux/remoteproc.h>
->>>>>>  #include <linux/reset.h>
->>>>>>  #include <linux/slab.h>
->>>>>> +#include <linux/tee_remoteproc.h>
->>>>>>  #include <linux/workqueue.h>
->>>>>>  
->>>>>>  #include "remoteproc_internal.h"
->>>>>> @@ -49,6 +50,9 @@
->>>>>>  #define M4_STATE_STANDBY	4
->>>>>>  #define M4_STATE_CRASH		5
->>>>>>  
->>>>>> +/* Remote processor unique identifier aligned with the Trusted Execution Environment definitions */
->>>>>
->>>>> Why is this the case?  At least from the kernel side it is possible to call
->>>>> tee_rproc_register() with any kind of value, why is there a need to be any
->>>>> kind of alignment with the TEE?
->>>>
->>>>
->>>> The use of the proc_id is to identify a processor in case of multi co-processors.
->>>>
->>>
->>> That is well understood.
->>>
->>>> For instance we can have a system with A DSP and a modem. We would use the same
->>>> TEE service, but
->>>
->>> That too.
->>>
->>>> the TEE driver will probably be different, same for the signature key.
->>>
->>> What TEE driver are we talking about here?
->>
->> In OP-TEE remoteproc frameork is divided in 2 or  3 layers:
->>
->> - the remoteproc Trusted Application (TA) [1] which is platform agnostic
->> - The remoteproc Pseudo Trusted Application (PTA) [2] which is platform
->> dependent and can rely on the proc ID to retrieve the context.
->> - the remoteproc driver (optional for some platforms) [3], which is in charge
->>  of DT parsing and platform configuration.
->>
-> 
-> That part makes sense.
-> 
->> Here TEE driver can be interpreted by remote PTA and/or platform driver.
->>
-> 
-> I have to guess PTA means "Platform Trusted Application" but I have no
-> guarantee, adding to the level of (already high) confusion brought on by this
-> patchset.
+In W=1 builds, we get warnings only static const variables in C
+files, but not in headers, which is a good compromise, but this still
+produces warning output in at least 30 files. These warnings are
+almost all harmless, but also trivial to fix, and there is no
+good reason to warn only about the non-const variables being unused.
 
-As mentioned above, PTA is Pseudo Trusted Application. It is an interface
-exposed by OP-TEE core to the OP-TEE application.
-In this case PTA is used to implement the platform part.
-If you need more details about the remoteproc framework in OP-TEE, there is a
-link in the to a presentation in the cover letter.
+I've gone through all the files that I found using randconfig and
+allmodconfig builds and created patches to avoid these warnings,
+with the goal of retaining a clean build once the option is enabled
+by default.
 
-> 
->> [1]
->> https://elixir.bootlin.com/op-tee/latest/source/ta/remoteproc/src/remoteproc_core.c
->> [2]
->> https://elixir.bootlin.com/op-tee/latest/source/core/pta/stm32mp/remoteproc_pta.c
->> [3]
->> https://elixir.bootlin.com/op-tee/latest/source/core/drivers/remoteproc/stm32_remoteproc.c
->>
->>>
->>>> In such case the proc ID allows to identify the the processor you want to address.
->>>>
->>>
->>> That too is well understood, but there is no alignment needed with the TEE, i.e
->>> the TEE application is not expecting a value of '0'.  We could set
->>> STM32_MP1_M4_PROC_ID to 0xDEADBEEF and things would work.  This driver won't go
->>> anywhere for as long as it is not the case.
->>
->>
->> Here I suppose that you do not challenge the rproc_ID use in general, but for
->> the stm32mp1 platform as we have only one remote processor. I'm right?
-> 
-> That is correct - I understand the need for an rproc_ID.  The problem is with
-> the comment that states that '0' is aligned with the TEE definitions, which in
-> my head means hard coded value and a big red flag.  What it should say is
-> "aligned with the TEE device tree definition". 
-> 
->>
->> In OP-TEE the check is done here:
->> https://elixir.bootlin.com/op-tee/latest/source/core/drivers/remoteproc/stm32_remoteproc.c#L64
->>
->> If driver does not register the proc ID an error is returned indicating that the
->> feature is not supported.
->>
->> In case of stm32mp1 yes we could consider it as useless as we have only one
->> remote proc.
->>
->> Nevertheless I can not guaranty that a customer will not add an external
->> companion processor that uses OP-TEE to authenticate the associated firmware. As
->> the trusted Application is the unique entry point. he will need the proc_id to
->> identify the target at PTA level.
->>
->> So from my point of view having a proc ID on stm32MP1 (and on stm32mp2 that will
->> reuse same driver) aligned between Linux and OP-TEE is useful.
-> 
-> I agree, for as long as it is not hard coded.  The way remote processors are
-> discovered in the DT is perfectly acceptable, i.e the first remote processor is
-> for application X, the second for application Y...
-> 
->>
->> That said using a TEE_REMOTEPROC_DEFAULT_ID is something that could be
->> more generic (for linux and OP-TEE). This ID could be reuse in the stm32mp
->> driver and platform drivers with an unique internal remote processor.
->>
-> 
-> I can't find the definition of TEE_REMOTEPROC_DEFAULT_ID anywhere, something
-> that doesn't help the confusion I referred to above.
+Unfortunately, there is one fairly large patch ("drivers: remove
+incorrect of_match_ptr/ACPI_PTR annotations") that touches
+34 individual drivers that all need the same one-line change.
+If necessary, I can split it up by driver or by subsystem,
+but at least for reviewing I would keep it as one piece for
+the moment.
 
-The TEE_REMOTEPROC_DEFAULT_ID does not yet exist; it is a proposal.
+Please merge the individual patches through subsystem trees.
+I expect that some of these will have to go through multiple
+revisions before they are picked up, so anything that gets
+applied early saves me from resending.
 
-Nevertheless I also had in mind the addition of a "proc ID" property in the DT.
-I will proceed in this way
+        Arnd
 
-I think I now have all the information needed to prepare a new revision.
-Thanks for the time passed on this series and your advises
-Regards,
-Arnaud
+Arnd Bergmann (31):
+  powerpc/fsl-soc: hide unused const variable
+  ubsan: fix unused variable warning in test module
+  platform: goldfish: remove ACPI_PTR() annotations
+  i2c: pxa: hide unused icr_bits[] variable
+  3c515: remove unused 'mtu' variable
+  tracing: hide unused ftrace_event_id_fops
+  Input: synaptics: hide unused smbus_pnp_ids[] array
+  power: rt9455: hide unused rt9455_boost_voltage_values
+  efi: sysfb: don't build when EFI is disabled
+  clk: ti: dpll: fix incorrect #ifdef checks
+  apm-emulation: hide an unused variable
+  sisfb: hide unused variables
+  dma/congiguous: avoid warning about unused size_bytes
+  leds: apu: remove duplicate DMI lookup data
+  iio: ad5755: hook up of_device_id lookup to platform driver
+  greybus: arche-ctrl: move device table to its right location
+  lib: checksum: hide unused expected_csum_ipv6_magic[]
+  sunrpc: suppress warnings for unused procfs functions
+  comedi: ni_atmio: avoid warning for unused device_ids[] table
+  iwlegacy: don't warn for unused variables with DEBUG_FS=n
+  drm/komeda: don't warn for unused debugfs files
+  firmware: qcom_scm: mark qcom_scm_qseecom_allowlist as __maybe_unused
+  crypto: ccp - drop platform ifdef checks
+  usb: gadget: omap_udc: remove unused variable
+  isdn: kcapi: don't build unused procfs code
+  cpufreq: intel_pstate: hide unused intel_pstate_cpu_oob_ids[]
+  net: xgbe: remove extraneous #ifdef checks
+  Input: imagis - remove incorrect ifdef checks
+  sata: mv: drop unnecessary #ifdef checks
+  ASoC: remove incorrect of_match_ptr/ACPI_PTR annotations
+  spi: remove incorrect of_match_ptr annotations
+  drivers: remove incorrect of_match_ptr/ACPI_PTR annotations
+  kbuild: always enable -Wunused-const-variable
 
+Krzysztof Kozlowski (1):
+  Input: stmpe-ts - mark OF related data as maybe unused
 
-> 
->> It that solution would be ok for you?
->>
->> Regards,
->> Arnaud
->>
->>
->>>
->>>>
->>>>>
->>>>>> +#define STM32_MP1_M4_PROC_ID    0
->>>>>> +
->>>>>>  struct stm32_syscon {
->>>>>>  	struct regmap *map;
->>>>>>  	u32 reg;
->>>>>> @@ -257,6 +261,19 @@ static int stm32_rproc_release(struct rproc *rproc)
->>>>>>  	return 0;
->>>>>>  }
->>>>>>  
->>>>>> +static int stm32_rproc_tee_stop(struct rproc *rproc)
->>>>>> +{
->>>>>> +	int err;
->>>>>> +
->>>>>> +	stm32_rproc_request_shutdown(rproc);
->>>>>> +
->>>>>> +	err = tee_rproc_stop(rproc);
->>>>>> +	if (err)
->>>>>> +		return err;
->>>>>> +
->>>>>> +	return stm32_rproc_release(rproc);
->>>>>> +}
->>>>>> +
->>>>>>  static int stm32_rproc_prepare(struct rproc *rproc)
->>>>>>  {
->>>>>>  	struct device *dev = rproc->dev.parent;
->>>>>> @@ -693,8 +710,19 @@ static const struct rproc_ops st_rproc_ops = {
->>>>>>  	.get_boot_addr	= rproc_elf_get_boot_addr,
->>>>>>  };
->>>>>>  
->>>>>> +static const struct rproc_ops st_rproc_tee_ops = {
->>>>>> +	.prepare	= stm32_rproc_prepare,
->>>>>> +	.start		= tee_rproc_start,
->>>>>> +	.stop		= stm32_rproc_tee_stop,
->>>>>> +	.kick		= stm32_rproc_kick,
->>>>>> +	.load		= tee_rproc_load_fw,
->>>>>> +	.parse_fw	= tee_rproc_parse_fw,
->>>>>> +	.find_loaded_rsc_table = tee_rproc_find_loaded_rsc_table,
->>>>>> +};
->>>>>> +
->>>>>>  static const struct of_device_id stm32_rproc_match[] = {
->>>>>> -	{ .compatible = "st,stm32mp1-m4" },
->>>>>> +	{.compatible = "st,stm32mp1-m4",},
->>>>>> +	{.compatible = "st,stm32mp1-m4-tee",},
->>>>>>  	{},
->>>>>>  };
->>>>>>  MODULE_DEVICE_TABLE(of, stm32_rproc_match);
->>>>>> @@ -853,6 +881,7 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->>>>>>  	struct device *dev = &pdev->dev;
->>>>>>  	struct stm32_rproc *ddata;
->>>>>>  	struct device_node *np = dev->of_node;
->>>>>> +	struct tee_rproc *trproc = NULL;
->>>>>>  	struct rproc *rproc;
->>>>>>  	unsigned int state;
->>>>>>  	int ret;
->>>>>> @@ -861,9 +890,26 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->>>>>>  	if (ret)
->>>>>>  		return ret;
->>>>>>  
->>>>>> -	rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
->>>>>> -	if (!rproc)
->>>>>> -		return -ENOMEM;
->>>>>> +	if (of_device_is_compatible(np, "st,stm32mp1-m4-tee")) {
->>>>>> +		/*
->>>>>> +		 * Delegate the firmware management to the secure context.
->>>>>> +		 * The firmware loaded has to be signed.
->>>>>> +		 */
->>>>>> +		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_tee_ops, NULL, sizeof(*ddata));
->>>>>> +		if (!rproc)
->>>>>> +			return -ENOMEM;
->>>>>> +
->>>>>> +		trproc = tee_rproc_register(dev, rproc, STM32_MP1_M4_PROC_ID);
->>>>>> +		if (IS_ERR(trproc)) {
->>>>>> +			dev_err_probe(dev, PTR_ERR(trproc),
->>>>>> +				      "signed firmware not supported by TEE\n");
->>>>>> +			return PTR_ERR(trproc);
->>>>>> +		}
->>>>>> +	} else {
->>>>>> +		rproc = devm_rproc_alloc(dev, np->name, &st_rproc_ops, NULL, sizeof(*ddata));
->>>>>> +		if (!rproc)
->>>>>> +			return -ENOMEM;
->>>>>> +	}
->>>>>>  
->>>>>>  	ddata = rproc->priv;
->>>>>>  
->>>>>> @@ -915,6 +961,9 @@ static int stm32_rproc_probe(struct platform_device *pdev)
->>>>>>  		dev_pm_clear_wake_irq(dev);
->>>>>>  		device_init_wakeup(dev, false);
->>>>>>  	}
->>>>>> +	if (trproc)
->>>>>
->>>>>         if (rproc->tee_interface)
->>>>>
->>>>>
->>>>> I am done reviewing this set.
->>>>
->>>> Thank for your review!
->>>> Arnaud
->>>>
->>>>>
->>>>> Thanks,
->>>>> Mathieu
->>>>>
->>>>>> +		tee_rproc_unregister(trproc);
->>>>>> +
->>>>>>  	return ret;
->>>>>>  }
->>>>>>  
->>>>>> @@ -935,6 +984,9 @@ static void stm32_rproc_remove(struct platform_device *pdev)
->>>>>>  		dev_pm_clear_wake_irq(dev);
->>>>>>  		device_init_wakeup(dev, false);
->>>>>>  	}
->>>>>> +	if (rproc->tee_interface)
->>>>>> +		tee_rproc_unregister(rproc->tee_interface);
->>>>>> +
->>>>>>  }
->>>>>>  
->>>>>>  static int stm32_rproc_suspend(struct device *dev)
->>>>>> -- 
->>>>>> 2.25.1
->>>>>>
+ arch/powerpc/sysdev/fsl_msi.c                 |  2 +
+ drivers/ata/sata_mv.c                         | 64 +++++++++----------
+ drivers/char/apm-emulation.c                  |  5 +-
+ drivers/char/ipmi/ipmb_dev_int.c              |  2 +-
+ drivers/char/tpm/tpm_ftpm_tee.c               |  2 +-
+ drivers/clk/ti/dpll.c                         | 10 ++-
+ drivers/comedi/drivers/ni_atmio.c             |  2 +-
+ drivers/cpufreq/intel_pstate.c                |  2 +
+ drivers/crypto/ccp/sp-platform.c              | 14 +---
+ drivers/dma/img-mdc-dma.c                     |  2 +-
+ drivers/firmware/efi/Makefile                 |  3 +-
+ drivers/firmware/efi/sysfb_efi.c              |  2 -
+ drivers/firmware/qcom/qcom_scm.c              |  2 +-
+ drivers/fpga/versal-fpga.c                    |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_dev.c   |  8 ---
+ drivers/hid/hid-google-hammer.c               |  6 +-
+ drivers/i2c/busses/i2c-pxa.c                  |  2 +-
+ drivers/i2c/muxes/i2c-mux-ltc4306.c           |  2 +-
+ drivers/i2c/muxes/i2c-mux-reg.c               |  2 +-
+ drivers/iio/dac/ad5755.c                      |  1 +
+ drivers/input/mouse/synaptics.c               |  2 +
+ drivers/input/touchscreen/imagis.c            |  4 +-
+ drivers/input/touchscreen/stmpe-ts.c          |  2 +-
+ drivers/input/touchscreen/wdt87xx_i2c.c       |  2 +-
+ drivers/isdn/capi/Makefile                    |  3 +-
+ drivers/isdn/capi/kcapi.c                     |  7 +-
+ drivers/leds/leds-apu.c                       |  3 +-
+ drivers/mux/adg792a.c                         |  2 +-
+ drivers/net/ethernet/3com/3c515.c             |  3 -
+ drivers/net/ethernet/amd/xgbe/xgbe-platform.c |  8 ---
+ drivers/net/ethernet/apm/xgene-v2/main.c      |  2 +-
+ drivers/net/ethernet/hisilicon/hns_mdio.c     |  2 +-
+ drivers/net/wireless/intel/iwlegacy/4965-rs.c | 15 +----
+ drivers/net/wireless/intel/iwlegacy/common.h  |  2 -
+ drivers/platform/goldfish/goldfish_pipe.c     |  2 +-
+ drivers/power/supply/rt9455_charger.c         |  2 +
+ drivers/regulator/pbias-regulator.c           |  2 +-
+ drivers/regulator/twl-regulator.c             |  2 +-
+ drivers/regulator/twl6030-regulator.c         |  2 +-
+ drivers/rtc/rtc-fsl-ftm-alarm.c               |  2 +-
+ drivers/scsi/hisi_sas/hisi_sas_v1_hw.c        |  2 +-
+ drivers/scsi/hisi_sas/hisi_sas_v2_hw.c        |  2 +-
+ drivers/spi/spi-armada-3700.c                 |  2 +-
+ drivers/spi/spi-img-spfi.c                    |  2 +-
+ drivers/spi/spi-meson-spicc.c                 |  2 +-
+ drivers/spi/spi-meson-spifc.c                 |  2 +-
+ drivers/spi/spi-orion.c                       |  2 +-
+ drivers/spi/spi-pic32-sqi.c                   |  2 +-
+ drivers/spi/spi-pic32.c                       |  2 +-
+ drivers/spi/spi-rockchip.c                    |  2 +-
+ drivers/spi/spi-s3c64xx.c                     |  2 +-
+ drivers/spi/spi-st-ssc4.c                     |  2 +-
+ drivers/staging/greybus/arche-apb-ctrl.c      |  1 +
+ drivers/staging/greybus/arche-platform.c      |  9 +--
+ drivers/staging/pi433/pi433_if.c              |  2 +-
+ drivers/tty/serial/amba-pl011.c               |  6 +-
+ drivers/tty/serial/ma35d1_serial.c            |  2 +-
+ drivers/usb/gadget/udc/omap_udc.c             | 10 +--
+ drivers/video/fbdev/sis/init301.c             |  3 +-
+ kernel/dma/contiguous.c                       |  2 +-
+ kernel/trace/trace_events.c                   |  4 ++
+ lib/checksum_kunit.c                          |  2 +
+ lib/test_ubsan.c                              |  2 +-
+ net/sunrpc/cache.c                            | 10 +--
+ scripts/Makefile.extrawarn                    |  1 -
+ sound/soc/atmel/sam9x5_wm8731.c               |  2 +-
+ sound/soc/codecs/rt5514-spi.c                 |  2 +-
+ sound/soc/qcom/lpass-sc7280.c                 |  2 +-
+ sound/soc/samsung/aries_wm8994.c              |  2 +-
+ 69 files changed, 121 insertions(+), 169 deletions(-)
+
+-- 
+2.39.2
+
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
+Cc: Damien Le Moal <dlemoal@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Corey Minyard <minyard@acm.org>
+Cc: Peter Huewe <peterhuewe@gmx.de>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Tero Kristo <kristo@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>
+Cc: Ian Abbott <abbotti@mev.co.uk>
+Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Len Brown <lenb@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: John Allen <john.allen@amd.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Vinod Koul <vkoul@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>
+Cc: Moritz Fischer <mdf@kernel.org>
+Cc: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Cc: Michael Hennerich <michael.hennerich@analog.com>
+Cc: Peter Rosin <peda@axentia.se>
+Cc: Lars-Peter Clausen <lars@metafoo.de>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Markuss Broks <markuss.broks@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Lee Jones <lee@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Iyappan Subramanian <iyappan@os.amperecomputing.com>
+Cc: Yisen Zhuang <yisen.zhuang@huawei.com>
+Cc: Stanislaw Gruszka <stf_xl@wp.pl>
+Cc: Kalle Valo <kvalo@kernel.org>
+Cc: Sebastian Reichel <sre@kernel.org>
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Xiang Chen <chenxiang66@hisilicon.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Vaibhav Hiremath <hvaibhav.linux@gmail.com>
+Cc: Alex Elder <elder@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Jacky Huang <ychuang3@nuvoton.com>
+Cc: Helge Deller <deller@gmx.de>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kees Cook <keescook@chromium.org>
+Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
+Cc: Anna Schumaker <anna@kernel.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-ide@vger.kernel.org
+Cc: openipmi-developer@lists.sourceforge.net
+Cc: linux-integrity@vger.kernel.org
+Cc: linux-omap@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Cc: linux-crypto@vger.kernel.org
+Cc: dmaengine@vger.kernel.org
+Cc: linux-efi@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-fpga@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-iio@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: netdev@vger.kernel.org
+Cc: linux-leds@vger.kernel.org
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-rtc@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org
+Cc: linux-spi@vger.kernel.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: greybus-dev@lists.linaro.org
+Cc: linux-staging@lists.linux.dev
+Cc: linux-serial@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org
+Cc: iommu@lists.linux.dev
+Cc: linux-trace-kernel@vger.kernel.org
+Cc: kasan-dev@googlegroups.com
+Cc: linux-hardening@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org
+Cc: linux-kbuild@vger.kernel.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-sound@vger.kernel.org
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
