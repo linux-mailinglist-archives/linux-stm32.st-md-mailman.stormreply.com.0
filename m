@@ -2,39 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF65989700E
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 15:17:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99EFC8970D2
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 15:27:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9CC04C69067;
-	Wed,  3 Apr 2024 13:17:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 498EBC69067;
+	Wed,  3 Apr 2024 13:27:19 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE61FC69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12BE2C69063
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 13:17:48 +0000 (UTC)
+ Wed,  3 Apr 2024 13:27:17 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ukl@pengutronix.de>)
- id 1rs0Ug-0002nO-5b; Wed, 03 Apr 2024 15:17:34 +0200
+ id 1rs0dx-0002d4-GC; Wed, 03 Apr 2024 15:27:09 +0200
 Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
  (envelope-from <ukl@pengutronix.de>)
- id 1rs0Ue-00ABcw-6F; Wed, 03 Apr 2024 15:17:32 +0200
+ id 1rs0dw-00ABe9-HS; Wed, 03 Apr 2024 15:27:08 +0200
 Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ukl@pengutronix.de>) id 1rs0Ue-00EjB3-0K;
- Wed, 03 Apr 2024 15:17:32 +0200
-Date: Wed, 3 Apr 2024 15:17:21 +0200
+ (envelope-from <ukl@pengutronix.de>) id 1rs0dw-00EjOu-1T;
+ Wed, 03 Apr 2024 15:27:08 +0200
+Date: Wed, 3 Apr 2024 15:27:01 +0200
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
 To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <gh4slqpbzul67vni6hv2opjuvccokfwqnnroxbpqt5oc3kiz65@nbqaxhwltb3z>
+Message-ID: <wmd4z6bgy25tdzfch5a5p2gxtj35qyljo5t6babc773yaajeja@tefjvvrshykl>
 References: <20240403080702.3509288-1-arnd@kernel.org>
  <20240403080702.3509288-8-arnd@kernel.org>
+ <gh4slqpbzul67vni6hv2opjuvccokfwqnnroxbpqt5oc3kiz65@nbqaxhwltb3z>
 MIME-Version: 1.0
-In-Reply-To: <20240403080702.3509288-8-arnd@kernel.org>
+In-Reply-To: <gh4slqpbzul67vni6hv2opjuvccokfwqnnroxbpqt5oc3kiz65@nbqaxhwltb3z>
 X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
 X-SA-Exim-Mail-From: ukl@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
@@ -58,96 +59,104 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1617274962843702082=="
+Content-Type: multipart/mixed; boundary="===============7990143833535407313=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1617274962843702082==
+--===============7990143833535407313==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w5s23epdr6logtfm"
+	protocol="application/pgp-signature"; boundary="lwhm5g33cm24lkxt"
 Content-Disposition: inline
 
 
---w5s23epdr6logtfm
+--lwhm5g33cm24lkxt
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hello again,
 
-On Wed, Apr 03, 2024 at 10:06:25AM +0200, Arnd Bergmann wrote:
-> From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+On Wed, Apr 03, 2024 at 03:17:32PM +0200, Uwe Kleine-K=F6nig wrote:
+> On Wed, Apr 03, 2024 at 10:06:25AM +0200, Arnd Bergmann wrote:
+> > From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> >=20
+> > When compile tested with W=3D1 on x86_64 with driver as built-in:
+> >=20
+> >   stmpe-ts.c:371:34: error: unused variable 'stmpe_ts_ids' [-Werror,-Wu=
+nused-const-variable]
+> >=20
+> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  drivers/input/touchscreen/stmpe-ts.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touch=
+screen/stmpe-ts.c
+> > index b204fdb2d22c..022b3e94266d 100644
+> > --- a/drivers/input/touchscreen/stmpe-ts.c
+> > +++ b/drivers/input/touchscreen/stmpe-ts.c
+> > @@ -366,7 +366,7 @@ static struct platform_driver stmpe_ts_driver =3D {
+> >  };
+> >  module_platform_driver(stmpe_ts_driver);
+> > =20
+> > -static const struct of_device_id stmpe_ts_ids[] =3D {
+> > +static const struct of_device_id stmpe_ts_ids[] __maybe_unused =3D {
+> >  	{ .compatible =3D "st,stmpe-ts", },
+> >  	{ },
+> >  };
 >=20
-> When compile tested with W=3D1 on x86_64 with driver as built-in:
->=20
->   stmpe-ts.c:371:34: error: unused variable 'stmpe_ts_ids' [-Werror,-Wunu=
-sed-const-variable]
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/input/touchscreen/stmpe-ts.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> I'd suggest the following instead:
 >=20
 > diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touchsc=
 reen/stmpe-ts.c
-> index b204fdb2d22c..022b3e94266d 100644
+> index b204fdb2d22c..e1afebc641ec 100644
 > --- a/drivers/input/touchscreen/stmpe-ts.c
 > +++ b/drivers/input/touchscreen/stmpe-ts.c
-> @@ -366,7 +366,7 @@ static struct platform_driver stmpe_ts_driver =3D {
->  };
->  module_platform_driver(stmpe_ts_driver);
+> @@ -357,21 +357,22 @@ static void stmpe_ts_remove(struct platform_device =
+*pdev)
+>  	stmpe_disable(ts->stmpe, STMPE_BLOCK_TOUCHSCREEN);
+>  }
 > =20
-> -static const struct of_device_id stmpe_ts_ids[] =3D {
-> +static const struct of_device_id stmpe_ts_ids[] __maybe_unused =3D {
+> -static struct platform_driver stmpe_ts_driver =3D {
+> -	.driver =3D {
+> -		.name =3D STMPE_TS_NAME,
+> -	},
+> -	.probe =3D stmpe_input_probe,
+> -	.remove_new =3D stmpe_ts_remove,
+> -};
+> -module_platform_driver(stmpe_ts_driver);
+> -
+>  static const struct of_device_id stmpe_ts_ids[] =3D {
 >  	{ .compatible =3D "st,stmpe-ts", },
 >  	{ },
 >  };
+>  MODULE_DEVICE_TABLE(of, stmpe_ts_ids);
+> =20
+> +static struct platform_driver stmpe_ts_driver =3D {
+> +	.driver =3D {
+> +		.name =3D STMPE_TS_NAME,
+> +		.of_match_table =3D stmpe_ts_ids,
+> +	},
+> +	.probe =3D stmpe_input_probe,
+> +	.remove_new =3D stmpe_ts_remove,
+> +};
+> +module_platform_driver(stmpe_ts_driver);
+> +
+>  MODULE_AUTHOR("Luotao Fu <l.fu@pengutronix.de>");
+>  MODULE_DESCRIPTION("STMPEXXX touchscreen driver");
+>  MODULE_LICENSE("GPL");
+>=20
+> I wonder if with the status quo binding via dt works at all with
+> stmpe_ts_driver.driver.of_match_table unset?!
 
-I'd suggest the following instead:
-
-diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touchscre=
-en/stmpe-ts.c
-index b204fdb2d22c..e1afebc641ec 100644
---- a/drivers/input/touchscreen/stmpe-ts.c
-+++ b/drivers/input/touchscreen/stmpe-ts.c
-@@ -357,21 +357,22 @@ static void stmpe_ts_remove(struct platform_device *p=
-dev)
- 	stmpe_disable(ts->stmpe, STMPE_BLOCK_TOUCHSCREEN);
- }
-=20
--static struct platform_driver stmpe_ts_driver =3D {
--	.driver =3D {
--		.name =3D STMPE_TS_NAME,
--	},
--	.probe =3D stmpe_input_probe,
--	.remove_new =3D stmpe_ts_remove,
--};
--module_platform_driver(stmpe_ts_driver);
--
- static const struct of_device_id stmpe_ts_ids[] =3D {
- 	{ .compatible =3D "st,stmpe-ts", },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, stmpe_ts_ids);
-=20
-+static struct platform_driver stmpe_ts_driver =3D {
-+	.driver =3D {
-+		.name =3D STMPE_TS_NAME,
-+		.of_match_table =3D stmpe_ts_ids,
-+	},
-+	.probe =3D stmpe_input_probe,
-+	.remove_new =3D stmpe_ts_remove,
-+};
-+module_platform_driver(stmpe_ts_driver);
-+
- MODULE_AUTHOR("Luotao Fu <l.fu@pengutronix.de>");
- MODULE_DESCRIPTION("STMPEXXX touchscreen driver");
- MODULE_LICENSE("GPL");
-
-I wonder if with the status quo binding via dt works at all with
-stmpe_ts_driver.driver.of_match_table unset?!
+I missed the discussion between Andy and Krzysztof when I wrote my mail.
+I still think this should be considered and if .of_match_table should
+stay unassigned (e.g. to allow dropping stmpe_ts_ids in case the driver
+is built-in?) I think adding a code comment would be appropriate because
+having an of_device_id array but not adding it to the driver is unusuall
+and generally a bad template for new drivers.
 
 Best regards
 Uwe
@@ -156,24 +165,24 @@ Uwe
 Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
 Industrial Linux Solutions                 | https://www.pengutronix.de/ |
 
---w5s23epdr6logtfm
+--lwhm5g33cm24lkxt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmYNVt0ACgkQj4D7WH0S
-/k617wf/XJTPmkGqx6WR8Tmi0mrUVAAfMvGFXyjwHCAZ4QoUpGT62IuJWADBA2z8
-9CkeDLSntFQsLSCvm/4xE+A7YSfVylRp58nkIbt/L1PvNl37kx1NG8VRfr1tHi+t
-qNS8bcTEMks28tKxfG2fZ699NUxQ/v56APHHmctVINZtQr70DldjgT9YLxlZl53i
-HUR0vQ9GuhR2iAe0vGbe6x0i3ZBy8xbTq585mk4JffQuxLb1ZXW1+j62nQoUPJKt
-SlF5XlUnG92tuNt8X1EWzbpSio1E98AQ3+sFvvRTRDFkI2WEk3wS/xVhZwqjy7JW
-JEEu8YBfjnomnkrRw/U0tgZ1SY3sig==
-=vjvn
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmYNWSQACgkQj4D7WH0S
+/k6SBQf/boQclIHZWoNQ1TuZG4XA4b8YelwZEdTd65NHDS6BeEIoqmURpv3FhZDn
+BLm5Xa52CQnqKSJPtc/xPF7cf4RygvQy1IQeQo05VgSWpdilHEHfQ5ni24FBkamZ
+oEEpGMyfTzYABRHbJ5HBP9E5lXeIuf6Sydod5a7jhYTYLqnZYv0aLOWU5veHZydV
+OChe/wSCmysu058/7iLNUoHOPk3KBIL0DTzqY1LQXFa+LKX3JInzTgm0yvOVcOKa
+sjrLsZi7v55hB1Xr1G0WuCuneCTeVz3w5jI/8NbbdGd7dp/530fNvKtIA5LN1uZS
+wnVuxRH+MiZXchlhoWFVvfFWLa1vZg==
+=fXp2
 -----END PGP SIGNATURE-----
 
---w5s23epdr6logtfm--
+--lwhm5g33cm24lkxt--
 
---===============1617274962843702082==
+--===============7990143833535407313==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -184,4 +193,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============1617274962843702082==--
+--===============7990143833535407313==--
