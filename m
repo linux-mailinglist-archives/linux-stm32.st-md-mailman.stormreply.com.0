@@ -2,60 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD258968CA
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 10:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5092B896AD7
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 11:40:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A83CC6B45B;
-	Wed,  3 Apr 2024 08:34:35 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DCB9C69063;
+	Wed,  3 Apr 2024 09:40:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1722AC69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 33214C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 08:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5byGfi+YltTK32ZINcsDDBL0Ip9/fC/96w7JVL8ZAeY=; b=C9VY1w14a8zzVC+dEq1nF2CU1A
- rIwwPRYl/p95f094Bi7cXEOMsEItYe6cHITEKaIfyE3HpJjVQr7fNMyCE5dcdg90j15gmp4iyQJTD
- ifXJRoHXKdXNr/265/clVoMZSmy4Yk2Yk1F4BaUaRB54Guahe9E4C3QqvlHmX2I2URTNX3A8qcvgy
- DsPxq2cdla8S2+sm1jXnQtCiOJeQOtm5deMjU5ZoOFUPqeOETAZhEu31dOFNpF4MqBX2obdS6J/wa
- WT2vG+NoiJDg5J0Wpc6AesDG5+2Cbq+8WPqpBar5CAHqxEXmUvJ+EIjX6ehYoOliFfBCrusVDPWmA
- M2ef8e3Q==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51368)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <linux@armlinux.org.uk>) id 1rrw4Z-0007z7-0k;
- Wed, 03 Apr 2024 09:34:19 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1rrw4W-0007mg-3j; Wed, 03 Apr 2024 09:34:16 +0100
-Date: Wed, 3 Apr 2024 09:34:16 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Romain Gantois <romain.gantois@bootlin.com>
-Message-ID: <Zg0Uh9TvArz7tLzH@shell.armlinux.org.uk>
-References: <ZgwoygldsA1V8fs9@shell.armlinux.org.uk>
- <E1rrgQO-005ZOA-KT@rmk-PC.armlinux.org.uk>
+ Wed,  3 Apr 2024 09:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1712137235; x=1743673235;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ICn91gnq+iMytIBB6tqjA6afiAWPNDHdNzxVladSkzI=;
+ b=Zt4UhtnCXfczh8TqNEO9LKdI4UVkAlKe5mduHsTuQHJdqhAT7Iw3EKgl
+ QYTWN2Y0pL3ZsCYILvw3UaP9KbXsM1O94I9K6Hrd9PNuMYaqsw+bHYrWm
+ fVWBNIdyh6n3N/0uHTxrTtn0aJWWMih2l1wOi3Nx1fNUWlD/7FXDTMYZb
+ 2BYdUkE7mnFvXaaZikkWPZ7KJKStiFYBYP0PLRZ2sFmLTpl1kV1cxypYR
+ clzkwrvPFUye69+g5F8+P1zg7oK44LvBZBJwkKtQ+RcJ47JGC5w3FWsL1
+ XZRh1yMorD64ev4Oh7Z5HJGXM/W2eK+cCW6e1U4LASVWVZBZWFQN+wnXY Q==;
+X-CSE-ConnectionGUID: 8yJ/x4q0ScSTAS89cWv0pQ==
+X-CSE-MsgGUID: Xg+Fvh9ZSHOnim1P+8N7ig==
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="7219510"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; 
+   d="scan'208";a="7219510"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2024 02:40:33 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,11032"; a="915176296"
+X-IronPort-AV: E=Sophos;i="6.07,177,1708416000"; d="scan'208";a="915176296"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.72.54])
+ by fmsmga002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2024 02:40:30 -0700
+Received: from andy by smile with local (Exim 4.97)
+ (envelope-from <andriy.shevchenko@intel.com>)
+ id 1rrx6Z-000000014uW-3jLk; Wed, 03 Apr 2024 12:40:27 +0300
+Date: Wed, 3 Apr 2024 12:40:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Message-ID: <Zg0kC6uYFOi-UGXl@smile.fi.intel.com>
+References: <20240403080702.3509288-1-arnd@kernel.org>
+ <20240403080702.3509288-8-arnd@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1rrgQO-005ZOA-KT@rmk-PC.armlinux.org.uk>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+In-Reply-To: <20240403080702.3509288-8-arnd@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: linux-input@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, devicetree@vger.kernel.org,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Magnus Damm <magnus.damm@gmail.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jose Abreu <joabreu@synopsys.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: dwmac-socfpga:
- use pcs_init/pcs_exit
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 07/34] Input: stmpe-ts - mark OF related
+ data as maybe unused
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,31 +76,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Apr 02, 2024 at 04:51:48PM +0100, Russell King (Oracle) wrote:
-> Use the newly introduced pcs_init() and pcs_exit() operations to
-> create and destroy the PCS instance at a more appropriate moment during
-> the driver lifecycle, thereby avoiding publishing a network device to
-> userspace that has not yet finished its PCS initialisation.
+On Wed, Apr 03, 2024 at 10:06:25AM +0200, Arnd Bergmann wrote:
+> From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 > 
-> There are other similar issues with this driver which remain
-> unaddressed, but these are out of scope for this patch.
+> When compile tested with W=1 on x86_64 with driver as built-in:
+> 
+>   stmpe-ts.c:371:34: error: unused variable 'stmpe_ts_ids' [-Werror,-Wunused-const-variable]
 
-Just for the record...
+...
 
-Digging into the history of this driver, the init-after-publish issue
-was introduced by commit 3c201b5a84ed ("net: stmmac: socfpga: Remove
-re-registration of reset controller") which gives information on why
-calling the PHY configuration before stmmac_dvr_probe() didn't work.
+> -static const struct of_device_id stmpe_ts_ids[] = {
+> +static const struct of_device_id stmpe_ts_ids[] __maybe_unused = {
 
-This was further modified by 56868deece92 ("stmmac: dwmac-socfpga: add
-PM ops and resume function").
+__maybe_unused? 
 
-I haven't decided what can be done about that yet - and I'm tempted to
-leave it as-is for the time being until more of stmmac gets cleaned up.
+Why not adding it into .driver as you have done in another patch in this series?
+
+>  	{ .compatible = "st,stmpe-ts", },
+>  	{ },
+>  };
 
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
