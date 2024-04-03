@@ -2,52 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99EFC8970D2
-	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 15:27:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73310897462
+	for <lists+linux-stm32@lfdr.de>; Wed,  3 Apr 2024 17:49:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 498EBC69067;
-	Wed,  3 Apr 2024 13:27:19 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 28F7BC69067;
+	Wed,  3 Apr 2024 15:49:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12BE2C69063
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4CD0C640E5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  3 Apr 2024 13:27:17 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <ukl@pengutronix.de>)
- id 1rs0dx-0002d4-GC; Wed, 03 Apr 2024 15:27:09 +0200
-Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <ukl@pengutronix.de>)
- id 1rs0dw-00ABe9-HS; Wed, 03 Apr 2024 15:27:08 +0200
-Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.96)
- (envelope-from <ukl@pengutronix.de>) id 1rs0dw-00EjOu-1T;
- Wed, 03 Apr 2024 15:27:08 +0200
-Date: Wed, 3 Apr 2024 15:27:01 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-To: Arnd Bergmann <arnd@kernel.org>
-Message-ID: <wmd4z6bgy25tdzfch5a5p2gxtj35qyljo5t6babc773yaajeja@tefjvvrshykl>
-References: <20240403080702.3509288-1-arnd@kernel.org>
- <20240403080702.3509288-8-arnd@kernel.org>
- <gh4slqpbzul67vni6hv2opjuvccokfwqnnroxbpqt5oc3kiz65@nbqaxhwltb3z>
+ Wed,  3 Apr 2024 15:49:28 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 5B8A96148B;
+ Wed,  3 Apr 2024 15:49:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ECF8C433C7;
+ Wed,  3 Apr 2024 15:49:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1712159367;
+ bh=UzhIYoxj/GeUq1Zwp8VWt8eQlrVFRAAjBbLXufD7S1A=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=iokMOfxMA3K/TB6FKWFIK0O7s2zq9aTtls09nLxeUk6PRr6Z60BQud79hycqKEjQS
+ F2HF0BeyukIj5qydY11CNYd3p1AQY5H0UJf1+SPKTJYMa91oijQJlPi2iC9x7YoZSv
+ enYPM4R+oka/GAq9UxpBKwGke/aXce6Xr4CaZbrTt+YooAe/ataCz/2t2Sq7VaY4/W
+ wSf4CL8M23uZrbYBJHpaKS78mRBqbwWWHDrdXGSS1kIteJSz5cvTJm+kgSTcn2B6DW
+ G5Kl7+x/QvP2PTALxe6WIXRScUUhaHfwCHbiGSRKSojnp5dBZARsKUiKKCNphr8Jni
+ C5BjRi7WSaSMg==
+Date: Wed, 3 Apr 2024 16:49:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Tan Chun Hau <chunhau.tan@starfivetech.com>
+Message-ID: <20240403-curfew-baked-a0feef40cd92@spud>
+References: <20240403100549.78719-1-chunhau.tan@starfivetech.com>
+ <20240403100549.78719-2-chunhau.tan@starfivetech.com>
 MIME-Version: 1.0
-In-Reply-To: <gh4slqpbzul67vni6hv2opjuvccokfwqnnroxbpqt5oc3kiz65@nbqaxhwltb3z>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: ukl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/34] Input: stmpe-ts - mark OF related
- data as maybe unused
+In-Reply-To: <20240403100549.78719-2-chunhau.tan@starfivetech.com>
+Cc: Emil Renner Berthing <kernel@esmil.dk>, Eric Dumazet <edumazet@google.com>,
+ Jisheng Zhang <jszhang@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Jee Heng Sia <jeeheng.sia@starfivetech.com>,
+ Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Andrew Halaney <ahalaney@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ley Foon Tan <leyfoon.tan@starfivetech.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v6 1/1] dt-bindings: net: starfive,
+ jh7110-dwmac: Add StarFive JH8100 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,130 +65,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7990143833535407313=="
+Content-Type: multipart/mixed; boundary="===============1408509726458614199=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============7990143833535407313==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lwhm5g33cm24lkxt"
+--===============1408509726458614199==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="5QPyn77z4oCLNx4w"
 Content-Disposition: inline
 
 
---lwhm5g33cm24lkxt
-Content-Type: text/plain; charset=iso-8859-1
+--5QPyn77z4oCLNx4w
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hello again,
-
-On Wed, Apr 03, 2024 at 03:17:32PM +0200, Uwe Kleine-K=F6nig wrote:
-> On Wed, Apr 03, 2024 at 10:06:25AM +0200, Arnd Bergmann wrote:
-> > From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> >=20
-> > When compile tested with W=3D1 on x86_64 with driver as built-in:
-> >=20
-> >   stmpe-ts.c:371:34: error: unused variable 'stmpe_ts_ids' [-Werror,-Wu=
-nused-const-variable]
-> >=20
-> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > ---
-> >  drivers/input/touchscreen/stmpe-ts.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touch=
-screen/stmpe-ts.c
-> > index b204fdb2d22c..022b3e94266d 100644
-> > --- a/drivers/input/touchscreen/stmpe-ts.c
-> > +++ b/drivers/input/touchscreen/stmpe-ts.c
-> > @@ -366,7 +366,7 @@ static struct platform_driver stmpe_ts_driver =3D {
-> >  };
-> >  module_platform_driver(stmpe_ts_driver);
-> > =20
-> > -static const struct of_device_id stmpe_ts_ids[] =3D {
-> > +static const struct of_device_id stmpe_ts_ids[] __maybe_unused =3D {
-> >  	{ .compatible =3D "st,stmpe-ts", },
-> >  	{ },
-> >  };
+On Wed, Apr 03, 2024 at 03:05:49AM -0700, Tan Chun Hau wrote:
+> Add StarFive JH8100 dwmac support.
+> The JH8100 dwmac shares the same driver code as the JH7110 dwmac
+> and has only one reset signal.
 >=20
-> I'd suggest the following instead:
+> Please refer to below:
 >=20
-> diff --git a/drivers/input/touchscreen/stmpe-ts.c b/drivers/input/touchsc=
-reen/stmpe-ts.c
-> index b204fdb2d22c..e1afebc641ec 100644
-> --- a/drivers/input/touchscreen/stmpe-ts.c
-> +++ b/drivers/input/touchscreen/stmpe-ts.c
-> @@ -357,21 +357,22 @@ static void stmpe_ts_remove(struct platform_device =
-*pdev)
->  	stmpe_disable(ts->stmpe, STMPE_BLOCK_TOUCHSCREEN);
->  }
-> =20
-> -static struct platform_driver stmpe_ts_driver =3D {
-> -	.driver =3D {
-> -		.name =3D STMPE_TS_NAME,
-> -	},
-> -	.probe =3D stmpe_input_probe,
-> -	.remove_new =3D stmpe_ts_remove,
-> -};
-> -module_platform_driver(stmpe_ts_driver);
-> -
->  static const struct of_device_id stmpe_ts_ids[] =3D {
->  	{ .compatible =3D "st,stmpe-ts", },
->  	{ },
->  };
->  MODULE_DEVICE_TABLE(of, stmpe_ts_ids);
-> =20
-> +static struct platform_driver stmpe_ts_driver =3D {
-> +	.driver =3D {
-> +		.name =3D STMPE_TS_NAME,
-> +		.of_match_table =3D stmpe_ts_ids,
-> +	},
-> +	.probe =3D stmpe_input_probe,
-> +	.remove_new =3D stmpe_ts_remove,
-> +};
-> +module_platform_driver(stmpe_ts_driver);
-> +
->  MODULE_AUTHOR("Luotao Fu <l.fu@pengutronix.de>");
->  MODULE_DESCRIPTION("STMPEXXX touchscreen driver");
->  MODULE_LICENSE("GPL");
+>   JH8100: reset-names =3D "stmmaceth";
+>   JH7110: reset-names =3D "stmmaceth", "ahb";
+>   JH7100: reset-names =3D "ahb";
 >=20
-> I wonder if with the status quo binding via dt works at all with
-> stmpe_ts_driver.driver.of_match_table unset?!
+> Example usage of JH8100 in the device tree:
+>=20
+> gmac0: ethernet@16030000 {
+>         compatible =3D "starfive,jh8100-dwmac",
+>                      "starfive,jh7110-dwmac",
+>                      "snps,dwmac-5.20";
+>         ...
+> };
+>=20
+> Signed-off-by: Tan Chun Hau <chunhau.tan@starfivetech.com>
 
-I missed the discussion between Andy and Krzysztof when I wrote my mail.
-I still think this should be considered and if .of_match_table should
-stay unassigned (e.g. to allow dropping stmpe_ts_ids in case the driver
-is built-in?) I think adding a code comment would be appropriate because
-having an of_device_id array but not adding it to the driver is unusuall
-and generally a bad template for new drivers.
+How come you didn't pick up Rob's r-b?
+https://lore.kernel.org/all/20240328204202.GA308290-robh@kernel.org/
 
-Best regards
-Uwe
+Thanks,
+Conor.
 
---=20
-Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
-Industrial Linux Solutions                 | https://www.pengutronix.de/ |
-
---lwhm5g33cm24lkxt
+--5QPyn77z4oCLNx4w
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmYNWSQACgkQj4D7WH0S
-/k6SBQf/boQclIHZWoNQ1TuZG4XA4b8YelwZEdTd65NHDS6BeEIoqmURpv3FhZDn
-BLm5Xa52CQnqKSJPtc/xPF7cf4RygvQy1IQeQo05VgSWpdilHEHfQ5ni24FBkamZ
-oEEpGMyfTzYABRHbJ5HBP9E5lXeIuf6Sydod5a7jhYTYLqnZYv0aLOWU5veHZydV
-OChe/wSCmysu058/7iLNUoHOPk3KBIL0DTzqY1LQXFa+LKX3JInzTgm0yvOVcOKa
-sjrLsZi7v55hB1Xr1G0WuCuneCTeVz3w5jI/8NbbdGd7dp/530fNvKtIA5LN1uZS
-wnVuxRH+MiZXchlhoWFVvfFWLa1vZg==
-=fXp2
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCZg16fwAKCRB4tDGHoIJi
+0rVTAPwPbHnemqIv++C11B6NjvmKObocsG2d4g/9l+VTGUcEcwD/dnqiJI0Edddc
+A2TIMXnBN8NBZKR6OjdPOBQe3BmioQI=
+=ysgy
 -----END PGP SIGNATURE-----
 
---lwhm5g33cm24lkxt--
+--5QPyn77z4oCLNx4w--
 
---===============7990143833535407313==
+--===============1408509726458614199==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -193,4 +133,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7990143833535407313==--
+--===============1408509726458614199==--
