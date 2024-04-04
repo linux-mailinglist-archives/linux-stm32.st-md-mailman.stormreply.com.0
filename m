@@ -2,68 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B416A898362
-	for <lists+linux-stm32@lfdr.de>; Thu,  4 Apr 2024 10:46:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4951A8988C6
+	for <lists+linux-stm32@lfdr.de>; Thu,  4 Apr 2024 15:28:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75941C6B45B;
-	Thu,  4 Apr 2024 08:46:55 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E516BC6B46B;
+	Thu,  4 Apr 2024 13:28:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A733C69067
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73A64C6B45B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Apr 2024 08:46:54 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-516bfcc76efso765327e87.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Apr 2024 01:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712220413; x=1712825213;
- darn=st-md-mailman.stormreply.com; 
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
- bh=vssJvDsEm5h5nxOLNKKmfZj8jedONQ1OyiP3MNwrwU4=;
- b=eGpMONjhHXUQxHRdpyRhCYO4YU38uQGFsXATYgrwS83OnBmZLqoxCSGOvcud1asbcY
- nHUmwdgHT8cuEE44T5rhkfz4+qyVGSOSdpPEbrSsKcWmrCcUTIaUcUcbthVS/oP+2k9J
- 5SE8bfY8PyDACfJhfcJ+GENVcch7zg/oiKKoAYnFyfTPHba5AgFQXlzTKb72BCFMBAJt
- gSW6B8CgonbiW5yR6yOKAaC9XRykgR4VI71+8tQGh1r6F5MGxqu7EkW42ACt0f7WKpKX
- RjEwntZTiD4MQkErE9X1zF3JJSYQaE58gabuJkEfYlJA+OaOR1QKT/cXK6vTZPm3PSHR
- /mcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712220413; x=1712825213;
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vssJvDsEm5h5nxOLNKKmfZj8jedONQ1OyiP3MNwrwU4=;
- b=UvXmA/VUWQoMMGSGP4ykBBuv4BNXHqRNZQZ5lQ7e8NSZWlEcU7JudshwbBLe7kgaG4
- YbIj2AZ0g0WGVzWe7gPY20cxPbG8Peq7prh2dc7ylK7fFEDJ+/YA0RptNrlfUQfzCkWG
- QMsrMnzbnIG+gG5W6p41VYb8+gmtUcs9RciBZZ5JfkmR+wWmjYxeXBu1kAhqT9IF7J+o
- 0KId4M56pjuItPq5Zd+zrBs+175Ao/zmbRdN9Cmi9TMmMkESml4DwSriudklJOHmz0iC
- i2131UFTriR/gU6MY1p94KFlDuRxARUeNTbEzRxLNh/HcpZfZ6fT8qMAgb9YYt2rPGfZ
- xEHQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCViQU23/kkrceNiOWfo8QbXopC8kF8gU3YlBu8FzUgF+mlvOweJOQWs0A03nMpWniI/P7V2Mf9/oaLmYUP0ATWxltrGvW0f/xs9qBa3Pdbvagt3uH9vzPup
-X-Gm-Message-State: AOJu0YwMXDWuUpEG7g3I+4U6WxZCczG6hJPDA59TnKq7IyWqjMIU37Gw
- Xu3AdiV8Ar7RQ/a/8F24gT1OfGi5RZoI7gM8i7w0LrRwhVNbCplPO4XMcEBT6nc=
-X-Google-Smtp-Source: AGHT+IGfmakMeTh3jAGVQJKJ+VTm2R438vkeBhF7L+wEWqOROEyvzepKwPfwlLVcE3mN6ey9Em+MkA==
-X-Received: by 2002:ac2:4c8f:0:b0:513:d01e:b68 with SMTP id
- d15-20020ac24c8f000000b00513d01e0b68mr1237043lfl.3.1712220413384; 
- Thu, 04 Apr 2024 01:46:53 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:b7ad:8118:73f1:92e5])
- by smtp.gmail.com with ESMTPSA id
- p15-20020a05600c468f00b0041550e03bc6sm1869265wmo.44.2024.04.04.01.46.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Apr 2024 01:46:53 -0700 (PDT)
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87sf05udnx.wl-kuninori.morimoto.gx@renesas.com>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 04 Apr 2024 10:46:13 +0200
-In-reply-to: <87sf05udnx.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <1jedblplab.fsf@starbuckisacylon.baylibre.com>
+ Thu,  4 Apr 2024 13:28:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1712237282; x=1743773282;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=O2FCZHFbVWkFqB1QcGwdd1JkWBZ9ekBrh/mg+gockjc=;
+ b=PhGHx2Il5MrSHKBjfJydO03IN7lgvAYnUgHYQIacwu4LHplXc66kgDAi
+ JeAE9UJpMnecMmivKq6mhQRM1v98BXrjLTEd2Ug763UedrJWEIetRxr3c
+ NwPRbdiuLApEV7UxVugBipeMvlzbudQ5ZPxPvHplsaqLcyMfe5A/PM9gY
+ 466a+9ZWCeNkTlh1Vyhd6bkAFY4Dre2DrZnhuXfY42ep1FbDORefr5NnV
+ tvqfcZc6IWLdYAYcV41wb2a4MY9jZPDUMpAesaor8/OG4mAP3uUwHqKea
+ LrDqSLcs2iYsA0526gUbxT/XBxABPn33Omuu/lOYp76tfGUmdV8u+p8IF g==;
+X-CSE-ConnectionGUID: m60ixMe6TbKKmJ0zwyNXKA==
+X-CSE-MsgGUID: EB8JiOegSau2Acrfrt7jHw==
+X-IronPort-AV: E=McAfee;i="6600,9927,11033"; a="7385547"
+X-IronPort-AV: E=Sophos;i="6.07,179,1708416000"; 
+   d="scan'208";a="7385547"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2024 06:28:00 -0700
+X-CSE-ConnectionGUID: sp3ox9/wRG+HXpegDZH/cQ==
+X-CSE-MsgGUID: 2kE90uPZQRaWPfZtXz0Ytg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.07,179,1708416000"; d="scan'208";a="23436766"
+Received: from libintan-mobl.amr.corp.intel.com (HELO [10.213.164.95])
+ ([10.213.164.95])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2024 06:27:58 -0700
+Message-ID: <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
+Date: Thu, 4 Apr 2024 08:27:57 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+ <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
+ <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
+ <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
+ <600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
+ <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
 Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
  Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
  alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
@@ -73,11 +64,10 @@ Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
  Shengjiu Wang <shengjiu.wang@gmail.com>,
  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
  Sascha Hauer <s.hauer@pengutronix.de>,
- =?utf-8?Q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
+ =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
  linux-sound@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
  Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
  Matthias Brugger <matthias.bgg@gmail.com>,
@@ -89,8 +79,8 @@ Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
  Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
  Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 05/16] ASoC: meson: Replace
- dpcm_playback/capture to playback/capture_only
+Subject: Re: [Linux-stm32] [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
+ soc_get_playback_capture()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,83 +98,110 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Mon 01 Apr 2024 at 00:31, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
 
-> soc_get_playback_capture() is now handling DPCM and normal comprehensively
-> for playback/capture stream. We can use playback/capture_only flag
-> instead of using dpcm_playback/capture. This patch replace these.
->
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On 4/3/24 20:53, Kuninori Morimoto wrote:
+> 
+> Hi Pierre-Louis
+> 
+> Thank you for your feedback.
+> I could understand your comment 80%, but not yet 100%
+> 
+>> With the older code, if the dpcm_playback was set for the dailink but
+>> there isn't any dai connected to support playback, an error was thrown.
+>>
+>> With the new code, if playback_only is set but there isn't any dai
+>> connected, there is no error thrown, is there?
+> (snip)
+>> Again we had a verification that if the dpcm_playback was set at the
+>> dailink level, it was actually supported by the dais.
+>>
+>> We seem to have lost this verification. We only have an error when there
+>> are no settings at all.
+> 
+> Pseudo code of new soc_get_playback_capture() is like this
+> 
+> 	soc_get_playback_capture(...)
+> 	{
+> 		...
+>  ^		for_each_rtd_ch_maps(...) {
+>  |			...
+> (A)			has_playback = xxx;
+>  |			has_capture  = xxx;
+>  v		}
+> 
+>  ^		if (dai_link->playback_only)
+>  |			has_capture = 0;
+> (B)
+>  |		if (dai_link->capture_only)
+>  v			has_playback = 0;
+> 
+>  ^		if (!has_playback && !has_capture) {
+> (C)			dev_err(...);
+>  v			return -EINVAL;
+> 		}
+> 		...
+> 	}
+> 
+> In old/new soc_get_playback_capture(), has_xxx will be set at least
+> if one of rtd connected DAI can handle playback/capture.
+> In new code, it will be handled at (A).
+> 
+> And unneeded has_xxx will be removed if xxx_only was set (B)
 
-Looks OK
+The problem is that we have two sources of information
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+1) the dais included in the dailink (the (A) part above)
+2) the dailink itself (the (B) part above)
 
-> ---
->  sound/soc/meson/axg-card.c         | 8 ++++----
->  sound/soc/meson/meson-card-utils.c | 4 ++--
->  2 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-> index 3180aa4d3a15..21bf1453af43 100644
-> --- a/sound/soc/meson/axg-card.c
-> +++ b/sound/soc/meson/axg-card.c
-> @@ -132,7 +132,7 @@ static int axg_card_add_tdm_loopback(struct snd_soc_card *card,
->  	lb->stream_name = lb->name;
->  	lb->cpus->of_node = pad->cpus->of_node;
->  	lb->cpus->dai_name = "TDM Loopback";
-> -	lb->dpcm_capture = 1;
-> +	lb->capture_only = 1;
->  	lb->no_pcm = 1;
->  	lb->ops = &axg_card_tdm_be_ops;
->  	lb->init = axg_card_tdm_dai_lb_init;
-> @@ -176,7 +176,7 @@ static int axg_card_parse_cpu_tdm_slots(struct snd_soc_card *card,
->  
->  	/* Disable playback is the interface has no tx slots */
->  	if (!tx)
-> -		link->dpcm_playback = 0;
-> +		link->capture_only = 1;
->  
->  	for (i = 0, rx = 0; i < AXG_TDM_NUM_LANES; i++) {
->  		snprintf(propname, 32, "dai-tdm-slot-rx-mask-%d", i);
-> @@ -186,7 +186,7 @@ static int axg_card_parse_cpu_tdm_slots(struct snd_soc_card *card,
->  
->  	/* Disable capture is the interface has no rx slots */
->  	if (!rx)
-> -		link->dpcm_capture = 0;
-> +		link->playback_only = 1;
->  
->  	/* ... but the interface should at least have one of them */
->  	if (!tx && !rx) {
-> @@ -275,7 +275,7 @@ static int axg_card_parse_tdm(struct snd_soc_card *card,
->  		return ret;
->  
->  	/* Add loopback if the pad dai has playback */
-> -	if (link->dpcm_playback) {
-> +	if (!link->capture_only) {
->  		ret = axg_card_add_tdm_loopback(card, index);
->  		if (ret)
->  			return ret;
-> diff --git a/sound/soc/meson/meson-card-utils.c b/sound/soc/meson/meson-card-utils.c
-> index ed6c7e2f609c..1a4ef124e4e2 100644
-> --- a/sound/soc/meson/meson-card-utils.c
-> +++ b/sound/soc/meson/meson-card-utils.c
-> @@ -186,9 +186,9 @@ int meson_card_set_fe_link(struct snd_soc_card *card,
->  	link->dpcm_merged_rate = 1;
->  
->  	if (is_playback)
-> -		link->dpcm_playback = 1;
-> +		link->playback_only = 1;
->  	else
-> -		link->dpcm_capture = 1;
-> +		link->capture_only = 1;
->  
->  	return meson_card_set_link_name(card, link, node, "fe");
->  }
+the code in A) constructs the information from the ground-up, but it's
+overridden by B).
 
+You can view it as 'removing unneeded has_xxx' flags, but it's also a
+problem is the dailink information is incorrect...
 
--- 
-Jerome
+In the past we would report an error if the dailink was not aligned with
+the dais. Now we just ignore the dai information.
+
+That's the concern, we're changing the behavior.
+
+> Then, if neither has_xxx was set, it will be error (C)
+
+That's not the concern. The concern is a discrepancy between A) and B).
+
+> 
+> 	In new code, if playback_only is set but there isn't any dai
+> 	connected, there is no error thrown, is there?
+> 
+> If playback_only was set, has_capture will be removed at (B).
+> And if DAI was not playback-able, this means has_playback was not set at (A).
+> In such case, (C) will indicate error. Same things happen if capture_only too.
+> 
+> So, old functions validation still exist in my opinion, but am I
+> misunderstanding ?
+> 
+> One note here is that in DPCM case, old function checks CPU only,
+> but new function checks both CPU and Codec.
+> 
+> 2nd note is that in current version of patch-set, if dai_link doesn't
+> have xxx_only settings (= it should have both playback/capture), but if
+> DAI has has_playback or has_capture only, it can't detect about it.
+> I suggested it in previous mail, and will fix in v3
+> 
+>> The point is that these flags are sometimes set in the machine driver,
+>> sometimes set in the framework, and the open is which one has the priority.
+> 
+> I couldn't understand this.
+> 
+> I think "machine driver" = CPU/Codec driver, but what is "these flags"
+> which is sometimes set in machine driver, and sometimes set in framework ??
+> dpcm_xxx ? xxx_only ?? I don't think framework set these...
+
+The has_xxx flag is set based on dai capabilities in (A) - which I call
+"the framework" OR by the machine driver setting the
+playback_only/capture_only flags, then used in (B) to override (A).
+
+When you have two sources of information competing to set a state, we
+have to be really careful on which one has priority/precedence.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
