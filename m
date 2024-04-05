@@ -2,22 +2,22 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1B6E89C762
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 16:48:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3737D89C766
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 16:48:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 52C61C71291;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73530C71297;
 	Mon,  8 Apr 2024 14:48:27 +0000 (UTC)
 Received: from e3i57.smtp2go.com (e3i57.smtp2go.com [158.120.84.57])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60EC4C6DD6D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E08A3C71287
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 15:29:05 +0000 (UTC)
+ Fri,  5 Apr 2024 15:29:24 +0000 (UTC)
 Received: from [10.86.249.198] (helo=asas054.asem.intra)
  by smtpcorp.com with esmtpa (Exim 4.96.1-S2G)
- (envelope-from <f.suligoi@asem.it>) id 1rslV1-wSFIBV-1l
+ (envelope-from <f.suligoi@asem.it>) id 1rslV2-wSFIBV-0I
  for linux-stm32@st-md-mailman.stormreply.com;
- Fri, 05 Apr 2024 15:29:03 +0000
+ Fri, 05 Apr 2024 15:29:04 +0000
 Received: from flavio-x.asem.intra ([172.16.18.47]) by asas054.asem.intra with
  Microsoft SMTPSVC(10.0.14393.4169); Fri, 5 Apr 2024 17:29:01 +0200
 From: Flavio Suligoi <f.suligoi@asem.it>
@@ -34,39 +34,39 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Fri,  5 Apr 2024 17:27:56 +0200
-Message-Id: <20240405152800.638461-3-f.suligoi@asem.it>
+Date: Fri,  5 Apr 2024 17:27:57 +0200
+Message-Id: <20240405152800.638461-4-f.suligoi@asem.it>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240405152800.638461-1-f.suligoi@asem.it>
 References: <20240405152800.638461-1-f.suligoi@asem.it>
 MIME-Version: 1.0
-X-OriginalArrivalTime: 05 Apr 2024 15:29:01.0479 (UTC)
- FILETIME=[FC4AB370:01DA876D]
-X-smtpcorp-track: 1rs_V1wSFmUV1_.EuiAjfSR423hW
+X-OriginalArrivalTime: 05 Apr 2024 15:29:01.0558 (UTC)
+ FILETIME=[FC56C160:01DA876D]
+X-smtpcorp-track: 1rs_V2wSFmUV0m.EuMUjfTIWR19u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
- i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1712330944; h=feedback-id :
+ i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1712330964; h=feedback-id :
  x-smtpcorp-track : date : message-id : to : subject : from : reply-to
  : sender : list-unsubscribe;
- bh=2+Mlo/B8JEt+9O2DNgOncVR4IzdOkeJ/dXwp0ZpjBmA=;
- b=GLrfdhNR9X8YuvFz1z8VXNMDnJnZXax5/bhqHvURAZS2N67jVHDbHnMUq9RmXPCVx+upQ
- 3A0Xegnvqy9rRTkPjo1FZreLlD6hGSVMP7h4S2dvleoDEYA3fFyk/M6WrZ5Cp826nPD0Axf
- ryaHmWiHsxUGJSaQ9gYAJx3MsesOnL52ZK1/e2/0kwpViH54trMXIeQFlODaKaVtWAtn+t2
- iIp4VYDHcfzaLwRthc26qgZClmkVTUDIg2anwzyj0KI81CRxZQwLfSeuQDgPLbfqMvvHmGO
- 4K/eXBuy8IfdAmFgqqD50BA/t8B7vEHsTB1WSqYkuDDex0rE/+hSYjIFguHg==
+ bh=oi48LbG1I/VP5W3WKG7O4Eeo5cePw11MKZR9VfWSCRk=;
+ b=f4XA7mRJ8pXS/gozWgJi8unGfQE7qFo9J5Jcu557rRl6G+J9C+C2dRrV9oqLy/AWbhmOX
+ A9OxEhq07BgPzYCL6Aaw5bBMfTL4q5mshlKDSuPOFlebt2o5LlXDjxZswQOrBgnfezlhsNf
+ p6mw2iuoy9O6fW8rm8eV5Bf7mKLCbvfFiWm2PCrHEoBBNORXgpT0n1tdPWmFQ+qrBBUIvc0
+ NbDpesw9iTmDY6NFcz/oOWZ1l3vxBnnzR+g/xuUQXvy+TTh8zo+s6uk5x2FR+5hMr3YBjta
+ ZMKvMoAqyhN97zY24zK/4ac9leAsbUHjscet0527ZeDYJhACyzp7qDmZDhdg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asem.it;
- i=@asem.it; q=dns/txt; s=s1174574; t=1712330945; h=from : subject : to
- : message-id : date; bh=2+Mlo/B8JEt+9O2DNgOncVR4IzdOkeJ/dXwp0ZpjBmA=;
- b=O+hRziHFk+r8XzkKSqCFsGe5sMyHGERNRI2IQJsy2C/T/yO2/eT2fLUeIQXb3CrZI2Smo
- oK7xyeprfynl3QPFYoBqJIKKN6IruOmRNaDeppqDXi6zQ6LsQfZlDeDaeorfRpAquUG1wVH
- RAx2LirVwklutCyMEu5EcjvzwWhVtFwvRuQ2OuWzGB7YypBuRSMPd2B8PwEaV5r8GJvyFbG
- tS11xFuwC6sXOcvgHnD5ILF8gTTZM+cXA/YEKOCX0MaBLsoIhBxt6F3kO28KfqtkrrFF4i8
- NHRzzL7bU8IvPEUyu1ynxjcdx/H7mhdJkqrdypdsQn2mJ4dC/oG5PJdc6q9Q==
+ i=@asem.it; q=dns/txt; s=s1174574; t=1712330964; h=from : subject : to
+ : message-id : date; bh=oi48LbG1I/VP5W3WKG7O4Eeo5cePw11MKZR9VfWSCRk=;
+ b=KhiriRtfGXeM9Bd1OgdIvrDBj5S1GD4EoTZxJqAzGJi85yYUi4KbKP1F2SKlk0QWG9IBS
+ cYHMuNTV2ZCkg7vtcSI2sOnGvB1k3/qUD15iQkmKM+eDAO4dScaMMfkMCuU1IlW5XpqA2px
+ NUqba8buZaOt7hNwlYFPIOy4kTagGRUMGKs0V9wrgED216pptTWu1PSwrg269RLzvcI8+R8
+ xhB+jvCVbpKUWC0IqKrHOX5AUv0otfnJxW/WpBqkJaovIWLS+p8qKcqpvV8HitWB4R/2rkk
+ o30JbLZfX9OLIdSKgh/49t4LtY0BweFuCAb7UEuyGismnhqkCIw6WdH8Qxqg==
 X-Mailman-Approved-At: Mon, 08 Apr 2024 14:48:25 +0000
 Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Flavio Suligoi <f.suligoi@asem.it>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/6] arm64: dts: imx8mp-beacon: remove
+Subject: [Linux-stm32] [PATCH 3/6] arm64: dts: imx8mp-evk: remove
 	tx-sched-sp property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -96,14 +96,14 @@ branch")
 
 Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi | 1 -
+ arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi
-index 8be251b69378..34339dc4a635 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-beacon-som.dtsi
-@@ -106,7 +106,6 @@ queue4 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+index 8be5b2a57f27..bb1003363e3e 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
+@@ -251,7 +251,6 @@ ethphy0: ethernet-phy@1 {
  
  	mtl_tx_setup: tx-queues-config {
  		snps,tx-queues-to-use = <5>;
