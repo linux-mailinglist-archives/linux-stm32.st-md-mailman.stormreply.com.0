@@ -2,20 +2,20 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3737D89C766
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F74D89C763
 	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 16:48:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73530C71297;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C630C71293;
 	Mon,  8 Apr 2024 14:48:27 +0000 (UTC)
 Received: from e3i57.smtp2go.com (e3i57.smtp2go.com [158.120.84.57])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E08A3C71287
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0860CC6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 15:29:24 +0000 (UTC)
+ Fri,  5 Apr 2024 15:29:06 +0000 (UTC)
 Received: from [10.86.249.198] (helo=asas054.asem.intra)
  by smtpcorp.com with esmtpa (Exim 4.96.1-S2G)
- (envelope-from <f.suligoi@asem.it>) id 1rslV2-wSFIBV-0I
+ (envelope-from <f.suligoi@asem.it>) id 1rslV2-wSFIBV-24
  for linux-stm32@st-md-mailman.stormreply.com;
  Fri, 05 Apr 2024 15:29:04 +0000
 Received: from flavio-x.asem.intra ([172.16.18.47]) by asas054.asem.intra with
@@ -34,39 +34,39 @@ To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
-Date: Fri,  5 Apr 2024 17:27:57 +0200
-Message-Id: <20240405152800.638461-4-f.suligoi@asem.it>
+Date: Fri,  5 Apr 2024 17:27:58 +0200
+Message-Id: <20240405152800.638461-5-f.suligoi@asem.it>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240405152800.638461-1-f.suligoi@asem.it>
 References: <20240405152800.638461-1-f.suligoi@asem.it>
 MIME-Version: 1.0
-X-OriginalArrivalTime: 05 Apr 2024 15:29:01.0558 (UTC)
- FILETIME=[FC56C160:01DA876D]
-X-smtpcorp-track: 1rs_V2wSFmUV0m.EuMUjfTIWR19u
+X-OriginalArrivalTime: 05 Apr 2024 15:29:01.0641 (UTC)
+ FILETIME=[FC636B90:01DA876D]
+X-smtpcorp-track: 1rs_V2wSFmUV24.EuMUjfTIEffXY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smtpcorp.com;
- i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1712330964; h=feedback-id :
+ i=@smtpcorp.com; q=dns/txt; s=a1-4; t=1712330945; h=feedback-id :
  x-smtpcorp-track : date : message-id : to : subject : from : reply-to
  : sender : list-unsubscribe;
- bh=oi48LbG1I/VP5W3WKG7O4Eeo5cePw11MKZR9VfWSCRk=;
- b=f4XA7mRJ8pXS/gozWgJi8unGfQE7qFo9J5Jcu557rRl6G+J9C+C2dRrV9oqLy/AWbhmOX
- A9OxEhq07BgPzYCL6Aaw5bBMfTL4q5mshlKDSuPOFlebt2o5LlXDjxZswQOrBgnfezlhsNf
- p6mw2iuoy9O6fW8rm8eV5Bf7mKLCbvfFiWm2PCrHEoBBNORXgpT0n1tdPWmFQ+qrBBUIvc0
- NbDpesw9iTmDY6NFcz/oOWZ1l3vxBnnzR+g/xuUQXvy+TTh8zo+s6uk5x2FR+5hMr3YBjta
- ZMKvMoAqyhN97zY24zK/4ac9leAsbUHjscet0527ZeDYJhACyzp7qDmZDhdg==
+ bh=z6/lBWhbzIHfLCrRTM1SzzPe1OKp0Fc/uUJ7RPvyKV8=;
+ b=shYZu/b7v+btxA0qlJ8ll8gWxfoDylTXbyR5hV6QlBxMrrNCH+7vrltCNRHon4YTfAvI9
+ SpCVa13c9sKSkC5FW8NZ+taP1WzCzwKnYbQ1l99fjPvbZPxWpj7Svkzw81D/qkWFfwKP66k
+ FSvrKKyNqQMd9Re3Us0hjw1ZI438WQMvKd2twBi0t/kOjbFih1h+XLFHtpx1pSMVwuZtmlq
+ sQuCcESHSu6pXJr0oJMrisIc2VuOkGBQyGUtYnfAB+VVYTzELZm5TEkArEMFLUKNQ9ky8qx
+ b2L2tCI7O/uZpLYa+4QDfW+0+eOBar+4J/UgmrXrxiXZlR29bAlAZjhVgduQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=asem.it;
- i=@asem.it; q=dns/txt; s=s1174574; t=1712330964; h=from : subject : to
- : message-id : date; bh=oi48LbG1I/VP5W3WKG7O4Eeo5cePw11MKZR9VfWSCRk=;
- b=KhiriRtfGXeM9Bd1OgdIvrDBj5S1GD4EoTZxJqAzGJi85yYUi4KbKP1F2SKlk0QWG9IBS
- cYHMuNTV2ZCkg7vtcSI2sOnGvB1k3/qUD15iQkmKM+eDAO4dScaMMfkMCuU1IlW5XpqA2px
- NUqba8buZaOt7hNwlYFPIOy4kTagGRUMGKs0V9wrgED216pptTWu1PSwrg269RLzvcI8+R8
- xhB+jvCVbpKUWC0IqKrHOX5AUv0otfnJxW/WpBqkJaovIWLS+p8qKcqpvV8HitWB4R/2rkk
- o30JbLZfX9OLIdSKgh/49t4LtY0BweFuCAb7UEuyGismnhqkCIw6WdH8Qxqg==
+ i=@asem.it; q=dns/txt; s=s1174574; t=1712330945; h=from : subject : to
+ : message-id : date; bh=z6/lBWhbzIHfLCrRTM1SzzPe1OKp0Fc/uUJ7RPvyKV8=;
+ b=gUfnwC6Km5DmScOeWnw6RsIUwuEf1EmS1q1nhUmOlAyAL+R0R6fV91in/gisq+nNXGWOz
+ CEoVN7pB9e5oHNUs5b5rpNJt/nccp56jouPbHczdYsncJ4NPJAVeroiPltVUsvdhBckHJ1v
+ 6bUZwweUS72LETVCGCQ6FRDes1Wk59LndQM6Ga5RmnE4jnqU6LEBwc0ci/YlRe9DuNJwbUP
+ xOp//tfGogY/4KELux+R5HdwbjHB0ajgJCKj0lFEe8L45YbRPNIirKUBTg/prFlf7LbotPX
+ +UdRh3YSYXE2VLghfWNhzEcpv/mL6cm17laCI2hQ/6eDhOS7It0eRYoBvo1Q==
 X-Mailman-Approved-At: Mon, 08 Apr 2024 14:48:25 +0000
 Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Flavio Suligoi <f.suligoi@asem.it>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/6] arm64: dts: imx8mp-evk: remove
+Subject: [Linux-stm32] [PATCH 4/6] arm64: dts: imx8mp-verdin: remove
 	tx-sched-sp property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -96,14 +96,14 @@ branch")
 
 Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-evk.dts | 1 -
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-index 8be5b2a57f27..bb1003363e3e 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-evk.dts
-@@ -251,7 +251,6 @@ ethphy0: ethernet-phy@1 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+index f033d4310305..5b1b36a7ad38 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+@@ -260,7 +260,6 @@ queue4 {
  
  	mtl_tx_setup: tx-queues-config {
  		snps,tx-queues-to-use = <5>;
