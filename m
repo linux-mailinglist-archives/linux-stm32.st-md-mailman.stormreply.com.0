@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28CC289A1DC
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 17:52:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 425C989A1E2
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 17:52:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E5A4DC6DD6D;
-	Fri,  5 Apr 2024 15:52:12 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0256FC6DD6D;
+	Fri,  5 Apr 2024 15:52:40 +0000 (UTC)
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 93799C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CE49C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 15:52:11 +0000 (UTC)
+ Fri,  5 Apr 2024 15:52:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 79032CE2451;
- Fri,  5 Apr 2024 15:52:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD10C433F1;
- Fri,  5 Apr 2024 15:52:01 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 4C1ADCE2457;
+ Fri,  5 Apr 2024 15:52:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF029C433C7;
+ Fri,  5 Apr 2024 15:52:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1712332328;
- bh=ORRmS7eL8P78h/AQLnRcZuzcALNpQJjjr7RmBmTZR8U=;
+ s=k20201202; t=1712332355;
+ bh=zpr4dQm3nm9LfkfCTtXpoXqHkpx3qH1bE57/AAn3+S8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aOvM1giyUrtoZvh0zzryNF/mBIQCuURDdYQHcluwXA/H9BBR6zUt+ouPvhZ7EGEk2
- O+aJsQmylAi1FG+6eUgCfGaLUTMaRyEYbUE7snnPqzVYv4gewy8W6DogV0MYZxDIxC
- uAEkEQmAOpXtYxZb1x8SUmeBktb1E/V0y6KVbI60t5hi+mbhjrKD06azFKD7Gl2ngA
- +Wcd5YdrC5CvWrMlg7OPQLKlva6NOQgLnl1bwVxs2/BusSI4njRoJz0zAxCok6aaOH
- oDiebgdM62gPVua6HJqflIAZMfkFAaJB2/BumpB71oj8/Dr3SHBGaD4VHp+E+UFwLC
- DTc/Tp/hPFbsw==
-Message-ID: <010d67c7-ca71-43fc-a3e3-ec3e5cd8b149@kernel.org>
-Date: Fri, 5 Apr 2024 17:51:59 +0200
+ b=G1RscKEITOjXIsvfj1orjtQTTRAGG7pieQAli0pGaGr7uDlzXS5uXiHCyli8xYmlN
+ mw/z0K3hCRBdQK2eQBZv3eytMQIaDXQDgJbApEL+dLuGfMqFi9bR4UqV6Lu0ETgmcD
+ b8h7zhmTOuEuBYUGuhznNIRgGcBu1MR9bfQIZg2edV1tvAygX1b5wRwsrTqwELUdei
+ uc5NzTXMRNecUKG1WnOuTqGidE7LYvup1wkXFvou0XimbtCYPblONTfo1L6mQ0mAM9
+ FPI0YQTOiV9+rT4goySzZoYY5Q3OCy/vvt0pJLWKShkYXHI1kCLxt7v19nJ3/ZvgXj
+ 1iuywcnWrUFfg==
+Message-ID: <6f59551a-24df-4b7f-8ddf-beaa62a850f9@kernel.org>
+Date: Fri, 5 Apr 2024 17:52:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Flavio Suligoi <f.suligoi@asem.it>,
@@ -46,7 +46,7 @@ To: Flavio Suligoi <f.suligoi@asem.it>,
  Konrad Dybcio <konrad.dybcio@linaro.org>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>
 References: <20240405152800.638461-1-f.suligoi@asem.it>
- <20240405152800.638461-6-f.suligoi@asem.it>
+ <20240405152800.638461-7-f.suligoi@asem.it>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,12 +92,12 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  uZwJCLykjad45hsWcOGk3OcaAGQS6NDlfhM6O9aYNwGL6tGt/6BkRikNOs7VDEa4/HlbaSJo
  7FgndGw1kWmkeL6oQh7wBvYll2buKod4qYntmNKEicoHGU+x91Gcan8mCoqhJkbqrL7+nXG2
  5Q/GS5M9RFWS+nYyJh+c3OcfKqVcZQNANItt7+ULzdNJuhvTRRdC3g9hmCEuNSr+CLMdnRBY fv0=
-In-Reply-To: <20240405152800.638461-6-f.suligoi@asem.it>
+In-Reply-To: <20240405152800.638461-7-f.suligoi@asem.it>
 Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 5/6] arm64: dts: qcom: sa8540p-ride:
- remove tx-sched-sp property
+Subject: Re: [Linux-stm32] [PATCH 6/6] dts: qcom: sa8775p-ride: remove
+	tx-sched-sp property
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,7 +114,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/04/2024 17:27, Flavio Suligoi wrote:
+On 05/04/2024 17:28, Flavio Suligoi wrote:
 > The property "tx-sched-sp" no longer exists, as it was removed from the
 > file:
 > 
@@ -124,16 +124,10 @@ On 05/04/2024 17:27, Flavio Suligoi wrote:
 > 
 > commit aed6864035b1 ("net: stmmac: platform: Delete a redundant condition
 > branch")
+> 
+> Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
 
-Same problem with commit. BTW, your commit msg does not say what happens
-if this property is removed. Instead it could be "Strict priority is by
-default in Linux driver and tx-sched-sp was removed in commit sha ("foo
-bar")".
-
-
-With fixed in commit msg.
-
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Fixes in commit msg needed and patch prefix got mangled: missing arm64.
 
 Best regards,
 Krzysztof
