@@ -2,75 +2,97 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD3C89988B
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 10:53:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD678998FD
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 11:07:09 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8BEEC6C83C;
-	Fri,  5 Apr 2024 08:53:05 +0000 (UTC)
-Received: from mail.zeus03.de (www.zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6FE8C6C83C;
+	Fri,  5 Apr 2024 09:07:08 +0000 (UTC)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
+ [209.85.208.177])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1ACB0C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 392F8C6B47A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 08:53:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=k1; bh=b58X
- /MIMUkzWJKfAi7xukhYyNxm3BVKa9wfMtsb3Sd4=; b=KH/O2kU4AXBavxNzHugQ
- Cr0XiXqp/GPDBSk990nWASPmI37jJSCyQb7Lmqf/oL1tdcIHRX8jcmo2vwR2Tob2
- 3MSo8HTQY7A27SYWA+SI/NfQ5pqpmi79n6McsjIcB3WFLNWrOIMRU9rOtunrND10
- HWjAn9CXhCQ+B9a1mPUM02wRXvB9PLITUPY3IFp4RQdrilkojM5jzuhcnTiEv7VH
- VYyQIaPUSbCJyxVg+Ps6gEY1GV7GeeCVXIVYwLifWiKRkws+ODNIdvmXrsiBWpB2
- SNQ1HJX7xrINzXmGee9lezHXjMCnmDNUx7uK3emvEkF2ZwnnAUK7Pn+L+1Q5APd7
- Jg==
-Received: (qmail 4047676 invoked from network); 5 Apr 2024 10:53:03 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 5 Apr 2024 10:53:03 +0200
-X-UD-Smtp-Session: l3s3148p1@2SRllVUV0pYgAwDPXwEGAANOsN0UmmrN
-Date: Fri, 5 Apr 2024 10:53:02 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Message-ID: <fgcn3ly4qk726eqv3lleqbrg7odgyklkyd6d7wmpyl73bbt5ir@tjui6nsxrlgk>
-Mail-Followup-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Russell King <linux@armlinux.org.uk>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@linaro.org>, 
- James Clark <james.clark@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Linus Walleij <linus.walleij@linaro.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Olivia Mackall <olivia@selenic.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
- Vinod Koul <vkoul@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, Michal Simek <michal.simek@amd.com>,
- Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>, 
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-i2c@vger.kernel.org,
- linux-crypto@vger.kernel.org, 
- dmaengine@vger.kernel.org, linux-input@vger.kernel.org, kvm@vger.kernel.org
-References: <20240326-module-owner-amba-v1-0-4517b091385b@linaro.org>
- <20240326-module-owner-amba-v1-14-4517b091385b@linaro.org>
+ Fri,  5 Apr 2024 09:07:08 +0000 (UTC)
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-2d717603aa5so24083531fa.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Apr 2024 02:07:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712308027; x=1712912827;
+ darn=st-md-mailman.stormreply.com; 
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+ bh=dx7Q6iClG4dKjPFFAd0xEXzHEYFgFMGOrT79d2/WULs=;
+ b=QCTm3eGd3xVzOR+VskPRS9aJsp6WcruZcIpvYcuUr1U1emyS7rsiVZlZ0uANmdHNgr
+ 1x4AyI/PBLcDQWpapuR+DUfOZRhZYOmRkPNj5aMTYgJxoewcWIfikcPGYBnuFsrFOR8z
+ A64fGTRjiSnUcXQoJFn54sjatJFYCq2JDvDCyVp8xGd3Tm8bZL39i3y/qN7Vr5pA63ln
+ 0/q2GtI+2hMW/iWMSOf/G/VhdWd5zPZ0y3pRfuvjwqiTDkwco5PdN0zHWBFRThc5tQcv
+ Hq/1L/NUd1sN5qnODSzWG51+2/I5cxw7jII8AKtRZCmC/ZHhsR8Wsr69ltybAp5bt02O
+ sNZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712308027; x=1712912827;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dx7Q6iClG4dKjPFFAd0xEXzHEYFgFMGOrT79d2/WULs=;
+ b=sYcjIrdpFfMUydAitYfAJrHhJ7NAmf1W49KrApRybfZUTScRcNlwmBPzL3bLvdbCTs
+ 0/F7eDOHSxn7DuRjRS8qwfenLxJxcXuHvUVFTL5bx2zXAvJNKEWcPifRVwLjUYXV9LR2
+ gsou6Xz6wHbq1z8cYckrmI5TeTlAh4VMxIkcXs8j3d4auEWueyjwThLFKOpbaZZ4llOk
+ VwVesQuGbvPTMgBQtyfxFa61+ccW/vkvXvwAYNKwSj1N5Tl09PshodqJgH0lCur76R+l
+ Q2y8hYGKxg3Ey8f28CQgFrj+jWPrVczJGqyJWNcfX6lxE7mkv97gJgzBeI71nmjowPLG
+ uX5g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZoNZPQarwsvsHTzoVIVeBDP9ABtM4/byyloZy9puB8xJhCfeZbyV5X9Y2+SiMZl7hKPySQT9JQb5UNCjWwzjV0oqNj/5eYzqAW88dpT7seWiETOiB709t
+X-Gm-Message-State: AOJu0Yw+ws/n3MiY/8UZ6+mpobLUI+jcP/LB8n371vUv0w5mZAXEKv7c
+ P4Z9McoJNziZdbRt8YBcQXFbeQ2tUrMChqdqMObhA+t3O4DBkQqxY6VKUU8/vrs=
+X-Google-Smtp-Source: AGHT+IFzNpI2nNYaTUkEnZn7gYRwkIeFIyuTNluFylKpIC0pmqbq+2qkk9YMdM/xrAATLZryy+1B1A==
+X-Received: by 2002:a2e:8084:0:b0:2d6:ec7b:b69b with SMTP id
+ i4-20020a2e8084000000b002d6ec7bb69bmr693984ljg.7.1712308027074; 
+ Fri, 05 Apr 2024 02:07:07 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:dd7a:d766:e9e8:454c])
+ by smtp.gmail.com with ESMTPSA id
+ c24-20020a7bc018000000b00414887d9329sm2122868wmb.46.2024.04.05.02.07.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Apr 2024 02:07:06 -0700 (PDT)
+References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
+ <1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
+ <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
+User-agent: mu4e 1.10.8; emacs 29.2
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Fri, 05 Apr 2024 10:59:20 +0200
+In-reply-to: <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
+Message-ID: <1j5xwwp491.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <20240326-module-owner-amba-v1-14-4517b091385b@linaro.org>
-Cc: kvm@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-i2c@vger.kernel.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Herbert Xu <herbert@gondor.apana.org.au>, Russell King <linux@armlinux.org.uk>,
- linux-input@vger.kernel.org, Mike Leach <mike.leach@linaro.org>,
- Andi Shyti <andi.shyti@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- coresight@lists.linaro.org, Eric Auger <eric.auger@redhat.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Olivia Mackall <olivia@selenic.com>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, dmaengine@vger.kernel.org,
- James Clark <james.clark@arm.com>
-Subject: Re: [Linux-stm32] [PATCH 14/19] i2c: nomadik: drop owner assignment
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Shengjiu Wang <shengjiu.wang@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
+ Hans de Goede <hdegoede@redhat.com>,
+ Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Banajit Goswami <bgoswami@quicinc.com>,
+ Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Shawn Guo <shawnguo@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v2 00/16] ASoC: Replace
+ dpcm_playback/capture to playback/capture_only
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,62 +104,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1990564087816237994=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
---===============1990564087816237994==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="honofbm32v4z4vxk"
-Content-Disposition: inline
+On Thu 04 Apr 2024 at 23:13, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+
+> Hi Jerome
+>
+> Thank you for your feedback
+>
+>> playback_only and capture_only have implication on each other. If one is
+>> set, the other can/must not be set. This leads to conditions which can
+>> be fairly hard to read and possibly bugs.
+> (snip)
+>> Wouldn't it be better to replace those 2 flags with a single bitfield ?
+>> 
+>> something like:
+>> 
+>> unsigned int directions;
+>> #define PLAYBACK_VALID	BIT(0)
+>> #define CAPTURE_VALID BIT(1)
+>
+> I think Amadeusz indicated similar idea, and basically I can agree about
+> it.
+
+I've seen it afterward. It is similar indeed but I don't think 'None' or
+'Both' should have a dedicated bit. That would be yet another
+redundance/implication between flags/bits ... so another source of
+bugs/complexity IMO.
+
+> But in this patch-set, I want focus to removing dpcm_xxx flag as 1st
+> step. So I'm happy to create such patch-set, but I want to handle it as
+> another patch-set.
+
+Fine by me ... at least for the Amlogic part.
+
+>
+> Thank you for your help !!
+>
+
+Thanks for your work !
+
+> Best regards
+> ---
+> Renesas Electronics
+> Ph.D. Kuninori Morimoto
 
 
---honofbm32v4z4vxk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Mar 26, 2024 at 09:23:44PM +0100, Krzysztof Kozlowski wrote:
-> Amba bus core already sets owner, so driver does not need to.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
->=20
-
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-
---honofbm32v4z4vxk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmYPu+4ACgkQFA3kzBSg
-KbY+PhAAmNuSoACChosjYi33qGWzyeoBhz9tLue2x0d13airycgFlY6FyFx1aY+/
-NadTECwyu8TNhXdRAYk/Y1sTo9S+MezhsboJhiL8+5hiOBEZHXt7U5+8k/Pkg499
-9QHeM8PaeBfpoodRPGG7UCxHkjENntyyR4OV1X5eWgGheKFtzw6F2NwEMqTdus5H
-yGju+VYEMeH97wXMkPRPmqIAUfG140PY+fTfOInco1my/ejprCYy+OJdL+uMDBlG
-3MSIMIrLahtlKK6tkhnA9MdGaC3J4v5bzpo7lgDwM6qPcOHY6ftTfz726DpdI68w
-JLoRj/Ne4xKX4Munav7MMDCPGWaSY3fQ6F1xtzq+EdfVQHnSIxpuhH/zvpj7LDEz
-l+yVUvhjs41B3d8QkXmFp0ByjxaiIdO5EAkraw/OguBo6kv3N0TgEG1BZTdVa5+Q
-UfSRHLLAXCksCuADcBcHaRGXp3dlJB2Ywba2iCYBOeBD2DefxfHGcEurJyY3mp1h
-i+RlMmzHBKEoT5/nYkhzVZyQ8cosiJoL0LeK11p10xoexmDJzd7W8oshLhEDaB2L
-5zXqlT0JmawXt/SmDjByPFelFQPhEtWkIo/D65i4EBb0DnglGQSc4frb9FBiVP5U
-vPwuPyzkXVvObtEfHT2TL6wUD2IVZWJv4tCMQel7J/DK7WEJLjM=
-=o9jg
------END PGP SIGNATURE-----
-
---honofbm32v4z4vxk--
-
---===============1990564087816237994==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Jerome
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1990564087816237994==--
