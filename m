@@ -2,97 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD678998FD
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 11:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC87E899D9D
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 14:55:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6FE8C6C83C;
-	Fri,  5 Apr 2024 09:07:08 +0000 (UTC)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82580C6C83D;
+	Fri,  5 Apr 2024 12:55:56 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 392F8C6B47A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47FA8C6C83C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 09:07:08 +0000 (UTC)
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2d717603aa5so24083531fa.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Apr 2024 02:07:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1712308027; x=1712912827;
- darn=st-md-mailman.stormreply.com; 
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
- bh=dx7Q6iClG4dKjPFFAd0xEXzHEYFgFMGOrT79d2/WULs=;
- b=QCTm3eGd3xVzOR+VskPRS9aJsp6WcruZcIpvYcuUr1U1emyS7rsiVZlZ0uANmdHNgr
- 1x4AyI/PBLcDQWpapuR+DUfOZRhZYOmRkPNj5aMTYgJxoewcWIfikcPGYBnuFsrFOR8z
- A64fGTRjiSnUcXQoJFn54sjatJFYCq2JDvDCyVp8xGd3Tm8bZL39i3y/qN7Vr5pA63ln
- 0/q2GtI+2hMW/iWMSOf/G/VhdWd5zPZ0y3pRfuvjwqiTDkwco5PdN0zHWBFRThc5tQcv
- Hq/1L/NUd1sN5qnODSzWG51+2/I5cxw7jII8AKtRZCmC/ZHhsR8Wsr69ltybAp5bt02O
- sNZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712308027; x=1712912827;
- h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
- :user-agent:references:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dx7Q6iClG4dKjPFFAd0xEXzHEYFgFMGOrT79d2/WULs=;
- b=sYcjIrdpFfMUydAitYfAJrHhJ7NAmf1W49KrApRybfZUTScRcNlwmBPzL3bLvdbCTs
- 0/F7eDOHSxn7DuRjRS8qwfenLxJxcXuHvUVFTL5bx2zXAvJNKEWcPifRVwLjUYXV9LR2
- gsou6Xz6wHbq1z8cYckrmI5TeTlAh4VMxIkcXs8j3d4auEWueyjwThLFKOpbaZZ4llOk
- VwVesQuGbvPTMgBQtyfxFa61+ccW/vkvXvwAYNKwSj1N5Tl09PshodqJgH0lCur76R+l
- Q2y8hYGKxg3Ey8f28CQgFrj+jWPrVczJGqyJWNcfX6lxE7mkv97gJgzBeI71nmjowPLG
- uX5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZoNZPQarwsvsHTzoVIVeBDP9ABtM4/byyloZy9puB8xJhCfeZbyV5X9Y2+SiMZl7hKPySQT9JQb5UNCjWwzjV0oqNj/5eYzqAW88dpT7seWiETOiB709t
-X-Gm-Message-State: AOJu0Yw+ws/n3MiY/8UZ6+mpobLUI+jcP/LB8n371vUv0w5mZAXEKv7c
- P4Z9McoJNziZdbRt8YBcQXFbeQ2tUrMChqdqMObhA+t3O4DBkQqxY6VKUU8/vrs=
-X-Google-Smtp-Source: AGHT+IFzNpI2nNYaTUkEnZn7gYRwkIeFIyuTNluFylKpIC0pmqbq+2qkk9YMdM/xrAATLZryy+1B1A==
-X-Received: by 2002:a2e:8084:0:b0:2d6:ec7b:b69b with SMTP id
- i4-20020a2e8084000000b002d6ec7bb69bmr693984ljg.7.1712308027074; 
- Fri, 05 Apr 2024 02:07:07 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:dd7a:d766:e9e8:454c])
- by smtp.gmail.com with ESMTPSA id
- c24-20020a7bc018000000b00414887d9329sm2122868wmb.46.2024.04.05.02.07.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Apr 2024 02:07:06 -0700 (PDT)
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <1jil0xplcu.fsf@starbuckisacylon.baylibre.com>
- <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
-User-agent: mu4e 1.10.8; emacs 29.2
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 05 Apr 2024 10:59:20 +0200
-In-reply-to: <877chcraaa.wl-kuninori.morimoto.gx@renesas.com>
-Message-ID: <1j5xwwp491.fsf@starbuckisacylon.baylibre.com>
+ Fri,  5 Apr 2024 12:55:55 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4359k059006253; Fri, 5 Apr 2024 14:55:28 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=u9U4WwRzJom55b4PN6C3BKumZRjKpy21ICeFTyNM43U=; b=qu
+ VeVfyeceGvHaxQgU5Lb1nnhXiC+JKizmuSxZGN+7Oz3AvM4P+tmgO9pE/PFiKWhi
+ E2iPNoZ5hWNtGJJR6blWxmcjyFkj7tKrKJ54OCmKwxgXvGftf8XdhpJY7VFcdlZI
+ r6+TPhDvcA6kpPSKhFK3jn5zoAjgRMjxqdzJ8ibXlJ1Ht+nWWMhGeyuF8f2PwXoU
+ ZBG+UYqERY5t+JzLsi5SVOJyf+C0K/Pr4ZUWXc293IPBKcRgt+RkPT5WHWdHJRkb
+ 4FcSft5mRe5x9qD/lK26dwQ2P/3wmhj1owvpGFRMl8v3NpZLNpaLY4PQp1dw3pb2
+ 93JhR8jYvTIQwr66vLGQ==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3x9empqj14-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 05 Apr 2024 14:55:28 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id D581D4002D;
+ Fri,  5 Apr 2024 14:55:23 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 15CA521682F;
+ Fri,  5 Apr 2024 14:54:33 +0200 (CEST)
+Received: from [10.252.8.38] (10.252.8.38) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Fri, 5 Apr
+ 2024 14:54:31 +0200
+Message-ID: <2b9bf652-fc8e-4c9a-9761-ce42ad6e8316@foss.st.com>
+Date: Fri, 5 Apr 2024 14:54:31 +0200
 MIME-Version: 1.0
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Hans de Goede <hdegoede@redhat.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Brent Lu <brent.lu@intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Banajit Goswami <bgoswami@quicinc.com>,
- Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 00/16] ASoC: Replace
- dpcm_playback/capture to playback/capture_only
+User-Agent: Mozilla Thunderbird
+To: Rob Herring <robh@kernel.org>
+References: <20240402125312.277052-1-gabriel.fernandez@foss.st.com>
+ <20240402125312.277052-3-gabriel.fernandez@foss.st.com>
+ <20240404135201.GA2320777-robh@kernel.org>
+Content-Language: en-US
+From: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>
+In-Reply-To: <20240404135201.GA2320777-robh@kernel.org>
+X-Originating-IP: [10.252.8.38]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-05_10,2024-04-05_01,2023-05-22_02
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Stephen Boyd <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [RESEND PATCH v9 2/4] dt-bindings: stm32: update
+ DT bingding for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,58 +79,250 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 
-On Thu 04 Apr 2024 at 23:13, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+On 4/4/24 15:52, Rob Herring wrote:
+> On Tue, Apr 02, 2024 at 02:53:10PM +0200, gabriel.fernandez@foss.st.com wrote:
+>> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+>>
+>> Now RCC driver use '.index' of clk_parent_data struct to define a parent.
+>> The majority of parents are SCMI clocks, then dt-bindings must be fixed.
+> This is an ABI change. Please make that clear and justify why that is
+> okay. Changing a driver is not a valid reason. What about other drivers
+> besides Linux?
 
-> Hi Jerome
+As the SoC STM32MP25X is not yet official and it is not available
+
+outside STMicroelectronics, it is not a issue to have ABI change
+and I will upstream the driver in other component (TF-A, U-Boot
+and OP-TEE) when binding and driver will be accepted and merged
+in Linux repository to avoid binding divergence.
+
+Today no other STM32MP25 RCC drivers are yet upstreamed.
+
+Best Regards,
+
+Gabriel
+
+>> Fixes: b5be49db3d47 ("dt-bindings: stm32: add clocks and reset binding for stm32mp25 platform")
+>>
+> Should not have a blank line here.
+ok
 >
-> Thank you for your feedback
->
->> playback_only and capture_only have implication on each other. If one is
->> set, the other can/must not be set. This leads to conditions which can
->> be fairly hard to read and possibly bugs.
-> (snip)
->> Wouldn't it be better to replace those 2 flags with a single bitfield ?
->> 
->> something like:
->> 
->> unsigned int directions;
->> #define PLAYBACK_VALID	BIT(0)
->> #define CAPTURE_VALID BIT(1)
->
-> I think Amadeusz indicated similar idea, and basically I can agree about
-> it.
+>> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+>> ---
+> Please put version history for a patch within the patch here.
 
-I've seen it afterward. It is similar indeed but I don't think 'None' or
-'Both' should have a dedicated bit. That would be yet another
-redundance/implication between flags/bits ... so another source of
-bugs/complexity IMO.
+ok
 
-> But in this patch-set, I want focus to removing dpcm_xxx flag as 1st
-> step. So I'm happy to create such patch-set, but I want to handle it as
-> another patch-set.
-
-Fine by me ... at least for the Amlogic part.
 
 >
-> Thank you for your help !!
+>>   .../bindings/clock/st,stm32mp25-rcc.yaml      | 171 ++++++++++++++++--
+>>   1 file changed, 155 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
+>> index 7732e79a42b9..57bd4e7157bd 100644
+>> --- a/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
+>> +++ b/Documentation/devicetree/bindings/clock/st,stm32mp25-rcc.yaml
+>> @@ -38,22 +38,87 @@ properties:
+>>         - description: CK_SCMI_MSI Low Power Internal oscillator (~ 4 MHz or ~ 16 MHz)
+>>         - description: CK_SCMI_LSE Low Speed External oscillator (32 KHz)
+>>         - description: CK_SCMI_LSI Low Speed Internal oscillator (~ 32 KHz)
+>> -
+>> -  clock-names:
+>> -    items:
+>> -      - const: hse
+>> -      - const: hsi
+>> -      - const: msi
+>> -      - const: lse
+>> -      - const: lsi
+>> -
+>> +      - description: CK_SCMI_HSE_DIV2 CK_SCMI_HSE divided by 2 (coud be gated)
+>> +      - description: CK_SCMI_ICN_HS_MCU High Speed interconnect bus clock
+>> +      - description: CK_SCMI_ICN_LS_MCU Low Speed interconnect bus clock
+>> +      - description: CK_SCMI_ICN_SDMMC SDMMC interconnect bus clock
+>> +      - description: CK_SCMI_ICN_DDR DDR interconnect bus clock
+>> +      - description: CK_SCMI_ICN_DISPLAY Display interconnect bus clock
+>> +      - description: CK_SCMI_ICN_HSL HSL interconnect bus clock
+>> +      - description: CK_SCMI_ICN_NIC NIC interconnect bus clock
+>> +      - description: CK_SCMI_ICN_VID Video interconnect bus clock
+>> +      - description: CK_SCMI_FLEXGEN_07 flexgen clock 7
+>> +      - description: CK_SCMI_FLEXGEN_08 flexgen clock 8
+>> +      - description: CK_SCMI_FLEXGEN_09 flexgen clock 9
+>> +      - description: CK_SCMI_FLEXGEN_10 flexgen clock 10
+>> +      - description: CK_SCMI_FLEXGEN_11 flexgen clock 11
+>> +      - description: CK_SCMI_FLEXGEN_12 flexgen clock 12
+>> +      - description: CK_SCMI_FLEXGEN_13 flexgen clock 13
+>> +      - description: CK_SCMI_FLEXGEN_14 flexgen clock 14
+>> +      - description: CK_SCMI_FLEXGEN_15 flexgen clock 15
+>> +      - description: CK_SCMI_FLEXGEN_16 flexgen clock 16
+>> +      - description: CK_SCMI_FLEXGEN_17 flexgen clock 17
+>> +      - description: CK_SCMI_FLEXGEN_18 flexgen clock 18
+>> +      - description: CK_SCMI_FLEXGEN_19 flexgen clock 19
+>> +      - description: CK_SCMI_FLEXGEN_20 flexgen clock 20
+>> +      - description: CK_SCMI_FLEXGEN_21 flexgen clock 21
+>> +      - description: CK_SCMI_FLEXGEN_22 flexgen clock 22
+>> +      - description: CK_SCMI_FLEXGEN_23 flexgen clock 23
+>> +      - description: CK_SCMI_FLEXGEN_24 flexgen clock 24
+>> +      - description: CK_SCMI_FLEXGEN_25 flexgen clock 25
+>> +      - description: CK_SCMI_FLEXGEN_26 flexgen clock 26
+>> +      - description: CK_SCMI_FLEXGEN_27 flexgen clock 27
+>> +      - description: CK_SCMI_FLEXGEN_28 flexgen clock 28
+>> +      - description: CK_SCMI_FLEXGEN_29 flexgen clock 29
+>> +      - description: CK_SCMI_FLEXGEN_30 flexgen clock 30
+>> +      - description: CK_SCMI_FLEXGEN_31 flexgen clock 31
+>> +      - description: CK_SCMI_FLEXGEN_32 flexgen clock 32
+>> +      - description: CK_SCMI_FLEXGEN_33 flexgen clock 33
+>> +      - description: CK_SCMI_FLEXGEN_34 flexgen clock 34
+>> +      - description: CK_SCMI_FLEXGEN_35 flexgen clock 35
+>> +      - description: CK_SCMI_FLEXGEN_36 flexgen clock 36
+>> +      - description: CK_SCMI_FLEXGEN_37 flexgen clock 37
+>> +      - description: CK_SCMI_FLEXGEN_38 flexgen clock 38
+>> +      - description: CK_SCMI_FLEXGEN_39 flexgen clock 39
+>> +      - description: CK_SCMI_FLEXGEN_40 flexgen clock 40
+>> +      - description: CK_SCMI_FLEXGEN_41 flexgen clock 41
+>> +      - description: CK_SCMI_FLEXGEN_42 flexgen clock 42
+>> +      - description: CK_SCMI_FLEXGEN_43 flexgen clock 43
+>> +      - description: CK_SCMI_FLEXGEN_44 flexgen clock 44
+>> +      - description: CK_SCMI_FLEXGEN_45 flexgen clock 45
+>> +      - description: CK_SCMI_FLEXGEN_46 flexgen clock 46
+>> +      - description: CK_SCMI_FLEXGEN_47 flexgen clock 47
+>> +      - description: CK_SCMI_FLEXGEN_48 flexgen clock 48
+>> +      - description: CK_SCMI_FLEXGEN_49 flexgen clock 49
+>> +      - description: CK_SCMI_FLEXGEN_50 flexgen clock 50
+>> +      - description: CK_SCMI_FLEXGEN_51 flexgen clock 51
+>> +      - description: CK_SCMI_FLEXGEN_52 flexgen clock 52
+>> +      - description: CK_SCMI_FLEXGEN_53 flexgen clock 53
+>> +      - description: CK_SCMI_FLEXGEN_54 flexgen clock 54
+>> +      - description: CK_SCMI_FLEXGEN_55 flexgen clock 55
+>> +      - description: CK_SCMI_FLEXGEN_56 flexgen clock 56
+>> +      - description: CK_SCMI_FLEXGEN_57 flexgen clock 57
+>> +      - description: CK_SCMI_FLEXGEN_58 flexgen clock 58
+>> +      - description: CK_SCMI_FLEXGEN_59 flexgen clock 59
+>> +      - description: CK_SCMI_FLEXGEN_60 flexgen clock 60
+>> +      - description: CK_SCMI_FLEXGEN_61 flexgen clock 61
+>> +      - description: CK_SCMI_FLEXGEN_62 flexgen clock 62
+>> +      - description: CK_SCMI_FLEXGEN_63 flexgen clock 63
+>> +      - description: CK_SCMI_ICN_APB1 Peripheral bridge 1
+>> +      - description: CK_SCMI_ICN_APB2 Peripheral bridge 2
+>> +      - description: CK_SCMI_ICN_APB3 Peripheral bridge 3
+>> +      - description: CK_SCMI_ICN_APB4 Peripheral bridge 4
+>> +      - description: CK_SCMI_ICN_APBDBG Peripheral bridge for degub
+>> +      - description: CK_SCMI_TIMG1 Peripheral bridge for timer1
+>> +      - description: CK_SCMI_TIMG2 Peripheral bridge for timer2
+>> +      - description: CK_SCMI_PLL3 PLL3 clock
+>> +      - description: clk_dsi_txbyte DSI byte clock
+> Need a blank line here.
 >
-
-Thanks for your work !
-
-> Best regards
-> ---
-> Renesas Electronics
-> Ph.D. Kuninori Morimoto
-
-
--- 
-Jerome
+>>   required:
+>>     - compatible
+>>     - reg
+>>     - '#clock-cells'
+>>     - '#reset-cells'
+>>     - clocks
+>> -  - clock-names
+>>   
+>>   additionalProperties: false
+>>   
+>> @@ -66,11 +131,85 @@ examples:
+>>           reg = <0x44200000 0x10000>;
+>>           #clock-cells = <1>;
+>>           #reset-cells = <1>;
+>> -        clock-names = "hse", "hsi", "msi", "lse", "lsi";
+>> -        clocks = <&scmi_clk CK_SCMI_HSE>,
+>> -                 <&scmi_clk CK_SCMI_HSI>,
+>> -                 <&scmi_clk CK_SCMI_MSI>,
+>> -                 <&scmi_clk CK_SCMI_LSE>,
+>> -                 <&scmi_clk CK_SCMI_LSI>;
+>> +        clocks =  <&scmi_clk CK_SCMI_HSE>,
+>> +                  <&scmi_clk CK_SCMI_HSI>,
+>> +                  <&scmi_clk CK_SCMI_MSI>,
+>> +                  <&scmi_clk CK_SCMI_LSE>,
+>> +                  <&scmi_clk CK_SCMI_LSI>,
+>> +                  <&scmi_clk CK_SCMI_HSE_DIV2>,
+>> +                  <&scmi_clk CK_SCMI_ICN_HS_MCU>,
+>> +                  <&scmi_clk CK_SCMI_ICN_LS_MCU>,
+>> +                  <&scmi_clk CK_SCMI_ICN_SDMMC>,
+>> +                  <&scmi_clk CK_SCMI_ICN_DDR>,
+>> +                  <&scmi_clk CK_SCMI_ICN_DISPLAY>,
+>> +                  <&scmi_clk CK_SCMI_ICN_HSL>,
+>> +                  <&scmi_clk CK_SCMI_ICN_NIC>,
+>> +                  <&scmi_clk CK_SCMI_ICN_VID>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_07>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_08>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_09>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_10>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_11>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_12>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_13>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_14>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_15>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_16>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_17>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_18>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_19>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_20>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_21>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_22>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_23>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_24>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_25>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_26>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_27>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_28>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_29>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_30>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_31>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_32>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_33>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_34>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_35>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_36>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_37>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_38>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_39>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_40>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_41>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_42>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_43>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_44>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_45>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_46>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_47>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_48>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_49>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_50>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_51>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_52>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_53>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_54>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_55>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_56>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_57>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_58>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_59>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_60>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_61>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_62>,
+>> +                  <&scmi_clk CK_SCMI_FLEXGEN_63>,
+>> +                  <&scmi_clk CK_SCMI_ICN_APB1>,
+>> +                  <&scmi_clk CK_SCMI_ICN_APB2>,
+>> +                  <&scmi_clk CK_SCMI_ICN_APB3>,
+>> +                  <&scmi_clk CK_SCMI_ICN_APB4>,
+>> +                  <&scmi_clk CK_SCMI_ICN_APBDBG>,
+>> +                  <&scmi_clk CK_SCMI_TIMG1>,
+>> +                  <&scmi_clk CK_SCMI_TIMG2>,
+>> +                  <&scmi_clk CK_SCMI_PLL3>,
+>> +                  <&clk_dsi_txbyte>;
+>>       };
+>>   ...
+>> -- 
+>> 2.25.1
+>>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
