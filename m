@@ -2,54 +2,80 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 425C989A1E2
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 17:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D9DD89A426
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 20:22:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0256FC6DD6D;
-	Fri,  5 Apr 2024 15:52:40 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4CD0C6DD93;
+	Fri,  5 Apr 2024 18:22:37 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CE49C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1CC1C6DD6D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 15:52:38 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 4C1ADCE2457;
- Fri,  5 Apr 2024 15:52:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF029C433C7;
- Fri,  5 Apr 2024 15:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1712332355;
- bh=zpr4dQm3nm9LfkfCTtXpoXqHkpx3qH1bE57/AAn3+S8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=G1RscKEITOjXIsvfj1orjtQTTRAGG7pieQAli0pGaGr7uDlzXS5uXiHCyli8xYmlN
- mw/z0K3hCRBdQK2eQBZv3eytMQIaDXQDgJbApEL+dLuGfMqFi9bR4UqV6Lu0ETgmcD
- b8h7zhmTOuEuBYUGuhznNIRgGcBu1MR9bfQIZg2edV1tvAygX1b5wRwsrTqwELUdei
- uc5NzTXMRNecUKG1WnOuTqGidE7LYvup1wkXFvou0XimbtCYPblONTfo1L6mQ0mAM9
- FPI0YQTOiV9+rT4goySzZoYY5Q3OCy/vvt0pJLWKShkYXHI1kCLxt7v19nJ3/ZvgXj
- 1iuywcnWrUFfg==
-Message-ID: <6f59551a-24df-4b7f-8ddf-beaa62a850f9@kernel.org>
-Date: Fri, 5 Apr 2024 17:52:25 +0200
+ Fri,  5 Apr 2024 18:22:36 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-a51a7dc45easo110037066b.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Apr 2024 11:22:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1712341356; x=1712946156;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=sOgo5RZxyLQAXRylmOVlpLWGQ8hgIzVwKAwYPoIs/oI=;
+ b=qZFpmZ0IOPB16HoNewVBs5zmz6+u7q2FcOl+FLIy7M6GGUiucVOTzT71i+USWvXMth
+ aBBwsSZhJvIQpPawZOoy+MY2RgnTWiFjVLzhTbuiR+Wyg5Nam+6uC53ouv/2VQMV+aiD
+ qY9CSxWPmoB411liVSvHq3AwJCEXj7ATKrPFKZ7VvdZJ+njWqg1tvHuecnm4yxNirQYU
+ 1VLsBPLjY29ltEybzHUhBdm/EU7IueTmBNQcKvQGw6gYSYDG6EUg8PhUiakoKddPdix+
+ BQUPNpY2lCEfEthgjTkbI6PAfT5WB5RnZuicfJK7+6N/ltO6Qq7tpi6M7ZqjMuPwt0EW
+ wtFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712341356; x=1712946156;
+ h=content-transfer-encoding:in-reply-to:autocrypt:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sOgo5RZxyLQAXRylmOVlpLWGQ8hgIzVwKAwYPoIs/oI=;
+ b=RCLUsGF3bNPQHUEsKNeYXVFtszi1R5QKZh1bEKCNNhtw/JzrDXapg52Ma9IPwBFIHg
+ PTyHnTjuaLVUg0jY4Iw7cUvu1etESeD9HwkEtmhjhrf+SB7mQSwGbclyE0ibhzER0R56
+ PAK0pJFCbeTnxGg2fXi+TIPMdoS9DW1HQF8zK8GC4pA8t+pIjq5eAeq5C8PpRyZXeUIW
+ y6CApfmnNLjP0S4e2t071HbmdwPOwardLcRUwNQPvvk+q+jDGSRLbhaZInXSN1IZrkZN
+ WEMo8vIl5CKwle3vO2O6sMHvpowZdc4ADn6XjoSUj9bY0gZ/Z9uJyXA7wIP7xjLFJBoQ
+ pK4w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXB7AM+LRJSoo+yoDyqNNGc0I/SeWbiYDfat4hUH9YoX5BL/8W5b3oujAZHXUy9P0Y2u2/OBEJz+MFdxoeL5qIgSD9O3i4+cxXXLRquDdeXkmVh9GHLVO/g
+X-Gm-Message-State: AOJu0YwXgGF7GbzWmF++xFVRFIhiWwWTXwsjZVq3za65jimMYMuOOtmW
+ 8GWlQio+WwZeACixei4uX/oPGWgNlog3Li5Jptn+Olob3oz1Q8Li4CAKZq/WFOc=
+X-Google-Smtp-Source: AGHT+IFMQw/zKN9uRvgPRGc5zVaArbDABcW2Xzw06jTWHFfwmg2dJuOHt9bRUfiMuGmJkzTHkqqx2g==
+X-Received: by 2002:a17:906:565a:b0:a51:9737:f23d with SMTP id
+ v26-20020a170906565a00b00a519737f23dmr1469625ejr.70.1712341355878; 
+ Fri, 05 Apr 2024 11:22:35 -0700 (PDT)
+Received: from [192.168.1.20] ([178.197.223.16])
+ by smtp.gmail.com with ESMTPSA id
+ hv6-20020a17090760c600b00a469d3df3c1sm1105557ejc.96.2024.04.05.11.22.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Apr 2024 11:22:35 -0700 (PDT)
+Message-ID: <7279fe8a-5727-463e-8dd5-08f2238b3499@linaro.org>
+Date: Fri, 5 Apr 2024 20:22:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Flavio Suligoi <f.suligoi@asem.it>,
+To: Gabriel FERNANDEZ <gabriel.fernandez@foss.st.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <joabreu@synopsys.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>
-References: <20240405152800.638461-1-f.suligoi@asem.it>
- <20240405152800.638461-7-f.suligoi@asem.it>
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20240402125312.277052-1-gabriel.fernandez@foss.st.com>
+ <20240402125312.277052-3-gabriel.fernandez@foss.st.com>
+ <e70dc513-df9f-4b99-b9d9-7ebaf83e8f3e@linaro.org>
+ <285f2f64-58b0-4dd0-9f1a-89306a79d572@foss.st.com>
 Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
  JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
@@ -59,45 +85,46 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  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
- 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 fv0=
-In-Reply-To: <20240405152800.638461-7-f.suligoi@asem.it>
-Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 6/6] dts: qcom: sa8775p-ride: remove
-	tx-sched-sp property
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzTRLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQGxpbmFyby5vcmc+wsGUBBMBCgA+FiEE
+ m9B+DgxR+NWWd7dUG5NDfTtBYpsFAmI+BxMCGwMFCRRfreEFCwkIBwIGFQoJCAsCBBYCAwEC
+ HgECF4AACgkQG5NDfTtBYptgbhAAjAGunRoOTduBeC7V6GGOQMYIT5n3OuDSzG1oZyM4kyvO
+ XeodvvYv49/ng473E8ZFhXfrre+c1olbr1A8pnz9vKVQs9JGVa6wwr/6ddH7/yvcaCQnHRPK
+ mnXyP2BViBlyDWQ71UC3N12YCoHE2cVmfrn4JeyK/gHCvcW3hUW4i5rMd5M5WZAeiJj3rvYh
+ v8WMKDJOtZFXxwaYGbvFJNDdvdTHc2x2fGaWwmXMJn2xs1ZyFAeHQvrp49mS6PBQZzcx0XL5
+ cU9ZjhzOZDn6Apv45/C/lUJvPc3lo/pr5cmlOvPq1AsP6/xRXsEFX/SdvdxJ8w9KtGaxdJuf
+ rpzLQ8Ht+H0lY2On1duYhmro8WglOypHy+TusYrDEry2qDNlc/bApQKtd9uqyDZ+rx8bGxyY
+ qBP6bvsQx5YACI4p8R0J43tSqWwJTP/R5oPRQW2O1Ye1DEcdeyzZfifrQz58aoZrVQq+innR
+ aDwu8qDB5UgmMQ7cjDSeAQABdghq7pqrA4P8lkA7qTG+aw8Z21OoAyZdUNm8NWJoQy8m4nUP
+ gmeeQPRc0vjp5JkYPgTqwf08cluqO6vQuYL2YmwVBIbO7cE7LNGkPDA3RYMu+zPY9UUi/ln5
+ dcKuEStFZ5eqVyqVoZ9eu3RTCGIXAHe1NcfcMT9HT0DPp3+ieTxFx6RjY3kYTGLOwU0EVUNc
+ NAEQAM2StBhJERQvgPcbCzjokShn0cRA4q2SvCOvOXD+0KapXMRFE+/PZeDyfv4dEKuCqeh0
+ hihSHlaxTzg3TcqUu54w2xYskG8Fq5tg3gm4kh1Gvh1LijIXX99ABA8eHxOGmLPRIBkXHqJY
+ oHtCvPc6sYKNM9xbp6I4yF56xVLmHGJ61KaWKf5KKWYgA9kfHufbja7qR0c6H79LIsiYqf92
+ H1HNq1WlQpu/fh4/XAAaV1axHFt/dY/2kU05tLMj8GjeQDz1fHas7augL4argt4e+jum3Nwt
+ yupodQBxncKAUbzwKcDrPqUFmfRbJ7ARw8491xQHZDsP82JRj4cOJX32sBg8nO2N5OsFJOcd
+ 5IE9v6qfllkZDAh1Rb1h6DFYq9dcdPAHl4zOj9EHq99/CpyccOh7SrtWDNFFknCmLpowhct9
+ 5ZnlavBrDbOV0W47gO33WkXMFI4il4y1+Bv89979rVYn8aBohEgET41SpyQz7fMkcaZU+ok/
+ +HYjC/qfDxT7tjKXqBQEscVODaFicsUkjheOD4BfWEcVUqa+XdUEciwG/SgNyxBZepj41oVq
+ FPSVE+Ni2tNrW/e16b8mgXNngHSnbsr6pAIXZH3qFW+4TKPMGZ2rZ6zITrMip+12jgw4mGjy
+ 5y06JZvA02rZT2k9aa7i9dUUFggaanI09jNGbRA/ABEBAAHCwXwEGAEKACYCGwwWIQSb0H4O
+ DFH41ZZ3t1Qbk0N9O0FimwUCYDzvagUJFF+UtgAKCRAbk0N9O0Fim9JzD/0auoGtUu4mgnna
+ oEEpQEOjgT7l9TVuO3Qa/SeH+E0m55y5Fjpp6ZToc481za3xAcxK/BtIX5Wn1mQ6+szfrJQ6
+ 59y2io437BeuWIRjQniSxHz1kgtFECiV30yHRgOoQlzUea7FgsnuWdstgfWi6LxstswEzxLZ
+ Sj1EqpXYZE4uLjh6dW292sO+j4LEqPYr53hyV4I2LPmptPE9Rb9yCTAbSUlzgjiyyjuXhcwM
+ qf3lzsm02y7Ooq+ERVKiJzlvLd9tSe4jRx6Z6LMXhB21fa5DGs/tHAcUF35hSJrvMJzPT/+u
+ /oVmYDFZkbLlqs2XpWaVCo2jv8+iHxZZ9FL7F6AHFzqEFdqGnJQqmEApiRqH6b4jRBOgJ+cY
+ qc+rJggwMQcJL9F+oDm3wX47nr6jIsEB5ZftdybIzpMZ5V9v45lUwmdnMrSzZVgC4jRGXzsU
+ EViBQt2CopXtHtYfPAO5nAkIvKSNp3jmGxZw4aTc5xoAZBLo0OV+Ezo71pg3AYvq0a3/oGRG
+ KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
+ fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
+ D2GYIS41Kv4Isx2dEFh+/Q==
+In-Reply-To: <285f2f64-58b0-4dd0-9f1a-89306a79d572@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [RESEND PATCH v9 2/4] dt-bindings: stm32: update
+ DT bingding for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,20 +141,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On 05/04/2024 17:28, Flavio Suligoi wrote:
-> The property "tx-sched-sp" no longer exists, as it was removed from the
-> file:
+On 05/04/2024 14:54, Gabriel FERNANDEZ wrote:
 > 
-> drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> On 4/5/24 09:12, Krzysztof Kozlowski wrote:
+>> On 02/04/2024 14:53, gabriel.fernandez@foss.st.com wrote:
+>>> From: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+>>>
+>>> Now RCC driver use '.index' of clk_parent_data struct to define a parent.
+>>> The majority of parents are SCMI clocks, then dt-bindings must be fixed.
+>>>
+>>> Fixes: b5be49db3d47 ("dt-bindings: stm32: add clocks and reset binding for stm32mp25 platform")
+>> And except what Rob said, this does not look as a fix. How ABI break
+>> could be a fix and what is even to fix here? Please describe the
+>> observable bug, how it manifests itself and what is exactly the fix for
+>> that bug.
+> As I replied to Rob, there are no RCC STM32MP25 drivers already upstreamed.
 > 
-> by the commit:
+> However, in my series, the DT binding was merged even though Stephen 
+> made some
 > 
-> commit aed6864035b1 ("net: stmmac: platform: Delete a redundant condition
-> branch")
+> important remarks that needed to be taken into account.
 > 
-> Signed-off-by: Flavio Suligoi <f.suligoi@asem.it>
+> That's why I proposed a fix to update the documentation.
+> 
+> To be sure, how would you like me to proceed?
 
-Fixes in commit msg needed and patch prefix got mangled: missing arm64.
+You can send v3 and get exactly the same questions. Your commit msg must
+answer to all such unusual questions. If maintainer asks something that
+you need to explain, it is a hint for you that your commit msg is
+inadequate.
 
 Best regards,
 Krzysztof
