@@ -2,34 +2,34 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0638E89A1C6
-	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 17:50:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0796B89A1D2
+	for <lists+linux-stm32@lfdr.de>; Fri,  5 Apr 2024 17:50:55 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B283FC6DD6D;
-	Fri,  5 Apr 2024 15:50:12 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C427FC6DD6D;
+	Fri,  5 Apr 2024 15:50:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EAB6C6C83D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6AA53C6C83D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Apr 2024 15:50:10 +0000 (UTC)
+ Fri,  5 Apr 2024 15:50:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id D1B46CE242B;
- Fri,  5 Apr 2024 15:50:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF668C433C7;
- Fri,  5 Apr 2024 15:49:59 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 3EE8061057;
+ Fri,  5 Apr 2024 15:50:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21392C433C7;
+ Fri,  5 Apr 2024 15:50:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1712332208;
- bh=gLrhTgtMj9INqFnBVX/qAmHy7PjKq5tZfRw+4IEfGnQ=;
+ s=k20201202; t=1712332251;
+ bh=QV5OlGrTEtG4KKZLN6xXEFl9Ht0QMzJyxZGOnp5ktK8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZZZT7v7+p8D4N9WPiOJQnq3XRDdGXEzy4mgghSHheQ9UU299F/WFfh5PkX0cb/b9b
- +8J+aC7VUO1DHQ+BTXmbSgtRq3qYk6W1cMhCGV6vQ9/9UoXzHd8KMk0Ud7j22xFx4J
- 4+sIO7kcrDSigxgqhQINbd4EhzBtAKr4gL2TYU8eakhbLppu9okbaztV0iN+TlWizY
- G1qDcH553j6R3EuGett/LscIurjDIokE/rM8Wp37Ktxckcpx1r/hnc/Ha/opJfcVYb
- 1NXez5J93aKPT1v9WGo580LcDaCO8QqOEtJIUPM5kMdI4n5b1S5v1UAcNlJhipGLMC
- gZatkbLMPZEZQ==
-Message-ID: <b66d23fa-ac69-4e93-bc1d-93d8dd90bc6b@kernel.org>
-Date: Fri, 5 Apr 2024 17:49:57 +0200
+ b=TcbCvz8CxFiSEYnJ+kZEdd8WeqBOQ7s5Bm4Skndh9eD8p8TmUEhthv0CvPHDkvsOQ
+ yCvmr7XF/+8Fg8b9xx5NlasJ9uZS8YiwGqdo04JnJ0YMa+azf2vPT+24LUYtGZII+K
+ WVB1UhLNB6ExBsgD7JbM9h0pPm6kYT4p/NDX3+9nCVkk6TCZPcFYIhrhM6tUDVzde4
+ KvcYIcPtgIdWZQLCBaj+r7dt5Nk6NOBEh52XXPZthV2PwOOdcbNV3yYRtrxIydUchd
+ A0knV8IEhUiHb9qUxO8Ys1hAszwxjq1Qya2CoybitsN1u61WoovsA0rQgdFOPGwZWY
+ 2DnScAq4ryBrA==
+Message-ID: <c599d2cd-2871-4f84-94bb-00656c1a9395@kernel.org>
+Date: Fri, 5 Apr 2024 17:50:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Flavio Suligoi <f.suligoi@asem.it>,
@@ -121,10 +121,6 @@ On 05/04/2024 17:27, Flavio Suligoi wrote:
 > drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
 > 
 > by the commit:
-
-Keep syntax as asked by submitting patches, so "by the commit sha ("foo
-bar").
-
 > 
 > commit aed6864035b1 ("net: stmmac: platform: Delete a redundant condition
 > branch")
@@ -134,10 +130,9 @@ bar").
 >  .../devicetree/bindings/net/snps,dwmac.yaml        | 14 --------------
 >  1 file changed, 14 deletions(-)
 
-This means by default we have tx-sched-sp... I guess it is fine,
-assuming there are no other users (projects) of this binding property.
-
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+One more thought though:
+1. Missing net-next patch annotation,
+2. Please split DTS from net. DTS goes via separate trees.
 
 Best regards,
 Krzysztof
