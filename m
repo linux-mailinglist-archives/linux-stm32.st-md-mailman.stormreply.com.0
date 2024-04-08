@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB07A89D4CD
+	by mail.lfdr.de (Postfix) with ESMTPS id DB17889D4CE
 	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 10:47:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69C1FC7129B;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D412C7129D;
 	Tue,  9 Apr 2024 08:47:04 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 57CCAC7128B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF188C7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Apr 2024 15:53:28 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-a46a7208eedso682007566b.0
+ Mon,  8 Apr 2024 15:53:31 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-56e56ee8d5cso1879619a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Apr 2024 08:53:28 -0700 (PDT)
+ Mon, 08 Apr 2024 08:53:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712591608; x=1713196408;
+ d=gmail.com; s=20230601; t=1712591611; x=1713196411;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=5Y7DfeV8VLm+4dkW5onFx6zdkwwBWr0ksWuO3GWgBgU=;
- b=iJe8iZ9rI03eWb0KKHNYip9x59uZ6SnZMCJT9Npy8BxXcanUaE4n6xAVwU8Y4Pk1k2
- lHplz2sHxOxo4fKMQP7hS0S9tsBZRoOLuMoH9LwPoK0QXaW+BvWea6IvqZbIgGCqfEmb
- byXDBm19xehzl4+uwRQh9lt5l2MFNjoRZT06BIUe/2QQ9OrtJmvF2oRUjBFiehBgdu/j
- rDP2+bJ/mp+6JXNek9/Lu11bFb+6pLYCTzfr2ybn+dZSQmQ3UTXV2sObKuZoV5mqQM6O
- bSxIIzehxspYCXYumRUGqjIGUCJ3Ezqowh9wGfOk2+o8Gx0IDeySSZlbWUtzgqQ7DrxC
- Ku4g==
+ :reply-to; bh=j3jReaO8bBGw6JBZ1RkUcA4thqN9iUeRzORfBO64Zek=;
+ b=gGOTaysDZNPlBXsidPsPrwcODuX+ZfHHA4D7xFfegkpSBz8xm2VYxp/q7PhvwUPOgy
+ hSkHE3p8yOmcJpI6k9V8Ru50SAx83h9hB6Haj32yuwZ/PDHMKHSZ2l1LPRB0PQW34FVH
+ eImZ4tw+rc3AZP6eQcpuQMikbXPIGtxGiULN+Ryzn6piNpGN6ggFJGv1xLIl+iMjzZui
+ nrI/mBcq3npPmxfyXx+49l1E4ie1pNbpQhWeg7kSBXxaoVMrFpJa5FlvvZ1a/33mzq9B
+ 4TOVKmo4cGF9YIx3eCUKK1G6F44LgWcO+6Eh+9VELnxlA+OBnWFqTHyJR0Ahj46VWZXs
+ 9Bsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712591608; x=1713196408;
+ d=1e100.net; s=20230601; t=1712591611; x=1713196411;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5Y7DfeV8VLm+4dkW5onFx6zdkwwBWr0ksWuO3GWgBgU=;
- b=QA0orvOxeY5wBgP7vnPPOrjrfmsxipd516cHLR8jYkXfQCG4Ks8UF2aFm7xEdPyzwy
- R3Mb0M0UiJoAyu1PZhCqWEqFRlvfpRCRCzB0XMsvbNDgB8vHnPqJLeAn6McceMzYKOMw
- 3GgcUvRj4WUttmMrhYxsVjIiVkofz/Vq6EdweX9rmSqqA7mP3Xg+Lwc5SUD5a9dbFHy0
- WP7Rhp+7vLh1R6XooV8rgnIFSyw6VAwsDNjZI+TDB7IXmE+Kcj0NJeLSjjGyI8K8jb0I
- bKQkqMo7cB87Z5LK8rRmkh6u4cTm1h+D/wyKMr0/ucFa+ylme0dQITVaDA33H+hG9wMw
- vw6w==
+ bh=j3jReaO8bBGw6JBZ1RkUcA4thqN9iUeRzORfBO64Zek=;
+ b=DRhzBAtV4dGqUIRmDRzBI4USVffA98PIpSxFC/uD7SOUAnDPdCVe6DxE0sAUeDgT08
+ 8sIPyLYDLMNvsKsphwce7jni3JNXyKBz0mPLxJ9sWuDtIvdmIJ1SxGDUcANm6gL9VThJ
+ f/2Qv+rEPfthTuSmguRiaoyc+QI3vFzGBMlv5qatcqHNodn6G1m+digHcUiLl4uWs+hy
+ q9sbCKoHSzwng8j4Cqu3fnntn5dyw1w9k/zSxGo0ZUdmOhBdl0yAxy3CY/nArm/hHQec
+ ZyYYvyTnL6554ABu7WtNMlIszdH8RkxxQZew0qPyH6/9zjZMVXXLXBvkobd+hI1642BE
+ xF8g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWC+FpbRtFpKiP/phOkW0ZcKxLikBwt6qe3UL8IV/o/2th0yiLS2oJP41vdGKvx0zAKBgwucXJFldZJqVLLzCiLi/A12lESfeh+MRBwHuaARJthH3MjVDWH
-X-Gm-Message-State: AOJu0YyhpCNNr4CDnkfiOtte3iGF4tlFPCSBRbct70W+OdFm7MdG/XRk
- Vg1Pudu4DnzFSupwPFBuuw0SoMmQ8gtA7DjaGXmjykrkECfrQgQk
-X-Google-Smtp-Source: AGHT+IGdfX/y51Nks6qsHsv5sXslTDtqdDAyN1/b0esXW0O17PcNWR7tUFhV60oXtdma+8MhUzqNbQ==
-X-Received: by 2002:a17:907:3da8:b0:a51:dc1f:a44b with SMTP id
- he40-20020a1709073da800b00a51dc1fa44bmr1941414ejc.29.1712591607822; 
- Mon, 08 Apr 2024 08:53:27 -0700 (PDT)
+ AJvYcCVv6rGzkgJQQkJrTLL5VvksD42Oiva3eu9kPG9VoxilY0SSDJO5mjdabbpGDrdP1K9TbUWrnHg6fsVLYSFZNq8nGM6CsGkw8KNlCPeJHzIuL3Uy57CZB6Kf
+X-Gm-Message-State: AOJu0YwXhnBrgURvosQJQ08wt+ArUp0nNNOIHdhqF/Ts2P+DlIvOSiDY
+ v3rM6sbjNGlqz5acroTcm/tuiN7TWEEUZ5Gm2PHf8D2+4HPrX/1g
+X-Google-Smtp-Source: AGHT+IHDUn7lM+m3JJro1I7sX1HqWbE56mUHHewyuVneCeBjUwlfT2HuBoGiCiRi+8XMgC8ngOpekg==
+X-Received: by 2002:a17:907:9485:b0:a4e:375d:2573 with SMTP id
+ dm5-20020a170907948500b00a4e375d2573mr9215871ejc.37.1712591611213; 
+ Mon, 08 Apr 2024 08:53:31 -0700 (PDT)
 Received: from [127.0.1.1] ([213.208.157.67]) by smtp.gmail.com with ESMTPSA id
- l13-20020a170906794d00b00a46a2779475sm4547849ejo.101.2024.04.08.08.53.23
+ l13-20020a170906794d00b00a46a2779475sm4547849ejo.101.2024.04.08.08.53.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Apr 2024 08:53:27 -0700 (PDT)
+ Mon, 08 Apr 2024 08:53:30 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Mon, 08 Apr 2024 17:53:08 +0200
+Date: Mon, 08 Apr 2024 17:53:09 +0200
 MIME-Version: 1.0
-Message-Id: <20240408-rtc_dtschema-v1-8-c447542fc362@gmail.com>
+Message-Id: <20240408-rtc_dtschema-v1-9-c447542fc362@gmail.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
 In-Reply-To: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
@@ -69,11 +69,11 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1712591586; l=2964;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712591586; l=1714;
  i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
- bh=AIsscuJi094OEVGSsAf9Wlesp0w/0ZWJH8OIPmC6tCw=;
- b=SjxANSNsLql56s4aBhO5sITwOL73aDDWw1tzYNIUF/EDIaC42lzFW9WBN+FJIfBZhJZSJUWG5
- L8HyqJln2diCnF1A3y5vZJJOTZpEnbK/pWIrvAK7sqt7PRQjR8fDhvQ
+ bh=vM6749OZUGmuUGhDa/POZy+5vZeS+6APRIR0QdxNkUs=;
+ b=g1Gbrdrf/K3DdsRveFmOObYxG1SgqzZ8jrKc7OFyd6Mhf+VVcEjwfoBwytdkuegPork4KUfuS
+ X+/UsMcNJb0DUbXRodaJxuNiEAk9sWd0n6FZbuyavNg+PpigpZoRRlR
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
 X-Mailman-Approved-At: Tue, 09 Apr 2024 08:47:02 +0000
@@ -81,8 +81,8 @@ Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org,
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 8/9] dt-bindings: rtc: stmp3xxx-rtc: convert
-	to dtschema
+Subject: [Linux-stm32] [PATCH 9/9] dt-bindings: rtc: via,
+	vt8500-rtc: move to trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,101 +99,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Convert existing binding to dtschema to support validation.
-
-The 'fsl,imx28-rtc' compatible is currently not supported, and it is
-only referenced in this binding and in nxp/mxs/imx28.dtsi. Therefore,
-that compatible has been dropped, which triggers a warning when testing
-the DT against the new binding.
-
-There is another reference to fsl,stmp3xxx-rtc in nxp/mxs/imx23.dtsi,
-where another unsupported compatible 'fsl,imx23-rtc' is used, and the
-same problem would arise when testing the file against the new binding.
+The RTC documented in this binding requires a compatible, a reg
+and a single interrupt, which makes it suitable for a direct
+conversion into trivial-rtc.
 
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- .../devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml  | 45 ++++++++++++++++++++++
- .../devicetree/bindings/rtc/stmp3xxx-rtc.txt       | 21 ----------
- 2 files changed, 45 insertions(+), 21 deletions(-)
+ Documentation/devicetree/bindings/rtc/trivial-rtc.yaml   |  2 ++
+ Documentation/devicetree/bindings/rtc/via,vt8500-rtc.txt | 15 ---------------
+ 2 files changed, 2 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml b/Documentation/devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml
-new file mode 100644
-index 000000000000..bf70cce2701f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml
-@@ -0,0 +1,45 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/fsl,stmp3xxx-rtc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMP3xxx/i.MX28 Time Clock Controller
-+
-+maintainers:
-+  - Javier Carrasco <javier.carrasco.cruz@gmail.com>
-+
-+allOf:
-+  - $ref: rtc.yaml#
-+
-+properties:
-+  compatible:
-+    const: fsl,stmp3xxx-rtc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  stmp,crystal-freq:
-+    description:
-+      Override crystal frequency as determined from fuse bits.
-+      Use <0> for "no crystal".
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 32000, 32768]
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    rtc@80056000 {
-+        compatible = "fsl,stmp3xxx-rtc";
-+        reg = <0x80056000 2000>;
-+        interrupts = <29>;
-+    };
-diff --git a/Documentation/devicetree/bindings/rtc/stmp3xxx-rtc.txt b/Documentation/devicetree/bindings/rtc/stmp3xxx-rtc.txt
+diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+index d75c93ad2e92..c48d0dfa28b2 100644
+--- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
+@@ -83,6 +83,8 @@ properties:
+       - sii,s35390a
+       # ST SPEAr Real-time Clock
+       - st,spear600-rtc
++      # VIA/Wondermedia VT8500 Real-time Clock
++      - via,vt8500-rtc
+       # I2C bus SERIAL INTERFACE REAL-TIME CLOCK IC
+       - whwave,sd3078
+       # Xircom X1205 I2C RTC
+diff --git a/Documentation/devicetree/bindings/rtc/via,vt8500-rtc.txt b/Documentation/devicetree/bindings/rtc/via,vt8500-rtc.txt
 deleted file mode 100644
-index fa6a94226669..000000000000
---- a/Documentation/devicetree/bindings/rtc/stmp3xxx-rtc.txt
+index 3c0484c49582..000000000000
+--- a/Documentation/devicetree/bindings/rtc/via,vt8500-rtc.txt
 +++ /dev/null
-@@ -1,21 +0,0 @@
--* STMP3xxx/i.MX28 Time Clock controller
+@@ -1,15 +0,0 @@
+-VIA/Wondermedia VT8500 Realtime Clock Controller
+------------------------------------------------------
 -
 -Required properties:
--- compatible: should be one of the following.
--    * "fsl,stmp3xxx-rtc"
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- interrupts: rtc alarm interrupt
--
--Optional properties:
--- stmp,crystal-freq: override crystal frequency as determined from fuse bits.
--  Only <32000> and <32768> are possible for the hardware.  Use <0> for
--  "no crystal".
+-- compatible : "via,vt8500-rtc"
+-- reg : Should contain 1 register ranges(address and length)
+-- interrupts : alarm interrupt
 -
 -Example:
 -
--rtc@80056000 {
--	compatible = "fsl,imx28-rtc", "fsl,stmp3xxx-rtc";
--	reg = <0x80056000 2000>;
--	interrupts = <29>;
--};
+-	rtc@d8100000 {
+-		compatible = "via,vt8500-rtc";
+-		reg = <0xd8100000 0x10000>;
+-		interrupts = <48>;
+-	};
 
 -- 
 2.40.1
