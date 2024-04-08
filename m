@@ -2,62 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A52E589D4CA
+	by mail.lfdr.de (Postfix) with ESMTPS id C564489D4CC
 	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 10:47:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C872C71293;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4688FC71295;
 	Tue,  9 Apr 2024 08:47:04 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0370C7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A902CC7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Apr 2024 15:53:17 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-a51c6e91793so268158066b.0
+ Mon,  8 Apr 2024 15:53:19 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-a4644bde1d4so646350066b.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Apr 2024 08:53:17 -0700 (PDT)
+ Mon, 08 Apr 2024 08:53:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1712591597; x=1713196397;
+ d=gmail.com; s=20230601; t=1712591599; x=1713196399;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=pSuQkBcadOBIFzAv5VWT53mPgt24650g8Yc46Jnu+po=;
- b=ciEXqSDiZ1SPuYjL0u+9Y2yprzVICREiBJk7tbuxcE7bFLpx952FyE7kv2ayqOgh/t
- d/U6GYETfsx9P6ncZPVjUpTA3z9pVLzQ4ri3Ysm9krqDq/FmXXMnzsTWlLd2ncAsC6m8
- xrJ0Hc0iWyskk/VZzX8zgnq4I4ec/X2B8RCa6hmA1/oaPy31V/B9enVkgrDrLXQkGJn7
- J94X293OE6cpCx8TPXSuRQMxV+J7hhGasKRcIrCjK/NXblLtEMhy6AKczjBIcdAbFhxC
- HLuqkPEpZSYMd0RATiGvF1v2ZoJCTDRwgPpqVLPVCC98MGaaWbZPQ/2LZODQUPcKwTJ5
- wvYw==
+ :reply-to; bh=4rI91zKEHaZphCjid+rr3ztF+AksAKCVPYsgJBuGJSE=;
+ b=edG5ZHVFqw2ccW7svtOPoZs/B55Tv6w2wjp88STaLqtWxuuUHW+WoFKisebSh1oH+1
+ mlHmekZU92H7DatCNNV4snacBp6Ho45xLnXqwPQk8rzO0VCXhqJyvHcjbw0xClPqAyAe
+ 7k79FyUKW+60tYkY60JqReRBRzlU7PbK3VRO3bRE8CuWrrDK35HsLVFBhCaVmdFOUP2E
+ pC781G86qsWOBDnLYNvPBDqA8Byb2H5+nF9x6Sd3v5lh1FyABPVy2Y/7sZCYAmg65Ju6
+ U4H2VwfgtaqAoBoVxd9X0xREWrJSvQvz0/8FRRF6RVGJJ1m46U67x2l8brPXpP5yBd1C
+ uhpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712591597; x=1713196397;
+ d=1e100.net; s=20230601; t=1712591599; x=1713196399;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pSuQkBcadOBIFzAv5VWT53mPgt24650g8Yc46Jnu+po=;
- b=RSDnUB569uWuwuyDPUy823hYWSfGBfuy1TP6eyhYNh0mk+vplXkCk89w7SH84Y0sjs
- L+2aq4vA42fXzHRb3VQjfNAxN2x+75DqfGum65Y1neWcmllZSZiiPffZiRzncIQuOc6v
- ULeLmFFV79Pc3C0lnYe21svZQEUBERzhk8fk9lr/0vI7a9l+cYTdhxIn9gibya34LjO+
- rkOsZGvhpHBtIp5rG7+76Kp4XNgpaxWVXEhsY/657W3uoqHaWGEWFsEug0fXwRl15zP8
- 2DzxwKH38f79tJJZzJexPyGtxJeh+spcmc4+v2KGBe+/2wzRudhThJMVBX90FISHJMzY
- GV2g==
+ bh=4rI91zKEHaZphCjid+rr3ztF+AksAKCVPYsgJBuGJSE=;
+ b=Ze4nCMMuXg0L09o3tcEd+HaUYAVAuFpTjwH4AYQLsoKKzNa9p1B6d1kyaDqJM5Idr8
+ /ZP4xZmq7R631Q2VH31jIWdiJs7Vm5imukVV1JEaEhEtV5e08nee148poMeRKQpBNCFB
+ 7PrxNeBgirN1a5sB2lGmARAc+5S4Y7iABquPuYOw62ttjvbPi086JlWaBo6eLyR3WkHo
+ agR9uBj0FgThtuAZTeztQ33OznfupxsQD2lCREtoyuNDE+BiBv5YwKhFlu/kzbyxUPjf
+ oiSpXmIFxBN+k/Wt8ewRZl18SGcual16NEmQv/Ea1QQ9tiOPgHxzpKTKqmWq/TrIs02n
+ wwoA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUZkADauKddkehOo6FvzFF/LliCO6hb7VSJ4SLIlR/BN/xJ1m+uOYfNVpWfGrZd/yuskKbYJcZIEOEZCMVFy2li4ZuskaPdE8AlzmlR8TWyt4Gzdk2NrNiD
-X-Gm-Message-State: AOJu0YzzgcB3NM6UWnx+kHv90OeG9FtXFZSQiF7blM2kZ5fbWp9uXwrW
- 5NJFuFOTp7j5g9Wfioq3LWIQKlERtMXugw33sd4igxzbLn6raFv3
-X-Google-Smtp-Source: AGHT+IG+xooPJVfqxdhFca/m9VCSLYMJBFoaSR9jS3Fdk4ttcukr9i773eeoHIdSGYXmNnF/nymuPQ==
-X-Received: by 2002:a17:906:fd8d:b0:a51:e188:bced with SMTP id
- xa13-20020a170906fd8d00b00a51e188bcedmr48379ejb.37.1712591596913; 
- Mon, 08 Apr 2024 08:53:16 -0700 (PDT)
+ AJvYcCUK4r+FcgzKsgJfv/h3BUTsvcG7/ZZRN/P/zKakCfgvuOOd7oze/EKBeCbHfG/DBpfDY9iGBhkJOMT8Sy89ZCZGunVJg/bwZEV9y9wh0mwxUtJjyRSFEKJp
+X-Gm-Message-State: AOJu0Yx8+L8tYBwfFzVexHGDUktO1LOm5oO5Lm2PLMXD6WXqTw6Z1dsf
+ QTJhmc2afEKV2BkGnfeU7/TvOT+J+7/BFrRGr3NOrIX/hWUsWYJ/
+X-Google-Smtp-Source: AGHT+IHimdaFx4mr+fd5liP9CQQHQfUAme+YF2mKZ7a1UnXQ6iSPME0h09ObN08oeUq6W9IgNv/UPA==
+X-Received: by 2002:a17:906:cd03:b0:a47:4a32:604 with SMTP id
+ oz3-20020a170906cd0300b00a474a320604mr5925265ejb.26.1712591599181; 
+ Mon, 08 Apr 2024 08:53:19 -0700 (PDT)
 Received: from [127.0.1.1] ([213.208.157.67]) by smtp.gmail.com with ESMTPSA id
- l13-20020a170906794d00b00a46a2779475sm4547849ejo.101.2024.04.08.08.53.15
+ l13-20020a170906794d00b00a46a2779475sm4547849ejo.101.2024.04.08.08.53.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Apr 2024 08:53:16 -0700 (PDT)
+ Mon, 08 Apr 2024 08:53:18 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Mon, 08 Apr 2024 17:53:04 +0200
+Date: Mon, 08 Apr 2024 17:53:05 +0200
 MIME-Version: 1.0
-Message-Id: <20240408-rtc_dtschema-v1-4-c447542fc362@gmail.com>
+Message-Id: <20240408-rtc_dtschema-v1-5-c447542fc362@gmail.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
 In-Reply-To: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
@@ -69,11 +69,11 @@ To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1712591586; l=1594;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712591586; l=2126;
  i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
- bh=zOZomgntzrvpzwsWCTBIKhRP00SpDrEpbkluseuFse8=;
- b=VG/4RZspITvXhEWAGam4EeebdbdnRgZkL5lRkdQjPLh+WlxRCuzFnJI7lPUjmco9VoyuOiVXq
- akjKl/hvaUaBliOoiWRR9Z/+c9DEfQXxUVCqUVbp5NFNzefeTmLd4wH
+ bh=UiEej7wlBRi/pLQoBrweryeFGNwfjKuxoShA6lE5rgI=;
+ b=EpHnh+7FpXHoZNz9WVmqztAU819VB3IfAfjePtPHE33EfG9pOWc64lH5c4iJGsPPAkiXfkCFM
+ 67eNi1/nowwB6ktD5i9GayFdEXGoC8VcQqXJvBH2aLTYW752caeJ2Ze
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
 X-Mailman-Approved-At: Tue, 09 Apr 2024 08:47:02 +0000
@@ -81,8 +81,8 @@ Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org,
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 4/9] dt-bindings: rtc: maxim,
-	ds1742: move to trivial-rtc
+Subject: [Linux-stm32] [PATCH 5/9] dt-bindings: rtc: rtc-aspeed: move to
+	trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,46 +99,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This RTC only requires the compatible a reg and properties,
-which makes it suitable for a direct conversion into trivial-rtc.
+The RTCs documented in this binding require a compatible, a reg
+and a single interrupt, which make them suitable for a direct
+conversion into trivial-rtc.
 
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- Documentation/devicetree/bindings/rtc/maxim,ds1742.txt | 12 ------------
- Documentation/devicetree/bindings/rtc/trivial-rtc.yaml |  2 ++
- 2 files changed, 2 insertions(+), 12 deletions(-)
+ .../devicetree/bindings/rtc/rtc-aspeed.txt         | 22 ----------------------
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       |  6 ++++++
+ 2 files changed, 6 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/maxim,ds1742.txt b/Documentation/devicetree/bindings/rtc/maxim,ds1742.txt
+diff --git a/Documentation/devicetree/bindings/rtc/rtc-aspeed.txt b/Documentation/devicetree/bindings/rtc/rtc-aspeed.txt
 deleted file mode 100644
-index d0f937c355b5..000000000000
---- a/Documentation/devicetree/bindings/rtc/maxim,ds1742.txt
+index 2e956b3dc276..000000000000
+--- a/Documentation/devicetree/bindings/rtc/rtc-aspeed.txt
 +++ /dev/null
-@@ -1,12 +0,0 @@
--* Maxim (Dallas) DS1742/DS1743 Real Time Clock
+@@ -1,22 +0,0 @@
+-ASPEED BMC RTC
+-==============
 -
 -Required properties:
--- compatible: Should contain "maxim,ds1742".
--- reg: Physical base address of the RTC and length of memory
--  mapped region.
+- - compatible: should be one of the following
+-   * aspeed,ast2400-rtc for the ast2400
+-   * aspeed,ast2500-rtc for the ast2500
+-   * aspeed,ast2600-rtc for the ast2600
+-
+- - reg: physical base address of the controller and length of memory mapped
+-   region
+-
+- - interrupts: The interrupt number
 -
 -Example:
--	rtc: rtc@10000000 {
--		compatible = "maxim,ds1742";
--		reg = <0x10000000 0x800>;
--	};
+-
+-   rtc@1e781000 {
+-           compatible = "aspeed,ast2400-rtc";
+-           reg = <0x1e781000 0x18>;
+-           interrupts = <22>;
+-           status = "disabled";
+-   };
 diff --git a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-index d6ce7ac29033..710b096fe6f7 100644
+index 710b096fe6f7..0f773167d32a 100644
 --- a/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
 +++ b/Documentation/devicetree/bindings/rtc/trivial-rtc.yaml
-@@ -49,6 +49,8 @@ properties:
-       - isil,isl1218
-       # Mvebu Real-time Clock
-       - marvell,orion-rtc
-+      # Maxim DS1742/DS1743 Real-time Clock
-+      - maxim,ds1742
-       # SPI-BUS INTERFACE REAL TIME CLOCK MODULE
-       - maxim,mcp795
-       # Real Time Clock Module with I2C-Bus
+@@ -24,6 +24,12 @@ properties:
+       - abracon,abb5zes3
+       # AB-RTCMC-32.768kHz-EOZ9: Real Time Clock/Calendar Module with I2C Interface
+       - abracon,abeoz9
++      # ASPEED BMC ast2400 Real-time Clock
++      - aspeed,ast2400-rtc
++      # ASPEED BMC ast2500 Real-time Clock
++      - aspeed,ast2500-rtc
++      # ASPEED BMC ast2600 Real-time Clock
++      - aspeed,ast2600-rtc
+       # I2C, 32-Bit Binary Counter Watchdog RTC with Trickle Charger and Reset Input/Output
+       - dallas,ds1374
+       # Dallas DS1672 Real-time Clock
 
 -- 
 2.40.1
