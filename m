@@ -2,88 +2,88 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFB989CAAB
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 19:23:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A32A89D4C7
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 10:47:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 368CCC7128A;
-	Mon,  8 Apr 2024 17:23:02 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FBB8C7128A;
+	Tue,  9 Apr 2024 08:47:04 +0000 (UTC)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02474C71288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAE06C6C858
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Apr 2024 17:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1712596981; x=1744132981;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=9YZUFujOhMTTG62YTRxcfo0Pxm72VS2PmasBoZHfmRw=;
- b=aZRUFVI3yCaLiTmj1QS4mbrtE2p8o52v9YGJWPP5CC3sBg6V4mUEZeDF
- /5cmCrSC5SRRLw6OzKIMlrEZk4ForaI36ENCvgGkVdr6eGHKlSGmiXA6v
- O1Zdzvr7S/nblecN1Cruj4WiYVIhukW9rSjWRJcfdgcclJD7s2rux6UHn
- sZ9LU4nGer12/ffeERTZqS6W+9UvspDqWDfjWRaxvG4OW91xBs7Gezxl7
- vhm1vxM3L9yhRRWRtq4o8dEJNboDtKMPpZLibvC6gREeSvQ8aKAH+FW33
- VXm4ZGCA8Q5i/StJ6uqwUATozLNCyOvi2Tj5Nbc2mpmxqGIUkH0K1PQI6 A==;
-X-CSE-ConnectionGUID: 6eSTwKZ/Sg2RJhLR3N5miQ==
-X-CSE-MsgGUID: Ps9J2NC+Tju+rlgnLlGkqg==
-X-IronPort-AV: E=McAfee;i="6600,9927,11038"; a="7757447"
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; 
-   d="scan'208";a="7757447"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 10:22:59 -0700
-X-CSE-ConnectionGUID: fG6IZotJT4u76Vx3qwpS7A==
-X-CSE-MsgGUID: izqID2hnQtuQZJDnjXRadA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.07,187,1708416000"; d="scan'208";a="24697450"
-Received: from shahsmit-mobl1.amr.corp.intel.com (HELO [10.212.101.141])
- ([10.212.101.141])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2024 10:22:56 -0700
-Message-ID: <acf98b6b-7c18-4f1e-ab8f-039c88679ab9@linux.intel.com>
-Date: Mon, 8 Apr 2024 10:34:25 -0500
+ Mon,  8 Apr 2024 15:53:09 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-516d0c004b1so5183879e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 08 Apr 2024 08:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1712591589; x=1713196389;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xVLdz4RCZPpmOoRrLeAZgIbqKfFqmRWvMYiTDdq2jAw=;
+ b=SiGLx/o84CznimZ/Q2WHMyUoi8HK8j9locNqHVjnH38/7abPNoCOhIlzfCWtWzv244
+ GcJ9bz+TnNSK4rmZWJ/6Wf64s5lol06tW/jgiC8TKkFVuJHlKNdo0eIEiTiQEeCixe6B
+ NrNT44dQh7u75RENM65qwy5Z27lFpi2uEXCtrQCIO1myPLGzvAsgte60DydsALnzHqdj
+ juFuA+wdyBzFJPq342EOt205Y8NWcnvweXMjBJ93pUfXPOLtOyH/c5jb6W5nmGIV3M4D
+ qBb8U4knsDFsWBveMkazWLAXCSxf3FYJ0zRkGEEUlPjPSVszLEv265vPfaQfZWimF0bN
+ vNAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1712591589; x=1713196389;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=xVLdz4RCZPpmOoRrLeAZgIbqKfFqmRWvMYiTDdq2jAw=;
+ b=T/XHfLB3Lf4Xy0kQTwLu6WTf//5J7e/oRrmduuYOFiMATch28NeAq6jth7w5VACHMp
+ qVOWGweY7ZI1Vseg3DcF3lXlbvuITh8MAIB8EobaTmKQLhJSkA2tZIJZ7J+FeKQiE1le
+ x1p6Qpt37snl61gekWabyWHZXJJC4Y5KvXJU/5mjyLyApLTOVMD3n4qOgFy6+PP1nqYw
+ nphufY+P3iGI0P1R700QztXQlfuHtVr+C7w9lA3AivXr16SjQgY1W6BtNVhiGWW1Jy/E
+ s9/Qd5GHVrc8jaUC1WXxPUAG3lsEctMl6bD87W6K/0s7LSoSOaMM26Z7vPuEsiKlPa+e
+ +XeA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXEWbphasjrIFZzCWkIcN1zj717LgNhACO6OcW+XD2kCALFe3hTquBvDeEq3f8iNsOEkw2EvID1hV9y8d5kD3acM1OMEwNwS8M6xV8uXS6vyqIp4vfwIdp6
+X-Gm-Message-State: AOJu0YzmrmeuHca5xOvkhc3mf2pqVtfILrLPGAgM20qJTRy/b0lo0FhT
+ jqay9sXUPdXJJIUj+EsvIbwE/EjCCizSfJ18HFnotYmjdzCQq+oX
+X-Google-Smtp-Source: AGHT+IGzkzf5ZrBVW/uel17iRj5iBd72o+sCS+boDhbrVpfv/k6Y+8z0gJzljcMw4rpZZlrNTvlNDw==
+X-Received: by 2002:a05:6512:48d3:b0:516:d4c2:5410 with SMTP id
+ er19-20020a05651248d300b00516d4c25410mr6728199lfb.64.1712591589101; 
+ Mon, 08 Apr 2024 08:53:09 -0700 (PDT)
+Received: from [127.0.1.1] ([213.208.157.67]) by smtp.gmail.com with ESMTPSA id
+ l13-20020a170906794d00b00a46a2779475sm4547849ejo.101.2024.04.08.08.53.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Apr 2024 08:53:08 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Date: Mon, 08 Apr 2024 17:53:00 +0200
+Message-Id: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
- <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
- <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
- <600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
- <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
- <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
- <875xwwr60a.wl-kuninori.morimoto.gx@renesas.com>
- <87sezwecf1.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <87sezwecf1.wl-kuninori.morimoto.gx@renesas.com>
-Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>,
- linux-sound@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Brent Lu <brent.lu@intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
- soc_get_playback_capture()
+X-B4-Tracking: v=1; b=H4sIANwSFGYC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIxMDEwMz3aKS5PiUkuLkjNTcRF1jAyMLI5MUw9RkIwMloJaCotS0zAqwcdG
+ xtbUADZmsIV4AAAA=
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jiaxun Yang <jiaxun.yang@flygoat.com>, 
+ Vladimir Zapolskiy <vz@mleia.com>, Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1712591586; l=2339;
+ i=javier.carrasco.cruz@gmail.com; s=20240312; h=from:subject:message-id;
+ bh=paSRMDlNckWuA66r0WKViWnghhZr2E5Sml0Yhn2MVmA=;
+ b=GAJVhgkJAZP0MyB/TYi4TIjAYjqRazVZe7IXvjdW4YgRzeNyvEn4Ew/bDpudVVhHq2CSqzfUY
+ +sNcF1axU/XCPPo3HkltSviKDTQIXOLzo27aEU2RSX7PEaEuMfS/VOD
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=lzSIvIzMz0JhJrzLXI0HAdPwsNPSSmEn6RbS+PTS9aQ=
+X-Mailman-Approved-At: Tue, 09 Apr 2024 08:47:02 +0000
+Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/9] rtc: convert multiple bindings into
+	dtschema
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,88 +100,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This series converts the following bindings into dtschema, moving them
+to trivial-rtc whenever possible:
 
+- orion-rtc: trival-rtc, referenced in arm arch.
+- google,goldfish-rtc: trivial-rtc, referenced in mips arch.
+- lpc32xx-rtc: trival-rtc, referenced in arm arch.
+- maxim,ds1742: trivial-rtc, not referenced in arch, cheap conversion.
+- rtc-aspeed: 3 devices to trivial-rtc, all referenced in arm arch.
+- pxa-rtc: add missing properties and convert. Referenced in arm arch.
+- st,spear600-rtc: trivial-rtc, referenced in arm arch.
+- stmp3xxx-rtc: convert, referenced in arm arch.
+- via,vt8500-rtc: trivial-rtc, referenced in arm arch.
 
-On 4/7/24 22:55, Kuninori Morimoto wrote:
-> 
-> Hi Pierre-Louis, again
-> 
->> dpcm_xxx is used to declare that the DAI/dailink is possible to use
->> playback/capture. For example dpcm_playback means the DAI / dailink
->> should playback-able, if not it is error.
->>
->> xxx_only is used to limit the playback/capture.
->> For example the DAI / dailink can use both playback and capture,
->> but want to use playback only for some reasons, we can use playback_only.
-> 
-> My pervious patch-set was "try to merge dpcm_xxx and xxx_only flag",
-> but next patch will be "expand assertion flag to all connection".
-> This "assertion flag" was originaly dpcm_xxx.
-> 
-> In next patch-set, it will assume for example current "dpcm_playback"
-> as "playback_assertion". It can be used not only for DPCM, but
-> all connection, but is not mandatory option.
-> 
-> Its pseudo code is like below, but what do you think ?
-> 
-> 	soc_get_playback_capture(...)
-> 	{
-> 		...
-> 		/*
-> 		 * get HW / DAI availability
-> 		 */
-> 		for_each_rtd_ch_maps(...) {
-> 			...
-> 			has_playback = xxx;
-> 			has_capture  = xxx;
-> 		}
-> 
-> 		/*
-> 		 * "xxx_assersion" was "dpcm_xxx" before, but expand to
-> 		 * all connection. It is not mandatory option.
-> 		 * It will be error if dai_link has xxx_assersion flag,
-> 		 * but DAI was not valid
-> 		 */
-> 		if (dai_link->playback_assertion && !has_playback) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
->  		}
-> 		if (dai_link->capture_assertion  && !has_capture) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
-> 		}
-> 
-> 		/*
-> 		 * xxx_only flag limits availability. It will indicate warning
-> 		 * if DAI was not valid.
-> 		 */
-> 		if (dai_link->playback_only) {
-> 			if (!has_capture)
-> 				dev_warn(rtd->dev, ...);
-> 			has_capture = 0;
-> 		}
-> 
-> 		if (dai_link->capture_only) {
-> 			if (!has_playback)
-> 				dev_warn(rtd->dev, ...);
-> 			has_playback = 0;
-> 		}
-> 
-> 		/*
-> 		 * No Playback, No Capture is error
-> 		 */
-> 		if (!has_playback && !has_capture) {
-> 			dev_err(rtd->dev, ...);
-> 			return -EINVAL;
-> 		}
-> 		...
-> 	}
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+---
+Javier Carrasco (9):
+      dt-bindings: rtc: orion-rtc: move to trivial-rtc
+      dt-bindings: rtc: google,goldfish-rtc: move to trivial-rtc
+      dt-bindings: rtc: lpc32xx-rtc: move to trivial-rtc
+      dt-bindings: rtc: maxim,ds1742: move to trivial-rtc
+      dt-bindings: rtc: rtc-aspeed: move to trivial-rtc
+      dt-bindings: rtc: pxa-rtc: convert to dtschema
+      dt-bindings: rtc: spear-rtc: move to trivial-rtc
+      dt-bindings: rtc: stmp3xxx-rtc: convert to dtschema
+      dt-bindings: rtc: via,vt8500-rtc: move to trivial-rtc
 
-The code looks fine, but what are we trying to achieve?
-I thought the idea was to have a single field at the dailink, and with
-the example above we would still have two - just like today.
-This looks like a lot of code churn in many drivers for limited
-benefits. Or I am missing something?
+ .../devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml  | 45 ++++++++++++++++++++++
+ .../bindings/rtc/google,goldfish-rtc.txt           | 17 --------
+ .../devicetree/bindings/rtc/lpc32xx-rtc.txt        | 15 --------
+ .../devicetree/bindings/rtc/marvell,pxa-rtc.yaml   | 40 +++++++++++++++++++
+ .../devicetree/bindings/rtc/maxim,ds1742.txt       | 12 ------
+ .../devicetree/bindings/rtc/orion-rtc.txt          | 18 ---------
+ Documentation/devicetree/bindings/rtc/pxa-rtc.txt  | 14 -------
+ .../devicetree/bindings/rtc/rtc-aspeed.txt         | 22 -----------
+ .../devicetree/bindings/rtc/spear-rtc.txt          | 15 --------
+ .../devicetree/bindings/rtc/stmp3xxx-rtc.txt       | 21 ----------
+ .../devicetree/bindings/rtc/trivial-rtc.yaml       | 18 +++++++++
+ .../devicetree/bindings/rtc/via,vt8500-rtc.txt     | 15 --------
+ 12 files changed, 103 insertions(+), 149 deletions(-)
+---
+base-commit: fec50db7033ea478773b159e0e2efb135270e3b7
+change-id: 20240406-rtc_dtschema-302824d1ec20
+
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
