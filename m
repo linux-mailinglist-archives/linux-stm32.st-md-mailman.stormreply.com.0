@@ -2,135 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DF689B6A6
-	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 05:55:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095F489BA99
+	for <lists+linux-stm32@lfdr.de>; Mon,  8 Apr 2024 10:45:14 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 800E9C6C820;
-	Mon,  8 Apr 2024 03:55:21 +0000 (UTC)
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11021010.outbound.protection.outlook.com [52.101.228.10])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7723EC6C859;
+	Mon,  8 Apr 2024 08:45:13 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2A63C6B47E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D256BC69066
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Apr 2024 03:55:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KrHGvPfEh12+TICqUj6of99l9CmqMVfyn3LVKQW8lo67J4F2wFakKq4GVHwUwyNJ3mGni3zNtyj1ORdDd7FydveY2XdnpN9n8AAcvmmwC2iAYxCKlJZ0ms5N5uj9aH9dXV1Jfm4bjimPEcUGSt+lQ2v0mC+o83V/niS5KB3Z/rVBB7GzS4HUVELsGRjivT+Rq12BKa3CMkCB/O2ITusSbuEzK4GIKRVtuwsQJd8KZNjRNyNYbAOV73pCYszFk+IC8X83fcpOQvZ0KGzoWoq/W1+gx0JyZCrN9eyO3aA4ODwEOa0s4Fy6JgIEW1S67F5/L709wuHEexTufuanZ+DaDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sIYSm/9modbT24QHWv0NNEtIKSqawDgroUnWCWdc9kM=;
- b=YMCWRf63d6cW/E87M/WJwvG0AyFp0/lorT6RSVdkGqeNzWeXm+GEMiwRCM2eYdpws4IIIp5O8SxzmTKCLU/YVngu7+ekuAw2S+Hf4RNXdGnWNpMMR4fufQD14lnpLgfF+k+Ruizx1CYLGubap8GXsik+ms45h+WHwn4A7CxAMNscdW/9t1L7qmkpZ5+8gErZ7nqVahY+MmH5CUN0KZK5nodSdH16OIqiozzxAgc0uP5VlcXbcQ0WbbO51RX/5SmwhYmSjypzySjhh8njSqa7Ab5eY/J7ZQdtqIBK1FNOV6E6iYr8COVzyghoSYtv5XoBdFcbjidBD0g0PLveBdNIlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sIYSm/9modbT24QHWv0NNEtIKSqawDgroUnWCWdc9kM=;
- b=fhbpM3OTpnsrRomgzyAXe3YGkxJn5ymEx1F6l4gtYCD+8eKg8ZbTiMFFvtSiHzzbthImYwRFq0wzHMsWrvlOl/zyjUJb5RJ2Okr5IQps+dbzmbZLW7q3CTkLJMVqs2yH5hHB3iXm6VA+8NvEkmjTTnXxNWWBjzbOO3DegXOjV6M=
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11) by OS3PR01MB5991.jpnprd01.prod.outlook.com
- (2603:1096:604:d0::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.55; Mon, 8 Apr
- 2024 03:55:15 +0000
-Received: from TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::131e:55c0:a4a0:713b]) by TYCPR01MB10914.jpnprd01.prod.outlook.com
- ([fe80::131e:55c0:a4a0:713b%7]) with mapi id 15.20.7386.025; Mon, 8 Apr 2024
- 03:55:15 +0000
-Message-ID: <87sezwecf1.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <875xwwr60a.wl-kuninori.morimoto.gx@renesas.com>
-References: <87zfuesz8y.wl-kuninori.morimoto.gx@renesas.com>
- <87y19xudor.wl-kuninori.morimoto.gx@renesas.com>
- <b4b37541-b67f-4593-9fd5-fc6242a0673a@linux.intel.com>
- <87zfuc7gya.wl-kuninori.morimoto.gx@renesas.com>
- <600cef67-ad90-4b67-8da7-2006339d430b@linux.intel.com>
- <874jch99m5.wl-kuninori.morimoto.gx@renesas.com>
- <40e23972-6745-48e2-81ae-4b93f2ee2dcc@linux.intel.com>
- <875xwwr60a.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Wanderlust/2.15.9 Emacs/27.1 Mule/6.0
-Date: Mon, 8 Apr 2024 03:55:14 +0000
-X-ClientProxiedBy: TYCPR01CA0013.jpnprd01.prod.outlook.com (2603:1096:405::25)
- To TYCPR01MB10914.jpnprd01.prod.outlook.com
- (2603:1096:400:3a9::11)
+ Mon,  8 Apr 2024 08:45:11 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id
+ 4387SNEk009700; Mon, 8 Apr 2024 10:44:22 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com; h=
+ message-id:date:mime-version:subject:to:cc:references:from
+ :in-reply-to:content-type:content-transfer-encoding; s=
+ selector1; bh=p9CMLavhVsATyBEL2PMrrzwDGq1Q/Uy83NePUSe/nV8=; b=H0
+ Hz8kooN+RWyeLVNT5G6PnWy8ULfDSW6CpoagsFb+J3M0DtuXTtnHqwuFRioi3gAA
+ z5t7reJ8TsDXoNyseC06fx94TQCm6ALfyu6bsdF56llYVodLg9zaUIGjwFgk8DmE
+ zXqWHU2YrzgiaVhWnsN82v10SkaVMrvQJ80OkoBuvJLqZ+Kpqac574MQ8DF/PNQk
+ FZ7K4mrgNckGiIqwFgGzwaEUM/92Kh75C09Nbbz1efURqgiAW/I7HKGkw+Rcqd5J
+ lc1lWbYAnp3PuE8qyX64hAyomATyqJvNHG1wh159HfLOx5KBBLJVFOjc6Rg6NG0V
+ F9DOJvtck291a9gQZoMA==
+Received: from beta.dmz-ap.st.com (beta.dmz-ap.st.com [138.198.100.35])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 3xaw9cnmn1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 08 Apr 2024 10:44:21 +0200 (MEST)
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-ap.st.com (STMicroelectronics) with ESMTP id F2D0D40059;
+ Mon,  8 Apr 2024 10:44:09 +0200 (CEST)
+Received: from Webmail-eu.st.com (shfdag1node1.st.com [10.75.129.69])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 2018E211978;
+ Mon,  8 Apr 2024 10:43:02 +0200 (CEST)
+Received: from [10.48.86.79] (10.48.86.79) by SHFDAG1NODE1.st.com
+ (10.75.129.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Mon, 8 Apr
+ 2024 10:42:59 +0200
+Message-ID: <61608010-fbce-46c6-a83d-94c04d0f000d@foss.st.com>
+Date: Mon, 8 Apr 2024 10:42:59 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB10914:EE_|OS3PR01MB5991:EE_
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KsW5Dd28Zx3FFAFOXGq+dDSfPkRk3G61zJirKGmAlylkvs59he34h9iw8Qn2dIK5f0U1h7Xp//aQOPDxMUbahAh3CPocuTaRnuM9bJ7RtG7aRpRB67qJDhDoc7o1YuT5CoRZUrEgcWYlwpQtyL2GB/s1nJxjyZ4sK53HJgmPIQLibIQwObPm02X4psywTxu+xFbbA9FsVZSEDAvDYQrEc4f0quGyX/btMllq1EA7c/KxSxDRt+4tAIw9iN1NGSE5CQqj7Z1ntiaVUtQhcKH9WPFAaSFH/CQrV+UDchtC5BzREbWh4P+Jo3USLEw+YlATD97SFd93mG1S3FbOBbMmlX/db6geCWo6n9haleBQuy0tnO2VY1pjjJjp5085e2L6tqdvDRRaERVAbJoC5dDZ1cqhVVYWV0BJ8fp5vy2hsTwNNI/Wuk7/29mG+s4hyTwdTIl5lrNe/eX49l0rnVRBIVutkSmhpXVnggYzuMlZHjsenZXyEh9tvoydnPUX3Dc3UIXY4wZtRQ1P/hgpjSC1IIxCuyHsRanx575amIkwblx/HWzW9CRP4NeopEeBEMGZcog4dlo59FJlhJCVLSpWjS1Sve8sFoikaNCYV+mdrV+wjllI86/SgFRmywUtTrUyAOYSCe2Y0uYEsJ2PBg/esLldeR+g+LyMPQGPlX+MsemrSdSrctt22PdmMyzLUZVN1acGwksk2+b4VYa5xO5+gjFMdB8NxuoWxViLA3UvPMM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB10914.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230031)(366007)(376005)(52116005)(1800799015)(7416005)(38350700005);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mPrUxzvy8r78RR/53Eto/sFCiqZuQVxWDPIMLgDhDCFD4n0P8WVr9Z/dgq1m?=
- =?us-ascii?Q?qzpW5scTWrliwM8/s9G3UTxLYcVgWwbootiitQfnDRobvir6t8Gfgdl1pFHz?=
- =?us-ascii?Q?WLPYipJwbmRCZqMEuCi8KAkLiXuae5G2KZ/lg/5GhDV4YfTiOtjaXuKZHF6W?=
- =?us-ascii?Q?m31CtTQ3kXUEYdN/KNkMHyHmwWLLqXiPw/gFuJMEeaL8sNTblodfS1Sbdhmk?=
- =?us-ascii?Q?1WKp0kuPF0XiVH2/B6jMWzbWlu2z3uo+0A1rph3a1tedlkMjRHjtRy6BQbpo?=
- =?us-ascii?Q?y96V9NYBiCkMcPDQr3FWZv7siz5oxyU5mcyup5unRLvJqx+eE32EAbhs955F?=
- =?us-ascii?Q?b5sLD+yKpf0+u3PDlh/Er8t0mPrrMVe2g3cgQDwivpvU1RqU2NnpNusdNGC6?=
- =?us-ascii?Q?ylFdPeKngDFTmK1/XCJyHHYBG741WWiHMONTiASM4s1mRVxgoTErm4WYnjXe?=
- =?us-ascii?Q?sjGRN08mrVexfiBxqKgOSrdIZ8/Jy5mzUkwMVbW19T6mgNiId/CZA6dVnqNE?=
- =?us-ascii?Q?3mpXFLa86+cm1dvOdsEtyfCjM0jloFX+TsTlQYhTseZDEEcLC43kjJSRHmBC?=
- =?us-ascii?Q?5L+NYMvuX4vvuPcjoMyUbn7yA8Fu9xlSVr3oKPQlTNP2/fhQv2CywdWIGSdk?=
- =?us-ascii?Q?WNajhVOsApCfTfelOSnFMcJY+ydzuz6ztPWUbrBNpC/3oOKczCDCSfA7NO+q?=
- =?us-ascii?Q?BcwVXvPMPc1JZp4UtctsPL5pMr92wD9wnTJoUQuaYKEU2uCmSS6BcVQk5AOS?=
- =?us-ascii?Q?f5lhdIlSQTOIEPap8LbredLhE9+fclBRlaYWW7KOkPskX7Qsqu90dlTisyEl?=
- =?us-ascii?Q?isfU9ZIqq1DCeE0rXwHfxpNM75HrBcWjAiOZQ0flq+AgHYDMiGEoOqOnCxYq?=
- =?us-ascii?Q?cg6HioZO3QgNZbKjSe4ZldTG7bJnnFIN3j75FRxmD3nok5pED0bELEQoyv/3?=
- =?us-ascii?Q?vVdqNDlJqjqHXCfvvbhSACeVofgKlIdJjn+/PQgGpIXMB7JxOuzpJKniAJ//?=
- =?us-ascii?Q?0aD4srQHQq/BbYLaLdML8NtMZ76Oj1LL23iKlB9+nYgwr30cMZzPpdCf1D1s?=
- =?us-ascii?Q?8HDmKQLeUWBapr5QO/veUq8ixG+zE39jHUeE8gbYaMAmbMtbo57hMtLi8X/B?=
- =?us-ascii?Q?rZydtF9GN121w4TUkWsGUST9HQ+e5fsHLUu+492nx1co3eSMkJYmE7G50xM7?=
- =?us-ascii?Q?j1itYPNrlrdSBEjbQDAdbdJPL4Y6cTD+A0hYIf1T39j5e7HhlGCMYsGiFO2H?=
- =?us-ascii?Q?byEj2bfwJlFFuyfInoLlSZI3zzTgok0tkJNX9ab8sRoR9dfvyse/PnZQr8Yz?=
- =?us-ascii?Q?yXjvJC+7GgFTDQ1HYCAbTvsfT8X4v2WXAc5lnx2IVlEKOZT9ne+QH72k4jHk?=
- =?us-ascii?Q?+9nyNXE7ql2sq0Z+1iIV48q0gKcbmmJwZE/pzYj3ClTwxHWcvbR12JS1DZ7R?=
- =?us-ascii?Q?eqZTgl1d+uNhQYieWXJ0DHqzO+SJI38d+hTqGsjAEUpnWwkc8mbS1ncVFAcY?=
- =?us-ascii?Q?AmmWhYzcoIiPXtAbyKCr3NAnMqBARsd0q651hRjhXjN3BNP5SZOxffFsPSRh?=
- =?us-ascii?Q?MB8TMLI/WSr+O703k3ndhnEaa0AQY9ZXDUWzqwitkVzrkln6MbMbkdYnOvKa?=
- =?us-ascii?Q?VWpUCIve7ob1PJXqNia+Www=3D?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 916bd23d-d87e-4fd9-51e5-08dc577fb2b4
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB10914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2024 03:55:15.2111 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 216uBW/Mj31BtvPiOlDRFn8591CxrUFf2HdnIFZNLtxOOI6mjRPcnsZ9peg6c+yfRyhy7dztfyS1NQzHtYVG1vxPt3KrQKgbulSZqftOTftAxWzvjXyAxR9poAE5jywX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB5991
-Cc: imx@lists.linux.dev, Cezary Rojewski <cezary.rojewski@intel.com>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Linus Walleij <linus.walleij@linaro.org>,
- alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Shengjiu Wang <shengjiu.wang@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Maso Huang <maso.huang@mediatek.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?= <amadeuszx.slawinski@linux.intel.com>,
- linux-sound@vger.kernel.org, Hans de Goede <hdegoede@redhat.com>,
- Alper Nebi Yasak <alpernebiyasak@gmail.com>, Mark Brown <broonie@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Daniel Baluta <daniel.baluta@nxp.com>, Brent Lu <brent.lu@intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Banajit Goswami <bgoswami@quicinc.com>, Kevin Hilman <khilman@baylibre.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 01/16] ASoC: soc-pcm.c: cleanup
-	soc_get_playback_capture()
+User-Agent: Mozilla Thunderbird
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ <Oleksii_Moisieiev@epam.com>, <gregkh@linuxfoundation.org>,
+ <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+ <robh+dt@kernel.org>, <krzysztof.kozlowski+dt@linaro.org>,
+ <conor+dt@kernel.org>, <vkoul@kernel.org>, <jic23@kernel.org>,
+ <olivier.moysan@foss.st.com>, <arnaud.pouliquen@foss.st.com>,
+ <mchehab@kernel.org>, <fabrice.gasnier@foss.st.com>,
+ <andi.shyti@kernel.org>, <ulf.hansson@linaro.org>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <hugues.fruchet@foss.st.com>, <lee@kernel.org>, <will@kernel.org>,
+ <catalin.marinas@arm.com>, <arnd@kernel.org>,
+ <richardcochran@gmail.com>, Frank Rowand <frowand.list@gmail.com>,
+ <peng.fan@oss.nxp.com>, <lars@metafoo.de>, <rcsekar@samsung.com>,
+ <wg@grandegger.com>, <mkl@pengutronix.de>
+References: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20240105130404.301172-1-gatien.chevallier@foss.st.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: EQNCAS1NODE3.st.com (10.75.129.80) To SHFDAG1NODE1.st.com
+ (10.75.129.69)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.1011,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2024-04-08_07,2024-04-05_02,2023-05-22_02
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-serial@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-i2c@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v9 00/13] Introduce STM32 Firewall
+	framework
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,92 +90,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+Hi Gatien,
 
-Hi Pierre-Louis, again
-
-> dpcm_xxx is used to declare that the DAI/dailink is possible to use
-> playback/capture. For example dpcm_playback means the DAI / dailink
-> should playback-able, if not it is error.
+On 1/5/24 14:03, Gatien Chevallier wrote:
+> Introduce STM32 Firewall framework for STM32MP1x and STM32MP2x
+> platforms. STM32MP1x(ETZPC) and STM32MP2x(RIFSC) Firewall controllers
+> register to the framework to offer firewall services such as access
+> granting.
 > 
-> xxx_only is used to limit the playback/capture.
-> For example the DAI / dailink can use both playback and capture,
-> but want to use playback only for some reasons, we can use playback_only.
+> This series of patches is a new approach on the previous STM32 system
+> bus, history is available here:
+> https://lore.kernel.org/lkml/20230127164040.1047583/
+> 
+> The need for such framework arises from the fact that there are now
+> multiple hardware firewalls implemented across multiple products.
+> Drivers are shared between different products, using the same code.
+> When it comes to firewalls, the purpose mostly stays the same: Protect
+> hardware resources. But the implementation differs, and there are
+> multiple types of firewalls: peripheral, memory, ...
+> 
+> Some hardware firewall controllers such as the RIFSC implemented on
+> STM32MP2x platforms may require to take ownership of a resource before
+> being able to use it, hence the requirement for firewall services to
+> take/release the ownership of such resources.
+> 
+> On the other hand, hardware firewall configurations are becoming
+> more and more complex. These mecanisms prevent platform crashes
+> or other firewall-related incoveniences by denying access to some
+> resources.
+> 
+> The stm32 firewall framework offers an API that is defined in
+> firewall controllers drivers to best fit the specificity of each
+> firewall.
+> 
+> For every peripherals protected by either the ETZPC or the RIFSC, the
+> firewall framework checks the firewall controlelr registers to see if
+> the peripheral's access is granted to the Linux kernel. If not, the
+> peripheral is configured as secure, the node is marked populated,
+> so that the driver is not probed for that device.
+> 
+> The firewall framework relies on the access-controller device tree
+> binding. It is used by peripherals to reference a domain access
+> controller. In this case a firewall controller. The bus uses the ID
+> referenced by the access-controller property to know where to look
+> in the firewall to get the security configuration for the peripheral.
+> This allows a device tree description rather than a hardcoded peripheral
+> table in the bus driver.
+> 
+> The STM32 ETZPC device is responsible for filtering accesses based on
+> security level, or co-processor isolation for any resource connected
+> to it.
+> 
+> The RIFSC is responsible for filtering accesses based on Compartment
+> ID / security level / privilege level for any resource connected to
+> it.
+> 
+> STM32MP13/15/25 SoC device tree files are updated in this series to
+> implement this mecanism.
+> 
 
-My pervious patch-set was "try to merge dpcm_xxx and xxx_only flag",
-but next patch will be "expand assertion flag to all connection".
-This "assertion flag" was originaly dpcm_xxx.
+...
 
-In next patch-set, it will assume for example current "dpcm_playback"
-as "playback_assertion". It can be used not only for DPCM, but
-all connection, but is not mandatory option.
+After minor cosmetic fixes, series applied on stm32-next.
+Seen with Arnd: it will be part on my next PR and will come through 
+arm-soc tree.
 
-Its pseudo code is like below, but what do you think ?
-
-	soc_get_playback_capture(...)
-	{
-		...
-		/*
-		 * get HW / DAI availability
-		 */
-		for_each_rtd_ch_maps(...) {
-			...
-			has_playback = xxx;
-			has_capture  = xxx;
-		}
-
-		/*
-		 * "xxx_assersion" was "dpcm_xxx" before, but expand to
-		 * all connection. It is not mandatory option.
-		 * It will be error if dai_link has xxx_assersion flag,
-		 * but DAI was not valid
-		 */
-		if (dai_link->playback_assertion && !has_playback) {
-			dev_err(rtd->dev, ...);
-			return -EINVAL;
- 		}
-		if (dai_link->capture_assertion  && !has_capture) {
-			dev_err(rtd->dev, ...);
-			return -EINVAL;
-		}
-
-		/*
-		 * xxx_only flag limits availability. It will indicate warning
-		 * if DAI was not valid.
-		 */
-		if (dai_link->playback_only) {
-			if (!has_capture)
-				dev_warn(rtd->dev, ...);
-			has_capture = 0;
-		}
-
-		if (dai_link->capture_only) {
-			if (!has_playback)
-				dev_warn(rtd->dev, ...);
-			has_playback = 0;
-		}
-
-		/*
-		 * No Playback, No Capture is error
-		 */
-		if (!has_playback && !has_capture) {
-			dev_err(rtd->dev, ...);
-			return -EINVAL;
-		}
-		...
-	}
+Thanks
+Alex
 
 
-Thank you for your help !!
 
-Best regards
----
-Renesas Electronics
-Ph.D. Kuninori Morimoto
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
