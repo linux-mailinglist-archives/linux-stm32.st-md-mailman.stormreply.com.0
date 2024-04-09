@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 149A789D54C
+	by mail.lfdr.de (Postfix) with ESMTPS id 237D089D54D
 	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 11:21:17 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D29B3C71291;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE169C71293;
 	Tue,  9 Apr 2024 09:21:16 +0000 (UTC)
 Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
  [217.70.183.201])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86424C71290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9A2BDC7128B
  for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue,  9 Apr 2024 09:21:15 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 5FB101BF20D;
  Tue,  9 Apr 2024 09:21:14 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 461E41BF204;
- Tue,  9 Apr 2024 09:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1712654474;
+ t=1712654475;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=n+kDAZ6zHyLuJ1kKA/lORJr5QGwEJ5wspZdIC43mn/o=;
- b=Pjwl5M/ppOBlWWT7kakaf6WvN1jdicPRElg0awIu1AhSA5DamRHx2ThPeFmUHwFhuN4q4+
- jZd7BO/JXEy+8iXqb6Tnvb0DeKjaM+ZSZ3p2BCNpiYrd6dkF6U0u41E6cwjs1Xoy66U2bZ
- AVErGKTwkyN1EWZXRFUvpOXTjp9F2aSwN6ikS+GOmLYpaCL2w1/ly6eAWQZf6DBk682xIK
- /5hbMlpfUhgKM5NlwVdJkv/chq9AmTVVLIqQfjwxoiMQRC0Ws1v1eIeUzzdEljBJcj1FLs
- FPUMkjeteJWVoz13RQtWZCSTKYp6AAYRgj5HPffQ0oeXviLu6mFW8ubctdfDsA==
+ bh=dgkEencf4j8/akYYZKAAcikJgwU95AzVaQqqFLwYq+w=;
+ b=ANUe3Z+6s2nr2PPgirKQe0CzafD86+IuqA+XLBKB3otEoiImojEm/JOTPu8UIH/aB7qG4A
+ fa+UNGBGBoXnzgl+jY4bFp537Fte4PEczy4t98sEK2B/sEn6oXRieK/g2u5aW6jACHIZiX
+ /F4Pp2rEep9w++e7CvtRObrCpp5DKYd9bH5KgwvmT/7G0CeCBiOsusTcZVIhO7oYdRS2nw
+ ETVXd7PpYF3FUoNUVma67R5iWTi9tdRzGIEsxr5lLNP0a7bcWWNPkxbltWiNliR5BALaCJ
+ Kdja6F/gqeJa3W3Ff8dYBYhk35+SqHvPXFe07RpL9UEVitJ4AuOchklfkIrvlQ==
 From: Romain Gantois <romain.gantois@bootlin.com>
-Date: Tue, 09 Apr 2024 11:21:46 +0200
+Date: Tue, 09 Apr 2024 11:21:47 +0200
 MIME-Version: 1.0
-Message-Id: <20240409-rzn1-gmac1-v2-3-79ca45f2fc79@bootlin.com>
+Message-Id: <20240409-rzn1-gmac1-v2-4-79ca45f2fc79@bootlin.com>
 References: <20240409-rzn1-gmac1-v2-0-79ca45f2fc79@bootlin.com>
 In-Reply-To: <20240409-rzn1-gmac1-v2-0-79ca45f2fc79@bootlin.com>
 To: "David S. Miller" <davem@davemloft.net>, 
@@ -51,11 +51,10 @@ X-GND-Sasl: romain.gantois@bootlin.com
 Cc: devicetree@vger.kernel.org, Romain Gantois <romain.gantois@bootlin.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 3/5] net: stmmac: dwmac-socfpga:
- use pcs_init/pcs_exit
+Subject: [Linux-stm32] [PATCH net-next v2 4/5] net: stmmac: add support for
+	RZ/N1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,181 +66,102 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-
-Use the newly introduced pcs_init() and pcs_exit() operations to
-create and destroy the PCS instance at a more appropriate moment during
-the driver lifecycle, thereby avoiding publishing a network device to
-userspace that has not yet finished its PCS initialisation.
-
-There are other similar issues with this driver which remain
-unaddressed, but these are out of scope for this patch.
-
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Signed-off-by: Romain Gantois <romain.gantois@bootlin.com>
----
- .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c    | 109 +++++++++++----------
- 1 file changed, 55 insertions(+), 54 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 12b4a80ea3aa..67ca163936c8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -379,6 +379,58 @@ static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
- 	return 0;
- }
- 
-+static int socfpga_dwmac_pcs_init(struct stmmac_priv *priv,
-+				  struct mac_device_info *hw)
-+{
-+	struct socfpga_dwmac *dwmac = priv->plat->bsp_priv;
-+	struct regmap_config pcs_regmap_cfg = {
-+		.reg_bits = 16,
-+		.val_bits = 16,
-+		.reg_shift = regmap_upshift(1),
-+	};
-+	struct mdio_regmap_config mrc;
-+	struct regmap *pcs_regmap;
-+	struct phylink_pcs *pcs;
-+	struct mii_bus *pcs_bus;
-+
-+	if (!dwmac->tse_pcs_base)
-+		return 0;
-+
-+	pcs_regmap = devm_regmap_init_mmio(priv->device, dwmac->tse_pcs_base,
-+					   &pcs_regmap_cfg);
-+	if (IS_ERR(pcs_regmap))
-+		return PTR_ERR(pcs_regmap);
-+
-+	memset(&mrc, 0, sizeof(mrc));
-+	mrc.regmap = pcs_regmap;
-+	mrc.parent = priv->device;
-+	mrc.valid_addr = 0x0;
-+	mrc.autoscan = false;
-+
-+	/* Can't use ndev->name here because it will not have been initialised,
-+	 * and in any case, the user can rename network interfaces at runtime.
-+	 */
-+	snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii",
-+		 dev_name(priv->device));
-+	pcs_bus = devm_mdio_regmap_register(priv->device, &mrc);
-+	if (IS_ERR(pcs_bus))
-+		return PTR_ERR(pcs_bus);
-+
-+	pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
-+	if (IS_ERR(pcs))
-+		return PTR_ERR(pcs);
-+
-+	hw->phylink_pcs = pcs;
-+	return 0;
-+}
-+
-+static void socfpga_dwmac_pcs_exit(struct stmmac_priv *priv,
-+				   struct mac_device_info *hw)
-+{
-+	if (hw->phylink_pcs)
-+		lynx_pcs_destroy(hw->phylink_pcs);
-+}
-+
- static int socfpga_dwmac_probe(struct platform_device *pdev)
- {
- 	struct plat_stmmacenet_data *plat_dat;
-@@ -426,6 +478,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	dwmac->ops = ops;
- 	plat_dat->bsp_priv = dwmac;
- 	plat_dat->fix_mac_speed = socfpga_dwmac_fix_mac_speed;
-+	plat_dat->pcs_init = socfpga_dwmac_pcs_init;
-+	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
- 
- 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
- 	if (ret)
-@@ -444,48 +498,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_dvr_remove;
- 
--	/* Create a regmap for the PCS so that it can be used by the PCS driver,
--	 * if we have such a PCS
--	 */
--	if (dwmac->tse_pcs_base) {
--		struct regmap_config pcs_regmap_cfg;
--		struct mdio_regmap_config mrc;
--		struct regmap *pcs_regmap;
--		struct mii_bus *pcs_bus;
--
--		memset(&pcs_regmap_cfg, 0, sizeof(pcs_regmap_cfg));
--		memset(&mrc, 0, sizeof(mrc));
--
--		pcs_regmap_cfg.reg_bits = 16;
--		pcs_regmap_cfg.val_bits = 16;
--		pcs_regmap_cfg.reg_shift = REGMAP_UPSHIFT(1);
--
--		pcs_regmap = devm_regmap_init_mmio(&pdev->dev, dwmac->tse_pcs_base,
--						   &pcs_regmap_cfg);
--		if (IS_ERR(pcs_regmap)) {
--			ret = PTR_ERR(pcs_regmap);
--			goto err_dvr_remove;
--		}
--
--		mrc.regmap = pcs_regmap;
--		mrc.parent = &pdev->dev;
--		mrc.valid_addr = 0x0;
--		mrc.autoscan = false;
--
--		snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-pcs-mii", ndev->name);
--		pcs_bus = devm_mdio_regmap_register(&pdev->dev, &mrc);
--		if (IS_ERR(pcs_bus)) {
--			ret = PTR_ERR(pcs_bus);
--			goto err_dvr_remove;
--		}
--
--		stpriv->hw->phylink_pcs = lynx_pcs_create_mdiodev(pcs_bus, 0);
--		if (IS_ERR(stpriv->hw->phylink_pcs)) {
--			ret = PTR_ERR(stpriv->hw->phylink_pcs);
--			goto err_dvr_remove;
--		}
--	}
--
- 	return 0;
- 
- err_dvr_remove:
-@@ -494,17 +506,6 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static void socfpga_dwmac_remove(struct platform_device *pdev)
--{
--	struct net_device *ndev = platform_get_drvdata(pdev);
--	struct stmmac_priv *priv = netdev_priv(ndev);
--	struct phylink_pcs *pcs = priv->hw->phylink_pcs;
--
--	stmmac_pltfr_remove(pdev);
--
--	lynx_pcs_destroy(pcs);
--}
--
- #ifdef CONFIG_PM_SLEEP
- static int socfpga_dwmac_resume(struct device *dev)
- {
-@@ -576,7 +577,7 @@ MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
- 
- static struct platform_driver socfpga_dwmac_driver = {
- 	.probe  = socfpga_dwmac_probe,
--	.remove_new = socfpga_dwmac_remove,
-+	.remove_new = stmmac_pltfr_remove,
- 	.driver = {
- 		.name           = "socfpga-dwmac",
- 		.pm		= &socfpga_dwmac_pm_ops,
-
--- 
-2.44.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogQ2zDqW1lbnQgTMOpZ2VyIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgoKQWRkIHN1
+cHBvcnQgZm9yIHRoZSBSZW5lc2FzIFJaL04xIEdNQUMuIFRoaXMgc3VwcG9ydCBjYW4gbWFrZSB1
+c2Ugb2YgYQpjdXN0b20gUlovTjEgUENTIHdoaWNoIGlzIGZldGNoZWQgYnkgcGFyc2luZyB0aGUg
+cGNzLWhhbmRsZSBkZXZpY2UgdHJlZQpwcm9wZXJ0eS4KClNpZ25lZC1vZmYtYnk6ICJDbMOpbWVu
+dCBMw6lnZXIiIDxjbGVtZW50LmxlZ2VyQGJvb3RsaW4uY29tPgpDby1kZXZlbG9wZWQtYnk6IFJv
+bWFpbiBHYW50b2lzIDxyb21haW4uZ2FudG9pc0Bib290bGluLmNvbT4KU2lnbmVkLW9mZi1ieTog
+Um9tYWluIEdhbnRvaXMgPHJvbWFpbi5nYW50b2lzQGJvb3RsaW4uY29tPgotLS0KIE1BSU5UQUlO
+RVJTICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICA2ICsrCiBkcml2ZXJz
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnICAgICAgfCAxMiArKysrCiBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9NYWtlZmlsZSAgICAgfCAgMSArCiBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yem4xLmMgfCA4OCArKysrKysr
+KysrKysrKysrKysrKysrKysKIDQgZmlsZXMgY2hhbmdlZCwgMTA3IGluc2VydGlvbnMoKykKCmRp
+ZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTCmluZGV4IDQ3NDVlYTk0ZDQ2My4u
+NDBiZDNlYjM1NWZkIDEwMDY0NAotLS0gYS9NQUlOVEFJTkVSUworKysgYi9NQUlOVEFJTkVSUwpA
+QCAtMTg4NDgsNiArMTg4NDgsMTIgQEAgRjoJaW5jbHVkZS9kdC1iaW5kaW5ncy9uZXQvcGNzLXJ6
+bjEtbWlpYy5oCiBGOglpbmNsdWRlL2xpbnV4L3Bjcy1yem4xLW1paWMuaAogRjoJbmV0L2RzYS90
+YWdfcnpuMV9hNXBzdy5jCiAKK1JFTkVTQVMgUlovTjEgRFdNQUMgR0xVRSBMQVlFUgorTToJUm9t
+YWluIEdhbnRvaXMgPHJvbWFpbi5nYW50b2lzQGJvb3RsaW4uY29tPgorUzoJTWFpbnRhaW5lZAor
+RjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9yZW5lc2FzLHJ6bjEtZ21h
+Yy55YW1sCitGOglkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yem4x
+LmMKKwogUkVORVNBUyBSWi9OMSBSVEMgQ09OVFJPTExFUiBEUklWRVIKIE06CU1pcXVlbCBSYXlu
+YWwgPG1pcXVlbC5yYXluYWxAYm9vdGxpbi5jb20+CiBMOglsaW51eC1ydGNAdmdlci5rZXJuZWwu
+b3JnCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29u
+ZmlnIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZwppbmRleCA0
+ZWM2MWYxZWU3MWEuLjA1Y2MwN2I4ZjQ4YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvZXRoZXJu
+ZXQvc3RtaWNyby9zdG1tYWMvS2NvbmZpZworKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1p
+Y3JvL3N0bW1hYy9LY29uZmlnCkBAIC0xNDIsNiArMTQyLDE4IEBAIGNvbmZpZyBEV01BQ19ST0NL
+Q0hJUAogCSAgVGhpcyBzZWxlY3RzIHRoZSBSb2NrY2hpcCBSSzMyODggU29DIGdsdWUgbGF5ZXIg
+c3VwcG9ydCBmb3IKIAkgIHRoZSBzdG1tYWMgZGV2aWNlIGRyaXZlci4KIAorY29uZmlnIERXTUFD
+X1JaTjEKKwl0cmlzdGF0ZSAiUmVuZXNhcyBSWi9OMSBkd21hYyBzdXBwb3J0IgorCWRlZmF1bHQg
+QVJDSF9SWk4xCisJZGVwZW5kcyBvbiBPRiAmJiAoQVJDSF9SWk4xIHx8IENPTVBJTEVfVEVTVCkK
+KwlzZWxlY3QgUENTX1JaTjFfTUlJQworCWhlbHAKKwkgIFN1cHBvcnQgZm9yIEV0aGVybmV0IGNv
+bnRyb2xsZXIgb24gUmVuZXNhcyBSWi9OMSBTb0MgZmFtaWx5LgorCisJICBUaGlzIHNlbGVjdHMg
+dGhlIFJlbmVzYXMgUlovTjEgU29DIGdsdWUgbGF5ZXIgc3VwcG9ydCBmb3IKKwkgIHRoZSBzdG1t
+YWMgZGV2aWNlIGRyaXZlci4gVGhpcyBzdXBwb3J0IGNhbiBtYWtlIHVzZSBvZiBhIGN1c3RvbSBN
+SUkKKwkgIGNvbnZlcnRlciBQQ1MgZGV2aWNlLgorCiBjb25maWcgRFdNQUNfU09DRlBHQQogCXRy
+aXN0YXRlICJTT0NGUEdBIGR3bWFjIHN1cHBvcnQiCiAJZGVmYXVsdCBBUkNIX0lOVEVMX1NPQ0ZQ
+R0EKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL01ha2Vm
+aWxlIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvTWFrZWZpbGUKaW5kZXgg
+MjZjYWQ0MzQ0NzAxLi5jMmYwZTkxZjZiZjggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVy
+bmV0L3N0bWljcm8vc3RtbWFjL01ha2VmaWxlCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0
+bWljcm8vc3RtbWFjL01ha2VmaWxlCkBAIC0yMSw2ICsyMSw3IEBAIG9iai0kKENPTkZJR19EV01B
+Q19NRURJQVRFSykJKz0gZHdtYWMtbWVkaWF0ZWsubwogb2JqLSQoQ09ORklHX0RXTUFDX01FU09O
+KQkrPSBkd21hYy1tZXNvbi5vIGR3bWFjLW1lc29uOGIubwogb2JqLSQoQ09ORklHX0RXTUFDX1FD
+T01fRVRIUU9TKQkrPSBkd21hYy1xY29tLWV0aHFvcy5vCiBvYmotJChDT05GSUdfRFdNQUNfUk9D
+S0NISVApCSs9IGR3bWFjLXJrLm8KK29iai0kKENPTkZJR19EV01BQ19SWk4xKQkrPSBkd21hYy1y
+em4xLm8KIG9iai0kKENPTkZJR19EV01BQ19TT0NGUEdBKQkrPSBkd21hYy1hbHRyLXNvY2ZwZ2Eu
+bwogb2JqLSQoQ09ORklHX0RXTUFDX1NUQVJGSVZFKQkrPSBkd21hYy1zdGFyZml2ZS5vCiBvYmot
+JChDT05GSUdfRFdNQUNfU1RJKQkJKz0gZHdtYWMtc3RpLm8KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJ6bjEuYyBiL2RyaXZlcnMvbmV0L2V0
+aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJ6bjEuYwpuZXcgZmlsZSBtb2RlIDEwMDY0NApp
+bmRleCAwMDAwMDAwMDAwMDAuLmU4NTUyNGMyMDE3YwotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZl
+cnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJ6bjEuYwpAQCAtMCwwICsxLDg4
+IEBACisvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMC1vci1sYXRlcgorLyoKKyAq
+IENvcHlyaWdodCAoQykgMjAyNCBTY2huZWlkZXItRWxlY3RyaWMKKyAqCisgKiBDbMOpbWVudCBM
+w6lnZXIgPGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+CisgKi8KKworI2luY2x1ZGUgPGxpbnV4
+L29mLmg+CisjaW5jbHVkZSA8bGludXgvcGNzLXJ6bjEtbWlpYy5oPgorI2luY2x1ZGUgPGxpbnV4
+L3BoeWxpbmsuaD4KKyNpbmNsdWRlIDxsaW51eC9wbGF0Zm9ybV9kZXZpY2UuaD4KKworI2luY2x1
+ZGUgInN0bW1hY19wbGF0Zm9ybS5oIgorI2luY2x1ZGUgInN0bW1hYy5oIgorCitzdGF0aWMgaW50
+IHJ6bjFfZHdtYWNfcGNzX2luaXQoc3RydWN0IHN0bW1hY19wcml2ICpwcml2LAorCQkJICAgICAg
+IHN0cnVjdCBtYWNfZGV2aWNlX2luZm8gKmh3KQoreworCXN0cnVjdCBkZXZpY2Vfbm9kZSAqbnAg
+PSBwcml2LT5kZXZpY2UtPm9mX25vZGU7CisJc3RydWN0IGRldmljZV9ub2RlICpwY3Nfbm9kZTsK
+KwlzdHJ1Y3QgcGh5bGlua19wY3MgKnBjczsKKworCXBjc19ub2RlID0gb2ZfcGFyc2VfcGhhbmRs
+ZShucCwgInBjcy1oYW5kbGUiLCAwKTsKKworCWlmIChwY3Nfbm9kZSkgeworCQlwY3MgPSBtaWlj
+X2NyZWF0ZShwcml2LT5kZXZpY2UsIHBjc19ub2RlKTsKKwkJb2Zfbm9kZV9wdXQocGNzX25vZGUp
+OworCQlpZiAoSVNfRVJSKHBjcykpCisJCQlyZXR1cm4gUFRSX0VSUihwY3MpOworCisJCXByaXYt
+Pmh3LT5waHlsaW5rX3BjcyA9IHBjczsKKwl9CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGljIHZv
+aWQgcnpuMV9kd21hY19wY3NfZXhpdChzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYsCisJCQkJc3Ry
+dWN0IG1hY19kZXZpY2VfaW5mbyAqaHcpCit7CisJaWYgKHByaXYtPmh3LT5waHlsaW5rX3BjcykK
+KwkJbWlpY19kZXN0cm95KHByaXYtPmh3LT5waHlsaW5rX3Bjcyk7Cit9CisKK3N0YXRpYyBpbnQg
+cnpuMV9kd21hY19wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQoreworCXN0cnVj
+dCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxhdF9kYXQ7CisJc3RydWN0IHN0bW1hY19yZXNvdXJj
+ZXMgc3RtbWFjX3JlczsKKwlzdHJ1Y3QgZGV2aWNlICpkZXYgPSAmcGRldi0+ZGV2OworCWludCBy
+ZXQ7CisKKwlyZXQgPSBzdG1tYWNfZ2V0X3BsYXRmb3JtX3Jlc291cmNlcyhwZGV2LCAmc3RtbWFj
+X3Jlcyk7CisJaWYgKHJldCkKKwkJcmV0dXJuIHJldDsKKworCXBsYXRfZGF0ID0gZGV2bV9zdG1t
+YWNfcHJvYmVfY29uZmlnX2R0KHBkZXYsIHN0bW1hY19yZXMubWFjKTsKKwlpZiAoSVNfRVJSKHBs
+YXRfZGF0KSkKKwkJcmV0dXJuIFBUUl9FUlIocGxhdF9kYXQpOworCisJcGxhdF9kYXQtPmJzcF9w
+cml2ID0gcGxhdF9kYXQ7CisJcGxhdF9kYXQtPnBjc19pbml0ID0gcnpuMV9kd21hY19wY3NfaW5p
+dDsKKwlwbGF0X2RhdC0+cGNzX2V4aXQgPSByem4xX2R3bWFjX3Bjc19leGl0OworCisJcmV0ID0g
+c3RtbWFjX2R2cl9wcm9iZShkZXYsIHBsYXRfZGF0LCAmc3RtbWFjX3Jlcyk7CisJaWYgKHJldCkK
+KwkJcmV0dXJuIHJldDsKKworCXJldHVybiAwOworfQorCitzdGF0aWMgY29uc3Qgc3RydWN0IG9m
+X2RldmljZV9pZCByem4xX2R3bWFjX21hdGNoW10gPSB7CisJeyAuY29tcGF0aWJsZSA9ICJyZW5l
+c2FzLHJ6bjEtZ21hYyIgfSwKKwl7IH0KK307CitNT0RVTEVfREVWSUNFX1RBQkxFKG9mLCByem4x
+X2R3bWFjX21hdGNoKTsKKworc3RhdGljIHN0cnVjdCBwbGF0Zm9ybV9kcml2ZXIgcnpuMV9kd21h
+Y19kcml2ZXIgPSB7CisJLnByb2JlICA9IHJ6bjFfZHdtYWNfcHJvYmUsCisJLnJlbW92ZV9uZXcg
+PSBzdG1tYWNfcGx0ZnJfcmVtb3ZlLAorCS5kcml2ZXIgPSB7CisJCS5uYW1lICAgICAgICAgICA9
+ICJyem4xLWR3bWFjIiwKKwkJLm9mX21hdGNoX3RhYmxlID0gcnpuMV9kd21hY19tYXRjaCwKKwl9
+LAorfTsKK21vZHVsZV9wbGF0Zm9ybV9kcml2ZXIocnpuMV9kd21hY19kcml2ZXIpOworCitNT0RV
+TEVfQVVUSE9SKCJDbMOpbWVudCBMw6lnZXIgPGNsZW1lbnQubGVnZXJAYm9vdGxpbi5jb20+Iik7
+CitNT0RVTEVfREVTQ1JJUFRJT04oIlJlbmVzYXMgUlpOMSBEV01BQyBzcGVjaWZpYyBnbHVlIGxh
+eWVyIik7CitNT0RVTEVfTElDRU5TRSgiR1BMIik7CgotLSAKMi40NC4wCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
