@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9878D89D340
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:35:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1B7289D34D
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:36:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6254AC7128A;
-	Tue,  9 Apr 2024 07:35:09 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AD02C7128A;
+	Tue,  9 Apr 2024 07:36:27 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A53DEC6C841
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1A8AC6C841
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Apr 2024 07:35:08 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-346406a5fb9so6460f8f.1
+ Tue,  9 Apr 2024 07:36:26 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4163de295f9so14191205e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Apr 2024 00:35:08 -0700 (PDT)
+ Tue, 09 Apr 2024 00:36:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712648108; x=1713252908;
+ d=linaro.org; s=google; t=1712648186; x=1713252986;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=YRqDViWRTTlFOSXx9bQQJrTZ6sfcNRa2o9Ij7AoNI4E=;
- b=Tj0XaWmIvjaJ3L6/pUm2RDxIobzNGsSAncj7Zv19AgtIj1qy1e8uVp0/XhTbV/5eI+
- PZYdC7kdv0CamiuLc1VPmsTmuBCM9ShE2iGlaBVwOy78OE/qcfxrwTWSojCxvK9vCvZj
- s8FrJWuXQl9rImMXeYf2xnrOcCwMwY2L7Lor8umoLDHHvWNMnqrPRoEtBfIeAGIu6elc
- 6mn80haTqdztUZk9udhPp05Ked/YIwetyu2/rojBg2U0jCM3armRMS4aYubSUC+ueOhb
- I4eCt/QvBnXjSXbOmuNkkonoPOwk91ogC4dLEik2EIbA1go4PLJYjMCCN2FMnHK/Sg6i
- 51FQ==
+ bh=tYpqkkVkS46MTh2ZOUYz+PJWA51380etQYhSvT3UZ3E=;
+ b=gWcNRIrQv/Nfr2ktmJtANEx/zsWKfu8Zvl2ycac/wUPvuxORuDFPDkiHmMIHbJPqns
+ UkDZ8erXfwpmL1fhaGGCO5qFNUdacAi6T9h4toK7EbWYu30gEwUWfIt07D7VuElHuBfj
+ 4+3kJTKu82pJOfo0jVeJ0qB1r9UvCG5eX/afqqlB/Zi0xzMFRizklGc43UE2YRUSxCVm
+ LaWUZJ/LtY53zGuRE4nFWuL4NEaJ8igfvE6D/F+kR9zAaK7A7E0rWZ2xrdNYsEPxNFmz
+ lDVWO7H0atlksFK1N8dta5l4jQsfuBoOzsoRxaQpYXBFKdxRZ9hYXE7ZC6RE1wQZuOCp
+ BhJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712648108; x=1713252908;
+ d=1e100.net; s=20230601; t=1712648186; x=1713252986;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YRqDViWRTTlFOSXx9bQQJrTZ6sfcNRa2o9Ij7AoNI4E=;
- b=VhK9/OTO2wItFSVJflA8E8HONpEtnQBzfrMqmtbdyDM5+Ozysc3iksTaKCJ/ut/Gnz
- hnf403o0geY8/JyhSOoBofV/lgKwIOpw+SKRD2mKpmhTG28EvXNc2gd9DYDOUPlMqIpn
- uZzTCesLUIWknItE69H4NA2esj21RQ/YGKu1dsStWFBCBXhdR4OnUkWgQXiEwCgGESvA
- RqfKFaCQZ6W0+dVCp/vW2pW/p5MyIyZIkv+tz7zMkdnUthNpoJ7a6TUhuTjpFPVgSWQO
- wwog7l3K4Vy9cdkDWl0rlfLzULA5R+B5UOG9dJHgdcIHyFRNS9KBRsTdmxoPkb0/492U
- 2BRw==
+ bh=tYpqkkVkS46MTh2ZOUYz+PJWA51380etQYhSvT3UZ3E=;
+ b=MH+c+4XfGAtjkdAzRYSnjBiqVgtJXemaRxmNYrfaJzc2DsP+d3sU+7N1v9Er4kHJ6i
+ 7FPdtBPfMR8fBq848ISmcqoVJMkslDlX2Xydfn2xB37dXVB8kghEg8NI+7Ft9nm7iusj
+ GdEBAVSBUxfGlaKeJe8mzQmFutjDS2Txdqs2pwsCsHas4ipiLG4GbcHSus+MGXTaY8Xt
+ 8bfG/Db7S0u41VcOxW8DLbNlC3MvdJOygOfUOMbzZidAOwPuhzPGTs14mbaMWrXYcyKP
+ bhd9mB7CprkQE5bkGEgsQX6YrHSimiD1unwulyST4xt74iGBXE8s/4JpCkL+Y22v/krZ
+ pInw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXMmuEdxlZS9SerIq53iSzjAYWnYWU0aRUzwkvpu/TNOeS9tPYBi0Q5dQYSC7ouVI6YtQkF8mo9VYh/7NCRglJgsdFwVLNN7BMrHKOtdZz3FFl23tLdIdwW
-X-Gm-Message-State: AOJu0Yy2gF0xZfqaPOcgOZC7wbuBNgKv4vsjkeK+bIcVIe1JfJObV0MK
- zI8Uz5wLQGgLBRt6gWSCOPBzMLT3hPPnppHXu7OBAlfh8Bq5Wnr2pzDLQUYMx6E=
-X-Google-Smtp-Source: AGHT+IGIOzsVf/hHxq3OKOXZw0DCExRiAAqObaNvpPUa2ZdvbWEjt9I7uTIoOrPtWWLefKtfTQ7Xpw==
-X-Received: by 2002:a05:6000:1754:b0:343:6182:5e50 with SMTP id
- m20-20020a056000175400b0034361825e50mr6796254wrf.27.1712648107887; 
- Tue, 09 Apr 2024 00:35:07 -0700 (PDT)
+ AJvYcCWFOE/+8lYOzdRrZgf0k+fj5qgJ8qdQqoqSxY1S3mfxSltYaWLhfNidRegcWJKE5S/nd82ekz/JWiPDwmGA4VN3wKot0MPHdJ+D1IaRnRWnzm0kwNZNOghR
+X-Gm-Message-State: AOJu0Yzpps2ZsaBaorrxmMv9jx8n6XXpDnUsXPwaMr5MSLlXR2EfrzmJ
+ eqLfDiuEyUhY+dS7ja6bd76CjHYDMpXXXLh6AFIkaRVWtYZn8kLnAa1xsbS7Zuw=
+X-Google-Smtp-Source: AGHT+IHTAIAuE+jwmADmMOcXe5dKO7dmHWaWTnTpJp/TEhZJQcQGyQCTDzZ6O+feTE7q0iAV3pqUxA==
+X-Received: by 2002:a05:600c:1ca1:b0:416:a8a7:9503 with SMTP id
+ k33-20020a05600c1ca100b00416a8a79503mr626028wms.3.1712648186120; 
+ Tue, 09 Apr 2024 00:36:26 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- cg6-20020a5d5cc6000000b00345e730aa7csm2914162wrb.11.2024.04.09.00.35.06
+ m12-20020a056000180c00b00341de3abb0esm10749509wrh.20.2024.04.09.00.36.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Apr 2024 00:35:07 -0700 (PDT)
-Message-ID: <9444ca07-79d9-4c95-9def-43a18ee55135@linaro.org>
-Date: Tue, 9 Apr 2024 09:35:05 +0200
+ Tue, 09 Apr 2024 00:36:25 -0700 (PDT)
+Message-ID: <5ad54140-d6c2-4c65-b31e-1ef19bc5ce5a@linaro.org>
+Date: Tue, 9 Apr 2024 09:36:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
@@ -71,7 +71,7 @@ To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
- <20240408-rtc_dtschema-v1-4-c447542fc362@gmail.com>
+ <20240408-rtc_dtschema-v1-5-c447542fc362@gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -118,12 +118,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240408-rtc_dtschema-v1-4-c447542fc362@gmail.com>
+In-Reply-To: <20240408-rtc_dtschema-v1-5-c447542fc362@gmail.com>
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 4/9] dt-bindings: rtc: maxim,
-	ds1742: move to trivial-rtc
+Subject: Re: [Linux-stm32] [PATCH 5/9] dt-bindings: rtc: rtc-aspeed: move to
+	trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,8 +141,9 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 08/04/2024 17:53, Javier Carrasco wrote:
-> This RTC only requires the compatible a reg and properties,
-> which makes it suitable for a direct conversion into trivial-rtc.
+> The RTCs documented in this binding require a compatible, a reg
+> and a single interrupt, which make them suitable for a direct
+> conversion into trivial-rtc.
 > 
 > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 > ---
