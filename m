@@ -2,63 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4E389D364
-	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:40:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 226A189D36A
+	for <lists+linux-stm32@lfdr.de>; Tue,  9 Apr 2024 09:40:44 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3733C7128B;
-	Tue,  9 Apr 2024 07:40:15 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1E2BC7128B;
+	Tue,  9 Apr 2024 07:40:43 +0000 (UTC)
+Received: from mail-yb1-f180.google.com (mail-yb1-f180.google.com
+ [209.85.219.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95672C7128A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2CE9C7128A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Apr 2024 07:40:14 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4169d7943c1so5001925e9.3
+ Tue,  9 Apr 2024 07:40:42 +0000 (UTC)
+Received: by mail-yb1-f180.google.com with SMTP id
+ 3f1490d57ef6-dd02fb9a31cso4702108276.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 09 Apr 2024 00:40:14 -0700 (PDT)
+ Tue, 09 Apr 2024 00:40:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1712648414; x=1713253214;
+ d=linaro.org; s=google; t=1712648442; x=1713253242;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=PQ3YfKdfUnk2MtqPxMlJUvPCVm6vspOl5aB0ZH+tJPc=;
- b=MPwEAQxpDv9634G0zk/hrB9E3gWQRBHE56hoEKTofyKDGSiFW1L+SDOoYUdzRmtoQC
- 9w2PZ1shMaf37bIzwIumVSxeOMpr4Z9Ya9H4mK8GSDEJhlpJK5oR8YFEkZ2xQcfDCmYT
- 7hrT+mnCM//NTNmQd1vslXC3AYUXNbPgbZUhySzstODi/mDx2ylQekZCUAKstNHCqv39
- UjkRE5Rw9CwzFwvPSTiYO2Dbwx8zDN9LbUkCh5d7eW33vwNVQpDXlLwO2zhEjCUHdJna
- joI05IJkjRn6RmDxBBCzaQaEH/nyqIrzW4YOJXvH8cMuasRvroTt6jsZaG26KzBc1UOx
- Siyw==
+ bh=0SutRrQ2/RDl/4P5RLYeODS7wwVRNYiZ5onRrG788J8=;
+ b=V2q1+A4s6b1SJC+PYj+X4iF11lqveJLPtgyNloq4SWmpqQfchh+q1p1tBlHUKyrN+z
+ AkW6Yj76LNZEyxd6YTrn8ZyjG8AQY6Ulec4OPr/yDk8goZqWt0Nv42QAnWemQpXUy9U+
+ leN6d4E3JdNOJeQM9PW46m6+hWIahvKUlJwrNJJXnPfblwzPKATTTMxC2SThnrXM9Qvd
+ iK4NVrULIqxxWeFh0Aov5h7HJdmeKjm1qx10uIjg35sYQ8EnCOycZUxY2/yu0vsgpfEZ
+ VN5K+iXe9DgTckaygCQJ4GvZ0BPrzZx+bsWvJRqezAa1cBKsSrsRb2idK/poAVAgm68U
+ dC7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1712648414; x=1713253214;
+ d=1e100.net; s=20230601; t=1712648442; x=1713253242;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PQ3YfKdfUnk2MtqPxMlJUvPCVm6vspOl5aB0ZH+tJPc=;
- b=iAUkDiwcbGLkOv17wnOS+JdzY80pf3hQ2xpknMOyvUKB2HL+ID8fPFzWxLZCm6W+So
- SAlpkdLx515aie+pp0vBLQpfyIekBivZV8TGgyyCYwILokZu/O+p+QVKSjtQSI75XEiq
- ++tKhp6HbqpnLP4LrqSk8pk/sj+T3+s6588DJSt3SUemvTtDLN8Uq5HKG62SCmgLum3y
- bV0Gbt8mrtIu4RE5voPgRHnJP8TjxN96LqwL+ba3+RT0HbodaP0JHjcgaDEBzVpcz6xd
- XQfRVyGlo77SKMCnRWp9QXycxyioDyU/cH7i4+dqkZQGsHn1XaN9VCD8xWK0BtLRtDhu
- P1FQ==
+ bh=0SutRrQ2/RDl/4P5RLYeODS7wwVRNYiZ5onRrG788J8=;
+ b=BEhv6PqdYjKmbsthlfH7egYFFHB4bYcJAZ6tTQnpu3Rg6nodS85wmRZttE6dODcjyj
+ eGPhGB7fgR5csxMrVBBcyBG0IIUHaGYwt5yssPz1fDNkjpddzNQsH+JAKV+cuXSmV/Pk
+ qGLWtCHIO2BqEefNjQJIj9oYh8jWnOuKdGPQ0t28nozrkYb4A5MuGbt8aZd2dsGqF87e
+ k0BCFAr+pIN+BIKacuq/vwz5aCTz+huZiUT+0F7Y5h1JBhmJsk1e8wSd2tO8lRNPNpxB
+ ZjFFFxpaYbtfGor50iZbj/uWY3txRL9DWmBPqjmVgwTUjael3Z8ng0uinaAGqiOwDk6B
+ rkxQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXuLPxKYswB8JilQUYO4/2pzb1+sqEUu2xt+uyIzq1bIv5VHltxj/P5rkzig6oPgiKqSk1PcsFlwmIE2k0mK5QN2tZkGdiQK92wjKC9bqjt2zTi14jPFfnn
-X-Gm-Message-State: AOJu0YwYzuW4m2eDA9zVgbr/hnK5CJ7H0ezqP3xbBl0Wt70FxcN18BIl
- FuzO2on4RDrSTwAyiyDGKaqiAxh7h7AiBK2VLJyp+RYmm08UcLtFNV+dDX0janE=
-X-Google-Smtp-Source: AGHT+IFxBAeF781LY6dLUkLq+ilNPTCT7em1V12jmMi/tcIGD0OuVOHAj7BJ8JXwFyHiF04KSAW44w==
-X-Received: by 2002:a05:600c:3d0b:b0:416:9f45:e639 with SMTP id
- bh11-20020a05600c3d0b00b004169f45e639mr951496wmb.20.1712648413850; 
- Tue, 09 Apr 2024 00:40:13 -0700 (PDT)
+ AJvYcCVbI+GyG15Z02/9NKL/TuNCUdzsKyNIldM0HpWCOK4Q7LxJU/Mwi+lBQBLNVflhUbXesfpFnA0GVEL9L5unIoaJNRabdrAu6+0nunmFJkYBEn4m9L2DpL8j
+X-Gm-Message-State: AOJu0Yw1RWwNNM/NYEqRjdtSsZsu74wXZSpre9bkfvUfkPw9A4Ywa6tC
+ jyoIM4Xljc9XYepLdm7SCE9Mb2gMLKJcm8UXI1rs01WV0ZzSig9yOXXA2huHbDo=
+X-Google-Smtp-Source: AGHT+IHUkOG3ivg8lSHz+pv015puHpSrnr85s+2pJTKfno+b5XzFFdcrS8yArA32113fMjcIiq4uPQ==
+X-Received: by 2002:a05:6902:20c1:b0:dc6:7e7b:4797 with SMTP id
+ dj1-20020a05690220c100b00dc67e7b4797mr10843195ybb.4.1712648441657; 
+ Tue, 09 Apr 2024 00:40:41 -0700 (PDT)
 Received: from [192.168.1.20] ([178.197.223.16])
  by smtp.gmail.com with ESMTPSA id
- jg25-20020a05600ca01900b00416928e239csm3400523wmb.35.2024.04.09.00.40.12
+ 187-20020a2515c4000000b00dc7622402b9sm1712954ybv.43.2024.04.09.00.40.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Apr 2024 00:40:13 -0700 (PDT)
-Message-ID: <f0467c4f-45e2-4cae-b1b5-3867e5b9bf08@linaro.org>
-Date: Tue, 9 Apr 2024 09:40:11 +0200
+ Tue, 09 Apr 2024 00:40:41 -0700 (PDT)
+Message-ID: <ba35f6e4-a83d-4460-9670-a8c2c3331472@linaro.org>
+Date: Tue, 9 Apr 2024 09:40:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
@@ -71,7 +71,7 @@ To: Javier Carrasco <javier.carrasco.cruz@gmail.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20240408-rtc_dtschema-v1-0-c447542fc362@gmail.com>
- <20240408-rtc_dtschema-v1-8-c447542fc362@gmail.com>
+ <20240408-rtc_dtschema-v1-9-c447542fc362@gmail.com>
 Content-Language: en-US
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
@@ -118,12 +118,12 @@ Autocrypt: addr=krzysztof.kozlowski@linaro.org; keydata=
  KQ06ztUMRrj8eVtpImjsWCd0bDWRaaR4vqhCHvAG9iWXZu4qh3ipie2Y0oSJygcZT7H3UZxq
  fyYKiqEmRuqsvv6dcbblD8ZLkz1EVZL6djImH5zc5x8qpVxlA0A0i23v5QvN00m6G9NFF0Le
  D2GYIS41Kv4Isx2dEFh+/Q==
-In-Reply-To: <20240408-rtc_dtschema-v1-8-c447542fc362@gmail.com>
+In-Reply-To: <20240408-rtc_dtschema-v1-9-c447542fc362@gmail.com>
 Cc: linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 8/9] dt-bindings: rtc: stmp3xxx-rtc:
-	convert to dtschema
+Subject: Re: [Linux-stm32] [PATCH 9/9] dt-bindings: rtc: via,
+	vt8500-rtc: move to trivial-rtc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,30 +141,15 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
 On 08/04/2024 17:53, Javier Carrasco wrote:
-> Convert existing binding to dtschema to support validation.
-> 
-> The 'fsl,imx28-rtc' compatible is currently not supported, and it is
-> only referenced in this binding and in nxp/mxs/imx28.dtsi. Therefore,
-> that compatible has been dropped, which triggers a warning when testing
-> the DT against the new binding.
-
-Instead document missing compatibles and mention this in commit msg.
-
-> 
-> There is another reference to fsl,stmp3xxx-rtc in nxp/mxs/imx23.dtsi,
-> where another unsupported compatible 'fsl,imx23-rtc' is used, and the
-> same problem would arise when testing the file against the new binding.
-
-Please write concise messages... you have to paragraphs about the same?
-What is the difference here?
-
+> The RTC documented in this binding requires a compatible, a reg
+> and a single interrupt, which makes it suitable for a direct
+> conversion into trivial-rtc.
 > 
 > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 > ---
->  .../devicetree/bindings/rtc/fsl,stmp3xxx-rtc.yaml  | 45 ++++++++++++++++++++++
->  .../devicetree/bindings/rtc/stmp3xxx-rtc.txt       | 21 ----------
->  2 files changed, 45 insertions(+), 21 deletions(-)
-> 
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 
 Best regards,
